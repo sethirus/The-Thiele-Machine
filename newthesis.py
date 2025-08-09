@@ -4534,8 +4534,33 @@ def logic_geometry_section():
     explain("Recursive pruning of logical systems reveals the geometric skeleton: the Sierpiński tetrahedron (fractal gasket). This section unifies the logic-as-geometry exposition.")
     # Definition & Algorithm box
     show_code("""
+    def midpoint(a, b):
+        return tuple((np.array(a) + np.array(b)) / 2)
+
     def sierpinski_tetrahedron(ax, vertices, level):
-        # ...implementation...
+        if level == 0:
+            faces = [
+                [vertices[0], vertices[1], vertices[2]],
+                [vertices[0], vertices[1], vertices[3]],
+                [vertices[0], vertices[2], vertices[3]],
+                [vertices[1], vertices[2], vertices[3]],
+            ]
+            for face in faces:
+                tri = np.array(face)
+                ax.plot_trisurf(tri[:,0], tri[:,1], tri[:,2],
+                                color='royalblue', alpha=0.7,
+                                linewidth=0.2, edgecolor='k')
+            return
+        m01 = midpoint(vertices[0], vertices[1])
+        m02 = midpoint(vertices[0], vertices[2])
+        m03 = midpoint(vertices[0], vertices[3])
+        m12 = midpoint(vertices[1], vertices[2])
+        m13 = midpoint(vertices[1], vertices[3])
+        m23 = midpoint(vertices[2], vertices[3])
+        sierpinski_tetrahedron(ax, [vertices[0], m01, m02, m03], level-1)
+        sierpinski_tetrahedron(ax, [m01, vertices[1], m12, m13], level-1)
+        sierpinski_tetrahedron(ax, [m02, m12, vertices[2], m23], level-1)
+        sierpinski_tetrahedron(ax, [m03, m13, m23, vertices[3]], level-1)
     """, "Sierpiński Tetrahedron Algorithm")
     # Volume lemma proof-sketch
     print("Volume Lemma: The volume of the Sierpiński tetrahedron converges to zero as recursion depth increases.")
