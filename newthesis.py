@@ -2,7 +2,20 @@
 THM_CLASS_PRESENT = False
 
 # Canonical ThieleMachine definition is below.
-import random, math, itertools, hashlib, io, sys, numpy as np, os, json, argparse, time, subprocess, socket, zipfile, re
+import math
+import hashlib
+import io
+import sys
+import numpy as np
+import os
+import json
+import argparse
+import time
+import zipfile
+import re
+import random
+import itertools
+import socket
 from dataclasses import dataclass
 from typing import Callable, Dict, Generic, Tuple, TypeVar
 random.seed(1337)
@@ -184,8 +197,8 @@ def chapter_introduction() -> str:
 
 def chapter_definitions() -> Tuple[str, str]:
     """Return crisp formal tuple definitions for TM and ThM."""
-    tm = "TM = (Q, Γ, b, Σ, δ, q0, F)"
-    thm = "ThM = (S, μ, J, price)"
+    tm = "TM = (Q, Gamma, b, Sigma, delta, q0, F)"
+    thm = "ThM = (S, mu, J, price)"
     print(tm)
     print(thm)
     return tm, thm
@@ -210,7 +223,8 @@ def demo_universal_simulation(k_steps: int = 5, seed: int = 0) -> 'TMState':
         print(f"step {step}: {tm.tape},{tm.head},{tm.state}")
         tm = tm_step(tm)
         thm_state = thm_step(thm_state, thm)
-        assert tm.tape == thm_state.tape and tm.head == thm_state.head and tm.state == thm_state.state
+        assert tm.tape == thm_state.tape and tm.head == thm_state.head and tm.state == thm_state.state, \
+            f"TM and ThieleMachine state mismatch at step {k_steps}: TM=({tm.tape},{tm.head},{tm.state}), ThM=({thm_state.tape},{thm_state.head},{thm_state.state})"
     print(f"step {k_steps}: {tm.tape},{tm.head},{tm.state}")
     return tm
 
@@ -286,14 +300,17 @@ def demo_thm_reverse_nusd(n: int = 4) -> Dict[str, float]:
     state = tuple(arr)
 
     def mu(s):
+        """Returns the observation for the current state (identity function)."""
         return s
 
     def J(s, c):
+        """Judgment function: returns the new state after applying observation."""
         return c
 
     needed = math.log2(math.factorial(n))
 
     def price(s, c):
+        """Returns the price (information cost) for the current state and observation."""
         return needed
 
     thm = ThieleMachine(state=state, mu=mu, J=J, price=price)
@@ -615,8 +632,10 @@ def check_cross_simulation(k_steps: int, seed: int = 0) -> None:
         tm = tm_step(tm)
         thm_state = thm_step(thm_state, thm)
         tm2 = tm_step(tm2)
-        assert tm.tape == thm_state.tape and tm.head == thm_state.head and tm.state == thm_state.state
-        assert tm.tape == tm2.tape and tm.head == tm2.head and tm.state == tm2.state
+        assert tm.tape == thm_state.tape and tm.head == thm_state.head and tm.state == thm_state.state, \
+            "TM and ThieleMachine state mismatch in reversal test"
+        assert tm.tape == tm2.tape and tm.head == tm2.head and tm.state == tm2.state, \
+            "TM and TM2 state mismatch in reversal test"
 
 
 def fit_loglog_slope(xs, ys):
@@ -686,15 +705,15 @@ def run_reversal_bench(sizes, seeds, temp_k: float = 300.0):
 
 
 THEOREM_TEXT = (
-    "T1 (Single-tape lower bound): For alphabet |Σ|≥2, any single-tape DTM computing in-place "
-    "reversal REV_Σ of length-n input performs Ω(n^2) head moves in the worst case.\n"
+    "T1 (Single-tape lower bound): For alphabet |Sigma|>=2, any single-tape DTM computing in-place "
+    "reversal REV_Sigma of length-n input performs O(n^2) head moves in the worst case.\n"
     "T2 (Two-tape/RAM upper bound): There exists a two-tape DTM and a RAM algorithm that perform "
-    "REV_Σ in Θ(n) time.\n"
-    "T3 (ThM accounting): Under the pricing policy κ(s,μ(s)) = I_π(μ(s)) with uniform prior on Σ^n, "
+    "REV_Sigma in O(n) time.\n"
+    "T3 (ThM accounting): Under the pricing policy kappa(s,mu(s)) = I_pi(mu(s)) with uniform prior on Sigma^n, "
     "the ThM implementation that observes the whole input once and writes the reversed output incurs "
-    "exactly n log_2|Σ| μ-bits and Θ(n) byte moves.\n"
-    "Corollary: ThM is not asymptotically faster than two-tape/RAM; it matches Θ(n) time while exposing "
-    "an explicit information cost Θ(n log|Σ|)."
+    "exactly n log_2|Sigma| mu-bits and O(n) byte moves.\n"
+    "Corollary: ThM is not asymptotically faster than two-tape/RAM; it matches O(n) time while exposing "
+    "an explicit information cost O(n log|Sigma|)."
 )
 
 
@@ -716,20 +735,26 @@ def chapter_formal_thm(temp_k: float = 300.0) -> str:
         f"E_min = κ(s,c)·kT·ln2 (1 bit -> {example_energy} J at {temp_k}K)",
     ]
     text = "\n".join(lines)
-    print(text)
+    print(text.replace("κ", "kappa").replace("≥", ">=").replace("≤", "<=").replace("≠", "!="))
     return text
 
 
 def chapter_nusd(temp_k: float = 300.0) -> str:
     """Print NUSD inequality example, receipt, and proof path for Chapter 9."""
     prior = {0: 0.5, 1: 0.5}
-    def mu(s):
+    # Inner function for NUSD demo: returns state as observation
+    # Used in chapter_nusd for NUSD receipt demonstration.
+    def mu_nusd_demo(s):
         return s
-    def J(s, c):
+    # Inner function for NUSD demo: judgment returns state unchanged
+    # Used in chapter_nusd for state update.
+    def J_nusd_demo(s, c):
         return s
-    def price(s, c):
+    # Inner function for NUSD demo: price always returns 1.0
+    # Used in chapter_nusd for cost calculation.
+    def price_nusd_demo(s, c):
         return 1.0
-    thm = ThieleMachine(state=0, mu=mu, J=J, price=price)
+    thm = ThieleMachine(state=0, mu=mu_nusd_demo, J=J_nusd_demo, price=price_nusd_demo)
     receipt = nusd_receipt(thm, 0, prior, temp_k=temp_k)
     proof_path = "artifacts/proof/nusd_soundness.smt2"
     emit_nusd_smt(prior, thm, proof_path)
@@ -740,7 +765,7 @@ def chapter_nusd(temp_k: float = 300.0) -> str:
         f"proof: {proof_path}",
     ]
     text = "\n".join(lines)
-    print(text)
+    print(text.replace("≥", ">=").replace("≤", "<=").replace("≠", "!="))
     return text
 
 
@@ -759,14 +784,14 @@ def chapter_theorem_bench(sizes=None, seeds: int = 1, temp_k: float = 300.0) -> 
         f"Slopes: {json.dumps(slopes)}",
     ]
     text = "\n".join(lines)
-    print(text)
+    print(text.replace("Ω", "O").replace("Θ", "O").replace("Σ", "Sigma").replace("Γ", "Gamma").replace("μ", "mu"))
     return text
 
 
 def chapter_universality() -> str:
     """Print the cross-simulation universality statement."""
     lines = [
-        "ThM with computable μ and J is no more powerful than deterministic Turing machines.",
+        "ThM with computable mu and J is no more powerful than deterministic Turing machines.",
         "It is an organizational LTS view of computation with both directions of simulation up to polynomial overhead.",
         "Universality = organization, not superiority.",
     ]
@@ -805,7 +830,7 @@ def chapter_logic_section(mode: str = "retract") -> str:
     else:
         raise ValueError("mode must be 'retract', 'demo', or 'impossibility'")
     text = "\n".join(lines)
-    print(text)
+    print(text.replace("→", "->").replace("←", "<-").replace("↔", "<->").replace("ń", "n"))
     return text
 
 
@@ -819,7 +844,7 @@ def chapter_quantum_analogy() -> str:
         "ThM,2,0,3,1,1",
     ]
     text = "\n".join(lines)
-    print(text)
+    print(text.replace("μ", "mu"))
     return text
 
 
@@ -842,7 +867,7 @@ def chapter_halting_bounds(max_steps: int = 1000) -> str:
         "No geometry of halting is asserted.",
     ]
     text = "\n".join(lines)
-    print(text)
+    print(text.replace("≤", "<=").replace("≥", ">=").replace("≠", "!="))
     return text
 
 
@@ -977,14 +1002,20 @@ def _test_receipt_schema():
 @_register("nusd_soundness_smt")
 def _test_nusd_soundness_smt():
     prior = {0:0.5, 1:0.5}
-    def mu(s):
+    # Inner function for NUSD soundness SMT test: returns state as observation
+    # Used in _test_nusd_soundness_smt for SMT proof.
+    def mu_nusd_smt(s):
         return s
-    mu_prior = pushforward(prior, mu)
-    def J(s, c):
+    mu_prior = pushforward(prior, mu_nusd_smt)
+    # Inner function for NUSD soundness SMT test: judgment returns state unchanged
+    # Used in _test_nusd_soundness_smt for state update.
+    def J_nusd_smt(s, c):
         return s
-    def price(s, c):
+    # Inner function for NUSD soundness SMT test: price returns Shannon bits
+    # Used in _test_nusd_soundness_smt for cost calculation.
+    def price_nusd_smt(s, c):
         return shannon_bits(c, mu_prior)
-    thm = ThieleMachine(state=0, mu=mu, J=J, price=price)
+    thm = ThieleMachine(state=0, mu=mu_nusd_smt, J=J_nusd_smt, price=price_nusd_smt)
     path = "artifacts/proof/nusd_soundness.smt2"
     sat = emit_nusd_smt(prior, thm, path)
     assert sat and os.path.exists(path)
@@ -1022,19 +1053,22 @@ def _test_tm_thm_equiv():
     for _ in range(5):
         q1,tape1,head1 = TM_step(q1,tape1,head1,delta,BL)
         q2,tape2,head2 = ThM_TM_step(q2,tape2,head2,delta,BL)
-        assert (q1,tape1,head1) == (q2,tape2,head2)
+        assert (q1,tape1,head1) == (q2,tape2,head2), \
+            f"TM and ThM_TM_step mismatch: ({q1},{tape1},{head1}) != ({q2},{tape2},{head2})"
 
 @_register("reversal_pointer_gauge_receipt")
 def _test_rev_pointer():
     tape=[1,2,3,4,5]
     out, rec = reverse_pointer(tape)
-    assert rec["status"]=="sufficient" and out==[5,4,3,2,1]
+    assert rec["status"]=="sufficient" and out==[5,4,3,2,1], \
+        f"reverse_pointer failed: status={rec['status']}, out={out}"
 
 @_register("reversal_writes_gauge_receipt")
 def _test_rev_writes():
     tape=[1,2,3,4,5]
     out, rec = reverse_writes(tape)
-    assert rec["status"]=="sufficient" and out==[5,4,3,2,1] and rec["writes"]>=len(tape)//2
+    assert rec["status"]=="sufficient" and out==[5,4,3,2,1] and rec["writes"]>=len(tape)//2, \
+        f"reverse_writes failed: status={rec['status']}, out={out}, writes={rec['writes']}"
 
 @_register("reversal_baselines")
 def _test_reversal_baselines():
@@ -1054,8 +1088,8 @@ def _test_reversal_baselines():
 def _test_memory_traffic():
     tape = [1, 2, 3, 4, 5]
     out, stats = thm_reverse(tape)
-    assert stats.bytes == 2 * len(tape)
-    assert stats.bytes != 0
+    assert stats.bytes == 2 * len(tape), f"thm_reverse bytes mismatch: {stats.bytes} != {2 * len(tape)}"
+    assert stats.bytes != 0, "thm_reverse bytes is zero"
 
 
 @_register("reversal_bench")
@@ -1063,35 +1097,47 @@ def _test_reversal_bench():
     sizes = [4, 8, 16]
     path, slopes = run_reversal_bench(sizes, seeds=2)
     assert os.path.exists(path)
-    assert slopes["tm1"] >= 1.5
+    assert slopes["tm1"] >= 1.5, f"tm1 slope too low: {slopes['tm1']:.2f}"
     for k in ("tm2", "ram", "thm_bytes", "thm_mu_bits"):
-        assert 0.7 <= slopes[k] <= 1.3
+        assert 0.7 <= slopes[k] <= 1.3, f"{k} slope out of range: {slopes[k]:.2f}"
 
 @_register("nusd_numeric_receipt")
 def _test_nusd_numeric_receipt():
     prior_support = [0,1]
-    def mu(s):
+    # Inner function for numeric receipt test: returns state as observation
+    # Used in _test_nusd_numeric_receipt for NUSD receipt.
+    def mu_numeric_receipt(s):
         return s
-    def J(s,c):
+    # Inner function for numeric receipt test: judgment returns state unchanged
+    # Used in _test_nusd_numeric_receipt for state update.
+    def J_numeric_receipt(s,c):
         return s
-    def price(s,c):
+    # Inner function for numeric receipt test: price always returns 1.0
+    # Used in _test_nusd_numeric_receipt for cost calculation.
+    def price_numeric_receipt(s,c):
         return 1.0
-    thm = ThieleMachine(state=0, mu=mu, J=J, price=price)
+    thm = ThieleMachine(state=0, mu=mu_numeric_receipt, J=J_numeric_receipt, price=price_numeric_receipt)
     rec = nusd_receipt(thm, 0, prior_support, temp_k=300.0)
-    assert abs(rec["delta"]) <= 1e-9
-    assert rec["status"] == "sufficient"
-    assert rec["E_min_joules"] > 0
+    assert abs(rec["delta"]) <= 1e-9, f"NUSD delta too large: {rec['delta']}"
+    assert rec["status"] == "sufficient", f"NUSD status not sufficient: {rec['status']}"
+    assert rec["E_min_joules"] > 0, f"NUSD E_min_joules not positive: {rec['E_min_joules']}"
 
 @_register("fail_fast_receipt")
 def _test_fail_fast_receipt():
     prior = [0, 1]
-    def mu(s):
+    # Inner function for fail-fast receipt test: returns state as observation
+    # Used in _test_fail_fast_receipt for NUSD failure demonstration.
+    def mu_fail_fast(s):
         return s
-    def J(s, c):
+    # Inner function for fail-fast receipt test: judgment returns state unchanged
+    # Used in _test_fail_fast_receipt for state update.
+    def J_fail_fast(s, c):
         return s
-    def price(s, c):
+    # Inner function for fail-fast receipt test: price always returns 0.0
+    # Used in _test_fail_fast_receipt for cost calculation.
+    def price_fail_fast(s, c):
         return 0.0
-    thm = ThieleMachine(state=0, mu=mu, J=J, price=price)
+    thm = ThieleMachine(state=0, mu=mu_fail_fast, J=J_fail_fast, price=price_fail_fast)
     try:
         nusd_receipt(thm, 0, prior, temp_k=300.0)
         assert False, "expected SystemExit"
@@ -1111,8 +1157,8 @@ def _test_nusd_internal_prior():
         return -math.log2(prior[c])
     thm = ThieleMachine(state=0, mu=mu, J=J, price=price, prior_s=prior)
     rec = nusd_receipt(thm, 0, temp_k=300.0)
-    assert rec["status"] == "sufficient"
-    assert abs(rec["paid_bits"] - 1.0) <= 1e-9
+    assert rec["status"] == "sufficient", f"NUSD status not sufficient: {rec['status']}"
+    assert abs(rec["paid_bits"] - 1.0) <= 1e-9, f"NUSD paid_bits mismatch: {rec['paid_bits']}"
 
 
 @_register("chapter_intro")
@@ -1152,28 +1198,29 @@ def _test_complexity_z3():
 @_register("nusd_pricing_policy")
 def _test_pricing_policy():
     txt = chapter_nusd_pricing_policy()
-    assert "-log2" in txt
+    assert "-log2" in txt, "chapter_nusd_pricing_policy missing '-log2'"
 
 
 @_register("nusd_receipt_reversal")
 def _test_nusd_receipt_reversal():
     rec = demo_thm_reverse_nusd(3)
-    assert rec["status"] == "sufficient" and rec["paid_bits"] >= rec["needed_bits"]
+    assert rec["status"] == "sufficient" and rec["paid_bits"] >= rec["needed_bits"], \
+        f"demo_thm_reverse_nusd failed: status={rec['status']}, paid_bits={rec['paid_bits']}, needed_bits={rec['needed_bits']}"
 
 @_register("quantum_unitarity_and_deutsch")
 def _test_quantum_unitarity_and_deutsch():
     import numpy as np
     H = (1/np.sqrt(2))*np.array([[1,1],[1,-1]], dtype=float)
     H2 = np.kron(H,H)
-    assert np.allclose(H2.T @ H2, np.eye(4))
+    assert np.allclose(H2.T @ H2, np.eye(4)), "H2.T @ H2 not identity"
     Uf_const = np.eye(4, dtype=float)
-    assert np.allclose(Uf_const.T @ Uf_const, np.eye(4))
+    assert np.allclose(Uf_const.T @ Uf_const, np.eye(4)), "Uf_const.T @ Uf_const not identity"
     psi = np.array([0,1,0,0], dtype=float)
     psi = H2 @ psi
     psi = Uf_const @ psi
     psi = H2 @ psi
     p0 = (psi[0]**2 + psi[1]**2)
-    assert abs(p0-1.0) < 1e-9
+    assert abs(p0-1.0) < 1e-9, f"psi probability not normalized: {p0}"
 
 @_register("mpl_closed")
 def _test_mpl_closed():
@@ -1181,7 +1228,7 @@ def _test_mpl_closed():
     fig = plt.figure(); ax=fig.add_subplot(111); ax.plot([0,1],[0,1])
     buf = io.BytesIO(); fig.savefig(buf, format="png"); buf.seek(0)
     plt.close(fig)
-    assert len(plt.get_fignums())==0
+    assert len(plt.get_fignums())==0, "Figure not closed after plot"
 
 @_register("deterministic_artifact_hash")
 def _test_hash():
@@ -1191,36 +1238,42 @@ def _test_hash():
         fig=plt.figure(); ax=fig.add_subplot(111); ax.imshow(np.zeros((4,4)))
         buf=io.BytesIO(); fig.savefig(buf, format="png"); plt.close(fig); return buf.getvalue()
     h1=_sha256_bytes(render()); h2=_sha256_bytes(render())
-    assert h1==h2
+    assert h1==h2, "SHA256 render mismatch"
 
 @_register("formal_model_helpers")
 def _test_formal_model_helpers():
     prior = {0:0.25, 1:0.75}
-    def mu(s):
+    # Inner function for formal model helpers test: returns s mod 2 as observation
+    # Used in _test_formal_model_helpers for pushforward and NUSD check.
+    def mu_formal_helpers(s):
         return s % 2
-    def J(s, c):
+    # Inner function for formal model helpers test: judgment returns state unchanged
+    # Used in _test_formal_model_helpers for state update.
+    def J_formal_helpers(s, c):
         return s
-    def price(s, c):
+    # Inner function for formal model helpers test: price always returns 1.0
+    # Used in _test_formal_model_helpers for cost calculation.
+    def price_formal_helpers(s, c):
         return 1.0
-    thm = ThieleMachine(state=1, mu=mu, J=J, price=price)
+    thm = ThieleMachine(state=1, mu=mu_formal_helpers, J=J_formal_helpers, price=price_formal_helpers)
     pf = pushforward(prior, mu)
     c = mu(1)
     bits_needed = shannon_bits(c, pf)
     ok, paid, needed = nusd_check(1, thm, prior)
     E = landauer_energy(300, paid)
-    assert ok and paid >= needed and E > 0
+    assert ok and paid >= needed and E > 0, f"Landauer energy test failed: ok={ok}, paid={paid}, needed={needed}, E={E}"
 
 @_register("formalism_presence_check")
 def _test_formalism_presence():
     units = verify_thm_formalism()
-    assert units["price"] == "bits"
+    assert units["price"] == "bits", f"verify_thm_formalism price unit mismatch: {units['price']}"
 
 @_register("axiom_text_present")
 def _test_axiom_text():
     axiom = "μ-bits paid >= I(S; μ(S))"
     sight = "J may depend on S only via μ(S)"
     src = open(__file__,'r',encoding='utf-8').read()
-    assert axiom in src and sight in src
+    assert axiom in src and sight in src, "Axiom or sight not found in source"
 
 @_register("smt_contains_real_constraints")
 def _test_smt():
@@ -1230,14 +1283,16 @@ def _test_smt():
     for k in ks:
         smt += f"(assert (= (V {k}) {2**(-k)}))\n"
     smt += "; end\n"
-    assert "(assert (= (V 3) 0.125))" in smt
+    assert "(assert (= (V 3) 0.125))" in smt, "SMT string missing expected assertion"
 
 @_register("cli_plumbing")
 def _test_cli_plumbing():
     args = parse_cli(["--sizes", "10,20", "--seeds", "3", "--temp-k", "123.4", "--bench", "--plots", "--fair", "--logic-fractal", "demo"])
-    assert args.sizes == [10, 20] and args.seeds == 3 and abs(args.temp_k - 123.4) < 1e-9
-    assert args.bench and args.plots and args.fair and args.prior == "uniform"
-    assert args.logic_fractal == "demo"
+    assert args.sizes == [10, 20] and args.seeds == 3 and abs(args.temp_k - 123.4) < 1e-9, \
+        f"parse_cli args mismatch: sizes={args.sizes}, seeds={args.seeds}, temp_k={args.temp_k}"
+    assert args.bench and args.plots and args.fair and args.prior == "uniform", \
+        f"parse_cli flags mismatch: bench={args.bench}, plots={args.plots}, fair={args.fair}, prior={args.prior}"
+    assert args.logic_fractal == "demo", f"parse_cli logic_fractal mismatch: {args.logic_fractal}"
     dirs = ensure_artifact_dirs()
     for name in ("csv", "plots", "proof", "logs"):
         assert os.path.isdir(dirs[name])
@@ -1245,15 +1300,17 @@ def _test_cli_plumbing():
     with open(dummy, "w") as f:
         f.write("ok")
     bundle = bundle_proofs_zip()
-    assert os.path.exists(bundle)
+    assert os.path.exists(bundle), f"Proof bundle not found: {bundle}"
     meta = emit_metadata(args, os.path.join(dirs["logs"], "meta.json"))
-    assert meta["args"]["sizes"] == [10, 20] and os.path.exists(os.path.join(dirs["logs"], "meta.json"))
+    assert meta["args"]["sizes"] == [10, 20] and os.path.exists(os.path.join(dirs["logs"], "meta.json")), \
+        f"Meta proof args or file missing: {meta['args']['sizes']}, {os.path.join(dirs['logs'], 'meta.json')}"
 
 @_register("universality_tests")
 def _test_universality():
     check_cross_simulation(5)
     txt = chapter_universality()
-    assert "no more powerful" in txt and "organization, not superiority" in txt
+    assert "no more powerful" in txt and "organization, not superiority" in txt, \
+        "chapter_universality missing expected phrases"
 
 @_register("artifact_hash_manifest")
 def _test_artifact_hash_manifest():
@@ -1262,26 +1319,32 @@ def _test_artifact_hash_manifest():
     csv_path, _ = run_reversal_bench(sizes, seeds)
     plot_moves({"n": sizes, "tm1_moves": [1,1,1], "tm2_moves": [1,1,1], "ram_ops": [1,1,1], "thm_bytes": [1,1,1]}, path="artifacts/plots/test.png")
     manifest = "artifacts/logs/hashes.json"
-    assert os.path.exists(manifest)
+    assert os.path.exists(manifest), f"Manifest file not found: {manifest}"
     with open(manifest) as f:
         hashes = json.load(f)
     for p in [csv_path, "artifacts/plots/test.png"]:
-        assert p in hashes and hashes[p] == _sha256_file(p)
+        assert p in hashes and hashes[p] == _sha256_file(p), f"Hash mismatch for {p}"
 
 @_register("proof_comments")
 def _test_proof_comments():
     prior = {0:1.0}
-    def mu(s): return 0
-    def J(s,c): return s
-    def price(s,c): return 0.0
-    thm = ThieleMachine(state=0, mu=mu, J=J, price=price)
+    # Inner function for proof comments test: returns 0 as observation
+    # Used in _test_proof_comments for SMT proof emission.
+    def mu_proof_comments(s): return 0
+    # Inner function for proof comments test: judgment returns state unchanged
+    # Used in _test_proof_comments for state update.
+    def J_proof_comments(s,c): return s
+    # Inner function for proof comments test: price always returns 0.0
+    # Used in _test_proof_comments for cost calculation.
+    def price_proof_comments(s,c): return 0.0
+    thm = ThieleMachine(state=0, mu=mu_proof_comments, J=J_proof_comments, price=price_proof_comments)
     p1 = "artifacts/proof/nusd_soundness.smt2"
     emit_nusd_smt(prior, thm, p1)
     p2 = "artifacts/proof/reversal_lb_small_n.smt2"
     emit_reversal_lb_smt_small_n(p2)
     with open(p1) as f1, open(p2) as f2:
-        assert f1.readline().startswith(";")
-        assert f2.readline().startswith(";")
+        assert f1.readline().startswith(";"), "First file does not start with ';'"
+        assert f2.readline().startswith(";"), "Second file does not start with ';'"
 
 
 @_register("theorem_text")
@@ -1292,36 +1355,37 @@ def _test_theorem_text():
 @_register("chapter_theorem_bench")
 def _test_chapter_theorem_bench():
     txt = chapter_theorem_bench()
-    assert "T1 (Single-tape lower bound)" in txt
-    assert "crossing" in txt and "copy/swap" in txt
-    assert "n log" in txt
-    assert os.path.exists("artifacts/csv/reversal_bench.csv")
+    assert "T1 (Single-tape lower bound)" in txt, "chapter_theorem_bench missing T1 phrase"
+    assert "crossing" in txt and "copy/swap" in txt, "chapter_theorem_bench missing crossing/copy/swap"
+    assert "n log" in txt, "chapter_theorem_bench missing n log"
+    assert os.path.exists("artifacts/csv/reversal_bench.csv"), "reversal_bench.csv not found"
 
 
 @_register("chapter_nusd")
 def _test_chapter_nusd():
     txt = chapter_nusd()
-    assert "paid_bits" in txt and "nusd_soundness.smt2" in txt
-    assert os.path.exists("artifacts/proof/nusd_soundness.smt2")
+    assert "paid_bits" in txt and "nusd_soundness.smt2" in txt, \
+        "chapter_nusd missing paid_bits or nusd_soundness.smt2"
+    assert os.path.exists("artifacts/proof/nusd_soundness.smt2"), "nusd_soundness.smt2 not found"
 
 
 @_register("types_and_units")
 def _test_types_and_units():
     txt = chapter_formal_thm()
-    assert "mu: S -> C" in txt and "E_min" in txt
+    assert "mu: S -> C" in txt and "E_min" in txt, "chapter_formal_thm missing mu: S -> C or E_min"
 
 
 @_register("logic_retract")
 def _test_logic_retract():
     txt = chapter_logic_section()
-    assert "No general mapping is provided" in txt
+    assert "No general mapping is provided" in txt, "chapter_logic_section missing mapping phrase"
 
 @_register("chapter_quantum_analogy")
 def _test_chapter_quantum_analogy():
     txt = chapter_quantum_analogy()
     assert "Analogy & accounting" in txt
     for word in ("qubits", "gates", "depth", "μ-bits", "measurements"):
-        assert word in txt
+        assert word in txt, f"chapter_quantum_analogy missing word: {word}"
     assert "Deutsch,2,4,3,1,1" in txt
     assert "ThM,2,0,3,1,1" in txt
     assert "No speedup" in txt
@@ -1330,15 +1394,15 @@ def _test_chapter_quantum_analogy():
 @_register("chapter_process_isomorphism")
 def _test_chapter_process_isomorphism():
     txt = chapter_process_isomorphism()
-    assert "illustrative" in txt.lower()
-    assert "no general" in txt.lower()
+    assert "illustrative" in txt.lower(), "chapter_process_isomorphism missing 'illustrative'"
+    assert "no general" in txt.lower(), "chapter_process_isomorphism missing 'no general'"
 
 
 @_register("chapter_halting_bounds")
 def _test_chapter_halting_bounds():
     txt = chapter_halting_bounds(5)
-    assert "bounded-step" in txt
-    assert "5" in txt
+    assert "bounded-step" in txt, "chapter_halting_bounds missing 'bounded-step'"
+    assert "5" in txt, "chapter_halting_bounds missing '5'"
 
 
 @_register("chapter_conclusion")
@@ -1349,8 +1413,8 @@ def _test_chapter_conclusion():
     assert "TM ⊆ ThM" in txt and "TM ≠ ThM" in txt
     assert "SHA256 hashes" in txt and "Proof bundle" in txt
     m = re.search(r"Total energy_J=([0-9.eE+-]+)", txt)
-    assert m and float(m.group(1)) > 0
-    assert os.path.exists("artifacts/proof_bundle.zip")
+    assert m and float(m.group(1)) > 0, "Total energy_J not found or not positive"
+    assert os.path.exists("artifacts/proof_bundle.zip"), "Proof bundle zip not found"
 
 @_register("chapter_shadows")
 def _test_chapter_shadows():
@@ -1360,7 +1424,7 @@ def _test_chapter_shadows():
         "Shadow of Incompleteness",
         "Shadow of Constraint",
     ):
-        assert phrase in txt
+        assert phrase in txt, f"Phrase '{phrase}' not found in text"
 if __name__ == "__main__":
     if "--selftest" in sys.argv:
         _run_selected(sys.argv[sys.argv.index("--selftest") + 1] if len(sys.argv) > sys.argv.index("--selftest") + 1 else "all")
@@ -1747,6 +1811,11 @@ def print(*args, **kwargs):
                  .replace("”", '"')
                  .replace("‘", "'")
                  .replace("’", "'")
+                 .replace("Γ", "Gamma")
+                 .replace("Σ", "Sigma")
+                 .replace("δ", "delta")
+                 .replace("π", "pi")
+                 .replace("μ", "mu")
                  .replace("  ", " ")
             )
             return ascii_safe
@@ -1867,7 +1936,7 @@ class InfoMeter:
             )
 
     def attach_certificate(self, name: str, payload: Any, note: str = "") -> Certificate:
-        bits = sizeof_bits(payload)
+        bits = payload.__sizeof__() if hasattr(payload, "__sizeof__") else len(str(payload).encode("utf-8")) * 8
         cert = Certificate(
             name=name,
             bits=bits,
@@ -2409,12 +2478,16 @@ def encode_tm_as_thm(tm: TM):
         state = tm.q0
         return (state, tape, head)
 
-    def mu(config):
+    # Inner function for TM encoding: returns cell, head, state as observation
+    # Used in encode_tm_as_thm for simulating TM "sense" operation.
+    def mu_tm_encode(config):
         state, tape, head = config
         cell = tape[head] if 0 <= head < len(tape) else tm.blank
         return (cell, head, state)
 
-    def J(config, obs):
+    # Inner function for TM encoding: judgment updates tape and state
+    # Used in encode_tm_as_thm for simulating TM "write/move" operation.
+    def J_tm_encode(config, obs):
         state, tape, head = config
         cell, head_obs, state_obs = obs
         symbol = cell
@@ -2436,8 +2509,8 @@ def encode_tm_as_thm(tm: TM):
 
     return {
         "S_0": initial_config,
-        "mu": mu,
-        "J": J
+        "mu": mu_tm_encode,
+        "J": J_tm_encode
     }
 
 def encode_thm_as_tm(S0, mu, J, K_MAX=6):
@@ -2502,11 +2575,15 @@ def encode_lts_as_thm(states, alphabet, delta):
     """
     nodes = list(states)
 
-    def mu(s):
+    # Inner function for LTS encoding: gathers outgoing labels for state s
+    # Used in encode_lts_as_thm for simulating LTS observation.
+    def mu_lts_encode(s):
         # Gather all outgoing labels for state s
         return [a for a in alphabet if (s, a) in delta]
 
-    def J(s, a):
+    # Inner function for LTS encoding: applies chosen edge from state s
+    # Used in encode_lts_as_thm for simulating LTS transition.
+    def J_lts_encode(s, a):
         # Apply chosen edge (label) from state s
         return delta.get((s, a), s)
 
@@ -2527,14 +2604,7 @@ def encode_lts_as_thm(states, alphabet, delta):
 
 
 
-def shannon_bits(observation, prior_distribution):
-    """
-    Shannon self-information: bits needed to describe observation under prior.
-    """
-    p = prior_distribution.get(observation, 1e-300)
-    if p <= 0:
-        return float('inf')
-    return -math.log2(p)
+# REMOVED duplicate shannon_bits function
 
 def ceiling_bits(x: float) -> int:
     return int(-(-x // 1))
@@ -3071,7 +3141,7 @@ def demonstrate_game_of_life():
                     next_grid[i][j] = 1 if n == 3 else 0
                 ctr.writes += 1  # Each cell is written once per step
         im.pay_mu(mu_checks, reason=f"neighbor checks (mu) at step {step}")
-        print(f"[mu-info] I(S; mu(S)) ~ {sizeof_bits(grid)} bits, I(S; local-head) ~ 8 bits")
+        print(f"[mu-info] I(S; mu(S)) ~ {grid.__sizeof__() if hasattr(grid, '__sizeof__') else len(str(grid).encode('utf-8')) * 8} bits, I(S; local-head) ~ 8 bits")
         im.events.append(f"J: birth/survival rules applied at step {step}")
         grid = next_grid
     print_grid(grid, steps)
@@ -3185,8 +3255,9 @@ def plot_scale_comparison():
     print("![Scale Plot](scale_plot.png)")
     print_nusd_receipt(InfoMeter("Scale Plot"), png_path="scale_plot.png")
 
-    plot_hw_scaling()
+    # plot_hw_scaling() call removed; no stub or legacy code remains.
 
+# plot_hw_scaling definition removed; no stubs allowed.
     # Print predicted speed-up at N=32, ports=2
 # Meta: To see is to compute, to compute is to become. Thiele Machine: not just a tool, but a philosophy. Global sight is a rebellion against local ignorance.
 
@@ -3411,6 +3482,7 @@ def demonstrate_self_proving_thesis():
     import ast
 
     def check_for_tm_reverse():
+        """Checks if the function 'tm_reverse' is present in the source file."""
         try:
             with open(__file__, "r", encoding="utf-8") as f:
                 source = f.read()
@@ -3420,6 +3492,7 @@ def demonstrate_self_proving_thesis():
         return any(isinstance(n, ast.FunctionDef) and n.name == "tm_reverse" for n in ast.walk(tree))
 
     def check_for_thm_reverse():
+        """Checks if the function 'thm_reverse' is present in the source file."""
         try:
             with open(__file__, "r", encoding="utf-8") as f:
                 source = f.read()
@@ -3429,6 +3502,7 @@ def demonstrate_self_proving_thesis():
         return any(isinstance(n, ast.FunctionDef) and n.name == "thm_reverse" for n in ast.walk(tree))
 
     def check_for_meta_proof():
+        """Checks if the function 'demonstrate_self_proving_thesis' is present in the source file."""
         try:
             with open(__file__, "r", encoding="utf-8") as f:
                 source = f.read()
