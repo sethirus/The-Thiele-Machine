@@ -242,3 +242,50 @@ Phase 7: Audit Enhancements
 - [x] Save SMT2 proofs and use `prove` helper
 - [x] Emit machine-readable JSON receipts
 - [x] Add publish-time transcript hash and closing maxim
+
+Phase 8: System Unification
+- [x] Introduce a canonical cost function used by all chapters
+- [x] Define minimal sufficient observation (`H_sufficient`) for each chapter and base `shannon_debt` on it
+- [x] Harden receipt handling and final audit to report pass/fail counts honestly
+
+Phase 9: Engine Cost Hypothesis
+- [x] Instrument Mandelbrot chapter with explicit flop ledger to capture hidden engine cost
+
+Phase 10: Decision Cost Hypothesis
+- [x] Augment `CostLedger` with branch and iteration counters
+- [x] Calibrate branch coefficient `EPSILON` using Mandelbrot
+- [x] Apply branch-cost term to Chapter 17 for generalization
+
+Phase 11: Computational Regimes Hypothesis
+- [x] Introduce regime-specific branch coefficients and context-aware `canonical_cost`
+- [x] Tag each chapter with its computational regime
+- [x] Run full audit with regime-aware costs
+
+Phase 12: Dimensional Cost Hypothesis
+- [x] Calibrate global navigational constant from Mandelbrot
+- [x] Compute branch cost ε(d)=k·d² in `canonical_cost`
+- [x] Map regimes to dimensionality for auditing
+
+Phase 13: Dynamic NUSD Law
+- [x] Extend `CostLedger` with `z3_steps` and `time_steps`
+- [x] Simplify `canonical_cost` to unit weights over all primitive ops
+- [x] Implement dynamic NUSD audit `W ≥ H*T` and apply across chapters
+
+Phase 14: Compositional Information Hypothesis
+- [x] Define `h_comp` as Shannon debt × (time_steps + 1)
+- [x] Re-audit all chapters using `W ≥ H_comp`
+
+Phase 15: Work-Complexity Equivalence
+- [x] Measure algorithmic complexity and store on ledger
+- [x] Calibrate universal constant KAPPA via Chapter 1
+- [x] Audit all chapters with `W ≥ KAPPA * K`
+
+Phase 16: Universal Cost Law Search
+- [x] Augment `CostLedger` with feature fields and log per-chapter metrics to `master_log.csv`
+- [x] Derive cost multiplier via regression over logged data
+- [x] Re-audit treatise using data-driven cost law
+
+Phase 17: Dark Work Instrumentation
+- [x] Instrument Z3 `prove()` and solver checks to record steps, conflicts, and max memory
+- [x] Calibrate `z3_conflicts` and `z3_memory` cost coefficients using the Conclusion proof
+- [x] Re-run audit on Z3-heavy chapters with calibrated coefficients
