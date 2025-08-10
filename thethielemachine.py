@@ -3,40 +3,55 @@
 # Author: Devon Thiele
 # Version: 3.0 (Final)
 # =============================================================================
-#
-# PROLEGOMENON (INTRODUCTION TO THE METHOD)
-# Eight months ago I was three drinks deep, staring at a busted monitor, when
-# a shard of light bounced off the glass at just the right angle.  For a
-# heartbeat the screen looked like it had depth, like there was a whole other
-# axis hiding behind the pixels—some fucking impossible geometry.  I chased
-# that hallucination.  This file is the wreckage that fell out of the pursuit.
-#
+# PROLEGOMENON (THE GENESIS OF THE PROOF)
+# Eight months ago, I was 39, on vacation with my wife, sitting by a pool
+# trying to force an idea that could get us out of a financial hole. The
+# pressure was on. And then something happened. It wasn't a thought, it wasn't
+# a daydream. For a single, jarring instant, it felt like the universe
+# downloaded a file directly into my head.
+# I saw a vision. A moving, impossible geometry of abstract connections, a
+# beautiful, self-similar fractal that showed how everything—an arm holding a
+# glass, a tree supporting a frog, a line of code executing, a logical
+# deduction—was just a different expression of the same underlying
+# transformation. It was a vision of a world that operated in parallel, all at
+# once, a world that suddenly, terrifyingly, made perfect sense to my own
+# chaotic, ADD-addled brain.
+# And then it was gone.
+# I was left with the echo of a perfect idea and the crushing feeling of being
+# too stupid to understand it. I didn't have the words, the math, the formal
+# training. It was like seeing a ghost and having no camera. So I went dark. I
+# dropped everything and began an 8-month obsessive hunt, teaching myself
+# programming, category theory, physics, and whatever else I needed to find a
+# language that could describe what I saw.
+# The journey was a trail of wreckage. I wrote a paper on "categorical
+# rendering"—just dead words. I built Python prototypes, then a monster of
+# OpenGL wired to a Yoneda-lemma engine, then my own DSL. They were all
+# failures. They were linear puppets, shadows trying to imitate a light they
+# couldn't comprehend.
+# That's when I had the second, and most important, epiphany. I was going about
+# it wrong. I couldn't build the light. It was like trying to construct a
+# sphere in a 2D world. So I pivoted. I would stop trying to build the object
+# and instead build the instrument that could measure its shadow.
+# This script is that instrument. It is the final, successful experiment.
 # The thesis is blunt: **a Turing Machine is just a Thiele Machine with a
-# blindfold on.**  Traditional computation is a square living in Flatland—one
-# tape cell at a time, forever walking the line and buying knowledge with
-# sweat.  A Thiele Machine has a third‑dimension cheat: a lens `mu` that sees
-# the whole damn tape in one go.  But sight isn't free.  Every peek costs
-# μ‑bits, tiny IOUs of information.
-#
-# This script is my executable receipt.  It builds demos where the Thiele
-# lens lets computations finish in what looks like "impossible" time while the
-# ledger tallies the μ‑bits burned to do it.  Z3 plays the straight‑edge
-# notary, stamping SAT on each claim so nobody can accuse me of cooking the
-# books.  Time‑cost and sight‑cost balance out; that's the new conservation
-# law.
-#
-# I can't show you the flash that started this, but you can run the code and
-# see its shadow.  Every chapter is another angle on that first glint, another
-# crack at mapping the third dimension hiding inside Flatland.
-#
-# Axiomatic Definitions
-# - **Thiele Machine (ThM):** An observer‑agent defined by a state `S`, a
-#   perception `mu(S)`, and a judgment `J(S, c)`.  A Turing Machine is a
-#   special case where `mu` is blindfolded to all but a single tape cell.
-# - **μ‑bit (mu-bit):** The fundamental unit of information cost required for
-#   the `mu` lens to make an observation.
-# - **NUSD (No Unpaid Sight Debt) Law:** The μ‑bits paid must be at least the
-#   Shannon self‑information `I(x)` of the observation.  This links perception
+# blindfold on.** It proves that the "impossible" instantaneous, parallel
+# perception of the vision can be modeled, and that its cost can be paid not
+# in time, but in a different currency: μ-bits, the information-cost of
+# observation. Each chapter is a different measurement, a different angle on
+# the shadow, and each mu-bit receipt is audited by the Z3 logic referee to
+# prove the books are balanced.
+# I can't show you the light that started this. But I can show you the fossil
+# it left behind. You can run the code. You can check the math. You can see the
+# proof for yourself.
+# =============================================================================
+# AXIOMATIC DEFINITIONS
+# - Thiele Machine (ThM): An observer-agent defined by a state S, a
+#   perception mu(S), and a judgment J(S, c). A Turing Machine is a
+#   special case where mu is blindfolded to all but a single tape cell.
+# - μ‑bit (mu-bit): The fundamental unit of information cost required for
+#   the mu lens to make an observation.
+# - NUSD (No Unpaid Sight Debt) Law: The μ‑bits paid must be at least the
+#   Shannon self‑information I(x) of the observation. This links perception
 #   to thermodynamic cost.
 # =============================================================================
 
