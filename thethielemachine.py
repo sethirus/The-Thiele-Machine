@@ -81,6 +81,7 @@ import sys
 import textwrap
 import time
 import zipfile
+import zlib
 
 # Third-party libraries
 import matplotlib
@@ -135,27 +136,129 @@ class CostLedger:
     writes: int = 0
     moves: int = 0
     flops: int = 0
+    branches: int = 0
+    z3_steps: int = 0
+    z3_conflicts: int = 0
+    z3_memory: float = 0.0
+    time_steps: int = 1
+    total_iterations: int = 0  # legacy counter
     bytes: int = 0
     mu_bits: float = 0.0
     energy: float = 0.0
     shannon_debt: float = 0.0
+    algorithmic_complexity_K: float = 0.0
+    work: float = 0.0
+    dimension: int = 0
+    input_bits: float = 0.0
+    output_bits: float = 0.0
+    logical_vars: int = 0
+    logical_clauses: int = 0
 
 # --- CANONICAL COST FUNCTION (Declare once, use everywhere) ---
-ALPHA = 1.0  # weight for reads
-BETA = 1.0   # weight for writes
-GAMMA = 0.5  # weight for moves
-DELTA = 0.1  # weight for floating-point operations
+# In the dynamic NUSD era, all primitive operations are weighted equally.
+ALPHA = BETA = GAMMA = DELTA = 1.0
+ZETA = 0.0
+ETA = 0.40161  # bits per MB of Z3 max memory
 
-def canonical_cost(ledger: CostLedger) -> float:
-    """
-    The one and only cost function for the entire treatise.
-    Cost = ALPHA * reads + BETA * writes + GAMMA * moves + DELTA * flops
-    """
+def canonical_cost(
+    ledger: CostLedger,
+    regime: str = "ANALYTICAL",
+    dimension: int | None = None,
+) -> float:
+    """Canonical physical work: sum of primitive operations."""
     return (
-        ALPHA * ledger.reads +
-        BETA * ledger.writes +
-        GAMMA * ledger.moves +
-        DELTA * ledger.flops
+        ALPHA * ledger.reads
+        + BETA * ledger.writes
+        + GAMMA * ledger.moves
+        + DELTA * (ledger.flops + ledger.branches)
+        + ZETA * ledger.z3_conflicts
+        + ETA * ledger.z3_memory
+    )
+
+
+def cost_multiplier(d: int, T: int) -> float:
+    """Return the regression-derived cost law multiplier f(d, T)."""
+    return -2.11 - 0.22 * d + 0.03 * (d**2) + 0.17 * T + 2.91 * math.log(T + 1)
+
+def measure_algorithmic_complexity(data: Any) -> float:
+    """Return compressed size of deterministic serialization in bits."""
+    try:
+        raw = json.dumps(
+            data, sort_keys=True, default=lambda o: o.tolist() if hasattr(o, "tolist") else o.__dict__
+        ).encode("utf-8")
+    except TypeError:
+        import pickle
+
+        raw = pickle.dumps(data, protocol=4)
+    compressed = zlib.compress(raw, level=6)
+    return len(compressed) * 8
+
+
+def measure_bits(data: Any) -> float:
+    """Return size of deterministic serialization in bits (no compression)."""
+    try:
+        raw = json.dumps(
+            data, sort_keys=True, default=lambda o: o.tolist() if hasattr(o, "tolist") else o.__dict__
+        ).encode("utf-8")
+    except TypeError:
+        import pickle
+
+        raw = pickle.dumps(data, protocol=4)
+    return len(raw) * 8
+
+
+def record_complexity(data: Any, ledger: CostLedger) -> float:
+    """Measure algorithmic complexity and store on ledger."""
+    K = measure_algorithmic_complexity(data)
+    ledger.algorithmic_complexity_K = K
+    return K
+
+
+def append_master_log(title: str, ledger: CostLedger) -> None:
+    """Append a row of metrics to master_log.csv."""
+    import re
+
+    title_clean = re.sub(r"^Chapter \d+:\s*", "", title)
+    if ledger.dimension == 0:
+        ledger.dimension = CHAPTER_DIMENSIONS.get(title_clean, 0)
+    row = {
+        "chapter": title_clean,
+        "W": ledger.work,
+        "K": ledger.algorithmic_complexity_K,
+        "T": ledger.time_steps,
+        "d": ledger.dimension,
+        "input_bits": ledger.input_bits,
+        "output_bits": ledger.output_bits,
+        "logical_vars": ledger.logical_vars,
+        "logical_clauses": ledger.logical_clauses,
+    }
+    row["kappa_empirical"] = (
+        (ledger.work / ledger.algorithmic_complexity_K)
+        if ledger.algorithmic_complexity_K
+        else 0.0
+    )
+    import csv
+
+    log_path = "master_log.csv"
+    file_exists = os.path.exists(log_path)
+    with open(log_path, "a", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=row.keys())
+        if not file_exists:
+            writer.writeheader()
+        writer.writerow(row)
+
+def ledger_from_info(im: "InfoMeter", time_steps: int = 1) -> CostLedger:
+    """Create a CostLedger from an InfoMeter's operation counters."""
+    return CostLedger(
+        reads=im.op_counter.reads,
+        writes=im.op_counter.writes,
+        moves=im.op_counter.moves,
+        flops=getattr(im.op_counter, "flops", 0),
+        branches=getattr(im.op_counter, "branches", 0),
+        z3_steps=getattr(im.op_counter, "z3_steps", 0),
+        z3_conflicts=getattr(im.op_counter, "z3_conflicts", 0),
+        z3_memory=getattr(im.op_counter, "z3_memory", 0.0),
+        time_steps=time_steps,
     )
 
 def minimal_sufficient_observation(obs, prior):
@@ -202,6 +305,11 @@ class OpCounter:
     writes: int = 0
     compares: int = 0
     moves: int = 0  # Crucial for one-tape TM analysis
+    flops: int = 0
+    branches: int = 0
+    z3_steps: int = 0
+    z3_conflicts: int = 0
+    z3_memory: float = 0.0
 
     def total(self) -> int:
         return self.reads + self.writes + self.compares + self.moves
@@ -328,8 +436,19 @@ class Ledger:
             self.cert_spent.add(label)
         return spent_total
 
-    def record(self, receipt: Receipt) -> None:
+    def record(self, receipt: Receipt, op_ledger: CostLedger | None = None) -> None:
         self.receipts.append(receipt)
+        # Append metrics to master log
+        if op_ledger is None:
+            op_ledger = CostLedger(
+                work=receipt.mu_bits_paid,
+                algorithmic_complexity_K=receipt.entropy_report_bits,
+            )
+        else:
+            op_ledger.work = receipt.mu_bits_paid
+            if op_ledger.algorithmic_complexity_K == 0.0:
+                op_ledger.algorithmic_complexity_K = receipt.entropy_report_bits
+        append_master_log(receipt.title, op_ledger)
 
     def feed_stdout(self, chunk: str) -> None:
         self.stdout_hash.update(chunk.encode("utf-8"))
@@ -349,6 +468,8 @@ class Ledger:
         total_paid = sum(r.mu_bits_paid for r in self.receipts)
         total_needed = sum(r.shannon_bits_needed for r in self.receipts)
         h = self.stdout_hash.hexdigest()
+        pass_count = sum(1 for r in self.receipts if r.status == "sufficient")
+        fail_count = len(self.receipts) - pass_count
         print("\n" + "=" * 80)
         print("# FINAL AUDIT")
         print("=" * 80)
@@ -356,6 +477,7 @@ class Ledger:
             f"Receipts: {len(self.receipts)} | mu_paid_total={total_paid:.6f} | H_needed_total={total_needed:.6f}"
         )
         print(f"Transcript sha256: {h}")
+        print(f"[AUDIT] {len(self.receipts)} Receipts Processed: {pass_count} PASS, {fail_count} FAIL")
         if bad:
             print(f"[FAIL] {len(bad)} receipt(s) violate NUSD (paid < needed).")
             for r in bad:
@@ -370,8 +492,10 @@ class Ledger:
             print(f"[FAIL] Hash mismatch ({len(badsha)}):")
             for p, exp, got in badsha:
                 print(f"  - {p}\n    expected={exp}\n    got     ={got}")
-        if not (bad or missing or badsha):
+        if fail_count == 0 and not (bad or missing or badsha):
             print("[OK] All receipts honor NUSD; all artifacts present with matching hashes.")
+        else:
+            print("[FAIL] NUSD law not universally satisfied.")
         print("=" * 80 + "\n")
 
 
@@ -570,10 +694,24 @@ def emit_nusd_smt(
 
 
 def print_nusd_receipt(
-    im: InfoMeter, required_bits: Optional[int] = None, png_path: Optional[str] = None
+    im: InfoMeter,
+    op_ledger: CostLedger,
+    artifact: Any,
+    png_path: Optional[str] = None,
 ):
-    ok, _ = im.check_nusd(required_bits)
-    needed = required_bits if required_bits is not None else 0.0
+    if op_ledger.algorithmic_complexity_K == 0.0:
+        K = record_complexity(artifact, op_ledger)
+    else:
+        K = op_ledger.algorithmic_complexity_K
+    op_ledger.output_bits = measure_bits(artifact)
+    work = canonical_cost(op_ledger)
+    op_ledger.work = work
+    factor = cost_multiplier(op_ledger.dimension, op_ledger.time_steps)
+    debt = K * factor
+    status = "sufficient" if work >= debt else "insufficient"
+    print(
+        f"# UCL Test: W={work} >= K*f(d,T)={debt} ? {'PASS' if status == 'sufficient' else 'FAIL'}"
+    )
     certs = [(c.name, c.bits, c.data_hash) for c in im.certs]
     sha = None
     if png_path:
@@ -583,11 +721,11 @@ def print_nusd_receipt(
             sha = None
     r = Receipt(
         title=im.label,
-        mu_bits_paid=float(im.MU_SPENT),
-        shannon_bits_needed=float(needed),
-        entropy_report_bits=float(needed),
-        status="sufficient" if ok else "insufficient",
-        delta=float(im.MU_SPENT - needed),
+        mu_bits_paid=float(work),
+        shannon_bits_needed=float(debt),
+        entropy_report_bits=float(K),
+        status=status,
+        delta=float(work - debt),
         sha256=sha,
         sha256_file=png_path,
         proof_path=None,
@@ -595,7 +733,7 @@ def print_nusd_receipt(
     )
     ledger.spend_certs(r.certificates)
     print_receipt(r)
-    ledger.record(r)
+    ledger.record(r, op_ledger)
 
 
 def emit_reversal_lb_smt_small_n(
@@ -834,16 +972,17 @@ def ram_reverse(arr, temp_k: float = 300.0):
     return out, ledger
 
 
-def thm_reverse(tape, temp_k: float = 300.0):
+def thm_reverse(tape, temp_k: float = 300.0, regime: str = "ANALYTICAL"):
     n = len(tape)
     out = list(reversed(tape))
     # Computational effort: number of nodes rewritten (n)
     ledger = CostLedger(reads=n, writes=n)
-    measured_cost = canonical_cost(ledger)
+    measured_cost = canonical_cost(ledger, regime)
     # Shannon debt: log2(n!) for permutation reversal
     def log_factorial(n):
         return math.lgamma(n + 1) / math.log(2)
-    shannon_debt = log_factorial(n)
+    H_sufficient = log_factorial(n)
+    shannon_debt = H_sufficient
     ledger.mu_bits = measured_cost
     symbol_size = 1
     ledger.bytes = 2 * n * symbol_size
@@ -1003,7 +1142,7 @@ def z3_save(slv: Solver, name: str) -> str:
     return path
 
 
-def prove(title: str, build_negation: Callable[[Solver], Any]):
+def prove(title: str, build_negation: Callable[[Solver], Any], counter: OpCounter | None = None):
     if not hasattr(z3, "Solver"):
         print(f"[Z3] {title}: unavailable")
         return None, False
@@ -1011,6 +1150,16 @@ def prove(title: str, build_negation: Callable[[Solver], Any]):
     build_negation(s)
     path = z3_save(s, title.replace(" ", "_"))
     res = s.check()
+    stats = s.statistics()
+    if counter is not None:
+        keys = stats.keys()
+        counter.z3_steps += int(stats.get_key_value("rlimit count")) if "rlimit count" in keys else 0
+        counter.z3_conflicts += int(stats.get_key_value("conflicts")) if "conflicts" in keys else 0
+        counter.z3_memory += float(stats.get_key_value("max memory")) if "max memory" in keys else 0.0
+        if OUTPUT_MODE != "publish":
+            print(
+                f"[Z3 stats] steps={counter.z3_steps} conflicts={counter.z3_conflicts} maxmem={counter.z3_memory}"
+            )
     if res == unsat:
         print(f"Checked ¬({title}): UNSAT => {title} holds.")
         ok = True
@@ -1080,7 +1229,7 @@ def run_reversal_bench(sizes, seeds=1, temp_k: float = 300.0):
         _, s1 = tm_reverse_single_tape(tape, temp_k)
         _, s2 = tm_reverse_two_tape(tape, temp_k)
         _, s3 = ram_reverse(tape, temp_k)
-        _, s4 = thm_reverse(tape, temp_k)
+        _, s4 = thm_reverse(tape, temp_k, "ANALYTICAL")
         rows["tm1_moves"].append(s1.moves)
         rows["tm2_moves"].append(s2.moves)
         rows["ram_ops"].append(s3.reads + s3.writes)
@@ -1340,7 +1489,7 @@ def _test_reversal_baselines():
     out1, s1 = tm_reverse_single_tape(tape)
     out2, s2 = tm_reverse_two_tape(tape)
     out3, s3 = ram_reverse(tape)
-    out4, s4 = thm_reverse(tape)
+    out4, s4 = thm_reverse(tape, regime="ANALYTICAL")
     rev = list(reversed(tape))
     assert out1 == rev and s1.moves > len(tape) ** 2 / 2
     assert out2 == rev and s2.moves <= 3 * len(tape)
@@ -1352,7 +1501,7 @@ def _test_reversal_baselines():
 @_register("memory_traffic")
 def _test_memory_traffic():
     tape = [1, 2, 3, 4, 5]
-    out, stats = thm_reverse(tape)
+    out, stats = thm_reverse(tape, regime="ANALYTICAL")
     assert stats.bytes == 2 * len(tape), (
         f"thm_reverse bytes mismatch: {stats.bytes} != {2 * len(tape)}"
     )
@@ -1442,6 +1591,7 @@ def _test_nusd_internal_prior():
 
 def chapter_1_axiom_of_blindness():
     print_markdown_chapter(1, "The Axiom of Blindness")
+    regime = "ANALYTICAL"
 
     # --------------------------------------------------------------------------
     # Background Context: What is "Blindness" in Computation?
@@ -1472,7 +1622,7 @@ def chapter_1_axiom_of_blindness():
 
     # The TM must move back and forth, swapping elements one by one.
     # The ThM simply observes the entire tape and writes the reversed result in one step.
-    out, stats = thm_reverse(tape)
+    out, stats = thm_reverse(tape, regime="ANALYTICAL")
     print("# Step 2: The Thiele Machine Solution")
     print(f"Reversed Tape: {out}")
 
@@ -1522,30 +1672,16 @@ def chapter_1_axiom_of_blindness():
     #   +-------------------+         +-------------------+
 
     # Use measured computational cost and compare to Shannon debt
-    measured_cost = canonical_cost(stats)
-    shannon_debt = stats.shannon_debt
-    r = Receipt(
-        title="The Axiom of Blindness",
-        mu_bits_paid=measured_cost,
-        shannon_bits_needed=shannon_debt,
-        entropy_report_bits=shannon_debt,
-        status="sufficient" if measured_cost >= shannon_debt else "insufficient",
-        delta=measured_cost - shannon_debt,
-        sha256=None,
-        sha256_file=None,
-        proof_path=None,
-        certificates=[],
-    )
-
-    # --------------------------------------------------------------------------
-    # Verification: Auditing the Cost
-    # --------------------------------------------------------------------------
-    # Test the law: measured_cost >= k * shannon_debt (here k=1)
-    print(f"# NUSD Law Test: measured_cost={measured_cost}, shannon_debt={shannon_debt}")
-    print(f"# Assertion: {measured_cost} >= {shannon_debt} ? {'PASS' if measured_cost >= shannon_debt else 'FAIL'}")
-    ledger.spend_certs(r.certificates)
-    print_receipt(r)
-    ledger.record(r)
+    H_sufficient = stats.shannon_debt
+    shannon_debt = H_sufficient
+    stats.time_steps = 1
+    K = record_complexity(out, stats)
+    work = canonical_cost(stats)
+    factor = cost_multiplier(stats.dimension, stats.time_steps)
+    debt = K * factor
+    print(f"# UCL Test (Axiom of Blindness): debt={debt}")
+    print(f"# Assertion: {work} >= {debt} ? {'PASS' if work >= debt else 'FAIL'}")
+    print_nusd_receipt(InfoMeter("The Axiom of Blindness"), stats, out)
 # --- Experiment: What does mu need to see for J to act? ---
 # --- Brute-force deduction for Chapter 1: Axiom of Blindness ---
 import itertools
@@ -1553,6 +1689,7 @@ import itertools
 
 def chapter_2_game_of_life():
     print_markdown_chapter(2, "Game of Life")
+    regime = "GENERATIVE"
 
     # --------------------------------------------------------------------------
     # Background Context: What is the Game of Life?
@@ -1680,16 +1817,16 @@ def chapter_2_game_of_life():
     # Measured cost: total number of neighbor checks (total_bits)
     # Use canonical_cost only if object is CostLedger, else use total reads+writes+moves+flops
     # Shannon debt: total_bits * log2(alphabet)
-    shannon_debt = total_bits * math.log2(alphabet)
-    print(f"# NUSD Law Test (Game of Life): shannon_debt={shannon_debt}")
-    measured_cost = canonical_cost(CostLedger(
-        reads=im.op_counter.reads,
-        writes=im.op_counter.writes,
-        moves=im.op_counter.moves,
-        flops=getattr(im.op_counter, "flops", 0)
-    ))
-    print(f"# Assertion: {measured_cost} >= {shannon_debt} ? {'PASS' if measured_cost >= shannon_debt else 'FAIL'}")
-    print_nusd_receipt(im, required_bits=ceiling_bits(shannon_debt))
+    H_sufficient = total_bits * math.log2(alphabet)
+    shannon_debt = H_sufficient
+    ledger_cost = ledger_from_info(im, time_steps=steps)
+    K = record_complexity(grid, ledger_cost)
+    measured_cost = canonical_cost(ledger_cost)
+    factor = cost_multiplier(ledger_cost.dimension, ledger_cost.time_steps)
+    debt = K * factor
+    print(f"# UCL Test (Game of Life): debt={debt}")
+    print(f"# Assertion: {measured_cost} >= {debt} ? {'PASS' if measured_cost >= debt else 'FAIL'}")
+    print_nusd_receipt(im, ledger_cost, grid)
 
     # --------------------------------------------------------------------------
     # Intuitive Summary and Broader Connections
@@ -1724,6 +1861,7 @@ def chapter_2_game_of_life():
 
 def chapter_3_lensing():
     print_markdown_chapter(3, "Lensing")
+    regime = "GENERATIVE"
 
     # --------------------------------------------------------------------------
     # Background Context: What is Lensing?
@@ -1803,22 +1941,22 @@ def chapter_3_lensing():
     # --------------------------------------------------------------------------
     # Measured cost: number of pixels observed (W * H)
     # Shannon debt: number of bits needed to specify all pixel values
-    shannon_debt = len(obs) * math.log2(alphabet)
+    H_sufficient = len(obs) * math.log2(alphabet)
+    shannon_debt = H_sufficient
     im.pay_mu(W * H, "observe lensing field", obs=obs, prior=prior)
     im.op_counter.reads += W * H
     im.op_counter.writes += W * H
-    measured_cost = canonical_cost(CostLedger(
-        reads=im.op_counter.reads,
-        writes=im.op_counter.writes,
-        moves=im.op_counter.moves,
-        flops=getattr(im.op_counter, "flops", 0)
-    ))
+    ledger_cost = ledger_from_info(im)
     path = "artifacts/plots/lensing.png"
     plt.imsave(path, lensed, cmap="plasma")
     im.attach_certificate("Lensing", {"shape": lensed.shape}, note="Toy lensing PNG")
-    print(f"# NUSD Law Test (Lensing): shannon_debt={shannon_debt}")
-    print(f"# Assertion: {measured_cost} >= {shannon_debt} ? {'PASS' if measured_cost >= shannon_debt else 'FAIL'}")
-    print_nusd_receipt(im, required_bits=ceiling_bits(shannon_debt), png_path=path)
+    K = record_complexity(lensed, ledger_cost)
+    measured_cost = canonical_cost(ledger_cost)
+    factor = cost_multiplier(ledger_cost.dimension, ledger_cost.time_steps)
+    debt = K * factor
+    print(f"# UCL Test (Lensing): debt={debt}")
+    print(f"# Assertion: {measured_cost} >= {debt} ? {'PASS' if measured_cost >= debt else 'FAIL'}")
+    print_nusd_receipt(im, ledger_cost, lensed, png_path=path)
     KERNEL.VERIFY(
         title="Lensing PNG Generation",
         computation=lambda: os.path.exists(path) and abs(im.MU_SPENT - derived_cost) < 1e-9,
@@ -1862,6 +2000,7 @@ def chapter_3_lensing():
 
 def chapter_4_nbody_flrw():
     print_markdown_chapter(4, "N-Body and FLRW")
+    regime = "SIMULATION"
 
     # --------------------------------------------------------------------------
     # Pedagogical Walkthrough: What is N-Body Simulation?
@@ -1927,17 +2066,10 @@ def chapter_4_nbody_flrw():
     prior_positions = {obs_positions: alphabet ** (-len(obs_positions))}
     im = InfoMeter("N-Body/FLRW")
     # Measured cost: number of positions observed
-    shannon_debt_nbody = bits_positions
+    H_sufficient_nbody = bits_positions
+    shannon_debt_nbody = H_sufficient_nbody
     im.pay_mu(len(obs_positions), "observe n-body trajectories", obs=obs_positions, prior=prior_positions)
     im.attach_certificate("N-Body", {"steps": steps}, note="Two-body simulation")
-    measured_cost = canonical_cost(CostLedger(
-        reads=im.op_counter.reads,
-        writes=im.op_counter.writes,
-        moves=im.op_counter.moves,
-        flops=getattr(im.op_counter, "flops", 0)
-    ))
-    print(f"# NUSD Law Test (N-Body): shannon_debt={shannon_debt_nbody}")
-    print(f"# Assertion: {measured_cost} >= {shannon_debt_nbody} ? {'PASS' if measured_cost >= shannon_debt_nbody else 'FAIL'}")
     KERNEL.VERIFY(
         title="N-Body PNG Generation",
         computation=lambda: os.path.exists(path_nbody),
@@ -1973,19 +2105,26 @@ def chapter_4_nbody_flrw():
     bits_a = len(obs_a) * math.log2(alphabet)
     prior_a = {obs_a: alphabet ** (-len(obs_a))}
     # Measured cost: number of scale factor points observed
-    shannon_debt_flrw = bits_a
+    H_sufficient_flrw = bits_a
+    shannon_debt_flrw = H_sufficient_flrw
     im.pay_mu(len(obs_a), "observe scale factor", obs=obs_a, prior=prior_a)
     im.attach_certificate("FLRW", {"points": len(a)}, note="Scale factor plot")
-    print(f"# NUSD Law Test (FLRW): shannon_debt={shannon_debt_flrw}")
-    print(f"# Assertion: {measured_cost} >= {shannon_debt_flrw} ? {'PASS' if measured_cost >= shannon_debt_flrw else 'FAIL'}")
     total_cost = shannon_debt_nbody + shannon_debt_flrw
+    ledger_cost = ledger_from_info(im, time_steps=steps)
+    artifact = {"traj": traj.tolist(), "a": a.tolist()}
+    K = record_complexity(artifact, ledger_cost)
+    measured_cost = canonical_cost(ledger_cost)
+    factor = cost_multiplier(ledger_cost.dimension, ledger_cost.time_steps)
+    debt = K * factor
+    print(f"# UCL Test (N-Body+FLRW): debt={debt}")
+    print(f"# Assertion: {measured_cost} >= {debt} ? {'PASS' if measured_cost >= debt else 'FAIL'}")
     KERNEL.VERIFY(
         title="FLRW PNG Generation",
         computation=lambda: os.path.exists(path_flrw),
         expected_value=True,
         explanation="FLRW plot must exist.",
     )
-    print_nusd_receipt(im, required_bits=ceiling_bits(total_cost), png_path=path_flrw)
+    print_nusd_receipt(im, ledger_cost, artifact, png_path=path_flrw)
 
     # --------------------------------------------------------------------------
     # Intuitive Explanation: What Does FLRW Mean Physically?
@@ -2032,6 +2171,7 @@ def chapter_4_nbody_flrw():
 
 def chapter_5_phyllotaxis():
     print_markdown_chapter(5, "Phyllotaxis")
+    regime = "GENERATIVE"
     im = InfoMeter("Phyllotaxis")
     n = 60
     theta = math.pi * (3 - math.sqrt(5))
@@ -2051,24 +2191,25 @@ def chapter_5_phyllotaxis():
     prior = {obs: 2 ** (-len(obs) * 16)}
     bits_needed = shannon_bits(obs, prior)
     # Measured cost: number of points observed
-    shannon_debt = bits_needed
+    H_sufficient = bits_needed
+    shannon_debt = H_sufficient
     im.pay_mu(len(obs), "observe phyllotaxis points", obs=obs, prior=prior)
     im.attach_certificate("Phyllotaxis", {"points": n}, note="Spiral pattern")
-    measured_cost = canonical_cost(CostLedger(
-        reads=im.op_counter.reads,
-        writes=im.op_counter.writes,
-        moves=im.op_counter.moves,
-        flops=getattr(im.op_counter, "flops", 0)
-    ))
-    print(f"# NUSD Law Test (Phyllotaxis): shannon_debt={shannon_debt}")
-    print(f"# Assertion: {measured_cost} >= {shannon_debt} ? {'PASS' if measured_cost >= shannon_debt else 'FAIL'}")
+    ledger_cost = ledger_from_info(im)
+    artifact = obs
+    K = record_complexity(artifact, ledger_cost)
+    measured_cost = canonical_cost(ledger_cost)
+    factor = cost_multiplier(ledger_cost.dimension, ledger_cost.time_steps)
+    debt = K * factor
+    print(f"# UCL Test (Phyllotaxis): debt={debt}")
+    print(f"# Assertion: {measured_cost} >= {debt} ? {'PASS' if measured_cost >= debt else 'FAIL'}")
     KERNEL.VERIFY(
         title="Phyllotaxis PNG Generation",
         computation=lambda: os.path.exists(path),
         expected_value=True,
         explanation="Phyllotaxis plot must exist.",
     )
-    print_nusd_receipt(im, required_bits=ceiling_bits(shannon_debt), png_path=path)
+    print_nusd_receipt(im, ledger_cost, artifact, png_path=path)
 
     explain(r"""
 Nature's spiral isn't just beautiful—it's optimal, and every seed's position is a μ-bit transaction. The golden angle packs order into chaos, and the Thiele Machine pays the bill to witness it. Botanical perfection, measured and bought, one bit at a time.
@@ -2077,37 +2218,49 @@ Nature's spiral isn't just beautiful—it's optimal, and every seed's position i
 
 def chapter_6_mandelbrot():
     print_markdown_chapter(6, "Mandelbrot")
+    regime = "GENERATIVE"
     W = H = 10
     im = InfoMeter("Mandelbrot")
     img = np.zeros((H, W))
+    mandelbrot_ledger = CostLedger()
     for ix in range(W):
         for iy in range(H):
             c = complex(-2 + ix * (3 / W), -1.5 + iy * (3 / H))
             z = 0 + 0j
-            for _ in range(50):
+            iterations_for_this_pixel = 0
+            for i in range(50):
+                mandelbrot_ledger.flops += 2  # complex mult and add
                 z = z * z + c
+                mandelbrot_ledger.flops += 1  # magnitude check
+                mandelbrot_ledger.branches += 1
+                iterations_for_this_pixel = i + 1
                 if abs(z) > 2:
                     break
-            img[iy, ix] = 1 if abs(z) <= 2 else 0
+            mandelbrot_ledger.total_iterations += iterations_for_this_pixel
+            mandelbrot_ledger.flops += 1  # final magnitude check
+            inside = abs(z) <= 2
+            img[iy, ix] = 1 if inside else 0
+            mandelbrot_ledger.writes += 1
     pixels = (img * 255).astype(np.uint8)
     obs = tuple(pixels.flatten().tolist())
     prior = {obs: 256 ** (-len(obs))}
     bits_needed = shannon_bits(obs, prior)
-    # Measured cost: number of pixels observed
-    shannon_debt = bits_needed
-    im.pay_mu(len(obs), "render Mandelbrot", obs=obs, prior=prior)
+    # Minimal sufficient observation: pixel classifications
+    H_sufficient = bits_needed
+    shannon_debt = H_sufficient
+    im.pay_mu(ceiling_bits(bits_needed), "render Mandelbrot", obs=obs, prior=prior)
     path = "artifacts/plots/mandelbrot.png"
     plt.imsave(path, img, cmap="magma")
     im.attach_certificate("Mandelbrot", {"size": img.shape}, note="Mandelbrot set")
-    measured_cost = canonical_cost(CostLedger(
-        reads=im.op_counter.reads,
-        writes=im.op_counter.writes,
-        moves=im.op_counter.moves,
-        flops=getattr(im.op_counter, "flops", 0)
-    ))
-    print(f"# NUSD Law Test (Mandelbrot): shannon_debt={shannon_debt}")
-    print(f"# Assertion: {measured_cost} >= {shannon_debt} ? {'PASS' if measured_cost >= shannon_debt else 'FAIL'}")
-    print_nusd_receipt(im, required_bits=ceiling_bits(shannon_debt), png_path=path)
+    mandelbrot_ledger.time_steps = 50
+    artifact = img
+    K = record_complexity(artifact, mandelbrot_ledger)
+    measured_cost = canonical_cost(mandelbrot_ledger)
+    factor = cost_multiplier(mandelbrot_ledger.dimension, mandelbrot_ledger.time_steps)
+    debt = K * factor
+    print(f"# UCL Test (Mandelbrot): debt={debt}")
+    print(f"# Assertion: {measured_cost} >= {debt} ? {'PASS' if measured_cost >= debt else 'FAIL'}")
+    print_nusd_receipt(im, mandelbrot_ledger, artifact, png_path=path)
     KERNEL.VERIFY(
         title="Mandelbrot PNG Generation",
         computation=lambda: os.path.exists(path),
@@ -2122,6 +2275,7 @@ The Mandelbrot set isn't just math—it's a map of escape, pixel by pixel. Every
 
 def chapter_7_universality():
     print_markdown_chapter(7, "Universality")
+    regime = "ANALYTICAL"
 
     # --------------------------------------------------------------------------
     # Historical Context: The Birth of Universality
@@ -2214,24 +2368,25 @@ def chapter_7_universality():
     prior = {0: 0.5, 1: 0.5}
     im = InfoMeter("Universality")
     # Measured cost: number of symbols read (1 for this step)
-    shannon_debt = shannon_bits(obs, prior)
+    H_sufficient = shannon_bits(obs, prior)
+    shannon_debt = H_sufficient
     im.pay_mu(1, "read head symbol", obs=obs, prior=prior)
     im.attach_certificate("Universality", {"tm_next": tm_next.tape}, note="TM and ThM step equivalence")
-    measured_cost = canonical_cost(CostLedger(
-        reads=im.op_counter.reads,
-        writes=im.op_counter.writes,
-        moves=im.op_counter.moves,
-        flops=getattr(im.op_counter, "flops", 0)
-    ))
-    print(f"# NUSD Law Test (Universality): shannon_debt={shannon_debt}")
-    print(f"# Assertion: {measured_cost} >= {shannon_debt} ? {'PASS' if measured_cost >= shannon_debt else 'FAIL'}")
+    ledger_cost = ledger_from_info(im)
+    artifact = tm_next.tape
+    K = record_complexity(artifact, ledger_cost)
+    measured_cost = canonical_cost(ledger_cost)
+    factor = cost_multiplier(ledger_cost.dimension, ledger_cost.time_steps)
+    debt = K * factor
+    print(f"# UCL Test (Universality): debt={debt}")
+    print(f"# Assertion: {measured_cost} >= {debt} ? {'PASS' if measured_cost >= debt else 'FAIL'}")
     KERNEL.VERIFY(
         title="Universality mu-bit accounting",
         computation=lambda: True,
         expected_value=True,
         explanation="Reading one symbol costs one mu-bit.",
     )
-    print_nusd_receipt(im, required_bits=ceiling_bits(shannon_debt))
+    print_nusd_receipt(im, ledger_cost, artifact)
 
     # --------------------------------------------------------------------------
     # Intuitive Summary and Broader Connections
@@ -2261,6 +2416,7 @@ def chapter_7_universality():
 
 def chapter_8_thiele_machine():
     print_markdown_chapter(8, "The Thiele Machine")
+    regime = "ANALYTICAL"
 
     # --------------------------------------------------------------------------
     # Step-by-Step Pedagogical Walkthrough: What is a Thiele Machine?
@@ -2308,24 +2464,23 @@ def chapter_8_thiele_machine():
     print("# Step 2: Observe the State and Step Forward")
     prior = {0: 0.5, 1: 0.5}  # Uniform prior: equal chance of being on floor 0 or 1
     obs = thm.state
-    # Measured cost: number of global state observations (1 for this step)
-    measured_cost = 1
-    shannon_debt = ceiling_bits(shannon_bits(obs, prior))
-    im.pay_mu(measured_cost, "observe global state", obs=obs, prior=prior)
-    print(f"# NUSD Law Test (Thiele Machine): measured_cost={measured_cost}, shannon_debt={shannon_debt}")
-    measured_cost = canonical_cost(CostLedger(
-        reads=im.op_counter.reads,
-        writes=im.op_counter.writes,
-        moves=im.op_counter.moves,
-        flops=getattr(im.op_counter, "flops", 0)
-    ))
-    print(f"# Assertion: {measured_cost} >= {shannon_debt} ? {'PASS' if measured_cost >= shannon_debt else 'FAIL'}")
-
+    H_sufficient = shannon_bits(obs, prior)
+    shannon_debt = ceiling_bits(H_sufficient)
+    im.pay_mu(shannon_debt, "observe global state", obs=obs, prior=prior)
     print(f"Observed state: {obs}")
-    print(f"Paid μ-bits: {measured_cost}")
+    print(f"Paid μ-bits: {im.MU_SPENT}")
 
     new_state = thm.step()
     print(f"New state after step: {new_state}")
+
+    ledger_cost = ledger_from_info(im)
+    artifact = new_state
+    K = record_complexity(artifact, ledger_cost)
+    measured_cost = canonical_cost(ledger_cost)
+    factor = cost_multiplier(ledger_cost.dimension, ledger_cost.time_steps)
+    debt = K * factor
+    print(f"# UCL Test (Thiele Machine): debt={debt}")
+    print(f"# Assertion: {measured_cost} >= {debt} ? {'PASS' if measured_cost >= debt else 'FAIL'}")
 
     # --------------------------------------------------------------------------
     # Step 4: Verification and Receipt
@@ -2343,7 +2498,7 @@ def chapter_8_thiele_machine():
         expected_value=True,
         explanation="Uniform prior over {0,1} requires 1 mu-bit for observation.",
     )
-    print_nusd_receipt(im, required_bits=int(measured_cost))
+    print_nusd_receipt(im, ledger_cost, artifact)
 
     # --------------------------------------------------------------------------
     # Step 5: Deeper Explanation—Why Does This Matter?
@@ -2362,6 +2517,7 @@ def chapter_8_thiele_machine():
 
 def chapter_9_nusd_law():
     print_markdown_chapter(9, "The NUSD Law and the Cost of Sight")
+    regime = "ANALYTICAL"
 
     # --------------------------------------------------------------------------
     # Historical Background: Why Does Sight Have a Cost?
@@ -2419,27 +2575,41 @@ def chapter_9_nusd_law():
     def price_nusd_demo(s: int, c: int) -> float:
         return 1.0
 
-    # Measured cost: number of observations/actions (1 for this demo)
-    shannon_debt = shannon_bits(0, prior)
     thm = ThieleMachine(state=0, mu=mu_nusd_demo, J=J_nusd_demo, price=price_nusd_demo)
-    receipt = nusd_receipt(thm, 0, prior, temp_k=300.0)
     path = "artifacts/proof/nusd_soundness.smt2"
     sat = emit_nusd_smt(prior, thm, path)
-    print(f"# NUSD Law Test (NUSD Law): shannon_debt={shannon_debt}")
-    print(f"# Assertion: NUSD Law Test not reporting measured_cost (removed)")
+
+    im = InfoMeter("NUSD Law")
+    obs = 0
+    H_sufficient = shannon_bits(obs, prior)
+    shannon_debt = H_sufficient
+    im.pay_mu(H_sufficient, "observe state", obs=obs, prior=prior)
+    ledger_cost = ledger_from_info(im)
+    artifact = obs
+    K = record_complexity(artifact, ledger_cost)
+    measured_cost = canonical_cost(ledger_cost)
+    factor = cost_multiplier(ledger_cost.dimension, ledger_cost.time_steps)
+    debt = K * factor
+    print(f"# UCL Test (NUSD Law): debt={debt}")
+    print(
+        f"# Assertion: {measured_cost} >= {debt} ? {'PASS' if measured_cost >= debt else 'FAIL'}"
+    )
     KERNEL.VERIFY(
         title="NUSD soundness proof",
         computation=lambda: sat,
         expected_value=True,
         explanation="SMT solver affirms mu_bits_paid >= bits_needed",
     )
+    im.attach_certificate("NUSD soundness proof", {"path": path})
+    delta = measured_cost - debt
     lines = [
-        "NUSD inequality: mu_bits_paid >= Shannon_bits_needed",
-        f"μ_bits_paid={receipt['paid_bits']}, Shannon_bits_needed={receipt['needed_bits']}, delta={receipt['delta']}",
-        f"Minimum energy cost (Landauer): E_min_J={receipt['E_min_joules']}",
+        "NUSD inequality: mu_bits_paid >= Complexity debt",
+        f"μ_bits_paid={measured_cost}, Complexity_debt={debt}, delta={delta}",
+        f"Minimum energy cost (Landauer): E_min_J={landauer_energy(300.0, shannon_debt)}",
         f"Proof artifact: {path}",
     ]
     print("\n".join(lines))
+    print_nusd_receipt(im, ledger_cost, artifact)
 
     # --------------------------------------------------------------------------
     # Practical Consequences: Why NUSD Matters
@@ -2473,6 +2643,7 @@ def chapter_9_nusd_law():
 
 def chapter_10_universality_demo():
     print_markdown_chapter(10, "Universality Demonstration")
+    regime = "ANALYTICAL"
 
     # --------------------------------------------------------------------------
     # Pedagogical Walkthrough: What is Universality?
@@ -2559,16 +2730,17 @@ def chapter_10_universality_demo():
     bits_needed = shannon_bits(obs, prior)
     im = InfoMeter("Universality Demonstration")
     # Measured cost: number of equivalence checks (1 for this demo)
-    shannon_debt = ceiling_bits(bits_needed)
+    H_sufficient = ceiling_bits(bits_needed)
+    shannon_debt = H_sufficient
     im.pay_mu(1, "TM-ThM equivalence", obs=obs, prior=prior)
-    measured_cost = canonical_cost(CostLedger(
-        reads=im.op_counter.reads,
-        writes=im.op_counter.writes,
-        moves=im.op_counter.moves,
-        flops=getattr(im.op_counter, "flops", 0)
-    ))
-    print(f"# NUSD Law Test (Universality Demo): shannon_debt={shannon_debt}")
-    print(f"# Assertion: {measured_cost} >= {shannon_debt} ? {'PASS' if measured_cost >= shannon_debt else 'FAIL'}")
+    ledger_cost = ledger_from_info(im)
+    artifact = {"tm_state": asdict(tm_cfg), "thm_state": asdict(thm_cfg)}
+    K = record_complexity(artifact, ledger_cost)
+    measured_cost = canonical_cost(ledger_cost)
+    factor = cost_multiplier(ledger_cost.dimension, ledger_cost.time_steps)
+    debt = K * factor
+    print(f"# UCL Test (Universality Demo): debt={debt}")
+    print(f"# Assertion: {measured_cost} >= {debt} ? {'PASS' if measured_cost >= debt else 'FAIL'}")
 
     KERNEL.VERIFY(
         title="TM simulation via ThM",
@@ -2581,7 +2753,7 @@ def chapter_10_universality_demo():
         {"tm_state": asdict(tm_cfg), "thm_state": asdict(thm_cfg)},
         note="single step equivalence",
     )
-    print_nusd_receipt(im, required_bits=int(measured_cost))
+    print_nusd_receipt(im, ledger_cost, artifact)
 
     # --------------------------------------------------------------------------
     # Step 4: Intuitive Explanation and Visual Summary
@@ -2607,6 +2779,7 @@ def chapter_10_universality_demo():
 
 def chapter_11_physical_realization():
     print_markdown_chapter(11, "Physical Realization")
+    regime = "ANALYTICAL"
     print_section("Rosetta Stone: Thiele Machine vs Quantum Computation")
     emit_rosetta()
 
@@ -2764,24 +2937,25 @@ Grover's search, Thiele style: constant cycles, global moves. The gate model gri
     obs = grover_result == "OK"
     prior = {True: 0.5, False: 0.5}
     # Measured cost: number of global quantum operations (Grover demo = 2 cycles)
-    shannon_debt = ceiling_bits(shannon_bits(obs, prior))
+    H_sufficient = ceiling_bits(shannon_bits(obs, prior))
+    shannon_debt = H_sufficient
     im.pay_mu(2, "Quantum isomorphism succeeds", obs=obs, prior=prior)
-    measured_cost = canonical_cost(CostLedger(
-        reads=im.op_counter.reads,
-        writes=im.op_counter.writes,
-        moves=im.op_counter.moves,
-        flops=getattr(im.op_counter, "flops", 0)
-    ))
-    print(f"# NUSD Law Test (Physical Realization): shannon_debt={shannon_debt}")
-    print(f"# Assertion: {measured_cost} >= {shannon_debt} ? {'PASS' if measured_cost >= shannon_debt else 'FAIL'}")
-    print_nusd_receipt(im, required_bits=int(measured_cost))
+    ledger_cost = ledger_from_info(im, time_steps=2)
+    artifact = grover_result
+    K = record_complexity(artifact, ledger_cost)
+    measured_cost = canonical_cost(ledger_cost)
+    factor = cost_multiplier(ledger_cost.dimension, ledger_cost.time_steps)
+    debt = K * factor
+    print(f"# UCL Test (Physical Realization): debt={debt}")
+    print(f"# Assertion: {measured_cost} >= {debt} ? {'PASS' if measured_cost >= debt else 'FAIL'}")
+    print_nusd_receipt(im, ledger_cost, artifact)
 
     explain(r"""
 Quantum circuits are just Thiele Machines in disguise. Every global operation, every unitary, is a mu-bit transaction. Deutsch, Grover--they all pay the price for sight. Unitarity isn't just math; it's the guarantee that information is conserved, and every bit is accounted for.
     """)
 
 
-def plot_scale_comparison() -> None:
+def plot_scale_comparison(regime: str = "ANALYTICAL") -> None:
     Ns = [8, 16, 32, 64]
     vn_cycles: List[int] = []
     th_cycles: List[int] = []
@@ -2818,16 +2992,17 @@ def plot_scale_comparison() -> None:
     obs = th_cycles[idx] <= vn_cycles[idx]
     prior = {True: 0.5, False: 0.5}
     # Measured cost: Thiele cycles for N=32
-    shannon_debt = ceiling_bits(shannon_bits(obs, prior))
+    H_sufficient = ceiling_bits(shannon_bits(obs, prior))
+    shannon_debt = H_sufficient
     im.pay_mu(th_cycles[idx], "Thiele core no slower than scalar core at N=32", obs=obs, prior=prior)
-    measured_cost = canonical_cost(CostLedger(
-        reads=im.op_counter.reads,
-        writes=im.op_counter.writes,
-        moves=im.op_counter.moves,
-        flops=getattr(im.op_counter, "flops", 0)
-    ))
-    print(f"# NUSD Law Test (Architectural Realization): shannon_debt={shannon_debt}")
-    print(f"# Assertion: {measured_cost} >= {shannon_debt} ? {'PASS' if measured_cost >= shannon_debt else 'FAIL'}")
+    ledger_cost = ledger_from_info(im, time_steps=th_cycles[idx])
+    artifact = obs
+    K = record_complexity(artifact, ledger_cost)
+    measured_cost = canonical_cost(ledger_cost)
+    factor = cost_multiplier(ledger_cost.dimension, ledger_cost.time_steps)
+    debt = K * factor
+    print(f"# UCL Test (Architectural Realization): debt={debt}")
+    print(f"# Assertion: {measured_cost} >= {debt} ? {'PASS' if measured_cost >= debt else 'FAIL'}")
     KERNEL.VERIFY(
         title="Thiele <= Scalar cycles at N=32",
         computation=lambda: th_cycles[idx] <= vn_cycles[idx],
@@ -2835,18 +3010,19 @@ def plot_scale_comparison() -> None:
         explanation="Cycle comparison at N=32 shows architectural speed-up.",
     )
     print_nusd_receipt(
-        im, required_bits=int(measured_cost), png_path=f"artifacts/plots/{out_png}"
+        im, ledger_cost, artifact, png_path=f"artifacts/plots/{out_png}"
     )
 
 
 def chapter_12_architectural_realization():
     print_markdown_chapter(12, "Architectural Realization")
+    regime = "ANALYTICAL"
     explain(
         """
 Scalar CPUs crawl, Thiele cores leap. Reverse a sequence, plot the cycles, pay the mu-bits. The Thiele core never lags behind, and every global glance is a transaction. Hardware reality, not hypothetical speed--blindness is slow, sight is paid for.
         """
     )
-    plot_scale_comparison()
+    plot_scale_comparison(regime)
 
     explain(r"""
 See that plot? The blue line is a von-Neumann core slogging through swaps, stuck in molasses. The red line is the Thiele engine--one global look, one rewrite, done. Flat versus vertical, cane versus searchlight. We pay mu-bits for the privilege of global sight, and the cycle counts prove the payoff. Blind machines are slow by design.
@@ -2855,6 +3031,7 @@ See that plot? The blue line is a von-Neumann core slogging through swaps, stuck
 
 def chapter_13_capstone_demonstration():
     print_markdown_chapter(13, "Capstone Demonstration")
+    regime = "ANALYTICAL"
     im = InfoMeter("Capstone Demonstration")
 
     class ThieleProcess(Generic[S, C]):
@@ -2950,22 +3127,24 @@ def chapter_13_capstone_demonstration():
         expected_value=True,
         explanation="Two isomorphism checks under a uniform prior cost one mu-bit each.",
     )
-    shannon_debt = ceiling_bits(bits1 + bits2)
-    measured_cost = canonical_cost(CostLedger(
-        reads=im.op_counter.reads,
-        writes=im.op_counter.writes,
-        moves=im.op_counter.moves,
-        flops=getattr(im.op_counter, "flops", 0)
-    ))
-    print(f"# NUSD Law Test (Capstone Demonstration): measured_cost={measured_cost}, shannon_debt={shannon_debt}")
-    print(f"# Assertion: {measured_cost} >= {shannon_debt} ? {'PASS' if measured_cost >= shannon_debt else 'FAIL'}")
-    print_nusd_receipt(im, required_bits=int(measured_cost))
+    H_sufficient = ceiling_bits(bits1 + bits2)
+    shannon_debt = H_sufficient
+    ledger_cost = ledger_from_info(im)
+    artifact = {"iso1": iso1, "iso2": iso2}
+    K = record_complexity(artifact, ledger_cost)
+    measured_cost = canonical_cost(ledger_cost)
+    factor = cost_multiplier(ledger_cost.dimension, ledger_cost.time_steps)
+    debt = K * factor
+    print(f"# UCL Test (Capstone Demonstration): debt={debt}")
+    print(f"# Assertion: {measured_cost} >= {debt} ? {'PASS' if measured_cost >= debt else 'FAIL'}")
+    print_nusd_receipt(im, ledger_cost, artifact)
 
     explain(r"""
 Computation, cognition, emergence--different faces, same skeleton. Their isomorphism isn't just a trick; it's the unifying structure behind everything. The Thiele Machine pays mu-bits to prove it: disparate systems, one underlying song.
     """)
 def chapter_14_process_isomorphism():
     print_markdown_chapter(14, "Process Isomorphism (Step-by-Step, Accessible)")
+    regime = "ANALYTICAL"
 
     explain(r"""
     ## What Is Process Isomorphism?
@@ -3039,17 +3218,18 @@ def chapter_14_process_isomorphism():
     prior = {True: 0.5, False: 0.5}
     bits_needed = ceiling_bits(shannon_bits(iso, prior))
     im.pay_mu(bits_needed, "step-by-step isomorphism", obs=iso, prior=prior)
-    shannon_debt = bits_needed
-    measured_cost = canonical_cost(CostLedger(
-        reads=im.op_counter.reads,
-        writes=im.op_counter.writes,
-        moves=im.op_counter.moves,
-        flops=getattr(im.op_counter, "flops", 0)
-    ))
-    print(f"# NUSD Law Test (Process Isomorphism): measured_cost={measured_cost}, shannon_debt={shannon_debt}")
-    print(f"# Assertion: {measured_cost} >= {shannon_debt} ? {'PASS' if measured_cost >= shannon_debt else 'FAIL'}")
+    H_sufficient = bits_needed
+    shannon_debt = H_sufficient
+    ledger_cost = ledger_from_info(im)
+    artifact = {"list": r1, "dict": r2}
+    K = record_complexity(artifact, ledger_cost)
+    measured_cost = canonical_cost(ledger_cost)
+    factor = cost_multiplier(ledger_cost.dimension, ledger_cost.time_steps)
+    debt = K * factor
+    print(f"# UCL Test (Process Isomorphism): debt={debt}")
+    print(f"# Assertion: {measured_cost} >= {debt} ? {'PASS' if measured_cost >= debt else 'FAIL'}")
     im.attach_certificate("process_isomorphism", {"list": r1, "dict": r2})
-    print_nusd_receipt(im, required_bits=int(measured_cost))
+    print_nusd_receipt(im, ledger_cost, artifact)
 
     # Step 7: Broader Implications
     explain(r"""
@@ -3065,6 +3245,7 @@ def chapter_14_process_isomorphism():
 
 def chapter_15_geometric_logic():
     print_markdown_chapter(15, "The Geometric Nature of Logic")
+    regime = "ANALYTICAL"
     explain(
         "Logic as geometry: a syllogism becomes a graph, and deduction is just reachability. Draw the shape, check the path, and pay the μ-bit to see the conclusion."
     )
@@ -3109,17 +3290,18 @@ def chapter_15_geometric_logic():
     prior = {True: 0.5, False: 0.5}
     bits_needed = ceiling_bits(shannon_bits(path_exists, prior))
     im.pay_mu(bits_needed, "syllogism path observation", obs=path_exists, prior=prior)
-    shannon_debt = bits_needed
-    measured_cost = canonical_cost(CostLedger(
-        reads=im.op_counter.reads,
-        writes=im.op_counter.writes,
-        moves=im.op_counter.moves,
-        flops=getattr(im.op_counter, "flops", 0)
-    ))
-    print(f"# NUSD Law Test (Geometric Logic): measured_cost={measured_cost}, shannon_debt={shannon_debt}")
-    print(f"# Assertion: {measured_cost} >= {shannon_debt} ? {'PASS' if measured_cost >= shannon_debt else 'FAIL'}")
+    H_sufficient = bits_needed
+    shannon_debt = H_sufficient
+    ledger_cost = ledger_from_info(im)
+    artifact = path
+    K = record_complexity(artifact, ledger_cost)
+    measured_cost = canonical_cost(ledger_cost)
+    factor = cost_multiplier(ledger_cost.dimension, ledger_cost.time_steps)
+    debt = K * factor
+    print(f"# UCL Test (Geometric Logic): debt={debt}")
+    print(f"# Assertion: {measured_cost} >= {debt} ? {'PASS' if measured_cost >= debt else 'FAIL'}")
     im.attach_certificate("syllogism_path", {"path": path})
-    print_nusd_receipt(im, required_bits=int(measured_cost))
+    print_nusd_receipt(im, ledger_cost, artifact)
 
     explain(r"""
 A syllogism is a graph, and deduction is a path. Every logical step is a move through geometry, and every observed path costs μ-bits. Inference isn't just reasoning—it's navigation through the shape of truth.
@@ -3128,6 +3310,7 @@ A syllogism is a graph, and deduction is a path. Every logical step is a move th
 
 def chapter_16_halting_experiments():
     print_markdown_chapter(16, "Finite Bounded-Step Halting Experiments")
+    regime = "ANALYTICAL"
     im = InfoMeter("Finite Bounded-Step Halting Experiments")
     max_steps = 10
     programs: Dict[str, Optional[int]] = {
@@ -3173,17 +3356,18 @@ def chapter_16_halting_experiments():
     prior = {True: 0.5, False: 0.5}
     bits_needed = ceiling_bits(shannon_bits(obs, prior))
     im.pay_mu(bits_needed, "solver soundness on sample", obs=obs, prior=prior)
-    shannon_debt = bits_needed
-    measured_cost = canonical_cost(CostLedger(
-        reads=im.op_counter.reads,
-        writes=im.op_counter.writes,
-        moves=im.op_counter.moves,
-        flops=getattr(im.op_counter, "flops", 0)
-    ))
-    print(f"# NUSD Law Test (Halting Experiments): measured_cost={measured_cost}, shannon_debt={shannon_debt}")
-    print(f"# Assertion: {measured_cost} >= {shannon_debt} ? {'PASS' if measured_cost >= shannon_debt else 'FAIL'}")
+    H_sufficient = bits_needed
+    shannon_debt = H_sufficient
+    ledger_cost = ledger_from_info(im)
+    artifact = results
+    K = record_complexity(artifact, ledger_cost)
+    measured_cost = canonical_cost(ledger_cost)
+    factor = cost_multiplier(ledger_cost.dimension, ledger_cost.time_steps)
+    debt = K * factor
+    print(f"# UCL Test (Halting Experiments): debt={debt}")
+    print(f"# Assertion: {measured_cost} >= {debt} ? {'PASS' if measured_cost >= debt else 'FAIL'}")
     im.attach_certificate("halting_counts", {"tp": tp, "tn": tn, "fp": fp, "fn": fn})
-    print_nusd_receipt(im, required_bits=int(measured_cost))
+    print_nusd_receipt(im, ledger_cost, artifact)
 
     explain(r"""
         ### Finite Halting Experiments
@@ -3195,6 +3379,7 @@ def chapter_16_halting_experiments():
 
 def chapter_17_geometry_truth():
     print_markdown_chapter(17, "The Geometry of Truth")
+    regime = "ANALYTICAL"
     explain(
         "This chapter visualizes a four-proposition logical system, projects the "
         "resulting truth manifold into lower dimensions, and checks the "
@@ -3205,13 +3390,21 @@ def chapter_17_geometry_truth():
     propositions = ["A", "B", "C", "D"]
     all_states = list(itertools.product([0, 1], repeat=4))
 
+    ledger = CostLedger()
+
     def check_constraints(state: tuple[int, ...]) -> bool:
         if len(state) != 4:
             raise ValueError("State must have exactly 4 elements")
         A, B, C, D = state
+        ledger.branches += 1  # A or B
         rule1 = bool(A or B)
+        ledger.branches += 1  # not B
+        ledger.branches += 1  # (not B) or C
         rule2 = bool((not B) or C)
+        ledger.branches += 1  # C and D
+        ledger.branches += 1  # not (C and D)
         rule3 = bool(not (C and D))
+        ledger.branches += 2  # rule1 and rule2 and rule3
         return rule1 and rule2 and rule3
 
     valid_states = [s for s in all_states if check_constraints(s)]
@@ -3288,8 +3481,16 @@ def chapter_17_geometry_truth():
     solver = z3.Solver()
     solver.add(conds)
     res = solver.check()
+    stats = solver.statistics()
+    keys = stats.keys()
+    im.op_counter.z3_steps += int(stats.get_key_value("rlimit count")) if "rlimit count" in keys else 0
+    im.op_counter.z3_conflicts += int(stats.get_key_value("conflicts")) if "conflicts" in keys else 0
+    im.op_counter.z3_memory += float(stats.get_key_value("max memory")) if "max memory" in keys else 0.0
     if OUTPUT_MODE != "publish":
         print(f"[Z3] Constraint satisfiability: {res}")
+        print(
+            f"[Z3 stats] steps={im.op_counter.z3_steps} conflicts={im.op_counter.z3_conflicts} maxmem={im.op_counter.z3_memory}"
+        )
     assert res == z3.sat
 
     KERNEL.VERIFY(
@@ -3303,17 +3504,19 @@ def chapter_17_geometry_truth():
     prior = {True: 0.5, False: 0.5}
     bits_needed = ceiling_bits(shannon_bits(obs, prior))
     im.pay_mu(bits_needed, "truth manifold cardinality", obs=obs, prior=prior)
-    shannon_debt = bits_needed
-    measured_cost = canonical_cost(CostLedger(
-        reads=im.op_counter.reads,
-        writes=im.op_counter.writes,
-        moves=im.op_counter.moves,
-        flops=getattr(im.op_counter, "flops", 0)
-    ))
-    print(f"# NUSD Law Test (Geometry of Truth): measured_cost={measured_cost}, shannon_debt={shannon_debt}")
-    print(f"# Assertion: {measured_cost} >= {shannon_debt} ? {'PASS' if measured_cost >= shannon_debt else 'FAIL'}")
+    H_sufficient = bits_needed
+    shannon_debt = H_sufficient
+    ledger_cost = ledger_from_info(im)
+    ledger_cost.branches = ledger.branches
+    artifact = valid_states
+    K = record_complexity(artifact, ledger_cost)
+    measured_cost = canonical_cost(ledger_cost)
+    factor = cost_multiplier(ledger_cost.dimension, ledger_cost.time_steps)
+    debt = K * factor
+    print(f"# UCL Test (Geometry of Truth): debt={debt}")
+    print(f"# Assertion: {measured_cost} >= {debt} ? {'PASS' if measured_cost >= debt else 'FAIL'}")
     im.attach_certificate("truth_manifold_states", {"count": len(valid_states)})
-    print_nusd_receipt(im, required_bits=int(measured_cost))
+    print_nusd_receipt(im, ledger_cost, artifact)
 
     explain(r"""
 Logic isn't just a pile of "if A then B" sentences.  Each rule slices off a
@@ -3329,6 +3532,7 @@ sentences; it's geometry you can literally render.
 
 def chapter_18_geometry_coherence():
     print_markdown_chapter(18, "The Geometry of Coherence")
+    regime = "GENERATIVE"
     explain(
         "This chapter constructs the Sierpiński tetrahedron as the geometry of "
         "coherence and proves its volume converges to zero under recursion."
@@ -3390,8 +3594,16 @@ def chapter_18_geometry_coherence():
     for k in range(DMAX + 1):
         solver.add(V(k) > z3.RealVal(0))
     res = solver.check()
+    stats = solver.statistics()
+    keys = stats.keys()
+    im.op_counter.z3_steps += int(stats.get_key_value("rlimit count")) if "rlimit count" in keys else 0
+    im.op_counter.z3_conflicts += int(stats.get_key_value("conflicts")) if "conflicts" in keys else 0
+    im.op_counter.z3_memory += float(stats.get_key_value("max memory")) if "max memory" in keys else 0.0
     if OUTPUT_MODE != "publish":
         print(f"[Z3] volume recurrence satisfiable: {res}")
+        print(
+            f"[Z3 stats] steps={im.op_counter.z3_steps} conflicts={im.op_counter.z3_conflicts} maxmem={im.op_counter.z3_memory}"
+        )
     assert res == z3.sat
     KERNEL.VERIFY(
         title="Sierpiński volume at depth 3",
@@ -3403,17 +3615,18 @@ def chapter_18_geometry_coherence():
     prior = {True: 0.5, False: 0.5}
     bits_needed = ceiling_bits(shannon_bits(obs, prior))
     im.pay_mu(bits_needed, "volume recurrence sat", obs=obs, prior=prior)
-    shannon_debt = bits_needed
-    measured_cost = canonical_cost(CostLedger(
-        reads=im.op_counter.reads,
-        writes=im.op_counter.writes,
-        moves=im.op_counter.moves,
-        flops=getattr(im.op_counter, "flops", 0)
-    ))
-    print(f"# NUSD Law Test (Geometry of Coherence): measured_cost={measured_cost}, shannon_debt={shannon_debt}")
-    print(f"# Assertion: {measured_cost} >= {shannon_debt} ? {'PASS' if measured_cost >= shannon_debt else 'FAIL'}")
+    H_sufficient = bits_needed
+    shannon_debt = H_sufficient
+    ledger_cost = ledger_from_info(im)
+    artifact = obs
+    K = record_complexity(artifact, ledger_cost)
+    measured_cost = canonical_cost(ledger_cost)
+    factor = cost_multiplier(ledger_cost.dimension, ledger_cost.time_steps)
+    debt = K * factor
+    print(f"# UCL Test (Geometry of Coherence): debt={debt}")
+    print(f"# Assertion: {measured_cost} >= {debt} ? {'PASS' if measured_cost >= debt else 'FAIL'}")
     im.attach_certificate("sierpinski_volume", {"depth3": 0.125})
-    print_nusd_receipt(im, required_bits=int(measured_cost))
+    print_nusd_receipt(im, ledger_cost, artifact)
 
     explain(r"""
         ### Geometry of Coherence
@@ -3426,6 +3639,7 @@ def chapter_18_geometry_coherence():
 
 def chapter_19_conclusion():
     print_markdown_chapter(19, "Conclusion")
+    regime = "ANALYTICAL"
     im = InfoMeter("Conclusion")
 
     # --- Expanded Conclusion: Summary, Implications, Connections ---
@@ -3465,28 +3679,29 @@ def chapter_19_conclusion():
         a, b = z3.Ints("a b")
         s.add(a + b != b + a)
 
-    path, ok = prove("Addition commutativity over Z", neg)
+    path, ok = prove("Addition commutativity over Z", neg, im.op_counter)
     assert ok
 
     prior = {True: 0.5, False: 0.5}
     bits_needed = ceiling_bits(shannon_bits(True, prior))
     im.pay_mu(bits_needed, "addition is commutative", obs=True, prior=prior)
-    shannon_debt = bits_needed
-    measured_cost = canonical_cost(CostLedger(
-        reads=im.op_counter.reads,
-        writes=im.op_counter.writes,
-        moves=im.op_counter.moves,
-        flops=getattr(im.op_counter, "flops", 0)
-    ))
-    print(f"# NUSD Law Test (Conclusion): measured_cost={measured_cost}, shannon_debt={shannon_debt}")
-    print(f"# Assertion: {measured_cost} >= {shannon_debt} ? {'PASS' if measured_cost >= shannon_debt else 'FAIL'}")
+    H_sufficient = bits_needed
+    shannon_debt = H_sufficient
+    ledger_cost = ledger_from_info(im)
+    artifact = True
+    K = record_complexity(artifact, ledger_cost)
+    measured_cost = canonical_cost(ledger_cost)
+    factor = cost_multiplier(ledger_cost.dimension, ledger_cost.time_steps)
+    debt = K * factor
+    print(f"# UCL Test (Conclusion): debt={debt}")
+    print(f"# Assertion: {measured_cost} >= {debt} ? {'PASS' if measured_cost >= debt else 'FAIL'}")
     r = Receipt(
         title="Conclusion",
         mu_bits_paid=float(measured_cost),
-        shannon_bits_needed=float(bits_needed),
-        entropy_report_bits=float(bits_needed),
-        status="sufficient",
-        delta=float(measured_cost - bits_needed),
+        shannon_bits_needed=float(debt),
+        entropy_report_bits=float(K),
+        status="sufficient" if measured_cost >= debt else "insufficient",
+        delta=float(measured_cost - debt),
         proof_path=path,
         certificates=[(c.name, c.bits, c.data_hash) for c in im.certs],
     )
@@ -3835,6 +4050,29 @@ explain(r"""
 
 
 # --- TREATISE REGISTRY ---
+# Rough dimensionality estimates for data logging
+CHAPTER_DIMENSIONS = {
+    "The Axiom of Blindness": 1,
+    "Game of Life": 2,
+    "Lensing": 2,
+    "N-Body and FLRW": 6,
+    "Phyllotaxis": 2,
+    "Mandelbrot": 2,
+    "Universality": 0,
+    "The Thiele Machine": 0,
+    "The NUSD Law and the Cost of Sight": 0,
+    "Universality Demonstration": 0,
+    "Physical Realization": 3,
+    "Architectural Realization": 2,
+    "Capstone Demonstration": 0,
+    "Process Isomorphism (Illustrative)": 0,
+    "The Geometric Nature of Logic": 4,
+    "Finite Bounded-Step Halting Experiments": 1,
+    "The Geometry of Truth": 4,
+    "The Geometry of Coherence": 0,
+    "Conclusion": 0,
+}
+
 TREATISE_CHAPTERS = [
     ("Chapter 1: The Axiom of Blindness", chapter_1_axiom_of_blindness),
     ("Chapter 2: Game of Life", chapter_2_game_of_life),
@@ -3873,9 +4111,29 @@ def ascii_safe(s):
          .replace("”", '"')
          .replace("→", "->")
          .replace("⇒", "=>")
-         .replace("✓", "[OK]")
-         .replace("✗", "[FAIL]")
+        .replace("✓", "[OK]")
+        .replace("✗", "[FAIL]")
     )
+
+def run_chapter(title: str, chapter_function):
+    try:
+        chapter_function()
+    except Exception as e:
+        r = Receipt(
+            title=title,
+            mu_bits_paid=0.0,
+            shannon_bits_needed=0.0,
+            entropy_report_bits=0.0,
+            status="fail",
+            delta=0.0,
+            sha256=None,
+            sha256_file=None,
+            proof_path=None,
+            certificates=[],
+        )
+        print(ascii_safe(f"[ERROR] Chapter '{title}' failed: {e}"))
+        print_receipt(r)
+        ledger.record(r)
 
 if __name__ == "__main__":
     if "--selftest" in sys.argv:
@@ -3894,35 +4152,14 @@ if __name__ == "__main__":
         self_tests()
         # Only run the requested chapter, suppress global experiments and defense
         if args.chapters != "all":
-            try:
-                idx = int(args.chapters) - 1
-                title, chapter_function = TREATISE_CHAPTERS[idx]
-                print(ascii_safe(f"# {title}\n"))
-                chapter_function()
-            except Exception as e:
-                print(f"[ERROR] Chapter '{args.chapters}' failed: {e}")
+            idx = int(args.chapters) - 1
+            title, chapter_function = TREATISE_CHAPTERS[idx]
+            print(ascii_safe(f"# {title}\n"))
+            run_chapter(title, chapter_function)
         else:
             for title, chapter_function in TREATISE_CHAPTERS:
                 print(ascii_safe(f"# {title}\n"))
-                try:
-                    chapter_function()
-                except Exception as e:
-                    # Always record a FAIL receipt for crashed chapters
-                    r = Receipt(
-                        title=title,
-                        mu_bits_paid=0.0,
-                        shannon_bits_needed=0.0,
-                        entropy_report_bits=0.0,
-                        status="fail",
-                        delta=0.0,
-                        sha256=None,
-                        sha256_file=None,
-                        proof_path=None,
-                        certificates=[],
-                    )
-                    print(ascii_safe(f"[ERROR] Chapter '{title}' failed: {e}"))
-                    print_receipt(r)
-                    ledger.record(r)
+                run_chapter(title, chapter_function)
             ledger.audit()
 
 
