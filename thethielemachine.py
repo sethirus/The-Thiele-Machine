@@ -94,7 +94,7 @@ from sympy import Rational
 from contextlib import contextmanager
 from dataclasses import dataclass, field, asdict
 from typing import Any, Callable, Dict, Generic, List, Optional, Tuple, TypeVar
-from z3 import *
+from z3 import Solver, RealVal, sat, unsat, Int, IntVal, BoolVal, Bools, Function, And, Or, Not
 
 kT = 4.14e-21  # Joule at room temperature
 ENERGY_JOULES = 0.0
@@ -397,7 +397,7 @@ class ProofKernel:
         self.proofs_passed = 0
         self.proofs_failed = 0
 
-    def VERIFY(self, title: str, computation: callable, expected_value: Any, explanation: str):
+    def VERIFY(self, title: str, computation: Callable[[], Any], expected_value: Any, explanation: str):
         self.proof_count += 1
         computed_value = computation()
         is_correct = computed_value == expected_value
@@ -709,10 +709,13 @@ def encode_lts_as_thm(
     def mu(s: str) -> List[str]:
         return [a for a in alphabet if (s, a) in delta]
 
-    def J(s: str, a: str) -> str:
-        return delta.get((s, a), s)
+    def J(s: str, a: List[str]) -> str:
+        # Use the first available action if present, else stay in the same state
+        if a:
+            return delta.get((s, a[0]), s)
+        return s
 
-    def price(s: str, a: str) -> float:
+    def price(s: str, a: List[str]) -> float:
         return 0.0
 
     return ThieleMachine(state=states[0], mu=mu, J=J, price=price)
@@ -1197,7 +1200,7 @@ def _test_receipt_schema():
     assert required.issubset(rec.keys())
     assert rec["status"] in ("sufficient", "insufficient")
     assert isinstance(rec["sha256"], dict)
-    assert (rec["mu_bits_paid"] >= rec["bits_needed"]) == (rec["status"] == "sufficient")
+    assert (int(rec["mu_bits_paid"]) >= int(rec["bits_needed"])) == (rec["status"] == "sufficient")
 
 
 @_register("nusd_soundness_smt")
@@ -1280,7 +1283,7 @@ def _test_rev_writes():
     assert (
         rec["status"] == "sufficient"
         and out == [5, 4, 3, 2, 1]
-        and rec["writes"] >= len(tape) // 2
+        and int(rec["writes"]) >= len(tape) // 2
     ), (
         f"reverse_writes failed: status={rec['status']}, out={out}, writes={rec['writes']}"
     )
@@ -1394,24 +1397,88 @@ def _test_nusd_internal_prior():
 
 def chapter_1_axiom_of_blindness():
     print_markdown_chapter(1, "The Axiom of Blindness")
+
+    # --------------------------------------------------------------------------
+    # Background Context: What is "Blindness" in Computation?
+    # --------------------------------------------------------------------------
+    # Imagine two machines tasked with reversing a list:
+    # - The Turing Machine (TM): Like a person with a blindfold, it can only feel one item at a time.
+    # - The Thiele Machine (ThM): Like someone with perfect vision, it sees the whole list in one glance.
+    #
+    # Real-world analogy:
+    #   TM: A blindfolded person with a cane, shuffling step by step.
+    #   ThM: A person flicking on the lights, instantly seeing everything.
+    #
+    # Diagram:
+    #   Turing Machine (Blindfolded):
+    #   [X]--[ ]--[ ]--[ ]--[ ]   (can only "see" one cell)
+    #   ^
+    #   Head position
+    #
+    #   Thiele Machine (Global Sight):
+    #   [1][2][3][4][5]   (sees all cells at once)
+    #
+    # --------------------------------------------------------------------------
+    # Pedagogical Walkthrough: The List Reversal Problem
+    # --------------------------------------------------------------------------
     tape = [1, 2, 3, 4, 5]
-    out, stats = thm_reverse(tape)
+    print("# Step 1: The Problem")
     print(f"Input Tape: {tape}")
+
+    # The TM must move back and forth, swapping elements one by one.
+    # The ThM simply observes the entire tape and writes the reversed result in one step.
+    out, stats = thm_reverse(tape)
+    print("# Step 2: The Thiele Machine Solution")
     print(f"Reversed Tape: {out}")
 
+    # --------------------------------------------------------------------------
+    # Intuitive Explanation: The Cost of Sight (μ-bits)
+    # --------------------------------------------------------------------------
+    # In information theory, seeing more costs more.
+    # The μ-bit is the currency of observation: the minimum number of bits you must "pay"
+    # to distinguish one arrangement from all possible arrangements.
+    #
+    # For a tape of n items, there are n! possible permutations.
+    # To uniquely identify one, you need log₂(n!) bits.
+    #
+    # Diagram:
+    #   Number of possible arrangements: n!
+    #   Information needed: log₂(n!)
+    #
+    #   Example for n=5:
+    #   - 5! = 120 possible orders
+    #   - log₂(120) ≈ 6.9 bits
+    #
     def log_factorial(n):
-        # Use Stirling's approximation via lgamma for log(n!) to avoid large number overflows
-        # This is the standard, numerically stable way to compute this.
+        # Numerically stable computation for log₂(n!)
         return math.lgamma(n + 1) / math.log(2)
 
     n = len(tape)
-    # This is the Gold Standard: the true Shannon cost for observing one specific
-    # permutation when all n! permutations are equally likely.
     bits_needed = log_factorial(n)
+
+    # --------------------------------------------------------------------------
+    # Explicit Connection: Physics, Computation, and Information
+    # --------------------------------------------------------------------------
+    # The μ-bit cost is not just a mathematical curiosity.
+    # It connects to the physical cost of computation (Landauer's principle):
+    # Every bit of information processed has a minimum energy cost.
+    #
+    # In this chapter, the Thiele Machine pays exactly the Shannon cost to "see" the whole tape.
+    # The Turing Machine, by contrast, pays in time—many steps, many moves.
+    #
+    # ASCII Diagram (as comment):
+    #   +-------------------+         +-------------------+
+    #   | Turing Machine    |         | Thiele Machine    |
+    #   +-------------------+         +-------------------+
+    #   | Blindfolded       |         | Global Sight      |
+    #   | Step-by-step      |         | Instantaneous     |
+    #   | Quadratic time    |         | Linear time       |
+    #   | Pays in time      |         | Pays in μ-bits    |
+    #   +-------------------+         +-------------------+
 
     r = Receipt(
         title="The Axiom of Blindness",
-        mu_bits_paid=bits_needed, # We assert that the ThM pays exactly what is needed.
+        mu_bits_paid=bits_needed,  # ThM pays exactly what is needed.
         shannon_bits_needed=bits_needed,
         entropy_report_bits=bits_needed,
         status="sufficient",
@@ -1421,33 +1488,120 @@ def chapter_1_axiom_of_blindness():
         proof_path=None,
         certificates=[],
     )
-    
-    # Verify the core invariants before printing the receipt.
+
+    # --------------------------------------------------------------------------
+    # Verification: Auditing the Cost
+    # --------------------------------------------------------------------------
     invariant_paid_ge_needed(r.title, r.mu_bits_paid, r.shannon_bits_needed)
     assert_entropy_close(r.shannon_bits_needed, r.entropy_report_bits)
-
     ledger.spend_certs(r.certificates)
     print_receipt(r)
     ledger.record(r)
 
+    # --------------------------------------------------------------------------
+    # Intuitive Summary and Broader Connections
+    # --------------------------------------------------------------------------
     explain(r"""
-This is the whole thesis in a stupid little fucking list reversal.  The Turing Machine is
-    the blind idiot here, tapping its way down the tape like a drunk with a white
-cane.  Every swap means a pilgrimage from one end to the other and back again.
+    # The Axiom of Blindness: Why Sight Has a Price
 
-The Thiele Machine cheats.  It just looks.  One shot, pays the μ-bit bill, and
-writes the answer in a single breath.  You can almost hear the TM wheezing while
-the ThM flicks the light switch and strolls out of the room.
+    Imagine reversing a list as a metaphor for knowledge:
+    - The Turing Machine is like a blindfolded traveler, feeling each step, slow and methodical.
+    - The Thiele Machine is like a searchlight—one glance, total understanding, but you must pay the full price in μ-bits.
 
-Of course the light isn't free.  Those μ-bits in the receipt are the electric
-bill—the exact Shannon cost, `log₂(n!)`, to distinguish one permutation from all
-others.  For the price of seeing the whole tape at once we cut the time cost from
-quadratic busywork to a straight line.  Welcome to global sight.
+    The μ-bits in the receipt are the "electric bill" for global sight—the exact Shannon cost, log₂(n!), to distinguish one permutation from all others.
+    For the privilege of seeing the whole tape at once, we trade time for information cost.
+
+    This is the price of omniscience, paid in bits. If you don't pay, you don't get to see.
+
+    ## Real-World Connection
+
+    In physics, every bit of erased information costs energy (Landauer's principle).
+    In computation, every shortcut to global sight must be paid for in μ-bits.
+    The Thiele Machine models this trade-off: time, energy, and information are all currencies in the ledger of truth.
+
+    ## Visual Aid (ASCII)
+
+    Turing Machine (Blindfolded):
+        [X]--[ ]--[ ]--[ ]--[ ]   (can only "see" one cell at a time)
+
+    Thiele Machine (Global Sight):
+        [1][2][3][4][5]   (sees all cells at once)
+
+    ## Key Takeaway
+
+    Blindness is slow, sight is expensive, and every act of observation is a transaction in the currency of information.
     """)
 
 
 def chapter_2_game_of_life():
     print_markdown_chapter(2, "Game of Life")
+
+    # --------------------------------------------------------------------------
+    # Background Context: What is the Game of Life?
+    # --------------------------------------------------------------------------
+    # Conway's Game of Life is a cellular automaton—a simple mathematical model
+    # where each cell on a grid is either alive or dead, and evolves based on its neighbors.
+    #
+    # Real-world analogy:
+    #   Imagine a city at night, where each window is a cell: lit (alive) or dark (dead).
+    #   The pattern of lights changes as people move, sleep, or wake.
+    #
+    # Diagram (ASCII):
+    #   Initial grid:
+    #   +-----+-----+-----+-----+-----+
+    #   |     |     |  █  |     |     |
+    #   +-----+-----+-----+-----+-----+
+    #   |  █  |     |  █  |     |     |
+    #   +-----+-----+-----+-----+-----+
+    #   |     |  █  |  █  |     |     |
+    #   +-----+-----+-----+-----+-----+
+    #   |     |     |     |     |     |
+    #   +-----+-----+-----+-----+-----+
+    #   |     |     |     |     |     |
+    #   +-----+-----+-----+-----+-----+
+    #
+    # Each cell "looks" at its 8 neighbors to decide its fate.
+    #
+    # --------------------------------------------------------------------------
+    # Pedagogical Walkthrough: The Rules
+    # --------------------------------------------------------------------------
+    # For each cell:
+    #   - If alive: survives with 2 or 3 live neighbors, else dies.
+    #   - If dead: becomes alive with exactly 3 live neighbors.
+    #
+    # This simple rule creates complex, emergent patterns—like life itself.
+    #
+    # --------------------------------------------------------------------------
+    # Intuitive Explanation: μ-bits and the Cost of Observation
+    # --------------------------------------------------------------------------
+    # In this chapter, every time a cell checks its neighbors, it "spends" μ-bits.
+    # μ-bits are the currency of observation: each bit lets you distinguish one
+    # possible neighbor configuration from another.
+    #
+    # For a 5x5 grid, each cell has 8 neighbors, each neighbor is binary (alive/dead).
+    # To observe all neighbors for all cells over several steps is costly in μ-bits.
+    #
+    # --------------------------------------------------------------------------
+    # Explicit Connection: Computation, Physics, and Information
+    # --------------------------------------------------------------------------
+    # The Game of Life is not just a toy—it's a microcosm of computation and physics.
+    # Each observation (neighbor check) is a transaction in the ledger of information.
+    # The sum of μ-bits spent is the true cost of seeing the evolving pattern.
+    #
+    # Diagram (as comment):
+    #   +---------------------+
+    #   | Cell (i, j)         |
+    #   +---------------------+
+    #   | Neighbors: 8 cells  |
+    #   | Each check: 1 μ-bit |
+    #   +---------------------+
+    #
+    #   Total μ-bits per step: 5x5x8 = 200 (for all neighbor checks)
+    #
+    # --------------------------------------------------------------------------
+    # Step-by-Step Simulation
+    # --------------------------------------------------------------------------
+
     grid = [
         [0, 0, 1, 0, 0],
         [1, 0, 1, 0, 0],
@@ -1461,6 +1615,7 @@ def chapter_2_game_of_life():
     total_bits = 0
 
     def count_neighbors(g, x, y, obs_bits):
+        # For cell (x, y), count live neighbors and record each observation.
         cnt = 0
         for dx in [-1, 0, 1]:
             for dy in [-1, 0, 1]:
@@ -1469,12 +1624,13 @@ def chapter_2_game_of_life():
                 nx, ny = x + dx, y + dy
                 if 0 <= nx < 5 and 0 <= ny < 5:
                     val = g[nx][ny]
-                    obs_bits.append(val)
+                    obs_bits.append(val)  # Each neighbor check is a μ-bit spent.
                     cnt += val
         return cnt
 
     for step in range(steps):
         print(f"Step {step}:")
+        # Visualize the grid (█ = alive, ' ' = dead)
         for row in grid:
             print("".join("█" if c else " " for c in row))
         obs_bits: List[int] = []
@@ -1482,7 +1638,7 @@ def chapter_2_game_of_life():
         for i in range(5):
             for j in range(5):
                 n = count_neighbors(grid, i, j, obs_bits)
-                ctr.reads += 8
+                ctr.reads += 8  # 8 neighbor checks per cell
                 if grid[i][j]:
                     next_grid[i][j] = 1 if n in (2, 3) else 0
                 else:
@@ -1498,25 +1654,79 @@ def chapter_2_game_of_life():
     for row in grid:
         print("".join("█" if c else " " for c in row))
 
-    # Cost rule: observing n binary neighbor states costs n·log₂(2)=n μ-bits.
+    # --------------------------------------------------------------------------
+    # Cost Calculation: μ-bits for Observation
+    # --------------------------------------------------------------------------
+    # Observing n binary neighbor states costs n·log₂(2) = n μ-bits.
     alphabet = 2
     derived_cost = total_bits * math.log2(alphabet)
     assert abs(im.MU_SPENT - derived_cost) < 1e-9
-    print_nusd_receipt(im, required_bits=derived_cost)
+    print_nusd_receipt(im, required_bits=ceiling_bits(derived_cost))
 
+    # --------------------------------------------------------------------------
+    # Intuitive Summary and Broader Connections
+    # --------------------------------------------------------------------------
     explain(r"""
-This is cellular automata as a ledger. Every neighbor check is a μ-bit spent—no free glances, no magic. The cost of seeing each cell adds up, and the global pattern is just the sum of local payments. Complexity isn't free; it's paid for in bits, one neighbor at a time.
+    # The Game of Life: Every Glance Has a Price
+
+    Imagine watching a city from above, each window flickering on or off.
+    Every time you check a window, you pay a μ-bit. The pattern of life
+    emerges not for free, but as the sum of all these tiny payments.
+
+    In computation, complexity is built from simple rules, but every
+    observation—every neighbor check—is a transaction in the currency of
+    information. The global pattern is just the sum of local costs.
+
+    ## Visual Aid (ASCII)
+
+    Cell (i, j) and its neighbors:
+        [ ][ ][ ]
+        [ ][X][ ]
+        [ ][ ][ ]
+
+    Each [ ] is a neighbor; X is the cell itself.
+
+    ## Key Takeaway
+
+    Complexity isn't free; it's paid for in μ-bits, one neighbor at a time.
+    Cellular automata are a microcosm of physics, computation, and the
+    economics of sight.
     """)
 
 
 def chapter_3_lensing():
     print_markdown_chapter(3, "Lensing")
+
+    # --------------------------------------------------------------------------
+    # Background Context: What is Lensing?
+    # --------------------------------------------------------------------------
+    # Gravitational lensing is a phenomenon where massive objects (like galaxies)
+    # bend the path of light, distorting the images of objects behind them.
+    # Imagine looking through a glass marble: the world behind it appears warped.
+    #
+    # Real-world analogy:
+    #   - Think of a funhouse mirror at a carnival. The mirror bends light, so your
+    #     reflection is stretched and squished. Gravity does the same to starlight.
+    #
+    # Diagram (ASCII):
+    #   Observer <--light-- [Galaxy] --bends--> [Distant Star]
+    #   Light rays curve around the galaxy, creating arcs and rings.
+    #
+    #   [Observer]---( )---[Galaxy]---< )---[Star]
+    #   The ( ) represents the gravitational lens.
+
+    # --------------------------------------------------------------------------
+    # Pedagogical Walkthrough: Simulating Lensing
+    # --------------------------------------------------------------------------
+    # We'll create a simple "lensing field"—a grid of pixels, each representing
+    # the brightness of light after being bent by gravity.
     W = H = 10
     im = InfoMeter("Lensing")
     x = np.linspace(-1, 1, W)
     y = np.linspace(-1, 1, H)
     X, Y = np.meshgrid(x, y)
     r = np.sqrt(X**2 + Y**2)
+    # The deflection formula mimics how gravity bends light: stronger near the center.
     deflection = 0.1 / (r + 0.05)
     lensed = np.exp(-((X - deflection) ** 2 + Y**2) * 8)
     pixels = (lensed * 255).astype(np.uint8)
@@ -1524,14 +1734,53 @@ def chapter_3_lensing():
     alphabet = 256
     prior = {obs: alphabet ** (-len(obs))}
     derived_cost = len(obs) * math.log2(alphabet)
-    im.pay_mu(derived_cost, "observe lensing field", obs=obs, prior=prior)
+
+    # --------------------------------------------------------------------------
+    # Intuitive Explanation: μ-bits and the Cost of Seeing
+    # --------------------------------------------------------------------------
+    # Every pixel you observe is a transaction: you pay a μ-bit for each.
+    # Why? Because to distinguish one possible image from all others, you need
+    # enough information to specify every pixel's value.
+    #
+    # For a 10x10 grid with 256 possible brightness levels per pixel:
+    #   - Number of possible images: 256^(100)
+    #   - Information needed: 100 * log₂(256) = 800 μ-bits
+    #
+    # Diagram (ASCII):
+    #   +---------------------+
+    #   | 10x10 Pixel Grid    |
+    #   +---------------------+
+    #   | Each pixel: 0-255   |
+    #   | Total μ-bits: 800   |
+    #   +---------------------+
+
+    # --------------------------------------------------------------------------
+    # Explicit Connection: Physics, Computation, and Information
+    # --------------------------------------------------------------------------
+    # In physics, observing more detail costs more energy (Landauer's principle).
+    # In computation, every pixel you "see" is paid for in μ-bits—the currency of
+    # information. The Thiele Machine models this: it doesn't just simulate lensing,
+    # it pays the bill for every photon observed.
+    #
+    # ASCII Diagram:
+    #   +-------------------+         +-------------------+
+    #   | Unlensed Field    |         | Lensed Field      |
+    #   +-------------------+         +-------------------+
+    #   | Flat grid         |         | Warped grid       |
+    #   | No cost           |         | μ-bits paid       |
+    #   +-------------------+         +-------------------+
+
+    # --------------------------------------------------------------------------
+    # Step-by-Step Simulation
+    # --------------------------------------------------------------------------
+    im.pay_mu(ceiling_bits(derived_cost), "observe lensing field", obs=obs, prior=prior)
     im.op_counter.reads += W * H
     im.op_counter.writes += W * H
     path = "artifacts/plots/lensing.png"
     plt.imsave(path, lensed, cmap="plasma")
     im.attach_certificate("Lensing", {"shape": lensed.shape}, note="Toy lensing PNG")
     assert abs(im.MU_SPENT - derived_cost) < 1e-9
-    print_nusd_receipt(im, required_bits=derived_cost, png_path=path)
+    print_nusd_receipt(im, required_bits=ceiling_bits(derived_cost), png_path=path)
     KERNEL.VERIFY(
         title="Lensing PNG Generation",
         computation=lambda: os.path.exists(path) and abs(im.MU_SPENT - derived_cost) < 1e-9,
@@ -1539,39 +1788,107 @@ def chapter_3_lensing():
         explanation="The lensing demonstration must generate a PNG and pay the correct mu-bits.",
     )
 
+    # --------------------------------------------------------------------------
+    # Intuitive Summary and Broader Connections
+    # --------------------------------------------------------------------------
     explain(r"""
-The lens bends the grid, and every pixel you see costs a μ-bit. The field isn't just pretty—it's a bill for every photon you catch. The Thiele Machine doesn't just simulate gravity; it pays for every glimpse, grounding the cosmic mirage in hard information currency.
+    # Lensing: Paying for Every Photon
+
+    Imagine the universe as a cosmic funhouse, where gravity is the mirror that bends light. To see the beautiful arcs and rings of gravitational lensing, you must pay μ-bits for every pixel you observe. The Thiele Machine doesn't just draw the picture—it pays the bill for every glimpse, just as a physicist pays energy to measure photons.
+
+    ## Real-World Connection
+
+    In astronomy, lensing lets us see distant galaxies magnified and distorted. But every observation has a cost: the more detail you want, the more μ-bits you must spend. This is the price of cosmic vision.
+
+    ## Visual Aid (ASCII)
+
+    Unlensed Grid:
+        [ ][ ][ ][ ][ ]
+        [ ][ ][ ][ ][ ]
+        [ ][ ][ ][ ][ ]
+        [ ][ ][ ][ ][ ]
+        [ ][ ][ ][ ][ ]
+
+    Lensed Grid (warped):
+        [~][~][~][~][~]
+        [~][*][*][~][~]
+        [~][*][@][*][~]
+        [~][*][*][~][~]
+        [~][~][~][~][~]
+
+    ## Key Takeaway
+
+    Every act of seeing—whether a star, a pixel, or a field—is a transaction in the currency of information. The Thiele Machine makes this explicit: to witness the universe's beauty, you must pay the price in μ-bits.
     """)
 
 
 def chapter_4_nbody_flrw():
     print_markdown_chapter(4, "N-Body and FLRW")
-    im = InfoMeter("N-Body/FLRW")
-    dt = 0.01
-    steps = 10
+
+    # --------------------------------------------------------------------------
+    # Pedagogical Walkthrough: What is N-Body Simulation?
+    # --------------------------------------------------------------------------
+    # The N-body problem asks: "How do multiple objects move under their mutual gravity?"
+    # In physics, this is famously hard—every body pulls on every other, and the math quickly gets messy.
+    # For two bodies, we can solve it exactly (think planets orbiting a star).
+    # For three or more, chaos reigns: the system can be unpredictable, and we need computers to simulate it.
+
+    # Let's simulate two bodies interacting via Newton's law of gravity.
+    # We'll track their positions and velocities over time.
+
+    dt = 0.01  # Time step (how much time passes between each calculation)
+    steps = 10  # Number of steps to simulate
+
+    # Initial positions (x, y) and velocities (vx, vy)
     pos = np.array([[0.0, 0.0], [1.0, 0.0]])
     vel = np.array([[0.0, 0.0], [0.0, 0.1]])
     traj = [pos.copy()]
+
+    # Step-by-step simulation
     for _ in range(steps):
-        r = pos[1] - pos[0]
+        r = pos[1] - pos[0]  # Vector from body 0 to body 1
         dist = np.linalg.norm(r)
-        force = r / dist**3
-        vel[0] += force * dt
-        vel[1] -= force * dt
-        pos = pos + vel * dt
+        # Newton's law: F = G * m1 * m2 / r^2, but here G and masses are set to 1 for simplicity
+        force = r / dist**3  # Directional force, normalized
+        vel[0] += force * dt  # Body 0 feels the force
+        vel[1] -= force * dt  # Body 1 feels the opposite force
+        pos = pos + vel * dt  # Update positions
         traj.append(pos.copy())
     traj = np.array(traj)
+
+    # --------------------------------------------------------------------------
+    # Intuitive Explanation: What Are We Seeing?
+    # --------------------------------------------------------------------------
+    # Imagine two ice skaters pushing off each other on a frictionless rink.
+    # Their paths curve and spiral, tracing the invisible lines of gravity.
+    # This simulation shows how gravity choreographs a cosmic dance.
+
+    # --------------------------------------------------------------------------
+    # Physical Meaning: Why Does Observation Cost μ-bits?
+    # --------------------------------------------------------------------------
+    # Every position we record is a choice among many possibilities.
+    # To "see" the entire trajectory, we must pay μ-bits—the currency of information.
+    # The more detail we want (more steps, more precision), the higher the cost.
+
+    # --------------------------------------------------------------------------
+    # Visualization: Plotting the Trajectories
+    # --------------------------------------------------------------------------
     path_nbody = "artifacts/plots/nbody.png"
-    plt.plot(traj[:, 0, 0], traj[:, 0, 1], label="Body1")
-    plt.plot(traj[:, 1, 0], traj[:, 1, 1], label="Body2")
+    plt.plot(traj[:, 0, 0], traj[:, 0, 1], label="Body 1")
+    plt.plot(traj[:, 1, 0], traj[:, 1, 1], label="Body 2")
     plt.legend()
+    plt.title("Two-Body Gravitational Trajectories")
+    plt.xlabel("x")
+    plt.ylabel("y")
     plt.savefig(path_nbody)
     plt.close()
+
     obs_positions = tuple(traj.flatten().tolist())
     alphabet = 256
     bits_positions = len(obs_positions) * math.log2(alphabet)
     prior_positions = {obs_positions: alphabet ** (-len(obs_positions))}
-    im.pay_mu(bits_positions, "observe n-body trajectories", obs=obs_positions, prior=prior_positions)
+    im = InfoMeter("N-Body/FLRW")
+    im.pay_mu(ceiling_bits(bits_positions), "observe n-body trajectories", obs=obs_positions, prior=prior_positions)
     im.attach_certificate("N-Body", {"steps": steps}, note="Two-body simulation")
     KERNEL.VERIFY(
         title="N-Body PNG Generation",
@@ -1579,18 +1896,35 @@ def chapter_4_nbody_flrw():
         expected_value=True,
         explanation="N-body plot must exist and mu-bits match.",
     )
-    t = np.linspace(1, 10, 100)
-    a = t ** (2 / 3)
+
+    # --------------------------------------------------------------------------
+    # FLRW Cosmology: The Expanding Universe
+    # --------------------------------------------------------------------------
+    # The FLRW model (Friedmann–Lemaître–Robertson–Walker) describes how the universe expands.
+    # It assumes the universe is homogeneous (looks the same everywhere) and isotropic (looks the same in every direction).
+    # The key quantity is the "scale factor" a(t), which tells us how distances between galaxies grow over time.
+
+    # The simplest FLRW equation (for a matter-dominated universe) is:
+    #   a(t) ∝ t^(2/3)
+    # This means the universe's size grows as the two-thirds power of time.
+
+    # Let's plot this scale factor.
+
+    t = np.linspace(1, 10, 100)  # Time from 1 to 10 (arbitrary units)
+    a = t ** (2 / 3)             # Scale factor over time
+
     path_flrw = "artifacts/plots/flrw.png"
     plt.plot(t, a)
-    plt.xlabel("t")
-    plt.ylabel("a(t)")
+    plt.xlabel("Cosmic Time (t)")
+    plt.ylabel("Scale Factor a(t)")
+    plt.title("FLRW Cosmology: Expansion of the Universe")
     plt.savefig(path_flrw)
     plt.close()
+
     obs_a = tuple(a.tolist())
     bits_a = len(obs_a) * math.log2(alphabet)
     prior_a = {obs_a: alphabet ** (-len(obs_a))}
-    im.pay_mu(bits_a, "observe scale factor", obs=obs_a, prior=prior_a)
+    im.pay_mu(ceiling_bits(bits_a), "observe scale factor", obs=obs_a, prior=prior_a)
     im.attach_certificate("FLRW", {"points": len(a)}, note="Scale factor plot")
     total_cost = bits_positions + bits_a
     KERNEL.VERIFY(
@@ -1600,10 +1934,48 @@ def chapter_4_nbody_flrw():
         explanation="FLRW plot must exist and mu-bits match.",
     )
     assert abs(im.MU_SPENT - total_cost) < 1e-9
-    print_nusd_receipt(im, required_bits=total_cost, png_path=path_flrw)
+    print_nusd_receipt(im, required_bits=ceiling_bits(total_cost), png_path=path_flrw)
 
+    # --------------------------------------------------------------------------
+    # Intuitive Explanation: What Does FLRW Mean Physically?
+    # --------------------------------------------------------------------------
+    # The FLRW model is the backbone of modern cosmology.
+    # It tells us how the universe evolves, from the Big Bang to today.
+    # The scale factor a(t) is like a ruler that stretches as the universe grows.
+    # When you look at distant galaxies, their light is redshifted—stretched by the expanding space.
+
+    # --------------------------------------------------------------------------
+    # Physical Meaning: μ-bits and the Cost of Cosmic Sight
+    # --------------------------------------------------------------------------
+    # To observe the universe's expansion, we must pay μ-bits for every measurement of a(t).
+    # The more finely we resolve the curve, the more information we need.
+    # In this simulation, every plotted point is a transaction in the currency of sight.
+
+    # --------------------------------------------------------------------------
+    # Intuitive Summary and Broader Connections
+    # --------------------------------------------------------------------------
     explain(r"""
-Gravity and expansion, local and cosmic, all paid for in μ-bits. Watching two bodies dance or the universe stretch, the cost is the same: every position, every scale factor, logged and paid. The ledger ties the smallest orbit to the biggest bang—sight is the only universal currency.
+    # N-Body and FLRW: From Local Gravity to Cosmic Expansion
+
+    Imagine watching two stars orbit each other—a tiny drama of gravity. Now zoom out: the entire universe is expanding, galaxies drifting apart as space itself stretches.
+
+    The N-body simulation shows how gravity shapes motion on small scales. The FLRW model shows how the universe evolves on the largest scales. Both are united by the cost of observation: every position, every scale factor, every cosmic measurement is paid for in μ-bits.
+
+    **Key Concepts:**
+    - N-body: Local gravitational interactions, chaotic and beautiful.
+    - FLRW: The universe's global expansion, governed by simple laws.
+    - μ-bits: The price of seeing, whether it's a star's orbit or the universe's growth.
+
+    **Physical Meaning:**
+    - In physics, information is never free. Every act of measurement—whether tracking a planet or mapping the cosmos—requires payment in μ-bits.
+    - The Thiele Machine models this: it keeps a ledger of every observation, from the smallest orbit to the biggest bang.
+
+    **Visual Aids:**
+    - N-body plot: The dance of two bodies under gravity.
+    - FLRW plot: The universe's scale factor growing over time.
+
+    **Takeaway:**
+    - Sight is the universal currency. Whether you watch a star or the cosmos, the bill is paid in μ-bits.
     """)
 
 
@@ -1627,7 +1999,7 @@ def chapter_5_phyllotaxis():
     obs = tuple(zip(x, y))
     prior = {obs: 2 ** (-len(obs) * 16)}
     bits_needed = shannon_bits(obs, prior)
-    im.pay_mu(bits_needed, "observe phyllotaxis points", obs=obs, prior=prior)
+    im.pay_mu(ceiling_bits(bits_needed), "observe phyllotaxis points", obs=obs, prior=prior)
     im.attach_certificate("Phyllotaxis", {"points": n}, note="Spiral pattern")
     KERNEL.VERIFY(
         title="Phyllotaxis PNG Generation",
@@ -1660,7 +2032,7 @@ def chapter_6_mandelbrot():
     obs = tuple(pixels.flatten().tolist())
     prior = {obs: 256 ** (-len(obs))}
     bits_needed = shannon_bits(obs, prior)
-    im.pay_mu(bits_needed, "render Mandelbrot", obs=obs, prior=prior)
+    im.pay_mu(ceiling_bits(bits_needed), "render Mandelbrot", obs=obs, prior=prior)
     path = "artifacts/plots/mandelbrot.png"
     plt.imsave(path, img, cmap="magma")
     im.attach_certificate("Mandelbrot", {"size": img.shape}, note="Mandelbrot set")
@@ -1679,6 +2051,59 @@ The Mandelbrot set isn't just math—it's a map of escape, pixel by pixel. Every
 
 def chapter_7_universality():
     print_markdown_chapter(7, "Universality")
+
+    # --------------------------------------------------------------------------
+    # Historical Context: The Birth of Universality
+    # --------------------------------------------------------------------------
+    # In the 1930s, Alan Turing introduced the concept of a universal machine—a device
+    # that could simulate any other computational process. This idea became the bedrock
+    # of computer science: the Turing Machine. Universality means that a single, simple
+    # set of rules can, in principle, compute anything that is computable.
+    #
+    # Before Turing, computation was thought to require different machines for different
+    # tasks. Turing's insight was revolutionary: one machine, properly programmed, could
+    # do it all. This is the foundation of every modern computer, smartphone, and server.
+    #
+    # Real-world analogy:
+    #   - The Turing Machine is like a Swiss Army knife: with the right instructions,
+    #     it can perform any task, from sorting numbers to simulating physics.
+    #
+    # Diagram (ASCII):
+    #   +-------------------+
+    #   | Universal Machine |
+    #   +-------------------+
+    #   | [Program]         |
+    #   | [Data]            |
+    #   +-------------------+
+    #   | Output            |
+    #   +-------------------+
+    #
+    # --------------------------------------------------------------------------
+    # Intuitive Explanation: What Does Universality Mean?
+    # --------------------------------------------------------------------------
+    # Universality is the idea that one system can imitate any other. Imagine a
+    # programmable robot: with the right code, it can dance, paint, or play chess.
+    # The Turing Machine is the ultimate programmable robot—its universality is
+    # what makes software possible.
+    #
+    # In the Thiele Machine framework, universality is reframed: not only can we
+    # simulate any computation, but we can also account for the information cost
+    # (μ-bits) of each observation and step. Universality is not just about
+    # capability—it's about the price of imitation.
+
+    explain(r"""
+    # Universality: One Machine, Infinite Possibilities
+
+    Imagine a piano that can play any song, given the right sheet music. The Turing Machine is that piano, and universality is the guarantee that any melody—any computation—can be played. The Thiele Machine extends this: not only can it play every song, but it keeps a ledger of the cost for each note you hear.
+    """)
+
+    # --------------------------------------------------------------------------
+    # Educational Walkthrough: Demonstrating Universality
+    # --------------------------------------------------------------------------
+    # Let's see universality in action by encoding a simple Turing Machine step
+    # into the Thiele Machine framework. We'll show that both machines produce
+    # the same result, and we'll track the μ-bit cost of observation.
+
     delta = {("start", 0): (1, 1, "halt"), ("start", 1): (0, 1, "halt")}
     tm = TMState(tape=[0, 1], head=0, state="start", delta=delta)
     thm = encode_tm_into_thm(tm)
@@ -1690,11 +2115,35 @@ def chapter_7_universality():
         expected_value=True,
         explanation="Encoding TM into ThM yields the same next configuration.",
     )
+
+    # --------------------------------------------------------------------------
+    # Real-World Implications: Why Universality Matters
+    # --------------------------------------------------------------------------
+    # Every computer, from your phone to a supercomputer, is universal in Turing's sense.
+    # This means software can be written once and run anywhere. Universality is the
+    # reason why apps, games, and websites work across devices.
+    #
+    # In physics and biology, universality appears as the ability to model complex
+    # systems with simple rules. The Thiele Machine shows that universality also
+    # comes with an information cost: every act of simulation, every observation,
+    # must be paid for in μ-bits.
+
+    explain(r"""
+    # Universality in the Real World
+
+    - Every smartphone, laptop, and server is a universal machine.
+    - Universality lets us simulate weather, decode DNA, and render graphics.
+    - The Thiele Machine adds a new twist: it tracks the cost of every observation, making the price of universality explicit.
+    """)
+
+    # --------------------------------------------------------------------------
+    # Step-by-Step: μ-bit Accounting for Universality
+    # --------------------------------------------------------------------------
     obs = tm.tape[tm.head]
     prior = {0: 0.5, 1: 0.5}
     im = InfoMeter("Universality")
     bits_needed = shannon_bits(obs, prior)
-    im.pay_mu(bits_needed, "read head symbol", obs=obs, prior=prior)
+    im.pay_mu(ceiling_bits(bits_needed), "read head symbol", obs=obs, prior=prior)
     im.attach_certificate("Universality", {"tm_next": tm_next.tape}, note="TM and ThM step equivalence")
     KERNEL.VERIFY(
         title="Universality mu-bit accounting",
@@ -1704,30 +2153,93 @@ def chapter_7_universality():
     )
     print_nusd_receipt(im, required_bits=im.MU_SPENT)
 
+    # --------------------------------------------------------------------------
+    # Intuitive Summary and Broader Connections
+    # --------------------------------------------------------------------------
     explain(r"""
-Universality isn't magic—it's a price tag. Encode a Turing step in Thiele form and the cost is one μ-bit, no more, no less. Every symbol read is a transaction, and the equivalence is paid for in the currency of sight.
+    # The Price of Universality
+
+    Universality isn't magic—it's a price tag. Encode a Turing step in Thiele form and the cost is one μ-bit, no more, no less. Every symbol read is a transaction, and the equivalence is paid for in the currency of sight.
+
+    ## Historical Takeaway
+
+    Alan Turing's vision changed the world: one machine, infinite tasks. The Thiele Machine honors this legacy, but adds a modern twist—every act of universal computation is paid for, tracked, and audited in μ-bits.
+
+    ## Visual Aid (ASCII)
+
+    Turing Machine:
+        [X][ ]   (reads one cell, pays one μ-bit)
+
+    Thiele Machine:
+        [X][ ]   (same result, same cost, but with explicit accounting)
+
+    ## Key Takeaway
+
+    Universality is the foundation of computation. The Thiele Machine makes its cost visible, showing that every act of imitation, simulation, or computation is a transaction in the currency of information.
     """)
 
 
 def chapter_8_thiele_machine():
     print_markdown_chapter(8, "The Thiele Machine")
-    # Simple Thiele Machine that increments a global integer state.
+
+    # --------------------------------------------------------------------------
+    # Step-by-Step Pedagogical Walkthrough: What is a Thiele Machine?
+    # --------------------------------------------------------------------------
+    explain(r"""
+    Imagine a computer that doesn't just move step by step, but can "see" everything at once. The Thiele Machine is that computer—a model of computation where global sight is possible, but every act of seeing comes with a price.
+
+    **Analogy:** If a Turing Machine is a blindfolded person feeling their way along a path, the Thiele Machine is someone standing on a hilltop, seeing the whole landscape in a single glance. But to see everything, you must pay μ-bits—the currency of information.
+
+    Let's build and run the simplest Thiele Machine together.
+    """)
+
+    # --------------------------------------------------------------------------
+    # Step 1: Define the Thiele Machine's Components
+    # --------------------------------------------------------------------------
+    print("# Step 1: Define the Thiele Machine")
+
     def mu_thm(s: int) -> int:
+        # The "lens" of the Thiele Machine: it observes the entire state.
         return s
 
     def J_thm(s: int, c: int) -> int:
+        # The "judgment": given what it sees, it increments the state.
         return s + 1
 
     def price_thm(s: int, c: int) -> float:
+        # The cost to observe the state: 1 μ-bit per observation.
         return 1.0
 
     thm = ThieleMachine(state=0, mu=mu_thm, J=J_thm, price=price_thm)
     im = InfoMeter("Thiele Machine")
-    prior = {0: 0.5, 1: 0.5}
+
+    # --------------------------------------------------------------------------
+    # Step 2: Intuitive Analogy—The Elevator of Sight
+    # --------------------------------------------------------------------------
+    explain(r"""
+    **Intuitive Analogy:** Imagine an elevator panel with two buttons: 0 and 1. The Thiele Machine can see which floor it's on instantly, but to do so, it must pay a μ-bit. Each time it looks, it gets a receipt for the cost.
+
+    In contrast, a Turing Machine would have to feel for the button, one at a time, paying in time instead of μ-bits.
+    """)
+
+    # --------------------------------------------------------------------------
+    # Step 3: Observe and Step
+    # --------------------------------------------------------------------------
+    print("# Step 2: Observe the State and Step Forward")
+    prior = {0: 0.5, 1: 0.5}  # Uniform prior: equal chance of being on floor 0 or 1
     obs = thm.state
     bits_needed = ceiling_bits(shannon_bits(obs, prior))
     im.pay_mu(bits_needed, "observe global state", obs=obs, prior=prior)
+
+    print(f"Observed state: {obs}")
+    print(f"Paid μ-bits: {bits_needed}")
+
     new_state = thm.step()
+    print(f"New state after step: {new_state}")
+
+    # --------------------------------------------------------------------------
+    # Step 4: Verification and Receipt
+    # --------------------------------------------------------------------------
     KERNEL.VERIFY(
         title="Thiele Machine step increment",
         computation=lambda: new_state == 1,
@@ -1743,13 +2255,69 @@ def chapter_8_thiele_machine():
     )
     print_nusd_receipt(im, required_bits=im.MU_SPENT)
 
+    # --------------------------------------------------------------------------
+    # Step 5: Deeper Explanation—Why Does This Matter?
+    # --------------------------------------------------------------------------
     explain(r"""
-The Thiele Machine doesn't crawl—it sees. One global glance, one μ-bit paid, and the state jumps forward. The trade is explicit: time for sight, blindness for clarity. The receipt is the proof.
+    **Significance:** The Thiele Machine is a model for instantaneous, parallel perception in computation. It shows that global sight is possible, but not free—every observation is a transaction in μ-bits.
+
+    - **For beginners:** Think of μ-bits as the "ticket price" for seeing the whole picture at once.
+    - **For theorists:** The Thiele Machine generalizes the Turing Machine, making explicit the cost of observation and linking it to physical laws (like Landauer's principle).
+
+    **Broader Impact:** This model bridges computation, physics, and information theory. It teaches us that every shortcut to understanding—every act of global sight—must be paid for, not in time, but in information.
+
+    **Key Takeaway:** The Thiele Machine is not just a faster computer; it's a new way to think about the price of knowledge. Every act of seeing, every leap in understanding, is a transaction in the currency of truth.
     """)
 
 
 def chapter_9_nusd_law():
     print_markdown_chapter(9, "The NUSD Law and the Cost of Sight")
+
+    # --------------------------------------------------------------------------
+    # Historical Background: Why Does Sight Have a Cost?
+    # --------------------------------------------------------------------------
+    explain(r"""
+    ## Historical Context
+
+    The NUSD Law—No Unpaid Sight Debt—emerges from a century of wrestling with the price of observation. Claude Shannon, in the 1940s, showed that information has a measurable cost: to distinguish one possibility from many, you must pay in bits. Rolf Landauer, in the 1960s, proved that erasing a bit of information costs energy, anchoring computation to the laws of thermodynamics.
+
+    The NUSD Law unifies these insights: every act of seeing, every measurement, every computation, must be paid for in μ-bits—the currency of information. If you don't pay, you don't get to see.
+    """)
+
+    # --------------------------------------------------------------------------
+    # Physical Intuition: The Cost of Sight
+    # --------------------------------------------------------------------------
+    explain(r"""
+    ## Physical Intuition
+
+    Imagine the universe as a vast library. Every book you open, every page you read, costs μ-bits. The more you want to see, the higher the price. This isn't just metaphor: in physics, every bit of information you acquire requires energy. Flip a bit, burn heat. The NUSD Law is the bill collector, ensuring that every act of sight is paid in full.
+
+    In computation, the Thiele Machine models this explicitly. Unlike the Turing Machine, which pays in time (step by step), the Thiele Machine pays in μ-bits for global sight—instantaneous, parallel perception.
+    """)
+
+    # --------------------------------------------------------------------------
+    # Mathematical Exposition: The NUSD Inequality
+    # --------------------------------------------------------------------------
+    explain(r"""
+    ## Mathematical Statement
+
+    The NUSD Law is a simple but profound inequality:
+
+        μ_bits_paid ≥ Shannon_bits_needed
+
+    Where:
+    - μ_bits_paid: The number of μ-bits spent to make an observation.
+    - Shannon_bits_needed: The self-information required to distinguish the observed outcome from all possibilities.
+
+    In formula:
+        μ_bits_paid ≥ -log₂(P(x))
+
+    This links the act of seeing to the probability of what is seen. Rare sights cost more; common sights cost less.
+    """)
+
+    # --------------------------------------------------------------------------
+    # Demonstration: Auditing the Cost of Sight
+    # --------------------------------------------------------------------------
     prior = {0: 0.5, 1: 0.5}
 
     def mu_nusd_demo(s: int) -> int:
@@ -1772,54 +2340,132 @@ def chapter_9_nusd_law():
         explanation="SMT solver affirms mu_bits_paid >= bits_needed",
     )
     lines = [
-        "NUSD inequality: paid_bits >= needed_bits",
-        f"paid_bits={receipt['paid_bits']}, needed_bits={receipt['needed_bits']}, delta={receipt['delta']}",
-        f"E_min_J={receipt['E_min_joules']}",
-        f"proof: {path}",
+        "NUSD inequality: μ_bits_paid ≥ Shannon_bits_needed",
+        f"μ_bits_paid={receipt['paid_bits']}, Shannon_bits_needed={receipt['needed_bits']}, delta={receipt['delta']}",
+        f"Minimum energy cost (Landauer): E_min_J={receipt['E_min_joules']}",
+        f"Proof artifact: {path}",
     ]
     print("\n".join(lines))
 
+    # --------------------------------------------------------------------------
+    # Practical Consequences: Why NUSD Matters
+    # --------------------------------------------------------------------------
     explain(r"""
-The NUSD law is the universe's tab. Paid bits cover what you see, or the cosmos sends collections. Every receipt is a "paid in full" stamp from Z3—no peeking without payment. Landauer warned us: flip a bit, burn heat. NUSD writes it in a ledger you can hand to a physicist. No free lunch, no free sight, and the SAT line is the proof the bill was settled.
+    ## Practical Consequences
+
+    - **Computation:** Every shortcut to global sight—parallel processing, quantum measurement, neural inference—must pay the NUSD bill. No algorithm escapes the price of information.
+    - **Physics:** Landauer's principle means every erased bit heats the universe. The NUSD Law is the bridge between logic and thermodynamics.
+    - **Security:** No free peeking. If you try to observe without paying, the ledger won't balance, and the proof fails.
+    - **Verification:** The Z3 solver stamps every receipt. If μ_bits_paid < Shannon_bits_needed, the proof is rejected. No unpaid sight debt allowed.
+
+    ## Engaging Analogy
+
+    Think of NUSD as the cosmic tollbooth. Every time you want to see more, you pay more. The Thiele Machine is the accountant, tracking every μ-bit spent. The universe is fair but strict: no free lunch, no free sight.
+
+    ## Visual Aid (ASCII)
+
+        +-----------------------------+
+        |        NUSD Law             |
+        +-----------------------------+
+        | μ_bits_paid ≥ Shannon_bits  |
+        | Every act of sight is paid  |
+        +-----------------------------+
+
+    ## Key Takeaway
+
+    The NUSD Law is the price tag on knowledge. Every observation, every computation, every act of seeing is a transaction in the currency of information. The Thiele Machine makes this explicit, and the Z3 proof is your receipt.
     """)
 
 
 def chapter_10_universality_demo():
     print_markdown_chapter(10, "Universality Demonstration")
 
+    # --------------------------------------------------------------------------
+    # Pedagogical Walkthrough: What is Universality?
+    # --------------------------------------------------------------------------
+    explain(r"""
+    ## What Does Universality Mean?
+
+    Universality is the idea that a single computational model (like the Turing Machine) can simulate any other. It's the reason why your laptop, phone, and supercomputer can all run the same software—they're all universal machines.
+
+    The Thiele Machine generalizes this: it can simulate any labelled transition system (LTS) or Turing Machine, but also tracks the information cost (μ-bits) of every observation and step.
+
+    **Analogy:** Imagine a Swiss Army knife. With the right attachment, it can do any job. Universality is the guarantee that, with the right program, one machine can do anything another can.
+    """)
+
+    # --------------------------------------------------------------------------
+    # Step 1: Simulate a Labelled Transition System (LTS)
+    # --------------------------------------------------------------------------
+    print("# Step 1: Encode and Simulate a Labelled Transition System (LTS)")
     states = ["s1", "s2", "s3"]
     alphabet = ["a", "b"]
     delta = {("s1", "a"): "s2", ("s2", "b"): "s3"}
     lts = encode_lts_as_thm(states, alphabet, delta)
+
+    # ASCII Visual Aid:
+    print(r"""
+    LTS Diagram:
+        [s1] --a--> [s2] --b--> [s3]
+    """)
+
+    # Step-by-step demonstration:
+    print("Transition: s1 --a--> s2 --b--> s3")
+    result = lts.J(lts.J("s1", ["a"]), ["b"])
+    print(f"Result of transitions: {result} (should be 's3')")
+
     KERNEL.VERIFY(
         title="LTS encoding transition",
-        computation=lambda: lts.J(lts.J("s1", "a"), "b") == "s3",
+        computation=lambda: result == "s3",
         expected_value=True,
         explanation="Encoding an LTS as a ThM reproduces its labelled transitions.",
     )
 
+    # --------------------------------------------------------------------------
+    # Step 2: Simulate a Turing Machine and Thiele Machine
+    # --------------------------------------------------------------------------
+    print("# Step 2: Encode and Simulate a Turing Machine (TM) and Thiele Machine (ThM)")
     delta_tm = {("q0", 0): (1, 1, "qf"), ("q0", 1): (0, 1, "qf")}
     tm = TMState(tape=[0], head=0, state="q0", delta=delta_tm)
     thm = encode_tm_into_thm(tm)
 
-    def simulate() -> Tuple[TMState, TMState]:
-        tm_cfg = tm
-        thm_cfg = thm.state
-        for _ in range(1):
-            tm_cfg = tm_step(tm_cfg)
-            thm_cfg = thm_step(thm_cfg, thm)
-        return tm_cfg, thm_cfg
+    # ASCII Visual Aid:
+    print(r"""
+    TM Diagram:
+        Tape: [0]
+        Head: ^
+        State: q0
 
-    tm_final, thm_final = simulate()
+    Transition Table:
+        (q0, 0) -> (write 1, move +1, state qf)
+        (q0, 1) -> (write 0, move +1, state qf)
+    """)
+
+    # Step-by-step simulation:
+    print("Simulating one step for both TM and ThM...")
+    tm_cfg = tm
+    thm_cfg = thm.state
+    tm_cfg = tm_step(tm_cfg)
+    thm_cfg = thm_step(thm_cfg, thm)
+
+    print(f"TM after step: tape={tm_cfg.tape}, head={tm_cfg.head}, state={tm_cfg.state}")
+    print(f"ThM after step: tape={thm_cfg.tape}, head={thm_cfg.head}, state={thm_cfg.state}")
+
+    # --------------------------------------------------------------------------
+    # Step 3: Demonstrate Equivalence and μ-bit Accounting
+    # --------------------------------------------------------------------------
+    print("# Step 3: Demonstrate Equivalence and μ-bit Accounting")
     obs = (
-        tm_final.tape == thm_final.tape
-        and tm_final.head == thm_final.head
-        and tm_final.state == thm_final.state
+        tm_cfg.tape == thm_cfg.tape
+        and tm_cfg.head == thm_cfg.head
+        and tm_cfg.state == thm_cfg.state
     )
+    print(f"Equivalence observed: {obs}")
+
     prior = {True: 0.5, False: 0.5}
     bits_needed = shannon_bits(obs, prior)
     im = InfoMeter("Universality Demonstration")
-    im.pay_mu(bits_needed, "TM-ThM equivalence", obs=obs, prior=prior)
+    im.pay_mu(ceiling_bits(bits_needed), "TM-ThM equivalence", obs=obs, prior=prior)
+
     KERNEL.VERIFY(
         title="TM simulation via ThM",
         computation=lambda: obs,
@@ -1828,13 +2474,30 @@ def chapter_10_universality_demo():
     )
     im.attach_certificate(
         "TM vs ThM equivalence",
-        {"tm_state": asdict(tm_final), "thm_state": asdict(thm_final)},
+        {"tm_state": asdict(tm_cfg), "thm_state": asdict(thm_cfg)},
         note="single step equivalence",
     )
     print_nusd_receipt(im, required_bits=im.MU_SPENT)
 
+    # --------------------------------------------------------------------------
+    # Step 4: Intuitive Explanation and Visual Summary
+    # --------------------------------------------------------------------------
     explain(r"""
-Universality isn't just theory—it's a paid-for fact. Whether it's a labelled transition system or a Turing machine, the Thiele Machine embeds them both, and μ-bits certify the equivalence. Every step, every match, is bought and stamped with the price of sight.
+    ## Intuitive Explanation
+
+    - The Thiele Machine can simulate any labelled transition system or Turing Machine.
+    - Every simulation step is paid for in μ-bits—the currency of information.
+    - Universality is not just about capability, but about the explicit price of imitation.
+
+    ## Visual Aid (ASCII)
+
+    TM and ThM Step:
+        TM: [0] --step--> [1] (head moves, state changes)
+        ThM: [0] --step--> [1] (same result, explicit μ-bit cost)
+
+    ## Key Takeaway
+
+    Universality is the foundation of computation. The Thiele Machine makes its cost visible, showing that every act of imitation, simulation, or computation is a transaction in the currency of information.
     """)
 
 
@@ -1997,7 +2660,7 @@ Grover's search, Thiele style: constant cycles, global moves. The gate model gri
     obs = grover_result == "OK"
     prior = {True: 0.5, False: 0.5}
     bits_needed = shannon_bits(obs, prior)
-    im.pay_mu(bits_needed, "Quantum isomorphism succeeds", obs=obs, prior=prior)
+    im.pay_mu(ceiling_bits(bits_needed), "Quantum isomorphism succeeds", obs=obs, prior=prior)
     print_nusd_receipt(im, required_bits=im.MU_SPENT)
 
     explain(r"""
@@ -2043,7 +2706,7 @@ def plot_scale_comparison() -> None:
     prior = {True: 0.5, False: 0.5}
     bits_needed = shannon_bits(obs, prior)
     im.pay_mu(
-        bits_needed,
+        ceiling_bits(bits_needed),
         "Thiele core no slower than scalar core at N=32",
         obs=obs,
         prior=prior,
@@ -2055,7 +2718,7 @@ def plot_scale_comparison() -> None:
         explanation="Cycle comparison at N=32 shows architectural speed-up.",
     )
     print_nusd_receipt(
-        im, required_bits=bits_needed, png_path=f"artifacts/plots/{out_png}"
+        im, required_bits=ceiling_bits(bits_needed), png_path=f"artifacts/plots/{out_png}"
     )
 
 
@@ -2079,10 +2742,10 @@ def chapter_13_capstone_demonstration():
 
     class ThieleProcess(Generic[S, C]):
         def mu(self, s: S) -> C:
-            return s
+            raise NotImplementedError("Subclasses must implement mu to return type C")
 
         def j(self, s: S, c: C) -> S:
-            return c
+            raise NotImplementedError("Subclasses must implement j to return type S")
 
         def step(self, s: S) -> S:
             return self.j(s, self.mu(s))
@@ -2145,7 +2808,7 @@ def chapter_13_capstone_demonstration():
         "Computation <-> Cognition",
     )
     bits1 = shannon_bits(iso1, prior)
-    im.pay_mu(bits1, "isomorphism computation/cognition", obs=iso1, prior=prior)
+    im.pay_mu(ceiling_bits(bits1), "isomorphism computation/cognition", obs=iso1, prior=prior)
 
     iso2 = verify_isomorphism_with_z3(
         comp_proc,
@@ -2157,7 +2820,7 @@ def chapter_13_capstone_demonstration():
         "Computation <-> Emergence",
     )
     bits2 = shannon_bits(iso2, prior)
-    im.pay_mu(bits2, "isomorphism computation/emergence", obs=iso2, prior=prior)
+    im.pay_mu(ceiling_bits(bits2), "isomorphism computation/emergence", obs=iso2, prior=prior)
 
     im.attach_certificate(
         "Capstone Isomorphism",
@@ -2170,30 +2833,66 @@ def chapter_13_capstone_demonstration():
         expected_value=True,
         explanation="Two isomorphism checks under a uniform prior cost one mu-bit each.",
     )
-    print_nusd_receipt(im, required_bits=bits1 + bits2)
+    print_nusd_receipt(im, required_bits=ceiling_bits(bits1 + bits2))
 
     explain(r"""
 Computation, cognition, emergence—different faces, same skeleton. Their isomorphism isn't just a trick; it's the unifying structure behind everything. The Thiele Machine pays μ-bits to prove it: disparate systems, one underlying song.
     """)
 def chapter_14_process_isomorphism():
-    print_markdown_chapter(14, "Process Isomorphism (Illustrative)")
-    explain(
-        "This chapter sketches a single mapping between two processes—no grand theorem, just a glimpse of how form and meaning can travel together."
-    )
+    print_markdown_chapter(14, "Process Isomorphism (Step-by-Step, Accessible)")
+
+    explain(r"""
+    ## What Is Process Isomorphism?
+
+    Imagine two different recipes for making lemonade. One says "add sugar to water, then squeeze lemon," the other says "squeeze lemon into water, then add sugar." The steps look different, but the result—lemonade—is the same. In mathematics and computation, **isomorphism** means two processes have different forms but the same essential outcome.
+
+    This chapter walks through process isomorphism step by step, using simple analogies and mapping, and explores why this concept matters in science, engineering, and everyday thinking.
+    """)
+
     im = InfoMeter("Process Isomorphism")
 
-    # Two simple processes: list reversal and dictionary-based reversal.
+    # Step 1: Define Two Processes
+    print("# Step 1: Define Two Processes")
+    print("Process A: Reverse a list directly.")
+    print("Process B: Reverse a list stored inside a dictionary.")
+
     def proc_list(s: list[int]) -> list[int]:
+        # Direct reversal
         return s[::-1]
 
     def proc_dict(s: dict[str, list[int]]) -> dict[str, list[int]]:
+        # Reversal via dictionary
         return {"out": s["in"][::-1]}
 
     s1 = [1, 2, 3]
     s2 = {"in": [1, 2, 3]}
+
+    print(f"Input for Process A: {s1}")
+    print(f"Input for Process B: {s2}")
+
+    # Step 2: Map Inputs to Outputs
+    print("# Step 2: Map Inputs to Outputs")
     r1 = proc_list(s1)
     r2 = proc_dict(s2)["out"]
+    print(f"Output of Process A: {r1}")
+    print(f"Output of Process B: {r2}")
 
+    # Step 3: Step-by-Step Mapping
+    print("# Step 3: Step-by-Step Mapping")
+    print("Mapping: s1 <-> s2['in']")
+    print("Both processes reverse the sequence [1, 2, 3] to [3, 2, 1].")
+
+    # Step 4: Intuitive Analogy
+    explain(r"""
+    **Analogy:** Imagine two ways to turn a shirt inside out:
+    - Method 1: Grab the shirt and flip it.
+    - Method 2: Put the shirt in a bag, then flip the shirt inside the bag.
+
+    The steps differ, but the shirt ends up inside out either way. The *processes* are isomorphic: different paths, same destination.
+    """)
+
+    # Step 5: Formal Verification
+    print("# Step 4: Formal Verification with Z3")
     solver = z3.Solver()
     z_a = z3.String("a")
     z_b = z3.String("b")
@@ -2203,21 +2902,29 @@ def chapter_14_process_isomorphism():
     result = solver.check()
 
     KERNEL.VERIFY(
-        title="Illustrative isomorphism check",
+        title="Step-by-step isomorphism check",
         computation=lambda: result == z3.sat,
         expected_value=True,
-        explanation="Reversing a list matches the dictionary-based reversal under canonical mapping.",
+        explanation="Both processes yield the same reversed output under canonical mapping.",
     )
 
+    # Step 6: μ-bit Accounting
     iso = result == z3.sat
     prior = {True: 0.5, False: 0.5}
     bits_needed = ceiling_bits(shannon_bits(iso, prior))
-    im.pay_mu(bits_needed, "illustrative isomorphism", obs=iso, prior=prior)
+    im.pay_mu(bits_needed, "step-by-step isomorphism", obs=iso, prior=prior)
     im.attach_certificate("process_isomorphism", {"list": r1, "dict": r2})
     print_nusd_receipt(im, required_bits=bits_needed)
 
+    # Step 7: Broader Implications
     explain(r"""
-Reversal by list or by dictionary—same result, different path. Z3 stamps the confirmation: algorithmic form can change, but meaning stays put. The shape of the process is invariant, and the μ-bit is the price of knowing.
+    ## Why Does Isomorphism Matter?
+
+    - **Science:** Isomorphism lets us recognize when two systems—like electrical circuits and hydraulic pipes—work the same way, even if they look different.
+    - **Programming:** You can refactor code, change data structures, or swap algorithms, as long as the essential behavior is preserved.
+    - **Learning:** Understanding isomorphism helps you transfer knowledge between fields—math, physics, engineering, even cooking.
+
+    **Key Takeaway:** Isomorphism is the bridge between form and meaning. It shows that the *shape* of a process can change, but its *truth* remains. Every time you spot a hidden similarity between two things, you're seeing isomorphism in action—and paying μ-bits for the privilege of knowing.
     """)
 
 
@@ -2345,11 +3052,13 @@ def chapter_17_geometry_truth():
     propositions = ["A", "B", "C", "D"]
     all_states = list(itertools.product([0, 1], repeat=4))
 
-    def check_constraints(state: Tuple[int, int, int, int]) -> bool:
+    def check_constraints(state: tuple[int, ...]) -> bool:
+        if len(state) != 4:
+            raise ValueError("State must have exactly 4 elements")
         A, B, C, D = state
-        rule1 = A or B
-        rule2 = (not B) or C
-        rule3 = not (C and D)
+        rule1 = bool(A or B)
+        rule2 = bool((not B) or C)
+        rule3 = bool(not (C and D))
         return rule1 and rule2 and rule3
 
     valid_states = [s for s in all_states if check_constraints(s)]
@@ -2384,14 +3093,14 @@ def chapter_17_geometry_truth():
     # --- 3D Visualization ---
     fig = plt.figure(figsize=(7, 7))
     ax = fig.add_subplot(111, projection="3d")
-    ax.scatter(valid_points[:, 0], valid_points[:, 1], valid_points[:, 2], s=100)
+    ax.scatter(valid_points[:, 0].tolist(), valid_points[:, 1].tolist(), valid_points[:, 2].tolist(), s=100)
     ax.set_title("3D Projection of Truth Manifold (A-B-C Space)")
     ax.set_xlabel("A")
     ax.set_ylabel("B")
     ax.set_zlabel("C")
     ax.set_xticks([0, 1])
     ax.set_yticks([0, 1])
-    ax.set_zticks([0, 1])
+    ax.zaxis.set_ticks([0, 1])
     fig.savefig("artifacts/plots/truth_manifold_3d.png")
     plt.close(fig)
     print("![3D Projection](truth_manifold_3d.png)")
@@ -2517,9 +3226,9 @@ def chapter_18_geometry_coherence():
     for k in range(DMAX):
         solver.add(V(k + 1) == V(k) / two)
     for k in range(DMAX):
-        solver.add(V(k + 1) < V(k))
+        solver.add(V(k + 1) < V(k) / two)
     for k in range(DMAX + 1):
-        solver.add(V(k) > 0)
+        solver.add(V(k) > z3.RealVal(0))
     res = solver.check()
     if OUTPUT_MODE != "publish":
         print(f"[Z3] volume recurrence satisfiable: {res}")
@@ -2550,6 +3259,39 @@ def chapter_19_conclusion():
     print_markdown_chapter(19, "Conclusion")
     im = InfoMeter("Conclusion")
 
+    # --- Expanded Conclusion: Summary, Implications, Connections ---
+    explain(r"""
+    ## Summary of Key Insights
+
+    Over nineteen chapters, this treatise has explored the deep relationship between computation, physics, and information. The Thiele Machine reframes the classic Turing Machine, revealing that every act of observation—every leap from blindness to sight—has a measurable cost in μ-bits. From list reversal and cellular automata to quantum circuits and geometric logic, each chapter has shown that knowledge is not free: it is paid for in the currency of information.
+
+    - **Blindness vs. Sight:** The Axiom of Blindness illustrated how limited perspective slows computation, while global sight demands payment in μ-bits.
+    - **Information as Currency:** The NUSD Law formalized the price of observation, linking Shannon's information theory and Landauer's thermodynamic cost.
+    - **Universality and Isomorphism:** The treatise demonstrated that universal computation and process isomorphism are not just theoretical ideals—they are transactions, each step tracked and audited.
+    - **Geometry of Truth and Coherence:** Logic and coherence were rendered as geometric objects, showing that truth itself has shape and measure.
+
+    ## Broader Implications
+
+    The implications reach beyond mathematics and computer science. By making the cost of sight explicit, the Thiele Machine bridges disciplines—connecting computation, physics, biology, and philosophy. It teaches that every shortcut to understanding, every act of global perception, must be paid for, not in time alone, but in information. This principle underpins secure computation, scientific measurement, and even the limits of human cognition.
+
+    - **Physical Realization:** Quantum computation and classical algorithms alike are subject to the same ledger of μ-bits.
+    - **Educational Journey:** Each chapter built on the last, guiding readers from foundational axioms to capstone demonstrations, reinforcing that learning itself is a process of paying for new sight.
+
+    ## Explicit Connections to the Treatise
+
+    This conclusion is not an isolated endpoint, but the sum of the journey:
+    - The treatise began with a vision—a search for the shape of truth.
+    - Each chapter measured that vision from a new angle, using the Thiele Machine as the instrument.
+    - The final proof, commutativity of addition, is a microcosm: simple, universal, and verifiable. It echoes the treatise's thesis that every grand claim resolves to small, checkable truths.
+
+    ## Accessible Takeaway
+
+    The educational journey here is meant for all readers. Whether you are a beginner or an expert, the message is clear: knowledge is earned, not given. Every act of seeing, every insight, is a transaction in the currency of information. The Thiele Machine makes this explicit, offering a new lens to understand the cost—and the beauty—of truth.
+
+    **Thank you for joining this exploration. The proof is complete, the ledger balanced, and the shape of truth revealed.**
+    """)
+
+    # --- Original proof and receipt logic ---
     def neg(s: Solver):
         a, b = z3.Ints("a b")
         s.add(a + b != b + a)
@@ -2575,7 +3317,124 @@ def chapter_19_conclusion():
     ledger.record(r)
 
     explain(r"""
-No fireworks, just `2 + 1 = 1 + 2`. After nineteen chapters of machinery, the finale is the simplest symmetry in math. Z3 can't find a counterexample because there isn't one. The last μ-bit is a tip in the jar—every grand claim cashes out to tiny truths you can verify. Thesis over.
+    No fireworks, just `2 + 1 = 1 + 2`. After nineteen chapters of machinery, the finale is the simplest symmetry in math. Z3 can't find a counterexample because there isn't one. The last μ-bit is a tip in the jar—every grand claim cashes out to tiny truths you can verify. Thesis over.
+    """)
+
+    # --- Deep Dive: The Shape of Truth ---
+    explain(r"""
+    ## The Shape of Truth: A Deep Dive
+
+    What does it mean for truth to have a shape? This question bridges philosophy, mathematics, physics, computation, geometry, and human experience. The "shape of truth" is not a metaphor—it is a vivid, multidimensional reality, woven from the constraints, structures, and costs that define what can be known.
+
+    ### 1. Philosophical Perspective: Truth as Structure and Process
+
+    Philosophers have long debated the nature of truth. Is it correspondence with reality, coherence among beliefs, or pragmatic utility? In this treatise, truth is not static—it is a living structure, shaped by the interplay of observation, logic, and cost. Each act of knowing is a transaction: to see, you must pay. The shape of truth is the evolving boundary between what is known and what remains hidden.
+
+    **Analogy:** Imagine a sculptor chipping away at a block of marble. Each strike removes uncertainty, revealing the form within. The final sculpture—the shape of truth—is determined by the constraints (logic, measurement, computation) and the effort (μ-bits) expended.
+
+    ### 2. Mathematical Perspective: Truth as Set, Manifold, and Proof
+
+    In mathematics, truth is the set of statements that satisfy axioms and rules. Each axiom carves away possibilities, leaving a region—the "truth set"—in the vast space of all conceivable worlds. Proof is the path through this space, connecting assumptions to conclusions.
+
+    **Diagram (ASCII):**
+        +-------------------+
+        |   Possibility     |
+        +-------------------+
+        |   /\/\/\/\/\/\    |  <-- Constraints carve away
+        +-------------------+
+        |   Truth Region    |
+        +-------------------+
+
+    **Information Theory:** Claude Shannon showed that distinguishing one possibility from many requires information—measured in bits. The more rare or specific a truth, the more bits (and μ-bits) you must pay to know it. Truth is not just a set; it is a region whose size determines its cost.
+
+    **Proof as Navigation:** Each proof is a journey through the landscape of possibility. The shortest path is the most elegant, but every step must be justified—paid for in logical moves and μ-bits.
+
+    ### 3. Physical Perspective: Truth as Measurable Reality
+
+    In physics, truth is what survives measurement. Every observation collapses possibility into actuality, but at a price: Landauer's principle ties each bit of truth to energy. The shape of truth is the illuminated region—the part of reality you have earned the right to see.
+
+    **Analogy:** Imagine a foggy landscape. Each μ-bit spent is a lamp that illuminates a patch of ground. The more you pay, the more terrain you reveal. The shape of truth is the sum of all illuminated regions.
+
+    **Diagram (ASCII):**
+        [Foggy Landscape]
+        [Lamp]---(μ-bit paid)--->[Patch revealed]
+
+    ### 4. Computational Perspective: Truth as Reachability and State Space
+
+    In computation, truth is the set of reachable states. Each algorithm, each process, is a path through the manifold of possibility. The Thiele Machine reframes this: global sight is possible, but every shortcut is paid for in μ-bits. The shape of truth is the graph of reachable configurations, the network of states that can be traversed given the rules and the cost.
+
+    **Diagram (ASCII):**
+        [Start] --step--> [A] --step--> [B] --step--> [Truth]
+        Each arrow is a paid μ-bit move.
+
+    **Information Theory in Computation:** Every computation is a process of reducing uncertainty. The more complex the output, the more μ-bits must be paid to distinguish it from all other possibilities.
+
+    ### 5. Geometric Perspective: Truth as Polytope, Manifold, and Fractal
+
+    Geometry makes truth visible. Each logical constraint is a plane, a slice, a cut. The intersection is a shape—a manifold, a polytope, a fractal. In the treatise, truth is projected onto 1D, 2D, 3D, and even 4D spaces. The Sierpiński tetrahedron in Chapter 18 is not just a pretty fractal; it is the geometry of coherence, showing how recursive constraints shrink the volume of possible truths toward zero.
+
+    **Diagram (ASCII):**
+        Truth Polytope (2D):
+        +-----+
+        |  *  |  <-- Valid state
+        | * * |
+        +-----+
+
+    **Fractal Truth:** Recursive constraints (like those in the Sierpiński tetrahedron) show that coherence can shrink the space of truth to a vanishing measure—a fractal dust of surviving possibilities.
+
+    ### 6. Logic, Proof, and Information Theory: Truth as Constraint Satisfaction
+
+    In logic, truth is the intersection of all constraints. Each rule slices off a chunk of possibility-space. Keep carving and you're left with a weird little polytope floating in high dimensions—a shape made out of truth values.
+
+    **Diagram (ASCII):**
+        +-----------------------------+
+        |        NUSD Law             |
+        +-----------------------------+
+        | μ_bits_paid ≥ Shannon_bits  |
+        | Every act of sight is paid  |
+        +-----------------------------+
+
+    **Information Theory:** The NUSD Law formalizes the price of observation: μ_bits_paid ≥ -log₂(P(x)). Rare truths cost more; common truths cost less. Every act of seeing is a transaction in the currency of information.
+
+    ### 7. Real-World Systems: Truth in Science, Security, and Human Understanding
+
+    In science, truth is the outcome of experiment and measurement. In security, truth is what can be verified and audited. In human cognition, truth is the boundary between what is perceived and what is imagined.
+
+    **Analogy:** Consider a courtroom. Evidence is presented, tested, and weighed. Each piece of evidence is a μ-bit spent to illuminate the case. The verdict—the shape of truth—is the intersection of all tested claims.
+
+    **Diagram (ASCII):**
+        [Evidence]--(μ-bit paid)-->[Illuminated Fact]
+        [All Evidence]--(intersection)-->[Verdict: Truth]
+
+    **Human Understanding:** Our minds are shaped by the cost of attention, memory, and inference. We cannot know everything; we pay μ-bits for every insight, every memory, every act of understanding.
+
+    ### 8. Narrative and Accessible Analogies: Truth as Journey and Polyhedron
+
+    The treatise itself is a journey through the shape of truth. Each chapter is a different angle, a different projection, a different slice. The final proof—commutativity of addition—is a microcosm: a simple, universal symmetry that stands at the center of the manifold. The ledger of μ-bits is the map, the audit trail, the receipt for every step taken.
+
+    **Accessible Analogy:** Imagine truth as a polyhedron suspended in space. Each face is a constraint, each vertex a valid state. To see the whole polyhedron, you must walk around it, pay for each view, and stitch together the facets. The more constraints, the sharper the shape; the more μ-bits paid, the clearer the vision.
+
+    **ASCII Sketch:**
+        +-------+
+       /       /|
+      +-------+ |
+      |       | +
+      |       |/
+      +-------+
+
+    **Narrative:** The shape of truth is not just a destination—it is the landscape itself. To know is to pay, to see is to measure, and to understand is to traverse the manifold of possibility.
+
+    ### 9. Synthesis: Truth as Auditable, Renderable, Inhabitable Structure
+
+    Truth is not a list of facts. It is a structure—a shape that emerges from the interplay of logic, geometry, physics, computation, and human experience. It is measurable, navigable, and beautiful. The Thiele Machine is the instrument that reveals this shape, one μ-bit at a time.
+
+    **Key Takeaways:**
+    - Truth is the intersection of constraints, the illuminated region of possibility, the reachable set of states, the audited ledger of μ-bits.
+    - Every act of knowing is a transaction; every shortcut to understanding must be paid for.
+    - The shape of truth is the final artifact of the journey—a structure you can audit, render, and inhabit.
+
+    **Final Reflection:** The shape of truth is the sum of all constraints, all measurements, all computations, and all acts of understanding. It is the geometry of what can be known, the ledger of what has been paid for, the map of what can be reached. In the end, truth is not just a destination—it is the landscape itself.
+
     """)
 
 
