@@ -1,4 +1,4 @@
-# The Thiele Machine Thesis
+# The Shape of Truth: The Thiele Machine Thesis
 
 This repository contains the executable thesis for the Thiele Machine, a new universal model of computation, cognition, and emergence. The project demonstrates, verifies, and audits the foundational claims of the Thiele Machine using code, formal proofs, and reproducible artifacts.
 
@@ -42,12 +42,12 @@ The thesis proves that the Thiele Machine strictly generalizes the Turing Machin
 - **Auditable Artifacts**: Outputs (plots, CSVs, logs, proofs) are saved in the `artifacts/` directory for reproducibility and peer review.
 
 ## Repository Structure
-- `newthesis.py`: Main executable thesis and treatise. Run this file to generate all results and artifacts.
-- `artifacts/`: Contains all generated outputs:
+- `thethielemachine.py`: Executable thesis and final treatise. Run this file to generate all results and artifacts.
+- `artifacts/`: Generated at runtime and ignored by git. Contains:
   - `plots/`: PNG images and visualizations
   - `csv/`: Benchmark results
   - `proof/`: SMT-LIB proof files (machine-verifiable)
-  - `logs/`: Markdown reports, metadata, and logs
+  - `logs/`: Markdown reports, including `terminal_output.md`
 - `requirements.txt`: Python dependencies for reproducibility
 - `README.md`: This document
 
@@ -68,11 +68,15 @@ Additional standard-library modules such as `hashlib` and `argparse` require no 
    ```sh
    pip install -r requirements.txt
    ```
-3. Run the thesis:
+3. Run the self-tests (15 checks):
    ```sh
-   python newthesis.py
+   python thethielemachine.py --selftest all
    ```
-4. All outputs will be generated in the `artifacts/` directory.
+4. Execute the thesis:
+   ```sh
+   python thethielemachine.py
+   ```
+5. A full run executes all 19 chapters and writes an auditable log to `artifacts/logs/terminal_output.md`.
 
 ## Main Results
 - Demonstrates the Thiele Machine's universality and information cost law.
@@ -84,7 +88,7 @@ The Thiele Machine obeys Landauer's limit: each observed bit costs energy.
 Future work includes exploring hardware implementations and quantifying practical constraints in real devices.
 
 ## Meta-proof Artifacts
-Running `newthesis.py` produces auditable files in `artifacts/`, including SMT proofs and `meta_proof_trace.json`. These artifacts allow reviewers to reproduce every verification step.
+Running `thethielemachine.py` produces auditable files in `artifacts/`, including SMT proofs and `meta_proof_trace.json`. These artifacts allow reviewers to reproduce every verification step.
 
 ## Known Issues
 - Saving large PNGs on some systems triggers a Pillow `_idat` error. Updating Pillow or reducing figure size resolves the issue.
