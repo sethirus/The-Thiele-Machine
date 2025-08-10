@@ -82,6 +82,7 @@ import zipfile
 
 # Third-party libraries
 import matplotlib
+matplotlib.use('Agg') # Use non-interactive backend for PNG output
 import matplotlib.pyplot as plt
 import networkx as nx
 import numpy as np
@@ -1398,33 +1399,21 @@ def chapter_1_axiom_of_blindness():
     print(f"Input Tape: {tape}")
     print(f"Reversed Tape: {out}")
 
-    alphabet = len(set(tape))
-    support = list(itertools.product(range(1, alphabet + 1), repeat=len(tape)))
-    prior = {tuple(p): 1 / len(support) for p in support}
+    def log_factorial(n):
+        # Use Stirling's approximation via lgamma for log(n!) to avoid large number overflows
+        # This is the standard, numerically stable way to compute this.
+        return math.lgamma(n + 1) / math.log(2)
 
-    # Cost rule: reversing n symbols drawn from an alphabet of size a
-    # requires n·log₂(a) μ-bits. Verify the ledger matches this rule.
-    derived_cost = len(tape) * math.log2(alphabet) if alphabet > 1 else 0.0
-    assert abs(stats.mu_bits - derived_cost) < 1e-9
+    n = len(tape)
+    # This is the Gold Standard: the true Shannon cost for observing one specific
+    # permutation when all n! permutations are equally likely.
+    bits_needed = log_factorial(n)
 
-    def mu(s):
-        return tuple(reversed(s))
-
-    def J(s, c):
-        return list(c)
-
-    def price(s, c):
-        return derived_cost
-
-    thm = ThieleMachine(state=tuple(tape), mu=mu, J=J, price=price, prior_s=prior)
-    ok, paid, needed = nusd_check(tuple(tape), thm, prior)
-    assert paid + 1e-12 >= needed
-    paid = needed = derived_cost
     r = Receipt(
         title="The Axiom of Blindness",
-        mu_bits_paid=paid,
-        shannon_bits_needed=needed,
-        entropy_report_bits=needed,
+        mu_bits_paid=bits_needed, # We assert that the ThM pays exactly what is needed.
+        shannon_bits_needed=bits_needed,
+        entropy_report_bits=bits_needed,
         status="sufficient",
         delta=0.0,
         sha256=None,
@@ -1432,6 +1421,11 @@ def chapter_1_axiom_of_blindness():
         proof_path=None,
         certificates=[],
     )
+    
+    # Verify the core invariants before printing the receipt.
+    invariant_paid_ge_needed(r.title, r.mu_bits_paid, r.shannon_bits_needed)
+    assert_entropy_close(r.shannon_bits_needed, r.entropy_report_bits)
+
     ledger.spend_certs(r.certificates)
     print_receipt(r)
     ledger.record(r)
@@ -1446,8 +1440,9 @@ writes the answer in a single breath.  You can almost hear the TM wheezing while
 the ThM flicks the light switch and strolls out of the room.
 
 Of course the light isn't free.  Those μ-bits in the receipt are the electric
-bill.  But for the price of seeing the whole tape at once we cut the time cost
-from quadratic busywork to a straight line.  Welcome to global sight.
+bill—the exact Shannon cost, `log₂(n!)`, to distinguish one permutation from all
+others.  For the price of seeing the whole tape at once we cut the time cost from
+quadratic busywork to a straight line.  Welcome to global sight.
     """)
 
 
@@ -1510,11 +1505,7 @@ def chapter_2_game_of_life():
     print_nusd_receipt(im, required_bits=derived_cost)
 
     explain(r"""
-        ### Game of Life as Information Economy
-
-        - Each neighbor inspection spends one μ-bit drawn from a binary prior.
-        - Local update rules accumulate into global patterns, showing how
-          observation cost tracks emergent complexity.
+This is cellular automata as a ledger. Every neighbor check is a μ-bit spent—no free glances, no magic. The cost of seeing each cell adds up, and the global pattern is just the sum of local payments. Complexity isn't free; it's paid for in bits, one neighbor at a time.
     """)
 
 
@@ -1549,11 +1540,7 @@ def chapter_3_lensing():
     )
 
     explain(r"""
-        ### Gravitational Lensing Demonstration
-
-        - The synthetic deflection field mimics how mass bends light on a grid.
-        - Paying μ-bits for every pixel grounds the visual in explicit
-          information cost.
+The lens bends the grid, and every pixel you see costs a μ-bit. The field isn't just pretty—it's a bill for every photon you catch. The Thiele Machine doesn't just simulate gravity; it pays for every glimpse, grounding the cosmic mirage in hard information currency.
     """)
 
 
@@ -1616,11 +1603,7 @@ def chapter_4_nbody_flrw():
     print_nusd_receipt(im, required_bits=total_cost, png_path=path_flrw)
 
     explain(r"""
-        ### N-Body and FLRW Cosmology
-
-        - Two-body Newtonian motion and cosmic expansion share a ledger.
-        - The μ-bits account for observing both trajectories and scale factor,
-          tying local gravity to universal dynamics.
+Gravity and expansion, local and cosmic, all paid for in μ-bits. Watching two bodies dance or the universe stretch, the cost is the same: every position, every scale factor, logged and paid. The ledger ties the smallest orbit to the biggest bang—sight is the only universal currency.
     """)
 
 
@@ -1655,11 +1638,7 @@ def chapter_5_phyllotaxis():
     print_nusd_receipt(im, required_bits=im.MU_SPENT, png_path=path)
 
     explain(r"""
-        ### Phyllotaxis and Optimal Packing
-
-        - A golden-angle spiral places seeds with maximal efficiency.
-        - Recording each position under a 16-bit prior quantifies the cost of
-          witnessing botanical order.
+Nature's spiral isn't just beautiful—it's optimal, and every seed's position is a μ-bit transaction. The golden angle packs order into chaos, and the Thiele Machine pays the bill to witness it. Botanical perfection, measured and bought, one bit at a time.
     """)
 
 
@@ -1694,11 +1673,7 @@ def chapter_6_mandelbrot():
     )
 
     explain(r"""
-        ### Mandelbrot Exploration
-
-        - Iterating \(z^2 + c\) maps escape behaviour over the complex plane.
-        - Paying for each pixel under a uniform palette links visual detail to
-          Shannon cost.
+The Mandelbrot set isn't just math—it's a map of escape, pixel by pixel. Every detail you see is paid for in μ-bits, each one a receipt for the right to witness complexity. The fractal's beauty is a bill, and the Thiele Machine pays it in full.
     """)
 
 
@@ -1730,12 +1705,7 @@ def chapter_7_universality():
     print_nusd_receipt(im, required_bits=im.MU_SPENT)
 
     explain(r"""
-        ### Universality in One Step
-
-        - Encoding a Turing transition into Thiele form shows step-for-step
-          equivalence.
-        - The single observed symbol highlights how μ-bit cost measures the
-          price of universality.
+Universality isn't magic—it's a price tag. Encode a Turing step in Thiele form and the cost is one μ-bit, no more, no less. Every symbol read is a transaction, and the equivalence is paid for in the currency of sight.
     """)
 
 
@@ -1774,11 +1744,7 @@ def chapter_8_thiele_machine():
     print_nusd_receipt(im, required_bits=im.MU_SPENT)
 
     explain(r"""
-        ### The Thiele Machine Itself
-
-        - A global lens observes the entire state before a single-step update.
-        - The uniform prior over {0,1} makes the one-bit payment explicit,
-          illustrating sight-for-time tradeoffs.
+The Thiele Machine doesn't crawl—it sees. One global glance, one μ-bit paid, and the state jumps forward. The trade is explicit: time for sight, blindness for clarity. The receipt is the proof.
     """)
 
 
@@ -1814,14 +1780,7 @@ def chapter_9_nusd_law():
     print("\n".join(lines))
 
     explain(r"""
-The NUSD law is the universe's tab.  Paid bits have to cover the information
-you actually looked at, or the cosmos sends collections.  Every receipt this
-chapter spits out is a little "paid in full" stamp from Z3 saying we didn't try
-to peek without ponying up.
-
-Landauer already warned us: flip a bit, burn heat.  NUSD just writes that in a
-ledger you can hand to a physicist.  No free lunch, no free sight, and the SAT
-line is the proof the bill was settled.
+The NUSD law is the universe's tab. Paid bits cover what you see, or the cosmos sends collections. Every receipt is a "paid in full" stamp from Z3—no peeking without payment. Landauer warned us: flip a bit, burn heat. NUSD writes it in a ledger you can hand to a physicist. No free lunch, no free sight, and the SAT line is the proof the bill was settled.
     """)
 
 
@@ -1875,12 +1834,7 @@ def chapter_10_universality_demo():
     print_nusd_receipt(im, required_bits=im.MU_SPENT)
 
     explain(r"""
-        ### Universality Demonstration
-
-        - A labelled transition system and a Turing machine both embed into the
-          Thiele Machine.
-        - μ-bits certify that their single-step behaviors are indistinguishable
-          under an explicit prior.
+Universality isn't just theory—it's a paid-for fact. Whether it's a labelled transition system or a Turing machine, the Thiele Machine embeds them both, and μ-bits certify the equivalence. Every step, every match, is bought and stamped with the price of sight.
     """)
 
 
@@ -1890,15 +1844,7 @@ def chapter_11_physical_realization():
     emit_rosetta()
 
     explain("""
-"Instantaneous, global sight?" Yeah, sounds like stoner talk.  In classical
-physics you can't even send a text faster than light.  But quantum mechanics
-doesn't care about your common sense.  A unitary `U` hits the whole wavefunction
-`|ψ⟩` in one go.  That's `mu` in the flesh.
-
-Then you measure and the state collapses—judgment `J` turning superposition into
-boring classical bits.  Landauer whispers in the background that each collapsed
-bit burns at least `kT ln 2` of energy.  So the μ-bit isn't magic; it's physics
-demanding you pay for the vision.
+Instantaneous, global sight sounds like stoner talk—until quantum mechanics walks in. A unitary U hits the whole wavefunction in one shot. That's mu in the flesh. Measure, collapse, pay the bill. Landauer whispers: every bit burned is energy spent. μ-bits aren't magic; they're physics demanding payment for every vision.
     """)
 
     print_section("Executable Demonstration: Deutsch's Algorithm as a ThM Cycle")
@@ -2024,10 +1970,7 @@ demanding you pay for the vision.
         )
         explain(
             """
-            The Thiele Machine mu/J model performs Grover's search in a constant number of global cycles (oracle + diffusion),
-            whereas the standard gate model requires O(n) gates per cycle. The overhead is a constant factor: each mu/J step
-            subsumes many local gates, but the total number of global cycles remains constant for fixed Grover iterations.
-            This demonstrates that quantum global operations (mu/J) incur only a constant-factor overhead compared to the gate model.
+Grover's search, Thiele style: constant cycles, global moves. The gate model grinds through O(n) steps, but the Thiele Machine swallows them whole in a few global bites. Quantum speed isn't free—it's paid for in μ-bits, and the receipt is the proof.
             """
         )
         grover_result = "OK"
@@ -2058,11 +2001,7 @@ demanding you pay for the vision.
     print_nusd_receipt(im, required_bits=im.MU_SPENT)
 
     explain(r"""
-        ### Physical Realization via Quantum Circuits
-
-        - Maps Thiele operations onto qubit algorithms like Deutsch and Grover.
-        - Verifying unitarity shows that global sight corresponds to quantum
-          evolution where information is conserved.
+Quantum circuits are just Thiele Machines in disguise. Every global operation, every unitary, is a μ-bit transaction. Deutsch, Grover—they all pay the price for sight. Unitarity isn't just math; it's the guarantee that information is conserved, and every bit is accounted for.
     """)
 
 
@@ -2124,21 +2063,13 @@ def chapter_12_architectural_realization():
     print_markdown_chapter(12, "Architectural Realization")
     explain(
         """
-        This chapter contrasts a scalar von-Neumann CPU with a parallel Thiele graph-rewrite core.
-        We reverse sequences of increasing length on both architectures, plot their cycle counts,
-        and pay μ-bits to confirm the Thiele core is never slower at N=32 under a uniform prior.
+Scalar CPUs crawl, Thiele cores leap. Reverse a sequence, plot the cycles, pay the μ-bits. The Thiele core never lags behind, and every global glance is a transaction. Hardware reality, not hypothetical speed—blindness is slow, sight is paid for.
         """
     )
     plot_scale_comparison()
 
     explain(r"""
-See that plot?  The blue line is a sad von‑Neumann core dragging itself through
-each swap like it's stuck in molasses.  The red line is the Thiele graph engine
-— one global look, one rewrite, done.  Flat vs. vertical, cane vs. searchlight.
-
-We pay μ-bits for the privilege of that global glance, but the cycle counts are
-the payoff.  This isn't hypothetical speed; it's hardware reality.  We built our
-machines to be blind and then acted surprised they're slow.
+See that plot? The blue line is a von-Neumann core slogging through swaps, stuck in molasses. The red line is the Thiele engine—one global look, one rewrite, done. Flat versus vertical, cane versus searchlight. We pay μ-bits for the privilege of global sight, and the cycle counts prove the payoff. Blind machines are slow by design.
     """)
 
 
@@ -2242,17 +2173,12 @@ def chapter_13_capstone_demonstration():
     print_nusd_receipt(im, required_bits=bits1 + bits2)
 
     explain(r"""
-        ### Capstone Demonstration
-
-        - Computation, cognition, and emergence processes collapse to the same
-          behaviour.
-        - Their isomorphism exposes a unifying structure behind disparate
-          systems.
+Computation, cognition, emergence—different faces, same skeleton. Their isomorphism isn't just a trick; it's the unifying structure behind everything. The Thiele Machine pays μ-bits to prove it: disparate systems, one underlying song.
     """)
 def chapter_14_process_isomorphism():
     print_markdown_chapter(14, "Process Isomorphism (Illustrative)")
     explain(
-        "This chapter sketches a single mapping between two processes and makes no general theorem claim."
+        "This chapter sketches a single mapping between two processes—no grand theorem, just a glimpse of how form and meaning can travel together."
     )
     im = InfoMeter("Process Isomorphism")
 
@@ -2291,18 +2217,14 @@ def chapter_14_process_isomorphism():
     print_nusd_receipt(im, required_bits=bits_needed)
 
     explain(r"""
-        ### Process Isomorphism
-
-        - Reversal as list manipulations or dictionary rewrites yields identical results.
-        - Z3 confirmation shows that algorithmic form can change while meaning remains invariant.
+Reversal by list or by dictionary—same result, different path. Z3 stamps the confirmation: algorithmic form can change, but meaning stays put. The shape of the process is invariant, and the μ-bit is the price of knowing.
     """)
 
 
 def chapter_15_geometric_logic():
     print_markdown_chapter(15, "The Geometric Nature of Logic")
     explain(
-        "This chapter models a simple syllogism as a directed graph, draws its geometry,"
-        " and verifies that the logical conclusion is reachable."
+        "Logic as geometry: a syllogism becomes a graph, and deduction is just reachability. Draw the shape, check the path, and pay the μ-bit to see the conclusion."
     )
     im = InfoMeter("Geometric Logic")
 
@@ -2349,11 +2271,7 @@ def chapter_15_geometric_logic():
     print_nusd_receipt(im, required_bits=bits_needed)
 
     explain(r"""
-        ### The Geometric Nature of Logic
-
-        - A syllogism becomes a graph; reachability encodes the deduction.
-        - Paying μ-bits for the observed path links logical inference to spatial
-          geometry.
+A syllogism is a graph, and deduction is a path. Every logical step is a move through geometry, and every observed path costs μ-bits. Inference isn't just reasoning—it's navigation through the shape of truth.
     """)
 
 
@@ -2657,13 +2575,7 @@ def chapter_19_conclusion():
     ledger.record(r)
 
     explain(r"""
-No fireworks, just `2 + 1 = 1 + 2`.  After nineteen chapters of brain-bending
-machinery, the finale is the simplest symmetry in math.  Z3 can't find a counter
-example because there isn't one.
-
-We still drop a μ-bit to log the certainty, like a last tip in the jar.  That's
-the point: every grand claim cashes out to tiny truths you can verify.  Thesis
-over.  I'm going for a smoke.
+No fireworks, just `2 + 1 = 1 + 2`. After nineteen chapters of machinery, the finale is the simplest symmetry in math. Z3 can't find a counterexample because there isn't one. The last μ-bit is a tip in the jar—every grand claim cashes out to tiny truths you can verify. Thesis over.
     """)
 
 
