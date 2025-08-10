@@ -289,3 +289,6 @@ Phase 17: Dark Work Instrumentation
 - [x] Instrument Z3 `prove()` and solver checks to record steps, conflicts, and max memory
 - [x] Calibrate `z3_conflicts` and `z3_memory` cost coefficients using the Conclusion proof
 - [x] Re-run audit on Z3-heavy chapters with calibrated coefficients
+
+Phase 18: Ghost in the Machine Expedition
+- [x] Record Z3 solver work directly into `CostLedger` and price memory via `ZETA`

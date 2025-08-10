@@ -139,7 +139,7 @@ class CostLedger:
     branches: int = 0
     z3_steps: int = 0
     z3_conflicts: int = 0
-    z3_memory: float = 0.0
+    z3_max_memory: float = 0.0  # in MB
     time_steps: int = 1
     total_iterations: int = 0  # legacy counter
     bytes: int = 0
@@ -157,8 +157,7 @@ class CostLedger:
 # --- CANONICAL COST FUNCTION (Declare once, use everywhere) ---
 # In the dynamic NUSD era, all primitive operations are weighted equally.
 ALPHA = BETA = GAMMA = DELTA = 1.0
-ZETA = 0.0
-ETA = 0.40161  # bits per MB of Z3 max memory
+ZETA = 0.40161  # cost in mu-bits per MB of Z3 memory
 
 def canonical_cost(
     ledger: CostLedger,
@@ -171,8 +170,7 @@ def canonical_cost(
         + BETA * ledger.writes
         + GAMMA * ledger.moves
         + DELTA * (ledger.flops + ledger.branches)
-        + ZETA * ledger.z3_conflicts
-        + ETA * ledger.z3_memory
+        + ZETA * ledger.z3_max_memory
     )
 
 
@@ -257,7 +255,7 @@ def ledger_from_info(im: "InfoMeter", time_steps: int = 1) -> CostLedger:
         branches=getattr(im.op_counter, "branches", 0),
         z3_steps=getattr(im.op_counter, "z3_steps", 0),
         z3_conflicts=getattr(im.op_counter, "z3_conflicts", 0),
-        z3_memory=getattr(im.op_counter, "z3_memory", 0.0),
+        z3_max_memory=getattr(im.op_counter, "z3_max_memory", 0.0),
         time_steps=time_steps,
     )
 
@@ -309,7 +307,7 @@ class OpCounter:
     branches: int = 0
     z3_steps: int = 0
     z3_conflicts: int = 0
-    z3_memory: float = 0.0
+    z3_max_memory: float = 0.0
 
     def total(self) -> int:
         return self.reads + self.writes + self.compares + self.moves
@@ -1142,7 +1140,7 @@ def z3_save(slv: Solver, name: str) -> str:
     return path
 
 
-def prove(title: str, build_negation: Callable[[Solver], Any], counter: OpCounter | None = None):
+def prove(title: str, build_negation: Callable[[Solver], Any], ledger: CostLedger):
     if not hasattr(z3, "Solver"):
         print(f"[Z3] {title}: unavailable")
         return None, False
@@ -1150,18 +1148,20 @@ def prove(title: str, build_negation: Callable[[Solver], Any], counter: OpCounte
     build_negation(s)
     path = z3_save(s, title.replace(" ", "_"))
     res = s.check()
-    stats = s.statistics()
-    if counter is not None:
-        keys = stats.keys()
-        counter.z3_steps += int(stats.get_key_value("rlimit count")) if "rlimit count" in keys else 0
-        counter.z3_conflicts += int(stats.get_key_value("conflicts")) if "conflicts" in keys else 0
-        counter.z3_memory += float(stats.get_key_value("max memory")) if "max memory" in keys else 0.0
-        if OUTPUT_MODE != "publish":
-            print(
-                f"[Z3 stats] steps={counter.z3_steps} conflicts={counter.z3_conflicts} maxmem={counter.z3_memory}"
-            )
     if res == unsat:
-        print(f"Checked ¬({title}): UNSAT => {title} holds.")
+        stats = s.statistics()
+        keys = stats.keys()
+        steps = int(stats.get_key_value("rlimit count")) if "rlimit count" in keys else int(stats.get_key_value("steps")) if "steps" in keys else 0
+        conflicts = int(stats.get_key_value("conflicts")) if "conflicts" in keys else 0
+        max_memory_mb = float(stats.get_key_value("max memory")) if "max memory" in keys else 0.0
+
+        ledger.z3_steps += steps
+        ledger.z3_conflicts += conflicts
+        ledger.z3_max_memory += max_memory_mb
+
+        print(
+            f"Checked ¬({title}): UNSAT => {title} holds. [Z3 Work: {steps} steps, {conflicts} conflicts, {max_memory_mb:.4f} MB]"
+        )
         ok = True
     else:
         print(f"[WARN] Checked ¬({title}): {res} => cannot confirm claim.")
@@ -3485,11 +3485,11 @@ def chapter_17_geometry_truth():
     keys = stats.keys()
     im.op_counter.z3_steps += int(stats.get_key_value("rlimit count")) if "rlimit count" in keys else 0
     im.op_counter.z3_conflicts += int(stats.get_key_value("conflicts")) if "conflicts" in keys else 0
-    im.op_counter.z3_memory += float(stats.get_key_value("max memory")) if "max memory" in keys else 0.0
+    im.op_counter.z3_max_memory += float(stats.get_key_value("max memory")) if "max memory" in keys else 0.0
     if OUTPUT_MODE != "publish":
         print(f"[Z3] Constraint satisfiability: {res}")
         print(
-            f"[Z3 stats] steps={im.op_counter.z3_steps} conflicts={im.op_counter.z3_conflicts} maxmem={im.op_counter.z3_memory}"
+            f"[Z3 stats] steps={im.op_counter.z3_steps} conflicts={im.op_counter.z3_conflicts} maxmem={im.op_counter.z3_max_memory}"
         )
     assert res == z3.sat
 
@@ -3598,11 +3598,11 @@ def chapter_18_geometry_coherence():
     keys = stats.keys()
     im.op_counter.z3_steps += int(stats.get_key_value("rlimit count")) if "rlimit count" in keys else 0
     im.op_counter.z3_conflicts += int(stats.get_key_value("conflicts")) if "conflicts" in keys else 0
-    im.op_counter.z3_memory += float(stats.get_key_value("max memory")) if "max memory" in keys else 0.0
+    im.op_counter.z3_max_memory += float(stats.get_key_value("max memory")) if "max memory" in keys else 0.0
     if OUTPUT_MODE != "publish":
         print(f"[Z3] volume recurrence satisfiable: {res}")
         print(
-            f"[Z3 stats] steps={im.op_counter.z3_steps} conflicts={im.op_counter.z3_conflicts} maxmem={im.op_counter.z3_memory}"
+            f"[Z3 stats] steps={im.op_counter.z3_steps} conflicts={im.op_counter.z3_conflicts} maxmem={im.op_counter.z3_max_memory}"
         )
     assert res == z3.sat
     KERNEL.VERIFY(
@@ -3675,11 +3675,13 @@ def chapter_19_conclusion():
     """)
 
     # --- Original proof and receipt logic ---
+    z3_ledger = CostLedger()
+
     def neg(s: Solver):
         a, b = z3.Ints("a b")
         s.add(a + b != b + a)
 
-    path, ok = prove("Addition commutativity over Z", neg, im.op_counter)
+    path, ok = prove("Addition commutativity over Z", neg, z3_ledger)
     assert ok
 
     prior = {True: 0.5, False: 0.5}
@@ -3688,6 +3690,9 @@ def chapter_19_conclusion():
     H_sufficient = bits_needed
     shannon_debt = H_sufficient
     ledger_cost = ledger_from_info(im)
+    ledger_cost.z3_steps += z3_ledger.z3_steps
+    ledger_cost.z3_conflicts += z3_ledger.z3_conflicts
+    ledger_cost.z3_max_memory += z3_ledger.z3_max_memory
     artifact = True
     K = record_complexity(artifact, ledger_cost)
     measured_cost = canonical_cost(ledger_cost)
@@ -3930,8 +3935,8 @@ The charge: The Thiele Machine is a 'magical oracle'—a tautological device tha
 def neg_commutativity(s: Solver):
     a, b = z3.Ints("a b")
     s.add(a + b != b + a)
-
-path, ok = prove("Addition commutativity over Z (Defense)", neg_commutativity)
+dummy_ledger = CostLedger()
+path, ok = prove("Addition commutativity over Z (Defense)", neg_commutativity, dummy_ledger)
 show_verdict("Addition commutativity: Z3 UNSAT => no counterexample exists.", ok)
 
 explain(r"""
