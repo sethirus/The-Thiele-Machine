@@ -4172,7 +4172,8 @@ if __name__ == "__main__":
             pass1 += 1
         else:
             fail1 += 1
-    print("HYPOTHESIS 1: W >= H_shannon. VERDICT: FALSIFIED.")
+    verdict1 = "FALSIFIED" if fail1 else "SUPPORTED"
+    print(f"HYPOTHESIS 1: W >= H_shannon. VERDICT: {verdict1}.")
 
     pass2 = fail2 = 0
     for row in MASTER_LOG_ROWS:
@@ -4180,14 +4181,16 @@ if __name__ == "__main__":
         K = row["K"]
         debt = K * K
         status = "PASS" if W >= debt else "FAIL"
-        print(f"{row['chapter']}: W={W:.2f} >= KAPPA*K={debt:.2f}? {status}")
+        print(f"{row['chapter']}: W={W:.2f} >= K^2={debt:.2f}? {status}")
         if status == "PASS":
             pass2 += 1
         else:
             fail2 += 1
-    print("HYPOTHESIS 2: W >= KAPPA * K. VERDICT: FALSIFIED.")
+    verdict2 = "FALSIFIED" if fail2 else "SUPPORTED"
+    print(f"HYPOTHESIS 2: W >= KAPPA * K. VERDICT: {verdict2}.")
 
     print("[INFO] Initial hypotheses failed. Generating master data log for analysis...")
+    import csv
     if MASTER_LOG_ROWS:
         with open("master_log.csv", "w", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=MASTER_LOG_ROWS[0].keys())
