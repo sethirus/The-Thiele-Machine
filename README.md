@@ -62,6 +62,25 @@ The project currently depends on:
 | networkx | added |
 Additional standard-library modules such as `hashlib` and `argparse` require no installation.
 
+## Proof Frame and Claim
+
+The repository includes a single-file demonstrator,
+`shape_of_truth_ouroboros.py`, which fits a linear law
+\(W \approx a_K K + a_d d + a_T T + b_0\) to a fixed 20-row
+“fossil record.”  The script can audit this law by searching a finite
+grid of slices and reporting counterexamples when the law fails under
+named **axiom presets**:
+
+- `loose`: nonnegativity and a weak “no pure-time ghost” rule.
+- `medium`: discrete depth `d ∈ {1,2,3,4}` plus the ghost ban.
+- `strict`: adds linear couplings \(W ≥ c_1 K\) and \(T ≤ c_2 K + c_3\).
+
+Running with `--check` invokes the grid search.  If no counterexample is
+found for the explored ranges, the law is “unsat” on that grid, giving a
+bounded shadow proof that the axioms forbid monsters.  All logic checks
+use only the Python standard library; tightening the grids or axioms can
+strengthen the audit.
+
 ## How to Run
 1. Install Python 3.13+ and create a virtual environment.
 2. Install dependencies:
@@ -86,6 +105,15 @@ Additional standard-library modules such as `hashlib` and `argparse` require no 
 ## Physical Realizability and Future Directions
 The Thiele Machine obeys Landauer's limit: each observed bit costs energy.
 Future work includes exploring hardware implementations and quantifying practical constraints in real devices.
+
+## Meta-proof Artifacts
+
+## Self-contained proof script
+`shape_of_truth_ouroboros.py` embeds the fossil record and, when executed with `--prove`, computes a per-depth sphere witness and a planar impossibility certificate.  Invoking `--relax-depth` demonstrates how dropping the depth axiom permits a planar "monster".  Example:
+``
+python shape_of_truth_ouroboros.py --prove
+python shape_of_truth_ouroboros.py --prove --relax-depth
+```
 
 ## Meta-proof Artifacts
 Running `thethielemachine.py` produces auditable files in `artifacts/`, including SMT proofs and `meta_proof_trace.json`. These artifacts allow reviewers to reproduce every verification step.
