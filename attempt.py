@@ -1,7 +1,33 @@
 # ==== PURE PROOF: imports (add at top of attempt.py) ====
-import os, sys, json, time, hashlib
+import os
+import sys
+import json
+import time
+import hashlib
+import inspect
+import random
 from dataclasses import dataclass
+from itertools import combinations, product
+from fractions import Fraction
+
+import numpy as np
+import matplotlib
+matplotlib.use('Agg')
+
+# (networkx import removed; handled locally in functions)
+
+try:
+    from pysat.solvers import Minisat22
+except ImportError:
+    raise ImportError("PySAT Minisat22 is required for run_blind_budgeted(). Please install python-sat[all].")
+
+try:
+    from scipy.spatial.transform import Rotation as R
+except ImportError:
+    R = None
+
 from z3 import *
+
 # ========================================================
 
 #!/usr/bin/env python3
@@ -819,6 +845,8 @@ Thesis 3: The separation between Trace (Turing) and Composite (Thiele) is not
     say("\n--------------------------------------------------------------------------------")
     say("DEMO 1 — Rotations: Sequential vs. Composite Operations")
     say("--------------------------------------------------------------------------------")
+    if R is None:
+        raise RuntimeError("scipy.spatial.transform.Rotation (R) is not available. Please install scipy to run the rotation demo in ACT II.")
     rx = R.from_euler('x', 90, degrees=True)
     ry = R.from_euler('y', 90, degrees=True)
     trace_xy = (rx * ry).as_quat().tolist()
@@ -1686,7 +1714,6 @@ def plot_fast_receipts(ns=(10, 20), seeds=1):
         cens_frac.append(cens / len(R))
         confs = [r["conflicts"] for r in R]
         med_conf.append(np.median(confs))
-    import hashlib, os
     os.makedirs("shape_of_truth_out", exist_ok=True)
     plt.figure()
     plt.plot(ns_sorted, cens_frac, marker="o")
