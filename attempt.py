@@ -189,10 +189,11 @@ class TM:
 
 class EncodedTM:
     """Z3 encoding of a deterministic single-tape Turing Machine."""
-    def __init__(self, M: TM):
+    def __init__(self, M: TM, uniq=None):
         # Finite enums
-        self.State, state_consts = EnumSort('TM_State', M.states)
-        self.Sym,   sym_consts   = EnumSort('TM_Sym',   M.symbols)
+        uniq = uniq or str(random.randint(0, 1_000_000))
+        self.State, state_consts = EnumSort(f'TM_State_{uniq}', M.states)
+        self.Sym,   sym_consts   = EnumSort(f'TM_Sym_{uniq}',   M.symbols)
         self.q_of = {name: state_consts[i] for i, name in enumerate(M.states)}
         self.s_of = {name: sym_consts[i]   for i, name in enumerate(M.symbols)}
         self.BLANK = self.s_of[M.blank]
@@ -244,7 +245,8 @@ class EncodedThieleSliceTM:
 def prove_tm_subsumption_universal(M: TM, out_path: str) -> bool:
     """Prove: ∄(q,t,h) s.t. TM_Step != TH_Step under Pi_trace (identity embedding)."""
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
-    etm = EncodedTM(M)
+    uniq = f"{random.randint(0, 1_000_000)}_{int(time.time()*1000)}"
+    etm = EncodedTM(M, uniq=uniq)
     th  = EncodedThieleSliceTM(etm)
     s   = Solver()
     s.set("timeout", 0)  # no timeout: pure proof
@@ -444,6 +446,82 @@ def toy_tm():
         delta[(qn,"_")] = ("halt","_", 0)
     return TM(states=states, symbols=symbols, blank="_", start="q0", halt="halt", delta=delta)
 
+def tseitin_expander_to_tm(n=4, seed=0):
+    """
+    Encode a small Tseitin expander instance as a Turing Machine (TM).
+    This TM will simulate checking all possible assignments for the Tseitin instance and halt if a contradiction is found.
+    For tractability, n should be small (e.g., n=4).
+    """
+    instance = generate_tseitin_expander(n, seed=seed)
+    num_edges = len(instance["edges"])
+    # States: enumerate all possible assignments (2^num_edges), plus start and halt
+    states = ["q_start"] + [f"q_{i}" for i in range(2**num_edges)] + ["halt"]
+    symbols = ["0", "1", "_"]
+    blank = "_"
+    start = "q_start"
+    halt = "halt"
+    delta = {}
+    # Tape: one cell per edge, plus head position
+    # For each assignment, check if it satisfies all parity constraints
+    for i in range(2**num_edges):
+        assignment = [(i >> j) & 1 for j in range(num_edges)]
+        # Check parity constraints
+        ok = True
+        for row, rhs in instance["xor_rows"]:
+            val = sum(assignment[j] for j, bit in enumerate(row) if bit) % 2
+            if val != rhs:
+                ok = False
+                break
+        curr_state = f"q_{i}"
+        if ok:
+            # Accepting: transition to halt
+            delta[(curr_state, "_")] = ("halt", "_", 0)
+        else:
+            # Not accepting: move to next assignment or halt if last
+            next_state = f"q_{i+1}" if i+1 < 2**num_edges else "halt"
+            delta[(curr_state, "_")] = (next_state, "_", 0)
+    # Start state: go to first assignment
+    delta[("q_start", "_")] = ("q_0", "_", 0)
+    return TM(states=states, symbols=symbols, blank=blank, start=start, halt=halt, delta=delta)
+
+def run_prove_tseitin_tm_subsumption_batch(ns=(4, 5), seeds=(0, 1)):
+    """
+    Run the Tseitin TM subsumption proof for multiple (n, seed) pairs and summarize results.
+    """
+    os.makedirs("shape_of_truth_out", exist_ok=True)
+    results = []
+    for n in ns:
+        if n % 2 != 0:
+            print(f"Skipping n={n}: 3-regular graph requires even n.")
+            continue
+        for seed in seeds:
+            ok, h = run_prove_tseitin_tm_subsumption(n=n, seed=seed)
+            results.append({
+                "n": n,
+                "seed": seed,
+                "ok": ok,
+                "sha256": h,
+                "proof_file": f"shape_of_truth_out/bisimulation_tseitin_proof_n{n}_seed{seed}.txt"
+            })
+    # Print summary table
+    print("\n=== Tseitin TM Subsumption Batch Summary ===")
+    for r in results:
+        print(f"n={r['n']} seed={r['seed']} PASS={r['ok']} SHA256={r['sha256']} file={r['proof_file']}")
+    return results
+
+def run_prove_tseitin_tm_subsumption(n=4, seed=0):
+    """
+    Run the universal TM subsumption proof on a real Tseitin expander encoded as a TM.
+    """
+    os.makedirs("shape_of_truth_out", exist_ok=True)
+    tm = tseitin_expander_to_tm(n=n, seed=seed)
+    out_path = f"shape_of_truth_out/bisimulation_tseitin_proof_n{n}_seed{seed}.txt"
+    ok = prove_tm_subsumption_universal(tm, out_path)
+    h = hashlib.sha256(open(out_path,"rb").read()).hexdigest()
+    print("\n=== Pi_trace: Tseitin Expander TM Subsumption (UNSAT counterexample) ===")
+    print("[PASS] Tseitin TM one-step equality; determinism => bisimulation." if ok else "[FAIL] Counterexample found.")
+    print("Proof:", out_path, "SHA256:", h)
+    return ok, h
 # ---------- Driver functions to call from your main ----------
 def run_prove_tm_subsumption():
     """Run the universal TM subsumption proof and print results."""
@@ -488,16 +566,6 @@ def is_partition_solvable(split, dataset):
     """
     Determines if each group in a partition can be explained by a simple linear model.
 
-    This is the Blind Baker's audition for the role of 'Universal Explainer.' Each group
-    is handed to Z3, the logic referee, and asked: "Can you fit a line through these points?"
-    If any group fails, the partition is deemed logically inconsistent—a cosmic 'nope.'
-
-    Args:
-        split (tuple of lists of ints): Partition of dataset indices.
-        dataset (list of tuples): The raw data points.
-
-    Returns:
-        bool: True if every group is solvable by a linear model, False otherwise.
     """
     # First Principles Explanation:
     # This function is my way of asking: "Can you explain each group with a simple rule?"
@@ -1736,11 +1804,15 @@ def plot_fast_receipts(ns=(10, 20), seeds=1):
 
     # Print pip freeze and its SHA256
     import subprocess
-    freeze = subprocess.check_output(["pip", "freeze"]).decode("utf-8")
-    freeze_hash = hashlib.sha256(freeze.encode("utf-8")).hexdigest()
-    print("=== pip freeze ===")
-    print(freeze)
-    print(f"pip freeze SHA256: {freeze_hash}")
+    try:
+        freeze = subprocess.check_output([sys.executable, "-m", "pip", "freeze"]).decode("utf-8")
+        freeze_hash = hashlib.sha256(freeze.encode("utf-8")).hexdigest()
+        print("=== pip freeze ===")
+        print(freeze)
+        print(f"pip freeze SHA256: {freeze_hash}")
+    except Exception as e:
+        print("=== pip freeze ===")
+        print(f"[ERROR] Could not run pip freeze: {e}")
 def run_act_VI_experimental_separation():
     """
     ACT VI: Empirically demonstrates the computational separation between blind and sighted solvers.
