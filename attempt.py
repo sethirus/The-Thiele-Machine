@@ -1389,8 +1389,7 @@ def run_single_experiment(params):
             seed,
             global_seed,
             verbose=os.getenv("VERBOSE", "0") == "1",
-            hb_period=int(float(os.getenv("HB_PERIOD_SEC", "10"))),
-            build_xor_rows=False,
+            hb_period=int(float(os.getenv("HB_PERIOD_SEC", "10")))
         )
         phase["name"] = "SAT solving"
         phase["start"] = time.time()
@@ -1784,14 +1783,7 @@ def make_odd_charge(n, rng):
     return charges
 
 # ================================================================================
-def generate_tseitin_expander(
-    n,
-    seed=0,
-    global_seed=RUN_SEED,
-    verbose=False,
-    hb_period=10,
-    build_xor_rows=True,
-):
+def generate_tseitin_expander(n, seed=0, global_seed=RUN_SEED, verbose=False, hb_period=10):
     """Generate a random 3-regular Tseitin instance.
 
     This implementation mirrors :mod:`generate_tseitin_data.py` but is inlined here
@@ -1806,9 +1798,6 @@ def generate_tseitin_expander(
         global_seed (int): global seed controlling graph/charge generation.
         verbose (bool): emit heartbeat messages while generating.
         hb_period (int): seconds between heartbeats when ``verbose`` is true.
-        build_xor_rows (bool): if ``True`` materialise full GF(2) rows for
-            backwards compatibility.  Set to ``False`` to skip this step and
-            speed up generation when only ``xor_rows_idx`` is needed.
 
     Returns:
         dict: ``edges`` (list of edges), ``charges`` (parity at each vertex),
@@ -1850,15 +1839,14 @@ def generate_tseitin_expander(
                       f"progress {v_idx+1}/{n}")
                 last_heartbeat = now
 
-    xor_rows = None
-    if build_xor_rows:
-        m_edges = len(edges)
-        xor_rows = []
-        for idxs, rhs in xor_rows_idx:
-            row = [0] * m_edges
-            for i in idxs:
-                row[i] = 1
-            xor_rows.append((row, rhs))
+    # For legacy callers we still materialise full XOR rows.
+    m_edges = len(edges)
+    xor_rows = []
+    for idxs, rhs in xor_rows_idx:
+        row = [0] * m_edges
+        for i in idxs:
+            row[i] = 1
+        xor_rows.append((row, rhs))
 
     return {
         "edges": edges,
@@ -2029,8 +2017,30 @@ def fast_receipts(ns=(10, 20), seeds=1, conf_budget=100_000, prop_budget=5_000_0
     say("\n=== Fast Tseitin Expander Receipts ===")
     say("n | seed | blind | conflicts | decisions | props | sighted | rank_gap | lhs_zero | rhs_one | lhs_ones | cert_hash")
     for row in results:
-        # GF(2) certificate summary matches table fields exactly
-        say(f"{row['n']:3} | {row['seed']:4} | {row['blind']:8} | {row['conflicts']:9} | {row['decisions']:9} | {row['props']:9} | {row['sighted']:8} | {row['rank_gap']:8} | {row['lhs_zero']:9} | {row['rhs_one']:8} | {row['lhs_ones']:9} | {str(row['cert_hash'])[:16] if row['cert_hash'] else ''}")
+        # Log the full row for debugging
+        say(f"[DEBUG] Row: {row}")
+        # Helper to safely format fields
+        def safe_fmt(val, width):
+            if val is None:
+                return "N/A".rjust(width)
+            try:
+                return f"{val!s}".rjust(width)
+            except Exception:
+                return "N/A".rjust(width)
+        say(
+            f"{safe_fmt(row.get('n'),3)} | "
+            f"{safe_fmt(row.get('seed'),4)} | "
+            f"{safe_fmt(row.get('blind'),8)} | "
+            f"{safe_fmt(row.get('conflicts'),9)} | "
+            f"{safe_fmt(row.get('decisions'),9)} | "
+            f"{safe_fmt(row.get('props'),9)} | "
+            f"{safe_fmt(row.get('sighted'),8)} | "
+            f"{safe_fmt(row.get('rank_gap'),8)} | "
+            f"{safe_fmt(row.get('lhs_zero'),9)} | "
+            f"{safe_fmt(row.get('rhs_one'),8)} | "
+            f"{safe_fmt(row.get('lhs_ones'),9)} | "
+            f"{str(row.get('cert_hash'))[:16] if row.get('cert_hash') else ''}"
+        )
 
 # --- Plotting Utility for Fast Receipts ---
 def plot_fast_receipts(ns=(10, 20), seeds=1):
@@ -2200,8 +2210,14 @@ consistent with exponential Resolution lower bounds; the sighted cost remains es
         # Certificate/witness snippet
         def format_cert_snip(s):
             if s.get("result") == "unsat":
-                idx = next((i for i in range(s['lhs_zero']) if True), 0)
-                return f"idx={idx}, lhs_zero={int(s['lhs_zero']>0)}, rhs_one={int(s['rhs_one']>0)}, hash={(s.get('cert_hash') or '')[:16]}"
+                lhs_zero = s.get('lhs_zero', 0)
+                rhs_one = s.get('rhs_one', 0)
+                cert_hash = s.get('cert_hash', '')
+                try:
+                    idx = next((i for i in range(lhs_zero) if True), 0) if isinstance(lhs_zero, int) and lhs_zero else 0
+                except Exception:
+                    idx = 0
+                return f"idx={idx}, lhs_zero={int(bool(lhs_zero))}, rhs_one={int(bool(rhs_one))}, hash={(str(cert_hash) or '')[:16]}"
             else:
                 return "solution_vector"
         cert_snip = format_cert_snip(sighted)
