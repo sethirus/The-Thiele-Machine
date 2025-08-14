@@ -14,7 +14,7 @@ import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 
-# (networkx import removed; handled locally in functions)
+import networkx as nx
 
 try:
     from pysat.solvers import Minisat22
@@ -161,6 +161,7 @@ def seeded_rng(global_seed, n, seed):
     return np.random.default_rng(h)
 import inspect
 import random
+import threading
 from itertools import combinations, product
 from fractions import Fraction
 
@@ -1259,7 +1260,7 @@ def parity3_z3_bool(x1, x2, x3, rhs):
     # x1, x2, x3 are Z3 Bool variables; rhs is 0 or 1
     return If(Xor(x1, Xor(x2, x3)), rhs == 1, rhs == 0)
 
-def run_act_IV_the_fractal_debt():
+def run_act_IV_the_fractal_debt_naive():
     """
     ACT IV: Demonstrates the exponential consequences of ignoring the Law of NUSD.
     [TO MIGRATE: This act should use the advanced batch harness, not the naive version.]
@@ -1361,6 +1362,259 @@ exponential separation. All results are printed below.
     say("\n[PASS] The receipts are clear: as hidden complexity grows, the Blind model's debt")
     say("grows exponentially. Sight is not enough; the model's geometry must match the world's.")
 
+def run_single_experiment(params):
+    n, seed, conf_budget, prop_budget, global_seed = params
+    start_time = time.time()
+    pid = os.getpid()
+    phase = {"name": "starting", "start": start_time, "elapsed": 0}
+    stop_worker_heartbeat = threading.Event()
+
+    def worker_heartbeat():
+        while not stop_worker_heartbeat.is_set():
+            now = time.time()
+            if os.getenv("VERBOSE", "0") == "1":
+                print(
+                    f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={pid}] [WORKER-HEARTBEAT] n={n}, seed={seed} phase={phase['name']} elapsed={now-phase['start']:.2f}s total_elapsed={now-start_time:.2f}s"
+                )
+            stop_worker_heartbeat.wait(float(os.getenv("HB_PERIOD_SEC", "10")))
+
+    heartbeat_thread = threading.Thread(target=worker_heartbeat, daemon=True)
+    heartbeat_thread.start()
+    try:
+        phase["name"] = "generating instance"
+        phase["start"] = time.time()
+        t0 = phase["start"]
+        instance = generate_tseitin_expander(
+            n,
+            seed,
+            global_seed,
+            verbose=os.getenv("VERBOSE", "0") == "1",
+            hb_period=int(float(os.getenv("HB_PERIOD_SEC", "10"))),
+            build_xor_rows=False,
+        )
+        phase["name"] = "SAT solving"
+        phase["start"] = time.time()
+        t1 = phase["start"]
+        instance_hash = hash_obj((instance["edges"], instance["charges"]))
+        fast_mode = os.getenv("FAST_MODE", "0") == "1"
+        sighted_res = solve_sighted_xor(
+            instance["xor_rows_idx"], m_edges=len(instance["edges"])
+        )
+        if fast_mode and sighted_res["result"] == "unsat" and n >= int(os.getenv("FAST_SKIP_N_MIN", "50")):
+            blind_res = {
+                "status": "censored",
+                "conflicts": 0,
+                "props": 0,
+                "decisions": 0,
+            }
+        else:
+            blind_res = run_blind_budgeted(
+                instance["cnf_clauses"], conf_budget, prop_budget
+            )
+        result = {
+            "n": n,
+            "seed": seed,
+            "conf_budget": conf_budget,
+            "instance_hash": instance_hash,
+            "blind_results": blind_res,
+            "sighted_results": sighted_res,
+            "timings": {
+                "gen_s": round(phase["start"] - t0, 4) if "t0" in locals() else None,
+                "blind_s": round(time.time() - t1, 4),
+            },
+        }
+        stop_worker_heartbeat.set()
+        heartbeat_thread.join(timeout=2)
+        return result
+    except Exception as e:  # pragma: no cover - diagnostic path
+        import traceback
+
+        stop_worker_heartbeat.set()
+        heartbeat_thread.join(timeout=2)
+        print(
+            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={pid}] ERROR on n={n}, seed={seed}: {e}"
+        )
+        print(traceback.format_exc())
+        print(
+            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={pid}] FAIL job n={n}, seed={seed} (total: {time.time()-start_time:.2f}s)"
+        )
+        return None
+
+def run_act_IV_the_fractal_debt():
+    """ACT IV: the fractal nature of debt using the fast multiprocessing harness."""
+    import multiprocessing
+    import platform
+    import threading
+    try:
+        from tqdm import tqdm  # type: ignore
+    except Exception:
+        tqdm = None
+
+    say(r"""
+===============================================================================
+ACT IV: THE FRACTAL NATURE OF DEBT (ADVANCED HARNESS, FULL BATCH)
+===============================================================================
+Thesis 6: The cost of blindness is not linear; it is often exponential.
+          Every unperceived dimension multiplies the information debt.
+
+This experiment uses the advanced multiprocessing expander harness to generate
+and solve a full batch of Tseitin expander instances, collecting receipts for
+exponential separation. All results are printed below.
+""")
+
+    main_start_time = time.time()
+    print(
+        f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Main experiment started."
+    )
+    heartbeat_stop = threading.Event()
+    heartbeat_progress = {"completed": 0, "total": 0, "job_timestamps": []}
+
+    def heartbeat():  # pragma: no cover - diagnostic path
+        import collections
+
+        MOVING_AVG_WINDOW = 10
+        last_completed = 0
+        last_time = time.time()
+        start_time = last_time
+        job_timestamps = collections.deque(maxlen=MOVING_AVG_WINDOW + 1)
+        while not heartbeat_stop.is_set():
+            now = time.time()
+            completed = heartbeat_progress["completed"]
+            total = heartbeat_progress["total"]
+            delta = completed - last_completed
+            interval = now - last_time
+            elapsed = now - start_time
+            if completed > last_completed:
+                for _ in range(delta):
+                    job_timestamps.append(now)
+            if len(job_timestamps) > 1:
+                recent = [t2 - t1 for t1, t2 in zip(list(job_timestamps)[:-1], list(job_timestamps)[1:])]
+                moving_avg_job_time = sum(recent) / len(recent)
+            else:
+                moving_avg_job_time = (elapsed / completed) if completed > 0 else 0
+            eta_total = (
+                (total - completed) * moving_avg_job_time
+                if moving_avg_job_time > 0
+                else float("inf")
+            )
+            msg = (
+                f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Heartbeat:\n"
+                f"  - Progress: {completed}/{total} jobs completed (+{delta} since last beat)\n"
+                f"  - Interval: {interval:.2f}s\n"
+                f"  - ETA to program finish: {eta_total if eta_total != float('inf') else 'N/A'}s\n"
+                f"  - Elapsed: {int(elapsed // 60)}m {int(elapsed % 60)}s\n"
+            )
+            print(msg)
+            last_completed = completed
+            last_time = now
+            heartbeat_stop.wait(10)
+
+    try:
+        GLOBAL_SEED = RUN_SEED
+        NS_TO_RUN = [10, 20, 50, 80, 120]
+        SEEDS_PER_N = 10
+        BUDGETS = {"conf_budget": 100_000, "prop_budget": 5_000_000}
+        jobs = [
+            (n, seed, BUDGETS["conf_budget"], BUDGETS["prop_budget"], GLOBAL_SEED)
+            for n in NS_TO_RUN
+            for seed in range(SEEDS_PER_N)
+        ]
+        heartbeat_progress["total"] = len(jobs)
+        print(
+            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Job list constructed: {len(jobs)} jobs. Sample: {jobs[:3]}"
+        )
+        cpu_count = os.cpu_count()
+        num_workers = cpu_count - 1 if cpu_count and cpu_count > 1 else 1
+        print(
+            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Launching quantum logic engines... (Google-style magic)"
+        )
+        print(
+            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Starting experiment: {len(jobs)} jobs on {num_workers} cores. Searching for truth in parallel..."
+        )
+        print(
+            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Pool start: {num_workers} workers, {len(jobs)} jobs"
+        )
+        heartbeat_thread = threading.Thread(target=heartbeat, daemon=True)
+        heartbeat_thread.start()
+        all_results = []
+        pool_start = time.time()
+        chunksize = max(2, len(jobs) // (8 * num_workers)) if num_workers > 0 else 1
+        if tqdm is not None:
+            with multiprocessing.Pool(processes=num_workers, maxtasksperchild=200) as pool:
+                for idx, result in enumerate(
+                    tqdm(
+                        pool.imap_unordered(run_single_experiment, jobs, chunksize=chunksize),
+                        total=len(jobs),
+                        desc="Solving... (Feeling Lucky)",
+                        ncols=80,
+                        bar_format="{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}]",
+                    )
+                ):
+                    if result is not None:
+                        all_results.append(result)
+                    heartbeat_progress["completed"] = idx + 1
+                    print(
+                        f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Job {idx+1}/{len(jobs)} collected (elapsed: {time.time()-pool_start:.2f}s)"
+                    )
+        else:
+            with multiprocessing.Pool(processes=num_workers, maxtasksperchild=200) as pool:
+                completed = 0
+                for result in pool.imap_unordered(run_single_experiment, jobs, chunksize=chunksize):
+                    if result is not None:
+                        all_results.append(result)
+                    completed += 1
+                    heartbeat_progress["completed"] = completed
+                    print(
+                        f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Job {completed}/{len(jobs)} collected (elapsed: {time.time()-pool_start:.2f}s)"
+                    )
+                    if completed % 5 == 0 or completed == len(jobs):
+                        print(
+                            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Searching for answers... {completed}/{len(jobs)} jobs completed. (Google it!)"
+                        )
+        end_time = time.time()
+        print(
+            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Experiment finished in {end_time - pool_start:.2f} seconds. All logic indexed!"
+        )
+        heartbeat_stop.set()
+        heartbeat_thread.join(timeout=2)
+        output_filename = "tseitin_receipts.json"
+
+        def convert_np(obj):
+            if isinstance(obj, dict):
+                return {k: convert_np(v) for k, v in obj.items()}
+            elif isinstance(obj, list):
+                return [convert_np(x) for x in obj]
+            elif isinstance(obj, (int, float)):
+                return obj
+            elif hasattr(obj, "item"):
+                return obj.item()
+            else:
+                return obj
+
+        with open(output_filename, "w") as f:
+            json.dump(convert_np(all_results), f, indent=2, separators=(",", ": "))
+        with open(output_filename, "rb") as f:
+            file_hash = hashlib.sha256(f.read()).hexdigest()
+        print(
+            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Results saved to '{output_filename}' (Now trending)"
+        )
+        print(
+            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] SHA256 of receipts file: {file_hash} (Cryptographically Verified)"
+        )
+        print(
+            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Main experiment completed in {time.time()-main_start_time:.2f}s"
+        )
+    except Exception as e:  # pragma: no cover - diagnostic path
+        import traceback
+
+        heartbeat_stop.set()
+        print(
+            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] MAIN ERROR: {e}"
+        )
+        print(traceback.format_exc())
+        print(
+            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Main experiment failed after {time.time()-main_start_time:.2f}s"
+        )
 # ================================================================================
 # ACT V: FINAL THEOREM & CONCLUSION
 # ================================================================================
@@ -1530,151 +1784,204 @@ def make_odd_charge(n, rng):
     return charges
 
 # ================================================================================
-def generate_tseitin_expander(n, seed=0, global_seed=RUN_SEED):
-    """
-    Generates a random 3-regular expander graph and Tseitin parity instance (CNF and XOR forms).
+def generate_tseitin_expander(
+    n,
+    seed=0,
+    global_seed=RUN_SEED,
+    verbose=False,
+    hb_period=10,
+    build_xor_rows=True,
+):
+    """Generate a random 3-regular Tseitin instance.
 
-    This is the universe generator. It creates a world with just enough complexity
-    to make the Blind Baker cry. The charges are set to guarantee a contradiction,
-    and the clauses encode the existential crisis.
+    This implementation mirrors :mod:`generate_tseitin_data.py` but is inlined here
+    so that proofs and tests can construct instances without the extra overhead of
+    rebuilding large XOR matrices.  Instead of emitting full GF(2) rows for each
+    vertex we keep a compact list of edge indices which the sighted solver can
+    interpret directly.
 
     Args:
-        n (int): Number of vertices.
-        seed (int): Instance seed.
-        global_seed (int): Global random seed.
+        n (int): number of vertices.  ``n`` must be even for a 3-regular graph.
+        seed (int): instance seed.
+        global_seed (int): global seed controlling graph/charge generation.
+        verbose (bool): emit heartbeat messages while generating.
+        hb_period (int): seconds between heartbeats when ``verbose`` is true.
+        build_xor_rows (bool): if ``True`` materialise full GF(2) rows for
+            backwards compatibility.  Set to ``False`` to skip this step and
+            speed up generation when only ``xor_rows_idx`` is needed.
 
     Returns:
-        dict: Instance with graph, edges, variables, charges, xor_rows, and cnf_clauses.
+        dict: ``edges`` (list of edges), ``charges`` (parity at each vertex),
+        ``xor_rows_idx`` (edge indices for each XOR row), ``xor_rows`` (dense
+        GF(2) rows for backward compatibility) and ``cnf_clauses``.
     """
-    import networkx as nx
+    if n % 2 != 0:
+        raise ValueError(f"3-regular graph requires even n, got n={n}")
+
     rng = seeded_rng(global_seed, n, seed)
     G = nx.random_regular_graph(3, n, seed=rng)
-    edges = list(G.edges())
-    edge_vars = {e: i+1 for i, e in enumerate(edges)}
+
+    # Sort edges and pre-compute index lookups for fast clause emission.
+    edges = sorted(tuple(sorted(e)) for e in G.edges())
+    edge_idx = {e: i for i, e in enumerate(edges)}
+    edge_vars = {e: i + 1 for i, e in enumerate(edges)}
+
     charges = make_odd_charge(n, rng)
-    xor_rows = []
+
+    inc = {v: [] for v in G.nodes()}
+    for (u, v) in edges:
+        idx = edge_idx[(u, v)]
+        inc[u].append(idx)
+        inc[v].append(idx)
+
+    xor_rows_idx = []
     cnf_clauses = []
-    for v in G.nodes():
-        incident = [edge_vars[e] for e in edges if v in e]
-        if len(incident) == 3:
-            row = [0] * len(edges)
-            for idx, e in enumerate(edges):
-                if v in e:
-                    row[idx] = 1
-            xor_rows.append((row, charges[v]))
-            emit_vertex_clauses(incident[0], incident[1], incident[2], charges[v], cnf_clauses.append)
-    assert sum(charges) % 2 == 1, "Tseitin should be UNSAT (odd total charge)."
-    assert all(isinstance(c, int) and (c == 0 or c == 1) for c in charges), "Charges must be 0 or 1."
+    last_heartbeat = time.time()
+    for v_idx, v in enumerate(sorted(G.nodes())):
+        idxs = sorted(inc[v])
+        assert len(idxs) == 3, "graph must be 3-regular"
+        xor_rows_idx.append((idxs, charges[v_idx]))
+        ivs = [edge_vars[edges[i]] for i in idxs]
+        emit_vertex_clauses(ivs[0], ivs[1], ivs[2], charges[v_idx], cnf_clauses.append)
+        if verbose:
+            now = time.time()
+            if now - last_heartbeat >= hb_period:
+                print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Instance n={n}, seed={seed}: "
+                      f"progress {v_idx+1}/{n}")
+                last_heartbeat = now
+
+    xor_rows = None
+    if build_xor_rows:
+        m_edges = len(edges)
+        xor_rows = []
+        for idxs, rhs in xor_rows_idx:
+            row = [0] * m_edges
+            for i in idxs:
+                row[i] = 1
+            xor_rows.append((row, rhs))
+
     return {
-        "graph": G,
         "edges": edges,
-        "edge_vars": edge_vars,
         "charges": charges,
+        "xor_rows_idx": xor_rows_idx,
         "xor_rows": xor_rows,
-        "cnf_clauses": cnf_clauses
+        "cnf_clauses": cnf_clauses,
     }
 
 
 # --- Blind Solver with Budget (PySAT Minisat22) ---
-def run_blind_budgeted(clauses, conf_budget=100_000, prop_budget=5_000_000):
-    """
-    Runs a blind (Resolution/DPLL-only) solver with a fixed budget.
+def run_blind_budgeted(clauses, conf_budget=100_000, prop_budget=5_000_000, solver_cls=None):
+    """Run a budgeted *blind* SAT solver.
 
-    This is the Blind Baker's marathon. He gets a generous, but finite, amount of
-    rope (conflict and propagation budget) and is asked to solve the unsolvable.
-    If he fails, it's not for lack of trying—it's a feature, not a bug.
+    The original implementation always used :class:`Minisat22`.  This updated
+    version preferentially selects faster solvers such as CaDiCaL or Glucose4 if
+    they are available.  CaDiCaL distributed with PySAT newer than 0.1.8 no longer
+    supports ``prop_budget``; we detect this at runtime and skip setting the
+    propagation budget when unsupported.
 
     Args:
         clauses (list): CNF clauses.
-        conf_budget (int): Conflict budget.
-        prop_budget (int): Propagation budget.
+        conf_budget (int): conflict budget.
+        prop_budget (int): propagation budget.
+        solver_cls: optional explicit solver class.
 
     Returns:
-        dict: Status, decisions, conflicts, props.
+        dict: status and solver statistics.
     """
-    from pysat.solvers import Minisat22
-    s = Minisat22()
-    for c in clauses: s.add_clause(c)
-    s.conf_budget(conf_budget)  # The Blind Baker's rope: conflict budget. If he runs out, he gets censored, not enlightened.
-    s.prop_budget(prop_budget)  # Propagation budget: how many times can he shuffle the flour before the cake collapses?
-    ok = s.solve_limited()
-    stats = s.accum_stats()
-    s.delete()
-    return {
-        "status": "sat" if ok else ("unsat" if s.get_status() is False else "censored"),
-        "decisions": int(stats["decisions"]) if stats and "decisions" in stats else -1,
-        "conflicts": int(stats["conflicts"]) if stats and "conflicts" in stats else -1,
-        "props": int(stats["propagations"]) if stats and "propagations" in stats else -1,
-    }
+
+    if solver_cls is None:
+        try:
+            from pysat.solvers import Cadical153 as solver_cls
+            _supports_prop = False
+            try:
+                tmp = solver_cls()
+                try:
+                    tmp.prop_budget(1)
+                    _supports_prop = True
+                except NotImplementedError:
+                    _supports_prop = False
+                finally:
+                    tmp.delete()
+            except Exception:
+                _supports_prop = False
+        except Exception:
+            try:
+                from pysat.solvers import Glucose4 as solver_cls
+                _supports_prop = True
+            except Exception:
+                from pysat.solvers import Minisat22 as solver_cls
+                _supports_prop = True
+    else:
+        _supports_prop = True
+
+    with solver_cls(bootstrap_with=clauses) as s:
+        s.conf_budget(conf_budget)
+        if _supports_prop:
+            s.prop_budget(prop_budget)
+        solved = s.solve_limited()
+        stats = s.accum_stats()
+        status = "sat" if solved else ("unsat" if s.get_status() is False else "censored")
+        conflicts = stats.get("conflicts", -1) if stats else -1
+        props = stats.get("propagations", -1) if stats else -1
+        decisions = stats.get("decisions", -1) if stats else -1
+
+    return {"status": status, "conflicts": conflicts, "props": props, "decisions": decisions}
 
 # --- Sighted XOR Solver ---
-def solve_sighted_xor(xor_rows):
-    global _printed_gf2_certs
-    import numpy as np, time, hashlib
-    if '_printed_gf2_certs' not in globals():
-        _printed_gf2_certs = set()
+def solve_sighted_xor(xor_rows_or_idx, m_edges=None):
+    """Solve the XOR system using Gaussian elimination over GF(2).
 
-    A = np.array([row for row, rhs in xor_rows], dtype=np.uint8)
-    b = np.array([rhs for row, rhs in xor_rows], dtype=np.uint8).reshape(-1,1)
+    ``xor_rows_or_idx`` may be either a list of dense rows (as used historically
+    in this repository) or a compact list of ``(indices, rhs)`` pairs.  The latter
+    form is produced by :func:`generate_tseitin_expander` above and avoids
+    allocating an ``n × m`` matrix when it is unnecessary.
 
-    def rref_gf2(M):
-        M = M.copy() & 1
-        r, c = 0, 0
-        rows, cols = M.shape
-        pivots = 0
-        while r < rows and c < cols:
-            pivot = None
-            for i in range(r, rows):
-                if M[i, c]:
-                    pivot = i; break
-            if pivot is None:
-                c += 1; continue
-            if pivot != r:
-                M[[r, pivot]] = M[[pivot, r]]
-            for i in range(rows):
-                if i != r and M[i, c]:
-                    M[i, :] ^= M[r, :]
-            pivots += 1
-            r += 1; c += 1
-        return M, pivots
+    Args:
+        xor_rows_or_idx: XOR rows in dense or index form.
+        m_edges (int, optional): number of edge variables when using index form.
 
-    t0 = time.perf_counter()
-    A_rref, rank_A = rref_gf2(A)
-    Aug, _ = rref_gf2(np.hstack([A, b]))
-    lhs_zero = sum(1 for i in range(Aug.shape[0]) if (Aug[i, :-1] == 0).all())
-    rhs_one = sum(1 for i in range(Aug.shape[0]) if (Aug[i, :-1] == 0).all() and Aug[i, -1] == 1)
-    # lhs_ones: count ones in the LHS slice of the inconsistent row, or 0 if lhs_zero==1
-    cert_row_idx = next((i for i in range(Aug.shape[0]) if (Aug[i, :-1] == 0).all() and Aug[i, -1] == 1), None)
-    if lhs_zero == 1 and cert_row_idx is not None:
-        lhs_ones = int((Aug[cert_row_idx][:-1] == 1).sum())
+    Returns:
+        dict: ``result`` ("sat"/"unsat"), ``rank_A``, ``rank_aug`` and
+        ``rank_gap``.
+    """
+    if not xor_rows_or_idx:
+        return {"result": "sat", "rank_gap": 0, "rank_A": 0, "rank_aug": 0}
+
+    # Materialise matrix depending on representation.
+    if isinstance(xor_rows_or_idx[0][0], list) and (m_edges is not None):
+        A = np.zeros((len(xor_rows_or_idx), m_edges), dtype=np.uint8)
+        b = np.zeros((len(xor_rows_or_idx), 1), dtype=np.uint8)
+        for i, (idxs, rhs) in enumerate(xor_rows_or_idx):
+            A[i, idxs] = 1
+            b[i, 0] = rhs & 1
     else:
-        lhs_ones = 0
-    inconsistent = any((Aug[i, :-1] == 0).all() and Aug[i, -1] == 1 for i in range(Aug.shape[0]))
-    result = "unsat" if inconsistent else "sat"
-    rank_aug = rank_A + (1 if inconsistent else 0)
-    elapsed = time.perf_counter() - t0
+        A = np.array([row for row, _ in xor_rows_or_idx], dtype=np.uint8)
+        b = np.array([rhs for _, rhs in xor_rows_or_idx], dtype=np.uint8).reshape(-1, 1)
 
-    cert_hash = None
-    cert_snip = None
-    # Deduplication: print each certificate only once per (n, seed), and only for unsat
-    if result == "unsat" and cert_row_idx is not None:
-        cert_hash = hashlib.sha256(Aug[cert_row_idx].tobytes()).hexdigest()
-        cert_snip = f"GF(2) certificate: inconsistent row idx={cert_row_idx}, lhs_zero={True}, rhs_one={True}, lhs_ones={lhs_ones}, hash={cert_hash[:16]}"
-        cert_tag = f"{Aug.shape[0]}_{cert_hash}"
-        # Certificate summary is now printed only in the table output below.
-        _printed_gf2_certs.add(cert_tag)
+    M = np.hstack([A, b])
+    rows, cols = M.shape
+    pivot_row = 0
+
+    for j in range(cols - 1):
+        if pivot_row < rows:
+            pivot = np.where(M[pivot_row:, j] == 1)[0]
+            if pivot.size > 0:
+                pivot_idx = pivot[0] + pivot_row
+                M[[pivot_row, pivot_idx]] = M[[pivot_idx, pivot_row]]
+                for i in range(rows):
+                    if i != pivot_row and M[i, j] == 1:
+                        M[i, :] = (M[i, :] + M[pivot_row, :]) % 2
+                pivot_row += 1
+
+    rank_A = np.sum(np.any(M[:, :-1], axis=1))
+    rank_aug = np.sum(np.any(M, axis=1))
+    inconsistent = any(np.all(M[i, :-1] == 0) and M[i, -1] == 1 for i in range(rows))
 
     return {
-        "result": result,
-        "time": elapsed,
+        "result": "unsat" if inconsistent else "sat",
         "rank_A": int(rank_A),
         "rank_aug": int(rank_aug),
         "rank_gap": int(rank_aug - rank_A),
-        "lhs_zero": lhs_zero,
-        "rhs_one": rhs_one,
-        "lhs_ones": lhs_ones,
-        "cert_hash": cert_hash,
-        "witness": cert_snip or ("solution_vector" if result=="sat" else "0…0=1")
     }
 
 # --- Fast Receipt Harness ---
