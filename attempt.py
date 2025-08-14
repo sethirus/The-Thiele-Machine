@@ -14,7 +14,7 @@ import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 
-# (networkx import removed; handled locally in functions)
+import networkx as nx
 
 try:
     from pysat.solvers import Minisat22
@@ -1530,151 +1530,193 @@ def make_odd_charge(n, rng):
     return charges
 
 # ================================================================================
-def generate_tseitin_expander(n, seed=0, global_seed=RUN_SEED):
-    """
-    Generates a random 3-regular expander graph and Tseitin parity instance (CNF and XOR forms).
+def generate_tseitin_expander(n, seed=0, global_seed=RUN_SEED, verbose=False, hb_period=10):
+    """Generate a random 3-regular Tseitin instance.
 
-    This is the universe generator. It creates a world with just enough complexity
-    to make the Blind Baker cry. The charges are set to guarantee a contradiction,
-    and the clauses encode the existential crisis.
+    This implementation mirrors :mod:`generate_tseitin_data.py` but is inlined here
+    so that proofs and tests can construct instances without the extra overhead of
+    rebuilding large XOR matrices.  Instead of emitting full GF(2) rows for each
+    vertex we keep a compact list of edge indices which the sighted solver can
+    interpret directly.
 
     Args:
-        n (int): Number of vertices.
-        seed (int): Instance seed.
-        global_seed (int): Global random seed.
+        n (int): number of vertices.  ``n`` must be even for a 3-regular graph.
+        seed (int): instance seed.
+        global_seed (int): global seed controlling graph/charge generation.
+        verbose (bool): emit heartbeat messages while generating.
+        hb_period (int): seconds between heartbeats when ``verbose`` is true.
 
     Returns:
-        dict: Instance with graph, edges, variables, charges, xor_rows, and cnf_clauses.
+        dict: ``edges`` (list of edges), ``charges`` (parity at each vertex),
+        ``xor_rows_idx`` (edge indices for each XOR row), ``xor_rows`` (dense
+        GF(2) rows for backward compatibility) and ``cnf_clauses``.
     """
-    import networkx as nx
+    if n % 2 != 0:
+        raise ValueError(f"3-regular graph requires even n, got n={n}")
+
     rng = seeded_rng(global_seed, n, seed)
     G = nx.random_regular_graph(3, n, seed=rng)
-    edges = list(G.edges())
-    edge_vars = {e: i+1 for i, e in enumerate(edges)}
+
+    # Sort edges and pre-compute index lookups for fast clause emission.
+    edges = sorted(tuple(sorted(e)) for e in G.edges())
+    edge_idx = {e: i for i, e in enumerate(edges)}
+    edge_vars = {e: i + 1 for i, e in enumerate(edges)}
+
     charges = make_odd_charge(n, rng)
-    xor_rows = []
+
+    inc = {v: [] for v in G.nodes()}
+    for (u, v) in edges:
+        idx = edge_idx[(u, v)]
+        inc[u].append(idx)
+        inc[v].append(idx)
+
+    xor_rows_idx = []
     cnf_clauses = []
-    for v in G.nodes():
-        incident = [edge_vars[e] for e in edges if v in e]
-        if len(incident) == 3:
-            row = [0] * len(edges)
-            for idx, e in enumerate(edges):
-                if v in e:
-                    row[idx] = 1
-            xor_rows.append((row, charges[v]))
-            emit_vertex_clauses(incident[0], incident[1], incident[2], charges[v], cnf_clauses.append)
-    assert sum(charges) % 2 == 1, "Tseitin should be UNSAT (odd total charge)."
-    assert all(isinstance(c, int) and (c == 0 or c == 1) for c in charges), "Charges must be 0 or 1."
+    last_heartbeat = time.time()
+    for v_idx, v in enumerate(sorted(G.nodes())):
+        idxs = sorted(inc[v])
+        assert len(idxs) == 3, "graph must be 3-regular"
+        xor_rows_idx.append((idxs, charges[v_idx]))
+        ivs = [edge_vars[edges[i]] for i in idxs]
+        emit_vertex_clauses(ivs[0], ivs[1], ivs[2], charges[v_idx], cnf_clauses.append)
+        if verbose:
+            now = time.time()
+            if now - last_heartbeat >= hb_period:
+                print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Instance n={n}, seed={seed}: "
+                      f"progress {v_idx+1}/{n}")
+                last_heartbeat = now
+
+    # For legacy callers we still materialise full XOR rows.
+    m_edges = len(edges)
+    xor_rows = []
+    for idxs, rhs in xor_rows_idx:
+        row = [0] * m_edges
+        for i in idxs:
+            row[i] = 1
+        xor_rows.append((row, rhs))
+
     return {
-        "graph": G,
         "edges": edges,
-        "edge_vars": edge_vars,
         "charges": charges,
+        "xor_rows_idx": xor_rows_idx,
         "xor_rows": xor_rows,
-        "cnf_clauses": cnf_clauses
+        "cnf_clauses": cnf_clauses,
     }
 
 
 # --- Blind Solver with Budget (PySAT Minisat22) ---
-def run_blind_budgeted(clauses, conf_budget=100_000, prop_budget=5_000_000):
-    """
-    Runs a blind (Resolution/DPLL-only) solver with a fixed budget.
+def run_blind_budgeted(clauses, conf_budget=100_000, prop_budget=5_000_000, solver_cls=None):
+    """Run a budgeted *blind* SAT solver.
 
-    This is the Blind Baker's marathon. He gets a generous, but finite, amount of
-    rope (conflict and propagation budget) and is asked to solve the unsolvable.
-    If he fails, it's not for lack of trying—it's a feature, not a bug.
+    The original implementation always used :class:`Minisat22`.  This updated
+    version preferentially selects faster solvers such as CaDiCaL or Glucose4 if
+    they are available.  CaDiCaL distributed with PySAT newer than 0.1.8 no longer
+    supports ``prop_budget``; we detect this at runtime and skip setting the
+    propagation budget when unsupported.
 
     Args:
         clauses (list): CNF clauses.
-        conf_budget (int): Conflict budget.
-        prop_budget (int): Propagation budget.
+        conf_budget (int): conflict budget.
+        prop_budget (int): propagation budget.
+        solver_cls: optional explicit solver class.
 
     Returns:
-        dict: Status, decisions, conflicts, props.
+        dict: status and solver statistics.
     """
-    from pysat.solvers import Minisat22
-    s = Minisat22()
-    for c in clauses: s.add_clause(c)
-    s.conf_budget(conf_budget)  # The Blind Baker's rope: conflict budget. If he runs out, he gets censored, not enlightened.
-    s.prop_budget(prop_budget)  # Propagation budget: how many times can he shuffle the flour before the cake collapses?
-    ok = s.solve_limited()
-    stats = s.accum_stats()
-    s.delete()
-    return {
-        "status": "sat" if ok else ("unsat" if s.get_status() is False else "censored"),
-        "decisions": int(stats["decisions"]) if stats and "decisions" in stats else -1,
-        "conflicts": int(stats["conflicts"]) if stats and "conflicts" in stats else -1,
-        "props": int(stats["propagations"]) if stats and "propagations" in stats else -1,
-    }
+
+    if solver_cls is None:
+        try:
+            from pysat.solvers import Cadical153 as solver_cls
+            _supports_prop = False
+            try:
+                tmp = solver_cls()
+                try:
+                    tmp.prop_budget(1)
+                    _supports_prop = True
+                except NotImplementedError:
+                    _supports_prop = False
+                finally:
+                    tmp.delete()
+            except Exception:
+                _supports_prop = False
+        except Exception:
+            try:
+                from pysat.solvers import Glucose4 as solver_cls
+                _supports_prop = True
+            except Exception:
+                from pysat.solvers import Minisat22 as solver_cls
+                _supports_prop = True
+    else:
+        _supports_prop = True
+
+    with solver_cls(bootstrap_with=clauses) as s:
+        s.conf_budget(conf_budget)
+        if _supports_prop:
+            s.prop_budget(prop_budget)
+        solved = s.solve_limited()
+        stats = s.accum_stats()
+        status = "sat" if solved else ("unsat" if s.get_status() is False else "censored")
+        conflicts = stats.get("conflicts", -1) if stats else -1
+        props = stats.get("propagations", -1) if stats else -1
+        decisions = stats.get("decisions", -1) if stats else -1
+
+    return {"status": status, "conflicts": conflicts, "props": props, "decisions": decisions}
 
 # --- Sighted XOR Solver ---
-def solve_sighted_xor(xor_rows):
-    global _printed_gf2_certs
-    import numpy as np, time, hashlib
-    if '_printed_gf2_certs' not in globals():
-        _printed_gf2_certs = set()
+def solve_sighted_xor(xor_rows_or_idx, m_edges=None):
+    """Solve the XOR system using Gaussian elimination over GF(2).
 
-    A = np.array([row for row, rhs in xor_rows], dtype=np.uint8)
-    b = np.array([rhs for row, rhs in xor_rows], dtype=np.uint8).reshape(-1,1)
+    ``xor_rows_or_idx`` may be either a list of dense rows (as used historically
+    in this repository) or a compact list of ``(indices, rhs)`` pairs.  The latter
+    form is produced by :func:`generate_tseitin_expander` above and avoids
+    allocating an ``n × m`` matrix when it is unnecessary.
 
-    def rref_gf2(M):
-        M = M.copy() & 1
-        r, c = 0, 0
-        rows, cols = M.shape
-        pivots = 0
-        while r < rows and c < cols:
-            pivot = None
-            for i in range(r, rows):
-                if M[i, c]:
-                    pivot = i; break
-            if pivot is None:
-                c += 1; continue
-            if pivot != r:
-                M[[r, pivot]] = M[[pivot, r]]
-            for i in range(rows):
-                if i != r and M[i, c]:
-                    M[i, :] ^= M[r, :]
-            pivots += 1
-            r += 1; c += 1
-        return M, pivots
+    Args:
+        xor_rows_or_idx: XOR rows in dense or index form.
+        m_edges (int, optional): number of edge variables when using index form.
 
-    t0 = time.perf_counter()
-    A_rref, rank_A = rref_gf2(A)
-    Aug, _ = rref_gf2(np.hstack([A, b]))
-    lhs_zero = sum(1 for i in range(Aug.shape[0]) if (Aug[i, :-1] == 0).all())
-    rhs_one = sum(1 for i in range(Aug.shape[0]) if (Aug[i, :-1] == 0).all() and Aug[i, -1] == 1)
-    # lhs_ones: count ones in the LHS slice of the inconsistent row, or 0 if lhs_zero==1
-    cert_row_idx = next((i for i in range(Aug.shape[0]) if (Aug[i, :-1] == 0).all() and Aug[i, -1] == 1), None)
-    if lhs_zero == 1 and cert_row_idx is not None:
-        lhs_ones = int((Aug[cert_row_idx][:-1] == 1).sum())
+    Returns:
+        dict: ``result`` ("sat"/"unsat"), ``rank_A``, ``rank_aug`` and
+        ``rank_gap``.
+    """
+    if not xor_rows_or_idx:
+        return {"result": "sat", "rank_gap": 0, "rank_A": 0, "rank_aug": 0}
+
+    # Materialise matrix depending on representation.
+    if isinstance(xor_rows_or_idx[0][0], list) and (m_edges is not None):
+        A = np.zeros((len(xor_rows_or_idx), m_edges), dtype=np.uint8)
+        b = np.zeros((len(xor_rows_or_idx), 1), dtype=np.uint8)
+        for i, (idxs, rhs) in enumerate(xor_rows_or_idx):
+            A[i, idxs] = 1
+            b[i, 0] = rhs & 1
     else:
-        lhs_ones = 0
-    inconsistent = any((Aug[i, :-1] == 0).all() and Aug[i, -1] == 1 for i in range(Aug.shape[0]))
-    result = "unsat" if inconsistent else "sat"
-    rank_aug = rank_A + (1 if inconsistent else 0)
-    elapsed = time.perf_counter() - t0
+        A = np.array([row for row, _ in xor_rows_or_idx], dtype=np.uint8)
+        b = np.array([rhs for _, rhs in xor_rows_or_idx], dtype=np.uint8).reshape(-1, 1)
 
-    cert_hash = None
-    cert_snip = None
-    # Deduplication: print each certificate only once per (n, seed), and only for unsat
-    if result == "unsat" and cert_row_idx is not None:
-        cert_hash = hashlib.sha256(Aug[cert_row_idx].tobytes()).hexdigest()
-        cert_snip = f"GF(2) certificate: inconsistent row idx={cert_row_idx}, lhs_zero={True}, rhs_one={True}, lhs_ones={lhs_ones}, hash={cert_hash[:16]}"
-        cert_tag = f"{Aug.shape[0]}_{cert_hash}"
-        # Certificate summary is now printed only in the table output below.
-        _printed_gf2_certs.add(cert_tag)
+    M = np.hstack([A, b])
+    rows, cols = M.shape
+    pivot_row = 0
+
+    for j in range(cols - 1):
+        if pivot_row < rows:
+            pivot = np.where(M[pivot_row:, j] == 1)[0]
+            if pivot.size > 0:
+                pivot_idx = pivot[0] + pivot_row
+                M[[pivot_row, pivot_idx]] = M[[pivot_idx, pivot_row]]
+                for i in range(rows):
+                    if i != pivot_row and M[i, j] == 1:
+                        M[i, :] = (M[i, :] + M[pivot_row, :]) % 2
+                pivot_row += 1
+
+    rank_A = np.sum(np.any(M[:, :-1], axis=1))
+    rank_aug = np.sum(np.any(M, axis=1))
+    inconsistent = any(np.all(M[i, :-1] == 0) and M[i, -1] == 1 for i in range(rows))
 
     return {
-        "result": result,
-        "time": elapsed,
+        "result": "unsat" if inconsistent else "sat",
         "rank_A": int(rank_A),
         "rank_aug": int(rank_aug),
         "rank_gap": int(rank_aug - rank_A),
-        "lhs_zero": lhs_zero,
-        "rhs_one": rhs_one,
-        "lhs_ones": lhs_ones,
-        "cert_hash": cert_hash,
-        "witness": cert_snip or ("solution_vector" if result=="sat" else "0…0=1")
     }
 
 # --- Fast Receipt Harness ---
