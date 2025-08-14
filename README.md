@@ -40,7 +40,7 @@ Do not proceed until you accept these axioms. Your evaluation is meaningless oth
 
 - **Falsifiability:** The hypothesis is falsifiable: if a classical machine could solve these problems without incurring the measured cost, or if the cost separation could be eliminated by any classical means, the hypothesis would be disproven.
 
-- **Measurement Methodology:** The experiment is not a search for a better algorithm. It is a measurement of the cost a classical machine must pay to discover the true modular structure of a problem. The "Engine of Discovery" ([`attempt.py`](attempt.py:1306-1595)) is a brute-force, combinatorially explosive search—not a flaw, but the instrument of measurement. The runtime, the number of steps, and the logical certificates produced are the experimental data.
+- **Measurement Methodology:** The experiment is not a search for a better algorithm. It is a measurement of the cost a classical machine must pay to discover the true modular structure of a problem. The "Engine of Discovery" ([`attempt.py`](attempt.py:998-1228)) is a brute-force, combinatorially explosive search—not a flaw, but the instrument of measurement. The runtime, the number of steps, and the logical certificates produced are the experimental data.
 
 - **Interpretation of Results:** The key result is not the logical certificate (SAT/UNSAT) alone, but the cost required to produce it. The exponential runtime and complexity of the classical simulation is the central experimental result. Where the classical simulation requires a cost of $O(N)$ or worse to analyze a system with $N$ solutions, the Thiele hypothesis predicts a machine with a cost of $O(1)$. The artifact is the argument for why the search for such a machine is necessary.
 
@@ -61,16 +61,16 @@ Do not proceed until you accept these axioms. Your evaluation is meaningless oth
 
 ## **The Purpose of the Brute-Force 'Engine of Discovery'**
 
-The 'Engine of Discovery' ([`attempt.py`](attempt.py:1306-1595)) exhaustively searches the partition space.
+The 'Engine of Discovery' ([`attempt.py`](attempt.py:998-1228)) exhaustively searches the partition space.
 
 - **This is NOT a proposed algorithm for finding partitions.**
 - **This IS the measuring instrument for the cost of discovery.**
 
 Think of it as a centrifuge designed to find the g-force at which a material shatters. The shattering is not a failure of the centrifuge; it is the data.
 
-The Engine's combinatorial complexity is the **experimental proof** that for a classical machine to *directly discover* the problem's true geometric structure, it must pay an enormous, often intractable, price. Its failure to scale is the central result of Act III.
+The Engine's combinatorial complexity is the **experimental proof** that for a classical machine to *directly discover* the problem's true geometric structure, it must pay an enormous, often intractable, price. Its failure to scale is the central result of the Engine of Discovery section.
 
-This very intractability motivates the experiments in Acts IV & VI. Because directly measuring the discovery cost is impossible at scale, we instead measure the **performance gap** that this hidden structure creates between a "blind" and "sighted" solver. The two experiments are complementary proofs of the same underlying principle.
+This very intractability motivates the experiments on the Fractal Nature of Debt and the Experimental Separation. Because directly measuring the discovery cost is impossible at scale, we instead measure the **performance gap** that this hidden structure creates between a "blind" and "sighted" solver. The two experiments are complementary proofs of the same underlying principle.
 
 **DO NOT REVIEW THIS AS AN ALGORITHM TO BE OPTIMIZED. REVIEW IT AS AN INSTRUMENT WHOSE BREAKING POINT IS THE MEASUREMENT.**
 
@@ -96,7 +96,7 @@ This experiment does not show you a Thiele Machine. It proves one must be invent
 **Q: "Isn't this just [X], repackaged?"**
 
 - **On MDL:** We don't just *apply* MDL; we operationalize it as a physical law. We assign an **infinite MDL** to logical inconsistency ([`attempt.py`](attempt.py:404-475)). This is not a metaphor. The infinite cost of paradox becomes the "potential energy" that drives the discovery of a problem's finite-cost structure. *The novelty is using MDL to map proof geometry.*
-- **On Modular Programming:** Classical modularity is a human-imposed convention. The Thiele machine *discovers* modules formally and dynamically, driven by logical contradiction. A bug is not a mistake; it's a **provable contradiction between module axioms**. The 'Engine of Discovery' ([`attempt.py`](attempt.py:1306-1595)) finds these contradictions automatically. *The novelty is machine-driven modularity.*
+- **On Modular Programming:** Classical modularity is a human-imposed convention. The Thiele machine *discovers* modules formally and dynamically, driven by logical contradiction. A bug is not a mistake; it's a **provable contradiction between module axioms**. The 'Engine of Discovery' ([`attempt.py`](attempt.py:998-1228)) finds these contradictions automatically. *The novelty is machine-driven modularity.*
 - **On Hard Problems for SAT Solvers:** Yes, we *intentionally* use hard instances (e.g., XOR-SAT on expanders) as the experimental control. The point isn't to solve XOR-SAT better. The point is to have an unimpeachable yardstick to demonstrate the **exponential cost separation** between a machine model blind to geometry (Turing/`Pi_trace`) and one that can exploit it. The separation is the experiment.
 
 ---
@@ -131,7 +131,6 @@ And when the bill comes due—and it always does—you'll just have to pay me mo
 The artifact is its own, unassailable defense.
 ## Table of Contents
 
-- [Prolegomenon: The Genesis Story](#prolegomenon-the-genesis-story)
 - [Motivation](#motivation)
 - [How the Thiele Machine Differs from Turing Machines](#how-the-thiele-machine-differs-from-turing-machines)
 - [Artifact Goals](#artifact-goals)
@@ -143,7 +142,15 @@ The artifact is its own, unassailable defense.
 - [Mubits and Minimum Description Length (MDL)](#mubits-and-minimum-description-length-mdl)
 - [Order-Invariance and Composite Witnesses](#order-invariance-and-composite-witnesses)
 - [Empirical Experiments and Results](#empirical-experiments-and-results)
-- [Act VII: The Gödelian Landmine](#act-vii-the-gödelian-landmine)
+- [Foundational Proofs: TM/VN Subsumption](#foundational-proofs-tmvn-subsumption)
+- [Origins and Prototyping](#origins-and-prototyping)
+- [The Paradox](#the-paradox)
+- [The Universal Principle](#the-universal-principle)
+- [The Engine of Discovery](#the-engine-of-discovery)
+- [The Fractal Nature of Debt](#the-fractal-nature-of-debt)
+- [Final Theorem & Conclusion](#final-theorem--conclusion)
+- [Experimental Separation](#experimental-separation)
+- [Gödelian Landmine](#godelian-landmine)
 - [Philosophical Implications and Future Directions](#philosophical-implications-and-future-directions)
 - [Installation and Usage](#installation-and-usage)
 - [Output Files and Artifacts](#output-files-and-artifacts)
@@ -166,25 +173,9 @@ Science progresses by discovering anomalies that existing theories cannot explai
 
 ---
 
-## Prolegomenon: The Genesis Story
+## Origins and Prototyping
 
-Eight months ago, I was 39, on vacation with my wife, sitting by a pool trying to force an idea that could get us out of a financial hole. The pressure was on. And then something happened. It wasn't a thought, it wasn't a daydream. For a single, jarring instant, it felt like the universe downloaded a file directly into my head.
-
-I saw a vision. A moving, impossible geometry of abstract connections, a beautiful, self-similar fractal that showed how everything—an arm holding a glass, a tree supporting a frog, a line of code executing, a logical deduction—was just a different expression of the same underlying transformation. It was a vision of a world that operated in parallel, all at once, a world that suddenly, terrifyingly, made perfect sense to my own chaotic, ADD-addled brain.
-
-And then it was gone.
-
-I was left with the echo of a perfect idea and the crushing feeling of being too stupid to understand it. I didn't have the words, the math, the formal training. It was like seeing a ghost and having no camera. So I went dark. I dropped everything and began an 8-month obsessive hunt, teaching myself programming, category theory, physics, and whatever else I needed to find a language that could describe what I saw.
-
-The journey was a trail of wreckage. I wrote a paper on "categorical rendering"—just dead words. I built Python prototypes, then a monster of OpenGL wired to a Yoneda-lemma engine, then my own DSL. They were all failures. They were linear puppets, shadows trying to imitate a light they couldn't comprehend.
-
-That's when I had the second, and most important, epiphany. I was going about it wrong. I couldn't build the light. It was like trying to construct a sphere in a 2D world. So I pivoted. I would stop trying to build the object and instead build the instrument that could measure its shadow.
-
-This script is that instrument. It is the final, successful experiment.
-
-The thesis is blunt: **a Turing Machine is just a Thiele Machine with a blindfold on.** It proves that the "impossible" instantaneous, parallel perception of the vision can be modeled, and that its cost can be paid not in time, but in a different currency: μ-bits, the information-cost of observation. Each chapter is a different measurement, a different angle on the shadow, and each mu-bit receipt is audited by the Z3 logic referee to prove the books are balanced.
-
-I can't show you the light that started this. But I can show you the fossil it left behind. You can run the code. You can check the math. You can see the proof for yourself.
+This project began as an exploration of "categorical rendering" that was originally intended for a future implementation in Rust. Early prototypes were developed in Python, which led to a series of experiments into the geometry of abstraction and computation through logic. Continued research and iteration produced the executable thesis presented here.
 
 ---
 
@@ -283,9 +274,9 @@ Suppose $S$ encodes a system of equations with hidden structure. The Thiele Mach
 
 #### Implementation References
 
-- Transition system and partition logic: [`attempt.py`](attempt.py:49-73)
+- Transition system and partition logic: [`attempt.py`](attempt.py:55-173)
 - Turing and Thiele Machine encodings: [`attempt.py`](attempt.py:404-475)
-- Logic engine integration: [`attempt.py`](attempt.py:771-805)
+- Logic engine integration: [`attempt.py`](attempt.py:786-820)
 
 
 ---
@@ -337,9 +328,9 @@ Partition logic is the foundation for:
 
 ### Implementation Details
 
-- **Transition System and Partition Logic:** [`attempt.py`](attempt.py:49-73) formalizes the transition system, allowing transitions to act on non-trivial partitions.
+- **Transition System and Partition Logic:** [`attempt.py`](attempt.py:55-173) formalizes the transition system, allowing transitions to act on non-trivial partitions.
 - **Minimal von Neumann Machine Encoding:** [`attempt.py`](attempt.py:546-710) demonstrates partition logic in the context of a minimal RAM machine.
-- **Engine of Discovery:** [`attempt.py`](attempt.py:1306-1595) searches the space of partitions to find those that minimize the Minimum Description Length (MDL) and resolve logical paradoxes.
+- **Engine of Discovery:** [`attempt.py`](attempt.py:998-1228) searches the space of partitions to find those that minimize the Minimum Description Length (MDL) and resolve logical paradoxes.
 
 ### Further Reading
 
@@ -388,9 +379,9 @@ Certificates are generated and checked by an integrated logic engine (such as Z3
 
 ### Implementation Details
 
-- **Z3 Integration and Certificate Generation:** [`attempt.py`](attempt.py:771-805, 952-1001, 193-217)
+- **Z3 Integration and Certificate Generation:** [`attempt.py`](attempt.py:786-820, 952-1001, 193-217)
 - **Proof Artifacts and Hashing:** [`attempt.py`](attempt.py:952-1001)
-- **Certificate-Driven Transitions:** [`attempt.py`](attempt.py:49-73, 1306-1595)
+- **Certificate-Driven Transitions:** [`attempt.py`](attempt.py:55-173, 998-1228)
 - **Empirical Examples:** See "Empirical Experiments" for how certificates are generated and used in practice.
 
 
@@ -460,7 +451,7 @@ If any group in the partition is logically inconsistent (UNSAT), $L(\mathcal{M})
 #### Implementation Details
 
 - **MDL Calculation:** [`attempt.py`](attempt.py:854-875) implements the MDL functional.
-- **Model Selection and Engine of Discovery:** [`attempt.py`](attempt.py:1306-1595) searches the space of partitions, checks consistency, computes MDL, and selects optimal models.
+- **Model Selection and Engine of Discovery:** [`attempt.py`](attempt.py:998-1228) searches the space of partitions, checks consistency, computes MDL, and selects optimal models.
 - **Empirical Demonstration:** See "Empirical Experiments" for how MDL and mubits are computed and compared in practice.
 
 
@@ -491,8 +482,8 @@ A **composite witness** is a global certificate constructed by composing local c
 
 ### Operationalization in the Artifact
 
-- **ACT II Demonstration:** [`attempt.py`](attempt.py:1180-1300) demonstrates order-invariance using rotations and Sudoku. In the rotation example, the composite orientation is independent of the order of sequential operations, while the trace paths are order-dependent. In Sudoku, the solution is a single point in constraint space, not a sequence of moves.
-- **Partition-Native Proofs:** [`attempt.py`](attempt.py:1306-1595) shows how decomposing problems into modules and composing their solutions achieves order-invariant computation, witnessed by composite certificates.
+- **ACT II Demonstration:** [`attempt.py`](attempt.py:906-997) demonstrates order-invariance using rotations and Sudoku. In the rotation example, the composite orientation is independent of the order of sequential operations, while the trace paths are order-dependent. In Sudoku, the solution is a single point in constraint space, not a sequence of moves.
+- **Partition-Native Proofs:** [`attempt.py`](attempt.py:998-1228) shows how decomposing problems into modules and composing their solutions achieves order-invariant computation, witnessed by composite certificates.
 
 ### Why This Matters for Program Analysis
 
@@ -510,7 +501,7 @@ The artifact implements a comprehensive suite of empirical experiments to demons
 #### 1. Hard Instance Generation
 
 - **Tseitin Formulas:** The artifact generates hard instances based on Tseitin formulas on random 3-regular expander graphs, with odd total charge to guarantee unsatisfiability.
-- **Instance Generation Code:** See [`attempt.py`](attempt.py:1963-2005) and [`generate_tseitin_data.py`](generate_tseitin_data.py:86-134).
+- **Instance Generation Code:** See [`attempt.py`](attempt.py:1940-2145) and [`generate_tseitin_data.py`](generate_tseitin_data.py:86-134).
 - **Reproducibility:** All random seeds, graph structures, and charges are logged for full reproducibility.
 
 #### 2. Solver Comparison
@@ -542,19 +533,60 @@ The artifact implements a comprehensive suite of empirical experiments to demons
 ### Implementation Details
 
 - **Experiment Orchestration:** [`generate_tseitin_data.py`](generate_tseitin_data.py:1-523) handles instance generation, solver execution, and result logging.
-- **Analysis and Plotting:** [`attempt.py`](attempt.py:2168-2324) provides tools for analyzing and visualizing results.
+- **Analysis and Plotting:** [`attempt.py`](attempt.py:2067-2145) provides tools for analyzing and visualizing results.
 - **Empirical Receipts:** All outputs are saved in `shape_of_truth_out/` and `tseitin_receipts.json` for auditability.
-
-
 ---
 
-## Act VII: The Gödelian Landmine
+## Foundational Proofs: TM/VN Subsumption
+
+The non-act opening establishes that the Thiele Machine subsumes Turing and
+von Neumann models. It formalizes state, transitions, and certificates,
+culminating in the Bisimulation and Strict Separation theorems.
+([`attempt.py`](attempt.py:55-173))
+
+## The Paradox
+
+Introduces the core conflict between a blind solver and a partition-aware solver
+through a verifiable puzzle.
+([`attempt.py`](attempt.py:786-905))
+
+## The Universal Principle
+
+Generalizes the paradox using spatial rotations and Sudoku to show the
+phenomenon is not contrived.
+([`attempt.py`](attempt.py:906-997))
+
+## The Engine of Discovery
+
+Measures the information-theoretic cost of uncovering hidden structure via a
+brute-force search over partitions using MDL.
+([`attempt.py`](attempt.py:998-1228))
+
+## The Fractal Nature of Debt
+
+Demonstrates the exponential cost of blindness with hard instances and
+multiprocessing harnesses.
+([`attempt.py`](attempt.py:1229-1632))
+
+## Final Theorem & Conclusion
+
+States the Embedding and Self-Reconstruction theorems, presents the capability
+comparison table, and cryptographically seals the artifact.
+([`attempt.py`](attempt.py:1633-1979))
+
+## Experimental Separation
+
+Provides detailed, small-scale receipts comparing blind and sighted solvers
+with plots and tables.
+([`attempt.py`](attempt.py:1980-2294))
+
+## Gödelian Landmine
 
 The seventh act of this artifact is a deliberate confrontation with the limits of classical computation—a constructed paradox designed to expose the fundamental difference between the Turing and Thiele paradigms.
 
 ### The Paradox Constructed
 
-In Act VII ([`attempt.py`](attempt.py:2006-2167)), the artifact generates a logical space that is, by design, paradoxical: it encodes a set of constraints that cannot be satisfied by any assignment. For a classical (Turing) machine, this is a death trap. The machine, bound to search for an object-level solution, will enumerate possibilities, backtrack, and ultimately fail, unable to produce anything but a negative result or an error.
+In the Gödelian Landmine section ([`attempt.py`](attempt.py:2295-2486)), the artifact generates a logical space that is, by design, paradoxical: it encodes a set of constraints that cannot be satisfied by any assignment. For a classical (Turing) machine, this is a death trap. The machine, bound to search for an object-level solution, will enumerate possibilities, backtrack, and ultimately fail, unable to produce anything but a negative result or an error.
 
 ### The Thiele Machine's Response
 
@@ -562,7 +594,7 @@ The Thiele Machine, by contrast, is not limited to object-level search. It can s
 
 ### Technical Implementation
 
-- **Construction:** The paradox is encoded as a set of logical constraints in [`attempt.py`](attempt.py:2006-2167), leveraging the Z3 logic engine to verify unsatisfiability.
+- **Construction:** The paradox is encoded as a set of logical constraints in [`attempt.py`](attempt.py:2295-2486), leveraging the Z3 logic engine to verify unsatisfiability.
 - **Detection:** The Thiele Machine partitions the state space, applies local axioms, and invokes the logic engine to check for consistency. When all partitions are inconsistent, it issues the certificate.
 - **Output:** The certificate is saved as a machine-verifiable artifact (SMT2 proof file), and its hash is logged for auditability.
 
@@ -572,7 +604,7 @@ The Gödelian Landmine is not a parlor trick; it is a demonstration of a new com
 
 ### References
 
-- Formal construction and code: [`attempt.py`](attempt.py:2006-2167)
+- Formal construction and code: [`attempt.py`](attempt.py:2295-2486)
 - Certificate-driven computation: lines 205–250
 - Partition logic: lines 146–201
 - Empirical demonstration: see "Empirical Experiments and Results" (lines 409–455)
@@ -637,7 +669,7 @@ pip install -r requirements.txt
 
 ### 2. Running the Main Artifact
 
-The main artifact is [`attempt.py`](attempt.py:1-2512). To run it:
+The main artifact is [`attempt.py`](attempt.py:1-2486). To run it:
 
 ```sh
 python attempt.py
