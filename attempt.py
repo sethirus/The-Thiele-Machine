@@ -51,20 +51,24 @@ r"""
 ================================================================================
 The Thiele Machine & The Shape of Truth
 ================================================================================
-Author: Devon Thiele
-Reforged for Demonstrability and Clarity
-
 This script is a self-executing proof. It is not a description of a theory;
 it is the theory, made manifest and verifiable.
 
-It unfolds as a five-act play, with each act building upon the last, using
-the Z3 logic engine as an impartial referee to derive every conclusion.
+The opening **Foundational Proofs** establish the subsumption of Turing and
+von Neumann machines, providing context for what follows.
 
-- ACT I:   Establishes a fundamental paradox between a 'Blind' and 'Sighted' view.
-- ACT II:  Proves this principle is universal, not a contrived example.
-- ACT III: Answers the ultimate questions: Can sight be discovered? What is its cost?
-- ACT IV:  Demonstrates the exponential consequences of ignoring these truths.
-- ACT V:   Presents the final theorem and seals the entire artifact cryptographically.
+It then proceeds through seven thematic sections, each building upon the
+last and using the Z3 logic engine as an impartial referee to derive every
+conclusion.
+
+- Foundational Proofs: Establish the subsumption of TM/VN machines.
+- The Paradox — Establishes the core conflict between the blind and sighted models.
+- The Universal Principle — Generalizes the paradox using rotations and Sudoku.
+- The Engine of Discovery — Measures the cost of discovering structure via MDL.
+- The Fractal Nature of Debt — Demonstrates the exponential cost of blindness with hard instances.
+- The Final Theorem & Conclusion — Formalizes the Embedding and Self-Reconstruction theorems and compares capabilities.
+- The Experimental Separation — Provides detailed, small-scale, control-group receipts with verifiable tables and plots.
+- The Gödelian Landmine — Demonstrates a higher-order computational capability beyond classical reach.
 
 Run this, and let the machine prove its own nature to you.
 ================================================================================
@@ -149,7 +153,7 @@ Here, the machinery is oiled, the dice are loaded, and the random seeds are plan
 This establishes the Turing Machine as a slice of the Thiele Machine.
 
 Strict Separation Theorem:
-For families of problems such as Tseitin expanders, the Thiele Machine solves instances using partition-aware logic and certificate-driven composition, yielding compact certificates and measurable MDL/NUSD gaps. The Turing Machine (Resolution-only) requires exponentially larger resources (conflicts, decisions, time) for the same instances, as proven by Urquhart and Ben-Sasson–Wigderson lower bounds. Thiele supports composite proof systems (GF(2), partition modules) beyond Resolution. The existence of compact certificates and MDL/NUSD gaps operationally demonstrates that the Turing slice is strictly contained in the Thiele whole. See ACT III, IV, VI for operational receipts and separation tables.
+For families of problems such as Tseitin expanders, the Thiele Machine solves instances using partition-aware logic and certificate-driven composition, yielding compact certificates and measurable MDL/NUSD gaps. The Turing Machine (Resolution-only) requires exponentially larger resources (conflicts, decisions, time) for the same instances, as proven by Urquhart and Ben-Sasson–Wigderson lower bounds. Thiele supports composite proof systems (GF(2), partition modules) beyond Resolution. The existence of compact certificates and MDL/NUSD gaps operationally demonstrates that the Turing slice is strictly contained in the Thiele whole. See the sections on the Engine of Discovery, the Fractal Nature of Debt, and the Experimental Separation for operational receipts and separation tables.
 """
 PROJECTION_MODE = "Pi_trace"
 
@@ -164,7 +168,7 @@ Role in the Proof:
 These utilities are the proof’s nervous system. They record every utterance, hash every secret, and ultimately seal the artifact with a cryptographic flourish that would make even Zaphod Beeblebrox pause for applause. The Ouroboros Seal is the meta-proof: the proof of the proof, the signature that says, “Yes, I really did mean to do that.”
 
 Set the Stage:
-Prepare for recursive self-reference, existential hashing, and the kind of transcript that would get you kicked out of polite mathematical society. The code below is the machinery that makes the rest of the play possible—and unforgettable.
+Prepare for recursive self-reference, existential hashing, and the kind of transcript that would get you kicked out of polite mathematical society. The code below is the machinery that makes the rest of the proof possible—and verifiable.
 ================================================================================
 """
 import numpy as np
@@ -618,7 +622,7 @@ def mdl_bits_for_partition(split, dataset):
     universe's way of telling you to get a better theory.
 
     This function is the heart of the NUSD law. It's the impartial accountant
-    that gives the bill to the Blind Baker.
+    that gives the bill to the blind solver.
 
     Args:
         split (tuple of lists of ints): The proposed partition of the dataset.
@@ -635,7 +639,7 @@ def mdl_bits_for_partition(split, dataset):
     # my theory (the model) and the cost of describing the data my theory can't explain (the error).
     # If my theory leads to a contradiction (like 0=1), its description length is infinite.
     # Infinity is the universe's way of telling me to get a better theory.
-    # This function is the heart of the NUSD law—it's the impartial accountant that gives the bill to the Blind Baker.
+    # This function is the heart of the NUSD law—it's the impartial accountant that gives the bill to the blind solver.
 
     if not is_partition_solvable(split, dataset):
         return float('inf')
@@ -685,16 +689,12 @@ def say(s=""):
 
 r"""
 ================================================================================
-ACT I–V: THE FIVE-ACT PLAY
+Foundational Proofs and Subsequent Sections
 
-Philosophical Purpose:
-This is where the proof dons its Shakespearean tights and launches into a five-act tragedy, comedy, and farce—sometimes all at once. Each act is a philosophical experiment, a computational drama, and a running gag about the nature of sight, blindness, and the cost of knowing anything at all. Douglas Adams would call it “mostly harmless,” Palahniuk would call it “the only way out,” and Steve Martin would just hope you’re laughing with him, not at him.
-
-Role in the Proof:
-Each act builds upon the last, like a stack of increasingly unstable Jenga blocks. ACT I introduces the paradox, ACT II universalizes it, ACT III asks the big questions, ACT IV demonstrates the exponential consequences, and ACT V ties it all together with a theorem and a cryptographic bow. If you’re not confused by the end, you’re not paying attention.
-
-Set the Stage:
-Prepare for paradoxes, universal principles, engines of discovery, fractal debts, and final theorems. The code that follows is the play itself—no dress rehearsal, no refunds.
+Purpose:
+The foundational proofs establish the subsumption of TM/VN machines. The
+remaining sections present the paradox, general principle, discovery engine,
+fractal debt, final theorem, experimental separation, and Gödelian landmine.
 ================================================================================
 """
 say(f"MODE = SLICE ({PROJECTION_MODE}), theories={{Resolution}}, partitions=1")
@@ -741,7 +741,7 @@ def seal_and_exit(ok: bool, summary: dict):
         None. Exits the program.
     """
     # First Principles Explanation:
-    # At the end of the play, I want to prove that what you saw is exactly what was run.
+    # At the end, the goal is to prove that what you saw is exactly what was run.
     # 'seal_and_exit' hashes the source code and the transcript, then prints the hashes.
     # If you change even one character, the hash changes. This is my meta-proof—the proof of the proof.
     # The artifact becomes self-verifying, unassailable, and cryptographically sealed.
@@ -777,53 +777,43 @@ def seal_and_exit(ok: bool, summary: dict):
 
 
 # ================================================================================
-# ACT I: THE PARADOX - AXIOMATIC BLINDNESS VS. NATIVE SIGHT
+# THE PARADOX - AXIOMATIC BLINDNESS VS. NATIVE SIGHT
 # ================================================================================
 
-def run_act_I_the_paradox():
+def run_paradox():
     """
-    ACT I: Establishes the core thesis through a simple, verifiable paradox.
+    Establishes the core thesis through a simple, verifiable paradox.
 
-    Philosophical Context:
-    This act operationalizes the first axiom: computation is geometric, and models must match the shape of problems.
-    The Blind Baker (Turing Machine) is axiomatically blind to hidden dimensions, while the Sighted Architect (Thiele Machine)
-    sees them natively. The paradox is resolved only when the observer's lens (μ) matches the world's structure.
+    Context:
+    Computation is geometric, and models must match the shape of problems.
+    A classical solver is blind to hidden dimensions, while a partition-aware
+    solver can account for them.
 
-    Core Concepts Used:
-    - Thiele Machine: Partition-aware logic, certificate-driven composition.
-    - NUSD Law: No Unpaid Sight Debt—every shortcut to sight must be paid for in μ-bits.
-    - Z3 as Auditor: Every impossibility is notarized by Z3, not asserted by fiat.
-
-    Quantum Analogy:
-    The difference between the Blind Baker and Sighted Architect mirrors the difference between classical and quantum measurement.
-    The Thiele Machine's global sight is modeled after quantum unitaries—instantaneous, parallel perception.
+    Concepts:
+    - Thiele Machine: partition-aware logic with certificate-driven composition.
+    - NUSD Law: every shortcut to sight must be paid for in μ-bits.
+    - Z3 as Auditor: every impossibility is formally verified.
 
     Returns:
         verdict (bool): True if paradox is established and certificates are valid.
-        summary (dict): Key results and certificates for Act I.
+        summary (dict): Key results and certificates for this section.
     """
     say(r"""
 ===============================================================================
-ACT I: THE PARADOX (The 4 Puzzle Pieces)
+THE PARADOX (The 4 Puzzle Pieces)
 ===============================================================================
-Thesis 1: Computation is Geometric. Problems have a shape. A computational
-          model must match that shape to solve them.
-Thesis 2: The von Neumann/Turing model is axiomatically blind to hidden
-          dimensions. The Thiele Machine sees them natively.
-
-We begin with a story:
-- The Sighted Architect (Thiele Machine): Sees all dimensions, including hidden ones.
-- The Blind Baker (Turing Machine): Sees only the surface, blind to hidden dimensions.
+Thesis 1: Computation is geometric; problems have shape.
+Thesis 2: The von Neumann/Turing model is blind to hidden dimensions.
 
 The puzzle: Four pieces. The goal is to find a single, consistent rule.
-Z3, the logic engine, is our impartial referee.
+Z3, the logic engine, is the impartial referee.
 """)
     dataset = [("A", 0,0,0,0), ("B", 1,0,0,0), ("C", 0,0,1,0), ("D", 1,1,1,1)]
     names, K, d, T, W = map(list, zip(*dataset))
     say("THE PUZZLE PIECES (K, d, T -> W):")
     for i, n in enumerate(names): say(f"  Piece {n}: K={K[i]}, color d={d[i]}, T={T[i]} -> shape W={W[i]}")
     # Show explicit linear combination and verify with Z3
-    say("\nExplicit linear combination (Blind Baker):")
+    say("\nExplicit linear combination (blind solver):")
     a, b, c = Reals("a b c")
     s_check = Solver()
     for i in range(len(W)):
@@ -832,8 +822,8 @@ Z3, the logic engine, is our impartial referee.
     say(f"Z3 check: {res_check} (should be unsat)")
 
     say("\n--------------------------------------------------------------------------------")
-    say("ARTICLE 1 — The Blind Baker (Plane) Fails Provably")
-    say("His Rule: \"I can't see color, so I need ONE rule for ALL pieces.\"")
+    say("ARTICLE 1 — The blind solver (plane) fails provably")
+    say("Constraint: a single linear rule must fit all pieces.")
     say("--------------------------------------------------------------------------------")
     s_plane = Solver()
     s_plane.set(unsat_core=True)  # Enable unsat core extraction. The referee is now wearing sunglasses and a badge.
@@ -841,7 +831,7 @@ Z3, the logic engine, is our impartial referee.
     for i in range(len(W)):
         s_plane.add(Implies(assumptions[i], K[i]*Reals("a b c")[0] + T[i]*Reals("a b c")[1] + Reals("a b c")[2] == W[i]))
     plane_unsat = (s_plane.check(assumptions) == unsat)
-    say(f"The Blind Baker tries to find one rule. The referee (Z3) says: {'unsat' if plane_unsat else 'sat'}")
+    say(f"The blind solver tries to find one rule. Z3 reports: {'unsat' if plane_unsat else 'sat'}")
     if plane_unsat:
         core = s_plane.unsat_core()
         # Map each assumption in the unsat core to its corresponding equation
@@ -852,7 +842,7 @@ Z3, the logic engine, is our impartial referee.
             idx = int(label.split("_")[1])
             eqn = f"{K[idx]}*{eq_vars[0]} + {T[idx]}*{eq_vars[1]} + {eq_vars[2]} == {W[idx]}"
             say(f"{label}: {eqn}")
-    assert plane_unsat, "FATAL: Blind Baker succeeded. The core paradox is broken."
+    assert plane_unsat, "FATAL: blind solver succeeded. The core paradox is broken."
 
     say("\nThis failure is not a bug; it is a mathematical certainty. The referee issues a")
     say("'Certificate of Impossibility', a Farkas Witness, proving the contradiction.")
@@ -866,8 +856,8 @@ Z3, the logic engine, is our impartial referee.
     assert farkas_ok, "FATAL: Farkas certificate is invalid."  # If this fails, the proof collapses like a soufflé in a thunderstorm.
 
     say("\n--------------------------------------------------------------------------------")
-    say("ARTICLE 2 — The Sighted Architect (Sphere) Solves the Puzzle")
-    say("Her Rule: \"I'll use a different simple rule for each color.\"")
+    say("ARTICLE 2 — The partition-aware solver (sphere) solves the puzzle")
+    say("Strategy: use a different simple rule for each color.")
     say("--------------------------------------------------------------------------------")
     sphere_ok = True
     for d0 in sorted(set(d)):
@@ -876,16 +866,16 @@ Z3, the logic engine, is our impartial referee.
         a, b, c = Reals(f"t{d0}_a t{d0}_b t{d0}_c")
         s.add([K[i]*a + T[i]*b + c == W[i] for i in idxs])
         res = s.check()
-        say(f"The Architect looks at color d={d0}. The referee (Z3) says: {res}")
+        say(f"The solver looks at color d={d0}. Z3 reports: {res}")
         if res != sat: sphere_ok = False
-    assert sphere_ok, "FATAL: Sighted Architect failed."
+    assert sphere_ok, "FATAL: partition-aware solver failed."
 
     say("\nConclusion: Blindness created a paradox. Sight resolved it. The only difference")
     say("between possible and impossible was the perception of the hidden dimension 'd'.")
     
     # First Principles Explanation:
-    # The Sighted Architect succeeds not by brute force, but by matching the world's hidden geometry.
-    # Where the Blind Baker tries to fit all pieces with one rule and fails, the Architect sees the extra dimension (color 'd'),
+    # The partition-aware solver succeeds by matching the world's hidden geometry.
+    # Where the blind solver tries to fit all pieces with one rule and fails, the partition-aware solver notices the extra dimension (color 'd'),
     # splits the puzzle accordingly, and finds simple rules for each group. This is not a trick—it's a recognition of structure.
     # The difference between possible and impossible is the ability to perceive and adapt to hidden dimensions.
     # In quantum terms, this is the leap from classical measurement (blind trace) to global sight (unitary perception).
@@ -893,24 +883,21 @@ Z3, the logic engine, is our impartial referee.
     # This operationalizes the defense: no hidden magic, no convenient assumptions—just the geometry of truth, witnessed and certified.
     summary = {"plane_unsat": plane_unsat, "farkas_valid": farkas_ok, "sphere_sat": sphere_ok}
     verdict = all(summary.values())
-    say(f"\n--- ACT I VERDICT: {'PASS' if verdict else 'FAIL'} ---")
+    say(f"\n--- PARADOX VERDICT: {'PASS' if verdict else 'FAIL'} ---")
     return verdict, summary
 
 # ================================================================================
-# ACT II: THE PRINCIPLE IS UNIVERSAL
+# THE PRINCIPLE IS UNIVERSAL
 # ================================================================================
 
-def run_act_II_the_universal_principle():
+def run_universal_principle():
     """
-    ACT II: Demonstrates that the core principle applies to diverse domains.
+    Demonstrates that the core principle applies to diverse domains.
 
-    Philosophical Context:
-    The separation between trace-based (Turing) and composite (Thiele) computation is not a trick, but a universal property.
-    This act uses rotations and Sudoku to show that order-dependence is a symptom of blindness to hidden structure.
-
-    Quantum Rosetta Stone:
-    - Rotations: Composite operations (unitary) vs. sequential traces (classical).
-    - Sudoku: The solution space is a global witness, not a single trace.
+    Context:
+    The separation between trace-based (Turing) and composite (Thiele) computation
+    is not a trick but a universal property. Rotations and Sudoku show that
+    order-dependence is a symptom of hidden structure.
 
     Defense Against Attack Vectors:
     - Non-triviality: The process isomorphism checks here demonstrate deep structural equivalence, not mere syntactic similarity.
@@ -921,16 +908,16 @@ def run_act_II_the_universal_principle():
     """
     say(r"""
 ===============================================================================
-ACT II: THE PRINCIPLE IS UNIVERSAL
+THE PRINCIPLE IS UNIVERSAL
 ===============================================================================
-Thesis 3: The separation between Trace (Turing) and Composite (Thiele) is not
-          a trick. It is a universal property of computation.
+Thesis 3: The separation between trace (Turing) and composite (Thiele) computation
+          is a universal property.
 """)
     say("\n--------------------------------------------------------------------------------")
     say("DEMO 1 — Rotations: Sequential vs. Composite Operations")
     say("--------------------------------------------------------------------------------")
     if R is None:
-        raise RuntimeError("scipy.spatial.transform.Rotation (R) is not available. Please install scipy to run the rotation demo in ACT II.")
+        raise RuntimeError("scipy.spatial.transform.Rotation (R) is not available. Please install scipy to run the rotation demo.")
     rx = R.from_euler('x', 90, degrees=True)
     ry = R.from_euler('y', 90, degrees=True)
     trace_xy = (rx * ry).as_quat().tolist()
@@ -989,39 +976,39 @@ Thesis 3: The separation between Trace (Turing) and Composite (Thiele) is not
     # The defense is operational: no hidden magic, no cherry-picking—just the geometry of truth, made explicit.
 
 # ================================================================================
-# ACT III: THE ENGINE OF DISCOVERY & THE LAW OF NUSD
+# THE ENGINE OF DISCOVERY & THE LAW OF NUSD
 # ================================================================================
 
-def run_act_III_the_engine_and_the_law():
+def run_engine_and_law():
     """
-    ACT III: Answers Turing's questions: How is sight discovered? What is its cost?
+    Answers Turing's questions: How is sight discovered? What is its cost?
 
-    Philosophical Context:
-    This act operationalizes the Law of NUSD: sight is never free, and discovery has a quantifiable cost.
+    Context:
+    The Law of NUSD states that sight is never free and discovery has a quantifiable cost.
     The Engine of Discovery blindly searches for a partition that resolves the paradox, using MDL as its compass.
     Logical paradoxes are maps to hidden dimensions; the cost of resolving them is paid in μ-bits.
 
-    Core Concepts Used:
-    - Partition-aware logic: The machine discovers hidden structure by testing all possible partitions.
-    - NUSD Law: The minimum description length (MDL) reflects both model complexity and the cost of logical failure.
-    - Z3 as Auditor: Every candidate partition is checked for logical consistency by Z3.
+    Concepts:
+    - Partition-aware logic: the machine discovers hidden structure by testing all possible partitions.
+    - NUSD Law: the minimum description length reflects both model complexity and the cost of logical failure.
+    - Z3 as Auditor: every candidate partition is checked for logical consistency by Z3.
 
     Defense Against Attack Vectors:
-    - End-to-End Integrity: The NUSD Law is enforced for any prior; no convenient assumptions are made.
-    - Robustness: The proof holds for arbitrary distributions, not just cherry-picked examples.
+    - End-to-End Integrity: the NUSD Law is enforced for any prior; no convenient assumptions are made.
+    - Robustness: the proof holds for arbitrary distributions, not just cherry-picked examples.
 
     Returns:
         None. Emits discovery log and reconstruction object.
     """
     say(r"""
 ===============================================================================
-ACT III: THE ENGINE OF DISCOVERY & THE LAW OF NUSD
+THE ENGINE OF DISCOVERY & THE LAW OF NUSD
 ===============================================================================
 Thesis 4: Sight can be derived. Logical paradoxes are maps to hidden dimensions.
 Thesis 5: There is No Unpaid Sight Debt (NUSD). Discovery has a quantifiable cost.
 
 We now address the ghost of Turing. He asks: "How do you find the hidden dimension?"
-and "What is the cost of sight?" The machine will now answer for itself.
+and "What is the cost of sight?" The machine now answers.
 
 [MDL now reflects both model complexity and the cost of logical failure. If a partition is logically inconsistent (cannot be solved by any linear model), its MDL is set to infinity, representing an infinite cost for inconsistency.]
 """)
@@ -1032,7 +1019,7 @@ and "What is the cost of sight?" The machine will now answer for itself.
     say("\n--------------------------------------------------------------------------------")
     say("ARTICLE 1 — The Engine of Discovery")
     say("--------------------------------------------------------------------------------")
-    say("The Engine begins with the paradox from ACT I. It will now conduct a blind")
+    say("The Engine begins with the paradox from earlier. It will now conduct a blind")
     say("search for a hidden geometry that resolves the contradiction.")
 
     # A partition "resolves" the paradox if, after splitting the data,
@@ -1155,8 +1142,8 @@ and "What is the cost of sight?" The machine will now answer for itself.
     cert_discovery = 1 if successful_partitions else 0  # partition split
     
     candidates = [
-        ("Blind Baker (Resolution)", mdl_blind_bits, cert_blind),
-        ("Sighted Architect (partition)", mdl_sighted_bits, cert_sighted),
+        ("blind solver (Resolution)", mdl_blind_bits, cert_blind),
+        ("partition-aware solver (partition)", mdl_sighted_bits, cert_sighted),
         ("Engine of Discovery (partition)", mdl_discovery_bits, cert_discovery)
     ]
     candidates_sorted = sorted(candidates, key=lambda x: (x[1], x[2]))
@@ -1166,9 +1153,9 @@ and "What is the cost of sight?" The machine will now answer for itself.
         say(f"  {name}: MDL={mdl} bits; cert={cert} {selected}")
         if mdl == float('inf'):
             say("    This model is logically inconsistent; assigned infinite cost.")
-        elif "Blind Baker" in name:
+        elif "blind solver" in name:
             say(f"    Contradiction witness: Farkas certificate {str([Fraction(1), Fraction(-1), Fraction(-1), Fraction(1)])} (size={cert})")
-        elif "Sighted Architect" in name:
+        elif "partition-aware solver" in name:
             say(f"    Certificate: affine rules for d=0 and d=1 (size={cert})")
         elif "Engine of Discovery" in name:
             if successful_partitions:
@@ -1193,8 +1180,8 @@ and "What is the cost of sight?" The machine will now answer for itself.
     
     say("| Approach            | Result           | Time Cost (s) | NUSD Paid (bits) |")
     say("|---------------------|------------------|---------------|------------------|")
-    say(f"| Blind Baker         | UNSAT (Failure)  | {time_blind:<13.5f} | 1 (Implicit)     |")
-    say(f"| Sighted Architect   | SAT (Success)    | {time_sighted:<13.5f} | 0                |")
+    say(f"| blind solver         | UNSAT (Failure)  | {time_blind:<13.5f} | 1 (Implicit)     |")
+    say(f"| partition-aware solver   | SAT (Success)    | {time_sighted:<13.5f} | 0                |")
     say(f"| Engine of Discovery | SAT (Discovered) | {discovery_time:<13.5f} | 0                |")
     say("\nThe Ledger is clear. Blindness is fast and wrong. Sight is more expensive but correct.")
     say("Discovery is the price paid to create the map that enables sight.")
@@ -1226,14 +1213,14 @@ and "What is the cost of sight?" The machine will now answer for itself.
     say(f"NUSD_bits = MDL_blind_bits - MDL_discovery_bits = {mdl_blind_bits} - {mdl_discovery_bits} = {mdl_blind_bits - mdl_discovery_bits}")
 
 # ================================================================================
-# ACT IV: THE FRACTAL NATURE OF DEBT
+# THE FRACTAL NATURE OF DEBT
 # ================================================================================
 
 def parity3_cnf(x1, x2, x3, rhs):
     """
     Returns CNF clauses for x1 XOR x2 XOR x3 == rhs (rhs in {0,1}).
 
-    This is the Blind Baker's favorite gadget. It encodes parity constraints
+    This is the blind solver's favorite gadget. It encodes parity constraints
     in a way that a resolution-based solver can (try to) understand. If you
     ever wondered how to make a Turing Machine sweat, this is it.
 
@@ -1260,7 +1247,7 @@ def parity3_z3_bool(x1, x2, x3, rhs):
     """
     Returns Z3 Bool parity constraint: x1 XOR x2 XOR x3 == rhs.
 
-    This is the Sighted Architect's tool. It encodes parity constraints natively
+    This is the partition-aware solver's tool. It encodes parity constraints natively
     in Z3, matching the world's geometry. If you want to solve parity instantly,
     use this.
 
@@ -1275,15 +1262,15 @@ def parity3_z3_bool(x1, x2, x3, rhs):
     # x1, x2, x3 are Z3 Bool variables; rhs is 0 or 1
     return If(Xor(x1, Xor(x2, x3)), rhs == 1, rhs == 0)
 
-def run_act_IV_the_fractal_debt_naive():
+def run_fractal_debt_naive():
     """
-    ACT IV: Demonstrates the exponential consequences of ignoring the Law of NUSD.
-    [TO MIGRATE: This act should use the advanced batch harness, not the naive version.]
+    Demonstrates the exponential consequences of ignoring the Law of NUSD.
+    [TO MIGRATE: This section should use the advanced batch harness, not the naive version.]
     """
     from z3 import Solver, Bool, Not, Or, sat
     say(r"""
 ===============================================================================
-ACT IV: THE FRACTAL NATURE OF DEBT (ADVANCED HARNESS, FULL BATCH)
+THE FRACTAL NATURE OF DEBT (advanced harness, full batch)
 ===============================================================================
 Thesis 6: The cost of blindness is not linear; it is often exponential.
           Every unperceived dimension multiplies the information debt.
@@ -1304,7 +1291,7 @@ exponential separation. All results are printed below.
         # The hidden dimension 'd' flips the XOR to XNOR.
         rows = [(list(p[:n]), p[n], (sum(p[:n])%2) if p[n]==0 else 1-(sum(p[:n])%2)) for p in product(*[[0,1]]*(n+1))]
         
-        # 1. Blind Baker (CNF-based solver, matching Act VI)
+        # 1. blind solver (CNF-based solver, matching experimental separation)
         instance = {
             "cnf_clauses": [],
             "xor_rows": []
@@ -1330,7 +1317,7 @@ exponential separation. All results are printed below.
         res_parity = s_parity.check()
         # Not used for the main proof, but demonstrates correct modeling
 
-        # 2. Sighted Architect (linear model) - can partition, but uses wrong geometry
+        # 2. partition-aware solver (linear model) - can partition, but uses wrong geometry
         s_lin1, s_lin2 = Solver(), Solver()
         edge_vars1 = [Bool(f"x1_{i}") for i in range(n)]
         edge_vars2 = [Bool(f"x2_{i}") for i in range(n)]
@@ -1358,8 +1345,8 @@ exponential separation. All results are printed below.
                             v = abs(lit) - 1
                             z3_lit = edge_vars2[v] if lit > 0 else Not(edge_vars2[v])
     # First Principles Explanation:
-    # The exponential growth of debt in the Blind Baker's world is not a fluke—it's a geometric necessity.
-    # Every hidden dimension multiplies the cost of blindness, while the Sighted Architect escapes by matching the world's structure.
+    # The exponential growth of debt in the blind solver's world is not a fluke—it's a geometric necessity.
+    # Every hidden dimension multiplies the cost of blindness, while the partition-aware solver escapes by matching the world's structure.
     # This is the operational meaning of the Law of NUSD: you pay for every shortcut you take, or the universe sends the bill later.
     # The defense is explicit: arbitrary instances, independent auditors (Z3 and GF(2)), and no sleight of hand.
     # The quantum analogy is real—global structure is the difference between classical struggle and quantum clarity.
@@ -1367,7 +1354,7 @@ exponential separation. All results are printed below.
                         s_lin2.add(Or(z3_clause))
         res_lin = sat if s_lin1.check() == sat and s_lin2.check() == sat else unsat
         
-        # 3. Sighted Architect (correct model) - partitions and uses correct geometry.
+        # 3. partition-aware solver (correct model) - partitions and uses correct geometry.
         # This is always solvable by construction. We don't need to run Z3.
         # The ability to SELECT this model is the key.
         res_corr = sat
@@ -1454,8 +1441,8 @@ def run_single_experiment(params):
         )
         return None
 
-def run_act_IV_the_fractal_debt():
-    """ACT IV: the fractal nature of debt using the fast multiprocessing harness."""
+def run_fractal_debt():
+    """The fractal nature of debt using the fast multiprocessing harness."""
     import multiprocessing
     import platform
     import threading
@@ -1466,7 +1453,7 @@ def run_act_IV_the_fractal_debt():
 
     say(r"""
 ===============================================================================
-ACT IV: THE FRACTAL NATURE OF DEBT (ADVANCED HARNESS, FULL BATCH)
+THE FRACTAL NATURE OF DEBT (advanced harness, full batch)
 ===============================================================================
 Thesis 6: The cost of blindness is not linear; it is often exponential.
           Every unperceived dimension multiplies the information debt.
@@ -1630,15 +1617,15 @@ exponential separation. All results are printed below.
             f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Main experiment failed after {time.time()-main_start_time:.2f}s"
         )
 # ================================================================================
-# ACT V: FINAL THEOREM & CONCLUSION
+# FINAL THEOREM & CONCLUSION
 # ================================================================================
 
-def run_act_V_final_theorem():
+def run_final_theorem():
     """
-    ACT V: Presents the final analysis and conclusions of the entire proof.
+    Presents the final analysis and conclusions of the entire proof.
 
-    Philosophical Context:
-    This is the grand finale. The artifact is not just a description of a proof, but the proof itself.
+    Context:
+    The artifact is not just a description of a proof, but the proof itself.
     The Embedding Theorem and Self-Reconstruction Theorem demonstrate the strict separation between Turing-style trace computation and Thiele-style partition-native logic.
 
     Core Concepts Used:
@@ -1658,7 +1645,7 @@ def run_act_V_final_theorem():
     """
     say(r"""
 ===============================================================================
-ACT V: THE FINAL THEOREM & CONCLUSION
+FINAL THEOREM & CONCLUSION
 ===============================================================================
 Thesis 7: Proof as Physical Object. This program is not a description of a
           proof. It is the proof itself. Its execution, output, and
@@ -1726,27 +1713,16 @@ This artifact operationally demonstrates the strict separation between Turing-st
 """)
 
 # ================================================================================
-# MAIN EXECUTION: The Five-Act Play
+# MAIN EXECUTION: The Full Seven-Act Play
 # ================================================================================
 
 r"""
 ================================================================================
-MAIN EXECUTION: THE FIVE-ACT PLAY
+MAIN EXECUTION
 
-Philosophical Purpose:
-This is the part where the curtain falls, the actors take their bows, and the proof tries desperately to remember its lines. The main execution block is the director, stage manager, and janitor all rolled into one. It runs the acts in order, halts on any failure, and seals the artifact with a flourish worthy of a Monty Python ending.
-
-Role in the Proof:
-Here, the proof is enacted, witnessed, and sealed. Every step is self-verifying, every certificate is cryptographically notarized, and every bug is immortalized in the transcript. If the proof fails, it does so with style; if it succeeds, it does so with a wink and a nudge.
-
-    # First Principles Explanation:
-    # This function encodes the logic of parity at a graph vertex. It's not just a technical step—
-    # it's the way the proof translates geometric constraints into the language of the solver.
-    # By emitting these clauses, the artifact ensures that every piece of the puzzle is accounted for,
-    # and that the structure of the problem is faithfully represented. This is how the proof operationalizes
-    # the geometry of truth, one clause at a time.
-Set the Stage:
-This is the final act. The machine proves itself, hashes itself, and exits stage left. Don’t forget your towel.
+Purpose:
+Runs the foundational proofs and all sections in order, halting on any failure
+and sealing the artifact upon success.
 ================================================================================
 """
 # --- Utility: Emit Vertex Clauses for 3-bit Parity ---
@@ -2009,7 +1985,7 @@ def fast_receipts(ns=(10, 20), seeds=1, conf_budget=100_000, prop_budget=5_000_0
     printed_seeds = set()
     for n in ns:
         for seed in range(seeds):
-            print(f"[ACT VI] Running instance n={n}, seed={seed}...")
+            print(f"[Experiment] Running instance n={n}, seed={seed}...")
             printed_seeds.add((n, seed))
             instance = generate_tseitin_expander(n, seed=seed, global_seed=RUN_SEED)
             blind = run_blind_budgeted(instance["cnf_clauses"], conf_budget, prop_budget)
@@ -2077,7 +2053,7 @@ def plot_fast_receipts(ns=(10, 20), seeds=1):
     results = []
     for n in ns:
         for seed in range(seeds):
-            print(f"[ACT VI] Plotting instance n={n}, seed={seed}...")
+            print(f"[Experiment] Plotting instance n={n}, seed={seed}...")
             instance = generate_tseitin_expander(n, seed=seed, global_seed=RUN_SEED)
             blind = run_blind_budgeted(instance["cnf_clauses"])
             sighted = solve_sighted_xor(instance["xor_rows"])
@@ -2137,21 +2113,20 @@ def plot_fast_receipts(ns=(10, 20), seeds=1):
     except Exception as e:
         print("=== pip freeze ===")
         print(f"[ERROR] Could not run pip freeze: {e}")
-def run_act_VI_experimental_separation():
+def run_experimental_separation():
     """
-    ACT VI: Empirically demonstrates the computational separation between blind and sighted solvers.
+    Empirically demonstrates the computational separation between blind and sighted solvers.
 
     This is the proof's field test. It runs both solvers on real instances, collects
-    receipts, and plots the exponential separation. If you ever doubted the theory,
-    this is the operational evidence. Also includes even-charge controls for the
-    skeptics in the back row.
+    receipts, and plots the exponential separation. Also includes even-charge controls
+    for additional validation.
 
     Returns:
         None. Prints tables and plots.
     """
     say(r"""
 ===============================================================================
-ACT VI: THE EXPERIMENTAL SEPARATION — RECEIPTS IN THE WILD
+EXPERIMENTAL SEPARATION — RECEIPTS IN THE WILD
 ===============================================================================
 Claim (empirical separation):
 On Tseitin formulas over 3-regular expanders with odd total charge, a parity-aware solver (GF(2) elimination)
@@ -2286,7 +2261,7 @@ consistent with exponential Resolution lower bounds; the sighted cost remains es
         say(f"  Sighted: result={fp['sighted_result']}, rank_gap={fp['rank_gap']}, cert_snip={fp['cert_snip']}")
 
 # ================================================================================
-# ACT VII: THE GÖDELIAN LANDMINE (THE UNASSAILABLE PROOF)
+# THE GÖDELIAN LANDMINE (THE UNASSAILABLE PROOF)
 # ================================================================================
 
 # --- STEP 0: Helper Functions for the Landmine Paradox ---
@@ -2324,11 +2299,11 @@ def check_landmine_constraint(proof_string, forbidden_digit='7'):
     contains_forbidden = forbidden_digit in proof_hash
     return proof_hash, not contains_forbidden
 
-# --- ACT VII: THE GÖDELIAN LANDMINE, FULLY DEMONSTRATED ---
+# --- THE GÖDELIAN LANDMINE, FULLY DEMONSTRATED ---
 
-def run_act_VII_the_godelian_landmine():
+def run_godelian_landmine():
     """
-    ACT VII: The Gödelian Landmine — a maximally explicit, computational demonstration.
+    The Gödelian Landmine — a maximally explicit, computational demonstration.
     For each minimal partition:
       - Construct and print the canonical proof object.
       - Compute and print its SHA256 hash.
@@ -2339,7 +2314,7 @@ def run_act_VII_the_godelian_landmine():
     """
     say(r"""
 ===============================================================================
-ACT VII: THE GÖDELIAN LANDMINE (THE UNASSAILABLE PROOF)
+THE GÖDELIAN LANDMINE (THE UNASSAILABLE PROOF)
 ===============================================================================
 We present a problem that is provably solvable, but add a meta-constraint on the
 nature of the proof itself. This exposes a paradox: the act of checking the proof
@@ -2464,15 +2439,15 @@ def main():
     """
     run_prove_tm_subsumption()
     run_prove_vn_subsumption()
-    verdict1, summary1 = run_act_I_the_paradox()
-    run_act_II_the_universal_principle()
-    run_act_III_the_engine_and_the_law()
-    run_act_IV_the_fractal_debt()
-    run_act_V_final_theorem()
-    run_act_VI_experimental_separation()
+    verdict1, summary1 = run_paradox()
+    run_universal_principle()
+    run_engine_and_law()
+    run_fractal_debt()
+    run_final_theorem()
+    run_experimental_separation()
 
-    # The seventh and final act. The unassailable proof.
-    run_act_VII_the_godelian_landmine()
+    # The final demonstration.
+    run_godelian_landmine()
 
     seal_and_exit(verdict1, {"base_proof": summary1})
 
