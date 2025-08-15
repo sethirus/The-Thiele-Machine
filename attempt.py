@@ -134,10 +134,10 @@ Formal Proof:
 IMPORTS & GLOBAL CONSTANTS
 
 Philosophical Purpose:
-This is the part where we summon the Python pantheon—NumPy, Z3, and friends—like a nervous magician who’s just realized he’s left his wand in the other universe. Constants are declared with the solemnity of a Douglas Adams footnote, and the imports are the backstage crew making sure the lights don’t go out mid-proof.
+This is where the essential tools are gathered—NumPy, Z3, and friends. Constants provide shared context, and the imports keep the machinery running.
 
 Role in the Proof:
-Without these imports, the rest of the code would be as useful as a towel in a rainstorm (which, to be fair, is still pretty useful). The constants set the rules of engagement, the imports bring in the referees, and together they ensure the proof doesn’t trip over its own shoelaces.
+Without these imports, the rest of the code would be inert. The constants set the rules of engagement, the imports bring in the referees, and together they ensure the proof doesn’t trip over its own shoelaces.
 
 Set the Stage:
 Here, the machinery is oiled, the dice are loaded, and the random seeds are planted. The show can go on—assuming we remembered to install all the dependencies.
@@ -163,10 +163,10 @@ r"""
 CORE UTILITIES & THE OUROBOROS SEAL
 
 Philosophical Purpose:
-Here lies the beating heart of the machine—the utilities, the transcript, and the legendary Ouroboros Seal. If the previous sections were the setup, this is the punchline, delivered with the timing of Steve Martin and the existential dread of Palahniuk. The functions here are the gears and cogs, the self-referential snake eating its own hash, and the transcript that remembers every embarrassing thing the proof says.
+Here lies the beating heart of the machine—the utilities, the transcript, and the Ouroboros Seal. If the previous sections were the setup, this is the punchline. The functions here are the gears and cogs, the self-referential snake eating its own hash, and the transcript that remembers every detail.
 
 Role in the Proof:
-These utilities are the proof’s nervous system. They record every utterance, hash every secret, and ultimately seal the artifact with a cryptographic flourish that would make even Zaphod Beeblebrox pause for applause. The Ouroboros Seal is the meta-proof: the proof of the proof, the signature that says, “Yes, I really did mean to do that.”
+These utilities are the proof’s nervous system. They record every utterance, hash every secret, and ultimately seal the artifact with a cryptographic flourish. The Ouroboros Seal is the meta-proof: the proof of the proof, the signature that says, “Yes, I really did mean to do that.”
 
 Set the Stage:
 Prepare for recursive self-reference, existential hashing, and the kind of transcript that would get you kicked out of polite mathematical society. The code below is the machinery that makes the rest of the proof possible—and verifiable.
@@ -180,7 +180,7 @@ def seeded_rng(global_seed, n, seed):
     return np.random.default_rng(h)
 
 # ================================================================================
-RUN_SEED = 123456789  # Global random seed for reproducibility. Chosen for its numerological neutrality and lack of cosmic bias. If you want chaos, try 42, but don't blame me for the existential fallout.
+RUN_SEED = 123456789  # Global random seed for reproducibility; numerologically neutral. For chaos, swap in 42—but any existential fallout is on you.
 AUTHOR = "Devon Thiele"
 
 # Deterministic RNG setup
@@ -607,7 +607,7 @@ def mdl_bits_for_partition(split, dataset):
     the cost of describing your theory (the model) AND the cost of describing the
     data that your theory fails to explain (the error).
 
-    Here's the kicker, in the spirit of Palahniuk: a theory that results in a
+    Here's the key point: a theory that results in a
     logical contradiction (like 0=1) is infinitely wrong. It cannot explain
     anything. Therefore, its description length is infinite. Infinity is the
     universe's way of telling you to get a better theory.
