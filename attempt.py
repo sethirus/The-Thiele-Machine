@@ -1,4 +1,10 @@
 # ==== PURE PROOF: imports (add at top of attempt.py) ====
+"""Thiele Machine Artifact.
+
+This script is a self-contained record of the thesis that computational discovery
+incurs an information-theoretic cost. It functions as a classical simulation and
+preserves every measurement as evidence in defense of that postulate.
+"""
 import os
 import sys
 import json

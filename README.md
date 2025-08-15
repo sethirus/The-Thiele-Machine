@@ -4,6 +4,8 @@
 
 This artifact is not a program to be optimized, but a demonstration of a falsifiable physical hypothesis: that computation has a geometric, information-theoretic cost. The Python script is not a library or algorithmic proposal—it is a classical simulation, an instrument designed to measure the cost a classical machine pays for its blindness to geometric structure.
 
+It is called an *artifact* because it encapsulates the proof and its data in a self-contained instrument. Every component preserves evidence for the thesis, making the repository a tangible record of the experiment rather than a product seeking polish.
+
 ---
 
 ## **POSTULATE ZERO: THE PHYSICS OF COST**
@@ -78,7 +80,7 @@ This very intractability motivates the experiments on the Fractal Nature of Debt
 
 ### **Empirical Derivation of the μ-bit to Time Exchange Rate**
 
-A core critique of this artifact is that the link between the information-theoretic cost (μ-bits/MDL) and the proxy currency of time is asserted, not empirically derived. The following experiment, executed by `measure_cost_separation.py`, addresses this directly.
+The artifact asserts—supported by empirical data—that the link between the information-theoretic cost (μ-bits/MDL) and the proxy currency of time is real. The experiment executed by `measure_cost_separation.py` demonstrates this relationship directly.
 
 Using the 4-point paradox dataset, we measure both the MDL and the Z3 compute time for two models: a "blind" model that fails to see the hidden structure, and a "sighted" model that correctly partitions the data.
 
