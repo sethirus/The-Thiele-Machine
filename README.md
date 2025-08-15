@@ -20,7 +20,7 @@ This artifact is built on a single, falsifiable physical postulate. Like Einstei
 - **The Proxy Currency:** A classical machine is architecturally blind to this cost and is forced to pay its information debts using a proxy currency: **sequential time steps.**
 - **The Testable Consequence:** The ruinous exchange rate between μ-bits and time is not a theory; it is a **testable prediction** derived from Postulate 0.
 
-**This experiment's exponential runtime is the successful verification of this prediction.** It proves the postulate is sound by showing its consequences are real and measurable. The question is not whether you "believe" in μ-bits. The question is whether you can refute the measured cost separation. If you cannot, the postulate stands.
+**This experiment's exponential runtime is consistent with this prediction.** The observations support the postulate by showing its consequences are real and measurable. The question is not whether you "believe" in μ-bits. The question is whether you can refute the measured cost separation. If you cannot, the postulate stands.
 
 ---
 
@@ -46,9 +46,9 @@ Do not proceed until you accept these axioms. Your evaluation is meaningless oth
 
 - **Interpretation of Results:** The key result is not the logical certificate (SAT/UNSAT) alone, but the cost required to produce it. The exponential runtime and complexity of the classical simulation is the central experimental result. Where the classical simulation requires a cost of $O(N)$ or worse to analyze a system with $N$ solutions, the Thiele hypothesis predicts a machine with a cost of $O(1)$. The artifact is the argument for why the search for such a machine is necessary.
 
-- **The Thiele Machine's Hypothetical Cost:** The artifact does not claim to have built a Thiele Machine. It uses a classical machine to simulate the cost of producing Thiele-style answers. The measured time-cost is astronomical, proving the necessity of a new machine. The hypothesis—that a native Thiele machine would pay a negligible cost (e.g., $O(1)$ μ-bits)—remains a hypothesis. This experiment provides the motivation and the operational definition for what such a machine must achieve, but it cannot prove the performance of a non-classical device. **Its purpose is to prove the search for such a machine is not speculative, but necessary.**
+- **The Thiele Machine's Hypothetical Cost:** The artifact does not claim to have built a Thiele Machine. It uses a classical machine to simulate the cost of producing Thiele-style answers. The measured time-cost is astronomical, suggesting the necessity of a new machine. The hypothesis—that a native Thiele machine would pay a negligible cost (e.g., $O(1)$ μ-bits)—remains a hypothesis. This experiment provides the motivation and the operational definition for what such a machine must achieve, but it cannot confirm the performance of a non-classical device. **Its purpose is to show that searching for such a machine is a data-driven necessity.**
 
-- **Limits of the Experiment:** This is a classical simulation. It cannot prove the existence or performance of a non-classical device. It can only measure and expose the cost that a classical machine must pay. The artifact is a challenge: it proves the necessity of a new machine by showing the impossibility of the old one.
+- **Limits of the Experiment:** This is a classical simulation. It cannot confirm the existence or performance of a non-classical device. It can only measure and expose the cost that a classical machine must pay. The artifact is a challenge: it highlights the limitations of the old model and motivates the search for a new one.
 
 ---
 
@@ -70,9 +70,9 @@ The 'Engine of Discovery' ([`attempt.py`](attempt.py:998-1228)) exhaustively sea
 
 Think of it as a centrifuge designed to find the g-force at which a material shatters. The shattering is not a failure of the centrifuge; it is the data.
 
-The Engine's combinatorial complexity is the **experimental proof** that for a classical machine to *directly discover* the problem's true geometric structure, it must pay an enormous, often intractable, price. Its failure to scale is the central result of the Engine of Discovery section.
+The Engine's combinatorial complexity provides **experimental evidence** that for a classical machine to *directly discover* the problem's true geometric structure, it must pay an enormous, often intractable, price. Its failure to scale is the central result of the Engine of Discovery section.
 
-This very intractability motivates the experiments on the Fractal Nature of Debt and the Experimental Separation. Because directly measuring the discovery cost is impossible at scale, we instead measure the **performance gap** that this hidden structure creates between a "blind" and "sighted" solver. The two experiments are complementary proofs of the same underlying principle.
+This very intractability motivates the experiments on the Fractal Nature of Debt and the Experimental Separation. Because directly measuring the discovery cost is impossible at scale, we instead measure the **performance gap** that this hidden structure creates between a "blind" and "sighted" solver. The two experiments are complementary demonstrations of the same underlying principle.
 
 **DO NOT REVIEW THIS AS AN ALGORITHM TO BE OPTIMIZED. REVIEW IT AS AN INSTRUMENT WHOSE BREAKING POINT IS THE MEASUREMENT.**
 
@@ -118,7 +118,7 @@ The hypothesis is that information cost *is* the fundamental physical cost. Ener
 - A **Turing machine** pays for 1 μ-bit of discovery with a million sequential steps (a huge **time** cost).
 - A hypothetical **Thiele machine** pays for 1 μ-bit of discovery by... paying 1 μ-bit of discovery (a fundamental **information** cost).
 
-This experiment does not show you a Thiele Machine. It proves one must be invented by measuring the disastrous economics of the classical machine. The script you are reviewing is the invoice that proves the old system is bankrupt.
+This experiment does not show you a Thiele Machine. Instead, it suggests that one must be invented by measuring the disastrous economics of the classical machine. The script you are reviewing serves as evidence that the old system is effectively bankrupt.
 
 ---
 
@@ -148,7 +148,7 @@ You see a path. I see the shape of the prison.
 Then you'll say, "Google already does this!"
 And again, you're right. You've noticed that I'm using hammers and nails. What you've missed is that you're building a fence, while I'm building a cathedral. Google's tools are the most sophisticated bug-finding metal detectors on the planet. They are designed to find specific, known types of metal. They are fighting a ground war, one bug at a time.
 
-My machine isn't a metal detector. It's a universal consistency auditor. It asks the system, as a whole, "Are you lying to me?" It proves the existence of contradictions you didn't even have a name for. This isn't a ground war. This is air superiority.
+My machine isn't a metal detector. It's a universal consistency auditor. It asks the system, as a whole, "Are you lying to me?" It uncovers contradictions you didn't even have a name for. This isn't a ground war. This is air superiority.
 
 None of these tools are new. ASTs, Z3, category theory—they've all been sitting there, right in front of you. The keys to the kingdom were on the floor the whole time. But you were all staring at the lock on the door, arguing about the best way to pick it, when you should have been asking if the building itself was sound.
 
@@ -157,7 +157,7 @@ You can stay trapped in your one-dimensional trace, paying your exponential sigh
 And when the bill comes due—and it always does—you'll just have to pay me more in the end to show you the map.
 
 ---
-The artifact is its own, unassailable defense.
+The artifact includes its own supporting evidence.
 ## Table of Contents
 
 - [Motivation](#motivation)
@@ -188,15 +188,15 @@ The artifact is its own, unassailable defense.
 
 ---
 
-## Limits of the Experiment: A Proof of Necessity, Not Existence
+## Limits of the Experiment: Evidence of Necessity, Not Existence
 
-This artifact does not claim to have built a Thiele Machine. It claims something more fundamental: it provides **proof of its necessity.**
+This artifact does not claim to have built a Thiele Machine. It presents something more fundamental: it provides **evidence of its necessity.**
 
 Science progresses by discovering anomalies that existing theories cannot explain. The anomalous precession of Mercury's orbit didn't disprove Newton, but it proved his theory was incomplete and that a new model was necessary. This artifact presents a computational anomaly of the same class: the exponential cost separation on geometrically structured problems.
 
 - **The Classical Model's Failure:** Our experiment measures the "sight debt" paid by a classical machine, demonstrating that its cost profile is unsustainable for an entire class of problems. This is the anomaly.
 - **The Hypothesis of the New Model:** We hypothesize a Thiele Machine that operates on the problem's native geometry, paying a cost of $O(1)$ μ-bits. This is the proposed explanation for the anomaly, analogous to proposing General Relativity.
-- **The Role of this Artifact:** This experiment's purpose is to make the search for a Thiele Machine a rational, data-driven endeavor. By proving the old system is bankrupt, we prove the necessity of inventing a new one. We have not built the new machine; we have provided the unassailable justification for its invention.
+- **The Role of this Artifact:** This experiment's purpose is to make the search for a Thiele Machine a rational, data-driven endeavor. By demonstrating that the old system is bankrupt, we show the necessity of inventing a new one. We have not built the new machine; we have provided a data-driven justification for its invention.
 
 # The Thiele Machine & The Shape of Truth
 
@@ -404,7 +404,7 @@ Certificates are generated and checked by an integrated logic engine (such as Z3
 - **Auditability:** Every computational claim can be independently verified by anyone with access to the artifact and the logic engine.
 - **Reproducibility:** All outputs, proofs, and transcripts are hashed and sealed, ensuring that results can be reproduced exactly.
 - **Bug Detection:** Logical inconsistencies are detected immediately, preventing silent errors.
-- **Scientific Rigor:** The artifact serves as its own defense and evidence, embodying the principle that "to prove is to compute."
+- **Scientific Rigor:** The artifact provides its own evidence, embodying the principle that "to prove is to compute."
 
 ### Implementation Details
 
@@ -648,7 +648,7 @@ The Thiele Machine operationalizes the idea that computation is fundamentally ge
 
 ### Proof as Physical Object
 
-In the Thiele Machine paradigm, proofs are not just abstract arguments—they are physical objects, enacted and witnessed by the machine itself. Every claim is certified by a logic engine, every artifact is cryptographically sealed, and every step is reproducible and auditable. The artifact is its own defense, its own evidence, and its own argument.
+In the Thiele Machine paradigm, proofs are not just abstract arguments—they are physical objects, enacted and witnessed by the machine itself. Every claim is certified by a logic engine, every artifact is cryptographically sealed, and every step is reproducible and auditable. The artifact provides its own evidence and documentation.
 
 ### Epistemology of Discovery
 
@@ -664,7 +664,7 @@ The artifact provides machine-verifiable evidence for the strict separation betw
 
 ### Synthesis and Outlook
 
-The Thiele Machine unifies computation, logic, and epistemology under a single operational framework. It demonstrates that computation is not just symbol manipulation, but the discovery and exploitation of structure. The artifact stands as a proof and a challenge: a proof that computation is geometric, modular, and certificate-driven; a challenge to rethink the foundations of computation, knowledge, and proof.
+The Thiele Machine unifies computation, logic, and epistemology under a single operational framework. It demonstrates that computation is not just symbol manipulation, but the discovery and exploitation of structure. The artifact stands as evidence and a challenge: evidence that computation is geometric, modular, and certificate-driven, and a challenge to rethink the foundations of computation, knowledge, and proof.
 
 ### Future Research Directions
 

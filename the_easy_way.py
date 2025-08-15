@@ -55,7 +55,7 @@ def main():
     transcript.say(f"Z3 version: {z3.get_full_version()}")
     
     transcript.say("=" * 70)
-    transcript.say("THE FORMAL PROOF OF BLINDNESS (Z3 as Referee)")
+    transcript.say("A FORMAL DEMONSTRATION OF BLINDNESS (Z3 as Referee)")
     transcript.say("=" * 70)
     
     # --- Step 1: Define and Certify the Geometric Object ---
