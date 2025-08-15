@@ -1,3 +1,8 @@
+
+<p align="center">
+   <img src="assets/logo.png" alt="The Thiele Machine Logo" width="200"/>
+</p>
+
 # **READ THIS FIRST: A Reviewer's Contract**
 
 **⚠️ This is not a software proposal. Your standard review process will fail.**
