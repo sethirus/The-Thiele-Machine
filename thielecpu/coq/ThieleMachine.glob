@@ -1,0 +1,559 @@
+DIGEST 5f051cc607103c9b8dd98cc49f46a8c0
+FThieleMachine
+R107:110 Coq.Lists.List <> <> lib
+R128:131 Coq.Bool.Bool <> <> lib
+R149:154 Coq.ZArith.ZArith <> <> lib
+R164:176 Coq.Lists.List ListNotations <> mod
+ax 437:448 <> logic_oracle
+R460:463 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R452:455 Coq.Init.Datatypes <> list ind
+R457:459 Coq.Init.Datatypes <> nat ind
+R464:467 Coq.Init.Datatypes <> bool ind
+rec 478:479 <> TM
+proj 510:518 <> tm_states
+proj 536:545 <> tm_symbols
+proj 564:571 <> tm_blank
+proj 585:592 <> tm_start
+proj 605:613 <> tm_accept
+proj 626:634 <> tm_reject
+proj 647:654 <> tm_delta
+binder 482:487 <> Symbol:3
+binder 489:493 <> State:4
+R522:525 Coq.Init.Datatypes <> list ind
+R527:531 ThieleMachine <> State:4 var
+R549:552 Coq.Init.Datatypes <> list ind
+R554:559 ThieleMachine <> Symbol:3 var
+R575:580 ThieleMachine <> Symbol:3 var
+R596:600 ThieleMachine <> State:4 var
+R617:621 ThieleMachine <> State:4 var
+R638:642 ThieleMachine <> State:4 var
+R663:666 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R658:662 ThieleMachine <> State:4 var
+R673:677 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R696:696 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R667:672 ThieleMachine <> Symbol:3 var
+R692:694 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R683:685 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R678:682 ThieleMachine <> State:4 var
+R686:691 ThieleMachine <> Symbol:3 var
+R695:695 Coq.Numbers.BinNums <> Z ind
+def 713:716 <> Tape
+binder 719:724 <> Symbol:13
+R737:740 Coq.Init.Datatypes <> list ind
+R742:747 ThieleMachine <> Symbol:13 var
+def 761:768 <> TMConfig
+R788:790 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R777:779 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R774:776 Coq.Init.Datatypes <> nat ind
+R780:783 ThieleMachine <> Tape def
+R785:787 Coq.Init.Datatypes <> nat ind
+R791:793 Coq.Init.Datatypes <> nat ind
+def 814:820 <> tm_step
+R828:829 ThieleMachine <> TM rec
+R831:833 Coq.Init.Datatypes <> nat ind
+R835:837 Coq.Init.Datatypes <> nat ind
+binder 823:824 <> tm:14
+R859:866 ThieleMachine <> TMConfig def
+binder 852:855 <> conf:15
+R871:878 ThieleMachine <> TMConfig def
+R909:912 ThieleMachine <> conf:15 var
+R890:890 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R892:893 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R898:899 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R904:904 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R922:924 Coq.Init.Datatypes <> orb def
+R958:964 Coq.Arith.PeanoNat Nat eqb def
+R969:977 ThieleMachine <> tm_reject proj
+R983:984 ThieleMachine <> tm:14 var
+R927:933 Coq.Arith.PeanoNat Nat eqb def
+R938:946 ThieleMachine <> tm_accept proj
+R952:953 ThieleMachine <> tm:14 var
+R1016:1018 Coq.Lists.List <> nth def
+R1031:1038 ThieleMachine <> tm_blank proj
+R1044:1045 ThieleMachine <> tm:14 var
+binder 1009:1011 <> sym:17
+R1079:1086 ThieleMachine <> tm_delta proj
+R1092:1093 ThieleMachine <> tm:14 var
+R1097:1099 ThieleMachine <> sym:17 var
+R1058:1058 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1061:1062 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1068:1069 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1074:1074 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1129:1135 Coq.Arith.PeanoNat Nat ltb def
+R1143:1148 Coq.Init.Datatypes <> length def
+R1179:1182 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R1183:1188 Coq.Lists.List <> repeat def
+R1209:1215 Coq.Arith.PeanoNat Nat sub def
+R1223:1228 Coq.Init.Datatypes <> length def
+R1191:1198 ThieleMachine <> tm_blank proj
+R1204:1205 ThieleMachine <> tm:14 var
+binder 1110:1117 <> tape_ext:18
+R1275:1278 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R1255:1260 Coq.Lists.List <> firstn def
+R1267:1274 ThieleMachine <> tape_ext:18 var
+R1286:1289 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R1279:1279 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1285:1285 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1290:1294 Coq.Lists.List <> skipn def
+R1305:1312 ThieleMachine <> tape_ext:18 var
+R1297:1297 Coq.Init.Datatypes <> S constr
+binder 1246:1250 <> tape':19
+R1358:1360 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R1345:1352 Coq.ZArith.BinInt Z of_nat def
+binder 1340:1340 <> h:20
+R1376:1380 Coq.ZArith.BinInt Z ltb def
+R1382:1382 ThieleMachine <> h:20 var
+R1402:1409 Coq.ZArith.BinInt Z to_nat def
+R1411:1411 ThieleMachine <> h:20 var
+binder 1323:1327 <> head':21
+R1418:1418 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1421:1422 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1428:1429 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1435:1435 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1423:1427 ThieleMachine <> tape':19 var
+R1430:1434 ThieleMachine <> head':21 var
+R993:996 ThieleMachine <> conf:15 var
+def 1448:1456 <> tm_step_n
+R1464:1465 ThieleMachine <> TM rec
+R1467:1469 Coq.Init.Datatypes <> nat ind
+R1471:1473 Coq.Init.Datatypes <> nat ind
+binder 1459:1460 <> tm:22
+R1493:1500 ThieleMachine <> TMConfig def
+binder 1486:1489 <> conf:23
+R1508:1510 Coq.Init.Datatypes <> nat ind
+binder 1504:1504 <> n:24
+R1515:1522 ThieleMachine <> TMConfig def
+R1535:1535 ThieleMachine <> n:24 var
+R1555:1558 ThieleMachine <> conf:23 var
+R1564:1564 Coq.Init.Datatypes <> S constr
+R1572:1580 ThieleMachine <> tm_step_n:25 def
+R1586:1592 ThieleMachine <> tm_step def
+R1594:1595 ThieleMachine <> tm:22 var
+R1597:1600 ThieleMachine <> conf:23 var
+R1582:1583 ThieleMachine <> tm:22 var
+rec 1647:1654 <> CPUState
+proj 1663:1667 <> state
+proj 1678:1681 <> tape
+proj 1697:1700 <> head
+proj 1711:1716 <> halted
+proj 1728:1735 <> delta_fn
+proj 1772:1780 <> blank_sym
+proj 1791:1802 <> accept_state
+proj 1813:1824 <> reject_state
+proj 1835:1841 <> mu_cost
+proj 1894:1909 <> paradox_detected
+R1671:1673 Coq.Init.Datatypes <> nat ind
+R1685:1688 Coq.Init.Datatypes <> list ind
+R1690:1692 Coq.Init.Datatypes <> nat ind
+R1704:1706 Coq.Init.Datatypes <> nat ind
+R1720:1723 Coq.Init.Datatypes <> bool ind
+R1742:1745 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1739:1741 Coq.Init.Datatypes <> nat ind
+R1749:1753 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1767:1767 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1746:1748 Coq.Init.Datatypes <> nat ind
+R1763:1765 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1757:1759 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1754:1756 Coq.Init.Datatypes <> nat ind
+R1760:1762 Coq.Init.Datatypes <> nat ind
+R1766:1766 Coq.Numbers.BinNums <> Z ind
+R1784:1786 Coq.Init.Datatypes <> nat ind
+R1806:1808 Coq.Init.Datatypes <> nat ind
+R1828:1830 Coq.Init.Datatypes <> nat ind
+R1845:1847 Coq.Init.Datatypes <> nat ind
+R1913:1916 Coq.Init.Datatypes <> bool ind
+def 2151:2163 <> tm_step_logic
+R2171:2178 ThieleMachine <> CPUState rec
+binder 2166:2167 <> st:38
+R2206:2208 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2200:2202 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2189:2191 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2186:2188 Coq.Init.Datatypes <> nat ind
+R2192:2195 Coq.Init.Datatypes <> list ind
+R2197:2199 Coq.Init.Datatypes <> nat ind
+R2203:2205 Coq.Init.Datatypes <> nat ind
+R2209:2212 Coq.Init.Datatypes <> bool ind
+R2229:2233 ThieleMachine <> state proj
+R2235:2236 ThieleMachine <> st:38 var
+binder 2224:2224 <> q:39
+R2253:2256 ThieleMachine <> tape proj
+R2258:2259 ThieleMachine <> st:38 var
+binder 2247:2248 <> tp:40
+R2276:2279 ThieleMachine <> head proj
+R2281:2282 ThieleMachine <> st:38 var
+binder 2270:2271 <> hd:41
+R2300:2302 Coq.Lists.List <> nth def
+R2311:2319 ThieleMachine <> blank_sym proj
+R2321:2322 ThieleMachine <> st:38 var
+R2307:2308 ThieleMachine <> tp:40 var
+R2304:2305 ThieleMachine <> hd:41 var
+binder 2293:2295 <> sym:42
+R2356:2363 ThieleMachine <> delta_fn proj
+R2365:2366 ThieleMachine <> st:38 var
+R2368:2368 ThieleMachine <> q:39 var
+R2370:2372 ThieleMachine <> sym:42 var
+R2335:2335 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2338:2339 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2345:2346 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2351:2351 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2400:2406 Coq.Arith.PeanoNat Nat ltb def
+R2408:2409 ThieleMachine <> hd:41 var
+R2412:2417 Coq.Init.Datatypes <> length def
+R2419:2420 ThieleMachine <> tp:40 var
+R2442:2445 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R2440:2441 ThieleMachine <> tp:40 var
+R2446:2451 Coq.Lists.List <> repeat def
+R2469:2475 Coq.Arith.PeanoNat Nat sub def
+R2477:2478 ThieleMachine <> hd:41 var
+R2481:2486 Coq.Init.Datatypes <> length def
+R2488:2489 ThieleMachine <> tp:40 var
+R2454:2462 ThieleMachine <> blank_sym proj
+R2464:2465 ThieleMachine <> st:38 var
+R2428:2429 ThieleMachine <> tp:40 var
+binder 2383:2388 <> tp_ext:43
+R2525:2528 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R2509:2514 Coq.Lists.List <> firstn def
+R2519:2524 ThieleMachine <> tp_ext:43 var
+R2516:2517 ThieleMachine <> hd:41 var
+R2536:2539 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R2529:2529 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2535:2535 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2540:2544 Coq.Lists.List <> skipn def
+R2553:2558 ThieleMachine <> tp_ext:43 var
+R2547:2547 Coq.Init.Datatypes <> S constr
+R2549:2550 ThieleMachine <> hd:41 var
+binder 2502:2504 <> tp':44
+R2600:2602 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R2589:2596 Coq.ZArith.BinInt Z of_nat def
+R2598:2599 ThieleMachine <> hd:41 var
+binder 2584:2584 <> h:45
+R2618:2622 Coq.ZArith.BinInt Z ltb def
+R2624:2624 ThieleMachine <> h:45 var
+R2644:2651 Coq.ZArith.BinInt Z to_nat def
+R2653:2653 ThieleMachine <> h:45 var
+binder 2569:2571 <> hd':46
+R2675:2677 Coq.Init.Datatypes <> orb def
+R2711:2717 Coq.Arith.PeanoNat Nat eqb def
+R2723:2734 ThieleMachine <> reject_state proj
+R2736:2737 ThieleMachine <> st:38 var
+R2680:2686 Coq.Arith.PeanoNat Nat eqb def
+R2692:2703 ThieleMachine <> accept_state proj
+R2705:2706 ThieleMachine <> st:38 var
+binder 2664:2670 <> halted':47
+R2746:2746 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2749:2750 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2754:2755 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2759:2760 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2768:2768 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2751:2753 ThieleMachine <> tp':44 var
+R2756:2758 ThieleMachine <> hd':46 var
+R2761:2767 ThieleMachine <> halted':47 var
+ind 2984:2988 <> Instr
+constr 2997:3005 <> RunTMStep
+constr 3019:3035 <> AssertConsistency
+R3009:3013 ThieleMachine <> Instr:48 ind
+R3047:3050 Coq.Init.Datatypes <> list ind
+R3052:3054 Coq.Init.Datatypes <> nat ind
+binder 3038:3043 <> axioms:50
+R3059:3063 ThieleMachine <> Instr:48 ind
+scheme 2984:2988 <> Instr_rect
+scheme 2984:2988 <> Instr_ind
+scheme 2984:2988 <> Instr_rec
+scheme 2984:2988 <> Instr_sind
+def 3268:3271 <> step
+R3282:3286 ThieleMachine <> Instr ind
+binder 3274:3278 <> instr:51
+R3295:3302 ThieleMachine <> CPUState rec
+binder 3290:3291 <> st:52
+R3307:3314 ThieleMachine <> CPUState rec
+R3324:3339 ThieleMachine <> paradox_detected proj
+R3341:3342 ThieleMachine <> st:52 var
+R3365:3369 ThieleMachine <> instr:51 var
+R3380:3388 ThieleMachine <> RunTMStep constr
+R3402:3407 ThieleMachine <> halted proj
+R3409:3410 ThieleMachine <> st:52 var
+R3460:3472 ThieleMachine <> tm_step_logic def
+R3474:3475 ThieleMachine <> st:52 var
+R3436:3436 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3439:3440 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3444:3445 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3449:3450 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3455:3455 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3489:3493 ThieleMachine <> state proj
+R3489:3493 ThieleMachine <> state proj
+R3489:3493 ThieleMachine <> state proj
+R3502:3505 ThieleMachine <> tape proj
+R3502:3505 ThieleMachine <> tape proj
+R3515:3518 ThieleMachine <> head proj
+R3515:3518 ThieleMachine <> head proj
+R3528:3533 ThieleMachine <> halted proj
+R3528:3533 ThieleMachine <> halted proj
+R3553:3560 ThieleMachine <> delta_fn proj
+R3553:3560 ThieleMachine <> delta_fn proj
+R3578:3586 ThieleMachine <> blank_sym proj
+R3578:3586 ThieleMachine <> blank_sym proj
+R3614:3625 ThieleMachine <> accept_state proj
+R3614:3625 ThieleMachine <> accept_state proj
+R3647:3658 ThieleMachine <> reject_state proj
+R3647:3658 ThieleMachine <> reject_state proj
+R3689:3695 ThieleMachine <> mu_cost proj
+R3689:3695 ThieleMachine <> mu_cost proj
+R3716:3731 ThieleMachine <> paradox_detected proj
+R3716:3731 ThieleMachine <> paradox_detected proj
+R3565:3572 ThieleMachine <> delta_fn proj
+R3574:3575 ThieleMachine <> st:52 var
+R3591:3599 ThieleMachine <> blank_sym proj
+R3601:3602 ThieleMachine <> st:52 var
+R3630:3641 ThieleMachine <> accept_state proj
+R3643:3644 ThieleMachine <> st:52 var
+R3663:3674 ThieleMachine <> reject_state proj
+R3676:3677 ThieleMachine <> st:52 var
+R3700:3700 Coq.Init.Datatypes <> S constr
+R3703:3709 ThieleMachine <> mu_cost proj
+R3711:3712 ThieleMachine <> st:52 var
+R3736:3751 ThieleMachine <> paradox_detected proj
+R3753:3754 ThieleMachine <> st:52 var
+R3417:3418 ThieleMachine <> st:52 var
+R3763:3779 ThieleMachine <> AssertConsistency constr
+R3815:3826 ThieleMachine <> logic_oracle defax
+binder 3801:3810 <> consistent:54
+R3847:3851 ThieleMachine <> state proj
+R3847:3851 ThieleMachine <> state proj
+R3847:3851 ThieleMachine <> state proj
+R3866:3869 ThieleMachine <> tape proj
+R3866:3869 ThieleMachine <> tape proj
+R3883:3886 ThieleMachine <> head proj
+R3883:3886 ThieleMachine <> head proj
+R3900:3905 ThieleMachine <> halted proj
+R3900:3905 ThieleMachine <> halted proj
+R3930:3937 ThieleMachine <> delta_fn proj
+R3930:3937 ThieleMachine <> delta_fn proj
+R3955:3963 ThieleMachine <> blank_sym proj
+R3955:3963 ThieleMachine <> blank_sym proj
+R3991:4002 ThieleMachine <> accept_state proj
+R3991:4002 ThieleMachine <> accept_state proj
+R4024:4035 ThieleMachine <> reject_state proj
+R4024:4035 ThieleMachine <> reject_state proj
+R4066:4072 ThieleMachine <> mu_cost proj
+R4066:4072 ThieleMachine <> mu_cost proj
+R4089:4104 ThieleMachine <> paradox_detected proj
+R4089:4104 ThieleMachine <> paradox_detected proj
+R3856:3860 ThieleMachine <> state proj
+R3862:3863 ThieleMachine <> st:52 var
+R3874:3877 ThieleMachine <> tape proj
+R3879:3880 ThieleMachine <> st:52 var
+R3891:3894 ThieleMachine <> head proj
+R3896:3897 ThieleMachine <> st:52 var
+R3910:3915 ThieleMachine <> halted proj
+R3917:3918 ThieleMachine <> st:52 var
+R3942:3949 ThieleMachine <> delta_fn proj
+R3951:3952 ThieleMachine <> st:52 var
+R3968:3976 ThieleMachine <> blank_sym proj
+R3978:3979 ThieleMachine <> st:52 var
+R4007:4018 ThieleMachine <> accept_state proj
+R4020:4021 ThieleMachine <> st:52 var
+R4040:4051 ThieleMachine <> reject_state proj
+R4053:4054 ThieleMachine <> st:52 var
+R4077:4083 ThieleMachine <> mu_cost proj
+R4085:4086 ThieleMachine <> st:52 var
+R4128:4131 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R4109:4124 ThieleMachine <> paradox_detected proj
+R4126:4127 ThieleMachine <> st:52 var
+R4132:4135 Coq.Init.Datatypes <> negb def
+R4137:4146 ThieleMachine <> consistent:54 var
+R3349:3350 ThieleMachine <> st:52 var
+def 4332:4337 <> step_n
+R4345:4352 ThieleMachine <> CPUState rec
+binder 4340:4341 <> st:55
+R4360:4362 Coq.Init.Datatypes <> nat ind
+binder 4356:4356 <> n:56
+R4367:4374 ThieleMachine <> CPUState rec
+R4387:4387 ThieleMachine <> n:56 var
+R4407:4408 ThieleMachine <> st:55 var
+R4414:4414 Coq.Init.Datatypes <> S constr
+R4422:4427 ThieleMachine <> step_n:57 def
+R4430:4433 ThieleMachine <> step def
+R4435:4443 ThieleMachine <> RunTMStep constr
+R4445:4446 ThieleMachine <> st:55 var
+def 4633:4645 <> total_mu_cost
+R4653:4660 ThieleMachine <> CPUState rec
+binder 4648:4649 <> st:59
+R4665:4670 Coq.Init.Datatypes <> option ind
+R4672:4674 Coq.Init.Datatypes <> nat ind
+R4684:4699 ThieleMachine <> paradox_detected proj
+R4701:4702 ThieleMachine <> st:59 var
+R4719:4722 Coq.Init.Datatypes <> Some constr
+R4725:4731 ThieleMachine <> mu_cost proj
+R4733:4734 ThieleMachine <> st:59 var
+R4709:4712 Coq.Init.Datatypes <> None constr
+prf 4745:4768 <> mu_cost_stable_if_halted
+binder 4781:4782 <> st:60
+binder 4784:4784 <> n:61
+R4807:4810 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4800:4802 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4791:4796 ThieleMachine <> halted proj
+R4798:4799 ThieleMachine <> st:60 var
+R4803:4806 Coq.Init.Datatypes <> true constr
+R4838:4845 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4830:4832 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4811:4826 ThieleMachine <> paradox_detected proj
+R4828:4829 ThieleMachine <> st:60 var
+R4833:4837 Coq.Init.Datatypes <> false constr
+R4873:4875 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4846:4858 ThieleMachine <> total_mu_cost def
+R4861:4866 ThieleMachine <> step_n def
+R4868:4869 ThieleMachine <> st:60 var
+R4871:4871 ThieleMachine <> n:61 var
+R4876:4888 ThieleMachine <> total_mu_cost def
+R4890:4891 ThieleMachine <> st:60 var
+R4985:4988 ThieleMachine <> step def
+prf 5041:5066 <> mu_cost_strictly_increases
+binder 5079:5080 <> st:62
+R5104:5107 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5096:5098 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5087:5092 ThieleMachine <> halted proj
+R5094:5095 ThieleMachine <> st:62 var
+R5099:5103 Coq.Init.Datatypes <> false constr
+R5135:5142 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5127:5129 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5108:5123 ThieleMachine <> paradox_detected proj
+R5125:5126 ThieleMachine <> st:62 var
+R5130:5134 Coq.Init.Datatypes <> false constr
+R5170:5172 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5143:5149 ThieleMachine <> mu_cost proj
+R5152:5155 ThieleMachine <> step def
+R5157:5165 ThieleMachine <> RunTMStep constr
+R5167:5168 ThieleMachine <> st:62 var
+R5173:5173 Coq.Init.Datatypes <> S constr
+R5176:5182 ThieleMachine <> mu_cost proj
+R5184:5185 ThieleMachine <> st:62 var
+R5229:5232 ThieleMachine <> step def
+R5275:5287 ThieleMachine <> tm_step_logic def
+R5275:5287 ThieleMachine <> tm_step_logic def
+def 5351:5366 <> encode_tm_config
+R5374:5375 ThieleMachine <> TM rec
+R5377:5379 Coq.Init.Datatypes <> nat ind
+R5381:5383 Coq.Init.Datatypes <> nat ind
+binder 5369:5370 <> tm:63
+R5405:5412 ThieleMachine <> TMConfig def
+binder 5398:5401 <> conf:64
+R5417:5424 ThieleMachine <> CPUState rec
+R5451:5454 ThieleMachine <> conf:64 var
+R5436:5436 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5438:5439 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5442:5443 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5446:5446 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5464:5468 ThieleMachine <> state proj
+R5464:5468 ThieleMachine <> state proj
+R5464:5468 ThieleMachine <> state proj
+R5476:5479 ThieleMachine <> tape proj
+R5476:5479 ThieleMachine <> tape proj
+R5488:5491 ThieleMachine <> head proj
+R5488:5491 ThieleMachine <> head proj
+R5505:5510 ThieleMachine <> halted proj
+R5505:5510 ThieleMachine <> halted proj
+R5587:5594 ThieleMachine <> delta_fn proj
+R5587:5594 ThieleMachine <> delta_fn proj
+R5616:5624 ThieleMachine <> blank_sym proj
+R5616:5624 ThieleMachine <> blank_sym proj
+R5651:5662 ThieleMachine <> accept_state proj
+R5651:5662 ThieleMachine <> accept_state proj
+R5685:5696 ThieleMachine <> reject_state proj
+R5685:5696 ThieleMachine <> reject_state proj
+R5724:5730 ThieleMachine <> mu_cost proj
+R5724:5730 ThieleMachine <> mu_cost proj
+R5742:5757 ThieleMachine <> paradox_detected proj
+R5742:5757 ThieleMachine <> paradox_detected proj
+R5515:5517 Coq.Init.Datatypes <> orb def
+R5551:5557 Coq.Arith.PeanoNat Nat eqb def
+R5562:5570 ThieleMachine <> tm_reject proj
+R5576:5577 ThieleMachine <> tm:63 var
+R5520:5526 Coq.Arith.PeanoNat Nat eqb def
+R5531:5539 ThieleMachine <> tm_accept proj
+R5545:5546 ThieleMachine <> tm:63 var
+R5599:5606 ThieleMachine <> tm_delta proj
+R5612:5613 ThieleMachine <> tm:63 var
+R5629:5636 ThieleMachine <> tm_blank proj
+R5642:5643 ThieleMachine <> tm:63 var
+R5667:5675 ThieleMachine <> tm_accept proj
+R5681:5682 ThieleMachine <> tm:63 var
+R5701:5709 ThieleMachine <> tm_reject proj
+R5715:5716 ThieleMachine <> tm:63 var
+R5762:5766 Coq.Init.Datatypes <> false constr
+def 5784:5799 <> decode_cpu_state
+R5807:5814 ThieleMachine <> CPUState rec
+binder 5802:5803 <> st:66
+R5819:5826 ThieleMachine <> TMConfig def
+R5833:5833 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5842:5843 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5851:5852 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5860:5860 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5834:5838 ThieleMachine <> state proj
+R5840:5841 ThieleMachine <> st:66 var
+R5844:5847 ThieleMachine <> tape proj
+R5849:5850 ThieleMachine <> st:66 var
+R5853:5856 ThieleMachine <> head proj
+R5858:5859 ThieleMachine <> st:66 var
+prf 5899:5919 <> tm_cpu_simulates_step
+R5938:5939 ThieleMachine <> TM rec
+R5941:5943 Coq.Init.Datatypes <> nat ind
+R5945:5947 Coq.Init.Datatypes <> nat ind
+binder 5933:5934 <> tm:67
+R5958:5965 ThieleMachine <> TMConfig def
+binder 5951:5954 <> conf:68
+R6033:6035 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5973:5988 ThieleMachine <> decode_cpu_state def
+R5991:5994 ThieleMachine <> step def
+R5996:6004 ThieleMachine <> RunTMStep constr
+R6007:6022 ThieleMachine <> encode_tm_config def
+R6024:6025 ThieleMachine <> tm:67 var
+R6027:6030 ThieleMachine <> conf:68 var
+R6036:6042 ThieleMachine <> tm_step def
+R6044:6045 ThieleMachine <> tm:67 var
+R6047:6050 ThieleMachine <> conf:68 var
+R6094:6109 ThieleMachine <> decode_cpu_state def
+R6112:6127 ThieleMachine <> encode_tm_config def
+R6130:6133 ThieleMachine <> step def
+R6136:6142 ThieleMachine <> tm_step def
+R6145:6157 ThieleMachine <> tm_step_logic def
+R6179:6181 Coq.Init.Datatypes <> orb def
+R6215:6221 Coq.Arith.PeanoNat Nat eqb def
+R6226:6234 ThieleMachine <> tm_reject proj
+R6184:6190 Coq.Arith.PeanoNat Nat eqb def
+R6195:6203 ThieleMachine <> tm_accept proj
+R6179:6181 Coq.Init.Datatypes <> orb def
+R6215:6221 Coq.Arith.PeanoNat Nat eqb def
+R6226:6234 ThieleMachine <> tm_reject proj
+R6184:6190 Coq.Arith.PeanoNat Nat eqb def
+R6195:6203 ThieleMachine <> tm_accept proj
+R6316:6323 ThieleMachine <> tm_delta proj
+R6325:6327 Coq.Init.Datatypes <> nat ind
+R6329:6331 Coq.Init.Datatypes <> nat ind
+R6339:6341 Coq.Lists.List <> nth def
+R6350:6357 ThieleMachine <> tm_blank proj
+R6359:6361 Coq.Init.Datatypes <> nat ind
+R6363:6365 Coq.Init.Datatypes <> nat ind
+R6316:6323 ThieleMachine <> tm_delta proj
+R6325:6327 Coq.Init.Datatypes <> nat ind
+R6329:6331 Coq.Init.Datatypes <> nat ind
+R6339:6341 Coq.Lists.List <> nth def
+R6350:6357 ThieleMachine <> tm_blank proj
+R6359:6361 Coq.Init.Datatypes <> nat ind
+R6363:6365 Coq.Init.Datatypes <> nat ind
+R6434:6440 Coq.Arith.PeanoNat Nat ltb def
+R6446:6451 Coq.Init.Datatypes <> length def
+R6434:6440 Coq.Arith.PeanoNat Nat ltb def
+R6446:6451 Coq.Init.Datatypes <> length def
+prf 6534:6560 <> cost_of_paradox_is_infinite
+R6579:6586 ThieleMachine <> CPUState rec
+binder 6574:6575 <> st:69
+R6620:6623 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6613:6615 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6594:6609 ThieleMachine <> paradox_detected proj
+R6611:6612 ThieleMachine <> st:69 var
+R6616:6619 Coq.Init.Datatypes <> true constr
+R6640:6642 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6624:6636 ThieleMachine <> total_mu_cost def
+R6638:6639 ThieleMachine <> st:69 var
+R6643:6646 Coq.Init.Datatypes <> None constr
+R6683:6695 ThieleMachine <> total_mu_cost def
