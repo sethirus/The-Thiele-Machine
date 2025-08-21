@@ -1,0 +1,238 @@
+DIGEST dfcded1993d17df6906c02e737075ebb
+FThieleCPU
+R15:18 Coq.Lists.List <> <> lib
+R28:40 Coq.Lists.List ListNotations <> mod
+rec 186:196 <> CPUStateCPU
+proj 228:236 <> registers
+proj 266:271 <> memory
+proj 288:289 <> pc
+proj 322:327 <> halted
+binder 199:206 <> Register:1
+binder 208:211 <> Word:2
+R240:243 Coq.Init.Datatypes <> list ind
+R254:256 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R246:253 ThieleCPU <> Register:1 var
+R257:260 ThieleCPU <> Word:2 var
+R275:278 Coq.Init.Datatypes <> list ind
+R280:283 ThieleCPU <> Word:2 var
+R293:295 Coq.Init.Datatypes <> nat ind
+R331:334 Coq.Init.Datatypes <> bool ind
+rec 347:361 <> ThieleCPURecCPU
+proj 399:407 <> instr_set
+proj 425:437 <> initial_state
+proj 470:473 <> step
+binder 364:367 <> Word:8
+binder 369:376 <> Register:9
+binder 378:382 <> Instr:10
+R411:414 Coq.Init.Datatypes <> list ind
+R416:420 ThieleCPU <> Instr:10 var
+R441:451 ThieleCPU <> CPUStateCPU rec
+R453:460 ThieleCPU <> Register:9 var
+R462:465 ThieleCPU <> Word:8 var
+R502:505 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R477:487 ThieleCPU <> CPUStateCPU rec
+R489:496 ThieleCPU <> Register:9 var
+R498:501 ThieleCPU <> Word:8 var
+R506:516 ThieleCPU <> CPUStateCPU rec
+R518:525 ThieleCPU <> Register:9 var
+R527:530 ThieleCPU <> Word:8 var
+def 575:583 <> ThieleCPU
+R588:602 ThieleCPU <> ThieleCPURecCPU rec
+def 975:980 <> step_n
+binder 983:986 <> Word:15
+binder 988:995 <> Register:16
+binder 997:1001 <> Instr:17
+R1018:1032 ThieleCPU <> ThieleCPURecCPU rec
+R1034:1037 ThieleCPU <> Word:15 var
+R1039:1046 ThieleCPU <> Register:16 var
+R1048:1052 ThieleCPU <> Instr:17 var
+binder 1012:1014 <> cpu:18
+R1061:1071 ThieleCPU <> CPUStateCPU rec
+R1073:1080 ThieleCPU <> Register:16 var
+R1082:1085 ThieleCPU <> Word:15 var
+binder 1056:1057 <> st:19
+R1093:1095 Coq.Init.Datatypes <> nat ind
+binder 1089:1089 <> n:20
+R1100:1110 ThieleCPU <> CPUStateCPU rec
+R1112:1119 ThieleCPU <> Register:16 var
+R1121:1124 ThieleCPU <> Word:15 var
+R1137:1137 ThieleCPU <> n:20 var
+R1148:1148 Coq.Init.Datatypes <> O constr
+R1153:1154 ThieleCPU <> st:19 var
+R1160:1160 Coq.Init.Datatypes <> S constr
+R1168:1173 ThieleCPU <> step_n:21 def
+R1181:1184 ThieleCPU <> step proj
+R1186:1189 ThieleCPU <> Word:15 var
+R1191:1198 ThieleCPU <> Register:16 var
+R1200:1204 ThieleCPU <> Instr:17 var
+R1206:1208 ThieleCPU <> cpu:18 var
+R1210:1211 ThieleCPU <> st:19 var
+R1175:1177 ThieleCPU <> cpu:18 var
+ind 1234:1244 <> SimpleInstr
+constr 1249:1253 <> ILoad
+constr 1257:1262 <> IStore
+constr 1266:1269 <> IInc
+constr 1273:1277 <> IHalt
+scheme 1234:1244 <> SimpleInstr_rect
+scheme 1234:1244 <> SimpleInstr_ind
+scheme 1234:1244 <> SimpleInstr_rec
+scheme 1234:1244 <> SimpleInstr_sind
+def 1356:1365 <> simple_cpu
+R1369:1383 ThieleCPU <> ThieleCPURecCPU rec
+R1385:1387 Coq.Init.Datatypes <> nat ind
+R1389:1391 Coq.Init.Datatypes <> nat ind
+R1393:1403 ThieleCPU <> SimpleInstr ind
+R1413:1421 ThieleCPU <> instr_set proj
+R1413:1421 ThieleCPU <> instr_set proj
+R1413:1421 ThieleCPU <> instr_set proj
+R1461:1473 ThieleCPU <> initial_state proj
+R1461:1473 ThieleCPU <> initial_state proj
+R1570:1573 ThieleCPU <> step proj
+R1570:1573 ThieleCPU <> step proj
+R1426:1426 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1432:1433 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1440:1441 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1446:1447 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1453:1453 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1427:1431 ThieleCPU <> ILoad constr
+R1434:1439 ThieleCPU <> IStore constr
+R1442:1445 ThieleCPU <> IInc constr
+R1448:1452 ThieleCPU <> IHalt constr
+R1543:1553 ThieleCPU <> CPUStateCPU rec
+R1555:1557 Coq.Init.Datatypes <> nat ind
+R1559:1561 Coq.Init.Datatypes <> nat ind
+R1482:1490 ThieleCPU <> registers proj
+R1482:1490 ThieleCPU <> registers proj
+R1482:1490 ThieleCPU <> registers proj
+R1499:1504 ThieleCPU <> memory proj
+R1499:1504 ThieleCPU <> memory proj
+R1513:1514 ThieleCPU <> pc proj
+R1513:1514 ThieleCPU <> pc proj
+R1522:1527 ThieleCPU <> halted proj
+R1522:1527 ThieleCPU <> halted proj
+R1495:1496 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1509:1510 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1532:1536 Coq.Init.Datatypes <> false constr
+binder 1582:1583 <> st:25
+R1602:1607 ThieleCPU <> halted proj
+R1609:1611 Coq.Init.Datatypes <> nat ind
+R1613:1615 Coq.Init.Datatypes <> nat ind
+R1617:1618 ThieleCPU <> st:25 var
+R1634:1637 Coq.Init.Datatypes <> true constr
+R1642:1643 ThieleCPU <> st:25 var
+R1654:1658 Coq.Init.Datatypes <> false constr
+R1678:1686 Coq.Lists.List <> nth_error def
+R1719:1720 ThieleCPU <> pc proj
+R1722:1724 Coq.Init.Datatypes <> nat ind
+R1726:1728 Coq.Init.Datatypes <> nat ind
+R1730:1731 ThieleCPU <> st:25 var
+R1688:1688 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1694:1695 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1702:1703 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1708:1709 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1715:1715 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1689:1693 ThieleCPU <> ILoad constr
+R1696:1701 ThieleCPU <> IStore constr
+R1704:1707 ThieleCPU <> IInc constr
+R1710:1714 ThieleCPU <> IHalt constr
+R1750:1753 Coq.Init.Datatypes <> Some constr
+R1755:1759 ThieleCPU <> ILoad constr
+R1780:1788 ThieleCPU <> registers proj
+R1780:1788 ThieleCPU <> registers proj
+R1780:1788 ThieleCPU <> registers proj
+R1829:1834 ThieleCPU <> memory proj
+R1829:1834 ThieleCPU <> memory proj
+R1872:1873 ThieleCPU <> pc proj
+R1872:1873 ThieleCPU <> pc proj
+R1911:1916 ThieleCPU <> halted proj
+R1911:1916 ThieleCPU <> halted proj
+R1794:1802 ThieleCPU <> registers proj
+R1804:1806 Coq.Init.Datatypes <> nat ind
+R1808:1810 Coq.Init.Datatypes <> nat ind
+R1812:1813 ThieleCPU <> st:25 var
+R1840:1845 ThieleCPU <> memory proj
+R1847:1849 Coq.Init.Datatypes <> nat ind
+R1851:1853 Coq.Init.Datatypes <> nat ind
+R1855:1856 ThieleCPU <> st:25 var
+R1892:1894 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1879:1880 ThieleCPU <> pc proj
+R1882:1884 Coq.Init.Datatypes <> nat ind
+R1886:1888 Coq.Init.Datatypes <> nat ind
+R1890:1891 ThieleCPU <> st:25 var
+R1921:1925 Coq.Init.Datatypes <> false constr
+R1952:1955 Coq.Init.Datatypes <> Some constr
+R1957:1962 ThieleCPU <> IStore constr
+R1983:1991 ThieleCPU <> registers proj
+R1983:1991 ThieleCPU <> registers proj
+R1983:1991 ThieleCPU <> registers proj
+R2032:2037 ThieleCPU <> memory proj
+R2032:2037 ThieleCPU <> memory proj
+R2075:2076 ThieleCPU <> pc proj
+R2075:2076 ThieleCPU <> pc proj
+R2114:2119 ThieleCPU <> halted proj
+R2114:2119 ThieleCPU <> halted proj
+R1997:2005 ThieleCPU <> registers proj
+R2007:2009 Coq.Init.Datatypes <> nat ind
+R2011:2013 Coq.Init.Datatypes <> nat ind
+R2015:2016 ThieleCPU <> st:25 var
+R2043:2048 ThieleCPU <> memory proj
+R2050:2052 Coq.Init.Datatypes <> nat ind
+R2054:2056 Coq.Init.Datatypes <> nat ind
+R2058:2059 ThieleCPU <> st:25 var
+R2095:2097 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2082:2083 ThieleCPU <> pc proj
+R2085:2087 Coq.Init.Datatypes <> nat ind
+R2089:2091 Coq.Init.Datatypes <> nat ind
+R2093:2094 ThieleCPU <> st:25 var
+R2124:2128 Coq.Init.Datatypes <> false constr
+R2155:2158 Coq.Init.Datatypes <> Some constr
+R2160:2163 ThieleCPU <> IInc constr
+R2184:2192 ThieleCPU <> registers proj
+R2184:2192 ThieleCPU <> registers proj
+R2184:2192 ThieleCPU <> registers proj
+R2233:2238 ThieleCPU <> memory proj
+R2233:2238 ThieleCPU <> memory proj
+R2276:2277 ThieleCPU <> pc proj
+R2276:2277 ThieleCPU <> pc proj
+R2315:2320 ThieleCPU <> halted proj
+R2315:2320 ThieleCPU <> halted proj
+R2198:2206 ThieleCPU <> registers proj
+R2208:2210 Coq.Init.Datatypes <> nat ind
+R2212:2214 Coq.Init.Datatypes <> nat ind
+R2216:2217 ThieleCPU <> st:25 var
+R2244:2249 ThieleCPU <> memory proj
+R2251:2253 Coq.Init.Datatypes <> nat ind
+R2255:2257 Coq.Init.Datatypes <> nat ind
+R2259:2260 ThieleCPU <> st:25 var
+R2296:2298 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2283:2284 ThieleCPU <> pc proj
+R2286:2288 Coq.Init.Datatypes <> nat ind
+R2290:2292 Coq.Init.Datatypes <> nat ind
+R2294:2295 ThieleCPU <> st:25 var
+R2325:2329 Coq.Init.Datatypes <> false constr
+R2356:2359 Coq.Init.Datatypes <> Some constr
+R2361:2365 ThieleCPU <> IHalt constr
+R2386:2394 ThieleCPU <> registers proj
+R2386:2394 ThieleCPU <> registers proj
+R2386:2394 ThieleCPU <> registers proj
+R2435:2440 ThieleCPU <> memory proj
+R2435:2440 ThieleCPU <> memory proj
+R2478:2479 ThieleCPU <> pc proj
+R2478:2479 ThieleCPU <> pc proj
+R2513:2518 ThieleCPU <> halted proj
+R2513:2518 ThieleCPU <> halted proj
+R2400:2408 ThieleCPU <> registers proj
+R2410:2412 Coq.Init.Datatypes <> nat ind
+R2414:2416 Coq.Init.Datatypes <> nat ind
+R2418:2419 ThieleCPU <> st:25 var
+R2446:2451 ThieleCPU <> memory proj
+R2453:2455 Coq.Init.Datatypes <> nat ind
+R2457:2459 Coq.Init.Datatypes <> nat ind
+R2461:2462 ThieleCPU <> st:25 var
+R2485:2486 ThieleCPU <> pc proj
+R2488:2490 Coq.Init.Datatypes <> nat ind
+R2492:2494 Coq.Init.Datatypes <> nat ind
+R2496:2497 ThieleCPU <> st:25 var
+R2523:2526 Coq.Init.Datatypes <> true constr
+R2553:2556 Coq.Init.Datatypes <> None constr
+R2561:2562 ThieleCPU <> st:25 var
