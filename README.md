@@ -3,6 +3,35 @@
    <img src="assets/(T).png" alt="The Thiele Machine Logo" width="200"/>
 </p>
 
+# Quick Start
+
+**To immediately verify the artifact:**
+
+1. **Clone the repository and open a terminal in the root directory.**
+2. **Create and activate a virtual environment (Windows):**
+   ```powershell
+   python -m venv .venv
+   & .venv\Scripts\Activate.ps1
+   ```
+3. **Install dependencies:**
+   ```sh
+   pip install -r requirements.txt
+   ```
+4. **Run the main artifact:**
+   ```sh
+   python attempt.py
+   ```
+   - All output will be written to `terminal_output.md`.
+   - Proofs, data, and plots are saved in `shape_of_truth_out/`.
+5. **(Optional) Run large-scale experiments:**
+   ```sh
+   python generate_tseitin_data.py
+   ```
+6. **(Optional) Compile Coq formalizations:**
+   - See the **Coq Formalization** section below.
+
+---
+
 # **READ THIS FIRST: A Reviewer's Contract**
 
 **⚠️ This is not a software proposal. Your standard review process will fail.**
@@ -195,13 +224,49 @@ The artifact includes its own supporting evidence.
 
 ## Limits of the Experiment: Evidence of Necessity, Not Existence
 
-This artifact does not claim to have built a Thiele Machine. It presents something more fundamental: it provides **evidence of its necessity.**
 
-Science progresses by discovering anomalies that existing theories cannot explain. The anomalous precession of Mercury's orbit didn't disprove Newton, but it proved his theory was incomplete and that a new model was necessary. This artifact presents a computational anomaly of the same class: the exponential cost separation on geometrically structured problems.
+This artifact does **not** claim to have built a Thiele Machine. Instead, it provides **machine-verifiable evidence of its necessity** by demonstrating a computational anomaly: the exponential cost separation on geometrically structured problems.
 
-- **The Classical Model's Failure:** Our experiment measures the "sight debt" paid by a classical machine, demonstrating that its cost profile is unsustainable for an entire class of problems. This is the anomaly.
-- **The Hypothesis of the New Model:** We hypothesize a Thiele Machine that operates on the problem's native geometry, paying a cost of $O(1)$ μ-bits. This is the proposed explanation for the anomaly, analogous to proposing General Relativity.
-- **The Role of this Artifact:** This experiment's purpose is to make the search for a Thiele Machine a rational, data-driven endeavor. By demonstrating that the old system is bankrupt, we show the necessity of inventing a new one. We have not built the new machine; we have provided a data-driven justification for its invention.
+- **All claims are machine-verifiable.** Every proof, experiment, and result is reproducible and cryptographically sealed.
+- **The Classical Model's Failure:** The experiment measures the "sight debt" paid by a classical machine, showing its cost profile is unsustainable for an entire class of problems.
+- **The Hypothesis of the New Model:** The Thiele Machine is hypothesized to operate on the problem's native geometry, paying a cost of $O(1)$ μ-bits. This is the proposed explanation for the anomaly.
+- **The Role of this Artifact:** The artifact motivates the search for a Thiele Machine as a rational, data-driven necessity. It provides a self-contained, auditable record of the experiment and its consequences.
+
+---
+
+# Coq Formalization
+
+The artifact includes formal proofs in Coq, located in `thielecpu/coq/`:
+
+- `ThieleUniversal.v`: Formalizes the Turing Machine, Thiele Machine, and their relationship. The constructive subsumption theorem (`UTM.subsumption_theorem`) is proved without hidden admits; the operational theorem (`UTM.runs_universal_program_n`) is proved relative to the explicit contract `UniversalProgramSpec` (the concrete universal program instance is left as future work).
+- `ThieleMachine.v`: Formalizes the Thiele CPU with oracle and μ-cost. All theorems are proved (previously-admitted μ-cost lemmas were replaced with short constructive proofs).
+
+**To compile the Coq files (requires Coq Platform 8.20 or later):**
+ 
+```sh
+coqc thielecpu/coq/ThieleUniversal.v
+coqc thielecpu/coq/ThieleMachine.v
+```
+ 
+Both files compile with exit code 0. `ThieleMachine.v` contains no remaining `Admitted` or `Axiom` items. `ThieleUniversal.v` contains the fully constructive subsumption proof; the operational theorem is parametrized by the explicit `UniversalProgramSpec` contract (implementing and proving an instance of this class discharges the remaining operational dependency).
+
+---
+
+# Repository Structure
+
+| Path                        | Purpose                                                        |
+|-----------------------------|----------------------------------------------------------------|
+| `attempt.py`                | Main artifact: all experiments, proofs, and data generation    |
+| `generate_tseitin_data.py`  | Large-scale experiment orchestration and data collection       |
+| `thielecpu/`                | Modular Python package and Coq formalizations                  |
+| `thielecpu/coq/`            | Coq source files and proofs                                    |
+| `examples/`                 | Example input files                                            |
+| `shape_of_truth_out/`       | All output artifacts: proofs, data, plots                     |
+| `requirements.txt`          | Python dependencies                                            |
+| `README.md`                 | This document                                                 |
+| `LICENSE`                   | License (MIT)                                                 |
+
+---
 
 # The Thiele Machine & The Shape of Truth
 
@@ -693,6 +758,7 @@ All required dependencies are listed in [`requirements.txt`](requirements.txt:1-
 pip install -r requirements.txt
 ```
 
+
 **Key packages:**
 - `z3-solver`: SMT logic engine for certificate generation and checking.
 - `python-sat`: SAT solver interface for classical (blind) solving.
@@ -700,6 +766,19 @@ pip install -r requirements.txt
 - `networkx`: Graph generation and manipulation.
 - `matplotlib`: Plotting and visualization.
 - `tqdm`: Progress bars for experiment orchestration.
+
+**Python version:** Python 3.10 or later is recommended.
+
+**Virtual environment (Windows):**
+```powershell
+python -m venv .venv
+& .venv\Scripts\Activate.ps1
+```
+
+**Troubleshooting:**
+- If you encounter missing dependencies, ensure you have run `pip install -r requirements.txt` inside the activated virtual environment.
+- For issues with Z3 or SAT solvers, consult the documentation for those packages.
+- On Windows, ensure long path support is enabled if you encounter path length errors.
 
 ### 2. Running the Main Artifact
 
@@ -741,6 +820,14 @@ python generate_tseitin_data.py
 - If you encounter missing dependencies, ensure you have run `pip install -r requirements.txt`.
 - For issues with Z3 or SAT solvers, consult the documentation for those packages.
 - For reproducibility, ensure you do not modify the output directories or intermediate files between runs.
+
+---
+
+# Contact and Support
+
+For questions, bug reports, or to request support, please open an issue on the [GitHub repository](https://github.com/sethirus/The-Thiele-Machine/issues) or contact the maintainer at thethielemachine@gmail.com.
+
+---
 
 
 ---
