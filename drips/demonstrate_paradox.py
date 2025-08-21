@@ -22,7 +22,7 @@ class Category:
             'promises': promises,
             'args': arg_names #
         })
-    
+
     def get_global_axioms(self):
         all_promises = []
         for m in self.morphisms:
@@ -294,7 +294,7 @@ def provably_safe_transaction(balance: int, amount: int) -> int:
     print(f"WITNESS: {res1['witness']}")
     print(f"MDL_BITS: {'∞' if res1['bits'] == float('inf') else f'{res1['bits']:.2f}'}")
     print()
-    
+
     print("Function Source (Consistent):")
     print(SAFE_TRANSACTION_SOURCE.strip())
     print("Extracted Constraints:")
@@ -303,7 +303,7 @@ def provably_safe_transaction(balance: int, amount: int) -> int:
     print(f"VERDICT: {res2['verdict']}")
     print(f"WITNESS: {res2['witness']}")
     print(f"MDL_BITS: {'∞' if res2['bits'] == float('inf') else f'{res2['bits']:.2f}'}")
-    
+
     # MDL gap (information-theoretic separation)
     bits1 = res1['bits']
     bits2 = res2['bits']
@@ -313,7 +313,7 @@ def provably_safe_transaction(balance: int, amount: int) -> int:
         mdl_gap = f"{bits1 - bits2:.2f}"
     print()
     print(f"MDL_GAP: {mdl_gap}")
-    
+
     # Hash file bytes + output for SEAL
     with open(__file__, "rb") as f:
         file_bytes = f.read()

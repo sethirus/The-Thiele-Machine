@@ -701,14 +701,14 @@ def main():
     # Decision variables for each node. -1 means undecided.
     dec_node1 = Int('dec_node1')
     dec_node2 = Int('dec_node2')
-    
+
     # Fault model: network can be partitioned.
     partitioned = Bool('partitioned')
 
     # --- The Promises of a Consensus Algorithm ---
     # 1. Liveness: Both nodes must eventually decide.
     liveness = And(dec_node1 != -1, dec_node2 != -1)
-    
+
     # 2. Validity: If a node decides a value, it must have been one of the initial values.
     validity = And(
         Implies(dec_node1 != -1, Or(dec_node1 == init_val_node1, dec_node1 == init_val_node2)),
@@ -717,10 +717,10 @@ def main():
 
     # 3. Safety (Agreement): If both nodes decide, they must decide the same value.
     safety = Implies(And(dec_node1 != -1, dec_node2 != -1), dec_node1 == dec_node2)
-    
+
     # The FLP Question: Can a system exist that satisfies all three promises
     # in all possible scenarios, even when the network is partitioned?
-    
+
     # We ask Z3 for a counterexample: a state where the network is partitioned,
     # the initial values are different (the hardest case), AND all three promises hold.
     # Encode two executions in a single solver, sharing the same "algorithm":
