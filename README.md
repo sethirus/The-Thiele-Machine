@@ -194,10 +194,26 @@ And when the bill comes due—and it always does—you'll just have to pay me mo
 The artifact includes its own supporting evidence.
 ## Table of Contents
 
-- [Motivation](#motivation)
-- [How the Thiele Machine Differs from Turing Machines](#how-the-thiele-machine-differs-from-turing-machines)
-- [Artifact Goals](#artifact-goals)
-- [Philosophical Context](#philosophical-context)
+- [Quick Start](#quick-start)
+- [A Reviewer's Contract](#read-this-first-a-reviewers-contract)
+- [Postulate Zero: The Physics of Cost](#postulate-zero-the-physics-of-cost)
+- [The Three Axioms of This Artifact](#the-three-axioms-of-this-artifact)
+- [What This Artifact Is and Is Not](#what-this-artifact-is-and-is-not)
+- [Redefining Your Terms: Classical vs. Thiele](#redefining-your-terms-classical-vs-thiele)
+- [The Purpose of the Brute-Force 'Engine of Discovery'](#the-purpose-of-the-brute-force-engine-of-discovery)
+- [Empirical Derivation of the μ-bit to Time Exchange Rate](#empirical-derivation-of-the-μ-bit-to-time-exchange-rate)
+- [Common Questions & Misconceptions](#common-questions--misconceptions)
+- [A Final Word. For the Critics in the Back.](#a-final-word-for-the-critics-in-the-back)
+- [Table of Contents](#table-of-contents)
+- [Limits of the Experiment: Evidence of Necessity, Not Existence](#limits-of-the-experiment-evidence-of-necessity-not-existence)
+- [Coq Formalization](#coq-formalization)
+- [Repository Structure](#repository-structure)
+- [The Thiele Machine & The Shape of Truth](#the-thiele-machine--the-shape-of-truth)
+   - [Origins and Prototyping](#origins-and-prototyping)
+   - [Motivation](#motivation)
+   - [How the Thiele Machine Differs from Turing Machines](#how-the-thiele-machine-differs-from-turing-machines)
+   - [Artifact Goals](#artifact-goals)
+   - [Philosophical Context](#philosophical-context)
 - [Mathematical Foundations](#mathematical-foundations)
 - [Partition Logic and Modular Reasoning](#partition-logic-and-modular-reasoning)
 - [Certificate-Driven Computation](#certificate-driven-computation)
@@ -206,7 +222,6 @@ The artifact includes its own supporting evidence.
 - [Order-Invariance and Composite Witnesses](#order-invariance-and-composite-witnesses)
 - [Empirical Experiments and Results](#empirical-experiments-and-results)
 - [Foundational Proofs: TM/VN Subsumption](#foundational-proofs-tmvn-subsumption)
-- [Origins and Prototyping](#origins-and-prototyping)
 - [The Paradox](#the-paradox)
 - [The Universal Principle](#the-universal-principle)
 - [The Engine of Discovery](#the-engine-of-discovery)
@@ -219,6 +234,8 @@ The artifact includes its own supporting evidence.
 - [Output Files and Artifacts](#output-files-and-artifacts)
 - [Glossary](#glossary)
 - [Code Reference Map](#code-reference-map)
+- [License](#license)
+- [Contact and Support](#contact-and-support)
 
 ---
 
