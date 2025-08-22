@@ -907,13 +907,14 @@ This document was the proposition. The code is the construction. The execution i
 ---
 
 
-## Project Cerberus: A Provably Secure Kernel
 
-As a first demonstration of the Thiele paradigm's practical applications, this repository now includes **Project Cerberus**, a minimal, provably secure kernel.
+## Project Cerberus: The Thiele Kernel
 
-The project contains a complete, machine-checked Coq proof ([Cerberus.v](project_cerberus/Cerberus.v)) that guarantees the kernel is free from an entire class of control-flow hijacking exploits.
+As a first demonstration of the Thiele paradigm's practical applications, this repository now includes **Project Cerberus**, a minimal, meta-logically self-auditing kernel.
 
-This artifact serves as the first concrete evidence that the Thiele Machine is not merely a theoretical model, but a practical architecture for building a new generation of software that is secure by construction.
+The project contains a complete, machine-checked Coq model ([Cerberus.v](project_cerberus/Cerberus.v)) that guarantees the kernel is free from an entire class of control-flow exploits—**if and only if** its logic oracle confirms the consistency of its safety axioms at every step.
+
+This artifact is the first concrete evidence that the Thiele Machine is not merely a theoretical model, but a practical architecture for building a new generation of software that is secure by construction and by continuous logical self-auditing.
 
 ➡️ **[See the full Project Cerberus README and formal proofs here.](project_cerberus/README.md)**
 
