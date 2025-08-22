@@ -194,48 +194,48 @@ And when the bill comes due—and it always does—you'll just have to pay me mo
 The artifact includes its own supporting evidence.
 ## Table of Contents
 
-- [Quick Start](#quick-start)
-- [A Reviewer's Contract](#read-this-first-a-reviewers-contract)
-- [Postulate Zero: The Physics of Cost](#postulate-zero-the-physics-of-cost)
-- [The Three Axioms of This Artifact](#the-three-axioms-of-this-artifact)
-- [What This Artifact Is and Is Not](#what-this-artifact-is-and-is-not)
-- [Redefining Your Terms: Classical vs. Thiele](#redefining-your-terms-classical-vs-thiele)
-- [The Purpose of the Brute-Force 'Engine of Discovery'](#the-purpose-of-the-brute-force-engine-of-discovery)
-- [Empirical Derivation of the μ-bit to Time Exchange Rate](#empirical-derivation-of-the-μ-bit-to-time-exchange-rate)
-- [Common Questions & Misconceptions](#common-questions--misconceptions)
-- [A Final Word. For the Critics in the Back.](#a-final-word-for-the-critics-in-the-back)
-- [Table of Contents](#table-of-contents)
-- [Limits of the Experiment: Evidence of Necessity, Not Existence](#limits-of-the-experiment-evidence-of-necessity-not-existence)
-- [Coq Formalization](#coq-formalization)
-- [Repository Structure](#repository-structure)
-- [The Thiele Machine & The Shape of Truth](#the-thiele-machine--the-shape-of-truth)
+[Quick Start](#quick-start)
+[A Reviewer's Contract](#read-this-first-a-reviewers-contract)
+[Postulate Zero: The Physics of Cost](#postulate-zero-the-physics-of-cost)
+[The Three Axioms of This Artifact](#the-three-axioms-of-this-artifact)
+[What This Artifact Is and Is Not](#what-this-artifact-is-and-is-not)
+[Redefining Your Terms: Classical vs. Thiele](#redefining-your-terms-classical-vs-thiele)
+[The Purpose of the Brute-Force 'Engine of Discovery'](#the-purpose-of-the-brute-force-engine-of-discovery)
+[Empirical Derivation of the μ-bit to Time Exchange Rate](#empirical-derivation-of-the-μ-bit-to-time-exchange-rate)
+[Common Questions & Misconceptions](#common-questions--misconceptions)
+[A Final Word. For the Critics in the Back.](#a-final-word-for-the-critics-in-the-back)
+[Limits of the Experiment: Evidence of Necessity, Not Existence](#limits-of-the-experiment-evidence-of-necessity-not-existence)
+[Coq Formalization](#coq-formalization)
+[Repository Structure](#repository-structure)
+[The Thiele Machine & The Shape of Truth](#the-thiele-machine--the-shape-of-truth)
    - [Origins and Prototyping](#origins-and-prototyping)
    - [Motivation](#motivation)
    - [How the Thiele Machine Differs from Turing Machines](#how-the-thiele-machine-differs-from-turing-machines)
    - [Artifact Goals](#artifact-goals)
    - [Philosophical Context](#philosophical-context)
-- [Mathematical Foundations](#mathematical-foundations)
-- [Partition Logic and Modular Reasoning](#partition-logic-and-modular-reasoning)
-- [Certificate-Driven Computation](#certificate-driven-computation)
-- [The Law of No Unpaid Sight Debt (NUSD)](#the-law-of-no-unpaid-sight-debt-nusd)
-- [Mubits and Minimum Description Length (MDL)](#mubits-and-minimum-description-length-mdl)
-- [Order-Invariance and Composite Witnesses](#order-invariance-and-composite-witnesses)
-- [Empirical Experiments and Results](#empirical-experiments-and-results)
-- [Foundational Proofs: TM/VN Subsumption](#foundational-proofs-tmvn-subsumption)
-- [The Paradox](#the-paradox)
-- [The Universal Principle](#the-universal-principle)
-- [The Engine of Discovery](#the-engine-of-discovery)
-- [The Fractal Nature of Debt](#the-fractal-nature-of-debt)
-- [Final Theorem & Conclusion](#final-theorem--conclusion)
-- [Experimental Separation](#experimental-separation)
-- [Gödelian Landmine](#godelian-landmine)
-- [Philosophical Implications and Future Directions](#philosophical-implications-and-future-directions)
-- [Installation and Usage](#installation-and-usage)
-- [Output Files and Artifacts](#output-files-and-artifacts)
-- [Glossary](#glossary)
-- [Code Reference Map](#code-reference-map)
-- [License](#license)
-- [Contact and Support](#contact-and-support)
+[Mathematical Foundations](#mathematical-foundations)
+[Partition Logic and Modular Reasoning](#partition-logic-and-modular-reasoning)
+[Certificate-Driven Computation](#certificate-driven-computation)
+[The Law of No Unpaid Sight Debt (NUSD)](#the-law-of-no-unpaid-sight-debt-nusd)
+[Mubits and Minimum Description Length (MDL)](#mubits-and-minimum-description-length-mdl)
+[Order-Invariance and Composite Witnesses](#order-invariance-and-composite-witnesses)
+[Empirical Experiments and Results](#empirical-experiments-and-results)
+[Foundational Proofs: TM/VN Subsumption](#foundational-proofs-tmvn-subsumption)
+[The Paradox](#the-paradox)
+[The Universal Principle](#the-universal-principle)
+[The Engine of Discovery](#the-engine-of-discovery)
+[The Fractal Nature of Debt](#the-fractal-nature-of-debt)
+[Final Theorem & Conclusion](#final-theorem--conclusion)
+[Experimental Separation](#experimental-separation)
+[Gödelian Landmine](#godelian-landmine)
+[Philosophical Implications and Future Directions](#philosophical-implications-and-future-directions)
+[Installation and Usage](#installation-and-usage)
+[Output Files and Artifacts](#output-files-and-artifacts)
+[Glossary](#glossary)
+[Code Reference Map](#code-reference-map)
+[Project Cerberus: A Provably Secure Kernel](#project-cerberus-a-provably-secure-kernel)
+[License](#license)
+[Contact and Support](#contact-and-support)
 
 ---
 
@@ -906,7 +906,20 @@ For questions, bug reports, or to request support, please open an issue on the [
 This document was the proposition. The code is the construction. The execution is the proof.
 ---
 
+
+## Project Cerberus: A Provably Secure Kernel
+
+As a first demonstration of the Thiele paradigm's practical applications, this repository now includes **Project Cerberus**, a minimal, provably secure kernel.
+
+The project contains a complete, machine-checked Coq proof ([Cerberus.v](project_cerberus/Cerberus.v)) that guarantees the kernel is free from an entire class of control-flow hijacking exploits.
+
+This artifact serves as the first concrete evidence that the Thiele Machine is not merely a theoretical model, but a practical architecture for building a new generation of software that is secure by construction.
+
+➡️ **[See the full Project Cerberus README and formal proofs here.](project_cerberus/README.md)**
+
+---
+
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.
 

@@ -1,0 +1,126 @@
+DIGEST 3060dd7016208f31794f80e19e31d7bf
+FCerberus
+R63:76 Coq.Lists.List <> <> lib
+R94:98 Coq.Arith.Arith <> <> lib
+R116:118 Coq.micromega.Lia <> <> lib
+R128:140 Coq.Lists.List ListNotations <> mod
+rec 178:189 <> MachineState
+proj 198:199 <> pc
+proj 232:234 <> mem
+R203:205 Coq.Init.Datatypes <> nat ind
+R238:241 Coq.Init.Datatypes <> list ind
+R243:245 Coq.Init.Datatypes <> nat ind
+ind 314:318 <> Instr
+constr 327:330 <> Load
+constr 349:353 <> Store
+constr 384:387 <> Halt
+R340:342 Coq.Init.Datatypes <> nat ind
+binder 333:336 <> addr:6
+R363:365 Coq.Init.Datatypes <> nat ind
+binder 356:359 <> addr:7
+R375:377 Coq.Init.Datatypes <> nat ind
+binder 369:371 <> val:8
+scheme 314:318 <> Instr_rect
+scheme 314:318 <> Instr_ind
+scheme 314:318 <> Instr_rec
+scheme 314:318 <> Instr_sind
+def 402:408 <> Program
+R413:416 Coq.Init.Datatypes <> list ind
+R418:422 Cerberus <> Instr ind
+def 562:572 <> kernel_step
+R579:585 Cerberus <> Program def
+binder 575:575 <> p:9
+R594:605 Cerberus <> MachineState rec
+binder 589:590 <> st:10
+R610:621 Cerberus <> MachineState rec
+R634:642 Coq.Lists.List <> nth_error def
+R650:651 Cerberus <> pc proj
+R646:647 Cerberus <> st:10 var
+R644:644 Cerberus <> p:9 var
+R663:666 Coq.Init.Datatypes <> None constr
+R671:672 Cerberus <> st:10 var
+R719:722 Coq.Init.Datatypes <> Some constr
+R724:727 Cerberus <> Halt constr
+R732:733 Cerberus <> st:10 var
+R786:789 Coq.Init.Datatypes <> Some constr
+R792:795 Cerberus <> Load constr
+R806:807 Cerberus <> pc proj
+R806:807 Cerberus <> pc proj
+R806:807 Cerberus <> pc proj
+R823:825 Cerberus <> mem proj
+R823:825 Cerberus <> mem proj
+R812:812 Coq.Init.Datatypes <> S constr
+R818:819 Cerberus <> pc proj
+R814:815 Cerberus <> st:10 var
+R834:836 Cerberus <> mem proj
+R830:831 Cerberus <> st:10 var
+R846:849 Coq.Init.Datatypes <> Some constr
+R852:856 Cerberus <> Store constr
+R869:870 Cerberus <> pc proj
+R869:870 Cerberus <> pc proj
+R869:870 Cerberus <> pc proj
+R886:888 Cerberus <> mem proj
+R886:888 Cerberus <> mem proj
+R875:875 Coq.Init.Datatypes <> S constr
+R881:882 Cerberus <> pc proj
+R877:878 Cerberus <> st:10 var
+R897:899 Cerberus <> mem proj
+R893:894 Cerberus <> st:10 var
+def 922:933 <> run_kernel_n
+R940:946 Cerberus <> Program def
+binder 936:936 <> p:11
+R955:966 Cerberus <> MachineState rec
+binder 950:951 <> st:12
+R974:976 Coq.Init.Datatypes <> nat ind
+binder 970:970 <> n:13
+R981:992 Cerberus <> MachineState rec
+R1005:1005 Cerberus <> n:13 var
+R1021:1022 Cerberus <> st:12 var
+R1028:1028 Coq.Init.Datatypes <> S constr
+R1035:1046 Cerberus <> run_kernel_n:14 def
+R1051:1061 Cerberus <> kernel_step def
+R1063:1063 Cerberus <> p:11 var
+R1065:1066 Cerberus <> st:12 var
+R1048:1048 Cerberus <> p:11 var
+prf 1261:1291 <> pc_never_exceeds_program_bounds
+R1309:1315 Cerberus <> Program def
+binder 1305:1305 <> p:16
+R1324:1335 Cerberus <> MachineState rec
+binder 1319:1320 <> st:17
+R1343:1345 Coq.Init.Datatypes <> nat ind
+binder 1339:1339 <> n:18
+R1372:1379 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1360:1363 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1357:1358 Cerberus <> pc proj
+R1353:1354 Cerberus <> st:17 var
+R1364:1369 Coq.Init.Datatypes <> length def
+R1371:1371 Cerberus <> p:16 var
+R1406:1409 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1403:1404 Cerberus <> pc proj
+R1381:1392 Cerberus <> run_kernel_n def
+R1394:1394 Cerberus <> p:16 var
+R1396:1397 Cerberus <> st:17 var
+R1399:1399 Cerberus <> n:18 var
+R1410:1415 Coq.Init.Datatypes <> length def
+R1417:1417 Cerberus <> p:16 var
+R1631:1641 Cerberus <> kernel_step def
+R1658:1666 Coq.Lists.List <> nth_error def
+R1674:1675 Cerberus <> pc proj
+R1658:1666 Coq.Lists.List <> nth_error def
+R1674:1675 Cerberus <> pc proj
+R1840:1842 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R1837:1838 Cerberus <> pc proj
+R1843:1848 Coq.Init.Datatypes <> length def
+R1870:1883 Coq.Lists.List <> nth_error_Some thm
+R1840:1842 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R1837:1838 Cerberus <> pc proj
+R1843:1848 Coq.Init.Datatypes <> length def
+R1870:1883 Coq.Lists.List <> nth_error_Some thm
+R1955:1957 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R1952:1953 Cerberus <> pc proj
+R1958:1963 Coq.Init.Datatypes <> length def
+R1985:1998 Coq.Lists.List <> nth_error_Some thm
+R1955:1957 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R1952:1953 Cerberus <> pc proj
+R1958:1963 Coq.Init.Datatypes <> length def
+R1985:1998 Coq.Lists.List <> nth_error_Some thm
