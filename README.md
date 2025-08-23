@@ -253,19 +253,27 @@ This artifact does **not** claim to have built a Thiele Machine. Instead, it pro
 
 # Coq Formalization
 
-The artifact includes formal proofs in Coq, located in `thielecpu/coq/`:
+The artifact includes formal proofs in Coq, organized under `coq/<program>/coqproofs/`:
 
-- `ThieleUniversal.v`: Formalizes the Turing Machine, Thiele Machine, and their relationship. The constructive subsumption theorem (`UTM.subsumption_theorem`) is proved without hidden admits; the operational theorem (`UTM.runs_universal_program_n`) is proved relative to the explicit contract `UniversalProgramSpec` (the concrete universal program instance is left as future work).
-- `ThieleMachine.v`: Formalizes the Thiele CPU with oracle and μ-cost. All theorems are proved (previously-admitted μ-cost lemmas were replaced with short constructive proofs).
+- `coq/thieleuniversal/coqproofs/ThieleUniversal.v`: Formalizes the Turing Machine, Thiele Machine, and their relationship. The constructive subsumption theorem (`UTM.subsumption_theorem`) is proved without hidden admits; the operational theorem (`UTM.runs_universal_program_n`) is proved relative to the explicit contract `UniversalProgramSpec` (the concrete universal program instance is left as future work).
+- `coq/thielemachine/coqproofs/ThieleMachine.v`: Formalizes the Thiele CPU with oracle and μ-cost. All theorems are proved (previously-admitted μ-cost lemmas were replaced with short constructive proofs).
+- `coq/catnet/coqproofs/CatNet.v`: Proves that appending an entry preserves the audit log's cryptographic chain for the CatNet architecture.
+- `coq/project_cerberus/coqproofs/Cerberus.v`: Models a self-auditing Thiele kernel and proves the program counter never exceeds program bounds when the oracle confirms consistency.
+- `coq/isomorphism/coqproofs/Universe.v`: Establishes a functor from a physical universe to its logical abstraction, showing conserved momentum.
+- `coq/test_vscoq/coqproofs/test_vscoq.v`: Minimal VSCoq smoke test.
 
 **To compile the Coq files (requires Coq Platform 8.20 or later):**
- 
+
 ```sh
-coqc thielecpu/coq/ThieleUniversal.v
-coqc thielecpu/coq/ThieleMachine.v
+coqc coq/thieleuniversal/coqproofs/ThieleUniversal.v
+coqc coq/thielemachine/coqproofs/ThieleMachine.v
+coqc coq/catnet/coqproofs/CatNet.v
+coqc coq/project_cerberus/coqproofs/Cerberus.v
+coqc coq/isomorphism/coqproofs/Universe.v
+coqc coq/test_vscoq/coqproofs/test_vscoq.v
 ```
- 
-Both files compile with exit code 0. `ThieleMachine.v` contains no remaining `Admitted` or `Axiom` items. `ThieleUniversal.v` contains the fully constructive subsumption proof; the operational theorem is parametrized by the explicit `UniversalProgramSpec` contract (implementing and proving an instance of this class discharges the remaining operational dependency).
+
+All files compile with exit code 0. `ThieleMachine.v` contains no remaining `Admitted` or `Axiom` items. `ThieleUniversal.v` contains the fully constructive subsumption proof; the operational theorem is parametrized by the explicit `UniversalProgramSpec` contract (implementing and proving an instance of this class discharges the remaining operational dependency).
 
 ---
 
@@ -275,8 +283,8 @@ Both files compile with exit code 0. `ThieleMachine.v` contains no remaining `Ad
 |-----------------------------|----------------------------------------------------------------|
 | `attempt.py`                | Main artifact: all experiments, proofs, and data generation    |
 | `generate_tseitin_data.py`  | Large-scale experiment orchestration and data collection       |
-| `thielecpu/`                | Modular Python package and Coq formalizations                  |
-| `thielecpu/coq/`            | Coq source files and proofs                                    |
+| `thielecpu/`                | Modular Python package                                         |
+| `coq/`                      | Coq source files and proofs                                    |
 | `examples/`                 | Example input files                                            |
 | `shape_of_truth_out/`       | All output artifacts: proofs, data, plots                     |
 | `requirements.txt`          | Python dependencies                                            |
@@ -912,13 +920,26 @@ This document was the proposition. The code is the construction. The execution i
 
 As a first demonstration of the Thiele paradigm's practical applications, this repository now includes **Project Cerberus**, a minimal, meta-logically self-auditing kernel.
 
-The project contains a complete, machine-checked Coq model ([Cerberus.v](project_cerberus/Cerberus.v)) that guarantees the kernel is free from an entire class of control-flow exploits—**if and only if** its logic oracle confirms the consistency of its safety axioms at every step.
+The project contains a complete, machine-checked Coq model ([Cerberus.v](coq/project_cerberus/coqproofs/Cerberus.v)) that guarantees the kernel is free from an entire class of control-flow exploits—**if and only if** its logic oracle confirms the consistency of its safety axioms at every step.
 
 This artifact is the first concrete evidence that the Thiele Machine is not merely a theoretical model, but a practical architecture for building a new generation of software that is secure by construction and by continuous logical self-auditing.
 
-➡️ **[See the full Project Cerberus README and formal proofs here.](project_cerberus/README.md)**
+➡️ **[See the full Project Cerberus README and formal proofs here.](coq/project_cerberus/README.md)**
 
 ---
+
+## CatNet: A Thiele-Machine Neural Network
+
+CatNet instantiates the Thiele Machine in the category of vector spaces. Objects
+are network layers, morphisms are differentiable maps, and composition is
+computation. Each forward pass is recorded in a tamper-evident, HMAC-signed
+audit log, and a minimal EU AI Act transparency report is available via
+`get_eu_compliance_report()`. Run the demos with:
+
+```bash
+python -m catnet.demo_mnist      # transparency
+python -m catnet.demo_control    # controllability
+```
 
 ## License
 

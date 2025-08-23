@@ -1,6 +1,6 @@
 # Universe.v: Categorical Physics and Logic
 
-This directory contains `Universe.v`, a Coq formalization of the functorial relationship between a physical universe and its logical abstraction, following the Thiele Machine paradigm.
+This directory contains `coqproofs/Universe.v`, a Coq formalization of the functorial relationship between a physical universe and its logical abstraction, following the Thiele Machine paradigm.
 
 ## Contents
 
@@ -21,10 +21,10 @@ This directory contains `Universe.v`, a Coq formalization of the functorial rela
 
 ## Usage
 
-- See `Universe.v` for the formalization and proof
+- See `coqproofs/Universe.v` for the formalization and proof
 - Compile with Coq 8.20+:
 
-      coqc Universe.v
+      coqc coqproofs/Universe.v
 
 ## License
 

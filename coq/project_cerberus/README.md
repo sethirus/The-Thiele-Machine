@@ -3,7 +3,7 @@
 
 This directory contains the formal specification and machine-checked proof of a minimal, **meta-logically self-auditing kernel**—a Thiele Machine kernel. This kernel is not only provably safe, but its safety is enforced at runtime by a logic oracle and paradox detection, embodying the Thiele Machine's foundational principles.
 
-The file [`Cerberus.v`](Cerberus.v) contains a formal Coq model and theorems, including:
+The file [`Cerberus.v`](coqproofs/Cerberus.v) contains a formal Coq model and theorems, including:
 
 - [`pc_never_exceeds_program_bounds_thiele`](Cerberus.v):
 	 - **If** the kernel's logic oracle (`logic_oracle`) confirms that all program axioms and stepwise safety checks are consistent,

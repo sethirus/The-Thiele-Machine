@@ -12,7 +12,7 @@ slice equal to the tape at `TAPE_START_ADDR`, and `PC = 0`).
 **Theorem (Constructive Subsumption).**
 For all `tm, conf, n`, there exists a CPU state `st_final` such that
 `invariant st_final tm (tm_step_n tm conf n)`.
-*Status:* Proved in `thielecpu/coq/ThieleUniversal.v` as
+*Status:* Proved in `coq/thieleuniversal/coqproofs/ThieleUniversal.v` as
 `UTM.subsumption_theorem`.
 
 **Operational Theorem (Relative).**
