@@ -941,7 +941,11 @@ python -m catnet.demo_mnist      # transparency
 python -m catnet.demo_control    # controllability
 ```
 
+
+## Verifier vs Finder (perspective demo)
+
+A concise summary of the sighted Thiele architecture, its formalization, and the structural P=NP collapse is available in [coq/p_equals_np_thiele/ARCHITECTURAL_COLLAPSE_OF_NP.md](coq/p_equals_np_thiele/ARCHITECTURAL_COLLAPSE_OF_NP.md). The corresponding Coq proof is [`coq/p_equals_np_thiele/proof.v`](coq/p_equals_np_thiele/proof.v).
+
 ## License
 
 This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.
-
