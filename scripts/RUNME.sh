@@ -1,17 +1,21 @@
 #!/bin/bash
 set -e
 
-mkdir -p results
-LEMMA_FILE=results/lemmas.txt
-: > $LEMMA_FILE
+
+# Robustly create results directory at repo root regardless of working directory
+REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+RESULTS_DIR="$REPO_ROOT/results"
+mkdir -p "$RESULTS_DIR"
+LEMMA_FILE="$RESULTS_DIR/lemmas.txt"
+: > "$LEMMA_FILE"
 
 if command -v coqc >/dev/null 2>&1; then
   echo "Running Coq proofs"
-  (cd coq/thielemachine/coqproofs && coqc ThieleMachine.v >/dev/null && echo "tm_cpu_simulates_step cost_of_paradox_is_infinite" | tee -a ../../../../$LEMMA_FILE)
-  (cd coq/thieleuniversal/coqproofs && coqc ThieleUniversal.v >/dev/null && echo "runs_universal_program_n subsumption_theorem" | tee -a ../../../../$LEMMA_FILE)
+  (cd coq/thielemachine/coqproofs && coqc ThieleMachine.v >/dev/null && echo "tm_cpu_simulates_step cost_of_paradox_is_infinite" | tee -a "$LEMMA_FILE")
+  (cd coq/thieleuniversal/coqproofs && coqc ThieleUniversal.v >/dev/null && echo "runs_universal_program_n subsumption_theorem" | tee -a "$LEMMA_FILE")
 else
   echo "proofs skipped (coqc missing)"
-  echo "proofs skipped" > $LEMMA_FILE
+  echo "proofs skipped" > "$LEMMA_FILE"
 fi
 
 python - <<'PY'
