@@ -1,3 +1,19 @@
+[![CI](https://github.com/OWNER/The-Thiele-Machine/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/The-Thiele-Machine/actions/workflows/ci.yml)
+
+## Run everything
+
+```bash
+bash scripts/RUNME.sh
+```
+
+See [docs/INDEX.md](docs/INDEX.md) for machine notes. These demos witness the axioms; Coq lemmas `tm_cpu_simulates_step`, `runs_universal_program_n`, and `cost_of_paradox_is_infinite` prove the conservativity and paradox behaviors.
+
+The run generates a summary at `results/RESULTS.md` and a verification harness is available:
+
+```bash
+python scripts/challenge.py verify receipts
+```
+
 
 <p align="center">
    <img src="assets/(T).png" alt="The Thiele Machine Logo" width="200"/>

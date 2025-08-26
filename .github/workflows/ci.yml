@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install deps
+        run: |
+          sudo apt-get update && sudo apt-get install -y --no-install-recommends coq
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run artifact
+        run: bash scripts/RUNME.sh
+      - name: Challenge harness
+        run: python scripts/challenge.py verify receipts
+      - name: Run tests
+        run: pytest -q
+      - name: Docker build and run
+        run: |
+          docker build -t thiele .
+          docker run thiele bash scripts/RUNME.sh
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: results
+          path: results/RESULTS.md
