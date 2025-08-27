@@ -13,19 +13,22 @@ Open Scope Z_scope.
    development. *)
 Parameter logic_oracle : list nat -> bool.
 
+(* Basic Turing machine record. *)
 Record TM (Symbol State : Type) := {
-  tm_states : list State;
-  tm_symbols : list Symbol;
-  tm_blank : Symbol;
-  tm_start : State;
-  tm_accept : State;
-  tm_reject : State;
-  tm_delta : State -> Symbol -> (State * Symbol * Z)
+  tm_states : list State;                (* finite set of states *)
+  tm_symbols : list Symbol;              (* tape alphabet          *)
+  tm_blank : Symbol;                     (* blank symbol            *)
+  tm_start : State;                      (* initial state          *)
+  tm_accept : State;                     (* accepting state        *)
+  tm_reject : State;                     (* rejecting state        *)
+  tm_delta : State -> Symbol -> (State * Symbol * Z) (* transition function *)
 }.
 
+(* Tape and configuration encodings. *)
 Definition Tape (Symbol : Type) := list Symbol.
 Definition TMConfig := (nat * Tape nat * nat)%type.
 
+(* One step of a classical Turing machine. *)
 Definition tm_step (tm : TM nat nat)
            (conf : TMConfig) : TMConfig :=
   let '(q, tape, head) := conf in
@@ -65,6 +68,7 @@ Record CPUState := {
 (* The raw Turing-machine step logic factored out so that the CPU step
    interpreter can reuse it.  It returns the next state, tape, head
    position and the new halted flag. *)
+(* Underlying Turing transition used by the CPU. *)
 Definition tm_step_logic (st : CPUState)
   : (nat * list nat * nat * bool) :=
   let q := state st in
@@ -85,6 +89,7 @@ Definition tm_step_logic (st : CPUState)
 (* Instruction set for the Thiele CPU.  [RunTMStep] performs a single
    Turing-machine transition via [tm_step_logic].  [AssertConsistency]
    consults the external oracle to check a set of axioms. *)
+(* Instruction set: run one TM step or query the oracle. *)
 Inductive Instr :=
   | RunTMStep : Instr
   | AssertConsistency (axioms : list nat) : Instr.
@@ -92,6 +97,7 @@ Inductive Instr :=
 (* Step interpreter.  It increases [mu_cost] on Turing-machine steps and
    sets [paradox_detected] when the oracle reports an inconsistency. *)
 (* Sticky paradox: once set, remains set. *)
+(* Execute a single instruction on the CPU. *)
 Definition step (instr : Instr) (st : CPUState) : CPUState :=
   if paradox_detected st then st else
   match instr with
@@ -113,6 +119,7 @@ Definition step (instr : Instr) (st : CPUState) : CPUState :=
 (* Iterate [RunTMStep] a given number of times.  This is used for the
    subsumption theorem which only relies on the Turing-machine part of
    the interpreter. *)
+(* Iterate [RunTMStep] n times. *)
 Fixpoint step_n (st : CPUState) (n : nat) : CPUState :=
   match n with
   | 0%nat => st
@@ -123,9 +130,11 @@ Fixpoint step_n (st : CPUState) (n : nat) : CPUState :=
 
 (* Total information cost: finite when no paradox has been detected,
    infinite (represented by [None]) otherwise. *)
+(* Total information cost accumulated so far. *)
 Definition total_mu_cost (st : CPUState) : option nat :=
   if paradox_detected st then None else Some (mu_cost st).
 
+(* Once halted, mu-cost never changes. *)
 Lemma mu_cost_stable_if_halted :
   forall st n,
     halted st = true -> paradox_detected st = false ->
@@ -136,6 +145,7 @@ Proof.
   unfold step. rewrite Hpar, Hhalt. simpl. exact IH.
 Qed.
 
+(* Each successful TM step increases the cost. *)
 Lemma mu_cost_strictly_increases :
   forall st,
     halted st = false -> paradox_detected st = false ->
@@ -147,6 +157,7 @@ Proof.
   reflexivity.
 Qed.
 
+(* Embed a TM configuration into a CPU state. *)
 Definition encode_tm_config (tm : TM nat nat)
            (conf : TMConfig) : CPUState :=
   let '(q, tp, hd) := conf in
@@ -156,11 +167,13 @@ Definition encode_tm_config (tm : TM nat nat)
      accept_state := tm_accept _ _ tm; reject_state := tm_reject _ _ tm;
      mu_cost := 0%nat; paradox_detected := false |}.
 
+(* Recover the TM configuration from a CPU state. *)
 Definition decode_cpu_state (st : CPUState) : TMConfig :=
   (state st, tape st, head st).
 
 (* --- Subsumption.v --- *)
 
+(* A single CPU step mirrors one TM step. *)
 Lemma tm_cpu_simulates_step :
   forall (tm : TM nat nat) (conf : TMConfig),
     decode_cpu_state (step RunTMStep (encode_tm_config tm conf)) = tm_step tm conf.
@@ -175,6 +188,7 @@ Proof.
 Qed.
 
 (* A detected paradox implies infinite cost. *)
+(* Detecting a paradox yields infinite cost. *)
 Theorem cost_of_paradox_is_infinite :
   forall (st : CPUState),
     paradox_detected st = true -> total_mu_cost st = None.
