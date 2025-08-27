@@ -4,6 +4,19 @@
 Definition dummy_oracle (_ : list nat) : bool := true.
 
 (* Override the logic_oracle parameter for this test *)
+(* Temporary axiom: for the example/test harness we bind the project's oracle
+   to the simple `dummy_oracle` that always returns true. This is a deliberate
+   engineering shortcut to allow the example kernel and early proofs to run
+   without the full oracle implementation.
+
+   TODO (actionable):
+   - Preferably replace this axiom by either:
+     * a constructive definition of `logic_oracle` (if the oracle is internal), or
+     * parameterize the theorems over the oracle and discharge the obligations
+       later with a concrete implementation or external proof.
+   - If the oracle encodes an external undecidable/heuristic component, document
+     the required assumptions and justify why keeping this as an axiom is acceptable.
+*)
 Axiom logic_oracle_is_dummy : logic_oracle = dummy_oracle.
 
 (* Example program: Load 0; AddReg 0 0 0; Halt *)
