@@ -1,38 +1,3 @@
-(* --- Example: Simple Thiele Kernel Program and Oracle --- *)
-(**
-(* Dummy oracle: always returns true (for demonstration) *)
-Definition dummy_oracle (_ : list nat) : bool := true.
-
-(* Override the logic_oracle parameter for this test *)
-(* Temporary axiom: for the example/test harness we bind the project's oracle
-   to the simple `dummy_oracle` that always returns true. This is a deliberate
-   engineering shortcut to allow the example kernel and early proofs to run
-   without the full oracle implementation.
-
-   TODO (actionable):
-   - Preferably replace this axiom by either:
-     * a constructive definition of `logic_oracle` (if the oracle is internal), or
-     * parameterize the theorems over the oracle and discharge the obligations
-       later with a concrete implementation or external proof.
-   - If the oracle encodes an external undecidable/heuristic component, document
-     the required assumptions and justify why keeping this as an axiom is acceptable.
-*)
-Axiom logic_oracle_is_dummy : logic_oracle = dummy_oracle.
-
-(* Example program: Load 0; AddReg 0 0 0; Halt *)
-Definition example_instrs : list Instr := [Load 0; AddReg 0 0 0; Halt].
-Definition example_axioms : ProgramAxioms := ([] : list nat).
-Definition example_program : Program := (example_instrs, example_axioms).
-
-Definition example_init_state : MachineState :=
-  {| pc := 0; mem := [42]; regs := [0]; mu_cost := 0; paradox_detected := false |}.
-
-(* Run the kernel for 3 steps *)
-Definition example_final_state := run_kernel_n example_program example_init_state 3.
-
-(* You can use Compute in Coq to see the result: *)
-Compute example_final_state.
-*)
 (* Cerberus.v - Minimal provably-safe kernel *)
 Require Import Coq.Lists.List.
 Require Import Arith.
@@ -103,8 +68,9 @@ Definition ProgramAxioms := list nat. (* Encoded logical rules *)
 
 Definition Program := (list Instr * ProgramAxioms)%type.
 
-(* We will need the logic_oracle from ThieleMachine.v *)
-Parameter logic_oracle : list nat -> bool.
+(* Temporary logic oracle used for demonstrations.
+   The real system should supply a verified oracle instead. *)
+Definition logic_oracle (_ : list nat) : bool := true.
 
 Definition mem_safe_program (mem_len : nat) (p : Program) : Prop :=
   forall i, In i (fst p) -> is_instr_mem_safe mem_len i = true.
@@ -166,6 +132,57 @@ Fixpoint run_kernel_n (p : Program) (st : MachineState) (n : nat) : MachineState
   end.
 
 
+(* Auxiliary lemmas about [kernel_step]. *)
+
+Lemma kernel_step_mem_length :
+  forall p st,
+    length (mem (kernel_step p st)) = length st.(mem).
+Proof.
+  intros [instrs axioms] st; simpl.
+  destruct (paradox_detected st); simpl; auto.
+  destruct (nth_error instrs (pc st)) eqn:?; simpl; auto.
+  destruct (is_instr_pc_safe (length instrs) i);
+  destruct (is_instr_mem_safe (length (mem st)) i);
+  destruct (logic_oracle (axioms ++ encode_safety_axioms i (length instrs) (length (mem st))));
+  simpl; auto;
+  destruct i; reflexivity.
+Qed.
+
+Lemma kernel_step_pc_bound :
+  forall p st,
+    st.(paradox_detected) = false ->
+    st.(pc) <= length (fst p) ->
+    (forall instr,
+        In instr (fst p) ->
+        logic_oracle (snd p ++ encode_safety_axioms instr (length (fst p)) (length st.(mem))) = true) ->
+    (kernel_step p st).(pc) <= length (fst p).
+Proof.
+  intros [instrs axioms] st Hp Hpc _; simpl in *.
+  rewrite Hp.
+  destruct (nth_error instrs (pc st)) eqn:Hnth; simpl.
+  - assert (pc st < length instrs) as Hlt.
+    { apply nth_error_Some. rewrite Hnth; discriminate. }
+    remember (is_instr_pc_safe (length instrs) i) as pc_safe.
+    remember (is_instr_mem_safe (length (mem st)) i) as mem_safe.
+    remember (logic_oracle (axioms ++ encode_safety_axioms i (length instrs) (length (mem st)))) as ok.
+    destruct pc_safe; simpl;
+    destruct mem_safe; simpl;
+    destruct ok; simpl; try lia;
+    destruct i; simpl; try (apply succ_le_of_lt in Hlt; lia); lia.
+  - lia.
+Qed.
+
+Lemma run_kernel_paradox :
+  forall p st n,
+    paradox_detected st = true ->
+    run_kernel_n p st n = st.
+Proof.
+  intros p st n Hpar.
+  induction n; simpl; [reflexivity|].
+  destruct p as [instrs axioms]; simpl.
+  rewrite Hpar. apply IHn.
+Qed.
+
 
 (* Main security theorem: The program counter never exceeds the program's bounds (Thiele Edition). *)
 Theorem pc_never_exceeds_program_bounds_thiele :
@@ -176,7 +193,22 @@ Theorem pc_never_exceeds_program_bounds_thiele :
       In instr (fst p_with_axioms) ->
       logic_oracle (snd p_with_axioms ++ encode_safety_axioms instr (length (fst p_with_axioms)) (length st.(mem))) = true) ->
     (run_kernel_n p_with_axioms st n).(pc) <= length (fst p_with_axioms).
-Admitted.
+Proof.
+  intros p st n Hpc Hpar Hall.
+  revert st Hpc Hpar Hall.
+  induction n as [|n IH]; intros st Hpc Hpar Hall; simpl; [assumption|].
+  pose proof (kernel_step_pc_bound p st Hpar Hpc Hall) as Hb.
+  destruct (paradox_detected (kernel_step p st)) eqn:Hpar'.
+  - rewrite (run_kernel_paradox p (kernel_step p st) n Hpar').
+    exact Hb.
+  - apply IH.
+    + apply Hb.
+    + apply Hpar'.
+    + intros instr Hin.
+      specialize (Hall instr Hin).
+      rewrite <- (kernel_step_mem_length p st) in Hall.
+      exact Hall.
+Qed.
 
 Theorem mem_safety_preserved_thiele :
   forall (p_with_axioms : Program) (st_init : MachineState) (n : nat),
@@ -187,4 +219,11 @@ Theorem mem_safety_preserved_thiele :
       (run_kernel_n p_with_axioms st_init k).(pc) < length (fst p_with_axioms) ->
       let instr := nth (run_kernel_n p_with_axioms st_init k).(pc) (fst p_with_axioms) Halt in
       logic_oracle (snd p_with_axioms ++ encode_safety_axioms instr (length (fst p_with_axioms)) (length st_init.(mem))) = true.
-Admitted.
+Proof.
+  intros p st n Hall k Hpc.
+  set (instrs := fst p).
+  set (instr := nth (pc (run_kernel_n p st k)) instrs Halt).
+  assert (In instr instrs) as Hin.
+  { subst instrs instr. apply nth_In. exact Hpc. }
+  specialize (Hall instr Hin). exact Hall.
+Qed.

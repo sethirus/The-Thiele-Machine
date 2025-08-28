@@ -289,9 +289,89 @@ Module UTM.
   Lemma decode_encode_roundtrip :
     forall i, instr_small i -> decode_instr (encode_instr i) = i.
   Proof.
-    (* Proof omitted; to be completed in future work. *)
     intros i Hs.
-    Admitted.
+    (* Helper tactics for two- and three-operand instructions. *)
+    Local Ltac solve_two rd v opcode :=
+      set (B := ENC_BASE) in *;
+      assert (Bpos : B > 0) by (subst B; unfold ENC_BASE; lia);
+      assert (Hop : (opcode + rd * B + v * B * B) mod B = opcode)
+        by (repeat (rewrite Nat.add_mod by lia);
+            rewrite Nat.mod_small with (a:=opcode) by lia;
+            repeat (rewrite Nat.mod_mul by lia);
+            lia);
+      assert (Hw1 : (opcode + rd * B + v * B * B) / B = rd + v * B)
+        by (replace (opcode + rd * B + v * B * B)
+             with (opcode + (rd + v * B) * B) by lia;
+            rewrite Nat.div_add by lia;
+            rewrite Nat.div_small with (a:=opcode) (b:=B) by lia;
+            rewrite Nat.div_mul by lia;
+            lia);
+      assert (Harg1 : (rd + v * B) mod B = rd)
+        by (rewrite Nat.add_mod by lia;
+            rewrite Nat.mod_mul by lia;
+            rewrite Nat.mod_small by lia;
+            lia);
+      assert (Hw2 : (rd + v * B) / B = v)
+        by (apply Nat.div_unique with (r:=rd); lia);
+      assert (Harg2 : v mod B = v) by (apply Nat.mod_small; lia);
+      rewrite Hop, Hw1, Harg1, Hw2, Harg2; reflexivity.
+
+    Local Ltac solve_three rd r1 r2 opcode :=
+      set (B := ENC_BASE) in *;
+      assert (Bpos : B > 0) by (subst B; unfold ENC_BASE; lia);
+      assert (Hop : (opcode + rd * B + r1 * B * B + r2 * B * B * B) mod B = opcode)
+        by (repeat (rewrite Nat.add_mod by lia);
+            rewrite Nat.mod_small with (a:=opcode) by lia;
+            repeat (rewrite Nat.mod_mul by lia);
+            lia);
+      assert (Hw1 : (opcode + rd * B + r1 * B * B + r2 * B * B * B) / B
+                   = rd + r1 * B + r2 * B * B)
+        by (replace (opcode + rd * B + r1 * B * B + r2 * B * B * B)
+             with (opcode + (rd + r1 * B + r2 * B * B) * B) by lia;
+            rewrite Nat.div_add by lia;
+            rewrite Nat.div_small with (a:=opcode) (b:=B) by lia;
+            rewrite Nat.div_mul by lia;
+            lia);
+      assert (Harg1 : (rd + r1 * B + r2 * B * B) mod B = rd)
+        by (repeat (rewrite Nat.add_mod by lia);
+            repeat (rewrite Nat.mod_mul by lia);
+            rewrite Nat.mod_small by lia;
+            lia);
+      assert (Hw2 : (rd + r1 * B + r2 * B * B) / B = r1 + r2 * B)
+        by (replace (rd + r1 * B + r2 * B * B)
+             with (rd + (r1 + r2 * B) * B) by lia;
+            rewrite Nat.div_add by lia;
+            rewrite Nat.div_small with (a:=rd) (b:=B) by lia;
+            rewrite Nat.div_mul by lia;
+            lia);
+      assert (Harg2 : (r1 + r2 * B) mod B = r1)
+        by (rewrite Nat.add_mod by lia;
+            rewrite Nat.mod_mul by lia;
+            rewrite Nat.mod_small by lia;
+            lia);
+      assert (Hw3 : (r1 + r2 * B) / B = r2)
+        by (apply Nat.div_unique with (r:=r1); lia);
+      rewrite Hop, Hw1, Harg1, Hw2, Harg2, Hw3; reflexivity.
+
+    destruct i as
+      [rd val | rd ra | ra rv | rd rs | rd val | rd rs1 rs2
+       | rd rs1 rs2 | rc target | rc target | ];
+      simpl in Hs; simpl; try reflexivity;
+      try (destruct Hs as [Hrd Hv]; solve_two rd val 0);
+      try (destruct Hs as [Hrd Hra]; solve_two rd ra 1);
+      try (destruct Hs as [Hra Hrv]; solve_two ra rv 2);
+      try (destruct Hs as [Hrd Hrs]; solve_two rd rs 3);
+      try (destruct Hs as [Hrd Hv]; solve_two rd val 4);
+      try (destruct Hs as [Hrd [Hr1 Hr2]]; solve_three rd rs1 rs2 5);
+      try (destruct Hs as [Hrd [Hr1 Hr2]]; solve_three rd rs1 rs2 6);
+      try (destruct Hs as [Hrc Ht]; solve_two rc target 7);
+      try (destruct Hs as [Hrc Ht]; solve_two rc target 8).
+  Qed.
+
+  (** Simple symbolic execution tactic for unfolding CPU steps. *)
+  Ltac symbolic_run :=
+    cbv [run_n run1 step decode_instr write_reg write_mem read_reg read_mem] in *;
+    repeat (simpl in *; try lia).
 
   (* Concrete program implementing a small-step TM simulator. *)
   Definition program_instrs : list Instr :=
@@ -345,6 +425,19 @@ Module UTM.
       (* 47 *) LoadConst REG_TEMP1 1;
       (* 48 *) Jnz REG_TEMP1 0
     ].
+
+  (* Program counter locations marking high-level interpreter phases. *)
+  Inductive InterpreterState : nat -> Prop :=
+  | IS_FetchSymbol : InterpreterState 0
+  | IS_FindRule_Start : InterpreterState 3
+  | IS_FindRule_Loop : InterpreterState 4
+  | IS_SymbolMatch : InterpreterState 12
+  | IS_ApplyRule_Start : InterpreterState 29
+  | IS_UpdateState_Start : InterpreterState 46
+  | IS_Reset : InterpreterState 48.
+
+  (* Total number of instructions executed per TM step. *)
+  Definition PROGRAM_STEPS : nat := length program_instrs.
 
   (* Encoded program image. *)
   Definition program : list nat := map encode_instr program_instrs.
@@ -406,16 +499,25 @@ Module UTM.
   Lemma firstn_pad_to : forall l n,
     length l <= n -> firstn (length l) (pad_to n l) = l.
   Proof.
-    intros l n Hle.
-      (* Proof omitted; pending detailed list reasoning. *)
-      Admitted.
+    intros l n _.
+    unfold pad_to.
+    rewrite firstn_app, firstn_all, Nat.sub_diag; simpl.
+    now rewrite app_nil_r.
+  Qed.
 
   Lemma skipn_pad_to_app : forall l n rest,
     length l <= n -> skipn n (pad_to n l ++ rest) = rest.
   Proof.
     intros l n rest Hle.
-    (* Proof omitted; requires list-manipulation lemmas. *)
-    Admitted.
+    unfold pad_to.
+    rewrite skipn_app.
+    assert (Hlen : length (l ++ repeat 0 (n - length l)) = n)
+      by (rewrite app_length, repeat_length; lia).
+    rewrite Hlen.
+    rewrite Nat.sub_diag.
+    rewrite skipn_all2; [| lia].
+    simpl. reflexivity.
+  Qed.
 
   (* Prevent large reductions during tape reasoning. *)
   Local Opaque encode_rules program pad_to firstn skipn app repeat length.
@@ -517,10 +619,72 @@ Module UTM.
     unfold inv_min; repeat split; assumption.
   Qed.
 
-  Lemma inv_init : forall tm conf, inv (setup_state tm conf) tm conf.
-  Proof.
-    (* Proof omitted; establishing initial state invariant is future work. *)
-    Admitted.
+Lemma inv_init : forall tm conf,
+  length program <= RULES_START_ADDR ->
+  length (encode_rules tm.(tm_rules)) <= TAPE_START_ADDR - RULES_START_ADDR ->
+  inv (setup_state tm conf) tm conf.
+Proof.
+  intros tm [[q tape] head] Hprog Hrules.
+  unfold inv, setup_state; cbn.
+  repeat split.
+  - reflexivity.
+  - reflexivity.
+  - reflexivity.
+  - apply (tape_window_ok_setup_state tm ((q, tape), head)); assumption.
+  - set (rules := encode_rules tm.(tm_rules)).
+    set (mem0 := pad_to RULES_START_ADDR program).
+    set (mem1 := pad_to TAPE_START_ADDR (mem0 ++ rules)).
+    assert (Hmem0len : length mem0 = RULES_START_ADDR)
+      by (subst mem0; apply length_pad_to_ge; assumption).
+    assert (Hfit : length (mem0 ++ rules) <= TAPE_START_ADDR).
+    { rewrite app_length, Hmem0len. lia. }
+    assert (Hmem1len : length mem1 = TAPE_START_ADDR)
+      by (subst mem1; apply length_pad_to_ge; assumption).
+    assert (Hprog_first : firstn (length program) mem0 = program)
+      by (subst mem0; apply firstn_pad_to; assumption).
+    rewrite firstn_app.
+    rewrite Hmem1len.
+    replace (length program - TAPE_START_ADDR) with 0 by lia.
+    simpl. rewrite app_nil_r.
+    subst mem1.
+    rewrite firstn_pad_to with (l := mem0 ++ rules) (n := TAPE_START_ADDR); [|assumption].
+    rewrite firstn_app.
+    rewrite Hmem0len.
+    replace (length program - RULES_START_ADDR) with 0 by lia.
+    simpl. exact Hprog_first.
+  - set (rules := encode_rules tm.(tm_rules)).
+    set (mem0 := pad_to RULES_START_ADDR program).
+    set (mem1 := pad_to TAPE_START_ADDR (mem0 ++ rules)).
+    assert (Hmem0len : length mem0 = RULES_START_ADDR)
+      by (subst mem0; apply length_pad_to_ge; assumption).
+    assert (Hfit : length (mem0 ++ rules) <= TAPE_START_ADDR).
+    { rewrite app_length, Hmem0len. lia. }
+    assert (Hmem1len : length mem1 = TAPE_START_ADDR)
+      by (subst mem1; apply length_pad_to_ge; assumption).
+    rewrite skipn_app.
+    rewrite Hmem1len.
+    replace (RULES_START_ADDR - TAPE_START_ADDR) with 0 by lia.
+    simpl.
+    subst mem1.
+    unfold pad_to at 1.
+    rewrite skipn_app.
+    rewrite app_length.
+    rewrite Hmem0len.
+    replace (RULES_START_ADDR - (RULES_START_ADDR + length rules)) with 0 by lia.
+    simpl.
+    rewrite skipn_app.
+    rewrite Hmem0len.
+    replace (RULES_START_ADDR - RULES_START_ADDR) with 0 by reflexivity.
+    simpl.
+    rewrite skipn_repeat.
+    replace (TAPE_START_ADDR - (RULES_START_ADDR + length rules)) with ((TAPE_START_ADDR - RULES_START_ADDR) - length rules) by lia.
+    simpl.
+    rewrite firstn_app.
+    replace (length rules - (TAPE_START_ADDR - RULES_START_ADDR)) with 0 by lia.
+    simpl.
+    rewrite app_nil_r.
+    apply firstn_pad_to. assumption.
+Qed.
 
   (* ---------- Small-step runner over the decoded program ---------- *)
   (* Fetching the current encoded instruction from memory. *)
@@ -554,13 +718,150 @@ Module UTM.
   Lemma run_n_succ : forall s n, run_n s (S n) = run_n (run1 s) n.
   Proof. reflexivity. Qed.
 
-  (* simulates_one_step_run1: The concrete universal program should simulate a single
-     Turing-machine step when started in a state satisfying [inv].  The full
-     proof remains a future obligation, so we record it as an axiom for now. *)
-  Axiom simulates_one_step_run1 :
+  (* After fetching a tape symbol, control jumps to the rule-search loop. *)
+  Lemma transition_Fetch_to_FindRule :
+    forall tm conf st,
+      inv st tm conf ->
+      IS_FetchSymbol (read_reg REG_PC st) ->
+      exists st',
+        st' = run_n st 3 /\
+        IS_FindRule_Start (read_reg REG_PC st').
+  Proof.
+    intros tm [[q tape] head] st Hinv HPC.
+    destruct Hinv as [HQ [HHEAD [HPC [Htape [Hprog Hr]]]]].
+    inversion HPC. clear HPC.
+    exists (run_n st 3); split; [reflexivity|].
+    unfold IS_FindRule_Start, InterpreterState.
+    (* helper: program memory cells *)
+    assert (Hmem_prog : forall n, n < length program ->
+             read_mem n st = nth n program 0).
+    { intros n Hlt.
+      unfold read_mem.
+      rewrite <- Hprog.
+      rewrite nth_firstn; [reflexivity|assumption]. }
+    (* decode first instruction *)
+    assert (Hdec0 : decode_instr (read_mem 0 st) =
+                    LoadConst REG_TEMP1 TAPE_START_ADDR).
+    { rewrite (Hmem_prog 0) by (unfold program; simpl; lia).
+      unfold program; simpl.
+      rewrite decode_encode_roundtrip; [reflexivity|].
+      unfold instr_small; simpl; repeat split; lia. }
+    assert (Hpc1 : read_reg REG_PC (run1 st) = 1).
+    { apply run1_pc_succ. rewrite Hdec0; simpl; lia. }
+    (* memory unchanged after first instruction *)
+    assert (Hmem1 : read_mem 1 (run1 st) = read_mem 1 st).
+    { unfold run1; rewrite Hdec0; unfold step; simpl.
+      unfold read_mem; simpl. reflexivity. }
+    (* decode second instruction *)
+    assert (Hdec1 : decode_instr (read_mem 1 (run1 st)) =
+                    AddReg REG_ADDR REG_TEMP1 REG_HEAD).
+    { rewrite Hmem1, (Hmem_prog 1) by (unfold program; simpl; lia).
+      unfold program; simpl.
+      rewrite decode_encode_roundtrip; [reflexivity|].
+      unfold instr_small; simpl; repeat split; lia. }
+    assert (Hpc2 : read_reg REG_PC (run1 (run1 st)) = 2).
+    { apply run1_pc_succ. rewrite Hdec1; simpl; lia. }
+    (* memory unchanged after second instruction *)
+    assert (Hmem2 : read_mem 2 (run1 (run1 st)) = read_mem 2 st).
+    { unfold run1 at 2; rewrite Hdec1; unfold step; simpl.
+      unfold read_mem; simpl. reflexivity. }
+    (* decode third instruction *)
+    assert (Hdec2 : decode_instr (read_mem 2 (run1 (run1 st))) =
+                    LoadIndirect REG_SYM REG_ADDR).
+    { rewrite Hmem2, (Hmem_prog 2) by (unfold program; simpl; lia).
+      unfold program; simpl.
+      rewrite decode_encode_roundtrip; [reflexivity|].
+      unfold instr_small; simpl; repeat split; lia. }
+    assert (Hpc3 : read_reg REG_PC (run1 (run1 (run1 st))) = 3).
+    { apply run1_pc_succ. rewrite Hdec2; simpl; lia. }
+    simpl.
+    rewrite Hpc3. constructor.
+  Qed.
+
+  (* State immediately after the fetch phase and before entering the loop. *)
+  Definition find_rule_start_inv (tm:TM) (conf:TMConfig) (st:State) : Prop :=
+    let '(q, tape, head) := conf in
+    read_reg REG_Q st = q /\
+    read_reg REG_SYM st = nth head tape tm.(tm_blank) /\
+    read_reg REG_ADDR st = RULES_START_ADDR /\
+    read_reg REG_PC st = 3.
+
+  (* Loop invariant for the rule-search phase. After checking [i] rules the
+     address register advances by 5*i while the state and symbol registers
+     remain fixed and control jumps back to program counter 4. *)
+  Definition find_rule_loop_inv (tm:TM) (conf:TMConfig)
+             (st:State) (i:nat) : Prop :=
+    let '(q, tape, head) := conf in
+    read_reg REG_Q st = q /\
+    read_reg REG_SYM st = nth head tape tm.(tm_blank) /\
+    read_reg REG_ADDR st = RULES_START_ADDR + 5 * i /\
+    read_reg REG_PC st = 4.
+
+  (* Searching through the rule table eventually loads the matching rule and
+     jumps to the application phase. *)
+  Lemma transition_FindRule_to_ApplyRule :
+    forall tm conf st q' write move,
+      inv st tm conf ->
+      find_rule_start_inv tm conf st ->
+      let '(q, tape, head) := conf in
+      find_rule tm.(tm_rules) q (nth head tape tm.(tm_blank)) =
+        Some (q', write, move) ->
+      exists k st',
+        st' = run_n st k /\
+        IS_ApplyRule_Start (read_reg REG_PC st') /\
+        read_reg REG_Q' st' = q' /\
+        read_reg REG_WRITE st' = write /\
+        read_reg REG_MOVE st' = move.
+  Proof.
+    intros tm [[q tape] head] st q' write move Hinv Hpre Hfind.
+    (* The proof proceeds by induction on the rule table. *)
+    remember (tm.(tm_rules)) as rules eqn:Hr.
+    revert q' write move Hfind.
+    induction rules as [|r rs IH]; intros q' write move Hfind; simpl in Hfind.
+    - discriminate.
+    - destruct r as [[[[q_rule sym_rule] q_next] w_next] m_next].
+      destruct (andb (Nat.eqb q_rule q)
+                     (Nat.eqb sym_rule (nth head tape tm.(tm_blank)))) eqn:Hmatch.
+      + (* Matching rule: symbolic execution will load the rule and jump. *)
+        apply andb_true_iff in Hmatch as [Hq Hsym].
+        apply Nat.eqb_eq in Hq.
+        apply Nat.eqb_eq in Hsym.
+        inversion Hfind; subst q' write move.
+        assert (Hlen : 0 < length (tm_rules tm)) by (rewrite Hr; simpl; lia).
+        pose proof (read_mem_rule_component tm (q,tape,head) st 0 0 Hinv Hlen) as Hc0.
+        pose proof (read_mem_rule_component tm (q,tape,head) st 0 1 Hinv Hlen) as Hc1.
+        pose proof (read_mem_rule_component tm (q,tape,head) st 0 2 Hinv Hlen) as Hc2.
+        pose proof (read_mem_rule_component tm (q,tape,head) st 0 3 Hinv Hlen) as Hc3.
+        pose proof (read_mem_rule_component tm (q,tape,head) st 0 4 Hinv Hlen) as Hc4.
+        destruct Hc0 as [Hc0 _]; specialize (Hc0 eq_refl).
+        destruct Hc1 as [_ [Hc1 _]]; specialize (Hc1 eq_refl).
+        destruct Hc2 as [_ [_ [Hc2 _]]]; specialize (Hc2 eq_refl).
+        destruct Hc3 as [_ [_ [_ [Hc3 _]]]]; specialize (Hc3 eq_refl).
+        destruct Hc4 as [_ [_ [_ [_ Hc4]]]]; specialize (Hc4 eq_refl).
+        set (k := 18).
+        exists k, (run_n st k); split; [reflexivity|].
+        unfold k.
+        cbv [run_n run1 step decode_instr write_reg write_mem read_reg read_mem] in *;
+        repeat (simpl in *; try lia; try rewrite Hq; try rewrite Hsym;
+               try rewrite Hc0; try rewrite Hc1; try rewrite Hc2;
+               try rewrite Hc3; try rewrite Hc4);
+        repeat split; reflexivity.
+      + (* Non-matching rule: advance to next rule and apply IH. *)
+        apply andb_false_iff in Hmatch as [Hq_neq | Hsym_neq];
+        simpl in Hfind;
+        apply IH in Hfind;
+        destruct Hfind as [k [st' [Hrun Hgoal]]];
+        exists k, st'; split; [exact Hrun|exact Hgoal].
+  Qed.
+
+  (* simulates_one_step_run1: the universal program simulates one TM step.
+     Currently the proof is incomplete, so we record the lemma as admitted. *)
+  Lemma simulates_one_step_run1 :
     forall tm st conf,
       inv_min st tm conf ->
-      exists s', inv_min s' tm (tm_step tm conf) /\ run1 st = s'.
+      inv_min (run1 st) tm (tm_step tm conf).
+  Proof.
+  Admitted.
 
   (* ---------- Main operational theorem: n decoded CPU steps simulate n TM steps ---------- *)
   (** Operational simulation: depends on [simulates_one_step_run1]. *)
@@ -575,9 +876,8 @@ Module UTM.
     induction n as [|n IH]; intros conf st0 Hinv.
     - simpl. exact Hinv.
     - simpl.
-      destruct (simulates_one_step_run1 tm st0 conf Hinv) as [s1 [Hinv1 Hr1]].
-      rewrite Hr1.
-      apply (IH (tm_step tm conf) s1 Hinv1).
+      pose proof (simulates_one_step_run1 tm st0 conf Hinv) as Hstep.
+      apply (IH (tm_step tm conf) (run1 st0) Hstep).
   Qed.
 
   (* Note: SubReg uses Nat.sub, so subtraction saturates at 0. *)
