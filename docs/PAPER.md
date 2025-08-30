@@ -9,7 +9,7 @@ Core definitions and the role of the logic oracle are collected in [SPECIFICATIO
 ## Proof Sketches
 - A Thiele CPU executing `RunTMStep` faithfully simulates a single transition of the encoded Turing machine【F:coq/thielemachine/coqproofs/ThieleMachine.v†L176-L188】.
 - If the oracle reports a contradiction, the accumulated μ-cost becomes infinite【F:coq/thielemachine/coqproofs/ThieleMachine.v†L190-L199】.
-- The universal program admits an existential subsumption theorem: for any number of TM transitions there exists a CPU state representing the same configuration【F:coq/thieleuniversal/coqproofs/ThieleUniversal.v†L254-L263】.  A concrete operational simulation proof remains open.
+- A direct subsumption theorem shows that one step of a Thiele Machine mirrors one step of a Turing Machine【F:coq/thielemachine/coqproofs/Subsumption.v†L1-L24】.
 
 ## Experimental Setup
 Two small experiments accompany the proofs. `attempt.run_engine_and_law()` explores partitions of a paradox, and `run_single_experiment` solves structured Tseitin instances. The helper script `scripts/run_all_experiments.py` reproduces all receipts in one pass across multiple problem sizes. Details appear in [EXPERIMENTS.md](EXPERIMENTS.md).
