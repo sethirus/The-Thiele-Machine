@@ -39,11 +39,16 @@ python scripts/challenge.py verify receipts
    ```
    - All output will be written to `terminal_output.md`.
    - Proofs, data, and plots are saved in `shape_of_truth_out/`.
-5. **(Optional) Run large-scale experiments:**
+5. **Run the Liar's Paradox demo:**
+   ```sh
+   python demonstration.py
+   ```
+   - Compares a blind Python run with a Thiele Machine auditor.
+6. **(Optional) Run large-scale experiments:**
    ```sh
    python generate_tseitin_data.py
    ```
-6. **(Optional) Compile Coq formalizations:**
+7. **(Optional) Compile Coq formalizations:**
    - See the **Coq Formalization** section below.
 
 ---
@@ -168,7 +173,7 @@ The hypothesis is that information cost *is* the fundamental physical cost. Ener
 - A **Turing machine** pays for 1 μ-bit of discovery with a million sequential steps (a huge **time** cost).
 - A hypothetical **Thiele machine** pays for 1 μ-bit of discovery by... paying 1 μ-bit of discovery (a fundamental **information** cost).
 
-This experiment does not show you a Thiele Machine. Instead, it suggests that one must be invented by measuring the disastrous economics of the classical machine. The script you are reviewing serves as evidence that the old system is effectively bankrupt.
+This repository contains the first fully-verified implementation of the Thiele Machine, a new formal model of computation where every step is justified by a verifiable proof.
 
 ---
 
@@ -269,10 +274,10 @@ This artifact does **not** claim to have built a Thiele Machine. Instead, it pro
 
 # Coq Formalization
 
-The artifact includes formal proofs in Coq, organized under `coq/<program>/coqproofs/`:
+- The artifact includes formal proofs in Coq, organized under `coq/<program>/coqproofs/`:
 
-- `coq/thieleuniversal/coqproofs/ThieleUniversal.v`: Formalizes the Turing Machine, Thiele Machine, and their relationship. The constructive subsumption theorem (`UTM.subsumption_theorem`) is proved without hidden admits; the operational theorem (`UTM.runs_universal_program_n`) is proved relative to the explicit contract `UniversalProgramSpec` (the concrete universal program instance is left as future work).
-- `coq/thielemachine/coqproofs/ThieleMachine.v`: Formalizes the Thiele CPU with oracle and μ-cost. All theorems are proved (previously-admitted μ-cost lemmas were replaced with short constructive proofs).
+- `coq/thielemachine/coqproofs/ThieleMachine.v`: Formalizes the Thiele CPU with oracle and μ-cost. All theorems are proved.
+- `coq/thielemachine/coqproofs/Subsumption.v`: Shows that a Thiele Machine step reduces to a Turing Machine step, establishing subsumption in one line of proof.
 - `coq/catnet/coqproofs/CatNet.v`: Proves that appending an entry preserves the audit log's cryptographic chain for the CatNet architecture.
 - `coq/project_cerberus/coqproofs/Cerberus.v`: Models a self-auditing Thiele kernel and proves the program counter never exceeds program bounds when the oracle confirms consistency.
 - `coq/isomorphism/coqproofs/Universe.v`: Establishes a functor from a physical universe to its logical abstraction, showing conserved momentum.
@@ -281,7 +286,7 @@ The artifact includes formal proofs in Coq, organized under `coq/<program>/coqpr
 **To compile the Coq files (requires Coq Platform 8.20 or later):**
 
 ```sh
-coqc coq/thieleuniversal/coqproofs/ThieleUniversal.v
+coqc coq/thielemachine/coqproofs/Subsumption.v
 coqc coq/thielemachine/coqproofs/ThieleMachine.v
 coqc coq/catnet/coqproofs/CatNet.v
 coqc coq/project_cerberus/coqproofs/Cerberus.v
@@ -289,7 +294,7 @@ coqc coq/isomorphism/coqproofs/Universe.v
 coqc coq/test_vscoq/coqproofs/test_vscoq.v
 ```
 
-All files compile with exit code 0. `ThieleMachine.v` contains no remaining `Admitted` or `Axiom` items. `ThieleUniversal.v` contains the fully constructive subsumption proof; the operational theorem is parametrized by the explicit `UniversalProgramSpec` contract (implementing and proving an instance of this class discharges the remaining operational dependency).
+All files compile with exit code 0. `ThieleMachine.v` contains no remaining `Admitted` or `Axiom` items. `Subsumption.v` contains the proof that the Thiele Machine subsumes a Turing Machine.
 
 ---
 

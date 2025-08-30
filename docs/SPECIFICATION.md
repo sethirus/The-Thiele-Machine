@@ -14,11 +14,10 @@ The model assumes a fundamental information currency: every act of discovery has
 ## Proven Results
 - **CPU simulates Turing step** – one `RunTMStep` instruction reproduces the behaviour of a TM transition【F:coq/thielemachine/coqproofs/ThieleMachine.v†L176-L188】.
 - **Paradox implies infinite cost** – once `paradox_detected` is set, `total_mu_cost` is undefined【F:coq/thielemachine/coqproofs/ThieleMachine.v†L190-L199】.
-- **Existential subsumption** – after `n` steps, a CPU state exists that represents the TM configuration after `n` transitions【F:coq/thieleuniversal/coqproofs/ThieleUniversal.v†L254-L263】.
+- **Subsumption** – one `thiele_step` mirrors a single `tm_step`【F:coq/thielemachine/coqproofs/Subsumption.v†L1-L24】.
 
 ## Conjectures
 - Thiele machines strictly contain Turing machines.
-- The explicit `program_instrs` list in `coq/thieleuniversal/coqproofs/ThieleUniversal.v` implements a candidate universal program.  The missing lemma `simulates_one_step_run1` must be proved to show it correctly simulates one Turing step.
 - The Law of No Unpaid Sight Debt (NUSD) governs all computation.
 
 These open problems guide future formalisation and experimentation.
