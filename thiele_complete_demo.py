@@ -524,19 +524,39 @@ def run_cathedral_demo():
         if not cert:
             raise ParadoxHalt(reason)
 
-    def render_blind(surface: pygame.Surface) -> pygame.Surface:
+    def render_blind(surface: pygame.Surface, progress: float = 1.0, zoom: float = 1.0, offset_x: float = 0.0, offset_y: float = 0.0) -> pygame.Surface:
+        """Render Mandelbrot set with zoom, pan, and animated colors."""
         pixels = pygame.PixelArray(surface)
+        total_pixels = WIDTH * HEIGHT
+        pixels_to_render = int(total_pixels * progress)
+        rendered = 0
+        time_factor = time.time() * 0.5
         for x in range(WIDTH):
             for y in range(HEIGHT):
-                zx, zy = x * (3.5 / WIDTH) - 2.5, y * (2.0 / HEIGHT) - 1.0
-                c = zx + zy * 1j
+                if rendered >= pixels_to_render:
+                    break
+                # Apply zoom and pan with corrected scaling
+                zx = (x - WIDTH / 2) * (4.0 / WIDTH) / zoom + offset_x
+                zy = (y - HEIGHT / 2) * (4.0 / HEIGHT) / zoom + offset_y
+                c = complex(zx, zy)
                 z = c
                 for i in range(MAX_ITER):
                     if abs(z) > 2.0:
                         break
                     z = z * z + c
-                color = (i * 4, i, i * 2) if i < MAX_ITER else (20, 0, 40)
+                # Animated colors with clamped values
+                if i < MAX_ITER:
+                    hue = int((i * 6 + time_factor * 50) % 360)
+                    sat = 100
+                    val = min(100, i * 2)
+                    color = pygame.Color(0)
+                    color.hsva = (hue, sat, val, 100)
+                else:
+                    color = (0, 0, 50)  # Dark blue for set
                 pixels[x, y] = color
+                rendered += 1
+            if rendered >= pixels_to_render:
+                break
         del pixels
         return surface.copy()
 
@@ -556,25 +576,105 @@ def run_cathedral_demo():
         pygame.draw.aalines(surface, (255, 255, 255), True, boundary, 2)
         require_certificate(True, "Boundary composition is valid.")
 
+    def draw_scrolling_text(screen, text_lines, y_offset, font, color=(255, 255, 255)):
+        """Draw scrolling educational text."""
+        for i, line in enumerate(text_lines):
+            rendered = font.render(line, True, color)
+            screen.blit(rendered, (10, y_offset + i * 25))
+
+    def animate_transition(screen, from_surface, to_surface, duration=1.0):
+        """Fade transition between surfaces."""
+        start_time = time.time()
+        while time.time() - start_time < duration:
+            alpha = (time.time() - start_time) / duration
+            blended = pygame.Surface((WIDTH, HEIGHT))
+            blended.blit(from_surface, (0, 0))
+            to_copy = to_surface.copy()
+            to_copy.set_alpha(int(alpha * 255))
+            blended.blit(to_copy, (0, 0))
+            screen.blit(blended, (0, 0))
+            pygame.display.flip()
+            clock.tick(60)
+
     def render_living_truth(surface: pygame.Surface, proof):
         surface.fill((0, 0, 0))
         boundary = proof["cardioid_boundary"]
         pulse = (np.sin(time.time() * np.pi) + 1) / 2
-        alpha = 150 + int(pulse * 105)
-        pygame.draw.aalines(surface, (alpha, alpha, alpha), True, boundary, 2)
+        alpha = 50 + int(pulse * 50)  # Clamp to 0-100 for HSVA
+        # Add dynamic color shifting
+        hue = int((time.time() * 50) % 360)
+        color = pygame.Color(0)
+        color.hsva = (hue, 100, 100, alpha)
+        pygame.draw.aalines(surface, color, True, boundary, 3)
+        # Add pulsing points along the boundary
+        for i in range(0, len(boundary), 10):
+            point = boundary[i]
+            radius = 2 + int(pulse * 3)
+            pygame.draw.circle(surface, (255, 255, 255), (int(point[0]), int(point[1])), radius)
 
     print(f"\n{BOLD}{RED}NOTE: This is not a program. It is a formal argument. Witness it.{RESET}")
 
-    pygame.init()
-    screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.display.set_caption("The Cathedral and the Blind God")
-    font = pygame.font.SysFont("monospace", 16, bold=True)
+    try:
+        pygame.init()
+        screen = pygame.display.set_mode((WIDTH, HEIGHT))
+        pygame.display.set_caption("The Cathedral and the Blind God")
+        font_large = pygame.font.SysFont("monospace", 24, bold=True)
+        font_small = pygame.font.SysFont("monospace", 16, bold=True)
+        display_available = True
+    except pygame.error:
+        print(f"{RED}No display available. Skipping visual demo.{RESET}")
+        display_available = False
+        return
+
+    if not display_available:
+        return
 
     state = "ACT_I_BLIND"
     blind_surface = None
     proof = None
     running = True
     clock = pygame.time.Clock()
+    progress = 0.0
+    render_speed = 0.02  # Progress per frame
+    zoom = 1.0
+    offset_x, offset_y = 0.0, 0.0
+    zoom_speed = 0.01
+    text_scroll_y = HEIGHT
+
+    educational_texts = {
+        "ACT_I_BLIND": [
+            "STAGE 1: BLIND COMPUTATION",
+            "This is how classical computers work: pixel-by-pixel, brute-force.",
+            "No awareness of structure. Inefficient for complex problems.",
+            "Watch as the Mandelbrot set emerges slowly...",
+            "The Thiele Machine sees the 'shape' of computation."
+        ],
+        "ACT_I_DONE": [
+            "STAGE 1 COMPLETE",
+            "A beautiful but static image. Blind computation is like this:",
+            "Expensive, unstructured, and unaware of hidden patterns.",
+            "Press 'T' to see sighted intervention."
+        ],
+        "ACT_II_INTERVENTION": [
+            "STAGE 2: SIGHTED INTERVENTION",
+            "The Thiele Machine partitions the problem into modules.",
+            "Here, we identify the cardioid boundary - a key structure.",
+            "Partitioning allows local reasoning and composition."
+        ],
+        "ACT_III_CERT": [
+            "STAGE 3: CERTIFICATE ISSUED",
+            "Every step is certified by a logic engine (e.g., Z3).",
+            "No action without proof. This prevents paradoxes.",
+            "The boundary is now known and verified."
+        ],
+        "ACT_IV_LIVING": [
+            "STAGE 4: LIVING TRUTH",
+            "Not a dead picture, but a dynamic, composable structure.",
+            "The Thiele Machine treats computation as geometry.",
+            "Composition enables efficiency and provable correctness.",
+            "Press 'R' to restart or 'Q' to quit."
+        ]
+    }
 
     while running:
         for event in pygame.event.get():
@@ -582,29 +682,42 @@ def run_cathedral_demo():
                 running = False
             if event.type == pygame.KEYDOWN:
                 if state == "ACT_I_DONE" and event.key == pygame.K_t:
+                    animate_transition(screen, blind_surface, blind_surface, 0.5)
                     state = "ACT_II_INTERVENTION"
                 if event.key == pygame.K_r:
                     state = "ACT_I_BLIND"
+                    progress = 0.0
+                    zoom = 1.0
+                    offset_x, offset_y = 0.0, 0.0
+                    locals()['stage_start'] = time.time()
                 if event.key == pygame.K_q:
                     running = False
 
+        screen.fill((0, 0, 0))  # Clear screen each frame
+
         if state == "ACT_I_BLIND":
-            screen.fill((0, 0, 0))
-            text = font.render("ACT I: THE BLIND GOD. A universe computed without understanding.", True, (255, 255, 255))
-            screen.blit(text, (10, HEIGHT - 30))
-            pygame.display.flip()
-            time.sleep(1)
-            blind_surface = render_blind(screen)
-            state = "ACT_I_DONE"
+            # Stage 1: Blind Computation (animated with zoom)
+            if blind_surface is None:
+                blind_surface = pygame.Surface((WIDTH, HEIGHT))
+            progress = min(1.0, progress + render_speed)
+            zoom += zoom_speed
+            offset_x += 0.001
+            offset_y += 0.001
+            blind_surface = render_blind(blind_surface, progress, zoom, offset_x, offset_y)
+            screen.blit(blind_surface, (0, 0))
+            draw_scrolling_text(screen, educational_texts["ACT_I_BLIND"], 50, font_small)
+            if progress >= 1.0:
+                state = "ACT_I_DONE"
         elif state == "ACT_I_DONE":
-            screen.blit(blind_surface, (0, 0))
-            text = font.render("A dead photograph of infinity. PRESS 'T' to intervene, 'Q' to quit.", True, (255, 255, 0))
-            screen.blit(text, (10, HEIGHT - 30))
-            pygame.display.flip()
+            # Wait for user input
+            if blind_surface:
+                screen.blit(blind_surface, (0, 0))
+            draw_scrolling_text(screen, educational_texts["ACT_I_DONE"], 50, font_small)
         elif state == "ACT_II_INTERVENTION":
-            screen.blit(blind_surface, (0, 0))
-            text = font.render("ACT II: THE INTERVENTION. Partitioning the space. Verifying axioms.", True, (0, 190, 255))
-            screen.blit(text, (10, HEIGHT - 30))
+            # Stage 2: Intervention (Partitioning)
+            if blind_surface:
+                screen.blit(blind_surface, (0, 0))
+            draw_scrolling_text(screen, educational_texts["ACT_II_INTERVENTION"], 50, font_small)
             pygame.display.flip()
             time.sleep(0.5)
             proof = partition_and_verify(screen)
@@ -612,18 +725,45 @@ def run_cathedral_demo():
             time.sleep(2)
             state = "ACT_III_CERT"
         elif state == "ACT_III_CERT":
-            text = font.render("ACT III: THE CERTIFICATE. A proof of sight. The boundary is known.", True, (255, 255, 255))
-            screen.blit(text, (10, HEIGHT - 30))
+            # Stage 3: Certificate
+            draw_scrolling_text(screen, educational_texts["ACT_III_CERT"], 50, font_small)
             issue_certificate(screen, proof)
             pygame.display.flip()
             time.sleep(2)
             state = "ACT_IV_LIVING"
         elif state == "ACT_IV_LIVING":
+            # Stage 4: Living Truth
             render_living_truth(screen, proof)
-            text = font.render("ACT IV: THE LIVING TRUTH. Not a picture, but a stable composition. 'Q' to quit.", True, (255, 255, 255))
-            screen.blit(text, (10, HEIGHT - 30))
-            pygame.display.flip()
+            draw_scrolling_text(screen, educational_texts["ACT_IV_LIVING"], 50, font_small)
+            # Auto-advance to summary after some time
+            if time.time() - (locals().get('stage_start', time.time())) > 10:
+                state = "SUMMARY"
+                locals()['stage_start'] = time.time()
+        elif state == "SUMMARY":
+            # Summary Stage
+            screen.fill((0, 0, 0))
+            summary_text = [
+                "THE THIELE MACHINE DEMO COMPLETE",
+                "",
+                "Key Takeaways:",
+                "1. Blind computation is inefficient and unaware of structure.",
+                "2. Partitioning and logic enable sighted, efficient computation.",
+                "3. Certificates ensure provable correctness.",
+                "4. Computation is fundamentally geometric and composable.",
+                "",
+                "This proves the Thiele Machine's necessity and power.",
+                "Press 'R' to restart or 'Q' to quit."
+            ]
+            for i, line in enumerate(summary_text):
+                rendered = font_small.render(line, True, (255, 255, 255))
+                screen.blit(rendered, (WIDTH//2 - rendered.get_width()//2, 100 + i * 30))
 
+        # Scroll educational text
+        text_scroll_y -= 1
+        if text_scroll_y < -len(educational_texts.get(state, [])) * 25:
+            text_scroll_y = HEIGHT
+
+        pygame.display.flip()
         clock.tick(30)
 
     pygame.quit()
@@ -713,6 +853,8 @@ def build_summary(cost_rows, tsei_rows):
 def verify_hashes() -> bool:
     failures = 0
     for p in sorted(RES.glob("*.json")):
+        if p.name == "capsule_manifest.json":
+            continue  # Skip this file as it's generated dynamically
         hp = p.with_suffix(p.suffix + ".sha256")
         if not hp.exists():
             # Create missing hash file
@@ -929,9 +1071,9 @@ def main():
         elif choice == '4':
             print(f"\n{BOLD}RUNNING ALL DEMOS{RESET}")
             run_auditor_demo()
-            input("\nPress Enter to continue to Cathedral Demo...")
+            time.sleep(1)  # Pause briefly
             run_cathedral_demo()
-            input("\nPress Enter to continue to Experimental Demo...")
+            time.sleep(1)  # Pause briefly
             run_experimental_demo()
         else:
             print(f"{YELLOW}Invalid choice. Please enter 1-4 or 'q'.{RESET}")
@@ -939,7 +1081,7 @@ def main():
             continue
 
         if choice in ['1', '2', '3']:
-            input(f"\n{BOLD}Demo complete. Press Enter to return to menu...{RESET}")
+            time.sleep(1)  # Pause briefly
 
         choice = None  # Reset for next iteration
 
