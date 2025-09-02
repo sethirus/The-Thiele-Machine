@@ -8,7 +8,7 @@ import sys
 from datetime import datetime
 
 # Import the core experiment harness from the repository
-from scripts.generate_tseitin_data import run_single_experiment
+from generate_tseitin_data import run_single_experiment
 
 def sha256_file(path):
     h = hashlib.sha256()
