@@ -46,10 +46,10 @@ ARTICLE 1 — The blind solver (plane) fails provably
 Constraint: a single linear rule must fit all pieces.
 --------------------------------------------------------------------------------
 The blind solver tries to find one rule. Z3 reports: unsat
-assump_2: 0*A + 1*B + C == 0
-assump_3: 1*A + 1*B + C == 1
 assump_1: 1*A + 0*B + C == 0
 assump_0: 0*A + 0*B + C == 0
+assump_2: 0*A + 1*B + C == 0
+assump_3: 1*A + 1*B + C == 1
 
 This failure is not a bug; it is a mathematical certainty. The referee issues a
 'Certificate of Impossibility', a Farkas Witness, proving the contradiction.
@@ -90,7 +90,7 @@ Composite orientation matches intended net rotation (order-invariant).
 --------------------------------------------------------------------------------
 DEMO 2 — Sudoku: A Single Point in Constraint Space
 --------------------------------------------------------------------------------
-Compose (Thiele) result: sat, witness_hash=ae31c4269ee571ebd95f173efa6e47b8075a8110e2ace27e7486c9dc761a2e97
+Compose (Thiele) result: sat, witness_hash=dbd35231f1c28596be0a34c22d5b37b1548ec41b0a408769fa16468294395884
 A von Neumann machine must trace a path, which is inherently order-dependent:
   Trace path hash (seed 1): 0683dddb9b85a0212672408b3358ed45d08a694d589cfd476dc069df7f786d36
   Trace path hash (seed 2): d95484cedf775bee635ccc3bb8dce08bccc2fe5055ff96ed289cacd1755b4a1a
@@ -150,9 +150,9 @@ ARTICLE 2 — The Universal Ledger of NUSD
 --------------------------------------------------------------------------------
 | Approach            | Result           | Time Cost (s) | NUSD Paid (bits) |
 |---------------------|------------------|---------------|------------------|
-| blind solver         | UNSAT (Failure)  | 0.00033       | 1 (Implicit)     |
-| partition-aware solver   | SAT (Success)    | 0.00094       | 0                |
-| Engine of Discovery | SAT (Discovered) | 0.02991       | 0                |
+| blind solver         | UNSAT (Failure)  | 0.00054       | 1 (Implicit)     |
+| partition-aware solver   | SAT (Success)    | 0.00172       | 0                |
+| Engine of Discovery | SAT (Discovered) | 0.03217       | 0                |
 
 The Ledger is clear. Blindness is fast and wrong. Sight is more expensive but correct.
 Discovery is the price paid to create the map that enables sight.
@@ -185,12 +185,12 @@ This experiment uses the advanced multiprocessing expander harness to generate
 and solve a full batch of Tseitin expander instances, collecting receipts for
 exponential separation. All results are printed below.
 
-[2025-08-21 09:35:42] [PID=1156] [HOST=DevonsPC] Main experiment started.
-[2025-08-21 09:35:42] [PID=1156] [HOST=DevonsPC] Job list constructed: 50 jobs. Sample: [(10, 0, 100000, 5000000, 123456789), (10, 1, 100000, 5000000, 123456789), (10, 2, 100000, 5000000, 123456789)]
-[2025-08-21 09:35:42] [PID=1156] [HOST=DevonsPC] Launching quantum logic engines... (Google-style magic)
-[2025-08-21 09:35:42] [PID=1156] [HOST=DevonsPC] Starting experiment: 50 jobs on 15 cores. Searching for truth in parallel...
-[2025-08-21 09:35:42] [PID=1156] [HOST=DevonsPC] Pool start: 15 workers, 50 jobs
-[2025-08-21 09:35:42] [PID=1156] [HOST=DevonsPC] Heartbeat:
+[2025-09-01 23:28:42] [PID=15720] [HOST=DevonsPC] Main experiment started.
+[2025-09-01 23:28:42] [PID=15720] [HOST=DevonsPC] Job list constructed: 50 jobs. Sample: [(10, 0, 100000, 5000000, 123456789), (10, 1, 100000, 5000000, 123456789), (10, 2, 100000, 5000000, 123456789)]
+[2025-09-01 23:28:42] [PID=15720] [HOST=DevonsPC] Launching quantum logic engines... (Google-style magic)
+[2025-09-01 23:28:42] [PID=15720] [HOST=DevonsPC] Starting experiment: 50 jobs on 15 cores. Searching for truth in parallel...
+[2025-09-01 23:28:42] [PID=15720] [HOST=DevonsPC] Pool start: 15 workers, 50 jobs
+[2025-09-01 23:28:42] [PID=15720] [HOST=DevonsPC] Heartbeat:
   - Progress: 0/50 jobs completed (+0 since last beat)
   - Interval: 0.00s
   - ETA to program finish: N/As
@@ -204,79 +204,6 @@ Note: PySAT and some solvers may introduce nondeterminism due to internal heuris
 MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
 To run this script, install dependencies:
 pip install z3-solver numpy scipy networkx python-sat matplotlib
-MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
-MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
-Random seed: 123456789
-To run this script, install dependencies:
-Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
-pip install z3-solver numpy scipy networkx python-sat matplotlib
-Random seed: 123456789
-Random seed: 123456789
-Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
-Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
-[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 1/50 collected (elapsed: 1.75s)
-[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 2/50 collected (elapsed: 1.75s)
-MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
-To run this script, install dependencies:
-pip install z3-solver numpy scipy networkx python-sat matplotlib
-Random seed: 123456789
-Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
-[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 3/50 collected (elapsed: 1.76s)
-[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 4/50 collected (elapsed: 1.76s)
-MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
-To run this script, install dependencies:
-pip install z3-solver numpy scipy networkx python-sat matplotlib
-Random seed: 123456789
-[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 5/50 collected (elapsed: 1.77s)
-Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
-[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 6/50 collected (elapsed: 1.77s)
-MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
-To run this script, install dependencies:
-pip install z3-solver numpy scipy networkx python-sat matplotlib
-[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 7/50 collected (elapsed: 1.77s)
-Random seed: 123456789
-[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 8/50 collected (elapsed: 1.77s)
-Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
-[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 9/50 collected (elapsed: 1.78s)
-[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 10/50 collected (elapsed: 1.78s)
-MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
-To run this script, install dependencies:
-pip install z3-solver numpy scipy networkx python-sat matplotlib
-[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 11/50 collected (elapsed: 1.78s)
-Random seed: 123456789
-[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 12/50 collected (elapsed: 1.78s)
-MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
-Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
-To run this script, install dependencies:
-[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 13/50 collected (elapsed: 1.78s)
-pip install z3-solver numpy scipy networkx python-sat matplotlib
-[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 14/50 collected (elapsed: 1.78s)
-Random seed: 123456789
-Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
-[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 15/50 collected (elapsed: 1.79s)
-[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 16/50 collected (elapsed: 1.79s)
-[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 17/50 collected (elapsed: 1.80s)
-[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 18/50 collected (elapsed: 1.80s)
-[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 19/50 collected (elapsed: 1.80s)
-[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 20/50 collected (elapsed: 1.80s)
-MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
-To run this script, install dependencies:
-pip install z3-solver numpy scipy networkx python-sat matplotlib
-Random seed: 123456789
-MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
-Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
-To run this script, install dependencies:
-pip install z3-solver numpy scipy networkx python-sat matplotlib
-Random seed: 123456789
-Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
-MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
-To run this script, install dependencies:
-pip install z3-solver numpy scipy networkx python-sat matplotlib
-MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
-Random seed: 123456789
-Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
-To run this script, install dependencies:
-pip install z3-solver numpy scipy networkx python-sat matplotlib
 Random seed: 123456789
 Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
 MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
@@ -284,45 +211,288 @@ To run this script, install dependencies:
 pip install z3-solver numpy scipy networkx python-sat matplotlib
 Random seed: 123456789
 Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
+Traceback (most recent call last):
+  File [35m"C:\Users\tbagt\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\pool.py"[0m, line [35m856[0m, in [35mnext[0m
+    item = self._items.popleft()
+[1;35mIndexError[0m: [35mpop from an empty deque[0m
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File [35m"C:\Users\tbagt\TheThieleMachine\attempt.py"[0m, line [35m2484[0m, in [35m<module>[0m
+    [31mmain[0m[1;31m()[0m
+    [31m~~~~[0m[1;31m^^[0m
+  File [35m"C:\Users\tbagt\TheThieleMachine\attempt.py"[0m, line [35m2474[0m, in [35mmain[0m
+    [31mrun_fractal_debt[0m[1;31m()[0m
+    [31m~~~~~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"C:\Users\tbagt\TheThieleMachine\attempt.py"[0m, line [35m1545[0m, in [35mrun_fractal_debt[0m
+    for idx, result in [31menumerate[0m[1;31m([0m
+                       [31m~~~~~~~~~[0m[1;31m^[0m
+        [1;31mtqdm([0m
+        [1;31m^^^^^[0m
+    ...<5 lines>...
+        [1;31m)[0m
+        [1;31m^[0m
+    [1;31m)[0m:
+    [1;31m^[0m
+  File [35m"C:\Users\tbagt\TheThieleMachine\.venv\Lib\site-packages\tqdm\std.py"[0m, line [35m1181[0m, in [35m__iter__[0m
+    for obj in [1;31miterable[0m:
+               [1;31m^^^^^^^^[0m
+  File [35m"C:\Users\tbagt\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\pool.py"[0m, line [35m451[0m, in [35m<genexpr>[0m
+    return (item for chunk in [1;31mresult[0m for item in chunk)
+                              [1;31m^^^^^^[0m
+  File [35m"C:\Users\tbagt\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\pool.py"[0m, line [35m861[0m, in [35mnext[0m
+    [31mself._cond.wait[0m[1;31m(timeout)[0m
+    [31m~~~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^[0m
+  File [35m"C:\Users\tbagt\AppData\Local\Programs\Python\Python313\Lib\threading.py"[0m, line [35m359[0m, in [35mwait[0m
+    [31mwaiter.acquire[0m[1;31m()[0m
+    [31m~~~~~~~~~~~~~~[0m[1;31m^^[0m
+[1;35mKeyboardInterrupt[0m
+Traceback (most recent call last):
+  File [35m"C:\Users\tbagt\TheThieleMachine\attempt.py"[0m, line [35m35[0m, in [35m<module>[0m
+    import numpy as np
+[1;35mModuleNotFoundError[0m: [35mNo module named 'numpy'[0m
 MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
 To run this script, install dependencies:
 pip install z3-solver numpy scipy networkx python-sat matplotlib
 Random seed: 123456789
 Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
-[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 21/50 collected (elapsed: 2.11s)
-[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 22/50 collected (elapsed: 2.11s)
-[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 23/50 collected (elapsed: 2.13s)
-[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 24/50 collected (elapsed: 2.13s)
-[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 25/50 collected (elapsed: 2.17s)
-[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 26/50 collected (elapsed: 2.17s)
-[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 27/50 collected (elapsed: 2.28s)
-[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 28/50 collected (elapsed: 2.28s)
-[2025-08-21 09:35:45] [PID=1156] [HOST=DevonsPC] Job 29/50 collected (elapsed: 2.71s)
-[2025-08-21 09:35:45] [PID=1156] [HOST=DevonsPC] Job 30/50 collected (elapsed: 2.71s)
-[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 31/50 collected (elapsed: 3.99s)
-[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 32/50 collected (elapsed: 3.99s)
-[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 33/50 collected (elapsed: 4.00s)
-[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 34/50 collected (elapsed: 4.00s)
-[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 35/50 collected (elapsed: 4.06s)
-[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 36/50 collected (elapsed: 4.07s)
-[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 37/50 collected (elapsed: 4.07s)
-[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 38/50 collected (elapsed: 4.07s)
-[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 39/50 collected (elapsed: 4.10s)
-[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 40/50 collected (elapsed: 4.10s)
-[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 41/50 collected (elapsed: 4.22s)
-[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 42/50 collected (elapsed: 4.22s)
-[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 43/50 collected (elapsed: 4.25s)
-[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 44/50 collected (elapsed: 4.25s)
-[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 45/50 collected (elapsed: 4.29s)
-[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 46/50 collected (elapsed: 4.29s)
-[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 47/50 collected (elapsed: 4.31s)
-[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 48/50 collected (elapsed: 4.31s)
-[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 49/50 collected (elapsed: 4.36s)
-[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 50/50 collected (elapsed: 4.36s)
-[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Experiment finished in 4.39 seconds. All logic indexed!
-[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Results saved to 'tseitin_receipts.json' (Now trending)
-[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] SHA256 of receipts file: 75d029898e60ee3deeaac70f1c7b2f64e222935ae7bdae345c19de4f192746ab (Cryptographically Verified)
-[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Main experiment completed in 4.41s
+
+=== Pi_trace: Turing Subsumption (UNSAT counterexample) ===
+[PASS] Universal one-step equality; determinism => bisimulation.
+Proof: shape_of_truth_out/bisimulation_proof.txt SHA256: 62eb0b4e7d32c3eb7cdf14da276ace0e44410b3377c15e27ab3c76056d5b0274
+[VNEnc.prove_LOAD] All cases checked, proof passes. File: shape_of_truth_out/vn_proofs/LOAD.unsat.txt
+[VNEnc.prove_STORE] All cases checked, proof passes. File: shape_of_truth_out/vn_proofs/STORE.unsat.txt
+[VNEnc.prove_ADD] All cases checked, proof passes. File: shape_of_truth_out/vn_proofs/ADD.unsat.txt
+[VNEnc.prove_JZ] All cases checked, proof passes. File: shape_of_truth_out/vn_proofs/JZ.unsat.txt
+[VNEnc.prove_JMP] All cases checked, proof passes. File: shape_of_truth_out/vn_proofs/JMP.unsat.txt
+[VNEnc.prove_HALT] All cases checked, proof passes. File: shape_of_truth_out/vn_proofs/HALT.unsat.txt
+
+=== Pi_trace: von Neumann (RAM) Subsumption (UNSAT per-instruction) ===
+[PASS] All instruction schemas subsumed (no counterexamples).
+Proof: shape_of_truth_out\vn_proofs\LOAD.unsat.txt SHA256: 86910e5e8f9c2c1c53380a71479110e13f765cd971fb104d32b4db624c61c73a
+Proof: shape_of_truth_out\vn_proofs\STORE.unsat.txt SHA256: df0792af65add6f1c9b296d625f15969d4faa0872283c6c4bfe9d318aacd60ff
+Proof: shape_of_truth_out\vn_proofs\ADD.unsat.txt SHA256: a1c6809b70a6251d247d6d0f1277ba778c66cc2cca2d1a436ccd0dcef3b53eb9
+Proof: shape_of_truth_out\vn_proofs\JZ.unsat.txt SHA256: 8ad312d6e2b0459b4bddc63169ee15c29b5cef811151c6492cb05488810bfd40
+Proof: shape_of_truth_out\vn_proofs\JMP.unsat.txt SHA256: 5bb0dc475592f2a6bccc9b810b594d06f6b7be6ad297876515d6bb016afa66fc
+Proof: shape_of_truth_out\vn_proofs\HALT.unsat.txt SHA256: 345b57b235553b0999f764871a5fcc28d3cf4ecc76c3ed3466ce821bd827c0e6
+
+===============================================================================
+THE PARADOX (The 4 Puzzle Pieces)
+===============================================================================
+Thesis 1: Computation is geometric; problems have shape.
+Thesis 2: The von Neumann/Turing model is blind to hidden dimensions.
+
+The puzzle: Four pieces. The goal is to find a single, consistent rule.
+Z3, the logic engine, is the impartial referee.
+
+THE PUZZLE PIECES (K, d, T -> W):
+  Piece A: K=0, color d=0, T=0 -> shape W=0
+  Piece B: K=1, color d=0, T=0 -> shape W=0
+  Piece C: K=0, color d=0, T=1 -> shape W=0
+  Piece D: K=1, color d=1, T=1 -> shape W=1
+
+Explicit linear combination (blind solver):
+Z3 check: unsat (should be unsat)
+
+--------------------------------------------------------------------------------
+ARTICLE 1 — The blind solver (plane) fails provably
+Constraint: a single linear rule must fit all pieces.
+--------------------------------------------------------------------------------
+The blind solver tries to find one rule. Z3 reports: unsat
+assump_1: 1*A + 0*B + C == 0
+assump_0: 0*A + 0*B + C == 0
+assump_2: 0*A + 1*B + C == 0
+assump_3: 1*A + 1*B + C == 1
+
+This failure is not a bug; it is a mathematical certainty. The referee issues a
+'Certificate of Impossibility', a Farkas Witness, proving the contradiction.
+  Farkas certificate (lambda): [Fraction(1, 1), Fraction(-1, 1), Fraction(-1, 1), Fraction(1, 1)] (size=4)
+  The Baker's equations, when combined via the certificate lambda, produce: 0 = 1
+  [PASS] The referee validates this is an impossible contradiction.
+Farkas combo -> (0) == (1)   # contradiction
+
+--------------------------------------------------------------------------------
+ARTICLE 2 — The partition-aware solver (sphere) solves the puzzle
+Strategy: use a different simple rule for each color.
+--------------------------------------------------------------------------------
+The solver looks at color d=0. Z3 reports: sat
+The solver looks at color d=1. Z3 reports: sat
+
+Conclusion: Blindness created a paradox. Sight resolved it. The only difference
+between possible and impossible was the perception of the hidden dimension 'd'.
+
+--- PARADOX VERDICT: PASS ---
+
+===============================================================================
+THE PRINCIPLE IS UNIVERSAL
+===============================================================================
+Thesis 3: The separation between trace (Turing) and composite (Thiele) computation
+          is a universal property.
+
+
+--------------------------------------------------------------------------------
+DEMO 1 — Rotations: Sequential vs. Composite Operations
+--------------------------------------------------------------------------------
+Trace (X then Y) result hash : 01f558e325b9df25e0e6e1716724889e7982e243c64d8a0eb848a394ae291f5d
+Trace (Y then X) result hash : a847a7e9e98ca597e85e3d52c74bff1ca620439987925042f9d7a38a426c87ba
+Composite (Final Orientation): a847a7e9e98ca597e85e3d52c74bff1ca620439987925042f9d7a38a426c87ba
+Intended net rotation hash   : a847a7e9e98ca597e85e3d52c74bff1ca620439987925042f9d7a38a426c87ba
+Composite orientation matches intended net rotation (order-invariant).
+[PASS] Sequential traces are order-dependent. The composite witness is a fixed point.
+
+--------------------------------------------------------------------------------
+DEMO 2 — Sudoku: A Single Point in Constraint Space
+--------------------------------------------------------------------------------
+Compose (Thiele) result: sat, witness_hash=fa676145c6e08372661f4cadcaf7949b5ef521911640403977c8ee11e2122aae
+A von Neumann machine must trace a path, which is inherently order-dependent:
+  Trace path hash (seed 1): 0683dddb9b85a0212672408b3358ed45d08a694d589cfd476dc069df7f786d36
+  Trace path hash (seed 2): d95484cedf775bee635ccc3bb8dce08bccc2fe5055ff96ed289cacd1755b4a1a
+[PASS] The composite witness is the destination; a trace is just one of many paths.
+
+===============================================================================
+THE ENGINE OF DISCOVERY & THE LAW OF NUSD
+===============================================================================
+Thesis 4: Sight can be derived. Logical paradoxes are maps to hidden dimensions.
+Thesis 5: There is No Unpaid Sight Debt (NUSD). Discovery has a quantifiable cost.
+
+We now address the ghost of Turing. He asks: "How do you find the hidden dimension?"
+and "What is the cost of sight?" The machine now answers.
+
+[MDL now reflects both model complexity and the cost of logical failure. If a partition is logically inconsistent (cannot be solved by any linear model), its MDL is set to infinity, representing an infinite cost for inconsistency.]
+
+
+--------------------------------------------------------------------------------
+ARTICLE 1 — The Engine of Discovery
+--------------------------------------------------------------------------------
+The Engine begins with the paradox from earlier. It will now conduct a blind
+search for a hidden geometry that resolves the contradiction.
+The Engine has identified 10 possible ways to partition the world.
+  Testing partition { A } vs { B, C, D }... FAILED (min support)
+  Testing partition { B } vs { A, C, D }... FAILED (min support)
+  Testing partition { C } vs { A, B, D }... FAILED (min support)
+  Testing partition { D } vs { A, B, C }... FAILED (min support)
+  Testing partition { A, B } vs { C, D }... SUCCESS (MDL=105.00 bits)
+  Testing partition { A, C } vs { B, D }... SUCCESS (MDL=105.00 bits)
+  Testing partition { A, D } vs { B, C }... SUCCESS (MDL=105.00 bits)
+  Testing partition { B, C } vs { A, D }... SUCCESS (MDL=105.00 bits)
+  Testing partition { B, D } vs { A, C }... SUCCESS (MDL=105.00 bits)
+  Testing partition { C, D } vs { A, B }... SUCCESS (MDL=105.00 bits)
+Uniqueness flag (after MDL tie-breaks): False
+
+[PASS] The Engine of Discovery succeeded. The key insight is the existence of a non-empty set of valid partitions.
+Multiple equally optimal partitions were discovered:
+  { A, B } vs { C, D }
+  { A, C } vs { B, D }
+  { A, D } vs { B, C }
+  { B, C } vs { A, D }
+  { B, D } vs { A, C }
+  { C, D } vs { A, B }
+Non-uniqueness is a feature, not a bug. The essential result is that valid partitions exist.
+
+Discovery candidates (MDL unit: bits):
+  Engine of Discovery (partition): MDL=105.0 bits; cert=1 
+    Certificate: partition split { A, B } vs { C, D } (size=1)
+  partition-aware solver (partition): MDL=105.0 bits; cert=2 
+    Certificate: affine rules for d=0 and d=1 (size=2)
+  blind solver (Resolution): MDL=inf bits; cert=1 
+    This model is logically inconsistent; assigned infinite cost.
+Uniqueness: False
+
+--------------------------------------------------------------------------------
+ARTICLE 2 — The Universal Ledger of NUSD
+--------------------------------------------------------------------------------
+| Approach            | Result           | Time Cost (s) | NUSD Paid (bits) |
+|---------------------|------------------|---------------|------------------|
+| blind solver         | UNSAT (Failure)  | 0.00031       | 1 (Implicit)     |
+| partition-aware solver   | SAT (Success)    | 0.00113       | 0                |
+| Engine of Discovery | SAT (Discovered) | 0.02217       | 0                |
+
+The Ledger is clear. Blindness is fast and wrong. Sight is more expensive but correct.
+Discovery is the price paid to create the map that enables sight.
+This is the Law of NUSD: sight is never free. You either pay the cost of discovery,
+or you accumulate information debt, which leads to catastrophic failure.
+
+Reconstruction object (JSON):
+{
+  "projection": "Pi_trace",
+  "unsat_core": "[Fraction(1, 1), Fraction(-1, 1), Fraction(-1, 1), Fraction(1, 1)]",
+  "selected_module": "Engine of Discovery (partition)",
+  "reconstruction": {
+    "partition": "{ A, B } vs { C, D }",
+    "certificate": "partition split",
+    "certificate_size": 1
+  },
+  "mdl_gap_bits": Infinity,
+  "NUSD_bits": Infinity,
+  "uniqueness": false
+}
+NUSD_bits = MDL_blind_bits - MDL_discovery_bits = inf - 105.0 = inf
+
+===============================================================================
+THE FRACTAL NATURE OF DEBT (sequential harness)
+===============================================================================
+Thesis 6: The cost of blindness is not linear; it is often exponential.
+          Every unperceived dimension multiplies the information debt.
+
+This experiment uses a sequential harness to generate and solve a batch of Tseitin expander instances, collecting receipts for exponential separation. All results are printed below.
+
+[2025-09-01 23:53:53] [PID=18060] [HOST=DevonsPC] Main experiment started.
+[2025-09-01 23:53:53] [PID=18060] [HOST=DevonsPC] Job list constructed: 50 jobs. Sample: [(10, 0, 100000, 5000000, 123456789), (10, 1, 100000, 5000000, 123456789), (10, 2, 100000, 5000000, 123456789)]
+[2025-09-01 23:53:53] [PID=18060] [HOST=DevonsPC] Job 1/50 completed (elapsed: 0.00s)
+[2025-09-01 23:53:53] [PID=18060] [HOST=DevonsPC] Job 2/50 completed (elapsed: 0.01s)
+[2025-09-01 23:53:53] [PID=18060] [HOST=DevonsPC] Job 3/50 completed (elapsed: 0.01s)
+[2025-09-01 23:53:53] [PID=18060] [HOST=DevonsPC] Job 4/50 completed (elapsed: 0.02s)
+[2025-09-01 23:53:53] [PID=18060] [HOST=DevonsPC] Job 5/50 completed (elapsed: 0.02s)
+[2025-09-01 23:53:53] [PID=18060] [HOST=DevonsPC] Job 6/50 completed (elapsed: 0.02s)
+[2025-09-01 23:53:53] [PID=18060] [HOST=DevonsPC] Job 7/50 completed (elapsed: 0.03s)
+[2025-09-01 23:53:53] [PID=18060] [HOST=DevonsPC] Job 8/50 completed (elapsed: 0.03s)
+[2025-09-01 23:53:53] [PID=18060] [HOST=DevonsPC] Job 9/50 completed (elapsed: 0.04s)
+[2025-09-01 23:53:53] [PID=18060] [HOST=DevonsPC] Job 10/50 completed (elapsed: 0.04s)
+[2025-09-01 23:53:53] [PID=18060] [HOST=DevonsPC] Job 11/50 completed (elapsed: 0.04s)
+[2025-09-01 23:53:53] [PID=18060] [HOST=DevonsPC] Job 12/50 completed (elapsed: 0.05s)
+[2025-09-01 23:53:53] [PID=18060] [HOST=DevonsPC] Job 13/50 completed (elapsed: 0.05s)
+[2025-09-01 23:53:53] [PID=18060] [HOST=DevonsPC] Job 14/50 completed (elapsed: 0.06s)
+[2025-09-01 23:53:53] [PID=18060] [HOST=DevonsPC] Job 15/50 completed (elapsed: 0.06s)
+[2025-09-01 23:53:53] [PID=18060] [HOST=DevonsPC] Job 16/50 completed (elapsed: 0.07s)
+[2025-09-01 23:53:53] [PID=18060] [HOST=DevonsPC] Job 17/50 completed (elapsed: 0.08s)
+[2025-09-01 23:53:53] [PID=18060] [HOST=DevonsPC] Job 18/50 completed (elapsed: 0.08s)
+[2025-09-01 23:53:53] [PID=18060] [HOST=DevonsPC] Job 19/50 completed (elapsed: 0.09s)
+[2025-09-01 23:53:53] [PID=18060] [HOST=DevonsPC] Job 20/50 completed (elapsed: 0.09s)
+[2025-09-01 23:53:53] [PID=18060] [HOST=DevonsPC] Job 21/50 completed (elapsed: 0.23s)
+[2025-09-01 23:53:53] [PID=18060] [HOST=DevonsPC] Job 22/50 completed (elapsed: 0.30s)
+[2025-09-01 23:53:53] [PID=18060] [HOST=DevonsPC] Job 23/50 completed (elapsed: 0.56s)
+[2025-09-01 23:53:53] [PID=18060] [HOST=DevonsPC] Job 24/50 completed (elapsed: 0.59s)
+[2025-09-01 23:53:53] [PID=18060] [HOST=DevonsPC] Job 25/50 completed (elapsed: 0.63s)
+[2025-09-01 23:53:54] [PID=18060] [HOST=DevonsPC] Job 26/50 completed (elapsed: 0.78s)
+[2025-09-01 23:53:54] [PID=18060] [HOST=DevonsPC] Job 27/50 completed (elapsed: 1.28s)
+[2025-09-01 23:53:54] [PID=18060] [HOST=DevonsPC] Job 28/50 completed (elapsed: 1.37s)
+[2025-09-01 23:53:54] [PID=18060] [HOST=DevonsPC] Job 29/50 completed (elapsed: 1.54s)
+[2025-09-01 23:53:54] [PID=18060] [HOST=DevonsPC] Job 30/50 completed (elapsed: 1.59s)
+[2025-09-01 23:53:55] [PID=18060] [HOST=DevonsPC] Job 31/50 completed (elapsed: 2.35s)
+[2025-09-01 23:53:56] [PID=18060] [HOST=DevonsPC] Job 32/50 completed (elapsed: 3.14s)
+[2025-09-01 23:53:57] [PID=18060] [HOST=DevonsPC] Job 33/50 completed (elapsed: 3.89s)
+[2025-09-01 23:53:57] [PID=18060] [HOST=DevonsPC] Job 34/50 completed (elapsed: 4.66s)
+[2025-09-01 23:53:58] [PID=18060] [HOST=DevonsPC] Job 35/50 completed (elapsed: 5.44s)
+[2025-09-01 23:53:59] [PID=18060] [HOST=DevonsPC] Job 36/50 completed (elapsed: 6.23s)
+[2025-09-01 23:54:00] [PID=18060] [HOST=DevonsPC] Job 37/50 completed (elapsed: 7.03s)
+[2025-09-01 23:54:01] [PID=18060] [HOST=DevonsPC] Job 38/50 completed (elapsed: 7.75s)
+[2025-09-01 23:54:01] [PID=18060] [HOST=DevonsPC] Job 39/50 completed (elapsed: 8.48s)
+[2025-09-01 23:54:02] [PID=18060] [HOST=DevonsPC] Job 40/50 completed (elapsed: 9.29s)
+[2025-09-01 23:54:03] [PID=18060] [HOST=DevonsPC] Job 41/50 completed (elapsed: 10.30s)
+[2025-09-01 23:54:04] [PID=18060] [HOST=DevonsPC] Job 42/50 completed (elapsed: 11.17s)
+[2025-09-01 23:54:05] [PID=18060] [HOST=DevonsPC] Job 43/50 completed (elapsed: 12.01s)
+[2025-09-01 23:54:06] [PID=18060] [HOST=DevonsPC] Job 44/50 completed (elapsed: 12.90s)
+[2025-09-01 23:54:07] [PID=18060] [HOST=DevonsPC] Job 45/50 completed (elapsed: 13.82s)
+[2025-09-01 23:54:07] [PID=18060] [HOST=DevonsPC] Job 46/50 completed (elapsed: 14.67s)
+[2025-09-01 23:54:08] [PID=18060] [HOST=DevonsPC] Job 47/50 completed (elapsed: 15.41s)
+[2025-09-01 23:54:09] [PID=18060] [HOST=DevonsPC] Job 48/50 completed (elapsed: 16.27s)
+[2025-09-01 23:54:10] [PID=18060] [HOST=DevonsPC] Job 49/50 completed (elapsed: 17.10s)
+[2025-09-01 23:54:11] [PID=18060] [HOST=DevonsPC] Job 50/50 completed (elapsed: 17.93s)
+[2025-09-01 23:54:11] [PID=18060] [HOST=DevonsPC] Experiment finished in 17.93 seconds.
+[2025-09-01 23:54:11] [PID=18060] [HOST=DevonsPC] Results saved to 'tseitin_receipts.json' (Now trending)
+[2025-09-01 23:54:11] [PID=18060] [HOST=DevonsPC] SHA256 of receipts file: d24c5bfd6ae75e49bf97b94919d3f60fc3a7f2bebd4be0c0b5340fa1a032253a (Cryptographically Verified)
+[2025-09-01 23:54:11] [PID=18060] [HOST=DevonsPC] Main experiment completed in 17.94s
 
 ===============================================================================
 FINAL THEOREM & CONCLUSION
@@ -383,7 +553,7 @@ This operationally instantiates the Urquhart/Ben-Sasson–Wigderson lower bounds
 
 Solver Info (Blind):
   Name: PySAT Minisat22
-  Version: 1.8.dev19
+  Version: 1.8.dev20
   Conflict budget: 100,000
   Propagation budget: 5,000,000
 
@@ -404,56 +574,45 @@ n | seed | blind | conflicts | decisions | props | sighted | rank_gap | lhs_zero
  20 |    0 |    unsat |       146 |       196 |      1534 |    unsat |        1 |       N/A |      N/A |       N/A | 
 [Experiment] Plotting instance n=10, seed=0...
 [Experiment] Plotting instance n=20, seed=0...
-Plot saved: shape_of_truth_out/censored_fraction.png, SHA256: 66f8ccf81fdb406ea0a739f6b431ebab52671fef7331fe0c75795975809268fc
-Plot saved: shape_of_truth_out/median_conflicts.png, SHA256: 3a0b0e2af89021d1b959289f84e0ba0d489b855a8a701edd19087a2abc146bbb
+Plot saved: shape_of_truth_out/censored_fraction.png, SHA256: 93536d2d177249c52c25a764532b1b07ca5d088a5d59755f59eae0e648eb592e
+Plot saved: shape_of_truth_out/median_conflicts.png, SHA256: 8511d3c88bf235cf8112bf88be36559b0f4148a8355d8fdb3ac64df3bcbd5e29
 === pip freeze ===
-astroid==3.3.11
-blinker==1.9.0
-click==8.2.1
-colorama==0.4.6
-contourpy==1.3.3
-cycler==0.12.1
-dataclasses==0.6
-dill==0.4.0
-Flask==3.1.1
-fonttools==4.59.0
-iniconfig==2.1.0
-isort==6.0.1
-itsdangerous==2.2.0
-Jinja2==3.1.6
-joblib==1.5.1
-kiwisolver==1.4.8
-MarkupSafe==3.0.2
-matplotlib==3.10.5
-mccabe==0.7.0
-mpmath==1.3.0
-networkx==3.5
-numpy==2.3.2
-packaging==25.0
-pandas==2.3.1
-pillow==11.3.0
-platformdirs==4.3.8
-pluggy==1.6.0
-Pygments==2.19.2
-pylint==3.3.8
-pyparsing==3.2.3
-pytest==8.4.1
-python-dateutil==2.9.0.post0
-python-sat==1.8.dev19
-pytz==2025.2
-scikit-learn==1.7.1
-scipy==1.16.1
-six==1.17.0
-sympy==1.14.0
-threadpoolctl==3.6.0
-tomlkit==0.13.3
-tqdm==4.67.1
-typing_extensions==4.14.1
-tzdata==2025.2
-Werkzeug==3.1.3
-z3-solver==4.15.1.0
+colorama==0.4.6
 
-pip freeze SHA256: 93c74ed3608950bcf6985af5fb65617d5fbaa6d5dea75c17aa793226ee1e10f0
+contourpy==1.3.3
+
+cycler==0.12.1
+
+fonttools==4.59.2
+
+kiwisolver==1.4.9
+
+matplotlib==3.10.6
+
+networkx==3.5
+
+numpy==2.3.2
+
+packaging==25.0
+
+pillow==11.3.0
+
+pyparsing==3.2.3
+
+python-dateutil==2.9.0.post0
+
+python-sat==1.8.dev20
+
+scipy==1.16.1
+
+six==1.17.0
+
+tqdm==4.66.4
+
+z3-solver==4.15.1.0
+
+
+pip freeze SHA256: faf3a73d6658b60c45d7f14d7105c9843a446f463da1d2410d656b5a8284bfb6
 
 === Even-Charge Control Table ===
 parity | blind_status | blind_conflicts | blind_decisions | blind_props | sighted_result | rank_gap | cert_snip
@@ -697,13 +856,13 @@ STEP 5: Construct and print the Thiele Machine's Certificate of Inherent Paradox
   7. The minimal description is the paradox itself. Conclusion.
 
 === TRANSCRIPT & SOURCE HASHES (THE OUROBOROS SEAL) ===
-Source Hash     : decb21c3473881f8011ba8b14ce981e9598d95b8062088b7b08aa5ccb8d8dbae
-Transcript Hash : d0dcc1dde70656474d5714ffe3fb8af3d33eef3d41f9643ec8a378f37f42e6d3
+Source Hash     : 50d674e6f09c7cb989e4157f8353db28af9597bc46987fc77994bae478164c97
+Transcript Hash : a4eddb352a69cc9055a94303d3c8898afe509bfae3f4c4886ebab1054afca355
 Python Version  : 3.13.5 (tags/v3.13.5:6cb20a2, Jun 11 2025, 16:15:46) [MSC v.1943 64 bit (AMD64)]
 OS              : win32
-Timestamp (UTC) : 2025-08-21T16:35:49Z
+Timestamp (UTC) : 2025-09-02T06:54:12Z
 Random Seed     : 123456789
-Run Signature   : 0a98f8eea4b7ecd1e3cb9a7eaa868249
+Run Signature   : 9aacc2393c8b5c6f15db822414afe83f
 Author          : Devon Thiele
 
 This is the meta-proof. The proof of the proof.
@@ -719,13 +878,13 @@ The artifact is its own signature, providing a self-consistent record.
     "sphere_sat": true
   },
   "hash": {
-    "source_sha256": "decb21c3473881f8011ba8b14ce981e9598d95b8062088b7b08aa5ccb8d8dbae",
-    "transcript_sha256": "d0dcc1dde70656474d5714ffe3fb8af3d33eef3d41f9643ec8a378f37f42e6d3",
+    "source_sha256": "50d674e6f09c7cb989e4157f8353db28af9597bc46987fc77994bae478164c97",
+    "transcript_sha256": "a4eddb352a69cc9055a94303d3c8898afe509bfae3f4c4886ebab1054afca355",
     "python_version": "3.13.5 (tags/v3.13.5:6cb20a2, Jun 11 2025, 16:15:46) [MSC v.1943 64 bit (AMD64)]",
     "os": "win32",
-    "timestamp_utc": "2025-08-21T16:35:49Z",
+    "timestamp_utc": "2025-09-02T06:54:12Z",
     "random_seed": 123456789,
-    "run_signature": "0a98f8eea4b7ecd1e3cb9a7eaa868249",
+    "run_signature": "9aacc2393c8b5c6f15db822414afe83f",
     "author": "Devon Thiele"
   }
 }

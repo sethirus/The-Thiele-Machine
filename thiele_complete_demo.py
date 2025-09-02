@@ -498,6 +498,7 @@ def run_auditor_demo():
 
 def run_cathedral_demo():
     """Visual demonstration of blind vs sighted computation using Mandelbrot set."""
+    # pylint: disable=no-member
     print(f"\n{BOLD}{'='*60}{RESET}")
     print(f"{BOLD}CATHEDRAL DEMO{RESET}")
     print("Four-act demonstration: blind computation vs sighted composition")
@@ -553,7 +554,7 @@ def run_cathedral_demo():
                     color.hsva = (hue, sat, val, 100)
                 else:
                     color = (0, 0, 50)  # Dark blue for set
-                pixels[x, y] = color
+                pixels[x, y] = color  # type: ignore[reportIndexIssue]
                 rendered += 1
             if rendered >= pixels_to_render:
                 break
@@ -563,8 +564,8 @@ def run_cathedral_demo():
     def partition_and_verify(surface: pygame.Surface):
         theta = np.linspace(0, 2 * np.pi, 1000)
         c_cardioid = 0.25 * (2 * np.exp(1j * theta) - np.exp(2j * theta))
-        x_cardioid = (c_cardioid.real + 2.5) * (WIDTH / 3.5)
-        y_cardioid = (c_cardioid.imag + 1.0) * (HEIGHT / 2.0)
+        x_cardioid = c_cardioid.real * (WIDTH / 4) + WIDTH / 2
+        y_cardioid = c_cardioid.imag * (HEIGHT / 4) + HEIGHT / 2
         points = list(zip(x_cardioid, y_cardioid))
         overlay = pygame.Surface((WIDTH, HEIGHT), pygame.SRCALPHA)
         pygame.draw.polygon(overlay, (0, 150, 255, 60), points)
@@ -638,7 +639,7 @@ def run_cathedral_demo():
     render_speed = 0.02  # Progress per frame
     zoom = 1.0
     offset_x, offset_y = 0.0, 0.0
-    zoom_speed = 0.01
+    zoom_speed = 0.001
     text_scroll_y = HEIGHT
 
     educational_texts = {
@@ -701,8 +702,8 @@ def run_cathedral_demo():
                 blind_surface = pygame.Surface((WIDTH, HEIGHT))
             progress = min(1.0, progress + render_speed)
             zoom += zoom_speed
-            offset_x += 0.001
-            offset_y += 0.001
+            offset_x += 0.0001
+            offset_y += 0.0001
             blind_surface = render_blind(blind_surface, progress, zoom, offset_x, offset_y)
             screen.blit(blind_surface, (0, 0))
             draw_scrolling_text(screen, educational_texts["ACT_I_BLIND"], 50, font_small)
@@ -911,7 +912,7 @@ def write_badge(okay: bool):
 def pack_capsule():
     manifest = {
         "format": "thiele.demo.capsule.v1",
-        "produced_at": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "produced_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "python": platform.python_version(),
         "platform": platform.platform(),
         "contents": sorted([p.name for p in RES.glob("*")])

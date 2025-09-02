@@ -1443,179 +1443,78 @@ def run_single_experiment(params):
         return None
 
 def run_fractal_debt():
-    """The fractal nature of debt using the fast multiprocessing harness."""
-    import multiprocessing
+    """The fractal nature of debt using a sequential harness instead of multiprocessing."""
     import platform
-    try:
-        from tqdm import tqdm  # type: ignore
-    except Exception:
-        tqdm = None
-
     say(r"""
 ===============================================================================
-THE FRACTAL NATURE OF DEBT (advanced harness, full batch)
+THE FRACTAL NATURE OF DEBT (sequential harness)
 ===============================================================================
 Thesis 6: The cost of blindness is not linear; it is often exponential.
           Every unperceived dimension multiplies the information debt.
 
-This experiment uses the advanced multiprocessing expander harness to generate
-and solve a full batch of Tseitin expander instances, collecting receipts for
-exponential separation. All results are printed below.
+This experiment uses a sequential harness to generate and solve a batch of Tseitin expander instances, collecting receipts for exponential separation. All results are printed below.
 """)
 
     main_start_time = time.time()
     print(
         f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Main experiment started."
     )
-    heartbeat_stop = threading.Event()
-    heartbeat_progress = {"completed": 0, "total": 0, "job_timestamps": []}
 
-    def heartbeat():  # pragma: no cover - diagnostic path
-        import collections
+    GLOBAL_SEED = RUN_SEED
+    NS_TO_RUN = [10, 20, 50, 80, 120]
+    SEEDS_PER_N = 10
+    BUDGETS = {"conf_budget": 100_000, "prop_budget": 5_000_000}
+    jobs = [
+        (n, seed, BUDGETS["conf_budget"], BUDGETS["prop_budget"], GLOBAL_SEED)
+        for n in NS_TO_RUN
+        for seed in range(SEEDS_PER_N)
+    ]
+    print(
+        f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Job list constructed: {len(jobs)} jobs. Sample: {jobs[:3]}"
+    )
 
-        MOVING_AVG_WINDOW = 10
-        last_completed = 0
-        last_time = time.time()
-        start_time = last_time
-        job_timestamps = collections.deque(maxlen=MOVING_AVG_WINDOW + 1)
-        while not heartbeat_stop.is_set():
-            now = time.time()
-            completed = heartbeat_progress["completed"]
-            total = heartbeat_progress["total"]
-            delta = completed - last_completed
-            interval = now - last_time
-            elapsed = now - start_time
-            if completed > last_completed:
-                for _ in range(delta):
-                    job_timestamps.append(now)
-            if len(job_timestamps) > 1:
-                recent = [t2 - t1 for t1, t2 in zip(list(job_timestamps)[:-1], list(job_timestamps)[1:])]
-                moving_avg_job_time = sum(recent) / len(recent)
-            else:
-                moving_avg_job_time = (elapsed / completed) if completed > 0 else 0
-            eta_total = (
-                (total - completed) * moving_avg_job_time
-                if moving_avg_job_time > 0
-                else float("inf")
-            )
-            msg = (
-                f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Heartbeat:\n"
-                f"  - Progress: {completed}/{total} jobs completed (+{delta} since last beat)\n"
-                f"  - Interval: {interval:.2f}s\n"
-                f"  - ETA to program finish: {eta_total if eta_total != float('inf') else 'N/A'}s\n"
-                f"  - Elapsed: {int(elapsed // 60)}m {int(elapsed % 60)}s\n"
-            )
-            print(msg)
-            last_completed = completed
-            last_time = now
-            heartbeat_stop.wait(10)
+    all_results = []
+    pool_start = time.time()
+    for idx, job in enumerate(jobs):
+        result = run_single_experiment(job)
+        if result is not None:
+            all_results.append(result)
+        print(
+            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Job {idx+1}/{len(jobs)} completed (elapsed: {time.time()-pool_start:.2f}s)"
+        )
 
-    try:
-        GLOBAL_SEED = RUN_SEED
-        NS_TO_RUN = [10, 20, 50, 80, 120]
-        SEEDS_PER_N = 10
-        BUDGETS = {"conf_budget": 100_000, "prop_budget": 5_000_000}
-        jobs = [
-            (n, seed, BUDGETS["conf_budget"], BUDGETS["prop_budget"], GLOBAL_SEED)
-            for n in NS_TO_RUN
-            for seed in range(SEEDS_PER_N)
-        ]
-        heartbeat_progress["total"] = len(jobs)
-        print(
-            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Job list constructed: {len(jobs)} jobs. Sample: {jobs[:3]}"
-        )
-        cpu_count = os.cpu_count()
-        num_workers = cpu_count - 1 if cpu_count and cpu_count > 1 else 1
-        print(
-            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Launching quantum logic engines... (Google-style magic)"
-        )
-        print(
-            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Starting experiment: {len(jobs)} jobs on {num_workers} cores. Searching for truth in parallel..."
-        )
-        print(
-            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Pool start: {num_workers} workers, {len(jobs)} jobs"
-        )
-        heartbeat_thread = threading.Thread(target=heartbeat, daemon=True)
-        heartbeat_thread.start()
-        all_results = []
-        pool_start = time.time()
-        chunksize = max(2, len(jobs) // (8 * num_workers)) if num_workers > 0 else 1
-        if tqdm is not None:
-            with multiprocessing.Pool(processes=num_workers, maxtasksperchild=200) as pool:
-                for idx, result in enumerate(
-                    tqdm(
-                        pool.imap_unordered(run_single_experiment, jobs, chunksize=chunksize),
-                        total=len(jobs),
-                        desc="Solving... (Feeling Lucky)",
-                        ncols=80,
-                        bar_format="{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}]",
-                    )
-                ):
-                    if result is not None:
-                        all_results.append(result)
-                    heartbeat_progress["completed"] = idx + 1
-                    print(
-                        f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Job {idx+1}/{len(jobs)} collected (elapsed: {time.time()-pool_start:.2f}s)"
-                    )
+    end_time = time.time()
+    print(
+        f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Experiment finished in {end_time - pool_start:.2f} seconds."
+    )
+
+    output_filename = "tseitin_receipts.json"
+
+    def convert_np(obj):
+        if isinstance(obj, dict):
+            return {k: convert_np(v) for k, v in obj.items()}
+        elif isinstance(obj, list):
+            return [convert_np(x) for x in obj]
+        elif isinstance(obj, (int, float)):
+            return obj
+        elif hasattr(obj, "item"):
+            return obj.item()
         else:
-            with multiprocessing.Pool(processes=num_workers, maxtasksperchild=200) as pool:
-                completed = 0
-                for result in pool.imap_unordered(run_single_experiment, jobs, chunksize=chunksize):
-                    if result is not None:
-                        all_results.append(result)
-                    completed += 1
-                    heartbeat_progress["completed"] = completed
-                    print(
-                        f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Job {completed}/{len(jobs)} collected (elapsed: {time.time()-pool_start:.2f}s)"
-                    )
-                    if completed % 5 == 0 or completed == len(jobs):
-                        print(
-                            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Searching for answers... {completed}/{len(jobs)} jobs completed. (Google it!)"
-                        )
-        end_time = time.time()
-        print(
-            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Experiment finished in {end_time - pool_start:.2f} seconds. All logic indexed!"
-        )
-        heartbeat_stop.set()
-        heartbeat_thread.join(timeout=2)
-        output_filename = "tseitin_receipts.json"
+            return obj
 
-        def convert_np(obj):
-            if isinstance(obj, dict):
-                return {k: convert_np(v) for k, v in obj.items()}
-            elif isinstance(obj, list):
-                return [convert_np(x) for x in obj]
-            elif isinstance(obj, (int, float)):
-                return obj
-            elif hasattr(obj, "item"):
-                return obj.item()
-            else:
-                return obj
-
-        with open(output_filename, "w") as f:
-            json.dump(convert_np(all_results), f, indent=2, separators=(",", ": "))
-        with open(output_filename, "rb") as f:
-            file_hash = hashlib.sha256(f.read()).hexdigest()
-        print(
-            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Results saved to '{output_filename}' (Now trending)"
-        )
-        print(
-            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] SHA256 of receipts file: {file_hash} (Cryptographically Verified)"
-        )
-        print(
-            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Main experiment completed in {time.time()-main_start_time:.2f}s"
-        )
-    except Exception as e:  # pragma: no cover - diagnostic path
-        import traceback
-
-        heartbeat_stop.set()
-        print(
-            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] MAIN ERROR: {e}"
-        )
-        print(traceback.format_exc())
-        print(
-            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Main experiment failed after {time.time()-main_start_time:.2f}s"
-        )
+    with open(output_filename, "w") as f:
+        json.dump(convert_np(all_results), f, indent=2, separators=(",", ": "))
+    with open(output_filename, "rb") as f:
+        file_hash = hashlib.sha256(f.read()).hexdigest()
+    print(
+        f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Results saved to '{output_filename}' (Now trending)"
+    )
+    print(
+        f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] SHA256 of receipts file: {file_hash} (Cryptographically Verified)"
+    )
+    print(
+        f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Main experiment completed in {time.time()-main_start_time:.2f}s"
+    )
 # ================================================================================
 # FINAL THEOREM & CONCLUSION
 # ================================================================================
