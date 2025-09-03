@@ -1,5 +1,7 @@
 from typing import List
-from scripts.multiplier_cnf_provider import Clause
+
+# Define Clause type locally since multiplier_cnf_provider was removed
+Clause = List[int]
 
 class SudokuCnfProvider:
     def __init__(self, puzzle_string: str):
