@@ -288,7 +288,7 @@ class VM:
         ledger: List[LedgerEntry] = []
         cert_dir = outdir / "certs"
         modules: Dict[str, int] = {}  # For tracking named modules
-        current_module = self.state.pnew({1})
+        current_module = self.state.pnew({0})  # Use region {0} for initial module
         step = 0
         for op, arg in program:
             step += 1
