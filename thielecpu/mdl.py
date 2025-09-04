@@ -2,9 +2,18 @@
 
 from __future__ import annotations
 
-from .isa import CSR
-from .state import State
-from ._types import ModuleId
+try:
+    from .isa import CSR
+    from .state import State
+    from ._types import ModuleId
+except ImportError:
+    # Handle running as script
+    import sys
+    import os
+    sys.path.insert(0, os.path.dirname(__file__))
+    from isa import CSR
+    from state import State
+    from _types import ModuleId
 
 
 def mdlacc(state: State, module: ModuleId, *, consistent: bool) -> int:
