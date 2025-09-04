@@ -1,7 +1,9 @@
 import time
 import sys
 from scripts.sudoku_cnf_provider import SudokuCnfProvider
-from scripts.thiele_simulator import ThieleSimulator
+from thielecpu.vm import VM
+from thielecpu.state import State
+import ast
 
 def load_completed_grid_from_file(filename):
     """Load completed Sudoku grid from file"""
@@ -36,6 +38,37 @@ def extract_possible_clues(grid):
 def grid_to_puzzle_string(grid):
     return ''.join(str(grid[r][c]) for r in range(1,10) for c in range(1,10))
 
+def solve_with_vm(provider, assumptions=None):
+    clauses = provider.get_all_clauses()
+    if assumptions:
+        for assumption in assumptions:
+            clauses.append([assumption])
+    code = f"""
+from pysat.solvers import Glucose4
+
+clauses = {clauses}
+
+solver = Glucose4()
+for cls in clauses:
+    solver.add_clause(cls)
+
+if solver.solve():
+    model = solver.get_model()
+    print('SAT')
+    print(repr(model))
+else:
+    print('UNSAT')
+"""
+    vm = VM(State())
+    _, output = vm.execute_python(code)
+    if 'SAT' in output:
+        lines = output.strip().split('\n')
+        for line in lines:
+            if line.startswith('[') and line.endswith(']'):
+                model = ast.literal_eval(line)
+                return model
+    return None
+
 def is_unique_solution(clues, completed_grid):
     # Temporarily set non-clue cells to 0
     temp_grid = [[0]*10 for _ in range(10)]
@@ -45,8 +78,7 @@ def is_unique_solution(clues, completed_grid):
     temp_puzzle = grid_to_puzzle_string(temp_grid)
     
     provider = SudokuCnfProvider(temp_puzzle)
-    simulator = ThieleSimulator(provider)
-    model1 = simulator.solve()
+    model1 = solve_with_vm(provider)
     if not model1:
         return False  # No solution
     
@@ -59,7 +91,7 @@ def is_unique_solution(clues, completed_grid):
             forbid_clause.append(-var)
     provider.add_clause(forbid_clause)  # Forbid this assignment
     
-    model2 = simulator.solve()
+    model2 = solve_with_vm(provider)
     return model2 is None  # If no second solution, unique
 
 def find_minimal_clues(possible_clues, completed_grid, max_iterations=1000):
