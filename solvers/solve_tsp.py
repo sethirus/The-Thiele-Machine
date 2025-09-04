@@ -1,6 +1,8 @@
 import time
 from scripts.tsp_cnf_provider import TspCnfProvider
-from scripts.thiele_simulator import ThieleSimulator
+from thielecpu.vm import VM
+from thielecpu.state import State
+import ast
 
 # Define coordinates for att48 TSP problem (48 cities)
 cities = [
@@ -23,7 +25,6 @@ cities = [
 CHALLENGE_LENGTH = 10628
 
 provider = TspCnfProvider(cities=cities, max_length=CHALLENGE_LENGTH)
-simulator = ThieleSimulator(provider)
 
 print("="*60)
 print("Thiele Machine vs. The Traveling Salesman Problem")
@@ -32,7 +33,36 @@ print(f"Target: Find a tour of length < {CHALLENGE_LENGTH}")
 print("="*60)
 
 start_time = time.time()
-solution_model = simulator.solve()
+# Solve using the virtual machine
+clauses = provider.get_all_clauses()
+code = f"""
+from pysat.solvers import Glucose4
+
+clauses = {clauses}
+
+solver = Glucose4()
+for cls in clauses:
+    solver.add_clause(cls)
+
+if solver.solve():
+    model = solver.get_model()
+    print('SAT')
+    print(repr(model))
+else:
+    print('UNSAT')
+"""
+
+vm = VM(State())
+_, output = vm.execute_python(code)
+
+if 'SAT' in output:
+    lines = output.strip().split('\n')
+    for line in lines:
+        if line.startswith('[') and line.endswith(']'):
+            solution_model = ast.literal_eval(line)
+            break
+else:
+    solution_model = None
 end_time = time.time()
 
 if solution_model:

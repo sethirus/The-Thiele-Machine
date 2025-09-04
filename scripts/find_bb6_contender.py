@@ -1,25 +1,28 @@
 import time
 from scripts.busy_beaver_cnf_provider import BusyBeaverCnfProvider
-from pysat.solvers import Glucose4
+from thielecpu.vm import VM
+from thielecpu.state import State
+import ast
 
 class ThieleSimulator:
     def __init__(self, prov):
         self.provider = prov
-        self.solver = Glucose4()
+        self.vm = VM(State())
+        self.base_clauses = []
         self.base_loaded = False
 
     def load_base_rules(self):
         """Load the base CNF clauses for the Busy Beaver problem."""
         print("Loading base rules for 6-state Turing machine...")
-        # Add all clauses from the provider
-        for cls in self.provider.clauses:
-            self.solver.add_clause(cls)
-        print(f"Loaded {len(self.provider.clauses)} clauses.")
+        # Collect all clauses from the provider
+        self.base_clauses = list(self.provider.clauses)
+        print(f"Loaded {len(self.base_clauses)} clauses.")
         self.base_loaded = True
 
     def solve_with_constraint(self, constraint_str):
         """Solve with an additional constraint on the step counter."""
         print(f"Adding constraint: {constraint_str}")
+        clauses = list(self.provider.clauses)
         # Parse the constraint (simple case: step_counter >= TARGET_STEPS)
         if "step_counter >=" in constraint_str:
             target = int(constraint_str.split(">=")[1].strip())
@@ -27,13 +30,35 @@ class ThieleSimulator:
             # Since halting at t sets step_counter to t, and we require halting, this ensures t >= target
             for halt_step in range(1, min(target, self.provider.max_steps + 1)):
                 if halt_step in self.provider.is_halted:
-                    self.solver.add_clause([-self.provider.is_halted[halt_step]])  # Cannot halt at t < target
+                    clauses.append([-self.provider.is_halted[halt_step]])  # Cannot halt at t < target
         else:
             print("Unsupported constraint format.")
             return None
 
-        if self.solver.solve():
-            return self.solver.get_model()
+        # Solve using VM
+        code = f"""
+from pysat.solvers import Glucose4
+
+clauses = {clauses}
+
+solver = Glucose4()
+for cls in clauses:
+    solver.add_clause(cls)
+
+if solver.solve():
+    model = solver.get_model()
+    print('SAT')
+    print(repr(model))
+else:
+    print('UNSAT')
+"""
+        _, output = self.vm.execute_python(code)
+        if 'SAT' in output:
+            lines = output.strip().split('\n')
+            for line in lines:
+                if line.startswith('[') and line.endswith(']'):
+                    model = ast.literal_eval(line)
+                    return model
         return None
 
     def decode_value(self, model, var_name):
@@ -103,11 +128,8 @@ for t in range(MAX_STEPS):
     if t % 100 == 0:
         print(f"  Processed step {t}/{MAX_STEPS}...")
 
-print("Reloading new clauses into solver...")
-# Add all clauses (solver handles duplicates efficiently)
-for clause in provider.clauses:
-    simulator.solver.add_clause(clause)
-print(f"Total clauses in solver: {len(provider.clauses)}")
+print("All clauses ready.")
+print(f"Total clauses: {len(provider.clauses)}")
 
 # --- The Single, Sighted Question ---
 # We add a constraint that the step counter must be greater than or equal to our target.

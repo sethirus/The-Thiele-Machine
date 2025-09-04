@@ -3,7 +3,9 @@ import time
 from typing import List
 
 from scripts.multiplier_cnf_provider import CnfProvider, RSA_250_N
-from scripts.thiele_simulator import ThieleSimulator
+from thielecpu.vm import VM
+from thielecpu.state import State
+import ast
 
 
 # --- The Worker Process -------------------------------------------------
@@ -11,11 +13,38 @@ def solve_worker(assumptions: List[int], result_queue: multiprocessing.Queue) ->
     """Solve the CNF under the given assumptions and report any solution."""
     try:
         provider = CnfProvider(bit_width=415, N=RSA_250_N)
-        simulator = ThieleSimulator(provider)
-        solution = simulator.solve(assumptions=assumptions)
-        if solution:
-            p, q = solution
-            result_queue.put((p, q))
+        # Solve using the virtual machine
+        clauses = provider.clauses
+        for assumption in assumptions:
+            clauses.append([assumption])
+        code = f"""
+from pysat.solvers import Glucose4
+
+clauses = {clauses}
+
+solver = Glucose4()
+for cls in clauses:
+    solver.add_clause(cls)
+
+if solver.solve():
+    model = solver.get_model()
+    print('SAT')
+    print(repr(model))
+else:
+    print('UNSAT')
+"""
+        vm = VM(State())
+        _, output = vm.execute_python(code)
+        if 'SAT' in output:
+            lines = output.strip().split('\n')
+            for line in lines:
+                if line.startswith('[') and line.endswith(']'):
+                    model = ast.literal_eval(line)
+                    solution = provider.decode(model)  # Assume provider has decode
+                    if solution:
+                        p, q = solution
+                        result_queue.put((p, q))
+                    break
     except Exception:
         # Ignore failures so a single worker can't kill the pool
         pass
