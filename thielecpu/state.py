@@ -5,9 +5,18 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Callable, Set, Tuple
 
-from .isa import CSR
-from .memory import RegionGraph
-from ._types import ModuleId
+try:
+    from .isa import CSR
+    from .memory import RegionGraph
+    from ._types import ModuleId
+except ImportError:
+    # Handle running as script
+    import sys
+    import os
+    sys.path.insert(0, os.path.dirname(__file__))
+    from isa import CSR
+    from memory import RegionGraph
+    from _types import ModuleId
 
 
 Predicate = Callable[[int], bool]

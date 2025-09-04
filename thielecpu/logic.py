@@ -5,9 +5,18 @@ from __future__ import annotations
 from pathlib import Path
 from z3 import Solver, parse_smt2_string, sat, set_param
 
-from .certs import CertStore
-from .isa import CSR
-from .state import State
+try:
+    from .certs import CertStore
+    from .isa import CSR
+    from .state import State
+except ImportError:
+    # Handle running as script
+    import sys
+    import os
+    sys.path.insert(0, os.path.dirname(__file__))
+    from certs import CertStore
+    from isa import CSR
+    from state import State
 
 
 def lassert(state: State, module: int, formula: str, outdir: Path) -> str:
