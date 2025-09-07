@@ -102,7 +102,7 @@ def run_blind_budgeted(clauses, conf_budget=100_000, prop_budget=5_000_000, solv
             s.prop_budget(prop_budget)
         solved = s.solve_limited()
         stats = s.accum_stats()
-        status = "sat" if solved else ("unsat" if s.get_status() is False else "censored")
+        status = "sat" if solved else ("unsat" if s.get_status() is False else "diverged")
         conflicts = stats.get('conflicts', -1) if stats else -1
         props = stats.get('propagations', -1) if stats else -1
         decisions = stats.get('decisions', -1) if stats else -1
