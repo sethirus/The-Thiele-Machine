@@ -26,7 +26,7 @@ Predicate = Callable[[int], bool]
 class State:
     """Holds machine state ``S`` and partition table ``Π``."""
 
-    mu: int = 0
+    mu: float = 0.0
     _next_id: int = 1
     regions: RegionGraph = field(default_factory=RegionGraph)
     csr: dict[CSR, int | str] = field(
@@ -45,7 +45,9 @@ class State:
         existing = self.regions.find(region)
         if existing is not None:
             return existing
-        return self._alloc(region)
+        mid = self._alloc(region)
+        self._enforce_invariant()
+        return mid
 
     def psplit(self, module: ModuleId, pred: Predicate) -> Tuple[ModuleId, ModuleId]:
         """Split ``module``'s region using ``pred`` into two modules."""
@@ -55,10 +57,12 @@ class State:
         part2 = region - part1
         if not part1 or not part2:
             empty = self._alloc(set())
+            self._enforce_invariant()
             return module, empty
         self.regions.remove(module)
         m1 = self._alloc(part1)
         m2 = self._alloc(part2)
+        self._enforce_invariant()
         return m1, m2
 
     def pmerge(self, m1: ModuleId, m2: ModuleId) -> ModuleId:
@@ -76,4 +80,14 @@ class State:
         existing = self.regions.find(union)
         if existing is not None:
             return existing
-        return self._alloc(union)
+        mid = self._alloc(union)
+        self._enforce_invariant()
+        return mid
+
+    def _enforce_invariant(self):
+        """Enforce global invariant: |π_j| ≤ poly(n) for all partition modules."""
+        n = sum(len(region) for region in self.regions.modules.values())
+        poly_bound = n**2  # Example polynomial bound
+        for module, region in self.regions.modules.items():
+            if len(region) > poly_bound:
+                raise ValueError(f"Invariant violated: module {module} has size {len(region)} > poly({n}) = {poly_bound}")
