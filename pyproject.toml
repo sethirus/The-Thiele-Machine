@@ -1,0 +1,13 @@
+[project]
+name = "thiele-verify"
+version = "0.1.0"
+description = "Minimal Verifier for Thiele Machine"
+dependencies = [
+    "jsonschema"
+]
+
+[project.scripts]
+thiele-verify = "tools.thiele_verify:main"
+
+[tool.setuptools.packages.find]
+exclude = ["coq", "logs", "figs", "spec", "catnet", "assets", "solvers", "results", "receipts", "artifacts", "documents", "thielecpu", "cathedral_images", "shape_of_truth_out", "supplementary_materials", "out"]

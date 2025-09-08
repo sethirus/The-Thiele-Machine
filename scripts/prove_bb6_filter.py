@@ -1,4 +1,10 @@
 import time
+import sys
+import os
+
+# Add the parent directory to the path so we can import from scripts
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from scripts.busy_beaver_cnf_provider import BusyBeaverCnfProvider
 from scripts.thiele_bb_simulator import ThieleBBSimulator
 
@@ -49,6 +55,7 @@ elif status == "SAT":
     print("!"*80)
     print("\nThe Thiele Machine has found a 6-state machine that halts at the")
     print("exact same time as the 5-state champion. This is a historic discovery.")
+    assert model is not None, "Model should not be None when status is SAT"
     champion_machine = simulator.decode_program(model)
     print("\nTransition Table:\n", champion_machine)
 

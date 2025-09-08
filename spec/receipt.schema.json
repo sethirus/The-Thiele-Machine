@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ThieleReceiptV1",
+  "type": "object",
+  "required": ["steps", "global_digest", "kernel_pubkey", "signature", "spec_version"],
+  "properties": {
+    "spec_version": { "type": "string", "const": "1.0" },
+    "kernel_pubkey": { "type": "string", "pattern": "^[0-9a-fA-F]{64,130}$" },
+    "steps": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/step" },
+      "minItems": 1
+    },
+    "global_digest": { "type": "string", "pattern": "^[0-9a-fA-F]{64}$" },
+    "signature": { "type": "string" }
+  },
+  "$defs": {
+    "step": {
+      "type": "object",
+      "required": ["idx","transition","mubits_delta","step_hash","solver","solver_cmdline"],
+      "properties": {
+        "idx": { "type": "integer", "minimum": 0 },
+        "transition": { "type": "string" },
+        "mubits_delta": { "type": "integer" },
+        "post_state_hash": { "type": ["string","null"], "pattern": "^[0-9a-fA-F]{64}$" },
+        "proof_portable": { "type": ["string","null"], "enum": ["LRAT","DRAT",null] },
+        "proof_blob_uri": { "type": ["string","null"] },
+        "model_blob_uri": { "type": ["string","null"] },
+        "solver": { "type": "string" },
+        "solver_commit": { "type": ["string","null"] },
+        "solver_cmdline": { "type": "string" },
+        "step_hash": { "type": "string", "pattern": "^[0-9a-fA-F]{64}$" }
+      }
+    }
+  }
+}
