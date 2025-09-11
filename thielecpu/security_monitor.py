@@ -27,7 +27,7 @@ class SecurityMonitor:
             "session_id": self.session_id,
             "activity": activity,
             "details": details or {},
-            "warning": "⚠️  Thiele CPU usage logged for security monitoring"
+            "warning": "WARNING: Thiele CPU usage logged for security monitoring"
         }
 
         # Append to log file
@@ -49,7 +49,7 @@ class SecurityMonitor:
     def check_responsible_use(self):
         """Display responsible use guidelines."""
         guidelines = """
-        🚨 THIELE CPU RESPONSIBLE USE GUIDELINES 🚨
+        *** THIELE CPU RESPONSIBLE USE GUIDELINES ***
 
         This technology can break RSA and other cryptographic systems.
 
