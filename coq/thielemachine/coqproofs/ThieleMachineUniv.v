@@ -8,6 +8,11 @@ Import ListNotations.
 (* Abstract Interface for Thiele Machine *)
 (* ================================================================= *)
 
+Parameter Event : Type.
+Parameter Cert : Type.
+Record StepObs := { ev : option Event; mu_delta : Z; cert : Cert }.
+
+
 Module Type THIELE_ABSTRACT.
   (* Types *)
   Parameter Instr State Event Cert Hash : Type.

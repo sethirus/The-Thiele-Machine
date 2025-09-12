@@ -8,8 +8,12 @@
 From Coq Require Import List String ZArith Ascii.
 Import ListNotations.
 
+Require Import ThieleMachine.ThieleMachineUniv.
+Import ThieleMachineUniv.
+
 (* This file provides a concrete instantiation of the Thiele Machine.
    The abstract definitions are included inline for self-containment. *)
+
 
 (* ================================================================= *)
 (* Abstract Types (for self-containment) *)
@@ -112,14 +116,10 @@ Inductive SolverResult : Type :=
 Parameter check_smt : string -> SolverResult.
 
 (* Concrete step observation *)
-Record ConcreteStepObs := {
-  cev       : option ThieleEvent;  (* Optional observable event *)
-  cmu_delta : Z;                   (* μ-bit cost delta *)
-  ccert     : ConcreteCert;        (* Step certificate *)
-}.
+Record StepObs := { ev : option ThieleEvent; mu_delta : Z; cert : ConcreteCert }.
 
 (* Concrete step semantics *)
-Inductive concrete_step : list ThieleInstr -> ConcreteState -> ConcreteState -> ConcreteStepObs -> Prop :=
+Inductive concrete_step : list ThieleInstr -> ConcreteState -> ConcreteState -> StepObs -> Prop :=
   | step_lassert : forall P s query,
       (* LASSERT instruction *)
       let cert := {|
@@ -131,18 +131,18 @@ Inductive concrete_step : list ThieleInstr -> ConcreteState -> ConcreteState -> 
       |} in
       let mu_cost := Z.mul (Z.of_nat (String.length query + String.length "checking..." + String.length "policy_check")) 8 in  (* 8 bits per byte *)
       concrete_step P s s {|
-        cev := Some (PolicyCheck query);
-        cmu_delta := mu_cost;
-        ccert := cert
+        ev := Some (PolicyCheck query);
+        mu_delta := mu_cost;
+        cert := cert
       |}
 
   | step_mdlacc : forall P s,
       (* MDLACC instruction - accumulate μ-cost *)
       let cert_size := Z.mul (Z.of_nat (String.length "" + String.length "{}" + String.length "mdlacc")) 8 in
       concrete_step P s s {|
-        cev := None;
-        cmu_delta := cert_size;  (* Cost covers certificate size *)
-        ccert := (* Empty certificate for MDLACC *)
+        ev := None;
+        mu_delta := cert_size;  (* Cost covers certificate size *)
+        cert := (* Empty certificate for MDLACC *)
         {|
           smt_query := "";
           solver_reply := "{}";
@@ -209,8 +209,8 @@ Fixpoint concrete_replay_ok (P:list ThieleInstr) (s0:ConcreteState) (rs:list Con
   end.
 
 (* Sum μ-deltas over execution trace *)
-Definition concrete_sum_mu (steps: list (ConcreteState*ConcreteStepObs)) : Z :=
-  fold_left (fun acc '(_,obs) => Z.add acc obs.(cmu_delta)) steps 0%Z.
+Definition concrete_sum_mu (steps: list (ConcreteState*StepObs)) : Z :=
+    fold_left (fun acc '(_,obs) => Z.add acc obs.(mu_delta)) steps 0%Z.
 
 (* Sum certificate sizes over receipts *)
 Definition concrete_sum_bits (rs: list ConcreteReceipt) : Z :=
@@ -264,7 +264,7 @@ Proof. reflexivity. Qed.
 Theorem concrete_check_step_sound :
   forall P s s' obs,
     concrete_step P s s' obs ->
-    concrete_check_step P s s' obs.(cev) obs.(ccert) = true.
+    concrete_check_step P s s' obs.(ev) obs.(cert) = true.
 Proof.
   intros P s s' obs Hstep.
   inversion Hstep; subst; simpl.
@@ -282,7 +282,7 @@ Admitted.
 Theorem concrete_mu_lower_bound :
   forall P s s' obs,
     concrete_step P s s' obs ->
-    Z.le (concrete_bitsize obs.(ccert)) obs.(cmu_delta).
+    Z.le (concrete_bitsize obs.(cert)) obs.(mu_delta).
 Proof.
   intros P s s' obs Hstep.
   inversion Hstep; subst; simpl.
@@ -300,7 +300,7 @@ Qed.
 Theorem concrete_check_step_complete :
   forall P s s' oev c,
     concrete_check_step P s s' oev c = true ->
-    exists obs, concrete_step P s s' obs /\ obs.(cev) = oev /\ obs.(ccert) = c.
+    exists obs, concrete_step P s s' obs /\ obs.(ev) = oev /\ obs.(cert) = c.
 Proof.
   intros P s s' oev c Hcheck.
   unfold concrete_check_step in Hcheck.
@@ -313,7 +313,7 @@ Admitted.
 (* ================================================================= *)
 
 (* Concrete execution (simplified) *)
-Inductive ConcreteExec : list ThieleInstr -> ConcreteState -> list (ConcreteState*ConcreteStepObs) -> Prop :=
+Inductive ConcreteExec : list ThieleInstr -> ConcreteState -> list (ConcreteState*StepObs) -> Prop :=
 | cexec_nil : forall s, ConcreteExec [] s []
 | cexec_cons : forall P s s' obs tl,
     concrete_step P s s' obs ->
@@ -325,14 +325,14 @@ Inductive ConcreteExec : list ThieleInstr -> ConcreteState -> list (ConcreteStat
 (* ================================================================= *)
 
 (* Generate receipts from execution trace *)
-Fixpoint concrete_receipts_of (P:list ThieleInstr) (s0:ConcreteState) (tr:list (ConcreteState*ConcreteStepObs))
+Fixpoint concrete_receipts_of (P:list ThieleInstr) (s0:ConcreteState) (tr:list (ConcreteState*StepObs))
                               : list ConcreteReceipt :=
-  match tr with
-  | [] => []
-  | (s', obs)::tl =>
-      let receipt := (s0, s', obs.(cev), obs.(ccert)) in
-      receipt :: concrete_receipts_of P s' tl
-  end.
+    match tr with
+    | [] => []
+    | (s', obs)::tl =>
+        let receipt := (s0, s', obs.(ev), obs.(cert)) in
+        receipt :: concrete_receipts_of P s' tl
+    end.
 
 (* ================================================================= *)
 (* Main Concrete Theorem *)

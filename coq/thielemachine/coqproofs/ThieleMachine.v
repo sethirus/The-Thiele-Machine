@@ -69,6 +69,33 @@ Record StepObs := {
 
 (* Small-step transition relation (oracle-free) *)
 Parameter step : Prog -> State -> State -> StepObs -> Prop.
+(* Deterministic step function derived from the step relation and check_step *)
+Require Import Coq.Logic.ConstructiveEpsilon.
+
+(* Move check_step parameter above its first use *)
+Parameter check_step :
+  Prog -> State (*pre*) -> State (*post*) -> option Event -> Cert -> bool.
+
+Definition tm_step_fun (P : Prog) (s : State) : option (State * StepObs) :=
+  let candidates :=
+    List.filter
+      (fun '(s', obs) =>
+         check_step P s s' obs.(ev) obs.(cert))
+      (List.flat_map
+         (fun s' =>
+            List.map (fun obs => (s', obs))
+              (* We do not have a concrete enumeration of StepObs; this is a stub. *)
+              [])
+         (* We do not have a concrete enumeration of State; this is a stub. *)
+         [])
+  in
+  match candidates with
+  | (s', obs) :: _ => Some (s', obs)
+  | [] => None
+  end.
+
+(* NOTE: In a concrete implementation, enumerate all possible (s', obs) pairs.
+   Here, this is a stub to illustrate the interface. *)
 
 (* ================================================================= *)
 (* Receipt Verification and Replay *)
@@ -77,9 +104,6 @@ Parameter step : Prog -> State -> State -> StepObs -> Prop.
 (* Size model for μ-bit accounting *)
 Parameter bitsize : Cert -> Z.
 
-(* Deterministic checker for step certificates *)
-Parameter check_step :
-  Prog -> State (*pre*) -> State (*post*) -> option Event -> Cert -> bool.
 
 (* ================================================================= *)
 (* Hash Chain for Tamper-Evidence *)
