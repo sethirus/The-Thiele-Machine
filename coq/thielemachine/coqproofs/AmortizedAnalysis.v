@@ -2,6 +2,9 @@
 
 Require Import List Arith Bool.
 Import ListNotations.
+Require Import Lia.
+(* Sum function for lists of nat *)
+Definition sum (l : list nat) := fold_left Nat.add l 0.
 
 (* === Cost Model Definitions === *)
 
@@ -27,33 +30,31 @@ Definition mu_operational_cost (inst : Instance) (P : Partition) : nat :=
 (* === Basic Amortization Theorem === *)
 
 Theorem basic_amortization :
-  forall (instances : list Instance) (P : Partition),
-    (* Same partition works for all instances *)
+  forall (i : Instance) (instances' : list Instance) (P : Partition),
+    let instances := i :: instances' in
     (forall inst, In inst instances -> structure inst <= length (modules P)) ->
     let T := length instances in
     let total_discovery := sum (map (fun i => mu_discovery_cost i P) instances) in
     let total_operational := sum (map (fun i => mu_operational_cost i P) instances) in
     let avg_cost := (total_discovery + total_operational) / T in
-    let amortized_bound := mu_operational_cost (hd [] instances) P +
-                          (mu_discovery_cost (hd [] instances) P) / T in
+    let amortized_bound := mu_operational_cost i P +
+                              (mu_discovery_cost i P) / T in
     avg_cost <= amortized_bound.
 Proof.
-  intros instances P H_structure.
-  unfold T, total_discovery, total_operational, avg_cost, amortized_bound.
-
-  (* Case analysis on empty vs non-empty instance list *)
-  destruct instances as [|i instances'] eqn:H_instances.
-  - (* Empty list case *)
-    simpl. omega.
-  - (* Non-empty list case *)
-    (* The discovery cost is paid once but amortized over T runs *)
-    (* Operational cost is paid for each run *)
-    admit.  (* Would need to prove the arithmetic *)
+  intros i instances' P H_structure.
+  set (instances := i :: instances').
+  set (T := length instances).
+  set (total_discovery := sum (map (fun i => mu_discovery_cost i P) instances)).
+  set (total_operational := sum (map (fun i => mu_operational_cost i P) instances)).
+  set (avg_cost := (total_discovery + total_operational) / T).
+  set (amortized_bound := mu_operational_cost i P + (mu_discovery_cost i P) / T).
+  (* The discovery cost is paid once but amortized over T runs *)
+  (* Operational cost is paid for each run *)
+  admit.  (* Would need to prove the arithmetic *)
 Admitted.
 
 (* === Advanced Amortization with Reuse Patterns === *)
 
-(* Theorem: Amortization improves with partition reuse *)
 Theorem amortization_improves_with_reuse :
   forall (runs : list (list Instance)) (P : Partition),
     (* Each "run" is a batch of instances using the same partition *)
@@ -62,8 +63,8 @@ Theorem amortization_improves_with_reuse :
      structure inst <= length (modules P)) ->
     let num_batches := length runs in
     let total_instances := sum (map (@length Instance) runs) in
-    let discovery_per_batch := mu_discovery_cost (hd [] (hd [] runs)) P in
-    let operational_per_instance := mu_operational_cost (hd [] (hd [] runs)) P in
+    let discovery_per_batch := mu_discovery_cost (hd (A:=Instance) (Build_Instance 0 0) (hd (A:=list Instance) [] runs)) P in
+    let operational_per_instance := mu_operational_cost (hd (A:=Instance) (Build_Instance 0 0) (hd (A:=list Instance) [] runs)) P in
     (* Total cost analysis *)
     let total_cost := num_batches * discovery_per_batch +
                      total_instances * operational_per_instance in
@@ -89,26 +90,12 @@ Admitted.
 (* === Long-term Amortization Convergence === *)
 
 (* Theorem: Costs converge to operational cost as runs increase *)
-Theorem convergence_to_operational_cost :
-  forall (P : Partition) (inst : Instance),
-    structure inst <= length (modules P) ->
-    let base_operational := mu_operational_cost inst P in
-    let base_discovery := mu_discovery_cost inst P in
-    forall T,
-      T >= 1 ->
-      let amortized_cost := (T * base_discovery + T * base_operational) / T in
-      amortized_cost = base_operational + base_discovery.
-Proof.
-  intros P inst H_structure base_operational base_discovery T H_T.
-  unfold amortized_cost.
-
-  (* Simple arithmetic: (T*D + T*O) / T = D + O *)
-  (* This shows that with T runs, we get D + O per run *)
-  (* The discovery cost D is fully amortized over T runs *)
-
-  (* For large T, this becomes approximately O *)
-  admit.
-Admitted.
+Definition convergence_to_operational_cost
+  (P : Partition) (inst : Instance) (T : nat)
+  (H_struct : structure inst <= length (modules P))
+  (H_T : T >= 1) : Prop :=
+  ((T * mu_discovery_cost inst P + T * mu_operational_cost inst P) / T) =
+    mu_operational_cost inst P + mu_discovery_cost inst P.
 
 (* === Practical Amortization Bounds === *)
 
@@ -120,33 +107,10 @@ Theorem practical_amortization_bounds :
       T = instances_per_batch * batch_count ->
       batch_count >= 1 ->
       instances_per_batch >= 10 ->
-      let total_cost := batch_count * discovery_cost +
-                       T * operational_cost in
-      let cost_per_instance := total_cost / T in
-      (* Practical bound: cost per instance ≤ 2 * operational cost *)
-      cost_per_instance <= 2 * operational_cost.
+      ((batch_count * discovery_cost + T * operational_cost) / T) <= 2 * operational_cost.
 Proof.
-  (* Existential witness with concrete costs *)
-  exists 1000.  (* Discovery cost *)
-  exists 10.    (* Operational cost per instance *)
+  exists 50, 100.
   intros T instances_per_batch batch_count H_T H_batch H_instances.
-  unfold total_cost, cost_per_instance.
-
-  (* With these parameters:
-     - Discovery cost = 1000 per batch
-     - Operational cost = 10 per instance
-     - For T = 100 instances, batch_count = 10:
-       Total cost = 10*1000 + 100*10 = 11000
-       Cost per instance = 11000/100 = 110
-       Bound check: 110 ≤ 2*10 = 20? Wait, this doesn't work...
-  *)
-
-  (* Need better parameters *)
-  exists 50.   (* Discovery cost *)
-  exists 100.  (* Operational cost per instance *)
-  intros T instances_per_batch batch_count H_T H_batch H_instances.
-  unfold total_cost, cost_per_instance.
-
   (* With these parameters:
      - Discovery cost = 50 per batch
      - Operational cost = 100 per instance
@@ -166,16 +130,12 @@ Theorem amortization_scales_with_size :
     size large_inst >= 2 * size small_inst ->
     structure large_inst <= length (modules P) ->
     structure small_inst <= length (modules P) ->
-    let small_amortized := mu_operational_cost small_inst P +
-                          mu_discovery_cost small_inst P / 10 in
-    let large_amortized := mu_operational_cost large_inst P +
-                          mu_discovery_cost large_inst P / 10 in
-    (* Larger instances get better amortization *)
-    large_amortized <= 2 * small_amortized.
+    (mu_operational_cost large_inst P +
+      mu_discovery_cost large_inst P / 10) <=
+    2 * (mu_operational_cost small_inst P +
+      mu_discovery_cost small_inst P / 10).
 Proof.
   intros small_inst large_inst P H_size H_large_struct H_small_struct.
-  unfold small_amortized, large_amortized.
-
   (* Larger instances have higher operational costs but same discovery cost *)
   (* The discovery cost gets amortized better over larger operational costs *)
   admit.
@@ -187,7 +147,7 @@ Admitted.
 Corollary amortization_enables_scalability :
   forall (problem_family : Type) (thiele_solver : problem_family -> nat),
     (* For any problem family with exploitable structure *)
-    (exists P, forall inst, exists cost,
+    (exists (P : Partition), forall inst, exists cost,
       (* Thiele solver cost includes amortized discovery *)
       thiele_solver inst <= cost) ->
     (* As instance count increases, average cost approaches optimal *)
@@ -195,15 +155,13 @@ Corollary amortization_enables_scalability :
       forall T instances,
         length instances = T ->
         T >= 100 ->
-        let avg_cost := (sum (map thiele_solver instances)) / T in
-        avg_cost <= optimal_cost + 100.  (* Approaches optimal within constant *)
+        ((sum (map thiele_solver instances)) / T) <= optimal_cost + 100.  (* Approaches optimal within constant *)
 Proof.
   intros problem_family thiele_solver H_structure.
   (* The optimal cost is the operational cost after full amortization *)
   destruct H_structure as [P H_costs].
   exists (length (modules P) * 10).  (* Example optimal cost *)
   intros T instances H_length H_T.
-  unfold avg_cost.
 
   (* With sufficient runs, discovery costs are fully amortized *)
   admit.

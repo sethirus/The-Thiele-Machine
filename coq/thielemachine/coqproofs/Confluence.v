@@ -5,9 +5,7 @@ Require Import Permutation.
 Require Import Arith.
 Require Import List.
 Import ListNotations.
-
-(* Import the audited step definitions from SpecSound.v *)
-Require Import SpecSound.
+Require Import ThieleMachine.SpecSound.
 
 (* "Local diamond" for the steps you actually use *)
 Definition certs_independent (c1 c2 : Cert) : Prop :=
