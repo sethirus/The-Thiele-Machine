@@ -41,6 +41,9 @@ reg [31:0] py_result;
 reg [31:0] instr_memory [0:255];
 wire [31:0] pc;
 
+// Loop variable
+integer i;
+
 // ============================================================================
 // CPU INSTANCE
 // ============================================================================
@@ -102,7 +105,6 @@ initial begin
     instr_memory[5] = {8'hFF, 8'h00, 8'h00, 8'h00}; // HALT
 
     // Initialize other memory locations
-    integer i;
     for (i = 6; i < 256; i = i + 1) begin
         instr_memory[i] = 32'h00000000;
     end

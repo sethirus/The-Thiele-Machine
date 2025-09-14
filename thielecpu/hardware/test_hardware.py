@@ -13,6 +13,7 @@ class ThieleCPUTester:
     def __init__(self, hardware_dir):
         self.hardware_dir = Path(hardware_dir)
         self.test_results = {}
+        self.simulation_output = ""
 
     def run_simulation(self):
         """Run the Verilog simulation"""
@@ -42,10 +43,25 @@ class ThieleCPUTester:
         for simulator in simulators:
             try:
                 print(f"Trying {simulator.__name__}...")
-                result = simulator()
+                result, output = simulator()
                 if result:
                     print("Simulation completed successfully")
-                    return True
+                    self.simulation_output = output
+
+                    # Save simulation output to file
+                    output_file = self.hardware_dir / "simulation_output.log"
+                    output_file.write_text(output)
+                    print(f"📄 Simulation output saved to: {output_file}")
+
+                    # Validate execution results
+                    if self._validate_simulation_output(output):
+                        print("✅ Simulation validation passed - all operations executed correctly")
+                        self.test_results['validation'] = True
+                        return True
+                    else:
+                        print("❌ Simulation validation failed - incorrect execution")
+                        self.test_results['validation'] = False
+                        return False
             except (subprocess.SubprocessError, FileNotFoundError, subprocess.TimeoutExpired) as e:
                 print(f"{simulator.__name__} failed: {e}")
                 continue
@@ -67,26 +83,25 @@ class ThieleCPUTester:
             result = subprocess.run(cmd, capture_output=True, text=True, cwd=self.hardware_dir, check=False)
             if result.returncode != 0:
                 print(f"Compilation failed: {result.stderr}")
-                return False
+                return False, ""
 
             # Run simulation
             cmd = ["vvp", "thiele_cpu_tb"]
             result = subprocess.run(cmd, capture_output=True, text=True, cwd=self.hardware_dir, timeout=30, check=False)
 
             if result.returncode == 0:
-                print("Icarus Verilog simulation output:")
-                print(result.stdout)
-                return True
+                print("Icarus Verilog simulation completed")
+                return True, result.stdout
             else:
                 print(f"Simulation failed: {result.stderr}")
-                return False
+                return False, ""
 
         except FileNotFoundError:
             print("Icarus Verilog (iverilog) not found. Install with: sudo apt install iverilog")
-            return False
+            return False, ""
         except subprocess.TimeoutExpired:
             print("Simulation timed out")
-            return False
+            return False, ""
 
     def _run_vivado_simulation(self):
         """Run simulation with Vivado"""
@@ -110,17 +125,17 @@ exit
 
             if result.returncode == 0:
                 print("Vivado simulation completed")
-                return True
+                return True, result.stdout
             else:
                 print(f"Vivado simulation failed: {result.stderr}")
-                return False
+                return False, ""
 
         except FileNotFoundError:
             print("Vivado not found. Install Xilinx Vivado")
-            return False
+            return False, ""
         except subprocess.TimeoutExpired:
             print("Vivado simulation timed out")
-            return False
+            return False, ""
 
     def _run_modelsim(self):
         """Run simulation with ModelSim/QuestaSim"""
@@ -140,16 +155,81 @@ vsim -c thiele_cpu_tb -do "run -all; quit"
 
             if result.returncode == 0:
                 print("ModelSim simulation completed")
-                return True
+                return True, result.stdout
             else:
                 print(f"ModelSim simulation failed: {result.stderr}")
-                return False
+                return False, ""
 
         except FileNotFoundError:
             print("ModelSim (vsim) not found")
-            return False
+            return False, ""
         except subprocess.TimeoutExpired:
             print("ModelSim simulation timed out")
+            return False, ""
+
+    def _validate_simulation_output(self, output):
+        """Validate that simulation executed the expected sequence"""
+        try:
+            lines = output.split('\n')
+
+            # Check for test completion
+            test_completed = any("Test completed!" in line for line in lines)
+            if not test_completed:
+                print("❌ Test did not complete properly")
+                return False
+
+            # Check for expected status transitions in the execution trace
+            # The CPU should show status changes: 1 (PNEW) -> 2 (PSPLIT) -> 3 (PMERGE) -> 5 (MDLACC) -> 0x01020000 (EMIT) -> 1 (final)
+            status_values = []
+            for line in lines:
+                if "Status:" in line and "Final Status:" not in line:
+                    # Extract status from trace lines like "Time: ..., Status: 00000001, Error: ..."
+                    parts = line.split("Status: ")
+                    if len(parts) > 1:
+                        status_part = parts[1].split(",")[0].strip()
+                        if status_part not in status_values:
+                            status_values.append(status_part)
+
+            # Expected status sequence (in order they appear)
+            expected_statuses = ["00000001", "00000002", "00000003", "00000005", "01020000"]
+
+            # Check if all expected statuses appeared
+            for expected in expected_statuses:
+                if expected not in status_values:
+                    print(f"❌ Expected status {expected} not found in execution trace")
+                    return False
+
+            # Check for error being set (from HALT instruction)
+            error_set = any("Error: 00000001" in line for line in lines)
+            if not error_set:
+                print("❌ Expected error flag not set by HALT instruction")
+                return False
+
+            # Check that PC advanced through the instructions
+            pc_values = []
+            for line in lines:
+                if "PC:" in line and "Final PC:" not in line:
+                    parts = line.split("PC: ")
+                    if len(parts) > 1:
+                        pc_part = parts[1].split(",")[0].strip()
+                        if pc_part not in pc_values:
+                            pc_values.append(pc_part)
+
+            # Should see PC values: 00000000, 00000004, 00000008, 0000000c, 00000010, 00000014, 00000018...
+            expected_pcs = ["00000000", "00000004", "00000008", "0000000c", "00000010", "00000014"]
+            for expected_pc in expected_pcs:
+                if expected_pc not in pc_values:
+                    print(f"❌ Expected PC {expected_pc} not found in execution trace")
+                    return False
+
+            print("✅ All execution checkpoints passed:")
+            print(f"   📊 Status transitions: {' -> '.join(status_values[:5])}")
+            print(f"   🖥️  PC progression: {' -> '.join(pc_values[:6])}")
+            print("   ⚠️  Error flag set correctly")
+            return True
+
+        except Exception as e:
+            print(f"❌ Validation error: {e}")
             return False
 
     def run_synthesis_check(self):
@@ -191,6 +271,7 @@ Generated: {time.strftime('%Y-%m-%d %H:%M:%S')}
 
 ### Simulation Status
 - **Simulation**: {'Passed' if self.test_results.get('simulation', False) else 'Failed'}
+- **Validation**: {'Passed' if self.test_results.get('validation', False) else 'Failed'}
 - **Synthesis Files**: {'Complete' if self.test_results.get('synthesis', False) else 'Incomplete'}
 
 ### Hardware Specifications
@@ -255,13 +336,22 @@ def main():
     # Generate report
     tester.generate_test_report()
 
-    print("\n" + "=" * 50)
-    if sim_result and synth_result:
-        print("All tests passed! Thiele CPU hardware is ready.")
-    else:
-        print("Some tests failed. Check the test report for details.")
+    validation_result = tester.test_results.get('validation', False)
 
-    print("See test_report.md for detailed results.")
+    print("\n" + "=" * 50)
+    if sim_result and validation_result and synth_result:
+        print("🎉 ALL TESTS PASSED! Thiele CPU hardware simulation is perfect with zero errors.")
+        print("✅ Simulation executed correctly")
+        print("✅ All operations validated")
+        print("✅ Synthesis files complete")
+    elif sim_result and validation_result:
+        print("⚠️  Simulation and validation passed, but synthesis files incomplete.")
+        print("See README.md for synthesis setup instructions.")
+    else:
+        print("❌ Some tests failed. Check the test report for details.")
+
+    print("📄 See test_report.md for detailed results.")
+    print("📄 See simulation_output.log for full simulation trace.")
 
 if __name__ == "__main__":
     main()

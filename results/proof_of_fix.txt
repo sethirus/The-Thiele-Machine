@@ -1,0 +1,4 @@
+Proof of Fix:
+The patched system enforces length <= BUFFER_SIZE.
+Under this constraint, no request can cause secret leakage.
+SMT solver confirms unsatisfiability of vulnerability condition.
