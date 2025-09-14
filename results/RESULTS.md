@@ -4,6 +4,12 @@ commit `dbdbaeb8ee2c7cd499094d43bab276146ebf0252`
 
 timestamp `2025-08-26T19:12:15.447498Z`
 
+## Framing Notes
+
+* **Budget model:** "Discovery budgets use a Rayleigh first-collision approximation at p=0.9999; success variability across runs is expected."
+* **Scope:** "Separation is about *structure alignment*. XOR-aware baselines would erase the Tseitin gap by being sighted; the Simon-locality gap remains the core witness."
+* **Receipts:** include the exact commit, OS, Python, z3 wheel, seeds, and wall-clock for this run (you already print hashes).
+
 ## Plots
 ![xor_tseitin](examples/xor_tseitin_plot.png)
 ![at_most_k](examples/at_most_k_plot.png)

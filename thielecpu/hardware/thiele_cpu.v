@@ -102,6 +102,9 @@ reg [5:0] next_module_id;
 
 // State machine
 reg [3:0] state;
+
+// Loop variables for initialization
+integer i, j, region_size, even_count, odd_count, size_a, size_b, total_size, module_size, mdl_cost, temp_size, src_size, dest_size;
 localparam [3:0] STATE_FETCH = 4'h0;
 localparam [3:0] STATE_DECODE = 4'h1;
 localparam [3:0] STATE_EXECUTE = 4'h2;
@@ -141,7 +144,6 @@ always @(posedge clk or negedge rst_n) begin
         state <= STATE_FETCH;
 
         // Initialize module table
-        integer i, j;
         for (i = 0; i < NUM_MODULES; i = i + 1) begin
             module_table[i] <= 32'h0;
             for (j = 0; j < REGION_SIZE; j = j + 1) begin
@@ -267,7 +269,6 @@ task execute_pnew;
     input [7:0] region_spec_b;
     begin
         // Create new module with specified region
-        integer region_size;
         region_size = region_spec_a * 256 + region_spec_b; // Combine operands
 
         if (next_module_id < NUM_MODULES) begin
@@ -276,7 +277,6 @@ task execute_pnew;
             next_module_id <= next_module_id + 1;
 
             // Initialize region
-            integer i;
             for (i = 0; i < region_size && i < REGION_SIZE; i = i + 1) begin
                 region_table[next_module_id][i] <= i;
             end
@@ -294,11 +294,9 @@ task execute_psplit;
     begin
         // Split module based on predicate
         if (module_id < next_module_id && next_module_id < NUM_MODULES - 1) begin
-            integer region_size;
             region_size = module_table[module_id];
 
             // Simple split: even/odd based on predicate
-            integer i, even_count, odd_count;
             even_count = 0;
             odd_count = 0;
 
@@ -329,14 +327,12 @@ task execute_pmerge;
     begin
         // Merge two modules
         if (module_a < next_module_id && module_b < next_module_id && module_a != module_b) begin
-            integer size_a, size_b, total_size;
             size_a = module_table[module_a];
             size_b = module_table[module_b];
             total_size = size_a + size_b;
 
             if (total_size <= REGION_SIZE) begin
                 // Copy regions
-                integer i;
                 for (i = 0; i < size_a; i = i + 1) begin
                     region_table[next_module_id][i] <= region_table[module_a][i];
                 end
@@ -380,14 +376,11 @@ task execute_mdlacc;
     begin
         // Accumulate μ-bits for MDL cost
         if (module_id < next_module_id) begin
-            integer module_size;
             module_size = module_table[module_id];
 
             // Simple MDL calculation: log2 of module size
-            integer mdl_cost;
             if (module_size > 0) begin
                 mdl_cost = 0;
-                integer temp_size;
                 temp_size = module_size;
                 while (temp_size > 1) begin
                     temp_size = temp_size >> 1;
@@ -424,7 +417,6 @@ task execute_xfer;
     begin
         // Transfer data between modules
         if (src < next_module_id && dest < next_module_id) begin
-            integer src_size, dest_size;
             src_size = module_table[src];
             dest_size = module_table[dest];
 

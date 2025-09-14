@@ -32,19 +32,20 @@ class State:
     csr: dict[CSR, int | str] = field(
         default_factory=lambda: {CSR.CERT_ADDR: "", CSR.STATUS: 0, CSR.ERR: 0}
     )
+    step_count: int = 0
 
     def _alloc(self, region: Set[int]) -> ModuleId:
         mid = self._next_id
         self._next_id += 1
         self.regions.add(mid, region)
-        return mid
+        return ModuleId(mid)
 
     def pnew(self, region: Set[int]) -> ModuleId:
         """Create a module for ``region`` if not already present."""
 
         existing = self.regions.find(region)
         if existing is not None:
-            return existing
+            return ModuleId(existing)
         mid = self._alloc(region)
         self._enforce_invariant()
         return mid
@@ -79,7 +80,7 @@ class State:
         self.regions.remove(m2)
         existing = self.regions.find(union)
         if existing is not None:
-            return existing
+            return ModuleId(existing)
         mid = self._alloc(union)
         self._enforce_invariant()
         return mid

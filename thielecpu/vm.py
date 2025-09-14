@@ -101,6 +101,7 @@ class VM:
                 'tuple': tuple,
                 'placeholder': placeholder,
                 'hashlib': hashlib,
+                'self': self,
             }
 
     def execute_python(self, code_or_path: str) -> Any:
