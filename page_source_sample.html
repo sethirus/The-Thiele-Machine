@@ -1,0 +1,90 @@
+<!DOCTYPE html><html class="mdl-js"><head lang="en">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1024">
+  <meta name="keywords" content="neural networks,machine learning,javascript">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Tensorflow — Neural Network Playground">
+  <meta property="og:description" content="Tinker with a real neural network right here in your browser.">
+  <meta property="og:url" content="http://playground.tensorflow.org">
+  <meta property="og:image" content="http://playground.tensorflow.org/preview.png">
+
+  <meta name="twitter:card" value="summary_large_image">
+  <meta name="twitter:title" content="Tensorflow — Neural Network Playground">
+  <meta name="twitter:description" content="Tinker with a real neural network right here in your browser.">
+  <meta name="twitter:url" content="http://playground.tensorflow.org">
+  <meta name="twitter:image" content="http://playground.tensorflow.org/preview.png">
+  <meta name="twitter:image:width" content="560">
+  <meta name="twitter:image:height" content="295">
+
+  <meta name="author" content="Daniel Smilkov and Shan Carter">
+  <title>A Neural Network Playground</title>
+  <link rel="stylesheet" href="bundle.css" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500|Material+Icons" rel="stylesheet" type="text/css">
+  <script async="" src="https://www.google-analytics.com/analytics.js"></script><script src="lib.js"></script>
+</head>
+<body>
+  <!-- GitHub link -->
+  <a class="github-link" href="https://github.com/tensorflow/playground" title="Source on GitHub">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 60.5 60.5" width="60" height="60">
+      <polygon class="bg" points="60.5,60.5 0,0 60.5,0 "></polygon>
+      <path class="icon" d="M43.1,5.8c-6.6,0-12,5.4-12,12c0,5.3,3.4,9.8,8.2,11.4c0.6,0.1,0.8-0.3,0.8-0.6c0-0.3,0-1,0-2c-3.3,0.7-4-1.6-4-1.6c-0.5-1.4-1.3-1.8-1.3-1.8c-1.1-0.7,0.1-0.7,0.1-0.7c1.2,0.1,1.8,1.2,1.8,1.2c1.1,1.8,2.8,1.3,3.5,1c0.1-0.8,0.4-1.3,0.8-1.6c-2.7-0.3-5.5-1.3-5.5-5.9c0-1.3,0.5-2.4,1.2-3.2c-0.1-0.3-0.5-1.5,0.1-3.2c0,0,1-0.3,3.3,1.2c1-0.3,2-0.4,3-0.4c1,0,2,0.1,3,0.4c2.3-1.6,3.3-1.2,3.3-1.2c0.7,1.7,0.2,2.9,0.1,3.2c0.8,0.8,1.2,1.9,1.2,3.2c0,4.6-2.8,5.6-5.5,5.9c0.4,0.4,0.8,1.1,0.8,2.2c0,1.6,0,2.9,0,3.3c0,0.3,0.2,0.7,0.8,0.6c4.8-1.6,8.2-6.1,8.2-11.4C55.1,11.2,49.7,5.8,43.1,5.8z"></path>
+    </svg>
+  </a>
+  <!-- Header -->
+  <header>
+    <h1 class="l--page">Tinker With a <b>Neural Network</b> <span class="optional">Right Here </span>in Your Browser.<br>Don’t Worry, You Can’t Break It. We Promise.</h1>
+  </header>
+
+  <!-- Top Controls -->
+  <div id="top-controls">
+    <div class="container l--page">
+      <div class="timeline-controls">
+        <button class="mdl-button mdl-js-button mdl-button--icon ui-resetButton" id="reset-button" title="Reset the network" data-upgraded=",MaterialButton">
+          <i class="material-icons">replay</i>
+        </button>
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored ui-playButton playing" id="play-pause-button" title="Run/Pause" data-upgraded=",MaterialButton">
+          <i class="material-icons">play_arrow</i>
+          <i class="material-icons">pause</i>
+        </button>
+        <button class="mdl-button mdl-js-button mdl-button--icon ui-stepButton" id="next-step-button" title="Step" data-upgraded=",MaterialButton">
+          <i class="material-icons">skip_next</i>
+        </button>
+      </div>
+      <div class="control">
+        <span class="label">Epoch</span>
+        <span class="value" id="iter-number">000,000</span>
+      </div>
+      <div class="control ui-learningRate">
+        <label for="learningRate">Learning rate</label>
+        <div class="select">
+          <select id="learningRate">
+            <option value="0.00001">0.00001</option>
+            <option value="0.0001">0.0001</option>
+            <option value="0.001">0.001</option>
+            <option value="0.003">0.003</option>
+            <option value="0.01">0.01</option>
+            <option value="0.03">0.03</option>
+            <option value="0.1">0.1</option>
+            <option value="0.3">0.3</option>
+            <option value="1">1</option>
+            <option value="3">3</option>
+            <option value="10">10</option>
+          </select>
+        </div>
+      </div>
+      <div class="control ui-activation">
+        <label for="activations">Activation</label>
+        <div class="select">
+          <select id="activations">
+            <option value="relu">ReLU</option>
+            <option value="tanh">Tanh</option>
+            <option value="sigmoid">Sigmoid</option>
+            <option value="linear">Linear</option>
+          </select>
+        </div>
+      </div>
+      <div class="control ui-regularization">
+        <label for="regularizations">Regularization</label>
+        <div class="sel
