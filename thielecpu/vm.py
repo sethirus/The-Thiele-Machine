@@ -194,6 +194,22 @@ class VM:
 
                                         if str_val is not None:
                                             domain_val = list(str_val)
+                                        # Handle list(range(...))
+                                        elif (isinstance(arg_node, ast.Call) and
+                                              isinstance(arg_node.func, ast.Name) and
+                                              arg_node.func.id == 'range'):
+                                            # Extract range arguments
+                                            range_args = []
+                                            for arg in arg_node.args:
+                                                if isinstance(arg, ast.Constant):
+                                                    range_args.append(arg.value)
+                                                elif hasattr(ast, 'Num') and isinstance(arg, ast.Num):
+                                                    range_args.append(arg.n)
+                                            if len(range_args) >= 1:
+                                                start = range_args[0] if len(range_args) >= 1 else 0
+                                                stop = range_args[1] if len(range_args) >= 2 else start + 1
+                                                step = range_args[2] if len(range_args) >= 3 else 1
+                                                domain_val = list(range(start, stop, step))
 
                                     if domain_val is None:
                                         # Fallback to literal_eval for simple lists like `['a', 'b', 'c']`
@@ -266,7 +282,11 @@ class VM:
                 exec(code_to_run, solved_globals)
                 success = True
             except AssertionError as e:
-                err = f"Assertion failed: {e}"
+                if "Collision found" in str(e):
+                    print(f"✓ Found collision: {assignment}")
+                    return None, output
+                else:
+                    err = f"Assertion failed: {e}"
             except Exception as e:
                 import traceback
                 err = f"Other error: {e}\n{traceback.format_exc()}"
