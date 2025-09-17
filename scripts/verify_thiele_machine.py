@@ -131,8 +131,9 @@ class ThieleVerifier:
 
         try:
             # Check if coqc is available
+            coqc_path = r"C:\Coq-Platform~8.20~2025.01\bin\coqc.exe"
             result = subprocess.run(
-                ["coqc", "--version"],
+                [coqc_path, "--version"],
                 capture_output=True,
                 text=True,
                 timeout=10
@@ -158,7 +159,7 @@ class ThieleVerifier:
                 print(f"[CHECK] Compiling {filename}...")
                 start_time = time.time()
                 result = subprocess.run(
-                    ["coqc", "-Q", str(coq_dir), "ThieleMachine", str(filepath)],
+                    [coqc_path, "-Q", str(coq_dir), "ThieleMachine", str(filepath)],
                     cwd=str(coq_dir),
                     capture_output=True,
                     text=True,
