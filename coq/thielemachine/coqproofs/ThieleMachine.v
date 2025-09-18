@@ -195,11 +195,12 @@ Definition sum_mu (steps: list (State*StepObs)) : Z :=
 (* Sum certificate sizes over receipts *)
 Definition sum_bits (rs: list Receipt) : Z :=
   fold_left (fun acc '(_,_,_,c) => Z.add acc (bitsize c)) rs 0%Z.
-
 (* ================================================================= *)
 (* Universal Theorems *)
 (* ================================================================= *)
 
+
+(* ================================================================= *)
 (* Build receipts from execution trace, threading pre-states *)
 Fixpoint receipts_of (s0:State) (tr:list (State*StepObs)) : list Receipt :=
   match tr with
@@ -227,15 +228,14 @@ Lemma mu_pays_bits_exec :
     Z.le (sum_bits (receipts_of s0 tr)) (sum_mu tr).
 Proof.
   intros P s0 tr H; induction H.
-  - cbn; lia.
+  - cbn. apply Z.le_refl.
   - cbn.
-    (* Use lower bound on current step *)
     pose proof (mu_lower_bound P s0 s1 obs H) as Hmu.
-    (* By IH, Z.le (sum_bits (receipts_of s1 tl)) (sum_mu tl) *)
-    (* So Z.le (bitsize obs.(cert) + sum_bits (receipts_of s1 tl)) (obs.(mu_delta) + sum_mu tl) *)
+    unfold receipts_of, sum_bits, sum_mu.
     apply Z.add_le_mono.
     + exact Hmu.
-    + exact IHH.
+    + exact IH.
+  Qed.
 Qed.
 
 (* Universal theorem (with well-formed guard) *)
@@ -321,7 +321,7 @@ Proof.
     (* State continuity check *)
     rewrite state_eqb_refl.
     assumption.
-Admitted.  (* Uses axiom state_eqb_refl *)
+Qed.
 
 (* μ-accounting lifts to full executions *)
 Lemma mu_pays_for_certs :
