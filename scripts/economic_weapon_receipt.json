@@ -1,0 +1,42 @@
+{
+  "challenge_hash": "dd7c0cb7c6965f194ba7a9bde96be9799aa727a80837e01a00f1676a70ddea57",
+  "problem": {
+    "num_equations": 30,
+    "num_variables": 45,
+    "sum_charges_mod2": 1,
+    "graph_connected": true,
+    "degree": 3,
+    "num_edges": 45,
+    "unsat_certificate": "Gaussian rank 30 < num_vars 45"
+  },
+  "classical": {
+    "strategy": "BLIND SEARCH",
+    "status": "timeout",
+    "runtime_seconds": 9.99914836883545,
+    "assignments_checked": 6136410,
+    "num_variables": 45,
+    "estimated_cost_spent": 0.01227282,
+    "projected_cost_to_prove_unsat": 70368.731904844,
+    "projected_seconds_to_prove_unsat": 703687.31904844,
+    "mu_discovery": 0
+  },
+  "cdcl": {
+    "strategy": "CDCL+XOR",
+    "status": "unsat",
+    "runtime_seconds": 0.0026290416717529297,
+    "mu_discovery": 0,
+    "estimated_cost_dollars": 0.001
+  },
+  "thiele": {
+    "strategy": "THIELE PARTITION DISCOVERY",
+    "status": "unsat",
+    "runtime_seconds": 0.0,
+    "mu_discovery": 145,
+    "mu_operational": 0.0001,
+    "estimated_cost_dollars": 0.000245,
+    "rank": 29
+  },
+  "timestamp": 1758213782.483974,
+  "proof": "For a connected graph, XOR of all equations cancels LHS to 0; RHS sums to 1 \u21d2 inconsistency \u21d2 UNSAT.",
+  "receipt_hash": "5e855061100b95a395c498c4dfa9edd1858ec1fad33012c99b4ee711e365cc5a"
+}

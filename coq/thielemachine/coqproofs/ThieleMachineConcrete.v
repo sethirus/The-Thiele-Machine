@@ -5,7 +5,7 @@
  * with concrete implementations from the Python codebase.
  *)
 
-From Coq Require Import List String ZArith Ascii Lia.
+From Coq Require Import List String ZArith Ascii Lia Bool PeanoNat.
 Import ListNotations.
 
 (* This file provides a concrete instantiation of the Thiele Machine.
@@ -275,9 +275,17 @@ Theorem concrete_check_step_sound :
     concrete_step P s s' obs ->
     concrete_check_step P s s' obs.(ev) obs.(cert) = true.
 Proof.
-  (* The checker is designed to accept the certificates produced by the steps *)
-  admit.
-Admitted.
+  intros P s s' obs Hstep.
+  inversion Hstep; subst; simpl; unfold concrete_check_step; simpl.
+  - repeat rewrite String.eqb_refl.
+    repeat rewrite Z.eqb_refl.
+    repeat rewrite Nat.eqb_refl.
+    reflexivity.
+  - repeat rewrite String.eqb_refl.
+    repeat rewrite Z.eqb_refl.
+    repeat rewrite Nat.eqb_refl.
+    reflexivity.
+Qed.
 
 (* Proof that μ-cost covers certificate size *)
 Theorem concrete_mu_lower_bound :
@@ -309,9 +317,64 @@ Theorem concrete_check_step_complete :
     concrete_check_step P s s oev c = true ->
     exists obs, concrete_step P s s obs /\ obs.(ev) = oev /\ obs.(cert) = c.
 Proof.
-  (* The checker accepts certificates that match the format produced by steps *)
-  admit.
-Admitted.
+  intros P s oev c Hcheck.
+  destruct c as [q r m ts seq].
+  simpl in Hcheck.
+  destruct oev as [ev|].
+  - destruct ev as [policy| |].
+    + simpl in Hcheck.
+      apply Bool.andb_true_iff in Hcheck.
+      destruct Hcheck as [Hq Hrest].
+      apply Bool.andb_true_iff in Hrest.
+      destruct Hrest as [Hr Hrest].
+      apply Bool.andb_true_iff in Hrest.
+      destruct Hrest as [Hm Hrest].
+      apply Bool.andb_true_iff in Hrest.
+      destruct Hrest as [Hts Hseq].
+      apply String.eqb_eq in Hq.
+      apply String.eqb_eq in Hr.
+      apply String.eqb_eq in Hm.
+      apply Z.eqb_eq in Hts.
+      apply Nat.eqb_eq in Hseq.
+      subst policy r m ts seq.
+      exists {| ev := Some (PolicyCheck q);
+                mu_delta := Z.mul (Z.of_nat (String.length q + 0 + 0)) 8;
+                cert := {| smt_query := q;
+                           solver_reply := EmptyString;
+                           metadata := EmptyString;
+                           timestamp := 0;
+                           sequence := 0 |} |}.
+      repeat split; try reflexivity.
+      * apply step_lassert.
+      * reflexivity.
+    + discriminate.
+    + discriminate.
+  - simpl in Hcheck.
+    apply Bool.andb_true_iff in Hcheck.
+    destruct Hcheck as [Hab Hrest].
+    apply Bool.andb_true_iff in Hab.
+    destruct Hab as [Hq Hr].
+    apply Bool.andb_true_iff in Hrest.
+    destruct Hrest as [Hm Hrest].
+    apply Bool.andb_true_iff in Hrest.
+    destruct Hrest as [Hts Hseq].
+    apply String.eqb_eq in Hq.
+    apply String.eqb_eq in Hr.
+    apply String.eqb_eq in Hm.
+    apply Z.eqb_eq in Hts.
+    apply Nat.eqb_eq in Hseq.
+    subst q r m ts seq.
+    exists {| ev := None;
+              mu_delta := Z.mul (Z.of_nat (0 + 0 + 0)) 8;
+              cert := {| smt_query := EmptyString;
+                         solver_reply := EmptyString;
+                         metadata := EmptyString;
+                         timestamp := 0;
+                         sequence := 0 |} |}.
+    repeat split; try reflexivity.
+    + apply step_mdlacc.
+    + reflexivity.
+Qed.
 
 (* ================================================================= *)
 (* Concrete Execution Semantics *)
