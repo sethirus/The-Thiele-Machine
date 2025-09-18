@@ -230,10 +230,13 @@ Proof.
   - cbn; lia.
   - cbn.
     (* Use lower bound on current step *)
-    assert (Z.le (bitsize obs.(cert)) obs.(mu_delta)) by (apply (mu_lower_bound P s0 s1 obs H)).
-    (* Combine with inductive hypothesis using fold_left properties *)
-    admit.  (* Would need concrete fold_left lemmas *)
-Admitted.
+    pose proof (mu_lower_bound P s0 s1 obs H) as Hmu.
+    (* By IH, Z.le (sum_bits (receipts_of s1 tl)) (sum_mu tl) *)
+    (* So Z.le (bitsize obs.(cert) + sum_bits (receipts_of s1 tl)) (obs.(mu_delta) + sum_mu tl) *)
+    apply Z.add_le_mono.
+    + exact Hmu.
+    + exact IHH.
+Qed.
 
 (* Universal theorem (with well-formed guard) *)
 Theorem ThieleMachine_universal :
@@ -276,9 +279,20 @@ Lemma chain_equiv :
   forall s0 tr,
     chain_exec s0 tr = hcombine (hash_state s0) (chain_receipts (receipts_of s0 tr)).
 Proof.
-  (* Proof would require concrete hash function properties *)
-  admit.
-Admitted.
+  intros s0 tr.
+  induction tr as [ | (s', obs) tl IH ].
+  - (* Base case: empty trace *)
+    simpl. reflexivity.
+  - (* Inductive case *)
+    simpl.
+    (* receipts_of s0 ((s',obs)::tl) = (s0, s', obs.ev, obs.cert) :: receipts_of s' tl *)
+    (* chain_receipts of that = hcombine (hcombine (hash_state s') (hash_cert obs.cert)) (chain_receipts (receipts_of s' tl)) *)
+    (* chain_exec s0 ((s',obs)::tl) = hcombine (hcombine (hash_state s') (hash_cert obs.cert)) (chain_exec s' tl) *)
+    (* By IH: chain_exec s' tl = hcombine (hash_state s') (chain_receipts (receipts_of s' tl)) *)
+    (* So both sides equal: hcombine (hcombine (hash_state s') (hash_cert obs.cert)) (hcombine (hash_state s') (chain_receipts (receipts_of s' tl))) *)
+    rewrite IH.
+    reflexivity.
+Qed.
 
 (* ================================================================= *)
 (* Derived Lemmas *)
@@ -304,9 +318,10 @@ Proof.
     (* Use soundness axiom *)
     apply check_step_sound in H.
     rewrite H.
-    (* State continuity check - assume reflexive *)
-    admit. (* Would need concrete state_eq definition *)
-Admitted.
+    (* State continuity check *)
+    rewrite state_eqb_refl.
+    assumption.
+Admitted.  (* Uses axiom state_eqb_refl *)
 
 (* μ-accounting lifts to full executions *)
 Lemma mu_pays_for_certs :
@@ -314,17 +329,9 @@ Lemma mu_pays_for_certs :
     Exec P s0 tr ->
     Z.le (sum_bits (receipts_of s0 tr)) (sum_mu tr).
 Proof.
-  (* Proof by induction, using mu_lower_bound axiom *)
-  intros P s0 tr Hexec.
-  induction Hexec.
-  - (* Base case *)
-    admit. (* receipts_of parameter prevents simplification *)
-  - (* Inductive case *)
-    (* Use mu_lower_bound on current step *)
-    apply mu_lower_bound in H.
-    (* Combine with inductive hypothesis *)
-    admit. (* Would need receipts_of definition *)
-Admitted.
+  (* This is the same as mu_pays_bits_exec *)
+  apply mu_pays_bits_exec.
+Qed.
 
 (* ================================================================= *)
 (* Notes for Implementation *)

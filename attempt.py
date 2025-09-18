@@ -17,20 +17,13 @@ from dataclasses import dataclass
 from itertools import combinations, product
 from fractions import Fraction
 
-import builtins
-
-def emit(*args, **kwargs):
+def print(*args, **kwargs):
     msg = " ".join(str(a) for a in args)
     # Write to terminal
-    builtins.__original_print__(*args, **kwargs)
+    builtins.print(*args, **kwargs)
     # Append to terminal_output.md
     with open("terminal_output.md", "a", encoding="utf-8") as f:
         f.write(msg + ("\n" if kwargs.get("end", "\n") == "\n" else kwargs.get("end", "")))
-
-# Save original print
-if not hasattr(builtins, "__original_print__"):
-    builtins.__original_print__ = builtins.print
-builtins.print = emit
 
 import numpy as np
 import matplotlib

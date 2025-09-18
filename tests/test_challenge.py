@@ -10,7 +10,7 @@ HASH = hashlib.sha256(CERT.encode()).hexdigest()
 
 
 def make_receipt(mu):
-    return {"steps": [{"step_id": 0, "partition_id": 0, "axiom_ids": [], "certificate": CERT, "certificate_hash": HASH, "mu_delta": mu}]}
+    return {"steps": [{"idx": 0, "transition": "test", "mu_delta": mu, "step_hash": HASH, "solver": "test", "solver_cmdline": "test"}]}
 
 
 def test_challenge_verify_accepts(tmp_path):

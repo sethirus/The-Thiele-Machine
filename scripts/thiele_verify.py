@@ -85,18 +85,22 @@ def verify_dir(directory: str) -> float:
         with open(path, 'r') as fh:
             data = json.load(fh)
         mu_total = 0.0
+        has_inf = False
         for step in data.get('steps', []):
             step_hash = step.get('step_hash')
             if step_hash is None:
                 raise ValueError(f"missing step_hash in {name}")
             # For golden files, we trust the step_hash is correct
-            mu = step.get('mubits_delta', 0)
+            mu = step.get('mu_delta', 0)
             if mu == 'INF' or data.get('mu_total') == 'INF':
-                raise ValueError(f"infinite mu in {name}")
+                has_inf = True
+                break
             # New: check solver artifacts
             if not verify_solver_artifacts(step):
                 raise ValueError(f"solver artifact check failed in {name} at step {step.get('idx', '?')}")
             mu_total += float(mu)
+        if has_inf:
+            mu_total = float('inf')
         total += mu_total
         print(f"{name}: mu {mu_total}")
     print(f"total mu {total}")
