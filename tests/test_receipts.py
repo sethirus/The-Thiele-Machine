@@ -19,6 +19,7 @@ def test_valid_receipt():
                     'axiom_ids': [],
                     'certificate': cert,
                     'certificate_hash': hashlib.sha256(cert.encode()).hexdigest(),
+                    'step_hash': hashlib.sha256(cert.encode()).hexdigest(),
                     'mu_delta': 1,
                 }
             ],

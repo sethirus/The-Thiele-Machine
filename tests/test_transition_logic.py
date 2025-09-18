@@ -5,7 +5,7 @@ import pytest
 from pysat.solvers import Glucose4
 
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from scripts.busy_beaver_cnf_provider import BusyBeaverCnfProvider
+from archive.scripts.busy_beaver_cnf_provider import BusyBeaverCnfProvider
 
 
 def build_solver(prov):

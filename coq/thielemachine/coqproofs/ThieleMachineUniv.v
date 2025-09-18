@@ -8,11 +8,6 @@ Import ListNotations.
 (* Abstract Interface for Thiele Machine *)
 (* ================================================================= *)
 
-Parameter Event : Type.
-Parameter Cert : Type.
-Record StepObs := { ev : option Event; mu_delta : Z; cert : Cert }.
-
-
 Module Type THIELE_ABSTRACT.
   (* Types *)
   Parameter Instr State Event Cert Hash : Type.
@@ -58,11 +53,17 @@ Module Type THIELE_ABSTRACT.
         (s0,s',obs.(ev),obs.(cert)) :: receipts_of P s' tl
     end.
 
-  Definition sum_mu (tr: list (State*StepObs)) : Z :=
-    fold_left (fun acc '(_,obs) => Z.add acc obs.(mu_delta)) tr 0%Z.
+  Fixpoint sum_mu (tr: list (State*StepObs)) : Z :=
+    match tr with
+    | [] => 0%Z
+    | (_,obs)::tl => Z.add obs.(mu_delta) (sum_mu tl)
+    end.
 
-  Definition sum_bits (rs: list Receipt) : Z :=
-    fold_left (fun acc '(_,_,_,c) => Z.add acc (bitsize c)) rs 0%Z.
+  Fixpoint sum_bits (rs: list Receipt) : Z :=
+    match rs with
+    | [] => 0%Z
+    | (_,_,_,c)::tl => Z.add (bitsize c) (sum_bits tl)
+    end.
 
   (* Axioms / interface lemmas *)
   Axiom check_step_sound :
@@ -110,8 +111,7 @@ Module ThieleUniversal (M : THIELE_ABSTRACT).
     - (* Inductive case *)
       simpl.
       rewrite state_eqb_refl.
-      apply check_step_sound in Hstep.
-      rewrite Hstep.
+      rewrite (check_step_sound P s s' obs Hstep).
       apply IH.
       assumption.
   Qed.
@@ -135,8 +135,47 @@ Module ThieleUniversal (M : THIELE_ABSTRACT).
         (* sum_mu adds obs.(mu_delta) to the sum of the tail *)
         (* By mu_lower_bound, bitsize(obs.(cert)) <= obs.(mu_delta) *)
         apply Z.add_le_mono.
-        + apply mu_lower_bound. assumption.
-        + apply IH.
+        + apply (mu_lower_bound P s s' obs Hstep).
+        + apply IH. assumption.
     Qed.
 
 End ThieleUniversal.
+
+(* ================================================================= *)
+(* Concrete Instantiation *)
+(* ================================================================= *)
+
+Require Import ThieleMachine.ThieleMachineConcrete.
+
+Module ConcreteThiele : THIELE_ABSTRACT.
+
+  Definition Instr := ThieleInstr.
+  Definition State := ConcreteState.
+  Definition Event := ThieleEvent.
+  Definition Cert := ConcreteCert.
+  Definition Hash := Hash.
+
+  Definition is_LASSERT := concrete_is_LASSERT.
+  Definition is_MDLACC := concrete_is_MDLACC.
+
+  Definition step := concrete_step.
+
+  Definition check_step := concrete_check_step.
+  Definition bitsize := concrete_bitsize.
+  Definition state_eqb := concrete_state_eq.
+
+  Definition H0 := H0.
+  Definition hash_state := concrete_hash_state.
+  Definition hash_cert := concrete_hash_cert.
+  Definition hcombine := concrete_hcombine.
+
+  (* Axioms satisfied by concrete implementation *)
+  Definition check_step_sound := concrete_check_step_sound.
+  Definition mu_lower_bound := concrete_mu_lower_bound.
+  Definition check_step_complete := concrete_check_step_complete.
+  Definition state_eqb_refl := concrete_state_eqb_refl.
+
+End ConcreteThiele.
+
+(* Instantiate universal theorems with concrete implementation *)
+Module ConcreteUniversal := ThieleUniversal ConcreteThiele.
