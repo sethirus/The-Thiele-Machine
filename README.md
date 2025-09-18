@@ -51,7 +51,11 @@ python scripts/challenge.py verify receipts
 7. **(Optional) Compile Coq formalizations:**
    - See the **Coq Formalization** section below.
 
-**Requirements:** Python 3.11 or later, Coq Platform 8.20 or later (for formal proofs).
+**Requirements:** Python 3.11 or later.
+
+**System Dependencies:**
+- Coq Platform 8.20 or later (for formal proofs and compilation)
+- drat-trim and lrat-check (for proof verification in thiele_verify.py)
 
 ---
 

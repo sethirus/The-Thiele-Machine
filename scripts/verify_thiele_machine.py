@@ -104,15 +104,15 @@ class ThieleVerifier:
 
             # Validate that all steps have required fields
             for step in steps:
-                required_step_fields = ["idx", "transition", "mubits_delta", "step_hash", "solver", "solver_cmdline"]
+                required_step_fields = ["idx", "transition", "mu_delta", "step_hash", "solver", "solver_cmdline"]
                 for field in required_step_fields:
                     if field not in step:
                         print(f"[FAIL] Step missing required field: {field}")
                         return False
 
-                # Validate mubits_delta is a non-negative integer
-                if not isinstance(step["mubits_delta"], int) or step["mubits_delta"] < 0:
-                    print(f"[FAIL] Invalid mubits_delta: {step['mubits_delta']}")
+                # Validate mu_delta is a non-negative integer
+                if not isinstance(step["mu_delta"], int) or step["mu_delta"] < 0:
+                    print(f"[FAIL] Invalid mu_delta: {step['mu_delta']}")
                     return False
 
             # All steps are valid

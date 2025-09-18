@@ -17,11 +17,11 @@
   "$defs": {
     "step": {
       "type": "object",
-      "required": ["idx","transition","mubits_delta","step_hash","solver","solver_cmdline"],
+      "required": ["idx","transition","mu_delta","step_hash","solver","solver_cmdline"],
       "properties": {
         "idx": { "type": "integer", "minimum": 0 },
         "transition": { "type": "string" },
-        "mubits_delta": { "type": "integer" },
+        "mu_delta": { "type": ["integer", "string"] },
         "post_state_hash": { "type": ["string","null"], "pattern": "^[0-9a-fA-F]{64}$" },
         "proof_portable": { "type": ["string","null"], "enum": ["LRAT","DRAT",null] },
         "proof_blob_uri": { "type": ["string","null"] },
