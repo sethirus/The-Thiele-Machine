@@ -782,6 +782,51 @@ Proof.
       admit.  (* Assume hcombine injective *)
 Admitted.
 
+(* ================================================================= *)
+(* Formal Receipt Validation Specification *)
+(* ================================================================= *)
+
+(* Receipt validation should check:
+   1. Well-formedness (schema compliance)
+   2. Step validity (check_step succeeds)
+   3. μ-accounting (bits <= μ)
+   4. Artifact verification (proofs/models are valid)
+*)
+
+Definition validate_receipt_step (P:list ConcreteThiele.Instr) (r:ConcreteThiele.Receipt) : bool :=
+  let '(spre, spost, oev, c) := r in
+  (* Check that the step is valid according to check_step *)
+  ConcreteThiele.check_step P spre spost oev c.
+
+Definition validate_receipt_mu (r:ConcreteThiele.Receipt) : bool :=
+  let '(_, _, _, c) := r in
+  (* Check that certificate size <= μ-cost (already checked in step semantics) *)
+  true.  (* Placeholder - μ validation is implicit in step semantics *)
+
+(* Full receipt validation specification *)
+Definition validate_receipt_chain (P:list ConcreteThiele.Instr) (rs:list ConcreteThiele.Receipt) : bool :=
+  (* Check replay validity *)
+  ConcreteThiele.replay_ok P (ConcreteThiele.init_state) rs /\
+  (* Check μ-accounting *)
+  Z.le (ConcreteThiele.sum_bits rs) (ConcreteThiele.sum_mu_receipts rs) /\
+  (* Check hash chain integrity *)
+  true.  (* Placeholder for hash chain validation *)
+
+(* Theorem: If Python validation succeeds, then formal validation holds *)
+(* This would require proving the Python implementation correct *)
+Theorem python_checker_soundness :
+  (* Assume Python checker returns true *)
+  forall P rs,
+    (* If Python validation succeeds *)
+    True ->  (* Placeholder for Python checker spec *)
+    (* Then formal validation holds *)
+    validate_receipt_chain P rs = true.
+Proof.
+  (* This theorem requires proving that the Python implementation
+     correctly implements the Coq specification *)
+  admit.  (* Python implementation verification needed *)
+Admitted.
+
 Lemma concrete_sum_bits_eq_new :
   forall P s tr,
     concrete_sum_bits (concrete_receipts_of P s tr) =

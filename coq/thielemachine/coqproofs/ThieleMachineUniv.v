@@ -122,10 +122,21 @@ Module ThieleUniversal (M : THIELE_ABSTRACT).
         Exec P s0 tr ->
         Z.le (sum_bits (receipts_of P s0 tr)) (sum_mu tr).
     Proof.
-      (* The μ-accounting property holds by induction on execution traces *)
-      (* Each step contributes certificate bits covered by μ-cost *)
-      (* The sums compose correctly by construction *)
-      admit.  (* μ-accounting holds by the lower bound axiom *)
-    Admitted.
+      intros P s0 tr Hwf Hexec.
+      induction Hexec as [s | P s s' obs tl Hstep Hexec' IH].
+      - (* Base case: empty trace *)
+        simpl. apply Z.le_refl.
+      - (* Inductive case *)
+        simpl.
+        unfold sum_bits, sum_mu.
+        simpl.
+        (* receipts_of adds (s, s', obs.(ev), obs.(cert)) to the list *)
+        (* sum_bits adds bitsize(obs.(cert)) to the sum of the tail *)
+        (* sum_mu adds obs.(mu_delta) to the sum of the tail *)
+        (* By mu_lower_bound, bitsize(obs.(cert)) <= obs.(mu_delta) *)
+        apply Z.add_le_mono.
+        + apply mu_lower_bound. assumption.
+        + apply IH.
+    Qed.
 
 End ThieleUniversal.
