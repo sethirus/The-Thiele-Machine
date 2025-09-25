@@ -16,6 +16,50 @@ from .rules import DEFAULT_RULES, Rule
 from .types import Finding, LogEntry
 
 
+class _MinimalSession:
+    """A small proxy object exposed to the VM to reduce attack surface.
+
+    The VM can only call the methods defined on this proxy. It does not
+    expose the full BugHunter instance or internal state. All operations
+    that mutate host state are routed through tightly-controlled callables
+    provided at construction time.
+    """
+
+    def __init__(self, run_cb, read_cb, report_cb, log_cb):
+        # Only store carefully curated callables; avoid exposing the
+        # original BugHunter instance to the VM.
+        self._run_cb = run_cb
+        self._read_cb = read_cb
+        self._report_cb = report_cb
+        self._log_cb = log_cb
+
+    def _run_analysis(self) -> None:
+        """Entry point invoked from inside the VM to start analysis.
+
+        The actual analysis execution happens on the host via the provided
+        callback; the VM only triggers the action.
+        """
+        # This is intentionally a thin trampoline back into the host.
+        self._run_cb()
+
+    def read_file(self, path: str) -> str | None:
+        """Read a file via the host in a controlled manner.
+
+        Returns the file contents or None (if unreadable). The VM will not
+        gain any other filesystem access.
+        """
+        return self._read_cb(path)
+
+    def report_finding(self, payload: dict) -> None:
+        """Accept a finding payload (serializable dict) from VM code and
+        hand it to the host for validation and recording.
+        """
+        self._report_cb(payload)
+
+    def log(self, message: str, severity: str = "INFO") -> None:
+        self._log_cb(message, severity=severity)
+
+
 @dataclass
 class BugHunterReport:
     """Aggregated results from a bug hunt."""
@@ -57,7 +101,16 @@ class BugHunter:
         self.rules: Sequence[Rule] = rules if rules is not None else DEFAULT_RULES
         self.vm = vm or VM(State())
         self.vm.state.log = self._log  # type: ignore[attr-defined]
-        self.vm.python_globals["SESSION"] = self
+        # Provide the VM with a minimal proxy rather than the entire
+        # BugHunter object. This reduces the surface area available to
+        # sandboxed code while keeping the same top-level workflow.
+        proxy = _MinimalSession(
+            run_cb=self._run_analysis,
+            read_cb=lambda p: self._safe_read(Path(p)),
+            report_cb=lambda payload: self._record_finding_from_vm(payload),
+            log_cb=self._log,
+        )
+        self.vm.python_globals["SESSION"] = proxy
         self._logs: List[LogEntry] = []
         self._findings: List[Finding] = []
         self._latest_report: Optional[BugHunterReport] = None
@@ -129,6 +182,37 @@ class BugHunter:
         self.vm.state.log(
             f"LDEDUCE: Analysis complete with {len(self._findings)} findings",
         )
+
+    # ------------------------------------------------------------------
+    # VM-safe recording helpers (used by the _MinimalSession proxy)
+    # ------------------------------------------------------------------
+    def _record_finding_from_vm(self, payload: dict) -> None:
+        """Validate and record a finding reported from VM-executed code.
+
+        Only accepts a restricted set of fields and converts them into a
+        Finding instance on the host side. This prevents the VM from
+        constructing arbitrary Python objects and keeps recorded data
+        strictly serialisable payloads.
+        """
+        allowed_keys = {"rule", "severity", "file", "line", "message", "remediation", "evidence"}
+        if not isinstance(payload, dict):
+            self._log("LASSERT: VM attempted to report non-dict finding", severity="error")
+            return
+        filtered = {k: payload.get(k) for k in allowed_keys}
+        try:
+            finding = Finding(
+                rule=str(filtered.get("rule", "unknown")),
+                severity=str(filtered.get("severity", "info")),
+                file=Path(filtered.get("file", "")),
+                line=int(filtered.get("line", 1) or 1),
+                message=str(filtered.get("message", "")),
+                remediation=str(filtered.get("remediation", "")),
+                evidence=filtered.get("evidence"),
+            )
+        except Exception as exc:  # defensive
+            self._log(f"LASSERT: Invalid finding payload from VM: {exc}", severity="error")
+            return
+        self._record_finding(finding)
 
     # ------------------------------------------------------------------
     # Utility methods
