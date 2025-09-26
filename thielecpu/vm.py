@@ -568,6 +568,8 @@ class VM:
             elif op == "LASSERT":
                 formula = Path(arg).read_text(encoding='utf-8')
                 digest = lassert(self.state, current_module, formula, cert_dir)
+                if self.state.csr[CSR.STATUS] == 0:
+                    self.state.csr[CSR.ERR] = 1
                 trace_lines.append(f"{step}: LASSERT {arg} -> {digest}")
                 if self.state.csr[CSR.STATUS] == 0:
                     self.state.csr[CSR.ERR] = 1
