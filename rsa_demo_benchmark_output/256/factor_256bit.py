@@ -1,0 +1,6 @@
+
+from thielecpu.factoring import recover_factors_partitioned
+p, q = recover_factors_partitioned(55162989510362389513469100628783978682261545885207627517602436726129736494639)
+print(f"Found factors: p={p}, q={q}")
+assert p * q == 55162989510362389513469100628783978682261545885207627517602436726129736494639
+print("Factorization verified")

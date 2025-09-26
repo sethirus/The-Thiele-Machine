@@ -1,0 +1,7 @@
+
+; 64-bit RSA Factoring Assembly
+PNEW {1,2}  ; Partition for factoring
+PYEXEC "factor_64-bit.py"  ; Run factoring
+LASSERT "rsa_64-bit_cert.smt2"  ; Certify factorization
+MDLACC  ; Accumulate mu-bits
+EMIT "RSA 64-bit Factoring Complete"

@@ -1,0 +1,33 @@
+"""Unit tests for thielecpu.vm module."""
+from thielecpu.vm import VM, placeholder
+from thielecpu.state import State
+
+
+def test_placeholder_creates_symbolic_variable():
+    v = placeholder(domain=['a', 'b'])
+    assert v.name.startswith('var_')
+    assert v.domain == ['a', 'b']
+
+
+def test_execute_symbolic_brute_force_finds_assignment():
+    vm = VM(State())
+    symbolic_assignments = {'x': ['a', 'b'], 'y': ['0', '1']}
+    var_names = ['x', 'y']
+    code_to_run = 's = x + y\nassert s == "a0"\nprint("FOUND: %s"%s)'
+    res, out = vm.execute_symbolic_brute_force('', symbolic_assignments, var_names, code_to_run)
+    assert res is None
+    assert 'Symbolic execution successful' in out
+
+
+def test_execute_symbolic_brute_force_respects_limit(monkeypatch):
+    import thielecpu.vm as vm_mod
+    # Force a low safe limit
+    monkeypatch.setattr(vm_mod, 'SAFE_COMBINATION_LIMIT', 2)
+
+    vm = VM(State())
+    symbolic_assignments = {'x': ['a', 'b'], 'y': ['0', '1']}
+    var_names = ['x', 'y']
+    code_to_run = 's = x + y\nassert s == "a0"\nprint("FOUND: %s"%s)'
+    res, out = vm.execute_symbolic_brute_force('', symbolic_assignments, var_names, code_to_run)
+    assert res is None
+    assert 'Workload too large' in out
