@@ -1,0 +1,27 @@
+; Fully Realized Thiele Machine: Partitioned Skeleton Key
+; Demonstrates partition logic, modules, and composite witnesses
+
+; Create partition for first 5 characters (module 1)
+PNEW {1,2,3,4,5}
+
+; Create partition for last 5 characters (module 2)
+PNEW {6,7,8,9,10}
+
+; Execute symbolic Python code with partitioned constraints
+PYEXEC examples\skeleton_key.py
+
+; Local assertions (module-level witnesses)
+; Module 1 constraint: first 5 chars == "abcde"
+LASSERT module1_constraint.smt2
+
+; Module 2 constraint: last 5 chars == "fghij"
+LASSERT module2_constraint.smt2
+
+; Composite witness: join the local certificates
+LJOIN cert_module1 cert_module2
+
+; Accumulate MDL cost
+MDLACC
+
+; Emit result
+EMIT "Partitioned Skeleton Key with Composite Witnesses Complete"

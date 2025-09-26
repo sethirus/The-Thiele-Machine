@@ -16,13 +16,17 @@
 # ============================================================================
 
 import warnings
-warnings.warn(
-    "⚠️  SECURITY WARNING: Importing thielecpu package. This implements "
-    "partition-native computation that could break RSA encryption. Use only "
-    "for defensive security research.",
-    UserWarning,
-    stacklevel=2
-)
+import multiprocessing
+
+# Only warn in the main process to avoid spam in multiprocessing
+if multiprocessing.current_process().name == 'MainProcess':
+    warnings.warn(
+        "⚠️  SECURITY WARNING: Importing thielecpu package. This implements "
+        "partition-native computation that could break RSA encryption. Use only "
+        "for defensive security research.",
+        UserWarning,
+        stacklevel=2
+    )
 
 # Initialize security monitoring
 from .security_monitor import log_usage

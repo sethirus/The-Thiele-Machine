@@ -11,6 +11,12 @@ import sys
 from io import StringIO
 import hashlib
 import string
+import z3
+
+# Safety: maximum allowed classical combinations for brute-force searches.
+# Can be overridden by the environment variable THIELE_MAX_COMBINATIONS.
+import os
+SAFE_COMBINATION_LIMIT = int(os.environ.get('THIELE_MAX_COMBINATIONS', 10_000_000))
 
 try:
     from .assemble import Instruction, parse
@@ -69,6 +75,65 @@ def placeholder(domain: Optional[List[str]] = None) -> SymbolicVariable:
 
     return SymbolicVariable(var_name, domain)
 
+def search_chunk(chunk_combinations, var_names, code_to_run):
+    """Worker function for parallel brute force search."""
+    import hashlib
+
+    # Minimal globals for the subprocess
+    python_globals = {
+        '__builtins__': __builtins__,
+        'print': print,
+        'len': len,
+        'range': range,
+        'enumerate': enumerate,
+        'zip': zip,
+        'sum': sum,
+        'max': max,
+        'min': min,
+        'abs': abs,
+        'pow': pow,
+        'divmod': divmod,
+        'round': round,
+        'int': int,
+        'float': float,
+        'str': str,
+        'bool': bool,
+        'list': list,
+        'dict': dict,
+        'set': set,
+        'tuple': tuple,
+        'hashlib': hashlib,
+    }
+
+    for combination in chunk_combinations:
+        assignment = dict(zip(var_names, combination))
+
+        solved_globals = python_globals.copy()
+        solved_globals.update(assignment)
+
+        # Capture output in subprocess
+        from io import StringIO
+        import sys
+        old_stdout = sys.stdout
+        sys.stdout = captured_output = StringIO()
+
+        success = False
+        output = ""
+
+        try:
+            exec(code_to_run, solved_globals)
+            success = True
+        except AssertionError:
+            pass
+        except Exception:
+            pass
+
+        output = captured_output.getvalue()
+        sys.stdout = old_stdout
+
+        if success:
+            return assignment, output
+    return None, None
 
 @dataclass
 class VM:
@@ -111,7 +176,7 @@ class VM:
             if code_or_path.endswith('.py') or ('\n' not in code_or_path.strip() and Path(code_or_path).exists()):
                 try:
                     # Try to read as file
-                    code = Path(code_or_path).read_text()
+                    code = Path(code_or_path).read_text(encoding='utf-8')
                     source_info = f"file: {code_or_path}"
                 except (FileNotFoundError, OSError):
                     # Not a file, treat as inline code
@@ -146,21 +211,24 @@ class VM:
             finally:
                 sys.stdout = old_stdout
         except Exception as e:
-            return None, f"Error: {str(e)}"
+            output = captured_output.getvalue()
+            sys.stdout = old_stdout
+            return None, output + f"\nError: {str(e)}"
 
     def execute_symbolic_python(self, code: str, source_info: str) -> Any:
-        """Execute Python code with symbolic variables using logical deduction."""
-        import itertools
-        import ast
+        """Execute Python code with symbolic variables using Z3 SMT solver."""
 
         # 1. Parse the code and find symbolic assignments
         try:
             tree = ast.parse(code)
-        except SyntaxError as e:
-            return None, f"Syntax Error: {e}"
+        except SyntaxError as exc:
+            return None, f"Syntax Error: {exc}"
+
+        # Log where the symbolic code originated to aid debugging
+        print(f"Executing symbolic code from: {source_info}")
 
         symbolic_assignments = {}  # maps var_name -> domain
-        
+
         class PlaceholderVisitor(ast.NodeVisitor):
             def visit_Assign(self, node):
                 if isinstance(node.value, ast.Call) and isinstance(node.value.func, ast.Name) and node.value.func.id == 'placeholder':
@@ -173,9 +241,6 @@ class VM:
                         if node.value.keywords:
                             for kw in node.value.keywords:
                                 if kw.arg == 'domain':
-                                    # The value of the keyword argument is another AST node.
-                                    # We need to evaluate it. The original code used ast.literal_eval,
-                                    # which is too restrictive for calls like `list("abc")`.
                                     domain_val = None
                                     if (isinstance(kw.value, ast.Call) and
                                         isinstance(kw.value.func, ast.Name) and
@@ -185,38 +250,19 @@ class VM:
                                         arg_node = kw.value.args[0]
                                         str_val = None
 
-                                        # Python 3.8+ uses ast.Constant for strings
                                         if isinstance(arg_node, ast.Constant) and isinstance(arg_node.value, str):
                                             str_val = arg_node.value
-                                        # Python < 3.8 uses ast.Str, which we check for safely
                                         elif hasattr(ast, 'Str') and isinstance(arg_node, ast.Str):
                                             str_val = arg_node.s
 
                                         if str_val is not None:
-                                            domain_val = list(str_val)
-                                        # Handle list(range(...))
-                                        elif (isinstance(arg_node, ast.Call) and
-                                              isinstance(arg_node.func, ast.Name) and
-                                              arg_node.func.id == 'range'):
-                                            # Extract range arguments
-                                            range_args = []
-                                            for arg in arg_node.args:
-                                                if isinstance(arg, ast.Constant):
-                                                    range_args.append(arg.value)
-                                                elif hasattr(ast, 'Num') and isinstance(arg, ast.Num):
-                                                    range_args.append(arg.n)
-                                            if len(range_args) >= 1:
-                                                start = range_args[0] if len(range_args) >= 1 else 0
-                                                stop = range_args[1] if len(range_args) >= 2 else start + 1
-                                                step = range_args[2] if len(range_args) >= 3 else 1
-                                                domain_val = list(range(start, stop, step))
+                                            domain_val = list(str(str_val))
 
                                     if domain_val is None:
-                                        # Fallback to literal_eval for simple lists like `['a', 'b', 'c']`
                                         try:
                                             domain_val = ast.literal_eval(kw.value)
                                         except Exception:
-                                            pass  # Stick with default if eval fails
+                                            pass
 
                                     if isinstance(domain_val, list):
                                         domain = domain_val
@@ -226,82 +272,255 @@ class VM:
         PlaceholderVisitor().visit(tree)
 
         if not symbolic_assignments:
-            # No symbolic variables found, execute normally
             return self.execute_python(code)
 
         var_names = list(symbolic_assignments.keys())
-        domains = [symbolic_assignments[name] for name in var_names]
-        
         print(f"Found {len(var_names)} symbolic variables: {var_names}")
 
-        total_combinations = 1
-        for domain in domains:
-            total_combinations *= len(domain)
-        print(f"Searching through {total_combinations} combinations...")
+        # Set default domain if not specified
+        for var_name in var_names:
+            if symbolic_assignments[var_name] is None:
+                symbolic_assignments[var_name] = list('abcdefghijklmnopqrstuvwxyz0123456789')
 
-        # Use an AST transformer to remove the symbolic assignments.
-        # This is more robust than string manipulation.
+        total_combinations = 1
+        for domain in symbolic_assignments.values():
+            total_combinations *= len(domain)
+        print(f"Classical search space: {total_combinations} combinations")
+
+        # Check if this is arithmetic (integer) or string-based symbolic execution
+        is_arithmetic = False
+        class ArithmeticChecker(ast.NodeVisitor):
+            def visit_BinOp(self, node):
+                if isinstance(node.op, (ast.Mult, ast.Add, ast.Sub, ast.Div, ast.Mod)):
+                    self.is_arithmetic = True
+                self.generic_visit(node)
+            def visit_Compare(self, node):
+                if any(isinstance(op, (ast.Lt, ast.LtE, ast.Gt, ast.GtE)) for op in node.ops):
+                    self.is_arithmetic = True
+                self.generic_visit(node)
+
+        checker = ArithmeticChecker()
+        checker.visit(tree)
+        is_arithmetic = checker.is_arithmetic
+
+        # Use AST transformer to remove symbolic assignments
         class SymbolicAssignmentRemover(ast.NodeTransformer):
             def visit_Assign(self, node):
-                # Check if this is a symbolic assignment
                 if (isinstance(node.value, ast.Call) and
                     isinstance(node.value.func, ast.Name) and
                     node.value.func.id == 'placeholder'):
-                    # Remove this node by returning None
                     return None
                 return node
 
         remover = SymbolicAssignmentRemover()
         new_tree = remover.visit(tree)
         ast.fix_missing_locations(new_tree)
-        
-        # Convert the modified AST back to code
-        # Note: ast.unparse requires Python 3.9+. For broader compatibility,
-        # a backport like `astunparse` would be needed if targeting older versions.
-        # For this project, we assume Python 3.9+.
         code_to_run = ast.unparse(new_tree)
 
-        # 2. Try each combination
-        for combination in itertools.product(*domains):
-            assignment = dict(zip(var_names, combination))
-            print(f"Trying assignment: {assignment}")
+        # 2. Set up Z3 solver
+        if is_arithmetic:
+            solver = z3.Solver()
+            z3_vars = {}
+            # Create Z3 integer variables
+            for var_name in var_names:
+                z3_vars[var_name] = z3.Int(var_name)
+        else:
+            solver = z3.SolverFor("QF_S")
+            z3_vars = {}
+            # Create Z3 string variables
+            for var_name, domain in symbolic_assignments.items():
+                z3_var = z3.String(var_name)
+                z3_vars[var_name] = z3_var
 
-            # 3. Create execution environment with solved values
-            solved_globals = self.python_globals.copy()
-            solved_globals.update(assignment)
+        # Check if constraints involve unsupported operations (e.g., cryptography)
+        has_unsupported_assertions = 'hashlib' in code
 
-            # 4. Try to execute with this assignment
-            old_stdout = sys.stdout
-            sys.stdout = captured_output = StringIO()
-            
-            success = False
-            err = None
-            output = ""
-
-            try:
-                exec(code_to_run, solved_globals)
-                success = True
-            except AssertionError as e:
-                if "Collision found" in str(e):
-                    print(f"✓ Found collision: {assignment}")
-                    return None, output
-                else:
-                    err = f"Assertion failed: {e}"
-            except Exception as e:
-                import traceback
-                err = f"Other error: {e}\n{traceback.format_exc()}"
-            
-            output = captured_output.getvalue()
-            sys.stdout = old_stdout # Restore stdout
-
-            if success:
-                print(f"✓ Found satisfying assignment: {assignment}")
-                return None, f"Symbolic execution successful!\nAssignment: {assignment}\nOutput:\n{output}"
+        if has_unsupported_assertions:
+            # Fall back to brute force for cryptographic constraints
+            print("Cryptographic constraints detected - using brute force search")
+            return self.execute_symbolic_brute_force(code, symbolic_assignments, var_names, code_to_run)
+        else:
+            # Use Z3 for logical constraints
+            if is_arithmetic:
+                print("Using Z3 SMT solver for arithmetic constraints...")
             else:
-                # This will now print to the console for each failed attempt.
-                print(f"x Failed assignment: {assignment} -> {err}")
-        
-        return None, "No satisfying assignment found for symbolic variables"
+                print("Using Z3 SMT solver for logical constraints...")
+
+            # Find assertions and convert to Z3 constraints
+            class AssertionVisitor(ast.NodeVisitor):
+                def visit_Assert(self, node):
+                    constraint = self.convert_expr_to_z3(node.test, is_arithmetic)
+                    if constraint is not None:
+                        solver.add(constraint)
+
+                def convert_expr_to_z3(self, expr, is_arithmetic):
+                    if isinstance(expr, ast.Compare):
+                        if len(expr.ops) == 1:
+                            op = expr.ops[0]
+                            left = self.convert_expr_to_z3(expr.left, is_arithmetic)
+                            right = self.convert_expr_to_z3(expr.comparators[0], is_arithmetic)
+                            if left is not None and right is not None:
+                                if isinstance(op, ast.Eq):
+                                    return left == right
+                                elif isinstance(op, ast.Lt):
+                                    return left < right
+                                elif isinstance(op, ast.LtE):
+                                    return left <= right
+                                elif isinstance(op, ast.Gt):
+                                    return left > right
+                                elif isinstance(op, ast.GtE):
+                                    return left >= right
+                    elif isinstance(expr, ast.BinOp):
+                        left = self.convert_expr_to_z3(expr.left, is_arithmetic)
+                        right = self.convert_expr_to_z3(expr.right, is_arithmetic)
+                        if left is not None and right is not None:
+                            if isinstance(expr.op, ast.Add):
+                                if is_arithmetic:
+                                    return left + right
+                                else:
+                                    return z3.Concat(left, right)
+                            elif isinstance(expr.op, ast.Sub):
+                                return left - right
+                            elif isinstance(expr.op, ast.Mult):
+                                return left * right
+                            elif isinstance(expr.op, ast.Div):
+                                return left / right
+                            elif isinstance(expr.op, ast.Mod):
+                                return left % right
+                    elif isinstance(expr, ast.Call):
+                        if isinstance(expr.func, ast.Attribute) and expr.func.attr == 'startswith':
+                            obj = self.convert_expr_to_z3(expr.func.value, is_arithmetic)
+                            if obj is not None and expr.args:
+                                arg = self.convert_expr_to_z3(expr.args[0], is_arithmetic)
+                                if arg is not None:
+                                    # Model Python's str.startswith(x) as z3 PrefixOf(x, obj)
+                                    return z3.PrefixOf(arg, obj)
+                    elif isinstance(expr, ast.Name):
+                        if expr.id in z3_vars:
+                            return z3_vars[expr.id]
+                    elif isinstance(expr, ast.Constant):
+                        if is_arithmetic and isinstance(expr.value, int):
+                            return z3.IntVal(expr.value)
+                        else:
+                            return z3.StringVal(str(expr.value))
+                    return None
+
+            AssertionVisitor().visit(new_tree)
+
+            if solver.check() == z3.sat:
+                model = solver.model()
+                assignment = {}
+                for var_name, z3_var in z3_vars.items():
+                    val = model[z3_var]
+                    if val is not None:
+                        if is_arithmetic:
+                            assignment[var_name] = int(str(val))
+                        else:
+                            if z3.is_string_value(val):
+                                assignment[var_name] = str(val).strip('"')
+                            else:
+                                assignment[var_name] = str(val)
+                    else:
+                        assignment[var_name] = 0 if is_arithmetic else ""
+
+                print(f"✓ Found satisfying assignment: {assignment}")
+
+                solved_globals = self.python_globals.copy()
+                solved_globals.update(assignment)
+
+                old_stdout = sys.stdout
+                sys.stdout = captured_output = StringIO()
+
+                try:
+                    exec(code_to_run, solved_globals)
+                    output = captured_output.getvalue()
+                    sys.stdout = old_stdout
+                    return None, f"Symbolic execution successful!\nAssignment: {assignment}\nOutput:\n{output}"
+                except Exception as e:
+                    sys.stdout = old_stdout
+                    return None, f"Execution failed with solution: {e}"
+            else:
+                return None, "No satisfying assignment found (unsatisfiable constraints)"
+
+    def execute_symbolic_brute_force(self, _code: str, symbolic_assignments: dict, var_names: list, code_to_run: str) -> Any:
+        """Brute force search for symbolic variables when Z3 cannot handle constraints.
+
+        This implementation streams combinations in chunks to avoid allocating
+        the entire Cartesian product in memory. It also enforces a safety limit
+        (SAFE_COMBINATION_LIMIT) to prevent accidental large-scale cryptanalytic
+        workloads.
+        """
+        import itertools
+        import multiprocessing as mp
+        from concurrent.futures import ProcessPoolExecutor, as_completed
+        from itertools import islice
+
+        domains = [symbolic_assignments[name] for name in var_names]
+
+        total_combinations = 1
+        for domain in domains:
+            total_combinations *= len(domain)
+        print(f"Parallel brute force search through {total_combinations} combinations...")
+
+        # Safety check: avoid extremely large searches
+        if total_combinations > SAFE_COMBINATION_LIMIT:
+            return None, f"Workload too large: {total_combinations} combinations exceeds safe limit of {SAFE_COMBINATION_LIMIT}. Reduce domains or set THIELE_MAX_COMBINATIONS to a smaller value for experimentation."
+
+        # Determine worker count and chunk sizing
+        num_workers = min(mp.cpu_count(), 4)  # Use up to 4 cores by default
+        # Aim for a modest number of chunks per worker; ensure chunk_size >=1
+        chunk_size = max(1, total_combinations // (num_workers * 64))
+
+        print(f"Using up to {num_workers} parallel workers with chunk size {chunk_size}...")
+
+        # Generator that yields chunks lazily using islice
+        def chunked_product(domains, chunk_size):
+            product_iter = itertools.product(*domains)
+            while True:
+                chunk = list(islice(product_iter, chunk_size))
+                if not chunk:
+                    break
+                yield chunk
+
+        # Use the existing search_chunk worker which accepts a list of combinations
+        with ProcessPoolExecutor(max_workers=num_workers) as executor:
+            pending = []  # list of futures
+            chunk_iter = chunked_product(domains, chunk_size)
+
+            # Submit initial batch up to num_workers
+            try:
+                for _ in range(num_workers):
+                    chunk = next(chunk_iter, None)
+                    if chunk is None:
+                        break
+                    fut = executor.submit(search_chunk, chunk, var_names, code_to_run)
+                    pending.append(fut)
+
+                # Iterate over futures as they complete and submit new chunks
+                for fut in as_completed(pending):
+                    assignment, output = fut.result()
+                    if assignment:
+                        # Cancel remaining futures
+                        for other in pending:
+                            if not other.done():
+                                other.cancel()
+                        print(f"✓ Found satisfying assignment: {assignment}")
+                        return None, f"Symbolic execution successful!\nAssignment: {assignment}\nOutput:\n{output}"
+                    # If this future didn't find a solution, submit next chunk if available
+                    next_chunk = next(chunk_iter, None)
+                    if next_chunk is not None:
+                        new_fut = executor.submit(search_chunk, next_chunk, var_names, code_to_run)
+                        pending.append(new_fut)
+                # If we get here, no futures returned a solution
+                return None, "No satisfying assignment found for symbolic variables"
+            finally:
+                # Attempt best-effort cancellation of pending futures
+                for fut in pending:
+                    try:
+                        fut.cancel()
+                    except Exception:
+                        # Swallow cancellation errors
+                        pass
 
     def run(self, program: List[Instruction], outdir: Path) -> None:
         outdir.mkdir(parents=True, exist_ok=True)
@@ -337,7 +556,7 @@ class VM:
                 # Simple predicate: even/odd based on first element
                 def pred(x): return x % 2 == 0
                 m1, m2 = self.state.psplit(module_id, pred)
-                trace_lines.append(f"{step}: PSPLIT {module_id} -> {m1}, {m2}")
+                trace_lines.append(f"{step}: PSPLIT {module_id} ({pred_expr}) -> {m1}, {m2}")
             elif op == "PMERGE":
                 # PMERGE m1 m2 - merge two modules
                 parts = arg.split()
@@ -347,9 +566,13 @@ class VM:
                 trace_lines.append(f"{step}: PMERGE {m1}, {m2} -> {merged}")
                 current_module = merged
             elif op == "LASSERT":
-                formula = Path(arg).read_text()
+                formula = Path(arg).read_text(encoding='utf-8')
                 digest = lassert(self.state, current_module, formula, cert_dir)
                 trace_lines.append(f"{step}: LASSERT {arg} -> {digest}")
+                if self.state.csr[CSR.STATUS] == 0:
+                    self.state.csr[CSR.ERR] = 1
+                    trace_lines.append(f"{step}: LASSERT unsat - halting VM")
+                    break
             elif op == "LJOIN":
                 # LJOIN cert1 cert2 - join two certificates
                 parts = arg.split()
@@ -391,8 +614,16 @@ class VM:
                     trace_lines.append(f"{step}: PYEXEC {python_code[:47]}...")
                 else:
                     trace_lines.append(f"{step}: PYEXEC {python_code}")
+                if "Error:" in output:
+                    self.state.csr[CSR.ERR] = 1
+                    trace_lines.append(f"{step}: PYEXEC error detected - halting VM")
+                    break
             else:
                 raise ValueError(f"unknown opcode {op}")
+
+            if self.state.csr[CSR.ERR] == 1:
+                trace_lines.append(f"{step}: ERR flag set - halting VM")
+                break
         mdlacc(self.state, current_module, consistent=self.state.csr[CSR.ERR] == 0)
         ledger.append(
             {
@@ -402,10 +633,10 @@ class VM:
                 "reason": "final",
             }
         )
-        (outdir / "trace.log").write_text("\n".join(trace_lines))
-        (outdir / "mu_ledger.json").write_text(json.dumps(ledger))
+        (outdir / "trace.log").write_text("\n".join(trace_lines), encoding='utf-8')
+        (outdir / "mu_ledger.json").write_text(json.dumps(ledger), encoding='utf-8')
         summary = {"mu": self.state.mu, "cert": self.state.csr[CSR.CERT_ADDR]}
-        (outdir / "summary.json").write_text(json.dumps(summary))
+        (outdir / "summary.json").write_text(json.dumps(summary), encoding='utf-8')
 
 
 def main():

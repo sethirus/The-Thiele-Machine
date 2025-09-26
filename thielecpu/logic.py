@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from z3 import Solver, parse_smt2_string, sat, set_param
+from z3 import Solver, parse_smt2_string, sat
 
 try:
     from .certs import CertStore
@@ -27,9 +27,8 @@ def lassert(state: State, module: int, formula: str, outdir: Path) -> str:
     cid = store.next_id()
     store.write_text(cid, "assert.smt2", formula)
 
-    set_param("proof", True)
-    set_param("smt.random_seed", 0)
     solver = Solver()
+    solver.set(proof=True)
     solver.add(*parse_smt2_string(formula))
     result = solver.check()
     if result == sat:
@@ -37,7 +36,12 @@ def lassert(state: State, module: int, formula: str, outdir: Path) -> str:
         store.write_bytes(cid, "witness", body)
         state.csr[CSR.STATUS] = 1
     else:
-        body = solver.proof().sexpr().encode()
+        # For unsat, use unsat core or simple note
+        if solver.unsat_core():
+            core_str = b" & ".join(str(decl).encode() for decl in solver.unsat_core())
+            body = b"unsat: " + core_str
+        else:
+            body = b"unsat"
         store.write_bytes(cid, "proof", body)
         state.csr[CSR.STATUS] = 0
     digest = store.save_hash(cid, body)

@@ -23,8 +23,11 @@ def parse(lines: Iterable[str], base: Path) -> List[Instruction]:
         parts = line.split(maxsplit=1)
         op = parts[0].upper()
         arg = parts[1] if len(parts) > 1 else ""
+        # Strip surrounding quotes if present
+        if arg.startswith('"') and arg.endswith('"'):
+            arg = arg[1:-1]
         # Only resolve paths for opcodes that expect file arguments
-        if arg and not Path(arg).is_absolute() and op in ["LASSERT"]:
+        if arg and not Path(arg).is_absolute() and op in ["LASSERT", "PYEXEC"]:
             arg = str((base / arg).resolve())
         program.append((op, arg))
     return program
