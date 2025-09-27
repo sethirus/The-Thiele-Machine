@@ -16,8 +16,6 @@ module mmu (
     // Module control
     input wire [5:0] current_module,
     input wire [5:0] target_module,
-    input wire [31:0] region_base [0:63],
-    input wire [31:0] region_size [0:63],
 
     // External memory interface
     output wire [31:0] mem_addr,
@@ -66,6 +64,14 @@ reg tlb_valid [0:7];
 // Current operation state
 reg [31:0] current_error;
 reg access_granted;
+
+// Region configuration (simplified - could be loaded from memory)
+reg [31:0] region_base [0:63];
+reg [31:0] region_size [0:63];
+
+// Loop variables for initialization
+reg [5:0] init_module_var;
+reg [7:0] init_page_var;
 
 // ============================================================================
 // ADDRESS TRANSLATION LOGIC
@@ -131,24 +137,8 @@ always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
         current_error <= ERR_NONE;
         access_granted <= 1'b0;
-
-        // Initialize page tables
-        integer i, j;
-        for (i = 0; i < NUM_MODULES; i = i + 1) begin
-            module_perms[i] <= 32'h3; // Read/write by default
-            for (j = 0; j < MAX_PAGES_PER_MODULE; j = j + 1) begin
-                page_table[i][j] <= 32'h0;
-                page_valid[i][j] <= 1'b0;
-            end
-        end
-
-        // Initialize TLB
-        for (i = 0; i < 8; i = i + 1) begin
-            tlb_virtual_addr[i] <= 32'h0;
-            tlb_physical_addr[i] <= 32'h0;
-            tlb_module[i] <= 6'h0;
-            tlb_valid[i] <= 1'b0;
-        end
+        init_module_var <= 6'h0;
+        init_page_var <= 8'h0;
 
     end else begin
         if (cpu_en) begin
@@ -171,6 +161,35 @@ always @(posedge clk or negedge rst_n) begin
             access_granted <= 1'b0;
             current_error <= ERR_NONE;
         end
+    end
+end
+
+// Separate always block for page table initialization
+always @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+        init_module_var <= 6'h0;
+        init_page_var <= 8'h0;
+    end else if (init_module_var < NUM_MODULES) begin
+        if (init_page_var < MAX_PAGES_PER_MODULE) begin
+            page_table[init_module_var][init_page_var] <= 32'h0;
+            page_valid[init_module_var][init_page_var] <= 1'b0;
+            init_page_var <= init_page_var + 1;
+        end else begin
+            module_perms[init_module_var] <= 32'h3; // Read/write by default
+            init_page_var <= 8'h0;
+            init_module_var <= init_module_var + 1;
+        end
+    end
+end
+
+// Separate always block for region initialization
+always @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+        init_module_var <= 6'h0; // Reuse for region init
+    end else if (init_module_var < 64) begin
+        region_base[init_module_var] <= 32'h0;
+        region_size[init_module_var] <= 32'h1000; // 4KB default
+        init_module_var <= init_module_var + 1;
     end
 end
 

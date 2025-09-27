@@ -1,6 +1,6 @@
 # Thiele CPU Hardware Test Report
 
-Generated: 2025-09-14 04:40:42
+Generated: 2025-09-26 19:36:17
 
 ## Test Results
 
@@ -55,4 +55,6 @@ Generated: 2025-09-14 04:40:42
 - `test_hardware.py`
 - `thiele_cpu.v`
 - `mmu.v`
+- `synthesis_report.md`
 - `thiele_cpu_tb.v`
+- `thiele_cpu_tb_compiled`

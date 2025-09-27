@@ -26,13 +26,19 @@ Predicate = Callable[[int], bool]
 class State:
     """Holds machine state ``S`` and partition table ``Π``."""
 
-    mu: float = 0.0
+    mu_operational: float = 0.0  # Cost of operations (current mu)
+    mu_information: float = 0.0  # Cost of information revealed
     _next_id: int = 1
     regions: RegionGraph = field(default_factory=RegionGraph)
     csr: dict[CSR, int | str] = field(
         default_factory=lambda: {CSR.CERT_ADDR: "", CSR.STATUS: 0, CSR.ERR: 0}
     )
     step_count: int = 0
+
+    @property
+    def mu(self) -> float:
+        """Total mu cost (operational + information)."""
+        return self.mu_operational + self.mu_information
 
     def _alloc(self, region: Set[int]) -> ModuleId:
         mid = self._next_id

@@ -21,7 +21,7 @@ SAFE_COMBINATION_LIMIT = int(os.environ.get('THIELE_MAX_COMBINATIONS', 10_000_00
 try:
     from .assemble import Instruction, parse
     from .logic import lassert, ljoin
-    from .mdl import mdlacc
+    from .mdl import mdlacc, info_charge
     from .state import State
     from .isa import CSR
     from ._types import LedgerEntry, ModuleId
@@ -33,7 +33,7 @@ except ImportError:
     sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
     from thielecpu.assemble import Instruction, parse
     from thielecpu.logic import lassert, ljoin
-    from thielecpu.mdl import mdlacc
+    from thielecpu.mdl import mdlacc, info_charge
     from thielecpu.state import State
     from thielecpu.isa import CSR
     from thielecpu._types import LedgerEntry, ModuleId
@@ -62,6 +62,20 @@ class SymbolicVariable:
 
 # Global counter for symbolic variables
 _symbolic_var_counter = 0
+
+def extract_target_modulus(code: str) -> Optional[int]:
+    """Extract the target modulus n from Python factoring code."""
+    try:
+        tree = ast.parse(code)
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Assign):
+                for target in node.targets:
+                    if isinstance(target, ast.Name) and target.id == 'n':
+                        if isinstance(node.value, ast.Constant) and isinstance(node.value.value, int):
+                            return node.value.value
+    except:
+        pass
+    return None
 
 def placeholder(domain: Optional[List[str]] = None) -> SymbolicVariable:
     """Create a symbolic variable placeholder for logical deduction."""
@@ -586,7 +600,18 @@ class VM:
                 # MDLACC module - accumulate mu for module
                 module_id = ModuleId(int(arg)) if arg else current_module
                 consistent = self.state.csr[CSR.ERR] == 0
+                prev_operational = self.state.mu_operational
                 mu = mdlacc(self.state, module_id, consistent=consistent)
+                delta_operational = self.state.mu_operational - prev_operational
+                ledger.append({
+                    "step": step,
+                    "delta_mu_operational": delta_operational,
+                    "delta_mu_information": 0,
+                    "total_mu_operational": self.state.mu_operational,
+                    "total_mu_information": self.state.mu_information,
+                    "total_mu": self.state.mu,
+                    "reason": f"mdlacc_module{module_id}",
+                })
                 trace_lines.append(f"{step}: MDLACC {module_id} -> mu={mu}")
             elif op == "EMIT":
                 # EMIT value - emit value to output
@@ -607,10 +632,50 @@ class VM:
                     for line in output.strip().split('\n'):
                         if line.strip():
                             trace_lines.append(f"{step}: PYEXEC output: {line}")
-                if result is not None:
-                    trace_lines.append(f"{step}: PYEXEC result: {result}")
+                
+                # Check for result in multiple ways
+                actual_result = result
+                if actual_result is None and '__result__' in self.python_globals:
+                    actual_result = self.python_globals['__result__']
+                
+                if actual_result is not None:
+                    trace_lines.append(f"{step}: PYEXEC result: {actual_result}")
                     # Store result in python globals for later use
-                    self.python_globals['_last_result'] = result
+                    self.python_globals['_last_result'] = actual_result
+
+                    # Charge for information revealed by PYEXEC
+                    # Check if this looks like factoring output (p, q tuple)
+                    if isinstance(actual_result, tuple) and len(actual_result) == 2:
+                        p, q = actual_result
+                        if isinstance(p, int) and isinstance(q, int):
+                            # Try to extract the target modulus from the code
+                            code_to_parse = python_code
+                            if python_code.endswith('.py') or Path(python_code).exists():
+                                try:
+                                    code_to_parse = Path(python_code).read_text(encoding='utf-8')
+                                except:
+                                    pass
+                            n_target = extract_target_modulus(code_to_parse)
+                            if n_target is not None and p * q == n_target:
+                                # Validate proper factorization
+                                if 1 < p < n_target and 1 < q < n_target:
+                                    # Charge for revealed bits: sum of bit lengths (≈ log₂ n)
+                                    bits_revealed = p.bit_length() + q.bit_length()
+                                    prev_info = self.state.mu_information
+                                    info_charge(self.state, bits_revealed)
+                                    ledger.append({
+                                        "step": step,
+                                        "delta_mu_operational": 0,
+                                        "delta_mu_information": bits_revealed,
+                                        "total_mu_operational": self.state.mu_operational,
+                                        "total_mu_information": self.state.mu_information,
+                                        "total_mu": self.state.mu,
+                                        "reason": f"factoring_revelation_p{p}_q{q}",
+                                    })
+                                    trace_lines.append(f"{step}: PYEXEC charged {bits_revealed} bits for factoring revelation (p={p.bit_length()} bits, q={q.bit_length()} bits)")
+                                else:
+                                    trace_lines.append(f"{step}: PYEXEC invalid factors detected (p={p}, q={q} for n={n_target})")
+
                 # Show what was executed (truncated for readability)
                 if len(python_code) > 50:
                     trace_lines.append(f"{step}: PYEXEC {python_code[:47]}...")
@@ -630,14 +695,22 @@ class VM:
         ledger.append(
             {
                 "step": step + 1,
-                "delta_mu": 0,
+                "delta_mu_operational": 0,
+                "delta_mu_information": 0,
+                "total_mu_operational": self.state.mu_operational,
+                "total_mu_information": self.state.mu_information,
                 "total_mu": self.state.mu,
                 "reason": "final",
             }
         )
         (outdir / "trace.log").write_text("\n".join(trace_lines), encoding='utf-8')
         (outdir / "mu_ledger.json").write_text(json.dumps(ledger), encoding='utf-8')
-        summary = {"mu": self.state.mu, "cert": self.state.csr[CSR.CERT_ADDR]}
+        summary = {
+            "mu_operational": self.state.mu_operational,
+            "mu_information": self.state.mu_information,
+            "mu_total": self.state.mu,
+            "cert": self.state.csr[CSR.CERT_ADDR]
+        }
         (outdir / "summary.json").write_text(json.dumps(summary), encoding='utf-8')
 
 

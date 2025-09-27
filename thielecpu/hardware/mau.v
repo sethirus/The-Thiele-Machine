@@ -46,6 +46,9 @@ reg [31:0] operation_count;
 reg [31:0] module_history [0:63]; // Size history for each module
 reg [31:0] consistency_history [0:63]; // Consistency history
 
+// Loop variables for synthesis
+reg [5:0] init_loop_var;
+
 // ============================================================================
 // MDL COST CALCULATION
 // ============================================================================
@@ -53,6 +56,8 @@ reg [31:0] consistency_history [0:63]; // Consistency history
 function [31:0] calculate_mdl_cost;
     input [31:0] size;
     input consistent;
+    reg [5:0] i;
+    reg [31:0] log_size;
     begin
         if (size == 0) begin
             calculate_mdl_cost = 0;
@@ -61,8 +66,6 @@ function [31:0] calculate_mdl_cost;
             calculate_mdl_cost = 32'hFFFFFFFF;
         end else begin
             // Calculate log2(size) for structure cost
-            integer i;
-            reg [31:0] log_size;
             log_size = 0;
             for (i = 0; i < LOG2_MAX_SIZE; i = i + 1) begin
                 if (size > (1 << i)) begin
@@ -87,11 +90,7 @@ always @(posedge clk or negedge rst_n) begin
         operation_count <= 32'h0;
 
         // Initialize history
-        integer i;
-        for (i = 0; i < 64; i = i + 1) begin
-            module_history[i] <= 32'h0;
-            consistency_history[i] <= 32'h1; // Assume consistent initially
-        end
+        init_loop_var <= 6'h0;
 
     end else begin
         if (mdl_req && !ack_pending) begin
@@ -123,11 +122,23 @@ always @(posedge clk or negedge rst_n) begin
     end
 end
 
+// Separate always block for initialization loop
+always @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+        init_loop_var <= 6'h0;
+    end else if (init_loop_var < 64) begin
+        module_history[init_loop_var] <= 32'h0;
+        consistency_history[init_loop_var] <= 32'h1; // Assume consistent initially
+        init_loop_var <= init_loop_var + 1;
+    end
+end
+
 // ============================================================================
 // STATISTICAL ANALYSIS
 // ============================================================================
 
 function [31:0] get_average_cost;
+    input [31:0] dummy; // Dummy input to make it a valid function
     begin
         if (operation_count > 0) begin
             get_average_cost = mu_accumulator / operation_count;
@@ -138,7 +149,8 @@ function [31:0] get_average_cost;
 endfunction
 
 function [31:0] get_max_cost;
-    integer i;
+    input [5:0] dummy; // Dummy input to make it a valid function
+    reg [5:0] i;
     reg [31:0] max_val;
     begin
         max_val = 0;

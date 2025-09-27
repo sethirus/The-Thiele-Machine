@@ -34,12 +34,12 @@ def detect_fragment_type(region: set) -> str:
 
 
 def mdlacc(state: State, module: ModuleId, *, consistent: bool) -> float:
-    """Update ``state.mu`` based on ``module`` size (auditor contract).
+    """Update ``state.mu_operational`` based on ``module`` size (auditor contract).
 
     Auditor cost is charged against |π_j|. By invariant, total auditor cost is poly(n).
     ``consistent`` indicates whether the module's logic checks passed. When
-    ``False`` the ``CSR.ERR`` register is set and ``μ`` becomes infinite.
-    Otherwise ``μ`` increases by |π_j| μ-bits per audit.
+    ``False`` the ``CSR.ERR`` register is set and ``μ_operational`` becomes infinite.
+    Otherwise ``μ_operational`` increases by |π_j| μ-bits per audit.
 
     Only processes modules from known polynomial-time fragments for auditor tractability.
     """
@@ -51,15 +51,26 @@ def mdlacc(state: State, module: ModuleId, *, consistent: bool) -> float:
     if fragment_type == "unknown":
         # Reject unknown fragments to guarantee tractability
         state.csr[CSR.ERR] = 1
-        state.mu = float("inf")
-        return state.mu
+        state.mu_operational = float("inf")
+        return state.mu_operational
 
     if not consistent:
         state.csr[CSR.ERR] = 1
-        state.mu = float("inf")
-    elif state.mu != float("inf"):
-        state.mu += len(region)  # Charge against |π_j|
-    return state.mu
+        state.mu_operational = float("inf")
+    elif state.mu_operational != float("inf"):
+        state.mu_operational += len(region)  # Charge against |π_j|
+    return state.mu_operational
+
+
+def info_charge(state: State, bits_revealed: float) -> float:
+    """Charge for information revealed (bits of new knowledge).
+
+    This implements the "no unpaid sight debt" principle - any information
+    revealed by oracles or discovery processes must be paid for.
+    """
+    if state.mu_information != float("inf"):
+        state.mu_information += bits_revealed
+    return state.mu_information
 
 
 __all__ = ["mdlacc", "detect_fragment_type"]
