@@ -31,7 +31,10 @@ class LedgerEntry(TypedDict):
     """Row in the μ-bit ledger produced during execution."""
 
     step: int
-    delta_mu: int | float
+    delta_mu_operational: int | float
+    delta_mu_information: int | float
+    total_mu_operational: int | float
+    total_mu_information: int | float
     total_mu: int | float
     reason: str
 
