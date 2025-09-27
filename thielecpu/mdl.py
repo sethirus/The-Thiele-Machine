@@ -34,12 +34,12 @@ def detect_fragment_type(region: set) -> str:
 
 
 def mdlacc(state: State, module: ModuleId, *, consistent: bool) -> float:
-    """Update ``state.mu_operational`` based on ``module`` size (auditor contract).
+    """Update ``state.mu_operational`` based on true MDL calculation.
 
-    Auditor cost is charged against |π_j|. By invariant, total auditor cost is poly(n).
+    MDL cost is a function of certificate complexity plus partition encoding cost.
     ``consistent`` indicates whether the module's logic checks passed. When
     ``False`` the ``CSR.ERR`` register is set and ``μ_operational`` becomes infinite.
-    Otherwise ``μ_operational`` increases by |π_j| μ-bits per audit.
+    Otherwise ``μ_operational`` increases by the calculated MDL cost.
 
     Only processes modules from known polynomial-time fragments for auditor tractability.
     """
@@ -57,8 +57,53 @@ def mdlacc(state: State, module: ModuleId, *, consistent: bool) -> float:
     if not consistent:
         state.csr[CSR.ERR] = 1
         state.mu_operational = float("inf")
-    elif state.mu_operational != float("inf"):
-        state.mu_operational += len(region)  # Charge against |π_j|
+        return state.mu_operational
+
+    if state.mu_operational == float("inf"):
+        return state.mu_operational
+
+    # Calculate true MDL cost
+    mdl_cost = 0.0
+
+    # 1. Certificate complexity
+    cert_path = state.csr.get(CSR.CERT_ADDR)
+    if cert_path:
+        try:
+            from pathlib import Path
+            cert_file = Path(str(cert_path))
+            if cert_file.exists():
+                # Read the certificate file
+                cert_content = cert_file.read_bytes()
+                # Complexity based on file size in bits
+                cert_bits = len(cert_content) * 8
+                mdl_cost += cert_bits
+
+                # Additional complexity from unsat core if present
+                cert_str = cert_content.decode('utf-8', errors='ignore')
+                if 'unsat:' in cert_str:
+                    # Estimate unsat core size
+                    core_part = cert_str.split('unsat:')[1].strip()
+                    core_bits = len(core_part.encode('utf-8')) * 8
+                    mdl_cost += core_bits
+        except (OSError, ValueError):
+            # If can't read certificate, use a default cost
+            mdl_cost += 1024  # 1KB default
+
+    # 2. Cost of encoding the partition itself
+    # Number of bits needed to encode the region set
+    if region:
+        max_element = max(region)
+        partition_bits = max_element.bit_length() * len(region)  # bits per element * num elements
+        mdl_cost += partition_bits
+    else:
+        mdl_cost += 1  # minimal cost for empty partition
+
+    # 3. Add module axioms complexity
+    module_axioms = state.get_module_axioms(module)
+    axioms_complexity = sum(len(axiom.encode('utf-8')) * 8 for axiom in module_axioms)
+    mdl_cost += axioms_complexity
+
+    state.mu_operational += mdl_cost
     return state.mu_operational
 
 

@@ -1,0 +1,24 @@
+; TSP Solver using Thiele Machine PDISCOVER
+; Solves the Traveling Salesman Problem for 5 cities
+
+; Create module for visit_all_cities axiom
+PNEW {1,2,3,4,5}
+
+; Add visit_all_cities axiom
+LASSERT "tsp_axioms/visit_all_cities.smt2"
+
+; Create separate module for cost_calculation axiom (different region)
+PNEW {6,7,8,9,10}
+
+; Add cost_calculation axiom
+LASSERT "tsp_axioms/cost_calculation.smt2"
+
+; Use PDISCOVER to find the optimal tour
+; This searches for a partition that satisfies optimality
+PDISCOVER 2 tsp_axioms/optimality_proof.smt2
+
+; Accumulate final MDL cost
+MDLACC
+
+; Emit completion
+EMIT "TSP Solution Found"

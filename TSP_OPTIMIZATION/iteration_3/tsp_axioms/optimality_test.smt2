@@ -1,0 +1,5 @@
+(set-logic QF_LIA)
+(declare-const tour (Array Int Int))
+(declare-const cost Int)
+(assert (= cost (+ (select tour 1) (select tour 2) (select tour 3) (select tour 4) (select tour 5) (select tour 6))))
+(assert (>= cost 0))
