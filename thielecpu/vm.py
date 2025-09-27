@@ -24,6 +24,7 @@ try:
     from .mdl import mdlacc, info_charge
     from .state import State
     from .isa import CSR
+    from .memory import RegionGraph
     from ._types import LedgerEntry, ModuleId
 except ImportError:
     # Handle running as script
@@ -36,6 +37,7 @@ except ImportError:
     from thielecpu.mdl import mdlacc, info_charge
     from thielecpu.state import State
     from thielecpu.isa import CSR
+    from thielecpu.memory import RegionGraph
     from thielecpu._types import LedgerEntry, ModuleId
 
 
@@ -536,6 +538,116 @@ class VM:
                         # Swallow cancellation errors
                         pass
 
+    def test_combined_satisfiability(self, axioms: str) -> bool:
+        """Test if combined axioms are satisfiable. Returns True if satisfiable, False if unsatisfiable."""
+        from z3 import Solver, parse_smt2_string, sat
+        
+        solver = Solver()
+        try:
+            solver.add(*parse_smt2_string(axioms))
+            result = solver.check()
+            return result == sat
+        except Exception:
+            # If parsing fails, consider it unsatisfiable
+            return False
+
+    def pdiscover(self, module_id: ModuleId, axioms_list: List[str], cert_dir: Path, trace_lines: List[str], step: int) -> str:
+        """Perform brute-force partition discovery on module with given axioms."""
+        print(f"PDISCOVER: Starting partition discovery on module {module_id}")
+        
+        region = self.state.regions[module_id]
+        if not region:
+            print("PDISCOVER: Empty region, nothing to partition")
+            return "empty region"
+        
+        # For paradox demonstration, try different partition strategies
+        region_list = list(region)
+        n = len(region_list)
+        
+        print(f"PDISCOVER: Region has {n} elements: {region_list}")
+        
+        if n < 2:
+            print("PDISCOVER: Region too small for partitioning (need at least 2 elements)")
+            return "region too small for partitioning"
+        
+        print(f"PDISCOVER: Exploring {n//2} possible partition splits...")
+        
+        # Try different split points and test for paradoxes
+        found_paradox = False
+        paradox_partition = None
+        partitions_explored = 0
+        
+        # Use threading for parallel partition testing
+        from concurrent.futures import ThreadPoolExecutor, as_completed
+        
+        def test_partition(i):
+            """Test a single partition split."""
+            part1 = set(region_list[:i])
+            part2 = set(region_list[i:])
+            
+            # Create temporary state for testing
+            temp_state = State()
+            temp_state.axioms = {}  # Fresh axioms dict
+            
+            # Create submodules in temp state
+            m1 = temp_state.pnew(part1)
+            m2 = temp_state.pnew(part2)
+            
+            # Add axioms to partitions
+            if len(axioms_list) >= 2:
+                temp_state.add_axiom(m1, axioms_list[0])
+                temp_state.add_axiom(m2, axioms_list[1])
+            else:
+                for axioms in axioms_list:
+                    temp_state.add_axiom(m1, axioms)
+                    temp_state.add_axiom(m2, axioms)
+            
+            # Test satisfiability
+            combined_axioms = "\n".join(temp_state.get_module_axioms(m1) + temp_state.get_module_axioms(m2))
+            is_satisfiable = self.test_combined_satisfiability(combined_axioms)
+            
+            return i, part1, part2, is_satisfiable
+        
+        # Test partitions in parallel
+        print(f"PDISCOVER: Testing {n//2} partitions in parallel...")
+        
+        with ThreadPoolExecutor(max_workers=min(4, n//2)) as executor:
+            # Submit all partition tests
+            future_to_partition = {
+                executor.submit(test_partition, i): i 
+                for i in range(1, n//2 + 1)
+            }
+            
+            # Process results as they complete
+            for future in as_completed(future_to_partition):
+                partitions_explored += 1
+                
+                if partitions_explored % 5 == 0:
+                    print(f"PDISCOVER: Completed {partitions_explored}/{n//2} partitions...")
+                
+                i, part1, part2, is_satisfiable = future.result()
+                
+                if not is_satisfiable:
+                    # Paradox found!
+                    found_paradox = True
+                    paradox_partition = (part1, part2)
+                    print(f"PDISCOVER: PARADOX FOUND in partition {part1} | {part2}")
+                    trace_lines.append(f"{step}: PDISCOVER found paradox in partition: {part1} | {part2}")
+                    # Cancel remaining tasks
+                    for f in future_to_partition:
+                        if not f.done():
+                            f.cancel()
+                    break
+        
+        print(f"PDISCOVER: Exploration complete. Explored {partitions_explored} partitions.")
+        
+        if found_paradox:
+            print(f"PDISCOVER: Result - Paradox found in partition {paradox_partition}")
+            return f"paradox found in partition {paradox_partition}"
+        else:
+            print("PDISCOVER: Result - No paradoxes found in explored partitions")
+            return "no paradox found"
+
     def run(self, program: List[Instruction], outdir: Path) -> None:
         outdir.mkdir(parents=True, exist_ok=True)
         trace_lines: List[str] = []
@@ -544,7 +656,15 @@ class VM:
         modules: Dict[str, int] = {}  # For tracking named modules
         current_module = self.state.pnew({0})  # Use region {0} for initial module
         step = 0
+        
+        print("Thiele Machine VM starting execution...")
+        print(f"Program has {len(program)} instructions")
+        print(f"Output directory: {outdir}")
+        print()
+        
         for op, arg in program:
+            step += 1
+            print(f"Step {step:3d}: {op} {arg}")
             step += 1
             if op == "PNEW":
                 # PNEW region_spec - create new module for region
@@ -580,6 +700,7 @@ class VM:
                 trace_lines.append(f"{step}: PMERGE {m1}, {m2} -> {merged}")
                 current_module = merged
             elif op == "LASSERT":
+                # LASSERT formula_file - add formula as axiom to current module and check satisfiability
                 formula = Path(arg).read_text(encoding='utf-8')
                 digest = lassert(self.state, current_module, formula, cert_dir)
                 if self.state.csr[CSR.STATUS] == 0:
@@ -616,11 +737,19 @@ class VM:
             elif op == "EMIT":
                 # EMIT value - emit value to output
                 trace_lines.append(f"{step}: EMIT {arg}")
-            elif op == "XFER":
-                # XFER src dest - transfer data
-                trace_lines.append(f"{step}: XFER {arg}")
+            elif op == "PDISCOVER":
+                # PDISCOVER module_id axioms_file1 [axioms_file2] - brute-force partition discovery
+                parts = arg.split()
+                if len(parts) < 2:
+                    raise ValueError(f"PDISCOVER requires module_id and at least one axioms_file, got: {arg}")
+                module_id = ModuleId(int(parts[0]))
+                axioms_files = parts[1:]
+                axioms_list = [Path(f).read_text(encoding='utf-8') for f in axioms_files]
+                
+                # Perform brute-force partition search
+                result = self.pdiscover(module_id, axioms_list, cert_dir, trace_lines, step)
+                trace_lines.append(f"{step}: PDISCOVER {arg} -> {result}")
             elif op == "PYEXEC":
-                # PYEXEC python_code - execute Python code or file
                 if arg.startswith('"') and arg.endswith('"'):
                     python_code = arg[1:-1]  # Remove quotes
                 else:

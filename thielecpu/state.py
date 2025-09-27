@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Callable, Set, Tuple
+from typing import Callable, Set, Tuple, Dict, List
 
 try:
     from .isa import CSR
@@ -30,6 +30,7 @@ class State:
     mu_information: float = 0.0  # Cost of information revealed
     _next_id: int = 1
     regions: RegionGraph = field(default_factory=RegionGraph)
+    axioms: Dict[ModuleId, List[str]] = field(default_factory=dict)  # Axioms per module
     csr: dict[CSR, int | str] = field(
         default_factory=lambda: {CSR.CERT_ADDR: "", CSR.STATUS: 0, CSR.ERR: 0}
     )
@@ -53,6 +54,7 @@ class State:
         if existing is not None:
             return ModuleId(existing)
         mid = self._alloc(region)
+        self.axioms[mid] = []  # Initialize empty axioms for new module
         self._enforce_invariant()
         return mid
 
@@ -64,11 +66,16 @@ class State:
         part2 = region - part1
         if not part1 or not part2:
             empty = self._alloc(set())
+            self.axioms[empty] = []  # Empty module has no axioms
             self._enforce_invariant()
             return module, empty
         self.regions.remove(module)
+        axioms = self.axioms.pop(module, [])  # Get axioms before removing
         m1 = self._alloc(part1)
         m2 = self._alloc(part2)
+        # Copy axioms to both new modules
+        self.axioms[m1] = axioms.copy()
+        self.axioms[m2] = axioms.copy()
         self._enforce_invariant()
         return m1, m2
 
@@ -84,10 +91,17 @@ class State:
         union = r1 | r2
         self.regions.remove(m1)
         self.regions.remove(m2)
+        axioms1 = self.axioms.pop(m1, [])
+        axioms2 = self.axioms.pop(m2, [])
         existing = self.regions.find(union)
         if existing is not None:
-            return ModuleId(existing)
+            # Merge axioms if module already exists
+            existing_id = ModuleId(existing)
+            self.axioms[existing_id].extend(axioms1)
+            self.axioms[existing_id].extend(axioms2)
+            return existing_id
         mid = self._alloc(union)
+        self.axioms[mid] = axioms1 + axioms2  # Combine axioms
         self._enforce_invariant()
         return mid
 
@@ -98,3 +112,13 @@ class State:
         for module, region in self.regions.modules.items():
             if len(region) > poly_bound:
                 raise ValueError(f"Invariant violated: module {module} has size {len(region)} > poly({n}) = {poly_bound}")
+
+    def add_axiom(self, module: ModuleId, axiom: str) -> None:
+        """Add an axiom to a module."""
+        if module not in self.axioms:
+            self.axioms[module] = []
+        self.axioms[module].append(axiom)
+
+    def get_module_axioms(self, module: ModuleId) -> List[str]:
+        """Get all axioms for a module."""
+        return self.axioms.get(module, [])

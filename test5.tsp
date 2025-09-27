@@ -1,0 +1,12 @@
+NAME: test5
+TYPE: TSP
+COMMENT: 5-city test instance for TSP optimization
+DIMENSION: 5
+EDGE_WEIGHT_TYPE: EUC_2D
+NODE_COORD_SECTION
+1 0 0
+2 1 0
+3 1 1
+4 0 1
+5 0.5 0.5
+EOF

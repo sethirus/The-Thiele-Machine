@@ -27,8 +27,20 @@ def parse(lines: Iterable[str], base: Path) -> List[Instruction]:
         if arg.startswith('"') and arg.endswith('"'):
             arg = arg[1:-1]
         # Only resolve paths for opcodes that expect file arguments
-        if arg and not Path(arg).is_absolute() and op in ["LASSERT", "PYEXEC"]:
-            arg = str((base / arg).resolve())
+        if op in ["LASSERT", "PYEXEC"]:
+            if arg and not Path(arg).is_absolute():
+                arg = str((base / arg).resolve())
+        elif op == "PDISCOVER":
+            # PDISCOVER module_id file1 [file2 ...]
+            parts = arg.split()
+            if len(parts) >= 2:
+                module_id = parts[0]
+                file_paths = []
+                for file_path in parts[1:]:
+                    if file_path and not Path(file_path).is_absolute():
+                        file_path = str((base / file_path).resolve())
+                    file_paths.append(file_path)
+                arg = f"{module_id} {' '.join(file_paths)}"
         program.append((op, arg))
     return program
 

@@ -1,0 +1,15 @@
+; Paradox demonstration program for the Thiele Machine
+; This program creates a module and uses PDISCOVER to find partitions that create paradoxes
+
+; Create a module with regions {1,2,3,4,5}
+PNEW {1,2,3,4,5}
+
+; Use PDISCOVER with both contradictory axiom files
+; PDISCOVER will try partitions and assign different axioms to different parts
+PDISCOVER 1 paradox_module_a.smt2 paradox_module_b.smt2
+
+; Accumulate MDL cost
+MDLACC
+
+; Emit result
+EMIT "Paradox demonstration completed"

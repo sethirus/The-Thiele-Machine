@@ -1,0 +1,14 @@
+; TSP Optimizer using Thiele Machine LASSERT
+; Checks if tours exist that are better than current best cost
+
+; STEP 1: Establish the unbreakable laws of what a valid tour is.
+PNEW {1,2,3,4,5}
+LASSERT "tsp_axioms/tour_validity.smt2"
+
+; STEP 2: Check if there exists a tour better than our target cost.
+LASSERT "tsp_axioms/optimality_test.smt2"
+
+; STEP 3: Accumulate the cost of the discovery process.
+MDLACC
+
+EMIT "Optimization Step Complete"
