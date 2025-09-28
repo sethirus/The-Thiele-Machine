@@ -1,6 +1,6 @@
 
 import math
-n = 2284085417
+n = 3666554863
 max_trial = int(math.sqrt(n)) + 1
 for i in range(2, max_trial):
     if n % i == 0:
@@ -9,3 +9,5 @@ for i in range(2, max_trial):
 else:
     raise ValueError('No factors found')
 print(f'Found factors: p={p}, q={q}')
+# Set result for VM to detect
+__result__ = (p, q)

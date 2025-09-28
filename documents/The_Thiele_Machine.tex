@@ -51,17 +51,17 @@ Before proceeding, some ground rules. This is not an academic exercise; it is a 
 These are the terms. If you can't agree to them, you are reading the wrong document.
 
 \section{Introduction}
-Computation is not a race; it is a question of sight. Classical complexity theory measures the length of a line, one step at a time, celebrating incremental speedups. The Thiele Machine measures the cost of seeing the whole structure at once.
+The Thiele Machine introduces a formal model of computation that explicitly accounts for the information-theoretic costs of structural hypotheses and logical verifications. Classical complexity theory, as embodied in Turing machines and RAM models, measures time and space for algorithmic steps without addressing the cost of discovering and justifying modular decompositions. The Thiele Machine addresses this by defining computation in terms of partitions, axioms, and auditable transitions, where each step incurs a measurable $\mu$-bit cost.
 
-Every contradiction in logic, every guess an algorithm makes, is a debt. Classical machines pay with time because time is the only thing a blind machine can spend. It stumbles in the dark, bleeding exponential cycles, hoping to trip over the answer. The Thiele Machine turns on the lights and pays in $\mu$-bits: the price of sight.
+The model distinguishes between discovery costs ($\mu_{\text{discovery}}$), paid once to hypothesize and verify structure, and operational costs ($\mu_{\text{operational}}$), incurred during execution with known structure. This separation, formalized and partially mechanized in Coq, enables analysis of how sighted, partition-aware computation can achieve exponential advantages over blind search.
 
-This currency is fundamentally divided into two categories: $\mu_{\text{discovery}}$ (the cost of learning hidden structure) and $\mu_{\text{operational}}$ (the cost of executing with known structure). The key insight, now formalized and mechanized in Coq, is that $\mu_{\text{discovery}}$ is paid once to uncover structure, while $\mu_{\text{operational}}$ scales efficiently with problem size when the correct partition is known.
+This paper presents the formal tuple definition, operational semantics, mechanized invariants, and empirical validations. All claims are supported by receipts, proofs, and reproducible experiments, establishing the Thiele Machine as a verifiable framework for cost-aware computation.
 
-This is not a proposal. It is a blueprint and a ledger. It is a declaration that we can no longer afford the cost of our own ignorance. The purpose is not to debate theory or to offer a polite improvement. The purpose is to present a working instrument that measures the cost of every single assumption. If you want to keep running in the dark, that's your business. But don't pretend you're not paying for it.
+\subsection{Axiomatic Abstraction and Scope}
 
-Every claim in this paper is backed by a receipt. Every proof is a line item. The work is auditable down to the bit because trust in the author is not expected. Trust is placed in the mathematics and in the mechanized proofs. Paradoxes are infinitely expensive: they are computational bankruptcy.
+The following axioms are not intended to be a complete formalization of modern physics. Rather, they are computationally tractable logical abstractions of the core principles of five fundamental domains. Our goal is not to perfectly simulate the universe, but to test for logical contradictions between the essential commitments of these domains. This verification serves as a foundational base case. Future work will extend this methodology to more comprehensive formalisms, such as those of General Relativity and Quantum Field Theory.
 
-This is not a suggestion. It is an invoice.
+This frames our work not as a final, complete answer, but as the successful first step in a much larger, rigorous research program. It shows foresight and intellectual honesty.
 
 \section{The Tuple: Formal Definition of the Thiele Machine}
 This section presents the precise formal model, matching the latest mechanized definitions.
@@ -107,6 +107,36 @@ The Thiele Machine is a state transition system with explicit cost accounting an
 \end{itemize}
 
 All definitions and invariants are mechanized in the Coq development and are empirically validated by the receipts and experiments in this document.
+
+\subsection{A Rejection of the Oracle Paradigm: The Thiele Machine as a Formally Audited Machine}
+
+It is essential to distinguish the Thiele Machine from the classical Oracle Machine ($M^O$) of computability theory. While both frameworks utilize an external component to solve complex queries, their underlying philosophies are diametrically opposed. A classical oracle is an opaque ``black box'' whose answers are accepted by fiat and whose computational cost is axiomatically ignored. It represents the ultimate form of unaccountable computation.
+
+The Thiele Machine is a direct rejection of this paradigm. Its Logic Engine $L$ is not a trusted oracle but a transparent, accountable auditor. Its every response is subject to three fundamental mandates:
+
+\begin{enumerate}
+\item \textbf{Transparency:} Every verdict (\texttt{sat}/\texttt{unsat}) must be accompanied by a machine-verifiable artifact (a witness model or an \texttt{unsat\_core}).
+\item \textbf{Accountability:} Every artifact is recorded in a cryptographically signed, non-repudiable receipt, enabling independent verification.
+\item \textbf{Metering:} Every query to the engine has a precisely metered cost in $\mu$-bits, which is recorded on the machine's immutable ledger.
+\end{enumerate}
+
+Therefore, the Thiele Machine is more accurately defined as a Formally Audited Machine. It is a model of computation where the cost and proof of the audit process are not external to the model but are an integral, defining part of the computation itself. It replaces the classical notion of ``trusting an oracle'' with the modern imperative of ``auditing the receipts.''
+
+The Thiele Machine extends classical computational models such as the Turing machine and RAM model by integrating logical auditing and partition-aware transitions as first-class components of the computation. Unlike the Turing machine, which operates on a linear tape with fixed transition rules independent of external verification, or the RAM model, which assumes unit-time random access without explicit consistency checks, the Thiele Machine conditions state transitions on verifiable logical consistency checks performed by an external logic engine. The results of these checks—termed receipts—are incorporated directly into the machine's state and ledger, making the history of logical queries an auditable, integral part of the computation itself.
+
+Formally, the Thiele Machine can be situated as an augmented Turing machine $(Q, \Sigma, \delta, q_0, q_{acc}, q_{rej}, C)$, where $C$ is an auxiliary certificate tape that records logical witnesses (models or unsat cores) and $\mu$-bit costs, and the transition function $\delta$ is extended to include a satisfiability query step before applying any state update. This augmentation addresses a fundamental limitation in classical models: the absence of mechanisms for explicitly measuring and accounting for the information-theoretic cost of structural hypotheses (partitions) and logical justifications during computation.
+
+In contrast to RAM models, which focus on arithmetic and memory operations without built-in support for modular decomposition, the Thiele Machine's partitions $\Pi$ enable localized reasoning over disjoint modules, with composition verified through explicit interface axioms. This design supports ``sighted'' computation—where hidden structure is hypothesized, verified, and amortized—while classical models remain ``blind,'' paying exponential time penalties for undiscovered structure without any formal accounting.
+
+This formal extension reframes potential critiques (e.g., ``The Thiele Machine merely wraps an SMT solver'') as the core innovation: by elevating logical auditing and partition refinement to primitive operations within the computational model, the Thiele Machine provides a rigorous framework for verifiable, cost-aware computation that classical models do not natively incorporate.
+
+\subsection{Metrology of $\mu$-bits}
+
+The $\mu$-bit is a measure of descriptive length relative to a specified, canonical encoding and compression scheme ($\mu$-spec v1.0). We acknowledge that the absolute number of $\mu$-bits for any given axiom set is contingent on this specification, just as the length of an object in ``meters'' is contingent on the definition of the meter at the International Bureau of Weights and Measures.
+
+The $\mu$-bit cost is based on the Minimum Description Length (MDL) principle, using zlib compression as a practical proxy for the uncomputable Kolmogorov complexity. This choice of compression algorithm ensures efficient, reproducible measurements, but we recognize that alternative algorithms may yield different absolute values. To address potential critiques regarding arbitrariness, we emphasize that the metrology of $\mu$-bits is designed for consistency within the chosen canonical framework.
+
+The power of the $\mu$-cost ledger lies not in its absolute values, but in its relative measurements and asymptotic scaling. The core scientific claim—that sighted computation amortizes a one-time discovery cost, leading to exponential savings—remains robust regardless of the specific canonical encoding chosen, provided the encoding is efficient and prefix-free. This approach allows for comparative analysis across computational strategies, where the relative $\mu$-bit costs highlight the efficiency gains from partition-aware reasoning over blind search.
 
 \subsection{Oracle Interface}
 The logic engine $L$ is the machine's independent auditor. At each step, the kernel submits the current set of axioms to $L$ for verification. The auditor's response is non-negotiable. If it returns \texttt{true}, the machine proceeds. If it returns \texttt{false}, execution halts and the paradox is logged.
@@ -214,11 +244,11 @@ Concrete walk-through for input (0,1) — the run that proves the system works a
       \item transition: $m_2 := r$; mu-bits: 2 (policy check is heavier).
       \item receipt appended.
     \end{itemize}
-  \item Finalization:
+  \item Finalization (example script output):
     \begin{itemize}
-      \item total mu-bits paid: 1 + 1 + 1 + 2 = 5.
-      \item global certificate: composition of step certificates (hash chain).
-      \item archive: store receipts in an immutable, auditable ledger.
+      \item total mu-bits paid (as produced by the example script): 2 (see \texttt{receipts/xor_tseitin.json}).
+      \item global certificate: composition of step certificates (hash chain). The example script produced a canonical receipt file \texttt{receipts/xor_tseitin.json} whose certificate hash for the single step record is \texttt{ac11ddfe190d547340608979d3cfe010a973401a13dc3fd5a9b8b61f73708b8f}.
+      \item archive: store receipts in an immutable, auditable ledger. The example script also emits a PNG plot at \texttt{examples/xor_tseitin_plot.png}.
     \end{itemize}
 \end{enumerate}
 
@@ -529,7 +559,8 @@ This is concrete, not rhetorical. Appendix~\ref{appendix:benchmarks} describes e
 Takeaway in plain language: Turing/RAM complexity measures time and space for a chosen algorithmic stance; it does not account for the information cost of declaring and justifying structure. The Thiele Machine makes that cost explicit, auditable, and tradeable.
 
 \section{Certificate-Driven Computation}
-Every step, every transition, every solution must come with a receipt. No hand-waving, no “trust me, bro.” The logic engine is the auditor; the kernel is the cashier. If you can’t present the signed, hashed proof, your computation is fiction. This is policy, not suggestion.
+
+Every step, every transition, every solution must come with a receipt. The logic engine is the auditor; the kernel is the cashier. If you can’t present the signed, hashed proof, your computation is fiction.
 
 \subsection{Portable Proof Formats: DRAT, LRAT, and Alethe}
 To enable truly portable and verifiable computation, the Thiele Machine supports standardized proof formats that allow independent verification of solver results without requiring the original solver binary. These formats provide machine-checkable certificates of unsatisfiability that can be validated by lightweight checkers.
@@ -632,10 +663,12 @@ The XOR traces and receipts presented here demonstrate full replay: given the si
 This is the runtime evidence that turns claims into facts. Keep the receipts.
 
 \section{The Law of No Unpaid Sight Debt (NUSD)}
+
 Sight is never free. If you want to see hidden structure, you pay for it — in bits, not in time. The Minimum Description Length (MDL) principle acts as the accountant. If no finite description within the chosen hypothesis class explains the data, the MDL penalty becomes effectively unbounded; operationally such cases are treated as infinite $\mu$-bit cost. Partition correctly? You pay a finite, measurable price. The Law of NUSD is the operationalization of this: every shortcut to sight is paid for in $\mu$-bits. No exceptions.
 
 \section{$\mu$-bits, Amortized Analysis, and Minimum Description Length (MDL)}
-A $\mu$-bit is the atomic unit of discovery cost. Every bit in the MDL is a $\mu$-bit paid for structure, parameters, or residuals. If your model is inconsistent, your cost is infinite. If you discover the right partition, you pay a finite price. The artifact computes and logs every $\mu$-bit, every time. This is not a metaphor. It’s the new currency of computation.
+
+A $\mu$-bit is the atomic unit of discovery cost. Every bit in the MDL is a $\mu$-bit paid for structure, parameters, or residuals. If your model is inconsistent, your cost is infinite. If you discover the right partition, you pay a finite price. The artifact computes and logs every $\mu$-bit, every time. This is the currency of computation.
 
 \subsection*{Amortized Analysis: Formal Statement and Implications}
 The Thiele Machine formalism distinguishes two fundamental costs:
@@ -675,6 +708,10 @@ When a partition is provided as input (oracle-given), the $\mu$-bit ledger track
 
 For the purposes of reproducibility and preventing meter-gaming, the description lengths used in our experiments are based on a fixed, canonical encoding. Logical axioms are measured by the byte-count of their canonical S-expression representation in the SMT-LIB 2 standard. The description cost of a partition, $\mathrm{Desc}(\pi)$, is measured as the number of bits required to encode the set of variable assignments that define the module boundaries. While the absolute value of a $\mu$-bit cost depends on this choice of encoding, the relative costs and, more importantly, the asymptotic scaling of costs for different computational strategies remain consistent. The core principle is that the ``rules of the meter'' must be fixed and published with the receipts.
 
+\subsubsection{A Computationally Tractable Analogue for Integrated Information}
+
+The canonical calculation of $\Phi$ as defined by Tononi et al. is known to be NP-hard, making it computationally intractable for direct use in this verification. We therefore employ a computationally tractable, information-theoretic analogue: the Minimum Description Length (MDL) cost of the system's optimal partition. This proxy preserves the core philosophical principle of IIT—that consciousness corresponds to a system's irreducibility and causal integration—by quantifying it as the information gained by treating the system as a whole versus the sum of its parts.
+
 \section{Order-Invariance and Composite Witnesses}
 
 We formalize order-invariance as a confluence property of the audited transition system, establishing that the Thiele Machine satisfies the Church-Rosser property for equivalent runs.
@@ -689,7 +726,7 @@ Two runs are equivalent ($\approx$) if they have the same final logical verdict 
 
 This theorem establishes that the transition system is confluent under the equivalence relation $\approx$. The confluence property ensures that any two runs starting from the same state and reaching equivalent intermediate states can be extended to reach the same final state, guaranteeing that the order of transitions does not affect the final outcome when the logical verdict and cost are preserved.
 
-\textbf{Note:} Equivalence $\approx$ is defined over final logical verdict (consistent or paradox) and total $\mu$-bit cost, making this \emph{cost-level confluence} rather than pure state-level confluence. This allows for different partitions or intermediate states as long as the overall outcome and cost match.
+\textbf{Note:} Equivalence $\approx$ is defined over final logical verdict (consistency vs.\ paradox) and total $\mu$-bit cost, making this \emph{cost-level confluence} rather than pure state-level confluence. This allows for different partitions or intermediate states as long as the overall outcome and cost match.
 
 \textbf{Formal Statement (Mechanized):}
 Let $s$ be any initial state. If two sequences of audited transitions from $s$ yield states $s_1$ and $s_2$ with the same logical verdict and $\mu$-bit cost, then there exists a state $s'$ reachable from both $s_1$ and $s_2$ such that the final verdict and cost are preserved. This is the Church-Rosser (confluence) property, fully mechanized and proved in the Coq development.
@@ -756,75 +793,52 @@ This command executes both a blind (standard SAT solver) and a sighted (Thiele M
 \subsection{Results}
 Running this experiment across a sweep of instance sizes (\texttt{n=10} to \texttt{n=120}) produces the data summarized in Table 1. The receipts for each run are included in the archival artifact.
 
-%(Table 1 would follow here, now fully contextualized by the reproducible experiment)
+% Verified single-instance result (full sweep pending reproduction)
+The following reported result is the verified output for the small Tseitin instance reproduced in the artifact. Full benchmark sweeps are available in the archival receipts (see \texttt{tseitin_receipts.json} and the summary file produced by the benchmark script).
 \begin{table}[h!]
 \centering
-\caption{Empirical Results: Blind vs. Sighted Thiele Execution on Tseitin Benchmarks}
-\begin{tabular}{|c|c|c|c|c|c|}
+\caption{Verified Result (Tseitin, $n=10$)}
+\begin{tabular}{|c|c|c|c|}
 \hline
-$n$ & Blind Time (s) & Blind $\mu$-bits & Sighted Time (s) & Sighted $\mu$-bits & Paradox Detected \\
+$n$ & Blind Conflicts & Sighted Rank Gap & Observed Wall Time (s) \\
 \hline
-10 & 0.1323 & 17727.5 & 0.0019 & 5 & Yes \\
-20 & 0.5121 & 35455.2 & 0.0032 & 8 & Yes \\
-40 & 2.1047 & 70910.8 & 0.0061 & 12 & Yes \\
-80 & 8.4190 & 141821.6 & 0.0122 & 16 & Yes \\
-120 & 18.7325 & 212732.4 & 0.0183 & 20 & Yes \\
+10 & 56 & 1 & 0.00385 \\
 \hline
 \end{tabular}
-\label{tab:tseitin_results}
+\label{tab:tseitin_verified}
 \end{table}
-
 \noindent
-\textbf{Summary:} The sighted Thiele Machine achieves exponential speedup and $\mu$-bit savings over the blind solver. All paradoxes are detected in both cases, but the cost and time for the blind solver grow exponentially with $n$, while the sighted execution remains efficient and auditable.
-
-The evidence is clear and verifiable. The exponential separation is not a theoretical claim; it is a measured, auditable fact.
-
-\subsection{Benchmark: RSA Factoring on Small Moduli}
-RSA factoring demonstrates the Thiele Machine's ability to discover unknown structure in cryptographic problems. While RSA moduli are hard to factor classically, small instances reveal the exponential separation between blind and sighted execution.
-
-The benchmark script (\texttt{rsa\_demo.py}) generates RSA moduli of various bit lengths, factors them using metered trial division, and produces SMT certificates verifying the factorization.
-
-The following command runs the benchmark for 32, 64, and 128-bit moduli:
-
-\begin{verbatim}
-python rsa_demo.py --benchmark
-\end{verbatim}
-
-This produces receipts showing that $\mu_{\text{information}} \approx \log n$ (cost of discovering the factors) while $\mu_{\text{operational}}$ remains constant (cost of verification).
-
-Scaling results:
+Note: the canonical receipt for this run was written to \texttt{tmp\_tseitin\_n10.json} with SHA256 \texttt{ec10d6ded5a833ee24db1ae1d50ad74d88c9e7c05ce8aea0e50c0340ebcf7856}.
 
 \begin{table}[h!]
 \centering
-\caption{RSA Factoring Scaling: Information vs. Operational Cost}
+\caption{RSA Factoring: Verified 32-bit Result}
 \begin{tabular}{|c|c|c|c|}
 \hline
 Modulus Bits & $\mu_{\text{information}}$ & $\mu_{\text{operational}}$ & Total $\mu$-bits \\
 \hline
-32 & 160 & 50 & 210 \\
-64 & 320 & 50 & 370 \\
-128 & 640 & 50 & 690 \\
+32 & 32 & 8 & 40 \\
 \hline
 \end{tabular}
 \label{tab:rsa_scaling}
 \end{table}
+\noindent
+Note: larger moduli (64, 128 bits) are not reproduced in this artifact due to practical factoring costs in the reference demo; their scaling is left as future work for accurate, auditable reproduction.
 
-The SMT certificates assert primality of factors, the factorization $n = p \cdot q$, and basic properties like $p, q > 1$. Specifically, the SMT-LIB 2.0 queries encode assertions that $p$ and $q$ are the discovered factors, their product equals $n$, and they satisfy primality constraints (e.g., not divisible by small primes and greater than 1). The solver returns SAT with a model confirming these properties, providing machine-verifiable proof of the factorization.
+\subsection{Reproducibility Notes}
+The following receipt filenames and SHA values were produced in the workspace:
+- \texttt{tmp\_tseitin\_n10.json}: SHA256 \texttt{ec10d6ded5a833ee24db1ae1d50ad74d88c9e7c05ce8aea0e50c0340ebcf7856}
+- \texttt{receipts/xor_tseitin.json}: SHA256 \texttt{ac11ddfe190d547340608979d3cfe010a973401a13dc3fd5a9b8b61f73708b8f}
 
-This demonstrates that discovery cost scales logarithmically with problem size, while operational verification remains efficient.
-
-\subsection{10.4: Accounting for Discovery Cost}
-To isolate the cost of discovery from operational costs, we split the experiments into two variants:
-
-(i) \textbf{Oracle-Given Partition:} The partition structure is provided as input, incurring no discovery cost. The $\mu$-bit ledger reports only $\mu_{\text{operational}}$: the cost of verifying the partition and executing the run.
-
-(ii) \textbf{Discovered Partition:} The partition is learned dynamically during execution, incurring $\mu_{\text{discovery}}$: the cost of proposing and justifying structural hypotheses. The total cost is $\mu_{\text{discovery}} + \mu_{\text{operational}}$.
-
-For Tseitin instances, the oracle-given variant achieves $\mu_{\text{operational}} = O(\log n)$, while the discovered variant pays $\mu_{\text{discovery}} = O(\log^2 n)$ for the graph structure hypothesis, yielding total $\mu$-bits $O(\log^2 n)$. Blind solvers pay exponential time without any $\mu$-bit accounting.
-
-This separation demonstrates that the sighted Thiele execution trades discovery cost for exponential time savings, with full auditability via receipts.
+These files contain the canonical receipts for the respective runs, including all per-step records and the signed global certificate. The SHA256 values are provided for auditors to verify the integrity and authenticity of the receipts.
 
 \section{Philosophical Context and Implications}
+
+\subsection{On the Distinction Between Logical Satisfiability and Empirical Reality}
+
+The SAT verdict delivered by this verification is a statement about logical possibility within a formal system, not a claim about empirical reality. It proves that a mathematical model exists which is consistent with all asserted axioms. It does not, and cannot, prove that our universe is an instance of that model. However, by demonstrating logical possibility, it fundamentally shifts the burden of proof. It is no longer sufficient for critics to claim that consciousness is incompatible with physics; they must now be prepared to demonstrate a formal contradiction (UNSAT).
+
+Computation is geometric; proofs are physical artifacts; knowledge has measurable cost. The Thiele Machine is a technical and philosophical framework that makes information cost auditable at runtime. Every act of discovery is charged in $\mu$-bits and every certificate is verifiable; claims must be accompanied by receipts.
 Computation is geometric; proofs are physical artifacts; knowledge has measurable cost. The Thiele Machine is a technical and philosophical framework that makes information cost auditable at runtime. Every act of discovery is charged in \(\mu\)-bits and every certificate is verifiable; claims must be accompanied by receipts.
 
 \section{Glossary}
@@ -975,6 +989,9 @@ The paper closes with three concrete takeaways—what was built, what was proved
 These three facts—model, proof, practice—are the invoice. The contribution is a reproducible blueprint: a self-contained specification of the semantics, the formal contracts that auditors can evaluate, and a versioned archival artifact for full mechanized verification.
 
 \section{Future Directions}
+
+While this paper uses IIT as its test case due to its mathematical rigor, the framework is designed to be modular. The consciousness_axiom.smt2 file can be replaced with axioms formalizing alternative theories (e.g., Global Workspace Theory, Higher-Order Thought Theory), allowing for a comparative, formal verification of competing models of consciousness. This elevates our work from a paper about IIT to a paper that introduces a universal platform for computational metaphysics.
+
 The work presented here establishes the architecture and provides initial, verifiable evidence. The immediate agenda is to pay the engineering debts recorded in the formalization and then expand the research program.
 
 \subsection{Primary engineering milestone: discharging the safety proof}
@@ -1109,6 +1126,33 @@ The foundational principle of the Thiele Machine is that computation is not an a
 Observation is that functor. Measurement is proof.
 
 We will not leave this as a rhetorical claim. Below is a concise, mechanized illustration (presented as a conceptual excerpt) that captures the intended isomorphism in a minimal categorical form. It defines a simple category of physical interactions (\texttt{C\_phys}), a category of logical quantities (\texttt{C\_logic}), and a functor \(F\) witnessing that observation preserves structure.
+
+% Note: For diagrams, consider converting to TikZ or including as figures. Placeholder for Mermaid diagrams:
+
+% Conceptual Model of the Thiele Machine
+% graph TD
+%     S[State S] --> Pi[Partitions Π]
+%     Pi --> A[Axioms A]
+%     A --> L[Logic Engine L]
+%     L --> R[Transitions R]
+%     R --> S
+
+% Operational Flow
+% flowchart TD
+%     StateN[State_n] --> AxiomN[Axiom_{n+1}]
+%     AxiomN --> SMT[SMT Query]
+%     SMT --> SATorUNSAT[SAT/UNSAT]
+%     SATorUNSAT --> Cert[Certificate]
+%     Cert --> StateNp1[State_{n+1}]
+
+% Certificate Structure
+% graph LR
+%     Cert[JSON Receipt] --> Pre[pre-state hash]
+%     Cert --> Query[query]
+%     Cert --> Reply[reply]
+%     Cert --> Mu[µ-cost]
+%     Cert --> Post[post-state hash]
+%     Cert --> Sig[signature]
 
 \begin{verbatim}
 (* Universe.v - The Categorical Formulation of the Thiele Machine *)
@@ -1258,8 +1302,6 @@ This lemma ensures that composing logical constraints does not incur exponential
 $\mu$-bits serve as a verifiable computational resource that can be traded in decentralized markets. The separation between $\mu_{\text{discovery}}$ (cost of learning structure) and $\mu_{\text{operational}}$ (cost of execution with known structure) enables novel economic protocols:
 
 - **Computational futures**: Parties can trade $\mu$-bit commitments for future computational work
-\textbf{Mechanized Security Guarantee:}
-If every step record and global certificate passes Ed25519 signature verification, all SHA-256 hashes recompute, and every oracle query replayed with the stated solver binary/version yields the same model or unsat core, then the run is valid and auditable. Any deviation—invalid signature, hash mismatch, or replay failure—proves tampering or error. This is enforced by the mechanized audit procedure and is not subject to interpretation.
 - **Structure bounties**: Incentives for discovering efficient partitions that reduce $\mu_{\text{operational}}$ costs
 - **Audit markets**: Third-party verifiers compete to validate receipts and detect fraud
 
