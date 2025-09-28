@@ -4,11 +4,11 @@
 (declare-fun q () Int)
 (declare-fun n () Int)
 (assert
- (= p 35449))
+ (= p 58393))
 (assert
- (= q 64433))
+ (= q 62791))
 (assert
- (= n 2284085417))
+ (= n 3666554863))
 (assert
  (let ((?x31 (* p q)))
  (= ?x31 n)))
