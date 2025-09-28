@@ -63,7 +63,7 @@ def run_program(program_path: Path, output_dir: Path) -> RunResult:
     ledger_path = output_dir / "mu_ledger.json"
     trace_path = output_dir / "trace.log"
 
-    mu_value = summary.get("mu", float("nan"))
+    mu_value = summary.get("mu_total", summary.get("mu", float("nan")))
     if isinstance(mu_value, str):
         # Normalise legacy JSON infinities
         if mu_value.lower() in {"inf", "infinity", "+inf", "+infinity"}:
@@ -291,13 +291,15 @@ def build_partition_smt(
     dataset: Dict[str, Dict[str, int]],
     group: Dict[str, object],
     smt_path: Path,
+    idx: int,
 ) -> None:
     label = group["label"]
     expected_color: Optional[int] = group.get("expected_color")  # type: ignore[assignment]
     point_names: List[str] = group["points"]  # type: ignore[assignment]
 
-    lines: List[str] = ["(set-logic QF_LRA)"]
-    idx = 0
+    lines: List[str] = []
+    if idx == 0:
+        lines.append("(set-logic QF_LRA)")
     lines.extend(
         [
             f"; Linear model for {label}",
@@ -355,7 +357,7 @@ def run_hypothesis(
 
     for group_index, group in enumerate(groups, start=1):
         smt_path = case_dir / f"group_{group_index}.smt2"
-        build_partition_smt(dataset, group, smt_path)
+        build_partition_smt(dataset, group, smt_path, group_index - 1)
         thm_lines.append(f"LASSERT {smt_path.name}")
 
     thm_lines.append("MDLACC")
