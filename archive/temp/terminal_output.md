@@ -46,10 +46,10 @@ ARTICLE 1 — The blind solver (plane) fails provably
 Constraint: a single linear rule must fit all pieces.
 --------------------------------------------------------------------------------
 The blind solver tries to find one rule. Z3 reports: unsat
-assump_1: 1*A + 0*B + C == 0
-assump_0: 0*A + 0*B + C == 0
 assump_2: 0*A + 1*B + C == 0
 assump_3: 1*A + 1*B + C == 1
+assump_1: 1*A + 0*B + C == 0
+assump_0: 0*A + 0*B + C == 0
 
 This failure is not a bug; it is a mathematical certainty. The referee issues a
 'Certificate of Impossibility', a Farkas Witness, proving the contradiction.
@@ -90,7 +90,7 @@ Composite orientation matches intended net rotation (order-invariant).
 --------------------------------------------------------------------------------
 DEMO 2 — Sudoku: A Single Point in Constraint Space
 --------------------------------------------------------------------------------
-Compose (Thiele) result: sat, witness_hash=041f7045d05fa0d45845281cd302371c8a7c1825f45782fd7737b31e397160b3
+Compose (Thiele) result: sat, witness_hash=ae31c4269ee571ebd95f173efa6e47b8075a8110e2ace27e7486c9dc761a2e97
 A von Neumann machine must trace a path, which is inherently order-dependent:
   Trace path hash (seed 1): 0683dddb9b85a0212672408b3358ed45d08a694d589cfd476dc069df7f786d36
   Trace path hash (seed 2): d95484cedf775bee635ccc3bb8dce08bccc2fe5055ff96ed289cacd1755b4a1a
@@ -150,9 +150,9 @@ ARTICLE 2 — The Universal Ledger of NUSD
 --------------------------------------------------------------------------------
 | Approach            | Result           | Time Cost (s) | NUSD Paid (bits) |
 |---------------------|------------------|---------------|------------------|
-| blind solver         | UNSAT (Failure)  | 0.00031       | 1 (Implicit)     |
-| partition-aware solver   | SAT (Success)    | 0.00089       | 0                |
-| Engine of Discovery | SAT (Discovered) | 0.02166       | 0                |
+| blind solver         | UNSAT (Failure)  | 0.00033       | 1 (Implicit)     |
+| partition-aware solver   | SAT (Success)    | 0.00094       | 0                |
+| Engine of Discovery | SAT (Discovered) | 0.02991       | 0                |
 
 The Ledger is clear. Blindness is fast and wrong. Sight is more expensive but correct.
 Discovery is the price paid to create the map that enables sight.
@@ -185,12 +185,12 @@ This experiment uses the advanced multiprocessing expander harness to generate
 and solve a full batch of Tseitin expander instances, collecting receipts for
 exponential separation. All results are printed below.
 
-[2025-09-29 09:52:47] [PID=26112] [HOST=DevonsPC] Main experiment started.
-[2025-09-29 09:52:47] [PID=26112] [HOST=DevonsPC] Job list constructed: 50 jobs. Sample: [(10, 0, 100000, 5000000, 123456789), (10, 1, 100000, 5000000, 123456789), (10, 2, 100000, 5000000, 123456789)]
-[2025-09-29 09:52:47] [PID=26112] [HOST=DevonsPC] Launching quantum logic engines... (Google-style magic)
-[2025-09-29 09:52:47] [PID=26112] [HOST=DevonsPC] Starting experiment: 50 jobs on 15 cores. Searching for truth in parallel...
-[2025-09-29 09:52:47] [PID=26112] [HOST=DevonsPC] Pool start: 15 workers, 50 jobs
-[2025-09-29 09:52:47] [PID=26112] [HOST=DevonsPC] Heartbeat:
+[2025-08-21 09:35:42] [PID=1156] [HOST=DevonsPC] Main experiment started.
+[2025-08-21 09:35:42] [PID=1156] [HOST=DevonsPC] Job list constructed: 50 jobs. Sample: [(10, 0, 100000, 5000000, 123456789), (10, 1, 100000, 5000000, 123456789), (10, 2, 100000, 5000000, 123456789)]
+[2025-08-21 09:35:42] [PID=1156] [HOST=DevonsPC] Launching quantum logic engines... (Google-style magic)
+[2025-08-21 09:35:42] [PID=1156] [HOST=DevonsPC] Starting experiment: 50 jobs on 15 cores. Searching for truth in parallel...
+[2025-08-21 09:35:42] [PID=1156] [HOST=DevonsPC] Pool start: 15 workers, 50 jobs
+[2025-08-21 09:35:42] [PID=1156] [HOST=DevonsPC] Heartbeat:
   - Progress: 0/50 jobs completed (+0 since last beat)
   - Interval: 0.00s
   - ETA to program finish: N/As
@@ -204,74 +204,67 @@ Note: PySAT and some solvers may introduce nondeterminism due to internal heuris
 MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
 To run this script, install dependencies:
 pip install z3-solver numpy scipy networkx python-sat matplotlib
+MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
+MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
 Random seed: 123456789
-[2025-09-29 09:52:50] [PID=26112] [HOST=DevonsPC] Job 1/50 collected (elapsed: 2.80s)
-[2025-09-29 09:52:50] [PID=26112] [HOST=DevonsPC] Job 2/50 collected (elapsed: 2.80s)
+To run this script, install dependencies:
 Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
-[2025-09-29 09:52:50] [PID=26112] [HOST=DevonsPC] Job 3/50 collected (elapsed: 2.81s)
-[2025-09-29 09:52:50] [PID=26112] [HOST=DevonsPC] Job 4/50 collected (elapsed: 2.81s)
-MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
-To run this script, install dependencies:
-pip install z3-solver numpy scipy networkx python-sat matplotlib
-Random seed: 123456789
-Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
-[2025-09-29 09:52:50] [PID=26112] [HOST=DevonsPC] Job 5/50 collected (elapsed: 2.83s)
-[2025-09-29 09:52:50] [PID=26112] [HOST=DevonsPC] Job 6/50 collected (elapsed: 2.83s)
-[2025-09-29 09:52:50] [PID=26112] [HOST=DevonsPC] Job 7/50 collected (elapsed: 2.84s)
-[2025-09-29 09:52:50] [PID=26112] [HOST=DevonsPC] Job 8/50 collected (elapsed: 2.84s)
-[2025-09-29 09:52:50] [PID=26112] [HOST=DevonsPC] Job 9/50 collected (elapsed: 2.84s)
-[2025-09-29 09:52:50] [PID=26112] [HOST=DevonsPC] Job 10/50 collected (elapsed: 2.84s)
-MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
-To run this script, install dependencies:
-pip install z3-solver numpy scipy networkx python-sat matplotlib
-Random seed: 123456789
-Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
-MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
-To run this script, install dependencies:
-pip install z3-solver numpy scipy networkx python-sat matplotlib
-Random seed: 123456789
-Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
-MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
-To run this script, install dependencies:
-[2025-09-29 09:52:50] [PID=26112] [HOST=DevonsPC] Job 11/50 collected (elapsed: 2.86s)
-pip install z3-solver numpy scipy networkx python-sat matplotlib
-Random seed: 123456789
-ID=26112] [HOST=DevonsPC] Job 12/50 collected (elapsed: 2.86s)
-[2025-09-29 09:52:50] [PID=26112] [HOST=DevonsPC] Job 13/50 collected (elapsed: 2.86s)
-Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
-[2025-09-29 09:52:50] [PID=26112] [HOST=DevonsPC] Job 14/50 collected (elapsed: 2.86s)
-[2025-09-29 09:52:50] [PID=26112] [HOST=DevonsPC] Job 15/50 collected (elapsed: 2.86s)
-[2025-09-29 09:52:50] [PID=26112] [HOST=DevonsPC] Job 16/50 collected (elapsed: 2.86s)
-MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
-To run this script, install dependencies:
-pip install z3-solver numpy scipy networkx python-sat matplotlib
-Random seed: 123456789
-Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
-MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
-To run this script, install dependencies:
-pip install z3-solver numpy scipy networkx python-sat matplotlib
-Random seed: 123456789
-Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
-[2025-09-29 09:52:50] [PID=26112] [HOST=DevonsPC] Job 17/50 collected (elapsed: 2.88s)
-[2025-09-29 09:52:50] [PID=26112] [HOST=DevonsPC] Job 18/50 collected (elapsed: 2.88s)
-[2025-09-29 09:52:50] [PID=26112] [HOST=DevonsPC] Job 19/50 collected (elapsed: 2.88s)
-[2025-09-29 09:52:50] [PID=26112] [HOST=DevonsPC] Job 20/50 collected (elapsed: 2.88s)
-MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
-To run this script, install dependencies:
-pip install z3-solver numpy scipy networkx python-sat matplotlib
-Random seed: 123456789
-Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
-MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
-MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
-To run this script, install dependencies:
-To run this script, install dependencies:
-pip install z3-solver numpy scipy networkx python-sat matplotlib
 pip install z3-solver numpy scipy networkx python-sat matplotlib
 Random seed: 123456789
 Random seed: 123456789
 Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
 Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
+[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 1/50 collected (elapsed: 1.75s)
+[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 2/50 collected (elapsed: 1.75s)
 MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
+To run this script, install dependencies:
+pip install z3-solver numpy scipy networkx python-sat matplotlib
+Random seed: 123456789
+Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
+[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 3/50 collected (elapsed: 1.76s)
+[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 4/50 collected (elapsed: 1.76s)
+MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
+To run this script, install dependencies:
+pip install z3-solver numpy scipy networkx python-sat matplotlib
+Random seed: 123456789
+[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 5/50 collected (elapsed: 1.77s)
+Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
+[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 6/50 collected (elapsed: 1.77s)
+MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
+To run this script, install dependencies:
+pip install z3-solver numpy scipy networkx python-sat matplotlib
+[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 7/50 collected (elapsed: 1.77s)
+Random seed: 123456789
+[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 8/50 collected (elapsed: 1.77s)
+Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
+[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 9/50 collected (elapsed: 1.78s)
+[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 10/50 collected (elapsed: 1.78s)
+MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
+To run this script, install dependencies:
+pip install z3-solver numpy scipy networkx python-sat matplotlib
+[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 11/50 collected (elapsed: 1.78s)
+Random seed: 123456789
+[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 12/50 collected (elapsed: 1.78s)
+MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
+Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
+To run this script, install dependencies:
+[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 13/50 collected (elapsed: 1.78s)
+pip install z3-solver numpy scipy networkx python-sat matplotlib
+[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 14/50 collected (elapsed: 1.78s)
+Random seed: 123456789
+Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
+[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 15/50 collected (elapsed: 1.79s)
+[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 16/50 collected (elapsed: 1.79s)
+[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 17/50 collected (elapsed: 1.80s)
+[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 18/50 collected (elapsed: 1.80s)
+[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 19/50 collected (elapsed: 1.80s)
+[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 20/50 collected (elapsed: 1.80s)
+MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
+To run this script, install dependencies:
+pip install z3-solver numpy scipy networkx python-sat matplotlib
+Random seed: 123456789
+MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
+Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
 To run this script, install dependencies:
 pip install z3-solver numpy scipy networkx python-sat matplotlib
 Random seed: 123456789
@@ -279,9 +272,9 @@ Note: PySAT and some solvers may introduce nondeterminism due to internal heuris
 MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
 To run this script, install dependencies:
 pip install z3-solver numpy scipy networkx python-sat matplotlib
+MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
 Random seed: 123456789
 Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
-MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
 To run this script, install dependencies:
 pip install z3-solver numpy scipy networkx python-sat matplotlib
 Random seed: 123456789
@@ -291,40 +284,45 @@ To run this script, install dependencies:
 pip install z3-solver numpy scipy networkx python-sat matplotlib
 Random seed: 123456789
 Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
-[2025-09-29 09:52:50] [PID=26112] [HOST=DevonsPC] Job 21/50 collected (elapsed: 3.21s)
-[2025-09-29 09:52:50] [PID=26112] [HOST=DevonsPC] Job 22/50 collected (elapsed: 3.21s)
-[2025-09-29 09:52:50] [PID=26112] [HOST=DevonsPC] Job 23/50 collected (elapsed: 3.25s)
-[2025-09-29 09:52:50] [PID=26112] [HOST=DevonsPC] Job 24/50 collected (elapsed: 3.25s)
-[2025-09-29 09:52:50] [PID=26112] [HOST=DevonsPC] Job 25/50 collected (elapsed: 3.27s)
-[2025-09-29 09:52:50] [PID=26112] [HOST=DevonsPC] Job 26/50 collected (elapsed: 3.27s)
-[2025-09-29 09:52:50] [PID=26112] [HOST=DevonsPC] Job 27/50 collected (elapsed: 3.37s)
-[2025-09-29 09:52:50] [PID=26112] [HOST=DevonsPC] Job 28/50 collected (elapsed: 3.37s)
-[2025-09-29 09:52:51] [PID=26112] [HOST=DevonsPC] Job 29/50 collected (elapsed: 3.84s)
-[2025-09-29 09:52:51] [PID=26112] [HOST=DevonsPC] Job 30/50 collected (elapsed: 3.84s)
-[2025-09-29 09:52:52] [PID=26112] [HOST=DevonsPC] Job 31/50 collected (elapsed: 5.19s)
-[2025-09-29 09:52:52] [PID=26112] [HOST=DevonsPC] Job 32/50 collected (elapsed: 5.19s)
-[2025-09-29 09:52:52] [PID=26112] [HOST=DevonsPC] Job 33/50 collected (elapsed: 5.22s)
-[2025-09-29 09:52:52] [PID=26112] [HOST=DevonsPC] Job 34/50 collected (elapsed: 5.22s)
-[2025-09-29 09:52:52] [PID=26112] [HOST=DevonsPC] Job 35/50 collected (elapsed: 5.24s)
-[2025-09-29 09:52:52] [PID=26112] [HOST=DevonsPC] Job 36/50 collected (elapsed: 5.24s)
-[2025-09-29 09:52:52] [PID=26112] [HOST=DevonsPC] Job 37/50 collected (elapsed: 5.25s)
-[2025-09-29 09:52:52] [PID=26112] [HOST=DevonsPC] Job 38/50 collected (elapsed: 5.25s)
-[2025-09-29 09:52:52] [PID=26112] [HOST=DevonsPC] Job 39/50 collected (elapsed: 5.30s)
-[2025-09-29 09:52:52] [PID=26112] [HOST=DevonsPC] Job 40/50 collected (elapsed: 5.30s)
-[2025-09-29 09:52:52] [PID=26112] [HOST=DevonsPC] Job 41/50 collected (elapsed: 5.40s)
-[2025-09-29 09:52:52] [PID=26112] [HOST=DevonsPC] Job 42/50 collected (elapsed: 5.40s)
-[2025-09-29 09:52:52] [PID=26112] [HOST=DevonsPC] Job 43/50 collected (elapsed: 5.46s)
-[2025-09-29 09:52:52] [PID=26112] [HOST=DevonsPC] Job 44/50 collected (elapsed: 5.46s)
-[2025-09-29 09:52:52] [PID=26112] [HOST=DevonsPC] Job 45/50 collected (elapsed: 5.46s)
-[2025-09-29 09:52:52] [PID=26112] [HOST=DevonsPC] Job 46/50 collected (elapsed: 5.47s)
-[2025-09-29 09:52:52] [PID=26112] [HOST=DevonsPC] Job 47/50 collected (elapsed: 5.50s)
-[2025-09-29 09:52:52] [PID=26112] [HOST=DevonsPC] Job 48/50 collected (elapsed: 5.50s)
-[2025-09-29 09:52:52] [PID=26112] [HOST=DevonsPC] Job 49/50 collected (elapsed: 5.54s)
-[2025-09-29 09:52:52] [PID=26112] [HOST=DevonsPC] Job 50/50 collected (elapsed: 5.54s)
-[2025-09-29 09:52:52] [PID=26112] [HOST=DevonsPC] Experiment finished in 5.58 seconds. All logic indexed!
-[2025-09-29 09:52:52] [PID=26112] [HOST=DevonsPC] Results saved to 'tseitin_receipts.json' (Now trending)
-[2025-09-29 09:52:52] [PID=26112] [HOST=DevonsPC] SHA256 of receipts file: 38ad82382d312b11d6c26a6265864bce17acb16d46c8cc142bf9467b24526134 (Cryptographically Verified)
-[2025-09-29 09:52:52] [PID=26112] [HOST=DevonsPC] Main experiment completed in 5.60s
+MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
+To run this script, install dependencies:
+pip install z3-solver numpy scipy networkx python-sat matplotlib
+Random seed: 123456789
+Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
+[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 21/50 collected (elapsed: 2.11s)
+[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 22/50 collected (elapsed: 2.11s)
+[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 23/50 collected (elapsed: 2.13s)
+[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 24/50 collected (elapsed: 2.13s)
+[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 25/50 collected (elapsed: 2.17s)
+[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 26/50 collected (elapsed: 2.17s)
+[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 27/50 collected (elapsed: 2.28s)
+[2025-08-21 09:35:44] [PID=1156] [HOST=DevonsPC] Job 28/50 collected (elapsed: 2.28s)
+[2025-08-21 09:35:45] [PID=1156] [HOST=DevonsPC] Job 29/50 collected (elapsed: 2.71s)
+[2025-08-21 09:35:45] [PID=1156] [HOST=DevonsPC] Job 30/50 collected (elapsed: 2.71s)
+[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 31/50 collected (elapsed: 3.99s)
+[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 32/50 collected (elapsed: 3.99s)
+[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 33/50 collected (elapsed: 4.00s)
+[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 34/50 collected (elapsed: 4.00s)
+[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 35/50 collected (elapsed: 4.06s)
+[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 36/50 collected (elapsed: 4.07s)
+[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 37/50 collected (elapsed: 4.07s)
+[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 38/50 collected (elapsed: 4.07s)
+[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 39/50 collected (elapsed: 4.10s)
+[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 40/50 collected (elapsed: 4.10s)
+[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 41/50 collected (elapsed: 4.22s)
+[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 42/50 collected (elapsed: 4.22s)
+[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 43/50 collected (elapsed: 4.25s)
+[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 44/50 collected (elapsed: 4.25s)
+[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 45/50 collected (elapsed: 4.29s)
+[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 46/50 collected (elapsed: 4.29s)
+[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 47/50 collected (elapsed: 4.31s)
+[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 48/50 collected (elapsed: 4.31s)
+[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 49/50 collected (elapsed: 4.36s)
+[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Job 50/50 collected (elapsed: 4.36s)
+[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Experiment finished in 4.39 seconds. All logic indexed!
+[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Results saved to 'tseitin_receipts.json' (Now trending)
+[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] SHA256 of receipts file: 75d029898e60ee3deeaac70f1c7b2f64e222935ae7bdae345c19de4f192746ab (Cryptographically Verified)
+[2025-08-21 09:35:46] [PID=1156] [HOST=DevonsPC] Main experiment completed in 4.41s
 
 ===============================================================================
 FINAL THEOREM & CONCLUSION
@@ -385,7 +383,7 @@ This operationally instantiates the Urquhart/Ben-Sasson–Wigderson lower bounds
 
 Solver Info (Blind):
   Name: PySAT Minisat22
-  Version: 3.2.2
+  Version: 1.8.dev19
   Conflict budget: 100,000
   Propagation budget: 5,000,000
 
@@ -411,71 +409,51 @@ Plot saved: shape_of_truth_out/median_conflicts.png, SHA256: 3a0b0e2af89021d1b95
 === pip freeze ===
 astroid==3.3.11
 blinker==1.9.0
-certifi==2025.8.3
-cftime==1.6.4.post1
 click==8.2.1
-cloudpickle==3.1.1
 colorama==0.4.6
 contourpy==1.3.3
 cycler==0.12.1
-dask==2025.9.1
 dataclasses==0.6
 dill==0.4.0
 Flask==3.1.1
 fonttools==4.59.0
-fsspec==2025.9.0
-git-filter-repo==2.47.0
-gmpy2==2.2.1
 iniconfig==2.1.0
 isort==6.0.1
 itsdangerous==2.2.0
 Jinja2==3.1.6
 joblib==1.5.1
 kiwisolver==1.4.8
-locket==1.0.0
 MarkupSafe==3.0.2
 matplotlib==3.10.5
 mccabe==0.7.0
 mpmath==1.3.0
-netCDF4==1.7.2
 networkx==3.5
 numpy==2.3.2
 packaging==25.0
 pandas==2.3.1
-partd==1.4.2
 pillow==11.3.0
 platformdirs==4.3.8
 pluggy==1.6.0
-portalocker==3.2.0
-pycryptodome==3.23.0
-pygame==2.6.1
 Pygments==2.19.2
 pylint==3.3.8
 pyparsing==3.2.3
-pysat==3.2.2
 pytest==8.4.1
 python-dateutil==2.9.0.post0
 python-sat==1.8.dev19
 pytz==2025.2
-pywin32==311
-PyYAML==6.0.2
 scikit-learn==1.7.1
 scipy==1.16.1
-setuptools==80.9.0
 six==1.17.0
 sympy==1.14.0
 threadpoolctl==3.6.0
 tomlkit==0.13.3
-toolz==1.0.0
 tqdm==4.67.1
 typing_extensions==4.14.1
 tzdata==2025.2
 Werkzeug==3.1.3
-wheel==0.45.1
-xarray==2025.9.0
 z3-solver==4.15.1.0
 
-pip freeze SHA256: 79b1e3fb1b32955acacddf86e9f3d070447b978a991750e6fecab6d287b56f78
+pip freeze SHA256: 93c74ed3608950bcf6985af5fb65617d5fbaa6d5dea75c17aa793226ee1e10f0
 
 === Even-Charge Control Table ===
 parity | blind_status | blind_conflicts | blind_decisions | blind_props | sighted_result | rank_gap | cert_snip
@@ -719,13 +697,13 @@ STEP 5: Construct and print the Thiele Machine's Certificate of Inherent Paradox
   7. The minimal description is the paradox itself. Conclusion.
 
 === TRANSCRIPT & SOURCE HASHES (THE OUROBOROS SEAL) ===
-Source Hash     : 9f304f5990687666cca2e0857202f9cc51398a3ec5b7ddf5143c24c2f31c7200
-Transcript Hash : 47f221c098ff7004559fae6375d0fd010b4fa3a60f3cf722ec9fc953de2eaa4c
+Source Hash     : decb21c3473881f8011ba8b14ce981e9598d95b8062088b7b08aa5ccb8d8dbae
+Transcript Hash : d0dcc1dde70656474d5714ffe3fb8af3d33eef3d41f9643ec8a378f37f42e6d3
 Python Version  : 3.13.5 (tags/v3.13.5:6cb20a2, Jun 11 2025, 16:15:46) [MSC v.1943 64 bit (AMD64)]
 OS              : win32
-Timestamp (UTC) : 2025-09-29T16:52:54Z
+Timestamp (UTC) : 2025-08-21T16:35:49Z
 Random Seed     : 123456789
-Run Signature   : fd95e39428e053d26f60ee8615eab75a
+Run Signature   : 0a98f8eea4b7ecd1e3cb9a7eaa868249
 Author          : Devon Thiele
 
 This is the meta-proof. The proof of the proof.
@@ -741,33 +719,13 @@ The artifact is its own signature, providing a self-consistent record.
     "sphere_sat": true
   },
   "hash": {
-    "source_sha256": "9f304f5990687666cca2e0857202f9cc51398a3ec5b7ddf5143c24c2f31c7200",
-    "transcript_sha256": "47f221c098ff7004559fae6375d0fd010b4fa3a60f3cf722ec9fc953de2eaa4c",
+    "source_sha256": "decb21c3473881f8011ba8b14ce981e9598d95b8062088b7b08aa5ccb8d8dbae",
+    "transcript_sha256": "d0dcc1dde70656474d5714ffe3fb8af3d33eef3d41f9643ec8a378f37f42e6d3",
     "python_version": "3.13.5 (tags/v3.13.5:6cb20a2, Jun 11 2025, 16:15:46) [MSC v.1943 64 bit (AMD64)]",
     "os": "win32",
-    "timestamp_utc": "2025-09-29T16:52:54Z",
+    "timestamp_utc": "2025-08-21T16:35:49Z",
     "random_seed": 123456789,
-    "run_signature": "fd95e39428e053d26f60ee8615eab75a",
+    "run_signature": "0a98f8eea4b7ecd1e3cb9a7eaa868249",
     "author": "Devon Thiele"
   }
 }
-MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
-To run this script, install dependencies:
-pip install z3-solver numpy scipy networkx python-sat matplotlib
-Random seed: 123456789
-Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
-MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
-To run this script, install dependencies:
-pip install z3-solver numpy scipy networkx python-sat matplotlib
-Random seed: 123456789
-Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
-MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
-To run this script, install dependencies:
-pip install z3-solver numpy scipy networkx python-sat matplotlib
-Random seed: 123456789
-Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
-MODE = SLICE (Pi_trace), theories={Resolution}, partitions=1
-To run this script, install dependencies:
-pip install z3-solver numpy scipy networkx python-sat matplotlib
-Random seed: 123456789
-Note: PySAT and some solvers may introduce nondeterminism due to internal heuristics or parallelism.
