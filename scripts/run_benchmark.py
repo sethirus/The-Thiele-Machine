@@ -10,7 +10,7 @@ from datetime import datetime
 import os
 import sys
 # Ensure the parent directory is in sys.path for module import
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 # Import the core experiment harness from the repository
 from generate_tseitin_data import run_single_experiment
 
