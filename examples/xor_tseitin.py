@@ -32,7 +32,7 @@ def run_demo(save: bool = True):
         plt.figure()
         plt.bar(['sighted μ', 'blind steps'], [mu_refined, blind_steps])
         plt.ylabel('count')
-        plt.savefig('examples/xor_tseitin_plot.png')
+        plt.savefig('xor_tseitin_plot.png')
         plt.close()
         print(f"xor_tseitin μ={mu_refined} blind_steps={blind_steps}")
     return {"result": assignment, "mu_refined": mu_refined, "mu_blind": mu_blind, "blind_steps": blind_steps}

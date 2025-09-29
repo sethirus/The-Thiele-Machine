@@ -1,0 +1,39 @@
+{
+  "spec_version": "1.0",
+  "hash_algorithm": "sha256",
+  "signature_scheme": "ed25519",
+  "encoding": {
+    "formula_format": "SMT-LIB 2.0",
+    "canonicalization": "stable_sort_keys, utf8_bytes, no_whitespace",
+    "byte_count": "exact_utf8_bytes"
+  },
+  "axioms": {
+    "subadditivity": "mu(phi \\land psi) \\leq mu(phi) + mu(psi) + c",
+    "nonnegativity": "mu(phi) \\geq 0 for all phi",
+    "consistency_penalty": "if phi \\models \\bot then mu(phi) = \\infty"
+  },
+  "partition_cost": {
+    "module_cost": "sum of local axiom costs",
+    "structure_cost": "bits to encode module boundaries",
+    "refinement_penalty": "additional bits for each refinement step"
+  },
+  "verification": {
+    "oracle_query_format": "SMT-LIB assertion with timeout",
+    "witness_format": "model or unsat_core verbatim",
+    "replay_fidelity": "byte-for-byte match required"
+  },
+  "registry": {
+    "version_history": [
+      {"version": "1.0", "date": "YYYY-MM-DD", "changes": "Initial release with prefix-free encoding"},
+      {"version": "1.1", "date": "YYYY-MM-DD", "changes": "Added Kolmogorov complexity link and economic model"}
+    ],
+    "implementations": [
+      {"language": "python", "file": "compute_mu_bits.py", "description": "Reference μ-bit calculator"},
+      {"language": "python", "file": "verify_receipt_mu_spec.py", "description": "Receipt verification tool"}
+    ],
+    "canonical_examples": [
+      {"id": "xor_partition", "description": "XOR example partition encoding", "mu_bits": 144},
+      {"id": "tseitin_n10", "description": "Tseitin benchmark instance", "mu_bits": 17727}
+    ]
+  }
+}
