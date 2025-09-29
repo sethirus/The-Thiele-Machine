@@ -1,0 +1,94 @@
+name: Formal Proof Audit
+
+on:
+  push:
+    branches: [ public-release ]
+  pull_request:
+    branches: [ public-release ]
+  workflow_dispatch: {}
+
+concurrency:
+  group: formal-proof-audit-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build-and-verify:
+    name: Build Coq proofs and run flagship audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Cache opam switch and Coq artifacts
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.opam
+            ~/.cache/opam
+            coq/**/*.vo
+          key: opam-coq-${{ runner.os }}-${{ hashFiles('coq/_CoqProject') }}
+          restore-keys: |
+            opam-coq-${{ runner.os }}-
+
+      - name: Install system dependencies (opam)
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y opam m4 bubblewrap pkg-config ca-certificates git
+
+      - name: Initialize opam
+        run: |
+          opam init --disable-sandboxing -y
+          opam update
+
+      - name: Create opam switch for Coq 8.20.1
+        run: |
+          opam switch create coq-8.20.1 ocaml-base-compiler.4.14.1 -y || true
+
+      - name: Configure opam environment
+        run: |
+          eval "$(opam env --switch=coq-8.20.1)"
+          opam repo list
+
+      - name: Install Coq 8.20.1 and essentials
+        run: |
+          eval "$(opam env --switch=coq-8.20.1)"
+          opam install -y coq.8.20.1 dune zarith ocamlfind
+
+      - name: Build the Coq project (make)
+        run: |
+          eval "$(opam env --switch=coq-8.20.1)"
+          # Capture build log for audit and debugging
+          mkdir -p build-logs
+          make -C coq -j$(nproc) 2>&1 | tee build-logs/coq-make.log
+
+      - name: Run the one-click auditor (flagship)
+        run: |
+          eval "$(opam env --switch=coq-8.20.1)"
+          # Ensure Python deps are available in runner (the project uses only stdlib features)
+          bash -euxo pipefail -c "./scripts/verify_flagship_theorem.sh --enforce --force-coq --n 80 --seed 0 | tee build-logs/flagship-audit.log"
+
+      - name: Upload receipts and logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: formal-proof-artifacts
+          path: |
+            receipts/**
+            coq/**/*.vo
+            build-logs/**
+
+      - name: Annotate success
+        if: success()
+        env:
+          RUNNER_OS: ${{ runner.os }}
+        run: |
+          echo "FORMAL PROOF AUDIT SUCCEEDED: Coq build and flagship audit passed on $RUNNER_OS"
+
+      - name: Fail early note
+        if: failure()
+        env:
+          RUNNER_OS: ${{ runner.os }}
+        run: |
+          echo "FORMAL PROOF AUDIT FAILED on $RUNNER_OS: check build logs and artifacts for details"
+          exit 1

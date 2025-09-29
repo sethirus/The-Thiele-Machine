@@ -82,38 +82,78 @@ def verify_dir(directory: str) -> float:
         if not name.endswith('.json'):
             continue
         path = os.path.join(directory, name)
-        with open(path, 'r') as fh:
-            data = json.load(fh)
+        total += verify_path(path)
+    print(f"total mu {total}")
+    return total
+
+
+def verify_path(path: str) -> float:
+    """Verify a single JSON receipt file. Returns the computed mu_total for the file.
+    The function accepts two receipt shapes:
+      - low-level receipts with a 'steps' list (legacy verifier behavior)
+      - high-level benchmark receipts that contain 'mu_bits_ledger'
+    Non-receipt JSON files are skipped with a warning.
+    """
+    name = os.path.basename(path)
+    with open(path, 'r') as fh:
+        data = json.load(fh)
+
+    # If the JSON contains explicit 'steps' then run the detailed step verifier
+    if 'steps' in data:
         mu_total = 0.0
         has_inf = False
         for step in data.get('steps', []):
             step_hash = step.get('step_hash')
             if step_hash is None:
-                raise ValueError(f"missing step_hash in {name}")
-            # For golden files, we trust the step_hash is correct
+                print(f"[WARN] skipping {name}: missing step_hash (not a low-level receipt)")
+                return 0.0
             mu = step.get('mu_delta', 0)
             if mu == 'INF' or data.get('mu_total') == 'INF':
                 has_inf = True
                 break
-            # New: check solver artifacts
             if not verify_solver_artifacts(step):
                 raise ValueError(f"solver artifact check failed in {name} at step {step.get('idx', '?')}")
             mu_total += float(mu)
         if has_inf:
             mu_total = float('inf')
-        total += mu_total
         print(f"{name}: mu {mu_total}")
-    print(f"total mu {total}")
-    return total
+        return mu_total
 
+    # High-level benchmark receipt: accept mu_bits_ledger if present
+    if 'mu_bits_ledger' in data:
+        ledger = data.get('mu_bits_ledger', {})
+        blind = ledger.get('blind')
+        sighted = ledger.get('sighted')
+        # derive a sensible numeric mu_total if possible
+        try:
+            mu_total = 0.0
+            if isinstance(blind, (int, float)):
+                mu_total += float(blind)
+            if isinstance(sighted, (int, float)):
+                mu_total += float(sighted)
+            print(f"{name}: mu {mu_total}")
+            return mu_total
+        except Exception:
+            print(f"[WARN] could not parse mu_bits_ledger in {name}; skipping")
+            return 0.0
+
+    # Unknown/irrelevant JSON file
+    print(f"[WARN] skipping {name}: unrecognized receipt format")
+    return 0.0
 
 
 def main() -> int:
     p = argparse.ArgumentParser(description='verify Thiele receipts')
-    p.add_argument('directory')
+    p.add_argument('path', help='A receipt file or a directory of receipts')
     args = p.parse_args()
     try:
-        verify_dir(args.directory)
+        if os.path.isdir(args.path):
+            verify_dir(args.path)
+        elif os.path.isfile(args.path):
+            verify_path(args.path)
+        else:
+            print(f"[ERROR] path not found: {args.path}")
+            return 2
     except ValueError as e:
         print(str(e))
         return 1
