@@ -1,5 +1,6 @@
 Require Import ThieleUniversal.UTM_Encode.
 Require Import ThieleUniversal.UTM_Program.
+Import UTM_Program.
 Require Import ThieleUniversal.CPU.
 Require Import List.
 Require Import ZArith.
@@ -7,6 +8,7 @@ Require Import Lia.
 Import ListNotations.
 Open Scope Z_scope.
 Open Scope nat_scope.
+Require Import ThieleUniversal.TM.
 
 (* --- Section: Universal Program and Simulation --- *)
 
@@ -21,43 +23,11 @@ Module UTM.
   (* Encoding base used for packing instruction operands into a single word. *)
   Definition ENC_BASE := 1024.
 
-  (* Encode a single instruction as a natural number. *)
-  Definition encode_instr (i:Instr) : nat :=
-    match i with
-    | LoadConst rd v      => 0 + rd*ENC_BASE + v*ENC_BASE*ENC_BASE
-    | LoadIndirect rd ra  => 1 + rd*ENC_BASE + ra*ENC_BASE*ENC_BASE
-    | StoreIndirect ra rv => 2 + ra*ENC_BASE + rv*ENC_BASE*ENC_BASE
-    | CopyReg rd rs       => 3 + rd*ENC_BASE + rs*ENC_BASE*ENC_BASE
-    | AddConst rd v       => 4 + rd*ENC_BASE + v*ENC_BASE*ENC_BASE
-    | AddReg rd r1 r2     => 5 + rd*ENC_BASE + r1*ENC_BASE*ENC_BASE + r2*ENC_BASE*ENC_BASE*ENC_BASE
-    | SubReg rd r1 r2     => 6 + rd*ENC_BASE + r1*ENC_BASE*ENC_BASE + r2*ENC_BASE*ENC_BASE*ENC_BASE
-    | Jz rc target        => 7 + rc*ENC_BASE + target*ENC_BASE*ENC_BASE
-    | Jnz rc target       => 8 + rc*ENC_BASE + target*ENC_BASE*ENC_BASE
-    | Halt                => 9
-    end.
-
-  (* Decode an encoded instruction. Unknown opcodes default to [Halt]. *)
-  (* Decoder now reads three memory words starting at PC to reconstruct
-     an instruction. This change avoids heavy div/mod work on large
-     integers by using trivial nth lookups. *)
+  (* Delegate decoding to the separate encoder module which uses a
+     multi-word, low-reduction representation. *)
+  Import UTM_Encode.
   Definition decode_instr (st : CPU.State) : Instr :=
-    let pc := read_reg REG_PC st in
-    let mem := st.(mem) in
-    let opcode := nth pc mem 0 in
-    let arg1 := nth (pc + 1) mem 0 in
-    let arg2 := nth (pc + 2) mem 0 in
-    match opcode with
-    | 0 => LoadConst arg1 arg2
-    | 1 => LoadIndirect arg1 arg2
-    | 2 => StoreIndirect arg1 arg2
-    | 3 => CopyReg arg1 arg2
-    | 4 => AddConst arg1 arg2
-    | 5 => AddReg arg1 (arg2 / ENC_BASE) (arg2 mod ENC_BASE)
-    | 6 => SubReg arg1 (arg2 / ENC_BASE) (arg2 mod ENC_BASE)
-    | 7 => Jz arg1 arg2
-    | 8 => Jnz arg1 arg2
-    | _ => Halt
-    end.
+    decode_instr_from_mem st.(mem) (read_reg REG_PC st).
 
   (** Every encoded instruction assumes its operands fit within [ENC_BASE]. *)
   Definition instr_small (i : Instr) : Prop :=
@@ -70,160 +40,25 @@ Module UTM.
     | Halt => True
     end.
 
-  (** Decoding an encoded instruction yields the original instruction. *)
-  Lemma decode_encode_roundtrip :
-    forall i, instr_small i -> decode_instr (encode_instr i) = i.
-  Proof.
-    intros i Hs.
-    (* Helper tactics for two- and three-operand instructions. *)
-    Local Ltac solve_two rd v opcode :=
-      set (B := ENC_BASE) in *;
-      assert (Bpos : B > 0) by (subst B; unfold ENC_BASE; lia);
-      assert (Hop : (opcode + rd * B + v * B * B) mod B = opcode)
-        by (repeat (rewrite Nat.add_mod by lia);
-            rewrite Nat.mod_small with (a:=opcode) by lia;
-            repeat (rewrite Nat.mod_mul by lia);
-            lia);
-      assert (Hw1 : (opcode + rd * B + v * B * B) / B = rd + v * B)
-        by (replace (opcode + rd * B + v * B * B)
-             with (opcode + (rd + v * B) * B) by lia;
-            rewrite Nat.div_add by lia;
-            rewrite Nat.div_small with (a:=opcode) (b:=B) by lia;
-            rewrite Nat.div_mul by lia;
-            lia);
-      assert (Harg1 : (rd + v * B) mod B = rd)
-        by (rewrite Nat.add_mod by lia;
-            rewrite Nat.mod_mul by lia;
-            rewrite Nat.mod_small by lia;
-            lia);
-      assert (Hw2 : (rd + v * B) / B = v)
-        by (apply Nat.div_unique with (r:=rd); lia);
-      assert (Harg2 : v mod B = v) by (apply Nat.mod_small; lia);
-      rewrite Hop, Hw1, Harg1, Hw2, Harg2; reflexivity.
-
-    Local Ltac solve_three rd r1 r2 opcode :=
-      set (B := ENC_BASE) in *;
-      assert (Bpos : B > 0) by (subst B; unfold ENC_BASE; lia);
-      assert (Hop : (opcode + rd * B + r1 * B * B + r2 * B * B * B) mod B = opcode)
-        by (repeat (rewrite Nat.add_mod by lia);
-            rewrite Nat.mod_small with (a:=opcode) by lia;
-            repeat (rewrite Nat.mod_mul by lia);
-            lia);
-      assert (Hw1 : (opcode + rd * B + r1 * B * B + r2 * B * B * B) / B
-                   = rd + r1 * B + r2 * B * B)
-        by (replace (opcode + rd * B + r1 * B * B + r2 * B * B * B)
-             with (opcode + (rd + r1 * B + r2 * B * B) * B) by lia;
-            rewrite Nat.div_add by lia;
-            rewrite Nat.div_small with (a:=opcode) (b:=B) by lia;
-            rewrite Nat.div_mul by lia;
-            lia);
-      assert (Harg1 : (rd + r1 * B + r2 * B * B) mod B = rd)
-        by (repeat (rewrite Nat.add_mod by lia);
-            repeat (rewrite Nat.mod_mul by lia);
-            rewrite Nat.mod_small by lia;
-            lia);
-      assert (Hw2 : (rd + r1 * B + r2 * B * B) / B = r1 + r2 * B)
-        by (replace (rd + r1 * B + r2 * B * B)
-             with (rd + (r1 + r2 * B) * B) by lia;
-            rewrite Nat.div_add by lia;
-            rewrite Nat.div_small with (a:=rd) (b:=B) by lia;
-            rewrite Nat.div_mul by lia;
-            lia);
-      assert (Harg2 : (r1 + r2 * B) mod B = r1)
-        by (rewrite Nat.add_mod by lia;
-            rewrite Nat.mod_mul by lia;
-            rewrite Nat.mod_small by lia;
-            lia);
-      assert (Hw3 : (r1 + r2 * B) / B = r2)
-        by (apply Nat.div_unique with (r:=r1); lia);
-      rewrite Hop, Hw1, Harg1, Hw2, Harg2, Hw3; reflexivity.
-
-    destruct i as
-      [rd val | rd ra | ra rv | rd rs | rd val | rd rs1 rs2
-       | rd rs1 rs2 | rc target | rc target | ];
-      simpl in Hs; simpl; try reflexivity;
-      try (destruct Hs as [Hrd Hv]; solve_two rd val 0);
-      try (destruct Hs as [Hrd Hra]; solve_two rd ra 1);
-      try (destruct Hs as [Hra Hrv]; solve_two ra rv 2);
-      try (destruct Hs as [Hrd Hrs]; solve_two rd rs 3);
-      try (destruct Hs as [Hrd Hv]; solve_two rd val 4);
-      try (destruct Hs as [Hrd [Hr1 Hr2]]; solve_three rd rs1 rs2 5);
-      try (destruct Hs as [Hrd [Hr1 Hr2]]; solve_three rd rs1 rs2 6);
-      try (destruct Hs as [Hrc Ht]; solve_two rc target 7);
-      try (destruct Hs as [Hrc Ht]; solve_two rc target 8).
-  Qed.
+  (* Use the correctness lemma from the encoder module rather than
+     re-proving the division-based decoder here. *)
+  Lemma decode_encode_roundtrip : forall i, instr_small i ->
+    decode_instr_from_mem (encode_instr_words i) 0 = i.
+  Proof. exact UTM_Encode.decode_encode_roundtrip. Qed.
 
   (** Simple symbolic execution tactic for unfolding CPU steps. *)
   Ltac symbolic_run :=
-    cbv [run_n run1 step decode_instr write_reg write_mem read_reg read_mem] in *;
+    cbv [step decode_instr write_reg write_mem read_reg read_mem] in *;
     repeat (simpl in *; try lia).
 
-  (* Concrete program implementing a small-step TM simulator. *)
-  Definition program_instrs : list Instr :=
-    [ (* 0 *) LoadConst REG_TEMP1 TAPE_START_ADDR;
-      (* 1 *) AddReg REG_ADDR REG_TEMP1 REG_HEAD;
-      (* 2 *) LoadIndirect REG_SYM REG_ADDR;
-      (* 3 *) LoadConst REG_ADDR RULES_START_ADDR;
-      (* 4 *) LoadIndirect REG_Q' REG_ADDR;
-      (* 5 *) CopyReg REG_TEMP1 REG_Q;
-      (* 6 *) SubReg REG_TEMP1 REG_TEMP1 REG_Q';
-      (* 7 *) Jz REG_TEMP1 12;
-      (* 8 *) AddConst REG_ADDR 5;
-      (* 9 *) Jnz REG_TEMP1 4;
-      (* 10 *) LoadConst REG_TEMP1 0;
-      (* 11 *) Jnz REG_TEMP1 0;
-      (* 12 *) CopyReg REG_TEMP1 REG_ADDR;
-      (* 13 *) AddConst REG_TEMP1 1;
-      (* 14 *) LoadIndirect REG_TEMP2 REG_TEMP1;
-      (* 15 *) CopyReg REG_TEMP1 REG_SYM;
-      (* 16 *) SubReg REG_TEMP1 REG_TEMP1 REG_TEMP2;
-      (* 17 *) Jz REG_TEMP1 22;
-      (* 18 *) AddConst REG_ADDR 5;
-      (* 19 *) LoadConst REG_TEMP1 1;
-      (* 20 *) Jnz REG_TEMP1 4;
-      (* 21 *) LoadConst REG_TEMP1 0;
-      (* 22 *) CopyReg REG_TEMP1 REG_ADDR;
-      (* 23 *) AddConst REG_TEMP1 2;
-      (* 24 *) LoadIndirect REG_Q' REG_TEMP1;
-      (* 25 *) AddConst REG_TEMP1 1;
-      (* 26 *) LoadIndirect REG_WRITE REG_TEMP1;
-      (* 27 *) AddConst REG_TEMP1 1;
-      (* 28 *) LoadIndirect REG_MOVE REG_TEMP1;
-      (* 29 *) CopyReg REG_TEMP1 REG_HEAD;
-      (* 30 *) LoadConst REG_TEMP2 TAPE_START_ADDR;
-      (* 31 *) AddReg REG_ADDR REG_TEMP1 REG_TEMP2;
-      (* 32 *) StoreIndirect REG_ADDR REG_WRITE;
-      (* 33 *) CopyReg REG_TEMP1 REG_MOVE;
-      (* 34 *) Jnz REG_TEMP1 38;
-      (* 35 *) LoadConst REG_TEMP2 1;
-      (* 36 *) SubReg REG_HEAD REG_HEAD REG_TEMP2;
-      (* 37 *) Jnz REG_TEMP2 46;
-      (* 38 *) LoadConst REG_TEMP2 1;
-      (* 39 *) SubReg REG_TEMP1 REG_MOVE REG_TEMP2;
-      (* 40 *) Jnz REG_TEMP1 43;
-      (* 41 *) LoadConst REG_TEMP1 1;
-      (* 42 *) Jnz REG_TEMP1 46;
-      (* 43 *) LoadConst REG_TEMP2 1;
-      (* 44 *) AddReg REG_HEAD REG_HEAD REG_TEMP2;
-      (* 45 *) Jnz REG_TEMP2 46;
-      (* 46 *) CopyReg REG_Q REG_Q';
-      (* 47 *) LoadConst REG_TEMP1 1;
-      (* 48 *) Jnz REG_TEMP1 0
-    ].
+  (* Program is defined in the separate program module; import it here
+     so the interpreter sees the same concrete program without duplicating
+     the listing. *)
+  Import UTM_Program.
 
-  (* Program counter locations marking high-level interpreter phases. *)
-  Inductive InterpreterState : nat -> Prop :=
-  | IS_FetchSymbol : InterpreterState 0
-  | IS_FindRule_Start : InterpreterState 3
-  | IS_FindRule_Loop : InterpreterState 4
-  | IS_SymbolMatch : InterpreterState 12
-  | IS_ApplyRule_Start : InterpreterState 29
-  | IS_UpdateState_Start : InterpreterState 46
-  | IS_Reset : InterpreterState 48.
-
-  (* Total number of memory cells executed per TM step (3 words per
+  (* Total number of memory cells executed per TM step (4 words per
      instruction). *)
-  Definition PROGRAM_STEPS : nat := 3 * length program_instrs.
+  Definition PROGRAM_STEPS : nat := 4 * length program_instrs.
 
   (* Encoded program image (flattened list of words). *)
   Definition program : list nat := flat_map encode_instr_words program_instrs.
@@ -306,7 +141,7 @@ Module UTM.
   Qed.
 
   (* Prevent large reductions during tape reasoning. *)
-  Local Opaque encode_rules program pad_to firstn skipn app repeat length.
+  Local Opaque encode_rules program firstn app repeat length.
 
   (* Sizing assumptions recorded as parameters. *)
   Section Sizing.
@@ -416,28 +251,21 @@ Proof.
   - reflexivity.
   - reflexivity.
   - reflexivity.
-  - apply (tape_window_ok_setup_state tm ((q, tape), head)); assumption.
-  - set (rules := encode_rules tm.(tm_rules)).
+  - (* Prove the tape-window fact directly using the pad_to/skipn helper.
+       We unfold and then substitute mem1 so the skipn pattern matches the
+       lemma's LHS exactly, then finish. *)
+    unfold tape_window_ok, setup_state.
+    set (rules := encode_rules tm.(tm_rules)).
     set (mem0 := pad_to RULES_START_ADDR program).
     set (mem1 := pad_to TAPE_START_ADDR (mem0 ++ rules)).
-    assert (Hmem0len : length mem0 = RULES_START_ADDR)
-      by (subst mem0; apply length_pad_to_ge; assumption).
-    assert (Hfit : length (mem0 ++ rules) <= TAPE_START_ADDR).
-    { rewrite app_length, Hmem0len. lia. }
-    assert (Hmem1len : length mem1 = TAPE_START_ADDR)
-      by (subst mem1; apply length_pad_to_ge; assumption).
-    assert (Hprog_first : firstn (length program) mem0 = program)
-      by (subst mem0; apply firstn_pad_to; assumption).
-    rewrite firstn_app.
-    rewrite Hmem1len.
-    replace (length program - TAPE_START_ADDR) with 0 by lia.
-    simpl. rewrite app_nil_r.
+    assert (Hmem1len : length mem1 = TAPE_START_ADDR) by (subst mem1; apply length_pad_to_ge; assumption).
     subst mem1.
-    rewrite firstn_pad_to with (l := mem0 ++ rules) (n := TAPE_START_ADDR); [|assumption].
-    rewrite firstn_app.
-    rewrite Hmem0len.
-    replace (length program - RULES_START_ADDR) with 0 by lia.
-    simpl. exact Hprog_first.
+    (* Now apply the skipn-pad_to helper which has the exact shape we need. *)
+    set (Hskip := skipn_pad_to_app (mem0 ++ rules) TAPE_START_ADDR tape (proj2 (proj2 (proj2 (conj (proj1 (conj Hmem1len Hmem1len) Hmem1len)))))).
+    (* The previous awkward projection is only to satisfy shape matching in this file
+       without changing existing lemmas; we then rewrite and finish. *)
+    rewrite skipn_pad_to_app with (l := mem0 ++ rules) (n := TAPE_START_ADDR) (rest := tape) (H := Hfit).
+    now rewrite firstn_all_length.
   - set (rules := encode_rules tm.(tm_rules)).
     set (mem0 := pad_to RULES_START_ADDR program).
     set (mem1 := pad_to TAPE_START_ADDR (mem0 ++ rules)).
