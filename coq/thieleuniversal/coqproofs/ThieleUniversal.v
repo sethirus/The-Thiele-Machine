@@ -1,19 +1,25 @@
-Require Import ThieleUniversal.UTM_Encode.
-Require Import ThieleUniversal.UTM_Program.
+Require Import UTM_Encode.
+Require Import UTM_Program.
 Import UTM_Program.
-Require Import ThieleUniversal.CPU.
+Require Import CPU.
 Require Import List.
 Require Import ZArith.
 Require Import Lia.
 Import ListNotations.
 Open Scope Z_scope.
 Open Scope nat_scope.
-Require Import ThieleUniversal.TM.
+Require Import TM.
 
 (* --- Section: Universal Program and Simulation --- *)
 
 Module UTM.
   Import CPU.
+
+  (* Interpreter state predicates *)
+  Definition IS_FetchSymbol (pc : nat) : Prop := pc = 0.
+  Definition IS_FindRule_Start (pc : nat) : Prop := pc = 3.
+  Definition IS_ApplyRule_Start (pc : nat) : Prop := pc = 29.
+  Definition IS_Reset (pc : nat) : Prop := pc = 48.
 
   (* Memory predicate asserting the tape segment at [TAPE_START_ADDR]. *)
   Definition tape_window_ok (st : State) (tape : list nat) : Prop :=
@@ -112,7 +118,7 @@ Module UTM.
     length l <= n -> length (pad_to n l) = n.
   Proof.
     intros l n Hle. unfold pad_to.
-    rewrite app_length, repeat_length.
+    rewrite length_app, repeat_length.
     replace (n - length l) with (n - length l) by reflexivity.
     lia.
   Qed.
@@ -133,15 +139,21 @@ Module UTM.
     unfold pad_to.
     rewrite skipn_app.
     assert (Hlen : length (l ++ repeat 0 (n - length l)) = n)
-      by (rewrite app_length, repeat_length; lia).
+      by (rewrite length_app, repeat_length; lia).
     rewrite Hlen.
     rewrite Nat.sub_diag.
     rewrite skipn_all2; [| lia].
     simpl. reflexivity.
   Qed.
 
+  Lemma firstn_skipn_pad_to_app : forall l n rest,
+    length l <= n -> firstn (length rest) (skipn n (pad_to n l ++ rest)) = rest.
+  Proof.
+    intros. rewrite skipn_pad_to_app by assumption. apply firstn_all_length.
+  Qed.
+
   (* Prevent large reductions during tape reasoning. *)
-  Local Opaque encode_rules program firstn app repeat length.
+  Local Opaque encode_rules program firstn app repeat length pad_to.
 
   (* Sizing assumptions recorded as parameters. *)
   Section Sizing.
@@ -164,29 +176,25 @@ Module UTM.
     {| regs := regs3; mem := mem1 ++ tape |}.
 
   Lemma tape_window_ok_setup_state :
-    forall tm conf,
+    forall tm q tape head,
       length program <= RULES_START_ADDR ->
       length (encode_rules tm.(tm_rules)) <= TAPE_START_ADDR - RULES_START_ADDR ->
-      let st := setup_state tm conf in
-      let '(_, tape, _) := conf in
-      tape_window_ok st tape.
+      tape_window_ok (setup_state tm (q, tape, head)) tape.
   Proof.
-    intros tm [[q tape] head] Hprog Hrules.
-    unfold setup_state, tape_window_ok; cbn.
-    set (rules := encode_rules tm.(tm_rules)).
-    set (mem0  := pad_to RULES_START_ADDR program).
-    set (mem1  := pad_to TAPE_START_ADDR (mem0 ++ rules)).
+    intros tm q tape head Hprog Hrules.
+    unfold setup_state; cbn.
+    set (rrules := encode_rules tm.(tm_rules)).
+    set (mem0 := pad_to RULES_START_ADDR program).
+    set (mem1 := pad_to TAPE_START_ADDR (mem0 ++ rrules)).
     assert (Hmem0len : length mem0 = RULES_START_ADDR).
     { subst mem0. apply length_pad_to_ge. exact Hprog. }
-    assert (Hfit : length (mem0 ++ rules) <= TAPE_START_ADDR).
-    { rewrite app_length, Hmem0len. subst rules.
+    assert (Hfit : length (mem0 ++ rrules) <= TAPE_START_ADDR).
+    { rewrite length_app, Hmem0len. subst rrules.
       replace TAPE_START_ADDR with (RULES_START_ADDR + (TAPE_START_ADDR - RULES_START_ADDR)).
       - apply Nat.add_le_mono_l. exact Hrules.
       - reflexivity. }
     subst mem1.
-    set (Hskip := skipn_pad_to_app (mem0 ++ rules) TAPE_START_ADDR tape Hfit).
-    rewrite Hskip.
-    now rewrite firstn_all_length.
+    apply firstn_skipn_pad_to_app; assumption.
   Qed.
 
   (* Strengthened invariant relating CPU state to TM configuration. *)
@@ -206,7 +214,8 @@ Module UTM.
       inv st tm conf ->
       let '(_, tape, _) := conf in tape_window_ok st tape.
   Proof.
-    intros st tm [[q tape] head] Hinv.
+    intros st tm conf Hinv.
+    destruct conf as (q, tape, head).
     unfold inv in Hinv.
     destruct Hinv as (_ & _ & _ & Htape & _ & _).
     unfold tape_window_ok. exact Htape.
@@ -224,7 +233,7 @@ Module UTM.
     forall tm conf, inv_min (setup_state tm conf) tm conf.
   Proof.
     intros tm conf.
-    destruct conf as [[q tape] head].
+    destruct conf as (q, tape, head).
     unfold inv_min, setup_state; cbn.
     repeat split; reflexivity.
   Qed.
@@ -234,9 +243,9 @@ Module UTM.
     forall st tm conf, inv st tm conf -> inv_min st tm conf.
   Proof.
     intros st tm conf Hinv.
-    destruct conf as [[q tape] head].
+    destruct conf as (q, tape, head).
     unfold inv in Hinv.
-    destruct Hinv as (HQ & HHEAD & HPC & _).
+    destruct Hinv as (HQ & HHEAD & HPC & _ & _ & _).
     unfold inv_min; repeat split; assumption.
   Qed.
 
@@ -245,59 +254,75 @@ Lemma inv_init : forall tm conf,
   length (encode_rules tm.(tm_rules)) <= TAPE_START_ADDR - RULES_START_ADDR ->
   inv (setup_state tm conf) tm conf.
 Proof.
-  intros tm [[q tape] head] Hprog Hrules.
-  unfold inv, setup_state; cbn.
+  intros tm conf Hprog Hrules.
+  unfold inv.
+  destruct conf as (q, tape, head).
   repeat split.
   - reflexivity.
   - reflexivity.
   - reflexivity.
-  - (* Prove the tape-window fact directly using the pad_to/skipn helper.
-       We unfold and then substitute mem1 so the skipn pattern matches the
-       lemma's LHS exactly, then finish. *)
-    unfold tape_window_ok, setup_state.
-    set (rules := encode_rules tm.(tm_rules)).
+  - cbv [setup_state mem]. simpl.
+    set (rrules := encode_rules tm.(tm_rules)).
     set (mem0 := pad_to RULES_START_ADDR program).
-    set (mem1 := pad_to TAPE_START_ADDR (mem0 ++ rules)).
-    assert (Hmem1len : length mem1 = TAPE_START_ADDR) by (subst mem1; apply length_pad_to_ge; assumption).
-    subst mem1.
-    (* Now apply the skipn-pad_to helper which has the exact shape we need. *)
-    set (Hskip := skipn_pad_to_app (mem0 ++ rules) TAPE_START_ADDR tape (proj2 (proj2 (proj2 (conj (proj1 (conj Hmem1len Hmem1len) Hmem1len)))))).
-    (* The previous awkward projection is only to satisfy shape matching in this file
-       without changing existing lemmas; we then rewrite and finish. *)
-    rewrite skipn_pad_to_app with (l := mem0 ++ rules) (n := TAPE_START_ADDR) (rest := tape) (H := Hfit).
-    now rewrite firstn_all_length.
-  - set (rules := encode_rules tm.(tm_rules)).
-    set (mem0 := pad_to RULES_START_ADDR program).
-    set (mem1 := pad_to TAPE_START_ADDR (mem0 ++ rules)).
-    assert (Hmem0len : length mem0 = RULES_START_ADDR)
-      by (subst mem0; apply length_pad_to_ge; assumption).
-    assert (Hfit : length (mem0 ++ rules) <= TAPE_START_ADDR).
-    { rewrite app_length, Hmem0len. lia. }
-    assert (Hmem1len : length mem1 = TAPE_START_ADDR)
-      by (subst mem1; apply length_pad_to_ge; assumption).
+    set (mem1 := pad_to TAPE_START_ADDR (mem0 ++ rrules)).
+    unfold pad_to in mem1.
+    simpl.
+    assert (Hmem1len : length mem1 = TAPE_START_ADDR).
+    { subst mem1. unfold pad_to.
+      rewrite length_app, repeat_length.
+      rewrite length_app, length_pad_to_ge by assumption.
+      subst mem0. rewrite length_pad_to_ge by assumption.
+      lia. }
     rewrite skipn_app.
+    rewrite Hmem1len.
+    replace (TAPE_START_ADDR - TAPE_START_ADDR) with 0 by lia.
+    simpl.
+    apply firstn_all_length.
+  - set (rrules := encode_rules tm.(tm_rules)).
+    set (mem0 := pad_to RULES_START_ADDR program).
+    set (mem1 := pad_to TAPE_START_ADDR (mem0 ++ rrules)).
+    assert (Hmem0len : length mem0 = RULES_START_ADDR).
+    { subst mem0. apply length_pad_to_ge. exact Hprog. }
+    assert (Hfit : length (mem0 ++ rrules) <= TAPE_START_ADDR).
+    { rewrite length_app, Hmem0len. subst rrules.
+      replace TAPE_START_ADDR with (RULES_START_ADDR + (TAPE_START_ADDR - RULES_START_ADDR)).
+      - apply Nat.add_le_mono_l. exact Hrules.
+      - reflexivity. }
+    assert (Hmem1len : length mem1 = TAPE_START_ADDR).
+    { subst mem1. apply length_pad_to_ge. exact Hfit. }
+    rewrite firstn_app.
+    rewrite Hmem1len.
+    replace (length program - TAPE_START_ADDR) with 0 by lia.
+    simpl.
+    subst mem1.
+    unfold pad_to at 1.
+    rewrite firstn_app.
+    rewrite length_app, Hmem0len.
+    replace (length program - (RULES_START_ADDR + length rrules)) with 0 by lia.
+    simpl.
+    rewrite app_nil_r.
+    apply firstn_pad_to. assumption.
+  - rewrite skipn_app.
     rewrite Hmem1len.
     replace (RULES_START_ADDR - TAPE_START_ADDR) with 0 by lia.
     simpl.
     subst mem1.
     unfold pad_to at 1.
     rewrite skipn_app.
-    rewrite app_length.
-    rewrite Hmem0len.
-    replace (RULES_START_ADDR - (RULES_START_ADDR + length rules)) with 0 by lia.
+    rewrite length_app, Hmem0len.
+    replace (RULES_START_ADDR - (RULES_START_ADDR + length rrules)) with 0 by lia.
     simpl.
     rewrite skipn_app.
     rewrite Hmem0len.
     replace (RULES_START_ADDR - RULES_START_ADDR) with 0 by reflexivity.
     simpl.
     rewrite skipn_repeat.
-    replace (TAPE_START_ADDR - (RULES_START_ADDR + length rules)) with ((TAPE_START_ADDR - RULES_START_ADDR) - length rules) by lia.
+    replace (TAPE_START_ADDR - (RULES_START_ADDR + length rrules)) with ((TAPE_START_ADDR - RULES_START_ADDR) - length rrules) by lia.
     simpl.
     rewrite firstn_app.
-    replace (length rules - (TAPE_START_ADDR - RULES_START_ADDR)) with 0 by lia.
-    simpl.
-    rewrite app_nil_r.
-    apply firstn_pad_to. assumption.
+    replace (length rrules - ((TAPE_START_ADDR - RULES_START_ADDR) - length rrules)) with length rrules by lia.
+    rewrite firstn_all_length.
+    reflexivity.
 Qed.
 
   (* ---------- Small-step runner over the decoded program ---------- *)
@@ -354,11 +379,12 @@ Qed.
         st' = run_n st 3 /\
         IS_FindRule_Start (read_reg REG_PC st').
   Proof.
-    intros tm [[q tape] head] st Hinv HPC.
+    intros tm conf st Hinv HPC.
+    destruct conf as (q, tape, head).
     destruct Hinv as [HQ [HHEAD [HPC [Htape [Hprog Hr]]]]].
     inversion HPC. clear HPC.
     exists (run_n st 3); split; [reflexivity|].
-    unfold IS_FindRule_Start, InterpreterState.
+    unfold IS_FindRule_Start.
     (* helper: program memory cells *)
     assert (Hmem_prog : forall n, n < length program ->
              read_mem n st = nth n program 0).
@@ -440,13 +466,14 @@ Qed.
         read_reg REG_WRITE st' = write /\
         read_reg REG_MOVE st' = move.
   Proof.
-    intros tm [[q tape] head] st q' write move Hinv Hpre Hfind.
+    intros tm conf st q' write move Hinv Hpre Hfind.
+    destruct conf as (q, tape, head).
     (* The proof proceeds by induction on the rule table. *)
     remember (tm.(tm_rules)) as rules eqn:Hr.
     revert q' write move Hfind.
     induction rules as [|r rs IH]; intros q' write move Hfind; simpl in Hfind.
     - discriminate.
-    - destruct r as [[[[q_rule sym_rule] q_next] w_next] m_next].
+      destruct r as (q_rule, sym_rule, q_next, w_next, m_next).
       destruct (andb (Nat.eqb q_rule q)
                      (Nat.eqb sym_rule (nth head tape tm.(tm_blank)))) eqn:Hmatch.
       + (* Matching rule: symbolic execution will load the rule and jump. *)
@@ -539,7 +566,7 @@ Qed.
          routine and omitted here for brevity. *)
       admit.
     }
-    destruct Hcomp as [i (Hi & HQmem & Hsymmem & Hwrmem)].
+    destruct Hcomp as [i [Hi [HQmem [Hsymmem Hwrmem]]]].
     (* Having found the index i whose components match the register
        values, the find_rule function returns the triple at that index. *)
     rewrite <- HQmem, <- Hwrmem.
@@ -559,14 +586,15 @@ Qed.
       find_rule tm.(tm_rules) q (nth head tape tm.(tm_blank)) = None ->
       exists k st', st' = run_n st k /\ IS_Reset (read_reg REG_PC st').
   Proof.
-    intros tm [[q tape] head] st Hinv Hnone.
+    intros tm conf st Hinv Hnone.
+    destruct conf as (q, tape, head).
     remember (tm.(tm_rules)) as rules eqn:Hr.
     revert Hnone.
     induction rules as [|r rs IH]; simpl; intros Hnone.
     - (* No rules at all: the program will perform the no-match branch
          and eventually reset; we simulate the concrete micro-steps. *)
       exists 18, (run_n st 18); split; [reflexivity|].
-      unfold IS_Reset, InterpreterState.
+      unfold IS_Reset.
       (* After executing the branch for empty rule list the PC equals 48.
          The concrete chain of micro-steps can be checked by symbolic
          execution similarly to the matching case; we reuse the same
@@ -576,7 +604,7 @@ Qed.
       reflexivity.
     - (* Non-empty rule list and no-match: advance to the next rule and
          apply IH. *)
-      destruct r as [[[[q_rule sym_rule] q_next] w_next] m_next].
+      destruct r as (q_rule, sym_rule, q_next, w_next, m_next).
       simpl in Hnone.
       (* If current head/rule pair does not match, the program advances
          REG_ADDR by 5 and returns to the loop; we simulate these
@@ -608,7 +636,8 @@ Qed.
         (* Reset: PC = 48 -> 0 *)
         IS_Reset (read_reg REG_PC (run_n (run1 (run1 st)) 19)).
   Proof.
-    intros tm [[q tape] head] st st' Hinv Hrun Hfetch Hfind Happly.
+    intros tm conf st st' Hinv Hrun Hfetch Hfind Happly.
+    destruct conf as (q, tape, head).
     (* Concrete simulation proceeds by unfolding the entire execution
        of the interpreter on the given configuration and relating each
        step to the expected UTM transition. *)
@@ -649,7 +678,7 @@ Qed.
       apply invariant_implies_tape_window; assumption. }
     (* The final step: from st' to conf'' the machine state is updated
        and the PC is reset to 0. *)
-    destruct Hreset' as [Hpc' Hreset''].
+    destruct Hreset' as Hpc'.
     assert (Hconf'' : conf' = ((q, tape), head)).
     { subst conf'.
       (* The configuration is determined by the state registers and the
@@ -693,7 +722,8 @@ Qed.
         (* Reset: PC = 48 -> 0 *)
         IS_Reset (read_reg REG_PC (run_n (run1 (run1 st)) 19)).
   Proof.
-    intros tm [[q tape] head] st st' Hinv Hrun Hfetch Hfind Happly.
+    intros tm conf st st' Hinv Hrun Hfetch Hfind Happly.
+    destruct conf as (q, tape, head).
     (* The proof structure mirrors step_simulates_UTM, unfolding the
        entire execution of the interpreter. The main difference is that
        we do not need to reason about the concrete memory layout and
@@ -734,7 +764,7 @@ Qed.
       apply invariant_implies_tape_window; assumption. }
     (* The final step: from st' to conf'' the machine state is updated
        and the PC is reset to 0. *)
-    destruct Hreset' as [Hpc' Hreset''].
+    destruct Hreset' as Hpc'.
     assert (Hconf'' : conf' = ((q, tape), head)).
     { subst conf'.
       (* The configuration is determined by the state registers and the
@@ -760,71 +790,3 @@ Qed.
       reflexivity.
   Qed.
 End UTM.
-
-(* --- Section: High-level UTM Specification --- *)
-
-(* High-level operational semantics for a Turing machine step. The machine
-   reads the current tape symbol, looks up the corresponding rule, and
-   applies the rule by updating the state and moving the tape head. *)
-Definition step (tm : TM) (conf : TMConfig) (st : UTM_Encode.state) (conf' : TMConfig) : Prop :=
-  let '(q, tape, head) := conf in
-  let '(q', write, move) := find_rule tm.(tm_rules) q (nth head tape tm.(tm_blank)) in
-  match q' with
-  | None => (* No matching rule: halt *)
-      False
-  | Some (q'', w, m) => (* Matching rule found: update state and tape *)
-      let tape' := update_tape tape head w in
-      let head' := update_head head move in
-      (q'' = q' /\ tape' = tape /\ head' = head) \/
-      (q'' <> q' /\ exists tm', step tm tm' ((q', tape, head)) ((q'', tape', head')))
-  end.
-
-(* High-level operational semantics for a Turing machine step. The machine
-   reads the current tape symbol, looks up the corresponding rule, and
-   applies the rule by updating the state and moving the tape head. *)
-Definition step' (tm : TM) (conf : TMConfig) (st : UTM_Encode.state) (conf' : TMConfig) : Prop :=
-  let '(q, tape, head) := conf in
-  let '(q', write, move) := find_rule tm.(tm_rules) q (nth head tape tm.(tm_blank)) in
-  match q' with
-  | None => (* No matching rule: halt *)
-      False
-  | Some (q'', w, m) => (* Matching rule found: update state and tape *)
-      let tape' := update_tape tape head w in
-      let head' := update_head head move in
-      (q'' = q' /\ tape' = tape /\ head' = head) \/
-      (q'' <> q' /\ exists tm', step' tm tm' ((q', tape, head)) ((q'', tape', head')))
-  end.
-
-(* --- Section: High-level UTM Specification --- *)
-
-(* High-level operational semantics for a Turing machine step. The machine
-   reads the current tape symbol, looks up the corresponding rule, and
-   applies the rule by updating the state and moving the tape head. *)
-Definition step (tm : TM) (conf : TMConfig) (st : UTM_Encode.state) (conf' : TMConfig) : Prop :=
-  let '(q, tape, head) := conf in
-  let '(q', write, move) := find_rule tm.(tm_rules) q (nth head tape tm.(tm_blank)) in
-  match q' with
-  | None => (* No matching rule: halt *)
-      False
-  | Some (q'', w, m) => (* Matching rule found: update state and tape *)
-      let tape' := update_tape tape head w in
-      let head' := update_head head move in
-      (q'' = q' /\ tape' = tape /\ head' = head) \/
-      (q'' <> q' /\ exists tm', step tm tm' ((q', tape, head)) ((q'', tape', head')))
-  end.
-
-(* High-level operational semantics for a Turing machine step. The machine
-   reads the current tape symbol, looks up the corresponding rule, and
-   applies the rule by updating the state and moving the tape head. *)
-Definition step' (tm : TM) (conf : TMConfig) (st : UTM_Encode.state) (conf' : TMConfig) : Prop :=
-  let '(q, tape, head) := conf in
-  let '(q', write, move) := find_rule tm.(tm_rules) q (nth head tape tm.(tm_blank)) in
-  match q' with
-  | None => (* No matching rule: halt *)
-      False
-  | Some (q'', w, m) => (* Matching rule found: update state and tape *)
-      let tape' := update_tape tape head w in
-      let head' := update_head head move in
-      (q'' = q' /\ tape' = tape /\ head' = head) \/
-      (q'' <> q' /\ exists tm', step' tm tm' ((q', tape, head)) ((q'', tape', head')))
-  end.
