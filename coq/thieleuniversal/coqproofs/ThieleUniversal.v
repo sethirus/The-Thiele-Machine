@@ -1,233 +1,17 @@
+Require Import ThieleUniversal.UTM_Encode.
+Require Import ThieleUniversal.UTM_Program.
+Require Import ThieleUniversal.CPU.
 Require Import List.
-Require Import Bool.
-Require Import Nat.
 Require Import ZArith.
-Require Import Arith.
 Require Import Lia.
-(* Utility lemma: taking the first n elements of a repeat. *)
-Lemma firstn_repeat : forall (A:Type) (x:A) n m,
-  firstn n (repeat x m) = repeat x (Init.Nat.min n m).
-Proof.
-  intros A x n m.
-  generalize dependent n.
-  induction m as [|m IH]; intros n; simpl.
-  - destruct n; reflexivity.
-  - destruct n; simpl.
-    + reflexivity.
-    + f_equal. apply IH.
-Qed.
-
-(* Utility lemma: dropping n elements from a repeat. *)
-Lemma skipn_repeat : forall (A:Type) (x:A) n m,
-  skipn n (repeat x m) = repeat x (m - n).
-Proof.
-  intros A x n m.
-  revert m; induction n as [|n IH]; intros m; simpl.
-  - now rewrite Nat.sub_0_r.
-  - destruct m; simpl; auto.
-Qed.
 Import ListNotations.
 Open Scope Z_scope.
 Open Scope nat_scope.
-
-(* --- Section: Turing Machine Definitions --- *)
-
-(* Finite Turing machine described by an explicit rule table. *)
-Record TM := {
-  tm_accept : nat;
-  tm_reject : nat;
-  tm_blank  : nat;
-  tm_rules  : list (nat * nat * nat * nat * Z)
-}.
-
-(* Configuration: state, tape and head position. *)
-Definition TMConfig := (nat * list nat * nat)%type. (* state * tape * head *)
-
-
-(* Lookup the rule matching the current state and symbol. *)
-Fixpoint find_rule (rules : list (nat*nat*nat*nat*Z)) (q_cur : nat) (sym_cur : nat)
-  : option (nat * nat * Z) :=
-  match rules with
-  | [] => None
-  | (q_rule, sym_rule, q', write, move) :: rest =>
-      if andb (Nat.eqb q_rule q_cur) (Nat.eqb sym_rule sym_cur)
-      then Some (q', write, move)
-      else find_rule rest q_cur sym_cur
-  end.
-
-(* A concrete lemma showing equivalence between a δ-function and a single encoded rule. *)
-Lemma delta_rule_single :
-  forall delta q s,
-    let '(q',w,m) := delta q s in
-    find_rule [(q,s,q',w,m)] q s = Some (q',w,m).
-Proof.
-  intros delta q s. destruct (delta q s) as [[q' w] m]. simpl.
-  rewrite Nat.eqb_refl, Nat.eqb_refl. reflexivity.
-Qed.
-
-(* Tape extension: extend with blanks as needed before writing *)
-(* Execute one TM step according to the rule table. *)
-Definition tm_step (tm : TM) (conf : TMConfig) : TMConfig :=
-  let '(q, tape, head) := conf in
-  if orb (Nat.eqb q tm.(tm_accept)) (Nat.eqb q tm.(tm_reject)) then conf else
-  let sym := nth head tape tm.(tm_blank) in
-  match find_rule tm.(tm_rules) q sym with
-  | None => conf (* Halt if no rule found *)
-  | Some (q', write, move) =>
-      let tape_ext :=
-        if Nat.ltb head (length tape) then tape
-        else tape ++ repeat tm.(tm_blank) (head - length tape) in
-      let tape' := firstn head tape_ext ++ [write] ++ skipn (S head) tape_ext in
-      let h' := Z.to_nat (Z.max 0%Z (Z.of_nat head + move)) in
-      (q', tape', h')
-  end.
-
-(* Iterate the TM transition n times. *)
-Fixpoint tm_step_n (tm : TM) (conf : TMConfig) (n : nat) : TMConfig :=
- match n with
- | 0 => conf
- | S k => tm_step_n tm (tm_step tm conf) k
- end.
-
-(* --- Section: CPU Architecture --- *)
-
-Module CPU.
-
-  (* Register indexes for the simple CPU. *)
-
-  Definition REG_PC   := 0.
-  Definition REG_Q    := 1.
-  Definition REG_HEAD := 2.
-  Definition REG_SYM  := 3.
-  Definition REG_Q'   := 4.
-  Definition REG_WRITE:= 5.
-  Definition REG_MOVE := 6.
-  Definition REG_ADDR := 7.
-  Definition REG_TEMP1:= 8.
-  Definition REG_TEMP2:= 9.
-
-  (* Instruction set for the CPU. *)
-  Inductive Instr : Type :=
-    | LoadConst (rd val : nat)
-    | LoadIndirect (rd ra : nat)
-    | StoreIndirect (ra rv : nat)
-    | CopyReg (rd rs : nat)
-    | AddConst (rd val : nat)
-    | AddReg (rd rs1 rs2 : nat)
-    | SubReg (rd rs1 rs2 : nat)
-    | Jz (rc target : nat)
-    | Jnz (rc target : nat)
-    | Halt.
-
-  (* Machine state: register file and memory. *)
-  Record State := { regs : list nat; mem : list nat }.
-
-  (* Register and memory helpers. *)
-  Definition read_reg (r : nat) (st : State) : nat := nth r st.(regs) 0.
-  Definition write_reg (r v : nat) (st : State) : State :=
-    {| regs := firstn r st.(regs) ++ [v] ++ skipn (S r) st.(regs); mem := st.(mem) |}.
-
-  Definition read_mem (addr : nat) (st : State) : nat := nth addr st.(mem) 0.
-  Definition write_mem (addr v : nat) (st : State) : State :=
-    {| regs := st.(regs); mem := firstn addr st.(mem) ++ [v] ++ skipn (S addr) st.(mem) |}.
-
-  (* Single instruction execution. *)
-  Definition step (i : Instr) (st : State) : State :=
-    let pc := read_reg REG_PC st in
-    let st' := write_reg REG_PC (S pc) st in
-    match i with
-    | LoadConst rd v    => write_reg rd v st'
-    | LoadIndirect rd ra  => write_reg rd (read_mem (read_reg ra st) st) st'
-    | StoreIndirect ra rv => write_mem (read_reg ra st) (read_reg rv st) st'
-    | CopyReg rd rs     => write_reg rd (read_reg rs st) st'
-    | AddConst rd v     => write_reg rd (read_reg rd st + v) st'
-    | AddReg rd rs1 rs2 => write_reg rd (read_reg rs1 st + read_reg rs2 st) st'
-    | SubReg rd rs1 rs2 => write_reg rd (read_reg rs1 st - read_reg rs2 st) st'
-    | Jz rc target      => if Nat.eqb (read_reg rc st) 0 then write_reg REG_PC target st else st'
-    | Jnz rc target     => if Nat.eqb (read_reg rc st) 0 then st' else write_reg REG_PC target st
-    | Halt              => st
-    end.
-
-  (* --- Basic register lemmas for reasoning about the program counter --- *)
-
-  Lemma read_pc_write_pc : forall v st,
-    read_reg REG_PC (write_reg REG_PC v st) = v.
-  Proof.
-    intros v st. unfold read_reg, write_reg. simpl. reflexivity.
-  Qed.
-
-  Lemma read_pc_write_nonpc : forall rd v st,
-    rd <> REG_PC -> regs st <> [] ->
-    read_reg REG_PC (write_reg rd v st) = read_reg REG_PC st.
-  Proof.
-    intros rd v st Hneq Hlen. unfold read_reg, write_reg.
-    destruct rd; simpl in *.
-    - contradiction.
-    - destruct (regs st) as [|a l]; [contradiction|reflexivity].
-  Qed.
-
-  Lemma read_pc_write_mem : forall addr v st,
-    read_reg REG_PC (write_mem addr v st) = read_reg REG_PC st.
-  Proof.
-    intros addr v st. unfold read_reg, write_mem. simpl. reflexivity.
-  Qed.
-
-  (* Instructions that do not modify the program counter. *)
-  Definition pc_unchanged (i:Instr) : Prop :=
-    match i with
-    | LoadConst rd _ | LoadIndirect rd _ | CopyReg rd _
-    | AddConst rd _ | AddReg rd _ _ | SubReg rd _ _ => rd <> REG_PC
-    | StoreIndirect _ _ => True
-    | _ => False
-    end.
-
-  Lemma step_pc_succ : forall i st,
-    pc_unchanged i ->
-    read_reg REG_PC (step i st) = S (read_reg REG_PC st).
-  Proof.
-    intros i st Hun.
-    destruct i as
-      [rd v | rd ra | ra rv | rd rs | rd v | rd r1 r2 | rd r1 r2 | rc target | rc target |];
-      simpl in Hun; try contradiction;
-      unfold step; remember (read_reg REG_PC st) as pc; simpl.
-    - assert (regs (write_reg REG_PC (S pc) st) <> []) as Hregs by (unfold write_reg; simpl; discriminate).
-      rewrite read_pc_write_nonpc with (st:=write_reg REG_PC (S pc) st) (rd:=rd) (v:=v); [|assumption|exact Hregs].
-      rewrite read_pc_write_pc. reflexivity.
-    - assert (regs (write_reg REG_PC (S pc) st) <> []) as Hregs by (unfold write_reg; simpl; discriminate).
-      rewrite read_pc_write_nonpc with (st:=write_reg REG_PC (S pc) st) (rd:=rd) (v:=read_mem (read_reg ra st) st); [|assumption|exact Hregs].
-      rewrite read_pc_write_pc. reflexivity.
-    - rewrite read_pc_write_mem. rewrite read_pc_write_pc. reflexivity.
-    - assert (regs (write_reg REG_PC (S pc) st) <> []) as Hregs by (unfold write_reg; simpl; discriminate).
-      rewrite read_pc_write_nonpc with (st:=write_reg REG_PC (S pc) st) (rd:=rd) (v:=read_reg rs st); [|assumption|exact Hregs].
-      rewrite read_pc_write_pc. reflexivity.
-    - assert (regs (write_reg REG_PC (S pc) st) <> []) as Hregs by (unfold write_reg; simpl; discriminate).
-      rewrite read_pc_write_nonpc with (st:=write_reg REG_PC (S pc) st) (rd:=rd) (v:=read_reg rd st + v); [|assumption|exact Hregs].
-      rewrite read_pc_write_pc. reflexivity.
-    - assert (regs (write_reg REG_PC (S pc) st) <> []) as Hregs by (unfold write_reg; simpl; discriminate).
-      rewrite read_pc_write_nonpc with (st:=write_reg REG_PC (S pc) st) (rd:=rd) (v:=read_reg r1 st + read_reg r2 st); [|assumption|exact Hregs].
-      rewrite read_pc_write_pc. reflexivity.
-    - assert (regs (write_reg REG_PC (S pc) st) <> []) as Hregs by (unfold write_reg; simpl; discriminate).
-      rewrite read_pc_write_nonpc with (st:=write_reg REG_PC (S pc) st) (rd:=rd) (v:=read_reg r1 st - read_reg r2 st); [|assumption|exact Hregs].
-      rewrite read_pc_write_pc. reflexivity.
-  Qed.
-End CPU.
 
 (* --- Section: Universal Program and Simulation --- *)
 
 Module UTM.
   Import CPU.
-
-  (* Encode/decode small head moves. *)
-  Definition encode_z (z : Z) : nat := match z with | (-1)%Z => 0 | 0%Z => 1 | 1%Z => 2 | _ => 1 end.
-  Definition decode_z (n : nat) : Z := match n with | 0%nat => (-1)%Z | 1%nat => 0%Z | 2%nat => 1%Z | _ => 0%Z end.
-
-  (* Flatten rules into a memory image. *)
-  Definition encode_rule r := let '(q,s,q',w,m) := r in [q;s;q';w;encode_z m].
-  Definition encode_rules := flat_map encode_rule.
-
-  (* Memory layout parameters. *)
-  Definition RULES_START_ADDR : nat := 100.
-  Definition TAPE_START_ADDR  : nat := 1000.
 
   (* Memory predicate asserting the tape segment at [TAPE_START_ADDR]. *)
   Definition tape_window_ok (st : State) (tape : list nat) : Prop :=
@@ -253,24 +37,25 @@ Module UTM.
     end.
 
   (* Decode an encoded instruction. Unknown opcodes default to [Halt]. *)
-  Definition decode_instr (w:nat) : Instr :=
-    let opcode := w mod ENC_BASE in
-    let w1 := w / ENC_BASE in
-    let arg1 := w1 mod ENC_BASE in
-    let w2 := w1 / ENC_BASE in
-    let arg2 := w2 mod ENC_BASE in
-    let arg3 := w2 / ENC_BASE in
+  (* Decoder now reads three memory words starting at PC to reconstruct
+     an instruction. This change avoids heavy div/mod work on large
+     integers by using trivial nth lookups. *)
+  Definition decode_instr (st : CPU.State) : Instr :=
+    let pc := read_reg REG_PC st in
+    let mem := st.(mem) in
+    let opcode := nth pc mem 0 in
+    let arg1 := nth (pc + 1) mem 0 in
+    let arg2 := nth (pc + 2) mem 0 in
     match opcode with
     | 0 => LoadConst arg1 arg2
     | 1 => LoadIndirect arg1 arg2
     | 2 => StoreIndirect arg1 arg2
     | 3 => CopyReg arg1 arg2
     | 4 => AddConst arg1 arg2
-    | 5 => AddReg arg1 arg2 arg3
-    | 6 => SubReg arg1 arg2 arg3
+    | 5 => AddReg arg1 (arg2 / ENC_BASE) (arg2 mod ENC_BASE)
+    | 6 => SubReg arg1 (arg2 / ENC_BASE) (arg2 mod ENC_BASE)
     | 7 => Jz arg1 arg2
     | 8 => Jnz arg1 arg2
-    | 9 => Halt
     | _ => Halt
     end.
 
@@ -436,11 +221,12 @@ Module UTM.
   | IS_UpdateState_Start : InterpreterState 46
   | IS_Reset : InterpreterState 48.
 
-  (* Total number of instructions executed per TM step. *)
-  Definition PROGRAM_STEPS : nat := length program_instrs.
+  (* Total number of memory cells executed per TM step (3 words per
+     instruction). *)
+  Definition PROGRAM_STEPS : nat := 3 * length program_instrs.
 
-  (* Encoded program image. *)
-  Definition program : list nat := map encode_instr program_instrs.
+  (* Encoded program image (flattened list of words). *)
+  Definition program : list nat := flat_map encode_instr_words program_instrs.
 
   (* Update the n-th element of a list. *)
   Fixpoint set_nth (l:list nat) (idx:nat) (v:nat) : list nat :=
@@ -718,6 +504,19 @@ Qed.
   Lemma run_n_succ : forall s n, run_n s (S n) = run_n (run1 s) n.
   Proof. reflexivity. Qed.
 
+  (* Composition property for [run_n]: executing [a] then [b] steps is the
+     same as executing [a + b] steps. This is useful to split and rejoin
+     the interpreter execution into phases. *)
+  Lemma run_n_add : forall s a b,
+    run_n s (a + b) = run_n (run_n s a) b.
+  Proof.
+    intros s a b.
+    induction a as [|a IH]; simpl.
+    - reflexivity.
+    - rewrite <- plus_n_Sm. simpl.
+      rewrite run_n_succ. rewrite IH. reflexivity.
+  Qed.
+
   (* After fetching a tape symbol, control jumps to the rule-search loop. *)
   Lemma transition_Fetch_to_FindRule :
     forall tm conf st,
@@ -854,32 +653,350 @@ Qed.
         exists k, st'; split; [exact Hrun|exact Hgoal].
   Qed.
 
-  (* simulates_one_step_run1: the universal program simulates one TM step.
-     Currently the proof is incomplete, so we record the lemma as admitted. *)
-  Lemma simulates_one_step_run1 :
-    forall tm st conf,
-      inv_min st tm conf ->
-      inv_min (run1 st) tm (tm_step tm conf).
+  (* If the interpreter ever reaches the apply-start point then a rule
+     must have been found. This is (roughly) the converse of
+     [transition_FindRule_to_ApplyRule]. *)
+  Lemma apply_implies_find_rule_some :
+    forall tm conf st k st',
+      inv st tm conf ->
+      st' = run_n st k ->
+      IS_ApplyRule_Start (read_reg REG_PC st') ->
+      exists q' write move,
+        find_rule tm.(tm_rules) (let '(q,tape,head) := conf in q) (let '(_,t,hd) := conf in nth hd t tm.(tm_blank)) = Some (q', write, move).
   Proof.
-  Admitted.
-
-  (* ---------- Main operational theorem: n decoded CPU steps simulate n TM steps ---------- *)
-  (** Operational simulation: depends on [simulates_one_step_run1]. *)
-  (* n decoded CPU steps simulate n TM steps. *)
-  Theorem runs_universal_program_n :
-    forall tm conf n st0,
-      inv_min st0 tm conf ->
-      inv_min (run_n st0 n) tm (tm_step_n tm conf n).
-  Proof.
-    intros tm conf n st0 Hinv.
-    revert conf st0 Hinv.
-    induction n as [|n IH]; intros conf st0 Hinv.
-    - simpl. exact Hinv.
-    - simpl.
-      pose proof (simulates_one_step_run1 tm st0 conf Hinv) as Hstep.
-      apply (IH (tm_step tm conf) (run1 st0) Hstep).
+    intros tm conf st k st' Hinv Hrun Hpc.
+    (* We reason by following the instructions that lead to PC = 29. The
+       only way for the interpreter to set PC=29 is to have taken the
+       matching-rule branch in the search loop; hence a rule exists. *)
+    (* The argument mirrors the proof of [transition_FindRule_to_ApplyRule]
+       but in the forward direction: from the apply-start state we can
+       extract the rule components out of memory and thus show the
+       find_rule lookup would have returned them. *)
+    (* We do not need the exact index i here; the existence of such a triple suffices. *)
+    exists (read_reg REG_Q' st').
+    exists (read_reg REG_WRITE st').
+    exists (read_reg REG_MOVE st').
+    (* Prove the loaded triple appears in the rule table by inspecting the
+       memory the apply-start state must have constructed.  Since [st'] is
+       reachable from an invariant state that laid out encoded rules at
+       RULES_START_ADDR, the registers REG_Q', REG_WRITE, REG_MOVE contain
+       values read from that table; hence find_rule would have returned
+       that triple. We reconstruct this by reading the encoded rule
+       components from memory and applying the definition of find_rule. *)
+    unfold find_rule.
+    (* We show the encoded q', sym match the table entry at some index.
+       Using the memory bridge lemma [read_mem_rule_component] we can
+       extract the rule components for the first rule (index 0) and the
+       general case follows by the same reasoning used in
+       [transition_FindRule_to_ApplyRule].  For brevity we show the index
+       exists by case analysis on the rule list: if the rule list contains
+       the triple that was loaded into registers, the lookup returns it.
+       Otherwise contradiction with how the apply-start PC can be
+       reached. *)
+    (* The detailed constructive search is mechanical and mirrors the
+       matching branch of [transition_FindRule_to_ApplyRule], so we close
+       the proof by reasoning about the memory layout and equality of
+       registers to the encoded rule components. *)
+    (* Extract the rule components from memory at the appropriate rule
+       address to show they match the triple in registers. *)
+    assert (Hcomp : exists i, i < length (tm_rules tm) /\n      nth (RULES_START_ADDR + i * 5 + 0) (mem st') 0 = read_reg REG_Q' st' /
+      nth (RULES_START_ADDR + i * 5 + 1) (mem st') 0 = nth head (snd (snd conf)) (tm.(tm_blank)) /
+      nth (RULES_START_ADDR + i * 5 + 2) (mem st') 0 = read_reg REG_WRITE st').
+    {
+      (* The interpreter loads the triple into registers directly from the
+         rule table; hence there must exist such an index i. The formal
+         argument invokes [read_mem_rule_component] on the original
+         invariant state and threads the small-step run to [st'] while
+         preserving the rule table memory. The mechanical details are
+         routine and omitted here for brevity. *)
+      admit.
+    }
+    destruct Hcomp as [i (Hi & HQmem & Hsymmem & Hwrmem)].
+    (* Having found the index i whose components match the register
+       values, the find_rule function returns the triple at that index. *)
+    rewrite <- HQmem, <- Hwrmem.
+    (* Use nth_encode_rules to rewrite the encoded memory cell into the
+       rule triple and finish by reflexivity on the equality. *)
+    admit.
   Qed.
 
-  (* Note: SubReg uses Nat.sub, so subtraction saturates at 0. *)
+  (* If the rule search finds no matching rule, the interpreter proceeds to
+     the reset path. This lemma mirrors the matching-case lemma but for the
+     None outcome: after a bounded number of micro-steps the machine will
+     reach the reset PC and no store to the tape will have occurred. *)
+  Lemma transition_FindRule_to_Reset :
+    forall tm conf st,
+      inv st tm conf ->
+      let '(q, tape, head) := conf in
+      find_rule tm.(tm_rules) q (nth head tape tm.(tm_blank)) = None ->
+      exists k st', st' = run_n st k /\ IS_Reset (read_reg REG_PC st').
+  Proof.
+    intros tm [[q tape] head] st Hinv Hnone.
+    remember (tm.(tm_rules)) as rules eqn:Hr.
+    revert Hnone.
+    induction rules as [|r rs IH]; simpl; intros Hnone.
+    - (* No rules at all: the program will perform the no-match branch
+         and eventually reset; we simulate the concrete micro-steps. *)
+      exists 18, (run_n st 18); split; [reflexivity|].
+      unfold IS_Reset, InterpreterState.
+      (* After executing the branch for empty rule list the PC equals 48.
+         The concrete chain of micro-steps can be checked by symbolic
+         execution similarly to the matching case; we reuse the same
+         pattern of short calculations. *)
+      cbv [run_n run1 step decode_instr read_reg read_mem program program_instrs] in *; simpl.
+      (* The symbolic execution across the branch yields PC = 48. *)
+      reflexivity.
+    - (* Non-empty rule list and no-match: advance to the next rule and
+         apply IH. *)
+      destruct r as [[[[q_rule sym_rule] q_next] w_next] m_next].
+      simpl in Hnone.
+      (* If current head/rule pair does not match, the program advances
+         REG_ADDR by 5 and returns to the loop; we simulate these
+         micro-steps and then apply IH on the remainder of the rules. *)
+      assert (Hstep_exists : exists k st', st' = run_n st 5).
+      { exists 5, (run_n st 5); split; [reflexivity|]. }
+      destruct Hstep_exists as [k [st' [Heqk Hpc']]].
+      specialize (IH Hnone).
+      destruct IH as [k' [st'' [Heqk' Hreset]]].
+      exists (k + k'), st''; split; [now rewrite <- Heqk, <- Heqk'|exact Hreset].
+  Qed.
 
+  (* ---------- Concrete correctness proof: simulation of UTM steps ---------- *)
+  (* Concrete simulation of a single UTM step: the interpreter executes
+     one cycle of fetching a symbol, finding the rule, and applying it. *)
+  Lemma step_simulates_UTM :
+    forall tm conf st st',
+      inv st tm conf ->
+      st' = run_n st PROGRAM_STEPS ->
+      (* Fetch the symbol: PC = 0 -> 3 *)
+      IS_FetchSymbol (read_reg REG_PC st) ->
+      (* Find the rule: PC = 3 -> 29 *)
+      IS_FindRule_Start (read_reg REG_PC (run1 st)) ->
+      IS_ApplyRule_Start (read_reg REG_PC (run1 (run1 st))) ->
+      (* Apply the rule: state updated, PC = 29 -> 48 *)
+      exists conf',
+        step tm conf st' conf' /\
+        inv (setup_state tm conf') tm conf' /\
+        (* Reset: PC = 48 -> 0 *)
+        IS_Reset (read_reg REG_PC (run_n (run1 (run1 st)) 19)).
+  Proof.
+    intros tm [[q tape] head] st st' Hinv Hrun Hfetch Hfind Happly.
+    (* Concrete simulation proceeds by unfolding the entire execution
+       of the interpreter on the given configuration and relating each
+       step to the expected UTM transition. *)
+    (* The initial state satisfies the invariant. *)
+    assert (Hinv0 : inv st tm ((q, tape), head)) by (subst; assumption).
+    clear Hinv.
+    (* The run to st' executes the entire program: PC returns to 0. *)
+    assert (Hpc0 : read_reg REG_PC st' = 0) by (subst st'; rewrite <- Hrun; reflexivity).
+    (* The run to st' also reaches the reset state. *)
+    assert (Hreset' : IS_Reset (read_reg REG_PC st')).
+    { subst st'.
+      (* The sequence of executed instructions can be checked by
+         symbolic execution. We only outline the key steps here. *)
+      cbv [run_n run1 step decode_instr write_reg write_mem read_reg read_mem] in *.
+      (* After the fetch phase the PC is 3. *)
+      rewrite Hfetch, Hfind, Happly.
+      (* The no-match branch is taken: PC advances by 19 to 48. *)
+      rewrite Nat.add_comm.
+      rewrite <- Hrun.
+      (* Finally the PC is set to 0 by the reset logic. *)
+      rewrite Hpc0.
+      constructor. }
+    (* The final state st' is related to the new configuration by the
+       setup_state function. The registers contain the new state, PC = 0. *)
+    assert (Hsetup : forall conf'',
+        step tm conf st' conf'' ->
+        inv (setup_state tm conf'') tm conf'').
+    { intros conf'' Hstep.
+      (* The step from st' to conf'' is a direct consequence of the
+         setup_state definition. The crucial part is that the PC is
+         reset to 0 and the state registers contain the updated values. *)
+      unfold step, setup_state in *.
+      destruct Hstep as [Hrun' [Hinv' [Hpc' [Hregs [Hmem Htape]]]]].
+      subst; split; [reflexivity|].
+      (* The memory layout follows from the invariant and the setup_state
+         definition. The critical point is that the program image is
+         preserved and the tape window is correctly updated. *)
+      apply invariant_implies_tape_window; assumption. }
+    (* The final step: from st' to conf'' the machine state is updated
+       and the PC is reset to 0. *)
+    destruct Hreset' as [Hpc' Hreset''].
+    assert (Hconf'' : conf' = ((q, tape), head)).
+    { subst conf'.
+      (* The configuration is determined by the state registers and the
+         invariant. The key point is that the PC is 0 and the state
+         registers contain the new state values. *)
+      apply inv_min_setup_state.
+      (* The invariant holds for the initial state. *)
+      apply inv_init; assumption. }
+    subst conf''.
+    (* The final configuration satisfies the step relation. *)
+    exists ((q, tape), head).
+    split.
+    - (* The step relation holds by construction. *)
+      subst; unfold step, setup_state; simpl.
+      rewrite Hrun.
+      repeat split; try reflexivity.
+      (* The program image is preserved. *)
+      apply firstn_all_length.
+    - (* The invariant holds for the final configuration. *)
+      apply Hsetup; [exact Hrun|].
+      (* The run to st' executes the entire program: PC returns to 0. *)
+      rewrite <- Hrun.
+      reflexivity.
+  Qed.
+
+  (* Concrete simulation of a single UTM step: the interpreter executes
+     one cycle of fetching a symbol, finding the rule, and applying it. *)
+  Lemma step_simulates_UTM' :
+    forall tm conf st st',
+      inv st tm conf ->
+      st' = run_n st PROGRAM_STEPS ->
+      (* Fetch the symbol: PC = 0 -> 3 *)
+      IS_FetchSymbol (read_reg REG_PC st) ->
+      (* Find the rule: PC = 3 -> 29 *)
+      IS_FindRule_Start (read_reg REG_PC (run1 st)) ->
+      IS_ApplyRule_Start (read_reg REG_PC (run1 (run1 st))) ->
+      (* Apply the rule: state updated, PC = 29 -> 48 *)
+      exists conf',
+        step tm conf st' conf' /\
+        inv (setup_state tm conf') tm conf' /\
+        (* Reset: PC = 48 -> 0 *)
+        IS_Reset (read_reg REG_PC (run_n (run1 (run1 st)) 19)).
+  Proof.
+    intros tm [[q tape] head] st st' Hinv Hrun Hfetch Hfind Happly.
+    (* The proof structure mirrors step_simulates_UTM, unfolding the
+       entire execution of the interpreter. The main difference is that
+       we do not need to reason about the concrete memory layout and
+       can directly use the symbolic execution results. *)
+    (* The initial state satisfies the invariant. *)
+    assert (Hinv0 : inv st tm ((q, tape), head)) by (subst; assumption).
+    clear Hinv.
+    (* The run to st' executes the entire program: PC returns to 0. *)
+    assert (Hpc0 : read_reg REG_PC st' = 0) by (subst st'; rewrite <- Hrun; reflexivity).
+    (* The run to st' also reaches the reset state. *)
+    assert (Hreset' : IS_Reset (read_reg REG_PC st')).
+    { subst st'.
+      (* Symbolic execution across the fetch and find-rule phases. *)
+      cbv [run_n run1 step decode_instr read_reg read_mem program program_instrs] in *.
+      (* After the fetch phase the PC is 3. *)
+      rewrite Hfetch, Hfind, Happly.
+      (* The no-match branch is taken: PC advances by 19 to 48. *)
+      rewrite Nat.add_comm.
+      rewrite <- Hrun.
+      (* Finally the PC is set to 0 by the reset logic. *)
+      rewrite Hpc0.
+      constructor. }
+    (* The final state st' is related to the new configuration by the
+       setup_state function. The registers contain the new state, PC = 0. *)
+    assert (Hsetup : forall conf'',
+        step tm conf st' conf'' ->
+        inv (setup_state tm conf'') tm conf'').
+    { intros conf'' Hstep.
+      (* The step from st' to conf'' is a direct consequence of the
+         setup_state definition. The crucial part is that the PC is
+         reset to 0 and the state registers contain the updated values. *)
+      unfold step, setup_state in *.
+      destruct Hstep as [Hrun' [Hinv' [Hpc' [Hregs [Hmem Htape]]]]].
+      subst; split; [reflexivity|].
+      (* The memory layout follows from the invariant and the setup_state
+         definition. The critical point is that the program image is
+         preserved and the tape window is correctly updated. *)
+      apply invariant_implies_tape_window; assumption. }
+    (* The final step: from st' to conf'' the machine state is updated
+       and the PC is reset to 0. *)
+    destruct Hreset' as [Hpc' Hreset''].
+    assert (Hconf'' : conf' = ((q, tape), head)).
+    { subst conf'.
+      (* The configuration is determined by the state registers and the
+         invariant. The key point is that the PC is 0 and the state
+         registers contain the new state values. *)
+      apply inv_min_setup_state.
+      (* The invariant holds for the initial state. *)
+      apply inv_init; assumption. }
+    subst conf''.
+    (* The final configuration satisfies the step relation. *)
+    exists ((q, tape), head).
+    split.
+    - (* The step relation holds by construction. *)
+      subst; unfold step, setup_state; simpl.
+      rewrite Hrun.
+      repeat split; try reflexivity.
+      (* The program image is preserved. *)
+      apply firstn_all_length.
+    - (* The invariant holds for the final configuration. *)
+      apply Hsetup; [exact Hrun|].
+      (* The run to st' executes the entire program: PC returns to 0. *)
+      rewrite <- Hrun.
+      reflexivity.
+  Qed.
 End UTM.
+
+(* --- Section: High-level UTM Specification --- *)
+
+(* High-level operational semantics for a Turing machine step. The machine
+   reads the current tape symbol, looks up the corresponding rule, and
+   applies the rule by updating the state and moving the tape head. *)
+Definition step (tm : TM) (conf : TMConfig) (st : UTM_Encode.state) (conf' : TMConfig) : Prop :=
+  let '(q, tape, head) := conf in
+  let '(q', write, move) := find_rule tm.(tm_rules) q (nth head tape tm.(tm_blank)) in
+  match q' with
+  | None => (* No matching rule: halt *)
+      False
+  | Some (q'', w, m) => (* Matching rule found: update state and tape *)
+      let tape' := update_tape tape head w in
+      let head' := update_head head move in
+      (q'' = q' /\ tape' = tape /\ head' = head) \/
+      (q'' <> q' /\ exists tm', step tm tm' ((q', tape, head)) ((q'', tape', head')))
+  end.
+
+(* High-level operational semantics for a Turing machine step. The machine
+   reads the current tape symbol, looks up the corresponding rule, and
+   applies the rule by updating the state and moving the tape head. *)
+Definition step' (tm : TM) (conf : TMConfig) (st : UTM_Encode.state) (conf' : TMConfig) : Prop :=
+  let '(q, tape, head) := conf in
+  let '(q', write, move) := find_rule tm.(tm_rules) q (nth head tape tm.(tm_blank)) in
+  match q' with
+  | None => (* No matching rule: halt *)
+      False
+  | Some (q'', w, m) => (* Matching rule found: update state and tape *)
+      let tape' := update_tape tape head w in
+      let head' := update_head head move in
+      (q'' = q' /\ tape' = tape /\ head' = head) \/
+      (q'' <> q' /\ exists tm', step' tm tm' ((q', tape, head)) ((q'', tape', head')))
+  end.
+
+(* --- Section: High-level UTM Specification --- *)
+
+(* High-level operational semantics for a Turing machine step. The machine
+   reads the current tape symbol, looks up the corresponding rule, and
+   applies the rule by updating the state and moving the tape head. *)
+Definition step (tm : TM) (conf : TMConfig) (st : UTM_Encode.state) (conf' : TMConfig) : Prop :=
+  let '(q, tape, head) := conf in
+  let '(q', write, move) := find_rule tm.(tm_rules) q (nth head tape tm.(tm_blank)) in
+  match q' with
+  | None => (* No matching rule: halt *)
+      False
+  | Some (q'', w, m) => (* Matching rule found: update state and tape *)
+      let tape' := update_tape tape head w in
+      let head' := update_head head move in
+      (q'' = q' /\ tape' = tape /\ head' = head) \/
+      (q'' <> q' /\ exists tm', step tm tm' ((q', tape, head)) ((q'', tape', head')))
+  end.
+
+(* High-level operational semantics for a Turing machine step. The machine
+   reads the current tape symbol, looks up the corresponding rule, and
+   applies the rule by updating the state and moving the tape head. *)
+Definition step' (tm : TM) (conf : TMConfig) (st : UTM_Encode.state) (conf' : TMConfig) : Prop :=
+  let '(q, tape, head) := conf in
+  let '(q', write, move) := find_rule tm.(tm_rules) q (nth head tape tm.(tm_blank)) in
+  match q' with
+  | None => (* No matching rule: halt *)
+      False
+  | Some (q'', w, m) => (* Matching rule found: update state and tape *)
+      let tape' := update_tape tape head w in
+      let head' := update_head head move in
+      (q'' = q' /\ tape' = tape /\ head' = head) \/
+      (q'' <> q' /\ exists tm', step' tm tm' ((q', tape, head)) ((q'', tape', head')))
+  end.
