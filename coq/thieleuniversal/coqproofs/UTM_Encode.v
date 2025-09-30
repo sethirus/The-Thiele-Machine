@@ -26,16 +26,16 @@ Module UTM_Encode.
      decoding because we perform simple nth lookups instead of division. *)
   Definition encode_instr_words (i:CPU.Instr) : list nat :=
     match i with
-    | CPU.LoadConst rd v      => [0; rd; v]
-    | CPU.LoadIndirect rd ra  => [1; rd; ra]
-    | CPU.StoreIndirect ra rv => [2; ra; rv]
-    | CPU.CopyReg rd rs       => [3; rd; rs]
-    | CPU.AddConst rd v       => [4; rd; v]
-    | CPU.AddReg rd r1 r2     => [5; rd; r1 * ENC_BASE + r2]
-    | CPU.SubReg rd r1 r2     => [6; rd; r1 * ENC_BASE + r2]
-    | CPU.Jz rc target        => [7; rc; target]
-    | CPU.Jnz rc target       => [8; rc; target]
-    | CPU.Halt                => [9; 0; 0]
+    | CPU.LoadConst rd v      => [0; rd; v; 0]
+    | CPU.LoadIndirect rd ra  => [1; rd; ra; 0]
+    | CPU.StoreIndirect ra rv => [2; ra; rv; 0]
+    | CPU.CopyReg rd rs       => [3; rd; rs; 0]
+    | CPU.AddConst rd v       => [4; rd; v; 0]
+    | CPU.AddReg rd r1 r2     => [5; rd; r1; r2]
+    | CPU.SubReg rd r1 r2     => [6; rd; r1; r2]
+    | CPU.Jz rc target        => [7; rc; target; 0]
+    | CPU.Jnz rc target       => [8; rc; target; 0]
+    | CPU.Halt                => [9; 0; 0; 0]
     end.
 
   (* Decode an instruction from the memory image. Read three consecutive
@@ -45,14 +45,15 @@ Module UTM_Encode.
     let opcode := nth pc mem 0 in
     let arg1 := nth (pc + 1) mem 0 in
     let arg2 := nth (pc + 2) mem 0 in
+    let arg3 := nth (pc + 3) mem 0 in
     match opcode with
     | 0 => CPU.LoadConst arg1 arg2
     | 1 => CPU.LoadIndirect arg1 arg2
     | 2 => CPU.StoreIndirect arg1 arg2
     | 3 => CPU.CopyReg arg1 arg2
     | 4 => CPU.AddConst arg1 arg2
-    | 5 => CPU.AddReg arg1 (arg2 / ENC_BASE) (arg2 mod ENC_BASE)
-    | 6 => CPU.SubReg arg1 (arg2 / ENC_BASE) (arg2 mod ENC_BASE)
+    | 5 => CPU.AddReg arg1 arg2 arg3
+    | 6 => CPU.SubReg arg1 arg2 arg3
     | 7 => CPU.Jz arg1 arg2
     | 8 => CPU.Jnz arg1 arg2
     | _ => CPU.Halt
@@ -73,38 +74,47 @@ Module UTM_Encode.
       To reduce per-proof memory pressure we split the arithmetic-heavy
       cases into smaller lemmas and then dispatch on the instruction
       shape. *)
-  Lemma decode_encode_LoadConst : forall rd v, instr_small (LoadConst rd v) -> decode_instr (encode_instr (LoadConst rd v)) = LoadConst rd v.
-  Proof. intros; cbv [encode_instr decode_instr ENC_BASE]; simpl; reflexivity. Qed.
+  Lemma decode_encode_LoadConst : forall rd v, instr_small (LoadConst rd v) ->
+    decode_instr_from_mem (encode_instr_words (LoadConst rd v)) 0 = LoadConst rd v.
+  Proof. intros; cbv [encode_instr_words decode_instr_from_mem ENC_BASE]; simpl; reflexivity. Qed.
 
-  Lemma decode_encode_LoadIndirect : forall rd v, instr_small (LoadIndirect rd v) -> decode_instr (encode_instr (LoadIndirect rd v)) = LoadIndirect rd v.
-  Proof. intros; cbv [encode_instr decode_instr ENC_BASE]; simpl; reflexivity. Qed.
+  Lemma decode_encode_LoadIndirect : forall rd v, instr_small (LoadIndirect rd v) ->
+    decode_instr_from_mem (encode_instr_words (LoadIndirect rd v)) 0 = LoadIndirect rd v.
+  Proof. intros; cbv [encode_instr_words decode_instr_from_mem ENC_BASE]; simpl; reflexivity. Qed.
 
-  Lemma decode_encode_StoreIndirect : forall ra rv, instr_small (StoreIndirect ra rv) -> decode_instr (encode_instr (StoreIndirect ra rv)) = StoreIndirect ra rv.
-  Proof. intros; cbv [encode_instr decode_instr ENC_BASE]; simpl; reflexivity. Qed.
+  Lemma decode_encode_StoreIndirect : forall ra rv, instr_small (StoreIndirect ra rv) ->
+    decode_instr_from_mem (encode_instr_words (StoreIndirect ra rv)) 0 = StoreIndirect ra rv.
+  Proof. intros; cbv [encode_instr_words decode_instr_from_mem ENC_BASE]; simpl; reflexivity. Qed.
 
-  Lemma decode_encode_CopyReg : forall rd rs, instr_small (CopyReg rd rs) -> decode_instr (encode_instr (CopyReg rd rs)) = CopyReg rd rs.
-  Proof. intros; cbv [encode_instr decode_instr ENC_BASE]; simpl; reflexivity. Qed.
+  Lemma decode_encode_CopyReg : forall rd rs, instr_small (CopyReg rd rs) ->
+    decode_instr_from_mem (encode_instr_words (CopyReg rd rs)) 0 = CopyReg rd rs.
+  Proof. intros; cbv [encode_instr_words decode_instr_from_mem ENC_BASE]; simpl; reflexivity. Qed.
 
-  Lemma decode_encode_AddConst : forall rd v, instr_small (AddConst rd v) -> decode_instr (encode_instr (AddConst rd v)) = AddConst rd v.
-  Proof. intros; cbv [encode_instr decode_instr ENC_BASE]; simpl; reflexivity. Qed.
+  Lemma decode_encode_AddConst : forall rd v, instr_small (AddConst rd v) ->
+    decode_instr_from_mem (encode_instr_words (AddConst rd v)) 0 = AddConst rd v.
+  Proof. intros; cbv [encode_instr_words decode_instr_from_mem ENC_BASE]; simpl; reflexivity. Qed.
 
-  Lemma decode_encode_AddReg : forall rd r1 r2, instr_small (AddReg rd r1 r2) -> decode_instr (encode_instr (AddReg rd r1 r2)) = AddReg rd r1 r2.
-  Proof. intros; cbv [encode_instr decode_instr ENC_BASE]; simpl; reflexivity. Qed.
+  Lemma decode_encode_AddReg : forall rd r1 r2, instr_small (AddReg rd r1 r2) ->
+    decode_instr_from_mem (encode_instr_words (AddReg rd r1 r2)) 0 = AddReg rd r1 r2.
+  Proof. intros; cbv [encode_instr_words decode_instr_from_mem ENC_BASE]; simpl; reflexivity. Qed.
 
-  Lemma decode_encode_SubReg : forall rd r1 r2, instr_small (SubReg rd r1 r2) -> decode_instr (encode_instr (SubReg rd r1 r2)) = SubReg rd r1 r2.
-  Proof. intros; cbv [encode_instr decode_instr ENC_BASE]; simpl; reflexivity. Qed.
+  Lemma decode_encode_SubReg : forall rd r1 r2, instr_small (SubReg rd r1 r2) ->
+    decode_instr_from_mem (encode_instr_words (SubReg rd r1 r2)) 0 = SubReg rd r1 r2.
+  Proof. intros; cbv [encode_instr_words decode_instr_from_mem ENC_BASE]; simpl; reflexivity. Qed.
 
-  Lemma decode_encode_Jz : forall rc target, instr_small (Jz rc target) -> decode_instr (encode_instr (Jz rc target)) = Jz rc target.
-  Proof. intros; cbv [encode_instr decode_instr ENC_BASE]; simpl; reflexivity. Qed.
+  Lemma decode_encode_Jz : forall rc target, instr_small (Jz rc target) ->
+    decode_instr_from_mem (encode_instr_words (Jz rc target)) 0 = Jz rc target.
+  Proof. intros; cbv [encode_instr_words decode_instr_from_mem ENC_BASE]; simpl; reflexivity. Qed.
 
-  Lemma decode_encode_Jnz : forall rc target, instr_small (Jnz rc target) -> decode_instr (encode_instr (Jnz rc target)) = Jnz rc target.
-  Proof. intros; cbv [encode_instr decode_instr ENC_BASE]; simpl; reflexivity. Qed.
+  Lemma decode_encode_Jnz : forall rc target, instr_small (Jnz rc target) ->
+    decode_instr_from_mem (encode_instr_words (Jnz rc target)) 0 = Jnz rc target.
+  Proof. intros; cbv [encode_instr_words decode_instr_from_mem ENC_BASE]; simpl; reflexivity. Qed.
 
-  Lemma decode_encode_Halt : decode_instr (encode_instr Halt) = Halt.
-  Proof. cbv [encode_instr decode_instr ENC_BASE]; simpl; reflexivity. Qed.
+  Lemma decode_encode_Halt : decode_instr_from_mem (encode_instr_words Halt) 0 = Halt.
+  Proof. cbv [encode_instr_words decode_instr_from_mem ENC_BASE]; simpl; reflexivity. Qed.
 
   Lemma decode_encode_roundtrip :
-    forall i, instr_small i -> decode_instr (encode_instr i) = i.
+    forall i, instr_small i -> decode_instr_from_mem (encode_instr_words i) 0 = i.
   Proof.
     intros i Hs.
     destruct i as
