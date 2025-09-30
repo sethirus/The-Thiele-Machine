@@ -1,5 +1,5 @@
-Require Import ThieleUniversal.TM.
-From ThieleUniversal Require Import CPU.
+Require Import TM.
+Require Import CPU.
 Require Import List.
 Require Import Nat.
 Require Import ZArith.

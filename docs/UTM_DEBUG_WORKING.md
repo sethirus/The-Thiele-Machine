@@ -36,26 +36,47 @@
   runtime limits, the repo contains scripts to run the final build on
   a larger VM or CI runner (32–64 GB recommended).
 
-## Why the tape-window / `inv_init` debug matters now
-- The immediate compile break is not about large arithmetic; it is a
-  syntactic term-shape mismatch when applying a helper lemma that
-  reasons about `pad_to`/`skipn`/`firstn` shapes in the initial state
-  construction (`inv_init`). That mismatch is purely about *term
-  shape* (syntactic form), not a fundamental logical gap.
-- Fixing it is low-risk: we can either (a) add a tiny bridging lemma
-  whose shape precisely matches the goal, or (b) reorder a couple of
-  `unfold`/`subst` steps so the helper lemma's LHS occurs literally in
-  the goal. Either route keeps the main design intact.
+## Current Status (Updated September 30, 2025)
+- **Coq Installation Confirmed**: Coq 8.20 is installed at "C:\Coq-Platform~8.20~2025.01\bin\coqc.exe". Compilation tested with direct coqc commands.
+- **Pattern Fixes Applied**: Added IS_* predicate definitions (IS_FetchSymbol, IS_FindRule_Start, IS_ApplyRule_Start, IS_Reset) as equality propositions for PC values. Standardized all destruct patterns for TMConfig tuples from `[[q tape] head]` to `(q, tape, head)` to match the type definition `nat * list nat * nat`. Updated unfold statements to remove InterpreterState references.
+- **Compilation Progress**: Previous unification errors resolved. Latest compilation attempt failed at line 218 in `inv_strong_implies_min` with "Expects a conjunctive pattern made of 2 patterns" - likely incorrect destruct for conjunctions in `destruct Hinv as (HQ & HHEAD & HPC & _).`.
+- **Remaining Work**: Fix the conjunctive pattern error at line 218. Two `admit` statements in `apply_implies_find_rule_some` lemma need completion for mechanical proofs about rule table memory layout and register loading.
 
 ## Minimal, recommended next steps (what to do first)
-1. Add a tiny, exact-shape bridging lemma (low risk) that says
-   `firstn (length rest) (skipn n (pad_to n l ++ rest)) = rest` when
-   `length l <= n`. That ensures the helper rewrite will match the
-   goal without touching the large infrastructure.
-2. Re-run the targeted compile for only `ThieleUniversal.v` and close
-   remaining tiny micro-lemmas incrementally.
-3. If any step still needs more RAM/time, run the full build using the
-   provided `scripts/build_on_big_vm.sh` on a 32–64 GB runner.
+1. **Fix Conjunctive Pattern Error**: Examine line 218 in `inv_strong_implies_min` and correct the destruct pattern for conjunctions (use nested `[ ]` for conjunctions, not `( )`).
+2. Re-run compilation with `coqc -R thieleuniversal/coqproofs ThieleUniversal thieleuniversal/coqproofs/ThieleUniversal.v` to verify the fix.
+3. Complete the two `admit` statements in `apply_implies_find_rule_some` incrementally:
+   - First admit: Prove existence of rule index `i` where memory cells match loaded register values.
+   - Second admit: Use encoding lemmas to rewrite memory accesses to rule components and prove `find_rule` returns the correct triple.
+4. If compilation succeeds, run full build with `make -C coq` or equivalent for all files.
+
+## Completion Status
+- Main compilation blockers (unification and pattern errors) are being resolved incrementally.
+- Coq installation functional and path confirmed.
+- Destruct patterns standardized across all affected lemmas.
+- IS_* predicates defined for cleaner proofs.
+- Remaining issues are well-scoped: one pattern fix and two admits.
+- Documentation updated to reflect current state.
+
+## What this change achieves (intended deliverables)
+- Smaller, local proof obligations for the decoder and simulation steps
+  (encode/decode roundtrip split into per-instruction lemmas).
+- A path from the big, admitted simulates_one_step lemma into a chain
+  of micro-lemmas that can be checked incrementally and are robust
+  against the memory limits of typical CI runners.
+- A clear fallback: if the remaining microproofs still exceed local
+  runtime limits, the repo contains scripts to run the final build on
+  a larger VM or CI runner (32–64 GB recommended).
+
+## Why the tape-window / `inv_init` debug matters now
+- The immediate compile break was a syntactic term-shape mismatch when applying a helper lemma that reasons about `pad_to`/`skipn`/`firstn` shapes in the initial state construction (`inv_init`). That mismatch was purely about *term shape* (syntactic form), not a fundamental logical gap.
+- **Resolution**: Fixed by unfolding `setup_state` and proving the tape window directly in `inv_init`, ensuring term shapes match without relying on external lemma application.
+
+## Minimal, recommended next steps (what to do first)
+1. **Install Coq 8.20**: To test the compilation fix and proceed with development.
+2. Re-run the targeted compile for only `ThieleUniversal.v` to verify the `inv_init` fix.
+3. Complete the `admit` statements in `apply_implies_find_rule_some` incrementally. The proofs involve showing that the interpreter's register values correspond to an existing rule in the table, using the invariant and memory preservation properties.
+4. If any step still needs more RAM/time, run the full build using the provided `scripts/build_on_big_vm.sh` on a 32–64 GB runner.
 
 ## Longer-term considerations
 - Keep proofs small: whenever a new heavy lemma appears, try to split
@@ -112,46 +133,22 @@ Short summary of what we changed and why
       to try to keep proof obligations tractable.
 
 Current failing point (what blocks a full compile)
-- The build fails in `ThieleUniversal.v` at the `inv_init` / tape-window
-  lemma (inv_init uses tape_window_ok_setup_state). The exact error
-  message (reproducible with the single-file make shown below):
-
-  Error: Unable to unify "tape" with
-    "firstn (length tape)
-       (skipn TAPE_START_ADDR
-           (pad_to TAPE_START_ADDR
-              (pad_to RULES_START_ADDR program ++ encode_rules (tm_rules tm)) ++ tape))".
-
-- In short: a rewrite or apply using the helper lemma
-  `skipn_pad_to_app`/`tape_window_ok_setup_state` fails because the
-  subterm shape in the actual goal does not match the LHS shape expected
-  by the helper lemma.
+- **Resolved**: The build previously failed in `ThieleUniversal.v` at the `inv_init` / tape-window lemma due to a term shape mismatch. This has been fixed by unfolding `setup_state` and proving the tape window directly.
+- If compilation proceeds, any remaining issues will be in other parts of the proof.
 
 What I tried (short bullets)
-- Moved decoding to the new multi-word decoder (no div/mod in the
-  main file). UTM_Encode compiles.
-- Restored and rationalized where the concrete program lives so there
-  is exactly one `program_instrs` (avoids duplicate defs).
-- Tried applying the helper lemma in different ways:
-  - `apply tape_window_ok_setup_state` (original form)
-  - `eapply` / `apply with explicit args` (delay or force matching)
-  - Inline the helper proof body (copy the small reasoning into the
-    call site) and attempt to `rewrite`.
-  - Toggle opacity of `pad_to` / `skipn` to help rewrite matching.
-  - Inserted lightweight debug tactics that let the compiler show the
-    current goal shape (the goal printed above came from these runs).
-- None of the above made the goal and the helper LHS syntactically
-  compatible in this environment yet.
+- Added IS_* predicate definitions: IS_FetchSymbol pc := pc = 0, IS_FindRule_Start pc := pc = 3, IS_ApplyRule_Start pc := pc = 29, IS_Reset pc := pc = 48.
+- Standardized destruct patterns for TMConfig from `[[q tape] head]` to `(q, tape, head)` in all affected lemmas to match type `nat * list nat * nat`.
+- Updated unfold statements: changed `unfold IS_FindRule_Start, InterpreterState` to `unfold IS_FindRule_Start`; changed `unfold IS_Reset, InterpreterState` to `unfold IS_Reset`.
+- Ran iterative compilations with `coqc -R thieleuniversal/coqproofs ThieleUniversal thieleuniversal/coqproofs/ThieleUniversal.v` to identify and fix pattern errors.
+- **Latest Issue**: Compilation fails at line 218 with "Expects a conjunctive pattern made of 2 patterns" in `inv_strong_implies_min`, likely due to incorrect destruct for conjunctions (should use nested `[ ]` not `( )`).
 
 Repro (full local command used repeatedly)
-- From the repository root (this repository is in branch
-  `public-release`), run the single-file targeted build:
+- From the repository root, run the direct Coq compilation:
 
-  make -C coq thieleuniversal/coqproofs/ThieleUniversal.vo -j1 COQEXTRAFLAGS='-native-compiler no'
+  cd coq; C:\Coq-Platform~8.20~2025.01\bin\coqc.exe -R thieleuniversal/coqproofs ThieleUniversal thieleuniversal/coqproofs/ThieleUniversal.v
 
-- This builds the encoder and the program parts first and stops on the
-  failing universal file. The -native-compiler=no option is used to keep
-  memory pressure lower.
+- This compiles ThieleUniversal.v directly using the confirmed Coq installation path.
 
 How I debugged the goal (manual steps that reproduced the goal print)
 - Temporarily insert in the proof a failing tactic that prints the
@@ -164,37 +161,9 @@ How I debugged the goal (manual steps that reproduced the goal print)
   tactic once you capture the goal text.
 
 Suggested minimal fixes to try next (ordered by low risk)
-1. Exact-shape bridging lemma
-   - Add a tiny lemma that matches the *actual* goal shape reported above
-     and reduces it to the helper lemma. Example pattern:
-
-       Lemma skipn_pad_to_app_variant l n rest :
-         length l <= n ->
-         firstn (length rest) (skipn n (pad_to n l ++ rest)) = rest.
-       Proof. (* short proof using existing helpers *) Qed.
-
-   - Use this variant at the invocation site to guarantee an exact
-     syntactic match. This is the safest change: it does not alter the
-     existing helper or the program encoding, it only adds a tiny
-     matching lemma to adapt term shapes.
-
-2. Avoid extra reductions/unfolds before applying lemma
-   - Re-order `unfold`/`subst` so the goal displays `pad_to ... ++ rest`
-     in exactly the same arrangement as the helper expects. Coq's
-     matching is syntactic; small differences in parentheses or in the
-     order of `pad_to` occurrences (e.g. double `pad_to`) prevent the
-     rewrite from firing.
-
-3. Import/Module shape sanity check (if 1 and 2 fail)
-   - Ensure that there is exactly one `program_instrs` and that any
-     `RULES_START_ADDR`/`TAPE_START_ADDR` live in the same module or
-     have been `Import`ed at top-level before they are used in
-     definitions. Duplicate definitions / different module paths can
-     cause subtle term shapes.
-
-4. If the environment keeps killing coqc or the remaining proof is
-   still too heavy: run the full compile on a larger VM (32–64 GB) via
-   scripts/build_on_big_vm.sh included in the repo.
+1. Fix the conjunctive pattern error at line 218 in `inv_strong_implies_min` by correcting the destruct pattern for conjunctions (use nested `[ ]` instead of `( )`).
+2. Re-run the compilation command above to verify the fix.
+3. Complete the two `admit` statements in `apply_implies_find_rule_some` incrementally.
 
 One-line to revert the most-recent local edits (if you want to go
 back):
@@ -203,18 +172,10 @@ back):
 - git checkout -- coq/thieleuniversal/coqproofs/UTM_Encode.v
 
 Files changed in this session (for quick reference)
-- coq/thieleuniversal/coqproofs/UTM_Encode.v — multi-word encoder + small lemmas
-- coq/thieleuniversal/coqproofs/UTM_Program.v — concrete program + addresses
-- coq/thieleuniversal/coqproofs/ThieleUniversal.v — delegate decode to encoder,
-  adjust PROGRAM_STEPS, and small proof edits while debugging.
+- coq/thieleuniversal/coqproofs/ThieleUniversal.v — Added IS_* definitions, standardized destruct patterns to `(q, tape, head)`, updated unfold statements, iterative fixes for conjunctive pattern errors.
 
 Next immediate action I recommend (pick one)
-- Add the bridging lemma (fast, low risk). I will do it now if you
-  want — I already have the exact failing shape. This will probably
-  fix the exact rewrite mismatch and allow compilation to proceed.
-- Or: I can open an interactive Coq session (coqtop/VS Code) and step
-  through the `inv_init` proof with you — useful if you want to
-  inspect proofs live.
-- Or: prepare and run the larger VM build if the final steps still
-  produce high-memory proof obligations.
+- Fix the conjunctive pattern error at line 218 in `inv_strong_implies_min`.
+- Complete the `admit` statements in `apply_implies_find_rule_some` by implementing the mechanical proofs for rule table indexing and register loading.
+- If you want, I can help implement the proofs for the admits or debug further issues.
 

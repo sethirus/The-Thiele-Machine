@@ -1,6 +1,6 @@
-Require Import ThieleUniversal.TM.
-Require Import ThieleUniversal.CPU.
-Require Import ThieleUniversal.UTM_Encode.
+Require Import TM.
+Require Import CPU.
+Require Import UTM_Encode.
 Require Import List.
 Import ListNotations.
 Import CPU.
