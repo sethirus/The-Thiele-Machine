@@ -15,7 +15,14 @@ jobs:
   build-and-verify:
     name: Build Coq proofs and run flagship audit
     runs-on: ubuntu-latest
-    timeout-minutes: 360
+    # Use the official Coq container to provide a consistent, Coq-ready image
+    container:
+      image: coqorg/coq:8.20.1
+    # Increase timeout to allow long Coq builds
+    timeout-minutes: 720
+    env:
+      # Disable native compilation to reduce peak memory usage during .vo creation
+      COQEXTRAFLAGS: "-native-compiler no"
 
     steps:
       - name: Checkout repository
@@ -31,6 +38,10 @@ jobs:
           key: opam-coq-${{ runner.os }}-${{ hashFiles('coq/_CoqProject') }}
           restore-keys: |
             opam-coq-${{ runner.os }}-
+
+      - name: Note: using Coq container
+        run: |
+          echo "Running inside coqorg/coq:8.20.1 container; opam and Coq preinstalled."
 
       - name: Install system dependencies (opam)
         run: |
@@ -56,12 +67,16 @@ jobs:
           eval "$(opam env --switch=coq-8.20.1)"
           opam install -y coq.8.20.1 dune zarith ocamlfind
 
-      - name: Build the Coq project (make)
+      - name: Build the heavy universal module first (single-threaded)
         run: |
-          eval "$(opam env --switch=coq-8.20.1)"
-          # Capture build log for audit and debugging
           mkdir -p build-logs
-          make -C coq -j$(nproc) 2>&1 | tee build-logs/coq-make.log
+          echo "Building ThieleUniversal single-threaded to reduce peak memory..."
+          make -C coq thieleuniversal/coqproofs/ThieleUniversal.vo COQEXTRAFLAGS="$COQEXTRAFLAGS" 2>&1 | tee build-logs/coq-thieleuniversal.log
+
+      - name: Build remaining Coq files (parallel but with native compilation disabled)
+        run: |
+          echo "Building remaining Coq files (no native compiler)..."
+          make -C coq -j1 COQEXTRAFLAGS="$COQEXTRAFLAGS" 2>&1 | tee build-logs/coq-make.log
 
       - name: Run the one-click auditor (flagship)
         run: |
