@@ -125,4 +125,38 @@ Module CPU.
       rewrite read_pc_write_nonpc with (st:=write_reg REG_PC (S pc) st) (rd:=rd) (v:=read_reg r1 st - read_reg r2 st); [|assumption|exact Hregs].
       rewrite read_pc_write_pc. reflexivity.
   Qed.
+
+  (* Helper lemmas for jump instructions *)
+  Lemma step_jz_true : forall rc target st,
+    Nat.eqb (read_reg rc st) 0 = true ->
+    read_reg REG_PC (step (Jz rc target) st) = target.
+  Proof.
+    intros rc target st Heq.
+    unfold step. rewrite Heq. apply read_pc_write_pc.
+  Qed.
+
+  Lemma step_jz_false : forall rc target st,
+    Nat.eqb (read_reg rc st) 0 = false ->
+    read_reg REG_PC (step (Jz rc target) st) = S (read_reg REG_PC st).
+  Proof.
+    intros rc target st Heq.
+    unfold step. rewrite Heq. apply read_pc_write_pc.
+  Qed.
+
+  Lemma step_jnz_true : forall rc target st,
+    Nat.eqb (read_reg rc st) 0 = true ->
+    read_reg REG_PC (step (Jnz rc target) st) = S (read_reg REG_PC st).
+  Proof.
+    intros rc target st Heq.
+    unfold step. rewrite Heq. apply read_pc_write_pc.
+  Qed.
+
+  Lemma step_jnz_false : forall rc target st,
+    Nat.eqb (read_reg rc st) 0 = false ->
+    read_reg REG_PC (step (Jnz rc target) st) = target.
+  Proof.
+    intros rc target st Heq.
+    unfold step. rewrite Heq. apply read_pc_write_pc.
+  Qed.
+
 End CPU.
