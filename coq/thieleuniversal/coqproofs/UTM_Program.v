@@ -2,6 +2,8 @@ Require Import TM.
 Require Import CPU.
 Require Import UTM_Encode.
 Require Import List.
+Require Import Lia.
+Require Import Arith.
 Import ListNotations.
 Import CPU.
 
@@ -10,6 +12,12 @@ Module UTM_Program.
 
   Definition RULES_START_ADDR : nat := 100.
   Definition TAPE_START_ADDR  : nat := 1000.
+
+  Lemma RULES_START_ADDR_le_TAPE_START_ADDR :
+    RULES_START_ADDR <= TAPE_START_ADDR.
+  Proof.
+    unfold RULES_START_ADDR, TAPE_START_ADDR; lia.
+  Qed.
 
   (* Concrete program implementing a small-step TM simulator. *)
   Definition program_instrs : list Instr :=
@@ -63,5 +71,258 @@ Module UTM_Program.
       LoadConst REG_TEMP1 1;
       Jnz REG_TEMP1 0
     ].
+
+  Lemma nth_firstn_lt : forall (A : Type) n m (l : list A) d,
+    n < m -> nth n (firstn m l) d = nth n l d.
+  Proof.
+    intros A n m l d Hlt.
+    revert n l Hlt.
+    induction m as [|m IH]; intros [|n] l Hlt; simpl in *; try lia.
+    - destruct l; reflexivity.
+    - destruct l as [|x xs]; simpl; [reflexivity|].
+      apply IH. lia.
+  Qed.
+
+  Lemma program_instrs_length_gt_48 : 48 < length program_instrs.
+  Proof. vm_compute. lia. Qed.
+
+  Lemma program_instrs_before_apply_not_store :
+    forall pc,
+      pc < 29 ->
+      match nth pc program_instrs Halt with
+      | StoreIndirect _ _ => False
+      | _ => True
+      end.
+  Proof.
+    intros pc Hpc.
+    set (prefix := firstn 29 program_instrs).
+    assert (Hlen_raw : length (firstn 29 program_instrs) = 29) by (vm_compute; reflexivity).
+    assert (Hforall_raw :
+              Forall (fun instr =>
+                        match instr with
+                        | StoreIndirect _ _ => False
+                        | _ => True
+                        end) (firstn 29 program_instrs)).
+    { vm_compute. repeat constructor. }
+    assert (Hlen : length prefix = 29) by (subst prefix; exact Hlen_raw).
+    assert (Hforall :
+              Forall (fun instr =>
+                        match instr with
+                        | StoreIndirect _ _ => False
+                        | _ => True
+                        end) prefix) by (subst prefix; exact Hforall_raw).
+    assert (Hnth : nth pc program_instrs Halt = nth pc prefix Halt).
+    { subst prefix.
+      rewrite <- firstn_skipn with (n := 29) (l := program_instrs).
+      rewrite List.app_nth1 by (rewrite Hlen_raw; lia).
+      reflexivity.
+    }
+    rewrite Hnth.
+    pose proof (proj1 (Forall_forall (A:=Instr)
+                                      (fun instr =>
+                                         match instr with
+                                         | StoreIndirect _ _ => False
+                                         | _ => True
+                                         end)
+                                      prefix) Hforall) as Hforall'.
+    apply Hforall'.
+    apply nth_In.
+    rewrite Hlen.
+    exact Hpc.
+  Qed.
+
+  Lemma program_instrs_before_apply_jump_target_lt :
+    forall pc,
+      pc < 29 ->
+      match nth pc program_instrs Halt with
+      | Jz _ target => target < 29
+      | Jnz _ target => target < 29
+      | _ => True
+      end.
+  Proof.
+    intros pc Hpc.
+    set (prefix := firstn 29 program_instrs).
+    assert (Hlen_raw : length (firstn 29 program_instrs) = 29) by (vm_compute; reflexivity).
+    assert (Hlen : length prefix = 29) by (subst prefix; exact Hlen_raw).
+    assert (Hforall_raw :
+              Forall (fun instr =>
+                        match instr with
+                        | Jz _ target => target < 29
+                        | Jnz _ target => target < 29
+                        | _ => True
+                        end) (firstn 29 program_instrs)).
+    { vm_compute. repeat constructor; try lia. }
+    assert (Hforall :
+              Forall (fun instr =>
+                        match instr with
+                        | Jz _ target => target < 29
+                        | Jnz _ target => target < 29
+                        | _ => True
+                        end) prefix) by (subst prefix; exact Hforall_raw).
+    assert (Hnth : nth pc program_instrs Halt = nth pc prefix Halt).
+    { subst prefix.
+      rewrite <- firstn_skipn with (n := 29) (l := program_instrs).
+      rewrite List.app_nth1 by (rewrite Hlen_raw; lia).
+      reflexivity.
+    }
+    rewrite Hnth.
+    pose proof (proj1 (Forall_forall (A:=Instr)
+                                      (fun instr =>
+                                         match instr with
+                                         | Jz _ target => target < 29
+                                         | Jnz _ target => target < 29
+                                         | _ => True
+                                         end)
+                                      prefix) Hforall) as Hforall'.
+    apply Hforall'.
+    apply nth_In.
+    rewrite Hlen.
+    exact Hpc.
+  Qed.
+
+  Lemma program_instrs_pc29 :
+    nth 29 program_instrs Halt = CopyReg REG_TEMP1 REG_HEAD.
+  Proof. reflexivity. Qed.
+
+  Lemma program_instrs_before_apply_pc_unchanged :
+    forall pc,
+      pc < 29 ->
+      match nth pc program_instrs Halt with
+      | Jz _ _ => True
+      | Jnz _ _ => True
+      | instr => CPU.pc_unchanged instr
+      end.
+  Proof.
+    intros pc Hpc.
+    set (prefix := firstn 29 program_instrs).
+    assert (Hlen_raw : length (firstn 29 program_instrs) = 29) by (vm_compute; reflexivity).
+    assert (Hlen : length prefix = 29) by (subst prefix; exact Hlen_raw).
+    assert (Hforall_raw :
+              Forall (fun instr =>
+                        match instr with
+                        | LoadConst rd val => CPU.pc_unchanged (LoadConst rd val)
+                        | LoadIndirect rd ra => CPU.pc_unchanged (LoadIndirect rd ra)
+                        | StoreIndirect ra rv => CPU.pc_unchanged (StoreIndirect ra rv)
+                        | CopyReg rd rs => CPU.pc_unchanged (CopyReg rd rs)
+                        | AddConst rd val => CPU.pc_unchanged (AddConst rd val)
+                        | AddReg rd rs1 rs2 => CPU.pc_unchanged (AddReg rd rs1 rs2)
+                        | SubReg rd rs1 rs2 => CPU.pc_unchanged (SubReg rd rs1 rs2)
+                        | Jz _ _ => True
+                        | Jnz _ _ => True
+                        | Halt => CPU.pc_unchanged Halt
+                        end) (firstn 29 program_instrs)).
+    { vm_compute. repeat constructor; try discriminate; try lia. }
+    assert (Hforall :
+              Forall (fun instr =>
+                        match instr with
+                        | LoadConst rd val => CPU.pc_unchanged (LoadConst rd val)
+                        | LoadIndirect rd ra => CPU.pc_unchanged (LoadIndirect rd ra)
+                        | StoreIndirect ra rv => CPU.pc_unchanged (StoreIndirect ra rv)
+                        | CopyReg rd rs => CPU.pc_unchanged (CopyReg rd rs)
+                        | AddConst rd val => CPU.pc_unchanged (AddConst rd val)
+                        | AddReg rd rs1 rs2 => CPU.pc_unchanged (AddReg rd rs1 rs2)
+                        | SubReg rd rs1 rs2 => CPU.pc_unchanged (SubReg rd rs1 rs2)
+                        | Jz _ _ => True
+                        | Jnz _ _ => True
+                        | Halt => CPU.pc_unchanged Halt
+                        end) prefix) by (subst prefix; exact Hforall_raw).
+    assert (Hnth : nth pc program_instrs Halt = nth pc prefix Halt).
+    { subst prefix.
+      rewrite <- firstn_skipn with (n := 29) (l := program_instrs).
+      rewrite List.app_nth1 by (rewrite Hlen_raw; lia).
+      reflexivity. }
+    rewrite Hnth.
+    pose proof (proj1 (Forall_forall (A:=Instr)
+                                      (fun instr =>
+                                         match instr with
+                                         | LoadConst rd val => CPU.pc_unchanged (LoadConst rd val)
+                                         | LoadIndirect rd ra => CPU.pc_unchanged (LoadIndirect rd ra)
+                                         | StoreIndirect ra rv => CPU.pc_unchanged (StoreIndirect ra rv)
+                                         | CopyReg rd rs => CPU.pc_unchanged (CopyReg rd rs)
+                                         | AddConst rd val => CPU.pc_unchanged (AddConst rd val)
+                                         | AddReg rd rs1 rs2 => CPU.pc_unchanged (AddReg rd rs1 rs2)
+                                         | SubReg rd rs1 rs2 => CPU.pc_unchanged (SubReg rd rs1 rs2)
+                                         | Jz _ _ => True
+                                         | Jnz _ _ => True
+                                         | Halt => CPU.pc_unchanged Halt
+                                         end)
+                                      prefix) Hforall) as Hforall'.
+    apply Hforall'.
+    apply nth_In.
+    rewrite Hlen.
+    exact Hpc.
+  Qed.
+
+  Lemma program_instrs_monotonic_after_apply : forall pc,
+    29 <= pc < 48 ->
+    match nth pc program_instrs Halt with
+    | Jz _ target => 29 <= target
+    | Jnz _ target => 29 <= target
+    | instr => CPU.pc_unchanged instr
+    end.
+  Proof.
+    intros pc Hpc.
+    destruct pc; try lia.
+    (* pc >= 29 *)
+    do 29 (destruct pc; try lia).
+    (* now pc = 29 + n for n=0 to 18 *)
+    (* 29: CopyReg *)
+    simpl. unfold CPU.pc_unchanged. simpl. intros H; discriminate.
+    (* 30: LoadConst *)
+    destruct pc; try lia.
+    simpl. unfold CPU.pc_unchanged. simpl. intros H; discriminate.
+    (* 31: AddReg *)
+    destruct pc; try lia.
+    simpl. unfold CPU.pc_unchanged. simpl. intros H; discriminate.
+    (* 32: StoreIndirect *)
+    destruct pc; try lia.
+    simpl. unfold CPU.pc_unchanged. simpl. exact I.
+    (* 33: CopyReg *)
+    destruct pc; try lia.
+    simpl. unfold CPU.pc_unchanged. simpl. intros H; discriminate.
+    (* 34: Jnz to 38 *)
+    destruct pc; try lia.
+    simpl. lia.
+    (* 35: LoadConst *)
+    destruct pc; try lia.
+    simpl. unfold CPU.pc_unchanged. simpl. intros H; discriminate.
+    (* 36: SubReg *)
+    destruct pc; try lia.
+    simpl. unfold CPU.pc_unchanged. simpl. intros H; discriminate.
+    (* 37: Jnz to 46 *)
+    destruct pc; try lia.
+    simpl. lia.
+    (* 38: LoadConst *)
+    destruct pc; try lia.
+    simpl. unfold CPU.pc_unchanged. simpl. intros H; discriminate.
+    (* 39: SubReg *)
+    destruct pc; try lia.
+    simpl. unfold CPU.pc_unchanged. simpl. intros H; discriminate.
+    (* 40: Jnz to 43 *)
+    destruct pc; try lia.
+    simpl. lia.
+    (* 41: LoadConst *)
+    destruct pc; try lia.
+    simpl. unfold CPU.pc_unchanged. simpl. intros H; discriminate.
+    (* 42: Jnz to 46 *)
+    destruct pc; try lia.
+    simpl. lia.
+    (* 43: LoadConst *)
+    destruct pc; try lia.
+    simpl. unfold CPU.pc_unchanged. simpl. intros H; discriminate.
+    (* 44: AddReg *)
+    destruct pc; try lia.
+    simpl. unfold CPU.pc_unchanged. simpl. intros H; discriminate.
+    (* 45: Jnz to 46 *)
+    destruct pc; try lia.
+    simpl. lia.
+    (* 46: CopyReg *)
+    destruct pc; try lia.
+    simpl. unfold CPU.pc_unchanged. simpl. intros H; discriminate.
+    (* 47: LoadConst *)
+    destruct pc; try lia.
+    simpl. unfold CPU.pc_unchanged. simpl. intros H; discriminate.
+    (* pc = 48 would be next, but <48 *)
+  Qed.
 
 End UTM_Program.
