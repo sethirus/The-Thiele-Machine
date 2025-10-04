@@ -184,6 +184,58 @@ Module UTM_Program.
     nth 29 program_instrs Halt = CopyReg REG_TEMP1 REG_HEAD.
   Proof. reflexivity. Qed.
 
+  Lemma program_instrs_pc7 :
+    nth 7 program_instrs Halt = Jz REG_TEMP1 12.
+  Proof. reflexivity. Qed.
+
+  Lemma program_instrs_pc9 :
+    nth 9 program_instrs Halt = Jnz REG_TEMP1 4.
+  Proof. reflexivity. Qed.
+
+  Lemma program_instrs_pc11 :
+    nth 11 program_instrs Halt = Jnz REG_TEMP1 0.
+  Proof. reflexivity. Qed.
+
+  Lemma program_instrs_pc17 :
+    nth 17 program_instrs Halt = Jz REG_TEMP1 22.
+  Proof. reflexivity. Qed.
+
+  Lemma program_instrs_pc20 :
+    nth 20 program_instrs Halt = Jnz REG_TEMP1 4.
+  Proof. reflexivity. Qed.
+
+  Lemma program_instrs_pc21 :
+    nth 21 program_instrs Halt = LoadConst REG_TEMP1 0.
+  Proof. reflexivity. Qed.
+
+  Lemma program_instrs_pc22 :
+    nth 22 program_instrs Halt = CopyReg REG_TEMP1 REG_ADDR.
+  Proof. reflexivity. Qed.
+
+  Lemma program_instrs_pc23 :
+    nth 23 program_instrs Halt = AddConst REG_TEMP1 2.
+  Proof. reflexivity. Qed.
+
+  Lemma program_instrs_pc24 :
+    nth 24 program_instrs Halt = LoadIndirect REG_Q' REG_TEMP1.
+  Proof. reflexivity. Qed.
+
+  Lemma program_instrs_pc25 :
+    nth 25 program_instrs Halt = AddConst REG_TEMP1 1.
+  Proof. reflexivity. Qed.
+
+  Lemma program_instrs_pc26 :
+    nth 26 program_instrs Halt = LoadIndirect REG_WRITE REG_TEMP1.
+  Proof. reflexivity. Qed.
+
+  Lemma program_instrs_pc27 :
+    nth 27 program_instrs Halt = AddConst REG_TEMP1 1.
+  Proof. reflexivity. Qed.
+
+  Lemma program_instrs_pc28 :
+    nth 28 program_instrs Halt = LoadIndirect REG_MOVE REG_TEMP1.
+  Proof. reflexivity. Qed.
+
   Lemma program_instrs_before_apply_pc_unchanged :
     forall pc,
       pc < 29 ->
