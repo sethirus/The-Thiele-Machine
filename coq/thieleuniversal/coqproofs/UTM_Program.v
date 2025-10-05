@@ -180,6 +180,83 @@ Module UTM_Program.
     exact Hpc.
   Qed.
 
+  Lemma program_instrs_before_apply_reg_bound :
+    forall pc,
+      pc < 29 ->
+      match nth pc program_instrs Halt with
+      | LoadConst rd _ => rd < 10
+      | LoadIndirect rd _ => rd < 10
+      | CopyReg rd _ => rd < 10
+      | AddConst rd _ => rd < 10
+      | AddReg rd _ _ => rd < 10
+      | SubReg rd _ _ => rd < 10
+      | Jz rc _ => rc < 10
+      | Jnz rc _ => rc < 10
+      | StoreIndirect _ _ => True
+      | Halt => True
+      end.
+  Proof.
+    intros pc Hpc.
+    set (prefix := firstn 29 program_instrs).
+    assert (Hlen_raw : length (firstn 29 program_instrs) = 29) by (vm_compute; reflexivity).
+    assert (Hlen : length prefix = 29) by (subst prefix; exact Hlen_raw).
+    assert (Hforall_raw :
+              Forall (fun instr =>
+                        match instr with
+                        | LoadConst rd _
+                        | LoadIndirect rd _
+                        | CopyReg rd _
+                        | AddConst rd _
+                        | AddReg rd _ _
+                        | SubReg rd _ _ => rd < 10
+                        | Jz rc _
+                        | Jnz rc _ => rc < 10
+                        | StoreIndirect _ _ => True
+                        | Halt => True
+                        end) (firstn 29 program_instrs)).
+    { vm_compute. repeat constructor; try lia. }
+    assert (Hforall :
+              Forall (fun instr =>
+                        match instr with
+                        | LoadConst rd _
+                        | LoadIndirect rd _
+                        | CopyReg rd _
+                        | AddConst rd _
+                        | AddReg rd _ _
+                        | SubReg rd _ _ => rd < 10
+                        | Jz rc _
+                        | Jnz rc _ => rc < 10
+                        | StoreIndirect _ _ => True
+                        | Halt => True
+                        end) prefix) by (subst prefix; exact Hforall_raw).
+    assert (Hnth : nth pc program_instrs Halt = nth pc prefix Halt).
+    { subst prefix.
+      rewrite <- firstn_skipn with (n := 29) (l := program_instrs).
+      rewrite List.app_nth1 by (rewrite Hlen_raw; lia).
+      reflexivity.
+    }
+    rewrite Hnth.
+    pose proof (proj1 (Forall_forall (A:=Instr)
+                                      (fun instr =>
+                                         match instr with
+                                         | LoadConst rd _
+                                         | LoadIndirect rd _
+                                         | CopyReg rd _
+                                         | AddConst rd _
+                                         | AddReg rd _ _
+                                         | SubReg rd _ _ => rd < 10
+                                         | Jz rc _
+                                         | Jnz rc _ => rc < 10
+                                         | StoreIndirect _ _ => True
+                                         | Halt => True
+                                         end)
+                                      prefix) Hforall) as Hforall'.
+    apply Hforall'.
+    apply nth_In.
+    rewrite Hlen.
+    exact Hpc.
+  Qed.
+
   Lemma program_instrs_pc29 :
     nth 29 program_instrs Halt = CopyReg REG_TEMP1 REG_HEAD.
   Proof. reflexivity. Qed.
