@@ -1,4 +1,4 @@
-Require Import TM.
+Require Import ThieleUniversal.TM.
 Require Import CPU.
 Require Import List.
 Require Import Nat.

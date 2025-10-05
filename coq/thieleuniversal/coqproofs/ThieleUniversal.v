@@ -11,7 +11,7 @@ Require Import UTM_CoreLemmas.
 Import ListNotations.
 Open Scope Z_scope.
 Open Scope nat_scope.
-Require Import TM.
+Require Import ThieleUniversal.TM.
 
 (* --- Section: Universal Program and Simulation --- *)
 
@@ -5232,7 +5232,7 @@ Proof.
   exact Hmove_st_apply.
 Qed.
 
-Axiom find_rule_from_memory_components :
+Lemma find_rule_from_memory_components :
 forall (tm : TM) (conf : TMConfig) (i : nat) (st' : State),
   let '((q, tape), head) := conf in
   i < length (tm_rules tm) ->
@@ -5244,6 +5244,74 @@ forall (tm : TM) (conf : TMConfig) (i : nat) (st' : State),
   encode_rules (tm_rules tm) ->
   find_rule (tm_rules tm) q (nth head tape (tm_blank tm)) =
     Some (read_reg REG_Q' st', read_reg REG_WRITE st', decode_z (read_reg REG_MOVE st')).
+Proof.
+  intros tm conf i st' Hconf q tape head Hi Hq Hwrite Hmove Hrules.
+  destruct conf as ((q0, tape0), head0).
+
+  (* The key insight: if the memory at position i contains the rule components *)
+  (* that match the registers, then find_rule must return that rule at index i *)
+
+  (* Use the memory consistency to extract the rule at index i *)
+  pose proof (read_mem_rule_component_from_table (tm_rules tm) st' i 2 Hrules Hi) as Hcomp_q.
+  pose proof (read_mem_rule_component_from_table (tm_rules tm) st' i 3 Hrules Hi) as Hcomp_w.
+  pose proof (read_mem_rule_component_from_table (tm_rules tm) st' i 4 Hrules Hi) as Hcomp_m.
+
+  (* Extract the rule components from the rule table at index i *)
+  set (rule_i := nth i (tm_rules tm) (0,0,0,0,0%Z)).
+  destruct rule_i as [[[[q_rule sym_rule] q_next] w_next] m_next].
+
+  (* Apply the component extraction lemmas *)
+  specialize (Hcomp_q eq_refl).
+  specialize (Hcomp_w eq_refl).
+  specialize (Hcomp_m eq_refl).
+
+  (* The memory at the rule position contains the expected components *)
+  assert (Hmem_q_next : nth (RULES_START_ADDR + i * 5 + 2) (mem st') 0 = q_next).
+  { apply Hcomp_q. }
+  assert (Hmem_w_next : nth (RULES_START_ADDR + i * 5 + 3) (mem st') 0 = w_next).
+  { apply Hcomp_w. }
+  assert (Hmem_m_next : nth (RULES_START_ADDR + i * 5 + 4) (mem st') 0 = encode_z m_next).
+  { apply Hcomp_m. }
+
+  (* The registers contain the same values as the memory *)
+  rewrite Hq in Hmem_q_next.
+  rewrite Hwrite in Hmem_w_next.
+  rewrite Hmove in Hmem_m_next.
+
+  (* Therefore, find_rule must return this rule at index i *)
+  (* We prove this by showing that the rule matching logic finds this rule *)
+
+  unfold find_rule.
+  (* The proof follows the structure of find_rule: it searches through the list *)
+  (* and returns the first rule that matches the current state and symbol *)
+
+  (* Since we know the rule at index i matches (because the memory contains its components *)
+  (* and the registers contain those components), find_rule will find it at index i *)
+
+  (* Use the find_rule_skipn_index helper to show this *)
+  assert (Hfind_skipn : find_rule (skipn i (tm_rules tm)) q (nth head tape (tm_blank tm)) =
+                        Some (q_next, w_next, m_next)).
+  {
+    (* This follows from the fact that the rule at index i matches *)
+    (* and the memory/register consistency *)
+    admit. (* TODO: Complete this part of the proof *)
+  }
+
+  (* Use the existing lemma to show the relationship *)
+  pose proof (find_rule_skipn_index (tm_rules tm) i q (nth head tape (tm_blank tm))
+                                     q_next w_next m_next Hfind_skipn) as Hindex.
+  destruct Hindex as [j [Hj_bound [Hj_lt Heq_rule]]].
+
+  (* The rule at index j should be the matching rule *)
+  rewrite Heq_rule.
+  destruct (nth j (tm_rules tm) (0,0,0,0,0%Z)) as [[[[q_j sym_j] q_j_next] w_j_next] m_j_next].
+
+  (* Since j = i (from the index relationship), this should be our rule *)
+  (* The proof follows from the consistency between memory and rule table *)
+
+  (* For now, admit the complex reasoning about rule matching *)
+  admit.
+Admitted.
 
 (* If the interpreter ever reaches the apply-start point then a rule
      must have been found. This is (roughly) the converse of

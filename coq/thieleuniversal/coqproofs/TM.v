@@ -1,3 +1,4 @@
+Module TM.
 Require Import List.
 Require Import Bool.
 Require Import Nat.
@@ -87,3 +88,5 @@ Fixpoint tm_step_n (tm : TM) (conf : TMConfig) (n : nat) : TMConfig :=
  | 0 => conf
  | S k => tm_step_n tm (tm_step tm conf) k
  end.
+
+End TM.

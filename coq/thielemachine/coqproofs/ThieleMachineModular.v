@@ -241,11 +241,11 @@ Inductive SolverResult : Type :=
 Parameter check_smt : string -> SolverResult.
 
 (* Constants for certificate fields *)
-Definition checking_reply := "checking...".
-Definition policy_check_meta := "policy_check".
-Definition mdlacc_meta := "mdlacc".
-Definition empty_query := "".
-Definition empty_reply := "{}".
+Definition checking_reply : string := "checking..."%string.
+Definition policy_check_meta : string := "policy_check"%string.
+Definition mdlacc_meta : string := "mdlacc"%string.
+Definition empty_query : string := ""%string.
+Definition empty_reply : string := "{}"%string.
 
 (* Concrete step observation *)
 Record ConcreteObs := {
@@ -261,7 +261,7 @@ Inductive concrete_step : list ThieleInstr -> ConcreteState -> ConcreteState -> 
       c.(smt_query) = query /\
       c.(solver_reply) = reply /\
       c.(metadata) = meta /\
-      c.(timestamp) = 0 /\
+      c.(timestamp) = 0%Z /\
       c.(sequence) = 0 ->
       (* Exact μ-cost calculation matching concrete_bitsize *)
       let query_bytes := String.length query in
@@ -281,7 +281,7 @@ Inductive concrete_step : list ThieleInstr -> ConcreteState -> ConcreteState -> 
         smt_query := empty_query;
         solver_reply := empty_reply;
         metadata := mdlacc_meta;
-        timestamp := 0;
+        timestamp := 0%Z;
         sequence := 0
       |} in
       (* Exact μ-cost calculation matching concrete_bitsize *)
@@ -301,9 +301,9 @@ Definition concrete_check_step (P:list ThieleInstr) (spre:ConcreteState) (spost:
                                     (oev:option ThieleEvent) (c:ConcreteCert) : bool :=
    match oev with
    | None => andb (andb (String.eqb c.(smt_query) empty_query) (String.eqb c.(solver_reply) empty_reply))
-                   (andb (String.eqb c.(metadata) mdlacc_meta) (andb (Z.eqb c.(timestamp) 0) (Nat.eqb c.(sequence) 0)))
+                   (andb (String.eqb c.(metadata) mdlacc_meta) (andb (Z.eqb c.(timestamp) 0%Z) (Nat.eqb c.(sequence) 0)))
    | Some (PolicyCheck q) => andb (andb (String.eqb c.(smt_query) q) (String.eqb c.(solver_reply) checking_reply))
-                                   (andb (String.eqb c.(metadata) policy_check_meta) (andb (Z.eqb c.(timestamp) 0) (Nat.eqb c.(sequence) 0)))
+                                   (andb (String.eqb c.(metadata) policy_check_meta) (andb (Z.eqb c.(timestamp) 0%Z) (Nat.eqb c.(sequence) 0)))
    | _ => false
    end.
 
@@ -380,17 +380,19 @@ Theorem concrete_check_step_sound :
     concrete_check_step P s s' oev c = true.
 Proof.
   intros P s s' oev c mu Hstep.
-  inversion Hstep; subst; simpl.
+  (* Destructure the certificate record to make its fields explicit, so boolean
+     comparisons reduce cleanly. *)
+  destruct c as [q r m ts seq].
+  inversion Hstep; subst; clear Hstep.
   - (* LASSERT case *)
-    unfold concrete_check_step.
-    simpl.
-    rewrite String.eqb_refl.
-    simpl.
-    reflexivity.
+    destruct H as [Hq [Hr [Hm [Hts Hseq]]]].
+    unfold concrete_check_step; simpl.
+    (* Substitute equalities from the constructor witness then simplify. *)
+    rewrite Hq, Hr, Hm, Hts, Hseq.
+    simpl; reflexivity.
   - (* MDLACC case *)
-    unfold concrete_check_step.
-    simpl.
-    reflexivity.
+    unfold concrete_check_step; simpl.
+    simpl; reflexivity.
 Qed.
 
 (* Proof that μ-cost covers certificate size *)
@@ -427,7 +429,7 @@ Proof.
       destruct (String.eqb q c.(smt_query)) eqn:Heqb_query; [| discriminate].
       destruct (String.eqb c.(solver_reply) checking_reply) eqn:Heqb_reply; [| discriminate].
       destruct (String.eqb c.(metadata) policy_check_meta) eqn:Heqb_meta; [| discriminate].
-      destruct (Z.eqb c.(timestamp) 0) eqn:Heqb_timestamp; [| discriminate].
+      destruct (Z.eqb c.(timestamp) 0%Z) eqn:Heqb_timestamp; [| discriminate].
       destruct (Nat.eqb c.(sequence) 0) eqn:Heqb_sequence; [| discriminate].
       (* Get the equalities *)
       apply String.eqb_eq in Heqb_query.
@@ -465,7 +467,7 @@ Proof.
     destruct (String.eqb c.(smt_query) empty_query) eqn:?; [| discriminate].
     destruct (String.eqb c.(solver_reply) empty_reply) eqn:?; [| discriminate].
     destruct (String.eqb c.(metadata) mdlacc_meta) eqn:?; [| discriminate].
-    destruct (Z.eqb c.(timestamp) 0) eqn:?; [| discriminate].
+    destruct (Z.eqb c.(timestamp) 0%Z) eqn:?; [| discriminate].
     destruct (Nat.eqb c.(sequence) 0) eqn:?; [| discriminate].
     (* Construct obs *)
     set (cert := c).

@@ -1,7 +1,7 @@
 Require Import List.
 Require Import Nat.
 Require Import ZArith.
-Require Import TM.
+Require Import ThieleUniversal.TM.
 Import ListNotations.
 Open Scope Z_scope.
 Open Scope nat_scope.
