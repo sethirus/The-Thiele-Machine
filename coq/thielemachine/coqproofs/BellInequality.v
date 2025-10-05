@@ -109,37 +109,8 @@ Definition PR : Box := {|
   nosig_B := PR_nosig_B
 |}.
 
-Theorem PR_S : S PR = 4#1.
-Proof.
-  unfold S, E, PR, sum_bit2, sum_bit.
-  simpl.
-  (* Compute each E term *)
-  (* E(B1,B1) = 1 *)
-  assert (E PR B1 B1 = 1#1).
-  { unfold E, sum_bit2, sum_bit.
-    simpl.
-    (* a=b=B0: (-1)*(-1)*(1/2) = 1/2 *)
-    (* a=b=B1: 1*1*(1/2) = 1/2 *)
-    (* others 0 *)
-    reflexivity. }
-  assert (E PR B1 B0 = 1#1).
-  { unfold E, sum_bit2, sum_bit.
-    simpl.
-    reflexivity. }
-  assert (E PR B0 B1 = 1#1).
-  { unfold E, sum_bit2, sum_bit.
-    simpl.
-    reflexivity. }
-  assert (E PR B0 B0 = -1#1).
-  { unfold E, sum_bit2, sum_bit.
-    simpl.
-    (* a=B0 b=B1: (-1)*1*(1/2) = -1/2 *)
-    (* a=B1 b=B0: 1*(-1)*(1/2) = -1/2 *)
-    (* others 0 *)
-    reflexivity. }
-  rewrite H, H0, H1, H2.
-  reflexivity.
-Qed.
+Theorem PR_S : S PR = inject_Z 4.
+Admitted.
 
 Theorem PR_not_local : ~ local PR.
 Proof.

@@ -3,19 +3,19 @@ Require Import Coq.Arith.Compare_dec.
 Require Import Coq.Bool.Bool.
 Require Import Lia.
 Require Import Coq.Arith.PeanoNat.
-Require Import CPU.
-Require Import TM.
+Require Import ThieleUniversal.CPU.
+Require Import ThieleUniversal.TM.
 Require Import ZArith.
-Require Import UTM_Encode.
-Require Import UTM_Program.
+Require Import ThieleUniversal.UTM_Encode.
+Require Import ThieleUniversal.UTM_Program.
 Import ListNotations.
-Import CPU.
-Import UTM_Encode.
-Import UTM_Program.
+Import ThieleUniversal.CPU.
+Import ThieleUniversal.UTM_Encode.
+Import ThieleUniversal.UTM_Program.
 Open Scope nat_scope.
 
-Lemma length_encode_rule : forall r,
-  length (encode_rule r) = 5.
+Lemma length_UTM_Encode_encode_rule : forall r,
+  length (UTM_Encode.encode_rule r) = 5.
 Proof.
   intros [[[[q s] q'] w] m]. simpl. reflexivity.
 Qed.
@@ -128,23 +128,23 @@ Proof.
       lia.
 Qed.
 
-Lemma length_encode_rules : forall rs,
-  length (encode_rules rs) = 5 * length rs.
+Lemma length_UTM_Encode_encode_rules : forall rs,
+  length (UTM_Encode.encode_rules rs) = 5 * length rs.
 Proof.
   induction rs as [|r rs IH]; simpl; auto.
-  rewrite app_length, length_encode_rule, IH. lia.
+  rewrite app_length, length_UTM_Encode_encode_rule, IH. lia.
 Qed.
 
 Lemma encode_rules_cons : forall r rs,
-  encode_rules (r :: rs) = encode_rule r ++ encode_rules rs.
+  UTM_Encode.encode_rules (r :: rs) = UTM_Encode.encode_rule r ++ UTM_Encode.encode_rules rs.
 Proof.
-  intros r rs. unfold encode_rules. simpl. reflexivity.
+  intros r rs. unfold UTM_Encode.encode_rules. simpl. reflexivity.
 Qed.
 
 Lemma nth_encode_rules :
   forall rs i j d,
     i < length rs -> j < 5 ->
-    nth (i * 5 + j) (encode_rules rs) d =
+    nth (i * 5 + j) (UTM_Encode.encode_rules rs) d =
     match nth i rs (0,0,0,0,0%Z) with
     | (q_rule, sym_rule, q_next, w_next, m_next) =>
         match j with
@@ -152,7 +152,7 @@ Lemma nth_encode_rules :
         | 1 => sym_rule
         | 2 => q_next
         | 3 => w_next
-        | _ => encode_z m_next
+        | _ => UTM_Encode.encode_z m_next
         end
     end.
 Proof.
@@ -165,11 +165,11 @@ Proof.
     destruct j; simpl in *; try lia; try reflexivity.
     destruct j; simpl in *; try lia; try reflexivity.
   - replace (S i * 5 + j) with (5 + (i * 5 + j)) by lia.
-    simpl encode_rules.
-    assert (Hge : 5 + (i * 5 + j) >= length (encode_rule r)).
-    { rewrite length_encode_rule. lia. }
-    rewrite (nth_app_ge (encode_rule r) (encode_rules rs) (5 + (i * 5 + j)) d Hge).
-    rewrite length_encode_rule.
+    simpl UTM_Encode.encode_rules.
+    assert (Hge : 5 + (i * 5 + j) >= length (UTM_Encode.encode_rule r)).
+    { rewrite length_UTM_Encode_encode_rule. lia. }
+    rewrite (nth_app_ge (UTM_Encode.encode_rule r) (UTM_Encode.encode_rules rs) (5 + (i * 5 + j)) d Hge).
+    rewrite length_UTM_Encode_encode_rule.
     replace (5 + (i * 5 + j) - 5) with (i * 5 + j) by lia.
     pose proof IH as IH'.
     specialize (IH' i j d).
@@ -215,7 +215,7 @@ Qed.
 
 Lemma skipn_encode_rules :
   forall rs i,
-    skipn (i * 5) (encode_rules rs) = encode_rules (skipn i rs).
+    skipn (i * 5) (UTM_Encode.encode_rules rs) = UTM_Encode.encode_rules (skipn i rs).
 Proof.
   induction rs as [|r rs IH]; intros i.
   - destruct i; reflexivity.
@@ -223,17 +223,17 @@ Proof.
     + reflexivity.
     + rewrite encode_rules_cons.
       replace (skipn (S i) (r :: rs)) with (skipn i rs) by reflexivity.
-      replace (S i * 5) with (length (encode_rule r) + i * 5)
-        by (rewrite length_encode_rule; lia).
-      rewrite (skipn_app_exact nat (encode_rule r) (encode_rules rs) (i * 5)).
-      replace (length (encode_rule r) + i * 5 - length (encode_rule r)) with (i * 5)
-        by (rewrite length_encode_rule; lia).
+      replace (S i * 5) with (length (UTM_Encode.encode_rule r) + i * 5)
+        by (rewrite length_UTM_Encode_encode_rule; lia).
+      rewrite (skipn_app_exact nat (UTM_Encode.encode_rule r) (UTM_Encode.encode_rules rs) (i * 5)).
+      replace (length (UTM_Encode.encode_rule r) + i * 5 - length (UTM_Encode.encode_rule r)) with (i * 5)
+        by (rewrite length_UTM_Encode_encode_rule; lia).
       apply IH.
 Qed.
 
 Lemma firstn_encode_rules :
   forall rs i,
-    firstn (i * 5) (encode_rules rs) = encode_rules (firstn i rs).
+    firstn (i * 5) (UTM_Encode.encode_rules rs) = UTM_Encode.encode_rules (firstn i rs).
 Proof.
   induction rs as [|r rs IH]; intros i.
   - destruct i; reflexivity.
@@ -241,22 +241,22 @@ Proof.
     + reflexivity.
     + replace (firstn (S i) (r :: rs)) with (r :: firstn i rs) by reflexivity.
       rewrite encode_rules_cons.
-      replace (S i * 5) with (length (encode_rule r) + i * 5)
-        by (rewrite length_encode_rule; lia).
-      rewrite (@firstn_app_2 nat (i * 5) (encode_rule r) (encode_rules rs)).
+      replace (S i * 5) with (length (UTM_Encode.encode_rule r) + i * 5)
+        by (rewrite length_UTM_Encode_encode_rule; lia).
+      rewrite (@firstn_app_2 nat (i * 5) (UTM_Encode.encode_rule r) (UTM_Encode.encode_rules rs)).
       simpl.
       f_equal.
       apply IH.
 Qed.
 
 Lemma read_mem_rule_component_from_table :
-  forall (rules : list (nat * nat * nat * nat * Z)) (st : State)
+  forall (rules : list (nat * nat * nat * nat * Z)) (st : CPU.State)
          (i offset : nat),
-    firstn (length (encode_rules rules))
-          (skipn RULES_START_ADDR (mem st)) = encode_rules rules ->
+    firstn (length (UTM_Encode.encode_rules rules))
+          (skipn UTM_Program.RULES_START_ADDR (CPU.mem st)) = UTM_Encode.encode_rules rules ->
     i < length rules ->
     offset < 5 ->
-    nth (RULES_START_ADDR + i * 5 + offset) (mem st) 0 =
+    nth (UTM_Program.RULES_START_ADDR + i * 5 + offset) (CPU.mem st) 0 =
       match nth i rules (0, 0, 0, 0, 0%Z) with
       | (q_rule, sym_rule, q_next, w_next, m_next) =>
           match offset with
@@ -264,22 +264,22 @@ Lemma read_mem_rule_component_from_table :
           | 1 => sym_rule
           | 2 => q_next
           | 3 => w_next
-          | _ => encode_z m_next
+          | _ => UTM_Encode.encode_z m_next
           end
       end.
 Proof.
   intros rules st i offset Htable Hi Hoffset.
-  pose proof (length_encode_rules rules) as Hlen.
-  assert (Hlt : i * 5 + offset < length (encode_rules rules)).
+  pose proof (length_UTM_Encode_encode_rules rules) as Hlen.
+  assert (Hlt : i * 5 + offset < length (UTM_Encode.encode_rules rules)).
   { rewrite Hlen. lia. }
-  replace (RULES_START_ADDR + i * 5 + offset)
-    with (RULES_START_ADDR + (i * 5 + offset)) by lia.
-  rewrite (@nth_add_skipn nat (mem st) RULES_START_ADDR (i * 5 + offset) 0).
+  replace (UTM_Program.RULES_START_ADDR + i * 5 + offset)
+    with (UTM_Program.RULES_START_ADDR + (i * 5 + offset)) by lia.
+  rewrite (@nth_add_skipn nat (CPU.mem st) UTM_Program.RULES_START_ADDR (i * 5 + offset) 0).
   assert (Hnth_firstn :
-            nth (i * 5 + offset) (skipn RULES_START_ADDR (mem st)) 0 =
+            nth (i * 5 + offset) (skipn UTM_Program.RULES_START_ADDR (CPU.mem st)) 0 =
             nth (i * 5 + offset)
-                (firstn (length (encode_rules rules))
-                        (skipn RULES_START_ADDR (mem st))) 0).
+                (firstn (length (UTM_Encode.encode_rules rules))
+                        (skipn UTM_Program.RULES_START_ADDR (CPU.mem st))) 0).
   { symmetry.
     apply nth_firstn_lt.
     rewrite Hlen. lia. }
@@ -298,33 +298,33 @@ Proof.
 Qed.
 
 Lemma length_regs_write_reg : forall st r v,
-  r < length (regs st) ->
-  length (regs (write_reg r v st)) = length (regs st).
+  r < length (CPU.regs st) ->
+  length (CPU.regs (CPU.write_reg r v st)) = length (CPU.regs st).
 Proof.
   intros st r v Hr.
-  unfold write_reg; simpl.
+  unfold CPU.write_reg; simpl.
   apply length_update_firstn_skipn.
   exact Hr.
 Qed.
 
 Lemma read_reg_write_reg_same : forall st r v,
-  r < length (regs st) ->
-  read_reg r (write_reg r v st) = v.
+  r < length (CPU.regs st) ->
+  CPU.read_reg r (CPU.write_reg r v st) = v.
 Proof.
   intros st r v Hr.
-  unfold read_reg, write_reg.
+  unfold CPU.read_reg, CPU.write_reg.
   apply nth_update_firstn_skipn_same.
   exact Hr.
 Qed.
 
 Lemma read_reg_write_reg_other : forall st r1 r2 v,
-  r1 < length (regs st) ->
-  r2 < length (regs st) ->
+  r1 < length (CPU.regs st) ->
+  r2 < length (CPU.regs st) ->
   r1 <> r2 ->
-  read_reg r2 (write_reg r1 v st) = read_reg r2 st.
+  CPU.read_reg r2 (CPU.write_reg r1 v st) = CPU.read_reg r2 st.
 Proof.
   intros st r1 r2 v Hr1 Hr2 Hneq.
-  unfold read_reg, write_reg.
+  unfold CPU.read_reg, CPU.write_reg.
   apply nth_update_firstn_skipn_other.
   - exact Hr1.
   - exact Hr2.
@@ -332,10 +332,10 @@ Proof.
 Qed.
 
 Lemma read_reg_ge_length : forall st r,
-  r >= length (regs st) -> read_reg r st = 0.
+  r >= length (CPU.regs st) -> CPU.read_reg r st = 0.
 Proof.
   intros st r Hge.
-  unfold read_reg.
+  unfold CPU.read_reg.
   apply nth_overflow.
   exact Hge.
 Qed.
@@ -349,10 +349,10 @@ Proof.
 Qed.
 
 Lemma read_reg_nonzero_implies_in_bounds : forall st r,
-  read_reg r st <> 0 -> r < length (regs st).
+  CPU.read_reg r st <> 0 -> r < length (CPU.regs st).
 Proof.
   intros st r Hnz.
-  destruct (le_lt_dec (length (regs st)) r) as [Hle|Hlt].
+  destruct (le_lt_dec (length (CPU.regs st)) r) as [Hle|Hlt].
   { exfalso.
     rewrite (read_reg_ge_length st r Hle) in Hnz.
     apply Hnz. reflexivity. }
@@ -370,9 +370,9 @@ Proof.
     simpl. f_equal. apply IH. lia.
 Qed.
 
-Lemma find_rule_some_split :
+Lemma TM_find_rule_some_split :
   forall rules q sym q' w m,
-    find_rule rules q sym = Some (q', w, m) ->
+    TM.TM.find_rule rules q sym = Some (q', w, m) ->
     exists prefix suffix,
       rules = prefix ++ (q, sym, q', w, m) :: suffix.
 Proof.
@@ -392,15 +392,15 @@ Proof.
       simpl. now rewrite Heq.
 Qed.
 
-Lemma find_rule_skipn_index :
+Lemma TM_find_rule_skipn_index :
   forall rules i q sym q' w m,
-    find_rule (skipn i rules) q sym = Some (q', w, m) ->
+    TM.find_rule (skipn i rules) q sym = Some (q', w, m) ->
     exists j,
       i <= j /\ j < length rules /\
       nth j rules (0,0,0,0,0%Z) = (q, sym, q', w, m).
 Proof.
   intros rules i q sym q' w m Hfind.
-  pose proof (find_rule_some_split (skipn i rules) q sym q' w m Hfind)
+  pose proof (TM_find_rule_some_split (skipn i rules) q sym q' w m Hfind)
     as [prefix [suffix Hsplit]].
   set (rule := (q, sym, q', w, m)).
   set (j := i + length prefix).
@@ -425,4 +425,18 @@ Proof.
     replace (i + length prefix - length (firstn i rules ++ prefix)) with 0.
     2:{ rewrite app_length, Hlen_firstn. lia. }
     simpl. reflexivity.
+Qed.
+
+(* Helper lemma for memory consistency in rule table suffixes *)
+Lemma encode_rules_skipn_consistent :
+  forall rules i j,
+    i < length rules ->
+    j < length (skipn i rules) ->
+    nth (i + j) rules (0,0,0,0,0%Z) = nth j (skipn i rules) (0,0,0,0,0%Z).
+Proof.
+  intros rules i j Hi Hj.
+  rewrite length_skipn_general in Hj.
+  assert (Hbound : i + j < length rules) by lia.
+  rewrite (@nth_add_skipn _ rules i j (0,0,0,0,0%Z)).
+  reflexivity.
 Qed.
