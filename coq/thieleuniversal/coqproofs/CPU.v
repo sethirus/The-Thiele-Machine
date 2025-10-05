@@ -34,23 +34,38 @@ Module CPU.
     | Jnz (rc target : nat)
     | Halt.
 
-  (* Machine state: register file and memory. *)
-  Record State := { regs : list nat; mem : list nat }.
+  (* Machine state: register file, memory, and cost. *)
+  Record State := { regs : list nat; mem : list nat; cost : nat }.
 
   (* Register and memory helpers. *)
   Definition read_reg (r : nat) (st : State) : nat := nth r st.(regs) 0.
   Definition write_reg (r v : nat) (st : State) : State :=
-    {| regs := firstn r st.(regs) ++ [v] ++ skipn (S r) st.(regs); mem := st.(mem) |}.
+    {| regs := firstn r st.(regs) ++ [v] ++ skipn (S r) st.(regs); mem := st.(mem); cost := st.(cost) |}.
 
   Definition read_mem (addr : nat) (st : State) : nat := nth addr st.(mem) 0.
   Definition write_mem (addr v : nat) (st : State) : State :=
-    {| regs := st.(regs); mem := firstn addr st.(mem) ++ [v] ++ skipn (S addr) st.(mem) |}.
+    {| regs := st.(regs); mem := firstn addr st.(mem) ++ [v] ++ skipn (S addr) st.(mem); cost := st.(cost) |}.
+
+  (* Cost model: each instruction has a cost in µ-bits. *)
+  Definition instr_cost (i : Instr) : nat :=
+    match i with
+    | LoadConst _ _ => 1
+    | LoadIndirect _ _ => 2
+    | StoreIndirect _ _ => 5  (* Higher cost for complex checks *)
+    | CopyReg _ _ => 1
+    | AddConst _ _ => 1
+    | AddReg _ _ _ => 1
+    | SubReg _ _ _ => 1
+    | Jz _ _ => 1
+    | Jnz _ _ => 1
+    | Halt => 1
+    end.
 
   (* Single instruction execution. *)
   Definition step (i : Instr) (st : State) : State :=
     let pc := read_reg REG_PC st in
     let st' := write_reg REG_PC (S pc) st in
-    match i with
+    let st'' := match i with
     | LoadConst rd v    => write_reg rd v st'
     | LoadIndirect rd ra  => write_reg rd (read_mem (read_reg ra st) st) st'
     | StoreIndirect ra rv => write_mem (read_reg ra st) (read_reg rv st) st'
@@ -61,7 +76,8 @@ Module CPU.
     | Jz rc target      => if Nat.eqb (read_reg rc st) 0 then write_reg REG_PC target st else st'
     | Jnz rc target     => if Nat.eqb (read_reg rc st) 0 then st' else write_reg REG_PC target st
     | Halt              => st
-    end.
+    end in
+    {| regs := st''.(regs); mem := st''.(mem); cost := st''.(cost) + instr_cost i |}.
 
   (* --- Basic register lemmas for reasoning about the program counter --- *)
 
@@ -101,29 +117,39 @@ Module CPU.
     read_reg REG_PC (step i st) = S (read_reg REG_PC st).
   Proof.
     intros i st Hun.
-    destruct i as
-      [rd v | rd ra | ra rv | rd rs | rd v | rd r1 r2 | rd r1 r2 | rc target | rc target |];
-      simpl in Hun; try contradiction;
-      unfold step; remember (read_reg REG_PC st) as pc; simpl.
-    - assert (regs (write_reg REG_PC (S pc) st) <> []) as Hregs by (unfold write_reg; simpl; discriminate).
-      rewrite read_pc_write_nonpc with (st:=write_reg REG_PC (S pc) st) (rd:=rd) (v:=v); [|assumption|exact Hregs].
+    destruct i as [rd_load v_load | rd_loadindirect ra | ra_store rv | rd_copy rs | rd_add v_add | rd_addreg r1 r2 | rd_sub r1 r2 | rc_jz target_jz | rc_jnz target_jnz | ];
+    simpl in Hun.
+    unfold step; simpl.
+    - (* LoadConst *) assert (regs (write_reg REG_PC (S (read_reg REG_PC st)) st) <> []) as Hregs by (unfold write_reg; simpl; discriminate).
+      apply eq_trans with (read_reg REG_PC (write_reg REG_PC (S (read_reg REG_PC st)) st)).
+      apply (read_pc_write_nonpc rd_load v_load (write_reg REG_PC (S (read_reg REG_PC st)) st) Hun Hregs).
       rewrite read_pc_write_pc. reflexivity.
-    - assert (regs (write_reg REG_PC (S pc) st) <> []) as Hregs by (unfold write_reg; simpl; discriminate).
-      rewrite read_pc_write_nonpc with (st:=write_reg REG_PC (S pc) st) (rd:=rd) (v:=read_mem (read_reg ra st) st); [|assumption|exact Hregs].
+    - (* LoadIndirect *) assert (regs (write_reg REG_PC (S (read_reg REG_PC st)) st) <> []) as Hregs by (unfold write_reg; simpl; discriminate).
+      apply eq_trans with (read_reg REG_PC (write_reg REG_PC (S (read_reg REG_PC st)) st)).
+      apply (read_pc_write_nonpc rd_loadindirect (read_mem (read_reg ra st) st) (write_reg REG_PC (S (read_reg REG_PC st)) st) Hun Hregs).
       rewrite read_pc_write_pc. reflexivity.
-    - rewrite read_pc_write_mem. rewrite read_pc_write_pc. reflexivity.
-    - assert (regs (write_reg REG_PC (S pc) st) <> []) as Hregs by (unfold write_reg; simpl; discriminate).
-      rewrite read_pc_write_nonpc with (st:=write_reg REG_PC (S pc) st) (rd:=rd) (v:=read_reg rs st); [|assumption|exact Hregs].
+    - (* StoreIndirect *) apply eq_trans with (read_reg REG_PC (write_reg REG_PC (S (read_reg REG_PC st)) st)).
+      apply (read_pc_write_mem (read_reg ra_store st) (read_reg rv st) (write_reg REG_PC (S (read_reg REG_PC st)) st)).
       rewrite read_pc_write_pc. reflexivity.
-    - assert (regs (write_reg REG_PC (S pc) st) <> []) as Hregs by (unfold write_reg; simpl; discriminate).
-      rewrite read_pc_write_nonpc with (st:=write_reg REG_PC (S pc) st) (rd:=rd) (v:=read_reg rd st + v); [|assumption|exact Hregs].
+    - (* CopyReg *) assert (regs (write_reg REG_PC (S (read_reg REG_PC st)) st) <> []) as Hregs by (unfold write_reg; simpl; discriminate).
+      apply eq_trans with (read_reg REG_PC (write_reg REG_PC (S (read_reg REG_PC st)) st)).
+      apply (read_pc_write_nonpc rd_copy (read_reg rs st) (write_reg REG_PC (S (read_reg REG_PC st)) st) Hun Hregs).
       rewrite read_pc_write_pc. reflexivity.
-    - assert (regs (write_reg REG_PC (S pc) st) <> []) as Hregs by (unfold write_reg; simpl; discriminate).
-      rewrite read_pc_write_nonpc with (st:=write_reg REG_PC (S pc) st) (rd:=rd) (v:=read_reg r1 st + read_reg r2 st); [|assumption|exact Hregs].
+    - (* AddConst *) assert (regs (write_reg REG_PC (S (read_reg REG_PC st)) st) <> []) as Hregs by (unfold write_reg; simpl; discriminate).
+      apply eq_trans with (read_reg REG_PC (write_reg REG_PC (S (read_reg REG_PC st)) st)).
+      apply (read_pc_write_nonpc rd_add (read_reg rd_add st + v_add) (write_reg REG_PC (S (read_reg REG_PC st)) st) Hun Hregs).
       rewrite read_pc_write_pc. reflexivity.
-    - assert (regs (write_reg REG_PC (S pc) st) <> []) as Hregs by (unfold write_reg; simpl; discriminate).
-      rewrite read_pc_write_nonpc with (st:=write_reg REG_PC (S pc) st) (rd:=rd) (v:=read_reg r1 st - read_reg r2 st); [|assumption|exact Hregs].
+    - (* AddReg *) assert (regs (write_reg REG_PC (S (read_reg REG_PC st)) st) <> []) as Hregs by (unfold write_reg; simpl; discriminate).
+      apply eq_trans with (read_reg REG_PC (write_reg REG_PC (S (read_reg REG_PC st)) st)).
+      apply (read_pc_write_nonpc rd_addreg (read_reg r1 st + read_reg r2 st) (write_reg REG_PC (S (read_reg REG_PC st)) st) Hun Hregs).
       rewrite read_pc_write_pc. reflexivity.
+    - (* SubReg *) assert (regs (write_reg REG_PC (S (read_reg REG_PC st)) st) <> []) as Hregs by (unfold write_reg; simpl; discriminate).
+      apply eq_trans with (read_reg REG_PC (write_reg REG_PC (S (read_reg REG_PC st)) st)).
+      apply (read_pc_write_nonpc rd_sub (read_reg r1 st - read_reg r2 st) (write_reg REG_PC (S (read_reg REG_PC st)) st) Hun Hregs).
+      rewrite read_pc_write_pc. reflexivity.
+    - (* Jz *) contradiction.
+    - (* Jnz *) contradiction.
+    - (* Halt *) contradiction.
   Qed.
 
   (* Helper lemmas for jump instructions *)
@@ -132,7 +158,7 @@ Module CPU.
     read_reg REG_PC (step (Jz rc target) st) = target.
   Proof.
     intros rc target st Heq.
-    unfold step. rewrite Heq. apply read_pc_write_pc.
+    unfold step. rewrite Heq. simpl. reflexivity.
   Qed.
 
   Lemma step_jz_false : forall rc target st,
@@ -140,7 +166,7 @@ Module CPU.
     read_reg REG_PC (step (Jz rc target) st) = S (read_reg REG_PC st).
   Proof.
     intros rc target st Heq.
-    unfold step. rewrite Heq. apply read_pc_write_pc.
+    unfold step. rewrite Heq. simpl. reflexivity.
   Qed.
 
   Lemma step_jnz_true : forall rc target st,
@@ -148,7 +174,7 @@ Module CPU.
     read_reg REG_PC (step (Jnz rc target) st) = S (read_reg REG_PC st).
   Proof.
     intros rc target st Heq.
-    unfold step. rewrite Heq. apply read_pc_write_pc.
+    unfold step. rewrite Heq. simpl. reflexivity.
   Qed.
 
   Lemma step_jnz_false : forall rc target st,
@@ -156,7 +182,7 @@ Module CPU.
     read_reg REG_PC (step (Jnz rc target) st) = target.
   Proof.
     intros rc target st Heq.
-    unfold step. rewrite Heq. apply read_pc_write_pc.
+    unfold step. rewrite Heq. simpl. reflexivity.
   Qed.
 
 End CPU.
