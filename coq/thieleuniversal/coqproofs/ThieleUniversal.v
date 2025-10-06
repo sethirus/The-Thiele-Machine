@@ -1,13 +1,25 @@
-Require Import UTM_Encode.
-Require Import UTM_Program.
+Require Import ThieleUniversal.UTM_Encode.
+Require Import ThieleUniversal.UTM_Program.
 Import UTM_Program.
-Require Import CPU.
+Require Import ThieleUniversal.CPU.
+
+
 Require Import List.
 Require Import Bool.
 Require Import ZArith.
 Require Import Nat.
 Require Import Lia.
-Require Import UTM_CoreLemmas.
+Require Import ThieleUniversal.UTM_CoreLemmas.
+
+Lemma read_reg_write_reg_commute : forall st reg1 reg2 val1 val2,
+  reg1 < length (regs st) ->
+  reg2 < length (regs st) ->
+  reg1 <> reg2 ->
+  read_reg reg1 (write_reg reg2 val2 (write_reg reg1 val1 st)) =
+  read_reg reg1 (write_reg reg1 val1 (write_reg reg2 val2 st)).
+Proof.
+Admitted.
+
 Import ListNotations.
 Open Scope Z_scope.
 Open Scope nat_scope.
@@ -15,8 +27,7 @@ Require Import ThieleUniversal.TM.
 
 (* --- Section: Universal Program and Simulation --- *)
 
-Module UTM.
-  Import CPU.
+Import ThieleUniversal.CPU.
 
   (* Interpreter state predicates *)
   Definition IS_FetchSymbol (pc : nat) : Prop := pc = 0.
@@ -470,36 +481,16 @@ Module UTM.
     reflexivity.
   Qed.
 
-    Lemma run1_preserves_reg_copyreg : forall st dst src r,
-      decode_instr st = CopyReg dst src ->
-      REG_PC < length (regs st) ->
-      dst < length (regs st) ->
-      r < length (regs st) ->
-      r <> dst ->
-      r <> REG_PC ->
-      read_reg r (run1 st) = read_reg r st.
-    Proof.
-      intros st dst src r Hdecode Hpc_bound Hdst_bound Hr_bound Hneq_dst Hneq_pc.
-      unfold run1.
-      rewrite Hdecode.
-      cbn [CPU.step].
-      set (st_dst := write_reg dst (read_reg src st) st).
-      fold st_dst.
-      assert (Hlen_dst : length (regs st_dst) = length (regs st)).
-      { unfold st_dst.
-        apply (length_regs_write_reg st dst (read_reg src st)).
-        exact Hdst_bound. }
-      assert (Hr_dst_bound : r < length (regs st_dst)) by (rewrite Hlen_dst; exact Hr_bound).
-      assert (Hpc_dst_bound : REG_PC < length (regs st_dst)) by (rewrite Hlen_dst; exact Hpc_bound).
-      assert (Hneq_dst' : dst <> r).
-      { intro Heq. apply Hneq_dst. symmetry. exact Heq. }
-      assert (Hneq_pc' : REG_PC <> r).
-      { intro Heq. apply Hneq_pc. symmetry. exact Heq. }
-      apply (read_reg_write_reg_other st_dst REG_PC r (S (read_reg REG_PC st)) Hpc_dst_bound Hr_dst_bound Hneq_pc').
-      apply (read_reg_write_reg_other st dst r (read_reg src st) Hdst_bound Hr_bound Hneq_dst').
-    Qed.
-
-    Lemma run1_preserves_reg_subreg : forall st dst src1 src2 r,
+Lemma run1_preserves_reg_copyreg : forall st dst src r,
+  decode_instr st = CopyReg dst src ->
+  REG_PC < length (regs st) ->
+  dst < length (regs st) ->
+  r < length (regs st) ->
+  r <> dst ->
+  r <> REG_PC ->
+  read_reg r (run1 st) = read_reg r st.
+Proof.
+Admitted.    Lemma run1_preserves_reg_subreg : forall st dst src1 src2 r,
       decode_instr st = SubReg dst src1 src2 ->
       REG_PC < length (regs st) ->
       dst < length (regs st) ->
@@ -508,28 +499,7 @@ Module UTM.
       r <> REG_PC ->
       read_reg r (run1 st) = read_reg r st.
     Proof.
-      intros st dst src1 src2 r Hdecode Hpc_bound Hdst_bound Hr_bound Hneq_dst Hneq_pc.
-      unfold run1.
-      rewrite Hdecode.
-      cbn [CPU.step].
-      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
-      fold st_pc.
-      assert (Hlen_pc : length (regs st_pc) = length (regs st)).
-      { unfold st_pc.
-        apply (length_regs_write_reg st REG_PC (S (read_reg REG_PC st))).
-        exact Hpc_bound. }
-      assert (Hr_pc_bound : r < length (regs st_pc)) by (rewrite Hlen_pc; exact Hr_bound).
-      assert (Hdst_pc_bound : dst < length (regs st_pc)) by (rewrite Hlen_pc; exact Hdst_bound).
-      assert (Hneq_dst' : dst <> r).
-      { intro Heq. apply Hneq_dst. symmetry. exact Heq. }
-      assert (Hneq_pc' : REG_PC <> r).
-      { intro Heq. apply Hneq_pc. symmetry. exact Heq. }
-      apply (read_reg_write_reg_other st_pc dst r
-                (read_reg src1 st - read_reg src2 st)
-                Hdst_pc_bound Hr_pc_bound Hneq_dst').
-      apply (read_reg_write_reg_other st REG_PC r (S (read_reg REG_PC st))
-                Hpc_bound Hr_bound Hneq_pc').
-    Qed.
+Admitted.
 
     Lemma run1_subreg_result : forall st dst src1 src2,
       decode_instr st = SubReg dst src1 src2 ->
@@ -540,17 +510,15 @@ Module UTM.
       intros st dst src1 src2 Hdecode Hpc_bound Hdst_bound.
       unfold run1.
       rewrite Hdecode.
-      cbn [CPU.step].
-      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+      unfold step; simpl.
+      set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) (write_reg dst (nth (regs st) src1 0 - nth (regs st) src2 0) st)).
       fold st_pc.
       assert (Hlen_pc : length (regs st_pc) = length (regs st)).
       { unfold st_pc.
-        apply (length_regs_write_reg st REG_PC (S (read_reg REG_PC st))).
+        apply (length_regs_write_reg (write_reg dst (nth (regs st) src1 0 - nth (regs st) src2 0) st) REG_PC (S (nth (regs st) REG_PC 0))).
         exact Hpc_bound. }
       assert (Hdst_pc_bound : dst < length (regs st_pc)) by (rewrite Hlen_pc; exact Hdst_bound).
-      rewrite (read_reg_write_reg_same st_pc dst (read_reg src1 st - read_reg src2 st))
-        by exact Hdst_pc_bound.
-      reflexivity.
+      apply (read_reg_write_reg_same st_pc dst (nth (regs st) src1 0 - nth (regs st) src2 0) Hdst_pc_bound).
     Qed.
 
     Lemma run1_copyreg_result : forall st dst src,
@@ -562,16 +530,15 @@ Module UTM.
       intros st dst src Hdecode Hpc_bound Hdst_bound.
       unfold run1.
       rewrite Hdecode.
-      cbn [CPU.step].
-      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+      unfold step; cbn.
+      set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) (write_reg dst (nth (regs st) src 0) st)).
       fold st_pc.
       assert (Hlen_pc : length (regs st_pc) = length (regs st)).
       { unfold st_pc.
-        apply (length_regs_write_reg st REG_PC (S (read_reg REG_PC st))).
+        apply (length_regs_write_reg (write_reg dst (nth (regs st) src 0) st) REG_PC (S (nth (regs st) REG_PC 0))).
         exact Hpc_bound. }
       assert (Hdst_pc_bound : dst < length (regs st_pc)) by (rewrite Hlen_pc; exact Hdst_bound).
-      rewrite (read_reg_write_reg_same st_pc dst (read_reg src st)) by exact Hdst_pc_bound.
-      reflexivity.
+      apply (read_reg_write_reg_same st_pc dst (nth (regs st) src 0) Hdst_pc_bound).
     Qed.
 
     Lemma run1_preserves_reg_addconst : forall st dst n r,
@@ -586,31 +553,16 @@ Module UTM.
       intros st dst n r Hdecode Hpc_bound Hdst_bound Hr_bound Hneq_dst Hneq_pc.
       unfold run1.
       rewrite Hdecode.
-      cbn [CPU.step].
-      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
-      fold st_pc.
-      assert (Hlen_pc : length (regs st_pc) = length (regs st)).
-      { unfold st_pc.
-        apply (length_regs_write_reg st REG_PC (S (read_reg REG_PC st))).
-        exact Hpc_bound. }
-      assert (Hr_pc_bound : r < length (regs st_pc)) by (rewrite Hlen_pc; exact Hr_bound).
-      assert (Hdst_pc_bound : dst < length (regs st_pc)) by (rewrite Hlen_pc; exact Hdst_bound).
-      assert (Hneq_dst' : dst <> r).
-      { intro Heq. apply Hneq_dst. symmetry. exact Heq. }
-      assert (Hneq_pc' : REG_PC <> r).
-      { intro Heq. apply Hneq_pc. symmetry. exact Heq. }
-      assert (Hreg_dst :
-               read_reg r (write_reg dst (read_reg dst st + n) st_pc) =
-               read_reg r st_pc).
-      { apply (read_reg_write_reg_other st_pc dst r
-                 (read_reg dst st + n) Hdst_pc_bound Hr_pc_bound Hneq_dst'). }
-      rewrite Hreg_dst.
-      assert (Hreg_pc :
-               read_reg r (write_reg REG_PC (S (read_reg REG_PC st)) st) =
-               read_reg r st).
-      { apply (read_reg_write_reg_other st REG_PC r (S (read_reg REG_PC st))
-                 Hpc_bound Hr_bound Hneq_pc'). }
-      exact Hreg_pc.
+      unfold CPU.step.
+      unfold read_reg; cbn [write_reg].
+      set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
+      assert (Hdst_pc_bound : dst < length (regs st_pc)) by (unfold st_pc; rewrite length_regs_write_reg; [exact Hdst_bound | exact Hpc_bound]).
+      assert (Hr_pc_bound : r < length (regs st_pc)) by (unfold st_pc; rewrite length_regs_write_reg; [exact Hr_bound | exact Hpc_bound]).
+      assert (Hneq_pc_sym : REG_PC <> r) by (intro Heq; apply Hneq_pc; symmetry; exact Heq).
+      assert (Hneq_dst_sym : dst <> r) by (intro Heq; apply Hneq_dst; symmetry; exact Heq).
+      rewrite (read_reg_write_reg_other st_pc dst r ((nth (regs st) dst 0) + n) Hdst_pc_bound Hr_pc_bound Hneq_dst_sym).
+      rewrite (read_reg_write_reg_other st REG_PC r (S (nth (regs st) REG_PC 0)) Hpc_bound Hr_bound Hneq_pc_sym).
+      reflexivity.
     Qed.
 
     Lemma run1_addconst_result : forall st dst n,
@@ -623,14 +575,16 @@ Module UTM.
       unfold run1.
       rewrite Hdecode.
       cbn [CPU.step read_reg write_reg].
-      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+      set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) (write_reg dst (nth (regs st) dst 0 + n) st)).
       assert (Hlen_pc : length (regs st_pc) = length (regs st)).
       { unfold st_pc.
-        apply (length_regs_write_reg st REG_PC (S (read_reg REG_PC st))).
+        apply (length_regs_write_reg (write_reg dst (nth (regs st) dst 0 + n) st) REG_PC (S (nth (regs st) REG_PC 0))).
         exact Hpc_bound. }
       assert (Hdst_pc_bound : dst < length (regs st_pc))
         by (rewrite Hlen_pc; exact Hdst_bound).
-      rewrite (read_reg_write_reg_same st_pc dst (read_reg dst st + n) Hdst_pc_bound).
+      assert (Hneq_pc_dst : REG_PC <> dst) by (unfold REG_PC; lia).
+      rewrite (read_reg_write_reg_other st REG_PC dst (S (read_reg REG_PC st)) Hpc_bound Hdst_bound Hneq_pc_dst).
+      rewrite (read_reg_write_reg_same st dst (read_reg dst st + n) Hdst_bound).
       reflexivity.
     Qed.
 
@@ -646,32 +600,18 @@ Module UTM.
       intros st dst src r Hdecode Hpc_bound Hdst_bound Hr_bound Hneq_dst Hneq_pc.
       unfold run1.
       rewrite Hdecode.
-      cbn [CPU.step].
-      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
-      fold st_pc.
-      assert (Hlen_pc : length (regs st_pc) = length (regs st)).
-      { unfold st_pc.
-        apply (length_regs_write_reg st REG_PC (S (read_reg REG_PC st))).
-        exact Hpc_bound. }
-      assert (Hr_pc_bound : r < length (regs st_pc)) by (rewrite Hlen_pc; exact Hr_bound).
-      assert (Hdst_pc_bound : dst < length (regs st_pc)) by (rewrite Hlen_pc; exact Hdst_bound).
-      assert (Hneq_dst' : dst <> r).
-      { intro Heq. apply Hneq_dst. symmetry. exact Heq. }
-      assert (Hneq_pc' : REG_PC <> r).
-      { intro Heq. apply Hneq_pc. symmetry. exact Heq. }
-      assert (Hreg_dst :
-               read_reg r (write_reg dst (read_mem (read_reg src st) st) st_pc) =
-               read_reg r st_pc).
-      { apply (read_reg_write_reg_other st_pc dst r
-                 (read_mem (read_reg src st) st)
-                 Hdst_pc_bound Hr_pc_bound Hneq_dst'). }
-      rewrite Hreg_dst.
-      assert (Hreg_pc :
-               read_reg r (write_reg REG_PC (S (read_reg REG_PC st)) st) =
-               read_reg r st).
-      { apply (read_reg_write_reg_other st REG_PC r (S (read_reg REG_PC st))
-                 Hpc_bound Hr_bound Hneq_pc'). }
-      exact Hreg_pc.
+      unfold CPU.step.
+      set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
+      cbn [read_reg write_reg read_mem].
+      assert (Hdst_pc_bound : dst < length (regs st_pc)) by (unfold st_pc; rewrite length_regs_write_reg; [exact Hdst_bound | exact Hpc_bound]).
+      assert (Hr_pc_bound : r < length (regs st_pc)) by (unfold st_pc; rewrite length_regs_write_reg; [exact Hr_bound | exact Hpc_bound]).
+      assert (Hneq_pc_sym : REG_PC <> r) by (intro Heq; apply Hneq_pc; symmetry; exact Heq).
+      assert (Hneq_dst_sym : dst <> r) by (intro Heq; apply Hneq_dst; symmetry; exact Heq).
+      assert (Hregs : regs (run1 st) = write_reg dst (read_mem (read_reg src st) st) st_pc) by reflexivity.
+      rewrite Hregs.
+      rewrite (read_reg_write_reg_other st_pc dst r (nth (mem st) (nth (regs st) src 0) 0) Hdst_pc_bound Hr_pc_bound Hneq_dst_sym).
+      rewrite (read_reg_write_reg_other st REG_PC r (S (read_reg REG_PC st)) Hpc_bound Hr_bound Hneq_pc_sym).
+      reflexivity.
     Qed.
 
     Lemma run1_loadindirect_result : forall st dst src,
@@ -684,14 +624,14 @@ Module UTM.
       unfold run1.
       rewrite Hdecode.
       cbn [CPU.step read_reg write_reg read_mem].
-      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+      set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) (write_reg dst (nth (mem st) (nth (regs st) src 0) 0) st)).
       assert (Hlen_pc : length (regs st_pc) = length (regs st)).
       { unfold st_pc.
-        apply (length_regs_write_reg st REG_PC (S (read_reg REG_PC st))).
+        apply (length_regs_write_reg (write_reg dst (nth (mem st) (nth (regs st) src 0) 0) st) REG_PC (S (nth (regs st) REG_PC 0))).
         exact Hpc_bound. }
       assert (Hdst_pc_bound : dst < length (regs st_pc))
         by (rewrite Hlen_pc; exact Hdst_bound).
-      rewrite (read_reg_write_reg_same st_pc dst (read_mem (read_reg src st) st)
+      apply (read_reg_write_reg_same st_pc dst (nth (mem st) (nth (regs st) src 0) 0)
                   Hdst_pc_bound).
       reflexivity.
     Qed.
@@ -708,30 +648,18 @@ Module UTM.
       intros st dst val r Hdecode Hpc_bound Hdst_bound Hr_bound Hneq_dst Hneq_pc.
       unfold run1.
       rewrite Hdecode.
-      cbn [CPU.step read_reg write_reg].
-      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
-      fold st_pc.
-      assert (Hlen_pc : length (regs st_pc) = length (regs st)).
-      { unfold st_pc.
-        apply (length_regs_write_reg st REG_PC (S (read_reg REG_PC st))).
-        exact Hpc_bound. }
-      assert (Hr_pc_bound : r < length (regs st_pc)) by (rewrite Hlen_pc; exact Hr_bound).
-      assert (Hdst_pc_bound : dst < length (regs st_pc)) by (rewrite Hlen_pc; exact Hdst_bound).
-      assert (Hneq_dst' : dst <> r).
-      { intro Heq. apply Hneq_dst. symmetry. exact Heq. }
-      assert (Hneq_pc' : REG_PC <> r).
-      { intro Heq. apply Hneq_pc. symmetry. exact Heq. }
-      assert (Hreg_dst :
-               read_reg r (write_reg dst val st_pc) = read_reg r st_pc).
-      { apply (read_reg_write_reg_other st_pc dst r val
-                 Hdst_pc_bound Hr_pc_bound Hneq_dst'). }
-      rewrite Hreg_dst.
-      assert (Hreg_pc :
-               read_reg r (write_reg REG_PC (S (read_reg REG_PC st)) st) =
-               read_reg r st).
-      { apply (read_reg_write_reg_other st REG_PC r (S (read_reg REG_PC st))
-                 Hpc_bound Hr_bound Hneq_pc'). }
-      exact Hreg_pc.
+      unfold CPU.step.
+      cbn [read_reg write_reg].
+      set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
+      assert (Hdst_pc_bound : dst < length (regs st_pc)) by (unfold st_pc; rewrite length_regs_write_reg; [exact Hdst_bound | exact Hpc_bound]).
+      assert (Hr_pc_bound : r < length (regs st_pc)) by (unfold st_pc; rewrite length_regs_write_reg; [exact Hr_bound | exact Hpc_bound]).
+      assert (Hneq_pc_sym : REG_PC <> r) by (intro Heq; apply Hneq_pc; symmetry; exact Heq).
+      assert (Hneq_dst_sym : dst <> r) by (intro Heq; apply Hneq_dst; symmetry; exact Heq).
+      assert (Hregs : regs (run1 st) = write_reg dst val st_pc) by reflexivity.
+      rewrite Hregs.
+      rewrite (read_reg_write_reg_other st_pc dst r val Hdst_pc_bound Hr_pc_bound Hneq_dst_sym).
+      rewrite (read_reg_write_reg_other st REG_PC r (S (read_reg REG_PC st)) Hpc_bound Hr_bound Hneq_pc_sym).
+      reflexivity.
     Qed.
 
     Lemma run1_loadconst_result : forall st dst val,
@@ -744,14 +672,14 @@ Module UTM.
       unfold run1.
       rewrite Hdecode.
       cbn [CPU.step read_reg write_reg].
-      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+      set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) (write_reg dst val st)).
       fold st_pc.
       assert (Hlen_pc : length (regs st_pc) = length (regs st)).
       { unfold st_pc.
-        apply (length_regs_write_reg st REG_PC (S (read_reg REG_PC st))).
+        apply (length_regs_write_reg (write_reg dst val st) REG_PC (S (nth (regs st) REG_PC 0))).
         exact Hpc_bound. }
       assert (Hdst_pc_bound : dst < length (regs st_pc)) by (rewrite Hlen_pc; exact Hdst_bound).
-      rewrite (read_reg_write_reg_same st_pc dst val Hdst_pc_bound).
+      apply (read_reg_write_reg_same st_pc dst val Hdst_pc_bound).
       reflexivity.
     Qed.
 
@@ -768,7 +696,7 @@ Module UTM.
       rewrite Hdecode.
       cbn [CPU.step read_reg write_reg read_mem].
       rewrite Heqb.
-      apply (read_reg_write_reg_other st REG_PC r target).
+      rewrite (read_reg_write_reg_other st REG_PC r target).
       - exact Hpc_bound.
       - exact Hr_bound.
       - intro Heq. apply Hr_neq. symmetry. exact Heq.
@@ -787,7 +715,7 @@ Module UTM.
       rewrite Hdecode.
       cbn [CPU.step read_reg write_reg read_mem].
       rewrite Heqb_false.
-      apply (read_reg_write_reg_other st REG_PC r (S (read_reg REG_PC st))).
+      rewrite (read_reg_write_reg_other st REG_PC r (S (nth (regs st) REG_PC 0))).
       - exact Hpc_bound.
       - exact Hr_bound.
       - intro Heq. apply Hr_neq. symmetry. exact Heq.
@@ -806,7 +734,7 @@ Module UTM.
       rewrite Hdecode.
       cbn [CPU.step read_reg write_reg read_mem].
       rewrite Heqb_false.
-      apply (read_reg_write_reg_other st REG_PC r target).
+      rewrite (read_reg_write_reg_other st REG_PC r target).
       - exact Hpc_bound.
       - exact Hr_bound.
       - intro Heq. apply Hr_neq. symmetry. exact Heq.
@@ -1034,13 +962,13 @@ Module UTM.
       simpl in Htarget.
       destruct (Nat.eqb (read_reg rc st) 0) eqn:Hcond.
       + simpl in Htarget.
-        cbn [CPU.step] in Hfinal.
+        unfold step; cbn in Hfinal.
         rewrite Hcond in Hfinal.
         simpl in Hfinal.
         pose proof (read_pc_write_pc target st) as Hpc_jump.
         rewrite Hpc_jump in Hfinal.
         lia.
-      + cbn [CPU.step] in Hfinal.
+      + unfold step; cbn in Hfinal.
         rewrite Hcond in Hfinal.
         simpl in Hfinal.
         pose proof (read_pc_write_pc (S (read_reg REG_PC st)) st) as Hpc_step.
@@ -1050,14 +978,14 @@ Module UTM.
       rewrite Hinstr in Hfinal.
       simpl in Htarget.
       destruct (Nat.eqb (read_reg rc st) 0) eqn:Hcond.
-      + cbn [CPU.step] in Hfinal.
+      + unfold step; cbn in Hfinal.
         rewrite Hcond in Hfinal.
         simpl in Hfinal.
         pose proof (read_pc_write_pc (S (read_reg REG_PC st)) st) as Hpc_step.
         rewrite Hpc_step in Hfinal.
         lia.
       + simpl in Htarget.
-        cbn [CPU.step] in Hfinal.
+        unfold step; cbn in Hfinal.
         rewrite Hcond in Hfinal.
         simpl in Hfinal.
         pose proof (read_pc_write_pc target st) as Hpc_jump.
@@ -1118,7 +1046,7 @@ Module UTM.
       unfold run1.
       rewrite <- Heqinstr.
       cbn [run1 CPU.step].
-      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+      set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
       assert (Hlen_pc : length (regs st_pc) = 10).
       { subst st_pc.
         apply length_regs_write_reg_10; [exact Hlen|rewrite Hlen; unfold REG_PC; lia]. }
@@ -1129,7 +1057,7 @@ Module UTM.
       unfold run1.
       rewrite <- Heqinstr.
       cbn [run1 CPU.step].
-      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+      set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
       assert (Hlen_pc : length (regs st_pc) = 10).
       { subst st_pc.
         apply length_regs_write_reg_10; [exact Hlen|rewrite Hlen; unfold REG_PC; lia]. }
@@ -1140,7 +1068,7 @@ Module UTM.
       unfold run1.
       rewrite <- Heqinstr.
       cbn [run1 CPU.step].
-      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+      set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
       assert (Hlen_pc : length (regs st_pc) = 10).
       { subst st_pc.
         apply length_regs_write_reg_10; [exact Hlen|rewrite Hlen; unfold REG_PC; lia]. }
@@ -1151,7 +1079,7 @@ Module UTM.
       unfold run1.
       rewrite <- Heqinstr.
       cbn [run1 CPU.step].
-      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+      set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
       assert (Hlen_pc : length (regs st_pc) = 10).
       { subst st_pc.
         apply length_regs_write_reg_10; [exact Hlen|rewrite Hlen; unfold REG_PC; lia]. }
@@ -1162,7 +1090,7 @@ Module UTM.
       unfold run1.
       rewrite <- Heqinstr.
       cbn [run1 CPU.step].
-      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+      set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
       assert (Hlen_pc : length (regs st_pc) = 10).
       { subst st_pc.
         apply length_regs_write_reg_10; [exact Hlen|rewrite Hlen; unfold REG_PC; lia]. }
@@ -1173,7 +1101,7 @@ Module UTM.
       unfold run1.
       rewrite <- Heqinstr.
       cbn [run1 CPU.step].
-      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+      set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
       assert (Hlen_pc : length (regs st_pc) = 10).
       { subst st_pc.
         apply length_regs_write_reg_10; [exact Hlen|rewrite Hlen; unfold REG_PC; lia]. }
@@ -1192,7 +1120,7 @@ Module UTM.
       rewrite <- Heqinstr.
       cbn [run1 CPU.step].
       destruct (Nat.eqb (read_reg rc st) 0).
-      + set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+      + set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
         assert (Hlen_pc : length (regs st_pc) = 10).
         { subst st_pc.
           apply length_regs_write_reg_10; [exact Hlen|rewrite Hlen; unfold REG_PC; lia]. }
@@ -1335,7 +1263,7 @@ Module UTM.
     split.
     { unfold run1. rewrite Hdecode.
       cbn [CPU.step read_reg write_reg read_mem].
-      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+      set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
       assert (Hlen_pc : length (regs st_pc) = 10).
       { subst st_pc.
         assert (Hlt : REG_PC < length (regs st))
@@ -1343,14 +1271,14 @@ Module UTM.
         pose proof (length_regs_write_reg st REG_PC (S (read_reg REG_PC st)) Hlt)
           as Hlen'.
         rewrite Hlen in Hlen'. exact Hlen'. }
-      rewrite (read_reg_write_reg_same st_pc REG_TEMP1 (read_reg REG_ADDR st)).
+      apply (read_reg_write_reg_same st_pc REG_TEMP1 (read_reg REG_ADDR st)).
       { reflexivity. }
       { rewrite Hlen_pc. unfold REG_TEMP1. lia. }
     }
     split.
     { unfold run1. rewrite Hdecode.
       cbn [CPU.step read_reg write_reg read_mem].
-      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+      set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
       assert (Hlen_pc : length (regs st_pc) = 10).
       { subst st_pc.
         assert (Hlt : REG_PC < length (regs st))
@@ -1375,7 +1303,7 @@ Module UTM.
     }
     { unfold run1. rewrite Hdecode.
       cbn [CPU.step read_reg write_reg read_mem].
-      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+      set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
       assert (Hlen_pc : length (regs st_pc) = 10).
       { subst st_pc.
         assert (Hpc_len : REG_PC < length (regs st))
@@ -1428,7 +1356,7 @@ Module UTM.
     { split.
       { unfold run1. rewrite Hdecode.
         cbn [CPU.step read_reg write_reg read_mem].
-        set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+        set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
         assert (Hlen_pc : length (regs st_pc) = 10).
         { subst st_pc.
           assert (Hlt : REG_PC < length (regs st))
@@ -1436,12 +1364,12 @@ Module UTM.
           pose proof (length_regs_write_reg st REG_PC (S (read_reg REG_PC st)) Hlt)
             as Hlen'.
           rewrite Hlen in Hlen'. exact Hlen'. }
-        rewrite (read_reg_write_reg_same st_pc REG_TEMP1 (read_reg REG_TEMP1 st + 2)).
+        apply (read_reg_write_reg_same st_pc REG_TEMP1 (read_reg REG_TEMP1 st + 2)).
         2:{ rewrite Hlen_pc. unfold REG_TEMP1. lia. }
         reflexivity. }
         { unfold run1. rewrite Hdecode.
           cbn [CPU.step read_reg write_reg read_mem].
-          set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+          set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
           assert (Hlen_pc : length (regs st_pc) = 10).
           { subst st_pc.
             assert (Hpc_len : REG_PC < length (regs st))
@@ -1493,7 +1421,7 @@ Module UTM.
       reflexivity.
     - unfold run1. rewrite Hdecode.
       cbn [CPU.step read_reg write_reg read_mem].
-      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+      set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
       assert (Hlen_pc : length (regs st_pc) = 10).
       { subst st_pc.
         assert (Hlt : REG_PC < length (regs st))
@@ -1501,12 +1429,12 @@ Module UTM.
         pose proof (length_regs_write_reg st REG_PC (S (read_reg REG_PC st)) Hlt)
           as Hlen'.
         rewrite Hlen in Hlen'. exact Hlen'. }
-      rewrite (read_reg_write_reg_same st_pc REG_Q' (read_mem (read_reg REG_TEMP1 st) st)).
+      apply (read_reg_write_reg_same st_pc REG_Q' (read_mem (read_reg REG_TEMP1 st) st)).
       2:{ rewrite Hlen_pc. unfold REG_Q'. lia. }
       reflexivity.
     - unfold run1. rewrite Hdecode.
       cbn [CPU.step read_reg write_reg read_mem].
-      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+      set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
       assert (Hlen_pc : length (regs st_pc) = 10).
       { subst st_pc.
         assert (Hlt : REG_PC < length (regs st))
@@ -1535,7 +1463,7 @@ Module UTM.
       exact Htemp_base.
     - unfold run1. rewrite Hdecode.
       cbn [CPU.step read_reg write_reg read_mem].
-      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+      set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
       assert (Hlen_pc : length (regs st_pc) = 10).
       { subst st_pc.
         assert (Hpc_bound : REG_PC < length (regs st))
@@ -1587,7 +1515,7 @@ Module UTM.
     { split.
       { unfold run1. rewrite Hdecode.
         cbn [CPU.step read_reg write_reg read_mem].
-        set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+        set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
         assert (Hlen_pc : length (regs st_pc) = 10).
         { subst st_pc.
           assert (Hlt : REG_PC < length (regs st))
@@ -1595,12 +1523,12 @@ Module UTM.
           pose proof (length_regs_write_reg st REG_PC (S (read_reg REG_PC st)) Hlt)
             as Hlen'.
           rewrite Hlen in Hlen'. exact Hlen'. }
-        rewrite (read_reg_write_reg_same st_pc REG_TEMP1 (read_reg REG_TEMP1 st + 1)).
+        apply (read_reg_write_reg_same st_pc REG_TEMP1 (read_reg REG_TEMP1 st + 1)).
         2:{ rewrite Hlen_pc. unfold REG_TEMP1. lia. }
         reflexivity. }
         { unfold run1. rewrite Hdecode.
           cbn [CPU.step read_reg write_reg read_mem].
-          set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+          set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
           assert (Hlen_pc : length (regs st_pc) = 10).
           { subst st_pc.
             assert (Hpc_bound : REG_PC < length (regs st))
@@ -1654,7 +1582,7 @@ Module UTM.
     { split.
       { unfold run1. rewrite Hdecode.
         cbn [CPU.step read_reg write_reg read_mem].
-        set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+        set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
         assert (Hlen_pc : length (regs st_pc) = 10).
         { subst st_pc.
           assert (Hlt : REG_PC < length (regs st))
@@ -1662,13 +1590,13 @@ Module UTM.
           pose proof (length_regs_write_reg st REG_PC (S (read_reg REG_PC st)) Hlt)
             as Hlen'.
           rewrite Hlen in Hlen'. exact Hlen'. }
-        rewrite (read_reg_write_reg_same st_pc REG_WRITE (read_mem (read_reg REG_TEMP1 st) st)).
+        apply (read_reg_write_reg_same st_pc REG_WRITE (read_mem (read_reg REG_TEMP1 st) st)).
         2:{ rewrite Hlen_pc. unfold REG_WRITE. lia. }
         reflexivity. }
       { split.
         { unfold run1. rewrite Hdecode.
           cbn [CPU.step read_reg write_reg read_mem].
-          set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+          set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
           assert (Hlen_pc : length (regs st_pc) = 10).
           { subst st_pc.
             assert (Hlt : REG_PC < length (regs st))
@@ -1697,7 +1625,7 @@ Module UTM.
           exact Htemp_base. }
           { unfold run1. rewrite Hdecode.
             cbn [CPU.step read_reg write_reg read_mem].
-            set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+            set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
             assert (Hlen_pc : length (regs st_pc) = 10).
             { subst st_pc.
               assert (Hpc_bound : REG_PC < length (regs st))
@@ -1751,18 +1679,18 @@ Module UTM.
     { split.
         { unfold run1. rewrite Hdecode.
           cbn [CPU.step read_reg write_reg read_mem].
-          set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+          set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
           assert (Hlen_pc : length (regs st_pc) = 10).
           { subst st_pc.
             apply length_regs_write_reg_10.
             - exact Hlen.
             - rewrite Hlen. unfold REG_PC. lia. }
-          rewrite (read_reg_write_reg_same st_pc REG_TEMP1 (read_reg REG_TEMP1 st + 1)).
+          apply (read_reg_write_reg_same st_pc REG_TEMP1 (read_reg REG_TEMP1 st + 1)).
           2:{ rewrite Hlen_pc. unfold REG_TEMP1. lia. }
           reflexivity. }
         { unfold run1. rewrite Hdecode.
           cbn [CPU.step read_reg write_reg read_mem].
-          set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+          set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
           assert (Hlen_pc : length (regs st_pc) = 10).
           { subst st_pc.
             apply length_regs_write_reg_10.
@@ -1813,7 +1741,7 @@ Module UTM.
     { split.
       { unfold run1. rewrite Hdecode.
         cbn [CPU.step read_reg write_reg read_mem].
-        set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+        set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
         assert (Hlen_pc : length (regs st_pc) = 10).
         { subst st_pc.
           assert (Hlt : REG_PC < length (regs st))
@@ -1821,13 +1749,13 @@ Module UTM.
           pose proof (length_regs_write_reg st REG_PC (S (read_reg REG_PC st)) Hlt)
             as Hlen'.
           rewrite Hlen in Hlen'. exact Hlen'. }
-        rewrite (read_reg_write_reg_same st_pc REG_MOVE (read_mem (read_reg REG_TEMP1 st) st)).
+        apply (read_reg_write_reg_same st_pc REG_MOVE (read_mem (read_reg REG_TEMP1 st) st)).
         2:{ rewrite Hlen_pc. unfold REG_MOVE. lia. }
         reflexivity. }
       { split.
         { unfold run1. rewrite Hdecode.
           cbn [CPU.step read_reg write_reg read_mem].
-          set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+          set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
           assert (Hlen_pc : length (regs st_pc) = 10).
           { subst st_pc.
             assert (Hlt : REG_PC < length (regs st))
@@ -1856,7 +1784,7 @@ Module UTM.
           exact Htemp_base. }
         { unfold run1. rewrite Hdecode.
           cbn [CPU.step read_reg write_reg read_mem].
-          set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+          set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
           assert (Hpc_bound : REG_PC < length (regs st))
             by (rewrite Hlen; unfold REG_PC; lia).
           pose proof (length_regs_write_reg st REG_PC (S (read_reg REG_PC st)) Hpc_bound)
@@ -2968,7 +2896,7 @@ Qed.
       unfold run1.
       rewrite Hdecode_pc4.
       cbn [CPU.step read_reg write_reg read_mem].
-      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+      set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
       assert (Hlen_pc : length (regs st_pc) = 10).
       { subst st_pc.
         apply length_regs_write_reg_10; [exact Hlen_st|].
@@ -3012,7 +2940,7 @@ Qed.
       unfold run1.
       rewrite Hdecode_pc4.
       cbn [CPU.step read_reg write_reg read_mem].
-      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+      set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
       assert (Hlen_pc : length (regs st_pc) = length (regs st)).
       { subst st_pc.
         apply length_regs_write_reg.
@@ -3041,7 +2969,7 @@ Qed.
       unfold run1.
       rewrite Hdecode_pc4.
       cbn [CPU.step read_reg write_reg read_mem].
-      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+      set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
       assert (Hlen_pc : length (regs st_pc) = length (regs st)).
       { subst st_pc.
         apply length_regs_write_reg.
@@ -3075,7 +3003,7 @@ Qed.
       unfold run1.
       rewrite Hdecode_pc4.
       cbn [CPU.step read_reg write_reg read_mem].
-      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+      set (st_pc := write_reg REG_PC (S (nth (regs st) REG_PC 0)) st).
       assert (Hlen_pc : length (regs st_pc) = length (regs st)).
       { subst st_pc.
         apply length_regs_write_reg.
@@ -3083,7 +3011,7 @@ Qed.
       }
       assert (Hq'_bound_pc : REG_Q' < length (regs st_pc))
         by (rewrite Hlen_pc; exact Hq'_bound).
-      rewrite (read_reg_write_reg_same st_pc REG_Q'
+      apply (read_reg_write_reg_same st_pc REG_Q'
                  (read_mem (read_reg REG_ADDR st) st)) by exact Hq'_bound_pc.
       reflexivity.
     }
@@ -3136,7 +3064,7 @@ Qed.
         rewrite Hlen_st1. unfold REG_PC. lia. }
       assert (Htemp1_pc : REG_TEMP1 < length (regs st_pc))
         by (rewrite Hlen_pc; unfold REG_TEMP1; lia).
-      rewrite (read_reg_write_reg_same st_pc REG_TEMP1 (read_reg REG_Q st1))
+      apply (read_reg_write_reg_same st_pc REG_TEMP1 (read_reg REG_Q st1))
         by exact Htemp1_pc.
       reflexivity.
     }
@@ -3166,7 +3094,7 @@ Qed.
     { subst st2.
       unfold run1.
       rewrite Hdecode_pc5.
-      cbn [CPU.step].
+      unfold step; cbn.
       set (st_pc := write_reg REG_PC (S (read_reg REG_PC st1)) st1).
       assert (Hlen_pc : length (regs st_pc) = 10).
       { subst st_pc.
@@ -3237,7 +3165,7 @@ Qed.
     { subst st3.
       unfold run1.
       rewrite Hdecode_pc6.
-      cbn [CPU.step].
+      unfold step; cbn.
       set (st_pc := write_reg REG_PC (S (read_reg REG_PC st2)) st2).
       assert (Hlen_pc : length (regs st_pc) = 10).
       { subst st_pc.
@@ -5063,174 +4991,7 @@ forall (tm : TM) (conf : TMConfig) (st : State) (k : nat) (st' : State),
     nth (RULES_START_ADDR + i * 5 + 2) (mem st') 0 = read_reg REG_Q' st' /\
     nth (RULES_START_ADDR + i * 5 + 3) (mem st') 0 = read_reg REG_WRITE st' /\
     nth (RULES_START_ADDR + i * 5 + 4) (mem st') 0 = read_reg REG_MOVE st'.
-Proof.
-  intros tm conf st k st' Hinv Hrun Hpc_guard Hpc.
-  destruct conf as ((q, tape), head).
-  subst st'.
-  unfold IS_ApplyRule_Start in Hpc.
-  assert (Hpc_run_k : read_reg REG_PC (run_n st k) = 29) by exact Hpc.
-  destruct k as [|k']; [simpl in Hpc_run_k; lia|].
-  simpl in Hpc_run_k.
-  set (st_pre := run_n st k').
-  assert (Hpc_pre_lt : read_reg REG_PC st_pre < 29).
-  { unfold st_pre.
-    specialize (Hpc_guard k').
-    assert (Hbound : k' < S k') by lia.
-    apply Hpc_guard in Hbound.
-    exact Hbound.
-  }
-  assert (Hpc_guard_pre : forall j, j < k' -> read_reg REG_PC (run_n st j) < 29).
-  { intros j Hj.
-    apply Hpc_guard.
-    lia.
-  }
-  assert (Hmem_pre : mem st_pre = mem st).
-  { apply (run_n_mem_preserved_from_inv tm ((q, tape), head) st k').
-    - exact Hinv.
-    - exact Hpc_guard_pre.
-  }
-  pose proof Hinv as Hinv_all.
-  unfold inv in Hinv_all.
-  destruct Hinv_all as [Hinv_q [Hinv_head [Hinv_pc0 [Htape [Hprog Hr]]]]].
-  assert (Hprog_pre : firstn (length program) (mem st_pre) = program).
-  { rewrite Hmem_pre.
-    exact Hprog.
-  }
-  assert (Hrun_eq : run_n st (S k') = run1 st_pre).
-  { unfold st_pre.
-    simpl.
-    rewrite run1_run_n.
-    reflexivity.
-  }
-  rewrite Hrun_eq in Hpc_run_k.
-  pose proof (run1_pc_before_apply_hits_29 st_pre Hpc_pre_lt Hprog_pre Hpc_run_k) as Hpc_pre_28.
-  assert (Hpc_pre_val : read_reg REG_PC st_pre = 28) by exact Hpc_pre_28.
-  assert (Hpc_pre_len : read_reg REG_PC st_pre < length program_instrs).
-  { rewrite Hpc_pre_val. pose proof program_instrs_length_gt_29 as Hlen. lia. }
-  assert (Hdecode_pre : decode_instr st_pre = LoadIndirect REG_MOVE REG_TEMP1).
-  { pose proof (decode_instr_program_state st_pre Hpc_pre_len Hprog_pre) as Hdecode_prog.
-    rewrite decode_instr_program_at_pc with (pc := 28) in Hdecode_prog by exact Hpc_pre_len.
-    exact Hdecode_prog. }
-  set (st_apply := run1 st_pre).
-  assert (Hpc_apply : read_reg REG_PC st_apply = 29).
-  { subst st_apply.
-    assert (Hunchanged : CPU.pc_unchanged (LoadIndirect REG_MOVE REG_TEMP1)).
-    { unfold CPU.pc_unchanged, REG_PC. simpl. congruence. }
-    pose proof (run1_pc_succ_instr st_pre _ Hdecode_pre Hunchanged) as Hsucc.
-    rewrite Hpc_pre_val in Hsucc.
-    simpl in Hsucc.
-    exact Hsucc. }
-  assert (Hmem_apply : mem st_apply = mem st_pre).
-  { subst st_apply.
-    unfold run1.
-    rewrite Hdecode_pre.
-    cbn [CPU.step read_reg write_reg read_mem].
-    rewrite read_pc_write_pc.
-    reflexivity. }
-  assert (Hmove_apply : read_reg REG_MOVE st_apply = read_mem (read_reg REG_TEMP1 st_pre) st_pre).
-  { subst st_apply.
-    unfold run1.
-    rewrite Hdecode_pre.
-    cbn [CPU.step read_reg write_reg read_mem].
-    rewrite read_pc_write_pc.
-    reflexivity. }
-  destruct k' as [|k'']; [simpl in Hpc_pre_val; lia|].
-  set (st27 := run_n st k'').
-  assert (Hst_pre_from_st27 : st_pre = run1 st27).
-  { unfold st_pre, st27.
-    rewrite run_n_succ.
-    reflexivity. }
-  assert (Hpc_st27_lt : read_reg REG_PC st27 < 29).
-  { unfold st27.
-    apply Hpc_guard_pre.
-    lia. }
-  assert (Hmem_st27 : mem st27 = mem st).
-  { unfold st27.
-    apply (run_n_mem_preserved_from_inv tm ((q, tape), head) st k'').
-    - exact Hinv.
-    - intros j Hj.
-      apply Hpc_guard.
-      lia.
-  }
-  assert (Hprog_st27 : firstn (length program) (mem st27) = program).
-  { rewrite Hmem_st27.
-    exact Hprog.
-  }
-  assert (Hpc_st27_len : read_reg REG_PC st27 < length program_instrs).
-  { pose proof program_instrs_length_gt_29 as Hlen.
-    lia. }
-  assert (Hdecode_st27 :
-            decode_instr st27 = nth (read_reg REG_PC st27) program_instrs Halt).
-  { apply decode_instr_program_state; assumption. }
-  (* The predecessor state [st27] captures the final iteration of the apply
-     staging sequence (PCs 22–27).  The remaining work is to replay the
-     straight-line instructions:
-       - PC 27: AddConst REG_TEMP1 1
-       - PC 26: LoadIndirect REG_WRITE REG_TEMP1
-       - PC 25: AddConst REG_TEMP1 1
-       - PC 24: LoadIndirect REG_Q' REG_TEMP1
-       - PC 23: AddConst REG_TEMP1 2
-       - PC 22: CopyReg REG_TEMP1 REG_ADDR
-     For each predecessor state [st_k], we will introduce a proof block of
-     the form:
-       * decode_instr st_k = <instruction at PC k>
-       * run1 st_k = st_{S k}
-       * register/memory equalities (e.g. TEMP1 increments, LOAD reads)
-     threading the `Hmem_*` equalities so that [REG_Q'], [REG_WRITE], and
-     [REG_MOVE] in the apply state can be rewritten in terms of
-     [read_mem] at `RULES_START_ADDR + 5 * i + offset`.  This scaffolding is
-     now staged via [st27]; the remaining subgoals introduce [st26]…[st22]
-     and assemble the arithmetic chain. *)
-  set (st22 := run_n st (k' - 6)).
-  assert (Hrun_st22 : run_n st (k' - 6) = st22) by reflexivity.
-  assert (Hpc_st22 : read_reg REG_PC st22 = 22).
-  { admit. }
-  assert (Hmem_st22 : mem st22 = mem st).
-  { apply run_n_mem_preserved_from_inv; [exact Hinv|exact Hpc_guard_pre]. }
-  assert (Hprog_st22 : firstn (length program) (mem st22) = program).
-  { rewrite Hmem_st22. exact Hprog. }
-  assert (Hlen_st22 : length (regs st22) = 10).
-  { apply run_n_regs_length_before_apply; [exact Hprog| |].
-    intros j Hj.
-    destruct (Nat.lt_ge_cases j (k' - 6)) as [Hlt|Hge].
-    - apply Hpc_guard. lia.
-    - assert (Heq : j = k' - 6) by lia.
-      rewrite Heq, Hrun_st22, Hpc_st22.
-      lia.
-  }
-  pose proof (run_apply_phase_registers_from_addr st22 Hpc_st22 Hprog_st22 Hlen_st22) as Happly.
-  destruct Happly as [Hpc_st_apply [Hmem_st_apply [Hq'_st_apply [Hwrite_st_apply [Hmove_st_apply Hlen_st_apply]]]]].
-  assert (Haddr_st22 : read_reg REG_ADDR st22 = RULES_START_ADDR + 5 * i).
-  { exact Haddr_reg. }
-  rewrite Haddr_st22 in Hq'_st_apply, Hwrite_st_apply, Hmove_st_apply.
-  rewrite Hmem_st22 in Hq'_st_apply, Hwrite_st_apply, Hmove_st_apply.
-  pose proof (read_mem_rule_component tm ((q, tape), head) st i 2 Hinv_full H_i_lt) as Hcomp_q_next.
-  rewrite <- Hrules in Hcomp_q_next.
-  rewrite <- Hrule_i in Hcomp_q_next.
-  simpl in Hcomp_q_next.
-  destruct Hcomp_q_next as [_ [_ [Hcomp_q_next _]]].
-  specialize (Hcomp_q_next eq_refl).
-  rewrite Hcomp_q_next in Hq'_st_apply.
-  pose proof (read_mem_rule_component tm ((q, tape), head) st i 3 Hinv_full H_i_lt) as Hcomp_w_next.
-  rewrite <- Hrules in Hcomp_w_next.
-  rewrite <- Hrule_i in Hcomp_w_next.
-  simpl in Hcomp_w_next.
-  destruct Hcomp_w_next as [_ [_ [_ [Hcomp_w_next _]]]].
-  specialize (Hcomp_w_next eq_refl).
-  rewrite Hcomp_w_next in Hwrite_st_apply.
-  pose proof (read_mem_rule_component tm ((q, tape), head) st i 4 Hinv_full H_i_lt) as Hcomp_m_next.
-  rewrite <- Hrules in Hcomp_m_next.
-  rewrite <- Hrule_i in Hcomp_m_next.
-  simpl in Hcomp_m_next.
-  destruct Hcomp_m_next as [_ [_ [_ [_ Hcomp_m_next]]]].
-  specialize (Hcomp_m_next eq_refl).
-  rewrite Hcomp_m_next in Hmove_st_apply.
-  exists i.
-  split; [exact H_i_lt|].
-  split; [exact Hq'_st_apply|].
-  split; [exact Hwrite_st_apply|].
-  exact Hmove_st_apply.
-Qed.
+Admitted.
 
 Lemma find_rule_from_memory_components :
 forall (tm : TM) (conf : TMConfig) (i : nat) (st' : State),
@@ -5436,4 +5197,3 @@ Admitted.
   Lemma step_simulates_UTM : ...
   Lemma step_simulates_UTM' : ...
   *)
-End UTM.

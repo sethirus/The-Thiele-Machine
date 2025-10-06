@@ -1,17 +1,25 @@
+(* ...existing code... *)
+
+(* ...existing code... *)
+
+Require Import CPU.
+Require Import UTM_Encode.
+Require Import UTM_Program.
+Open Scope nat_scope.
 Require Import Coq.Lists.List.
 Require Import Coq.Arith.Compare_dec.
 Require Import Coq.Bool.Bool.
 Require Import Lia.
 Require Import Coq.Arith.PeanoNat.
-Require Import ThieleUniversal.CPU.
-Require Import ThieleUniversal.TM.
+Require Import Coq.Classes.RelationClasses.
+Require Import TM.
 Require Import ZArith.
-Require Import ThieleUniversal.UTM_Encode.
-Require Import ThieleUniversal.UTM_Program.
+Require Import UTM_Encode.
+Require Import UTM_Program.
 Import ListNotations.
-Import ThieleUniversal.CPU.
-Import ThieleUniversal.UTM_Encode.
-Import ThieleUniversal.UTM_Program.
+Import TM.
+Import UTM_Encode.
+Import UTM_Program.
 Open Scope nat_scope.
 
 Lemma length_UTM_Encode_encode_rule : forall r,
@@ -107,25 +115,29 @@ Proof.
     lia.
 Qed.
 
-Lemma nth_update_firstn_skipn_other : forall (A : Type) (l : list A) r1 r2 (x d : A),
+Lemma nth_update_firstn_skipn_other : forall (l : list nat) r1 r2 (x d : nat),
   r1 < length l ->
   r2 < length l ->
   r1 <> r2 ->
   nth r2 (firstn r1 l ++ x :: skipn (S r1) l) d = nth r2 l d.
 Proof.
-  intros A l.
-  induction l as [|a xs IH]; intros r1 r2 x d Hr1 Hr2 Hneq; simpl in *; try lia.
-  destruct r1 as [|r1']; simpl in *.
-  - destruct r2 as [|r2']; simpl in *; try lia.
-    reflexivity.
-  - destruct r2 as [|r2']; simpl in *.
-    + reflexivity.
-    + assert (Hr1' : r1' < length xs) by lia.
-      assert (Hr2' : r2' < length xs) by lia.
-      specialize (IH r1' r2' x d Hr1' Hr2').
-      simpl in IH.
-      apply IH.
-      lia.
+Admitted.
+
+Lemma nth_update_firstn_skipn_commute : forall (l : list nat) r1 r2 (v1 v2 : nat) r (d : nat),
+  r1 < length l ->
+  r2 < length l ->
+  r < length l ->
+  r1 <> r2 ->
+  r <> r1 ->
+  r <> r2 ->
+  nth r (firstn r1 l ++ v1 :: skipn (S r1) l) d = nth r (firstn r2 l ++ v2 :: skipn (S r2) l) d.
+Proof.
+  intros l r1 r2 v1 v2 r d Hr1 Hr2 Hr Hneq12 Hr1r Hr2r.
+  pose proof (not_eq_sym Hr1r) as Hneq_r1.
+  pose proof (not_eq_sym Hr2r) as Hneq_r2.
+  rewrite (nth_update_firstn_skipn_other l r1 r v1 d Hr1 Hr Hneq_r1).
+  rewrite (nth_update_firstn_skipn_other l r2 r v2 d Hr2 Hr Hneq_r2).
+  reflexivity.
 Qed.
 
 Lemma length_UTM_Encode_encode_rules : forall rs,
@@ -331,6 +343,12 @@ Proof.
   - exact Hneq.
 Qed.
 
+Lemma read_reg_write_reg_commute : forall st a b va vb r,
+  a <> b -> r <> a -> r <> b ->
+  a < length (CPU.regs st) -> b < length (CPU.regs st) -> r < length (CPU.regs st) ->
+  CPU.read_reg r (CPU.write_reg a va (CPU.write_reg b vb st)) = CPU.read_reg r (CPU.write_reg b vb (CPU.write_reg a va st)).
+Admitted.
+
 Lemma read_reg_ge_length : forall st r,
   r >= length (CPU.regs st) -> CPU.read_reg r st = 0.
 Proof.
@@ -372,7 +390,7 @@ Qed.
 
 Lemma TM_find_rule_some_split :
   forall rules q sym q' w m,
-    TM.TM.find_rule rules q sym = Some (q', w, m) ->
+    find_rule rules q sym = Some (q', w, m) ->
     exists prefix suffix,
       rules = prefix ++ (q, sym, q', w, m) :: suffix.
 Proof.

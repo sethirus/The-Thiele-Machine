@@ -1,11 +1,10 @@
 Require Import ThieleUniversal.TM.
-Require Import CPU.
+Require Import ThieleUniversal.CPU.
 Require Import UTM_Encode.
 Require Import List.
 Require Import Lia.
 Require Import Arith.
 Import ListNotations.
-Import CPU.
 
 Module UTM_Program.
   Open Scope nat_scope.
@@ -319,7 +318,7 @@ Module UTM_Program.
       match nth pc program_instrs Halt with
       | Jz _ _ => True
       | Jnz _ _ => True
-      | instr => CPU.pc_unchanged instr
+      | instr => pc_unchanged instr
       end.
   Proof.
     intros pc Hpc.
@@ -329,16 +328,16 @@ Module UTM_Program.
     assert (Hforall_raw :
               Forall (fun instr =>
                         match instr with
-                        | LoadConst rd val => CPU.pc_unchanged (LoadConst rd val)
-                        | LoadIndirect rd ra => CPU.pc_unchanged (LoadIndirect rd ra)
-                        | StoreIndirect ra rv => CPU.pc_unchanged (StoreIndirect ra rv)
-                        | CopyReg rd rs => CPU.pc_unchanged (CopyReg rd rs)
-                        | AddConst rd val => CPU.pc_unchanged (AddConst rd val)
-                        | AddReg rd rs1 rs2 => CPU.pc_unchanged (AddReg rd rs1 rs2)
-                        | SubReg rd rs1 rs2 => CPU.pc_unchanged (SubReg rd rs1 rs2)
+                        | LoadConst rd val => pc_unchanged (LoadConst rd val)
+                        | LoadIndirect rd ra => pc_unchanged (LoadIndirect rd ra)
+                        | StoreIndirect ra rv => pc_unchanged (StoreIndirect ra rv)
+                        | CopyReg rd rs => pc_unchanged (CopyReg rd rs)
+                        | AddConst rd val => pc_unchanged (AddConst rd val)
+                        | AddReg rd rs1 rs2 => pc_unchanged (AddReg rd rs1 rs2)
+                        | SubReg rd rs1 rs2 => pc_unchanged (SubReg rd rs1 rs2)
                         | Jz _ _ => True
                         | Jnz _ _ => True
-                        | Halt => CPU.pc_unchanged Halt
+                        | Halt => pc_unchanged Halt
                         end) (firstn 29 program_instrs)).
     { vm_compute. repeat constructor; try discriminate; try lia. }
     assert (Hforall :
@@ -364,16 +363,16 @@ Module UTM_Program.
     pose proof (proj1 (Forall_forall (A:=Instr)
                                       (fun instr =>
                                          match instr with
-                                         | LoadConst rd val => CPU.pc_unchanged (LoadConst rd val)
-                                         | LoadIndirect rd ra => CPU.pc_unchanged (LoadIndirect rd ra)
-                                         | StoreIndirect ra rv => CPU.pc_unchanged (StoreIndirect ra rv)
-                                         | CopyReg rd rs => CPU.pc_unchanged (CopyReg rd rs)
-                                         | AddConst rd val => CPU.pc_unchanged (AddConst rd val)
-                                         | AddReg rd rs1 rs2 => CPU.pc_unchanged (AddReg rd rs1 rs2)
-                                         | SubReg rd rs1 rs2 => CPU.pc_unchanged (SubReg rd rs1 rs2)
+                                         | LoadConst rd val => pc_unchanged (LoadConst rd val)
+                                         | LoadIndirect rd ra => pc_unchanged (LoadIndirect rd ra)
+                                         | StoreIndirect ra rv => pc_unchanged (StoreIndirect ra rv)
+                                         | CopyReg rd rs => pc_unchanged (CopyReg rd rs)
+                                         | AddConst rd val => pc_unchanged (AddConst rd val)
+                                         | AddReg rd rs1 rs2 => pc_unchanged (AddReg rd rs1 rs2)
+                                         | SubReg rd rs1 rs2 => pc_unchanged (SubReg rd rs1 rs2)
                                          | Jz _ _ => True
                                          | Jnz _ _ => True
-                                         | Halt => CPU.pc_unchanged Halt
+                                         | Halt => pc_unchanged Halt
                                          end)
                                       prefix) Hforall) as Hforall'.
     apply Hforall'.
@@ -387,7 +386,7 @@ Module UTM_Program.
     match nth pc program_instrs Halt with
     | Jz _ target => 29 <= target
     | Jnz _ target => 29 <= target
-    | instr => CPU.pc_unchanged instr
+    | instr => pc_unchanged instr
     end.
   Proof.
     intros pc Hpc.
