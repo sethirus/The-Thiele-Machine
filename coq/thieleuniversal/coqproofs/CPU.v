@@ -6,8 +6,6 @@ Import ListNotations.
 Open Scope Z_scope.
 Open Scope nat_scope.
 
-Module CPU.
-
   (* Register indexes for the simple CPU. *)
 
   Definition REG_PC   := 0.
@@ -184,5 +182,3 @@ Module CPU.
     intros rc target st Heq.
     unfold step. rewrite Heq. simpl. reflexivity.
   Qed.
-
-End CPU.
