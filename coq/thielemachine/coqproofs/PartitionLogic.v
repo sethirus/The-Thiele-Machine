@@ -59,6 +59,21 @@ Definition sum (l : list nat) := fold_left Nat.add l 0.
 Definition sum_mu (certs : list nat) := length certs.
 Definition receipts_ok := fun (_ _ : nat) => True.  (* Placeholder *)
 
+(* Helper lemmas for sum *)
+Lemma fold_left_add_zeros : forall (l : list nat) (acc : nat),
+  fold_left Nat.add (map (fun _ => 0) l) acc = acc.
+Proof.
+  induction l; intros; simpl.
+  - reflexivity.
+  - rewrite IHl. lia.
+Qed.
+
+Lemma sum_const_zero : forall (l : list nat), 
+  sum (map (fun _ => 0) l) = 0.
+Proof.
+  intros. unfold sum. apply fold_left_add_zeros.
+Qed.
+
 (* Interface axioms that must be satisfied between modules *)
 Definition interface_satisfied (w1 w2 : LocalWitness) (axiom : list nat) : bool :=
   (* Check if witness data is consistent with interface axioms *)
@@ -237,11 +252,15 @@ Theorem amortized_discovery :
     mu_operational_cost (match I with | [] => 0 | x :: _ => x end) P + mu_discovery_cost (match I with | [] => 0 | x :: _ => x end) P.
 Proof.
   intros I P H_same_partition.
-  (* Since mu_discovery_cost and mu_operational_cost are 0, totals are 0 *)
-  unfold total_mu_discovery, total_mu_operational, T.
+  unfold mu_discovery_cost, mu_operational_cost.
   simpl.
-  (* 0 + 0 = 0, 0 / length I = 0, right side 0 + 0 = 0, 0 <= 0 *)
-  apply Nat.le_refl.
+  (* Both sums are 0 because the functions return 0 *)
+  destruct I as [| i I'].
+  - (* Empty list: 0/0 <= 0+0 *)
+    simpl. apply Nat.le_refl.
+  - (* Non-empty: (0+0)/length I <= 0+0, which is 0/n <= 0 *)
+    rewrite !sum_const_zero.
+    simpl. apply Nat.le_refl.
 Qed.
 
 (* === Deterministic Replay === *)

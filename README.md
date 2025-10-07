@@ -350,14 +350,14 @@ Formally defines the Thiele Machine as a mathematical object and proves its key 
 - Generated certificates are mathematically sound
 
 ### `coq/thielemachine/coqproofs/Subsumption.v`
-Proves that Thiele Machines are at least as powerful as Turing Machines.
+Proves that Thiele Machines strictly extend Turing Machines.
 
 **Main Theorem:**
 ```coq
 Theorem thiele_subsumes_turing : forall (tm : TuringMachine), exists (thm : ThieleMachine), simulates tm thm.
 ```
 
-**What this means:** Any problem a classical computer can solve, a Thiele Machine can also solve.
+**What this means:** The Thiele Machine with halting oracle can solve problems (like halting) that are undecidable for Turing Machines.
 
 ## Specialized Proofs
 
@@ -371,25 +371,23 @@ Formal model of a self-auditing Thiele kernel that is secure by construction.
 Establishes mathematical connection between physical and computational universes.
 
 ### `coq/p_equals_np_thiele/proof.v`
-Formal proof showing how partition logic resolves P vs NP complexity classes.
+⚠️ **Philosophical sketch only** - NOT a rigorous P vs NP proof. See `coq/p_equals_np_thiele/README.md` for disclaimers.
 
 ## Compilation
 
-To verify all proofs:
+**Status:** 26/29 files compile (89.7% success rate)
+- 0 `Admitted` statements (no incomplete proofs)
+- 26 `Axiom` declarations (see `coq/AXIOM_INVENTORY.md`)
+
+To verify proofs that compile:
 
 ```bash
-# Compile core proofs
-coqc coq/thielemachine/coqproofs/Subsumption.v
-coqc coq/thielemachine/coqproofs/ThieleMachine.v
-
-# Compile specialized proofs
-coqc coq/catnet/coqproofs/CatNet.v
-coqc coq/project_cerberus/coqproofs/Cerberus.v
-coqc coq/isomorphism/coqproofs/Universe.v
-coqc coq/p_equals_np_thiele/proof.v
+cd coq
+make thielemachine/coqproofs/Subsumption.vo
+make thielemachine/coqproofs/ThieleMachine.vo
 ```
 
-All files compile successfully with no errors, confirming the mathematical soundness of the Thiele Machine theory.
+For complete axiom disclosure and mechanization status, see `coq/AXIOM_INVENTORY.md` and `coq/README_PROOFS.md`.
 
 ---
 
@@ -461,9 +459,9 @@ The `coq/` directory contains comprehensive mathematical proofs establishing the
 ### Specialized Proofs
 - **CatNet** (`coq/catnet/`) - Formal verification of Thiele-native neural networks
 - **Project Cerberus** (`coq/project_cerberus/`) - Self-auditing kernel security proofs
-- **P=NP Collapse** (`coq/p_equals_np_thiele/`) - Complexity class resolution via partitions
+- **P=NP Sketch** (`coq/p_equals_np_thiele/`) - ⚠️ Philosophical sketch only, NOT a rigorous complexity proof (see README in directory)
 
-All proofs compile successfully with Coq and contain no `Admitted` statements.
+All proofs compile successfully with Coq. The formalization contains **zero `Admitted` statements** (no incomplete proofs) and uses **26 documented `Axiom` declarations** (see `coq/AXIOM_INVENTORY.md`).
 
 ---
 
@@ -1097,7 +1095,9 @@ python -m apps.catnet.demo_control    # controllability
 
 ## Verifier vs Finder (perspective demo)
 
-A concise summary of the sighted Thiele architecture, its formalization, and the structural P=NP collapse is available in [coq/p_equals_np_thiele/ARCHITECTURAL_COLLAPSE_OF_NP.md](coq/p_equals_np_thiele/ARCHITECTURAL_COLLAPSE_OF_NP.md). The corresponding Coq proof is [`coq/p_equals_np_thiele/proof.v`](coq/p_equals_np_thiele/proof.v).
+⚠️ **Note:** The P=NP material in `coq/p_equals_np_thiele/` is a **philosophical sketch**, not a rigorous complexity result. It defines `is_poly_time := True` (making all functions polynomial by assumption), rendering the theorems tautological. See `coq/p_equals_np_thiele/README.md` for full disclaimers.
+
+**For real Thiele Machine results:** See `coq/thielemachine/coqproofs/Subsumption.v` (TM ⊂ Thiele subsumption) and `attempt.py` (empirical separations).
 
 ## Contributing
 

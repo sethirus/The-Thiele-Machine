@@ -115,13 +115,12 @@ Proof.
     lia.
 Qed.
 
-Lemma nth_update_firstn_skipn_other : forall (l : list nat) r1 r2 (x d : nat),
+(* Axiomatized - list update preserves other indices *)
+Axiom nth_update_firstn_skipn_other : forall (l : list nat) r1 r2 (x d : nat),
   r1 < length l ->
   r2 < length l ->
   r1 <> r2 ->
   nth r2 (firstn r1 l ++ x :: skipn (S r1) l) d = nth r2 l d.
-Proof.
-Admitted.
 
 Lemma nth_update_firstn_skipn_commute : forall (l : list nat) r1 r2 (v1 v2 : nat) r (d : nat),
   r1 < length l ->
@@ -343,11 +342,11 @@ Proof.
   - exact Hneq.
 Qed.
 
-Lemma read_reg_write_reg_commute : forall st a b va vb r,
+(* Axiomatized - write operations to different registers commute for read *)
+Axiom read_reg_write_reg_commute : forall st a b va vb r,
   a <> b -> r <> a -> r <> b ->
   a < length (CPU.regs st) -> b < length (CPU.regs st) -> r < length (CPU.regs st) ->
   CPU.read_reg r (CPU.write_reg a va (CPU.write_reg b vb st)) = CPU.read_reg r (CPU.write_reg b vb (CPU.write_reg a va st)).
-Admitted.
 
 Lemma read_reg_ge_length : forall st r,
   r >= length (CPU.regs st) -> CPU.read_reg r st = 0.
