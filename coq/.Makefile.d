@@ -22,9 +22,15 @@ thielemachine/coqproofs/ThieleMachine.vos thielemachine/coqproofs/ThieleMachine.
 thielemachine/coqproofs/NUSD.vo thielemachine/coqproofs/NUSD.glob thielemachine/coqproofs/NUSD.v.beautified thielemachine/coqproofs/NUSD.required_vo: thielemachine/coqproofs/NUSD.v 
 thielemachine/coqproofs/NUSD.vio: thielemachine/coqproofs/NUSD.v 
 thielemachine/coqproofs/NUSD.vos thielemachine/coqproofs/NUSD.vok thielemachine/coqproofs/NUSD.required_vos: thielemachine/coqproofs/NUSD.v 
-thielemachine/coqproofs/Subsumption.vo thielemachine/coqproofs/Subsumption.glob thielemachine/coqproofs/Subsumption.v.beautified thielemachine/coqproofs/Subsumption.required_vo: thielemachine/coqproofs/Subsumption.v thieleuniversal/coqproofs/TM.vo
-thielemachine/coqproofs/Subsumption.vio: thielemachine/coqproofs/Subsumption.v thieleuniversal/coqproofs/TM.vio
-thielemachine/coqproofs/Subsumption.vos thielemachine/coqproofs/Subsumption.vok thielemachine/coqproofs/Subsumption.required_vos: thielemachine/coqproofs/Subsumption.v thieleuniversal/coqproofs/TM.vos
+thielemachine/coqproofs/Separation.vo thielemachine/coqproofs/Separation.glob thielemachine/coqproofs/Separation.v.beautified thielemachine/coqproofs/Separation.required_vo: thielemachine/coqproofs/Separation.v 
+thielemachine/coqproofs/Separation.vio: thielemachine/coqproofs/Separation.v 
+thielemachine/coqproofs/Separation.vos thielemachine/coqproofs/Separation.vok thielemachine/coqproofs/Separation.required_vos: thielemachine/coqproofs/Separation.v 
+thielemachine/coqproofs/Simulation.vo thielemachine/coqproofs/Simulation.glob thielemachine/coqproofs/Simulation.v.beautified thielemachine/coqproofs/Simulation.required_vo: thielemachine/coqproofs/Simulation.v thieleuniversal/coqproofs/TM.vo thielemachine/coqproofs/ThieleMachine.vo
+thielemachine/coqproofs/Simulation.vio: thielemachine/coqproofs/Simulation.v thieleuniversal/coqproofs/TM.vio thielemachine/coqproofs/ThieleMachine.vio
+thielemachine/coqproofs/Simulation.vos thielemachine/coqproofs/Simulation.vok thielemachine/coqproofs/Simulation.required_vos: thielemachine/coqproofs/Simulation.v thieleuniversal/coqproofs/TM.vos thielemachine/coqproofs/ThieleMachine.vos
+thielemachine/coqproofs/Subsumption.vo thielemachine/coqproofs/Subsumption.glob thielemachine/coqproofs/Subsumption.v.beautified thielemachine/coqproofs/Subsumption.required_vo: thielemachine/coqproofs/Subsumption.v thieleuniversal/coqproofs/TM.vo thielemachine/coqproofs/ThieleMachine.vo thielemachine/coqproofs/Simulation.vo thielemachine/coqproofs/Separation.vo
+thielemachine/coqproofs/Subsumption.vio: thielemachine/coqproofs/Subsumption.v thieleuniversal/coqproofs/TM.vio thielemachine/coqproofs/ThieleMachine.vio thielemachine/coqproofs/Simulation.vio thielemachine/coqproofs/Separation.vio
+thielemachine/coqproofs/Subsumption.vos thielemachine/coqproofs/Subsumption.vok thielemachine/coqproofs/Subsumption.required_vos: thielemachine/coqproofs/Subsumption.v thieleuniversal/coqproofs/TM.vos thielemachine/coqproofs/ThieleMachine.vos thielemachine/coqproofs/Simulation.vos thielemachine/coqproofs/Separation.vos
 thielemachine/coqproofs/PartitionLogic.vo thielemachine/coqproofs/PartitionLogic.glob thielemachine/coqproofs/PartitionLogic.v.beautified thielemachine/coqproofs/PartitionLogic.required_vo: thielemachine/coqproofs/PartitionLogic.v 
 thielemachine/coqproofs/PartitionLogic.vio: thielemachine/coqproofs/PartitionLogic.v 
 thielemachine/coqproofs/PartitionLogic.vos thielemachine/coqproofs/PartitionLogic.vok thielemachine/coqproofs/PartitionLogic.required_vos: thielemachine/coqproofs/PartitionLogic.v 

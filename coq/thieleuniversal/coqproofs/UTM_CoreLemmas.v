@@ -14,13 +14,10 @@ Require Import Coq.Arith.PeanoNat.
 Require Import Coq.Classes.RelationClasses.
 Require Import TM.
 Require Import ZArith.
-Require Import UTM_Encode.
-Require Import UTM_Program.
 Import ListNotations.
 Import TM.
 Import UTM_Encode.
 Import UTM_Program.
-Open Scope nat_scope.
 
 Lemma length_UTM_Encode_encode_rule : forall r,
   length (UTM_Encode.encode_rule r) = 5.
@@ -115,13 +112,98 @@ Proof.
     lia.
 Qed.
 
-(* Axiomatized - list update preserves other indices *)
-Axiom nth_update_firstn_skipn_other : forall (l : list nat) r1 r2 (x d : nat),
+(* Local version of [set_nth] and its basic lemmas so other modules can use them
+   without creating import cycles. *)
+Fixpoint set_nth_local (l:list nat) (idx:nat) (v:nat) : list nat :=
+  match l, idx with
+  | [], _ => []
+  | _::tl, 0 => v::tl
+  | hd::tl, S i => hd :: set_nth_local tl i v
+  end.
+
+Lemma length_set_nth_local : forall l idx v,
+  length (set_nth_local l idx v) = length l.
+Proof.
+  induction l as [|hd tl IH]; intros [|idx] v; simpl; auto.
+Qed.
+
+Lemma nth_set_nth_local_eq : forall l idx v d,
+  idx < length l ->
+  nth idx (set_nth_local l idx v) d = v.
+Proof.
+  induction l as [|hd tl IH].
+  - intros idx v d Hidx. inversion Hidx.
+  - intros idx v d Hidx.
+    destruct idx as [|idx']; simpl in *.
+    + auto.
+    + apply IH.
+      lia.
+Qed.
+
+Lemma nth_set_nth_local_neq : forall l idx j v d,
+  idx < length l -> j < length l -> idx <> j ->
+  nth j (set_nth_local l idx v) d = nth j l d.
+Proof.
+  induction l as [|hd tl IH]; intros [|idx] [|j] v d Hidx Hj Hneq; simpl in *; try lia; auto.
+  - eapply IH; lia.
+Qed.
+
+Lemma set_nth_eq_update : forall l r v,
+  r < length l ->
+  firstn r l ++ v :: skipn (S r) l = set_nth_local l r v.
+Proof.
+  induction l as [|hd tl IH]; intros r v Hr; simpl in *.
+  - (* impossible: r < 0 *) lia.
+  - destruct r as [|r']; simpl.
+    + reflexivity.
+    + assert (Hr' : r' < length tl) by lia.
+    f_equal; apply IH; exact Hr'.
+Qed.
+
+(* Helper tactic: normalize an explicit [firstn r l ++ x :: skipn (S r) l]
+   occurrence into the canonical [set_nth_local l r x] form so rewrites
+   that expect [set_nth_local] will succeed irrespective of syntactic
+   differences introduced by local computation. This avoids brittle
+   rewrite patterns across the development. *)
+Ltac normalize_set_nth :=
+  match goal with
+  | |- context[firstn ?r ?l ++ ?x :: skipn (S ?r) ?l] =>
+      let H := fresh "Hupd" in
+      assert (H: firstn r l ++ x :: skipn (S r) l = set_nth_local l r x) by (apply set_nth_eq_update; try lia);
+      rewrite H; clear H
+  | H: context[firstn ?r ?l ++ ?x :: skipn (S ?r) ?l] |- _ =>
+      let Hupd := fresh "Hupd" in
+      assert (Hupd: firstn r l ++ x :: skipn (S r) l = set_nth_local l r x) by (apply set_nth_eq_update; try lia);
+      rewrite Hupd in H; clear Hupd
+  end.
+
+
+
+Lemma skipn_cons_nth : forall (A : Type) (l : list A) n d,
+  n < length l ->
+  skipn n l = nth n l d :: skipn (S n) l.
+Proof.
+  intros A l n d Hlt.
+  revert l d Hlt.
+  induction n as [|n IH]; intros l d Hlt.
+  - destruct l as [|x xs]; simpl in *; try lia; reflexivity.
+  - destruct l as [|x xs]; simpl in *; try lia.
+    apply IH. simpl in Hlt. lia.
+Qed.
+
+Lemma nth_update_firstn_skipn_other : forall (l : list nat) r1 r2 (x d : nat),
   r1 < length l ->
   r2 < length l ->
   r1 <> r2 ->
   nth r2 (firstn r1 l ++ x :: skipn (S r1) l) d = nth r2 l d.
-
+Proof.
+  intros l r1 r2 x d Hr1 Hr2 Hneq.
+  assert (Hupd : firstn r1 l ++ x :: skipn (S r1) l = set_nth_local l r1 x).
+  { apply set_nth_eq_update. exact Hr1. }
+  rewrite Hupd.
+  unfold set_nth_local.
+  apply nth_set_nth_local_neq; assumption.
+Qed.
 Lemma nth_update_firstn_skipn_commute : forall (l : list nat) r1 r2 (v1 v2 : nat) r (d : nat),
   r1 < length l ->
   r2 < length l ->
@@ -342,11 +424,43 @@ Proof.
   - exact Hneq.
 Qed.
 
-(* Axiomatized - write operations to different registers commute for read *)
-Axiom read_reg_write_reg_commute : forall st a b va vb r,
+Lemma read_reg_write_reg_commute : forall st a b va vb r,
   a <> b -> r <> a -> r <> b ->
   a < length (CPU.regs st) -> b < length (CPU.regs st) -> r < length (CPU.regs st) ->
   CPU.read_reg r (CPU.write_reg a va (CPU.write_reg b vb st)) = CPU.read_reg r (CPU.write_reg b vb (CPU.write_reg a va st)).
+Proof.
+  intros st a b va vb r Hab Hra Hrb Ha Hb Hr.
+  set (st_b := CPU.write_reg b vb st).
+  assert (Hlen_b : length (CPU.regs st_b) = length (CPU.regs st))
+    by (unfold st_b; apply length_regs_write_reg; exact Hb).
+  assert (Ha_st_b : a < length (CPU.regs st_b)) by (rewrite Hlen_b; exact Ha).
+  assert (Hr_st_b : r < length (CPU.regs st_b)) by (rewrite Hlen_b; exact Hr).
+  assert (Hab_comm :
+            CPU.read_reg r (CPU.write_reg a va st_b) = CPU.read_reg r st_b).
+  { unfold st_b.
+    apply (read_reg_write_reg_other st_b a r va);
+      [ exact Ha_st_b | exact Hr_st_b | exact (not_eq_sym Hra) ].
+  }
+  assert (Hrb_comm : CPU.read_reg r st_b = CPU.read_reg r st).
+  { unfold st_b.
+    apply (read_reg_write_reg_other st b r vb);
+      [ exact Hb | exact Hr | exact (not_eq_sym Hrb) ].
+  }
+  assert (Hlen_a : length (CPU.regs (CPU.write_reg a va st)) = length (CPU.regs st))
+    by (apply length_regs_write_reg; exact Ha).
+  assert (Hb_st_a : b < length (CPU.regs (CPU.write_reg a va st))) by (rewrite Hlen_a; exact Hb).
+  assert (Hr_st_a : r < length (CPU.regs (CPU.write_reg a va st))) by (rewrite Hlen_a; exact Hr).
+  assert (Hba_comm :
+            CPU.read_reg r (CPU.write_reg b vb (CPU.write_reg a va st)) =
+            CPU.read_reg r (CPU.write_reg a va st)).
+  { apply (read_reg_write_reg_other (CPU.write_reg a va st) b r vb);
+    [ exact Hb_st_a | exact Hr_st_a | exact (not_eq_sym Hrb) ]. }
+  assert (Hra_comm : CPU.read_reg r (CPU.write_reg a va st) = CPU.read_reg r st).
+  { apply (read_reg_write_reg_other st a r va);
+    [ exact Ha | exact Hr | exact (not_eq_sym Hra) ]. }
+  rewrite Hab_comm, Hrb_comm, Hba_comm, Hra_comm.
+  reflexivity.
+Qed.
 
 Lemma read_reg_ge_length : forall st r,
   r >= length (CPU.regs st) -> CPU.read_reg r st = 0.

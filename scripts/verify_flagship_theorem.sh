@@ -23,6 +23,8 @@ MAX_SIGHTED_MU=100
 PYTHON=${PYTHON:-python3}
 
 COQ_MAKE_TARGETS=( \
+  thielemachine/coqproofs/Simulation.vo \
+  thielemachine/coqproofs/Separation.vo \
   thielemachine/coqproofs/Subsumption.vo \
   thielemachine/coqproofs/StructuredInstances.vo \
   thieleuniversal/coqproofs/ThieleUniversal.vo \

@@ -15,5 +15,5 @@
 
 **Build:** `make p_equals_np_thiele/proof.vo`
 
-**For real Thiele Machine results:** See `thielemachine/coqproofs/Subsumption.v` and `attempt.py`
+**For real Thiele Machine results:** See `thielemachine/coqproofs/Separation.v` and `attempt.py`
 

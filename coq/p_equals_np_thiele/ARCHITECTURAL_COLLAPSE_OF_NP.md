@@ -43,7 +43,7 @@ This folder contains a single formal artifact: a 65-line Coq sketch demonstratin
 ---
 
 **For actual Thiele Machine results:**
-- See `coq/thielemachine/coqproofs/Subsumption.v` (real subsumption proof)
+- See `coq/thielemachine/coqproofs/Separation.v` (flagship separation proof)
 - See `attempt.py` (empirical separations)
 - See `coq/AXIOM_INVENTORY.md` (axiom justifications)
 
