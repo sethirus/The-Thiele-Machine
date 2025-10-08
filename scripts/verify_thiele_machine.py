@@ -147,7 +147,7 @@ class ThieleVerifier:
             # Try to compile key proof files
             key_files = [
                 "thielemachine/coqproofs/ThieleMachineConcrete.v",
-                "thielemachine/coqproofs/Subsumption.v"
+                "thielemachine/coqproofs/Separation.v"
             ]
 
             for filename in key_files:

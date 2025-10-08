@@ -62,6 +62,11 @@ Record ConcreteState : Type := {
   heap : ConcreteHeap;
 }.
 
+Definition default_concrete_state : ConcreteState :=
+  {| pc := 0;
+     csrs := fun _ => 0%Z;
+     heap := {| allocations := [] |} |}.
+
 (* ================================================================= *)
 (* Concrete Certificate Format *)
 (* ================================================================= *)
@@ -218,12 +223,21 @@ Fixpoint concrete_replay_ok (P:list ThieleInstr) (s0:ConcreteState) (rs:list Con
   end.
 
 (* Sum μ-deltas over execution trace *)
-Definition concrete_sum_mu (steps: list (ConcreteState*StepObs)) : Z :=
-    fold_left (fun acc '(_,obs) => Z.add acc obs.(mu_delta)) steps 0%Z.
+Fixpoint concrete_sum_mu (steps: list (ConcreteState*StepObs)) : Z :=
+  match steps with
+  | [] => 0%Z
+  | (_spre, obs) :: tl => Z.add obs.(mu_delta) (concrete_sum_mu tl)
+  end.
 
 (* Sum certificate sizes over receipts *)
-Definition concrete_sum_bits (rs: list ConcreteReceipt) : Z :=
-  fold_left (fun acc '(_,_,_,c) => Z.add acc (concrete_bitsize c)) rs 0%Z.
+Fixpoint concrete_sum_bits (rs: list ConcreteReceipt) : Z :=
+  match rs with
+  | [] => 0%Z
+  | (_spre, _spost, _oev, c) :: tl => Z.add (concrete_bitsize c) (concrete_sum_bits tl)
+  end.
+
+(* Sum of certificate sizes computed directly from the execution trace *)
+(* trace-based sum helper will be defined after receipt generation *)
 
 (* ================================================================= *)
 (* Instantiation of Abstract Parameters *)
@@ -269,109 +283,6 @@ Proof. reflexivity. Qed.
 (* Proofs of Axioms for Concrete Implementation *)
 (* ================================================================= *)
 
-(* Proof that concrete steps produce checkable certificates *)
-Theorem concrete_check_step_sound :
-  forall P s s' obs,
-    concrete_step P s s' obs ->
-    concrete_check_step P s s' obs.(ev) obs.(cert) = true.
-Proof.
-  intros P s s' obs Hstep.
-  inversion Hstep; subst; simpl; unfold concrete_check_step; simpl.
-  - repeat rewrite String.eqb_refl.
-    repeat rewrite Z.eqb_refl.
-    repeat rewrite Nat.eqb_refl.
-    reflexivity.
-  - repeat rewrite String.eqb_refl.
-    repeat rewrite Z.eqb_refl.
-    repeat rewrite Nat.eqb_refl.
-    reflexivity.
-Qed.
-
-(* Proof that μ-cost covers certificate size *)
-Theorem concrete_mu_lower_bound :
-  forall P s s' obs,
-    concrete_step P s s' obs ->
-    Z.le (concrete_bitsize obs.(cert)) obs.(mu_delta).
-Proof.
-  intros P s s' obs Hstep.
-  inversion Hstep; subst; simpl.
-  - (* LASSERT case *)
-    unfold concrete_bitsize.
-    simpl.
-    (* mu_delta = Z.mul (Z.of_nat (String.length query + 0 + 0)) 8 *)
-    (* bitsize = Z.mul (Z.of_nat (String.length query + 0 + 0)) 8 *)
-    (* So they are equal, hence bitsize <= mu_delta *)
-    apply Z.le_refl.
-  - (* MDLACC case *)
-    unfold concrete_bitsize.
-    simpl.
-    (* mu_delta = Z.mul (Z.of_nat (0 + 0 + 0)) 8 = 0 *)
-    (* bitsize = Z.mul (Z.of_nat (0 + 0 + 0)) 8 = 0 *)
-    (* So 0 <= 0 *)
-    apply Z.le_refl.
-Qed.
-
-(* Completeness: accepted certificates correspond to valid steps *)
-Theorem concrete_check_step_complete :
-  forall P s oev c,
-    concrete_check_step P s s oev c = true ->
-    exists obs, concrete_step P s s obs /\ obs.(ev) = oev /\ obs.(cert) = c.
-Proof.
-  intros P s oev c Hcheck.
-  destruct c as [q r m ts seq].
-  simpl in Hcheck.
-  destruct oev as [ev|].
-  - destruct ev as [policy| |].
-    + simpl in Hcheck.
-      apply Bool.andb_true_iff in Hcheck.
-      destruct Hcheck as [Hq Hrest].
-      apply Bool.andb_true_iff in Hrest.
-      destruct Hrest as [Hr Hrest].
-      apply Bool.andb_true_iff in Hrest.
-      destruct Hrest as [Hm Hrest].
-      apply Bool.andb_true_iff in Hrest.
-      destruct Hrest as [Hts Hseq].
-      apply String.eqb_eq in Hq.
-      apply String.eqb_eq in Hr.
-      apply String.eqb_eq in Hm.
-      apply Z.eqb_eq in Hts.
-      apply Nat.eqb_eq in Hseq.
-      subst policy r m ts seq.
-      exists {| ev := Some (PolicyCheck q);
-                mu_delta := Z.mul (Z.of_nat (String.length q + 0 + 0)) 8;
-                cert := {| smt_query := q;
-                           solver_reply := EmptyString;
-                           metadata := EmptyString;
-                           timestamp := 0;
-                           sequence := 0 |} |}.
-      split; [apply step_lassert | split; reflexivity].
-    + discriminate.
-    + discriminate.
-  - simpl in Hcheck.
-    apply Bool.andb_true_iff in Hcheck.
-    destruct Hcheck as [Hab Hrest].
-    apply Bool.andb_true_iff in Hab.
-    destruct Hab as [Hq Hr].
-    apply Bool.andb_true_iff in Hrest.
-    destruct Hrest as [Hm Hrest].
-    apply Bool.andb_true_iff in Hrest.
-    destruct Hrest as [Hts Hseq].
-    apply String.eqb_eq in Hq.
-    apply String.eqb_eq in Hr.
-    apply String.eqb_eq in Hm.
-    apply Z.eqb_eq in Hts.
-    apply Nat.eqb_eq in Hseq.
-    subst q r m ts seq.
-    exists {| ev := None;
-              mu_delta := Z.mul (Z.of_nat (0 + 0 + 0)) 8;
-              cert := {| smt_query := EmptyString;
-                         solver_reply := EmptyString;
-                         metadata := EmptyString;
-                         timestamp := 0;
-                         sequence := 0 |} |}.
-    split; [apply step_mdlacc | split; reflexivity].
-Qed.
-
 (* ================================================================= *)
 (* Concrete Execution Semantics *)
 (* ================================================================= *)
@@ -398,22 +309,122 @@ Fixpoint concrete_receipts_of (P:list ThieleInstr) (s0:ConcreteState) (tr:list (
         receipt :: concrete_receipts_of P s' tl
     end.
 
+Lemma concrete_receipts_of_length :
+  forall P s0 tr,
+    Datatypes.length (concrete_receipts_of P s0 tr) = Datatypes.length tr.
+Proof.
+  intros P s0 tr.
+  revert P s0.
+  induction tr as [|[s' obs] tl IH]; intros P s0; simpl; auto.
+Qed.
+
+(* Sum of certificate sizes computed directly from the execution trace *)
+Fixpoint concrete_sum_bits_of_trace (tr: list (ConcreteState * StepObs)) : Z :=
+  match tr with
+  | [] => 0%Z
+  | (_spre, obs) :: tl => Z.add (concrete_bitsize (obs.(cert))) (concrete_sum_bits_of_trace tl)
+  end.
+
+Lemma concrete_sum_bits_of_trace_spec :
+  forall P s tr,
+    concrete_sum_bits (concrete_receipts_of P s tr) = concrete_sum_bits_of_trace tr.
+Proof.
+  intros P s tr.
+  revert s.
+  induction tr as [|[s' obs] tl IH]; intros s; simpl.
+  - reflexivity.
+  - simpl. rewrite IH. reflexivity.
+Qed.
+
+Lemma concrete_sum_bits_cons :
+  forall spre spost oev cert rs,
+    concrete_sum_bits ((spre, spost, oev, cert) :: rs) =
+    Z.add (concrete_bitsize cert) (concrete_sum_bits rs).
+Proof.
+  intros.
+  unfold concrete_sum_bits.
+  simpl.
+  reflexivity.
+Qed.
+
+Lemma concrete_sum_mu_cons :
+  forall spre obs rs,
+    concrete_sum_mu ((spre, obs) :: rs) =
+    Z.add (obs.(mu_delta)) (concrete_sum_mu rs).
+Proof.
+  intros.
+  simpl.
+  reflexivity.
+Qed.
+
+Lemma concrete_check_step_sound :
+  forall P s spre obs,
+    concrete_step P s spre obs ->
+    concrete_check_step P s spre obs.(ev) obs.(cert) = true.
+Proof.
+  intros P s spre obs Hstep.
+  inversion Hstep; subst; simpl; repeat rewrite ?andb_true_iff;
+    repeat rewrite ?String.eqb_refl; repeat rewrite ?Z.eqb_refl;
+    repeat rewrite ?Nat.eqb_refl; auto.
+Qed.
+
+Lemma concrete_bitsize_le_mu :
+  forall P s spre obs,
+    concrete_step P s spre obs ->
+    Z.le (concrete_bitsize obs.(cert)) obs.(mu_delta).
+Proof.
+  intros P s spre obs Hstep.
+  inversion Hstep; subst; simpl; lia.
+Qed.
+
+Lemma concrete_exec_receipts_ok :
+  forall P s0 tr,
+    ConcreteExec P s0 tr ->
+    concrete_replay_ok P s0 (concrete_receipts_of P s0 tr) = true.
+Proof.
+  intros P s0 tr Hexec.
+  induction Hexec; simpl; auto.
+  rewrite concrete_check_step_sound by assumption.
+  exact IHHexec.
+Qed.
+
+Lemma concrete_exec_mu_bound :
+  forall P s0 tr,
+    ConcreteExec P s0 tr ->
+    Z.le (concrete_sum_bits (concrete_receipts_of P s0 tr)) (concrete_sum_mu tr).
+Proof.
+  intros P s0 tr Hexec.
+  induction Hexec.
+  - simpl. apply Z.le_refl.
+  - (* convert receipts sum to trace-based sum in both goal and IH *)
+    rewrite (concrete_sum_bits_of_trace_spec P s ((s', obs) :: tl)).
+    rewrite (concrete_sum_bits_of_trace_spec P s' tl) in IHHexec.
+    pose proof (concrete_bitsize_le_mu _ _ _ _ H) as Hbits.
+    apply Z.add_le_mono; [exact Hbits | exact IHHexec].
+Qed.
+
 (* ================================================================= *)
 (* Main Concrete Theorem *)
 (* ================================================================= *)
 
 (* Concrete Thiele Machine exists and satisfies properties *)
-(* Axiomatized - full proof requires trace induction showing:
-   1. Length preservation
-   2. Replay validity
-   3. μ-cost bounds *)
-Axiom ConcreteThieleMachine_exists :
+Theorem ConcreteThieleMachine_exists :
   exists (P:list ThieleInstr) (s0:ConcreteState),
   forall tr, ConcreteExec P s0 tr ->
     exists rs,
-      List.length rs = List.length tr /\
+      Datatypes.length rs = Datatypes.length tr /\
       concrete_replay_ok P s0 rs = true /\
       Z.le (concrete_sum_bits rs) (concrete_sum_mu tr).
+Proof.
+  exists [].
+  exists default_concrete_state.
+  intros tr Hexec.
+  exists (concrete_receipts_of [] default_concrete_state tr).
+  repeat split.
+  - apply concrete_receipts_of_length.
+  - apply concrete_exec_receipts_ok; assumption.
+  - apply concrete_exec_mu_bound; assumption.
+Qed.
 
 (* ================================================================= *)
 (* Notes for Implementation *)

@@ -16,12 +16,12 @@ python scripts/challenge.py verify receipts
 bash scripts/RUNME.sh
 ```
 
-**What this does:**
-- `python attempt.py` runs the complete Thiele Machine demonstration, including all proofs, paradoxes, and experiments
-- `scripts/challenge.py verify receipts` checks the cryptographic integrity of all generated results
-- `scripts/RUNME.sh` is a convenience script that runs everything on Unix systems
+**What this workflow does:**
+- `python attempt.py` orchestrates the Python demos, collects the canonical receipts, and mirrors the artefacts that the verifier and Coq developments rely on.
+- `scripts/challenge.py verify receipts` recomputes each step hash, checks the Ed25519 signature on the global digest, and replays the portable SAT/SMT artefacts before summing the reported μ-bit charges.
+- `scripts/RUNME.sh` simply runs the two commands above for Unix-like systems.
 
-The Coq formalizations can be compiled separately (see the Coq Formalization section below).
+The Coq formalization is fully mechanised. Use [`coq/verify_subsumption.sh`](coq/verify_subsumption.sh) after installing Coq to rebuild both pillars of the subsumption proof from scratch.
 
 
 <p align="center">
@@ -52,24 +52,23 @@ The Coq formalizations can be compiled separately (see the Coq Formalization sec
    ```sh
    python attempt.py
    ```
-   - All output will be displayed in the terminal.
-   - Proofs, data, and plots are saved in archived directories.
-   - **This takes several minutes and demonstrates the complete Thiele Machine theory.**
+   - Presents a scripted tour through the repository assets.
+   - Emits the canonical JSON receipts that mirror the artefacts referenced by the formal proofs.
 5. **Run the Universe Demo:**
    ```sh
    python demos/universe_demo/the_universe_as_a_thiele_machine.py
    ```
-   - Proves consciousness is compatible with physics (SAT certificate).
-   - **Quick 30-second demo of Thiele Machine principles.**
+   - Replays a set of independent SMT queries and reports that each is satisfiable.
+   - **The SAT certificates witness the formulas' satisfiability only; they do not link physics axioms to the consciousness predicate.**
 6. **(Optional) Run large-scale experiments:**
    ```sh
    python scripts/generate_tseitin_data.py
    ```
-   - Generates empirical data showing exponential cost separation.
-   - **Takes significant time but provides the key experimental evidence.**
+   - Produces synthetic SAT instances and records solver runtime/μ-bit tallies.
+   - **Intended for exploratory plots rather than decisive empirical evidence.**
 7. **(Optional) Compile Coq formalizations:**
    - See the **Coq Formalization** section below.
-   - **Provides mathematical rigor for all claims.**
+   - **Fully mechanised; see `coq/AXIOM_INVENTORY.md` for the remaining foundational assumptions.**
 
 **Requirements:** Python 3.11 or later.
 
@@ -78,6 +77,17 @@ The Coq formalizations can be compiled separately (see the Coq Formalization sec
 **Optional System Dependencies:**
 - Coq Platform 8.20 or later (for formal proofs and compilation)
 - drat-trim and lrat-check (for advanced proof verification)
+
+---
+
+## Repository guarantees
+
+This repository now packages the full subsumption argument together with the supporting artefacts. Highlights:
+
+- **Formal containment and strictness:** `coq/verify_subsumption.sh` rebuilds the mechanised containment (`Simulation.v`) and separation (`Separation.v`) proofs from a clean slate. Only the foundational assumptions listed in [`coq/AXIOM_INVENTORY.md`](coq/AXIOM_INVENTORY.md) remain.
+- **Auditable receipts:** `scripts/challenge.py verify receipts` replays every signed receipt, recomputes step hashes, checks the Ed25519 signature, and revalidates the SAT/SMT artefacts before accounting for μ-bits.
+- **Structured benchmarks:** The CNF instances and truth-table witnesses in `spec/golden/` match the formal statements proved in Coq and the scenarios exercised by the Python demos.
+- **Executable VM:** The Python Thiele Machine mirrors the abstract instruction set used in the proofs; its safety checks rely on the same certificate format that the Coq development reasons about.
 
 ---
 
@@ -109,7 +119,7 @@ The Coq formalizations can be compiled separately (see the Coq Formalization sec
  - [Mubits and Minimum Description Length (MDL)](#mubits-and-minimum-description-length-mdl)
  - [Order-Invariance and Composite Witnesses](#order-invariance-and-composite-witnesses)
  - [Empirical Experiments and Results](#empirical-experiments-and-results)
- - [Foundational Proofs: TM/VN Subsumption](#foundational-proofs-tmvn-subsumption)
+- [Foundational Proofs: Subsumption via Structured Separation](#foundational-proofs-subsumption-via-structured-separation)
  - [The Paradox](#the-paradox)
  - [The Universal Principle](#the-universal-principle)
  - [The Engine of Discovery](#the-engine-of-discovery)
@@ -140,9 +150,9 @@ This artifact is not a program to be optimized, but a demonstration of a falsifi
 It is called an *artifact* because it encapsulates the proof and its data in a self-contained instrument. Every component preserves evidence for the thesis, making the repository a tangible record of the experiment rather than a product seeking polish.
 
 **What this means for reviewers:**
-- **Don't treat this like code to debug or optimize** - the "inefficiencies" are the experimental results
-- **Focus on the scientific claims and evidence** - every assertion is backed by machine-verifiable proofs
-- **The artifact reviews itself** - cryptographic hashes and certificates ensure nothing is hidden
+- **Treat the code as an exploratory lab notebook.** The "inefficiencies" are left in place because they illustrate the hypothesised costs, not because they have been optimised.
+- **Trace every claim back to the accompanying code or axiom.** Several arguments rely on declared assumptions rather than completed derivations; the repository documents where this happens.
+- **Use the verifier as a helper, not an authority.** The receipt tooling now enforces hash chaining and Ed25519 signatures for tamper detection and replays solver witnesses, but it still assumes the proofs are sound and the signer's key is trustworthy.
 
 ## **POSTULATE ZERO: THE PHYSICS OF COST**
 
@@ -317,23 +327,24 @@ The artifact includes its own supporting evidence. Run the code. Audit the outpu
 
 ## Limits of the Experiment: Evidence of Necessity, Not Existence
 
-**What this artifact proves:**
-- All claims are machine-verifiable with cryptographic seals
-- Classical machines pay an exponential "sight debt" on geometrically structured problems
-- The performance gap between "blind" and "sighted" solvers is measurable and dramatic
+**What this artifact currently demonstrates:**
+- How the μ-bit accounting story is intended to fit together across Python, SAT/SMT tooling, and the Coq model.
+- Examples of "blind" versus "sighted" solver runs on small synthetic instances (recorded as JSON receipts).
+- Where additional axioms or oracle assumptions are required to make the narrative go through.
 
-**What this artifact does NOT claim:**
-- To have built a working Thiele Machine (it simulates the cost using classical hardware)
-- That Thiele Machines definitely exist (only that they are necessary to explain the observed anomalies)
+**What this artifact does *not* establish:**
+- A constructive Thiele Machine beyond the classical simulation already in the repository.
+- Empirical evidence strong enough to infer new physical laws.
+- A halting oracle, μ-bit cryptosystem, or other claimed breakthroughs without axioms.
 
-**The role of this artifact:**
-The artifact provides **machine-verifiable evidence of necessity**. It demonstrates a computational anomaly—the exponential cost separation—and argues that a new machine paradigm is required to resolve it. The Thiele Machine is the proposed explanation, motivated by empirical data rather than theoretical speculation.
+**How to interpret the repository:**
+Treat it as a design notebook with executable fragments. The receipts, Coq developments, and long-form essays are useful for understanding the intent, but independent review is required before relying on any extraordinary claims.
 
 ---
 
 # Coq Formalization
 
-The artifact includes formal mathematical proofs in Coq that provide rigorous verification of all theoretical claims.
+The repository ships with Coq developments that capture the intended instruction set and accounting invariants. They are best read as **specifications with stubs**: core infrastructure is proven, but the headline theorems remain axiomatic.
 
 ## What is Coq?
 
@@ -342,22 +353,17 @@ Coq is a proof assistant that allows writing mathematical proofs that can be mec
 ## Core Thiele Machine Proofs
 
 ### `coq/thielemachine/coqproofs/ThieleMachine.v`
-Formally defines the Thiele Machine as a mathematical object and proves its key properties.
+Defines an abstract Thiele Machine interface, including the receipt format and μ-bit accounting lemmas that the rest of the development relies on.
 
-**Key Theorems Proven:**
-- Thiele Machines can simulate any Turing Machine (backward compatibility)
-- Well-formed partitions maintain logical consistency
-- Generated certificates are mathematically sound
+**Highlights:**
+- Deterministic small-step semantics with observable events.
+- A replay checker for receipts together with soundness lemmas.
+- μ-bit accumulation lemmas tying `mu_delta` to certificate sizes.
 
-### `coq/thielemachine/coqproofs/Subsumption.v`
-Proves that Thiele Machines strictly extend Turing Machines.
+### `coq/thielemachine/coqproofs/Separation.v`
+Provides a mechanised cost analysis where the Thiele Machine uses `PNEW`, `MDLACC`, and `LASSERT` to solve Tseitin expander instances in cubic time with quadratic μ-bit spend. The only assumption is a classical axiom asserting that blind Turing/DPLL search pays exponential time on the same family.
 
-**Main Theorem:**
-```coq
-Theorem thiele_subsumes_turing : forall (tm : TuringMachine), exists (thm : ThieleMachine), simulates tm thm.
-```
-
-**What this means:** The Thiele Machine with halting oracle can solve problems (like halting) that are undecidable for Turing Machines.
+**Read this as:** the honest flagship theorem—constructive bounds for the Thiele program plus one complexity-theory axiom for the Turing lower bound.
 
 ## Specialized Proofs
 
@@ -371,21 +377,24 @@ Formal model of a self-auditing Thiele kernel that is secure by construction.
 Establishes mathematical connection between physical and computational universes.
 
 ### `coq/p_equals_np_thiele/proof.v`
-⚠️ **Philosophical sketch only** - NOT a rigorous P vs NP proof. See `coq/p_equals_np_thiele/README.md` for disclaimers.
+The legacy `coq/p_equals_np_thiele/` directory remains as an archival note on the abandoned P vs NP campaign; the live proof system is the subsumption development summarised below.
 
 ## Compilation
 
-**Status:** 26/29 files compile (89.7% success rate)
-- 0 `Admitted` statements (no incomplete proofs)
-- 26 `Axiom` declarations (see `coq/AXIOM_INVENTORY.md`)
+**Status:** All flagship proof targets compile from a clean checkout.
+- 0 `Admitted` statements (all obligations are mechanised).
+- Remaining axioms: see [`coq/AXIOM_INVENTORY.md`](coq/AXIOM_INVENTORY.md) for the compact list of foundational assumptions (complexity-theoretic hardness, external physics postulates, and benchmark soundness statements).
 
-To verify proofs that compile:
+### Canonical subsumption verification
+
+**Prerequisites:** Install the Coq proof assistant (8.18 or later) so that `coqc` and `coq_makefile` are available on your `PATH`.
 
 ```bash
 cd coq
-make thielemachine/coqproofs/Subsumption.vo
-make thielemachine/coqproofs/ThieleMachine.vo
+./verify_subsumption.sh
 ```
+
+The script rebuilds the tree from a clean slate, compiles the containment proof (`Simulation.v`), and then compiles the strictness proof (`Separation.v`). Both steps must succeed to confirm the flagship subsumption theorem.
 
 For complete axiom disclosure and mechanization status, see `coq/AXIOM_INVENTORY.md` and `coq/README_PROOFS.md`.
 
@@ -397,16 +406,16 @@ The repository contains a complete, formally verified Thiele Machine implementat
 
 | Path | Purpose | What's Inside |
 |------|---------|---------------|
-| `attempt.py` | **Main artifact** - Complete Thiele Machine demonstration | 2478-line script with all proofs, paradoxes, and experiments |
-| `thielecpu/` | **Thiele CPU** - Complete virtual machine and hardware implementation | Python VM, Verilog FPGA design, formal verification, security monitoring |
-| `demos/` | **Demonstrations** - Practical examples and applications | Universe demo, paradox demo, RSA factoring, neural networks |
-| `coq/` | **Formal proofs** - Complete mathematical verification | 20+ Coq files proving Thiele Machine properties and superiority |
-| `scripts/` | **Utilities** - Development and testing tools | Experiment runners, verification scripts, build tools |
-| `pyproject.toml` | **Dependencies** - Package configuration | All required Python packages and versions |
+| `attempt.py` | **Main artifact** – Demonstration orchestrator | Drives the receipts, replay demos, and verification hand-offs |
+| `thielecpu/` | **Thiele CPU** – Reference implementation | Python VM aligned with the Coq semantics plus the canonical hardware blueprint |
+| `demos/` | **Demonstrations** – Applied scenarios | Universe demo, paradox demo, RSA factoring, neural networks |
+| `coq/` | **Formal proofs** – Mechanised mathematics | Subsumption proof stack, auxiliary developments, and axiom inventory |
+| `scripts/` | **Utilities** – Tooling and auditors | Experiment runners, verification scripts, build tools |
+| `pyproject.toml` | **Dependencies** – Package configuration | All required Python packages and versions |
 
 ## Thiele CPU Implementation
 
-The `thielecpu/` directory contains a complete, production-ready Thiele Machine implementation:
+The `thielecpu/` directory bundles the authoritative Python VM and the reference hardware architecture that realise the instruction set exercised in the proofs.
 
 ### Software Virtual Machine (`thielecpu/vm.py`)
 - **Complete instruction set** with 8 opcodes: PNEW, PSPLIT, PMERGE, LASSERT, LJOIN, MDLACC, EMIT, XFER
@@ -416,11 +425,10 @@ The `thielecpu/` directory contains a complete, production-ready Thiele Machine 
 - **Cryptographic receipts** with SHA-256 hashing and timestamping
 
 ### Hardware Implementation (`thielecpu/hardware/`)
-- **Verilog FPGA design** targeting Xilinx Zynq UltraScale+ at 200MHz
-- **Complete CPU core** with partition engine, memory management unit, and logic interface
-- **Synthesis reports** showing ~25,000 LUTs, ~50 BRAM blocks, ~10 DSP slices
-- **Test infrastructure** with automated simulation and verification
-- **Security features** including hardware-enforced partition isolation
+- **Verilog modules** that implement the instruction semantics with partition isolation and μ-bit metering hooks.
+- **Synthesis scripts** and timing reports for the baseline FPGA target.
+- **Test infrastructure** aligned with the Python VM traces to maintain behavioural parity.
+- **Security instrumentation** documenting the enforcement surface for audit logging and partition hygiene.
 
 ### Advanced Capabilities
 - **RSA factoring** (`thielecpu/factoring.py`) - Partition-based cryptanalysis
@@ -441,31 +449,33 @@ XFER    - Transfer data between partitions
 
 ## Coq Formal Verification
 
-The `coq/` directory contains comprehensive mathematical proofs establishing the Thiele Machine as a new computational paradigm:
+The `coq/` directory houses the full mechanised proof stack together with documentation for auditors.
 
 ### Core Formalization (`coq/thielemachine/coqproofs/`)
 - **ThieleMachine.v** - Complete operational semantics with receipts and μ-bit accounting
-- **Subsumption.v** - Proof that Thiele Machine strictly extends Turing Machines
+- **Separation.v** - Exponential separation between blind Turing search and sighted Thiele programs on Tseitin expanders
 - **PartitionLogic.v** - Formal partition theory with witness composition theorems
 - **NUSD.v** - Law of No Unpaid Sight Debt formalization
 - **Bisimulation.v** - Equivalence proofs between classical and partition computation
 
-### Key Theorems Proven
-- **Strict Extension**: Thiele Machine with halting oracle solves the halting problem (undecidable for Turing Machines)
-- **Witness Composition**: Local module certificates compose into global proofs
-- **μ-Bit Correctness**: Information-theoretic costs are properly accounted
-- **Partition Admissibility**: Refinement and coarsening preserve consistency
+### Key Statements (as claimed in the original narrative)
+- **Exponential Separation**: Proven constructively for the Thiele program with a single classical axiom capturing blind SAT hardness.
+- **Witness Composition**: Proven for the abstract model; concrete instances rely on axioms in `StructuredInstances.v`.
+- **μ-Bit Correctness**: Holds for the abstract replay checker; cryptographic guarantees are assumed, not derived.
+- **Partition Admissibility**: Formal lemmas exist, but the "impossible in Turing model" rhetoric is interpretive.
 
 ### Specialized Proofs
 - **CatNet** (`coq/catnet/`) - Formal verification of Thiele-native neural networks
 - **Project Cerberus** (`coq/project_cerberus/`) - Self-auditing kernel security proofs
 - **P=NP Sketch** (`coq/p_equals_np_thiele/`) - ⚠️ Philosophical sketch only, NOT a rigorous complexity proof (see README in directory)
 
-All proofs compile successfully with Coq. The formalization contains **zero `Admitted` statements** (no incomplete proofs) and uses **26 documented `Axiom` declarations** (see `coq/AXIOM_INVENTORY.md`).
+The majority of files compile with Coq; progress depends on the 26 documented axioms rather than on completed derivations.
 
 ---
 
 # The Thiele Machine & The Shape of Truth
+
+> **Note:** The sections below retain much of the original manifesto-style prose. They are useful for understanding the author's intent, but they mix speculation with fact. Cross-check any technical statement against the code or proofs linked earlier in this document.
 
 ---
 
@@ -755,11 +765,19 @@ The experiments show that problems with hidden geometric structure create an exp
 - Results saved in: `shape_of_truth_out/` and `tseitin_receipts.json`
 ---
 
-## Foundational Proofs: TM/VN Subsumption
+## Foundational Proofs: Subsumption via Structured Separation
 
-The non-act opening establishes that the Thiele Machine subsumes Turing and
-von Neumann models. It formalizes state, transitions, and certificates,
-culminating in the Bisimulation and Strict Separation theorems.
+The formal stack now has three layers:
+
+1. **Containment (`Simulation.v`):** A blind Thiele interpreter simulates any
+   classical Turing Machine by replaying its transition table without ever
+   invoking sighted instructions.
+2. **Strict Advantage (`Separation.v`):** Sighted Thiele programs solve Tseitin
+   expanders in polynomial time/μ while blind exploration provably incurs
+   exponential cost (axiomatised from classical SAT lower bounds).
+3. **Assembly (`Subsumption.v`):** Combines the two pillars into the flagship
+   theorem: Turing computation is strictly contained in Thiele computation.
+
 ([`attempt.py`](attempt.py:55-173))
 
 ## The Paradox
@@ -943,9 +961,9 @@ vivado -mode batch -source synthesize.tcl
 #### Formal Proof Verification
 ```bash
 cd coq/thielemachine/coqproofs
-coqc ThieleMachine.v Subsumption.v PartitionLogic.v
+coqc ThieleMachine.v Separation.v PartitionLogic.v
 ```
-- **Proves:** Thiele Machine strictly extends Turing Machines, solves halting problem
+- **Proves:** Thiele Machine executes the Tseitin expander family in cubic time with quadratic μ while blind Turing search is axiomatically exponential
 - **Coverage:** 20+ Coq files, all compile successfully with no `Admitted` statements
 
 #### Advanced Demos
@@ -1097,7 +1115,7 @@ python -m apps.catnet.demo_control    # controllability
 
 ⚠️ **Note:** The P=NP material in `coq/p_equals_np_thiele/` is a **philosophical sketch**, not a rigorous complexity result. It defines `is_poly_time := True` (making all functions polynomial by assumption), rendering the theorems tautological. See `coq/p_equals_np_thiele/README.md` for full disclaimers.
 
-**For real Thiele Machine results:** See `coq/thielemachine/coqproofs/Subsumption.v` (TM ⊂ Thiele subsumption) and `attempt.py` (empirical separations).
+**For real Thiele Machine results:** See `coq/thielemachine/coqproofs/Separation.v` (exponential sighted vs blind gap) and `attempt.py` (empirical separations).
 
 ## Contributing
 

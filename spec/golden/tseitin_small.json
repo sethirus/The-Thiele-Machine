@@ -1,16 +1,53 @@
 {
+  "global_digest": "4e418052397fd6d237260002f2cd5bf46f6f703c3013895bf604a6e7cd424645",
+  "kernel_pubkey": "78de7840b6c403801cf6aac7ab22a9ca3362f88c6874e6f03fee461710f74f85",
+  "signature": "057a458c927f18cb6084737711a2890f68546f6c1686540932810fa9ee955ddd4e8a9cdce97f45d6ea227e8830ff2d1a1bd2c64c16de3ee83da9ce2d57c43d0b",
   "spec_version": "1.0",
-  "kernel_pubkey": "1de009da82d5ad5d2a170507b0680326c7686e56683e84ab51d5578cf02fdff9",
   "steps": [
     {
+      "certificate": {
+        "blind_search": {
+          "checked_assignments": 16,
+          "truth_table": {
+            "path": "spec/golden/tseitin_small_truth_table.json",
+            "sha256": "84add3c520d893b0e370e0e185c6959ffb12130860915083b317890c10a821f9"
+          }
+        },
+        "cnf": {
+          "clauses": 5,
+          "path": "spec/golden/tseitin_small.cnf",
+          "sha256": "03e5a26a18034789336d0b9d77557c90a2fb3502ac656d257ed45c28c57cbcab",
+          "variables": 4
+        },
+        "mu_accounting": {
+          "blind_cost": 16,
+          "mu_delta": 14,
+          "sighted_cost": 2
+        },
+        "problem": "tseitin_unit_conflict",
+        "sighted_solver": {
+          "conflict": {
+            "clauses": [
+              4,
+              3
+            ],
+            "variable": 4
+          },
+          "method": "unit_propagation_conflict",
+          "operations": 2,
+          "result": "unsat"
+        }
+      },
+      "certificate_hash": "cd873e154a33b90396c1b64149fe84a0b7eb12f4acb140591c04bd3bbb2598ef",
+      "cnf_blob_uri": "spec/golden/tseitin_small.cnf",
       "idx": 0,
-      "transition": "tseitin_solve",
-      "mu_delta": 1,
-      "solver": "tseitin_solver",
+      "mu_delta": 14,
+      "proof_blob_uri": "spec/golden/tseitin_small_truth_table.json",
+      "proof_portable": "TRUTH_TABLE_UNSAT",
+      "solver": "tseitin_unit_solver",
       "solver_cmdline": "python scripts/make_golden.py",
-      "step_hash": "8ff2ebf613585ee6ab28b1105b9bc8d773ddf3568b754169cb0c295441caa512"
+      "step_hash": "df36fb2da78cc6358947146fbf64bc4fa29220bb2d5e06a9d89ff725f261b89a",
+      "transition": "tseitin_unit_propagation"
     }
-  ],
-  "global_digest": "660cb3a8fb08af045c30642ff022a795f0cfafc187bfeaf0ac9e4d26d8def0b4",
-  "signature": "9167173213a009b4a185326c3fd6117e6bda546d33338c344b1b17c9ad77f981a7b5b16b44ae32183d5d4eb62ca3e96bd30a6f557891ab9e562a14e9794f3e9a"
+  ]
 }

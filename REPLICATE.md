@@ -18,9 +18,9 @@ python scripts/thiele_verify.py spec/golden
 Expected output for successful verification:
 ```
 horn_small.json: mu 1.0
-tseitin_small.json: mu 1.0
-xor_small.json: mu 1.0
-xor_small_orderA.json: mu 2.0
-xor_small_orderB.json: mu 2.0
-total mu 7.0
+tseitin_small.json: mu 14.0
+xor_small.json: mu 5.0
+xor_small_orderA.json: mu 10.0
+xor_small_orderB.json: mu 10.0
+total mu 40.0
 ```

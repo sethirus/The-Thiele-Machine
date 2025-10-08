@@ -10,7 +10,7 @@
    - concrete_step predicate signature (6 arguments vs record)
    - Module signature matching requirements
    
-   For the verified Thiele Machine implementation, see:
+   For the verified Thiele Machine implementation and theorem, see:
    - coq/thielemachine/coqproofs/ThieleMachineConcrete.v (WORKING)
-   - coq/thielemachine/coqproofs/Subsumption.v (main theorems, PROVEN)
+   - coq/thielemachine/coqproofs/Separation.v (main theorem)
    - docs/FIXED_FILES_SUMMARY.md (compilation status) *)
