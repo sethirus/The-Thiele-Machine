@@ -77,46 +77,46 @@ Import ThieleUniversal.CPU.
   Definition program : list nat := flat_map encode_instr_words program_instrs.
 
   Lemma program_word_0 : nth 0 program 0 = 0.
-  Proof. vm_compute. reflexivity. Qed.
+  Proof. cbn. reflexivity. Qed.
 
   Lemma program_word_1 : nth 1 program 0 = REG_TEMP1.
-  Proof. vm_compute. reflexivity. Qed.
+  Proof. cbn. reflexivity. Qed.
 
   Lemma program_word_2 : nth 2 program 0 = TAPE_START_ADDR.
-  Proof. vm_compute. reflexivity. Qed.
+  Proof. cbn. reflexivity. Qed.
 
   Lemma program_word_3 : nth 3 program 0 = 0.
-  Proof. vm_compute. reflexivity. Qed.
+  Proof. cbn. reflexivity. Qed.
 
   Lemma program_word_4 : nth 4 program 0 = 5.
-  Proof. vm_compute. reflexivity. Qed.
+  Proof. cbn. reflexivity. Qed.
 
   Lemma program_word_5 : nth 5 program 0 = REG_ADDR.
-  Proof. vm_compute. reflexivity. Qed.
+  Proof. cbn. reflexivity. Qed.
 
   Lemma program_word_6 : nth 6 program 0 = REG_TEMP1.
-  Proof. vm_compute. reflexivity. Qed.
+  Proof. cbn. reflexivity. Qed.
 
   Lemma program_word_7 : nth 7 program 0 = REG_HEAD.
-  Proof. vm_compute. reflexivity. Qed.
+  Proof. cbn. reflexivity. Qed.
 
   Lemma program_word_8 : nth 8 program 0 = 1.
-  Proof. vm_compute. reflexivity. Qed.
+  Proof. cbn. reflexivity. Qed.
 
   Lemma program_word_9 : nth 9 program 0 = REG_SYM.
-  Proof. vm_compute. reflexivity. Qed.
+  Proof. cbn. reflexivity. Qed.
 
   Lemma program_word_10 : nth 10 program 0 = REG_ADDR.
-  Proof. vm_compute. reflexivity. Qed.
+  Proof. cbn. reflexivity. Qed.
 
   Lemma program_word_11 : nth 11 program 0 = 0.
-  Proof. vm_compute. reflexivity. Qed.
+  Proof. cbn. reflexivity. Qed.
 
   Lemma program_length_gt_5 : 5 < length program.
-  Proof. vm_compute. lia. Qed.
+  Proof. cbn; lia. Qed.
 
   Lemma program_length_gt_11 : 11 < length program.
-  Proof. vm_compute. lia. Qed.
+  Proof. cbn; lia. Qed.
 
   (* Update the n-th element of a list. *)
   Fixpoint set_nth (l:list nat) (idx:nat) (v:nat) : list nat :=
@@ -328,7 +328,7 @@ Import ThieleUniversal.CPU.
   Qed.
 
   Lemma program_instrs_length_gt_29 : 29 < length program_instrs.
-  Proof. vm_compute. lia. Qed.
+  Proof. cbn; lia. Qed.
 
   Lemma length_program : length program = 4 * length program_instrs.
   Proof.
