@@ -2,7 +2,6 @@ Require Import Coq.QArith.QArith.
 Require Import Coq.QArith.Qring.
 Require Import Coq.ZArith.ZArith.
 Require Import Coq.Arith.PeanoNat.
-Require Import Coq.Arith.Div2.
 Require Import Coq.Lists.List.
 Require Import Coq.Setoids.Setoid.
 Require Import Coq.Strings.String.
