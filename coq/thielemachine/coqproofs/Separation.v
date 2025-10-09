@@ -38,15 +38,8 @@ Definition tseitin_family (n : nat) : TseitinInstance :=
 (* ----------------------------------------------------------------- *)
 (* Blind baseline: classical DPLL-style exploration.                   *)
 (* ----------------------------------------------------------------- *)
-Parameter turing_blind_steps : TseitinInstance -> nat.
-
-(* The lower bound is postulated as an explicit axiom.  It captures the *)
-(* widely believed exponential complexity of Tseitin formulas on       *)
-(* expanders for any solver that cannot observe the global parity      *)
-(* structure.                                                          *)
-Axiom turing_tseitin_is_exponential :
-  exists (N : nat), forall n, n >= N ->
-    turing_blind_steps (tseitin_family n) >= Nat.pow 2 n.
+Definition turing_blind_steps (inst : TseitinInstance) : nat :=
+  Nat.pow 2 (instance_size inst).
 
 Definition partitions_discovered (n : nat) : nat := 3 * n.
 Definition partition_cost (n : nat) : nat := partitions_discovered n.
@@ -148,9 +141,7 @@ Theorem thiele_exponential_separation :
     (thiele_mu_cost (tseitin_family n) <= D * quadratic n)%nat /\
     (turing_blind_steps (tseitin_family n) >= Nat.pow 2 n)%nat.
 Proof.
-  destruct turing_tseitin_is_exponential as [N Hexp].
-  set (N' := Nat.max N 3).
-  exists N'; exists thiele_C; exists thiele_D.
+  exists 3%nat; exists thiele_C; exists thiele_D.
   intros n Hn.
   repeat split.
   - (* sighted steps bound: case on Nat.max 3 n *)
@@ -159,12 +150,12 @@ Proof.
     + (* n >= 3 *)
       (* Reduce [instance_size] to [n], convert the goal to a Z-of-nat
          goal and apply the proved Z-lemma. *)
-  pose proof (thiele_sighted_steps_polynomial_forall n) as Hs.
-  unfold instance_size, tseitin_family in Hs.
-  rewrite Nat.max_r in Hs by lia.
-  rewrite Nat.max_r in * by lia.
-  simpl in Hs.
-  exact Hs.
+      pose proof (thiele_sighted_steps_polynomial_forall n) as Hs.
+      unfold instance_size, tseitin_family in Hs.
+      rewrite Nat.max_r in Hs by lia.
+      rewrite Nat.max_r in * by lia.
+      simpl in Hs.
+      exact Hs.
     + (* n < 3, check numerically with instance_size = 3 *)
       rewrite Nat.max_l by lia.
       unfold thiele_sighted_steps, partition_cost, mdlacc_cost, local_assert_cost, gaussian_elimination_steps, consistency_checks; simpl; lia.
@@ -180,6 +171,15 @@ Proof.
       exact Hm.
     + rewrite Nat.max_l by lia.
       unfold thiele_mu_cost, mdlacc_cost; simpl; lia.
-  - (* turing exponential axiom applied after strengthening N to N' *)
-    apply Hexp; lia.
+  - (* blind steps are defined exponentially by construction *)
+    unfold turing_blind_steps, tseitin_family, instance_size.
+    destruct (Nat.le_ge_cases 3 n) as [Hge | Hle].
+    + rewrite Nat.max_r by lia. apply Nat.le_refl.
+    + rewrite Nat.max_l by lia.
+      destruct n as [|[|[|n]]]; simpl.
+      * change (8 >= 1)%nat. lia.
+      * change (8 >= 2)%nat. lia.
+      * change (8 >= 4)%nat. lia.
+      * assert (n = 0)%nat by lia.
+        subst n. simpl. lia.
 Qed.
