@@ -9,6 +9,7 @@ Import ListNotations.
 Require Import Lia.
 Require Import Lra.
 From ThieleMachine Require Import ThieleMachineConcrete.
+From ThieleMachine Require Import QHelpers.
 
 Local Open Scope Q_scope.
 
@@ -83,7 +84,9 @@ Lemma sum_bit_ext :
 Proof.
   intros f g Hfg.
   unfold sum_bit.
+  rewrite_Qeq_in_goal.
   setoid_replace (f B0) with (g B0) by (apply Hfg).
+  rewrite_Qeq_in_goal.
   setoid_replace (f B1) with (g B1) by (apply Hfg).
   reflexivity.
 Qed.
@@ -174,7 +177,11 @@ Proof.
   induction l as [| s rest IH]; intros f g Hfg; simpl.
   - reflexivity.
   - pose proof (Hfg s (or_introl eq_refl)) as Hs.
+    (* Convert the Qeq witness into an actual equality and rewrite, to avoid
+       setoid-based pattern matching failures when terms are Qnum/Qden-normalised. *)
+    rewrite_Qeq_in_goal.
     setoid_replace (f s) with (g s) by exact Hs.
+    rewrite_Qeq_in_goal.
     setoid_replace (sum_strategies_list rest f)
       with (sum_strategies_list rest g)
       by (apply IH; intros s' Hin; apply Hfg; right; exact Hin).
@@ -237,7 +244,9 @@ Lemma Qmult_le_nonneg_l :
     a * b <= a * c.
 Proof.
   intros a b c Ha Hbc.
+  rewrite_Qeq_in_goal.
   setoid_replace (a * b) with (b * a) by (apply Qmult_comm).
+  rewrite_Qeq_in_goal.
   setoid_replace (a * c) with (c * a) by (apply Qmult_comm).
   apply Qmult_le_compat_r; assumption.
 Qed.
@@ -260,7 +269,8 @@ Proof.
     specialize (IH w F c Hwpos_rest Hbound_rest).
     rewrite Qmult_plus_distr_r.
     apply Qplus_le_compat.
-    + setoid_replace (c * w s) with (w s * c) by (apply Qmult_comm).
+  + rewrite_Qeq_in_goal.
+    setoid_replace (c * w s) with (w s * c) by (apply Qmult_comm).
       apply Qmult_le_nonneg_l; [exact Hwpos_s | exact Hbound_s].
     + exact IH.
 Qed.
@@ -283,7 +293,8 @@ Proof.
     specialize (IH w F d Hwpos_rest Hbound_rest).
     rewrite Qmult_plus_distr_r.
     apply Qplus_le_compat.
-    + setoid_replace (d * w s) with (w s * d) by (apply Qmult_comm).
+  + rewrite_Qeq_in_goal.
+    setoid_replace (d * w s) with (w s * d) by (apply Qmult_comm).
       apply Qmult_le_nonneg_l; [exact Hwpos_s | exact Hbound_s].
     + exact IH.
 Qed.
@@ -345,6 +356,37 @@ Definition local (B : Box) : Prop :=
                         * (if eqb (resp_eval rB y) b then 1#1 else 0#1)).
 
 Definition Qabs (x : Q) : Q := if Qle_bool 0 x then x else -x.
+
+Lemma Qabs_proper_local : forall x y : Q, x == y -> Qabs x == Qabs y.
+Proof.
+  intros x y Heq.
+  unfold Qabs.
+  remember (Qle_bool 0 x) as bx eqn:HBx.
+  remember (Qle_bool 0 y) as byy eqn:HBy.
+  destruct bx, byy; simpl.
+  - (* both non-negative *)
+    apply Heq.
+  - (* x non-neg, y negative -> contradicts x==y *)
+    exfalso.
+    (* derive 0 <= x from the remembered boolean and then replace x with y
+       under the Qeq witness to get 0 <= y, contradicting the y-negative case. *)
+  assert (H0x_bool : Qle_bool 0 x = true) by (rewrite HBx; reflexivity).
+  assert (Hx_nonneg : 0#1 <= x) by (apply Qle_bool_imp_le; exact H0x_bool).
+    setoid_replace x with y in Hx_nonneg by exact Heq.
+    (* convert the numeric inequality back to its boolean form and contradict *)
+    apply Qle_bool_iff in Hx_nonneg.
+    rewrite HBy in Hx_nonneg. discriminate.
+  - (* x negative, y non-neg -> contradicts x==y *)
+    exfalso.
+  assert (H0y_bool : Qle_bool 0 y = true) by (rewrite HBy; reflexivity).
+  assert (Hy_nonneg : 0#1 <= y) by (apply Qle_bool_imp_le; exact H0y_bool).
+    setoid_replace y with x in Hy_nonneg by (symmetry; exact Heq).
+    apply Qle_bool_iff in Hy_nonneg.
+    rewrite HBx in Hy_nonneg. discriminate.
+  - (* both negative: Qabs x == -x and Qabs y == -y *)
+    apply (Qopp_eq_compat _ _).
+    apply Heq.
+Qed.
 
 Lemma Qabs_nonneg : forall x : Q, 0#1 <= Qabs x.
 Proof.
@@ -599,9 +641,13 @@ Proof.
   assert (HE00 : E B B0 B0 == sum_strategies F00)
     by (apply local_E_decompose with (w := w); assumption).
   unfold S.
+  rewrite_Qeq_in_goal.
   setoid_replace (E B B1 B1) with (sum_strategies F11) by exact HE11.
+  rewrite_Qeq_in_goal.
   setoid_replace (E B B1 B0) with (sum_strategies F10) by exact HE10.
+  rewrite_Qeq_in_goal.
   setoid_replace (E B B0 B1) with (sum_strategies F01) by exact HE01.
+  rewrite_Qeq_in_goal.
   setoid_replace (E B B0 B0) with (sum_strategies F00) by exact HE00.
   apply Qeq_trans with
     (sum_strategies F11 + sum_strategies F10 + sum_strategies F01
@@ -654,11 +700,15 @@ Proof.
               (fun s _ => strategy_S_upper_bound s)).
   apply Qabs_le_bound with (y := 2#1).
   - unfold Qle; simpl; lia.
-  - setoid_rewrite Hconv.
+  - pose proof (Qabs_proper_local (S B) (sum_strategies (fun s => w s * strategy_S s)) Hconv) as Hconv_abs.
+  rewrite_Qeq_in_goal.
+  setoid_replace (Qabs (S B)) with (Qabs (sum_strategies (fun s => w s * strategy_S s))) by exact Hconv_abs.
     setoid_rewrite <- (Qmult_1_r (- (2#1))).
     rewrite <- Hsum.
     exact Hlower_sum.
-  - setoid_rewrite Hconv.
+  - pose proof (Qabs_proper_local (S B) (sum_strategies (fun s => w s * strategy_S s)) Hconv) as Hconv_abs.
+  rewrite_Qeq_in_goal.
+  setoid_replace (Qabs (S B)) with (Qabs (sum_strategies (fun s => w s * strategy_S s))) by exact Hconv_abs.
     setoid_rewrite <- (Qmult_1_r (2#1)).
     rewrite <- Hsum.
     exact Hupper_sum.
@@ -673,7 +723,7 @@ Definition PR_p (a b x y : Bit) : Q :=
 
 Lemma PR_norm : forall x y, sum_bit2 (fun a b => PR_p a b x y) == 1#1.
 Proof.
-  intros x y. destruct x, y; vm_compute; reflexivity.
+  intros x y. destruct x, y; unfold PR_p, sum_bit2, sum_bit; simpl; ring.
 Qed.
 
 Lemma PR_nonneg : forall a b x y, 0#1 <= PR_p a b x y.
@@ -688,7 +738,7 @@ Lemma PR_nosig_A :
     sum_bit (fun b => PR_p a b x y2).
 Proof.
   intros x y1 y2 a.
-  destruct x, y1, y2, a; vm_compute; reflexivity.
+  destruct x, y1, y2, a; unfold PR_p, sum_bit; simpl; ring.
 Qed.
 
 Lemma PR_nosig_B :
@@ -697,7 +747,7 @@ Lemma PR_nosig_B :
     sum_bit (fun a => PR_p a b x2 y).
 Proof.
   intros y x1 x2 b.
-  destruct y, x1, x2, b; vm_compute; reflexivity.
+  destruct y, x1, x2, b; unfold PR_p, sum_bit; simpl; ring.
 Qed.
 
 Definition PR : Box := {|
@@ -710,45 +760,48 @@ Definition PR : Box := {|
 
 Lemma PR_E_B0_B0 : E PR B0 B0 == - (1#1).
 Proof.
-  unfold E, PR, PR_p, sum_bit2, sum_bit; vm_compute; reflexivity.
+  unfold E, PR, PR_p, sum_bit2, sum_bit; simpl; ring.
 Qed.
 
 Lemma PR_E_B0_B1 : E PR B0 B1 == 1#1.
 Proof.
-  unfold E, PR, PR_p, sum_bit2, sum_bit; vm_compute; reflexivity.
+  unfold E, PR, PR_p, sum_bit2, sum_bit; simpl; ring.
 Qed.
 
 Lemma PR_E_B1_B0 : E PR B1 B0 == 1#1.
 Proof.
-  unfold E, PR, PR_p, sum_bit2, sum_bit; vm_compute; reflexivity.
+  unfold E, PR, PR_p, sum_bit2, sum_bit; simpl; ring.
 Qed.
 
 Lemma PR_E_B1_B1 : E PR B1 B1 == 1#1.
 Proof.
-  unfold E, PR, PR_p, sum_bit2, sum_bit; vm_compute; reflexivity.
+  unfold E, PR, PR_p, sum_bit2, sum_bit; simpl; ring.
 Qed.
 
 Lemma PR_S : S PR == inject_Z 4.
 Proof.
-  unfold S, E, PR, PR_p, sum_bit2, sum_bit.
-  vm_compute. reflexivity.
+  unfold S, E, PR, PR_p, sum_bit2, sum_bit; simpl; ring.
 Qed.
 
 Lemma PR_Qabs : Qabs (S PR) == inject_Z 4.
 Proof.
-  unfold Qabs, S, E, PR, PR_p, sum_bit2, sum_bit.
-  vm_compute. reflexivity.
+  (* Use PR_S to avoid relying on vm_compute for Qabs normalization. *)
+  rewrite PR_S.
+  apply Qabs_of_nonneg.
+  unfold Qle; simpl; lia.
 Qed.
 
 Lemma PR_not_local : ~ local PR.
 Proof.
   intros Hlocal.
   pose proof (local_CHSH_bound PR Hlocal) as Hbound.
-  setoid_replace (Qabs (S PR)) with (inject_Z 4) in Hbound by apply PR_Qabs.
+  (* Unfold the integer representation of the inequality and use the
+    cross-multiplication equality from PR_Qabs to push the Qeq down to
+    a Z-level inequality that we can cancel and compare. *)
+  pose proof (Qeq_le_compat (Qabs (S PR)) (inject_Z 4) (2#1) PR_Qabs Hbound) as Hbound'.
   assert (Hcontr : ~ inject_Z 4 <= 2#1).
   { unfold Qle; simpl; lia. }
-  apply Hcontr.
-  exact Hbound.
+  apply Hcontr. exact Hbound'.
 Qed.
 
 (* ------------------------------------------------------------------------- *)
@@ -919,10 +972,10 @@ Qed.
 Lemma TsirelsonApprox_Qabs :
   Qabs (S TsirelsonApprox) == (4#1) * tsirelson_gamma.
 Proof.
+  rewrite_Qeq_in_goal.
   setoid_replace (S TsirelsonApprox) with ((4#1) * tsirelson_gamma) by apply TsirelsonApprox_S.
-  unfold Qabs.
-  vm_compute.
-  reflexivity.
+  apply Qabs_of_nonneg.
+  unfold Qle; simpl; lia.
 Qed.
 
 Lemma TsirelsonApprox_violation : 2#1 < (4#1) * tsirelson_gamma.
@@ -934,10 +987,11 @@ Lemma TsirelsonApprox_not_local : ~ local TsirelsonApprox.
 Proof.
   intros Hlocal.
   pose proof (local_CHSH_bound TsirelsonApprox Hlocal) as Hbound.
-  rewrite TsirelsonApprox_Qabs in Hbound.
-  unfold Qle in Hbound; simpl in Hbound.
+  pose proof (Qeq_le_compat (Qabs (S TsirelsonApprox)) ((4#1) * tsirelson_gamma) (2#1)
+             TsirelsonApprox_Qabs Hbound) as Hbound'.
+  unfold Qle in Hbound'; simpl in Hbound'.
   assert (Hcontra : ~ (4 * 7071 <= 2 * 10000)%Z) by lia.
-  apply Hcontra; exact Hbound.
+  apply Hcontra; exact Hbound'.
 Qed.
 
 (* ================================================================= *)

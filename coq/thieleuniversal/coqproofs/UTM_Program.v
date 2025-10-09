@@ -83,7 +83,7 @@ Module UTM_Program.
   Qed.
 
   Lemma program_instrs_length_gt_48 : 48 < length program_instrs.
-  Proof. vm_compute. lia. Qed.
+  Proof. cbn; lia. Qed.
 
   Lemma program_instrs_before_apply_not_store :
     forall pc,
@@ -95,14 +95,14 @@ Module UTM_Program.
   Proof.
     intros pc Hpc.
     set (prefix := firstn 29 program_instrs).
-    assert (Hlen_raw : length (firstn 29 program_instrs) = 29) by (vm_compute; reflexivity).
+      assert (Hlen_raw : length (firstn 29 program_instrs) = 29) by (cbn; reflexivity).
     assert (Hforall_raw :
               Forall (fun instr =>
                         match instr with
                         | StoreIndirect _ _ => False
                         | _ => True
                         end) (firstn 29 program_instrs)).
-    { vm_compute. repeat constructor. }
+  { cbn. repeat constructor. }
     assert (Hlen : length prefix = 29) by (subst prefix; exact Hlen_raw).
     assert (Hforall :
               Forall (fun instr =>
@@ -141,7 +141,7 @@ Module UTM_Program.
   Proof.
     intros pc Hpc.
     set (prefix := firstn 29 program_instrs).
-    assert (Hlen_raw : length (firstn 29 program_instrs) = 29) by (vm_compute; reflexivity).
+      assert (Hlen_raw : length (firstn 29 program_instrs) = 29) by (cbn; reflexivity).
     assert (Hlen : length prefix = 29) by (subst prefix; exact Hlen_raw).
     assert (Hforall_raw :
               Forall (fun instr =>
@@ -150,7 +150,7 @@ Module UTM_Program.
                         | Jnz _ target => target < 29
                         | _ => True
                         end) (firstn 29 program_instrs)).
-    { vm_compute. repeat constructor; try lia. }
+  { cbn. repeat constructor; try lia. }
     assert (Hforall :
               Forall (fun instr =>
                         match instr with
@@ -197,7 +197,7 @@ Module UTM_Program.
   Proof.
     intros pc Hpc.
     set (prefix := firstn 29 program_instrs).
-    assert (Hlen_raw : length (firstn 29 program_instrs) = 29) by (vm_compute; reflexivity).
+      assert (Hlen_raw : length (firstn 29 program_instrs) = 29) by (cbn; reflexivity).
     assert (Hlen : length prefix = 29) by (subst prefix; exact Hlen_raw).
     assert (Hforall_raw :
               Forall (fun instr =>
@@ -213,7 +213,7 @@ Module UTM_Program.
                         | StoreIndirect _ _ => True
                         | Halt => True
                         end) (firstn 29 program_instrs)).
-    { vm_compute. repeat constructor; try lia. }
+  { cbn. repeat constructor; try lia. }
     assert (Hforall :
               Forall (fun instr =>
                         match instr with
@@ -323,7 +323,7 @@ Module UTM_Program.
   Proof.
     intros pc Hpc.
     set (prefix := firstn 29 program_instrs).
-    assert (Hlen_raw : length (firstn 29 program_instrs) = 29) by (vm_compute; reflexivity).
+      assert (Hlen_raw : length (firstn 29 program_instrs) = 29) by (cbn; reflexivity).
     assert (Hlen : length prefix = 29) by (subst prefix; exact Hlen_raw).
     assert (Hforall_raw :
               Forall (fun instr =>
@@ -339,7 +339,7 @@ Module UTM_Program.
                         | Jnz _ _ => True
                         | Halt => pc_unchanged Halt
                         end) (firstn 29 program_instrs)).
-    { vm_compute. repeat constructor; try discriminate; try lia. }
+  { cbn. repeat constructor; try discriminate; try lia. }
     assert (Hforall :
               Forall (fun instr =>
                         match instr with
