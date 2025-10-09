@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 import json
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Tuple
 import ast
 import sys
 from io import StringIO
@@ -18,6 +18,22 @@ import z3
 import os
 SAFE_COMBINATION_LIMIT = int(os.environ.get('THIELE_MAX_COMBINATIONS', 10_000_000))
 
+
+def _empty_cert() -> Dict[str, Any]:
+    return {
+        "smt_query": "",
+        "solver_reply": "",
+        "metadata": "",
+        "timestamp": 0,
+        "sequence": 0,
+    }
+
+
+def _cert_for_query(query: str) -> Dict[str, Any]:
+    cert = _empty_cert()
+    cert["smt_query"] = query
+    return cert
+
 try:
     from .assemble import Instruction, parse
     from .logic import lassert, ljoin
@@ -26,6 +42,12 @@ try:
     from .isa import CSR
     from .memory import RegionGraph
     from ._types import LedgerEntry, ModuleId
+    from .receipts import (
+        WitnessState,
+        StepObservation,
+        InstructionWitness,
+        StepReceipt,
+    )
 except ImportError:
     # Handle running as script
     import sys
@@ -39,6 +61,12 @@ except ImportError:
     from thielecpu.isa import CSR
     from thielecpu.memory import RegionGraph
     from thielecpu._types import LedgerEntry, ModuleId
+    from thielecpu.receipts import (
+        WitnessState,
+        StepObservation,
+        InstructionWitness,
+        StepReceipt,
+    )
 
 
 @dataclass
@@ -155,6 +183,8 @@ def search_chunk(chunk_combinations, var_names, code_to_run):
 class VM:
     state: State
     python_globals: Dict[str, Any] = None  # type: ignore
+    witness_state: WitnessState = field(default_factory=WitnessState)
+    step_receipts: List[StepReceipt] = field(default_factory=list)
 
     def __post_init__(self):
         if self.python_globals is None:
@@ -184,6 +214,88 @@ class VM:
                 'hashlib': hashlib,
                 'self': self,
             }
+        self.witness_state = WitnessState()
+        self.step_receipts = []
+
+    def _simulate_witness_step(
+        self, instruction: InstructionWitness, pre_state: WitnessState
+    ) -> Tuple[WitnessState, StepObservation]:
+        op = instruction.op
+        if op == "LASSERT":
+            query = str(instruction.payload)
+            mu_delta = len(query) * 8
+            post_state = WitnessState(
+                pc=pre_state.pc + 1,
+                status=pre_state.status,
+                mu_acc=pre_state.mu_acc + mu_delta,
+                cert_addr=pre_state.cert_addr,
+            )
+            observation = StepObservation(
+                event={"tag": "PolicyCheck", "value": query},
+                mu_delta=mu_delta,
+                cert=_cert_for_query(query),
+            )
+        elif op == "MDLACC":
+            post_state = WitnessState(
+                pc=pre_state.pc + 1,
+                status=pre_state.status,
+                mu_acc=pre_state.mu_acc,
+                cert_addr=pre_state.cert_addr,
+            )
+            observation = StepObservation(event=None, mu_delta=0, cert=_empty_cert())
+        elif op == "PNEW":
+            post_state = WitnessState(
+                pc=pre_state.pc + 1,
+                status=pre_state.status,
+                mu_acc=pre_state.mu_acc,
+                cert_addr=pre_state.cert_addr,
+            )
+            observation = StepObservation(
+                event={"tag": "InferenceComplete"}, mu_delta=0, cert=_empty_cert()
+            )
+        elif op == "PYEXEC":
+            code = str(instruction.payload)
+            post_state = WitnessState(
+                pc=pre_state.pc + 1,
+                status=pre_state.status,
+                mu_acc=pre_state.mu_acc,
+                cert_addr=pre_state.cert_addr,
+            )
+            observation = StepObservation(
+                event={"tag": "PolicyCheck", "value": code},
+                mu_delta=0,
+                cert=_empty_cert(),
+            )
+        elif op == "EMIT":
+            payload = str(instruction.payload)
+            post_state = WitnessState(
+                pc=pre_state.pc + 1,
+                status=pre_state.status,
+                mu_acc=pre_state.mu_acc,
+                cert_addr=pre_state.cert_addr,
+            )
+            observation = StepObservation(
+                event={"tag": "ErrorOccurred", "value": payload},
+                mu_delta=0,
+                cert=_empty_cert(),
+            )
+        else:
+            raise ValueError(f"Unsupported instruction for receipts: {op}")
+        return post_state, observation
+
+    def _record_receipt(
+        self, step: int, pre_state: WitnessState, instruction: InstructionWitness
+    ) -> None:
+        post_state, observation = self._simulate_witness_step(instruction, pre_state)
+        receipt = StepReceipt.assemble(
+            step,
+            instruction,
+            pre_state,
+            post_state,
+            observation,
+        )
+        self.step_receipts.append(receipt)
+        self.witness_state = post_state
 
     def execute_python(self, code_or_path: str) -> Any:
         """Execute Python code or file in a sandboxed environment."""
@@ -656,16 +768,21 @@ class VM:
         modules: Dict[str, int] = {}  # For tracking named modules
         current_module = self.state.pnew({0})  # Use region {0} for initial module
         step = 0
-        
+        self.step_receipts = []
+        self.witness_state = WitnessState()
+
         print("Thiele Machine VM starting execution...")
         print(f"Program has {len(program)} instructions")
         print(f"Output directory: {outdir}")
         print()
-        
+
         for op, arg in program:
             step += 1
             print(f"Step {step:3d}: {op} {arg}")
             step += 1
+            pre_witness = WitnessState(**self.witness_state.snapshot())
+            receipt_instruction: Optional[InstructionWitness] = None
+            halt_after_receipt = False
             if op == "PNEW":
                 # PNEW region_spec - create new module for region
                 if arg and arg.strip().startswith('{') and arg.strip().endswith('}'):
@@ -682,6 +799,7 @@ class VM:
                 modules[f"m{len(modules)}"] = new_module
                 current_module = new_module
                 trace_lines.append(f"{step}: PNEW {arg} -> module {new_module}")
+                receipt_instruction = InstructionWitness("PNEW", sorted(region))
             elif op == "PSPLIT":
                 # PSPLIT module_id pred_expr - split module using predicate
                 parts = arg.split()
@@ -691,6 +809,7 @@ class VM:
                 def pred(x): return x % 2 == 0
                 m1, m2 = self.state.psplit(module_id, pred)
                 trace_lines.append(f"{step}: PSPLIT {module_id} ({pred_expr}) -> {m1}, {m2}")
+                receipt_instruction = InstructionWitness("PYEXEC", f"PSPLIT {arg}")
             elif op == "PMERGE":
                 # PMERGE m1 m2 - merge two modules
                 parts = arg.split()
@@ -699,6 +818,7 @@ class VM:
                 merged = self.state.pmerge(m1, m2)
                 trace_lines.append(f"{step}: PMERGE {m1}, {m2} -> {merged}")
                 current_module = merged
+                receipt_instruction = InstructionWitness("PYEXEC", f"PMERGE {arg}")
             elif op == "LASSERT":
                 # LASSERT formula_file - add formula as axiom to current module and check satisfiability
                 formula = Path(arg).read_text(encoding='utf-8')
@@ -709,7 +829,8 @@ class VM:
                 if self.state.csr[CSR.STATUS] == 0:
                     self.state.csr[CSR.ERR] = 1
                     trace_lines.append(f"{step}: LASSERT unsat - halting VM")
-                    break
+                    halt_after_receipt = True
+                receipt_instruction = InstructionWitness("LASSERT", formula)
             elif op == "LJOIN":
                 # LJOIN cert1 cert2 - join two certificates
                 parts = arg.split()
@@ -717,6 +838,7 @@ class VM:
                 cert2 = parts[1]
                 digest = ljoin(self.state, cert1, cert2, cert_dir)
                 trace_lines.append(f"{step}: LJOIN {cert1}, {cert2} -> {digest}")
+                receipt_instruction = InstructionWitness("PYEXEC", f"LJOIN {arg}")
             elif op == "MDLACC":
                 # MDLACC module - accumulate mu for module
                 module_id = ModuleId(int(arg)) if arg else current_module
@@ -734,9 +856,11 @@ class VM:
                     "reason": f"mdlacc_module{module_id}",
                 })
                 trace_lines.append(f"{step}: MDLACC {module_id} -> mu={mu}")
+                receipt_instruction = InstructionWitness("MDLACC", int(module_id))
             elif op == "EMIT":
                 # EMIT value - emit value to output
                 trace_lines.append(f"{step}: EMIT {arg}")
+                receipt_instruction = InstructionWitness("EMIT", arg)
             elif op == "PDISCOVER":
                 # PDISCOVER module_id axioms_file1 [axioms_file2] - brute-force partition discovery
                 parts = arg.split()
@@ -745,10 +869,11 @@ class VM:
                 module_id = ModuleId(int(parts[0]))
                 axioms_files = parts[1:]
                 axioms_list = [Path(f).read_text(encoding='utf-8') for f in axioms_files]
-                
+
                 # Perform brute-force partition search
                 result = self.pdiscover(module_id, axioms_list, cert_dir, trace_lines, step)
                 trace_lines.append(f"{step}: PDISCOVER {arg} -> {result}")
+                receipt_instruction = InstructionWitness("PYEXEC", f"PDISCOVER {arg}")
             elif op == "PYEXEC":
                 if arg.startswith('"') and arg.endswith('"'):
                     python_code = arg[1:-1]  # Remove quotes
@@ -813,11 +938,16 @@ class VM:
                 if "Error:" in output:
                     self.state.csr[CSR.ERR] = 1
                     trace_lines.append(f"{step}: PYEXEC error detected - halting VM")
-                    break
+                    halt_after_receipt = True
+                receipt_instruction = InstructionWitness("PYEXEC", python_code)
             else:
                 raise ValueError(f"unknown opcode {op}")
 
-            if self.state.csr[CSR.ERR] == 1:
+            if receipt_instruction is None:
+                receipt_instruction = InstructionWitness("PYEXEC", f"{op} {arg}".strip())
+            self._record_receipt(step, pre_witness, receipt_instruction)
+
+            if self.state.csr[CSR.ERR] == 1 or halt_after_receipt:
                 trace_lines.append(f"{step}: ERR flag set - halting VM")
                 break
         mdlacc(self.state, current_module, consistent=self.state.csr[CSR.ERR] == 0)
@@ -841,6 +971,9 @@ class VM:
             "cert": self.state.csr[CSR.CERT_ADDR]
         }
         (outdir / "summary.json").write_text(json.dumps(summary), encoding='utf-8')
+        receipts_path = outdir / "step_receipts.json"
+        receipts_json = [receipt.to_dict() for receipt in self.step_receipts]
+        receipts_path.write_text(json.dumps(receipts_json, indent=2), encoding='utf-8')
 
 
 def main():
