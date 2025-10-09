@@ -357,6 +357,16 @@ Definition local (B : Box) : Prop :=
 
 Definition Qabs (x : Q) : Q := if Qle_bool 0 x then x else -x.
 
+Lemma Qopp_eq_compat_local : forall x y : Q, x == y -> -x == -y.
+Proof.
+  intros x y Heq.
+  unfold Qeq in *.
+  simpl in *.
+  apply f_equal with (f := Z.opp) in Heq.
+  repeat rewrite Z.mul_opp_l.
+  exact Heq.
+Qed.
+
 Lemma Qabs_proper_local : forall x y : Q, x == y -> Qabs x == Qabs y.
 Proof.
   intros x y Heq.
@@ -374,18 +384,18 @@ Proof.
   assert (Hx_nonneg : 0#1 <= x) by (apply Qle_bool_imp_le; exact H0x_bool).
     setoid_replace x with y in Hx_nonneg by exact Heq.
     (* convert the numeric inequality back to its boolean form and contradict *)
-    apply Qle_bool_iff in Hx_nonneg.
-    rewrite HBy in Hx_nonneg. discriminate.
+      apply Qle_bool_iff in Hx_nonneg.
+      rewrite <- HBy in Hx_nonneg. discriminate.
   - (* x negative, y non-neg -> contradicts x==y *)
     exfalso.
   assert (H0y_bool : Qle_bool 0 y = true) by (rewrite HBy; reflexivity).
   assert (Hy_nonneg : 0#1 <= y) by (apply Qle_bool_imp_le; exact H0y_bool).
     setoid_replace y with x in Hy_nonneg by (symmetry; exact Heq).
-    apply Qle_bool_iff in Hy_nonneg.
-    rewrite HBx in Hy_nonneg. discriminate.
-  - (* both negative: Qabs x == -x and Qabs y == -y *)
-    apply (Qopp_eq_compat _ _).
-    apply Heq.
+      apply Qle_bool_iff in Hy_nonneg.
+      rewrite <- HBx in Hy_nonneg. discriminate.
+    - (* both negative: Qabs x == -x and Qabs y == -y *)
+      apply Qopp_eq_compat_local.
+      apply Heq.
 Qed.
 
 Lemma Qabs_nonneg : forall x : Q, 0#1 <= Qabs x.
@@ -698,20 +708,16 @@ Proof.
   assert (Hupper_sum :=
             sum_strategies_weighted_upper w (fun s => strategy_S s) (2#1) Hwpos
               (fun s _ => strategy_S_upper_bound s)).
-  apply Qabs_le_bound with (y := 2#1).
-  - unfold Qle; simpl; lia.
-  - pose proof (Qabs_proper_local (S B) (sum_strategies (fun s => w s * strategy_S s)) Hconv) as Hconv_abs.
-  rewrite_Qeq_in_goal.
-  setoid_replace (Qabs (S B)) with (Qabs (sum_strategies (fun s => w s * strategy_S s))) by exact Hconv_abs.
-    setoid_rewrite <- (Qmult_1_r (- (2#1))).
-    rewrite <- Hsum.
-    exact Hlower_sum.
-  - pose proof (Qabs_proper_local (S B) (sum_strategies (fun s => w s * strategy_S s)) Hconv) as Hconv_abs.
-  rewrite_Qeq_in_goal.
-  setoid_replace (Qabs (S B)) with (Qabs (sum_strategies (fun s => w s * strategy_S s))) by exact Hconv_abs.
-    setoid_rewrite <- (Qmult_1_r (2#1)).
-    rewrite <- Hsum.
-    exact Hupper_sum.
+    pose proof (Qabs_proper_local (S B) (sum_strategies (fun s => w s * strategy_S s)) Hconv) as Hconv_abs.
+    setoid_replace (Qabs (S B)) with (Qabs (sum_strategies (fun s => w s * strategy_S s))) by exact Hconv_abs.
+    apply Qabs_le_bound with (y := 2#1).
+    - unfold Qle; simpl; lia.
+    - setoid_rewrite <- (Qmult_1_r (- (2#1))).
+      rewrite <- Hsum.
+      exact Hlower_sum.
+    - setoid_rewrite <- (Qmult_1_r (2#1)).
+      rewrite <- Hsum.
+      exact Hupper_sum.
 Qed.
 
 (* PR-box construction with S=4 and no-signaling *)
@@ -786,7 +792,8 @@ Qed.
 Lemma PR_Qabs : Qabs (S PR) == inject_Z 4.
 Proof.
   (* Use PR_S to avoid relying on vm_compute for Qabs normalization. *)
-  rewrite PR_S.
+  pose proof (Qabs_proper_local (S PR) (inject_Z 4) PR_S) as Habs.
+  setoid_replace (Qabs (S PR)) with (Qabs (inject_Z 4)) by exact Habs.
   apply Qabs_of_nonneg.
   unfold Qle; simpl; lia.
 Qed.
@@ -972,8 +979,8 @@ Qed.
 Lemma TsirelsonApprox_Qabs :
   Qabs (S TsirelsonApprox) == (4#1) * tsirelson_gamma.
 Proof.
-  rewrite_Qeq_in_goal.
-  setoid_replace (S TsirelsonApprox) with ((4#1) * tsirelson_gamma) by apply TsirelsonApprox_S.
+  pose proof (Qabs_proper_local (S TsirelsonApprox) ((4#1) * tsirelson_gamma) TsirelsonApprox_S) as Habs.
+  setoid_replace (Qabs (S TsirelsonApprox)) with (Qabs ((4#1) * tsirelson_gamma)) by exact Habs.
   apply Qabs_of_nonneg.
   unfold Qle; simpl; lia.
 Qed.
