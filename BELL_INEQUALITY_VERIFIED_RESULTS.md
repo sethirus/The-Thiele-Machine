@@ -473,8 +473,7 @@ All preceding computations and audits are consolidated into this Markdown artifa
 ## Act V — Receipt Verification
 Receipt generation transcript:
 ```text
-Could not find platform independent libraries <prefix>
-C:\Users\tbagt\TheThieleMachine\scripts\generate_tsirelson_receipts.py:15: UserWarning: \u26a0\ufe0f  SECURITY WARNING: Importing thielecpu package. This implements partition-native computation that could break RSA encryption. Use only for defensive security research.
+/workspace/The-Thiele-Machine/scripts/generate_tsirelson_receipts.py:15: UserWarning: ⚠️  SECURITY WARNING: Importing thielecpu package. This implements partition-native computation that could break RSA encryption. Use only for defensive security research.
   from thielecpu.receipts import (
 
         *** THIELE CPU RESPONSIBLE USE GUIDELINES ***
@@ -497,10 +496,30 @@ C:\Users\tbagt\TheThieleMachine\scripts\generate_tsirelson_receipts.py:15: UserW
 
         Your usage is being logged for security purposes.
         
-Wrote 5 receipts to C:\Users\tbagt\TheThieleMachine\examples\tsirelson_step_receipts.json
+Wrote 5 receipts to /workspace/The-Thiele-Machine/examples/tsirelson_step_receipts.json
 ```
 Verification transcript:
 ```text
+<stdin>:5: UserWarning: ⚠️  SECURITY WARNING: Importing thielecpu package. This implements partition-native computation that could break RSA encryption. Use only for defensive security research.
 
+        *** THIELE CPU RESPONSIBLE USE GUIDELINES ***
+
+        This technology can break RSA and other cryptographic systems.
+
+        ALLOWED USES:
+        - Academic research into computational complexity
+        - Defensive security research and vulnerability assessment
+        - Development of improved cryptographic systems
+        - Formal verification and proof systems
+
+        PROHIBITED USES:
+        - Breaking encryption without authorization
+        - Cryptanalysis for malicious purposes
+        - Undermining digital security infrastructure
+        - Commercial exploitation without security review
+
+        If you're unsure about your use case, contact the maintainers.
+
+        Your usage is being logged for security purposes.
 ```
 **Q.E.D.** The runtime receipts coincide with the mechanised Coq witness.

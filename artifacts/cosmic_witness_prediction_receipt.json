@@ -1,17 +1,17 @@
 {
-  "timestamp": "2025-10-10T00:05:54.175143Z",
+  "timestamp": "2025-10-10T04:12:03.294397Z",
   "mode": "offline",
   "features": [
-    4.25e-05,
-    0.00010335013304297193,
-    -0.0002,
-    0.0002,
-    4.5e-05
+    2.7254761875,
+    6.793551630073777e-06,
+    2.725466,
+    2.725489,
+    -1.2500000000414957e-05
   ],
-  "feature_hash": "60ba61bb3e423ca06b9c71ce870c64e870c24995545836bbd72b6bc56b38dce7",
+  "feature_hash": "7b891e51b1a6d566a07adb3e28d8b25f6fdd778558537f02bee5c2ce08bacc18",
   "rule": {
-    "idx": 2,
-    "threshold": -0.00018,
+    "idx": 3,
+    "threshold": 2.9980379,
     "true_pair": [
       0,
       0
@@ -20,21 +20,22 @@
       0,
       0
     ],
-    "description": "feature[2] > -0.00018 -> (0, 0), else -> (0, 0)"
+    "description": "feature[3] > 2.99804 -> (0, 0), else -> (0, 0)"
   },
   "predicted_trial": {
     "alice": 0,
     "bob": 0
   },
   "robustness": {
-    "margin": 1.9999999999999998e-05,
+    "margin": 0.27254889999999987,
     "numeric_robust": true,
-    "proof_eps": 2e-06,
-    "proof_robust": false,
+    "proof_eps": 0.02725488999999999,
+    "proof_robust": true,
     "sample_fraction": 1.0,
     "param_bits": 16
   },
-  "prediction_proved": false,
-  "proof_smt2": "(set-logic QF_LRA)\n(declare-const f0 Real)\n(assert (= f0 4.25e-05))\n(declare-const f1 Real)\n(assert (= f1 0.00010335013304297193))\n(declare-const f2 Real)\n(assert (= f2 -0.0002))\n(declare-const f3 Real)\n(assert (= f3 0.0002))\n(declare-const f4 Real)\n(assert (= f4 4.5e-05))\n(declare-const A Real)\n(declare-const B Real)\n(assert (or (and (> f2 -0.00018) (= A 0.0)) (and (<= f2 -0.00018) (= A 0.0))))\n(assert (or (and (> f2 -0.00018) (= B 0.0)) (and (<= f2 -0.00018) (= B 0.0))))\n(assert (or (not (= A 0.0)) (not (= B 0.0))))\n(check-sat)",
-  "robust_smt2": "(set-logic QF_LRA)\n(declare-const f0 Real)\n(assert (>= f0 4.05e-05))\n(assert (<= f0 4.4500000000000004e-05))\n(declare-const f1 Real)\n(assert (>= f1 0.00010135013304297194))\n(assert (<= f1 0.00010535013304297193))\n(declare-const f2 Real)\n(assert (>= f2 -0.000202))\n(assert (<= f2 -0.00019800000000000002))\n(declare-const f3 Real)\n(assert (>= f3 0.00019800000000000002))\n(assert (<= f3 0.000202))\n(declare-const f4 Real)\n(assert (>= f4 4.3e-05))\n(assert (<= f4 4.7000000000000004e-05))\n(declare-const A Real)\n(declare-const B Real)\n(assert (or (and (> f2 -0.00018) (= A 0.0)) (and (<= f2 -0.00018) (= A 0.0))))\n(assert (or (and (> f2 -0.00018) (= B 0.0)) (and (<= f2 -0.00018) (= B 0.0))))\n(assert (or (not (= A 0.0)) (not (= B 0.0))))\n(check-sat)"
+  "prediction_proved": true,
+  "proof_smt2": "(set-logic QF_LRA)\n(declare-const f0 Real)\n(assert (= f0 2.7254761875))\n(declare-const f1 Real)\n(assert (= f1 6.793551630073777e-06))\n(declare-const f2 Real)\n(assert (= f2 2.725466))\n(declare-const f3 Real)\n(assert (= f3 2.725489))\n(declare-const f4 Real)\n(assert (= f4 -1.2500000000414957e-05))\n(declare-const A Real)\n(declare-const B Real)\n(assert (or (and (> f3 2.9980379) (= A 0.0)) (and (<= f3 2.9980379) (= A 0.0))))\n(assert (or (and (> f3 2.9980379) (= B 0.0)) (and (<= f3 2.9980379) (= B 0.0))))\n(assert (or (not (= A 0.0)) (not (= B 0.0))))\n(check-sat)",
+  "robust_smt2": "(set-logic QF_LRA)\n(declare-const f0 Real)\n(assert (>= f0 2.6982212975))\n(assert (<= f0 2.7527310775))\n(declare-const f1 Real)\n(assert (>= f1 -0.027248096448369917))\n(assert (<= f1 0.027261683551630063))\n(declare-const f2 Real)\n(assert (>= f2 2.69821111))\n(assert (<= f2 2.75272089))\n(declare-const f3 Real)\n(assert (>= f3 2.69823411))\n(assert (<= f3 2.75274389))\n(declare-const f4 Real)\n(assert (>= f4 -0.027267390000000405))\n(assert (<= f4 0.027242389999999575))\n(declare-const A Real)\n(declare-const B Real)\n(assert (or (and (> f3 2.9980379) (= A 0.0)) (and (<= f3 2.9980379) (= A 0.0))))\n(assert (or (and (> f3 2.9980379) (= B 0.0)) (and (<= f3 2.9980379) (= B 0.0))))\n(assert (or (not (= A 0.0)) (not (= B 0.0))))\n(check-sat)",
+  "mdl_bits": 24.0
 }

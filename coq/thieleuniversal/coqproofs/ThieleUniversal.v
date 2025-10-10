@@ -1381,6 +1381,7 @@ Qed.
     length (regs (run1 st)) = 10.
   Proof.
     intros st Hpc Hprog Hlen.
+    pose proof (eq_sym Hpc) as Hpc_sym.
     assert (Hpc_lt : read_reg REG_PC st < length program_instrs)
       by (rewrite Hpc; pose proof program_instrs_length_gt_48; lia).
     pose proof (decode_instr_program_state st Hpc_lt Hprog) as Hdecode_prog.
@@ -1397,8 +1398,7 @@ Qed.
     { assert (Hunchanged : CPU.pc_unchanged (CopyReg REG_TEMP1 REG_ADDR))
         by (unfold CPU.pc_unchanged, REG_PC; simpl; intro Heq; discriminate).
       pose proof (run1_pc_succ_instr st _ Hdecode Hunchanged) as Hsucc.
-      replace (read_reg REG_PC st) with 22 in Hsucc by exact Hpc.
-      simpl in Hsucc. exact Hsucc. }
+  rewrite Hpc in Hsucc. simpl in Hsucc. exact Hsucc. }
     split.
     { unfold run1. rewrite Hdecode.
       cbn [CPU.step read_reg write_reg read_mem].
@@ -1476,6 +1476,7 @@ Qed.
     length (regs (run1 st)) = 10.
   Proof.
     intros st Hpc Hprog Hlen.
+    pose proof (eq_sym Hpc) as Hpc_sym.
     assert (Hpc_lt : read_reg REG_PC st < length program_instrs)
       by (rewrite Hpc; pose proof program_instrs_length_gt_48; lia).
     pose proof (decode_instr_program_state st Hpc_lt Hprog) as Hdecode_prog.
@@ -1492,8 +1493,7 @@ Qed.
     { assert (Hunchanged : CPU.pc_unchanged (AddConst REG_TEMP1 2))
         by (unfold CPU.pc_unchanged, REG_PC; simpl; intro Heq; discriminate).
       pose proof (run1_pc_succ_instr st _ Hdecode Hunchanged) as Hsucc.
-      replace (read_reg REG_PC st) with 23 in Hsucc by exact Hpc.
-      simpl in Hsucc. exact Hsucc. }
+  rewrite Hpc in Hsucc. simpl in Hsucc. exact Hsucc. }
     split.
     { unfold run1. rewrite Hdecode.
       cbn [CPU.step read_reg write_reg read_mem].
@@ -1561,8 +1561,7 @@ Qed.
     - assert (Hunchanged : CPU.pc_unchanged (LoadIndirect REG_Q' REG_TEMP1))
         by (unfold CPU.pc_unchanged, REG_PC; simpl; intro Heq; discriminate).
       pose proof (run1_pc_succ_instr st _ Hdecode Hunchanged) as Hsucc.
-      replace (read_reg REG_PC st) with 24 in Hsucc by exact Hpc.
-      simpl in Hsucc. exact Hsucc.
+  rewrite Hpc in Hsucc. simpl in Hsucc. exact Hsucc.
     - unfold run1. rewrite Hdecode.
       cbn [CPU.step read_reg write_reg read_mem].
       reflexivity.
@@ -1655,8 +1654,7 @@ Qed.
     { assert (Hunchanged : CPU.pc_unchanged (AddConst REG_TEMP1 1))
         by (unfold CPU.pc_unchanged, REG_PC; simpl; intro Heq; discriminate).
       pose proof (run1_pc_succ_instr st _ Hdecode Hunchanged) as Hsucc.
-      replace (read_reg REG_PC st) with 25 in Hsucc by exact Hpc.
-      simpl in Hsucc. exact Hsucc. }
+  rewrite Hpc in Hsucc. simpl in Hsucc. exact Hsucc. }
     split.
     { unfold run1. rewrite Hdecode.
       cbn [CPU.step read_reg write_reg read_mem].
@@ -1722,8 +1720,7 @@ Qed.
     { assert (Hunchanged : CPU.pc_unchanged (LoadIndirect REG_WRITE REG_TEMP1))
         by (unfold CPU.pc_unchanged, REG_PC; simpl; intro Heq; discriminate).
       pose proof (run1_pc_succ_instr st _ Hdecode Hunchanged) as Hsucc.
-      replace (read_reg REG_PC st) with 26 in Hsucc by exact Hpc.
-      simpl in Hsucc. exact Hsucc. }
+  rewrite Hpc in Hsucc. simpl in Hsucc. exact Hsucc. }
     split.
     { unfold run1. rewrite Hdecode.
       cbn [CPU.step read_reg write_reg read_mem].
@@ -1821,8 +1818,7 @@ Qed.
     { assert (Hunchanged : CPU.pc_unchanged (AddConst REG_TEMP1 1))
         by (unfold CPU.pc_unchanged, REG_PC; simpl; intro Heq; discriminate).
       pose proof (run1_pc_succ_instr st _ Hdecode Hunchanged) as Hsucc.
-      replace (read_reg REG_PC st) with 27 in Hsucc by exact Hpc.
-      simpl in Hsucc. exact Hsucc. }
+  rewrite Hpc in Hsucc. simpl in Hsucc. exact Hsucc. }
     split.
     { unfold run1. rewrite Hdecode.
       cbn [CPU.step read_reg write_reg read_mem].
@@ -1883,8 +1879,7 @@ Qed.
     { assert (Hunchanged : CPU.pc_unchanged (LoadIndirect REG_MOVE REG_TEMP1))
         by (unfold CPU.pc_unchanged, REG_PC; simpl; intro Heq; discriminate).
       pose proof (run1_pc_succ_instr st _ Hdecode Hunchanged) as Hsucc.
-      replace (read_reg REG_PC st) with 28 in Hsucc by exact Hpc.
-      simpl in Hsucc. exact Hsucc. }
+  rewrite Hpc in Hsucc. simpl in Hsucc. exact Hsucc. }
     split.
     { unfold run1. rewrite Hdecode.
       cbn [CPU.step read_reg write_reg read_mem].
@@ -1943,7 +1938,7 @@ Qed.
           pose proof (length_regs_write_reg st REG_PC (S (read_reg REG_PC st)) Hpc_bound)
             as Hlen_pc_raw.
           assert (Hmove_bound : REG_MOVE < length (regs st_pc)).
-          { replace (length (regs st_pc)) with (length (regs st)) by exact Hlen_pc_raw.
+          { replace (length (regs st_pc)) with (length (regs st)) by exact (eq_sym Hlen_pc_raw).
             rewrite Hlen.
             unfold REG_MOVE.
             lia. }
@@ -3129,19 +3124,19 @@ Proof.
     assert (Hunchanged : CPU.pc_unchanged (LoadIndirect REG_Q' REG_ADDR)).
     { unfold CPU.pc_unchanged, REG_Q', REG_PC. simpl. congruence. }
     pose proof (run1_pc_succ_instr st _ Hdecode_pc4 Hunchanged) as Hsucc.
-    rewrite Hpc_4 in Hsucc.
+  rewrite Hpc in Hsucc. simpl in Hsucc. exact Hsucc. }
     simpl in Hsucc.
-    exact Hsucc.
+  rewrite Hpc in Hsucc. simpl in Hsucc. exact Hsucc. }
   }
-  assert (Hlen_st1 : length (regs st1) = 10).
+  rewrite Hpc in Hsucc. simpl in Hsucc. exact Hsucc. }
   { subst st1.
-    unfold run1.
+  rewrite Hpc in Hsucc. simpl in Hsucc. exact Hsucc. }
     rewrite Hdecode_pc4.
-    cbn [CPU.step read_reg write_reg read_mem].
+  rewrite Hpc in Hsucc. simpl in Hsucc. exact Hsucc. }
     set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
-    assert (Hlen_pc : length (regs st_pc) = 10).
+  rewrite Hpc in Hsucc. simpl in Hsucc. exact Hsucc. }
     { subst st_pc.
-      apply length_regs_write_reg_10; [exact Hlen_st|].
+  rewrite Hpc in Hsucc. simpl in Hsucc. exact Hsucc. }
       rewrite Hlen_st. unfold REG_PC. lia. }
     assert (Hq'_bound_pc : REG_Q' < length (regs st_pc))
       by (rewrite Hlen_pc; unfold REG_Q'; lia).

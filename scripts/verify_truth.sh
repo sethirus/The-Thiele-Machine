@@ -175,4 +175,12 @@ coq_lines.append(
 coq_path.write_text("\n".join(coq_lines), encoding="utf-8")
 PY
 
-(cd coq && coqc -Q thielemachine/coqproofs ThieleMachine tmp_verify_truth.v)
+(cd coq && coqc \
+  -R thielemachine/coqproofs ThieleMachine \
+  -R thieleuniversal/coqproofs ThieleUniversal \
+  -R catnet/coqproofs CatNet \
+  -R isomorphism/coqproofs Isomorphism \
+  -R p_equals_np_thiele P_equals_NP_Thiele \
+  -R project_cerberus/coqproofs ProjectCerberus \
+  -R test_vscoq/coqproofs TestVSCoq \
+  tmp_verify_truth.v)
