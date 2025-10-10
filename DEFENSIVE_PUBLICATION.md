@@ -15,7 +15,7 @@ Scope (non-exhaustive, intentionally broad):
 8. General method claims: (a) deriving constants with exact arithmetic; (b) enumerating classical bounds with QF_LIA;
    (c) constructing rational Tsirelson witnesses; (d) regenerating Coq obligations from JSON receipts and proving replay.
 
-Artifacts: link the exact git tag (v1.0.1), SHA-256 checksums of source tarballs (883372fd799e98a9fd90f8feb2b3b94d21bf917843745e80351ba52f7cf6d01d), and the Zenodo DOI/SWHID here.
+Artifacts: link the exact git tag (v1.0.1), SHA-256 checksums of source tarballs (883372fd799e98a9fd90f8feb2b3b94d21bf917843745e80351ba52f7cf6d01d), Zenodo DOI (10.5281/zenodo.17316437), and SWHID (swh:1:dir:d3894a5c31028e8d0b6d3bcdde9d257148d61e59).
 
 This document is intended to be enabling disclosure: a skilled practitioner can implement the system without undue
 experimentation, thereby barring later patents on the same subject matter and routine variations.
