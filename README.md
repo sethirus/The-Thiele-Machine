@@ -82,6 +82,56 @@ The Coq formalization is fully mechanised. Use [`coq/verify_subsumption.sh`](coq
 
 **Release Verification:** SHA-256 of v1.0.1 tarball: `883372fd799e98a9fd90f8feb2b3b94d21bf917843745e80351ba52f7cf6d01d` (see [GitHub Release](https://github.com/sethirus/The-Thiele-Machine/releases/tag/v1.0.1))
 
+## Citation
+
+If you use this software or any of its results, please cite:
+
+Thiele, D. (2025). The Thiele Machine. Zenodo. https://doi.org/10.5281/zenodo.17316438
+
+You can also use the machine-readable citation in `CITATION.cff` for automated tooling.
+
+BibTeX example:
+
+```bibtex
+@software{thiele_machine_2025,
+   author = {Thiele, Devon},
+   title = {The Thiele Machine},
+   year = {2025},
+   doi = {10.5281/zenodo.17316438},
+   url = {https://github.com/sethirus/The-Thiele-Machine},
+   version = {v1.0.2}
+}
+```
+
+RIS example:
+
+```ris
+TY  - SOFTWARE
+AU  - Thiele, Devon
+TI  - The Thiele Machine
+PY  - 2025
+DO  - 10.5281/zenodo.17316438
+UR  - https://github.com/sethirus/The-Thiele-Machine
+VL  - v1.0.2
+ER  -
+```
+
+## Verification Checklist
+
+Quick checklist to verify the v1.0.2 release:
+
+- Confirm the tarball SHA-256 matches: `024450c3a7421af40ec2308bbfa1e420c36a22749130cc73f8bb33d36295e138` (`artifacts/MANIFEST.sha256`)
+- Verify the ASCII armored GPG signature for the release tarball is present on the GitHub release page and corresponds to fingerprint `ACF1665CDBD486D22E87B3615127D27049B531F1` (if you trust that key)
+- Check the Software Heritage SWHID: `swh:1:dir:d3894a5c31028e8d0b6d3bcdde9d257148d61e59`
+- Re-run the canonical verification: `python scripts/challenge.py verify receipts` after running `python attempt.py` to regenerate receipts
+- Rebuild the Coq proofs in an isolated container: `docker run --rm -v "$PWD":/work sethirus/the-thiele-coq:8.18 bash -c "cd /work && ./coq/verify_subsumption.sh"`
+
+More detailed verification steps are provided in `DEFENSIVE_PUBLICATION.md`.
+
+Administrative notes and automated helpers for publishing releases to Zenodo
+and OSF are available in `scripts/` and `OSF_UPLOAD_INSTRUCTIONS.md`. These
+helpers require your personal API tokens and are intentionally interactive.
+
 ---
 
 ## Security Notice
