@@ -320,15 +320,14 @@ cat coq/AXIOM_INVENTORY.md
 
 ## Key Achievements
 
-### ✅ Zero Admitted Statements, 26 Documented Axioms
+### ✅ Zero Admitted Statements; documented axioms
 
 **Every proof** in this codebase is either:
 - **Fully mechanized** (no shortcuts)
 - **Documented axiom** (with justification—see `AXIOM_INVENTORY.md`)
 - **Documentation file** (not meant to be proven)
 
-**No `Admitted` statements anywhere** - These represent incomplete proofs  
-**26 `Axiom` declarations** - Documented assumptions with mechanization roadmaps (see `AXIOM_INVENTORY.md`)
+**No `Admitted` statements anywhere** — use `coq/AXIOM_INVENTORY.md` for the authoritative axiom list and mitigation strategies (avoid hard-coded counts in secondary docs).
 
 ### 🎯 Main Theoretical Contribution
 

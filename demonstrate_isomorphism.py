@@ -6,6 +6,8 @@ Copyright 2025 Devon Thiele
 See the LICENSE file in the repository root for full terms.
 """
 #!/usr/bin/env python3
+from __future__ import annotations
+
 r"""
 Thiele Machine Bell inequality thesis script.
 
@@ -37,8 +39,6 @@ Every intermediate artifact is emitted with the same obsessive care as
 Markdown ledger, and synchronised with JSON/SMT-LIB receipts so an
 external auditor can reproduce each step.
 """
-
-from __future__ import annotations
 
 import json
 import math

@@ -34,8 +34,10 @@ This short checklist describes how to independently verify the v1.0.2 release ar
 
 7. Reproduce the computation and receipts
    - Create a Python virtualenv and install project deps: `pip install -e .`
-   - Regenerate canonical receipts: `python attempt.py`.
+   - Regenerate canonical receipts: `python3 demonstrate_isomorphism.py` (recommended).
+     If you require the broader set of experiments, run `python attempt.py` instead.
    - Run the verifier: `python scripts/challenge.py verify receipts` and confirm it reports successful verification and the expected μ-bit accounting.
+   - Optionally replay receipts in Coq: `./scripts/verify_truth.sh examples/tsirelson_step_receipts.json`.
 
 8. Re-run Coq verification (recommended for formal consumers)
    - Inside a container: `docker run --rm -v "$PWD":/work coqorg/coq:8.18 bash -c "cd /work && ./coq/verify_subsumption.sh"`

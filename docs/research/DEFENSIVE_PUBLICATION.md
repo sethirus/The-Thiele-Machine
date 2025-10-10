@@ -34,9 +34,10 @@ High-level Summary of Disclosed Components
 3. Receipts & Ledger: JSON step receipts, HMAC signatures, step-level hashes,
    and replay tooling (`scripts/thiele_verify.py`, `scripts/challenge.py`).
 4. Mechanized proofs: Full Coq development in `coq/` with formal statements of
-   containment (Simulation.v), separation (Separation.v), and subsumption
-   (Subsumption.v). No `Admitted` statements for the flagship proofs; 26
-   documented foundational axioms appear in `coq/AXIOM_INVENTORY.md`.
+  containment (`Simulation.v`), separation (`Separation.v`), and subsumption
+  (`Subsumption.v`). No `Admitted` statements for the flagship proofs; the
+  authoritative axiom inventory and validation strategies are published in
+  `coq/AXIOM_INVENTORY.md` (use that file as the canonical source of truth).
 5. Verilog reference pipeline: `thielecpu/hardware/` contains a cycle-accurate
    RTL (thiele_cpu.v) and testbench (thiele_cpu_tb.v) exercised with Icarus
    Verilog.
@@ -103,10 +104,10 @@ System prerequisites
 * TeX Live (pdflatex) for paper compilation.
 
 Repro steps — code and experiments
-1. Run the main artifact and generate receipts:
-   ```bash
-   python attempt.py
-   ```
+1. Run the canonical thesis run and generate receipts:
+  ```bash
+  python3 demonstrate_isomorphism.py
+  ```
 
 2. Run the Bell isomorphism demonstration (derives constants, Tsirelson
    witness, receipts, and Coq replay):
@@ -114,10 +115,11 @@ Repro steps — code and experiments
    python demonstrate_isomorphism.py
    ```
 
-3. Verify receipts programmatically (single-file or directory):
-   ```bash
-   python scripts/challenge.py verify receipts
-   ```
+3. Verify receipts programmatically (single-file or directory), and optionally replay in Coq:
+  ```bash
+  python scripts/challenge.py verify receipts
+  ./scripts/verify_truth.sh examples/tsirelson_step_receipts.json
+  ```
 
 4. Rebuild Coq proofs (canonical subsumption verification):
    ```bash

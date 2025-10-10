@@ -20,21 +20,23 @@
 #
 # ============================================================================
 
-import warnings
-import multiprocessing
+from .security_monitor import log_usage, display_security_warning
 
-# Only warn in the main process to avoid spam in multiprocessing
-if multiprocessing.current_process().name == 'MainProcess':
-    warnings.warn(
-        "⚠️  SECURITY WARNING: Importing thielecpu package. This implements "
-        "partition-native computation that could break RSA encryption. Use only "
-        "for defensive security research.",
-        UserWarning,
-        stacklevel=2
-    )
 
-# Initialize security monitoring
-from .security_monitor import log_usage
-from .vm import VM
+def __getattr__(name: str):
+	"""Lazy attribute loader for package-level convenience.
 
-__all__ = ["VM"]
+	Accessing ``thielecpu.VM`` will import the heavy ``thielecpu.vm``
+	module on demand, avoiding noisy import-time side-effects when the
+	package is imported for type-checking or inspection.
+	"""
+	if name == "VM":
+		from .vm import VM  # local import to avoid import-time effects
+
+		return VM
+	if name in ("log_usage", "display_security_warning"):
+		return globals()[name]
+	raise AttributeError(f"module {__name__} has no attribute {name}")
+
+
+__all__ = ["log_usage", "display_security_warning"]
