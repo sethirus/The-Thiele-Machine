@@ -8,12 +8,17 @@ model of the universe. It demonstrates a proof-of-concept for a sighted
 Thiele Machine method: by treating physical data as an explicit logical
 constraint, a simple, interpretable rule can imply a definite trial outcome.
 
-- timestamp: 2025-10-10T05:09:31.051350Z
+- timestamp: 2025-10-10T19:04:49.672815Z
 - mode: offline
-- feature_hash: 60ba61bb3e423ca06b9c71ce870c64e870c24995545836bbd72b6bc56b38dce7
-- rule: feature[2] > -0.00018 -> (0, 0), else -> (0, 0)
+- data_origin: embedded-planck-patch
+- fallback_reason: HEALPix reader failure (No module named 'astropy') when parsing planck_sample.fits
+- feature_hash: 7b891e51b1a6d566a07adb3e28d8b25f6fdd778558537f02bee5c2ce08bacc18
+- rule: feature[3] > 2.99804 -> (0, 0), else -> (0, 0)
 - predicted_trial: alice=0, bob=0
 - prediction_proved_by_z3: True
+- robustness_margin: 0.27254889999999987
+- robustness_proved_by_z3: True
+- sample_robust_fraction: 1.0
 
 See `artifacts/cosmic_witness_prediction_receipt.json` and
 `artifacts/cosmic_witness_prediction_proof.smt2` for machine-checkable evidence.

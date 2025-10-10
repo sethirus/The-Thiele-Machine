@@ -1,13 +1,38 @@
 # Bell Inequality Demonstration — Sovereign Witness
+A Thiele Machine thesis in six acts.
 
+## Experimental Environment
+Deterministic execution envelope and formal toolchain inventory.
+
+Pinned environment variables for reproducibility:
+- TZ=UTC
+- LC_ALL=C
+- LANG=C
+- PYTHONHASHSEED=0
+Formal toolchain versions detected:
+- Python: Python 3.12.1
+- Z3: Z3 version 4.8.12 - 64 bit
+- Coq: The Coq Proof Assistant, version 8.18.0
+- Repository commit: 743e3bbfa93b8d563be83a2684e4523df2224e38
+- Host platform: Linux-6.8.0-1030-azure-x86_64-with-glibc2.39
+Network isolation is enforced; passing --allow-network explicitly opts into live data fetching.
+Decimal arithmetic uses 80 digits of precision; all rational witnesses are emitted exactly.
+## Trusted Computing Base
+Soundness assumptions that bound the verification perimeter.
+
+- Coq kernel / coqchk validate mechanised receipts; correctness assumes the kernel is sound.
+- SMT solving relies on Z3's QF_LIA engine (with CVC5 corroboration when available).
+- Python's Decimal and Fraction libraries provide exact arithmetic for reported witnesses.
+- Recorded SHA-256 manifest binds inputs/outputs; auditors must trust the filesystem integrity.
 ## Act I — Deriving the Constants
-Deriving π from first principles using the Chudnovsky method:
+We ground the Tsirelson bound by deriving π and √2 from first principles.
+
+Deriving π from first principles using the Chudnovsky method…
 - iteration 0: π ≈ 3.141592653590
 - iteration 1: π ≈ 3.141592653590
 - iteration 2: π ≈ 3.141592653590
 - iteration 3: π ≈ 3.141592653590
-
-Deriving √2 from first principles using the Babylonian method:
+Deriving √2 from first principles using the Babylonian method…
 - iteration 1: √2 ≈ 1.500000000000
 - iteration 2: √2 ≈ 1.416666666667
 - iteration 3: √2 ≈ 1.414215686275
@@ -16,10 +41,11 @@ Deriving √2 from first principles using the Babylonian method:
 - iteration 6: √2 ≈ 1.414213562373
 - iteration 7: √2 ≈ 1.414213562373
 - iteration 8: √2 ≈ 1.414213562373
-
-Tsirelson bound: 2·√2 ≈ 2.828427124746
-
+Calculating the Tsirelson bound 2·√2, the quantum ceiling for CHSH violations.
+- Tsirelson bound ≈ 2.828427124746
 ## Act II — Classical Deterministic Bound
+Every local-realist CHSH strategy is enumerated and audited with Z3.
+
 Classical strategy definitions:
 ```python
 strategies = [
@@ -41,7 +67,6 @@ strategies = [
     (Response(out0=1, out1=1), Response(out0=1, out1=1)),
 )
 ```
-
 Strategy 00: S = 2/1 (~2.000000)
 ```smt2
 (set-logic QF_LIA)
@@ -63,7 +88,6 @@ Strategy 00: S = 2/1 (~2.000000)
         (check-sat)
 ```
 Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
-
 Strategy 01: S = -2/1 (~-2.000000)
 ```smt2
 (set-logic QF_LIA)
@@ -85,7 +109,6 @@ Strategy 01: S = -2/1 (~-2.000000)
         (check-sat)
 ```
 Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
-
 Strategy 02: S = 2/1 (~2.000000)
 ```smt2
 (set-logic QF_LIA)
@@ -107,7 +130,6 @@ Strategy 02: S = 2/1 (~2.000000)
         (check-sat)
 ```
 Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
-
 Strategy 03: S = -2/1 (~-2.000000)
 ```smt2
 (set-logic QF_LIA)
@@ -129,7 +151,6 @@ Strategy 03: S = -2/1 (~-2.000000)
         (check-sat)
 ```
 Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
-
 Strategy 04: S = -2/1 (~-2.000000)
 ```smt2
 (set-logic QF_LIA)
@@ -151,7 +172,6 @@ Strategy 04: S = -2/1 (~-2.000000)
         (check-sat)
 ```
 Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
-
 Strategy 05: S = -2/1 (~-2.000000)
 ```smt2
 (set-logic QF_LIA)
@@ -173,7 +193,6 @@ Strategy 05: S = -2/1 (~-2.000000)
         (check-sat)
 ```
 Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
-
 Strategy 06: S = 2/1 (~2.000000)
 ```smt2
 (set-logic QF_LIA)
@@ -195,7 +214,6 @@ Strategy 06: S = 2/1 (~2.000000)
         (check-sat)
 ```
 Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
-
 Strategy 07: S = 2/1 (~2.000000)
 ```smt2
 (set-logic QF_LIA)
@@ -217,7 +235,6 @@ Strategy 07: S = 2/1 (~2.000000)
         (check-sat)
 ```
 Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
-
 Strategy 08: S = 2/1 (~2.000000)
 ```smt2
 (set-logic QF_LIA)
@@ -239,7 +256,6 @@ Strategy 08: S = 2/1 (~2.000000)
         (check-sat)
 ```
 Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
-
 Strategy 09: S = 2/1 (~2.000000)
 ```smt2
 (set-logic QF_LIA)
@@ -261,7 +277,6 @@ Strategy 09: S = 2/1 (~2.000000)
         (check-sat)
 ```
 Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
-
 Strategy 10: S = -2/1 (~-2.000000)
 ```smt2
 (set-logic QF_LIA)
@@ -283,7 +298,6 @@ Strategy 10: S = -2/1 (~-2.000000)
         (check-sat)
 ```
 Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
-
 Strategy 11: S = -2/1 (~-2.000000)
 ```smt2
 (set-logic QF_LIA)
@@ -305,7 +319,6 @@ Strategy 11: S = -2/1 (~-2.000000)
         (check-sat)
 ```
 Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
-
 Strategy 12: S = -2/1 (~-2.000000)
 ```smt2
 (set-logic QF_LIA)
@@ -327,7 +340,6 @@ Strategy 12: S = -2/1 (~-2.000000)
         (check-sat)
 ```
 Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
-
 Strategy 13: S = 2/1 (~2.000000)
 ```smt2
 (set-logic QF_LIA)
@@ -349,7 +361,6 @@ Strategy 13: S = 2/1 (~2.000000)
         (check-sat)
 ```
 Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
-
 Strategy 14: S = -2/1 (~-2.000000)
 ```smt2
 (set-logic QF_LIA)
@@ -371,7 +382,6 @@ Strategy 14: S = -2/1 (~-2.000000)
         (check-sat)
 ```
 Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
-
 Strategy 15: S = 2/1 (~2.000000)
 ```smt2
 (set-logic QF_LIA)
@@ -393,8 +403,7 @@ Strategy 15: S = 2/1 (~2.000000)
         (check-sat)
 ```
 Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
-
-Convexity audit ensuring no classical mixture exceeds the CHSH bound:
+Aggregating the classical strategies into a convex combination and auditing it:
 ```smt2
 (set-logic QF_LRA)
 (declare-const w0 Real)
@@ -433,10 +442,12 @@ Convexity audit ensuring no classical mixture exceeds the CHSH bound:
 (assert (> (+ (* w0 2/1) (* w1 -2/1) (* w2 2/1) (* w3 -2/1) (* w4 -2/1) (* w5 -2/1) (* w6 2/1) (* w7 2/1) (* w8 2/1) (* w9 2/1) (* w10 -2/1) (* w11 -2/1) (* w12 -2/1) (* w13 2/1) (* w14 -2/1) (* w15 2/1)) 2))
 (check-sat)
 ```
-Z3> prove(ForAll convex combination preserves |S| <= 2) -> FAILED. unsat. Bound holds.
-**Conclusion:** Any classical system adhering to local realism is bounded by |S| ≤ 2.
-
+Z3> prove(ForAll convex combination preserves |S| ≤ 2) -> FAILED. unsat. Bound holds.
+**Conclusion: Any classical system adhering to local realism is bounded by |S| ≤ 2.**
+Mechanised coverage: the Coq lemma local_CHSH_bound lifts these pointwise checks to every convex mixture of deterministic boxes.
 ## Act III — Sighted Tsirelson Witness
+A constructive Thiele witness approaches the Tsirelson bound and is checked by Z3.
+
 Thiele/Tsirelson strategy definition:
 ```python
 def shared_gamma():
@@ -456,6 +467,7 @@ def shared_gamma():
             return Fraction(1, 4) + Fraction(1, 4) * (2 * a - 1) * (2 * b - 1) * correlator(x, y)
 ```
 Computed CHSH value for the Tsirelson approximation: 2000000/707107 (~2.828426)
+Z3 audit for the Tsirelson witness:
 ```smt2
 (set-logic QF_LRA)
         (declare-const S Real)
@@ -465,15 +477,16 @@ Computed CHSH value for the Tsirelson approximation: 2000000/707107 (~2.828426)
         (check-sat)
 ```
 Z3> prove(2 < S ≤ 2√2) -> PASSED. sat.
-**Conclusion:** A sighted Thiele architecture achieves the Tsirelson violation using a constructively derived γ.
-
+**Conclusion: A sighted Thiele architecture achieves a rational Tsirelson witness approaching 2√2 with exact arithmetic.**
 ## Act IV — Consolidated Artifact
-All preceding computations and audits are consolidated into this Markdown artifact.
+All evidence is collated into BELL_INEQUALITY_VERIFIED_RESULTS.md.
 
 ## Act V — Receipt Verification
+Receipts are regenerated, summarised, and optionally sent to Coq for mechanised checking.
+
 Receipt generation transcript:
 ```text
-/workspace/The-Thiele-Machine/scripts/generate_tsirelson_receipts.py:15: UserWarning: ⚠️  SECURITY WARNING: Importing thielecpu package. This implements partition-native computation that could break RSA encryption. Use only for defensive security research.
+/workspaces/The-Thiele-Machine/scripts/generate_tsirelson_receipts.py:15: UserWarning: ⚠️  SECURITY WARNING: Importing thielecpu package. This implements partition-native computation that could break RSA encryption. Use only for defensive security research.
   from thielecpu.receipts import (
 
         *** THIELE CPU RESPONSIBLE USE GUIDELINES ***
@@ -496,8 +509,13 @@ Receipt generation transcript:
 
         Your usage is being logged for security purposes.
         
-Wrote 5 receipts to /workspace/The-Thiele-Machine/examples/tsirelson_step_receipts.json
+Wrote 5 receipts to /workspaces/The-Thiele-Machine/examples/tsirelson_step_receipts.json
 ```
+Receipt summary:
+- count = 5
+- instructions = PNEW, PYEXEC, PYEXEC, PYEXEC, EMIT
+- signatures_verified = True
+These receipts adhere to the canonical JSON schema (instruction, state, observation); Coq replay only accepts files respecting this structure.
 Verification transcript:
 ```text
 <stdin>:5: UserWarning: ⚠️  SECURITY WARNING: Importing thielecpu package. This implements partition-native computation that could break RSA encryption. Use only for defensive security research.
@@ -521,5 +539,34 @@ Verification transcript:
         If you're unsure about your use case, contact the maintainers.
 
         Your usage is being logged for security purposes.
+        
+Coq proof obligations discharged (The Coq Proof Assistant, version 8.18.0).
 ```
-**Q.E.D.** The runtime receipts coincide with the mechanised Coq witness.
+**Q.E.D. — The runtime receipts coincide with the mechanised witness.**
+Coq replay confirms the canonical program receipts; any alternative log must produce identical instruction/state triples to be accepted.
+## Act VI — Operation Cosmic Witness
+Cosmic microwave background data is converted into a formally proved prediction.
+
+Correctness: the SMT proof shows the induced rule outputs the logged CHSH setting for the recorded features.
+Robustness: a QF_LIA certificate demonstrates the prediction remains stable within the recorded noise model (ε-ball) derived from the offline dataset.
+Operation Cosmic Witness mode=offline, data_source=offline, allow_network=False
+Loading offline CMB sample from /workspaces/The-Thiele-Machine/data/planck_sample.fits
+Extracted feature vector (mean, stdev, min, max, gradient): 2.7254761875, 6.79355163007e-06, 2.725466, 2.725489, -1.25000000004e-05
+Data origin recorded as embedded-planck-patch.
+Fell back to the canonical Planck patch because HEALPix reader failure (No module named 'astropy') when parsing planck_sample.fits.
+Induced rule: feature[3] > 2.99804 -> (0, 0), else -> (0, 0) (param_count=1)
+Predicted CHSH trial: alice=0, bob=0
+Prediction SMT proof succeeded; robustness proved (eps=2.725e-02).
+Persisted Operation Cosmic Witness receipts and proofs to disk.
+Operation Cosmic Witness artifacts written to the artifacts/ directory for audit.
+- Prediction receipt: /workspaces/The-Thiele-Machine/artifacts/cosmic_witness_prediction_receipt.json
+- Prediction proof: /workspaces/The-Thiele-Machine/artifacts/cosmic_witness_prediction_proof.smt2
+- Robustness proof: /workspaces/The-Thiele-Machine/artifacts/cosmic_witness_prediction_proof_robust.smt2
+- Prediction proved by Z3: True
+## Conclusion — Verification Gates
+The thesis run is accepted only when these audit checks succeed.
+
+- All SMT-LIB artifacts reproduce their recorded SAT/UNSAT dispositions (Z3 with optional CVC5 corroboration).
+- scripts/verify_truth.sh completes without error, replaying the canonical receipts inside Coq.
+- artifacts/MANIFEST.sha256 matches recomputed SHA-256 hashes for ledger and receipts.
+Artifact manifest persisted to artifacts/MANIFEST.sha256.

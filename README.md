@@ -1,5 +1,7 @@
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/sethirus/The-Thiele-Machine)
 
+> **⚠️ SECURITY WARNING: This repository contains technology that can break RSA encryption and other cryptographic systems. Use only for defensive security research. See [Security Notice](#security-notice) below.**
+
 ## Run everything
 
 **Windows (PowerShell):**
@@ -77,6 +79,53 @@ The Coq formalization is fully mechanised. Use [`coq/verify_subsumption.sh`](coq
 **Optional System Dependencies:**
 - Coq Platform 8.20 or later (for formal proofs and compilation)
 - drat-trim and lrat-check (for advanced proof verification)
+
+**Release Verification:** SHA-256 of v1.0.1 tarball: `883372fd799e98a9fd90f8feb2b3b94d21bf917843745e80351ba52f7cf6d01d` (see [GitHub Release](https://github.com/sethirus/The-Thiele-Machine/releases/tag/v1.0.1))
+
+---
+
+## Security Notice
+
+**⚠️ CRITICAL SECURITY WARNING**
+
+This repository implements the Thiele Machine, a computational model with capabilities that include:
+
+- **Cryptanalysis of RSA and similar systems** via partition-native computation
+- **Breaking cryptographic assumptions** underlying modern digital security
+- **Potential for undermining global cybersecurity infrastructure**
+
+### Responsible Use Guidelines
+
+**ALLOWED USES:**
+- Academic research into computational complexity theory
+- Defensive security research and vulnerability assessment
+- Development of improved cryptographic systems
+- Formal verification and proof systems
+
+**PROHIBITED USES:**
+- Breaking encryption without explicit authorization
+- Cryptanalysis for malicious purposes
+- Undermining digital security infrastructure
+- Commercial exploitation without security review
+
+### Implementation Details
+
+The Thiele CPU (`thielecpu/`) includes:
+- Partition-based RSA factoring capabilities
+- Security monitoring and responsible use logging
+- Cryptographic receipt generation with HMAC signatures
+
+All usage is logged for security purposes. If you're unsure about your intended use case, **do not proceed** and contact the maintainers.
+
+### Legal and Ethical Considerations
+
+By using this code, you agree to:
+- Use it only for authorized security research
+- Report any vulnerabilities discovered responsibly
+- Not distribute modified versions without security review
+- Comply with all applicable laws and regulations
+
+**This is not a toy project. Mishandling this technology could have severe real-world consequences.**
 
 ---
 

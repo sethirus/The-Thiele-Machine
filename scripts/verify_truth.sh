@@ -6,8 +6,35 @@ if [ $# -lt 1 ]; then
   exit 1
 fi
 
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+COQ_ROOT="${REPO_ROOT}/coq"
 RECEIPTS_FILE="$1"
-COQ_FILE="coq/tmp_verify_truth.v"
+COQ_FILE="${COQ_ROOT}/tmp_verify_truth.v"
+
+COQ_FLAGS=(
+  -q
+  -w -deprecated-native-compiler-option
+  -native-compiler no
+  -Q "${COQ_ROOT}/thielemachine/coqproofs" ThieleMachine
+  -Q "${COQ_ROOT}/thieleuniversal/coqproofs" ThieleUniversal
+  -Q "${COQ_ROOT}/catnet/coqproofs" CatNet
+  -Q "${COQ_ROOT}/isomorphism/coqproofs" Isomorphism
+  -Q "${COQ_ROOT}/p_equals_np_thiele" P_equals_NP_Thiele
+  -Q "${COQ_ROOT}/project_cerberus/coqproofs" ProjectCerberus
+  -Q "${COQ_ROOT}/test_vscoq/coqproofs" TestVSCoq
+)
+
+compile_module() {
+  local source="$1"
+  local target="${source%.v}.vo"
+  if [ ! -f "$target" ] || [ "$source" -nt "$target" ]; then
+    coqc "${COQ_FLAGS[@]}" "$source"
+  fi
+}
+
+compile_module "${COQ_ROOT}/thielemachine/coqproofs/QHelpers.v"
+compile_module "${COQ_ROOT}/thielemachine/coqproofs/ThieleMachineConcrete.v"
+compile_module "${COQ_ROOT}/thielemachine/coqproofs/BellInequality.v"
 
 python - <<'PY' "$RECEIPTS_FILE" "$COQ_FILE"
 import sys
@@ -175,12 +202,7 @@ coq_lines.append(
 coq_path.write_text("\n".join(coq_lines), encoding="utf-8")
 PY
 
-(cd coq && coqc \
-  -R thielemachine/coqproofs ThieleMachine \
-  -R thieleuniversal/coqproofs ThieleUniversal \
-  -R catnet/coqproofs CatNet \
-  -R isomorphism/coqproofs Isomorphism \
-  -R p_equals_np_thiele P_equals_NP_Thiele \
-  -R project_cerberus/coqproofs ProjectCerberus \
-  -R test_vscoq/coqproofs TestVSCoq \
-  tmp_verify_truth.v)
+coqc "${COQ_FLAGS[@]}" "$COQ_FILE"
+
+COQ_VERSION="$(coqc -v 2>&1 | head -n 1 || echo 'coqc')"
+echo "Coq proof obligations discharged (${COQ_VERSION})."
