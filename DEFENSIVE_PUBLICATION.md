@@ -74,6 +74,14 @@ Artifacts and Provenance (Checksums, Tags, DOIs)
 - Compiled PDF (documents/The_Thiele_Machine.pdf) SHA-256: 
   `979d22055cab470b329d435a62a8e03549f17bafc49ae715be95cc32152c93ee`
 
+To assist maintainers in publishing these artifacts to archival services, the
+repository contains helper scripts (`scripts/publish_to_zenodo.sh`,
+`scripts/publish_to_osf.sh`, and `scripts/publish_archives_helper.sh`). These
+scripts require user-provided API tokens and will upload the tarball, the
+`CITATION.cff`, `artifacts/MANIFEST.sha256`, and the compiled paper PDF. They
+are intentionally interactive and require the repository owner to supply
+credentials locally; no credentials are stored in this repository.
+
 Repository Manifest
 -------------------
 The canonical manifest `artifacts/MANIFEST.sha256` included in the
