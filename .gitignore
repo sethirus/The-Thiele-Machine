@@ -19,8 +19,11 @@ logs/
 *.log
 
 # Artifact-generated output directories and files
-shape_of_truth_out/
-receipts/
+# Consolidated runtime outputs (do not commit runtime artifacts)
+outputs/
+
+# Keep canonical receipts tracked in the repository (they are part of the artifact)
+!receipts/
 figures/
 tseitin_receipts.json
 *.png
