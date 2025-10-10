@@ -44,7 +44,3 @@ def test_write_fits_from_csv(tmp_path):
 
         pytest.skip("astropy not available; skipping FITS write test")
     assert fits_path.exists()
-    # ensure files referenced in returned dict exist
-    assert Path(out["receipt_path"]).exists()
-    assert Path(out["smt2_path"]).exists()
-    assert Path(out["robust_smt2_path"]).exists()

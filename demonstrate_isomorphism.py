@@ -14,7 +14,7 @@ from pathlib import Path
 from textwrap import dedent
 from typing import List, Sequence, Tuple
 
-from z3 import And, Or, Real, RealVal, Solver, Sum
+from z3 import And, Or, Real, RealVal, Solver, Sum, unsat
 import argparse
 import csv
 import datetime
@@ -630,9 +630,27 @@ def main() -> None:
         # run coqc in the coq directory
         cmd = [
             "coqc",
-            "-Q",
+            "-R",
             "thielemachine/coqproofs",
             "ThieleMachine",
+            "-R",
+            "thieleuniversal/coqproofs",
+            "ThieleUniversal",
+            "-R",
+            "catnet/coqproofs",
+            "CatNet",
+            "-R",
+            "isomorphism/coqproofs",
+            "Isomorphism",
+            "-R",
+            "p_equals_np_thiele",
+            "P_equals_NP_Thiele",
+            "-R",
+            "project_cerberus/coqproofs",
+            "ProjectCerberus",
+            "-R",
+            "test_vscoq/coqproofs",
+            "TestVSCoq",
             "tmp_verify_truth.v",
         ]
         # stream output similarly to run_command_live
@@ -903,7 +921,7 @@ def prove_prediction_with_z3(features: Sequence[float], rule: SimpleRule, predic
     solver.push()
     solver.add(not_pred)
     sat = solver.check()
-    proved = sat == False
+    proved = sat == unsat
     solver.pop()
 
     # Produce a compact SMT2 script mirroring the same constraints
@@ -964,26 +982,38 @@ def prove_robustness_with_z3(features: Sequence[float], rule: SimpleRule, predic
         solver.add(const >= RealVal(str(float(v - eps))))
         solver.add(const <= RealVal(str(float(v + eps))))
 
+    A = Real("A")
+    B = Real("B")
     solver.add(
         Or(
-            And(feature_consts[idx] > RealVal(str(float(threshold))), RealVal(str(float(a_true))) == RealVal(str(float(a_true)))),
-            And(feature_consts[idx] <= RealVal(str(float(threshold))), RealVal(str(float(a_false))) == RealVal(str(float(a_false)))),
+            And(
+                feature_consts[idx] > RealVal(str(float(threshold))),
+                A == RealVal(str(float(a_true))),
+            ),
+            And(
+                feature_consts[idx] <= RealVal(str(float(threshold))),
+                A == RealVal(str(float(a_false))),
+            ),
         )
     )
     solver.add(
         Or(
-            And(feature_consts[idx] > RealVal(str(float(threshold))), RealVal(str(float(b_true))) == RealVal(str(float(b_true)))),
-            And(feature_consts[idx] <= RealVal(str(float(threshold))), RealVal(str(float(b_false))) == RealVal(str(float(b_false)))),
+            And(
+                feature_consts[idx] > RealVal(str(float(threshold))),
+                B == RealVal(str(float(b_true))),
+            ),
+            And(
+                feature_consts[idx] <= RealVal(str(float(threshold))),
+                B == RealVal(str(float(b_false))),
+            ),
         )
     )
 
     # assert negation of predicted
-    A = Real("A")
-    B = Real("B")
     solver.push()
     solver.add(Or(A != RealVal(str(float(predicted[0]))), B != RealVal(str(float(predicted[1])))))
     sat = solver.check()
-    proved = sat == False
+    proved = sat == unsat
     solver.pop()
     return proved, smt2
 
@@ -1073,6 +1103,26 @@ def write_fits_from_csv(csv_path: Path, fits_path: Path) -> None:
             fh.write(data_block)
 
 
+DEFAULT_CMB_SAMPLE: List[float] = [
+    2.725480,
+    2.725482,
+    2.725476,
+    2.725489,
+    2.725471,
+    2.725478,
+    2.725469,
+    2.725485,
+    2.725474,
+    2.725479,
+    2.725472,
+    2.725487,
+    2.725468,
+    2.725473,
+    2.725466,
+    2.725470,
+]
+
+
 def run_act_vi(mode: str = "offline", allow_network: bool = False, cmb_file: str | None = None, output_dir: str | None = None, data_source: str = "offline") -> dict:
     """Run Operation Cosmic Witness (Act VI).
 
@@ -1088,27 +1138,47 @@ def run_act_vi(mode: str = "offline", allow_network: bool = False, cmb_file: str
     os.makedirs(output_dir_path, exist_ok=True)
     if mode == "offline":
         if cmb_file is None:
-            cmb_path = REPO_ROOT / "data" / "cmb_sample.csv"
+            default_candidates = [
+                REPO_ROOT / "data" / "cmb_sample.csv",
+                REPO_ROOT / "data" / "planck_sample.fits",
+            ]
+            cmb_path: Path | None = None
+            for candidate in default_candidates:
+                if candidate.exists():
+                    cmb_path = candidate
+                    break
         else:
             cmb_path = Path(cmb_file)
 
-        if data_source in ("healpix", "planck") and cmb_path.suffix.lower() in (".fits", ".fz"):
-            try:
-                values = load_healpix_file(cmb_path)
-            except (ImportError, OSError, ValueError):
+        values: List[float]
+        if cmb_path and cmb_path.exists():
+            suffix = cmb_path.suffix.lower()
+            use_healpix = suffix in (".fits", ".fz") or data_source in ("healpix", "planck")
+            if use_healpix and suffix in (".fits", ".fz"):
+                try:
+                    values = load_healpix_file(cmb_path)
+                except (ImportError, OSError, ValueError):
+                    print(
+                        "Healpix readers unavailable; using built-in CMB patch instead of",
+                        cmb_path,
+                        file=sys.stderr,
+                    )
+                    values = DEFAULT_CMB_SAMPLE.copy()
+            else:
                 values = load_cmb_offline(cmb_path)
-        else:
-            values = load_cmb_offline(cmb_path)
 
-        # If user requested 'planck' but only a CSV is present, allow deterministic
-        # generation of a tiny FITS sample so downstream Healpix-based tools can be used.
-        if data_source == "planck" and cmb_path.suffix.lower() not in (".fits", ".fz"):
-            fits_path = output_dir_path / "planck_sample.fits"
-            try:
-                write_fits_from_csv(cmb_path, fits_path)
-            except ImportError:
-                # astropy not available, continue with CSV values only
-                pass
+            if data_source == "planck" and suffix not in (".fits", ".fz"):
+                fits_path = output_dir_path / "planck_sample.fits"
+                try:
+                    write_fits_from_csv(cmb_path, fits_path)
+                except ImportError:
+                    pass
+        else:
+            print(
+                "No offline CMB sample found; falling back to the built-in canonical patch.",
+                file=sys.stderr,
+            )
+            values = DEFAULT_CMB_SAMPLE.copy()
     elif mode == "live":
         if not allow_network:
             raise RuntimeError("Live mode requires --allow-network")
