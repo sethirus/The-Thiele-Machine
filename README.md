@@ -6,11 +6,12 @@
 
 **Windows (PowerShell):**
 ```powershell
-# Run the main artifact
-python attempt.py
+# Run the canonical Bell thesis run
+python3 demonstrate_isomorphism.py
 
-# Run verification
+# Run verification (signature/schema checks + optional Coq replay)
 python scripts/challenge.py verify receipts
+./scripts/verify_truth.sh examples/tsirelson_step_receipts.json
 ```
 
 **Linux/macOS:**
@@ -19,9 +20,10 @@ bash scripts/RUNME.sh
 ```
 
 **What this workflow does:**
-- `python attempt.py` orchestrates the Python demos, collects the canonical receipts, and mirrors the artefacts that the verifier and Coq developments rely on.
+- `python3 demonstrate_isomorphism.py` runs the canonical six‑act Bell thesis demonstration, regenerates the narrated ledger and the canonical receipts, and prepares artifacts for Coq replay.
+- `python attempt.py` runs the broader universal orchestrator for additional demos, benchmarks, and archival traces (populates `shape_of_truth_out/` and `archive/`).
 - `scripts/challenge.py verify receipts` recomputes each step hash, checks the Ed25519 signature on the global digest, and replays the portable SAT/SMT artefacts before summing the reported μ-bit charges.
-- `scripts/RUNME.sh` simply runs the two commands above for Unix-like systems.
+- `scripts/RUNME.sh` simply runs the canonical demonstration and verification commands above for Unix-like systems by default.
 
 The Coq formalization is fully mechanised. Use [`coq/verify_subsumption.sh`](coq/verify_subsumption.sh) after installing Coq to rebuild both pillars of the subsumption proof from scratch.
 
@@ -50,12 +52,17 @@ The Coq formalization is fully mechanised. Use [`coq/verify_subsumption.sh`](coq
    ```sh
    pip install z3-solver numpy scipy networkx python-sat matplotlib tqdm
    ```
-4. **Run the main artifact:**
+4. **Run the main (Bell thesis) artifact:**
    ```sh
-   python attempt.py
+   python3 demonstrate_isomorphism.py
    ```
-   - Presents a scripted tour through the repository assets.
-   - Emits the canonical JSON receipts that mirror the artefacts referenced by the formal proofs.
+   - Presents the six‑act thesis run, emits the narrated ledger, and produces canonical JSON receipts used by the verification harness.
+   - Canonical outputs created by this run:
+     - `BELL_INEQUALITY_VERIFIED_RESULTS.md` — narrated ledger of the six acts
+     - `examples/tsirelson_step_receipts.json` — canonical step receipts used for Coq replay
+     - `artifacts/cosmic_witness_prediction_receipt.json` and SMT2 proofs (Act VI)
+     - `artifacts/MANIFEST.sha256` — SHA‑256 manifest of core artifacts
+   - If you need the full universal orchestrator (broader experiments, extra benchmarks, and alternative demos), run `python attempt.py` which will produce additional artifacts (see `shape_of_truth_out/` and `archive/`).
 5. **Run the Universe Demo:**
    ```sh
    python demos/universe_demo/the_universe_as_a_thiele_machine.py
@@ -123,7 +130,7 @@ Quick checklist to verify the v1.0.2 release:
 - Confirm the tarball SHA-256 matches: `024450c3a7421af40ec2308bbfa1e420c36a22749130cc73f8bb33d36295e138` (`artifacts/MANIFEST.sha256`)
 - Verify the ASCII armored GPG signature for the release tarball is present on the GitHub release page and corresponds to fingerprint `ACF1665CDBD486D22E87B3615127D27049B531F1` (if you trust that key)
 - Check the Software Heritage SWHID: `swh:1:dir:d3894a5c31028e8d0b6d3bcdde9d257148d61e59`
-- Re-run the canonical verification: `python scripts/challenge.py verify receipts` after running `python attempt.py` to regenerate receipts
+- Re-run the canonical verification: `python scripts/challenge.py verify receipts` and then run `./scripts/verify_truth.sh examples/tsirelson_step_receipts.json` after running `python3 demonstrate_isomorphism.py` to regenerate receipts and replay them in Coq.
 - Rebuild the Coq proofs in an isolated container: `docker run --rm -v "$PWD":/work sethirus/the-thiele-coq:8.18 bash -c "cd /work && ./coq/verify_subsumption.sh"`
 
 More detailed verification steps are provided in `DEFENSIVE_PUBLICATION.md`.
@@ -162,10 +169,25 @@ This repository implements the Thiele Machine, a computational model with capabi
 
 The Thiele CPU (`thielecpu/`) includes:
 - Partition-based RSA factoring capabilities
-- Security monitoring and responsible use logging
+- Optional security monitoring and responsible use logging
 - Cryptographic receipt generation with HMAC signatures
 
-All usage is logged for security purposes. If you're unsure about your intended use case, **do not proceed** and contact the maintainers.
+Logging policy and configuration
+
+- By default the package will not print large guidance blocks or perform noisy side-effects on import. A concise responsible-use notice is available and can be explicitly displayed by calling:
+
+```py
+from thielecpu import display_security_warning
+display_security_warning()
+```
+
+- Structured, machine-readable security/event logging is available and enabled by default. Control it with the following environment variables:
+
+   - `THIELE_SECURITY_LOGGING=0|1` -- enable or disable logging (default: `1`)
+   - `THIELE_SECURITY_LOG_PATH=PATH` -- path to the JSON log file (default: `./security_log.json`)
+   - `THIELE_SECURITY_LOG_REDACT=0|1` -- redact likely-sensitive fields before writing to disk (default: `0`)
+
+Examples of events recorded include VM start/finish, PYEXEC output, EMIT events, and responsible-use notice displays. The log is a JSON array of event objects to make automated auditing and ingestion straightforward.
 
 ### Legal and Ethical Considerations
 
@@ -1009,8 +1031,8 @@ python -m venv .venv
 # 2. Install dependencies
 pip install -e .
 
-# 3. Run the main artifact
-python attempt.py
+# 3. Run the canonical thesis demonstration
+python3 demonstrate_isomorphism.py
 ```
 
 ### Complete Installation
@@ -1030,14 +1052,27 @@ pip install z3-solver numpy scipy networkx python-sat matplotlib tqdm sympy cryp
 
 ### Running the Artifact
 
-#### Main Demonstration
+#### Main Demonstration (canonical)
+```bash
+python3 demonstrate_isomorphism.py
+```
+- **What it does:** Runs the six‑act Bell thesis demonstration, regenerates the narrated ledger and canonical receipts, and prepares artifacts for Coq replay.
+- **Duration:** Several minutes
+- **Output:** `BELL_INEQUALITY_VERIFIED_RESULTS.md`, `examples/tsirelson_step_receipts.json`, and Act VI artifacts in `artifacts/`.
+- **Verification:** Cryptographically sealed receipts are produced; run `python scripts/challenge.py verify receipts` and `./scripts/verify_truth.sh examples/tsirelson_step_receipts.json` to validate and replay in Coq.
+
+If you want to run broader experiments or the full universal orchestrator, use:
 ```bash
 python attempt.py
 ```
-- **What it does:** Runs complete Thiele Machine demonstration with all proofs, paradoxes, and experiments
-- **Duration:** Several minutes
-- **Output:** Full terminal transcript, archived artifacts in `shape_of_truth_out/`
-- **Verification:** Cryptographically sealed receipts for auditability
+That command runs additional demos and benchmarks and populates `shape_of_truth_out/` and `archive/` with extra traces and receipts.
+
+## Which orchestrator should I run?
+
+- `python3 demonstrate_isomorphism.py` — Recommended for auditors and reviewers. Produces the canonical ledger, canonical receipts (`examples/tsirelson_step_receipts.json`), manifests, and the artifacts used by the mechanised Coq replay.
+- `python attempt.py` — Recommended for researchers and developers who want the full universal orchestrator, additional experiments, and broader archival traces (this run produces extensive outputs in `shape_of_truth_out/` and `archive/`).
+
+Use the demonstration for formal verification and the `attempt.py` orchestrator for exploratory or extended experiments.
 
 #### Thiele CPU Virtual Machine
 ```bash

@@ -55,8 +55,9 @@ fi
 # Receipt verification reminder
 echo
 echo "To verify the canonical receipts locally run:"
-echo "  python attempt.py"
+echo "  python3 demonstrate_isomorphism.py"
 echo "  python scripts/challenge.py verify receipts"
+echo "  ./scripts/verify_truth.sh examples/tsirelson_step_receipts.json"
 
 echo "To re-run the Coq verification inside a container (if available):"
 echo "  docker run --rm -v \"$PWD\":/work coqorg/coq:8.18 bash -c \"cd /work && ./coq/verify_subsumption.sh\""

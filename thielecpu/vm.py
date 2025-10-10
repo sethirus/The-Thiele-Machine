@@ -55,6 +55,7 @@ try:
         InstructionWitness,
         StepReceipt,
     )
+    from .logger import get_thiele_logger
 except ImportError:
     # Handle running as script
     import sys
@@ -74,6 +75,7 @@ except ImportError:
         InstructionWitness,
         StepReceipt,
     )
+    from thielecpu.logger import get_thiele_logger
 
 
 @dataclass
@@ -782,6 +784,12 @@ class VM:
         print(f"Program has {len(program)} instructions")
         print(f"Output directory: {outdir}")
         print()
+        # Log VM run start
+        logger = get_thiele_logger()
+        try:
+            logger.info("vm.run.start", {"program_len": len(program), "outdir": str(outdir)})
+        except Exception:
+            pass
 
         for op, arg in program:
             step += 1
@@ -868,6 +876,10 @@ class VM:
                 # EMIT value - emit value to output
                 trace_lines.append(f"{step}: EMIT {arg}")
                 receipt_instruction = InstructionWitness("EMIT", arg)
+                try:
+                    logger.info("vm.emit", {"value": arg, "step": step, "module": current_module})
+                except Exception:
+                    pass
             elif op == "PDISCOVER":
                 # PDISCOVER module_id axioms_file1 [axioms_file2] - brute-force partition discovery
                 parts = arg.split()
@@ -893,6 +905,17 @@ class VM:
                     for line in output.strip().split('\n'):
                         if line.strip():
                             trace_lines.append(f"{step}: PYEXEC output: {line}")
+                try:
+                    logger.info(
+                        "vm.pyexec",
+                        {
+                            "code": (python_code if len(python_code) < 256 else python_code[:256] + "..."),
+                            "output": (output if output else ""),
+                            "step": step,
+                        },
+                    )
+                except Exception:
+                    pass
                 
                 # Check for result in multiple ways
                 actual_result = result
@@ -957,30 +980,40 @@ class VM:
             if self.state.csr[CSR.ERR] == 1 or halt_after_receipt:
                 trace_lines.append(f"{step}: ERR flag set - halting VM")
                 break
+        # Final accounting and output
         mdlacc(self.state, current_module, consistent=self.state.csr[CSR.ERR] == 0)
-        ledger.append(
-            {
-                "step": step + 1,
-                "delta_mu_operational": 0,
-                "delta_mu_information": 0,
-                "total_mu_operational": self.state.mu_operational,
-                "total_mu_information": self.state.mu_information,
-                "total_mu": self.state.mu,
-                "reason": "final",
-            }
-        )
+
+        ledger.append({
+            "step": step + 1,
+            "delta_mu_operational": 0,
+            "delta_mu_information": 0,
+            "total_mu_operational": self.state.mu_operational,
+            "total_mu_information": self.state.mu_information,
+            "total_mu": self.state.mu,
+            "reason": "final",
+        })
+
+        # Write outputs
         (outdir / "trace.log").write_text("\n".join(trace_lines), encoding='utf-8')
         (outdir / "mu_ledger.json").write_text(json.dumps(ledger), encoding='utf-8')
+
         summary = {
             "mu_operational": self.state.mu_operational,
             "mu_information": self.state.mu_information,
             "mu_total": self.state.mu,
-            "cert": self.state.csr[CSR.CERT_ADDR]
+            "cert": self.state.csr[CSR.CERT_ADDR],
         }
         (outdir / "summary.json").write_text(json.dumps(summary), encoding='utf-8')
+
         receipts_path = outdir / "step_receipts.json"
         receipts_json = [receipt.to_dict() for receipt in self.step_receipts]
         receipts_path.write_text(json.dumps(receipts_json, indent=2), encoding='utf-8')
+
+        # Log VM run finish
+        try:
+            logger.info("vm.run.finish", {"outdir": str(outdir), "steps": step, "receipts": len(self.step_receipts)})
+        except Exception:
+            pass
 
 
 def main():
