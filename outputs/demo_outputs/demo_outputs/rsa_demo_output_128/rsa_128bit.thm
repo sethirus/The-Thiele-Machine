@@ -1,7 +1,0 @@
-
-; 128-bit RSA Factoring Assembly
-PNEW {1,2}  ; Partition for factoring
-PYEXEC "/workspaces/The-Thiele-Machine/rsa_demo_output_128/factor_128bit.py"  ; Run factoring
-LASSERT "/workspaces/The-Thiele-Machine/rsa_demo_output_128/rsa_128bit_cert.smt2"  ; Certify factorization
-MDLACC  ; Accumulate mu-bits
-EMIT "RSA 128-bit Factoring Complete"
