@@ -1,15 +1,15 @@
 Thiele Machine — Press Release
 =================================
 
-Date: October 10, 2025
+Date: October 11, 2025
 
-Lead: Devon Thiele, The Thiele Machine (v1.0.2)
+Lead: Devon Thiele, The Thiele Machine (v1.0.3)
 
 Summary
 -------
 The Thiele Machine is an audited computational model that introduces
 partition-native computation and a measurable information currency (μ-bits).
-The v1.0.2 release includes formal Coq proofs, executable reference VMs and
+The v1.0.3 release includes formal Coq proofs, executable reference VMs and
 hardware RTL, and reproducible receipts that tie runtime experiments to
 mechanized proofs. The release is archived with Zenodo (DOI) and Software
 Heritage (SWHID), and is licensed under Apache-2.0 with a patent non-assert
@@ -25,7 +25,7 @@ Key Points
 
 Availability
 ------------
-Source, artifacts, and DOI: https://github.com/sethirus/The-Thiele-Machine (v1.0.2)
+Source, artifacts, and DOI: https://github.com/sethirus/The-Thiele-Machine (v1.0.3)
 
 Contact
 -------

@@ -13,7 +13,7 @@ set -euo pipefail
 # machine. This script will ask before modifying gnupg config.
 ################################################################################
 
-TAG_DEFAULT="v1.0.2"
+TAG_DEFAULT="v1.0.3"
 COMMIT_DEFAULT="78cfa07b758bede75dc2a8938509dffe3700101a"
 
 usage() {
@@ -142,7 +142,7 @@ else
     git push --force origin refs/tags/$TAG
     echo "You should upload the generated detached signature to the GitHub release assets: $TMPDIR/${TAG}.tag.sig";
     if command -v gh >/dev/null 2>&1; then
-      read -p "gh CLI detected. Upload detached signature to GitHub release v1.0.2? [y/N]: " reply
+      read -p "gh CLI detected. Upload detached signature to GitHub release v1.0.3? [y/N]: " reply
       if [[ "$reply" =~ ^[Yy]$ ]]; then
         gh release upload "$TAG" "$TMPDIR/${TAG}.tag.sig" --clobber
         echo "Signature uploaded to release assets."

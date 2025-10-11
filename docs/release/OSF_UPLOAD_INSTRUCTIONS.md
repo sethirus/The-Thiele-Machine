@@ -28,7 +28,7 @@ OSF Submission Instructions (for maintainers)
 
 1. Create a project or preprint on OSF: https://osf.io/preprints/
 2. Upload the following files (suggested order):
-   - `The-Thiele-Machine-v1.0.2.tar.gz`
+   - `The-Thiele-Machine-v1.0.3.tar.gz`
    - `documents/The_Thiele_Machine.pdf`
    - `artifacts/MANIFEST.sha256`
    - `DEFENSIVE_PUBLICATION.md`

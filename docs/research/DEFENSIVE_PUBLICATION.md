@@ -2,7 +2,7 @@
 Thiele Machine — Defensive Publication (Enabling Disclosure)
 ====================================
 
-Date: October 10, 2025
+Date: October 11, 2025
 
 Author: Devon Thiele
 
@@ -64,13 +64,13 @@ Primary Claims (Disclosed and Demonstrated)
 
 Artifacts and Provenance (Checksums, Tags, DOIs)
 ------------------------------------------------
-- Git tag (release): v1.0.2 (commit: `94d301562c0cbfabb744969c5807c0d71a9c1364`).
-- Tarball (v1.0.2): `The-Thiele-Machine-v1.0.2.tar.gz`  
-  SHA-256: `024450c3a7421af40ec2308bbfa1e420c36a22749130cc73f8bb33d36295e138`
+- Git tag (release): v1.0.3 (commit: `<to be tagged for v1.0.3>`).
+- Tarball (v1.0.3): `The-Thiele-Machine-v1.0.3.tar.gz`
+  SHA-256: _pending (populate after release packaging)_
 - Tarball (v1.0.0): `The-Thiele-Machine-v1.0.0.tar.gz`  
   SHA-256: `883372fd799e98a9fd90f8feb2b3b94d21bf917843745e80351ba52f7cf6d01d`
 - Zenodo (all-versions DOI): `10.5281/zenodo.17316437`  
-- Zenodo (v1.0.2 DOI): `10.5281/zenodo.17316438`  
+- Zenodo (v1.0.3 DOI): _pending deposition_
 - Software Heritage (SWHID): `swh:1:dir:d3894a5c31028e8d0b6d3bcdde9d257148d61e59`
 - Compiled PDF (documents/The_Thiele_Machine.pdf) SHA-256: 
   `979d22055cab470b329d435a62a8e03549f17bafc49ae715be95cc32152c93ee`
@@ -187,7 +187,7 @@ Legal and Licensing Notes
 -------------------------
 - License: Apache License, Version 2.0. This release includes a patent
   grant and defensive termination clause; see `LICENSE` and `PATENT-PLEDGE.md`.
-- Attribution and citation: Please cite the Zenodo DOI for v1.0.2 when
+- Attribution and citation: Please cite the Zenodo DOI for v1.0.3 when
   referencing this release (CITATION.cff included in repository).
 
 Security and Responsible Use
