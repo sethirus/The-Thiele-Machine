@@ -8,7 +8,7 @@ model of the universe. It demonstrates a proof-of-concept for a sighted
 Thiele Machine method: by treating physical data as an explicit logical
 constraint, a simple, interpretable rule can imply a definite trial outcome.
 
-- timestamp: 2025-10-10T22:29:57.180672Z
+- timestamp: 2025-10-11T16:29:08.533933Z
 - mode: offline
 - data_origin: embedded-planck-patch
 - fallback_reason: HEALPix reader failure (No module named 'astropy') when parsing planck_sample.fits
