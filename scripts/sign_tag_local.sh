@@ -10,7 +10,7 @@ This script runs locally and will prompt you for your GPG passphrase.
 
 Options:
   -k KEYID    Long or short GPG key id (e.g. 0xABCDEF1234567890 or last 16 digits)
-  -t TAG      Tag name to sign (e.g. v1.0.2)
+  -t TAG      Tag name to sign (e.g. v1.0.3)
   -c COMMIT   Commit SHA to tag (e.g. 78cfa07...)
   -h          Display this help
 EOF

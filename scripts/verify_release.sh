@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Verify the integrity and provenance of a release tarball and associated artifacts.
-# Usage: ./scripts/verify_release.sh The-Thiele-Machine-v1.0.2.tar.gz
+# Usage: ./scripts/verify_release.sh The-Thiele-Machine-v1.0.3.tar.gz
 
 TARBALL=${1:-}
 if [ -z "$TARBALL" ]; then
@@ -41,15 +41,16 @@ fi
 # Print expected SWHID and DOI for manual verification
 echo
 echo "Expected Software Heritage SWHID: swh:1:dir:d3894a5c31028e8d0b6d3bcdde9d257148d61e59"
-echo "Expected DOI (version-specific): 10.5281/zenodo.17316438"
+echo "Expected DOI (all versions): 10.5281/zenodo.17316437"
+echo "Version-specific DOI (v1.0.3): pending deposition"
 
 echo
 # Optionally verify a signed git tag if present
-if git rev-parse v1.0.2 >/dev/null 2>&1; then
-  echo "Found git tag v1.0.2 — attempting to verify tag signature..."
-  git tag -v v1.0.2 || echo "Tag verification failed or tag is not signed."
+if git rev-parse v1.0.3 >/dev/null 2>&1; then
+  echo "Found git tag v1.0.3 — attempting to verify tag signature..."
+  git tag -v v1.0.3 || echo "Tag verification failed or tag is not signed."
 else
-  echo "No local git tag v1.0.2 found. After you import the maintainer's public key and fetch tags, run: git fetch --tags && git tag -v v1.0.2"
+  echo "No local git tag v1.0.3 found. After you import the maintainer's public key and fetch tags, run: git fetch --tags && git tag -v v1.0.3"
 fi
 
 # Receipt verification reminder

@@ -17,7 +17,7 @@ if [ -z "${OSF_TOKEN:-}" ]; then
 fi
 
 # Files to upload (customise as necessary)
-FILES=("The-Thiele-Machine-v1.0.2.tar.gz" "CITATION.cff" "artifacts/MANIFEST.sha256" "documents/The_Thiele_Machine.pdf")
+FILES=("The-Thiele-Machine-v1.0.3.tar.gz" "CITATION.cff" "artifacts/MANIFEST.sha256" "documents/The_Thiele_Machine.pdf")
 
 # We use the 'osf' CLI's upload facility. The CLI will use a configuration file
 # stored at ~/.osfclient; we avoid interactive login by exporting OSF_TOKEN as

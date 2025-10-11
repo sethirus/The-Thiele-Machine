@@ -2,12 +2,12 @@
 set -euo pipefail
 
 # Signs the release tarball and uploads the detached ASCII signature to the
-# GitHub release v1.0.2. Requires `gpg` and `gh` on PATH and that the
+# GitHub release v1.0.3. Requires `gpg` and `gh` on PATH and that the
 # signing key is available in the local GPG keyring.
 
-TARBALL="The-Thiele-Machine-v1.0.2.tar.gz"
+TARBALL="The-Thiele-Machine-v1.0.3.tar.gz"
 KEYID="5127D27049B531F1"
-RELEASE_TAG="v1.0.2"
+RELEASE_TAG="v1.0.3"
 
 if [[ ! -f "$TARBALL" ]]; then
   echo "Tarball $TARBALL not found"

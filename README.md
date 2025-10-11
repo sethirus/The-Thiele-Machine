@@ -99,7 +99,7 @@ The Coq formalization is fully mechanised. Use [`coq/verify_subsumption.sh`](coq
 
 If you use this software or any of its results, please cite:
 
-Thiele, D. (2025). The Thiele Machine. Zenodo. https://doi.org/10.5281/zenodo.17316438
+Thiele, D. (2025). The Thiele Machine. Zenodo. https://doi.org/10.5281/zenodo.17316437
 
 You can also use the machine-readable citation in `CITATION.cff` for automated tooling.
 
@@ -110,9 +110,9 @@ BibTeX example:
    author = {Thiele, Devon},
    title = {The Thiele Machine},
    year = {2025},
-   doi = {10.5281/zenodo.17316438},
+   doi = {10.5281/zenodo.17316437},
    url = {https://github.com/sethirus/The-Thiele-Machine},
-   version = {v1.0.2}
+   version = {v1.0.3}
 }
 ```
 
@@ -123,17 +123,17 @@ TY  - SOFTWARE
 AU  - Thiele, Devon
 TI  - The Thiele Machine
 PY  - 2025
-DO  - 10.5281/zenodo.17316438
+DO  - 10.5281/zenodo.17316437
 UR  - https://github.com/sethirus/The-Thiele-Machine
-VL  - v1.0.2
+VL  - v1.0.3
 ER  -
 ```
 
 ## Verification Checklist
 
-Quick checklist to verify the v1.0.2 release:
+Quick checklist to verify the v1.0.3 release:
 
-- Confirm the tarball SHA-256 matches: `024450c3a7421af40ec2308bbfa1e420c36a22749130cc73f8bb33d36295e138` (`artifacts/MANIFEST.sha256`)
+- Confirm the tarball SHA-256 matches the value published in `artifacts/MANIFEST.sha256` once the v1.0.3 release tarball is packaged.
 - Verify the ASCII armored GPG signature for the release tarball is present on the GitHub release page and corresponds to fingerprint `ACF1665CDBD486D22E87B3615127D27049B531F1` (if you trust that key)
 - Check the Software Heritage SWHID: `swh:1:dir:d3894a5c31028e8d0b6d3bcdde9d257148d61e59`
 - Re-run the canonical verification: `python scripts/challenge.py verify receipts` and then run `./scripts/verify_truth.sh examples/tsirelson_step_receipts.json` after running `python3 demonstrate_isomorphism.py` to regenerate receipts and replay them in Coq.

@@ -10,7 +10,7 @@ if [ -z "${ZENODO_TOKEN:-}" ]; then
 fi
 
 DEPOSITION_ID=${1:-}
-TAR_PATH=${2:-The-Thiele-Machine-v1.0.2.tar.gz}
+TAR_PATH=${2:-The-Thiele-Machine-v1.0.3.tar.gz}
 
 # Files we publish by default (change as needed)
 FILES=("$TAR_PATH" "CITATION.cff" "artifacts/MANIFEST.sha256" "documents/The_Thiele_Machine.pdf")
@@ -21,9 +21,9 @@ cat > /tmp/zenodo_metadata.json <<EOF
   "metadata": {
     "title": "The Thiele Machine",
     "upload_type": "software",
-    "publication_date": "2025-10-10",
+    "publication_date": "2025-10-11",
     "creators": [ { "name": "Thiele, Devon" } ],
-    "description": "The Thiele Machine (v1.0.2). See CITATION.cff for full metadata and preferred citation. This deposition contains the release tarball, manifest checksums, and the compiled paper PDF.",
+    "description": "The Thiele Machine (v1.0.3). See CITATION.cff for full metadata and preferred citation. This deposition contains the release tarball, manifest checksums, and the compiled paper PDF.",
     "keywords": ["Thiele Machine","formal-verification","Coq","Verilog","reproducibility"]
   }
 }

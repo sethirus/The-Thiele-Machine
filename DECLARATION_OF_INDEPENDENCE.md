@@ -119,7 +119,7 @@ The evidence for the claim is the artifact itself: the definitions, the mechanis
 * **Commit:** `<GIT_COMMIT_SHA>` (fill at release time).
 * **Manifest:** `artifacts/MANIFEST.sha256` binds ledger + receipts used for this declaration.
 * **SPDX-License-Identifier:** Apache-2.0
-* **CITATION:** Zenodo DOI `<10.5281/zenodo.17316438>`; Software Heritage SWHID `<swh:1:dir:...>`; see `CITATION.cff` for machine-readable citation.
+* **CITATION:** Zenodo DOI `<10.5281/zenodo.17316437>`; Software Heritage SWHID `<swh:1:dir:...>`; see `CITATION.cff` for machine-readable citation.
 * **Provenance (recommended):** archive a release tarball to an immutable store (e.g., Zenodo) and record the DOI/SWHID here.
 * **Security notice:** the `thielecpu` runtime stack can endanger factoring-based cryptography; heed the runtime banner and README for responsible-use terms.
 * **Toolchain (to be filled at release):** Coq `<8.18.y>`, Z3 `<4.8.z>`, Python `<3.12.x>`, cvc5 `<optional>`, OS/arch `<…>`
