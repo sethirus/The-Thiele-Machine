@@ -1,26 +1,26 @@
 Release verification checklist
 =============================
 
-This short checklist describes how to independently verify the v1.0.2 release artifacts and metadata.
+This short checklist describes how to independently verify the v1.0.3 release artifacts and metadata.
 
 1. Obtain the release tarball
-   - Download `The-Thiele-Machine-v1.0.2.tar.gz` from the GitHub release page or from the project artifacts.
+   - Download `The-Thiele-Machine-v1.0.3.tar.gz` from the GitHub release page or from the project artifacts.
 
 2. Verify the SHA-256 checksum
-   - Run: `sha256sum The-Thiele-Machine-v1.0.2.tar.gz` and confirm it matches the manifest entry in `artifacts/MANIFEST.sha256`.
-   - Expected value (v1.0.2): `024450c3a7421af40ec2308bbfa1e420c36a22749130cc73f8bb33d36295e138`.
+   - Run: `sha256sum The-Thiele-Machine-v1.0.3.tar.gz` and confirm it matches the manifest entry in `artifacts/MANIFEST.sha256` once the release tarball is minted.
+   - Expected value (v1.0.3): _publish the hash from the packaged release tarball_.
 
 3. Verify the GPG detached signature (if present)
-   - If the release page includes `The-Thiele-Machine-v1.0.2.tar.gz.asc`, download it alongside the tarball.
+   - If the release page includes `The-Thiele-Machine-v1.0.3.tar.gz.asc`, download it alongside the tarball.
    - Import the maintainer's public key (if you do not already trust it):
      - `gpg --import GPG_PUBLIC_KEY.asc`
-   - Verify: `gpg --verify The-Thiele-Machine-v1.0.2.tar.gz.asc The-Thiele-Machine-v1.0.2.tar.gz`
+   - Verify: `gpg --verify The-Thiele-Machine-v1.0.3.tar.gz.asc The-Thiele-Machine-v1.0.3.tar.gz`
    - Expected fingerprint: `ACF1665CDBD486D22E87B3615127D27049B531F1` (compare carefully before trusting).
 
 4. Verify the Git tag signature (optional / user action required)
    - After the maintainer signs the annotated git tag locally and pushes it, fetch tags and verify:
      - `git fetch --tags`
-     - `git tag -v v1.0.2`
+     - `git tag -v v1.0.3`
    - GitHub will display a "Verified" badge if the tag is signed with the maintainer's public key uploaded to GitHub.
 
 5. Verify Software Heritage provenance
@@ -30,7 +30,7 @@ This short checklist describes how to independently verify the v1.0.2 release ar
 
 6. Verify metadata (CITATION and MANIFEST)
    - Inspect `CITATION.cff` for the preferred citation and identifiers (DOI, SWHID, tarball SHA, and GPG fingerprint).
-   - Confirm `artifacts/MANIFEST.sha256` contains the tarball SHA and matches the value above.
+   - Once the release is packaged, confirm `artifacts/MANIFEST.sha256` includes the tarball entry and that the recorded SHA matches the value above.
 
 7. Reproduce the computation and receipts
    - Create a Python virtualenv and install project deps: `pip install -e .`
