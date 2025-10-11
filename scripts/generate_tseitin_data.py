@@ -289,9 +289,9 @@ if __name__ == '__main__':
             heartbeat_stop.wait(10)
     try:
         GLOBAL_SEED = 123456789
-        NS_TO_RUN = [10, 20, 50, 80, 120]
-        SEEDS_PER_N = 10
-        BUDGETS = {"conf_budget": 100_000, "prop_budget": 5_000_000}
+        NS_TO_RUN = [500]  # Scale to n=500 for balance
+        SEEDS_PER_N = 1
+        BUDGETS = {"conf_budget": 500_000, "prop_budget": 25_000_000}
         jobs = [(n, seed, BUDGETS["conf_budget"], BUDGETS["prop_budget"], GLOBAL_SEED)
                 for n in NS_TO_RUN for seed in range(SEEDS_PER_N)]
         heartbeat_progress["total"] = len(jobs)

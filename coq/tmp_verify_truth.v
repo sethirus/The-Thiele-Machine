@@ -140,10 +140,10 @@ Definition receipt4 : ConcreteReceipt :=
      receipt_obs := step4_obs |}.
 
 Definition recorded_program : list ThieleInstr :=
-  [(PNEW [0%nat; 1%nat]); (PYEXEC "prepare_shared_partition"); (PYEXEC "alice_measurement"); (PYEXEC "bob_measurement"); (EMIT "tsirelson_outcome")].
+  [(PNEW [0%nat; 1%nat]), (PYEXEC "prepare_shared_partition"), (PYEXEC "alice_measurement"), (PYEXEC "bob_measurement"), (EMIT "tsirelson_outcome")].
 
 Definition recorded_receipts : list ConcreteReceipt :=
-  [receipt0; receipt1; receipt2; receipt3; receipt4].
+  [receipt0, receipt1, receipt2, receipt3, receipt4].
 
 Definition recorded_frames : list (BridgeReceiptFrame ThieleInstr ConcreteState StepObs) :=
   map concrete_receipt_frame recorded_receipts.
