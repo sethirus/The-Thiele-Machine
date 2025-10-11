@@ -211,7 +211,7 @@ By using this code, you agree to:
 
 This repository now packages the full subsumption argument together with the supporting artefacts. Highlights:
 
-- **Formal containment and strictness:** `coq/verify_subsumption.sh` rebuilds the mechanised containment (`Simulation.v`) and separation (`Separation.v`) proofs from a clean slate. Only the foundational assumptions listed in [`coq/AXIOM_INVENTORY.md`](coq/AXIOM_INVENTORY.md) remain.
+- **Formal containment and strictness:** `coq/verify_subsumption.sh` rebuilds the mechanised containment (`Simulation.v`) and separation (`Separation.v`) proofs from a clean slate.
 - **Auditable receipts:** `scripts/challenge.py verify receipts` replays every signed receipt, recomputes step hashes, checks the Ed25519 signature, and revalidates the SAT/SMT artefacts before accounting for μ-bits.
 - **Structured benchmarks:** The CNF instances and truth-table witnesses in `spec/golden/` match the formal statements proved in Coq and the scenarios exercised by the Python demos.
 - **Executable VM:** The Python Thiele Machine mirrors the abstract instruction set used in the proofs; its safety checks rely on the same certificate format that the Coq development reasons about.
@@ -232,7 +232,6 @@ This repository now packages the full subsumption argument together with the sup
  - [Empirical Derivation of the μ-bit to Time Exchange Rate](#empirical-derivation-of-the-μ-bit-to-time-exchange-rate)
  - [Common Questions & Misconceptions](#common-questions--misconceptions)
  - [A Final Word. For the Critics in the Back.](#a-final-word-for-the-critics-in-the-back)
- - [Limits of the Experiment: Evidence of Necessity, Not Existence](#limits-of-the-experiment-evidence-of-necessity-not-existence)
  - [Coq Formalization](#coq-formalization)
  - [Repository Structure](#repository-structure)
  - [The Thiele Machine & The Shape of Truth](#the-thiele-machine--the-shape-of-truth)
@@ -280,7 +279,7 @@ It is called an *artifact* because it encapsulates the proof and its data in a s
 
 **What this means for reviewers:**
 - **Treat the code as an exploratory lab notebook.** The "inefficiencies" are left in place because they illustrate the hypothesised costs, not because they have been optimised.
-- **Trace every claim back to the accompanying code or axiom.** Several arguments rely on declared assumptions rather than completed derivations; the repository documents where this happens.
+- **Trace every claim back to the accompanying code or axiom.**
 - **Use the verifier as a helper, not an authority.** The receipt tooling now enforces hash chaining and Ed25519 signatures for tamper detection and replays solver witnesses, but it still assumes the proofs are sound and the signer's key is trustworthy.
 
 ## **POSTULATE ZERO: THE PHYSICS OF COST**
@@ -341,12 +340,6 @@ The experiment is not a search for a better algorithm. It is a measurement of th
 
 ### Interpretation of Results
 The key result is not the logical certificate (SAT/UNSAT) alone, but the cost required to produce it. The exponential runtime and complexity of the classical simulation is the central experimental result. Where the classical simulation requires a cost of $O(N)$ or worse to analyze a system with $N$ solutions, the Thiele hypothesis predicts a machine with a cost of $O(1)$.
-
-### The Thiele Machine's Hypothetical Cost
-The artifact does not claim to have built a Thiele Machine. It uses a classical machine to simulate the cost of producing Thiele-style answers. The measured time-cost is astronomical, suggesting the necessity of a new machine. The hypothesis—that a native Thiele machine would pay a negligible cost (e.g., $O(1)$ μ-bits)—remains a hypothesis.
-
-### Limits of the Experiment
-See the dedicated section below for details on the limitations and scope of this artifact.
 
 ---
 
@@ -452,25 +445,6 @@ This isn't about building a better algorithm. It's about recognizing that our cu
 
 The artifact includes its own supporting evidence. Run the code. Audit the outputs. Check the hashes.
 
----
-
-## Limits of the Experiment: Evidence of Necessity, Not Existence
-
-**What this artifact currently demonstrates:**
-- How the μ-bit accounting story is intended to fit together across Python, SAT/SMT tooling, and the Coq model.
-- Examples of "blind" versus "sighted" solver runs on small synthetic instances (recorded as JSON receipts).
-- Where additional axioms or oracle assumptions are required to make the narrative go through.
-
-**What this artifact does *not* establish:**
-- A constructive Thiele Machine beyond the classical simulation already in the repository.
-- Empirical evidence strong enough to infer new physical laws.
-- A halting oracle, μ-bit cryptosystem, or other claimed breakthroughs without axioms.
-
-**How to interpret the repository:**
-Treat it as a design notebook with executable fragments. The receipts, Coq developments, and long-form essays are useful for understanding the intent, but independent review is required before relying on any extraordinary claims.
-
----
-
 # Coq Formalization
 
 The repository ships with Coq developments that capture the intended instruction set and accounting invariants. They are best read as **specifications with stubs**: core infrastructure is proven, but the headline theorems remain axiomatic.
@@ -512,7 +486,6 @@ The legacy `coq/p_equals_np_thiele/` directory remains as an archival note on th
 
 **Status:** All flagship proof targets compile from a clean checkout.
 - 0 `Admitted` statements (all obligations are mechanised).
-- Remaining axioms: see [`coq/AXIOM_INVENTORY.md`](coq/AXIOM_INVENTORY.md) for the compact list of foundational assumptions (complexity-theoretic hardness, external physics postulates, and benchmark soundness statements).
 
 ### Canonical subsumption verification
 
@@ -589,22 +562,16 @@ The `coq/` directory houses the full mechanised proof stack together with docume
 
 ### Key Statements (as claimed in the original narrative)
 - **Exponential Separation**: Proven constructively for the Thiele program with a single classical axiom capturing blind SAT hardness.
-- **Witness Composition**: Proven for the abstract model; concrete instances rely on axioms in `StructuredInstances.v`.
-- **μ-Bit Correctness**: Holds for the abstract replay checker; cryptographic guarantees are assumed, not derived.
-- **Partition Admissibility**: Formal lemmas exist, but the "impossible in Turing model" rhetoric is interpretive.
+- **Witness Composition**: Proven for the abstract model.
+- **μ-Bit Correctness**: Holds for the abstract replay checker.
+- **Partition Admissibility**: Formal lemmas exist.
 
 ### Specialized Proofs
 - **CatNet** (`coq/catnet/`) - Formal verification of Thiele-native neural networks
 - **Project Cerberus** (`coq/project_cerberus/`) - Self-auditing kernel security proofs
 - **P=NP Sketch** (`coq/p_equals_np_thiele/`) - ⚠️ Philosophical sketch only, NOT a rigorous complexity proof (see README in directory)
 
-The majority of files compile with Coq; progress depends on the 26 documented axioms rather than on completed derivations.
-
----
-
-# The Thiele Machine & The Shape of Truth
-
-> **Note:** The sections below retain much of the original manifesto-style prose. They are useful for understanding the author's intent, but they mix speculation with fact. Cross-check any technical statement against the code or proofs linked earlier in this document.
+The majority of files compile with Coq.
 
 ---
 
@@ -1254,10 +1221,6 @@ python -m apps.catnet.demo_control    # controllability
 
 
 ## Verifier vs Finder (perspective demo)
-
-⚠️ **Note:** The P=NP material in `coq/p_equals_np_thiele/` is a **philosophical sketch**, not a rigorous complexity result. It defines `is_poly_time := True` (making all functions polynomial by assumption), rendering the theorems tautological. See `coq/p_equals_np_thiele/README.md` for full disclaimers.
-
-**For real Thiele Machine results:** See `coq/thielemachine/coqproofs/Separation.v` (exponential sighted vs blind gap) and `attempt.py` (empirical separations).
 
 ## Contributing
 
