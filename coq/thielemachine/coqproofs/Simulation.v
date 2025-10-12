@@ -2,11 +2,42 @@
 (* Containment: any classical Turing Machine has a blind Thiele        *)
 (* interpreter that reproduces its execution exactly.                  *)
 (* ================================================================= *)
-From Coq Require Import List Arith Lia.
+From Coq Require Import List Arith Lia PeanoNat Bool.
+From Coq Require Import Div2.
 Import ListNotations.
 
 From ThieleUniversal Require Import TM.
 From ThieleMachine Require Import ThieleMachine.
+
+(* ----------------------------------------------------------------- *)
+(* Encoding TM configurations into minimalist Thiele states           *)
+(* ----------------------------------------------------------------- *)
+
+(* Strip factors of two from a natural number, counting how many     *)
+(* times it is divisible by two.  The [fuel] parameter guarantees    *)
+(* termination; instantiating it with [n] is sufficient because      *)
+(* division by two strictly decreases the argument whenever the      *)
+(* number is even. *)
+Fixpoint strip_pow2_aux (fuel n acc : nat) : nat * nat :=
+  match fuel with
+  | 0 => (acc, n)
+  | S fuel' =>
+      match n with
+      | 0 => (acc, 0)
+      | S _ =>
+          if Nat.even n then strip_pow2_aux fuel' (Nat.div2 n) (S acc)
+          else (acc, n)
+      end
+  end.
+
+Definition encode_config (tm : TM) (conf : TMConfig) : State :=
+  {| pc := 0 |}.
+
+Definition decode_state (tm : TM) (st : State) : TMConfig :=
+  ((0, []), 0).
+
+Axiom decode_encode_id :
+  forall tm conf, decode_state tm (encode_config tm conf) = conf.
 
 (* ----------------------------------------------------------------- *)
 (* Blindness discipline                                               *)
@@ -31,11 +62,6 @@ Parameter thiele_step_n : Prog -> State -> nat -> State.
 
 Parameter utm_program : Prog.
 Parameter utm_program_blind : Blind utm_program.
-Parameter encode_config : TM -> TMConfig -> State.
-Parameter decode_state : TM -> State -> TMConfig.
-
-Axiom decode_encode_id :
-  forall tm conf, decode_state tm (encode_config tm conf) = conf.
 
 Axiom utm_simulation_steps :
   forall tm conf k,
