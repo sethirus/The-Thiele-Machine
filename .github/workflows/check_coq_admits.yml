@@ -1,0 +1,41 @@
+# This workflow has been disabled and converted to manual-only per maintainer request.
+# Disabled: no automatic triggers. Use local preflight scripts instead.
+name: Coq Admit & Axiom Pipeline (disabled)
+
+# Manual invocation only — no automatic runs will be performed.
+on:
+  workflow_dispatch: {}
+
+jobs:
+  check-admits-axioms:
+    name: Check Coq admits and axiom inventory
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run admitted check
+        run: |
+          set -euo pipefail
+          echo "Searching for 'Admitted' occurrences..."
+          count=$(grep -R "\bAdmitted\b" coq || true | wc -l)
+          if [ "$count" -ne 0 ]; then
+            echo "ERROR: Found $count 'Admitted' occurrences in coq/" >&2
+            grep -n "\bAdmitted\b" coq || true
+            exit 1
+          fi
+          echo "No Admitted occurrences found."
+
+      - name: Run Axiom inventory check
+        run: |
+          set -euo pipefail
+          # Enumerate axioms in the coq sources
+          grep -R "^Axiom " coq --include="*.v" | sed 's/:.*$//' | sort | uniq > /tmp/axioms_found.txt || true
+          # Normalise inventory file to a list of axiom names
+          awk '/^- `/{gsub(/`/,"",$2); print $2}' coq/AXIOM_INVENTORY.md | sort | uniq > /tmp/axioms_expected.txt || true
+          echo "Found axioms:"; cat /tmp/axioms_found.txt || true
+          echo "Expected axioms from AXIOM_INVENTORY.md:"; cat /tmp/axioms_expected.txt || true
+          diff -u /tmp/axioms_expected.txt /tmp/axioms_found.txt || {
+            echo "ERROR: Axiom inventory mismatch. Please update coq/AXIOM_INVENTORY.md to reflect the current axioms or mechanise/remove axioms." >&2
+            exit 1
+          }

@@ -64,7 +64,7 @@ def seeded_rng(global_seed, n, seed):
     h = int.from_bytes(hashlib.blake2b(s, digest_size=8).digest(), "big")
     return np.random.default_rng(h)
 
-def generate_tseitin_expander(n, seed=0, global_seed=123456789, verbose=False, hb_period=10):
+def generate_tseitin_expander(n, seed=0, global_seed=123456789, verbose=False, hb_period=10, force_unsat=False):
     if n % 2 != 0:
         raise ValueError(f"3-regular graph requires even n, got n={n}")
     rng = seeded_rng(global_seed, n, seed)
@@ -94,6 +94,9 @@ def generate_tseitin_expander(n, seed=0, global_seed=123456789, verbose=False, h
                 last_heartbeat = now
     if verbose:
         print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] Finished vertices for n={n}, seed={seed}")
+    if force_unsat:
+        # Force UNSAT by adding a contradiction: x and ~x
+        cnf_clauses.append([1, -1])
     return {"edges": edges, "charges": charges, "xor_rows_idx": xor_rows_idx, "cnf_clauses": cnf_clauses}
 
 def run_blind_budgeted(clauses, conf_budget=100_000, prop_budget=5_000_000, solver_cls=BlindSolver):
@@ -164,7 +167,8 @@ def run_single_experiment(params):
         instance = generate_tseitin_expander(
             n, seed, global_seed,
             verbose=os.getenv("VERBOSE","0")=="1",
-            hb_period=int(float(os.getenv("HB_PERIOD_SEC","10")))
+            hb_period=int(float(os.getenv("HB_PERIOD_SEC","10"))),
+            force_unsat=(seed == 0)  # Force UNSAT for seed 0 to test
         )
         phase["name"] = "SAT solving"
         phase["start"] = time.time()
@@ -289,9 +293,9 @@ if __name__ == '__main__':
             heartbeat_stop.wait(10)
     try:
         GLOBAL_SEED = 123456789
-        NS_TO_RUN = [500]  # Scale to n=500 for balance
+        NS_TO_RUN = [1000]  # Test for n=1000
         SEEDS_PER_N = 1
-        BUDGETS = {"conf_budget": 500_000, "prop_budget": 25_000_000}
+        BUDGETS = {"conf_budget": 1_000_000, "prop_budget": 50_000_000}
         jobs = [(n, seed, BUDGETS["conf_budget"], BUDGETS["prop_budget"], GLOBAL_SEED)
                 for n in NS_TO_RUN for seed in range(SEEDS_PER_N)]
         heartbeat_progress["total"] = len(jobs)
