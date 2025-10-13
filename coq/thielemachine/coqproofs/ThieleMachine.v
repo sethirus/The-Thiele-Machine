@@ -303,7 +303,12 @@ Proof.
 Qed.
 
 (* State equality correctness (for replay proof) *)
-Axiom state_eqb_refl : forall s, state_eq s s = true.
+Lemma state_eqb_refl : forall s, state_eq s s = true.
+Proof.
+  intro s.
+  unfold state_eq.
+  apply Nat.eqb_refl.
+Qed.
 
 (* ================================================================= *)
 (* Helper Functions for μ-Accounting *)
