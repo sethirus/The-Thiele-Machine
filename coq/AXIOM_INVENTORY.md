@@ -1,7 +1,7 @@
 
 # FOUNDATIONAL ASSUMPTIONS
 
-**Total Axioms:** 8
+**Total Axioms:** 9
 **Admitted Statements:** 0
 **Last Updated:** 2025-10-10
 
@@ -40,10 +40,22 @@ semantic statement to the actual executable interpreter used for replay.
 		interface; if it fails, the containment proof requires rework but the
 		conceptual separation may still hold under a corrected encoding.
 
+- `utm_catalogue_static_check`
+        - Explanation: States that the boolean checklist `catalogue_static_check` succeeds for the universal interpreter. Together with the head-margin lemma it reconstructs the catalogue witness consumed by the bounds pipeline.
+        - Reason needed: Collapses the digit/write/move inequalities to a machine-checkable checklist so the preservation proof can import them without re-deriving rule-table properties inside Coq.
+        - Validation strategies: (a) mechanise the checklist evaluation using the catalogued inequalities from `docs/encoding/15-UTM-BOUNDS-CATALOG.md`; (b) run the boolean guard on the extracted rule table and archive the execution trace; (c) cross-check with an independent implementation of the checklist.
+        - Risk assessment: Medium. If the checklist fails, preservation cannot proceed; however the requirement is explicit and finite.
+
+- `utm_head_lt_shift_len`
+        - Explanation: Asserts that every well-formed TM configuration supplied to the interpreter already satisfies the strengthened head bound (`tm_config_head < SHIFT_LEN`). Combined with the boolean checklist it yields the catalogue witness via `catalogue_static_check_witness`.
+        - Reason needed: Supplies the length/head margin needed to guarantee the encoded tape fits inside the modular packing bounds when preservation is replayed.
+        - Validation strategies: (a) mechanise the head invariant using the catalogued execution bounds; (b) test interpreter runs to confirm the invariant is respected; (c) develop an abstract invariant proof for the universal interpreter and replay it in Coq.
+        - Risk assessment: Medium. Violations would allow the interpreter to exceed the encoded tape budget, breaking containment. Explicitly isolating the lemma helps future mechanisation.
+
 - `utm_simulation_steps`
-	- Explanation: The abstract universal interpreter simulates a target machine
-		within a bounded (reasonably computable) number of interpreter steps per
-		simulated step of the target machine.
+        - Explanation: The abstract universal interpreter simulates a target machine
+                within a bounded (reasonably computable) number of interpreter steps per
+                simulated step of the target machine.
 	- Reason needed: This axiom underlies the containment theorem that a blind
 		Thiele interpreter can simulate a Turing machine with predictable cost
 		overheads.
@@ -107,17 +119,8 @@ checker rather than full implementations.
 	- Risk assessment: High. The separation relies on accurate accounting; a
 		subtle mismatch would force re-evaluation of empirical claims.
 
-- `state_eqb_refl`
-	- Explanation: A convenience axiom asserting that the state equality test
-		(`state_eqb`) correctly recognizes identical states (reflexivity on the
-		representation used by the checker).
-	- Reason needed: Simplifies proofs when comparing snapshots and pre/post
-		states in receipts.
-	- Validation strategies: (a) property-based tests asserting
-		`state_eqb s s = true` for many states; (b) small proof that the equality
-		function is correct for a reduced representation.
-	- Risk assessment: Low. This is a representation-level convenience axiom
-		and is easily testable.
+- `state_eqb_refl` *(retired 2025-11-16)*
+        - Resolution: `coq/thielemachine/coqproofs/ThieleMachine.v` now proves the lemma directly by unfolding `state_eq` and applying `Nat.eqb_refl`; the axiom is no longer part of the trusted base.
 
 ---
 

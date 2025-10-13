@@ -20,6 +20,20 @@ Module UTM_Encode.
   Definition encode_rule r := let '(q,s,q',w,m) := r in [q;s;q';w;encode_z m].
   Definition encode_rules := flat_map encode_rule.
 
+  Lemma encode_z_le_two : forall z, encode_z z <= 2.
+  Proof.
+    intro z.
+    destruct z; simpl; try lia.
+    - destruct p; simpl; lia.
+    - destruct p; simpl; lia.
+  Qed.
+
+  Lemma decode_z_abs_le_one : forall n, (Z.abs (decode_z n) <= 1)%Z.
+  Proof.
+    intro n.
+    destruct n as [| [| [|n']]]; simpl; lia.
+  Qed.
+
   (* Encode a single instruction as three consecutive words in memory:
      [opcode; arg1; arg2]. This avoids heavy div/mod arithmetic during
      decoding because we perform simple nth lookups instead of division. *)

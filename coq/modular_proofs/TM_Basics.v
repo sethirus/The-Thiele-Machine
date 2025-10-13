@@ -52,6 +52,70 @@ Proof.
   destruct n; simpl; auto.
 Qed.
 
+Lemma replace_nth_Forall :
+  forall (P : nat -> Prop) (l : list nat) n v,
+    Forall P l ->
+    P v ->
+    Forall P (replace_nth l n v).
+Proof.
+  intros P l.
+  induction l as [|x xs IH]; intros n v Hall Hv; simpl.
+  - constructor.
+  - inversion Hall; subst; clear Hall.
+    destruct n as [|n]; simpl.
+    + constructor; auto.
+    + constructor; auto.
+      apply IH; assumption.
+Qed.
+
+Lemma nth_replace_nth_eq :
+  forall l n v d,
+    n < length l ->
+    nth n (replace_nth l n v) d = v.
+Proof.
+  induction l as [|x xs IH]; intros [|n] v d Hlen; simpl in *; try lia.
+  - reflexivity.
+  - apply IH.
+    simpl in Hlen. lia.
+Qed.
+
+Lemma nth_replace_nth_neq :
+  forall l n m v d,
+    n <> m ->
+    m < length l ->
+    nth m (replace_nth l n v) d = nth m l d.
+Proof.
+  induction l as [|x xs IH]; intros [|n] [|m] v d Hneq Hlen; simpl in *; try lia; auto.
+  - f_equal. apply IH; auto.
+    simpl in Hlen. lia.
+Qed.
+
+Lemma Forall_nth :
+  forall (P : nat -> Prop) (l : list nat) n d,
+    Forall P l ->
+    n < length l ->
+    P (nth n l d).
+Proof.
+  intros P l.
+  induction l as [|x xs IH]; intros [|n] d Hall Hlen; simpl in *; try lia.
+  - inversion Hall; subst. assumption.
+  - inversion Hall; subst.
+    apply IH; auto.
+    simpl in Hlen. lia.
+Qed.
+
+Lemma Forall_replace_nth_value :
+  forall (P : nat -> Prop) (l : list nat) n v,
+    Forall P (replace_nth l n v) ->
+    n < length l ->
+    P v.
+Proof.
+  intros P l n v HForall Hlen.
+  specialize (Forall_nth _ _ _ 0 HForall Hlen) as Hnth.
+  rewrite nth_replace_nth_eq with (d:=0) in Hnth by exact Hlen.
+  exact Hnth.
+Qed.
+
 (* Get tape from config *)
 Definition get_tape (conf : TMConfig) : list nat :=
   match conf with
