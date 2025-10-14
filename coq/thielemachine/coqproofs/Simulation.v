@@ -118,10 +118,19 @@ Parameter Blind : Prog -> Prop.
 (* semantics lives in [ThieleMachine.v]; we expose a bounded-run      *)
 (* iterator so that containment theorems can reason about finite      *)
 (* prefixes of the execution.                                         *)
-Parameter thiele_step_n : Prog -> State -> nat -> State.
+Parameter thiele_step : Prog -> State -> State.
+Fixpoint thiele_step_n (p : Prog) (st : State) (n : nat) : State :=
+  match n with
+  | 0 => st
+  | S n' => thiele_step_n p (thiele_step p st) n'
+  end.
 
 Parameter utm_program : Prog.
 Parameter utm_program_blind : Blind utm_program.
+
+Lemma thiele_step_n_S_n : forall p st n,
+  thiele_step_n p st (S n) = thiele_step_n p (thiele_step p st) n.
+Proof. intros; reflexivity. Qed.
 
 Record InterpreterObligations (tm : TM) := {
   interpreter_preserves_ok :
@@ -646,12 +655,6 @@ Definition interpreter_obligations_from_catalogue_witness
   interpreter_obligations_from_catalogue tm
     (catalogue_from_witness tm W) one_step multi_step.
 
-Lemma utm_catalogue_static_check :
-  catalogue_static_check utm_tm = true.
-Proof.
-  vm_compute. reflexivity.
-Qed.
-
 Lemma utm_head_lt_shift_len :
   forall tm conf,
     config_ok tm conf -> (tm_config_head conf < EncodingMod.SHIFT_LEN)%nat.
@@ -660,6 +663,44 @@ Proof.
   simpl in *.
   destruct Hok as [_ [_ Hhead]].
   exact Hhead.
+Qed.
+
+Lemma utm_catalogue_witness :
+  StepInvariantBoundsCatalogueWitness utm_tm.
+Proof.
+  refine
+    {| sibcw_blank_lt_base := utm_blank_lt_base;
+       sibcw_rule_bounds := _;
+       sibcw_head_lt_shift_len := utm_head_lt_shift_len utm_tm |}.
+  intros q sym q' write move Hin.
+  split.
+  - pose proof utm_rules_write_lt_base as Hwrite_all.
+    simpl in Hin.
+    pose proof (Forall_forall _ _ Hwrite_all (q, sym, q', write, move) Hin) as Hwrite.
+    simpl in Hwrite. exact Hwrite.
+  - pose proof utm_rules_move_abs_le_one as Hmove_all.
+    simpl in Hin.
+    pose proof (Forall_forall _ _ Hmove_all (q, sym, q', write, move) Hin) as Hmove.
+    simpl in Hmove. exact Hmove.
+Qed.
+
+Definition utm_step_catalogue_prop :
+  StepInvariantBoundsCatalogue utm_tm :=
+  catalogue_from_witness utm_tm utm_catalogue_witness.
+
+Definition utm_step_data :
+  StepInvariantBoundsData utm_tm :=
+  step_data_from_catalogue_witness utm_tm utm_catalogue_witness.
+
+Definition utm_step_bounds :
+  StepInvariantBoundsTM utm_tm :=
+  step_bounds_from_data utm_tm utm_step_data.
+
+Lemma utm_catalogue_static_check :
+  catalogue_static_check utm_tm = true.
+Proof.
+  apply catalogue_static_check_of_witness.
+  exact utm_catalogue_witness.
 Qed.
 
 Definition utm_step_catalogue_witness (tm : TM)
@@ -672,17 +713,32 @@ Definition utm_step_catalogue (tm : TM)
   : StepInvariantBoundsCatalogue tm :=
   catalogue_from_witness tm (utm_step_catalogue_witness tm Hcat).
 
-Parameter utm_simulate_one_step :
+Lemma utm_simulate_one_step :
   forall tm conf,
     config_ok tm conf ->
     decode_state tm (thiele_step_n utm_program (encode_config tm conf) 1)
     = tm_step tm conf.
+Proof.
+  (* This is the final constructive proof obligation.
+     It requires symbolic execution of the utm_program,
+     using the helper lemmas from ThieleUniversal.v. *)
+Admitted.
 
-Parameter utm_simulation_steps_axiom :
-  forall tm conf k,
+Lemma utm_simulation_steps_axiom :
+  forall tm (Hcat : catalogue_static_check tm = true) conf k,
     config_ok tm conf ->
     decode_state tm (thiele_step_n utm_program (encode_config tm conf) k)
     = tm_step_n tm conf k.
+Proof.
+  intros tm Hcat conf k Hok.
+  induction k as [|k IH].
+  - simpl. apply decode_encode_id; assumption.
+  - simpl.
+    rewrite thiele_step_n_S_n.
+    rewrite (utm_simulate_one_step tm conf Hok).
+    apply IH.
+    apply (tm_step_preserves_ok tm Hcat); assumption.
+Qed.
 
 Definition utm_obligations (tm : TM)
   (Hcat : catalogue_static_check tm = true)
@@ -690,7 +746,7 @@ Definition utm_obligations (tm : TM)
   interpreter_obligations_from_catalogue_witness tm
     (utm_step_catalogue_witness tm Hcat)
     (utm_simulate_one_step tm)
-    (utm_simulation_steps_axiom tm).
+    (utm_simulation_steps_axiom tm Hcat).
 
 Definition tm_step_preserves_ok :
   forall tm,

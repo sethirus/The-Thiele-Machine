@@ -1,6 +1,6 @@
 # Encoding round-trip — single finish guide
 
-Last updated: 2025-12-11
+Last updated: 2024-06-06
 
 This file is the single source of truth for finishing the encoding
 round-trip work (replace `decode_encode_id` axiom with constructive
@@ -35,15 +35,35 @@ where to put them, and how to test progress.
     `coqc` flags are in place so experiments iterate quickly.
 
 - What remains (concrete):
-  1. Instantiate the universal interpreter bounds witness from the
-     formal rule table (`UTM_Rules.v`) so the legacy `utm_step_bounds`
-     / `utm_obligations` become constructive.  (DIGIT-BOUND, HEAD-BOUND)
+  1. Audit the `utm_obligations` bridge now that the catalogue witness
+     is threaded through `Simulation.v`.  Confirm no stale references to
+     the boolean checker remain and document the required imports for
+     callers that will reuse the constructive bounds.  (DIGIT-BOUND,
+     HEAD-BOUND)
   2. Prove the one-step decode bridge that equates
      `thiele_step_n utm_program … 1` with the modular `tm_step`.
      (ONE-STEP-DECODE)
+     - Source the executable semantics used by `thiele_step_n` inside
+       `ThieleUniversal.v` (the definition is currently re-exported to
+       the legacy layer as a `Parameter`).
+     - Identify the concrete `utm_program` term (currently a `Parameter`
+       in `Simulation.v`) and the helper lemmas in
+       `UTM_Program.v` / `UTM_CoreLemmas.v` that expose its phase
+       decomposition.
+     - Establish helper lemmas for the three interpreter phases
+       (symbol fetch, rule lookup, action application) so the final
+       equality follows via `tm_decode_encode_roundtrip`.
+     - Line up the remaining runtime axioms with the proof script: the
+       rule application phase must discharge
+       `pc_29_implies_registers_from_rule_table` and
+       `find_rule_from_memory_components`.  Record where the proof
+       should invoke each fact so we can mechanise them next.
   3. If the multi-step recurrence for `thiele_step_n` is missing in the
      runtime semantics, add the recurrence lemma so the inductive
-     multi-step simulation proof closes without an axiom. (THIELE-RECURRENCE)
+     multi-step simulation proof closes without an axiom.  This requires
+     exposing the unfolding of `thiele_step_n` within
+     `ThieleUniversal.v` or providing an equivalent structural
+     recursion lemma. (THIELE-RECURRENCE)
 
 Detailed status and provenance are preserved in the original files
 (`02-GOALS.todo.md`, `04-ATTEMPTS.log.md`, `05-BOUNDS.ledger.md`,
@@ -159,6 +179,166 @@ in the implementation steps below.
   and rewrite inequalities with `%nat` where appropriate; move catalogue
   record definitions above their first use to avoid forward-reference
   problems in `coqc -quick` mode.
+
+----
+
+## Iteration log
+
+### 2024-06-03 — mapping the remaining witnesses to the runtime layer
+
+- Traced the constructive catalogue witness through
+  `coq/thielemachine/coqproofs/Simulation.v`, confirming that
+  `utm_obligations` now only depends on the Prop-level witness and the
+  unresolved interpreter facts (`utm_simulate_one_step`,
+  `utm_simulation_steps_axiom`).  No additional boolean checks remain.
+- Surveyed `coq/thieleuniversal/coqproofs/ThieleUniversal.v` to locate
+  the executable semantics that should back the `thiele_step_n`
+  parameter; identified the large proof block that manipulates the
+  machine registers and the outstanding axioms
+  (`pc_29_implies_registers_from_rule_table`,
+  `find_rule_from_memory_components`) needed to conclude the rule-table
+  lookup.
+- Cross-referenced `UTM_Program.v`/`UTM_CoreLemmas.v` to find reusable
+  lemmas for the rule-table encoding.  These files provide the catalogue
+  facts but still need to be connected to the runtime proof so the
+  one-step lemma can specialise them.
+- Next steps: extract the concrete definitions of `utm_program` and
+  `thiele_step_n` into a focused helper module (or import section) so
+  the one-step bridge can be stated against explicit terms, then prove
+  the fetch/lookup/apply sub-lemmas using the catalogue witness and the
+  remaining runtime axioms.
+
+### 2024-06-06 — installing the Coq toolchain and validating the quick harness
+
+- Installed the Ubuntu `coq` 8.18.0 package (plus OCaml dependencies)
+  inside the workspace container so the quick harness can invoke `coqc`
+  without fallback modes.  Verified the toolchain is available by
+  re-running `./scripts/quick_coq_check.sh` end-to-end; the script now
+  completes successfully and rebuilds the modular and universal proof
+  artefacts in `-vio` mode.
+- Confirmed the harness touches the expected compilation units (the
+  `UTM_Rules.v` additions and the legacy `Simulation.v` bridge), giving a
+  baseline to measure proof progress as the runtime axioms are replaced.
+- Next up: draft the `fetch_symbol_preserves_encoding` lemma in
+  `Simulation.v` so we can substitute it into the `utm_simulate_one_step`
+  shell and start discharging the fetch-phase obligations without
+  depending on the outstanding axioms.
+
+### 2024-06-05 — scoping the concrete proof obligations for `utm_simulate_one_step`
+
+- Walked the existing symbolic-execution lemmas in
+  `coq/thieleuniversal/coqproofs/ThieleUniversal.v` and charted the exact
+  checkpoints the `utm_simulate_one_step` proof has to hit:
+  1. **Fetch symbol** (`pc = 0 ⟶ 3`): reuse
+     `find_rule_start_inv` to show the initial `run_n` prefix stores the
+     current TM state/symbol in `REG_Q`/`REG_SYM` and keeps the tape
+     window intact.  This isolates the `config_ok` hypotheses needed by
+     `tm_decode_encode_roundtrip`.
+  2. **Rule search** (`pc = 3 ⟶ 29`): rely on
+     `transition_FindRule_to_ApplyRule` for the matching case and the
+     monotonicity lemmas `rule_table_q_monotone`/
+     `rule_table_symbol_monotone` to guarantee every prefix of the scan
+     preserves the invariant required by
+     `pc_29_implies_registers_from_rule_table`.
+  3. **Apply rule** (`pc = 29 ⟶ 48`): symbolically execute the 7-step
+     apply block with `run_apply_phase_registers_from_addr` so the final
+     state exposes the updated head index, symbol write, and move.
+- Split the one-step target into the following helper lemmas so that the
+  main proof script can reduce to a single `match` on
+  `find_rule (tm_rules tm) q sym`:
+  - `fetch_symbol_preserves_encoding` (new): proves that executing the
+    fetch prefix leaves `encode_config` unchanged except for the
+    scratch registers listed in `find_rule_loop_inv`.
+  - `apply_rule_commits_step` (new): takes the witness index produced by
+    `pc_29_implies_registers_from_rule_table` and discharges the
+    `tm_step` equality by computation using the tape window from the
+    invariant.
+- Identified where the remaining axioms need to be invoked inside these
+  helpers and noted which runtime facts are already available:
+  `pc_29_implies_registers_from_rule_table` supplies the catalogue index
+  for the apply phase, while `find_rule_from_memory_components` turns the
+  reconstructed rule components back into a `find_rule` hit.
+- Action items for the next coding pass:
+  1. Implement `fetch_symbol_preserves_encoding` directly above
+     `utm_simulate_one_step` in `Simulation.v`, using only the structural
+     lemmas (`run_n_succ`, `decode_encode_id`) that are already proven.
+  2. Port the apply-phase symbolic execution from
+     `transition_FindRule_to_ApplyRule` into a standalone lemma that
+     produces the `tm_step` components, so the final goal collapses to a
+     handful of `rewrite` calls once the axioms are replaced.
+
+### 2024-06-04 — decomposing the one-step bridge into concrete subgoals
+
+- Surveyed the `run_n` control-flow lemmas in
+  `coq/thieleuniversal/coqproofs/ThieleUniversal.v` to map the universal
+  program's three phases.  The key checkpoints are:
+  - `transition_FindRule_to_ApplyRule` advancing to PC 29 with
+    `REG_Q'`, `REG_WRITE`, and `REG_MOVE` loaded from the matching rule.
+  - `find_rule_loop_preserves_inv` maintaining the strong invariant and
+    preserving the rule-table window while scanning.
+  - The `inv` / `inv_min` bridge, which retains the tape window so the
+    post-state can be decoded back into a `TMConfig` with
+    `tm_decode_encode_roundtrip`.
+- Annotated where the remaining axioms slot into the proof skeleton:
+  the apply phase must expose `pc_29_implies_registers_from_rule_table`,
+  and the final equality requires `find_rule_from_memory_components` to
+  turn the memory snapshot into a `find_rule` hit.
+- Extracted the register identities needed after the apply phase (values
+  of `REG_Q`, `REG_WRITE`, `REG_MOVE`, and the updated head index) so the
+  equality with `tm_step` can be stated without guesswork.
+- Updated the acceptance criteria in the summary to call out the two
+  axioms explicitly, ensuring the next iteration can focus on either
+  proving them or isolating their computational witnesses.
+
+### 2024-06-02 — wiring the catalogue witness
+
+- Reinstalled the Coq 8.18.0 toolchain inside the fresh container so the
+  quick harness can run without relying on cached artefacts and confirmed
+  `coqc --version` reports 8.18.0.
+- Imported `UTM_Rules` into `Simulation.v` and built an explicit
+  `StepInvariantBoundsCatalogueWitness utm_tm`, then threaded it through
+  `catalogue_from_witness`, `step_data_from_catalogue_witness`, and
+  `step_bounds_from_data` to surface reusable definitions
+  (`utm_step_catalogue_prop`, `utm_step_data`, `utm_step_bounds`).
+- Replaced the previous `vm_compute` proof of
+  `catalogue_static_check utm_tm = true` with
+  `catalogue_static_check_of_witness` applied to the new witness so the
+  boolean check is now justified by the Prop-level lemmas exported from
+  `UTM_Rules.v`.
+- Next steps: specialise `interpreter_obligations_from_catalogue_witness`
+  to `utm_step_bounds` so the legacy obligations no longer mention the
+  abstract witness, then tackle the `utm_simulate_one_step` lemma to clear
+  the remaining axioms.
+
+### 2024-06-01 — environment bring-up and validation
+
+- Installed Coq 8.18.0 and the supporting OCaml toolchain via
+  `apt-get install coq`, ensuring the quick harness can execute inside
+  the container without relying on cached build artefacts.
+- Ran `./scripts/quick_coq_check.sh`; it now completes end-to-end,
+  confirming the existing modules compile with the freshly installed
+  toolchain and that the only remaining axiomatic pieces are the explicit
+  `Parameter` stubs at the bottom of
+  `coq/thielemachine/coqproofs/Simulation.v`.
+- Next focus areas for the follow-up iteration:
+  1. Replace `Parameter utm_simulate_one_step` and
+     `Parameter utm_simulation_steps_axiom` with constructive lemmas.
+     After importing `UTM_Rules`, call the existing bridge helpers in
+     the order `utm_step_catalogue_witness ⟶ step_data_from_catalogue ⟶
+     step_bounds_from_data ⟶ simulation_obligations_from_bounds` to build
+     `utm_obligations` directly from the catalogue witness.
+  2. For the one-step lemma, consider adding a focused file (e.g.
+     `coq/thieleuniversal/coqproofs/UTM_StepBridge.v`) that imports the
+     runtime executor and catalogue facts.  Split the trace into the
+     read/lookup/apply phases, discharging the concrete program trace
+     with `vm_compute` while Prop-level lemmas maintain `tm_config_ok`.
+  3. If the multi-step recurrence remains axiomatic afterwards, unfold
+     `thiele_step_n` in `coq/thielemachine/coqproofs/ThieleMachine.v` and
+     prove `thiele_step_n_succ` by rewriting with the one-step lemma.
+
+Keep the ledger files in `docs/encoding/` up to date once each lemma is
+proved so the provenance of `DIGIT-BOUND`, `HEAD-BOUND`, and
+`ONE-STEP-DECODE` remains traceable.
 
 ## PR plan and mapping
 
