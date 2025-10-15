@@ -625,6 +625,59 @@ Qed.
       apply (read_reg_write_reg_same st_pc dst (read_reg dst st + n) Hdst_pc_bound).
     Qed.
 
+    Lemma run1_addreg_result : forall st dst src1 src2,
+      decode_instr st = AddReg dst src1 src2 ->
+      REG_PC < length (regs st) ->
+      dst < length (regs st) ->
+      read_reg dst (run1 st) = read_reg src1 st + read_reg src2 st.
+    Proof.
+      intros st dst src1 src2 Hdecode Hpc_bound Hdst_bound.
+      unfold run1.
+      rewrite Hdecode.
+      unfold step; cbn.
+      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+      assert (Hlen_pc : length (regs st_pc) = length (regs st)).
+      { unfold st_pc.
+        apply length_regs_write_reg.
+        exact Hpc_bound. }
+      assert (Hdst_pc_bound : dst < length (regs st_pc)) by (rewrite Hlen_pc; exact Hdst_bound).
+      apply (read_reg_write_reg_same st_pc dst (read_reg src1 st + read_reg src2 st) Hdst_pc_bound).
+    Qed.
+
+    Lemma run1_preserves_reg_addreg : forall st dst src1 src2 r,
+      decode_instr st = AddReg dst src1 src2 ->
+      REG_PC < length (regs st) ->
+      dst < length (regs st) ->
+      r < length (regs st) ->
+      r <> dst ->
+      r <> REG_PC ->
+      read_reg r (run1 st) = read_reg r st.
+    Proof.
+      intros st dst src1 src2 r Hdecode Hpc_bound Hdst_bound Hr_bound Hneq_dst Hneq_pc.
+      unfold run1.
+      rewrite Hdecode.
+      unfold step; cbn.
+      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+      assert (Hlen_pc : length (regs st_pc) = length (regs st)).
+      { unfold st_pc.
+        apply length_regs_write_reg.
+        exact Hpc_bound. }
+      assert (Hdst_pc_bound : dst < length (regs st_pc)) by (rewrite Hlen_pc; exact Hdst_bound).
+      assert (Hr_pc_bound : r < length (regs st_pc)) by (rewrite Hlen_pc; exact Hr_bound).
+      assert (Hneq_dst_sym : dst <> r) by (intro Heq; apply Hneq_dst; symmetry; exact Heq).
+      assert (Hneq_pc_sym : REG_PC <> r) by (intro Heq; apply Hneq_pc; symmetry; exact Heq).
+      assert (Hr_pc_eq : read_reg r st_pc = read_reg r st).
+      { unfold st_pc.
+        apply (read_reg_write_reg_other st REG_PC r (S (read_reg REG_PC st)) Hpc_bound Hr_bound).
+        exact Hneq_pc_sym. }
+      rewrite <- Hr_pc_eq.
+      fold (read_reg r st_pc).
+      apply (read_reg_write_reg_other
+               st_pc dst r (read_reg src1 st + read_reg src2 st)
+               Hdst_pc_bound Hr_pc_bound).
+      exact Hneq_dst_sym.
+    Qed.
+
     Lemma run1_preserves_reg_loadindirect : forall st dst src r,
       decode_instr st = LoadIndirect dst src ->
       REG_PC < length (regs st) ->
@@ -2489,6 +2542,31 @@ Qed.
     firstn (length (encode_rules tm.(tm_rules)))
           (skipn RULES_START_ADDR st.(mem)) = encode_rules tm.(tm_rules).
 
+  (* Core invariant used after the program counter has advanced beyond
+     the fetch entry point.  This drops the PC constraint while retaining
+     the data- and memory-layout facts needed by the symbolic execution
+     lemmas. *)
+  Definition inv_core (st : State) (tm : TM) (conf : TMConfig) : Prop :=
+    let '((q, tape), head) := conf in
+    read_reg REG_Q st = q /\
+    read_reg REG_HEAD st = head /\
+    tape_window_ok st tape /\
+    firstn (length program) st.(mem) = program /\
+    firstn (length (encode_rules tm.(tm_rules)))
+          (skipn RULES_START_ADDR st.(mem)) = encode_rules tm.(tm_rules).
+
+  Lemma inv_implies_inv_core :
+    forall st tm conf,
+      inv st tm conf -> inv_core st tm conf.
+  Proof.
+    intros st tm conf Hinv.
+    destruct conf as ((q, tape), head).
+    unfold inv in Hinv.
+    unfold inv_core.
+    destruct Hinv as [Hq [Hhead [_ [Htape [Hprog Hrules]]]]].
+    repeat split; assumption.
+  Qed.
+
   (* Strong invariant implies the tape window predicate. *)
   Lemma invariant_implies_tape_window :
     forall st tm conf,
@@ -2876,6 +2954,30 @@ Qed.
     read_reg REG_ADDR st = RULES_START_ADDR + 5 * i /\
     read_reg REG_PC st = 4.
 
+  Lemma find_rule_start_inv_pc_lt_29 : forall tm conf st,
+    find_rule_start_inv tm conf st ->
+    read_reg REG_PC st < 29.
+  Proof.
+    intros tm conf st Hinv.
+    destruct conf as ((q, tape), head).
+    unfold find_rule_start_inv in Hinv.
+    destruct Hinv as [_ [_ [_ Hpc]]].
+    subst.
+    lia.
+  Qed.
+
+  Lemma find_rule_loop_inv_pc_lt_29 : forall tm conf st i,
+    find_rule_loop_inv tm conf st i ->
+    read_reg REG_PC st < 29.
+  Proof.
+    intros tm conf st i Hinv.
+    destruct conf as ((q, tape), head).
+    unfold find_rule_loop_inv in Hinv.
+    destruct Hinv as [_ [_ [_ Hpc]]].
+    subst.
+    lia.
+  Qed.
+
   Lemma find_rule_loop_inv_addr_in_bounds : forall tm conf st i,
     find_rule_loop_inv tm conf st i ->
     REG_ADDR < length (regs st).
@@ -2911,7 +3013,7 @@ Qed.
 
   Lemma read_mem_rule_component :
     forall tm conf st i component_offset,
-      inv st tm conf ->
+      inv_core st tm conf ->
       i < length (tm_rules tm) ->
       match nth i (tm_rules tm) (0,0,0,0,0%Z) with
       | (q_rule, sym_rule, q_next, w_next, m_next) =>
@@ -2922,10 +3024,10 @@ Qed.
         (component_offset = 4 -> read_mem (RULES_START_ADDR + i * 5 + component_offset) st = encode_z m_next)
       end.
     Proof.
-      intros tm conf st i component_offset Hinv Hi.
+      intros tm conf st i component_offset Hcore Hi.
       destruct conf as ((q, tape), head).
-      simpl in Hinv.
-      destruct Hinv as [_ [_ [_ [_ [_ Hr]]]]].
+      simpl in Hcore.
+      destruct Hcore as [_ [_ [_ [_ Hr]]]].
       set (rules := tm_rules tm) in *.
       assert (Hr_mem : forall k,
                 k < length (encode_rules rules) ->
@@ -3008,19 +3110,20 @@ Qed.
    jumps to the application phase. *)
 Lemma transition_FindRule_to_ApplyRule :
   forall tm conf st q' write move,
-    inv st tm conf ->
+    inv_core st tm conf ->
     find_rule_start_inv tm conf st ->
     let '((q, tape), head) := conf in
     find_rule tm.(tm_rules) q (nth head tape tm.(tm_blank)) =
       Some (q', write, move) ->
     exists k st',
       st' = run_n st k /\
+      k = 18 /\
       IS_ApplyRule_Start (read_reg REG_PC st') /\
       read_reg REG_Q' st' = q' /\
       read_reg REG_WRITE st' = write /\
       read_reg REG_MOVE st' = encode_z move.
 Proof.
-  intros tm conf st q' write move Hinv Hpre.
+  intros tm conf st q' write move Hcore Hpre.
   destruct conf as ((q, tape), head).
   simpl in Hpre.
   intros Hfind.
@@ -3041,11 +3144,11 @@ Proof.
       inversion Hfind; subst q' write move. clear Hfind.
       assert (Hlen : 0 < length (tm_rules tm)).
       { rewrite <- Hr. Transparent length. simpl. apply Nat.lt_0_succ. Opaque length. }
-      pose proof (read_mem_rule_component tm (q,tape,head) st 0 0 Hinv Hlen) as Hcomp0.
-      pose proof (read_mem_rule_component tm (q,tape,head) st 0 1 Hinv Hlen) as Hcomp1.
-      pose proof (read_mem_rule_component tm (q,tape,head) st 0 2 Hinv Hlen) as Hcomp2.
-      pose proof (read_mem_rule_component tm (q,tape,head) st 0 3 Hinv Hlen) as Hcomp3.
-      pose proof (read_mem_rule_component tm (q,tape,head) st 0 4 Hinv Hlen) as Hcomp4.
+      pose proof (read_mem_rule_component tm (q,tape,head) st 0 0 Hcore Hlen) as Hcomp0.
+      pose proof (read_mem_rule_component tm (q,tape,head) st 0 1 Hcore Hlen) as Hcomp1.
+      pose proof (read_mem_rule_component tm (q,tape,head) st 0 2 Hcore Hlen) as Hcomp2.
+      pose proof (read_mem_rule_component tm (q,tape,head) st 0 3 Hcore Hlen) as Hcomp3.
+      pose proof (read_mem_rule_component tm (q,tape,head) st 0 4 Hcore Hlen) as Hcomp4.
       (* Simplify the match expressions in the results from the memory bridge lemmas. *)
       rewrite <- Hr in Hcomp0, Hcomp1, Hcomp2, Hcomp3, Hcomp4.
       simpl in Hcomp0, Hcomp1, Hcomp2, Hcomp3, Hcomp4.
@@ -3061,6 +3164,7 @@ Proof.
       unfold k.
       cbv [run_n run1 step decode_instr write_reg write_mem read_reg read_mem] in *.
       repeat split;
+        try reflexivity;
         simpl; try lia;
         repeat (first
                   [ rewrite Hc0
@@ -3098,457 +3202,457 @@ Lemma find_rule_loop_preserves_inv : forall tm conf st i,
           find_rule_loop_inv tm conf st' (S i) /\
           (k = 6 \/ k = 13)
     end.
-Proof.
-  intros tm conf st i Hinv Hloop H_i_lt Hq_monotone Hsym_monotone Hlen_regs.
-  destruct conf as ((q, tape), head).
-  (* Proof starts here. *)
-  destruct Hloop as [Hq_reg [Hsym_reg [Haddr_reg Hpc_reg]]].
-  assert (Hpc_4 : read_reg REG_PC st = 4) by exact Hpc_reg.
-  destruct Hinv as [Hinv_q [Hinv_head [Hinv_pc0 [Htape [Hprog Hr]]]]].
-  assert (Hinv_full : inv st tm ((q, tape), head)).
-  { unfold inv; repeat split; assumption. }
-  assert (Hlen_st : length (regs st) = 10) by exact Hlen_regs.
-  assert (Hdecode_pc4 : decode_instr st = LoadIndirect REG_Q' REG_ADDR).
-  { pose proof program_instrs_length_gt_29 as Hlen.
-    assert (Hpc_lt_reg : read_reg REG_PC st < length program_instrs) by (rewrite Hpc_4; lia).
-    assert (Hpc_lt : 4 < length program_instrs) by (rewrite <- Hpc_4; exact Hpc_lt_reg).
-    pose proof (decode_instr_program_state st Hpc_lt_reg Hprog) as Hdecode_prog.
-    rewrite Hdecode_prog.
-    rewrite Hpc_4.
-    rewrite decode_instr_program_at_pc with (pc := 4) by exact Hpc_lt.
-    reflexivity.
-  }
-  set (st1 := run1 st).
-  assert (Hpc_st1 : read_reg REG_PC st1 = 5).
-  { subst st1.
-    assert (Hunchanged : CPU.pc_unchanged (LoadIndirect REG_Q' REG_ADDR)).
-    { unfold CPU.pc_unchanged, REG_Q', REG_PC. simpl. congruence. }
-    pose proof (run1_pc_succ_instr st _ Hdecode_pc4 Hunchanged) as Hsucc.
-  rewrite Hpc in Hsucc. simpl in Hsucc. exact Hsucc. }
-    simpl in Hsucc.
-  rewrite Hpc in Hsucc. simpl in Hsucc. exact Hsucc. }
-  }
-  rewrite Hpc in Hsucc. simpl in Hsucc. exact Hsucc. }
-  { subst st1.
-  rewrite Hpc in Hsucc. simpl in Hsucc. exact Hsucc. }
-    rewrite Hdecode_pc4.
-  rewrite Hpc in Hsucc. simpl in Hsucc. exact Hsucc. }
-    set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
-  rewrite Hpc in Hsucc. simpl in Hsucc. exact Hsucc. }
-    { subst st_pc.
-  rewrite Hpc in Hsucc. simpl in Hsucc. exact Hsucc. }
-      rewrite Hlen_st. unfold REG_PC. lia. }
-    assert (Hq'_bound_pc : REG_Q' < length (regs st_pc))
-      by (rewrite Hlen_pc; unfold REG_Q'; lia).
-    apply length_regs_write_reg_10; [exact Hlen_pc|].
-    exact Hq'_bound_pc.
-  }
-  assert (Haddr_bound : REG_ADDR < length (regs st)).
-  { apply read_reg_nonzero_implies_in_bounds.
-    rewrite Haddr_reg.
-    unfold RULES_START_ADDR.
-    lia.
-  }
-  assert (Hpc_bound : REG_PC < length (regs st)).
-  { apply read_reg_nonzero_implies_in_bounds.
-    rewrite Hpc_4.
-    discriminate.
-  }
-  assert (Hq_bound : REG_Q < length (regs st))
-    by (rewrite Hlen_st; unfold REG_Q; lia).
-  assert (Hq'_bound : REG_Q' < length (regs st))
-    by (rewrite Hlen_st; unfold REG_Q'; lia).
-  assert (Hsym_bound : REG_SYM < length (regs st))
-    by (rewrite Hlen_st; unfold REG_SYM; lia).
-  assert (Hpc_bound_st1 : REG_PC < length (regs st1)).
-  { rewrite Hlen_st1. unfold REG_PC. lia. }
-  assert (Haddr_bound_st1 : REG_ADDR < length (regs st1)).
-  { rewrite Hlen_st1. unfold REG_ADDR. lia. }
-  assert (Hq_bound_st1 : REG_Q < length (regs st1)).
-  { rewrite Hlen_st1. unfold REG_Q. lia. }
-  assert (Hq'_bound_st1 : REG_Q' < length (regs st1)).
-  { rewrite Hlen_st1. unfold REG_Q'. lia. }
-  assert (Htemp1_bound_st1 : REG_TEMP1 < length (regs st1)).
-  { rewrite Hlen_st1. unfold REG_TEMP1. lia. }
-  assert (Hsym_bound_st1 : REG_SYM < length (regs st1)).
-  { rewrite Hlen_st1. unfold REG_SYM. lia. }
-  assert (Hst1_q : read_reg REG_Q st1 = q).
-  { subst st1.
-    unfold run1.
-    rewrite Hdecode_pc4.
-    cbn [CPU.step read_reg write_reg read_mem].
-    set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
-    assert (Hlen_pc : length (regs st_pc) = length (regs st)).
-    { subst st_pc.
-      apply length_regs_write_reg.
-      exact Hpc_bound.
+  Proof.
+    intros tm conf st i Hinv Hloop H_i_lt Hq_monotone Hsym_monotone Hlen_regs.
+    destruct conf as ((q, tape), head).
+    (* Proof starts here. *)
+    destruct Hloop as [Hq_reg [Hsym_reg [Haddr_reg Hpc_reg]]].
+    assert (Hpc_4 : read_reg REG_PC st = 4) by exact Hpc_reg.
+    destruct Hinv as [Hinv_q [Hinv_head [Hinv_pc0 [Htape [Hprog Hr]]]]].
+    assert (Hinv_full : inv st tm ((q, tape), head)).
+    { unfold inv; repeat split; assumption. }
+    assert (Hlen_st : length (regs st) = 10) by exact Hlen_regs.
+    assert (Hdecode_pc4 : decode_instr st = LoadIndirect REG_Q' REG_ADDR).
+    { pose proof program_instrs_length_gt_29 as Hlen.
+      assert (Hpc_lt_reg : read_reg REG_PC st < length program_instrs) by (rewrite Hpc_4; lia).
+      assert (Hpc_lt : 4 < length program_instrs) by (rewrite <- Hpc_4; exact Hpc_lt_reg).
+      pose proof (decode_instr_program_state st Hpc_lt_reg Hprog) as Hdecode_prog.
+      rewrite Hdecode_prog.
+      rewrite Hpc_4.
+      rewrite decode_instr_program_at_pc with (pc := 4) by exact Hpc_lt.
+      reflexivity.
     }
-    assert (Hq_bound_pc : REG_Q < length (regs st_pc))
-      by (rewrite Hlen_pc; exact Hq_bound).
-    assert (Hq'_bound_pc : REG_Q' < length (regs st_pc))
-      by (rewrite Hlen_pc; exact Hq'_bound).
-    assert (Hneq_pc_q : REG_PC <> REG_Q) by (unfold REG_PC, REG_Q; lia).
-    assert (Hneq_q'_q : REG_Q' <> REG_Q) by (unfold REG_Q', REG_Q; lia).
-    assert (Hq_base : read_reg REG_Q st_pc = read_reg REG_Q st).
-    { subst st_pc.
-      apply read_reg_write_reg_other; [exact Hpc_bound|exact Hq_bound|exact Hneq_pc_q].
+    set (st1 := run1 st).
+    assert (Hpc_st1 : read_reg REG_PC st1 = 5).
+    { subst st1.
+      assert (Hunchanged : CPU.pc_unchanged (LoadIndirect REG_Q' REG_ADDR)).
+      { unfold CPU.pc_unchanged, REG_Q', REG_PC. simpl. congruence. }
+      pose proof (run1_pc_succ_instr st _ Hdecode_pc4 Hunchanged) as Hsucc.
+      rewrite Hpc_4 in Hsucc.
+      simpl in Hsucc.
+      exact Hsucc.
     }
-      assert (Hq_pres : read_reg REG_Q (write_reg REG_Q'
-                                           (read_mem (read_reg REG_ADDR st) st)
-                                           st_pc) = read_reg REG_Q st_pc).
-      { apply read_reg_write_reg_other; [exact Hq'_bound_pc|exact Hq_bound_pc|exact Hneq_q'_q].
+    assert (Hlen_st1 : length (regs st1) = 10).
+    { subst st1.
+      unfold run1.
+      rewrite Hdecode_pc4.
+      cbn [CPU.step read_reg write_reg read_mem].
+      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+      assert (Hlen_pc : length (regs st_pc) = 10).
+      { subst st_pc.
+        apply length_regs_write_reg_10; [exact Hlen_st|].
+        rewrite Hlen_st. unfold REG_PC. lia. }
+      assert (Hq'_bound_pc : REG_Q' < length (regs st_pc))
+        by (rewrite Hlen_pc; unfold REG_Q'; lia).
+      apply length_regs_write_reg_10; [exact Hlen_pc|].
+      exact Hq'_bound_pc.
+    }
+    assert (Haddr_bound : REG_ADDR < length (regs st)).
+    { apply read_reg_nonzero_implies_in_bounds.
+      rewrite Haddr_reg.
+      unfold RULES_START_ADDR.
+      lia.
+    }
+    assert (Hpc_bound : REG_PC < length (regs st)).
+    { apply read_reg_nonzero_implies_in_bounds.
+      rewrite Hpc_4.
+      discriminate.
+    }
+    assert (Hq_bound : REG_Q < length (regs st))
+      by (rewrite Hlen_st; unfold REG_Q; lia).
+    assert (Hq'_bound : REG_Q' < length (regs st))
+      by (rewrite Hlen_st; unfold REG_Q'; lia).
+    assert (Hsym_bound : REG_SYM < length (regs st))
+      by (rewrite Hlen_st; unfold REG_SYM; lia).
+    assert (Hpc_bound_st1 : REG_PC < length (regs st1)).
+    { rewrite Hlen_st1. unfold REG_PC. lia. }
+    assert (Haddr_bound_st1 : REG_ADDR < length (regs st1)).
+    { rewrite Hlen_st1. unfold REG_ADDR. lia. }
+    assert (Hq_bound_st1 : REG_Q < length (regs st1)).
+    { rewrite Hlen_st1. unfold REG_Q. lia. }
+    assert (Hq'_bound_st1 : REG_Q' < length (regs st1)).
+    { rewrite Hlen_st1. unfold REG_Q'. lia. }
+    assert (Htemp1_bound_st1 : REG_TEMP1 < length (regs st1)).
+    { rewrite Hlen_st1. unfold REG_TEMP1. lia. }
+    assert (Hsym_bound_st1 : REG_SYM < length (regs st1)).
+    { rewrite Hlen_st1. unfold REG_SYM. lia. }
+    assert (Hst1_q : read_reg REG_Q st1 = q).
+    { subst st1.
+      unfold run1.
+      rewrite Hdecode_pc4.
+      cbn [CPU.step read_reg write_reg read_mem].
+      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+      assert (Hlen_pc : length (regs st_pc) = length (regs st)).
+      { subst st_pc.
+        apply length_regs_write_reg.
+        exact Hpc_bound.
       }
-      eapply eq_trans with (y := read_reg REG_Q st_pc).
-      - exact Hq_pres.
-      - rewrite Hq_base, Hq_reg. reflexivity.
-  }
-  assert (Hst1_addr : read_reg REG_ADDR st1 = read_reg REG_ADDR st).
-  { subst st1.
-    unfold run1.
-    rewrite Hdecode_pc4.
-    cbn [CPU.step read_reg write_reg read_mem].
-    set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
-    assert (Hlen_pc : length (regs st_pc) = length (regs st)).
-    { subst st_pc.
-      apply length_regs_write_reg.
-      exact Hpc_bound.
-    }
-    assert (Hq'_bound_pc : REG_Q' < length (regs st_pc))
-      by (rewrite Hlen_pc; exact Hq'_bound).
-    assert (Haddr_bound_pc : REG_ADDR < length (regs st_pc))
-      by (rewrite Hlen_pc; exact Haddr_bound).
-    assert (Hneq_pc_addr : REG_PC <> REG_ADDR) by (unfold REG_PC, REG_ADDR; lia).
-    assert (Hneq_q'_addr : REG_Q' <> REG_ADDR) by (unfold REG_Q', REG_ADDR; lia).
-    assert (Haddr_base : read_reg REG_ADDR st_pc = read_reg REG_ADDR st).
-    { subst st_pc.
-      apply read_reg_write_reg_other; [exact Hpc_bound|exact Haddr_bound|exact Hneq_pc_addr].
-    }
-    assert (Haddr_pres : read_reg REG_ADDR (write_reg REG_Q'
-                                               (read_mem (read_reg REG_ADDR st) st)
-                                               st_pc) = read_reg REG_ADDR st_pc).
-    { apply read_reg_write_reg_other; [exact Hq'_bound_pc|exact Haddr_bound_pc|exact Hneq_q'_addr].
-    }
-    eapply eq_trans with (y := read_reg REG_ADDR st_pc).
-    - exact Haddr_pres.
-    - rewrite Haddr_base. reflexivity.
-  }
-  assert (Hmem_st1 : mem st1 = mem st).
-  { subst st1.
-    apply run1_mem_preserved_if_no_store.
-    rewrite Hdecode_pc4; simpl; exact I.
-  }
-  assert (Hst1_q' : read_reg REG_Q' st1 = read_mem (read_reg REG_ADDR st) st).
-  { subst st1.
-    unfold run1.
-    rewrite Hdecode_pc4.
-    cbn [CPU.step read_reg write_reg read_mem].
-    set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
-    assert (Hlen_pc : length (regs st_pc) = length (regs st)).
-    { subst st_pc.
-      apply length_regs_write_reg.
-      exact Hpc_bound.
-    }
+      assert (Hq_bound_pc : REG_Q < length (regs st_pc))
+        by (rewrite Hlen_pc; exact Hq_bound).
       assert (Hq'_bound_pc : REG_Q' < length (regs st_pc))
         by (rewrite Hlen_pc; exact Hq'_bound).
-      apply (read_reg_write_reg_same st_pc REG_Q'
-               (read_mem (read_reg REG_ADDR st) st) Hq'_bound_pc).
-  }
-  assert (Hprog_st1 : firstn (length program) (mem st1) = program).
-  { rewrite Hmem_st1. exact Hprog. }
-  assert (Hpc_st1_lt : read_reg REG_PC st1 < length program_instrs).
-  { rewrite Hpc_st1. pose proof program_instrs_length_gt_29 as Hlen. lia. }
-  assert (Hdecode_pc5 : decode_instr st1 = CopyReg REG_TEMP1 REG_Q).
-  { subst st1.
-    pose proof (decode_instr_program_state (run1 st) Hpc_st1_lt Hprog_st1) as Hdecode_prog.
-    rewrite Hpc_st1 in Hdecode_prog.
-    rewrite decode_instr_program_at_pc with (pc := 5) in Hdecode_prog
-      by (pose proof program_instrs_length_gt_48 as Hlen; lia).
-    exact Hdecode_prog.
-  }
-  set (st2 := run1 st1).
-  assert (Hpc_st2 : read_reg REG_PC st2 = 6).
-  { subst st2.
-    assert (Hunchanged : CPU.pc_unchanged (CopyReg REG_TEMP1 REG_Q)).
-    { unfold CPU.pc_unchanged, REG_PC. simpl. congruence. }
-    pose proof (run1_pc_succ_instr st1 _ Hdecode_pc5 Hunchanged) as Hsucc.
-    rewrite Hpc_st1 in Hsucc.
-    simpl in Hsucc.
-    exact Hsucc.
-  }
-  assert (Hmem_st2 : mem st2 = mem st1).
-  { subst st2.
-    apply run1_mem_preserved_if_no_store.
-    rewrite Hdecode_pc5; simpl; exact I.
-  }
-  assert (Hst2_addr : read_reg REG_ADDR st2 = read_reg REG_ADDR st1).
-  { subst st2.
-    apply (run1_preserves_reg_copyreg st1 REG_TEMP1 REG_Q REG_ADDR).
-    - exact Hdecode_pc5.
-    - exact Hpc_bound_st1.
-    - exact Htemp1_bound_st1.
-    - exact Haddr_bound_st1.
-    - unfold REG_ADDR, REG_TEMP1; lia.
-    - unfold REG_PC, REG_ADDR; lia.
-  }
-  assert (Hst2_temp1 : read_reg REG_TEMP1 st2 = read_reg REG_Q st1).
-  { subst st2.
-    unfold run1.
-    rewrite Hdecode_pc5.
-    cbn [CPU.step read_reg write_reg].
-    set (st_pc := write_reg REG_PC (S (read_reg REG_PC st1)) st1).
-    assert (Hlen_pc : length (regs st_pc) = 10).
-    { subst st_pc.
-      apply length_regs_write_reg_10; [exact Hlen_st1|].
-      rewrite Hlen_st1. unfold REG_PC. lia. }
-      assert (Htemp1_pc : REG_TEMP1 < length (regs st_pc))
-        by (rewrite Hlen_pc; unfold REG_TEMP1; lia).
-      apply (read_reg_write_reg_same st_pc REG_TEMP1 (read_reg REG_Q st1) Htemp1_pc).
-  }
-  assert (Hst2_q : read_reg REG_Q st2 = read_reg REG_Q st1).
-  { subst st2.
-    apply (run1_preserves_reg_copyreg st1 REG_TEMP1 REG_Q REG_Q).
-    - exact Hdecode_pc5.
-    - exact Hpc_bound_st1.
-    - exact Htemp1_bound_st1.
-    - exact Hq_bound_st1.
-    - unfold REG_Q, REG_TEMP1; lia.
-    - unfold REG_PC, REG_Q; lia.
-  }
-  assert (Hst2_q_val : read_reg REG_Q st2 = q) by (rewrite Hst2_q, Hst1_q; reflexivity).
-  assert (Hst2_temp1_val : read_reg REG_TEMP1 st2 = q) by (rewrite Hst2_temp1, Hst1_q; reflexivity).
-  assert (Hst2_q' : read_reg REG_Q' st2 = read_reg REG_Q' st1).
-  { subst st2.
-    apply (run1_preserves_reg_copyreg st1 REG_TEMP1 REG_Q REG_Q').
-    - exact Hdecode_pc5.
-    - exact Hpc_bound_st1.
-    - exact Htemp1_bound_st1.
-    - exact Hq'_bound_st1.
-    - unfold REG_Q', REG_TEMP1; lia.
-    - unfold REG_PC, REG_Q'; lia.
-  }
-  assert (Hlen_st2 : length (regs st2) = 10).
-  { subst st2.
-    apply run1_regs_length_before_apply; try assumption.
-    rewrite Hpc_st1. lia. }
-  assert (Hpc_bound_st2 : REG_PC < length (regs st2))
-    by (rewrite Hlen_st2; unfold REG_PC; lia).
-  assert (Htemp1_bound_st2 : REG_TEMP1 < length (regs st2))
-    by (rewrite Hlen_st2; unfold REG_TEMP1; lia).
-  assert (Hq_bound_st2 : REG_Q < length (regs st2))
-    by (rewrite Hlen_st2; unfold REG_Q; lia).
-  assert (Hq'_bound_st2 : REG_Q' < length (regs st2))
-    by (rewrite Hlen_st2; unfold REG_Q'; lia).
-  assert (Haddr_bound_st2 : REG_ADDR < length (regs st2))
-    by (rewrite Hlen_st2; unfold REG_ADDR; lia).
-  assert (Hsym_bound_st2 : REG_SYM < length (regs st2))
-    by (rewrite Hlen_st2; unfold REG_SYM; lia).
-  assert (Hprog_st2 : firstn (length program) (mem st2) = program).
-  { rewrite Hmem_st2, Hmem_st1. exact Hprog. }
-  assert (Hpc_st2_lt : read_reg REG_PC st2 < length program_instrs).
-  { rewrite Hpc_st2. pose proof program_instrs_length_gt_29 as Hlen. lia. }
-  assert (Hdecode_pc6 : decode_instr st2 = SubReg REG_TEMP1 REG_TEMP1 REG_Q').
-  { subst st2.
-    pose proof (decode_instr_program_state (run1 st1) Hpc_st2_lt Hprog_st2) as Hdecode_prog.
-    pose proof Hpc_st2_lt as Hpc6_lt.
-    rewrite Hpc_st2 in Hpc6_lt.
-    rewrite Hpc_st2 in Hdecode_prog.
-    rewrite decode_instr_program_at_pc with (pc := 6) in Hdecode_prog by exact Hpc6_lt.
-    exact Hdecode_prog.
-  }
-  set (st3 := run1 st2).
-  assert (Hpc_st3 : read_reg REG_PC st3 = 7).
-  { subst st3.
-    assert (Hunchanged : CPU.pc_unchanged (SubReg REG_TEMP1 REG_TEMP1 REG_Q')).
-    { unfold CPU.pc_unchanged, REG_PC. simpl. congruence. }
-    pose proof (run1_pc_succ_instr st2 _ Hdecode_pc6 Hunchanged) as Hsucc.
-    rewrite Hpc_st2 in Hsucc.
-    simpl in Hsucc.
-    exact Hsucc.
-  }
-  assert (Hmem_st3 : mem st3 = mem st2).
-  { subst st3.
-    apply run1_mem_preserved_if_no_store.
-    rewrite Hdecode_pc6; simpl; exact I.
-  }
-  assert (Hst3_q : read_reg REG_Q st3 = read_reg REG_Q st2).
-  { subst st3.
-    apply (run1_preserves_reg_subreg st2 REG_TEMP1 REG_TEMP1 REG_Q' REG_Q).
-    - exact Hdecode_pc6.
-    - exact Hpc_bound_st2.
-    - exact Htemp1_bound_st2.
-    - exact Hq_bound_st2.
-    - unfold REG_Q, REG_TEMP1; lia.
-    - unfold REG_Q, REG_PC; lia.
-  }
-  assert (Hst3_temp1 : read_reg REG_TEMP1 st3 =
-                       read_reg REG_TEMP1 st2 - read_reg REG_Q' st2).
-  { subst st3.
-    apply (run1_subreg_result st2 REG_TEMP1 REG_TEMP1 REG_Q').
-    - exact Hdecode_pc6.
-    - exact Hpc_bound_st2.
-    - exact Htemp1_bound_st2.
-  }
-  assert (Hlen_st3 : length (regs st3) = 10).
-  { subst st3.
-    apply run1_regs_length_before_apply; try assumption.
-    rewrite Hpc_st2. lia. }
-  assert (Hpc_bound_st3 : REG_PC < length (regs st3))
-    by (rewrite Hlen_st3; unfold REG_PC; lia).
-  assert (Htemp1_bound_st3 : REG_TEMP1 < length (regs st3))
-    by (rewrite Hlen_st3; unfold REG_TEMP1; lia).
-  assert (Hq_bound_st3 : REG_Q < length (regs st3))
-    by (rewrite Hlen_st3; unfold REG_Q; lia).
-  assert (Hq'_bound_st3 : REG_Q' < length (regs st3))
-    by (rewrite Hlen_st3; unfold REG_Q'; lia).
-  assert (Hsym_bound_st3 : REG_SYM < length (regs st3))
-    by (rewrite Hlen_st3; unfold REG_SYM; lia).
-  assert (Haddr_bound_st3 : REG_ADDR < length (regs st3))
-    by (rewrite Hlen_st3; unfold REG_ADDR; lia).
-  assert (Hprog_st3 : firstn (length program) (mem st3) = program).
-  { rewrite Hmem_st3, Hmem_st2, Hmem_st1. exact Hprog. }
-  assert (Hpc_st3_lt : read_reg REG_PC st3 < length program_instrs).
-  { rewrite Hpc_st3. pose proof program_instrs_length_gt_29 as Hlen. lia. }
-  assert (Hdecode_pc7 : decode_instr st3 = Jz REG_TEMP1 12).
-  { subst st3.
-    pose proof (decode_instr_program_state (run1 st2) Hpc_st3_lt Hprog_st3) as Hdecode_prog.
-    pose proof Hpc_st3_lt as Hpc7_lt.
-    rewrite Hpc_st3 in Hpc7_lt.
-    rewrite Hpc_st3 in Hdecode_prog.
-    rewrite decode_instr_program_at_pc with (pc := 7) in Hdecode_prog by exact Hpc7_lt.
-    exact Hdecode_prog.
-  }
-  remember (nth i (tm_rules tm) (0,0,0,0,0%Z)) as rule_i eqn:Hrule_i.
-  remember (tm_rules tm) as rules eqn:Hrules.
-  rename H_i_lt into H_i_lt_rules.
-  assert (H_i_lt : i < length (tm_rules tm)) by (rewrite Hrules in H_i_lt_rules; exact H_i_lt_rules).
-  assert (Hrule_i_rules : rule_i = nth i rules (0,0,0,0,0%Z)) by (subst rules; exact Hrule_i).
-  clear Hrule_i; rename Hrule_i_rules into Hrule_i.
-  remember (skipn i rules) as rules_suffix eqn:Hrules_suffix.
-  destruct rule_i as [[[[q_rule sym_rule] q_next] w_next] m_next].
-  pose proof (read_mem_rule_component tm ((q, tape), head) st i 0 Hinv_full H_i_lt) as Hrule_comp0.
-  rewrite <- Hrules in Hrule_comp0.
-  rewrite <- Hrule_i in Hrule_comp0.
-  simpl in Hrule_comp0.
-  destruct Hrule_comp0 as [Hcomp_q _].
-  specialize (Hcomp_q eq_refl).
-  rewrite Nat.add_0_r in Hcomp_q.
-  assert (Hst1_q'_val : read_reg REG_Q' st1 = q_rule).
-  { rewrite Hst1_q'.
-    rewrite Haddr_reg.
-    rewrite Nat.mul_comm.
-    exact Hcomp_q.
-  }
-  assert (Hst2_q'_val : read_reg REG_Q' st2 = q_rule).
-  { rewrite Hst2_q'. exact Hst1_q'_val. }
-  assert (Hst3_temp1_val : read_reg REG_TEMP1 st3 = q - q_rule).
-  { rewrite Hst3_temp1, Hst2_temp1_val, Hst2_q'_val. reflexivity. }
-  pose proof (read_mem_rule_component tm ((q, tape), head) st i 1 Hinv_full H_i_lt) as Hrule_comp1.
-  rewrite <- Hrules in Hrule_comp1.
-  rewrite <- Hrule_i in Hrule_comp1.
-  simpl in Hrule_comp1.
-  destruct Hrule_comp1 as [_ [Hcomp_sym _]].
-  specialize (Hcomp_sym eq_refl).
-  assert (Hrule_sym_val : read_mem (RULES_START_ADDR + i * 5 + 1) st = sym_rule) by exact Hcomp_sym.
-  assert (Hst1_sym : read_reg REG_SYM st1 = read_reg REG_SYM st).
-  { subst st1.
-    apply (run1_preserves_reg_loadindirect st REG_Q' REG_ADDR REG_SYM).
-    - exact Hdecode_pc4.
-    - exact Hpc_bound.
-    - exact Hq'_bound.
-    - exact Hsym_bound.
-    - unfold REG_SYM, REG_Q'; lia.
-    - unfold REG_PC, REG_SYM; lia.
-  }
-  assert (Hst2_sym : read_reg REG_SYM st2 = read_reg REG_SYM st1).
-  { subst st2.
-    apply (run1_preserves_reg_copyreg st1 REG_TEMP1 REG_Q REG_SYM).
-    - exact Hdecode_pc5.
-    - exact Hpc_bound_st1.
-    - exact Htemp1_bound_st1.
-    - exact Hsym_bound_st1.
-    - unfold REG_SYM, REG_TEMP1; lia.
-    - unfold REG_PC, REG_SYM; lia.
-  }
-  assert (Hst3_sym_reg : read_reg REG_SYM st3 = read_reg REG_SYM st2).
-  { subst st3.
-    apply (run1_preserves_reg_subreg st2 REG_TEMP1 REG_TEMP1 REG_Q' REG_SYM).
-    - exact Hdecode_pc6.
-    - exact Hpc_bound_st2.
-    - exact Htemp1_bound_st2.
-    - exact Hsym_bound_st2.
-    - unfold REG_SYM, REG_TEMP1; lia.
-    - unfold REG_SYM, REG_PC; lia.
-  }
-  assert (Hst3_addr : read_reg REG_ADDR st3 = read_reg REG_ADDR st2).
-  { subst st3.
-    apply (run1_preserves_reg_subreg st2 REG_TEMP1 REG_TEMP1 REG_Q' REG_ADDR).
-    - exact Hdecode_pc6.
-    - exact Hpc_bound_st2.
-    - exact Htemp1_bound_st2.
-    - exact Haddr_bound_st2.
-    - unfold REG_ADDR, REG_TEMP1; lia.
-    - unfold REG_ADDR, REG_PC; lia.
-  }
-  assert (Hst_sym : read_reg REG_SYM st3 = nth head tape tm.(tm_blank)).
-  { rewrite Hst3_sym_reg, Hst2_sym, Hst1_sym, Hsym_reg. reflexivity. }
-  pose proof (skipn_cons_nth _ rules i (0,0,0,0,0%Z) H_i_lt_rules) as Hskip_split_raw.
-  rewrite <- Hrule_i in Hskip_split_raw.
-  destruct (find_rule (skipn i (tm_rules tm)) q (nth head tape tm.(tm_blank))) as [[[q_next_res write_res] move_res]|] eqn:Hfind.
-  - pose proof (eq_trans Hrules_suffix Hskip_split_raw) as Hskip_split_rules_some.
-    pose proof Hfind as Hfind_goal.
-    rewrite <- Hrules in Hfind_goal.
-    rewrite <- Hrules_suffix in Hfind_goal.
-    rewrite <- Hrules in Hfind.
-    rewrite <- Hrules_suffix in Hfind.
-    rewrite Hskip_split_rules_some in Hfind.
-    simpl in Hfind.
-    destruct (andb (Nat.eqb q_rule q)
-                   (Nat.eqb sym_rule (nth head tape tm.(tm_blank)))) eqn:Hmatch.
-    + rewrite Hfind_goal.
-      simpl.
-      inversion Hfind; subst q_next_res write_res move_res. clear Hfind.
-      apply andb_true_iff in Hmatch as [Hq_match Hsym_match].
-      apply Nat.eqb_eq in Hq_match.
-      apply Nat.eqb_eq in Hsym_match.
-      assert (Htemp1_zero : read_reg REG_TEMP1 st3 = 0).
-      { rewrite Hst3_temp1_val, Hq_match. lia. }
-      assert (Htemp1_eqb_zero : Nat.eqb (read_reg REG_TEMP1 st3) 0 = true).
-      { rewrite Htemp1_zero. apply Nat.eqb_refl. }
-  set (st4 := run1 st3).
-  assert (Hpc_st4 : read_reg REG_PC st4 = 12).
-  { subst st4.
-    unfold run1.
-    rewrite Hdecode_pc7.
-    apply CPU.step_jz_true.
-    exact Htemp1_eqb_zero.
-  }
-  assert (Hst4_addr : read_reg REG_ADDR st4 = read_reg REG_ADDR st3).
-  { subst st4.
-    apply (run1_preserves_reg_jz_true st3 REG_TEMP1 12 REG_ADDR);
-      try assumption; unfold REG_ADDR, REG_TEMP1, REG_PC; lia. }
-  assert (Hst4_sym : read_reg REG_SYM st4 = read_reg REG_SYM st3).
-  { subst st4.
-    apply (run1_preserves_reg_jz_true st3 REG_TEMP1 12 REG_SYM);
-      try assumption; unfold REG_SYM, REG_TEMP1, REG_PC; lia. }
-  assert (Hlen_st4 : length (regs st4) = 10).
-  { subst st4.
-    apply run1_regs_length_before_apply.
-    - rewrite Hpc_st3. lia.
-    - exact Hprog_st3.
-    - exact Hlen_st3.
-  }
-  assert (Hpc_bound_st4 : REG_PC < length (regs st4))
-    by (rewrite Hlen_st4; unfold REG_PC; lia).
-  assert (Htemp1_bound_st4 : REG_TEMP1 < length (regs st4))
-    by (rewrite Hlen_st4; unfold REG_TEMP1; lia).
-  assert (Haddr_bound_st4 : REG_ADDR < length (regs st4))
-    by (rewrite Hlen_st4; unfold REG_ADDR; lia).
-  assert (Hq_bound_st4 : REG_Q < length (regs st4))
-    by (rewrite Hlen_st4; unfold REG_Q; lia).
-  assert (Hq'_bound_st4 : REG_Q' < length (regs st4))
-    by (rewrite Hlen_st4; unfold REG_Q'; lia).
-  assert (Hsym_bound_st4 : REG_SYM < length (regs st4))
-    by (rewrite Hlen_st4; unfold REG_SYM; lia).
+      assert (Hneq_pc_q : REG_PC <> REG_Q) by (unfold REG_PC, REG_Q; lia).
+      assert (Hneq_q'_q : REG_Q' <> REG_Q) by (unfold REG_Q', REG_Q; lia).
+      assert (Hq_base : read_reg REG_Q st_pc = read_reg REG_Q st).
+      { subst st_pc.
+        apply read_reg_write_reg_other; [exact Hpc_bound|exact Hq_bound|exact Hneq_pc_q].
+      }
+        assert (Hq_pres : read_reg REG_Q (write_reg REG_Q'
+                                             (read_mem (read_reg REG_ADDR st) st)
+                                             st_pc) = read_reg REG_Q st_pc).
+        { apply read_reg_write_reg_other; [exact Hq'_bound_pc|exact Hq_bound_pc|exact Hneq_q'_q].
+        }
+        eapply eq_trans with (y := read_reg REG_Q st_pc).
+        - exact Hq_pres.
+        - rewrite Hq_base, Hq_reg. reflexivity.
+    }
+    assert (Hst1_addr : read_reg REG_ADDR st1 = read_reg REG_ADDR st).
+    { subst st1.
+      unfold run1.
+      rewrite Hdecode_pc4.
+      cbn [CPU.step read_reg write_reg read_mem].
+      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+      assert (Hlen_pc : length (regs st_pc) = length (regs st)).
+      { subst st_pc.
+        apply length_regs_write_reg.
+        exact Hpc_bound.
+      }
+      assert (Hq'_bound_pc : REG_Q' < length (regs st_pc))
+        by (rewrite Hlen_pc; exact Hq'_bound).
+      assert (Haddr_bound_pc : REG_ADDR < length (regs st_pc))
+        by (rewrite Hlen_pc; exact Haddr_bound).
+      assert (Hneq_pc_addr : REG_PC <> REG_ADDR) by (unfold REG_PC, REG_ADDR; lia).
+      assert (Hneq_q'_addr : REG_Q' <> REG_ADDR) by (unfold REG_Q', REG_ADDR; lia).
+      assert (Haddr_base : read_reg REG_ADDR st_pc = read_reg REG_ADDR st).
+      { subst st_pc.
+        apply read_reg_write_reg_other; [exact Hpc_bound|exact Haddr_bound|exact Hneq_pc_addr].
+      }
+      assert (Haddr_pres : read_reg REG_ADDR (write_reg REG_Q'
+                                                 (read_mem (read_reg REG_ADDR st) st)
+                                                 st_pc) = read_reg REG_ADDR st_pc).
+      { apply read_reg_write_reg_other; [exact Hq'_bound_pc|exact Haddr_bound_pc|exact Hneq_q'_addr].
+      }
+      eapply eq_trans with (y := read_reg REG_ADDR st_pc).
+      - exact Haddr_pres.
+      - rewrite Haddr_base. reflexivity.
+    }
+    assert (Hmem_st1 : mem st1 = mem st).
+    { subst st1.
+      apply run1_mem_preserved_if_no_store.
+      rewrite Hdecode_pc4; simpl; exact I.
+    }
+    assert (Hst1_q' : read_reg REG_Q' st1 = read_mem (read_reg REG_ADDR st) st).
+    { subst st1.
+      unfold run1.
+      rewrite Hdecode_pc4.
+      cbn [CPU.step read_reg write_reg read_mem].
+      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st)) st).
+      assert (Hlen_pc : length (regs st_pc) = length (regs st)).
+      { subst st_pc.
+        apply length_regs_write_reg.
+        exact Hpc_bound.
+      }
+        assert (Hq'_bound_pc : REG_Q' < length (regs st_pc))
+          by (rewrite Hlen_pc; exact Hq'_bound).
+        apply (read_reg_write_reg_same st_pc REG_Q'
+                 (read_mem (read_reg REG_ADDR st) st) Hq'_bound_pc).
+    }
+    assert (Hprog_st1 : firstn (length program) (mem st1) = program).
+    { rewrite Hmem_st1. exact Hprog. }
+    assert (Hpc_st1_lt : read_reg REG_PC st1 < length program_instrs).
+    { rewrite Hpc_st1. pose proof program_instrs_length_gt_29 as Hlen. lia. }
+    assert (Hdecode_pc5 : decode_instr st1 = CopyReg REG_TEMP1 REG_Q).
+    { subst st1.
+      pose proof (decode_instr_program_state (run1 st) Hpc_st1_lt Hprog_st1) as Hdecode_prog.
+      rewrite Hpc_st1 in Hdecode_prog.
+      rewrite decode_instr_program_at_pc with (pc := 5) in Hdecode_prog
+        by (pose proof program_instrs_length_gt_48 as Hlen; lia).
+      exact Hdecode_prog.
+    }
+    set (st2 := run1 st1).
+    assert (Hpc_st2 : read_reg REG_PC st2 = 6).
+    { subst st2.
+      assert (Hunchanged : CPU.pc_unchanged (CopyReg REG_TEMP1 REG_Q)).
+      { unfold CPU.pc_unchanged, REG_PC. simpl. congruence. }
+      pose proof (run1_pc_succ_instr st1 _ Hdecode_pc5 Hunchanged) as Hsucc.
+      rewrite Hpc_st1 in Hsucc.
+      simpl in Hsucc.
+      exact Hsucc.
+    }
+    assert (Hmem_st2 : mem st2 = mem st1).
+    { subst st2.
+      apply run1_mem_preserved_if_no_store.
+      rewrite Hdecode_pc5; simpl; exact I.
+    }
+    assert (Hst2_addr : read_reg REG_ADDR st2 = read_reg REG_ADDR st1).
+    { subst st2.
+      apply (run1_preserves_reg_copyreg st1 REG_TEMP1 REG_Q REG_ADDR).
+      - exact Hdecode_pc5.
+      - exact Hpc_bound_st1.
+      - exact Htemp1_bound_st1.
+      - exact Haddr_bound_st1.
+      - unfold REG_ADDR, REG_TEMP1; lia.
+      - unfold REG_PC, REG_ADDR; lia.
+    }
+    assert (Hst2_temp1 : read_reg REG_TEMP1 st2 = read_reg REG_Q st1).
+    { subst st2.
+      unfold run1.
+      rewrite Hdecode_pc5.
+      cbn [CPU.step read_reg write_reg].
+      set (st_pc := write_reg REG_PC (S (read_reg REG_PC st1)) st1).
+      assert (Hlen_pc : length (regs st_pc) = 10).
+      { subst st_pc.
+        apply length_regs_write_reg_10; [exact Hlen_st1|].
+        rewrite Hlen_st1. unfold REG_PC. lia. }
+        assert (Htemp1_pc : REG_TEMP1 < length (regs st_pc))
+          by (rewrite Hlen_pc; unfold REG_TEMP1; lia).
+        apply (read_reg_write_reg_same st_pc REG_TEMP1 (read_reg REG_Q st1) Htemp1_pc).
+    }
+    assert (Hst2_q : read_reg REG_Q st2 = read_reg REG_Q st1).
+    { subst st2.
+      apply (run1_preserves_reg_copyreg st1 REG_TEMP1 REG_Q REG_Q).
+      - exact Hdecode_pc5.
+      - exact Hpc_bound_st1.
+      - exact Htemp1_bound_st1.
+      - exact Hq_bound_st1.
+      - unfold REG_Q, REG_TEMP1; lia.
+      - unfold REG_PC, REG_Q; lia.
+    }
+    assert (Hst2_q_val : read_reg REG_Q st2 = q) by (rewrite Hst2_q, Hst1_q; reflexivity).
+    assert (Hst2_temp1_val : read_reg REG_TEMP1 st2 = q) by (rewrite Hst2_temp1, Hst1_q; reflexivity).
+    assert (Hst2_q' : read_reg REG_Q' st2 = read_reg REG_Q' st1).
+    { subst st2.
+      apply (run1_preserves_reg_copyreg st1 REG_TEMP1 REG_Q REG_Q').
+      - exact Hdecode_pc5.
+      - exact Hpc_bound_st1.
+      - exact Htemp1_bound_st1.
+      - exact Hq'_bound_st1.
+      - unfold REG_Q', REG_TEMP1; lia.
+      - unfold REG_PC, REG_Q'; lia.
+    }
+    assert (Hlen_st2 : length (regs st2) = 10).
+    { subst st2.
+      apply run1_regs_length_before_apply; try assumption.
+      rewrite Hpc_st1. lia. }
+    assert (Hpc_bound_st2 : REG_PC < length (regs st2))
+      by (rewrite Hlen_st2; unfold REG_PC; lia).
+    assert (Htemp1_bound_st2 : REG_TEMP1 < length (regs st2))
+      by (rewrite Hlen_st2; unfold REG_TEMP1; lia).
+    assert (Hq_bound_st2 : REG_Q < length (regs st2))
+      by (rewrite Hlen_st2; unfold REG_Q; lia).
+    assert (Hq'_bound_st2 : REG_Q' < length (regs st2))
+      by (rewrite Hlen_st2; unfold REG_Q'; lia).
+    assert (Haddr_bound_st2 : REG_ADDR < length (regs st2))
+      by (rewrite Hlen_st2; unfold REG_ADDR; lia).
+    assert (Hsym_bound_st2 : REG_SYM < length (regs st2))
+      by (rewrite Hlen_st2; unfold REG_SYM; lia).
+    assert (Hprog_st2 : firstn (length program) (mem st2) = program).
+    { rewrite Hmem_st2, Hmem_st1. exact Hprog. }
+    assert (Hpc_st2_lt : read_reg REG_PC st2 < length program_instrs).
+    { rewrite Hpc_st2. pose proof program_instrs_length_gt_29 as Hlen. lia. }
+    assert (Hdecode_pc6 : decode_instr st2 = SubReg REG_TEMP1 REG_TEMP1 REG_Q').
+    { subst st2.
+      pose proof (decode_instr_program_state (run1 st1) Hpc_st2_lt Hprog_st2) as Hdecode_prog.
+      pose proof Hpc_st2_lt as Hpc6_lt.
+      rewrite Hpc_st2 in Hpc6_lt.
+      rewrite Hpc_st2 in Hdecode_prog.
+      rewrite decode_instr_program_at_pc with (pc := 6) in Hdecode_prog by exact Hpc6_lt.
+      exact Hdecode_prog.
+    }
+    set (st3 := run1 st2).
+    assert (Hpc_st3 : read_reg REG_PC st3 = 7).
+    { subst st3.
+      assert (Hunchanged : CPU.pc_unchanged (SubReg REG_TEMP1 REG_TEMP1 REG_Q')).
+      { unfold CPU.pc_unchanged, REG_PC. simpl. congruence. }
+      pose proof (run1_pc_succ_instr st2 _ Hdecode_pc6 Hunchanged) as Hsucc.
+      rewrite Hpc_st2 in Hsucc.
+      simpl in Hsucc.
+      exact Hsucc.
+    }
+    assert (Hmem_st3 : mem st3 = mem st2).
+    { subst st3.
+      apply run1_mem_preserved_if_no_store.
+      rewrite Hdecode_pc6; simpl; exact I.
+    }
+    assert (Hst3_q : read_reg REG_Q st3 = read_reg REG_Q st2).
+    { subst st3.
+      apply (run1_preserves_reg_subreg st2 REG_TEMP1 REG_TEMP1 REG_Q' REG_Q).
+      - exact Hdecode_pc6.
+      - exact Hpc_bound_st2.
+      - exact Htemp1_bound_st2.
+      - exact Hq_bound_st2.
+      - unfold REG_Q, REG_TEMP1; lia.
+      - unfold REG_Q, REG_PC; lia.
+    }
+    assert (Hst3_temp1 : read_reg REG_TEMP1 st3 =
+                         read_reg REG_TEMP1 st2 - read_reg REG_Q' st2).
+    { subst st3.
+      apply (run1_subreg_result st2 REG_TEMP1 REG_TEMP1 REG_Q').
+      - exact Hdecode_pc6.
+      - exact Hpc_bound_st2.
+      - exact Htemp1_bound_st2.
+    }
+    assert (Hlen_st3 : length (regs st3) = 10).
+    { subst st3.
+      apply run1_regs_length_before_apply; try assumption.
+      rewrite Hpc_st2. lia. }
+    assert (Hpc_bound_st3 : REG_PC < length (regs st3))
+      by (rewrite Hlen_st3; unfold REG_PC; lia).
+    assert (Htemp1_bound_st3 : REG_TEMP1 < length (regs st3))
+      by (rewrite Hlen_st3; unfold REG_TEMP1; lia).
+    assert (Hq_bound_st3 : REG_Q < length (regs st3))
+      by (rewrite Hlen_st3; unfold REG_Q; lia).
+    assert (Hq'_bound_st3 : REG_Q' < length (regs st3))
+      by (rewrite Hlen_st3; unfold REG_Q'; lia).
+    assert (Hsym_bound_st3 : REG_SYM < length (regs st3))
+      by (rewrite Hlen_st3; unfold REG_SYM; lia).
+    assert (Haddr_bound_st3 : REG_ADDR < length (regs st3))
+      by (rewrite Hlen_st3; unfold REG_ADDR; lia).
+    assert (Hprog_st3 : firstn (length program) (mem st3) = program).
+    { rewrite Hmem_st3, Hmem_st2, Hmem_st1. exact Hprog. }
+    assert (Hpc_st3_lt : read_reg REG_PC st3 < length program_instrs).
+    { rewrite Hpc_st3. pose proof program_instrs_length_gt_29 as Hlen. lia. }
+    assert (Hdecode_pc7 : decode_instr st3 = Jz REG_TEMP1 12).
+    { subst st3.
+      pose proof (decode_instr_program_state (run1 st2) Hpc_st3_lt Hprog_st3) as Hdecode_prog.
+      pose proof Hpc_st3_lt as Hpc7_lt.
+      rewrite Hpc_st3 in Hpc7_lt.
+      rewrite Hpc_st3 in Hdecode_prog.
+      rewrite decode_instr_program_at_pc with (pc := 7) in Hdecode_prog by exact Hpc7_lt.
+      exact Hdecode_prog.
+    }
+    remember (nth i (tm_rules tm) (0,0,0,0,0%Z)) as rule_i eqn:Hrule_i.
+    remember (tm_rules tm) as rules eqn:Hrules.
+    rename H_i_lt into H_i_lt_rules.
+    assert (H_i_lt : i < length (tm_rules tm)) by (rewrite Hrules in H_i_lt_rules; exact H_i_lt_rules).
+    assert (Hrule_i_rules : rule_i = nth i rules (0,0,0,0,0%Z)) by (subst rules; exact Hrule_i).
+    clear Hrule_i; rename Hrule_i_rules into Hrule_i.
+    remember (skipn i rules) as rules_suffix eqn:Hrules_suffix.
+    destruct rule_i as [[[[q_rule sym_rule] q_next] w_next] m_next].
+    pose proof (read_mem_rule_component tm ((q, tape), head) st i 0 Hinv_full H_i_lt) as Hrule_comp0.
+    rewrite <- Hrules in Hrule_comp0.
+    rewrite <- Hrule_i in Hrule_comp0.
+    simpl in Hrule_comp0.
+    destruct Hrule_comp0 as [Hcomp_q _].
+    specialize (Hcomp_q eq_refl).
+    rewrite Nat.add_0_r in Hcomp_q.
+    assert (Hst1_q'_val : read_reg REG_Q' st1 = q_rule).
+    { rewrite Hst1_q'.
+      rewrite Haddr_reg.
+      rewrite Nat.mul_comm.
+      exact Hcomp_q.
+    }
+    assert (Hst2_q'_val : read_reg REG_Q' st2 = q_rule).
+    { rewrite Hst2_q'. exact Hst1_q'_val. }
+    assert (Hst3_temp1_val : read_reg REG_TEMP1 st3 = q - q_rule).
+    { rewrite Hst3_temp1, Hst2_temp1_val, Hst2_q'_val. reflexivity. }
+    pose proof (read_mem_rule_component tm ((q, tape), head) st i 1 Hinv_full H_i_lt) as Hrule_comp1.
+    rewrite <- Hrules in Hrule_comp1.
+    rewrite <- Hrule_i in Hrule_comp1.
+    simpl in Hrule_comp1.
+    destruct Hrule_comp1 as [_ [Hcomp_sym _]].
+    specialize (Hcomp_sym eq_refl).
+    assert (Hrule_sym_val : read_mem (RULES_START_ADDR + i * 5 + 1) st = sym_rule) by exact Hcomp_sym.
+    assert (Hst1_sym : read_reg REG_SYM st1 = read_reg REG_SYM st).
+    { subst st1.
+      apply (run1_preserves_reg_loadindirect st REG_Q' REG_ADDR REG_SYM).
+      - exact Hdecode_pc4.
+      - exact Hpc_bound.
+      - exact Hq'_bound.
+      - exact Hsym_bound.
+      - unfold REG_SYM, REG_Q'; lia.
+      - unfold REG_PC, REG_SYM; lia.
+    }
+    assert (Hst2_sym : read_reg REG_SYM st2 = read_reg REG_SYM st1).
+    { subst st2.
+      apply (run1_preserves_reg_copyreg st1 REG_TEMP1 REG_Q REG_SYM).
+      - exact Hdecode_pc5.
+      - exact Hpc_bound_st1.
+      - exact Htemp1_bound_st1.
+      - exact Hsym_bound_st1.
+      - unfold REG_SYM, REG_TEMP1; lia.
+      - unfold REG_PC, REG_SYM; lia.
+    }
+    assert (Hst3_sym_reg : read_reg REG_SYM st3 = read_reg REG_SYM st2).
+    { subst st3.
+      apply (run1_preserves_reg_subreg st2 REG_TEMP1 REG_TEMP1 REG_Q' REG_SYM).
+      - exact Hdecode_pc6.
+      - exact Hpc_bound_st2.
+      - exact Htemp1_bound_st2.
+      - exact Hsym_bound_st2.
+      - unfold REG_SYM, REG_TEMP1; lia.
+      - unfold REG_SYM, REG_PC; lia.
+    }
+    assert (Hst3_addr : read_reg REG_ADDR st3 = read_reg REG_ADDR st2).
+    { subst st3.
+      apply (run1_preserves_reg_subreg st2 REG_TEMP1 REG_TEMP1 REG_Q' REG_ADDR).
+      - exact Hdecode_pc6.
+      - exact Hpc_bound_st2.
+      - exact Htemp1_bound_st2.
+      - exact Haddr_bound_st2.
+      - unfold REG_ADDR, REG_TEMP1; lia.
+      - unfold REG_ADDR, REG_PC; lia.
+    }
+    assert (Hst_sym : read_reg REG_SYM st3 = nth head tape tm.(tm_blank)).
+    { rewrite Hst3_sym_reg, Hst2_sym, Hst1_sym, Hsym_reg. reflexivity. }
+    pose proof (skipn_cons_nth _ rules i (0,0,0,0,0%Z) H_i_lt_rules) as Hskip_split_raw.
+    rewrite <- Hrule_i in Hskip_split_raw.
+    destruct (find_rule (skipn i (tm_rules tm)) q (nth head tape tm.(tm_blank))) as [[[q_next_res write_res] move_res]|] eqn:Hfind.
+    - pose proof (eq_trans Hrules_suffix Hskip_split_raw) as Hskip_split_rules_some.
+      pose proof Hfind as Hfind_goal.
+      rewrite <- Hrules in Hfind_goal.
+      rewrite <- Hrules_suffix in Hfind_goal.
+      rewrite <- Hrules in Hfind.
+      rewrite <- Hrules_suffix in Hfind.
+      rewrite Hskip_split_rules_some in Hfind.
+      simpl in Hfind.
+      destruct (andb (Nat.eqb q_rule q)
+                     (Nat.eqb sym_rule (nth head tape tm.(tm_blank)))) eqn:Hmatch.
+      + rewrite Hfind_goal.
+        simpl.
+        inversion Hfind; subst q_next_res write_res move_res. clear Hfind.
+        apply andb_true_iff in Hmatch as [Hq_match Hsym_match].
+        apply Nat.eqb_eq in Hq_match.
+        apply Nat.eqb_eq in Hsym_match.
+        assert (Htemp1_zero : read_reg REG_TEMP1 st3 = 0).
+        { rewrite Hst3_temp1_val, Hq_match. lia. }
+        assert (Htemp1_eqb_zero : Nat.eqb (read_reg REG_TEMP1 st3) 0 = true).
+        { rewrite Htemp1_zero. apply Nat.eqb_refl. }
+    set (st4 := run1 st3).
+    assert (Hpc_st4 : read_reg REG_PC st4 = 12).
+    { subst st4.
+      unfold run1.
+      rewrite Hdecode_pc7.
+      apply CPU.step_jz_true.
+      exact Htemp1_eqb_zero.
+    }
+    assert (Hst4_addr : read_reg REG_ADDR st4 = read_reg REG_ADDR st3).
+    { subst st4.
+      apply (run1_preserves_reg_jz_true st3 REG_TEMP1 12 REG_ADDR);
+        try assumption; unfold REG_ADDR, REG_TEMP1, REG_PC; lia. }
+    assert (Hst4_sym : read_reg REG_SYM st4 = read_reg REG_SYM st3).
+    { subst st4.
+      apply (run1_preserves_reg_jz_true st3 REG_TEMP1 12 REG_SYM);
+        try assumption; unfold REG_SYM, REG_TEMP1, REG_PC; lia. }
+    assert (Hlen_st4 : length (regs st4) = 10).
+    { subst st4.
+      apply run1_regs_length_before_apply.
+      - rewrite Hpc_st3. lia.
+      - exact Hprog_st3.
+      - exact Hlen_st3.
+    }
+    assert (Hpc_bound_st4 : REG_PC < length (regs st4))
+      by (rewrite Hlen_st4; unfold REG_PC; lia).
+    assert (Htemp1_bound_st4 : REG_TEMP1 < length (regs st4))
+      by (rewrite Hlen_st4; unfold REG_TEMP1; lia).
+    assert (Haddr_bound_st4 : REG_ADDR < length (regs st4))
+      by (rewrite Hlen_st4; unfold REG_ADDR; lia).
+    assert (Hq_bound_st4 : REG_Q < length (regs st4))
+      by (rewrite Hlen_st4; unfold REG_Q; lia).
+    assert (Hq'_bound_st4 : REG_Q' < length (regs st4))
+      by (rewrite Hlen_st4; unfold REG_Q'; lia).
+    assert (Hsym_bound_st4 : REG_SYM < length (regs st4))
+      by (rewrite Hlen_st4; unfold REG_SYM; lia).
         assert (Hsym_rule_matches : sym_rule = nth head tape tm.(tm_blank)) by exact Hsym_match.
         assert (Hmem_st4 : mem st4 = mem st3).
         { subst st4.
@@ -4213,7 +4317,859 @@ Proof.
         }
         assert (Hlen_st5 : length (regs st5) = 10).
         { subst st5.
-          apply run_n
+          apply run1_regs_length_before_apply.
+          - rewrite Hpc_st4_false_val. lia.
+          - exact Hprog_st4_false.
+          - exact Hlen_st4.
+        }
+        assert (Hpc_bound_st5 : REG_PC < length (regs st5))
+          by (rewrite Hlen_st5; unfold REG_PC; lia).
+        assert (Htemp1_bound_st5 : REG_TEMP1 < length (regs st5))
+          by (rewrite Hlen_st5; unfold REG_TEMP1; lia).
+        assert (Haddr_bound_st5 : REG_ADDR < length (regs st5))
+          by (rewrite Hlen_st5; unfold REG_ADDR; lia).
+        assert (Hq_bound_st5 : REG_Q < length (regs st5))
+          by (rewrite Hlen_st5; unfold REG_Q; lia).
+        assert (Hq'_bound_st5 : REG_Q' < length (regs st5))
+          by (rewrite Hlen_st5; unfold REG_Q'; lia).
+        assert (Hsym_bound_st5 : REG_SYM < length (regs st5))
+          by (rewrite Hlen_st5; unfold REG_SYM; lia).
+        assert (Hprog_st5 : firstn (length program) (mem st5) = program).
+        { rewrite Hmem_st5, Hmem_st4, Hmem_st3, Hmem_st2, Hmem_st1. exact Hprog. }
+        assert (Hpc_st5_lt : read_reg REG_PC st5 < length program_instrs).
+        { rewrite Hpc_st5. pose proof program_instrs_length_gt_48 as Hlen. lia. }
+        assert (Hdecode_pc9 : decode_instr st5 = Jnz REG_TEMP1 4).
+        { subst st5.
+          pose proof (decode_instr_program_state (run1 st4) Hpc_st5_lt Hprog_st5) as Hdecode_prog.
+          pose proof Hpc_st5 as Hpc_st5_eq.
+          rewrite Hpc_st5_eq in Hdecode_prog.
+          rewrite Hpc_st5_eq in Hpc_st5_lt.
+          rewrite decode_instr_program_at_pc with (pc := 9) in Hdecode_prog by exact Hpc_st5_lt.
+          exact Hdecode_prog.
+        }
+        set (st6 := run1 st5).
+        assert (Htemp1_eqb_false : Nat.eqb (read_reg REG_TEMP1 st5) 0 = false).
+        { rewrite Hst5_temp1, Hst4_temp1.
+          exact Htemp1_nonzero.
+        }
+        assert (Hpc_st6 : read_reg REG_PC st6 = 4).
+        { subst st6.
+          unfold run1.
+          rewrite Hdecode_pc9.
+          apply CPU.step_jnz_false.
+          exact Htemp1_eqb_false.
+        }
+        assert (Hmem_st6 : mem st6 = mem st5).
+        { subst st6.
+          apply run1_mem_preserved_if_no_store.
+          rewrite Hdecode_pc9; simpl; exact I.
+        }
+        assert (Haddr_st6 : read_reg REG_ADDR st6 = read_reg REG_ADDR st5).
+        { subst st6.
+          apply (run1_preserves_reg_jnz_false st5 REG_TEMP1 4 REG_ADDR);
+            try assumption.
+          all: unfold REG_ADDR, REG_TEMP1, REG_PC; lia.
+        }
+        assert (Hst6_q : read_reg REG_Q st6 = read_reg REG_Q st5).
+        { subst st6.
+          apply (run1_preserves_reg_jnz_false st5 REG_TEMP1 4 REG_Q);
+            try assumption.
+          all: unfold REG_Q, REG_TEMP1, REG_PC; lia.
+        }
+        assert (Hst6_sym : read_reg REG_SYM st6 = read_reg REG_SYM st5).
+        { subst st6.
+          apply (run1_preserves_reg_jnz_false st5 REG_TEMP1 4 REG_SYM);
+            try assumption.
+          all: unfold REG_SYM, REG_TEMP1, REG_PC; lia.
+        }
+        assert (Haddr_st6_val : read_reg REG_ADDR st6 = RULES_START_ADDR + 5 * S i).
+        { rewrite Haddr_st6, Haddr_st5, Haddr_st4, Hst3_addr, Hst2_addr, Hst1_addr, Haddr_reg.
+          lia.
+        }
+        assert (Hst6_q_val : read_reg REG_Q st6 = q).
+        { rewrite Hst6_q, Hst5_q, Hst4_q, Hst3_q, Hst2_q, Hst1_q.
+          reflexivity.
+        }
+        assert (Hst6_sym_val : read_reg REG_SYM st6 = nth head tape tm.(tm_blank)).
+        { rewrite Hst6_sym, Hst5_sym, Hst4_sym.
+          exact Hst_sym.
+        }
+        assert (Hrun_st6 : run_n st 6 = st6).
+        { unfold st6, st5, st4, st3, st2, st1.
+          repeat (rewrite run_n_succ).
+          simpl.
+          reflexivity.
+        }
+        rewrite Hfind_goal.
+        simpl.
+        exists 6.
+        exists (run_n st 6).
+        split; [reflexivity|].
+        rewrite Hrun_st6.
+        split.
+        { unfold find_rule_loop_inv.
+          repeat split; assumption.
+        }
+        { left. reflexivity. }
+      * apply Nat.eqb_neq in Hsym_mismatch.
+        destruct (Nat.eqb q_rule q) eqn:Hq_match_bool.
+        * apply Nat.eqb_eq in Hq_match_bool.
+          subst q_rule.
+          assert (Htemp1_zero_sym : Nat.eqb (read_reg REG_TEMP1 st3) 0 = true).
+          { rewrite Hst3_temp1_val.
+            rewrite Nat.sub_diag.
+            apply Nat.eqb_refl.
+          }
+          set (st4 := run1 st3).
+          assert (Hpc_st4_sym : read_reg REG_PC st4 = 12).
+          { subst st4.
+            unfold run1.
+            rewrite Hdecode_pc7.
+            apply CPU.step_jz_true.
+            exact Htemp1_zero_sym.
+          }
+          assert (Hmem_st4_sym : mem st4 = mem st3).
+          { subst st4.
+            apply run1_mem_preserved_if_no_store.
+            rewrite Hdecode_pc7; simpl; exact I.
+          }
+          assert (Hlen_st4_sym : length (regs st4) = 10).
+          { subst st4.
+            unfold run1.
+            rewrite Hdecode_pc7.
+            cbn [CPU.step read_reg write_reg read_mem].
+            rewrite Htemp1_zero_sym.
+            apply length_regs_write_reg_10; [exact Hlen_st3|].
+            rewrite Hlen_st3. unfold REG_PC. lia.
+          }
+          assert (Hpc_bound_st4_sym : REG_PC < length (regs st4))
+            by (rewrite Hlen_st4_sym; unfold REG_PC; lia).
+          assert (Htemp1_bound_st4_sym : REG_TEMP1 < length (regs st4))
+            by (rewrite Hlen_st4_sym; unfold REG_TEMP1; lia).
+          assert (Haddr_bound_st4_sym : REG_ADDR < length (regs st4))
+            by (rewrite Hlen_st4_sym; unfold REG_ADDR; lia).
+          assert (Hq_bound_st4_sym : REG_Q < length (regs st4))
+            by (rewrite Hlen_st4_sym; unfold REG_Q; lia).
+          assert (Hsym_bound_st4_sym : REG_SYM < length (regs st4))
+            by (rewrite Hlen_st4_sym; unfold REG_SYM; lia).
+          assert (Haddr_st4_sym : read_reg REG_ADDR st4 = read_reg REG_ADDR st3).
+          { subst st4.
+            apply (run1_preserves_reg_jz_true st3 REG_TEMP1 12 REG_ADDR);
+              try assumption.
+            all: unfold REG_ADDR, REG_TEMP1, REG_PC; lia.
+          }
+          assert (Hprog_st4_sym : firstn (length program) (mem st4) = program).
+          { rewrite Hmem_st4_sym, Hmem_st3, Hmem_st2, Hmem_st1. exact Hprog. }
+          assert (Hpc_st4_sym_lt : read_reg REG_PC st4 < length program_instrs).
+          { rewrite Hpc_st4_sym. pose proof program_instrs_length_gt_48 as Hlen. lia. }
+          assert (Hdecode_pc12_sym : decode_instr st4 = CopyReg REG_TEMP1 REG_ADDR).
+          { subst st4.
+            pose proof (decode_instr_program_state (run1 st3) Hpc_st4_sym_lt Hprog_st4_sym) as Hdecode_prog.
+            rewrite decode_instr_program_at_pc with (pc := 12) in Hdecode_prog by exact Hpc_st4_sym_lt.
+            exact Hdecode_prog.
+          }
+          set (st5 := run1 st4).
+          assert (Hpc_st5_sym : read_reg REG_PC st5 = 13).
+          { subst st5.
+            assert (Hunchanged : CPU.pc_unchanged (CopyReg REG_TEMP1 REG_ADDR)).
+            { unfold CPU.pc_unchanged, REG_PC. simpl. congruence. }
+            pose proof (run1_pc_succ_instr st4 _ Hdecode_pc12_sym Hunchanged) as Hsucc.
+            rewrite Hpc_st4_sym in Hsucc.
+            simpl in Hsucc.
+            exact Hsucc.
+          }
+          assert (Hmem_st5_sym : mem st5 = mem st4).
+          { subst st5.
+            apply run1_mem_preserved_if_no_store.
+            rewrite Hdecode_pc12_sym; simpl; exact I.
+          }
+          assert (Hlen_st5_sym : length (regs st5) = 10).
+          { subst st5.
+            unfold run1.
+            rewrite Hdecode_pc12_sym.
+            cbn [CPU.step read_reg write_reg].
+            set (st_pc := write_reg REG_PC (S (read_reg REG_PC st4)) st4).
+            assert (Hlen_pc : length (regs st_pc) = 10).
+            { subst st_pc.
+              apply length_regs_write_reg_10; [exact Hlen_st4_sym|].
+              rewrite Hlen_st4_sym. unfold REG_PC. lia. }
+            apply length_regs_write_reg_10; [exact Hlen_pc|].
+            rewrite Hlen_pc. unfold REG_TEMP1. lia.
+          }
+          assert (Hpc_bound_st5_sym : REG_PC < length (regs st5))
+            by (rewrite Hlen_st5_sym; unfold REG_PC; lia).
+          assert (Htemp1_bound_st5_sym : REG_TEMP1 < length (regs st5))
+            by (rewrite Hlen_st5_sym; unfold REG_TEMP1; lia).
+          assert (Haddr_bound_st5_sym : REG_ADDR < length (regs st5))
+            by (rewrite Hlen_st5_sym; unfold REG_ADDR; lia).
+          assert (Hq_bound_st5_sym : REG_Q < length (regs st5))
+            by (rewrite Hlen_st5_sym; unfold REG_Q; lia).
+          assert (Hsym_bound_st5_sym : REG_SYM < length (regs st5))
+            by (rewrite Hlen_st5_sym; unfold REG_SYM; lia).
+          assert (Htemp1_st5_sym : read_reg REG_TEMP1 st5 = read_reg REG_ADDR st4).
+          { subst st5.
+            apply (run1_copyreg_result st4 REG_TEMP1 REG_ADDR);
+              try assumption.
+            exact Htemp1_bound_st4_sym.
+          }
+          assert (Haddr_st5_sym : read_reg REG_ADDR st5 = read_reg REG_ADDR st4).
+          { subst st5.
+            apply (run1_preserves_reg_copyreg st4 REG_TEMP1 REG_ADDR REG_ADDR);
+              try assumption.
+            all: unfold REG_ADDR, REG_TEMP1, REG_PC; lia.
+          }
+          assert (Hprog_st5_sym : firstn (length program) (mem st5) = program).
+          { rewrite Hmem_st5_sym, Hmem_st4_sym, Hmem_st3, Hmem_st2, Hmem_st1. exact Hprog. }
+          assert (Hpc_st5_sym_lt : read_reg REG_PC st5 < length program_instrs).
+          { rewrite Hpc_st5_sym. pose proof program_instrs_length_gt_48 as Hlen. lia. }
+          assert (Hdecode_pc13_sym : decode_instr st5 = AddConst REG_TEMP1 1).
+          { subst st5.
+            pose proof (decode_instr_program_state (run1 st4) Hpc_st5_sym_lt Hprog_st5_sym) as Hdecode_prog.
+            rewrite decode_instr_program_at_pc with (pc := 13) in Hdecode_prog by exact Hpc_st5_sym_lt.
+            exact Hdecode_prog.
+          }
+          set (st6 := run1 st5).
+          assert (Hpc_st6_sym : read_reg REG_PC st6 = 14).
+          { subst st6.
+            assert (Hunchanged : CPU.pc_unchanged (AddConst REG_TEMP1 1)).
+            { unfold CPU.pc_unchanged, REG_PC. simpl. congruence. }
+            pose proof (run1_pc_succ_instr st5 _ Hdecode_pc13_sym Hunchanged) as Hsucc.
+            rewrite Hpc_st5_sym in Hsucc.
+            simpl in Hsucc.
+            exact Hsucc.
+          }
+          assert (Hmem_st6_sym : mem st6 = mem st5).
+          { subst st6.
+            apply run1_mem_preserved_if_no_store.
+            rewrite Hdecode_pc13_sym; simpl; exact I.
+          }
+          assert (Hlen_st6_sym : length (regs st6) = 10).
+          { subst st6.
+            unfold run1.
+            rewrite Hdecode_pc13_sym.
+            cbn [CPU.step read_reg write_reg].
+            set (st_pc := write_reg REG_PC (S (read_reg REG_PC st5)) st5).
+            assert (Hlen_pc : length (regs st_pc) = 10).
+            { subst st_pc.
+              apply length_regs_write_reg_10; [exact Hlen_st5_sym|].
+              rewrite Hlen_st5_sym. unfold REG_PC. lia. }
+            apply length_regs_write_reg_10; [exact Hlen_pc|].
+            rewrite Hlen_pc. unfold REG_TEMP1. lia.
+          }
+          assert (Hpc_bound_st6_sym : REG_PC < length (regs st6))
+            by (rewrite Hlen_st6_sym; unfold REG_PC; lia).
+          assert (Htemp1_bound_st6_sym : REG_TEMP1 < length (regs st6))
+            by (rewrite Hlen_st6_sym; unfold REG_TEMP1; lia).
+          assert (Haddr_bound_st6_sym : REG_ADDR < length (regs st6))
+            by (rewrite Hlen_st6_sym; unfold REG_ADDR; lia).
+          assert (Hq_bound_st6_sym : REG_Q < length (regs st6))
+            by (rewrite Hlen_st6_sym; unfold REG_Q; lia).
+          assert (Hsym_bound_st6_sym : REG_SYM < length (regs st6))
+            by (rewrite Hlen_st6_sym; unfold REG_SYM; lia).
+          assert (Htemp2_bound_st6_sym : REG_TEMP2 < length (regs st6))
+            by (rewrite Hlen_st6_sym; unfold REG_TEMP2; lia).
+          assert (Htemp1_st6_sym : read_reg REG_TEMP1 st6 = read_reg REG_TEMP1 st5 + 1).
+          { subst st6.
+            apply (run1_addconst_result st5 REG_TEMP1 1);
+              try assumption.
+            exact Htemp1_bound_st5_sym.
+          }
+          assert (Haddr_st6_sym : read_reg REG_ADDR st6 = read_reg REG_ADDR st5).
+          { subst st6.
+            apply (run1_preserves_reg_addconst st5 REG_TEMP1 1 REG_ADDR);
+              try assumption.
+            all: unfold REG_ADDR, REG_TEMP1, REG_PC; lia.
+          }
+          assert (Hprog_st6_sym : firstn (length program) (mem st6) = program).
+          { rewrite Hmem_st6_sym, Hmem_st5_sym, Hmem_st4_sym, Hmem_st3, Hmem_st2, Hmem_st1. exact Hprog. }
+          assert (Hpc_st6_sym_lt : read_reg REG_PC st6 < length program_instrs).
+          { rewrite Hpc_st6_sym. pose proof program_instrs_length_gt_48 as Hlen. lia. }
+          assert (Hdecode_pc14_sym : decode_instr st6 = LoadIndirect REG_TEMP2 REG_TEMP1).
+          { subst st6.
+            pose proof (decode_instr_program_state (run1 st5) Hpc_st6_sym_lt Hprog_st6_sym) as Hdecode_prog.
+            rewrite decode_instr_program_at_pc with (pc := 14) in Hdecode_prog by exact Hpc_st6_sym_lt.
+            exact Hdecode_prog.
+          }
+          set (st7 := run1 st6).
+          assert (Hpc_st7_sym : read_reg REG_PC st7 = 15).
+          { subst st7.
+            assert (Hunchanged : CPU.pc_unchanged (LoadIndirect REG_TEMP2 REG_TEMP1)).
+            { unfold CPU.pc_unchanged, REG_PC. simpl. congruence. }
+            pose proof (run1_pc_succ_instr st6 _ Hdecode_pc14_sym Hunchanged) as Hsucc.
+            rewrite Hpc_st6_sym in Hsucc.
+            simpl in Hsucc.
+            exact Hsucc.
+          }
+          assert (Hmem_st7_sym : mem st7 = mem st6).
+          { subst st7.
+            apply run1_mem_preserved_if_no_store.
+            rewrite Hdecode_pc14_sym; simpl; exact I.
+          }
+          assert (Hlen_st7_sym : length (regs st7) = 10).
+          { subst st7.
+            unfold run1.
+            rewrite Hdecode_pc14_sym.
+            cbn [CPU.step read_reg write_reg read_mem].
+            set (st_pc := write_reg REG_PC (S (read_reg REG_PC st6)) st6).
+            assert (Hlen_pc : length (regs st_pc) = 10).
+            { subst st_pc.
+              apply length_regs_write_reg_10; [exact Hlen_st6_sym|].
+              rewrite Hlen_st6_sym. unfold REG_PC. lia. }
+            apply length_regs_write_reg_10; [exact Hlen_pc|].
+            rewrite Hlen_pc. unfold REG_TEMP2. lia.
+          }
+          assert (Hpc_bound_st7_sym : REG_PC < length (regs st7))
+            by (rewrite Hlen_st7_sym; unfold REG_PC; lia).
+          assert (Htemp1_bound_st7_sym : REG_TEMP1 < length (regs st7))
+            by (rewrite Hlen_st7_sym; unfold REG_TEMP1; lia).
+          assert (Htemp2_bound_st7_sym : REG_TEMP2 < length (regs st7))
+            by (rewrite Hlen_st7_sym; unfold REG_TEMP2; lia).
+          assert (Haddr_bound_st7_sym : REG_ADDR < length (regs st7))
+            by (rewrite Hlen_st7_sym; unfold REG_ADDR; lia).
+          assert (Hq_bound_st7_sym : REG_Q < length (regs st7))
+            by (rewrite Hlen_st7_sym; unfold REG_Q; lia).
+          assert (Hsym_bound_st7_sym : REG_SYM < length (regs st7))
+            by (rewrite Hlen_st7_sym; unfold REG_SYM; lia).
+          assert (Htemp2_st7_sym : read_reg REG_TEMP2 st7 = read_mem (read_reg REG_TEMP1 st6) st6).
+          { subst st7.
+            apply (run1_loadindirect_result st6 REG_TEMP2 REG_TEMP1);
+              try assumption.
+            exact Htemp2_bound_st6_sym.
+          }
+          assert (Haddr_st7_sym : read_reg REG_ADDR st7 = read_reg REG_ADDR st6).
+          { subst st7.
+            apply (run1_preserves_reg_loadindirect st6 REG_TEMP2 REG_TEMP1 REG_ADDR);
+              try assumption.
+            all: unfold REG_ADDR, REG_TEMP2, REG_PC; lia.
+          }
+          assert (Hprog_st7_sym : firstn (length program) (mem st7) = program).
+          { rewrite Hmem_st7_sym, Hmem_st6_sym, Hmem_st5_sym, Hmem_st4_sym, Hmem_st3, Hmem_st2, Hmem_st1. exact Hprog. }
+          assert (Hpc_st7_sym_lt : read_reg REG_PC st7 < length program_instrs).
+          { rewrite Hpc_st7_sym. pose proof program_instrs_length_gt_48 as Hlen. lia. }
+          assert (Hdecode_pc15_sym : decode_instr st7 = CopyReg REG_TEMP1 REG_SYM).
+          { subst st7.
+            pose proof (decode_instr_program_state (run1 st6) Hpc_st7_sym_lt Hprog_st7_sym) as Hdecode_prog.
+            rewrite decode_instr_program_at_pc with (pc := 15) in Hdecode_prog by exact Hpc_st7_sym_lt.
+            exact Hdecode_prog.
+          }
+          set (st8 := run1 st7).
+          assert (Hpc_st8_sym : read_reg REG_PC st8 = 16).
+          { subst st8.
+            assert (Hunchanged : CPU.pc_unchanged (CopyReg REG_TEMP1 REG_SYM)).
+            { unfold CPU.pc_unchanged, REG_PC. simpl. congruence. }
+            pose proof (run1_pc_succ_instr st7 _ Hdecode_pc15_sym Hunchanged) as Hsucc.
+            rewrite Hpc_st7_sym in Hsucc.
+            simpl in Hsucc.
+            exact Hsucc.
+          }
+          assert (Hmem_st8_sym : mem st8 = mem st7).
+          { subst st8.
+            apply run1_mem_preserved_if_no_store.
+            rewrite Hdecode_pc15_sym; simpl; exact I.
+          }
+          assert (Hlen_st8_sym : length (regs st8) = 10).
+          { subst st8.
+            unfold run1.
+            rewrite Hdecode_pc15_sym.
+            cbn [CPU.step read_reg write_reg].
+            set (st_pc := write_reg REG_PC (S (read_reg REG_PC st7)) st7).
+            assert (Hlen_pc : length (regs st_pc) = 10).
+            { subst st_pc.
+              apply length_regs_write_reg_10; [exact Hlen_st7_sym|].
+              rewrite Hlen_st7_sym. unfold REG_PC. lia. }
+            apply length_regs_write_reg_10; [exact Hlen_pc|].
+            rewrite Hlen_pc. unfold REG_TEMP1. lia.
+          }
+          assert (Hpc_bound_st8_sym : REG_PC < length (regs st8))
+            by (rewrite Hlen_st8_sym; unfold REG_PC; lia).
+          assert (Htemp1_bound_st8_sym : REG_TEMP1 < length (regs st8))
+            by (rewrite Hlen_st8_sym; unfold REG_TEMP1; lia).
+          assert (Haddr_bound_st8_sym : REG_ADDR < length (regs st8))
+            by (rewrite Hlen_st8_sym; unfold REG_ADDR; lia).
+          assert (Hq_bound_st8_sym : REG_Q < length (regs st8))
+            by (rewrite Hlen_st8_sym; unfold REG_Q; lia).
+          assert (Hsym_bound_st8_sym : REG_SYM < length (regs st8))
+            by (rewrite Hlen_st8_sym; unfold REG_SYM; lia).
+          assert (Htemp1_st8_sym : read_reg REG_TEMP1 st8 = read_reg REG_SYM st7).
+          { subst st8.
+            apply (run1_copyreg_result st7 REG_TEMP1 REG_SYM);
+              try assumption.
+            exact Htemp1_bound_st7_sym.
+          }
+          assert (Htemp1_st8_val : read_reg REG_TEMP1 st8 = nth head tape tm.(tm_blank)).
+          { rewrite Htemp1_st8_sym, Hst3_sym_reg, Hst2_sym, Hst1_sym, Hsym_reg. reflexivity. }
+          assert (Haddr_st8_sym : read_reg REG_ADDR st8 = read_reg REG_ADDR st7).
+          { subst st8.
+            apply (run1_preserves_reg_copyreg st7 REG_TEMP1 REG_SYM REG_ADDR);
+              try assumption.
+            all: unfold REG_ADDR, REG_TEMP1, REG_PC; lia.
+          }
+          assert (Hprog_st8_sym : firstn (length program) (mem st8) = program).
+          { rewrite Hmem_st8_sym, Hmem_st7_sym, Hmem_st6_sym, Hmem_st5_sym, Hmem_st4_sym, Hmem_st3, Hmem_st2, Hmem_st1. exact Hprog. }
+          assert (Hpc_st8_sym_lt : read_reg REG_PC st8 < length program_instrs).
+          { rewrite Hpc_st8_sym. pose proof program_instrs_length_gt_48 as Hlen. lia. }
+          assert (Hdecode_pc16_sym : decode_instr st8 = SubReg REG_TEMP1 REG_TEMP1 REG_TEMP2).
+          { subst st8.
+            pose proof (decode_instr_program_state (run1 st7) Hpc_st8_sym_lt Hprog_st8_sym) as Hdecode_prog.
+            rewrite decode_instr_program_at_pc with (pc := 16) in Hdecode_prog by exact Hpc_st8_sym_lt.
+            exact Hdecode_prog.
+          }
+          set (st9 := run1 st8).
+          assert (Hpc_st9_sym : read_reg REG_PC st9 = 17).
+          { subst st9.
+            assert (Hunchanged : CPU.pc_unchanged (SubReg REG_TEMP1 REG_TEMP1 REG_TEMP2)).
+            { unfold CPU.pc_unchanged, REG_PC. simpl. congruence. }
+            pose proof (run1_pc_succ_instr st8 _ Hdecode_pc16_sym Hunchanged) as Hsucc.
+            rewrite Hpc_st8_sym in Hsucc.
+            simpl in Hsucc.
+            exact Hsucc.
+          }
+          assert (Hmem_st9_sym : mem st9 = mem st8).
+          { subst st9.
+            apply run1_mem_preserved_if_no_store.
+            rewrite Hdecode_pc16_sym; simpl; exact I.
+          }
+          assert (Hlen_st9_sym : length (regs st9) = 10).
+          { subst st9.
+            unfold run1.
+            rewrite Hdecode_pc16_sym.
+            cbn [CPU.step read_reg write_reg].
+            set (st_pc := write_reg REG_PC (S (read_reg REG_PC st8)) st8).
+            assert (Hlen_pc : length (regs st_pc) = 10).
+            { subst st_pc.
+              apply length_regs_write_reg_10; [exact Hlen_st8_sym|].
+              rewrite Hlen_st8_sym. unfold REG_PC. lia. }
+            apply length_regs_write_reg_10; [exact Hlen_pc|].
+            rewrite Hlen_pc. unfold REG_TEMP1. lia.
+          }
+          assert (Hpc_bound_st9_sym : REG_PC < length (regs st9))
+            by (rewrite Hlen_st9_sym; unfold REG_PC; lia).
+          assert (Htemp1_bound_st9_sym : REG_TEMP1 < length (regs st9))
+            by (rewrite Hlen_st9_sym; unfold REG_TEMP1; lia).
+          assert (Htemp2_bound_st9_sym : REG_TEMP2 < length (regs st9))
+            by (rewrite Hlen_st9_sym; unfold REG_TEMP2; lia).
+          assert (Haddr_bound_st9_sym : REG_ADDR < length (regs st9))
+            by (rewrite Hlen_st9_sym; unfold REG_ADDR; lia).
+          assert (Hq_bound_st9_sym : REG_Q < length (regs st9))
+            by (rewrite Hlen_st9_sym; unfold REG_Q; lia).
+          assert (Hsym_bound_st9_sym : REG_SYM < length (regs st9))
+            by (rewrite Hlen_st9_sym; unfold REG_SYM; lia).
+          assert (Htemp1_st9_sym : read_reg REG_TEMP1 st9 = read_reg REG_TEMP1 st8 - read_reg REG_TEMP2 st8).
+          { subst st9.
+            apply (run1_subreg_result st8 REG_TEMP1 REG_TEMP1 REG_TEMP2);
+              try assumption.
+            exact Htemp1_bound_st8_sym.
+          }
+          assert (Htemp1_st9_val : read_reg REG_TEMP1 st9 = nth head tape tm.(tm_blank) - sym_rule).
+          { rewrite Htemp1_st9_sym, Htemp1_st8_val.
+            rewrite Htemp2_st7_sym.
+            unfold read_mem.
+            rewrite Hmem_st6_sym, Hmem_st5_sym, Hmem_st4_sym, Hmem_st3, Hmem_st2, Hmem_st1.
+            pose proof (read_mem_rule_component tm ((q, tape), head) st i 1 Hinv_full H_i_lt) as Hcomp1.
+            rewrite Hrule_i in Hcomp1.
+            simpl in Hcomp1.
+            destruct Hcomp1 as [_ [Hsym_comp _]].
+            specialize (Hsym_comp eq_refl).
+            unfold read_mem in Hsym_comp.
+            rewrite Haddr_reg in Hsym_comp.
+            rewrite Nat.mul_comm in Hsym_comp.
+            exact Hsym_comp.
+          }
+          pose proof (Hsym_monotone i q (nth head tape tm.(tm_blank)) (q_next_res, write_res, move_res) H_i_lt) as Hsym_le_raw.
+          rewrite <- Hrules in Hsym_le_raw.
+          rewrite <- Hrule_i in Hsym_le_raw.
+          simpl in Hsym_le_raw.
+          specialize (Hsym_le_raw Hq_match_bool Hfind_skipn_rules).
+          assert (Hsym_lt : sym_rule < nth head tape tm.(tm_blank)).
+          { apply Nat.lt_of_le_of_ne with (y := nth head tape tm.(tm_blank)); [exact Hsym_le_raw|].
+            symmetry.
+            exact Hsym_mismatch.
+          }
+          assert (Htemp1_nonzero_sym : Nat.eqb (read_reg REG_TEMP1 st9) 0 = false).
+          { rewrite Htemp1_st9_val.
+            apply nat_eqb_sub_zero_false_of_lt.
+            exact Hsym_lt.
+          }
+          assert (Hst4_q_sym : read_reg REG_Q st4 = read_reg REG_Q st3).
+          { subst st4.
+            apply (run1_preserves_reg_jz_true st3 REG_TEMP1 12 REG_Q);
+              try assumption.
+            all: unfold REG_Q, REG_TEMP1, REG_PC; lia.
+          }
+          assert (Hst4_sym_sym : read_reg REG_SYM st4 = read_reg REG_SYM st3).
+          { subst st4.
+            apply (run1_preserves_reg_jz_true st3 REG_TEMP1 12 REG_SYM);
+              try assumption.
+            all: unfold REG_SYM, REG_TEMP1, REG_PC; lia.
+          }
+          assert (Hst5_q_sym : read_reg REG_Q st5 = read_reg REG_Q st4).
+          { subst st5.
+            apply (run1_preserves_reg_copyreg st4 REG_TEMP1 REG_ADDR REG_Q);
+              try assumption.
+            all: unfold REG_Q, REG_TEMP1, REG_PC; lia.
+          }
+          assert (Hst5_sym_sym : read_reg REG_SYM st5 = read_reg REG_SYM st4).
+          { subst st5.
+            apply (run1_preserves_reg_copyreg st4 REG_TEMP1 REG_ADDR REG_SYM);
+              try assumption.
+            all: unfold REG_SYM, REG_TEMP1, REG_PC; lia.
+          }
+          assert (Hst6_q_sym : read_reg REG_Q st6 = read_reg REG_Q st5).
+          { subst st6.
+            apply (run1_preserves_reg_addconst st5 REG_TEMP1 1 REG_Q);
+              try assumption.
+            all: unfold REG_Q, REG_TEMP1, REG_PC; lia.
+          }
+          assert (Hst6_sym_sym : read_reg REG_SYM st6 = read_reg REG_SYM st5).
+          { subst st6.
+            apply (run1_preserves_reg_addconst st5 REG_TEMP1 1 REG_SYM);
+              try assumption.
+            all: unfold REG_SYM, REG_TEMP1, REG_PC; lia.
+          }
+          assert (Hst7_q_sym : read_reg REG_Q st7 = read_reg REG_Q st6).
+          { subst st7.
+            apply (run1_preserves_reg_loadindirect st6 REG_TEMP2 REG_TEMP1 REG_Q);
+              try assumption.
+            all: unfold REG_Q, REG_TEMP2, REG_PC; lia.
+          }
+          assert (Hst7_sym_sym : read_reg REG_SYM st7 = read_reg REG_SYM st6).
+          { subst st7.
+            apply (run1_preserves_reg_loadindirect st6 REG_TEMP2 REG_TEMP1 REG_SYM);
+              try assumption.
+            all: unfold REG_SYM, REG_TEMP2, REG_PC; lia.
+          }
+          assert (Hst8_q_sym : read_reg REG_Q st8 = read_reg REG_Q st7).
+          { subst st8.
+            apply (run1_preserves_reg_copyreg st7 REG_TEMP1 REG_SYM REG_Q);
+              try assumption.
+            all: unfold REG_Q, REG_TEMP1, REG_PC; lia.
+          }
+          assert (Hst8_sym_sym : read_reg REG_SYM st8 = read_reg REG_SYM st7).
+          { subst st8.
+            apply (run1_preserves_reg_copyreg st7 REG_TEMP1 REG_SYM REG_SYM);
+              try assumption.
+            all: unfold REG_SYM, REG_TEMP1, REG_PC; lia.
+          }
+          assert (Haddr_st9_sym : read_reg REG_ADDR st9 = read_reg REG_ADDR st8).
+          { subst st9.
+            apply (run1_preserves_reg_subreg st8 REG_TEMP1 REG_TEMP1 REG_TEMP2 REG_ADDR);
+              try assumption.
+            all: unfold REG_ADDR, REG_TEMP1, REG_TEMP2, REG_PC; lia.
+          }
+          assert (Hst9_q_sym : read_reg REG_Q st9 = read_reg REG_Q st8).
+          { subst st9.
+            apply (run1_preserves_reg_subreg st8 REG_TEMP1 REG_TEMP1 REG_TEMP2 REG_Q);
+              try assumption.
+            all: unfold REG_Q, REG_TEMP1, REG_TEMP2, REG_PC; lia.
+          }
+          assert (Hst9_sym_sym : read_reg REG_SYM st9 = read_reg REG_SYM st8).
+          { subst st9.
+            apply (run1_preserves_reg_subreg st8 REG_TEMP1 REG_TEMP1 REG_TEMP2 REG_SYM);
+              try assumption.
+            all: unfold REG_SYM, REG_TEMP1, REG_TEMP2, REG_PC; lia.
+          }
+          assert (Hprog_st9_sym : firstn (length program) (mem st9) = program).
+          { rewrite Hmem_st9_sym, Hmem_st8_sym, Hmem_st7_sym, Hmem_st6_sym, Hmem_st5_sym,
+                   Hmem_st4_sym, Hmem_st3, Hmem_st2, Hmem_st1. exact Hprog. }
+          assert (Hpc_st9_sym_lt : read_reg REG_PC st9 < length program_instrs).
+          { rewrite Hpc_st9_sym. pose proof program_instrs_length_gt_48 as Hlen. lia. }
+          assert (Hdecode_pc17_sym : decode_instr st9 = Jz REG_TEMP1 22).
+          { subst st9.
+            pose proof (decode_instr_program_state (run1 st8) Hpc_st9_sym_lt Hprog_st9_sym) as Hdecode_prog.
+            rewrite decode_instr_program_at_pc with (pc := 17) in Hdecode_prog by exact Hpc_st9_sym_lt.
+            exact Hdecode_prog.
+          }
+          set (st10 := run1 st9).
+          assert (Hpc_st10_sym : read_reg REG_PC st10 = 18).
+          { subst st10.
+            unfold run1.
+            rewrite Hdecode_pc17_sym.
+            pose proof (CPU.step_jz_false REG_TEMP1 22 st9 Htemp1_nonzero_sym) as Hpc.
+            rewrite Hpc.
+            rewrite Hpc_st9_sym.
+            reflexivity.
+          }
+          assert (Hmem_st10_sym : mem st10 = mem st9).
+          { subst st10.
+            apply run1_mem_preserved_if_no_store.
+            rewrite Hdecode_pc17_sym; simpl; exact I.
+          }
+          assert (Hlen_st10_sym : length (regs st10) = 10).
+          { subst st10.
+            unfold run1.
+            rewrite Hdecode_pc17_sym.
+            cbn [CPU.step read_reg write_reg read_mem].
+            rewrite Htemp1_nonzero_sym.
+            apply length_regs_write_reg_10; [exact Hlen_st9_sym|].
+            rewrite Hlen_st9_sym. unfold REG_PC. lia.
+          }
+          assert (Hpc_bound_st10_sym : REG_PC < length (regs st10))
+            by (rewrite Hlen_st10_sym; unfold REG_PC; lia).
+          assert (Haddr_bound_st10_sym : REG_ADDR < length (regs st10))
+            by (rewrite Hlen_st10_sym; unfold REG_ADDR; lia).
+          assert (Hq_bound_st10_sym : REG_Q < length (regs st10))
+            by (rewrite Hlen_st10_sym; unfold REG_Q; lia).
+          assert (Hsym_bound_st10_sym : REG_SYM < length (regs st10))
+            by (rewrite Hlen_st10_sym; unfold REG_SYM; lia).
+          assert (Haddr_st10_sym : read_reg REG_ADDR st10 = read_reg REG_ADDR st9).
+          { subst st10.
+            apply (run1_preserves_reg_jz_false st9 REG_TEMP1 22 REG_ADDR);
+              try assumption.
+            all: unfold REG_ADDR, REG_TEMP1, REG_PC; lia.
+          }
+          assert (Hq_st10_sym : read_reg REG_Q st10 = read_reg REG_Q st9).
+          { subst st10.
+            apply (run1_preserves_reg_jz_false st9 REG_TEMP1 22 REG_Q);
+              try assumption.
+            all: unfold REG_Q, REG_TEMP1, REG_PC; lia.
+          }
+          assert (Hsym_st10_sym : read_reg REG_SYM st10 = read_reg REG_SYM st9).
+          { subst st10.
+            apply (run1_preserves_reg_jz_false st9 REG_TEMP1 22 REG_SYM);
+              try assumption.
+            all: unfold REG_SYM, REG_TEMP1, REG_PC; lia.
+          }
+          assert (Hprog_st10_sym : firstn (length program) (mem st10) = program).
+          { rewrite Hmem_st10_sym, Hmem_st9_sym, Hmem_st8_sym, Hmem_st7_sym, Hmem_st6_sym,
+                   Hmem_st5_sym, Hmem_st4_sym, Hmem_st3, Hmem_st2, Hmem_st1. exact Hprog. }
+          assert (Hpc_st10_sym_lt : read_reg REG_PC st10 < length program_instrs).
+          { rewrite Hpc_st10_sym. pose proof program_instrs_length_gt_48 as Hlen. lia. }
+          assert (Hdecode_pc18_sym : decode_instr st10 = AddConst REG_ADDR 5).
+          { subst st10.
+            pose proof (decode_instr_program_state (run1 st9) Hpc_st10_sym_lt Hprog_st10_sym) as Hdecode_prog.
+            rewrite decode_instr_program_at_pc with (pc := 18) in Hdecode_prog by exact Hpc_st10_sym_lt.
+            exact Hdecode_prog.
+          }
+          set (st11 := run1 st10).
+          assert (Hpc_st11_sym : read_reg REG_PC st11 = 19).
+          { subst st11.
+            assert (Hunchanged : CPU.pc_unchanged (AddConst REG_ADDR 5)).
+            { unfold CPU.pc_unchanged, REG_PC. simpl. congruence. }
+            pose proof (run1_pc_succ_instr st10 _ Hdecode_pc18_sym Hunchanged) as Hsucc.
+            rewrite Hpc_st10_sym in Hsucc.
+            simpl in Hsucc.
+            exact Hsucc.
+          }
+          assert (Hmem_st11_sym : mem st11 = mem st10).
+          { subst st11.
+            apply run1_mem_preserved_if_no_store.
+            rewrite Hdecode_pc18_sym; simpl; exact I.
+          }
+          assert (Hlen_st11_sym : length (regs st11) = 10).
+          { subst st11.
+            unfold run1.
+            rewrite Hdecode_pc18_sym.
+            cbn [CPU.step read_reg write_reg].
+            set (st_pc := write_reg REG_PC (S (read_reg REG_PC st10)) st10).
+            assert (Hlen_pc : length (regs st_pc) = 10).
+            { subst st_pc.
+              apply length_regs_write_reg_10; [exact Hlen_st10_sym|].
+              rewrite Hlen_st10_sym. unfold REG_PC. lia. }
+            apply length_regs_write_reg_10; [exact Hlen_pc|].
+            rewrite Hlen_pc. unfold REG_ADDR. lia.
+          }
+          assert (Hpc_bound_st11_sym : REG_PC < length (regs st11))
+            by (rewrite Hlen_st11_sym; unfold REG_PC; lia).
+          assert (Haddr_bound_st11_sym : REG_ADDR < length (regs st11))
+            by (rewrite Hlen_st11_sym; unfold REG_ADDR; lia).
+          assert (Htemp1_bound_st11_sym : REG_TEMP1 < length (regs st11))
+            by (rewrite Hlen_st11_sym; unfold REG_TEMP1; lia).
+          assert (Hq_bound_st11_sym : REG_Q < length (regs st11))
+            by (rewrite Hlen_st11_sym; unfold REG_Q; lia).
+          assert (Hsym_bound_st11_sym : REG_SYM < length (regs st11))
+            by (rewrite Hlen_st11_sym; unfold REG_SYM; lia).
+          assert (Haddr_st11_sym : read_reg REG_ADDR st11 = read_reg REG_ADDR st10 + 5).
+          { subst st11.
+            apply (run1_addconst_result st10 REG_ADDR 5);
+              try assumption.
+            exact Haddr_bound_st10_sym.
+          }
+          assert (Hq_st11_sym : read_reg REG_Q st11 = read_reg REG_Q st10).
+          { subst st11.
+            apply (run1_preserves_reg_addconst st10 REG_ADDR 5 REG_Q);
+              try assumption.
+            all: unfold REG_Q, REG_ADDR, REG_PC; lia.
+          }
+          assert (Hsym_st11_sym : read_reg REG_SYM st11 = read_reg REG_SYM st10).
+          { subst st11.
+            apply (run1_preserves_reg_addconst st10 REG_ADDR 5 REG_SYM);
+              try assumption.
+            all: unfold REG_SYM, REG_ADDR, REG_PC; lia.
+          }
+          assert (Hprog_st11_sym : firstn (length program) (mem st11) = program).
+          { rewrite Hmem_st11_sym, Hmem_st10_sym, Hmem_st9_sym, Hmem_st8_sym, Hmem_st7_sym,
+                   Hmem_st6_sym, Hmem_st5_sym, Hmem_st4_sym, Hmem_st3, Hmem_st2, Hmem_st1. exact Hprog. }
+          assert (Hpc_st11_sym_lt : read_reg REG_PC st11 < length program_instrs).
+          { rewrite Hpc_st11_sym. pose proof program_instrs_length_gt_48 as Hlen. lia. }
+          assert (Hdecode_pc19_sym : decode_instr st11 = LoadConst REG_TEMP1 1).
+          { subst st11.
+            pose proof (decode_instr_program_state (run1 st10) Hpc_st11_sym_lt Hprog_st11_sym) as Hdecode_prog.
+            rewrite decode_instr_program_at_pc with (pc := 19) in Hdecode_prog by exact Hpc_st11_sym_lt.
+            exact Hdecode_prog.
+          }
+          set (st12 := run1 st11).
+          assert (Hpc_st12_sym : read_reg REG_PC st12 = 20).
+          { subst st12.
+            assert (Hunchanged : CPU.pc_unchanged (LoadConst REG_TEMP1 1)).
+            { unfold CPU.pc_unchanged, REG_PC. simpl. congruence. }
+            pose proof (run1_pc_succ_instr st11 _ Hdecode_pc19_sym Hunchanged) as Hsucc.
+            rewrite Hpc_st11_sym in Hsucc.
+            simpl in Hsucc.
+            exact Hsucc.
+          }
+          assert (Hmem_st12_sym : mem st12 = mem st11).
+          { subst st12.
+            apply run1_mem_preserved_if_no_store.
+            rewrite Hdecode_pc19_sym; simpl; exact I.
+          }
+          assert (Hlen_st12_sym : length (regs st12) = 10).
+          { subst st12.
+            unfold run1.
+            rewrite Hdecode_pc19_sym.
+            cbn [CPU.step read_reg write_reg].
+            set (st_pc := write_reg REG_PC (S (read_reg REG_PC st11)) st11).
+            assert (Hlen_pc : length (regs st_pc) = 10).
+            { subst st_pc.
+              apply length_regs_write_reg_10; [exact Hlen_st11_sym|].
+              rewrite Hlen_st11_sym. unfold REG_PC. lia. }
+            apply length_regs_write_reg_10; [exact Hlen_pc|].
+            rewrite Hlen_pc. unfold REG_TEMP1. lia.
+          }
+          assert (Hpc_bound_st12_sym : REG_PC < length (regs st12))
+            by (rewrite Hlen_st12_sym; unfold REG_PC; lia).
+          assert (Htemp1_bound_st12_sym : REG_TEMP1 < length (regs st12))
+            by (rewrite Hlen_st12_sym; unfold REG_TEMP1; lia).
+          assert (Haddr_bound_st12_sym : REG_ADDR < length (regs st12))
+            by (rewrite Hlen_st12_sym; unfold REG_ADDR; lia).
+          assert (Hq_bound_st12_sym : REG_Q < length (regs st12))
+            by (rewrite Hlen_st12_sym; unfold REG_Q; lia).
+          assert (Hsym_bound_st12_sym : REG_SYM < length (regs st12))
+            by (rewrite Hlen_st12_sym; unfold REG_SYM; lia).
+          assert (Htemp1_st12_sym : read_reg REG_TEMP1 st12 = 1).
+          { subst st12.
+            apply (run1_loadconst_result st11 REG_TEMP1 1);
+              try assumption.
+            exact Htemp1_bound_st11_sym.
+          }
+          assert (Haddr_st12_sym : read_reg REG_ADDR st12 = read_reg REG_ADDR st11).
+          { subst st12.
+            apply (run1_preserves_reg_loadconst st11 REG_TEMP1 1 REG_ADDR);
+              try assumption.
+            all: unfold REG_ADDR, REG_TEMP1, REG_PC; lia.
+          }
+          assert (Hq_st12_sym : read_reg REG_Q st12 = read_reg REG_Q st11).
+          { subst st12.
+            apply (run1_preserves_reg_loadconst st11 REG_TEMP1 1 REG_Q);
+              try assumption.
+            all: unfold REG_Q, REG_TEMP1, REG_PC; lia.
+          }
+          assert (Hsym_st12_sym : read_reg REG_SYM st12 = read_reg REG_SYM st11).
+          { subst st12.
+            apply (run1_preserves_reg_loadconst st11 REG_TEMP1 1 REG_SYM);
+              try assumption.
+            all: unfold REG_SYM, REG_TEMP1, REG_PC; lia.
+          }
+          assert (Hprog_st12_sym : firstn (length program) (mem st12) = program).
+          { rewrite Hmem_st12_sym, Hmem_st11_sym, Hmem_st10_sym, Hmem_st9_sym, Hmem_st8_sym,
+                   Hmem_st7_sym, Hmem_st6_sym, Hmem_st5_sym, Hmem_st4_sym, Hmem_st3, Hmem_st2, Hmem_st1. exact Hprog. }
+          assert (Hpc_st12_sym_lt : read_reg REG_PC st12 < length program_instrs).
+          { rewrite Hpc_st12_sym. pose proof program_instrs_length_gt_48 as Hlen. lia. }
+          assert (Hdecode_pc20_sym : decode_instr st12 = Jnz REG_TEMP1 4).
+          { subst st12.
+            pose proof (decode_instr_program_state (run1 st11) Hpc_st12_sym_lt Hprog_st12_sym) as Hdecode_prog.
+            rewrite decode_instr_program_at_pc with (pc := 20) in Hdecode_prog by exact Hpc_st12_sym_lt.
+            exact Hdecode_prog.
+          }
+          assert (Htemp1_nonzero_st12 : Nat.eqb (read_reg REG_TEMP1 st12) 0 = false).
+          { rewrite Htemp1_st12_sym. reflexivity. }
+          set (st13 := run1 st12).
+          assert (Hpc_st13_sym : read_reg REG_PC st13 = 4).
+          { subst st13.
+            unfold run1.
+            rewrite Hdecode_pc20_sym.
+            apply CPU.step_jnz_false.
+            exact Htemp1_nonzero_st12.
+          }
+          assert (Hmem_st13_sym : mem st13 = mem st12).
+          { subst st13.
+            apply run1_mem_preserved_if_no_store.
+            rewrite Hdecode_pc20_sym; simpl; exact I.
+          }
+          assert (Hlen_st13_sym : length (regs st13) = 10).
+          { subst st13.
+            unfold run1.
+            rewrite Hdecode_pc20_sym.
+            cbn [CPU.step read_reg write_reg read_mem].
+            rewrite Htemp1_nonzero_st12.
+            apply length_regs_write_reg_10; [exact Hlen_st12_sym|].
+            rewrite Hlen_st12_sym. unfold REG_PC. lia.
+          }
+          assert (Hpc_bound_st13_sym : REG_PC < length (regs st13))
+            by (rewrite Hlen_st13_sym; unfold REG_PC; lia).
+          assert (Haddr_bound_st13_sym : REG_ADDR < length (regs st13))
+            by (rewrite Hlen_st13_sym; unfold REG_ADDR; lia).
+          assert (Hq_bound_st13_sym : REG_Q < length (regs st13))
+            by (rewrite Hlen_st13_sym; unfold REG_Q; lia).
+          assert (Hsym_bound_st13_sym : REG_SYM < length (regs st13))
+            by (rewrite Hlen_st13_sym; unfold REG_SYM; lia).
+          assert (Haddr_st13_sym : read_reg REG_ADDR st13 = read_reg REG_ADDR st12).
+          { subst st13.
+            apply (run1_preserves_reg_jnz_false st12 REG_TEMP1 4 REG_ADDR);
+              try assumption.
+            all: unfold REG_ADDR, REG_TEMP1, REG_PC; lia.
+          }
+          assert (Hq_st13_sym : read_reg REG_Q st13 = read_reg REG_Q st12).
+          { subst st13.
+            apply (run1_preserves_reg_jnz_false st12 REG_TEMP1 4 REG_Q);
+              try assumption.
+            all: unfold REG_Q, REG_TEMP1, REG_PC; lia.
+          }
+          assert (Hsym_st13_sym : read_reg REG_SYM st13 = read_reg REG_SYM st12).
+          { subst st13.
+            apply (run1_preserves_reg_jnz_false st12 REG_TEMP1 4 REG_SYM);
+              try assumption.
+            all: unfold REG_SYM, REG_TEMP1, REG_PC; lia.
+          }
+          assert (Haddr_st13_val : read_reg REG_ADDR st13 = RULES_START_ADDR + 5 * S i).
+          { rewrite Haddr_st13_sym, Haddr_st12_sym, Haddr_st11_sym, Haddr_st10_sym.
+            rewrite Haddr_st9_sym, Haddr_st8_sym, Haddr_st7_sym, Haddr_st6_sym, Haddr_st5_sym, Haddr_st4_sym.
+            rewrite Hst3_addr, Hst2_addr, Hst1_addr, Haddr_reg.
+            lia.
+          }
+          assert (Hq_st13_val : read_reg REG_Q st13 = q).
+          { rewrite Hq_st13_sym, Hq_st12_sym, Hq_st11_sym, Hq_st10_sym.
+            rewrite Hst9_q_sym, Hst8_q_sym, Hst7_q_sym, Hst6_q_sym, Hst5_q_sym, Hst4_q_sym.
+            rewrite Hst3_q, Hst2_q, Hst1_q, Hq_reg.
+            reflexivity.
+          }
+          assert (Hsym_st13_val : read_reg REG_SYM st13 = nth head tape tm.(tm_blank)).
+          { rewrite Hsym_st13_sym, Hsym_st12_sym, Hsym_st11_sym, Hsym_st10_sym.
+            rewrite Hst9_sym_sym, Hst8_sym_sym, Hst7_sym_sym, Hst6_sym_sym, Hst5_sym_sym, Hst4_sym_sym.
+            rewrite Hst3_sym_reg, Hst2_sym, Hst1_sym, Hsym_reg.
+            reflexivity.
+          }
+          assert (Hrun_st13 : run_n st 13 = st13).
+          { unfold st13, st12, st11, st10, st9, st8, st7, st6, st5, st4, st3, st2, st1.
+            repeat (rewrite run_n_succ).
+            simpl.
+            reflexivity.
+          }
+          exists 13.
+          exists (run_n st 13).
+          split; [reflexivity|].
+          rewrite Hrun_st13.
+          split.
+          { unfold find_rule_loop_inv.
+            repeat split.
+            - exact Hq_st13_val.
+            - exact Hsym_st13_val.
+            - exact Haddr_st13_val.
+            - exact Hpc_st13_sym.
+          }
+          { right. reflexivity. }
+
+  Qed.
+
 
 Axiom pc_29_implies_registers_from_rule_table :
   forall (tm : TM) (conf : TMConfig) (st : State) (k : nat) (st' : State),

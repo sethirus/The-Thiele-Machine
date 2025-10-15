@@ -15,10 +15,14 @@ Definition strict_advantage_statement : Prop :=
     turing_blind_steps (tseitin_family n) >= Nat.pow 2 n.
 
 Theorem thiele_formally_subsumes_turing :
-  (forall tm : TM, thiele_simulates_tm tm) /\
+  (forall tm : TM
+          (Hcat : catalogue_static_check tm = true)
+          (Hfit : rules_fit tm),
+      thiele_simulates_tm tm Hcat Hfit) /\
   strict_advantage_statement.
 Proof.
   split.
-  - apply turing_contained_in_thiele.
+  - intros tm Hcat Hfit.
+    apply turing_contained_in_thiele; assumption.
   - exact thiele_exponential_separation.
 Qed.
