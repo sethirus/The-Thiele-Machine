@@ -1,6 +1,6 @@
 Require Import ThieleUniversal.TM.
 Require Import ThieleUniversal.CPU.
-Require Import UTM_Encode.
+Require Import ThieleUniversal.UTM_Encode.
 Require Import List.
 Require Import Lia.
 Require Import Arith.

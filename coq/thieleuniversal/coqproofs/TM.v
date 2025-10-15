@@ -81,6 +81,51 @@ Definition tm_step (tm : TM) (conf : TMConfig) : TMConfig :=
       (q', tape', h')
   end.
 
+Lemma tm_step_rule_found_continue :
+  forall tm q tape head q' write move,
+    (Nat.eqb q tm.(tm_accept) || Nat.eqb q tm.(tm_reject)) = false ->
+    find_rule tm.(tm_rules) q (nth head tape tm.(tm_blank)) = Some (q', write, move) ->
+    tm_step tm ((q, tape), head) =
+      let tape_ext :=
+        if Nat.ltb head (length tape) then tape
+        else tape ++ repeat tm.(tm_blank) (head - length tape) in
+      let tape' := firstn head tape_ext ++ [write] ++ skipn (S head) tape_ext in
+      let h' := Z.to_nat (Z.max 0%Z (Z.of_nat head + move)) in
+      (q', tape', h').
+Proof.
+  intros tm q tape head q' write move Hcontinue Hfind.
+  unfold tm_step.
+  rewrite Hcontinue.
+  simpl.
+  rewrite Hfind.
+  reflexivity.
+Qed.
+
+Lemma tm_step_no_rule_continue :
+  forall tm q tape head,
+    (Nat.eqb q tm.(tm_accept) || Nat.eqb q tm.(tm_reject)) = false ->
+    find_rule tm.(tm_rules) q (nth head tape tm.(tm_blank)) = None ->
+    tm_step tm ((q, tape), head) = ((q, tape), head).
+Proof.
+  intros tm q tape head Hcontinue Hfind.
+  unfold tm_step.
+  rewrite Hcontinue.
+  simpl.
+  rewrite Hfind.
+  reflexivity.
+Qed.
+
+Lemma tm_step_halting_state :
+  forall tm q tape head,
+    (Nat.eqb q tm.(tm_accept) || Nat.eqb q tm.(tm_reject)) = true ->
+    tm_step tm ((q, tape), head) = ((q, tape), head).
+Proof.
+  intros tm q tape head Hhalt.
+  unfold tm_step.
+  rewrite Hhalt.
+  reflexivity.
+Qed.
+
 (* Iterate the TM transition n times. *)
 Fixpoint tm_step_n (tm : TM) (conf : TMConfig) (n : nat) : TMConfig :=
  match n with

@@ -2,9 +2,9 @@
 
 (* ...existing code... *)
 
-Require Import CPU.
-Require Import UTM_Encode.
-Require Import UTM_Program.
+Require Import ThieleUniversal.CPU.
+Require Import ThieleUniversal.UTM_Encode.
+Require Import ThieleUniversal.UTM_Program.
 Open Scope nat_scope.
 Require Import Coq.Lists.List.
 Require Import Coq.Arith.Compare_dec.
@@ -12,12 +12,12 @@ Require Import Coq.Bool.Bool.
 Require Import Lia.
 Require Import Coq.Arith.PeanoNat.
 Require Import Coq.Classes.RelationClasses.
-Require Import TM.
+Require Import ThieleUniversal.TM.
 Require Import ZArith.
 Import ListNotations.
-Import TM.
-Import UTM_Encode.
-Import UTM_Program.
+Import ThieleUniversal.TM.
+Import ThieleUniversal.UTM_Encode.
+Import ThieleUniversal.UTM_Program.
 
 Lemma length_UTM_Encode_encode_rule : forall r,
   length (UTM_Encode.encode_rule r) = 5.
