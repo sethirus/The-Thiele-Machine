@@ -34,9 +34,9 @@ thielemachine/coqproofs/NUSD.vos thielemachine/coqproofs/NUSD.vok thielemachine/
 thielemachine/coqproofs/Separation.vo thielemachine/coqproofs/Separation.glob thielemachine/coqproofs/Separation.v.beautified thielemachine/coqproofs/Separation.required_vo: thielemachine/coqproofs/Separation.v 
 thielemachine/coqproofs/Separation.vio: thielemachine/coqproofs/Separation.v 
 thielemachine/coqproofs/Separation.vos thielemachine/coqproofs/Separation.vok thielemachine/coqproofs/Separation.required_vos: thielemachine/coqproofs/Separation.v 
-thielemachine/coqproofs/Simulation.vo thielemachine/coqproofs/Simulation.glob thielemachine/coqproofs/Simulation.v.beautified thielemachine/coqproofs/Simulation.required_vo: thielemachine/coqproofs/Simulation.v thieleuniversal/coqproofs/TM.vo thielemachine/coqproofs/ThieleMachine.vo
-thielemachine/coqproofs/Simulation.vio: thielemachine/coqproofs/Simulation.v thieleuniversal/coqproofs/TM.vio thielemachine/coqproofs/ThieleMachine.vio
-thielemachine/coqproofs/Simulation.vos thielemachine/coqproofs/Simulation.vok thielemachine/coqproofs/Simulation.required_vos: thielemachine/coqproofs/Simulation.v thieleuniversal/coqproofs/TM.vos thielemachine/coqproofs/ThieleMachine.vos
+thielemachine/coqproofs/Simulation.vo thielemachine/coqproofs/Simulation.glob thielemachine/coqproofs/Simulation.v.beautified thielemachine/coqproofs/Simulation.required_vo: thielemachine/coqproofs/Simulation.v thieleuniversal/coqproofs/TM.vo thieleuniversal/coqproofs/UTM_Rules.vo thielemachine/coqproofs/ThieleMachine.vo thielemachine/coqproofs/EncodingBridge.vo modular_proofs/Encoding.vo modular_proofs/EncodingBounds.vo
+thielemachine/coqproofs/Simulation.vio: thielemachine/coqproofs/Simulation.v thieleuniversal/coqproofs/TM.vio thieleuniversal/coqproofs/UTM_Rules.vio thielemachine/coqproofs/ThieleMachine.vio thielemachine/coqproofs/EncodingBridge.vio modular_proofs/Encoding.vio modular_proofs/EncodingBounds.vio
+thielemachine/coqproofs/Simulation.vos thielemachine/coqproofs/Simulation.vok thielemachine/coqproofs/Simulation.required_vos: thielemachine/coqproofs/Simulation.v thieleuniversal/coqproofs/TM.vos thieleuniversal/coqproofs/UTM_Rules.vos thielemachine/coqproofs/ThieleMachine.vos thielemachine/coqproofs/EncodingBridge.vos modular_proofs/Encoding.vos modular_proofs/EncodingBounds.vos
 thielemachine/coqproofs/Subsumption.vo thielemachine/coqproofs/Subsumption.glob thielemachine/coqproofs/Subsumption.v.beautified thielemachine/coqproofs/Subsumption.required_vo: thielemachine/coqproofs/Subsumption.v thieleuniversal/coqproofs/TM.vo thielemachine/coqproofs/ThieleMachine.vo thielemachine/coqproofs/Simulation.vo thielemachine/coqproofs/Separation.vo
 thielemachine/coqproofs/Subsumption.vio: thielemachine/coqproofs/Subsumption.v thieleuniversal/coqproofs/TM.vio thielemachine/coqproofs/ThieleMachine.vio thielemachine/coqproofs/Simulation.vio thielemachine/coqproofs/Separation.vio
 thielemachine/coqproofs/Subsumption.vos thielemachine/coqproofs/Subsumption.vok thielemachine/coqproofs/Subsumption.required_vos: thielemachine/coqproofs/Subsumption.v thieleuniversal/coqproofs/TM.vos thielemachine/coqproofs/ThieleMachine.vos thielemachine/coqproofs/Simulation.vos thielemachine/coqproofs/Separation.vos
@@ -55,9 +55,15 @@ thielemachine/coqproofs/ThieleMachineConcretePack.vos thielemachine/coqproofs/Th
 thielemachine/coqproofs/Bisimulation.vo thielemachine/coqproofs/Bisimulation.glob thielemachine/coqproofs/Bisimulation.v.beautified thielemachine/coqproofs/Bisimulation.required_vo: thielemachine/coqproofs/Bisimulation.v 
 thielemachine/coqproofs/Bisimulation.vio: thielemachine/coqproofs/Bisimulation.v 
 thielemachine/coqproofs/Bisimulation.vos thielemachine/coqproofs/Bisimulation.vok thielemachine/coqproofs/Bisimulation.required_vos: thielemachine/coqproofs/Bisimulation.v 
+thielemachine/coqproofs/EncodingBridge.vo thielemachine/coqproofs/EncodingBridge.glob thielemachine/coqproofs/EncodingBridge.v.beautified thielemachine/coqproofs/EncodingBridge.required_vo: thielemachine/coqproofs/EncodingBridge.v modular_proofs/Encoding.vo modular_proofs/EncodingBounds.vo thieleuniversal/coqproofs/TM.vo
+thielemachine/coqproofs/EncodingBridge.vio: thielemachine/coqproofs/EncodingBridge.v modular_proofs/Encoding.vio modular_proofs/EncodingBounds.vio thieleuniversal/coqproofs/TM.vio
+thielemachine/coqproofs/EncodingBridge.vos thielemachine/coqproofs/EncodingBridge.vok thielemachine/coqproofs/EncodingBridge.required_vos: thielemachine/coqproofs/EncodingBridge.v modular_proofs/Encoding.vos modular_proofs/EncodingBounds.vos thieleuniversal/coqproofs/TM.vos
 thieleuniversal/coqproofs/TM.vo thieleuniversal/coqproofs/TM.glob thieleuniversal/coqproofs/TM.v.beautified thieleuniversal/coqproofs/TM.required_vo: thieleuniversal/coqproofs/TM.v 
 thieleuniversal/coqproofs/TM.vio: thieleuniversal/coqproofs/TM.v 
 thieleuniversal/coqproofs/TM.vos thieleuniversal/coqproofs/TM.vok thieleuniversal/coqproofs/TM.required_vos: thieleuniversal/coqproofs/TM.v 
+thieleuniversal/coqproofs/UTM_Rules.vo thieleuniversal/coqproofs/UTM_Rules.glob thieleuniversal/coqproofs/UTM_Rules.v.beautified thieleuniversal/coqproofs/UTM_Rules.required_vo: thieleuniversal/coqproofs/UTM_Rules.v modular_proofs/Encoding.vo thieleuniversal/coqproofs/TM.vo
+thieleuniversal/coqproofs/UTM_Rules.vio: thieleuniversal/coqproofs/UTM_Rules.v modular_proofs/Encoding.vio thieleuniversal/coqproofs/TM.vio
+thieleuniversal/coqproofs/UTM_Rules.vos thieleuniversal/coqproofs/UTM_Rules.vok thieleuniversal/coqproofs/UTM_Rules.required_vos: thieleuniversal/coqproofs/UTM_Rules.v modular_proofs/Encoding.vos thieleuniversal/coqproofs/TM.vos
 thieleuniversal/coqproofs/CPU.vo thieleuniversal/coqproofs/CPU.glob thieleuniversal/coqproofs/CPU.v.beautified thieleuniversal/coqproofs/CPU.required_vo: thieleuniversal/coqproofs/CPU.v thieleuniversal/coqproofs/TM.vo
 thieleuniversal/coqproofs/CPU.vio: thieleuniversal/coqproofs/CPU.v thieleuniversal/coqproofs/TM.vio
 thieleuniversal/coqproofs/CPU.vos thieleuniversal/coqproofs/CPU.vok thieleuniversal/coqproofs/CPU.required_vos: thieleuniversal/coqproofs/CPU.v thieleuniversal/coqproofs/TM.vos
@@ -94,12 +100,18 @@ test_vscoq/coqproofs/test_vscoq.vos test_vscoq/coqproofs/test_vscoq.vok test_vsc
 modular_proofs/TM_Basics.vo modular_proofs/TM_Basics.glob modular_proofs/TM_Basics.v.beautified modular_proofs/TM_Basics.required_vo: modular_proofs/TM_Basics.v 
 modular_proofs/TM_Basics.vio: modular_proofs/TM_Basics.v 
 modular_proofs/TM_Basics.vos modular_proofs/TM_Basics.vok modular_proofs/TM_Basics.required_vos: modular_proofs/TM_Basics.v 
-modular_proofs/Encoding.vo modular_proofs/Encoding.glob modular_proofs/Encoding.v.beautified modular_proofs/Encoding.required_vo: modular_proofs/Encoding.v 
-modular_proofs/Encoding.vio: modular_proofs/Encoding.v 
-modular_proofs/Encoding.vos modular_proofs/Encoding.vok modular_proofs/Encoding.required_vos: modular_proofs/Encoding.v 
+modular_proofs/EncodingBounds.vo modular_proofs/EncodingBounds.glob modular_proofs/EncodingBounds.v.beautified modular_proofs/EncodingBounds.required_vo: modular_proofs/EncodingBounds.v 
+modular_proofs/EncodingBounds.vio: modular_proofs/EncodingBounds.v 
+modular_proofs/EncodingBounds.vos modular_proofs/EncodingBounds.vok modular_proofs/EncodingBounds.required_vos: modular_proofs/EncodingBounds.v 
+modular_proofs/Encoding.vo modular_proofs/Encoding.glob modular_proofs/Encoding.v.beautified modular_proofs/Encoding.required_vo: modular_proofs/Encoding.v modular_proofs/EncodingBounds.vo
+modular_proofs/Encoding.vio: modular_proofs/Encoding.v modular_proofs/EncodingBounds.vio
+modular_proofs/Encoding.vos modular_proofs/Encoding.vok modular_proofs/Encoding.required_vos: modular_proofs/Encoding.v modular_proofs/EncodingBounds.vos
 modular_proofs/Thiele_Basics.vo modular_proofs/Thiele_Basics.glob modular_proofs/Thiele_Basics.v.beautified modular_proofs/Thiele_Basics.required_vo: modular_proofs/Thiele_Basics.v 
 modular_proofs/Thiele_Basics.vio: modular_proofs/Thiele_Basics.v 
 modular_proofs/Thiele_Basics.vos modular_proofs/Thiele_Basics.vok modular_proofs/Thiele_Basics.required_vos: modular_proofs/Thiele_Basics.v 
-modular_proofs/Simulation.vo modular_proofs/Simulation.glob modular_proofs/Simulation.v.beautified modular_proofs/Simulation.required_vo: modular_proofs/Simulation.v modular_proofs/TM_Basics.vo modular_proofs/Encoding.vo
-modular_proofs/Simulation.vio: modular_proofs/Simulation.v modular_proofs/TM_Basics.vio modular_proofs/Encoding.vio
-modular_proofs/Simulation.vos modular_proofs/Simulation.vok modular_proofs/Simulation.required_vos: modular_proofs/Simulation.v modular_proofs/TM_Basics.vos modular_proofs/Encoding.vos
+modular_proofs/Simulation.vo modular_proofs/Simulation.glob modular_proofs/Simulation.v.beautified modular_proofs/Simulation.required_vo: modular_proofs/Simulation.v modular_proofs/TM_Basics.vo modular_proofs/Encoding.vo modular_proofs/EncodingBounds.vo
+modular_proofs/Simulation.vio: modular_proofs/Simulation.v modular_proofs/TM_Basics.vio modular_proofs/Encoding.vio modular_proofs/EncodingBounds.vio
+modular_proofs/Simulation.vos modular_proofs/Simulation.vok modular_proofs/Simulation.required_vos: modular_proofs/Simulation.v modular_proofs/TM_Basics.vos modular_proofs/Encoding.vos modular_proofs/EncodingBounds.vos
+sandboxes/EncodingMini.vo sandboxes/EncodingMini.glob sandboxes/EncodingMini.v.beautified sandboxes/EncodingMini.required_vo: sandboxes/EncodingMini.v 
+sandboxes/EncodingMini.vio: sandboxes/EncodingMini.v 
+sandboxes/EncodingMini.vos sandboxes/EncodingMini.vok sandboxes/EncodingMini.required_vos: sandboxes/EncodingMini.v 
