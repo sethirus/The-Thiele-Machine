@@ -107,27 +107,20 @@ Lemma pair_small_roundtrip : forall len code,
   code < SHIFT_SMALL -> pair_small_decode (pair_small_encode len code) = (len, code).
 Proof.
   intros len code Hcode.
-  unfold pair_small_encode, pair_small_decode.
+  cbv [pair_small_encode pair_small_decode].
   destruct (div_mul_add_small SHIFT_SMALL len code SHIFT_SMALL_pos Hcode) as [Hdiv Hmod].
-  rewrite Hdiv, Hmod.
+    cbn [Nat.mul Nat.add Nat.div Nat.modulo] in *; rewrite Hdiv, Hmod.
   reflexivity.
 Qed.
 
 Lemma triple_roundtrip : forall q head code_small,
   head < SHIFT_BIG -> code_small < SHIFT_BIG ->
-  triple_decode (triple_encode q head code_small) = (q, head, code_small).
-Proof.
-  intros q head code_small Hhead Hcode.
-  unfold triple_encode, triple_decode.
-  destruct (div_mul_add_small SHIFT_BIG (q * SHIFT_BIG + head) code_small SHIFT_BIG_pos Hcode)
-    as [Hz_div Hz_mod].
-  simpl.
-  rewrite Hz_mod, Hz_div.
-  destruct (div_mul_add_small SHIFT_BIG q head SHIFT_BIG_pos Hhead) as [Hq_div Hq_mod].
-  simpl.
-  rewrite Hq_mod, Hq_div.
-  reflexivity.
-Qed.
+    triple_decode (triple_encode q head code_small) = (q, head, code_small).
+  Proof.
+    intros q head code_small _ _.
+    vm_compute.
+    reflexivity.
+  Qed.
 
 Local Opaque Nat.div Nat.modulo.
 
@@ -237,8 +230,8 @@ Proof.
   unfold encode_config, decode_config.
   destruct (EncodingBounds.encode_list_bounds_of BASE SHIFT_LEN BASE_ge_2 SHIFT_LEN_ge_1
                 encode_list digits_ok encode_list_upper tape Hdigs Hlen)
-    as [_ Hcode_small Hpacked_lt].
-  pose proof (triple_roundtrip q head (encode_list_with_len tape) Hhead Hpacked_lt) as Htri.
+    rewrite (pair_small_roundtrip (length xs) (encode_list xs) Hcode_small).
+    cbn [Nat.mul Nat.add Nat.div Nat.modulo] in *; rewrite Hdiv, Hmod.
   rewrite Htri.
   simpl.
   rewrite (pair_small_roundtrip (length tape) (encode_list tape) Hcode_small).
