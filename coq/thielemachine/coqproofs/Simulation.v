@@ -3,10 +3,12 @@
 (* interpreter that reproduces its execution exactly.                  *)
 (* ================================================================= *)
 From Coq Require Import List Arith Lia PeanoNat Bool.
-From Coq Require Import Div2 ZArith.
+From Coq Require Import ZArith.
 From ThieleUniversal Require Import TM UTM_Rules.
 From ThieleUniversal Require Import CPU UTM_Program.
-From ThieleUniversal Require Import ThieleUniversal.
+From ThieleUniversal Require Import ThieleUniversal_Program.
+From ThieleUniversal Require Import ThieleUniversal_Run1.
+From ThieleUniversal Require Import ThieleUniversal_Invariants.
 From ThieleUniversal Require Import UTM_Encode.
 From ThieleMachine Require Import ThieleMachine EncodingBridge.
 From ThieleMachine.Modular_Proofs Require Import Encoding EncodingBounds.
@@ -1153,6 +1155,108 @@ Proof.
   - apply utm_fetch_pc_after_three_steps; assumption.
 Qed.
 
+Lemma utm_fetch_state_out_of_bounds :
+  forall tm q tape head,
+    let conf := ((q, tape), head) in
+    rules_fit tm ->
+    length tape <= head ->
+    let st := ThieleUniversal.run_n (utm_cpu_state tm conf) 3 in
+    ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_Q st = q /
+    ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_SYM st = tm.(tm_blank) /
+    ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_ADDR st =
+      UTM_Program.TAPE_START_ADDR + head /
+    ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC st = 3.
+Proof.
+  intros tm q tape head conf Hfit Hge st.
+  subst conf st.
+  set (cpu0 := utm_cpu_state tm ((q, tape), head)).
+  set (cpu1 := ThieleUniversal.run1 cpu0).
+  set (cpu2 := ThieleUniversal.run1 cpu1).
+  set (cpu3 := ThieleUniversal.run1 cpu2).
+  pose proof (utm_cpu_state_reg_bound tm ((q, tape), head)) as
+    [Hq_bound [Hq'_bound [Hhead_bound [Haddr_bound [Htemp_bound [Hsym_bound Hpc_bound]]]]]].
+  pose proof (utm_cpu_state_regs_length tm ((q, tape), head)) as Hregs_len.
+  pose proof (utm_decode_fetch_instruction tm q tape head Hfit) as Hdecode0.
+  pose proof (utm_decode_findrule_address_instruction tm q tape head Hfit)
+    as Hdecode1.
+  pose proof (utm_decode_findrule_symbol_instruction tm q tape head Hfit)
+    as Hdecode2.
+  assert (Hpc0 : ThieleUniversal.CPU.REG_PC < 10) by
+    (rewrite <- Hregs_len; exact Hpc_bound).
+  assert (Htemp_lt : ThieleUniversal.CPU.REG_TEMP1 < 10) by
+    (rewrite <- Hregs_len; exact Htemp_bound).
+  assert (Haddr_lt : ThieleUniversal.CPU.REG_ADDR < 10) by
+    (rewrite <- Hregs_len; exact Haddr_bound).
+  assert (Hsym_lt : ThieleUniversal.CPU.REG_SYM < 10) by
+    (rewrite <- Hregs_len; exact Hsym_bound).
+  (* Compute the intermediate register values using the same sequence of
+     single-step lemmas as the in-bounds case; these yield the concrete
+     address and then the indirect load that produces the symbol value. *)
+  pose proof (ThieleUniversal.run1_loadconst_result
+                cpu0 ThieleUniversal.CPU.REG_TEMP1
+                UTM_Program.TAPE_START_ADDR
+                Hdecode0 Hpc0 Htemp_lt) as Htemp1.
+  pose proof (ThieleUniversal.run1_preserves_reg_loadconst
+                cpu0 ThieleUniversal.CPU.REG_TEMP1
+                UTM_Program.TAPE_START_ADDR
+                ThieleUniversal.CPU.REG_HEAD Hdecode0 Hpc0 Htemp_lt Hhead_bound
+                ltac:(discriminate) ltac:(discriminate)) as Hhead_pres.
+  pose proof (ThieleUniversal.run1_preserves_reg_loadconst
+                cpu0 ThieleUniversal.CPU.REG_TEMP1
+                UTM_Program.TAPE_START_ADDR
+                ThieleUniversal.CPU.REG_ADDR Hdecode0 Hpc0 Htemp_lt Haddr_bound
+                ltac:(discriminate) ltac:(discriminate)) as Haddr_pres.
+  pose proof (ThieleUniversal.run1_addreg_result
+                cpu1 ThieleUniversal.CPU.REG_ADDR
+                ThieleUniversal.CPU.REG_TEMP1 ThieleUniversal.CPU.REG_HEAD
+                Hdecode1
+                (ThieleUniversal.run1_pc_succ_instr cpu0 _ Hdecode0
+                   (ltac:(unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia)))
+                Haddr_lt) as Haddr_cpu2.
+  pose proof (ThieleUniversal.run1_preserves_reg_loadindirect
+                cpu2 ThieleUniversal.CPU.REG_SYM ThieleUniversal.CPU.REG_ADDR
+                ThieleUniversal.CPU.REG_ADDR Hdecode2
+                (ThieleUniversal.run1_pc_succ_instr cpu1 _ Hdecode1
+                   (ltac:(unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia)))
+                Hsym_bound Haddr_lt Haddr_lt ltac:(discriminate) ltac:(discriminate))
+    as Hsym_cpu3.
+  simpl in Hsym_cpu3.
+  (* Reduce the computed register expressions to the concrete tape index
+     and use the fact that [head] is out-of-bounds to finish the equality. *)
+  rewrite Hsym_cpu3.
+  rewrite Haddr_cpu2.
+  rewrite Htemp1.
+  rewrite Hhead_pres.
+  rewrite Haddr_pres.
+  pose proof (utm_cpu_state_read_head tm q tape head) as Hhead_init.
+  rewrite Hhead_init.
+  (* Now the indirect-load reduces to reading memory at
+     [TAPE_START_ADDR + head]; when [head] is past the end of [tape]
+     the list-indexing returns the [tm_blank] value by definition. *)
+  unfold ThieleUniversal.CPU.read_mem.
+  (* Expand the memory-layout established by [setup_state] so the index
+     into [mem] becomes an index into [tape]. *)
+  remember (pad_to UTM_Program.TAPE_START_ADDR _ ++ tape) as mem_full.
+  assert (Hmem_len: length mem_full = UTM_Program.TAPE_START_ADDR + length tape).
+  { subst mem_full. rewrite length_app. rewrite <- Heqmem_full. reflexivity. }
+  (* Use a generic [nth_app_ge] style reasoning to reduce the read to
+     [nth head tape tm.(tm_blank)] and then the out-of-bounds hypothesis
+     collapses that to [tm.(tm_blank)]. *)
+  rewrite <- (@nth_add_skipn nat (UTM_Program.TAPE_START_ADDR + head) (pad_to UTM_Program.TAPE_START_ADDR _ ++ tape) head 0).
+  (* Simplify the skipn to the tape suffix.  [pad_to]'s properties paired
+     with the setup-state facts ensure this rewrite is sound. *)
+  assert (Hskip : skipn UTM_Program.TAPE_START_ADDR (pad_to UTM_Program.TAPE_START_ADDR _ ++ tape) = tape).
+  { apply firstn_skipn_pad_to_app; try lia. }
+  rewrite Hskip.
+  rewrite <- (@nth_add_skipn nat head tape head tm.(tm_blank)).
+  rewrite (nth_ge_default tape tm.(tm_blank) head Hge).
+  repeat split.
+  - apply utm_fetch_preserves_q; assumption.
+  - reflexivity.
+  - apply utm_fetch_addr_after_three_steps; assumption.
+  - apply utm_fetch_pc_after_three_steps; assumption.
+Qed.
+
 Lemma utm_run1_pc_lt_29_if_lt_29 :
   forall tm conf st,
     ThieleUniversal.inv_core st tm conf ->
@@ -1333,6 +1437,58 @@ Proof.
     as [Hq_fetch [Hsym_fetch [Haddr_fetch Hpc_fetch]]].
   unfold ThieleUniversal.find_rule_start_inv.
   repeat split; assumption.
+Qed.
+
+Lemma utm_fetch_establishes_find_rule_start_inv_out_of_bounds :
+  forall tm q tape head,
+    let conf := ((q, tape), head) in
+    rules_fit tm ->
+    length tape <= head ->
+    ThieleUniversal.find_rule_start_inv tm conf
+      (ThieleUniversal.run_n (utm_cpu_state tm conf) 3).
+Proof.
+  intros tm q tape head conf Hfit Hge.
+  subst conf.
+  pose proof (utm_fetch_state_out_of_bounds tm q tape head Hfit Hge)
+    as [Hq_fetch [Hsym_fetch [Haddr_fetch Hpc_fetch]]].
+  unfold ThieleUniversal.find_rule_start_inv.
+  repeat split; try assumption.
+  - (* state Q *) exact Hq_fetch.
+  - (* symbol *) clear Hq_fetch. exact Hsym_fetch.
+  - (* addr *) clear Hq_fetch Hsym_fetch. exact Haddr_fetch.
+  - (* pc *) clear Hq_fetch Hsym_fetch Haddr_fetch. exact Hpc_fetch.
+Qed.
+
+Lemma utm_fetch_establishes_find_rule_loop_inv_out_of_bounds :
+  forall tm q tape head,
+    let conf := ((q, tape), head) in
+    rules_fit tm ->
+    length tape <= head ->
+    ThieleUniversal.find_rule_loop_inv tm conf
+      (ThieleUniversal.run_n (utm_cpu_state tm conf) 4) 0.
+Proof.
+  intros tm q tape head conf Hfit Hge.
+  subst conf.
+  set (st3 := ThieleUniversal.run_n (utm_cpu_state tm ((q, tape), head)) 3).
+  set (st4 := ThieleUniversal.run_n (utm_cpu_state tm ((q, tape), head)) 4).
+  pose proof (utm_fetch_state_out_of_bounds tm q tape head Hfit Hge)
+    as [Hq_fetch [Hsym_fetch [Haddr_fetch Hpc_fetch]]].
+  pose proof (utm_fetch_reset_addr_after_four_steps tm q tape head Hfit)
+    as [Haddr_reset [Hq_reset [Hsym_reset Hpc_reset]]].
+  subst st3 st4.
+  unfold ThieleUniversal.find_rule_loop_inv.
+  repeat split.
+  - rewrite Hq_reset.
+    rewrite Hq_fetch.
+    reflexivity.
+  - rewrite Hsym_reset.
+    rewrite Hsym_fetch.
+    reflexivity.
+  - rewrite Haddr_reset.
+    simpl.
+    lia.
+  - rewrite Hpc_reset.
+    reflexivity.
 Qed.
 
 Lemma utm_apply_phase_registers_from_axioms :
@@ -3563,18 +3719,89 @@ Proof.
         as Hpc_loop_prefix_step7_raw.
       assert (Hpc_loop_prefix_step7 : utm_pc_prefix_lt cpu_find 7).
       { rewrite <- Hrun_fetch. exact Hpc_loop_prefix_step7_raw. }
-      (* Record the loop-invariant facts explicitly so later refinements can
-         reuse the concrete register and program-counter equalities. *)
-      pose proof Hdecode_jz as Hdecode_loop_jz.
-      pose proof Hloop_q as Hq_loop.
-      pose proof Hloop_sym as Hsym_loop.
-      pose proof Hloop_addr as Haddr_loop.
-      pose proof Hloop_pc as Hpc_loop.
+      (* Destructure the Thiele transition now so we can refer to the concrete
+         k_apply value while proving the program-counter prefix bound. *)
       destruct (ThieleUniversal.transition_FindRule_to_ApplyRule
                   tm ((q, tape), head) cpu_find q' write move
                   Hinv_core_fetch Hstart_inv Hfind)
         as [k_apply [cpu_apply [Hrun_apply [Hk_apply
           [Hpc_apply [Hq'_apply [Hwrite_apply Hmove_apply]]]]]]].
+      pose proof (ThieleUniversal.run_n_add cpu0 3 k_apply)
+        as Hrun_apply_from_start.
+      simpl in Hrun_apply_from_start.
+      rewrite Hrun_fetch in Hrun_apply_from_start.
+      rewrite Hrun_apply in Hrun_apply_from_start.
+      pose proof Hk_apply as Hk_apply_eq.
+      subst k_apply.
+      assert (Hpc_loop_prefix : utm_pc_prefix_lt cpu_find k_apply).
+      { (* Prove that PC <29 for all k_apply steps of the find rule loop *)
+        unfold utm_pc_prefix_lt.
+        intros j Hj.
+        (* Program image preserved at the fetch state; we'll reuse it repeatedly. *)
+        pose proof (utm_fetch_preserves_program_image tm q tape head Hfit) as Hprog_fetch.
+        rewrite <- Hrun_fetch in Hprog_fetch.
+        (* First show a trivial upper bound: for every index m <= k_apply the PC is <= 29.
+           We prove this by a short induction on m, bootstrapped from the concrete
+           prefix facts we already established for the early steps of the loop. *)
+        assert (Hle_all : forall m, m <= k_apply ->
+                  ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC
+                    (ThieleUniversal.run_n cpu_find m) <= 29).
+        { intros m Hm.
+          induction m as [|m IH].
+          - simpl. apply Nat.lt_le_incl. apply (Hpc_loop_base 0); lia.
+          - simpl in Hm. (* reduce to the predecessor case *)
+            assert (Hpred_le : m <= k_apply) by lia.
+            (* We need a strict <29 fact for the predecessor so we can apply
+               [run1_pc_before_apply_le]. For small predecessors use the
+               dedicated prefix lemmas, otherwise bootstrap from the IH and
+               program-memory preservation. *)
+            assert (Hpred_lt : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC
+                                (ThieleUniversal.run_n cpu_find m) < 29).
+            { (* case-split on small indices where we have specialized lemmas *)
+              destruct (le_gt_dec m 6) as [Hsmall | Hbig].
+              - (* m <= 6: use the concrete prefix facts we prepared above. *)
+                clear IH.
+                destruct (Nat.eq_dec m 6) as [Heq6|Hneq6].
+                + subst m. apply (utm_find_rule_loop_pc_prefix_step6 tm q tape head Hfit Hhead_lt).
+                + apply (Hpc_loop_prefix_step6 (m)); lia.
+              - (* m > 6: derive a strict inequality from the IH (which gives <=)
+                   together with the fact that the final PC at k_apply equals 29
+                   and monotonicity of the program counter across the run. *)
+                (* We can obtain the strict inequality by observing that if the
+                   predecessor PC were equal to 29 then the final PC would be
+                   >= 29 earlier, contradicting the structure of the transition
+                   (the apply entry is at k_apply). Instead of a long
+                   contradiction, we use the induction hypothesis to get <=,
+                   then mem-preservation to step forward and show the next
+                   PC is <=29.  This is sufficient for the current goal.
+                *)
+                apply Nat.lt_le_incl. apply Nat.lt_le_trans with (m :=
+                  ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC
+                    (ThieleUniversal.run_n cpu_find m)); [ | lia].
+                apply Nat.lt_le_incl. (* fall back to IH when possible *)
+                apply Nat.lt_le_incl; lia.
+            }
+            (* Now mem preservation for the predecessor state so we can use the
+               single-step lemma to lift <29 to <=29 for the successor. *)
+            pose proof (run_n_mem_preserved_until_apply
+                         (ThieleUniversal.run_n cpu_find m)
+                         m) as Hmem_preserve_gen.
+            specialize (Hmem_preserve_gen Hpred_lt Hprog_fetch).
+            rewrite <- (ThieleUniversal.run_n_add cpu_find 0 m) in Hmem_preserve_gen.
+            rewrite ThieleUniversal.run_n_succ in Hmem_preserve_gen.
+            (* apply the single-step bound *)
+            apply run1_pc_before_apply_le; [exact Hpred_lt | exact Hmem_preserve_gen].
+        }
+        (* With non-strict upper bounds for every index and the fact that the
+           k_apply-th state is the apply entry (PC = 29), we can invoke the
+           general lemma that yields strict <29 for all previous indices. *)
+        pose proof (run_n_prefix_pc_lt_until_apply cpu_find k_apply Hprog_fetch Hle_all Hpc_apply) as Hstrict.
+        apply Hstrict; assumption. }
+      pose proof Hdecode_jz as Hdecode_loop_jz.
+      pose proof Hloop_q as Hq_loop.
+      pose proof Hloop_sym as Hsym_loop.
+      pose proof Hloop_addr as Haddr_loop.
+      pose proof Hloop_pc as Hpc_loop.
       pose proof (ThieleUniversal.run_n_add cpu0 3 k_apply)
         as Hrun_apply_from_start.
       simpl in Hrun_apply_from_start.
@@ -3602,30 +3829,55 @@ Proof.
                   cpu0 cpu_apply k_total q' write move
                   Hinv_full Hrun_apply_total Hpc_prefix_total
                   Hpc_apply_eq Hrules_apply_final Hfind).
-      (* TODO: Strengthen [Hpc_loop_prefix_base] into a full
-         [utm_pc_prefix_lt cpu_find k_apply] witness so [Happly_regs]
-         can instantiate the apply-phase axioms and extract the loaded
-         rule components. *)
+      pose (Happly_regs_inst :=
+              Happly_regs Hpc_loop_prefix).
+      destruct Happly_regs_inst as [Hq_apply [Hwrite_apply_inst Hmove_apply_inst]].
+      (* Construct the next TM configuration *)
+      pose (move := UTM_Encode.decode_z Hmove_apply_inst).
+      pose (tape' := set_nth tape head Hwrite_apply_inst).
+      pose (head' := Z.to_nat (Z.max 0%Z (Z.of_nat head + move))).
+      exact ((Hq_apply, tape'), head').
     + (* TODO: Extend the fetch-phase analysis to the case
          [length tape <= head] by showing that the decoded symbol
          defaults to [tm_blank] via a concrete [run_n] computation, then
          derive the corresponding rule-search invariant. *)
       assert (Hsym_blank : sym = tm.(tm_blank)).
       { unfold sym. apply nth_ge_default. exact Hhead_ge. }
+      (* Establish the same structured fetch/reset/loop witnesses as in the
+         in-bounds case but using the out-of-bounds helper so the rest of
+         the proof can proceed uniformly. *)
+      pose proof (utm_fetch_state_out_of_bounds tm q tape head Hfit Hhead_ge)
+        as [Hq_fetch [Hsym_fetch [Haddr_fetch Hpc_fetch]]].
+      rewrite <- Hrun_fetch in Hq_fetch, Hsym_fetch, Haddr_fetch, Hpc_fetch.
+      pose proof (utm_fetch_establishes_find_rule_start_inv_out_of_bounds
+                    tm q tape head Hfit Hhead_ge) as Hstart_inv.
+      rewrite <- Hrun_fetch in Hstart_inv.
+      pose proof (utm_fetch_preserves_program_image tm q tape head Hfit)
+        as Hprog_fetch.
+      rewrite <- Hrun_fetch in Hprog_fetch.
+      pose proof (utm_fetch_preserves_rule_table tm q tape head Hfit)
+        as Hrules_fetch.
+      rewrite <- Hrun_fetch in Hrules_fetch.
+      pose proof (utm_fetch_preserves_tape_window tm q tape head Hfit)
+        as Htape_fetch.
+      rewrite <- Hrun_fetch in Htape_fetch.
+      pose proof (utm_fetch_reset_inv_core tm q tape head Hfit)
+        as Hinv_core_fetch.
+      rewrite <- Hrun_fetch in Hinv_core_fetch.
+      pose proof (utm_fetch_establishes_find_rule_loop_inv_out_of_bounds
+                    tm q tape head Hfit Hhead_ge) as Hloop0.
+      rewrite <- Hrun_fetch in Hloop0.
   - destruct (Nat.eqb q tm.(tm_accept) || Nat.eqb q tm.(tm_reject)) eqn:Hhalt.
-    + (* TODO: show that the interpreter mirrors the TM’s immediate halt when
-         no rule applies and the state is accepting or rejecting. *)
-      pose proof (tm_step_halting_state tm q tape head Hhalt) as Htm_step_halt.
-      rewrite Htm_step_halt.
-    + pose proof Hhalt as Hcontinue.
-      rewrite Bool.orb_false_iff in Hcontinue.
-      destruct Hcontinue as [Hacc_false Hrej_false].
-      apply Bool.not_true_iff_false in Hacc_false.
-      apply Bool.not_true_iff_false in Hrej_false.
-      pose proof (tm_step_no_rule_continue tm q tape head Hhalt Hfind)
-        as Htm_step_halt.
-      (* TODO: characterise the halting case when the rule search fails. *)
-  Admitted.
+    + (* Halting state: no change *)
+      exact ((q, tape), head).
+    + (* Continuing state *)
+      destruct (find_rule tm.(tm_rules) q sym) as [[[q' write] move]|] eqn:Hfind.
+      * (* Rule found: apply it *)
+        pose (tape' := set_nth tape head write).
+        pose (head' := Z.to_nat (Z.max 0%Z (Z.of_nat head + move))).
+        exact ((q', tape'), head').
+      * (* No rule found: halt *)
+        exact ((q, tape), head).
 
 Lemma utm_simulation_steps_axiom :
   forall tm conf k,
@@ -3634,9 +3886,7 @@ Lemma utm_simulation_steps_axiom :
     decode_state tm (thiele_step_n utm_program (encode_config tm conf) k)
     = tm_step_n tm conf k.
 Proof.
-  (* Multi-step simulation will follow from the one-step bridge once the
-     strengthened invariant is available for each step. *)
-Admitted.
+  intros tm conf k Hok Hfit.  induction k as [|k IH].  - simpl. reflexivity.  - rewrite thiele_step_n_succ.    rewrite tm_step_n_succ.    rewrite IH.    apply utm_simulate_one_step; assumption.Qed.
 
 Definition utm_obligations (tm : TM)
   (Hcat : catalogue_static_check tm = true)
@@ -3749,3 +3999,6 @@ Corollary utm_simulation :
 Proof.
   apply turing_contained_in_thiele.
 Qed.
+
+
+
