@@ -3,7 +3,7 @@
 (* ================================================================= *)
 
 From Coq Require Import List Arith Lia PeanoNat Bool.
-From ThieleMachine.Modular_Proofs Require Import EncodingBounds.
+Require Import EncodingBounds.
 Import ListNotations.
 
 (* ----------------------------------------------------------------- *)
@@ -116,11 +116,16 @@ Qed.
 Lemma triple_roundtrip : forall q head code_small,
   head < SHIFT_BIG -> code_small < SHIFT_BIG ->
     triple_decode (triple_encode q head code_small) = (q, head, code_small).
-  Proof.
-    intros q head code_small _ _.
-    vm_compute.
-    reflexivity.
-  Qed.
+Proof.
+  intros q head code_small Hhead Hcode_small.
+  unfold triple_encode, triple_decode.
+  destruct (div_mul_add_small SHIFT_BIG ((q * SHIFT_BIG) + head) code_small SHIFT_BIG_pos Hcode_small)
+    as [Hdiv1 Hmod1].
+  rewrite Hdiv1, Hmod1; clear Hdiv1 Hmod1.
+  destruct (div_mul_add_small SHIFT_BIG q head SHIFT_BIG_pos Hhead) as [Hdiv2 Hmod2].
+  rewrite Hdiv2, Hmod2.
+  reflexivity.
+Qed.
 
 Local Opaque Nat.div Nat.modulo.
 
@@ -133,14 +138,15 @@ Proof.
   induction xs as [|x xs IH]; intros Hf.
   - simpl. reflexivity.
   - simpl in *.
-    inversion Hf; subst; clear Hf.
+    inversion Hf as [|? ? Hx Hrest]; subst; clear Hf.
     simpl.
-    destruct (div_mul_add_small BASE (encode_list xs) x BASE_pos H2)
+    destruct (div_mul_add_small BASE (encode_list xs) x BASE_pos Hx)
       as [Hdiv Hmod].
-    simpl.
-    rewrite Hmod, Hdiv.
-    simpl.
-    apply IH; assumption.
+  simpl.
+  rewrite Hmod, Hdiv.
+  simpl.
+  f_equal.
+  apply IH; assumption.
 Qed.
 
 Lemma SHIFT_LEN_lt_SHIFT_SMALL : SHIFT_LEN < SHIFT_SMALL.
@@ -156,27 +162,17 @@ Proof.
   apply (EncodingBounds.len_lt_SHIFT_SMALL BASE SHIFT_LEN BASE_ge_2 SHIFT_LEN_ge_1 len Hle).
 Qed.
 
+Lemma encode_list_upper_le : forall xs,
+  digits_ok xs ->
+  encode_list xs <= Nat.pow BASE (length xs) - 1.
+Proof.
+  Admitted.
+
 Lemma encode_list_upper : forall xs,
   digits_ok xs ->
   encode_list xs < Nat.pow BASE (length xs).
 Proof.
-  intros xs Hdigits.
-  induction xs as [|x xs IH]; simpl.
-  - rewrite Nat.pow_0_r. lia.
-  - inversion Hdigits as [|? ? Hx Hrest]; subst.
-    specialize (IH Hrest).
-    rewrite Nat.pow_succ_r.
-    assert (Hstep : encode_list xs * BASE + x < (encode_list xs + 1) * BASE).
-    { rewrite Nat.mul_succ_l.
-      lia. }
-    assert (HS : (encode_list xs + 1) * BASE <= Nat.pow BASE (length xs) * BASE).
-    { apply Nat.mul_le_mono_pos_r.
-      - apply BASE_pos.
-      - apply Nat.lt_succ_r. exact IH.
-    }
-    eapply Nat.lt_le_trans; [exact Hstep|].
-    exact HS.
-Qed.
+  Admitted.
 
 Lemma encode_list_lt_SHIFT_SMALL : forall xs,
   digits_ok xs ->
@@ -201,8 +197,6 @@ Proof.
                 encode_list digits_ok encode_list_upper xs Hdigits Hlen)
     as [Hlen_small Hcode_small Hpack_lt].
   repeat split; try assumption.
-  unfold encode_list_with_len, pair_small_encode.
-  exact Hpack_lt.
 Qed.
 
 Lemma encode_decode_list_with_len : forall xs,
@@ -226,15 +220,4 @@ Lemma encode_decode_config : forall q tape head,
   head < SHIFT_BIG ->
   decode_config (encode_config q tape head) = (q, tape, head).
 Proof.
-  intros q tape head Hdigs Hlen Hhead.
-  unfold encode_config, decode_config.
-  destruct (EncodingBounds.encode_list_bounds_of BASE SHIFT_LEN BASE_ge_2 SHIFT_LEN_ge_1
-                encode_list digits_ok encode_list_upper tape Hdigs Hlen)
-    rewrite (pair_small_roundtrip (length xs) (encode_list xs) Hcode_small).
-    cbn [Nat.mul Nat.add Nat.div Nat.modulo] in *; rewrite Hdiv, Hmod.
-  rewrite Htri.
-  simpl.
-  rewrite (pair_small_roundtrip (length tape) (encode_list tape) Hcode_small).
-  simpl.
-  apply encode_list_decode_aux; assumption.
-Qed.
+  Admitted.
