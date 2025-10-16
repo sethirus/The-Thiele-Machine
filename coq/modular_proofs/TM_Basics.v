@@ -21,6 +21,10 @@ Definition TMConfig := TMState.
 (* TM transition: state -> symbol -> (new_state, write_symbol, move) *)
 Definition TMTransition := nat -> nat -> (nat * nat * nat).
 
+(* Bounds for TM *)
+Definition num_states : nat := 10.
+Definition num_symbols : nat := 2.
+
 (* Helper: replace nth element in list *)
 Fixpoint replace_nth (l : list nat) (n : nat) (v : nat) : list nat :=
   match l, n with
@@ -48,8 +52,11 @@ Fixpoint tm_run_n (tm : TMTransition) (conf : TMConfig) (n : nat) : TMConfig :=
 (* Property: replace_nth preserves length *)
 Lemma replace_nth_length : forall l n v, length (replace_nth l n v) = length l.
 Proof.
-  induction l; intros; simpl; auto.
-  destruct n; simpl; auto.
+  induction l as [|x xs IH]; intros n v.
+  - reflexivity.
+  - destruct n as [|n]; simpl.
+    + reflexivity.
+    + rewrite IH. reflexivity.
 Qed.
 
 Lemma replace_nth_Forall :
@@ -63,9 +70,12 @@ Proof.
   - constructor.
   - inversion Hall; subst; clear Hall.
     destruct n as [|n]; simpl.
-    + constructor; auto.
-    + constructor; auto.
-      apply IH; assumption.
+    + constructor.
+      * exact Hv.
+      * exact H2.
+    + constructor.
+      * exact H1.
+      * apply IH; assumption.
 Qed.
 
 Lemma nth_replace_nth_eq :
@@ -73,10 +83,11 @@ Lemma nth_replace_nth_eq :
     n < length l ->
     nth n (replace_nth l n v) d = v.
 Proof.
-  induction l as [|x xs IH]; intros [|n] v d Hlen; simpl in *; try lia.
+  induction l as [|x xs IH]; intros n v d Hlen.
+  destruct n as [|n']; simpl in *.
   - reflexivity.
   - apply IH.
-    simpl in Hlen. lia.
+    lia.
 Qed.
 
 Lemma nth_replace_nth_neq :
@@ -85,9 +96,18 @@ Lemma nth_replace_nth_neq :
     m < length l ->
     nth m (replace_nth l n v) d = nth m l d.
 Proof.
-  induction l as [|x xs IH]; intros [|n] [|m] v d Hneq Hlen; simpl in *; try lia; auto.
-  - f_equal. apply IH; auto.
-    simpl in Hlen. lia.
+  induction l as [|x xs IH]; intros n m v d Hneq Hlen.
+  destruct n as [|n'].
+  - destruct m as [|m'].
+    + contradiction.
+    + simpl in *.
+      auto.
+  - destruct m as [|m'].
+    + simpl in *.
+      auto.
+    + simpl in *.
+      f_equal.
+      apply IH; [assumption | lia].
 Qed.
 
 Lemma Forall_nth :
@@ -100,8 +120,7 @@ Proof.
   induction l as [|x xs IH]; intros [|n] d Hall Hlen; simpl in *; try lia.
   - inversion Hall; subst. assumption.
   - inversion Hall; subst.
-    apply IH; auto.
-    simpl in Hlen. lia.
+    apply IH; [exact H2 | simpl in Hlen; lia].
 Qed.
 
 Lemma Forall_replace_nth_value :
@@ -130,8 +149,7 @@ Proof.
   intros.
   unfold tm_step, get_tape.
   simpl.
-  remember (tm q (nth head tape 0)) as trans.
-  destruct trans as [[q' write] move].
+  destruct (tm q (nth head tape 0)) as [[q' write] move].
   simpl.
   apply replace_nth_length.
 Qed.
