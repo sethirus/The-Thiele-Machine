@@ -99,9 +99,15 @@ Section ListHelpers.
     now rewrite IH.
   Qed.
 
-  
-
-
-  (* TODO: add robust filter_firstn_concat lemmas here in a follow-up step. *)
+  Lemma filter_firstn_app_ge :
+    forall (p : A -> bool) (l1 l2 : list A) n,
+      (length l1 <= n)%nat ->
+      filter p (firstn n (l1 ++ l2)) =
+        filter p l1 ++ filter p (firstn (n - length l1) l2).
+  Proof.
+    intros p l1 l2 n Hlen.
+    rewrite firstn_app_ge by exact Hlen.
+    now rewrite filter_app.
+  Qed.
 
 End ListHelpers.
