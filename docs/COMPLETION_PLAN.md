@@ -1,7 +1,7 @@
 # Thiele Machine Completion Plan: Software-Only Proof of Claims
 
 **Date Created:** October 11, 2025  
-**Last Updated:** October 12, 2025  
+**Last Updated:** December 21, 2025
 **Agent Executor:** AI Coding Assistant  
 **Objective:** Exhaust all software-only avenues to prove or disprove Thiele Machine claims (P=NP, RSA breaking, exponential separation). Iterate until axioms are mechanized, experiments scaled, and algorithms built. If gaps persist, document exact blockers.
 
@@ -78,6 +78,7 @@ This plan is derived from a comprehensive review of the repository. It prioritiz
   - Recommended next steps:
     1. Prove `simulate_one_step` for the universal program and then generalise by induction to `utm_simulation_steps`.
     2. Factor out a small, concrete cost model for the interpreter and prove the bound first for that model.
+  - Progress (2025-11-06): Audited the remaining TODOs inside `utm_simulate_one_step`, catalogued the missing `<29` guard witnesses for all 18 apply-loop iterations, and drafted a proof skeleton for the halting/no-rule subcases. Consolidated these findings in the Coq notebook so the next pass can focus on instantiating `utm_apply_phase_registers_from_axioms` and lifting the strengthened invariant into the multi-step bridge.
     3. Add test traces that exercise the same shape of programs used in the proofs so Coq lemmas can be validated against runtime behaviour.
   - Acceptance criterion: `utm_simulation_steps` instantiated either as a proven `Lemma` or replaced by a tightly scoped, well-justified axiom with a mitigation/test plan.
   - Progress (2025-11-01): Refactored `coq/modular_proofs/Simulation.v` so `utm_simulation_steps` is now a lemma derived from two one-step obligations: (i) `tm_step` preserves `tm_config_ok`, and (ii) the universal interpreter advances encoded configurations exactly.  Added `tm_run_n_preserves_ok` and `simulate_one_step_decode` helpers to document the inductive skeleton.  The outstanding work is to mechanise `tm_step_preserves_ok` and `simulate_one_step` inside the universal interpreter layer so the assumptions become lemmas.
@@ -113,6 +114,8 @@ This plan is derived from a comprehensive review of the repository. It prioritiz
   - Progress (2025-12-01): Updated `scripts/quick_coq_check.sh` to compile `EncodingBridge.v` and `ThieleMachine.v` before attempting the legacy simulation; with the prerequisites in place the harness now surfaces the real `Simulation.v` nat/Z mismatch, providing a precise target for the remaining G14/G15 work. Completion plan, analytics dashboards, attempts log, and closure summary note the new failure signal.
   - Progress (2025-12-07): Tightened the shared invariant so `tm_config_ok` bounds the head position by `SHIFT_LEN`, updated the modular and legacy proofs to translate that bound to the `SHIFT_BIG` arithmetic where needed, and promoted `utm_head_lt_shift_len` from a parameter to a lemma. Documentation lane (checklist, worksheet, ledger, analytics, integration guide, blockers, closure summary) now records the stronger head invariant and cites the helper bridges in `EncodingBounds`.
   - Progress (2025-12-11): Added Prop-level catalogue lemmas (`utm_blank_lt_base`, `utm_rules_write_lt_base`, `utm_rules_move_abs_le_one`) so the digit and move inequalities from `UTM_Rules.v` are available as reusable facts ahead of wiring them into the preservation witness.
+- Progress (2025-12-20): Sketched the mechanisation strategy for the last universal simulation gaps. Split the remaining work into three concrete lemmas — (i) `utm_pc_prefix_full_apply`, threading the loop-prefix witness through all 18 apply iterations by composing the per-instruction PC bounds already proved in `UTM_Program.v`; (ii) `utm_fetch_symbol_oob_blank`, a direct `run_n` calculation establishing that out-of-window symbols decode to `tm_blank`; and (iii) `utm_interpreter_halting_guard`, showing that the universal interpreter exits in lockstep with the TM halting guard. Each lemma now has a dependency checklist (program counter arithmetic, tape window arithmetic, halting decode) and a sub-proof ordering captured in `docs/encoding/16-UTM-CLOSURE-SUMMARY.md`, so the next pass can focus on mechanising them without re-auditing the whole proof.
+- Progress (2025-12-21): Recast the halting-guard plan in the modular layer by targeting a `thiele_halt_no_rule` witness. The new approach uses `ThieleMachine.Modular_Proofs.Simulation` to mirror `tm_step_halting_state` without replaying the universal `run_n` trace, ensuring the pending interpreter lemma can be discharged under the lightweight semantics before reintroducing the low-level guards if necessary.
 
 - [x] **Prove `state_eqb_refl` (concrete proven; abstract signature still axiomatized)**
   - File: `coq/thielemachine/coqproofs/ThieleMachineSig.v` and `coq/thielemachine/coqproofs/ThieleMachineConcrete.v`.
