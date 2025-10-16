@@ -1,31 +1,26 @@
 (* ================================================================= *)
 (* Modular Proofs for Thiele Machine Simulation                       *)
 (* ================================================================= *)
-(* This directory contains granular, incremental proofs building up  *)
-(* to the full simulation theorem, avoiding large axioms/admits.     *)
+(* This file provides the lightweight single-tape Turing machine       *)
+(* semantics together with the list lemmas reused by the modular      *)
+(* simulation proof.                                                  *)
 (* ================================================================= *)
 
-From Coq Require Import List Arith Lia PeanoNat Bool.
+From Coq Require Import List Arith Lia Bool.
 Import ListNotations.
 
 (* ----------------------------------------------------------------- *)
-(* Basic TM Definitions and Properties                               *)
+(* Basic TM Definitions                                              *)
 (* ----------------------------------------------------------------- *)
 
-(* Turing Machine state: (state, tape, head position) *)
 Definition TMState := (nat * list nat * nat)%type.
-
-(* TM configuration: (current state, tape, head) *)
 Definition TMConfig := TMState.
-
-(* TM transition: state -> symbol -> (new_state, write_symbol, move) *)
 Definition TMTransition := nat -> nat -> (nat * nat * nat).
 
-(* Bounds for TM *)
-Definition num_states : nat := 10.
-Definition num_symbols : nat := 2.
+Definition BASE : nat := 2.
+Definition tm_blank : nat := 0.
+Definition digits_ok (xs : list nat) : Prop := Forall (fun d => d < BASE) xs.
 
-(* Helper: replace nth element in list *)
 Fixpoint replace_nth (l : list nat) (n : nat) (v : nat) : list nat :=
   match l, n with
   | [], _ => []
@@ -33,30 +28,34 @@ Fixpoint replace_nth (l : list nat) (n : nat) (v : nat) : list nat :=
   | x :: xs, S n' => x :: replace_nth xs n' v
   end.
 
-(* Simple TM step function *)
+Definition move_head (head move : nat) : nat :=
+  match move with
+  | 0 => head
+  | 1 => S head
+  | _ => Nat.pred head
+  end.
+
 Definition tm_step (tm : TMTransition) (conf : TMConfig) : TMConfig :=
   let '(q, tape, head) := conf in
-  let symbol := nth head tape 0 in
+  let symbol := nth head tape tm_blank in
   let '(q', write, move) := tm q symbol in
   let tape' := replace_nth tape head write in
-  let head' := if Nat.eqb move 0 then head else if Nat.eqb move 1 then head + 1 else head - 1 in
+  let head' := move_head head move in
   (q', tape', head').
 
-(* Run TM for n steps *)
 Fixpoint tm_run_n (tm : TMTransition) (conf : TMConfig) (n : nat) : TMConfig :=
   match n with
   | 0 => conf
   | S n' => tm_run_n tm (tm_step tm conf) n'
   end.
 
-(* Property: replace_nth preserves length *)
+(* ----------------------------------------------------------------- *)
+(* Structural List Lemmas                                            *)
+(* ----------------------------------------------------------------- *)
+
 Lemma replace_nth_length : forall l n v, length (replace_nth l n v) = length l.
 Proof.
-  induction l as [|x xs IH]; intros n v.
-  - reflexivity.
-  - destruct n as [|n]; simpl.
-    + reflexivity.
-    + rewrite IH. reflexivity.
+  induction l as [|x xs IH]; intros [|n] v; simpl; auto.
 Qed.
 
 Lemma replace_nth_Forall :
@@ -66,90 +65,104 @@ Lemma replace_nth_Forall :
     Forall P (replace_nth l n v).
 Proof.
   intros P l.
-  induction l as [|x xs IH]; intros n v Hall Hv; simpl.
-  - constructor.
-  - inversion Hall; subst; clear Hall.
-    destruct n as [|n]; simpl.
-    + constructor.
-      * exact Hv.
-      * exact H2.
-    + constructor.
-      * exact H1.
-      * apply IH; assumption.
+  induction l as [|x xs IH]; intros [|n] v Hall Hv; simpl; auto.
+  - inversion Hall; subst; constructor; auto.
+  - inversion Hall; subst; constructor; auto.
 Qed.
 
-Lemma nth_replace_nth_eq :
-  forall l n v d,
-    n < length l ->
-    nth n (replace_nth l n v) d = v.
+(* ----------------------------------------------------------------- *)
+(* Configuration Well-formedness                                     *)
+(* ----------------------------------------------------------------- *)
+
+Definition tm_config_ok (conf : TMConfig) : Prop :=
+  let '(q, tape, head) := conf in
+  digits_ok tape /\ head < length tape.
+
+Lemma tm_config_ok_digits :
+  forall q tape head,
+    tm_config_ok (q, tape, head) ->
+    digits_ok tape.
+Proof. intros q tape head [Hdigs _]. exact Hdigs. Qed.
+
+Lemma tm_config_ok_head :
+  forall q tape head,
+    tm_config_ok (q, tape, head) ->
+    head < length tape.
+Proof. intros q tape head [_ Hhead]. exact Hhead. Qed.
+
+Lemma tm_config_ok_change_state :
+  forall q1 q2 tape head,
+    tm_config_ok (q1, tape, head) ->
+    tm_config_ok (q2, tape, head).
+Proof. intros q1 q2 tape head Hok. exact Hok. Qed.
+
+Lemma tm_config_ok_update_write :
+  forall q tape head write,
+    tm_config_ok (q, tape, head) ->
+    write < BASE ->
+    tm_config_ok (q, replace_nth tape head write, head).
 Proof.
-  induction l as [|x xs IH]; intros n v d Hlen.
-  destruct n as [|n']; simpl in *.
-  - reflexivity.
-  - apply IH.
-    lia.
+  intros q tape head write Hok Hwrite.
+  destruct Hok as [Hdigs Hhead].
+  split.
+  - apply replace_nth_Forall; [exact Hdigs|exact Hwrite].
+  - rewrite replace_nth_length. exact Hhead.
 Qed.
 
-Lemma nth_replace_nth_neq :
-  forall l n m v d,
-    n <> m ->
-    m < length l ->
-    nth m (replace_nth l n v) d = nth m l d.
+Lemma tm_config_ok_update_head :
+  forall q tape head head',
+    tm_config_ok (q, tape, head) ->
+    head' < length tape ->
+    tm_config_ok (q, tape, head').
 Proof.
-  induction l as [|x xs IH]; intros n m v d Hneq Hlen.
-  destruct n as [|n'].
-  - destruct m as [|m'].
-    + contradiction.
-    + simpl in *.
-      auto.
-  - destruct m as [|m'].
-    + simpl in *.
-      auto.
-    + simpl in *.
-      f_equal.
-      apply IH; [assumption | lia].
+  intros q tape head head' Hok Hhead'.
+  destruct Hok as [Hdigs _].
+  split; auto.
 Qed.
 
-Lemma Forall_nth :
-  forall (P : nat -> Prop) (l : list nat) n d,
-    Forall P l ->
-    n < length l ->
-    P (nth n l d).
-Proof.
-  intros P l.
-  induction l as [|x xs IH]; intros [|n] d Hall Hlen; simpl in *; try lia.
-  - inversion Hall; subst. assumption.
-  - inversion Hall; subst.
-    apply IH; [exact H2 | simpl in Hlen; lia].
-Qed.
+(* ----------------------------------------------------------------- *)
+(* Step Preservation Facts                                           *)
+(* ----------------------------------------------------------------- *)
 
-Lemma Forall_replace_nth_value :
-  forall (P : nat -> Prop) (l : list nat) n v,
-    Forall P (replace_nth l n v) ->
-    n < length l ->
-    P v.
+Lemma tm_step_tape_length :
+  forall tm q tape head,
+    head < length tape ->
+    length (let '(_, tape', _) := tm_step tm (q, tape, head) in tape') = length tape.
 Proof.
-  intros P l n v HForall Hlen.
-  specialize (Forall_nth _ _ _ 0 HForall Hlen) as Hnth.
-  rewrite nth_replace_nth_eq with (d:=0) in Hnth by exact Hlen.
-  exact Hnth.
-Qed.
-
-(* Get tape from config *)
-Definition get_tape (conf : TMConfig) : list nat :=
-  match conf with
-  | (_, tape, _) => tape
-  end.
-
-(* TM step preserves tape length if head is within bounds *)
-Lemma tm_step_tape_length : forall tm q tape head,
-  head < length tape ->
-  length (get_tape (tm_step tm (q, tape, head))) = length tape.
-Proof.
-  intros.
-  unfold tm_step, get_tape.
-  simpl.
-  destruct (tm q (nth head tape 0)) as [[q' write] move].
-  simpl.
+  intros tm q tape head Hhead.
+  unfold tm_step; simpl.
+  remember (tm q (nth head tape tm_blank)) as trans.
+  destruct trans as [[q' write] move]; simpl.
   apply replace_nth_length.
+Qed.
+
+Lemma tm_step_digits_preserved :
+  forall tm q tape head,
+    tm_config_ok (q, tape, head) ->
+    let '(q', write, move) := tm q (nth head tape tm_blank) in
+    write < BASE ->
+    digits_ok (let '(_, tape', _) := tm_step tm (q, tape, head) in tape').
+Proof.
+  intros tm q tape head Hok.
+  destruct Hok as [Hdigs Hhead].
+  unfold tm_step; simpl.
+  remember (tm q (nth head tape tm_blank)) as trans.
+  destruct trans as [[q' write] move]; simpl.
+  intro Hwrite.
+  apply replace_nth_Forall; [exact Hdigs|exact Hwrite].
+Qed.
+
+Lemma tm_step_head_preserved :
+  forall tm q tape head,
+    tm_config_ok (q, tape, head) ->
+    let '(q', write, move) := tm q (nth head tape tm_blank) in
+    move_head head move < length tape ->
+    let '(_, _, head') := tm_step tm (q, tape, head) in head' < length tape.
+Proof.
+  intros tm q tape head Hok.
+  unfold tm_step; simpl.
+  remember (tm q (nth head tape tm_blank)) as trans.
+  destruct trans as [[q' write] move]; simpl.
+  intro Hmove.
+  exact Hmove.
 Qed.
