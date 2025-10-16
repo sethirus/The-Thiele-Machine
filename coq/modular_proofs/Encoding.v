@@ -116,11 +116,24 @@ Qed.
 Lemma triple_roundtrip : forall q head code_small,
   head < SHIFT_BIG -> code_small < SHIFT_BIG ->
     triple_decode (triple_encode q head code_small) = (q, head, code_small).
-  Proof.
-    intros q head code_small _ _.
-    vm_compute.
-    reflexivity.
-  Qed.
+Proof.
+  intros q head code_small Hhead Hcode.
+  unfold triple_encode, triple_decode.
+  set (packed := q * SHIFT_BIG + head).
+  pose proof (div_mul_add_small SHIFT_BIG packed code_small SHIFT_BIG_pos Hcode)
+    as [Hdiv_big Hmod_big].
+  simpl in Hdiv_big, Hmod_big.
+  rewrite Hmod_big.
+  simpl.
+  rewrite Hdiv_big.
+  pose proof (div_mul_add_small SHIFT_BIG q head SHIFT_BIG_pos Hhead)
+    as [Hdiv_q Hmod_q].
+  simpl in Hdiv_q, Hmod_q.
+  rewrite Hmod_q.
+  simpl.
+  rewrite Hdiv_q.
+  reflexivity.
+Qed.
 
 Local Opaque Nat.div Nat.modulo.
 
@@ -230,11 +243,35 @@ Proof.
   unfold encode_config, decode_config.
   destruct (EncodingBounds.encode_list_bounds_of BASE SHIFT_LEN BASE_ge_2 SHIFT_LEN_ge_1
                 encode_list digits_ok encode_list_upper tape Hdigs Hlen)
-    rewrite (pair_small_roundtrip (length xs) (encode_list xs) Hcode_small).
-    cbn [Nat.mul Nat.add Nat.div Nat.modulo] in *; rewrite Hdiv, Hmod.
-  rewrite Htri.
+    as [Hlen_small [Hcode_small Hpacked_lt]].
+  set (packed := encode_list_with_len tape).
+  assert (Hpacked_small : packed < SHIFT_BIG).
+  { unfold packed, encode_list_with_len, pair_small_encode in *; exact Hpacked_lt. }
+  unfold encode_config, decode_config.
   simpl.
-  rewrite (pair_small_roundtrip (length tape) (encode_list tape) Hcode_small).
+  unfold triple_encode, triple_decode.
+  set (big := q * SHIFT_BIG + head).
+  pose proof (div_mul_add_small SHIFT_BIG big packed SHIFT_BIG_pos Hpacked_small)
+    as [Hdiv_big Hmod_big].
+  simpl in Hdiv_big, Hmod_big.
+  rewrite Hmod_big.
+  simpl.
+  rewrite Hdiv_big.
+  pose proof (div_mul_add_small SHIFT_BIG q head SHIFT_BIG_pos Hhead)
+    as [Hdiv_q Hmod_q].
+  simpl in Hdiv_q, Hmod_q.
+  rewrite Hmod_q.
+  simpl.
+  rewrite Hdiv_q.
+  unfold packed.
+  unfold encode_list_with_len.
+  unfold pair_small_decode.
+  pose proof (div_mul_add_small SHIFT_SMALL (length tape) (encode_list tape)
+                 SHIFT_SMALL_pos Hcode_small) as [Hdiv_small Hmod_small].
+  simpl in Hdiv_small, Hmod_small.
+  rewrite Hmod_small.
+  simpl.
+  rewrite Hdiv_small.
   simpl.
   apply encode_list_decode_aux; assumption.
 Qed.

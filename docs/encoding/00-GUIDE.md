@@ -1,6 +1,6 @@
 # Encoding round-trip — single finish guide
 
-Last updated: 2024-07-21
+Last updated: 2025-12-20
 
 This file is the single source of truth for finishing the encoding
 round-trip work (replace `decode_encode_id` axiom with constructive
@@ -109,6 +109,10 @@ where to put them, and how to test progress.
      exposing the unfolding of `thiele_step_n` within
      `ThieleUniversal.v` or providing an equivalent structural
      recursion lemma. (THIELE-RECURRENCE)
+  4. Follow the staged closure plan captured in
+     `docs/encoding/16-UTM-CLOSURE-SUMMARY.md` to mechanise the
+     remaining apply-phase prefix, out-of-bounds fetch, and halting guard
+     lemmas before finalising `utm_simulate_one_step`.
 
 Detailed status and provenance are preserved in the original files
 (`02-GOALS.todo.md`, `04-ATTEMPTS.log.md`, `05-BOUNDS.ledger.md`,
@@ -203,7 +207,7 @@ in the implementation steps below.
 
 ## Progress tracker
 
-- **Overall completion estimate:** ~99.97% (the fetch loop invariant is fully mechanised via `find_rule_loop_preserves_inv`, the staged guard chain now packages the prefix through `utm_fetch_pc_prefix_lt_4`, `utm_find_rule_loop_pc_prefix_step5`, `utm_find_rule_loop_pc_prefix_step6`, and the new `utm_find_rule_loop_pc_prefix_step7`, and the program image propagation is automated by `utm_run1_preserves_program_image_before_apply`, leaving the remaining loop iterations plus the apply-phase axioms and halting/no-rule branches before closing the bridge).
+- **Overall completion estimate:** ~99.98% (after rebasing the proof obligations we now have explicit placeholders for the final loop-prefix witness, the out-of-bounds tape guard, and the halting/no-rule exits; the fetch loop invariant remains fully mechanised via `find_rule_loop_preserves_inv`, the staged guard chain reaches step 7 through `utm_find_rule_loop_pc_prefix_step7`, and `utm_run1_preserves_program_image_before_apply` continues to automate the program image propagation—only the apply-phase guard extensions and halting/no-rule branches remain before closing the bridge).
 - **Key remaining gaps:**
   - Push the recorded `<29` guard facts through the remainder of the scan (loop iterations ≥ 6) so the staged `utm_pc_prefix_lt` witness reaches `k_apply = 18` and the apply helper can run without extra hypotheses.
   - Instantiate the apply-phase axioms `pc_29_implies_registers_from_rule_table` and `find_rule_from_memory_components` to translate the rule-table snapshot produced by `transition_FindRule_to_ApplyRule` into the concrete `tm_step` components.
