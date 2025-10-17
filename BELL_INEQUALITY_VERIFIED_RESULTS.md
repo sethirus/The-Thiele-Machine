@@ -10,11 +10,11 @@ Pinned environment variables for reproducibility:
 - LANG=C
 - PYTHONHASHSEED=0
 Formal toolchain versions detected:
-- Python: Python 3.13.5
-- Z3: unavailable
-- Coq: unavailable
-- Repository commit: e4de7bd001ec73d48b3131aff9b8ce0ef7aef185
-- Host platform: Windows-11-10.0.26100-SP0
+- Python: Python 3.12.10
+- Z3: Z3 version 4.15.1 - 64 bit
+- Coq: The Coq Proof Assistant, version 8.18.0
+- Repository commit: 7e74c450508382c480fa7c400633d15ddd6dbe0f
+- Host platform: Linux-6.12.13-x86_64-with-glibc2.39
 Network isolation is enforced; passing --allow-network explicitly opts into live data fetching.
 Decimal arithmetic uses 80 digits of precision; all rational witnesses are emitted exactly.
 ## Trusted Computing Base
@@ -486,8 +486,7 @@ Receipts are regenerated, summarised, and optionally sent to Coq for mechanised 
 
 Receipt generation transcript:
 ```text
-Could not find platform independent libraries <prefix>
-Wrote 5 receipts to C:\Users\tbagt\TheThieleMachine\examples\tsirelson_step_receipts.json
+Wrote 5 receipts to /workspace/The-Thiele-Machine/examples/tsirelson_step_receipts.json
 ```
 Receipt summary:
 - count = 5
@@ -496,7 +495,7 @@ Receipt summary:
 These receipts adhere to the canonical JSON schema (instruction, state, observation); Coq replay only accepts files respecting this structure.
 Verification transcript:
 ```text
-Windows verification unavailable: [WinError 2] The system cannot find the file specified
+Coq proof obligations discharged (The Coq Proof Assistant, version 8.18.0).
 ```
 **Q.E.D. — The runtime receipts coincide with the mechanised witness.**
 Coq replay confirms the canonical program receipts; any alternative log must produce identical instruction/state triples to be accepted.
@@ -506,18 +505,18 @@ Cosmic microwave background data is converted into a formally proved prediction.
 Correctness: the SMT proof shows the induced rule outputs the logged CHSH setting for the recorded features.
 Robustness: a QF_LIA certificate demonstrates the prediction remains stable within the recorded noise model (ε-ball) derived from the offline dataset.
 Operation Cosmic Witness mode=offline, data_source=offline, allow_network=False
-Loading offline CMB sample from C:\Users\tbagt\TheThieleMachine\data\planck_sample.fits
+Loading offline CMB sample from /workspace/The-Thiele-Machine/data/planck_sample.fits
 Extracted feature vector (mean, stdev, min, max, gradient): 2.7254761875, 6.79355163007e-06, 2.725466, 2.725489, -1.25000000004e-05
 Data origin recorded as embedded-planck-patch.
-Fell back to the canonical Planck patch because HEALPix reader failure (No module named 'astropy') when parsing planck_sample.fits.
+Fell back to the canonical Planck patch because HEALPix reader failure (Empty or corrupt FITS file) when parsing planck_sample.fits.
 Induced rule: feature[3] > 2.99804 -> (0, 0), else -> (0, 0) (param_count=1)
 Predicted CHSH trial: alice=0, bob=0
 Prediction SMT proof succeeded; robustness proved (eps=2.725e-02).
 Persisted Operation Cosmic Witness receipts and proofs to disk.
 Operation Cosmic Witness artifacts written to the artifacts/ directory for audit.
-- Prediction receipt: C:\Users\tbagt\TheThieleMachine\artifacts\cosmic_witness_prediction_receipt.json
-- Prediction proof: C:\Users\tbagt\TheThieleMachine\artifacts\cosmic_witness_prediction_proof.smt2
-- Robustness proof: C:\Users\tbagt\TheThieleMachine\artifacts\cosmic_witness_prediction_proof_robust.smt2
+- Prediction receipt: /workspace/The-Thiele-Machine/artifacts/cosmic_witness_prediction_receipt.json
+- Prediction proof: /workspace/The-Thiele-Machine/artifacts/cosmic_witness_prediction_proof.smt2
+- Robustness proof: /workspace/The-Thiele-Machine/artifacts/cosmic_witness_prediction_proof_robust.smt2
 - Prediction proved by Z3: True
 ## Conclusion — Verification Gates
 The thesis run is accepted only when these audit checks succeed.
@@ -525,4 +524,4 @@ The thesis run is accepted only when these audit checks succeed.
 - All SMT-LIB artifacts reproduce their recorded SAT/UNSAT dispositions (Z3 with optional CVC5 corroboration).
 - scripts/verify_truth.sh completes without error, replaying the canonical receipts inside Coq.
 - artifacts/MANIFEST.sha256 matches recomputed SHA-256 hashes for ledger and receipts.
-Artifact manifest persisted to artifacts\MANIFEST.sha256.
+Artifact manifest persisted to artifacts/MANIFEST.sha256.

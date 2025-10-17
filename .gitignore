@@ -17,6 +17,8 @@ node_modules/
 .pytest_cache/
 logs/
 *.log
+!audit_logs/*.log
+!audit_logs/*.txt
 
 # Artifact-generated output directories and files
 # Consolidated runtime outputs (do not commit runtime artifacts)
@@ -44,9 +46,16 @@ certificates/
 *.vo
 *.vok
 *.vos
+*.lia.cache
 
 # Ignore all files in the drips directory
 /drips/
 
 # Generated artifacts
 documents/compositional_primitive.pdf
+
+# Runtime key material
+kernel_secret.key
+
+# Editable install metadata
+thiele_verify.egg-info/

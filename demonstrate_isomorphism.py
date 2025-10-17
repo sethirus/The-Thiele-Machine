@@ -56,6 +56,8 @@ from typing import Iterable, List, Sequence, Tuple
 import importlib.util
 import shutil
 
+from thielecpu.receipts import ensure_kernel_keys
+
 try:  # pragma: no cover - exercised indirectly via tests
     from z3 import And, Or, Real, RealVal, Solver, Sum, unsat
     HAVE_Z3 = True
@@ -547,6 +549,8 @@ def main(
     data_source: str = "offline",
 ) -> None:
     """Execute the six-act Bell inequality dissertation."""
+
+    ensure_kernel_keys()
 
     artifact_lines: List[str] = []
     narrator = Narrator(artifact_lines)

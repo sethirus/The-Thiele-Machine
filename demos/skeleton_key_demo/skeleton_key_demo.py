@@ -19,7 +19,13 @@ invocation so the run generates the usual `demo_output` artifacts.
 
 import sys
 import os
-sys.path.insert(0, os.path.dirname(__file__))
+
+SCRIPT_DIR = os.path.dirname(__file__)
+REPO_ROOT = os.path.abspath(os.path.join(SCRIPT_DIR, '..', '..'))
+
+for path in (REPO_ROOT, SCRIPT_DIR):
+    if path not in sys.path:
+        sys.path.insert(0, path)
 
 from thielecpu.assemble import parse
 from thielecpu.vm import VM

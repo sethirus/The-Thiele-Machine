@@ -23,6 +23,7 @@ from thielecpu.receipts import (
     StepReceipt,
     WitnessState,
 )
+from thielecpu.vm import mu_cost_from_text
 
 
 TSIRELSON_ALICE_SETTING = 0
@@ -96,7 +97,7 @@ def simulate_step(
         )
     elif op == "LASSERT":
         query = str(instruction.payload)
-        mu_delta = len(query) * 8
+        mu_delta = mu_cost_from_text(query)
         post_state = WitnessState(
             pc=pre_state.pc + 1,
             status=pre_state.status,

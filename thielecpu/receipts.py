@@ -9,13 +9,21 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import hashlib
-import hmac
 import json
 import os
+from pathlib import Path
+import string
+import subprocess
+import sys
 from typing import Any, Dict, Optional
 
-DEFAULT_KERNEL_SECRET_ENV = "THIELE_KERNEL_SECRET"
-DEFAULT_KERNEL_SECRET = b"THIELE_KERNEL_DEMO_SECRET"
+from nacl import signing
+from nacl.exceptions import BadSignatureError
+
+SIGNING_KEY_ENV = "THIELE_KERNEL_SIGNING_KEY"
+VERIFY_KEY_ENV = "THIELE_KERNEL_VERIFY_KEY"
+DEFAULT_SIGNING_KEY_PATH = "kernel_secret.key"
+DEFAULT_VERIFY_KEY_PATH = "kernel_public.key"
 
 
 def _canonical_json(data: Dict[str, Any]) -> str:
@@ -29,26 +37,93 @@ def hash_snapshot(snapshot: Dict[str, Any]) -> str:
     return hashlib.sha256(payload).hexdigest()
 
 
-def _load_kernel_secret(secret: Optional[bytes] = None) -> bytes:
-    if secret is not None:
-        return secret
-    env_value = os.environ.get(DEFAULT_KERNEL_SECRET_ENV)
-    if env_value:
-        return env_value.encode("utf-8")
-    return DEFAULT_KERNEL_SECRET
+def _resolve_signing_key(path: Optional[str | os.PathLike[str]] = None) -> Path:
+    candidate = path if path is not None else os.environ.get(SIGNING_KEY_ENV, DEFAULT_SIGNING_KEY_PATH)
+    return Path(candidate).expanduser()
 
 
-def sign_receipt(payload: Dict[str, Any], *, secret: Optional[bytes] = None) -> str:
-    """Compute an HMAC signature for the given receipt payload."""
-    key = _load_kernel_secret(secret)
-    data = _canonical_json(payload).encode("utf-8")
-    return hmac.new(key, data, hashlib.sha256).hexdigest()
+def _resolve_verify_key(path: Optional[str | os.PathLike[str]] = None) -> Path:
+    candidate = path if path is not None else os.environ.get(VERIFY_KEY_ENV, DEFAULT_VERIFY_KEY_PATH)
+    return Path(candidate).expanduser()
 
 
-def verify_signature(payload: Dict[str, Any], signature: str, *, secret: Optional[bytes] = None) -> bool:
-    """Verify a signature against the payload."""
-    expected = sign_receipt(payload, secret=secret)
-    return hmac.compare_digest(expected, signature)
+def _load_verify_key_bytes(path: Path) -> bytes:
+    """Load the verification key, supporting both binary and hex-encoded files."""
+
+    raw = path.read_bytes()
+    stripped = raw.strip()
+    if not stripped:
+        raise ValueError(f"Verification key at {path} is empty")
+
+    try:
+        text = stripped.decode("ascii")
+    except UnicodeDecodeError:
+        return stripped
+
+    if len(text) % 2 == 0 and all(ch in string.hexdigits for ch in text):
+        try:
+            return bytes.fromhex(text)
+        except ValueError:
+            pass
+
+    return stripped
+
+
+def ensure_kernel_keys(
+    *,
+    signing_key_path: Optional[str | os.PathLike[str]] = None,
+    verifying_key_path: Optional[str | os.PathLike[str]] = None,
+) -> None:
+    """Generate the kernel signing keypair if it is missing."""
+
+    secret_path = _resolve_signing_key(signing_key_path)
+    public_path = _resolve_verify_key(verifying_key_path)
+    if secret_path.exists() and public_path.exists():
+        return
+
+    generator = Path(__file__).resolve().parent.parent / "scripts" / "generate_kernel_keys.py"
+    cmd = [
+        sys.executable,
+        str(generator),
+        "--secret-path",
+        str(secret_path),
+        "--public-path",
+        str(public_path),
+    ]
+    subprocess.run(cmd, check=True)
+
+
+def sign_receipt(
+    payload: Dict[str, Any],
+    *,
+    signing_key_path: Optional[str | os.PathLike[str]] = None,
+) -> str:
+    """Sign ``payload`` using the Ed25519 kernel signing key."""
+
+    key_path = _resolve_signing_key(signing_key_path)
+    message = _canonical_json(payload).encode("utf-8")
+    signing_key = signing.SigningKey(key_path.read_bytes())
+    signature = signing_key.sign(message).signature
+    return signature.hex()
+
+
+def verify_signature(
+    payload: Dict[str, Any],
+    signature: str,
+    *,
+    verifying_key_path: Optional[str | os.PathLike[str]] = None,
+) -> bool:
+    """Verify ``signature`` for ``payload`` using the kernel public key."""
+
+    key_path = _resolve_verify_key(verifying_key_path)
+    verify_material = _load_verify_key_bytes(key_path)
+    verify_key = signing.VerifyKey(verify_material)
+    message = _canonical_json(payload).encode("utf-8")
+    try:
+        verify_key.verify(message, bytes.fromhex(signature))
+        return True
+    except BadSignatureError:
+        return False
 
 
 @dataclass
@@ -118,7 +193,7 @@ class StepReceipt:
         post_state: WitnessState,
         observation: StepObservation,
         *,
-        secret: Optional[bytes] = None,
+        signing_key_path: Optional[str | os.PathLike[str]] = None,
     ) -> "StepReceipt":
         pre_snapshot = pre_state.snapshot()
         post_snapshot = post_state.snapshot()
@@ -133,7 +208,7 @@ class StepReceipt:
         post_hash = hash_snapshot(post_snapshot)
         payload["pre_state_hash"] = pre_hash
         payload["post_state_hash"] = post_hash
-        signature = sign_receipt(payload, secret=secret)
+        signature = sign_receipt(payload, signing_key_path=signing_key_path)
         return cls(
             step=step,
             instruction=instruction,
@@ -157,7 +232,11 @@ class StepReceipt:
             "signature": self.signature,
         }
 
-    def verify(self, *, secret: Optional[bytes] = None) -> bool:
+    def verify(
+        self,
+        *,
+        verifying_key_path: Optional[str | os.PathLike[str]] = None,
+    ) -> bool:
         payload = {
             "step": self.step,
             "instruction": self.instruction.to_dict(),
@@ -167,15 +246,23 @@ class StepReceipt:
             "pre_state_hash": self.pre_state_hash,
             "post_state_hash": self.post_state_hash,
         }
-        return verify_signature(payload, self.signature, secret=secret)
+        return verify_signature(
+            payload,
+            self.signature,
+            verifying_key_path=verifying_key_path,
+        )
 
 
 def load_receipts(path: os.PathLike[str] | str) -> list[StepReceipt]:
     """Load receipts from disk."""
     with open(path, "r", encoding="utf-8") as handle:
         raw = json.load(handle)
+    if isinstance(raw, dict) and "steps" in raw:
+        entries = raw["steps"]
+    else:
+        entries = raw
     receipts: list[StepReceipt] = []
-    for entry in raw:
+    for entry in entries:
         instruction = InstructionWitness(**entry["instruction"])
         observation = StepObservation(
             event=entry["observation"].get("event"),
@@ -202,6 +289,7 @@ __all__ = [
     "InstructionWitness",
     "StepReceipt",
     "hash_snapshot",
+    "ensure_kernel_keys",
     "sign_receipt",
     "verify_signature",
     "load_receipts",

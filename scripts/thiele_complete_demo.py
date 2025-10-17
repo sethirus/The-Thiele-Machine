@@ -8,10 +8,11 @@
 # Complete Thiele Machine demonstration - ENTIRELY SELF-CONTAINED
 # Includes all dependencies and scripts inline. No external imports required.
 from __future__ import annotations
+import argparse
 import hashlib, json, math, os, platform, shutil, statistics as stats, subprocess, sys, textwrap, time, zipfile
 from pathlib import Path
 from datetime import datetime, timezone
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 # =============================================================================
 # INLINE DEPENDENCIES - Making this completely self-contained
@@ -497,6 +498,25 @@ def run_auditor_demo():
     }
     run_scenario("Consistent Sensor Data", consistent_data)
 
+# Mapping of scenario names to demo runners for CLI invocation
+SCENARIO_RUNNERS = {
+    "auditor": run_auditor_demo,
+    "cathedral": None,  # Placeholder, will be patched after definition
+    "experimental": None,
+}
+
+
+def run_scenarios_by_name(names: list[str], *, pause_between: bool = False) -> None:
+    """Execute the requested scenarios in order."""
+
+    for index, name in enumerate(names):
+        runner = SCENARIO_RUNNERS[name]
+        if runner is None:
+            raise RuntimeError(f"Scenario '{name}' is not registered")
+        runner()
+        if pause_between and index < len(names) - 1:
+            input("\nPress Enter to continue to the next demo...")
+
 # =============================================================================
 # CATHEDRAL DEMO - Visual demonstration
 # =============================================================================
@@ -895,7 +915,32 @@ def line():
 def say(s=""):
     print(s)
 
-def main():
+SCENARIO_RUNNERS["cathedral"] = run_cathedral_demo
+SCENARIO_RUNNERS["experimental"] = run_experimental_demo
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(
+        description="Run the complete Thiele Machine demonstrations."
+    )
+    parser.add_argument(
+        "--scenario",
+        choices=["auditor", "cathedral", "experimental", "all"],
+        help="Run a specific scenario non-interactively (or all of them).",
+    )
+    parser.add_argument(
+        "--pause-between",
+        action="store_true",
+        help="Prompt between demos when running in non-interactive mode.",
+    )
+
+    args = parser.parse_args()
+
+    if args.scenario:
+        selected = ["auditor", "cathedral", "experimental"] if args.scenario == "all" else [args.scenario]
+        run_scenarios_by_name(selected, pause_between=args.pause_between)
+        return 0
+
     print(f"\n{BOLD}{'='*60}{RESET}")
     print(f"{BOLD}THIELE MACHINE - COMPLETE DEMONSTRATION{RESET}")
     print("Choose your demonstration:")
@@ -905,9 +950,9 @@ def main():
     print("4. Run All Demos (sequential)")
     print(f"{'='*60}{RESET}")
 
-    # Check if input is piped or if we should run non-interactively
+    # Default to menu loop when no CLI scenario was provided
+    choice: Optional[str]
     if not sys.stdin.isatty():
-        # Input is piped, read the choice
         try:
             choice = input().strip().lower()
         except EOFError:
@@ -927,34 +972,33 @@ def main():
             break
         elif choice == '1':
             run_auditor_demo()
+            input(f"\n{BOLD}Demo complete. Press Enter to return to menu...{RESET}")
         elif choice == '2':
             run_cathedral_demo()
+            input(f"\n{BOLD}Demo complete. Press Enter to return to menu...{RESET}")
         elif choice == '3':
             run_experimental_demo()
+            input(f"\n{BOLD}Demo complete. Press Enter to return to menu...{RESET}")
         elif choice == '4':
             print(f"\n{BOLD}RUNNING ALL DEMOS{RESET}")
-            run_auditor_demo()
-            input("\nPress Enter to continue to Cathedral Demo...")
-            run_cathedral_demo()
-            input("\nPress Enter to continue to Experimental Demo...")
-            run_experimental_demo()
+            run_scenarios_by_name(["auditor", "cathedral", "experimental"], pause_between=True)
         else:
             print(f"{YELLOW}Invalid choice. Please enter 1-4 or 'q'.{RESET}")
             choice = None
             continue
 
-        if choice in ['1', '2', '3']:
-            input(f"\n{BOLD}Demo complete. Press Enter to return to menu...{RESET}")
-
-        choice = None  # Reset for next iteration
+        choice = None
 
     print(f"\n{GREEN}Thank you for exploring the Thiele Machine!{RESET}")
+    return 0
+
 
 if __name__ == "__main__":
     try:
-        main()
+        sys.exit(main())
     except KeyboardInterrupt:
         print(f"\n{YELLOW}Demo interrupted.{RESET}")
+        sys.exit(130)
     except Exception as e:
         bad(f"Unexpected error: {e}")
         sys.exit(1)

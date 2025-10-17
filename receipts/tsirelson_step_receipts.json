@@ -1,184 +1,247 @@
-[
-  {
-    "step": 0,
-    "instruction": {
-      "op": "PNEW",
-      "payload": [
-        0,
-        1
-      ]
-    },
-    "pre_state": {
-      "pc": 0,
-      "status": 0,
-      "mu_acc": 0,
-      "cert_addr": ""
-    },
-    "post_state": {
-      "pc": 1,
-      "status": 0,
-      "mu_acc": 0,
-      "cert_addr": ""
-    },
-    "observation": {
-      "event": {
-        "tag": "InferenceComplete"
+{
+  "version": "1.0",
+  "instance_hash": "fe0b3a29c48d0ca58e343292432e21ff6b5f479f248c98ba0083abdcbea32b36",
+  "mu_total": 0.0,
+  "step_count": 5,
+  "final_claim": "ErrorOccurred",
+  "timestamp": "2025-10-17T07:27:55.724172+00:00",
+  "steps": [
+    {
+      "step": 0,
+      "instruction": {
+        "op": "PNEW",
+        "payload": [
+          0,
+          1
+        ]
       },
-      "mu_delta": 0,
-      "cert": {
+      "pre_state": {
+        "pc": 0,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
+      },
+      "post_state": {
+        "pc": 1,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
+      },
+      "observation": {
+        "event": {
+          "tag": "InferenceComplete"
+        },
+        "mu_delta": 0,
+        "cert": {
+          "smt_query": "",
+          "solver_reply": "",
+          "metadata": "",
+          "timestamp": 0,
+          "sequence": 0
+        }
+      },
+      "mu_delta": 0.0,
+      "pre_state_hash": "3be4ab3e30347c3b36b3c176e39c564d8b2e1e6c6f816f53070d67ed3cd381f4",
+      "post_state_hash": "2e59cea3b3cf0e0427b5d1025581d2f165a69235777b0cabab6bdd7773234376",
+      "signature": "b70bd2d7911637bfd2dea591aa6e28329bbc14c8c709b56f3176da5f5c347d1681fc27315bfe688e12a9e9da2e5faffd16fd1bfa5a8772495bdac275dfe9a104",
+      "certificate": {
         "smt_query": "",
         "solver_reply": "",
         "metadata": "",
         "timestamp": 0,
         "sequence": 0
-      }
-    },
-    "pre_state_hash": "3be4ab3e30347c3b36b3c176e39c564d8b2e1e6c6f816f53070d67ed3cd381f4",
-    "post_state_hash": "2e59cea3b3cf0e0427b5d1025581d2f165a69235777b0cabab6bdd7773234376",
-    "signature": "10e46d1884e971ac8cfdad8a9cf0c16a38a454daaba05c2e8aa4ec6de2268853"
-  },
-  {
-    "step": 1,
-    "instruction": {
-      "op": "PYEXEC",
-      "payload": "prepare_shared_partition"
-    },
-    "pre_state": {
-      "pc": 1,
-      "status": 0,
-      "mu_acc": 0,
-      "cert_addr": ""
-    },
-    "post_state": {
-      "pc": 2,
-      "status": 0,
-      "mu_acc": 0,
-      "cert_addr": ""
-    },
-    "observation": {
-      "event": {
-        "tag": "PolicyCheck",
-        "value": "prepare_shared_partition"
       },
-      "mu_delta": 0,
-      "cert": {
+      "certificate_hash": "b5878d515488dabb9b512b86a154b4b54f07284ea95864822f39c6a92a7b3d1a",
+      "prev_step_hash": "genesis",
+      "step_hash": "18c100bbbc91351cc91b287205d4f601363fc80dedc727dca75670d150cb3129"
+    },
+    {
+      "step": 1,
+      "instruction": {
+        "op": "PYEXEC",
+        "payload": "prepare_shared_partition"
+      },
+      "pre_state": {
+        "pc": 1,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
+      },
+      "post_state": {
+        "pc": 2,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
+      },
+      "observation": {
+        "event": {
+          "tag": "PolicyCheck",
+          "value": "prepare_shared_partition"
+        },
+        "mu_delta": 0,
+        "cert": {
+          "smt_query": "",
+          "solver_reply": "",
+          "metadata": "",
+          "timestamp": 0,
+          "sequence": 0
+        }
+      },
+      "mu_delta": 0.0,
+      "pre_state_hash": "2e59cea3b3cf0e0427b5d1025581d2f165a69235777b0cabab6bdd7773234376",
+      "post_state_hash": "15713ac6773c4903303bd6ba812422142bcbd5b39ba256b43969353ac4f47f59",
+      "signature": "5c2c753d80a4d20f3ca285ee95509407b82da82a914f66c07bef29bfac2461233f3d733c55ae0bcfedec9d3380c13f27f3cd8e2367ceff4da0f5f77d7d93ab07",
+      "certificate": {
         "smt_query": "",
         "solver_reply": "",
         "metadata": "",
         "timestamp": 0,
         "sequence": 0
-      }
-    },
-    "pre_state_hash": "2e59cea3b3cf0e0427b5d1025581d2f165a69235777b0cabab6bdd7773234376",
-    "post_state_hash": "15713ac6773c4903303bd6ba812422142bcbd5b39ba256b43969353ac4f47f59",
-    "signature": "5cd95aea32d44c2d82acbb633eacf7dc65917a0af9f7f2dfdde4d789a134c67c"
-  },
-  {
-    "step": 2,
-    "instruction": {
-      "op": "PYEXEC",
-      "payload": "alice_measurement"
-    },
-    "pre_state": {
-      "pc": 2,
-      "status": 0,
-      "mu_acc": 0,
-      "cert_addr": ""
-    },
-    "post_state": {
-      "pc": 3,
-      "status": 0,
-      "mu_acc": 0,
-      "cert_addr": ""
-    },
-    "observation": {
-      "event": {
-        "tag": "PolicyCheck",
-        "value": "alice_measurement"
       },
-      "mu_delta": 0,
-      "cert": {
+      "certificate_hash": "b5878d515488dabb9b512b86a154b4b54f07284ea95864822f39c6a92a7b3d1a",
+      "prev_step_hash": "18c100bbbc91351cc91b287205d4f601363fc80dedc727dca75670d150cb3129",
+      "step_hash": "5d617f508a83de0d45044d8eb9b66b8c56bec8c8bed9adbd85d8af8a882a446a"
+    },
+    {
+      "step": 2,
+      "instruction": {
+        "op": "PYEXEC",
+        "payload": "alice_measurement"
+      },
+      "pre_state": {
+        "pc": 2,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
+      },
+      "post_state": {
+        "pc": 3,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
+      },
+      "observation": {
+        "event": {
+          "tag": "PolicyCheck",
+          "value": "alice_measurement"
+        },
+        "mu_delta": 0,
+        "cert": {
+          "smt_query": "",
+          "solver_reply": "",
+          "metadata": "",
+          "timestamp": 0,
+          "sequence": 0
+        }
+      },
+      "mu_delta": 0.0,
+      "pre_state_hash": "15713ac6773c4903303bd6ba812422142bcbd5b39ba256b43969353ac4f47f59",
+      "post_state_hash": "6295c09d07120cab3fa48d4f08d9b07a275c79d0d10d9ba5f2b858f670f25c59",
+      "signature": "4510ab80aa53a28b5607dd433101700cd60730c06b8d539ef056433a04718dcf64665f79664da2d39d001c15d28a9b89f381a9ad3ab65c4abf270e54aec8bf0a",
+      "certificate": {
         "smt_query": "",
         "solver_reply": "",
         "metadata": "",
         "timestamp": 0,
         "sequence": 0
-      }
-    },
-    "pre_state_hash": "15713ac6773c4903303bd6ba812422142bcbd5b39ba256b43969353ac4f47f59",
-    "post_state_hash": "6295c09d07120cab3fa48d4f08d9b07a275c79d0d10d9ba5f2b858f670f25c59",
-    "signature": "bee10be714c52fdc0ab6b6c6d1d61461e65d5be69c0338e1a517b9c64f9f85e5"
-  },
-  {
-    "step": 3,
-    "instruction": {
-      "op": "PYEXEC",
-      "payload": "bob_measurement"
-    },
-    "pre_state": {
-      "pc": 3,
-      "status": 0,
-      "mu_acc": 0,
-      "cert_addr": ""
-    },
-    "post_state": {
-      "pc": 4,
-      "status": 0,
-      "mu_acc": 0,
-      "cert_addr": ""
-    },
-    "observation": {
-      "event": {
-        "tag": "PolicyCheck",
-        "value": "bob_measurement"
       },
-      "mu_delta": 0,
-      "cert": {
+      "certificate_hash": "b5878d515488dabb9b512b86a154b4b54f07284ea95864822f39c6a92a7b3d1a",
+      "prev_step_hash": "5d617f508a83de0d45044d8eb9b66b8c56bec8c8bed9adbd85d8af8a882a446a",
+      "step_hash": "575b6a6f435e039afa1c680cceea472f069b75edc46310b9acc50b49f5796e4b"
+    },
+    {
+      "step": 3,
+      "instruction": {
+        "op": "PYEXEC",
+        "payload": "bob_measurement"
+      },
+      "pre_state": {
+        "pc": 3,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
+      },
+      "post_state": {
+        "pc": 4,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
+      },
+      "observation": {
+        "event": {
+          "tag": "PolicyCheck",
+          "value": "bob_measurement"
+        },
+        "mu_delta": 0,
+        "cert": {
+          "smt_query": "",
+          "solver_reply": "",
+          "metadata": "",
+          "timestamp": 1,
+          "sequence": 0
+        }
+      },
+      "mu_delta": 0.0,
+      "pre_state_hash": "6295c09d07120cab3fa48d4f08d9b07a275c79d0d10d9ba5f2b858f670f25c59",
+      "post_state_hash": "700da4c068b172264a4f0599d5bb6e22ef3321e4c9967d4430c31cefb17ce59d",
+      "signature": "a43f725891bfa7992e418fb3538c1f423c35fe2bb5373496ac3a8e2aa76d9036c9b3fe982583c00020a6216527fe11c0feb37e4ca1a0522430d3c275a750ba02",
+      "certificate": {
         "smt_query": "",
         "solver_reply": "",
         "metadata": "",
         "timestamp": 1,
         "sequence": 0
-      }
-    },
-    "pre_state_hash": "6295c09d07120cab3fa48d4f08d9b07a275c79d0d10d9ba5f2b858f670f25c59",
-    "post_state_hash": "700da4c068b172264a4f0599d5bb6e22ef3321e4c9967d4430c31cefb17ce59d",
-    "signature": "eeb851b6c9a794f1023aac99f7bc346dcecf141e61947902dae4bce9c222edc9"
-  },
-  {
-    "step": 4,
-    "instruction": {
-      "op": "EMIT",
-      "payload": "tsirelson_outcome"
-    },
-    "pre_state": {
-      "pc": 4,
-      "status": 0,
-      "mu_acc": 0,
-      "cert_addr": ""
-    },
-    "post_state": {
-      "pc": 5,
-      "status": 0,
-      "mu_acc": 0,
-      "cert_addr": ""
-    },
-    "observation": {
-      "event": {
-        "tag": "ErrorOccurred",
-        "value": "tsirelson_outcome"
       },
-      "mu_delta": 0,
-      "cert": {
+      "certificate_hash": "347f11824e32229ed386aaa9727105b2e6dac4888173eba7bc396003f1b0a16f",
+      "prev_step_hash": "575b6a6f435e039afa1c680cceea472f069b75edc46310b9acc50b49f5796e4b",
+      "step_hash": "771fdb975e9151a51ad34fc79767276fbdb6cb6b0fb8abac1ef684f77c38bb8f"
+    },
+    {
+      "step": 4,
+      "instruction": {
+        "op": "EMIT",
+        "payload": "tsirelson_outcome"
+      },
+      "pre_state": {
+        "pc": 4,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
+      },
+      "post_state": {
+        "pc": 5,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
+      },
+      "observation": {
+        "event": {
+          "tag": "ErrorOccurred",
+          "value": "tsirelson_outcome"
+        },
+        "mu_delta": 0,
+        "cert": {
+          "smt_query": "",
+          "solver_reply": "",
+          "metadata": "",
+          "timestamp": 0,
+          "sequence": 0
+        }
+      },
+      "mu_delta": 0.0,
+      "pre_state_hash": "700da4c068b172264a4f0599d5bb6e22ef3321e4c9967d4430c31cefb17ce59d",
+      "post_state_hash": "53d2b5fca8a9bff9db6e5cec50d67b7ad15c79f0099704e6276a8e8f89ac3406",
+      "signature": "658067593dd6d7f760ff4bdbb77494ad71bcfc8b66c3c6dc91b5dfb99d84dd5730ce6e3cc0b613d38b53be4bc3208ce3a5f58b7cb4899ecc1831e981a003460a",
+      "certificate": {
         "smt_query": "",
         "solver_reply": "",
         "metadata": "",
         "timestamp": 0,
         "sequence": 0
-      }
-    },
-    "pre_state_hash": "700da4c068b172264a4f0599d5bb6e22ef3321e4c9967d4430c31cefb17ce59d",
-    "post_state_hash": "53d2b5fca8a9bff9db6e5cec50d67b7ad15c79f0099704e6276a8e8f89ac3406",
-    "signature": "e3dd2d05763126e9edd27150c2ff55620814739adf2df95358b7cd1e5e0f9ed5"
-  }
-]
+      },
+      "certificate_hash": "b5878d515488dabb9b512b86a154b4b54f07284ea95864822f39c6a92a7b3d1a",
+      "prev_step_hash": "771fdb975e9151a51ad34fc79767276fbdb6cb6b0fb8abac1ef684f77c38bb8f",
+      "step_hash": "94b4a68dafcb8f5bb45f05d9fd2279ee4196ed7a7b0457e0888beed149d4b181"
+    }
+  ]
+}

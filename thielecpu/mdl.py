@@ -7,6 +7,8 @@
 
 from __future__ import annotations
 
+import zlib
+
 try:
     from .isa import CSR
     from .state import State
@@ -80,7 +82,7 @@ def mdlacc(state: State, module: ModuleId, *, consistent: bool) -> float:
                 # Read the certificate file
                 cert_content = cert_file.read_bytes()
                 # Complexity based on file size in bits
-                cert_bits = len(cert_content) * 8
+                cert_bits = len(zlib.compress(cert_content)) * 8
                 mdl_cost += cert_bits
 
                 # Additional complexity from unsat core if present
@@ -88,7 +90,7 @@ def mdlacc(state: State, module: ModuleId, *, consistent: bool) -> float:
                 if 'unsat:' in cert_str:
                     # Estimate unsat core size
                     core_part = cert_str.split('unsat:')[1].strip()
-                    core_bits = len(core_part.encode('utf-8')) * 8
+                    core_bits = len(zlib.compress(core_part.encode('utf-8'))) * 8
                     mdl_cost += core_bits
         except (OSError, ValueError):
             # If can't read certificate, use a default cost
@@ -105,7 +107,7 @@ def mdlacc(state: State, module: ModuleId, *, consistent: bool) -> float:
 
     # 3. Add module axioms complexity
     module_axioms = state.get_module_axioms(module)
-    axioms_complexity = sum(len(axiom.encode('utf-8')) * 8 for axiom in module_axioms)
+    axioms_complexity = sum(len(zlib.compress(axiom.encode('utf-8'))) * 8 for axiom in module_axioms)
     mdl_cost += axioms_complexity
 
     state.mu_operational += mdl_cost
