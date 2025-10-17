@@ -106,7 +106,7 @@ __result__ = {{
     'total_mu_bits': total_mu_bits,
     'ablation': 'no_mdl'
 }}
-print(f"__result__ = {{__result__}}")
+print("__result__=" + json.dumps(__result__, default=str))
 '''
 
     elif ablation_type == 'wrong_model':
@@ -165,7 +165,7 @@ __result__ = {{
     'total_mu_bits': total_mu_bits,
     'ablation': 'wrong_model'
 }}
-print(f"__result__ = {{__result__}}")
+print("__result__=" + json.dumps(__result__, default=str))
 '''
 
     elif ablation_type == 'full_pipeline':
@@ -258,7 +258,7 @@ __result__ = {{
     'discovered_model': best_model,
     'ablation': 'full_pipeline'
 }}
-print(f"__result__ = {{__result__}}")
+print("__result__=" + json.dumps(__result__, default=str))
 '''
 
     return script
@@ -298,10 +298,12 @@ def run_ablation(instance, ablation_type):
         if trace_path.exists():
             trace = trace_path.read_text()
             for line in trace.split('\n'):
-                if '__result__ =' in line:
-                    result_str = line.split('__result__ =', 1)[1].strip()
-                    result = eval(result_str, {'float': float, 'inf': float('inf')})
-                    return result
+                if '__result__=' in line:
+                    result_str = line.split('__result__=', 1)[1].strip()
+                    try:
+                        return json.loads(result_str)
+                    except json.JSONDecodeError:
+                        continue
 
     finally:
         script_path.unlink(missing_ok=True)

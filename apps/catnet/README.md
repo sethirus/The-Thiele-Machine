@@ -2,7 +2,7 @@
 
 CatNet instantiates the Thiele Machine in the category of vector spaces. Objects
 are layers and morphisms are differentiable maps. Composition is computation and
-forward passes are logged in a tamper-evident audit chain signed via HMAC.
+forward passes are logged in a tamper-evident audit chain signed via Ed25519.
 It also exposes a minimal EU AI Act transparency report via `get_eu_compliance_report()`.
 
 The file `coq/catnet/coqproofs/CatNet.v` contains a Coq proof that appending an

@@ -1,0 +1,74 @@
+{
+  "executed_rules": [
+    "subprocess-shell",
+    "eval-exec",
+    "yaml-unsafe-load"
+  ],
+  "findings": [
+    {
+      "line": 232,
+      "message": "dynamic eval call",
+      "path": "thielecpu/vm.py",
+      "remediation": "Avoid executing user-supplied code; use safe parsers or dispatch tables.",
+      "rule": "eval-exec",
+      "severity": "critical"
+    },
+    {
+      "line": 239,
+      "message": "dynamic exec call",
+      "path": "thielecpu/vm.py",
+      "remediation": "Avoid executing user-supplied code; use safe parsers or dispatch tables.",
+      "rule": "eval-exec",
+      "severity": "critical"
+    },
+    {
+      "line": 400,
+      "message": "dynamic exec call",
+      "path": "thielecpu/vm.py",
+      "remediation": "Avoid executing user-supplied code; use safe parsers or dispatch tables.",
+      "rule": "eval-exec",
+      "severity": "critical"
+    },
+    {
+      "line": 784,
+      "message": "dynamic exec call",
+      "path": "thielecpu/vm.py",
+      "remediation": "Avoid executing user-supplied code; use safe parsers or dispatch tables.",
+      "rule": "eval-exec",
+      "severity": "critical"
+    },
+    {
+      "line": 13,
+      "message": "subprocess.run called with shell=True",
+      "path": "tests/data/vulnerable_repo/insecure.py",
+      "remediation": "Pass a list of arguments and set shell=False.",
+      "rule": "subprocess-shell",
+      "severity": "high"
+    },
+    {
+      "line": 17,
+      "message": "dynamic eval call",
+      "path": "tests/data/vulnerable_repo/insecure.py",
+      "remediation": "Avoid executing user-supplied code; use safe parsers or dispatch tables.",
+      "rule": "eval-exec",
+      "severity": "critical"
+    },
+    {
+      "line": 22,
+      "message": "yaml.load without a safe Loader",
+      "path": "tests/data/vulnerable_repo/insecure.py",
+      "remediation": "Call yaml.safe_load or provide Loader=yaml.SafeLoader.",
+      "rule": "yaml-unsafe-load",
+      "severity": "high"
+    },
+    {
+      "line": 85,
+      "message": "dynamic exec call",
+      "path": "archive/scripts/demonstration.py",
+      "remediation": "Avoid executing user-supplied code; use safe parsers or dispatch tables.",
+      "rule": "eval-exec",
+      "severity": "critical"
+    }
+  ],
+  "scanned_files": 174
+}
