@@ -1,0 +1,109 @@
+--- Scenario 1: Classifying a 'puppy' ---
+Checking policy [1, 2, 3]...
+Policy check passed. Proceeding with inference.
+
+--- Scenario 2: Trying to classify a 'kitten' as 'dangerous' ---
+Checking policy [-1]...
+PARADOX DETECTED. Infinite cost incurred.
+Cannot proceed. The proposed action violates a core axiom.
+
+Final Audit Log:
+{
+  "version": "1.0",
+  "entries": [
+    {
+      "event": "init",
+      "seed": 1337,
+      "previous_hash": "",
+      "stamp": {
+        "ts_ns": 2099852063734,
+        "seq": 1
+      },
+      "crypto_hash": "2e414ff4b928e9b55e90db0e41ead5d707a88b48f7015a4adb1cac811e014663"
+    },
+    {
+      "event": "assert_consistency",
+      "axioms": [
+        1,
+        2,
+        3
+      ],
+      "result": true,
+      "previous_hash": "2e414ff4b928e9b55e90db0e41ead5d707a88b48f7015a4adb1cac811e014663",
+      "stamp": {
+        "ts_ns": 2099852229816,
+        "seq": 2
+      },
+      "crypto_hash": "d0a28545aadbeadcaf98edc973e1997dfc99101516f4431f55f72b87eeaaaba0"
+    },
+    {
+      "event": "forward",
+      "input": [
+        0,
+        1
+      ],
+      "hidden": [
+        -0.08322834003509738,
+        0.09912180893337819
+      ],
+      "hidden_relu": [
+        0.0,
+        0.09912180893337819
+      ],
+      "output": [
+        0.501068279394143,
+        0.49893172060585705
+      ],
+      "parameters": [
+        [
+          [
+            -0.09117532932976628,
+            -0.08322834003509738
+          ],
+          [
+            -0.08833109857747158,
+            0.09912180893337819
+          ]
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          [
+            0.09424983732594855,
+            0.16095002404943456
+          ],
+          [
+            -0.1314906961008598,
+            0.11784019660917443
+          ]
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "previous_hash": "d0a28545aadbeadcaf98edc973e1997dfc99101516f4431f55f72b87eeaaaba0",
+      "stamp": {
+        "ts_ns": 2099852309972,
+        "seq": 3
+      },
+      "crypto_hash": "f6d0691ea8ef2908805c7fb0bf5a03706b6b11111e628210b70ec8e7f0dfb77e"
+    },
+    {
+      "event": "assert_consistency",
+      "axioms": [
+        -1
+      ],
+      "result": false,
+      "previous_hash": "f6d0691ea8ef2908805c7fb0bf5a03706b6b11111e628210b70ec8e7f0dfb77e",
+      "stamp": {
+        "ts_ns": 2099852405486,
+        "seq": 4
+      },
+      "crypto_hash": "2573a921a9dcbe5d4c57e82616ea1da57946f23837158735562449ef7db7c095"
+    }
+  ],
+  "signature": "1170269924357e99ed1c96d41c537f8f550e66b36fd057df53d3d149a48d3898"
+}

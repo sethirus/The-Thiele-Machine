@@ -31,7 +31,7 @@ High-level Summary of Disclosed Components
 2. Reference VM: `thielecpu/` — Python implementation of the instruction set
    (PNEW, PSPLIT, PMERGE, LASSERT, LJOIN, MDLACC, EMIT, XFER) and receipt
    generation.
-3. Receipts & Ledger: JSON step receipts, HMAC signatures, step-level hashes,
+3. Receipts & Ledger: JSON step receipts, Ed25519 signatures, step-level hashes,
    and replay tooling (`scripts/thiele_verify.py`, `scripts/challenge.py`).
 4. Mechanized proofs: Full Coq development in `coq/` with formal statements of
   containment (`Simulation.v`), separation (`Separation.v`), and subsumption
@@ -166,7 +166,7 @@ skilled practitioner.
 -----------------
 - Instruction set: PNEW, PSPLIT, PMERGE, LASSERT, LJOIN, MDLACC, EMIT, XFER
 - Receipt format: each receipt is a JSON object with fields (step, instruction, pre_state, post_state, observation, pre_state_hash, post_state_hash, signature). See `thielecpu/receipts.py` and `scripts/receipt_schema.py` for canonical schema.
-- Signatures: HMAC-SHA256 using `THIELE_KERNEL_SECRET` (environment var); `thielecpu/receipts.py` contains sign/verify helpers.
+- Signatures: Ed25519 signatures using a generated kernel keypair (`scripts/generate_kernel_keys.py`); `thielecpu/receipts.py` contains sign/verify helpers and environment-variable overrides.
 
 2) μ-bit metrology
 ------------------

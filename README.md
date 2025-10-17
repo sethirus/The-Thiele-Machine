@@ -2,6 +2,9 @@
 
 > **⚠️ SECURITY WARNING: This repository contains technology that can break RSA encryption and other cryptographic systems. Use only for defensive security research. See [Security Notice](#security-notice) below.**
 
+The current branch reflects the hardened Thiele Machine: cross-platform automation, Ed25519-signed receipts, and an AST-guarded
+virtual machine that reproduces the six-act Bell thesis on clean Linux installs with no manual patching.
+
 ## Run everything
 
 **Windows (PowerShell):**
@@ -22,7 +25,7 @@ bash scripts/RUNME.sh
 **What this workflow does:**
 - `python3 demonstrate_isomorphism.py` runs the canonical six‑act Bell thesis demonstration, regenerates the narrated ledger and the canonical receipts, and prepares artifacts for Coq replay.
 - `python attempt.py` runs the broader universal orchestrator for additional demos, benchmarks, and archival traces (populates `shape_of_truth_out/` and `archive/`).
-- `scripts/challenge.py verify receipts` recomputes each step hash, checks the Ed25519 signature on the global digest, and replays the portable SAT/SMT artefacts before summing the reported μ-bit charges.
+- `scripts/challenge.py verify receipts` recomputes each step hash, checks the Ed25519 signature on the global digest, and replays the portable SAT/SMT artefacts before summing the compression-derived μ-bit charges.
 - `scripts/RUNME.sh` simply runs the canonical demonstration and verification commands above for Unix-like systems by default.
 
 The Coq formalization is fully mechanised. Use [`coq/verify_subsumption.sh`](coq/verify_subsumption.sh) after installing Coq to rebuild both pillars of the subsumption proof from scratch.
@@ -47,7 +50,7 @@ The Coq formalization is fully mechanised. Use [`coq/verify_subsumption.sh`](coq
    ```sh
    pip install -e .
    ```
-   *This installs all required packages (Z3, numpy, etc.) from `pyproject.toml`.*
+   *This installs all required packages (Z3, numpy, etc.) from `pyproject.toml`. Optional demos can be enabled later with `pip install -e .[demos]`.*
    Or manually install key packages:
    ```sh
    pip install z3-solver numpy scipy networkx python-sat matplotlib tqdm
@@ -65,7 +68,7 @@ The Coq formalization is fully mechanised. Use [`coq/verify_subsumption.sh`](coq
    - Presents the six‑act thesis run, emits the narrated ledger, and produces canonical JSON receipts used by the verification harness.
    - Canonical outputs created by this run:
      - `BELL_INEQUALITY_VERIFIED_RESULTS.md` — narrated ledger of the six acts
-     - `examples/tsirelson_step_receipts.json` — canonical step receipts used for Coq replay
+     - `examples/tsirelson_step_receipts.json` — canonical step receipts used for Coq replay (Ed25519 signed)
      - `artifacts/cosmic_witness_prediction_receipt.json` and SMT2 proofs (Act VI)
      - `artifacts/MANIFEST.sha256` — SHA‑256 manifest of core artifacts
    - If you need the full universal orchestrator (broader experiments, extra benchmarks, and alternative demos), run `python attempt.py` which will produce additional artifacts (see `shape_of_truth_out/` and `archive/`).
@@ -92,6 +95,7 @@ The Coq formalization is fully mechanised. Use [`coq/verify_subsumption.sh`](coq
 **Optional System Dependencies:**
 - Coq Platform 8.20 or later (for formal proofs and compilation)
 - drat-trim and lrat-check (for advanced proof verification)
+- Playwright browsers (`playwright install`) when running `demos/tensorflow_heist_demo/`
 
 **Release Verification:** SHA-256 of v1.0.1 tarball: `883372fd799e98a9fd90f8feb2b3b94d21bf917843745e80351ba52f7cf6d01d` (see [GitHub Release](https://github.com/sethirus/The-Thiele-Machine/releases/tag/v1.0.1))
 
@@ -174,9 +178,11 @@ This repository implements the Thiele Machine, a computational model with capabi
 ### Implementation Details
 
 The Thiele CPU (`thielecpu/`) includes:
-- Partition-based RSA factoring capabilities
+- Partition-based RSA factoring capabilities with explicit search partitions
 - Optional security monitoring and responsible use logging
-- Cryptographic receipt generation with HMAC signatures
+- Cryptographic receipt generation with Ed25519 signatures (keys auto-generated via `scripts/generate_kernel_keys.py` when missing)
+- An AST-whitelisted interpreter guarding `PYEXEC` payloads instead of raw `exec`/`eval`
+- Compression-derived μ-bit accounting that uses `zlib` to approximate witness information content
 
 Logging policy and configuration
 
@@ -1213,7 +1219,7 @@ This artifact is the first concrete evidence that the Thiele Machine is not mere
 
 CatNet instantiates the Thiele Machine in the category of vector spaces. Objects
 are network layers, morphisms are differentiable maps, and composition is
-computation. Each forward pass is recorded in a tamper-evident, HMAC-signed
+computation. Each forward pass is recorded in a tamper-evident, Ed25519-signed
 audit log, and a minimal EU AI Act transparency report is available via
 `get_eu_compliance_report()`. Run the demos with:
 

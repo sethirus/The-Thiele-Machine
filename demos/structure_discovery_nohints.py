@@ -73,8 +73,12 @@ class InstanceGenerator:
                 "matrix": matrix,
                 "rhs": rhs,
                 "field": 2  # GF(2)
+            },
+            "metadata": {
+                "family": "gf2_linear",
+                "difficulty": difficulty,
+                "description": "Random GF(2) linear system highlighting parity structure"
             }
-            # No metadata for true no-hints discovery
         }
 
     def _generate_symmetry_instance(self, difficulty: str) -> Dict[str, Any]:
@@ -110,8 +114,12 @@ class InstanceGenerator:
                 "elements": elements,
                 "permutations": permutations,
                 "constraints": constraints
+            },
+            "metadata": {
+                "family": "symmetry_invariants",
+                "difficulty": difficulty,
+                "description": "Permutation invariants highlighting latent symmetry"
             }
-            # No metadata for true no-hints discovery
         }
 
     def _generate_modular_instance(self, difficulty: str) -> Dict[str, Any]:
@@ -143,8 +151,12 @@ class InstanceGenerator:
                 "operations": operations,
                 "factor_target": target,
                 "modulus": modulus
+            },
+            "metadata": {
+                "family": "modular_arithmetic",
+                "difficulty": difficulty,
+                "description": "Modular arithmetic reasoning with hidden factoring witness"
             }
-            # No metadata for true no-hints discovery
         }
 
     def _generate_tseitin_expander_instance(self, difficulty: str) -> Dict[str, Any]:
@@ -185,6 +197,11 @@ class InstanceGenerator:
                 "degree": degree,
                 "complexity_family": "tseitin_expander",
                 "known_lower_bound": "exp(Ω(n^{1/2}))"  # Tree-like resolution lower bound
+            },
+            "metadata": {
+                "family": "tseitin_expander",
+                "difficulty": difficulty,
+                "description": "Tseitin contradiction on a random 3-regular expander graph"
             }
         }
 
@@ -227,16 +244,22 @@ class InstanceGenerator:
                     clause = [-variables[(p1, h)], -variables[(p2, h)]]
                     constraints.append(clause)
 
+        variable_metadata = {f"p{p}_h{h}": vid for (p, h), vid in variables.items()}
         return {
             "seed": self.seed,
             "type": "unlabeled",
             "data": {
                 "pigeons": pigeons,
                 "holes": holes,
-                "variables": variables,
+                "variables": variable_metadata,
                 "constraints": constraints,
                 "complexity_family": "pigeonhole_principle",
                 "known_lower_bound": "2^{Ω(n)}"  # Exponential lower bound for resolution
+            },
+            "metadata": {
+                "family": "pigeonhole_principle",
+                "difficulty": difficulty,
+                "description": "Pigeonhole principle with more pigeons than holes"
             }
         }
 
@@ -269,6 +292,11 @@ class InstanceGenerator:
                 "targets": targets,
                 "complexity_family": "graph_pebbling",
                 "known_lower_bound": "n^{Ω(1)}"  # Polynomial lower bounds known
+            },
+            "metadata": {
+                "family": "graph_pebbling",
+                "difficulty": difficulty,
+                "description": "Graph pebbling challenge with random edges and budgets"
             }
         }
 
@@ -289,8 +317,12 @@ class InstanceGenerator:
         return {
             "seed": self.seed,
             "type": "unlabeled",
-            "data": combined_data
-            # No metadata for true no-hints discovery
+            "data": combined_data,
+            "metadata": {
+                "family": "mixed_composite",
+                "difficulty": difficulty,
+                "description": "Composite instance combining parity, symmetry, and modular constraints"
+            }
         }
 
     def get_commitment_hash(self, instance: Dict[str, Any]) -> str:

@@ -4,7 +4,7 @@
     "instruction": {
       "op": "PNEW",
       "payload": [
-        0
+        1
       ]
     },
     "pre_state": {
@@ -34,13 +34,13 @@
     },
     "pre_state_hash": "3be4ab3e30347c3b36b3c176e39c564d8b2e1e6c6f816f53070d67ed3cd381f4",
     "post_state_hash": "2e59cea3b3cf0e0427b5d1025581d2f165a69235777b0cabab6bdd7773234376",
-    "signature": "dc1cd5755faf04a4dfb7644b5ffed64487c066a5dacfc5ba98257bff50957884"
+    "signature": "ba72929d2ac16914adfd3fc6d6b8b19e764513ee8d3a4a02d24eb00d3277d4f4a34403a2d2de39fa8beac09f51d97638bc686a4404c899e1b8b2de6a42b35d04"
   },
   {
     "step": 4,
     "instruction": {
       "op": "PYEXEC",
-      "payload": "C:\\Users\\tbagt\\TheThieleMachine\\temp_rsa_verify.py"
+      "payload": "/workspace/The-Thiele-Machine/temp_rsa_setup.py"
     },
     "pre_state": {
       "pc": 1,
@@ -57,7 +57,7 @@
     "observation": {
       "event": {
         "tag": "PolicyCheck",
-        "value": "C:\\Users\\tbagt\\TheThieleMachine\\temp_rsa_verify.py"
+        "value": "/workspace/The-Thiele-Machine/temp_rsa_setup.py"
       },
       "mu_delta": 0,
       "cert": {
@@ -70,13 +70,13 @@
     },
     "pre_state_hash": "2e59cea3b3cf0e0427b5d1025581d2f165a69235777b0cabab6bdd7773234376",
     "post_state_hash": "15713ac6773c4903303bd6ba812422142bcbd5b39ba256b43969353ac4f47f59",
-    "signature": "f34ce60ab58193034e1199d840a7572c94ad50bfa6f696b76a4a38b4ca0e923e"
+    "signature": "64db90b456887a20c9ec41694e78e5cf123a284a3837d8f0c6826274291f570c58a30fefc5592546e834666663c122f7265df5d72499101c0121d8f5837d340a"
   },
   {
     "step": 6,
     "instruction": {
-      "op": "MDLACC",
-      "payload": 1
+      "op": "PYEXEC",
+      "payload": "/workspace/The-Thiele-Machine/temp_rsa_partition_a.py"
     },
     "pre_state": {
       "pc": 2,
@@ -91,7 +91,10 @@
       "cert_addr": ""
     },
     "observation": {
-      "event": null,
+      "event": {
+        "tag": "PolicyCheck",
+        "value": "/workspace/The-Thiele-Machine/temp_rsa_partition_a.py"
+      },
       "mu_delta": 0,
       "cert": {
         "smt_query": "",
@@ -103,13 +106,13 @@
     },
     "pre_state_hash": "15713ac6773c4903303bd6ba812422142bcbd5b39ba256b43969353ac4f47f59",
     "post_state_hash": "6295c09d07120cab3fa48d4f08d9b07a275c79d0d10d9ba5f2b858f670f25c59",
-    "signature": "2ea120b1032c0755b3e249908a8980562a6776fd4ddde1a454446550a7139117"
+    "signature": "285b59eb5b3c07dfcf979f7936d2c842371cddd2c6a905af34b8d6fb9430ab2fde761d15ce7344497aec7fc62802d6d7454d5aa69cb3b7ff0bcff494e48cb60c"
   },
   {
     "step": 8,
     "instruction": {
-      "op": "EMIT",
-      "payload": "RSA factorization completed via partition-native computation"
+      "op": "PYEXEC",
+      "payload": "/workspace/The-Thiele-Machine/temp_rsa_partition_b.py"
     },
     "pre_state": {
       "pc": 3,
@@ -125,8 +128,8 @@
     },
     "observation": {
       "event": {
-        "tag": "ErrorOccurred",
-        "value": "RSA factorization completed via partition-native computation"
+        "tag": "PolicyCheck",
+        "value": "/workspace/The-Thiele-Machine/temp_rsa_partition_b.py"
       },
       "mu_delta": 0,
       "cert": {
@@ -139,6 +142,111 @@
     },
     "pre_state_hash": "6295c09d07120cab3fa48d4f08d9b07a275c79d0d10d9ba5f2b858f670f25c59",
     "post_state_hash": "700da4c068b172264a4f0599d5bb6e22ef3321e4c9967d4430c31cefb17ce59d",
-    "signature": "1436f616c0d8edb99b11665abf8428a973aa130b3e333eefb893548d88e11675"
+    "signature": "84136b4496eb6fc1a4a2d5449f6d1e6ea1c075b0ef3da15af7461b2cd4515f2aef52da4569edd8561f4c55db00bfe5f80225c076b1426d40eac6a42f91f0cf01"
+  },
+  {
+    "step": 10,
+    "instruction": {
+      "op": "PYEXEC",
+      "payload": "/workspace/The-Thiele-Machine/temp_rsa_compose.py"
+    },
+    "pre_state": {
+      "pc": 4,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "post_state": {
+      "pc": 5,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "observation": {
+      "event": {
+        "tag": "PolicyCheck",
+        "value": "/workspace/The-Thiele-Machine/temp_rsa_compose.py"
+      },
+      "mu_delta": 0,
+      "cert": {
+        "smt_query": "",
+        "solver_reply": "",
+        "metadata": "",
+        "timestamp": 0,
+        "sequence": 0
+      }
+    },
+    "pre_state_hash": "700da4c068b172264a4f0599d5bb6e22ef3321e4c9967d4430c31cefb17ce59d",
+    "post_state_hash": "53d2b5fca8a9bff9db6e5cec50d67b7ad15c79f0099704e6276a8e8f89ac3406",
+    "signature": "18fb470e19f0ee217c4c45ec4b3b3fd4a7805eba0bbbcd8312ec56b1be222e4da7301e01943fd16d85aec1330dc9cea8ee3485dd30a83c844244a501c901c605"
+  },
+  {
+    "step": 12,
+    "instruction": {
+      "op": "MDLACC",
+      "payload": 2
+    },
+    "pre_state": {
+      "pc": 5,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "post_state": {
+      "pc": 6,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "observation": {
+      "event": null,
+      "mu_delta": 0,
+      "cert": {
+        "smt_query": "",
+        "solver_reply": "",
+        "metadata": "",
+        "timestamp": 0,
+        "sequence": 0
+      }
+    },
+    "pre_state_hash": "53d2b5fca8a9bff9db6e5cec50d67b7ad15c79f0099704e6276a8e8f89ac3406",
+    "post_state_hash": "2a0d06363ed0d9cf8edca57124fb893e94f8c59d51db6769dc0eef350c74dbe8",
+    "signature": "0bb51d801b5a0e266a74bee9c4a95d934b04c58fe094384a381dee01ee514fb44e4ca6cfc7a6521f6cc9e50d4892b2fb4e693564e3ccd564affaf92ac1086a03"
+  },
+  {
+    "step": 14,
+    "instruction": {
+      "op": "EMIT",
+      "payload": "RSA factorisation completed via partition-native computation"
+    },
+    "pre_state": {
+      "pc": 6,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "post_state": {
+      "pc": 7,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "observation": {
+      "event": {
+        "tag": "ErrorOccurred",
+        "value": "RSA factorisation completed via partition-native computation"
+      },
+      "mu_delta": 0,
+      "cert": {
+        "smt_query": "",
+        "solver_reply": "",
+        "metadata": "",
+        "timestamp": 0,
+        "sequence": 0
+      }
+    },
+    "pre_state_hash": "2a0d06363ed0d9cf8edca57124fb893e94f8c59d51db6769dc0eef350c74dbe8",
+    "post_state_hash": "ffbe92c6a6b720d0046c28b0d5c09d20b7161ba480d1fe24f9b47c45a4e149ff",
+    "signature": "efaa23e94db11c4647ffcb0d2cc79cffe165d8f1dbcca9fb09a992eee7768297ed54f62b6a58c90a91dbdf368f7cf81e36541387bee402ab6263ab19bdc75605"
   }
 ]

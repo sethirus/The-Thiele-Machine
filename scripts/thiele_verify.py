@@ -259,6 +259,11 @@ def verify_path(path: str) -> float:
         print(f"[INFO] acknowledged support artefact {name}")
         return 0.0
 
+    if isinstance(data, list) and data and isinstance(data[0], dict):
+        if all('blind_results' in row and 'sighted_results' in row for row in data):
+            print(f"[INFO] acknowledged benchmark receipt {name}")
+            return 0.0
+
     # Unknown/irrelevant JSON file
     print(f"[WARN] skipping {name}: unrecognized receipt format")
     return 0.0
