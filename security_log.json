@@ -49,5 +49,946 @@
       "steps": 4,
       "receipts": 2
     }
+  },
+  {
+    "timestamp": "2025-10-16T21:20:22.167428Z",
+    "session_id": "c516466be03092ca",
+    "pid": 28504,
+    "process": "MainProcess",
+    "thread": 27992,
+    "activity": "vm.run.start",
+    "details": {
+      "program_len": 4,
+      "outdir": "paradox_output"
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:20:39.143230Z",
+    "session_id": "ec0d4cb606b17d0f",
+    "pid": 18700,
+    "process": "MainProcess",
+    "thread": 28444,
+    "activity": "vm.run.start",
+    "details": {
+      "program_len": 4,
+      "outdir": "paradox_output"
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:21:14.551082Z",
+    "session_id": "33fe31ccff0b1e73",
+    "pid": 30476,
+    "process": "MainProcess",
+    "thread": 29872,
+    "activity": "vm.run.start",
+    "details": {
+      "program_len": 4,
+      "outdir": "paradox_output"
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:21:37.149350Z",
+    "session_id": "035c885ddd60f6ad",
+    "pid": 24748,
+    "process": "MainProcess",
+    "thread": 2832,
+    "activity": "vm.run.start",
+    "details": {
+      "program_len": 4,
+      "outdir": "rsa_demo_output"
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:21:37.165689Z",
+    "session_id": "035c885ddd60f6ad",
+    "pid": 24748,
+    "process": "MainProcess",
+    "thread": 2832,
+    "activity": "vm.pyexec",
+    "details": {
+      "code": "C:\\Users\\tbagt\\TheThieleMachine\\temp_rsa_verify.py",
+      "output": "Partition-based RSA factorization of n = 91\nFactor search space: [2, 10]\n\nUsing real modular arithmetic solver...\n[SUCCESS] Real solver found factors: p=7, q=13\n  Verification: 7 * 13 = 91\n  Mu-bits spent: 7\n",
+      "step": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:21:37.175713Z",
+    "session_id": "035c885ddd60f6ad",
+    "pid": 24748,
+    "process": "MainProcess",
+    "thread": 2832,
+    "activity": "vm.emit",
+    "details": {
+      "value": "RSA factorization completed via partition-native computation",
+      "step": 8,
+      "module": 1
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:21:37.186138Z",
+    "session_id": "035c885ddd60f6ad",
+    "pid": 24748,
+    "process": "MainProcess",
+    "thread": 2832,
+    "activity": "vm.run.finish",
+    "details": {
+      "outdir": "rsa_demo_output",
+      "steps": 8,
+      "receipts": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:21:39.679387Z",
+    "session_id": "052d7724330f45a4",
+    "pid": 27900,
+    "process": "MainProcess",
+    "thread": 9492,
+    "activity": "vm.run.start",
+    "details": {
+      "program_len": 7,
+      "outdir": "C:\\Users\\tbagt\\TheThieleMachine\\demos\\universe_demo\\output"
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:21:39.718514Z",
+    "session_id": "052d7724330f45a4",
+    "pid": 27900,
+    "process": "MainProcess",
+    "thread": 9492,
+    "activity": "vm.emit",
+    "details": {
+      "value": "The Nature of Reality is Verified.",
+      "step": 14,
+      "module": 2
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:21:39.729691Z",
+    "session_id": "052d7724330f45a4",
+    "pid": 27900,
+    "process": "MainProcess",
+    "thread": 9492,
+    "activity": "vm.run.finish",
+    "details": {
+      "outdir": "C:\\Users\\tbagt\\TheThieleMachine\\demos\\universe_demo\\output",
+      "steps": 14,
+      "receipts": 7
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:22.163164Z",
+    "session_id": "e577993005d45ff4",
+    "pid": 27204,
+    "process": "MainProcess",
+    "thread": 9768,
+    "activity": "vm.run.start",
+    "details": {
+      "program_len": 4,
+      "outdir": "structure_discovery_output"
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:22.181754Z",
+    "session_id": "e577993005d45ff4",
+    "pid": 27204,
+    "process": "MainProcess",
+    "thread": 9768,
+    "activity": "vm.pyexec",
+    "details": {
+      "code": "C:\\Users\\tbagt\\TheThieleMachine\\temp_structure_discovery.py",
+      "output": "No-hints structure discovery for modular instance (size 10)\nModel induction:\n  Trying gf2_linear...\n    MDL score: inf, mu-bits: 10\n  Trying modular_arithmetic...\n    MDL score: 6.64, mu-bits: 3\n  Trying symmetry_breaking...\n    MDL score: inf, mu-bits: 10\n  Trying general_sat...\n    MDL score: 20.00, mu-bits: 1\nSelected model: modular_arithmetic (MDL: 6.64)\nTotal mu-bits for discovery: 24\n\nSolving with discovered model...\nReal solver succeeded: Real factors: [2, 2, 5, 5]\nSolution: Real factors: [2, 2, 5, 5]\n  Mu-bits for solving: 26\n  Total mu-bits: 50\n__result__ = {'discovery': {'discovered_model': 'modular_arithmetic', 'mdl_score': 6.643856189774724, 'candidate_scores': {'gf2_linear': inf, 'modular_arithmetic': 6.643856189774724, 'symmetry_breaking': inf, 'general_sat': 20}, 'mu_bits_discovery': 24}, 'solution': 'Real factors: [2, 2, 5, 5]', 'total_mu_bits': 50, 'solve_mu_bits': 26, 'proof_data': '5265616c20666163746f72733a205b322c20322c20352c20355d', 'real_solver_used': True}\n",
+      "step": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:22.190786Z",
+    "session_id": "e577993005d45ff4",
+    "pid": 27204,
+    "process": "MainProcess",
+    "thread": 9768,
+    "activity": "vm.emit",
+    "details": {
+      "value": "Structure discovery and solving completed via partition-native computation",
+      "step": 8,
+      "module": 1
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:22.202772Z",
+    "session_id": "e577993005d45ff4",
+    "pid": 27204,
+    "process": "MainProcess",
+    "thread": 9768,
+    "activity": "vm.run.finish",
+    "details": {
+      "outdir": "structure_discovery_output",
+      "steps": 8,
+      "receipts": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:22.226854Z",
+    "session_id": "e577993005d45ff4",
+    "pid": 27204,
+    "process": "MainProcess",
+    "thread": 9768,
+    "activity": "vm.run.start",
+    "details": {
+      "program_len": 4,
+      "outdir": "structure_discovery_output"
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:22.246210Z",
+    "session_id": "e577993005d45ff4",
+    "pid": 27204,
+    "process": "MainProcess",
+    "thread": 9768,
+    "activity": "vm.pyexec",
+    "details": {
+      "code": "C:\\Users\\tbagt\\TheThieleMachine\\temp_structure_discovery.py",
+      "output": "No-hints structure discovery for modular instance (size 10)\nModel induction:\n  Trying gf2_linear...\n    MDL score: inf, mu-bits: 10\n  Trying modular_arithmetic...\n    MDL score: 6.64, mu-bits: 3\n  Trying symmetry_breaking...\n    MDL score: inf, mu-bits: 10\n  Trying general_sat...\n    MDL score: 20.00, mu-bits: 1\nSelected model: modular_arithmetic (MDL: 6.64)\nTotal mu-bits for discovery: 24\n\nSolving with discovered model...\nReal solver succeeded: Real factors: [2, 2, 5, 5]\nSolution: Real factors: [2, 2, 5, 5]\n  Mu-bits for solving: 26\n  Total mu-bits: 50\n__result__ = {'discovery': {'discovered_model': 'modular_arithmetic', 'mdl_score': 6.643856189774724, 'candidate_scores': {'gf2_linear': inf, 'modular_arithmetic': 6.643856189774724, 'symmetry_breaking': inf, 'general_sat': 20}, 'mu_bits_discovery': 24}, 'solution': 'Real factors: [2, 2, 5, 5]', 'total_mu_bits': 50, 'solve_mu_bits': 26, 'proof_data': '5265616c20666163746f72733a205b322c20322c20352c20355d', 'real_solver_used': True}\n",
+      "step": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:22.254881Z",
+    "session_id": "e577993005d45ff4",
+    "pid": 27204,
+    "process": "MainProcess",
+    "thread": 9768,
+    "activity": "vm.emit",
+    "details": {
+      "value": "Structure discovery and solving completed via partition-native computation",
+      "step": 8,
+      "module": 1
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:22.265385Z",
+    "session_id": "e577993005d45ff4",
+    "pid": 27204,
+    "process": "MainProcess",
+    "thread": 9768,
+    "activity": "vm.run.finish",
+    "details": {
+      "outdir": "structure_discovery_output",
+      "steps": 8,
+      "receipts": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:22.289454Z",
+    "session_id": "e577993005d45ff4",
+    "pid": 27204,
+    "process": "MainProcess",
+    "thread": 9768,
+    "activity": "vm.run.start",
+    "details": {
+      "program_len": 4,
+      "outdir": "structure_discovery_output"
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:22.317400Z",
+    "session_id": "e577993005d45ff4",
+    "pid": 27204,
+    "process": "MainProcess",
+    "thread": 9768,
+    "activity": "vm.pyexec",
+    "details": {
+      "code": "C:\\Users\\tbagt\\TheThieleMachine\\temp_structure_discovery.py",
+      "output": "No-hints structure discovery for modular instance (size 20)\nModel induction:\n  Trying gf2_linear...\n    MDL score: inf, mu-bits: 10\n  Trying modular_arithmetic...\n    MDL score: 8.64, mu-bits: 3\n  Trying symmetry_breaking...\n    MDL score: inf, mu-bits: 10\n  Trying general_sat...\n    MDL score: 20.00, mu-bits: 1\nSelected model: modular_arithmetic (MDL: 8.64)\nTotal mu-bits for discovery: 24\n\nSolving with discovered model...\nReal solver succeeded: Real factors: [2, 2, 5, 5]\nSolution: Real factors: [2, 2, 5, 5]\n  Mu-bits for solving: 26\n  Total mu-bits: 50\n__result__ = {'discovery': {'discovered_model': 'modular_arithmetic', 'mdl_score': 8.643856189774725, 'candidate_scores': {'gf2_linear': inf, 'modular_arithmetic': 8.643856189774725, 'symmetry_breaking': inf, 'general_sat': 20}, 'mu_bits_discovery': 24}, 'solution': 'Real factors: [2, 2, 5, 5]', 'total_mu_bits': 50, 'solve_mu_bits': 26, 'proof_data': '5265616c20666163746f72733a205b322c20322c20352c20355d', 'real_solver_used': True}\n",
+      "step": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:22.327187Z",
+    "session_id": "e577993005d45ff4",
+    "pid": 27204,
+    "process": "MainProcess",
+    "thread": 9768,
+    "activity": "vm.emit",
+    "details": {
+      "value": "Structure discovery and solving completed via partition-native computation",
+      "step": 8,
+      "module": 1
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:22.337416Z",
+    "session_id": "e577993005d45ff4",
+    "pid": 27204,
+    "process": "MainProcess",
+    "thread": 9768,
+    "activity": "vm.run.finish",
+    "details": {
+      "outdir": "structure_discovery_output",
+      "steps": 8,
+      "receipts": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:22.366754Z",
+    "session_id": "e577993005d45ff4",
+    "pid": 27204,
+    "process": "MainProcess",
+    "thread": 9768,
+    "activity": "vm.run.start",
+    "details": {
+      "program_len": 4,
+      "outdir": "structure_discovery_output"
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:22.385470Z",
+    "session_id": "e577993005d45ff4",
+    "pid": 27204,
+    "process": "MainProcess",
+    "thread": 9768,
+    "activity": "vm.pyexec",
+    "details": {
+      "code": "C:\\Users\\tbagt\\TheThieleMachine\\temp_structure_discovery.py",
+      "output": "No-hints structure discovery for modular instance (size 20)\nModel induction:\n  Trying gf2_linear...\n    MDL score: inf, mu-bits: 10\n  Trying modular_arithmetic...\n    MDL score: 8.64, mu-bits: 3\n  Trying symmetry_breaking...\n    MDL score: inf, mu-bits: 10\n  Trying general_sat...\n    MDL score: 20.00, mu-bits: 1\nSelected model: modular_arithmetic (MDL: 8.64)\nTotal mu-bits for discovery: 24\n\nSolving with discovered model...\nReal solver succeeded: Real factors: [2, 2, 5, 5]\nSolution: Real factors: [2, 2, 5, 5]\n  Mu-bits for solving: 26\n  Total mu-bits: 50\n__result__ = {'discovery': {'discovered_model': 'modular_arithmetic', 'mdl_score': 8.643856189774725, 'candidate_scores': {'gf2_linear': inf, 'modular_arithmetic': 8.643856189774725, 'symmetry_breaking': inf, 'general_sat': 20}, 'mu_bits_discovery': 24}, 'solution': 'Real factors: [2, 2, 5, 5]', 'total_mu_bits': 50, 'solve_mu_bits': 26, 'proof_data': '5265616c20666163746f72733a205b322c20322c20352c20355d', 'real_solver_used': True}\n",
+      "step": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:22.394294Z",
+    "session_id": "e577993005d45ff4",
+    "pid": 27204,
+    "process": "MainProcess",
+    "thread": 9768,
+    "activity": "vm.emit",
+    "details": {
+      "value": "Structure discovery and solving completed via partition-native computation",
+      "step": 8,
+      "module": 1
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:22.404598Z",
+    "session_id": "e577993005d45ff4",
+    "pid": 27204,
+    "process": "MainProcess",
+    "thread": 9768,
+    "activity": "vm.run.finish",
+    "details": {
+      "outdir": "structure_discovery_output",
+      "steps": 8,
+      "receipts": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:36.466068Z",
+    "session_id": "26e80f542f7f3f42",
+    "pid": 22436,
+    "process": "MainProcess",
+    "thread": 28228,
+    "activity": "vm.run.start",
+    "details": {
+      "program_len": 4,
+      "outdir": "demo_output"
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:36.538114Z",
+    "session_id": "26e80f542f7f3f42",
+    "pid": 22436,
+    "process": "MainProcess",
+    "thread": 28228,
+    "activity": "vm.pyexec",
+    "details": {
+      "code": "C:\\Users\\tbagt\\TheThieleMachine\\temp_skeleton.py",
+      "output": "Using Z3-based cryptanalysis for pre-image search\nZ3 available - using symbolic cryptanalysis\nFOUND: Secret = 'vr0c', Simple hash = 123\n  (Using Z3 symbolic cryptanalysis)\n  Note: This solved the simple hash, not the full SHA-256\n",
+      "step": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:36.547704Z",
+    "session_id": "26e80f542f7f3f42",
+    "pid": 22436,
+    "process": "MainProcess",
+    "thread": 28228,
+    "activity": "vm.emit",
+    "details": {
+      "value": "Skeleton Key Found",
+      "step": 8,
+      "module": 2
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:36.558062Z",
+    "session_id": "26e80f542f7f3f42",
+    "pid": 22436,
+    "process": "MainProcess",
+    "thread": 28228,
+    "activity": "vm.run.finish",
+    "details": {
+      "outdir": "demo_output",
+      "steps": 8,
+      "receipts": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:40.891725Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.run.start",
+    "details": {
+      "program_len": 4,
+      "outdir": "bell_locality_analysis"
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:40.915192Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.pyexec",
+    "details": {
+      "code": "C:\\Users\\tbagt\\TheThieleMachine\\bell_locality_solver.py",
+      "output": "Analyzing Bell dataset: 1000 trials, CHSH = 0.538\nBest local strategy: (0, 0, 0, 0)\nPrediction errors: 0/1000 = 0.000\n\u03bc*(S) = 0 \u00b5-bits\nRESULT: chsh_value=0.538, mu_star=0, error_rate=0.0\n",
+      "step": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:40.924666Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.emit",
+    "details": {
+      "value": "Bell locality analysis complete for S = 0.538",
+      "step": 8,
+      "module": 1
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:40.935237Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.run.finish",
+    "details": {
+      "outdir": "bell_locality_analysis",
+      "steps": 8,
+      "receipts": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:40.952327Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.run.start",
+    "details": {
+      "program_len": 4,
+      "outdir": "bell_locality_analysis"
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:40.975690Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.pyexec",
+    "details": {
+      "code": "C:\\Users\\tbagt\\TheThieleMachine\\bell_locality_solver.py",
+      "output": "Analyzing Bell dataset: 1000 trials, CHSH = 0.562\nBest local strategy: (0, 0, 0, 0)\nPrediction errors: 0/1000 = 0.000\n\u03bc*(S) = 0 \u00b5-bits\nRESULT: chsh_value=0.562, mu_star=0, error_rate=0.0\n",
+      "step": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:40.985477Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.emit",
+    "details": {
+      "value": "Bell locality analysis complete for S = 0.562",
+      "step": 8,
+      "module": 1
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:40.996220Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.run.finish",
+    "details": {
+      "outdir": "bell_locality_analysis",
+      "steps": 8,
+      "receipts": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:41.022646Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.run.start",
+    "details": {
+      "program_len": 4,
+      "outdir": "bell_locality_analysis"
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:41.047665Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.pyexec",
+    "details": {
+      "code": "C:\\Users\\tbagt\\TheThieleMachine\\bell_locality_solver.py",
+      "output": "Analyzing Bell dataset: 1000 trials, CHSH = 0.674\nBest local strategy: (0, 0, 1, 0)\nPrediction errors: 646/1000 = 0.646\n\u03bc*(S) = 1 \u00b5-bits\nRESULT: chsh_value=0.674, mu_star=1, error_rate=0.646\n",
+      "step": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:41.057373Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.emit",
+    "details": {
+      "value": "Bell locality analysis complete for S = 0.674",
+      "step": 8,
+      "module": 1
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:41.067952Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.run.finish",
+    "details": {
+      "outdir": "bell_locality_analysis",
+      "steps": 8,
+      "receipts": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:41.095125Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.run.start",
+    "details": {
+      "program_len": 4,
+      "outdir": "bell_locality_analysis"
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:41.120634Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.pyexec",
+    "details": {
+      "code": "C:\\Users\\tbagt\\TheThieleMachine\\bell_locality_solver.py",
+      "output": "Analyzing Bell dataset: 1000 trials, CHSH = 0.722\nBest local strategy: (1, 0, 0, 0)\nPrediction errors: 641/1000 = 0.641\n\u03bc*(S) = 1 \u00b5-bits\nRESULT: chsh_value=0.722, mu_star=1, error_rate=0.641\n",
+      "step": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:41.130885Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.emit",
+    "details": {
+      "value": "Bell locality analysis complete for S = 0.722",
+      "step": 8,
+      "module": 1
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:41.142606Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.run.finish",
+    "details": {
+      "outdir": "bell_locality_analysis",
+      "steps": 8,
+      "receipts": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:41.171670Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.run.start",
+    "details": {
+      "program_len": 4,
+      "outdir": "bell_locality_analysis"
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:41.196957Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.pyexec",
+    "details": {
+      "code": "C:\\Users\\tbagt\\TheThieleMachine\\bell_locality_solver.py",
+      "output": "Analyzing Bell dataset: 1000 trials, CHSH = 0.698\nBest local strategy: (0, 1, 1, 1)\nPrediction errors: 630/1000 = 0.630\n\u03bc*(S) = 1 \u00b5-bits\nRESULT: chsh_value=0.698, mu_star=1, error_rate=0.63\n",
+      "step": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:41.208431Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.emit",
+    "details": {
+      "value": "Bell locality analysis complete for S = 0.698",
+      "step": 8,
+      "module": 1
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:41.219806Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.run.finish",
+    "details": {
+      "outdir": "bell_locality_analysis",
+      "steps": 8,
+      "receipts": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:41.247416Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.run.start",
+    "details": {
+      "program_len": 4,
+      "outdir": "bell_locality_analysis"
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:41.273307Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.pyexec",
+    "details": {
+      "code": "C:\\Users\\tbagt\\TheThieleMachine\\bell_locality_solver.py",
+      "output": "Analyzing Bell dataset: 1000 trials, CHSH = 0.7\nBest local strategy: (0, 1, 1, 0)\nPrediction errors: 639/1000 = 0.639\n\u03bc*(S) = 1 \u00b5-bits\nRESULT: chsh_value=0.7, mu_star=1, error_rate=0.639\n",
+      "step": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:41.284068Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.emit",
+    "details": {
+      "value": "Bell locality analysis complete for S = 0.7",
+      "step": 8,
+      "module": 1
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:41.295542Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.run.finish",
+    "details": {
+      "outdir": "bell_locality_analysis",
+      "steps": 8,
+      "receipts": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:41.322768Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.run.start",
+    "details": {
+      "program_len": 4,
+      "outdir": "bell_locality_analysis"
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:41.348732Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.pyexec",
+    "details": {
+      "code": "C:\\Users\\tbagt\\TheThieleMachine\\bell_locality_solver.py",
+      "output": "Analyzing Bell dataset: 1000 trials, CHSH = 0.714\nBest local strategy: (1, 1, 1, 1)\nPrediction errors: 641/1000 = 0.641\n\u03bc*(S) = 1 \u00b5-bits\nRESULT: chsh_value=0.714, mu_star=1, error_rate=0.641\n",
+      "step": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:41.360796Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.emit",
+    "details": {
+      "value": "Bell locality analysis complete for S = 0.714",
+      "step": 8,
+      "module": 1
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:41.378585Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.run.finish",
+    "details": {
+      "outdir": "bell_locality_analysis",
+      "steps": 8,
+      "receipts": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:41.414018Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.run.start",
+    "details": {
+      "program_len": 4,
+      "outdir": "bell_locality_analysis"
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:41.450244Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.pyexec",
+    "details": {
+      "code": "C:\\Users\\tbagt\\TheThieleMachine\\bell_locality_solver.py",
+      "output": "Analyzing Bell dataset: 1000 trials, CHSH = 1.0\nBest local strategy: (1, 0, 0, 1)\nPrediction errors: 602/1000 = 0.602\n\u03bc*(S) = 1 \u00b5-bits\nRESULT: chsh_value=1.0, mu_star=1, error_rate=0.602\n",
+      "step": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:41.464923Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.emit",
+    "details": {
+      "value": "Bell locality analysis complete for S = 1.0",
+      "step": 8,
+      "module": 1
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:41.479225Z",
+    "session_id": "fc784be11c2aed6a",
+    "pid": 2656,
+    "process": "MainProcess",
+    "thread": 26808,
+    "activity": "vm.run.finish",
+    "details": {
+      "outdir": "bell_locality_analysis",
+      "steps": 8,
+      "receipts": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:43.014504Z",
+    "session_id": "d45964d7e380adf9",
+    "pid": 28936,
+    "process": "MainProcess",
+    "thread": 16568,
+    "activity": "vm.run.start",
+    "details": {
+      "program_len": 4,
+      "outdir": "ablation_no_mdl"
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:43.030386Z",
+    "session_id": "d45964d7e380adf9",
+    "pid": 28936,
+    "process": "MainProcess",
+    "thread": 16568,
+    "activity": "vm.pyexec",
+    "details": {
+      "code": "C:\\Users\\tbagt\\TheThieleMachine\\temp_ablation_no_mdl.py",
+      "output": "Ablation: No MDL - directly use correct model\nSolution: Real factors: [2, 2, 5, 5]\nTotal mu-bits: 26 (no discovery)\n__result__ = {'solution': 'Real factors: [2, 2, 5, 5]', 'total_mu_bits': 26, 'ablation': 'no_mdl'}\n",
+      "step": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:43.040261Z",
+    "session_id": "d45964d7e380adf9",
+    "pid": 28936,
+    "process": "MainProcess",
+    "thread": 16568,
+    "activity": "vm.emit",
+    "details": {
+      "value": "Ablation no_mdl complete",
+      "step": 8,
+      "module": 1
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:43.051123Z",
+    "session_id": "d45964d7e380adf9",
+    "pid": 28936,
+    "process": "MainProcess",
+    "thread": 16568,
+    "activity": "vm.run.finish",
+    "details": {
+      "outdir": "ablation_no_mdl",
+      "steps": 8,
+      "receipts": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:43.064676Z",
+    "session_id": "d45964d7e380adf9",
+    "pid": 28936,
+    "process": "MainProcess",
+    "thread": 16568,
+    "activity": "vm.run.start",
+    "details": {
+      "program_len": 4,
+      "outdir": "ablation_wrong_model"
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:43.082503Z",
+    "session_id": "d45964d7e380adf9",
+    "pid": 28936,
+    "process": "MainProcess",
+    "thread": 16568,
+    "activity": "vm.pyexec",
+    "details": {
+      "code": "C:\\Users\\tbagt\\TheThieleMachine\\temp_ablation_wrong_model.py",
+      "output": "Ablation: Wrong Model - force GF(2) on modular problem\nSolution: Z3 SAT: ['True', 'False']\nTotal mu-bits: 1025 (wrong model penalty)\n__result__ = {'solution': \"Z3 SAT: ['True', 'False']\", 'total_mu_bits': 1025, 'ablation': 'wrong_model'}\n",
+      "step": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:43.093179Z",
+    "session_id": "d45964d7e380adf9",
+    "pid": 28936,
+    "process": "MainProcess",
+    "thread": 16568,
+    "activity": "vm.emit",
+    "details": {
+      "value": "Ablation wrong_model complete",
+      "step": 8,
+      "module": 1
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:43.104522Z",
+    "session_id": "d45964d7e380adf9",
+    "pid": 28936,
+    "process": "MainProcess",
+    "thread": 16568,
+    "activity": "vm.run.finish",
+    "details": {
+      "outdir": "ablation_wrong_model",
+      "steps": 8,
+      "receipts": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:43.117976Z",
+    "session_id": "d45964d7e380adf9",
+    "pid": 28936,
+    "process": "MainProcess",
+    "thread": 16568,
+    "activity": "vm.run.start",
+    "details": {
+      "program_len": 4,
+      "outdir": "ablation_full_pipeline"
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:43.130493Z",
+    "session_id": "d45964d7e380adf9",
+    "pid": 28936,
+    "process": "MainProcess",
+    "thread": 16568,
+    "activity": "vm.pyexec",
+    "details": {
+      "code": "C:\\Users\\tbagt\\TheThieleMachine\\temp_ablation_full_pipeline.py",
+      "output": "Full Pipeline: MDL-based structure discovery\n  Trying gf2_linear...\n  Trying symmetry...\n  Trying modular_arithmetic...\n  Trying pebbling...\n  Trying tseitin...\n  Trying pigeonhole...\nDiscovered model: modular_arithmetic (score: 6.64)\nSolution: Real factors: [2, 2, 5, 5]\nTotal mu-bits: 81 (with discovery)\n__result__ = {'solution': 'Real factors: [2, 2, 5, 5]', 'total_mu_bits': 81, 'discovered_model': 'modular_arithmetic', 'ablation': 'full_pipeline'}\n",
+      "step": 4
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:43.140974Z",
+    "session_id": "d45964d7e380adf9",
+    "pid": 28936,
+    "process": "MainProcess",
+    "thread": 16568,
+    "activity": "vm.emit",
+    "details": {
+      "value": "Ablation full_pipeline complete",
+      "step": 8,
+      "module": 1
+    }
+  },
+  {
+    "timestamp": "2025-10-16T21:22:43.152166Z",
+    "session_id": "d45964d7e380adf9",
+    "pid": 28936,
+    "process": "MainProcess",
+    "thread": 16568,
+    "activity": "vm.run.finish",
+    "details": {
+      "outdir": "ablation_full_pipeline",
+      "steps": 8,
+      "receipts": 4
+    }
   }
 ]
