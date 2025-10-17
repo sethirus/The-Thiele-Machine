@@ -3,7 +3,6 @@
 (* interpreter that reproduces its execution exactly.                  *)
 (* ================================================================= *)
 From Coq Require Import List Arith Lia PeanoNat Bool.
-From Coq Require Import Div2 ZArith.
 From ThieleUniversal Require Import TM UTM_Rules.
 From ThieleUniversal Require Import CPU UTM_Program.
 From ThieleUniversal Require Import ThieleUniversal.

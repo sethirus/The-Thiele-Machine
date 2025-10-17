@@ -1,0 +1,207 @@
+{
+  "benchmark": "no_hints_structure_discovery",
+  "timestamp": 1760649742.4175942,
+  "families_tested": [
+    "modular"
+  ],
+  "sizes_tested": [
+    10,
+    20
+  ],
+  "seeds_used": [
+    42,
+    123
+  ],
+  "results": [
+    {
+      "family": "modular",
+      "size": 10,
+      "seed": 42,
+      "baseline_results": {
+        "minisat": {
+          "status": "NOT_AVAILABLE",
+          "time": 10,
+          "conflicts": 0
+        },
+        "glucose": {
+          "status": "NOT_AVAILABLE",
+          "time": 10,
+          "conflicts": 0
+        },
+        "kissat": {
+          "status": "NOT_AVAILABLE",
+          "time": 10,
+          "conflicts": 0
+        },
+        "cadical": {
+          "status": "NOT_AVAILABLE",
+          "time": 10,
+          "conflicts": 0
+        }
+      },
+      "thiele_result": {
+        "discovery": {
+          "discovered_model": "modular_arithmetic",
+          "mdl_score": 6.643856189774724,
+          "candidate_scores": {
+            "gf2_linear": Infinity,
+            "modular_arithmetic": 6.643856189774724,
+            "symmetry_breaking": Infinity,
+            "general_sat": 20
+          },
+          "mu_bits_discovery": 24
+        },
+        "solution": "Real factors: [2, 2, 5, 5]",
+        "total_mu_bits": 50,
+        "solve_mu_bits": 26,
+        "proof_data": "5265616c20666163746f72733a205b322c20322c20352c20355d",
+        "real_solver_used": true
+      },
+      "thiele_mu_bits": 50
+    },
+    {
+      "family": "modular",
+      "size": 10,
+      "seed": 123,
+      "baseline_results": {
+        "minisat": {
+          "status": "NOT_AVAILABLE",
+          "time": 10,
+          "conflicts": 0
+        },
+        "glucose": {
+          "status": "NOT_AVAILABLE",
+          "time": 10,
+          "conflicts": 0
+        },
+        "kissat": {
+          "status": "NOT_AVAILABLE",
+          "time": 10,
+          "conflicts": 0
+        },
+        "cadical": {
+          "status": "NOT_AVAILABLE",
+          "time": 10,
+          "conflicts": 0
+        }
+      },
+      "thiele_result": {
+        "discovery": {
+          "discovered_model": "modular_arithmetic",
+          "mdl_score": 6.643856189774724,
+          "candidate_scores": {
+            "gf2_linear": Infinity,
+            "modular_arithmetic": 6.643856189774724,
+            "symmetry_breaking": Infinity,
+            "general_sat": 20
+          },
+          "mu_bits_discovery": 24
+        },
+        "solution": "Real factors: [2, 2, 5, 5]",
+        "total_mu_bits": 50,
+        "solve_mu_bits": 26,
+        "proof_data": "5265616c20666163746f72733a205b322c20322c20352c20355d",
+        "real_solver_used": true
+      },
+      "thiele_mu_bits": 50
+    },
+    {
+      "family": "modular",
+      "size": 20,
+      "seed": 42,
+      "baseline_results": {
+        "minisat": {
+          "status": "NOT_AVAILABLE",
+          "time": 10,
+          "conflicts": 0
+        },
+        "glucose": {
+          "status": "NOT_AVAILABLE",
+          "time": 10,
+          "conflicts": 0
+        },
+        "kissat": {
+          "status": "NOT_AVAILABLE",
+          "time": 10,
+          "conflicts": 0
+        },
+        "cadical": {
+          "status": "NOT_AVAILABLE",
+          "time": 10,
+          "conflicts": 0
+        }
+      },
+      "thiele_result": {
+        "discovery": {
+          "discovered_model": "modular_arithmetic",
+          "mdl_score": 8.643856189774725,
+          "candidate_scores": {
+            "gf2_linear": Infinity,
+            "modular_arithmetic": 8.643856189774725,
+            "symmetry_breaking": Infinity,
+            "general_sat": 20
+          },
+          "mu_bits_discovery": 24
+        },
+        "solution": "Real factors: [2, 2, 5, 5]",
+        "total_mu_bits": 50,
+        "solve_mu_bits": 26,
+        "proof_data": "5265616c20666163746f72733a205b322c20322c20352c20355d",
+        "real_solver_used": true
+      },
+      "thiele_mu_bits": 50
+    },
+    {
+      "family": "modular",
+      "size": 20,
+      "seed": 123,
+      "baseline_results": {
+        "minisat": {
+          "status": "NOT_AVAILABLE",
+          "time": 10,
+          "conflicts": 0
+        },
+        "glucose": {
+          "status": "NOT_AVAILABLE",
+          "time": 10,
+          "conflicts": 0
+        },
+        "kissat": {
+          "status": "NOT_AVAILABLE",
+          "time": 10,
+          "conflicts": 0
+        },
+        "cadical": {
+          "status": "NOT_AVAILABLE",
+          "time": 10,
+          "conflicts": 0
+        }
+      },
+      "thiele_result": {
+        "discovery": {
+          "discovered_model": "modular_arithmetic",
+          "mdl_score": 8.643856189774725,
+          "candidate_scores": {
+            "gf2_linear": Infinity,
+            "modular_arithmetic": 8.643856189774725,
+            "symmetry_breaking": Infinity,
+            "general_sat": 20
+          },
+          "mu_bits_discovery": 24
+        },
+        "solution": "Real factors: [2, 2, 5, 5]",
+        "total_mu_bits": 50,
+        "solve_mu_bits": 26,
+        "proof_data": "5265616c20666163746f72733a205b322c20322c20352c20355d",
+        "real_solver_used": true
+      },
+      "thiele_mu_bits": 50
+    }
+  ],
+  "aggregate_stats": {
+    "total_instances": 4,
+    "solved_by_thiele": 4,
+    "avg_mu_bits": 50.0
+  },
+  "receipt_hash": "042cb37c7627212e5eb80e38fbaa42a29d5f6f1a1406f597297215f44098f3ad"
+}

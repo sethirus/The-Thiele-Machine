@@ -833,7 +833,7 @@ def main(seed=None, trials=10):
         "version": "1.0"
     }
 
-    receipt_path = "results/receipt.json"
+    receipt_path = "outputs/receipt.json"
     with open(receipt_path, "w") as f:
         json.dump(receipt, f, indent=2)
     print(f"JSON receipt saved to {receipt_path}")
