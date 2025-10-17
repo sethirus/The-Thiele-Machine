@@ -468,198 +468,124 @@ def create_structure_discovery_program(instance: Dict[str, Any]) -> tuple[str, l
 
 
 def create_structure_discovery_script(instance: Dict[str, Any]) -> str:
-    """
-    Create a Python script that implements no-hints structure discovery.
-    This script will be executed by the Thiele VM.
-    """
+    """Create a sandbox-friendly script executed inside the VM."""
 
-    script = f'''
-import sys
-import os
+    template = """
 import json
 import math
 
-# Add paths for model imports
-sys.path.insert(0, os.path.join(os.getcwd(), 'models'))
-sys.path.insert(0, os.getcwd())
-
-# Import real model implementations
-try:
-    from models.registry import registry
-    from models.implementations import *
-    MODELS_AVAILABLE = True
-except ImportError:
-    MODELS_AVAILABLE = False
-    print("Warning: Model implementations not available - using mock solving")
-
-# Load instance
-with open("temp_instance_{instance['family']}_{instance['size']}.json", "r") as f:
+with open("{instance_path}", "r") as f:
     instance = json.load(f)
 
 print(f"No-hints structure discovery for {{instance['family']}} instance (size {{instance['size']}})")
 
-# Model induction engine (simplified version for VM execution)
-class ModelInductionEngine:
-    def __init__(self):
-        self.models = {{
-            'gf2_linear': self._score_gf2_linear,
-            'modular_arithmetic': self._score_modular_arithmetic,
-            'symmetry_breaking': self._score_symmetry_breaking,
-            'general_sat': self._score_general_sat,
-        }}
+model_order = ['gf2_linear', 'modular_arithmetic', 'symmetry_breaking', 'general_sat']
 
-    def discover_structure(self, instance):
-        mu_bits_spent = 0
-        candidate_scores = {{}}
+candidate_scores = {{}}
+mu_bits_spent = 0
 
-        print("Model induction:")
-        for model_name, scorer in self.models.items():
-            print(f"  Trying {{model_name}}...")
-            try:
-                score, cost = scorer(instance)
-                candidate_scores[model_name] = score
-                mu_bits_spent += cost
-                print(f"    MDL score: {{score:.2f}}, mu-bits: {{cost}}")
-            except Exception as e:
-                print(f"    Failed: {{e}}")
-                candidate_scores[model_name] = float('inf')
-                mu_bits_spent += 100
-
-        best_model = min(candidate_scores, key=candidate_scores.get)
-        best_score = candidate_scores[best_model]
-
-        print(f"Selected model: {{best_model}} (MDL: {{best_score:.2f}})")
-        print(f"Total mu-bits for discovery: {{mu_bits_spent}}")
-
-        return {{
-            'discovered_model': best_model,
-            'mdl_score': best_score,
-            'candidate_scores': candidate_scores,
-            'mu_bits_discovery': mu_bits_spent,
-        }}
-
-    def _score_gf2_linear(self, instance):
-        if 'cnf' not in instance:
-            return float('inf'), 10
-        clauses = instance['cnf']
-        n_vars = instance['n_vars']
-        xor_like = sum(1 for clause in clauses if len(clause) > 3)
-        model_complexity = n_vars * n_vars
-        compression = xor_like / len(clauses) if clauses else 1
-        mdl = model_complexity - len(clauses) * math.log2(compression + 1e-10)
-        return mdl, 5
-
-    def _score_modular_arithmetic(self, instance):
-        if 'smt2' not in instance:
-            return float('inf'), 10
-        smt2 = instance['smt2']
-        if '(*' in smt2:
-            model_complexity = 2 * math.log2(instance.get('size', 100))
-            return model_complexity, 3
-        return float('inf'), 10
-
-    def _score_symmetry_breaking(self, instance):
-        if 'cnf' not in instance:
-            return float('inf'), 10
-        clauses = instance['cnf']
-        n_vars = instance['n_vars']
-        pairwise = sum(1 for clause in clauses if len(clause) == 2 and clause[0] == -clause[1])
-        if pairwise > n_vars * 0.1:
-            model_complexity = n_vars * math.log2(n_vars)
-            mdl = model_complexity - pairwise * math.log2(2)
-            return mdl, 4
-        return float('inf'), 10
-
-    def _score_general_sat(self, instance):
-        n_vars = instance.get('n_vars', 100)
-        n_clauses = instance.get('n_clauses', len(instance.get('cnf', [])))
-        # For SMT2 instances, don't score as 0
-        if 'smt2' in instance and n_clauses == 0:
-            n_clauses = max(10, n_vars)  # Reasonable default
-        return n_vars * n_clauses, 1
-
-# Run structure discovery
-engine = ModelInductionEngine()
-discovery_result = engine.discover_structure(instance)
-
-# Now solve using discovered model and real solvers
-print()
-print("Solving with discovered model...")
-
-solution = None
-solve_mu_bits = 0
-proof_data = None
-
-if MODELS_AVAILABLE and discovery_result['discovered_model'] in registry.models:
-    # Use real model implementation
-    model = registry.models[discovery_result['discovered_model']]
-    
-    # Convert instance to model format
-    model_instance = {{
-        'n_vars': instance.get('n_vars', 10),
-        'data': instance
-    }}
-    
-    # Try to solve with real solver
+print("Model induction:")
+for name in model_order:
+    print(f"  Trying {{name}}...")
     try:
-        result = model.local_solver("", model_instance)  # Empty constraints for now
-        if result and result.success:
-            solution = result.witness or "SAT"
-            proof_data = result.proof_data
-            solve_mu_bits = len(proof_data) if proof_data else 10
-            print(f"Real solver succeeded: {{solution}}")
+        if name == 'gf2_linear':
+            if 'cnf' not in instance:
+                score, cost = float('inf'), 10
+            else:
+                clauses = instance['cnf']
+                n_vars = instance['n_vars']
+                xor_like = sum(1 for clause in clauses if len(clause) > 3)
+                model_complexity = n_vars * n_vars
+                compression = xor_like / len(clauses) if clauses else 1
+                score = model_complexity - len(clauses) * math.log2(compression + 1e-10)
+                cost = 5
+        elif name == 'modular_arithmetic':
+            smt2 = instance.get('smt2', '')
+            if '(*' in smt2:
+                score = 2 * math.log2(instance.get('size', 100))
+                cost = 3
+            else:
+                score, cost = float('inf'), 10
+        elif name == 'symmetry_breaking':
+            clauses = instance.get('cnf', [])
+            n_vars = instance.get('n_vars', 1)
+            pairwise = sum(1 for clause in clauses if len(clause) == 2 and clause[0] == -clause[1])
+            if pairwise > n_vars * 0.1:
+                model_complexity = n_vars * math.log2(max(n_vars, 2))
+                score = model_complexity - pairwise * math.log2(2)
+                cost = 4
+            else:
+                score, cost = float('inf'), 10
         else:
-            print("Real solver failed, falling back to mock")
-            raise Exception("Real solver failed")
-    except Exception as e:
-        print(f"Real solver error: {{e}}, using mock")
-        MODELS_AVAILABLE = False
+            n_vars = instance.get('n_vars', 100)
+            n_clauses = instance.get('n_clauses', len(instance.get('cnf', [])))
+            if 'smt2' in instance and n_clauses == 0:
+                n_clauses = max(10, n_vars)
+            score = n_vars * n_clauses
+            cost = 1
+    except Exception as exc:
+        print(f"    Failed: {{exc}}")
+        score, cost = float('inf'), 100
+    candidate_scores[name] = score
+    mu_bits_spent += cost
+    print(f"    MDL score: {{score:.2f}}, mu-bits: {{cost}}")
 
-if not MODELS_AVAILABLE or discovery_result['discovered_model'] not in registry.models:
-    # Fallback to mock solving
-    if discovery_result['discovered_model'] == 'gf2_linear':
-        print("Using mock Gaussian elimination for GF(2) system")
-        solve_mu_bits = instance['n_vars'] * math.log2(instance['n_vars'])
-        solution = "solved_via_gf2_mock"
-        
-    elif discovery_result['discovered_model'] == 'modular_arithmetic':
-        print("Using mock factorization for modular arithmetic")
-        if 'solution' in instance:
-            solution = instance['solution']
-            solve_mu_bits = sum(math.log2(x) for x in solution) if isinstance(solution, tuple) else 10
-        else:
-            solve_mu_bits = 20
-            solution = "solved_via_factorization_mock"
-            
-    elif discovery_result['discovered_model'] == 'symmetry_breaking':
-        print("Using mock symmetry breaking")
-        solve_mu_bits = instance['n_vars'] * 0.5
-        solution = "solved_via_symmetry_mock"
-        
+best_model = min(candidate_scores, key=candidate_scores.get)
+best_score = candidate_scores[best_model]
+
+print(f"Selected model: {{best_model}} (MDL: {{best_score:.2f}})")
+print(f"Total mu-bits for discovery: {{mu_bits_spent}}")
+
+if best_model == 'gf2_linear':
+    print("Using mock Gaussian elimination for GF(2) system")
+    solve_mu_bits = instance['n_vars'] * math.log2(instance['n_vars'])
+    solution = "solved_via_gf2_mock"
+elif best_model == 'modular_arithmetic':
+    print("Using mock factorization for modular arithmetic")
+    if 'solution' in instance:
+        solution = instance['solution']
+        try:
+            solve_mu_bits = sum(math.log2(x) for x in solution)
+        except Exception:
+            solve_mu_bits = 10
     else:
-        print("Using mock general SAT solver (expensive)")
-        solve_mu_bits = instance['n_vars'] * instance.get('n_clauses', 100)
-        solution = "solved_via_sat_mock"
+        solve_mu_bits = 20
+        solution = "solved_via_factorization_mock"
+elif best_model == 'symmetry_breaking':
+    print("Using mock symmetry breaking")
+    solve_mu_bits = instance['n_vars'] * 0.5
+    solution = "solved_via_symmetry_mock"
+else:
+    print("Using mock general SAT solver (expensive)")
+    solve_mu_bits = instance['n_vars'] * instance.get('n_clauses', 100)
+    solution = "solved_via_sat_mock"
 
-total_mu_bits = discovery_result['mu_bits_discovery'] + solve_mu_bits
+total_mu_bits = mu_bits_spent + solve_mu_bits
 
 print(f"Solution: {{solution}}")
 print(f"  Mu-bits for solving: {{solve_mu_bits}}")
 print(f"  Total mu-bits: {{total_mu_bits}}")
 
 __result__ = {{
-    'discovery': discovery_result,
+    'discovery': {{
+        'discovered_model': best_model,
+        'mdl_score': best_score,
+        'candidate_scores': candidate_scores,
+        'mu_bits_discovery': mu_bits_spent,
+    }},
     'solution': solution,
     'total_mu_bits': total_mu_bits,
     'solve_mu_bits': solve_mu_bits,
-    'proof_data': proof_data.hex() if proof_data else None,
-    'real_solver_used': MODELS_AVAILABLE
+    'proof_data': None,
+    'real_solver_used': False
 }}
 
-print(f"__result__ = {{__result__}}")
-'''
+print("__result__=" + json.dumps(__result__, default=str))
+"""
 
-    return script
+    return template.format(
+        instance_path=f"temp_instance_{instance['family']}_{instance['size']}.json"
+    )
 
 
 def run_structure_discovery_demo(instance_family: str, sizes: List[int], seeds: List[int]):
@@ -830,14 +756,12 @@ def extract_thiele_result(trace_content: str) -> Optional[Dict[str, Any]]:
     """Extract the __result__ from Thiele VM trace."""
     # Simple approach: look for the __result__ = line in the entire trace
     for line in trace_content.split('\n'):
-        if '__result__ =' in line:
+        if '__result__=' in line:
             try:
-                # Extract and evaluate the dict
-                result_str = line.split('__result__ =', 1)[1].strip()
-                # Provide globals for eval
-                return eval(result_str, {'inf': float('inf'), 'float': float})
-            except Exception as e:
-                print(f"Failed to parse result from line: {e}")
+                result_str = line.split('__result__=', 1)[1].strip()
+                return json.loads(result_str)
+            except json.JSONDecodeError as exc:
+                print(f"Failed to parse result from line: {exc}")
                 continue
 
     print("No __result__ line found in trace")

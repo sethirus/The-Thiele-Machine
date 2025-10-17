@@ -80,8 +80,8 @@ artifacts public to the auditors:
    export TZ=UTC LC_ALL=C LANG=C PYTHONHASHSEED=0
    ```
 3. Cryptographic keys: document whether the receipts are signed with a demo
-   key or a secret key; publish the public verification key; ensure HMAC/Ed25519
-   keys are plumbed through environment variables and not hard-coded in tests.
+   key or a secret key; publish the public verification key; ensure Ed25519 keys
+   are plumbed through environment variables and not hard-coded in tests.
 
 μ-cost (one-sentence definition)
 --------------------------------
@@ -140,7 +140,7 @@ Reproducible checklist
 1. Run `python3 demonstrate_isomorphism.py` to generate canonical receipts in `out/` (or the
    default output directory). If you need the broader set of experiments and extra traces, you may instead run `python attempt.py`.
 2. Run `python scripts/challenge.py verify receipts`.
-   - Confirm each receipt verifies the HMAC/Ed25519 signature against the
+   - Confirm each receipt verifies the Ed25519 signature against the
      published public key.
    - Confirm that the replay checker accepts the receipts against the Coq
      oracle (when applicable) or the VM semantics checker.

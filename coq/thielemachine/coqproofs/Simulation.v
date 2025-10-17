@@ -7,7 +7,7 @@ From ThieleUniversal Require Import TM UTM_Rules.
 From ThieleUniversal Require Import CPU UTM_Program.
 From ThieleUniversal Require Import ThieleUniversal.
 From ThieleUniversal Require Import UTM_Encode.
-From ThieleMachine Require Import ThieleMachine EncodingBridge.
+From ThieleMachine Require Import ThieleMachine EncodingBridge Axioms.
 From ThieleMachine.Modular_Proofs Require Import Encoding EncodingBounds.
 
 Import ListNotations.

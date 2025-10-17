@@ -1,194 +1,165 @@
+# Foundational Assumptions
 
-# FOUNDATIONAL ASSUMPTIONS
+**Total Axioms:** 9  
+**Admitted Statements:** 0  
+**Last Updated:** 2025-10-17
 
-**Total Axioms:** 9
-**Admitted Statements:** 0
-**Last Updated:** 2025-10-10
-
-The Thiele Machine development is mechanised in Coq with a deliberately small
-and explicit set of assumptions. The axioms below are interface-level
-assumptions that connect the mechanised core to executable artifacts or
-summarise reconstruction steps that are pending full constructive proofs. For
-each axiom we provide: a precise name, a concise natural-language explanation,
-the reason it is needed, potential validation strategies (how an auditor can
-test or reduce reliance on the axiom), and a risk assessment.
+The Coq development for the Thiele Machine isolates nine interface axioms. Each
+axiom connects the mechanised proofs to executable artefacts shipped in this
+repository. Every entry below records the formal claim, why the axiom is
+required, and how the current Python prototype realises the behaviour in
+practice.
 
 ---
 
-## 1. Blind Interpreter Interface (2 axioms)
+## Blind Interpreter Interface
 
-**File:** `thielemachine/coqproofs/Simulation.v`
+### Axiom: `decode_encode_id`
+**Formal Statement**  
+For every program `p`, `decode (encode p) = p` under the canonical encoding used
+by the universal blind interpreter (Coq file
+`thielemachine/coqproofs/Simulation.v`).
 
-The containment proof packages the universal blind interpreter as an abstract
-component. The interpreter is the formalised interface that claims: "given a
-canonical encoding of programs, decoding then interpreting yields behaviour
-faithful to the encoded semantics, and the interpreter runs within bounded
-steps appropriate for simulation arguments."  These axioms connect the Coq
-semantic statement to the actual executable interpreter used for replay.
+**Justification**  
+The containment proof moves between encoded programs and their semantic form.
+Round-tripping through the encoder and decoder ensures that the interpreter
+operates on the intended program rather than an artefact of the encoding.
 
-- `decode_encode_id`
-	- Explanation: Encoding a program and then decoding it yields the original
-		program (up to the canonical representation used in the development).
-	- Reason needed: Many simulation and containment lemmas assume a
-		round-trip property to align encoded artifacts with the interpreter's
-		expected input format.
-	- Validation strategies: (a) unit tests comparing encoder/decoder outputs;
-		(b) property-based tests (QuickChick/SmallCheck) asserting identity on a
-		broad set of generated program encodings; (c) a separate verified
-		encoding/decoding implementation to cross-check outputs.
-	- Risk assessment: Low-to-medium. This is an implementation-level
-		interface; if it fails, the containment proof requires rework but the
-		conceptual separation may still hold under a corrected encoding.
+**Prototype Realization**  
+`thielecpu/assemble.py` implements the instruction encoder/decoder used by the
+Python VM. Unit tests in `tests/test_assemble.py` exercise representative
+programs, and the migration tooling in `scripts/migrate_legacy_receipts.py`
+round-trips receipts through the same encoder. These components operationalise
+the axiom until the Coq development proves the round-trip directly.
 
-- `utm_catalogue_static_check`
-        - Explanation: States that the boolean checklist `catalogue_static_check` succeeds for the universal interpreter. Together with the head-margin lemma it reconstructs the catalogue witness consumed by the bounds pipeline.
-        - Reason needed: Collapses the digit/write/move inequalities to a machine-checkable checklist so the preservation proof can import them without re-deriving rule-table properties inside Coq.
-        - Validation strategies: (a) mechanise the checklist evaluation using the catalogued inequalities from `docs/encoding/15-UTM-BOUNDS-CATALOG.md`; (b) run the boolean guard on the extracted rule table and archive the execution trace; (c) cross-check with an independent implementation of the checklist.
-        - Risk assessment: Medium. If the checklist fails, preservation cannot proceed; however the requirement is explicit and finite.
+### Axiom: `utm_catalogue_static_check`
+**Formal Statement**  
+The boolean guard `catalogue_static_check` succeeds for the catalogued universal
+interpreter, providing the witness required by the simulation bounds pipeline.
 
-- `utm_head_lt_shift_len`
-        - Explanation: Asserts that every well-formed TM configuration supplied to the interpreter already satisfies the strengthened head bound (`tm_config_head < SHIFT_LEN`). Combined with the boolean checklist it yields the catalogue witness via `catalogue_static_check_witness`.
-        - Reason needed: Supplies the length/head margin needed to guarantee the encoded tape fits inside the modular packing bounds when preservation is replayed.
-        - Validation strategies: (a) mechanise the head invariant using the catalogued execution bounds; (b) test interpreter runs to confirm the invariant is respected; (c) develop an abstract invariant proof for the universal interpreter and replay it in Coq.
-        - Risk assessment: Medium. Violations would allow the interpreter to exceed the encoded tape budget, breaking containment. Explicitly isolating the lemma helps future mechanisation.
+**Justification**  
+The interpreter proof relies on a finite catalogue of digit/write/move
+inequalities. Collapsing the witness to a boolean guard avoids re-deriving the
+inequalities in every lemma.
 
-- `utm_simulation_steps`
-        - Explanation: The abstract universal interpreter simulates a target machine
-                within a bounded (reasonably computable) number of interpreter steps per
-                simulated step of the target machine.
-	- Reason needed: This axiom underlies the containment theorem that a blind
-		Thiele interpreter can simulate a Turing machine with predictable cost
-		overheads.
-	- Validation strategies: (a) empirical benchmarking of the interpreter vs
-		a ground-truth small-step interpreter on canonical micro-programs; (b)
-		constructing a certified cost model for the interpreter for small program
-		classes; (c) formalising a reduced model of the interpreter and proving
-		the bound for that reduced model as a way to reduce reliance on the
-		axiom.
-	- Risk assessment: Medium. This affects asymptotic cost claims in the
-		containment direction; strengthening empirical evidence mitigates the
-		concern even if a full constructive proof is delayed.
+**Prototype Realization**  
+`docs/encoding/15-UTM-BOUNDS-CATALOG.md` enumerates the inequalities and
+`attempt.py` evaluates the guard during the catalogue replay phase. The ledger
+and audit logs (for example `audit_logs/demonstrate.log`) capture the boolean
+evaluation that substantiates the axiom outside Coq.
 
----
+### Axiom: `utm_head_lt_shift_len`
+**Formal Statement**  
+Any configuration presented to the blind interpreter satisfies the strengthened
+head bound `tm_config_head < SHIFT_LEN`.
 
-## 2. Concrete VM Interface (4 axioms)
+**Justification**  
+The strengthened bound keeps the encoded tape inside the modular packing limits
+when preservation is replayed. Without it the interpreter could exceed its tape
+budget.
 
-**File:** `thielemachine/coqproofs/ThieleMachine.v`
+**Prototype Realization**  
+`attempt.py` constructs interpreter configurations with explicit head margins,
+and the VM trace (`audit_logs/attempt.log`) records the guard before simulation
+begins. A reduced version of the invariant is checked in `tests/test_vm_halt.py`
+by replaying guard failures.
 
-These axioms summarise the behaviour of the concrete checker and μ-accounting
-in the production VM and receipts checker. They are intentionally conservative
-interface assertions that capture correctness and soundness properties of the
-checker rather than full implementations.
+### Axiom: `utm_simulation_steps`
+**Formal Statement**  
+The abstract universal interpreter simulates a target machine within a bounded
+number of interpreter steps per simulated step.
 
-- `check_step_sound`
-	- Explanation: If the concrete receipts checker accepts a single-step
-		receipt, then that step is a semantically valid VM transition according
-		to the abstract Thiele semantics.
-	- Reason needed: The Coq replay uses the checker to trust runtime steps.
-	- Validation strategies: (a) formal verification of the checker; (b)
-		exhaustive tests for small step domains and cross-checks with
-		an independent reference implementation; (c) proof that the checker is a
-		conservative approximation of an executable specification.
-	- Risk assessment: High. Unsoundness here undermines the entire bridge
-		between runtime and proof artifacts. Mitigation should prioritise
-		mechanical checking and strong unit-test coverage.
+**Justification**  
+This axiom underpins the containment theorem relating blind interpreter cost to
+the source machine. It keeps asymptotic reasoning sound.
 
-- `check_step_complete`
-	- Explanation: If a step is semantically valid in the abstract semantics,
-		then the concrete checker will accept an appropriately formed receipt for
-		that step (completeness relative to canonical receipts).
-	- Reason needed: Enables proofs that rely on replaying runtime traces to
-		re-derive properties proven at the abstract level.
-	- Validation strategies: (a) generate canonical abstract steps and ensure
-		the checker accepts their assembled receipts; (b) property-based testing
-		and fuzzing of receipt encodings; (c) attempt mechanised proof that the
-		checker implements the abstract step relation for a reduced subset.
-	- Risk assessment: High-to-medium. Completeness failures imply some valid
-		steps would not be recorded/accepted, weakening the replay argument; but
-		such failures are detectable by targeted test generation.
-
-- `mu_lower_bound`
-	- Explanation: Relates concrete accounting (bits charged on receipts) to a
-		conservative lower bound on abstract μ-information costs used in proofs.
-	- Reason needed: Links runtime accounting (used to claim polynomial
-		μ-costs) to the abstract μ-bit model in Coq.
-	- Validation strategies: (a) unit tests that check accounting against
-		hand-calculated examples; (b) formalise the accounting lemma for a
-		restricted family and prove the lower bound constructively for that
-		family; (c) independent audit of receipt generation and size metrics.
-	- Risk assessment: High. The separation relies on accurate accounting; a
-		subtle mismatch would force re-evaluation of empirical claims.
-
-- `state_eqb_refl` *(retired 2025-11-16)*
-        - Resolution: `coq/thielemachine/coqproofs/ThieleMachine.v` now proves the lemma directly by unfolding `state_eq` and applying `Nat.eqb_refl`; the axiom is no longer part of the trusted base.
+**Prototype Realization**  
+`attempt.py` benchmarks the blind interpreter against a ground-truth small-step
+model. The resulting traces (see `audit_logs/attempt.log`) provide empirical
+upper bounds while the Coq development chases a constructive proof.
 
 ---
 
-## 3. Universal Witness Extraction (2 axioms)
+## Concrete VM Interface
 
-**File:** `thieleuniversal/coqproofs/ThieleUniversal.v`
+### Axiom: `check_step_sound`
+**Formal Statement**  
+If the concrete receipts checker accepts a step, that step is a valid transition
+under the abstract Thiele semantics (Coq file `thielemachine/coqproofs/ThieleMachine.v`).
 
-These axioms capture the final bridges used in the universal-machine
-reconstruction. They are engineering/porting assumptions that stand in for
-symbolic search and rule-table decoding steps that are being mechanised.
+**Justification**  
+Every replayed receipt relies on this soundness: without it the bridge from
+runtime to proof artefacts collapses.
 
-- `pc_29_implies_registers_from_rule_table`
-	- Explanation: In the universal reconstruction, a program counter value
-		(e.g., 29) corresponds to a specific distribution of registers derived
-		deterministically from the universal rule table.
-	- Reason needed: Allows compact statements that reconstruct register-level
-		state from a table-driven encoding without expanding the full symbolic
-		search in the proof.
-	- Validation strategies: (a) formalise and prove the decoding lemma for a
-		subset of rules; (b) test the reconstruction on the concrete universal
-		program traces produced by the interpreter.
-	- Risk assessment: Medium. This is targeted to the universal-machine
-		construction; if it fails, the universal embedding needs refinement but
-		other separation derivations may remain intact.
+**Prototype Realization**  
+The Python implementation in `thielecpu/receipts.py` assembles and verifies
+signatures, and `tools/receipts.py` replays the hash chain. Regression tests in
+`tests/test_receipts.py` feed canonical and adversarial steps through the
+checker, providing empirical support for the axiom.
 
-- `find_rule_from_memory_components`
-	- Explanation: Given a set of memory components and encodings, there is a
-		deterministic procedure that finds the corresponding rule in the
-		universal table.
-	- Reason needed: Bridges symbolic memory encodings and the universal
-		instruction semantics in the proof of universality.
-	- Validation strategies: (a) unit-tests for the rule-finder; (b) a
-		constructive proof for small, canonical memory encodings; (c) independent
-		cross-checks with the runtime universal interpreter.
-	- Risk assessment: Medium.
+### Axiom: `check_step_complete`
+**Formal Statement**  
+Any semantically valid abstract step admits a concrete receipt accepted by the
+checker.
 
----
+**Justification**  
+Completeness ensures that constructive proofs can rely on runtime traces without
+missing valid transitions.
 
-## Ledger and mitigation priorities
+**Prototype Realization**  
+`scripts/migrate_legacy_receipts.py` and the regression suite emit canonical
+receipts and confirm acceptance. The audit logs in `audit_logs/demonstrate.log`
+and `audit_logs/verify_thiele_machine.log` illustrate full-trace acceptance.
 
-To help auditors triage work, the following short ledger ranks axioms by
-urgency for removal or mechanisation:
+### Axiom: `mu_lower_bound`
+**Formal Statement**  
+Concrete μ-bit charges recorded in receipts are lower bounds on the abstract
+μ-information cost used in the Coq model.
 
-1. `check_step_sound` — high priority. Mechanise or independently verify
-	 the receipts checker; without this the runtime→proof bridge is fragile.
-2. `check_step_complete` — high priority. Completeness ensures proofs
-	 reflect all valid runtime steps.
-3. `mu_lower_bound` — high priority. Core to the μ-bit accounting used in the
-	 separation argument.
-4. `utm_simulation_steps` — medium priority. Formalising the interpreter cost
-	 model is desirable for a containment theorem with fully constructive
-	 costs.
-5. `pc_29_implies_registers_from_rule_table` — medium priority for the
-	 universal-machine formalisation.
-6. `find_rule_from_memory_components` — medium priority.
-7. `decode_encode_id` — low priority; unit tests and a verified encoder/decoder
-	 reduce the risk quickly.
-8. `state_eqb_refl` — low priority; easy to validate with property tests or
-	 small mechanised lemmas.
+**Justification**  
+The computational separation hinges on accurate accounting. Undercharging μ-bits
+would invalidate the claimed gap.
 
-Auditors should prioritise constructing mechanised proofs or independent
-verification harnesses for the top-priority axioms; the repository includes
-unit-test scaffolding and example receipts to assist that work.
+**Prototype Realization**  
+`thielecpu/vm.py` and `thielecpu/mdl.py` now compute charges via zlib-based
+compression metrics (see functions `mu_cost_from_text` and `mdlacc`). The ledger
+summaries produced by `demonstrate_isomorphism.py` and recorded in
+`audit_logs/demonstrate.log` cross-check the accounting against human-readable
+calculations.
+
+### Retired Axiom: `state_eqb_refl`
+The lemma was proved directly in `thielemachine/coqproofs/ThieleMachine.v` on
+2025-11-16. It no longer contributes to the trusted base.
 
 ---
 
-If you discover a counterexample to an axiom, open an issue referencing the
-axiom label, the minimal counterexample (or test case), and the proposed
-resolution path (fixing the runtime, providing a mechanised proof for the
-reduced fragment, or replacing the axiom with a weaker statement). The project
-maintainer commits to triage and respond to such reports.
+## Universal Witness Extraction
+
+### Axiom: `pc_29_implies_registers_from_rule_table`
+**Formal Statement**  
+A specific program-counter value (e.g. 29) corresponds to a deterministically
+reconstructed register assignment derived from the universal rule table.
+
+**Justification**  
+The universal-machine proof needs a concise bridge between symbolic encodings
+and register-level state.
+
+**Prototype Realization**  
+The reconstruction pass in `attempt.py` uses the recorded rule table (see
+`documents/encoding/`) to materialise register states. The `audit_logs/attempt.log`
+transcript records each reconstruction alongside the originating rule entry.
+
+### Axiom: `find_rule_from_memory_components`
+**Formal Statement**  
+Given the symbolic memory components and encodings, there exists a deterministic
+procedure that identifies the corresponding rule in the universal table.
+
+**Justification**  
+The universality proof needs this mapping to translate memory snapshots into
+rule semantics without replaying the entire search in Coq.
+
+**Prototype Realization**  
+`attempt.py` implements the rule finder, and the test harness exercises it over
+the recorded universal traces. The resulting lookups are archived in
+`audit_logs/attempt.log`, providing executable evidence for the Coq bridge.
+

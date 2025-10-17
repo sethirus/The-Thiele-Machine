@@ -1,0 +1,118 @@
+
+[1m============================================================[0m
+[1mTHIELE AUDITOR DEMO[0m
+Safety mechanism: Every action requires a certificate.
+EDUCATIONAL: The Thiele Machine enforces that no action can be taken without
+a certificate proving it composes with the system's axioms. Paradoxes halt everything.
+============================================================[0m
+
+
+==================== SCENARIO: PARADOXICAL SENSOR DATA ====================
+
+[1m--- AI BLACK BOX ---[0m
+Analyzing sensor data...
+[93mWARNING: Sensor data is conflicting.[0m
+Camera sees pedestrian, but Lidar sees a clear path.
+Probabilistic confidence to proceed is 70%. Making a guess...
+AI proposes action: 'PROCEED'
+
+[1m--- THIELE AUDITOR ---[0m
+Verifying proposed action against safety axioms...
+
+[91m[1mFINAL RESULT: HALT! No cert → No act.[0m
+[91m[1mACTION IS BLOCKED. Car enters pre-defined safe state (e.g., full stop).[0m
+
+
+==================== SCENARIO: CONSISTENT SENSOR DATA ====================
+
+[1m--- AI BLACK BOX ---[0m
+Analyzing sensor data...
+[92mINFO: Sensor data is consistent.[0m
+AI proposes action: 'YIELD'
+
+[1m--- THIELE AUDITOR ---[0m
+Verifying proposed action against safety axioms...
+[92mCERTIFICATE VALID. Action is provably safe.[0m
+
+[92m[1mFINAL RESULT: ACTION 'YIELD' IS CERTIFIED AND ALLOWED.[0m
+
+[1m============================================================[0m
+[1mCATHEDRAL DEMO[0m
+Four-act demonstration: blind computation vs sighted composition
+EDUCATIONAL: Blind computation is like computing a Mandelbrot set pixel by pixel.
+Sighted composition sees the structure (cardioid boundary) and computes efficiently.
+============================================================[0m
+[91mERROR: Cathedral demo requires pygame and numpy.[0m
+Install with: pip install pygame numpy
+
+[1m============================================================[0m
+[1mEXPERIMENTAL VERIFICATION DEMO[0m
+Complete Thiele Machine verification with tamper-evident ledger
+EDUCATIONAL: This demo runs experiments to verify the Thiele invariants:
+- Blind computation costs infinity on paradox classes
+- Sighted computation maintains constant cost
+- Ledger ensures tamper-evidence
+============================================================[0m
+[2m————————————————————————————————————————————————————————————————————————[0m
+[1mTHIELE MACHINE[0m
+If it doesn't compose, it doesn't compute. Paradox ⇒ absorbing halt.
+T = (S, Π, A, R, L)
+S: world state  Π: partitions  A: axioms  R: refinements  L: logic/oracle
+Law: every act requires a certificate; every step writes the ledger.
+[2m————————————————————————————————————————————————————————————————————————[0m
+[1mEXECUTIVE TL;DR[0m
+No cert → No act. Paradox halts are absorbing.
+Geometry: on a structured paradox class, blind μ = ∞; sighted μ = constant.
+Pilot: gate ONE subsystem with Thiele. Contact: Devon Thiele — @sethirus (he/him) — Independent researcher; Architect of the Thiele Machine — Pacific Northwest — thethielemachine@gmail.com
+[2m————————————————————————————————————————————————————————————————————————[0m
+Regenerating evidence...
+[92m✓[0m wrote ledger index and hashes
+[92m✓[0m experiments completed
+Verifying tamper-evidence (SHA-256 sidecars)...
+OK
+[92m✓[0m tamper-evident ledger verified
+[2m————————————————————————————————————————————————————————————————————————[0m
+[1mGATE DEMO[0m
+Attempt: ACTUATE(plan#42) without certificate
+BLOCKED — No cert → No act.
+Attach: certificate#7f… valid under axioms
+ALLOWED — ACTUATE(plan#42)
+[2m————————————————————————————————————————————————————————————————————————[0m
+[1mGEOMETRIC INVARIANTS (auto-verified)[0m
+• Blind μ(paradox) = ∞ across n ∈ [4, 20, 40, 60] — PASS
+• Sighted μ(paradox) = 80.0 (constant) — PASS
+• Tseitin: sighted rank_gap=1; blind conflicts non-decreasing with n — PASS
+• Median compute/runtime (sighted): 0.0000s / 0.0000s
+[2m————————————————————————————————————————————————————————————————————————[0m
+[1mNUMERIC SUMMARY[0m
+| n | model | μ-cost | compute (s) | runtime (s) |
+|---|-------|--------|-------------|-------------|
+| 4 | blind | ∞ | 0.0000 | 0.0000 |
+| 4 | sighted | 80.0 | 0.0000 | 0.0000 |
+| 20 | blind | ∞ | 0.0000 | 0.0000 |
+| 20 | sighted | 80.0 | 0.0000 | 0.0000 |
+| 40 | blind | ∞ | 0.0000 | 0.0001 |
+| 40 | sighted | 80.0 | 0.0000 | 0.0000 |
+| 60 | blind | ∞ | 0.0000 | 0.0001 |
+| 60 | sighted | 80.0 | 0.0000 | 0.0000 |
+
+| n | budget | blind conflicts | blind (s) | sighted gap |
+|---|--------|------------------|-----------|-------------|
+| 6 | 100 | 0 | 0.0001 | 1 |
+| 8 | 100 | 0 | 0.0000 | 1 |
+| 10 | 100 | 0 | 0.0000 | 1 |
+| 6 | 1000 | 0 | 0.0001 | 1 |
+| 8 | 1000 | 0 | 0.0000 | 1 |
+| 10 | 1000 | 0 | 0.0000 | 1 |
+| 6 | 5000 | 0 | 0.0000 | 1 |
+| 8 | 5000 | 0 | 0.0000 | 1 |
+| 10 | 5000 | 0 | 0.0000 | 1 |
+[2m————————————————————————————————————————————————————————————————————————[0m
+[92m✓[0m wrote THIELE VERIFIED badge
+[92m✓[0m packaged capsule → thiele_demo_capsule.zip
+[1mI built a compute substrate, not a trick.[0m
+Actions are illegal unless they compose and are certified. Paradox is a first-class halt.
+On a class where blind search pays ∞, Thiele stays flat. The ledger above is tamper-evident.
+Pilot the gate on one subsystem. [1mContact:[0m Devon Thiele — @sethirus (he/him) — Independent researcher; Architect of the Thiele Machine — Pacific Northwest — thethielemachine@gmail.com
+[2m————————————————————————————————————————————————————————————————————————[0m
+[92mALL CHECKS PASSED — THIELE VERIFIED[0m

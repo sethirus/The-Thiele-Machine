@@ -12,11 +12,16 @@ Phase 2: Evidence Gathering and Weight Recovery
 """
 
 import os
+import sys
 import time
 import json
 import numpy as np
 import matplotlib.pyplot as plt
-from playwright.sync_api import sync_playwright
+
+try:
+    from playwright.sync_api import sync_playwright
+except ImportError:  # pragma: no cover - optional dependency for the demo
+    sync_playwright = None
 
 
 class TensorFlowHeist:
@@ -27,6 +32,11 @@ class TensorFlowHeist:
 
     def run_complete_heist(self):
         """Execute the complete heist pipeline"""
+        if sync_playwright is None:
+            print("[SKIP] Playwright is not installed. Install optional demo extras with:")
+            print("        pip install 'thiele-verify[demos]' && playwright install")
+            return False
+
         os.system('cls' if os.name == "nt" else "clear")
         print("=" * 80)
         print("  TENSORFLOW HEIST: PHASE 2 - EVIDENCE GATHERING & WEIGHT RECOVERY")
@@ -57,6 +67,8 @@ class TensorFlowHeist:
 
             finally:
                 browser.close()
+
+        return True
 
     def configure_and_train_network(self, page):
         """Configure the network and train it"""
@@ -668,10 +680,11 @@ are vulnerable to automated weight extraction attacks!
         print("• tensorflow_heist_proof.png - Visual proof with network diagram")
 
 
-def main():
+def main() -> int:
     heist = TensorFlowHeist()
-    heist.run_complete_heist()
+    result = heist.run_complete_heist()
+    return 0 if result is not None else 1
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
