@@ -285,7 +285,8 @@ class ThieleVerifier:
         audit_trail = self.generate_audit_trail()
 
         # Save results
-        output_file = self.base_dir / "verification_results.json"
+        output_file = self.base_dir / "outputs" / "verification_results.json"
+        output_file.parent.mkdir(exist_ok=True)
         with open(output_file, 'w') as f:
             json.dump(audit_trail, f, indent=2)
 

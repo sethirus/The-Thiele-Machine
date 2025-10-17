@@ -868,7 +868,7 @@ The formal stack now has three layers:
 1. **Containment (`Simulation.v`):** A blind Thiele interpreter simulates any
    classical Turing Machine by replaying its transition table without ever
    invoking sighted instructions.
-2. **Strict Advantage (`Separation.v`):** Sighted Thiele programs solve Tseitin
+2. **Performance Advantage (`Separation.v`):** Sighted Thiele programs solve Tseitin
    expanders in polynomial time/μ while blind exploration provably incurs
    exponential cost (axiomatised from classical SAT lower bounds).
 3. **Assembly (`Subsumption.v`):** Combines the two pillars into the flagship
@@ -1105,6 +1105,9 @@ python scripts/generate_tseitin_data.py
 - **Purpose:** Empirical demonstration of exponential cost separation
 - **Data:** Blind vs sighted solver performance comparison
 - **Duration:** Significant time, but shows key experimental results
+
+**Demonstration Guide:**
+See [`DEMONSTRATIONS.md`](DEMONSTRATIONS.md) for a complete guide to all demonstrations, including which use real mathematical solvers (Z3, PySAT) vs mock implementations.
 
 ### Troubleshooting
 

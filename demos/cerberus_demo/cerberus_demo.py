@@ -163,11 +163,11 @@ def main():
         "solve_time_seconds": solve_time
     }
 
-    os.makedirs("results", exist_ok=True)
-    with open('results/cerberus_receipt.json', 'w') as f:
+    os.makedirs("outputs", exist_ok=True)
+    with open('outputs/cerberus_receipt.json', 'w') as f:
         json.dump(receipt, f, indent=2)
 
-    print("Receipt saved to results/cerberus_receipt.json")
+    print("Receipt saved to outputs/cerberus_receipt.json")
 
 
 if __name__ == "__main__":

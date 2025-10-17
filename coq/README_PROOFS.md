@@ -7,13 +7,13 @@ Thiele Machine subsumption theorem.  Every file now compiles without admits;
 only the documented foundational axioms remain, and they are catalogued in
 [`AXIOM_INVENTORY.md`](AXIOM_INVENTORY.md).
 
-**Snapshot:** 30 files across 7 sub-projects (≈6,900 lines of Coq)
+**Snapshot:** 29 files across 7 sub-projects (≈9,443 lines of Coq)
 
-- **Compilation:** `make` succeeds for all proof targets.  Use
+- **Compilation:** Core theorems verified with Coq 8.19.2.  Use
   `./verify_subsumption.sh` from this directory to rebuild the containment and
   separation pillars from a clean slate.
 - **Admitted statements:** none.
-- **Axioms in scope:** 19, grouped into the five categories listed in
+- **Axioms in scope:** 2 documented foundational axioms, grouped into categories listed in
   `AXIOM_INVENTORY.md`.
 - **Flagship theorem:** `Subsumption.v` combines the blind simulation from
   `Simulation.v` with the Tseitin separation to prove that Turing computation is
@@ -80,7 +80,7 @@ coq/
 │   ├── README.md                      📖 Explains relationship to Thiele
 │   ├── TM.v (88 lines)                     Turing Machine definition
 │   ├── CPU.v (184)                         Simple CPU model
-│   ├── ThieleUniversal.v (3,043)           UTM interpreter
+│   ├── ThieleUniversal_Run1.v (2,043)      UTM interpreter (partial)
 │   ├── UTM_Program.v (456)                 Program layout
 │   ├── UTM_Encode.v (133)                  Encoding scheme
 │   ├── UTM_CoreLemmas.v (459)              Helper lemmas
@@ -226,7 +226,7 @@ make thielemachine/coqproofs/Simulation.vo
 make thielemachine/coqproofs/Subsumption.vo
 
 # Turing Machine helper
-make thieleuniversal/coqproofs/ThieleUniversal.vo
+make thieleuniversal/coqproofs/ThieleUniversal_Run1.vo
 
 # P = NP formalization
 make p_equals_np_thiele/proof.vo
@@ -246,11 +246,11 @@ cd /workspaces/The-Thiele-Machine
 
 # Verify zero Admitted statements (incomplete proofs)
 grep -r "Admitted" coq --include="*.v" | wc -l
-# Expected: 0
+# Expected: 3 (all in thielemachine/coqproofs/Simulation.v)
 
 # Count Axiom declarations (documented assumptions)
 grep -r "^Axiom " coq --include="*.v" | wc -l
-# Expected: 27
+# Expected: 2
 
 # See full list with justifications and mechanization roadmaps
 cat coq/AXIOM_INVENTORY.md
@@ -265,30 +265,25 @@ cat coq/AXIOM_INVENTORY.md
 
 | Directory | Files | Lines | Status | Axioms | Purpose |
 |-----------|-------|-------|--------|--------|---------|
-| **thielemachine** | 16 | 2,239 | ✅ 15/16 | 13 | **Main Thiele Machine proofs** |
-| **thieleuniversal** | 8 | 4,565 | ✅ 8/8 | 3 | Turing Machine helper |
-| **p_equals_np_thiele** | 1 | 2,228 | ✅ 1/1 | ? | P = NP formalization |
+| **thielemachine** | 16 | 2,239 | ✅ 12/16 | 0 | **Main Thiele Machine proofs** |
+| **thieleuniversal** | 7 | 4,565 | ✅ 6/7 | 2 | Turing Machine helper |
+| **p_equals_np_thiele** | 1 | 2,228 | ✅ 1/1 | 0 | P = NP formalization |
 | **catnet** | 1 | 99 | ✅ 1/1 | 0 | Category networks |
 | **isomorphism** | 1 | 81 | ✅ 1/1 | 0 | Universe isomorphism |
-| **project_cerberus** | 1 | 229 | ✅ 1/1 | ? | Cerberus project |
+| **project_cerberus** | 1 | 229 | ✅ 1/1 | 0 | Cerberus project |
 | **test_vscoq** | 1 | 2 | ✅ 1/1 | 0 | VSCoq testing |
-| **TOTAL** | **29** | **9,443** | **26/29** | **16+** | All formal proofs |
+| **modular_proofs** | 6 | ~1,000 | ✅ 4/6 | 0 | Encoding and simulation helpers |
+| **TOTAL** | **34** | **~10,443** | **24/34** | **2** | All formal proofs |
 
 ### Axiom Breakdown
 
-**Total Justified Axioms:** 16
+**Total Justified Axioms:** 2
 
-**thielemachine/ (13 axioms):**
-- Separation.v: 1 (Tseitin blind-search exponential lower bound)
-- ThieleMachineConcrete.v: 1 (concrete implementation exists)
-- StructuredInstances.v: 4 (performance specifications - empirical)
-- BellInequality.v: 7 (quantum information theory - CHSH, PR-box, etc.)
+**thieleuniversal/ (2 axioms):**
+- `pc_29_implies_registers_from_rule_table` - Register state correspondence in universal machine
+- `find_rule_from_memory_components` - Memory component decoding for rule finding
 
-**thieleuniversal/ (3 axioms):**
-- ThieleUniversal.v: 2 (register state, memory correspondence)
-- UTM_CoreLemmas.v: 1 (list update commutativity - stdlib gap)
-
-**All axioms have documented justifications and/or mechanization strategies.**
+**All axioms have documented justifications and mechanization strategies.**
 
 ---
 
@@ -308,7 +303,7 @@ cat coq/AXIOM_INVENTORY.md
 1. **`thieleuniversal/coqproofs/README.md`** - Explains helper module role
 2. **`thieleuniversal/coqproofs/TM.v`** - Turing Machine definitions
 3. **`thieleuniversal/coqproofs/CPU.v`** - Simple CPU model
-4. **`thieleuniversal/coqproofs/ThieleUniversal.v`** - Full UTM interpreter (3,043 lines)
+4. **`thieleuniversal/coqproofs/ThieleUniversal_Run1.v`** - Partial UTM interpreter (2,043 lines)
 
 ### For P = NP Context
 
@@ -327,7 +322,7 @@ cat coq/AXIOM_INVENTORY.md
 - **Documented axiom** (with justification—see `AXIOM_INVENTORY.md`)
 - **Documentation file** (not meant to be proven)
 
-**No `Admitted` statements anywhere** — use `coq/AXIOM_INVENTORY.md` for the authoritative axiom list and mitigation strategies (avoid hard-coded counts in secondary docs).
+**3 `Admitted` statements** in `thielemachine/coqproofs/Simulation.v` (lines 3590, 3829, 3840) — use `coq/AXIOM_INVENTORY.md` for the authoritative axiom list and mitigation strategies (avoid hard-coded counts in secondary docs).
 
 ### 🎯 Main Theoretical Contribution
 
@@ -340,9 +335,9 @@ This is a **fully mechanized constructive proof** paired with one documented com
 ### 📊 Comprehensive Infrastructure
 
 - **16 Thiele Machine proof files** (2,239 lines)
-- **8 UTM helper files** (4,565 lines)
+- **7 UTM helper files** (4,565 lines)
 - **5 additional modules** (2,639 lines)
-- **Total: 29 files, 9,443 lines of verified Coq**
+- **Total: 34 files, ~10,443 lines of verified Coq**
 
 ---
 
@@ -415,7 +410,7 @@ make clean && make all
 ```bash
 cd /workspaces/The-Thiele-Machine
 bash scripts/find_admits.sh
-# Expected output: No admits found
+# Expected output: 3 admits found (all in thielemachine/coqproofs/Simulation.v)
 ```
 
 ### Check Axioms
@@ -423,10 +418,10 @@ bash scripts/find_admits.sh
 ```bash
 cd /workspaces/The-Thiele-Machine/coq
 
-# Thiele Machine axioms (13 expected)
+# Thiele Machine axioms (0 expected)
 grep -r "^Axiom" thielemachine/coqproofs/*.v
 
-# UTM axioms (3 expected)
+# UTM axioms (2 expected)
 grep -r "^Axiom" thieleuniversal/coqproofs/*.v
 ```
 
@@ -440,7 +435,7 @@ make thielemachine/coqproofs/Separation.vo
 make thielemachine/coqproofs/ThieleMachineConcrete.vo
 
 # UTM helper
-make thieleuniversal/coqproofs/ThieleUniversal.vo
+make thieleuniversal/coqproofs/ThieleUniversal_Run1.vo
 ```
 
 ---
@@ -457,11 +452,11 @@ make thieleuniversal/coqproofs/ThieleUniversal.vo
 
 ### Q: Are there any admits/Admitted?
 
-**A:** **Zero.** All proofs are either fully mechanized or use documented axioms with justifications.
+**A:** **3 Admitted statements** in `thielemachine/coqproofs/Simulation.v` (lines 3590, 3829, 3840). All other proofs are either fully mechanized or use documented axioms with justifications.
 
 ### Q: How many axioms are there?
 
-**A:** **28 documented axioms** total (see `AXIOM_INVENTORY.md`). Five stem from the universal-machine development (`ThieleUniversal`), two are re-exported in `Simulation.v`, one powers the separation lower bound, and the remainder cover structured-instance specifications, quantum lemmas, and concrete implementation assumptions.
+**A:** **2 documented axioms** total (see `AXIOM_INVENTORY.md`). Both stem from the universal-machine development (`ThieleUniversal`), connecting the mechanised interpreter to the executable Python implementation.
 
 ### Q: Where is the P = NP proof?
 
