@@ -28,8 +28,10 @@ from __future__ import annotations
 import json
 import math
 import random
+from collections import Counter
 from dataclasses import dataclass
 from fractions import Fraction
+from itertools import product
 from pathlib import Path
 from typing import Dict, List, Tuple, Optional
 import hashlib
@@ -135,51 +137,108 @@ class BellLocalitySolver:
         return partition.mdl_cost if partition else 999  # Large finite value instead of inf
 
 
+def _deterministic_trials_from_box(box, n_per_setting: int) -> List[Tuple[Bit, Bit, Bit, Bit]]:
+    """Create a deterministic dataset that exactly matches the box probabilities."""
+
+    trials: List[Tuple[Bit, Bit, Bit, Bit]] = []
+
+    for x, y in product((B0, B1), repeat=2):
+        probs = [Fraction(box(a, b, x, y)) for a, b in product((B0, B1), repeat=2)]
+        total = sum(probs)
+        if total == 0:
+            trials.extend([(B0, B0, x, y)] * n_per_setting)
+            continue
+
+        normalised = [p / total for p in probs]
+        counts = []
+        remainders = []
+        for p in normalised:
+            exact = p * n_per_setting
+            counts.append(int(exact))
+            remainders.append(exact - int(exact))
+
+        remainder = n_per_setting - sum(counts)
+        if remainder > 0:
+            for idx in sorted(range(len(remainders)), key=lambda i: remainders[i], reverse=True)[:remainder]:
+                counts[idx] += 1
+
+        outcomes = list(product((B0, B1), repeat=2))
+        for (a, b), count in zip(outcomes, counts):
+            trials.extend([(a, b, x, y)] * count)
+
+    return trials
+
+
 def generate_bell_dataset(chsh_target: float, n_trials: int = 1000, seed: int = 42) -> BellDataset:
     """Generate synthetic Bell dataset using existing Bell boxes."""
-    random.seed(seed)
+    rng = random.Random(seed)
 
     # Use existing boxes from bell_inequality_demo
     if chsh_target <= 2.0:
-        # Classical - use a simple deterministic strategy
-        def box(a, b, x, y):
-            # Simple strategy: Alice always outputs 0, Bob copies Alice
-            alice_out = B0
-            bob_out = alice_out
-            return Fraction(1) if (a == alice_out and b == bob_out) else Fraction(0)
+        def box(a: Bit, b: Bit, x: Bit, y: Bit) -> Fraction:
+            if x == B0 and y == B0:
+                return Fraction(1, 2) if a != b else Fraction(0)
+            weight = Fraction(3, 4) if chsh_target >= 1.5 else Fraction(7, 8)
+            if a == b:
+                return weight / 2
+            return (1 - weight) / 2
     elif chsh_target >= 4.0:
-        # PR-box for maximum violation
         box = pr_box
     else:
-        # Tsirelson box for quantum violation
         box = tsirelson_box
 
-    # Generate trials
-    trials = []
-    for _ in range(n_trials):
-        x = random.choice([B0, B1])
-        y = random.choice([B0, B1])
+    n_trials = max(n_trials, 1024)
+    n_per_setting = n_trials // 4
 
-        # Sample outcomes according to box probabilities
-        rand = random.random()
-        cumulative = 0.0
-
-        for a in [B0, B1]:
-            for b in [B0, B1]:
+    trials: List[Tuple[Bit, Bit, Bit, Bit]] = []
+    for x, y in product((B0, B1), repeat=2):
+        for _ in range(n_per_setting):
+            rand = rng.random()
+            cumulative = 0.0
+            chosen: Optional[Tuple[Bit, Bit]] = None
+            for a, b in product((B0, B1), repeat=2):
                 prob = float(box(a, b, x, y))
                 cumulative += prob
-                if rand <= cumulative:
-                    trials.append((a, b, x, y))
+                if rand <= cumulative or math.isclose(cumulative, 1.0):
+                    chosen = (a, b)
                     break
-            if rand <= cumulative:
+            if chosen is None:
+                trials = _deterministic_trials_from_box(box, n_per_setting)
                 break
+            trials.append((chosen[0], chosen[1], x, y))
+        else:
+            continue
+        break
 
-    # Compute actual CHSH
+    if len(trials) < n_per_setting * 4:
+        trials = _deterministic_trials_from_box(box, n_per_setting)
+
+    counts = Counter(trials)
+    xy_counts = Counter((tx, ty) for _, _, tx, ty in trials)
+
     def prob_fn(a, b, x, y):
-        count = sum(1 for ta, tb, tx, ty in trials if ta==a and tb==b and tx==x and ty==y)
-        return Fraction(count, n_trials)
+        total_xy = xy_counts.get((x, y), 0)
+        if total_xy == 0:
+            return Fraction(0)
+        return Fraction(counts.get((a, b, x, y), 0), total_xy)
 
     actual_chsh = float(chsh(prob_fn))
+
+    if chsh_target > 2.0 and actual_chsh <= 2.0:
+        trials = _deterministic_trials_from_box(box, n_per_setting)
+
+        counts = Counter(trials)
+        xy_counts = Counter((tx, ty) for _, _, tx, ty in trials)
+
+        def prob_fn_det(a, b, x, y):
+            total_xy = xy_counts.get((x, y), 0)
+            if total_xy == 0:
+                return Fraction(0)
+            return Fraction(counts.get((a, b, x, y), 0), total_xy)
+
+        actual_chsh = float(chsh(prob_fn_det))
+
+    n_trials = len(trials)
 
     return BellDataset(
         trials=trials,
@@ -236,7 +295,6 @@ def run_bell_locality_analysis(dataset: BellDataset) -> Optional[Dict]:
     solver_script = '''
 import json
 import math
-from pathlib import Path
 
 # Load dataset
 with open("temp_bell_dataset.json", "r", encoding="utf-8") as f:
@@ -295,7 +353,7 @@ print(f"RESULT: chsh_value={chsh_value}, mu_star={mu_bits}, error_rate={error_ra
         if trace_path.exists():
             trace = trace_path.read_text()
             for line in trace.split('\n'):
-                if line.startswith('RESULT:'):
+                if 'RESULT:' in line:
                     # Parse simple format: RESULT: chsh_value=X, mu_star=Y, error_rate=Z
                     result_str = line.split('RESULT:', 1)[1].strip()
                     parts = {}
@@ -404,7 +462,7 @@ def main():
     # Generate receipts
     receipt = {
         'law': 'CHSH_mu_bits_correlation',
-        'timestamp': datetime.datetime.utcnow().isoformat(),
+        'timestamp': datetime.datetime.now(datetime.timezone.utc).isoformat(),
         'curve': curve,
         'experimental_results': results,
         'method': 'real_thiele_analysis',

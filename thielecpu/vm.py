@@ -18,12 +18,233 @@ import sys
 from io import StringIO
 import hashlib
 import string
+import math
+import builtins
+import zlib
 import z3
 
 # Safety: maximum allowed classical combinations for brute-force searches.
 # Can be overridden by the environment variable THIELE_MAX_COMBINATIONS.
 import os
 SAFE_COMBINATION_LIMIT = int(os.environ.get('THIELE_MAX_COMBINATIONS', 10_000_000))
+
+SAFE_IMPORTS = {"math", "json"}
+SAFE_FUNCTIONS = {
+    "abs",
+    "all",
+    "any",
+    "bool",
+    "divmod",
+    "enumerate",
+    "float",
+    "int",
+    "len",
+    "list",
+    "max",
+    "min",
+    "pow",
+    "print",
+    "range",
+    "round",
+    "sorted",
+    "sum",
+    "tuple",
+    "zip",
+    "str",
+    "set",
+    "dict",
+    "map",
+    "filter",
+    "placeholder",
+    "open",
+}
+SAFE_METHOD_CALLS = {"append", "extend", "items", "keys", "values", "get", "update", "add"}
+SAFE_MODULE_CALLS = {
+    "math": {"ceil", "floor", "sqrt", "log", "log2", "exp", "fabs", "copysign", "isfinite"},
+    "json": {"loads", "dumps", "load"},
+}
+SAFE_MODULE_ATTRIBUTES = {
+    "math": {"pi", "e"},
+}
+SAFE_NODE_TYPES = {
+    ast.Module,
+    ast.FunctionDef,
+    ast.ClassDef,
+    ast.arguments,
+    ast.arg,
+    ast.Expr,
+    ast.Assign,
+    ast.AugAssign,
+    ast.AnnAssign,
+    ast.Name,
+    ast.Load,
+    ast.Store,
+    ast.Del,
+    ast.Constant,
+    ast.BinOp,
+    ast.UnaryOp,
+    ast.BoolOp,
+    ast.Compare,
+    ast.If,
+    ast.IfExp,
+    ast.For,
+    ast.While,
+    ast.Break,
+    ast.Continue,
+    ast.Pass,
+    ast.List,
+    ast.Tuple,
+    ast.Dict,
+    ast.Set,
+    ast.ListComp,
+    ast.SetComp,
+    ast.DictComp,
+    ast.GeneratorExp,
+    ast.comprehension,
+    ast.Subscript,
+    ast.Slice,
+    ast.ExtSlice,
+    ast.Index,
+    ast.Call,
+    ast.Attribute,
+    ast.keyword,
+    ast.alias,
+    ast.With,
+    ast.withitem,
+    ast.Return,
+    ast.JoinedStr,
+    ast.FormattedValue,
+    ast.Try,
+    ast.ExceptHandler,
+    ast.Raise,
+    ast.Assert,
+}
+SAFE_NODE_TYPES.update(
+    {
+        ast.Add,
+        ast.Sub,
+        ast.Mult,
+        ast.Div,
+        ast.Mod,
+        ast.Pow,
+        ast.FloorDiv,
+        ast.LShift,
+        ast.RShift,
+        ast.BitAnd,
+        ast.BitOr,
+        ast.BitXor,
+        ast.UAdd,
+        ast.USub,
+        ast.Not,
+        ast.Invert,
+        ast.And,
+        ast.Or,
+        ast.Eq,
+        ast.NotEq,
+        ast.Lt,
+        ast.LtE,
+        ast.Gt,
+        ast.GtE,
+        ast.Is,
+        ast.IsNot,
+        ast.In,
+        ast.NotIn,
+    }
+)
+
+SAFE_BUILTINS = {name: getattr(builtins, name) for name in SAFE_FUNCTIONS if hasattr(builtins, name)}
+
+
+def _safe_import(name, globals=None, locals=None, fromlist=(), level=0):
+    """Constrain dynamic imports to the vetted module list."""
+
+    base = name.split(".")[0]
+    if base not in SAFE_IMPORTS:
+        raise SecurityError(f"Import of {name} is not permitted")
+    return builtins.__import__(name, globals, locals, fromlist, level)
+
+
+SAFE_BUILTINS["__import__"] = _safe_import
+
+
+class SecurityError(RuntimeError):
+    """Raised when a PYEXEC payload violates sandbox policy."""
+
+
+class SafeNodeVisitor(ast.NodeVisitor):
+    """AST visitor enforcing a restrictive whitelist of constructs."""
+
+    def generic_visit(self, node: ast.AST) -> None:
+        if type(node) not in SAFE_NODE_TYPES:
+            raise SecurityError(f"Disallowed construct: {type(node).__name__}")
+        super().generic_visit(node)
+
+    def visit_Import(self, node: ast.Import) -> None:  # pragma: no cover - simple check
+        for alias in node.names:
+            if alias.name not in SAFE_IMPORTS:
+                raise SecurityError(f"Import of {alias.name} is not permitted")
+        super().generic_visit(node)
+
+    def visit_ImportFrom(self, node: ast.ImportFrom) -> None:  # pragma: no cover - simple check
+        module = node.module or ""
+        if module not in SAFE_IMPORTS:
+            raise SecurityError(f"Import from {module} is not permitted")
+        super().generic_visit(node)
+
+    def visit_Attribute(self, node: ast.Attribute) -> None:
+        if not isinstance(node.value, ast.Name):
+            raise SecurityError("Attribute access is restricted to named objects")
+        base = node.value.id
+        attr = node.attr
+        if base in SAFE_MODULE_CALLS:
+            allowed = SAFE_MODULE_CALLS[base] | SAFE_MODULE_ATTRIBUTES.get(base, set())
+            if attr not in allowed:
+                raise SecurityError(f"Attribute {base}.{attr} not permitted")
+        elif attr not in SAFE_METHOD_CALLS:
+            raise SecurityError(f"Method {attr} is not permitted")
+        super().generic_visit(node)
+
+    def visit_Call(self, node: ast.Call) -> None:
+        func = node.func
+        if isinstance(func, ast.Name):
+            if func.id not in SAFE_FUNCTIONS:
+                raise SecurityError(f"Function {func.id} is not permitted")
+        elif isinstance(func, ast.Attribute):
+            if not isinstance(func.value, ast.Name):
+                raise SecurityError("Chained attribute calls are not permitted")
+            base = func.value.id
+            attr = func.attr
+            if base in SAFE_MODULE_CALLS and attr in SAFE_MODULE_CALLS[base]:
+                pass
+            elif attr in SAFE_METHOD_CALLS:
+                pass
+            else:
+                raise SecurityError(f"Call to {base}.{attr} is not permitted")
+        else:
+            raise SecurityError("Dynamic function calls are not permitted")
+        super().generic_visit(node)
+
+
+def safe_eval(code: str, scope: Dict[str, Any]) -> Any:
+    tree = ast.parse(code, mode="eval")
+    SafeNodeVisitor().visit(tree)
+    compiled = compile(tree, "<pyexec>", "eval")
+    return eval(compiled, scope)
+
+
+def safe_execute(code: str, scope: Dict[str, Any]) -> Any:
+    tree = ast.parse(code, mode="exec")
+    SafeNodeVisitor().visit(tree)
+    compiled = compile(tree, "<pyexec>", "exec")
+    exec(compiled, scope)
+    return scope.get("__result__")
+
+
+def mu_cost_from_text(text: str) -> int:
+    """Return μ-bit cost using compressed size as a Kolmogorov proxy."""
+
+    # Using compressed byte-length as a computable approximation of Kolmogorov complexity (information content) for μ-bit cost.
+    return len(zlib.compress(text.encode("utf-8"))) * 8
 
 
 def _empty_cert() -> Dict[str, Any]:
@@ -54,6 +275,7 @@ try:
         StepObservation,
         InstructionWitness,
         StepReceipt,
+        ensure_kernel_keys,
     )
     from .logger import get_thiele_logger
 except ImportError:
@@ -74,6 +296,7 @@ except ImportError:
         StepObservation,
         InstructionWitness,
         StepReceipt,
+        ensure_kernel_keys,
     )
     from thielecpu.logger import get_thiele_logger
 
@@ -196,33 +419,24 @@ class VM:
     step_receipts: List[StepReceipt] = field(default_factory=list)
 
     def __post_init__(self):
+        ensure_kernel_keys()
         if self.python_globals is None:
-            self.python_globals = {
-                '__builtins__': __builtins__,
-                'print': print,
-                'len': len,
-                'range': range,
-                'enumerate': enumerate,
-                'zip': zip,
-                'sum': sum,
-                'max': max,
-                'min': min,
-                'abs': abs,
-                'pow': pow,
-                'divmod': divmod,
-                'round': round,
-                'int': int,
-                'float': float,
-                'str': str,
-                'bool': bool,
-                'list': list,
-                'dict': dict,
-                'set': set,
-                'tuple': tuple,
-                'placeholder': placeholder,
-                'hashlib': hashlib,
-                'self': self,
+            globals_scope: Dict[str, Any] = {
+                "__builtins__": SAFE_BUILTINS,
+                "placeholder": placeholder,
+                "hashlib": hashlib,
+                "math": math,
+                "json": json,
+                "self": self,
             }
+            for name in SAFE_FUNCTIONS:
+                if name in globals_scope:
+                    continue
+                if name in SAFE_BUILTINS:
+                    globals_scope[name] = SAFE_BUILTINS[name]
+                elif hasattr(builtins, name):
+                    globals_scope[name] = getattr(builtins, name)
+            self.python_globals = globals_scope
         self.witness_state = WitnessState()
         self.step_receipts = []
 
@@ -232,7 +446,7 @@ class VM:
         op = instruction.op
         if op == "LASSERT":
             query = str(instruction.payload)
-            mu_delta = len(query) * 8
+            mu_delta = mu_cost_from_text(query)
             post_state = WitnessState(
                 pc=pre_state.pc + 1,
                 status=pre_state.status,
@@ -324,9 +538,6 @@ class VM:
                 code = code_or_path
                 source_info = "inline"
 
-            # Parse the code to check for syntax errors
-            ast.parse(code)
-
             # Check if code contains symbolic variables
             if 'placeholder(' in code:
                 return self.execute_symbolic_python(code, source_info)
@@ -336,15 +547,16 @@ class VM:
             sys.stdout = captured_output = StringIO()
 
             try:
-                # Try exec first for statements (most common case)
-                exec(code, self.python_globals)
-                output = captured_output.getvalue()
-                return None, output
-            except SyntaxError:
-                # If exec fails, try eval for expressions
-                result = eval(code, self.python_globals)
+                result = safe_execute(code, self.python_globals)
                 output = captured_output.getvalue()
                 return result, output
+            except SyntaxError:
+                result = safe_eval(code, self.python_globals)
+                output = captured_output.getvalue()
+                return result, output
+            except SecurityError as exc:
+                output = captured_output.getvalue()
+                return None, output + f"\nSecurityError: {exc}"
             finally:
                 sys.stdout = old_stdout
         except Exception as e:
@@ -943,8 +1155,8 @@ class VM:
                             if n_target is not None and p * q == n_target:
                                 # Validate proper factorization
                                 if 1 < p < n_target and 1 < q < n_target:
-                                    # Charge for revealed bits: sum of bit lengths (≈ log₂ n)
-                                    bits_revealed = p.bit_length() + q.bit_length()
+                                    witness_repr = f"{p}:{q}"
+                                    bits_revealed = mu_cost_from_text(witness_repr)
                                     prev_info = self.state.mu_information
                                     info_charge(self.state, bits_revealed)
                                     ledger.append({
@@ -956,7 +1168,9 @@ class VM:
                                         "total_mu": self.state.mu,
                                         "reason": f"factoring_revelation_p{p}_q{q}",
                                     })
-                                    trace_lines.append(f"{step}: PYEXEC charged {bits_revealed} bits for factoring revelation (p={p.bit_length()} bits, q={q.bit_length()} bits)")
+                                    trace_lines.append(
+                                        f"{step}: PYEXEC charged {bits_revealed} μ-bits for factoring revelation"
+                                    )
                                 else:
                                     trace_lines.append(f"{step}: PYEXEC invalid factors detected (p={p}, q={q} for n={n_target})")
 

@@ -49,6 +49,8 @@ except ImportError:
 
 from z3 import *
 
+from thielecpu.receipts import ensure_kernel_keys
+
 # ========================================================
 
 #!/usr/bin/env python3
@@ -2465,6 +2467,8 @@ def main():
     and seals the artifact with the Ouroboros Seal. If you want to see the proof
     prove itself, this is the button to press.
     """
+    ensure_kernel_keys()
+
     run_prove_tm_subsumption()
     run_prove_vn_subsumption()
     verdict1, summary1 = run_paradox()

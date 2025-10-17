@@ -1,0 +1,64 @@
+⚠️  Using mock proof generation (for real proofs, install CaDiCaL/Kissat)
+   Install instructions:
+   - CaDiCaL: https://github.com/arminbiere/cadical/releases
+   - Kissat: https://github.com/arminbiere/kissat/releases
+   - Place binaries in ./tools/ directory or system PATH
+🎯 Computational Priced Sight Demonstration
+============================================================
+🔒 Suite Commitment Hash: b3066764ed908ae765d1dd8fbf884869a721a2c013e9073179414b77426cff43
+   (No structural hints provided - discovery uses only unlabeled data)
+
+
+📊 Instance 1/1
+   Commitment: 66c0b4c081654f66...
+   Metadata: {'family': 'mixed_composite', 'difficulty': 'medium', 'description': 'Composite instance combining parity, symmetry, and modular constraints'}
+   🔍 Discovering structure (no hints provided)...
+      Testing pigeonhole...
+        Result: True
+      Testing gf2_linear...
+        Result: True
+      Testing symmetry...
+        Result: True
+      Testing tseitin...
+        Result: True
+      Testing modular_arithmetic...
+        Result: True
+      Testing pebbling...
+        Result: True
+   🎯 Selected model: pigeonhole
+   📜 Emitting formal proof...
+   ⚖️ Running blind baseline comparison...
+   Baseline: 4 solvers tested
+   ✅ Verifying proof...
+   Verification: PASS
+
+============================================================
+🎉 Computational Priced Sight COMPLETE
+============================================================
+📊 Results:
+   Instances processed: 1
+   Structures discovered: 1
+   Formal proofs emitted: 1
+   Blind baseline comparisons: 0
+
+🔐 Cryptographic Receipt:
+   Hash: 1772bf2280c941938d737be28da54ce5...
+   Global Hash: 239b7d2a431ea83230d15e41d644c8ba...
+   Chain Steps: 1
+   Chain Valid: True
+   Signature: mock-signature-1772bf2280c94193...
+
+💡 Models discovered: ['pigeonhole']
+   Baseline comparisons: 1
+
+📋 Detailed results saved to receipt
+
+✨ This demonstrates priced computational sight:
+   • No human hints provided to guide structure discovery
+   • MDL scoring automatically selected optimal models
+   • Formal mathematical proofs emitted for verification
+   • Blind baseline comparisons with standard SAT solvers
+   • Cryptographic receipts ensure auditability
+   • µ-bit costs paid for revelation of computational structure
+
+💾 Receipt saved to: outputs/priced_sight_receipt.json

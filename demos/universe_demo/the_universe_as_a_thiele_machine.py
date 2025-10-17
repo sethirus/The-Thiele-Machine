@@ -31,10 +31,10 @@ import sys
 from pathlib import Path
 import json
 
-# Ensure the root directory is in the path for imports
-root_dir = str(Path(__file__).parent.parent)
-if root_dir not in sys.path:
-    sys.path.insert(0, root_dir)
+# Ensure the repository root is in sys.path for imports
+repo_root = str(Path(__file__).resolve().parents[2])
+if repo_root not in sys.path:
+    sys.path.insert(0, repo_root)
 
 # Import the actual Thiele CPU components
 try:

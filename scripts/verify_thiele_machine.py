@@ -28,6 +28,7 @@ from pathlib import Path
 from typing import Dict, List, Any, Optional
 import subprocess
 import time
+import shutil
 
 class ThieleVerifier:
     """Verifier for Thiele Machine implementations."""
@@ -127,6 +128,21 @@ class ThieleVerifier:
             print(f"[FAIL] Error in μ-bit validation: {e}")
             return False
 
+    def _resolve_coqc(self) -> Optional[Path]:
+        """Locate the coqc executable from the environment or system PATH."""
+        env_path = os.environ.get("COQC")
+        if env_path:
+            candidate = Path(env_path)
+            if candidate.is_file():
+                return candidate
+            print(f"[WARN] COQC environment variable is set but points to a missing file: {env_path}")
+
+        located = shutil.which("coqc")
+        if located:
+            return Path(located)
+
+        return None
+
     def verify_coq_proofs(self) -> bool:
         """Verify that Coq proofs compile successfully."""
         coq_dir = self.base_dir / "coq"
@@ -134,41 +150,66 @@ class ThieleVerifier:
             print("[FAIL] Coq directory not found")
             return False
 
+        coqc_path = self._resolve_coqc()
+        if coqc_path is None:
+            print("[FAIL] Coq compiler not found. Ensure 'coqc' is available on PATH or set the COQC environment variable.")
+            return False
+
         try:
-            # Check if coqc is available
-            coqc_path = r"C:\Coq-Platform~8.20~2025.01\bin\coqc.exe"
-            result = subprocess.run(
-                [coqc_path, "--version"],
+            version_result = subprocess.run(
+                [str(coqc_path), "--version"],
                 capture_output=True,
                 text=True,
-                timeout=10
+                timeout=10,
+                check=False,
             )
-            if result.returncode != 0:
-                print("[FAIL] Coq compiler not available")
+            if version_result.returncode != 0:
+                print("[FAIL] Coq compiler invocation failed")
+                print(version_result.stderr.strip())
                 return False
 
-            print("[OK] Coq compiler available")
+            compiler_version = version_result.stdout.strip().splitlines()[0] if version_result.stdout else str(coqc_path)
+            print(f"[OK] Coq compiler available: {compiler_version}")
 
-            # Try to compile key proof files
             key_files = [
                 "thielemachine/coqproofs/ThieleMachineConcrete.v",
-                "thielemachine/coqproofs/Separation.v"
+                "thielemachine/coqproofs/Separation.v",
             ]
 
+            coq_roots = [
+                (coq_dir / "thielemachine" / "coqproofs", "ThieleMachine"),
+                (coq_dir / "thieleuniversal" / "coqproofs", "ThieleUniversal"),
+                (coq_dir / "catnet" / "coqproofs", "CatNet"),
+                (coq_dir / "isomorphism" / "coqproofs", "Isomorphism"),
+                (coq_dir / "p_equals_np_thiele", "P_equals_NP_Thiele"),
+                (coq_dir / "project_cerberus" / "coqproofs", "ProjectCerberus"),
+                (coq_dir / "test_vscoq" / "coqproofs", "TestVSCoq"),
+                (coq_dir / "modular_proofs", "ThieleMachine.Modular_Proofs"),
+                (coq_dir / "sandboxes", "Sandbox"),
+            ]
+
+            load_path_args = ["-q"]
+            for root, logical_name in coq_roots:
+                if root.exists():
+                    load_path_args.extend(["-Q", str(root), logical_name])
+
+            success = True
             for filename in key_files:
                 filepath = coq_dir / filename
                 if not filepath.exists():
                     print(f"[FAIL] Coq proof file missing: {filename}")
+                    success = False
                     continue
 
                 print(f"[CHECK] Compiling {filename}...")
                 start_time = time.time()
                 result = subprocess.run(
-                    [coqc_path, "-Q", str(coq_dir), "ThieleMachine", str(filepath)],
+                    [str(coqc_path), *load_path_args, str(filepath)],
                     cwd=str(coq_dir),
                     capture_output=True,
                     text=True,
-                    timeout=60
+                    timeout=300,
+                    check=False,
                 )
                 end_time = time.time()
 
@@ -176,11 +217,16 @@ class ThieleVerifier:
                     print(f"[OK] Coq compilation successful for {filename} ({end_time - start_time:.2f}s)")
                 else:
                     print(f"[FAIL] Coq compilation failed for {filename}")
-                    print(f"Error: {result.stderr[:500]}...")
-                    return False
+                    stderr_excerpt = (result.stderr or "").strip()
+                    if stderr_excerpt:
+                        print(f"Error: {stderr_excerpt[:500]}...")
+                    success = False
 
-            return True
+            return success
 
+        except subprocess.TimeoutExpired:
+            print("[FAIL] Coq compilation timed out")
+            return False
         except Exception as e:
             print(f"[FAIL] Error during Coq verification: {e}")
             return False
