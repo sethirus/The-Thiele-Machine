@@ -1,0 +1,6 @@
+(declare-const p Int)
+(declare-const q Int)
+(assert (= (* p q) 91))
+(assert (> p 1))
+(assert (> q 1))
+(assert (<= p q))

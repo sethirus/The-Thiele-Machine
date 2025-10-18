@@ -35,6 +35,7 @@ tseitin_receipts.json
 *.png
 !assets/(T).png
 *.csv
+!data/cmb_sample.csv
 out/
 
 # Certificates and generated data
@@ -47,6 +48,7 @@ certificates/
 *.vok
 *.vos
 *.lia.cache
+*.nia.cache
 
 # Ignore all files in the drips directory
 /drips/
@@ -54,8 +56,7 @@ certificates/
 # Generated artifacts
 documents/compositional_primitive.pdf
 
-# Runtime key material
-kernel_secret.key
+# Runtime key material (committed deterministic key for reproducibility)
 
 # Editable install metadata
 thiele_verify.egg-info/

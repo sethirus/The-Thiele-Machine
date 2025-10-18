@@ -16,8 +16,7 @@ What it does
 ------------
 - Runs `python3 demonstrate_isomorphism.py` (canonical thesis run) to generate receipts and artifacts. The container can also be invoked manually to run `python attempt.py` for the broader universal orchestrator and extra experiments; see `replicate.sh` for the default behavior.
 - Runs `python scripts/challenge.py verify receipts` to verify the receipts.
-- Runs `python3 experiments/run_analysis.py` to compute basic scaling fits and
-  generate plots.
+- Runs the canonical verification steps only; extended analyses can be invoked manually from `shape_of_truth_out/` outputs if desired.
 
 Notes
 -----

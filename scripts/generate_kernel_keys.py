@@ -8,6 +8,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 from pathlib import Path
 
 from nacl import signing
@@ -56,9 +57,23 @@ def main() -> None:
         action="store_true",
         help="Overwrite existing keys instead of aborting",
     )
+    parser.add_argument(
+        "--deterministic-test-key",
+        action="store_true",
+        help=(
+            "Generate the deterministic test keypair shipped with the repository. "
+            "This uses a fixed seed so auditors can reproduce signatures."
+        ),
+    )
     args = parser.parse_args()
 
-    signing_key = signing.SigningKey.generate()
+    if args.deterministic_test_key:
+        seed = hashlib.sha256(
+            b"Thiele Machine deterministic kernel signing key v1"
+        ).digest()
+        signing_key = signing.SigningKey(seed)
+    else:
+        signing_key = signing.SigningKey.generate()
     verify_key = signing_key.verify_key
 
     write_key(args.secret_path, signing_key.encode(), force=args.force)
