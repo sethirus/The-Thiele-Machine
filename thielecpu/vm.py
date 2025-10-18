@@ -28,7 +28,7 @@ import z3
 import os
 SAFE_COMBINATION_LIMIT = int(os.environ.get('THIELE_MAX_COMBINATIONS', 10_000_000))
 
-SAFE_IMPORTS = {"math", "json"}
+SAFE_IMPORTS = {"math", "json", "z3"}
 SAFE_FUNCTIONS = {
     "abs",
     "all",
@@ -58,13 +58,15 @@ SAFE_FUNCTIONS = {
     "placeholder",
     "open",
 }
-SAFE_METHOD_CALLS = {"append", "extend", "items", "keys", "values", "get", "update", "add"}
+SAFE_METHOD_CALLS = {"append", "extend", "items", "keys", "values", "get", "update", "add", "check", "model", "as_long", "format"}
 SAFE_MODULE_CALLS = {
     "math": {"ceil", "floor", "sqrt", "log", "log2", "exp", "fabs", "copysign", "isfinite"},
     "json": {"loads", "dumps", "load"},
+    "z3": {"Solver", "Int"},
 }
 SAFE_MODULE_ATTRIBUTES = {
     "math": {"pi", "e"},
+    "z3": {"sat", "unsat"},
 }
 SAFE_NODE_TYPES = {
     ast.Module,
