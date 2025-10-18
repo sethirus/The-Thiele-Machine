@@ -18,15 +18,24 @@ Usage:
     python scripts/priced_sight_demo.py --instances 5  # Custom instance count
 """
 
-import sys
 import json
+import sys
 from pathlib import Path
 
 # Import our components
 sys.path.append(str(Path(__file__).parent.parent))
 
 from scripts.priced_sight_runner import PricedSightRunner
-from demos.structure_discovery_nohints import generate_demo_instances
+
+try:
+    from demos.structure_discovery_nohints import generate_demo_instances
+except ModuleNotFoundError:
+    _archive_root = Path(__file__).resolve().parents[1] / "archive" / "showcase"
+    if _archive_root.exists():
+        sys.path.append(str(_archive_root))
+        from demos.structure_discovery_nohints import generate_demo_instances  # type: ignore
+    else:  # pragma: no cover
+        raise
 
 
 def print_header():

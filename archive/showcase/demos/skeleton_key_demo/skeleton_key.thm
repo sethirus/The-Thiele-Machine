@@ -1,0 +1,8 @@
+; Skeleton Key Assembly (Symbolic with Partitions)
+PNEW {1,2,3,4,5}
+LASSERT "module1_constraint.smt2"
+PNEW {6,7,8,9,10}
+LASSERT "module2_constraint.smt2"
+PYEXEC "temp_skeleton.py"
+MDLACC
+EMIT "Partitioned Symbolic Execution Complete"

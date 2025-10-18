@@ -1,0 +1,144 @@
+[
+  {
+    "step": 2,
+    "instruction": {
+      "op": "PNEW",
+      "payload": [
+        0
+      ]
+    },
+    "pre_state": {
+      "pc": 0,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "post_state": {
+      "pc": 1,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "observation": {
+      "event": {
+        "tag": "InferenceComplete"
+      },
+      "mu_delta": 0,
+      "cert": {
+        "smt_query": "",
+        "solver_reply": "",
+        "metadata": "",
+        "timestamp": 0,
+        "sequence": 0
+      }
+    },
+    "pre_state_hash": "3be4ab3e30347c3b36b3c176e39c564d8b2e1e6c6f816f53070d67ed3cd381f4",
+    "post_state_hash": "2e59cea3b3cf0e0427b5d1025581d2f165a69235777b0cabab6bdd7773234376",
+    "signature": "dc1cd5755faf04a4dfb7644b5ffed64487c066a5dacfc5ba98257bff50957884"
+  },
+  {
+    "step": 4,
+    "instruction": {
+      "op": "PYEXEC",
+      "payload": "/workspace/The-Thiele-Machine/temp_ablation_wrong_model.py"
+    },
+    "pre_state": {
+      "pc": 1,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "post_state": {
+      "pc": 2,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "observation": {
+      "event": {
+        "tag": "PolicyCheck",
+        "value": "/workspace/The-Thiele-Machine/temp_ablation_wrong_model.py"
+      },
+      "mu_delta": 0,
+      "cert": {
+        "smt_query": "",
+        "solver_reply": "",
+        "metadata": "",
+        "timestamp": 0,
+        "sequence": 0
+      }
+    },
+    "pre_state_hash": "2e59cea3b3cf0e0427b5d1025581d2f165a69235777b0cabab6bdd7773234376",
+    "post_state_hash": "15713ac6773c4903303bd6ba812422142bcbd5b39ba256b43969353ac4f47f59",
+    "signature": "30b1ee08025fead4c9bdadea1c35f802bef3ef19320f1c3848fbf144b609a2c8"
+  },
+  {
+    "step": 6,
+    "instruction": {
+      "op": "MDLACC",
+      "payload": 1
+    },
+    "pre_state": {
+      "pc": 2,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "post_state": {
+      "pc": 3,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "observation": {
+      "event": null,
+      "mu_delta": 0,
+      "cert": {
+        "smt_query": "",
+        "solver_reply": "",
+        "metadata": "",
+        "timestamp": 0,
+        "sequence": 0
+      }
+    },
+    "pre_state_hash": "15713ac6773c4903303bd6ba812422142bcbd5b39ba256b43969353ac4f47f59",
+    "post_state_hash": "6295c09d07120cab3fa48d4f08d9b07a275c79d0d10d9ba5f2b858f670f25c59",
+    "signature": "2ea120b1032c0755b3e249908a8980562a6776fd4ddde1a454446550a7139117"
+  },
+  {
+    "step": 8,
+    "instruction": {
+      "op": "EMIT",
+      "payload": "Ablation wrong_model complete"
+    },
+    "pre_state": {
+      "pc": 3,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "post_state": {
+      "pc": 4,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "observation": {
+      "event": {
+        "tag": "ErrorOccurred",
+        "value": "Ablation wrong_model complete"
+      },
+      "mu_delta": 0,
+      "cert": {
+        "smt_query": "",
+        "solver_reply": "",
+        "metadata": "",
+        "timestamp": 0,
+        "sequence": 0
+      }
+    },
+    "pre_state_hash": "6295c09d07120cab3fa48d4f08d9b07a275c79d0d10d9ba5f2b858f670f25c59",
+    "post_state_hash": "700da4c068b172264a4f0599d5bb6e22ef3321e4c9967d4430c31cefb17ce59d",
+    "signature": "647a9685b514bafb70b73daed6773a5495c584bab39274f34ef4e0e5a21b9656"
+  }
+]
