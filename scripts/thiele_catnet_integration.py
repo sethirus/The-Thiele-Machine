@@ -12,22 +12,21 @@ neural network policy enforcement, enabling runtime safety guarantees for
 machine learning systems.
 """
 
-import json
+import contextlib
 import hashlib
-import time
+import json
 import math
+import os
+import sys
 import tempfile
 import threading
-import contextlib
-import os
-from pathlib import Path, PurePosixPath
-from typing import List, Dict, Any, Optional, Tuple
+import time
 from dataclasses import dataclass
+from pathlib import Path, PurePosixPath
+from typing import Any, Dict, List, Optional, Tuple
 
 # Import Thiele Machine components
 try:
-    import sys
-    import os
     # Add current directory to path for local imports
     current_dir = os.path.dirname(os.path.abspath(__file__))
     parent_dir = os.path.dirname(current_dir)
@@ -56,10 +55,20 @@ try:
     from catnet.catnet import CatNet
     CATNET_AVAILABLE = True
 except ImportError as e:
-    # Fallback for testing
-    print(f"Warning: CatNet components not available: {e}")
-    CATNET_AVAILABLE = False
-    CatNet = None  # Will be defined later if needed
+    archive_root = Path(__file__).resolve().parents[1] / "archive" / "showcase"
+    if archive_root.exists():
+        sys.path.append(str(archive_root))
+        try:
+            from catnet.catnet import CatNet  # type: ignore
+            CATNET_AVAILABLE = True
+        except ImportError as nested_error:
+            print(f"Warning: CatNet components not available: {nested_error}")
+            CATNET_AVAILABLE = False
+            CatNet = None  # Will be defined later if needed
+    else:
+        print(f"Warning: CatNet components not available: {e}")
+        CATNET_AVAILABLE = False
+        CatNet = None  # Will be defined later if needed
 
 
 @contextlib.contextmanager

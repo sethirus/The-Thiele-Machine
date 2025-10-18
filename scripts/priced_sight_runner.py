@@ -14,8 +14,8 @@ Usage: python scripts/priced_sight_runner.py [--instances N] [--timeout T] [--bl
 import argparse
 import sys
 import time
-from typing import Dict, Any, List, Optional
 from pathlib import Path
+from typing import Dict, Any, List, Optional
 import math
 import json
 import hashlib
@@ -27,12 +27,40 @@ from pysat.solvers import Solver
 # Import our components
 sys.path.append(str(Path(__file__).parent.parent))
 
-from demos.structure_discovery_nohints import InstanceGenerator, generate_demo_instances
-from models.registry import registry, MDLScore
+try:
+    from demos.structure_discovery_nohints import InstanceGenerator, generate_demo_instances
+except ModuleNotFoundError:  # Optional demos relocated under archive/showcase
+    _archive_root = Path(__file__).resolve().parents[1] / "archive" / "showcase"
+    if _archive_root.exists():
+        sys.path.append(str(_archive_root))
+        from demos.structure_discovery_nohints import (  # type: ignore
+            InstanceGenerator,
+            generate_demo_instances,
+        )
+    else:  # pragma: no cover - defensive guard for unexpected layouts
+        raise
+try:
+    from models.registry import registry, MDLScore
+except ModuleNotFoundError:
+    _archive_root = Path(__file__).resolve().parents[1] / "archive" / "showcase"
+    if _archive_root.exists():
+        sys.path.append(str(_archive_root))
+        from models.registry import registry, MDLScore  # type: ignore
+    else:  # pragma: no cover
+        raise
 from scripts.proof_system import ProofEmitter, ReceiptGenerator
 
 # Import model implementations to register them
-from models import implementations
+try:
+    from models import implementations
+except ModuleNotFoundError:
+    _archive_root = Path(__file__).resolve().parents[1] / "archive" / "showcase"
+    if _archive_root.exists():
+        if str(_archive_root) not in sys.path:
+            sys.path.append(str(_archive_root))
+        from models import implementations  # type: ignore
+    else:  # pragma: no cover
+        raise
 
 
 class PricedSightRunner:

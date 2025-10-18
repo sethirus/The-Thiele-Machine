@@ -1626,6 +1626,11 @@ def run_act_vi(
                 if candidate.exists():
                     cmb_path = candidate
                     break
+            if cmb_path is None:
+                raise FileNotFoundError(
+                    "CRITICAL: No offline Planck data found in data/. "
+                    "Ensure cmb_sample.csv or planck_sample.fits is present."
+                )
         else:
             cmb_path = Path(cmb_file)
 
@@ -1639,18 +1644,22 @@ def run_act_vi(
                 try:
                     values = load_healpix_file(cmb_path)
                     data_origin = f"healpix:{cmb_path.name}"
-                except (ImportError, OSError, ValueError) as exc:
-                    fallback_reason = (
-                        f"HEALPix reader failure ({exc}) when parsing {cmb_path.name}"
-                    )
-                    print(
-                        f"{fallback_reason}; using canonical CMB patch instead of {cmb_path}",
-                        file=sys.stderr,
-                    )
-                    values = DEFAULT_CMB_SAMPLE.copy()
-                    data_origin = "embedded-planck-patch"
+                except ImportError as exc:
+                    raise RuntimeError(
+                        "CRITICAL: Planck FITS support requires healpy or astropy. "
+                        "Install the dependencies or provide cmb_sample.csv."
+                    ) from exc
+                except (OSError, ValueError) as exc:
+                    raise RuntimeError(
+                        "CRITICAL: Planck FITS data is corrupt or unreadable. Halting Act VI."
+                    ) from exc
             else:
-                values = load_cmb_offline(cmb_path)
+                try:
+                    values = load_cmb_offline(cmb_path)
+                except RuntimeError as exc:
+                    raise RuntimeError(
+                        f"CRITICAL: Offline CMB CSV {cmb_path} is invalid: {exc}"
+                    ) from exc
                 data_origin = f"csv:{cmb_path.name}"
 
             if data_source == "planck" and suffix not in (".fits", ".fz"):
@@ -1660,17 +1669,9 @@ def run_act_vi(
                 except ImportError:
                     pass
         else:
-            if narrator:
-                narrator.paragraph(
-                    "No offline CMB sample found; falling back to the canonical embedded patch."
-                )
-            print(
-                "No offline CMB sample found; falling back to the built-in canonical patch.",
-                file=sys.stderr,
+            raise FileNotFoundError(
+                f"CRITICAL: Offline CMB sample {cmb_path} is missing. Halting Act VI."
             )
-            values = DEFAULT_CMB_SAMPLE.copy()
-            data_origin = "embedded-planck-patch"
-            fallback_reason = "offline sample unavailable"
     elif mode == "live":
         if not allow_network:
             raise RuntimeError("Live mode requires --allow-network")
