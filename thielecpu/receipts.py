@@ -74,11 +74,40 @@ def ensure_kernel_keys(
     signing_key_path: Optional[str | os.PathLike[str]] = None,
     verifying_key_path: Optional[str | os.PathLike[str]] = None,
 ) -> None:
-    """Generate the kernel signing keypair if it is missing."""
+    """Ensure the deterministic kernel signing keypair is healthy on disk."""
 
     secret_path = _resolve_signing_key(signing_key_path)
     public_path = _resolve_verify_key(verifying_key_path)
-    if secret_path.exists() and public_path.exists():
+
+    regenerate = False
+    signing_key_bytes: Optional[bytes] = None
+
+    if not secret_path.exists() or not public_path.exists():
+        regenerate = True
+    else:
+        try:
+            signing_key_bytes = secret_path.read_bytes()
+        except OSError:
+            regenerate = True
+        else:
+            if len(signing_key_bytes) != 32:
+                regenerate = True
+            else:
+                try:
+                    signing_key = signing.SigningKey(signing_key_bytes)
+                except Exception:  # pragma: no cover - defensive: corrupted key material
+                    regenerate = True
+                else:
+                    derived_verify = signing_key.verify_key.encode()
+                    try:
+                        stored_verify = _load_verify_key_bytes(public_path)
+                    except (OSError, ValueError):
+                        regenerate = True
+                    else:
+                        if stored_verify != derived_verify:
+                            regenerate = True
+
+    if not regenerate:
         return
 
     generator = Path(__file__).resolve().parent.parent / "scripts" / "generate_kernel_keys.py"
@@ -89,8 +118,13 @@ def ensure_kernel_keys(
         str(secret_path),
         "--public-path",
         str(public_path),
+        "--deterministic-test-key",
+        "--force",
     ]
-    subprocess.run(cmd, check=True)
+    subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    print(
+        "INFO: Default deterministic keypair was missing or corrupt. Regenerated to ensure reproducibility."
+    )
 
 
 def sign_receipt(
