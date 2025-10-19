@@ -33,7 +33,7 @@ The Bell receipts remain in scope because they certify the Act VI physics claim,
 ### 4.0 Remove Only Regenerable Build Products
 | Path / Pattern | Rationale |
 | --- | --- |
-| `demo_output/`, `structure_discovery_output/`, `rsa_demo_output/`, `shape_of_truth_out/` | Bulky, reproducible logs and receipts; capture hashes in `audit_logs/` then delete the outputs. |
+| `demo_output/`, `structure_discovery_output/`, `graph_demo_output/`, archived `rsa_demo_output/`, `shape_of_truth_out/` | Bulky, reproducible logs and receipts; capture hashes in `audit_logs/` then delete or relocate the outputs. |
 | `experiments/` cache files (`*.npz`, `*.pkl`, `*.csv`) without provenance | Delete intermediate blobs to reduce footprint while keeping the code and notebooks. |
 | Release packaging duplicates (unpacked tarballs, extra signatures) | Retain one signed release under `archive/releases/` and remove remaining duplicates. |
 | Generated dependency trees (`node_modules/`, `.mypy_cache/`, `__pycache__/`) | Delete transient caches after ensuring instructions exist to rebuild them. |

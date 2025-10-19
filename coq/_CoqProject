@@ -1,14 +1,14 @@
 -R thielemachine/coqproofs ThieleMachine
--R thieleuniversal/coqproofs ThieleUniversal
 -R catnet/coqproofs CatNet
 -R isomorphism/coqproofs Isomorphism
 -R p_equals_np_thiele P_equals_NP_Thiele
 -R project_cerberus/coqproofs ProjectCerberus
 -R test_vscoq/coqproofs TestVSCoq
 -R modular_proofs ThieleMachine.Modular_Proofs
+-R shor_primitives ShorPrimitives
 -R sandboxes Sandbox
 
-thielemachine/Axioms.v
+thielemachine/coqproofs/Axioms.v
 thielemachine/coqproofs/QHelpers.v
 thielemachine/coqproofs/ListHelpers.v
 thielemachine/coqproofs/BellInequality.v
@@ -29,15 +29,6 @@ thielemachine/coqproofs/AmortizedAnalysis.v
 thielemachine/coqproofs/ThieleMachineConcretePack.v
 thielemachine/coqproofs/Bisimulation.v
 thielemachine/coqproofs/EncodingBridge.v
-thieleuniversal/coqproofs/TM.v
-thieleuniversal/coqproofs/UTM_Rules.v
-thieleuniversal/coqproofs/CPU.v
-thieleuniversal/coqproofs/UTM_Encode.v
-thieleuniversal/coqproofs/UTM_Program.v
-thieleuniversal/coqproofs/UTM_CoreLemmas.v
-thieleuniversal/coqproofs/ThieleUniversal_Program.v
-thieleuniversal/coqproofs/ThieleUniversal_Run1.v
-thieleuniversal/coqproofs/ZCPULemmas.v
 catnet/coqproofs/CatNet.v
 isomorphism/coqproofs/Universe.v
 p_equals_np_thiele/proof.v
@@ -48,4 +39,9 @@ modular_proofs/EncodingBounds.v
 modular_proofs/Encoding.v
 modular_proofs/Thiele_Basics.v
 modular_proofs/Simulation.v
+shor_primitives/Modular.v
+shor_primitives/Euclidean.v
+shor_primitives/PeriodFinding.v
 sandboxes/EncodingMini.v
+sandboxes/ToyThieleMachine.v
+sandboxes/VerifiedGraphSolver.v

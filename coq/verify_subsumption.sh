@@ -16,23 +16,9 @@ if ! command -v coq_makefile >/dev/null 2>&1 || ! command -v coqc >/dev/null 2>&
 fi
 
 echo "=== CANONICAL SUBSUMPTION VERIFICATION ==="
-make -C "$script_dir" clean >/dev/null
-
-echo "[1/2] Verifying the Containment Proof (Simulation.v)..."
-if make -C "$script_dir" thielemachine/coqproofs/Simulation.vo >/dev/null; then
-  echo "✅ SUCCESS: Containment proof compiled."
-else
-  echo "❌ FAILURE: Containment proof failed. Subsumption is unproven." >&2
-  exit 1
-fi
-
-echo "[2/2] Verifying the Strictness Proof (Separation.v)..."
-if make -C "$script_dir" thielemachine/coqproofs/Separation.vo >/dev/null; then
-  echo "✅ SUCCESS: Strictness proof compiled."
-else
-  echo "❌ FAILURE: Strictness proof failed. Subsumption is unproven." >&2
-  exit 1
-fi
-
-echo
-echo "=== VERIFICATION COMPLETE: Both pillars of the subsumption argument are formally verified. Turing ⊂ Thiele holds. ==="
+echo "This workflow has been retired. The attempted universal proof now lives under" >&2
+echo "archive/research/incomplete_subsumption_proof/ with a README explaining the" >&2
+echo "type-mismatch barrier. The live formal artefacts are the sandbox microcosms" >&2
+echo "(`ToyThieleMachine.v`, `VerifiedGraphSolver.v`) plus the receipts bridge" >&2
+echo "emitted by scripts/prove_it_all.sh." >&2
+exit 1
