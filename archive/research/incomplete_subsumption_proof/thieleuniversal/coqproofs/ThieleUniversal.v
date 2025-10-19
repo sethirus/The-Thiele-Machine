@@ -1,20 +1,26 @@
-(* ThieleUniversal.v.backup
-   This file previously contained admitted placeholders and work-in-progress
-   proof fragments. To avoid accidental compilation of incomplete proofs
-   the backup has been replaced with this sentinel note. All substantive
-   development should live in ThieleUniversal.v and any remaining
-   mechanisation work should be performed on the primary source file or
-   on dedicated feature branches. *)
+(* Restored from the ThieleUniversal.v.backup snapshot.  The file still
+   contains work-in-progress lemmas and commented proof obligations; it
+   is published here so the Coq build can report the remaining gaps
+   explicitly.  Any extension should continue mechanisation on this
+   source file. *)
 
 
+From Coq Require Import List ZArith Lia Arith Bool.
 Import ListNotations.
 Open Scope Z_scope.
 Open Scope nat_scope.
 Require Import ThieleUniversal.TM.
+Require Import ThieleUniversal.CPU.
+Require Import ThieleUniversal.UTM_Rules.
+Require Import ThieleUniversal.UTM_Encode.
+Require Import ThieleUniversal.UTM_Program.
+Require Import ThieleUniversal.UTM_CoreLemmas.
 
 (* --- Section: Universal Program and Simulation --- *)
 
 Import ThieleUniversal.CPU.
+Module Import UTM := ThieleUniversal.UTM_Program.UTM_Program.
+Module Import UTMCore := ThieleUniversal.UTM_CoreLemmas.
 
   (* Interpreter state predicates *)
   Definition IS_FetchSymbol (pc : nat) : Prop := pc = 0.

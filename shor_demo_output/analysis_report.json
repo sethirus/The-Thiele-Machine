@@ -1,0 +1,45 @@
+{
+  "number": 21,
+  "base": 2,
+  "acts": [
+    {
+      "label": "Act I \u2013 Blind Trial Division",
+      "factor": 3,
+      "cofactor": 7,
+      "arithmetic_work": 2,
+      "mu_cost": 0.0,
+      "divisors_tested": 2,
+      "trace_file": "division_trace.json"
+    },
+    {
+      "label": "Act II \u2013 Sighted Thiele Period Reasoning",
+      "factor": 3,
+      "cofactor": 7,
+      "arithmetic_work": 0,
+      "mu_cost": 7.0,
+      "period": 6,
+      "half_period": 3,
+      "solver_queries": 7,
+      "claims_file": "reasoning_summary.json",
+      "arithmetic_ops": {
+        "pow_calls": 1,
+        "gcd_calls": 2
+      }
+    },
+    {
+      "label": "Act III \u2013 Comparative Verdict",
+      "classical_arithmetic_work": 2,
+      "thiele_arithmetic_work": 0,
+      "classical_mu_cost": 0.0,
+      "thiele_mu_cost": 7.0,
+      "verdict": "Thiele run replaced divisor checks with paid reasoning to obtain the same factor."
+    }
+  ],
+  "reasoning_mu_cost": 7.0,
+  "classical_work": 2,
+  "thiele_work": 0,
+  "arithmetic_accounting": {
+    "pow_calls": 1,
+    "gcd_calls": 2
+  }
+}

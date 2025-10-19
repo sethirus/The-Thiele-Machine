@@ -1,6 +1,17 @@
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/sethirus/The-Thiele-Machine)
 
-> **⚠️ SECURITY WARNING: This repository contains technology that can break RSA encryption and other cryptographic systems. Use only for defensive security research. See [Security Notice](#security-notice) below.**
+> **⚠️ RESEARCH NOTICE:** This repository provides a reproducible simulation environment for the Thiele Machine. The refreshed `graph_coloring_demo.py` suite now emits receipts for multiple cascade graphs, writes per-graph analyses such as `graph_demo_output/triadic_cascade/analysis_report.json`, and publishes a scaling table (`graph_demo_output/scaling_summary.json`) plus `scaling_plot.png`. The bridge script `scripts/prove_it_all.sh` reruns the demo, translates the Act III receipts into `coq/sandboxes/GeneratedProof.v`, and compiles it so auditors can see the Python run reflected in Coq. Treat these artefacts as laboratory data for a hypothetical partition-native computer—they document what the machine *would* do if built in hardware.
+
+## Current Evidence Snapshot (April 2025 audit)
+
+| Claim theme | What the repository actually shows | Important gaps |
+| --- | --- | --- |
+| **Mathematical existence proofs** | The sandbox Coq files `coq/sandboxes/ToyThieleMachine.v` and `coq/sandboxes/VerifiedGraphSolver.v` compile without axioms, and `coq/shor_primitives/PeriodFinding.v` now proves the stated `shor_reduction` lemma: if an even period is obtained, the Euclidean GCD returns a non-trivial divisor.【F:coq/sandboxes/ToyThieleMachine.v†L1-L97】【F:coq/sandboxes/VerifiedGraphSolver.v†L9-L177】【F:coq/shor_primitives/PeriodFinding.v†L26-L47】 | These universes are hand-crafted. They do **not** derive from the archived universal development, and large files such as `coq/thielemachine/coqproofs/Simulation.v` still contain `Admitted` placeholders.【F:coq/thielemachine/coqproofs/Simulation.v†L3581-L3839】 |
+| **Empirical “flight data”** | `scripts/graph_coloring_demo.py` records Act I/II search counts and Act III µ-spend for the cascade graphs, and `scripts/shor_on_thiele_demo.py` stages the three-act factorisation of 21 with receipts in `shor_demo_output/`.【F:graph_demo_output/triadic_cascade/analysis_report.json†L1-L45】【F:shor_demo_output/analysis_report.json†L1-L39】 | The oracle logic runs in host Python/Z3 (or the bespoke period oracle) and mirrors precomputed reasoning. The scaling study covers only cascade graphs and the Shor demo handles a single composite, evidencing constant-factor collapses rather than asymptotic speedups.【F:scripts/graph_coloring_demo.py†L1-L330】【F:graph_demo_output/scaling_summary.json†L1-L33】【F:scripts/shor_on_thiele_demo.py†L1-L189】 |
+| **Bridge from receipts to Coq** | `scripts/prove_it_all.sh` regenerates the triadic cascade receipts, `scripts/translate_receipts_to_coq.py` encodes the Act III trace, and `coq/sandboxes/GeneratedProof.v` proves that the replayed run matches the sandbox solver.【F:scripts/prove_it_all.sh†L1-L27】【F:coq/sandboxes/GeneratedProof.v†L1-L55】 | The bridge covers one Act III scenario. General VM executions, Bell receipts, and other graphs remain outside this mechanised pipeline.【F:coq/sandboxes/GeneratedProof.v†L1-L55】 |
+| **Physical synthesis verdict** | Archived Yosys logs show the classical Verilog consumes 228 cells/267 wire bits while the Thiele residue-mask latch uses five cells/106 wire bits.【F:hardware/synthesis_trap/classical_solver.log†L788-L805】【F:hardware/synthesis_trap/thiele_solver.log†L701-L733】 | The compact netlist reflects host-prepared reasoning; the hardware module itself does not derive the residues. `scripts/run_the_synthesis.sh` replays the logs if Yosys is absent.【F:scripts/run_the_synthesis.sh†L1-L49】 |
+
+Large sections later in this README preserve the original manifesto for historical context. They reference ambitious, as-yet-unverified goals (for example, exponential separations and universal containment). Treat them as design intent rather than established fact; the authoritative status summary is maintained in `docs/final_fact_check.md` and the audit reports.
 
 ## Run everything
 
@@ -25,7 +36,7 @@ bash scripts/RUNME.sh
 - `scripts/challenge.py verify receipts` recomputes each step hash, checks the Ed25519 signature on the global digest, and replays the portable SAT/SMT artefacts before summing the reported μ-bit charges.
 - `scripts/RUNME.sh` simply runs the canonical demonstration and verification commands above for Unix-like systems by default.
 
-The Coq formalization is fully mechanised. Use [`coq/verify_subsumption.sh`](coq/verify_subsumption.sh) after installing Coq to rebuild both pillars of the subsumption proof from scratch.
+The Coq formalization ships with replay scripts. [`coq/verify_subsumption.sh`](coq/verify_subsumption.sh) now reports that the universal subsumption attempt has been archived; see the limitations section for details and the sandbox microcosms that remain in active use.
 
 
 <p align="center">
@@ -52,6 +63,13 @@ The Coq formalization is fully mechanised. Use [`coq/verify_subsumption.sh`](coq
    ```sh
    pip install z3-solver numpy scipy networkx python-sat matplotlib tqdm
    ```
+   If you see signature errors later on, ensure your Ed25519 kernel key is present:
+
+   ```sh
+   python scripts/generate_kernel_keys.py --deterministic-test-key
+   ```
+
+   *This regenerates the 32-byte deterministic signing key shipped with the repository so receipt generation succeeds.*
 4. **Run the main (Bell thesis) artifact:**
    ```sh
    # For reproducible runs, set deterministic environment variables first:
@@ -83,7 +101,7 @@ The Coq formalization is fully mechanised. Use [`coq/verify_subsumption.sh`](coq
    - **Intended for exploratory plots rather than decisive empirical evidence.**
 7. **(Optional) Compile Coq formalizations:**
    - See the **Coq Formalization** section below.
-   - **Fully mechanised; see `coq/AXIOM_INVENTORY.md` for the remaining foundational assumptions.**
+   - **Current status:** `coq/verify_subsumption.sh` now reports that the universal subsumption attempt was archived; use `scripts/prove_it_all.sh` and the sandbox modules for auditable proofs.
 
 **Requirements:** Python 3.11 or later.
 
@@ -92,6 +110,11 @@ The Coq formalization is fully mechanised. Use [`coq/verify_subsumption.sh`](coq
 **Optional System Dependencies:**
 - Coq Platform 8.20 or later (for formal proofs and compilation)
 - drat-trim and lrat-check (for advanced proof verification)
+
+### Known Limitations (October 2025 audit)
+
+- The original universal subsumption attempt (`coq/thieleuniversal/`) is archived under `archive/research/incomplete_subsumption_proof/` with a README explaining the type mismatch that halted the project. The living formal artefacts are the sandbox microcosms (`ToyThieleMachine.v`, `VerifiedGraphSolver.v`) and the generated bridge `coq/sandboxes/GeneratedProof.v`.
+- The graph-colouring laboratory run in `scripts/graph_coloring_demo.py` demonstrates how the VM treats μ-bits as an explicit budget for structural claims. Act III makes two anchor claims, queries a congruence oracle for every remaining vertex, and recovers the colouring without brute-force enumeration. The reasoning engine lives in host Python (mirroring how a hardware oracle would behave), so the experiment evidences constant-factor collapses of the search frontier—not an asymptotic breakthrough over NP-complete benchmarks.
 
 **Release Verification:** SHA-256 of v1.0.1 tarball: `883372fd799e98a9fd90f8feb2b3b94d21bf917843745e80351ba52f7cf6d01d` (see [GitHub Release](https://github.com/sethirus/The-Thiele-Machine/releases/tag/v1.0.1))
 
@@ -137,7 +160,7 @@ Quick checklist to verify the v1.0.3 release:
 - Verify the ASCII armored GPG signature for the release tarball is present on the GitHub release page and corresponds to fingerprint `ACF1665CDBD486D22E87B3615127D27049B531F1` (if you trust that key)
 - Check the Software Heritage SWHID: `swh:1:dir:d3894a5c31028e8d0b6d3bcdde9d257148d61e59`
 - Re-run the canonical verification: `python scripts/challenge.py verify receipts` and then run `./scripts/verify_truth.sh examples/tsirelson_step_receipts.json` after running `python3 demonstrate_isomorphism.py` to regenerate receipts and replay them in Coq.
-- Rebuild the Coq proofs in an isolated container: `docker run --rm -v "$PWD":/work sethirus/the-thiele-coq:8.18 bash -c "cd /work && ./coq/verify_subsumption.sh"`
+- Bridge the receipts to Coq in an isolated container: `docker run --rm -v "$PWD":/work sethirus/the-thiele-coq:8.18 bash -c "cd /work && ./scripts/prove_it_all.sh"`
 
 More detailed verification steps are provided in `DEFENSIVE_PUBLICATION.md`.
 
@@ -147,63 +170,32 @@ helpers require your personal API tokens and are intentionally interactive.
 
 ---
 
-## Security Notice
+## Research Ethics Notice
 
-**⚠️ CRITICAL SECURITY WARNING**
+**⚠️ RESPONSIBLE USE REMINDER**
 
-This repository implements the Thiele Machine, a computational model with capabilities that include:
+This repository simulates the Thiele Machine and publishes cryptographically sealed transcripts of how that hypothetical computer would behave on structured reasoning problems. The Bell thesis run, the RSA archives, and the new graph 3-colouring laboratory are all reproducible conversations between the VM and its oracles. They are meant for academic study, transparency, and auditing—not for operational cryptanalysis.
 
-- **Cryptanalysis of RSA and similar systems** via partition-native computation
-- **Breaking cryptographic assumptions** underlying modern digital security
-- **Potential for undermining global cybersecurity infrastructure**
+### Recommended Uses
 
-### Responsible Use Guidelines
+- Complexity-theory and logic research exploring partition-native computation.
+- Reproducibility studies that replay the receipts, μ-ledgers, and solver traces.
+- Formal-methods work that extends or critiques the stated axioms and Coq developments.
+- Educational walkthroughs demonstrating the difference between blind search and oracle-guided reasoning.
 
-**ALLOWED USES:**
-- Academic research into computational complexity theory
-- Defensive security research and vulnerability assessment
-- Development of improved cryptographic systems
-- Formal verification and proof systems
+### Out-of-Scope Uses
 
-**PROHIBITED USES:**
-- Breaking encryption without explicit authorization
-- Cryptanalysis for malicious purposes
-- Undermining digital security infrastructure
-- Commercial exploitation without security review
+- Treating the simulation as a turnkey weapon against deployed cryptosystems.
+- Presenting the transcripts as evidence of a practical RSA break without independent hardware analysis.
+- Deploying modified versions without clearly documenting the changes and their audit trail.
 
-### Implementation Details
+### Implementation Notes
 
-The Thiele CPU (`thielecpu/`) includes:
-- Partition-based RSA factoring capabilities
-- Optional security monitoring and responsible use logging
-- Cryptographic receipt generation with HMAC signatures
+- The Thiele CPU (`thielecpu/`) records μ-bit accounting, generates Ed25519 receipts, and can emit responsible-use notices via `thielecpu.display_security_warning()`.
+- Structured JSON logging remains available through the `THIELE_SECURITY_LOGGING`, `THIELE_SECURITY_LOG_PATH`, and `THIELE_SECURITY_LOG_REDACT` environment variables for teams that need tamper-evident audit trails.
+- All experiments run inside Python sandboxes; any "oracle" is implemented explicitly in the host runtime so reviewers can inspect the logic.
 
-Logging policy and configuration
-
-- By default the package will not print large guidance blocks or perform noisy side-effects on import. A concise responsible-use notice is available and can be explicitly displayed by calling:
-
-```py
-from thielecpu import display_security_warning
-display_security_warning()
-```
-
-- Structured, machine-readable security/event logging is available and enabled by default. Control it with the following environment variables:
-
-   - `THIELE_SECURITY_LOGGING=0|1` -- enable or disable logging (default: `1`)
-   - `THIELE_SECURITY_LOG_PATH=PATH` -- path to the JSON log file (default: `./security_log.json`)
-   - `THIELE_SECURITY_LOG_REDACT=0|1` -- redact likely-sensitive fields before writing to disk (default: `0`)
-
-Examples of events recorded include VM start/finish, PYEXEC output, EMIT events, and responsible-use notice displays. The log is a JSON array of event objects to make automated auditing and ingestion straightforward.
-
-### Legal and Ethical Considerations
-
-By using this code, you agree to:
-- Use it only for authorized security research
-- Report any vulnerabilities discovered responsibly
-- Not distribute modified versions without security review
-- Comply with all applicable laws and regulations
-
-**This is not a toy project. Mishandling this technology could have severe real-world consequences.**
+**Handle the transcripts with care, document your derivations, and keep discussions about hypothetical offensive capability grounded in the published receipts.**
 
 ---
 
@@ -211,7 +203,7 @@ By using this code, you agree to:
 
 This repository now packages the full subsumption argument together with the supporting artefacts. Highlights:
 
-- **Formal containment and strictness:** `coq/verify_subsumption.sh` rebuilds the mechanised containment (`Simulation.v`) and separation (`Separation.v`) proofs from a clean slate.
+- **Formal containment and strictness (archived attempt):** `coq/verify_subsumption.sh` now explains that the `ThieleUniversal.v` development was moved to `archive/research/incomplete_subsumption_proof/`. The active proofs are the sandbox microcosms (`ToyThieleMachine.v`, `VerifiedGraphSolver.v`) plus the generated `GeneratedProof.v` built by `scripts/prove_it_all.sh`.
 - **Auditable receipts:** `scripts/challenge.py verify receipts` replays every signed receipt, recomputes step hashes, checks the Ed25519 signature, and revalidates the SAT/SMT artefacts before accounting for μ-bits.
 - **Structured benchmarks:** The CNF instances and truth-table witnesses in `spec/golden/` match the formal statements proved in Coq and the scenarios exercised by the Python demos.
 - **Executable VM:** The Python Thiele Machine mirrors the abstract instruction set used in the proofs; its safety checks rely on the same certificate format that the Coq development reasons about.
@@ -482,6 +474,16 @@ Establishes mathematical connection between physical and computational universes
 ### `coq/p_equals_np_thiele/proof.v`
 The legacy `coq/p_equals_np_thiele/` directory remains as an archival note on the abandoned P vs NP campaign; the live proof system is the subsumption development summarised below.
 
+### `coq/sandboxes/ToyThieleMachine.v`
+Implements the "microcosm" existence proof discussed in the manifesto: a toy universe with an eight-cell tape where the Thiele instruction set performs a geometric `ClaimLeftZero` action that no classical write-only interpreter can replicate. The file contains two mechanised theorems:
+- `turing_cannot_solve` — the restricted Turing interpreter cannot transform the all-ones tape into the sorted target because it lacks any instruction capable of introducing zeroes.
+- `thiele_can_solve` — the Thiele interpreter executes the same program, spends one µ-bit on `ClaimLeftZero`, and produces the target tape, formally demonstrating an operation outside the Turing model in this microcosm.
+
+### `coq/sandboxes/VerifiedGraphSolver.v`
+Supplies the "Cessna"-scale artifact that bridges the toy microcosm and the full Python demonstration. The development mechanises a nine-node `triadic_cascade` graph, a classical degree-ordered backtracker, and a Thiele-style solver that pays µ-bits for anchor claims and congruence feasibility queries. Two theorems certify the measured costs:
+- `classical_is_slow` — the backtracker consumes 18 arithmetic branch attempts before discovering the canonical witness.
+- `thiele_is_fast` — the Thiele solver spends 23 µ-bits (two anchor claims plus 21 feasibility queries) and recovers the same witness with zero residual brute-force search.
+
 ## Compilation
 
 **Status:** All flagship proof targets compile from a clean checkout.
@@ -489,14 +491,7 @@ The legacy `coq/p_equals_np_thiele/` directory remains as an archival note on th
 
 ### Canonical subsumption verification
 
-**Prerequisites:** Install the Coq proof assistant (8.18 or later) so that `coqc` and `coq_makefile` are available on your `PATH`.
-
-```bash
-cd coq
-./verify_subsumption.sh
-```
-
-The script rebuilds the tree from a clean slate, compiles the containment proof (`Simulation.v`), and then compiles the strictness proof (`Separation.v`). Both steps must succeed to confirm the flagship subsumption theorem.
+The historical subsumption build has been archived. Running `./coq/verify_subsumption.sh` now reminds reviewers to inspect `archive/research/incomplete_subsumption_proof/` for the negative result. To exercise the live, audited proofs, run `scripts/prove_it_all.sh`, which regenerates the graph-colouring receipts and checks `coq/sandboxes/GeneratedProof.v` against `Sandbox.VerifiedGraphSolver`.
 
 For complete axiom disclosure and mechanization status, see `coq/AXIOM_INVENTORY.md` and `coq/README_PROOFS.md`.
 
@@ -1084,12 +1079,35 @@ python demos/universe_demo/the_universe_as_a_thiele_machine.py
 - **Result:** SAT certificate proving consciousness compatible with physics
 - **Duration:** 30 seconds
 
-**RSA Factoring:**
+**Graph 3-Colouring Laboratory (`scripts/graph_coloring_demo.py`):**
+```bash
+python scripts/graph_coloring_demo.py
+```
+- **Act structure:** For each cascade graph the suite executes three acts. Act I exhaustively enumerates when the node count permits, Act II applies degree-ordered backtracking, and Act III spends μ-bits on anchor claims plus congruence feasibility queries for every remaining vertex, forcing the colouring without residual brute-force search.
+- **Artifacts:** Each graph has a dedicated folder (for example `graph_demo_output/triadic_cascade/act_*` plus `graph_demo_output/triadic_cascade/analysis_report.json`). Cross-graph metrics land in `graph_demo_output/scaling_summary.json`, and `graph_demo_output/scaling_plot.png` charts log₁₀(candidate checks) versus graph size.
+- **Result:** The laboratory evidences constant-factor collapses driven by scripted oracle reasoning. It replaces the prior RSA demo as the canonical geometric experiment while leaving the RSA scripts archived for historical context.
+
+**Receipts-to-Coq bridge (`scripts/prove_it_all.sh`):**
+```bash
+bash scripts/prove_it_all.sh
+```
+- **Pipeline:** Regenerates the graph-colouring receipts, converts the Act III log into `coq/sandboxes/GeneratedProof.v`, and runs `coqc` (after building `Sandbox.VerifiedGraphSolver`) so the Python execution is replayed as the Coq theorem `python_receipt_sound`.
+- **Outcome:** Auditors get a single command that ties the VM’s empirical transcript to the “Cessna” microcosm formal proof, demonstrating end-to-end consistency.
+
+**Synthesis Trap (`scripts/run_the_synthesis.sh`):**
+```bash
+bash scripts/run_the_synthesis.sh
+```
+- **Objective:** Submit the classical brute-force Verilog and the Thiele-style geometric solver to an impartial synthesis oracle (Yosys) and compare the resource reports or failure modes.
+- **Artifacts:** Logs and JSON netlists are emitted under `hardware/synthesis_trap/`, preserving the tool’s own verdicts for auditors. If Yosys is unavailable the script prints the archived logs instead of failing.
+- **Outcome:** In the reference run, the classical brute-force design maps to 228 cells across 267 wire bits, while the Thiele residue-mask solver compiles to a five-cell netlist that encodes all μ-funded reasoning in combinational masks. Auditors should examine the paired logs (`classical_solver.log`, `thiele_solver.log`) and JSON netlists to confirm the tooling’s own accounting of the structural gap; detailed commentary lives in `docs/synthesis_trap_analysis.md`.
+
+**Low-level RSA factoring helper:**
 ```bash
 python thielecpu/factoring.py --target 123456789012345678901234567890123456789
 ```
-- **Method:** Partition-based cryptanalysis
-- **Security:** Responsible use monitoring and logging
+- **Method:** Direct partition-based cryptanalysis on a single modulus
+- **Security:** Responsible use monitoring and logging remain enabled
 
 **Neural Networks:**
 ```bash
@@ -1213,7 +1231,7 @@ This artifact is the first concrete evidence that the Thiele Machine is not mere
 
 CatNet instantiates the Thiele Machine in the category of vector spaces. Objects
 are network layers, morphisms are differentiable maps, and composition is
-computation. Each forward pass is recorded in a tamper-evident, HMAC-signed
+computation. Each forward pass is recorded in a tamper-evident, Ed25519-signed
 audit log, and a minimal EU AI Act transparency report is available via
 `get_eu_compliance_report()`. Run the demos with:
 
