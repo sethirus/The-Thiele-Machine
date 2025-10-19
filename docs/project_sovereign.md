@@ -1,5 +1,7 @@
 # Project "Sovereign" Progress Log
 
+> **Status update (October 2025):** This document is preserved for historical context. For the current analysis of the kernel, μ-spec v2.0, and reproducible evidence see `docs/kernel_analysis.md` and `docs/final_fact_check.md`.
+
 This document tracks the staged execution of the Shor-on-Thiele roadmap.  Each
 milestone records its objective, the repository artefacts that implement it, and
 any follow-on work required before moving to the next milestone.
@@ -95,4 +97,3 @@ produces a non-trivial divisor when its half-period is even.
 **Next steps:** Lift the reduction logic into a generated Coq replay of the
 Shor demo once the oracle ledger-to-Coq translator is extended, mirroring the
 graph-colouring bridge.
-

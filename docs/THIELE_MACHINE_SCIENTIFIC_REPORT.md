@@ -7,18 +7,26 @@ historical proof sketches from the artefacts that currently compile without axio
 
 ## 1. Active, Mechanically Checked Artefacts
 
+- `coq/kernel/` formalises the minimalist shared-tape universe. `KernelTM.v` and
+  `KernelThiele.v` share the classical clauses; only the Thiele interpreter
+  executes `H_ClaimTapeIsZero`, zeroing the tape and incrementing `mu_cost`.
+  `Subsumption.v` proves that Thiele executions reproduce all classical runs and
+  reach a state the classical kernel cannot.【F:coq/kernel/Kernel.v†L4-L66】【F:coq/kernel/KernelTM.v†L12-L37】【F:coq/kernel/KernelThiele.v†L7-L26】【F:coq/kernel/Subsumption.v†L36-L118】
 - `coq/sandboxes/ToyThieleMachine.v` implements the "ClaimLeftZero" microcosm: a
   Thiele interpreter spends one µ-bit to achieve a tape that the classical
   write-only interpreter provably cannot reach.【F:coq/sandboxes/ToyThieleMachine.v†L1-L94】
 - `coq/sandboxes/VerifiedGraphSolver.v` encodes the triadic cascade graph and
   proves the classical backtracker needs 18 branch attempts while the Thiele
-  solver spends 23 µ-bits and performs zero additional arithmetic steps, matching
-  the empirical receipts.【F:coq/sandboxes/VerifiedGraphSolver.v†L9-L177】
+  solver records 1,288 description bits plus nine `log₂ 3` gains (≈1302.26 µ-bits)
+  and performs zero additional arithmetic steps, matching the empirical
+  receipts.【F:coq/sandboxes/VerifiedGraphSolver.v†L9-L177】【F:graph_demo_output/triadic_cascade/analysis_report.json†L1-L45】
 - `scripts/prove_it_all.sh` and `scripts/translate_receipts_to_coq.py` generate
   `coq/sandboxes/GeneratedProof.v`, linking the Act III receipts to the sandbox
-  solver with a direct Coq replay.【F:scripts/prove_it_all.sh†L1-L27】【F:coq/sandboxes/GeneratedProof.v†L1-L55】
+  solver with a direct Coq replay.【F:scripts/prove_it_all.sh†L1-L24】【F:coq/sandboxes/GeneratedProof.v†L1-L66】
 
-These artefacts constitute the "working" portion of the formal stack today.
+These artefacts constitute the "working" portion of the formal stack today; the
+kernel delivers the mechanical subsumption proof, while the sandboxes and bridge
+mirror the empirical graph-colouring experiment.
 
 ## 2. Status of the Legacy Universal Development
 
