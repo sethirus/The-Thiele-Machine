@@ -1,5 +1,6 @@
 # Spike Demonstrations for the Thiele Machine
 
+> **Status update (October 2025):** This document is preserved for historical context. See `docs/kernel_analysis.md` and `docs/final_fact_check.md` for current evidence.
 This note distills three "spike" experiments that can be implemented with the existing Thiele Machine toolchain to produce crisp, auditable paradox receipts in distinct domains.  Each demo isolates a single contradiction, proving the broader applicability of the ledger, logic engine, and partition semantics without requiring large-scale brute-force runs.
 
 ## Demo A: Verifiable & Auditable AI ("Glass Box")

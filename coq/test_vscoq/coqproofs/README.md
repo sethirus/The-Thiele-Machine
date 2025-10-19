@@ -1,5 +1,6 @@
 # VSCoq Test Files
 
+> **Status update (October 2025):** The authoritative kernel proof lives in `coq/kernel/`. This README is preserved for the archived `coq/thielemachine` development.
 ## Directory Overview
 
 This directory contains **test files for VSCoq integration** - ensuring the Coq proof assistant works correctly in VS Code.

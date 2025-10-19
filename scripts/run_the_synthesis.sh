@@ -4,8 +4,8 @@ set -u
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")"/.. && pwd)"
 CLASSICAL_LOG="${PROJECT_ROOT}/hardware/synthesis_trap/classical_solver.log"
 CLASSICAL_JSON="${PROJECT_ROOT}/hardware/synthesis_trap/classical_solver.json"
-THIELE_LOG="${PROJECT_ROOT}/hardware/synthesis_trap/thiele_solver.log"
-THIELE_JSON="${PROJECT_ROOT}/hardware/synthesis_trap/thiele_solver.json"
+THIELE_LOG="${PROJECT_ROOT}/hardware/synthesis_trap/thiele_graph_solver.log"
+THIELE_JSON="${PROJECT_ROOT}/hardware/synthesis_trap/thiele_graph_solver.json"
 
 printf '=== THE SYNTHESIS TRAP: A Proof in Silicon ===\n'
 printf 'Using a classical synthesis tool as an impartial oracle.\n\n'
@@ -35,7 +35,7 @@ grep -E 'Number of cells|Number of wires' "$CLASSICAL_LOG" || true
 printf '\n'
 
 printf -- '--- Phase 2: Synthesising the Thiele geometric solver ---\n'
-if yosys -l "$THIELE_LOG" -p "read_verilog hardware/synthesis_trap/thiele_solver.v; synth -top thiele_solver; stat; write_json $THIELE_JSON"; then
+if yosys -l "$THIELE_LOG" -p "read_verilog hardware/synthesis_trap/reasoning_core.v hardware/synthesis_trap/thiele_graph_solver.v; synth -top thiele_graph_solver; stat; write_json $THIELE_JSON"; then
     printf 'Synthesis completed. Extract from report:\n'
     grep -E 'Number of cells|Number of wires' "$THIELE_LOG" || true
 else

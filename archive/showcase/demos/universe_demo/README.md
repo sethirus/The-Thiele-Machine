@@ -1,5 +1,6 @@
 # Formal Verification: Consciousness Compatibility with Physical Laws
 
+> **Status update (October 2025):** Archived material preserved for historical reference. For current results see `docs/kernel_analysis.md` and `docs/final_fact_check.md`.
 ## Abstract
 
 ### The Fundamental Question

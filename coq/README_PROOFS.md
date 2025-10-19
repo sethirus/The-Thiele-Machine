@@ -1,5 +1,6 @@
 # Coq Assets – verification status
 
+> **Status update (October 2025):** The authoritative kernel proof lives in `coq/kernel/`. This README is preserved for the archived `coq/thielemachine` development.
 ## Overview
 
 This directory contains the fully mechanised Coq development that underpins the

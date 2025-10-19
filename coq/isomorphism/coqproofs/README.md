@@ -1,5 +1,6 @@
 # Universe Isomorphism Proofs
 
+> **Status update (October 2025):** The authoritative kernel proof lives in `coq/kernel/`. This README is preserved for the archived `coq/thielemachine` development.
 ## Directory Overview
 
 This directory contains formal verification of **universe isomorphism properties** - showing structural equivalence between different computational universes.

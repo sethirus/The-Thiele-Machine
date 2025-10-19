@@ -1,5 +1,6 @@
 # Turing Machine Helper Module
 
+> **Status update (October 2025):** Archived material preserved for historical reference. For current results see `docs/kernel_analysis.md` and `docs/final_fact_check.md`.
 This directory packages the fully mechanised Universal Turing Machine that the
 containment pillar (`Simulation.v`) imports.  It provides the canonical
 definitions of classical configurations together with the blind interpreter that

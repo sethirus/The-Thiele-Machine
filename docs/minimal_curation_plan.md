@@ -1,5 +1,7 @@
 # Thiele Machine Minimal Artifact Inventory
 
+> **Status update (October 2025):** This document is preserved for historical context. For the current analysis of the kernel, μ-spec v2.0, and reproducible evidence see `docs/kernel_analysis.md` and `docs/final_fact_check.md`.
+
 ## 1. Executive Summary (BLUF)
 - **Goal:** deliver a branch containing the reproducible Thiele Machine thesis artifact—Acts I–VI orchestrators, the `thielecpu/` implementation, Coq proofs, and signed receipts—with the Bell verification preserved as the Act VI capstone rather than the sole focus.
 - **Status:** every directory listed below was manually inspected under Linux after installing Coq 8.18.0 and the editable Python stack (`pip install -e .`). Canonical orchestrators (`demonstrate_isomorphism.py`, `attempt.py`) drive the full Thiele Machine pipeline, regenerating μ-bit ledgers and transcripts, while the verification tooling (`scripts/challenge.py`, `scripts/verify_truth.sh`, `verify_bell.sh`) confirms both the virtual machine behaviour and the Bell finale.

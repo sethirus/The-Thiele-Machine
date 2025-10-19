@@ -17,6 +17,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 import z3
 
+from thielecpu.mu import mu_breakdown
 from thielecpu.receipts import ensure_kernel_keys
 
 try:  # matplotlib is part of the editable install, but guard for clarity.
@@ -211,18 +212,43 @@ def _act_iii_reasoning(spec: GraphSpec) -> ActResult:
         "ACT III – Strategic claims with oracle-guided propagation",
     ]
 
-    for node, colour in spec.strategic_claims:
-        assignments[node] = colour
-        log.append(
-            f"CLAIM: Node {node} := {COLOR_NAMES[colour]} (μ-cost 1)"
+    domains = {node: set(spec.palette) for node in spec.nodes}
+    mu_events: List[Dict[str, object]] = []
+    mu_total = 0.0
+
+    def record_mu(expr: str, before: int, after: int, context: str) -> None:
+        nonlocal mu_total
+        breakdown = mu_breakdown(expr, before, after)
+        mu_total += breakdown.total
+        mu_events.append(
+            {
+                "context": context,
+                "expr": expr,
+                "canonical": breakdown.canonical,
+                "before": before,
+                "after": after,
+                "question_bits": breakdown.question_bits,
+                "information_gain": breakdown.information_gain,
+                "mu_total": breakdown.total,
+            }
         )
 
-    mu_cost = float(len(spec.strategic_claims))
+    for node, colour in spec.strategic_claims:
+        assignments[node] = colour
+        before = max(len(domains.get(node, set(spec.palette))), 1)
+        domains[node] = {colour}
+        expr = f"(claim node {node} {COLOR_NAMES[colour].lower()})"
+        record_mu(expr, before, 1, "strategic_claim")
+        log.append(
+            f"CLAIM: Node {node} := {COLOR_NAMES[colour]} (μ-cost {mu_events[-1]['mu_total']:.4f} bits)"
+        )
+
     reasoning_summary: Dict[str, object] = {
         "claims": [
             {"node": node, "colour": COLOR_NAMES[colour]} for node, colour in spec.strategic_claims
         ],
         "propagation": [],
+        "mu_events": mu_events,
     }
 
     changed = True
@@ -232,15 +258,20 @@ def _act_iii_reasoning(spec: GraphSpec) -> ActResult:
             if node in assignments:
                 continue
             options = oracle.possible_colours(node, assignments)
+            before = max(len(domains.get(node, set(spec.palette))), 1)
+            after = max(len(options), 1)
+            expr = f"(oracle node {node})"
+            record_mu(expr, before, after, "oracle_query")
             reasoning_summary["propagation"].append(
                 {
                     "node": node,
                     "options": [COLOR_NAMES[c] for c in options],
+                    "mu_cost": mu_events[-1]["mu_total"],
                 }
             )
             log.append(
                 f"ORACLE: Node {node} admissible colours → "
-                f"{[COLOR_NAMES[c] for c in options]}"
+                f"{[COLOR_NAMES[c] for c in options]} (μ-cost {mu_events[-1]['mu_total']:.4f} bits)"
             )
             if not options:
                 raise RuntimeError(
@@ -252,6 +283,7 @@ def _act_iii_reasoning(spec: GraphSpec) -> ActResult:
                     f"FORCED: Node {node} := {COLOR_NAMES[options[0]]}"
                 )
                 changed = True
+            domains[node] = set(options)
 
     remaining = [node for node in spec.nodes if node not in assignments]
     targeted_checks = 0
@@ -263,6 +295,11 @@ def _act_iii_reasoning(spec: GraphSpec) -> ActResult:
 
         node = remaining[position]
         options = oracle.possible_colours(node, assignments)
+        before = max(len(domains.get(node, set(spec.palette))), 1)
+        after = max(len(options), 1)
+        expr = f"(oracle node {node})"
+        record_mu(expr, before, after, "oracle_query")
+        domains[node] = set(options)
         for colour in options:
             assignments[node] = colour
             targeted_checks += 1
@@ -280,20 +317,20 @@ def _act_iii_reasoning(spec: GraphSpec) -> ActResult:
         f"Witness recovered after oracle guidance: {_format_solution(solution)}"
     )
 
-    mu_cost += float(oracle.query_count)
     reasoning_summary["oracle_queries"] = oracle.query_count
     reasoning_summary["forced_assignments"] = {
         str(node): COLOR_NAMES[colour]
         for node, colour in assignments.items()
     }
     reasoning_summary["targeted_checks"] = targeted_checks
+    reasoning_summary["mu_total"] = mu_total
 
     return ActResult(
         label="Act III",
         solution=solution,
         candidate_checks=targeted_checks,
         search_states=targeted_checks,
-        mu_cost=mu_cost,
+        mu_cost=mu_total,
         solver_queries=oracle.query_count,
         log=log,
         reasoning_details=reasoning_summary,

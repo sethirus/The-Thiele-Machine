@@ -1,5 +1,7 @@
 # Encoding round-trip — single finish guide
 
+> **Status update (October 2025):** This document is preserved for historical context. For the current analysis of the kernel, μ-spec v2.0, and reproducible evidence see `docs/kernel_analysis.md` and `docs/final_fact_check.md`.
+
 Last updated: 2025-12-20
 
 This file is the single source of truth for finishing the encoding

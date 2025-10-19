@@ -1,5 +1,6 @@
 # Archived Subsumption Attempt
 
+> **Status update (October 2025):** Archived material preserved for historical reference. For current results see `docs/kernel_analysis.md` and `docs/final_fact_check.md`.
 This directory preserves the 2024 attempt to mechanise a full subsumption proof
 for the Thiele interpreter against a universal Turing machine.  The work stalled
 on the "sphere made of lines" barrier: bridging the semantic gap between the

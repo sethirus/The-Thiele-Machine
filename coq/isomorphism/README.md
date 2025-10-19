@@ -1,5 +1,6 @@
 # Universe.v: Categorical Physics and Logic
 
+> **Status update (October 2025):** The authoritative kernel proof lives in `coq/kernel/`. This README is preserved for the archived `coq/thielemachine` development.
 This directory contains `coqproofs/Universe.v`, a Coq formalization of the functorial relationship between a physical universe and its logical abstraction, following the Thiele Machine paradigm.
 
 ## Contents

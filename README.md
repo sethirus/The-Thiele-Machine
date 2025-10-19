@@ -6,10 +6,10 @@
 
 | Claim theme | What the repository actually shows | Important gaps |
 | --- | --- | --- |
-| **Mathematical existence proofs** | The sandbox Coq files `coq/sandboxes/ToyThieleMachine.v` and `coq/sandboxes/VerifiedGraphSolver.v` compile without axioms, and `coq/shor_primitives/PeriodFinding.v` now proves the stated `shor_reduction` lemma: if an even period is obtained, the Euclidean GCD returns a non-trivial divisor.【F:coq/sandboxes/ToyThieleMachine.v†L1-L97】【F:coq/sandboxes/VerifiedGraphSolver.v†L9-L177】【F:coq/shor_primitives/PeriodFinding.v†L26-L47】 | These universes are hand-crafted. They do **not** derive from the archived universal development, and large files such as `coq/thielemachine/coqproofs/Simulation.v` still contain `Admitted` placeholders.【F:coq/thielemachine/coqproofs/Simulation.v†L3581-L3839】 |
-| **Empirical “flight data”** | `scripts/graph_coloring_demo.py` records Act I/II search counts and Act III µ-spend for the cascade graphs, and `scripts/shor_on_thiele_demo.py` stages the three-act factorisation of 21 with receipts in `shor_demo_output/`.【F:graph_demo_output/triadic_cascade/analysis_report.json†L1-L45】【F:shor_demo_output/analysis_report.json†L1-L39】 | The oracle logic runs in host Python/Z3 (or the bespoke period oracle) and mirrors precomputed reasoning. The scaling study covers only cascade graphs and the Shor demo handles a single composite, evidencing constant-factor collapses rather than asymptotic speedups.【F:scripts/graph_coloring_demo.py†L1-L330】【F:graph_demo_output/scaling_summary.json†L1-L33】【F:scripts/shor_on_thiele_demo.py†L1-L189】 |
-| **Bridge from receipts to Coq** | `scripts/prove_it_all.sh` regenerates the triadic cascade receipts, `scripts/translate_receipts_to_coq.py` encodes the Act III trace, and `coq/sandboxes/GeneratedProof.v` proves that the replayed run matches the sandbox solver.【F:scripts/prove_it_all.sh†L1-L27】【F:coq/sandboxes/GeneratedProof.v†L1-L55】 | The bridge covers one Act III scenario. General VM executions, Bell receipts, and other graphs remain outside this mechanised pipeline.【F:coq/sandboxes/GeneratedProof.v†L1-L55】 |
-| **Physical synthesis verdict** | Archived Yosys logs show the classical Verilog consumes 228 cells/267 wire bits while the Thiele residue-mask latch uses five cells/106 wire bits.【F:hardware/synthesis_trap/classical_solver.log†L788-L805】【F:hardware/synthesis_trap/thiele_solver.log†L701-L733】 | The compact netlist reflects host-prepared reasoning; the hardware module itself does not derive the residues. `scripts/run_the_synthesis.sh` replays the logs if Yosys is absent.【F:scripts/run_the_synthesis.sh†L1-L49】 |
+| **Kernel subsumption** | The new kernel defines a common tape/head state, a classical interpreter that ignores `H_ClaimTapeIsZero`, and a Thiele interpreter that executes the extra instruction by zeroing the tape and incrementing `mu_cost`. Coq proves `thiele_simulates_turing` and `turing_is_strictly_contained`, so the Thiele kernel strictly contains the classical one.【F:coq/kernel/Kernel.v†L4-L66】【F:coq/kernel/KernelTM.v†L12-L37】【F:coq/kernel/KernelThiele.v†L7-L26】【F:coq/kernel/Subsumption.v†L36-L118】 | The separation is definitional: the Thiele kernel is stronger because it is granted a primitive the Turing kernel lacks. The archived universal development remains unresolved.【F:archive/research/incomplete_subsumption_proof/README.md†L1-L36】 |
+| **Empirical “flight data”** | `scripts/graph_coloring_demo.py` records Act I/II search counts and Act III μ-spend for the cascade graphs, and `scripts/shor_on_thiele_demo.py` stages the three-act factorisation of 21 with receipts in `shor_demo_output/`. All μ-costs follow μ-spec v2.0 (S-expression length + Shannon information gain).【F:graph_demo_output/triadic_cascade/analysis_report.json†L1-L45】【F:shor_demo_output/analysis_report.json†L1-L39】【F:spec/mu_spec_v2.md†L1-L74】 | The reasoning still occurs in host Python/Z3 (or the bespoke period oracle). The datasets are small, and the experiments evidence constant-factor collapses rather than asymptotic speedups.【F:scripts/graph_coloring_demo.py†L167-L327】【F:graph_demo_output/scaling_summary.json†L1-L24】【F:scripts/shor_on_thiele_demo.py†L1-L189】 |
+| **Bridge from receipts to Coq** | `scripts/prove_it_all.sh` regenerates the triadic cascade receipts, `scripts/translate_receipts_to_coq.py` encodes the Act III trace, and `coq/sandboxes/GeneratedProof.v` proves that the replayed run matches the sandbox solver.【F:scripts/prove_it_all.sh†L1-L24】【F:coq/sandboxes/GeneratedProof.v†L1-L66】 | The bridge covers one Act III scenario. General VM executions, Bell receipts, and other graphs remain outside this mechanised pipeline.【F:coq/sandboxes/GeneratedProof.v†L1-L66】 |
+| **Physical synthesis verdict** | Fresh Yosys logs show the classical brute-force solver consumes 228 cells/267 wire bits while the Thiele graph solver with its on-chip reasoning core occupies 866 cells across 1,237 wire bits (517 cells sit in the combinational core).【F:hardware/synthesis_trap/classical_solver.log†L788-L805】【F:hardware/synthesis_trap/thiele_graph_solver.log†L1820-L1884】 | The expanded footprint reflects the embedded reasoning lattice for a single graph. `scripts/run_the_synthesis.sh` rebuilds both designs when Yosys is available and streams the archived verdicts otherwise.【F:scripts/run_the_synthesis.sh†L1-L53】 |
 
 Large sections later in this README preserve the original manifesto for historical context. They reference ambitious, as-yet-unverified goals (for example, exponential separations and universal containment). Treat them as design intent rather than established fact; the authoritative status summary is maintained in `docs/final_fact_check.md` and the audit reports.
 
@@ -113,8 +113,9 @@ The Coq formalization ships with replay scripts. [`coq/verify_subsumption.sh`](c
 
 ### Known Limitations (October 2025 audit)
 
-- The original universal subsumption attempt (`coq/thieleuniversal/`) is archived under `archive/research/incomplete_subsumption_proof/` with a README explaining the type mismatch that halted the project. The living formal artefacts are the sandbox microcosms (`ToyThieleMachine.v`, `VerifiedGraphSolver.v`) and the generated bridge `coq/sandboxes/GeneratedProof.v`.
-- The graph-colouring laboratory run in `scripts/graph_coloring_demo.py` demonstrates how the VM treats μ-bits as an explicit budget for structural claims. Act III makes two anchor claims, queries a congruence oracle for every remaining vertex, and recovers the colouring without brute-force enumeration. The reasoning engine lives in host Python (mirroring how a hardware oracle would behave), so the experiment evidences constant-factor collapses of the search frontier—not an asymptotic breakthrough over NP-complete benchmarks.
+- The new kernel subsumption proof is definitional: it grants the Thiele interpreter an extra primitive that the Turing interpreter lacks. The historical `coq/thielemachine` development remains archived, so no bridge exists from the kernel back to the original VM semantics.【F:archive/research/incomplete_subsumption_proof/README.md†L1-L36】
+- μ-bit accounting follows μ-spec v2.0 and depends on the phrasing of questions and the assumed possibility counts. Neither the software nor the hardware artefacts measure physical energy or time; μ remains an information-theoretic bookkeeping device.【F:spec/mu_spec_v2.md†L1-L74】【F:thielecpu/mu.py†L1-L92】
+- The graph-colouring laboratory demonstrates how scripted claims and oracle answers remove search on cascade graphs. All reasoning calls host Python/Z3 helpers, so the experiment exhibits constant-factor collapses driven by oracle guidance, not a new asymptotic algorithm for NP-complete problems.【F:scripts/graph_coloring_demo.py†L167-L327】【F:graph_demo_output/triadic_cascade/act_iii/reasoning_summary.json†L1-L88】
 
 **Release Verification:** SHA-256 of v1.0.1 tarball: `883372fd799e98a9fd90f8feb2b3b94d21bf917843745e80351ba52f7cf6d01d` (see [GitHub Release](https://github.com/sethirus/The-Thiele-Machine/releases/tag/v1.0.1))
 
@@ -482,7 +483,7 @@ Implements the "microcosm" existence proof discussed in the manifesto: a toy uni
 ### `coq/sandboxes/VerifiedGraphSolver.v`
 Supplies the "Cessna"-scale artifact that bridges the toy microcosm and the full Python demonstration. The development mechanises a nine-node `triadic_cascade` graph, a classical degree-ordered backtracker, and a Thiele-style solver that pays µ-bits for anchor claims and congruence feasibility queries. Two theorems certify the measured costs:
 - `classical_is_slow` — the backtracker consumes 18 arithmetic branch attempts before discovering the canonical witness.
-- `thiele_is_fast` — the Thiele solver spends 23 µ-bits (two anchor claims plus 21 feasibility queries) and recovers the same witness with zero residual brute-force search.
+- `thiele_is_fast` — the Thiele solver records 1,288 description bits plus nine `log₂ 3` information ratios (≈1302.26 µ-bits) and recovers the same witness with zero residual brute-force search.
 
 ## Compilation
 
@@ -509,6 +510,15 @@ The repository contains a complete, formally verified Thiele Machine implementat
 | `coq/` | **Formal proofs** – Mechanised mathematics | Subsumption proof stack, auxiliary developments, and axiom inventory |
 | `scripts/` | **Utilities** – Tooling and auditors | Experiment runners, verification scripts, build tools |
 | `pyproject.toml` | **Dependencies** – Package configuration | All required Python packages and versions |
+
+### Resonator Period Finder (`hardware/resonator/`)
+- **`period_finder.v`** – Resonator architecture that encodes period claims and
+  feedback logic directly in combinational space.【F:hardware/resonator/period_finder.v†L15-L303】
+- **`classical_period_finder.v`** – Baseline sequential solver for side-by-side
+  synthesis comparisons.【F:hardware/resonator/classical_period_finder.v†L10-L123】
+- **`run_the_final_synthesis.sh`** – Yosys harness producing JSON netlists and
+  log reports under `hardware/resonator/build/`.【F:hardware/resonator/run_the_final_synthesis.sh†L1-L21】 See
+  `docs/resonator_overview.md` for the full experimental context and metrics.
 
 ## Thiele CPU Implementation
 
@@ -1100,7 +1110,7 @@ bash scripts/run_the_synthesis.sh
 ```
 - **Objective:** Submit the classical brute-force Verilog and the Thiele-style geometric solver to an impartial synthesis oracle (Yosys) and compare the resource reports or failure modes.
 - **Artifacts:** Logs and JSON netlists are emitted under `hardware/synthesis_trap/`, preserving the tool’s own verdicts for auditors. If Yosys is unavailable the script prints the archived logs instead of failing.
-- **Outcome:** In the reference run, the classical brute-force design maps to 228 cells across 267 wire bits, while the Thiele residue-mask solver compiles to a five-cell netlist that encodes all μ-funded reasoning in combinational masks. Auditors should examine the paired logs (`classical_solver.log`, `thiele_solver.log`) and JSON netlists to confirm the tooling’s own accounting of the structural gap; detailed commentary lives in `docs/synthesis_trap_analysis.md`.
+- **Outcome:** In the reference run, the classical brute-force design maps to 228 cells across 267 wire bits, while the Thiele graph solver (controller + `reasoning_core`) maps to 866 cells and 1,237 wire bits, with 517 cells allocated to the embedded propagation lattice. Auditors should examine the paired logs (`classical_solver.log`, `thiele_graph_solver.log`) and JSON netlists to confirm the tooling’s accounting; `docs/synthesis_trap_analysis.md` and `docs/cornerstone_report.md` document the hardware reasoning core and µ-cost instrumentation.
 
 **Low-level RSA factoring helper:**
 ```bash
