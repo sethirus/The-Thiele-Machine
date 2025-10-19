@@ -17,13 +17,13 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
+from thielecpu.mu import calculate_mu_cost
 from thielecpu.receipts import (
     InstructionWitness,
     StepObservation,
     StepReceipt,
     WitnessState,
 )
-from thielecpu.vm import mu_cost_from_text
 
 
 TSIRELSON_ALICE_SETTING = 0
@@ -97,7 +97,7 @@ def simulate_step(
         )
     elif op == "LASSERT":
         query = str(instruction.payload)
-        mu_delta = mu_cost_from_text(query)
+        mu_delta = calculate_mu_cost(query, 1, 1)
         post_state = WitnessState(
             pc=pre_state.pc + 1,
             status=pre_state.status,

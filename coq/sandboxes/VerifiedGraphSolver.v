@@ -70,6 +70,37 @@ Definition conflict (node : nat) (c : colour) (σ : partial) : bool :=
        end)
     (neighbours node).
 
+(** ** μ-spec v2.0 helpers *)
+
+Definition node_token_length (node : nat) : nat :=
+  match node with
+  | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 => 1
+  | _ => 1
+  end.
+
+Definition colour_token_length (c : colour) : nat :=
+  match c with
+  | Red => 3
+  | Green => 5
+  | Blue => 4
+  end.
+
+Definition canonical_length (lengths : list nat) : nat :=
+  match lengths with
+  | [] => 0
+  | _ => fold_left Nat.add lengths 0 + Nat.pred (length lengths)
+  end.
+
+Definition question_bits_from_lengths (lengths : list nat) : nat :=
+  8 * canonical_length lengths.
+
+Definition claim_question_bits (node : nat) (c : colour) : nat :=
+  question_bits_from_lengths
+    [1; 5; 4; node_token_length node; colour_token_length c; 1].
+
+Definition oracle_question_bits (node : nat) : nat :=
+  question_bits_from_lengths [1; 6; 4; node_token_length node; 1].
+
 (** ** Classical backtracking solver *)
 
 Fixpoint backtrack (order : list nat) (σ : partial) (count : nat)
@@ -112,45 +143,45 @@ Definition canonical_partial : partial :=
 
 Record thiele_state := {
   state_partial : partial;
-  state_mu : nat;
+  state_mu_question : nat;
+  state_mu_ratios : list (nat * nat);
   state_arith : nat
 }.
 
 Definition thiele_empty : thiele_state :=
-  {| state_partial := empty_partial; state_mu := 0; state_arith := 0 |}.
+  {| state_partial := empty_partial;
+     state_mu_question := 0;
+     state_mu_ratios := [];
+     state_arith := 0 |}.
+
+Definition with_partial (σ : thiele_state) (σp : partial) : thiele_state :=
+  {| state_partial := σp;
+     state_mu_question := σ.(state_mu_question);
+     state_mu_ratios := σ.(state_mu_ratios);
+     state_arith := σ.(state_arith) |}.
+
+Definition record_event (σ : thiele_state) (question_bits before after : nat)
+  : thiele_state :=
+  {| state_partial := σ.(state_partial);
+     state_mu_question := σ.(state_mu_question) + question_bits;
+     state_mu_ratios := (before, after) :: σ.(state_mu_ratios);
+     state_arith := σ.(state_arith) |}.
 
 Definition claim (σ : thiele_state) (node : nat) (c : colour) : thiele_state :=
-  {| state_partial := assign σ.(state_partial) node c;
-     state_mu := S σ.(state_mu);
-     state_arith := σ.(state_arith) |}.
+  let σ1 := record_event σ (claim_question_bits node c) 3 1 in
+  with_partial σ1 (assign σ.(state_partial) node c).
 
 Definition assign_state (σ : thiele_state) (node : nat) (c : colour)
   : thiele_state :=
-  {| state_partial := assign σ.(state_partial) node c;
-     state_mu := σ.(state_mu);
-     state_arith := σ.(state_arith) |}.
+  with_partial σ (assign σ.(state_partial) node c).
 
-Definition query_colour (σ : thiele_state) (node : nat) (c : colour)
-  : bool * thiele_state :=
-  let possible := negb (conflict node c σ.(state_partial)) in
-  (possible,
-   {| state_partial := σ.(state_partial);
-      state_mu := S σ.(state_mu);
-      state_arith := σ.(state_arith) |}).
-
-Fixpoint query_palette
-  (σ : thiele_state) (pal : list colour) (node : nat)
-  {struct pal} : list colour * thiele_state :=
-  match pal with
-  | [] => ([], σ)
-  | c :: cs =>
-      let '(ok, σ1) := query_colour σ node c in
-      let '(rest, σ2) := query_palette σ1 cs node in
-      if ok then (c :: rest, σ2) else (rest, σ2)
-  end.
+Definition node_options (σ : thiele_state) (node : nat) : list colour :=
+  filter (fun c => negb (conflict node c σ.(state_partial))) palette.
 
 Definition propagate_node (σ : thiele_state) (node : nat) : thiele_state :=
-  let '(options, σ1) := query_palette σ palette node in
+  let options := node_options σ node in
+  let after := Nat.max 1 (length options) in
+  let σ1 := record_event σ (oracle_question_bits node) 3 after in
   match options with
   | [c] => assign_state σ1 node c
   | _ => σ1
@@ -171,13 +202,34 @@ Proof.
   reflexivity.
 Qed.
 
-Lemma thiele_is_fast :
-  thiele_run =
-    {| state_partial := canonical_partial;
-       state_mu := 23;
-       state_arith := 0 |}.
+Definition mu_question_total : nat :=
+  fold_left Nat.add
+    ([claim_question_bits 0 Red; claim_question_bits 1 Green] ++
+     map oracle_question_bits [2;3;4;5;6;7;8]) 0.
+
+Definition mu_ratio_list : list (nat * nat) := repeat (3, 1) 9.
+
+Definition calculate_formal_mu_cost : nat * list (nat * nat) :=
+  (mu_question_total, mu_ratio_list).
+
+Definition expected_thiele_state : thiele_state :=
+  {| state_partial := canonical_partial;
+     state_mu_question := mu_question_total;
+     state_mu_ratios := mu_ratio_list;
+     state_arith := 0 |}.
+
+Lemma thiele_is_fast : thiele_run = expected_thiele_state.
 Proof.
-  unfold thiele_run.
+  unfold thiele_run, expected_thiele_state.
+  vm_compute.
+  reflexivity.
+Qed.
+
+Lemma thiele_pays_the_cost :
+  (state_mu_question thiele_run, state_mu_ratios thiele_run) =
+  calculate_formal_mu_cost.
+Proof.
+  unfold calculate_formal_mu_cost, thiele_run.
   vm_compute.
   reflexivity.
 Qed.

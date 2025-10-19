@@ -1,5 +1,6 @@
 # Foundational Assumptions
 
+> **Status update (October 2025):** The active, axiom-free kernel lives under `coq/kernel/`. This inventory documents the archived `coq/thielemachine` development and remains for historical reference.
 **Total Axioms:** 9  
 **Admitted Statements:** 0  
 **Last Updated:** 2025-10-17
@@ -121,11 +122,11 @@ The computational separation hinges on accurate accounting. Undercharging μ-bit
 would invalidate the claimed gap.
 
 **Prototype Realization**  
-`thielecpu/vm.py` and `thielecpu/mdl.py` now compute charges via zlib-based
-compression metrics (see functions `mu_cost_from_text` and `mdlacc`). The ledger
+`spec/mu_spec_v2.md` defines the canonical information-theoretic accounting.
+`thielecpu/mu.py` implements the shared calculator that is used by
+`thielecpu/vm.py`, the demo pipelines, and the receipt generator.  The ledger
 summaries produced by `demonstrate_isomorphism.py` and recorded in
-`audit_logs/demonstrate.log` cross-check the accounting against human-readable
-calculations.
+`audit_logs/demonstrate.log` now derive directly from the μ-spec v2.0 rules.
 
 ### Retired Axiom: `state_eqb_refl`
 The lemma was proved directly in `thielemachine/coqproofs/ThieleMachine.v` on
@@ -162,4 +163,3 @@ rule semantics without replaying the entire search in Coq.
 `attempt.py` implements the rule finder, and the test harness exercises it over
 the recorded universal traces. The resulting lookups are archived in
 `audit_logs/attempt.log`, providing executable evidence for the Coq bridge.
-

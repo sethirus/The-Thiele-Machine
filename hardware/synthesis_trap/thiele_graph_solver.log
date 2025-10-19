@@ -1,0 +1,1946 @@
+
+ /----------------------------------------------------------------------------\
+ |                                                                            |
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |                                                                            |
+ |  Copyright (C) 2012 - 2020  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |                                                                            |
+ |  Permission to use, copy, modify, and/or distribute this software for any  |
+ |  purpose with or without fee is hereby granted, provided that the above    |
+ |  copyright notice and this permission notice appear in all copies.         |
+ |                                                                            |
+ |  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES  |
+ |  WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF          |
+ |  MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR   |
+ |  ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES    |
+ |  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN     |
+ |  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   |
+ |  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            |
+ |                                                                            |
+ \----------------------------------------------------------------------------/
+
+ Yosys 0.33 (git sha1 2584903a060)
+
+
+-- Running command `read_verilog hardware/synthesis_trap/reasoning_core.v hardware/synthesis_trap/thiele_graph_solver.v; synth -top thiele_graph_solver; stat; write_json /workspace/The-Thiele-Machine/hardware/synthesis_trap/thiele_graph_solver.json' --
+
+1. Executing Verilog-2005 frontend: hardware/synthesis_trap/reasoning_core.v
+Parsing Verilog input from `hardware/synthesis_trap/reasoning_core.v' to AST representation.
+Generating RTLIL representation for module `\reasoning_core'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: hardware/synthesis_trap/thiele_graph_solver.v
+Parsing Verilog input from `hardware/synthesis_trap/thiele_graph_solver.v' to AST representation.
+Generating RTLIL representation for module `\thiele_graph_solver'.
+Warning: Replacing memory \pending_masks with list of registers. See hardware/synthesis_trap/thiele_graph_solver.v:111
+Warning: Replacing memory \node_masks with list of registers. See hardware/synthesis_trap/thiele_graph_solver.v:110
+Successfully finished Verilog frontend.
+
+3. Executing SYNTH pass.
+
+3.1. Executing HIERARCHY pass (managing design hierarchy).
+
+3.1.1. Analyzing design hierarchy..
+Top module:  \thiele_graph_solver
+Used module:     \reasoning_core
+
+3.1.2. Analyzing design hierarchy..
+Top module:  \thiele_graph_solver
+Used module:     \reasoning_core
+Removed 0 unused modules.
+
+3.2. Executing PROC pass (convert processes to netlists).
+
+3.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+3.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 31 switch rules as full_case in process $proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583 in module thiele_graph_solver.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$499 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$494 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$489 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$484 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$479 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$474 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$469 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$464 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$459 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$454 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$449 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$444 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$439 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$434 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$429 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$424 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$419 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$414 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$409 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$404 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$399 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$394 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$389 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$384 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$379 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$374 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$369 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$364 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$359 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$354 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$349 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$344 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$339 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$334 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$329 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$324 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$319 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$314 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$309 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$304 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$299 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$294 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$289 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$284 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$279 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$274 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$269 in module reasoning_core.
+Marked 1 switch rules as full_case in process $proc$hardware/synthesis_trap/reasoning_core.v:0$264 in module reasoning_core.
+Removed a total of 0 dead cases.
+
+3.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 211 assignments to connections.
+
+3.2.4. Executing PROC_INIT pass (extract init attributes).
+
+3.2.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \reset in `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+
+3.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~88 debug messages>
+
+3.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+     1/181: $4\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$582.$result[1:0]$776
+     2/181: $4\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$581.$result[1:0]$775
+     3/181: $4\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$580.$result[1:0]$774
+     4/181: $4\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$579.$result[1:0]$773
+     5/181: $4\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$578.$result[1:0]$772
+     6/181: $4\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$577.$result[1:0]$771
+     7/181: $4\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$576.$result[1:0]$770
+     8/181: $4\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$575.$result[1:0]$769
+     9/181: $4\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$574.$result[1:0]$768
+    10/181: $12\all_single$func$hardware/synthesis_trap/thiele_graph_solver.v:143$564.$result[0:0]$767
+    11/181: $4\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$573.$result[0:0]$765
+    12/181: $11\all_single$func$hardware/synthesis_trap/thiele_graph_solver.v:143$564.$result[0:0]$764
+    13/181: $4\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$572.$result[0:0]$762
+    14/181: $10\all_single$func$hardware/synthesis_trap/thiele_graph_solver.v:143$564.$result[0:0]$761
+    15/181: $4\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$571.$result[0:0]$759
+    16/181: $9\all_single$func$hardware/synthesis_trap/thiele_graph_solver.v:143$564.$result[0:0]$758
+    17/181: $4\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$570.$result[0:0]$756
+    18/181: $8\all_single$func$hardware/synthesis_trap/thiele_graph_solver.v:143$564.$result[0:0]$755
+    19/181: $4\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$569.$result[0:0]$753
+    20/181: $7\all_single$func$hardware/synthesis_trap/thiele_graph_solver.v:143$564.$result[0:0]$752
+    21/181: $4\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$568.$result[0:0]$750
+    22/181: $6\all_single$func$hardware/synthesis_trap/thiele_graph_solver.v:143$564.$result[0:0]$749
+    23/181: $4\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$567.$result[0:0]$747
+    24/181: $5\all_single$func$hardware/synthesis_trap/thiele_graph_solver.v:143$564.$result[0:0]$746
+    25/181: $4\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$566.$result[0:0]$744
+    26/181: $4\all_single$func$hardware/synthesis_trap/thiele_graph_solver.v:143$564.$result[0:0]$743
+    27/181: $4\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$565.$result[0:0]$741
+    28/181: $4\i[31:0]
+    29/181: $3\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$582.$result[1:0]$739
+    30/181: $3\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$582.mask[2:0]$740
+    31/181: $0\colouring[17:0] [17:16]
+    32/181: $0\colouring[17:0] [15:14]
+    33/181: $3\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$581.mask[2:0]$738
+    34/181: $3\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$581.$result[1:0]$737
+    35/181: $0\colouring[17:0] [13:12]
+    36/181: $3\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$580.mask[2:0]$736
+    37/181: $3\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$580.$result[1:0]$735
+    38/181: $0\colouring[17:0] [11:10]
+    39/181: $3\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$579.mask[2:0]$734
+    40/181: $3\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$579.$result[1:0]$733
+    41/181: $0\colouring[17:0] [9:8]
+    42/181: $3\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$578.mask[2:0]$732
+    43/181: $3\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$578.$result[1:0]$731
+    44/181: $0\colouring[17:0] [7:6]
+    45/181: $3\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$577.mask[2:0]$730
+    46/181: $3\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$577.$result[1:0]$729
+    47/181: $0\colouring[17:0] [5:4]
+    48/181: $3\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$576.mask[2:0]$728
+    49/181: $3\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$576.$result[1:0]$727
+    50/181: $0\colouring[17:0] [3:2]
+    51/181: $3\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$575.mask[2:0]$726
+    52/181: $3\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$575.$result[1:0]$725
+    53/181: $0\colouring[17:0] [1:0]
+    54/181: $3\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$574.mask[2:0]$724
+    55/181: $3\all_single$func$hardware/synthesis_trap/thiele_graph_solver.v:143$564.idx[31:0]$704
+    56/181: $3\all_single$func$hardware/synthesis_trap/thiele_graph_solver.v:143$564.$result[0:0]$702
+    57/181: $3\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$573.$result[0:0]$721
+    58/181: $3\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$573.mask[2:0]$722
+    59/181: $3\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$572.$result[0:0]$719
+    60/181: $3\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$572.mask[2:0]$720
+    61/181: $3\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$571.$result[0:0]$717
+    62/181: $3\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$571.mask[2:0]$718
+    63/181: $3\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$570.$result[0:0]$715
+    64/181: $3\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$570.mask[2:0]$716
+    65/181: $3\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$569.$result[0:0]$713
+    66/181: $3\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$569.mask[2:0]$714
+    67/181: $3\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$568.$result[0:0]$711
+    68/181: $3\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$568.mask[2:0]$712
+    69/181: $3\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$567.$result[0:0]$709
+    70/181: $3\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$567.mask[2:0]$710
+    71/181: $3\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$566.$result[0:0]$707
+    72/181: $3\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$566.mask[2:0]$708
+    73/181: $3\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$565.$result[0:0]$705
+    74/181: $3\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$565.mask[2:0]$706
+    75/181: $3\all_single$func$hardware/synthesis_trap/thiele_graph_solver.v:143$564.masks[26:0]$703
+    76/181: $3\i[31:0]
+    77/181: $2\i[31:0]
+    78/181: $2\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$582.mask[2:0]$700
+    79/181: $2\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$582.$result[1:0]$699
+    80/181: $2\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$581.mask[2:0]$698
+    81/181: $2\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$581.$result[1:0]$697
+    82/181: $2\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$580.mask[2:0]$696
+    83/181: $2\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$580.$result[1:0]$695
+    84/181: $2\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$579.mask[2:0]$694
+    85/181: $2\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$579.$result[1:0]$693
+    86/181: $2\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$578.mask[2:0]$692
+    87/181: $2\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$578.$result[1:0]$691
+    88/181: $2\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$577.mask[2:0]$690
+    89/181: $2\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$577.$result[1:0]$689
+    90/181: $2\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$576.mask[2:0]$688
+    91/181: $2\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$576.$result[1:0]$687
+    92/181: $2\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$575.mask[2:0]$686
+    93/181: $2\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$575.$result[1:0]$685
+    94/181: $2\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$574.mask[2:0]$684
+    95/181: $2\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$574.$result[1:0]$683
+    96/181: $2\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$573.mask[2:0]$682
+    97/181: $2\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$573.$result[0:0]$681
+    98/181: $2\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$572.mask[2:0]$680
+    99/181: $2\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$572.$result[0:0]$679
+   100/181: $2\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$571.mask[2:0]$678
+   101/181: $2\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$571.$result[0:0]$677
+   102/181: $2\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$570.mask[2:0]$676
+   103/181: $2\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$570.$result[0:0]$675
+   104/181: $2\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$569.mask[2:0]$674
+   105/181: $2\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$569.$result[0:0]$673
+   106/181: $2\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$568.mask[2:0]$672
+   107/181: $2\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$568.$result[0:0]$671
+   108/181: $2\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$567.mask[2:0]$670
+   109/181: $2\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$567.$result[0:0]$669
+   110/181: $2\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$566.mask[2:0]$668
+   111/181: $2\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$566.$result[0:0]$667
+   112/181: $2\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$565.mask[2:0]$666
+   113/181: $2\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$565.$result[0:0]$665
+   114/181: $2\all_single$func$hardware/synthesis_trap/thiele_graph_solver.v:143$564.idx[31:0]$664
+   115/181: $2\all_single$func$hardware/synthesis_trap/thiele_graph_solver.v:143$564.masks[26:0]$663
+   116/181: $2\all_single$func$hardware/synthesis_trap/thiele_graph_solver.v:143$564.$result[0:0]$662
+   117/181: $1\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$582.mask[2:0]$661
+   118/181: $1\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$582.$result[1:0]$660
+   119/181: $1\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$581.mask[2:0]$659
+   120/181: $1\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$581.$result[1:0]$658
+   121/181: $1\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$580.mask[2:0]$657
+   122/181: $1\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$580.$result[1:0]$656
+   123/181: $1\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$579.mask[2:0]$655
+   124/181: $1\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$579.$result[1:0]$654
+   125/181: $1\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$578.mask[2:0]$653
+   126/181: $1\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$578.$result[1:0]$652
+   127/181: $1\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$577.mask[2:0]$651
+   128/181: $1\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$577.$result[1:0]$650
+   129/181: $1\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$576.mask[2:0]$649
+   130/181: $1\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$576.$result[1:0]$648
+   131/181: $1\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$575.mask[2:0]$647
+   132/181: $1\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$575.$result[1:0]$646
+   133/181: $1\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$574.mask[2:0]$645
+   134/181: $1\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$574.$result[1:0]$644
+   135/181: $1\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$573.mask[2:0]$643
+   136/181: $1\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$573.$result[0:0]$642
+   137/181: $1\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$572.mask[2:0]$641
+   138/181: $1\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$572.$result[0:0]$640
+   139/181: $1\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$571.mask[2:0]$639
+   140/181: $1\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$571.$result[0:0]$638
+   141/181: $1\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$570.mask[2:0]$637
+   142/181: $1\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$570.$result[0:0]$636
+   143/181: $1\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$569.mask[2:0]$635
+   144/181: $1\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$569.$result[0:0]$634
+   145/181: $1\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$568.mask[2:0]$633
+   146/181: $1\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$568.$result[0:0]$632
+   147/181: $1\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$567.mask[2:0]$631
+   148/181: $1\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$567.$result[0:0]$630
+   149/181: $1\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$566.mask[2:0]$629
+   150/181: $1\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$566.$result[0:0]$628
+   151/181: $1\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$565.mask[2:0]$627
+   152/181: $1\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$565.$result[0:0]$626
+   153/181: $1\all_single$func$hardware/synthesis_trap/thiele_graph_solver.v:143$564.idx[31:0]$625
+   154/181: $1\all_single$func$hardware/synthesis_trap/thiele_graph_solver.v:143$564.masks[26:0]$624
+   155/181: $1\all_single$func$hardware/synthesis_trap/thiele_graph_solver.v:143$564.$result[0:0]$623
+   156/181: $1\i[31:0]
+   157/181: $0\pending_masks[8][2:0]
+   158/181: $0\pending_masks[7][2:0]
+   159/181: $0\pending_masks[6][2:0]
+   160/181: $0\pending_masks[5][2:0]
+   161/181: $0\pending_masks[4][2:0]
+   162/181: $0\pending_masks[3][2:0]
+   163/181: $0\pending_masks[2][2:0]
+   164/181: $0\pending_masks[1][2:0]
+   165/181: $0\pending_masks[0][2:0]
+   166/181: $0\node_masks[8][2:0]
+   167/181: $0\node_masks[7][2:0]
+   168/181: $0\node_masks[6][2:0]
+   169/181: $0\node_masks[5][2:0]
+   170/181: $0\node_masks[4][2:0]
+   171/181: $0\node_masks[3][2:0]
+   172/181: $0\node_masks[2][2:0]
+   173/181: $0\node_masks[1][2:0]
+   174/181: $0\node_masks[0][2:0]
+   175/181: $0\state[2:0]
+   176/181: $0\pending_activity[5:0]
+   177/181: $0\pending_force_valid[8:0]
+   178/181: $0\mu_cost[7:0]
+   179/181: $3\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$574.$result[1:0]$723
+   180/181: $0\success[0:0]
+   181/181: $0\done[0:0]
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$552'.
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$546'.
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$540'.
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$534'.
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$528'.
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$522'.
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$516'.
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$510'.
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$504'.
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$499'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:108$105.$result[0:0]$503
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$494'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:108$104.$result[0:0]$498
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$489'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:107$103.$result[0:0]$493
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$484'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:107$102.$result[0:0]$488
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$479'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:106$101.$result[0:0]$483
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$474'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:106$100.$result[0:0]$478
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$469'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:105$99.$result[0:0]$473
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$464'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:105$98.$result[0:0]$468
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$459'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:104$97.$result[0:0]$463
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$454'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:104$96.$result[0:0]$458
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$449'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:103$95.$result[0:0]$453
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$444'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:103$94.$result[0:0]$448
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$439'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:102$93.$result[0:0]$443
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$434'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:102$92.$result[0:0]$438
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$429'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:101$91.$result[0:0]$433
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$424'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:101$90.$result[0:0]$428
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$419'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:100$89.$result[0:0]$423
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$414'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:100$88.$result[0:0]$418
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$409'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:86$87.$result[0:0]$413
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$404'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:85$86.$result[0:0]$408
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$399'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:83$85.$result[0:0]$403
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$394'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:82$84.$result[0:0]$398
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$389'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:80$83.$result[0:0]$393
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$384'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:79$82.$result[0:0]$388
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$379'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:77$81.$result[0:0]$383
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$374'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:76$80.$result[0:0]$378
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$369'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:75$79.$result[0:0]$373
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$364'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:74$78.$result[0:0]$368
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$359'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:72$77.$result[0:0]$363
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$354'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:71$76.$result[0:0]$358
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$349'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:70$75.$result[0:0]$353
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$344'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:69$74.$result[0:0]$348
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$339'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:67$73.$result[0:0]$343
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$334'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:66$72.$result[0:0]$338
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$329'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:65$71.$result[0:0]$333
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$324'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:64$70.$result[0:0]$328
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$319'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:62$69.$result[0:0]$323
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$314'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:61$68.$result[0:0]$318
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$309'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:60$67.$result[0:0]$313
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$304'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:59$66.$result[0:0]$308
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$299'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:57$65.$result[0:0]$303
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$294'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:56$64.$result[0:0]$298
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$289'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:55$63.$result[0:0]$293
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$284'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:54$62.$result[0:0]$288
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$279'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:52$61.$result[0:0]$283
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$274'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:51$60.$result[0:0]$278
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$269'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:50$59.$result[0:0]$273
+Creating decoders for process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$264'.
+     1/1: $1\is_single$func$hardware/synthesis_trap/reasoning_core.v:49$58.$result[0:0]$268
+
+3.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\reasoning_core.\popcount3$func$hardware/synthesis_trap/reasoning_core.v:155$57.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$552'.
+No latch inferred for signal `\reasoning_core.\popcount3$func$hardware/synthesis_trap/reasoning_core.v:155$114.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$552'.
+No latch inferred for signal `\reasoning_core.\popcount3$func$hardware/synthesis_trap/reasoning_core.v:155$114.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$552'.
+No latch inferred for signal `\reasoning_core.\popcount3$func$hardware/synthesis_trap/reasoning_core.v:154$56.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$546'.
+No latch inferred for signal `\reasoning_core.\popcount3$func$hardware/synthesis_trap/reasoning_core.v:154$113.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$546'.
+No latch inferred for signal `\reasoning_core.\popcount3$func$hardware/synthesis_trap/reasoning_core.v:154$113.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$546'.
+No latch inferred for signal `\reasoning_core.\popcount3$func$hardware/synthesis_trap/reasoning_core.v:153$55.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$540'.
+No latch inferred for signal `\reasoning_core.\popcount3$func$hardware/synthesis_trap/reasoning_core.v:153$112.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$540'.
+No latch inferred for signal `\reasoning_core.\popcount3$func$hardware/synthesis_trap/reasoning_core.v:153$112.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$540'.
+No latch inferred for signal `\reasoning_core.\popcount3$func$hardware/synthesis_trap/reasoning_core.v:152$54.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$534'.
+No latch inferred for signal `\reasoning_core.\popcount3$func$hardware/synthesis_trap/reasoning_core.v:152$111.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$534'.
+No latch inferred for signal `\reasoning_core.\popcount3$func$hardware/synthesis_trap/reasoning_core.v:152$111.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$534'.
+No latch inferred for signal `\reasoning_core.\popcount3$func$hardware/synthesis_trap/reasoning_core.v:151$53.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$528'.
+No latch inferred for signal `\reasoning_core.\popcount3$func$hardware/synthesis_trap/reasoning_core.v:151$110.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$528'.
+No latch inferred for signal `\reasoning_core.\popcount3$func$hardware/synthesis_trap/reasoning_core.v:151$110.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$528'.
+No latch inferred for signal `\reasoning_core.\popcount3$func$hardware/synthesis_trap/reasoning_core.v:150$52.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$522'.
+No latch inferred for signal `\reasoning_core.\popcount3$func$hardware/synthesis_trap/reasoning_core.v:150$109.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$522'.
+No latch inferred for signal `\reasoning_core.\popcount3$func$hardware/synthesis_trap/reasoning_core.v:150$109.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$522'.
+No latch inferred for signal `\reasoning_core.\popcount3$func$hardware/synthesis_trap/reasoning_core.v:149$51.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$516'.
+No latch inferred for signal `\reasoning_core.\popcount3$func$hardware/synthesis_trap/reasoning_core.v:149$108.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$516'.
+No latch inferred for signal `\reasoning_core.\popcount3$func$hardware/synthesis_trap/reasoning_core.v:149$108.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$516'.
+No latch inferred for signal `\reasoning_core.\popcount3$func$hardware/synthesis_trap/reasoning_core.v:148$50.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$510'.
+No latch inferred for signal `\reasoning_core.\popcount3$func$hardware/synthesis_trap/reasoning_core.v:148$107.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$510'.
+No latch inferred for signal `\reasoning_core.\popcount3$func$hardware/synthesis_trap/reasoning_core.v:148$107.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$510'.
+No latch inferred for signal `\reasoning_core.\popcount3$func$hardware/synthesis_trap/reasoning_core.v:147$49.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$504'.
+No latch inferred for signal `\reasoning_core.\popcount3$func$hardware/synthesis_trap/reasoning_core.v:147$106.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$504'.
+No latch inferred for signal `\reasoning_core.\popcount3$func$hardware/synthesis_trap/reasoning_core.v:147$106.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$504'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:108$48.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$499'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:108$105.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$499'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:108$105.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$499'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:108$47.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$494'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:108$104.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$494'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:108$104.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$494'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:107$46.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$489'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:107$103.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$489'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:107$103.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$489'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:107$45.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$484'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:107$102.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$484'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:107$102.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$484'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:106$44.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$479'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:106$101.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$479'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:106$101.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$479'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:106$43.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$474'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:106$100.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$474'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:106$100.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$474'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:105$42.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$469'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:105$99.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$469'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:105$99.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$469'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:105$41.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$464'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:105$98.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$464'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:105$98.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$464'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:104$40.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$459'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:104$97.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$459'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:104$97.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$459'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:104$39.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$454'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:104$96.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$454'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:104$96.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$454'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:103$38.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$449'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:103$95.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$449'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:103$95.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$449'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:103$37.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$444'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:103$94.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$444'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:103$94.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$444'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:102$36.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$439'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:102$93.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$439'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:102$93.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$439'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:102$35.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$434'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:102$92.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$434'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:102$92.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$434'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:101$34.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$429'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:101$91.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$429'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:101$91.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$429'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:101$33.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$424'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:101$90.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$424'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:101$90.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$424'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:100$32.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$419'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:100$89.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$419'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:100$89.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$419'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:100$31.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$414'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:100$88.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$414'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:100$88.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$414'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:86$30.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$409'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:86$87.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$409'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:86$87.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$409'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:85$29.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$404'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:85$86.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$404'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:85$86.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$404'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:83$28.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$399'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:83$85.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$399'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:83$85.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$399'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:82$27.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$394'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:82$84.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$394'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:82$84.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$394'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:80$26.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$389'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:80$83.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$389'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:80$83.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$389'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:79$25.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$384'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:79$82.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$384'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:79$82.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$384'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:77$24.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$379'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:77$81.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$379'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:77$81.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$379'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:76$23.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$374'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:76$80.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$374'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:76$80.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$374'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:75$22.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$369'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:75$79.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$369'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:75$79.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$369'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:74$21.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$364'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:74$78.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$364'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:74$78.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$364'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:72$20.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$359'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:72$77.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$359'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:72$77.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$359'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:71$19.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$354'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:71$76.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$354'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:71$76.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$354'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:70$18.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$349'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:70$75.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$349'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:70$75.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$349'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:69$17.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$344'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:69$74.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$344'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:69$74.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$344'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:67$16.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$339'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:67$73.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$339'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:67$73.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$339'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:66$15.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$334'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:66$72.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$334'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:66$72.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$334'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:65$14.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$329'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:65$71.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$329'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:65$71.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$329'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:64$13.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$324'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:64$70.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$324'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:64$70.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$324'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:62$12.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$319'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:62$69.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$319'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:62$69.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$319'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:61$11.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$314'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:61$68.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$314'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:61$68.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$314'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:60$10.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$309'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:60$67.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$309'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:60$67.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$309'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:59$9.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$304'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:59$66.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$304'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:59$66.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$304'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:57$8.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$299'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:57$65.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$299'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:57$65.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$299'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:56$7.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$294'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:56$64.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$294'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:56$64.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$294'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:55$6.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$289'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:55$63.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$289'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:55$63.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$289'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:54$5.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$284'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:54$62.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$284'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:54$62.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$284'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:52$4.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$279'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:52$61.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$279'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:52$61.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$279'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:51$3.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$274'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:51$60.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$274'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:51$60.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$274'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:50$2.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$269'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:50$59.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$269'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:50$59.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$269'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:49$1.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$264'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:49$58.$result' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$264'.
+No latch inferred for signal `\reasoning_core.\is_single$func$hardware/synthesis_trap/reasoning_core.v:49$58.mask' from process `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$264'.
+
+3.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\thiele_graph_solver.\done' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2020' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\success' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2021' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\colouring' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2022' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\mu_cost' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2023' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\pending_force_valid' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2024' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\pending_activity' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2025' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\state' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2026' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\i' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2027' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\all_single$func$hardware/synthesis_trap/thiele_graph_solver.v:143$564.$result' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2028' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\all_single$func$hardware/synthesis_trap/thiele_graph_solver.v:143$564.masks' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2029' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\all_single$func$hardware/synthesis_trap/thiele_graph_solver.v:143$564.idx' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2030' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$565.$result' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2031' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$565.mask' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2032' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$566.$result' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2033' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$566.mask' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2034' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$567.$result' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2035' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$567.mask' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2036' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$568.$result' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2037' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$568.mask' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2038' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$569.$result' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2039' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$569.mask' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2040' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$570.$result' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2041' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$570.mask' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2042' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$571.$result' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2043' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$571.mask' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2044' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$572.$result' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2045' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$572.mask' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2046' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$573.$result' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2047' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\is_single$func$hardware/synthesis_trap/thiele_graph_solver.v:82$573.mask' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2048' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$574.$result' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2049' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$574.mask' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2050' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$575.$result' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2051' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$575.mask' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2052' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$576.$result' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2053' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$576.mask' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2054' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$577.$result' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2055' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$577.mask' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2056' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$578.$result' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2057' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$578.mask' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2058' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$579.$result' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2059' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$579.mask' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2060' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$580.$result' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2061' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$580.mask' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2062' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$581.$result' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2063' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$581.mask' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2064' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$582.$result' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2065' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$582.mask' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2066' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\node_masks[0]' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2067' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\node_masks[1]' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2068' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\node_masks[2]' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2069' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\node_masks[3]' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2070' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\node_masks[4]' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2071' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\node_masks[5]' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2072' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\node_masks[6]' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2073' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\node_masks[7]' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2074' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\node_masks[8]' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2075' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\pending_masks[0]' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2076' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\pending_masks[1]' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2077' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\pending_masks[2]' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2078' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\pending_masks[3]' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2079' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\pending_masks[4]' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2080' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\pending_masks[5]' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2081' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\pending_masks[6]' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2082' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\pending_masks[7]' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2083' with positive edge clock and positive level reset.
+Creating register for signal `\thiele_graph_solver.\pending_masks[8]' using process `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+  created $adff cell `$procdff$2084' with positive edge clock and positive level reset.
+
+3.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+3.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 40 empty switches in `\thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+Removing empty process `thiele_graph_solver.$proc$hardware/synthesis_trap/thiele_graph_solver.v:100$583'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$552'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$546'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$540'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$534'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$528'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$522'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$516'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$510'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$504'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$499'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$499'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$494'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$494'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$489'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$489'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$484'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$484'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$479'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$479'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$474'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$474'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$469'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$469'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$464'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$464'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$459'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$459'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$454'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$454'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$449'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$449'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$444'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$444'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$439'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$439'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$434'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$434'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$429'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$429'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$424'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$424'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$419'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$419'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$414'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$414'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$409'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$409'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$404'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$404'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$399'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$399'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$394'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$394'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$389'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$389'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$384'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$384'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$379'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$379'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$374'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$374'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$369'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$369'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$364'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$364'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$359'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$359'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$354'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$354'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$349'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$349'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$344'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$344'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$339'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$339'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$334'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$334'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$329'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$329'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$324'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$324'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$319'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$319'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$314'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$314'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$309'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$309'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$304'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$304'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$299'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$299'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$294'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$294'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$289'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$289'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$284'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$284'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$279'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$279'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$274'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$274'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$269'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$269'.
+Found and cleaned up 1 empty switch in `\reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$264'.
+Removing empty process `reasoning_core.$proc$hardware/synthesis_trap/reasoning_core.v:0$264'.
+Cleaned up 88 empty switches.
+
+3.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module thiele_graph_solver.
+<suppressed ~26 debug messages>
+Optimizing module reasoning_core.
+<suppressed ~9 debug messages>
+
+3.3. Executing OPT_EXPR pass (perform const folding).
+Optimizing module thiele_graph_solver.
+Optimizing module reasoning_core.
+
+3.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \thiele_graph_solver..
+Finding unused cells or wires in module \reasoning_core..
+Removed 254 unused cells and 972 unused wires.
+<suppressed ~277 debug messages>
+
+3.5. Executing CHECK pass (checking for obvious problems).
+Checking module reasoning_core...
+Checking module thiele_graph_solver...
+Found and reported 0 problems.
+
+3.6. Executing OPT pass (performing simple optimizations).
+
+3.6.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module reasoning_core.
+Optimizing module thiele_graph_solver.
+
+3.6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\reasoning_core'.
+<suppressed ~360 debug messages>
+Finding identical cells in module `\thiele_graph_solver'.
+<suppressed ~276 debug messages>
+Removed a total of 212 cells.
+
+3.6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \reasoning_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \thiele_graph_solver..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 2/2 on $mux $procmux$1004.
+    dead port 2/2 on $mux $procmux$1006.
+    dead port 2/2 on $mux $procmux$1026.
+    dead port 2/2 on $mux $procmux$1028.
+    dead port 2/2 on $mux $procmux$1048.
+    dead port 2/2 on $mux $procmux$1050.
+    dead port 2/2 on $mux $procmux$787.
+    dead port 2/2 on $mux $procmux$789.
+    dead port 2/2 on $mux $procmux$799.
+    dead port 2/2 on $mux $procmux$801.
+    dead port 2/2 on $mux $procmux$811.
+    dead port 2/2 on $mux $procmux$813.
+    dead port 2/2 on $mux $procmux$823.
+    dead port 2/2 on $mux $procmux$825.
+    dead port 2/2 on $mux $procmux$835.
+    dead port 2/2 on $mux $procmux$837.
+    dead port 2/2 on $mux $procmux$847.
+    dead port 2/2 on $mux $procmux$849.
+    dead port 2/2 on $mux $procmux$1070.
+    dead port 2/2 on $mux $procmux$859.
+    dead port 2/2 on $mux $procmux$861.
+    dead port 2/2 on $mux $procmux$1072.
+    dead port 2/2 on $mux $procmux$871.
+    dead port 2/2 on $mux $procmux$873.
+    dead port 2/2 on $mux $procmux$883.
+    dead port 2/2 on $mux $procmux$885.
+    dead port 2/2 on $mux $procmux$894.
+    dead port 2/2 on $mux $procmux$896.
+    dead port 2/2 on $mux $procmux$916.
+    dead port 2/2 on $mux $procmux$918.
+    dead port 2/2 on $mux $procmux$938.
+    dead port 2/2 on $mux $procmux$940.
+    dead port 2/2 on $mux $procmux$960.
+    dead port 2/2 on $mux $procmux$962.
+    dead port 2/2 on $mux $procmux$982.
+    dead port 2/2 on $mux $procmux$984.
+Removed 36 multiplexer ports.
+<suppressed ~129 debug messages>
+
+3.6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \reasoning_core.
+  Optimizing cells in module \thiele_graph_solver.
+    New ctrl vector for $pmux cell $procmux$1819: { $procmux$1733_CMP $procmux$1007_CMP $auto$opt_reduce.cc:134:opt_pmux$2086 $procmux$1820_CMP }
+  Optimizing cells in module \thiele_graph_solver.
+Performed a total of 1 changes.
+
+3.6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\reasoning_core'.
+<suppressed ~162 debug messages>
+Finding identical cells in module `\thiele_graph_solver'.
+Removed a total of 54 cells.
+
+3.6.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \reasoning_core..
+Finding unused cells or wires in module \thiele_graph_solver..
+Removed 0 unused cells and 232 unused wires.
+<suppressed ~2 debug messages>
+
+3.6.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module reasoning_core.
+Optimizing module thiele_graph_solver.
+
+3.6.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+3.6.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \reasoning_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \thiele_graph_solver..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~78 debug messages>
+
+3.6.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \reasoning_core.
+  Optimizing cells in module \thiele_graph_solver.
+Performed a total of 0 changes.
+
+3.6.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\reasoning_core'.
+Finding identical cells in module `\thiele_graph_solver'.
+Removed a total of 0 cells.
+
+3.6.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.6.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \reasoning_core..
+Finding unused cells or wires in module \thiele_graph_solver..
+
+3.6.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module reasoning_core.
+Optimizing module thiele_graph_solver.
+
+3.6.16. Finished OPT passes. (There is nothing left to do.)
+
+3.7. Executing FSM pass (extract and optimize FSM).
+
+3.7.1. Executing FSM_DETECT pass (finding FSMs in design).
+Not marking thiele_graph_solver.state as FSM state register:
+    Circuit seems to be self-resetting.
+
+3.7.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+
+3.7.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+3.7.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \reasoning_core..
+Finding unused cells or wires in module \thiele_graph_solver..
+
+3.7.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+3.7.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+
+3.7.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+3.7.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+
+3.8. Executing OPT pass (performing simple optimizations).
+
+3.8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module reasoning_core.
+Optimizing module thiele_graph_solver.
+
+3.8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\reasoning_core'.
+Finding identical cells in module `\thiele_graph_solver'.
+Removed a total of 0 cells.
+
+3.8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \reasoning_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \thiele_graph_solver..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~78 debug messages>
+
+3.8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \reasoning_core.
+  Optimizing cells in module \thiele_graph_solver.
+Performed a total of 0 changes.
+
+3.8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\reasoning_core'.
+Finding identical cells in module `\thiele_graph_solver'.
+Removed a total of 0 cells.
+
+3.8.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $procdff$2084 ($adff) from module thiele_graph_solver (D = \forced_bus [26:24], Q = \pending_masks[8]).
+Adding EN signal on $procdff$2083 ($adff) from module thiele_graph_solver (D = \forced_bus [23:21], Q = \pending_masks[7]).
+Adding EN signal on $procdff$2082 ($adff) from module thiele_graph_solver (D = \forced_bus [20:18], Q = \pending_masks[6]).
+Adding EN signal on $procdff$2081 ($adff) from module thiele_graph_solver (D = \forced_bus [17:15], Q = \pending_masks[5]).
+Adding EN signal on $procdff$2080 ($adff) from module thiele_graph_solver (D = \forced_bus [14:12], Q = \pending_masks[4]).
+Adding EN signal on $procdff$2079 ($adff) from module thiele_graph_solver (D = \forced_bus [11:9], Q = \pending_masks[3]).
+Adding EN signal on $procdff$2078 ($adff) from module thiele_graph_solver (D = \forced_bus [8:6], Q = \pending_masks[2]).
+Adding EN signal on $procdff$2077 ($adff) from module thiele_graph_solver (D = \forced_bus [5:3], Q = \pending_masks[1]).
+Adding EN signal on $procdff$2076 ($adff) from module thiele_graph_solver (D = \forced_bus [2:0], Q = \pending_masks[0]).
+Adding EN signal on $procdff$2075 ($adff) from module thiele_graph_solver (D = $0\node_masks[8][2:0], Q = \node_masks[8]).
+Adding EN signal on $procdff$2074 ($adff) from module thiele_graph_solver (D = $0\node_masks[7][2:0], Q = \node_masks[7]).
+Adding EN signal on $procdff$2073 ($adff) from module thiele_graph_solver (D = $0\node_masks[6][2:0], Q = \node_masks[6]).
+Adding EN signal on $procdff$2072 ($adff) from module thiele_graph_solver (D = $0\node_masks[5][2:0], Q = \node_masks[5]).
+Adding EN signal on $procdff$2071 ($adff) from module thiele_graph_solver (D = $0\node_masks[4][2:0], Q = \node_masks[4]).
+Adding EN signal on $procdff$2070 ($adff) from module thiele_graph_solver (D = $0\node_masks[3][2:0], Q = \node_masks[3]).
+Adding EN signal on $procdff$2069 ($adff) from module thiele_graph_solver (D = $0\node_masks[2][2:0], Q = \node_masks[2]).
+Adding EN signal on $procdff$2068 ($adff) from module thiele_graph_solver (D = $0\node_masks[1][2:0], Q = \node_masks[1]).
+Adding EN signal on $procdff$2067 ($adff) from module thiele_graph_solver (D = $0\node_masks[0][2:0], Q = \node_masks[0]).
+Adding EN signal on $procdff$2026 ($adff) from module thiele_graph_solver (D = $0\state[2:0], Q = \state).
+Adding EN signal on $procdff$2025 ($adff) from module thiele_graph_solver (D = \activity_bus, Q = \pending_activity).
+Adding EN signal on $procdff$2024 ($adff) from module thiele_graph_solver (D = \force_valid_bus, Q = \pending_force_valid).
+Adding EN signal on $procdff$2023 ($adff) from module thiele_graph_solver (D = $0\mu_cost[7:0], Q = \mu_cost).
+Adding EN signal on $procdff$2022 ($adff) from module thiele_graph_solver (D = { $4\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$582.$result[1:0]$776 $4\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$581.$result[1:0]$775 $4\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$580.$result[1:0]$774 $4\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$579.$result[1:0]$773 $4\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$578.$result[1:0]$772 $4\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$577.$result[1:0]$771 $4\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$576.$result[1:0]$770 $4\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$575.$result[1:0]$769 $4\mask_to_colour$func$hardware/synthesis_trap/thiele_graph_solver.v:145$574.$result[1:0]$768 }, Q = \colouring).
+Adding EN signal on $procdff$2021 ($adff) from module thiele_graph_solver (D = $0\success[0:0], Q = \success).
+Adding EN signal on $procdff$2020 ($adff) from module thiele_graph_solver (D = $0\done[0:0], Q = \done).
+
+3.8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \reasoning_core..
+Finding unused cells or wires in module \thiele_graph_solver..
+Removed 29 unused cells and 21 unused wires.
+<suppressed ~30 debug messages>
+
+3.8.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module reasoning_core.
+Optimizing module thiele_graph_solver.
+<suppressed ~12 debug messages>
+
+3.8.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+3.8.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \reasoning_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \thiele_graph_solver..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~67 debug messages>
+
+3.8.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \reasoning_core.
+  Optimizing cells in module \thiele_graph_solver.
+Performed a total of 0 changes.
+
+3.8.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\reasoning_core'.
+Finding identical cells in module `\thiele_graph_solver'.
+<suppressed ~87 debug messages>
+Removed a total of 29 cells.
+
+3.8.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.8.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \reasoning_core..
+Finding unused cells or wires in module \thiele_graph_solver..
+Removed 0 unused cells and 29 unused wires.
+<suppressed ~1 debug messages>
+
+3.8.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module reasoning_core.
+Optimizing module thiele_graph_solver.
+
+3.8.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+3.8.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \reasoning_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \thiele_graph_solver..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~68 debug messages>
+
+3.8.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \reasoning_core.
+  Optimizing cells in module \thiele_graph_solver.
+Performed a total of 0 changes.
+
+3.8.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\reasoning_core'.
+Finding identical cells in module `\thiele_graph_solver'.
+Removed a total of 0 cells.
+
+3.8.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.8.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \reasoning_core..
+Finding unused cells or wires in module \thiele_graph_solver..
+
+3.8.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module reasoning_core.
+Optimizing module thiele_graph_solver.
+
+3.8.23. Finished OPT passes. (There is nothing left to do.)
+
+3.9. Executing WREDUCE pass (reducing word size of cells).
+Removed top 2 bits (of 4) from port A of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:157$238 ($add).
+Removed top 3 bits (of 4) from port B of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:157$238 ($add).
+Removed top 1 bits (of 4) from port Y of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:157$238 ($add).
+Removed top 1 bits (of 4) from mux cell reasoning_core.$ternary$hardware/synthesis_trap/reasoning_core.v:157$239 ($mux).
+Removed top 2 bits (of 4) from port A of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:158$240 ($add).
+Removed top 3 bits (of 4) from port B of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:158$240 ($add).
+Removed top 1 bits (of 4) from port Y of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:158$240 ($add).
+Removed top 1 bits (of 4) from mux cell reasoning_core.$ternary$hardware/synthesis_trap/reasoning_core.v:158$241 ($mux).
+Removed top 2 bits (of 4) from port A of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:159$242 ($add).
+Removed top 3 bits (of 4) from port B of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:159$242 ($add).
+Removed top 1 bits (of 4) from port Y of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:159$242 ($add).
+Removed top 1 bits (of 4) from mux cell reasoning_core.$ternary$hardware/synthesis_trap/reasoning_core.v:159$243 ($mux).
+Removed top 2 bits (of 4) from port A of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:160$244 ($add).
+Removed top 3 bits (of 4) from port B of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:160$244 ($add).
+Removed top 1 bits (of 4) from port Y of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:160$244 ($add).
+Removed top 1 bits (of 4) from mux cell reasoning_core.$ternary$hardware/synthesis_trap/reasoning_core.v:160$245 ($mux).
+Removed top 2 bits (of 4) from port A of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:161$246 ($add).
+Removed top 3 bits (of 4) from port B of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:161$246 ($add).
+Removed top 1 bits (of 4) from port Y of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:161$246 ($add).
+Removed top 1 bits (of 4) from mux cell reasoning_core.$ternary$hardware/synthesis_trap/reasoning_core.v:161$247 ($mux).
+Removed top 2 bits (of 4) from port A of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:162$248 ($add).
+Removed top 3 bits (of 4) from port B of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:162$248 ($add).
+Removed top 1 bits (of 4) from port Y of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:162$248 ($add).
+Removed top 1 bits (of 4) from mux cell reasoning_core.$ternary$hardware/synthesis_trap/reasoning_core.v:162$249 ($mux).
+Removed top 2 bits (of 4) from port A of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:163$250 ($add).
+Removed top 3 bits (of 4) from port B of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:163$250 ($add).
+Removed top 1 bits (of 4) from port Y of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:163$250 ($add).
+Removed top 1 bits (of 4) from mux cell reasoning_core.$ternary$hardware/synthesis_trap/reasoning_core.v:163$251 ($mux).
+Removed top 2 bits (of 4) from port A of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:164$252 ($add).
+Removed top 3 bits (of 4) from port B of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:164$252 ($add).
+Removed top 1 bits (of 4) from port Y of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:164$252 ($add).
+Removed top 1 bits (of 4) from mux cell reasoning_core.$ternary$hardware/synthesis_trap/reasoning_core.v:164$253 ($mux).
+Removed top 2 bits (of 4) from port A of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:165$254 ($add).
+Removed top 3 bits (of 4) from port B of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:165$254 ($add).
+Removed top 1 bits (of 4) from port Y of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:165$254 ($add).
+Removed top 1 bits (of 4) from mux cell reasoning_core.$ternary$hardware/synthesis_trap/reasoning_core.v:165$255 ($mux).
+Removed top 1 bits (of 4) from port A of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:167$256 ($add).
+Removed top 1 bits (of 4) from port B of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:167$256 ($add).
+Removed top 2 bits (of 6) from port Y of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:167$256 ($add).
+Removed top 2 bits (of 6) from port A of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:167$257 ($add).
+Removed top 1 bits (of 4) from port B of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:167$257 ($add).
+Removed top 1 bits (of 6) from port Y of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:167$257 ($add).
+Removed top 1 bits (of 6) from port A of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:167$258 ($add).
+Removed top 1 bits (of 4) from port B of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:167$258 ($add).
+Removed top 1 bits (of 4) from port B of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:167$259 ($add).
+Removed top 1 bits (of 4) from port B of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:167$260 ($add).
+Removed top 1 bits (of 4) from port B of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:167$261 ($add).
+Removed top 1 bits (of 4) from port B of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:167$262 ($add).
+Removed top 1 bits (of 4) from port B of cell reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:167$263 ($add).
+Removed top 2 bits (of 3) from port B of cell reasoning_core.$procmux$1878_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell reasoning_core.$procmux$1878_CMP1 ($eq).
+Removed top 2 bits (of 3) from port B of cell reasoning_core.$procmux$1881_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell reasoning_core.$procmux$1881_CMP1 ($eq).
+Removed top 2 bits (of 3) from port B of cell reasoning_core.$procmux$1884_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell reasoning_core.$procmux$1884_CMP1 ($eq).
+Removed top 2 bits (of 3) from port B of cell reasoning_core.$procmux$1887_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell reasoning_core.$procmux$1887_CMP1 ($eq).
+Removed top 2 bits (of 3) from port B of cell reasoning_core.$procmux$1890_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell reasoning_core.$procmux$1890_CMP1 ($eq).
+Removed top 2 bits (of 3) from port B of cell reasoning_core.$procmux$1893_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell reasoning_core.$procmux$1893_CMP1 ($eq).
+Removed top 2 bits (of 3) from port B of cell reasoning_core.$procmux$1896_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell reasoning_core.$procmux$1896_CMP1 ($eq).
+Removed top 2 bits (of 3) from port B of cell reasoning_core.$procmux$1899_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell reasoning_core.$procmux$1899_CMP1 ($eq).
+Removed top 2 bits (of 3) from port B of cell reasoning_core.$procmux$1902_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell reasoning_core.$procmux$1902_CMP1 ($eq).
+Removed top 2 bits (of 3) from port B of cell reasoning_core.$procmux$1905_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell reasoning_core.$procmux$1905_CMP1 ($eq).
+Removed top 2 bits (of 3) from port B of cell reasoning_core.$procmux$1908_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell reasoning_core.$procmux$1908_CMP1 ($eq).
+Removed top 2 bits (of 3) from port B of cell reasoning_core.$procmux$1911_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell reasoning_core.$procmux$1911_CMP1 ($eq).
+Removed top 2 bits (of 3) from port B of cell reasoning_core.$procmux$1914_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell reasoning_core.$procmux$1914_CMP1 ($eq).
+Removed top 2 bits (of 3) from port B of cell reasoning_core.$procmux$1917_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell reasoning_core.$procmux$1917_CMP1 ($eq).
+Removed top 2 bits (of 3) from port B of cell reasoning_core.$procmux$1920_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell reasoning_core.$procmux$1920_CMP1 ($eq).
+Removed top 2 bits (of 3) from port B of cell reasoning_core.$procmux$1923_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell reasoning_core.$procmux$1923_CMP1 ($eq).
+Removed top 2 bits (of 3) from port B of cell reasoning_core.$procmux$1926_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell reasoning_core.$procmux$1926_CMP1 ($eq).
+Removed top 2 bits (of 3) from port B of cell reasoning_core.$procmux$1929_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell reasoning_core.$procmux$1929_CMP1 ($eq).
+Removed top 1 bits (of 4) from wire reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:157$238_Y.
+Removed top 1 bits (of 4) from wire reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:158$240_Y.
+Removed top 2 bits (of 6) from wire reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:167$256_Y.
+Removed top 1 bits (of 6) from wire reasoning_core.$add$hardware/synthesis_trap/reasoning_core.v:167$257_Y.
+Removed top 1 bits (of 4) from wire reasoning_core.activity0.
+Removed top 1 bits (of 4) from wire reasoning_core.activity1.
+Removed top 2 bits (of 8) from port B of cell thiele_graph_solver.$add$hardware/synthesis_trap/thiele_graph_solver.v:159$777 ($add).
+Removed top 1 bits (of 3) from port B of cell thiele_graph_solver.$procmux$786_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell thiele_graph_solver.$procmux$798_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell thiele_graph_solver.$procmux$810_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell thiele_graph_solver.$procmux$822_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell thiele_graph_solver.$procmux$834_CMP0 ($eq).
+Removed top 2 bits (of 3) from port B of cell thiele_graph_solver.$procmux$904_CMP0 ($eq).
+Removed top 2 bits (of 3) from port B of cell thiele_graph_solver.$procmux$926_CMP0 ($eq).
+Removed top 2 bits (of 3) from port B of cell thiele_graph_solver.$procmux$948_CMP0 ($eq).
+Removed top 2 bits (of 3) from port B of cell thiele_graph_solver.$procmux$970_CMP0 ($eq).
+Removed top 2 bits (of 3) from port B of cell thiele_graph_solver.$procmux$992_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell thiele_graph_solver.$procmux$1007_CMP0 ($eq).
+Removed top 2 bits (of 3) from port B of cell thiele_graph_solver.$procmux$1014_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell thiele_graph_solver.$procmux$1014_CMP1 ($eq).
+Removed top 2 bits (of 3) from port B of cell thiele_graph_solver.$procmux$1036_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell thiele_graph_solver.$procmux$1036_CMP1 ($eq).
+Removed top 2 bits (of 3) from port B of cell thiele_graph_solver.$procmux$1058_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell thiele_graph_solver.$procmux$1058_CMP1 ($eq).
+Removed top 2 bits (of 3) from port B of cell thiele_graph_solver.$procmux$1080_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell thiele_graph_solver.$procmux$1080_CMP1 ($eq).
+Removed top 1 bits (of 3) from port B of cell thiele_graph_solver.$procmux$1729_CMP0 ($eq).
+Removed top 2 bits (of 3) from port B of cell thiele_graph_solver.$procmux$1800_CMP0 ($eq).
+
+3.10. Executing PEEPOPT pass (run peephole optimizers).
+
+3.11. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \reasoning_core..
+Finding unused cells or wires in module \thiele_graph_solver..
+Removed 0 unused cells and 6 unused wires.
+<suppressed ~1 debug messages>
+
+3.12. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module reasoning_core:
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:157$238 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:158$240 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:159$242 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:160$244 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:161$246 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:162$248 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:163$250 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:164$252 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:165$254 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:167$256 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:167$257 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:167$258 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:167$259 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:167$260 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:167$261 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:167$262 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:167$263 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$508 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$509 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$514 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$515 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$520 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$521 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$526 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$527 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$532 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$533 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$538 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$539 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$544 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$545 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$550 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$551 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$556 ($add).
+  creating $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$557 ($add).
+  merging $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$556 into $add$hardware/synthesis_trap/reasoning_core.v:32$557.
+  merging $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$550 into $add$hardware/synthesis_trap/reasoning_core.v:32$551.
+  merging $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$544 into $add$hardware/synthesis_trap/reasoning_core.v:32$545.
+  merging $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$538 into $add$hardware/synthesis_trap/reasoning_core.v:32$539.
+  merging $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$532 into $add$hardware/synthesis_trap/reasoning_core.v:32$533.
+  merging $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$526 into $add$hardware/synthesis_trap/reasoning_core.v:32$527.
+  merging $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$520 into $add$hardware/synthesis_trap/reasoning_core.v:32$521.
+  merging $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$514 into $add$hardware/synthesis_trap/reasoning_core.v:32$515.
+  merging $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$508 into $add$hardware/synthesis_trap/reasoning_core.v:32$509.
+  merging $macc model for $add$hardware/synthesis_trap/reasoning_core.v:167$262 into $add$hardware/synthesis_trap/reasoning_core.v:167$263.
+  merging $macc model for $add$hardware/synthesis_trap/reasoning_core.v:167$261 into $add$hardware/synthesis_trap/reasoning_core.v:167$263.
+  merging $macc model for $add$hardware/synthesis_trap/reasoning_core.v:167$260 into $add$hardware/synthesis_trap/reasoning_core.v:167$263.
+  merging $macc model for $add$hardware/synthesis_trap/reasoning_core.v:167$259 into $add$hardware/synthesis_trap/reasoning_core.v:167$263.
+  merging $macc model for $add$hardware/synthesis_trap/reasoning_core.v:167$258 into $add$hardware/synthesis_trap/reasoning_core.v:167$263.
+  merging $macc model for $add$hardware/synthesis_trap/reasoning_core.v:167$257 into $add$hardware/synthesis_trap/reasoning_core.v:167$263.
+  merging $macc model for $add$hardware/synthesis_trap/reasoning_core.v:167$256 into $add$hardware/synthesis_trap/reasoning_core.v:167$263.
+  merging $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$557 into $add$hardware/synthesis_trap/reasoning_core.v:165$254.
+  merging $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$551 into $add$hardware/synthesis_trap/reasoning_core.v:164$252.
+  merging $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$545 into $add$hardware/synthesis_trap/reasoning_core.v:163$250.
+  merging $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$539 into $add$hardware/synthesis_trap/reasoning_core.v:162$248.
+  merging $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$533 into $add$hardware/synthesis_trap/reasoning_core.v:161$246.
+  merging $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$527 into $add$hardware/synthesis_trap/reasoning_core.v:160$244.
+  merging $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$521 into $add$hardware/synthesis_trap/reasoning_core.v:159$242.
+  merging $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$515 into $add$hardware/synthesis_trap/reasoning_core.v:158$240.
+  merging $macc model for $add$hardware/synthesis_trap/reasoning_core.v:32$509 into $add$hardware/synthesis_trap/reasoning_core.v:157$238.
+  creating $macc cell for $add$hardware/synthesis_trap/reasoning_core.v:167$263: $auto$alumacc.cc:365:replace_macc$2216
+  creating $macc cell for $add$hardware/synthesis_trap/reasoning_core.v:165$254: $auto$alumacc.cc:365:replace_macc$2217
+  creating $macc cell for $add$hardware/synthesis_trap/reasoning_core.v:164$252: $auto$alumacc.cc:365:replace_macc$2218
+  creating $macc cell for $add$hardware/synthesis_trap/reasoning_core.v:163$250: $auto$alumacc.cc:365:replace_macc$2219
+  creating $macc cell for $add$hardware/synthesis_trap/reasoning_core.v:162$248: $auto$alumacc.cc:365:replace_macc$2220
+  creating $macc cell for $add$hardware/synthesis_trap/reasoning_core.v:161$246: $auto$alumacc.cc:365:replace_macc$2221
+  creating $macc cell for $add$hardware/synthesis_trap/reasoning_core.v:160$244: $auto$alumacc.cc:365:replace_macc$2222
+  creating $macc cell for $add$hardware/synthesis_trap/reasoning_core.v:159$242: $auto$alumacc.cc:365:replace_macc$2223
+  creating $macc cell for $add$hardware/synthesis_trap/reasoning_core.v:158$240: $auto$alumacc.cc:365:replace_macc$2224
+  creating $macc cell for $add$hardware/synthesis_trap/reasoning_core.v:157$238: $auto$alumacc.cc:365:replace_macc$2225
+  created 0 $alu and 10 $macc cells.
+Extracting $alu and $macc cells in module thiele_graph_solver:
+  creating $macc model for $add$hardware/synthesis_trap/thiele_graph_solver.v:159$777 ($add).
+  creating $alu model for $macc $add$hardware/synthesis_trap/thiele_graph_solver.v:159$777.
+  creating $alu cell for $add$hardware/synthesis_trap/thiele_graph_solver.v:159$777: $auto$alumacc.cc:485:replace_alu$2226
+  created 1 $alu and 0 $macc cells.
+
+3.13. Executing SHARE pass (SAT-based resource sharing).
+
+3.14. Executing OPT pass (performing simple optimizations).
+
+3.14.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module reasoning_core.
+Optimizing module thiele_graph_solver.
+
+3.14.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\reasoning_core'.
+Finding identical cells in module `\thiele_graph_solver'.
+Removed a total of 0 cells.
+
+3.14.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \reasoning_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \thiele_graph_solver..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~68 debug messages>
+
+3.14.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \reasoning_core.
+  Optimizing cells in module \thiele_graph_solver.
+Performed a total of 0 changes.
+
+3.14.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\reasoning_core'.
+Finding identical cells in module `\thiele_graph_solver'.
+Removed a total of 0 cells.
+
+3.14.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.14.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \reasoning_core..
+Finding unused cells or wires in module \thiele_graph_solver..
+Removed 25 unused cells and 25 unused wires.
+<suppressed ~35 debug messages>
+
+3.14.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module reasoning_core.
+Optimizing module thiele_graph_solver.
+
+3.14.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+3.14.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \reasoning_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \thiele_graph_solver..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~68 debug messages>
+
+3.14.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \reasoning_core.
+  Optimizing cells in module \thiele_graph_solver.
+Performed a total of 0 changes.
+
+3.14.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\reasoning_core'.
+Finding identical cells in module `\thiele_graph_solver'.
+Removed a total of 0 cells.
+
+3.14.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.14.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \reasoning_core..
+Finding unused cells or wires in module \thiele_graph_solver..
+
+3.14.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module reasoning_core.
+Optimizing module thiele_graph_solver.
+
+3.14.16. Finished OPT passes. (There is nothing left to do.)
+
+3.15. Executing MEMORY pass.
+
+3.15.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+3.15.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+3.15.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+3.15.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+3.15.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+3.15.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \reasoning_core..
+Finding unused cells or wires in module \thiele_graph_solver..
+
+3.15.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+3.15.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+3.15.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \reasoning_core..
+Finding unused cells or wires in module \thiele_graph_solver..
+
+3.15.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+3.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \reasoning_core..
+Finding unused cells or wires in module \thiele_graph_solver..
+
+3.17. Executing OPT pass (performing simple optimizations).
+
+3.17.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module reasoning_core.
+<suppressed ~18 debug messages>
+Optimizing module thiele_graph_solver.
+<suppressed ~66 debug messages>
+
+3.17.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\reasoning_core'.
+Finding identical cells in module `\thiele_graph_solver'.
+Removed a total of 0 cells.
+
+3.17.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.17.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \reasoning_core..
+Finding unused cells or wires in module \thiele_graph_solver..
+Removed 0 unused cells and 62 unused wires.
+<suppressed ~2 debug messages>
+
+3.17.5. Finished fast OPT passes.
+
+3.18. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+3.19. Executing OPT pass (performing simple optimizations).
+
+3.19.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module reasoning_core.
+Optimizing module thiele_graph_solver.
+
+3.19.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\reasoning_core'.
+Finding identical cells in module `\thiele_graph_solver'.
+Removed a total of 0 cells.
+
+3.19.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \reasoning_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \thiele_graph_solver..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~38 debug messages>
+
+3.19.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \reasoning_core.
+  Optimizing cells in module \thiele_graph_solver.
+    New ctrl vector for $pmux cell $procmux$1819: { $procmux$1733_CMP $0\done[0:0] $auto$opt_reduce.cc:134:opt_pmux$2086 }
+    Consolidated identical input bits for $mux cell $procmux$1823:
+      Old ports: A=3'011, B=3'100, Y=$procmux$1823_Y
+      New ports: A=2'01, B=2'10, Y={ $procmux$1823_Y [2] $procmux$1823_Y [0] }
+      New connections: $procmux$1823_Y [1] = $procmux$1823_Y [0]
+  Optimizing cells in module \thiele_graph_solver.
+Performed a total of 2 changes.
+
+3.19.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\reasoning_core'.
+Finding identical cells in module `\thiele_graph_solver'.
+Removed a total of 0 cells.
+
+3.19.6. Executing OPT_SHARE pass.
+
+3.19.7. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.19.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \reasoning_core..
+Finding unused cells or wires in module \thiele_graph_solver..
+
+3.19.9. Executing OPT_EXPR pass (perform const folding).
+Optimizing module reasoning_core.
+Optimizing module thiele_graph_solver.
+
+3.19.10. Rerunning OPT passes. (Maybe there is more to do..)
+
+3.19.11. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \reasoning_core..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \thiele_graph_solver..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~38 debug messages>
+
+3.19.12. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \reasoning_core.
+  Optimizing cells in module \thiele_graph_solver.
+Performed a total of 0 changes.
+
+3.19.13. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\reasoning_core'.
+Finding identical cells in module `\thiele_graph_solver'.
+Removed a total of 0 cells.
+
+3.19.14. Executing OPT_SHARE pass.
+
+3.19.15. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.19.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \reasoning_core..
+Finding unused cells or wires in module \thiele_graph_solver..
+
+3.19.17. Executing OPT_EXPR pass (perform const folding).
+Optimizing module reasoning_core.
+Optimizing module thiele_graph_solver.
+
+3.19.18. Finished OPT passes. (There is nothing left to do.)
+
+3.20. Executing TECHMAP pass (map to technology primitives).
+
+3.20.1. Executing Verilog-2005 frontend: /usr/bin/../share/yosys/techmap.v
+Parsing Verilog input from `/usr/bin/../share/yosys/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `\$__div_mod_u'.
+Generating RTLIL representation for module `\$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `\$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_pmux'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Successfully finished Verilog frontend.
+
+3.20.2. Continuing TECHMAP pass.
+Using template $paramod$150d098cb9cca1819459bc5073194c8c53d2862d\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $logic_not.
+Using extmapper simplemap for cells of type $eq.
+Using template $paramod$521ce43182eecb9f60c72393a788160d2c356bf5\_90_pmux for cells of type $pmux.
+Using extmapper simplemap for cells of type $reduce_and.
+Using extmapper simplemap for cells of type $ne.
+Using extmapper simplemap for cells of type $reduce_bool.
+Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $reduce_or.
+Using extmapper simplemap for cells of type $adffe.
+Using extmapper simplemap for cells of type $mux.
+Using template $paramod$32e7c4d6f92ff4337599ece53082d2e88a82a9f2\_90_pmux for cells of type $pmux.
+Using template $paramod$85df5dc01c7df96a7d8e5f1fdf76ce9ac452af63\_90_pmux for cells of type $pmux.
+Using template $paramod$fc16b9f758000d363d24f130038bd99b46b4fa1b\_90_pmux for cells of type $pmux.
+Using extmapper simplemap for cells of type $xor.
+Using template $paramod\_90_lcu\WIDTH=32'00000000000000000000000000001000 for cells of type $lcu.
+Using extmapper simplemap for cells of type $pos.
+Using extmapper simplemap for cells of type $not.
+Using extmapper simplemap for cells of type $or.
+Using extmapper simplemap for cells of type $logic_and.
+Using extmapper maccmap for cells of type $macc.
+  add 3'001 (3 bits, unsigned)
+  add bits { \removed0 [1] \removed0 [2] \removed0 [0] } (3 bits)
+  packed 1 (1) bits / 1 words into adder tree
+  add 3'001 (3 bits, unsigned)
+  add bits { \removed1 [1] \removed1 [2] \removed1 [0] } (3 bits)
+  packed 1 (1) bits / 1 words into adder tree
+  add 3'001 (3 bits, unsigned)
+  add bits { \removed2 [1] \removed2 [2] \removed2 [0] } (3 bits)
+  packed 1 (1) bits / 1 words into adder tree
+  add 3'001 (3 bits, unsigned)
+  add bits { \removed3 [1] \removed3 [2] \removed3 [0] } (3 bits)
+  packed 1 (1) bits / 1 words into adder tree
+  add 3'001 (3 bits, unsigned)
+  add bits { \removed4 [1] \removed4 [2] \removed4 [0] } (3 bits)
+  packed 1 (1) bits / 1 words into adder tree
+  add 3'001 (3 bits, unsigned)
+  add bits { \removed5 [1] \removed5 [2] \removed5 [0] } (3 bits)
+  packed 1 (1) bits / 1 words into adder tree
+  add 3'001 (3 bits, unsigned)
+  add bits { \removed6 [1] \removed6 [2] \removed6 [0] } (3 bits)
+  packed 1 (1) bits / 1 words into adder tree
+  add 3'001 (3 bits, unsigned)
+  add bits { \removed7 [1] \removed7 [2] \removed7 [0] } (3 bits)
+  packed 1 (1) bits / 1 words into adder tree
+  add 3'001 (3 bits, unsigned)
+  add bits { \removed8 [1] \removed8 [2] \removed8 [0] } (3 bits)
+  packed 1 (1) bits / 1 words into adder tree
+  add \activity0 (3 bits, unsigned)
+  add \activity8 [2:0] (3 bits, unsigned)
+  add \activity7 [2:0] (3 bits, unsigned)
+  add \activity6 [2:0] (3 bits, unsigned)
+  add \activity5 [2:0] (3 bits, unsigned)
+  add \activity4 [2:0] (3 bits, unsigned)
+  add \activity3 [2:0] (3 bits, unsigned)
+  add \activity2 [2:0] (3 bits, unsigned)
+  add \activity1 (3 bits, unsigned)
+  packed 7 (3) bits / 1 words into adder tree
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000000011 for cells of type $fa.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000000100 for cells of type $fa.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000000101 for cells of type $fa.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000000110 for cells of type $fa.
+Using template $paramod$00298f3f8094950cb9a5ff2fda48d0d8bde8806c\_90_alu for cells of type $alu.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000000001 for cells of type $fa.
+Using template $paramod$78e969f2586efcf3a5b0b0440bcca0db83d5cca2\_90_alu for cells of type $alu.
+Using template $paramod\_90_lcu\WIDTH=32'00000000000000000000000000000110 for cells of type $lcu.
+Using template $paramod\_90_lcu\WIDTH=32'00000000000000000000000000000011 for cells of type $lcu.
+No more expansions possible.
+<suppressed ~1262 debug messages>
+
+3.21. Executing OPT pass (performing simple optimizations).
+
+3.21.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module reasoning_core.
+<suppressed ~365 debug messages>
+Optimizing module thiele_graph_solver.
+<suppressed ~304 debug messages>
+
+3.21.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\reasoning_core'.
+<suppressed ~108 debug messages>
+Finding identical cells in module `\thiele_graph_solver'.
+<suppressed ~60 debug messages>
+Removed a total of 56 cells.
+
+3.21.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.21.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \reasoning_core..
+Finding unused cells or wires in module \thiele_graph_solver..
+Removed 37 unused cells and 1024 unused wires.
+<suppressed ~39 debug messages>
+
+3.21.5. Finished fast OPT passes.
+
+3.22. Executing ABC pass (technology mapping using ABC).
+
+3.22.1. Extracting gate netlist of module `\reasoning_core' to `<abc-temp-dir>/input.blif'..
+Extracted 677 gates and 705 wires to a netlist network with 27 inputs and 42 outputs.
+
+3.22.1.1. Executing ABC.
+Running ABC command: "<yosys-exe-dir>/yosys-abc" -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC: 
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: Entered genlib library with 13 gates from file "<abc-temp-dir>/stdcells.genlib".
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+3.22.1.2. Re-integrating ABC results.
+ABC RESULTS:              NAND cells:       18
+ABC RESULTS:               NOT cells:        2
+ABC RESULTS:               AND cells:       13
+ABC RESULTS:             ORNOT cells:       55
+ABC RESULTS:               XOR cells:       45
+ABC RESULTS:               NOR cells:       31
+ABC RESULTS:              XNOR cells:       32
+ABC RESULTS:            ANDNOT cells:      212
+ABC RESULTS:                OR cells:      109
+ABC RESULTS:        internal signals:      636
+ABC RESULTS:           input signals:       27
+ABC RESULTS:          output signals:       42
+Removing temp directory.
+
+3.22.2. Extracting gate netlist of module `\thiele_graph_solver' to `<abc-temp-dir>/input.blif'..
+Extracted 312 gates and 404 wires to a netlist network with 90 inputs and 72 outputs.
+
+3.22.2.1. Executing ABC.
+Running ABC command: "<yosys-exe-dir>/yosys-abc" -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC: 
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: Entered genlib library with 13 gates from file "<abc-temp-dir>/stdcells.genlib".
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+3.22.2.2. Re-integrating ABC results.
+ABC RESULTS:              XNOR cells:        4
+ABC RESULTS:               XOR cells:        9
+ABC RESULTS:              NAND cells:        7
+ABC RESULTS:               AND cells:        6
+ABC RESULTS:               NOT cells:       16
+ABC RESULTS:               MUX cells:       16
+ABC RESULTS:             ORNOT cells:       46
+ABC RESULTS:               NOR cells:       13
+ABC RESULTS:                OR cells:       43
+ABC RESULTS:            ANDNOT cells:       93
+ABC RESULTS:        internal signals:      242
+ABC RESULTS:           input signals:       90
+ABC RESULTS:          output signals:       72
+Removing temp directory.
+
+3.23. Executing OPT pass (performing simple optimizations).
+
+3.23.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module reasoning_core.
+Optimizing module thiele_graph_solver.
+<suppressed ~55 debug messages>
+
+3.23.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\reasoning_core'.
+Finding identical cells in module `\thiele_graph_solver'.
+<suppressed ~12 debug messages>
+Removed a total of 4 cells.
+
+3.23.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+3.23.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \reasoning_core..
+Finding unused cells or wires in module \thiele_graph_solver..
+Removed 0 unused cells and 818 unused wires.
+<suppressed ~22 debug messages>
+
+3.23.5. Finished fast OPT passes.
+
+3.24. Executing HIERARCHY pass (managing design hierarchy).
+
+3.24.1. Analyzing design hierarchy..
+Top module:  \thiele_graph_solver
+Used module:     \reasoning_core
+
+3.24.2. Analyzing design hierarchy..
+Top module:  \thiele_graph_solver
+Used module:     \reasoning_core
+Removed 0 unused modules.
+
+3.25. Printing statistics.
+
+=== reasoning_core ===
+
+   Number of wires:                570
+   Number of wire bits:            806
+   Number of public wires:          95
+   Number of public wire bits:     331
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                517
+     $_ANDNOT_                     212
+     $_AND_                         13
+     $_NAND_                        18
+     $_NOR_                         31
+     $_NOT_                          2
+     $_ORNOT_                       55
+     $_OR_                         109
+     $_XNOR_                        32
+     $_XOR_                         45
+
+=== thiele_graph_solver ===
+
+   Number of wires:                245
+   Number of wire bits:            431
+   Number of public wires:          32
+   Number of public wire bits:     172
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                350
+     $_ANDNOT_                      89
+     $_AND_                          6
+     $_DFFE_PP0P_                   46
+     $_DFFE_PP1P_                   54
+     $_MUX_                         16
+     $_NAND_                         7
+     $_NOR_                         13
+     $_NOT_                         16
+     $_ORNOT_                       46
+     $_OR_                          43
+     $_XNOR_                         4
+     $_XOR_                          9
+     reasoning_core                  1
+
+=== design hierarchy ===
+
+   thiele_graph_solver               1
+     reasoning_core                  1
+
+   Number of wires:                815
+   Number of wire bits:           1237
+   Number of public wires:         127
+   Number of public wire bits:     503
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                866
+     $_ANDNOT_                     301
+     $_AND_                         19
+     $_DFFE_PP0P_                   46
+     $_DFFE_PP1P_                   54
+     $_MUX_                         16
+     $_NAND_                        25
+     $_NOR_                         44
+     $_NOT_                         18
+     $_ORNOT_                      101
+     $_OR_                         152
+     $_XNOR_                        36
+     $_XOR_                         54
+
+3.26. Executing CHECK pass (checking for obvious problems).
+Checking module reasoning_core...
+Checking module thiele_graph_solver...
+Found and reported 0 problems.
+
+4. Printing statistics.
+
+=== reasoning_core ===
+
+   Number of wires:                570
+   Number of wire bits:            806
+   Number of public wires:          95
+   Number of public wire bits:     331
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                517
+     $_ANDNOT_                     212
+     $_AND_                         13
+     $_NAND_                        18
+     $_NOR_                         31
+     $_NOT_                          2
+     $_ORNOT_                       55
+     $_OR_                         109
+     $_XNOR_                        32
+     $_XOR_                         45
+
+=== thiele_graph_solver ===
+
+   Number of wires:                245
+   Number of wire bits:            431
+   Number of public wires:          32
+   Number of public wire bits:     172
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                350
+     $_ANDNOT_                      89
+     $_AND_                          6
+     $_DFFE_PP0P_                   46
+     $_DFFE_PP1P_                   54
+     $_MUX_                         16
+     $_NAND_                         7
+     $_NOR_                         13
+     $_NOT_                         16
+     $_ORNOT_                       46
+     $_OR_                          43
+     $_XNOR_                         4
+     $_XOR_                          9
+     reasoning_core                  1
+
+=== design hierarchy ===
+
+   thiele_graph_solver               1
+     reasoning_core                  1
+
+   Number of wires:                815
+   Number of wire bits:           1237
+   Number of public wires:         127
+   Number of public wire bits:     503
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                866
+     $_ANDNOT_                     301
+     $_AND_                         19
+     $_DFFE_PP0P_                   46
+     $_DFFE_PP1P_                   54
+     $_MUX_                         16
+     $_NAND_                        25
+     $_NOR_                         44
+     $_NOT_                         18
+     $_ORNOT_                      101
+     $_OR_                         152
+     $_XNOR_                        36
+     $_XOR_                         54
+
+5. Executing JSON backend.
+
+Warnings: 2 unique messages, 2 total
+End of script. Logfile hash: 4da82befae, CPU: user 0.74s system 0.04s, MEM: 21.27 MB peak
+Yosys 0.33 (git sha1 2584903a060)
+Time spent: 22% 24x opt_expr (0 sec), 22% 1x abc (0 sec), ...

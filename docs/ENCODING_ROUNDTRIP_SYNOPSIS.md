@@ -1,5 +1,7 @@
 # Encoding Round-Trip Status Report
 
+> **Status update (October 2025):** This document is preserved for historical context. For the current analysis of the kernel, μ-spec v2.0, and reproducible evidence see `docs/kernel_analysis.md` and `docs/final_fact_check.md`.
+
 ## Background
 
 The lemmas `encode_decode_list_with_len` and `encode_decode_config` in
@@ -342,4 +344,3 @@ error that forced repeated recompilation of the legacy simulation file.
 The quick-build command sequence (`coqc -quick … ThieleMachine.v`, `EncodingBounds.v`, `Encoding.v`, `EncodingBridge.v`, and `Simulation.v`)
 now succeeds without manual clean steps, keeping each iteration under a couple of minutes while the remaining interpreter obligations (G14–G15)
 are addressed.
-
