@@ -1,5 +1,6 @@
 # Thiele Machine Coq proofs – overview
 
+> **Status update (October 2025):** The authoritative kernel proof lives in `coq/kernel/`. This README is preserved for the archived `coq/thielemachine` development.
 This directory contains the mechanised model of the Thiele Machine instruction
 set together with the proofs that power the subsumption theorem.  The
 development now compiles end-to-end: every lemma is proved and the remaining

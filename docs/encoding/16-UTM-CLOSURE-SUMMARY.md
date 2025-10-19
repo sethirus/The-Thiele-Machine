@@ -1,5 +1,7 @@
 # UTM Closure Summary — December 20, 2025
 
+> **Status update (October 2025):** This document is preserved for historical context. For the current analysis of the kernel, μ-spec v2.0, and reproducible evidence see `docs/kernel_analysis.md` and `docs/final_fact_check.md`.
+
 ## Objective
 Mechanise the remaining universal interpreter lemmas required to close
 `utm_simulate_one_step` and `utm_simulation_steps` without appeals to
@@ -65,4 +67,3 @@ Mechanise the remaining universal interpreter lemmas required to close
 - [ ] Multi-step bridge derives directly from the proven one-step lemma.
 - [ ] Documentation (this file and `docs/COMPLETION_PLAN.md`) reflects the
       final mechanised state.
-

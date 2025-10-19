@@ -1,4 +1,5 @@
 # Bell Inequality Demonstration — Sovereign Witness
+> **Status update (October 2025):** This document is preserved for historical context. For the current kernel and μ-spec analysis see `docs/kernel_analysis.md` and `docs/final_fact_check.md`.
 A Thiele Machine thesis in six acts.
 
 ## Experimental Environment

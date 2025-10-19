@@ -1,3 +1,5 @@
+> **Status update (October 2025):** This document is preserved for historical context. For the current analysis of the kernel, μ-spec v2.0, and reproducible evidence see `docs/kernel_analysis.md` and `docs/final_fact_check.md`.
+
 Patent Non-Assertion Pledge for Thiele Machine Spec v1
 
 I, Devon Thiele, pledge not to assert any patents I own now or in the future

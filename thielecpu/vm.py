@@ -20,7 +20,6 @@ import hashlib
 import string
 import math
 import builtins
-import zlib
 import z3
 
 # Safety: maximum allowed classical combinations for brute-force searches.
@@ -242,13 +241,6 @@ def safe_execute(code: str, scope: Dict[str, Any]) -> Any:
     return scope.get("__result__")
 
 
-def mu_cost_from_text(text: str) -> int:
-    """Return μ-bit cost using compressed size as a Kolmogorov proxy."""
-
-    # Using compressed byte-length as a computable approximation of Kolmogorov complexity (information content) for μ-bit cost.
-    return len(zlib.compress(text.encode("utf-8"))) * 8
-
-
 def _empty_cert() -> Dict[str, Any]:
     return {
         "smt_query": "",
@@ -272,6 +264,7 @@ try:
     from .isa import CSR
     from .memory import RegionGraph
     from ._types import LedgerEntry, ModuleId
+    from .mu import calculate_mu_cost
     from .receipts import (
         WitnessState,
         StepObservation,
@@ -293,6 +286,7 @@ except ImportError:
     from thielecpu.isa import CSR
     from thielecpu.memory import RegionGraph
     from thielecpu._types import LedgerEntry, ModuleId
+    from thielecpu.mu import calculate_mu_cost
     from thielecpu.receipts import (
         WitnessState,
         StepObservation,
@@ -448,7 +442,7 @@ class VM:
         op = instruction.op
         if op == "LASSERT":
             query = str(instruction.payload)
-            mu_delta = mu_cost_from_text(query)
+            mu_delta = calculate_mu_cost(query, 1, 1)
             post_state = WitnessState(
                 pc=pre_state.pc + 1,
                 status=pre_state.status,
@@ -1158,7 +1152,11 @@ class VM:
                                 # Validate proper factorization
                                 if 1 < p < n_target and 1 < q < n_target:
                                     witness_repr = f"{p}:{q}"
-                                    bits_revealed = mu_cost_from_text(witness_repr)
+                                    bits_revealed = calculate_mu_cost(
+                                        f"(factor {n_target})",
+                                        max(n_target - 3, 1),
+                                        1,
+                                    )
                                     prev_info = self.state.mu_information
                                     info_charge(self.state, bits_revealed)
                                     ledger.append({
