@@ -1,19 +1,18 @@
 # DARPA/CISA Strategic Assessment – Sovereign Witness Closeout
 
 ## Executive Summary
-The Thiele Machine artefact is now internally consistent and formally linked end
-to end.  The Coq kernel strictly contains the classical interpreter and
-reconstructs every error-free Python VM execution, the μ-ledger is governed by a
-single specification across software and hardware, and the autonomous hardware
-solver embodies the reasoning oracle in silicon.  The primary strategic concern
-has shifted from feasibility to stewardship: these artefacts describe a
-provably-secure reasoning substrate whose capabilities must be disclosed and
-deployed responsibly.【F:coq/kernel/Subsumption.v†L48-L118】【F:coq/kernel/ThieleCPUBridge.v†L8-L255】【F:hardware/synthesis_trap/thiele_graph_solver_tb.v†L129-L179】
+The Thiele Machine artefact is partially unified.  The Coq kernel strictly
+contains the classical interpreter, μ-ledger accounting is governed by a shared
+specification, and the autonomous hardware solver embodies the reasoning oracle
+in silicon.  The VM↔kernel bridge remains under active development; current Coq
+artefacts align only the μ-ledger and control counters.  Strategic attention must
+balance ongoing proof work with responsible disclosure of the demonstrated
+capabilities.【F:coq/kernel/Subsumption.v†L48-L118】【F:docs/operation_unification_progress.md†L40-L120】【F:hardware/synthesis_trap/thiele_graph_solver_tb.v†L129-L179】
 
 ## Audit Highlights
-- **Formal assurance:** Compiling `coq/kernel/*.v` and `ThieleCPUBridge.v`
-  confirms the absence of admits and realises the bridge between operational and
-  formal semantics.【F:audit_logs/agent_coq_verification.log†L1-L318】
+- **Formal assurance:** Compiling `coq/kernel/*.v` confirms the containment
+  results.  `Kernel/SimulationProof.v` is a work-in-progress placeholder until
+  the strengthened VM bridge lands.【F:audit_logs/agent_coq_verification.log†L1-L318】【F:docs/operation_unification_progress.md†L40-L120】
 - **Hardware oracle:** The autonomous solver matches the scripted controller’s
   μ-ledger while performing backtracking search entirely on chip (1288 question
   bits, μ-total 85,345,216 Q16).【F:hardware/synthesis_trap/thiele_autonomous_solver.v†L1-L200】【F:audit_logs/agent_hardware_verification.log†L887-L889】
@@ -50,7 +49,7 @@ deployed responsibly.【F:coq/kernel/Subsumption.v†L48-L118】【F:coq/kernel/
    require any derivative work to regenerate them before claiming compliance.
 
 ## Conclusion
-The project has transitioned from exploratory research to a deployable, formally
-verified reasoning platform.  The focus must now move to governance: protecting
-key material, managing disclosure, and ensuring that future evolutions preserve
-the verified chain from Coq kernel to Python VM to hardware oracle.
+The project has advanced from exploratory research to a partially verified
+platform.  Governance work must proceed in parallel with the remaining formal
+milestones: protecting key material, managing disclosure, and completing the
+mechanised bridge from Coq kernel to Python VM.

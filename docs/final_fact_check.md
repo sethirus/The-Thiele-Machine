@@ -16,13 +16,12 @@
 
 ## Verified Achievements
 
-1. **Mechanical containment and VM simulation** – The kernel definitions share a
+1. **Mechanical containment (kernel level)** – The kernel definitions share a
    common state and instruction vocabulary; the Thiele interpreter adds the
    μ-charging claim instruction.  `thiele_simulates_turing` and
-   `turing_is_strictly_contained` witness strict containment, while
-   `vm_is_instance_of_kernel` proves that error-free Python VM executions are
-   simulated exactly by the kernel interpreter when instructions are compiled to
-   `H_ClaimTapeIsZero`.【F:coq/kernel/Kernel.v†L4-L66】【F:coq/kernel/KernelTM.v†L6-L30】【F:coq/kernel/KernelThiele.v†L7-L26】【F:coq/kernel/Subsumption.v†L48-L118】【F:coq/kernel/ThieleCPUBridge.v†L8-L255】【F:audit_logs/agent_coq_verification.log†L279-L318】
+   `turing_is_strictly_contained` witness strict containment.  The VM bridge is
+   currently under revision; only μ-ledger alignment is modelled in Coq pending
+   the Milestone 2 encoding work.【F:coq/kernel/Kernel.v†L4-L66】【F:coq/kernel/KernelTM.v†L6-L30】【F:coq/kernel/KernelThiele.v†L7-L26】【F:coq/kernel/Subsumption.v†L23-L118】【F:docs/operation_unification_progress.md†L1-L120】
 2. **Autonomous hardware oracle** – `thiele_autonomous_solver.v` performs
    speculative colouring, μ-accounting, and chronological backtracking entirely
    in hardware.  The Verilog testbench confirms that both the scripted and
@@ -56,13 +55,13 @@
   receipts, and robustness proofs under the locked environment variables.【F:audit_logs/agent_software_reproduction.log†L80-L158】
 
 ## Conclusion
-The repository now demonstrates a coherent, end-to-end thesis:
+The repository demonstrates a partially unified thesis:
 
-- The minimalist kernel strictly contains the classical interpreter and simulates
-  the Python VM instruction stream.
+- The minimalist kernel strictly contains the classical interpreter.
 - μ-spec v2.0 governs every software and hardware ledger.
 - The autonomous hardware solver acts as an on-chip oracle whose outputs match
   the software demos bit-for-bit.
 
-The authoritative summary of the system is this ledger together with the updated
-`README.md`.  Historical documents remain for context and are marked as archival.
+The VM↔kernel refinement remains an open deliverable; see
+`docs/operation_unification_progress.md` for the active plan.  Historical
+documents remain for context and are marked as archival.
