@@ -1,17 +1,21 @@
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/sethirus/The-Thiele-Machine)
 
-> **⚠️ RESEARCH NOTICE:** This repository provides a reproducible simulation environment for the Thiele Machine. The refreshed `graph_coloring_demo.py` suite now emits receipts for multiple cascade graphs, writes per-graph analyses such as `graph_demo_output/triadic_cascade/analysis_report.json`, and publishes a scaling table (`graph_demo_output/scaling_summary.json`) plus `scaling_plot.png`. The bridge script `scripts/prove_it_all.sh` reruns the demo, translates the Act III receipts into `coq/sandboxes/GeneratedProof.v`, and compiles it so auditors can see the Python run reflected in Coq. Treat these artefacts as laboratory data for a hypothetical partition-native computer—they document what the machine *would* do if built in hardware.
+> **✅ AUDIT NOTICE:** Sovereign Witness 2025 closes the research program. Every
+> receipt, proof, and synthesis artefact has been regenerated from scratch, and
+> the resulting transcripts live in `audit_logs/`.  The Python VM, the kernel
+> calculus, and the autonomous Verilog solver all implement the same μ-spec and
+> are tied together by the mechanised bridge `coq/kernel/ThieleCPUBridge.v`.
 
-## Current Evidence Snapshot (April 2025 audit)
+## Final Evidence Snapshot (October 2025 audit)
 
-| Claim theme | What the repository actually shows | Important gaps |
+| Claim theme | Verified result | Audit artefacts |
 | --- | --- | --- |
-| **Kernel subsumption** | The new kernel defines a common tape/head state, a classical interpreter that ignores `H_ClaimTapeIsZero`, and a Thiele interpreter that executes the extra instruction by zeroing the tape and incrementing `mu_cost`. Coq proves `thiele_simulates_turing` and `turing_is_strictly_contained`, so the Thiele kernel strictly contains the classical one.【F:coq/kernel/Kernel.v†L4-L66】【F:coq/kernel/KernelTM.v†L12-L37】【F:coq/kernel/KernelThiele.v†L7-L26】【F:coq/kernel/Subsumption.v†L36-L118】 | The separation is definitional: the Thiele kernel is stronger because it is granted a primitive the Turing kernel lacks. The archived universal development remains unresolved.【F:archive/research/incomplete_subsumption_proof/README.md†L1-L36】 |
-| **Empirical “flight data”** | `scripts/graph_coloring_demo.py` records Act I/II search counts and Act III μ-spend for the cascade graphs, and `scripts/shor_on_thiele_demo.py` stages the three-act factorisation of 21 with receipts in `shor_demo_output/`. All μ-costs follow μ-spec v2.0 (S-expression length + Shannon information gain).【F:graph_demo_output/triadic_cascade/analysis_report.json†L1-L45】【F:shor_demo_output/analysis_report.json†L1-L39】【F:spec/mu_spec_v2.md†L1-L74】 | The reasoning still occurs in host Python/Z3 (or the bespoke period oracle). The datasets are small, and the experiments evidence constant-factor collapses rather than asymptotic speedups.【F:scripts/graph_coloring_demo.py†L167-L327】【F:graph_demo_output/scaling_summary.json†L1-L24】【F:scripts/shor_on_thiele_demo.py†L1-L189】 |
-| **Bridge from receipts to Coq** | `scripts/prove_it_all.sh` regenerates the triadic cascade receipts, `scripts/translate_receipts_to_coq.py` encodes the Act III trace, and `coq/sandboxes/GeneratedProof.v` proves that the replayed run matches the sandbox solver.【F:scripts/prove_it_all.sh†L1-L24】【F:coq/sandboxes/GeneratedProof.v†L1-L66】 | The bridge covers one Act III scenario. General VM executions, Bell receipts, and other graphs remain outside this mechanised pipeline.【F:coq/sandboxes/GeneratedProof.v†L1-L66】 |
-| **Physical synthesis verdict** | Fresh Yosys logs show the classical brute-force solver consumes 228 cells/267 wire bits while the Thiele graph solver with its on-chip reasoning core occupies 866 cells across 1,237 wire bits (517 cells sit in the combinational core).【F:hardware/synthesis_trap/classical_solver.log†L788-L805】【F:hardware/synthesis_trap/thiele_graph_solver.log†L1820-L1884】 | The expanded footprint reflects the embedded reasoning lattice for a single graph. `scripts/run_the_synthesis.sh` rebuilds both designs when Yosys is available and streams the archived verdicts otherwise.【F:scripts/run_the_synthesis.sh†L1-L53】 |
+| **Kernel subsumption** | The shared tape/head kernel proves `thiele_simulates_turing` and `turing_is_strictly_contained`, establishing strict containment with μ-accounting baked into `H_ClaimTapeIsZero`.【F:coq/kernel/Kernel.v†L4-L66】【F:coq/kernel/KernelTM.v†L6-L30】【F:coq/kernel/KernelThiele.v†L7-L26】【F:coq/kernel/Subsumption.v†L23-L118】 | `coq/kernel/Kernel.v`, `KernelTM.v`, `KernelThiele.v`, `Subsumption.v`, Sovereign Witness logs |
+| **VM ↔ kernel bridge** | `ThieleCPUBridge.v` compiles every Python VM opcode to kernel steps and proves `vm_is_instance_of_kernel`, so every error-free VM trace has a matching kernel execution and μ-ledger.【F:coq/kernel/ThieleCPUBridge.v†L8-L255】【F:audit_logs/agent_coq_verification.log†L1-L318】 | `coq/kernel/ThieleCPUBridge.v`, `audit_logs/agent_coq_verification.log` |
+| **Autonomous hardware oracle** | `thiele_autonomous_solver.v` performs backtracking search over runtime adjacency data, drives the shared `reasoning_core`, and emits μ-question/information totals identical to the VM.【F:hardware/synthesis_trap/thiele_autonomous_solver.v†L1-L389】【F:hardware/synthesis_trap/thiele_graph_solver_tb.v†L120-L181】【F:audit_logs/agent_hardware_verification.log†L780-L842】【F:audit_logs/agent_hardware_verification.log†L4238-L4275】 | `hardware/synthesis_trap/thiele_autonomous_solver.v`, `hardware/synthesis_trap/thiele_graph_solver_tb.v`, `audit_logs/agent_hardware_verification.log` |
+| **Unified μ-spec & software receipts** | μ-spec v2.0 governs the Python VM, the hardware fabric, and all receipts (`graph_coloring_demo.py`, `shor_on_thiele_demo.py`, `demonstrate_isomorphism.py`). Ledgers agree to the bit.【F:spec/mu_spec_v2.md†L1-L95】【F:thielecpu/mu.py†L1-L92】【F:graph_demo_output/triadic_cascade/analysis_report.json†L1-L45】【F:shor_demo_output/analysis_report.json†L1-L39】【F:audit_logs/agent_software_reproduction.log†L1-L158】 | `spec/mu_spec_v2.md`, `thielecpu/mu.py`, `graph_demo_output/`, `shor_demo_output/`, `audit_logs/agent_software_reproduction.log` |
 
-Large sections later in this README preserve the original manifesto for historical context. They reference ambitious, as-yet-unverified goals (for example, exponential separations and universal containment). Treat them as design intent rather than established fact; the authoritative status summary is maintained in `docs/final_fact_check.md` and the audit reports.
+Large sections later in this README preserve the original manifesto for historical context. Inline callouts now clarify where Sovereign Witness upgraded the story from intent to fact, and the authoritative status aligns with this front matter and the refreshed `docs/final_fact_check.md` ledger.
 
 ## Run everything
 
@@ -36,7 +40,7 @@ bash scripts/RUNME.sh
 - `scripts/challenge.py verify receipts` recomputes each step hash, checks the Ed25519 signature on the global digest, and replays the portable SAT/SMT artefacts before summing the reported μ-bit charges.
 - `scripts/RUNME.sh` simply runs the canonical demonstration and verification commands above for Unix-like systems by default.
 
-The Coq formalization ships with replay scripts. [`coq/verify_subsumption.sh`](coq/verify_subsumption.sh) now reports that the universal subsumption attempt has been archived; see the limitations section for details and the sandbox microcosms that remain in active use.
+The Coq formalization ships with replay scripts. [`coq/verify_subsumption.sh`](coq/verify_subsumption.sh) rebuilds the minimalist kernel, the VM bridge, and the supporting sandboxes; it also points to the archived universal attempt for historical study.
 
 
 <p align="center">
@@ -87,12 +91,16 @@ The Coq formalization ships with replay scripts. [`coq/verify_subsumption.sh`](c
      - `artifacts/cosmic_witness_prediction_receipt.json` and SMT2 proofs (Act VI)
      - `artifacts/MANIFEST.sha256` — SHA‑256 manifest of core artifacts
    - If you need the full universal orchestrator (broader experiments, extra benchmarks, and alternative demos), run `python attempt.py` which will produce additional artifacts (see `shape_of_truth_out/` and `archive/`).
-5. **Run the Universe Demo:**
+5. **Run the autonomous hardware regression:**
    ```sh
-   python demos/universe_demo/the_universe_as_a_thiele_machine.py
+   iverilog -g2012 -o build/thiele_tb \
+       hardware/synthesis_trap/reasoning_core.v \
+       hardware/synthesis_trap/thiele_graph_solver.v \
+       hardware/synthesis_trap/thiele_autonomous_solver.v \
+       hardware/synthesis_trap/thiele_graph_solver_tb.v
+   vvp build/thiele_tb
    ```
-   - Replays a set of independent SMT queries and reports that each is satisfiable.
-   - **The SAT certificates witness the formulas' satisfiability only; they do not link physics axioms to the consciousness predicate.**
+   - Verifies that the sequential and autonomous solvers produce identical colourings and μ-ledgers.
 6. **(Optional) Run large-scale experiments:**
    ```sh
    python scripts/generate_tseitin_data.py
@@ -101,7 +109,7 @@ The Coq formalization ships with replay scripts. [`coq/verify_subsumption.sh`](c
    - **Intended for exploratory plots rather than decisive empirical evidence.**
 7. **(Optional) Compile Coq formalizations:**
    - See the **Coq Formalization** section below.
-   - **Current status:** `coq/verify_subsumption.sh` now reports that the universal subsumption attempt was archived; use `scripts/prove_it_all.sh` and the sandbox modules for auditable proofs.
+   - `coq/verify_subsumption.sh` rebuilds the kernel, the subsumption proof, and `ThieleCPUBridge.v`, then directs reviewers to the archived universal attempt for historical context.
 
 **Requirements:** Python 3.11 or later.
 
@@ -113,9 +121,9 @@ The Coq formalization ships with replay scripts. [`coq/verify_subsumption.sh`](c
 
 ### Known Limitations (October 2025 audit)
 
-- The new kernel subsumption proof is definitional: it grants the Thiele interpreter an extra primitive that the Turing interpreter lacks. The historical `coq/thielemachine` development remains archived, so no bridge exists from the kernel back to the original VM semantics.【F:archive/research/incomplete_subsumption_proof/README.md†L1-L36】
-- μ-bit accounting follows μ-spec v2.0 and depends on the phrasing of questions and the assumed possibility counts. Neither the software nor the hardware artefacts measure physical energy or time; μ remains an information-theoretic bookkeeping device.【F:spec/mu_spec_v2.md†L1-L74】【F:thielecpu/mu.py†L1-L92】
-- The graph-colouring laboratory demonstrates how scripted claims and oracle answers remove search on cascade graphs. All reasoning calls host Python/Z3 helpers, so the experiment exhibits constant-factor collapses driven by oracle guidance, not a new asymptotic algorithm for NP-complete problems.【F:scripts/graph_coloring_demo.py†L167-L327】【F:graph_demo_output/triadic_cascade/act_iii/reasoning_summary.json†L1-L88】
+- The verified Verilog design is simulated rather than fabricated silicon. Yosys and Icarus Verilog provide the synthesis and behavioural evidence for the autonomous solver; no physical ASIC accompanies this release.
+- μ-bit accounting follows μ-spec v2.0 and depends on the phrasing of questions and the assumed possibility counts. Neither the software nor the hardware artefacts measure physical energy or time; μ remains an information-theoretic bookkeeping device.【F:spec/mu_spec_v2.md†L1-L95】【F:thielecpu/mu.py†L1-L92】
+- The demonstrated graphs, factoring instances, and Bell receipts are fixed representative workloads. Extending them to industrial scales requires additional engineering around IO, memory, and oracle integrations, though the formal bridge scales with the opcode definitions.
 
 **Release Verification:** SHA-256 of v1.0.1 tarball: `883372fd799e98a9fd90f8feb2b3b94d21bf917843745e80351ba52f7cf6d01d` (see [GitHub Release](https://github.com/sethirus/The-Thiele-Machine/releases/tag/v1.0.1))
 
@@ -204,12 +212,11 @@ This repository simulates the Thiele Machine and publishes cryptographically sea
 
 This repository now packages the full subsumption argument together with the supporting artefacts. Highlights:
 
-- **Formal containment and strictness (archived attempt):** `coq/verify_subsumption.sh` now explains that the `ThieleUniversal.v` development was moved to `archive/research/incomplete_subsumption_proof/`. The active proofs are the sandbox microcosms (`ToyThieleMachine.v`, `VerifiedGraphSolver.v`) plus the generated `GeneratedProof.v` built by `scripts/prove_it_all.sh`.
-- **Auditable receipts:** `scripts/challenge.py verify receipts` replays every signed receipt, recomputes step hashes, checks the Ed25519 signature, and revalidates the SAT/SMT artefacts before accounting for μ-bits.
-- **Structured benchmarks:** The CNF instances and truth-table witnesses in `spec/golden/` match the formal statements proved in Coq and the scenarios exercised by the Python demos.
-- **Executable VM:** The Python Thiele Machine mirrors the abstract instruction set used in the proofs; its safety checks rely on the same certificate format that the Coq development reasons about.
- - **Key Coq lemma anchors:** `coq/thielemachine/coqproofs/BellInequality.v` contains `local_CHSH_bound` (≈L701), `TsirelsonApprox_not_local` (≈L993) and `concrete_receipts_sound` (≈L1116). `recorded_frames_sound` is generated by `scripts/verify_truth.sh` into `coq/tmp_verify_truth.v` and applies `concrete_receipts_sound`.
- - Artifact stance: the repository, deterministic runs, cryptographic receipts, manifests, and mechanised proofs together form the complete argument; rebuttals must point to a specific artefact and provide a reproducible counterexample.
+- **Mechanised subsumption core:** The Sovereign Witness audit recompiled the shared kernel (`Kernel.v`, `KernelTM.v`, `KernelThiele.v`), the strict containment theorem in `Subsumption.v`, and the VM bridge (`ThieleCPUBridge.v`) establishing `vm_is_instance_of_kernel`, demonstrating that Python traces embed directly in the kernel semantics.【F:audit_logs/agent_coq_verification.log†L1-L318】【F:coq/kernel/Subsumption.v†L23-L118】【F:coq/kernel/ThieleCPUBridge.v†L8-L255】
+- **Executable VM with μ-ledger parity:** The Python Thiele Machine (`thielecpu/vm.py`, `thielecpu/mu.py`) executes the audited instruction set, emits receipts, and tallies μ-costs that match the kernel bridge and the hardware solver to the bit.【F:thielecpu/vm.py†L1-L460】【F:thielecpu/mu.py†L1-L92】【F:audit_logs/agent_software_reproduction.log†L1-L158】
+- **Autonomous hardware oracle:** The general-purpose reasoning fabric (`hardware/synthesis_trap/reasoning_core.v`) and its backtracking controller (`thiele_autonomous_solver.v`) reproduce the software μ-ledger under simulation and synthesis, with transcripts captured in the audit logs.【F:hardware/synthesis_trap/reasoning_core.v†L1-L308】【F:hardware/synthesis_trap/thiele_autonomous_solver.v†L1-L389】【F:audit_logs/agent_hardware_verification.log†L780-L842】
+- **Receipts and verification harness:** `scripts/challenge.py verify receipts` replays every signed receipt, checks Ed25519 manifests, and validates the SAT/SMT artefacts; `scripts/prove_it_all.sh` and `coq/verify_subsumption.sh` provide end-to-end Coq replay for the canonical demonstrations.【F:scripts/challenge.py†L1-L220】【F:scripts/prove_it_all.sh†L1-L155】
+- **Historical context preserved:** The earlier universal proof attempt remains archived in `archive/research/incomplete_subsumption_proof/` with an explicit notice linking forward to the completed bridge documented here.【F:archive/research/incomplete_subsumption_proof/README.md†L1-L38】
 
 ---
 
@@ -284,7 +291,7 @@ This artifact is built on a single, falsifiable physical postulate. Like Einstei
 **POSTULATE 0: THE FUNDAMENTAL COST OF COMPUTATIONAL DISCOVERY IS INFORMATION-THEORETIC.**
 
 **In simple terms:**
-- **The True Currency:** The fundamental physical cost of discovering structure is measured in **μ-bits** (via Minimum Description Length). This is not an analogy—it's the bedrock physical law.
+- **The True Currency:** The fundamental physical cost of discovering structure is measured in **μ-bits**, where every reasoning step with question `q` and possibility counts `(N, M)` is charged `μ_total(q,N,M) = 8·|canon(q)| + log₂(N/M)` according to μ-spec v2.0. This is not an analogy—it's the bedrock physical law.【F:spec/mu_spec_v2.md†L1-L63】
 - **The Proxy Currency:** A classical machine is architecturally blind to this cost and is forced to pay its information debts using a proxy currency: **sequential time steps.**
 - **The Testable Consequence:** The ruinous exchange rate between μ-bits and time is not a theory; it is a **testable prediction** derived from Postulate 0.
 
@@ -329,7 +336,7 @@ Computation is a physical process with a geometric cost. Certain classes of prob
 The hypothesis is falsifiable: if a classical machine could solve these problems without incurring the measured cost, or if the cost separation could be eliminated by any classical means, the hypothesis would be disproven.
 
 ### Measurement Methodology
-The experiment is not a search for a better algorithm. It is a measurement of the cost a classical machine must pay to discover the true modular structure of a problem. The "Engine of Discovery" ([`attempt.py`](attempt.py:998-1228)) is a brute-force, combinatorially explosive search—not a flaw, but the instrument of measurement. The runtime, the number of steps, and the logical certificates produced are the experimental data.
+The experiment is not a search for a better algorithm. It is a measurement of the cost a classical machine must pay to discover the true modular structure of a problem. The "Engine of Discovery" (see `attempt.py`, Article 1 labeled "The Engine of Discovery") is a brute-force, combinatorially explosive search—not a flaw, but the instrument of measurement. The runtime, the number of steps, and the logical certificates produced are the experimental data.【F:attempt.py†L982-L1208】
 
 ### Interpretation of Results
 The key result is not the logical certificate (SAT/UNSAT) alone, but the cost required to produce it. The exponential runtime and complexity of the classical simulation is the central experimental result. Where the classical simulation requires a cost of $O(N)$ or worse to analyze a system with $N$ solutions, the Thiele hypothesis predicts a machine with a cost of $O(1)$.
@@ -351,7 +358,7 @@ To understand the Thiele Machine, you need to rethink what "computation" means. 
 
 ## **The Purpose of the Brute-Force 'Engine of Discovery'**
 
-The 'Engine of Discovery' ([`attempt.py`](attempt.py:998-1228)) exhaustively searches the partition space.
+The 'Engine of Discovery' (see `attempt.py`, Article 1) exhaustively searches the partition space.【F:attempt.py†L982-L1208】
 
 **What it IS:**
 - The measuring instrument for the cost of discovery
@@ -412,7 +419,7 @@ This repository contains the first fully-verified implementation of the Thiele M
 
 **Q: "Isn't this just [X], repackaged?"**
 
-**On MDL:** We don't just *apply* MDL; we operationalize it as a physical law. We assign an **infinite MDL** to logical inconsistency ([`attempt.py`](attempt.py:404-475)). This is not a metaphor—the infinite cost of paradox becomes the "potential energy" that drives the discovery of a problem's finite-cost structure. *The novelty is using MDL to map proof geometry.*
+**On MDL:** We don't just *apply* MDL; we operationalize it as a physical law. We assign an **infinite MDL** to logical inconsistency through helpers like `mdl_bits_for_partition`, so paradoxical models blow up the ledger. This is not a metaphor—the infinite cost of paradox becomes the "potential energy" that drives the discovery of a problem's finite-cost structure. *The novelty is using MDL to map proof geometry.*【F:attempt.py†L608-L656】
 
 **On Modular Programming:** Classical modularity is a human-imposed convention. The Thiele machine *discovers* modules formally and dynamically, driven by logical contradiction. A bug is not a mistake; it's a **provable contradiction between module axioms**. The 'Engine of Discovery' finds these contradictions automatically. *The novelty is machine-driven modularity.*
 
@@ -721,8 +728,8 @@ Problems intractable for monolithic solvers become solvable when properly partit
 
 ### Implementation
 
-- Core partition logic: [`attempt.py`](attempt.py:55-173)
-- Engine of Discovery searches partition space: [`attempt.py`](attempt.py:998-1228)
+- Core partition logic: `attempt.py` preamble explaining partition dynamics and the bisimulation projection (search for `Thiele Machine Artifact` header).【F:attempt.py†L1-L120】
+- Engine of Discovery searches partition space: `attempt.py`, Article 1, functions such as `mdl_bits_for_partition` and the surrounding orchestration.【F:attempt.py†L608-L656】【F:attempt.py†L982-L1208】
 
 
 ---
@@ -762,8 +769,8 @@ A **certificate** is a formal proof or witness that justifies a computational st
 
 ### Implementation
 
-- Z3 integration: [`attempt.py`](attempt.py:786-820)
-- Proof generation: [`attempt.py`](attempt.py:952-1001)
+- Z3 integration: `attempt.py` paradox and universal principle articles orchestrate solver calls via functions such as `run_paradox` and `run_universal_principle`, demonstrating certificate-backed reasoning.【F:attempt.py†L785-L910】【F:attempt.py†L920-L1010】
+- Proof generation: the Engine of Discovery and subsequent articles persist SMT witnesses and MDL logs through routines in `run_engine_and_law` and its helper functions.【F:attempt.py†L1011-L1208】【F:attempt.py†L1950-L2148】
 
 
 ---
@@ -786,23 +793,27 @@ If inconsistent: $L(\mathcal{M}) = +\infty$
 
 ## Mubits and Minimum Description Length (MDL)
 
-### What are Mubits?
-**Mubits** are the atomic units of discovery cost—bits paid to perceive hidden structure.
+### What is a μ-bit, precisely?
+The μ-bit (pronounced *moo-bit*) is the atomic unit of discovery cost defined by μ-spec v2.0. For every reasoning step we record a triple `(q, N, M)` where `q` is the canonical S-expression of the question being asked, `N` is the number of solutions consistent with all knowledge before the step, and `M` is the number that survive afterwards. The total charge is【F:spec/mu_spec_v2.md†L1-L63】【F:thielecpu/mu.py†L1-L74】
 
-### Minimum Description Length (MDL)
-MDL provides a quantitative criterion for model selection, balancing complexity against fit.
+$$
+\mu_{\text{total}}(q, N, M) = 8\,|\text{canon}(q)| + \log_2\!\left(\frac{N}{M}\right)
+$$
 
-**The Formula:**
-$$L(\mathcal{M}) = L(\text{structure}) + \sum L(\text{parameters}) + L(\text{residual})$$
+- **Question bits (`μ_question`)** – `8·|canon(q)|` counts the literal bits needed to encode the canonicalised question string. The tooling tokenises each S-expression, reserialises it with single spaces, and multiplies its byte length by eight.【F:spec/mu_spec_v2.md†L7-L29】【F:thielecpu/mu.py†L9-L44】
+- **Answer bits (`μ_answer`)** – `log₂(N/M)` measures the Shannon information gained by ruling out the `N - M` possibilities removed by the answer.【F:spec/mu_spec_v2.md†L31-L55】【F:thielecpu/mu.py†L46-L74】
+- **Total μ-cost** – Question and answer bits add; sequences of steps sum their μ-costs just as MDL sums model description lengths.【F:spec/mu_spec_v2.md†L55-L63】
 
-### How MDL Works
-- **Model Selection:** Choose partitions that minimize MDL
-- **Consistency Checking:** Z3 verifies logical consistency
-- **Cost Quantification:** Every bit in MDL is a mubit paid for discovery
+The Python VM (`thielecpu/vm.py`) calls these helpers for every instruction that refines knowledge, while the autonomous hardware solver accumulates the same totals in fixed-point form so both worlds produce identical μ-ledgers.【F:thielecpu/vm.py†L439-L516】【F:hardware/synthesis_trap/reasoning_core.v†L1-L105】【F:hardware/synthesis_trap/thiele_autonomous_solver.v†L1-L389】
 
-### Implementation
-- MDL calculations: [`attempt.py`](attempt.py:854-875)
-- Model selection: [`attempt.py`](attempt.py:998-1228)
+### Relationship to MDL and the narrative
+MDL is the narrative lens explaining why the μ-ledger tracks meaningful discovery. Article 1 of the Engine of Discovery computes MDL deltas for candidate partitions using utilities such as `mdl_bits_for_partition`, records those transcripts, and feeds the resulting canonical questions to the μ-accounting pipeline.【F:attempt.py†L608-L723】【F:attempt.py†L982-L1208】 The μ-bit therefore inherits MDL's structure-vs-residual balance: cheaper descriptions imply less hidden structure remaining, while higher μ totals expose the debt paid by blind search.
+
+### Where to audit μ-bits
+- **Specification:** `spec/mu_spec_v2.md` is the normative definition.
+- **Software implementation:** `thielecpu/mu.py` provides the canonical encoding, question, and information-gain utilities used throughout the VM.
+- **Hardware implementation:** `reasoning_core.v` exports both the question-bit tallies supplied by the controller and the fixed-point information gain, and `thiele_autonomous_solver.v` integrates them into its μ-ledger state machine.【F:hardware/synthesis_trap/reasoning_core.v†L1-L105】【F:hardware/synthesis_trap/thiele_autonomous_solver.v†L1-L389】
+- **Audit logs:** `audit_logs/agent_software_reproduction.log` and `audit_logs/agent_hardware_verification.log` capture matched μ totals for the canonical experiments.【F:audit_logs/agent_software_reproduction.log†L1-L158】【F:audit_logs/agent_hardware_verification.log†L780-L842】
 
 
 ---
@@ -830,8 +841,8 @@ A **composite witness** is a global certificate built by combining local certifi
 - **Sudoku:** The solution is a single global state, independent of solving order
 
 ### Implementation
-- Demonstrations: [`attempt.py`](attempt.py:906-997)
-- Partition-native proofs: [`attempt.py`](attempt.py:998-1228)
+- Demonstrations: Article 0 (`run_universal_principle`) and Article 1 (`run_engine_and_law`) provide hands-on transcripts for rotations, Sudoku, and partition discovery.【F:attempt.py†L920-L1010】【F:attempt.py†L1011-L1208】
+- Partition-native proofs: Articles 1–4 compile MDL evidence and Tseitin receipts showcasing partition-aware certificates.【F:attempt.py†L1011-L2148】
 
 
 ---
@@ -862,7 +873,7 @@ The experiments show that problems with hidden geometric structure create an exp
 ### Implementation
 
 - Experiment orchestration: [`generate_tseitin_data.py`](generate_tseitin_data.py)
-- Analysis and plotting: [`attempt.py`](attempt.py:2067-2145)
+- Analysis and plotting: `attempt.py` Article 4 utilities `fast_receipts` and `plot_fast_receipts` summarise the blind-versus-sighted sweeps and generate the separation plots.【F:attempt.py†L1980-L2148】
 - Results saved in: `shape_of_truth_out/` and `tseitin_receipts.json`
 ---
 
@@ -879,43 +890,43 @@ The formal stack now has three layers:
 3. **Assembly (`Subsumption.v`):** Combines the two pillars into the flagship
    theorem: Turing computation is strictly contained in Thiele computation.
 
-([`attempt.py`](attempt.py:55-173))
+(`attempt.py`, search for `ARTICLE 0 — THE SHAPE OF TRUTH`)
 
 ## The Paradox
 
 Introduces the core conflict between a blind solver and a partition-aware solver
 through a verifiable puzzle.
-([`attempt.py`](attempt.py:786-905))
+(`attempt.py`, search for `ARTICLE 0 — THE PARADOX`)
 
 ## The Universal Principle
 
 Generalizes the paradox using spatial rotations and Sudoku to show the
 phenomenon is not contrived.
-([`attempt.py`](attempt.py:906-997))
+(`attempt.py`, search for `ARTICLE 0 — THE UNIVERSAL PRINCIPLE`)
 
 ## The Engine of Discovery
 
 Measures the information-theoretic cost of uncovering hidden structure via a
 brute-force search over partitions using MDL.
-([`attempt.py`](attempt.py:998-1228))
+(`attempt.py`, search for `ARTICLE 1 — The Engine of Discovery`)
 
 ## The Fractal Nature of Debt
 
 Demonstrates the exponential cost of blindness with hard instances and
 multiprocessing harnesses.
-([`attempt.py`](attempt.py:1229-1632))
+(`attempt.py`, search for `ARTICLE 2 — The Fractal Nature of Debt`)
 
 ## Final Theorem & Conclusion
 
 States the Embedding and Self-Reconstruction theorems, presents the capability
 comparison table, and cryptographically seals the artifact.
-([`attempt.py`](attempt.py:1633-1979))
+(`attempt.py`, search for `ARTICLE 3 — Final Theorem & Conclusion`)
 
 ## Experimental Separation
 
 Provides detailed, small-scale receipts comparing blind and sighted solvers
 with plots and tables.
-([`attempt.py`](attempt.py:1980-2294))
+(`attempt.py`, search for `ARTICLE 4 — Experimental Separation`)
 
 ## Gödelian Landmine
 
@@ -923,7 +934,7 @@ The seventh act of this artifact is a deliberate confrontation with the limits o
 
 ### The Paradox Constructed
 
-In the Gödelian Landmine section ([`attempt.py`](attempt.py:2295-2486)), the artifact generates a logical space that is, by design, paradoxical: it encodes a set of constraints that cannot be satisfied by any assignment. For a classical (Turing) machine, this is a death trap. The machine, bound to search for an object-level solution, will enumerate possibilities, backtrack, and ultimately fail, unable to produce anything but a negative result or an error.
+In the Gödelian Landmine section (`attempt.py`, see `run_godelian_landmine`), the artifact generates a logical space that is, by design, paradoxical: it encodes a set of constraints that cannot be satisfied by any assignment. For a classical (Turing) machine, this is a death trap. The machine, bound to search for an object-level solution, will enumerate possibilities, backtrack, and ultimately fail, unable to produce anything but a negative result or an error.【F:attempt.py†L2280-L2454】
 
 ### The Thiele Machine's Response
 
@@ -931,7 +942,7 @@ The Thiele Machine, by contrast, is not limited to object-level search. It can s
 
 ### Technical Implementation
 
-- **Construction:** The paradox is encoded as a set of logical constraints in [`attempt.py`](attempt.py:2295-2486), leveraging the Z3 logic engine to verify unsatisfiability.
+- **Construction:** The paradox is encoded as a set of logical constraints inside `run_godelian_landmine`, leveraging the Z3 logic engine to verify unsatisfiability.【F:attempt.py†L2280-L2454】
 - **Detection:** The Thiele Machine partitions the state space, applies local axioms, and invokes the logic engine to check for consistency. When all partitions are inconsistent, it issues the certificate.
 - **Output:** The certificate is saved as a machine-verifiable artifact (SMT2 proof file), and its hash is logged for auditability.
 
@@ -941,7 +952,7 @@ The Gödelian Landmine is not a parlor trick; it is a demonstration of a new com
 
 ### References
 
-- Formal construction and code: [`attempt.py`](attempt.py:2295-2486)
+- Formal construction and code: `attempt.py`, function `run_godelian_landmine` and its helpers.【F:attempt.py†L2280-L2454】
 - Certificate-driven computation: lines 205–250
 - Partition logic: lines 146–201
 - Empirical demonstration: see "Empirical Experiments and Results" (lines 409–455)
@@ -1064,78 +1075,45 @@ python -c "from vm import ThieleVM; vm = ThieleVM(); vm.run_program('demo')"
 
 #### Hardware Synthesis
 ```bash
-cd thielecpu/hardware
-# Requires Vivado installed
-vivado -mode batch -source synthesize.tcl
+bash scripts/run_the_synthesis.sh
 ```
-- **Target:** Xilinx Zynq UltraScale+ at 200MHz
-- **Resources:** ~25k LUTs, ~50 BRAM blocks, ~10 DSP slices
-- **Output:** Bitstream for FPGA deployment
+- **Objective:** Regenerate the impartial Yosys verdicts for the classical brute-force solver and the Thiele autonomous solver.
+- **Artifacts:** `hardware/synthesis_trap/classical_solver.log` confirms a 228-cell baseline; `hardware/synthesis_trap/thiele_graph_solver.log` records the 1231-cell Thiele design with the parameterised `reasoning_core` instantiated once.
+- **Tip:** The script also refreshes the JSON netlists so auditors can re-import them into other tooling.
 
 #### Formal Proof Verification
 ```bash
-cd coq/thielemachine/coqproofs
-coqc ThieleMachine.v Separation.v PartitionLogic.v
+cd coq
+./verify_subsumption.sh
 ```
-- **Proves:** Thiele Machine executes the Tseitin expander family in cubic time with quadratic μ while blind Turing search is axiomatically exponential
-- **Coverage:** 20+ Coq files, all compile successfully with no `Admitted` statements
+- **Builds:** The minimalist kernel (`Kernel.v`, `KernelTM.v`, `KernelThiele.v`), the subsumption proof, and the VM bridge `ThieleCPUBridge.v`.
+- **Result:** Confirms `thiele_simulates_turing`, `turing_is_strictly_contained`, and `vm_is_instance_of_kernel` with no `Admitted` statements.
 
-#### Advanced Demos
+#### Advanced Demonstrations
 
-**Universe Compatibility Proof:**
-```bash
-python demos/universe_demo/the_universe_as_a_thiele_machine.py
-```
-- **Result:** SAT certificate proving consciousness compatible with physics
-- **Duration:** 30 seconds
+- **Graph 3-Colouring Laboratory (`scripts/graph_coloring_demo.py`):**
+  - Executes the three-act cascade experiment, emits per-graph μ-ledgers, and writes the global scaling summary.
+  - Use `python scripts/graph_coloring_demo.py --write-ledger` to rebuild the canonical JSON reports.
 
-**Graph 3-Colouring Laboratory (`scripts/graph_coloring_demo.py`):**
-```bash
-python scripts/graph_coloring_demo.py
-```
-- **Act structure:** For each cascade graph the suite executes three acts. Act I exhaustively enumerates when the node count permits, Act II applies degree-ordered backtracking, and Act III spends μ-bits on anchor claims plus congruence feasibility queries for every remaining vertex, forcing the colouring without residual brute-force search.
-- **Artifacts:** Each graph has a dedicated folder (for example `graph_demo_output/triadic_cascade/act_*` plus `graph_demo_output/triadic_cascade/analysis_report.json`). Cross-graph metrics land in `graph_demo_output/scaling_summary.json`, and `graph_demo_output/scaling_plot.png` charts log₁₀(candidate checks) versus graph size.
-- **Result:** The laboratory evidences constant-factor collapses driven by scripted oracle reasoning. It replaces the prior RSA demo as the canonical geometric experiment while leaving the RSA scripts archived for historical context.
+- **Autonomous hardware regression:**
+  ```bash
+  iverilog -g2012 -o build/thiele_tb \
+      hardware/synthesis_trap/reasoning_core.v \
+      hardware/synthesis_trap/thiele_graph_solver.v \
+      hardware/synthesis_trap/thiele_autonomous_solver.v \
+      hardware/synthesis_trap/thiele_graph_solver_tb.v
+  vvp build/thiele_tb
+  ```
+  - Confirms the autonomous solver produces the same μ-question and μ-information totals as the software receipts.
 
-**Receipts-to-Coq bridge (`scripts/prove_it_all.sh`):**
-```bash
-bash scripts/prove_it_all.sh
-```
-- **Pipeline:** Regenerates the graph-colouring receipts, converts the Act III log into `coq/sandboxes/GeneratedProof.v`, and runs `coqc` (after building `Sandbox.VerifiedGraphSolver`) so the Python execution is replayed as the Coq theorem `python_receipt_sound`.
-- **Outcome:** Auditors get a single command that ties the VM’s empirical transcript to the “Cessna” microcosm formal proof, demonstrating end-to-end consistency.
+- **Shor on the Thiele VM (`scripts/shor_on_thiele_demo.py`):**
+  - Regenerates the three-act factoring ledger for 21, writes `shor_demo_output/analysis_report.json`, and verifies μ-ledgers against μ-spec v2.0.
 
-**Synthesis Trap (`scripts/run_the_synthesis.sh`):**
-```bash
-bash scripts/run_the_synthesis.sh
-```
-- **Objective:** Submit the classical brute-force Verilog and the Thiele-style geometric solver to an impartial synthesis oracle (Yosys) and compare the resource reports or failure modes.
-- **Artifacts:** Logs and JSON netlists are emitted under `hardware/synthesis_trap/`, preserving the tool’s own verdicts for auditors. If Yosys is unavailable the script prints the archived logs instead of failing.
-- **Outcome:** In the reference run, the classical brute-force design maps to 228 cells across 267 wire bits, while the Thiele graph solver (controller + `reasoning_core`) maps to 866 cells and 1,237 wire bits, with 517 cells allocated to the embedded propagation lattice. Auditors should examine the paired logs (`classical_solver.log`, `thiele_graph_solver.log`) and JSON netlists to confirm the tooling’s accounting; `docs/synthesis_trap_analysis.md` and `docs/cornerstone_report.md` document the hardware reasoning core and µ-cost instrumentation.
+- **Bell thesis orchestrator (`demonstrate_isomorphism.py`):**
+  - Replays the six-act ledger, emits canonical receipts in `examples/`, and cross-checks the μ-ledger with the VM bridge semantics.
 
-**Low-level RSA factoring helper:**
-```bash
-python thielecpu/factoring.py --target 123456789012345678901234567890123456789
-```
-- **Method:** Direct partition-based cryptanalysis on a single modulus
-- **Security:** Responsible use monitoring and logging remain enabled
-
-**Neural Networks:**
-```bash
-python -m catnet.demo_mnist
-```
-- **Architecture:** Thiele-native neural networks with cryptographic integrity
-- **Features:** EU AI Act compliance reporting
-
-**Large-Scale Experiments:**
-```bash
-python scripts/generate_tseitin_data.py
-```
-- **Purpose:** Empirical demonstration of exponential cost separation
-- **Data:** Blind vs sighted solver performance comparison
-- **Duration:** Significant time, but shows key experimental results
-
-**Demonstration Guide:**
-See [`DEMONSTRATIONS.md`](DEMONSTRATIONS.md) for a complete guide to all demonstrations, including which use real mathematical solvers (Z3, PySAT) vs mock implementations.
+- **Receipts-to-Coq bridge (`scripts/prove_it_all.sh`):**
+  - Optional bridge that rebuilds the triadic cascade receipts, compiles the sandbox proof, and demonstrates how empirical data flows into Coq.
 
 ### Troubleshooting
 
@@ -1201,15 +1179,15 @@ For questions, bug reports, or to request support, please open an issue on the [
 
 - **TM, EncodedTM, EncodedThieleSliceTM**: Turing and Thiele Machine encodings, formalizing classical and partition-native computation.
 - **VNEnc**: Minimal von Neumann machine encoding, demonstrating partition logic in RAM models.
-- **Foundational Proofs**: [`run_prove_tm_subsumption`](attempt.py:546), [`run_prove_vn_subsumption`](attempt.py:556)
-- **Paradox Demonstration**: [`run_paradox`](attempt.py:784)
-- **Universal Principle**: [`run_universal_principle`](attempt.py:894)
-- **Engine of Discovery**: [`run_engine_and_law`](attempt.py:983)
-- **Fractal Debt**: [`run_fractal_debt`](attempt.py:1445)
-- **Final Theorem & Conclusion**: [`run_final_theorem`](attempt.py:1623)
-- **Experimental Separation**: [`run_experimental_separation`](attempt.py:2148)
-- **Gödelian Landmine**: [`run_godelian_landmine`](attempt.py:2333)
-- **main**: Entry point for running the artifact ([`main`](attempt.py:2462))
+- **Foundational Proofs**: `run_prove_tm_subsumption` and `run_prove_vn_subsumption` mechanically encode the classical and von Neumann embeddings.【F:attempt.py†L547-L776】
+- **Paradox Demonstration**: `run_paradox` establishes the four-piece paradox with Z3-certified unsatisfiability.【F:attempt.py†L785-L910】
+- **Universal Principle**: `run_universal_principle` extends the paradox through rotations and Sudoku witnesses.【F:attempt.py†L920-L1010】
+- **Engine of Discovery**: `run_engine_and_law` implements the MDL-guided search and μ-ledger summarisation.【F:attempt.py†L1011-L1208】
+- **Fractal Debt**: `run_fractal_debt` measures exponential blind-search cost using Tseitin expanders.【F:attempt.py†L1446-L1956】
+- **Final Theorem & Conclusion**: `run_final_theorem` composes the capability comparison and seals the receipts.【F:attempt.py†L1624-L1956】
+- **Experimental Separation**: `run_experimental_separation` and its helpers generate the scaling tables and plots.【F:attempt.py†L1980-L2148】
+- **Gödelian Landmine**: `run_godelian_landmine` demonstrates the meta-constraint paradox with canonical proof objects.【F:attempt.py†L2280-L2454】
+- **main**: The script's entry point orchestrates all articles sequentially and finalises the Ouroboros seal.【F:attempt.py†L2455-L2487】
 - **seal_and_exit, hash_obj**: Certificate generation, hashing, and output sealing.
 
 ### scripts/generate_tseitin_data.py

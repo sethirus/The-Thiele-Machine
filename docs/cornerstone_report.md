@@ -1,39 +1,61 @@
-# Operation Cornerstone: Hardware Reasoning Core Summary
+# Operation Cornerstone: Autonomous Hardware Oracle Report
 
-## Overview
-Operation Cornerstone replaces the archived residue-mask latch with a hardware stack that performs the nine-node `triadic_cascade` deduction inside the FPGA/ASIC fabric. The implementation spans three artefacts:
+## Executive Summary
+Cornerstone now culminates in a self-contained hardware oracle.  The
+parameterised `reasoning_core` performs combinational constraint propagation,
+and the sequential controllers have been unified: the historical scripted solver
+remains for comparison, while `thiele_autonomous_solver.v` performs its own
+search, backtracking, and μ-ledger accumulation on chip.  The μ-spec v2.0 metrics
+reported by the hardware match the Python laboratory exactly, completing the
+hardware pillar of the thesis.
 
-1. `hardware/synthesis_trap/reasoning_core.v` — a combinational propagation lattice that evaluates neighbour constraints, eliminates conflicting colours, records a legacy µ-cost activity metric, and reports newly forced vertices.
-2. `hardware/synthesis_trap/thiele_graph_solver.v` — a sequential controller that asserts anchor claims, iterates the reasoning core until convergence, applies forced colours, and accumulates the µ-cost register alongside the packed colouring.
-3. `coq/modular_proofs/CornerstoneThiele.v` — a Coq formalisation that mirrors the Verilog state machine, proves that the classical enumerator requires 3,786 candidate checks, and establishes that the hardware solver reaches the unique colouring with the same 23-count heuristic in nine cycles.
+## Reasoning Fabric (`reasoning_core.v`)
+* Accepts runtime-programmable adjacency matrices and per-node μ-question costs.
+* Emits forced masks, validity flags, legacy activity counts, and μ-spec v2.0
+  question/information gains for every propagation step.【F:hardware/synthesis_trap/reasoning_core.v†L14-L132】
+* Instantiated by both controllers without modification, enabling solver choice
+  at synthesis time.
 
-A Verilog testbench (`thiele_graph_solver_tb.v`) and the updated synthesis harness (`scripts/run_the_synthesis.sh`) exercise the design, regenerate the Yosys netlists, and demonstrate that the µ-cost is measured by gate activity rather than a hand-authored constant.
+## Scripted Solver (`thiele_graph_solver.v`)
+The historical controller asserts the anchor claims and iterates the reasoning
+fabric until convergence, updating the packed colouring and μ-ledger registers.
+It remains in the repository as a baseline for auditors comparing against the new
+autonomous design.【F:hardware/synthesis_trap/thiele_graph_solver.v†L1-L192】
 
-## Hardware Results
-- `reasoning_core.v` exposes a 27-bit mask input (three one-hot colour bits per vertex) and produces:
-  - `forced_masks`: the updated masks for forced vertices,
-  - `force_valid`: a nine-bit flag identifying which vertices collapsed to a single colour,
-  - `activity_count`: the physical µ-cost contribution (eliminated colours plus bookkeeping).
-- `thiele_graph_solver.v` uses the core to colour the graph in three propagation rounds after asserting the red/green anchors. The µ-cost accumulator reaches 23 under the hardware's combinational activity model (two anchor claims plus seven forced nodes × (removed colours + 1)). This differs from the μ-spec v2.0 cost used by the Python experiment (≈1302.26 μ-bits).【F:hardware/synthesis_trap/reasoning_core.v†L117-L162】【F:hardware/synthesis_trap/thiele_graph_solver.v†L138-L176】【F:graph_demo_output/triadic_cascade/analysis_report.json†L13-L40】
-- `thiele_graph_solver_tb.v` (run with `iverilog -g2012` followed by `vvp`) confirms that the solver reports the expected colouring (`0x24924`) and µ-cost (`23`).
-- `scripts/run_the_synthesis.sh` rebuilds the classical baseline and the new Thiele design. Yosys reports:
-  - **Classical solver:** 228 cells, 267 wire bits (unchanged).
-  - **Thiele graph solver:** 866 cells, 1,237 wire bits with 517 cells inside `reasoning_core`, highlighting that the reasoning lattice is now an explicit physical structure.【F:hardware/synthesis_trap/thiele_graph_solver.log†L74-L112】
+## Autonomous Solver (`thiele_autonomous_solver.v`)
+* Accepts the same adjacency matrix and question-bit parameters as the scripted
+  solver.
+* Implements chronological backtracking: after propagation stalls, it selects a
+  node, speculatively commits a colour, and retreats on conflict.
+* Accumulates μ-question bits, μ-information gain (Q16), μ-total (Q16), and the
+  legacy activity counter entirely in hardware while tracking decision depth and
+  backtrack count.【F:hardware/synthesis_trap/thiele_autonomous_solver.v†L1-L200】
 
-## Formal Results
-`coq/modular_proofs/CornerstoneThiele.v` instantiates the same stage machine used in Verilog:
+## Unified Testbench (`thiele_graph_solver_tb.v`)
+The dual-solver testbench exercises both controllers against the triadic cascade
+instance.  It enforces the legacy activity target (23), the μ-question total
+(1,288 bits), the information gain (934,848 Q16), and the combined μ-total
+(85,345,216 Q16) for both implementations, ensuring exact agreement with the
+Python receipts.【F:hardware/synthesis_trap/thiele_graph_solver_tb.v†L129-L179】
 
-- `transition` mirrors the `thiele_graph_solver` state updates (IDLE → CLAIM → PROPAGATE → UPDATE → FINISHED).
-- `reasoning_core` implements the same mask eliminations, forced-node detection, and µ-cost arithmetic as the hardware lattice.
-- `classical_is_slow` evaluates the base-3 enumerator and confirms that the classical controller needs 3,786 candidates before hitting the valid colouring.
-- `thiele_is_fast` and `thiele_pays_the_cost` prove that a nine-cycle input trace leads to the finished state with µ-cost 23 under the legacy counting scheme mirrored by the hardware model.
+## Synthesis Results
+Running Yosys with SystemVerilog support confirms the resource profile of the
+hardware oracle:
 
-Running `coqc modular_proofs/CornerstoneThiele.v` after the standard repository setup reproduces these results without additional admits or axioms.
+| Design | Wires | Cells |
+| --- | --- | --- |
+| Classical brute-force solver | 179 | 228 |
+| Thiele graph solver (including reasoning core) | 918 | 1,231 |
+
+Detailed statistics are recorded in `audit_logs/agent_hardware_verification.log`
+for independent inspection.【F:audit_logs/agent_hardware_verification.log†L780-L809】【F:audit_logs/agent_hardware_verification.log†L4238-L4275】
 
 ## Reproduction Checklist
-1. Install Yosys, Icarus Verilog, and Coq per the root `AGENTS.md` instructions (`sudo apt-get install -y yosys iverilog coq`).
-2. Regenerate the synthesis artefacts: `bash scripts/run_the_synthesis.sh`.
-3. Simulate the solver: `iverilog -g2012 -o build/thiele_tb hardware/synthesis_trap/reasoning_core.v hardware/synthesis_trap/thiele_graph_solver.v hardware/synthesis_trap/thiele_graph_solver_tb.v && vvp build/thiele_tb`.
-4. Recheck the formal model: `cd coq && coqc modular_proofs/CornerstoneThiele.v`.
+1. Install Yosys and Icarus Verilog (`apt-get install -y yosys iverilog`).
+2. Run `scripts/run_the_synthesis.sh` to rebuild both designs (Yosys ≥ 0.33
+   accepts the SystemVerilog sources via `read_verilog -sv`).
+3. Simulate with `iverilog -g2012` and `vvp build/thiele_tb` to verify the μ-ledger
+   assertions.
 
-Each step produces deterministic outputs that align with the values referenced in this report, providing a self-contained audit trail for the new hardware reasoning core.
+The autonomous solver, scripted solver, and reasoning fabric now constitute a
+single, auditable hardware oracle aligned with μ-spec v2.0 and the Python VM.
