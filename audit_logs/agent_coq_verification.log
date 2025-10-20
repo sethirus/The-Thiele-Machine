@@ -1,318 +1,335 @@
-Warning: No common logical root.
-Warning: In this case the -docroot option should be given.
-Warning: Otherwise the install-doc target is going to install files
-Warning: in orphan_ThieleMachine_CatNet_Isomorphism_P_equals_NP_Thiele_ProjectCerberus_TestVSCoq_ThieleMachine.Modular_Proofs_ShorPrimitives_Sandbox_Kernel
+make: Entering directory '/workspace/The-Thiele-Machine/coq'
 CLEAN
+make: Leaving directory '/workspace/The-Thiele-Machine/coq'
+make: Entering directory '/workspace/The-Thiele-Machine/coq'
 COQDEP VFILES
-*** Warning: in file thielemachine/coqproofs/Impossibility.v, library TM is required from root ThieleUniversal and has not been found in the loadpath!
-*** Warning: in file thielemachine/coqproofs/Simulation.v, library TM is required from root ThieleUniversal and has not been found in the loadpath!
-*** Warning: in file thielemachine/coqproofs/Simulation.v, library UTM_Rules is required from root ThieleUniversal and has not been found in the loadpath!
-*** Warning: in file thielemachine/coqproofs/Simulation.v, library CPU is required from root ThieleUniversal and has not been found in the loadpath!
-*** Warning: in file thielemachine/coqproofs/Simulation.v, library UTM_Program is required from root ThieleUniversal and has not been found in the loadpath!
-*** Warning: in file thielemachine/coqproofs/Simulation.v, library ThieleUniversal is required from root ThieleUniversal and has not been found in the loadpath!
-*** Warning: in file thielemachine/coqproofs/Simulation.v, library UTM_Encode is required from root ThieleUniversal and has not been found in the loadpath!
-*** Warning: in file thielemachine/coqproofs/Subsumption.v, library TM is required from root ThieleUniversal and has not been found in the loadpath!
-*** Warning: in file thielemachine/coqproofs/EncodingBridge.v, library TM is required from root ThieleUniversal and has not been found in the loadpath!
+COQC catnet/coqproofs/CatNet.v
+COQC isomorphism/coqproofs/Universe.v
+COQC kernel/Kernel.v
+COQC kernel/KernelTM.v
+COQC kernel/KernelThiele.v
+COQC kernel/Subsumption.v
+COQC kernel/ThieleCPUBridge.v
+COQC modular_proofs/CornerstoneThiele.v
+COQC modular_proofs/EncodingBounds.v
+COQC modular_proofs/Encoding.v
+COQC modular_proofs/Minsky.v
+COQC modular_proofs/TM_Basics.v
+COQC modular_proofs/Thiele_Basics.v
+COQC modular_proofs/Simulation.v
+COQC p_equals_np_thiele/proof.v
+COQC project_cerberus/coqproofs/Cerberus.v
+COQC sandboxes/EncodingMini.v
+COQC sandboxes/VerifiedGraphSolver.v
+COQC sandboxes/GeneratedProof.v
+COQC sandboxes/ToyThieleMachine.v
+COQC shor_primitives/Modular.v
+COQC shor_primitives/Euclidean.v
+COQC shor_primitives/PeriodFinding.v
+COQC test_vscoq/coqproofs/test_vscoq.v
+COQC thielemachine/coqproofs/AmortizedAnalysis.v
 COQC thielemachine/coqproofs/Axioms.v
-COQC thielemachine/coqproofs/QHelpers.v
-COQC thielemachine/coqproofs/ListHelpers.v
 COQC thielemachine/coqproofs/ThieleMachineConcrete.v
+COQC thielemachine/coqproofs/QHelpers.v
 COQC thielemachine/coqproofs/BellInequality.v
-COQC thielemachine/coqproofs/Impossibility.v
-File "./thielemachine/coqproofs/Impossibility.v", line 8, characters 0-39:
-Error: Cannot find a physical path bound to logical path
-TM with prefix ThieleUniversal.
+COQC thielemachine/coqproofs/Bisimulation.v
+COQC thielemachine/coqproofs/SpecSound.v
+COQC thielemachine/coqproofs/Confluence.v
+COQC thielemachine/coqproofs/ListHelpers.v
+COQC thielemachine/coqproofs/NUSD.v
+COQC thielemachine/coqproofs/PartitionLogic.v
+COQC thielemachine/coqproofs/StructuredInstances.v
+COQC thielemachine/coqproofs/ThieleMachine.v
+COQC thielemachine/coqproofs/ThieleMachineConcretePack.v
+COQC thielemachine/coqproofs/ThieleMachineModular.v
+COQC thielemachine/coqproofs/ThieleMachineSig.v
+COQC thielemachine/coqproofs/ThieleMachineUniv.v
+make: Leaving directory '/workspace/The-Thiele-Machine/coq'
+make: Entering directory '/workspace/The-Thiele-Machine/coq'
+make[1]: Nothing to be done for 'real-all'.
+make: Leaving directory '/workspace/The-Thiele-Machine/coq'
+make: Entering directory '/workspace/The-Thiele-Machine/coq'
+COQDEP VFILES
+COQC catnet/coqproofs/CatNet.v
+COQC isomorphism/coqproofs/Universe.v
+COQC kernel/Kernel.v
+COQC kernel/KernelTM.v
+COQC kernel/KernelThiele.v
+COQC kernel/Subsumption.v
+COQC kernel/VMState.v
+COQC kernel/VMStep.v
+COQC kernel/SimulationProof.v
+COQC kernel/ThieleCPUBridge.v
+COQC modular_proofs/CornerstoneThiele.v
+COQC modular_proofs/EncodingBounds.v
+COQC modular_proofs/Encoding.v
+COQC modular_proofs/Minsky.v
+COQC modular_proofs/TM_Basics.v
+COQC modular_proofs/Thiele_Basics.v
+COQC modular_proofs/Simulation.v
+COQC p_equals_np_thiele/proof.v
+COQC project_cerberus/coqproofs/Cerberus.v
+COQC sandboxes/EncodingMini.v
+COQC sandboxes/VerifiedGraphSolver.v
+COQC sandboxes/GeneratedProof.v
+COQC sandboxes/ToyThieleMachine.v
+COQC shor_primitives/Modular.v
+COQC shor_primitives/Euclidean.v
+COQC shor_primitives/PeriodFinding.v
+COQC test_vscoq/coqproofs/test_vscoq.v
+COQC thielemachine/coqproofs/AmortizedAnalysis.v
+COQC thielemachine/coqproofs/Axioms.v
+COQC thielemachine/coqproofs/ThieleMachineConcrete.v
+COQC thielemachine/coqproofs/QHelpers.v
+COQC thielemachine/coqproofs/BellInequality.v
+COQC thielemachine/coqproofs/Bisimulation.v
+COQC thielemachine/coqproofs/SpecSound.v
+COQC thielemachine/coqproofs/Confluence.v
+COQC thielemachine/coqproofs/ListHelpers.v
+COQC thielemachine/coqproofs/NUSD.v
+COQC thielemachine/coqproofs/PartitionLogic.v
+COQC thielemachine/coqproofs/StructuredInstances.v
+COQC thielemachine/coqproofs/ThieleMachine.v
+COQC thielemachine/coqproofs/ThieleMachineConcretePack.v
+COQC thielemachine/coqproofs/ThieleMachineModular.v
+COQC thielemachine/coqproofs/ThieleMachineSig.v
+COQC thielemachine/coqproofs/ThieleMachineUniv.v
+make: Leaving directory '/workspace/The-Thiele-Machine/coq'
+# Build transcript 2025-10-20T04:39:06Z
+COQDEP VFILES
+COQC catnet/coqproofs/CatNet.v
+COQC isomorphism/coqproofs/Universe.v
+COQC kernel/Kernel.v
+COQC kernel/KernelTM.v
+COQC kernel/KernelThiele.v
+COQC kernel/Subsumption.v
+COQC kernel/VMState.v
+COQC kernel/VMStep.v
+COQC kernel/SimulationProof.v
+COQC modular_proofs/CornerstoneThiele.v
+COQC modular_proofs/EncodingBounds.v
+COQC modular_proofs/Encoding.v
+COQC modular_proofs/Minsky.v
+COQC modular_proofs/TM_Basics.v
+COQC modular_proofs/Thiele_Basics.v
+COQC modular_proofs/Simulation.v
+COQC p_equals_np_thiele/proof.v
+COQC project_cerberus/coqproofs/Cerberus.v
+COQC sandboxes/EncodingMini.v
+COQC sandboxes/VerifiedGraphSolver.v
+COQC sandboxes/GeneratedProof.v
+COQC sandboxes/ToyThieleMachine.v
+COQC shor_primitives/Modular.v
+COQC shor_primitives/Euclidean.v
+COQC shor_primitives/PeriodFinding.v
+COQC test_vscoq/coqproofs/test_vscoq.v
+COQC thielemachine/coqproofs/AmortizedAnalysis.v
+COQC thielemachine/coqproofs/Axioms.v
+COQC thielemachine/coqproofs/ThieleMachineConcrete.v
+COQC thielemachine/coqproofs/QHelpers.v
+COQC thielemachine/coqproofs/BellInequality.v
+COQC thielemachine/coqproofs/Bisimulation.v
+COQC thielemachine/coqproofs/SpecSound.v
+COQC thielemachine/coqproofs/Confluence.v
+COQC thielemachine/coqproofs/ListHelpers.v
+COQC thielemachine/coqproofs/NUSD.v
+COQC thielemachine/coqproofs/PartitionLogic.v
+COQC thielemachine/coqproofs/StructuredInstances.v
+COQC thielemachine/coqproofs/ThieleMachine.v
+COQC thielemachine/coqproofs/ThieleMachineConcretePack.v
+COQC thielemachine/coqproofs/ThieleMachineModular.v
+COQC thielemachine/coqproofs/ThieleMachineSig.v
+COQC thielemachine/coqproofs/ThieleMachineUniv.v
 
-make[1]: *** [Makefile:838: thielemachine/coqproofs/Impossibility.vo] Error 1
-make[1]: *** [thielemachine/coqproofs/Impossibility.vo] Deleting file 'thielemachine/coqproofs/Impossibility.glob'
-make: *** [Makefile:409: all] Error 2
-Chars 0 - 49 [From~Coq~Require~Import~List~B...] 0.457 secs (0.274u,0.182s)
-Chars 50 - 71 [Import~ListNotations.] 0.001 secs (0.u,0.s)
-Chars 73 - 161 [Record~state~:={~~~~~~~~~~~~~~...] 0.025 secs (0.012u,0.012s)
-Chars 163 - 203 [Inductive~direction~:=~~~|~DLe...] 0.004 secs (0.u,0.004s)
-Chars 205 - 345 [Inductive~instruction~:=~~~|~T...] 0.011 secs (0.007u,0.003s)
-Chars 347 - 386 [Definition~program~:=~list~ins...] 0.001 secs (0.001u,0.s)
-Chars 388 - 465 [Definition~read_cell~(t~:~list...] 0.003 secs (0.002u,0.s)
-Chars 467 - 686 [Fixpoint~set_nth~(n~:~nat)~(b~...] 0.012 secs (0.001u,0.01s)
-Chars 688 - 782 [Definition~write_cell~(t~:~lis...] 0.003 secs (0.001u,0.001s)
-Chars 784 - 945 [Definition~ensure_length~(t~:~...] 0.006 secs (0.003u,0.003s)
-Chars 947 - 1083 [Definition~move_left~(t~:~list...] 0.009 secs (0.006u,0.002s)
-Chars 1085 - 1220 [Definition~move_right~(t~:~lis...] 0.005 secs (0.005u,0.s)
-Chars 1222 - 1306 [Definition~claim_tape_zero~(t~...] 0.002 secs (0.002u,0.s)
-Chars 1308 - 1470 [Definition~update_state~(st~:~...] 0.004 secs (0.u,0.003s)
-Chars 1472 - 1606 [Definition~turing_instruction~...] 0.003 secs (0.003u,0.s)
-Chars 1608 - 1719 [Definition~program_is_turing~(...] 0.002 secs (0.u,0.002s)
-Chars 0 - 49 [From~Coq~Require~Import~List~B...] 0.427 secs (0.307u,0.119s)
-Chars 50 - 71 [Import~ListNotations.] 0.001 secs (0.001u,0.s)
-Chars 73 - 102 [Require~Import~Kernel.Kernel.] 0.005 secs (0.001u,0.003s)
-Chars 104 - 259 [Definition~fetch~(prog~:~progr...] 0.005 secs (0.005u,0.s)
-Chars 261 - 1074 [Definition~step_tm~(prog~:~pro...] 0.016 secs (0.005u,0.01s)
-Chars 1076 - 1308 [Fixpoint~run_tm~(fuel~:~nat)~(...] 0.007 secs (0.003u,0.003s)
-Chars 1310 - 1401 [Record~TuringMachine~:={~~~~~~...] 0.018 secs (0.013u,0.005s)
-Chars 1403 - 1476 [Definition~initial_state_for~(...] 0.001 secs (0.001u,0.s)
-Chars 1477 - 1587 [Definition~final_state_for~(M~...] 0.002 secs (0.002u,0.s)
-Chars 1589 - 1747 [Theorem~tm_is_turing_complete~...] 0.002 secs (0.u,0.002s)
-Chars 1748 - 1754 [Proof.] 0.001 secs (0.u,0.001s)
-Chars 1757 - 1766 [(intros~M).] 0.002 secs (0.u,0.002s)
-Chars 1769 - 1791 [exists~(tm_program~M).] 0.002 secs (0.002u,0.s)
-Chars 1794 - 1836 [(unfold~final_state_for,~initi...] 0.001 secs (0.u,0.s)
-Chars 1839 - 1851 [reflexivity.] 0.001 secs (0.u,0.s)
-Chars 1852 - 1856 [Qed.] 0.002 secs (0.002u,0.s)
-Chars 0 - 34 [From~Coq~Require~Import~List~B...] 0.376 secs (0.232u,0.144s)
-Chars 35 - 56 [Import~ListNotations.] 0.001 secs (0.001u,0.s)
-Chars 58 - 87 [Require~Import~Kernel.Kernel.] 0.004 secs (0.004u,0.s)
-Chars 88 - 119 [Require~Import~Kernel.KernelTM.] 0.002 secs (0.002u,0.s)
-Chars 121 - 990 [Definition~step_thiele~(prog~:...] 0.023 secs (0.02u,0.002s)
-Chars 992 - 1236 [Fixpoint~run_thiele~(fuel~:~na...] 0.008 secs (0.004u,0.004s)
-Chars 0 - 49 [From~Coq~Require~Import~List~B...] 0.407 secs (0.255u,0.151s)
-Chars 50 - 71 [Import~ListNotations.] 0.001 secs (0.u,0.001s)
-Chars 73 - 102 [Require~Import~Kernel.Kernel.] 0.003 secs (0.002u,0.001s)
-Chars 103 - 134 [Require~Import~Kernel.KernelTM.] 0.001 secs (0.001u,0.s)
-Chars 135 - 170 [Require~Import~Kernel.KernelTh...] 0.001 secs (0.001u,0.s)
-Chars 172 - 308 [Lemma~Forall_nth_error'~{A~:~T...] 0.006 secs (0.002u,0.004s)
-Chars 309 - 315 [Proof.] 0.001 secs (0.u,0.001s)
-Chars 318 - 327 [(intros~H).] 0.002 secs (0.u,0.002s)
-Chars 330 - 392 [(induction~H~as~[|~y~ys~Hy~Hys...] 0.006 secs (0.003u,0.003s)
-Chars 395 - 396 [-] 0. secs (0.u,0.s)
-Chars 397 - 424 [(destruct~n;~inversion~Hnth).] 0.012 secs (0.008u,0.004s)
-Chars 427 - 428 [-] 0. secs (0.u,0.s)
-Chars 429 - 464 [(destruct~n~as~[|~n'];~simpl~i...] 0.004 secs (0.002u,0.002s)
-Chars 469 - 470 [+] 0. secs (0.u,0.s)
-Chars 471 - 505 [(inversion~Hnth;~subst;~assump...] 0.01 secs (0.003u,0.007s)
-Chars 510 - 511 [+] 0. secs (0.u,0.s)
-Chars 512 - 540 [(apply~(IH~n'~x);~assumption).] 0.001 secs (0.u,0.s)
-Chars 541 - 545 [Qed.] 0.015 secs (0.011u,0.003s)
-Chars 547 - 662 [Lemma~fetch_turing~:~~~forall~...] 0.002 secs (0.u,0.002s)
-Chars 663 - 669 [Proof.] 0. secs (0.u,0.s)
-Chars 672 - 693 [(intros~prog~st~Hprog).] 0.001 secs (0.u,0.001s)
-Chars 696 - 709 [(unfold~fetch).] 0. secs (0.u,0.s)
-Chars 712 - 780 [(destruct~(nth_error~prog~st.(...] 0.006 secs (0.006u,0.s)
-Chars 783 - 784 [-] 0. secs (0.u,0.s)
-Chars 785 - 938 [(pose~proof~~~(@Forall_nth_err...] 0.003 secs (0.003u,0.s)
-Chars 943 - 955 [exact~Hinst.] 0. secs (0.u,0.s)
-Chars 958 - 959 [-] 0. secs (0.u,0.s)
-Chars 960 - 972 [reflexivity.] 0.001 secs (0.u,0.001s)
-Chars 973 - 977 [Qed.] 0.004 secs (0.003u,0.001s)
-Chars 979 - 1117 [Lemma~step_tm_thiele_agree~:~~...] 0.002 secs (0.u,0.002s)
-Chars 1118 - 1124 [Proof.] 0. secs (0.u,0.s)
-Chars 1127 - 1149 [(intros~prog~st~Hfetch).] 0. secs (0.u,0.s)
-Chars 1152 - 1180 [(unfold~step_tm,~step_thiele).] 0.001 secs (0.001u,0.s)
-Chars 1183 - 1237 [(destruct~(fetch~prog~st);~sim...] 0.042 secs (0.028u,0.014s)
-Chars 1240 - 1260 [discriminate~Hfetch.] 0.002 secs (0.001u,0.001s)
-Chars 1261 - 1265 [Qed.] 0.014 secs (0.01u,0.003s)
-Chars 1267 - 1404 [Theorem~thiele_simulates_turin...] 0.002 secs (0.001u,0.001s)
-Chars 1405 - 1411 [Proof.] 0. secs (0.u,0.s)
-Chars 1414 - 1472 [(induction~fuel~as~[|~fuel~IH]...] 0.006 secs (0.002u,0.003s)
-Chars 1475 - 1476 [-] 0. secs (0.u,0.s)
-Chars 1477 - 1489 [reflexivity.] 0.001 secs (0.001u,0.s)
-Chars 1492 - 1493 [-] 0. secs (0.u,0.s)
-Chars 1494 - 1540 [(pose~proof~(fetch_turing~prog...] 0.001 secs (0.001u,0.s)
-Chars 1545 - 1599 [(pose~proof~(step_tm_thiele_ag...] 0.001 secs (0.001u,0.s)
-Chars 1604 - 1649 [(remember~(fetch~prog~st)~as~i...] 0.008 secs (0.005u,0.003s)
-Chars 1654 - 1669 [(destruct~instr).] 0.009 secs (0.001u,0.008s)
-Chars 1674 - 1675 [+] 0. secs (0.u,0.s)
-Chars 1676 - 1688 [reflexivity.] 0.001 secs (0.u,0.001s)
-Chars 1693 - 1694 [+] 0. secs (0.u,0.s)
-Chars 1695 - 1707 [(simpl~in~Ht).] 0. secs (0.u,0.s)
-Chars 1714 - 1763 [specialize~(IH~prog~(step_thie...] 0.001 secs (0.001u,0.s)
-Chars 1770 - 1784 [(rewrite~Hstep).] 0.002 secs (0.001u,0.s)
-Chars 1791 - 1800 [exact~IH.] 0.001 secs (0.001u,0.s)
-Chars 1805 - 1806 [+] 0. secs (0.u,0.s)
-Chars 1807 - 1819 [(simpl~in~Ht).] 0. secs (0.u,0.s)
-Chars 1826 - 1875 [specialize~(IH~prog~(step_thie...] 0.001 secs (0.u,0.001s)
-Chars 1882 - 1896 [(rewrite~Hstep).] 0.002 secs (0.u,0.001s)
-Chars 1903 - 1912 [exact~IH.] 0. secs (0.u,0.s)
-Chars 1917 - 1918 [+] 0. secs (0.u,0.s)
-Chars 1919 - 1931 [(simpl~in~Ht).] 0. secs (0.u,0.s)
-Chars 1938 - 1987 [specialize~(IH~prog~(step_thie...] 0.001 secs (0.001u,0.s)
-Chars 1994 - 2008 [(rewrite~Hstep).] 0.002 secs (0.u,0.002s)
-Chars 2015 - 2024 [exact~IH.] 0. secs (0.u,0.s)
-Chars 2029 - 2030 [+] 0. secs (0.u,0.s)
-Chars 2031 - 2043 [(simpl~in~Ht).] 0. secs (0.u,0.s)
-Chars 2050 - 2058 [exfalso.] 0.001 secs (0.001u,0.s)
-Chars 2065 - 2106 [(pose~proof~Bool.diff_false_tr...] 0.001 secs (0.001u,0.s)
-Chars 2113 - 2130 [exact~(Hdiff~Ht).] 0.001 secs (0.u,0.s)
-Chars 2131 - 2135 [Qed.] 0.011 secs (0.003u,0.007s)
-Chars 2137 - 2196 [Definition~p_impossible~:~prog...] 0.002 secs (0.002u,0.s)
-Chars 2198 - 2319 [Definition~initial_state~:~sta...] 0.003 secs (0.u,0.003s)
-Chars 2321 - 2442 [Definition~target_state~:~stat...] 0.003 secs (0.u,0.003s)
-Chars 2444 - 2582 [Lemma~run_tm_p_impossible~:~~~...] 0.004 secs (0.u,0.004s)
-Chars 2583 - 2589 [Proof.] 0. secs (0.u,0.s)
-Chars 2592 - 2598 [(simpl).] 0.002 secs (0.002u,0.s)
-Chars 2601 - 2613 [reflexivity.] 0.001 secs (0.001u,0.s)
-Chars 2614 - 2618 [Qed.] 0.002 secs (0.u,0.002s)
-Chars 2620 - 2709 [Lemma~run_thiele_p_impossible~...] 0.002 secs (0.002u,0.s)
-Chars 2710 - 2716 [Proof.] 0. secs (0.u,0.s)
-Chars 2719 - 2725 [(simpl).] 0.002 secs (0.001u,0.s)
-Chars 2728 - 2740 [reflexivity.] 0.001 secs (0.001u,0.s)
-Chars 2741 - 2745 [Qed.] 0.001 secs (0.001u,0.s)
-Chars 2747 - 2906 [Theorem~turing_is_strictly_con...] 0.004 secs (0.001u,0.002s)
-Chars 2907 - 2913 [Proof.] 0. secs (0.u,0.s)
-Chars 2916 - 2936 [exists~p_impossible.] 0.001 secs (0.001u,0.s)
-Chars 2939 - 2945 [split.] 0.001 secs (0.001u,0.s)
-Chars 2948 - 2949 [-] 0. secs (0.u,0.s)
-Chars 2950 - 2963 [intro~Hcontr.] 0.001 secs (0.001u,0.s)
-Chars 2968 - 3006 [(rewrite~run_tm_p_impossible~i...] 0.002 secs (0.u,0.002s)
-Chars 3011 - 3031 [discriminate~Hcontr.] 0.003 secs (0.u,0.003s)
-Chars 3034 - 3035 [-] 0. secs (0.u,0.s)
-Chars 3036 - 3066 [(apply~run_thiele_p_impossible).] 0.001 secs (0.u,0.001s)
-Chars 3067 - 3071 [Qed.] 0.004 secs (0.004u,0.s)
-Chars 0 - 49 [From~Coq~Require~Import~List~B...] 0.389 secs (0.248u,0.14s)
-Chars 50 - 71 [Import~ListNotations.] 0.001 secs (0.001u,0.s)
-Chars 73 - 102 [Require~Import~Kernel.Kernel.] 0.003 secs (0.003u,0.s)
-Chars 103 - 134 [Require~Import~Kernel.KernelTM.] 0.001 secs (0.001u,0.s)
-Chars 135 - 170 [Require~Import~Kernel.KernelTh...] 0.001 secs (0.001u,0.s)
-Chars 680 - 817 [Inductive~vm_opcode~:~Type~:=~...] 0.01 secs (0.01u,0.s)
-Chars 819 - 918 [Record~vm_instruction~:~Type~:...] 0.018 secs (0.018u,0.s)
-Chars 920 - 996 [Record~vm_state~:~Type~:={~vm_...] 0.022 secs (0.01u,0.011s)
-Chars 998 - 1120 [Definition~vm_fetch~(prog~:~li...] 0.003 secs (0.u,0.003s)
-Chars 1122 - 1326 [Definition~vm_step~(instr~:~vm...] 0.004 secs (0.003u,0.s)
-Chars 1328 - 1646 [Fixpoint~run_vm~(fuel~:~nat)~(...] 0.008 secs (0.008u,0.s)
-Chars 1962 - 2117 [Definition~encode_state~(st~:~...] 0.004 secs (0.001u,0.002s)
-Chars 2119 - 2251 [Definition~decode_state~(st~:~...] 0.002 secs (0.001u,0.s)
-Chars 2253 - 2366 [Definition~compile_instruction...] 0.001 secs (0.001u,0.s)
-Chars 2368 - 2468 [Definition~compile_program~(pr...] 0.002 secs (0.u,0.002s)
-Chars 2470 - 2586 [Definition~err_free~(prog~:~li...] 0.003 secs (0.002u,0.001s)
-Chars 2588 - 2699 [Lemma~decode_encode_state_id~:...] 0.002 secs (0.002u,0.s)
-Chars 2700 - 2706 [Proof.] 0.001 secs (0.u,0.001s)
-Chars 2709 - 2733 [(intros~[pc~mu~err]~Herr).] 0.014 secs (0.006u,0.007s)
-Chars 2736 - 2750 [(simpl~in~Herr).] 0. secs (0.u,0.s)
-Chars 2753 - 2763 [subst~err.] 0.002 secs (0.u,0.002s)
-Chars 2766 - 2778 [reflexivity.] 0.002 secs (0.002u,0.s)
-Chars 2779 - 2783 [Qed.] 0.003 secs (0.u,0.002s)
-Chars 2785 - 2923 [Lemma~Forall_nth_error_vm~{A~:...] 0.005 secs (0.004u,0.s)
-Chars 2924 - 2930 [Proof.] 0. secs (0.u,0.s)
-Chars 2933 - 2942 [(intros~H).] 0. secs (0.u,0.s)
-Chars 2945 - 3007 [(induction~H~as~[|~y~ys~Hy~Hys...] 0.007 secs (0.006u,0.001s)
-Chars 3010 - 3011 [-] 0. secs (0.u,0.s)
-Chars 3012 - 3039 [(destruct~n;~inversion~Hnth).] 0.014 secs (0.009u,0.004s)
-Chars 3042 - 3043 [-] 0. secs (0.u,0.s)
-Chars 3044 - 3079 [(destruct~n~as~[|~n'];~simpl~i...] 0.004 secs (0.004u,0.s)
-Chars 3084 - 3085 [+] 0. secs (0.u,0.s)
-Chars 3086 - 3120 [(inversion~Hnth;~subst;~assump...] 0.01 secs (0.004u,0.006s)
-Chars 3125 - 3126 [+] 0. secs (0.u,0.s)
-Chars 3127 - 3155 [(apply~(IH~n'~x);~assumption).] 0.001 secs (0.001u,0.s)
-Chars 3156 - 3160 [Qed.] 0.017 secs (0.014u,0.003s)
-Chars 3162 - 3261 [Lemma~claim_tape_zero_repeat_f...] 0.002 secs (0.001u,0.001s)
-Chars 3262 - 3268 [Proof.] 0. secs (0.u,0.s)
-Chars 3271 - 3280 [(intros~n).] 0. secs (0.u,0.s)
-Chars 3283 - 3306 [(unfold~claim_tape_zero).] 0. secs (0.u,0.s)
-Chars 3309 - 3331 [(rewrite~repeat_length).] 0.003 secs (0.003u,0.s)
-Chars 3334 - 3346 [reflexivity.] 0.001 secs (0.001u,0.s)
-Chars 3347 - 3351 [Qed.] 0.002 secs (0.002u,0.s)
-Chars 3353 - 3519 [Lemma~nth_error_compile~:~~~fo...] 0.006 secs (0.003u,0.002s)
-Chars 3520 - 3526 [Proof.] 0. secs (0.u,0.s)
-Chars 3529 - 3556 [(intros~prog~idx~instr~Hnth).] 0.001 secs (0.u,0.s)
-Chars 3559 - 3603 [(unfold~compile_program,~compi...] 0.001 secs (0.u,0.s)
-Chars 3606 - 3639 [(rewrite~List.nth_error_map,~H...] 0.006 secs (0.006u,0.s)
-Chars 3642 - 3654 [reflexivity.] 0.001 secs (0.001u,0.s)
-Chars 3655 - 3659 [Qed.] 0.005 secs (0.005u,0.s)
-Chars 3661 - 3852 [Lemma~vm_step_simulated~:~~~fo...] 0.005 secs (0.005u,0.s)
-Chars 3855 - 3861 [Proof.] 0. secs (0.u,0.s)
-Chars 3866 - 3892 [(intros~prog~st~instr~Hnth).] 0.001 secs (0.u,0.001s)
-Chars 3897 - 3916 [(unfold~step_thiele).] 0.001 secs (0.u,0.001s)
-Chars 3921 - 4047 [(assert~~~(Hfetch_comp~:~~~~fe...] 0.001 secs (0.u,0.001s)
-Chars 4052 - 4053 [{] 0. secs (0.u,0.s)
-Chars 4054 - 4126 [(unfold~fetch,~compile_program...] 0.002 secs (0.002u,0.s)
-Chars 4133 - 4166 [(rewrite~List.nth_error_map,~H...] 0.006 secs (0.006u,0.s)
-Chars 4173 - 4185 [reflexivity.] 0.001 secs (0.001u,0.s)
-Chars 4186 - 4187 [}] 0. secs (0.u,0.s)
-Chars 4192 - 4212 [(rewrite~Hfetch_comp).] 0.005 secs (0.002u,0.003s)
-Chars 4217 - 4267 [(unfold~encode_state,~vm_step,...] 0.003 secs (0.003u,0.s)
-Chars 4272 - 4278 [(simpl).] 0.002 secs (0.001u,0.s)
-Chars 4283 - 4313 [(unfold~claim_tape_zero;~simpl).] 0.001 secs (0.001u,0.s)
-Chars 4316 - 4328 [reflexivity.] 0.001 secs (0.001u,0.s)
-Chars 4331 - 4335 [Qed.] 0.018 secs (0.011u,0.007s)
-Chars 4337 - 4475 [Lemma~err_free_nth~:~~~forall~...] 0.004 secs (0.004u,0.s)
-Chars 4476 - 4482 [Proof.] 0. secs (0.u,0.s)
-Chars 4485 - 4501 [(unfold~err_free).] 0. secs (0.u,0.s)
-Chars 4504 - 4536 [(intros~prog~idx~instr~Herr~Hn...] 0.001 secs (0.u,0.001s)
-Chars 4539 - 4581 [(eapply~Forall_nth_error_vm~in...] 0.004 secs (0.u,0.004s)
-Chars 4582 - 4586 [Qed.] 0.002 secs (0.u,0.002s)
-Chars 4588 - 4731 [Lemma~vm_step_err_false~:~~~fo...] 0.002 secs (0.u,0.002s)
-Chars 4732 - 4738 [Proof.] 0. secs (0.u,0.s)
-Chars 4741 - 4774 [(intros~instr~st~HerrSt~HerrIn...] 0.001 secs (0.u,0.001s)
-Chars 4777 - 4792 [(unfold~vm_step).] 0. secs (0.u,0.s)
-Chars 4795 - 4801 [(simpl).] 0.001 secs (0.u,0.001s)
-Chars 4804 - 4830 [(rewrite~HerrSt,~HerrInstr).] 0.004 secs (0.u,0.004s)
-Chars 4833 - 4845 [reflexivity.] 0.001 secs (0.u,0.001s)
-Chars 4846 - 4850 [Qed.] 0.003 secs (0.003u,0.s)
-Chars 4852 - 4987 [Lemma~run_vm_err_false~:~~~for...] 0.003 secs (0.003u,0.s)
-Chars 4988 - 4994 [Proof.] 0. secs (0.u,0.s)
-Chars 4997 - 5058 [(induction~fuel~as~[|~fuel~IH]...] 0.007 secs (0.003u,0.003s)
-Chars 5061 - 5062 [-] 0. secs (0.u,0.s)
-Chars 5063 - 5073 [exact~Hst.] 0. secs (0.u,0.s)
-Chars 5076 - 5077 [-] 0. secs (0.u,0.s)
-Chars 5078 - 5110 [(destruct~(vm_err~st)~eqn:Herr...] 0.008 secs (0.005u,0.003s)
-Chars 5115 - 5116 [+] 0. secs (0.u,0.s)
-Chars 5117 - 5128 [congruence.] 0.003 secs (0.u,0.003s)
-Chars 5133 - 5134 [+] 0.002 secs (0.u,0.001s)
-Chars 5135 - 5186 [(destruct~(vm_fetch~prog~st)~a...] 0.007 secs (0.007u,0.s)
-Chars 5193 - 5194 [*] 0. secs (0.u,0.s)
-Chars 5195 - 5221 [(unfold~vm_fetch~in~Hfetch).] 0.001 secs (0.001u,0.s)
-Chars 5230 - 5256 [(pose~proof~Hfetch~as~Hnth).] 0.001 secs (0.001u,0.s)
-Chars 5265 - 5385 [(assert~(Herr_instr~:~instr.(v...] 0.003 secs (0.u,0.003s)
-Chars 5394 - 5418 [(apply~IH;~[~assumption~|~~]).] 0.001 secs (0.001u,0.s)
-Chars 5427 - 5463 [(apply~vm_step_err_false;~assu...] 0.001 secs (0.001u,0.s)
-Chars 5470 - 5471 [*] 0. secs (0.u,0.s)
-Chars 5472 - 5485 [exact~HerrSt.] 0.001 secs (0.001u,0.s)
-Chars 5486 - 5490 [Qed.] 0.009 secs (0.u,0.009s)
-Chars 5492 - 5693 [Lemma~run_vm_thiele_agree~:~~~...] 0.003 secs (0.u,0.003s)
-Chars 5694 - 5700 [Proof.] 0. secs (0.u,0.s)
-Chars 5703 - 5764 [(induction~fuel~as~[|~fuel~IH]...] 0.007 secs (0.003u,0.004s)
-Chars 5767 - 5768 [-] 0. secs (0.u,0.s)
-Chars 5769 - 5781 [reflexivity.] 0.001 secs (0.u,0.s)
-Chars 5784 - 5785 [-] 0. secs (0.u,0.s)
-Chars 5786 - 5799 [(simpl~in~Hst).] 0. secs (0.u,0.s)
-Chars 5804 - 5816 [(rewrite~Hst).] 0.005 secs (0.001u,0.003s)
-Chars 5821 - 5872 [(destruct~(vm_fetch~prog~st)~a...] 0.011 secs (0.u,0.011s)
-Chars 5877 - 5878 [+] 0. secs (0.u,0.s)
-Chars 5879 - 5905 [(unfold~vm_fetch~in~Hfetch).] 0.001 secs (0.u,0.s)
-Chars 5912 - 5938 [(pose~proof~Hfetch~as~Hnth).] 0.001 secs (0.u,0.001s)
-Chars 5945 - 6071 [(assert~~~(Hfetch_comp~:~~~~fe...] 0.002 secs (0.u,0.002s)
-Chars 6078 - 6079 [{] 0. secs (0.u,0.s)
-Chars 6080 - 6152 [(unfold~fetch,~compile_program...] 0.001 secs (0.001u,0.s)
-Chars 6161 - 6196 [(rewrite~List.nth_error_map,~H...] 0.006 secs (0.006u,0.s)
-Chars 6205 - 6217 [reflexivity.] 0.001 secs (0.001u,0.s)
-Chars 6218 - 6219 [}] 0. secs (0.u,0.s)
-Chars 6226 - 6246 [(rewrite~Hfetch_comp).] 0.003 secs (0.u,0.003s)
-Chars 6253 - 6259 [(simpl).] 0. secs (0.u,0.s)
-Chars 6266 - 6300 [(apply~vm_step_simulated~in~Hf...] 0.001 secs (0.u,0.001s)
-Chars 6307 - 6322 [(rewrite~Hfetch).] 0.002 secs (0.u,0.002s)
-Chars 6329 - 6338 [(apply~IH).] 0.002 secs (0.u,0.001s)
-Chars 6345 - 6346 [*] 0. secs (0.u,0.s)
-Chars 6347 - 6358 [assumption.] 0.001 secs (0.u,0.001s)
-Chars 6365 - 6366 [*] 0. secs (0.u,0.s)
-Chars 6367 - 6373 [(simpl).] 0.001 secs (0.u,0.001s)
-Chars 6382 - 6412 [(rewrite~Hst,~Bool.orb_false_l).] 0.004 secs (0.u,0.004s)
-Chars 6421 - 6489 [(apply~(err_free_nth~prog~st.(...] 0.003 secs (0.u,0.003s)
-Chars 6494 - 6495 [+] 0. secs (0.u,0.s)
-Chars 6496 - 6522 [(unfold~vm_fetch~in~Hfetch).] 0.001 secs (0.001u,0.s)
-Chars 6529 - 6624 [(assert~~~(Hfetch_comp~:~fetch...] 0.002 secs (0.002u,0.s)
-Chars 6631 - 6632 [{] 0. secs (0.u,0.s)
-Chars 6633 - 6694 [(unfold~fetch,~compile_program...] 0.004 secs (0.u,0.004s)
-Chars 6703 - 6738 [(rewrite~List.nth_error_map,~H...] 0.01 secs (0.008u,0.002s)
-Chars 6747 - 6759 [reflexivity.] 0.001 secs (0.u,0.001s)
-Chars 6760 - 6761 [}] 0. secs (0.u,0.s)
-Chars 6768 - 6788 [(rewrite~Hfetch_comp).] 0.003 secs (0.002u,0.s)
-Chars 6795 - 6801 [(simpl).] 0. secs (0.u,0.s)
-Chars 6808 - 6820 [reflexivity.] 0.001 secs (0.u,0.s)
-Chars 6821 - 6825 [Qed.] 0.028 secs (0.018u,0.01s)
-Chars 6827 - 7035 [Theorem~vm_is_instance_of_kern...] 0.003 secs (0.003u,0.s)
-Chars 7036 - 7042 [Proof.] 0. secs (0.u,0.s)
-Chars 7045 - 7074 [(intros~fuel~prog~st~Herr~Hst).] 0.001 secs (0.u,0.s)
-Chars 7077 - 7140 [(pose~proof~(run_vm_thiele_agr...] 0.001 secs (0.001u,0.s)
-Chars 7143 - 7188 [(remember~(run_vm~fuel~prog~st...] 0.004 secs (0.004u,0.s)
-Chars 7191 - 7229 [(assert~(HerrRv~:~rv.(vm_err)~...] 0.001 secs (0.001u,0.s)
-Chars 7232 - 7233 [{] 0. secs (0.u,0.s)
-Chars 7234 - 7243 [subst~rv.] 0.003 secs (0.u,0.003s)
-Chars 7244 - 7279 [(apply~run_vm_err_false;~assum...] 0.002 secs (0.u,0.002s)
-Chars 7280 - 7281 [}] 0. secs (0.u,0.s)
-Chars 7284 - 7342 [(apply~eq_trans~with~(y~:=~dec...] 0.002 secs (0.002u,0.s)
-Chars 7345 - 7346 [-] 0. secs (0.u,0.s)
-Chars 7347 - 7384 [(apply~(f_equal~decode_state)~...] 0.002 secs (0.002u,0.s)
-Chars 7389 - 7400 [exact~Hsim.] 0.001 secs (0.001u,0.s)
-Chars 7403 - 7404 [-] 0. secs (0.u,0.s)
-Chars 7405 - 7434 [(apply~decode_encode_state_id).] 0.001 secs (0.u,0.001s)
-Chars 7439 - 7452 [exact~HerrRv.] 0. secs (0.u,0.s)
-Chars 7453 - 7457 [Qed.] 0.005 secs (0.003u,0.001s)
+make: Entering directory '/workspace/The-Thiele-Machine/coq'
+COQDEP VFILES
+COQC catnet/coqproofs/CatNet.v
+COQC isomorphism/coqproofs/Universe.v
+COQC kernel/Kernel.v
+COQC kernel/KernelTM.v
+COQC kernel/KernelThiele.v
+COQC kernel/Subsumption.v
+COQC kernel/VMState.v
+COQC kernel/VMStep.v
+COQC kernel/SimulationProof.v
+COQC modular_proofs/CornerstoneThiele.v
+COQC modular_proofs/EncodingBounds.v
+COQC modular_proofs/Encoding.v
+COQC modular_proofs/Minsky.v
+COQC modular_proofs/TM_Basics.v
+COQC modular_proofs/Thiele_Basics.v
+COQC modular_proofs/Simulation.v
+COQC p_equals_np_thiele/proof.v
+COQC project_cerberus/coqproofs/Cerberus.v
+COQC sandboxes/EncodingMini.v
+COQC sandboxes/VerifiedGraphSolver.v
+COQC sandboxes/GeneratedProof.v
+COQC sandboxes/ToyThieleMachine.v
+COQC shor_primitives/Modular.v
+COQC shor_primitives/Euclidean.v
+COQC shor_primitives/PeriodFinding.v
+COQC test_vscoq/coqproofs/test_vscoq.v
+COQC thielemachine/coqproofs/AmortizedAnalysis.v
+COQC thielemachine/coqproofs/Axioms.v
+COQC thielemachine/coqproofs/ThieleMachineConcrete.v
+COQC thielemachine/coqproofs/QHelpers.v
+COQC thielemachine/coqproofs/BellInequality.v
+COQC thielemachine/coqproofs/Bisimulation.v
+COQC thielemachine/coqproofs/SpecSound.v
+COQC thielemachine/coqproofs/Confluence.v
+COQC thielemachine/coqproofs/ListHelpers.v
+COQC thielemachine/coqproofs/NUSD.v
+COQC thielemachine/coqproofs/PartitionLogic.v
+COQC thielemachine/coqproofs/StructuredInstances.v
+COQC thielemachine/coqproofs/ThieleMachine.v
+COQC thielemachine/coqproofs/ThieleMachineConcretePack.v
+COQC thielemachine/coqproofs/ThieleMachineModular.v
+COQC thielemachine/coqproofs/ThieleMachineSig.v
+COQC thielemachine/coqproofs/ThieleMachineUniv.v
+make: Leaving directory '/workspace/The-Thiele-Machine/coq'
+make: Entering directory '/workspace/The-Thiele-Machine/coq'
+COQDEP VFILES
+COQC catnet/coqproofs/CatNet.v
+COQC isomorphism/coqproofs/Universe.v
+COQC kernel/Kernel.v
+COQC kernel/KernelTM.v
+COQC kernel/KernelThiele.v
+COQC kernel/Subsumption.v
+COQC kernel/VMState.v
+COQC kernel/VMStep.v
+COQC kernel/SimulationProof.v
+make: Leaving directory '/workspace/The-Thiele-Machine/coq'
+make: Entering directory '/workspace/The-Thiele-Machine/coq'
+COQDEP VFILES
+COQC kernel/SimulationProof.v
+make: Leaving directory '/workspace/The-Thiele-Machine/coq'
+make: Entering directory '/workspace/The-Thiele-Machine/coq'
+COQDEP VFILES
+COQC kernel/SimulationProof.v
+COQC modular_proofs/CornerstoneThiele.v
+COQC modular_proofs/EncodingBounds.v
+COQC modular_proofs/Encoding.v
+COQC modular_proofs/Minsky.v
+COQC modular_proofs/TM_Basics.v
+COQC modular_proofs/Thiele_Basics.v
+COQC modular_proofs/Simulation.v
+COQC p_equals_np_thiele/proof.v
+COQC project_cerberus/coqproofs/Cerberus.v
+COQC sandboxes/EncodingMini.v
+COQC sandboxes/VerifiedGraphSolver.v
+COQC sandboxes/GeneratedProof.v
+COQC sandboxes/ToyThieleMachine.v
+COQC shor_primitives/Modular.v
+COQC shor_primitives/Euclidean.v
+COQC shor_primitives/PeriodFinding.v
+COQC test_vscoq/coqproofs/test_vscoq.v
+COQC thielemachine/coqproofs/AmortizedAnalysis.v
+COQC thielemachine/coqproofs/Axioms.v
+COQC thielemachine/coqproofs/ThieleMachineConcrete.v
+COQC thielemachine/coqproofs/QHelpers.v
+COQC thielemachine/coqproofs/BellInequality.v
+COQC thielemachine/coqproofs/Bisimulation.v
+COQC thielemachine/coqproofs/SpecSound.v
+COQC thielemachine/coqproofs/Confluence.v
+COQC thielemachine/coqproofs/ListHelpers.v
+COQC thielemachine/coqproofs/NUSD.v
+COQC thielemachine/coqproofs/PartitionLogic.v
+COQC thielemachine/coqproofs/StructuredInstances.v
+COQC thielemachine/coqproofs/ThieleMachine.v
+COQC thielemachine/coqproofs/ThieleMachineConcretePack.v
+COQC thielemachine/coqproofs/ThieleMachineModular.v
+COQC thielemachine/coqproofs/ThieleMachineSig.v
+COQC thielemachine/coqproofs/ThieleMachineUniv.v
+make: Leaving directory '/workspace/The-Thiele-Machine/coq'
+==== Mon Oct 20 11:34:00 UTC 2025 make -C coq clean ====
+make: Entering directory '/workspace/The-Thiele-Machine/coq'
+CLEAN
+make: Leaving directory '/workspace/The-Thiele-Machine/coq'
+==== Mon Oct 20 11:34:03 UTC 2025 make -C coq ====
+make: Entering directory '/workspace/The-Thiele-Machine/coq'
+COQDEP VFILES
+COQC catnet/coqproofs/CatNet.v
+COQC isomorphism/coqproofs/Universe.v
+COQC kernel/Kernel.v
+COQC kernel/KernelTM.v
+COQC kernel/KernelThiele.v
+COQC kernel/Subsumption.v
+COQC kernel/VMState.v
+COQC kernel/VMStep.v
+COQC kernel/SimulationProof.v
+COQC modular_proofs/CornerstoneThiele.v
+COQC modular_proofs/EncodingBounds.v
+COQC modular_proofs/Encoding.v
+COQC modular_proofs/Minsky.v
+COQC modular_proofs/TM_Basics.v
+COQC modular_proofs/Thiele_Basics.v
+COQC modular_proofs/Simulation.v
+COQC p_equals_np_thiele/proof.v
+COQC project_cerberus/coqproofs/Cerberus.v
+COQC sandboxes/EncodingMini.v
+COQC sandboxes/VerifiedGraphSolver.v
+COQC sandboxes/GeneratedProof.v
+COQC sandboxes/ToyThieleMachine.v
+COQC shor_primitives/Modular.v
+COQC shor_primitives/Euclidean.v
+COQC shor_primitives/PeriodFinding.v
+COQC test_vscoq/coqproofs/test_vscoq.v
+COQC thielemachine/coqproofs/AmortizedAnalysis.v
+COQC thielemachine/coqproofs/Axioms.v
+COQC thielemachine/coqproofs/ThieleMachineConcrete.v
+COQC thielemachine/coqproofs/QHelpers.v
+COQC thielemachine/coqproofs/BellInequality.v
+COQC thielemachine/coqproofs/Bisimulation.v
+COQC thielemachine/coqproofs/SpecSound.v
+COQC thielemachine/coqproofs/Confluence.v
+COQC thielemachine/coqproofs/ListHelpers.v
+COQC thielemachine/coqproofs/NUSD.v
+COQC thielemachine/coqproofs/PartitionLogic.v
+COQC thielemachine/coqproofs/StructuredInstances.v
+COQC thielemachine/coqproofs/ThieleMachine.v
+COQC thielemachine/coqproofs/ThieleMachineConcretePack.v
+COQC thielemachine/coqproofs/ThieleMachineModular.v
+COQC thielemachine/coqproofs/ThieleMachineSig.v
+COQC thielemachine/coqproofs/ThieleMachineUniv.v
+make: Leaving directory '/workspace/The-Thiele-Machine/coq'
+[2025-10-20T13:28:21Z] make -C coq
+make: Entering directory '/workspace/The-Thiele-Machine/coq'
+COQDEP VFILES
+COQC kernel/VMEncoding.v
+COQC kernel/VMStep.v
+COQC kernel/SimulationProof.v
+COQC modular_proofs/CornerstoneThiele.v
+COQC modular_proofs/EncodingBounds.v
+COQC modular_proofs/Encoding.v
+COQC modular_proofs/Minsky.v
+COQC modular_proofs/TM_Basics.v
+COQC modular_proofs/Thiele_Basics.v
+COQC modular_proofs/Simulation.v
+COQC p_equals_np_thiele/proof.v
+COQC project_cerberus/coqproofs/Cerberus.v
+COQC sandboxes/EncodingMini.v
+COQC sandboxes/VerifiedGraphSolver.v
+COQC sandboxes/GeneratedProof.v
+COQC sandboxes/ToyThieleMachine.v
+COQC shor_primitives/Modular.v
+COQC shor_primitives/Euclidean.v
+COQC shor_primitives/PeriodFinding.v
+COQC test_vscoq/coqproofs/test_vscoq.v
+COQC thielemachine/coqproofs/AmortizedAnalysis.v
+COQC thielemachine/coqproofs/Axioms.v
+COQC thielemachine/coqproofs/ThieleMachineConcrete.v
+COQC thielemachine/coqproofs/QHelpers.v
+COQC thielemachine/coqproofs/BellInequality.v
+COQC thielemachine/coqproofs/Bisimulation.v
+COQC thielemachine/coqproofs/SpecSound.v
+COQC thielemachine/coqproofs/Confluence.v
+COQC thielemachine/coqproofs/ListHelpers.v
+COQC thielemachine/coqproofs/NUSD.v
+COQC thielemachine/coqproofs/PartitionLogic.v
+COQC thielemachine/coqproofs/StructuredInstances.v
+COQC thielemachine/coqproofs/ThieleMachine.v
+COQC thielemachine/coqproofs/ThieleMachineConcretePack.v
+COQC thielemachine/coqproofs/ThieleMachineModular.v
+COQC thielemachine/coqproofs/ThieleMachineSig.v
+COQC thielemachine/coqproofs/ThieleMachineUniv.v
+make: Leaving directory '/workspace/The-Thiele-Machine/coq'

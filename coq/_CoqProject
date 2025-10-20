@@ -1,54 +1,64 @@
--R thielemachine/coqproofs ThieleMachine
--R catnet/coqproofs CatNet
--R isomorphism/coqproofs Isomorphism
--R p_equals_np_thiele P_equals_NP_Thiele
--R project_cerberus/coqproofs ProjectCerberus
--R test_vscoq/coqproofs TestVSCoq
--R modular_proofs ThieleMachine.Modular_Proofs
--R shor_primitives ShorPrimitives
--R sandboxes Sandbox
--R kernel Kernel
+-Q thielemachine/coqproofs ThieleMachine
+-Q modular_proofs ThieleMachine.Modular_Proofs
+-Q catnet/coqproofs CatNet
+-Q isomorphism/coqproofs Isomorphism
+-Q p_equals_np_thiele P_equals_NP_Thiele
+-Q project_cerberus/coqproofs ProjectCerberus
+-Q sandboxes Sandbox
+-Q shor_primitives ShorPrimitives
+-Q test_vscoq/coqproofs TestVSCoq
+-Q kernel Kernel
 
-thielemachine/coqproofs/Axioms.v
-thielemachine/coqproofs/QHelpers.v
-thielemachine/coqproofs/ListHelpers.v
-thielemachine/coqproofs/BellInequality.v
-thielemachine/coqproofs/Impossibility.v
-thielemachine/coqproofs/SpecSound.v
-thielemachine/coqproofs/Confluence.v
-thielemachine/coqproofs/ThieleMachineModular.v
-thielemachine/coqproofs/ThieleMachineConcrete.v
-thielemachine/coqproofs/ThieleMachineUniv.v
-thielemachine/coqproofs/ThieleMachine.v
-thielemachine/coqproofs/NUSD.v
-thielemachine/coqproofs/Separation.v
-thielemachine/coqproofs/Simulation.v
-thielemachine/coqproofs/Subsumption.v
-thielemachine/coqproofs/PartitionLogic.v
-thielemachine/coqproofs/StructuredInstances.v
-thielemachine/coqproofs/AmortizedAnalysis.v
-thielemachine/coqproofs/ThieleMachineConcretePack.v
-thielemachine/coqproofs/Bisimulation.v
-thielemachine/coqproofs/EncodingBridge.v
 catnet/coqproofs/CatNet.v
+
 isomorphism/coqproofs/Universe.v
-p_equals_np_thiele/proof.v
-project_cerberus/coqproofs/Cerberus.v
-test_vscoq/coqproofs/test_vscoq.v
-modular_proofs/TM_Basics.v
-modular_proofs/EncodingBounds.v
-modular_proofs/Encoding.v
-modular_proofs/Thiele_Basics.v
-modular_proofs/Simulation.v
-shor_primitives/Modular.v
-shor_primitives/Euclidean.v
-shor_primitives/PeriodFinding.v
-sandboxes/EncodingMini.v
-sandboxes/ToyThieleMachine.v
-sandboxes/VerifiedGraphSolver.v
-modular_proofs/CornerstoneThiele.v
+
 kernel/Kernel.v
 kernel/KernelTM.v
 kernel/KernelThiele.v
 kernel/Subsumption.v
-kernel/ThieleCPUBridge.v
+kernel/VMState.v
+kernel/VMEncoding.v
+kernel/VMStep.v
+kernel/SimulationProof.v
+
+modular_proofs/CornerstoneThiele.v
+modular_proofs/Encoding.v
+modular_proofs/EncodingBounds.v
+modular_proofs/Minsky.v
+modular_proofs/Simulation.v
+modular_proofs/TM_Basics.v
+modular_proofs/Thiele_Basics.v
+
+p_equals_np_thiele/proof.v
+
+project_cerberus/coqproofs/Cerberus.v
+
+sandboxes/EncodingMini.v
+sandboxes/GeneratedProof.v
+sandboxes/ToyThieleMachine.v
+sandboxes/VerifiedGraphSolver.v
+
+shor_primitives/Euclidean.v
+shor_primitives/Modular.v
+shor_primitives/PeriodFinding.v
+
+test_vscoq/coqproofs/test_vscoq.v
+
+thielemachine/coqproofs/AmortizedAnalysis.v
+thielemachine/coqproofs/Axioms.v
+thielemachine/coqproofs/BellInequality.v
+thielemachine/coqproofs/Bisimulation.v
+thielemachine/coqproofs/Confluence.v
+thielemachine/coqproofs/ListHelpers.v
+thielemachine/coqproofs/NUSD.v
+thielemachine/coqproofs/PartitionLogic.v
+thielemachine/coqproofs/QHelpers.v
+thielemachine/coqproofs/SpecSound.v
+thielemachine/coqproofs/StructuredInstances.v
+thielemachine/coqproofs/ThieleMachine.v
+thielemachine/coqproofs/ThieleMachineConcrete.v
+thielemachine/coqproofs/ThieleMachineConcretePack.v
+thielemachine/coqproofs/ThieleMachineModular.v
+thielemachine/coqproofs/ThieleMachineSig.v
+thielemachine/coqproofs/ThieleMachineUniv.v
