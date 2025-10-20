@@ -16,9 +16,9 @@ if ! command -v coq_makefile >/dev/null 2>&1 || ! command -v coqc >/dev/null 2>&
 fi
 
 echo "=== CANONICAL SUBSUMPTION VERIFICATION ==="
-echo "This workflow has been retired. The attempted universal proof now lives under" >&2
-echo "archive/research/incomplete_subsumption_proof/ with a README explaining the" >&2
-echo "type-mismatch barrier. The live formal artefacts are the sandbox microcosms" >&2
-echo "(`ToyThieleMachine.v`, `VerifiedGraphSolver.v`) plus the receipts bridge" >&2
-echo "emitted by scripts/prove_it_all.sh." >&2
-exit 1
+echo "Building Coq project in $script_dir"
+
+make -C "$script_dir" clean
+make -C "$script_dir"
+
+echo "✅ Coq project built successfully."

@@ -1,12 +1,13 @@
 # Project Omega: Definitive Analysis of the Thiele Kernel
 
 ## 1. Abstract
-The kernel formalisation now anchors the entire thesis.  Two interpreters share a
-common tape/head substrate and diverge only on the μ-charging
+The kernel formalisation anchors the containment argument.  Two interpreters
+share a common tape/head substrate and diverge only on the μ-charging
 `H_ClaimTapeIsZero` instruction.  Coq establishes that classical programs evolve
-identically under both machines, that the Thiele interpreter reaches states
-unattainable by the classical one, and that the Python VM’s instruction stream is
-simulated exactly by the kernel when compiled to the primitive claim operation.
+identically under both machines and that the Thiele interpreter reaches states
+unattainable by the classical one.  The Python VM bridge is currently undergoing
+a redesign to include a faithful tape encoding; only μ-ledger alignment is
+modelled today.
 
 ## 2. Shared State and Instruction Set (`Kernel.v`)
 The `state` record tracks a boolean tape, head position, program counter, and μ
@@ -47,22 +48,21 @@ instruction.  Classical steps never alter `mu_cost`; only
 `H_ClaimTapeIsZero` increments the ledger.  This delineates classical work (fuel)
 from paid reasoning (μ) inside the mechanised model.【F:coq/kernel/Kernel.v†L4-L66】【F:coq/kernel/KernelThiele.v†L23-L25】
 
-## 7. Bridging the Python VM (`ThieleCPUBridge.v`)
-The new bridge formalises the VM’s opcodes (`PNEW`, `PSPLIT`, `PYEXEC`, etc.) as
-`vm_instruction`s annotated with μ-deltas and error flags.【F:coq/kernel/ThieleCPUBridge.v†L17-L84】  `encode_state` embeds the VM
-state into the kernel’s `state`, while `compile_program` maps each VM instruction
-to `H_ClaimTapeIsZero` carrying the same μ charge.【F:coq/kernel/ThieleCPUBridge.v†L67-L104】  The lemmas `vm_step_simulated` and
-`run_vm_thiele_agree` establish that stepping the VM corresponds exactly to a
-Thiele step on the compiled program, preserving μ ledgers when the VM remains
-error-free.【F:coq/kernel/ThieleCPUBridge.v†L122-L236】  The concluding theorem
-`vm_is_instance_of_kernel` states that decoding the kernel run reproduces the VM
-trace verbatim, completing the link between the mechanised model and the
-operational interpreter.【F:coq/kernel/ThieleCPUBridge.v†L238-L255】
+## 7. Bridging the Python VM (`SimulationProof.v`)
+The existing bridge modules provide a starting point: `VMState` mirrors the VM’s
+partition bookkeeping and `VMStep` exposes opcode semantics with μ-deltas and
+error flags.【F:coq/kernel/VMStep.v†L1-L102】【F:coq/kernel/VMState.v†L1-L204】
+`vm_apply` deterministically replays each opcode while remaining compatible with
+the relational `vm_step` semantics.【F:coq/kernel/SimulationProof.v†L34-L120】  A
+canonical tape encoding and compilation routine are still outstanding; current
+lemmas only align the μ-ledger and control counters.  Operation Unification
+Milestone 2 tracks the work required to relate the full partition graph and CSR
+state to the kernel tape.【F:docs/operation_unification_progress.md†L40-L120】
 
 ## 8. Audit Evidence
 Compiling the kernel suite with `coqc -q -time -Q kernel Kernel` validates the
-entire development without admits; the audit transcript in
+containment development without admits; the audit transcript in
 `audit_logs/agent_coq_verification.log` records each timing step for independent
-review.【F:audit_logs/agent_coq_verification.log†L1-L318】  This establishes that the
-formal core, the Python VM, and the autonomous hardware oracle now operate as a
-single, mathematically verified system.
+review.【F:audit_logs/agent_coq_verification.log†L1-L318】  The Python VM bridge and
+its simulation theorem remain under construction; see the Operation Unification
+log for the current status and outstanding tasks.【F:docs/operation_unification_progress.md†L1-L120】
