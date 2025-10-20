@@ -22,12 +22,7 @@
 
         Definition receipt_solution : list (nat * colour) := [ (0, Red); (1, Green); (2, Blue); (3, Red); (4, Green); (5, Blue); (6, Red); (7, Green); (8, Blue) ].
 
-        Definition receipt_expected : thiele_state :=
-          {|
-  state_partial := canonical_partial;
-  state_mu := 23;
-  state_arith := 0
-|}.
+        Definition receipt_expected : thiele_state := expected_thiele_state.
 
         Lemma receipt_run_matches_expected : receipt_run = receipt_expected.
         Proof.

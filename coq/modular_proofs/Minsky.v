@@ -41,14 +41,6 @@ Proof.
   induction l as [|hd tl IH]; intros [|idx] v; simpl; auto.
 Qed.
 
-Lemma read_set_nth_eq : forall l idx v d,
-    idx < length l -> nth idx (set_nth l idx v) d = v.
-Proof.
-  induction l as [|hd tl IH]; intros [|idx] v d Hlt; simpl in *; try lia.
-  - reflexivity.
-  - apply IH. lia.
-Qed.
-
 (* Single-step semantics of a Minsky program.  The instruction at the
    current program counter is executed; if the pc is out-of-range we
    leave the configuration unchanged (representing a halted program). *)

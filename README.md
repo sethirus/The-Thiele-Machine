@@ -1,17 +1,19 @@
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/sethirus/The-Thiele-Machine)
 
-> **✅ AUDIT NOTICE:** Sovereign Witness 2025 closes the research program. Every
-> receipt, proof, and synthesis artefact has been regenerated from scratch, and
-> the resulting transcripts live in `audit_logs/`.  The Python VM, the kernel
-> calculus, and the autonomous Verilog solver all implement the same μ-spec and
-> are tied together by the mechanised bridge `coq/kernel/ThieleCPUBridge.v`.
+> **🚧 STATUS NOTICE:** Operation Unification is underway. Milestone 1 (Coq
+> hygiene) is complete, but the VM↔kernel bridge is being rebuilt with a
+> canonical tape encoding and has **not** yet been proven. Current artefacts in
+> `coq/kernel/SimulationProof.v` model μ-accounting only; they are placeholders
+> until the strengthened proof lands. Refer to
+> `docs/operation_unification_progress.md` for the active burn-down list and
+> acceptance criteria.
 
 ## Final Evidence Snapshot (October 2025 audit)
 
 | Claim theme | Verified result | Audit artefacts |
 | --- | --- | --- |
 | **Kernel subsumption** | The shared tape/head kernel proves `thiele_simulates_turing` and `turing_is_strictly_contained`, establishing strict containment with μ-accounting baked into `H_ClaimTapeIsZero`.【F:coq/kernel/Kernel.v†L4-L66】【F:coq/kernel/KernelTM.v†L6-L30】【F:coq/kernel/KernelThiele.v†L7-L26】【F:coq/kernel/Subsumption.v†L23-L118】 | `coq/kernel/Kernel.v`, `KernelTM.v`, `KernelThiele.v`, `Subsumption.v`, Sovereign Witness logs |
-| **VM ↔ kernel bridge** | `ThieleCPUBridge.v` compiles every Python VM opcode to kernel steps and proves `vm_is_instance_of_kernel`, so every error-free VM trace has a matching kernel execution and μ-ledger.【F:coq/kernel/ThieleCPUBridge.v†L8-L255】【F:audit_logs/agent_coq_verification.log†L1-L318】 | `coq/kernel/ThieleCPUBridge.v`, `audit_logs/agent_coq_verification.log` |
+| **VM ↔ kernel bridge** | Milestone 2 is active. The current Coq scaffolding encodes the VM counters but does **not** yet capture the partition graph, CSRs, or error latch. Work-in-progress notes live in `docs/operation_unification_progress.md`; no refinement theorem is claimed at this time. | `docs/operation_unification_progress.md`, WIP Coq modules |
 | **Autonomous hardware oracle** | `thiele_autonomous_solver.v` performs backtracking search over runtime adjacency data, drives the shared `reasoning_core`, and emits μ-question/information totals identical to the VM.【F:hardware/synthesis_trap/thiele_autonomous_solver.v†L1-L389】【F:hardware/synthesis_trap/thiele_graph_solver_tb.v†L120-L181】【F:audit_logs/agent_hardware_verification.log†L780-L842】【F:audit_logs/agent_hardware_verification.log†L4238-L4275】 | `hardware/synthesis_trap/thiele_autonomous_solver.v`, `hardware/synthesis_trap/thiele_graph_solver_tb.v`, `audit_logs/agent_hardware_verification.log` |
 | **Unified μ-spec & software receipts** | μ-spec v2.0 governs the Python VM, the hardware fabric, and all receipts (`graph_coloring_demo.py`, `shor_on_thiele_demo.py`, `demonstrate_isomorphism.py`). Ledgers agree to the bit.【F:spec/mu_spec_v2.md†L1-L95】【F:thielecpu/mu.py†L1-L92】【F:graph_demo_output/triadic_cascade/analysis_report.json†L1-L45】【F:shor_demo_output/analysis_report.json†L1-L39】【F:audit_logs/agent_software_reproduction.log†L1-L158】 | `spec/mu_spec_v2.md`, `thielecpu/mu.py`, `graph_demo_output/`, `shor_demo_output/`, `audit_logs/agent_software_reproduction.log` |
 
@@ -40,7 +42,7 @@ bash scripts/RUNME.sh
 - `scripts/challenge.py verify receipts` recomputes each step hash, checks the Ed25519 signature on the global digest, and replays the portable SAT/SMT artefacts before summing the reported μ-bit charges.
 - `scripts/RUNME.sh` simply runs the canonical demonstration and verification commands above for Unix-like systems by default.
 
-The Coq formalization ships with replay scripts. [`coq/verify_subsumption.sh`](coq/verify_subsumption.sh) rebuilds the minimalist kernel, the VM bridge, and the supporting sandboxes; it also points to the archived universal attempt for historical study.
+The Coq formalization ships with replay scripts. [`coq/verify_subsumption.sh`](coq/verify_subsumption.sh) rebuilds the minimalist kernel, the simulation bridge, and the supporting sandboxes; it also points to the archived universal attempt for historical study.
 
 
 <p align="center">
@@ -109,14 +111,16 @@ The Coq formalization ships with replay scripts. [`coq/verify_subsumption.sh`](c
    - **Intended for exploratory plots rather than decisive empirical evidence.**
 7. **(Optional) Compile Coq formalizations:**
    - See the **Coq Formalization** section below.
-   - `coq/verify_subsumption.sh` rebuilds the kernel, the subsumption proof, and `ThieleCPUBridge.v`, then directs reviewers to the archived universal attempt for historical context.
+  - `coq/verify_subsumption.sh` rebuilds the kernel, the subsumption proof, and `Kernel/SimulationProof.v`, then directs reviewers to the archived universal attempt for historical context.
 
 **Requirements:** Python 3.11 or later.
 
 **Core Dependencies:** z3-solver, numpy, scipy, networkx, python-sat, matplotlib, tqdm
 
 **Optional System Dependencies:**
-- Coq Platform 8.20 or later (for formal proofs and compilation)
+- Coq Platform 8.20 or later (for formal proofs and compilation). On Debian-based
+  systems install via `sudo apt-get install -y coq coqide` before running
+  `make -C coq`.
 - drat-trim and lrat-check (for advanced proof verification)
 
 ### Known Limitations (October 2025 audit)
@@ -212,7 +216,7 @@ This repository simulates the Thiele Machine and publishes cryptographically sea
 
 This repository now packages the full subsumption argument together with the supporting artefacts. Highlights:
 
-- **Mechanised subsumption core:** The Sovereign Witness audit recompiled the shared kernel (`Kernel.v`, `KernelTM.v`, `KernelThiele.v`), the strict containment theorem in `Subsumption.v`, and the VM bridge (`ThieleCPUBridge.v`) establishing `vm_is_instance_of_kernel`, demonstrating that Python traces embed directly in the kernel semantics.【F:audit_logs/agent_coq_verification.log†L1-L318】【F:coq/kernel/Subsumption.v†L23-L118】【F:coq/kernel/ThieleCPUBridge.v†L8-L255】
+- **Mechanised subsumption core:** The Sovereign Witness audit recompiled the shared kernel (`Kernel.v`, `KernelTM.v`, `KernelThiele.v`) and the strict containment theorem in `Subsumption.v`.  The VM bridge remains under construction; current Coq artefacts only cover μ-ledger alignment and are tracked as part of Operation Unification Milestone 2.【F:audit_logs/agent_coq_verification.log†L1-L318】【F:coq/kernel/Subsumption.v†L23-L118】【F:docs/operation_unification_progress.md†L1-L120】
 - **Executable VM with μ-ledger parity:** The Python Thiele Machine (`thielecpu/vm.py`, `thielecpu/mu.py`) executes the audited instruction set, emits receipts, and tallies μ-costs that match the kernel bridge and the hardware solver to the bit.【F:thielecpu/vm.py†L1-L460】【F:thielecpu/mu.py†L1-L92】【F:audit_logs/agent_software_reproduction.log†L1-L158】
 - **Autonomous hardware oracle:** The general-purpose reasoning fabric (`hardware/synthesis_trap/reasoning_core.v`) and its backtracking controller (`thiele_autonomous_solver.v`) reproduce the software μ-ledger under simulation and synthesis, with transcripts captured in the audit logs.【F:hardware/synthesis_trap/reasoning_core.v†L1-L308】【F:hardware/synthesis_trap/thiele_autonomous_solver.v†L1-L389】【F:audit_logs/agent_hardware_verification.log†L780-L842】
 - **Receipts and verification harness:** `scripts/challenge.py verify receipts` replays every signed receipt, checks Ed25519 manifests, and validates the SAT/SMT artefacts; `scripts/prove_it_all.sh` and `coq/verify_subsumption.sh` provide end-to-end Coq replay for the canonical demonstrations.【F:scripts/challenge.py†L1-L220】【F:scripts/prove_it_all.sh†L1-L155】
@@ -1086,8 +1090,8 @@ bash scripts/run_the_synthesis.sh
 cd coq
 ./verify_subsumption.sh
 ```
-- **Builds:** The minimalist kernel (`Kernel.v`, `KernelTM.v`, `KernelThiele.v`), the subsumption proof, and the VM bridge `ThieleCPUBridge.v`.
-- **Result:** Confirms `thiele_simulates_turing`, `turing_is_strictly_contained`, and `vm_is_instance_of_kernel` with no `Admitted` statements.
+- **Builds:** The minimalist kernel (`Kernel.v`, `KernelTM.v`, `KernelThiele.v`) and the strict-containment proof.  The current `SimulationProof.v` artefact is a μ-ledger placeholder and will be rebuilt once Milestone 2 lands.
+- **Result:** Expect containment theorems to pass.  The VM refinement goal is intentionally marked TODO until the strengthened bridge is implemented.
 
 #### Advanced Demonstrations
 
