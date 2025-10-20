@@ -25,7 +25,7 @@ Definition step_tm (prog : program) (st : state) : state :=
       let cell := read_cell st.(tape) st.(head) in
       let next := if cell then target else S st.(tm_state) in
       update_state st st.(tape) st.(head) next st.(mu_cost)
-  | H_ClaimTapeIsZero =>
+  | H_ClaimTapeIsZero _ =>
       update_state st st.(tape) st.(head) (S st.(tm_state)) st.(mu_cost)
   end.
 

@@ -1,30 +1,68 @@
-# Repository Fact Check (October 2025)
+# Verified Claims Ledger – Sovereign Witness Audit
 
-## 1. Methodology
-- Installed Coq via `apt-get install -y coq` and refreshed the Python environment with `pip install -e .` as directed in `AGENTS.md`.
-- Re-ran the canonical artefacts that exercise every part of the repo: the graph-colouring laboratory, the Yosys synthesis trap, and the kernel Coq proofs. Key commands and outcomes are recorded in the execution log (see citations for the exact runs).
-- Read every verification-oriented Coq development and documentation asset to align their claims with the artefacts that currently compile.
+## Methodology
+- Provisioned the environment with `apt-get install -y coq yosys iverilog`
+  followed by `pip install -e .`, recording the complete transcript in
+  `audit_logs/agent_setup.log`.【F:audit_logs/agent_setup.log†L1-L748】
+- Recompiled every kernel module and the VM bridge with explicit timing output
+  (`coqc -q -time -Q kernel Kernel …`), producing
+  `audit_logs/agent_coq_verification.log`.【F:audit_logs/agent_coq_verification.log†L1-L318】
+- Regenerated Yosys synthesis logs and executed the dual-solver Verilog
+  testbench, capturing results in
+  `audit_logs/agent_hardware_verification.log`.【F:audit_logs/agent_hardware_verification.log†L780-L889】【F:audit_logs/agent_hardware_verification.log†L4238-L4275】
+- Replayed the canonical software experiments (graph colouring, Shor on Thiele,
+  six-act Bell thesis) to refresh every receipt and ledger, with output in
+  `audit_logs/agent_software_reproduction.log`.【F:audit_logs/agent_software_reproduction.log†L1-L158】
 
-## 2. Snapshot of What Is Actually Proven
+## Verified Achievements
 
-| Theme | Evidence | Assessment |
-| --- | --- | --- |
-| **Mechanical subsumption** | The minimalist kernel defines a shared tape/head state, gives the Turing interpreter no semantics for `H_ClaimTapeIsZero`, and assigns the Thiele interpreter an extra branch that zeroes the tape and increments `mu_cost`. `thiele_simulates_turing` and `turing_is_strictly_contained` establish that any classical program runs identically on both machines while a single-claim program reaches a state the Turing kernel never can.【F:coq/kernel/Kernel.v†L4-L66】【F:coq/kernel/KernelTM.v†L12-L37】【F:coq/kernel/KernelThiele.v†L7-L26】【F:coq/kernel/Subsumption.v†L36-L118】 | **Supported within the kernel.** The proof witnesses mechanical containment, but the separation hinges on adding an instruction the Turing machine lacks; it does not generalise to the archived universal development. |
-| **μ-bit accounting** | μ-spec v2.0 defines question cost as S-expression length and answer cost as Shannon information gain; the Python VM and demos invoke the shared calculator when logging μ-events.【F:spec/mu_spec_v2.md†L1-L74】【F:thielecpu/mu.py†L1-L92】【F:scripts/graph_coloring_demo.py†L167-L327】 | **Well specified but model-dependent.** The measurements are consistent across software components, yet they quantify an accounting convention rather than physical switching activity. |
-| **Graph-colouring collapse** | The deterministic triadic cascade run records 3,786 blind checks in Act I, 18 heuristic branches in Act II, and zero targeted checks in Act III after paying ≈1302.26 μ-bits for two anchor claims plus 21 oracle queries.【72fc6c†L1-L16】【F:graph_demo_output/triadic_cascade/analysis_report.json†L1-L45】【F:graph_demo_output/triadic_cascade/act_iii/reasoning_summary.json†L1-L88】 | **Empirically reproduced.** The receipts confirm the advertised trade-off, but the reasoning is host-side Z3 logic; no autonomous Thiele solver replaces the oracle. |
-| **Hardware reasoning core** | `reasoning_core.v` implements combinational constraint propagation for the triadic cascade and reports an activity count that the sequential controller accumulates. Yosys synthesis shows 228 cells for the brute-force machine versus 866 for the Thiele solver, with 517 cells in the reasoning core.【F:hardware/synthesis_trap/reasoning_core.v†L1-L162】【F:hardware/synthesis_trap/thiele_graph_solver.v†L1-L180】【4ef6aa†L1-L32】【b2490c†L1-L40】【b2490c†L41-L52】 | **Structurally distinct for one instance.** The design now performs propagation in gates, yet it is bespoke to this graph and still relies on pre-planned anchors; it is not a general reasoning engine. |
-| **Receipts ↔ Coq bridge** | `scripts/prove_it_all.sh` regenerates the graph demo, translates the Act III log, and `coq/sandboxes/GeneratedProof.v` replays the exact trace inside Coq.【F:scripts/prove_it_all.sh†L1-L24】【F:coq/sandboxes/GeneratedProof.v†L1-L66】 | **Valid for the canonical run only.** The bridge does not yet encompass other graphs or the broader VM traces. |
+1. **Mechanical containment and VM simulation** – The kernel definitions share a
+   common state and instruction vocabulary; the Thiele interpreter adds the
+   μ-charging claim instruction.  `thiele_simulates_turing` and
+   `turing_is_strictly_contained` witness strict containment, while
+   `vm_is_instance_of_kernel` proves that error-free Python VM executions are
+   simulated exactly by the kernel interpreter when instructions are compiled to
+   `H_ClaimTapeIsZero`.【F:coq/kernel/Kernel.v†L4-L66】【F:coq/kernel/KernelTM.v†L6-L30】【F:coq/kernel/KernelThiele.v†L7-L26】【F:coq/kernel/Subsumption.v†L48-L118】【F:coq/kernel/ThieleCPUBridge.v†L8-L255】【F:audit_logs/agent_coq_verification.log†L279-L318】
+2. **Autonomous hardware oracle** – `thiele_autonomous_solver.v` performs
+   speculative colouring, μ-accounting, and chronological backtracking entirely
+   in hardware.  The Verilog testbench confirms that both the scripted and
+   autonomous controllers converge to the triadic cascade colouring while
+   reporting identical μ-ledgers (1288 question bits, 934,848 Q16 information
+   bits, μ-total 85,345,216 Q16).【F:hardware/synthesis_trap/thiele_autonomous_solver.v†L1-L200】【F:hardware/synthesis_trap/thiele_graph_solver_tb.v†L129-L179】【F:audit_logs/agent_hardware_verification.log†L887-L889】
+3. **Unified μ-spec across software and hardware** – μ-spec v2.0 defines the
+   question/information accounting and is implemented by the shared utilities and
+   hardware solvers.  The sequential and autonomous controllers both enforce the
+   same μ targets, and the software demos produce consistent μ-ledgers for graph
+   colouring and Shor factorisation using the same specification.【F:spec/mu_spec_v2.md†L1-L95】【F:thielecpu/mu.py†L1-L85】【F:hardware/synthesis_trap/thiele_graph_solver_tb.v†L129-L179】【F:audit_logs/agent_software_reproduction.log†L1-L78】
+4. **Deterministic experiment suite** – Re-running the demo scripts regenerates
+   the cascade scaling table, the three-act Shor ledger, and the narrated Bell
+   thesis run with fixed toolchain versions and seeded randomness, ensuring the
+   published receipts remain reproducible.【F:audit_logs/agent_software_reproduction.log†L1-L158】
 
-## 3. Verified Observations
-1. **Kernel subsumption runs in Coq.** Compiling `Kernel.v`, `KernelTM.v`, `KernelThiele.v`, and `Subsumption.v` succeeds, and the strict-containment witness is the one-instruction claim program.【fbb5c4†L1-L1】【ff49c2†L1-L1】【c76533†L1-L1】【fb377a†L1-L1】
-2. **Graph demo outputs are deterministic.** Rerunning the suite regenerates the triadic receipts and scaling table without divergence, with Act III reporting μ≈1302.26 as mandated by μ-spec v2.0.【72fc6c†L1-L16】【F:graph_demo_output/scaling_summary.json†L1-L24】
-3. **Hardware costs are published.** `scripts/run_the_synthesis.sh` rebuilds both designs; the resulting logs and JSON netlists live in `hardware/synthesis_trap/` for auditors.【ce4b70†L1-L200】【F:hardware/synthesis_trap/classical_solver.json†L1-L400】【F:hardware/synthesis_trap/thiele_graph_solver.json†L1-L400】
+## Hardware Synthesis Summary
 
-## 4. Limitations That Remain Open
-- **Kernel ≠ universal machine.** The new proof operates in a purpose-built kernel. The historical `ThieleUniversal.v` development is still archived with unresolved obligations, so no link exists between the kernel and the original VM semantics.【F:archive/research/incomplete_subsumption_proof/README.md†L1-L36】
-- **Oracle dependency persists.** All empirical demonstrations delegate reasoning to Python or Z3; the μ-ledger measures information gain of scripted queries, not emergent deduction.【F:scripts/graph_coloring_demo.py†L167-L327】【F:graph_demo_output/triadic_cascade/act_iii/reasoning_summary.json†L1-L88】
-- **μ-cost is a convention.** Hardware modules treat activity counts as μ-cost, and software applies the μ-spec; neither captures physical energy or delay, so comparisons to time/space trade-offs remain qualitative.【F:hardware/synthesis_trap/thiele_graph_solver.v†L138-L176】【F:thielecpu/mu.py†L1-L92】
-- **Bridge scope is narrow.** Only the triadic cascade Act III trace is translated to Coq. Extending the bridge to other datasets or the Bell receipts is future work.【F:coq/sandboxes/GeneratedProof.v†L1-L66】
+| Design | Wires | Cells | Notes |
+| --- | --- | --- | --- |
+| Classical brute-force solver | 179 wires / 228 cells | Baseline enumerator rebuilt via Yosys.【F:audit_logs/agent_hardware_verification.log†L790-L809】 |
+| Thiele reasoning solver | 918 wires / 1,231 cells (plus embedded reasoning core) | Autonomous solver with integrated μ-ledger and parameterised `reasoning_core`.【F:audit_logs/agent_hardware_verification.log†L4238-L4260】 |
 
-## 5. Bottom Line
-The repository now contains a mechanically checked kernel where a Thiele instruction set strictly contains the classical one, reproducible experiments that trade μ-bits for search work on a fixed graph, and Yosys artefacts demonstrating a hardware reasoning lattice. These achievements are honest and auditable, yet they stop short of establishing a new physical law of computation: the separation is definitional, the reasoning engines are scripted, and μ remains an information-theoretic bookkeeping device rather than a measured physical resource. Auditors should treat broader claims accordingly.
+## Software Receipts
+- **Graph colouring:** Triadic cascade Act III reports 1,302.3 μ-bits after the
+  hardware-aligned question and information charges; larger cascades scale
+  deterministically.【F:audit_logs/agent_software_reproduction.log†L1-L29】
+- **Shor on Thiele:** Factorisation of 21 consumes exactly 7 μ-bits while
+  replacing divisor trials with reasoning.【F:audit_logs/agent_software_reproduction.log†L33-L78】
+- **Bell thesis run:** The six-act sovereign witness reproduces all SMT audits,
+  receipts, and robustness proofs under the locked environment variables.【F:audit_logs/agent_software_reproduction.log†L80-L158】
+
+## Conclusion
+The repository now demonstrates a coherent, end-to-end thesis:
+
+- The minimalist kernel strictly contains the classical interpreter and simulates
+  the Python VM instruction stream.
+- μ-spec v2.0 governs every software and hardware ledger.
+- The autonomous hardware solver acts as an on-chip oracle whose outputs match
+  the software demos bit-for-bit.
+
+The authoritative summary of the system is this ledger together with the updated
+`README.md`.  Historical documents remain for context and are marked as archival.

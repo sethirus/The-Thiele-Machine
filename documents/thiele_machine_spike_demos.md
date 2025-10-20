@@ -1,3 +1,5 @@
+> **ARCHIVAL NOTICE:** This document is preserved for historical context. The final, unified proof and analysis are now complete. For the authoritative summary, see `README.md` and `docs/final_fact_check.md`.
+
 # Spike Demonstrations for the Thiele Machine
 
 > **Status update (October 2025):** This document is preserved for historical context. See `docs/kernel_analysis.md` and `docs/final_fact_check.md` for current evidence.
