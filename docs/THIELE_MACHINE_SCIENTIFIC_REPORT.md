@@ -1,3 +1,5 @@
+> **ARCHIVAL NOTICE:** This document is preserved for historical context. The final, unified proof and analysis are now complete. For the authoritative summary, see `README.md` and `docs/final_fact_check.md`.
+
 # Legacy Formal Verification Status (April 2025)
 
 This note replaces the earlier manifesto-style report. It summarises the status of the

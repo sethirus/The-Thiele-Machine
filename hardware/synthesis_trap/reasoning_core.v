@@ -1,170 +1,106 @@
-// reasoning_core.v -- combinational constraint propagation engine for the
-// triadic_cascade graph-colouring instance.
+// reasoning_core.v -- combinational reasoning fabric for three-colour graphs.
 //
 // The module accepts a snapshot of per-vertex colour masks (three one-hot bits
-// per node) and computes the residual search pressure that follows from the
-// currently committed anchors.  The logic removes colours that clash with
-// single-colour neighbours and detects nodes that become forced to a unique
-// hue.  Every forced vertex contributes a physical µ-cost equal to the number
-// of eliminated colours plus one bookkeeping unit; the aggregate activity count
-// is reported alongside the per-node updates so that sequential controllers can
-// account for the knowledge expenditure performed in gates.
+// per node) together with a runtime-programmable adjacency matrix.  For every
+// vertex it derives the colours forbidden by single-colour neighbours, computes
+// the residual candidate mask, and reports newly forced assignments.  In
+// addition to the legacy "activity count" used by the original Cornerstone
+// evaluation, the core now emits μ-spec v2.0 accounting terms: the question-bit
+// expenditure attributed to each forced oracle query and the Shannon
+// information gain (expressed as Q16 fixed-point bits) delivered by the
+// propagation step.  Sequential controllers can therefore accumulate the
+// information-theoretic μ-cost without relying on host-side instrumentation.
 
-module reasoning_core (
-    input  wire [26:0] node_masks,
-    output wire [26:0] forced_masks,
-    output wire [8:0]  force_valid,
-    output wire [5:0]  activity_count
+module reasoning_core #(
+    parameter int NODES = 9,
+    parameter int MU_PRECISION = 16
+)(
+    input  wire [3*NODES-1:0]      node_masks,
+    input  wire [NODES*NODES-1:0]  adjacency,
+    input  wire [32*NODES-1:0]     node_question_bits,
+    output logic [3*NODES-1:0]     forced_masks,
+    output logic [NODES-1:0]       force_valid,
+    output logic [$clog2((4*NODES)+1)-1:0] activity_count,
+    output logic [31:0]            question_bits,
+    output logic [31:0]            information_gain_q16
 );
-    // Utility predicates for one-hot colour masks.
-    function automatic is_single(input [2:0] mask);
-        begin
-            case (mask)
-                3'b001, 3'b010, 3'b100: is_single = 1'b1;
-                default:                is_single = 1'b0;
+    localparam int LOG2_2_Q16       = 1 << MU_PRECISION;              // log₂ 2
+    localparam int LOG2_3_Q16       = 103872;                          // round(log₂ 3 × 2¹⁶)
+    localparam int LOG2_3_OVER_2_Q16 = LOG2_3_Q16 - LOG2_2_Q16;        // log₂(3/2)
+
+    function automatic bit is_single(input logic [2:0] mask);
+        case (mask)
+            3'b001, 3'b010, 3'b100: is_single = 1'b1;
+            default:                is_single = 1'b0;
+        endcase
+    endfunction
+
+    function automatic int popcount3(input logic [2:0] mask);
+        popcount3 = mask[0] + mask[1] + mask[2];
+    endfunction
+
+    function automatic int log_ratio_q16(input int before_count, input int after_count);
+        if (before_count <= after_count) begin
+            log_ratio_q16 = 0;
+        end else begin
+            case ({before_count[1:0], after_count[1:0]})
+                4'b11_01: log_ratio_q16 = LOG2_3_Q16;       // 3 → 1
+                4'b10_01: log_ratio_q16 = LOG2_2_Q16;       // 2 → 1
+                4'b11_10: log_ratio_q16 = LOG2_3_OVER_2_Q16; // 3 → 2
+                default:   log_ratio_q16 = 0;
             endcase
         end
     endfunction
 
-    // Convenience popcount for a three-bit mask.
-    function automatic [1:0] popcount3(input [2:0] mask);
-        begin
-            popcount3 = mask[0] + mask[1] + mask[2];
+    logic [2:0] masks      [0:NODES-1];
+    logic [2:0] candidates [0:NODES-1];
+    logic [2:0] removed    [0:NODES-1];
+
+    integer i, j;
+    integer activity_tmp;
+    integer question_tmp;
+    integer info_tmp;
+
+    always @* begin
+        for (i = 0; i < NODES; i = i + 1) begin
+            masks[i] = node_masks[(i*3)+2 -: 3];
+            candidates[i] = 3'b000;
+            removed[i] = 3'b000;
         end
-    endfunction
 
-    // Slice the flattened bus into individual node masks.
-    wire [2:0] mask0 = node_masks[2:0];
-    wire [2:0] mask1 = node_masks[5:3];
-    wire [2:0] mask2 = node_masks[8:6];
-    wire [2:0] mask3 = node_masks[11:9];
-    wire [2:0] mask4 = node_masks[14:12];
-    wire [2:0] mask5 = node_masks[17:15];
-    wire [2:0] mask6 = node_masks[20:18];
-    wire [2:0] mask7 = node_masks[23:21];
-    wire [2:0] mask8 = node_masks[26:24];
+        force_valid          = '0;
+        forced_masks         = '0;
+        activity_tmp         = 0;
+        question_tmp         = 0;
+        info_tmp             = 0;
 
-    // For each node compute the neighbour-forbidden mask produced by
-    // single-colour neighbours.
-    wire [2:0] forbid0 = (is_single(mask1) ? mask1 : 3'b000)
-                       | (is_single(mask2) ? mask2 : 3'b000)
-                       | (is_single(mask4) ? mask4 : 3'b000)
-                       | (is_single(mask5) ? mask5 : 3'b000);
+        for (i = 0; i < NODES; i = i + 1) begin
+            logic [2:0] forbid;
+            forbid = 3'b000;
 
-    wire [2:0] forbid1 = (is_single(mask0) ? mask0 : 3'b000)
-                       | (is_single(mask2) ? mask2 : 3'b000)
-                       | (is_single(mask3) ? mask3 : 3'b000)
-                       | (is_single(mask5) ? mask5 : 3'b000);
+            for (j = 0; j < NODES; j = j + 1) begin
+                if (adjacency[(i*NODES)+j]) begin
+                    if (is_single(masks[j])) begin
+                        forbid |= masks[j];
+                    end
+                end
+            end
 
-    wire [2:0] forbid2 = (is_single(mask0) ? mask0 : 3'b000)
-                       | (is_single(mask1) ? mask1 : 3'b000)
-                       | (is_single(mask3) ? mask3 : 3'b000)
-                       | (is_single(mask4) ? mask4 : 3'b000);
+            candidates[i] = masks[i] & ~forbid;
+            forced_masks[(i*3)+2 -: 3] = candidates[i];
 
-    wire [2:0] forbid3 = (is_single(mask1) ? mask1 : 3'b000)
-                       | (is_single(mask2) ? mask2 : 3'b000)
-                       | (is_single(mask7) ? mask7 : 3'b000)
-                       | (is_single(mask8) ? mask8 : 3'b000);
+            if (is_single(candidates[i]) && !is_single(masks[i]) && (candidates[i] != 3'b000)) begin
+                force_valid[i] = 1'b1;
+                removed[i] = masks[i] & ~candidates[i];
 
-    wire [2:0] forbid4 = (is_single(mask0) ? mask0 : 3'b000)
-                       | (is_single(mask2) ? mask2 : 3'b000)
-                       | (is_single(mask6) ? mask6 : 3'b000)
-                       | (is_single(mask8) ? mask8 : 3'b000);
+                activity_tmp = activity_tmp + popcount3(removed[i]) + 1;
+                question_tmp = question_tmp + node_question_bits[(i*32)+31 -: 32];
+                info_tmp = info_tmp + log_ratio_q16(popcount3(masks[i]), popcount3(candidates[i]));
+            end
+        end
 
-    wire [2:0] forbid5 = (is_single(mask0) ? mask0 : 3'b000)
-                       | (is_single(mask1) ? mask1 : 3'b000)
-                       | (is_single(mask6) ? mask6 : 3'b000)
-                       | (is_single(mask7) ? mask7 : 3'b000);
-
-    wire [2:0] forbid6 = (is_single(mask4) ? mask4 : 3'b000)
-                       | (is_single(mask5) ? mask5 : 3'b000);
-
-    wire [2:0] forbid7 = (is_single(mask3) ? mask3 : 3'b000)
-                       | (is_single(mask5) ? mask5 : 3'b000);
-
-    wire [2:0] forbid8 = (is_single(mask3) ? mask3 : 3'b000)
-                       | (is_single(mask4) ? mask4 : 3'b000);
-
-    // Residual masks after removing neighbour colours.
-    wire [2:0] cand0 = mask0 & ~forbid0;
-    wire [2:0] cand1 = mask1 & ~forbid1;
-    wire [2:0] cand2 = mask2 & ~forbid2;
-    wire [2:0] cand3 = mask3 & ~forbid3;
-    wire [2:0] cand4 = mask4 & ~forbid4;
-    wire [2:0] cand5 = mask5 & ~forbid5;
-    wire [2:0] cand6 = mask6 & ~forbid6;
-    wire [2:0] cand7 = mask7 & ~forbid7;
-    wire [2:0] cand8 = mask8 & ~forbid8;
-
-    // Detect newly forced nodes.
-    wire force0 = is_single(cand0) && !is_single(mask0) && (cand0 != 3'b000);
-    wire force1 = is_single(cand1) && !is_single(mask1) && (cand1 != 3'b000);
-    wire force2 = is_single(cand2) && !is_single(mask2) && (cand2 != 3'b000);
-    wire force3 = is_single(cand3) && !is_single(mask3) && (cand3 != 3'b000);
-    wire force4 = is_single(cand4) && !is_single(mask4) && (cand4 != 3'b000);
-    wire force5 = is_single(cand5) && !is_single(mask5) && (cand5 != 3'b000);
-    wire force6 = is_single(cand6) && !is_single(mask6) && (cand6 != 3'b000);
-    wire force7 = is_single(cand7) && !is_single(mask7) && (cand7 != 3'b000);
-    wire force8 = is_single(cand8) && !is_single(mask8) && (cand8 != 3'b000);
-
-    assign force_valid = {
-        force8,
-        force7,
-        force6,
-        force5,
-        force4,
-        force3,
-        force2,
-        force1,
-        force0
-    };
-
-    // Forward the forced masks for sequential controllers.  Only lanes with
-    // force_valid asserted will be consumed.
-    assign forced_masks = {
-        cand8,
-        cand7,
-        cand6,
-        cand5,
-        cand4,
-        cand3,
-        cand2,
-        cand1,
-        cand0
-    };
-
-    // Compute the µ-cost contribution for this propagation window.
-    wire [2:0] removed0 = mask0 & ~cand0;
-    wire [2:0] removed1 = mask1 & ~cand1;
-    wire [2:0] removed2 = mask2 & ~cand2;
-    wire [2:0] removed3 = mask3 & ~cand3;
-    wire [2:0] removed4 = mask4 & ~cand4;
-    wire [2:0] removed5 = mask5 & ~cand5;
-    wire [2:0] removed6 = mask6 & ~cand6;
-    wire [2:0] removed7 = mask7 & ~cand7;
-    wire [2:0] removed8 = mask8 & ~cand8;
-
-    wire [1:0] count0 = popcount3(removed0);
-    wire [1:0] count1 = popcount3(removed1);
-    wire [1:0] count2 = popcount3(removed2);
-    wire [1:0] count3 = popcount3(removed3);
-    wire [1:0] count4 = popcount3(removed4);
-    wire [1:0] count5 = popcount3(removed5);
-    wire [1:0] count6 = popcount3(removed6);
-    wire [1:0] count7 = popcount3(removed7);
-    wire [1:0] count8 = popcount3(removed8);
-
-    wire [3:0] activity0 = force0 ? ({2'b00, count0} + 4'd1) : 4'd0;
-    wire [3:0] activity1 = force1 ? ({2'b00, count1} + 4'd1) : 4'd0;
-    wire [3:0] activity2 = force2 ? ({2'b00, count2} + 4'd1) : 4'd0;
-    wire [3:0] activity3 = force3 ? ({2'b00, count3} + 4'd1) : 4'd0;
-    wire [3:0] activity4 = force4 ? ({2'b00, count4} + 4'd1) : 4'd0;
-    wire [3:0] activity5 = force5 ? ({2'b00, count5} + 4'd1) : 4'd0;
-    wire [3:0] activity6 = force6 ? ({2'b00, count6} + 4'd1) : 4'd0;
-    wire [3:0] activity7 = force7 ? ({2'b00, count7} + 4'd1) : 4'd0;
-    wire [3:0] activity8 = force8 ? ({2'b00, count8} + 4'd1) : 4'd0;
-
-    assign activity_count = activity0 + activity1 + activity2 + activity3 +
-                            activity4 + activity5 + activity6 + activity7 +
-                            activity8;
+        activity_count       = activity_tmp[$clog2((4*NODES)+1)-1:0];
+        question_bits        = question_tmp[31:0];
+        information_gain_q16 = info_tmp[31:0];
+    end
 endmodule

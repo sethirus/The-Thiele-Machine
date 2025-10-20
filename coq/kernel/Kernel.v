@@ -17,7 +17,7 @@ Inductive instruction :=
 | T_Write (b : bool)
 | T_Move (d : direction)
 | T_Branch (target : nat)
-| H_ClaimTapeIsZero.
+| H_ClaimTapeIsZero (delta : nat).
 
 Definition program := list instruction.
 
@@ -58,7 +58,7 @@ Definition update_state (st : state) (t' : list bool) (h' : nat) (s' : nat) (mu'
 
 Definition turing_instruction (instr : instruction) : bool :=
   match instr with
-  | H_ClaimTapeIsZero => false
+  | H_ClaimTapeIsZero _ => false
   | _ => true
   end.
 

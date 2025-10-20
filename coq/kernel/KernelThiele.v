@@ -20,9 +20,9 @@ Definition step_thiele (prog : program) (st : state) : state :=
       let cell := read_cell st.(tape) st.(head) in
       let next := if cell then target else S st.(tm_state) in
       update_state st st.(tape) st.(head) next st.(mu_cost)
-  | H_ClaimTapeIsZero =>
+  | H_ClaimTapeIsZero delta =>
       let t' := claim_tape_zero st.(tape) in
-      update_state st t' st.(head) (S st.(tm_state)) (S st.(mu_cost))
+      update_state st t' st.(head) (S st.(tm_state)) (st.(mu_cost) + delta)
   end.
 
 Fixpoint run_thiele (fuel : nat) (prog : program) (st : state) : state :=

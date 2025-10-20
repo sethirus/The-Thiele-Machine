@@ -75,7 +75,7 @@ Proof.
       exact (Hdiff Ht).
 Qed.
 
-Definition p_impossible : program := [H_ClaimTapeIsZero].
+Definition p_impossible : program := [H_ClaimTapeIsZero 1].
 
 Definition initial_state : state :=
   {| tape := repeat true 3;
