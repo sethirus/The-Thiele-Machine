@@ -1,5 +1,4 @@
 # Bell Inequality Demonstration — Sovereign Witness
-> **Status update (October 2025):** This document is preserved for historical context. For the current kernel and μ-spec analysis see `docs/kernel_analysis.md` and `docs/final_fact_check.md`.
 A Thiele Machine thesis in six acts.
 
 ## Experimental Environment
@@ -11,11 +10,11 @@ Pinned environment variables for reproducibility:
 - LANG=C
 - PYTHONHASHSEED=0
 Formal toolchain versions detected:
-- Python: Python 3.12.10
-- Z3: Z3 version 4.15.1 - 64 bit
+- Python: Python 3.12.1
+- Z3: Z3 version 4.8.12 - 64 bit
 - Coq: The Coq Proof Assistant, version 8.18.0
-- Repository commit: 7e74c450508382c480fa7c400633d15ddd6dbe0f
-- Host platform: Linux-6.12.13-x86_64-with-glibc2.39
+- Repository commit: 52e7315efa96067452ff86af892eaedfda9cf237
+- Host platform: Linux-6.8.0-1030-azure-x86_64-with-glibc2.39
 Network isolation is enforced; passing --allow-network explicitly opts into live data fetching.
 Decimal arithmetic uses 80 digits of precision; all rational witnesses are emitted exactly.
 ## Trusted Computing Base
@@ -487,7 +486,7 @@ Receipts are regenerated, summarised, and optionally sent to Coq for mechanised 
 
 Receipt generation transcript:
 ```text
-Wrote 5 receipts to /workspace/The-Thiele-Machine/examples/tsirelson_step_receipts.json
+Wrote 5 receipts to /workspaces/The-Thiele-Machine/examples/tsirelson_step_receipts.json
 ```
 Receipt summary:
 - count = 5
@@ -506,18 +505,17 @@ Cosmic microwave background data is converted into a formally proved prediction.
 Correctness: the SMT proof shows the induced rule outputs the logged CHSH setting for the recorded features.
 Robustness: a QF_LIA certificate demonstrates the prediction remains stable within the recorded noise model (ε-ball) derived from the offline dataset.
 Operation Cosmic Witness mode=offline, data_source=offline, allow_network=False
-Loading offline CMB sample from /workspace/The-Thiele-Machine/data/planck_sample.fits
+Loading offline CMB sample from /workspaces/The-Thiele-Machine/data/cmb_sample.csv
 Extracted feature vector (mean, stdev, min, max, gradient): 2.7254761875, 6.79355163007e-06, 2.725466, 2.725489, -1.25000000004e-05
-Data origin recorded as embedded-planck-patch.
-Fell back to the canonical Planck patch because HEALPix reader failure (Empty or corrupt FITS file) when parsing planck_sample.fits.
+Data origin recorded as csv:cmb_sample.csv.
 Induced rule: feature[3] > 2.99804 -> (0, 0), else -> (0, 0) (param_count=1)
 Predicted CHSH trial: alice=0, bob=0
 Prediction SMT proof succeeded; robustness proved (eps=2.725e-02).
 Persisted Operation Cosmic Witness receipts and proofs to disk.
 Operation Cosmic Witness artifacts written to the artifacts/ directory for audit.
-- Prediction receipt: /workspace/The-Thiele-Machine/artifacts/cosmic_witness_prediction_receipt.json
-- Prediction proof: /workspace/The-Thiele-Machine/artifacts/cosmic_witness_prediction_proof.smt2
-- Robustness proof: /workspace/The-Thiele-Machine/artifacts/cosmic_witness_prediction_proof_robust.smt2
+- Prediction receipt: /workspaces/The-Thiele-Machine/artifacts/cosmic_witness_prediction_receipt.json
+- Prediction proof: /workspaces/The-Thiele-Machine/artifacts/cosmic_witness_prediction_proof.smt2
+- Robustness proof: /workspaces/The-Thiele-Machine/artifacts/cosmic_witness_prediction_proof_robust.smt2
 - Prediction proved by Z3: True
 ## Conclusion — Verification Gates
 The thesis run is accepted only when these audit checks succeed.
