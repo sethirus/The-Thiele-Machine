@@ -6,7 +6,11 @@
    <img src="assets/(T).png" alt="The Thiele Machine Logo" width="200"/>
 </p>
 
-# Quick Start
+# The Thiele Machine
+
+The Thiele Machine is a computational model that extends and strictly contains the classical Turing Machine by introducing partition logic, certificate-driven computation, and quantified discovery costs (μ-bits). This repository provides a complete, self-verifying artifact demonstrating the Thiele paradigm through formal proofs, empirical experiments, and executable implementations.
+
+## Quick Start
 
 **To immediately verify the artifact:**
 
@@ -62,76 +66,42 @@ Quick checklist to verify the v1.0.3 release:
 
 ## Table of Contents
 
- - [Quick Start](#quick-start)
- - [Citation](#citation)
- - [Verification Checklist](#verification-checklist)
- - [Table of Contents](#table-of-contents)
- - [Common Questions & Misconceptions](#common-questions--misconceptions)
- - [Now, Let's Begin](#now-lets-begin)
- - [A Final Word. For the Critics in the Back](#a-final-word-for-the-critics-in-the-back)
- - [Research Ethics Notice](#research-ethics-notice)
- - [Repository Guarantees](#repository-guarantees)
- - [A Reviewer's Contract](#a-reviewers-contract)
- - [Postulate Zero: The Physics of Cost](#postulate-zero-the-physics-of-cost)
- - [The Three Axioms of This Artifact](#the-three-axioms-of-this-artifact)
- - [What This Artifact Is and Is Not](#what-this-artifact-is-and-is-not)
- - [Redefining Your Terms: Classical vs. Thiele](#redefining-your-terms-classical-vs-thiele)
- - [The Purpose of the Brute-Force 'Engine of Discovery'](#the-purpose-of-the-brute-force-engine-of-discovery)
- - [Empirical Derivation of the μ-bit to Time Exchange Rate](#empirical-derivation-of-the-μ-bit-to-time-exchange-rate)
- - [Coq Formalization](#coq-formalization)
- - [Repository Structure](#repository-structure)
- - [What Makes the Thiele Machine Different](#what-makes-the-thiele-machine-different)
- - [Mathematical Foundations](#mathematical-foundations)
- - [Partition Logic and Modular Reasoning](#partition-logic-and-modular-reasoning)
- - [Certificate-Driven Computation](#certificate-driven-computation)
- - [The Law of No Unpaid Sight Debt (NUSD)](#the-law-of-no-unpaid-sight-debt-nusd)
- - [Mubits and Minimum Description Length (MDL)](#mubits-and-minimum-description-length-mdl)
- - [Order-Invariance and Composite Witnesses](#order-invariance-and-composite-witnesses)
- - [Empirical Experiments and Results](#empirical-experiments-and-results)
- - [Gödelian Landmine](#godelian-landmine)
- - [Philosophical Implications and Future Directions](#philosophical-implications-and-future-directions)
- - [Installation and Usage](#installation-and-usage)
- - [Glossary](#glossary)
- - [Project Cerberus: A Provably Secure Kernel](#project-cerberus-a-provably-secure-kernel)
- - [CatNet: A Thiele-Machine Neural Network](#catnet-a-thiele-machine-neural-network)
- - [Contributing](#contributing)
- - [License](#license)
- - [Contact and Support](#contact-and-support)
+- [Quick Start](#quick-start)
+- [Citation](#citation)
+- [Verification Checklist](#verification-checklist)
+- [Overview](#overview)
+- [Research Ethics Notice](#research-ethics-notice)
+- [Repository Guarantees](#repository-guarantees)
+- [A Reviewer's Contract](#a-reviewers-contract)
+- [Core Concepts](#core-concepts)
+- [Key Components](#key-components)
+- [Mathematical Foundations](#mathematical-foundations)
+- [Empirical Experiments and Results](#empirical-experiments-and-results)
+- [Philosophical Implications](#philosophical-implications)
+- [Installation and Usage](#installation-and-usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact and Support](#contact-and-support)
+- [Glossary](#glossary)
+- [Code Reference Map](#code-reference-map)
 
----
+## Overview
 
+The Thiele Machine challenges fundamental assumptions about computation by demonstrating that classical models are "architecturally blind" to geometric structure in problems. Through partition logic and certificate-driven computation, it achieves exponential performance gains on structured problems while quantifying the cost of discovery in μ-bits.
 
-**Q: "Isn't this just [X], repackaged?"**
+**Key Innovations:**
+- **Partition Logic:** Dynamic decomposition of state spaces into independent modules
+- **Certificate-Driven Computation:** Every step justified by machine-verifiable proofs
+- **Quantified Discovery Cost:** μ-bits measure the information-theoretic price of perceiving structure
+- **Order-Invariance:** Results depend on problem structure, not execution sequence
 
-**On MDL:** We don't just *apply* MDL; we operationalize it as a physical law. We assign an **infinite MDL** to logical inconsistency through helpers like `mdl_bits_for_partition`, so paradoxical models blow up the ledger. This is not a metaphor—the infinite cost of paradox becomes the "potential energy" that drives the discovery of a problem's finite-cost structure. *The novelty is using MDL to map proof geometry.*【F:attempt.py†L608-L656】
+**Evidence Base:**
+- Formal Coq proofs establishing Turing ⊂ Thiele
+- Empirical demonstrations of exponential blind-vs-sighted performance gaps
+- Executable Python VM and hardware implementations
+- Cryptographically sealed receipts for all claims
 
-**On Modular Programming:** Classical modularity is a human-imposed convention. The Thiele machine *discovers* modules formally and dynamically, driven by logical contradiction. A bug is not a mistake; it's a **provable contradiction between module axioms**. The 'Engine of Discovery' finds these contradictions automatically. *The novelty is machine-driven modularity.*
-
-**On Hard Problems for SAT Solvers:** Yes, we *intentionally* use hard instances (XOR-SAT on expanders) as the experimental control. The point isn't to solve XOR-SAT better. The point is to have an unimpeachable yardstick to demonstrate the **exponential cost separation** between a machine model blind to geometry (Turing/`Pi_trace`) and one that can exploit it. The separation is the experiment.
-
----
-
-**Now, Let's Begin.**
-
-Run the code. Audit the outputs. Check the hashes. Adhere to the contract.
-
----
-
-## A Final Word. For the Critics in the Back.
-
-This work challenges fundamental assumptions about computation. It suggests that the classical model is not universal, but provincial—architecturally blind to a deeper geometric reality.
-
-The tools and techniques here (ASTs, Z3, category theory) are not new. What's new is recognizing that they form a coherent alternative to the Turing paradigm. The Thiele Machine shows how computation can be geometric, modular, and certificate-driven rather than sequential and trace-based.
-
-If this work is dismissed as "just graph traversal" or "repurposed SAT solving," it means the critic has failed to see the paradigm shift. The classical machine walks a path step-by-step. The Thiele Machine sees the entire landscape from orbit and asks whether the terrain itself contains a contradiction.
-
-This isn't about building a better algorithm. It's about recognizing that our current computers are trapped in one-dimensional traces, paying exponential "sight debt" for their architectural blindness. The Thiele Machine offers a path to computational freedom.
-
-The artifact includes its own supporting evidence. Run the code. Audit the outputs. Check the hashes.
-
----
-
-# Research Ethics Notice
+## Research Ethics Notice
 
 **⚠️ RESPONSIBLE USE REMINDER**
 
@@ -160,9 +130,7 @@ This repository simulates the Thiele Machine and publishes cryptographically sea
 
 **Evidence of Compliance:** Recent verification runs confirm cryptographic integrity—`python scripts/challenge.py verify receipts` succeeded with total μ=0.0. Coq builds currently rely on the admitted lemmas catalogued in `coq/ADMIT_REPORT.txt`; no additional undocumented assumptions are in play.
 
----
-
-# Repository Guarantees
+## Repository Guarantees
 
 This repository now packages the full subsumption argument together with the supporting artefacts. Highlights:
 
@@ -174,9 +142,7 @@ This repository now packages the full subsumption argument together with the sup
 
 **Verification Status:** As of the latest run (commit 4676f91a), the Coq developments build with the admitted lemmas enumerated in `coq/ADMIT_REPORT.txt`, receipts verify with SHA-256 integrity, and the Bell inequality demonstration produces consistent Tsirelson witnesses (S ≈ 2.828427). These runs substantiate the repository's reproducibility claims while keeping the remaining proof obligations transparent.
 
----
-
-# A Reviewer's Contract
+## A Reviewer's Contract
 
 **⚠️ This is not a software proposal. Your standard review process will fail.**
 
@@ -191,9 +157,9 @@ It is called an *artifact* because it encapsulates the proof and its data in a s
 
 **Evidence of Scientific Rigor:** The artifact's claims are backed by reproducible experiments—e.g., the Bell inequality demonstration runs in minutes, producing Z3-verified CHSH values up to 2.828427 (approaching Tsirelson bound), with receipts cryptographically sealed and Coq-verified. This falsifies classical local realism while demonstrating partition-native computation's advantages, grounded in empirical data rather than speculation.
 
----
+## Core Concepts
 
-# POSTULATE ZERO: THE PHYSICS OF COST
+### POSTULATE ZERO: THE PHYSICS OF COST
 
 **You are about to make a critical mistake.** You will try to understand the "cost" of a Thiele Machine by translating it into classical terms. You will assume μ-bits are a *metaphor*. **You will be catastrophically wrong.**
 
@@ -208,13 +174,11 @@ This artifact is built on a single, falsifiable physical postulate. Like Einstei
 
 **This experiment's exponential runtime is consistent with this prediction.** The observations support the postulate by showing its consequences are real and measurable. The question is not whether you "believe" in μ-bits. The question is whether you can refute the measured cost separation. If you cannot, the postulate stands.
 
-**Key insight:** Classical computers pay for information discovery with time. Thiele Machines pay with information. This creates an exponential performance gap on structured problems.
+**Key insight:** Classical computers pay for information discovery with time. Thiele Machines pay with information itself. This creates an exponential performance gap on structured problems.
 
 **Scientific Foundation:** Drawing from quantum information theory (e.g., Schumacher compression) and algorithmic information theory (Chaitin, Kolmogorov), μ-bits operationalize the minimum description length (MDL) principle as a physical cost. Empirical validation comes from experiments where inconsistent models incur infinite MDL, leading to measurable computational intractability, as seen in the paradox datasets where blind solvers take ~0.0035s vs. sighted ~0.0018s for finite-MDL models.
 
----
-
-# THE THREE AXIOMS OF THIS ARTIFACT
+### THE THREE AXIOMS OF THIS ARTIFACT
 
 This artifact operates under three core principles that distinguish it from conventional software:
 
@@ -238,9 +202,7 @@ This artifact operates under three core principles that distinguish it from conv
 
 **Empirical Validation:** Axioms 1-3 are substantiated by the artifact's reproducible outputs—e.g., the Engine of Discovery in `attempt.py` Article 1 runs combinatorially, producing MDL-based certificates that correlate with runtime costs, as verified in recent executions where partition searches yield finite μ-costs for consistent models vs. infinite for paradoxes.
 
----
-
-# WHAT THIS ARTIFACT IS AND IS NOT
+### WHAT THIS ARTIFACT IS AND IS NOT
 
 ### Physical Hypothesis
 Computation is a physical process with a geometric cost. Certain classes of problems have a computational cost fundamentally tied to their geometric structure, and a machine operating on "partition-native" principles (the Thiele Machine) could solve them at a cost profile unattainable by classical, sequential machines.
@@ -256,9 +218,7 @@ The key result is not the logical certificate (SAT/UNSAT) alone, but the cost re
 
 **Scientific Backing:** Rooted in computational complexity theory (e.g., NP-hardness of Tseitin instances) and information theory (MDL as cost metric), the artifact's falsifiability is demonstrated by reproducible experiments—e.g., graph coloring on expanders shows exponential blind costs vs. constant sighted, with Z3 proofs ensuring logical soundness.
 
----
-
-# Redefining Your Terms: Classical vs. Thiele
+### Redefining Your Terms: Classical vs. Thiele
 
 To understand the Thiele Machine, you need to rethink what "computation" means. Here's the key distinction:
 
@@ -271,9 +231,7 @@ To understand the Thiele Machine, you need to rethink what "computation" means. 
 
 **Theoretical Underpinning:** Based on Turing's model (sequential traces) vs. a partition-based extension, as formalized in Coq (`coq/kernel/Subsumption.v`), where Thiele strictly contains Turing. Empirical evidence from Bell experiments shows sighted strategies achieve Tsirelson bounds (2.828427) unattainable classically, validating the partition advantage.
 
----
-
-# The Purpose of the Brute-Force 'Engine of Discovery'
+### The Purpose of the Brute-Force 'Engine of Discovery'
 
 The 'Engine of Discovery' (see `attempt.py`, Article 1) exhaustively searches the partition space.【F:attempt.py†L982-L1208】
 
@@ -296,8 +254,6 @@ This very intractability motivates the experiments on the Fractal Nature of Debt
 
 **Computational Complexity Evidence:** As per complexity theory (e.g., partition search is NP-hard), the Engine's exponential runtime (O(2^n) for n modules) empirically demonstrates the "sight debt"—e.g., in recent runs, it produces MDL certificates with finite costs for valid partitions, proving the measurement's validity.
 
----
-
 ### Empirical Derivation of the μ-bit to Time Exchange Rate
 
 The artifact demonstrates that the information-theoretic cost (μ-bits/MDL) correlates with measurable computational cost. Using a 4-point paradox dataset, we measure both MDL and Z3 compute time for two models:
@@ -319,14 +275,12 @@ This provides the missing empirical bridge between theoretical information cost 
 
 **Data Source and Reproducibility:** Derived from `attempt.py` Article 0 (Paradox), where Z3 verifies unsatisfiability for blind partitions (infinite cost) vs. satisfiability for sighted (finite cost). Recent runs confirm the correlation, with receipts logged in `examples/tsirelson_step_receipts.json` for audit.
 
----
+## Key Components
 
+### Repository Structure
 
-Run the code. Audit the outputs. Check the hashes. Adhere to the contract.
-
----
-
----|---------|---------------|
+| Directory/File | Description |
+|---------|---------------|
 | `attempt.py` | **Main artifact** – Demonstration orchestrator | Drives the receipts, replay demos, and verification hand-offs |
 | `thielecpu/` | **Thiele CPU** – Reference implementation | Python VM aligned with the Coq semantics plus the canonical hardware blueprint |
 | `examples/` | **Demonstrations** – Applied scenarios | Bell thesis, paradox demo, RSA factoring, neural networks |
@@ -334,16 +288,7 @@ Run the code. Audit the outputs. Check the hashes. Adhere to the contract.
 | `scripts/` | **Utilities** – Tooling and auditors | Experiment runners, verification scripts, build tools |
 | `pyproject.toml` | **Dependencies** – Package configuration | All required Python packages and versions |
 
-### Resonator Period Finder (`hardware/resonator/`)
-- **`period_finder.v`** – Resonator architecture that encodes period claims and
-  feedback logic directly in combinational space.【F:hardware/resonator/period_finder.v†L15-L303】
-- **`classical_period_finder.v`** – Baseline sequential solver for side-by-side
-  synthesis comparisons.【F:hardware/resonator/classical_period_finder.v†L10-L123】
-- **`run_the_final_synthesis.sh`** – Yosys harness producing JSON netlists and
-  log reports under `hardware/resonator/build/`.【F:hardware/resonator/run_the_final_synthesis.sh†L1-L21】 See
-  `docs/resonator_overview.md` for the full experimental context and metrics.
-
-## Thiele CPU Implementation
+### Thiele CPU Implementation
 
 The `thielecpu/` directory bundles the authoritative Python VM and the reference hardware architecture that realise the instruction set exercised in the proofs.
 
@@ -377,7 +322,7 @@ EMIT    - Emit result with cryptographic receipt
 XFER    - Transfer data between partitions
 ```
 
-## Coq Formal Verification
+### Coq Formal Verification
 
 The `coq/` directory houses the full mechanised proof stack together with documentation for auditors.
 
@@ -400,51 +345,6 @@ The `coq/` directory houses the full mechanised proof stack together with docume
 - **P=NP Sketch** (`coq/p_equals_np_thiele/`) - ⚠️ Philosophical sketch only, NOT a rigorous complexity proof (see README in directory)
 
 The majority of files compile with Coq.
-
----
-
-# The Thiele Machine & The Shape of Truth
-
-## Origins and Prototyping
-
-This project began as an exploration of "categorical rendering" that was originally intended for a future implementation in Rust. Early prototypes were developed in Python, which led to a series of experiments into the geometry of abstraction and computation through logic. Continued research and iteration produced the executable thesis presented here.
-
-## What Makes the Thiele Machine Different
-
-The Thiele Machine is a fundamentally new model of computation that extends and strictly contains the classical Turing Machine. Unlike the Turing Machine, which operates on a single, undivided state and processes information in a linear, stepwise fashion, the Thiele Machine is **partition-native**: it can dynamically decompose the computational state into independent modules, reason about each module separately, and then compose the results.
-
-This enables the Thiele Machine to perceive and exploit hidden structure in problems that are invisible to classical computation.
-
-### Key Differences from Turing Machines
-
-- **Partition Logic:** Can split problems into independent modules (impossible in Turing model)
-- **Order-Invariance:** Results don't depend on the sequence of operations
-- **Certificate-Driven:** Every step must be justified by a logical proof
-- **Quantified Discovery Cost:** Measures the price of perceiving hidden structure in μ-bits
-
-## Motivation
-
-The motivation arises from the limitations of classical computation. Turing Machines are "blind" to the geometric and modular structure of complex problems. They accumulate "information debt" by failing to recognize and exploit hidden regularities, leading to inefficiency, intractability, or outright failure on certain classes of problems.
-
-The Thiele Machine was conceived to overcome these limitations by introducing partition logic and certificate-driven computation—allowing the machine to "see" and leverage the true shape of computational problems.
-
-## Artifact Goals
-
-This repository provides a complete, self-verifying artifact that:
-- **Formally defines** the Thiele Machine and its operational principles
-- **Implements** the Thiele Machine paradigm in code with rigorous logic integration
-- **Empirically demonstrates** the strict separation between classical (blind) and partition-native (sighted) computation
-- **Produces cryptographically sealed outputs** ensuring full auditability
-
-## Philosophical Context
-
-The Thiele Machine is not just a technical upgrade; it is a philosophical statement about the nature of computation, knowledge, and proof. It operationalizes the idea that **computation is geometric**—that problems have shape, structure, and hidden dimensions, and that true understanding requires perceiving and exploiting this geometry.
-
-Every act of discovery is paid for in mubits, and every proof is a physical artifact, enacted and witnessed by the machine itself.
-
----
-
-## Mathematical Foundations
 
 ## Mathematical Foundations
 
@@ -498,12 +398,7 @@ Suppose S represents a system of equations with hidden clusters:
 - Minimal von Neumann encoding demonstrates partition logic in RAM machines
 - The Engine of Discovery searches partition space using MDL
 
-
----
-
-## Partition Logic and Modular Reasoning
-
-## Partition Logic and Modular Reasoning
+### Partition Logic and Modular Reasoning
 
 Partition logic is the central innovation that distinguishes the Thiele Machine from all classical computational models.
 
@@ -538,21 +433,12 @@ Imagine a dataset with two hidden clusters. The Thiele Machine can:
 5. **Solve:** Process each cluster independently
 6. **Compose:** Combine the results
 
-### Computational Benefits
-
-Problems intractable for monolithic solvers become solvable when properly partitioned. The Thiele Machine can achieve exponential speedups by perceiving and exploiting this hidden structure.
-
 ### Implementation
 
 - Core partition logic: `attempt.py` preamble explaining partition dynamics and the bisimulation projection (search for `Thiele Machine Artifact` header).【F:attempt.py†L1-L120】
 - Engine of Discovery searches partition space: `attempt.py`, Article 1, functions such as `mdl_bits_for_partition` and the surrounding orchestration.【F:attempt.py†L608-L656】【F:attempt.py†L982-L1208】
 
-
----
-
-## Certificate-Driven Computation
-
-## Certificate-Driven Computation
+### Certificate-Driven Computation
 
 Certificate-driven computation is a foundational principle: every computational step must be justified by a machine-verifiable proof.
 
@@ -588,10 +474,7 @@ A **certificate** is a formal proof or witness that justifies a computational st
 - Z3 integration: `attempt.py` paradox and universal principle articles orchestrate solver calls via functions such as `run_paradox` and `run_universal_principle`, demonstrating certificate-backed reasoning.【F:attempt.py†L785-L910】【F:attempt.py†L920-L1010】
 - Proof generation: the Engine of Discovery and subsequent articles persist SMT witnesses and MDL logs through routines in `run_engine_and_law` and its helper functions.【F:attempt.py†L1011-L1208】【F:attempt.py†L1950-L2148】
 
-
----
-
-## The Law of No Unpaid Sight Debt (NUSD)
+### The Law of No Unpaid Sight Debt (NUSD)
 
 NUSD formalizes that perceiving hidden structure always has a quantifiable cost.
 
@@ -607,7 +490,7 @@ $$L(\mathcal{M}) = L(\text{structure}) + \sum L(\text{parameters}_i) + L(\text{r
 
 If inconsistent: $L(\mathcal{M}) = +\infty$
 
-## Mubits and Minimum Description Length (MDL)
+### Mubits and Minimum Description Length (MDL)
 
 ### What is a μ-bit, precisely?
 The μ-bit (pronounced *moo-bit*) is the atomic unit of discovery cost defined by μ-spec v2.0. For every reasoning step we record a triple `(q, N, M)` where `q` is the canonical S-expression of the question being asked, `N` is the number of solutions consistent with all knowledge before the step, and `M` is the number that survive afterwards. The total charge is【F:spec/mu_spec_v2.md†L1-L63】【F:thielecpu/mu.py†L1-L74】
@@ -631,10 +514,7 @@ MDL is the narrative lens explaining why the μ-ledger tracks meaningful discove
 - **Hardware implementation:** `reasoning_core.v` exports both the question-bit tallies supplied by the controller and the fixed-point information gain, and `thiele_autonomous_solver.v` integrates them into its μ-ledger state machine.【F:hardware/synthesis_trap/reasoning_core.v†L1-L105】【F:hardware/synthesis_trap/thiele_autonomous_solver.v†L1-L389】
 - **Audit logs:** `audit_logs/agent_software_reproduction.log` and `audit_logs/agent_hardware_verification.log` capture matched μ totals for the canonical experiments.【F:audit_logs/agent_software_reproduction.log†L1-L158】【F:audit_logs/agent_hardware_verification.log†L780-L842】
 
-
----
-
-## Order-Invariance and Composite Witnesses
+### Order-Invariance and Composite Witnesses
 
 These concepts distinguish Thiele computation from classical trace-based approaches.
 
@@ -658,10 +538,6 @@ A **composite witness** is a global certificate built by combining local certifi
 
 ### Implementation
 - Demonstrations: Article 0 (`run_universal_principle`) and Article 1 (`run_engine_and_law`) provide hands-on transcripts for rotations, Sudoku, and partition discovery.【F:attempt.py†L920-L1010】【F:attempt.py†L1011-L1208】
-- Partition-native proofs: Articles 1–4 compile MDL evidence and Tseitin receipts showcasing partition-aware certificates.【F:attempt.py†L1011-L2148】
-
-
----
 
 ## Empirical Experiments and Results
 
@@ -691,60 +567,8 @@ The experiments show that problems with hidden geometric structure create an exp
 - Experiment orchestration: [`generate_tseitin_data.py`](generate_tseitin_data.py)
 - Analysis and plotting: `attempt.py` Article 4 utilities `fast_receipts` and `plot_fast_receipts` summarise the blind-versus-sighted sweeps and generate the separation plots.【F:attempt.py†L1980-L2148】
 - Results saved in: `shape_of_truth_out/` and `tseitin_receipts.json`
----
 
-## Foundational Proofs: Subsumption via Structured Separation
-
-The formal stack now has three layers:
-
-1. **Containment (`Simulation.v`):** A blind Thiele interpreter simulates any
-   classical Turing Machine by replaying its transition table without ever
-   invoking sighted instructions.
-2. **Performance Advantage (`Separation.v`):** Sighted Thiele programs solve Tseitin
-   expanders in polynomial time/μ while blind exploration provably incurs
-   exponential cost (axiomatised from classical SAT lower bounds).
-3. **Assembly (`Subsumption.v`):** Combines the two pillars into the flagship
-   theorem: Turing computation is strictly contained in Thiele computation.
-
-(`attempt.py`, search for `ARTICLE 0 — THE SHAPE OF TRUTH`)
-
-## The Paradox
-
-Introduces the core conflict between a blind solver and a partition-aware solver
-through a verifiable puzzle.
-(`attempt.py`, search for `ARTICLE 0 — THE PARADOX`)
-
-## The Universal Principle
-
-Generalizes the paradox using spatial rotations and Sudoku to show the
-phenomenon is not contrived.
-(`attempt.py`, search for `ARTICLE 0 — THE UNIVERSAL PRINCIPLE`)
-
-## The Engine of Discovery
-
-Measures the information-theoretic cost of uncovering hidden structure via a
-brute-force search over partitions using MDL.
-(`attempt.py`, search for `ARTICLE 1 — The Engine of Discovery`)
-
-## The Fractal Nature of Debt
-
-Demonstrates the exponential cost of blindness with hard instances and
-multiprocessing harnesses.
-(`attempt.py`, search for `ARTICLE 2 — The Fractal Nature of Debt`)
-
-## Final Theorem & Conclusion
-
-States the Embedding and Self-Reconstruction theorems, presents the capability
-comparison table, and cryptographically seals the artifact.
-(`attempt.py`, search for `ARTICLE 3 — Final Theorem & Conclusion`)
-
-## Experimental Separation
-
-Provides detailed, small-scale receipts comparing blind and sighted solvers
-with plots and tables.
-(`attempt.py`, search for `ARTICLE 4 — Experimental Separation`)
-
-## Gödelian Landmine
+### Gödelian Landmine
 
 The seventh act of this artifact is a deliberate confrontation with the limits of classical computation—a constructed paradox designed to expose the fundamental difference between the Turing and Thiele paradigms.
 
@@ -754,7 +578,7 @@ In the Gödelian Landmine section (`attempt.py`, see `run_godelian_landmine`), t
 
 ### The Thiele Machine's Response
 
-The Thiele Machine, by contrast, is not limited to object-level search. It can step back and perceive the *shape* of the solution space itself. When confronted with a paradox, it does not merely fail to find a solution—it produces a **Certificate of Inherent Paradox**: a formal, machine-verifiable proof that the space is unsatisfiable *because* of its structure, not just its content. This is a higher-order computational act, enabled by the partition logic and certificate-driven computation described earlier (see lines 146–250).
+The Thiele Machine, by contrast, is not limited to object-level search. It can step back and perceive the *shape* of the solution space itself. When confronted with a paradox, it does not merely fail—it produces a **Certificate of Inherent Paradox**: a formal, machine-verifiable proof that the space is unsatisfiable *because* of its structure, not just its content. This is a higher-order computational act, enabled by the partition logic and certificate-driven computation described earlier (see lines 146–250).
 
 ### Technical Implementation
 
@@ -771,9 +595,8 @@ The Gödelian Landmine is not a parlor trick; it is a demonstration of a new com
 - Formal construction and code: `attempt.py`, function `run_godelian_landmine` and its helpers.【F:attempt.py†L2280-L2454】
 - Certificate-driven computation: lines 205–250
 - Partition logic: lines 146–201
-- Empirical demonstration: see "Empirical Experiments and Results" (lines 409–455)
 
-## Philosophical Implications and Future Directions
+## Philosophical Implications
 
 ### What This Means for Computation
 
@@ -791,14 +614,6 @@ The artifact demonstrates that consciousness and physics can be compatible. The 
 
 This isn't just philosophy—it's a mathematical proof using SAT certificates.
 
-### What This Means for Science
-
-The Thiele Machine suggests that scientific discovery might work differently than we thought:
-
-- **Modular thinking** might be more powerful than reductionism
-- **Certificate-driven methods** could accelerate scientific progress
-- **Order-invariant computation** might explain why some discoveries happen simultaneously
-
 ### What This Means for AI
 
 Current AI is like a blind solver—powerful but inefficient. The Thiele Machine shows a path to "sighted" AI that:
@@ -806,6 +621,14 @@ Current AI is like a blind solver—powerful but inefficient. The Thiele Machine
 - Uses **structured knowledge** to solve problems faster
 - **Learns modular patterns** rather than just correlations
 - Could achieve **exponential improvements** on certain tasks
+
+### What This Means for Science
+
+The Thiele Machine suggests that scientific discovery might work differently than we thought:
+
+- **Modular thinking** might be more powerful than reductionism
+- **Certificate-driven methods** could accelerate scientific progress
+- **Order-invariant computation** might explain why some discoveries happen simultaneously
 
 ### A Final Word
 
@@ -817,7 +640,6 @@ This artifact doesn't claim to solve consciousness or revolutionize AI overnight
 
 The Thiele Machine is a beginning, not an end—a new way to think about what computation can be.
 
----
 ## Installation and Usage
 
 ### System Requirements
@@ -873,13 +695,6 @@ If you want to run broader experiments or the full universal orchestrator, use:
 python attempt.py
 ```
 That command runs additional demos and benchmarks and populates `shape_of_truth_out/` and `archive/` with extra traces and receipts.
-
-## Which orchestrator should I run?
-
-- `python3 demonstrate_isomorphism.py` — Recommended for auditors and reviewers. Produces the canonical ledger, canonical receipts (`examples/tsirelson_step_receipts.json`), manifests, and the artifacts used by the mechanised Coq replay.
-- `python attempt.py` — Recommended for researchers and developers who want the full universal orchestrator, additional experiments, and broader archival traces (this run produces extensive outputs in `shape_of_truth_out/` and `archive/`).
-
-Use the demonstration for formal verification and the `attempt.py` orchestrator for exploratory or extended experiments.
 
 #### Hardware Synthesis
 ```bash
@@ -942,23 +757,19 @@ cd coq
 - Hardware synthesis requires significant compute resources
 - Large-scale experiments are computationally intensive by design
 
----
+## Contributing
 
-# Contact and Support
+We welcome contributions to The Thiele Machine project! Please see our [Contributing Guide](CONTRIBUTING.md) for details on how to get started.
+
+For questions or discussions, open an issue on [GitHub](https://github.com/sethirus/The-Thiele-Machine/issues).
+
+## License
+
+This project is licensed under the Apache License 2.0 – see the [LICENSE](LICENSE) file for details.
+
+## Contact and Support
 
 For questions, bug reports, or to request support, please open an issue on the [GitHub repository](https://github.com/sethirus/The-Thiele-Machine/issues) or contact the maintainer at thethielemachine@gmail.com.
-
----
-
-
----
-
-## Output Files and Artifacts
-
-- **Terminal Output**: Full transcript of the proof and experiment.
-- **Archived Artifacts**: All machine-checkable SMT2 proofs, empirical data, and plots are saved in `archive/` subdirectories.
-
----
 
 ## Glossary
 
@@ -978,8 +789,6 @@ For questions, bug reports, or to request support, please open an issue on the [
 - **Sighted Solver**: A solver that exploits partition structure (e.g., GF(2) row reduction) for exponential speedup.
 - **Empirical Receipt**: Machine-verifiable evidence (proofs, logs, hashes) for every computational claim or experiment.
 - **Information Debt**: The accumulated cost of failing to perceive hidden structure; leads to intractability or inconsistency.
-
----
 
 ## Code Reference Map
 
@@ -1007,9 +816,6 @@ For questions, bug reports, or to request support, please open an issue on the [
 - **Experiment orchestration**: Multiprocessing, progress bars, and heartbeat diagnostics for large-scale runs.
 
 This document was the proposition. The code is the construction. The execution is the proof.
----
-
-
 
 ## Project Cerberus: The Thiele Kernel
 
@@ -1020,8 +826,6 @@ The project contains a complete, machine-checked Coq model ([Cerberus.v](coq/pro
 This artifact is the first concrete evidence that the Thiele Machine is not merely a theoretical model, but a practical architecture for building a new generation of software that is secure by construction and by continuous logical self-auditing.
 
 ➡️ **[See the full Project Cerberus README and formal proofs here.](coq/project_cerberus/README.md)**
-
----
 
 ## CatNet: A Thiele-Machine Neural Network
 
@@ -1035,16 +839,3 @@ audit log, and a minimal EU AI Act transparency report is available via
 python -m apps.catnet.demo_mnist      # transparency
 python -m apps.catnet.demo_control    # controllability
 ```
-
-
-## Verifier vs Finder (perspective demo)
-
-## Contributing
-
-We welcome contributions to The Thiele Machine project! Please see our [Contributing Guide](CONTRIBUTING.md) for details on how to get started.
-
-For questions or discussions, open an issue on [GitHub](https://github.com/sethirus/The-Thiele-Machine/issues).
-
-## License
-
-This project is licensed under the Apache License 2.0 – see the [LICENSE](LICENSE) file for details.
