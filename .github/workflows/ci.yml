@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [ new-public-branch-default ]
+  pull_request:
+    branches: [ new-public-branch-default ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e .
+
+    - name: Check Python syntax
+      run: python -m py_compile attempt.py demonstrate_isomorphism.py
+
+    - name: Run basic verification
+      run: python -c "import thielecpu; print('Thiele CPU imports successfully')"
