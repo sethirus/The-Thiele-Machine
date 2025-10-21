@@ -63,6 +63,12 @@ Quick checklist to verify the v1.0.3 release:
 ## Table of Contents
 
  - [Quick Start](#quick-start)
+ - [Citation](#citation)
+ - [Verification Checklist](#verification-checklist)
+ - [Table of Contents](#table-of-contents)
+ - [Common Questions & Misconceptions](#common-questions--misconceptions)
+ - [Now, Let's Begin](#now-lets-begin)
+ - [A Final Word. For the Critics in the Back](#a-final-word-for-the-critics-in-the-back)
  - [Research Ethics Notice](#research-ethics-notice)
  - [Repository Guarantees](#repository-guarantees)
  - [A Reviewer's Contract](#a-reviewers-contract)
@@ -72,9 +78,6 @@ Quick checklist to verify the v1.0.3 release:
  - [Redefining Your Terms: Classical vs. Thiele](#redefining-your-terms-classical-vs-thiele)
  - [The Purpose of the Brute-Force 'Engine of Discovery'](#the-purpose-of-the-brute-force-engine-of-discovery)
  - [Empirical Derivation of the μ-bit to Time Exchange Rate](#empirical-derivation-of-the-μ-bit-to-time-exchange-rate)
- - [Common Questions & Misconceptions](#common-questions--misconceptions)
- - [Now, Let's Begin](#now-lets-begin)
- - [A Final Word. For the Critics in the Back](#a-final-word-for-the-critics-in-the-back)
  - [Coq Formalization](#coq-formalization)
  - [Repository Structure](#repository-structure)
  - [What Makes the Thiele Machine Different](#what-makes-the-thiele-machine-different)
@@ -323,85 +326,7 @@ Run the code. Audit the outputs. Check the hashes. Adhere to the contract.
 
 ---
 
-## A Final Word. For the Critics in the Back.
-
-This work challenges fundamental assumptions about computation. It suggests that the classical model is not universal, but provincial—architecturally blind to a deeper geometric reality.
-
-The tools and techniques here (ASTs, Z3, category theory) are not new. What's new is recognizing that they form a coherent alternative to the Turing paradigm. The Thiele Machine shows how computation can be geometric, modular, and certificate-driven rather than sequential and trace-based.
-
-If this work is dismissed as "just graph traversal" or "repurposed SAT solving," it means the critic has failed to see the paradigm shift. The classical machine walks a path step-by-step. The Thiele Machine sees the entire landscape from orbit and asks whether the terrain itself contains a contradiction.
-
-This isn't about building a better algorithm. It's about recognizing that our current computers are trapped in one-dimensional traces, paying exponential "sight debt" for their architectural blindness. The Thiele Machine offers a path to computational freedom.
-
-The artifact includes its own supporting evidence. Run the code. Audit the outputs. Check the hashes.
-
-**Paradigm Shift Evidence:** Supported by Coq proofs of Turing subsumption, empirical Bell violations (S=2.828427), and reproducible μ-cost measurements. Critics are invited to falsify via `coq/verify_subsumption.sh` or `demonstrate_isomorphism.py`—if they can, the hypothesis falls; if not, it stands.
-
-# Coq Formalization
-
-The repository ships with a substantial Coq development that formalises the Thiele instruction set, μ-accounting, and the VM↔kernel simulation bridge. The Coq project builds in this environment (the canonical script `coq/verify_subsumption.sh` invokes `make`/`coqc`); however, reviewers should be aware that the development includes a small number of admitted lemmas and a concise axiom set. These are documented and auditable in the repository (see `coq/ADMIT_REPORT.txt` and `coq/AXIOM_INVENTORY.md`).
-
-## What is Coq?
-
-Coq is a proof assistant that allows writing mathematical proofs that can be mechanically verified by computer. It's like a programming language for mathematics.
-
-## Core Thiele Machine Proofs
-
-### `coq/thielemachine/coqproofs/ThieleMachine.v`
-Defines an abstract Thiele Machine interface, including the receipt format and μ-bit accounting lemmas that the rest of the development relies on.
-
-**Highlights:**
-- Deterministic small-step semantics with observable events.
-- A replay checker for receipts together with soundness lemmas.
-- μ-bit accumulation lemmas tying `mu_delta` to certificate sizes.
-
-### `coq/thielemachine/coqproofs/Separation.v`
-Provides a mechanised cost analysis where the Thiele Machine uses `PNEW`, `MDLACC`, and `LASSERT` to solve Tseitin expander instances in cubic time with quadratic μ-bit spend. The only assumption is a classical axiom asserting that blind Turing/DPLL search pays exponential time on the same family.
-
-**Read this as:** the honest flagship theorem—constructive bounds for the Thiele program plus one complexity-theory axiom for the Turing lower bound.
-
-## Specialized Proofs
-
-### `coq/catnet/coqproofs/CatNet.v`
-Formal proof for the CatNet neural network architecture with cryptographic integrity guarantees.
-
-### `coq/project_cerberus/coqproofs/Cerberus.v`
-Formal model of a self-auditing Thiele kernel that is secure by construction.
-
-### `coq/isomorphism/coqproofs/Universe.v`
-Establishes mathematical connection between physical and computational universes.
-
-### `coq/p_equals_np_thiele/proof.v`
-The legacy `coq/p_equals_np_thiele/` directory remains as an archival note on the abandoned P vs NP campaign; the live proof system is the subsumption development summarised below.
-
-### `coq/sandboxes/ToyThieleMachine.v`
-Implements the "microcosm" existence proof discussed in the manifesto: a toy universe with an eight-cell tape where the Thiele instruction set performs a geometric `ClaimLeftZero` action that no classical write-only interpreter can replicate. The file contains two mechanised theorems:
-- `turing_cannot_solve` — the restricted Turing interpreter cannot transform the all-ones tape into the sorted target because it lacks any instruction capable of introducing zeroes.
-- `thiele_can_solve` — the Thiele interpreter executes the same program, spends one µ-bit on `ClaimLeftZero`, and produces the target tape, formally demonstrating an operation outside the Turing model in this microcosm.
-
-### `coq/sandboxes/VerifiedGraphSolver.v`
-Supplies the "Cessna"-scale artifact that bridges the toy microcosm and the full Python demonstration. The development mechanises a nine-node `triadic_cascade` graph, a classical degree-ordered backtracker, and a Thiele-style solver that pays µ-bits for anchor claims and congruence feasibility queries. Two theorems certify the measured costs:
-- `classical_is_slow` — the backtracker consumes 18 arithmetic branch attempts before discovering the canonical witness.
-- `thiele_is_fast` — the Thiele solver records 1,288 description bits plus nine `log₂ 3` information ratios (≈1302.26 µ-bits) and recovers the same witness with zero residual brute-force search.
-
-## Compilation
-
-**Status:** The Coq build completes in this environment and the canonical subsumption verification can be executed via `coq/verify_subsumption.sh`. A small number of `Admitted` statements and a limited axiom set are present; full details are available in `coq/ADMIT_REPORT.txt` (Admitted occurrences) and `coq/AXIOM_INVENTORY.md` (axiom list).
-
-### Canonical subsumption verification
-
-The complete subsumption proof is now live. Running `./coq/verify_subsumption.sh` builds the kernel and simulation proofs, establishing the Thiele Machine as a strict extension of the Turing Machine. The flagship theorem `vm_is_a_correct_refinement_of_kernel` is proven in `SimulationProof.v`. For empirical verification, run `scripts/prove_it_all.sh` to regenerate receipts and validate against the Coq formalization.
-
-For complete axiom disclosure and mechanization status, see `coq/AXIOM_INVENTORY.md` and `coq/README_PROOFS.md`.
-
----
-
-# Repository Structure
-
-The repository contains a complete, formally verified Thiele Machine implementation with both software and hardware components:
-
-| Path | Purpose | What's Inside |
-|------|---------|---------------|
+---|---------|---------------|
 | `attempt.py` | **Main artifact** – Demonstration orchestrator | Drives the receipts, replay demos, and verification hand-offs |
 | `thielecpu/` | **Thiele CPU** – Reference implementation | Python VM aligned with the Coq semantics plus the canonical hardware blueprint |
 | `examples/` | **Demonstrations** – Applied scenarios | Bell thesis, paradox demo, RSA factoring, neural networks |
