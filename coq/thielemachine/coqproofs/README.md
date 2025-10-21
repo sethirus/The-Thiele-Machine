@@ -3,11 +3,11 @@
 > **Status update (October 2025):** The authoritative kernel proof lives in `coq/kernel/`. This README is preserved for the archived `coq/thielemachine` development.
 This directory contains the mechanised model of the Thiele Machine instruction
 set together with the proofs that power the subsumption theorem.  The
-development now compiles end-to-end: every lemma is proved and the remaining
-assumptions are limited to the foundational axioms documented in
-[`../../AXIOM_INVENTORY.md`](../../AXIOM_INVENTORY.md).
+development still includes admitted lemmas; the open obligations are enumerated
+in [`../../ADMIT_REPORT.txt`](../../ADMIT_REPORT.txt) and documented alongside
+the foundational axioms in [`../../AXIOM_INVENTORY.md`](../../AXIOM_INVENTORY.md).
 
-- **Admitted statements:** none – open ends appear only as explicit axioms.
+- **Admitted statements:** 3 outstanding obligations remain in `Simulation.v` (see `../../ADMIT_REPORT.txt`).
 - **Primary deliverable:** `Subsumption.v`, which imports the blind simulation
   from `Simulation.v` and the structured separation from `Separation.v` to
   conclude `turing ⊂ thiele`.
@@ -43,7 +43,7 @@ The Thiele Machine makes explicit what classical computation ignores:
 
 #### 1. **Simulation.v** (88 lines)
 - **Purpose:** Repackages the universal Thiele interpreter as a blind program that simulates any classical TM.
-- **Status:** ✅ Fully mechanised; depends only on the interpreter interface axioms recorded in `AXIOM_INVENTORY.md`.
+- **Status:** ⚠️ Builds with 3 admitted lemmas pending; the obligations are tracked in `../../ADMIT_REPORT.txt` alongside the interpreter interface axioms.
 - **Main statements:**
   - `SimulationWitness`: Record exposing the blind interpreter and encode/decode functions.
   - `turing_contained_in_thiele`: Every TM is simulated exactly by the blind interpreter.
@@ -291,13 +291,13 @@ Documentation files:
 
 ## Key Achievements
 
-### ✅ Zero Admitted Statements, Documented Axioms
+### ⚠️ Admitted Statements Remain, Documented Axioms
 Every proof in this directory is either:
 - **Fully mechanized** (11 files)
 - **Documented axiom** with justification (see `coq/AXIOM_INVENTORY.md` for complete list)
 - **Documentation file** (5 files)
 
-**No incomplete proofs (`Admitted`)** - All axioms have documented justifications and mechanization roadmaps
+**Incomplete proofs remain** - See `../../ADMIT_REPORT.txt` for the list of admitted lemmas and `../../AXIOM_INVENTORY.md` for documented axioms
 
 ### 🎯 Main Theoretical Result
 
@@ -322,19 +322,7 @@ Every proof in this directory is either:
 
 ### 📊 Axiom Inventory
 
-**Total Axioms:** 13 across 4 files (all justified)
-
-**Separation.v (1 axiom):**
-- `turing_tseitin_is_exponential`: Blind DPLL on Tseitin expanders requires exponential time (classical complexity assumption)
-
-**ThieleMachineConcrete.v (1 axiom):**
-- `ConcreteThieleMachine_exists`: Concrete implementation exists (requires trace induction)
-
-**StructuredInstances.v (4 axioms):**
-- Performance specifications for Tseitin/circuit/coloring instances (empirical)
-
-**BellInequality.v (7 axioms):**
-- Standard quantum information theory results (CHSH, PR-box, entanglement)
+Refer to [`../../AXIOM_INVENTORY.md`](../../AXIOM_INVENTORY.md) for the authoritative list of axioms and their justifications. The current snapshot (see `../../ADMIT_REPORT.txt` and `../../AXIOM_INVENTORY.md`) attributes the remaining axioms primarily to the interpreter interface, Tseitin lower-bound assumption, and the quantum case studies.
 
 ---
 
@@ -386,8 +374,8 @@ make clean && make thielemachine/coqproofs/Separation.vo
 # Verify proof status
 cd /workspaces/The-Thiele-Machine
 
-# Zero Admitted statements (incomplete proofs)
-grep -r "Admitted" coq --include="*.v" | wc -l  # Expected: 0
+# Track Admitted statements (incomplete proofs)
+grep -r "Admitted" coq --include="*.v" | wc -l  # See `../../ADMIT_REPORT.txt` for current counts
 
 # Count Axiom declarations
 grep -r "^Axiom " coq --include="*.v" | wc -l  # Expected: 27

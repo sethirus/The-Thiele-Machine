@@ -1,6 +1,6 @@
 # Coq Assets – verification status
 
-> **Status update (October 2025):** The authoritative kernel proof lives in `coq/kernel/`, with the complete VM↔kernel simulation framework proven. This README is preserved for the archived `coq/thielemachine` development.
+> **Status update (October 2025):** The authoritative kernel proof lives in `coq/kernel/`. The VM↔kernel simulation framework still contains admitted lemmas recorded in `coq/ADMIT_REPORT.txt`; this README is preserved for the archived `coq/thielemachine` development.
 ## Overview
 
 This directory contains the mechanised Coq development that underpins the
@@ -25,8 +25,8 @@ statements and there are documented axioms; see `coq/ADMIT_REPORT.txt` and
 ## What is actually proved?
 
 1. **Containment (`Simulation.v`):** A blind Thiele program simulates any
-   classical Turing Machine.  The universal interpreter is fully mechanised; the
-   only interface axioms summarise the executable Python implementation.
+   classical Turing Machine.  The universal interpreter currently builds with the
+   admitted lemmas listed in `ADMIT_REPORT.txt`; the interface axioms summarise the executable Python implementation.
 2. **Separation (`Separation.v`):** The sighted Thiele solver resolves Tseitin
    expander contradictions in cubic time and quadratic μ-bits, while the blind
    search axiom forces an exponential lower bound on Turing/DPLL search.
@@ -311,7 +311,7 @@ cat coq/AXIOM_INVENTORY.md
 
 ## Key Achievements
 
-### ✅ Zero Admitted Statements; documented axioms
+### ⚠️ Admitted Statements Remain; documented axioms
 
 **Every proof** in this codebase is either:
 - **Fully mechanized** (no shortcuts)
