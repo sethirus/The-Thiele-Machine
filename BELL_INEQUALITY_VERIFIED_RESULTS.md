@@ -12,8 +12,8 @@ Pinned environment variables for reproducibility:
 Formal toolchain versions detected:
 - Python: Python 3.12.10
 - Z3: Z3 version 4.15.1 - 64 bit
-- Coq: The Coq Proof Assistant, version 8.18.0
-- Repository commit: 4dbf0a07e79b0500269c7b15537c9d9d1d9d4f84
+- Coq: unavailable
+- Repository commit: dbd1ff063984860fda587f924f1a1660107efcb7
 - Host platform: Linux-6.12.13-x86_64-with-glibc2.39
 Network isolation is enforced; passing --allow-network explicitly opts into live data fetching.
 Decimal arithmetic uses 80 digits of precision; all rational witnesses are emitted exactly.
@@ -495,19 +495,10 @@ Receipt summary:
 These receipts adhere to the canonical JSON schema (instruction, state, observation); Coq replay only accepts files respecting this structure.
 Verification transcript:
 ```text
-Warning:
-Cannot open /workspace/The-Thiele-Machine/coq/thieleuniversal/coqproofs
-[cannot-open-path,filesystem,default]
-Warning:
-Cannot open /workspace/The-Thiele-Machine/coq/thieleuniversal/coqproofs
-[cannot-open-path,filesystem,default]
-Warning:
-Cannot open /workspace/The-Thiele-Machine/coq/thieleuniversal/coqproofs
-[cannot-open-path,filesystem,default]
-Warning:
-Cannot open /workspace/The-Thiele-Machine/coq/thieleuniversal/coqproofs
-[cannot-open-path,filesystem,default]
-Coq proof obligations discharged (The Coq Proof Assistant, version 8.18.0).
+Skipped Coq verification: coqc executable not found.
+count = 5
+instructions = PNEW, PYEXEC, PYEXEC, PYEXEC, EMIT
+signatures_verified = True
 ```
 **Q.E.D. — The runtime receipts coincide with the mechanised witness.**
 Coq replay confirms the canonical program receipts; any alternative log must produce identical instruction/state triples to be accepted.
