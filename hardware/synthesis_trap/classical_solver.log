@@ -22,10 +22,10 @@
  Yosys 0.33 (git sha1 2584903a060)
 
 
--- Running command `read_verilog hardware/synthesis_trap/classical_solver.v; synth -top classical_solver; stat; write_json /workspace/The-Thiele-Machine/hardware/synthesis_trap/classical_solver.json' --
+-- Running command `read_verilog -sv hardware/synthesis_trap/classical_solver.v; synth -top classical_solver; stat; write_json /workspace/The-Thiele-Machine/hardware/synthesis_trap/classical_solver.json' --
 
 1. Executing Verilog-2005 frontend: hardware/synthesis_trap/classical_solver.v
-Parsing Verilog input from `hardware/synthesis_trap/classical_solver.v' to AST representation.
+Parsing SystemVerilog input from `hardware/synthesis_trap/classical_solver.v' to AST representation.
 Generating RTLIL representation for module `\classical_solver'.
 Warning: Replacing memory \digits with list of registers. See hardware/synthesis_trap/classical_solver.v:94
 Warning: Replacing memory \digits_next with list of registers. See hardware/synthesis_trap/classical_solver.v:37
@@ -834,6 +834,6 @@ Found and reported 0 problems.
 4. Executing JSON backend.
 
 Warnings: 2 unique messages, 2 total
-End of script. Logfile hash: f961749e62, CPU: user 0.32s system 0.02s, MEM: 15.77 MB peak
+End of script. Logfile hash: 80680b8b4d, CPU: user 0.45s system 0.05s, MEM: 15.56 MB peak
 Yosys 0.33 (git sha1 2584903a060)
-Time spent: 24% 19x opt_expr (0 sec), 22% 1x abc (0 sec), ...
+Time spent: 25% 19x opt_expr (0 sec), 21% 1x abc (0 sec), ...
