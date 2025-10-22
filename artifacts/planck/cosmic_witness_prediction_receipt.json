@@ -1,17 +1,19 @@
 {
-  "timestamp": "2025-10-10T00:12:02.386028Z",
+  "timestamp": "2025-10-22T20:49:36.847260Z",
   "mode": "offline",
+  "data_origin": "csv:cmb_sample.csv",
+  "fallback_reason": null,
   "features": [
-    4.25e-05,
-    0.00010335013304297193,
-    -0.0002,
-    0.0002,
-    4.5e-05
+    2.7254761875,
+    6.793551630073777e-06,
+    2.725466,
+    2.725489,
+    -1.2500000000414957e-05
   ],
-  "feature_hash": "60ba61bb3e423ca06b9c71ce870c64e870c24995545836bbd72b6bc56b38dce7",
+  "feature_hash": "7b891e51b1a6d566a07adb3e28d8b25f6fdd778558537f02bee5c2ce08bacc18",
   "rule": {
-    "idx": 2,
-    "threshold": -0.00018,
+    "idx": 3,
+    "threshold": 2.9980379,
     "true_pair": [
       0,
       0
@@ -20,22 +22,24 @@
       0,
       0
     ],
-    "description": "feature[2] > -0.00018 -> (0, 0), else -> (0, 0)"
+    "description": "feature[3] > 2.99804 -> (0, 0), else -> (0, 0)"
   },
   "predicted_trial": {
     "alice": 0,
     "bob": 0
   },
   "robustness": {
-    "margin": 1.9999999999999998e-05,
+    "margin": 0.27254889999999987,
     "numeric_robust": true,
-    "proof_eps": 2e-06,
-    "proof_robust": false,
+    "proof_eps": 0.02725488999999999,
+    "proof_robust": true,
     "sample_fraction": 1.0,
-    "param_bits": 16
+    "param_bits": 16,
+    "proof_method": "analytic",
+    "certificate": "Operation Cosmic Witness \u2014 robustness certificate:\n  feature[3] = 2.725489\n  threshold    = 2.9980379\n  eps          = 0.02725489\n  margin       = 0.2725489\n  Base prediction = (0, 0).\n  Claimed robust prediction = (0, 0).\n  Perturbation upper bound: 2.75274389 \u2264 2.9980379 \u21d2 still false branch.\n  All perturbations respect the original branch; robustness holds."
   },
-  "prediction_proved": false,
-  "proof_smt2": "(set-logic QF_LRA)\n(declare-const f0 Real)\n(assert (= f0 4.25e-05))\n(declare-const f1 Real)\n(assert (= f1 0.00010335013304297193))\n(declare-const f2 Real)\n(assert (= f2 -0.0002))\n(declare-const f3 Real)\n(assert (= f3 0.0002))\n(declare-const f4 Real)\n(assert (= f4 4.5e-05))\n(declare-const A Real)\n(declare-const B Real)\n(assert (or (and (> f2 -0.00018) (= A 0.0)) (and (<= f2 -0.00018) (= A 0.0))))\n(assert (or (and (> f2 -0.00018) (= B 0.0)) (and (<= f2 -0.00018) (= B 0.0))))\n(assert (or (not (= A 0.0)) (not (= B 0.0))))\n(check-sat)",
-  "robust_smt2": "(set-logic QF_LRA)\n(declare-const f0 Real)\n(assert (>= f0 4.05e-05))\n(assert (<= f0 4.4500000000000004e-05))\n(declare-const f1 Real)\n(assert (>= f1 0.00010135013304297194))\n(assert (<= f1 0.00010535013304297193))\n(declare-const f2 Real)\n(assert (>= f2 -0.000202))\n(assert (<= f2 -0.00019800000000000002))\n(declare-const f3 Real)\n(assert (>= f3 0.00019800000000000002))\n(assert (<= f3 0.000202))\n(declare-const f4 Real)\n(assert (>= f4 4.3e-05))\n(assert (<= f4 4.7000000000000004e-05))\n(declare-const A Real)\n(declare-const B Real)\n(assert (or (and (> f2 -0.00018) (= A 0.0)) (and (<= f2 -0.00018) (= A 0.0))))\n(assert (or (and (> f2 -0.00018) (= B 0.0)) (and (<= f2 -0.00018) (= B 0.0))))\n(assert (or (not (= A 0.0)) (not (= B 0.0))))\n(check-sat)",
+  "prediction_proved": true,
+  "prediction_proof_method": "analytic",
+  "prediction_certificate": "Operation Cosmic Witness \u2014 prediction certificate:\n  feature[3] = 2.725489\n  threshold    = 2.9980379\n  rule true  branch -> (0, 0)\n  rule false branch -> (0, 0)\n  Comparison: feature[3] \u2264 threshold \u21d2 follow false branch.\n  Branch output = (0, 0).\n  Claimed prediction = (0, 0).\n  Verification: chosen branch output matches claimed prediction.",
   "mdl_bits": 24.0
 }
