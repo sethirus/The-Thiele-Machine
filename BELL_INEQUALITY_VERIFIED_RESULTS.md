@@ -12,8 +12,8 @@ Pinned environment variables for reproducibility:
 Formal toolchain versions detected:
 - Python: Python 3.12.10
 - Z3: Z3 version 4.15.1 - 64 bit
-- Coq: unavailable
-- Repository commit: dbd1ff063984860fda587f924f1a1660107efcb7
+- Coq: The Coq Proof Assistant, version 8.18.0
+- Repository commit: d7bb8dab45a35475eeda3534a7e64cd636eaef41
 - Host platform: Linux-6.12.13-x86_64-with-glibc2.39
 Network isolation is enforced; passing --allow-network explicitly opts into live data fetching.
 Decimal arithmetic uses 80 digits of precision; all rational witnesses are emitted exactly.
@@ -21,8 +21,7 @@ Decimal arithmetic uses 80 digits of precision; all rational witnesses are emitt
 Soundness assumptions that bound the verification perimeter.
 
 - Coq kernel / coqchk validate mechanised receipts; correctness assumes the kernel is sound.
-- SMT solving relies on Z3's QF_LIA engine (with CVC5 corroboration when available).
-- Python's Decimal and Fraction libraries provide exact arithmetic for reported witnesses.
+- Analytic certificates are evaluated using Python's exact Decimal and Fraction libraries.
 - Recorded SHA-256 manifest binds inputs/outputs; auditors must trust the filesystem integrity.
 ## Act I — Deriving the Constants
 We ground the Tsirelson bound by deriving π and √2 from first principles.
@@ -44,7 +43,7 @@ Deriving √2 from first principles using the Babylonian method…
 Calculating the Tsirelson bound 2·√2, the quantum ceiling for CHSH violations.
 - Tsirelson bound ≈ 2.828427124746
 ## Act II — Classical Deterministic Bound
-Every local-realist CHSH strategy is enumerated and audited with Z3.
+Every local-realist CHSH strategy is enumerated and verified with exact arithmetic.
 
 Classical strategy definitions:
 ```python
@@ -68,385 +67,177 @@ strategies = [
 )
 ```
 Strategy 00: S = 2/1 (~2.000000)
-```smt2
-(set-logic QF_LIA)
-        (declare-const a0 Int)
-        (declare-const a1 Int)
-        (declare-const b0 Int)
-        (declare-const b1 Int)
-        (define-fun sgn ((bit Int)) Int (- (* 2 bit) 1))
-        (define-fun S () Int (+ (+ (+ (* (sgn a1) (sgn b1)) (* (sgn a1) (sgn b0))) (* (sgn a0) (sgn b1))) (* -1 (* (sgn a0) (sgn b0)))))
-        (assert (or (= a0 0) (= a0 1)))
-        (assert (or (= a1 0) (= a1 1)))
-        (assert (or (= b0 0) (= b0 1)))
-        (assert (or (= b1 0) (= b1 1)))
-        (assert (= a0 0))
-        (assert (= a1 0))
-        (assert (= b0 0))
-        (assert (= b1 0))
-        (assert (> S 2))
-        (check-sat)
+```text
+Strategy 00
+  setting (0, 0) -> a=0, b=0, correlator=1
+  setting (0, 1) -> a=0, b=0, correlator=1
+  setting (1, 0) -> a=0, b=0, correlator=1
+  setting (1, 1) -> a=0, b=0, correlator=1
+  S = (E_11 + E_10 + E_01 - E_00) = 2/1
+  |S| = 2/1 ≤ 2 established by direct integer arithmetic.
 ```
-Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
 Strategy 01: S = -2/1 (~-2.000000)
-```smt2
-(set-logic QF_LIA)
-        (declare-const a0 Int)
-        (declare-const a1 Int)
-        (declare-const b0 Int)
-        (declare-const b1 Int)
-        (define-fun sgn ((bit Int)) Int (- (* 2 bit) 1))
-        (define-fun S () Int (+ (+ (+ (* (sgn a1) (sgn b1)) (* (sgn a1) (sgn b0))) (* (sgn a0) (sgn b1))) (* -1 (* (sgn a0) (sgn b0)))))
-        (assert (or (= a0 0) (= a0 1)))
-        (assert (or (= a1 0) (= a1 1)))
-        (assert (or (= b0 0) (= b0 1)))
-        (assert (or (= b1 0) (= b1 1)))
-        (assert (= a0 0))
-        (assert (= a1 0))
-        (assert (= b0 0))
-        (assert (= b1 1))
-        (assert (> S 2))
-        (check-sat)
+```text
+Strategy 01
+  setting (0, 0) -> a=0, b=0, correlator=1
+  setting (0, 1) -> a=0, b=1, correlator=-1
+  setting (1, 0) -> a=0, b=0, correlator=1
+  setting (1, 1) -> a=0, b=1, correlator=-1
+  S = (E_11 + E_10 + E_01 - E_00) = -2/1
+  |S| = 2/1 ≤ 2 established by direct integer arithmetic.
 ```
-Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
 Strategy 02: S = 2/1 (~2.000000)
-```smt2
-(set-logic QF_LIA)
-        (declare-const a0 Int)
-        (declare-const a1 Int)
-        (declare-const b0 Int)
-        (declare-const b1 Int)
-        (define-fun sgn ((bit Int)) Int (- (* 2 bit) 1))
-        (define-fun S () Int (+ (+ (+ (* (sgn a1) (sgn b1)) (* (sgn a1) (sgn b0))) (* (sgn a0) (sgn b1))) (* -1 (* (sgn a0) (sgn b0)))))
-        (assert (or (= a0 0) (= a0 1)))
-        (assert (or (= a1 0) (= a1 1)))
-        (assert (or (= b0 0) (= b0 1)))
-        (assert (or (= b1 0) (= b1 1)))
-        (assert (= a0 0))
-        (assert (= a1 0))
-        (assert (= b0 1))
-        (assert (= b1 0))
-        (assert (> S 2))
-        (check-sat)
+```text
+Strategy 02
+  setting (0, 0) -> a=0, b=1, correlator=-1
+  setting (0, 1) -> a=0, b=0, correlator=1
+  setting (1, 0) -> a=0, b=1, correlator=-1
+  setting (1, 1) -> a=0, b=0, correlator=1
+  S = (E_11 + E_10 + E_01 - E_00) = 2/1
+  |S| = 2/1 ≤ 2 established by direct integer arithmetic.
 ```
-Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
 Strategy 03: S = -2/1 (~-2.000000)
-```smt2
-(set-logic QF_LIA)
-        (declare-const a0 Int)
-        (declare-const a1 Int)
-        (declare-const b0 Int)
-        (declare-const b1 Int)
-        (define-fun sgn ((bit Int)) Int (- (* 2 bit) 1))
-        (define-fun S () Int (+ (+ (+ (* (sgn a1) (sgn b1)) (* (sgn a1) (sgn b0))) (* (sgn a0) (sgn b1))) (* -1 (* (sgn a0) (sgn b0)))))
-        (assert (or (= a0 0) (= a0 1)))
-        (assert (or (= a1 0) (= a1 1)))
-        (assert (or (= b0 0) (= b0 1)))
-        (assert (or (= b1 0) (= b1 1)))
-        (assert (= a0 0))
-        (assert (= a1 0))
-        (assert (= b0 1))
-        (assert (= b1 1))
-        (assert (> S 2))
-        (check-sat)
+```text
+Strategy 03
+  setting (0, 0) -> a=0, b=1, correlator=-1
+  setting (0, 1) -> a=0, b=1, correlator=-1
+  setting (1, 0) -> a=0, b=1, correlator=-1
+  setting (1, 1) -> a=0, b=1, correlator=-1
+  S = (E_11 + E_10 + E_01 - E_00) = -2/1
+  |S| = 2/1 ≤ 2 established by direct integer arithmetic.
 ```
-Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
 Strategy 04: S = -2/1 (~-2.000000)
-```smt2
-(set-logic QF_LIA)
-        (declare-const a0 Int)
-        (declare-const a1 Int)
-        (declare-const b0 Int)
-        (declare-const b1 Int)
-        (define-fun sgn ((bit Int)) Int (- (* 2 bit) 1))
-        (define-fun S () Int (+ (+ (+ (* (sgn a1) (sgn b1)) (* (sgn a1) (sgn b0))) (* (sgn a0) (sgn b1))) (* -1 (* (sgn a0) (sgn b0)))))
-        (assert (or (= a0 0) (= a0 1)))
-        (assert (or (= a1 0) (= a1 1)))
-        (assert (or (= b0 0) (= b0 1)))
-        (assert (or (= b1 0) (= b1 1)))
-        (assert (= a0 0))
-        (assert (= a1 1))
-        (assert (= b0 0))
-        (assert (= b1 0))
-        (assert (> S 2))
-        (check-sat)
+```text
+Strategy 04
+  setting (0, 0) -> a=0, b=0, correlator=1
+  setting (0, 1) -> a=0, b=0, correlator=1
+  setting (1, 0) -> a=1, b=0, correlator=-1
+  setting (1, 1) -> a=1, b=0, correlator=-1
+  S = (E_11 + E_10 + E_01 - E_00) = -2/1
+  |S| = 2/1 ≤ 2 established by direct integer arithmetic.
 ```
-Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
 Strategy 05: S = -2/1 (~-2.000000)
-```smt2
-(set-logic QF_LIA)
-        (declare-const a0 Int)
-        (declare-const a1 Int)
-        (declare-const b0 Int)
-        (declare-const b1 Int)
-        (define-fun sgn ((bit Int)) Int (- (* 2 bit) 1))
-        (define-fun S () Int (+ (+ (+ (* (sgn a1) (sgn b1)) (* (sgn a1) (sgn b0))) (* (sgn a0) (sgn b1))) (* -1 (* (sgn a0) (sgn b0)))))
-        (assert (or (= a0 0) (= a0 1)))
-        (assert (or (= a1 0) (= a1 1)))
-        (assert (or (= b0 0) (= b0 1)))
-        (assert (or (= b1 0) (= b1 1)))
-        (assert (= a0 0))
-        (assert (= a1 1))
-        (assert (= b0 0))
-        (assert (= b1 1))
-        (assert (> S 2))
-        (check-sat)
+```text
+Strategy 05
+  setting (0, 0) -> a=0, b=0, correlator=1
+  setting (0, 1) -> a=0, b=1, correlator=-1
+  setting (1, 0) -> a=1, b=0, correlator=-1
+  setting (1, 1) -> a=1, b=1, correlator=1
+  S = (E_11 + E_10 + E_01 - E_00) = -2/1
+  |S| = 2/1 ≤ 2 established by direct integer arithmetic.
 ```
-Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
 Strategy 06: S = 2/1 (~2.000000)
-```smt2
-(set-logic QF_LIA)
-        (declare-const a0 Int)
-        (declare-const a1 Int)
-        (declare-const b0 Int)
-        (declare-const b1 Int)
-        (define-fun sgn ((bit Int)) Int (- (* 2 bit) 1))
-        (define-fun S () Int (+ (+ (+ (* (sgn a1) (sgn b1)) (* (sgn a1) (sgn b0))) (* (sgn a0) (sgn b1))) (* -1 (* (sgn a0) (sgn b0)))))
-        (assert (or (= a0 0) (= a0 1)))
-        (assert (or (= a1 0) (= a1 1)))
-        (assert (or (= b0 0) (= b0 1)))
-        (assert (or (= b1 0) (= b1 1)))
-        (assert (= a0 0))
-        (assert (= a1 1))
-        (assert (= b0 1))
-        (assert (= b1 0))
-        (assert (> S 2))
-        (check-sat)
+```text
+Strategy 06
+  setting (0, 0) -> a=0, b=1, correlator=-1
+  setting (0, 1) -> a=0, b=0, correlator=1
+  setting (1, 0) -> a=1, b=1, correlator=1
+  setting (1, 1) -> a=1, b=0, correlator=-1
+  S = (E_11 + E_10 + E_01 - E_00) = 2/1
+  |S| = 2/1 ≤ 2 established by direct integer arithmetic.
 ```
-Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
 Strategy 07: S = 2/1 (~2.000000)
-```smt2
-(set-logic QF_LIA)
-        (declare-const a0 Int)
-        (declare-const a1 Int)
-        (declare-const b0 Int)
-        (declare-const b1 Int)
-        (define-fun sgn ((bit Int)) Int (- (* 2 bit) 1))
-        (define-fun S () Int (+ (+ (+ (* (sgn a1) (sgn b1)) (* (sgn a1) (sgn b0))) (* (sgn a0) (sgn b1))) (* -1 (* (sgn a0) (sgn b0)))))
-        (assert (or (= a0 0) (= a0 1)))
-        (assert (or (= a1 0) (= a1 1)))
-        (assert (or (= b0 0) (= b0 1)))
-        (assert (or (= b1 0) (= b1 1)))
-        (assert (= a0 0))
-        (assert (= a1 1))
-        (assert (= b0 1))
-        (assert (= b1 1))
-        (assert (> S 2))
-        (check-sat)
+```text
+Strategy 07
+  setting (0, 0) -> a=0, b=1, correlator=-1
+  setting (0, 1) -> a=0, b=1, correlator=-1
+  setting (1, 0) -> a=1, b=1, correlator=1
+  setting (1, 1) -> a=1, b=1, correlator=1
+  S = (E_11 + E_10 + E_01 - E_00) = 2/1
+  |S| = 2/1 ≤ 2 established by direct integer arithmetic.
 ```
-Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
 Strategy 08: S = 2/1 (~2.000000)
-```smt2
-(set-logic QF_LIA)
-        (declare-const a0 Int)
-        (declare-const a1 Int)
-        (declare-const b0 Int)
-        (declare-const b1 Int)
-        (define-fun sgn ((bit Int)) Int (- (* 2 bit) 1))
-        (define-fun S () Int (+ (+ (+ (* (sgn a1) (sgn b1)) (* (sgn a1) (sgn b0))) (* (sgn a0) (sgn b1))) (* -1 (* (sgn a0) (sgn b0)))))
-        (assert (or (= a0 0) (= a0 1)))
-        (assert (or (= a1 0) (= a1 1)))
-        (assert (or (= b0 0) (= b0 1)))
-        (assert (or (= b1 0) (= b1 1)))
-        (assert (= a0 1))
-        (assert (= a1 0))
-        (assert (= b0 0))
-        (assert (= b1 0))
-        (assert (> S 2))
-        (check-sat)
+```text
+Strategy 08
+  setting (0, 0) -> a=1, b=0, correlator=-1
+  setting (0, 1) -> a=1, b=0, correlator=-1
+  setting (1, 0) -> a=0, b=0, correlator=1
+  setting (1, 1) -> a=0, b=0, correlator=1
+  S = (E_11 + E_10 + E_01 - E_00) = 2/1
+  |S| = 2/1 ≤ 2 established by direct integer arithmetic.
 ```
-Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
 Strategy 09: S = 2/1 (~2.000000)
-```smt2
-(set-logic QF_LIA)
-        (declare-const a0 Int)
-        (declare-const a1 Int)
-        (declare-const b0 Int)
-        (declare-const b1 Int)
-        (define-fun sgn ((bit Int)) Int (- (* 2 bit) 1))
-        (define-fun S () Int (+ (+ (+ (* (sgn a1) (sgn b1)) (* (sgn a1) (sgn b0))) (* (sgn a0) (sgn b1))) (* -1 (* (sgn a0) (sgn b0)))))
-        (assert (or (= a0 0) (= a0 1)))
-        (assert (or (= a1 0) (= a1 1)))
-        (assert (or (= b0 0) (= b0 1)))
-        (assert (or (= b1 0) (= b1 1)))
-        (assert (= a0 1))
-        (assert (= a1 0))
-        (assert (= b0 0))
-        (assert (= b1 1))
-        (assert (> S 2))
-        (check-sat)
+```text
+Strategy 09
+  setting (0, 0) -> a=1, b=0, correlator=-1
+  setting (0, 1) -> a=1, b=1, correlator=1
+  setting (1, 0) -> a=0, b=0, correlator=1
+  setting (1, 1) -> a=0, b=1, correlator=-1
+  S = (E_11 + E_10 + E_01 - E_00) = 2/1
+  |S| = 2/1 ≤ 2 established by direct integer arithmetic.
 ```
-Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
 Strategy 10: S = -2/1 (~-2.000000)
-```smt2
-(set-logic QF_LIA)
-        (declare-const a0 Int)
-        (declare-const a1 Int)
-        (declare-const b0 Int)
-        (declare-const b1 Int)
-        (define-fun sgn ((bit Int)) Int (- (* 2 bit) 1))
-        (define-fun S () Int (+ (+ (+ (* (sgn a1) (sgn b1)) (* (sgn a1) (sgn b0))) (* (sgn a0) (sgn b1))) (* -1 (* (sgn a0) (sgn b0)))))
-        (assert (or (= a0 0) (= a0 1)))
-        (assert (or (= a1 0) (= a1 1)))
-        (assert (or (= b0 0) (= b0 1)))
-        (assert (or (= b1 0) (= b1 1)))
-        (assert (= a0 1))
-        (assert (= a1 0))
-        (assert (= b0 1))
-        (assert (= b1 0))
-        (assert (> S 2))
-        (check-sat)
+```text
+Strategy 10
+  setting (0, 0) -> a=1, b=1, correlator=1
+  setting (0, 1) -> a=1, b=0, correlator=-1
+  setting (1, 0) -> a=0, b=1, correlator=-1
+  setting (1, 1) -> a=0, b=0, correlator=1
+  S = (E_11 + E_10 + E_01 - E_00) = -2/1
+  |S| = 2/1 ≤ 2 established by direct integer arithmetic.
 ```
-Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
 Strategy 11: S = -2/1 (~-2.000000)
-```smt2
-(set-logic QF_LIA)
-        (declare-const a0 Int)
-        (declare-const a1 Int)
-        (declare-const b0 Int)
-        (declare-const b1 Int)
-        (define-fun sgn ((bit Int)) Int (- (* 2 bit) 1))
-        (define-fun S () Int (+ (+ (+ (* (sgn a1) (sgn b1)) (* (sgn a1) (sgn b0))) (* (sgn a0) (sgn b1))) (* -1 (* (sgn a0) (sgn b0)))))
-        (assert (or (= a0 0) (= a0 1)))
-        (assert (or (= a1 0) (= a1 1)))
-        (assert (or (= b0 0) (= b0 1)))
-        (assert (or (= b1 0) (= b1 1)))
-        (assert (= a0 1))
-        (assert (= a1 0))
-        (assert (= b0 1))
-        (assert (= b1 1))
-        (assert (> S 2))
-        (check-sat)
+```text
+Strategy 11
+  setting (0, 0) -> a=1, b=1, correlator=1
+  setting (0, 1) -> a=1, b=1, correlator=1
+  setting (1, 0) -> a=0, b=1, correlator=-1
+  setting (1, 1) -> a=0, b=1, correlator=-1
+  S = (E_11 + E_10 + E_01 - E_00) = -2/1
+  |S| = 2/1 ≤ 2 established by direct integer arithmetic.
 ```
-Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
 Strategy 12: S = -2/1 (~-2.000000)
-```smt2
-(set-logic QF_LIA)
-        (declare-const a0 Int)
-        (declare-const a1 Int)
-        (declare-const b0 Int)
-        (declare-const b1 Int)
-        (define-fun sgn ((bit Int)) Int (- (* 2 bit) 1))
-        (define-fun S () Int (+ (+ (+ (* (sgn a1) (sgn b1)) (* (sgn a1) (sgn b0))) (* (sgn a0) (sgn b1))) (* -1 (* (sgn a0) (sgn b0)))))
-        (assert (or (= a0 0) (= a0 1)))
-        (assert (or (= a1 0) (= a1 1)))
-        (assert (or (= b0 0) (= b0 1)))
-        (assert (or (= b1 0) (= b1 1)))
-        (assert (= a0 1))
-        (assert (= a1 1))
-        (assert (= b0 0))
-        (assert (= b1 0))
-        (assert (> S 2))
-        (check-sat)
+```text
+Strategy 12
+  setting (0, 0) -> a=1, b=0, correlator=-1
+  setting (0, 1) -> a=1, b=0, correlator=-1
+  setting (1, 0) -> a=1, b=0, correlator=-1
+  setting (1, 1) -> a=1, b=0, correlator=-1
+  S = (E_11 + E_10 + E_01 - E_00) = -2/1
+  |S| = 2/1 ≤ 2 established by direct integer arithmetic.
 ```
-Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
 Strategy 13: S = 2/1 (~2.000000)
-```smt2
-(set-logic QF_LIA)
-        (declare-const a0 Int)
-        (declare-const a1 Int)
-        (declare-const b0 Int)
-        (declare-const b1 Int)
-        (define-fun sgn ((bit Int)) Int (- (* 2 bit) 1))
-        (define-fun S () Int (+ (+ (+ (* (sgn a1) (sgn b1)) (* (sgn a1) (sgn b0))) (* (sgn a0) (sgn b1))) (* -1 (* (sgn a0) (sgn b0)))))
-        (assert (or (= a0 0) (= a0 1)))
-        (assert (or (= a1 0) (= a1 1)))
-        (assert (or (= b0 0) (= b0 1)))
-        (assert (or (= b1 0) (= b1 1)))
-        (assert (= a0 1))
-        (assert (= a1 1))
-        (assert (= b0 0))
-        (assert (= b1 1))
-        (assert (> S 2))
-        (check-sat)
+```text
+Strategy 13
+  setting (0, 0) -> a=1, b=0, correlator=-1
+  setting (0, 1) -> a=1, b=1, correlator=1
+  setting (1, 0) -> a=1, b=0, correlator=-1
+  setting (1, 1) -> a=1, b=1, correlator=1
+  S = (E_11 + E_10 + E_01 - E_00) = 2/1
+  |S| = 2/1 ≤ 2 established by direct integer arithmetic.
 ```
-Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
 Strategy 14: S = -2/1 (~-2.000000)
-```smt2
-(set-logic QF_LIA)
-        (declare-const a0 Int)
-        (declare-const a1 Int)
-        (declare-const b0 Int)
-        (declare-const b1 Int)
-        (define-fun sgn ((bit Int)) Int (- (* 2 bit) 1))
-        (define-fun S () Int (+ (+ (+ (* (sgn a1) (sgn b1)) (* (sgn a1) (sgn b0))) (* (sgn a0) (sgn b1))) (* -1 (* (sgn a0) (sgn b0)))))
-        (assert (or (= a0 0) (= a0 1)))
-        (assert (or (= a1 0) (= a1 1)))
-        (assert (or (= b0 0) (= b0 1)))
-        (assert (or (= b1 0) (= b1 1)))
-        (assert (= a0 1))
-        (assert (= a1 1))
-        (assert (= b0 1))
-        (assert (= b1 0))
-        (assert (> S 2))
-        (check-sat)
+```text
+Strategy 14
+  setting (0, 0) -> a=1, b=1, correlator=1
+  setting (0, 1) -> a=1, b=0, correlator=-1
+  setting (1, 0) -> a=1, b=1, correlator=1
+  setting (1, 1) -> a=1, b=0, correlator=-1
+  S = (E_11 + E_10 + E_01 - E_00) = -2/1
+  |S| = 2/1 ≤ 2 established by direct integer arithmetic.
 ```
-Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
 Strategy 15: S = 2/1 (~2.000000)
-```smt2
-(set-logic QF_LIA)
-        (declare-const a0 Int)
-        (declare-const a1 Int)
-        (declare-const b0 Int)
-        (declare-const b1 Int)
-        (define-fun sgn ((bit Int)) Int (- (* 2 bit) 1))
-        (define-fun S () Int (+ (+ (+ (* (sgn a1) (sgn b1)) (* (sgn a1) (sgn b0))) (* (sgn a0) (sgn b1))) (* -1 (* (sgn a0) (sgn b0)))))
-        (assert (or (= a0 0) (= a0 1)))
-        (assert (or (= a1 0) (= a1 1)))
-        (assert (or (= b0 0) (= b0 1)))
-        (assert (or (= b1 0) (= b1 1)))
-        (assert (= a0 1))
-        (assert (= a1 1))
-        (assert (= b0 1))
-        (assert (= b1 1))
-        (assert (> S 2))
-        (check-sat)
+```text
+Strategy 15
+  setting (0, 0) -> a=1, b=1, correlator=1
+  setting (0, 1) -> a=1, b=1, correlator=1
+  setting (1, 0) -> a=1, b=1, correlator=1
+  setting (1, 1) -> a=1, b=1, correlator=1
+  S = (E_11 + E_10 + E_01 - E_00) = 2/1
+  |S| = 2/1 ≤ 2 established by direct integer arithmetic.
 ```
-Z3> prove(S > 2) -> FAILED. unsat. Bound holds.
-Aggregating the classical strategies into a convex combination and auditing it:
-```smt2
-(set-logic QF_LRA)
-(declare-const w0 Real)
-(declare-const w1 Real)
-(declare-const w2 Real)
-(declare-const w3 Real)
-(declare-const w4 Real)
-(declare-const w5 Real)
-(declare-const w6 Real)
-(declare-const w7 Real)
-(declare-const w8 Real)
-(declare-const w9 Real)
-(declare-const w10 Real)
-(declare-const w11 Real)
-(declare-const w12 Real)
-(declare-const w13 Real)
-(declare-const w14 Real)
-(declare-const w15 Real)
-(assert (>= w0 0))
-(assert (>= w1 0))
-(assert (>= w2 0))
-(assert (>= w3 0))
-(assert (>= w4 0))
-(assert (>= w5 0))
-(assert (>= w6 0))
-(assert (>= w7 0))
-(assert (>= w8 0))
-(assert (>= w9 0))
-(assert (>= w10 0))
-(assert (>= w11 0))
-(assert (>= w12 0))
-(assert (>= w13 0))
-(assert (>= w14 0))
-(assert (>= w15 0))
-(assert (= (+ w0 w1 w2 w3 w4 w5 w6 w7 w8 w9 w10 w11 w12 w13 w14 w15) 1))
-(assert (> (+ (* w0 2/1) (* w1 -2/1) (* w2 2/1) (* w3 -2/1) (* w4 -2/1) (* w5 -2/1) (* w6 2/1) (* w7 2/1) (* w8 2/1) (* w9 2/1) (* w10 -2/1) (* w11 -2/1) (* w12 -2/1) (* w13 2/1) (* w14 -2/1) (* w15 2/1)) 2))
-(check-sat)
+Aggregating the classical strategies into a convex combination and auditing it analytically:
+```text
+Convexity argument:
+  min S = -2/1
+  max S = 2/1
+  Any convex mixture is Σ wᵢ·Sᵢ with wᵢ ≥ 0 and Σ wᵢ = 1.
+  Therefore min S ≤ Σ wᵢ·Sᵢ ≤ max S, so every mixture stays within [-2, 2].
 ```
-Z3> prove(ForAll convex combination preserves |S| ≤ 2) -> FAILED. unsat. Bound holds.
 **Conclusion: Any classical system adhering to local realism is bounded by |S| ≤ 2.**
 Mechanised coverage: the Coq lemma local_CHSH_bound lifts these pointwise checks to every convex mixture of deterministic boxes.
 ## Act III — Sighted Tsirelson Witness
-A constructive Thiele witness approaches the Tsirelson bound and is checked by Z3.
+A constructive Thiele witness approaches the Tsirelson bound with explicit inequalities.
 
 Thiele/Tsirelson strategy definition:
 ```python
@@ -467,16 +258,16 @@ def shared_gamma():
             return Fraction(1, 4) + Fraction(1, 4) * (2 * a - 1) * (2 * b - 1) * correlator(x, y)
 ```
 Computed CHSH value for the Tsirelson approximation: 2000000/707107 (~2.828426)
-Z3 audit for the Tsirelson witness:
-```smt2
-(set-logic QF_LRA)
-        (declare-const S Real)
-        (assert (= S 2000000/707107))
-        (assert (> S 2))
-        (assert (<= S 707107/250000))
-        (check-sat)
+Inequality certificate for the Tsirelson witness:
+```text
+Tsirelson witness inequalities:
+  γ = 500000/707107
+  S = 4·γ = 2000000/707107
+  S - 2 = 585786/707107 > 0 ⇒ S > 2.
+  S² = 4000000000000/500000309449
+  2√2 bound encoded as S² ≤ 8 (since S ≥ 0).
+  8 - S² = 2475592/500000309449 ≥ 0 ⇒ S ≤ 2√2.
 ```
-Z3> prove(2 < S ≤ 2√2) -> PASSED. sat.
 **Conclusion: A sighted Thiele architecture achieves a rational Tsirelson witness approaching 2√2 with exact arithmetic.**
 ## Act IV — Consolidated Artifact
 All evidence is collated into BELL_INEQUALITY_VERIFIED_RESULTS.md.
@@ -495,35 +286,32 @@ Receipt summary:
 These receipts adhere to the canonical JSON schema (instruction, state, observation); Coq replay only accepts files respecting this structure.
 Verification transcript:
 ```text
-Skipped Coq verification: coqc executable not found.
-count = 5
-instructions = PNEW, PYEXEC, PYEXEC, PYEXEC, EMIT
-signatures_verified = True
+Coq proof obligations discharged (The Coq Proof Assistant, version 8.18.0).
 ```
 **Q.E.D. — The runtime receipts coincide with the mechanised witness.**
 Coq replay confirms the canonical program receipts; any alternative log must produce identical instruction/state triples to be accepted.
 ## Act VI — Operation Cosmic Witness
 Cosmic microwave background data is converted into a formally proved prediction.
 
-Correctness: the SMT proof shows the induced rule outputs the logged CHSH setting for the recorded features.
-Robustness: a QF_LIA certificate demonstrates the prediction remains stable within the recorded noise model (ε-ball) derived from the offline dataset.
+Correctness: the analytic certificate shows the induced rule outputs the logged CHSH setting for the recorded features (solvers remain optional corroboration).
+Robustness: the same analytic reasoning demonstrates the prediction remains stable within the recorded noise model (ε-ball) derived from the offline dataset.
 Operation Cosmic Witness mode=offline, data_source=offline, allow_network=False
 Loading offline CMB sample from /workspace/The-Thiele-Machine/data/cmb_sample.csv
 Extracted feature vector (mean, stdev, min, max, gradient): 2.7254761875, 6.79355163007e-06, 2.725466, 2.725489, -1.25000000004e-05
 Data origin recorded as csv:cmb_sample.csv.
-Induced rule: feature[3] > 2.99804 -> (0, 0), else -> (0, 0) (param_count=1)
-Predicted CHSH trial: alice=0, bob=0
-Prediction SMT proof succeeded; robustness proved (eps=2.725e-02).
+Induced rule: feature[2] > 2.72474 -> (1, 0), else -> (0, 1) (param_count=1)
+Predicted CHSH trial: alice=1, bob=0
+Analytic certificate confirms the prediction; robustness proved (eps=7.230e-05).
 Persisted Operation Cosmic Witness receipts and proofs to disk.
 Operation Cosmic Witness artifacts written to the artifacts/ directory for audit.
 - Prediction receipt: /workspace/The-Thiele-Machine/artifacts/cosmic_witness_prediction_receipt.json
-- Prediction proof: /workspace/The-Thiele-Machine/artifacts/cosmic_witness_prediction_proof.smt2
-- Robustness proof: /workspace/The-Thiele-Machine/artifacts/cosmic_witness_prediction_proof_robust.smt2
-- Prediction proved by Z3: True
+- Prediction proof: /workspace/The-Thiele-Machine/artifacts/cosmic_witness_prediction_proof.txt
+- Robustness proof: /workspace/The-Thiele-Machine/artifacts/cosmic_witness_prediction_proof_robust.txt
+- Prediction proved (analytic): True
 ## Conclusion — Verification Gates
 The thesis run is accepted only when these audit checks succeed.
 
-- All SMT-LIB artifacts reproduce their recorded SAT/UNSAT dispositions (Z3 with optional CVC5 corroboration).
+- All analytic certificates reproduce their recorded inequalities when re-evaluated.
 - scripts/verify_truth.sh completes without error, replaying the canonical receipts inside Coq.
 - artifacts/MANIFEST.sha256 matches recomputed SHA-256 hashes for ledger and receipts.
 Artifact manifest persisted to artifacts/MANIFEST.sha256.

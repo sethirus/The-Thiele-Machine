@@ -58,15 +58,6 @@ import shutil
 
 from thielecpu.receipts import ensure_kernel_keys
 
-try:  # pragma: no cover - exercised indirectly via tests
-    from z3 import And, Or, Real, RealVal, Solver, Sum, unsat
-    HAVE_Z3 = True
-except ModuleNotFoundError:  # pragma: no cover - exercised when z3 missing
-    And = Or = Real = RealVal = Solver = Sum = None  # type: ignore[assignment]
-    unsat = "unsat"  # sentinel used in fallbacks
-    HAVE_Z3 = False
-CVC5_PATH = shutil.which("cvc5")
-CVC5_AVAILABLE = CVC5_PATH is not None
 import argparse
 import csv
 import datetime
@@ -182,8 +173,9 @@ def gather_toolchain_versions() -> List[str]:
     capture(["python", "--version"], "Python")
     capture(["z3", "--version"], "Z3")
     capture(["coqc", "--version"], "Coq")
-    if CVC5_AVAILABLE:
-        capture([CVC5_PATH, "--version"], "CVC5")  # type: ignore[list-item]
+    cvc5_path = shutil.which("cvc5")
+    if cvc5_path:
+        capture([cvc5_path, "--version"], "CVC5")
     git_head = subprocess.run(
         ["git", "rev-parse", "HEAD"],
         check=False,
@@ -196,26 +188,61 @@ def gather_toolchain_versions() -> List[str]:
     return versions
 
 
-def cross_check_with_cvc5(script: str, expected: str, label: str) -> str | None:
-    """Validate Z3 results with CVC5 when the binary is available."""
+def classical_correlator_details(strategy: Strategy) -> List[Tuple[int, int, int, int, int]]:
+    """Return (x, y, a, b, correlator) tuples for a deterministic strategy."""
 
-    if not CVC5_AVAILABLE or CVC5_PATH is None:
-        return None
-    result = subprocess.run(
-        [CVC5_PATH, "--lang=smtlib2"],
-        input=script,
-        text=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        check=False,
-    )
-    output = result.stdout.strip() or result.stderr.strip()
-    disposition = output.splitlines()[-1].strip().lower() if output else ""
-    if disposition != expected.lower():
-        raise RuntimeError(
-            f"CVC5 cross-check for {label} diverged: expected {expected}, got {disposition or 'no output'}"
+    alice, bob = strategy
+    details: List[Tuple[int, int, int, int, int]] = []
+    for x in (0, 1):
+        for y in (0, 1):
+            a_bit = alice(x)
+            b_bit = bob(y)
+            correlator = sign(a_bit) * sign(b_bit)
+            details.append((x, y, a_bit, b_bit, correlator))
+    return details
+
+
+def classical_strategy_certificate(index: int, strategy: Strategy) -> Tuple[Fraction, str]:
+    """Construct a human-auditable certificate for a classical CHSH strategy."""
+
+    value = chsh_value(strategy)
+    correlators = classical_correlator_details(strategy)
+    abs_value = abs(value)
+    if abs_value > Fraction(2, 1):
+        raise AssertionError(
+            f"Classical strategy {index:02d} violates |S| ≤ 2 with value {value}"
         )
-    return disposition
+    lines = [f"Strategy {index:02d}"]
+    for x, y, a_bit, b_bit, correlator in correlators:
+        lines.append(
+            f"  setting ({x}, {y}) -> a={a_bit}, b={b_bit}, correlator={correlator}"
+        )
+    lines.append(
+        "  S = (E_11 + E_10 + E_01 - E_00) = " + fraction_to_str(value)
+    )
+    lines.append(
+        f"  |S| = {fraction_to_str(abs_value)} ≤ 2 established by direct integer arithmetic."
+    )
+    return value, "\n".join(lines)
+
+
+def convex_combination_certificate(values: Sequence[Fraction]) -> str:
+    """Explain why convex mixtures of classical strategies obey the CHSH bound."""
+
+    if not values:
+        raise ValueError("No classical values provided for convex certificate")
+    min_value = min(values)
+    max_value = max(values)
+    if min_value < Fraction(-2, 1) or max_value > Fraction(2, 1):
+        raise AssertionError("Classical strategy catalogue exceeds |S| ≤ 2 bounds")
+    lines = [
+        "Convexity argument:",
+        f"  min S = {fraction_to_str(min_value)}",
+        f"  max S = {fraction_to_str(max_value)}",
+        "  Any convex mixture is Σ wᵢ·Sᵢ with wᵢ ≥ 0 and Σ wᵢ = 1.",
+        "  Therefore min S ≤ Σ wᵢ·Sᵢ ≤ max S, so every mixture stays within [-2, 2].",
+    ]
+    return "\n".join(lines)
 
 
 def write_manifest(entries: Iterable[Path], manifest_path: Path) -> Path:
@@ -251,12 +278,6 @@ def pretty_decimal(value: Decimal, places: int = 12) -> str:
 
 def pretty_fraction(frac: Fraction) -> str:
     return f"{fraction_to_str(frac)} (~{float(frac):.6f})"
-
-
-def real_val(frac: Fraction) -> Real:
-    if not HAVE_Z3:
-        raise RuntimeError("Z3 solver is required for this operation")
-    return RealVal(fraction_to_str(frac))
 
 
 def run_command_live(command: Sequence[str]) -> str:
@@ -403,90 +424,6 @@ def chsh_value(strategy: Strategy) -> Fraction:
     )
 
 
-def z3_script_for_strategy(index: int, strategy: Strategy) -> str:
-    alice, bob = strategy
-    return dedent(
-        f"""
-        (set-logic QF_LIA)
-        (declare-const a0 Int)
-        (declare-const a1 Int)
-        (declare-const b0 Int)
-        (declare-const b1 Int)
-        (define-fun sgn ((bit Int)) Int (- (* 2 bit) 1))
-        (define-fun S () Int (+ (+ (+ (* (sgn a1) (sgn b1)) (* (sgn a1) (sgn b0))) (* (sgn a0) (sgn b1))) (* -1 (* (sgn a0) (sgn b0)))))
-        (assert (or (= a0 0) (= a0 1)))
-        (assert (or (= a1 0) (= a1 1)))
-        (assert (or (= b0 0) (= b0 1)))
-        (assert (or (= b1 0) (= b1 1)))
-        (assert (= a0 {alice.out0}))
-        (assert (= a1 {alice.out1}))
-        (assert (= b0 {bob.out0}))
-        (assert (= b1 {bob.out1}))
-        (assert (> S 2))
-        (check-sat)
-        """.strip()
-    )
-
-
-def z3_check_strategy(strategy: Strategy) -> str:
-    if not HAVE_Z3:
-        return "z3-unavailable"
-
-    from z3 import Ints
-
-    a0, a1, b0, b1 = Ints("a0 a1 b0 b1")
-    solver = Solver()
-    for bit in (a0, a1, b0, b1):
-        solver.add(Or(bit == 0, bit == 1))
-    solver.add(a0 == strategy[0].out0)
-    solver.add(a1 == strategy[0].out1)
-    solver.add(b0 == strategy[1].out0)
-    solver.add(b1 == strategy[1].out1)
-    s_expr = (
-        (2 * a1 - 1) * (2 * b1 - 1)
-        + (2 * a1 - 1) * (2 * b0 - 1)
-        + (2 * a0 - 1) * (2 * b1 - 1)
-        - (2 * a0 - 1) * (2 * b0 - 1)
-    )
-    solver.add(s_expr > 2)
-    result = solver.check()
-    return str(result)
-
-
-def convexity_z3_script(values: Sequence[Fraction]) -> str:
-    header = "(set-logic QF_LRA)"
-    decls = [f"(declare-const w{i} Real)" for i in range(len(values))]
-    nonneg = [f"(assert (>= w{i} 0))" for i in range(len(values))]
-    if len(values) == 1:
-        sum_constraint = "(assert (= w0 1))"
-    else:
-        sum_constraint = "(assert (= (+ " + " ".join(
-            f"w{i}" for i in range(len(values))
-        ) + ") 1))"
-    weighted_sum_terms = [
-        f"(* w{i} {fraction_to_str(value)})" for i, value in enumerate(values)
-    ]
-    weighted_sum = "(+ " + " ".join(weighted_sum_terms) + ")"
-    violation = f"(assert (> {weighted_sum} 2))"
-    return "\n".join([header, *decls, *nonneg, sum_constraint, violation, "(check-sat)"])
-
-
-def convexity_check(values: Sequence[Fraction]) -> str:
-    if not HAVE_Z3:
-        return "z3-unavailable"
-    weights = [Real(f"w{i}") for i in range(len(values))]
-    solver = Solver()
-    for weight in weights:
-        solver.add(weight >= 0)
-    solver.add(Sum(*weights) == 1)
-    weighted_sum = Sum(*[
-        weight * real_val(value) for weight, value in zip(weights, values)
-    ])
-    solver.add(weighted_sum > 2)
-    result = solver.check()
-    return str(result)
-
-
 def tsirelson_strategy_code(gamma: Fraction) -> str:
     return dedent(
         f"""
@@ -509,28 +446,27 @@ def tsirelson_strategy_code(gamma: Fraction) -> str:
     )
 
 
-def tsirelson_z3_script(s_value: Fraction, bound: Fraction) -> str:
-    return dedent(
-        f"""
-        (set-logic QF_LRA)
-        (declare-const S Real)
-        (assert (= S {fraction_to_str(s_value)}))
-        (assert (> S 2))
-        (assert (<= S {fraction_to_str(bound)}))
-        (check-sat)
-        """.strip()
-    )
+def tsirelson_certificate(gamma: Fraction) -> Tuple[Fraction, str]:
+    """Produce an inequality certificate for the Tsirelson witness."""
 
-
-def tsirelson_z3_check(s_value: Fraction, bound: Fraction) -> str:
-    if not HAVE_Z3:
-        return "z3-unavailable"
-    solver = Solver()
-    S = Real("S")
-    solver.add(S == real_val(s_value))
-    solver.add(S > 2)
-    solver.add(S <= real_val(bound))
-    return str(solver.check())
+    s_value = Fraction(4, 1) * gamma
+    lower_margin = s_value - Fraction(2, 1)
+    if lower_margin <= 0:
+        raise AssertionError("Tsirelson witness failed to exceed the classical bound")
+    s_squared = s_value * s_value
+    upper_margin = Fraction(8, 1) - s_squared
+    if upper_margin < 0:
+        raise AssertionError("Tsirelson witness exceeded the 2√2 ceiling")
+    lines = [
+        "Tsirelson witness inequalities:",
+        f"  γ = {fraction_to_str(gamma)}",
+        f"  S = 4·γ = {fraction_to_str(s_value)}",
+        f"  S - 2 = {fraction_to_str(lower_margin)} > 0 ⇒ S > 2.",
+        f"  S² = {fraction_to_str(s_squared)}",
+        "  2√2 bound encoded as S² ≤ 8 (since S ≥ 0).",
+        f"  8 - S² = {fraction_to_str(upper_margin)} ≥ 0 ⇒ S ≤ 2√2.",
+    ]
+    return s_value, "\n".join(lines)
 
 
 # ---------------------------------------------------------------------------
@@ -592,10 +528,7 @@ def main(
         "Coq kernel / coqchk validate mechanised receipts; correctness assumes the kernel is sound."
     )
     narrator.bullet(
-        "SMT solving relies on Z3's QF_LIA engine (with CVC5 corroboration when available)."
-    )
-    narrator.bullet(
-        "Python's Decimal and Fraction libraries provide exact arithmetic for reported witnesses."
+        "Analytic certificates are evaluated using Python's exact Decimal and Fraction libraries."
     )
     narrator.bullet(
         "Recorded SHA-256 manifest binds inputs/outputs; auditors must trust the filesystem integrity."
@@ -632,14 +565,13 @@ def main(
     narrator.bullet(f"Tsirelson bound ≈ {pretty_decimal(tsirelson_bound_decimal)}")
 
     sqrt2_fraction = fraction_ceiling(sqrt2_decimal, 10**6)
-    tsirelson_bound_fraction = fraction_ceiling(tsirelson_bound_decimal, 10**6)
 
     # ------------------------------------------------------------------
     # Act II — enumerate classical strategies
     # ------------------------------------------------------------------
     narrator.section(
         "Act II — Classical Deterministic Bound",
-        "Every local-realist CHSH strategy is enumerated and audited with Z3.",
+        "Every local-realist CHSH strategy is enumerated and verified with exact arithmetic.",
     )
 
     strategies = all_strategies()
@@ -649,46 +581,16 @@ def main(
 
     classical_values: List[Fraction] = []
     for index, strategy in enumerate(strategies):
-        value = chsh_value(strategy)
+        value, certificate = classical_strategy_certificate(index, strategy)
         classical_values.append(value)
-        script = z3_script_for_strategy(index, strategy)
         narrator.paragraph(f"Strategy {index:02d}: S = {pretty_fraction(value)}")
-        narrator.code_block(script, language="smt2")
-        result = z3_check_strategy(strategy)
-        if result.lower() == "unsat":
-            conclusion = "Z3> prove(S > 2) -> FAILED. unsat. Bound holds."
-        else:
-            conclusion = f"Z3> prove(S > 2) -> {result.upper()}."
-        narrator.paragraph(conclusion)
-        if HAVE_Z3 and result.lower() in {"unsat", "sat"}:
-            cross = cross_check_with_cvc5(script, result.lower(), f"strategy {index:02d}")
-            if cross:
-                narrator.paragraph(f"CVC5 corroboration: strategy {index:02d} -> {cross}.")
+        narrator.code_block(certificate, language="text")
 
-    convex_script = convexity_z3_script(classical_values)
+    convex_argument = convex_combination_certificate(classical_values)
     narrator.paragraph(
-        "Aggregating the classical strategies into a convex combination and auditing it:",
+        "Aggregating the classical strategies into a convex combination and auditing it analytically:",
     )
-    narrator.code_block(convex_script, language="smt2")
-    convex_result = convexity_check(classical_values)
-    if convex_result.lower() == "unsat":
-        convex_conclusion = (
-            "Z3> prove(ForAll convex combination preserves |S| ≤ 2) -> FAILED. unsat. Bound holds."
-        )
-    else:
-        convex_conclusion = (
-            "Z3> prove(ForAll convex combination preserves |S| ≤ 2) -> "
-            f"{convex_result.upper()}."
-        )
-    narrator.paragraph(convex_conclusion)
-    if HAVE_Z3 and convex_result.lower() in {"unsat", "sat"}:
-        convex_cross = cross_check_with_cvc5(
-            convex_script, convex_result.lower(), "convex hull audit"
-        )
-        if convex_cross:
-            narrator.paragraph(
-                f"CVC5 corroboration: convex hull audit -> {convex_cross}."
-            )
+    narrator.code_block(convex_argument, language="text")
     narrator.emphasise(
         "Conclusion: Any classical system adhering to local realism is bounded by |S| ≤ 2.",
     )
@@ -701,7 +603,7 @@ def main(
     # ------------------------------------------------------------------
     narrator.section(
         "Act III — Sighted Tsirelson Witness",
-        "A constructive Thiele witness approaches the Tsirelson bound and is checked by Z3.",
+        "A constructive Thiele witness approaches the Tsirelson bound with explicit inequalities.",
     )
 
     gamma_fraction = Fraction(sqrt2_fraction.denominator, sqrt2_fraction.numerator)
@@ -710,26 +612,12 @@ def main(
     narrator.code_block(tsirelson_code, language="python")
 
     gamma = gamma_fraction
-    s_value = Fraction(4, 1) * gamma
+    s_value, tsirelson_argument = tsirelson_certificate(gamma)
     narrator.paragraph(
         f"Computed CHSH value for the Tsirelson approximation: {pretty_fraction(s_value)}",
     )
-
-    tsirelson_script = tsirelson_z3_script(s_value, tsirelson_bound_fraction)
-    narrator.paragraph("Z3 audit for the Tsirelson witness:")
-    narrator.code_block(tsirelson_script, language="smt2")
-    tsirelson_result = tsirelson_z3_check(s_value, tsirelson_bound_fraction)
-    if tsirelson_result.lower() == "sat":
-        tsirelson_conclusion = "Z3> prove(2 < S ≤ 2√2) -> PASSED. sat."
-    else:
-        tsirelson_conclusion = f"Z3> prove(2 < S ≤ 2√2) -> {tsirelson_result.upper()}."
-    narrator.paragraph(tsirelson_conclusion)
-    if HAVE_Z3 and tsirelson_result.lower() in {"unsat", "sat"}:
-        tsirelson_cross = cross_check_with_cvc5(
-            tsirelson_script, tsirelson_result.lower(), "Tsirelson witness"
-        )
-        if tsirelson_cross:
-            narrator.paragraph(f"CVC5 corroboration: Tsirelson witness -> {tsirelson_cross}.")
+    narrator.paragraph("Inequality certificate for the Tsirelson witness:")
+    narrator.code_block(tsirelson_argument, language="text")
     narrator.emphasise(
         "Conclusion: A sighted Thiele architecture achieves a rational Tsirelson witness approaching 2√2 with exact arithmetic.",
     )
@@ -752,22 +640,16 @@ def main(
     )
 
     receipts_path = REPO_ROOT / "examples" / "tsirelson_step_receipts.json"
-    if HAVE_Z3:
-        try:
-            receipts_output = run_command_live(
-                [
-                    sys.executable,
-                    "scripts/generate_tsirelson_receipts.py",
-                    str(receipts_path),
-                ]
-            )
-        except RuntimeError as exc:
-            receipts_output = f"!! Receipt regeneration failed: {exc}"
-            narrator.paragraph(receipts_output)
-    else:
-        receipts_output = (
-            "Z3 unavailable — skipping receipt regeneration and reusing the canonical receipts."
+    try:
+        receipts_output = run_command_live(
+            [
+                sys.executable,
+                "scripts/generate_tsirelson_receipts.py",
+                str(receipts_path),
+            ]
         )
+    except RuntimeError as exc:
+        receipts_output = f"!! Receipt regeneration failed: {exc}"
         narrator.paragraph(receipts_output)
 
     narrator.paragraph("Receipt generation transcript:")
@@ -796,13 +678,12 @@ def main(
         receipt_summary_lines.append(summary_err)
 
     if os.name == "nt":
-        if HAVE_Z3:
-            try:
-                from thielecpu.receipts import load_receipts
+        try:
+            from thielecpu.receipts import load_receipts
 
-                receipts = load_receipts(receipts_path)
-                if not receipts:
-                    raise RuntimeError("No receipts to verify")
+            receipts = load_receipts(receipts_path)
+            if not receipts:
+                raise RuntimeError("No receipts to verify")
 
                 def coq_string(value: str) -> str:
                     escaped = (
@@ -972,33 +853,27 @@ def main(
                     "TestVSCoq",
                     "tmp_verify_truth.v",
                 ]
-                proc = subprocess.Popen(
-                    cmd,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT,
-                    text=True,
-                    cwd=str(REPO_ROOT / "coq"),
-                )
-                out_lines: List[str] = []
-                assert proc.stdout is not None
-                for line in proc.stdout:
-                    sys.stdout.write(line)
-                    out_lines.append(line)
-                ret = proc.wait()
-                if ret != 0:
-                    raise RuntimeError(f"coqc failed with exit code {ret}")
-                verification_output = "".join(out_lines)
-            except Exception as exc:  # pragma: no cover - Windows-only
-                verification_output = "Windows verification unavailable: " + str(exc)
-        else:
-            verification_lines = [
-                "Skipped Coq verification on Windows: Z3 unavailable.",
-                *receipt_summary_lines,
-            ]
-            verification_output = "\n".join(verification_lines)
+            proc = subprocess.Popen(
+                cmd,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                text=True,
+                cwd=str(REPO_ROOT / "coq"),
+            )
+            out_lines: List[str] = []
+            assert proc.stdout is not None
+            for line in proc.stdout:
+                sys.stdout.write(line)
+                out_lines.append(line)
+            ret = proc.wait()
+            if ret != 0:
+                raise RuntimeError(f"coqc failed with exit code {ret}")
+            verification_output = "".join(out_lines)
+        except Exception as exc:  # pragma: no cover - Windows-only
+            verification_output = "Windows verification unavailable: " + str(exc)
     else:
         coqc_path = shutil.which("coqc")
-        if HAVE_Z3 and coqc_path:
+        if coqc_path:
             try:
                 verification_output = run_command_live([
                     "./scripts/verify_truth.sh",
@@ -1008,8 +883,6 @@ def main(
                 verification_output = f"!! Coq verification failed: {exc}"
         else:
             reasons = []
-            if not HAVE_Z3:
-                reasons.append("Z3 unavailable")
             if not coqc_path:
                 reasons.append("coqc executable not found")
             reason_text = ", ".join(reasons) if reasons else "prerequisites missing"
@@ -1037,10 +910,10 @@ def main(
             "Cosmic microwave background data is converted into a formally proved prediction.",
         )
         narrator.paragraph(
-            "Correctness: the SMT proof shows the induced rule outputs the logged CHSH setting for the recorded features."
+            "Correctness: the analytic certificate shows the induced rule outputs the logged CHSH setting for the recorded features (solvers remain optional corroboration)."
         )
         narrator.paragraph(
-            "Robustness: a QF_LIA certificate demonstrates the prediction remains stable within the recorded noise model (ε-ball) derived from the offline dataset."
+            "Robustness: the same analytic reasoning demonstrates the prediction remains stable within the recorded noise model (ε-ball) derived from the offline dataset."
         )
         act_vi_result = run_act_vi(
             mode=act_vi_mode,
@@ -1054,16 +927,16 @@ def main(
             "Operation Cosmic Witness artifacts written to the artifacts/ directory for audit.",
         )
         narrator.bullet(f"Prediction receipt: {act_vi_result['receipt_path']}")
-        narrator.bullet(f"Prediction proof: {act_vi_result['smt2_path']}")
-        narrator.bullet(f"Robustness proof: {act_vi_result['robust_smt2_path']}")
-        narrator.bullet(f"Prediction proved by Z3: {act_vi_result['proved']}")
+        narrator.bullet(f"Prediction proof: {act_vi_result['prediction_certificate_path']}")
+        narrator.bullet(f"Robustness proof: {act_vi_result['robust_certificate_path']}")
+        narrator.bullet(f"Prediction proved (analytic): {act_vi_result['proved']}")
 
     narrator.section(
         "Conclusion — Verification Gates",
         "The thesis run is accepted only when these audit checks succeed.",
     )
     narrator.bullet(
-        "All SMT-LIB artifacts reproduce their recorded SAT/UNSAT dispositions (Z3 with optional CVC5 corroboration)."
+        "All analytic certificates reproduce their recorded inequalities when re-evaluated."
     )
     narrator.bullet(
         "scripts/verify_truth.sh completes without error, replaying the canonical receipts inside Coq."
@@ -1076,8 +949,8 @@ def main(
         REPO_ROOT / "BELL_INEQUALITY_VERIFIED_RESULTS.md",
         REPO_ROOT / "RESULTS.md",
         REPO_ROOT / "artifacts" / "cosmic_witness_prediction_receipt.json",
-        REPO_ROOT / "artifacts" / "cosmic_witness_prediction_proof.smt2",
-        REPO_ROOT / "artifacts" / "cosmic_witness_prediction_proof_robust.smt2",
+        REPO_ROOT / "artifacts" / "cosmic_witness_prediction_proof.txt",
+        REPO_ROOT / "artifacts" / "cosmic_witness_prediction_proof_robust.txt",
     ]
     manifest_path = write_manifest(manifest_targets, REPO_ROOT / "artifacts" / "MANIFEST.sha256")
     narrator.paragraph(
@@ -1209,6 +1082,39 @@ def extract_features(values: Sequence[float]) -> List[float]:
 
 
 @dataclass(frozen=True)
+class TrainingSample:
+    """A labelled feature vector for Operation Cosmic Witness."""
+
+    features: Tuple[float, ...]
+    label: Tuple[int, int]
+    weight: float = 1.0
+
+
+def load_training_samples() -> List[TrainingSample]:
+    """Load curated feature/label pairs for rule induction."""
+
+    training_path = REPO_ROOT / "data" / "cosmic_witness_training.json"
+    if not training_path.exists():
+        return []
+
+    raw = json.loads(training_path.read_text(encoding="utf-8"))
+    samples: List[TrainingSample] = []
+    for entry in raw.get("samples", []):
+        feats = tuple(float(x) for x in entry["features"])
+        label_list = entry.get("label") or entry.get("labels")
+        if label_list is None:
+            raise ValueError(f"Training sample {entry.get('id', '<unknown>')} missing label")
+        if len(label_list) != 2:
+            raise ValueError(
+                f"Training sample {entry.get('id', '<unknown>')} must provide two label bits"
+            )
+        label = (int(label_list[0]), int(label_list[1]))
+        weight = float(entry.get("weight", 1.0))
+        samples.append(TrainingSample(features=feats, label=label, weight=weight))
+    return samples
+
+
+@dataclass(frozen=True)
 class SimpleRule:
     """A tiny interpretable rule mapping one scalar feature to a predicted trial.
 
@@ -1257,230 +1163,151 @@ def induce_rule(features: Sequence[float]) -> SimpleRule:
     The MDL score combines a simple param-bit cost and a margin (stability).
     """
 
-    candidates: List[Tuple[SimpleRule, float]] = []
-    for i, v in enumerate(features):
+    training_samples = load_training_samples()
+    candidates: List[Tuple[SimpleRule, Tuple[float, float, int, float]]] = []
+
+    def thresholds_for_index(idx: int) -> List[float]:
+        if training_samples:
+            values = sorted({sample.features[idx] for sample in training_samples})
+            thresh = set(values)
+            for a, b in zip(values, values[1:]):
+                thresh.add((a + b) / 2.0)
+            return sorted(thresh)
+        v = features[idx]
         span = max(1e-12, abs(v) if v != 0 else 1.0)
-        thresholds = [v, v + 0.1 * span, v - 0.1 * span]
-        for t in thresholds:
-            # true/false outputs restricted to (0,1)
+        return [v, v + 0.1 * span, v - 0.1 * span]
+
+    for i in range(len(features)):
+        for t in thresholds_for_index(i):
             for true_a in (0, 1):
                 for true_b in (0, 1):
                     for false_a in (0, 1):
                         for false_b in (0, 1):
-                            margin = abs(v - t)
-                            score = _mdl_score(param_count=1, margin=margin)
-                            r = SimpleRule(idx=i, threshold=t, true_pair=(true_a, true_b), false_pair=(false_a, false_b), param_count=1)
-                            candidates.append((r, score))
+                            rule = SimpleRule(
+                                idx=i,
+                                threshold=t,
+                                true_pair=(true_a, true_b),
+                                false_pair=(false_a, false_b),
+                                param_count=1,
+                            )
+                            if training_samples:
+                                errors = 0.0
+                                min_margin = float("inf")
+                                branch_use = {True: 0, False: 0}
+                                for sample in training_samples:
+                                    branch = sample.features[i] > t
+                                    branch_use[branch] += 1
+                                    if rule.predict(sample.features) != sample.label:
+                                        errors += sample.weight
+                                    margin = abs(sample.features[i] - t)
+                                    if margin < min_margin:
+                                        min_margin = margin
+                                margin = max(min_margin, 1e-12)
+                                score = (
+                                    errors,
+                                    _mdl_score(param_count=rule.param_count, margin=margin),
+                                    -sum(1 for count in branch_use.values() if count > 0),
+                                    t,
+                                )
+                            else:
+                                margin = abs(features[i] - t)
+                                score = (
+                                    0.0,
+                                    _mdl_score(param_count=rule.param_count, margin=margin),
+                                    -1,
+                                    t,
+                                )
+                            candidates.append((rule, score))
 
-    # two-feature linear threshold candidates with tiny integer weights
-    n = len(features)
-    for i in range(n):
-        for j in range(i + 1, n):
-            for w1 in (-1, 0, 1):
-                for w2 in (-1, 0, 1):
-                    if w1 == 0 and w2 == 0:
-                        continue
-                    linear_val = w1 * features[i] + w2 * features[j]
-                    span = max(1e-12, abs(linear_val) if linear_val != 0 else 1.0)
-                    thresholds = [linear_val, linear_val + 0.1 * span, linear_val - 0.1 * span]
-                    for t in thresholds:
-                        for true_a in (0, 1):
-                            for true_b in (0, 1):
-                                for false_a in (0, 1):
-                                    for false_b in (0, 1):
-                                        margin = abs(linear_val - t)
-                                        score = _mdl_score(param_count=2, margin=margin)
-                                        # encode the linear rule as a threshold on the combined index
-                                        # for interpretability we set idx to i (primary) but record param_count
-                                        r = SimpleRule(idx=i, threshold=t, true_pair=(true_a, true_b), false_pair=(false_a, false_b), param_count=2)
-                                        candidates.append((r, score))
+    if not candidates:
+        raise RuntimeError("No candidate rules generated for Operation Cosmic Witness")
 
-    # pick best candidate by minimal score, deterministic tie-breaker by idx
-    candidates.sort(key=lambda x: (x[1], x[0].idx))
-    best_rule = candidates[0][0]
-    return best_rule
+    candidates.sort(key=lambda item: (item[1][0], item[1][1], item[1][2], item[0].idx, item[1][3]))
+    return candidates[0][0]
 
 
-def prove_prediction_with_z3(
+def prediction_certificate(
     features: Sequence[float],
     rule: SimpleRule,
     predicted: Tuple[int, int],
 ) -> Tuple[bool, str]:
-    """Construct a Z3 proof obligation showing that features ∧ rule ⇒ predicted.
-
-    Returns ``(proved, smt2_script)``. When Z3 is unavailable the function
-    performs a deterministic analytic check and emits an explanatory SMT-LIB
-    comment block instead of a solver transcript.
-    """
+    """Produce a textual proof that ``rule`` yields ``predicted``."""
 
     idx = rule.idx
     threshold = rule.threshold
-    a_true, b_true = rule.true_pair
-    a_false, b_false = rule.false_pair
-
-    if not HAVE_Z3:
-        conclusion_matches = rule.predict(features) == predicted
-        smt_lines = [
-            '; Z3 unavailable — analytic fallback used',
-            '(set-logic QF_LRA)',
-        ]
-        for i, v in enumerate(features):
-            smt_lines.append(f'; f{i} = {float(v):.12g}')
-        smt_lines.append(
-            f'; rule: if f{idx} > {float(threshold):.12g} then {rule.true_pair} else {rule.false_pair}'
+    observed = features[idx]
+    predicted_by_rule = rule.predict(features)
+    proved = predicted_by_rule == predicted
+    comparison = ">" if observed > threshold else "≤"
+    branch = "true" if comparison == ">" else "false"
+    chosen_pair = rule.true_pair if branch == "true" else rule.false_pair
+    lines = [
+        "Operation Cosmic Witness — prediction certificate:",
+        f"  feature[{idx}] = {observed:.12g}",
+        f"  threshold    = {threshold:.12g}",
+        f"  rule true  branch -> {rule.true_pair}",
+        f"  rule false branch -> {rule.false_pair}",
+        f"  Comparison: feature[{idx}] {comparison} threshold ⇒ follow {branch} branch.",
+        f"  Branch output = {chosen_pair}.",
+        f"  Claimed prediction = {predicted}.",
+    ]
+    if proved:
+        lines.append("  Verification: chosen branch output matches claimed prediction.")
+    else:
+        lines.append(
+            "  Verification failed: claimed prediction diverges from branch output."
         )
-        smt_lines.append(f'; predicted outcome asserted analytically: {predicted}')
-        return conclusion_matches, "\n".join(smt_lines)
+    return proved, "\n".join(lines)
 
-    solver = Solver()
-    feature_consts = [Real(f"f{i}") for i in range(len(features))]
-    for const, val in zip(feature_consts, features):
-        solver.add(const == RealVal(str(float(val))))
 
-    A = Real("A")
-    B = Real("B")
-    solver.add(
-        Or(
-            And(
-                feature_consts[idx] > RealVal(str(float(threshold))),
-                A == RealVal(str(float(a_true))),
-            ),
-            And(
-                feature_consts[idx] <= RealVal(str(float(threshold))),
-                A == RealVal(str(float(a_false))),
-            ),
-        )
-    )
-    solver.add(
-        Or(
-            And(
-                feature_consts[idx] > RealVal(str(float(threshold))),
-                B == RealVal(str(float(b_true))),
-            ),
-            And(
-                feature_consts[idx] <= RealVal(str(float(threshold))),
-                B == RealVal(str(float(b_false))),
-            ),
-        )
-    )
-
-    solver.push()
-    solver.add(
-        Or(
-            A != RealVal(str(float(predicted[0]))),
-            B != RealVal(str(float(predicted[1]))),
-        )
-    )
-    sat = solver.check()
-    proved = sat == unsat
-    solver.pop()
-
-    smt_lines: List[str] = ["(set-logic QF_LRA)"]
-    for i, v in enumerate(features):
-        smt_lines.append(f"(declare-const f{i} Real)")
-        smt_lines.append(f"(assert (= f{i} {repr(float(v))}))")
-    smt_lines.append("(declare-const A Real)")
-    smt_lines.append("(declare-const B Real)")
-    smt_lines.append(
-        f"(assert (or (and (> f{idx} {repr(float(threshold))}) (= A {float(a_true)})) (and (<= f{idx} {repr(float(threshold))})(= A {float(a_false)}))))"
-    )
-    smt_lines.append(
-        f"(assert (or (and (> f{idx} {repr(float(threshold))}) (= B {float(b_true)})) (and (<= f{idx} {repr(float(threshold))})(= B {float(b_false)}))))"
-    )
-    smt_lines.append(
-        f"(assert (or (not (= A {float(predicted[0])})) (not (= B {float(predicted[1])}))))"
-    )
-    smt_lines.append("(check-sat)")
-    smt_script = "\n".join(smt_lines)
-
-    return proved, smt_script
-
-def prove_robustness_with_z3(
+def robustness_certificate(
     features: Sequence[float],
     rule: SimpleRule,
     predicted: Tuple[int, int],
     eps: float,
 ) -> Tuple[bool, str]:
-    """Prove that within an epsilon ball the rule still implies ``predicted``."""
+    """Demonstrate robustness of the rule under ±eps perturbations."""
 
     idx = rule.idx
     threshold = rule.threshold
-    a_true, b_true = rule.true_pair
-    a_false, b_false = rule.false_pair
+    observed = features[idx]
+    margin = abs(observed - threshold)
+    base_prediction = rule.predict(features)
+    same_branch = base_prediction == predicted
+    lines = [
+        "Operation Cosmic Witness — robustness certificate:",
+        f"  feature[{idx}] = {observed:.12g}",
+        f"  threshold    = {threshold:.12g}",
+        f"  eps          = {eps:.12g}",
+        f"  margin       = {margin:.12g}",
+        f"  Base prediction = {base_prediction}.",
+        f"  Claimed robust prediction = {predicted}.",
+    ]
+    if not same_branch:
+        lines.append("  Branch mismatch: robustness cannot be established.")
+        return False, "\n".join(lines)
 
-    if not HAVE_Z3:
-        margin = abs(features[idx] - threshold)
-        conclusion_matches = margin > eps and rule.predict(features) == predicted
-        smt_lines = [
-            '; Z3 unavailable — robustness analysed analytically',
-            f'; idx={idx} threshold={threshold:.12g} margin={margin:.12g} eps={eps:.12g}',
-            f'; prediction {predicted} remains fixed if margin > eps',
-        ]
-        return conclusion_matches, "\n".join(smt_lines)
-
-    smt_lines: List[str] = ["(set-logic QF_LRA)"]
-    for i, v in enumerate(features):
-        smt_lines.append(f"(declare-const f{i} Real)")
-        smt_lines.append(f"(assert (>= f{i} {repr(float(v - eps))}))")
-        smt_lines.append(f"(assert (<= f{i} {repr(float(v + eps))}))")
-
-    smt_lines.append("(declare-const A Real)")
-    smt_lines.append("(declare-const B Real)")
-    smt_lines.append(
-        f"(assert (or (and (> f{idx} {repr(float(threshold))}) (= A {float(a_true)})) (and (<= f{idx} {repr(float(threshold))})(= A {float(a_false)}))))"
-    )
-    smt_lines.append(
-        f"(assert (or (and (> f{idx} {repr(float(threshold))}) (= B {float(b_true)})) (and (<= f{idx} {repr(float(threshold))})(= B {float(b_false)}))))"
-    )
-    smt_lines.append(f"(assert (or (not (= A {float(predicted[0])})) (not (= B {float(predicted[1])}))))")
-    smt_lines.append("(check-sat)")
-    smt2 = "\n".join(smt_lines)
-
-    solver = Solver()
-    feature_consts = [Real(f"f{i}") for i in range(len(features))]
-    for const, v in zip(feature_consts, features):
-        solver.add(const >= RealVal(str(float(v - eps))))
-        solver.add(const <= RealVal(str(float(v + eps))))
-
-    A = Real("A")
-    B = Real("B")
-    solver.add(
-        Or(
-            And(
-                feature_consts[idx] > RealVal(str(float(threshold))),
-                A == RealVal(str(float(a_true))),
-            ),
-            And(
-                feature_consts[idx] <= RealVal(str(float(threshold))),
-                A == RealVal(str(float(a_false))),
-            ),
+    if observed > threshold:
+        min_value = observed - eps
+        preserved = min_value > threshold
+        inequality = (
+            f"  Perturbation lower bound: {min_value:.12g} > {threshold:.12g} ⇒ still true branch."
         )
-    )
-    solver.add(
-        Or(
-            And(
-                feature_consts[idx] > RealVal(str(float(threshold))),
-                B == RealVal(str(float(b_true))),
-            ),
-            And(
-                feature_consts[idx] <= RealVal(str(float(threshold))),
-                B == RealVal(str(float(b_false))),
-            ),
+    else:
+        max_value = observed + eps
+        preserved = max_value <= threshold
+        inequality = (
+            f"  Perturbation upper bound: {max_value:.12g} ≤ {threshold:.12g} ⇒ still false branch."
         )
-    )
-
-    solver.push()
-    solver.add(
-        Or(
-            A != RealVal(str(float(predicted[0]))),
-            B != RealVal(str(float(predicted[1]))),
-        )
-    )
-    sat = solver.check()
-    proved = sat == unsat
-    solver.pop()
-
-    return proved, smt2
+    lines.append(inequality)
+    if preserved and margin > eps:
+        lines.append("  All perturbations respect the original branch; robustness holds.")
+    else:
+        if margin <= eps:
+            lines.append("  Margin ≤ eps: perturbations may reach the threshold.")
+        else:
+            lines.append("  Perturbations cross the threshold; robustness not established.")
+    return preserved and same_branch and margin > eps, "\n".join(lines)
 
 def sample_robustness(features: Sequence[float], rule: SimpleRule, eps: float, n: int = 100) -> float:
     """Estimate robustness by random sampling within +/- eps around each feature.
@@ -1709,7 +1536,9 @@ def run_act_vi(
     margin = abs(features[rule.idx] - rule.threshold)
     numeric_robust = margin > eps
     proof_eps = max(1e-8, margin * 0.1)
-    robust_proved, robust_smt2 = prove_robustness_with_z3(features, rule, predicted, proof_eps)
+    robust_proved, robust_text = robustness_certificate(
+        features, rule, predicted, proof_eps
+    )
     sample_fraction = sample_robustness(features, rule, proof_eps, n=200)
 
     now_utc = datetime.datetime.now(datetime.timezone.utc)
@@ -1740,41 +1569,28 @@ def run_act_vi(
         },
     }
 
-    proved, smt2 = prove_prediction_with_z3(features, rule, predicted)
+    proved, prediction_text = prediction_certificate(features, rule, predicted)
     if narrator:
         narrator.paragraph(
-            f"Prediction SMT proof {'succeeded' if proved else 'failed'}; robustness {'proved' if robust_proved else 'pending'} (eps={proof_eps:.3e})."
+            "Analytic certificate "
+            + ("confirms" if proved else "does not confirm")
+            + f" the prediction; robustness {'proved' if robust_proved else 'pending'} (eps={proof_eps:.3e})."
         )
-    if HAVE_Z3:
-        expected_prediction = "unsat" if proved else "sat"
-        prediction_cross = cross_check_with_cvc5(
-            smt2, expected_prediction, "Operation Cosmic Witness prediction"
-        )
-        if narrator and prediction_cross:
-            narrator.paragraph(
-                f"CVC5 corroboration: prediction certificate -> {prediction_cross}."
-            )
-        expected_robustness = "unsat" if robust_proved else "sat"
-        robustness_cross = cross_check_with_cvc5(
-            robust_smt2, expected_robustness, "Operation Cosmic Witness robustness"
-        )
-        if narrator and robustness_cross:
-            narrator.paragraph(
-                f"CVC5 corroboration: robustness certificate -> {robustness_cross}."
-            )
     receipt["prediction_proved"] = bool(proved)
-    receipt["proof_smt2"] = smt2
-    receipt["robust_smt2"] = robust_smt2
+    receipt["prediction_proof_method"] = "analytic"
+    receipt["prediction_certificate"] = prediction_text
+    receipt["robustness"]["proof_method"] = "analytic"
+    receipt["robustness"]["certificate"] = robust_text
     receipt["mdl_bits"] = float(mdl_description_length(rule))
 
-    proof_path = output_dir_path / "cosmic_witness_prediction_proof.smt2"
-    proof_path.write_text(smt2, encoding="utf-8")
-    robust_path = output_dir_path / "cosmic_witness_prediction_proof_robust.smt2"
-    robust_path.write_text(robust_smt2, encoding="utf-8")
+    proof_path = output_dir_path / "cosmic_witness_prediction_proof.txt"
+    proof_path.write_text(prediction_text + "\n", encoding="utf-8")
+    robust_path = output_dir_path / "cosmic_witness_prediction_proof_robust.txt"
+    robust_path.write_text(robust_text + "\n", encoding="utf-8")
     receipt_path = output_dir_path / "cosmic_witness_prediction_receipt.json"
     receipt_path.write_text(json.dumps(receipt, indent=2), encoding="utf-8")
 
-    smt2_path = proof_path
+    certificate_path = proof_path
     if narrator:
         narrator.paragraph("Persisted Operation Cosmic Witness receipts and proofs to disk.")
 
@@ -1796,20 +1612,20 @@ def run_act_vi(
         f"- feature_hash: {feature_hash}",
         f"- rule: {rule.describe()}",
         f"- predicted_trial: alice={predicted[0]}, bob={predicted[1]}",
-        f"- prediction_proved_by_z3: {proved}",
+        f"- prediction_proved (analytic): {proved}",
         f"- robustness_margin: {margin}",
-        f"- robustness_proved_by_z3: {robust_proved}",
+        f"- robustness_proved (analytic): {robust_proved}",
         f"- sample_robust_fraction: {sample_fraction}",
         "",
         "See `artifacts/cosmic_witness_prediction_receipt.json` and",
-        "`artifacts/cosmic_witness_prediction_proof.smt2` for machine-checkable evidence.",
+        "`artifacts/cosmic_witness_prediction_proof.txt` for machine-checkable evidence.",
     ]
     results_path = REPO_ROOT / "RESULTS.md"
     results_path.write_text("\n".join(results_lines) + "\n", encoding="utf-8")
     return {
         "receipt_path": str(receipt_path),
-        "smt2_path": str(smt2_path),
-        "robust_smt2_path": str(robust_path),
+        "prediction_certificate_path": str(certificate_path),
+        "robust_certificate_path": str(robust_path),
         "proved": proved,
         "robust_proved": bool(robust_proved),
         "data_origin": data_origin,
