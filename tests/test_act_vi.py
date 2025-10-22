@@ -12,18 +12,20 @@ from demonstrate_isomorphism import run_act_vi
 def test_act_vi_offline(tmp_path):
     out = run_act_vi(mode="offline", allow_network=False, cmb_file=None, output_dir=str(tmp_path), data_source="offline")
     receipt_path = Path(out["receipt_path"])
-    smt2_path = Path(out["smt2_path"])
+    proof_path = Path(out["prediction_certificate_path"])
     assert receipt_path.exists()
-    assert smt2_path.exists()
+    assert proof_path.exists()
     receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
     assert "predicted_trial" in receipt
     assert isinstance(receipt.get("prediction_proved"), bool)
     assert "robustness" in receipt
-    assert "proof_smt2" in receipt
-    assert "robust_smt2" in receipt
+    assert receipt.get("prediction_proof_method") == "analytic"
+    assert "prediction_certificate" in receipt
+    assert "certificate" in receipt["robustness"]
+    assert receipt["robustness"].get("proof_method") == "analytic"
     assert 0.0 <= float(receipt["robustness"].get("sample_fraction", 0.0)) <= 1.0
     assert isinstance(receipt.get("mdl_bits"), float)
-    assert Path(out["robust_smt2_path"]).exists()
+    assert Path(out["robust_certificate_path"]).exists()
 
 
 def test_mdl_description_length():

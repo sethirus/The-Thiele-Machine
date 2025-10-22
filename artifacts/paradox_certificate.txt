@@ -1,0 +1,10 @@
+Paradox certificate for attempt.py
+===================================
+The blind solver demands a single affine rule a*K + b*T + c = W for all four pieces.
+Combining the rows with lambda = [1, -1, -1, 1] yields:
+  Σ lambda_i * K_i = 0
+  Σ lambda_i * T_i = 0
+  Σ lambda_i       = 0
+so the left-hand side collapses to 0·a + 0·b + 0 = 0.
+The right-hand side combines to Σ lambda_i * W_i = 1 = 1.
+Therefore the affine requirements imply 0 = 1, proving the system UNSAT without solver help.

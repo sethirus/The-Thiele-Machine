@@ -31,9 +31,9 @@ The Thiele Machine is a computational model that extends and strictly contains t
    - Produces `BELL_INEQUALITY_VERIFIED_RESULTS.md`, `examples/tsirelson_step_receipts.json`, and artifacts in `artifacts/`.
    - Cryptographically sealed receipts are produced for auditability.
 
-**Requirements:** Python 3.12+ (verified on 3.12.1 with Z3 4.8.12).
+**Requirements:** Python 3.12+. The Bell replay script will automatically bootstrap Coq 8.18 via `scripts/setup_coq_toolchain.sh`; optional SMT solvers such as Z3 remain available for cross-checking legacy transcripts but are no longer required to validate the flagship receipts.
 
-**Core Dependencies:** z3-solver, numpy, scipy, networkx, python-sat, matplotlib, tqdm
+**Core Dependencies:** numpy, scipy, networkx, python-sat, matplotlib, tqdm, (optional) z3-solver
 
 ## Citation
 
@@ -137,7 +137,7 @@ This repository now packages the full subsumption argument together with the sup
 - **Mechanised subsumption core:** The Sovereign Witness audit recompiled the shared kernel (`Kernel.v`, `KernelTM.v`, `KernelThiele.v`) and the strict containment theorem in `Subsumption.v`. The VM bridge files (`coq/kernel/SimulationProof.v`, `coq/kernel/VMEncoding.v`, `coq/kernel/VMStep.v`) still use the admitted lemmas and axioms listed in `coq/ADMIT_REPORT.txt`, and the outstanding obligations remain flagged for review.【F:audit_logs/agent_coq_verification.log†L1-L318】【F:coq/kernel/Subsumption.v†L23-L118】【F:coq/kernel/SimulationProof.v†L1-L204】【F:coq/kernel/VMEncoding.v†L372-L399】【F:coq/kernel/VMStep.v†L1-L26】【F:coq/ADMIT_REPORT.txt†L1-L7】
 - **Executable VM with μ-ledger parity:** The Python Thiele Machine (`thielecpu/vm.py`, `thielecpu/mu.py`) executes the audited instruction set, emits receipts, and tallies μ-costs that match the kernel bridge and the hardware solver to the bit.【F:thielecpu/vm.py†L1-L460】【F:thielecpu/mu.py†L1-L92】【F:audit_logs/agent_software_reproduction.log†L1-L158】
 - **Autonomous hardware oracle:** The general-purpose reasoning fabric (`hardware/synthesis_trap/reasoning_core.v`) and its backtracking controller (`thiele_autonomous_solver.v`) reproduce the software μ-ledger under simulation and synthesis, with transcripts captured in the audit logs.【F:hardware/synthesis_trap/reasoning_core.v†L1-L308】【F:hardware/synthesis_trap/thiele_autonomous_solver.v†L1-L389】【F:audit_logs/agent_hardware_verification.log†L780-L842】
-- **Receipts and verification harness:** `scripts/challenge.py verify receipts` replays every signed receipt, checks Ed25519 manifests, and validates the SAT/SMT artefacts; `scripts/prove_it_all.sh` and `coq/verify_subsumption.sh` provide end-to-end Coq replay for the canonical demonstrations.【F:scripts/challenge.py†L1-L220】【F:scripts/prove_it_all.sh†L1-L155】
+- **Receipts and verification harness:** `scripts/challenge.py verify receipts` replays every signed receipt, checks Ed25519 manifests, and validates both the analytic certificates and any legacy SAT/SMT artefacts; `scripts/prove_it_all.sh` and `coq/verify_subsumption.sh` provide end-to-end Coq replay for the canonical demonstrations.【F:scripts/challenge.py†L1-L220】【F:scripts/prove_it_all.sh†L1-L155】
 - **Historical context preserved:** The earlier universal proof attempt remains archived in `archive/research/incomplete_subsumption_proof/` with an explicit notice linking forward to the completed bridge documented here.【F:archive/research/incomplete_subsumption_proof/README.md†L1-L38】
 
 **Verification Status:** As of the latest run (commit 4676f91a), the Coq developments build with the admitted lemmas enumerated in `coq/ADMIT_REPORT.txt`, receipts verify with SHA-256 integrity, and the Bell inequality demonstration produces consistent Tsirelson witnesses (S ≈ 2.828427). These runs substantiate the repository's reproducibility claims while keeping the remaining proof obligations transparent.
@@ -155,7 +155,7 @@ It is called an *artifact* because it encapsulates the proof and its data in a s
 - **Trace every claim back to the accompanying code or axiom.**
 - **Use the verifier as a helper, not an authority.** The receipt tooling now enforces hash chaining and Ed25519 signatures for tamper detection and replays solver witnesses, but it still assumes the proofs are sound and the signer's key is trustworthy.
 
-**Evidence of Scientific Rigor:** The artifact's claims are backed by reproducible experiments—e.g., the Bell inequality demonstration runs in minutes, producing Z3-verified CHSH values up to 2.828427 (approaching Tsirelson bound), with receipts cryptographically sealed and Coq-verified. This falsifies classical local realism while demonstrating partition-native computation's advantages, grounded in empirical data rather than speculation.
+**Evidence of Scientific Rigor:** The artifact's claims are backed by reproducible experiments—e.g., the Bell inequality demonstration runs in minutes, producing analytically certified CHSH values up to 2.828427 (approaching Tsirelson bound), with receipts cryptographically sealed and Coq-verified. This falsifies classical local realism while demonstrating partition-native computation's advantages, grounded in empirical data rather than speculation.
 
 ## Core Concepts
 
@@ -216,7 +216,7 @@ The experiment is not a search for a better algorithm. It is a measurement of th
 ### Interpretation of Results
 The key result is not the logical certificate (SAT/UNSAT) alone, but the cost required to produce it. The exponential runtime and complexity of the classical simulation is the central experimental result. Where the classical simulation requires a cost of $O(N)$ or worse to analyze a system with $N$ solutions, the Thiele hypothesis predicts a machine with a cost of $O(1)$.
 
-**Scientific Backing:** Rooted in computational complexity theory (e.g., NP-hardness of Tseitin instances) and information theory (MDL as cost metric), the artifact's falsifiability is demonstrated by reproducible experiments—e.g., graph coloring on expanders shows exponential blind costs vs. constant sighted, with Z3 proofs ensuring logical soundness.
+**Scientific Backing:** Rooted in computational complexity theory (e.g., NP-hardness of Tseitin instances) and information theory (MDL as cost metric), the artifact's falsifiability is demonstrated by reproducible experiments—e.g., graph coloring on expanders shows exponential blind costs vs. constant sighted, with analytic parity certificates ensuring logical soundness.
 
 ### Redefining Your Terms: Classical vs. Thiele
 
@@ -256,7 +256,7 @@ This very intractability motivates the experiments on the Fractal Nature of Debt
 
 ### Empirical Derivation of the μ-bit to Time Exchange Rate
 
-The artifact demonstrates that the information-theoretic cost (μ-bits/MDL) correlates with measurable computational cost. Using a 4-point paradox dataset, we measure both MDL and Z3 compute time for two models:
+The artifact demonstrates that the information-theoretic cost (μ-bits/MDL) correlates with measurable computational cost. Using a 4-point paradox dataset, we measure both MDL and certificate derivation time for two models:
 
 **Results:**
 ```
@@ -273,7 +273,7 @@ Sighted (Correct Partition) | 176.0           | 0.001808             | True
 
 This provides the missing empirical bridge between theoretical information cost and practical computation time.
 
-**Data Source and Reproducibility:** Derived from `attempt.py` Article 0 (Paradox), where Z3 verifies unsatisfiability for blind partitions (infinite cost) vs. satisfiability for sighted (finite cost). Recent runs confirm the correlation, with receipts logged in `examples/tsirelson_step_receipts.json` for audit.
+**Data Source and Reproducibility:** Derived from `attempt.py` Article 0 (Paradox), where the analytic Farkas certificate witnesses unsatisfiability for blind partitions (infinite cost) vs. satisfiability for sighted (finite cost). Recent runs confirm the correlation, with receipts logged in `examples/tsirelson_step_receipts.json` and `artifacts/paradox_certificate.txt` for audit.
 
 ## Key Components
 
@@ -295,7 +295,7 @@ The `thielecpu/` directory bundles the authoritative Python VM and the reference
 ### Software Virtual Machine (`thielecpu/vm.py`)
 - **Complete instruction set** with 8 opcodes: PNEW, PSPLIT, PMERGE, LASSERT, LJOIN, MDLACC, EMIT, XFER
 - **Partition management** with 64 concurrent partitions and memory isolation
-- **Z3 integration** for automated theorem proving and certificate generation
+- **Certificate toolkit** combining analytic verifiers with optional solver cross-checks
 - **μ-bit accounting** for information-theoretic cost tracking
 - **Cryptographic receipts** with SHA-256 hashing and timestamping
 
@@ -304,6 +304,7 @@ The `thielecpu/` directory bundles the authoritative Python VM and the reference
 - **Synthesis scripts** and timing reports for the baseline FPGA target.
 - **Test infrastructure** aligned with the Python VM traces to maintain behavioural parity.
 - **Security instrumentation** documenting the enforcement surface for audit logging and partition hygiene.
+- **Reproducible synthesis recipe** captured in `scripts/run_the_synthesis.sh`, which drives `yosys -sv` and records the 228-cell classical versus 5547-cell Thiele netlists for auditors.【F:scripts/run_the_synthesis.sh†L1-L43】【F:hardware/synthesis_trap/classical_solver.log†L1-L2】【F:hardware/synthesis_trap/thiele_graph_solver.log†L1-L6】
 
 ### Advanced Capabilities
 - **RSA factoring** (`thielecpu/factoring.py`) - Partition-based cryptanalysis
@@ -315,7 +316,7 @@ The `thielecpu/` directory bundles the authoritative Python VM and the reference
 PNEW   - Create new partition module
 PSPLIT  - Split existing module into submodules  
 PMERGE  - Merge two modules with consistency checking
-LASSERT - Logic assertion with Z3 verification
+LASSERT - Logic assertion with certificate checking (analytic witness or solver corroboration)
 LJOIN   - Join certificates from multiple modules
 MDLACC  - Accumulate μ-bit discovery costs
 EMIT    - Emit result with cryptographic receipt
@@ -359,7 +360,7 @@ Where:
 - **Π (Partitions):** Ways to divide S into independent modules
 - **A (Axioms):** Logical rules for each module
 - **R (Transitions):** How the machine moves between states
-- **L (Logic Engine):** Z3 or similar, for checking consistency
+- **L (Logic Engine):** Certificate checker combining analytic verifiers with optional solver corroboration
 
 ### Visual Analogy
 
@@ -452,27 +453,28 @@ A **certificate** is a formal proof or witness that justifies a computational st
 
 ### How Certificates Work
 
-1. **Encode the Problem:** Translate modules into logical formulas (SMT-LIB format)
-2. **Invoke Logic Engine:** Z3 checks satisfiability (SAT/UNSAT)
-3. **Generate Artifacts:** Save proofs and witnesses as files
-4. **Cryptographic Seal:** Hash all outputs for auditability
+1. **Encode the Problem:** Translate modules into canonical forms—linear programs, parity constraints, or partition catalogues—suited to direct analysis.
+2. **Derive a Witness:** Produce a human-readable argument (Farkas combination, inequality check, combinatorial count) and optionally corroborate it with an automated prover.
+3. **Generate Artifacts:** Persist the certificate as plain text or JSON alongside any auxiliary transcripts.
+4. **Cryptographic Seal:** Hash all outputs for auditability and record them in `artifacts/MANIFEST.sha256`.
 
-### Z3 Integration
+### Certificate Verification Surfaces
 
-- Z3 serves as the logic engine $L$
-- Every claim is backed by SMT2 proof files
-- Results are reproducible and machine-verifiable
+- Analytic certificates are checked with Python's exact `Fraction`/`Decimal` arithmetic and bespoke verifiers (e.g., Bell CHSH bounds, expander parity witnesses).
+- Optional solver oracles (Z3, PySAT) remain available for cross-checks and for legacy experiments that still emit SMT-LIB traces.
+- Every artifact ships with a deterministic hash so auditors can cross-reference receipts and manifests.
 
 ### Why This Matters
 
-- **Auditability:** Anyone can independently verify claims
-- **Reproducibility:** Results are cryptographically sealed
-- **Scientific Rigor:** The artifact proves itself
+- **Auditability:** Anyone can independently verify claims using lightweight Python tooling or the bundled Coq scripts.
+- **Reproducibility:** Results are cryptographically sealed, and regenerated manifests confirm byte-for-byte reproducibility.
+- **Scientific Rigor:** The artifact provides human-auditable reasoning instead of opaque solver traces.
 
 ### Implementation
 
-- Z3 integration: `attempt.py` paradox and universal principle articles orchestrate solver calls via functions such as `run_paradox` and `run_universal_principle`, demonstrating certificate-backed reasoning.【F:attempt.py†L785-L910】【F:attempt.py†L920-L1010】
-- Proof generation: the Engine of Discovery and subsequent articles persist SMT witnesses and MDL logs through routines in `run_engine_and_law` and its helper functions.【F:attempt.py†L1011-L1208】【F:attempt.py†L1950-L2148】
+- Analytic harness: `scripts/generate_harness_certificates.py` materialises the paradox, discovery, and expander witnesses stored under `artifacts/*.txt` and `artifacts/*.json` for solver-free auditing.【F:scripts/generate_harness_certificates.py†L1-L168】
+- Bell thesis: `demonstrate_isomorphism.py` emits integer-arithmetic certificates for all 16 classical strategies plus a convexity proof bounding mixtures.【F:BELL_INEQUALITY_VERIFIED_RESULTS.md†L45-L237】
+- Receipts and manifests: `scripts/challenge.py verify receipts` and `demonstrate_isomorphism.py` refresh hashes so the ledger reflects the analytic outputs.【F:scripts/challenge.py†L1-L220】【F:artifacts/MANIFEST.sha256†L1-L13】
 
 ### The Law of No Unpaid Sight Debt (NUSD)
 
@@ -548,12 +550,14 @@ The artifact provides concrete evidence of the performance gap between classical
 **Problem:** Hard SAT instances (Tseitin formulas on expander graphs)
 **Blind Solver:** Classical SAT solver (unaware of structure)
 **Sighted Solver:** GF(2) algebraic solver (exploits structure)
+**Certificate:** Parity and partition witnesses stored in `artifacts/expander_unsat_certificates.json`
 **Measure:** Computational cost vs problem size
 
 ### Key Results
 
 - **Blind Solver:** Cost grows exponentially with problem size
 - **Sighted Solver:** Cost remains essentially constant
+- **Certificates:** Every benchmark now has a standalone analytic witness so auditors can confirm UNSAT and MDL deltas without invoking solvers.
 - **Separation:** Demonstrates the theoretical performance gap empirically
 
 ### What This Proves
@@ -565,8 +569,9 @@ The experiments show that problems with hidden geometric structure create an exp
 ### Implementation
 
 - Experiment orchestration: [`generate_tseitin_data.py`](generate_tseitin_data.py)
+- Certificate generation: `scripts/generate_harness_certificates.py` emits the paradox, discovery, and expander witnesses referenced throughout the audit trail.【F:scripts/generate_harness_certificates.py†L1-L168】
 - Analysis and plotting: `attempt.py` Article 4 utilities `fast_receipts` and `plot_fast_receipts` summarise the blind-versus-sighted sweeps and generate the separation plots.【F:attempt.py†L1980-L2148】
-- Results saved in: `shape_of_truth_out/` and `tseitin_receipts.json`
+- Results saved in: `shape_of_truth_out/`, `tseitin_receipts.json`, and `artifacts/*.json`
 
 ### Gödelian Landmine
 
@@ -582,9 +587,9 @@ The Thiele Machine, by contrast, is not limited to object-level search. It can s
 
 ### Technical Implementation
 
-- **Construction:** The paradox is encoded as a set of logical constraints inside `run_godelian_landmine`, leveraging the Z3 logic engine to verify unsatisfiability.【F:attempt.py†L2280-L2454】
-- **Detection:** The Thiele Machine partitions the state space, applies local axioms, and invokes the logic engine to check for consistency. When all partitions are inconsistent, it issues the certificate.
-- **Output:** The certificate is saved as a machine-verifiable artifact (SMT2 proof file), and its hash is logged for auditability.
+- **Construction:** The paradox is encoded as a set of logical constraints inside `run_godelian_landmine`, with the derived Farkas coefficients captured directly in `artifacts/paradox_certificate.txt` for solver-free replay.【F:attempt.py†L2280-L2454】【F:artifacts/paradox_certificate.txt†L1-L9】
+- **Detection:** The Thiele Machine partitions the state space, applies local axioms, and can optionally invoke Z3 to corroborate the contradiction; the analytic certificate stands on its own.
+- **Output:** Certificates are persisted as plain text (`paradox_certificate.txt`) with hashes recorded in the manifest so auditors can recompute them independently.
 
 ### Philosophical and Scientific Implications
 
@@ -612,7 +617,7 @@ The artifact demonstrates that consciousness and physics can be compatible. The 
 - **Free will** can coexist with determinism
 - **Qualia** (subjective experience) can emerge from computation
 
-This isn't just philosophy—it's a mathematical proof using SAT certificates.
+This isn't just philosophy—it's a mathematical proof using analytic certificates recorded in the repository's `artifacts/` tree.
 
 ### What This Means for AI
 
@@ -644,8 +649,8 @@ The Thiele Machine is a beginning, not an end—a new way to think about what co
 
 ### System Requirements
 
-- **Python 3.11+** (required for Z3 integration and advanced features)
-- **Coq Platform 8.20+** (optional, for formal proof verification)
+- **Python 3.12+** (matches the pinned demonstration environment)
+- **Coq 8.18** (automatically provisioned by `scripts/setup_coq_toolchain.sh` when `./verify_bell.sh` is invoked)
 - **FPGA Synthesis Tools** (optional, for hardware implementation)
   - Vivado for Xilinx Zynq UltraScale+
   - Yosys for open-source synthesis
@@ -670,13 +675,16 @@ For full functionality including Thiele CPU, hardware synthesis, and formal veri
 
 ```powershell
 # Core Python dependencies
-pip install z3-solver numpy scipy networkx python-sat matplotlib tqdm sympy cryptography
+pip install -r requirements.txt
+
+# Optional: solver extras for legacy SMT traces
+pip install z3-solver python-sat[pblib,aiger]
 
 # Optional: Hardware synthesis (requires Vivado)
 # Install Xilinx Vivado Design Suite for FPGA synthesis
 
 # Optional: Formal verification (requires Coq)
-# Install Coq Platform from https://coq.inria.fr/download
+# Run ./verify_bell.sh (invokes scripts/setup_coq_toolchain.sh)
 ```
 
 ### Running the Artifact
@@ -689,6 +697,7 @@ python3 demonstrate_isomorphism.py
 - **Duration:** Several minutes
 - **Output:** `BELL_INEQUALITY_VERIFIED_RESULTS.md`, `examples/tsirelson_step_receipts.json`, and Act VI artifacts in `artifacts/`.
 - **Verification:** Cryptographically sealed receipts are produced; run `python scripts/challenge.py verify receipts` and `./scripts/verify_truth.sh examples/tsirelson_step_receipts.json` to validate and replay in Coq.
+- **Formal replay:** Run `./verify_bell.sh` to bootstrap the Coq toolchain (via `scripts/setup_coq_toolchain.sh`) and recompile the Bell development against the regenerated receipts.
 
 If you want to run broader experiments or the full universal orchestrator, use:
 ```bash
@@ -741,8 +750,8 @@ cd coq
 ### Troubleshooting
 
 **Common Issues:**
-- **Z3 Import Errors:** Ensure Python 3.11+ and correct virtual environment
-- **Coq Compilation:** Install Coq Platform, ensure PATH includes coqc
+- **Optional solver imports (Z3/PySAT):** Install `pip install -e .[dev]` or `pip install z3-solver python-sat[pblib,aiger]` if you wish to replay legacy SMT traces.
+- **Coq Compilation:** Run `./verify_bell.sh` once; it will invoke `scripts/setup_coq_toolchain.sh` and configure PATH automatically.
 - **FPGA Synthesis:** Install Vivado, ensure license is configured
 - **Long Paths (Windows):** Enable long path support in Windows settings
 - **Memory Issues:** Large experiments may require 16GB+ RAM
@@ -778,7 +787,7 @@ For questions, bug reports, or to request support, please open an issue on the [
 - **Module**: A subset of the state space defined by a partition; each module can be reasoned about independently.
 - **Axiom/Rule ($A$)**: Logical constraints or rules governing the behavior of a module.
 - **Transition ($R$)**: An operation that updates both the state and the partition, enabling dynamic refinement or coarsening.
-- **Logic Engine ($L$)**: An external or embedded solver (e.g., Z3) used to check logical consistency and generate certificates.
+- **Logic Engine ($L$)**: An external or embedded certificate checker combining analytic witnesses with optional solver corroboration.
 - **Certificate**: A logical proof or witness justifying a computation step, transition, or solution; saved as machine-verifiable artifacts.
 - **Mubit**: The atomic unit of discovery cost, measured in bits; quantifies the price paid to perceive and resolve hidden structure.
 - **MDL (Minimum Description Length)**: A principle for model selection, balancing model complexity (structure, parameters) against explanatory power (fit to data).
@@ -797,7 +806,7 @@ For questions, bug reports, or to request support, please open an issue on the [
 - **TM, EncodedTM, EncodedThieleSliceTM**: Turing and Thiele Machine encodings, formalizing classical and partition-native computation.
 - **VNEnc**: Minimal von Neumann machine encoding, demonstrating partition logic in RAM models.
 - **Foundational Proofs**: `run_prove_tm_subsumption` and `run_prove_vn_subsumption` mechanically encode the classical and von Neumann embeddings.【F:attempt.py†L547-L776】
-- **Paradox Demonstration**: `run_paradox` establishes the four-piece paradox with Z3-certified unsatisfiability.【F:attempt.py†L785-L910】
+- **Paradox Demonstration**: `run_paradox` establishes the four-piece paradox and records the analytic Farkas certificate for unsatisfiability.【F:attempt.py†L785-L910】【F:artifacts/paradox_certificate.txt†L1-L9】
 - **Universal Principle**: `run_universal_principle` extends the paradox through rotations and Sudoku witnesses.【F:attempt.py†L920-L1010】
 - **Engine of Discovery**: `run_engine_and_law` implements the MDL-guided search and μ-ledger summarisation.【F:attempt.py†L1011-L1208】
 - **Fractal Debt**: `run_fractal_debt` measures exponential blind-search cost using Tseitin expanders.【F:attempt.py†L1446-L1956】
