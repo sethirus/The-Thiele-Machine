@@ -8,7 +8,7 @@ model of the universe. It demonstrates a proof-of-concept for a sighted
 Thiele Machine method: by treating physical data as an explicit logical
 constraint, a simple, interpretable rule can imply a definite trial outcome.
 
-- timestamp: 2025-10-22T17:19:18.794651Z
+- timestamp: 2025-10-22T19:14:57.776153Z
 - mode: offline
 - data_origin: csv:cmb_sample.csv
 - fallback_reason: none

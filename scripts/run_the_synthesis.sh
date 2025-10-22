@@ -26,7 +26,7 @@ if ! command -v yosys >/dev/null 2>&1; then
 fi
 
 printf -- '--- Phase 1: Synthesising the classical brute-force solver ---\n'
-yosys -l "$CLASSICAL_LOG" -p "read_verilog hardware/synthesis_trap/classical_solver.v; synth -top classical_solver; stat; write_json $CLASSICAL_JSON" || {
+yosys -l "$CLASSICAL_LOG" -p "read_verilog -sv hardware/synthesis_trap/classical_solver.v; synth -top classical_solver; stat; write_json $CLASSICAL_JSON" || {
     printf 'ERROR: Classical solver synthesis failed unexpectedly.\n'
     exit 1
 }
@@ -35,7 +35,7 @@ grep -E 'Number of cells|Number of wires' "$CLASSICAL_LOG" || true
 printf '\n'
 
 printf -- '--- Phase 2: Synthesising the Thiele geometric solver ---\n'
-if yosys -l "$THIELE_LOG" -p "read_verilog hardware/synthesis_trap/reasoning_core.v hardware/synthesis_trap/thiele_graph_solver.v; synth -top thiele_graph_solver; stat; write_json $THIELE_JSON"; then
+if yosys -l "$THIELE_LOG" -p "read_verilog -sv hardware/synthesis_trap/reasoning_core.v hardware/synthesis_trap/thiele_graph_solver.v; synth -top thiele_graph_solver; stat; write_json $THIELE_JSON"; then
     printf 'Synthesis completed. Extract from report:\n'
     grep -E 'Number of cells|Number of wires' "$THIELE_LOG" || true
 else
