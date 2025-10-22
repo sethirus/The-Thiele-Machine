@@ -1,3 +1,7 @@
+=== THE SYNTHESIS TRAP: A Proof in Silicon ===
+Using a classical synthesis tool as an impartial oracle.
+
+--- Phase 1: Synthesising the classical brute-force solver ---
 
  /----------------------------------------------------------------------------\
  |                                                                            |
@@ -22,10 +26,10 @@
  Yosys 0.33 (git sha1 2584903a060)
 
 
--- Running command `read_verilog -sv hardware/synthesis_trap/classical_solver.v; synth -top classical_solver; stat; write_json /workspace/The-Thiele-Machine/hardware/synthesis_trap/classical_solver.json' --
+-- Running command `read_verilog hardware/synthesis_trap/classical_solver.v; synth -top classical_solver; stat; write_json /workspace/The-Thiele-Machine/hardware/synthesis_trap/classical_solver.json' --
 
 1. Executing Verilog-2005 frontend: hardware/synthesis_trap/classical_solver.v
-Parsing SystemVerilog input from `hardware/synthesis_trap/classical_solver.v' to AST representation.
+Parsing Verilog input from `hardware/synthesis_trap/classical_solver.v' to AST representation.
 Generating RTLIL representation for module `\classical_solver'.
 Warning: Replacing memory \digits with list of registers. See hardware/synthesis_trap/classical_solver.v:94
 Warning: Replacing memory \digits_next with list of registers. See hardware/synthesis_trap/classical_solver.v:37
@@ -834,6 +838,45 @@ Found and reported 0 problems.
 4. Executing JSON backend.
 
 Warnings: 2 unique messages, 2 total
-End of script. Logfile hash: 80680b8b4d, CPU: user 0.31s system 0.02s, MEM: 15.66 MB peak
+End of script. Logfile hash: f961749e62, CPU: user 0.45s system 0.03s, MEM: 15.49 MB peak
 Yosys 0.33 (git sha1 2584903a060)
-Time spent: 25% 19x opt_expr (0 sec), 21% 1x abc (0 sec), ...
+Time spent: 24% 19x opt_expr (0 sec), 22% 1x abc (0 sec), ...
+   Number of wires:                179
+   Number of cells:                228
+   Number of wires:                179
+   Number of cells:                228
+
+--- Phase 2: Synthesising the Thiele geometric solver ---
+
+ /----------------------------------------------------------------------------\
+ |                                                                            |
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |                                                                            |
+ |  Copyright (C) 2012 - 2020  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |                                                                            |
+ |  Permission to use, copy, modify, and/or distribute this software for any  |
+ |  purpose with or without fee is hereby granted, provided that the above    |
+ |  copyright notice and this permission notice appear in all copies.         |
+ |                                                                            |
+ |  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES  |
+ |  WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF          |
+ |  MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR   |
+ |  ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES    |
+ |  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN     |
+ |  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   |
+ |  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            |
+ |                                                                            |
+ \----------------------------------------------------------------------------/
+
+ Yosys 0.33 (git sha1 2584903a060)
+
+
+-- Running command `read_verilog hardware/synthesis_trap/reasoning_core.v hardware/synthesis_trap/thiele_graph_solver.v; synth -top thiele_graph_solver; stat; write_json /workspace/The-Thiele-Machine/hardware/synthesis_trap/thiele_graph_solver.json' --
+
+1. Executing Verilog-2005 frontend: hardware/synthesis_trap/reasoning_core.v
+RESULT: As predicted, the synthesis tool refused the geometric solver (exit 1).
+Inspect /workspace/The-Thiele-Machine/hardware/synthesis_trap/thiele_graph_solver.log for the oracle's diagnostic trace.
+
+=== FINAL VERDICT ===
+Classical artefacts: /workspace/The-Thiele-Machine/hardware/synthesis_trap/classical_solver.log (log), /workspace/The-Thiele-Machine/hardware/synthesis_trap/classical_solver.json (netlist)
+Thiele artefacts:    /workspace/The-Thiele-Machine/hardware/synthesis_trap/thiele_graph_solver.log (log), /workspace/The-Thiele-Machine/hardware/synthesis_trap/thiele_graph_solver.json (netlist)

@@ -119,11 +119,18 @@ Lemma triple_roundtrip : forall q head code_small,
   head < SHIFT_BIG -> code_small < SHIFT_BIG ->
     triple_decode (triple_encode q head code_small) = (q, head, code_small).
 Proof.
-  (* Admitted for now - arithmetic roundtrip property *)
-  Admitted.
+  intros q head code_small Hhead Hcode.
+  unfold triple_encode, triple_decode.
+  destruct (div_mul_add_small SHIFT_BIG (q * SHIFT_BIG + head) code_small SHIFT_BIG_pos Hcode)
+    as [Hz_div Hz_mod].
+  destruct (div_mul_add_small SHIFT_BIG q head SHIFT_BIG_pos Hhead)
+    as [Hz1_div Hz1_mod].
+  simpl.
+  rewrite Hz_mod, Hz_div, Hz1_mod, Hz1_div.
+  reflexivity.
+Qed.
 
 Local Opaque Nat.div Nat.modulo.
-
 Lemma encode_list_decode_aux : forall xs,
   digits_ok xs ->
   decode_list_aux (encode_list xs) (length xs) = xs.
