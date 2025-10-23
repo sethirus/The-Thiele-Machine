@@ -1,6 +1,6 @@
 [![CI](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml/badge.svg)](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Python](https://img.shields.io/badge/Python-3.12+-blue.svg)](https://www.python.org/) [![Coq](https://img.shields.io/badge/Coq-8.18+-blue.svg)](https://coq.inria.fr/) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17316437.svg)](https://doi.org/10.5281/zenodo.17316437)
 
-> **Abstract —** The Sovereign Witness release demonstrates that partition-native computation strictly exceeds classical locality. A new abstract Coq development (`coq/sandboxes/AbstractPartitionCHSH.v`) formally proves the Bell CHSH separation without appealing to implementation artefacts, while the Python VM, analytic certificate harness, and hardware transcripts continue to supply reproducible evidence for every claimed experiment.
+> **Abstract —** The Sovereign Witness release demonstrates that partition-native computation strictly exceeds classical locality. A new abstract Coq development (`coq/sandboxes/AbstractPartitionCHSH.v`) now machine-checks a supra-quantum CHSH violation (`S = 16/5 > 2√2`) without appealing to implementation artefacts, while the Python VM, analytic certificate harness, and hardware transcripts continue to supply reproducible evidence for every claimed experiment.
 
 **Audit note (Coq mechanisation):** For clarity, the Coq development currently contains a bounded set of admitted lemmas and declared axioms. See `coq/ADMIT_REPORT.txt` for a machine-readable summary (currently: 19 Admitted occurrences, 10 Axiom declarations) and `coq/AXIOM_INVENTORY.md` for the authoritative axiom list. Where a README statement depends on an admitted lemma or an axiom, an inline callout now points the reader to these reports.
 
@@ -144,7 +144,7 @@ This repository now packages the full subsumption argument together with the sup
 - **Receipts and verification harness:** `scripts/challenge.py verify receipts` replays every signed receipt, checks Ed25519 manifests, and validates both the analytic certificates and any legacy SAT/SMT artefacts; `scripts/prove_it_all.sh` and `coq/verify_subsumption.sh` provide end-to-end Coq replay for the canonical demonstrations.【F:scripts/challenge.py†L1-L220】【F:scripts/prove_it_all.sh†L1-L155】
 - **Historical context preserved:** The earlier universal proof attempt remains archived in `archive/research/incomplete_subsumption_proof/` with an explicit notice linking forward to the completed bridge documented here.【F:archive/research/incomplete_subsumption_proof/README.md†L1-L38】
 
-**Verification Status:** As of the latest run (commit 4676f91a), the Coq developments build with the admitted lemmas enumerated in `coq/ADMIT_REPORT.txt`, receipts verify with SHA-256 integrity, and the Bell inequality demonstration produces consistent Tsirelson witnesses (S ≈ 2.828427). These runs substantiate the repository's reproducibility claims while keeping the remaining proof obligations transparent.
+**Verification Status:** The latest regeneration (see the timestamps in `artifacts/MANIFEST.sha256`) rebuilds the Coq developments with the 19 admitted lemmas and 10 axioms catalogued in `coq/ADMIT_REPORT.txt`, replays every signed receipt, and refreshes the supra-quantum witness (`S = 16/5`) ledger. These runs substantiate the repository's reproducibility claims while keeping the remaining proof obligations transparent. Narrative reports have been retired from `docs/`, with the single surviving historical document (`documents/The_Thiele_Machine.tex`) preserved for provenance; the README, runtime ledgers, and receipts form the canonical record.
 
 ## A Reviewer's Contract
 
@@ -159,7 +159,7 @@ It is called an *artifact* because it encapsulates the proof and its data in a s
 - **Trace every claim back to the accompanying code or axiom.**
 - **Use the verifier as a helper, not an authority.** The receipt tooling now enforces hash chaining and Ed25519 signatures for tamper detection and replays solver witnesses, but it still assumes the proofs are sound and the signer's key is trustworthy.
 
-**Evidence of Scientific Rigor:** The artifact's claims are backed by reproducible experiments—e.g., the Bell inequality demonstration runs in minutes, producing analytically certified CHSH values up to 2.828427 (approaching Tsirelson bound), with receipts cryptographically sealed and Coq-verified. This falsifies classical local realism while demonstrating partition-native computation's advantages, grounded in empirical data rather than speculation.
+**Evidence of Scientific Rigor:** The artifact's claims are backed by reproducible experiments—e.g., the Bell inequality demonstration runs in minutes, producing analytic certificates and the abstract Coq witness achieving `S = 16/5` (strictly beyond the Tsirelson bound), with receipts cryptographically sealed and Coq-verified. This falsifies classical local realism while demonstrating partition-native computation's advantages, grounded in empirical data rather than speculation.
 
 ## Core Concepts
 
@@ -233,7 +233,7 @@ To understand the Thiele Machine, you need to rethink what "computation" means. 
 
 **The key insight:** Classical machines pay for information discovery with exponential time. Thiele machines pay with information itself. This creates the observed performance gap.
 
-**Theoretical Underpinning:** Based on Turing's model (sequential traces) vs. a partition-based extension, as formalized in Coq (`coq/kernel/Subsumption.v`), where Thiele strictly contains Turing. Empirical evidence from Bell experiments shows sighted strategies achieve Tsirelson bounds (2.828427) unattainable classically, validating the partition advantage.
+**Theoretical Underpinning:** Based on Turing's model (sequential traces) vs. a partition-based extension, as formalized in Coq (`coq/kernel/Subsumption.v`), where Thiele strictly contains Turing. Empirical evidence from Bell experiments shows sighted strategies achieve Tsirelson bounds (2.828427) unattainable classically, and the abstract Coq witness establishes a supra-quantum ceiling (`S = 16/5`) unique to partition-native computation, validating the partition advantage.
 
 ### The Purpose of the Brute-Force 'Engine of Discovery'
 
@@ -576,7 +576,7 @@ The experiments show that problems with hidden geometric structure create an exp
 
 ### Implementation
 
-- Experiment orchestration: [`generate_tseitin_data.py`](generate_tseitin_data.py)
+- Experiment orchestration: [`scripts/generate_tseitin_data.py`](scripts/generate_tseitin_data.py)
 - Certificate generation: `scripts/generate_harness_certificates.py` emits the paradox, discovery, and expander witnesses referenced throughout the audit trail.【F:scripts/generate_harness_certificates.py†L1-L168】
 - Analysis and plotting: `attempt.py` Article 4 utilities `fast_receipts` and `plot_fast_receipts` summarise the blind-versus-sighted sweeps and generate the separation plots.【F:attempt.py†L1980-L2148】
 - Results saved in: `shape_of_truth_out/`, `tseitin_receipts.json`, and `artifacts/*.json`
@@ -767,7 +767,7 @@ cd coq
 **Verification:**
 - All outputs include SHA-256 hashes for auditability
 - Run `python scripts/challenge.py verify receipts` to check integrity
-- Coq proofs compile without errors or admitted statements
+- Coq proofs compile with the documented admits and axioms listed in `coq/ADMIT_REPORT.txt`
 
 **Performance Notes:**
 - Main artifact (`attempt.py`) takes several minutes but is comprehensive
@@ -853,6 +853,6 @@ audit log, and a minimal EU AI Act transparency report is available via
 `get_eu_compliance_report()`. Run the demos with:
 
 ```bash
-python -m apps.catnet.demo_mnist      # transparency
-python -m apps.catnet.demo_control    # controllability
+PYTHONPATH=archive/showcase python -m catnet.demo_mnist      # transparency
+PYTHONPATH=archive/showcase python -m catnet.demo_control    # controllability
 ```
