@@ -148,6 +148,23 @@ def test_psplit_homomorphism():
     assert real_projection == abstract_projection_after
 
 
+def test_psplit_degenerate_matches_vm_behavior():
+    real_state, module_real = _fresh_state()
+    abstract_state, module_abstract = _fresh_state()
+
+    predicate: Predicate = lambda _x: True
+
+    real_state.psplit(module_real, predicate)
+    real_projection = map_vm_to_abstract(real_state)
+
+    abstract_projection_before = map_vm_to_abstract(abstract_state)
+    abstract_projection_after = abstract_psplit(
+        abstract_projection_before, module_abstract, predicate
+    )
+
+    assert real_projection == abstract_projection_after
+
+
 def _two_module_state() -> Tuple[State, ModuleId, ModuleId]:
     state = State()
     left = state.pnew({0, 1})
@@ -185,3 +202,14 @@ def test_lassert_homomorphism():
     )
 
     assert real_projection == abstract_projection_after
+
+
+def test_pmerge_self_merge_rejected_consistently():
+    state, module = _fresh_state()
+    abstract = map_vm_to_abstract(state)
+
+    with pytest.raises(ValueError):
+        state.pmerge(module, module)
+
+    with pytest.raises(ValueError):
+        abstract_pmerge(abstract, module, module)

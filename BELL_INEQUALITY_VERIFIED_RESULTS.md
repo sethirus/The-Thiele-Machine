@@ -13,7 +13,7 @@ Formal toolchain versions detected:
 - Python: Python 3.12.10
 - Z3: Z3 version 4.15.1 - 64 bit
 - Coq: The Coq Proof Assistant, version 8.18.0
-- Repository commit: cb4e9a8c6a5b8cd6801ba33adf9708fe4132b14a
+- Repository commit: c5fdb206331c65198d293e0a345f12cffe34d3f2
 - Host platform: Linux-6.12.13-x86_64-with-glibc2.39
 Network isolation is enforced; passing --allow-network explicitly opts into live data fetching.
 Decimal arithmetic uses 80 digits of precision; all rational witnesses are emitted exactly.
@@ -236,10 +236,10 @@ Convexity argument:
 ```
 **Conclusion: Any classical system adhering to local realism is bounded by |S| ≤ 2.**
 Mechanised coverage: the Coq lemma local_CHSH_bound lifts these pointwise checks to every convex mixture of deterministic boxes.
-## Act III — Sighted Tsirelson Witness
-A constructive Thiele witness approaches the Tsirelson bound with explicit inequalities.
+## Act III — Sighted Supra-Quantum Witness
+A constructive Thiele witness straddles the Tsirelson boundary and the abstract Coq proof pushes through to S = 16/5.
 
-Thiele/Tsirelson strategy definition:
+Rational Tsirelson-approaching strategy (runtime witness):
 ```python
 def shared_gamma():
             return 500000/707107  # derived approximation of 1/√2
@@ -257,8 +257,8 @@ def shared_gamma():
         def tsirelson_box(a, b, x, y):
             return Fraction(1, 4) + Fraction(1, 4) * (2 * a - 1) * (2 * b - 1) * correlator(x, y)
 ```
-Computed CHSH value for the Tsirelson approximation: 2000000/707107 (~2.828426)
-Inequality certificate for the Tsirelson witness:
+Computed CHSH value for the runtime Tsirelson approximation: 2000000/707107 (~2.828426)
+Exact inequality certificate proving the runtime witness sits beneath 2√2:
 ```text
 Tsirelson witness inequalities:
   γ = 500000/707107
@@ -268,7 +268,71 @@ Tsirelson witness inequalities:
   2√2 bound encoded as S² ≤ 8 (since S ≥ 0).
   8 - S² = 2475592/500000309449 ≥ 0 ⇒ S ≤ 2√2.
 ```
-**Conclusion: A sighted Thiele architecture achieves a rational Tsirelson witness approaching 2√2 with exact arithmetic.**
+**This runtime measurement pins the classical/quantum boundary; every fraction is derived in integer arithmetic.**
+Abstract proof excerpt (Coq sandbox) certifying the supra-quantum witness and the inequality sandwich between 2√2 and 4:
+```coq
+Definition pr_box_like_witness : SightedStrategy := {| e00 := q; e01 := q; e10 := q; e11 := - q |}.
+
+Lemma pr_box_like_valid : valid_sighted pr_box_like_witness.
+Proof.
+  unfold valid_sighted, pr_box_like_witness; repeat split; auto using q_abs_le, q_abs_le_neg.
+Qed.
+
+Lemma chsh_pr_box_like : chsh_sighted pr_box_like_witness = 16 / 5.
+Proof.
+  unfold chsh_sighted, pr_box_like_witness, q; simpl; lra.
+Qed.
+
+Definition classical_limit : R := 2.
+Definition tsirelson_bound : R := 2 * sqrt 2.
+Definition pr_box_limit : R := 4.
+
+Lemma tsirelson_bound_gt_classical_limit : tsirelson_bound > classical_limit.
+Proof.
+  unfold tsirelson_bound, classical_limit.
+  apply Rmult_gt_reg_l with (r := / 2). { lra. }
+  replace (2 * sqrt 2 * / 2) with (sqrt 2) by lra.
+  replace (2 * / 2) with 1 by lra.
+  assert (Hsq : Rsqr 1 < Rsqr (sqrt 2)).
+  { replace (Rsqr 1) with 1 by (unfold Rsqr; simpl; lra).
+    replace (Rsqr (sqrt 2)) with 2 by (rewrite Rsqr_sqrt; [lra | lra]).
+    lra. }
+  assert (Hpos1 : 0 <= 1) by lra.
+  assert (Hpossqrt : 0 <= sqrt 2) by apply sqrt_pos.
+  apply (Rsqr_incrst_0 1 (sqrt 2)) in Hsq; [| exact Hpos1 | exact Hpossqrt].
+  lra.
+Qed.
+
+Lemma pr_box_like_value_is_supra_quantum : chsh_sighted pr_box_like_witness > tsirelson_bound.
+Proof.
+  rewrite chsh_pr_box_like.
+  unfold tsirelson_bound.
+  assert (Hsq : Rsqr (sqrt 2) < Rsqr (8 / 5)).
+  { replace (Rsqr (sqrt 2)) with 2 by (rewrite Rsqr_sqrt; [lra | lra]).
+    replace (Rsqr (8 / 5)) with (64 / 25) by (unfold Rsqr; simpl; lra).
+    lra. }
+  assert (Hpossqrt : 0 <= sqrt 2) by apply sqrt_pos.
+  assert (Hpos85 : 0 <= 8 / 5) by lra.
+  apply (Rsqr_incrst_0 (sqrt 2) (8 / 5)) in Hsq; [| exact Hpossqrt | exact Hpos85].
+  lra.
+Qed.
+
+Theorem sighted_is_supra_quantum :
+  exists s, valid_sighted s /\
+            chsh_sighted s > tsirelson_bound /\
+            chsh_sighted s <= pr_box_limit.
+Proof.
+  exists pr_box_like_witness.
+  split.
+  - apply pr_box_like_valid.
+  - split.
+    + apply pr_box_like_value_is_supra_quantum.
+    + rewrite chsh_pr_box_like.
+      unfold pr_box_limit.
+      lra.
+Qed.
+```
+**The machine-checked conclusion: a valid sighted strategy reaches S = 16/5, strictly greater than 2√2 yet bounded by the PR-box limit of 4.**
 ## Act IV — Consolidated Artifact
 All evidence is collated into BELL_INEQUALITY_VERIFIED_RESULTS.md.
 
