@@ -13,7 +13,7 @@ Formal toolchain versions detected:
 - Python: Python 3.12.10
 - Z3: Z3 version 4.15.1 - 64 bit
 - Coq: The Coq Proof Assistant, version 8.18.0
-- Repository commit: d7bb8dab45a35475eeda3534a7e64cd636eaef41
+- Repository commit: cb4e9a8c6a5b8cd6801ba33adf9708fe4132b14a
 - Host platform: Linux-6.12.13-x86_64-with-glibc2.39
 Network isolation is enforced; passing --allow-network explicitly opts into live data fetching.
 Decimal arithmetic uses 80 digits of precision; all rational witnesses are emitted exactly.
