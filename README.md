@@ -1,5 +1,7 @@
 [![CI](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml/badge.svg)](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Python](https://img.shields.io/badge/Python-3.12+-blue.svg)](https://www.python.org/) [![Coq](https://img.shields.io/badge/Coq-8.18+-blue.svg)](https://coq.inria.fr/) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17316437.svg)](https://doi.org/10.5281/zenodo.17316437)
 
+> **Abstract —** The Sovereign Witness release demonstrates that partition-native computation strictly exceeds classical locality. A new abstract Coq development (`coq/sandboxes/AbstractPartitionCHSH.v`) formally proves the Bell CHSH separation without appealing to implementation artefacts, while the Python VM, analytic certificate harness, and hardware transcripts continue to supply reproducible evidence for every claimed experiment.
+
 **Audit note (Coq mechanisation):** For clarity, the Coq development currently contains a bounded set of admitted lemmas and declared axioms. See `coq/ADMIT_REPORT.txt` for a machine-readable summary (currently: 19 Admitted occurrences, 10 Axiom declarations) and `coq/AXIOM_INVENTORY.md` for the authoritative axiom list. Where a README statement depends on an admitted lemma or an axiom, an inline callout now points the reader to these reports.
 
 <p align="center">
@@ -31,9 +33,11 @@ The Thiele Machine is a computational model that extends and strictly contains t
    - Produces `BELL_INEQUALITY_VERIFIED_RESULTS.md`, `examples/tsirelson_step_receipts.json`, and artifacts in `artifacts/`.
    - Cryptographically sealed receipts are produced for auditability.
 
-**Requirements:** Python 3.12+. The Bell replay script will automatically bootstrap Coq 8.18 via `scripts/setup_coq_toolchain.sh`; optional SMT solvers such as Z3 remain available for cross-checking legacy transcripts but are no longer required to validate the flagship receipts.
+**Requirements:** Python 3.12+. Formal verification additionally requires a pre-installed `opam` (2.1+) switch; `verify_bell.sh` invokes `scripts/setup_coq_toolchain.sh` to bootstrap Coq 8.18 automatically through that switch before replaying receipts.
 
-**Core Dependencies:** numpy, scipy, networkx, python-sat, matplotlib, tqdm, (optional) z3-solver
+**Core Dependencies:** numpy, scipy, networkx, matplotlib, tqdm; *optional for legacy analysis:* python-sat, z3-solver
+
+**Continuous Integration:** The GitHub Actions workflow installs `opam`, runs the full `pytest` suite (including the refinement homomorphism checks), and executes `./verify_bell.sh` on every push to guarantee end-to-end reproducibility. 【F:.github/workflows/ci.yml†L1-L37】
 
 ## Citation
 
@@ -62,7 +66,7 @@ Quick checklist to verify the v1.0.3 release:
 
 - Confirm the tarball SHA-256 matches the value published in `artifacts/MANIFEST.sha256`.
 - Re-run the canonical verification: `python scripts/challenge.py verify receipts` and then run `./scripts/verify_truth.sh examples/tsirelson_step_receipts.json` after running `python3 demonstrate_isomorphism.py`.
-- **Recent Verification (Oct 21, 2025):** `python scripts/challenge.py verify receipts` succeeded with total μ=0.0; Coq subsumption proofs compiled without errors (commit 4676f91a).
+- **Continuous Verification:** CI provisions `opam`, runs `pytest`, and executes `./verify_bell.sh`, ensuring the Bell proof replay and refinement harness pass on every push. Local runs remain reproducible with `python scripts/challenge.py verify receipts`.
 
 ## Table of Contents
 
@@ -325,7 +329,11 @@ XFER    - Transfer data between partitions
 
 ### Coq Formal Verification
 
-The `coq/` directory houses the full mechanised proof stack together with documentation for auditors.
+The `coq/` directory now exposes two complementary proof tiers:
+
+- **AbstractPartitionCHSH.v (`coq/sandboxes/`)** – a minimal, implementation-agnostic development that proves the classical CHSH bound (|S| ≤ 2) and constructs a sighted strategy with S = 16/5 > 2. This self-contained file certifies the core conceptual claim—partition-native logic can surpass classical locality—without appealing to any VM encoding.
+- **Executable refinement harness (`tests/test_refinement.py`)** – commuting-square tests for `PSPLIT`, `PMERGE`, and `LASSERT` that map VM states into the abstract sandbox, providing an operational bridge between the Python implementation and the Coq proof. 【F:tests/test_refinement.py†L1-L187】
+- **Legacy kernel stack (`coq/thielemachine/coqproofs/`, `coq/kernel/`, etc.)** – the original end-to-end mechanisation connecting the Python VM and hardware artefacts to the Thiele semantics. These files remain invaluable for engineering traceability but still contain the admitted lemmas and axioms catalogued in `coq/ADMIT_REPORT.txt`.
 
 ### Core Formalization (`coq/thielemachine/coqproofs/`)
 - **ThieleMachine.v** - Complete operational semantics with receipts and μ-bit accounting
@@ -345,7 +353,7 @@ The `coq/` directory houses the full mechanised proof stack together with docume
 - **Project Cerberus** (`coq/project_cerberus/`) - Self-auditing kernel security proofs
 - **P=NP Sketch** (`coq/p_equals_np_thiele/`) - ⚠️ Philosophical sketch only, NOT a rigorous complexity proof (see README in directory)
 
-The majority of files compile with Coq.
+The abstract sandbox compiles cleanly on its own; the broader stack continues to build with the documented admits and axioms while we complete the refinement bridge from the VM to the abstract model.
 
 ## Mathematical Foundations
 
@@ -441,7 +449,7 @@ Imagine a dataset with two hidden clusters. The Thiele Machine can:
 
 ### Certificate-Driven Computation
 
-Certificate-driven computation is a foundational principle: every computational step must be justified by a machine-verifiable proof.
+Certificate-driven computation remains foundational, but the Sovereign Witness release pivots from solver transcripts to human-readable analytic witnesses. Every significant step now emits auditable text—Farkas combinations, parity arguments, Bell inequalities—so the machine's primary outputs are proofs a reviewer can read, not opaque `.smt2` scripts.
 
 ### What is a Certificate?
 

@@ -67,6 +67,9 @@ sandboxes/ToyThieleMachine.vos sandboxes/ToyThieleMachine.vok sandboxes/ToyThiel
 sandboxes/VerifiedGraphSolver.vo sandboxes/VerifiedGraphSolver.glob sandboxes/VerifiedGraphSolver.v.beautified sandboxes/VerifiedGraphSolver.required_vo: sandboxes/VerifiedGraphSolver.v 
 sandboxes/VerifiedGraphSolver.vio: sandboxes/VerifiedGraphSolver.v 
 sandboxes/VerifiedGraphSolver.vos sandboxes/VerifiedGraphSolver.vok sandboxes/VerifiedGraphSolver.required_vos: sandboxes/VerifiedGraphSolver.v 
+sandboxes/AbstractPartitionCHSH.vo sandboxes/AbstractPartitionCHSH.glob sandboxes/AbstractPartitionCHSH.v.beautified sandboxes/AbstractPartitionCHSH.required_vo: sandboxes/AbstractPartitionCHSH.v 
+sandboxes/AbstractPartitionCHSH.vio: sandboxes/AbstractPartitionCHSH.v 
+sandboxes/AbstractPartitionCHSH.vos sandboxes/AbstractPartitionCHSH.vok sandboxes/AbstractPartitionCHSH.required_vos: sandboxes/AbstractPartitionCHSH.v 
 shor_primitives/Euclidean.vo shor_primitives/Euclidean.glob shor_primitives/Euclidean.v.beautified shor_primitives/Euclidean.required_vo: shor_primitives/Euclidean.v shor_primitives/Modular.vo
 shor_primitives/Euclidean.vio: shor_primitives/Euclidean.v shor_primitives/Modular.vio
 shor_primitives/Euclidean.vos shor_primitives/Euclidean.vok shor_primitives/Euclidean.required_vos: shor_primitives/Euclidean.v shor_primitives/Modular.vos
