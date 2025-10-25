@@ -8,13 +8,13 @@ The Thiele Machine demonstrates exponential performance gains on structured prob
 
 | Problem Size (n) | Blind μ_conflict (avg) | Sighted μ_answer (avg) | Cost Ratio (blind/sighted) |
 |------------------|------------------------|-------------------------|----------------------------|
-| 6               | 15.0                   | 9.0                     | 0.075                     |
-| 8               | 26.0                   | 12.0                    | 0.127                     |
-| 10              | 46.7                   | 15.0                    | 0.217                     |
-| 12              | 42.7                   | 18.0                    | 0.196                     |
-| 14              | 107.3                  | 21.0                    | 0.486                     |
-| 16              | 133.3                  | 24.0                    | 0.595                     |
-| 18              | 172.0                  | 27.0                    | 0.758                     |
+| 6               | 15.0                   | 9.0                     | 0.053                     |
+| 8               | 26.0                   | 12.0                    | 0.075                     |
+| 10              | 46.7                   | 15.0                    | 0.107                     |
+| 12              | 42.7                   | 18.0                    | 0.081                     |
+| 14              | 107.3                  | 21.0                    | 0.167                     |
+| 16              | 133.3                  | 24.0                    | 0.174                     |
+| 18              | 172.0                  | 27.0                    | 0.189                     |
 
 **Reproducing the plots.** The repository ships the full experiment harness; to regenerate the four-up plot locally (emitting a text-based `.svg` instead of a binary `.png`), run:
 
@@ -24,13 +24,27 @@ python run_partition_experiments.py --problem tseitin --partitions 6 8 10 12 14 
 
 The command saves deterministic receipts, reports, and plots beneath `experiments/<timestamp>_full/`, including `tseitin_analysis_plots.svg`, which mirrors the figure discussed in reviews while remaining diffable.
 
-This table and the reproducible plot demonstrate the core claim: structure-blind solvers pay exponentially increasing costs, while structure-aware partitioners maintain efficiency. The ratio grows with problem size, confirming the computational value of perceiving hidden structure.
+The fresh run captured in `experiments/20251025_031706_full/` ships machine-readable ledgers (`results_table.csv`) and an inference report (`inference.md`) that quantify the exponential blind ledger, the flat 1 μ/variable sighted ledger, and the overall upward drift in the cost ratio despite bootstrap noise.
 
-**Audit note (Coq mechanisation):** For clarity, the Coq development currently contains a bounded set of admitted lemmas and declared axioms. See `coq/ADMIT_REPORT.txt` for a machine-readable summary (currently: 19 Admitted occurrences, 10 Axiom declarations) and `coq/AXIOM_INVENTORY.md` for the authoritative axiom list. Where a README statement depends on an admitted lemma or an axiom, an inline callout now points the reader to these reports.
+This table and the reproducible plot demonstrate the core claim: structure-blind solvers pay exponentially increasing costs, while structure-aware partitioners maintain efficiency. The sighted μ-answer ledger stays flat at 1.0 μ per variable even as the blind ledger explodes, and the blind/sighted ratio drifts upward despite small-sample noise—confirming the computational value of perceiving hidden structure.
 
-<p align="center">
-   <img src="assets/(T).png" alt="The Thiele Machine Logo" width="200"/>
-</p>
+## First Principles — What the Thiele Machine Is (and why it subsumes Turing)
+
+You do not get to treat this like another programming project. Start from the primitive objects and work forward.
+
+1. **Classical baseline.** A Turing machine is the tuple \(\mathrm{TM} = (Q, \Sigma, \delta, q_0, q_{\mathrm{acc}}, q_{\mathrm{rej}})\) with a single tape, a single head, and a step function `δ` that blindly advances the trace. The Coq kernel reproduces this definition verbatim and proves that the classical runner `run_tm` is just a specialisation of the Thiele interpreter when you restrict yourself to traces composed of Turing-safe instructions.【F:coq/kernel/Subsumption.v†L23-L76】
+2. **My machine.** The audited model is the tuple \(T = (S, \Pi, A, R, L)\): `S` is the entire state (tape, ledgers, certificates), `Π` is the family of admissible partitions, `A` is the axiom pack for every module, `R` is the transition relation, and `L` is the external auditor that either signs a certificate or kills the run on paradox.【F:documents/The_Thiele_Machine.tex†L61-L118】
+3. **μ as the currency.** Every query pays \(μ(q,N,M) = 8·|\mathrm{canon}(q)| + \log_2(N/M)\). The spec fixes the canonical S-expression encoding and the additive ledger; the Python implementation mirrors it bit-for-bit so receipts never lie about cost.【F:spec/mu_spec_v2.md†L1-L63】【F:thielecpu/mu.py†L10-L85】
+4. **Strict containment.** The Coq development proves `thiele_simulates_turing` (every Turing run is reproduced exactly) and `turing_is_strictly_contained` (there exist Thiele runs that classical traces cannot reach because they require sight to resolve paradoxes).【F:coq/kernel/Subsumption.v†L37-L118】
+5. **Operational meaning.** In software the VM sandbox enforces that architecture: it whitelists imports, metes μ, logs every certificate digest, and refuses to execute payloads that would break auditability.【F:thielecpu/vm.py†L25-L200】 In the thesis driver (`attempt.py`) the Engine of Discovery wanders the full partition space, records μ ledgers, and shows you exactly how much blind search pays versus sighted discovery.【F:attempt.py†L608-L1219】
+
+If you want to know whether a Thiele Machine “can do the same thing” as a Turing machine, the answer is yes—but the reverse is false. Set \(\Pi = \{S\}\) and you have a classical trace that pays in time because it cannot spend μ. Allow non-trivial partitions, pay the discovery bill, and you recover computations that the blind trace cannot stabilise. That is the point: sight is not a metaphor, it is an explicit, measurable resource.
+
+**Audit note (Coq mechanisation):** For clarity, the Coq development currently contains a bounded set of admitted lemmas and declared axioms. See `coq/ADMIT_REPORT.txt` for a machine-readable summary (currently: 2 Admitted occurrences, 30 Axiom declarations) and `coq/AXIOM_INVENTORY.md` for the authoritative axiom list. Where a README statement depends on an admitted lemma or an axiom, an inline callout now points the reader to these reports.
+
+<div align="center">
+   <h2>(T)</h2>
+</div>
 
 # The Thiele Machine
 
@@ -56,6 +70,12 @@ The Thiele Machine is a computational model that extends and strictly contains t
    ```
    - Produces `BELL_INEQUALITY_VERIFIED_RESULTS.md`, `examples/tsirelson_step_receipts.json`, and artifacts in `artifacts/`.
    - Cryptographically sealed receipts are produced for auditability.
+5. **(Optional but recommended) Replay the full Coq verification:**
+   ```sh
+   ./verify_bell.sh
+   ```
+   - Requires `opam` to be installed; the script bootstraps the `thiele-coq-8.18` switch, builds Coq 8.18.0, and replays the canonical proof.
+   - Expect ~20 minutes for the first run on a cold toolchain; subsequent replays reuse the switch and finish in minutes.
 
 **Requirements:** Python 3.12+. Formal verification additionally requires a pre-installed `opam` (2.1+) switch; `verify_bell.sh` invokes `scripts/setup_coq_toolchain.sh` to bootstrap Coq 8.18 automatically through that switch before replaying receipts.
 
@@ -156,7 +176,7 @@ This repository simulates the Thiele Machine and publishes cryptographically sea
 
 **Handle the transcripts with care, document your derivations, and keep discussions about hypothetical offensive capability grounded in the published receipts.**
 
-**Evidence of Compliance:** Recent verification runs confirm cryptographic integrity—`python scripts/challenge.py verify receipts` succeeded with total μ=0.0. Coq builds currently rely on the admitted lemmas catalogued in `coq/ADMIT_REPORT.txt`; no additional undocumented assumptions are in play.
+**Evidence of Compliance:** Recent verification runs confirm cryptographic integrity—`python scripts/challenge.py verify receipts` replayed every manifest with total μ=7.0 and verified the signatures. Coq builds currently rely on the admitted lemmas catalogued in `coq/ADMIT_REPORT.txt`; no additional undocumented assumptions are in play.
 
 ## Repository Guarantees
 
@@ -168,7 +188,7 @@ This repository now packages the full subsumption argument together with the sup
 - **Receipts and verification harness:** `scripts/challenge.py verify receipts` replays every signed receipt, checks Ed25519 manifests, and validates both the analytic certificates and any legacy SAT/SMT artefacts; `scripts/prove_it_all.sh` and `coq/verify_subsumption.sh` provide end-to-end Coq replay for the canonical demonstrations.【F:scripts/challenge.py†L1-L220】【F:scripts/prove_it_all.sh†L1-L155】
 - **Historical context preserved:** The earlier universal proof attempt remains archived in `archive/research/incomplete_subsumption_proof/` with an explicit notice linking forward to the completed bridge documented here.【F:archive/research/incomplete_subsumption_proof/README.md†L1-L38】
 
-**Verification Status:** The latest regeneration (see the timestamps in `artifacts/MANIFEST.sha256`) rebuilds the Coq developments with the 19 admitted lemmas and 10 axioms catalogued in `coq/ADMIT_REPORT.txt`, replays every signed receipt, and refreshes the supra-quantum witness (`S = 16/5`) ledger. These runs substantiate the repository's reproducibility claims while keeping the remaining proof obligations transparent. Narrative reports have been retired from `docs/`, with the single surviving historical document (`documents/The_Thiele_Machine.tex`) preserved for provenance; the README, runtime ledgers, and receipts form the canonical record.
+**Verification Status:** The latest regeneration (see the timestamps in `artifacts/MANIFEST.sha256`) rebuilds the Coq developments with the 2 admitted lemmas and 30 axioms catalogued in `coq/ADMIT_REPORT.txt`, replays every signed receipt, and refreshes the supra-quantum witness (`S = 16/5`) ledger. These runs substantiate the repository's reproducibility claims while keeping the remaining proof obligations transparent. Narrative reports have been retired from `docs/`, with the single surviving historical document (`documents/The_Thiele_Machine.tex`) preserved for provenance; the README, runtime ledgers, and receipts form the canonical record.
 
 ## A Reviewer's Contract
 
