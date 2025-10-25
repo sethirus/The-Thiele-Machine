@@ -327,7 +327,8 @@ def fit_scaling_laws(results: List[Dict[str, Any]]) -> Dict[str, Any]:
         'runtime_correlation': runtime_correlation
     }
 
-def plot_results(results: List[Dict[str, Any]], problem: str, scaling: Dict[str, Any], exp_dir: Path = RESULTS_DIR):
+def plot_results(results: List[Dict[str, Any]], problem: str, scaling: Dict[str, Any], exp_dir: Path = RESULTS_DIR,
+                 plot_format: str = 'png'):
     """Generate improved, meaningful analytic plots from results."""
     partitions = scaling['partitions']
     mu_blind_avg = scaling['mu_blind_avg']
@@ -437,9 +438,10 @@ def plot_results(results: List[Dict[str, Any]], problem: str, scaling: Dict[str,
         plt.title('Scaling Laws Summary')
     
     plt.tight_layout()
-    plt.savefig(exp_dir / f'{problem}_analysis_plots.png', dpi=150, bbox_inches='tight')
+    main_plot_path = exp_dir / f'{problem}_analysis_plots.{plot_format}'
+    plt.savefig(main_plot_path, dpi=150, bbox_inches='tight')
     plt.close()
-    print(f"Improved analysis plots saved to {exp_dir / f'{problem}_analysis_plots.png'}")
+    print(f"Improved analysis plots saved to {main_plot_path}")
     
     # Additional separate plots for clarity
     # Log-log plot for blind μ
@@ -643,7 +645,8 @@ def write_inference_report(scaling: Dict[str, Any], problem: str, results: List[
         f.write('\n'.join(report_lines))
     print(f"Inference report written to {filepath}")
 
-def create_manifest(results: List[Dict[str, Any]], scaling: Dict[str, Any], problem: str, saved_results: bool = False, exp_dir: Path = RESULTS_DIR):
+def create_manifest(results: List[Dict[str, Any]], scaling: Dict[str, Any], problem: str, saved_results: bool = False,
+                    exp_dir: Path = RESULTS_DIR, plot_format: str = 'png'):
     """Create a manifest JSON with hashes of all outputs."""
     manifest = {
         'timestamp': int(time.time()),
@@ -659,7 +662,7 @@ def create_manifest(results: List[Dict[str, Any]], scaling: Dict[str, Any], prob
                 manifest['files']['results_json'] = hashlib.sha256(f.read()).hexdigest()
     
     # Hash plots
-    for plot in ['tseitin_analysis_plots.png', 'tseitin_blind_scaling.png']:
+    for plot in [f'{problem}_analysis_plots.{plot_format}', f'{problem}_blind_scaling.png']:
         plot_file = exp_dir / plot
         if plot_file.exists():
             with open(plot_file, 'rb') as f:
@@ -701,6 +704,8 @@ def main():
     parser.add_argument('--budget-sensitivity', action='store_true', help='Run budget sensitivity analysis with varying time limits')
     parser.add_argument('--save-outputs', action='store_true', help='Save all outputs (plots, reports, tables, manifests)')
     parser.add_argument('--experiment-name', default='experiment', help='Name for this experiment run')
+    parser.add_argument('--plot-format', choices=['png', 'svg'], default='png',
+                        help='Image format for the main analysis plot (default: png)')
     
     args = parser.parse_args()
     
@@ -727,11 +732,12 @@ def main():
             file_hash = save_results(results, args.problem, args.partitions, args.repeat, args.seed_grid, exp_dir)
         scaling = fit_scaling_laws(results)
         if args.save_outputs:
-            plot_results(results, args.problem, scaling, exp_dir)
+            plot_results(results, args.problem, scaling, exp_dir, plot_format=args.plot_format)
             save_scaling_report(scaling, args.problem, exp_dir)
             write_inference_report(scaling, args.problem, results, exp_dir)
             write_results_table(scaling, results, exp_dir)
-            create_manifest(results, scaling, args.problem, saved_results=args.save_results, exp_dir=exp_dir)
+            create_manifest(results, scaling, args.problem, saved_results=args.save_results,
+                            exp_dir=exp_dir, plot_format=args.plot_format)
         if file_hash:
             print(f"Experiment complete. Results hash: {file_hash}")
         else:
