@@ -22,6 +22,9 @@ reg rst_n;
 wire [31:0] cert_addr;
 wire [31:0] status;
 wire [31:0] error_code;
+wire [31:0] partition_ops;
+wire [31:0] mdl_ops;
+wire [31:0] info_gain;
 
 // Memory interface
 wire [31:0] mem_addr;
@@ -46,6 +49,9 @@ reg [31:0] py_result;
 reg [31:0] instr_memory [0:255];
 wire [31:0] pc;
 
+// Data memory
+reg [31:0] data_memory [0:255];
+
 // Loop variable
 integer i;
 
@@ -59,6 +65,9 @@ thiele_cpu dut (
     .cert_addr(cert_addr),
     .status(status),
     .error_code(error_code),
+    .partition_ops(partition_ops),
+    .mdl_ops(mdl_ops),
+    .info_gain(info_gain),
     .mem_addr(mem_addr),
     .mem_wdata(mem_wdata),
     .mem_rdata(mem_rdata),
@@ -91,27 +100,43 @@ end
 
 initial begin
     // Initialize instruction memory with test program
-    // PNEW {10} - Create module with region size 10
-    instr_memory[0] = {8'h00, 8'h00, 8'h0A, 8'h00}; // PNEW 0, 10
+    // XOR operations for Gaussian elimination
+    instr_memory[0] = {8'h0B, 8'h03, 8'h00, 8'h00}; // XOR_ADD 3, 0
+    instr_memory[1] = {8'h0B, 8'h03, 8'h01, 8'h00}; // XOR_ADD 3, 1
+    instr_memory[2] = {8'h0B, 8'h03, 8'h02, 8'h00}; // XOR_ADD 3, 2
+    instr_memory[3] = {8'h0B, 8'h00, 8'h03, 8'h00}; // XOR_ADD 0, 3
+    instr_memory[4] = {8'h0B, 8'h01, 8'h03, 8'h00}; // XOR_ADD 1, 3
+    instr_memory[5] = {8'h0B, 8'h02, 8'h03, 8'h00}; // XOR_ADD 2, 3
+    instr_memory[6] = {8'h0B, 8'h03, 8'h00, 8'h00}; // XOR_ADD 3, 0
+    instr_memory[7] = {8'h0B, 8'h01, 8'h02, 8'h00}; // XOR_ADD 1, 2
+    instr_memory[8] = {8'h0E, 8'h00, 8'h06, 8'h00}; // EMIT 0, 6
 
-    // PSPLIT 1, 0 - Split module 1 with predicate 0 (even/odd)
-    instr_memory[1] = {8'h01, 8'h01, 8'h00, 8'h00}; // PSPLIT 1, 0
+    // HALT
+    instr_memory[9] = {8'hFF, 8'h00, 8'h00, 8'h00}; // HALT
 
-    // PMERGE 2, 3 - Merge modules 2 and 3
-    instr_memory[2] = {8'h02, 8'h02, 8'h03, 8'h00}; // PMERGE 2, 3
-
-    // MDLACC 4 - Accumulate μ-bits for module 4
-    instr_memory[3] = {8'h05, 8'h04, 8'h00, 8'h00}; // MDLACC 4
-
-    // EMIT 1, 2 - Emit value
-    instr_memory[4] = {8'h06, 8'h01, 8'h02, 8'h00}; // EMIT 1, 2
-
-    // HALT (unknown opcode)
-    instr_memory[5] = {8'hFF, 8'h00, 8'h00, 8'h00}; // HALT
+    // Initialize data memory with XOR matrix
+    // Row 0: 1 0 0 1 0 1 -> 0x29 (bits 0,3,5)
+    data_memory[0] = 32'h00000029;
+    // Row 1: 0 1 0 0 1 0 -> 0x12 (bits 1,4)
+    data_memory[6] = 32'h00000012;
+    // Row 2: 0 0 1 0 0 1 -> 0x22 (bits 1,5)
+    data_memory[12] = 32'h00000022;
+    // Row 3: 1 1 0 0 0 0 -> 0x03 (bits 0,1)
+    data_memory[18] = 32'h00000003;
+    // Parity
+    data_memory[24] = 32'h00000000; // row 0 parity 0
+    data_memory[25] = 32'h00000001; // row 1 parity 1
+    data_memory[26] = 32'h00000001; // row 2 parity 1
+    data_memory[27] = 32'h00000000; // row 3 parity 0
 
     // Initialize other memory locations
-    for (i = 6; i < 256; i = i + 1) begin
+    for (i = 10; i < 256; i = i + 1) begin
         instr_memory[i] = 32'h00000000;
+    end
+    for (i = 0; i < 256; i = i + 1) begin
+        if (i != 0 && i != 6 && i != 12 && i != 18 && i != 24 && i != 25 && i != 26 && i != 27) begin
+            data_memory[i] = 32'h00000000;
+        end
     end
 end
 
@@ -123,10 +148,11 @@ end
 always @(posedge clk) begin
     if (mem_en) begin
         if (mem_we) begin
-            // Write operation (not used in this test)
+            // Write operation
+            data_memory[mem_addr[31:2]] <= mem_wdata;
         end else begin
-            // Read operation - return instruction data
-            mem_rdata <= instr_memory[mem_addr[31:2]];
+            // Read operation
+            mem_rdata <= data_memory[mem_addr[31:2]];
         end
     end
 end
@@ -167,18 +193,33 @@ initial begin
     // Reset
     #20 rst_n = 1;
 
-    // Wait for program execution
-    #1000;
-
-    // Check results
-    $display("Test completed!");
-    $display("Final PC: %h", pc);
-    $display("Status: %h", status);
-    $display("Error: %h", error_code);
-    $display("Cert Addr: %h", cert_addr);
-
-    // End simulation
-    #100 $finish;
+    // Wait for program completion or timeout
+    fork
+        begin
+            #10000; // Timeout after 10000 ns
+            $display("Simulation timed out");
+            $finish;
+        end
+        begin
+            wait (pc == 32'h28); // Wait for PC to reach HALT address
+            #10; // Small delay
+            // Check results
+            $display("Test completed!");
+            $display("Final PC: %h", pc);
+            $display("Status: %h", status);
+            $display("Error: %h", error_code);
+            $display("Cert Addr: %h", cert_addr);
+            $display("Partition Ops: %d", partition_ops);
+            $display("MDL Ops: %d", mdl_ops);
+            $display("Info Gain: %d", info_gain);
+            $display("{");
+            $display("  \"partition_ops\": %d,", partition_ops);
+            $display("  \"mdl_ops\": %d,", mdl_ops);
+            $display("  \"info_gain\": %d", info_gain);
+            $display("}");
+            $finish;
+        end
+    join
 end
 
 // ============================================================================

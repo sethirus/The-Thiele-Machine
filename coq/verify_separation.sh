@@ -21,13 +21,13 @@ fi
 
 echo
 echo "2. Checking for axioms..."
-AXIOM_COUNT=$(grep -c "^Axiom " thielemachine/coqproofs/Separation.v)
+AXIOM_COUNT=$(grep -c "^Axiom " thielemachine/coqproofs/Separation.v || true)
 echo "   Found $AXIOM_COUNT axiom(s)"
 
-if [ "$AXIOM_COUNT" -eq 1 ]; then
-    echo "   ✅ Expected count (1 - exponential lower bound assumption)"
+if [ "$AXIOM_COUNT" -eq 0 ]; then
+    echo "   ✅ Expected count (0 - no axioms needed)"
 else
-    echo "   ⚠️  Expected 1, found $AXIOM_COUNT"
+    echo "   ⚠️  Expected 0, found $AXIOM_COUNT"
 fi
 
 echo
