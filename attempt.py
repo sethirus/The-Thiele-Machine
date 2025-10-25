@@ -23,6 +23,10 @@ from dataclasses import dataclass
 from itertools import combinations, product
 from fractions import Fraction
 
+# Erase terminal_output.md if it exists
+if os.path.exists("terminal_output.md"):
+    os.remove("terminal_output.md")
+
 def print(*args, **kwargs):
     msg = " ".join(str(a) for a in args)
     # Write to terminal
@@ -1367,7 +1371,7 @@ exponential separation. All results are printed below.
     say("grows exponentially. Sight is not enough; the model's geometry must match the world's.")
 
 def run_single_experiment(params):
-    n, seed, conf_budget, prop_budget, global_seed = params
+    n, seed, conf_budget, prop_budget, global_seed, mispartition, shuffle_constraints, noise = params
     start_time = time.time()
     pid = os.getpid()
     phase = {"name": "starting", "start": start_time, "elapsed": 0}
@@ -1395,6 +1399,79 @@ def run_single_experiment(params):
             verbose=os.getenv("VERBOSE", "0") == "1",
             hb_period=int(float(os.getenv("HB_PERIOD_SEC", "10")))
         )
+        
+        # Apply falsification controls
+        if mispartition:
+            # Make the instance SAT by flipping charges to even sum
+            total_charge = sum(instance["charges"])
+            if total_charge % 2 == 1:
+                instance["charges"][-1] ^= 1  # Flip last charge to make even
+                # Regenerate xor_rows_idx and cnf_clauses with new charges
+                xor_rows_idx = []
+                cnf_clauses = []
+                edge_idx = {e: i for i, e in enumerate(instance["edges"])}
+                edge_vars = {e: i + 1 for i, e in enumerate(instance["edges"])}
+                # Rebuild inc
+                inc = {v: [] for v in range(n)}
+                for (u, v) in instance["edges"]:
+                    idx = edge_idx[(u, v)]
+                    inc[u].append(idx)
+                    inc[v].append(idx)
+                for v_idx in range(n):
+                    idxs = sorted(inc[v_idx])
+                    if len(idxs) == 3:
+                        xor_rows_idx.append((idxs, instance["charges"][v_idx]))
+                        ivs = [edge_vars[instance["edges"][i]] for i in idxs]
+                        emit_vertex_clauses(ivs[0], ivs[1], ivs[2], instance["charges"][v_idx], cnf_clauses.append)
+                instance["xor_rows_idx"] = xor_rows_idx
+                instance["cnf_clauses"] = cnf_clauses
+                # Regenerate xor_rows
+                m_edges = len(instance["edges"])
+                xor_rows = []
+                for idxs, rhs in xor_rows_idx:
+                    row = [0] * m_edges
+                    for i in idxs:
+                        row[i] = 1
+                    xor_rows.append((row, rhs))
+                instance["xor_rows"] = xor_rows
+        
+        if shuffle_constraints:
+            # Randomize the parity signs (RHS of XOR constraints)
+            rng = seeded_rng(global_seed, n, seed)
+            for i in range(len(instance["xor_rows_idx"])):
+                instance["xor_rows_idx"][i] = (instance["xor_rows_idx"][i][0], rng.integers(0, 2))
+            # Regenerate cnf_clauses and xor_rows
+            cnf_clauses = []
+            edge_vars = {e: i + 1 for i, e in enumerate(instance["edges"])}
+            for idxs, rhs in instance["xor_rows_idx"]:
+                ivs = [edge_vars[instance["edges"][i]] for i in idxs]
+                emit_vertex_clauses(ivs[0], ivs[1], ivs[2], rhs, cnf_clauses.append)
+                row = [0] * len(instance["edges"])
+                for i in idxs:
+                    row[i] = 1
+                instance["xor_rows"].append((row, rhs))
+            instance["cnf_clauses"] = cnf_clauses
+        
+        if noise is not None:
+            # Flip k% of parities
+            rng = seeded_rng(global_seed, n, seed)
+            num_to_flip = int(len(instance["xor_rows_idx"]) * noise / 100)
+            flip_indices = rng.choice(len(instance["xor_rows_idx"]), num_to_flip, replace=False)
+            for i in flip_indices:
+                instance["xor_rows_idx"][i] = (instance["xor_rows_idx"][i][0], 1 - instance["xor_rows_idx"][i][1])
+            # Regenerate cnf_clauses and xor_rows
+            cnf_clauses = []
+            edge_vars = {e: i + 1 for i, e in enumerate(instance["edges"])}
+            xor_rows = []
+            for idxs, rhs in instance["xor_rows_idx"]:
+                ivs = [edge_vars[instance["edges"][i]] for i in idxs]
+                emit_vertex_clauses(ivs[0], ivs[1], ivs[2], rhs, cnf_clauses.append)
+                row = [0] * len(instance["edges"])
+                for i in idxs:
+                    row[i] = 1
+                xor_rows.append((row, rhs))
+            instance["cnf_clauses"] = cnf_clauses
+            instance["xor_rows"] = xor_rows
         phase["name"] = "SAT solving"
         phase["start"] = time.time()
         t1 = phase["start"]
@@ -1421,10 +1498,18 @@ def run_single_experiment(params):
             "instance_hash": instance_hash,
             "blind_results": blind_res,
             "sighted_results": sighted_res,
+            "conflict_steps": sighted_res.get('conflict_steps', 0),
+            "rank_ops": sighted_res.get('rank_ops', 0),
+            "mdl_bytes": len(blind_res.get('partition', [])),
+            "partition_ops": blind_res.get('conflicts', 0),
             "timings": {
                 "gen_s": round(phase["start"] - t0, 4) if "t0" in locals() else None,
                 "blind_s": round(time.time() - t1, 4),
             },
+            "instance": {
+                "matrix": [row for row, _ in instance["xor_rows"]],
+                "parity": [rhs for _, rhs in instance["xor_rows"]]
+            }
         }
         stop_worker_heartbeat.set()
         heartbeat_thread.join(timeout=2)
@@ -1517,7 +1602,7 @@ exponential separation. All results are printed below.
         SEEDS_PER_N = 10
         BUDGETS = {"conf_budget": 100_000, "prop_budget": 5_000_000}
         jobs = [
-            (n, seed, BUDGETS["conf_budget"], BUDGETS["prop_budget"], GLOBAL_SEED)
+            (n, seed, BUDGETS["conf_budget"], BUDGETS["prop_budget"], GLOBAL_SEED, None, None, None)
             for n in NS_TO_RUN
             for seed in range(SEEDS_PER_N)
         ]
@@ -1954,10 +2039,10 @@ def solve_sighted_xor(xor_rows_or_idx, m_edges=None):
 
     Returns:
         dict: ``result`` ("sat"/"unsat"), ``rank_A``, ``rank_aug`` and
-        ``rank_gap``.
+        ``rank_gap``, plus counters: ``conflict_steps``, ``rank_ops``.
     """
     if not xor_rows_or_idx:
-        return {"result": "sat", "rank_gap": 0, "rank_A": 0, "rank_aug": 0}
+        return {"result": "sat", "rank_gap": 0, "rank_A": 0, "rank_aug": 0, "conflict_steps": 0, "rank_ops": 0}
 
     # Materialise matrix depending on representation.
     if isinstance(xor_rows_or_idx[0][0], list) and (m_edges is not None):
@@ -1974,26 +2059,40 @@ def solve_sighted_xor(xor_rows_or_idx, m_edges=None):
     rows, cols = M.shape
     pivot_row = 0
 
+    # Counters for VM instrumentation
+    conflict_steps = 0  # Row operations in Gaussian elimination
+    rank_ops = 0  # Operations for rank computation
+
     for j in range(cols - 1):
         if pivot_row < rows:
             pivot = np.where(M[pivot_row:, j] == 1)[0]
             if pivot.size > 0:
                 pivot_idx = pivot[0] + pivot_row
+                # print(f"XOR_SWAP {pivot_row} {pivot_idx}")
                 M[[pivot_row, pivot_idx]] = M[[pivot_idx, pivot_row]]
+                conflict_steps += 1  # Pivot swap
                 for i in range(rows):
                     if i != pivot_row and M[i, j] == 1:
+                        # print(f"XOR_ADD {i} {pivot_row}")
                         M[i, :] = (M[i, :] + M[pivot_row, :]) % 2
+                        conflict_steps += 1  # Row elimination
                 pivot_row += 1
 
+    # Rank computation operations
     rank_A = np.sum(np.any(M[:, :-1], axis=1))
+    rank_ops += rows  # Checking each row for non-zero
     rank_aug = np.sum(np.any(M, axis=1))
+    rank_ops += rows  # Checking each augmented row
     inconsistent = any(np.all(M[i, :-1] == 0) and M[i, -1] == 1 for i in range(rows))
+    rank_ops += rows  # Checking for inconsistency
 
     return {
         "result": "unsat" if inconsistent else "sat",
         "rank_A": int(rank_A),
         "rank_aug": int(rank_aug),
         "rank_gap": int(rank_aug - rank_A),
+        "conflict_steps": conflict_steps,
+        "rank_ops": rank_ops,
     }
 
 # --- Fast Receipt Harness ---

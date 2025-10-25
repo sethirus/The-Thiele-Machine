@@ -34,6 +34,10 @@ class Opcode(Enum):
     MDLACC = 0x05
     EMIT = 0x06
     XFER = 0x07
+    XOR_LOAD = 0x08
+    XOR_ADD = 0x09
+    XOR_SWAP = 0x0A
+    XOR_RANK = 0x0B
 
 
 def encode(op: Opcode, a: int = 0, b: int = 0) -> bytes:

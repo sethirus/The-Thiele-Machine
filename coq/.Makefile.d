@@ -55,21 +55,6 @@ p_equals_np_thiele/proof.vos p_equals_np_thiele/proof.vok p_equals_np_thiele/pro
 project_cerberus/coqproofs/Cerberus.vo project_cerberus/coqproofs/Cerberus.glob project_cerberus/coqproofs/Cerberus.v.beautified project_cerberus/coqproofs/Cerberus.required_vo: project_cerberus/coqproofs/Cerberus.v 
 project_cerberus/coqproofs/Cerberus.vio: project_cerberus/coqproofs/Cerberus.v 
 project_cerberus/coqproofs/Cerberus.vos project_cerberus/coqproofs/Cerberus.vok project_cerberus/coqproofs/Cerberus.required_vos: project_cerberus/coqproofs/Cerberus.v 
-sandboxes/EncodingMini.vo sandboxes/EncodingMini.glob sandboxes/EncodingMini.v.beautified sandboxes/EncodingMini.required_vo: sandboxes/EncodingMini.v 
-sandboxes/EncodingMini.vio: sandboxes/EncodingMini.v 
-sandboxes/EncodingMini.vos sandboxes/EncodingMini.vok sandboxes/EncodingMini.required_vos: sandboxes/EncodingMini.v 
-sandboxes/GeneratedProof.vo sandboxes/GeneratedProof.glob sandboxes/GeneratedProof.v.beautified sandboxes/GeneratedProof.required_vo: sandboxes/GeneratedProof.v sandboxes/VerifiedGraphSolver.vo
-sandboxes/GeneratedProof.vio: sandboxes/GeneratedProof.v sandboxes/VerifiedGraphSolver.vio
-sandboxes/GeneratedProof.vos sandboxes/GeneratedProof.vok sandboxes/GeneratedProof.required_vos: sandboxes/GeneratedProof.v sandboxes/VerifiedGraphSolver.vos
-sandboxes/ToyThieleMachine.vo sandboxes/ToyThieleMachine.glob sandboxes/ToyThieleMachine.v.beautified sandboxes/ToyThieleMachine.required_vo: sandboxes/ToyThieleMachine.v 
-sandboxes/ToyThieleMachine.vio: sandboxes/ToyThieleMachine.v 
-sandboxes/ToyThieleMachine.vos sandboxes/ToyThieleMachine.vok sandboxes/ToyThieleMachine.required_vos: sandboxes/ToyThieleMachine.v 
-sandboxes/VerifiedGraphSolver.vo sandboxes/VerifiedGraphSolver.glob sandboxes/VerifiedGraphSolver.v.beautified sandboxes/VerifiedGraphSolver.required_vo: sandboxes/VerifiedGraphSolver.v 
-sandboxes/VerifiedGraphSolver.vio: sandboxes/VerifiedGraphSolver.v 
-sandboxes/VerifiedGraphSolver.vos sandboxes/VerifiedGraphSolver.vok sandboxes/VerifiedGraphSolver.required_vos: sandboxes/VerifiedGraphSolver.v 
-sandboxes/AbstractPartitionCHSH.vo sandboxes/AbstractPartitionCHSH.glob sandboxes/AbstractPartitionCHSH.v.beautified sandboxes/AbstractPartitionCHSH.required_vo: sandboxes/AbstractPartitionCHSH.v 
-sandboxes/AbstractPartitionCHSH.vio: sandboxes/AbstractPartitionCHSH.v 
-sandboxes/AbstractPartitionCHSH.vos sandboxes/AbstractPartitionCHSH.vok sandboxes/AbstractPartitionCHSH.required_vos: sandboxes/AbstractPartitionCHSH.v 
 shor_primitives/Euclidean.vo shor_primitives/Euclidean.glob shor_primitives/Euclidean.v.beautified shor_primitives/Euclidean.required_vo: shor_primitives/Euclidean.v shor_primitives/Modular.vo
 shor_primitives/Euclidean.vio: shor_primitives/Euclidean.v shor_primitives/Modular.vio
 shor_primitives/Euclidean.vos shor_primitives/Euclidean.vok shor_primitives/Euclidean.required_vos: shor_primitives/Euclidean.v shor_primitives/Modular.vos
@@ -133,3 +118,9 @@ thielemachine/coqproofs/ThieleMachineSig.vos thielemachine/coqproofs/ThieleMachi
 thielemachine/coqproofs/ThieleMachineUniv.vo thielemachine/coqproofs/ThieleMachineUniv.glob thielemachine/coqproofs/ThieleMachineUniv.v.beautified thielemachine/coqproofs/ThieleMachineUniv.required_vo: thielemachine/coqproofs/ThieleMachineUniv.v 
 thielemachine/coqproofs/ThieleMachineUniv.vio: thielemachine/coqproofs/ThieleMachineUniv.v 
 thielemachine/coqproofs/ThieleMachineUniv.vos thielemachine/coqproofs/ThieleMachineUniv.vok thielemachine/coqproofs/ThieleMachineUniv.required_vos: thielemachine/coqproofs/ThieleMachineUniv.v 
+thielemachine/coqproofs/Separation.vo thielemachine/coqproofs/Separation.glob thielemachine/coqproofs/Separation.v.beautified thielemachine/coqproofs/Separation.required_vo: thielemachine/coqproofs/Separation.v 
+thielemachine/coqproofs/Separation.vio: thielemachine/coqproofs/Separation.v 
+thielemachine/coqproofs/Separation.vos thielemachine/coqproofs/Separation.vok thielemachine/coqproofs/Separation.required_vos: thielemachine/coqproofs/Separation.v 
+thieleuniversal/coqproofs/ThieleUniversal.vo thieleuniversal/coqproofs/ThieleUniversal.glob thieleuniversal/coqproofs/ThieleUniversal.v.beautified thieleuniversal/coqproofs/ThieleUniversal.required_vo: thieleuniversal/coqproofs/ThieleUniversal.v 
+thieleuniversal/coqproofs/ThieleUniversal.vio: thieleuniversal/coqproofs/ThieleUniversal.v 
+thieleuniversal/coqproofs/ThieleUniversal.vos thieleuniversal/coqproofs/ThieleUniversal.vok thieleuniversal/coqproofs/ThieleUniversal.required_vos: thieleuniversal/coqproofs/ThieleUniversal.v 

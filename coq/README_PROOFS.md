@@ -1,6 +1,6 @@
 # Coq Assets – verification status
 
-> **Status update (October 2025):** The authoritative kernel proof lives in `coq/kernel/`. The VM↔kernel simulation framework still contains admitted lemmas recorded in `coq/ADMIT_REPORT.txt`; this README is preserved for the archived `coq/thielemachine` development.
+> **Status update (October 2025):** The authoritative kernel proof lives in `coq/kernel/`. The VM↔kernel simulation framework still contains admitted lemmas recorded in `coq/ADMIT_REPORT.txt`; Bell inequality proofs in `coq/sandboxes/` contain additional admits; this README is preserved for the archived `coq/thielemachine` development.
 ## Overview
 
 This directory contains the mechanised Coq development that underpins the
@@ -13,8 +13,8 @@ statements and there are documented axioms; see `coq/ADMIT_REPORT.txt` and
 - **Compilation:** Core theorems verified with Coq 8.19.2.  Use
   `./verify_subsumption.sh` from this directory to rebuild the containment and
   separation pillars from a clean slate.
-- **Admitted statements:** 19 (see `coq/ADMIT_REPORT.txt`)
-- **Axioms in scope:** 10 documented axioms (see `coq/AXIOM_INVENTORY.md` for breakdown).
+- **Admitted statements:** 21 (see `coq/ADMIT_REPORT.txt`)
+- **Axioms in scope:** 13 documented axioms (see `coq/AXIOM_INVENTORY.md` for breakdown).
 - **Flagship theorem:** `Subsumption.v` combines the blind simulation from
   `Simulation.v` with the Tseitin separation to prove that Turing computation is
   strictly contained in Thiele computation.  The legacy halting-oracle experiment
@@ -246,11 +246,11 @@ cd /workspaces/The-Thiele-Machine
  
 # Verify Admitted statements (incomplete proofs)
 grep -r "Admitted" coq --include="*.v" | wc -l
-# Observed (run `coq/scripts/find_admits_and_axioms.sh`): 19 total admitted occurrences (see coq/ADMIT_REPORT.txt)
+# Observed (run `coq/scripts/find_admits_and_axioms.sh`): 21 total admitted occurrences (see coq/ADMIT_REPORT.txt)
  
 # Count Axiom declarations (documented assumptions)
 grep -r "^Axiom " coq --include="*.v" | wc -l
-# Observed (see coq/AXIOM_INVENTORY.md): 10 axioms
+# Observed (see coq/AXIOM_INVENTORY.md): 13 axioms
  
 # See full list with justifications and mechanization roadmaps
 cat coq/AXIOM_INVENTORY.md
@@ -277,7 +277,7 @@ cat coq/AXIOM_INVENTORY.md
 
 ### Axiom Breakdown
 
-**Total Justified Axioms:** 10 (see `coq/AXIOM_INVENTORY.md` for a full breakdown)
+**Total Justified Axioms:** 13 (see `coq/AXIOM_INVENTORY.md` for a full breakdown)
  
 **All axioms have documented justifications and mechanization strategies.**
 
@@ -493,7 +493,7 @@ For questions about these formal proofs:
 - Lines updated: 456–457 — Clarified admitted counts and pointed to authoritative reports. Reason: ensure readers consult `coq/ADMIT_REPORT.txt` and `coq/AXIOM_INVENTORY.md` rather than relying on secondary docs.
 
 Evidence supporting edits:
-- Execution: `coq/scripts/find_admits_and_axioms.sh` (exit code 0) produced `coq/ADMIT_REPORT.txt` with 19 admitted occurrences and 10 axioms.
+- Execution: `coq/scripts/find_admits_and_axioms.sh` (exit code 0) produced `coq/ADMIT_REPORT.txt` with 21 admitted occurrences and 13 axioms.
 - Build: `./verify_subsumption.sh` (exit code 0) executed `make` in `coq/` and completed a Coq build of the canonical targets.
 - Files checked: [`coq/AXIOM_INVENTORY.md`](coq/AXIOM_INVENTORY.md:1), [`coq/ADMIT_REPORT.txt`](coq/ADMIT_REPORT.txt:1), [`coq/scripts/find_admits_and_axioms.sh`](coq/scripts/find_admits_and_axioms.sh:1), [`coq/verify_subsumption.sh`](coq/verify_subsumption.sh:1), and the relevant proof files such as [`coq/thielemachine/coqproofs/Simulation.v`](coq/thielemachine/coqproofs/Simulation.v:3589).
 

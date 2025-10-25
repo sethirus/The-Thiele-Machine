@@ -1,12 +1,12 @@
 # Thiele CPU Hardware Test Report
 
-Generated: 2025-09-29 09:56:05
+Generated: 2025-10-25 00:07:03
 
 ## Test Results
 
 ### Simulation Status
-- **Simulation**: Failed
-- **Validation**: Failed
+- **Simulation**: Passed
+- **Validation**: Passed
 - **Synthesis Files**: Complete
 
 ### Hardware Specifications
@@ -41,19 +41,21 @@ Generated: 2025-09-29 09:56:05
 
 ## Files Tested
 
-- `constraints.xdc`
-- `lei.v`
 - `mau.v`
-- `mmu.v`
-- `pee.v`
+- `thiele_cpu_tb.vvp`
+- `thiele_cpu_tb`
+- `simulation_output.log`
 - `README.md`
+- `pee.v`
 - `simulate.do`
 - `simulate.tcl`
-- `synthesis.tcl`
-- `synthesis_report.md`
-- `test_hardware.py`
 - `test_report.md`
+- `lei.v`
+- `synthesis.tcl`
+- `constraints.xdc`
+- `test_hardware.py`
 - `thiele_cpu.v`
-- `thiele_cpu_tb`
+- `mmu.v`
+- `synthesis_report.md`
 - `thiele_cpu_tb.v`
 - `thiele_cpu_tb_compiled`

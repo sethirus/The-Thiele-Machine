@@ -26,13 +26,13 @@ fi
 
 echo
 echo "3. Checking for axioms..."
-AXIOM_COUNT=$(grep -c "^Axiom " thieleuniversal/coqproofs/ThieleUniversal.v)
+AXIOM_COUNT=$(grep -c "^Axiom " thieleuniversal/coqproofs/ThieleUniversal.v || true)
 echo "   Found $AXIOM_COUNT axioms"
 
-if [ "$AXIOM_COUNT" -eq 3 ]; then
-    echo "   ✅ Expected count (3)"
+if [ "$AXIOM_COUNT" -eq 0 ]; then
+    echo "   ✅ Expected count (0)"
 else
-    echo "   ⚠️  Expected 3, found $AXIOM_COUNT"
+    echo "   ⚠️  Expected 0, found $AXIOM_COUNT"
 fi
 
 echo
@@ -60,7 +60,7 @@ echo "   Total lines: $LINE_COUNT"
 
 echo
 echo "6. Listing axioms..."
-grep -n "^Axiom " thieleuniversal/coqproofs/ThieleUniversal.v
+grep -n "^Axiom " thieleuniversal/coqproofs/ThieleUniversal.v || true
 
 echo
 echo "======================================"
