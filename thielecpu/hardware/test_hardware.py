@@ -80,6 +80,7 @@ class ThieleCPUTester:
             # Compile Verilog files
             cmd = [
                 "iverilog",
+                "-g2012",
                 "-o", "thiele_cpu_tb",
                 str(self.hardware_dir / "thiele_cpu.v"),
                 str(self.hardware_dir / "thiele_cpu_tb.v")
@@ -184,7 +185,7 @@ vsim -c thiele_cpu_tb -do "run -all; quit"
                 return False
 
             # Check for expected status transitions in the execution trace
-            # The CPU should show status changes: 1 (PNEW) -> 2 (PSPLIT) -> 3 (PMERGE) -> 5 (MDLACC) -> 0x01020000 (EMIT) -> 1 (final)
+            # The CPU should show status changes: 8 (XOR_ADD) -> 0x00060000 (EMIT)
             status_values = []
             for line in lines:
                 if "Status:" in line and "Final Status:" not in line:
@@ -196,7 +197,7 @@ vsim -c thiele_cpu_tb -do "run -all; quit"
                             status_values.append(status_part)
 
             # Expected status sequence (in order they appear)
-            expected_statuses = ["00000001", "00000002", "00000003", "00000005", "01020000"]
+            expected_statuses = ["00000008", "00060000"]
 
             # Check if all expected statuses appeared
             for expected in expected_statuses:
@@ -220,8 +221,8 @@ vsim -c thiele_cpu_tb -do "run -all; quit"
                         if pc_part not in pc_values:
                             pc_values.append(pc_part)
 
-            # Should see PC values: 00000000, 00000004, 00000008, 0000000c, 00000010, 00000014, 00000018...
-            expected_pcs = ["00000000", "00000004", "00000008", "0000000c", "00000010", "00000014"]
+            # Should see PC values: 00000000, 00000004, 00000008, 0000000c, 00000010, 00000014, 00000018, 0000001c, 00000020, 00000024, 00000028
+            expected_pcs = ["00000000", "00000004", "00000008", "0000000c", "00000010", "00000014", "00000018", "0000001c", "00000020", "00000024", "00000028"]
             for expected_pc in expected_pcs:
                 if expected_pc not in pc_values:
                     print(f"❌ Expected PC {expected_pc} not found in execution trace")

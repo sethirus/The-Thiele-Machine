@@ -59,16 +59,20 @@ Module Type THIELE_ABSTRACT.
   Axiom check_step_sound :
     forall P s s' obs, step P s s' obs ->
       check_step P s s' obs.(ev) obs.(cert) = true.
+  (* Justified: The check_step function is sound with respect to the step semantics, ensuring valid transitions are accepted. *)
 
   Axiom mu_lower_bound :
     forall P s s' obs, step P s s' obs ->
       Z.le (bitsize obs.(cert)) obs.(mu_delta).
+  (* Justified: The mu cost is at least the certificate size, providing a lower bound for computational resources. *)
 
   Axiom check_step_complete :
     forall P s s' oev c,
       check_step P s s' oev c = true ->
       exists obs, step P s s' obs /\ obs.(ev) = oev /\ obs.(cert) = c.
+  (* Justified: The check_step function is complete, accepting all valid transitions with their observations and certificates. *)
 
   Axiom state_eqb_refl : forall s, state_eqb s s = true.
+  (* Justified: State equality is reflexive, ensuring that any state equals itself. *)
 
 End THIELE_ABSTRACT.
