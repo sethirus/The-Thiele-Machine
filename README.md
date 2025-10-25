@@ -16,12 +16,15 @@ The Thiele Machine demonstrates exponential performance gains on structured prob
 | 16              | 133.3                  | 24.0                    | 0.595                     |
 | 18              | 172.0                  | 27.0                    | 0.758                     |
 
-**Figure: Blind vs Sighted Scaling on Tseitin Problems**
-<p align="center">
-  <img src="experiments/tseitin_analysis_plots.png" alt="4-up analysis plots: blind scaling, sighted scaling, cost ratio, runtime correlation" width="800"/>
-</p>
+**Reproducing the plots.** The repository ships the full experiment harness; to regenerate the four-up plot locally (emitting a text-based `.svg` instead of a binary `.png`), run:
 
-This table and figure demonstrate the core claim: structure-blind solvers pay exponentially increasing costs, while structure-aware partitioners maintain efficiency. The ratio grows with problem size, confirming the computational value of perceiving hidden structure.
+```sh
+python run_partition_experiments.py --problem tseitin --partitions 6 8 10 12 14 16 18 --seed-grid 0 1 2 --repeat 3 --emit-receipts --save-outputs --experiment-name full --plot-format svg
+```
+
+The command saves deterministic receipts, reports, and plots beneath `experiments/<timestamp>_full/`, including `tseitin_analysis_plots.svg`, which mirrors the figure discussed in reviews while remaining diffable.
+
+This table and the reproducible plot demonstrate the core claim: structure-blind solvers pay exponentially increasing costs, while structure-aware partitioners maintain efficiency. The ratio grows with problem size, confirming the computational value of perceiving hidden structure.
 
 **Audit note (Coq mechanisation):** For clarity, the Coq development currently contains a bounded set of admitted lemmas and declared axioms. See `coq/ADMIT_REPORT.txt` for a machine-readable summary (currently: 19 Admitted occurrences, 10 Axiom declarations) and `coq/AXIOM_INVENTORY.md` for the authoritative axiom list. Where a README statement depends on an admitted lemma or an axiom, an inline callout now points the reader to these reports.
 
