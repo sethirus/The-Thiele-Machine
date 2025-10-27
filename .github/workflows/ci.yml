@@ -65,3 +65,38 @@ jobs:
         with:
           name: experiment-results
           path: experiments/
+
+  as-above-so-below-coq:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: coq-community/setup-coq@v1
+        with:
+          opam-depext: false
+          coq-version: '8.18.0'
+      - name: Build As Above, So Below Coq proofs
+        run: |
+          coqc -Q theory theory theory/Genesis.v
+          coqc -Q theory theory theory/Core.v
+          coqc -Q theory theory theory/PhysRel.v
+          coqc -Q theory theory theory/LogicToPhysics.v
+          coqc -Q theory theory theory/WitnessIsGenesis.v
+          coqc -Q theory theory theory/CostIsComplexity.v
+          coqc -Q theory theory theory/Separation.v
+          coqc -Q theory theory theory/NoFreeLunch.v
+
+  as-above-so-below-python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install project dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install -e .
+      - name: Execute Ouroboros witness and verifier
+        run: |
+          python3 ouroboros/logos.py --anchor "ci:${{ github.run_id }}:${{ github.run_attempt }}"
+          python3 scripts/verify.py
