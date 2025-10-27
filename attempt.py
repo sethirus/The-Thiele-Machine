@@ -1509,7 +1509,8 @@ def run_single_experiment(params):
             "instance": {
                 "matrix": [row for row, _ in instance["xor_rows"]],
                 "parity": [rhs for _, rhs in instance["xor_rows"]]
-            }
+            },
+            "cnf_clauses": instance["cnf_clauses"],
         }
         stop_worker_heartbeat.set()
         heartbeat_thread.join(timeout=2)
