@@ -15,14 +15,8 @@ if [ -f "$REPO_ROOT/.coq-env" ]; then
 fi
 
 if ! command -v coqc >/dev/null 2>&1; then
-  if [ -x "$REPO_ROOT/scripts/setup_coq_toolchain.sh" ]; then
-    echo "Coq compiler not found; bootstrapping local toolchain via scripts/setup_coq_toolchain.sh" >&2
-    "$REPO_ROOT/scripts/setup_coq_toolchain.sh"
-    if [ -f "$REPO_ROOT/.coq-env" ]; then
-      # shellcheck disable=SC1090
-      source "$REPO_ROOT/.coq-env"
-    fi
-  fi
+  echo "Coq compiler not found; installing via apt" >&2
+  sudo apt-get update && sudo apt-get install -y coq
 fi
 
 if ! command -v coqc >/dev/null 2>&1; then
