@@ -39,6 +39,85 @@ from thielecpu.mu import calculate_mu_cost, question_cost_bits, information_gain
 RESULTS_DIR = Path("experiments")
 RESULTS_DIR.mkdir(exist_ok=True)
 
+
+def _evaluate_clause(clause: List[int], assignment: Dict[int, bool]) -> Optional[bool]:
+    value = False
+    undecided = False
+    for lit in clause:
+        var = abs(lit)
+        if var in assignment:
+            lit_val = assignment[var]
+            if lit < 0:
+                lit_val = not lit_val
+            if lit_val:
+                return True
+        else:
+            undecided = True
+    return None if undecided else value
+
+
+def _clauses_status(clauses: List[List[int]], assignment: Dict[int, bool]) -> Optional[bool]:
+    undecided = False
+    for clause in clauses:
+        val = _evaluate_clause(clause, assignment)
+        if val is False:
+            return False
+        if val is None:
+            undecided = True
+    return True if not undecided else None
+
+
+def generate_blind_trace(clauses: List[List[int]], trace_path: Path) -> Dict[str, Any]:
+    """Generate a deterministic blind-search trace for the given CNF."""
+
+    variables = sorted({abs(lit) for clause in clauses for lit in clause})
+    assignment: Dict[int, bool] = {}
+    trace: List[Dict[str, Any]] = []
+    decisions = 0
+    conflicts = 0
+    backtracks = 0
+
+    def dfs(depth: int) -> bool:
+        nonlocal decisions, conflicts, backtracks
+        status = _clauses_status(clauses, assignment)
+        if status is False:
+            conflicts += 1
+            trace.append({"type": "conflict", "depth": depth})
+            return False
+        if status is True:
+            return True
+
+        unassigned = [v for v in variables if v not in assignment]
+        if not unassigned:
+            return False
+        var = unassigned[0]
+
+        for value in (True, False):
+            decisions += 1
+            assignment[var] = value
+            trace.append({"type": "decide", "var": var, "value": value, "depth": depth})
+            if dfs(depth + 1):
+                return True
+            trace.append({"type": "backtrack", "var": var, "value": value, "depth": depth})
+            backtracks += 1
+            assignment.pop(var, None)
+        return False
+
+    sat = dfs(0)
+
+    payload = {
+        "status": "sat" if sat else "unsat",
+        "variables": variables,
+        "decisions": decisions,
+        "conflicts": conflicts,
+        "backtracks": backtracks,
+        "trace": trace,
+    }
+
+    trace_path.parent.mkdir(parents=True, exist_ok=True)
+    trace_path.write_text(json.dumps(payload, indent=2))
+    return payload
+
 def get_experiment_dir(experiment_name: str) -> Path:
     """Create and return a timestamped experiment directory."""
     timestamp = time.strftime("%Y%m%d_%H%M%S")
@@ -46,12 +125,15 @@ def get_experiment_dir(experiment_name: str) -> Path:
     exp_dir.mkdir(exist_ok=True)
     return exp_dir
 
-def run_tseitin_experiments(partitions: List[int], repeat: int, seed_grid: Optional[List[int]] = None, 
-                           emit_receipts: bool = False, mispartition: bool = False, 
+def run_tseitin_experiments(partitions: List[int], repeat: int, seed_grid: Optional[List[int]] = None,
+                           emit_receipts: bool = False, mispartition: bool = False,
                            shuffle_constraints: bool = False, noise: Optional[float] = None,
-                           budget_seconds: Optional[int] = None, exp_dir: Path = RESULTS_DIR) -> List[Dict[str, Any]]:
+                           budget_seconds: Optional[int] = None, exp_dir: Path = RESULTS_DIR,
+                           trace_dir: Optional[Path] = None) -> List[Dict[str, Any]]:
     """Run Tseitin experiments for given partition levels (n values)."""
     results = []
+    trace_directory = trace_dir or (exp_dir / "traces")
+    trace_directory.mkdir(parents=True, exist_ok=True)
     seeds = seed_grid if seed_grid else list(range(repeat))
     for n in partitions:
         if n % 2 != 0:
@@ -62,6 +144,18 @@ def run_tseitin_experiments(partitions: List[int], repeat: int, seed_grid: Optio
             params = (n, seed, 100_000 if budget_seconds is None else int(budget_seconds * 100_000), 5_000_000 if budget_seconds is None else int(budget_seconds * 5_000_000), 123456789, mispartition, shuffle_constraints, noise)
             result = run_single_experiment(params)
             if result:
+                trace_path = trace_directory / f"trace_n{n}_seed{seed}.json"
+                trace_info = generate_blind_trace(result["cnf_clauses"], trace_path)
+
+                result['blind_trace_file'] = str(trace_path)
+                result['blind_trace_summary'] = {
+                    'status': trace_info['status'],
+                    'decisions': trace_info['decisions'],
+                    'conflicts': trace_info['conflicts'],
+                    'backtracks': trace_info['backtracks'],
+                    'variables': len(trace_info['variables']),
+                }
+
                 # Add calculated μ metrics
                 num_vars = result.get('n', 0) * 3 // 2  # Approximate for 3-regular graph
                 before = 2 ** num_vars if num_vars < 60 else float('inf')  # Avoid overflow
