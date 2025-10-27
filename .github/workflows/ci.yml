@@ -70,9 +70,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: coq-community/setup-coq-action@v1
+      - uses: erikmd/docker-coq-action@v1
         with:
-          coq-version: '8.18.0'
+          coq_version: '8.18.0'
       - name: Build As Above, So Below Coq proofs
         run: |
           coqc -Q theory theory theory/Genesis.v
