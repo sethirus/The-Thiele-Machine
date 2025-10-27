@@ -29,6 +29,14 @@ shape_of_truth_out/
 TSP_SOLUTION/
 tsp_work/
 
+# Experiment output directories (any name ending with _output)
+*_output/
+
+# Temporary and runtime output directories
+tmp/
+temp/
+*.tmp
+
 # Keep canonical receipts tracked in the repository (they are part of the artifact)
 !receipts/
 figures/
@@ -56,13 +64,22 @@ certificates/
 # Ignore all files in the drips directory
 /drips/
 
-# Generated artifacts
-documents/compositional_primitive.pdf
+# Generated proofpacks and reports
+proofpack*.tar.gz
+*report.jsonl
+break_report.jsonl
 
-# Runtime key material (committed deterministic key for reproducibility)
+# Runtime and temp directories
+runtime/
+temp/
 
 # Editable install metadata
 thiele_verify.egg-info/
 # Thiele Machine — As Above, So Below additions
 WITNESS.jsonl
 ouroboros/witness_in_potentia.py
+
+# Generated proofpacks and reports
+*.tar.gz
+*report.jsonl
+break_report.jsonl
