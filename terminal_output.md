@@ -90,7 +90,7 @@ Composite orientation matches intended net rotation (order-invariant).
 --------------------------------------------------------------------------------
 DEMO 2 — Sudoku: A Single Point in Constraint Space
 --------------------------------------------------------------------------------
-Compose (Thiele) result: sat, witness_hash=ea2c5c6923d13ecd48a13962c9fec7515ab4b8344637007749015d5fdca63330
+Compose (Thiele) result: sat, witness_hash=fdafaca04b6992290f1d9cb1243eb1e9459810caaa9c802e0b23a4ad0936676c
 A von Neumann machine must trace a path, which is inherently order-dependent:
   Trace path hash (seed 1): 0683dddb9b85a0212672408b3358ed45d08a694d589cfd476dc069df7f786d36
   Trace path hash (seed 2): d95484cedf775bee635ccc3bb8dce08bccc2fe5055ff96ed289cacd1755b4a1a
@@ -150,9 +150,9 @@ ARTICLE 2 — The Universal Ledger of NUSD
 --------------------------------------------------------------------------------
 | Approach            | Result           | Time Cost (s) | NUSD Paid (bits) |
 |---------------------|------------------|---------------|------------------|
-| blind solver         | UNSAT (Failure)  | 0.00034       | 1 (Implicit)     |
-| partition-aware solver   | SAT (Success)    | 0.00117       | 0                |
-| Engine of Discovery | SAT (Discovered) | 0.21514       | 0                |
+| blind solver         | UNSAT (Failure)  | 0.00026       | 1 (Implicit)     |
+| partition-aware solver   | SAT (Success)    | 0.00130       | 0                |
+| Engine of Discovery | SAT (Discovered) | 0.03109       | 0                |
 
 The Ledger is clear. Blindness is fast and wrong. Sight is more expensive but correct.
 Discovery is the price paid to create the map that enables sight.
@@ -185,83 +185,83 @@ This experiment uses the advanced multiprocessing expander harness to generate
 and solve a full batch of Tseitin expander instances, collecting receipts for
 exponential separation. All results are printed below.
 
-[2025-10-25 00:15:22] [PID=275093] [HOST=codespaces-76ab9a] Main experiment started.
-[2025-10-25 00:15:22] [PID=275093] [HOST=codespaces-76ab9a] Job list constructed: 50 jobs. Sample: [(10, 0, 100000, 5000000, 123456789, None, None, None), (10, 1, 100000, 5000000, 123456789, None, None, None), (10, 2, 100000, 5000000, 123456789, None, None, None)]
-[2025-10-25 00:15:22] [PID=275093] [HOST=codespaces-76ab9a] Launching quantum logic engines... (Google-style magic)
-[2025-10-25 00:15:22] [PID=275093] [HOST=codespaces-76ab9a] Starting experiment: 50 jobs on 1 cores. Searching for truth in parallel...
-[2025-10-25 00:15:22] [PID=275093] [HOST=codespaces-76ab9a] Pool start: 1 workers, 50 jobs
-[2025-10-25 00:15:22] [PID=275093] [HOST=codespaces-76ab9a] Heartbeat:
+[2025-10-27 19:41:57] [PID=28725] [HOST=codespaces-76ab9a] Main experiment started.
+[2025-10-27 19:41:57] [PID=28725] [HOST=codespaces-76ab9a] Job list constructed: 50 jobs. Sample: [(10, 0, 100000, 5000000, 123456789, None, None, None), (10, 1, 100000, 5000000, 123456789, None, None, None), (10, 2, 100000, 5000000, 123456789, None, None, None)]
+[2025-10-27 19:41:57] [PID=28725] [HOST=codespaces-76ab9a] Launching quantum logic engines... (Google-style magic)
+[2025-10-27 19:41:57] [PID=28725] [HOST=codespaces-76ab9a] Starting experiment: 50 jobs on 1 cores. Searching for truth in parallel...
+[2025-10-27 19:41:57] [PID=28725] [HOST=codespaces-76ab9a] Pool start: 1 workers, 50 jobs
+[2025-10-27 19:41:57] [PID=28725] [HOST=codespaces-76ab9a] Heartbeat:
   - Progress: 0/50 jobs completed (+0 since last beat)
   - Interval: 0.00s
   - ETA to program finish: N/As
   - Elapsed: 0m 0s
 
-[2025-10-25 00:15:22] [PID=275093] [HOST=codespaces-76ab9a] Job 1/50 collected (elapsed: 0.16s)
-[2025-10-25 00:15:22] [PID=275093] [HOST=codespaces-76ab9a] Job 2/50 collected (elapsed: 0.16s)
-[2025-10-25 00:15:22] [PID=275093] [HOST=codespaces-76ab9a] Job 3/50 collected (elapsed: 0.16s)
-[2025-10-25 00:15:22] [PID=275093] [HOST=codespaces-76ab9a] Job 4/50 collected (elapsed: 0.16s)
-[2025-10-25 00:15:22] [PID=275093] [HOST=codespaces-76ab9a] Job 5/50 collected (elapsed: 0.16s)
-[2025-10-25 00:15:22] [PID=275093] [HOST=codespaces-76ab9a] Job 6/50 collected (elapsed: 0.16s)
-[2025-10-25 00:15:22] [PID=275093] [HOST=codespaces-76ab9a] Job 7/50 collected (elapsed: 0.25s)
-[2025-10-25 00:15:22] [PID=275093] [HOST=codespaces-76ab9a] Job 8/50 collected (elapsed: 0.25s)
-[2025-10-25 00:15:22] [PID=275093] [HOST=codespaces-76ab9a] Job 9/50 collected (elapsed: 0.25s)
-[2025-10-25 00:15:22] [PID=275093] [HOST=codespaces-76ab9a] Job 10/50 collected (elapsed: 0.25s)
-[2025-10-25 00:15:22] [PID=275093] [HOST=codespaces-76ab9a] Job 11/50 collected (elapsed: 0.25s)
-[2025-10-25 00:15:22] [PID=275093] [HOST=codespaces-76ab9a] Job 12/50 collected (elapsed: 0.26s)
-[2025-10-25 00:15:22] [PID=275093] [HOST=codespaces-76ab9a] Job 13/50 collected (elapsed: 0.37s)
-[2025-10-25 00:15:22] [PID=275093] [HOST=codespaces-76ab9a] Job 14/50 collected (elapsed: 0.37s)
-[2025-10-25 00:15:22] [PID=275093] [HOST=codespaces-76ab9a] Job 15/50 collected (elapsed: 0.37s)
-[2025-10-25 00:15:22] [PID=275093] [HOST=codespaces-76ab9a] Job 16/50 collected (elapsed: 0.37s)
-[2025-10-25 00:15:22] [PID=275093] [HOST=codespaces-76ab9a] Job 17/50 collected (elapsed: 0.37s)
-[2025-10-25 00:15:22] [PID=275093] [HOST=codespaces-76ab9a] Job 18/50 collected (elapsed: 0.37s)
-[2025-10-25 00:15:23] [PID=275093] [HOST=codespaces-76ab9a] Job 19/50 collected (elapsed: 1.45s)
-[2025-10-25 00:15:23] [PID=275093] [HOST=codespaces-76ab9a] Job 20/50 collected (elapsed: 1.45s)
-[2025-10-25 00:15:23] [PID=275093] [HOST=codespaces-76ab9a] Job 21/50 collected (elapsed: 1.45s)
-[2025-10-25 00:15:23] [PID=275093] [HOST=codespaces-76ab9a] Job 22/50 collected (elapsed: 1.46s)
-[2025-10-25 00:15:23] [PID=275093] [HOST=codespaces-76ab9a] Job 23/50 collected (elapsed: 1.46s)
-[2025-10-25 00:15:23] [PID=275093] [HOST=codespaces-76ab9a] Job 24/50 collected (elapsed: 1.46s)
-[2025-10-25 00:15:25] [PID=275093] [HOST=codespaces-76ab9a] Job 25/50 collected (elapsed: 3.57s)
-[2025-10-25 00:15:26] [PID=275093] [HOST=codespaces-76ab9a] Job 26/50 collected (elapsed: 3.58s)
-[2025-10-25 00:15:26] [PID=275093] [HOST=codespaces-76ab9a] Job 27/50 collected (elapsed: 3.58s)
-[2025-10-25 00:15:26] [PID=275093] [HOST=codespaces-76ab9a] Job 28/50 collected (elapsed: 3.58s)
-[2025-10-25 00:15:26] [PID=275093] [HOST=codespaces-76ab9a] Job 29/50 collected (elapsed: 3.58s)
-[2025-10-25 00:15:26] [PID=275093] [HOST=codespaces-76ab9a] Job 30/50 collected (elapsed: 3.58s)
-[2025-10-25 00:15:31] [PID=275093] [HOST=codespaces-76ab9a] Job 31/50 collected (elapsed: 9.30s)
-[2025-10-25 00:15:31] [PID=275093] [HOST=codespaces-76ab9a] Job 32/50 collected (elapsed: 9.30s)
-[2025-10-25 00:15:31] [PID=275093] [HOST=codespaces-76ab9a] Job 33/50 collected (elapsed: 9.30s)
-[2025-10-25 00:15:31] [PID=275093] [HOST=codespaces-76ab9a] Job 34/50 collected (elapsed: 9.30s)
-[2025-10-25 00:15:31] [PID=275093] [HOST=codespaces-76ab9a] Job 35/50 collected (elapsed: 9.30s)
-[2025-10-25 00:15:31] [PID=275093] [HOST=codespaces-76ab9a] Job 36/50 collected (elapsed: 9.30s)
-[2025-10-25 00:15:32] [PID=275093] [HOST=codespaces-76ab9a] Heartbeat:
+[2025-10-27 19:41:58] [PID=28725] [HOST=codespaces-76ab9a] Job 1/50 collected (elapsed: 0.05s)
+[2025-10-27 19:41:58] [PID=28725] [HOST=codespaces-76ab9a] Job 2/50 collected (elapsed: 0.05s)
+[2025-10-27 19:41:58] [PID=28725] [HOST=codespaces-76ab9a] Job 3/50 collected (elapsed: 0.05s)
+[2025-10-27 19:41:58] [PID=28725] [HOST=codespaces-76ab9a] Job 4/50 collected (elapsed: 0.05s)
+[2025-10-27 19:41:58] [PID=28725] [HOST=codespaces-76ab9a] Job 5/50 collected (elapsed: 0.05s)
+[2025-10-27 19:41:58] [PID=28725] [HOST=codespaces-76ab9a] Job 6/50 collected (elapsed: 0.05s)
+[2025-10-27 19:41:58] [PID=28725] [HOST=codespaces-76ab9a] Job 7/50 collected (elapsed: 0.07s)
+[2025-10-27 19:41:58] [PID=28725] [HOST=codespaces-76ab9a] Job 8/50 collected (elapsed: 0.07s)
+[2025-10-27 19:41:58] [PID=28725] [HOST=codespaces-76ab9a] Job 9/50 collected (elapsed: 0.07s)
+[2025-10-27 19:41:58] [PID=28725] [HOST=codespaces-76ab9a] Job 10/50 collected (elapsed: 0.07s)
+[2025-10-27 19:41:58] [PID=28725] [HOST=codespaces-76ab9a] Job 11/50 collected (elapsed: 0.07s)
+[2025-10-27 19:41:58] [PID=28725] [HOST=codespaces-76ab9a] Job 12/50 collected (elapsed: 0.07s)
+[2025-10-27 19:41:58] [PID=28725] [HOST=codespaces-76ab9a] Job 13/50 collected (elapsed: 0.10s)
+[2025-10-27 19:41:58] [PID=28725] [HOST=codespaces-76ab9a] Job 14/50 collected (elapsed: 0.10s)
+[2025-10-27 19:41:58] [PID=28725] [HOST=codespaces-76ab9a] Job 15/50 collected (elapsed: 0.10s)
+[2025-10-27 19:41:58] [PID=28725] [HOST=codespaces-76ab9a] Job 16/50 collected (elapsed: 0.10s)
+[2025-10-27 19:41:58] [PID=28725] [HOST=codespaces-76ab9a] Job 17/50 collected (elapsed: 0.10s)
+[2025-10-27 19:41:58] [PID=28725] [HOST=codespaces-76ab9a] Job 18/50 collected (elapsed: 0.10s)
+[2025-10-27 19:41:58] [PID=28725] [HOST=codespaces-76ab9a] Job 19/50 collected (elapsed: 0.70s)
+[2025-10-27 19:41:58] [PID=28725] [HOST=codespaces-76ab9a] Job 20/50 collected (elapsed: 0.70s)
+[2025-10-27 19:41:58] [PID=28725] [HOST=codespaces-76ab9a] Job 21/50 collected (elapsed: 0.70s)
+[2025-10-27 19:41:58] [PID=28725] [HOST=codespaces-76ab9a] Job 22/50 collected (elapsed: 0.70s)
+[2025-10-27 19:41:58] [PID=28725] [HOST=codespaces-76ab9a] Job 23/50 collected (elapsed: 0.70s)
+[2025-10-27 19:41:58] [PID=28725] [HOST=codespaces-76ab9a] Job 24/50 collected (elapsed: 0.70s)
+[2025-10-27 19:41:59] [PID=28725] [HOST=codespaces-76ab9a] Job 25/50 collected (elapsed: 1.72s)
+[2025-10-27 19:41:59] [PID=28725] [HOST=codespaces-76ab9a] Job 26/50 collected (elapsed: 1.72s)
+[2025-10-27 19:41:59] [PID=28725] [HOST=codespaces-76ab9a] Job 27/50 collected (elapsed: 1.72s)
+[2025-10-27 19:41:59] [PID=28725] [HOST=codespaces-76ab9a] Job 28/50 collected (elapsed: 1.72s)
+[2025-10-27 19:41:59] [PID=28725] [HOST=codespaces-76ab9a] Job 29/50 collected (elapsed: 1.72s)
+[2025-10-27 19:41:59] [PID=28725] [HOST=codespaces-76ab9a] Job 30/50 collected (elapsed: 1.72s)
+[2025-10-27 19:42:04] [PID=28725] [HOST=codespaces-76ab9a] Job 31/50 collected (elapsed: 6.96s)
+[2025-10-27 19:42:04] [PID=28725] [HOST=codespaces-76ab9a] Job 32/50 collected (elapsed: 6.96s)
+[2025-10-27 19:42:04] [PID=28725] [HOST=codespaces-76ab9a] Job 33/50 collected (elapsed: 6.96s)
+[2025-10-27 19:42:04] [PID=28725] [HOST=codespaces-76ab9a] Job 34/50 collected (elapsed: 6.96s)
+[2025-10-27 19:42:04] [PID=28725] [HOST=codespaces-76ab9a] Job 35/50 collected (elapsed: 6.96s)
+[2025-10-27 19:42:04] [PID=28725] [HOST=codespaces-76ab9a] Job 36/50 collected (elapsed: 6.96s)
+[2025-10-27 19:42:07] [PID=28725] [HOST=codespaces-76ab9a] Heartbeat:
   - Progress: 36/50 jobs completed (+36 since last beat)
   - Interval: 10.00s
   - ETA to program finish: N/As
   - Elapsed: 0m 10s
 
-[2025-10-25 00:15:37] [PID=275093] [HOST=codespaces-76ab9a] Job 37/50 collected (elapsed: 14.73s)
-[2025-10-25 00:15:37] [PID=275093] [HOST=codespaces-76ab9a] Job 38/50 collected (elapsed: 14.73s)
-[2025-10-25 00:15:37] [PID=275093] [HOST=codespaces-76ab9a] Job 39/50 collected (elapsed: 14.73s)
-[2025-10-25 00:15:37] [PID=275093] [HOST=codespaces-76ab9a] Job 40/50 collected (elapsed: 14.73s)
-[2025-10-25 00:15:37] [PID=275093] [HOST=codespaces-76ab9a] Job 41/50 collected (elapsed: 14.73s)
-[2025-10-25 00:15:37] [PID=275093] [HOST=codespaces-76ab9a] Job 42/50 collected (elapsed: 14.73s)
-[2025-10-25 00:15:42] [PID=275093] [HOST=codespaces-76ab9a] Heartbeat:
-  - Progress: 42/50 jobs completed (+6 since last beat)
+[2025-10-27 19:42:10] [PID=28725] [HOST=codespaces-76ab9a] Job 37/50 collected (elapsed: 12.54s)
+[2025-10-27 19:42:10] [PID=28725] [HOST=codespaces-76ab9a] Job 38/50 collected (elapsed: 12.54s)
+[2025-10-27 19:42:10] [PID=28725] [HOST=codespaces-76ab9a] Job 39/50 collected (elapsed: 12.54s)
+[2025-10-27 19:42:10] [PID=28725] [HOST=codespaces-76ab9a] Job 40/50 collected (elapsed: 12.54s)
+[2025-10-27 19:42:10] [PID=28725] [HOST=codespaces-76ab9a] Job 41/50 collected (elapsed: 12.54s)
+[2025-10-27 19:42:10] [PID=28725] [HOST=codespaces-76ab9a] Job 42/50 collected (elapsed: 12.54s)
+[2025-10-27 19:42:16] [PID=28725] [HOST=codespaces-76ab9a] Job 43/50 collected (elapsed: 18.44s)
+[2025-10-27 19:42:16] [PID=28725] [HOST=codespaces-76ab9a] Job 44/50 collected (elapsed: 18.44s)
+[2025-10-27 19:42:16] [PID=28725] [HOST=codespaces-76ab9a] Job 45/50 collected (elapsed: 18.44s)
+[2025-10-27 19:42:16] [PID=28725] [HOST=codespaces-76ab9a] Job 46/50 collected (elapsed: 18.44s)
+[2025-10-27 19:42:16] [PID=28725] [HOST=codespaces-76ab9a] Job 47/50 collected (elapsed: 18.44s)
+[2025-10-27 19:42:16] [PID=28725] [HOST=codespaces-76ab9a] Job 48/50 collected (elapsed: 18.44s)
+[2025-10-27 19:42:17] [PID=28725] [HOST=codespaces-76ab9a] Heartbeat:
+  - Progress: 48/50 jobs completed (+12 since last beat)
   - Interval: 10.00s
-  - ETA to program finish: 8.001126098632813s
+  - ETA to program finish: N/As
   - Elapsed: 0m 20s
 
-[2025-10-25 00:15:42] [PID=275093] [HOST=codespaces-76ab9a] Job 43/50 collected (elapsed: 20.57s)
-[2025-10-25 00:15:42] [PID=275093] [HOST=codespaces-76ab9a] Job 44/50 collected (elapsed: 20.57s)
-[2025-10-25 00:15:42] [PID=275093] [HOST=codespaces-76ab9a] Job 45/50 collected (elapsed: 20.57s)
-[2025-10-25 00:15:42] [PID=275093] [HOST=codespaces-76ab9a] Job 46/50 collected (elapsed: 20.57s)
-[2025-10-25 00:15:42] [PID=275093] [HOST=codespaces-76ab9a] Job 47/50 collected (elapsed: 20.57s)
-[2025-10-25 00:15:42] [PID=275093] [HOST=codespaces-76ab9a] Job 48/50 collected (elapsed: 20.57s)
-[2025-10-25 00:15:44] [PID=275093] [HOST=codespaces-76ab9a] Job 49/50 collected (elapsed: 22.45s)
-[2025-10-25 00:15:44] [PID=275093] [HOST=codespaces-76ab9a] Job 50/50 collected (elapsed: 22.45s)
-[2025-10-25 00:15:44] [PID=275093] [HOST=codespaces-76ab9a] Experiment finished in 22.45 seconds. All logic indexed!
-[2025-10-25 00:15:45] [PID=275093] [HOST=codespaces-76ab9a] Results saved to 'tseitin_receipts.json' (Now trending)
-[2025-10-25 00:15:45] [PID=275093] [HOST=codespaces-76ab9a] SHA256 of receipts file: 14f9ed7bf58bff37a55f9db263fcadd91ffff9e3f7ac1ae75baf5d22db2b7849 (Cryptographically Verified)
-[2025-10-25 00:15:45] [PID=275093] [HOST=codespaces-76ab9a] Main experiment completed in 22.82s
+[2025-10-27 19:42:18] [PID=28725] [HOST=codespaces-76ab9a] Job 49/50 collected (elapsed: 20.36s)
+[2025-10-27 19:42:18] [PID=28725] [HOST=codespaces-76ab9a] Job 50/50 collected (elapsed: 20.36s)
+[2025-10-27 19:42:18] [PID=28725] [HOST=codespaces-76ab9a] Experiment finished in 20.37 seconds. All logic indexed!
+[2025-10-27 19:42:18] [PID=28725] [HOST=codespaces-76ab9a] Results saved to 'tseitin_receipts.json' (Now trending)
+[2025-10-27 19:42:18] [PID=28725] [HOST=codespaces-76ab9a] SHA256 of receipts file: bcb8575d7b79ca6dd3f0146bcff3b4e83eb6cdc570dd33a26179b77943a61316 (Cryptographically Verified)
+[2025-10-27 19:42:18] [PID=28725] [HOST=codespaces-76ab9a] Main experiment completed in 20.79s
 
 ===============================================================================
 FINAL THEOREM & CONCLUSION
@@ -493,7 +493,7 @@ soupsieve==2.7
 stack-data==0.6.3
 sympy==1.14.0
 terminado==0.18.1
--e git+https://github.com/sethirus/The-Thiele-Machine@8cc484904458820ad80b98649093bc85930440f9#egg=thiele_verify
+-e git+https://github.com/sethirus/The-Thiele-Machine@35f0c16317c4399f2264f8a615404524946a5b5f#egg=thiele_verify
 threadpoolctl==3.6.0
 tinycss2==1.4.0
 toolz==1.0.0
@@ -512,7 +512,7 @@ websocket-client==1.8.0
 xarray==2025.7.1
 z3-solver==4.15.1.0
 
-pip freeze SHA256: c50f8f2d59ae2bd0076f89a1c9164ccfeb3634c42e1d07b1c94394245d1b04fd
+pip freeze SHA256: 0ddebcea860c313e0087eebde21a2bc8ebd7ece0ea88a217ca8a04918097b8a9
 
 === Even-Charge Control Table ===
 parity | blind_status | blind_conflicts | blind_decisions | blind_props | sighted_result | rank_gap | cert_snip
@@ -756,13 +756,13 @@ STEP 5: Construct and print the Thiele Machine's Certificate of Inherent Paradox
   7. The minimal description is the paradox itself. Conclusion.
 
 === TRANSCRIPT & SOURCE HASHES (THE OUROBOROS SEAL) ===
-Source Hash     : fab749b6c2359d5be0caa96bfe9b39dfd25b5473501909e135bb31e91fd35b41
-Transcript Hash : 17bff66f4ec07ac49c63ab3c52b7d6d5d726ca1fecf84b4ac0f0d6f84e952246
+Source Hash     : e43b0f26acc08963349d720f8dfe31718ee1a8a98e4170ed4d88698f63382e1b
+Transcript Hash : ad657dae8aa5f3bb2725f98caa34b7458ef6d32d0d93aa256c8c501d51836e19
 Python Version  : 3.12.1 (main, Jul 10 2025, 11:57:50) [GCC 13.3.0]
 OS              : linux
-Timestamp (UTC) : 2025-10-25T00:15:46Z
+Timestamp (UTC) : 2025-10-27T19:42:20Z
 Random Seed     : 123456789
-Run Signature   : 74a3fdac3c3549943bd095df98b1ea4e
+Run Signature   : ef950af61aadd12d3d42f2ed08b7b6d2
 Author          : Devon Thiele
 
 This is the meta-proof. The proof of the proof.
@@ -778,13 +778,13 @@ The artifact is its own signature, providing a self-consistent record.
     "sphere_sat": true
   },
   "hash": {
-    "source_sha256": "fab749b6c2359d5be0caa96bfe9b39dfd25b5473501909e135bb31e91fd35b41",
-    "transcript_sha256": "17bff66f4ec07ac49c63ab3c52b7d6d5d726ca1fecf84b4ac0f0d6f84e952246",
+    "source_sha256": "e43b0f26acc08963349d720f8dfe31718ee1a8a98e4170ed4d88698f63382e1b",
+    "transcript_sha256": "ad657dae8aa5f3bb2725f98caa34b7458ef6d32d0d93aa256c8c501d51836e19",
     "python_version": "3.12.1 (main, Jul 10 2025, 11:57:50) [GCC 13.3.0]",
     "os": "linux",
-    "timestamp_utc": "2025-10-25T00:15:46Z",
+    "timestamp_utc": "2025-10-27T19:42:20Z",
     "random_seed": 123456789,
-    "run_signature": "74a3fdac3c3549943bd095df98b1ea4e",
+    "run_signature": "ef950af61aadd12d3d42f2ed08b7b6d2",
     "author": "Devon Thiele"
   }
 }
