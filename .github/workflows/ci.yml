@@ -70,9 +70,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: coq-community/setup-coq@v3
+      - uses: coq-community/setup-coq-action@v1
         with:
-          opam-depext: false
           coq-version: '8.18.0'
       - name: Build As Above, So Below Coq proofs
         run: |
