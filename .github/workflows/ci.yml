@@ -70,9 +70,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: erikmd/docker-coq-action@v1
-        with:
-          coq_version: '8.18.0'
+      - name: Install Coq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y coq
       - name: Build As Above, So Below Coq proofs
         run: |
           coqc -Q theory theory theory/Genesis.v
@@ -88,9 +89,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
+      - name: Install Coq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y coq
       - name: Install project dependencies
         run: |
           python3 -m pip install --upgrade pip
