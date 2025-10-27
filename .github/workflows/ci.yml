@@ -99,7 +99,6 @@ jobs:
           pip install -e .
       - name: Execute Ouroboros witness and verifier
         run: |
-          python3 ouroboros/logos.py --anchor "ci:${{ github.run_id }}:${{ github.run_attempt }}"
           python3 scripts/verify.py
 
   verify_artifact:
