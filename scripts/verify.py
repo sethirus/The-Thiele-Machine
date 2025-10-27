@@ -1,5 +1,5 @@
 # scripts/verify.py — CI/local verification (non-interactive)
-import json, subprocess, sys, pathlib, hashlib, tempfile
+import json, subprocess, sys, pathlib, hashlib, tempfile, os
 
 repo = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(repo))
@@ -11,7 +11,11 @@ logos = repo / "ouroboros" / "logos.py"
 child = repo / "ouroboros" / "witness_in_potentia.py"
 wjson = repo / "WITNESS.jsonl"
 
-anchor = "ci:as-above-so-below"
+run_id = os.environ.get('GITHUB_RUN_ID', 'as-above-so-below')
+attempt = os.environ.get('GITHUB_RUN_ATTEMPT', '')
+anchor = f"ci:{run_id}"
+if attempt:
+    anchor += f":{attempt}"
 
 out = subprocess.run([sys.executable, str(logos), "--anchor", anchor],
                      capture_output=True, text=True, check=True).stdout
