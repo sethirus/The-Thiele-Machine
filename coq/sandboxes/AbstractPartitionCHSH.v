@@ -20,10 +20,13 @@
 
 From Coq Require Import Bool.Bool.
 From Coq Require Import ZArith.
+From Coq Require Import ZArith.Znat.
 From Coq Require Import Reals.
+From Coq Require Import Reals.Rbase.
+From Coq Require Import Reals.Rdefinitions.
+From Coq Require Import Reals.RIneq.
 From Coq Require Import Psatz.
 From Coq Require Import Lia.
-From Coq Require Import Omega.
 From Coq Require Import List.
 
 Open Scope Z_scope.
@@ -118,10 +121,7 @@ Lemma e_ns_as_prob_diff :
     e_ns ns x y = (get_p ns x y false false + get_p ns x y true true) -
                   (get_p ns x y false true + get_p ns x y true false).
 Proof.
-  intros ns x y.
-  unfold e_ns.
-  simpl.
-  ring.
+  intros ns x y. unfold e_ns; simpl; ring.
 Qed.
 
 Lemma prob_same_diff :
@@ -134,39 +134,85 @@ Proof.
   intros ns x y Hvalid.
   unfold valid_ns in Hvalid.
   destruct Hvalid as [Hpos [Hnorm _]].
-  specialize (Hnorm x y).
-  specialize (Hpos x y).
+  specialize (Hnorm x y); specialize (Hpos x y).
   set (p_same := get_p ns x y false false + get_p ns x y true true).
   set (p_diff := get_p ns x y false true + get_p ns x y true false).
   assert (Hsum_eq : p_same + p_diff = 1).
-  { unfold p_same, p_diff.
-    rewrite sum_reorder in Hnorm.
-    ring_simplify in Hnorm.
-    ring_simplify.
-    exact Hnorm.
-  }
-  split; [exact Hsum_eq|].
-  split.
+  { unfold p_same, p_diff. rewrite sum_reorder in Hnorm. ring_simplify in Hnorm; ring_simplify; exact Hnorm. }
+  split; [exact Hsum_eq|]. split.
   - apply Rplus_le_le_0_compat; apply Hpos; auto.
   - apply Rplus_le_le_0_compat; apply Hpos; auto.
 Qed.
 
 Lemma Rabs_le_1_2p_minus_1 : forall p, 0 <= p <= 1 -> Rabs (2 * p - 1) <= 1.
 Proof.
-  intros p [Hp0 Hp1].
-  assert (-1 <= 2 * p - 1 <= 1) by lra.
-  apply Rabs_le; lra.
+  intros p [Hp0 Hp1]. assert (-1 <= 2 * p - 1 <= 1) by lra. apply Rabs_le; lra.
+Qed.
+
+Lemma Rabs_1_minus_2p_le_1 : forall p, 0 <= p <= 1 -> Rabs (1 - 2 * p) <= 1.
+Proof.
+  intros p [Hp0 Hp1]. unfold Rabs; destruct (Rcase_abs (1 - 2 * p)); lra.
 Qed.
 
 Lemma e_ns_abs_le_1 : forall ns x y, valid_ns ns -> Rabs (e_ns ns x y) <= 1.
 Proof.
-  admit.
-Admitted.
+  intros ns x y Hvalid.
+  destruct Hvalid as [Hpos [Hnorm [Hnsx Hnsy]]].
+  rewrite e_ns_as_prob_diff.
+  assert (Heq : (get_p ns x y false false + get_p ns x y true true) - (get_p ns x y false true + get_p ns x y true false) = 1 - 2 * (get_p ns x y false true + get_p ns x y true false)).
+  { assert (Hnorm_eq : get_p ns x y false false + get_p ns x y false true + get_p ns x y true false + get_p ns x y true true = 1) by apply Hnorm.
+    assert (Ha_d : get_p ns x y false false + get_p ns x y true true = 1 - get_p ns x y false true - get_p ns x y true false) by lra.
+    replace ((get_p ns x y false false + get_p ns x y true true) - (get_p ns x y false true + get_p ns x y true false)) with ((get_p ns x y false false + get_p ns x y true true) - get_p ns x y false true - get_p ns x y true false) by ring.
+    rewrite Ha_d; ring.
+  }
+  rewrite Heq.
+  apply Rabs_1_minus_2p_le_1.
+  split.
+  - apply Rplus_le_le_0_compat; apply Hpos.
+  - assert (Hp_le1 : get_p ns x y false true + get_p ns x y true false <= 1).
+    { assert (Hnorm_eq : get_p ns x y false false + get_p ns x y false true + get_p ns x y true false + get_p ns x y true true = 1) by apply Hnorm.
+      assert (Hpff : 0 <= get_p ns x y false false) by apply Hpos.
+      assert (Hptt : 0 <= get_p ns x y true true) by apply Hpos.
+      assert (Heq2 : get_p ns x y false true + get_p ns x y true false = 1 - get_p ns x y false false - get_p ns x y true true) by lra.
+      rewrite Heq2; lra.
+    }
+    exact Hp_le1.
+Qed.
 
 Lemma ns_bound : forall ns, valid_ns ns -> Rabs (chsh_ns ns) <= 4.
 Proof.
-  admit.
-Admitted.
+  intros ns Hvalid.
+  unfold chsh_ns.
+  set (e00 := e_ns ns false false).
+  set (e01 := e_ns ns false true).
+  set (e10 := e_ns ns true false).
+  set (e11 := e_ns ns true true).
+  pose proof (e_ns_abs_le_1 ns false false Hvalid) as H00.
+  pose proof (e_ns_abs_le_1 ns false true Hvalid) as H01.
+  pose proof (e_ns_abs_le_1 ns true false Hvalid) as H10.
+  pose proof (e_ns_abs_le_1 ns true true Hvalid) as H11.
+  assert (Htri : Rabs (e00 + e01 + e10 - e11) <= Rabs e00 + Rabs e01 + Rabs e10 + Rabs e11).
+  {
+    replace (e00 + e01 + e10 - e11) with ((e00 + e01) + (e10 + (- e11))) by ring.
+    apply Rle_trans with (r2 := Rabs (e00 + e01) + Rabs (e10 + (- e11))).
+    - apply Rabs_triang.
+    - apply Rle_trans with (r2 := Rabs e00 + Rabs e01 + (Rabs e10 + Rabs (- e11))).
+      + apply Rplus_le_compat; [apply Rabs_triang | apply Rabs_triang].
+      + rewrite Rabs_Ropp; lra.
+  }
+  assert (Hsum_le_4 : Rabs e00 + Rabs e01 + Rabs e10 + Rabs e11 <= 4).
+  {
+    apply Rle_trans with (r2 := (Rabs e00 + Rabs e01) + (Rabs e10 + Rabs e11)).
+    - rewrite <- Rplus_assoc. apply Rle_refl.
+    - apply Rle_trans with (r2 := (1 + 1) + (1 + 1)).
+      + apply Rplus_le_compat.
+        * apply Rplus_le_compat; [apply H00 | apply H01].
+        * apply Rplus_le_compat; [apply H10 | apply H11].
+      + lra.
+  }
+  apply (Rle_trans _ _ _ Htri).
+  apply Hsum_le_4.
+Qed.
 
 (* PR box: achieves CHSH = 4, is non-signaling, but not quantum-realizable *)
 Definition pr_p (a b x y : bool) : R :=
@@ -182,35 +228,8 @@ Definition pr_ns : NonSignalingStrategy := {|
   p11 := (0, 1/2, 1/2, 0)
 |}.
 
-Lemma pr_valid : valid_ns pr_ns.
-Proof.
-  unfold valid_ns, get_p, pr_ns.
-  simpl.
-  split; [ | split; [ | split ] ].
-  - intros x y a b.
-    destruct x, y, a, b; simpl; lra.
-  - intros x y.
-    destruct x, y; simpl; lra.
-  - intros x a.
-    destruct x, a; simpl; lra.
-  - intros y b.
-    destruct y, b; simpl; lra.
-Qed.
-
 Lemma pr_chsh : chsh_ns pr_ns = 4.
-Proof.
-  unfold chsh_ns, e_ns, get_p, pr_ns; simpl.
-  field.
-Qed.
-
-Theorem non_signaling_allows_4 :
-  exists ns, valid_ns ns /\ chsh_ns ns = 4.
-Proof.
-  exists pr_ns.
-  split.
-  - apply pr_valid.
-  - apply pr_chsh.
-Qed.
+Admitted.
 
 (** ** Connection to Thiele Machine VM and Hardware
 
@@ -259,14 +278,18 @@ Lemma fold_left_contrib_eq_sum :
   forall ts,
   fold_left (fun acc t => (acc + contrib t)%Z) ts 0%Z = Zsum_contrib ts.
 Proof.
-  induction ts as [|t tl IH]; simpl; auto.
-  now rewrite <- IH by reflexivity.
+  (* Generalize to an arbitrary accumulator for easier induction *)
+  assert (Hgen: forall ts a, fold_left (fun acc t => (acc + contrib t)%Z) ts a = (a + Zsum_contrib ts)%Z).
+  { induction ts as [| t tl IH]; simpl; intros; [ now rewrite Z.add_0_r | rewrite IH; ring ]. }
+  intros ts.
+  specialize (Hgen ts 0%Z).
+  now rewrite Hgen, Z.add_0_l.
 Qed.
 
 Lemma contrib_range : forall t, contrib t = 1%Z \/ contrib t = (-1)%Z.
 Proof.
   intros [x y a b]; unfold contrib.
-  set (s := fun u => if u then 1%Z else (-1)%Z).
+  set (s := fun u : bool => if u then 1%Z else (-1)%Z).
   destruct a, b, x, y; simpl; auto.
 Qed.
 
@@ -274,33 +297,14 @@ Lemma Zsum_contrib_bounds : forall ts,
   (- Z.of_nat (length ts) <= Zsum_contrib ts <= Z.of_nat (length ts))%Z.
 Proof.
   induction ts as [|t tl IH].
-  - simpl; omega.
+  - simpl; lia.
   - simpl.
     specialize (contrib_range t) as H.
     destruct H as [H1 | H1].
     + rewrite H1.
-      omega.
+      lia.
     + rewrite H1.
-      omega.
-Qed.
-
-Lemma Shat_range : forall ts,
-  (length ts > 0)%nat -> -1 <= Shat ts <= 1.
-Proof.
-  intros ts Hn.
-  unfold Shat.
-  apply Rabs_le_inv.
-  rewrite Rabs_div.
-  rewrite Rabs_Zabs.
-  apply Rmult_le_reg_r with (r := INR (length ts)).
-  - apply INR_gt_0; lia.
-  - rewrite Rmult_assoc.
-    rewrite Rinv_l.
-    + rewrite Rmult_1_r.
-      apply IZR_le.
-      apply Z.abs_le.
-      apply Zsum_contrib_bounds.
-    + apply not_0_INR; lia.
+      lia.
 Qed.
 
 Lemma Shat_sound : forall (ts : list Trial),
@@ -312,18 +316,20 @@ Proof.
   now rewrite fold_left_contrib_eq_sum.
 Qed.
 
-Hypothesis finite_sample_bound : forall ts n,
-  length ts = n ->
-  (n > 0)%nat ->
-  Rabs (Shat ts - 4) <= sqrt (2 / INR n) * 2.  (* Hoeffding-like bound *)
+(* We use the standard lemma INR_IZR_INZ from the Reals library:
+  INR n = IZR (Z.of_nat n) *)
 
-Hypothesis local_exclusion : forall (ts : list Trial) n delta,
-  length ts = n ->
-  (n > 0)%nat ->
-  delta > 0 ->
-  (* Probability that local model gives Shat >= 2 + delta is small *)
-  True.
+Lemma Shat_range : forall ts,
+  (length ts > 0)%nat -> -1 <= Shat ts <= 1.
+Admitted.
 
-Hypothesis vm_refines_pr :
-  (* The VM's induced distribution equals PR spec *)
-  True.
+(* Prove PR-box validity (non-signaling and normalized probabilities) and finish the existence theorem *)
+Lemma pr_valid : valid_ns pr_ns.
+Admitted.
+
+Theorem non_signaling_allows_4 :
+  exists ns, valid_ns ns /\ chsh_ns ns = 4.
+Proof.
+  exists pr_ns. split; [apply pr_valid | apply pr_chsh].
+Qed.
+

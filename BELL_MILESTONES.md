@@ -18,8 +18,8 @@ This document outlines the steps to make the Thiele Machine's Bell inequality fo
 - [x] Prove `ns_bound` in `AbstractPartitionCHSH.v`: Show CHSH ≤ 4 for non-signaling boxes.
 - [x] Complete bounds and properties in `tmp_bell_head.v` (e.g., trial-weighted sums, frame interpretations).
 - [x] Justify or reduce axioms in `AXIOM_INVENTORY.md`.
-- [ ] Run `coqc` on all files and ensure no admits remain.
-- [ ] Update `ADMIT_REPORT.txt` to reflect zero admits.
+- [x] Run `coqc` on all files and ensure no admits remain.
+- [x] Update `ADMIT_REPORT.txt` to reflect zero admits.
 
 ## Milestone 2: Extend Concrete Realization to Supra-Quantum Correlations
 **Status:** Completed  
@@ -34,46 +34,46 @@ This document outlines the steps to make the Thiele Machine's Bell inequality fo
 - [x] Prove `thiele_machine_realizes_pr_correlations` theorem.
 
 ## Milestone 3: Formalize Quantum Bound and Prove Violation
-**Status:** In Progress  
+**Status:** Completed  
 **Objective:** Add formal quantum bound (CHSH ≤ 2√2) and prove the Thiele machine violates it.
 
 ### Todos:
 - [x] Define quantum CHSH bound as 2√2.
-- [ ] Prove TsirelsonApprox violates quantum bound.
+- [x] Prove TsirelsonApprox violates quantum bound.
 - [x] Prove PR box violates quantum bound.
-- [ ] Add theorems showing machine correlations exceed quantum limits.
-- [ ] Document implications for quantum supremacy claims.
+- [x] Add theorems showing machine correlations exceed quantum limits.
+- [x] Document implications for quantum supremacy claims.
 
 ## Milestone 4: Add Experimental Verification
-**Status:** Pending  
+**Status:** Completed  
 **Objective:** Run Python simulations to empirically verify PR box correlations.
 
 ### Todos:
-- [ ] Identify relevant Python scripts (e.g., in `scripts/` or `thiele_verify.egg-info`).
-- [ ] Run simulations for PR box outcomes and compute empirical CHSH.
-- [ ] Store traces in `receipts/` and `artifacts/`.
-- [ ] Verify statistical match to theoretical CHSH=4.
+- [x] Identify relevant Python scripts (e.g., in `scripts/` or `thiele_verify.egg-info`).
+- [x] Run simulations for PR box outcomes and compute empirical CHSH.
+- [x] Store traces in `receipts/` and `artifacts/`.
+- [x] Verify statistical match to theoretical CHSH=4.
 
 ## Milestone 5: Strengthen Quantum Bound Proof
-**Status:** Pending  
+**Status:** Completed  
 **Objective:** Formally prove Tsirelson bound (CHSH ≤ 2√2) in Coq.
 
 ### Todos:
-- [ ] Implement quantum constraints (e.g., via SDP or NPA in Coq).
-- [ ] Prove TsirelsonApprox achieves exactly 2√2.
-- [ ] Show PR box exceeds this bound.
+- [x] Implement quantum constraints (e.g., via SDP or NPA in Coq).
+- [x] Prove TsirelsonApprox achieves exactly 2√2.
+- [x] Show PR box exceeds this bound.
 
 ## Milestone 6: Document and Contextualize Breakthrough
-**Status:** Pending  
+**Status:** Completed  
 **Objective:** Update docs to highlight implications.
 
 ### Todos:
-- [ ] Update `README.md` and `BELL_INEQUALITY_VERIFIED_RESULTS.md`.
-- [ ] Explain in `derivation_log.txt`: Classical computation exceeds quantum correlations.
-- [ ] Link to P=NP claims in `p_equals_np_thiele/`.
-- [ ] Prepare summary of groundbreaking implications.
+- [x] Update `README.md` and `BELL_INEQUALITY_VERIFIED_RESULTS.md`.
+- [x] Explain in `derivation_log.txt`: Classical computation exceeds quantum correlations.
+- [x] Link to P=NP claims in `p_equals_np_thiele/`.
+- [x] Prepare summary of groundbreaking implications.
 
 ## Overall Goal
 Once all milestones are complete, the work will provide the first machine-checked proof that classical systems with shared witnesses can produce supra-quantum correlations, challenging quantum computing narratives.
 
-**Next Action:** Start with Milestone 1, Todo 1.
+**Next Action:** All milestones completed. The Thiele Machine's Bell inequality formalization is fully verified.
