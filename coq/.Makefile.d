@@ -28,6 +28,9 @@ kernel/VMStep.vos kernel/VMStep.vok kernel/VMStep.required_vos: kernel/VMStep.v 
 kernel/SimulationProof.vo kernel/SimulationProof.glob kernel/SimulationProof.v.beautified kernel/SimulationProof.required_vo: kernel/SimulationProof.v kernel/Kernel.vo kernel/KernelTM.vo kernel/KernelThiele.vo kernel/VMState.vo kernel/VMStep.vo kernel/VMEncoding.vo
 kernel/SimulationProof.vio: kernel/SimulationProof.v kernel/Kernel.vio kernel/KernelTM.vio kernel/KernelThiele.vio kernel/VMState.vio kernel/VMStep.vio kernel/VMEncoding.vio
 kernel/SimulationProof.vos kernel/SimulationProof.vok kernel/SimulationProof.required_vos: kernel/SimulationProof.v kernel/Kernel.vos kernel/KernelTM.vos kernel/KernelThiele.vos kernel/VMState.vos kernel/VMStep.vos kernel/VMEncoding.vos
+kernel/MuLedgerConservation.vo kernel/MuLedgerConservation.glob kernel/MuLedgerConservation.v.beautified kernel/MuLedgerConservation.required_vo: kernel/MuLedgerConservation.v kernel/VMState.vo kernel/VMStep.vo kernel/SimulationProof.vo
+kernel/MuLedgerConservation.vio: kernel/MuLedgerConservation.v kernel/VMState.vio kernel/VMStep.vio kernel/SimulationProof.vio
+kernel/MuLedgerConservation.vos kernel/MuLedgerConservation.vok kernel/MuLedgerConservation.required_vos: kernel/MuLedgerConservation.v kernel/VMState.vos kernel/VMStep.vos kernel/SimulationProof.vos
 modular_proofs/CornerstoneThiele.vo modular_proofs/CornerstoneThiele.glob modular_proofs/CornerstoneThiele.v.beautified modular_proofs/CornerstoneThiele.required_vo: modular_proofs/CornerstoneThiele.v 
 modular_proofs/CornerstoneThiele.vio: modular_proofs/CornerstoneThiele.v 
 modular_proofs/CornerstoneThiele.vos modular_proofs/CornerstoneThiele.vok modular_proofs/CornerstoneThiele.required_vos: modular_proofs/CornerstoneThiele.v 
