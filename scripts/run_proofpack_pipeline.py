@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from dataclasses import dataclass
 from datetime import datetime, timezone
@@ -22,8 +23,23 @@ from tools.proofpack_bundler import BundleResult, bundle_proofpack
 from experiments.turbulence import PROTOCOLS as TURBULENCE_PROTOCOLS
 from experiments.turbulence import run_dataset as run_turbulence_dataset
 
+
+@dataclass(frozen=True)
+class ProfileConfig:
+    """Structured overrides loaded from a profile configuration file."""
+
+    profile_arguments: Mapping[str, Mapping[str, Sequence[object] | object]]
+    turbulence_allowlists: Mapping[str, Tuple[str, ...]]
+
 DEFAULT_OUTPUT_ROOT = Path("artifacts") / "experiments"
 DEFAULT_SIGNING_KEY = Path("kernel_secret.key")
+TURBULENCE_ALLOWLIST_PATH = Path("experiments") / "data" / "turbulence" / "allowlist.json"
+FALLBACK_TURBULENCE_ALLOWLIST: Tuple[str, ...] = (
+    "isotropic1024_8pt",
+    "isotropic1024_12pt",
+)
+FALLBACK_TURBULENCE_EXPANDED: Tuple[str, ...] = ()
+FALLBACK_TURBULENCE_ROTATIONS: Mapping[str, Tuple[Tuple[str, ...], ...]] = {}
 LANDUAER_PROTOCOLS: Sequence[str] = ("sighted", "blind")
 EINSTEIN_PROTOCOLS: Sequence[str] = ("sighted",)
 ENTROPY_PROTOCOLS: Sequence[str] = ("sighted", "blind")
@@ -31,10 +47,84 @@ CWD_PROTOCOLS: Sequence[str] = ("sighted", "blind", "destroyed")
 CROSS_DOMAIN_PROTOCOLS: Sequence[str] = ("sighted", "blind", "destroyed")
 PUBLIC_DATA_PROTOCOLS: Sequence[str] = tuple(PUBLIC_DATA_PROTOCOLS)
 TURBULENCE_PROTOCOLS: Sequence[str] = tuple(TURBULENCE_PROTOCOLS)
-DEFAULT_TURBULENCE_DATASETS: Sequence[str] = (
-    "isotropic1024_8pt",
-    "isotropic1024_12pt",
-)
+
+
+@dataclass(frozen=True)
+class TurbulenceAllowlistConfig:
+    """Container for default, expanded, and rotation allowlists."""
+
+    default: Tuple[str, ...]
+    expanded: Tuple[str, ...]
+    rotations: Mapping[str, Tuple[Tuple[str, ...], ...]]
+
+
+def _coerce_slug_sequence(value: Sequence[object] | object, *, label: str) -> Tuple[str, ...]:
+    if not isinstance(value, Sequence) or isinstance(value, (str, bytes)):
+        raise ValueError(f"Turbulence allowlist '{label}' must be an array of dataset slugs")
+    return tuple(str(entry) for entry in value)
+
+
+def _load_turbulence_allowlist_config(
+    path: Path = TURBULENCE_ALLOWLIST_PATH,
+) -> TurbulenceAllowlistConfig:
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        return TurbulenceAllowlistConfig(
+            default=FALLBACK_TURBULENCE_ALLOWLIST,
+            expanded=FALLBACK_TURBULENCE_EXPANDED,
+            rotations=FALLBACK_TURBULENCE_ROTATIONS,
+        )
+    except json.JSONDecodeError as exc:  # pragma: no cover - defensive guard
+        raise ValueError(f"Invalid turbulence allowlist JSON: {path}") from exc
+
+    if not isinstance(data, Mapping):
+        raise ValueError("Turbulence allowlist file must contain a JSON object")
+
+    default_raw = data.get("default", FALLBACK_TURBULENCE_ALLOWLIST)
+    if isinstance(default_raw, (str, bytes)):
+        default = (str(default_raw),)
+    else:
+        default = _coerce_slug_sequence(default_raw, label="default")
+
+    expanded_raw = data.get("expanded", FALLBACK_TURBULENCE_EXPANDED)
+    if isinstance(expanded_raw, (str, bytes)):
+        expanded = (str(expanded_raw),)
+    elif expanded_raw:
+        expanded = _coerce_slug_sequence(expanded_raw, label="expanded")
+    else:
+        expanded = FALLBACK_TURBULENCE_EXPANDED
+
+    rotations_raw = data.get("rotations", FALLBACK_TURBULENCE_ROTATIONS)
+    rotations: dict[str, Tuple[Tuple[str, ...], ...]] = {}
+    if rotations_raw:
+        if not isinstance(rotations_raw, Mapping):
+            raise ValueError("Turbulence rotations must map schedule names to dataset groups")
+        for schedule, groups in rotations_raw.items():
+            if groups is None:
+                rotations[str(schedule)] = ()
+                continue
+            if isinstance(groups, (str, bytes)):
+                groups_sequence = ((groups.decode() if isinstance(groups, bytes) else groups,),)
+            else:
+                if not isinstance(groups, Sequence):
+                    raise ValueError("Rotation groups must be arrays of dataset slugs")
+                group_payload: list[Tuple[str, ...]] = []
+                for index, group in enumerate(groups):
+                    if isinstance(group, (str, bytes)):
+                        group_payload.append((group.decode() if isinstance(group, bytes) else group,))
+                    else:
+                        group_payload.append(
+                            _coerce_slug_sequence(group, label=f"rotations[{schedule}][{index}]")
+                        )
+                groups_sequence = tuple(group_payload)
+            rotations[str(schedule)] = tuple(groups_sequence)
+
+    return TurbulenceAllowlistConfig(default=default, expanded=expanded, rotations=rotations)
+
+
+DEFAULT_TURBULENCE_ALLOWLISTS = _load_turbulence_allowlist_config()
+DEFAULT_TURBULENCE_DATASETS: Sequence[str] = DEFAULT_TURBULENCE_ALLOWLISTS.default
 
 def _normalize_profile_mapping(
     mapping: Mapping[str, Mapping[str, Sequence[object] | object]]
@@ -60,6 +150,85 @@ def _normalize_profile_mapping(
             normalized_phases[str(phase_name)] = tuple(seq)
         normalized[str(profile_name)] = normalized_phases
     return normalized
+
+
+def _normalize_allowlists(
+    mapping: Mapping[str, Sequence[object] | object] | None,
+) -> dict[str, Tuple[str, ...]]:
+    if mapping is None:
+        return {}
+    if not isinstance(mapping, Mapping):
+        raise ValueError("Turbulence allowlists must map profiles to dataset slugs")
+
+    normalized: dict[str, Tuple[str, ...]] = {}
+    for profile, values in mapping.items():
+        if values is None:
+            normalized[str(profile)] = ()
+            continue
+        if isinstance(values, (str, bytes)):
+            seq = (values.decode() if isinstance(values, bytes) else values,)
+        else:
+            try:
+                seq = tuple(str(item) for item in values)  # type: ignore[arg-type]
+            except TypeError as exc:  # pragma: no cover - defensive
+                raise ValueError("Allowlist entries must be iterable") from exc
+        normalized[str(profile)] = tuple(seq)
+    return normalized
+
+
+def _derive_rotation_index(run_tag: str, created_at: str | None, schedule_length: int) -> int:
+    if schedule_length <= 0:
+        return 0
+    if created_at:
+        try:
+            timestamp = datetime.fromisoformat(created_at.replace("Z", "+00:00"))
+        except ValueError:
+            timestamp = None
+        else:
+            return timestamp.toordinal()
+    try:
+        timestamp = datetime.fromisoformat(run_tag.replace("Z", "+00:00"))
+    except ValueError:
+        digest = hashlib.sha256(run_tag.encode("utf-8")).digest()
+        return int.from_bytes(digest[:4], "big")
+    return timestamp.toordinal()
+
+
+def _select_turbulence_datasets(
+    *,
+    explicit: Sequence[str] | None,
+    profile: str,
+    profile_config: ProfileConfig | None,
+    rotation_schedule: str | None,
+    rotation_index: int | None,
+    run_tag: str,
+    created_at: str | None,
+) -> Tuple[str, ...]:
+    if explicit:
+        return tuple(explicit)
+
+    if profile_config:
+        profile_allowlist = profile_config.turbulence_allowlists.get(profile)
+        if profile_allowlist:
+            return profile_allowlist
+
+    if rotation_schedule:
+        rotation_groups = DEFAULT_TURBULENCE_ALLOWLISTS.rotations.get(rotation_schedule)
+        if not rotation_groups:
+            available = ", ".join(sorted(DEFAULT_TURBULENCE_ALLOWLISTS.rotations)) or "none"
+            raise ValueError(
+                f"Unknown turbulence rotation schedule: {rotation_schedule}. Available schedules: {available}"
+            )
+        index_source = rotation_index
+        if index_source is None:
+            index_source = _derive_rotation_index(run_tag, created_at, len(rotation_groups))
+        selected_group = rotation_groups[index_source % len(rotation_groups)]
+        return selected_group
+
+    if DEFAULT_TURBULENCE_ALLOWLISTS.default:
+        return DEFAULT_TURBULENCE_ALLOWLISTS.default
+
+    return FALLBACK_TURBULENCE_ALLOWLIST
 
 
 DEFAULT_PROFILE_ARGUMENTS: Mapping[str, Mapping[str, Tuple[str, ...]]] = _normalize_profile_mapping(
@@ -261,7 +430,7 @@ def _ensure_signing_key(path: Path) -> Path:
     return path.resolve()
 
 
-def _load_profile_config(path: Path) -> Mapping[str, Mapping[str, Sequence[object] | object]]:
+def _load_profile_config(path: Path) -> ProfileConfig:
     if not path.exists():
         raise FileNotFoundError(f"Profile config not found: {path}")
     text = path.read_text(encoding="utf-8")
@@ -274,7 +443,29 @@ def _load_profile_config(path: Path) -> Mapping[str, Mapping[str, Sequence[objec
         raise ValueError("Profile config must be a JSON or YAML file")
     if not isinstance(data, Mapping):
         raise ValueError("Profile config must contain a mapping of profile definitions")
-    return data
+
+    if "profiles" in data:
+        profiles_raw = data["profiles"]
+    else:
+        profiles_raw = {
+            str(key): value
+            for key, value in data.items()
+            if key not in {"turbulence_allowlists"}
+        }
+    if not isinstance(profiles_raw, Mapping):
+        raise ValueError("Profile definitions must be a mapping")
+
+    profiles: dict[str, dict[str, Sequence[object] | object]] = {}
+    for profile, overrides in profiles_raw.items():
+        if not isinstance(overrides, Mapping):
+            raise ValueError("Each profile must map to per-phase overrides")
+        profiles[str(profile)] = dict(overrides)
+
+    turbulence_allowlists = _normalize_allowlists(
+        data.get("turbulence_allowlists") if "turbulence_allowlists" in data else None
+    )
+
+    return ProfileConfig(profile_arguments=profiles, turbulence_allowlists=turbulence_allowlists)
 
 
 def _run_phase(
@@ -337,7 +528,7 @@ def run_pipeline(
     signing_key: Path | None = None,
     run_tag: str | None = None,
     profile: str = "quick",
-    profile_arguments: Mapping[str, Mapping[str, Sequence[object] | object]] | None = None,
+    profile_config: ProfileConfig | None = None,
     notes: Sequence[str] | None = None,
     created_at: str | None = None,
     epsilon: float = 0.05,
@@ -350,10 +541,15 @@ def run_pipeline(
     turbulence_protocols: Sequence[str] | None = None,
     turbulence_seed: int = 0,
     turbulence_datasets: Sequence[str] | None = None,
+    turbulence_rotation_schedule: str | None = None,
+    turbulence_rotation_index: int | None = None,
 ) -> PipelineResult:
     """Execute all builder phases and bundle the resulting proofpack."""
 
-    merged_profiles = _merge_profile_arguments(DEFAULT_PROFILE_ARGUMENTS, profile_arguments)
+    merged_profiles = _merge_profile_arguments(
+        DEFAULT_PROFILE_ARGUMENTS,
+        profile_config.profile_arguments if profile_config else None,
+    )
 
     root = _validate_root(output_root or DEFAULT_OUTPUT_ROOT)
     root.mkdir(parents=True, exist_ok=True)
@@ -377,7 +573,15 @@ def run_pipeline(
             protocols=public_data_protocols,
             seed=public_data_seed,
         )
-        allowlist = tuple(turbulence_datasets) if turbulence_datasets else DEFAULT_TURBULENCE_DATASETS
+        allowlist = _select_turbulence_datasets(
+            explicit=turbulence_datasets,
+            profile=profile,
+            profile_config=profile_config,
+            rotation_schedule=turbulence_rotation_schedule,
+            rotation_index=turbulence_rotation_index,
+            run_tag=tag,
+            created_at=created_at,
+        )
         turbulence_specs = _discover_turbulence_samples(mirror_root, allowlist=allowlist)
         _run_turbulence_data(
             proofpack_dir,
@@ -431,7 +635,10 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--profile-config",
         type=Path,
-        help="Optional JSON or YAML file defining additional profile overrides",
+        help=(
+            "Optional JSON or YAML file defining profile overrides and "
+            "turbulence dataset allowlists"
+        ),
     )
     parser.add_argument(
         "--note",
@@ -492,7 +699,24 @@ def _build_parser() -> argparse.ArgumentParser:
         action="append",
         help=(
             "Limit turbulence execution to mirrored dataset slugs. "
-            "Defaults to isotropic1024_8pt and isotropic1024_12pt."
+            "Defaults are loaded from experiments/data/turbulence/allowlist.json."
+        ),
+    )
+    parser.add_argument(
+        "--turbulence-rotation-schedule",
+        dest="turbulence_rotation_schedule",
+        help=(
+            "Select a named turbulence rotation schedule from "
+            "experiments/data/turbulence/allowlist.json."
+        ),
+    )
+    parser.add_argument(
+        "--turbulence-rotation-index",
+        dest="turbulence_rotation_index",
+        type=int,
+        help=(
+            "Override the rotation index when using a rotation schedule. "
+            "Defaults to a deterministic hash of the run tag or timestamp."
         ),
     )
     return parser
@@ -503,13 +727,13 @@ def main(argv: Iterable[str] | None = None) -> None:  # pragma: no cover - CLI e
     args = parser.parse_args(argv)
 
     try:
-        profile_args = _load_profile_config(args.profile_config) if args.profile_config else None
+        profile_config = _load_profile_config(args.profile_config) if args.profile_config else None
         result = run_pipeline(
             output_root=args.output_root,
             signing_key=args.signing_key,
             run_tag=args.run_tag,
             profile=args.profile,
-            profile_arguments=profile_args,
+            profile_config=profile_config,
             notes=args.notes,
             created_at=args.created_at,
             epsilon=args.epsilon,
@@ -522,6 +746,8 @@ def main(argv: Iterable[str] | None = None) -> None:  # pragma: no cover - CLI e
             turbulence_protocols=args.turbulence_protocols,
             turbulence_seed=args.turbulence_seed,
             turbulence_datasets=args.turbulence_datasets,
+            turbulence_rotation_schedule=args.turbulence_rotation_schedule,
+            turbulence_rotation_index=args.turbulence_rotation_index,
         )
     except Exception as exc:  # pragma: no cover - surfaced in integration tests
         print(f"PIPELINE_FAIL: {exc}")

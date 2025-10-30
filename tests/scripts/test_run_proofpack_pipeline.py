@@ -1,11 +1,16 @@
 import json
+from datetime import datetime
 from pathlib import Path
 
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 import yaml
 
-from scripts.run_proofpack_pipeline import _load_profile_config, run_pipeline
+from scripts.run_proofpack_pipeline import (
+    DEFAULT_TURBULENCE_ALLOWLISTS,
+    _load_profile_config,
+    run_pipeline,
+)
 
 
 def _write_key(path: Path) -> None:
@@ -218,7 +223,7 @@ def test_run_pipeline_with_profile_config(tmp_path: Path) -> None:
         signing_key=key_path,
         run_tag="pytest-profile",
         profile="custom",
-        profile_arguments=loaded_profiles,
+        profile_config=loaded_profiles,
     )
 
     landauer_metadata = json.loads(
@@ -260,3 +265,129 @@ def test_run_pipeline_enforces_turbulence_allowlist(tmp_path: Path) -> None:
     discovered = {path.parent.name for path in turbulence_root.rglob("turbulence_metadata.json")}
     assert set(allowed_slugs).issubset(discovered)
     assert "other_fixture" not in discovered
+
+
+def test_run_pipeline_uses_profile_allowlist(tmp_path: Path) -> None:
+    root = tmp_path / "artifacts" / "experiments"
+    key_path = tmp_path / "key.bin"
+    _write_key(key_path)
+
+    mirror_root = tmp_path / "mirror"
+    sample_json = (
+        Path(__file__).resolve().parents[1]
+        / "data"
+        / "turbulence"
+        / "sample_jhtdb_samples.json"
+    ).read_text(encoding="utf-8")
+
+    custom_dir = mirror_root / "jhtdb" / "custom_budget"
+    custom_dir.mkdir(parents=True, exist_ok=True)
+    (custom_dir / "jhtdb_samples.json").write_text(sample_json, encoding="utf-8")
+
+    skipped_dir = mirror_root / "jhtdb" / "skipped_budget"
+    skipped_dir.mkdir(parents=True, exist_ok=True)
+    (skipped_dir / "jhtdb_samples.json").write_text(sample_json, encoding="utf-8")
+
+    profile_file = tmp_path / "allowlists.yaml"
+    profile_file.write_text(
+        yaml.safe_dump({"turbulence_allowlists": {"quick": ["custom_budget"]}}),
+        encoding="utf-8",
+    )
+
+    profile_config = _load_profile_config(profile_file)
+
+    result = run_pipeline(
+        output_root=root,
+        signing_key=key_path,
+        run_tag="allowlist-profile",
+        profile="quick",
+        profile_config=profile_config,
+        public_data_root=mirror_root,
+    )
+
+    turbulence_root = result.proofpack_dir / "turbulence"
+    datasets = {path.parent.name for path in turbulence_root.rglob("turbulence_metadata.json")}
+    assert datasets == {"custom_budget"}
+
+
+def test_run_pipeline_supports_rotation_schedule(tmp_path: Path) -> None:
+    root = tmp_path / "artifacts" / "experiments"
+    key_path = tmp_path / "key.bin"
+    _write_key(key_path)
+
+    mirror_root = tmp_path / "mirror"
+    sample_json = (
+        Path(__file__).resolve().parents[1]
+        / "data"
+        / "turbulence"
+        / "sample_jhtdb_samples.json"
+    ).read_text(encoding="utf-8")
+
+    for slug in (
+        "isotropic1024_8pt",
+        "isotropic1024_12pt",
+        "isotropic1024_16pt",
+        "isotropic1024_20pt",
+        "isotropic1024_24pt",
+    ):
+        dataset_dir = mirror_root / "jhtdb" / slug
+        dataset_dir.mkdir(parents=True, exist_ok=True)
+        (dataset_dir / "jhtdb_samples.json").write_text(sample_json, encoding="utf-8")
+
+    schedule_name = "expanded_nightly"
+    created_at = "2025-01-01T00:00:00Z"
+    schedule = DEFAULT_TURBULENCE_ALLOWLISTS.rotations[schedule_name]
+    expected_group = schedule[
+        datetime.fromisoformat(created_at.replace("Z", "+00:00")).toordinal() % len(schedule)
+    ]
+
+    result = run_pipeline(
+        output_root=root,
+        signing_key=key_path,
+        run_tag="rotation-run",
+        profile="quick",
+        public_data_root=mirror_root,
+        created_at=created_at,
+        turbulence_rotation_schedule=schedule_name,
+    )
+
+    turbulence_root = result.proofpack_dir / "turbulence"
+    datasets = {path.parent.name for path in turbulence_root.rglob("turbulence_metadata.json")}
+    assert datasets == set(expected_group)
+
+
+def test_run_pipeline_rotation_index_override(tmp_path: Path) -> None:
+    root = tmp_path / "artifacts" / "experiments"
+    key_path = tmp_path / "key.bin"
+    _write_key(key_path)
+
+    mirror_root = tmp_path / "mirror"
+    sample_json = (
+        Path(__file__).resolve().parents[1]
+        / "data"
+        / "turbulence"
+        / "sample_jhtdb_samples.json"
+    ).read_text(encoding="utf-8")
+
+    rotation_groups = DEFAULT_TURBULENCE_ALLOWLISTS.rotations["expanded_nightly"]
+    for slug in {item for group in rotation_groups for item in group}:
+        dataset_dir = mirror_root / "jhtdb" / slug
+        dataset_dir.mkdir(parents=True, exist_ok=True)
+        (dataset_dir / "jhtdb_samples.json").write_text(sample_json, encoding="utf-8")
+
+    override_index = 2
+    expected_group = rotation_groups[override_index % len(rotation_groups)]
+
+    result = run_pipeline(
+        output_root=root,
+        signing_key=key_path,
+        run_tag="rotation-override",
+        profile="quick",
+        public_data_root=mirror_root,
+        turbulence_rotation_schedule="expanded_nightly",
+        turbulence_rotation_index=override_index,
+    )
+
+    turbulence_root = result.proofpack_dir / "turbulence"
+    datasets = {path.parent.name for path in turbulence_root.rglob("turbulence_metadata.json")}
+    assert datasets == set(expected_group)

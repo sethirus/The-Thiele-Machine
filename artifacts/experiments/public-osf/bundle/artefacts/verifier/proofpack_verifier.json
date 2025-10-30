@@ -1,0 +1,230 @@
+{
+  "delta": 0.05,
+  "delta_aic": 10.0,
+  "epsilon": 0.05,
+  "eta": 0.05,
+  "oos_threshold": 0.1,
+  "phases": {
+    "cross_domain": {
+      "highlights": {
+        "blind_min_delta_aic": 96.9026495277,
+        "destroyed_mean_structure": 0.0,
+        "metadata_digest_ok": true,
+        "sighted_max_abs_slope": 0.0503487244
+      },
+      "runs": [
+        {
+          "error": null,
+          "highlights": {
+            "metadata_digest_ok": true,
+            "min_delta_aic": 96.9026495277
+          },
+          "protocol": "blind",
+          "run_dir": "cross_domain/blind",
+          "status": true,
+          "verifier_json": "verifier/cross_domain_blind.json"
+        },
+        {
+          "error": null,
+          "highlights": {
+            "mean_structure_integrity": 0.0,
+            "metadata_digest_ok": true
+          },
+          "protocol": "destroyed",
+          "run_dir": "cross_domain/destroyed",
+          "status": true,
+          "verifier_json": "verifier/cross_domain_destroyed.json"
+        },
+        {
+          "error": null,
+          "highlights": {
+            "max_abs_slope": 0.0503487244,
+            "metadata_digest_ok": true
+          },
+          "protocol": "sighted",
+          "run_dir": "cross_domain/sighted",
+          "status": true,
+          "verifier_json": "verifier/cross_domain_sighted.json"
+        }
+      ],
+      "status": true
+    },
+    "cwd": {
+      "error": null,
+      "highlights": {
+        "metadata_digest_ok": true,
+        "min_blind_penalty_bits": 16.6421062576,
+        "min_penalty_margin_bits": 15.057143756935146
+      },
+      "protocol_runs": {
+        "blind": "cwd/blind",
+        "destroyed": "cwd/destroyed",
+        "sighted": "cwd/sighted"
+      },
+      "status": true,
+      "verifier_json": "verifier/cwd.json"
+    },
+    "einstein": {
+      "highlights": {
+        "max_abs_drift_velocity": 0.24000000000000002,
+        "max_abs_residual": 3.3306690738754696e-16,
+        "mean_abs_residual": 1.942890293094024e-16,
+        "metadata_digest_ok": true
+      },
+      "runs": [
+        {
+          "error": null,
+          "highlights": {
+            "max_abs_drift_velocity": 0.24000000000000002,
+            "max_abs_residual": 3.3306690738754696e-16,
+            "mean_abs_residual": 1.942890293094024e-16,
+            "metadata_digest_ok": true
+          },
+          "run_dir": "einstein/sighted",
+          "status": true,
+          "trial_count": 4,
+          "verifier_json": "verifier/einstein_0.json"
+        }
+      ],
+      "status": true
+    },
+    "entropy": {
+      "highlights": {
+        "max_p_value": 0.0,
+        "max_slope_ci": 1.4787392244711883,
+        "metadata_digest_ok": true,
+        "min_rho": 0.9947826086956522,
+        "min_slope_ci": 0.5576380995093382
+      },
+      "runs": [
+        {
+          "error": null,
+          "highlights": {
+            "max_p_value": 0.0,
+            "max_slope_ci": 1.4787392244711883,
+            "metadata_digest_ok": true,
+            "min_rho": 0.9947826086956522,
+            "min_slope_ci": 0.5576380995093382
+          },
+          "run_dir": "entropy/blind",
+          "status": true,
+          "trial_count": 4,
+          "verifier_json": "verifier/entropy_0.json"
+        },
+        {
+          "error": null,
+          "highlights": {
+            "max_p_value": 0.0,
+            "max_slope_ci": 1.171945950721814,
+            "metadata_digest_ok": true,
+            "min_rho": 0.9973913043478261,
+            "min_slope_ci": 0.9078547750872772
+          },
+          "run_dir": "entropy/sighted",
+          "status": true,
+          "trial_count": 4,
+          "verifier_json": "verifier/entropy_1.json"
+        }
+      ],
+      "status": true
+    },
+    "landauer": {
+      "highlights": {
+        "max_bits_gap": 0.0,
+        "mean_bits_gap": 0.0,
+        "metadata_digest_ok": true,
+        "tolerance_pass_rate": 1.0
+      },
+      "runs": [
+        {
+          "error": null,
+          "highlights": {
+            "max_bits_gap": 0.0,
+            "mean_bits_gap": 0.0,
+            "metadata_digest_ok": true,
+            "tolerance_pass_rate": 1.0
+          },
+          "run_dir": "landauer/blind",
+          "status": true,
+          "trial_count": 6,
+          "verifier_json": "verifier/landauer_0.json"
+        },
+        {
+          "error": null,
+          "highlights": {
+            "max_bits_gap": 0.0,
+            "mean_bits_gap": 0.0,
+            "metadata_digest_ok": true,
+            "tolerance_pass_rate": 1.0
+          },
+          "run_dir": "landauer/sighted",
+          "status": true,
+          "trial_count": 6,
+          "verifier_json": "verifier/landauer_1.json"
+        }
+      ],
+      "status": true
+    }
+  },
+  "public_data": {
+    "datasets": [
+      {
+        "dataset": "optical_tweezers_01",
+        "dataset_dir": "public_data/osf/optical_tweezers_01",
+        "error": null,
+        "highlights": {
+          "blind_delta_aic": 553.2621289833756,
+          "destroyed_rho": -0.3347309635022892,
+          "oos_error": 0.0060386219722706035,
+          "sighted_slope_ci": [
+            0.9962715687757998,
+            1.0009449765281866
+          ]
+        },
+        "status": true,
+        "verifier_json": "verifier/public_spt_0.json"
+      }
+    ],
+    "highlights": {
+      "blind_min_delta_aic": 553.2621289833756,
+      "dataset_count": 1,
+      "destroyed_max_rho": -0.3347309635022892,
+      "max_oos_error": 0.0060386219722706035
+    },
+    "status": true
+  },
+  "pvalue_threshold": 1e-06,
+  "spearman_threshold": 0.9,
+  "status": true,
+  "turbulence": {
+    "datasets": [
+      {
+        "dataset": "isotropic1024coarse",
+        "dataset_dir": "turbulence/jhtdb/sample",
+        "error": null,
+        "highlights": {
+          "blind_delta_aic": 995.6748250135738,
+          "point_count": 4,
+          "rho_drop": 0.9058823529411765,
+          "sighted_rho": 1.0,
+          "sighted_runtime_slope": 0.06123598118298862,
+          "skipped_protocols": [],
+          "time_count": 4
+        },
+        "status": true,
+        "verifier_json": "verifier/turbulence_0.json"
+      }
+    ],
+    "highlights": {
+      "dataset_count": 1,
+      "max_point_count": 4,
+      "max_time_count": 4,
+      "mean_rho_drop": 0.9058823529411765,
+      "min_delta_aic": 995.6748250135738,
+      "pass_rate": 1.0
+    },
+    "status": true
+  },
+  "verdict": "THIELE_OK",
+  "verdict_path": "verifier/THIELE_OK"
+}
