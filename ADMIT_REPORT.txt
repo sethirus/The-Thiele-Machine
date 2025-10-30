@@ -1,53 +1,41 @@
+<<<<<<< HEAD
 Admit and axiom inventory
+Admitted occurrences (file:line):
+./coq/sandboxes/AbstractPartitionCHSH.v:232:Admitted.
+./coq/sandboxes/AbstractPartitionCHSH.v:324:Admitted.
+./coq/sandboxes/AbstractPartitionCHSH.v:328:Admitted.
+./archive/research/incomplete_subsumption_proof/thieleuniversal/coqproofs/ThieleUniversal_Run1.v:796:Admitted.
+./archive/research/incomplete_subsumption_proof/thieleuniversal/coqproofs/ThieleUniversal_Run1.v:828:Admitted.
+./archive/research/incomplete_subsumption_proof/thieleuniversal/coqproofs/ThieleUniversal_Run1.v:1028:Admitted.
+./archive/research/incomplete_subsumption_proof/thieleuniversal/coqproofs/ThieleUniversal_Run1.v:1043:Admitted.
+./archive/ThieleUniversal.v:2020:  Admitted.
 
-Active Coq tree
----------------
-Axiom    coq/kernel/SimulationProof.v:89: Axiom compile_trace_start_pos_correct : forall trace pc,
-Axiom    coq/kernel/SimulationProof.v:93: Axiom compile_trace_nth :
-Axiom    coq/kernel/SimulationProof.v:219: Axiom vm_exec_run_vm :
-Axiom    coq/kernel/SimulationProof.v:258: Axiom fetch_compile_trace :
-Axiom    coq/kernel/SimulationProof.v:267: Axiom compile_increment_pc_correct :
-Axiom    coq/kernel/SimulationProof.v:290: Axiom compile_add_mu_correct :
-Axiom    coq/kernel/SimulationProof.v:308: Axiom compile_update_err_correct :
-Axiom    coq/kernel/SimulationProof.v:322: Axiom compile_vm_operation_correct :
-Axiom    coq/kernel/SimulationProof.v:338: Axiom vm_step_kernel_simulation :
-Axiom    coq/kernel/SimulationProof.v:365: Axiom vm_exec_simulation :
-Axiom    coq/kernel/SimulationProof.v:373: Axiom vm_is_a_correct_refinement_of_kernel :
-Axiom    coq/kernel/VMEncoding.v:389: Axiom decode_vm_state_correct :
-Axiom    coq/kernel/VMStep.v:13: Axiom SAT_is_decidable : forall formula : string,
-Axiom    coq/kernel/VMStep.v:19: Axiom z3_oracle_sound : forall formula,
-Axiom    coq/thielemachine/coqproofs/Axioms.v:4: Axiom decode_encode_id : Prop.
-Axiom    coq/thielemachine/coqproofs/Axioms.v:7: Axiom utm_catalogue_static_check : Prop.
-Axiom    coq/thielemachine/coqproofs/Axioms.v:10: Axiom utm_head_lt_shift_len : Prop.
-Axiom    coq/thielemachine/coqproofs/Axioms.v:13: Axiom utm_simulation_steps : Prop.
-Axiom    coq/thielemachine/coqproofs/Axioms.v:16: Axiom check_step_sound : Prop.
-Axiom    coq/thielemachine/coqproofs/Axioms.v:19: Axiom check_step_complete : Prop.
-Axiom    coq/thielemachine/coqproofs/Axioms.v:22: Axiom mu_lower_bound : Prop.
-Axiom    coq/thielemachine/coqproofs/Axioms.v:25: Axiom pc_29_implies_registers_from_rule_table : Prop.
-Axiom    coq/thielemachine/coqproofs/Axioms.v:28: Axiom find_rule_from_memory_components : Prop.
-Axiom    coq/thielemachine/coqproofs/ThieleMachineSig.v:59:   Axiom check_step_sound :
-Axiom    coq/thielemachine/coqproofs/ThieleMachineSig.v:64:   Axiom mu_lower_bound :
-Axiom    coq/thielemachine/coqproofs/ThieleMachineSig.v:69:   Axiom check_step_complete :
-Axiom    coq/thielemachine/coqproofs/ThieleMachineSig.v:75:   Axiom state_eqb_refl : forall s, state_eqb s s = true.
+Axiom declarations (file:line):
+./coq/kernel/VMEncoding.v:389:Axiom decode_vm_state_correct :
+./coq/kernel/SimulationProof.v:89:Axiom compile_trace_start_pos_correct : forall trace pc,
+./coq/kernel/SimulationProof.v:93:Axiom compile_trace_nth :
+./coq/kernel/SimulationProof.v:219:Axiom vm_exec_run_vm :
+./coq/kernel/SimulationProof.v:258:Axiom fetch_compile_trace :
+./coq/kernel/SimulationProof.v:267:Axiom compile_increment_pc_correct :
+./coq/kernel/SimulationProof.v:290:Axiom compile_add_mu_correct :
+./coq/kernel/SimulationProof.v:308:Axiom compile_update_err_correct :
+./coq/kernel/SimulationProof.v:322:Axiom compile_vm_operation_correct :
+./coq/kernel/SimulationProof.v:338:Axiom vm_step_kernel_simulation :
+./coq/kernel/SimulationProof.v:365:Axiom vm_exec_simulation :
+./coq/kernel/SimulationProof.v:373:Axiom vm_is_a_correct_refinement_of_kernel :
+./coq/kernel/VMStep.v:13:Axiom SAT_is_decidable : forall formula : string,
+./coq/kernel/VMStep.v:19:Axiom z3_oracle_sound : forall formula,
+./coq/thielemachine/coqproofs/Axioms.v:4:Axiom decode_encode_id : Prop.
+./coq/thielemachine/coqproofs/Axioms.v:7:Axiom utm_catalogue_static_check : Prop.
+./coq/thielemachine/coqproofs/Axioms.v:10:Axiom utm_head_lt_shift_len : Prop.
+./coq/thielemachine/coqproofs/Axioms.v:13:Axiom utm_simulation_steps : Prop.
+./coq/thielemachine/coqproofs/Axioms.v:16:Axiom check_step_sound : Prop.
+./coq/thielemachine/coqproofs/Axioms.v:19:Axiom check_step_complete : Prop.
+./coq/thielemachine/coqproofs/Axioms.v:22:Axiom mu_lower_bound : Prop.
+./coq/thielemachine/coqproofs/Axioms.v:25:Axiom pc_29_implies_registers_from_rule_table : Prop.
+./coq/thielemachine/coqproofs/Axioms.v:28:Axiom find_rule_from_memory_components : Prop.
 
-Sandboxes
----------
-Admitted coq/sandboxes/AbstractPartitionCHSH.v:232: Admitted.
-Admitted coq/sandboxes/AbstractPartitionCHSH.v:324: Admitted.
-Admitted coq/sandboxes/AbstractPartitionCHSH.v:328: Admitted.
-
-Archive
--------
-Admitted archive/ThieleUniversal.v:2020:   Admitted.
-Axiom    archive/ThieleUniversal.v:5174: Axiom pc_29_implies_registers_from_rule_table :
-Axiom    archive/ThieleUniversal.v:5186: Axiom find_rule_from_memory_components :
-Axiom    archive/coq/Subsumption_Legacy.v:200: Axiom halting_undecidable :
-Admitted archive/research/incomplete_subsumption_proof/thieleuniversal/coqproofs/ThieleUniversal_Run1.v:796: Admitted.
-Admitted archive/research/incomplete_subsumption_proof/thieleuniversal/coqproofs/ThieleUniversal_Run1.v:828: Admitted.
-Admitted archive/research/incomplete_subsumption_proof/thieleuniversal/coqproofs/ThieleUniversal_Run1.v:1028: Admitted.
-Admitted archive/research/incomplete_subsumption_proof/thieleuniversal/coqproofs/ThieleUniversal_Run1.v:1043: Admitted.
-
-Summary
--------
-Total admitted: 8
-Total axioms:  30
+Summary:
+  Admitted count: 8
+  Axiom declarations: 26
+>>>>>>> new-public-branch-default
