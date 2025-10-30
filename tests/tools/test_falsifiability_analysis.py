@@ -39,8 +39,8 @@ def test_turbulence_blind_slower_than_sighted() -> None:
 def test_cross_domain_ratio_reports() -> None:
     stats = analyze_cross_domain(ROOT)
     assert stats is not None
-    # The helper should return a finite ratio even if the dataset is shallow.
-    assert stats.final_runtime_ratio > 0.0
+    # The deep counterexample hunt should exhibit a clear blind penalty.
+    assert stats.final_runtime_ratio > 1.0
 
 
 def test_markdown_summary_contains_key_metrics() -> None:
@@ -49,7 +49,7 @@ def test_markdown_summary_contains_key_metrics() -> None:
     cross_domain_stats = analyze_cross_domain(ROOT)
     summary = render_markdown_summary(landauer_stats, turbulence_stats, cross_domain_stats)
     assert "Landauer" in summary
-    assert "2.489" in summary  # expected blind/sighted runtime ratio snapshot
+    assert "5.995" in summary  # updated cross-domain blind/sighted ratio snapshot
     assert "0.000" in summary  # zero slack should remain zeroed
 
 
