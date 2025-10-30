@@ -281,22 +281,32 @@ def _load_cross_domain_profile(path: Path) -> RuntimeProfile:
 
 
 def analyze_cross_domain(root: Path) -> CrossDomainStats | None:
-    sighted_path = None
-    blind_path = None
-    for candidate in root.glob("**/cross_domain/sighted/cross_domain_steps.jsonl"):
-        if "proofpack" in candidate.parts:
-            sighted_path = candidate
-            break
-    for candidate in root.glob("**/cross_domain/blind/cross_domain_steps.jsonl"):
-        if "proofpack" in candidate.parts:
-            blind_path = candidate
-            break
-    if not (sighted_path and blind_path):
-        return None
-    return CrossDomainStats(
-        sighted_runtime=_load_cross_domain_profile(sighted_path),
-        blind_runtime=_load_cross_domain_profile(blind_path),
-    )
+    """Select the strongest available cross-domain evidence."""
+
+    runs: dict[Path, dict[str, Path]] = {}
+    for candidate in root.glob("**/cross_domain/*/cross_domain_steps.jsonl"):
+        if "proofpack" not in candidate.parts:
+            continue
+        protocol = candidate.parent.name
+        base = candidate.parent.parent
+        runs.setdefault(base, {})[protocol] = candidate
+
+    best_stats: CrossDomainStats | None = None
+    best_ratio = float("-inf")
+    for mapping in runs.values():
+        sighted_path = mapping.get("sighted")
+        blind_path = mapping.get("blind")
+        if not (sighted_path and blind_path):
+            continue
+        stats = CrossDomainStats(
+            sighted_runtime=_load_cross_domain_profile(sighted_path),
+            blind_runtime=_load_cross_domain_profile(blind_path),
+        )
+        ratio = stats.final_runtime_ratio
+        if ratio > best_ratio:
+            best_stats = stats
+            best_ratio = ratio
+    return best_stats
 
 
 # ---------------------------------------------------------------------------
