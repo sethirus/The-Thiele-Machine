@@ -5,6 +5,14 @@ This execution evaluated 14 domains and validated the composition hypothesis wit
 Across domains the ΔAIC(exp−poly) advantage spanned 10.162 to 2946.291 with a median of 155.552.
 Structure-destruction controls yielded a mean effect of 78.311, demonstrating sensitivity to compositional cues.
 
+## Falsifiable Forms Under Test
+The experiments target two breakable predictions of the composition law:
+
+1. **Thermodynamic work bound.** Whenever the protocols reduce an effective search space from \(N\) candidates to \(M\) while emitting a canonical question \(q\), the recorded work satisfies \(W/(kT\ln 2) \ge 8\,|\mathrm{canon}(q)| + \log_2 (N/M) - \varepsilon\). A reproducible deficit in any ledgered step would falsify the μ-metering.
+2. **Sighted versus blind scaling.** For each domain family, the blind solver's cost grows super-polynomially with compositional depth, while the sighted ledger remains \(O(1)\). Producing a counterexample within these controlled benchmarks would refute the claimed separation.
+
+The ΔAIC tables, ledger exports, and destroyed-structure controls in this publication are organised so third parties can test these inequalities directly.
+
 ## Experimental Configuration
 The suite executed the following domains under deterministic seeds:
 - **Factored Control** — Spearman ρ=1.00
