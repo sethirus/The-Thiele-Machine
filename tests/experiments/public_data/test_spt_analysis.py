@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import pytest
@@ -72,3 +73,26 @@ def test_oos_diffusion_error_requires_optional_anchors() -> None:
     tracks = _load_tracks()
     with pytest.raises(ValueError):
         oos_diffusion_error(tracks, anchors)
+
+
+def test_load_anchors_accepts_bundle_schema(tmp_path: Path) -> None:
+    payload = {
+        "temperature_K": 297.0,
+        "pixel_size_m": 1.5e-07,
+        "time_step_s": 0.008,
+        "bead_radius_m": 4.0e-07,
+        "viscosity_mPa_s": 0.98,
+        "source": "repacked bundle",
+        "assumptions": ["Converted viscosity from mPa·s"],
+    }
+    anchor_path = tmp_path / "anchors.json"
+    anchor_path.write_text(json.dumps(payload), encoding="utf-8")
+
+    anchors = load_anchors(anchor_path)
+
+    assert anchors.temperature_K == pytest.approx(297.0)
+    assert anchors.pixel_scale_um_per_px == pytest.approx(0.15)
+    assert anchors.frame_interval_s == pytest.approx(0.008)
+    assert anchors.bead_radius_um == pytest.approx(0.4)
+    assert anchors.viscosity_pa_s == pytest.approx(0.00098)
+    assert anchors.source_verbatim is not None

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import shutil
 from pathlib import Path
 from typing import Iterable, Mapping, MutableMapping, Sequence
 
@@ -26,7 +27,11 @@ from experiments.data_sources.osf import OSFSearchConfig, discover_osf_candidate
 from experiments.data_sources.zenodo import ZenodoSearchConfig, discover_zenodo_candidates
 from experiments.public_data import PROTOCOLS as PUBLIC_PROTOCOLS
 from experiments.turbulence import PROTOCOLS as TURBULENCE_PROTOCOLS
-from scripts.run_proofpack_pipeline import _load_profile_config, run_pipeline
+from scripts.run_proofpack_pipeline import (
+    DEFAULT_TURBULENCE_DATASETS,
+    _load_profile_config,
+    run_pipeline,
+)
 
 SOURCE_MAP = {
     "osf": (
@@ -113,6 +118,46 @@ def _filter_candidates(payload: Mapping[str, object], *, metadata_keys: Sequence
     return {"summary": summary, "selected": selected}
 
 
+def _discover_local_bundles(root: Path, *, source: str) -> Sequence[Path]:
+    """Return local bundles that can stand in for remote public datasets."""
+
+    root = Path(root)
+    candidates: list[Path] = []
+    search_roots: list[Path] = []
+    source_root = root / source
+    if source_root.exists():
+        search_roots.append(source_root)
+    if root.exists():
+        search_roots.append(root)
+
+    seen: set[Path] = set()
+    for base_dir in search_roots:
+        for dataset_dir in sorted(base_dir.iterdir()):
+            if not dataset_dir.is_dir():
+                continue
+            if dataset_dir in seen:
+                continue
+            if (dataset_dir / "anchors.json").exists():
+                candidates.append(dataset_dir)
+                seen.add(dataset_dir)
+    return tuple(candidates)
+
+
+def _materialise_local_bundles(datasets: Sequence[Path], *, destination: Path) -> Sequence[Path]:
+    """Copy local bundles into the mirror root for downstream execution."""
+
+    destination = Path(destination)
+    destination.mkdir(parents=True, exist_ok=True)
+    realised: list[Path] = []
+    for source_dir in datasets:
+        target_dir = destination / Path(source_dir).name
+        if target_dir.exists():
+            shutil.rmtree(target_dir)
+        shutil.copytree(source_dir, target_dir)
+        realised.append(target_dir)
+    return tuple(realised)
+
+
 def _download_datasets(
     selected: Sequence[Mapping[str, object]],
     *,
@@ -153,6 +198,12 @@ def _parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--source", choices=sorted(SOURCE_MAP.keys()), default="osf")
     parser.add_argument("--output-root", type=Path, default=Path("artifacts") / "experiments")
     parser.add_argument("--mirror-root", type=Path, default=Path("public_data"))
+    parser.add_argument(
+        "--local-bundle-root",
+        type=Path,
+        default=Path("experiments") / "public_data",
+        help="Directory containing manually curated public-data bundles",
+    )
     parser.add_argument("--signing-key", type=Path, default=Path("kernel_secret.key"))
     parser.add_argument("--run-tag", type=str)
     parser.add_argument("--profile", type=str, default="quick")
@@ -215,37 +266,48 @@ def main(argv: Sequence[str] | None = None) -> int:
         args.selected_output.write_text(json.dumps(selected_payload, indent=2, sort_keys=True), encoding="utf-8")
 
     selected_entries = selected_payload.get("selected", [])
+    fallback_used = False
     if not selected_entries:
-        print(
-            json.dumps(
-                {
-                    "error": "no_anchored_datasets",
-                    "candidates": selected_payload.get("summary", {}),
-                },
-                sort_keys=True,
+        local_bundles = _discover_local_bundles(args.local_bundle_root, source=args.source)
+        if not local_bundles:
+            print(
+                json.dumps(
+                    {
+                        "error": "no_anchored_datasets",
+                        "candidates": selected_payload.get("summary", {}),
+                    },
+                    sort_keys=True,
+                )
             )
+            return 1
+        dataset_dirs = _materialise_local_bundles(
+            local_bundles,
+            destination=args.mirror_root / args.source,
         )
-        return 1
-
-    try:
-        dataset_dirs = _download_datasets(
-            selected_entries,
-            source=args.source,
-            mirror_root=args.mirror_root,
-            skip_download=args.skip_download,
-            chunk_size=args.chunk_size,
-            timeout=args.timeout,
-        )
-    except (DownloadError, FileNotFoundError) as exc:
-        print(
-            json.dumps(
-                {"error": "download_failed", "message": str(exc)},
-                sort_keys=True,
+        selected_entries = [
+            {"local_dataset": Path(path).name, "source": args.source} for path in dataset_dirs
+        ]
+        fallback_used = True
+    else:
+        try:
+            dataset_dirs = _download_datasets(
+                selected_entries,
+                source=args.source,
+                mirror_root=args.mirror_root,
+                skip_download=args.skip_download,
+                chunk_size=args.chunk_size,
+                timeout=args.timeout,
             )
-        )
-        return 1
+        except (DownloadError, FileNotFoundError) as exc:
+            print(
+                json.dumps(
+                    {"error": "download_failed", "message": str(exc)},
+                    sort_keys=True,
+                )
+            )
+            return 1
 
-    profile_args = _load_profile_config(args.profile_config) if args.profile_config else None
+    profile_config = _load_profile_config(args.profile_config) if args.profile_config else None
 
     try:
         pipeline_result = run_pipeline(
@@ -253,7 +315,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             signing_key=args.signing_key,
             run_tag=args.run_tag,
             profile=args.profile,
-            profile_arguments=profile_args,
+            profile_config=profile_config,
             notes=args.notes,
             created_at=args.created_at,
             epsilon=args.epsilon,
@@ -277,6 +339,17 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 1
 
     manifest = json.loads(pipeline_result.bundle_result.manifest_path.read_text(encoding="utf-8"))
+    config_allowlist = (
+        tuple(profile_config.turbulence_allowlists.get(args.profile, ()))
+        if profile_config
+        else ()
+    )
+    effective_allowlist = tuple(
+        args.turbulence_datasets
+        or config_allowlist
+        or DEFAULT_TURBULENCE_DATASETS
+    )
+
     summary = {
         "source": args.source,
         "candidates_considered": candidates_payload.get("summary", {}).get("candidate_count")
@@ -287,6 +360,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         "manifest_digest": manifest.get("manifest_digest_sha256"),
         "bundle_dir": str(pipeline_result.bundle_dir),
         "proofpack_dir": str(pipeline_result.proofpack_dir),
+        "turbulence_allowlist": effective_allowlist,
+        "local_bundles_used": fallback_used,
     }
     print(json.dumps(summary, sort_keys=True))
     return 0
