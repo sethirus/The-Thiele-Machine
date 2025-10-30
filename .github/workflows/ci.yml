@@ -5,6 +5,9 @@ on:
     branches: [ new-public-branch-default ]
   pull_request:
     branches: [ new-public-branch-default ]
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * *'
 
 jobs:
   build:
@@ -127,3 +130,100 @@ jobs:
 
       - name: Run adversarial checks
         run: python thiele_break.py --reruns 2
+
+  proofpack-smoke:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+
+      - name: Run proofpack smoke profile
+        id: smoke
+        run: |
+          export RUN_TAG="ci-$(date -u +%Y%m%d%H%M%S)"
+          make proofpack-smoke RUN_TAG=$RUN_TAG
+          echo "run_tag=$RUN_TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Publish manifest digest
+        id: digest
+        run: |
+          RUN_TAG="${{ steps.smoke.outputs.run_tag }}"
+          MANIFEST="artifacts/experiments/${RUN_TAG}/bundle/manifest.json"
+          DIGEST=$(jq -r '.manifest_digest_sha256' "$MANIFEST")
+          echo "Proofpack run tag: $RUN_TAG" >> "$GITHUB_STEP_SUMMARY"
+          echo "Manifest digest: $DIGEST" >> "$GITHUB_STEP_SUMMARY"
+          echo "manifest_digest=$DIGEST" >> "$GITHUB_OUTPUT"
+
+      - name: Update RESULTS digest table
+        run: |
+          RUN_TAG="${{ steps.smoke.outputs.run_tag }}"
+          DIGEST="${{ steps.digest.outputs.manifest_digest }}"
+          UPDATED="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          python scripts/update_smoke_digest.py --results RESULTS.md --run-tag "$RUN_TAG" --digest "$DIGEST" --updated "$UPDATED"
+
+      - name: Upload RESULTS digest snapshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: results-digest-${{ steps.smoke.outputs.run_tag }}
+          path: RESULTS.md
+
+      - name: Upload smoke proofpack bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: proofpack-smoke-${{ steps.smoke.outputs.run_tag }}
+          path: artifacts/experiments/${{ steps.smoke.outputs.run_tag }}/bundle
+
+  turbulence-high:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Run high-budget turbulence pipeline
+        id: turbulence
+        run: |
+          export RUN_TAG="ci-turbulence-$(date -u +%Y%m%d%H%M%S)"
+          make proofpack-turbulence-high RUN_TAG=$RUN_TAG
+          echo "run_tag=$RUN_TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Publish turbulence highlights
+        id: turbulence_summary
+        run: |
+          RUN_TAG="${{ steps.turbulence.outputs.run_tag }}"
+          SUMMARY="artifacts/experiments/${RUN_TAG}/bundle/summary.json"
+          echo "## Turbulence summary" >> "$GITHUB_STEP_SUMMARY"
+          jq -r '.turbulence | "status: " + ( .status | tostring ) + ", datasets=" + (.dataset_count | tostring)' "$SUMMARY" >> "$GITHUB_STEP_SUMMARY"
+          for verifier in artifacts/experiments/${RUN_TAG}/bundle/artefacts/verifier/turbulence_*.json; do
+            jq -r '"\n### " + .dataset + "\nprotocols: " + (.protocols_checked | join(", ")) + "\nsighted_runtime_sum: " + (.protocols.sighted.runtime_sum | tostring) + "\nblind_delta_aic: " + (.protocols.blind.delta_aic | tostring) + "\ndestroyed_rho: " + (.protocols.destroyed.spearman_rho | tostring)' "$verifier" >> "$GITHUB_STEP_SUMMARY"
+          done
+
+      - name: Upload turbulence bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: proofpack-turbulence-${{ steps.turbulence.outputs.run_tag }}
+          path: artifacts/experiments/${{ steps.turbulence.outputs.run_tag }}/bundle

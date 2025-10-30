@@ -1,0 +1,30 @@
+{
+  "count": 2,
+  "total": 2,
+  "_embedded": {
+    "stash:files": [
+      {
+        "path": "data.zip",
+        "size": 5000,
+        "mimeType": "application/zip",
+        "digest": "abc",
+        "digestType": "sha-256",
+        "_links": {
+          "self": {"href": "/api/v2/files/1"},
+          "stash:download": {"href": "/api/v2/files/1/download"}
+        }
+      },
+      {
+        "path": "notes.txt",
+        "size": 200,
+        "mimeType": "text/plain",
+        "digest": "def",
+        "digestType": "sha-256",
+        "_links": {
+          "self": {"href": "/api/v2/files/2"},
+          "stash:download": {"href": "/api/v2/files/2/download"}
+        }
+      }
+    ]
+  }
+}
