@@ -58,7 +58,37 @@ class TrackSeries:
 
 def load_anchors(path: Path) -> Anchors:
     data = json.loads(path.read_text())
-    source_verbatim = {
+
+    def _first(keys: Sequence[str]) -> object | None:
+        for key in keys:
+            if key in data and data[key] is not None:
+                return data[key]
+        return None
+
+    def _require(keys: Sequence[str], *, label: str) -> float:
+        value = _first(keys)
+        if value is None:
+            raise KeyError(f"Missing required anchor field: {label}")
+        return float(value)
+
+    temperature = _require(("T_K", "temperature_K"), label="temperature")
+    pixel_scale_raw = _first(("pixel_scale_um_per_px", "pixel_size_um", "pixel_size_m"))
+    if pixel_scale_raw is None:
+        raise KeyError("Missing required anchor field: pixel scale")
+    if "pixel_size_m" in data and data["pixel_size_m"] == pixel_scale_raw:
+        pixel_scale = float(pixel_scale_raw) * 1e6
+    else:
+        pixel_scale = float(pixel_scale_raw)
+    frame_interval = _require(("frame_interval_s", "time_step_s", "dt_s"), label="frame interval")
+
+    bead_radius = _first(("bead_radius_um", "particle_radius_um", "bead_radius_m"))
+    if bead_radius is not None and "bead_radius_m" in data and data["bead_radius_m"] == bead_radius:
+        bead_radius = float(bead_radius) * 1e6
+    viscosity = _first(("viscosity_pa_s", "fluid_viscosity_pa_s", "viscosity_mPa_s"))
+    if viscosity is not None and "viscosity_mPa_s" in data and data["viscosity_mPa_s"] == viscosity:
+        viscosity = float(viscosity) * 1e-3
+
+    source_fields = {
         key: data[key]
         for key in (
             "temperature_verbatim",
@@ -68,14 +98,19 @@ def load_anchors(path: Path) -> Anchors:
             "viscosity_verbatim",
         )
         if key in data
-    } or None
+    }
+    if "source" in data:
+        source_fields["source"] = data["source"]
+    if "assumptions" in data:
+        source_fields["assumptions"] = data["assumptions"]
+
     return Anchors(
-        temperature_K=float(data["T_K"]),
-        pixel_scale_um_per_px=float(data["pixel_scale_um_per_px"]),
-        frame_interval_s=float(data["frame_interval_s"]),
-        bead_radius_um=float(data.get("bead_radius_um")) if data.get("bead_radius_um") is not None else None,
-        viscosity_pa_s=float(data.get("viscosity_pa_s")) if data.get("viscosity_pa_s") is not None else None,
-        source_verbatim=source_verbatim,
+        temperature_K=temperature,
+        pixel_scale_um_per_px=pixel_scale,
+        frame_interval_s=frame_interval,
+        bead_radius_um=float(bead_radius) if bead_radius is not None else None,
+        viscosity_pa_s=float(viscosity) if viscosity is not None else None,
+        source_verbatim=source_fields or None,
     )
 
 

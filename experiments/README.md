@@ -54,7 +54,7 @@ rows between phases without introducing hidden state.
 | `verifier/check_entropy.py` | Phase A3 | Replays μ/entropy samples to recompute Theil–Sen slopes, intercepts, and Spearman diagnostics while enforcing the identity thresholds. |
 | `verifier/check_cwd.py` | Phase B1 | Cross-checks sighted/ blind/ destroyed summaries, validates mutual-information bounds, and confirms penalty equality across protocols. |
 | `verifier/check_cross_domain.py` | Phase C | Reconstructs domain-level regressions, verifies sighted flatness, blind exponential advantage (ΔAIC), and structure integrity digests. |
-| `tools/thiele_verifier.py` | Unified | Aggregates all phase verifiers, writes `proofpack_verifier.json`, and emits a single `THIELE_OK` verdict for proofpack directories. |
+| `tools/thiele_verifier.py` | Unified | Aggregates all phase verifiers, writes `proofpack_verifier.json`, and records a `THIELE_OK`/`THIELE_FAIL` flag for proofpack directories. |
 
 ### Unified proofpack verification
 
@@ -68,9 +68,11 @@ The script scans for Landauer, Einstein, entropy, CWD (sighted/blind/destroyed),
 and cross-domain (sighted/blind/destroyed) artefacts, dispatches to the
 phase-specific checkers, persists their JSON payloads under
 `<proofpack>/verifier/`, and writes a combined
-`proofpack_verifier.json`.  Successful runs print `THIELE_OK` and exit with
-code 0; any missing artefacts or threshold violations trigger a
-non-zero exit and the aggregated report highlights the failing phase.
+`proofpack_verifier.json`.  Successful runs print `THIELE_OK`, emit a
+`verifier/THIELE_OK` marker (removing any stale `THIELE_FAIL` flag), and exit
+with code 0; any missing artefacts or threshold violations trigger a non-zero
+exit, record a `verifier/THIELE_FAIL` marker, and the aggregated report
+highlights the failing phase.
 
 The Landauer runner writes three artefacts into the selected output
 directory:
@@ -131,32 +133,60 @@ their structural advantage. Artefacts include:
 Deterministic cross-domain fixtures live under `experiments/data/`,
 including `sample_cross_domain.jsonl` for synthetic replay tests.
 
-### External dataset discovery
+### External dataset discovery and mirroring
 
 Phase E of the roadmap requires wiring the pipeline to public repositories. The
-discovery helpers now cover every source in the runbook:
+discovery helpers under `experiments/data_sources/` cover each source in the
+runbook:
 
-- `data_sources/osf.py` (OSF search API),
-- `data_sources/figshare.py` (Figshare v2 articles),
-- `data_sources/dryad.py` (Dryad HAL datasets → versions → files), and
-- `data_sources/zenodo.py` (Zenodo records endpoint).
+- `osf.py` (OSF search API),
+- `figshare.py` (Figshare v2 articles),
+- `dryad.py` (Dryad HAL datasets → versions → files), and
+- `zenodo.py` (Zenodo records endpoint).
 
-The new CLI `scripts/discover_public_candidates.py` wraps these helpers so an
-agent can enumerate any repository with consistent options. Example invocations:
+Use `scripts/run_public_data_workflow.py` to execute the entire loop for a
+single source:
 
 ```bash
-# OSF (default source)
-python scripts/discover_public_candidates.py --output osf_candidates.json
-
-# Figshare
-python scripts/discover_public_candidates.py --source figshare --output figshare_candidates.json
-
-# Dryad
-python scripts/discover_public_candidates.py --source dryad --output dryad_candidates.json
-
-# Zenodo
-python scripts/discover_public_candidates.py --source zenodo --output zenodo_candidates.json
+# Discover, filter, mirror, and run the proofpack pipeline for OSF data.
+python scripts/run_public_data_workflow.py \
+  --source osf \
+  --candidates-output osf_candidates.json \
+  --selected-output osf_selected.json \
+  --mirror-root public_data \
+  --local-bundle-root experiments/public_data \
+  --output-root artifacts/experiments/public \
+  --profile quick
 ```
+
+When discovery fails to surface complete anchors, the workflow now copies the
+curated bundles under `experiments/public_data/` into the mirror root so the
+remaining phases (protocol runs, verifier, bundler) can complete deterministically.
+
+The command:
+
+1. Queries the remote API with the runbook search terms and writes
+   `<source>_candidates.json` if `--candidates-output` is supplied.
+2. Filters the payload to candidates that expose fit-free anchors (temperature,
+   pixel scale, and frame interval) and emits `<source>_selected.json` when
+   `--selected-output` is provided.
+3. Mirrors the anchored datasets into `public_data/<source>/<slug>/`, writing a
+   `candidate.json`, `anchors.json`, `raw/` payloads, and a deterministic
+   `MANIFEST.json` that is verified immediately after the download completes.
+4. Invokes `scripts/run_proofpack_pipeline.py` so the public data ends up under
+   `artifacts/experiments/.../proofpacks/public_data/<source>/<slug>/` with
+   ledgers, protocol metadata, and verifier output.
+
+The workflow supports `--skip-download` (reuse existing mirrors),
+`--max-datasets` (limit the number of anchored selections), and direct
+`--candidates` input so auditors can replay previously captured discovery
+results offline. All HTTP requests stream through a single `requests.Session`
+and honour `--timeout`/`--chunk-size` arguments for deterministic mirrors.
+
+> **Current status:** the repository no longer ships fabricated public-data
+> mirrors or proofpacks. Run the workflow for each source to populate the
+> directories before invoking the unified auditor. The outstanding steps for
+> each source are tracked by `scripts/audit_runbook_progress.py`.
 
 ### JHTDB sampling (Phase E optional dataset)
 
@@ -173,6 +203,9 @@ mirrored fixtures live under `archive/jhtdb` for quick stress tests:
 
 - `archive/jhtdb/isotropic1024_8pt/` — 5 temporal slices × 8 spatial points.
 - `archive/jhtdb/isotropic1024_12pt/` — 6 temporal slices × 12 spatial points.
+- `archive/jhtdb/isotropic1024_16pt/` — 7 temporal slices × 16 spatial points (expanded budget).
+- `archive/jhtdb/isotropic1024_20pt/` — 7 temporal slices × 20 spatial points (expanded budget).
+- `archive/jhtdb/isotropic1024_24pt/` — 8 temporal slices × 24 spatial points (high-budget regression set).
 
 Both bundles include a `jhtdb_samples.json` payload and deterministic `manifest.json` digests so operators can replay the exact
 sampling budget that exercises the verifier’s thresholds.
@@ -186,13 +219,29 @@ python scripts/run_turbulence_protocol.py mirrored/jhtdb/<slug> --output-dir pro
     --protocol blind --seed 3
 ```
 
-produces `ledgers/*.jsonl`, `summaries/*.json`, `protocol.json`, and `turbulence_metadata.json` that record anchor provenance and verifier thresholds. Auditors can replay the dataset via `verifier/check_turbulence.py`, which enforces the runbook tolerances (Spearman ≥ 0.9, blind ΔAIC ≥ 10, and a ≥0.2 drop in destroyed ρ) directly from the ledgers. The orchestration script `scripts/run_proofpack_pipeline.py` now detects mirrored turbulence samples automatically and the unified verifier reports their highlights alongside the existing phases. The pipeline filters mirrored directories through an allowlist (`isotropic1024_8pt`, `isotropic1024_12pt`) so scheduled runs stay bounded; supply `--turbulence-dataset <slug>` to include additional mirrors during local testing. Use `--turbulence-protocol` (repeatable) and `--turbulence-seed` to scope smoke runs without editing profile definitions.
+produces `ledgers/*.jsonl`, `summaries/*.json`, `protocol.json`, and `turbulence_metadata.json` that record anchor provenance and verifier thresholds. Auditors can replay the dataset via `verifier/check_turbulence.py`, which enforces the runbook tolerances (Spearman ≥ 0.9, blind ΔAIC ≥ 10, and a ≥0.2 drop in destroyed ρ) directly from the ledgers. The orchestration script `scripts/run_proofpack_pipeline.py` now detects mirrored turbulence samples automatically and the unified verifier reports their highlights alongside the existing phases. Default allowlists are sourced from `experiments/data/turbulence/allowlist.json` (covering the 8pt and 12pt smoke mirrors); supply `--turbulence-dataset <slug>` or add a `turbulence_allowlists` stanza to a profile config to include the expanded mirrors during local or scheduled runs. Use `--turbulence-protocol` (repeatable) and `--turbulence-seed` to scope smoke runs without editing profile definitions.
 
 ### Automation quickstart
 
-1. **Run public datasets end-to-end:**
+1. **Audit runbook progress:**
    ```bash
-   python scripts/run_public_data_workflow.py --mirrored-root mirrored --output artifacts/experiments/run \
+   python scripts/audit_runbook_progress.py \
+     --candidates-root . \
+     --selected-root . \
+     --mirror-root public_data \
+     --proofpack-dir artifacts/experiments/<latest>/proofpacks \
+     --output audit_report.json
+   ```
+   The JSON report records which runbook steps are complete for every source and
+   highlights the remaining actions.
+
+2. **Run public datasets end-to-end (per source):**
+   ```bash
+   python scripts/run_public_data_workflow.py --source osf --profile quick
+   ```
+   Repeat for `figshare`, `dryad`, and `zenodo`, adjusting `--mirror-root`,
+   `--output-root`, and protocol flags as needed for nightly or high-budget
+   profiles.
        --profile-config configs/proofpack_quick.yml
    ```
    The workflow discovers anchored datasets, mirrors files, executes the builders/verifiers, and bundles a proofpack summary. Pass `--turbulence-dataset <slug>` when mirrored JHTDB directories exceed the default allowlist and you want to run specific fixtures.
@@ -395,6 +444,17 @@ payload (ΔAIC gaps, Landauer balance errors, Spearman correlations, penalty
 margins, OOS errors, etc.) so auditors can confirm threshold compliance without
 opening the raw JSON. SVG diagnostics emitted by the public-data runner are
 pulled into the bundle automatically to accompany the textual summary.
+
+### Runbook progress auditing
+
+Use `scripts/audit_runbook_progress.py` to check the discovery → anchoring →
+mirroring → proofpack chain described in the public-data runbook. The auditor
+scans `osf_candidates.json`/`osf_selected.json` (and the equivalent files for
+Figshare, Dryad, and Zenodo), verifies mirrored dataset manifests, confirms
+proofpack artefacts, and asserts that the unified verifier has written a
+`THIELE_OK` flag. Outstanding tasks are summarised in the JSON output so
+operators can identify which step (e.g. anchoring or mirroring) remains before
+declaring the law demonstration complete.
 
 ### End-to-end orchestration
 

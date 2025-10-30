@@ -148,11 +148,17 @@ def test_verify_proofpack_success(tmp_path: Path) -> None:
 
     result = verify_proofpack(proofpack_dir)
     assert result["status"] is True
+    assert result["verdict"] == "THIELE_OK"
     verifier_dir = proofpack_dir / "verifier"
     aggregate_path = verifier_dir / "proofpack_verifier.json"
     assert aggregate_path.exists()
+    verdict_path = verifier_dir / "THIELE_OK"
+    assert verdict_path.exists()
+    assert not (verifier_dir / "THIELE_FAIL").exists()
+    assert result["verdict_path"] == str(verdict_path.relative_to(proofpack_dir))
     payload = json.loads(aggregate_path.read_text())
     assert payload["status"] is True
+    assert payload["verdict"] == "THIELE_OK"
     assert set(payload["phases"].keys()) == {
         "landauer",
         "einstein",
@@ -196,6 +202,24 @@ def test_verify_proofpack_with_public_dataset(tmp_path: Path) -> None:
     assert result["turbulence"]["datasets"]
     assert result["turbulence"]["highlights"].get("max_point_count") == 4
     assert result["turbulence"]["datasets"][0]["highlights"].get("skipped_protocols") == []
+
+
+def test_verify_proofpack_failure_writes_flag(tmp_path: Path) -> None:
+    proofpack_dir = tmp_path / "proofpack"
+    proofpack_dir.mkdir()
+    _build_phase_runs(proofpack_dir)
+
+    bad_dataset_dir = proofpack_dir / "public_data" / "osf" / "incomplete"
+    bad_dataset_dir.mkdir(parents=True)
+    (bad_dataset_dir / "public_spt_metadata.json").write_text("{}\n")
+
+    result = verify_proofpack(proofpack_dir, spearman_threshold=0.999999)
+    assert result["status"] is False
+    assert result["verdict"] == "THIELE_FAIL"
+    verifier_dir = proofpack_dir / "verifier"
+    fail_flag = verifier_dir / "THIELE_FAIL"
+    assert fail_flag.exists()
+    assert not (verifier_dir / "THIELE_OK").exists()
 
 
 def test_cli_prints_thiele_ok(tmp_path: Path) -> None:
