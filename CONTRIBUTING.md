@@ -36,6 +36,21 @@ contributions:
    predictions held.
 4. If your run introduces new tools or dependencies, update `pyproject.toml` and document them in `REPLICATION_GUIDE.md`.
 
+## Third-party datasets
+
+External domain experts are encouraged to contribute benchmark suites (fluid dynamics, bioinformatics, compression, SQL, etc.)
+that stress either falsifiable law. To participate:
+
+1. Fork the repository and drop your raw data under `data/third_party/<YOUR_DATASET>/` or provide a reproducible fetch script.
+2. Run `python -m tools.counterexample_hunt --output-root artifacts/experiments/<RUN_TAG>/proofpack` if you want to reuse the
+   existing hunt harness; otherwise document the exact builder invocation for your domain.
+3. Include provenance metadata (licence, citation, preprocessing steps) in a README inside your dataset directory.
+4. Open a pull request that stages the new proofpack, updates the falsifiability dashboard, and links to any published analyses
+   (case studies, notebooks, or external papers).
+
+If you would rather share data privately first, email the maintainers listed in `CONTACT.txt`; we will coordinate a secure
+transfer and help you run the Thiele pipeline on your sample before publishing.
+
 ## Code style
 
 - Python: adhere to the repository’s existing patterns; the test suite covers all public tooling.

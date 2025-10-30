@@ -45,3 +45,5 @@ composition (sighted) keeps μ-cost bounded while blind search inflates runtime 
 - Record energy consumption alongside runtime so the same ledgers can test the Landauer inequality in a physical setting.
 - Invite fluid dynamicists to propose alternative structure-destroying controls that might close the gap; any such experiment
   should be added to the `counterexample` tracker with full ledgers.
+- Cross-link the new cross-domain counterexample hunts (`python -m tools.counterexample_hunt`) so auditors can compare
+  turbulence behaviour with the deep compression and SQL suites now archived alongside the turbulence proofpack.
