@@ -859,6 +859,20 @@ def verify_proofpack(
         "turbulence": turbulence,
     }
 
+    verdict = "THIELE_OK" if overall_status else "THIELE_FAIL"
+    ok_flag = verifier_dir / "THIELE_OK"
+    fail_flag = verifier_dir / "THIELE_FAIL"
+    # Remove stale verdict files so re-runs remain idempotent.
+    for flag in (ok_flag, fail_flag):
+        if flag.exists():
+            flag.unlink()
+    verdict_path = verifier_dir / verdict
+    with verdict_path.open("w", encoding="utf-8") as handle:
+        handle.write(f"{verdict}\n")
+
+    aggregated["verdict"] = verdict
+    aggregated["verdict_path"] = str(verdict_path.relative_to(proofpack_dir))
+
     aggregate_path = verifier_dir / "proofpack_verifier.json"
     with aggregate_path.open("w", encoding="utf-8") as handle:
         json.dump(aggregated, handle, indent=2, sort_keys=True)

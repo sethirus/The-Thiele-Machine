@@ -1,6 +1,6 @@
 # Zero-trust agent experiment prompt — Thiele law proofpacks
 
-_Last reviewed and verified against `work` branch on 2025-10-29 (UTC)._ 
+_Last reviewed and verified against `work` branch on 2025-10-30 (UTC)._ 
 
 This prompt encodes the full zero-trust workflow for producing execution-backed
 proofpacks that recover the Thiele Law of Compositional Information and its
@@ -9,13 +9,14 @@ workspace so that implementers can trust the documented repository state.
 
 ## 1. Verified repository snapshot
 
-| Check | Command | Result (2025-10-29) |
+| Check | Command | Result (2025-10-30) |
 | --- | --- | --- |
-| Verifier entry points present | `ls verifier` | `check_cwd.py`, `check_einstein.py`, `check_landauer.py` plus historical JSON outputs. |
-| Experiments package absent pre-scaffold | `find . -maxdepth 1 -type d -name 'experiments'` | No hits (we create scaffolding in §9.1). |
+| Verifier entry points present | `ls verifier` | `check_cross_domain.py`, `check_cwd.py`, `check_einstein.py`, `check_entropy.py`, `check_landauer.py`, `check_public_spt.py`, `check_turbulence.py`, plus archived JSON digests. |
+| Experiments package scaffolded | `find . -maxdepth 1 -type d -name 'experiments'` | `./experiments` (package with runners, public-data modules, and red-team harnesses). |
 | Ledger integration guide exists | `test -f scripts/integration_instructions.md` | Succeeds. |
-| No committed simulation artifacts | `ls results plots reports` | Fails as expected (directories absent). |
-| Repo timestamp | `date -u` | `Wed Oct 29 08:24:09 UTC 2025`. |
+| No committed simulation artifacts | `ls results plots reports` | Fails for each directory (none committed). |
+| Working tree clean | `git status -sb` | `## work` (clean). |
+| Repo timestamp | `date -u` | `Thu Oct 30 00:54:15 UTC 2025`. |
 
 ## 2. Zero-trust workflow overview
 
@@ -41,7 +42,11 @@ workspace so that implementers can trust the documented repository state.
 - Verifier scripts:
   - Landauer: [`verifier/check_landauer.py`](verifier/check_landauer.py)
   - Einstein–Smoluchowski: [`verifier/check_einstein.py`](verifier/check_einstein.py)
-  - CWD: [`verifier/check_cwd.py`](verifier/check_cwd.py)
+  - Entropy identity: [`verifier/check_entropy.py`](verifier/check_entropy.py)
+  - Cross-domain echoes: [`verifier/check_cross_domain.py`](verifier/check_cross_domain.py)
+  - Compositional Work Decomposition: [`verifier/check_cwd.py`](verifier/check_cwd.py)
+  - Public SPT protocol: [`verifier/check_public_spt.py`](verifier/check_public_spt.py)
+  - Turbulence mirrors: [`verifier/check_turbulence.py`](verifier/check_turbulence.py)
 
 ## 4. Global defaults and tolerances
 
@@ -60,8 +65,17 @@ workspace so that implementers can trust the documented repository state.
 experiments/               # Python package with runners and utilities
   __init__.py
   ledger_io.py
-  configs/
+  run_landauer.py
+  run_einstein.py
+  run_entropy.py
+  run_cwd.py
+  run_cross_domain.py
+  public_data/
+  turbulence/
   data/
+  data_sources/
+  proofpack.py
+  red_team.py
 results/<phase>/<run_tag>/ # CSVs and intermediate diagnostics
 plots/<phase>/<run_tag>/   # SVG/PNG with normalized metadata
 reports/<phase>_report.md  # Short narrative linking verifiers and plots
@@ -81,11 +95,11 @@ runs. All tolerances inherit from §4 unless otherwise stated.
 ### Phase A — Known laws (Landauer, Einstein relation, entropy identity)
 
 #### A1. Landauer (bit erasure surrogate)
-- **Builder deliverables:** `experiments/run_landauer.py`, `experiments/configs/landauer.py`,
-  CSV schema `seed,T,trial_id,protocol,sum_mu_bits,work,work_over_kTln2`, ledger taps, and
-  quick-look plots (`work_vs_mu.svg`, `mu_hist.svg`). Support `--protocol` and
-  `--synthetic-ledger` flags; implement Metropolis kernel over a four-state
-  Ising surrogate.
+- **Builder deliverables:** `experiments/run_landauer.py` with CLI flags for
+  `--protocol` and `--synthetic-ledger`, CSV schema
+  `seed,T,trial_id,protocol,sum_mu_bits,work,work_over_kTln2`, ledger taps, and
+  quick-look plots (`work_vs_mu.svg`, `mu_hist.svg`). Implement the Metropolis
+  kernel over a four-state Ising surrogate.
 - **Auditor checks:**
   \[\big|\tfrac{\langle W\rangle}{k_B T \ln 2}-\sum \mu_{\text{answer}}\big| \le \epsilon\]
   per protocol and temperature. Ensure CSV aggregates match recomputation from
@@ -190,9 +204,15 @@ runs. All tolerances inherit from §4 unless otherwise stated.
 
 ## 9. Immediate next actions
 
-1. **Configurable turbulence allowlist** – load dataset slugs from a profile or config file so new JHTDB mirrors can be registered without modifying code.
-2. **Digest history automation** – persist the CI smoke digest summary as a rolling JSON artifact for downstream dashboards.
-3. **Expanded turbulence coverage** – mirror additional JHTDB budgets (e.g., higher resolution or alternate fields) and record their verifier highlights in `RESULTS.md`.
+1. **Nightly rotation wiring** – update the scheduled `proofpack-smoke` workflow to call `scripts/run_proofpack_pipeline.py --turbulence-rotation-schedule expanded_nightly` and derive the rotation index from the run date so expanded mirrors execute automatically.
+2. **Digest history backfill & check** – migrate the historical manifest digests into `artifacts/digests/history.json` and add a docs check that fails if `docs/digest_history.md` is stale.
+3. **Docs smoke coverage** – extend CI to invoke `scripts/render_digest_history.py` (or a docs build target) to guarantee the rendered dashboard ships alongside the pipeline outputs.
+
+## 9a. Execution checkpoint — 2025-10-30
+
+- **What we are proving:** The pipeline now rotates high-budget turbulence mirrors on a deterministic cadence and emits a docs-facing digest dashboard so auditors can trace every proofpack smoke run when validating the Thiele Law proofpack.
+- **Executed steps:** `pytest tests/scripts/test_run_proofpack_pipeline.py tests/scripts/test_update_smoke_digest.py tests/scripts/test_render_digest_history.py` (pass) and `python scripts/render_digest_history.py --history artifacts/digests/history.json --output docs/digest_history.md` to validate the rotation schedule, allowlist regressions, and digest rendering.
+- **Remaining work to declare completion:** wire the CI/nightly job to pass the rotation schedule, backfill historic digests plus a freshness check for the docs dashboard, and teach CI to rebuild the docs view automatically. These items remain tracked in §9 and block the end-to-end Thiele law proofpack sign-off.
 
 ## 10. Reporting and archival requirements
 
@@ -205,6 +225,12 @@ runs. All tolerances inherit from §4 unless otherwise stated.
 
 ## 11. Progress log (running)
 
+- 2025-10-30 01:54 UTC: Parameterized turbulence rotation schedules, added the
+  digest history renderer plus docs output, and extended the regression suite to
+  cover the new CLI flags and dashboard generation.
+- 2025-10-30 00:54 UTC: Re-verified the `work` branch snapshot (see §1),
+  confirmed verifier inventory, and refreshed the prompt to reflect the current
+  `experiments/` layout and outstanding turbulence follow-ups.
 - 2025-10-29 08:24 UTC: Verified repository state (see §1 table) and
   scaffolded the `experiments/` package with documentation to enable Phase A
   builders.
@@ -249,5 +275,7 @@ runs. All tolerances inherit from §4 unless otherwise stated.
  - 2025-10-29 18:58 UTC: Added turbulence protocol/seed selectors to the pipeline and public-data workflow CLIs with regression coverage ensuring subset executions respect the new flags.
  - 2025-10-29 19:06 UTC: Mirrored additional JHTDB fixtures, backfilled `RESULTS.md` smoke digests, and documented sampling budgets plus verifier highlight updates.
  - 2025-10-29 20:45 UTC: Added turbulence dataset allowlists, digest-history summaries, and scheduled high-budget runs with documentation, CI automation, and RESULTS updates capturing turbulence runtime and penalty highlights.
+- 2025-10-30 01:12 UTC: Parameterized turbulence allowlists via profile configs, added expanded JHTDB metadata under `experiments/data/turbulence/`, updated smoke digests to emit `artifacts/digests/history.json`, refreshed results with new turbulence highlights, and added regression coverage for profile-driven allowlists.
+- 2025-10-30 01:32 UTC: Re-ran the proofpack pipeline smoke tests (`pytest tests/scripts/test_run_proofpack_pipeline.py tests/scripts/test_update_smoke_digest.py`) to demonstrate deterministic behavior post-allowlist rollout, recorded the execution checkpoint clarifying the remaining blockers for a completed Thiele law proofpack, and confirmed no additional regressions.
 - Future contributors must append dated entries summarizing concrete execution
   or verification steps, including command traces and resulting run tags.
