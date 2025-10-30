@@ -1,4 +1,4 @@
-% Status update (October 2025, refreshed): historical narrative retained for context. The complete VM↔kernel simulation framework is now proven. See README.md, BELL_INEQUALITY_VERIFIED_RESULTS.md, and coq/kernel/SimulationProof.v together with coq/ADMIT_REPORT.txt for the current evidence base.
+% Status update (October 2025, refreshed): historical narrative retained for context. The complete VM↔kernel simulation framework is now proven. See README.md, BELL_INEQUALITY_VERIFIED_RESULTS.md, and coq/kernel/SimulationProof.v together with ADMIT_REPORT.txt for the current evidence base.
 % Licensed under the Apache License, Version 2.0 (the "License");
 % you may not use this file except in compliance with the License.
 % Copyright 2025 Devon Thiele
@@ -51,6 +51,21 @@ The Thiele Machine introduces a formal model of computation that explicitly acco
 The model distinguishes between discovery costs ($\mu_{\text{discovery}}$), paid once to hypothesize and verify structure, and operational costs ($\mu_{\text{operational}}$), incurred during execution with known structure. This separation, formalized, enables analysis of how sighted, partition-aware computation can achieve exponential advantages over blind search.
 
 This paper presents the formal tuple definition, operational semantics, mechanized invariants, and empirical validations. All claims are supported by receipts, proofs, and reproducible experiments, establishing the Thiele Machine as a verifiable framework for cost-aware computation.
+
+\subsection{Falsifiable Forms of the Composition Law}
+
+To make the central thesis vulnerable to empirical refutation we articulate two falsifiable predictions that every experiment, proofpack, and runtime receipt in this artifact is designed to probe:
+
+\begin{enumerate}
+  \item \textbf{Thermodynamic work bound.} Any audited process that reduces an effective search space from $N$ states to $M$ while emitting a canonical query $q$ must satisfy
+    \begin{equation}
+      \frac{W}{k T \ln 2} \ge 8\,\lvert\mathrm{canon}(q)\rvert + \log_2 \frac{N}{M} - \varepsilon,
+    \end{equation}
+    where $W$ is the measured work (or runtime translated to work at environmental temperature $T$), $k$ is Boltzmann's constant, $\lvert\mathrm{canon}(q)\rvert$ is the $\mu$-spec canonical length of the emitted query, and $\varepsilon$ captures calibrated experimental noise. Any reproducible violation would falsify the meter.
+  \item \textbf{Sighted versus blind scaling.} For problem families whose compositional depth grows, if two solvers differ only by access to the true composition (one sighted, one blind), then the blind solver's cost grows super-polynomially in that depth while the sighted solver's $\mu$-ledger remains $O(1)$. Constructing a counterexample with controlled structure would refute the claimed separation.
+\end{enumerate}
+
+The empirical suites in this repository, together with the formal metering rules, are organised so that independent researchers can attempt exactly these falsification experiments.
 
 \subsection{Axiomatic Abstraction and Scope}
 
