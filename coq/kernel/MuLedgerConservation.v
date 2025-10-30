@@ -43,10 +43,30 @@ Fixpoint bounded_run (fuel : nat) (trace : list vm_instruction)
       end
   end.
 
+Lemma bounded_run_head :
+  forall fuel trace s,
+    exists rest, bounded_run fuel trace s = s :: rest.
+Proof.
+  induction fuel as [|fuel IH]; intros trace s; simpl.
+  - exists []. reflexivity.
+  - destruct (nth_error trace s.(vm_pc)) as [instr|] eqn:Hlookup.
+    + exists (bounded_run fuel trace (vm_apply s instr)). reflexivity.
+    + exists []. reflexivity.
+Qed.
+
 Lemma vm_apply_mu :
   forall s instr,
     (vm_apply s instr).(vm_mu) = s.(vm_mu) + instruction_cost instr.
-Admitted.
+Proof.
+  intros s instr.
+  destruct instr; simpl;
+    try reflexivity;
+    try (destruct (graph_pnew _ _) as [graph' mid] eqn:?; simpl; reflexivity);
+    try (destruct (graph_psplit _ _ _ _) as [[[graph' left_id] right_id]|] eqn:?; simpl; reflexivity);
+    try (destruct (graph_pmerge _ _ _) as [[graph' merged_id]|] eqn:?; simpl; reflexivity);
+    try (destruct (z3_oracle _) eqn:?; simpl; reflexivity);
+    try (destruct (String.eqb _ _) eqn:?; simpl; reflexivity).
+Qed.
 
 Fixpoint ledger_conserved (states : list VMState) (entries : list nat)
   : Prop :=
@@ -79,23 +99,11 @@ Proof.
     + destruct H as [Hstep Hrest]. split; auto.
 Qed.
 
-Lemma bounded_ledger_conservation :
-  forall fuel trace s,
-    ledger_conserved (bounded_run fuel trace s)
-                     (ledger_entries fuel trace s).
-Admitted.
-
 Fixpoint ledger_sum (entries : list nat) : nat :=
   match entries with
   | [] => 0
   | delta :: rest => delta + ledger_sum rest
   end.
-
-Lemma run_vm_mu_conservation :
-  forall fuel trace s,
-    (run_vm fuel trace s).(vm_mu) =
-    s.(vm_mu) + ledger_sum (ledger_entries fuel trace s).
-Admitted.
 
 (** Final conservation theorem combining both the cumulative and
     per-step statements. *)
@@ -106,4 +114,34 @@ Theorem bounded_model_mu_ledger_conservation :
                      (ledger_entries fuel trace s) /\
   (run_vm fuel trace s).(vm_mu) =
     s.(vm_mu) + ledger_sum (ledger_entries fuel trace s).
-Admitted.
+Proof.
+  induction fuel as [|fuel IH]; intros trace s; simpl.
+  - split; [exact I | rewrite Nat.add_0_r; reflexivity].
+  - destruct (nth_error trace s.(vm_pc)) as [instr|] eqn:Hlookup; simpl.
+    + destruct (IH trace (vm_apply s instr)) as [IH_ledger IH_run].
+      destruct (bounded_run_head fuel trace (vm_apply s instr)) as [rest Hrun].
+      simpl.
+      rewrite Hrun in IH_ledger.
+      rewrite Hrun.
+      split; [split; [apply vm_apply_mu | exact IH_ledger]
+            | rewrite IH_run; rewrite vm_apply_mu; lia].
+    + split; [exact I | rewrite Nat.add_0_r; reflexivity].
+Qed.
+
+Corollary bounded_ledger_conservation :
+  forall fuel trace s,
+    ledger_conserved (bounded_run fuel trace s)
+                     (ledger_entries fuel trace s).
+Proof.
+  intros fuel trace s.
+  apply (proj1 (bounded_model_mu_ledger_conservation fuel trace s)).
+Qed.
+
+Corollary run_vm_mu_conservation :
+  forall fuel trace s,
+    (run_vm fuel trace s).(vm_mu) =
+    s.(vm_mu) + ledger_sum (ledger_entries fuel trace s).
+Proof.
+  intros fuel trace s.
+  apply (proj2 (bounded_model_mu_ledger_conservation fuel trace s)).
+Qed.
