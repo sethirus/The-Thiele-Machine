@@ -84,10 +84,10 @@ purge:
 
 # Zero-trust proofpack smoke profile (runs quick pipeline + bundler)
 proofpack-smoke:
-        @run_tag=$${RUN_TAG:-ci-smoke}; \
-          echo "Running proofpack pipeline smoke with run tag '$$run_tag'"; \
-          rm -rf artifacts/experiments/$$run_tag; \
-          PYTHONPATH=. python scripts/run_proofpack_pipeline.py --profile quick --signing-key kernel_secret.key --run-tag $$run_tag --note CI-smoke --created-at 1970-01-01T00:00:00Z
+	@run_tag=$${RUN_TAG:-ci-smoke}; \
+	echo "Running proofpack pipeline smoke with run tag '$$run_tag'"; \
+	rm -rf artifacts/experiments/$$run_tag; \
+	PYTHONPATH=. python scripts/run_proofpack_pipeline.py --profile quick --signing-key kernel_secret.key --run-tag $$run_tag --note CI-smoke --created-at 1970-01-01T00:00:00Z
 
 # Scheduled high-budget turbulence pipeline run (mirrors JHTDB fixtures)
 proofpack-turbulence-high:
