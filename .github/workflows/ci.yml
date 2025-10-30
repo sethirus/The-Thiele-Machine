@@ -40,6 +40,16 @@ jobs:
       - name: Run pytest suite
         run: pytest
 
+      - name: Run falsifiability analysis
+        run: |
+          python -m tools.falsifiability_analysis --update-readme README.md
+          git diff --exit-code README.md
+
+      - name: Ensure admit report is current
+        run: |
+          python -m tools.generate_admit_report
+          git diff --exit-code ADMIT_REPORT.txt
+
       - name: Verify Bell artifact
         run: ./verify_bell.sh
 
@@ -141,7 +151,11 @@ jobs:
 
   proofpack-smoke:
     runs-on: ubuntu-latest
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    if: >-
+      (github.event_name == 'push' && github.ref == 'refs/heads/new-public-branch-default') ||
+      (github.event_name == 'pull_request' && github.base_ref == 'new-public-branch-default') ||
+      github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'schedule'
 
     steps:
       - uses: actions/checkout@v4
@@ -197,7 +211,11 @@ jobs:
 
   turbulence-high:
     runs-on: ubuntu-latest
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    if: >-
+      (github.event_name == 'push' && github.ref == 'refs/heads/new-public-branch-default') ||
+      (github.event_name == 'pull_request' && github.base_ref == 'new-public-branch-default') ||
+      github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'schedule'
 
     steps:
       - uses: actions/checkout@v4
