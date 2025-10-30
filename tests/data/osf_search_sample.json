@@ -1,0 +1,81 @@
+{
+  "data": [
+    {
+      "id": "file1",
+      "attributes": {
+        "name": "track.csv",
+        "materialized_path": "/data/track.csv",
+        "size": 123,
+        "extra": {
+          "hashes": {
+            "md5": "abc",
+            "sha256": "def"
+          }
+        },
+        "provider": "osfstorage",
+        "date_created": "2023-01-01T00:00:00Z",
+        "date_modified": "2023-01-02T00:00:00Z"
+      },
+      "relationships": {
+        "node": {
+          "data": {
+            "id": "node1",
+            "type": "nodes"
+          }
+        }
+      },
+      "links": {
+        "download": "https://osf.io/download/file1/"
+      }
+    },
+    {
+      "id": "file2",
+      "attributes": {
+        "name": "image.tif",
+        "materialized_path": "/data/image.tif",
+        "size": 456,
+        "extra": {
+          "hashes": {
+            "md5": "ghi",
+            "sha256": "jkl"
+          }
+        },
+        "provider": "osfstorage",
+        "date_created": "2023-02-01T00:00:00Z",
+        "date_modified": "2023-02-02T00:00:00Z"
+      },
+      "relationships": {
+        "target": {
+          "data": {
+            "id": "node2",
+            "type": "nodes"
+          }
+        }
+      },
+      "links": {
+        "download": "https://osf.io/download/file2/"
+      }
+    },
+    {
+      "id": "file3",
+      "attributes": {
+        "name": "notes.txt",
+        "materialized_path": "/data/notes.txt"
+      },
+      "relationships": {
+        "node": {
+          "data": {
+            "id": "node3",
+            "type": "nodes"
+          }
+        }
+      },
+      "links": {
+        "download": "https://osf.io/download/file3/"
+      }
+    }
+  ],
+  "links": {
+    "next": null
+  }
+}
