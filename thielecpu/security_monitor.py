@@ -69,7 +69,8 @@ class SecurityMonitor:
         self.log_file = Path(log_file or os.environ.get("THIELE_SECURITY_LOG_PATH", "security_log.json"))
         self.enabled = _env_bool("THIELE_SECURITY_LOGGING", True)
         self.redact = _env_bool("THIELE_SECURITY_LOG_REDACT", False)
-        self.session_id = hashlib.sha256(str(datetime.datetime.utcnow().timestamp()).encode()).hexdigest()[:16]
+        now_utc = datetime.datetime.now(datetime.timezone.utc)
+        self.session_id = hashlib.sha256(str(now_utc.timestamp()).encode()).hexdigest()[:16]
         # In-process lock for thread-safety; for multi-process coordination we use fcntl (POSIX) when available
         self._inproc_lock = threading.Lock()
 
@@ -91,8 +92,9 @@ class SecurityMonitor:
         if self.redact:
             safe_details = self._redact(safe_details)
 
+        now = datetime.datetime.now(datetime.timezone.utc)
         entry = {
-            "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
+            "timestamp": now.isoformat().replace("+00:00", "Z"),
             "session_id": self.session_id,
             "pid": os.getpid(),
             "process": multiprocessing.current_process().name,

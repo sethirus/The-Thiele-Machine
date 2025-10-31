@@ -1,5 +1,6 @@
 .PHONY: experiments-small experiments-falsify experiments-budget experiments-full artifacts
 .PHONY: experiments-small-save experiments-falsify-save experiments-budget-save experiments-full-save
+.PHONY: proofpack-smoke proofpack-turbulence-high
 .PHONY: vm-run rtl-run compare clean purge
 
 # Quick experiments (no outputs saved)
@@ -80,3 +81,17 @@ clean:
 
 purge:
 	find experiments -type d -mtime +1 -exec rm -rf {} +
+
+# Zero-trust proofpack smoke profile (runs quick pipeline + bundler)
+proofpack-smoke:
+	@run_tag=$${RUN_TAG:-ci-smoke}; \
+	echo "Running proofpack pipeline smoke with run tag '$$run_tag'"; \
+	rm -rf artifacts/experiments/$$run_tag; \
+	PYTHONPATH=. python scripts/run_proofpack_pipeline.py --profile quick --signing-key kernel_secret.key --run-tag $$run_tag --note CI-smoke --created-at 1970-01-01T00:00:00Z
+
+# Scheduled high-budget turbulence pipeline run (mirrors JHTDB fixtures)
+proofpack-turbulence-high:
+	@run_tag=$${RUN_TAG:-ci-turbulence}; \
+	  echo "Running high-budget turbulence pipeline with run tag '$$run_tag'"; \
+	  rm -rf artifacts/experiments/$$run_tag; \
+	  PYTHONPATH=. python scripts/run_proofpack_pipeline.py --profile quick --signing-key kernel_secret.key --run-tag $$run_tag --note CI-turbulence --public-data-root archive --turbulence-dataset isotropic1024_8pt --turbulence-dataset isotropic1024_12pt --turbulence-protocol sighted --turbulence-protocol blind --turbulence-protocol destroyed --turbulence-seed 11

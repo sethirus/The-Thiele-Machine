@@ -105,16 +105,50 @@ Proof.
   apply (EncodingBounds.SHIFT_BIG_pos BASE SHIFT_LEN BASE_ge_2 SHIFT_LEN_ge_1).
 Qed.
 
-Axiom pair_small_roundtrip : forall len code,
+Lemma pair_small_roundtrip : forall len code,
   code < SHIFT_SMALL -> pair_small_decode (pair_small_encode len code) = (len, code).
+Proof.
+  intros len code Hcode.
+  unfold pair_small_decode, pair_small_encode.
+  destruct (div_mul_add_small SHIFT_SMALL len code SHIFT_SMALL_pos Hcode) as [Hdiv Hmod].
+  rewrite Hdiv, Hmod.
+  reflexivity.
+Qed.
 
-Axiom triple_roundtrip : forall q head code_small, head < SHIFT_BIG -> code_small < SHIFT_BIG -> triple_decode (triple_encode q head code_small) = (q, head, code_small).
+Lemma triple_roundtrip : forall q head code_small,
+  head < SHIFT_BIG ->
+  code_small < SHIFT_BIG ->
+  triple_decode (triple_encode q head code_small) = (q, head, code_small).
+Proof.
+  intros q head code_small Hhead Hcode.
+  unfold triple_decode, triple_encode.
+  destruct (div_mul_add_small SHIFT_BIG (q * SHIFT_BIG + head) code_small SHIFT_BIG_pos Hcode)
+    as [Hdiv1 Hmod1].
+  rewrite Hmod1.
+  simpl.
+  rewrite Hdiv1.
+  destruct (div_mul_add_small SHIFT_BIG q head SHIFT_BIG_pos Hhead) as [Hdiv2 Hmod2].
+  rewrite Hmod2, Hdiv2.
+  reflexivity.
+Qed.
 
 Local Opaque Nat.div Nat.modulo.
 
-Axiom encode_list_decode_aux : forall xs,
+Lemma encode_list_decode_aux : forall xs,
   digits_ok xs ->
   decode_list_aux (encode_list xs) (length xs) = xs.
+Proof.
+  induction xs as [|x xs IH]; intros Hdig.
+  - reflexivity.
+  - inversion Hdig as [|y ys Hy Hforall]; subst.
+    simpl encode_list.
+    simpl length.
+    simpl decode_list_aux.
+    specialize (IH Hforall).
+    destruct (div_mul_add_small BASE (encode_list xs) x BASE_pos Hy) as [Hdiv Hmod].
+    rewrite Hmod, Hdiv, IH.
+    reflexivity.
+Qed.
 
 Lemma SHIFT_LEN_lt_SHIFT_SMALL : SHIFT_LEN < SHIFT_SMALL.
 Proof.
@@ -129,9 +163,30 @@ Proof.
   apply (EncodingBounds.len_lt_SHIFT_SMALL BASE SHIFT_LEN BASE_ge_2 SHIFT_LEN_ge_1 len Hle).
 Qed.
 
-Axiom encode_list_upper : forall xs,
+Lemma encode_list_upper : forall xs,
   digits_ok xs ->
   encode_list xs < Nat.pow BASE (length xs).
+Proof.
+  induction xs as [|x xs IH]; intros Hdig.
+  - simpl. lia.
+  - inversion Hdig as [|y ys Hy Hforall]; subst.
+    simpl encode_list.
+    simpl length.
+    specialize (IH Hforall).
+    rewrite Nat.pow_succ_r'.
+    assert (Hx : x < BASE) by exact Hy.
+    assert (Hsucc_le : encode_list xs + 1 <= Nat.pow BASE (length xs)) by lia.
+    assert (Hle0 : (encode_list xs + 1) * BASE <= Nat.pow BASE (length xs) * BASE).
+    { apply Nat.mul_le_mono_pos_r; [apply BASE_pos|exact Hsucc_le]. }
+    pose proof Hle0 as Hle.
+    rewrite (Nat.mul_comm (Nat.pow BASE (length xs)) BASE) in Hle.
+    assert (Hlt : encode_list xs * BASE + x < (encode_list xs + 1) * BASE).
+    { rewrite Nat.mul_add_distr_r.
+      rewrite Nat.mul_1_l.
+      apply Nat.add_lt_mono_l. lia. }
+    eapply Nat.lt_le_trans; [exact Hlt|].
+    exact Hle.
+Qed.
 
 Lemma encode_list_lt_SHIFT_SMALL : forall xs,
   digits_ok xs ->
@@ -144,20 +199,58 @@ Proof.
            encode_list digits_ok encode_list_upper xs Hdigits Hlen).
 Qed.
 
-Axiom encode_list_with_len_all_bounds : forall xs,
+Lemma encode_list_with_len_all_bounds : forall xs,
   digits_ok xs ->
   length xs <= SHIFT_LEN ->
   length xs < SHIFT_SMALL /\
   encode_list xs < SHIFT_SMALL /\
   encode_list_with_len xs < SHIFT_BIG.
+Proof.
+  intros xs Hdig Hlen.
+  destruct (EncodingBounds.encode_list_bounds_of BASE SHIFT_LEN BASE_ge_2 SHIFT_LEN_ge_1
+              encode_list digits_ok encode_list_upper xs Hdig Hlen)
+    as [Hlen_small Hcode_small Hpacked_lt].
+    split; [exact Hlen_small|].
+    split; [exact Hcode_small|].
+    unfold encode_list_with_len.
+    exact Hpacked_lt.
+Qed.
 
-Axiom encode_decode_list_with_len : forall xs,
+Lemma encode_decode_list_with_len : forall xs,
   digits_ok xs ->
   length xs <= SHIFT_LEN ->
   decode_list_with_len (encode_list_with_len xs) = xs.
+Proof.
+  intros xs Hdig Hlen.
+  unfold decode_list_with_len, encode_list_with_len.
+  destruct (EncodingBounds.encode_list_bounds_of BASE SHIFT_LEN BASE_ge_2 SHIFT_LEN_ge_1
+              encode_list digits_ok encode_list_upper xs Hdig Hlen)
+    as [Hlen_small Hcode_small Hpacked_lt].
+  rewrite (pair_small_roundtrip (length xs) (encode_list xs)).
+  - apply encode_list_decode_aux; assumption.
+  - exact Hcode_small.
+Qed.
 
-Axiom encode_decode_config : forall q tape head,
+Lemma encode_decode_config : forall q tape head,
   digits_ok tape ->
   length tape <= SHIFT_LEN ->
   head < SHIFT_BIG ->
   decode_config (encode_config q tape head) = (q, tape, head).
+Proof.
+  intros q tape head Hdig Hlen Hhead.
+  unfold decode_config, encode_config.
+  pose proof (EncodingBounds.encode_list_bounds_of BASE SHIFT_LEN BASE_ge_2 SHIFT_LEN_ge_1
+                encode_list digits_ok encode_list_upper tape Hdig Hlen)
+    as [Hlen_small Hcode_small Hpacked_lt].
+  rewrite (triple_roundtrip q head (encode_list_with_len tape)).
+    - unfold encode_list_with_len at 1.
+      rewrite (pair_small_roundtrip (length tape) (encode_list tape)).
+      + cbn.
+        apply f_equal2; [|reflexivity].
+        apply f_equal2; [reflexivity|].
+        apply encode_list_decode_aux; assumption.
+      + exact Hcode_small.
+  - exact Hhead.
+  - unfold encode_list_with_len.
+    exact Hpacked_lt.
+Qed.

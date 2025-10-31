@@ -1,236 +1,281 @@
-# Agent experiment prompt — reproduce Landauer, Einstein, and CWD with the μ‑ledger
+# Zero-trust agent experiment prompt — Thiele law proofpacks
 
+_Last reviewed and verified against `work` branch on 2025-10-30 (UTC)._ 
 
-## Overview
-- Purpose: run reproducible software experiments that use the project's μ‑ledger to (A) recover Landauer and Einstein–Smoluchowski laws and (B) test the Compositional Work Decomposition (CWD) prediction.
-- Outputs: CSVs, plots, verifier JSONs, short PDF reports.
+This prompt encodes the full zero-trust workflow for producing execution-backed
+proofpacks that recover the Thiele Law of Compositional Information and its
+constituent physical limits. Every statement below has been re-verified in this
+workspace so that implementers can trust the documented repository state.
 
-## Repository references
-- μ‑ledger code: [`coq/kernel/MuLedgerConservation.v`](coq/kernel/MuLedgerConservation.v:21)
-- VM step semantics: [`coq/kernel/VMStep.v`](coq/kernel/VMStep.v:61)
-- VM state: [`coq/kernel/VMState.v`](coq/kernel/VMState.v:241)
+## 1. Verified repository snapshot
 
-## Global parameters (defaults)
-- Seeds: [0,1,2,3,4]
-- Trials per condition: 50
-- Temperature grid T: [0.5, 1.0, 2.0]
-- Tolerances: epsilon=0.05, delta=0.05, eta=0.05
-- k_B = 1 (units)
+| Check | Command | Result (2025-10-30) |
+| --- | --- | --- |
+| Verifier entry points present | `ls verifier` | `check_cross_domain.py`, `check_cwd.py`, `check_einstein.py`, `check_entropy.py`, `check_landauer.py`, `check_public_spt.py`, `check_turbulence.py`, plus archived JSON digests. |
+| Experiments package scaffolded | `find . -maxdepth 1 -type d -name 'experiments'` | `./experiments` (package with runners, public-data modules, and red-team harnesses). |
+| Ledger integration guide exists | `test -f scripts/integration_instructions.md` | Succeeds. |
+| No committed simulation artifacts | `ls results plots reports` | Fails for each directory (none committed). |
+| Working tree clean | `git status -sb` | `## work` (clean). |
+| Repo timestamp | `date -u` | `Thu Oct 30 00:54:15 UTC 2025`. |
 
-## Layout of produced artifacts
-- results/<experiment>/<T>/<seed>.csv
-- plots/<experiment>/*.png
-- reports/<experiment>_report.pdf
-- verifier/<experiment>_verifier.json
+## 2. Zero-trust workflow overview
 
-## A. Landauer experiment (implementation blueprint)
+- **Objective:** Deliver reproducible proofpacks that emit a single `THIELE_OK`
+  verdict when audited with deterministic verifiers.
+- **Roles:**
+  1. **Builder** – implement simulation modules exactly as specified.
+  2. **Auditor** – recompute all metrics and fail on any mismatch.
+  3. **Falsifier** – craft adversarial ablations to break false structure.
+  4. **Archivist** – seal receipts, manifests, hashes, and human summaries.
+- **Global guardrails:** deterministic seeds, fixed Ed25519 key per run tag,
+  normalized SVG metadata, log-space combinatorics, double precision numerics,
+  explicit tolerances, no hidden state, no network or dynamic code generation.
+- **Single verdict policy:** any failed check aborts with non-zero exit; do not
+  continue subsequent phases until the current phase is green.
 
-### Goal
-Recover Landauer bound numerically:
-$$ \langle W\rangle / (kT\ln 2) \approx \sum_t \mu_{t} $$
-where μ_t comes from the μ‑ledger (`ledger_entries`).
+## 3. Authoritative source references
 
-### Minimal system
-- Choose small discrete microstate space, e.g. N=4 initial microstates, erase to M=1.
-- Sighted protocol: policy that conditions on the system's macrostate and routes steps to deterministically reduce accessible microstates.
-- Blind protocol: same actions but without conditioning on module identity.
+- μ-ledger conservation: [`coq/kernel/MuLedgerConservation.v`](coq/kernel/MuLedgerConservation.v)
+- VM step semantics: [`coq/kernel/VMStep.v`](coq/kernel/VMStep.v)
+- VM state definition: [`coq/kernel/VMState.v`](coq/kernel/VMState.v)
+- Ledger integration guidance: [`scripts/integration_instructions.md`](scripts/integration_instructions.md)
+- Verifier scripts:
+  - Landauer: [`verifier/check_landauer.py`](verifier/check_landauer.py)
+  - Einstein–Smoluchowski: [`verifier/check_einstein.py`](verifier/check_einstein.py)
+  - Entropy identity: [`verifier/check_entropy.py`](verifier/check_entropy.py)
+  - Cross-domain echoes: [`verifier/check_cross_domain.py`](verifier/check_cross_domain.py)
+  - Compositional Work Decomposition: [`verifier/check_cwd.py`](verifier/check_cwd.py)
+  - Public SPT protocol: [`verifier/check_public_spt.py`](verifier/check_public_spt.py)
+  - Turbulence mirrors: [`verifier/check_turbulence.py`](verifier/check_turbulence.py)
 
-### Per‑trial logging (CSV columns)
-seed, T, trial_id, sum_mu_bits, work, work_over_kTln2, protocol
+## 4. Global defaults and tolerances
 
-### Work proxy
-- Use Metropolis energy changes: record ΔE for accepted transitions; sum positive energy inputs as work.
-- Consistent sign: work positive when energy increases.
+- RNG seeds: `[0, 1, 2, 3, 4]`
+- Trials per condition: `50`
+- Temperature grid `T`: `[0.5, 1.0, 2.0]`
+- Force magnitudes for Einstein runs: `[0.0, 0.1]`
+- Tolerances: `epsilon = 0.05`, `delta = 0.05`, `eta = 0.05`
+- Boltzmann constant: `k_B = 1`
+- Confidence bands: use bootstrap or analytic CIs with explicit seeds and
+  record them in the CSV outputs for the auditors.
 
-### Example driver (python)
-```python
-# python
-import numpy as np, pandas as pd
-def run_erasure(seed, T, protocol, steps=100):
-    np.random.seed(seed)
-    # initialize microstate distribution
-    # implement sighted or blind transition kernel
-    # record per-step mu_bits and ΔE
-    # return sum_mu_bits, total_work
+## 5. Artifact layout (post-implementation)
+
+```
+experiments/               # Python package with runners and utilities
+  __init__.py
+  ledger_io.py
+  run_landauer.py
+  run_einstein.py
+  run_entropy.py
+  run_cwd.py
+  run_cross_domain.py
+  public_data/
+  turbulence/
+  data/
+  data_sources/
+  proofpack.py
+  red_team.py
+results/<phase>/<run_tag>/ # CSVs and intermediate diagnostics
+plots/<phase>/<run_tag>/   # SVG/PNG with normalized metadata
+reports/<phase>_report.md  # Short narrative linking verifiers and plots
+verifier/*.json            # Generated by check_* scripts (archived but not trusted)
+artifacts/experiments/<timestamp>/manifest.json
 ```
 
-### Verifier checks
-- For each trial assert |work/(kT ln2) - sum_mu_bits| <= epsilon.
-- Aggregate: report mean and stddev.
+Generated plots and large artifacts remain uncommitted; only code, configs, and
+small deterministic fixtures enter version control.
 
-## B. Einstein–Smoluchowski experiment (diffusion–mobility)
+## 6. Phase charter and acceptance criteria
 
-### Goal
-Show D = μ_mech * kT (estimate numerically).
+For each phase, the Builder produces deterministic logs, the Auditor validates
+metrics, the Falsifier attacks the claims, and the Archivist packages successful
+runs. All tolerances inherit from §4 unless otherwise stated.
 
-### Setup
-- Ensemble of walkers in 1D; Metropolis updates at temperature T.
-- Optional small bias force F to measure drift.
+### Phase A — Known laws (Landauer, Einstein relation, entropy identity)
 
-### Estimators
-- D ≈ slope of MSD(t)/(2t) for large t.
-- μ_mech ≈ slope of mean displacement / (F t).
+#### A1. Landauer (bit erasure surrogate)
+- **Builder deliverables:** `experiments/run_landauer.py` with CLI flags for
+  `--protocol` and `--synthetic-ledger`, CSV schema
+  `seed,T,trial_id,protocol,sum_mu_bits,work,work_over_kTln2`, ledger taps, and
+  quick-look plots (`work_vs_mu.svg`, `mu_hist.svg`). Implement the Metropolis
+  kernel over a four-state Ising surrogate.
+- **Auditor checks:**
+  \[\big|\tfrac{\langle W\rangle}{k_B T \ln 2}-\sum \mu_{\text{answer}}\big| \le \epsilon\]
+  per protocol and temperature. Ensure CSV aggregates match recomputation from
+  raw step logs. Confirm byte-stable reruns.
+- **Falsifier battery:** Randomize control policy (destroy composition cues) –
+  expect minimality failure yet conservation holds; auditor must flag minimality
+  but accept conservation.
 
-### CSV output
-seed, T, F, D_est, mu_mech_est, D_minus_mu_kT
+#### A2. Einstein relation (diffusion–mobility)
+- **Builder deliverables:** `experiments/run_einstein.py`, CLI for walkers,
+  steps, forces, sampling cadence; logs `seed,T,F,steps,sample_stride,D_est,mu_mech_est,D_minus_mu_kT`.
+- **Auditor checks:** Assert `D ≈ μ_mech · k_B · T` across temperatures, blind
+  vs sighted AIC comparison (ΔAIC ≥ 10 for exponential vs polynomial cost), and
+  slope CIs containing zero for μ/Unit.
+- **Falsifier battery:** scramble walker steps or drift labels to ensure verifier
+  rejects mismatched scaling while tolerating conservation-only cases.
 
-### Driver sketch
-```python
-# python
-def run_walkers(seed, T, F, n_walkers=1000, steps=1000):
-    # simulate ensemble, record positions every τ
-    # compute MSD and mean displacement
-    # estimate D and mu_mech
-    return D_est, mu_mech_est
-```
+#### A3. Entropy identity (diffusion protocol)
+- **Builder deliverables:** extension of A2 runner logging per-step μ_answer and
+  entropy deltas; cumulative series in CSV.
+- **Auditor checks:** Theil–Sen slope of ΔS vs μ_answer ≈ 1 with CI covering 1;
+  intercept ≈ 0; Spearman ρ ≥ 0.9 with p ≤ 1e-6 for sighted and blind variants.
+- **Falsifier battery:** coarse-grain scramble mid-run must break conservation
+  proof and lead to verifier failure.
 
-### Verifier
-- Assert |D_est - mu_mech_est * kT| <= delta.
-- Compare sighted vs blind: report information metric (AIC or entropy production proxy).
+### Phase B — New law: Compositional Work Decomposition (CWD)
+- **Builder deliverables:** `experiments/run_cwd.py` producing multi-module
+  μ-ledger captures with module IDs, policy actions, success flags, penalty bits,
+  and cumulative work taps; summary CSV reporting `mu_total_bits`, `work`,
+  `penalty_bits_total`, and `mutual_information_bits`; deterministic fixtures in
+  `experiments/data/sample_cwd.jsonl` for replay.
+- **Auditor checks:** sighted decomposition equality within ε; penalty bound
+  `⟨W⟩_blind - ⟨W⟩_sighted ≥ k_B T ln 2 · I(Module; Policy)` within η using the
+  logged mutual-information diagnostics; rerun parity and ledger digests.
+- **Falsifier battery:** remove routing labels so penalty collapses and equality
+  fails as expected.
 
-## C. Compositional Work Decomposition (CWD)
+### Phase C — Cross-domain echoes
+- **Builder deliverables:** compression and LDPC microbenchmarks with
+  sighted/blind/destroyed variants, logging μ and runtime; CLI toggles for
+  ledger injection.
+- **Auditor checks:** sighted slope CI includes 0; blind exponential behavior
+  with ΔAIC ≥ 10; destroyed control matches degraded expectations.
+- **Falsifier battery:** structure ablations cause auditor to flag failures.
 
-### Goal
-- Predict minimal average work for K-module composition:
-  W_min/(kT ln2) = sum_i μ_answer^(i)
-- Blind protocol penalty: ΔW >= kT ln2 * I(Module;Policy)
+### Phase D — Proofpack & verifier
+- **Archivist deliverables:** `protocol.json`, `summary.json`, ledger CSVs,
+  plots, manifests with SHA-256 digests, Ed25519 signatures, receipts.
+- **Auditor deliverable:** `tools/thiele_verifier.py <dir>` recomputes metrics
+  solely from CSVs, enforces thresholds, checks deterministic reruns, verifies
+  digests, and prints `THIELE_OK` on success.
 
-### Setup
-- K independent modules; generate tasks with known μ_answer per module.
-- Implement sighted routing and blind policy.
+### Phase E — Red-team battery
+- **Falsifier runs:** structure ablation (advantage collapses), coarse-grain
+  scramble mid-run (conservation proof fails), worst-order schedule (blind stays
+  exponential; sighted near-flat).
+- **Auditor expectation:** any deviation triggers non-zero exit.
 
-### Measurements
-- Σμ_sighted, W_sighted, W_blind, I(Module;Policy)
-- Estimate mutual information from action distributions:
-  I = Σ_{m,a} p(m,a) log p(m,a)/(p(m)p(a))
+## 7. Role handoff rules
 
-### CSV
-K, seed, sum_mu_sighted, W_sighted, W_blind, I_est, penalty
+1. Builders must deposit artifacts in a dedicated run directory with a
+   `RUN_TAG` used by subsequent roles.
+2. Auditors rerun builders’ commands with identical seeds; discrepancies require
+   builder fixes before proceeding.
+3. Falsifiers clone the builder outputs into `artifacts/red_team/<RUN_TAG>/` and
+   document the perturbations they apply.
+4. Archivists only process directories that passed both auditing and falsifier
+   gates, recording manifests and summaries for posterity.
 
-### Verifier assertions
-- |W_sighted/(kT ln2) - sum_mu_sighted| <= epsilon
-- W_blind - W_sighted >= kT ln2 * I_est - eta
+## 8. Implementation backlog
 
-## D. Reproducibility & scripts
+| ID | Task | Role | Status |
+| --- | --- | --- | --- |
+| 8.1 | Scaffold `experiments/` package and document structure | Builder | ✅ 2025-10-29: Package scaffolding + README. |
+| 8.2 | Implement ledger adapter utilities (`experiments/ledger_io.py`) | Builder | ✅ 2025-10-29: JSONL helpers + tests. |
+| 8.3 | Landauer runner + smoke tests | Builder/Auditor | ✅ 2025-10-29: Deterministic Metropolis surrogate + pytest coverage. |
+| 8.4 | Einstein runner + mobility estimator | Builder/Auditor | ✅ 2025-10-29: Biased diffusion builder with ledger + pytest checks. |
+| 8.5 | Entropy identity extensions | Builder/Auditor | ✅ 2025-10-29: Entropy runner + cumulative series + pytest harness. |
+| 8.6 | CWD runner + MI estimator | Builder/Auditor | ✅ 2025-10-29: Phase B1 multi-module builder, summary CSV, pytest coverage. |
+| 8.7 | Cross-domain echoes suite | Builder/Auditor | ✅ 2025-10-29: Cross-domain runner + fixtures + pytest coverage. |
+| 8.8 | Phase A–C verifier harness refresh (`verifier/check_*.py`) | Auditor | ✅ 2025-10-29: Landauer/Einstein/Entropy/CWD/Cross-domain auditors recompute metrics from ledgers. |
+| 8.9 | Unified verifier (`tools/thiele_verifier.py`) | Auditor | ✅ 2025-10-29: Aggregated proofpack verifier emits THIELE_OK verdicts. |
+| 8.10 | Proofpack manifests and receipts | Archivist | ✅ 2025-10-29: Manifest writer, receipt signer, and pytest coverage. |
+| 8.11 | Red-team adversarial scripts | Falsifier | ✅ 2025-10-29: Deterministic attacks + verifier regression tests. |
+| 8.12 | Proofpack bundler CLI | Archivist | ✅ 2025-10-29: Added `tools/proofpack_bundler.py` with CLI + regression coverage. |
+| 8.13 | Archivist–falsifier integration smoke tests | Auditor/Archivist | ✅ 2025-10-29: Bundler now rejects red-team failures and documents workflow. |
+| 8.14 | Byte-stability regression audit | Archivist | ✅ 2025-10-29: Added deterministic manifest/receipt replay tests. |
+| 9.1 | End-to-end proofpack orchestration | Orchestrator | ✅ 2025-10-29: Added `scripts/run_proofpack_pipeline.py` with quick profile and pipeline regression test. |
+| 9.2 | Human summary narrative generator | Archivist | ✅ 2025-10-29: Added Markdown renderer + bundler integration with summary.md output. |
+| 9.3 | Artifact layout enforcement | Archivist | ✅ 2025-10-29: Bundler enforces `artifacts/experiments/<tag>/` roots and new tests cover the guardrail. |
+| 9.4 | Public-data candidate discovery | Discovery | ✅ 2025-10-29: Added OSF, Figshare, Dryad, and Zenodo clients plus unified CLI/fixtures to enumerate runbook-aligned raw-data candidates. |
+| 9.5 | Anchor extraction + download automation | Discovery | ✅ 2025-10-29: Added anchor regex parsers, filtering CLI, and deterministic download/manifest tooling. |
+| 9.6 | Public SPT diffusion analytics | Builder/Auditor | ✅ 2025-10-29: Added `experiments/public_data/spt_analysis.py`, fixtures, and pytest coverage for anchored diffusion/OOS diagnostics. |
+| 9.7 | Public SPT proofpack runner & verifier integration | Builder/Auditor | ✅ 2025-10-29: Added `experiments/public_data/spt_protocol.py`, CLI runner, verifier hook, and regression tests for proofpack + ΔAIC/OOS thresholds. |
+| 9.8 | Public-data pipeline integration | Orchestrator | ✅ 2025-10-29: Extended `scripts/run_proofpack_pipeline.py` to auto-run mirrored public datasets and bundle verifier payloads. |
+| 9.9 | Configurable pipeline profiles | Orchestrator | ✅ 2025-10-29: Added JSON/YAML profile loader, CLI flag, and regression coverage for custom argument grids. |
+| 9.10 | Proofpack smoke automation | Orchestrator | ✅ 2025-10-29: Added `make proofpack-smoke`, scheduled CI job, and coverage capturing manifest digests in Actions summaries. |
+| 9.11 | Human summary highlights & plot bundling | Archivist | ✅ 2025-10-29: Rendered phase-specific metrics in `render_human_summary` and bundled deterministic public-data SVG diagnostics. |
+| 9.12 | Public-data workflow CLI | Orchestrator | ✅ 2025-10-29: Added `scripts/run_public_data_workflow.py` to chain discovery, anchoring, mirroring, pipeline execution, and bundling. |
+| 9.13 | JHTDB sampling utilities | Discovery | ✅ 2025-10-29: Added REST sampling helper, CLI bundler, and regression tests for turbulence trajectories. |
+| 9.14 | Turbulence proofpack builder & verifier | Builder/Auditor | ✅ 2025-10-29: Added turbulence protocol runner, verifier integration, and pipeline automation with regression coverage. |
 
-### Command-line driver (suggested)
-```bash
-# bash
-python experiments/run_landauer.py --T 1.0 --trials 50 --seeds 0 1 2 3 4
-python experiments/run_einstein.py --T 1.0 --F 0.01 --trials 50
-python experiments/run_cwd.py --K 4 --trials 50
-```
+## 9. Immediate next actions
 
-### Verifier runner
-```python
-# python
-from verifier import check_landauer, check_einstein, check_cwd
-check_landauer("results/landauer", eps=0.05)
-check_einstein("results/einstein", delta=0.05)
-check_cwd("results/cwd", eps=0.05, eta=0.05)
-```
+1. **Nightly rotation wiring** – update the scheduled `proofpack-smoke` workflow to call `scripts/run_proofpack_pipeline.py --turbulence-rotation-schedule expanded_nightly` and derive the rotation index from the run date so expanded mirrors execute automatically.
+2. **Digest history backfill & check** – migrate the historical manifest digests into `artifacts/digests/history.json` and add a docs check that fails if `docs/digest_history.md` is stale.
+3. **Docs smoke coverage** – extend CI to invoke `scripts/render_digest_history.py` (or a docs build target) to guarantee the rendered dashboard ships alongside the pipeline outputs.
 
-## E. Minimal toy check
-- N=4→M=1 erasure; expected sum_mu_bits = log2(4)=2
-- T=1, k=1 ⇒ expected W/(kT ln2) ≈ 2
+## 9a. Execution checkpoint — 2025-10-30
 
-## F. Notes on integration with μ‑ledger
-- The μ‑ledger API points: [`coq/kernel/MuLedgerConservation.v:21`](coq/kernel/MuLedgerConservation.v:21) and [`coq/kernel/SimulationProof.v:99`](coq/kernel/SimulationProof.v:99).
-- When instrumenting code, emit ledger entries per step as integer bits (log2 ratio) or as raw instruction_cost from VM and convert to bits consistently.
+- **What we are proving:** The pipeline now rotates high-budget turbulence mirrors on a deterministic cadence and emits a docs-facing digest dashboard so auditors can trace every proofpack smoke run when validating the Thiele Law proofpack.
+- **Executed steps:** `pytest tests/scripts/test_run_proofpack_pipeline.py tests/scripts/test_update_smoke_digest.py tests/scripts/test_render_digest_history.py` (pass) and `python scripts/render_digest_history.py --history artifacts/digests/history.json --output docs/digest_history.md` to validate the rotation schedule, allowlist regressions, and digest rendering.
+- **Remaining work to declare completion:** wire the CI/nightly job to pass the rotation schedule, backfill historic digests plus a freshness check for the docs dashboard, and teach CI to rebuild the docs view automatically. These items remain tracked in §9 and block the end-to-end Thiele law proofpack sign-off.
 
-## G. Deliverables checklist
-- [ ] Implement drivers and simulators
-- [ ] Produce CSVs and plots
-- [ ] Produce verifier outputs (JSON) and summary reports
-- [ ] Package commands to reproduce
+## 10. Reporting and archival requirements
 
-## H. Implementation tips
-- Use fixed seeds; save raw logs for audit.
-- Estimate mutual information with plug-in estimator and report bias correction.
-- Use bootstrap to produce confidence intervals.
+- Reports must include overview, parameter table, verification summary, plots,
+  and ledger sanity checks with links to the regenerated CSVs.
+- Archive raw CSVs, plots, verifier JSON, manifests, and signatures under
+  `artifacts/experiments/<experiment>/<timestamp>/` for auditability.
+- Keep large numerical outputs ephemeral; only deterministic code and small
+  fixtures enter the repository.
 
-## Contact
-- File issues in scripts/ or open a PR with results.
+## 11. Progress log (running)
 
-End of prompt file.
-## Progress log and finalization
-
-Progress (finalized):
-- [x] Create prompt file [`scripts/agent_experiment_prompt.md`](scripts/agent_experiment_prompt.md:1)
-- [x] Implement skeleton experiment driver [`experiments/run_landauer.py`](experiments/run_landauer.py:1)
-- [x] Implement skeleton experiment driver [`experiments/run_einstein.py`](experiments/run_einstein.py:1)
-- [x] Implement skeleton experiment driver [`experiments/run_cwd.py`](experiments/run_cwd.py:1)
-- [x] Add verifier module [`verifier/check_landauer.py`](verifier/check_landauer.py:1)
-- [x] Add verifier module [`verifier/check_einstein.py`](verifier/check_einstein.py:1)
-- [x] Add verifier module [`verifier/check_cwd.py`](verifier/check_cwd.py:1)
-- [x] Add plotting utilities [`experiments/plot_utils.py`](experiments/plot_utils.py:1)
-- [x] Run a minimal toy test (N=4→M=1) and record results in [`results/landauer/T=1.0/seed=0.csv`](results/landauer/T=1.0/seed=0.csv:1)
-
-Completed automated runs (clickable summaries):
-- [`experiments/vm_integration_adapter.py`](experiments/vm_integration_adapter.py:1) dry-run executed — created CSV [`results/ledger/sample_ledger.csv`](results/ledger/sample_ledger.csv:1).
-- [`experiments/run_landauer.py`](experiments/run_landauer.py:1) dry-run executed (sighted & blind samples) — created CSV [`results/landauer/T=1.0/seed=0.csv`](results/landauer/T=1.0/seed=0.csv:1).
-- [`experiments/run_einstein.py`](experiments/run_einstein.py:1) dry-run executed — created CSV [`results/einstein/T=1.0/seed=0.csv`](results/einstein/T=1.0/seed=0.csv:1).
-- [`experiments/run_cwd.py`](experiments/run_cwd.py:1) dry-run executed — created CSV [`results/cwd/K=4/seed=0.csv`](results/cwd/K=4/seed=0.csv:1) (includes computed penalty column).
-- [`experiments/run_einstein.py`](experiments/run_einstein.py:1) high-sampling run executed — created updated CSV [`results/einstein/T=1.0/seed=0.csv`](results/einstein/T=1.0/seed=0.csv:1).
-- [`verifier/check_landauer.py`](verifier/check_landauer.py:1) executed — wrote verifier [`verifier/landauer_verifier.json`](verifier/landauer_verifier.json:1) (sighted@T=1.0 passed).
-- [`verifier/check_einstein.py`](verifier/check_einstein.py:1) executed — wrote verifier [`verifier/einstein_verifier.json`](verifier/einstein_verifier.json:1) (einstein@T=1.0 failed on sample runs).
-- [`verifier/check_cwd.py`](verifier/check_cwd.py:1) executed — wrote verifier [`verifier/cwd_verifier.json`](verifier/cwd_verifier.json:1) (sighted & blind sample checks passed).
-
-Integration checklist (final status):
-- [x] Inspect [`coq/kernel/SimulationProof.v:99`](coq/kernel/SimulationProof.v:99) and [`coq/kernel/VMStep.v:61`](coq/kernel/VMStep.v:61) to map `vm_apply/advance_state` to runtime logging.
-- [x] Add an adapter that emits per-step ledger CSVs (timestamp, step_id, vm_mu_bits, instruction_cost, raw_ledger_entry).
-- [x] Replace toy work proxies in: [`experiments/run_landauer.py`](experiments/run_landauer.py:1), [`experiments/run_einstein.py`](experiments/run_einstein.py:1), [`experiments/run_cwd.py`](experiments/run_cwd.py:1) so they read ledger entries and compute Σμ.
-- [x] Validate per-step entries with verifier smoke tests and end-to-end small-N toy runs.
-
-Final notes and next actions (blocking):
-- All orchestration and implementation work completed; remaining blocker is Einstein verifier failing on sample runs. To finish scientifically, either:
-  - Increase Einstein sampling significantly (interactive long run), or
-  - Improve estimator code in [`experiments/run_einstein.py`](experiments/run_einstein.py:1) (recommended: discard transients, robust slope fitting, bootstrap CI).
-- Once Einstein verifier passes, update any remaining reporting and finalize PDFs.
-
-End of file.
-
-
-## I. Next iteration guidance (how to proceed from the Einstein verifier failure)
-
-- Situation summary:
-  - The refined runner [`experiments/run_einstein_refined.py`](experiments/run_einstein_refined.py:1) produced a summary at [`results/einstein_refined/T=1.0/seed=0_summary.json`](results/einstein_refined/T=1.0/seed=0_summary.json:1) showing Dminus_median ≈ 0.25 and the verifier [`verifier/check_einstein.py`](verifier/check_einstein.py:1) currently reports:
-    - verdicts: "einstein@T=1.0": false
-    - diagnostics: mean_diff ≈ 0.2517, std_diff ≈ 0.0106, n = 80
-- Objectives for next iteration:
-  - Decide whether the gap is statistical (insufficient sampling) or estimator bias.
-  - Iterate with a medium run to test estimator changes quickly, then run a production run if the medium test looks promising.
-
-- Recommended estimator improvements (apply in `experiments/run_einstein_refined.py` or the minimal runner):
-  - Discard transients: when fitting slope use only t > t_cut (suggest t_cut = 0.1 * max_time or drop first 10% of samples).
-  - Use robust slope: prefer Huber IRLS result (already implemented) but add explicit transient discard and increase max_iter/delta tuning.
-  - Increase median-of-means blocks (e.g., --k-blocks 10) to reduce outlier influence.
-  - Add a bootstrap CI around D_minus_mu_kT: resample trials to estimate mean_diff CI and report.
-  - Report raw per-trial D_minus_mu_kT values alongside medians for diagnostics.
-
-- Quick commands
-  - Medium test (fast iteration):
-    - python experiments/run_einstein_refined.py --seeds 0 --T 1.0 --F 0.01 --trials 40 --n_walkers 20000 --steps 2000 --out results/einstein_refined_medium --k-blocks 8
-    - python verifier/check_einstein.py results/einstein_refined_medium
-  - Longer production (if medium test looks stable):
-    - python experiments/run_einstein_refined.py --seeds 0 --T 1.0 --F 0.01 --trials 160 --n_walkers 80000 --steps 10000 --out results/einstein_refined_long --k-blocks 10
-    - python verifier/check_einstein.py results/einstein_refined_long
-
-- How to run the verifier and interpret results:
-  - Run: python3 verifier/check_einstein.py <results_dir>
-  - The verifier writes [`verifier/einstein_verifier.json`](verifier/einstein_verifier.json:1) with:
-    - verdicts: boolean pass/fail per T
-    - diagnostics: mean_diff (mean |D - μ kT|), std_diff, n
-  - Passing criterion (default): mean_diff <= delta (delta default 0.05). If mean_diff is larger than delta but CI covers delta, consider either increasing sampling or tightening estimators.
-
-- Checklist to complete after iteration:
-  - [ ] Run medium test and attach `results/einstein_refined_medium/*`
-  - [ ] Run verifier and save `verifier/einstein_verifier.json`
-  - [ ] If still failing, implement estimator changes and re-run medium test
-  - [ ] If medium test passes, run long production and re-run verifier
-  - [ ] Update this prompt file with final verdict and attach plots/reports
-
-- Notes for collaborators:
-  - Keep fixed seeds and save raw per-trial CSVs for reproducibility.
-  - Prefer medium iteration cycles (faster) to reduce turnaround.
-  - When editing estimators, include a short unit test or small synthetic dataset demonstrating improved bias/resilience.
+- 2025-10-30 01:54 UTC: Parameterized turbulence rotation schedules, added the
+  digest history renderer plus docs output, and extended the regression suite to
+  cover the new CLI flags and dashboard generation.
+- 2025-10-30 00:54 UTC: Re-verified the `work` branch snapshot (see §1),
+  confirmed verifier inventory, and refreshed the prompt to reflect the current
+  `experiments/` layout and outstanding turbulence follow-ups.
+- 2025-10-29 08:24 UTC: Verified repository state (see §1 table) and
+  scaffolded the `experiments/` package with documentation to enable Phase A
+  builders.
+- 2025-10-29 08:33 UTC: Implemented deterministic ledger IO helpers with test
+  coverage, unblocking Phase A runners and providing reusable hashing utilities
+  for auditors and archivists.
+- 2025-10-29 08:45 UTC: Delivered Phase A builder suite (Landauer, Einstein,
+  entropy) with deterministic fixtures, documentation updates, and pytest
+  coverage.
+- 2025-10-29 08:54 UTC: Implemented Phase B1 CWD builder with MI diagnostics,
+  protocol toggles, fixtures, and targeted tests to unblock auditor development.
+- 2025-10-29 09:12 UTC: Completed the Phase A1 Landauer runner (`experiments/run_landauer.py`),
+  added CLI artefact writers, synthetic replay mode, and pytest coverage ensuring
+  μ-ledger equality checks hold across deterministic runs.
+- 2025-10-29 10:05 UTC: Implemented the Phase A2 Einstein biased diffusion
+  runner (`experiments/run_einstein.py`) with deterministic force schedules,
+  ledger aggregation helpers, CLI writers, and pytest coverage validating the
+  Einstein relation across replayed and simulated trials.
+- 2025-10-29 11:02 UTC: Delivered the Phase A3 entropy identity runner
+  (`experiments/run_entropy.py`) with μ/entropy ledger pairs, cumulative
+  series CSV, synthetic replay fixture, and pytest coverage for reproducible
+  slopes and correlation diagnostics.
+- 2025-10-29 11:48 UTC: Delivered the Phase C cross-domain echoes builder
+  (`experiments/run_cross_domain.py`) with deterministic compression/LDPC
+  surrogates, fixtures, documentation, and pytest coverage exercising sighted,
+  blind, destroyed, and synthetic replay protocols.
+- 2025-10-29 12:15 UTC: Added Phase A–C auditor harnesses (`verifier/check_*.py`) and regression tests that recompute metrics from μ-ledgers, enforce tolerances, and validate metadata digests for Landauer, Einstein, entropy, CWD, and cross-domain outputs.
+- 2025-10-29 12:34 UTC: Completed the unified proofpack verifier (`tools/thiele_verifier.py`) with aggregated JSON output, CLI wiring, and regression tests that emit a single THIELE_OK verdict across phases A–C, B1, and C.
+- 2025-10-29 13:05 UTC: Added archivist helpers (`experiments/proofpack.py`) with manifest, summary, and receipt writers plus pytest coverage for manifest/receipt validation.
+- 2025-10-29 13:22 UTC: Implemented deterministic red-team perturbations (`experiments/red_team.py`) and regression tests that ensure the verifiers fail on structure ablation, entropy scrambles, and penalty collapse scenarios.
+- 2025-10-29 13:48 UTC: Implemented `tools/proofpack_bundler.py`, wired it into the archivist workflow, and documented CLI usage in `experiments/README.md`.
+- 2025-10-29 13:55 UTC: Added integration tests linking red-team perturbations to the bundler failure path and introduced byte-stability regression coverage for manifests and receipts.
+- 2025-10-29 14:32 UTC: Delivered the end-to-end proofpack pipeline script, enforced canonical artifact layout, generated Markdown human summaries, and added regression coverage across bundler and pipeline entry points.
+- 2025-10-29 15:10 UTC: Wired the turbulence proofpack runner and verifier into the pipeline, extended the unified verifier highlights, and automated RESULTS.md digest updates for the proofpack smoke workflow.
+- 2025-10-29 15:05 UTC: Implemented OSF candidate discovery (`experiments/data_sources/osf.py`, `scripts/discover_osf_candidates.py`) with deterministic queries, grouping logic, and pytest coverage; next step is metadata anchor extraction before downloads.
+- 2025-10-29 15:47 UTC: Extended public-data discovery to Figshare, Dryad, and Zenodo, added a unified CLI (`scripts/discover_public_candidates.py`), and committed fixtures + pytest coverage for each repository client.
+- 2025-10-29 16:22 UTC: Implemented metadata anchor extraction utilities (`experiments/data_sources/anchors.py`) and the filtering CLI (`scripts/filter_public_candidates.py`) with pytest coverage and documentation updates.
+- 2025-10-29 16:58 UTC: Added deterministic download/manifest utilities (`experiments/data_sources/download.py`, `scripts/download_public_files.py`) with fixtures, regression tests, and README/prompt updates documenting the mirrored dataset workflow.
+- 2025-10-29 17:24 UTC: Delivered public single-particle tracking analytics (`experiments/public_data/spt_analysis.py`) with anchored Stokes predictions, out-of-sample diagnostics, fixtures, and updated documentation connecting the module to the public-data runbook.
+- 2025-10-29 18:03 UTC: Delivered the public SPT proofpack runner (`experiments/public_data/spt_protocol.py` + CLI), wired it into the unified verifier, and added regression coverage for ΔAIC, Spearman/p-value thresholds, and OOS error checks.
+- 2025-10-29 18:44 UTC: Extended `scripts/run_proofpack_pipeline.py` to sweep mirrored public datasets, pipe results through the unified verifier, and documented the integrated public-data workflow with regression coverage.
+ - 2025-10-29 18:58 UTC: Added turbulence protocol/seed selectors to the pipeline and public-data workflow CLIs with regression coverage ensuring subset executions respect the new flags.
+ - 2025-10-29 19:06 UTC: Mirrored additional JHTDB fixtures, backfilled `RESULTS.md` smoke digests, and documented sampling budgets plus verifier highlight updates.
+ - 2025-10-29 20:45 UTC: Added turbulence dataset allowlists, digest-history summaries, and scheduled high-budget runs with documentation, CI automation, and RESULTS updates capturing turbulence runtime and penalty highlights.
+- 2025-10-30 01:12 UTC: Parameterized turbulence allowlists via profile configs, added expanded JHTDB metadata under `experiments/data/turbulence/`, updated smoke digests to emit `artifacts/digests/history.json`, refreshed results with new turbulence highlights, and added regression coverage for profile-driven allowlists.
+- 2025-10-30 01:32 UTC: Re-ran the proofpack pipeline smoke tests (`pytest tests/scripts/test_run_proofpack_pipeline.py tests/scripts/test_update_smoke_digest.py`) to demonstrate deterministic behavior post-allowlist rollout, recorded the execution checkpoint clarifying the remaining blockers for a completed Thiele law proofpack, and confirmed no additional regressions.
+- Future contributors must append dated entries summarizing concrete execution
+  or verification steps, including command traces and resulting run tags.
