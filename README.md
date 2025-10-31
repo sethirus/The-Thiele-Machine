@@ -49,8 +49,8 @@ The command also maintains the live falsifiability dashboard below. Continuous i
 <!-- FALSIFIABILITY_SUMMARY_START -->
 | Probe | Metric | Value |
 | --- | --- | --- |
-| Landauer | runs analysed | 10 |
-| Landauer | trials analysed | 144 |
+| Landauer | runs analysed | 12 |
+| Landauer | trials analysed | 156 |
 | Landauer | min(W/kTln2 − Σμ) | 0.000 |
 | Landauer | worst deficit beyond ε=0.050 | 0.000 |
 | Turbulence | mean final runtime ratio (blind/sighted) | 2.489 |
