@@ -2,9 +2,10 @@ name: Verify Receipts
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ new-public-branch-default, main, master ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ new-public-branch-default, main, master ]
+  workflow_dispatch:
 
 jobs:
   test-and-verify:
@@ -12,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - name: Install dependencies
