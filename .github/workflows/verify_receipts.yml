@@ -41,7 +41,7 @@ jobs:
           mypy --ignore-missing-imports scripts/provision_keys.py || true
       - name: Run test suite
         run: pytest -q
-      - name: Smoke: demo isomorphism test
+      - name: "Smoke: demo isomorphism test"
         run: |
           pytest -q tests/test_demo_isomorphism.py -q || (echo "Demo test failed" && exit 1)
       - name: Canonicalize receipts (dry-run)
