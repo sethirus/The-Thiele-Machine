@@ -22,3 +22,8 @@ constraint, a simple, interpretable rule can imply a definite trial outcome.
 
 See `artifacts/cosmic_witness_prediction_receipt.json` and
 `artifacts/cosmic_witness_prediction_proof.txt` for machine-checkable evidence.
+
+## Proofpack Smoke Digests
+
+| Run tag | manifest_digest_sha256 | Updated |
+| --- | --- | --- |
