@@ -23,7 +23,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 import ast
 from pathlib import Path
-from typing import Callable, Iterable, Iterator, List, Optional
+from typing import Callable, Dict, Iterable, Iterator, List, Optional, Set
 import json
 
 
@@ -86,28 +86,84 @@ def _iter_python_files(root: Path) -> Iterator[Path]:
             yield path
 
 
+_SUBPROCESS_SHELL_CALLS: Set[str] = {"run", "Popen", "call", "check_call", "check_output"}
+_OS_SHELL_CALLS: Set[str] = {"system", "popen"}
+
+
+def _has_shell_true(call: ast.Call) -> bool:
+    for kw in call.keywords:
+        if kw.arg == "shell":
+            value = None
+            if isinstance(kw.value, ast.Constant):
+                value = kw.value.value
+            elif isinstance(kw.value, ast.NameConstant):  # pragma: no cover - Python < 3.8 support
+                value = kw.value.value
+            if value is True:
+                return True
+    return False
+
+
 def _detect_subprocess_shell(tree: ast.AST, path: Path) -> Iterable[Finding]:
+    module_aliases: Dict[str, str] = {"subprocess": "subprocess", "os": "os"}
+    subprocess_callable_aliases: Dict[str, str] = {}
+    os_callable_aliases: Dict[str, str] = {}
+
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            for alias in node.names:
+                if alias.name == "subprocess":
+                    module_aliases[alias.asname or alias.name] = "subprocess"
+                elif alias.name == "os":
+                    module_aliases[alias.asname or alias.name] = "os"
+        elif isinstance(node, ast.ImportFrom) and node.module:
+            if node.module == "subprocess":
+                for alias in node.names:
+                    if alias.name in _SUBPROCESS_SHELL_CALLS:
+                        subprocess_callable_aliases[alias.asname or alias.name] = alias.name
+            elif node.module == "os":
+                for alias in node.names:
+                    if alias.name in _OS_SHELL_CALLS:
+                        os_callable_aliases[alias.asname or alias.name] = alias.name
+
     for node in ast.walk(tree):
         if isinstance(node, ast.Call):
             func = node.func
             if isinstance(func, ast.Attribute) and isinstance(func.value, ast.Name):
-                # subprocess.run(..., shell=True)
-                if func.value.id == "subprocess" and func.attr in {"run", "Popen", "call", "check_call", "check_output"}:
-                    for kw in node.keywords:
-                        if kw.arg == "shell" and isinstance(kw.value, ast.Constant) and kw.value.value is True:
-                            yield Finding(
-                                rule="subprocess-shell",
-                                message=f"subprocess.{func.attr} called with shell=True",
-                                path=path,
-                                line=getattr(node, "lineno", 0),
-                                severity="high",
-                                remediation="Pass a list of arguments and set shell=False.",
-                            )
-            elif isinstance(func, ast.Attribute) and isinstance(func.value, ast.Name):
-                if func.value.id == "os" and func.attr in {"system", "popen"}:
+                module_name = module_aliases.get(func.value.id)
+                if module_name == "subprocess" and func.attr in _SUBPROCESS_SHELL_CALLS and _has_shell_true(node):
+                    yield Finding(
+                        rule="subprocess-shell",
+                        message=f"subprocess.{func.attr} called with shell=True",
+                        path=path,
+                        line=getattr(node, "lineno", 0),
+                        severity="high",
+                        remediation="Pass a list of arguments and set shell=False.",
+                    )
+                if module_name == "os" and func.attr in _OS_SHELL_CALLS:
                     yield Finding(
                         rule="subprocess-shell",
                         message=f"os.{func.attr} invokes the system shell",
+                        path=path,
+                        line=getattr(node, "lineno", 0),
+                        severity="high",
+                        remediation="Use the subprocess module with explicit argument lists.",
+                    )
+            elif isinstance(func, ast.Name):
+                subprocess_canonical = subprocess_callable_aliases.get(func.id)
+                if subprocess_canonical and _has_shell_true(node):
+                    yield Finding(
+                        rule="subprocess-shell",
+                        message=f"subprocess.{subprocess_canonical} called with shell=True",
+                        path=path,
+                        line=getattr(node, "lineno", 0),
+                        severity="high",
+                        remediation="Pass a list of arguments and set shell=False.",
+                    )
+                os_canonical = os_callable_aliases.get(func.id)
+                if os_canonical:
+                    yield Finding(
+                        rule="subprocess-shell",
+                        message=f"os.{os_canonical} invokes the system shell",
                         path=path,
                         line=getattr(node, "lineno", 0),
                         severity="high",
