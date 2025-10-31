@@ -10,7 +10,6 @@
  *)
 
 From Coq Require Import List String ZArith Lia Bool Nat.
-From ThieleMachine Require Import Axioms.
 Import ListNotations.
 Open Scope Z_scope.
 
