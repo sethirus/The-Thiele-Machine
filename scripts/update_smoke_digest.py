@@ -25,8 +25,13 @@ def _table_bounds(lines: list[str]) -> Tuple[int, int]:
     header = "| Run tag | manifest_digest_sha256 | Updated |"
     try:
         header_index = lines.index(header)
-    except ValueError as exc:  # pragma: no cover - defensive guard
-        raise ValueError("Manifest digest table header not found in RESULTS.md") from exc
+    except ValueError:
+        # Table is missing entirely; append a fresh skeleton at the end of the
+        # document so callers can continue updating it.
+        if lines and lines[-1].strip():
+            lines.append("")
+        lines.extend([header, "| --- | --- | --- |"])
+        header_index = len(lines) - 2
 
     separator_index = header_index + 1
     if separator_index >= len(lines) or not lines[separator_index].startswith("| ---"):
@@ -87,6 +92,10 @@ def _update_summary(lines: list[str], bounds: Tuple[int, int]) -> list[str]:
             return lines
         if lines[index].strip():
             break
+
+    if end > 0 and (end == len(lines) or lines[end - 1].strip()):
+        lines.insert(end, "")
+        end += 1
 
     lines.insert(end, summary)
     return lines
