@@ -180,6 +180,22 @@ jobs:
       - name: Install jq
         run: sudo apt-get update && sudo apt-get install -y jq
 
+      - name: Inspect proofpack bundle
+        if: always()
+        run: |
+          RUN_TAG="${{ steps.smoke.outputs.run_tag }}"
+          BUNDLE_DIR="artifacts/experiments/${RUN_TAG}/bundle"
+          echo "Inspecting proofpack bundle at: $BUNDLE_DIR"
+          ls -la "$BUNDLE_DIR" || true
+          MANIFEST="$BUNDLE_DIR/manifest.json"
+          if [ -f "$MANIFEST" ]; then
+            echo "Manifest exists; printing head of manifest.json"
+            head -n 200 "$MANIFEST"
+          else
+            echo "Manifest missing: $MANIFEST"
+            exit 1
+          fi
+
       - name: Publish manifest digest
         id: digest
         run: |
@@ -213,6 +229,13 @@ jobs:
           name: proofpack-smoke-${{ steps.smoke.outputs.run_tag }}
           path: artifacts/experiments/${{ steps.smoke.outputs.run_tag }}/bundle
 
+      - name: Upload full proofpack run for diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: proofpack-run-${{ steps.smoke.outputs.run_tag }}
+          path: artifacts/experiments/${{ steps.smoke.outputs.run_tag }}
+
   turbulence-high:
     runs-on: ubuntu-latest
     if: >-
@@ -244,6 +267,22 @@ jobs:
           make proofpack-turbulence-high RUN_TAG=$RUN_TAG
           echo "run_tag=$RUN_TAG" >> "$GITHUB_OUTPUT"
 
+      - name: Inspect turbulence bundle
+        if: always()
+        run: |
+          RUN_TAG="${{ steps.turbulence.outputs.run_tag }}"
+          BUNDLE_DIR="artifacts/experiments/${RUN_TAG}/bundle"
+          echo "Inspecting turbulence bundle at: $BUNDLE_DIR"
+          ls -la "$BUNDLE_DIR" || true
+          MANIFEST="$BUNDLE_DIR/manifest.json"
+          if [ -f "$MANIFEST" ]; then
+            echo "Manifest exists; printing head of manifest.json"
+            head -n 200 "$MANIFEST"
+          else
+            echo "Manifest missing: $MANIFEST"
+            exit 1
+          fi
+
       - name: Publish turbulence highlights
         id: turbulence_summary
         run: |
@@ -260,3 +299,10 @@ jobs:
         with:
           name: proofpack-turbulence-${{ steps.turbulence.outputs.run_tag }}
           path: artifacts/experiments/${{ steps.turbulence.outputs.run_tag }}/bundle
+
+      - name: Upload full turbulence run for diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: turbulence-run-${{ steps.turbulence.outputs.run_tag }}
+          path: artifacts/experiments/${{ steps.turbulence.outputs.run_tag }}
