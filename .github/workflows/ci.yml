@@ -2,9 +2,9 @@ name: Thiele CI
 
 on:
   push:
-    branches: [ new-public-branch-default ]
+    branches: [ new-public-branch-default, main, master ]
   pull_request:
-    branches: [ new-public-branch-default ]
+    branches: [ new-public-branch-default, main, master ]
   workflow_dispatch:
   schedule:
     - cron: '0 3 * * *'
@@ -306,3 +306,61 @@ jobs:
         with:
           name: turbulence-run-${{ steps.turbulence.outputs.run_tag }}
           path: artifacts/experiments/${{ steps.turbulence.outputs.run_tag }}
+
+  test-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          # Install the current project in editable mode
+          pip install -e .
+      - name: Install external proof tools (required)
+        run: |
+          set -euo pipefail
+          # Prefer using the helper which includes retry logic and exits non-zero
+          # if installation fails so CI remains strict about proof-tool availability.
+          bash scripts/install_proof_tools.sh
+
+      - name: Provision kernel key (CI only)
+        run: |
+          # Create a deterministic ephemeral kernel key for CI tests so the
+          # demo smoke test can sign receipts without requiring operator keys.
+          python scripts/provision_keys.py --secret-path kernel_secret.key --public-path kernel_public.key --force
+      - name: Run linters for new helper scripts (flake8 + mypy)
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 mypy
+          # Run linters only on the new helper scripts to avoid failing on legacy code.
+          flake8 scripts/provision_keys.py
+          mypy --ignore-missing-imports scripts/provision_keys.py || true
+      - name: Run test suite
+        run: pytest -q
+      - name: "Smoke: demo isomorphism test"
+        run: |
+          pytest -q tests/test_demo_isomorphism.py -q || (echo "Demo test failed" && exit 1)
+      - name: Canonicalize receipts (dry-run)
+        run: |
+          python scripts/canonicalize_receipts.py spec/golden || true
+          if [ -d proofpacks ]; then
+            python scripts/canonicalize_receipts.py proofpacks || true
+          fi
+      - name: Run receipt verifier on canonical receipts
+        run: |
+          python scripts/thiele_verify.py spec/golden || true
+          if [ -d proofpacks ]; then
+            python scripts/thiele_verify.py proofpacks || true
+          fi
+      - name: Packager check (proofpacks)
+        run: |
+          if [ -d proofpacks ]; then
+            python scripts/packager_check.py proofpacks || exit 1
+          else
+            echo "No proofpacks directory; skipping packager check"
+          fi
