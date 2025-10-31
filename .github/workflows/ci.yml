@@ -176,6 +176,7 @@ jobs:
           export RUN_TAG="ci-$(date -u +%Y%m%d%H%M%S)"
           # publish run_tag immediately so downstream steps can reference it even if make fails
           echo "run_tag=$RUN_TAG" >> "$GITHUB_OUTPUT"
+          ls -la experiments/ | head -10
           make proofpack-smoke RUN_TAG=$RUN_TAG
 
       - name: Install jq
