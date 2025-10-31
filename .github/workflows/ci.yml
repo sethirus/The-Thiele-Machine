@@ -195,7 +195,11 @@ jobs:
           RUN_TAG="${{ steps.smoke.outputs.run_tag }}"
           DIGEST="${{ steps.digest.outputs.manifest_digest }}"
           UPDATED="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-          python scripts/update_smoke_digest.py --results RESULTS.md --run-tag "$RUN_TAG" --digest "$DIGEST" --updated "$UPDATED"
+          python scripts/update_smoke_digest.py \
+            --results RESULTS.md \
+            --run-tag "$RUN_TAG" \
+            --digest "$DIGEST" \
+            --updated "$UPDATED"
 
       - name: Upload RESULTS digest snapshot
         uses: actions/upload-artifact@v4
