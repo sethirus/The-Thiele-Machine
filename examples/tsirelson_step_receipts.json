@@ -1,184 +1,190 @@
-[
-  {
-    "step": 0,
-    "instruction": {
-      "op": "PNEW",
-      "payload": [
-        0,
-        1
-      ]
-    },
-    "pre_state": {
-      "pc": 0,
-      "status": 0,
-      "mu_acc": 0,
-      "cert_addr": ""
-    },
-    "post_state": {
-      "pc": 1,
-      "status": 0,
-      "mu_acc": 0,
-      "cert_addr": ""
-    },
-    "observation": {
-      "event": {
-        "tag": "InferenceComplete"
+{
+  "spec_version": "1.1",
+  "steps": [
+    {
+      "step": 0,
+      "instruction": {
+        "op": "PNEW",
+        "payload": [
+          0,
+          1
+        ]
       },
-      "mu_delta": 0,
-      "cert": {
-        "smt_query": "",
-        "solver_reply": "",
-        "metadata": "",
-        "timestamp": 0,
-        "sequence": 0
-      }
-    },
-    "pre_state_hash": "3be4ab3e30347c3b36b3c176e39c564d8b2e1e6c6f816f53070d67ed3cd381f4",
-    "post_state_hash": "2e59cea3b3cf0e0427b5d1025581d2f165a69235777b0cabab6bdd7773234376",
-    "signature": "f76515819d4a93b349ab8beffb8b9e88a91c69865f513caa87ef5f193424859dd8edfbeaf48d9462152e7a6b15bb988a9fd65261950f9134deca84578f69bf06"
-  },
-  {
-    "step": 1,
-    "instruction": {
-      "op": "PYEXEC",
-      "payload": "prepare_shared_partition"
-    },
-    "pre_state": {
-      "pc": 1,
-      "status": 0,
-      "mu_acc": 0,
-      "cert_addr": ""
-    },
-    "post_state": {
-      "pc": 2,
-      "status": 0,
-      "mu_acc": 0,
-      "cert_addr": ""
-    },
-    "observation": {
-      "event": {
-        "tag": "PolicyCheck",
-        "value": "prepare_shared_partition"
+      "pre_state": {
+        "pc": 0,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
       },
-      "mu_delta": 0,
-      "cert": {
-        "smt_query": "",
-        "solver_reply": "",
-        "metadata": "",
-        "timestamp": 0,
-        "sequence": 0
-      }
-    },
-    "pre_state_hash": "2e59cea3b3cf0e0427b5d1025581d2f165a69235777b0cabab6bdd7773234376",
-    "post_state_hash": "15713ac6773c4903303bd6ba812422142bcbd5b39ba256b43969353ac4f47f59",
-    "signature": "ddb0a2ae3e2dd3c5fca7690a43ae8cab0b8adb093f9bd7f60291bc8d48c37b2e01d1f5a82884ec6835ce5886b2b42f252a10d59feba49b268e8f9b69fb7a6e09"
-  },
-  {
-    "step": 2,
-    "instruction": {
-      "op": "PYEXEC",
-      "payload": "alice_measurement"
-    },
-    "pre_state": {
-      "pc": 2,
-      "status": 0,
-      "mu_acc": 0,
-      "cert_addr": ""
-    },
-    "post_state": {
-      "pc": 3,
-      "status": 0,
-      "mu_acc": 0,
-      "cert_addr": ""
-    },
-    "observation": {
-      "event": {
-        "tag": "PolicyCheck",
-        "value": "alice_measurement"
+      "post_state": {
+        "pc": 1,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
       },
-      "mu_delta": 0,
-      "cert": {
-        "smt_query": "",
-        "solver_reply": "",
-        "metadata": "",
-        "timestamp": 0,
-        "sequence": 0
-      }
-    },
-    "pre_state_hash": "15713ac6773c4903303bd6ba812422142bcbd5b39ba256b43969353ac4f47f59",
-    "post_state_hash": "6295c09d07120cab3fa48d4f08d9b07a275c79d0d10d9ba5f2b858f670f25c59",
-    "signature": "588e19e95da2daf699bd27d57498e63fa67d2ada426a97749e5c9230457f65d40e76c748abf380c844ebe06a68515b84ed06cb253b274544f67e26ed7d0a8702"
-  },
-  {
-    "step": 3,
-    "instruction": {
-      "op": "PYEXEC",
-      "payload": "bob_measurement"
-    },
-    "pre_state": {
-      "pc": 3,
-      "status": 0,
-      "mu_acc": 0,
-      "cert_addr": ""
-    },
-    "post_state": {
-      "pc": 4,
-      "status": 0,
-      "mu_acc": 0,
-      "cert_addr": ""
-    },
-    "observation": {
-      "event": {
-        "tag": "PolicyCheck",
-        "value": "bob_measurement"
+      "observation": {
+        "event": {
+          "tag": "InferenceComplete"
+        },
+        "mu_delta": 0,
+        "cert": {
+          "smt_query": "",
+          "solver_reply": "",
+          "metadata": "",
+          "timestamp": 0,
+          "sequence": 0
+        }
       },
-      "mu_delta": 0,
-      "cert": {
-        "smt_query": "",
-        "solver_reply": "",
-        "metadata": "",
-        "timestamp": 1,
-        "sequence": 0
-      }
+      "pre_state_hash": "3be4ab3e30347c3b36b3c176e39c564d8b2e1e6c6f816f53070d67ed3cd381f4",
+      "post_state_hash": "2e59cea3b3cf0e0427b5d1025581d2f165a69235777b0cabab6bdd7773234376",
+      "signature": "f76515819d4a93b349ab8beffb8b9e88a91c69865f513caa87ef5f193424859dd8edfbeaf48d9462152e7a6b15bb988a9fd65261950f9134deca84578f69bf06"
     },
-    "pre_state_hash": "6295c09d07120cab3fa48d4f08d9b07a275c79d0d10d9ba5f2b858f670f25c59",
-    "post_state_hash": "700da4c068b172264a4f0599d5bb6e22ef3321e4c9967d4430c31cefb17ce59d",
-    "signature": "5abc720b85afd1f28e0efa653a4e4888595b390a1c603cca096da24fd9a38f83299579d6692cdb82107ceea5098835a7ad76f9b65bd8233644bc6385fda5360d"
-  },
-  {
-    "step": 4,
-    "instruction": {
-      "op": "EMIT",
-      "payload": "tsirelson_outcome"
-    },
-    "pre_state": {
-      "pc": 4,
-      "status": 0,
-      "mu_acc": 0,
-      "cert_addr": ""
-    },
-    "post_state": {
-      "pc": 5,
-      "status": 0,
-      "mu_acc": 0,
-      "cert_addr": ""
-    },
-    "observation": {
-      "event": {
-        "tag": "ErrorOccurred",
-        "value": "tsirelson_outcome"
+    {
+      "step": 1,
+      "instruction": {
+        "op": "PYEXEC",
+        "payload": "prepare_shared_partition"
       },
-      "mu_delta": 0,
-      "cert": {
-        "smt_query": "",
-        "solver_reply": "",
-        "metadata": "",
-        "timestamp": 0,
-        "sequence": 0
-      }
+      "pre_state": {
+        "pc": 1,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
+      },
+      "post_state": {
+        "pc": 2,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
+      },
+      "observation": {
+        "event": {
+          "tag": "PolicyCheck",
+          "value": "prepare_shared_partition"
+        },
+        "mu_delta": 0,
+        "cert": {
+          "smt_query": "",
+          "solver_reply": "",
+          "metadata": "",
+          "timestamp": 0,
+          "sequence": 0
+        }
+      },
+      "pre_state_hash": "2e59cea3b3cf0e0427b5d1025581d2f165a69235777b0cabab6bdd7773234376",
+      "post_state_hash": "15713ac6773c4903303bd6ba812422142bcbd5b39ba256b43969353ac4f47f59",
+      "signature": "ddb0a2ae3e2dd3c5fca7690a43ae8cab0b8adb093f9bd7f60291bc8d48c37b2e01d1f5a82884ec6835ce5886b2b42f252a10d59feba49b268e8f9b69fb7a6e09"
     },
-    "pre_state_hash": "700da4c068b172264a4f0599d5bb6e22ef3321e4c9967d4430c31cefb17ce59d",
-    "post_state_hash": "53d2b5fca8a9bff9db6e5cec50d67b7ad15c79f0099704e6276a8e8f89ac3406",
-    "signature": "6551c07ebdbce3e5df297596d054549634d5201402504e1ad0a119912d3509a7df0a2fb8f2aef716a71e9b5867ae694ae491e129d486d40ea2466104e66dad03"
-  }
-]
+    {
+      "step": 2,
+      "instruction": {
+        "op": "PYEXEC",
+        "payload": "alice_measurement"
+      },
+      "pre_state": {
+        "pc": 2,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
+      },
+      "post_state": {
+        "pc": 3,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
+      },
+      "observation": {
+        "event": {
+          "tag": "PolicyCheck",
+          "value": "alice_measurement"
+        },
+        "mu_delta": 0,
+        "cert": {
+          "smt_query": "",
+          "solver_reply": "",
+          "metadata": "",
+          "timestamp": 0,
+          "sequence": 0
+        }
+      },
+      "pre_state_hash": "15713ac6773c4903303bd6ba812422142bcbd5b39ba256b43969353ac4f47f59",
+      "post_state_hash": "6295c09d07120cab3fa48d4f08d9b07a275c79d0d10d9ba5f2b858f670f25c59",
+      "signature": "588e19e95da2daf699bd27d57498e63fa67d2ada426a97749e5c9230457f65d40e76c748abf380c844ebe06a68515b84ed06cb253b274544f67e26ed7d0a8702"
+    },
+    {
+      "step": 3,
+      "instruction": {
+        "op": "PYEXEC",
+        "payload": "bob_measurement"
+      },
+      "pre_state": {
+        "pc": 3,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
+      },
+      "post_state": {
+        "pc": 4,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
+      },
+      "observation": {
+        "event": {
+          "tag": "PolicyCheck",
+          "value": "bob_measurement"
+        },
+        "mu_delta": 0,
+        "cert": {
+          "smt_query": "",
+          "solver_reply": "",
+          "metadata": "",
+          "timestamp": 1,
+          "sequence": 0
+        }
+      },
+      "pre_state_hash": "6295c09d07120cab3fa48d4f08d9b07a275c79d0d10d9ba5f2b858f670f25c59",
+      "post_state_hash": "700da4c068b172264a4f0599d5bb6e22ef3321e4c9967d4430c31cefb17ce59d",
+      "signature": "5abc720b85afd1f28e0efa653a4e4888595b390a1c603cca096da24fd9a38f83299579d6692cdb82107ceea5098835a7ad76f9b65bd8233644bc6385fda5360d"
+    },
+    {
+      "step": 4,
+      "instruction": {
+        "op": "EMIT",
+        "payload": "tsirelson_outcome"
+      },
+      "pre_state": {
+        "pc": 4,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
+      },
+      "post_state": {
+        "pc": 5,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
+      },
+      "observation": {
+        "event": {
+          "tag": "ErrorOccurred",
+          "value": "tsirelson_outcome"
+        },
+        "mu_delta": 0,
+        "cert": {
+          "smt_query": "",
+          "solver_reply": "",
+          "metadata": "",
+          "timestamp": 0,
+          "sequence": 0
+        }
+      },
+      "pre_state_hash": "700da4c068b172264a4f0599d5bb6e22ef3321e4c9967d4430c31cefb17ce59d",
+      "post_state_hash": "53d2b5fca8a9bff9db6e5cec50d67b7ad15c79f0099704e6276a8e8f89ac3406",
+      "signature": "6551c07ebdbce3e5df297596d054549634d5201402504e1ad0a119912d3509a7df0a2fb8f2aef716a71e9b5867ae694ae491e129d486d40ea2466104e66dad03"
+    }
+  ],
+  "global_digest": "",
+  "kernel_pubkey": "353539ee6ac0ece6ea1de4f289951f272ad001f05eb71df354fd19f709e596c1",
+  "signature": "b0af50b7bbf122c688c5ef7a45f6f929e99d143e91b0ece0ef31de5e43739bb9a7cb608cfb4f3e44b6f5516761ac122ba5a17607fece90044f8a1f398435730b"
+}

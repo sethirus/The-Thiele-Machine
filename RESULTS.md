@@ -27,3 +27,5 @@ See `artifacts/cosmic_witness_prediction_receipt.json` and
 
 | Run tag | manifest_digest_sha256 | Updated |
 | --- | --- | --- |
+
+**Digest history:** runs=0, unique_digests=0, last_updated=NA.
