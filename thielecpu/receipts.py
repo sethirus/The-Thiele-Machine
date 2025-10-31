@@ -309,7 +309,7 @@ def load_receipts(path: os.PathLike[str] | str) -> list[StepReceipt]:
         instruction = InstructionWitness(**entry["instruction"])
         observation = StepObservation(
             event=entry["observation"].get("event"),
-            mu_delta=float(entry["observation"]["mu_delta"]),
+            mu_delta=entry["observation"]["mu_delta"],
             cert=entry["observation"]["cert"],
         )
         receipt = StepReceipt(
