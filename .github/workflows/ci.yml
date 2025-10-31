@@ -12,6 +12,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: ${{ github.workspace }}
 
     steps:
       - uses: actions/checkout@v4
@@ -30,6 +32,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -e .
+
+      - name: Set PYTHONPATH for job
+        run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
 
       - name: Check Python syntax
         run: python -m py_compile attempt.py demonstrate_isomorphism.py
@@ -63,6 +68,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      env:
+        PYTHONPATH: ${{ github.workspace }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -73,6 +80,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -e .
+
+      - name: Set PYTHONPATH for job
+        run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
 
       - name: Run falsification experiments
         run: make experiments-falsify
@@ -129,6 +139,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      env:
+        PYTHONPATH: ${{ github.workspace }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -160,6 +172,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      env:
+        PYTHONPATH: ${{ github.workspace }}
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -173,9 +188,11 @@ jobs:
       - name: Run proofpack smoke profile
         id: smoke
         run: |
+          echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
           export RUN_TAG="ci-$(date -u +%Y%m%d%H%M%S)"
-          make proofpack-smoke RUN_TAG=$RUN_TAG
+          # publish run_tag immediately so downstream steps can reference it even if make fails
           echo "run_tag=$RUN_TAG" >> "$GITHUB_OUTPUT"
+          make proofpack-smoke RUN_TAG=$RUN_TAG
 
       - name: Install jq
         run: sudo apt-get update && sudo apt-get install -y jq
@@ -247,6 +264,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      env:
+        PYTHONPATH: ${{ github.workspace }}
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -263,9 +283,11 @@ jobs:
       - name: Run high-budget turbulence pipeline
         id: turbulence
         run: |
+          echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
           export RUN_TAG="ci-turbulence-$(date -u +%Y%m%d%H%M%S)"
-          make proofpack-turbulence-high RUN_TAG=$RUN_TAG
+          # publish run_tag immediately so downstream steps can reference it even if make fails
           echo "run_tag=$RUN_TAG" >> "$GITHUB_OUTPUT"
+          make proofpack-turbulence-high RUN_TAG=$RUN_TAG
 
       - name: Inspect turbulence bundle
         if: always()
