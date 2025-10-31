@@ -110,6 +110,15 @@ def ensure_kernel_keys(
     if not regenerate:
         return
 
+    # In production mode, do not auto-generate key material. Operators must
+    # provision signing keys explicitly to avoid accidental key rotation or
+    # test-key reuse. Set THIELE_PRODUCTION=1 in the environment to enable
+    # this behaviour. Tests and local dev will continue to auto-generate.
+    if os.environ.get("THIELE_PRODUCTION", "0") == "1":
+        raise RuntimeError(
+            "Kernel keypair missing or invalid and THIELE_PRODUCTION=1: refusing to auto-generate keys"
+        )
+
     generator = Path(__file__).resolve().parent.parent / "scripts" / "generate_kernel_keys.py"
     cmd = [
         sys.executable,

@@ -72,6 +72,8 @@ The Thiele Machine is a computational model that extends and strictly contains t
    ```
    - Produces `BELL_INEQUALITY_VERIFIED_RESULTS.md`, `examples/tsirelson_step_receipts.json`, and artifacts in `artifacts/`.
    - Cryptographically sealed receipts are produced for auditability.
+   
+      - Demo CLI and canonicalisation docs: see `docs/DEMO_ISOMORPHISM.md` and the demo CLI at `scripts/demo_isomorphism_cli.py` for a quick end-to-end smoke run that creates, canonicalizes, (optionally) normalizes, and verifies a receipt.
 5. **(Optional but recommended) Replay the full Coq verification:**
    ```sh
    ./verify_bell.sh

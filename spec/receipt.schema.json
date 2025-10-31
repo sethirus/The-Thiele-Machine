@@ -4,7 +4,7 @@
   "type": "object",
   "required": ["steps", "global_digest", "kernel_pubkey", "signature", "spec_version"],
   "properties": {
-    "spec_version": { "type": "string", "const": "1.0" },
+    "spec_version": { "type": "string", "enum": ["1.0", "1.1"] },
     "kernel_pubkey": { "type": "string", "pattern": "^[0-9a-fA-F]{64}$" },
     "steps": {
       "type": "array",
@@ -21,11 +21,16 @@
       "properties": {
         "idx": { "type": "integer", "minimum": 0 },
         "transition": { "type": "string" },
-        "mu_delta": { "type": ["integer", "string"] },
+        "mu_delta": { "type": ["number", "integer", "string"] },
         "post_state_hash": { "type": ["string","null"], "pattern": "^[0-9a-fA-F]{64}$" },
         "proof_portable": { "type": ["string","null"], "enum": ["LRAT","DRAT","TRUTH_TABLE_UNSAT",null] },
+        "cnf_sha256": { "type": ["string","null"], "pattern": "^[0-9a-fA-F]{64}$" },
         "proof_blob_uri": { "type": ["string","null"] },
+        "proof_sha256": { "type": ["string","null"], "pattern": "^[0-9a-fA-F]{64}$" },
         "model_blob_uri": { "type": ["string","null"] },
+        "model_sha256": { "type": ["string","null"], "pattern": "^[0-9a-fA-F]{64}$" },
+        "status": { "type": ["string","null"] },
+        "signature": { "type": ["string","null"], "pattern": "^[0-9a-fA-F]{128}$" },
         "solver": { "type": "string" },
         "solver_commit": { "type": ["string","null"] },
         "solver_cmdline": { "type": "string" },

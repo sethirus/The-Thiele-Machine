@@ -25,9 +25,17 @@ from dataclasses import dataclass
 import hashlib
 import json
 from typing import Mapping, Sequence
+import os
+from typing import Optional
 
 from cryptography.exceptions import InvalidSignature
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
+
+# Local mu-spec copy for validator TCB isolation. Import if available.
+try:
+    from tools.mu_spec import calculate_mu_cost
+except Exception:  # pragma: no cover - best-effort import
+    calculate_mu_cost = None
 
 CANONICAL_SEPARATORS = (",", ":")
 
@@ -111,6 +119,30 @@ def _check_certificate_hash(step: Mapping[str, object], step_index: int) -> None
         )
 
 
+def _read_blob(uri: object) -> Optional[bytes]:
+    """Best-effort read of a blob URI or inline blob. Returns bytes or None."""
+    if uri is None:
+        return None
+    if isinstance(uri, (bytes, bytearray)):
+        return bytes(uri)
+    if not isinstance(uri, str):
+        try:
+            return str(uri).encode("utf-8")
+        except Exception:
+            return None
+    # treat as path if it exists
+    try:
+        if os.path.exists(uri):
+            return open(uri, "rb").read()
+    except Exception:
+        pass
+    # fallback: inline string
+    try:
+        return uri.encode("utf-8")
+    except Exception:
+        return None
+
+
 def _verify_signature(pubkey_hex: str, signature_hex: str, digest_hex: str) -> None:
     """Raise :class:`ReceiptValidationError` if the Ed25519 signature is invalid."""
 
@@ -147,9 +179,13 @@ class ReceiptValidator:
             raise ReceiptValidationError("receipt must be a mapping")
 
         spec_version = receipt.get("spec_version")
-        if spec_version != "1.0":
+        # Accept both 1.0 (legacy) and 1.1 (current) receipts. Newer validator
+        # behaviour relies on the 1.1 schema which bumps mu_delta to float and
+        # includes cnf/proof digests; legacy 1.0 receipts are still accepted for
+        # compatibility.
+        if spec_version not in ("1.0", "1.1"):
             raise ReceiptValidationError(
-                f"unsupported spec_version {spec_version!r}; expected '1.0'"
+                f"unsupported spec_version {spec_version!r}; expected '1.0' or '1.1'"
             )
 
         steps_obj = receipt.get("steps")
@@ -170,6 +206,23 @@ class ReceiptValidator:
                 )
 
             _check_certificate_hash(raw_step, idx)
+            # Verify any referenced artifact digests if present (cnf, proof, model)
+            for blob_field, sha_field in (
+                ("cnf_blob_uri", "cnf_sha256"),
+                ("proof_blob_uri", "proof_sha256"),
+                ("model_blob_uri", "model_sha256"),
+            ):
+                if blob_field in raw_step and sha_field in raw_step:
+                    blob = _read_blob(raw_step.get(blob_field))
+                    if blob is None:
+                        raise ReceiptValidationError(
+                            f"step {idx}: cannot access {blob_field} {raw_step.get(blob_field)!r}"
+                        )
+                    actual = hashlib.sha256(blob).hexdigest()
+                    if actual != raw_step.get(sha_field):
+                        raise ReceiptValidationError(
+                            f"step {idx}: {sha_field} mismatch (expected {raw_step.get(sha_field)!r}, got {actual})"
+                        )
             mu_total += _normalise_mu(raw_step.get("mu_delta"), idx)
             step_hashes.append(computed_hash)
 
@@ -186,6 +239,45 @@ class ReceiptValidator:
             if not isinstance(pubkey_hex, str) or not isinstance(signature_hex, str):
                 raise ReceiptValidationError("receipt missing signature fields")
             _verify_signature(pubkey_hex, signature_hex, computed_digest)
+
+        # For spec_version 1.1, do an additional μ-recomputation for LASSERT
+        # steps when possible. This ensures the validator's μ accounting is
+        # independent of the runtime VM implementation.
+        spec_version = receipt.get("spec_version")
+        if spec_version == "1.1" and calculate_mu_cost is not None:
+            for idx, raw_step in enumerate(steps_obj):
+                # Expect an instruction witness structure and an observation.cert
+                instr = raw_step.get("instruction")
+                obs = raw_step.get("observation")
+                if (
+                    isinstance(instr, Mapping)
+                    and instr.get("op") == "LASSERT"
+                    and isinstance(obs, Mapping)
+                    and isinstance(obs.get("cert"), Mapping)
+                ):
+                    query = obs["cert"].get("smt_query")
+                    if query is None:
+                        continue
+                    # Best-effort: assume before/after counts are 1/1 if absent.
+                    # The receipts generator typically uses (1,1) for simple
+                    # policy checks; otherwise validators should embed those
+                    # counts in the cert payload under mu_accounting.
+                    before = 1
+                    after = 1
+                    mu_account = obs["cert"].get("mu_accounting")
+                    if isinstance(mu_account, Mapping):
+                        before = mu_account.get("blind_cost", before)
+                        after = mu_account.get("sighted_cost", after)
+                    recomputed = float(calculate_mu_cost(str(query), int(before), int(after)))
+                    recorded = raw_step.get("mu_delta")
+                    try:
+                        recorded_f = float(recorded)
+                    except Exception:
+                        raise ReceiptValidationError(f"step {idx}: mu_delta is not numeric")
+                    if abs(recomputed - recorded_f) > 1e-9:
+                        raise ReceiptValidationError(
+                            f"step {idx}: mu_delta mismatch (recomputed {recomputed}, recorded {recorded_f})"
+                        )
 
         return mu_total
 
