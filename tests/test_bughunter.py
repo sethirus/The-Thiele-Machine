@@ -29,6 +29,10 @@ def test_bug_hunter_detects_critical_patterns(tmp_path):
     # os.system should also trigger the subprocess rule (duplicate severity check)
     shell_findings = [f for f in report.findings if f.rule == "subprocess-shell"]
     assert any("shell=True" in f.message or "os.system" in f.message for f in shell_findings)
+    assert any("os.system" in f.message for f in shell_findings)
+    assert any("os.popen" in f.message for f in shell_findings)
+    assert any("subprocess.check_output" in f.message for f in shell_findings)
+    assert any("subprocess.Popen" in f.message for f in shell_findings)
 
     for finding in report.findings:
         assert finding.remediation, "Each finding must include a remediation hint"

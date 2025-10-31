@@ -24,6 +24,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import hashlib
 import json
+from pathlib import Path
 from typing import Mapping, Sequence
 import os
 from typing import Optional
@@ -174,7 +175,7 @@ class ReceiptValidator:
 
     require_signature: bool = True
 
-    def validate(self, receipt: Mapping[str, object]) -> float:
+    def validate(self, receipt: Mapping[str, object], *, cert_dir: Path | None = None) -> float:
         if not isinstance(receipt, Mapping):
             raise ReceiptValidationError("receipt must be a mapping")
 
@@ -280,6 +281,77 @@ class ReceiptValidator:
                         )
 
         return mu_total
+
+    def _validate_certificate(
+        self,
+        step: Mapping[str, object],
+        step_index: int,
+        cert_dir: Path,
+        recorded_mu: float,
+    ) -> None:
+        observation = step.get("observation")
+        if not isinstance(observation, Mapping):
+            return
+        cert = observation.get("cert")
+        if not isinstance(cert, Mapping):
+            return
+        if cert.get("op") != "LASSERT":
+            return
+        cid = cert.get("cid")
+        proof_type = cert.get("proof_type")
+        cnf_sha = cert.get("cnf_sha256")
+        proof_sha = cert.get("proof_sha256")
+        if not all(isinstance(item, str) for item in (cid, proof_type, cnf_sha, proof_sha)):
+            raise ReceiptValidationError(
+                f"step {step_index}: incomplete LASSERT certificate metadata"
+            )
+        cnf_path = cert_dir / f"{cid}.cnf"
+        if proof_type.upper() == "LRAT":
+            proof_path = cert_dir / f"{cid}.lrat"
+            model_path = None
+        elif proof_type.upper() == "MODEL":
+            proof_path = None
+            model_path = cert_dir / f"{cid}.model"
+        else:
+            raise ReceiptValidationError(
+                f"step {step_index}: unsupported proof_type {proof_type!r}"
+            )
+        if not cnf_path.exists():
+            raise ReceiptValidationError(
+                f"step {step_index}: CNF file missing for certificate {cid}"
+            )
+        if proof_path is not None and not proof_path.exists():
+            raise ReceiptValidationError(
+                f"step {step_index}: proof file missing for certificate {cid}"
+            )
+        if model_path is not None and not model_path.exists():
+            raise ReceiptValidationError(
+                f"step {step_index}: model file missing for certificate {cid}"
+            )
+        try:
+            certificate = verify_certificate(
+                cnf_path=cnf_path,
+                proof_type=proof_type,
+                proof_path=proof_path,
+                model_path=model_path,
+            )
+        except CertificateError as exc:
+            raise ReceiptValidationError(
+                f"step {step_index}: certificate validation failed: {exc}"
+            ) from exc
+        if certificate.cnf.sha256 != cnf_sha:
+            raise ReceiptValidationError(
+                f"step {step_index}: cnf_sha256 mismatch"
+            )
+        if certificate.proof_sha256 != proof_sha:
+            raise ReceiptValidationError(
+                f"step {step_index}: proof_sha256 mismatch"
+            )
+        expected_mu = calculate_mu_cost(certificate.cnf.text, 1, 1)
+        if abs(expected_mu - recorded_mu) > 1e-9:
+            raise ReceiptValidationError(
+                f"step {step_index}: μ charge mismatch (expected {expected_mu}, got {recorded_mu})"
+            )
 
 
 __all__ = [
