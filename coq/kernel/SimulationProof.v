@@ -86,16 +86,139 @@ Fixpoint compile_trace_start_pos (trace : list vm_instruction) (pc : nat) : nat 
       | None => compile_trace_start_pos trace pc'  (* Should not happen if pc < length trace *)
       end
   end.
-Axiom compile_trace_start_pos_correct : forall trace pc,
-  compile_trace_start_pos trace pc = length (concat (firstn pc (map compile_instruction trace))).
+
+Lemma firstn_succ_nth_error_Some {A} :
+  forall (l : list A) (n : nat) (x : A),
+    nth_error l n = Some x ->
+    firstn (S n) l = firstn n l ++ [x].
+Proof.
+  induction l as [|y l IH]; intros [|n] x H; simpl in *; try discriminate.
+  - inversion H; subst. reflexivity.
+  - apply f_equal. rewrite (IH n x H). reflexivity.
+Qed.
+
+Lemma firstn_succ_nth_error_None {A} :
+  forall (l : list A) (n : nat),
+    nth_error l n = None ->
+    firstn (S n) l = firstn n l.
+Proof.
+  induction l as [|y l IH]; intros [|n] H; simpl in *; try discriminate; auto.
+  apply f_equal. apply IH. assumption.
+Qed.
+
+Lemma length_concat_firstn_succ_Some {A} :
+  forall (l : list (list A)) (n : nat) (x : list A),
+    nth_error l n = Some x ->
+    length (concat (firstn (S n) l)) =
+      length (concat (firstn n l)) + length x.
+Proof.
+  intros l n x H.
+  rewrite (firstn_succ_nth_error_Some l n x H).
+  rewrite concat_app. simpl. rewrite app_nil_r.
+  rewrite app_length. simpl. reflexivity.
+Qed.
+
+Lemma length_concat_firstn_succ_None {A} :
+  forall (l : list (list A)) (n : nat),
+    nth_error l n = None ->
+    length (concat (firstn (S n) l)) = length (concat (firstn n l)).
+Proof.
+  intros l n H.
+  rewrite (firstn_succ_nth_error_None l n H).
+  reflexivity.
+Qed.
+
+Lemma skipn_nth_error_cons {A} :
+  forall (l : list A) (n : nat) (x : A),
+    nth_error l n = Some x ->
+    skipn n l = x :: skipn (S n) l.
+Proof.
+  induction l as [|y l IH].
+  - intros n x H.
+    destruct n; simpl in H; discriminate.
+  - intros [|n] x H; simpl in H.
+    + inversion H; subst. reflexivity.
+    + apply IH in H. assumption.
+Qed.
+
+Lemma nth_error_concat_first_hd {A} :
+  forall (l : list (list A)) (n : nat) (x : list A) (y : A),
+    nth_error l n = Some x ->
+    nth_error x 0 = Some y ->
+    nth_error (concat l) (length (concat (firstn n l))) = Some y.
+Proof.
+  intros l n x y Hnth Hhd.
+  destruct x as [|x0 xs]; simpl in Hhd; try discriminate.
+  inversion Hhd; subst y.
+  assert (Hsplit : concat l = concat (firstn n l) ++ concat (skipn n l)).
+  { rewrite <- firstn_skipn with (l := l) (n := n) at 1.
+    rewrite concat_app. reflexivity. }
+  rewrite Hsplit.
+  rewrite nth_error_app2.
+  2:{ apply Nat.le_refl. }
+  rewrite Nat.sub_diag.
+  pose proof (skipn_nth_error_cons l n (x0 :: xs) Hnth) as Hskip.
+  rewrite Hskip. simpl.
+  simpl. reflexivity.
+Qed.
+
+Lemma compile_instruction_head :
+  forall instr,
+    nth_error (compile_instruction instr) 0 = Some (T_Write true).
+Proof.
+  intros instr.
+  unfold compile_instruction.
+  simpl. reflexivity.
+Qed.
+
+Lemma compile_trace_start_pos_correct :
+  forall tr pc,
+    compile_trace_start_pos tr pc =
+      length (concat (firstn pc (map compile_instruction tr))).
+Proof.
+  intros tr pc.
+  induction pc as [|pc IH]; simpl.
+  - reflexivity.
+  - destruct (nth_error tr pc) as [instr|] eqn:Hnth; simpl.
+      + rewrite IH.
+        assert (Hmap :
+                  nth_error (map compile_instruction tr) pc =
+                  option_map compile_instruction (nth_error tr pc))
+          by (apply nth_error_map).
+        rewrite Hnth in Hmap. simpl in Hmap.
+        pose proof (length_concat_firstn_succ_Some
+                      (map compile_instruction tr) pc (compile_instruction instr) Hmap)
+          as Hlen.
+        symmetry. exact Hlen.
+      + rewrite IH.
+        assert (Hmap :
+                  nth_error (map compile_instruction tr) pc =
+                  option_map compile_instruction (nth_error tr pc))
+          by (apply nth_error_map).
+        rewrite Hnth in Hmap. simpl in Hmap.
+        pose proof (length_concat_firstn_succ_None
+                      (map compile_instruction tr) pc Hmap) as Hlen.
+        symmetry. exact Hlen.
+Qed.
 
 
-Axiom compile_trace_nth :
+Lemma compile_trace_nth :
   forall trace pc instr,
     nth_error trace pc = Some instr ->
     (* Each VM instruction compiles to a sequence starting with T_Write true for pc increment *)
     let pos := compile_trace_start_pos trace pc in
     nth_error (compile_trace trace) pos = Some (T_Write true).
+Proof.
+  intros trace pc instr Hnth.
+  unfold compile_trace.
+  pose proof (compile_trace_start_pos_correct trace pc) as Hpos.
+  rewrite Hpos.
+  apply (@nth_error_concat_first_hd _ (map compile_instruction trace) pc
+                                    (compile_instruction instr) (T_Write true)).
+  - pose proof (nth_error_map compile_instruction pc trace) as Hmap.
+    rewrite Hnth in Hmap. simpl in Hmap. exact Hmap.
+  - apply compile_instruction_head.
+Qed.
 
 Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
   match instr with
@@ -216,10 +339,19 @@ Proof.
   inversion Hstep; subst; reflexivity.
 Qed.
 
-Axiom vm_exec_run_vm :
+Lemma vm_exec_run_vm :
   forall fuel trace s s',
     vm_exec fuel trace s s' ->
     run_vm fuel trace s = s'.
+Proof.
+  intros fuel trace s s' Hexec.
+  induction Hexec.
+  - reflexivity.
+  - simpl.
+    rewrite H.
+    rewrite (vm_step_vm_apply _ _ _ H0).
+    apply IHHexec.
+Qed.
 
 Lemma vm_exec_deterministic :
   forall fuel trace s s1 s2,
@@ -255,13 +387,33 @@ Proof.
   reflexivity.
 Qed.
 
-Axiom fetch_compile_trace :
+Lemma fetch_compile_trace :
   forall trace s_vm s_kernel instr,
     states_related_for_execution s_vm s_kernel ->
     nth_error trace s_vm.(vm_pc) = Some instr ->
     (* With sequences, fetch gives first instruction of compiled sequence *)
     (* compile_instruction starts with compile_increment_pc, which starts with T_Write true *)
     fetch (compile_trace trace) s_kernel = T_Write true.
+Proof.
+  intros trace s_vm s_kernel instr Hrel Hnth.
+  destruct Hrel as [Hstate [Hmu [Hhead Hdecode]]].
+  unfold fetch.
+  rewrite Hstate. simpl.
+  assert (HnotNone : nth_error trace s_vm.(vm_pc) <> None)
+    by (rewrite Hnth; discriminate).
+  destruct trace as [|instr0 trace'].
+  { destruct (s_vm.(vm_pc)); simpl in HnotNone; specialize (HnotNone eq_refl); contradiction. }
+  unfold compile_trace. simpl.
+  destruct (compile_instruction instr0) as [|instr_hd prog_tl] eqn:Hprog.
+  { pose proof (compile_instruction_head instr0).
+    rewrite Hprog in H.
+    simpl in H. discriminate.
+  }
+  simpl.
+  pose proof (compile_instruction_head instr0) as Hhd.
+  rewrite Hprog in Hhd.
+  simpl in Hhd. inversion Hhd. reflexivity.
+Qed.
 
 
 Axiom compile_increment_pc_correct :
