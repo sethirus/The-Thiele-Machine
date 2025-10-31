@@ -25,6 +25,12 @@ jobs:
           # Prefer using the helper which includes retry logic and exits non-zero
           # if installation fails so CI remains strict about proof-tool availability.
           bash scripts/install_proof_tools.sh
+
+      - name: Provision kernel key (CI only)
+        run: |
+          # Create a deterministic ephemeral kernel key for CI tests so the
+          # demo smoke test can sign receipts without requiring operator keys.
+          python scripts/provision_keys.py --secret-path kernel_secret.key --public-path kernel_public.key --force
       - name: Run linters for new helper scripts (flake8 + mypy)
         run: |
           python -m pip install --upgrade pip
