@@ -7,7 +7,7 @@ From ThieleUniversal Require Import TM UTM_Rules.
 From ThieleUniversal Require Import CPU UTM_Program.
 From ThieleUniversal Require Import ThieleUniversal.
 From ThieleUniversal Require Import UTM_Encode.
-From ThieleMachine Require Import ThieleMachine EncodingBridge Axioms.
+From ThieleMachine Require Import ThieleMachine EncodingBridge.
 From ThieleMachine.Modular_Proofs Require Import Encoding EncodingBounds.
 
 Import ListNotations.
@@ -49,7 +49,7 @@ Definition config_ok (_tm : TM) (conf : TMConfig) : Prop :=
 Definition tm_config_head (conf : TMConfig) : nat :=
   let '(_, _, head) := conf in head.
 
-Lemma decode_encode_id :
+Lemma decode_encode_id_tm :
   forall tm conf,
     config_ok tm conf ->
     decode_state tm (encode_config tm conf) = conf.
@@ -1498,49 +1498,6 @@ Proof.
     as [Hq_fetch [Hsym_fetch [Haddr_fetch Hpc_fetch]]].
   unfold ThieleUniversal.find_rule_start_inv.
   repeat split; assumption.
-Qed.
-
-Lemma utm_apply_phase_registers_from_axioms :
-  forall tm q tape head
-         (cpu0 cpu_apply : ThieleUniversal.CPU.State)
-         (k_total : nat) q' write move,
-    let conf := ((q, tape), head) in
-    ThieleUniversal.inv cpu0 tm conf ->
-    cpu_apply = ThieleUniversal.run_n cpu0 k_total ->
-    (forall j,
-        j < k_total ->
-        ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC
-          (ThieleUniversal.run_n cpu0 j) < 29) ->
-    ThieleUniversal.IS_ApplyRule_Start
-      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu_apply) ->
-    firstn (length (UTM_Encode.encode_rules tm.(tm_rules)))
-          (skipn UTM_Program.RULES_START_ADDR
-                 (ThieleUniversal.CPU.mem cpu_apply))
-      = UTM_Encode.encode_rules tm.(tm_rules) ->
-    find_rule tm.(tm_rules) q (nth head tape tm.(tm_blank))
-      = Some (q', write, move) ->
-    ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_Q' cpu_apply = q' /\
-    ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_WRITE cpu_apply = write /\
-    UTM_Encode.decode_z
-      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_MOVE cpu_apply) = move.
-Proof.
-  intros tm q tape head cpu0 cpu_apply k_total q' write move conf
-         Hinv Hrun_total Hpc_bound Hpc_apply Hrules_final Hfind.
-  subst conf.
-  pose proof (ThieleUniversal.pc_29_implies_registers_from_rule_table
-                tm ((q, tape), head) cpu0 k_total cpu_apply
-                Hinv Hrun_total Hpc_bound Hpc_apply)
-    as [i [Hi [Hmem_q' [Hmem_write Hmem_move]]]].
-  pose proof (ThieleUniversal.find_rule_from_memory_components
-                tm ((q, tape), head) i cpu_apply
-                Hi Hmem_q' Hmem_write Hmem_move Hrules_final)
-    as Hrule_components.
-  rewrite Hfind in Hrule_components.
-  inversion Hrule_components as [Htuple].
-  inversion Htuple as [Hq'_eq Hrest].
-  inversion Hrest as [Hwrite_eq Hmove_eq].
-  subst.
-  repeat split; reflexivity.
 Qed.
 
 Lemma utm_fetch_establishes_find_rule_loop_inv :
@@ -3779,22 +3736,11 @@ Proof.
       { subst k_total. exact (eq_sym Hrun_apply_from_start). }
       pose proof Hpc_apply as Hpc_apply_eq.
       unfold ThieleUniversal.IS_ApplyRule_Start in Hpc_apply_eq.
-      pose (Happly_regs :=
-              fun (Hpc_loop_prefix : utm_pc_prefix_lt cpu_find k_apply) =>
-                let Hpc_prefix_total :=
-                  utm_pc_prefix_total_from_loop cpu0 cpu_find k_apply
-                    Hrun_fetch Hpc_prefix_fetch Hpc_loop_prefix in
-                let Hrules_apply_final :=
-                  utm_rule_table_preserved_until tm ((q, tape), head) k_total
-                    Hfit Hpc_prefix_total in
-                utm_apply_phase_registers_from_axioms tm q tape head
-                  cpu0 cpu_apply k_total q' write move
-                  Hinv_full Hrun_apply_total Hpc_prefix_total
-                  Hpc_apply_eq Hrules_apply_final Hfind).
       (* TODO: Strengthen [Hpc_loop_prefix_base] into a full
-         [utm_pc_prefix_lt cpu_find k_apply] witness so [Happly_regs]
-         can instantiate the apply-phase axioms and extract the loaded
-         rule components. *)
+         [utm_pc_prefix_lt cpu_find k_apply] witness so the register
+         equalities extracted from [transition_FindRule_to_ApplyRule]
+         can be threaded through the composed run without appealing to
+         additional axioms. *)
     + (* This is the out-of-bounds branch. *)
       pose proof (utm_fetch_state_out_of_bounds tm q tape head Hfit Hhead_ge)
         as [Hq_fetch [Hsym_fetch [Haddr_fetch Hpc_fetch]]].
@@ -3849,7 +3795,7 @@ Proof.
  (* Multi-step simulation follows from one-step by induction on k.
  *)
  induction k as [|k IH].
- - simpl. apply decode_encode_id. assumption.
+ - simpl. apply decode_encode_id_tm. assumption.
  - simpl. rewrite IH.
    apply utm_simulate_one_step.
    apply tm_step_preserves_ok.
@@ -3922,14 +3868,14 @@ Definition build_witness (tm : TM)
      witness_prog := utm_program;
      witness_encode := encode_config tm;
      witness_decode := decode_state tm;
-     witness_roundtrip := decode_encode_id tm;
+     witness_roundtrip := decode_encode_id_tm tm;
      witness_correct := utm_simulation_steps tm Hcat Hfit |}.
 
 Lemma build_witness_ok :
   forall tm (Hcat : catalogue_static_check tm = true) (Hfit : rules_fit tm),
     let wit := build_witness tm Hcat Hfit in
     (forall conf (Hok : config_ok tm conf),
-        witness_roundtrip wit conf Hok = decode_encode_id tm conf Hok) /\
+        witness_roundtrip wit conf Hok = decode_encode_id_tm tm conf Hok) /\
     (forall conf k (Hok : config_ok tm conf),
         witness_decode wit (thiele_step_n (witness_prog wit)
                                           (witness_encode wit conf) k)
