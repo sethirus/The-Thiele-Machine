@@ -4,6 +4,7 @@
 
 > **New “As Above, So Below” module —** Formal theorems in Coq now certify that coherent processes are isomorphic to the Thiele proposer/auditor architecture, computation is composition in the free-category nucleus, and `Rel` (types + binary relations) satisfies the categorical laws. A cryptographically measured Ouroboros witness in `ouroboros/` refuses to attest unless these Coq proofs compile, binding the formal layer to an executable runtime receipt (see [As Above, So Below Verification](#as-above-so-below-verification)).
 
+<!-- CI trigger: no-op edit to force workflow re-run -->
 ## Core Claim: Exponential Blind/Sighted Cost Separation
 
 The Thiele Machine demonstrates exponential performance gains on structured problems. Below is the key numeric evidence from partition experiments (n=6 to 18, seeds 0-2, 3 repeats), showing blind reasoning costs growing exponentially while sighted costs remain near-constant.
