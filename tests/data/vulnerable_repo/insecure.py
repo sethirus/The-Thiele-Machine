@@ -5,7 +5,12 @@
 
 import os
 import subprocess
+import subprocess as sp
 import yaml
+from os import popen as os_popen
+from os import system as os_system
+from subprocess import Popen
+from subprocess import check_output as capture_output
 
 
 def run_user_command(cmd):
@@ -24,3 +29,11 @@ def load_config(data):
 
 def legacy_os_call(cmd):
     os.system(cmd)
+
+
+def alias_shell_usage(cmd):
+    sp.run(cmd, shell=True)
+    capture_output(cmd, shell=True)
+    Popen(cmd, shell=True)
+    os_system(cmd)
+    os_popen(cmd)
