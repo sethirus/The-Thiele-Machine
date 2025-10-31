@@ -3,10 +3,10 @@
 # Copyright 2025 Devon Thiele
 # See the LICENSE file in the repository root for full terms.
 
-import sys
+import json
 import os
+import sys
 import tempfile
-import shutil
 from pathlib import Path
 
 # Add parent dir for imports
@@ -21,14 +21,27 @@ def test_lassert_unsat():
     with tempfile.TemporaryDirectory() as tmpdir:
         outdir = Path(tmpdir)
         
-        # Create unsat SMT2
-        unsat_path = outdir / "unsat.smt2"
-        unsat_path.write_text("(assert false)", encoding='utf-8')
-        
+        # Create unsat CNF and LRAT proof
+        cnf_path = outdir / "unsat.cnf"
+        cnf_path.write_text("p cnf 1 2\n1 0\n-1 0\n", encoding="utf-8")
+        proof_path = outdir / "unsat.lrat"
+        proof_path.write_text("3 0 1 2 0\n", encoding="utf-8")
+        config_path = outdir / "unsat.json"
+        config_path.write_text(
+            json.dumps(
+                {
+                    "cnf": str(cnf_path),
+                    "proof_type": "LRAT",
+                    "proof": str(proof_path),
+                }
+            ),
+            encoding="utf-8",
+        )
+
         # Create thm program
         thm_content = f'''
 PNEW {{1,2}}
-LASSERT "{unsat_path.absolute()}"
+LASSERT "{config_path.absolute()}"
 MDLACC
 EMIT "Should not reach here"
 '''
