@@ -750,7 +750,19 @@ def main(argv: Iterable[str] | None = None) -> None:  # pragma: no cover - CLI e
             turbulence_rotation_index=args.turbulence_rotation_index,
         )
     except Exception as exc:  # pragma: no cover - surfaced in integration tests
+        # Print a clearer failure message and full traceback so CI logs capture the cause.
+        import traceback
+
         print(f"PIPELINE_FAIL: {exc}")
+        traceback.print_exc()
+        # Also attempt to flush to stdout/stderr to ensure logs appear in CI.
+        try:
+            import sys
+
+            sys.stdout.flush()
+            sys.stderr.flush()
+        except Exception:
+            pass
         raise SystemExit(1)
 
     print(f"PIPELINE_OK: {result.bundle_dir}")
