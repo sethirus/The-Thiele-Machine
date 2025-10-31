@@ -1,0 +1,136 @@
+{
+  "provenance": {
+    "git_commit": "67ae93ea095165931cddd3623fce72ff01d242d5",
+    "python_version": "3.12.1 (main, Jul 10 2025, 11:57:50) [GCC 13.3.0]",
+    "pip_freeze_hash": "0881fe1a3fcc0a7b601b7505a85c77c7663b8a9cd232e0dbc6d1c38a127f8551",
+    "timestamp": 1761499242
+  },
+  "experiment_config": {
+    "n": 6,
+    "seed": 2,
+    "conf_budget": 100000,
+    "prop_budget": 5000000,
+    "global_seed": 123456789,
+    "mispartition": false,
+    "shuffle_constraints": false,
+    "noise": null
+  },
+  "instance": {
+    "matrix": [
+      [
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ]
+    ],
+    "parity": [
+      1,
+      0,
+      0,
+      0,
+      1,
+      1
+    ]
+  },
+  "blind_result": {
+    "status": "unsat",
+    "conflicts": 16,
+    "props": 74,
+    "decisions": 15,
+    "config": {
+      "solver": "Cadical153",
+      "conf_budget": 100000,
+      "prop_budget": null,
+      "rnd_seed": 123456789,
+      "rnd_init_act": null,
+      "var_decay": null,
+      "phase_saving": null
+    }
+  },
+  "sighted_result": {
+    "result": "unsat",
+    "rank_A": 5,
+    "rank_aug": 6,
+    "rank_gap": 1,
+    "conflict_steps": 16,
+    "rank_ops": 18
+  },
+  "mu_metrics": {
+    "mu_blind": 16,
+    "mu_sighted": 285.0,
+    "mu_question": 192,
+    "mu_answer": 9.0,
+    "conflict_steps": 16,
+    "rank_ops": 18,
+    "mdl_bytes": 0,
+    "partition_ops": 16
+  },
+  "counters": {
+    "partition_ops": 16,
+    "conflict_steps": 16,
+    "rank_ops": 18,
+    "mdl_bytes": 0,
+    "info_gain": 9.0
+  }
+}
