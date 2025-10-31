@@ -192,7 +192,7 @@ class StepObservation:
     """Observation accompanying a step receipt."""
 
     event: Optional[Dict[str, str]]
-    mu_delta: int
+    mu_delta: float
     cert: Dict[str, Any]
 
     def to_dict(self) -> Dict[str, Any]:
@@ -309,7 +309,7 @@ def load_receipts(path: os.PathLike[str] | str) -> list[StepReceipt]:
         instruction = InstructionWitness(**entry["instruction"])
         observation = StepObservation(
             event=entry["observation"].get("event"),
-            mu_delta=int(entry["observation"]["mu_delta"]),
+            mu_delta=float(entry["observation"]["mu_delta"]),
             cert=entry["observation"]["cert"],
         )
         receipt = StepReceipt(

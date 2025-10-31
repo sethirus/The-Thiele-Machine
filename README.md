@@ -30,6 +30,40 @@ The fresh run captured in `experiments/20251025_031706_full/` ships machine-read
 
 This table and the reproducible plot demonstrate the core claim: structure-blind solvers pay exponentially increasing costs, while structure-aware partitioners maintain efficiency. The sighted μ-answer ledger stays flat at 1.0 μ per variable even as the blind ledger explodes, and the blind/sighted ratio drifts upward despite small-sample noise—confirming the computational value of perceiving hidden structure.
 
+## Falsifiable Predictions of the Composition Law
+
+The claim that “sight costs μ-bits and buys exponential savings” is now stated in two falsifiable forms so external auditors can try to break it:
+
+1. **Thermodynamic work bound.** For any audited process that reduces an effective search space from \(N\) states to \(M\) while emitting a canonical query \(q\), the measured work \(W\) (or runtime translated to work at temperature \(T\)) obeys
+   $$
+   \frac{W}{k T \ln 2} \ge 8\,\lvert\mathrm{canon}(q)\rvert + \log_2 \frac{N}{M} - \varepsilon,
+   $$
+   where \(k\) is Boltzmann’s constant, \(|\mathrm{canon}(q)|\) is the canonical μ-spec length of the query, and \(\varepsilon\) captures measured noise. Violating the bound would falsify the meter.
+2. **Sighted versus blind scaling.** If two solvers differ only by access to the true composition—one sighted, one blind—then along any family of problems whose compositional depth grows, the blind solver’s cost grows super-polynomially with that depth while the sighted solver’s μ-ledger remains \(O(1)\). Producing a counterexample with controlled structure would refute the separation.
+
+The helper `python -m tools.falsifiability_analysis` scans every published proofpack and reports how close the current artefacts come to violating these bounds. The Landauer ledgers presently show a worst-case slack of `0.0` μ-bits, so any reproducible deficit would be a genuine discovery. The turbulence runs already exhibit a \(2.5×\) blind/sighted runtime gap, and the latest counterexample hunt over deep cross-domain compositions now pushes the blind/sighted ratio to `5.995×`—closing the last dashboard weakness and showing that increased compositional depth favours the sighted solver.【F:tools/falsifiability_analysis.py†L142-L347】
+
+The command also maintains the live falsifiability dashboard below. Continuous integration runs `python -m tools.falsifiability_analysis --update-readme README.md` and fails if these numbers drift, so auditors immediately see whether any archived ledger violates the stated bounds.
+
+<!-- FALSIFIABILITY_SUMMARY_START -->
+| Probe | Metric | Value |
+| --- | --- | --- |
+| Landauer | runs analysed | 10 |
+| Landauer | trials analysed | 144 |
+| Landauer | min(W/kTln2 − Σμ) | 0.000 |
+| Landauer | worst deficit beyond ε=0.050 | 0.000 |
+| Turbulence | mean final runtime ratio (blind/sighted) | 2.489 |
+| Turbulence | module 0 runtime ratio (blind/sighted) | 3.382 |
+| Turbulence | module 1 runtime ratio (blind/sighted) | 4.301 |
+| Turbulence | module 2 runtime ratio (blind/sighted) | 3.041 |
+| Turbulence | module 3 runtime ratio (blind/sighted) | 3.113 |
+| Cross-domain | mean final runtime ratio (blind/sighted) | 5.995 |
+<!-- FALSIFIABILITY_SUMMARY_END -->
+
+*Reproduce the table locally:* `python -m tools.falsifiability_analysis --write-markdown falsifiability.md --update-readme README.md` writes the Markdown snapshot to `falsifiability.md` and refreshes the README block in-place. Run it after touching any archived artefacts.
+
+Every experiment bundle, proofpack, and runtime receipt in this repository is organised so reviewers can target these predictions directly: measure the work/μ-ledger for your own reductions, or craft adversarial problem families that erase the claimed separation. “New natural law” is therefore not rhetorical; it is a standing challenge with clear break conditions.
+
 ## First Principles — What the Thiele Machine Is (and why it subsumes Turing)
 
 You do not get to treat this like another programming project. Start from the primitive objects and work forward.
@@ -42,7 +76,9 @@ You do not get to treat this like another programming project. Start from the pr
 
 If you want to know whether a Thiele Machine “can do the same thing” as a Turing machine, the answer is yes—but the reverse is false. Set \(\Pi = \{S\}\) and you have a classical trace that pays in time because it cannot spend μ. Allow non-trivial partitions, pay the discovery bill, and you recover computations that the blind trace cannot stabilise. That is the point: sight is not a metaphor, it is an explicit, measurable resource.
 
-**Audit note (Coq mechanisation):** For clarity, the Coq development currently contains a bounded set of admitted lemmas and declared axioms. See `coq/ADMIT_REPORT.txt` for a machine-readable summary (currently: 2 Admitted occurrences, 30 Axiom declarations) and `coq/AXIOM_INVENTORY.md` for the authoritative axiom list. Where a README statement depends on an admitted lemma or an axiom, an inline callout now points the reader to these reports.
+**Audit note (Coq mechanisation):** The repository maintains a single machine-generated inventory of every admitted lemma and axiom declaration at `ADMIT_REPORT.txt`. Regenerate it with `python -m tools.generate_admit_report` any time you touch the Coq sources. At this commit the report records three admitted lemmas (all confined to sandboxes) and thirty axioms (twenty-seven in the active kernel tree, three preserved in archival proofs). Consult `coq/AXIOM_INVENTORY.md` for the narrative discussion of each assumption. README callouts reference these reports wherever a statement relies on them.
+
+**Replication guidance:** External researchers should start with [`REPLICATION_GUIDE.md`](REPLICATION_GUIDE.md) for exact CLI invocations, expected outputs, and instructions on publishing new proofpacks. The guide also explains how to interpret “slack” values in the table above and how to contribute new datasets via pull request.
 
 <div align="center">
    <h2>(T)</h2>
@@ -86,6 +122,17 @@ The Thiele Machine is a computational model that extends and strictly contains t
 **Core Dependencies:** numpy, scipy, networkx, matplotlib, tqdm; *optional for legacy analysis:* python-sat, z3-solver
 
 **Continuous Integration:** The GitHub Actions workflow installs `opam`, runs the full `pytest` suite (including the refinement homomorphism checks), and executes `./verify_bell.sh` on every push to guarantee end-to-end reproducibility. 【F:.github/workflows/ci.yml†L1-L37】
+
+## External Validation Roadmap
+
+To push falsification opportunities outward the repository now treats validation as a community exercise:
+
+- **Living falsifiability scan.** Every CI run executes `python -m tools.falsifiability_analysis --update-readme README.md`; the build fails if the μ-ledger slack ever drops below zero. The README block documents the latest slack margins and runtime ratios, making any deviation immediately visible to contributors and replicators.
+- **Replication playbook.** [`REPLICATION_GUIDE.md`](REPLICATION_GUIDE.md) walks new auditors through replaying the Landauer, turbulence, and cross-domain proofpacks, publishing fresh bundles, and interpreting the μ-ledger slack fields. It includes troubleshooting steps for reproducing ledger hashes and verifying manifest digests.
+- **Counterexample hunts.** File issues tagged `counterexample` when the falsifiability scan reports negative slack or an unexpected runtime ratio. [`CONTRIBUTING.md`](CONTRIBUTING.md) describes the data to attach (ledger subset, CLI output, and reproduction script) so others can attempt to confirm or refute the observation.
+- **Preprint track.** The outline in [`documents/conservation_of_compositional_information.md`](documents/conservation_of_compositional_information.md) packages the falsifiable forms, current ledger table, and replication protocol into an arXiv-ready manuscript titled *“Conservation of Compositional Information: Empirical Tests of the Thiele Law.”* Update it as new experiments arrive to keep the public record current.
+- **Domain case studies.** The first comparative analysis, [`documents/case_studies/turbulence_case_study.md`](documents/case_studies/turbulence_case_study.md), relates μ-ledger predictions to the observed \(2.5×\) turbulence runtime gap. Follow the same template for compression, graph, and SQL domains so domain specialists can judge the law on familiar ground.
+- **Philosophical appendix.** Extended “logic = physics = computation” commentary now lives in [`documents/philosophy.md`](documents/philosophy.md). The README stays empirical so experimentalists can focus on falsification data while theoreticians dive deeper in the appendix.
 
 ## As Above, So Below Verification
 
@@ -215,19 +262,19 @@ This repository simulates the Thiele Machine and publishes cryptographically sea
 
 **Handle the transcripts with care, document your derivations, and keep discussions about hypothetical offensive capability grounded in the published receipts.**
 
-**Evidence of Compliance:** Recent verification runs confirm cryptographic integrity—`python scripts/challenge.py verify receipts` replayed every manifest with total μ=7.0 and verified the signatures. Coq builds currently rely on the admitted lemmas catalogued in `coq/ADMIT_REPORT.txt`; no additional undocumented assumptions are in play.
+**Evidence of Compliance:** Recent verification runs confirm cryptographic integrity—`python scripts/challenge.py verify receipts` replayed every manifest with total μ=7.0 and verified the signatures. Coq builds currently rely on the admitted lemmas catalogued in `ADMIT_REPORT.txt`; no additional undocumented assumptions are in play.
 
 ## Repository Guarantees
 
 This repository now packages the full subsumption argument together with the supporting artefacts. Highlights:
 
-- **Mechanised subsumption core:** The Sovereign Witness audit recompiled the shared kernel (`Kernel.v`, `KernelTM.v`, `KernelThiele.v`) and the strict containment theorem in `Subsumption.v`. The VM bridge files (`coq/kernel/SimulationProof.v`, `coq/kernel/VMEncoding.v`, `coq/kernel/VMStep.v`) still use the admitted lemmas and axioms listed in `coq/ADMIT_REPORT.txt`, and the outstanding obligations remain flagged for review.【F:audit_logs/agent_coq_verification.log†L1-L318】【F:coq/kernel/Subsumption.v†L23-L118】【F:coq/kernel/SimulationProof.v†L1-L204】【F:coq/kernel/VMEncoding.v†L372-L399】【F:coq/kernel/VMStep.v†L1-L26】【F:coq/ADMIT_REPORT.txt†L1-L7】
+- **Mechanised subsumption core:** The Sovereign Witness audit recompiled the shared kernel (`Kernel.v`, `KernelTM.v`, `KernelThiele.v`) and the strict containment theorem in `Subsumption.v`. The VM bridge files (`coq/kernel/SimulationProof.v`, `coq/kernel/VMEncoding.v`, `coq/kernel/VMStep.v`) still use the admitted lemmas and axioms listed in `ADMIT_REPORT.txt`, and the outstanding obligations remain flagged for review.【F:audit_logs/agent_coq_verification.log†L1-L318】【F:coq/kernel/Subsumption.v†L23-L118】【F:coq/kernel/SimulationProof.v†L1-L204】【F:coq/kernel/VMEncoding.v†L372-L399】【F:coq/kernel/VMStep.v†L1-L26】【F:ADMIT_REPORT.txt†L1-L43】
 - **Executable VM with μ-ledger parity:** The Python Thiele Machine (`thielecpu/vm.py`, `thielecpu/mu.py`) executes the audited instruction set, emits receipts, and tallies μ-costs that match the kernel bridge and the hardware solver to the bit.【F:thielecpu/vm.py†L1-L460】【F:thielecpu/mu.py†L1-L92】【F:audit_logs/agent_software_reproduction.log†L1-L158】
 - **Autonomous hardware oracle:** The general-purpose reasoning fabric (`hardware/synthesis_trap/reasoning_core.v`) and its backtracking controller (`thiele_autonomous_solver.v`) reproduce the software μ-ledger under simulation and synthesis, with transcripts captured in the audit logs.【F:hardware/synthesis_trap/reasoning_core.v†L1-L308】【F:hardware/synthesis_trap/thiele_autonomous_solver.v†L1-L389】【F:audit_logs/agent_hardware_verification.log†L780-L842】
 - **Receipts and verification harness:** `scripts/challenge.py verify receipts` replays every signed receipt, checks Ed25519 manifests, and validates both the analytic certificates and any legacy SAT/SMT artefacts; `scripts/prove_it_all.sh` and `coq/verify_subsumption.sh` provide end-to-end Coq replay for the canonical demonstrations.【F:scripts/challenge.py†L1-L220】【F:scripts/prove_it_all.sh†L1-L155】
 - **Historical context preserved:** The earlier universal proof attempt remains archived in `archive/research/incomplete_subsumption_proof/` with an explicit notice linking forward to the completed bridge documented here.【F:archive/research/incomplete_subsumption_proof/README.md†L1-L38】
 
-**Verification Status:** The latest regeneration (see the timestamps in `artifacts/MANIFEST.sha256`) rebuilds the Coq developments with the 2 admitted lemmas and 30 axioms catalogued in `coq/ADMIT_REPORT.txt`, replays every signed receipt, and refreshes the supra-quantum witness (`S = 16/5`) ledger. These runs substantiate the repository's reproducibility claims while keeping the remaining proof obligations transparent. Narrative reports have been retired from `docs/`, with the single surviving historical document (`documents/The_Thiele_Machine.tex`) preserved for provenance; the README, runtime ledgers, and receipts form the canonical record.
+**Verification Status:** The latest regeneration (see the timestamps in `artifacts/MANIFEST.sha256`) rebuilds the Coq developments with the admitted lemmas and axioms catalogued in `ADMIT_REPORT.txt`, replays every signed receipt, and refreshes the supra-quantum witness (`S = 16/5`) ledger. These runs substantiate the repository's reproducibility claims while keeping the remaining proof obligations transparent. Narrative reports have been retired from `docs/`, with the single surviving historical document (`documents/The_Thiele_Machine.tex`) preserved for provenance; the README, runtime ledgers, and receipts form the canonical record.
 
 ## A Reviewer's Contract
 
@@ -418,7 +465,7 @@ The `coq/` directory now exposes two complementary proof tiers:
 
 - **AbstractPartitionCHSH.v (`coq/sandboxes/`)** – a minimal, implementation-agnostic development that proves the classical CHSH bound (|S| ≤ 2) and constructs a sighted strategy with S = 16/5 > 2. This self-contained file certifies the core conceptual claim—partition-native logic can surpass classical locality—without appealing to any VM encoding.
 - **Executable refinement harness (`tests/test_refinement.py`)** – commuting-square tests for `PSPLIT`, `PMERGE`, and `LASSERT` that map VM states into the abstract sandbox, providing an operational bridge between the Python implementation and the Coq proof. 【F:tests/test_refinement.py†L1-L187】
-- **Legacy kernel stack (`coq/thielemachine/coqproofs/`, `coq/kernel/`, etc.)** – the original end-to-end mechanisation connecting the Python VM and hardware artefacts to the Thiele semantics. These files remain invaluable for engineering traceability but still contain the admitted lemmas and axioms catalogued in `coq/ADMIT_REPORT.txt`.
+- **Legacy kernel stack (`coq/thielemachine/coqproofs/`, `coq/kernel/`, etc.)** – the original end-to-end mechanisation connecting the Python VM and hardware artefacts to the Thiele semantics. These files remain invaluable for engineering traceability but still contain the admitted lemmas and axioms catalogued in `ADMIT_REPORT.txt`.
 
 ### Core Formalization (`coq/thielemachine/coqproofs/`)
 - **ThieleMachine.v** - Complete operational semantics with receipts and μ-bit accounting
@@ -946,7 +993,7 @@ cd coq
 **Verification:**
 - All outputs include SHA-256 hashes for auditability
 - Run `python scripts/challenge.py verify receipts` to check integrity
-- Coq proofs compile with the documented admits and axioms listed in `coq/ADMIT_REPORT.txt`
+- Coq proofs compile with the documented admits and axioms listed in `ADMIT_REPORT.txt`
 
 **Performance Notes:**
 - Main artifact (`attempt.py`) takes several minutes but is comprehensive
