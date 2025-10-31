@@ -1,0 +1,13 @@
+hypotheses:
+  - id: H1
+    description: "μ_blind(n) fits a·exp(b·n) better than any polynomial"
+    test: "Compare AIC/BIC of exponential vs polynomial fits for blind μ"
+    expected: "Exponential fit has lower AIC/BIC and higher R²"
+  - id: H2
+    description: "μ_sighted(n) fits c·n^α with small α or ~constant"
+    test: "Fit linear model to sighted μ; check slope near zero"
+    expected: "Slope close to zero, high R² for constant fit"
+  - id: H3
+    description: "ratio μ_blind/μ_sighted is strictly increasing in n with high probability"
+    test: "Fit linear model to ratio; bootstrap CI on slope > 0"
+    expected: "Slope > 0 with 95% CI, p-value < 0.05"
