@@ -3,141 +3,149 @@
 # Copyright 2025 Devon Thiele
 # See the LICENSE file in the repository root for full terms.
 
-"""Z3-backed logic bridge producing deterministic certificates."""
+"""Proof-carrying ``LASSERT`` implementation."""
 
 from __future__ import annotations
 
+import json
+from dataclasses import dataclass
 from pathlib import Path
-from z3 import Solver, parse_smt2_string, sat
-import os
+from typing import Dict, Optional
 
-try:
-    from .certs import CertStore
-    from .isa import CSR
-    from .state import State
-    from ._types import ModuleId
-except ImportError:
-    # Handle running as script
-    import sys
-    import os
-    sys.path.insert(0, os.path.dirname(__file__))
-    from certs import CertStore
-    from isa import CSR
-    from state import State
-    from _types import ModuleId
+from .certcheck import CertificateError, LassertCertificate, verify_certificate
+from .certs import CertStore
+from .isa import CSR
+from .mu import calculate_mu_cost
+from .state import State
+from ._types import ModuleId
 
 
-def lassert(state: State, module: int, formula: str, outdir: Path) -> str:
-    """Add ``formula`` as axiom to ``module`` and check satisfiability of all module axioms."""
+@dataclass(frozen=True)
+class LassertConfig:
+    cnf_path: Path
+    proof_type: str
+    proof_path: Optional[Path]
+    model_path: Optional[Path]
 
-    module_id = ModuleId(module)
-
-    # Add the formula as an axiom to the module
-    state.add_axiom(module_id, formula)
-
-    # Get all axioms for this module
-    module_axioms = state.get_module_axioms(module_id)
-
-    # Check if certificate generation is enabled (default: disabled)
-    certs_enabled = os.environ.get('THIELE_CERTS', '').lower() in ('1', 'true', 'yes')
-    no_certs = not certs_enabled
-
-    if not no_certs:
-        store = CertStore(outdir)
-        cid = store.next_id()
-        store.write_text(cid, "assert.smt2", formula)
-
-    # Check satisfiability of all axioms in the module
-    combined_formula = "\n".join(module_axioms)
-
-    print(f"LASSERT: Checking satisfiability for module {module_id}...")
-    print(f"LASSERT: Formula has {len(combined_formula.split())} tokens")
-
-    solver = Solver()
-    # solver.set(proof=True)  # Disabled to avoid hang on unsat proof generation
-    solver.add(*parse_smt2_string(combined_formula))
-
-    print("LASSERT: Running Z3 satisfiability check...")
-    import time
-    start_time = time.time()
-    print(f"LASSERT: Check started at {start_time:.2f}")
-
-    # Show progress indicator during potentially long-running check
-    import time
-    import threading
-
-    def show_progress():
-        dots = 0
-        while not progress_done.is_set():
-            dots = (dots + 1) % 4
-            print(f"LASSERT: Checking...{'.' * dots}", end='\r', flush=True)
-            time.sleep(1)
-
-    progress_done = threading.Event()
-    progress_thread = threading.Thread(target=show_progress, daemon=True)
-    progress_thread.start()
-
-    try:
-        result = solver.check()
-    finally:
-        progress_done.set()
-        end_time = time.time()
-        elapsed = end_time - start_time
-        print(f"LASSERT: Check complete in {elapsed:.2f}s" + " " * 20)  # Clear the progress line
-
-    if result == sat:
-        print("LASSERT: Formula is satisfiable")
-        body = solver.model().sexpr().encode()
-        if not no_certs:
-            store.write_bytes(cid, "witness", body)
-        state.csr[CSR.STATUS] = 1
-    else:
-        print("LASSERT: Formula is unsatisfiable")
-        # For unsat, use unsat core or simple note
-        if solver.unsat_core():
-            core_str = b" & ".join(str(decl).encode() for decl in solver.unsat_core())
-            body = b"unsat: " + core_str
+    @classmethod
+    def load(cls, config_path: Path) -> "LassertConfig":
+        raw = json.loads(config_path.read_text(encoding="utf-8"))
+        if not isinstance(raw, dict):
+            raise ValueError("LASSERT config must be a JSON object")
+        try:
+            cnf_field = raw["cnf"]
+            proof_type = str(raw["proof_type"])
+        except KeyError as exc:
+            raise ValueError("LASSERT config missing required field") from exc
+        cnf_path = Path(cnf_field)
+        if not cnf_path.is_absolute():
+            cnf_path = (config_path.parent / cnf_path).resolve()
+        proof_type_upper = proof_type.upper()
+        proof_path: Optional[Path]
+        model_path: Optional[Path]
+        if proof_type_upper == "LRAT":
+            proof_entry = raw.get("proof")
+            if proof_entry is None:
+                raise ValueError("LRAT certificate requires 'proof' path")
+            proof_path = Path(proof_entry)
+            if not proof_path.is_absolute():
+                proof_path = (config_path.parent / proof_path).resolve()
+            model_path = None
+        elif proof_type_upper == "MODEL":
+            model_entry = raw.get("model")
+            if model_entry is None:
+                raise ValueError("MODEL certificate requires 'model' path")
+            model_path = Path(model_entry)
+            if not model_path.is_absolute():
+                model_path = (config_path.parent / model_path).resolve()
+            proof_path = None
         else:
-            body = b"unsat"
-        if not no_certs:
-            store.write_bytes(cid, "proof", body)
-        state.csr[CSR.STATUS] = 0
+            raise ValueError(f"Unsupported proof_type: {proof_type}")
+        return cls(
+            cnf_path=cnf_path,
+            proof_type=proof_type_upper,
+            proof_path=proof_path,
+            model_path=model_path,
+        )
 
-    if no_certs:
-        # Generate a dummy digest when certs are disabled
-        import hashlib
-        digest = hashlib.sha256(body).hexdigest()
-        state.csr[CSR.CERT_ADDR] = f"nocert_{digest[:16]}"
+
+@dataclass(frozen=True)
+class LassertResult:
+    certificate: LassertCertificate
+    mu_delta: float
+    receipt_payload: Dict[str, object]
+    cid: str
+
+
+def _write_certificate(store: CertStore, cid: str, config: LassertConfig, cert: LassertCertificate) -> None:
+    store.write_text(cid, "cnf", cert.cnf.text)
+    if cert.proof_type == "LRAT" and config.proof_path is not None:
+        store.write_text(cid, "lrat", config.proof_path.read_text(encoding="utf-8"))
+    elif cert.proof_type == "MODEL" and config.model_path is not None:
+        store.write_text(cid, "model", config.model_path.read_text(encoding="utf-8"))
+    store.save_hash(cid, cert.cnf.text.encode("utf-8"))
+
+
+def lassert(state: State, module: ModuleId, config_path: Path, outdir: Path) -> LassertResult:
+    """Validate an LASSERT proofpack specified by ``config_path``."""
+
+    module_id = ModuleId(int(module))
+    config = LassertConfig.load(config_path)
+    try:
+        certificate = verify_certificate(
+            cnf_path=config.cnf_path,
+            proof_type=config.proof_type,
+            proof_path=config.proof_path,
+            model_path=config.model_path,
+        )
+    except CertificateError as exc:
+        raise ValueError(f"certificate verification failed: {exc}") from exc
+
+    state.add_axiom(module_id, certificate.cnf.text)
+    store = CertStore(outdir)
+    cid = store.next_id()
+    _write_certificate(store, cid, config, certificate)
+
+    if certificate.status == "UNSAT":
+        state.csr[CSR.STATUS] = 0
+        state.csr[CSR.ERR] = 1
     else:
-        digest = store.save_hash(cid, body)
-        state.csr[CSR.CERT_ADDR] = str(store.hash_path(cid))
-    return digest
+        state.csr[CSR.STATUS] = 1
+        state.csr[CSR.ERR] = 0
+    state.csr[CSR.CERT_ADDR] = str(store.hash_path(cid))
+
+    mu_delta = calculate_mu_cost(certificate.cnf.text, 1, 1)
+
+    receipt_payload = {
+        "op": "LASSERT",
+        "cnf_sha256": certificate.cnf.sha256,
+        "proof_type": certificate.proof_type,
+        "proof_sha256": certificate.proof_sha256,
+        "status": certificate.status,
+        "mu_delta": mu_delta,
+        "cid": cid,
+    }
+
+    return LassertResult(
+        certificate=certificate,
+        mu_delta=mu_delta,
+        receipt_payload=receipt_payload,
+        cid=cid,
+    )
 
 
 def ljoin(state: State, cert1: str, cert2: str, outdir: Path) -> str:
     """Join two certificate hashes and write a combined certificate."""
 
-    # Check if certificate generation is enabled (default: disabled)
-    certs_enabled = os.environ.get('THIELE_CERTS', '').lower() in ('1', 'true', 'yes')
-    no_certs = not certs_enabled
-
-    combined = (cert1 + cert2).encode()
-
-    if no_certs:
-        # Generate dummy digest when certs are disabled
-        import hashlib
-        digest = hashlib.sha256(combined).hexdigest()
-        state.csr[CSR.CERT_ADDR] = f"nocert_join_{digest[:16]}"
-    else:
-        store = CertStore(outdir)
-        cid = store.next_id()
-        store.write_bytes(cid, "join", combined)
-        digest = store.save_hash(cid, combined)
-        state.csr[CSR.CERT_ADDR] = str(store.hash_path(cid))
-
+    store = CertStore(outdir)
+    cid = store.next_id()
+    combined = (cert1 + cert2).encode("utf-8")
+    store.write_bytes(cid, "join", combined)
+    digest = store.save_hash(cid, combined)
+    state.csr[CSR.CERT_ADDR] = str(store.hash_path(cid))
     if cert1 != cert2:
         state.csr[CSR.ERR] = 1
     return digest
 
 
-__all__ = ["lassert", "ljoin"]
+__all__ = ["lassert", "ljoin", "LassertResult"]

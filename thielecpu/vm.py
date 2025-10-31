@@ -251,9 +251,8 @@ def _empty_cert() -> Dict[str, Any]:
     }
 
 
-def _cert_for_query(query: str) -> Dict[str, Any]:
-    cert = _empty_cert()
-    cert["smt_query"] = query
+def _cert_for_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
+    cert = dict(payload)
     return cert
 
 try:
@@ -441,8 +440,8 @@ class VM:
     ) -> Tuple[WitnessState, StepObservation]:
         op = instruction.op
         if op == "LASSERT":
-            query = str(instruction.payload)
-            mu_delta = calculate_mu_cost(query, 1, 1)
+            payload = dict(instruction.payload) if isinstance(instruction.payload, dict) else {}
+            mu_delta = float(payload.get("mu_delta", 0.0))
             post_state = WitnessState(
                 pc=pre_state.pc + 1,
                 status=pre_state.status,
@@ -450,9 +449,9 @@ class VM:
                 cert_addr=pre_state.cert_addr,
             )
             observation = StepObservation(
-                event={"tag": "PolicyCheck", "value": query},
+                event={"tag": "ProofStatus", "value": payload.get("status", "UNKNOWN")},
                 mu_delta=mu_delta,
-                cert=_cert_for_query(query),
+                cert=_cert_for_payload(payload),
             )
         elif op == "MDLACC":
             post_state = WitnessState(
@@ -1043,17 +1042,16 @@ class VM:
                 current_module = merged
                 receipt_instruction = InstructionWitness("PYEXEC", f"PMERGE {arg}")
             elif op == "LASSERT":
-                # LASSERT formula_file - add formula as axiom to current module and check satisfiability
-                formula = Path(arg).read_text(encoding='utf-8')
-                digest = lassert(self.state, current_module, formula, cert_dir)
-                if self.state.csr[CSR.STATUS] == 0:
-                    self.state.csr[CSR.ERR] = 1
-                trace_lines.append(f"{step}: LASSERT {arg} -> {digest}")
-                if self.state.csr[CSR.STATUS] == 0:
-                    self.state.csr[CSR.ERR] = 1
+                config_path = Path(arg)
+                result = lassert(self.state, current_module, config_path, cert_dir)
+                digest = f"{result.certificate.cnf.sha256}:{result.certificate.proof_sha256}"
+                trace_lines.append(
+                    f"{step}: LASSERT {config_path} -> {result.certificate.status} ({digest})"
+                )
+                if result.certificate.status == "UNSAT":
                     trace_lines.append(f"{step}: LASSERT unsat - halting VM")
                     halt_after_receipt = True
-                receipt_instruction = InstructionWitness("LASSERT", formula)
+                receipt_instruction = InstructionWitness("LASSERT", result.receipt_payload)
             elif op == "LJOIN":
                 # LJOIN cert1 cert2 - join two certificates
                 parts = arg.split()
