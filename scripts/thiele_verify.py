@@ -66,6 +66,52 @@ def model_satisfies(cnf, model):
     return True
 
 
+def _canonicalise_cnf_and_map(cnf):
+    """Return a canonicalised CNF with variables remapped densely and the old->new var_map.
+
+    cnf: list[list[int]] (original literals)
+    returns: (canonical_cnf, var_map) where canonical_cnf is list[list[int]] using new var ids
+    and var_map is dict old_var -> new_var (1-based)
+    """
+    # collect variables in sorted order to give deterministic mapping
+    vars_set = {abs(l) for clause in cnf for l in clause}
+    sorted_vars = sorted(vars_set)
+    var_map = {old: new for new, old in enumerate(sorted_vars, start=1)}
+    new_cnf = []
+    for clause in cnf:
+        new_clause = []
+        for lit in clause:
+            sign = 1 if lit > 0 else -1
+            oldv = abs(lit)
+            if oldv not in var_map:
+                # skip literals that reference unknown vars (defensive)
+                continue
+            new_clause.append(sign * var_map[oldv])
+        if new_clause:
+            new_cnf.append(new_clause)
+    return new_cnf, var_map
+
+
+def _canonicalise_model(raw_model, var_map):
+    """Map a DIMACS literal-list model from original var ids to canonicalised ids.
+
+    raw_model: sequence of ints (literals)
+    var_map: dict old_var -> new_var
+    returns: list of ints (mapped literals)
+    """
+    mapped = []
+    for lit in raw_model:
+        if lit == 0:
+            continue
+        sign = 1 if lit > 0 else -1
+        oldv = abs(lit)
+        if oldv not in var_map:
+            # ignore assignments for variables not present in the CNF
+            continue
+        mapped.append(sign * var_map[oldv])
+    return mapped
+
+
 def _load_json_blob(uri: str | None):
     if uri is None:
         return None
@@ -126,6 +172,15 @@ def verify_solver_artifacts(step: dict) -> bool:
             lrat = os.path.join(td, "p.lrat")
             open(cnf,"wb").write(fetch_blob(cnf_uri))
             open(lrat,"wb").write(fetch_blob(uri))
+            # Heuristic pre-check: if the LRAT contains explicit RAT-only
+            # hints or tokens, reject it to enforce LRUP-only acceptance.
+            try:
+                content = open(lrat, "rb").read().decode("utf-8", errors="ignore")
+            except Exception:
+                content = ""
+            if "rat" in content.lower():
+                # Reject RAT-only LRATs; caller should normalise to RUP-justified LRAT.
+                return False
             return run_cmd(["lrat-check", cnf, lrat])
     elif pf == "TRUTH_TABLE_UNSAT":
         if cnf_uri is None or uri is None:
@@ -164,7 +219,10 @@ def verify_solver_artifacts(step: dict) -> bool:
     elif model_uri:
         cnf = parse_cnf(fetch_blob(cnf_uri))
         model = parse_model(fetch_blob(model_uri))
-        return model_satisfies(cnf, model)
+        # Canonicalise CNF variables to dense ids and remap model accordingly.
+        canonical_cnf, var_map = _canonicalise_cnf_and_map(cnf)
+        mapped_model = _canonicalise_model(model, var_map)
+        return model_satisfies(canonical_cnf, mapped_model)
     return True
 
 def verify_dir(directory: str) -> float:

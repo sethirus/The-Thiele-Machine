@@ -17,13 +17,15 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from thielecpu.mu import calculate_mu_cost
+from tools.mu_spec import calculate_mu_cost
 from thielecpu.receipts import (
     InstructionWitness,
     StepObservation,
     StepReceipt,
     WitnessState,
 )
+from tools.receipts import compute_global_digest
+from thielecpu.receipts import ensure_kernel_keys, _resolve_verify_key, _load_verify_key_bytes, sign_receipt
 
 
 TSIRELSON_ALICE_SETTING = 0
@@ -160,9 +162,32 @@ TSIRELSON_INSTRUCTIONS: List[InstructionWitness] = [
 
 def main(path: Path) -> None:
     receipts = assemble_receipts(TSIRELSON_INSTRUCTIONS)
-    payload = [receipt.to_dict() for receipt in receipts]
+    steps = [r.to_dict() for r in receipts]
+    # compute global digest from step_hashes
+    step_hashes = [s.get("step_hash") for s in steps if s.get("step_hash")]
+    global_digest = compute_global_digest(step_hashes) if step_hashes else ""
+    receipt = {
+        "spec_version": "1.1",
+        "steps": steps,
+        "global_digest": global_digest,
+    }
+
+    # Best-effort: ensure kernel keys and expose kernel_pubkey + top-level signature
+    try:
+        ensure_kernel_keys()
+        # sign the full receipt payload using deterministic kernel signing (nacl)
+        sig = sign_receipt(receipt)
+        # expose public key
+        verify_key_path = _resolve_verify_key()
+        vk_bytes = _load_verify_key_bytes(verify_key_path)
+        pub_hex = vk_bytes.hex() if vk_bytes is not None else ""
+        receipt["kernel_pubkey"] = pub_hex
+        receipt["signature"] = sig
+    except Exception:
+        pass
+
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    path.write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
     print(f"Wrote {len(receipts)} receipts to {path}")
 
 
