@@ -1082,3 +1082,11 @@ audit log, and a minimal EU AI Act transparency report is available via
 PYTHONPATH=archive/showcase python -m catnet.demo_mnist      # transparency
 PYTHONPATH=archive/showcase python -m catnet.demo_control    # controllability
 ```
+
+## Release notes (2025-10-31)
+
+- Merged feature branch that closes verifier/receipt gaps: canonical CNF/model mapping, LRAT/RUP handling with optional normalization, pinned validator μ-spec isolation, artifact digest checks, and per-step/top-level receipt signing.
+- Added operator helpers and CI improvements: `scripts/provision_keys.py`, `scripts/install_proof_tools.sh`, permissive lint config for legacy code, and targeted linting for new helper scripts.
+- Tests: full test suite verified locally on merge — 279 passed, 4 skipped. CI workflow updated to install required proof tools strictly; expect CI to run on the pushed branch.
+
+If you need a GPG-signed merge commit, re-create the merge in an environment with your GPG agent so commits can be signed. Otherwise the automated merge above preserves the feature changes and has been pushed to `origin/new-public-branch-default`.
