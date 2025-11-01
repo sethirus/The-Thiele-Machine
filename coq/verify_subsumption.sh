@@ -15,10 +15,20 @@ if ! command -v coq_makefile >/dev/null 2>&1 || ! command -v coqc >/dev/null 2>&
   exit 2
 fi
 
+project_dir="$script_dir/projects/subsumption"
+
 echo "=== CANONICAL SUBSUMPTION VERIFICATION ==="
-echo "Building Coq project in $script_dir"
+echo "Preparing minimal subsumption build in $project_dir"
 
-make -C "$script_dir" clean
-make -C "$script_dir"
+rm -f "$project_dir"/Makefile
 
-echo "✅ Coq project built successfully."
+(
+  cd "$project_dir"
+  coq_makefile -f _CoqProject -o Makefile
+  make clean
+  make
+  make clean
+  rm -f Makefile Makefile.conf
+)
+
+echo "✅ Subsumption kernel lemmas rebuilt successfully."
