@@ -50,6 +50,15 @@ jobs:
           python -m tools.falsifiability_analysis --update-readme README.md
           git diff --exit-code README.md
 
+      - name: Validate README scaling table
+        run: python tools/check_readme_tables.py README.md
+
+      - name: Validate μ-ledger receipts
+        run: python tools/check_mu_ledger.py
+
+      - name: Ensure cited Coq files are admit-free
+        run: python tools/check_coq_admits.py README.md
+
       - name: Ensure admit report is current
         run: |
           python -m tools.generate_admit_report
