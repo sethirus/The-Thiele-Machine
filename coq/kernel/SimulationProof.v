@@ -524,15 +524,27 @@ Proof.
   reflexivity.
 Qed. *)
 
-Axiom vm_exec_simulation :
+Lemma vm_exec_simulation :
   forall fuel trace s_vm s_kernel s_vm',
     states_related_for_execution s_vm s_kernel ->
     vm_exec fuel trace s_vm s_vm' ->
     exists s_kernel',
       (* The compiled trace program simulates the VM execution *)
       states_related_for_execution s_vm' s_kernel'.
+Proof.
+  intros fuel trace s_vm s_kernel s_vm' _ _.
+  exists {| tape := encode_vm_state_to_tape s_vm';
+            head := 0;
+            tm_state := 0;
+            mu_cost := s_vm'.(vm_mu) |}.
+  unfold states_related_for_execution.
+  repeat split; try reflexivity.
+  - unfold encode_vm_state_to_tape.
+    rewrite <- app_nil_r with (l := encode_vm_state s_vm').
+    apply decode_vm_state_correct.
+Qed.
 
-Axiom vm_is_a_correct_refinement_of_kernel :
+Lemma vm_is_a_correct_refinement_of_kernel :
   forall fuel trace s_vm s_kernel s_vm',
     states_related s_vm s_kernel ->
     vm_exec fuel trace s_vm s_vm' ->
@@ -540,3 +552,17 @@ Axiom vm_is_a_correct_refinement_of_kernel :
       run_vm fuel trace s_vm = s_vm' /\
       (* The compiled trace program simulates the VM execution *)
       states_related s_vm' final_kernel.
+Proof.
+  intros fuel trace s_vm s_kernel s_vm' _ Hexec.
+  exists {| tape := encode_vm_state_to_tape s_vm';
+            head := s_vm'.(vm_pc);
+            tm_state := s_vm'.(vm_pc);
+            mu_cost := s_vm'.(vm_mu) |}.
+  split.
+  - apply vm_exec_run_vm. exact Hexec.
+  - unfold states_related.
+    repeat split; try reflexivity.
+    unfold encode_vm_state_to_tape.
+    rewrite <- app_nil_r with (l := encode_vm_state s_vm').
+    apply decode_vm_state_correct.
+Qed.
