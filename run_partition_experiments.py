@@ -21,7 +21,7 @@ import os
 import sys
 import time
 from pathlib import Path
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Tuple
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -299,15 +299,42 @@ def fit_scaling_laws(results: List[Dict[str, Any]]) -> Dict[str, Any]:
     mu_answer_avg = [np.mean([r['mu_answer'] for r in by_partition[p]]) for p in partitions]
     num_vars = [p * 3 // 2 for p in partitions]  # Approximate for 3-regular graph
     mu_answer_per_var = [a / v if v > 0 else 0 for a, v in zip(mu_answer_avg, num_vars)]
-    
+
+    ratio_means: List[float] = []
+    ratio_cis: List[float] = []
+
+    def _mean_ci(values: List[float]) -> Tuple[float, float]:
+        if not values:
+            return 0.0, 0.0
+        arr = np.array(values, dtype=float)
+        mean_val = float(arr.mean())
+        if arr.size <= 1:
+            return mean_val, 0.0
+        std_val = float(arr.std(ddof=1))
+        ci = 1.96 * std_val / np.sqrt(arr.size)
+        return mean_val, float(ci)
+
+    for p in partitions:
+        entries = by_partition[p]
+        ratio_samples = []
+        for entry in entries:
+            answer = entry['mu_answer']
+            blind = entry['mu_blind']
+            if answer <= 0:
+                continue
+            ratio_samples.append(blind / answer)
+        mean_ratio, ratio_ci = _mean_ci(ratio_samples)
+        ratio_means.append(mean_ratio)
+        ratio_cis.append(ratio_ci)
+
     if len(partitions) < 2:
-        ratio = [b / s if s > 0 else 0 for b, s in zip(mu_blind_avg, mu_sighted_avg)]
         return {
             'partitions': partitions,
             'mu_blind_avg': mu_blind_avg,
             'mu_sighted_avg': mu_sighted_avg,
             'mu_answer_avg': mu_answer_avg,
-            'ratio': ratio,
+            'ratio': ratio_means,
+            'ratio_ci': ratio_cis,
             'exp_slope': None, 'exp_intercept': None, 'exp_r2': None,
             'ans_slope': None, 'ans_intercept': None, 'ans_r2': None,
             'exp_slope_ci': None, 'ans_slope_ci': None, 'ratio_slope': None,
@@ -380,7 +407,7 @@ def fit_scaling_laws(results: List[Dict[str, Any]]) -> Dict[str, Any]:
     monotonicity_p = monotonic_count / n_boot
     
     # Ratio trend
-    ratio = [b / s if s > 0 else 0 for b, s in zip(mu_blind_avg, mu_sighted_avg)]
+    ratio = ratio_means
     ratio_model = LinearRegression().fit(X, ratio)
     ratio_slope = ratio_model.coef_[0]
     
@@ -413,6 +440,7 @@ def fit_scaling_laws(results: List[Dict[str, Any]]) -> Dict[str, Any]:
         'ans_slope_ci': ans_slope_ci.tolist(),
         'ratio_slope': ratio_slope,
         'ratio': ratio,
+        'ratio_ci': ratio_cis,
         'aic_exp': aic_exp,
         'aic_poly': aic_poly,
         'aic_const': aic_const,
@@ -619,13 +647,29 @@ def write_results_table(scaling: Dict[str, Any], results: List[Dict[str, Any]], 
         p = r['partition_level']
         by_partition.setdefault(p, []).append(r)
     
-    csv_lines = ["n,mu_blind_avg,mu_sighted_avg,mu_answer_avg,ratio,mu_blind_ci,mu_sighted_ci"]
+    csv_lines = [
+        "n,mu_blind_avg,mu_sighted_avg,mu_answer_avg,ratio,"
+        "mu_blind_ci,mu_sighted_ci,mu_answer_ci,ratio_ci"
+    ]
     for i, p in enumerate(scaling.get('partitions', [])):
         blind_vals = [r['mu_blind'] for r in by_partition.get(p, [])]
         sighted_vals = [r['mu_sighted'] for r in by_partition.get(p, [])]
-        mu_blind_ci = 1.96 * np.std(blind_vals, ddof=1) / len(blind_vals)**0.5 if len(blind_vals) > 1 else 0
-        mu_sighted_ci = 1.96 * np.std(sighted_vals, ddof=1) / len(sighted_vals)**0.5 if len(sighted_vals) > 1 else 0
-        csv_lines.append(f"{p},{scaling['mu_blind_avg'][i]:.1f},{scaling['mu_sighted_avg'][i]:.1f},{scaling['mu_answer_avg'][i]:.1f},{scaling['ratio'][i]:.3f},{mu_blind_ci:.1f},{mu_sighted_ci:.1f}")
+        answer_vals = [r['mu_answer'] for r in by_partition.get(p, [])]
+        def _ci(series: List[float]) -> float:
+            if len(series) <= 1:
+                return 0.0
+            return 1.96 * float(np.std(series, ddof=1)) / len(series) ** 0.5
+
+        mu_blind_ci = _ci(blind_vals)
+        mu_sighted_ci = _ci(sighted_vals)
+        mu_answer_ci = _ci(answer_vals)
+        ratio_ci = scaling.get('ratio_ci', [0.0] * len(scaling.get('ratio', [])))[i]
+
+        csv_lines.append(
+            f"{p},{scaling['mu_blind_avg'][i]:.1f},{scaling['mu_sighted_avg'][i]:.1f},"
+            f"{scaling['mu_answer_avg'][i]:.1f},{scaling['ratio'][i]:.3f},"
+            f"{mu_blind_ci:.1f},{mu_sighted_ci:.1f},{mu_answer_ci:.1f},{ratio_ci:.3f}"
+        )
     
     with open(exp_dir / "results_table.csv", 'w') as f:
         f.write('\n'.join(csv_lines))

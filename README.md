@@ -2,22 +2,22 @@
 
 > **Abstract —** On Tseitin families, structure-blind search exhibits exponential growth in conflict cost with problem size, while a structure-aware partitioner maintains near-constant per-variable answer cost. Across seeds and solvers, the blind/sighted cost ratio increases with size. When we deliberately destroy structure (mispartition/shuffle/noise), the ratio collapses—confirming the advantage derives from structure, not tuning.
 
-> **New “As Above, So Below” module —** Formal theorems in Coq now certify that coherent processes are isomorphic to the Thiele proposer/auditor architecture, computation is composition in the free-category nucleus, and `Rel` (types + binary relations) satisfies the categorical laws. A cryptographically measured Ouroboros witness in `ouroboros/` refuses to attest unless these Coq proofs compile, binding the formal layer to an executable runtime receipt (see [As Above, So Below Verification](#as-above-so-below-verification)).
+> **New “As Above, So Below” module —** The Coq development now proves a μ-preserving equivalence between four symmetric monoidal categories: physically realised processes (`Phys`), audited proofs (`Log`), Thiele programs (`Comp`), and the freely generated composition skeleton (`Comp₀`). Strong-monoidal functors certify that each corner maps to the others without changing cumulative μ-cost, so the slogan “physics ↔ logic ↔ computation ↔ composition” is a precise, falsifiable statement. A cryptographically measured Ouroboros witness in `ouroboros/` refuses to attest unless these Coq proofs compile, binding the formal layer to an executable runtime receipt (see [As Above, So Below Verification](#as-above-so-below-verification)).
 
 <!-- CI trigger: no-op edit to force workflow re-run -->
 ## Core Claim: Exponential Blind/Sighted Cost Separation
 
 The Thiele Machine demonstrates exponential performance gains on structured problems. Below is the key numeric evidence from partition experiments (n=6 to 18, seeds 0-2, 3 repeats), showing blind reasoning costs growing exponentially while sighted costs remain near-constant.
 
-| Problem Size (n) | Blind μ_conflict (avg) | Sighted μ_answer (avg) | Cost Ratio (blind/sighted) |
-|------------------|------------------------|-------------------------|----------------------------|
-| 6               | 15.0                   | 9.0                     | 0.053                     |
-| 8               | 26.0                   | 12.0                    | 0.075                     |
-| 10              | 46.7                   | 15.0                    | 0.107                     |
-| 12              | 42.7                   | 18.0                    | 0.081                     |
-| 14              | 107.3                  | 21.0                    | 0.167                     |
-| 16              | 133.3                  | 24.0                    | 0.174                     |
-| 18              | 172.0                  | 27.0                    | 0.189                     |
+| Problem Size (n) | Blind μ_conflict (avg ±95% CI) | Sighted μ_answer (avg ±95% CI) | Cost Ratio (blind/sighted ±95% CI) |
+|------------------|-------------------------------|---------------------------------|------------------------------------|
+| 6                | 15.0 ± 2.0                    | 9.0 ± 0.0                       | 1.667 ± 0.218                      |
+| 8                | 26.0 ± 6.3                    | 12.0 ± 0.0                      | 2.167 ± 0.525                      |
+| 10               | 46.7 ± 9.2                    | 15.0 ± 0.0                      | 3.111 ± 0.614                      |
+| 12               | 42.7 ± 14.3                   | 18.0 ± 0.0                      | 2.370 ± 0.796                      |
+| 14               | 107.3 ± 24.6                  | 21.0 ± 0.0                      | 5.111 ± 1.171                      |
+| 16               | 133.3 ± 60.6                  | 24.0 ± 0.0                      | 5.556 ± 2.526                      |
+| 18               | 172.0 ± 67.6                  | 27.0 ± 0.0                      | 6.370 ± 2.505                      |
 
 **Reproducing the plots.** The repository ships the full experiment harness; to regenerate the four-up plot locally (emitting a text-based `.svg` instead of a binary `.png`), run:
 
@@ -27,9 +27,11 @@ python run_partition_experiments.py --problem tseitin --partitions 6 8 10 12 14 
 
 The command saves deterministic receipts, reports, and plots beneath `experiments/<timestamp>_full/`, including `tseitin_analysis_plots.svg`, which mirrors the figure discussed in reviews while remaining diffable.
 
-The fresh run captured in `experiments/20251025_031706_full/` ships machine-readable ledgers (`results_table.csv`) and an inference report (`inference.md`) that quantify the exponential blind ledger, the flat 1 μ/variable sighted ledger, and the overall upward drift in the cost ratio despite bootstrap noise.
+The fresh run captured in `experiments/20251101_070033_ci_fix/` ships machine-readable ledgers (`results_table.csv`) and an inference report (`inference.md`) that quantify the exponential blind ledger, the flat 1 μ/variable sighted ledger, and the upward drift in the cost ratio despite bootstrap noise.
 
 This table and the reproducible plot demonstrate the core claim: structure-blind solvers pay exponentially increasing costs, while structure-aware partitioners maintain efficiency. The sighted μ-answer ledger stays flat at 1.0 μ per variable even as the blind ledger explodes, and the blind/sighted ratio drifts upward despite small-sample noise—confirming the computational value of perceiving hidden structure.
+
+> **Interpretation note.** The μ-meter definition and canonicalisation are fully specified in software, but translating μ ledgers into physical work remains a hypothesis pending calibration against external measurements. Treat the thermodynamic language as a proposed interpretation layered atop the audited accounting rules, not as established physics.【F:spec/mu_spec_v2.md†L1-L63】【F:documents/The_Thiele_Machine.tex†L381-L411】
 
 ## Falsifiable Predictions of the Composition Law
 
@@ -72,7 +74,7 @@ You do not get to treat this like another programming project. Start from the pr
 1. **Classical baseline.** A Turing machine is the tuple \(\mathrm{TM} = (Q, \Sigma, \delta, q_0, q_{\mathrm{acc}}, q_{\mathrm{rej}})\) with a single tape, a single head, and a step function `δ` that blindly advances the trace. The Coq kernel reproduces this definition verbatim and proves that the classical runner `run_tm` is just a specialisation of the Thiele interpreter when you restrict yourself to traces composed of Turing-safe instructions.【F:coq/kernel/Subsumption.v†L23-L76】
 2. **My machine.** The audited model is the tuple \(T = (S, \Pi, A, R, L)\): `S` is the entire state (tape, ledgers, certificates), `Π` is the family of admissible partitions, `A` is the axiom pack for every module, `R` is the transition relation, and `L` is the external auditor that either signs a certificate or kills the run on paradox.【F:documents/The_Thiele_Machine.tex†L61-L118】
 3. **μ as the currency.** Every query pays \(μ(q,N,M) = 8·|\mathrm{canon}(q)| + \log_2(N/M)\). The spec fixes the canonical S-expression encoding and the additive ledger; the Python implementation mirrors it bit-for-bit so receipts never lie about cost.【F:spec/mu_spec_v2.md†L1-L63】【F:thielecpu/mu.py†L10-L85】
-4. **Strict containment.** The Coq development proves `thiele_simulates_turing` (every Turing run is reproduced exactly) and `turing_is_strictly_contained` (there exist Thiele runs that classical traces cannot reach because they require sight to resolve paradoxes).【F:coq/kernel/Subsumption.v†L37-L118】
+4. **Oracle-extended containment.** The Coq development proves `thiele_simulates_turing` (every Turing run is reproduced exactly) and `turing_is_strictly_contained` (there exist Thiele runs that classical traces cannot reach because they require sight/oracle primitives). Those statements rely on the sight operations and the admitted lemmas catalogued in `ADMIT_REPORT.txt`, so treat them as properties of this enriched model rather than a refutation of the Church–Turing thesis.【F:coq/kernel/Subsumption.v†L37-L118】【F:ADMIT_REPORT.txt†L1-L20】
 5. **Operational meaning.** In software the VM sandbox enforces that architecture: it whitelists imports, metes μ, logs every certificate digest, and refuses to execute payloads that would break auditability.【F:thielecpu/vm.py†L25-L200】 In the thesis driver (`attempt.py`) the Engine of Discovery wanders the full partition space, records μ ledgers, and shows you exactly how much blind search pays versus sighted discovery.【F:attempt.py†L608-L1219】
 
 If you want to know whether a Thiele Machine “can do the same thing” as a Turing machine, the answer is yes—but the reverse is false. Set \(\Pi = \{S\}\) and you have a classical trace that pays in time because it cannot spend μ. Allow non-trivial partitions, pay the discovery bill, and you recover computations that the blind trace cannot stabilise. That is the point: sight is not a metaphor, it is an explicit, measurable resource.
@@ -146,6 +148,17 @@ The `theory/` directory contains a standalone Coq development (no admits, no new
 - **Witness instantiation.** `WitnessIsGenesis.v` models the measured Ouroboros runtime and proves it realises the abstract Thiele machine from `Genesis.v`.
 - **Price of sight.** `CostIsComplexity.v` constructs a tiny universal machine and proves the μ-bit tariff dominates the prefix-free Kolmogorov complexity of any encoded specification.
 - **No free lunch.** `NoFreeLunch.v` shows that distinct propositions demand physically distinct states; assuming otherwise collapses logic itself.
+
+### μ-Audited Equivalence Square
+
+The slogan “physics ↔ logic ↔ computation ↔ composition” is formalised by defining four symmetric monoidal categories and proving that the connecting functors preserve μ-cost and commute up to natural isomorphism:
+
+- **Categories.** `Genesis.v` equates coherent processes with Thiele proposer/auditor machines, providing the objects and morphisms of the `Comp` corner.【F:theory/Genesis.v†L9-L44】 `Core.v` builds the free-category nucleus `Comp₀` with identities, composition, and the cut operator; the categorical laws appear as rewrite rules over programs.【F:theory/Core.v†L6-L55】 `PhysRel.v` constructs `Phys` as the category `Rel` of physical systems (types) and processes (relations) with associative relational composition and identities.【F:theory/PhysRel.v†L9-L54】 `LogicToPhysics.v` interprets logical proofs as relational processes, identifying the `Log` corner with the same categorical structure.【F:theory/LogicToPhysics.v†L8-L25】
+- **Functors.** The Curry–Howard–Lambek interpreter in `Core.v` supplies a strong-monoidal functor `CHL : Log → Comp` by extending generator interpretations to programs while respecting composition.【F:theory/Core.v†L18-L46】 The forgetful map `U_free : Comp → Comp₀` erases operational detail to recover the free composition skeleton via `EqProg` congruences.【F:theory/Core.v†L18-L40】 Instantiating the interpreter with relational semantics yields `F_phys : Phys → Log`, while the Thiele VM interpretation of physical state transitions gives `U_comp : Phys → Comp`, both of which share the same μ-cost accounting thanks to canonicalisation in `spec/mu_spec_v2.md` and its Python realisation.【F:spec/mu_spec_v2.md†L13-L63】【F:thielecpu/mu.py†L10-L63】
+- **Monoidal cost.** Additivity under sequential composition (`L1`) follows because concatenating canonical queries adds their description lengths and multiplies possibility ratios, so logarithms add. Parallel composition (`L2`) operates on disjoint subsystems, multiplying counts and therefore adding logarithms while tensoring canonical encodings. These lemmas are encoded in the μ-spec and enforced in `thielecpu/mu.py`, making μ a strong monoidal functor into `(ℝ_{≥0}, +, 0)` up to encoder-dependent constants.【F:spec/mu_spec_v2.md†L31-L63】【F:thielecpu/mu.py†L44-L63】
+- **Commuting square.** With these ingredients, the functors `F_phys`, `U_comp`, `CHL`, and `U_free` preserve μ on every morphism, and the square `Phys → Log → Comp` equals `Phys → Comp → Comp₀` up to the natural isomorphisms constructed in `Genesis.v` and `Core.v`. Deviations would appear immediately as violated congruences or μ-ledger mismatches, both of which are caught by the automated checks in `tools/check_mu_ledger.py` and `tools/check_readme_tables.py`.
+
+This package converts the marketing slogan into a falsifiable structure theorem: any counterexample must either break the categorical laws recorded in Coq or produce a μ-ledger that contradicts the strong-monoidal cost functor.
 
 To replay the proofs locally (silence means success):
 
