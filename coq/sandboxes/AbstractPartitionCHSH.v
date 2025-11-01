@@ -221,15 +221,46 @@ Definition pr_p (a b x y : bool) : R :=
   else
     if xorb a b then 0 else 1/2.
 
-Definition pr_ns : NonSignalingStrategy := {|
+Definition pr_ns : NonSignalingStrategy := {| 
   p00 := (1/2, 0, 0, 1/2);
   p01 := (1/2, 0, 0, 1/2);
   p10 := (1/2, 0, 0, 1/2);
   p11 := (0, 1/2, 1/2, 0)
 |}.
 
+Lemma e_ns_pr_ns_false_false : e_ns pr_ns false false = 1.
+Proof.
+  unfold e_ns, pr_ns, get_p; simpl.
+  field.
+Qed.
+
+Lemma e_ns_pr_ns_false_true : e_ns pr_ns false true = 1.
+Proof.
+  unfold e_ns, pr_ns, get_p; simpl.
+  field.
+Qed.
+
+Lemma e_ns_pr_ns_true_false : e_ns pr_ns true false = 1.
+Proof.
+  unfold e_ns, pr_ns, get_p; simpl.
+  field.
+Qed.
+
+Lemma e_ns_pr_ns_true_true : e_ns pr_ns true true = -1.
+Proof.
+  unfold e_ns, pr_ns, get_p; simpl.
+  field.
+Qed.
+
 Lemma pr_chsh : chsh_ns pr_ns = 4.
-Admitted.
+Proof.
+  unfold chsh_ns.
+  rewrite e_ns_pr_ns_false_false,
+          e_ns_pr_ns_false_true,
+          e_ns_pr_ns_true_false,
+          e_ns_pr_ns_true_true.
+  field.
+Qed.
 
 (** ** Connection to Thiele Machine VM and Hardware
 
@@ -321,11 +352,53 @@ Qed.
 
 Lemma Shat_range : forall ts,
   (length ts > 0)%nat -> -1 <= Shat ts <= 1.
-Admitted.
+Proof.
+  intros ts Hlen.
+  rewrite Shat_sound by assumption.
+  set (n := length ts).
+  assert (Hbounds := Zsum_contrib_bounds ts).
+  destruct Hbounds as [Hlow Hhigh].
+  assert (Hpos : 0 < INR n).
+  { subst n. apply lt_0_INR. lia. }
+  assert (Hneq : INR n <> 0) by (apply Rgt_not_eq, Hpos).
+  assert (HlowR : - INR n <= IZR (Zsum_contrib ts)).
+  { apply (Rle_trans _ (IZR (- Z.of_nat n))).
+    - replace (IZR (- Z.of_nat n)) with (- INR n) by (rewrite (opp_IZR (Z.of_nat n)), (INR_IZR_INZ n); ring).
+      lra.
+    - apply IZR_le. exact Hlow.
+  }
+  assert (HhighR : IZR (Zsum_contrib ts) <= INR n).
+  { apply (Rle_trans _ (IZR (Z.of_nat n))).
+    - apply IZR_le. exact Hhigh.
+    - rewrite (INR_IZR_INZ n). lra.
+  }
+  split.
+  - apply (Rmult_le_reg_l (INR n)).
+    + exact Hpos.
+    + replace (INR n * -1) with (- INR n) by ring.
+      replace (INR n * (IZR (Zsum_contrib ts) / INR n)) with (IZR (Zsum_contrib ts)).
+      * exact HlowR.
+      * unfold Rdiv.
+        field; exact Hneq.
+  - apply (Rmult_le_reg_l (INR n)).
+    + exact Hpos.
+    + replace (INR n * (IZR (Zsum_contrib ts) / INR n)) with (IZR (Zsum_contrib ts)).
+      * replace (INR n * 1) with (INR n) by ring.
+        exact HhighR.
+      * unfold Rdiv.
+        field; exact Hneq.
+Qed.
 
 (* Prove PR-box validity (non-signaling and normalized probabilities) and finish the existence theorem *)
 Lemma pr_valid : valid_ns pr_ns.
-Admitted.
+Proof.
+  unfold valid_ns, pr_ns, get_p.
+  repeat split.
+  - intros x y a b; destruct x, y, a, b; simpl; lra.
+  - intros x y; destruct x, y; simpl; lra.
+  - intros x a; destruct x, a; simpl; lra.
+  - intros y b; destruct y, b; simpl; lra.
+Qed.
 
 Theorem non_signaling_allows_4 :
   exists ns, valid_ns ns /\ chsh_ns ns = 4.
