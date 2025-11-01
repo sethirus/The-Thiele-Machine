@@ -64,8 +64,11 @@ Proof.
     try (destruct (graph_pnew _ _) as [graph' mid] eqn:?; simpl; reflexivity);
     try (destruct (graph_psplit _ _ _ _) as [[[graph' left_id] right_id]|] eqn:?; simpl; reflexivity);
     try (destruct (graph_pmerge _ _ _) as [[graph' merged_id]|] eqn:?; simpl; reflexivity);
-    try (destruct (z3_oracle _) eqn:?; simpl; reflexivity);
-    try (destruct (String.eqb _ _) eqn:?; simpl; reflexivity).
+    try (destruct (String.eqb _ _) eqn:?; simpl; reflexivity);
+    try (destruct cert;
+         simpl;
+         try (destruct (check_model _ _) eqn:?; simpl; reflexivity);
+         try (destruct (check_lrat _ _) eqn:?; simpl; reflexivity)).
 Qed.
 
 Fixpoint ledger_conserved (states : list VMState) (entries : list nat)

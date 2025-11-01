@@ -242,15 +242,25 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
           advance_state s (instr_pmerge m1 m2 cost)
             s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
       end
-  | instr_lassert module formula cost =>
-      if z3_oracle formula then
-        let graph' := graph_add_axiom s.(vm_graph) module formula in
-        let csrs' := csr_set_err (csr_set_status s.(vm_csrs) 1) 0 in
-        advance_state s (instr_lassert module formula cost)
-          graph' (csr_set_cert_addr csrs' (ascii_checksum formula)) s.(vm_err)
-      else
-        advance_state s (instr_lassert module formula cost)
-          s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
+  | instr_lassert module formula cert cost =>
+      match cert with
+      | lassert_cert_sat model =>
+          if check_model formula model then
+            let graph' := graph_add_axiom s.(vm_graph) module formula in
+            let csrs' := csr_set_err (csr_set_status s.(vm_csrs) 1) 0 in
+            advance_state s (instr_lassert module formula (lassert_cert_sat model) cost)
+              graph' (csr_set_cert_addr csrs' (ascii_checksum formula)) s.(vm_err)
+          else
+            advance_state s (instr_lassert module formula (lassert_cert_sat model) cost)
+              s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
+      | lassert_cert_unsat proof =>
+          if check_lrat formula proof then
+            advance_state s (instr_lassert module formula (lassert_cert_unsat proof) cost)
+              s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
+          else
+            advance_state s (instr_lassert module formula (lassert_cert_unsat proof) cost)
+              s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
+      end
   | instr_ljoin cert1 cert2 cost =>
       if String.eqb cert1 cert2 then
         let csrs' := csr_set_err s.(vm_csrs) 0 in
