@@ -6,24 +6,23 @@ Require Import Kernel.VMState.
 
 (** * Operational semantics for the Python VM instruction set *)
 
-Parameter solver_says_sat : string -> Prop.
-Parameter z3_oracle : string -> bool.
+(** The kernel semantics no longer trust an external oracle.  Instead,
+    LASSERT instructions must provide a certificate that validates
+    either an LRAT refutation (unsatisfiable) or a satisfying model.  *)
 
-(** The z3_oracle axiom is justified by the decidability of SAT *)
-Axiom SAT_is_decidable : forall formula : string,
-  {solver_says_sat formula} + {~ solver_says_sat formula}.
-(* Justified: SAT is decidable by the Cook-Levin theorem (NP-completeness).
-   In practice, we use external SAT solvers like Z3.
-   For formal verification, we assume this as an axiom since solver_says_sat is a parameter. *)
+Parameter check_lrat : string -> string -> bool.
+Parameter check_model : string -> string -> bool.
 
-Axiom z3_oracle_sound : forall formula,
-  z3_oracle formula = true -> solver_says_sat formula.
+Inductive lassert_certificate :=
+| lassert_cert_unsat (proof : string)
+| lassert_cert_sat (model : string).
 
 Inductive vm_instruction :=
 | instr_pnew (region : list nat) (mu_delta : nat)
 | instr_psplit (module : ModuleID) (left right : list nat) (mu_delta : nat)
 | instr_pmerge (m1 m2 : ModuleID) (mu_delta : nat)
-| instr_lassert (module : ModuleID) (formula : string) (mu_delta : nat)
+| instr_lassert (module : ModuleID) (formula : string)
+    (cert : lassert_certificate) (mu_delta : nat)
 | instr_ljoin (cert1 cert2 : string) (mu_delta : nat)
 | instr_mdlacc (module : ModuleID) (mu_delta : nat)
 | instr_emit (module : ModuleID) (payload : string) (mu_delta : nat)
@@ -35,7 +34,7 @@ Definition instruction_cost (instr : vm_instruction) : nat :=
   | instr_pnew _ cost => cost
   | instr_psplit _ _ _ cost => cost
   | instr_pmerge _ _ cost => cost
-  | instr_lassert _ _ cost => cost
+  | instr_lassert _ _ _ cost => cost
   | instr_ljoin _ _ cost => cost
   | instr_mdlacc _ cost => cost
   | instr_emit _ _ cost => cost
@@ -81,18 +80,17 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     vm_step s (instr_pmerge m1 m2 cost)
       (advance_state s (instr_pmerge m1 m2 cost)
         s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
-| step_lassert : forall s module formula cost graph' csrs',
-    z3_oracle formula = true ->
-    solver_says_sat formula ->
+| step_lassert_sat : forall s module formula model cost graph' csrs',
+    check_model formula model = true ->
     graph' = graph_add_axiom s.(vm_graph) module formula ->
     csrs' = csr_set_err (csr_set_status s.(vm_csrs) 1) 0 ->
-    vm_step s (instr_lassert module formula cost)
-      (advance_state s (instr_lassert module formula cost)
+    vm_step s (instr_lassert module formula (lassert_cert_sat model) cost)
+      (advance_state s (instr_lassert module formula (lassert_cert_sat model) cost)
         graph' (csr_set_cert_addr csrs' (ascii_checksum formula)) s.(vm_err))
-| step_lassert_unsat : forall s module formula cost,
-    z3_oracle formula = false ->
-    vm_step s (instr_lassert module formula cost)
-      (advance_state s (instr_lassert module formula cost)
+| step_lassert_unsat : forall s module formula proof cost,
+    check_lrat formula proof = true ->
+    vm_step s (instr_lassert module formula (lassert_cert_unsat proof) cost)
+      (advance_state s (instr_lassert module formula (lassert_cert_unsat proof) cost)
         s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
 | step_ljoin_equal : forall s cert1 cert2 cost csrs',
     String.eqb cert1 cert2 = true ->
