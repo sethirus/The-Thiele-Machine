@@ -582,7 +582,7 @@ Definition compile_vm_operation (instr : vm_instruction) : program :=
   | instr_pmerge m1 m2 cost =>
       (* Complex graph manipulation - requires parsing graph structure *)
       [T_Halt]
-  | instr_lassert module formula cost =>
+  | instr_lassert module formula _ cost =>
       (* Update graph with axiom, update CSR status/err - very complex *)
       [T_Halt]
   | instr_ljoin cert1 cert2 cost =>
