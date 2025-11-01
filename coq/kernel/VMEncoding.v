@@ -386,9 +386,58 @@ Definition decode_vm_state (bs : list bool)
 (** The correctness of VM state encoding/decoding is justified by the
     correctness of the primitive encodings and the sequential composition
     of the decoding functions. *)
-Axiom decode_vm_state_correct :
+Lemma decode_vm_state_correct :
   forall s rest,
     decode_vm_state (encode_vm_state s ++ rest) = Some (s, rest).
+Proof.
+  intros [graph csrs pc mu err] rest.
+  unfold encode_vm_state, decode_vm_state.
+  repeat rewrite <- app_assoc.
+  rewrite decode_nat_correct.
+  simpl.
+  replace (encode_nat mu ++ encode_bool err ++ encode_partition_graph graph ++ encode_csr csrs ++ rest)
+    with (encode_nat mu ++ (encode_bool err ++ encode_partition_graph graph ++ encode_csr csrs ++ rest))
+    by (repeat rewrite app_assoc; reflexivity).
+  rewrite decode_nat_correct.
+  simpl.
+  set (tail := encode_partition_graph graph ++ encode_csr csrs ++ rest).
+  replace (encode_bool err ++ encode_partition_graph graph ++ encode_csr csrs ++ rest)
+    with (encode_bool err ++ tail)
+    by (subst tail; repeat rewrite app_assoc; reflexivity).
+  destruct (decode_bool (encode_bool err ++ tail)) as [[err' tail']|] eqn:Hbool.
+  - pose proof (decode_bool_correct err tail) as Htarget.
+    rewrite Htarget in Hbool.
+    inversion Hbool; subst err' tail'.
+    simpl.
+    clear Hbool Htarget.
+    subst tail.
+    set (tail_graph := encode_csr csrs ++ rest).
+    replace (encode_partition_graph graph ++ encode_csr csrs ++ rest)
+      with (encode_partition_graph graph ++ tail_graph)
+      by (subst tail_graph; repeat rewrite app_assoc; reflexivity).
+    destruct (decode_partition_graph (encode_partition_graph graph ++ tail_graph))
+      as [[graph' tail'']|] eqn:Hgraph.
+    + pose proof (decode_partition_graph_correct graph tail_graph) as Hgraph_target.
+      rewrite Hgraph_target in Hgraph.
+      inversion Hgraph; subst graph' tail''.
+      simpl.
+      clear Hgraph Hgraph_target.
+      subst tail_graph.
+      destruct (decode_csr (encode_csr csrs ++ rest)) as [[csrs' rest']|] eqn:Hcsr.
+      * pose proof (decode_csr_correct csrs rest) as Hcsr_target.
+        rewrite Hcsr_target in Hcsr.
+        inversion Hcsr; subst csrs' rest'.
+        reflexivity.
+      * pose proof (decode_csr_correct csrs rest) as Hcsr_target.
+        rewrite Hcsr_target in Hcsr.
+        discriminate.
+    + pose proof (decode_partition_graph_correct graph tail_graph) as Hgraph_target.
+      rewrite Hgraph_target in Hgraph.
+      discriminate.
+  - pose proof (decode_bool_correct err tail) as Htarget.
+    rewrite Htarget in Hbool.
+    discriminate.
+Qed.
 
 (** ** Kernel Tape Layout Schema *)
 
