@@ -32,12 +32,29 @@ class StrategySignature:
     def _extract_signature(self) -> Dict[str, Any]:
         """Extract computational properties from strategy."""
         code = '\n'.join(self.strategy.sequence)
+        metadata = self.strategy.metadata
+        
+        # Start with metadata if available
+        if 'essence' in metadata:
+            essence = metadata['essence']
+        else:
+            essence = self._infer_essence(code)
+        
+        if 'pattern' in metadata:
+            pattern = metadata['pattern']
+        else:
+            pattern = self._infer_pattern(code)
+        
+        # Extract properties from metadata or code
+        properties = metadata.get('properties', [])
+        if not properties:
+            properties = self._extract_properties(code)
         
         signature = {
             'type': self._infer_type(code),
-            'properties': self._extract_properties(code),
-            'pattern': self._infer_pattern(code),
-            'essence': self._infer_essence(code)
+            'properties': properties,
+            'pattern': pattern,
+            'essence': essence
         }
         
         return signature
@@ -72,10 +89,16 @@ class StrategySignature:
             properties.append('global_scope')
         if 'local' in code.lower():
             properties.append('local_scope')
-        if 'compress' in code.lower() or 'reduce' in code.lower():
+        if 'compress' in code.lower() or 'reduce' in code.lower() or 'reduction' in code.lower():
             properties.append('complexity_reducing')
         if 'information' in code.lower():
             properties.append('information_preserving')
+        if 'basis' in code.lower() or 'eigenspace' in code.lower() or 'eigenvector' in code.lower():
+            properties.append('basis_transformation')
+        if 'invariant' in code.lower() or 'intrinsic' in code.lower():
+            properties.append('reveals_invariant_directions')
+        if 'diagonalization' in code.lower() or 'eigendecomp' in code.lower():
+            properties.append('diagonalization')
         
         # Analyze structure
         if code.count('if ') < 2 and code.count('for ') < 2:
