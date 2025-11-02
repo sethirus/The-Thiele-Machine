@@ -43,6 +43,31 @@ def compute_state_hash(virtual_fs: Dict[str, bytes], exec_flags: Dict[str, bool]
     return sha256_hex(b''.join(parts))
 
 
+def validate_path(path: str, step_num: int) -> bool:
+    """
+    Validate that a path is safe.
+    - Must be UTF-8
+    - No path traversal (..)
+    - No absolute paths
+    Returns True if valid, False otherwise.
+    """
+    if not path:
+        print(f"Error: step {step_num} empty path", file=sys.stderr)
+        return False
+    
+    # Check for path traversal
+    if '..' in path.split('/'):
+        print(f"Error: step {step_num} path traversal attempt: {path}", file=sys.stderr)
+        return False
+    
+    # Check for absolute paths
+    if path.startswith('/'):
+        print(f"Error: step {step_num} absolute path not allowed: {path}", file=sys.stderr)
+        return False
+    
+    return True
+
+
 def verify_receipts(receipts_dir: str) -> int:
     """
     Main verification logic.
@@ -62,6 +87,9 @@ def verify_receipts(receipts_dir: str) -> int:
     # Virtual filesystem and execution flags
     virtual_fs: Dict[str, bytes] = {}
     exec_flags: Dict[str, bool] = {}
+    
+    # Track per-file write offsets to ensure monotone, non-overlapping writes
+    file_last_offset: Dict[str, int] = {}
     
     # Current state hash (empty state initially)
     current_state = compute_state_hash(virtual_fs, exec_flags)
@@ -97,6 +125,10 @@ def verify_receipts(receipts_dir: str) -> int:
                 offset = args.get('offset', 0)
                 bytes_hex = args.get('bytes_hex', '')
                 
+                # Validate path
+                if not validate_path(path, step_num):
+                    return 1
+                
                 # Decode hex bytes
                 try:
                     new_bytes = bytes.fromhex(bytes_hex)
@@ -107,22 +139,40 @@ def verify_receipts(receipts_dir: str) -> int:
                 # Initialize file if needed
                 if path not in virtual_fs:
                     virtual_fs[path] = b''
+                    file_last_offset[path] = -1
                 
                 # Check offset validity (must be at or before end)
                 if offset > len(virtual_fs[path]):
                     print(f"Error: step {step_num} offset beyond file end", file=sys.stderr)
+                    print(f"  File length: {len(virtual_fs[path])}, offset: {offset}", file=sys.stderr)
                     return 1
+                
+                # Check monotone offset constraint
+                if offset < file_last_offset.get(path, -1):
+                    print(f"Error: step {step_num} non-monotone offset for {path}", file=sys.stderr)
+                    print(f"  Previous offset: {file_last_offset[path]}, current: {offset}", file=sys.stderr)
+                    return 1
+                
+                # Check for overlapping writes (offset should be at end for append-only)
+                if offset < len(virtual_fs[path]):
+                    print(f"Warning: step {step_num} overlapping write at offset {offset} for {path}", file=sys.stderr)
                 
                 # Splice bytes at offset
                 virtual_fs[path] = virtual_fs[path][:offset] + new_bytes + virtual_fs[path][offset:]
+                file_last_offset[path] = offset
                 
             elif opcode == 'MAKE_EXEC':
                 path = args.get('path', '')
+                if not validate_path(path, step_num):
+                    return 1
                 exec_flags[path] = True
                 
             elif opcode == 'ASSERT_SHA256':
                 path = args.get('path', '')
                 expected_sha = args.get('sha256', '')
+                
+                if not validate_path(path, step_num):
+                    return 1
                 
                 if path not in virtual_fs:
                     print(f"Error: step {step_num} file not found: {path}", file=sys.stderr)
