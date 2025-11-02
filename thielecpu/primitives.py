@@ -216,6 +216,26 @@ def prim_greedy_assign(nodes: List[int], values: Dict[int, float], k: int) -> Di
 
 
 # ============================================================================
+# RIEMANN HYPOTHESIS SEARCH PRIMITIVES
+# ============================================================================
+
+try:
+    from thielecpu.riemann_primitives import (
+        prim_zeta,
+        prim_zeta_magnitude,
+        prim_grid_search,
+        prim_refine_zero,
+        prim_is_on_critical_line,
+        prim_verify_counterexample,
+        prim_adaptive_search,
+        prim_structured_search
+    )
+    RIEMANN_AVAILABLE = True
+except ImportError:
+    RIEMANN_AVAILABLE = False
+
+
+# ============================================================================
 # PRIMITIVE REGISTRY
 # ============================================================================
 
@@ -251,6 +271,20 @@ PRIMITIVES = {
     'BALANCED_ASSIGN': Primitive('BALANCED_ASSIGN', 2, prim_balanced_assign),
     'GREEDY_ASSIGN': Primitive('GREEDY_ASSIGN', 3, prim_greedy_assign),
 }
+
+# Add Riemann primitives if available
+if RIEMANN_AVAILABLE:
+    PRIMITIVES.update({
+        'ZETA': Primitive('ZETA', 1, prim_zeta),
+        'ZETA_MAG': Primitive('ZETA_MAG', 1, prim_zeta_magnitude),
+        'GRID_SEARCH': Primitive('GRID_SEARCH', 5, prim_grid_search),
+        'REFINE_ZERO': Primitive('REFINE_ZERO', 1, prim_refine_zero),
+        'IS_ON_CRITICAL_LINE': Primitive('IS_ON_CRITICAL_LINE', 1, prim_is_on_critical_line),
+        'VERIFY_COUNTEREXAMPLE': Primitive('VERIFY_COUNTEREXAMPLE', 1, prim_verify_counterexample),
+        'ADAPTIVE_SEARCH': Primitive('ADAPTIVE_SEARCH', 3, prim_adaptive_search),
+        'STRUCTURED_SEARCH': Primitive('STRUCTURED_SEARCH', 3, prim_structured_search),
+    })
+
 
 
 def get_primitive(name: str) -> Primitive:
