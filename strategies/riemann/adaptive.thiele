@@ -1,0 +1,23 @@
+# RIEMANN STRATEGY: Adaptive Grid Search
+# Multi-resolution search with refinement
+
+STRATEGY riemann_adaptive
+VERSION 1.0
+DESCRIPTION "Adaptive multi-resolution search in critical strip"
+
+SEQUENCE:
+  candidates = ADAPTIVE_SEARCH(0.5, 50.0, 2.0)
+  refined_zeros = []
+  for candidate in candidates:
+    refined, mag = REFINE_ZERO(candidate)
+    if mag < 1e-10:
+      if not IS_ON_CRITICAL_LINE(refined):
+        verification = VERIFY_COUNTEREXAMPLE(refined)
+        refined_zeros.append(verification)
+
+METADATA:
+  primitive_count: 5
+  complexity: MEDIUM
+  basis: "Adaptive refinement"
+  generation: 0
+  fitness: 0.0
