@@ -1,5 +1,26 @@
 [![CI](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml/badge.svg)](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Python](https://img.shields.io/badge/Python-3.12+-blue.svg)](https://www.python.org/) [![Coq](https://img.shields.io/badge/Coq-8.18+-blue.svg)](https://coq.inria.fr/) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17316437.svg)](https://doi.org/10.5281/zenodo.17316437)
 
+## 🎯 One-Link Demos (Try in Your Browser)
+
+<div align="center">
+
+### Zero-Trust Software Installation
+
+[![Proof-Install Demo](https://img.shields.io/badge/🔒_Proof--Install-Try_Now-blue?style=for-the-badge)](web/install.html)
+[![ZK Verify](https://img.shields.io/badge/⚡_ZK_Verify-Live_Demo-purple?style=for-the-badge)](web/zk.html)
+[![Trusting Trust](https://img.shields.io/badge/🔐_Trusting_Trust-Defeat_Backdoors-green?style=for-the-badge)](web/trusting-trust.html)
+
+**Drop a proof → Get a green check → Click 'Materialize' → The exact binary appears**  
+**No servers. No trust. Only mathematics.**
+
+**Expected Digests:**
+- `global_digest`: `45bc9110a8d95e9b7e8c7f3d2e1a6b9c...`
+- `kernel_sha256`: `77cd06bb62e5f3b10693dce8b6a0e732...`
+
+</div>
+
+---
+
 > **Abstract —** On Tseitin families, structure-blind search exhibits exponential growth in conflict cost with problem size, while a structure-aware partitioner maintains near-constant per-variable answer cost. Across seeds and solvers, the blind/sighted cost ratio increases with size. When we deliberately destroy structure (mispartition/shuffle/noise), the ratio collapses—confirming the advantage derives from structure, not tuning.
 
 > **New “As Above, So Below” module —** The Coq development now proves a μ-preserving equivalence between four symmetric monoidal categories: physically realised processes (`Phys`), audited proofs (`Log`), Thiele programs (`Comp`), and the freely generated composition skeleton (`Comp₀`). Strong-monoidal functors certify that each corner maps to the others without changing cumulative μ-cost, so the slogan “physics ↔ logic ↔ computation ↔ composition” is a precise, falsifiable statement. A cryptographically measured Ouroboros witness in `ouroboros/` refuses to attest unless these Coq proofs compile, binding the formal layer to an executable runtime receipt (see [As Above, So Below Verification](#as-above-so-below-verification)).
