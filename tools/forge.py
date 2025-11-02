@@ -58,7 +58,7 @@ class StrategyDNA:
             f"  complexity: {self.metadata.get('complexity', 'UNKNOWN')}",
             f"  basis: \"{self.metadata.get('basis', 'Evolved')}\"",
             f"  generation: {self.metadata.get('generation', 0)}",
-            f"  fitness: {self.metadata.get('fitness', 0.0):.4f}"
+            f"  fitness: {float(self.metadata.get('fitness', 0.0)):.4f}"
         ])
         
         return "\n".join(lines)

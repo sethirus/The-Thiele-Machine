@@ -1,24 +1,10 @@
 {
-  "name": "Accuracy + Elegance v2.0",
-  "function": "weighted_sum",
+  "name": "Riemann Counterexample Search v1.0",
+  "function": "evaluate_riemann_search",
   "parameters": {
-    "components": {
-      "accuracy": {
-        "weight": 0.9,
-        "function": "evaluate_classification_accuracy",
-        "parameters": {
-          "model": "SVM",
-          "kernel": "rbf",
-          "cross_validation_folds": 5
-        }
-      },
-      "elegance": {
-        "weight": 0.1,
-        "function": "evaluate_strategy_complexity",
-        "parameters": {
-          "method": "inverse_primitive_count"
-        }
-      }
-    }
+    "im_range_start": 14.0,
+    "im_range_end": 100.0,
+    "off_line_sigma": 0.51,
+    "description": "Search for zeros of the Riemann zeta function off the critical line Re(s)=0.5"
   }
 }
