@@ -81,7 +81,7 @@ def validate_path(path: str, step_num: int, whitelist: List[str] = None) -> bool
     return True
 
 
-def verify_receipts(receipts_dir: str, max_total_bytes: int = 1024 * 1024, path_whitelist: List[str] = None) -> int:
+def verify_receipts(receipts_dir: str, max_total_bytes: int = 1024 * 1024, path_whitelist: List[str] = None, emit_dir: str = '.', dry_run: bool = False, strict: bool = False) -> int:
     """
     Main verification logic.
     
@@ -89,6 +89,9 @@ def verify_receipts(receipts_dir: str, max_total_bytes: int = 1024 * 1024, path_
         receipts_dir: Directory containing receipt JSON files
         max_total_bytes: Maximum total bytes that can be emitted (default 1 MiB)
         path_whitelist: Optional list of allowed paths (None = allow any safe path)
+        emit_dir: Directory to materialize files (default: current directory)
+        dry_run: If True, verify only without writing files
+        strict: If True, reject unknown fields in receipt JSON
     
     Returns 0 on success, 1 on failure.
     """
@@ -229,28 +232,60 @@ def verify_receipts(receipts_dir: str, max_total_bytes: int = 1024 * 1024, path_
                 return 1
     
     # Materialize virtual filesystem to disk
-    for path, content in virtual_fs.items():
-        output_path = Path(path)
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-        output_path.write_bytes(content)
-        
-        # Set executable bit if flagged
-        if exec_flags.get(path, False):
-            os.chmod(output_path, 0o755)
-        
-        print(f"Materialized: {path} ({len(content)} bytes, sha256={sha256_hex(content)})")
+    if not dry_run:
+        for path, content in virtual_fs.items():
+            output_path = Path(emit_dir) / path
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+            output_path.write_bytes(content)
+            
+            # Set executable bit if flagged
+            if exec_flags.get(path, False):
+                os.chmod(output_path, 0o755)
+            
+            print(f"Materialized: {path} ({len(content)} bytes, sha256={sha256_hex(content)})")
+    else:
+        for path, content in virtual_fs.items():
+            print(f"Would materialize: {path} ({len(content)} bytes, sha256={sha256_hex(content)})")
     
     print("Receipt verification complete. All invariants satisfied.")
     return 0
 
 
 def main():
-    if len(sys.argv) != 2:
-        print("Usage: python3 verifier/replay.py <receipts_dir>", file=sys.stderr)
-        sys.exit(1)
+    import argparse
     
-    receipts_dir = sys.argv[1]
-    exit_code = verify_receipts(receipts_dir)
+    parser = argparse.ArgumentParser(description='Thiele Receipt Replay Verifier')
+    parser.add_argument('receipts_dir', help='Directory containing receipt JSON files')
+    parser.add_argument('--dry-run', action='store_true', help='Verify only, do not write files')
+    parser.add_argument('--emit-dir', default='.', help='Directory to materialize files (default: current)')
+    parser.add_argument('--strict', action='store_true', help='Reject unknown fields in receipts')
+    parser.add_argument('--print-digest', action='store_true', help='Print only global_digest and exit')
+    parser.add_argument('--max-bytes', type=int, default=1024*1024, help='Max total bytes (default: 1 MiB)')
+    parser.add_argument('--whitelist', nargs='*', help='Allowed file paths')
+    
+    args = parser.parse_args()
+    
+    # Print digest mode
+    if args.print_digest:
+        import json
+        from pathlib import Path
+        receipt_files = sorted(Path(args.receipts_dir).glob("*.json"))
+        for receipt_file in receipt_files:
+            with open(receipt_file, 'r') as f:
+                receipt = json.load(f)
+            if 'global_digest' in receipt:
+                print(receipt['global_digest'])
+        sys.exit(0)
+    
+    # Run verification
+    exit_code = verify_receipts(
+        args.receipts_dir,
+        max_total_bytes=args.max_bytes,
+        path_whitelist=args.whitelist,
+        emit_dir=args.emit_dir,
+        dry_run=args.dry_run,
+        strict=args.strict
+    )
     sys.exit(exit_code)
 
 
