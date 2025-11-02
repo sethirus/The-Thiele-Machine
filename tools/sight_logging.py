@@ -80,8 +80,8 @@ def _run_louvain(G: nx.Graph, seed: int = 42) -> Dict[int, int]:
                 partition[node] = partition_id
         
         return partition
-    except Exception as e:
-        # Fallback to single partition if algorithm fails
+    except (ImportError, AttributeError):
+        # Fallback to single partition if algorithm not available
         return {node: 0 for node in G.nodes()}
 
 
@@ -118,7 +118,7 @@ def _run_spectral(G: nx.Graph, n_clusters: int = 4, seed: int = 42) -> Dict[int,
         # Convert to dictionary
         partition = {node: int(label) for node, label in zip(nodes, labels)}
         return partition
-    except Exception as e:
+    except (ValueError, RuntimeError):
         # Fallback to degree-based if spectral fails
         return _run_degree(G, n_clusters)
 
