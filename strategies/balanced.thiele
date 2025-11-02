@@ -1,0 +1,20 @@
+# BALANCED ROUND-ROBIN STRATEGY
+# Genetic sequence of primitives defining balanced partitioning
+# This is the "DNA" of structure-agnostic sight
+
+STRATEGY balanced
+VERSION 1.0
+DESCRIPTION "Structure-independent balanced partitioning"
+
+SEQUENCE:
+  # Step 1: Get all nodes
+  nodes = GET_NODES(G)
+  
+  # Step 2: Assign to partitions evenly
+  partition = BALANCED_ASSIGN(nodes, k)
+
+METADATA:
+  primitive_count: 2
+  complexity: LOW
+  basis: "Equal distribution"
+  properties: ["structure_agnostic", "deterministic", "baseline"]
