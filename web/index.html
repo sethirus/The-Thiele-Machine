@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiele Receipt Verifier - Browser Edition</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 2em; margin-bottom: 10px; }
+        .header p { opacity: 0.9; font-size: 1.1em; }
+        .content { padding: 30px; }
+        .upload-area {
+            border: 3px dashed #667eea;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f8f9ff;
+        }
+        .upload-area:hover { background: #eef1ff; border-color: #764ba2; }
+        .upload-area.drag-over { background: #e0e7ff; border-color: #667eea; }
+        .upload-icon { font-size: 4em; margin-bottom: 20px; }
+        #fileInput { display: none; }
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+        }
+        .result.success { background: #d1fae5; border: 2px solid #10b981; }
+        .result.error { background: #fee2e2; border: 2px solid #ef4444; }
+        .result h3 { margin-bottom: 15px; font-size: 1.3em; }
+        .result.success h3 { color: #065f46; }
+        .result.error h3 { color: #991b1b; }
+        .hash-display {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+            margin: 10px 0;
+            font-size: 0.9em;
+        }
+        .info {
+            margin-top: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 6px;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .info-row:last-child { border-bottom: none; }
+        .info-label { font-weight: 600; color: #374151; }
+        .info-value { font-family: 'Courier New', monospace; color: #6b7280; }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.9em;
+        }
+        .footer a { color: #667eea; text-decoration: none; }
+        .footer a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔒 Thiele Receipt Verifier</h1>
+            <p>Browser-based cryptographic verification • No server uploads • 100% client-side</p>
+        </div>
+        
+        <div class="content">
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">📄</div>
+                <h3>Drop receipt JSON file here</h3>
+                <p>or click to select</p>
+                <input type="file" id="fileInput" accept=".json">
+            </div>
+            
+            <div class="result" id="result">
+                <h3 id="resultTitle"></h3>
+                <div id="resultContent"></div>
+            </div>
+            
+            <div class="footer">
+                <p><strong>Privacy:</strong> All verification happens in your browser. No data is uploaded to any server.</p>
+                <p style="margin-top: 10px;">Part of the <a href="https://github.com/sethirus/The-Thiele-Machine" target="_blank">Thiele Machine</a> self-hosting kernel project</p>
+            </div>
+        </div>
+    </div>
+    <script src="replay.js"></script>
+</body>
+</html>
