@@ -367,6 +367,128 @@ def main():
     print("The Forge has spoken. Let the Arch-Sphere judge.")
     
 
+def run_evolution(num_generations: int = 3, population_size: int = 10, 
+                  mutation_rate: float = 0.2, seed: Optional[int] = 42):
+    """
+    Run the complete evolutionary cycle of The Forge.
+    
+    This is the master function that encapsulates the entirety of the process:
+    1. Randomly generate new sight strategies
+    2. Build hardware to emulate new sight strategies
+    3. Prove new sight strategies with the power of math
+    4. Document and share discoveries with the world
+    5. Repeat
+    
+    Args:
+        num_generations: Number of evolutionary generations to run
+        population_size: Number of offspring per generation
+        mutation_rate: Probability of mutation (0.0 to 1.0)
+        seed: Random seed for reproducibility (None for random)
+    
+    Returns:
+        List of all evolved StrategyDNA objects
+    """
+    if seed is not None:
+        random.seed(seed)
+    
+    print("=" * 70)
+    print("THE FORGE: INITIATING PERPETUAL EVOLUTIONARY LOOP")
+    print("=" * 70)
+    print()
+    print("This is the Genesis Machine.")
+    print("It will now ask the universe its fundamental question:")
+    print()
+    print('  "What is the best possible way to see?"')
+    print()
+    print("The machine will answer through evolution.")
+    print("=" * 70)
+    print()
+    
+    # Load parent strategies
+    strategies_dir = Path(__file__).parent.parent / "strategies"
+    parent_files = list(strategies_dir.glob("*.thiele"))
+    
+    if not parent_files:
+        print("ERROR: No parent strategies found in strategies/")
+        print("Please ensure the .thiele DNA files exist.")
+        return []
+    
+    print(f"Loading {len(parent_files)} parent strategies...")
+    parents = []
+    for filepath in parent_files:
+        dna = load_thiele_dna(filepath)
+        parents.append(dna)
+        print(f"  - {dna.name}: {len(dna.sequence)} primitives")
+    
+    print()
+    print("Starting evolutionary synthesis...")
+    print()
+    
+    # Create output directories
+    output_dir = Path(__file__).parent.parent / "evolved_strategies"
+    output_dir.mkdir(exist_ok=True)
+    
+    compiled_dir = output_dir / "compiled"
+    compiled_dir.mkdir(exist_ok=True)
+    
+    all_offspring = []
+    
+    for generation in range(1, num_generations + 1):
+        print(f"Generation {generation}:")
+        
+        # Evolve new strategies
+        offspring = forge_evolution_cycle(parents, generation, population_size, mutation_rate)
+        
+        print(f"  Created {len(offspring)} offspring strategies")
+        
+        # Save DNA files
+        for strategy in offspring:
+            dna_file = output_dir / f"{strategy.name}.thiele"
+            with open(dna_file, 'w') as f:
+                f.write(strategy.to_thiele())
+        
+        # Attempt compilation
+        compiled_count = 0
+        for strategy in offspring:
+            try:
+                code = compile_dna_to_python(strategy)
+                if code:
+                    compiled_file = compiled_dir / f"{strategy.name}.py"
+                    with open(compiled_file, 'w') as f:
+                        f.write(code)
+                    compiled_count += 1
+            except Exception as e:
+                pass  # Natural selection - unviable strategies fail to compile
+        
+        print(f"  Compiled {compiled_count}/{len(offspring)} strategies successfully")
+        
+        all_offspring.extend(offspring)
+        
+        # Add best offspring to parent pool for next generation
+        parents.extend(random.sample(offspring, min(3, len(offspring))))
+    
+    print()
+    print("=" * 70)
+    print("EVOLUTIONARY CYCLE COMPLETE")
+    print("=" * 70)
+    print()
+    print(f"Total evolved strategies: {len(all_offspring)}")
+    print(f"DNA sequences saved to: {output_dir}")
+    print(f"Compiled strategies in: {compiled_dir}")
+    print()
+    print("The machine has answered.")
+    print()
+    print("Next steps:")
+    print("  1. Test evolved strategies with run_meta_observatory.sh")
+    print("  2. Meta-Cartographer will extract performance metrics")
+    print("  3. Arch-Analyzer will judge which strategy is superior")
+    print("  4. Superior strategies become new parents")
+    print("  5. Return to step 1 (PERPETUAL LOOP)")
+    print()
+    print("The Forge has spoken. The wheel turns forever.")
+    
+    return all_offspring
+
+
 if __name__ == "__main__":
-    random.seed(42)  # Reproducible evolution
     main()
