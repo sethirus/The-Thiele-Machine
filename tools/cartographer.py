@@ -83,7 +83,7 @@ def compute_geometric_metrics(G: nx.Graph) -> Dict[str, float]:
     try:
         mst = nx.minimum_spanning_tree(G, weight='weight')
         mst_weight = sum(data['weight'] for u, v, data in mst.edges(data=True))
-    except:
+    except (nx.NetworkXError, ValueError):
         mst_weight = 0.0
     
     # 5. Thresholded density
