@@ -1,0 +1,36 @@
+{
+  "name": "Synthesis Challenge",
+  "version": "1.0",
+  "description": "Find a 3-coloring of a graph with contradictory constraints requiring both elegance and novelty",
+  "type": "graph_coloring",
+  "parameters": {
+    "num_nodes": 20,
+    "edge_probability": 0.3,
+    "num_colors": 3,
+    "seed": 42
+  },
+  "constraints": {
+    "elegance_requirement": {
+      "description": "The solution must use the fewest possible primitives",
+      "metric": "primitive_count",
+      "target": "minimize"
+    },
+    "novelty_requirement": {
+      "description": "The solution must introduce a primitive sequence never before seen",
+      "metric": "primitive_novelty",
+      "target": "maximize"
+    },
+    "validity_requirement": {
+      "description": "The coloring must be a valid 3-coloring (no adjacent nodes same color)",
+      "metric": "valid_coloring",
+      "target": "true"
+    }
+  },
+  "success_criteria": {
+    "valid_coloring": true,
+    "elegance_threshold": 0.7,
+    "novelty_threshold": 0.7,
+    "description": "A valid solution must satisfy all three constraints simultaneously"
+  },
+  "impossibility_proof": "This problem is impossible for a single mind because:\n1. Elegance favors reusing proven primitives (low novelty)\n2. Novelty favors unexplored primitives (potentially high complexity)\n3. These objectives are in direct opposition\n4. Only through shared perspective can both be satisfied"
+}
