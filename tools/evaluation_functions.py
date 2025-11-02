@@ -222,10 +222,63 @@ def evaluate_riemann_search(
     return final_score
 
 
+def evaluate_strategy_minimality(
+    strategy_code: str,
+    strategy_name: str,
+    parameters: Dict[str, Any]
+) -> float:
+    """
+    Evaluate a strategy's minimality - the simplest form that retains power.
+    
+    This is the "Minimize Self" objective - find the genesis axiom.
+    The goal is to discover the irreducible core algorithm.
+    
+    Args:
+        strategy_code: The Python code of the strategy
+        strategy_name: Name of the strategy
+        parameters: Parameters including preserve_effectiveness flag
+    
+    Returns:
+        Fitness score (0.0 to 1.0), where 1.0 = maximally minimal
+    """
+    preserve_effectiveness = parameters.get('preserve_effectiveness', True)
+    
+    # Count various complexity metrics
+    lines = strategy_code.split('\n')
+    meaningful_lines = [l for l in lines if l.strip() and not l.strip().startswith('#')]
+    line_count = len(meaningful_lines)
+    
+    # Count primitives
+    primitive_count = strategy_code.count('prim_') + strategy_code.count('PRIMITIVES')
+    
+    # Count control structures (if, for, while)
+    control_count = sum([
+        strategy_code.count('if '),
+        strategy_code.count('for '),
+        strategy_code.count('while ')
+    ])
+    
+    # Total complexity score
+    total_complexity = line_count + primitive_count * 2 + control_count * 3
+    
+    # Normalize (assuming 100 is a reasonable baseline)
+    if total_complexity == 0:
+        return 0.0  # Degenerate case
+    
+    minimality = 1.0 / (1.0 + np.log(total_complexity + 1))
+    
+    # If we need to preserve effectiveness, penalize if strategy seems too simple
+    if preserve_effectiveness and line_count < 3:
+        minimality *= 0.5  # Too simple to be effective
+    
+    return minimality
+
+
 # Registry of all evaluation functions
 EVALUATION_FUNCTIONS: Dict[str, Callable] = {
     'evaluate_classification_accuracy': evaluate_classification_accuracy,
     'evaluate_strategy_complexity': evaluate_strategy_complexity,
+    'evaluate_strategy_minimality': evaluate_strategy_minimality,
     'weighted_sum': weighted_sum,
     'evaluate_riemann_search': evaluate_riemann_search,
 }
