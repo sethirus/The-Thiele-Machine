@@ -1,0 +1,1497 @@
+[
+  {
+    "timestamp": "2025-11-02T07:23:04.418258",
+    "strategy_name": "evolved_1_spectral_louvain_59bbef",
+    "strategy_dna": [
+      "nodes = GET_NODES(G)",
+      "L = LAPLACIAN_MATRIX(G, nodes)",
+      "eigenvalues, eigenvectors = EIGENDECOMP(L)",
+      "fiedler = GET_EIGENVECTOR(eigenvectors, 1)",
+      "labels = KMEANS_1D(fiedler, k, seed)",
+      "partition = {node: label for node, label in zip(nodes, labels)}",
+      "GREEDY_MODULARITY(G)"
+    ],
+    "generation": 1,
+    "parent_strategies": [
+      "spectral",
+      "louvain"
+    ],
+    "objective_genome": {
+      "name": "Accuracy Maximization v1.0",
+      "function": "evaluate_classification_accuracy",
+      "parameters": {
+        "model": "SVM",
+        "kernel": "rbf",
+        "cross_validation_folds": 5
+      }
+    },
+    "fitness_score": 0.7304598003730037,
+    "primitive_count": 7,
+    "metadata": {
+      "generation": 1,
+      "parents": [
+        "spectral",
+        "louvain"
+      ],
+      "crossover_points": [
+        6,
+        0
+      ],
+      "description": "Crossover of spectral and louvain",
+      "fitness": 0.7304598003730037
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:04.418775",
+    "strategy_name": "evolved_1_louvain_degree_35de23",
+    "strategy_dna": [
+      "GREEDY_MODULARITY(G)",
+      "partition = ROUND_ROBIN_ASSIGN(sorted_nodes, k)"
+    ],
+    "generation": 1,
+    "parent_strategies": [
+      "louvain",
+      "degree"
+    ],
+    "objective_genome": {
+      "name": "Accuracy Maximization v1.0",
+      "function": "evaluate_classification_accuracy",
+      "parameters": {
+        "model": "SVM",
+        "kernel": "rbf",
+        "cross_validation_folds": 5
+      }
+    },
+    "fitness_score": 0.5330958467056379,
+    "primitive_count": 2,
+    "metadata": {
+      "generation": 1,
+      "parents": [
+        "louvain",
+        "degree"
+      ],
+      "crossover_points": [
+        1,
+        3
+      ],
+      "description": "Crossover of louvain and degree",
+      "fitness": 0.5330958467056379
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:04.419300",
+    "strategy_name": "evolved_1_balanced_louvain_494a7c",
+    "strategy_dna": [
+      "nodes = GET_NODES(G)",
+      "GREEDY_MODULARITY(G)"
+    ],
+    "generation": 1,
+    "parent_strategies": [
+      "balanced",
+      "louvain"
+    ],
+    "objective_genome": {
+      "name": "Accuracy Maximization v1.0",
+      "function": "evaluate_classification_accuracy",
+      "parameters": {
+        "model": "SVM",
+        "kernel": "rbf",
+        "cross_validation_folds": 5
+      }
+    },
+    "fitness_score": 0.39974870562797377,
+    "primitive_count": 2,
+    "metadata": {
+      "generation": 1,
+      "parents": [
+        "balanced",
+        "louvain"
+      ],
+      "crossover_points": [
+        1,
+        0
+      ],
+      "description": "Crossover of balanced and louvain",
+      "fitness": 0.39974870562797377
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:04.419884",
+    "strategy_name": "degree",
+    "strategy_dna": [
+      "nodes = GET_NODES(G)",
+      "degrees = {node: NODE_DEGREE(G, node) for node in nodes}",
+      "sorted_nodes = SORT_BY_VALUE(nodes, degrees, reverse=True)",
+      "partition = ROUND_ROBIN_ASSIGN(sorted_nodes, k)"
+    ],
+    "generation": 0,
+    "parent_strategies": [
+      "unknown"
+    ],
+    "objective_genome": {
+      "name": "Accuracy Maximization v1.0",
+      "function": "evaluate_classification_accuracy",
+      "parameters": {
+        "model": "SVM",
+        "kernel": "rbf",
+        "cross_validation_folds": 5
+      }
+    },
+    "fitness_score": 0.34405511156418667,
+    "primitive_count": 4,
+    "metadata": {
+      "primitive_count": "4",
+      "complexity": "MEDIUM",
+      "basis": "Node centrality",
+      "properties": "[\"local_structure\", \"degree_distribution\", \"heuristic\"]",
+      "fitness": 0.34405511156418667
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:04.420489",
+    "strategy_name": "balanced",
+    "strategy_dna": [
+      "nodes = GET_NODES(G)",
+      "partition = BALANCED_ASSIGN(nodes, k)"
+    ],
+    "generation": 0,
+    "parent_strategies": [
+      "unknown"
+    ],
+    "objective_genome": {
+      "name": "Accuracy Maximization v1.0",
+      "function": "evaluate_classification_accuracy",
+      "parameters": {
+        "model": "SVM",
+        "kernel": "rbf",
+        "cross_validation_folds": 5
+      }
+    },
+    "fitness_score": 0.3779969813165228,
+    "primitive_count": 2,
+    "metadata": {
+      "primitive_count": "2",
+      "complexity": "LOW",
+      "basis": "Equal distribution",
+      "properties": "[\"structure_agnostic\", \"deterministic\", \"baseline\"]",
+      "fitness": 0.3779969813165228
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:04.421148",
+    "strategy_name": "degree",
+    "strategy_dna": [
+      "nodes = GET_NODES(G)",
+      "degrees = {node: NODE_DEGREE(G, node) for node in nodes}",
+      "sorted_nodes = SORT_BY_VALUE(nodes, degrees, reverse=True)",
+      "partition = ROUND_ROBIN_ASSIGN(sorted_nodes, k)"
+    ],
+    "generation": 0,
+    "parent_strategies": [
+      "unknown"
+    ],
+    "objective_genome": {
+      "name": "Accuracy Maximization v1.0",
+      "function": "evaluate_classification_accuracy",
+      "parameters": {
+        "model": "SVM",
+        "kernel": "rbf",
+        "cross_validation_folds": 5
+      }
+    },
+    "fitness_score": 0.6157619658060085,
+    "primitive_count": 4,
+    "metadata": {
+      "primitive_count": "4",
+      "complexity": "MEDIUM",
+      "basis": "Node centrality",
+      "properties": "[\"local_structure\", \"degree_distribution\", \"heuristic\"]",
+      "fitness": 0.6157619658060085
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:04.422720",
+    "strategy_name": "evolved_2_louvain_degree_d75171",
+    "strategy_dna": [],
+    "generation": 2,
+    "parent_strategies": [
+      "louvain",
+      "degree"
+    ],
+    "objective_genome": {
+      "name": "Accuracy Maximization v1.0",
+      "function": "evaluate_classification_accuracy",
+      "parameters": {
+        "model": "SVM",
+        "kernel": "rbf",
+        "cross_validation_folds": 5
+      }
+    },
+    "fitness_score": 0.48257708560465284,
+    "primitive_count": 0,
+    "metadata": {
+      "generation": 2,
+      "parents": [
+        "louvain",
+        "degree"
+      ],
+      "crossover_points": [
+        0,
+        4
+      ],
+      "description": "Crossover of louvain and degree",
+      "fitness": 0.48257708560465284
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:04.423394",
+    "strategy_name": "evolved_2_degree_louvain_a08422",
+    "strategy_dna": [
+      "GREEDY_MODULARITY(G)"
+    ],
+    "generation": 2,
+    "parent_strategies": [
+      "degree",
+      "louvain"
+    ],
+    "objective_genome": {
+      "name": "Accuracy Maximization v1.0",
+      "function": "evaluate_classification_accuracy",
+      "parameters": {
+        "model": "SVM",
+        "kernel": "rbf",
+        "cross_validation_folds": 5
+      }
+    },
+    "fitness_score": 0.4651646936557183,
+    "primitive_count": 1,
+    "metadata": {
+      "generation": 2,
+      "parents": [
+        "degree",
+        "louvain"
+      ],
+      "crossover_points": [
+        0,
+        0
+      ],
+      "description": "Crossover of degree and louvain",
+      "fitness": 0.4651646936557183
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:04.424180",
+    "strategy_name": "evolved_2_degree_degree_8c6c55",
+    "strategy_dna": [
+      "nodes = GET_NODES(G)",
+      "degrees = {node: NODE_DEGREE(G, node) for node in nodes}",
+      "sorted_nodes = SORT_BY_VALUE(nodes, degrees, reverse=True)",
+      "partition = ROUND_ROBIN_ASSIGN(sorted_nodes, k)",
+      "nodes = GET_NODES(G)",
+      "degrees = {node: NODE_DEGREE(G, node) for node in nodes}",
+      "sorted_nodes = SORT_BY_VALUE(nodes, degrees, reverse=True)",
+      "partition = ROUND_ROBIN_ASSIGN(sorted_nodes, k)"
+    ],
+    "generation": 2,
+    "parent_strategies": [
+      "degree",
+      "degree"
+    ],
+    "objective_genome": {
+      "name": "Accuracy Maximization v1.0",
+      "function": "evaluate_classification_accuracy",
+      "parameters": {
+        "model": "SVM",
+        "kernel": "rbf",
+        "cross_validation_folds": 5
+      }
+    },
+    "fitness_score": 0.46972766208325534,
+    "primitive_count": 8,
+    "metadata": {
+      "generation": 2,
+      "parents": [
+        "degree",
+        "degree"
+      ],
+      "crossover_points": [
+        4,
+        0
+      ],
+      "description": "Crossover of degree and degree",
+      "fitness": 0.46972766208325534
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:04.425060",
+    "strategy_name": "balanced",
+    "strategy_dna": [
+      "nodes = GET_NODES(G)",
+      "partition = BALANCED_ASSIGN(nodes, k)"
+    ],
+    "generation": 0,
+    "parent_strategies": [
+      "unknown"
+    ],
+    "objective_genome": {
+      "name": "Accuracy Maximization v1.0",
+      "function": "evaluate_classification_accuracy",
+      "parameters": {
+        "model": "SVM",
+        "kernel": "rbf",
+        "cross_validation_folds": 5
+      }
+    },
+    "fitness_score": 0.5088880781330295,
+    "primitive_count": 2,
+    "metadata": {
+      "primitive_count": "2",
+      "complexity": "LOW",
+      "basis": "Equal distribution",
+      "properties": "[\"structure_agnostic\", \"deterministic\", \"baseline\"]",
+      "fitness": 0.5088880781330295
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:04.426049",
+    "strategy_name": "balanced",
+    "strategy_dna": [
+      "nodes = GET_NODES(G)",
+      "partition = BALANCED_ASSIGN(nodes, k)"
+    ],
+    "generation": 0,
+    "parent_strategies": [
+      "unknown"
+    ],
+    "objective_genome": {
+      "name": "Accuracy Maximization v1.0",
+      "function": "evaluate_classification_accuracy",
+      "parameters": {
+        "model": "SVM",
+        "kernel": "rbf",
+        "cross_validation_folds": 5
+      }
+    },
+    "fitness_score": 0.7004670669830723,
+    "primitive_count": 2,
+    "metadata": {
+      "primitive_count": "2",
+      "complexity": "LOW",
+      "basis": "Equal distribution",
+      "properties": "[\"structure_agnostic\", \"deterministic\", \"baseline\"]",
+      "fitness": 0.7004670669830723
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:04.426959",
+    "strategy_name": "evolved_1_spectral_louvain_59bbef",
+    "strategy_dna": [
+      "nodes = GET_NODES(G)",
+      "L = LAPLACIAN_MATRIX(G, nodes)",
+      "eigenvalues, eigenvectors = EIGENDECOMP(L)",
+      "fiedler = GET_EIGENVECTOR(eigenvectors, 1)",
+      "labels = KMEANS_1D(fiedler, k, seed)",
+      "partition = {node: label for node, label in zip(nodes, labels)}",
+      "GREEDY_MODULARITY(G)"
+    ],
+    "generation": 1,
+    "parent_strategies": [
+      "spectral",
+      "louvain"
+    ],
+    "objective_genome": {
+      "name": "Accuracy Maximization v1.0",
+      "function": "evaluate_classification_accuracy",
+      "parameters": {
+        "model": "SVM",
+        "kernel": "rbf",
+        "cross_validation_folds": 5
+      }
+    },
+    "fitness_score": 0.4721055957807619,
+    "primitive_count": 7,
+    "metadata": {
+      "generation": 1,
+      "parents": [
+        "spectral",
+        "louvain"
+      ],
+      "crossover_points": [
+        6,
+        0
+      ],
+      "description": "Crossover of spectral and louvain",
+      "fitness": 0.4721055957807619
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:04.428745",
+    "strategy_name": "evolved_3_balanced",
+    "strategy_dna": [
+      "nodes = GET_NODES(G)",
+      "partition = BALANCED_ASSIGN(nodes, k)"
+    ],
+    "generation": 3,
+    "parent_strategies": [
+      "balanced"
+    ],
+    "objective_genome": {
+      "name": "Accuracy Maximization v1.0",
+      "function": "evaluate_classification_accuracy",
+      "parameters": {
+        "model": "SVM",
+        "kernel": "rbf",
+        "cross_validation_folds": 5
+      }
+    },
+    "fitness_score": 0.5143201062741743,
+    "primitive_count": 2,
+    "metadata": {
+      "generation": 3,
+      "parent": "balanced",
+      "fitness": 0.5143201062741743
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:04.429693",
+    "strategy_name": "evolved_3_balanced_balanced_b9da15",
+    "strategy_dna": [
+      "nodes = GET_NODES(G)",
+      "nodes = GET_NODES(G)",
+      "partition = BALANCED_ASSIGN(nodes, k)"
+    ],
+    "generation": 3,
+    "parent_strategies": [
+      "balanced",
+      "balanced"
+    ],
+    "objective_genome": {
+      "name": "Accuracy Maximization v1.0",
+      "function": "evaluate_classification_accuracy",
+      "parameters": {
+        "model": "SVM",
+        "kernel": "rbf",
+        "cross_validation_folds": 5
+      }
+    },
+    "fitness_score": 0.36475468869156424,
+    "primitive_count": 3,
+    "metadata": {
+      "generation": 3,
+      "parents": [
+        "balanced",
+        "balanced"
+      ],
+      "crossover_points": [
+        1,
+        0
+      ],
+      "description": "Crossover of balanced and balanced",
+      "fitness": 0.36475468869156424
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:04.430745",
+    "strategy_name": "evolved_3_balanced_balanced_b9da15",
+    "strategy_dna": [
+      "nodes = GET_NODES(G)",
+      "nodes = GET_NODES(G)",
+      "partition = BALANCED_ASSIGN(nodes, k)"
+    ],
+    "generation": 3,
+    "parent_strategies": [
+      "balanced",
+      "balanced"
+    ],
+    "objective_genome": {
+      "name": "Accuracy Maximization v1.0",
+      "function": "evaluate_classification_accuracy",
+      "parameters": {
+        "model": "SVM",
+        "kernel": "rbf",
+        "cross_validation_folds": 5
+      }
+    },
+    "fitness_score": 0.7757279413264399,
+    "primitive_count": 3,
+    "metadata": {
+      "generation": 3,
+      "parents": [
+        "balanced",
+        "balanced"
+      ],
+      "crossover_points": [
+        1,
+        0
+      ],
+      "description": "Crossover of balanced and balanced",
+      "fitness": 0.7757279413264399
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:04.431886",
+    "strategy_name": "degree",
+    "strategy_dna": [
+      "nodes = GET_NODES(G)",
+      "degrees = {node: NODE_DEGREE(G, node) for node in nodes}",
+      "sorted_nodes = SORT_BY_VALUE(nodes, degrees, reverse=True)",
+      "partition = ROUND_ROBIN_ASSIGN(sorted_nodes, k)"
+    ],
+    "generation": 0,
+    "parent_strategies": [
+      "unknown"
+    ],
+    "objective_genome": {
+      "name": "Accuracy Maximization v1.0",
+      "function": "evaluate_classification_accuracy",
+      "parameters": {
+        "model": "SVM",
+        "kernel": "rbf",
+        "cross_validation_folds": 5
+      }
+    },
+    "fitness_score": 0.5576102148699391,
+    "primitive_count": 4,
+    "metadata": {
+      "primitive_count": "4",
+      "complexity": "MEDIUM",
+      "basis": "Node centrality",
+      "properties": "[\"local_structure\", \"degree_distribution\", \"heuristic\"]",
+      "fitness": 0.5576102148699391
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:04.433023",
+    "strategy_name": "balanced",
+    "strategy_dna": [
+      "nodes = GET_NODES(G)",
+      "partition = BALANCED_ASSIGN(nodes, k)"
+    ],
+    "generation": 0,
+    "parent_strategies": [
+      "unknown"
+    ],
+    "objective_genome": {
+      "name": "Accuracy Maximization v1.0",
+      "function": "evaluate_classification_accuracy",
+      "parameters": {
+        "model": "SVM",
+        "kernel": "rbf",
+        "cross_validation_folds": 5
+      }
+    },
+    "fitness_score": 0.31661762299803886,
+    "primitive_count": 2,
+    "metadata": {
+      "primitive_count": "2",
+      "complexity": "LOW",
+      "basis": "Equal distribution",
+      "properties": "[\"structure_agnostic\", \"deterministic\", \"baseline\"]",
+      "fitness": 0.31661762299803886
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:04.434176",
+    "strategy_name": "mutant_3_spectral_0eacac",
+    "strategy_dna": [
+      "nodes = GET_NODES(G)",
+      "L = LAPLACIAN_MATRIX(G, nodes)",
+      "fiedler = GET_EIGENVECTOR(eigenvectors, 1)",
+      "labels = KMEANS_1D(fiedler, k, seed)",
+      "partition = {node: label for node, label in zip(nodes, labels)}"
+    ],
+    "generation": 3,
+    "parent_strategies": [
+      "spectral"
+    ],
+    "objective_genome": {
+      "name": "Accuracy Maximization v1.0",
+      "function": "evaluate_classification_accuracy",
+      "parameters": {
+        "model": "SVM",
+        "kernel": "rbf",
+        "cross_validation_folds": 5
+      }
+    },
+    "fitness_score": 0.5267046099773328,
+    "primitive_count": 5,
+    "metadata": {
+      "generation": 3,
+      "parent": "spectral",
+      "mutation_type": "delete",
+      "description": "Mutation of spectral",
+      "fitness": 0.5267046099773328
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:06.812276",
+    "strategy_name": "evolved_1_degree_balanced_8ff74e",
+    "strategy_dna": [
+      "partition = BALANCED_ASSIGN(nodes, k)"
+    ],
+    "generation": 1,
+    "parent_strategies": [
+      "degree",
+      "balanced"
+    ],
+    "objective_genome": {
+      "name": "Accuracy + Elegance v2.0",
+      "function": "weighted_sum",
+      "parameters": {
+        "components": {
+          "accuracy": {
+            "weight": 0.9,
+            "function": "evaluate_classification_accuracy",
+            "parameters": {
+              "model": "SVM",
+              "kernel": "rbf",
+              "cross_validation_folds": 5
+            }
+          },
+          "elegance": {
+            "weight": 0.1,
+            "function": "evaluate_strategy_complexity",
+            "parameters": {
+              "method": "inverse_primitive_count"
+            }
+          }
+        }
+      }
+    },
+    "fitness_score": 0.546542712463668,
+    "primitive_count": 1,
+    "metadata": {
+      "generation": 1,
+      "parents": [
+        "degree",
+        "balanced"
+      ],
+      "crossover_points": [
+        0,
+        1
+      ],
+      "description": "Crossover of degree and balanced",
+      "fitness": 0.546542712463668
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:06.813715",
+    "strategy_name": "evolved_1_spectral_louvain_5c37a2",
+    "strategy_dna": [
+      "nodes = GET_NODES(G)",
+      "L = LAPLACIAN_MATRIX(G, nodes)",
+      "eigenvalues, eigenvectors = EIGENDECOMP(L)",
+      "fiedler = GET_EIGENVECTOR(eigenvectors, 1)",
+      "labels = KMEANS_1D(fiedler, k, seed)",
+      "partition = {node: label for node, label in zip(nodes, labels)}"
+    ],
+    "generation": 1,
+    "parent_strategies": [
+      "spectral",
+      "louvain"
+    ],
+    "objective_genome": {
+      "name": "Accuracy + Elegance v2.0",
+      "function": "weighted_sum",
+      "parameters": {
+        "components": {
+          "accuracy": {
+            "weight": 0.9,
+            "function": "evaluate_classification_accuracy",
+            "parameters": {
+              "model": "SVM",
+              "kernel": "rbf",
+              "cross_validation_folds": 5
+            }
+          },
+          "elegance": {
+            "weight": 0.1,
+            "function": "evaluate_strategy_complexity",
+            "parameters": {
+              "method": "inverse_primitive_count"
+            }
+          }
+        }
+      }
+    },
+    "fitness_score": 0.5958439855222185,
+    "primitive_count": 6,
+    "metadata": {
+      "generation": 1,
+      "parents": [
+        "spectral",
+        "louvain"
+      ],
+      "crossover_points": [
+        6,
+        1
+      ],
+      "description": "Crossover of spectral and louvain",
+      "fitness": 0.5958439855222185
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:06.815120",
+    "strategy_name": "evolved_1_louvain_balanced_d75171",
+    "strategy_dna": [],
+    "generation": 1,
+    "parent_strategies": [
+      "louvain",
+      "balanced"
+    ],
+    "objective_genome": {
+      "name": "Accuracy + Elegance v2.0",
+      "function": "weighted_sum",
+      "parameters": {
+        "components": {
+          "accuracy": {
+            "weight": 0.9,
+            "function": "evaluate_classification_accuracy",
+            "parameters": {
+              "model": "SVM",
+              "kernel": "rbf",
+              "cross_validation_folds": 5
+            }
+          },
+          "elegance": {
+            "weight": 0.1,
+            "function": "evaluate_strategy_complexity",
+            "parameters": {
+              "method": "inverse_primitive_count"
+            }
+          }
+        }
+      }
+    },
+    "fitness_score": 0.6672300302029455,
+    "primitive_count": 0,
+    "metadata": {
+      "generation": 1,
+      "parents": [
+        "louvain",
+        "balanced"
+      ],
+      "crossover_points": [
+        0,
+        2
+      ],
+      "description": "Crossover of louvain and balanced",
+      "fitness": 0.6672300302029455
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:06.816649",
+    "strategy_name": "degree",
+    "strategy_dna": [
+      "nodes = GET_NODES(G)",
+      "degrees = {node: NODE_DEGREE(G, node) for node in nodes}",
+      "sorted_nodes = SORT_BY_VALUE(nodes, degrees, reverse=True)",
+      "partition = ROUND_ROBIN_ASSIGN(sorted_nodes, k)"
+    ],
+    "generation": 0,
+    "parent_strategies": [
+      "unknown"
+    ],
+    "objective_genome": {
+      "name": "Accuracy + Elegance v2.0",
+      "function": "weighted_sum",
+      "parameters": {
+        "components": {
+          "accuracy": {
+            "weight": 0.9,
+            "function": "evaluate_classification_accuracy",
+            "parameters": {
+              "model": "SVM",
+              "kernel": "rbf",
+              "cross_validation_folds": 5
+            }
+          },
+          "elegance": {
+            "weight": 0.1,
+            "function": "evaluate_strategy_complexity",
+            "parameters": {
+              "method": "inverse_primitive_count"
+            }
+          }
+        }
+      }
+    },
+    "fitness_score": 0.3900534470661004,
+    "primitive_count": 4,
+    "metadata": {
+      "primitive_count": "4",
+      "complexity": "MEDIUM",
+      "basis": "Node centrality",
+      "properties": "[\"local_structure\", \"degree_distribution\", \"heuristic\"]",
+      "fitness": 0.3900534470661004
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:06.818207",
+    "strategy_name": "spectral",
+    "strategy_dna": [
+      "nodes = GET_NODES(G)",
+      "L = LAPLACIAN_MATRIX(G, nodes)",
+      "eigenvalues, eigenvectors = EIGENDECOMP(L)",
+      "fiedler = GET_EIGENVECTOR(eigenvectors, 1)",
+      "labels = KMEANS_1D(fiedler, k, seed)",
+      "partition = {node: label for node, label in zip(nodes, labels)}"
+    ],
+    "generation": 0,
+    "parent_strategies": [
+      "unknown"
+    ],
+    "objective_genome": {
+      "name": "Accuracy + Elegance v2.0",
+      "function": "weighted_sum",
+      "parameters": {
+        "components": {
+          "accuracy": {
+            "weight": 0.9,
+            "function": "evaluate_classification_accuracy",
+            "parameters": {
+              "model": "SVM",
+              "kernel": "rbf",
+              "cross_validation_folds": 5
+            }
+          },
+          "elegance": {
+            "weight": 0.1,
+            "function": "evaluate_strategy_complexity",
+            "parameters": {
+              "method": "inverse_primitive_count"
+            }
+          }
+        }
+      }
+    },
+    "fitness_score": 0.6104354079580814,
+    "primitive_count": 6,
+    "metadata": {
+      "primitive_count": "6",
+      "complexity": "HIGH",
+      "basis": "Spectral graph theory",
+      "properties": "[\"eigenspace\", \"continuous_relaxation\", \"global_structure\"]",
+      "fitness": 0.6104354079580814
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:06.819867",
+    "strategy_name": "balanced",
+    "strategy_dna": [
+      "nodes = GET_NODES(G)",
+      "partition = BALANCED_ASSIGN(nodes, k)"
+    ],
+    "generation": 0,
+    "parent_strategies": [
+      "unknown"
+    ],
+    "objective_genome": {
+      "name": "Accuracy + Elegance v2.0",
+      "function": "weighted_sum",
+      "parameters": {
+        "components": {
+          "accuracy": {
+            "weight": 0.9,
+            "function": "evaluate_classification_accuracy",
+            "parameters": {
+              "model": "SVM",
+              "kernel": "rbf",
+              "cross_validation_folds": 5
+            }
+          },
+          "elegance": {
+            "weight": 0.1,
+            "function": "evaluate_strategy_complexity",
+            "parameters": {
+              "method": "inverse_primitive_count"
+            }
+          }
+        }
+      }
+    },
+    "fitness_score": 0.5135878610844593,
+    "primitive_count": 2,
+    "metadata": {
+      "primitive_count": "2",
+      "complexity": "LOW",
+      "basis": "Equal distribution",
+      "properties": "[\"structure_agnostic\", \"deterministic\", \"baseline\"]",
+      "fitness": 0.5135878610844593
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:06.822337",
+    "strategy_name": "evolved_2_evolved_1_spectral_louvain_5c37a2",
+    "strategy_dna": [
+      "nodes = GET_NODES(G)",
+      "L = LAPLACIAN_MATRIX(G, nodes)",
+      "eigenvalues, eigenvectors = EIGENDECOMP(L)",
+      "fiedler = GET_EIGENVECTOR(eigenvectors, 1)",
+      "labels = KMEANS_1D(fiedler, k, seed)",
+      "partition = {node: label for node, label in zip(nodes, labels)}"
+    ],
+    "generation": 2,
+    "parent_strategies": [
+      "evolved_1_spectral_louvain_5c37a2"
+    ],
+    "objective_genome": {
+      "name": "Accuracy + Elegance v2.0",
+      "function": "weighted_sum",
+      "parameters": {
+        "components": {
+          "accuracy": {
+            "weight": 0.9,
+            "function": "evaluate_classification_accuracy",
+            "parameters": {
+              "model": "SVM",
+              "kernel": "rbf",
+              "cross_validation_folds": 5
+            }
+          },
+          "elegance": {
+            "weight": 0.1,
+            "function": "evaluate_strategy_complexity",
+            "parameters": {
+              "method": "inverse_primitive_count"
+            }
+          }
+        }
+      }
+    },
+    "fitness_score": 0.6065410835898736,
+    "primitive_count": 6,
+    "metadata": {
+      "generation": 2,
+      "parent": "evolved_1_spectral_louvain_5c37a2",
+      "fitness": 0.6065410835898736
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:06.824050",
+    "strategy_name": "evolved_2_louvain",
+    "strategy_dna": [
+      "GREEDY_MODULARITY(G)"
+    ],
+    "generation": 2,
+    "parent_strategies": [
+      "louvain"
+    ],
+    "objective_genome": {
+      "name": "Accuracy + Elegance v2.0",
+      "function": "weighted_sum",
+      "parameters": {
+        "components": {
+          "accuracy": {
+            "weight": 0.9,
+            "function": "evaluate_classification_accuracy",
+            "parameters": {
+              "model": "SVM",
+              "kernel": "rbf",
+              "cross_validation_folds": 5
+            }
+          },
+          "elegance": {
+            "weight": 0.1,
+            "function": "evaluate_strategy_complexity",
+            "parameters": {
+              "method": "inverse_primitive_count"
+            }
+          }
+        }
+      }
+    },
+    "fitness_score": 0.2991919604739258,
+    "primitive_count": 1,
+    "metadata": {
+      "generation": 2,
+      "parent": "louvain",
+      "fitness": 0.2991919604739258
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:06.831644",
+    "strategy_name": "evolved_2_balanced",
+    "strategy_dna": [
+      "nodes = GET_NODES(G)",
+      "partition = BALANCED_ASSIGN(nodes, k)"
+    ],
+    "generation": 2,
+    "parent_strategies": [
+      "balanced"
+    ],
+    "objective_genome": {
+      "name": "Accuracy + Elegance v2.0",
+      "function": "weighted_sum",
+      "parameters": {
+        "components": {
+          "accuracy": {
+            "weight": 0.9,
+            "function": "evaluate_classification_accuracy",
+            "parameters": {
+              "model": "SVM",
+              "kernel": "rbf",
+              "cross_validation_folds": 5
+            }
+          },
+          "elegance": {
+            "weight": 0.1,
+            "function": "evaluate_strategy_complexity",
+            "parameters": {
+              "method": "inverse_primitive_count"
+            }
+          }
+        }
+      }
+    },
+    "fitness_score": 0.3416013878066241,
+    "primitive_count": 2,
+    "metadata": {
+      "generation": 2,
+      "parent": "balanced",
+      "fitness": 0.3416013878066241
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:06.834214",
+    "strategy_name": "louvain",
+    "strategy_dna": [
+      "GREEDY_MODULARITY(G)"
+    ],
+    "generation": 0,
+    "parent_strategies": [
+      "unknown"
+    ],
+    "objective_genome": {
+      "name": "Accuracy + Elegance v2.0",
+      "function": "weighted_sum",
+      "parameters": {
+        "components": {
+          "accuracy": {
+            "weight": 0.9,
+            "function": "evaluate_classification_accuracy",
+            "parameters": {
+              "model": "SVM",
+              "kernel": "rbf",
+              "cross_validation_folds": 5
+            }
+          },
+          "elegance": {
+            "weight": 0.1,
+            "function": "evaluate_strategy_complexity",
+            "parameters": {
+              "method": "inverse_primitive_count"
+            }
+          }
+        }
+      }
+    },
+    "fitness_score": 0.3649200916640743,
+    "primitive_count": 1,
+    "metadata": {
+      "primitive_count": "1",
+      "complexity": "LOW",
+      "basis": "Modularity maximization",
+      "properties": "[\"community_structure\", \"hierarchical\"]",
+      "fitness": 0.3649200916640743
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:06.836146",
+    "strategy_name": "mutant_2_evolved_1_spectral_louvain_5c37a2_ca2eaa",
+    "strategy_dna": [
+      "nodes = GET_NODES(G)",
+      "L = LAPLACIAN_MATRIX(G, nodes)",
+      "NORMALIZE(...)",
+      "eigenvalues, eigenvectors = EIGENDECOMP(L)",
+      "fiedler = GET_EIGENVECTOR(eigenvectors, 1)",
+      "labels = KMEANS_1D(fiedler, k, seed)",
+      "partition = {node: label for node, label in zip(nodes, labels)}"
+    ],
+    "generation": 2,
+    "parent_strategies": [
+      "evolved_1_spectral_louvain_5c37a2"
+    ],
+    "objective_genome": {
+      "name": "Accuracy + Elegance v2.0",
+      "function": "weighted_sum",
+      "parameters": {
+        "components": {
+          "accuracy": {
+            "weight": 0.9,
+            "function": "evaluate_classification_accuracy",
+            "parameters": {
+              "model": "SVM",
+              "kernel": "rbf",
+              "cross_validation_folds": 5
+            }
+          },
+          "elegance": {
+            "weight": 0.1,
+            "function": "evaluate_strategy_complexity",
+            "parameters": {
+              "method": "inverse_primitive_count"
+            }
+          }
+        }
+      }
+    },
+    "fitness_score": 0.5465155617425986,
+    "primitive_count": 7,
+    "metadata": {
+      "generation": 2,
+      "parent": "evolved_1_spectral_louvain_5c37a2",
+      "mutation_type": "insert",
+      "description": "Mutation of evolved_1_spectral_louvain_5c37a2",
+      "fitness": 0.5465155617425986
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:06.838210",
+    "strategy_name": "balanced",
+    "strategy_dna": [
+      "nodes = GET_NODES(G)",
+      "partition = BALANCED_ASSIGN(nodes, k)"
+    ],
+    "generation": 0,
+    "parent_strategies": [
+      "unknown"
+    ],
+    "objective_genome": {
+      "name": "Accuracy + Elegance v2.0",
+      "function": "weighted_sum",
+      "parameters": {
+        "components": {
+          "accuracy": {
+            "weight": 0.9,
+            "function": "evaluate_classification_accuracy",
+            "parameters": {
+              "model": "SVM",
+              "kernel": "rbf",
+              "cross_validation_folds": 5
+            }
+          },
+          "elegance": {
+            "weight": 0.1,
+            "function": "evaluate_strategy_complexity",
+            "parameters": {
+              "method": "inverse_primitive_count"
+            }
+          }
+        }
+      }
+    },
+    "fitness_score": 0.24839257966214995,
+    "primitive_count": 2,
+    "metadata": {
+      "primitive_count": "2",
+      "complexity": "LOW",
+      "basis": "Equal distribution",
+      "properties": "[\"structure_agnostic\", \"deterministic\", \"baseline\"]",
+      "fitness": 0.24839257966214995
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:06.840961",
+    "strategy_name": "evolved_3_mutant_2_evolved_1_spectral_louvain_5c37a2_ca2eaa_louvain_fbfab0",
+    "strategy_dna": [
+      "nodes = GET_NODES(G)",
+      "L = LAPLACIAN_MATRIX(G, nodes)",
+      "GREEDY_MODULARITY(G)"
+    ],
+    "generation": 3,
+    "parent_strategies": [
+      "mutant_2_evolved_1_spectral_louvain_5c37a2_ca2eaa",
+      "louvain"
+    ],
+    "objective_genome": {
+      "name": "Accuracy + Elegance v2.0",
+      "function": "weighted_sum",
+      "parameters": {
+        "components": {
+          "accuracy": {
+            "weight": 0.9,
+            "function": "evaluate_classification_accuracy",
+            "parameters": {
+              "model": "SVM",
+              "kernel": "rbf",
+              "cross_validation_folds": 5
+            }
+          },
+          "elegance": {
+            "weight": 0.1,
+            "function": "evaluate_strategy_complexity",
+            "parameters": {
+              "method": "inverse_primitive_count"
+            }
+          }
+        }
+      }
+    },
+    "fitness_score": 0.6960110235557957,
+    "primitive_count": 3,
+    "metadata": {
+      "generation": 3,
+      "parents": [
+        "mutant_2_evolved_1_spectral_louvain_5c37a2_ca2eaa",
+        "louvain"
+      ],
+      "crossover_points": [
+        2,
+        0
+      ],
+      "description": "Crossover of mutant_2_evolved_1_spectral_louvain_5c37a2_ca2eaa and louvain",
+      "fitness": 0.6960110235557957
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:06.843137",
+    "strategy_name": "evolved_3_balanced_degree_a0050e",
+    "strategy_dna": [
+      "sorted_nodes = SORT_BY_VALUE(nodes, degrees, reverse=True)",
+      "partition = ROUND_ROBIN_ASSIGN(sorted_nodes, k)"
+    ],
+    "generation": 3,
+    "parent_strategies": [
+      "balanced",
+      "degree"
+    ],
+    "objective_genome": {
+      "name": "Accuracy + Elegance v2.0",
+      "function": "weighted_sum",
+      "parameters": {
+        "components": {
+          "accuracy": {
+            "weight": 0.9,
+            "function": "evaluate_classification_accuracy",
+            "parameters": {
+              "model": "SVM",
+              "kernel": "rbf",
+              "cross_validation_folds": 5
+            }
+          },
+          "elegance": {
+            "weight": 0.1,
+            "function": "evaluate_strategy_complexity",
+            "parameters": {
+              "method": "inverse_primitive_count"
+            }
+          }
+        }
+      }
+    },
+    "fitness_score": 0.22880267132149754,
+    "primitive_count": 2,
+    "metadata": {
+      "generation": 3,
+      "parents": [
+        "balanced",
+        "degree"
+      ],
+      "crossover_points": [
+        0,
+        2
+      ],
+      "description": "Crossover of balanced and degree",
+      "fitness": 0.22880267132149754
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:06.845364",
+    "strategy_name": "evolved_3_louvain_louvain_580c00",
+    "strategy_dna": [
+      "GREEDY_MODULARITY(G)",
+      "GREEDY_MODULARITY(G)"
+    ],
+    "generation": 3,
+    "parent_strategies": [
+      "louvain",
+      "louvain"
+    ],
+    "objective_genome": {
+      "name": "Accuracy + Elegance v2.0",
+      "function": "weighted_sum",
+      "parameters": {
+        "components": {
+          "accuracy": {
+            "weight": 0.9,
+            "function": "evaluate_classification_accuracy",
+            "parameters": {
+              "model": "SVM",
+              "kernel": "rbf",
+              "cross_validation_folds": 5
+            }
+          },
+          "elegance": {
+            "weight": 0.1,
+            "function": "evaluate_strategy_complexity",
+            "parameters": {
+              "method": "inverse_primitive_count"
+            }
+          }
+        }
+      }
+    },
+    "fitness_score": 0.36062596761633475,
+    "primitive_count": 2,
+    "metadata": {
+      "generation": 3,
+      "parents": [
+        "louvain",
+        "louvain"
+      ],
+      "crossover_points": [
+        1,
+        0
+      ],
+      "description": "Crossover of louvain and louvain",
+      "fitness": 0.36062596761633475
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:06.847735",
+    "strategy_name": "evolved_2_evolved_1_spectral_louvain_5c37a2",
+    "strategy_dna": [
+      "nodes = GET_NODES(G)",
+      "L = LAPLACIAN_MATRIX(G, nodes)",
+      "eigenvalues, eigenvectors = EIGENDECOMP(L)",
+      "fiedler = GET_EIGENVECTOR(eigenvectors, 1)",
+      "labels = KMEANS_1D(fiedler, k, seed)",
+      "partition = {node: label for node, label in zip(nodes, labels)}"
+    ],
+    "generation": 2,
+    "parent_strategies": [
+      "evolved_1_spectral_louvain_5c37a2"
+    ],
+    "objective_genome": {
+      "name": "Accuracy + Elegance v2.0",
+      "function": "weighted_sum",
+      "parameters": {
+        "components": {
+          "accuracy": {
+            "weight": 0.9,
+            "function": "evaluate_classification_accuracy",
+            "parameters": {
+              "model": "SVM",
+              "kernel": "rbf",
+              "cross_validation_folds": 5
+            }
+          },
+          "elegance": {
+            "weight": 0.1,
+            "function": "evaluate_strategy_complexity",
+            "parameters": {
+              "method": "inverse_primitive_count"
+            }
+          }
+        }
+      }
+    },
+    "fitness_score": 0.6553563470422062,
+    "primitive_count": 6,
+    "metadata": {
+      "generation": 2,
+      "parent": "evolved_1_spectral_louvain_5c37a2",
+      "fitness": 0.6553563470422062
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:06.850143",
+    "strategy_name": "mutant_2_evolved_1_spectral_louvain_5c37a2_ca2eaa",
+    "strategy_dna": [
+      "nodes = GET_NODES(G)",
+      "L = LAPLACIAN_MATRIX(G, nodes)",
+      "NORMALIZE(...)",
+      "eigenvalues, eigenvectors = EIGENDECOMP(L)",
+      "fiedler = GET_EIGENVECTOR(eigenvectors, 1)",
+      "labels = KMEANS_1D(fiedler, k, seed)",
+      "partition = {node: label for node, label in zip(nodes, labels)}"
+    ],
+    "generation": 2,
+    "parent_strategies": [
+      "evolved_1_spectral_louvain_5c37a2"
+    ],
+    "objective_genome": {
+      "name": "Accuracy + Elegance v2.0",
+      "function": "weighted_sum",
+      "parameters": {
+        "components": {
+          "accuracy": {
+            "weight": 0.9,
+            "function": "evaluate_classification_accuracy",
+            "parameters": {
+              "model": "SVM",
+              "kernel": "rbf",
+              "cross_validation_folds": 5
+            }
+          },
+          "elegance": {
+            "weight": 0.1,
+            "function": "evaluate_strategy_complexity",
+            "parameters": {
+              "method": "inverse_primitive_count"
+            }
+          }
+        }
+      }
+    },
+    "fitness_score": 0.5283792213120054,
+    "primitive_count": 7,
+    "metadata": {
+      "generation": 2,
+      "parent": "evolved_1_spectral_louvain_5c37a2",
+      "mutation_type": "insert",
+      "description": "Mutation of evolved_1_spectral_louvain_5c37a2",
+      "fitness": 0.5283792213120054
+    }
+  },
+  {
+    "timestamp": "2025-11-02T07:23:06.852744",
+    "strategy_name": "spectral",
+    "strategy_dna": [
+      "nodes = GET_NODES(G)",
+      "L = LAPLACIAN_MATRIX(G, nodes)",
+      "eigenvalues, eigenvectors = EIGENDECOMP(L)",
+      "fiedler = GET_EIGENVECTOR(eigenvectors, 1)",
+      "labels = KMEANS_1D(fiedler, k, seed)",
+      "partition = {node: label for node, label in zip(nodes, labels)}"
+    ],
+    "generation": 0,
+    "parent_strategies": [
+      "unknown"
+    ],
+    "objective_genome": {
+      "name": "Accuracy + Elegance v2.0",
+      "function": "weighted_sum",
+      "parameters": {
+        "components": {
+          "accuracy": {
+            "weight": 0.9,
+            "function": "evaluate_classification_accuracy",
+            "parameters": {
+              "model": "SVM",
+              "kernel": "rbf",
+              "cross_validation_folds": 5
+            }
+          },
+          "elegance": {
+            "weight": 0.1,
+            "function": "evaluate_strategy_complexity",
+            "parameters": {
+              "method": "inverse_primitive_count"
+            }
+          }
+        }
+      }
+    },
+    "fitness_score": 0.6341614194292646,
+    "primitive_count": 6,
+    "metadata": {
+      "primitive_count": "6",
+      "complexity": "HIGH",
+      "basis": "Spectral graph theory",
+      "properties": "[\"eigenspace\", \"continuous_relaxation\", \"global_structure\"]",
+      "fitness": 0.6341614194292646
+    }
+  }
+]
