@@ -216,12 +216,12 @@ def analyze_stagnation(ledger: List[Dict[str, Any]], window_size: int = 10) -> D
         }
     
     return {
-        "stagnation_detected": stagnation_detected,
+        "stagnation_detected": bool(stagnation_detected),
         "improvement_rate": float(slope),
         "fitness_variance": float(fitness_variance),
-        "at_local_max": at_local_max,
-        "max_fitness": max_fitness,
-        "recent_max_fitness": recent_max,
+        "at_local_max": bool(at_local_max),
+        "max_fitness": float(max_fitness),
+        "recent_max_fitness": float(recent_max),
         "recommended_action": recommended_action,
         "insight": insight
     }
