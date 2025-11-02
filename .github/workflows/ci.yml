@@ -42,6 +42,9 @@ jobs:
       - name: Run basic verification
         run: python -c "import thielecpu; print('Thiele CPU imports successfully')"
 
+      - name: Test self-hosting kernel reconstruction
+        run: bash tests/test_end_to_end.sh
+
       - name: Run pytest suite
         run: pytest
 
