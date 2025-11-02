@@ -246,14 +246,15 @@ def assemble_log(
     n: int,
     seed: int,
     verdict: str = "UNKNOWN",
-    metadata: Optional[Dict[str, Any]] = None
+    metadata: Optional[Dict[str, Any]] = None,
+    strategy_list: Optional[List[str]] = None
 ) -> Dict[str, Any]:
     """
     Assemble a complete sight log for a problem instance.
     
     This is the master function that:
     1. Builds the clause graph
-    2. Runs all four partitioning strategies
+    2. Runs specified partitioning strategies (or all four by default)
     3. Computes pairwise Variation of Information
     4. Determines consistency (CONSISTENT vs SPURIOUS paradox)
     5. Returns the complete JSON-serializable log
@@ -265,10 +266,15 @@ def assemble_log(
         seed: Random seed used for problem generation
         verdict: Ground truth verdict ("CONSISTENT" or "SPURIOUS")
         metadata: Optional additional metadata
+        strategy_list: List of strategy names to use (default: all four)
     
     Returns:
         Complete sight log as a dictionary
     """
+    # Default to all four strategies if not specified
+    if strategy_list is None:
+        strategy_list = ["louvain", "spectral", "degree", "balanced"]
+    
     # Build graph from clauses
     G = build_clause_graph(clauses)
     
@@ -278,23 +284,27 @@ def assemble_log(
     avg_degree = np.mean([d for n, d in G.degree()]) if num_nodes > 0 else 0
     density = nx.density(G)
     
-    # Run all four partitioning strategies
+    # Run specified partitioning strategies
     n_clusters = min(4, max(2, num_nodes // 10))  # Adaptive cluster count
     
-    partition_louvain = _run_louvain(G, seed=seed)
-    partition_spectral = _run_spectral(G, n_clusters=n_clusters, seed=seed)
-    partition_degree = _run_degree(G, n_clusters=n_clusters)
-    partition_balanced = _run_balanced(G, n_clusters=n_clusters)
-    
-    partitions = {
-        "louvain": partition_louvain,
-        "spectral": partition_spectral,
-        "degree": partition_degree,
-        "balanced": partition_balanced
+    # Strategy function mapping
+    strategy_functions = {
+        "louvain": lambda: _run_louvain(G, seed=seed),
+        "spectral": lambda: _run_spectral(G, n_clusters=n_clusters, seed=seed),
+        "degree": lambda: _run_degree(G, n_clusters=n_clusters),
+        "balanced": lambda: _run_balanced(G, n_clusters=n_clusters)
     }
     
+    # Run only the requested strategies
+    partitions = {}
+    for strategy in strategy_list:
+        if strategy in strategy_functions:
+            partitions[strategy] = strategy_functions[strategy]()
+        else:
+            raise ValueError(f"Unknown strategy: {strategy}")
+    
     # Compute pairwise Variation of Information
-    strategies = ["louvain", "spectral", "degree", "balanced"]
+    strategies = strategy_list
     vi_matrix = {s: {} for s in strategies}
     
     for i, s1 in enumerate(strategies):
