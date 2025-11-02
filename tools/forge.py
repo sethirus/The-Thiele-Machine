@@ -21,6 +21,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from thielecpu.primitives import PRIMITIVES, get_primitive, list_primitives
+from tools.evaluation_functions import evaluate_strategy_with_objective
 
 
 class StrategyDNA:
@@ -367,29 +368,150 @@ def main():
     print("The Forge has spoken. Let the Arch-Sphere judge.")
     
 
+def evaluate_strategy_fitness(
+    strategy: StrategyDNA,
+    objective_genome_path: Path
+) -> float:
+    """
+    Evaluate a strategy's fitness using the objective genome.
+    
+    This is the Oracle of Judgment - it judges strategies against
+    the current objective.
+    
+    Args:
+        strategy: StrategyDNA to evaluate
+        objective_genome_path: Path to the objective genome file
+    
+    Returns:
+        Fitness score (0.0 to 1.0)
+    """
+    # Convert strategy to code string for evaluation
+    strategy_code = strategy.to_thiele()
+    
+    try:
+        fitness = evaluate_strategy_with_objective(
+            strategy_code,
+            strategy.name,
+            objective_genome_path
+        )
+        return fitness
+    except Exception as e:
+        print(f"  Warning: Failed to evaluate {strategy.name}: {e}")
+        return 0.0
+
+
+def record_to_ascension_ledger(
+    strategy: StrategyDNA,
+    objective: Dict[str, Any],
+    ledger_path: Path
+):
+    """
+    Record a strategy evaluation to the ascension ledger.
+    
+    The ledger is the machine's long-term memory - every evaluation
+    is permanently recorded for the Critic to analyze.
+    
+    Args:
+        strategy: The evolved strategy
+        objective: The objective genome it was judged against
+        ledger_path: Path to the ascension ledger JSON file
+    """
+    from datetime import datetime
+    
+    # Load existing ledger
+    try:
+        with open(ledger_path, 'r') as f:
+            ledger = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        ledger = []
+    
+    # Create new entry
+    entry = {
+        "timestamp": datetime.now().isoformat(),
+        "strategy_name": strategy.name,
+        "strategy_dna": strategy.sequence,
+        "generation": strategy.metadata.get('generation', 0),
+        "parent_strategies": strategy.metadata.get('parents', [strategy.metadata.get('parent', 'unknown')]),
+        "objective_genome": {
+            "name": objective.get('name', 'Unknown'),
+            "function": objective.get('function', 'Unknown'),
+            "parameters": objective.get('parameters', {})
+        },
+        "fitness_score": strategy.metadata.get('fitness', 0.0),
+        "primitive_count": len(strategy.sequence),
+        "metadata": strategy.metadata
+    }
+    
+    # Append to ledger
+    ledger.append(entry)
+    
+    # Write back
+    with open(ledger_path, 'w') as f:
+        json.dump(ledger, f, indent=2)
+
+
 def run_evolution(num_generations: int = 3, population_size: int = 10, 
-                  mutation_rate: float = 0.2, seed: Optional[int] = 42):
+                  mutation_rate: float = 0.2, seed: Optional[int] = 42,
+                  objective_genome_path: Optional[Path] = None):
     """
     Run the complete evolutionary cycle of The Forge.
     
+    The Oracle's function is now generalized: it accepts a candidate strategy
+    and an objective genome, and returns a fitness score based on the
+    evaluation function specified in the genome.
+    
     This is the master function that encapsulates the entirety of the process:
     1. Randomly generate new sight strategies
-    2. Build hardware to emulate new sight strategies
-    3. Prove new sight strategies with the power of math
-    4. Document and share discoveries with the world
-    5. Repeat
+    2. Evaluate them against the current objective genome
+    3. Build hardware to emulate new sight strategies
+    4. Prove new sight strategies with the power of math
+    5. Document and share discoveries with the world
+    6. Repeat
     
     Args:
         num_generations: Number of evolutionary generations to run
         population_size: Number of offspring per generation
         mutation_rate: Probability of mutation (0.0 to 1.0)
         seed: Random seed for reproducibility (None for random)
+        objective_genome_path: Path to objective genome (defaults to objectives/current_objective.thiele)
     
     Returns:
         List of all evolved StrategyDNA objects
     """
     if seed is not None:
         random.seed(seed)
+    
+    # Load objective genome
+    if objective_genome_path is None:
+        objective_genome_path = Path(__file__).parent.parent / "objectives" / "current_objective.thiele"
+    
+    print("=" * 70)
+    print("THE FORGE: INITIATING PERPETUAL EVOLUTIONARY LOOP")
+    print("=" * 70)
+    print()
+    print("Loading objective genome...")
+    
+    # Read and display the current objective
+    try:
+        with open(objective_genome_path, 'r') as f:
+            objective = json.load(f)
+        print(f"  Objective: {objective.get('name', 'Unknown')}")
+        print(f"  Function: {objective.get('function', 'Unknown')}")
+        print(f"  Parameters: {objective.get('parameters', {})}")
+    except Exception as e:
+        print(f"  Error loading objective genome: {e}")
+        print("  Using default evaluation")
+        objective = {"name": "Default", "function": "evaluate_classification_accuracy"}
+    
+    print()
+    print("This is the Genesis Machine.")
+    print("It will now ask the universe its fundamental question:")
+    print()
+    print('  "What is the best possible way to see?"')
+    print()
+    print("The machine will answer through evolution.")
+    print("=" * 70)
+    print()
     
     print("=" * 70)
     print("THE FORGE: INITIATING PERPETUAL EVOLUTIONARY LOOP")
@@ -431,6 +553,12 @@ def run_evolution(num_generations: int = 3, population_size: int = 10,
     compiled_dir = output_dir / "compiled"
     compiled_dir.mkdir(exist_ok=True)
     
+    # Initialize ascension ledger
+    ledger_path = Path(__file__).parent.parent / "ascension_ledger.json"
+    if not ledger_path.exists():
+        with open(ledger_path, 'w') as f:
+            json.dump([], f)
+    
     all_offspring = []
     
     for generation in range(1, num_generations + 1):
@@ -441,31 +569,41 @@ def run_evolution(num_generations: int = 3, population_size: int = 10,
         
         print(f"  Created {len(offspring)} offspring strategies")
         
-        # Save DNA files
+        # Evaluate and record each offspring
         for strategy in offspring:
+            # Evaluate fitness using objective genome
+            fitness = evaluate_strategy_fitness(strategy, objective_genome_path)
+            strategy.metadata['fitness'] = fitness
+            
+            # Save DNA files
             dna_file = output_dir / f"{strategy.name}.thiele"
             with open(dna_file, 'w') as f:
                 f.write(strategy.to_thiele())
+            
+            # Record in ascension ledger
+            record_to_ascension_ledger(strategy, objective, ledger_path)
+        
+        # Report fitness statistics
+        fitnesses = [s.metadata.get('fitness', 0.0) for s in offspring]
+        if fitnesses:
+            avg_fitness = sum(fitnesses) / len(fitnesses)
+            max_fitness = max(fitnesses)
+            print(f"  Fitness - Avg: {avg_fitness:.4f}, Max: {max_fitness:.4f}")
         
         # Attempt compilation
         compiled_count = 0
         for strategy in offspring:
-            try:
-                code = compile_dna_to_python(strategy)
-                if code:
-                    compiled_file = compiled_dir / f"{strategy.name}.py"
-                    with open(compiled_file, 'w') as f:
-                        f.write(code)
-                    compiled_count += 1
-            except Exception as e:
-                pass  # Natural selection - unviable strategies fail to compile
+            result = compile_to_python(strategy, compiled_dir)
+            if result:
+                compiled_count += 1
         
         print(f"  Compiled {compiled_count}/{len(offspring)} strategies successfully")
         
         all_offspring.extend(offspring)
         
-        # Add best offspring to parent pool for next generation
-        parents.extend(random.sample(offspring, min(3, len(offspring))))
+        # Selection: add best offspring to parent pool for next generation
+        sorted_offspring = sorted(offspring, key=lambda s: s.metadata.get('fitness', 0.0), reverse=True)
+        parents.extend(sorted_offspring[:min(3, len(sorted_offspring))])
     
     print()
     print("=" * 70)
