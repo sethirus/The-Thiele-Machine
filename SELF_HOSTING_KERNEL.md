@@ -179,6 +179,89 @@ The system is designed to be extended:
 - **Reproducibility**: `attestations/REPRODUCIBILITY.md`
 - **Main README**: See "Self-Hosting Thiele Kernel" section
 
+## Minimal Formalism
+
+### State Definition
+
+The verifier maintains a formal state `Σ = (FS, X)` where:
+- `FS: Path → Bytes` is the virtual filesystem (mapping paths to content)
+- `X: Path → Bool` is the executable flag set
+
+### State Hash Function
+
+The state hash is computed deterministically:
+
+```
+state_hash(Σ) = SHA256(
+    concat(
+        for each path in sorted(FS.keys()):
+            path || SHA256(FS[path]) || (X[path] ? '1' : '0')
+    )
+)
+```
+
+### Opcode Semantics
+
+Each step transforms state `Σ → Σ'`:
+
+**EMIT_BYTES(path, offset, bytes)**
+```
+Preconditions:
+  • offset ≤ |FS[path]|  (within or at end)
+  • offset ≥ last_offset[path]  (monotone)
+
+Action:
+  FS'[path] = FS[path][0:offset] || bytes || FS[path][offset:]
+  X' = X
+```
+
+**MAKE_EXEC(path)**
+```
+Preconditions: (none)
+
+Action:
+  FS' = FS
+  X'[path] = true
+```
+
+**ASSERT_SHA256(path, expected_hash)**
+```
+Preconditions:
+  • path ∈ FS.keys()
+
+Action:
+  assert SHA256(FS[path]) = expected_hash
+  Σ' = Σ  (no change)
+```
+
+### Replay Soundness Theorem
+
+**Theorem (Replay Soundness):** If a receipt sequence `R = (r₁, ..., rₙ)` satisfies:
+1. Each step's pre-state hash matches the computed state: `r_i.pre_state = state_hash(Σᵢ₋₁)`
+2. Each step's post-state hash matches after applying the opcode: `r_i.post_state = state_hash(Σᵢ)`
+3. The global digest matches: `global_digest(R) = SHA256(SHA256(r₁) || ... || SHA256(rₙ))`
+
+Then the emitted filesystem `FS` is **unique** and **deterministic**.
+
+**Proof Sketch:**
+- By induction on step index `i`:
+  - Base case: Empty state has unique hash `SHA256("")`
+  - Inductive step: If `Σᵢ₋₁` is unique (IH), then:
+    - Pre-state hash uniquely identifies `Σᵢ₋₁`
+    - Opcode application is deterministic function: `Σᵢ = apply(rᵢ, Σᵢ₋₁)`
+    - Post-state hash verifies correctness
+  - Therefore `Σᵢ` is unique
+- Global digest provides additional integrity over entire sequence
+
+**Corollary:** Any modification to any step invalidates either a state hash or the global digest, making tampering detectable.
+
+### Security Properties
+
+1. **Integrity**: Cryptographic hash chain ensures no undetected modifications
+2. **Determinism**: Same receipts always produce identical output
+3. **Minimality**: Only ~210 LoC need to be trusted (TCB)
+4. **Transparency**: Every byte is cryptographically justified
+
 ## FAQ
 
 **Q: Why distribute receipts instead of source?**  
