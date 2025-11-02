@@ -10,7 +10,7 @@
 
 ### Verifier (Trusted Computing Base)
 - **File**: `verifier/replay.py`
-- **Size**: ~160 LoC (excluding comments/blanks)
+- **Size**: ~180 LoC (excluding comments/blanks)
 - **Purpose**: Receipt verification and kernel reconstruction
 - **Dependencies**: Python 3.11+ standard library only (hashlib, json, os, sys, pathlib)
 

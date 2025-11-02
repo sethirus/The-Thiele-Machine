@@ -89,6 +89,11 @@ If you want to know whether a Thiele Machine “can do the same thing” as a Tu
 
 # The Thiele Machine
 
+> **Self-Installing Proofs.**  
+> Reconstruct an entire VM from receipts with a 180-LoC verifier.  
+> No source. No trust. Only proofs.  
+> `global_digest=45bc9110…` · `kernel_sha256=77cd06bb…`
+
 The Thiele Machine is a computational model that extends and strictly contains the classical Turing Machine by introducing partition logic, certificate-driven computation, and quantified discovery costs (μ-bits). This repository provides a complete, self-verifying artifact demonstrating the Thiele paradigm through formal proofs, empirical experiments, and executable implementations.
 
 ## Self-Hosting Thiele Kernel (System = Proof)
@@ -115,6 +120,27 @@ This command:
 **Receipt schema**: See [`docs/receipt_schema.md`](docs/receipt_schema.md) for the complete TRS-0 specification.
 
 **Hash pinning**: The expected kernel hash is tracked in `tests/expected_kernel_sha256.txt`. Any change to receipts must produce the same hash, or the new hash must be explicitly committed.
+
+### One-Line Challenge
+
+Verify the entire self-hosting system in one command:
+
+```bash
+python3 verifier/replay.py bootstrap_receipts && \
+python3 thiele_min.py --verify bootstrap_receipts/050_kernel_emit.json && \
+sha256sum thiele_min.py
+```
+
+**Expected output:**
+```
+Materialized: thiele_min.py (8348 bytes, sha256=77cd06bbb84ed8ccc4fd2949c555a8ba553d56629c88338435db65ce4d079135)
+Receipt verification complete. All invariants satisfied.
+Receipt verification OK
+Global digest: 45bc91102be2a30e3d8f851c375809f5640bed1a180f0597f559d3bb927ef1f7
+77cd06bbb84ed8ccc4fd2949c555a8ba553d56629c88338435db65ce4d079135  thiele_min.py
+```
+
+✓ All checks pass → System integrity cryptographically verified
 
 ## Quick Start
 

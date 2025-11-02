@@ -76,6 +76,85 @@ jobs:
       - name: Verify Bell artifact
         run: ./verify_bell.sh
 
+  self-hosting-kernel:
+    name: Self-Hosting Kernel Tests
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ['3.11', '3.12']
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      
+      - name: Install dependencies (Ubuntu/macOS)
+        if: runner.os != 'Windows'
+        run: |
+          sudo apt-get update && sudo apt-get install -y jq || brew install jq || true
+      
+      - name: Test kernel reconstruction
+        run: python3 verifier/replay.py bootstrap_receipts
+      
+      - name: Verify kernel hash
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            ACTUAL=$(certutil -hashfile thiele_min.py SHA256 | sed -n '2p')
+          else
+            ACTUAL=$(sha256sum thiele_min.py | awk '{print $1}')
+          fi
+          EXPECTED=$(cat tests/expected_kernel_sha256.txt)
+          if [ "$ACTUAL" != "$EXPECTED" ]; then
+            echo "Hash mismatch: $ACTUAL != $EXPECTED"
+            exit 1
+          fi
+          echo "✓ Hash verified: $ACTUAL"
+      
+      - name: Test kernel self-verification
+        run: python3 thiele_min.py --verify bootstrap_receipts/050_kernel_emit.json
+      
+      - name: Test proof pack creation
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          python3 tools/make_proofpack.py
+          ls -lh dist/
+      
+      - name: Test shell verifier (Unix only)
+        if: runner.os != 'Windows'
+        run: |
+          rm -f thiele_min.py
+          bash verifier/replay_sh.sh bootstrap_receipts
+          HASH=$(sha256sum thiele_min.py | awk '{print $1}')
+          EXPECTED=$(cat tests/expected_kernel_sha256.txt)
+          if [ "$HASH" != "$EXPECTED" ]; then
+            echo "Shell verifier hash mismatch"
+            exit 1
+          fi
+          echo "✓ Shell verifier produces identical kernel"
+      
+      - name: Verify LoC budget
+        if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.12'
+        run: |
+          LOC=$(python3 -c "
+          with open('verifier/replay.py', 'r') as f:
+              lines = f.readlines()
+          print(sum(1 for line in lines if line.strip() and not line.strip().startswith('#')))
+          ")
+          echo "Verifier LoC: $LOC"
+          if [ "$LOC" -gt 220 ]; then
+            echo "ERROR: Verifier exceeds 220 LoC budget"
+            exit 1
+          fi
+          echo "✓ LoC budget OK ($LOC / 220)"
+      
+      - name: Test hello example
+        run: bash examples/hello_verify.sh
+
   experiments:
     runs-on: ubuntu-latest
     env:
