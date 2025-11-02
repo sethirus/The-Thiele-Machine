@@ -1,0 +1,113 @@
+{
+  "problem_name": "tseitin_n6_seed0",
+  "n": 6,
+  "seed": 0,
+  "timestamp": 1762056948.7746606,
+  "input": {
+    "num_clauses": 24,
+    "num_variables": 9
+  },
+  "graph_metrics": {
+    "num_nodes": 9,
+    "num_edges": 18,
+    "avg_degree": 4.0,
+    "density": 0.5
+  },
+  "partitions": {
+    "louvain": {
+      "num_clusters": 2,
+      "assignment": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "6": 0,
+        "8": 1,
+        "9": 1,
+        "5": 1,
+        "7": 1
+      }
+    },
+    "spectral": {
+      "num_clusters": 2,
+      "assignment": {
+        "1": 0,
+        "2": 0,
+        "3": 1,
+        "4": 0,
+        "5": 1,
+        "6": 1,
+        "7": 1,
+        "8": 1,
+        "9": 1
+      }
+    },
+    "degree": {
+      "num_clusters": 2,
+      "assignment": {
+        "1": 0,
+        "2": 1,
+        "3": 0,
+        "4": 1,
+        "5": 0,
+        "6": 1,
+        "7": 0,
+        "8": 1,
+        "9": 0
+      }
+    },
+    "balanced": {
+      "num_clusters": 2,
+      "assignment": {
+        "1": 0,
+        "2": 1,
+        "3": 0,
+        "4": 1,
+        "5": 0,
+        "6": 1,
+        "7": 0,
+        "8": 1,
+        "9": 0
+      }
+    }
+  },
+  "consistency_analysis": {
+    "vi_matrix": {
+      "louvain": {
+        "louvain": 4.440892098500626e-16,
+        "spectral": 1.1516142196222534,
+        "degree": 1.7999701044688612,
+        "balanced": 1.7999701044688612
+      },
+      "spectral": {
+        "louvain": 1.1516142196222534,
+        "spectral": 4.440892098500626e-16,
+        "degree": 1.7638114423252467,
+        "balanced": 1.7638114423252467
+      },
+      "degree": {
+        "louvain": 1.7999701044688612,
+        "spectral": 1.7638114423252467,
+        "degree": 4.440892098500626e-16,
+        "balanced": 4.440892098500626e-16
+      },
+      "balanced": {
+        "louvain": 1.7999701044688612,
+        "spectral": 1.7638114423252467,
+        "degree": 4.440892098500626e-16,
+        "balanced": 4.440892098500626e-16
+      }
+    },
+    "avg_vi": 1.3798628855350783,
+    "max_vi": 1.7999701044688612,
+    "std_vi": 0.6587781841777546,
+    "computed_verdict": "SPURIOUS",
+    "ground_truth_verdict": "CONSISTENT"
+  },
+  "metadata": {
+    "problem_type": "tseitin",
+    "num_nodes": 6,
+    "num_edges": 9,
+    "is_structured": true
+  }
+}
