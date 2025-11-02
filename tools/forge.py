@@ -93,7 +93,17 @@ def load_thiele_dna(filepath: Path) -> StrategyDNA:
         for line in metadata_text.split('\n'):
             if ':' in line:
                 key, value = line.split(':', 1)
-                metadata[key.strip()] = value.strip().strip('"')
+                key = key.strip()
+                value = value.strip().strip('"')
+                
+                # Handle list syntax [item1, item2, ...]
+                if value.startswith('[') and value.endswith(']'):
+                    # Parse as list
+                    list_content = value[1:-1]  # Remove brackets
+                    items = [item.strip().strip('"') for item in list_content.split(',')]
+                    metadata[key] = items
+                else:
+                    metadata[key] = value
     
     return StrategyDNA(name, sequence, metadata)
 
