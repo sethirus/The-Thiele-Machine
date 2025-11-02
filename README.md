@@ -91,6 +91,31 @@ If you want to know whether a Thiele Machine “can do the same thing” as a Tu
 
 The Thiele Machine is a computational model that extends and strictly contains the classical Turing Machine by introducing partition logic, certificate-driven computation, and quantified discovery costs (μ-bits). This repository provides a complete, self-verifying artifact demonstrating the Thiele paradigm through formal proofs, empirical experiments, and executable implementations.
 
+## Self-Hosting Thiele Kernel (System = Proof)
+
+This repository implements a **self-hosting kernel** where the Thiele minimal kernel (`thiele_min.py`) is distributed as cryptographically verifiable receipts rather than source code. The system can reconstruct itself from receipts, creating a "system = proof" architecture with a minimal trusted computing base (TCB).
+
+**One-command demo:**
+```bash
+python3 verifier/replay.py bootstrap_receipts && sha256sum thiele_min.py
+```
+
+This command:
+1. Reconstructs `thiele_min.py` from cryptographic receipts in `bootstrap_receipts/`
+2. Verifies all state transitions and hash invariants
+3. Materializes the executable kernel to disk
+4. Outputs the kernel's SHA256 hash for verification
+
+**Why this matters:**
+- **Small TCB**: The verifier (`verifier/replay.py`) is ~170 LoC, vastly smaller than trusting kernel source
+- **Cryptographic verification**: Every byte is justified by receipts with hash chains
+- **Self-verification**: The reconstructed kernel can verify its own construction receipts
+- **Reproducible**: Same receipts always produce identical kernel (deterministic)
+
+**Receipt schema**: See [`docs/receipt_schema.md`](docs/receipt_schema.md) for the complete TRS-0 specification.
+
+**Hash pinning**: The expected kernel hash is tracked in `tests/expected_kernel_sha256.txt`. Any change to receipts must produce the same hash, or the new hash must be explicitly committed.
+
 ## Quick Start
 
 **To immediately verify the artifact:**
