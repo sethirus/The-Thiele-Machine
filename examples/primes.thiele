@@ -1,0 +1,36 @@
+# Prime number generator
+# Find first 10 primes
+
+LOAD 2      # start with 2
+STORE 0     # current number
+LOAD 0      # prime count
+STORE 1
+
+:main_loop
+LOAD 1      # load count
+LOAD 10     # target count
+CMP
+JZ :end     # found 10 primes
+
+# Check if current is prime
+LOAD 0
+# ... prime checking logic ...
+ASSERT      # verify primality
+
+LOAD 0
+EMIT        # output prime
+
+LOAD 0
+LOAD 1
+ADD
+STORE 0     # next number
+
+LOAD 1
+LOAD 1
+ADD
+STORE 1     # increment count
+
+JMP :main_loop
+
+:end
+HALT
