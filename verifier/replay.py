@@ -43,16 +43,23 @@ def compute_state_hash(virtual_fs: Dict[str, bytes], exec_flags: Dict[str, bool]
     return sha256_hex(b''.join(parts))
 
 
-def validate_path(path: str, step_num: int) -> bool:
+def validate_path(path: str, step_num: int, whitelist: List[str] = None) -> bool:
     """
     Validate that a path is safe.
     - Must be UTF-8
     - No path traversal (..)
     - No absolute paths
+    - No duplicate slashes
+    - Optional whitelist enforcement
     Returns True if valid, False otherwise.
     """
     if not path:
         print(f"Error: step {step_num} empty path", file=sys.stderr)
+        return False
+    
+    # Check for duplicate slashes
+    if '//' in path:
+        print(f"Error: step {step_num} duplicate slashes in path: {path}", file=sys.stderr)
         return False
     
     # Check for path traversal
@@ -65,12 +72,24 @@ def validate_path(path: str, step_num: int) -> bool:
         print(f"Error: step {step_num} absolute path not allowed: {path}", file=sys.stderr)
         return False
     
+    # Check whitelist if provided
+    if whitelist is not None and path not in whitelist:
+        print(f"Error: step {step_num} path not in whitelist: {path}", file=sys.stderr)
+        print(f"  Allowed paths: {', '.join(whitelist)}", file=sys.stderr)
+        return False
+    
     return True
 
 
-def verify_receipts(receipts_dir: str) -> int:
+def verify_receipts(receipts_dir: str, max_total_bytes: int = 1024 * 1024, path_whitelist: List[str] = None) -> int:
     """
     Main verification logic.
+    
+    Args:
+        receipts_dir: Directory containing receipt JSON files
+        max_total_bytes: Maximum total bytes that can be emitted (default 1 MiB)
+        path_whitelist: Optional list of allowed paths (None = allow any safe path)
+    
     Returns 0 on success, 1 on failure.
     """
     receipts_path = Path(receipts_dir)
@@ -90,6 +109,9 @@ def verify_receipts(receipts_dir: str) -> int:
     
     # Track per-file write offsets to ensure monotone, non-overlapping writes
     file_last_offset: Dict[str, int] = {}
+    
+    # Track total bytes emitted
+    total_bytes_emitted = 0
     
     # Current state hash (empty state initially)
     current_state = compute_state_hash(virtual_fs, exec_flags)
@@ -125,8 +147,8 @@ def verify_receipts(receipts_dir: str) -> int:
                 offset = args.get('offset', 0)
                 bytes_hex = args.get('bytes_hex', '')
                 
-                # Validate path
-                if not validate_path(path, step_num):
+                # Validate path (with whitelist if provided)
+                if not validate_path(path, step_num, path_whitelist):
                     return 1
                 
                 # Decode hex bytes
@@ -134,6 +156,14 @@ def verify_receipts(receipts_dir: str) -> int:
                     new_bytes = bytes.fromhex(bytes_hex)
                 except ValueError as e:
                     print(f"Error: step {step_num} invalid hex: {e}", file=sys.stderr)
+                    return 1
+                
+                # Check total size limit
+                total_bytes_emitted += len(new_bytes)
+                if total_bytes_emitted > max_total_bytes:
+                    print(f"Error: step {step_num} exceeded max total bytes limit", file=sys.stderr)
+                    print(f"  Limit: {max_total_bytes} bytes", file=sys.stderr)
+                    print(f"  Emitted: {total_bytes_emitted} bytes", file=sys.stderr)
                     return 1
                 
                 # Initialize file if needed
@@ -163,7 +193,7 @@ def verify_receipts(receipts_dir: str) -> int:
                 
             elif opcode == 'MAKE_EXEC':
                 path = args.get('path', '')
-                if not validate_path(path, step_num):
+                if not validate_path(path, step_num, path_whitelist):
                     return 1
                 exec_flags[path] = True
                 
@@ -171,7 +201,7 @@ def verify_receipts(receipts_dir: str) -> int:
                 path = args.get('path', '')
                 expected_sha = args.get('sha256', '')
                 
-                if not validate_path(path, step_num):
+                if not validate_path(path, step_num, path_whitelist):
                     return 1
                 
                 if path not in virtual_fs:
