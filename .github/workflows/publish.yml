@@ -54,8 +54,8 @@ jobs:
           echo "Package SHA256: $SHA256"
           
           # Update formula with new version and hash
-          sed -i "s/version \".*\"/version \"$VERSION\"/" integrations/homebrew/Formula/thiele-replay.rb
-          sed -i "s/sha256 \".*\"/sha256 \"$SHA256\"/" integrations/homebrew/Formula/thiele-replay.rb
+          sed -i "s/version \".*\"/version \"$VERSION\"/" roadmap-enhancements/integrations/homebrew/Formula/thiele-replay.rb
+          sed -i "s/sha256 \".*\"/sha256 \"$SHA256\"/" roadmap-enhancements/integrations/homebrew/Formula/thiele-replay.rb
       
       - name: Print installation instructions
         run: |
