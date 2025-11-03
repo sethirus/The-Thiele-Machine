@@ -8,11 +8,13 @@ This validates the core components of the three-phase system:
 3. Final Dialogue (impossible problem solver)
 """
 
-import pytest
 import sys
 import json
-import torch
 from pathlib import Path
+
+import pytest
+
+torch = pytest.importorskip("torch", reason="PyTorch not available in test environment")
 
 # Add base directory to path
 BASE_DIR = Path(__file__).parent.parent
