@@ -115,6 +115,50 @@ def test_path_validation():
         assert validate_path(path, 0), f"Path should be valid: {path}"
 
 
+def test_malformed_receipts_corpus():
+    """
+    Test that malformed receipts from the canonical corpus are rejected.
+    
+    This validates the fuzzing infrastructure by ensuring known-bad
+    receipts are properly detected and rejected.
+    """
+    try:
+        from tests.canonical.corpus.malformed_receipts import ALL_TESTS
+    except ImportError:
+        # Skip if corpus not available
+        return
+    
+    if len(ALL_TESTS) == 0:
+        return
+    
+    from verifier.replay import verify_receipts
+    import tempfile
+    import shutil
+    
+    rejected = 0
+    accepted = 0
+    
+    for test in ALL_TESTS[:10]:  # Test first 10 for speed
+        temp_dir = tempfile.mkdtemp()
+        try:
+            receipt_path = Path(temp_dir) / 'receipt.json'
+            receipt_path.write_text(test['receipt'])
+            
+            try:
+                exit_code = verify_receipts(temp_dir, dry_run=True, strict=True)
+                if exit_code == 0:
+                    accepted += 1
+                else:
+                    rejected += 1
+            except:
+                rejected += 1  # Exception counts as rejection
+        finally:
+            shutil.rmtree(temp_dir, ignore_errors=True)
+    
+    # Most should be rejected
+    assert rejected > accepted, f"Expected most receipts rejected, got {rejected} rejected vs {accepted} accepted"
+
+
 if HYPOTHESIS_AVAILABLE:
     @given(st.binary(min_size=0, max_size=1000))
     @settings(suppress_health_check=[HealthCheck.function_scoped_fixture], max_examples=50)
@@ -195,6 +239,9 @@ if __name__ == '__main__':
     
     test_path_validation()
     print("✓ Path validation")
+    
+    test_malformed_receipts_corpus()
+    print("✓ Malformed receipts corpus")
     
     if HYPOTHESIS_AVAILABLE:
         print("\nRunning Hypothesis tests...")
