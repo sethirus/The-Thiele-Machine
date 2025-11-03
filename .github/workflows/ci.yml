@@ -85,7 +85,7 @@ jobs:
         run: |
           # Test receipt fuzzer on a sample receipt
           mkdir -p /tmp/fuzz_test
-          python3 fuzz/mutate_receipts.py bootstrap_receipts/050_kernel_emit.json --count 100 --out-dir /tmp/fuzz_test
+          python3 roadmap-enhancements/fuzzing/fuzz/mutate_receipts.py bootstrap_receipts/050_kernel_emit.json --count 100 --out-dir /tmp/fuzz_test
           
           # Count rejections
           REJECTED=0
