@@ -31,13 +31,13 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -e .
+          pip install -e .[full]
 
       - name: Set PYTHONPATH for job
         run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
 
       - name: Check Python syntax
-        run: python -m py_compile attempt.py demonstrate_isomorphism.py
+        run: python -m py_compile demos/research-demos/problem-solving/attempt.py demos/research-demos/architecture/demonstrate_isomorphism.py
 
       - name: Run basic verification
         run: python -c "import thielecpu; print('Thiele CPU imports successfully')"
@@ -200,7 +200,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -e .
+          pip install -e .[full]
 
       - name: Set PYTHONPATH for job
         run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
@@ -244,7 +244,7 @@ jobs:
       - name: Install project dependencies
         run: |
           python3 -m pip install --upgrade pip
-          pip install -e .
+          pip install -e .[full]
       - name: Execute Ouroboros witness and verifier
         run: |
           python3 scripts/verify.py
@@ -266,7 +266,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -e .
+          pip install -e .[full]
 
       - name: Package proof pack
         run: bash scripts/package_proof.sh
@@ -275,7 +275,7 @@ jobs:
         run: python thiele_verifier_min.py proofpack_PUBLICATION.tar.gz
 
       - name: Run adversarial checks
-        run: python thiele_break.py --reruns 2
+        run: python demos/research-demos/problem-solving/thiele_break.py --reruns 2
 
   proofpack-smoke:
     runs-on: ubuntu-latest
@@ -293,7 +293,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -e .
+          pip install -e .[full]
 
       - name: Run proofpack smoke profile
         id: smoke
@@ -380,7 +380,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -e .
+          pip install -e .[full]
 
       - name: Install jq
         run: sudo apt-get update && sudo apt-get install -y jq
@@ -447,7 +447,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           # Install the current project in editable mode
-          pip install -e .
+          pip install -e .[full]
       - name: Install external proof tools (required)
         run: |
           set -euo pipefail
