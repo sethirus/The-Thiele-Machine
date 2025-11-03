@@ -195,16 +195,22 @@ class TestObjectiveMinimizeSelf:
 
 def test_engine_of_truth_script_exists():
     """Test that the main script was created."""
-    script_path = BASE_DIR / 'run_engine_of_truth.sh'
-    
+    script_path = (
+        BASE_DIR
+        / 'demos'
+        / 'research-demos'
+        / 'architecture'
+        / 'run_engine_of_truth.sh'
+    )
+
     assert script_path.exists(), "run_engine_of_truth.sh should exist"
     assert script_path.stat().st_mode & 0o111, "Script should be executable"
 
 
 def test_documentation_exists():
     """Test that documentation was created."""
-    doc_path = BASE_DIR / 'ENGINE_OF_TRUTH_README.md'
-    
+    doc_path = BASE_DIR / 'docs' / 'archive' / 'ENGINE_OF_TRUTH_README.md'
+
     assert doc_path.exists(), "ENGINE_OF_TRUTH_README.md should exist"
     
     with open(doc_path, 'r') as f:
