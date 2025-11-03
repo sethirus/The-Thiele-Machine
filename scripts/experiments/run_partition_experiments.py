@@ -31,8 +31,11 @@ from sklearn.linear_model import LinearRegression  # type: ignore
 from sklearn.metrics import r2_score  # type: ignore
 
 # Add repo root to path
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+repo_root = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(repo_root))
 
+# Import from reorganized demos directory
+sys.path.insert(0, str(repo_root / "demos" / "research-demos" / "problem-solving"))
 from attempt import run_single_experiment
 from thielecpu.mu import calculate_mu_cost, question_cost_bits, information_gain_bits
 

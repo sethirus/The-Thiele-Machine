@@ -3,6 +3,7 @@ import json, subprocess, sys, pathlib, hashlib, tempfile, os
 
 repo = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(repo))
+sys.path.insert(0, str(repo / "scripts" / "experiments"))
 
 from run_partition_experiments import run_tseitin_experiments
 from scripts.audit_trace import audit_trace_file

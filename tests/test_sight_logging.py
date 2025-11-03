@@ -72,6 +72,7 @@ def test_cartographer():
         logs_dir.mkdir()
         
         # Generate some test logs
+        sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "demos" / "research-demos" / "problem-solving"))
         from attempt import generate_tseitin_expander
         
         for n in [4, 6]:
@@ -167,6 +168,7 @@ def test_complete_pipeline():
         logs_dir.mkdir()
         
         # Generate mixed dataset
+        sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "demos" / "research-demos" / "problem-solving"))
         from attempt import generate_tseitin_expander
         import random
         
