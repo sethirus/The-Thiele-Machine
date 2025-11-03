@@ -26,16 +26,16 @@ jobs:
           pip install -e .
       
       - name: Create dist directory
-        run: mkdir -p dist attestations
+        run: mkdir -p dist roadmap-enhancements/supply-chain/attestations
       
       - name: Build receipt for kernel
         run: |
           python3 verifier/replay.py bootstrap_receipts --dry-run
-          python3 tools/ingest_binary.py thiele_min.py --out dist/receipt.json --description "Thiele Machine Kernel"
+          python3 roadmap-enhancements/binary-ingest/ingest_binary.py thiele_min.py --out dist/receipt.json --description "Thiele Machine Kernel"
       
       - name: Generate SLSA provenance
         run: |
-          cat > attestations/slsa-provenance.json << EOF
+          cat > roadmap-enhancements/supply-chain/attestations/slsa-provenance.json << EOF
           {
             "_type": "https://in-toto.io/Statement/v0.1",
             "subject": [
@@ -83,12 +83,12 @@ jobs:
       
       - name: Submit to Rekor (dry-run)
         run: |
-          python3 tools/rekor_submit.py dist/receipt.json --out attestations/TRANSPARENCY.txt --dry-run || true
+          python3 roadmap-enhancements/supply-chain/tools/rekor_submit.py dist/receipt.json --out roadmap-enhancements/supply-chain/attestations/TRANSPARENCY.txt --dry-run || true
       
       - name: Build Go verifier
         run: |
-          cd cmd/thiele-replay-go
-          CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o ../../dist/thiele-replay-go
+          cd roadmap-enhancements/go-verifier/thiele-replay-go
+          CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o ../../../dist/thiele-replay-go
       
       - name: Create release bundle
         run: |
@@ -101,8 +101,8 @@ jobs:
         with:
           files: |
             dist/receipt.json
-            attestations/slsa-provenance.json
-            attestations/TRANSPARENCY.txt
+            roadmap-enhancements/supply-chain/attestations/slsa-provenance.json
+            roadmap-enhancements/supply-chain/attestations/TRANSPARENCY.txt
             dist/thiele-replay-go
             thiele-machine-${{ github.ref_name }}.tar.gz
         env:
