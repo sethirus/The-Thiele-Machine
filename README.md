@@ -6,9 +6,9 @@
 
 ### Zero-Trust Software Installation
 
-[![Proof-Install Demo](https://img.shields.io/badge/🔒_Proof--Install-Try_Now-blue?style=for-the-badge)](web/install.html)
-[![ZK Verify](https://img.shields.io/badge/⚡_ZK_Verify-Live_Demo-purple?style=for-the-badge)](web/zk.html)
-[![Trusting Trust](https://img.shields.io/badge/🔐_Trusting_Trust-Defeat_Backdoors-green?style=for-the-badge)](web/trusting-trust.html)
+[![Proof-Install Demo](https://img.shields.io/badge/🔒_Proof--Install-Try_Now-blue?style=for-the-badge)](roadmap-enhancements/web-demos/install.html)
+[![ZK Verify](https://img.shields.io/badge/⚡_ZK_Verify-Live_Demo-purple?style=for-the-badge)](roadmap-enhancements/zk-proofs/web/zk.html)
+[![Trusting Trust](https://img.shields.io/badge/🔐_Trusting_Trust-Defeat_Backdoors-green?style=for-the-badge)](roadmap-enhancements/trusting-trust/web/trusting-trust.html)
 
 **Drop a proof → Get a green check → Click 'Materialize' → The exact binary appears**  
 **No servers. No trust. Only mathematics.**
@@ -18,6 +18,10 @@
 - `kernel_sha256`: `77cd06bb62e5f3b10693dce8b6a0e732...`
 
 </div>
+
+---
+
+> **📁 Repository Organization:** All v1.2 roadmap enhancements (ZK proofs, trusting-trust demo, supply-chain attestations, Go verifier, binary ingest tool, delta receipts, fuzzing infrastructure, web demos, and integration templates) have been organized into the [`roadmap-enhancements/`](roadmap-enhancements/) directory for improved discoverability and modular development. See [roadmap-enhancements/README.md](roadmap-enhancements/README.md) for a complete guide to all components.
 
 ---
 

@@ -123,7 +123,9 @@ def test_malformed_receipts_corpus():
     receipts are properly detected and rejected.
     """
     try:
-        from tests.canonical.corpus.malformed_receipts import ALL_TESTS
+        import sys
+        sys.path.insert(0, 'roadmap-enhancements/fuzzing/corpus')
+        from malformed_receipts import ALL_TESTS
     except ImportError:
         # Skip if corpus not available
         return
