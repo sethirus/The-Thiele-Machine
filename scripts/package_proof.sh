@@ -3,7 +3,7 @@ set -e
 
 # Package proof pack
 OUTPUT_DIR="/tmp/thiele_proofpack"
-python run_composition_experiments.py --output "$OUTPUT_DIR"
+python scripts/experiments/run_composition_experiments.py --output "$OUTPUT_DIR"
 
 # Copy protocol.json
 cp protocol.json "$OUTPUT_DIR/"
