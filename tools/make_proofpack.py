@@ -41,7 +41,7 @@ def make_proofpack(output_dir: str = "dist") -> str:
         "verifier/replay.py",
         "bootstrap_receipts/050_kernel_emit.json",
         "docs/receipt_schema.md",
-        "attestations/REPRODUCIBILITY.md",
+        "roadmap-enhancements/supply-chain/attestations/REPRODUCIBILITY.md",
         "checksums/receipts_sha256.txt",
         "tests/expected_kernel_sha256.txt",
     ]
@@ -97,7 +97,7 @@ To use:
 
 Expected kernel hash: {kernel_sha256}
 
-For full instructions, see attestations/REPRODUCIBILITY.md
+For full instructions, see roadmap-enhancements/supply-chain/attestations/REPRODUCIBILITY.md
 """
     
     # Write PROOF.txt
