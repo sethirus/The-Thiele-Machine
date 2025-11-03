@@ -17,7 +17,10 @@ from pathlib import Path
 from typing import List, Optional
 
 # Add repo root to path
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+repo_root = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(repo_root))
+# Add problem-solving demos directory for attempt.py import
+sys.path.insert(0, str(repo_root / "demos" / "research-demos" / "problem-solving"))
 
 from tools.sight_logging import assemble_log, save_log, update_index, append_progress_entry
 

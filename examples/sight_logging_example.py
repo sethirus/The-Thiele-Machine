@@ -38,6 +38,8 @@ print("PHASE 1: THE OBSERVATORY - Data Generation")
 print("="*80 + "\n")
 
 from tools.sight_logging import assemble_log, save_log, update_index, append_progress_entry
+# Import from reorganized demos directory
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "demos" / "research-demos" / "problem-solving"))
 from attempt import generate_tseitin_expander
 import random
 import numpy as np
