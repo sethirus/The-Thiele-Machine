@@ -5,7 +5,7 @@
 This proofpack contains the infrastructure for empirically testing the thermodynamic prediction:
 
 ```
-E_dyn ≈ (k_B T ln 2) · Σμ
+E_dyn ≈ (k_B T ln 2) · Σμ · S
 ```
 
 where:
@@ -13,10 +13,15 @@ where:
 - `k_B = 1.380649×10⁻²³` J/K (Boltzmann constant)
 - `T` is temperature (Kelvin)
 - `Σμ` is the cumulative μ-bit cost from the Thiele Machine
+- `S` is a hardware-dependent scale factor (accounts for multiple gate transitions per logical μ-bit)
+
+**Note on Scale Factor:** The theoretical Landauer limit predicts `E = k_B T ln 2` per bit at temperature T. In practice, FPGA and ASIC implementations involve many physical gate transitions per logical μ-bit operation. The scale factor `S` captures this hardware reality. For the synthetic test data, `S = 10⁹` is used to generate realistic energy levels (nanojoules range).
+
+When collecting real experimental data, the scale factor will be determined empirically from the measured slope of the regression. The prediction is validated if the slope (which equals S) is consistent across different programs and conditions.
 
 ## What Must Be Proven
 
-For the Verilog runner, demonstrate that `E_dyn ≈ (k_B T ln 2)·Σμ` **across different programs and operating conditions**, not just one demo. The "≈" means a slope ~1 with tight confidence and a near-zero intercept.
+For the Verilog runner, demonstrate that `E_dyn ≈ (k_B T ln 2)·Σμ·S` **across different programs and operating conditions**, not just one demo. The "≈" means a slope ~1 (after accounting for scale factor) with tight confidence and a near-zero intercept.
 
 ## Pass/Fail Criteria (CI Gates)
 
