@@ -289,5 +289,11 @@ def main():
     sys.exit(exit_code)
 
 
+# CLI entry point for setuptools
+def main_cli():
+    """Entry point for thiele-replay command."""
+    main()
+
+
 if __name__ == '__main__':
     main()

@@ -75,6 +75,35 @@ jobs:
 
       - name: Verify Bell artifact
         run: ./verify_bell.sh
+      
+      - name: Run fuzzing corpus tests
+        run: |
+          python -m pytest tests/test_fuzz_receipts.py -v
+          echo "✓ Fuzzing corpus test complete"
+      
+      - name: Run receipt mutation fuzzer
+        run: |
+          # Test receipt fuzzer on a sample receipt
+          mkdir -p /tmp/fuzz_test
+          python3 fuzz/mutate_receipts.py bootstrap_receipts/050_kernel_emit.json --count 100 --out-dir /tmp/fuzz_test
+          
+          # Count rejections
+          REJECTED=0
+          for f in /tmp/fuzz_test/*.json; do
+            if ! python3 verifier/replay.py "$f" --dry-run > /dev/null 2>&1; then
+              REJECTED=$((REJECTED + 1))
+            fi
+          done
+          
+          echo "Tamper attempts rejected: $REJECTED/100"
+          
+          # Expect 100% rejection rate
+          if [ "$REJECTED" -ne 100 ]; then
+            echo "ERROR: Expected 100% rejection rate, got $REJECTED/100"
+            exit 1
+          fi
+          
+          echo "✓ All 100 mutations correctly rejected"
 
   self-hosting-kernel:
     name: Self-Hosting Kernel Tests
