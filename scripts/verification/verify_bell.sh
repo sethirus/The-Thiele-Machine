@@ -43,7 +43,7 @@ printf '\n==> Generating Tsirelson receipts\n'
 python scripts/generate_tsirelson_receipts.py examples/tsirelson_step_receipts.json
 
 printf '\n==> Running Python Bell inequality demo\n'
-python examples/bell_inequality_demo.py
+python demos/verification-demos/bell-inequality/bell_inequality_demo.py
 
 printf '\n==> Verifying receipts against Coq proof\n'
 "$REPO_ROOT/scripts/verify_truth.sh" "$REPO_ROOT/examples/tsirelson_step_receipts.json"
