@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiele Receipts - Cryptographically Verifiable Software</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .hero {
+            text-align: center;
+            color: white;
+            padding: 60px 20px;
+        }
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .hero p {
+            font-size: 1.3em;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+        
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+        }
+        
+        .card-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+        .card h2 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+        .card p {
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .card-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .card-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .features {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        .features h2 {
+            text-align: center;
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 30px;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .feature {
+            text-align: center;
+        }
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        .feature h3 {
+            color: #374151;
+            margin-bottom: 10px;
+        }
+        .feature p {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 60px;
+            padding: 30px;
+            opacity: 0.9;
+        }
+        .footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>🔒 Thiele Receipts</h1>
+            <p>
+                Install software from a proof you can replay, not just from a signed blob.
+                <br>
+                Cryptographic receipts for verifiable, reproducible software.
+            </p>
+        </div>
+        
+        <div class="cards">
+            <a href="create.html" class="card">
+                <div class="card-icon">📝</div>
+                <h2>Create Receipt</h2>
+                <p>
+                    Generate a cryptographic receipt for your files.
+                    Works entirely in your browser - no uploads, no servers.
+                </p>
+                <span class="card-btn">Create Receipt →</span>
+            </a>
+            
+            <a href="verify.html" class="card">
+                <div class="card-icon">✓</div>
+                <h2>Verify Receipt</h2>
+                <p>
+                    Verify the integrity and authenticity of a Thiele receipt.
+                    Includes Ed25519 signature verification.
+                </p>
+                <span class="card-btn">Verify Receipt →</span>
+            </a>
+            
+            <a href="badge.html" class="card">
+                <div class="card-icon">🏷️</div>
+                <h2>Badge Generator</h2>
+                <p>
+                    Create "Receipt Verified" badges for your README files.
+                    Show users your software is verifiable.
+                </p>
+                <span class="card-btn">Generate Badge →</span>
+            </a>
+            
+            <a href="qr.html" class="card">
+                <div class="card-icon">📱</div>
+                <h2>QR Code Generator</h2>
+                <p>
+                    Generate QR codes for receipts and verification links.
+                    Perfect for printed documentation.
+                </p>
+                <span class="card-btn">Generate QR →</span>
+            </a>
+        </div>
+        
+        <div class="features">
+            <h2>Why Use Receipts?</h2>
+            <div class="feature-grid">
+                <div class="feature">
+                    <div class="feature-icon">🔐</div>
+                    <h3>Zero Trust</h3>
+                    <p>Mathematical proof replaces trust in build servers and distribution channels.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Reproducible</h3>
+                    <p>Same receipt always produces identical output. Deterministic builds guaranteed.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Client-Side</h3>
+                    <p>All processing happens in your browser. Your files never leave your device.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📱</div>
+                    <h3>Mobile Friendly</h3>
+                    <p>Works on desktop and mobile browsers. No installation required.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Supply Chain Security</h3>
+                    <p>Cryptographic proof of software provenance for compliance and auditing.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Fast & Simple</h3>
+                    <p>Drag-and-drop interface. Create or verify receipts in seconds.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="features" style="margin-top: 30px;">
+            <h2>How It Works</h2>
+            <div style="max-width: 700px; margin: 0 auto; color: #374151; line-height: 1.8;">
+                <p style="margin-bottom: 15px;">
+                    <strong>1. Create a Receipt:</strong> Drop your files into the generator.
+                    It computes cryptographic hashes (SHA-256) and creates a receipt JSON file.
+                </p>
+                <p style="margin-bottom: 15px;">
+                    <strong>2. Distribute:</strong> Share the receipt alongside your software.
+                    Anyone can verify it independently.
+                </p>
+                <p style="margin-bottom: 15px;">
+                    <strong>3. Verify:</strong> Drop the receipt into the verifier.
+                    It checks the cryptographic hash chain and optional signatures.
+                </p>
+                <p style="margin-top: 30px; padding: 20px; background: #f3f4f6; border-radius: 8px;">
+                    <strong>Learn more:</strong>
+                    Read the <a href="https://github.com/sethirus/The-Thiele-Machine/blob/main/docs/RECEIPT_GUIDE.md" style="color: #667eea;" target="_blank">Receipt Guide</a> or
+                    check the <a href="https://github.com/sethirus/The-Thiele-Machine/blob/main/docs/trs-spec-v1.md" style="color: #667eea;" target="_blank">TRS-1.0 Specification</a>
+                </p>
+                <div style="margin-top: 30px; padding: 20px; background: #eff6ff; border-radius: 8px; border: 2px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 15px; text-align: center;">Quick Start Guides</h4>
+                    <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                        <a href="https://github.com/sethirus/The-Thiele-Machine/blob/main/docs/for-users-quickstart.md" style="color: white; background: #667eea; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600;" target="_blank">👤 User's Guide (2 min)</a>
+                        <a href="https://github.com/sethirus/The-Thiele-Machine/blob/main/docs/for-maintainers-quickstart.md" style="color: white; background: #667eea; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600;" target="_blank">⚙️ Maintainer's Guide (5 min)</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>
+                <strong>Thiele Machine Project</strong>
+            </p>
+            <p style="margin-top: 15px;">
+                <a href="https://github.com/sethirus/The-Thiele-Machine" target="_blank">GitHub</a>
+                <a href="https://github.com/sethirus/The-Thiele-Machine/blob/main/docs/RECEIPT_GUIDE.md" target="_blank">Documentation</a>
+                <a href="https://github.com/sethirus/The-Thiele-Machine/blob/main/docs/product-brief.md" target="_blank">About</a>
+            </p>
+            <p style="margin-top: 15px; font-size: 0.9em;">
+                Open source • Apache 2.0 License • Built with ❤️ for software security
+            </p>
+        </div>
+    </div>
+</body>
+</html>
