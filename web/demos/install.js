@@ -110,9 +110,13 @@ async function handleZkProofFile(file) {
             atob(zkProof.zk_receipt);
         } catch (e) {
             if (e.name === 'InvalidCharacterError') {
-                showResult(result2, 'error', 'Invalid ZK receipt encoding: not valid base64');
+                showResult(result2, 'error', 
+                    'Invalid ZK receipt: Must be valid base64-encoded data. ' +
+                    'Expected format: alphanumeric characters and +/= symbols only.');
             } else {
-                showResult(result2, 'error', 'Invalid ZK receipt: ' + e.message);
+                showResult(result2, 'error', 
+                    'ZK receipt validation failed: ' + e.message + 
+                    '. Please check the proof file format.');
             }
             return;
         }

@@ -143,14 +143,15 @@ class TestWebDemos:
                 content = f.read()
             
             # Basic HTML structure checks
-            assert '<!DOCTYPE html>' in content or '<!doctype html>' in content.lower(), \
+            content_lower = content.lower()
+            assert '<!doctype html>' in content_lower, \
                 f"{filename} missing DOCTYPE declaration"
-            assert '<html' in content.lower(), f"{filename} missing html tag"
-            assert '<head>' in content.lower() or '<head ' in content.lower(), \
+            assert '<html' in content_lower, f"{filename} missing html tag"
+            assert '<head>' in content_lower or '<head ' in content_lower, \
                 f"{filename} missing head tag"
-            assert '<body>' in content.lower() or '<body ' in content.lower(), \
+            assert '<body>' in content_lower or '<body ' in content_lower, \
                 f"{filename} missing body tag"
-            assert '<title>' in content.lower(), f"{filename} missing title tag"
+            assert '<title>' in content_lower, f"{filename} missing title tag"
     
     def test_demos_reference_github_repo(self):
         """Verify demos contain reference to the GitHub repository."""

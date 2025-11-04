@@ -243,9 +243,11 @@
                 atob(proof.zk_receipt);
             } catch (e) {
                 if (e.name === 'InvalidCharacterError') {
-                    showError('Invalid ZK receipt encoding: not valid base64');
+                    showError('Invalid ZK receipt: Must be valid base64-encoded data. ' +
+                             'Expected format: alphanumeric characters and +/= symbols only.');
                 } else {
-                    showError('Invalid ZK receipt: ' + e.message);
+                    showError('ZK receipt validation failed: ' + e.message + 
+                             '. Please check the proof file format.');
                 }
                 return;
             }
