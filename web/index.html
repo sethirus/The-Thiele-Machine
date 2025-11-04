@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thiele Receipt Verifier - Browser Edition</title>
+    <title>Thiele Receipts - Cryptographically Verifiable Software</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -13,117 +13,233 @@
             padding: 20px;
         }
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
+        }
+        
+        .hero {
+            text-align: center;
+            color: white;
+            padding: 60px 20px;
+        }
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .hero p {
+            font-size: 1.3em;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+        
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .card {
             background: white;
             border-radius: 12px;
+            padding: 40px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
         }
-        .header {
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+        }
+        
+        .card-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+        .card h2 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+        .card p {
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .card-btn {
+            display: inline-block;
+            padding: 12px 24px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 30px;
-            text-align: center;
-        }
-        .header h1 { font-size: 2em; margin-bottom: 10px; }
-        .header p { opacity: 0.9; font-size: 1.1em; }
-        .content { padding: 30px; }
-        .upload-area {
-            border: 3px dashed #667eea;
-            border-radius: 8px;
-            padding: 40px;
-            text-align: center;
-            cursor: pointer;
+            border-radius: 6px;
+            font-weight: 600;
             transition: all 0.3s;
-            background: #f8f9ff;
         }
-        .upload-area:hover { background: #eef1ff; border-color: #764ba2; }
-        .upload-area.drag-over { background: #e0e7ff; border-color: #667eea; }
-        .upload-icon { font-size: 4em; margin-bottom: 20px; }
-        #fileInput { display: none; }
-        .result {
-            margin-top: 30px;
-            padding: 20px;
-            border-radius: 8px;
-            display: none;
+        .card-btn:hover {
+            transform: scale(1.05);
         }
-        .result.success { background: #d1fae5; border: 2px solid #10b981; }
-        .result.error { background: #fee2e2; border: 2px solid #ef4444; }
-        .result h3 { margin-bottom: 15px; font-size: 1.3em; }
-        .result.success h3 { color: #065f46; }
-        .result.error h3 { color: #991b1b; }
-        .hash-display {
+        
+        .features {
             background: white;
-            padding: 15px;
-            border-radius: 6px;
-            font-family: 'Courier New', monospace;
-            word-break: break-all;
-            margin: 10px 0;
-            font-size: 0.9em;
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
-        .info {
-            margin-top: 15px;
-            padding: 15px;
-            background: white;
-            border-radius: 6px;
-        }
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            margin: 8px 0;
-            padding: 8px 0;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        .info-row:last-child { border-bottom: none; }
-        .info-label { font-weight: 600; color: #374151; }
-        .info-value { font-family: 'Courier New', monospace; color: #6b7280; }
-        .footer {
-            margin-top: 30px;
+        .features h2 {
             text-align: center;
-            color: #6b7280;
-            font-size: 0.9em;
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 30px;
         }
-        .footer a { color: #667eea; text-decoration: none; }
-        .footer a:hover { text-decoration: underline; }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .feature {
+            text-align: center;
+        }
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        .feature h3 {
+            color: #374151;
+            margin-bottom: 10px;
+        }
+        .feature p {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 60px;
+            padding: 30px;
+            opacity: 0.9;
+        }
+        .footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>🔒 Thiele Receipt Verifier</h1>
-            <p>Browser-based cryptographic verification • No server uploads • 100% client-side</p>
+        <div class="hero">
+            <h1>🔒 Thiele Receipts</h1>
+            <p>
+                Install software from a proof you can replay, not just from a signed blob.
+                <br>
+                Cryptographic receipts for verifiable, reproducible software.
+            </p>
         </div>
         
-        <div class="content">
-            <div class="upload-area" id="uploadArea">
-                <div class="upload-icon">📄</div>
-                <h3>Drop receipt JSON file here</h3>
-                <p>or click to select</p>
-                <input type="file" id="fileInput" accept=".json">
-            </div>
-            
-            <div class="result" id="result">
-                <h3 id="resultTitle"></h3>
-                <div id="resultContent"></div>
-            </div>
-            
-            <div class="footer">
-                <p><strong>Privacy:</strong> All verification happens in your browser. No data is uploaded to any server.</p>
-                <p style="margin-top: 10px;">
-                    <strong>Signature Verification:</strong> Ed25519 signatures verified using 
-                    <a href="https://github.com/dchest/tweetnacl-js" target="_blank">TweetNaCl.js</a> (optional).
+        <div class="cards">
+            <a href="create.html" class="card">
+                <div class="card-icon">📝</div>
+                <h2>Create Receipt</h2>
+                <p>
+                    Generate a cryptographic receipt for your files.
+                    Works entirely in your browser - no uploads, no servers.
                 </p>
-                <p style="margin-top: 10px;">Part of the <a href="https://github.com/sethirus/The-Thiele-Machine" target="_blank">Thiele Machine</a> self-hosting kernel project</p>
+                <span class="card-btn">Create Receipt →</span>
+            </a>
+            
+            <a href="verify.html" class="card">
+                <div class="card-icon">✓</div>
+                <h2>Verify Receipt</h2>
+                <p>
+                    Verify the integrity and authenticity of a Thiele receipt.
+                    Includes Ed25519 signature verification.
+                </p>
+                <span class="card-btn">Verify Receipt →</span>
+            </a>
+        </div>
+        
+        <div class="features">
+            <h2>Why Use Receipts?</h2>
+            <div class="feature-grid">
+                <div class="feature">
+                    <div class="feature-icon">🔐</div>
+                    <h3>Zero Trust</h3>
+                    <p>Mathematical proof replaces trust in build servers and distribution channels.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Reproducible</h3>
+                    <p>Same receipt always produces identical output. Deterministic builds guaranteed.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Client-Side</h3>
+                    <p>All processing happens in your browser. Your files never leave your device.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📱</div>
+                    <h3>Mobile Friendly</h3>
+                    <p>Works on desktop and mobile browsers. No installation required.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Supply Chain Security</h3>
+                    <p>Cryptographic proof of software provenance for compliance and auditing.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Fast & Simple</h3>
+                    <p>Drag-and-drop interface. Create or verify receipts in seconds.</p>
+                </div>
             </div>
         </div>
+        
+        <div class="features" style="margin-top: 30px;">
+            <h2>How It Works</h2>
+            <div style="max-width: 700px; margin: 0 auto; color: #374151; line-height: 1.8;">
+                <p style="margin-bottom: 15px;">
+                    <strong>1. Create a Receipt:</strong> Drop your files into the generator.
+                    It computes cryptographic hashes (SHA-256) and creates a receipt JSON file.
+                </p>
+                <p style="margin-bottom: 15px;">
+                    <strong>2. Distribute:</strong> Share the receipt alongside your software.
+                    Anyone can verify it independently.
+                </p>
+                <p style="margin-bottom: 15px;">
+                    <strong>3. Verify:</strong> Drop the receipt into the verifier.
+                    It checks the cryptographic hash chain and optional signatures.
+                </p>
+                <p style="margin-top: 30px; padding: 20px; background: #f3f4f6; border-radius: 8px;">
+                    <strong>Learn more:</strong>
+                    Read the <a href="../docs/RECEIPT_GUIDE.md" style="color: #667eea;">Receipt Guide</a> or
+                    check the <a href="../docs/trs-spec-v1.md" style="color: #667eea;">TRS-1.0 Specification</a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>
+                <strong>Thiele Machine Project</strong>
+            </p>
+            <p style="margin-top: 15px;">
+                <a href="https://github.com/sethirus/The-Thiele-Machine" target="_blank">GitHub</a>
+                <a href="../docs/RECEIPT_GUIDE.md">Documentation</a>
+                <a href="../docs/product-brief.md">About</a>
+            </p>
+            <p style="margin-top: 15px; font-size: 0.9em;">
+                Open source • Apache 2.0 License • Built with ❤️ for software security
+            </p>
+        </div>
     </div>
-    <!-- Optional: Load nacl.js for Ed25519 signature verification -->
-    <!-- Gracefully degrades if not available -->
-    <script src="https://cdn.jsdelivr.net/npm/tweetnacl@1.0.3/nacl-fast.min.js" 
-            integrity="sha384-j1pf9nBhS8cS4aMv5BH4d6uuXH8K9qMvYzJlBPzcppKJNSfNchLPmsCTfYxJJPP/"
-            crossorigin="anonymous"
-            onerror="console.warn('Ed25519 verification unavailable: nacl.js not loaded')"></script>
-    <script src="replay.js"></script>
 </body>
 </html>
