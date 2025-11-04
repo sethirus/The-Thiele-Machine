@@ -24,7 +24,8 @@ class ThieleVerifier {
                 return result;
             }, {});
         };
-        return JSON.stringify(sortKeys(obj), null, 0).replace(/\s/g, '');
+        // JSON.stringify with no spacing produces compact output matching Python separators
+        return JSON.stringify(sortKeys(obj));
     }
     
     async verifyReceipt(receipt) {
