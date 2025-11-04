@@ -411,7 +411,7 @@
             if (success && digest) {
                 html += `
                     <p>Both GCC and Clang produced byte-identical output, cryptographically proven:</p>
-                    <div class="digest">${digest}</div>
+                    <div class="digest">${escapeHtml(digest)}</div>
                     <p style="margin-top: 15px;"><strong>This proves:</strong></p>
                     <ul style="margin-left: 20px; margin-top: 10px;">
                         <li>No compiler-specific backdoor was inserted</li>
@@ -433,7 +433,7 @@
             if (details) {
                 html += '<div class="result-details"><table class="comparison-table">';
                 for (const [key, value] of Object.entries(details)) {
-                    html += `<tr><th>${key}</th><td>${value}</td></tr>`;
+                    html += `<tr><th>${escapeHtml(key)}</th><td>${escapeHtml(value)}</td></tr>`;
                 }
                 html += '</table></div>';
             }
