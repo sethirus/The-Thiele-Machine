@@ -10,8 +10,6 @@ These tests use the test vectors from test_vectors.py to verify:
 3. Edge cases are handled correctly
 """
 
-import hashlib
-import json
 import sys
 from pathlib import Path
 
@@ -23,7 +21,6 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 from tests.trs_conformance.test_vectors import (
     ALL_TEST_VECTORS,
     canonical_json,
-    compute_file_hash,
     compute_global_digest,
 )
 

@@ -12,10 +12,9 @@ import json
 import random
 import copy
 import sys
-import tempfile
 import subprocess
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict
 
 PROJECT_ROOT = Path(__file__).parent.parent
 
