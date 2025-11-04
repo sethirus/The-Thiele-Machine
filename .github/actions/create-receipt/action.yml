@@ -81,8 +81,21 @@ runs:
         PROJECT_DIR="${{ inputs.project-dir }}"
         OUTPUT_DIR="${{ inputs.output }}"
         
+        # Find create_receipt.py - try multiple locations
+        SCRIPT_PATH=""
+        if [ -f "${{ github.action_path }}/../../../create_receipt.py" ]; then
+          SCRIPT_PATH="${{ github.action_path }}/../../../create_receipt.py"
+        elif [ -f "create_receipt.py" ]; then
+          SCRIPT_PATH="create_receipt.py"
+        elif command -v thiele-receipt &> /dev/null; then
+          SCRIPT_PATH="thiele-receipt"
+        else
+          echo "Error: Cannot find create_receipt.py"
+          exit 1
+        fi
+        
         # Build command
-        CMD="python3 ${{ github.action_path }}/../../../create_receipt.py --project $PROJECT_DIR"
+        CMD="python3 $SCRIPT_PATH --project $PROJECT_DIR"
         CMD="$CMD --output $OUTPUT_DIR"
         
         if [ -n "${{ inputs.metadata }}" ]; then
@@ -130,8 +143,21 @@ runs:
           exit 1
         fi
         
+        # Find create_receipt.py - try multiple locations
+        SCRIPT_PATH=""
+        if [ -f "${{ github.action_path }}/../../../create_receipt.py" ]; then
+          SCRIPT_PATH="${{ github.action_path }}/../../../create_receipt.py"
+        elif [ -f "create_receipt.py" ]; then
+          SCRIPT_PATH="create_receipt.py"
+        elif command -v thiele-receipt &> /dev/null; then
+          SCRIPT_PATH="thiele-receipt"
+        else
+          echo "Error: Cannot find create_receipt.py"
+          exit 1
+        fi
+        
         # Build command
-        CMD="python3 ${{ github.action_path }}/../../../create_receipt.py $FILES_ARG"
+        CMD="python3 $SCRIPT_PATH $FILES_ARG"
         CMD="$CMD --output ${{ inputs.output }}"
         
         if [ -n "${{ inputs.metadata }}" ]; then

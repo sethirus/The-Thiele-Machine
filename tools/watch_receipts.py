@@ -157,7 +157,7 @@ class ReceiptWatcher(FileSystemEventHandler):
         
         print(f"\n🔄 Regenerating receipts... ({datetime.now().strftime('%H:%M:%S')})")
         
-        # Build command
+        # Build command as list (safer than string concatenation)
         cmd = [
             'python3', 'create_receipt.py',
             '--project', str(self.project_dir),
@@ -171,12 +171,13 @@ class ReceiptWatcher(FileSystemEventHandler):
             cmd.extend(['--public-key', str(self.public_key)])
         
         try:
-            # Run receipt generation
+            # Run receipt generation with list args (no shell injection risk)
             result = subprocess.run(
                 cmd,
                 capture_output=True,
                 text=True,
-                timeout=30
+                timeout=30,
+                shell=False  # Explicitly no shell
             )
             
             if result.returncode == 0:
