@@ -14,11 +14,17 @@ class ThieleVerifier {
     }
     
     canonicalJSON(obj) {
-        // Canonical JSON: sorted keys, compact, UTF-8
-        return JSON.stringify(obj, Object.keys(obj).sort(), 0)
-            .replace(/\s+/g, '')  // Remove extra whitespace
-            .replace(/,}/g, '}')  // Clean up trailing commas
-            .replace(/,]/g, ']');
+        // Canonical JSON: sorted keys recursively, compact, UTF-8
+        // Matches Python: json.dumps(obj, sort_keys=True, separators=(',', ':'))
+        const sortKeys = (obj) => {
+            if (obj === null || typeof obj !== 'object') return obj;
+            if (Array.isArray(obj)) return obj.map(sortKeys);
+            return Object.keys(obj).sort().reduce((result, key) => {
+                result[key] = sortKeys(obj[key]);
+                return result;
+            }, {});
+        };
+        return JSON.stringify(sortKeys(obj), null, 0).replace(/\s/g, '');
     }
     
     async verifyReceipt(receipt) {
