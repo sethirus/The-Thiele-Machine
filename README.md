@@ -6,12 +6,14 @@
 
 ### Zero-Trust Software Installation
 
-[![Proof-Install Demo](https://img.shields.io/badge/🔒_Proof--Install-Try_Now-blue?style=for-the-badge)](roadmap-enhancements/web-demos/install.html)
-[![ZK Verify](https://img.shields.io/badge/⚡_ZK_Verify-Live_Demo-purple?style=for-the-badge)](roadmap-enhancements/zk-proofs/web/zk.html)
-[![Trusting Trust](https://img.shields.io/badge/🔐_Trusting_Trust-Defeat_Backdoors-green?style=for-the-badge)](roadmap-enhancements/trusting-trust/web/trusting-trust.html)
+[![Proof-Install Demo](https://img.shields.io/badge/🔒_Proof--Install-Try_Now-blue?style=for-the-badge)](https://sethirus.github.io/The-Thiele-Machine/demos/install.html)
+[![ZK Verify](https://img.shields.io/badge/⚡_ZK_Verify-Live_Demo-purple?style=for-the-badge)](https://sethirus.github.io/The-Thiele-Machine/demos/zk.html)
+[![Trusting Trust](https://img.shields.io/badge/🔐_Trusting_Trust-Defeat_Backdoors-green?style=for-the-badge)](https://sethirus.github.io/The-Thiele-Machine/demos/trusting-trust.html)
 
 **Drop a proof → Get a green check → Click 'Materialize' → The exact binary appears**  
 **No servers. No trust. Only mathematics.**
+
+**[📂 View All Demos](https://sethirus.github.io/The-Thiele-Machine/demos/)**
 
 **Expected Digests:**
 - `global_digest`: `45bc9110a8d95e9b7e8c7f3d2e1a6b9c...`
