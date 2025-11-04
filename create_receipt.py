@@ -15,8 +15,10 @@ import argparse
 import hashlib
 import json
 import sys
+import glob
 from pathlib import Path
 from datetime import datetime
+from typing import List, Optional, Dict, Any
 
 try:
     from nacl import signing
@@ -54,6 +56,258 @@ def compute_global_digest(files):
     # Convert hex string to bytes
     hex_bytes = bytes.fromhex(concatenated)
     return hashlib.sha256(hex_bytes).hexdigest()
+
+
+def sha256_file(filepath):
+    """Compute SHA256 hash of a file."""
+    sha256 = hashlib.sha256()
+    with open(filepath, 'rb') as f:
+        for chunk in iter(lambda: f.read(4096), b''):
+            sha256.update(chunk)
+    return sha256.hexdigest()
+
+
+def discover_build_outputs(project_dir: Path) -> List[Path]:
+    """
+    Auto-discover build outputs in a project directory.
+    
+    Looks for common build output directories and package manifests.
+    
+    Returns:
+        List of Path objects for discovered build artifacts
+    """
+    artifacts = []
+    project_dir = Path(project_dir).resolve()
+    
+    # Common build output directories
+    build_dirs = [
+        'dist',       # Python, general
+        'build',      # General
+        'target',     # Rust, Java
+        'out',        # Various
+        'bin',        # C/C++, Go
+        'pkg',        # Go
+        'releases',   # General
+        'artifacts',  # General
+    ]
+    
+    # Try to find build outputs
+    for build_dir in build_dirs:
+        build_path = project_dir / build_dir
+        if build_path.exists() and build_path.is_dir():
+            # Find common artifact types
+            patterns = [
+                '*.whl',      # Python wheel
+                '*.tar.gz',   # Tarball
+                '*.zip',      # Zip archive
+                '*.exe',      # Windows executable
+                '*.dll',      # Windows library
+                '*.so',       # Linux library
+                '*.dylib',    # macOS library
+                '*.jar',      # Java archive
+                '*.war',      # Java web archive
+                '*.AppImage', # Linux AppImage
+                '*.deb',      # Debian package
+                '*.rpm',      # RPM package
+                '*.dmg',      # macOS disk image
+                '*.app',      # macOS app bundle
+            ]
+            
+            for pattern in patterns:
+                for artifact in build_path.glob(pattern):
+                    if artifact.is_file():
+                        artifacts.append(artifact)
+    
+    return artifacts
+
+
+def read_package_manifest(project_dir: Path) -> Optional[Dict[str, Any]]:
+    """
+    Read package manifest files to extract metadata.
+    
+    Supports:
+    - package.json (Node.js)
+    - pyproject.toml (Python)
+    - Cargo.toml (Rust)
+    - setup.py (Python legacy)
+    
+    Returns:
+        Dict with metadata or None if no manifest found
+    """
+    project_dir = Path(project_dir).resolve()
+    metadata = {}
+    
+    # Try package.json (Node.js)
+    package_json = project_dir / 'package.json'
+    if package_json.exists():
+        try:
+            with open(package_json, 'r') as f:
+                data = json.load(f)
+            metadata['name'] = data.get('name')
+            metadata['version'] = data.get('version')
+            metadata['description'] = data.get('description')
+            metadata['repository'] = data.get('repository', {}).get('url') if isinstance(data.get('repository'), dict) else data.get('repository')
+            metadata['author'] = data.get('author')
+            metadata['license'] = data.get('license')
+            metadata['manifest_type'] = 'package.json'
+            return metadata
+        except (json.JSONDecodeError, KeyError):
+            pass
+    
+    # Try pyproject.toml (Python)
+    pyproject = project_dir / 'pyproject.toml'
+    if pyproject.exists():
+        try:
+            # Simple TOML parsing for basic fields
+            with open(pyproject, 'r') as f:
+                content = f.read()
+            
+            # Extract basic info (simplified, not a full TOML parser)
+            for line in content.split('\n'):
+                if line.strip().startswith('name ='):
+                    metadata['name'] = line.split('=')[1].strip().strip('"\'')
+                elif line.strip().startswith('version ='):
+                    metadata['version'] = line.split('=')[1].strip().strip('"\'')
+                elif line.strip().startswith('description ='):
+                    metadata['description'] = line.split('=')[1].strip().strip('"\'')
+            
+            if metadata:
+                metadata['manifest_type'] = 'pyproject.toml'
+                return metadata
+        except Exception:
+            pass
+    
+    # Try Cargo.toml (Rust)
+    cargo_toml = project_dir / 'Cargo.toml'
+    if cargo_toml.exists():
+        try:
+            with open(cargo_toml, 'r') as f:
+                content = f.read()
+            
+            # Extract basic info (simplified)
+            for line in content.split('\n'):
+                if line.strip().startswith('name ='):
+                    metadata['name'] = line.split('=')[1].strip().strip('"\'')
+                elif line.strip().startswith('version ='):
+                    metadata['version'] = line.split('=')[1].strip().strip('"\'')
+                elif line.strip().startswith('description ='):
+                    metadata['description'] = line.split('=')[1].strip().strip('"\'')
+            
+            if metadata:
+                metadata['manifest_type'] = 'Cargo.toml'
+                return metadata
+        except Exception:
+            pass
+    
+    return None
+
+
+def create_project_receipts(
+    project_dir: Path,
+    output_dir: Optional[Path] = None,
+    sign_key: Optional[str] = None,
+    public_key: Optional[str] = None,
+    create_manifest: bool = True
+) -> List[Path]:
+    """
+    Create receipts for all build artifacts in a project.
+    
+    This is the "repository mode" that auto-discovers artifacts.
+    
+    Args:
+        project_dir: Root directory of the project
+        output_dir: Where to save receipts (default: project_dir/receipts)
+        sign_key: Optional signing key path
+        public_key: Optional public key path
+        create_manifest: Whether to create MANIFEST.receipt.json index
+    
+    Returns:
+        List of paths to created receipt files
+    """
+    project_dir = Path(project_dir).resolve()
+    output_dir = output_dir or (project_dir / 'receipts')
+    output_dir.mkdir(parents=True, exist_ok=True)
+    
+    print(f"📂 Scanning project: {project_dir}")
+    
+    # Discover build artifacts
+    artifacts = discover_build_outputs(project_dir)
+    
+    if not artifacts:
+        print("⚠️  No build artifacts found. Have you run your build command?")
+        print("   Looking in: dist/, target/, build/, bin/, pkg/, releases/, artifacts/")
+        return []
+    
+    print(f"📦 Found {len(artifacts)} artifact(s):")
+    for artifact in artifacts:
+        rel_path = artifact.relative_to(project_dir)
+        print(f"   • {rel_path}")
+    
+    # Read package manifest for metadata
+    manifest_metadata = read_package_manifest(project_dir)
+    if manifest_metadata:
+        print(f"\n📋 Detected {manifest_metadata.get('manifest_type', 'manifest')}")
+        if manifest_metadata.get('name'):
+            print(f"   Name: {manifest_metadata['name']}")
+        if manifest_metadata.get('version'):
+            print(f"   Version: {manifest_metadata['version']}")
+    
+    # Create receipts for each artifact
+    print(f"\n🔐 Creating receipts...")
+    receipt_paths = []
+    
+    for artifact in artifacts:
+        # Prepare metadata
+        metadata = {}
+        if manifest_metadata:
+            metadata.update(manifest_metadata)
+        
+        metadata['artifact_path'] = str(artifact.relative_to(project_dir))
+        metadata['project_dir'] = str(project_dir)
+        
+        # Create receipt
+        receipt_name = f"{artifact.name}.receipt.json"
+        receipt_path = output_dir / receipt_name
+        
+        try:
+            receipt = create_receipt(
+                [str(artifact)],
+                output_path=str(receipt_path),
+                include_steps=False,
+                sign_key=sign_key,
+                public_key=public_key,
+                metadata=metadata
+            )
+            receipt_paths.append(receipt_path)
+            
+        except Exception as e:
+            print(f"❌ Failed to create receipt for {artifact.name}: {e}")
+    
+    # Create manifest index
+    if create_manifest and receipt_paths:
+        manifest_path = output_dir / 'MANIFEST.receipt.json'
+        manifest = {
+            'version': '1.0',
+            'project': manifest_metadata.get('name', 'unknown') if manifest_metadata else 'unknown',
+            'generated': datetime.now().astimezone().isoformat(),
+            'receipts': [
+                {
+                    'file': r.name,
+                    'artifact': Path(r.name).stem.replace('.receipt', ''),
+                    'path': str(r.relative_to(output_dir))
+                }
+                for r in receipt_paths
+            ],
+            'metadata': manifest_metadata or {}
+        }
+        
+        with open(manifest_path, 'w') as f:
+            json.dump(manifest, f, indent=2, ensure_ascii=False)
+        
+        print(f"\n📑 Created manifest index: {manifest_path}")
+        print(f"   Lists all {len(receipt_paths)} receipt(s)")
+    
+    return receipt_paths
 
 
 def sha256_file(filepath):
@@ -275,6 +529,10 @@ Examples:
   # Create receipt for multiple files
   %(prog)s main.py utils.py config.json
   
+  # Repository mode: auto-discover and create receipts for all build artifacts
+  %(prog)s --project .
+  %(prog)s --project /path/to/myproject
+  
   # Specify output path
   %(prog)s script.py --output my_receipt.json
   
@@ -290,8 +548,14 @@ Learn more: docs/RECEIPT_GUIDE.md
     
     parser.add_argument(
         'files',
-        nargs='+',
-        help='Files to include in the receipt'
+        nargs='*',  # Changed from '+' to '*' to allow --project mode
+        help='Files to include in the receipt (or use --project for auto-discovery)'
+    )
+    
+    parser.add_argument(
+        '--project',
+        metavar='DIR',
+        help='Repository mode: auto-discover build artifacts in project directory'
     )
     
     parser.add_argument(
@@ -331,6 +595,16 @@ Learn more: docs/RECEIPT_GUIDE.md
     
     args = parser.parse_args()
     
+    # Validate arguments
+    if args.project and args.files:
+        print("Error: Cannot use both --project and file arguments", file=sys.stderr)
+        sys.exit(1)
+    
+    if not args.project and not args.files:
+        print("Error: Must specify either files or --project", file=sys.stderr)
+        parser.print_help()
+        sys.exit(1)
+    
     # Parse metadata if provided
     metadata = None
     if args.metadata:
@@ -340,7 +614,30 @@ Learn more: docs/RECEIPT_GUIDE.md
             print(f"Error: Invalid JSON metadata: {e}", file=sys.stderr)
             sys.exit(1)
     
-    # Create receipt
+    # Repository mode
+    if args.project:
+        print(f"🚀 Repository mode: scanning {args.project}\n")
+        
+        output_dir = Path(args.output) if args.output else None
+        
+        receipt_paths = create_project_receipts(
+            project_dir=Path(args.project),
+            output_dir=output_dir,
+            sign_key=args.sign,
+            public_key=args.public_key,
+            create_manifest=True
+        )
+        
+        if receipt_paths:
+            print(f"\n✅ Created {len(receipt_paths)} receipt(s)")
+            print(f"   Output directory: {receipt_paths[0].parent}")
+        else:
+            print("\n⚠️  No receipts created")
+            sys.exit(1)
+        
+        return
+    
+    # Single/multi-file mode
     print(f"Creating Thiele receipt for {len(args.files)} file(s)...\n")
     receipt = create_receipt(
         args.files,
