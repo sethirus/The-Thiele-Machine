@@ -248,7 +248,7 @@
             </div>
             
             <div id="upload-panel" class="tab-content active" role="tabpanel" aria-labelledby="upload-tab">
-                <div class="upload-area" id="uploadArea" tabindex="0" role="button" aria-label="Drop receipt JSON file here or click to select">
+                <div class="upload-area" id="uploadArea" tabindex="0" aria-label="Upload receipt file area">
                     <div class="upload-icon" aria-hidden="true">📄</div>
                     <h3>Drop receipt JSON file here</h3>
                     <p>or click to select</p>
@@ -287,7 +287,7 @@
                         </div>
                     </div>
                     
-                    <button class="btn btn-primary" id="fetchBtn" aria-label="Fetch and verify receipt">
+                    <button class="btn btn-primary" id="fetchBtn">
                         Fetch & Verify
                     </button>
                 </div>
@@ -360,14 +360,22 @@
             
             let fetchUrl = receiptUrl;
             
-            // If GitHub repo is provided, construct URL to latest release
+            // If GitHub repo is provided, validate and construct URL to latest release
             if (githubRepo && !receiptUrl) {
+                // Validate repo format (owner/name with alphanumeric, hyphens, underscores, dots)
+                const repoPattern = /^[a-zA-Z0-9._-]+\/[a-zA-Z0-9._-]+$/;
+                if (!repoPattern.test(githubRepo)) {
+                    showError('Invalid repository format. Use: owner/repository');
+                    return;
+                }
+                
                 try {
                     loading.style.display = 'block';
                     resultDiv.style.display = 'none';
                     
-                    // Fetch latest release from GitHub API
-                    const apiUrl = `https://api.github.com/repos/${githubRepo}/releases/latest`;
+                    // Fetch latest release from GitHub API (sanitize repo name)
+                    const [owner, repo] = githubRepo.split('/');
+                    const apiUrl = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/releases/latest`;
                     const response = await fetch(apiUrl);
                     
                     if (!response.ok) {
