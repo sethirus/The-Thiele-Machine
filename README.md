@@ -17,6 +17,32 @@ python3 verifier/replay.py examples/000_hello.json
 python3 create_receipt.py my_file.py
 ```
 
+## Verifying Releases
+
+Every release of The Thiele Machine includes cryptographic receipts for all artifacts.
+
+### Browser Verification (Easiest)
+1. Visit **[https://sethirus.github.io/The-Thiele-Machine/verify.html](https://sethirus.github.io/The-Thiele-Machine/verify.html)**
+2. Download a `.receipt.json` file from the [latest release](https://github.com/sethirus/The-Thiele-Machine/releases/latest)
+3. Drag and drop the receipt into the verifier
+4. Get instant verification ✅
+
+### CLI Verification
+```bash
+# Download release and receipt
+curl -LO https://github.com/sethirus/The-Thiele-Machine/releases/download/v1.0.0/artifact_name.receipt.json
+
+# Verify
+python3 tools/verify_trs10.py artifact_name.receipt.json
+
+# Or use the offline verifier (zero dependencies)
+python3 examples/offline-demo/verify_offline.py artifact_name.receipt.json artifact_name
+```
+
+**New to receipts?** See the [User's Quick Start](docs/for-users-quickstart.md) for a 2-minute guide.
+
+**Want to add receipts to your project?** See the [Maintainer's Quick Start](docs/for-maintainers-quickstart.md) for a 5-minute guide.
+
 ---
 
 ## 🎯 Try The Thiele Machine in Your Browser
