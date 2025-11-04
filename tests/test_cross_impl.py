@@ -11,10 +11,8 @@ Tests bidirectional compatibility between:
 Includes positive tests (valid receipts) and negative tests (corruption detection).
 """
 
-import os
 import sys
 import json
-import hashlib
 import tempfile
 import subprocess
 import random
@@ -305,7 +303,7 @@ class TestCrossImplementation:
         
         # If verifier checks signatures, it should fail
         # Note: This test assumes signature verification is implemented
-        result = self.cli_verify_receipt(receipt_path)
+        _ = self.cli_verify_receipt(receipt_path)
         # We expect either failure or warning about invalid signature
         # (Implementation may vary)
 
@@ -341,7 +339,7 @@ class TestCrossImplementation:
         self.cli_create_receipt(files, receipt_path)
         
         # Add an extra file
-        extra_file = self.generate_random_file(temp_workspace)
+        _ = self.generate_random_file(temp_workspace)
         
         # Verification should still succeed (extra files are ignored)
         # This tests that verifier only checks files in receipt
