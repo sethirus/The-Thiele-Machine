@@ -1,0 +1,95 @@
+name: 'Thiele Receipt Generator'
+description: 'Generate cryptographic receipts for your build artifacts'
+author: 'The Thiele Machine Project'
+
+branding:
+  icon: 'lock'
+  color: 'purple'
+
+inputs:
+  files:
+    description: 'Files to include in receipt (space-separated paths or glob patterns)'
+    required: true
+  output:
+    description: 'Output path for the receipt JSON file'
+    required: false
+    default: 'receipt.json'
+  metadata:
+    description: 'JSON metadata to include in receipt (e.g., {"author":"Name","version":"1.0"})'
+    required: false
+  sign-key:
+    description: 'Path to Ed25519 private key for signing (optional)'
+    required: false
+  public-key:
+    description: 'Path to Ed25519 public key (optional, derived from private if not provided)'
+    required: false
+
+outputs:
+  receipt-path:
+    description: 'Path to the generated receipt file'
+    value: ${{ steps.create.outputs.receipt-path }}
+  global-digest:
+    description: 'Global digest of the receipt'
+    value: ${{ steps.create.outputs.global-digest }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      shell: bash
+      run: |
+        pip install PyNaCl
+    
+    - name: Create receipt
+      id: create
+      shell: bash
+      run: |
+        # Expand glob patterns and collect files
+        FILES_ARG=""
+        for pattern in ${{ inputs.files }}; do
+          for file in $pattern; do
+            if [ -f "$file" ]; then
+              FILES_ARG="$FILES_ARG $file"
+            fi
+          done
+        done
+        
+        if [ -z "$FILES_ARG" ]; then
+          echo "Error: No files found matching the patterns"
+          exit 1
+        fi
+        
+        # Build command
+        CMD="python3 ${{ github.action_path }}/../../../create_receipt.py $FILES_ARG"
+        CMD="$CMD --output ${{ inputs.output }}"
+        
+        if [ -n "${{ inputs.metadata }}" ]; then
+          CMD="$CMD --metadata '${{ inputs.metadata }}'"
+        fi
+        
+        if [ -n "${{ inputs.sign-key }}" ]; then
+          CMD="$CMD --sign ${{ inputs.sign-key }}"
+        fi
+        
+        if [ -n "${{ inputs.public-key }}" ]; then
+          CMD="$CMD --public-key ${{ inputs.public-key }}"
+        fi
+        
+        # Execute
+        echo "Creating receipt..."
+        eval $CMD
+        
+        # Extract global digest from receipt
+        DIGEST=$(python3 -c "import json; print(json.load(open('${{ inputs.output }}'))['global_digest'])")
+        
+        # Set outputs
+        echo "receipt-path=${{ inputs.output }}" >> $GITHUB_OUTPUT
+        echo "global-digest=$DIGEST" >> $GITHUB_OUTPUT
+        
+        echo "✓ Receipt created: ${{ inputs.output }}"
+        echo "✓ Global digest: $DIGEST"
