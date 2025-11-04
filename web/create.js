@@ -51,7 +51,7 @@ class ThieleGenerator {
         // Convert hex string to bytes
         const hexBytes = new Uint8Array(concatenated.length / 2);
         for (let i = 0; i < concatenated.length; i += 2) {
-            hexBytes[i / 2] = parseInt(concatenated.substr(i, 2), 16);
+            hexBytes[i / 2] = parseInt(concatenated.substring(i, i + 2), 16);
         }
         
         return await this.sha256(hexBytes);
