@@ -305,3 +305,72 @@ ALL_TEST_VECTORS = [
     TEST_UNSUPPORTED_VERSION,
     TEST_SPECIAL_CHARS,
 ]
+
+
+# Generate signed test vector if nacl is available
+try:
+    from nacl import signing as nacl_signing
+    
+    # Test Vector 11: Valid signed receipt
+    private_key = nacl_signing.SigningKey.generate()
+    public_key = private_key.verify_key
+    
+    TEST_SIGNED_VALID = {
+        "description": "Valid signed receipt with Ed25519",
+        "receipt": {
+            "version": "TRS-1.0",
+            "files": [
+                {
+                    "path": "signed.txt",
+                    "size": 100,
+                    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                }
+            ],
+            "global_digest": None,  # Will be computed
+            "kernel_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timestamp": "2025-11-04T00:00:00.000000+00:00",
+            "sig_scheme": "ed25519",
+            "signature": None,  # Will be computed
+            "public_key": public_key.encode().hex()
+        },
+        "expected": "valid"
+    }
+    
+    files = TEST_SIGNED_VALID["receipt"]["files"]
+    global_digest = compute_global_digest(files)
+    TEST_SIGNED_VALID["receipt"]["global_digest"] = global_digest
+    
+    # Sign the global digest
+    message = global_digest.encode('utf-8')
+    signature = private_key.sign(message).signature
+    TEST_SIGNED_VALID["receipt"]["signature"] = signature.hex()
+    
+    ALL_TEST_VECTORS.append(TEST_SIGNED_VALID)
+    
+    # Test Vector 12: Invalid signature
+    TEST_SIGNED_INVALID = {
+        "description": "Invalid signed receipt - wrong signature",
+        "receipt": {
+            "version": "TRS-1.0",
+            "files": [
+                {
+                    "path": "signed.txt",
+                    "size": 100,
+                    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                }
+            ],
+            "global_digest": global_digest,
+            "kernel_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "timestamp": "2025-11-04T00:00:00.000000+00:00",
+            "sig_scheme": "ed25519",
+            "signature": "0" * 128,  # Invalid signature!
+            "public_key": public_key.encode().hex()
+        },
+        "expected": "invalid_signature"
+    }
+    
+    ALL_TEST_VECTORS.append(TEST_SIGNED_INVALID)
+    
+except ImportError:
+    # nacl not available, skip signed test vectors
+    pass

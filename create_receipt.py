@@ -18,6 +18,43 @@ import sys
 from pathlib import Path
 from datetime import datetime
 
+try:
+    from nacl import signing
+    HAS_NACL = True
+except ImportError:
+    HAS_NACL = False
+
+
+def canonical_json(obj):
+    """
+    Compute canonical JSON as per TRS-1.0 spec.
+    Keys sorted alphabetically, compact format, UTF-8.
+    """
+    return json.dumps(obj, sort_keys=True, separators=(',', ':')).encode('utf-8')
+
+
+def compute_file_hash(file_obj):
+    """Compute hash of a file object as per TRS-1.0 spec."""
+    canonical = canonical_json(file_obj)
+    return hashlib.sha256(canonical).hexdigest()
+
+
+def compute_global_digest(files):
+    """
+    Compute global digest from files array as per TRS-1.0 spec.
+    
+    Algorithm:
+    1. For each file object, compute canonical JSON and SHA-256 hash
+    2. Concatenate all hashes (as hex strings)
+    3. Convert concatenated hex to bytes
+    4. Compute SHA-256 of the bytes
+    """
+    file_hashes = [compute_file_hash(f) for f in files]
+    concatenated = ''.join(file_hashes)
+    # Convert hex string to bytes
+    hex_bytes = bytes.fromhex(concatenated)
+    return hashlib.sha256(hex_bytes).hexdigest()
+
 
 def sha256_file(filepath):
     """Compute SHA256 hash of a file."""
@@ -28,7 +65,7 @@ def sha256_file(filepath):
     return sha256.hexdigest()
 
 
-def create_receipt(files, output_path=None, include_steps=False):
+def create_receipt(files, output_path=None, include_steps=False, sign_key=None, public_key=None, metadata=None):
     """
     Create a Thiele receipt for one or more files.
     
@@ -36,13 +73,15 @@ def create_receipt(files, output_path=None, include_steps=False):
         files: List of file paths to include in receipt
         output_path: Where to save the receipt (default: auto-generated)
         include_steps: Whether to include detailed TRS-0 steps (default: False, uses TRS-1.0)
+        sign_key: Path to Ed25519 private key for signing (optional)
+        public_key: Path to Ed25519 public key (optional, will be included in receipt)
+        metadata: Optional metadata dict to include in receipt
     
     Returns:
         dict: The created receipt
     """
     
     file_infos = []
-    all_content = b''
     
     for filepath in files:
         path = Path(filepath)
@@ -61,16 +100,13 @@ def create_receipt(files, output_path=None, include_steps=False):
         file_infos.append({
             "path": path.name,
             "size": len(content),
-            "sha256": content_hash,
-            "content_sha256": content_hash
+            "sha256": content_hash
         })
-        
-        all_content += content
         
         print(f"✓ Added: {path.name} ({len(content)} bytes, SHA256: {content_hash[:16]}...)")
     
-    # Compute global digest (simplified)
-    global_digest = hashlib.sha256(all_content).hexdigest()
+    # Compute global digest per TRS-1.0 spec
+    global_digest = compute_global_digest(file_infos)
     
     # Determine receipt version and structure
     if include_steps:
@@ -87,6 +123,62 @@ def create_receipt(files, output_path=None, include_steps=False):
             "sig_scheme": "none",
             "signature": ""
         }
+        
+        # Add metadata if provided
+        if metadata:
+            receipt["metadata"] = metadata
+    
+    # Sign if requested
+    if sign_key:
+        if not HAS_NACL:
+            print("Error: PyNaCl not installed. Install with: pip install PyNaCl", file=sys.stderr)
+            sys.exit(1)
+        
+        try:
+            # Load private key
+            with open(sign_key, 'rb') as f:
+                key_data = f.read()
+            
+            # Try to parse as raw bytes (32 bytes) or hex
+            if len(key_data) == 32:
+                private_key = signing.SigningKey(key_data)
+            elif len(key_data) == 64:
+                # Hex encoded
+                private_key = signing.SigningKey(bytes.fromhex(key_data.decode('ascii').strip()))
+            else:
+                print(f"Error: Invalid key format. Expected 32 bytes or 64 hex chars, got {len(key_data)} bytes", file=sys.stderr)
+                sys.exit(1)
+            
+            # Sign the global digest
+            message = global_digest.encode('utf-8')
+            signature_bytes = private_key.sign(message).signature
+            
+            receipt["sig_scheme"] = "ed25519"
+            receipt["signature"] = signature_bytes.hex()
+            
+            # Include public key if provided or derive from private key
+            if public_key:
+                with open(public_key, 'rb') as f:
+                    pubkey_data = f.read()
+                if len(pubkey_data) == 32:
+                    receipt["public_key"] = pubkey_data.hex()
+                elif len(pubkey_data) == 64:
+                    receipt["public_key"] = pubkey_data.decode('ascii').strip()
+                else:
+                    print(f"Warning: Invalid public key format, using derived key", file=sys.stderr)
+                    receipt["public_key"] = private_key.verify_key.encode().hex()
+            else:
+                receipt["public_key"] = private_key.verify_key.encode().hex()
+            
+            print(f"✓ Receipt signed with Ed25519")
+            print(f"✓ Public key: {receipt['public_key'][:16]}...")
+            
+        except FileNotFoundError as e:
+            print(f"Error: Key file not found: {e}", file=sys.stderr)
+            sys.exit(1)
+        except Exception as e:
+            print(f"Error signing receipt: {e}", file=sys.stderr)
+            sys.exit(1)
     
     # Determine output path
     if output_path is None:
@@ -214,6 +306,24 @@ Learn more: docs/RECEIPT_GUIDE.md
     )
     
     parser.add_argument(
+        '--sign',
+        metavar='KEY_FILE',
+        help='Sign receipt with Ed25519 private key (32 bytes or 64 hex chars)'
+    )
+    
+    parser.add_argument(
+        '--public-key',
+        metavar='PUBKEY_FILE',
+        help='Public key file to include in receipt (optional, derived from private if not provided)'
+    )
+    
+    parser.add_argument(
+        '--metadata',
+        metavar='JSON',
+        help='JSON metadata to include in receipt (e.g., \'{"author":"Name","version":"1.0"}\')'
+    )
+    
+    parser.add_argument(
         '--verify',
         action='store_true',
         help='Verify the receipt after creation (requires verifier/replay.py)'
@@ -221,12 +331,24 @@ Learn more: docs/RECEIPT_GUIDE.md
     
     args = parser.parse_args()
     
+    # Parse metadata if provided
+    metadata = None
+    if args.metadata:
+        try:
+            metadata = json.loads(args.metadata)
+        except json.JSONDecodeError as e:
+            print(f"Error: Invalid JSON metadata: {e}", file=sys.stderr)
+            sys.exit(1)
+    
     # Create receipt
     print(f"Creating Thiele receipt for {len(args.files)} file(s)...\n")
     receipt = create_receipt(
         args.files,
         output_path=args.output,
-        include_steps=args.steps
+        include_steps=args.steps,
+        sign_key=args.sign,
+        public_key=args.public_key,
+        metadata=metadata
     )
     
     # Optionally verify

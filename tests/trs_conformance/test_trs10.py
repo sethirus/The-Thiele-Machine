@@ -27,6 +27,13 @@ from tests.trs_conformance.test_vectors import (
     compute_global_digest,
 )
 
+try:
+    from nacl import signing
+    from nacl.exceptions import BadSignatureError
+    HAS_NACL = True
+except ImportError:
+    HAS_NACL = False
+
 
 class SimpleTRS10Verifier:
     """
@@ -101,11 +108,29 @@ class SimpleTRS10Verifier:
                 if receipt['signature'] != '':
                     return False, 'signature', 'Signature must be empty when sig_scheme is "none"'
             elif receipt['sig_scheme'] == 'ed25519':
-                # For now, just check format (full crypto verification in phase 1)
                 if not receipt['signature']:
                     return False, 'signature', 'Signature required when sig_scheme is "ed25519"'
-                # Would verify signature here with nacl
-                pass
+                
+                # Perform full cryptographic verification if nacl is available
+                if HAS_NACL and 'public_key' in receipt:
+                    try:
+                        # Get public key
+                        public_key_bytes = bytes.fromhex(receipt['public_key'])
+                        verify_key = signing.VerifyKey(public_key_bytes)
+                        
+                        # Get signature
+                        signature_bytes = bytes.fromhex(receipt['signature'])
+                        
+                        # Message is global_digest as UTF-8 bytes
+                        message = receipt['global_digest'].encode('utf-8')
+                        
+                        # Verify signature
+                        verify_key.verify(message, signature_bytes)
+                        
+                    except BadSignatureError:
+                        return False, 'signature', 'Ed25519 signature verification failed'
+                    except Exception as e:
+                        return False, 'signature', f'Signature verification error: {str(e)}'
             else:
                 return False, 'signature', f'Unknown signature scheme: {receipt["sig_scheme"]}'
             
@@ -214,6 +239,9 @@ class TestConformanceVectors:
         elif expected == "invalid_version":
             assert not is_valid, f"{description}: Expected invalid"
             assert error_type == "version", f"{description}: Expected version error, got {error_type}"
+        elif expected == "invalid_signature":
+            assert not is_valid, f"{description}: Expected invalid"
+            assert error_type == "signature", f"{description}: Expected signature error, got {error_type}"
         else:
             pytest.fail(f"Unknown expected result: {expected}")
 
