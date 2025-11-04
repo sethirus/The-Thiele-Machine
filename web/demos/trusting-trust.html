@@ -272,6 +272,17 @@
         let receipt1 = null;
         let receipt2 = null;
         
+        // HTML escaping utility to prevent XSS
+        function escapeHtml(unsafe) {
+            if (unsafe === null || unsafe === undefined) return '';
+            return String(unsafe)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+        
         const uploadBox1 = document.getElementById('uploadBox1');
         const uploadBox2 = document.getElementById('uploadBox2');
         const fileInput1 = document.getElementById('fileInput1');
@@ -336,7 +347,7 @@
                     <strong>✓ Loaded</strong><br>
                     Files: ${receipt.files.length}<br>
                     Binary SHA256:<br>
-                    <div class="digest">${digest.substring(0, 16)}...</div>
+                    <div class="digest">${escapeHtml(digest ? digest.substring(0, 16) : 'N/A')}...</div>
                 `;
                 info.style.display = 'block';
                 
@@ -347,7 +358,7 @@
                 
             } catch (e) {
                 box.classList.add('error');
-                info.innerHTML = '❌ Failed to parse: ' + e.message;
+                info.innerHTML = '❌ Failed to parse: ' + escapeHtml(e.message);
                 info.style.display = 'block';
             }
         }
