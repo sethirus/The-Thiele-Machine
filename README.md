@@ -27,6 +27,8 @@ Every release of The Thiele Machine includes cryptographic receipts for all arti
 3. Drag and drop the receipt into the verifier
 4. Get instant verification ✅
 
+> **Note for repository maintainers:** To host the verifier on GitHub Pages, configure your repository to serve from the `/docs` folder. See [GITHUB_PAGES_SETUP.md](GITHUB_PAGES_SETUP.md) for detailed setup instructions.
+
 ### CLI Verification
 ```bash
 # Download release and receipt
@@ -46,6 +48,8 @@ python3 examples/offline-demo/verify_offline.py artifact_name.receipt.json artif
 ---
 
 ## 🎯 Try The Thiele Machine in Your Browser
+
+> **For maintainers:** The browser-based verifier and demos are hosted from the `/docs` folder. See [GITHUB_PAGES_SETUP.md](GITHUB_PAGES_SETUP.md) for GitHub Pages configuration.
 
 <div align="center">
 
