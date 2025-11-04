@@ -242,7 +242,11 @@
             try {
                 atob(proof.zk_receipt);
             } catch (e) {
-                showError('Invalid ZK receipt encoding');
+                if (e instanceof DOMException || e.name === 'InvalidCharacterError') {
+                    showError('Invalid ZK receipt encoding: not valid base64');
+                } else {
+                    showError('Invalid ZK receipt: ' + e.message);
+                }
                 return;
             }
             
