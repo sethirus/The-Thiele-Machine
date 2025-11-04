@@ -1,0 +1,215 @@
+# Azure Pipelines Template for Thiele Receipts
+#
+# Add this to azure-pipelines.yml to automatically generate
+# receipts for your build artifacts on every release.
+#
+# Usage:
+#   1. Copy this file to azure-pipelines.yml or merge with your existing config
+#   2. Customize the build steps for your project
+#   3. Create a release tag to trigger the pipeline
+
+trigger:
+  tags:
+    include:
+      - 'v*'
+
+pr: none
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  pythonVersion: '3.12'
+  receiptOutputDir: 'receipts'
+
+stages:
+- stage: Build
+  displayName: 'Build artifacts'
+  jobs:
+  - job: BuildJob
+    displayName: 'Build project'
+    steps:
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '$(pythonVersion)'
+      displayName: 'Use Python $(pythonVersion)'
+    
+    # Customize these build steps for your project
+    - script: |
+        pip install build
+        python -m build
+      displayName: 'Build package'
+    
+    - publish: $(System.DefaultWorkingDirectory)/dist
+      artifact: BuildArtifacts
+      displayName: 'Publish build artifacts'
+
+- stage: GenerateReceipts
+  displayName: 'Generate receipts'
+  dependsOn: Build
+  jobs:
+  - job: CreateReceipts
+    displayName: 'Create cryptographic receipts'
+    steps:
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '$(pythonVersion)'
+      displayName: 'Use Python $(pythonVersion)'
+    
+    - download: current
+      artifact: BuildArtifacts
+      displayName: 'Download build artifacts'
+    
+    - script: |
+        # Install Thiele tools
+        pip install git+https://github.com/sethirus/The-Thiele-Machine.git
+        pip install PyNaCl cryptography
+      displayName: 'Install Thiele Receipt tools'
+    
+    - script: |
+        # Copy artifacts to expected location
+        mkdir -p dist
+        cp -r $(Pipeline.Workspace)/BuildArtifacts/* dist/
+        
+        # Option 1: Auto-discovery mode (recommended)
+        python3 create_receipt.py --project . --output $(receiptOutputDir)
+        
+        # Option 2: Specific files mode
+        # python3 create_receipt.py dist/*.whl dist/*.tar.gz --output receipt.json
+        
+        # Option 3: With signing (requires secure file or variable)
+        # echo "$THIELE_SIGNING_KEY" > signing.key
+        # python3 create_receipt.py --project . --sign signing.key --output $(receiptOutputDir)
+        # rm signing.key
+        
+        echo "✅ Created receipts in $(receiptOutputDir)/"
+        ls -lh $(receiptOutputDir)/
+      displayName: 'Generate receipts'
+      env:
+        # If using signing, add key as secure variable
+        # THIELE_SIGNING_KEY: $(ThieleSigningKey)
+    
+    - publish: $(System.DefaultWorkingDirectory)/$(receiptOutputDir)
+      artifact: Receipts
+      displayName: 'Publish receipts'
+
+- stage: VerifyReceipts
+  displayName: 'Verify receipts'
+  dependsOn: GenerateReceipts
+  condition: succeeded()
+  jobs:
+  - job: VerifyJob
+    displayName: 'Verify generated receipts'
+    steps:
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '$(pythonVersion)'
+      displayName: 'Use Python $(pythonVersion)'
+    
+    - download: current
+      artifact: Receipts
+      displayName: 'Download receipts'
+    
+    - script: |
+        pip install git+https://github.com/sethirus/The-Thiele-Machine.git
+      displayName: 'Install Thiele verifier'
+    
+    - script: |
+        # Verify each receipt
+        for receipt in $(Pipeline.Workspace)/Receipts/*.receipt.json; do
+          if [ "$receipt" != "$(Pipeline.Workspace)/Receipts/MANIFEST.receipt.json" ]; then
+            echo "Verifying $receipt..."
+            python3 verifier/replay.py "$receipt" || exit 1
+          fi
+        done
+        echo "✅ All receipts verified successfully"
+      displayName: 'Verify receipts'
+
+- stage: Release
+  displayName: 'Create release'
+  dependsOn:
+    - Build
+    - GenerateReceipts
+    - VerifyReceipts
+  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
+  jobs:
+  - job: CreateRelease
+    displayName: 'Create GitHub release'
+    steps:
+    - download: current
+      artifact: BuildArtifacts
+      displayName: 'Download build artifacts'
+    
+    - download: current
+      artifact: Receipts
+      displayName: 'Download receipts'
+    
+    - task: GitHubRelease@1
+      inputs:
+        gitHubConnection: 'GitHub'  # Configure in Azure Pipelines
+        repositoryName: '$(Build.Repository.Name)'
+        action: 'create'
+        target: '$(Build.SourceVersion)'
+        tagSource: 'gitTag'
+        tagPattern: 'v.*'
+        releaseNotesSource: 'inline'
+        releaseNotesInline: |
+          ## Verification
+          
+          This release includes cryptographic receipts for all artifacts.
+          
+          ### Browser Verification (Easiest)
+          1. Visit https://sethirus.github.io/The-Thiele-Machine/verify.html
+          2. Drag and drop any `.receipt.json` file
+          3. Get instant verification ✅
+          
+          ### CLI Verification
+          ```bash
+          pip install git+https://github.com/sethirus/The-Thiele-Machine.git
+          thiele-verify artifact.receipt.json
+          ```
+          
+          Or fetch directly:
+          ```bash
+          thiele-fetch $(Build.Repository.Name)
+          ```
+        assets: |
+          $(Pipeline.Workspace)/BuildArtifacts/**
+          $(Pipeline.Workspace)/Receipts/*.receipt.json
+          $(Pipeline.Workspace)/Receipts/MANIFEST.receipt.json
+        isDraft: false
+        isPreRelease: false
+        addChangeLog: true
+      displayName: 'Create GitHub Release'
+
+# Optional: Add verification badge to README
+- stage: UpdateDocs
+  displayName: 'Update documentation'
+  dependsOn: Release
+  condition: succeeded()
+  jobs:
+  - job: UpdateReadme
+    displayName: 'Add verification instructions'
+    steps:
+    - checkout: self
+      persistCredentials: true
+    
+    - script: |
+        cat >> README.md << 'EOF'
+        
+        ## Verifying Releases
+        
+        All releases include cryptographic receipts for verification.
+        
+        **Browser**: Visit [Thiele Verifier](https://sethirus.github.io/The-Thiele-Machine/verify.html)  
+        **CLI**: `thiele-fetch $(Build.Repository.Name)`
+        
+        EOF
+        
+        git config user.name "Azure Pipelines"
+        git config user.email "azure-pipelines@example.com"
+        git add README.md
+        git commit -m "docs: Add receipt verification instructions [skip ci]"
+        git push origin HEAD:$(Build.SourceBranchName)
+      displayName: 'Update README with verification instructions'
+      condition: and(succeeded(), eq(variables['UpdateReadme'], 'true'))
