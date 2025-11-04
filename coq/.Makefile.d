@@ -73,9 +73,9 @@ test_vscoq/coqproofs/test_vscoq.vos test_vscoq/coqproofs/test_vscoq.vok test_vsc
 thielemachine/coqproofs/AmortizedAnalysis.vo thielemachine/coqproofs/AmortizedAnalysis.glob thielemachine/coqproofs/AmortizedAnalysis.v.beautified thielemachine/coqproofs/AmortizedAnalysis.required_vo: thielemachine/coqproofs/AmortizedAnalysis.v 
 thielemachine/coqproofs/AmortizedAnalysis.vio: thielemachine/coqproofs/AmortizedAnalysis.v 
 thielemachine/coqproofs/AmortizedAnalysis.vos thielemachine/coqproofs/AmortizedAnalysis.vok thielemachine/coqproofs/AmortizedAnalysis.required_vos: thielemachine/coqproofs/AmortizedAnalysis.v 
-thielemachine/coqproofs/Axioms.vo thielemachine/coqproofs/Axioms.glob thielemachine/coqproofs/Axioms.v.beautified thielemachine/coqproofs/Axioms.required_vo: thielemachine/coqproofs/Axioms.v 
-thielemachine/coqproofs/Axioms.vio: thielemachine/coqproofs/Axioms.v 
-thielemachine/coqproofs/Axioms.vos thielemachine/coqproofs/Axioms.vok thielemachine/coqproofs/Axioms.required_vos: thielemachine/coqproofs/Axioms.v 
+thielemachine/coqproofs/Axioms.vo thielemachine/coqproofs/Axioms.glob thielemachine/coqproofs/Axioms.v.beautified thielemachine/coqproofs/Axioms.required_vo: thielemachine/coqproofs/Axioms.v thielemachine/coqproofs/EncodingBridge.vo thielemachine/coqproofs/ThieleMachine.vo thielemachine/coqproofs/UTMStaticCheck.vo modular_proofs/TM_Basics.vo
+thielemachine/coqproofs/Axioms.vio: thielemachine/coqproofs/Axioms.v thielemachine/coqproofs/EncodingBridge.vio thielemachine/coqproofs/ThieleMachine.vio thielemachine/coqproofs/UTMStaticCheck.vio modular_proofs/TM_Basics.vio
+thielemachine/coqproofs/Axioms.vos thielemachine/coqproofs/Axioms.vok thielemachine/coqproofs/Axioms.required_vos: thielemachine/coqproofs/Axioms.v thielemachine/coqproofs/EncodingBridge.vos thielemachine/coqproofs/ThieleMachine.vos thielemachine/coqproofs/UTMStaticCheck.vos modular_proofs/TM_Basics.vos
 thielemachine/coqproofs/BellInequality.vo thielemachine/coqproofs/BellInequality.glob thielemachine/coqproofs/BellInequality.v.beautified thielemachine/coqproofs/BellInequality.required_vo: thielemachine/coqproofs/BellInequality.v thielemachine/coqproofs/ThieleMachineConcrete.vo thielemachine/coqproofs/QHelpers.vo
 thielemachine/coqproofs/BellInequality.vio: thielemachine/coqproofs/BellInequality.v thielemachine/coqproofs/ThieleMachineConcrete.vio thielemachine/coqproofs/QHelpers.vio
 thielemachine/coqproofs/BellInequality.vos thielemachine/coqproofs/BellInequality.vok thielemachine/coqproofs/BellInequality.required_vos: thielemachine/coqproofs/BellInequality.v thielemachine/coqproofs/ThieleMachineConcrete.vos thielemachine/coqproofs/QHelpers.vos
@@ -103,9 +103,9 @@ thielemachine/coqproofs/SpecSound.vos thielemachine/coqproofs/SpecSound.vok thie
 thielemachine/coqproofs/StructuredInstances.vo thielemachine/coqproofs/StructuredInstances.glob thielemachine/coqproofs/StructuredInstances.v.beautified thielemachine/coqproofs/StructuredInstances.required_vo: thielemachine/coqproofs/StructuredInstances.v 
 thielemachine/coqproofs/StructuredInstances.vio: thielemachine/coqproofs/StructuredInstances.v 
 thielemachine/coqproofs/StructuredInstances.vos thielemachine/coqproofs/StructuredInstances.vok thielemachine/coqproofs/StructuredInstances.required_vos: thielemachine/coqproofs/StructuredInstances.v 
-thielemachine/coqproofs/ThieleMachine.vo thielemachine/coqproofs/ThieleMachine.glob thielemachine/coqproofs/ThieleMachine.v.beautified thielemachine/coqproofs/ThieleMachine.required_vo: thielemachine/coqproofs/ThieleMachine.v thielemachine/coqproofs/Axioms.vo
-thielemachine/coqproofs/ThieleMachine.vio: thielemachine/coqproofs/ThieleMachine.v thielemachine/coqproofs/Axioms.vio
-thielemachine/coqproofs/ThieleMachine.vos thielemachine/coqproofs/ThieleMachine.vok thielemachine/coqproofs/ThieleMachine.required_vos: thielemachine/coqproofs/ThieleMachine.v thielemachine/coqproofs/Axioms.vos
+thielemachine/coqproofs/ThieleMachine.vo thielemachine/coqproofs/ThieleMachine.glob thielemachine/coqproofs/ThieleMachine.v.beautified thielemachine/coqproofs/ThieleMachine.required_vo: thielemachine/coqproofs/ThieleMachine.v 
+thielemachine/coqproofs/ThieleMachine.vio: thielemachine/coqproofs/ThieleMachine.v 
+thielemachine/coqproofs/ThieleMachine.vos thielemachine/coqproofs/ThieleMachine.vok thielemachine/coqproofs/ThieleMachine.required_vos: thielemachine/coqproofs/ThieleMachine.v 
 thielemachine/coqproofs/ThieleMachineConcrete.vo thielemachine/coqproofs/ThieleMachineConcrete.glob thielemachine/coqproofs/ThieleMachineConcrete.v.beautified thielemachine/coqproofs/ThieleMachineConcrete.required_vo: thielemachine/coqproofs/ThieleMachineConcrete.v 
 thielemachine/coqproofs/ThieleMachineConcrete.vio: thielemachine/coqproofs/ThieleMachineConcrete.v 
 thielemachine/coqproofs/ThieleMachineConcrete.vos thielemachine/coqproofs/ThieleMachineConcrete.vok thielemachine/coqproofs/ThieleMachineConcrete.required_vos: thielemachine/coqproofs/ThieleMachineConcrete.v 
@@ -115,9 +115,9 @@ thielemachine/coqproofs/ThieleMachineConcretePack.vos thielemachine/coqproofs/Th
 thielemachine/coqproofs/ThieleMachineModular.vo thielemachine/coqproofs/ThieleMachineModular.glob thielemachine/coqproofs/ThieleMachineModular.v.beautified thielemachine/coqproofs/ThieleMachineModular.required_vo: thielemachine/coqproofs/ThieleMachineModular.v 
 thielemachine/coqproofs/ThieleMachineModular.vio: thielemachine/coqproofs/ThieleMachineModular.v 
 thielemachine/coqproofs/ThieleMachineModular.vos thielemachine/coqproofs/ThieleMachineModular.vok thielemachine/coqproofs/ThieleMachineModular.required_vos: thielemachine/coqproofs/ThieleMachineModular.v 
-thielemachine/coqproofs/ThieleMachineSig.vo thielemachine/coqproofs/ThieleMachineSig.glob thielemachine/coqproofs/ThieleMachineSig.v.beautified thielemachine/coqproofs/ThieleMachineSig.required_vo: thielemachine/coqproofs/ThieleMachineSig.v 
-thielemachine/coqproofs/ThieleMachineSig.vio: thielemachine/coqproofs/ThieleMachineSig.v 
-thielemachine/coqproofs/ThieleMachineSig.vos thielemachine/coqproofs/ThieleMachineSig.vok thielemachine/coqproofs/ThieleMachineSig.required_vos: thielemachine/coqproofs/ThieleMachineSig.v 
+thielemachine/coqproofs/ThieleMachineSig.vo thielemachine/coqproofs/ThieleMachineSig.glob thielemachine/coqproofs/ThieleMachineSig.v.beautified thielemachine/coqproofs/ThieleMachineSig.required_vo: thielemachine/coqproofs/ThieleMachineSig.v thielemachine/coqproofs/ThieleMachine.vo
+thielemachine/coqproofs/ThieleMachineSig.vio: thielemachine/coqproofs/ThieleMachineSig.v thielemachine/coqproofs/ThieleMachine.vio
+thielemachine/coqproofs/ThieleMachineSig.vos thielemachine/coqproofs/ThieleMachineSig.vok thielemachine/coqproofs/ThieleMachineSig.required_vos: thielemachine/coqproofs/ThieleMachineSig.v thielemachine/coqproofs/ThieleMachine.vos
 thielemachine/coqproofs/ThieleMachineUniv.vo thielemachine/coqproofs/ThieleMachineUniv.glob thielemachine/coqproofs/ThieleMachineUniv.v.beautified thielemachine/coqproofs/ThieleMachineUniv.required_vo: thielemachine/coqproofs/ThieleMachineUniv.v 
 thielemachine/coqproofs/ThieleMachineUniv.vio: thielemachine/coqproofs/ThieleMachineUniv.v 
 thielemachine/coqproofs/ThieleMachineUniv.vos thielemachine/coqproofs/ThieleMachineUniv.vok thielemachine/coqproofs/ThieleMachineUniv.required_vos: thielemachine/coqproofs/ThieleMachineUniv.v 
