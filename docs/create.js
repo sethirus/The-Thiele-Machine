@@ -1,6 +1,17 @@
 // Thiele Receipt Generator - Pure JavaScript Implementation
 // Creates TRS-1.0 receipts entirely in the browser
 
+// HTML escaping utility to prevent XSS
+function escapeHtml(unsafe) {
+    if (unsafe === null || unsafe === undefined) return '';
+    return String(unsafe)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
 class ThieleGenerator {
     constructor() {
         this.files = [];
@@ -298,9 +309,9 @@ document.addEventListener('DOMContentLoaded', () => {
             fileItem.className = 'file-item';
             fileItem.innerHTML = `
                 <div>
-                    <div class="file-name">${info.name}</div>
+                    <div class="file-name">${escapeHtml(info.name)}</div>
                     <div style="font-family: 'Courier New', monospace; font-size: 0.85em; color: #6b7280; margin-top: 3px;">
-                        SHA-256: ${info.hash.substring(0, 32)}...
+                        SHA-256: ${escapeHtml(info.hash.substring(0, 32))}...
                     </div>
                 </div>
                 <div class="file-size">${generator.formatSize(info.size)}</div>

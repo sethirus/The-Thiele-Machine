@@ -177,6 +177,17 @@
     </div>
     
     <script>
+        // HTML escaping utility to prevent XSS
+        function escapeHtml(unsafe) {
+            if (unsafe === null || unsafe === undefined) return '';
+            return String(unsafe)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+        
         function updateBadge() {
             const style = document.getElementById('style').value;
             const status = document.getElementById('status').value;
@@ -195,8 +206,8 @@
             
             // Update code blocks
             const markdownLink = link || 'https://sethirus.github.io/The-Thiele-Machine/verify.html';
-            const markdown = `[![Receipt ${message}](${badgeURL})](${markdownLink})`;
-            const html = `<a href="${markdownLink}"><img src="${badgeURL}" alt="Receipt ${message}"></a>`;
+            const markdown = `[![Receipt ${escapeHtml(message)}](${badgeURL})](${escapeHtml(markdownLink)})`;
+            const html = `<a href="${escapeHtml(markdownLink)}"><img src="${badgeURL}" alt="Receipt ${escapeHtml(message)}"></a>`;
             
             document.getElementById('markdownCode').textContent = markdown;
             document.getElementById('htmlCode').textContent = html;
