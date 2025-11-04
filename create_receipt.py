@@ -310,15 +310,6 @@ def create_project_receipts(
     return receipt_paths
 
 
-def sha256_file(filepath):
-    """Compute SHA256 hash of a file."""
-    sha256 = hashlib.sha256()
-    with open(filepath, 'rb') as f:
-        for chunk in iter(lambda: f.read(4096), b''):
-            sha256.update(chunk)
-    return sha256.hexdigest()
-
-
 def create_receipt(files, output_path=None, include_steps=False, sign_key=None, public_key=None, metadata=None):
     """
     Create a Thiele receipt for one or more files.
