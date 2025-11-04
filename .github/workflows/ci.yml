@@ -2,9 +2,9 @@ name: Thiele CI
 
 on:
   push:
-    branches: [ new-public-branch-default, main, master ]
+    branches: [ main, master ]
   pull_request:
-    branches: [ new-public-branch-default, main, master ]
+    branches: [ main, master ]
   workflow_dispatch:
   schedule:
     - cron: '0 3 * * *'
