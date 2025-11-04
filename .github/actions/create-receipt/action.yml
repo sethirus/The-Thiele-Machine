@@ -1,5 +1,5 @@
 name: 'Thiele Receipt Generator'
-description: 'Generate cryptographic receipts for your build artifacts'
+description: 'Generate cryptographic receipts for your build artifacts with auto-discovery support'
 author: 'The Thiele Machine Project'
 
 branding:
@@ -8,12 +8,16 @@ branding:
 
 inputs:
   files:
-    description: 'Files to include in receipt (space-separated paths or glob patterns)'
-    required: true
-  output:
-    description: 'Output path for the receipt JSON file'
+    description: 'Files to include in receipt (space-separated paths or glob patterns). Mutually exclusive with project-dir.'
     required: false
-    default: 'receipt.json'
+  project-dir:
+    description: 'Project directory for auto-discovery mode (scans dist/, target/, build/, etc.). Mutually exclusive with files.'
+    required: false
+    default: ''
+  output:
+    description: 'Output path for the receipt JSON file (or output directory for project mode)'
+    required: false
+    default: 'receipts'
   metadata:
     description: 'JSON metadata to include in receipt (e.g., {"author":"Name","version":"1.0"})'
     required: false
@@ -23,30 +27,92 @@ inputs:
   public-key:
     description: 'Path to Ed25519 public key (optional, derived from private if not provided)'
     required: false
+  upload-to-release:
+    description: 'Automatically upload receipts to GitHub release (true/false)'
+    required: false
+    default: 'false'
+  create-manifest:
+    description: 'Create MANIFEST.receipt.json index in project mode (true/false)'
+    required: false
+    default: 'true'
 
 outputs:
   receipt-path:
-    description: 'Path to the generated receipt file'
+    description: 'Path to the generated receipt file(s)'
     value: ${{ steps.create.outputs.receipt-path }}
   global-digest:
-    description: 'Global digest of the receipt'
+    description: 'Global digest of the receipt (for single file mode)'
     value: ${{ steps.create.outputs.global-digest }}
+  receipt-count:
+    description: 'Number of receipts created'
+    value: ${{ steps.create.outputs.receipt-count }}
 
 runs:
   using: 'composite'
   steps:
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.11'
+        python-version: '3.12'
     
     - name: Install dependencies
       shell: bash
       run: |
-        pip install PyNaCl
+        pip install PyNaCl cryptography
     
-    - name: Create receipt
-      id: create
+    - name: Validate inputs
+      shell: bash
+      run: |
+        if [ -n "${{ inputs.files }}" ] && [ -n "${{ inputs.project-dir }}" ]; then
+          echo "Error: Cannot specify both 'files' and 'project-dir'"
+          exit 1
+        fi
+        
+        if [ -z "${{ inputs.files }}" ] && [ -z "${{ inputs.project-dir }}" ]; then
+          echo "Error: Must specify either 'files' or 'project-dir'"
+          exit 1
+        fi
+    
+    - name: Create receipt (project mode)
+      if: inputs.project-dir != ''
+      id: create-project
+      shell: bash
+      run: |
+        PROJECT_DIR="${{ inputs.project-dir }}"
+        OUTPUT_DIR="${{ inputs.output }}"
+        
+        # Build command
+        CMD="python3 ${{ github.action_path }}/../../../create_receipt.py --project $PROJECT_DIR"
+        CMD="$CMD --output $OUTPUT_DIR"
+        
+        if [ -n "${{ inputs.metadata }}" ]; then
+          CMD="$CMD --metadata '${{ inputs.metadata }}'"
+        fi
+        
+        if [ -n "${{ inputs.sign-key }}" ]; then
+          CMD="$CMD --sign ${{ inputs.sign-key }}"
+        fi
+        
+        if [ -n "${{ inputs.public-key }}" ]; then
+          CMD="$CMD --public-key ${{ inputs.public-key }}"
+        fi
+        
+        # Execute
+        echo "Creating receipts in project mode..."
+        eval $CMD
+        
+        # Count receipts
+        RECEIPT_COUNT=$(find "$OUTPUT_DIR" -name "*.receipt.json" -type f ! -name "MANIFEST.receipt.json" | wc -l)
+        
+        # Set outputs
+        echo "receipt-path=$OUTPUT_DIR" >> $GITHUB_OUTPUT
+        echo "receipt-count=$RECEIPT_COUNT" >> $GITHUB_OUTPUT
+        
+        echo "✓ Created $RECEIPT_COUNT receipt(s) in $OUTPUT_DIR"
+    
+    - name: Create receipt (file mode)
+      if: inputs.files != ''
+      id: create-files
       shell: bash
       run: |
         # Expand glob patterns and collect files
@@ -90,6 +156,31 @@ runs:
         # Set outputs
         echo "receipt-path=${{ inputs.output }}" >> $GITHUB_OUTPUT
         echo "global-digest=$DIGEST" >> $GITHUB_OUTPUT
+        echo "receipt-count=1" >> $GITHUB_OUTPUT
         
         echo "✓ Receipt created: ${{ inputs.output }}"
         echo "✓ Global digest: $DIGEST"
+    
+    - name: Set final outputs
+      id: create
+      shell: bash
+      run: |
+        # Merge outputs from whichever mode ran
+        if [ -n "${{ steps.create-project.outputs.receipt-path }}" ]; then
+          echo "receipt-path=${{ steps.create-project.outputs.receipt-path }}" >> $GITHUB_OUTPUT
+          echo "receipt-count=${{ steps.create-project.outputs.receipt-count }}" >> $GITHUB_OUTPUT
+        else
+          echo "receipt-path=${{ steps.create-files.outputs.receipt-path }}" >> $GITHUB_OUTPUT
+          echo "global-digest=${{ steps.create-files.outputs.global-digest }}" >> $GITHUB_OUTPUT
+          echo "receipt-count=${{ steps.create-files.outputs.receipt-count }}" >> $GITHUB_OUTPUT
+        fi
+    
+    - name: Upload to release
+      if: inputs.upload-to-release == 'true' && github.event_name == 'release'
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          ${{ steps.create.outputs.receipt-path }}/*.receipt.json
+          ${{ steps.create.outputs.receipt-path }}/MANIFEST.receipt.json
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
