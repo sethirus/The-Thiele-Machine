@@ -487,7 +487,7 @@ class TestReceiptFormat:
         if len(receipt["files"]) > 0:
             file_entry = receipt["files"][0]
             assert "path" in file_entry, "File entry missing 'path'"
-            assert "hash" in file_entry, "File entry missing 'hash'"
+            assert "sha256" in file_entry, "File entry missing 'sha256'"
 
     def test_receipt_global_digest_format(self, tmp_path):
         """Test: Global digest is properly formatted."""
