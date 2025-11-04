@@ -29,6 +29,9 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+watch = [
+    "watchdog>=3.0.0",
+]
 full = [
     "z3-solver==4.15.1.0",
     "python-sat[aiger,pblib]==1.8.dev20",
@@ -68,6 +71,7 @@ thiele-verify = "verifier.replay:main_cli"
 thiele-ingest = "tools.ingest_binary:main"
 thiele-delta = "thielecpu.delta:main"
 thiele-fetch = "tools.fetch_receipt:main"
+thiele-watch = "tools.watch_receipts:main"
 
 [tool.setuptools.packages.find]
 exclude = [
