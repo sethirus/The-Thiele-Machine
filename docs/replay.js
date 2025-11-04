@@ -2,6 +2,17 @@
 // Supports TRS-0 and TRS-1.0 receipt formats
 // No dependencies for basic verification, uses Web Crypto API
 
+// HTML escaping utility to prevent XSS
+function escapeHtml(unsafe) {
+    if (unsafe === null || unsafe === undefined) return '';
+    return String(unsafe)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
 class ThieleVerifier {
     async sha256(data) {
         // Convert string or bytes to Uint8Array
@@ -340,7 +351,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (results.warnings && results.warnings.length > 0) {
                     warnings = `
                         <div style="margin-top: 15px; padding: 10px; background: #fef3c7; border-left: 3px solid #f59e0b; border-radius: 4px;">
-                            ${results.warnings.map(w => `<div style="color: #92400e; margin: 5px 0;">⚠ ${w}</div>`).join('')}
+                            ${results.warnings.map(w => `<div style="color: #92400e; margin: 5px 0;">⚠ ${escapeHtml(w)}</div>`).join('')}
                         </div>
                     `;
                 }
@@ -348,12 +359,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 resultContent.innerHTML = `
                     <div class="hash-display">
                         <strong>Global Digest:</strong><br>
-                        ${results.globalDigest}
+                        ${escapeHtml(results.globalDigest)}
                     </div>
                     <div class="info">
                         <div class="info-row">
                             <span class="info-label">Version:</span>
-                            <span class="info-value">${results.version}</span>
+                            <span class="info-value">${escapeHtml(results.version)}</span>
                         </div>
                         ${results.fileCount > 0 ? `
                             <div class="info-row">
@@ -370,7 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         ${signatureInfo}
                         <div class="info-row">
                             <span class="info-label">Receipt File:</span>
-                            <span class="info-value">${file.name}</span>
+                            <span class="info-value">${escapeHtml(file.name)}</span>
                         </div>
                     </div>
                     ${warnings}
@@ -389,18 +400,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="info">
                         ${results.errors.map(err => `
                             <div style="color: #991b1b; margin: 10px 0;">
-                                ⚠ ${err}
+                                ⚠ ${escapeHtml(err)}
                             </div>
                         `).join('')}
                     </div>
                     ${results.expectedDigest ? `
                         <div class="hash-display">
                             <strong>Expected Digest:</strong><br>
-                            ${results.expectedDigest}
+                            ${escapeHtml(results.expectedDigest)}
                         </div>
                         <div class="hash-display">
                             <strong>Computed Digest:</strong><br>
-                            ${results.computedDigest || 'N/A'}
+                            ${escapeHtml(results.computedDigest) || 'N/A'}
                         </div>
                     ` : ''}
                 `;
@@ -412,7 +423,7 @@ document.addEventListener('DOMContentLoaded', () => {
             resultTitle.textContent = '✗ Error';
             resultContent.innerHTML = `
                 <p style="color: #991b1b;">
-                    Failed to process file: ${error.message}
+                    Failed to process file: ${escapeHtml(error.message)}
                 </p>
             `;
         }
