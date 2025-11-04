@@ -69,9 +69,9 @@ jobs:
 
       - name: Provision kernel key (CI only)
         run: |
-          # Create a deterministic ephemeral kernel key for CI tests so the
-          # demo smoke test can sign receipts without requiring operator keys.
-          python scripts/provision_keys.py --secret-path kernel_secret.key --public-path kernel_public.key --force
+          # Create a deterministic kernel key for CI tests so the
+          # receipts and demos can be verified reproducibly.
+          python scripts/generate_kernel_keys.py --deterministic-test-key --force
 
       - name: Verify Bell artifact
         run: ./verify_bell.sh
@@ -457,9 +457,9 @@ jobs:
 
       - name: Provision kernel key (CI only)
         run: |
-          # Create a deterministic ephemeral kernel key for CI tests so the
-          # demo smoke test can sign receipts without requiring operator keys.
-          python scripts/provision_keys.py --secret-path kernel_secret.key --public-path kernel_public.key --force
+          # Create a deterministic kernel key for CI tests so the
+          # receipts and demos can be verified reproducibly.
+          python scripts/generate_kernel_keys.py --deterministic-test-key --force
       - name: Run linters for new helper scripts (flake8 + mypy)
         run: |
           python -m pip install --upgrade pip
