@@ -1,5 +1,24 @@
 [![CI](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml/badge.svg)](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Python](https://img.shields.io/badge/Python-3.12+-blue.svg)](https://www.python.org/) [![Coq](https://img.shields.io/badge/Coq-8.18+-blue.svg)](https://coq.inria.fr/) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17316437.svg)](https://doi.org/10.5281/zenodo.17316437)
 
+## 📘 New to Thiele Receipts? Start Here
+
+> **"What's a Thiele receipt?"**  
+> A cryptographic proof that lets you verify software without trusting the source code or build process.  
+> Think: **mathematical proof instead of "just trust me."**
+
+**📖 [Complete Receipt Guide](docs/RECEIPT_GUIDE.md)** - What they are, why use them, and how to create them for any project
+
+**⚡ Quick Start:**
+```bash
+# Verify a receipt and materialize files
+python3 verifier/replay.py examples/000_hello.json
+
+# Create your own receipt (see guide for details)
+python3 create_receipt.py my_file.py
+```
+
+---
+
 ## 🎯 Try The Thiele Machine in Your Browser
 
 <div align="center">
