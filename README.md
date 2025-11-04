@@ -1,10 +1,19 @@
 [![CI](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml/badge.svg)](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Python](https://img.shields.io/badge/Python-3.12+-blue.svg)](https://www.python.org/) [![Coq](https://img.shields.io/badge/Coq-8.18+-blue.svg)](https://coq.inria.fr/) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17316437.svg)](https://doi.org/10.5281/zenodo.17316437)
 
-## 🎯 One-Link Demos (Try in Your Browser)
+## 🎯 Try The Thiele Machine in Your Browser
 
 <div align="center">
 
-### Zero-Trust Software Installation
+### 🔒 Main Application: Receipt Verifier
+
+[![Launch Receipt Verifier](https://img.shields.io/badge/🔒_Launch_Receipt_Verifier-Try_Now-blue?style=for-the-badge&logo=lock)](https://sethirus.github.io/The-Thiele-Machine/)
+
+**Verify Thiele receipts cryptographically in your browser**  
+**Upload receipt.json → Verify cryptographic hashes → 100% client-side**
+
+---
+
+### Interactive Demos
 
 [![Proof-Install Demo](https://img.shields.io/badge/🔒_Proof--Install-Try_Now-blue?style=for-the-badge)](https://sethirus.github.io/The-Thiele-Machine/demos/install.html)
 [![ZK Verify](https://img.shields.io/badge/⚡_ZK_Verify-Live_Demo-purple?style=for-the-badge)](https://sethirus.github.io/The-Thiele-Machine/demos/zk.html)
