@@ -16,6 +16,12 @@ import hashlib
 import json
 import sys
 import glob
+import tempfile
+import shutil
+import zipfile
+import tarfile
+import urllib.request
+import urllib.parse
 from pathlib import Path
 from datetime import datetime
 from typing import List, Optional, Dict, Any
@@ -25,6 +31,188 @@ try:
     HAS_NACL = True
 except ImportError:
     HAS_NACL = False
+
+
+def fetch_archive(url: str, dest_dir: Path) -> Path:
+    """
+    Fetch an archive from a URL and extract it.
+    
+    Supports:
+    - GitHub release archives (.zip, .tar.gz)
+    - Direct archive URLs
+    - GitHub repository archives
+    
+    Args:
+        url: URL to fetch (e.g., https://github.com/user/repo/archive/refs/tags/v1.0.0.tar.gz)
+        dest_dir: Destination directory for extraction
+    
+    Returns:
+        Path to extracted directory
+    """
+    print(f"📥 Fetching archive from: {url}")
+    
+    # Determine archive type from URL
+    parsed = urllib.parse.urlparse(url)
+    filename = Path(parsed.path).name
+    
+    if not filename:
+        filename = "archive.tar.gz"
+    
+    # Download archive
+    temp_archive = dest_dir / filename
+    
+    try:
+        with urllib.request.urlopen(url, timeout=30) as response:
+            total_size = int(response.headers.get('Content-Length', 0))
+            chunk_size = 8192
+            downloaded = 0
+            
+            with open(temp_archive, 'wb') as f:
+                while True:
+                    chunk = response.read(chunk_size)
+                    if not chunk:
+                        break
+                    f.write(chunk)
+                    downloaded += len(chunk)
+                    
+                    if total_size > 0:
+                        percent = (downloaded / total_size) * 100
+                        print(f"   Downloaded: {downloaded}/{total_size} bytes ({percent:.1f}%)", end='\r')
+            
+            if total_size > 0:
+                print()  # New line after progress
+        
+        print(f"✓ Downloaded: {temp_archive.name} ({temp_archive.stat().st_size} bytes)")
+        
+    except Exception as e:
+        print(f"❌ Failed to download archive: {e}", file=sys.stderr)
+        raise
+    
+    # Extract archive
+    print(f"📦 Extracting archive...")
+    
+    try:
+        if filename.endswith('.zip'):
+            with zipfile.ZipFile(temp_archive, 'r') as zip_ref:
+                zip_ref.extractall(dest_dir)
+                # Get the first directory in the zip
+                names = zip_ref.namelist()
+                if names:
+                    first_dir = names[0].split('/')[0] if '/' in names[0] else names[0]
+                    extracted_path = dest_dir / first_dir
+                else:
+                    extracted_path = dest_dir
+                    
+        elif filename.endswith(('.tar.gz', '.tgz', '.tar.bz2', '.tar.xz', '.tar')):
+            with tarfile.open(temp_archive, 'r:*') as tar_ref:
+                tar_ref.extractall(dest_dir)
+                # Get the first directory in the tar
+                names = tar_ref.getnames()
+                if names:
+                    first_dir = names[0].split('/')[0] if '/' in names[0] else names[0]
+                    extracted_path = dest_dir / first_dir
+                else:
+                    extracted_path = dest_dir
+        else:
+            raise ValueError(f"Unsupported archive format: {filename}")
+        
+        # Clean up archive file
+        temp_archive.unlink()
+        
+        print(f"✓ Extracted to: {extracted_path}")
+        return extracted_path
+        
+    except Exception as e:
+        print(f"❌ Failed to extract archive: {e}", file=sys.stderr)
+        raise
+
+
+def scan_directory(
+    directory: Path,
+    include_patterns: Optional[List[str]] = None,
+    exclude_patterns: Optional[List[str]] = None,
+    max_files: int = 10000,
+    max_size_mb: float = 1000.0
+) -> List[Path]:
+    """
+    Recursively scan a directory for files to include in receipt.
+    
+    Args:
+        directory: Directory to scan
+        include_patterns: Glob patterns to include (e.g., ['*.py', '*.js'])
+        exclude_patterns: Glob patterns to exclude (e.g., ['node_modules/**', '.git/**'])
+        max_files: Maximum number of files to include
+        max_size_mb: Maximum total size in MB
+    
+    Returns:
+        List of Path objects for files to include
+    """
+    default_excludes = [
+        '.git/**',
+        '.gitignore',
+        'node_modules/**',
+        '__pycache__/**',
+        '*.pyc',
+        '.venv/**',
+        'venv/**',
+        '.env',
+        '.DS_Store',
+        'Thumbs.db',
+        '*.swp',
+        '*.swo',
+        '*~',
+    ]
+    
+    exclude_patterns = (exclude_patterns or []) + default_excludes
+    
+    files = []
+    total_size = 0
+    max_size_bytes = max_size_mb * 1024 * 1024
+    
+    print(f"🔍 Scanning directory: {directory}")
+    
+    for item in directory.rglob('*'):
+        # Skip directories
+        if not item.is_file():
+            continue
+        
+        # Check exclude patterns
+        rel_path = item.relative_to(directory)
+        excluded = False
+        for pattern in exclude_patterns:
+            if item.match(pattern) or rel_path.match(pattern):
+                excluded = True
+                break
+        
+        if excluded:
+            continue
+        
+        # Check include patterns (if specified)
+        if include_patterns:
+            included = False
+            for pattern in include_patterns:
+                if item.match(pattern) or rel_path.match(pattern):
+                    included = True
+                    break
+            if not included:
+                continue
+        
+        # Check file size
+        file_size = item.stat().st_size
+        if total_size + file_size > max_size_bytes:
+            print(f"⚠️  Size limit reached ({max_size_mb} MB), stopping scan")
+            break
+        
+        # Check file count
+        if len(files) >= max_files:
+            print(f"⚠️  File limit reached ({max_files} files), stopping scan")
+            break
+        
+        files.append(item)
+        total_size += file_size
+    
+    print(f"✓ Found {len(files)} file(s) ({total_size / 1024 / 1024:.2f} MB)")
+    return files
 
 
 def canonical_json(obj):
@@ -524,6 +712,12 @@ Examples:
   %(prog)s --project .
   %(prog)s --project /path/to/myproject
   
+  # Directory mode: scan and create receipts for all files in directory
+  %(prog)s --directory ./src --include "*.py" "*.js"
+  
+  # Archive mode: fetch and create receipts from a URL
+  %(prog)s --archive https://github.com/user/repo/archive/refs/tags/v1.0.0.tar.gz
+  
   # Specify output path
   %(prog)s script.py --output my_receipt.json
   
@@ -539,14 +733,40 @@ Learn more: docs/RECEIPT_GUIDE.md
     
     parser.add_argument(
         'files',
-        nargs='*',  # Changed from '+' to '*' to allow --project mode
-        help='Files to include in the receipt (or use --project for auto-discovery)'
+        nargs='*',  # Changed from '+' to '*' to allow --project/--directory/--archive mode
+        help='Files to include in the receipt (or use --project/--directory/--archive for auto-discovery)'
     )
     
     parser.add_argument(
         '--project',
         metavar='DIR',
         help='Repository mode: auto-discover build artifacts in project directory'
+    )
+    
+    parser.add_argument(
+        '--directory',
+        metavar='DIR',
+        help='Directory mode: scan directory recursively and create receipt for all files'
+    )
+    
+    parser.add_argument(
+        '--archive',
+        metavar='URL',
+        help='Archive mode: fetch archive from URL and create receipt (supports .zip, .tar.gz)'
+    )
+    
+    parser.add_argument(
+        '--include',
+        nargs='+',
+        metavar='PATTERN',
+        help='Glob patterns to include (only with --directory mode, e.g., "*.py" "*.js")'
+    )
+    
+    parser.add_argument(
+        '--exclude',
+        nargs='+',
+        metavar='PATTERN',
+        help='Glob patterns to exclude (only with --directory mode, e.g., "*.pyc" "test_*")'
     )
     
     parser.add_argument(
@@ -587,12 +807,13 @@ Learn more: docs/RECEIPT_GUIDE.md
     args = parser.parse_args()
     
     # Validate arguments
-    if args.project and args.files:
-        print("Error: Cannot use both --project and file arguments", file=sys.stderr)
+    mode_count = sum([bool(args.project), bool(args.directory), bool(args.archive), bool(args.files)])
+    if mode_count > 1:
+        print("Error: Can only use one of: files, --project, --directory, or --archive", file=sys.stderr)
         sys.exit(1)
     
-    if not args.project and not args.files:
-        print("Error: Must specify either files or --project", file=sys.stderr)
+    if mode_count == 0:
+        print("Error: Must specify files, --project, --directory, or --archive", file=sys.stderr)
         parser.print_help()
         sys.exit(1)
     
@@ -604,6 +825,98 @@ Learn more: docs/RECEIPT_GUIDE.md
         except json.JSONDecodeError as e:
             print(f"Error: Invalid JSON metadata: {e}", file=sys.stderr)
             sys.exit(1)
+    
+    # Archive mode
+    if args.archive:
+        print(f"🌐 Archive mode: fetching from {args.archive}\n")
+        
+        # Create temp directory for extraction
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_path = Path(temp_dir)
+            
+            try:
+                # Fetch and extract archive
+                extracted_path = fetch_archive(args.archive, temp_path)
+                
+                # Scan the extracted directory
+                files = scan_directory(
+                    extracted_path,
+                    include_patterns=args.include,
+                    exclude_patterns=args.exclude
+                )
+                
+                if not files:
+                    print("⚠️  No files found in archive", file=sys.stderr)
+                    sys.exit(1)
+                
+                # Add archive URL to metadata
+                archive_metadata = metadata or {}
+                archive_metadata['archive_url'] = args.archive
+                archive_metadata['archive_timestamp'] = datetime.now().astimezone().isoformat()
+                
+                # Detect package manifest
+                manifest_meta = read_package_manifest(extracted_path)
+                if manifest_meta:
+                    archive_metadata.update(manifest_meta)
+                
+                # Create receipt
+                receipt = create_receipt(
+                    [str(f) for f in files],
+                    output_path=args.output,
+                    include_steps=args.steps,
+                    sign_key=args.sign,
+                    public_key=args.public_key,
+                    metadata=archive_metadata
+                )
+                
+            except Exception as e:
+                print(f"❌ Archive processing failed: {e}", file=sys.stderr)
+                sys.exit(1)
+        
+        return
+    
+    # Directory mode
+    if args.directory:
+        print(f"📁 Directory mode: scanning {args.directory}\n")
+        
+        directory = Path(args.directory)
+        if not directory.exists() or not directory.is_dir():
+            print(f"Error: Directory not found: {args.directory}", file=sys.stderr)
+            sys.exit(1)
+        
+        # Scan directory
+        files = scan_directory(
+            directory,
+            include_patterns=args.include,
+            exclude_patterns=args.exclude
+        )
+        
+        if not files:
+            print("⚠️  No files found in directory", file=sys.stderr)
+            sys.exit(1)
+        
+        # Add directory info to metadata
+        dir_metadata = metadata or {}
+        dir_metadata['scanned_directory'] = str(directory.resolve())
+        dir_metadata['scan_timestamp'] = datetime.now().astimezone().isoformat()
+        dir_metadata['file_count'] = len(files)
+        
+        # Detect package manifest
+        manifest_meta = read_package_manifest(directory)
+        if manifest_meta:
+            dir_metadata.update(manifest_meta)
+        
+        # Create receipt
+        receipt = create_receipt(
+            [str(f) for f in files],
+            output_path=args.output,
+            include_steps=args.steps,
+            sign_key=args.sign,
+            public_key=args.public_key,
+            metadata=dir_metadata
+        )
+        
+        return
     
     # Repository mode
     if args.project:
