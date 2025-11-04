@@ -8,6 +8,7 @@ set -euo pipefail
 
 # Navigate to the repository root
 # This works whether the script is called directly or via symlink
+# by resolving the actual script location through any symlinks
 SCRIPT_PATH="${BASH_SOURCE[0]}"
 # Resolve symlinks to get the actual script location
 while [ -L "$SCRIPT_PATH" ]; do
@@ -17,7 +18,7 @@ while [ -L "$SCRIPT_PATH" ]; do
   [[ "$SCRIPT_PATH" != /* ]] && SCRIPT_PATH="$SCRIPT_DIR/$SCRIPT_PATH"
 done
 SCRIPT_DIR="$(cd "$(dirname "$SCRIPT_PATH")" && pwd)"
-# The script is in scripts/verification/, so go up two levels
+# The actual script is in scripts/verification/, so go up two levels to repo root
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 cd "$REPO_ROOT"
 
