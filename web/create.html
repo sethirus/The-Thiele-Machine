@@ -153,6 +153,95 @@
         }
         .footer a { color: #667eea; text-decoration: none; }
         .footer a:hover { text-decoration: underline; }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 15px 0;
+            display: none;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+            width: 0%;
+        }
+        .progress-text {
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        
+        .upload-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .upload-button {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .upload-button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+        
+        .archive-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9ff;
+            border-radius: 8px;
+            border: 2px dashed #667eea;
+        }
+        .archive-section h4 {
+            color: #374151;
+            margin-bottom: 10px;
+        }
+        .archive-input-group {
+            display: flex;
+            gap: 10px;
+        }
+        .archive-input-group input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+        }
+        .archive-input-group button {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .archive-input-group button:hover {
+            background: #5568d3;
+        }
+        .archive-input-group button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .info-box {
+            margin-top: 15px;
+            padding: 12px;
+            background: #eff6ff;
+            border-radius: 6px;
+            color: #1e40af;
+            font-size: 0.9em;
+        }
     </style>
 </head>
 <body>
@@ -165,9 +254,35 @@
         <div class="content">
             <div class="upload-area" id="uploadArea">
                 <div class="upload-icon">📁</div>
-                <h3>Drop files here or click to select</h3>
+                <h3>Drop files or folders here</h3>
                 <p>Create a TRS-1.0 receipt for your files</p>
-                <input type="file" id="fileInput" multiple>
+                <div class="upload-buttons">
+                    <div class="upload-button" data-type="files">📄 Select Files</div>
+                    <div class="upload-button" data-type="directory" id="directoryButton">📂 Select Folder</div>
+                </div>
+                <input type="file" id="fileInput" multiple style="display: none;">
+                <input type="file" id="directoryInput" webkitdirectory directory multiple style="display: none;">
+            </div>
+            
+            <div class="archive-section">
+                <h4>Or fetch from archive URL</h4>
+                <div class="archive-input-group">
+                    <input 
+                        type="url" 
+                        id="archiveUrl" 
+                        placeholder="https://github.com/user/repo/archive/refs/tags/v1.0.0.tar.gz"
+                    >
+                    <button id="fetchArchiveBtn">Fetch Archive</button>
+                </div>
+                <div class="info-box">
+                    📝 <strong>Note:</strong> Archive fetching in the browser is limited due to CORS policies. 
+                    For best results, use the Python CLI: <code>python3 create_receipt.py --archive &lt;URL&gt;</code>
+                </div>
+            </div>
+            
+            <div class="progress-bar" id="progressBar">
+                <div class="progress-bar-fill"></div>
+                <div class="progress-text"></div>
             </div>
             
             <div class="file-list" id="fileList" style="display: none;">
@@ -179,13 +294,7 @@
                 <div class="option-group">
                     <label for="metadata">Metadata (JSON, optional):</label>
                     <textarea id="metadata" placeholder='{"author": "Your Name", "version": "1.0.0", "description": "My project"}'></textarea>
-                </div>
-                
-                <div class="option-group">
-                    <label>
-                        <input type="checkbox" id="includeSteps"> 
-                        Include detailed steps (TRS-0 format, larger file size)
-                    </label>
+                    <button class="btn btn-secondary" id="autoFillBtn" style="margin-top: 5px;">🔍 Auto-fill from manifest</button>
                 </div>
             </div>
             
@@ -205,6 +314,7 @@
             
             <div class="footer">
                 <p><strong>Privacy:</strong> All receipt generation happens in your browser. No files are uploaded.</p>
+                <p><strong>Performance:</strong> Using Web Workers for non-blocking computation. Supports drag-and-drop folders!</p>
                 <p style="margin-top: 10px;">
                     <a href="index.html">Home</a> |
                     <a href="verify.html">Verify a receipt</a> | 
@@ -215,6 +325,6 @@
         </div>
     </div>
     
-    <script src="create.js"></script>
+    <script src="create-enhanced.js"></script>
 </body>
 </html>
