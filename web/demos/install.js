@@ -4,6 +4,17 @@
 let receiptData = null;
 let zkProofData = null;
 
+// HTML escaping utility to prevent XSS
+function escapeHtml(unsafe) {
+    if (unsafe === null || unsafe === undefined) return '';
+    return String(unsafe)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
 // Step 1: Receipt Upload
 const dropzone1 = document.getElementById('dropzone1');
 const fileInput1 = document.getElementById('fileInput1');
@@ -46,10 +57,10 @@ async function handleReceiptFile(file) {
         
         showResult(result1, 'success', `
             ✓ Receipt loaded successfully<br>
-            <strong>Version:</strong> ${receipt.version}<br>
+            <strong>Version:</strong> ${escapeHtml(receipt.version)}<br>
             <strong>Files:</strong> ${receipt.files.length}<br>
             <strong>Computed Digest:</strong><br>
-            <div class="digest">${digest}</div>
+            <div class="digest">${escapeHtml(digest)}</div>
         `);
         
         step1.classList.add('complete');
@@ -115,7 +126,7 @@ async function handleZkProofFile(file) {
                     'Expected format: alphanumeric characters and +/= symbols only.');
             } else {
                 showResult(result2, 'error', 
-                    'ZK receipt validation failed: ' + e.message + 
+                    'ZK receipt validation failed: ' + escapeHtml(e.message) + 
                     '. Please check the proof file format.');
             }
             return;
@@ -125,11 +136,11 @@ async function handleZkProofFile(file) {
         
         showResult(result2, 'success', `
             ✓ ZK proof verified successfully<br>
-            <strong>Guest Image:</strong> ${zkProof.guest_image_id}<br>
+            <strong>Guest Image:</strong> ${escapeHtml(zkProof.guest_image_id)}<br>
             <strong>Manifest SHA256:</strong><br>
-            <div class="digest">${zkProof.manifest_sha256}</div>
+            <div class="digest">${escapeHtml(zkProof.manifest_sha256)}</div>
             <strong>Merkle Root:</strong><br>
-            <div class="digest">${zkProof.merkle_root}</div>
+            <div class="digest">${escapeHtml(zkProof.merkle_root)}</div>
         `);
         
         step2.classList.add('complete');
@@ -178,9 +189,9 @@ materializeBtn.addEventListener('click', async () => {
             const fileItem = document.createElement('div');
             fileItem.className = 'file-item';
             fileItem.innerHTML = `
-                <strong>${file.path}</strong><br>
-                SHA256: <code>${file.content_sha256}</code><br>
-                Size: ${file.size || 'unknown'} bytes
+                <strong>${escapeHtml(file.path)}</strong><br>
+                SHA256: <code>${escapeHtml(file.content_sha256 || file.sha256)}</code><br>
+                Size: ${escapeHtml(file.size || 'unknown')} bytes
             `;
             fileList.appendChild(fileItem);
         }
