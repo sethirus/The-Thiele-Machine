@@ -109,7 +109,11 @@ async function handleZkProofFile(file) {
         try {
             atob(zkProof.zk_receipt);
         } catch (e) {
-            showResult(result2, 'error', 'Invalid ZK receipt encoding');
+            if (e instanceof DOMException || e.name === 'InvalidCharacterError') {
+                showResult(result2, 'error', 'Invalid ZK receipt encoding: not valid base64');
+            } else {
+                showResult(result2, 'error', 'Invalid ZK receipt: ' + e.message);
+            }
             return;
         }
         
