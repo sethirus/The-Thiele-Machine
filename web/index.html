@@ -110,10 +110,20 @@
             
             <div class="footer">
                 <p><strong>Privacy:</strong> All verification happens in your browser. No data is uploaded to any server.</p>
+                <p style="margin-top: 10px;">
+                    <strong>Signature Verification:</strong> Ed25519 signatures verified using 
+                    <a href="https://github.com/dchest/tweetnacl-js" target="_blank">TweetNaCl.js</a> (optional).
+                </p>
                 <p style="margin-top: 10px;">Part of the <a href="https://github.com/sethirus/The-Thiele-Machine" target="_blank">Thiele Machine</a> self-hosting kernel project</p>
             </div>
         </div>
     </div>
+    <!-- Optional: Load nacl.js for Ed25519 signature verification -->
+    <!-- Gracefully degrades if not available -->
+    <script src="https://cdn.jsdelivr.net/npm/tweetnacl@1.0.3/nacl-fast.min.js" 
+            integrity="sha384-j1pf9nBhS8cS4aMv5BH4d6uuXH8K9qMvYzJlBPzcppKJNSfNchLPmsCTfYxJJPP/"
+            crossorigin="anonymous"
+            onerror="console.warn('Ed25519 verification unavailable: nacl.js not loaded')"></script>
     <script src="replay.js"></script>
 </body>
 </html>
