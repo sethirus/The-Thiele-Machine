@@ -3,9 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create and verify cryptographic receipts for software. Point at any repository or file and get verifiable proofs. Zero trust, 100% client-side.">
+    <meta name="keywords" content="cryptography, software verification, receipts, supply chain security, zero trust">
     <title>Thiele Receipts - Cryptographically Verifiable Software</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* Skip to main content for screen readers */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #000;
+            color: #fff;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -52,9 +70,14 @@
             color: inherit;
             display: block;
         }
-        .card:hover {
+        .card:hover, .card:focus {
             transform: translateY(-10px);
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+            outline: 3px solid #667eea;
+            outline-offset: 2px;
+        }
+        .card:focus {
+            outline: 3px solid #667eea;
         }
         
         .card-icon {
@@ -80,8 +103,28 @@
             font-weight: 600;
             transition: all 0.3s;
         }
-        .card-btn:hover {
+        .card-btn:hover, .card-btn:focus {
             transform: scale(1.05);
+        }
+        
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2em;
+            }
+            .hero p {
+                font-size: 1.1em;
+            }
+            .cards {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .card {
+                padding: 30px;
+            }
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
         }
         
         .features {
@@ -136,19 +179,22 @@
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <div class="container">
-        <div class="hero">
+        <header class="hero" role="banner">
             <h1>🔒 Thiele Receipts</h1>
             <p>
                 Install software from a proof you can replay, not just from a signed blob.
                 <br>
                 Cryptographic receipts for verifiable, reproducible software.
             </p>
-        </div>
+        </header>
         
+        <main id="main-content" role="main">
+        <nav aria-label="Main features">
         <div class="cards">
-            <a href="create.html" class="card">
-                <div class="card-icon">📝</div>
+            <a href="create.html" class="card" aria-label="Create Receipt - Generate cryptographic receipts for your files">
+                <div class="card-icon" aria-hidden="true">📝</div>
                 <h2>Create Receipt</h2>
                 <p>
                     Generate a cryptographic receipt for your files.
@@ -157,8 +203,8 @@
                 <span class="card-btn">Create Receipt →</span>
             </a>
             
-            <a href="verify.html" class="card">
-                <div class="card-icon">✓</div>
+            <a href="verify.html" class="card" aria-label="Verify Receipt - Verify integrity and authenticity of receipts">
+                <div class="card-icon" aria-hidden="true">✓</div>
                 <h2>Verify Receipt</h2>
                 <p>
                     Verify the integrity and authenticity of a Thiele receipt.
@@ -167,8 +213,8 @@
                 <span class="card-btn">Verify Receipt →</span>
             </a>
             
-            <a href="badge.html" class="card">
-                <div class="card-icon">🏷️</div>
+            <a href="badge.html" class="card" aria-label="Badge Generator - Create verification badges for your README">
+                <div class="card-icon" aria-hidden="true">🏷️</div>
                 <h2>Badge Generator</h2>
                 <p>
                     Create "Receipt Verified" badges for your README files.
@@ -177,8 +223,8 @@
                 <span class="card-btn">Generate Badge →</span>
             </a>
             
-            <a href="qr.html" class="card">
-                <div class="card-icon">📱</div>
+            <a href="qr.html" class="card" aria-label="QR Code Generator - Generate QR codes for receipts">
+                <div class="card-icon" aria-hidden="true">📱</div>
                 <h2>QR Code Generator</h2>
                 <p>
                     Generate QR codes for receipts and verification links.
@@ -187,45 +233,46 @@
                 <span class="card-btn">Generate QR →</span>
             </a>
         </div>
+        </nav>
         
-        <div class="features">
-            <h2>Why Use Receipts?</h2>
+        <section class="features" aria-labelledby="why-receipts">
+            <h2 id="why-receipts">Why Use Receipts?</h2>
             <div class="feature-grid">
-                <div class="feature">
-                    <div class="feature-icon">🔐</div>
+                <article class="feature">
+                    <div class="feature-icon" aria-hidden="true">🔐</div>
                     <h3>Zero Trust</h3>
                     <p>Mathematical proof replaces trust in build servers and distribution channels.</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">🔄</div>
+                </article>
+                <article class="feature">
+                    <div class="feature-icon" aria-hidden="true">🔄</div>
                     <h3>Reproducible</h3>
                     <p>Same receipt always produces identical output. Deterministic builds guaranteed.</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">🌐</div>
+                </article>
+                <article class="feature">
+                    <div class="feature-icon" aria-hidden="true">🌐</div>
                     <h3>Client-Side</h3>
                     <p>All processing happens in your browser. Your files never leave your device.</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">📱</div>
+                </article>
+                <article class="feature">
+                    <div class="feature-icon" aria-hidden="true">📱</div>
                     <h3>Mobile Friendly</h3>
                     <p>Works on desktop and mobile browsers. No installation required.</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">🛡️</div>
+                </article>
+                <article class="feature">
+                    <div class="feature-icon" aria-hidden="true">🛡️</div>
                     <h3>Supply Chain Security</h3>
                     <p>Cryptographic proof of software provenance for compliance and auditing.</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">⚡</div>
+                </article>
+                <article class="feature">
+                    <div class="feature-icon" aria-hidden="true">⚡</div>
                     <h3>Fast & Simple</h3>
                     <p>Drag-and-drop interface. Create or verify receipts in seconds.</p>
-                </div>
+                </article>
             </div>
-        </div>
+        </section>
         
-        <div class="features" style="margin-top: 30px;">
-            <h2>How It Works</h2>
+        <section class="features" style="margin-top: 30px;" aria-labelledby="how-it-works">
+            <h2 id="how-it-works">How It Works</h2>
             <div style="max-width: 700px; margin: 0 auto; color: #374151; line-height: 1.8;">
                 <p style="margin-bottom: 15px;">
                     <strong>1. Create a Receipt:</strong> Drop your files into the generator.
@@ -252,9 +299,10 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
+        </main>
         
-        <div class="footer">
+        <footer class="footer" role="contentinfo">
             <p>
                 <strong>Thiele Machine Project</strong>
             </p>
@@ -266,7 +314,7 @@
             <p style="margin-top: 15px; font-size: 0.9em;">
                 Open source • Apache 2.0 License • Built with ❤️ for software security
             </p>
-        </div>
+        </footer>
     </div>
 </body>
 </html>
