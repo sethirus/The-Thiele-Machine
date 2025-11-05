@@ -1,3 +1,8 @@
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# Copyright 2025 Devon Thiele
+# See the LICENSE file in the repository root for full terms.
+
 #!/bin/bash
 set -e
 
@@ -12,7 +17,7 @@ LEMMA_FILE="$RESULTS_DIR/lemmas.txt"
 if command -v coqc >/dev/null 2>&1; then
   echo "Running Coq proofs"
   (cd coq/thielemachine/coqproofs && coqc ThieleMachine.v >/dev/null && echo "tm_cpu_simulates_step cost_of_paradox_is_infinite" | tee -a "$LEMMA_FILE")
-  (cd coq/thielemachine/coqproofs && coqc Subsumption.v >/dev/null && echo "thiele_machine_subsumes_turing_machine" | tee -a "$LEMMA_FILE")
+  (cd coq/thielemachine/coqproofs && coqc Separation.v >/dev/null && echo "thiele_machine_exponential_separation" | tee -a "$LEMMA_FILE")
 else
   echo "proofs skipped (coqc missing)"
   echo "proofs skipped" > "$LEMMA_FILE"

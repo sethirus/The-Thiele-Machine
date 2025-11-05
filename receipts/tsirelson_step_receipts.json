@@ -1,0 +1,247 @@
+{
+  "version": "1.0",
+  "instance_hash": "fe0b3a29c48d0ca58e343292432e21ff6b5f479f248c98ba0083abdcbea32b36",
+  "mu_total": 0.0,
+  "step_count": 5,
+  "final_claim": "ErrorOccurred",
+  "timestamp": "2025-10-17T07:27:55.724172+00:00",
+  "steps": [
+    {
+      "step": 0,
+      "instruction": {
+        "op": "PNEW",
+        "payload": [
+          0,
+          1
+        ]
+      },
+      "pre_state": {
+        "pc": 0,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
+      },
+      "post_state": {
+        "pc": 1,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
+      },
+      "observation": {
+        "event": {
+          "tag": "InferenceComplete"
+        },
+        "mu_delta": 0,
+        "cert": {
+          "smt_query": "",
+          "solver_reply": "",
+          "metadata": "",
+          "timestamp": 0,
+          "sequence": 0
+        }
+      },
+      "mu_delta": 0.0,
+      "pre_state_hash": "3be4ab3e30347c3b36b3c176e39c564d8b2e1e6c6f816f53070d67ed3cd381f4",
+      "post_state_hash": "2e59cea3b3cf0e0427b5d1025581d2f165a69235777b0cabab6bdd7773234376",
+      "signature": "f76515819d4a93b349ab8beffb8b9e88a91c69865f513caa87ef5f193424859dd8edfbeaf48d9462152e7a6b15bb988a9fd65261950f9134deca84578f69bf06",
+      "certificate": {
+        "smt_query": "",
+        "solver_reply": "",
+        "metadata": "",
+        "timestamp": 0,
+        "sequence": 0
+      },
+      "certificate_hash": "b5878d515488dabb9b512b86a154b4b54f07284ea95864822f39c6a92a7b3d1a",
+      "prev_step_hash": "genesis",
+      "step_hash": "18c100bbbc91351cc91b287205d4f601363fc80dedc727dca75670d150cb3129"
+    },
+    {
+      "step": 1,
+      "instruction": {
+        "op": "PYEXEC",
+        "payload": "prepare_shared_partition"
+      },
+      "pre_state": {
+        "pc": 1,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
+      },
+      "post_state": {
+        "pc": 2,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
+      },
+      "observation": {
+        "event": {
+          "tag": "PolicyCheck",
+          "value": "prepare_shared_partition"
+        },
+        "mu_delta": 0,
+        "cert": {
+          "smt_query": "",
+          "solver_reply": "",
+          "metadata": "",
+          "timestamp": 0,
+          "sequence": 0
+        }
+      },
+      "mu_delta": 0.0,
+      "pre_state_hash": "2e59cea3b3cf0e0427b5d1025581d2f165a69235777b0cabab6bdd7773234376",
+      "post_state_hash": "15713ac6773c4903303bd6ba812422142bcbd5b39ba256b43969353ac4f47f59",
+      "signature": "ddb0a2ae3e2dd3c5fca7690a43ae8cab0b8adb093f9bd7f60291bc8d48c37b2e01d1f5a82884ec6835ce5886b2b42f252a10d59feba49b268e8f9b69fb7a6e09",
+      "certificate": {
+        "smt_query": "",
+        "solver_reply": "",
+        "metadata": "",
+        "timestamp": 0,
+        "sequence": 0
+      },
+      "certificate_hash": "b5878d515488dabb9b512b86a154b4b54f07284ea95864822f39c6a92a7b3d1a",
+      "prev_step_hash": "18c100bbbc91351cc91b287205d4f601363fc80dedc727dca75670d150cb3129",
+      "step_hash": "5d617f508a83de0d45044d8eb9b66b8c56bec8c8bed9adbd85d8af8a882a446a"
+    },
+    {
+      "step": 2,
+      "instruction": {
+        "op": "PYEXEC",
+        "payload": "alice_measurement"
+      },
+      "pre_state": {
+        "pc": 2,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
+      },
+      "post_state": {
+        "pc": 3,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
+      },
+      "observation": {
+        "event": {
+          "tag": "PolicyCheck",
+          "value": "alice_measurement"
+        },
+        "mu_delta": 0,
+        "cert": {
+          "smt_query": "",
+          "solver_reply": "",
+          "metadata": "",
+          "timestamp": 0,
+          "sequence": 0
+        }
+      },
+      "mu_delta": 0.0,
+      "pre_state_hash": "15713ac6773c4903303bd6ba812422142bcbd5b39ba256b43969353ac4f47f59",
+      "post_state_hash": "6295c09d07120cab3fa48d4f08d9b07a275c79d0d10d9ba5f2b858f670f25c59",
+      "signature": "588e19e95da2daf699bd27d57498e63fa67d2ada426a97749e5c9230457f65d40e76c748abf380c844ebe06a68515b84ed06cb253b274544f67e26ed7d0a8702",
+      "certificate": {
+        "smt_query": "",
+        "solver_reply": "",
+        "metadata": "",
+        "timestamp": 0,
+        "sequence": 0
+      },
+      "certificate_hash": "b5878d515488dabb9b512b86a154b4b54f07284ea95864822f39c6a92a7b3d1a",
+      "prev_step_hash": "5d617f508a83de0d45044d8eb9b66b8c56bec8c8bed9adbd85d8af8a882a446a",
+      "step_hash": "575b6a6f435e039afa1c680cceea472f069b75edc46310b9acc50b49f5796e4b"
+    },
+    {
+      "step": 3,
+      "instruction": {
+        "op": "PYEXEC",
+        "payload": "bob_measurement"
+      },
+      "pre_state": {
+        "pc": 3,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
+      },
+      "post_state": {
+        "pc": 4,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
+      },
+      "observation": {
+        "event": {
+          "tag": "PolicyCheck",
+          "value": "bob_measurement"
+        },
+        "mu_delta": 0,
+        "cert": {
+          "smt_query": "",
+          "solver_reply": "",
+          "metadata": "",
+          "timestamp": 1,
+          "sequence": 0
+        }
+      },
+      "mu_delta": 0.0,
+      "pre_state_hash": "6295c09d07120cab3fa48d4f08d9b07a275c79d0d10d9ba5f2b858f670f25c59",
+      "post_state_hash": "700da4c068b172264a4f0599d5bb6e22ef3321e4c9967d4430c31cefb17ce59d",
+      "signature": "5abc720b85afd1f28e0efa653a4e4888595b390a1c603cca096da24fd9a38f83299579d6692cdb82107ceea5098835a7ad76f9b65bd8233644bc6385fda5360d",
+      "certificate": {
+        "smt_query": "",
+        "solver_reply": "",
+        "metadata": "",
+        "timestamp": 1,
+        "sequence": 0
+      },
+      "certificate_hash": "347f11824e32229ed386aaa9727105b2e6dac4888173eba7bc396003f1b0a16f",
+      "prev_step_hash": "575b6a6f435e039afa1c680cceea472f069b75edc46310b9acc50b49f5796e4b",
+      "step_hash": "771fdb975e9151a51ad34fc79767276fbdb6cb6b0fb8abac1ef684f77c38bb8f"
+    },
+    {
+      "step": 4,
+      "instruction": {
+        "op": "EMIT",
+        "payload": "tsirelson_outcome"
+      },
+      "pre_state": {
+        "pc": 4,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
+      },
+      "post_state": {
+        "pc": 5,
+        "status": 0,
+        "mu_acc": 0,
+        "cert_addr": ""
+      },
+      "observation": {
+        "event": {
+          "tag": "ErrorOccurred",
+          "value": "tsirelson_outcome"
+        },
+        "mu_delta": 0,
+        "cert": {
+          "smt_query": "",
+          "solver_reply": "",
+          "metadata": "",
+          "timestamp": 0,
+          "sequence": 0
+        }
+      },
+      "mu_delta": 0.0,
+      "pre_state_hash": "700da4c068b172264a4f0599d5bb6e22ef3321e4c9967d4430c31cefb17ce59d",
+      "post_state_hash": "53d2b5fca8a9bff9db6e5cec50d67b7ad15c79f0099704e6276a8e8f89ac3406",
+      "signature": "6551c07ebdbce3e5df297596d054549634d5201402504e1ad0a119912d3509a7df0a2fb8f2aef716a71e9b5867ae694ae491e129d486d40ea2466104e66dad03",
+      "certificate": {
+        "smt_query": "",
+        "solver_reply": "",
+        "metadata": "",
+        "timestamp": 0,
+        "sequence": 0
+      },
+      "certificate_hash": "b5878d515488dabb9b512b86a154b4b54f07284ea95864822f39c6a92a7b3d1a",
+      "prev_step_hash": "771fdb975e9151a51ad34fc79767276fbdb6cb6b0fb8abac1ef684f77c38bb8f",
+      "step_hash": "94b4a68dafcb8f5bb45f05d9fd2279ee4196ed7a7b0457e0888beed149d4b181"
+    }
+  ]
+}

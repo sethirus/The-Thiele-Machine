@@ -1,0 +1,56 @@
+Thiele Machine: Ablation Studies
+==================================================
+Instance: modular size 10
+Expected: modular_arithmetic
+Correct solution: (21, 3)
+
+
+=== Ablation: no_mdl ===
+Thiele Machine VM starting execution...
+Program has 4 instructions
+Output directory: ablation_no_mdl
+
+Step   1: PNEW {0}
+Step   3: PYEXEC /workspace/The-Thiele-Machine/temp_ablation_no_mdl.py
+Step   5: MDLACC 
+Step   7: EMIT Ablation no_mdl complete
+  Result: 26 mu-bits
+
+=== Ablation: wrong_model ===
+Thiele Machine VM starting execution...
+Program has 4 instructions
+Output directory: ablation_wrong_model
+
+Step   1: PNEW {0}
+Step   3: PYEXEC /workspace/The-Thiele-Machine/temp_ablation_wrong_model.py
+Step   5: MDLACC 
+Step   7: EMIT Ablation wrong_model complete
+  Result: 1025 mu-bits
+
+=== Ablation: full_pipeline ===
+Thiele Machine VM starting execution...
+Program has 4 instructions
+Output directory: ablation_full_pipeline
+
+Step   1: PNEW {0}
+Step   3: PYEXEC /workspace/The-Thiele-Machine/temp_ablation_full_pipeline.py
+Step   5: MDLACC 
+Step   7: EMIT Ablation full_pipeline complete
+  Result: 81 mu-bits
+  Model: modular_arithmetic
+
+==================================================
+ABLATION ANALYSIS
+==================================================
+No MDL (oracle):     26 mu-bits
+Wrong model:         1025 mu-bits
+Full pipeline:       81 mu-bits
+
+Key Insights:
+- MDL discovery cost: 55 mu-bits
+- Wrong model penalty: 999 mu-bits
+- MDL enables automatic structure discovery
+- Wrong model forces expensive fallbacks
+- Information cost quantifies discovery value
+
+Ablation studies complete.

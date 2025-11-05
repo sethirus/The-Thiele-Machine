@@ -1,3 +1,8 @@
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# Copyright 2025 Devon Thiele
+# See the LICENSE file in the repository root for full terms.
+
 #!/usr/bin/env python3
 import argparse
 import time
@@ -7,6 +12,10 @@ import platform
 import sys
 from datetime import datetime
 
+import os
+import sys
+# Ensure the parent directory is in sys.path for module import
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 # Import the core experiment harness from the repository
 from generate_tseitin_data import run_single_experiment
 

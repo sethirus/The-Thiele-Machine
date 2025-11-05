@@ -1,3 +1,4 @@
+> **Status update (October 2025):** The authoritative kernel proof lives in `coq/kernel/`. This README is preserved for the archived `coq/thielemachine` development.
 
 # Project Cerberus: The Thiele Kernel
 
@@ -37,4 +38,3 @@ This is the first kernel to make its own logical safety contract explicit and en
 ---
 
 License: See repository LICENSE.
-

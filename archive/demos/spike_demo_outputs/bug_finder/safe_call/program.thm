@@ -1,0 +1,6 @@
+;
+; Universal bug finder — Safe call (x = 9)
+PNEW {10,11}
+PYEXEC caller_state.py
+LASSERT safemath_axiom.smt2
+MDLACC

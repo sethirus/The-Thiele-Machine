@@ -1,0 +1,33 @@
+{
+  "count": 2,
+  "total": 2,
+  "_embedded": {
+    "stash:datasets": [
+      {
+        "identifier": "doi:10.1234/alpha",
+        "title": "Optical tweezers dryad",
+        "authors": [
+          {"fullName": "A. Researcher"},
+          {"fullName": "B. Analyst"}
+        ],
+        "abstract": "Anchors T=298K",
+        "_links": {
+          "self": {"href": "/api/v2/datasets/doi%3A10.1234%2Falpha"},
+          "stash:version": {"href": "/api/v2/versions/111"}
+        }
+      },
+      {
+        "identifier": "doi:10.5678/beta",
+        "title": "SPT dryad sample",
+        "authors": [
+          {"fullName": "C. Scientist"}
+        ],
+        "abstract": "Frame interval provided",
+        "_links": {
+          "self": {"href": "/api/v2/datasets/doi%3A10.5678%2Fbeta"},
+          "stash:version": {"href": "/api/v2/versions/222"}
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>thiele-replay</id>
+    <version>1.0.0</version>
+    <title>Thiele Machine Receipt Verifier</title>
+    <authors>Devon Thiele</authors>
+    <owners>sethirus</owners>
+    <projectUrl>https://github.com/sethirus/The-Thiele-Machine</projectUrl>
+    <licenseUrl>https://github.com/sethirus/The-Thiele-Machine/blob/main/LICENSE</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+      Cryptographic receipt verifier for The Thiele Machine.
+      Verify software authenticity from cryptographic proofs without trusting the source.
+    </description>
+    <summary>Self-verifying computational proofs</summary>
+    <tags>cryptography security verification receipts zero-knowledge</tags>
+    <dependencies>
+      <dependency id="python" version="3.12.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="verifier\**" target="tools\verifier" />
+    <file src="bootstrap_receipts\**" target="tools\bootstrap_receipts" />
+    <file src="tools\chocolateyinstall.ps1" target="tools" />
+  </files>
+</package>

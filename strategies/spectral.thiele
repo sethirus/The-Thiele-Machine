@@ -1,0 +1,32 @@
+# SPECTRAL CLUSTERING STRATEGY
+# Genetic sequence of primitives defining spectral clustering
+# This is the "DNA" of eigenspace-based sight
+
+STRATEGY spectral
+VERSION 1.0
+DESCRIPTION "Graph Laplacian eigendecomposition clustering"
+
+SEQUENCE:
+  # Step 1: Get nodes
+  nodes = GET_NODES(G)
+  
+  # Step 2: Compute Laplacian matrix
+  L = LAPLACIAN_MATRIX(G, nodes)
+  
+  # Step 3: Eigendecomposition
+  eigenvalues, eigenvectors = EIGENDECOMP(L)
+  
+  # Step 4: Extract second eigenvector (Fiedler vector)
+  fiedler = GET_EIGENVECTOR(eigenvectors, 1)
+  
+  # Step 5: Cluster on Fiedler vector values
+  labels = KMEANS_1D(fiedler, k, seed)
+  
+  # Step 6: Create partition dictionary
+  partition = {node: label for node, label in zip(nodes, labels)}
+
+METADATA:
+  primitive_count: 6
+  complexity: HIGH
+  basis: "Spectral graph theory"
+  properties: ["eigenspace", "continuous_relaxation", "global_structure"]

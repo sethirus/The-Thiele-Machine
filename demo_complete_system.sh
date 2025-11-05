@@ -1,0 +1,1 @@
+scripts/verification/demo_complete_system.sh

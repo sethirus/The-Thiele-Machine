@@ -1,0 +1,31 @@
+Thiele Machine: Partition-Based RSA Factorisation Demonstration
+============================================================
+Target RSA modulus: 91
+Bit length: 7 bits
+
+Thiele Machine VM starting execution...
+Program has 7 instructions
+Output directory: rsa_demo_output
+
+Step   1: PNEW 0
+Step   3: PYEXEC /workspace/The-Thiele-Machine/temp_rsa_setup.py
+Step   5: PYEXEC /workspace/The-Thiele-Machine/temp_rsa_partition_a.py
+Step   7: PYEXEC /workspace/The-Thiele-Machine/temp_rsa_partition_b.py
+Step   9: PYEXEC /workspace/The-Thiele-Machine/temp_rsa_compose.py
+Step  11: MDLACC 
+Step  13: EMIT RSA factorisation completed via partition-native computation
+
+Mu-bit accounting:
+{
+  "mu_operational": 2.0,
+  "mu_information": 0.0,
+  "mu_total": 2.0,
+  "cert": ""
+}
+
+Execution trace highlights:
+  6: PYEXEC output: Witness located in Partition A: 7 * 13 = 91
+  10: PYEXEC output: Composing final witness from Partition A
+  10: PYEXEC output: Verification: 7 * 13 = 91
+
+[SUCCESS] Factored 91 = 7 x 13

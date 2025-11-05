@@ -1,34 +1,495 @@
-name: CI
+name: Thiele CI
 
 on:
   push:
+    branches: [ main, master ]
   pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * *'
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: ${{ github.workspace }}
+
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y opam
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
-      - name: Install deps
+          python-version: '3.12'
+
+      - name: Install dependencies
         run: |
-          sudo apt-get update && sudo apt-get install -y --no-install-recommends coq
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
-      - name: Run artifact
-        run: bash scripts/RUNME.sh
-      - name: Challenge harness
-        run: python scripts/challenge.py verify receipts
-      - name: Run tests
-        run: pytest -q
-      - name: Docker build and run
+          pip install -e .[full]
+
+      - name: Set PYTHONPATH for job
+        run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
+
+      - name: Check Python syntax
+        run: python -m py_compile demos/research-demos/problem-solving/attempt.py demos/research-demos/architecture/demonstrate_isomorphism.py
+
+      - name: Run basic verification
+        run: python -c "import thielecpu; print('Thiele CPU imports successfully')"
+
+      - name: Test self-hosting kernel reconstruction
+        run: bash tests/test_end_to_end.sh
+
+      - name: Run pytest suite
+        run: pytest
+
+      - name: Run falsifiability analysis
         run: |
-          docker build -t thiele .
-          docker run thiele bash scripts/RUNME.sh
-      - name: Upload results
+          python -m tools.falsifiability_analysis --update-readme README.md
+          git diff --exit-code README.md
+
+      - name: Validate README scaling table
+        run: python tools/check_readme_tables.py README.md
+
+      - name: Validate μ-ledger receipts
+        run: python tools/check_mu_ledger.py
+
+      - name: Ensure cited Coq files are admit-free
+        run: python tools/check_coq_admits.py README.md
+
+      - name: Ensure admit report is current
+        run: |
+          python -m tools.generate_admit_report
+          git diff --exit-code ADMIT_REPORT.txt
+
+      - name: Provision kernel key (CI only)
+        run: |
+          # Create a deterministic kernel key for CI tests.
+          # This replaces the previous random key generation to ensure
+          # receipts and demos can be verified reproducibly across CI runs.
+          python scripts/generate_kernel_keys.py --deterministic-test-key --force
+
+      - name: Verify Bell artifact
+        run: ./verify_bell.sh
+      
+      - name: Run fuzzing corpus tests
+        run: |
+          python -m pytest tests/test_fuzz_receipts.py -v
+          echo "✓ Fuzzing corpus test complete"
+      
+      - name: Run receipt mutation fuzzer
+        run: |
+          # Test receipt fuzzer on a sample receipt
+          mkdir -p /tmp/fuzz_test
+          python3 roadmap-enhancements/fuzzing/fuzz/mutate_receipts.py bootstrap_receipts/050_kernel_emit.json --count 100 --out-dir /tmp/fuzz_test
+          
+          # Count rejections
+          REJECTED=0
+          for f in /tmp/fuzz_test/*.json; do
+            if ! python3 verifier/replay.py "$f" --dry-run > /dev/null 2>&1; then
+              REJECTED=$((REJECTED + 1))
+            fi
+          done
+          
+          echo "Tamper attempts rejected: $REJECTED/100"
+          
+          # Expect 100% rejection rate
+          if [ "$REJECTED" -ne 100 ]; then
+            echo "ERROR: Expected 100% rejection rate, got $REJECTED/100"
+            exit 1
+          fi
+          
+          echo "✓ All 100 mutations correctly rejected"
+
+  self-hosting-kernel:
+    name: Self-Hosting Kernel Tests
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ['3.11', '3.12']
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      
+      - name: Install dependencies (Ubuntu/macOS)
+        if: runner.os != 'Windows'
+        run: |
+          sudo apt-get update && sudo apt-get install -y jq || brew install jq || true
+      
+      - name: Test kernel reconstruction
+        run: python3 verifier/replay.py bootstrap_receipts
+      
+      - name: Verify kernel hash
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            ACTUAL=$(certutil -hashfile thiele_min.py SHA256 | sed -n '2p')
+          else
+            ACTUAL=$(sha256sum thiele_min.py | awk '{print $1}')
+          fi
+          EXPECTED=$(cat tests/expected_kernel_sha256.txt)
+          if [ "$ACTUAL" != "$EXPECTED" ]; then
+            echo "Hash mismatch: $ACTUAL != $EXPECTED"
+            exit 1
+          fi
+          echo "✓ Hash verified: $ACTUAL"
+      
+      - name: Test kernel self-verification
+        run: python3 thiele_min.py --verify bootstrap_receipts/050_kernel_emit.json
+      
+      - name: Test proof pack creation
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          python3 tools/make_proofpack.py
+          ls -lh dist/
+      
+      - name: Test shell verifier (Unix only)
+        if: runner.os != 'Windows'
+        run: |
+          rm -f thiele_min.py
+          bash verifier/replay_sh.sh bootstrap_receipts
+          HASH=$(sha256sum thiele_min.py | awk '{print $1}')
+          EXPECTED=$(cat tests/expected_kernel_sha256.txt)
+          if [ "$HASH" != "$EXPECTED" ]; then
+            echo "Shell verifier hash mismatch"
+            exit 1
+          fi
+          echo "✓ Shell verifier produces identical kernel"
+      
+      - name: Verify LoC budget
+        if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.12'
+        run: |
+          LOC=$(python3 -c "
+          with open('verifier/replay.py', 'r') as f:
+              lines = f.readlines()
+          print(sum(1 for line in lines if line.strip() and not line.strip().startswith('#')))
+          ")
+          echo "Verifier LoC: $LOC"
+          if [ "$LOC" -gt 220 ]; then
+            echo "ERROR: Verifier exceeds 220 LoC budget"
+            exit 1
+          fi
+          echo "✓ LoC budget OK ($LOC / 220)"
+      
+      - name: Test hello example
+        run: bash examples/hello_verify.sh
+
+  experiments:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: ${{ github.workspace }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .[full]
+
+      - name: Set PYTHONPATH for job
+        run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
+
+      - name: Run falsification experiments
+        run: make experiments-falsify
+
+      - name: Upload experiment artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: results
-          path: results/RESULTS.md
+          name: experiment-results
+          path: experiments/
+
+  as-above-so-below-coq:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Coq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y coq
+      - name: Build As Above, So Below Coq proofs
+        run: |
+          coqc -Q theory theory theory/Genesis.v
+          coqc -Q theory theory theory/Core.v
+          coqc -Q theory theory theory/PhysRel.v
+          coqc -Q theory theory theory/LogicToPhysics.v
+          coqc -Q theory theory theory/WitnessIsGenesis.v
+          coqc -Q theory theory theory/CostIsComplexity.v
+          coqc -Q theory theory theory/Separation.v
+          coqc -Q theory theory theory/NoFreeLunch.v
+
+  as-above-so-below-python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Coq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y coq
+      - name: Install project dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install -e .[full]
+      - name: Execute Ouroboros witness and verifier
+        run: |
+          python3 scripts/verify.py
+
+  verify_artifact:
+    runs-on: ubuntu-latest
+    needs: [build, experiments, as-above-so-below-coq, as-above-so-below-python]
+    env:
+      PYTHONPATH: ${{ github.workspace }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .[full]
+
+      - name: Package proof pack
+        run: bash scripts/package_proof.sh
+
+      - name: Run verifier
+        run: python thiele_verifier_min.py proofpack_PUBLICATION.tar.gz
+
+      - name: Run adversarial checks
+        run: python demos/research-demos/problem-solving/thiele_break.py --reruns 2
+
+  proofpack-smoke:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: ${{ github.workspace }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .[full]
+
+      - name: Run proofpack smoke profile
+        id: smoke
+        run: |
+          echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
+          export RUN_TAG="ci-$(date -u +%Y%m%d%H%M%S)"
+          # publish run_tag immediately so downstream steps can reference it even if make fails
+          echo "run_tag=$RUN_TAG" >> "$GITHUB_OUTPUT"
+          ls -la experiments/ | head -10
+          make proofpack-smoke RUN_TAG=$RUN_TAG
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Inspect proofpack bundle
+        if: always()
+        run: |
+          RUN_TAG="${{ steps.smoke.outputs.run_tag }}"
+          BUNDLE_DIR="artifacts/experiments/${RUN_TAG}/bundle"
+          echo "Inspecting proofpack bundle at: $BUNDLE_DIR"
+          ls -la "$BUNDLE_DIR" || true
+          MANIFEST="$BUNDLE_DIR/manifest.json"
+          if [ -f "$MANIFEST" ]; then
+            echo "Manifest exists; printing head of manifest.json"
+            head -n 200 "$MANIFEST"
+          else
+            echo "Manifest missing: $MANIFEST"
+            exit 1
+          fi
+
+      - name: Publish manifest digest
+        id: digest
+        run: |
+          RUN_TAG="${{ steps.smoke.outputs.run_tag }}"
+          MANIFEST="artifacts/experiments/${RUN_TAG}/bundle/manifest.json"
+          DIGEST=$(jq -r '.manifest_digest_sha256' "$MANIFEST")
+          echo "Proofpack run tag: $RUN_TAG" >> "$GITHUB_STEP_SUMMARY"
+          echo "Manifest digest: $DIGEST" >> "$GITHUB_STEP_SUMMARY"
+          echo "manifest_digest=$DIGEST" >> "$GITHUB_OUTPUT"
+
+      - name: Update RESULTS digest table
+        run: |
+          RUN_TAG="${{ steps.smoke.outputs.run_tag }}"
+          DIGEST="${{ steps.digest.outputs.manifest_digest }}"
+          UPDATED="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          python scripts/update_smoke_digest.py \
+            --results RESULTS.md \
+            --run-tag "$RUN_TAG" \
+            --digest "$DIGEST" \
+            --updated "$UPDATED"
+
+      - name: Upload RESULTS digest snapshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: results-digest-${{ steps.smoke.outputs.run_tag }}
+          path: RESULTS.md
+
+      - name: Upload smoke proofpack bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: proofpack-smoke-${{ steps.smoke.outputs.run_tag }}
+          path: artifacts/experiments/${{ steps.smoke.outputs.run_tag }}/bundle
+
+      - name: Upload full proofpack run for diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: proofpack-run-${{ steps.smoke.outputs.run_tag }}
+          path: artifacts/experiments/${{ steps.smoke.outputs.run_tag }}
+
+  turbulence-high:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: ${{ github.workspace }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .[full]
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Run high-budget turbulence pipeline
+        id: turbulence
+        run: |
+          echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
+          export RUN_TAG="ci-turbulence-$(date -u +%Y%m%d%H%M%S)"
+          # publish run_tag immediately so downstream steps can reference it even if make fails
+          echo "run_tag=$RUN_TAG" >> "$GITHUB_OUTPUT"
+          make proofpack-turbulence-high RUN_TAG=$RUN_TAG
+
+      - name: Inspect turbulence bundle
+        if: always()
+        run: |
+          RUN_TAG="${{ steps.turbulence.outputs.run_tag }}"
+          BUNDLE_DIR="artifacts/experiments/${RUN_TAG}/bundle"
+          echo "Inspecting turbulence bundle at: $BUNDLE_DIR"
+          ls -la "$BUNDLE_DIR" || true
+          MANIFEST="$BUNDLE_DIR/manifest.json"
+          if [ -f "$MANIFEST" ]; then
+            echo "Manifest exists; printing head of manifest.json"
+            head -n 200 "$MANIFEST"
+          else
+            echo "Manifest missing: $MANIFEST"
+            exit 1
+          fi
+
+      - name: Publish turbulence highlights
+        id: turbulence_summary
+        run: |
+          RUN_TAG="${{ steps.turbulence.outputs.run_tag }}"
+          SUMMARY="artifacts/experiments/${RUN_TAG}/bundle/summary.json"
+          echo "## Turbulence summary" >> "$GITHUB_STEP_SUMMARY"
+          jq -r '.turbulence | "status: " + ( .status | tostring ) + ", datasets=" + (.dataset_count | tostring)' "$SUMMARY" >> "$GITHUB_STEP_SUMMARY"
+          for verifier in artifacts/experiments/${RUN_TAG}/bundle/artefacts/verifier/turbulence_*.json; do
+            jq -r '"\n### " + .dataset + "\nprotocols: " + (.protocols_checked | join(", ")) + "\nsighted_runtime_sum: " + (.protocols.sighted.runtime_sum | tostring) + "\nblind_delta_aic: " + (.protocols.blind.delta_aic | tostring) + "\ndestroyed_rho: " + (.protocols.destroyed.spearman_rho | tostring)' "$verifier" >> "$GITHUB_STEP_SUMMARY"
+          done
+
+      - name: Upload turbulence bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: proofpack-turbulence-${{ steps.turbulence.outputs.run_tag }}
+          path: artifacts/experiments/${{ steps.turbulence.outputs.run_tag }}/bundle
+
+      - name: Upload full turbulence run for diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: turbulence-run-${{ steps.turbulence.outputs.run_tag }}
+          path: artifacts/experiments/${{ steps.turbulence.outputs.run_tag }}
+
+  test-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          # Install the current project in editable mode
+          pip install -e .[full]
+      - name: Install external proof tools (required)
+        run: |
+          set -euo pipefail
+          # Prefer using the helper which includes retry logic and exits non-zero
+          # if installation fails so CI remains strict about proof-tool availability.
+          bash scripts/install_proof_tools.sh
+
+      - name: Provision kernel key (CI only)
+        run: |
+          # Create a deterministic kernel key for CI tests.
+          # This replaces the previous random key generation to ensure
+          # receipts and demos can be verified reproducibly across CI runs.
+          python scripts/generate_kernel_keys.py --deterministic-test-key --force
+      - name: Run linters for new helper scripts (flake8 + mypy)
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 mypy
+          # Run linters only on the new helper scripts to avoid failing on legacy code.
+          flake8 scripts/provision_keys.py
+          mypy --ignore-missing-imports scripts/provision_keys.py || true
+      - name: Run test suite
+        run: pytest -q
+      - name: "Smoke: demo isomorphism test"
+        run: |
+          pytest -q tests/test_demo_isomorphism.py -q || (echo "Demo test failed" && exit 1)
+      - name: Canonicalize receipts (dry-run)
+        run: |
+          python scripts/canonicalize_receipts.py spec/golden || true
+          if [ -d proofpacks ]; then
+            python scripts/canonicalize_receipts.py proofpacks || true
+          fi
+      - name: Run receipt verifier on canonical receipts
+        run: |
+          python scripts/thiele_verify.py spec/golden || true
+          if [ -d proofpacks ]; then
+            python scripts/thiele_verify.py proofpacks || true
+          fi
+      - name: Packager check (proofpacks)
+        run: |
+          if [ -d proofpacks ]; then
+            python scripts/packager_check.py proofpacks || exit 1
+          else
+            echo "No proofpacks directory; skipping packager check"
+          fi

@@ -1,0 +1,14 @@
+; Create a computational module for our problem.
+PNEW {1}
+
+; Execute the symbolic Python script. This is not a simulation.
+; This instruction engages the core partition engine and logic solver
+; to find a satisfying assignment for the placeholders.
+PYEXEC "examples/skeleton_key.py"
+
+; Accumulate the information-theoretic cost (mu-bits) of the discovery.
+; A classical brute-force would have an astronomical cost.
+MDLACC
+
+; Emit the receipt containing the proof.
+EMIT "Skeleton Key Found."

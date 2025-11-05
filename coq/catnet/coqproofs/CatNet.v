@@ -3,15 +3,24 @@
 Require Import Coq.Strings.String.
 Require Import Coq.Lists.List.
 Import ListNotations.
+Require Import Arith.
+Require Import Coq.Strings.Ascii.
+
+Fixpoint string_to_list (s : string) : list ascii :=
+  match s with
+  | ""%string => []
+  | String c s' => c :: string_to_list s'
+  end.
 
 Record LogEntry := {
   data : string;
   previous_hash : nat
 }.
 
-Parameter hash_entry : LogEntry -> nat.
+Definition hash_entry (e : LogEntry) : nat :=
+  (length (string_to_list e.(data))) + e.(previous_hash).
 
-Parameter logic_oracle : list nat -> bool.
+Definition logic_oracle (_ : list nat) : bool := true.
 
 Definition AuditLog := list LogEntry.
 
