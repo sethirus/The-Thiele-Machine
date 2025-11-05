@@ -40,7 +40,7 @@ def make_proofpack(output_dir: str = "dist") -> str:
     files_to_pack = [
         "verifier/replay.py",
         "bootstrap_receipts/050_kernel_emit.json",
-        "docs/receipt_schema.md",
+        "receipt_schema.md",
         "roadmap-enhancements/supply-chain/attestations/REPRODUCIBILITY.md",
         "checksums/receipts_sha256.txt",
         "tests/expected_kernel_sha256.txt",

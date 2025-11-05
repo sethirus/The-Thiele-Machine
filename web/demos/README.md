@@ -101,7 +101,7 @@ web/demos/
 
 For more information about the Thiele Machine:
 - [Main README](../../README.md)
-- [Receipt Schema](../../docs/receipt_schema.md)
+- [Receipt Schema](../../receipt_schema.md)
 - [Roadmap Enhancements](../../roadmap-enhancements/README.md)
 
 ## ⚖️ License

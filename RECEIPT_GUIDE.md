@@ -743,7 +743,7 @@ A: No, assuming cryptographic hash functions (SHA-256) are secure. Any tampering
    - [Trusting Trust](https://sethirus.github.io/The-Thiele-Machine/demos/trusting-trust.html) - Defeat compiler backdoors
 
 2. **Read the specs:**
-   - [`docs/receipt_schema.md`](receipt_schema.md) - Complete TRS-0 specification
+   - [`receipt_schema.md`](receipt_schema.md) - Complete TRS-0 specification
    - [`spec/receipt-v1.1.md`](../spec/receipt-v1.1.md) - TRS-1.1 enhancements
 
 3. **Explore examples:**

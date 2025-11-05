@@ -269,7 +269,7 @@ For large projects, consider:
 
 ## Support
 
-- **Documentation:** [Receipt Guide](../../docs/RECEIPT_GUIDE.md)
-- **Specification:** [TRS-1.0 Spec](../../docs/trs-spec-v1.md)
+- **Documentation:** [Receipt Guide](../../RECEIPT_GUIDE.md)
+- **Specification:** [TRS-1.0 Spec](../../trs-spec-v1.md)
 - **Issues:** [GitHub Issues](https://github.com/sethirus/The-Thiele-Machine/issues)
 - **Discussions:** [GitHub Discussions](https://github.com/sethirus/The-Thiele-Machine/discussions)
