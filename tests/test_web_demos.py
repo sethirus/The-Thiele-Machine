@@ -13,7 +13,7 @@ import pytest
 
 
 # Path to web demos directory
-WEB_DEMOS_DIR = Path(__file__).parent.parent / "web" / "demos"
+WEB_DEMOS_DIR = Path(__file__).parent.parent / "docs" / "demos"
 
 
 class TestWebDemos:
