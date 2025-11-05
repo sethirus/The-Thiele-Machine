@@ -8,14 +8,41 @@
 
 **📖 [Complete Receipt Guide](docs/RECEIPT_GUIDE.md)** - What they are, why use them, and how to create them for any project
 
+**📦 [Repository Ingestion Guide](docs/REPO_INGESTION_GUIDE.md)** - NEW! Archive fetching, directory uploads, and metadata auto-fill
+
 **⚡ Quick Start:**
 ```bash
 # Verify a receipt and materialize files
 python3 verifier/replay.py examples/000_hello.json
 
-# Create your own receipt (see guide for details)
+# Create receipt for a single file
 python3 create_receipt.py my_file.py
+
+# Create receipt for entire directory
+python3 create_receipt.py --directory ./src
+
+# Fetch and create receipt from GitHub release
+python3 create_receipt.py --archive https://github.com/user/repo/archive/refs/tags/v1.0.0.tar.gz
 ```
+
+## 🚀 New: Enhanced Repository Ingestion
+
+The Thiele Machine now includes comprehensive repository ingestion capabilities, making it effortless to create receipts for entire projects:
+
+### Python CLI Features
+- **📥 Archive Fetching**: Download and verify from GitHub releases, tarballs, and zip files
+- **📂 Directory-Aware**: Recursively scan directories with include/exclude patterns
+- **🏷️ Metadata Auto-Fill**: Extract project info from `package.json`, `pyproject.toml`, `Cargo.toml`
+- **🔍 Smart Filtering**: Auto-exclude `.git`, `node_modules`, `__pycache__`, and build artifacts
+
+### Web UI Features
+- **⚡ Web Worker Performance**: Non-blocking file processing with automatic fallback
+- **📁 Drag-and-Drop Folders**: Upload entire directories in supported browsers
+- **🔄 Progress Tracking**: Visual progress bars for file processing
+- **🤖 Auto-Metadata**: One-click extraction from package manifests
+- **🔐 100% Client-Side**: Zero uploads, complete privacy
+
+**See the [Repository Ingestion Guide](docs/REPO_INGESTION_GUIDE.md) for complete documentation.**
 
 ## Verifying Releases
 
