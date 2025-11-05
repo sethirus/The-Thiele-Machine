@@ -62,7 +62,15 @@ def fetch_archive(url: str, dest_dir: Path) -> Path:
     temp_archive = dest_dir / filename
     
     try:
-        with urllib.request.urlopen(url, timeout=30) as response:
+        # Fetch archive with proper headers
+        req = urllib.request.Request(
+            url,
+            headers={
+                'User-Agent': 'Thiele-Receipt-Creator/1.0 (https://github.com/sethirus/The-Thiele-Machine)'
+            }
+        )
+        
+        with urllib.request.urlopen(req, timeout=30) as response:
             total_size = int(response.headers.get('Content-Length', 0))
             chunk_size = 8192
             downloaded = 0
