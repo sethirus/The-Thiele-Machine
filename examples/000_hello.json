@@ -1,0 +1,41 @@
+{
+  "version": "TRS-0",
+  "steps": [
+    {
+      "step": 0,
+      "pre_state_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "opcode": "EMIT_BYTES",
+      "args": {
+        "path": "hello.txt",
+        "offset": 0,
+        "bytes_hex": "48656c6c6f2c20546869656c65204b65726e656c210a"
+      },
+      "axioms": ["initial_emit"],
+      "oracle_reply": {
+        "status": "sat",
+        "witness": null
+      },
+      "mu_bits": 200.0,
+      "post_state_sha256": "61938e983497bf4d9ba415bfb4bbb1ddc6939b3f968572b5159212f00d224b14"
+    },
+    {
+      "step": 1,
+      "pre_state_sha256": "61938e983497bf4d9ba415bfb4bbb1ddc6939b3f968572b5159212f00d224b14",
+      "opcode": "ASSERT_SHA256",
+      "args": {
+        "path": "hello.txt",
+        "sha256": "bcfc4d9478773c2947d6301bd78d59c273c978a6f83871ca08281c7264d8877e"
+      },
+      "axioms": ["hash_integrity"],
+      "oracle_reply": {
+        "status": "sat",
+        "witness": {"verified_hash": "bcfc4d9478773c2947d6301bd78d59c273c978a6f83871ca08281c7264d8877e"}
+      },
+      "mu_bits": 256.0,
+      "post_state_sha256": "61938e983497bf4d9ba415bfb4bbb1ddc6939b3f968572b5159212f00d224b14"
+    }
+  ],
+  "global_digest": "computed_by_verifier",
+  "sig_scheme": "none",
+  "signature": ""
+}

@@ -1,0 +1,49 @@
+{
+  "global_digest": "a162533b7fa9d906f571d894a24af85e3f347fe90680e1ffa18037aa0e5a4acf",
+  "kernel_pubkey": "78de7840b6c403801cf6aac7ab22a9ca3362f88c6874e6f03fee461710f74f85",
+  "signature": "0866aa114145744509dff963aef54748716a78ae7dfbd678b0a49604a8395c2b5f5ff509922bf45b426f7bc47d201ef232154548d8bc3923e405e2df64cfe800",
+  "spec_version": "1.0",
+  "steps": [
+    {
+      "certificate": {
+        "blind_search": {
+          "checked_assignments": 8,
+          "truth_table": {
+            "path": "spec/golden/xor_small_truth_table.json",
+            "sha256": "ff56653bb7ffcd18a4bfca23a4c0ac81a904192ab2f2644711c742ee8c56a353"
+          }
+        },
+        "cnf": {
+          "clauses": 8,
+          "path": "spec/golden/xor_small.cnf",
+          "sha256": "2896252ee5da64fc515e5e3551e4f9b86aaa70f8e0833a236f387e35cff41f1e",
+          "variables": 3
+        },
+        "mu_accounting": {
+          "blind_cost": 8,
+          "mu_delta": 5,
+          "sighted_cost": 3
+        },
+        "problem": "xor_inconsistent_triple",
+        "sighted_solver": {
+          "method": "gaussian_elimination_mod2",
+          "operations": 3,
+          "rank_A": 1,
+          "rank_aug": 2,
+          "rank_gap": 1,
+          "result": "unsat"
+        }
+      },
+      "certificate_hash": "dac79df01e162882d8efe81a55990e5979678c30bbb75c39a237eb6a6c840674",
+      "cnf_blob_uri": "spec/golden/xor_small.cnf",
+      "idx": 0,
+      "mu_delta": 5,
+      "proof_blob_uri": "spec/golden/xor_small_truth_table.json",
+      "proof_portable": "TRUTH_TABLE_UNSAT",
+      "solver": "xor_partition_solver",
+      "solver_cmdline": "python scripts/make_golden.py",
+      "step_hash": "1e37260ef370fc69b2d23900bc08c329c5b1ecec7a9f6748e69f26faa5a64ee3",
+      "transition": "xor_partition_resolution"
+    }
+  ]
+}

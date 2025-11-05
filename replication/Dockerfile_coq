@@ -1,0 +1,18 @@
+FROM coqorg/coq:8.18
+
+# Minimal additions for Python tooling
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3 python3-pip python3-venv wget curl ca-certificates && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /workspace
+COPY . /workspace
+
+# Create a venv to keep Python deps separate
+RUN python3 -m venv /opt/venv
+ENV PATH="/opt/venv/bin:${PATH}"
+RUN pip install --upgrade pip
+RUN pip install -e .
+
+COPY replication/replicate.sh /usr/local/bin/replicate.sh
+RUN chmod +x /usr/local/bin/replicate.sh
+ENTRYPOINT ["/usr/local/bin/replicate.sh"]

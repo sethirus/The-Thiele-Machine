@@ -1,0 +1,95 @@
+[project]
+name = "thiele-replay"
+version = "1.0.0"
+description = "Cryptographic receipt verifier for The Thiele Machine - install software from proofs, not trust"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "Apache-2.0"}
+authors = [
+    {name = "Devon Thiele", email = "devon@thiele-machine.org"}
+]
+keywords = ["cryptography", "verification", "receipts", "zero-knowledge", "supply-chain", "security"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Security :: Cryptography",
+    "Topic :: Software Development :: Build Tools",
+]
+
+dependencies = [
+    "PyNaCl>=1.5.0",
+    "cryptography>=45.0.0",
+    "jsonschema>=4.24.0",
+    "requests>=2.32.0",
+]
+
+[project.optional-dependencies]
+watch = [
+    "watchdog>=3.0.0",
+]
+full = [
+    "z3-solver==4.15.1.0",
+    "python-sat[aiger,pblib]==1.8.dev20",
+    "numpy==2.1.2",
+    "scipy==1.14.1",
+    "matplotlib==3.9.2",
+    "pandas==2.3.1",
+    "pytest==8.4.1",
+    "hypothesis==6.98.0",
+    "scikit-learn==1.7.0",
+    "networkx==3.3",
+    "PyYAML==6.0.2",
+]
+demos = [
+    "astropy==7.1.1",
+    "healpy==1.18.1",
+    "playwright>=1.49.0",
+    "jupyterlab==4.4.4",
+    "pandas==2.3.1",
+    "plotly==6.2.0",
+    "seaborn==0.13.2",
+    "networkx==3.3",
+    "sympy==1.14.0",
+    "xarray==2025.7.1",
+]
+
+[project.urls]
+Homepage = "https://github.com/sethirus/The-Thiele-Machine"
+Documentation = "https://github.com/sethirus/The-Thiele-Machine/tree/main/docs"
+Repository = "https://github.com/sethirus/The-Thiele-Machine"
+"Bug Tracker" = "https://github.com/sethirus/The-Thiele-Machine/issues"
+
+[project.scripts]
+thiele-replay = "verifier.replay:main_cli"
+thiele-receipt = "create_receipt:main"
+thiele-verify = "verifier.replay:main_cli"
+thiele-ingest = "tools.ingest_binary:main"
+thiele-delta = "thielecpu.delta:main"
+thiele-fetch = "tools.fetch_receipt:main"
+thiele-watch = "tools.watch_receipts:main"
+
+[tool.setuptools.packages.find]
+exclude = [
+    "archive",
+    "coq",
+    "logs",
+    "figs",
+    "spec",
+    "catnet",
+    "assets",
+    "solvers",
+    "results",
+    "receipts",
+    "artifacts",
+    "documents",
+    # "thielecpu",
+    "cathedral_images",
+    "shape_of_truth_out",
+    "supplementary_materials",
+    "out"
+]

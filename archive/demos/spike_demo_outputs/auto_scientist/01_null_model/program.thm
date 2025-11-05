@@ -1,0 +1,5 @@
+; Automated scientist hypothesis check
+PNEW {100,101,102,103}
+PYEXEC describe_partition.py
+LASSERT group_1.smt2
+MDLACC

@@ -1,0 +1,40 @@
+{
+  "timestamp": "2025-10-10T00:05:09.434407Z",
+  "mode": "offline",
+  "features": [
+    4.25e-05,
+    0.00010335013304297193,
+    -0.0002,
+    0.0002,
+    4.5e-05
+  ],
+  "feature_hash": "60ba61bb3e423ca06b9c71ce870c64e870c24995545836bbd72b6bc56b38dce7",
+  "rule": {
+    "idx": 2,
+    "threshold": -0.00018,
+    "true_pair": [
+      0,
+      0
+    ],
+    "false_pair": [
+      0,
+      0
+    ],
+    "description": "feature[2] > -0.00018 -> (0, 0), else -> (0, 0)"
+  },
+  "predicted_trial": {
+    "alice": 0,
+    "bob": 0
+  },
+  "robustness": {
+    "margin": 1.9999999999999998e-05,
+    "numeric_robust": true,
+    "proof_eps": 2e-06,
+    "proof_robust": false,
+    "sample_fraction": 1.0,
+    "param_bits": 16
+  },
+  "prediction_proved": false,
+  "proof_smt2": "(set-logic QF_LRA)\n(declare-const f0 Real)\n(assert (= f0 4.25e-05))\n(declare-const f1 Real)\n(assert (= f1 0.00010335013304297193))\n(declare-const f2 Real)\n(assert (= f2 -0.0002))\n(declare-const f3 Real)\n(assert (= f3 0.0002))\n(declare-const f4 Real)\n(assert (= f4 4.5e-05))\n(declare-const A Real)\n(declare-const B Real)\n(assert (or (and (> f2 -0.00018) (= A 0.0)) (and (<= f2 -0.00018) (= A 0.0))))\n(assert (or (and (> f2 -0.00018) (= B 0.0)) (and (<= f2 -0.00018) (= B 0.0))))\n(assert (or (not (= A 0.0)) (not (= B 0.0))))\n(check-sat)",
+  "robust_smt2": "(set-logic QF_LRA)\n(declare-const f0 Real)\n(assert (>= f0 4.05e-05))\n(assert (<= f0 4.4500000000000004e-05))\n(declare-const f1 Real)\n(assert (>= f1 0.00010135013304297194))\n(assert (<= f1 0.00010535013304297193))\n(declare-const f2 Real)\n(assert (>= f2 -0.000202))\n(assert (<= f2 -0.00019800000000000002))\n(declare-const f3 Real)\n(assert (>= f3 0.00019800000000000002))\n(assert (<= f3 0.000202))\n(declare-const f4 Real)\n(assert (>= f4 4.3e-05))\n(assert (<= f4 4.7000000000000004e-05))\n(declare-const A Real)\n(declare-const B Real)\n(assert (or (and (> f2 -0.00018) (= A 0.0)) (and (<= f2 -0.00018) (= A 0.0))))\n(assert (or (and (> f2 -0.00018) (= B 0.0)) (and (<= f2 -0.00018) (= B 0.0))))\n(assert (or (not (= A 0.0)) (not (= B 0.0))))\n(check-sat)"
+}
