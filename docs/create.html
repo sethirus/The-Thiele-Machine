@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiele Receipt Generator - Create Receipts in Your Browser</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 2em; margin-bottom: 10px; }
+        .header p { opacity: 0.9; font-size: 1.1em; }
+        .content { padding: 30px; }
+        .upload-area {
+            border: 3px dashed #667eea;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f8f9ff;
+        }
+        .upload-area:hover { background: #eef1ff; border-color: #764ba2; }
+        .upload-area.drag-over { background: #e0e7ff; border-color: #667eea; }
+        .upload-icon { font-size: 4em; margin-bottom: 20px; }
+        #fileInput { display: none; }
+        
+        .options {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9ff;
+            border-radius: 8px;
+        }
+        .option-group {
+            margin-bottom: 15px;
+        }
+        .option-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #374151;
+        }
+        .option-group input, .option-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            font-family: inherit;
+        }
+        .option-group textarea {
+            font-family: 'Courier New', monospace;
+            min-height: 80px;
+        }
+        
+        .file-list {
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 6px;
+            border: 2px solid #e5e7eb;
+        }
+        .file-item {
+            padding: 10px;
+            margin: 5px 0;
+            background: #f9fafb;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .file-name { font-weight: 600; color: #374151; }
+        .file-size { color: #6b7280; font-size: 0.9em; }
+        
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+        }
+        .result.success { background: #d1fae5; border: 2px solid #10b981; }
+        .result.error { background: #fee2e2; border: 2px solid #ef4444; }
+        .result h3 { margin-bottom: 15px; font-size: 1.3em; }
+        .result.success h3 { color: #065f46; }
+        .result.error h3 { color: #991b1b; }
+        
+        .hash-display {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+            margin: 10px 0;
+            font-size: 0.9em;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .btn-secondary {
+            background: #e5e7eb;
+            color: #374151;
+            margin-left: 10px;
+        }
+        .btn-secondary:hover { background: #d1d5db; }
+        
+        .actions {
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.9em;
+        }
+        .footer a { color: #667eea; text-decoration: none; }
+        .footer a:hover { text-decoration: underline; }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 15px 0;
+            display: none;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+            width: 0%;
+        }
+        .progress-text {
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        
+        .upload-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .upload-button {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .upload-button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+        
+        .archive-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9ff;
+            border-radius: 8px;
+            border: 2px dashed #667eea;
+        }
+        .archive-section h4 {
+            color: #374151;
+            margin-bottom: 10px;
+        }
+        .archive-input-group {
+            display: flex;
+            gap: 10px;
+        }
+        .archive-input-group input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+        }
+        .archive-input-group button {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .archive-input-group button:hover {
+            background: #5568d3;
+        }
+        .archive-input-group button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .info-box {
+            margin-top: 15px;
+            padding: 12px;
+            background: #eff6ff;
+            border-radius: 6px;
+            color: #1e40af;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔐 Thiele Receipt Generator</h1>
+            <p>Create cryptographically verifiable receipts • 100% client-side • No uploads</p>
+        </div>
+        
+        <div class="content">
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">📁</div>
+                <h3>Drop files or folders here</h3>
+                <p>Create a TRS-1.0 receipt for your files</p>
+                <div class="upload-buttons">
+                    <div class="upload-button" data-type="files">📄 Select Files</div>
+                    <div class="upload-button" data-type="directory" id="directoryButton">📂 Select Folder</div>
+                </div>
+                <input type="file" id="fileInput" multiple style="display: none;">
+                <input type="file" id="directoryInput" webkitdirectory directory multiple style="display: none;">
+            </div>
+            
+            <div class="archive-section">
+                <h4>Or fetch from archive URL</h4>
+                <div class="archive-input-group">
+                    <input 
+                        type="url" 
+                        id="archiveUrl" 
+                        placeholder="https://github.com/user/repo/archive/refs/tags/v1.0.0.tar.gz"
+                    >
+                    <button id="fetchArchiveBtn">Fetch Archive</button>
+                </div>
+                <div class="info-box">
+                    📝 <strong>Note:</strong> Archive fetching in the browser is limited due to CORS policies. 
+                    For best results, use the Python CLI: <code>python3 create_receipt.py --archive &lt;URL&gt;</code>
+                </div>
+            </div>
+            
+            <div class="progress-bar" id="progressBar">
+                <div class="progress-bar-fill"></div>
+            </div>
+            <div class="progress-text"></div>
+            
+            <div class="file-list" id="fileList" style="display: none;">
+                <h4>Selected Files:</h4>
+                <div id="fileItems"></div>
+            </div>
+            
+            <div class="options">
+                <div class="option-group">
+                    <label for="metadata">Metadata (JSON, optional):</label>
+                    <textarea id="metadata" placeholder='{"author": "Your Name", "version": "1.0.0", "description": "My project"}'></textarea>
+                    <button class="btn btn-secondary" id="autoFillBtn" style="margin-top: 5px;">🔍 Auto-fill from manifest</button>
+                </div>
+            </div>
+            
+            <div class="actions">
+                <button class="btn btn-primary" id="generateBtn" disabled>Generate Receipt</button>
+                <button class="btn btn-secondary" id="clearBtn">Clear Files</button>
+            </div>
+            
+            <div class="result" id="result">
+                <h3 id="resultTitle"></h3>
+                <div id="resultContent"></div>
+                <div class="actions">
+                    <button class="btn btn-primary" id="downloadBtn">Download Receipt</button>
+                    <a href="verify.html" class="btn btn-secondary">Verify Receipt</a>
+                </div>
+            </div>
+            
+            <div class="footer">
+                <p><strong>Privacy:</strong> All receipt generation happens in your browser. No files are uploaded.</p>
+                <p><strong>Performance:</strong> Using Web Workers for non-blocking computation. Supports drag-and-drop folders!</p>
+                <p style="margin-top: 10px;">
+                    <a href="index.html">Home</a> |
+                    <a href="verify.html">Verify a receipt</a> | 
+                    <a href="https://github.com/sethirus/The-Thiele-Machine" target="_blank">GitHub</a> |
+                    <a href="https://github.com/sethirus/The-Thiele-Machine/blob/main/RECEIPT_GUIDE.md" target="_blank">Documentation</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="create-enhanced.js"></script>
+</body>
+</html>

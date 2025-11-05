@@ -121,7 +121,7 @@ This metadata is automatically included in the receipt without manual input.
 
 ### Browser Capabilities
 
-The web interface at `web/create.html` now supports:
+The web interface at `docs/create.html` now supports:
 
 1. **File Upload**: Click "Select Files" or drag-and-drop individual files
 2. **Directory Upload**: Click "Select Folder" or drag-and-drop entire folders
@@ -207,7 +207,7 @@ python3 create_receipt.py \
 
 ### Example 4: Web UI with Metadata
 
-1. Visit `web/create.html`
+1. Visit `docs/create.html`
 2. Drag-and-drop your project folder
 3. Click "Auto-fill from manifest"
 4. Verify metadata looks correct
@@ -250,7 +250,7 @@ All receipts created with these tools can be verified using the standard verific
 python3 verifier/replay.py receipt.json
 
 # Verify using web UI
-# Open web/verify.html and drag-and-drop receipt.json
+# Open docs/verify.html and drag-and-drop receipt.json
 ```
 
 ## Performance Guidelines
@@ -301,7 +301,7 @@ python3 verifier/replay.py receipt.json
 All receipts created via repository ingestion:
 
 ✅ Work with existing `verifier/replay.py`  
-✅ Work with `web/verify.html` browser verifier  
+✅ Work with `docs/verify.html` browser verifier  
 ✅ Support Ed25519 signature verification  
 ✅ Follow TRS-1.0 specification  
 ✅ Include hash chain integrity checks  
