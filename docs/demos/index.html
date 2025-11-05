@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiele Machine - Live Demos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            text-align: center;
+        }
+        
+        .tagline {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.2em;
+            font-style: italic;
+        }
+        
+        .demos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .demo-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .demo-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .demo-icon {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+        }
+        
+        .demo-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .demo-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .demo-link {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .demo-link:hover {
+            background: #764ba2;
+            transform: scale(1.05);
+        }
+        
+        .info-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 40px 0;
+        }
+        
+        .info-section h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .info-section p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Thiele Machine Live Demos</h1>
+        <p class="tagline">Try Zero-Trust Computing in Your Browser</p>
+        
+        <div class="info-section">
+            <h2>What are these demos?</h2>
+            <p>These interactive demonstrations showcase the Thiele Machine's zero-trust computing paradigm. All verification happens <strong>100% client-side</strong> in your browser—no servers, no uploads, only cryptographic proofs.</p>
+            <p>Each demo uses actual Thiele receipts to verify computations, reconstruct binaries, and prove compiler equivalence. This is not a simulation—it's the real Thiele verification system running in JavaScript.</p>
+        </div>
+        
+        <div class="demos-grid">
+            <div class="demo-card" onclick="window.location.href='install.html'">
+                <div class="demo-icon">🔒</div>
+                <div class="demo-title">Proof-Install</div>
+                <div class="demo-description">
+                    Drop a receipt → Get a green check → Click 'Materialize' → The exact binary appears. Zero-trust software installation powered by cryptographic proofs.
+                </div>
+                <a href="install.html" class="demo-link">Try Now</a>
+                <div class="badge">INTERACTIVE</div>
+            </div>
+            
+            <div class="demo-card" onclick="window.location.href='zk.html'">
+                <div class="demo-icon">⚡</div>
+                <div class="demo-title">ZK Verify</div>
+                <div class="demo-description">
+                    Verify zero-knowledge proofs for Thiele receipts. Check that computations were performed correctly without revealing the computation itself.
+                </div>
+                <a href="zk.html" class="demo-link">Try Now</a>
+                <div class="badge">CRYPTOGRAPHIC</div>
+            </div>
+            
+            <div class="demo-card" onclick="window.location.href='trusting-trust.html'">
+                <div class="demo-icon">🔐</div>
+                <div class="demo-title">Trusting Trust</div>
+                <div class="demo-description">
+                    Defeat compiler backdoors by proving two different toolchains produce identical binaries. Ken Thompson's attack meets cryptographic receipts.
+                </div>
+                <a href="trusting-trust.html" class="demo-link">Try Now</a>
+                <div class="badge">SECURITY</div>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <h2>Sample Data</h2>
+            <p>Each demo can accept your own receipt files, or you can try these sample files to see how it works:</p>
+            <ul style="margin-left: 20px; line-height: 2;">
+                <li><a href="sample-receipt.json" download>sample-receipt.json</a> - Basic Thiele receipt</li>
+                <li><a href="sample-zkproof.json" download>sample-zkproof.json</a> - Zero-knowledge proof example</li>
+                <li><a href="sample-gcc-receipt.json" download>sample-gcc-receipt.json</a> - GCC compiler receipt</li>
+                <li><a href="sample-clang-receipt.json" download>sample-clang-receipt.json</a> - Clang compiler receipt</li>
+            </ul>
+        </div>
+        
+        <div class="info-section" style="background: #d1ecf1; border-left: 4px solid #0c5460;">
+            <h2>Privacy Note</h2>
+            <p><strong>All verification happens in your browser.</strong> No files are uploaded to any server. Your receipts and proofs never leave your machine. This is true zero-trust computing.</p>
+        </div>
+        
+        <div class="footer">
+            <p>Part of the <a href="https://github.com/sethirus/The-Thiele-Machine" target="_blank">Thiele Machine</a> project</p>
+            <p style="margin-top: 10px;">Zero servers • Zero trust • Only mathematics</p>
+        </div>
+    </div>
+</body>
+</html>
