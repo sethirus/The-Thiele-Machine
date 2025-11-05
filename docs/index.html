@@ -5,6 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Create and verify cryptographic receipts for software. Point at any repository or file and get verifiable proofs. Zero trust, 100% client-side.">
     <meta name="keywords" content="cryptography, software verification, receipts, supply chain security, zero trust">
+    <meta name="author" content="The Thiele Machine Project">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sethirus.github.io/The-Thiele-Machine/">
+    <meta property="og:title" content="Thiele Receipts - Cryptographically Verifiable Software">
+    <meta property="og:description" content="Mathematical proofs for software construction. Replace trust with cryptographic verification.">
+    <meta property="og:image" content="https://sethirus.github.io/The-Thiele-Machine/assets/og-image.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://sethirus.github.io/The-Thiele-Machine/">
+    <meta property="twitter:title" content="Thiele Receipts - Cryptographically Verifiable Software">
+    <meta property="twitter:description" content="Mathematical proofs for software construction. Replace trust with cryptographic verification.">
+    <meta property="twitter:image" content="https://sethirus.github.io/The-Thiele-Machine/assets/og-image.png">
+    
+    <!-- Security -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    
     <title>Thiele Receipts - Cryptographically Verifiable Software</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -73,11 +94,35 @@
         .card:hover, .card:focus {
             transform: translateY(-10px);
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+        }
+        .card:focus {
+            outline: 3px solid #fff;
+            outline-offset: 2px;
+        }
+        
+        /* Improved focus visibility for all interactive elements */
+        a:focus, button:focus, input:focus, select:focus, textarea:focus {
             outline: 3px solid #667eea;
             outline-offset: 2px;
         }
-        .card:focus {
-            outline: 3px solid #667eea;
+        
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .card {
+                border: 2px solid #000;
+            }
+            .card:focus {
+                outline: 4px solid #000;
+            }
+        }
+        
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
         }
         
         .card-icon {
@@ -343,14 +388,130 @@
                 </p>
                 <p style="margin-top: 30px; padding: 20px; background: #f3f4f6; border-radius: 8px;">
                     <strong>Learn more:</strong>
-                    Read the <a href="https://github.com/sethirus/The-Thiele-Machine/blob/main/RECEIPT_GUIDE.md" style="color: #667eea;" target="_blank">Receipt Guide</a> or
-                    check the <a href="https://github.com/sethirus/The-Thiele-Machine/blob/main/trs-spec-v1.md" style="color: #667eea;" target="_blank">TRS-1.0 Specification</a>
+                    Read the <a href="https://github.com/sethirus/The-Thiele-Machine/blob/main/RECEIPT_GUIDE.md" style="color: #667eea;" target="_blank" rel="noopener noreferrer">Receipt Guide</a> or
+                    check the <a href="https://github.com/sethirus/The-Thiele-Machine/blob/main/trs-spec-v1.md" style="color: #667eea;" target="_blank" rel="noopener noreferrer">TRS-1.0 Specification</a>
                 </p>
                 <div style="margin-top: 30px; padding: 20px; background: #eff6ff; border-radius: 8px; border: 2px solid #667eea;">
                     <h4 style="color: #667eea; margin-bottom: 15px; text-align: center;">Quick Start Guides</h4>
                     <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-                        <a href="https://github.com/sethirus/The-Thiele-Machine/blob/main/for-users-quickstart.md" style="color: white; background: #667eea; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600;" target="_blank">👤 User's Guide (2 min)</a>
-                        <a href="https://github.com/sethirus/The-Thiele-Machine/blob/main/for-maintainers-quickstart.md" style="color: white; background: #667eea; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600;" target="_blank">⚙️ Maintainer's Guide (5 min)</a>
+                        <a href="https://github.com/sethirus/The-Thiele-Machine/blob/main/for-users-quickstart.md" style="color: white; background: #667eea; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600;" target="_blank" rel="noopener noreferrer">👤 User's Guide (2 min)</a>
+                        <a href="https://github.com/sethirus/The-Thiele-Machine/blob/main/for-maintainers-quickstart.md" style="color: white; background: #667eea; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600;" target="_blank" rel="noopener noreferrer">⚙️ Maintainer's Guide (5 min)</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="features" style="margin-top: 30px;" aria-labelledby="the-science">
+            <h2 id="the-science">🔬 The Science Behind Thiele Receipts</h2>
+            <div style="max-width: 800px; margin: 0 auto; color: #374151; line-height: 1.8;">
+                <p style="margin-bottom: 20px; font-size: 1.05em;">
+                    Thiele receipts leverage fundamental principles from cryptography and formal verification to create 
+                    <strong>provably correct, mathematically verifiable proofs</strong> of software construction.
+                </p>
+                
+                <h3 style="color: #667eea; margin: 25px 0 15px 0; font-size: 1.4em;">Mathematical Foundation</h3>
+                <div style="background: #f8f9ff; padding: 20px; border-radius: 8px; border-left: 4px solid #667eea; margin-bottom: 20px;">
+                    <h4 style="color: #374151; margin-bottom: 10px; font-size: 1.1em;">1. Cryptographic Hash Functions</h4>
+                    <p style="margin-bottom: 10px;">
+                        At the core, we use <strong>SHA-256</strong>, a cryptographic hash function with these properties:
+                    </p>
+                    <ul style="margin-left: 20px; margin-bottom: 15px;">
+                        <li><strong>Deterministic:</strong> Same input always produces same output: H(x) = H(x)</li>
+                        <li><strong>One-way:</strong> Given H(x), computationally infeasible to find x</li>
+                        <li><strong>Collision-resistant:</strong> Infeasible to find x ≠ y where H(x) = H(y)</li>
+                        <li><strong>Avalanche effect:</strong> Small input change causes completely different output</li>
+                    </ul>
+                    <code style="background: white; padding: 8px; border-radius: 4px; display: block; font-size: 0.9em;">
+                        SHA256("hello") = 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
+                    </code>
+                </div>
+                
+                <div style="background: #f0fdf4; padding: 20px; border-radius: 8px; border-left: 4px solid #10b981; margin-bottom: 20px;">
+                    <h4 style="color: #374151; margin-bottom: 10px; font-size: 1.1em;">2. Hash Chains for Integrity</h4>
+                    <p style="margin-bottom: 10px;">
+                        Each step in the construction builds on previous steps, creating a <strong>Merkle chain</strong>:
+                    </p>
+                    <code style="background: white; padding: 12px; border-radius: 4px; display: block; font-size: 0.85em; margin: 10px 0; white-space: pre-wrap; font-family: 'Courier New', monospace;">
+Step 1: H₁ = SHA256(file₁)
+Step 2: H₂ = SHA256(file₂)
+Step 3: H₃ = SHA256(H₁ ∥ H₂)  // ∥ means concatenation
+Global: H_global = SHA256(all_steps)
+                    </code>
+                    <p style="margin-top: 10px; font-size: 0.95em;">
+                        This creates an <strong>immutable chain</strong>: changing any single byte cascades through the entire structure, 
+                        making tampering mathematically detectable.
+                    </p>
+                </div>
+                
+                <div style="background: #fef3f2; padding: 20px; border-radius: 8px; border-left: 4px solid #ef4444; margin-bottom: 20px;">
+                    <h4 style="color: #374151; margin-bottom: 10px; font-size: 1.1em;">3. Digital Signatures (Optional)</h4>
+                    <p style="margin-bottom: 10px;">
+                        Receipts can be signed using <strong>Ed25519</strong> (Edwards-curve Digital Signature Algorithm):
+                    </p>
+                    <ul style="margin-left: 20px; margin-bottom: 10px;">
+                        <li><strong>Public-key cryptography:</strong> Sign with private key, verify with public key</li>
+                        <li><strong>Non-repudiation:</strong> Only the signer could have created this signature</li>
+                        <li><strong>Fast & secure:</strong> 128-bit security level, faster than RSA</li>
+                    </ul>
+                    <p style="font-size: 0.95em;">
+                        Signature = Sign(private_key, H_global) ensures <strong>authenticity</strong> and <strong>authorship</strong>
+                    </p>
+                </div>
+                
+                <h3 style="color: #667eea; margin: 25px 0 15px 0; font-size: 1.4em;">The Thiele Machine: Zero-Trust Computing</h3>
+                <p style="margin-bottom: 15px;">
+                    This receipt system is part of the broader <strong>Thiele Machine</strong> project—an exploration of 
+                    <em>zero-trust, formally verified computing</em> from first principles.
+                </p>
+                
+                <div style="background: #fffbeb; padding: 20px; border-radius: 8px; border: 2px solid #f59e0b; margin-bottom: 20px;">
+                    <h4 style="color: #b45309; margin-bottom: 10px; font-size: 1.1em;">🎯 Core Principles</h4>
+                    <ol style="margin-left: 20px; line-height: 1.8;">
+                        <li><strong>Replace trust with proof:</strong> Instead of "trust this binary," we provide mathematical proof of its construction</li>
+                        <li><strong>Reproducible determinism:</strong> Same inputs + same process = identical outputs, always</li>
+                        <li><strong>Client-side verification:</strong> You verify proofs yourself—no need to trust servers or third parties</li>
+                        <li><strong>Formal verification:</strong> Properties proven mathematically, not just tested empirically</li>
+                    </ol>
+                </div>
+                
+                <div style="background: #f5f3ff; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                    <h4 style="color: #667eea; margin-bottom: 10px; font-size: 1.1em;">📚 Learn More About The Science</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 10px;">
+                            <a href="https://github.com/sethirus/The-Thiele-Machine" style="color: #667eea; text-decoration: none; font-weight: 600;" target="_blank" rel="noopener noreferrer">
+                                🔬 The Thiele Machine Repository
+                            </a> - Explore the full project
+                        </li>
+                        <li style="margin-bottom: 10px;">
+                            <a href="https://github.com/sethirus/The-Thiele-Machine/blob/main/trs-spec-v1.md" style="color: #667eea; text-decoration: none; font-weight: 600;" target="_blank" rel="noopener noreferrer">
+                                📐 TRS-1.0 Specification
+                            </a> - Mathematical spec and formal definitions
+                        </li>
+                        <li style="margin-bottom: 10px;">
+                            <a href="https://github.com/sethirus/The-Thiele-Machine/tree/main/coq" style="color: #667eea; text-decoration: none; font-weight: 600;" target="_blank" rel="noopener noreferrer">
+                                🧮 Coq Proofs
+                            </a> - Formal verification in Coq proof assistant
+                        </li>
+                        <li style="margin-bottom: 10px;">
+                            <a href="demos/" style="color: #667eea; text-decoration: none; font-weight: 600;">
+                                🎮 Interactive Demos
+                            </a> - Try proof-install, ZK proofs, and more
+                        </li>
+                    </ul>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 12px; margin-top: 25px; text-align: center;">
+                    <h4 style="font-size: 1.3em; margin-bottom: 15px;">Ready to dive deeper?</h4>
+                    <p style="margin-bottom: 20px; opacity: 0.95;">
+                        Explore the demos to see these principles in action, or read the documentation to understand the theory.
+                    </p>
+                    <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                        <a href="demos/" style="background: white; color: #667eea; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 600; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                            🎮 Try Interactive Demos
+                        </a>
+                        <a href="https://github.com/sethirus/The-Thiele-Machine/blob/main/README.md" style="background: rgba(255,255,255,0.2); color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 600; border: 2px solid white; transition: all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'" target="_blank" rel="noopener noreferrer">
+                            📖 Read Full Documentation
+                        </a>
                     </div>
                 </div>
             </div>

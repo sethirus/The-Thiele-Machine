@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Verify cryptographic receipts for software. Upload receipt JSON or fetch from GitHub releases. 100% client-side verification.">
+    <meta name="author" content="The Thiele Machine Project">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Thiele Receipt Verifier - Browser Edition">
+    <meta property="og:description" content="100% client-side cryptographic verification. Zero trust, only mathematics.">
+    
+    <!-- Security -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    
     <title>Thiele Receipt Verifier - Browser Edition</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -218,6 +230,31 @@
         .footer a { color: #667eea; text-decoration: none; }
         .footer a:hover, .footer a:focus { text-decoration: underline; }
         
+        /* Improved focus visibility */
+        button:focus, a:focus, input:focus, [tabindex="0"]:focus {
+            outline: 3px solid #667eea;
+            outline-offset: 2px;
+        }
+        
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .container {
+                border: 2px solid #000;
+            }
+            button:focus, a:focus {
+                outline: 4px solid #000;
+            }
+        }
+        
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
         @media (max-width: 768px) {
             .tabs {
                 flex-direction: column;
@@ -308,10 +345,14 @@
                 <p style="margin-top: 10px;">
                     <a href="index.html">Home</a> |
                     <a href="create.html">Create a receipt</a> |
+                    <a href="demos/">Interactive Demos</a> |
                     <strong>Signature Verification:</strong> Ed25519 signatures verified using 
                     <a href="https://github.com/dchest/tweetnacl-js" target="_blank" rel="noopener noreferrer">TweetNaCl.js</a> (optional).
                 </p>
-                <p style="margin-top: 10px;">Part of the <a href="https://github.com/sethirus/The-Thiele-Machine" target="_blank" rel="noopener noreferrer">Thiele Machine</a> self-hosting kernel project</p>
+                <p style="margin-top: 10px;">
+                    Part of the <a href="https://github.com/sethirus/The-Thiele-Machine" target="_blank" rel="noopener noreferrer">Thiele Machine</a> project — 
+                    <a href="https://github.com/sethirus/The-Thiele-Machine/blob/main/trs-spec-v1.md" target="_blank" rel="noopener noreferrer">Learn the mathematics</a> behind cryptographic receipts
+                </p>
             </footer>
         </main>
     </div>
