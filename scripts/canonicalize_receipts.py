@@ -87,7 +87,11 @@ def canonicalize_step(step: dict, receipt_dir: Path) -> bool:
                 models_dir.mkdir(parents=True, exist_ok=True)
                 # Use the original model path's base name (orig_path was computed above)
                 base_name = orig_path.stem
-                new_name = f"{base_name}.step{step.get('idx', '?')}.canonical.model"
+                # Prefer 'idx' but fall back to 'step' (tests use 'step').
+                step_index = step.get('idx', step.get('step', '?'))
+                # Ensure index is safe for filenames (avoid characters like '?')
+                step_index_text = str(step_index) if isinstance(step_index, (int, str)) else "?"
+                new_name = f"{base_name}.step{step_index_text}.canonical.model"
                 new_path = models_dir / new_name
                 new_path.parent.mkdir(parents=True, exist_ok=True)
                 # write DIMACS-style model as space separated literals ending with 0
@@ -97,9 +101,16 @@ def canonicalize_step(step: dict, receipt_dir: Path) -> bool:
                 step["model_blob_uri"] = str(new_path)
                 step["model_sha256"] = model_sha
                 changed = True
-            except Exception:
+            except Exception as e:
                 # If anything goes wrong, don't block canonicalisation of other fields
-                pass
+                # but surface the error during debugging so we can fix root causes.
+                try:
+                    import traceback
+
+                    print("[canonicalize] model canonicalisation failed:", e)
+                    traceback.print_exc()
+                except Exception:
+                    pass
 
     # If the step carries an LRAT proof, run the analyzer (best-effort) to
     # decide if normalization is required. This avoids accepting RAT-only
