@@ -2,14 +2,14 @@
 
 ## ✅ Status: Complete and Deployed via GitHub Actions
 
-All Thiele Machine web pages are properly organized in the `/web` folder and automatically deployed to GitHub Pages via GitHub Actions workflow.
+All Thiele Machine web pages are properly organized in the `/docs` folder and automatically deployed to GitHub Pages via GitHub Actions workflow.
 
 ## Current Setup
 
-### 1. Web Folder Structure (`/web`)
-- All web files are in `/web` folder (canonical source for GitHub Pages)
+### 1. Web Folder Structure (`/docs`)
+- All web files are in `/docs` folder (canonical source for GitHub Pages)
 - Includes `.nojekyll` file to prevent Jekyll processing
-- Organized demos in `/web/demos/` subdirectory
+- Organized demos in `/docs/demos/` subdirectory
 
 ### 2. Verified All Pages Work
 - ✓ `index.html` - Landing page for Thiele Receipts
@@ -32,22 +32,22 @@ All Thiele Machine web pages are properly organized in the `/web` folder and aut
 
 ### 4. Documentation
 - ✓ Updated `GITHUB_PAGES_SETUP.md` with current workflow information
-- ✓ Updated README.md with correct references to `/web` folder
+- ✓ Updated README.md with correct references to `/docs` folder
 - ✓ User guides moved to repository root for easy access
 
 ## GitHub Pages Deployment
 
 ### Automatic Deployment via GitHub Actions
 
-The repository uses a GitHub Actions workflow (`.github/workflows/pages.yml`) to automatically deploy from the `/web` folder to GitHub Pages.
+The repository uses a GitHub Actions workflow (`.github/workflows/pages.yml`) to automatically deploy from the `/docs` folder to GitHub Pages.
 
 **Deployment triggers:**
-- Push to main branch with changes in `web/**`
+- Push to main branch with changes in `docs/**`
 - Manual workflow dispatch
 
 **How it works:**
 1. Workflow checks out the repository
-2. Uploads the `/web` folder as a GitHub Pages artifact
+2. Uploads the `/docs` folder as a GitHub Pages artifact
 3. Deploys to the `github-pages` environment
 4. Site becomes available at: https://sethirus.github.io/The-Thiele-Machine/
 
@@ -97,19 +97,10 @@ python3 -m http.server 8000
 
 Then visit http://localhost:8000 in your browser.
 
-Or use the automated verification script:
-
-```bash
-cd web
-python3 -m http.server 8000
-```
-
-Then visit http://localhost:8000 in your browser.
-
 ## File Organization
 
 ```
-web/
+docs/
 ├── .nojekyll              # Prevents Jekyll processing
 ├── index.html             # Main landing page
 ├── verify.html            # Receipt verifier
@@ -141,7 +132,7 @@ web/
 ## Summary
 
 ✅ **All web pages are working and deployed via GitHub Actions**
-✅ **The `/web` folder is the canonical source for all web content**
+✅ **The `/docs` folder is the canonical source for all web content**
 ✅ **Automatic deployment on push to main branch**
 
 The verifier and all demos are fully functional and ready to use once GitHub Pages is configured.
