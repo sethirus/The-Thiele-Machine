@@ -224,8 +224,8 @@ See the [Maintainer's Quick Start](for-maintainers-quickstart.md) for a 5-minute
 
 ## Next Steps
 
-- **Learn More**: [Receipt Guide](https://github.com/sethirus/The-Thiele-Machine/blob/main/docs/RECEIPT_GUIDE.md)
-- **Technical Spec**: [TRS-1.0 Specification](https://github.com/sethirus/The-Thiele-Machine/blob/main/docs/trs-spec-v1.md)
+- **Learn More**: [Receipt Guide](https://github.com/sethirus/The-Thiele-Machine/blob/main/RECEIPT_GUIDE.md)
+- **Technical Spec**: [TRS-1.0 Specification](https://github.com/sethirus/The-Thiele-Machine/blob/main/trs-spec-v1.md)
 - **Report Issues**: [GitHub Issues](https://github.com/sethirus/The-Thiele-Machine/issues)
 - **Create Receipts**: [Browser Generator](https://sethirus.github.io/The-Thiele-Machine/create.html)
 

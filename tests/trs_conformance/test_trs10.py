@@ -2,7 +2,7 @@
 TRS-1.0 Conformance Tests
 
 Tests that verify correct implementation of the TRS-1.0 specification
-as defined in docs/trs-spec-v1.md.
+as defined in trs-spec-v1.md.
 
 These tests use the test vectors from test_vectors.py to verify:
 1. Valid receipts are accepted
