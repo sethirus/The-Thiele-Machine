@@ -204,7 +204,11 @@ def test_engine_of_truth_script_exists():
     )
 
     assert script_path.exists(), "run_engine_of_truth.sh should exist"
-    assert script_path.stat().st_mode & 0o111, "Script should be executable"
+    # On Windows the Unix execute bit isn't reliable; only assert executable
+    # permission on POSIX platforms.
+    import os
+    if os.name != "nt":
+        assert script_path.stat().st_mode & 0o111, "Script should be executable"
 
 
 def test_documentation_exists():
