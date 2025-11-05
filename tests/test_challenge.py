@@ -5,6 +5,7 @@
 
 import json
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
 import hashlib
@@ -23,7 +24,7 @@ def test_challenge_verify_accepts(tmp_path):
     d.mkdir()
     with open(d / "ok.json", "w") as f:
         json.dump(make_receipt(1.0), f)
-    r = subprocess.run(["python", "scripts/challenge.py", "verify", str(d)])
+    r = subprocess.run([sys.executable, "scripts/challenge.py", "verify", str(d)])
     assert r.returncode == 0
 
 
@@ -36,5 +37,5 @@ def test_challenge_refinement_violation(tmp_path):
         json.dump(make_receipt(2.0), f)
     with open(refined / "r.json", "w") as f:
         json.dump(make_receipt(1.0), f)
-    r = subprocess.run(["python", "scripts/challenge.py", "refinement", str(coarse), str(refined)])
+    r = subprocess.run([sys.executable, "scripts/challenge.py", "refinement", str(coarse), str(refined)])
     assert r.returncode != 0
