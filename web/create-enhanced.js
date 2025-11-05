@@ -248,7 +248,9 @@ class ArchiveFetcher {
                 // Note: Actual zip extraction would require a library like JSZip
                 throw new Error('ZIP extraction requires additional library (JSZip). Please upload files directly or use the Python CLI for archive support.');
             } else {
-                throw new Error('Archive format not supported in browser. Please use the Python CLI with --archive option or upload files directly.');
+                // Note: Browser-based archive extraction requires libraries like JSZip
+                // which are not included to keep the page lightweight
+                throw new Error('Archive extraction in browser requires additional libraries. Please use the Python CLI: python3 create_receipt.py --archive <URL>');
             }
             
         } catch (error) {
