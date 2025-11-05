@@ -1,28 +1,28 @@
-Require Import ThieleMachine.
-Require Import List String.
-Import ListNotations.
+(* ================================================================= *)
+(* Flagship theorem: classical Turing computation is strictly         *)
+(* contained in sighted Thiele computation.                           *)
+(* ================================================================= *)
+From Coq Require Import Arith Lia.
 
-Module ThieleSubsumesTuring.
+From ThieleUniversal Require Import TM.
+From ThieleMachine Require Import ThieleMachine.
+From ThieleMachine Require Import Simulation Separation.
 
-Record ThieleConfig := {
-  tm_config : TMConfig;
-  ledger : list string;
-  mu_cost : nat;
-}.
+Definition strict_advantage_statement : Prop :=
+  exists (N C D : nat), forall n, n >= N ->
+    thiele_sighted_steps (tseitin_family n) <= C * cubic n /\
+    thiele_mu_cost (tseitin_family n) <= D * quadratic n /\
+    turing_blind_steps (tseitin_family n) >= Nat.pow 2 n.
 
-Definition thiele_step (tm : TM nat nat) (th_conf : ThieleConfig) : ThieleConfig :=
-  {| tm_config := tm_step tm th_conf.(tm_config);
-     ledger := "Step taken."%string :: th_conf.(ledger);
-     mu_cost := S th_conf.(mu_cost) |}.
-
-End ThieleSubsumesTuring.
-
-Theorem thiele_machine_subsumes_turing_machine :
-  forall (tm : TM nat nat) (conf : TMConfig),
-    (ThieleSubsumesTuring.thiele_step tm {| ThieleSubsumesTuring.tm_config := conf;
-                                            ThieleSubsumesTuring.ledger := [];
-                                            ThieleSubsumesTuring.mu_cost := 0 |}).(ThieleSubsumesTuring.tm_config)
-    = tm_step tm conf.
+Theorem thiele_formally_subsumes_turing :
+  (forall tm : TM
+          (Hcat : catalogue_static_check tm = true)
+          (Hfit : rules_fit tm),
+      thiele_simulates_tm tm Hcat Hfit) /\
+  strict_advantage_statement.
 Proof.
-  intros. reflexivity.
+  split.
+  - intros tm Hcat Hfit.
+    apply turing_contained_in_thiele; assumption.
+  - exact thiele_exponential_separation.
 Qed.

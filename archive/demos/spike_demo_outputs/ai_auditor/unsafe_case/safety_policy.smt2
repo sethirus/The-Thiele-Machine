@@ -1,0 +1,6 @@
+(set-logic QF_LRA)
+(declare-fun is_kitten () Real)
+(declare-fun is_dangerous () Real)
+(assert (= is_kitten 0.92))
+(assert (= is_dangerous 0.85))
+(assert (=> (> is_kitten 0.9) (not (> is_dangerous 0.5))))

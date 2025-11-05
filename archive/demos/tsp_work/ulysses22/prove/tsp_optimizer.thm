@@ -1,0 +1,6 @@
+; TSP Optimizer using Thiele Machine PDISCOVER (custom axiom)
+PNEW {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22}
+LASSERT "tsp_axioms/tour_validity.smt2"
+PDISCOVER 2 tsp_axioms/optimality_test.smt2
+MDLACC
+EMIT "Optimization Step Complete"

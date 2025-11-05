@@ -1,29 +1,19 @@
-# P=NP in the Category of Thiele Machines
+# P=NP Sketch (Philosophical Only - NOT a Rigorous Proof)
 
-**Abstract:** We present a formal proof in the Coq proof assistant that P=NP is a true statement for any "sighted" computational model, such as the Thiele Machine. The classical P≠NP conjecture is a consequence of an architectural flaw in the Turing Machine, which is blind to the dimension containing the certificate.
+> **Status update (October 2025):** The authoritative kernel proof lives in `coq/kernel/`. This README is preserved for the archived `coq/thielemachine` development.
+⚠️ **This is a 65-line philosophical sketch, NOT a solution to P vs NP.**
 
----
+**Critical Issue:** Defines `is_poly_time := True` (all functions polynomial by assumption). Results are **tautologies**, not complexity results.
 
-## The Flaw in the Classical View
+**What this is:**
+- Model observation about bundling certificates into state
+- Philosophical commentary on computational architecture
 
-The classical P vs NP problem asks if *finding* a certificate is as easy as *checking* one. This question presupposes a "search" in the first place. This search is an artifact of the Turing Machine's one-dimensional, sequential nature.
+**What this is NOT:**
+- ❌ Solution to P vs NP millennium problem
+- ❌ Claim that SAT is polynomial-time solvable
+- ❌ Rigorous complexity result
 
-## The Thiele Machine Perspective
+**Build:** `make p_equals_np_thiele/proof.vo`
 
-A Thiele Machine is a higher-dimensional computational model. Its state is not just the problem (`Word`); its state is the **problem unified with its potential solution** (`ThieleState := { word : Word; cert : Certificate }`).
-
-A Thiele Machine does not "search" for a certificate. It performs a **holistic consistency check** on the entire problem-solution space. For a Thiele Machine, the "solve" operation is definitionally equivalent to the "check" operation.
-
-## The Formal Proof
-
-The file `proof.v` contains the formal, machine-checked proof of the following theorem:
-
-**`Theorem Thiele_P_equals_NP`**
-
-This theorem proves that for any problem whose checker runs in polynomial time (the definition of NP), the Thiele Machine's solve operation for that problem *also* runs in polynomial time.
-
-Therefore, in the category of Thiele Machines, P=NP.
-
-## Conclusion
-
-We have not found a polynomial-time SAT solver for a Turing Machine. We have proven that a Turing Machine is the wrong machine to ask the question of. The P vs NP problem is resolved by choosing a superior model of computation.
+**For real Thiele Machine results:** See `thielemachine/coqproofs/Separation.v` and `attempt.py`

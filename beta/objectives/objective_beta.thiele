@@ -1,0 +1,17 @@
+{
+  "name": "Novelty Maximization v1.0",
+  "function": "weighted_sum",
+  "components": {
+    "accuracy": {
+      "weight": 0.8,
+      "function": "evaluate_classification_accuracy"
+    },
+    "novelty": {
+      "weight": 0.2,
+      "function": "evaluate_primitive_novelty",
+      "parameters": {
+        "history_file": "ascension_ledger.json"
+      }
+    }
+  }
+}

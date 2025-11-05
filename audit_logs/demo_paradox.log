@@ -1,0 +1,34 @@
+Thiele Machine: Paradox Demonstration
+========================================
+Running paradox demonstration...
+This will test PDISCOVER's ability to find partitions where
+contradictory axioms (x=1 vs x=2) create unsatisfiable combinations.
+
+Thiele Machine VM starting execution...
+Program has 4 instructions
+Output directory: paradox_output
+
+Step   1: PNEW {1,2,3,4,5}
+Step   3: PDISCOVER 2 /workspace/The-Thiele-Machine/paradox_module_a.smt2 /workspace/The-Thiele-Machine/paradox_module_b.smt2
+PDISCOVER: Starting partition discovery on module 2
+PDISCOVER: Region has 5 elements: [1, 2, 3, 4, 5]
+PDISCOVER: Exploring 2 possible partition splits...
+PDISCOVER: Testing 2 partitions in parallel...
+PDISCOVER: PARADOX FOUND in partition {1} | {2, 3, 4, 5}
+PDISCOVER: Exploration complete. Explored 1 partitions.
+PDISCOVER: Result - Paradox found in partition ({1}, {2, 3, 4, 5})
+Step   5: MDLACC 
+Step   7: EMIT Paradox demonstration completed
+
+Results:
+Operational Cost: 30.0 μ-bits
+Information Cost: 0.0 μ-bits
+Total Cost: 30.0 μ-bits
+
+PDISCOVER Results:
+  4: PDISCOVER found paradox in partition: {1} | {2, 3, 4, 5}
+  4: PDISCOVER 2 /workspace/The-Thiele-Machine/paradox_module_a.smt2 /workspace/The-Thiele-Machine/paradox_module_b.smt2 -> paradox found in partition ({1}, {2, 3, 4, 5})
+
+Paradox Demonstration Complete!
+If successful, PDISCOVER found a partition where contradictory
+axioms create an unsatisfiable logical system.

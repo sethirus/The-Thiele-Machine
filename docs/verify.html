@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Verify cryptographic receipts for software. Upload receipt JSON or fetch from GitHub releases. 100% client-side verification.">
+    <meta name="author" content="The Thiele Machine Project">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Thiele Receipt Verifier - Browser Edition">
+    <meta property="og:description" content="100% client-side cryptographic verification. Zero trust, only mathematics.">
+    
+    <!-- Security -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    
+    <title>Thiele Receipt Verifier - Browser Edition</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #000;
+            color: #fff;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 2em; margin-bottom: 10px; }
+        .header p { opacity: 0.9; font-size: 1.1em; }
+        .content { padding: 30px; }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        .tab {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: #6b7280;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .tab:hover, .tab:focus {
+            color: #667eea;
+            outline: none;
+        }
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        
+        .upload-area {
+            border: 3px dashed #667eea;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f8f9ff;
+        }
+        .upload-area:hover, .upload-area:focus-within { 
+            background: #eef1ff; 
+            border-color: #764ba2; 
+        }
+        .upload-area.drag-over { 
+            background: #e0e7ff; 
+            border-color: #667eea; 
+        }
+        .upload-icon { font-size: 4em; margin-bottom: 20px; }
+        #fileInput { display: none; }
+        
+        .fetch-panel {
+            background: #f8f9ff;
+            padding: 30px;
+            border-radius: 8px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #374151;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 1em;
+            font-family: inherit;
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        .input-hint {
+            font-size: 0.9em;
+            color: #6b7280;
+            margin-top: 5px;
+        }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn-primary:hover, .btn-primary:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #667eea;
+            font-weight: 600;
+        }
+        .spinner {
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+        }
+        .result.success { background: #d1fae5; border: 2px solid #10b981; }
+        .result.error { background: #fee2e2; border: 2px solid #ef4444; }
+        .result h3 { margin-bottom: 15px; font-size: 1.3em; }
+        .result.success h3 { color: #065f46; }
+        .result.error h3 { color: #991b1b; }
+        .hash-display {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+            margin: 10px 0;
+            font-size: 0.9em;
+        }
+        .info {
+            margin-top: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 6px;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .info-row:last-child { border-bottom: none; }
+        .info-label { font-weight: 600; color: #374151; }
+        .info-value { font-family: 'Courier New', monospace; color: #6b7280; }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.9em;
+        }
+        .footer a { color: #667eea; text-decoration: none; }
+        .footer a:hover, .footer a:focus { text-decoration: underline; }
+        
+        /* Improved focus visibility */
+        button:focus, a:focus, input:focus, [tabindex="0"]:focus {
+            outline: 3px solid #667eea;
+            outline-offset: 2px;
+        }
+        
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .container {
+                border: 2px solid #000;
+            }
+            button:focus, a:focus {
+                outline: 4px solid #000;
+            }
+        }
+        
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+            }
+            .tab {
+                border-bottom: none;
+                border-left: 3px solid transparent;
+            }
+            .tab.active {
+                border-left-color: #667eea;
+                border-bottom-color: transparent;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <div class="container">
+        <header class="header" role="banner">
+            <h1>🔒 Thiele Receipt Verifier</h1>
+            <p>Browser-based cryptographic verification • No server uploads • 100% client-side</p>
+        </header>
+        
+        <main id="main-content" class="content" role="main">
+            <div class="tabs" role="tablist">
+                <button class="tab active" role="tab" aria-selected="true" aria-controls="upload-panel" id="upload-tab">Upload File</button>
+                <button class="tab" role="tab" aria-selected="false" aria-controls="fetch-panel" id="fetch-tab">Fetch from URL</button>
+            </div>
+            
+            <div id="upload-panel" class="tab-content active" role="tabpanel" aria-labelledby="upload-tab">
+                <div class="upload-area" id="uploadArea" tabindex="0" aria-label="Upload receipt file area">
+                    <div class="upload-icon" aria-hidden="true">📄</div>
+                    <h3>Drop receipt JSON file here</h3>
+                    <p>or click to select</p>
+                    <input type="file" id="fileInput" accept=".json" aria-label="Select receipt file">
+                </div>
+            </div>
+            
+            <div id="fetch-panel" class="tab-content" role="tabpanel" aria-labelledby="fetch-tab">
+                <div class="fetch-panel">
+                    <h3>Fetch Receipt from URL</h3>
+                    <p style="margin-bottom: 20px; color: #6b7280;">Enter a direct URL to a receipt JSON file or a GitHub repository release.</p>
+                    
+                    <div class="input-group">
+                        <label for="receiptUrl">Receipt URL</label>
+                        <input 
+                            type="url" 
+                            id="receiptUrl" 
+                            placeholder="https://example.com/receipt.json"
+                            aria-describedby="url-hint"
+                        >
+                        <div class="input-hint" id="url-hint">
+                            Direct link to .receipt.json file or raw GitHub URL
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="githubRepo">Or GitHub Repository</label>
+                        <input 
+                            type="text" 
+                            id="githubRepo" 
+                            placeholder="owner/repository"
+                            aria-describedby="repo-hint"
+                        >
+                        <div class="input-hint" id="repo-hint">
+                            Fetches receipt from latest release (e.g., "sethirus/The-Thiele-Machine")
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary" id="fetchBtn">
+                        Fetch & Verify
+                    </button>
+                </div>
+            </div>
+            
+            <div id="loading" class="loading" style="display: none;" role="status" aria-live="polite">
+                <div class="spinner" aria-hidden="true"></div>
+                <p>Loading receipt...</p>
+            </div>
+            
+            <div class="result" id="result" role="alert" aria-live="assertive">
+                <h3 id="resultTitle"></h3>
+                <div id="resultContent"></div>
+            </div>
+            
+            <footer class="footer" role="contentinfo">
+                <p><strong>Privacy:</strong> All verification happens in your browser. No data is uploaded to any server.</p>
+                <p style="margin-top: 10px;">
+                    <a href="index.html">Home</a> |
+                    <a href="create.html">Create a receipt</a> |
+                    <a href="demos/">Interactive Demos</a> |
+                    <strong>Signature Verification:</strong> Ed25519 signatures verified using 
+                    <a href="https://github.com/dchest/tweetnacl-js" target="_blank" rel="noopener noreferrer">TweetNaCl.js</a> (optional).
+                </p>
+                <p style="margin-top: 10px;">
+                    Part of the <a href="https://github.com/sethirus/The-Thiele-Machine" target="_blank" rel="noopener noreferrer">Thiele Machine</a> project — 
+                    <a href="https://github.com/sethirus/The-Thiele-Machine/blob/main/trs-spec-v1.md" target="_blank" rel="noopener noreferrer">Learn the mathematics</a> behind cryptographic receipts
+                </p>
+            </footer>
+        </main>
+    </div>
+    <!-- Optional: Load nacl.js for Ed25519 signature verification -->
+    <!-- Gracefully degrades if not available -->
+    <script src="https://cdn.jsdelivr.net/npm/tweetnacl@1.0.3/nacl-fast.min.js" 
+            integrity="sha384-j1pf9nBhS8cS4aMv5BH4d6uuXH8K9qMvYzJlBPzcppKJNSfNchLPmsCTfYxJJPP/"
+            crossorigin="anonymous"
+            onerror="console.warn('Ed25519 verification unavailable: nacl.js not loaded')"></script>
+    <script src="replay.js"></script>
+    <script>
+        // Tab switching
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and contents
+                tabs.forEach(t => {
+                    t.classList.remove('active');
+                    t.setAttribute('aria-selected', 'false');
+                });
+                tabContents.forEach(tc => tc.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                tab.classList.add('active');
+                tab.setAttribute('aria-selected', 'true');
+                const contentId = tab.getAttribute('aria-controls');
+                document.getElementById(contentId).classList.add('active');
+            });
+        });
+        
+        // Fetch receipt functionality
+        const fetchBtn = document.getElementById('fetchBtn');
+        const loading = document.getElementById('loading');
+        const resultDiv = document.getElementById('result');
+        
+        fetchBtn.addEventListener('click', async () => {
+            const receiptUrl = document.getElementById('receiptUrl').value.trim();
+            const githubRepo = document.getElementById('githubRepo').value.trim();
+            
+            if (!receiptUrl && !githubRepo) {
+                showError('Please enter a receipt URL or GitHub repository');
+                return;
+            }
+            
+            let fetchUrl = receiptUrl;
+            
+            // If GitHub repo is provided, validate and construct URL to latest release
+            if (githubRepo && !receiptUrl) {
+                // Validate repo format (owner/name with alphanumeric, hyphens, underscores, dots)
+                const repoPattern = /^[a-zA-Z0-9._-]+\/[a-zA-Z0-9._-]+$/;
+                if (!repoPattern.test(githubRepo)) {
+                    showError('Invalid repository format. Use: owner/repository');
+                    return;
+                }
+                
+                try {
+                    loading.style.display = 'block';
+                    resultDiv.style.display = 'none';
+                    
+                    // Fetch latest release from GitHub API (sanitize repo name)
+                    const [owner, repo] = githubRepo.split('/');
+                    const apiUrl = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/releases/latest`;
+                    const response = await fetch(apiUrl);
+                    
+                    if (!response.ok) {
+                        throw new Error(`GitHub API error: ${response.status}`);
+                    }
+                    
+                    const release = await response.json();
+                    
+                    // Find .receipt.json files in assets
+                    const receiptAsset = release.assets.find(asset => 
+                        asset.name.endsWith('.receipt.json')
+                    );
+                    
+                    if (!receiptAsset) {
+                        throw new Error('No receipt files found in latest release');
+                    }
+                    
+                    fetchUrl = receiptAsset.browser_download_url;
+                    
+                } catch (error) {
+                    loading.style.display = 'none';
+                    showError(`Failed to fetch from GitHub: ${error.message}`);
+                    return;
+                }
+            }
+            
+            // Fetch and verify the receipt
+            try {
+                loading.style.display = 'block';
+                resultDiv.style.display = 'none';
+                
+                const response = await fetch(fetchUrl);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error: ${response.status}`);
+                }
+                
+                const receiptText = await response.text();
+                const receipt = JSON.parse(receiptText);
+                
+                loading.style.display = 'none';
+                
+                // Verify the receipt using the existing replay.js logic
+                if (window.verifyReceipt) {
+                    window.verifyReceipt(receipt);
+                } else {
+                    // Fallback: display receipt info
+                    showSuccess(receipt);
+                }
+                
+            } catch (error) {
+                loading.style.display = 'none';
+                showError(`Failed to fetch receipt: ${error.message}`);
+            }
+        });
+        
+        function showError(message) {
+            resultDiv.className = 'result error';
+            resultDiv.style.display = 'block';
+            document.getElementById('resultTitle').textContent = '❌ Error';
+            document.getElementById('resultContent').innerHTML = `<p>${message}</p>`;
+        }
+        
+        function showSuccess(receipt) {
+            resultDiv.className = 'result success';
+            resultDiv.style.display = 'block';
+            document.getElementById('resultTitle').textContent = '✅ Receipt Loaded';
+            document.getElementById('resultContent').innerHTML = `
+                <p>Receipt successfully fetched and parsed.</p>
+                <div class="info">
+                    <div class="info-row">
+                        <span class="info-label">Version:</span>
+                        <span class="info-value">${receipt.version || 'N/A'}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Files:</span>
+                        <span class="info-value">${receipt.files ? receipt.files.length : 'N/A'}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Global Digest:</span>
+                        <span class="info-value">${receipt.global_digest || 'N/A'}</span>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Keyboard accessibility for upload area
+        const uploadArea = document.getElementById('uploadArea');
+        uploadArea.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                document.getElementById('fileInput').click();
+            }
+        });
+    </script>
+</body>
+</html>

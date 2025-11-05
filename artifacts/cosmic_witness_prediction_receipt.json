@@ -1,0 +1,45 @@
+{
+  "timestamp": "2025-10-23T19:23:00.423260Z",
+  "mode": "offline",
+  "data_origin": "csv:cmb_sample.csv",
+  "fallback_reason": null,
+  "features": [
+    2.7254761875,
+    6.793551630073777e-06,
+    2.725466,
+    2.725489,
+    -1.2500000000414957e-05
+  ],
+  "feature_hash": "7b891e51b1a6d566a07adb3e28d8b25f6fdd778558537f02bee5c2ce08bacc18",
+  "rule": {
+    "idx": 2,
+    "threshold": 2.724743,
+    "true_pair": [
+      1,
+      0
+    ],
+    "false_pair": [
+      0,
+      1
+    ],
+    "description": "feature[2] > 2.72474 -> (1, 0), else -> (0, 1)"
+  },
+  "predicted_trial": {
+    "alice": 1,
+    "bob": 0
+  },
+  "robustness": {
+    "margin": 0.0007229999999998071,
+    "numeric_robust": true,
+    "proof_eps": 7.229999999998071e-05,
+    "proof_robust": true,
+    "sample_fraction": 1.0,
+    "param_bits": 16,
+    "proof_method": "analytic",
+    "certificate": "Operation Cosmic Witness \u2014 robustness certificate:\n  feature[2] = 2.725466\n  threshold    = 2.724743\n  eps          = 7.23e-05\n  margin       = 0.000723\n  Base prediction = (1, 0).\n  Claimed robust prediction = (1, 0).\n  Perturbation lower bound: 2.7253937 > 2.724743 \u21d2 still true branch.\n  All perturbations respect the original branch; robustness holds."
+  },
+  "prediction_proved": true,
+  "prediction_proof_method": "analytic",
+  "prediction_certificate": "Operation Cosmic Witness \u2014 prediction certificate:\n  feature[2] = 2.725466\n  threshold    = 2.724743\n  rule true  branch -> (1, 0)\n  rule false branch -> (0, 1)\n  Comparison: feature[2] > threshold \u21d2 follow true branch.\n  Branch output = (1, 0).\n  Claimed prediction = (1, 0).\n  Verification: chosen branch output matches claimed prediction.",
+  "mdl_bits": 24.0
+}
