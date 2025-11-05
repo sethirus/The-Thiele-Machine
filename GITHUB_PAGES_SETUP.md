@@ -4,9 +4,9 @@ This repository includes a Thiele Receipt Verifier website that can be hosted on
 
 ## Quick Setup
 
-**Note:** This repository uses a GitHub Actions workflow to automatically deploy from the `/web` folder to GitHub Pages. The workflow is configured in `.github/workflows/pages.yml`.
+**Note:** This repository uses a GitHub Actions workflow to automatically deploy from the `/docs` folder to GitHub Pages. The workflow is configured in `.github/workflows/pages.yml`.
 
-The site is automatically deployed when changes are pushed to the `web/` directory on the main branch.
+The site is automatically deployed when changes are pushed to the `docs/` directory on the main branch.
 
 GitHub deploys the site to:
 ```
@@ -15,7 +15,7 @@ https://sethirus.github.io/The-Thiele-Machine/
 
 ## What's Included
 
-The `/web` folder contains:
+The `/docs` folder contains:
 
 ### Main Pages
 - **index.html** - Landing page for the Thiele Receipt system
@@ -24,7 +24,7 @@ The `/web` folder contains:
 - **qr.html** - QR code generator for receipts
 - **badge.html** - Status badge generator
 
-### Demo Pages (`/web/demos/`)
+### Demo Pages (`/docs/demos/`)
 - **index.html** - Demo gallery
 - **install.html** - Proof-Install demo (materialize binaries from receipts)
 - **zk.html** - Zero-knowledge proof verification demo
@@ -56,7 +56,7 @@ Once GitHub Pages is configured, your site will be available at:
 To test the site locally before deploying:
 
 ```bash
-cd web
+cd docs
 python3 -m http.server 8000
 ```
 
@@ -97,8 +97,8 @@ All verification happens entirely in your browser using the Web Crypto API. No d
 ### Site not deploying
 
 1. Check that the GitHub Actions workflow in `.github/workflows/pages.yml` is enabled
-2. Verify the `/web` folder exists with the HTML files
-3. Ensure `.nojekyll` file is present in `/web`
+2. Verify the `/docs` folder exists with the HTML files
+3. Ensure `.nojekyll` file is present in `/docs`
 4. Check GitHub Actions tab for deployment workflow status
 
 ### Pages not loading correctly
@@ -119,7 +119,7 @@ All verification happens entirely in your browser using the Web Crypto API. No d
 
 To update the site:
 
-1. Edit files in `/web` or `/web/demos/`
+1. Edit files in `/docs` or `/docs/demos/`
 2. Commit and push changes to GitHub
 3. GitHub Actions will automatically deploy (takes 1-2 minutes)
 4. Force refresh your browser to see changes

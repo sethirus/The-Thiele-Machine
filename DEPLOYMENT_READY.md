@@ -2,10 +2,10 @@
 
 ## Quick Answer: GitHub Pages Deployment
 
-**GitHub Pages is automatically deployed from the `/web` folder via GitHub Actions.**
+**GitHub Pages is automatically deployed from the `/docs` folder via GitHub Actions.**
 
 The workflow is configured in `.github/workflows/pages.yml` and triggers on:
-- Push to main branch with changes in `web/**`
+- Push to main branch with changes in `docs/**`
 - Manual workflow dispatch
 
 Your site is live at: https://sethirus.github.io/The-Thiele-Machine/
@@ -15,7 +15,7 @@ Your site is live at: https://sethirus.github.io/The-Thiele-Machine/
 ## What's Deployed
 
 ### 1. ✅ Website Hosting Setup
-- `/web` folder contains all web files (HTML, JavaScript, demos)
+- `/docs` folder contains all web files (HTML, JavaScript, demos)
 - Automatic deployment via GitHub Actions workflow
 - Added `.nojekyll` file to prevent Jekyll processing
 - All pages verified working
@@ -28,8 +28,8 @@ Your site is live at: https://sethirus.github.io/The-Thiele-Machine/
 ### 3. ✅ Documentation Organization
 - User guides moved to repository root for easy access
 - Created comprehensive setup guide (GITHUB_PAGES_SETUP.md)
-- All links updated to reflect web/ as canonical source
-- Web/ folder is the single source of truth for web content
+- All links updated to reflect docs/ as canonical source
+- docs/ folder is the single source of truth for web content
 
 ### 4. ✅ Documentation Available
 - **GITHUB_PAGES_SETUP.md** - Deployment workflow details

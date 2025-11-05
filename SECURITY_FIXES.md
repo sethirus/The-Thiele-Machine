@@ -9,9 +9,9 @@ All XSS (Cross-Site Scripting) vulnerabilities in the web verifier have been add
 #### 1. Added `escapeHtml()` Function
 
 Added HTML escaping utility to all JavaScript files:
-- `web/create.js`
-- `web/replay.js`
-- `web/badge.html`
+- `docs/create.js`
+- `docs/replay.js`
+- `docs/badge.html`
 
 The function escapes special HTML characters:
 ```javascript
@@ -26,7 +26,7 @@ function escapeHtml(unsafe) {
 }
 ```
 
-#### 2. Fixed XSS in `web/create.js`
+#### 2. Fixed XSS in `docs/create.js`
 
 **Issue**: File names and hashes were inserted directly into HTML without escaping.
 
@@ -39,7 +39,7 @@ fileItem.innerHTML = `<div class="file-name">${info.name}</div>`;
 fileItem.innerHTML = `<div class="file-name">${escapeHtml(info.name)}</div>`;
 ```
 
-#### 3. Fixed XSS in `web/replay.js`
+#### 3. Fixed XSS in `docs/replay.js`
 
 **Issues**: Multiple locations where user input was inserted without escaping:
 - Warning messages
@@ -56,7 +56,7 @@ fileItem.innerHTML = `<div class="file-name">${escapeHtml(info.name)}</div>`;
 - Versions: `${escapeHtml(results.version)}`
 - Error messages: `${escapeHtml(error.message)}`
 
-#### 4. Fixed XSS in `web/badge.html`
+#### 4. Fixed XSS in `docs/badge.html`
 
 **Issue**: Badge message and link values inserted into HTML without escaping.
 
@@ -73,7 +73,7 @@ const markdown = `[![Receipt ${escapeHtml(message)}](${badgeURL})](${escapeHtml(
 
 All user-provided input is now properly escaped before being inserted into the DOM, preventing XSS attacks.
 
-### Note on `web/demos/install.js`
+### Note on `docs/demos/install.js`
 
 This file already had the `escapeHtml()` function defined and was using it appropriately. No changes were needed.
 
