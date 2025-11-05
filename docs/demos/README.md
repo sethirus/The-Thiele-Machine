@@ -76,7 +76,7 @@ Tests verify:
 ### File Structure
 
 ```
-web/demos/
+docs/demos/
 ├── index.html                    # Landing page with all demos
 ├── install.html                  # Proof-Install demo
 ├── install.js                    # JavaScript for install demo
