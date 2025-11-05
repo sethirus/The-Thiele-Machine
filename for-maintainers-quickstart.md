@@ -217,14 +217,14 @@ chmod 600 signing_key.pem
 - **Badge**: Add a "Receipt Verified" badge to your README ([badge generator](https://sethirus.github.io/The-Thiele-Machine/badge.html))
 - **QR Codes**: Generate QR codes linking to verification ([QR generator](https://sethirus.github.io/The-Thiele-Machine/qr.html))
 - **Automation**: Set up automatic receipt generation in CI
-- **Documentation**: Link to the [Receipt Guide](https://github.com/sethirus/The-Thiele-Machine/blob/main/docs/RECEIPT_GUIDE.md)
+- **Documentation**: Link to the [Receipt Guide](https://github.com/sethirus/The-Thiele-Machine/blob/main/RECEIPT_GUIDE.md)
 
 ---
 
 ## Support
 
-- **Documentation**: [Receipt Guide](https://github.com/sethirus/The-Thiele-Machine/blob/main/docs/RECEIPT_GUIDE.md)
-- **Spec**: [TRS-1.0 Specification](https://github.com/sethirus/The-Thiele-Machine/blob/main/docs/trs-spec-v1.md)
+- **Documentation**: [Receipt Guide](https://github.com/sethirus/The-Thiele-Machine/blob/main/RECEIPT_GUIDE.md)
+- **Spec**: [TRS-1.0 Specification](https://github.com/sethirus/The-Thiele-Machine/blob/main/trs-spec-v1.md)
 - **Issues**: [GitHub Issues](https://github.com/sethirus/The-Thiele-Machine/issues)
 - **Examples**: [CI Examples](https://github.com/sethirus/The-Thiele-Machine/tree/main/examples/ci)
 

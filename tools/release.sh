@@ -105,7 +105,7 @@ python3 verifier/replay.py bootstrap_receipts && sha256sum thiele_min.py
 - \`bootstrap_receipts/\` - Cryptographic receipts (7 steps)
 - \`verifier/replay.py\` - Receipt verifier ($LOC LoC TCB)
 - \`verifier/replay_sh.sh\` - Shell-based verifier (POSIX)
-- \`docs/\` - Complete documentation
+- \`web/\` - Browser-based verifier and demos
 - \`attestations/\` - SBOM, reproducibility guide, TCB metrics
 - \`proofpack.tar.*\` - Self-contained proof bundle
 
@@ -140,7 +140,7 @@ $EXPECTED_HASH  thiele_min.py
 ## Documentation
 
 - **Architecture:** See SELF_HOSTING_KERNEL.md
-- **Receipt Schema:** docs/receipt_schema.md
+- **Receipt Schema:** receipt_schema.md
 - **Reproducibility:** attestations/REPRODUCIBILITY.md
 - **SBOM:** attestations/SBOM.md
 

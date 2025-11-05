@@ -1,20 +1,22 @@
 # ✅ THIELE VERIFIER - COMPLETE AND READY
 
-## Quick Answer: Where to Point GitHub Pages
+## Quick Answer: GitHub Pages Deployment
 
-**Point GitHub Pages to the `/docs` folder.**
+**GitHub Pages is automatically deployed from the `/web` folder via GitHub Actions.**
 
-Settings → Pages → Branch: main → **Folder: /docs** → Save
+The workflow is configured in `.github/workflows/pages.yml` and triggers on:
+- Push to main branch with changes in `web/**`
+- Manual workflow dispatch
 
-Your site will be live at: https://sethirus.github.io/The-Thiele-Machine/
+Your site is live at: https://sethirus.github.io/The-Thiele-Machine/
 
 ---
 
-## What Was Fixed
+## What's Deployed
 
 ### 1. ✅ Website Hosting Setup
-- Created `/docs` folder for GitHub Pages (standard location)
-- Copied all web files (HTML, JavaScript, demos)
+- `/web` folder contains all web files (HTML, JavaScript, demos)
+- Automatic deployment via GitHub Actions workflow
 - Added `.nojekyll` file to prevent Jekyll processing
 - All pages verified working
 
@@ -23,17 +25,18 @@ Your site will be live at: https://sethirus.github.io/The-Thiele-Machine/
 - Added HTML escaping to all JavaScript files
 - All user input now properly sanitized
 
-### 3. ✅ README Organization
-- Added clear GitHub Pages configuration instructions
+### 3. ✅ Documentation Organization
+- User guides moved to repository root for easy access
 - Created comprehensive setup guide (GITHUB_PAGES_SETUP.md)
-- Removed ambiguity about hosting location
-- All links verified correct
+- All links updated to reflect web/ as canonical source
+- Web/ folder is the single source of truth for web content
 
-### 4. ✅ Documentation Created
-- **GITHUB_PAGES_SETUP.md** - Detailed setup instructions
+### 4. ✅ Documentation Available
+- **GITHUB_PAGES_SETUP.md** - Deployment workflow details
 - **WEB_DEPLOYMENT_SUMMARY.md** - Complete deployment guide
 - **SECURITY_FIXES.md** - Security improvements documented
-- **verify_web_pages.py** - Automated verification script
+- **RECEIPT_GUIDE.md** - Complete receipt documentation
+- **trs-spec-v1.md** - TRS-1.0 specification
 
 ---
 
