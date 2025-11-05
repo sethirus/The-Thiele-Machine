@@ -85,7 +85,8 @@ def canonicalize_step(step: dict, receipt_dir: Path) -> bool:
                 # store canonical models under a dedicated cert_store/models directory
                 models_dir = receipt_dir / "cert_store" / "models"
                 models_dir.mkdir(parents=True, exist_ok=True)
-                base_name = Path(model_uri).stem if Path(model_uri).name else Path(path).stem
+                # Use the original model path's base name (orig_path was computed above)
+                base_name = orig_path.stem
                 new_name = f"{base_name}.step{step.get('idx', '?')}.canonical.model"
                 new_path = models_dir / new_name
                 new_path.parent.mkdir(parents=True, exist_ok=True)

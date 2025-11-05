@@ -81,7 +81,8 @@ def generate_findings(root: Path) -> List[Finding]:
     findings: List[Finding] = []
     for file_path in iter_coq_files(root):
         findings.extend(scan_file(file_path))
-    findings.sort(key=lambda f: (str(f.path.relative_to(root)), f.line_no))
+    # Sort using POSIX-style relative paths so the output is stable across OSes
+    findings.sort(key=lambda f: (f.path.relative_to(root).as_posix(), f.line_no))
     return findings
 
 
@@ -108,8 +109,11 @@ def render_report(findings: List[Finding]) -> str:
         sections.append("-" * len(bucket))
         for finding in bucket_findings:
             rel = finding.path.relative_to(REPO_ROOT)
+            # Render relative paths with forward slashes for platform-independent
+            # canonical reports (ADMIT_REPORT.txt uses POSIX-style separators).
+            rel_text = rel.as_posix()
             sections.append(
-                f"{finding.kind:8} {rel}:{finding.line_no}: {finding.line}"
+                f"{finding.kind:8} {rel_text}:{finding.line_no}: {finding.line}"
             )
             totals[finding.kind] += 1
         sections.append("")
