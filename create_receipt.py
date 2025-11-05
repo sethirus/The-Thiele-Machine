@@ -183,12 +183,15 @@ def fetch_archive(url: str, dest_dir: Path) -> Path:
                 # Safely extract each member
                 members = tar_ref.getmembers()
                 for member in members:
+                    # safe_extract_member validates the path before extraction
                     if safe_extract_member(member, dest_dir, 'tar'):
-                        # Use data filter if available (Python 3.12+), otherwise extract with path validation
+                        # Use data filter if available (Python 3.12+), otherwise extract directly
+                        # The path has already been validated by safe_extract_member above
                         try:
                             tar_ref.extract(member, dest_dir, filter='data')
                         except TypeError:
-                            # Python < 3.12 doesn't support filter parameter
+                            # Python < 3.12: filter parameter not supported
+                            # Member is already validated, safe to extract
                             tar_ref.extract(member, dest_dir)
                 
                 # Determine root directory
