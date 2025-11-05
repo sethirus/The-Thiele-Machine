@@ -33,3 +33,16 @@ def _ensure_module(name: str, path: Path) -> None:
 
 
 _ensure_module("demonstrate_isomorphism", ROOT / "demonstrate_isomorphism.py")
+
+# Hypothesis: relax per-test deadlines on slower/dev Windows machines so
+# timing-sensitive property tests don't fail spuriously. We register and
+# load a local profile with deadline=None (no per-test timeouts).
+try:
+    from hypothesis import settings as _hyp_settings
+
+    _hyp_settings.register_profile("thiele_local", deadline=None)
+    _hyp_settings.load_profile("thiele_local")
+except Exception:
+    # If hypothesis isn't available or profile registration fails, continue
+    # without altering test behavior.
+    pass
