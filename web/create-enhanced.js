@@ -223,39 +223,18 @@ class EnhancedReceiptGenerator {
     }
 }
 
-// Archive fetcher (client-side only, CORS-dependent)
+// Archive fetcher (PLACEHOLDER - not functional)
+// This class is a placeholder for client-side archive extraction functionality.
+// Browser-based archive extraction requires additional libraries (e.g., JSZip for .zip files,
+// pako for .tar.gz files) which are not included to keep the page lightweight.
+// For archive support, use the Python CLI: python3 create_receipt.py --archive <URL>
 class ArchiveFetcher {
     static async fetchAndExtract(url, onProgress = null) {
         if (onProgress) onProgress({ status: 'downloading', progress: 0 });
         
-        try {
-            // Fetch archive
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-            }
-            
-            const blob = await response.blob();
-            if (onProgress) onProgress({ status: 'extracting', progress: 50 });
-            
-            // Determine file type
-            const contentType = response.headers.get('content-type') || '';
-            const urlLower = url.toLowerCase();
-            
-            let files = [];
-            
-            if (urlLower.endsWith('.zip') || contentType.includes('zip')) {
-                // Note: Actual zip extraction would require a library like JSZip
-                throw new Error('ZIP extraction requires additional library (JSZip). Please upload files directly or use the Python CLI for archive support.');
-            } else {
-                // Note: Browser-based archive extraction requires libraries like JSZip
-                // which are not included to keep the page lightweight
-                throw new Error('Archive extraction in browser requires additional libraries. Please use the Python CLI: python3 create_receipt.py --archive <URL>');
-            }
-            
-        } catch (error) {
-            throw new Error(`Archive fetch failed: ${error.message}`);
-        }
+        // This method always throws an error as archive extraction is not implemented
+        // in the browser version. The error messages guide users to use the Python CLI instead.
+        throw new Error('Archive extraction in browser requires additional libraries. Please use the Python CLI: python3 create_receipt.py --archive <URL>');
     }
 }
 
