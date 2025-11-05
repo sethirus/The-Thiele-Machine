@@ -17,20 +17,85 @@ import json
 import sys
 import glob
 import tempfile
-import shutil
 import zipfile
 import tarfile
 import urllib.request
 import urllib.parse
 from pathlib import Path
 from datetime import datetime
-from typing import List, Optional, Dict, Any
+from typing import List, Optional, Dict, Any, Tuple
 
 try:
     from nacl import signing
     HAS_NACL = True
 except ImportError:
     HAS_NACL = False
+
+
+def safe_extract_member(member, dest_dir: Path, archive_type: str = 'tar') -> bool:
+    """
+    Safely validate and extract an archive member to prevent path traversal attacks.
+    
+    Args:
+        member: Archive member (tarfile.TarInfo or zipfile.ZipInfo)
+        dest_dir: Destination directory for extraction
+        archive_type: Type of archive ('tar' or 'zip')
+    
+    Returns:
+        True if the member is safe to extract, False otherwise
+    """
+    if archive_type == 'tar':
+        member_path = member.name
+    else:  # zip
+        member_path = member.filename
+    
+    # Resolve the member path and ensure it's within dest_dir
+    try:
+        dest_path = (dest_dir / member_path).resolve()
+        dest_dir_resolved = dest_dir.resolve()
+        
+        # Check if the resolved path is within dest_dir
+        if not dest_path.is_relative_to(dest_dir_resolved):
+            print(f"⚠️  Skipping potentially malicious path: {member_path}", file=sys.stderr)
+            return False
+        
+        # Additional check: no absolute paths or parent directory references
+        if Path(member_path).is_absolute() or '..' in Path(member_path).parts:
+            print(f"⚠️  Skipping suspicious path: {member_path}", file=sys.stderr)
+            return False
+            
+        return True
+    except (ValueError, OSError) as e:
+        print(f"⚠️  Error validating path {member_path}: {e}", file=sys.stderr)
+        return False
+
+
+def determine_archive_root(names: List[str]) -> Optional[str]:
+    """
+    Determine the common root directory of an archive.
+    
+    Args:
+        names: List of file/directory names in the archive
+    
+    Returns:
+        Common root directory name, or None if files are at root level
+    """
+    if not names:
+        return None
+    
+    # Get all root-level entries
+    roots = set()
+    for name in names:
+        parts = Path(name).parts
+        if parts:
+            roots.add(parts[0])
+    
+    # If there's exactly one root directory, return it
+    if len(roots) == 1:
+        return roots.pop()
+    
+    # Multiple roots or files at root level
+    return None
 
 
 def fetch_archive(url: str, dest_dir: Path) -> Path:
@@ -102,25 +167,34 @@ def fetch_archive(url: str, dest_dir: Path) -> Path:
     try:
         if filename.endswith('.zip'):
             with zipfile.ZipFile(temp_archive, 'r') as zip_ref:
-                zip_ref.extractall(dest_dir)
-                # Get the first directory in the zip
+                # Safely extract each member
+                members = zip_ref.infolist()
+                for member in members:
+                    if safe_extract_member(member, dest_dir, 'zip'):
+                        zip_ref.extract(member, dest_dir)
+                
+                # Determine root directory
                 names = zip_ref.namelist()
-                if names:
-                    first_dir = names[0].split('/')[0] if '/' in names[0] else names[0]
-                    extracted_path = dest_dir / first_dir
-                else:
-                    extracted_path = dest_dir
+                root_dir = determine_archive_root(names)
+                extracted_path = dest_dir / root_dir if root_dir else dest_dir
                     
         elif filename.endswith(('.tar.gz', '.tgz', '.tar.bz2', '.tar.xz', '.tar')):
             with tarfile.open(temp_archive, 'r:*') as tar_ref:
-                tar_ref.extractall(dest_dir)
-                # Get the first directory in the tar
+                # Safely extract each member
+                members = tar_ref.getmembers()
+                for member in members:
+                    if safe_extract_member(member, dest_dir, 'tar'):
+                        # Use data filter if available (Python 3.12+), otherwise extract with path validation
+                        try:
+                            tar_ref.extract(member, dest_dir, filter='data')
+                        except TypeError:
+                            # Python < 3.12 doesn't support filter parameter
+                            tar_ref.extract(member, dest_dir)
+                
+                # Determine root directory
                 names = tar_ref.getnames()
-                if names:
-                    first_dir = names[0].split('/')[0] if '/' in names[0] else names[0]
-                    extracted_path = dest_dir / first_dir
-                else:
-                    extracted_path = dest_dir
+                root_dir = determine_archive_root(names)
+                extracted_path = dest_dir / root_dir if root_dir else dest_dir
         else:
             raise ValueError(f"Unsupported archive format: {filename}")
         
@@ -141,7 +215,7 @@ def scan_directory(
     exclude_patterns: Optional[List[str]] = None,
     max_files: int = 10000,
     max_size_mb: float = 1000.0
-) -> List[Path]:
+) -> List[Tuple[Path, Path]]:
     """
     Recursively scan a directory for files to include in receipt.
     
@@ -153,7 +227,7 @@ def scan_directory(
         max_size_mb: Maximum total size in MB
     
     Returns:
-        List of Path objects for files to include
+        List of (absolute_path, relative_path) tuples for files to include
     """
     default_excludes = [
         '.git/**',
@@ -216,7 +290,8 @@ def scan_directory(
             print(f"⚠️  File limit reached ({max_files} files), stopping scan")
             break
         
-        files.append(item)
+        # Store both absolute and relative paths
+        files.append((item, rel_path))
         total_size += file_size
     
     print(f"✓ Found {len(files)} file(s) ({total_size / 1024 / 1024:.2f} MB)")
@@ -506,17 +581,18 @@ def create_project_receipts(
     return receipt_paths
 
 
-def create_receipt(files, output_path=None, include_steps=False, sign_key=None, public_key=None, metadata=None):
+def create_receipt(files, output_path=None, include_steps=False, sign_key=None, public_key=None, metadata=None, base_dir=None):
     """
     Create a Thiele receipt for one or more files.
     
     Args:
-        files: List of file paths to include in receipt
+        files: List of file paths to include in receipt (can be Path objects or (absolute_path, relative_path) tuples)
         output_path: Where to save the receipt (default: auto-generated)
         include_steps: Whether to include detailed TRS-0 steps (default: False, uses TRS-1.0)
         sign_key: Path to Ed25519 private key for signing (optional)
         public_key: Path to Ed25519 public key (optional, will be included in receipt)
         metadata: Optional metadata dict to include in receipt
+        base_dir: Base directory for resolving relative paths (used for TRS-0 receipts)
     
     Returns:
         dict: The created receipt
@@ -525,10 +601,17 @@ def create_receipt(files, output_path=None, include_steps=False, sign_key=None, 
     file_infos = []
     
     for filepath in files:
-        path = Path(filepath)
+        # Handle both Path objects and (absolute_path, relative_path) tuples
+        if isinstance(filepath, tuple):
+            abs_path, rel_path = filepath
+            path = abs_path
+            display_path = str(rel_path)
+        else:
+            path = Path(filepath)
+            display_path = path.name
         
         if not path.exists():
-            print(f"Error: File not found: {filepath}", file=sys.stderr)
+            print(f"Error: File not found: {path}", file=sys.stderr)
             sys.exit(1)
         
         # Read file content
@@ -539,27 +622,30 @@ def create_receipt(files, output_path=None, include_steps=False, sign_key=None, 
         content_hash = hashlib.sha256(content).hexdigest()
         
         file_infos.append({
-            "path": path.name,
+            "path": display_path,
             "size": len(content),
-            "sha256": content_hash
+            "sha256": content_hash,
+            "_absolute_path": str(path)  # Internal use only, for TRS-0
         })
         
-        print(f"✓ Added: {path.name} ({len(content)} bytes, SHA256: {content_hash[:16]}...)")
+        print(f"✓ Added: {display_path} ({len(content)} bytes, SHA256: {content_hash[:16]}...)")
     
-    # Compute global digest per TRS-1.0 spec
-    global_digest = compute_global_digest(file_infos)
+    # Compute global digest per TRS-1.0 spec (without _absolute_path)
+    file_infos_for_digest = [{k: v for k, v in fi.items() if not k.startswith('_')} for fi in file_infos]
+    global_digest = compute_global_digest(file_infos_for_digest)
     
     # Determine receipt version and structure
     if include_steps:
         # TRS-0 with detailed steps
-        receipt = create_trs0_receipt(file_infos, global_digest)
+        receipt = create_trs0_receipt(file_infos, global_digest, base_dir)
     else:
-        # TRS-1.0 simplified format
+        # TRS-1.0 simplified format - remove internal fields
+        clean_file_infos = [{k: v for k, v in fi.items() if not k.startswith('_')} for fi in file_infos]
         receipt = {
             "version": "TRS-1.0",
-            "files": file_infos,
+            "files": clean_file_infos,
             "global_digest": global_digest,
-            "kernel_sha256": file_infos[0]["sha256"] if len(file_infos) == 1 else global_digest,
+            "kernel_sha256": clean_file_infos[0]["sha256"] if len(clean_file_infos) == 1 else global_digest,
             "timestamp": datetime.now().astimezone().isoformat(),
             "sig_scheme": "none",
             "signature": ""
@@ -640,8 +726,15 @@ def create_receipt(files, output_path=None, include_steps=False, sign_key=None, 
     return receipt
 
 
-def create_trs0_receipt(file_infos, global_digest):
-    """Create a TRS-0 receipt with detailed steps."""
+def create_trs0_receipt(file_infos, global_digest, base_dir=None):
+    """
+    Create a TRS-0 receipt with detailed steps.
+    
+    Args:
+        file_infos: List of file info dicts with path, size, sha256, and optionally _absolute_path
+        global_digest: Global digest computed from file_infos
+        base_dir: Base directory for resolving paths (optional)
+    """
     
     # Empty state hash (SHA-256 of empty bytes)
     empty_state = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
@@ -650,11 +743,24 @@ def create_trs0_receipt(file_infos, global_digest):
     current_state = empty_state
     
     for idx, file_info in enumerate(file_infos):
-        # Read file for hex encoding
-        with open(file_info["path"], 'rb') as f:
-            content = f.read()
+        # Use absolute path if available, otherwise use base_dir + path, or just path
+        if "_absolute_path" in file_info:
+            file_path = Path(file_info["_absolute_path"])
+        elif base_dir:
+            file_path = Path(base_dir) / file_info["path"]
+        else:
+            file_path = Path(file_info["path"])
         
-        # Create EMIT_BYTES step
+        # Read file for hex encoding
+        try:
+            with open(file_path, 'rb') as f:
+                content = f.read()
+        except FileNotFoundError:
+            # Fallback to just the path if absolute path doesn't work
+            with open(file_info["path"], 'rb') as f:
+                content = f.read()
+        
+        # Create EMIT_BYTES step - use relative path for display
         step = {
             "step": idx * 2,
             "pre_state_sha256": current_state,
@@ -869,12 +975,13 @@ Learn more: docs/RECEIPT_GUIDE.md
                 
                 # Create receipt
                 receipt = create_receipt(
-                    [str(f) for f in files],
+                    files,  # Already tuples of (absolute_path, relative_path)
                     output_path=args.output,
                     include_steps=args.steps,
                     sign_key=args.sign,
                     public_key=args.public_key,
-                    metadata=archive_metadata
+                    metadata=archive_metadata,
+                    base_dir=extracted_path
                 )
                 
             except Exception as e:
@@ -916,12 +1023,13 @@ Learn more: docs/RECEIPT_GUIDE.md
         
         # Create receipt
         receipt = create_receipt(
-            [str(f) for f in files],
+            files,  # Already tuples of (absolute_path, relative_path)
             output_path=args.output,
             include_steps=args.steps,
             sign_key=args.sign,
             public_key=args.public_key,
-            metadata=dir_metadata
+            metadata=dir_metadata,
+            base_dir=directory
         )
         
         return
