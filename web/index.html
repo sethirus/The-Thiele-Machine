@@ -188,6 +188,11 @@
                 <br>
                 Cryptographic receipts for verifiable, reproducible software.
             </p>
+            <div style="margin-top: 25px; padding: 15px 25px; background: rgba(255, 255, 255, 0.2); border-radius: 8px; backdrop-filter: blur(10px);">
+                <strong style="font-size: 1.1em;">🎉 NEW:</strong> Repository ingestion with archive fetching, directory uploads, and metadata auto-fill!
+                <br>
+                <span style="font-size: 0.95em; opacity: 0.95;">Create receipts for entire projects with one command or drag-and-drop.</span>
+            </div>
         </header>
         
         <main id="main-content" role="main">
@@ -268,6 +273,55 @@
                     <h3>Fast & Simple</h3>
                     <p>Drag-and-drop interface. Create or verify receipts in seconds.</p>
                 </article>
+            </div>
+        </section>
+        
+        <section class="features" style="margin-top: 30px;" aria-labelledby="quick-reference">
+            <h2 id="quick-reference">Quick Reference</h2>
+            <div style="max-width: 900px; margin: 0 auto;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                    <div style="padding: 20px; background: #f8f9ff; border-radius: 8px;">
+                        <h3 style="color: #667eea; margin-bottom: 10px;">📁 Browser Features</h3>
+                        <ul style="color: #374151; line-height: 1.8; list-style-position: inside;">
+                            <li>Drag-and-drop files or folders</li>
+                            <li>Auto-extract metadata from manifests</li>
+                            <li>Web Worker performance boost</li>
+                            <li>100% client-side (zero uploads)</li>
+                            <li>Progress tracking</li>
+                        </ul>
+                    </div>
+                    <div style="padding: 20px; background: #f8f9ff; border-radius: 8px;">
+                        <h3 style="color: #667eea; margin-bottom: 10px;">💻 CLI Features</h3>
+                        <ul style="color: #374151; line-height: 1.8; list-style-position: inside;">
+                            <li>Fetch from GitHub releases/archives</li>
+                            <li>Scan directories recursively</li>
+                            <li>Pattern filtering (include/exclude)</li>
+                            <li>Auto-discover build artifacts</li>
+                            <li>Ed25519 signing support</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="margin-top: 20px; padding: 20px; background: #f0fdf4; border-radius: 8px; border: 2px solid #10b981;">
+                    <h4 style="color: #047857; margin-bottom: 15px;">🚀 Quick CLI Examples</h4>
+                    <div style="font-family: 'Courier New', monospace; font-size: 0.85em; color: #374151;">
+                        <div style="margin-bottom: 10px;">
+                            <strong style="color: #047857;"># Single file:</strong><br>
+                            <code>python3 create_receipt.py script.py</code>
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <strong style="color: #047857;"># Entire directory:</strong><br>
+                            <code>python3 create_receipt.py --directory ./src</code>
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <strong style="color: #047857;"># From archive:</strong><br>
+                            <code>python3 create_receipt.py --archive &lt;URL&gt;</code>
+                        </div>
+                        <div>
+                            <strong style="color: #047857;"># With patterns:</strong><br>
+                            <code>python3 create_receipt.py --directory ./src --include "*.py" "*.js"</code>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
         
