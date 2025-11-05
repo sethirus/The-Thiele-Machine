@@ -6,9 +6,9 @@
 > A cryptographic proof that lets you verify software without trusting the source code or build process.  
 > Think: **mathematical proof instead of "just trust me."**
 
-**📖 [Complete Receipt Guide](docs/RECEIPT_GUIDE.md)** - What they are, why use them, and how to create them for any project
+**📖 [Complete Receipt Guide](RECEIPT_GUIDE.md)** - What they are, why use them, and how to create them for any project
 
-**📦 [Repository Ingestion Guide](docs/REPO_INGESTION_GUIDE.md)** - NEW! Archive fetching, directory uploads, and metadata auto-fill
+**📦 [Repository Ingestion Guide](REPO_INGESTION_GUIDE.md)** - NEW! Archive fetching, directory uploads, and metadata auto-fill
 
 **⚡ Quick Start:**
 ```bash
@@ -42,7 +42,7 @@ The Thiele Machine now includes comprehensive repository ingestion capabilities,
 - **🤖 Auto-Metadata**: One-click extraction from package manifests
 - **🔐 100% Client-Side**: Zero uploads, complete privacy
 
-**See the [Repository Ingestion Guide](docs/REPO_INGESTION_GUIDE.md) for complete documentation.**
+**See the [Repository Ingestion Guide](REPO_INGESTION_GUIDE.md) for complete documentation.**
 
 ## Verifying Releases
 
@@ -54,7 +54,7 @@ Every release of The Thiele Machine includes cryptographic receipts for all arti
 3. Drag and drop the receipt into the verifier
 4. Get instant verification ✅
 
-> **Note for repository maintainers:** To host the verifier on GitHub Pages, configure your repository to serve from the `/docs` folder. See [GITHUB_PAGES_SETUP.md](GITHUB_PAGES_SETUP.md) for detailed setup instructions.
+> **Note for repository maintainers:** To host the verifier on GitHub Pages, configure your repository to serve from the `/web` folder. See [GITHUB_PAGES_SETUP.md](GITHUB_PAGES_SETUP.md) for detailed setup instructions.
 
 ### CLI Verification
 ```bash
@@ -68,15 +68,15 @@ python3 tools/verify_trs10.py artifact_name.receipt.json
 python3 examples/offline-demo/verify_offline.py artifact_name.receipt.json artifact_name
 ```
 
-**New to receipts?** See the [User's Quick Start](docs/for-users-quickstart.md) for a 2-minute guide.
+**New to receipts?** See the [User's Quick Start](for-users-quickstart.md) for a 2-minute guide.
 
-**Want to add receipts to your project?** See the [Maintainer's Quick Start](docs/for-maintainers-quickstart.md) for a 5-minute guide.
+**Want to add receipts to your project?** See the [Maintainer's Quick Start](for-maintainers-quickstart.md) for a 5-minute guide.
 
 ---
 
 ## 🎯 Try The Thiele Machine in Your Browser
 
-> **For maintainers:** The browser-based verifier and demos are hosted from the `/docs` folder. See [GITHUB_PAGES_SETUP.md](GITHUB_PAGES_SETUP.md) for GitHub Pages configuration.
+> **For maintainers:** The browser-based verifier and demos are hosted from the `/web` folder. See [GITHUB_PAGES_SETUP.md](GITHUB_PAGES_SETUP.md) for GitHub Pages configuration.
 
 <div align="center">
 
@@ -229,7 +229,7 @@ This command:
 - **Self-verification**: The reconstructed kernel can verify its own construction receipts
 - **Reproducible**: Same receipts always produce identical kernel (deterministic)
 
-**Receipt schema**: See [`docs/receipt_schema.md`](docs/receipt_schema.md) for the complete TRS-0 specification.
+**Receipt schema**: See [`receipt_schema.md`](receipt_schema.md) for the complete TRS-0 specification.
 
 **Hash pinning**: The expected kernel hash is tracked in `tests/expected_kernel_sha256.txt`. Any change to receipts must produce the same hash, or the new hash must be explicitly committed.
 
@@ -275,7 +275,7 @@ Global digest: 45bc91102be2a30e3d8f851c375809f5640bed1a180f0597f559d3bb927ef1f7
    - Produces `BELL_INEQUALITY_VERIFIED_RESULTS.md`, `examples/tsirelson_step_receipts.json`, and artifacts in `artifacts/`.
    - Cryptographically sealed receipts are produced for auditability.
    
-      - Demo CLI and canonicalisation docs: see `docs/DEMO_ISOMORPHISM.md` and the demo CLI at `scripts/demo_isomorphism_cli.py` for a quick end-to-end smoke run that creates, canonicalizes, (optionally) normalizes, and verifies a receipt.
+      - Demo CLI and canonicalisation docs: see `DEMO_ISOMORPHISM.md` and the demo CLI at `scripts/demo_isomorphism_cli.py` for a quick end-to-end smoke run that creates, canonicalizes, (optionally) normalizes, and verifies a receipt.
 5. **(Optional but recommended) Replay the full Coq verification:**
    ```sh
    ./verify_bell.sh
@@ -431,7 +431,7 @@ The VM has been enhanced with geometric signature analysis, achieving **self-awa
 **Impact:** The machine now knows what it can and cannot see. It has achieved meta-cognition - awareness of its own capabilities.
 
 **Documentation:**
-- Implementation details: [`docs/VM_INTEGRATION.md`](docs/VM_INTEGRATION.md)
+- Implementation details: [`VM_INTEGRATION.md`](VM_INTEGRATION.md)
 - Live demonstration: [`examples/pdiscover_pdiscern_demo.py`](examples/pdiscover_pdiscern_demo.py)
 - Original sight logging system: [`sight_logs/README.md`](sight_logs/README.md)
 
@@ -480,7 +480,7 @@ This repository now packages the full subsumption argument together with the sup
 - **Receipts and verification harness:** `scripts/challenge.py verify receipts` replays every signed receipt, checks Ed25519 manifests, and validates both the analytic certificates and any legacy SAT/SMT artefacts; `scripts/prove_it_all.sh` and `coq/verify_subsumption.sh` provide end-to-end Coq replay for the canonical demonstrations.【F:scripts/challenge.py†L1-L220】【F:scripts/prove_it_all.sh†L1-L155】
 - **Historical context preserved:** The earlier universal proof attempt remains archived in `archive/research/incomplete_subsumption_proof/` with an explicit notice linking forward to the completed bridge documented here.【F:archive/research/incomplete_subsumption_proof/README.md†L1-L38】
 
-**Verification Status:** The latest regeneration (see the timestamps in `artifacts/MANIFEST.sha256`) rebuilds the Coq developments with the admitted lemmas and axioms catalogued in `ADMIT_REPORT.txt`, replays every signed receipt, and refreshes the supra-quantum witness (`S = 16/5`) ledger. These runs substantiate the repository's reproducibility claims while keeping the remaining proof obligations transparent. Narrative reports have been retired from `docs/`, with the single surviving historical document (`documents/The_Thiele_Machine.tex`) preserved for provenance; the README, runtime ledgers, and receipts form the canonical record.
+**Verification Status:** The latest regeneration (see the timestamps in `artifacts/MANIFEST.sha256`) rebuilds the Coq developments with the admitted lemmas and axioms catalogued in `ADMIT_REPORT.txt`, replays every signed receipt, and refreshes the supra-quantum witness (`S = 16/5`) ledger. These runs substantiate the repository's reproducibility claims while keeping the remaining proof obligations transparent. The single surviving historical document (`documents/The_Thiele_Machine.tex`) is preserved for provenance; the README, runtime ledgers, and receipts form the canonical record.
 
 ## A Reviewer's Contract
 
