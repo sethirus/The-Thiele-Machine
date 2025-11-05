@@ -4,22 +4,18 @@ This repository includes a Thiele Receipt Verifier website that can be hosted on
 
 ## Quick Setup
 
-1. Go to your repository settings on GitHub
-2. Navigate to **Settings** → **Pages**
-3. Under "Build and deployment":
-   - Source: Select **Deploy from a branch**
-   - Branch: Select **main** (or your default branch)
-   - Folder: Select **/docs**
-4. Click **Save**
+**Note:** This repository uses a GitHub Actions workflow to automatically deploy from the `/web` folder to GitHub Pages. The workflow is configured in `.github/workflows/pages.yml`.
 
-GitHub will automatically build and deploy your site to:
+The site is automatically deployed when changes are pushed to the `web/` directory on the main branch.
+
+GitHub deploys the site to:
 ```
 https://sethirus.github.io/The-Thiele-Machine/
 ```
 
 ## What's Included
 
-The `/docs` folder contains:
+The `/web` folder contains:
 
 ### Main Pages
 - **index.html** - Landing page for the Thiele Receipt system
@@ -28,7 +24,7 @@ The `/docs` folder contains:
 - **qr.html** - QR code generator for receipts
 - **badge.html** - Status badge generator
 
-### Demo Pages (`/docs/demos/`)
+### Demo Pages (`/web/demos/`)
 - **index.html** - Demo gallery
 - **install.html** - Proof-Install demo (materialize binaries from receipts)
 - **zk.html** - Zero-knowledge proof verification demo
@@ -37,7 +33,9 @@ The `/docs` folder contains:
 ### JavaScript Files
 - **replay.js** - Core verification engine (Web Crypto API)
 - **create.js** - Receipt creation logic
-- **install.js** - Demo installation logic
+- **create-enhanced.js** - Enhanced receipt creation with repository ingestion
+- **receipt-worker.js** - Web Worker for processing large files
+- **install.js** - Demo installation logic (in demos/)
 
 ### Configuration
 - **.nojekyll** - Disables Jekyll processing (important for GitHub Pages)
@@ -58,7 +56,7 @@ Once GitHub Pages is configured, your site will be available at:
 To test the site locally before deploying:
 
 ```bash
-cd docs
+cd web
 python3 -m http.server 8000
 ```
 
@@ -98,10 +96,10 @@ All verification happens entirely in your browser using the Web Crypto API. No d
 
 ### Site not deploying
 
-1. Check that your repository is public (or you have GitHub Pro)
-2. Verify the `/docs` folder exists with the HTML files
-3. Ensure `.nojekyll` file is present in `/docs`
-4. Check GitHub Actions tab for build errors
+1. Check that the GitHub Actions workflow in `.github/workflows/pages.yml` is enabled
+2. Verify the `/web` folder exists with the HTML files
+3. Ensure `.nojekyll` file is present in `/web`
+4. Check GitHub Actions tab for deployment workflow status
 
 ### Pages not loading correctly
 
@@ -121,9 +119,9 @@ All verification happens entirely in your browser using the Web Crypto API. No d
 
 To update the site:
 
-1. Edit files in `/docs` or `/docs/demos/`
+1. Edit files in `/web` or `/web/demos/`
 2. Commit and push changes to GitHub
-3. GitHub Pages will automatically rebuild (takes 1-2 minutes)
+3. GitHub Actions will automatically deploy (takes 1-2 minutes)
 4. Force refresh your browser to see changes
 
 ## Additional Resources
@@ -131,4 +129,4 @@ To update the site:
 - [GitHub Pages Documentation](https://docs.github.com/en/pages)
 - [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
 - [TweetNaCl.js](https://github.com/dchest/tweetnacl-js)
-- [Thiele Receipt Specification](docs/RECEIPT_GUIDE.md)
+- [Thiele Receipt Specification](RECEIPT_GUIDE.md)

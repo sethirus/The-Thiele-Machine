@@ -844,7 +844,7 @@ Examples:
 After creating a receipt, verify it with:
   python3 verifier/replay.py <receipt.json>
 
-Learn more: docs/RECEIPT_GUIDE.md
+Learn more: RECEIPT_GUIDE.md
 """
     )
     
