@@ -15,6 +15,7 @@ Logs are saved to experiments/ directory with SHA256 hashes.
 """
 
 import argparse
+import csv
 import json
 import hashlib
 import os
@@ -41,6 +42,105 @@ from thielecpu.mu import calculate_mu_cost, question_cost_bits, information_gain
 
 RESULTS_DIR = Path("experiments")
 RESULTS_DIR.mkdir(exist_ok=True)
+PARTITION_RESULTS_DIR = RESULTS_DIR / "results"
+PARTITION_RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+PARTITION_RESULTS_PATH = PARTITION_RESULTS_DIR / "partition_blind_vs_sighted_scaling.csv"
+
+
+class PartitionScalingExporter:
+    """Stream metrics from partition experiments into a CSV ledger.
+
+    Each experiment run rewrites the target CSV with a fresh header and
+    appends one row per instance.  The exporter also tracks an in-memory
+    copy of the rows so callers can reuse the structured payload (for
+    receipts, manifests, etc.) without reparsing the file.
+    """
+
+    fieldnames = [
+        "size_param",
+        "seed",
+        "blind_status",
+        "blind_conflicts",
+        "blind_props",
+        "blind_decisions",
+        "blind_time_seconds",
+        "sighted_result",
+        "sighted_rank_gap",
+        "sighted_cost",
+        "sighted_time_seconds",
+        "mu_blind",
+        "mu_sighted",
+        "mu_answer",
+        "mu_question",
+    ]
+
+    def __init__(self, csv_path: Path):
+        self.csv_path = csv_path
+        self.csv_path.parent.mkdir(parents=True, exist_ok=True)
+        self._rows: List[Dict[str, Any]] = []
+        # Start each run with a clean file containing only the header.
+        with self.csv_path.open("w", newline="") as handle:
+            writer = csv.DictWriter(handle, fieldnames=self.fieldnames)
+            writer.writeheader()
+        self._csv_hash = self._compute_hash()
+
+    @property
+    def rows(self) -> List[Dict[str, Any]]:
+        return list(self._rows)
+
+    @property
+    def csv_hash(self) -> str:
+        return self._csv_hash
+
+    @property
+    def row_count(self) -> int:
+        return len(self._rows)
+
+    def append_entry(self, entry: Dict[str, Any]) -> Dict[str, Any]:
+        row = self._entry_to_row(entry)
+        with self.csv_path.open("a", newline="") as handle:
+            writer = csv.DictWriter(handle, fieldnames=self.fieldnames)
+            writer.writerow(row)
+        self._rows.append(row)
+        self._csv_hash = self._compute_hash()
+        return row
+
+    def _entry_to_row(self, entry: Dict[str, Any]) -> Dict[str, Any]:
+        blind = entry.get("blind_results", {}) or {}
+        sighted = entry.get("sighted_results", {}) or {}
+        timings = entry.get("timings", {}) or {}
+        return {
+            "size_param": entry.get("partition_level", entry.get("n")),
+            "seed": entry.get("seed"),
+            "blind_status": blind.get("status"),
+            "blind_conflicts": blind.get("conflicts"),
+            "blind_props": blind.get("props"),
+            "blind_decisions": blind.get("decisions"),
+            "blind_time_seconds": timings.get("blind_s"),
+            "sighted_result": sighted.get("result"),
+            "sighted_rank_gap": sighted.get("rank_gap"),
+            "sighted_cost": entry.get("mu_sighted"),
+            "sighted_time_seconds": timings.get("sighted_s"),
+            "mu_blind": entry.get("mu_blind"),
+            "mu_sighted": entry.get("mu_sighted"),
+            "mu_answer": entry.get("mu_answer"),
+            "mu_question": entry.get("mu_question"),
+        }
+
+    def _compute_hash(self) -> str:
+        if not self.csv_path.exists():
+            return ""
+        with self.csv_path.open("rb") as handle:
+            return hashlib.sha256(handle.read()).hexdigest()
+
+
+def _default_partition_csv_path(exp_dir: Path) -> Path:
+    """Pick a CSV destination relative to the experiment directory."""
+
+    resolved_exp_dir = Path(exp_dir)
+    if resolved_exp_dir == RESULTS_DIR:
+        return PARTITION_RESULTS_PATH
+    return resolved_exp_dir / "partition_blind_vs_sighted_scaling.csv"
 
 
 def _evaluate_clause(clause: List[int], assignment: Dict[int, bool]) -> Optional[bool]:
@@ -132,10 +232,12 @@ def run_tseitin_experiments(partitions: List[int], repeat: int, seed_grid: Optio
                            emit_receipts: bool = False, mispartition: bool = False,
                            shuffle_constraints: bool = False, noise: Optional[float] = None,
                            budget_seconds: Optional[int] = None, exp_dir: Path = RESULTS_DIR,
-                           trace_dir: Optional[Path] = None) -> List[Dict[str, Any]]:
+                           trace_dir: Optional[Path] = None,
+                           csv_exporter: Optional[PartitionScalingExporter] = None) -> List[Dict[str, Any]]:
     """Run Tseitin experiments for given partition levels (n values)."""
-    results = []
-    trace_directory = trace_dir or (exp_dir / "traces")
+    results: List[Dict[str, Any]] = []
+    trace_directory = trace_dir or (Path(exp_dir) / "traces")
+    exporter = csv_exporter or PartitionScalingExporter(_default_partition_csv_path(exp_dir))
     trace_directory.mkdir(parents=True, exist_ok=True)
     seeds = seed_grid if seed_grid else list(range(repeat))
     for n in partitions:
@@ -194,6 +296,13 @@ def run_tseitin_experiments(partitions: List[int], repeat: int, seed_grid: Optio
                 result['mu_thiele_sighted'] = thiele_sighted_additional  # The theoretical Thiele costs
                 result['partition_level'] = n
                 result['seed'] = seed
+
+                csv_row = exporter.append_entry(result)
+                result['partition_csv_row'] = csv_row
+                result['partition_csv_path'] = str(exporter.csv_path)
+                result['partition_csv_sha256'] = exporter.csv_hash
+                result['partition_csv_index'] = exporter.row_count - 1
+
                 results.append(result)
                 
                 # Emit receipts if requested
@@ -252,7 +361,13 @@ def run_tseitin_experiments(partitions: List[int], repeat: int, seed_grid: Optio
                             'rank_ops': result.get('rank_ops', 0),
                             'mdl_bytes': result.get('mdl_bytes', 0),
                             'info_gain': result['mu_answer']
-                        }
+                        },
+                        'partition_csv': {
+                            'path': str(exporter.csv_path),
+                            'sha256': exporter.csv_hash,
+                            'row_index': result['partition_csv_index'],
+                            'row': csv_row,
+                        },
                     }
                     receipt_file = exp_dir / f"receipt_n{n}_seed{seed}_{int(time.time())}.json"
                     with open(receipt_file, 'w') as f:
@@ -267,21 +382,36 @@ def save_results(results: List[Dict[str, Any]], problem: str, partitions: List[i
     filepath = exp_dir / filename
     with open(filepath, 'w') as f:
         json.dump(results, f, indent=2, default=str)
-    
+
     with open(filepath, 'rb') as f:
         file_hash = hashlib.sha256(f.read()).hexdigest()
-    
+
     print(f"Results saved to {filepath} (SHA256: {file_hash})")
     return file_hash
 
-def run_budget_sensitivity_analysis(partitions: List[int], repeat: int, seed_grid: Optional[List[int]] = None, emit_receipts: bool = False, exp_dir: Path = RESULTS_DIR):
+
+def write_partition_scaling_csv(results: List[Dict[str, Any]], csv_path: Path = PARTITION_RESULTS_PATH) -> Path:
+    """Emit a CSV summarizing blind vs sighted costs for partition scaling."""
+
+    exporter = PartitionScalingExporter(csv_path)
+    for entry in results:
+        exporter.append_entry(entry)
+
+    print(f"Partition scaling CSV written to {csv_path}")
+    return csv_path
+
+def run_budget_sensitivity_analysis(partitions: List[int], repeat: int, seed_grid: Optional[List[int]] = None,
+                                    emit_receipts: bool = False, exp_dir: Path = RESULTS_DIR,
+                                    csv_exporter: Optional[PartitionScalingExporter] = None):
     """Run budget sensitivity analysis with varying time limits."""
     budgets = [1, 5, 10, 30, 60, 300]  # seconds
     results = []
     
     for budget in budgets:
         print(f"\n=== Budget Sensitivity: {budget}s ===")
-        budget_results = run_tseitin_experiments(partitions, repeat, seed_grid, emit_receipts, budget_seconds=budget, exp_dir=exp_dir)
+        budget_results = run_tseitin_experiments(partitions, repeat, seed_grid, emit_receipts,
+                                                budget_seconds=budget, exp_dir=exp_dir,
+                                                csv_exporter=csv_exporter)
         for r in budget_results:
             r['budget'] = budget
         results.extend(budget_results)
@@ -857,17 +987,48 @@ def main():
     else:
         exp_dir = RESULTS_DIR  # Not used, but needed for function calls
     
+    csv_exporter: Optional[PartitionScalingExporter] = None
+    csv_output_path: Optional[Path] = None
+
     if args.problem == 'tseitin':
+        csv_exporter = PartitionScalingExporter(_default_partition_csv_path(exp_dir))
         if args.budget_sensitivity:
-            results = run_budget_sensitivity_analysis(args.partitions, args.repeat, args.seed_grid, args.emit_receipts, exp_dir)
+            results = run_budget_sensitivity_analysis(
+                args.partitions,
+                args.repeat,
+                args.seed_grid,
+                args.emit_receipts,
+                exp_dir,
+                csv_exporter=csv_exporter,
+            )
         else:
-            results = run_tseitin_experiments(args.partitions, args.repeat, args.seed_grid, args.emit_receipts,
-                                            mispartition=args.mispartition, shuffle_constraints=args.shuffle_constraints, noise=args.noise, exp_dir=exp_dir)
+            results = run_tseitin_experiments(
+                args.partitions,
+                args.repeat,
+                args.seed_grid,
+                args.emit_receipts,
+                mispartition=args.mispartition,
+                shuffle_constraints=args.shuffle_constraints,
+                noise=args.noise,
+                exp_dir=exp_dir,
+                csv_exporter=csv_exporter,
+            )
+        csv_output_path = csv_exporter.csv_path
     else:
         print(f"Unknown problem: {args.problem}")
         return
-    
+
     if results:
+        csv_path = csv_output_path
+        if csv_path is None:
+            csv_path = write_partition_scaling_csv(results)
+            csv_hash = hashlib.sha256(csv_path.read_bytes()).hexdigest() if csv_path.exists() else ""
+            print(f"Partition metrics recorded in {csv_path} (sha256 {csv_hash})")
+        elif csv_exporter is not None:
+            print(
+                "Partition metrics recorded in"
+                f" {csv_exporter.csv_path} (sha256 {csv_exporter.csv_hash})"
+            )
         file_hash = None
         if args.save_results:
             file_hash = save_results(results, args.problem, args.partitions, args.repeat, args.seed_grid, exp_dir)
