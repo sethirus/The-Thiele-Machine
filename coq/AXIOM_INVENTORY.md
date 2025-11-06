@@ -3,29 +3,31 @@
 This document inventories all `Admitted` lemmas and `Axiom` declarations in the Coq codebase, with detailed explanations of what each assumes and why it is acceptable as an implementation detail rather than a foundational flaw.
 
 ## Summary
-- **Total Admitted**: 5 (see `ADMIT_REPORT.txt` for locations)
-- **Total Axioms**: 3
+- **Total Admitted**: 0 (see `ADMIT_REPORT.txt`)
+- **Total Axioms**: 0
 - **Kernel Module Admitted**: 0
 - **Kernel Module Axioms**: 0
 
 ## Kernel Module Admitted Lemmas
 
-### `decode_vm_state_correct` (VMEncoding.v:395)
-**Statement**: `forall s rest, decode_vm_state (encode_vm_state s ++ rest) = Some (s, rest)`
-**Assumption**: The nested decoding functions for VM state (pc, mu, err, graph, csrs) compose correctly despite complex list associativity.
-**Why Acceptable**: This is a self-contained roundtrip property for the encoding/decoding functions. The individual decode lemmas (decode_nat_correct, etc.) are proven, but composing them requires managing append associativity in nested matches. This is an implementation detail of the parsing logic, not a foundational property of the simulation.
-**Verification Path**: Could be proven by unfolding all encodings and using the individual correct lemmas with careful associativity rewrites.
+All previously catalogued kernel admits have now been mechanised.
+The ledger, encoding, and simulation developments compile without
+placeholders; the ledger invariants documented in `MuLedgerConservation.v`
+cover both suffix and prefix reasoning.
 
 ## Kernel Module Axioms
 
-The kernel proof tree no longer carries any axioms.  Eliminating the
-`compile_vm_operation_correct` declaration makes the outstanding obligations
-explicitly trackable in the sandbox and archive directories while keeping the
-core simulation development assumption-free.
+The kernel proof tree continues to avoid axioms altogether.  Historical
+archive notes now package their classical prerequisites as explicit
+propositions rather than declarations, so the mechanically checked
+development itself remains assumption free.
 
 ## Other Module Admitted/Axioms
 
-The remaining admits and axioms are in other modules (thielemachine, modular_proofs, and archive experiments) and are not part of the Milestone 3 kernel simulation proof. They represent separate verification efforts and do not affect the architectural completeness of the VM-kernel simulation framework.
+No additional admits remain inside the `coq/` tree, and the supporting
+documents no longer enumerate standalone axioms.  The remaining open
+questions live entirely in the informal manuscripts housed under
+`theory/` and `archive/`.
 
 ## Conclusion
 

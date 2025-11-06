@@ -1618,7 +1618,18 @@ This experiment uses a sequential harness to generate and solve a batch of Tseit
                         f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] [HOST={platform.node()}] Job {idx+1}/{len(jobs)} collected (elapsed: {time.time()-pool_start:.2f}s)"
                     )
         else:
-            return obj
+            for job in jobs:
+                result = run_single_experiment(job)
+                if result is not None:
+                    all_results.append(result)
+        
+    except Exception as exc:  # pragma: no cover - defensive cleanup
+        stop_worker_heartbeat.set()
+        heartbeat_thread.join(timeout=2)
+        print(
+            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] [PID={os.getpid()}] Unhandled error in fractal debt run: {exc}"
+        )
+        raise
 
     with open(output_filename, "w") as f:
         json.dump(convert_np(all_results), f, indent=2, separators=(",", ": "))

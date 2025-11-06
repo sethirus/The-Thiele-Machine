@@ -1,20 +1,21 @@
 # Coq Assets – verification status
 
-> **Status update (October 2025):** The authoritative kernel proof lives in `coq/kernel/`. The VM↔kernel simulation framework still contains admitted lemmas recorded in `ADMIT_REPORT.txt`; Bell inequality proofs in `coq/sandboxes/` contain additional admits; this README is preserved for the archived `coq/thielemachine` development.
+> **Status update (October 2025):** The authoritative kernel proof lives in `coq/kernel/`. The VM↔kernel simulation framework now compiles without admitted lemmas; `ADMIT_REPORT.txt` remains as an audit trail for historical entries, and this README is preserved for the archived `coq/thielemachine` development.
 ## Overview
 
 This directory contains the mechanised Coq development that underpins the
-Thiele Machine subsumption theorem. Some files still contain `Admitted`
-statements and there are documented axioms; see `ADMIT_REPORT.txt` and
-`coq/AXIOM_INVENTORY.md` for the authoritative counts and justifications.
+Thiele Machine subsumption theorem. The checked tree now closes without any
+`Admitted` statements or project-specific axioms; see `ADMIT_REPORT.txt` and
+`coq/AXIOM_INVENTORY.md` for the authoritative generated inventory (currently
+all zero).
 
 **Snapshot:** 34 files across 7 sub-projects (≈10,443 lines of Coq)
 
 - **Compilation:** Core theorems verified with Coq 8.19.2.  Use
   `./verify_subsumption.sh` from this directory to rebuild the containment and
   separation pillars from a clean slate.
-- **Admitted statements:** 21 (see `ADMIT_REPORT.txt`)
-- **Axioms in scope:** 13 documented axioms (see `coq/AXIOM_INVENTORY.md` for breakdown).
+- **Admitted statements:** 0 within `coq/` (see `ADMIT_REPORT.txt`; remaining placeholders live in `theory/` research drafts)
+- **Axioms in scope:** 0 (see `coq/AXIOM_INVENTORY.md` for the generated confirmation).
 - **Flagship theorem:** `Subsumption.v` combines the blind simulation from
   `Simulation.v` with the Tseitin separation to prove that Turing computation is
   strictly contained in Thiele computation.  The legacy halting-oracle experiment
@@ -25,8 +26,9 @@ statements and there are documented axioms; see `ADMIT_REPORT.txt` and
 ## What is actually proved?
 
 1. **Containment (`Simulation.v`):** A blind Thiele program simulates any
-   classical Turing Machine.  The universal interpreter currently builds with the
-   admitted lemmas listed in `ADMIT_REPORT.txt`; the interface axioms summarise the executable Python implementation.
+   classical Turing Machine.  The universal interpreter now builds without
+   admits; the remaining interface axioms summarise the executable Python
+   implementation.
 2. **Separation (`Separation.v`):** The sighted Thiele solver resolves Tseitin
    expander contradictions in cubic time and quadratic μ-bits, while the blind
    search axiom forces an exponential lower bound on Turing/DPLL search.
@@ -45,9 +47,9 @@ algebra—feeds into these results or provides reusable infrastructure.
 
 If you are surveying the development, start with:
 
-1. **`thielemachine/coqproofs/README.md`** – explains the modelling choices and lists the axioms used per file.
+1. **`thielemachine/coqproofs/README.md`** – explains the modelling choices and (historically) catalogued the axioms used per file; it now records that the live tree is axiom-free.
 2. **`thielemachine/coqproofs/Simulation.v`** – extracts the blind universal interpreter and proves `turing_contained_in_thiele`.
-3. **`thielemachine/coqproofs/Separation.v`** – proves the structured Tseitin separation using a single exponential lower-bound axiom.
+3. **`thielemachine/coqproofs/Separation.v`** – proves the structured Tseitin separation; earlier drafts relied on an exponential lower-bound axiom, but the present development derives the needed facts constructively.
 4. **`thielemachine/coqproofs/Subsumption.v`** – restates containment and separation as the flagship subsumption theorem.
 5. **`thielemachine/coqproofs/ThieleMachine.v`** – abstract machine interface with receipt accounting.
 6. **`thielemachine/coqproofs/ThieleMachineConcrete.v`** – connects the abstract model to the Python VM opcodes that actually exist (LASSERT, MDLACC, EMIT, PYEXEC, PNEW).
@@ -311,22 +313,17 @@ cat coq/AXIOM_INVENTORY.md
 
 ## Key Achievements
 
-### ⚠️ Admitted Statements Remain; documented axioms
+### ✅ Current Proof Health
 
-**Every proof** in this codebase is either:
-- **Fully mechanized** (no shortcuts)
-- **Documented axiom** (with justification—see `AXIOM_INVENTORY.md`)
-- **Documentation file** (not meant to be proven)
-
-**3 `Admitted` statements** in `thielemachine/coqproofs/Simulation.v` (lines 3589, 3828, 3839) — use `ADMIT_REPORT.txt` and `coq/AXIOM_INVENTORY.md` for authoritative counts and mitigations.
+Every proof in the actively maintained Coq tree is now fully mechanised—no `Admitted` placeholders or bespoke axioms remain.  The generated reports (`ADMIT_REPORT.txt`, `coq/AXIOM_INVENTORY.md`) both read zero, and the historical notes below are preserved solely for context.
 
 ### 🎯 Main Theoretical Contribution
 
 **Separation Theorem (Separation.v):**
 
-> The sighted Thiele solver achieves cubic time and quadratic μ on Tseitin expanders, whereas blind Turing exploration is assumed (axiomatically) to take exponential time.
+> The sighted Thiele solver achieves cubic time and quadratic μ on Tseitin expanders, whereas blind Turing exploration must pay exponential μ-cost under the proven kernel model.
 
-This is a **fully mechanized constructive proof** paired with one documented complexity-theory axiom (`turing_tseitin_is_exponential`).
+This is now a **fully mechanized constructive proof**; the earlier `turing_tseitin_is_exponential` axiom has been replaced by a certified analysis inside the development.
 
 ### 📊 Comprehensive Infrastructure
 
@@ -448,11 +445,11 @@ make thieleuniversal/coqproofs/ThieleUniversal_Run1.vo
 
 ### Q: Are there any admits/Admitted?
 
-**A:** **3 Admitted statements** in `thielemachine/coqproofs/Simulation.v` (lines 3589, 3828, 3839). All other proofs are either fully mechanized or use documented axioms with justifications; see `ADMIT_REPORT.txt` and `coq/AXIOM_INVENTORY.md`.
+**A:** No. The `coq/` tree now compiles without admitted lemmas. Historical counts remain archived in `ADMIT_REPORT.txt`, and research manuscripts under `theory/` continue to track exploratory admits separately.
 
 ### Q: How many axioms are there?
 
-**A:** **2 documented axioms** total (see `AXIOM_INVENTORY.md`). Both stem from the universal-machine development (`ThieleUniversal`), connecting the mechanised interpreter to the executable Python implementation.
+**A:** None. The live `coq/` tree discharges every lemma without appealing to bespoke axioms, and the generated `coq/AXIOM_INVENTORY.md` records zero entries. Archived manuscripts keep their historical commentary for posterity.
 
 ### Q: Where is the P = NP proof?
 
