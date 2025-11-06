@@ -2,6 +2,10 @@
 
 This module contains performance benchmarks to measure verification speed
 and resource usage under various conditions.
+
+NOTE: These tests require the pytest-benchmark plugin.
+Install with: pip install pytest-benchmark
+Run with: pytest tests/verifier/test_verifier_benchmarks.py --benchmark-only
 """
 
 from __future__ import annotations
@@ -10,6 +14,13 @@ import time
 from pathlib import Path
 
 import pytest
+
+# Try to import benchmark support
+try:
+    import pytest_benchmark  # noqa: F401
+    BENCHMARK_AVAILABLE = True
+except ImportError:
+    BENCHMARK_AVAILABLE = False
 
 from experiments.run_cross_domain import main as cross_domain_main
 from experiments.run_cwd import main as cwd_main
@@ -22,6 +33,13 @@ from verifier.check_cwd import verify_cwd
 from verifier.check_einstein import verify_einstein
 from verifier.check_entropy import verify_entropy
 from verifier.check_landauer import verify_landauer
+
+
+# Skip all benchmark tests if pytest-benchmark is not installed
+pytestmark = pytest.mark.skipif(
+    not BENCHMARK_AVAILABLE,
+    reason="pytest-benchmark not installed. Install with: pip install pytest-benchmark"
+)
 
 
 class TestVerifierPerformance:
@@ -446,7 +464,3 @@ class TestVerifierScaling:
         # 4x trials shouldn't take more than 6x time (allowing for overhead)
         if results[-1][1] > 0.01:  # Only check if not too fast to measure
             assert results[-1][1] < results[0][1] * 6
-
-
-# Skip benchmarks by default unless --benchmark is passed
-pytestmark = pytest.mark.benchmark
