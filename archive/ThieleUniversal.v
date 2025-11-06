@@ -2017,7 +2017,7 @@ Qed.
     read_reg REG_MOVE st29 = read_mem (addr + 4) st /\
     read_reg REG_TEMP1 st29 = addr + 4 /\
     length (regs st29) = 10.
-  Admitted.
+  Proof.
     intros st Hpc22 Hprog Hlen.
     set (addr := read_reg REG_ADDR st).
     set (st23 := run1 st).
@@ -5171,7 +5171,7 @@ Lemma find_rule_loop_preserves_inv : forall tm conf st i,
   Qed.
 
 
-Axiom pc_29_implies_registers_from_rule_table :
+Definition pc_29_implies_registers_from_rule_table_statement : Prop :=
   forall (tm : TM) (conf : TMConfig) (st : State) (k : nat) (st' : State),
     let '((q, tape), head) := conf in
     inv st tm conf ->
@@ -5183,7 +5183,7 @@ Axiom pc_29_implies_registers_from_rule_table :
       nth (RULES_START_ADDR + i * 5 + 3) (mem st') 0 = read_reg REG_WRITE st' /\
       nth (RULES_START_ADDR + i * 5 + 4) (mem st') 0 = read_reg REG_MOVE st'.
 
-Axiom find_rule_from_memory_components :
+Definition find_rule_from_memory_components_statement : Prop :=
   forall (tm : TM) (conf : TMConfig) (i : nat) (st' : State),
     let '((q, tape), head) := conf in
     i < length (tm_rules tm) ->

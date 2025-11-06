@@ -188,16 +188,12 @@ Qed.
 (* No Turing Machine Can Solve Halting Problem *)
 (* ================================================================= *)
 
-(* We axiomatize the classical halting problem undecidability result.
-   The full diagonalization proof would require:
-   1. A robust encoding scheme for TMs and configs
-   2. A universal TM construction
-   3. A diagonal TM that negates the decider's output
-   
-   This is a well-established result in computability theory.
-   For the purposes of showing Thiele > Turing, we can axiomatize it. *)
+(* To keep this archival development axiom-free we package the classical
+   halting undecidability theorem as a reusable proposition.  Downstream
+   results can assume it explicitly when needed, but it is not asserted
+   outright here. *)
 
-Axiom halting_undecidable :
+Definition halting_undecidable_statement : Prop :=
   ~ exists tm_decider,
       forall tm c,
         tm_step tm_decider (encode_tm_config tm c) = encode_bool (halts_on tm c).
@@ -208,6 +204,7 @@ Axiom halting_undecidable :
 (* ================================================================= *)
 
 Theorem thiele_strictly_extends_turing :
+  halting_undecidable_statement ->
   exists (mk_program : TM -> TMConfig -> list ThieleInstrExt) s0,
     (* Thiele with oracle can decide halting *)
     (forall tm c,
@@ -218,6 +215,7 @@ Theorem thiele_strictly_extends_turing :
       forall tm c,
         tm_step tm_decider (encode_tm_config tm c) = encode_bool (halts_on tm c).
 Proof.
+  intro Hhalt.
   exists halting_decider_program, {| pc := 0; csrs := fun _ => 0%Z; heap := {| allocations := [] |} |}.
   split.
   - (* Thiele solves halting *)
@@ -235,5 +233,5 @@ Proof.
     |})].
     apply thiele_solves_halting.
   - (* No TM can *)
-    apply halting_undecidable.
+    exact Hhalt.
 Qed.
