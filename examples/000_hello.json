@@ -1,41 +1,49 @@
 {
-  "version": "TRS-0",
+  "global_digest": "8dfcb6899e271efb59ddf7f1fd3ee2f595fb016f056c6b633e2009ce03d62230",
+  "key_id": "thiele-core-2025",
+  "public_key": "d06cf289ca021314ed902987377d225fb618095d3e3edc4359fb602984643222",
+  "sig_scheme": "ed25519",
+  "signature": "a497ec799033398f08b4858bd46c9ee74e8c14b4008cbe2f1b95ed0e6e2371954dad67d4e2b4b72cd85c0e885d1583adf9cde50782069262f4bb061fbceade0f",
   "steps": [
     {
-      "step": 0,
-      "pre_state_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "opcode": "EMIT_BYTES",
       "args": {
-        "path": "hello.txt",
+        "bytes_hex": "48656c6c6f2c20546869656c65204b65726e656c210a",
         "offset": 0,
-        "bytes_hex": "48656c6c6f2c20546869656c65204b65726e656c210a"
+        "path": "hello.txt"
       },
-      "axioms": ["initial_emit"],
+      "axioms": [
+        "initial_emit"
+      ],
+      "mu_bits": 200.0,
+      "opcode": "EMIT_BYTES",
       "oracle_reply": {
         "status": "sat",
         "witness": null
       },
-      "mu_bits": 200.0,
-      "post_state_sha256": "61938e983497bf4d9ba415bfb4bbb1ddc6939b3f968572b5159212f00d224b14"
+      "post_state_sha256": "61938e983497bf4d9ba415bfb4bbb1ddc6939b3f968572b5159212f00d224b14",
+      "pre_state_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "step": 0
     },
     {
-      "step": 1,
-      "pre_state_sha256": "61938e983497bf4d9ba415bfb4bbb1ddc6939b3f968572b5159212f00d224b14",
-      "opcode": "ASSERT_SHA256",
       "args": {
         "path": "hello.txt",
         "sha256": "bcfc4d9478773c2947d6301bd78d59c273c978a6f83871ca08281c7264d8877e"
       },
-      "axioms": ["hash_integrity"],
+      "axioms": [
+        "hash_integrity"
+      ],
+      "mu_bits": 256.0,
+      "opcode": "ASSERT_SHA256",
       "oracle_reply": {
         "status": "sat",
-        "witness": {"verified_hash": "bcfc4d9478773c2947d6301bd78d59c273c978a6f83871ca08281c7264d8877e"}
+        "witness": {
+          "verified_hash": "bcfc4d9478773c2947d6301bd78d59c273c978a6f83871ca08281c7264d8877e"
+        }
       },
-      "mu_bits": 256.0,
-      "post_state_sha256": "61938e983497bf4d9ba415bfb4bbb1ddc6939b3f968572b5159212f00d224b14"
+      "post_state_sha256": "61938e983497bf4d9ba415bfb4bbb1ddc6939b3f968572b5159212f00d224b14",
+      "pre_state_sha256": "61938e983497bf4d9ba415bfb4bbb1ddc6939b3f968572b5159212f00d224b14",
+      "step": 1
     }
   ],
-  "global_digest": "computed_by_verifier",
-  "sig_scheme": "none",
-  "signature": ""
+  "version": "TRS-0"
 }

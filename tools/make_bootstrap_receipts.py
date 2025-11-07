@@ -5,11 +5,19 @@ Bootstrap Receipt Generator
 Reads kernel template and generates receipts that can reconstruct it.
 This tool is used during development but not distributed with the final system.
 """
+import argparse
 import hashlib
 import json
 import sys
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
+
+try:
+    from nacl import signing
+    HAS_NACL = True
+except ImportError:  # pragma: no cover - PyNaCl is a runtime dependency.
+    signing = None
+    HAS_NACL = False
 
 
 def sha256_hex(data: bytes) -> str:
@@ -40,7 +48,11 @@ def compute_state_hash(virtual_fs: Dict[str, bytes], exec_flags: Dict[str, bool]
 def generate_bootstrap_receipts(
     template_path: str,
     output_path: str,
-    chunk_size: int = 2048
+    chunk_size: int = 2048,
+    sign_key: Optional[str] = None,
+    public_key: Optional[str] = None,
+    key_id: Optional[str] = None,
+    allow_unsigned: bool = False,
 ) -> str:
     """
     Generate bootstrap receipts from kernel template.
@@ -182,6 +194,44 @@ def generate_bootstrap_receipts(
         "sig_scheme": "none",
         "signature": ""
     }
+
+    if sign_key:
+        if not HAS_NACL:
+            raise RuntimeError("PyNaCl is required to sign bootstrap receipts")
+
+        with open(sign_key, 'rb') as handle:
+            key_bytes = handle.read()
+        if len(key_bytes) == 32:
+            private_key = signing.SigningKey(key_bytes)
+        elif len(key_bytes) == 64:
+            private_key = signing.SigningKey(bytes.fromhex(key_bytes.decode('ascii').strip()))
+        else:
+            raise ValueError("sign_key must be 32 raw bytes or 64 hex characters")
+
+        signature = private_key.sign(global_digest.encode('utf-8')).signature
+        receipt["sig_scheme"] = "ed25519"
+        receipt["signature"] = signature.hex()
+
+        if public_key:
+            with open(public_key, 'rb') as handle:
+                pub_bytes = handle.read()
+            if len(pub_bytes) == 32:
+                derived_pub = pub_bytes.hex()
+            elif len(pub_bytes) == 64:
+                derived_pub = pub_bytes.decode('ascii').strip()
+            else:
+                raise ValueError("public_key must be 32 raw bytes or 64 hex characters")
+        else:
+            derived_pub = private_key.verify_key.encode().hex()
+
+        receipt["public_key"] = derived_pub
+        if key_id:
+            receipt["key_id"] = key_id
+
+    elif allow_unsigned:
+        print("⚠️  Creating unsigned bootstrap receipt (test mode)", file=sys.stderr)
+    else:
+        raise ValueError("Signing key required for bootstrap receipts")
     
     # Write receipt
     output_file = Path(output_path)
@@ -198,18 +248,31 @@ def generate_bootstrap_receipts(
 
 def main():
     """CLI entry point."""
-    if len(sys.argv) < 2:
-        print("Usage: python3 tools/make_bootstrap_receipts.py <template_path> [output_path] [chunk_size]")
-        print("Example: python3 tools/make_bootstrap_receipts.py kernel_template/thiele_min.py bootstrap_receipts/050_kernel_emit.json")
-        sys.exit(1)
-    
-    template_path = sys.argv[1]
-    output_path = sys.argv[2] if len(sys.argv) > 2 else "bootstrap_receipts/050_kernel_emit.json"
-    chunk_size = int(sys.argv[3]) if len(sys.argv) > 3 else 2048
-    
+    parser = argparse.ArgumentParser(description='Generate signed bootstrap receipts')
+    parser.add_argument('template', help='Path to kernel template (e.g., kernel_template/thiele_min.py)')
+    parser.add_argument('output', nargs='?', default='bootstrap_receipts/050_kernel_emit.json', help='Output receipt path')
+    parser.add_argument('--chunk-size', type=int, default=2048, help='Chunk size for EMIT_BYTES opcodes (default: 2048)')
+    parser.add_argument('--sign', help='Ed25519 signing key (32 raw bytes or 64 hex chars)')
+    parser.add_argument('--public-key', help='Optional Ed25519 public key file to embed in receipt')
+    parser.add_argument('--key-id', help='Identifier recorded in the receipt for trust manifest matching')
+    parser.add_argument('--allow-unsigned', action='store_true', help='Permit unsigned receipts (testing only)')
+
+    args = parser.parse_args()
+
+    if not args.sign and not args.allow_unsigned:
+        parser.error('Signing key required unless --allow-unsigned is specified')
+
     try:
-        kernel_sha = generate_bootstrap_receipts(template_path, output_path, chunk_size)
-        
+        kernel_sha = generate_bootstrap_receipts(
+            args.template,
+            args.output,
+            args.chunk_size,
+            sign_key=args.sign,
+            public_key=args.public_key,
+            key_id=args.key_id,
+            allow_unsigned=args.allow_unsigned,
+        )
+
         # Write expected hash
         expected_hash_file = Path("tests/expected_kernel_sha256.txt")
         expected_hash_file.write_text(kernel_sha + "\n")

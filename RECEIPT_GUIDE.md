@@ -220,8 +220,10 @@ Create `hello_receipt.json`:
     }
   ],
   "global_digest": "computed_by_verifier",
-  "sig_scheme": "none",
-  "signature": ""
+  "sig_scheme": "ed25519",
+  "key_id": "thiele-core-2025",
+  "public_key": "d06cf289ca021314ed902987377d225fb618095d3e3edc4359fb602984643222",
+  "signature": "<hex-encoded ed25519 signature>"
 }
 ```
 
@@ -230,6 +232,9 @@ Create `hello_receipt.json`:
 - Emits bytes to `hello.py` at offset 0
 - The hex bytes decode to: `print("How are you?")\n`
 - Costs 120 μ-bits (information-theoretic cost)
+- Declares an Ed25519 signature and the signing key identifier so the verifier can authenticate it against a trust manifest or explicit public key
+
+> **Note:** The snippet above elides the actual signature for brevity. Use `create_receipt.py --sign <private-key>` (documented below) or `tools/sign_receipts.py` to produce real signatures; unsigned receipts now require the explicit `--allow-unsigned` escape hatch and are rejected by default.
 
 #### Step 2: Convert Your Content to Hex
 
@@ -307,10 +312,12 @@ def create_simple_receipt(filename, content):
         "global_digest": "computed_by_verifier",
         "kernel_sha256": content_hash,
         "timestamp": "2025-11-04T00:00:00Z",
-        "sig_scheme": "none",
-        "signature": ""
+        "sig_scheme": "ed25519",
+        "key_id": "local-demo",
+        "public_key": "<hex public key>",
+        "signature": "<hex signature>"
     }
-    
+
     return receipt
 
 # Example usage
@@ -325,18 +332,30 @@ print("This file was created from a Thiele receipt!")
     with open("my_script_receipt.json", "w") as f:
         json.dump(receipt, f, indent=2)
     
-    print("✓ Receipt created: my_script_receipt.json")
+    print("✓ Receipt created: my_script_receipt.json (signature placeholder)")
     print(f"✓ File SHA256: {receipt['files'][0]['sha256']}")
+    print("⚠️  Sign the receipt with tools/sign_receipts.py before distributing it")
 ```
 
 Run it:
 
 ```bash
-python3 create_receipt.py
+python3 create_receipt.py my_script.py --output my_script_receipt.json \
+    --sign path/to/private.key --key-id local-demo
 # Output:
 # ✓ Receipt created: my_script_receipt.json
-# ✓ File SHA256: abc123...
+# ✓ Receipt signed with Ed25519
+# ✓ Public key: 254b57576959e5fb...
 ```
+
+To verify a freshly signed receipt outside the repository trust manifest, supply the signer’s public key:
+
+```bash
+python3 tools/verify_trs10.py my_script_receipt.json \
+    --trusted-pubkey 254b57576959e5fb37d087a60d5a72bb75dcf82240cbd62577059695dda0ebea
+```
+
+If you maintain many receipts, place a `trust_manifest.json` alongside them (or use `receipts/trust_manifest.json`) to map `key_id` values to trusted public keys.
 
 ## Using Receipts in Your Project
 

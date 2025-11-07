@@ -481,7 +481,9 @@ def create_project_receipts(
     output_dir: Optional[Path] = None,
     sign_key: Optional[str] = None,
     public_key: Optional[str] = None,
-    create_manifest: bool = True
+    create_manifest: bool = True,
+    allow_unsigned: bool = False,
+    key_id: Optional[str] = None
 ) -> List[Path]:
     """
     Create receipts for all build artifacts in a project.
@@ -494,6 +496,8 @@ def create_project_receipts(
         sign_key: Optional signing key path
         public_key: Optional public key path
         create_manifest: Whether to create MANIFEST.receipt.json index
+        allow_unsigned: Permit unsigned receipts (testing only)
+        key_id: Optional identifier recorded in receipts for trust manifests
     
     Returns:
         List of paths to created receipt files
@@ -550,6 +554,8 @@ def create_project_receipts(
                 include_steps=False,
                 sign_key=sign_key,
                 public_key=public_key,
+                allow_unsigned=allow_unsigned,
+                key_id=key_id,
                 metadata=metadata
             )
             receipt_paths.append(receipt_path)
@@ -584,7 +590,17 @@ def create_project_receipts(
     return receipt_paths
 
 
-def create_receipt(files, output_path=None, include_steps=False, sign_key=None, public_key=None, metadata=None, base_dir=None):
+def create_receipt(
+    files,
+    output_path=None,
+    include_steps=False,
+    sign_key=None,
+    public_key=None,
+    metadata=None,
+    base_dir=None,
+    allow_unsigned: bool = False,
+    key_id: str = None,
+):
     """
     Create a Thiele receipt for one or more files.
     
@@ -663,7 +679,7 @@ def create_receipt(files, output_path=None, include_steps=False, sign_key=None, 
         if not HAS_NACL:
             print("Error: PyNaCl not installed. Install with: pip install PyNaCl", file=sys.stderr)
             sys.exit(1)
-        
+
         try:
             # Load private key
             with open(sign_key, 'rb') as f:
@@ -685,7 +701,7 @@ def create_receipt(files, output_path=None, include_steps=False, sign_key=None, 
             
             receipt["sig_scheme"] = "ed25519"
             receipt["signature"] = signature_bytes.hex()
-            
+
             # Include public key if provided or derive from private key
             if public_key:
                 with open(public_key, 'rb') as f:
@@ -699,17 +715,29 @@ def create_receipt(files, output_path=None, include_steps=False, sign_key=None, 
                     receipt["public_key"] = private_key.verify_key.encode().hex()
             else:
                 receipt["public_key"] = private_key.verify_key.encode().hex()
-            
+
+            if key_id:
+                receipt["key_id"] = key_id
+
             print(f"✓ Receipt signed with Ed25519")
             print(f"✓ Public key: {receipt['public_key'][:16]}...")
-            
+
         except FileNotFoundError as e:
             print(f"Error: Key file not found: {e}", file=sys.stderr)
             sys.exit(1)
         except Exception as e:
             print(f"Error signing receipt: {e}", file=sys.stderr)
             sys.exit(1)
-    
+    else:
+        if not allow_unsigned:
+            print(
+                "Error: Signing key required. Use --sign <key> or --allow-unsigned for test-only receipts",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+        else:
+            print("⚠️  Creating unsigned receipt (test mode)", file=sys.stderr)
+
     # Determine output path
     if output_path is None:
         if len(files) == 1:
@@ -908,7 +936,19 @@ Learn more: RECEIPT_GUIDE.md
         metavar='PUBKEY_FILE',
         help='Public key file to include in receipt (optional, derived from private if not provided)'
     )
-    
+
+    parser.add_argument(
+        '--key-id',
+        metavar='KEY_ID',
+        help='Identifier recorded in the receipt to align with trust manifests'
+    )
+
+    parser.add_argument(
+        '--allow-unsigned',
+        action='store_true',
+        help='Permit generating unsigned receipts (testing only)'
+    )
+
     parser.add_argument(
         '--metadata',
         metavar='JSON',
@@ -983,6 +1023,8 @@ Learn more: RECEIPT_GUIDE.md
                     include_steps=args.steps,
                     sign_key=args.sign,
                     public_key=args.public_key,
+                    allow_unsigned=args.allow_unsigned,
+                    key_id=args.key_id,
                     metadata=archive_metadata,
                     base_dir=extracted_path
                 )
@@ -1031,6 +1073,8 @@ Learn more: RECEIPT_GUIDE.md
             include_steps=args.steps,
             sign_key=args.sign,
             public_key=args.public_key,
+            allow_unsigned=args.allow_unsigned,
+            key_id=args.key_id,
             metadata=dir_metadata,
             base_dir=directory
         )
@@ -1048,7 +1092,9 @@ Learn more: RECEIPT_GUIDE.md
             output_dir=output_dir,
             sign_key=args.sign,
             public_key=args.public_key,
-            create_manifest=True
+            create_manifest=True,
+            allow_unsigned=args.allow_unsigned,
+            key_id=args.key_id
         )
         
         if receipt_paths:
@@ -1068,6 +1114,8 @@ Learn more: RECEIPT_GUIDE.md
         include_steps=args.steps,
         sign_key=args.sign,
         public_key=args.public_key,
+        allow_unsigned=args.allow_unsigned,
+        key_id=args.key_id,
         metadata=metadata
     )
     

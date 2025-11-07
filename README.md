@@ -12,17 +12,18 @@
 
 **⚡ Quick Start:**
 ```bash
-# Verify a receipt and materialize files
-python3 verifier/replay.py examples/000_hello.json
+# Verify a receipt and materialize files using the bundled trust manifest
+python3 verifier/replay.py examples/000_hello.json --trust-manifest receipts/trust_manifest.json
 
 # Create receipt for a single file
-python3 create_receipt.py my_file.py
+python3 create_receipt.py my_file.py --sign path/to/private.key --key-id my-local-key
 
 # Create receipt for entire directory
-python3 create_receipt.py --directory ./src
+python3 create_receipt.py --directory ./src --sign path/to/private.key --key-id my-local-key
 
 # Fetch and create receipt from GitHub release
-python3 create_receipt.py --archive https://github.com/user/repo/archive/refs/tags/v1.0.0.tar.gz
+python3 create_receipt.py --archive https://github.com/user/repo/archive/refs/tags/v1.0.0.tar.gz \
+    --sign path/to/private.key --key-id my-local-key
 ```
 
 ## 🚀 New: Enhanced Repository Ingestion
@@ -62,7 +63,8 @@ Every release of The Thiele Machine includes cryptographic receipts for all arti
 curl -LO https://github.com/sethirus/The-Thiele-Machine/releases/download/v1.0.0/artifact_name.receipt.json
 
 # Verify
-python3 tools/verify_trs10.py artifact_name.receipt.json
+python3 tools/verify_trs10.py artifact_name.receipt.json \
+    --trust-manifest receipts/trust_manifest.json
 
 # Or use the offline verifier (zero dependencies)
 python3 examples/offline-demo/verify_offline.py artifact_name.receipt.json artifact_name
