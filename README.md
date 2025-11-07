@@ -934,6 +934,20 @@ python run_partition_experiments.py --problem tseitin --partitions 6 8 --repeat 
 
 Results are saved in `experiments/` with plots, inference reports, CSV tables, and SHA-256 manifests for reproducibility.
 
+For CI-style checks that keep experiments ephemeral, run:
+
+```bash
+python scripts/run_partition_ephemeral.py
+```
+
+The wrapper regenerates the Tseitin dataset in a temporary directory,
+invokes the main harness with `--save-outputs`, and fails fast unless
+all four preregistered decision criteria record `PASS` in the produced
+`inference.md`. No artefacts remain in the repository once the command
+exits. Historical reruns from 2025 now live under `experiments/legacy/`
+and are explicitly labelled as diagnostic so auditors do not confuse
+them with the gated evidence stream.
+
 ### Evidence Factory Protocol
 
 The Thiele Machine now includes a standardized "evidence factory" protocol for generating reviewer-proof experimental evidence. This protocol ensures all experiments produce self-authenticating output packets that can be quickly interpreted by reviewers.

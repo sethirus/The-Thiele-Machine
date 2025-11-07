@@ -1,4 +1,7 @@
 # Thiele Machine Experiment Inference Report
+
+> **Status:** Legacy diagnostic run. Superseded by the ephemeral gate `scripts/run_partition_ephemeral.py`; retained for historical context.
+
 Problem: tseitin
 Timestamp: 1761350670
 

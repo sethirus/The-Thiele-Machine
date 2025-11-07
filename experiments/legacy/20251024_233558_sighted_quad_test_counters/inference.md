@@ -1,34 +1,37 @@
 # Thiele Machine Experiment Inference Report
+
+> **Status:** Legacy diagnostic run. Superseded by the ephemeral gate `scripts/run_partition_ephemeral.py`; retained for historical context.
+
 Problem: tseitin
-Timestamp: 1761350013
+Timestamp: 1761348963
 
 ## Pre-registered Decision Criteria
 - Blind fits exp better than poly by ΔAIC ≥ 10: FAIL
-- Sighted μ_answer slope 95% CI contains 0: FAIL
+- Sighted μ_answer slope 95% CI contains 0: PASS
 - Ratio slope > 0 and monotonic in ≥90% of bootstrap: FAIL
 - Spearman ρ(μ_blind, runtime) ≥ 0.6 (p < 0.01): FAIL
 
 ## Blind Reasoning Scaling
-- Best-fit exponential: slope=N/A [N/A, N/A]
-- AIC_exp = N/A, AIC_poly = N/A
+- Best-fit exponential: slope=0.269 [0.000, 0.297]
+- AIC_exp = -17.8, AIC_poly = -17.8
 - Exponential model loses
 
 ## Sighted Reasoning Scaling (μ_answer)
-- Slope = N/A [N/A, N/A]
-- CI does not cross 0
-- AIC_const = N/A, AIC_linear = N/A
+- Slope = 1.500 [0.000, 1.500]
+- CI crosses 0
+- AIC_const = 7.4, AIC_linear = -207.2
 - Linear model fits best
 
 ## Normalized μ_answer per Variable
-- μ_answer / num_vars: []
-- Slope of normalized μ_answer: N/A (insufficient data)
+- μ_answer / num_vars: [np.float64(1.0), np.float64(1.0), np.float64(1.0)]
+- Slope of normalized μ_answer: 0.000000
 
 ## Cost Ratio Analysis
-- Ratio slope = N/A per vertex
-- Monotone in 0.0% of bootstrap samples
+- Ratio slope = 0.0085 per vertex
+- Monotone in 37.7% of bootstrap samples
 
 ## Runtime Correlation
-- Spearman ρ(μ_blind, runtime) = N/A (p = N/A)
+- Spearman ρ(μ_blind, runtime) = 0.580 (p = 2.28e-01)
 
 ## Threats to Validity
 ### Internal Validity

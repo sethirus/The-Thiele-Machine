@@ -1138,28 +1138,41 @@ def load_training_samples() -> List[TrainingSample]:
 
 @dataclass(frozen=True)
 class SimpleRule:
-    """A tiny interpretable rule mapping one scalar feature to a predicted trial.
+    """A tiny interpretable rule mapping a linear probe to a predicted trial.
 
     The rule has the form:
-      if feature[idx] > threshold: predict=(a_alice,a_bob)
-      else: predict=(b_alice,b_bob)
+      if weight1 * feature[idx] + weight2 * feature[idx2] > threshold: predict true_pair
+      else: predict false_pair. When ``idx2`` is ``None`` the rule reduces to a
+      single-feature threshold.
     """
 
     idx: int
     threshold: float
     true_pair: Tuple[int, int]
     false_pair: Tuple[int, int]
+    idx2: Optional[int] = None
+    weight1: float = 1.0
+    weight2: float = 0.0
     param_count: int = 1
 
     def describe(self) -> str:
-        return (
-            f"feature[{self.idx}] > {self.threshold:.6g} -> {self.true_pair}, "
-            f"else -> {self.false_pair}"
-        )
+        if self.idx2 is None or abs(self.weight2) < 1e-12:
+            expr = f"{self.weight1:.3g}·feature[{self.idx}]"
+        else:
+            expr = (
+                f"{self.weight1:.3g}·feature[{self.idx}] + "
+                f"{self.weight2:.3g}·feature[{self.idx2}]"
+            )
+        return f"{expr} > {self.threshold:.6g} -> {self.true_pair}, else -> {self.false_pair}"
+
+    def linear_value(self, features: Sequence[float]) -> float:
+        total = self.weight1 * features[self.idx]
+        if self.idx2 is not None:
+            total += self.weight2 * features[self.idx2]
+        return total
 
     def predict(self, features: Sequence[float]) -> Tuple[int, int]:
-        v = features[self.idx]
-        return self.true_pair if v > self.threshold else self.false_pair
+        return self.true_pair if self.linear_value(features) > self.threshold else self.false_pair
 
 
 def _mdl_score(param_count: int, margin: float) -> float:
@@ -1199,6 +1212,20 @@ def induce_rule(features: Sequence[float]) -> SimpleRule:
         span = max(1e-12, abs(v) if v != 0 else 1.0)
         return [v, v + 0.1 * span, v - 0.1 * span]
 
+    def thresholds_for_linear(i: int, j: int, w1: float, w2: float) -> List[float]:
+        if training_samples:
+            values = sorted({
+                w1 * sample.features[i] + w2 * sample.features[j]
+                for sample in training_samples
+            })
+            thresh = set(values)
+            for a, b in zip(values, values[1:]):
+                thresh.add((a + b) / 2.0)
+            return sorted(thresh)
+        v = w1 * features[i] + w2 * features[j]
+        span = max(1e-12, abs(v) if v != 0 else 1.0)
+        return [v, v + 0.1 * span, v - 0.1 * span]
+
     for i in range(len(features)):
         for t in thresholds_for_index(i):
             for true_a in (0, 1):
@@ -1210,6 +1237,9 @@ def induce_rule(features: Sequence[float]) -> SimpleRule:
                                 threshold=t,
                                 true_pair=(true_a, true_b),
                                 false_pair=(false_a, false_b),
+                                idx2=None,
+                                weight1=1.0,
+                                weight2=0.0,
                                 param_count=1,
                             )
                             if training_samples:
@@ -1241,6 +1271,57 @@ def induce_rule(features: Sequence[float]) -> SimpleRule:
                                 )
                             candidates.append((rule, score))
 
+    weights = (-1.0, 1.0)
+    for i in range(len(features)):
+        for j in range(i + 1, len(features)):
+            for w1 in weights:
+                for w2 in weights:
+                    for t in thresholds_for_linear(i, j, w1, w2):
+                        for true_a in (0, 1):
+                            for true_b in (0, 1):
+                                for false_a in (0, 1):
+                                    for false_b in (0, 1):
+                                        rule = SimpleRule(
+                                            idx=i,
+                                            idx2=j,
+                                            weight1=w1,
+                                            weight2=w2,
+                                            threshold=t,
+                                            true_pair=(true_a, true_b),
+                                            false_pair=(false_a, false_b),
+                                            param_count=3,
+                                        )
+                                        if training_samples:
+                                            errors = 0.0
+                                            min_margin = float("inf")
+                                            branch_use = {True: 0, False: 0}
+                                            for sample in training_samples:
+                                                lin_val = w1 * sample.features[i] + w2 * sample.features[j]
+                                                branch = lin_val > t
+                                                branch_use[branch] += 1
+                                                if rule.predict(sample.features) != sample.label:
+                                                    errors += sample.weight
+                                                margin = abs(lin_val - t)
+                                                if margin < min_margin:
+                                                    min_margin = margin
+                                            margin = max(min_margin, 1e-12)
+                                            score = (
+                                                errors,
+                                                _mdl_score(param_count=rule.param_count, margin=margin),
+                                                -sum(1 for count in branch_use.values() if count > 0),
+                                                t,
+                                            )
+                                        else:
+                                            lin_val = w1 * features[i] + w2 * features[j]
+                                            margin = abs(lin_val - t)
+                                            score = (
+                                                0.0,
+                                                _mdl_score(param_count=rule.param_count, margin=margin),
+                                                -2,
+                                                t,
+                                            )
+                                        candidates.append((rule, score))
+
     if not candidates:
         raise RuntimeError("No candidate rules generated for Operation Cosmic Witness")
 
@@ -1257,19 +1338,32 @@ def prediction_certificate(
 
     idx = rule.idx
     threshold = rule.threshold
-    observed = features[idx]
+    observed = rule.linear_value(features)
     predicted_by_rule = rule.predict(features)
     proved = predicted_by_rule == predicted
     comparison = ">" if observed > threshold else "≤"
     branch = "true" if comparison == ">" else "false"
     chosen_pair = rule.true_pair if branch == "true" else rule.false_pair
+    if rule.idx2 is None or abs(rule.weight2) < 1e-12:
+        expr = f"{rule.weight1:.6g} * feature[{idx}]"
+        components = [f"feature[{idx}] = {features[idx]:.12g}"]
+    else:
+        expr = (
+            f"{rule.weight1:.6g} * feature[{idx}] + "
+            f"{rule.weight2:.6g} * feature[{rule.idx2}]"
+        )
+        components = [
+            f"feature[{idx}] = {features[idx]:.12g}",
+            f"feature[{rule.idx2}] = {features[rule.idx2]:.12g}",
+        ]
     lines = [
         "Operation Cosmic Witness — prediction certificate:",
-        f"  feature[{idx}] = {observed:.12g}",
+        *[f"  {comp}" for comp in components],
+        f"  linear form = {expr} = {observed:.12g}",
         f"  threshold    = {threshold:.12g}",
         f"  rule true  branch -> {rule.true_pair}",
         f"  rule false branch -> {rule.false_pair}",
-        f"  Comparison: feature[{idx}] {comparison} threshold ⇒ follow {branch} branch.",
+        f"  Comparison: linear form {comparison} threshold ⇒ follow {branch} branch.",
         f"  Branch output = {chosen_pair}.",
         f"  Claimed prediction = {predicted}.",
     ]
@@ -1292,13 +1386,13 @@ def robustness_certificate(
 
     idx = rule.idx
     threshold = rule.threshold
-    observed = features[idx]
-    margin = abs(observed - threshold)
+    linear_value = rule.linear_value(features)
+    margin = abs(linear_value - threshold)
     base_prediction = rule.predict(features)
     same_branch = base_prediction == predicted
     lines = [
         "Operation Cosmic Witness — robustness certificate:",
-        f"  feature[{idx}] = {observed:.12g}",
+        f"  linear value = {linear_value:.12g}",
         f"  threshold    = {threshold:.12g}",
         f"  eps          = {eps:.12g}",
         f"  margin       = {margin:.12g}",
@@ -1309,27 +1403,32 @@ def robustness_certificate(
         lines.append("  Branch mismatch: robustness cannot be established.")
         return False, "\n".join(lines)
 
-    if observed > threshold:
-        min_value = observed - eps
+    weight_span = abs(rule.weight1)
+    if rule.idx2 is not None:
+        weight_span += abs(rule.weight2)
+    worst_case = eps * weight_span
+
+    if linear_value > threshold:
+        min_value = linear_value - worst_case
         preserved = min_value > threshold
         inequality = (
             f"  Perturbation lower bound: {min_value:.12g} > {threshold:.12g} ⇒ still true branch."
         )
     else:
-        max_value = observed + eps
+        max_value = linear_value + worst_case
         preserved = max_value <= threshold
         inequality = (
             f"  Perturbation upper bound: {max_value:.12g} ≤ {threshold:.12g} ⇒ still false branch."
         )
     lines.append(inequality)
-    if preserved and margin > eps:
+    if preserved and margin > worst_case:
         lines.append("  All perturbations respect the original branch; robustness holds.")
     else:
-        if margin <= eps:
-            lines.append("  Margin ≤ eps: perturbations may reach the threshold.")
+        if margin <= worst_case:
+            lines.append("  Margin ≤ eps·||w||₁: perturbations may reach the threshold.")
         else:
             lines.append("  Perturbations cross the threshold; robustness not established.")
-    return preserved and same_branch and margin > eps, "\n".join(lines)
+    return preserved and same_branch and margin > worst_case, "\n".join(lines)
 
 def sample_robustness(features: Sequence[float], rule: SimpleRule, eps: float, n: int = 100) -> float:
     """Estimate robustness by random sampling within +/- eps around each feature.
@@ -1638,6 +1737,11 @@ def run_act_vi(
         f"- robustness_margin: {margin}",
         f"- robustness_proved (analytic): {robust_proved}",
         f"- sample_robust_fraction: {sample_fraction}",
+        "",
+        "## Interpretation",
+        "- The induced classifier is a single-threshold rule derived from the committed training set.",
+        "- The analytic receipts certify only that this rule is internally consistent with the provided features.",
+        "- No cosmological inference is claimed; additional data would be required for any physical conclusion.",
         "",
         "See `artifacts/cosmic_witness_prediction_receipt.json` and",
         "`artifacts/cosmic_witness_prediction_proof.txt` for machine-checkable evidence.",

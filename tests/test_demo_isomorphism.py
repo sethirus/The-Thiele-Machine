@@ -77,6 +77,9 @@ p cnf 20 2
     from nacl import signing
 
     if "signature" not in data:
+        from thielecpu.receipts import ensure_kernel_keys
+
+        ensure_kernel_keys()
         secret_path = Path("kernel_secret.key")
         assert secret_path.exists(), "kernel secret key should have been generated"
         sk = signing.SigningKey(secret_path.read_bytes())
