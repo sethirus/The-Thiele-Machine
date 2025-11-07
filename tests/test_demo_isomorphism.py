@@ -2,6 +2,8 @@ import json
 import hashlib
 from pathlib import Path
 
+from scripts.keys import get_or_create_signing_key
+
 
 def _sha256_json(obj) -> str:
     payload = json.dumps(obj, sort_keys=True, separators=(",", ":")).encode("utf-8")
@@ -74,15 +76,14 @@ p cnf 20 2
     # global digest with the deterministic kernel secret so the ReceiptValidator
     # can verify the whole receipt.
     from tools.receipts import ReceiptValidator
-    from nacl import signing
 
     if "signature" not in data:
         from thielecpu.receipts import ensure_kernel_keys
 
         ensure_kernel_keys()
         secret_path = Path("kernel_secret.key")
+        sk = get_or_create_signing_key(secret_path)
         assert secret_path.exists(), "kernel secret key should have been generated"
-        sk = signing.SigningKey(secret_path.read_bytes())
         sig = sk.sign(bytes.fromhex(data["global_digest"]))
         data["signature"] = sig.signature.hex()
         # persist the signed receipt so debug is easier on failure
