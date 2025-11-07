@@ -112,12 +112,12 @@ def canonicalize_step(step: dict, receipt_dir: Path) -> bool:
                 except Exception:
                     pass
 
-    # If the step carries an LRAT proof, run the analyzer (best-effort) to
+    # If the step carries an LRAT or DRAT proof, run the analyzer (best-effort) to
     # decide if normalization is required. This avoids accepting RAT-only
     # LRATs silently.
     pf = step.get("proof_portable")
     proof_uri = step.get("proof_blob_uri")
-    if pf == "LRAT" and proof_uri:
+    if pf in ("LRAT", "DRAT") and proof_uri:
         try:
             analyzer = Path(__file__).resolve().parents[1] / "scripts" / "analyze_lrat.py"
             cnf_path = None
@@ -139,8 +139,10 @@ def canonicalize_step(step: dict, receipt_dir: Path) -> bool:
                 step["status"] = "requires_normalization"
             changed = True
         except Exception:
-            # non-fatal; leave status absent
-            pass
+            # non-fatal; set default status if not already present
+            if "status" not in step:
+                step["status"] = "requires_normalization"
+                changed = True
 
     # Step hash/signature are computed at file level to ensure consistent
     # signing and hashing order (signature is included in the step payload
