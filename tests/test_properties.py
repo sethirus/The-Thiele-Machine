@@ -10,15 +10,18 @@ Tests that certain properties hold for all valid inputs:
 """
 
 import json
-import tempfile
+import os
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 import pytest
 from hypothesis import given, strategies as st, settings, HealthCheck
 
 # Add project root to path
 PROJECT_ROOT = Path(__file__).parent.parent
+TEST_PRIVATE_KEY_HEX = "082c001813feb4d26e8bb941414b0e577c7ece64fcfa71d0012dc653abccfbff"
+TEST_PUBLIC_KEY_HEX = "254b57576959e5fb37d087a60d5a72bb75dcf82240cbd62577059695dda0ebea"
 sys.path.insert(0, str(PROJECT_ROOT))
 
 
@@ -87,7 +90,7 @@ def cli_create_receipt(files, output_path, metadata=None):
     
     # Add output
     cmd.extend(["--output", str(output_path)])
-    
+
     # Add metadata if provided
     if metadata:
         try:
@@ -95,8 +98,18 @@ def cli_create_receipt(files, output_path, metadata=None):
         except (TypeError, ValueError):
             # Skip invalid metadata
             pass
-    
-    result = subprocess.run(cmd, capture_output=True, text=True, cwd=PROJECT_ROOT)
+
+    with tempfile.NamedTemporaryFile('w', delete=False) as key_file:
+        key_file.write(TEST_PRIVATE_KEY_HEX)
+        key_path = key_file.name
+
+    cmd.extend(["--sign", key_path, "--key-id", "test-suite"])
+
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, cwd=PROJECT_ROOT)
+    finally:
+        os.unlink(key_path)
+
     return result.returncode == 0
 
 
@@ -105,7 +118,9 @@ def cli_verify_receipt(receipt_path):
     cmd = [
         sys.executable,
         str(PROJECT_ROOT / "tools" / "verify_trs10.py"),
-        str(receipt_path)
+        str(receipt_path),
+        "--trusted-pubkey",
+        TEST_PUBLIC_KEY_HEX,
     ]
     
     result = subprocess.run(cmd, capture_output=True, text=True, cwd=PROJECT_ROOT)
