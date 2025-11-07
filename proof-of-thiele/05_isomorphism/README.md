@@ -10,7 +10,7 @@ Bell inequality experiment with the mechanised categorical proofs in
 3. the supra-quantum witness reaching S = 16/5 alongside the Coq artefacts,
 4. the receipt bundle tying runtime to formal proof,
 5. the verifier execution, and
-6. Operation Cosmic Witness, which lifts physical data into the same cost model.
+6. Operation Cosmic Witness, which lifts physical data into the same cost model. The accompanying documentation now makes clear that this is a toy CHSH-style decision rule over 16 scalar CMB temperatures and does not claim cosmological inference.
 
 Run the lightweight ledger check with:
 

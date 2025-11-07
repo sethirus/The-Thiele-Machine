@@ -72,6 +72,8 @@ python3 examples/offline-demo/verify_offline.py artifact_name.receipt.json artif
 
 **Want to add receipts to your project?** See the [Maintainer's Quick Start](for-maintainers-quickstart.md) for a 5-minute guide.
 
+> **Signing note:** Signing keys are generated locally on first run and are never shipped with this repository. Receipts attest to integrity and reproducibility; they should not be treated as proof of a strong identity binding.
+
 ---
 
 ## 🎯 Try The Thiele Machine in Your Browser
@@ -454,6 +456,8 @@ This repository simulates the Thiele Machine and publishes cryptographically sea
 - Formal-methods work that extends or critiques the stated axioms and Coq developments.
 - Educational walkthroughs demonstrating the difference between blind search and oracle-guided reasoning.
 
+**Cosmic Witness disclaimer:** Operation Cosmic Witness is a toy CHSH-style decision rule over 16 scalar CMB temperatures. It demonstrates a sighted rule engine on small physical data and does not claim cosmological inference.
+
 ### Out-of-Scope Uses
 
 - Treating the simulation as a turnkey weapon against deployed cryptosystems.
@@ -479,6 +483,10 @@ This repository now packages the full subsumption argument together with the sup
 - **Autonomous hardware oracle:** The general-purpose reasoning fabric (`hardware/synthesis_trap/reasoning_core.v`) and its backtracking controller (`thiele_autonomous_solver.v`) reproduce the software μ-ledger under simulation and synthesis, with transcripts captured in the audit logs.【F:hardware/synthesis_trap/reasoning_core.v†L1-L308】【F:hardware/synthesis_trap/thiele_autonomous_solver.v†L1-L389】【F:audit_logs/agent_hardware_verification.log†L780-L842】
 - **Receipts and verification harness:** `scripts/challenge.py verify receipts` replays every signed receipt, checks Ed25519 manifests, and validates both the analytic certificates and any legacy SAT/SMT artefacts; `scripts/prove_it_all.sh` and `coq/verify_subsumption.sh` provide end-to-end Coq replay for the canonical demonstrations.【F:scripts/challenge.py†L1-L220】【F:scripts/prove_it_all.sh†L1-L155】
 - **Historical context preserved:** The earlier universal proof attempt remains archived in `archive/research/incomplete_subsumption_proof/` with an explicit notice linking forward to the completed bridge documented here.【F:archive/research/incomplete_subsumption_proof/README.md†L1-L38】
+
+### Status of `the_final_proof.py`
+
+`the_final_proof.py` is a stress-test and impossibility witness: it hashes its own bytes, compares against an archival digest, and reports that the SHA-256 fixed point is unreachable under current assumptions. It does **not** ship a completed fixed-point proof and is documented as future work.
 
 **Verification Status:** The latest regeneration (see the timestamps in `artifacts/MANIFEST.sha256`) rebuilds the Coq developments with zero admits and zero project axioms as reported by `ADMIT_REPORT.txt`, replays every signed receipt, and refreshes the supra-quantum witness (`S = 16/5`) ledger. These runs substantiate the repository's reproducibility claims while keeping the historical documents (e.g., `documents/The_Thiele_Machine.tex`) for provenance alongside the canonical runtime ledgers and receipts.
 

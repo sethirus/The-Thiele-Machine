@@ -32,7 +32,9 @@ Running ``python demonstrate_isomorphism.py`` performs the following:
 * Act V regenerates execution receipts, summarises them, and—if the
   ``coqc`` compiler is available—invokes the mechanised proof checker.
 * Act VI (now part of the default run) performs Operation Cosmic Witness,
-  turning cosmological data into a formally-proved prediction.
+  evaluating a toy CHSH-style decision rule over 16 scalar CMB temperatures.
+  The receipts certify internal consistency only; no cosmological inference
+  is claimed.
 
 Every intermediate artifact is emitted with the same obsessive care as
 ``attempt.py``: transcripts are echoed to the terminal, captured in the
