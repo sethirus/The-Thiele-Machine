@@ -97,6 +97,18 @@ def validate_path(path: str, step_num: int, whitelist: List[str] = None) -> bool
     return True
 
 
+def _gather_receipt_files(receipts_path: Path) -> List[Path]:
+    """Return an ordered list of receipt JSON files from ``receipts_path``."""
+
+    if receipts_path.is_file():
+        return [receipts_path]
+
+    if receipts_path.is_dir():
+        return sorted(receipts_path.glob("*.json"))
+
+    return []
+
+
 def verify_receipts(
     receipts_dir: str,
     max_total_bytes: int = 1024 * 1024,
@@ -123,13 +135,14 @@ def verify_receipts(
     """
     receipts_path = Path(receipts_dir)
     if not receipts_path.exists():
-        print(f"Error: receipts directory not found: {receipts_dir}", file=sys.stderr)
+        print(f"Error: receipts path not found: {receipts_dir}", file=sys.stderr)
         return 1
-    
+
     # Load all receipt files
-    receipt_files = sorted(receipts_path.glob("*.json"))
+    receipt_files = _gather_receipt_files(receipts_path)
     if not receipt_files:
-        print(f"Error: no receipt files found in {receipts_dir}", file=sys.stderr)
+        target = receipts_dir if receipts_path.is_dir() else receipts_path.parent
+        print(f"Error: no receipt files found in {target}", file=sys.stderr)
         return 1
     
     # Virtual filesystem and execution flags
@@ -218,6 +231,11 @@ def verify_receipts(
                 else:
                     print(
                         f"Error: no trust manifest or trusted public key for {receipt_file.name}",
+                        file=sys.stderr,
+                    )
+                    print(
+                        "Hint: provide --trust-manifest <path> or --trusted-pubkey <hex>; "
+                        "use --allow-unsigned for testing only.",
                         file=sys.stderr,
                     )
                     return 1
@@ -369,23 +387,40 @@ def verify_receipts(
 def main():
     import argparse
     
-    parser = argparse.ArgumentParser(description='Thiele Receipt Replay Verifier')
-    parser.add_argument('receipts_dir', help='Directory containing receipt JSON files')
+    parser = argparse.ArgumentParser(
+        description='Verify TRS-0 receipts with Ed25519 trust enforcement'
+    )
+    parser.add_argument(
+        'receipts_dir',
+        help='Receipt JSON file or directory to verify (TRS-0 replay)',
+    )
     parser.add_argument('--dry-run', action='store_true', help='Verify only, do not write files')
     parser.add_argument('--emit-dir', default='.', help='Directory to materialize files (default: current)')
     parser.add_argument('--strict', action='store_true', help='Reject unknown fields in receipts')
     parser.add_argument('--print-digest', action='store_true', help='Print only global_digest and exit')
     parser.add_argument('--max-bytes', type=int, default=1024*1024, help='Max total bytes (default: 1 MiB)')
     parser.add_argument('--whitelist', nargs='*', help='Allowed file paths')
-    parser.add_argument('--trust-manifest', help='Path to trust_manifest.json (auto-discovered if omitted)')
+    parser.add_argument(
+        '--trust-manifest',
+        help=(
+            'Path to trust_manifest.json (defaults to the receipt location or '
+            "receipts/trust_manifest.json if present)"
+        ),
+    )
     parser.add_argument(
         '--trusted-pubkey',
-        help='Hex-encoded Ed25519 public key trusted for all receipts (overrides manifest)',
+        help=(
+            'Hex-encoded Ed25519 public key trusted for all receipts '
+            '(overrides manifest lookup)'
+        ),
     )
     parser.add_argument(
         '--allow-unsigned',
         action='store_true',
-        help='Permit unsigned receipts (testing only; overrides signature enforcement)',
+        help=(
+            'Permit unsigned receipts (testing only). Overrides signature '
+            'enforcement when no trust anchor is available.'
+        ),
     )
     
     args = parser.parse_args()
@@ -393,18 +428,20 @@ def main():
     # Print digest mode
     if args.print_digest:
         import json
-        from pathlib import Path
-        receipt_files = sorted(Path(args.receipts_dir).glob("*.json"))
+        input_path = Path(args.receipts_dir)
+        receipt_files = _gather_receipt_files(input_path)
         for receipt_file in receipt_files:
             with open(receipt_file, 'r') as f:
                 receipt = json.load(f)
             if 'global_digest' in receipt:
                 print(receipt['global_digest'])
         sys.exit(0)
-    
+
     manifest_path = args.trust_manifest
     if manifest_path is None:
-        candidate = Path(args.receipts_dir) / 'trust_manifest.json'
+        input_path = Path(args.receipts_dir)
+        search_base = input_path if input_path.is_dir() else input_path.parent
+        candidate = search_base / 'trust_manifest.json'
         if candidate.exists():
             manifest_path = str(candidate)
         else:

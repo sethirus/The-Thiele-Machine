@@ -173,7 +173,7 @@
             100% { transform: rotate(360deg); }
         }
         
-        .result {
+        .result { 
             margin-top: 30px;
             padding: 20px;
             border-radius: 8px;
@@ -184,6 +184,57 @@
         .result h3 { margin-bottom: 15px; font-size: 1.3em; }
         .result.success h3 { color: #065f46; }
         .result.error h3 { color: #991b1b; }
+        .trust-config {
+            margin-top: 30px;
+            background: #f8faff;
+            border: 1px solid #dbeafe;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .trust-config h2 {
+            font-size: 1.2em;
+            color: #1e3a8a;
+            margin-bottom: 10px;
+        }
+        .trust-config-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .link-button {
+            background: none;
+            border: none;
+            color: #2563eb;
+            cursor: pointer;
+            font-size: 0.9em;
+            padding: 0;
+            text-decoration: underline;
+        }
+        .link-button:hover,
+        .link-button:focus {
+            color: #1d4ed8;
+        }
+        .link-button:focus {
+            outline: 2px solid #93c5fd;
+            outline-offset: 2px;
+        }
+        .trust-config textarea {
+            width: 100%;
+            min-height: 110px;
+            border: 1px solid #cbd5f5;
+            border-radius: 6px;
+            padding: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            resize: vertical;
+            background: #fff;
+        }
+        .trust-config textarea:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+        }
         .hash-display {
             background: white;
             padding: 15px;
@@ -209,6 +260,84 @@
         .info-row:last-child { border-bottom: none; }
         .info-label { font-weight: 600; color: #374151; }
         .info-value { font-family: 'Courier New', monospace; color: #6b7280; }
+        .signature-panel {
+            margin-top: 20px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 18px;
+        }
+        .signature-panel h4 {
+            font-size: 1.1em;
+            color: #1f2937;
+            margin-bottom: 12px;
+        }
+        .status-pill {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        .status-pill.valid {
+            background: #d1fae5;
+            color: #047857;
+            border: 1px solid #10b981;
+        }
+        .status-pill.warn {
+            background: #fef3c7;
+            color: #b45309;
+            border: 1px solid #f59e0b;
+        }
+        .status-pill.error {
+            background: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #f87171;
+        }
+        .status-pill.info {
+            background: #dbeafe;
+            color: #1d4ed8;
+            border: 1px solid #60a5fa;
+        }
+        .trust-status {
+            margin-top: 12px;
+            padding: 14px;
+            border-radius: 6px;
+            font-size: 0.95em;
+            line-height: 1.4;
+        }
+        .trust-status.trust-trusted {
+            background: #ecfdf5;
+            border: 1px solid #059669;
+            color: #047857;
+        }
+        .trust-status.trust-untrusted {
+            background: #fef2f2;
+            border: 1px solid #dc2626;
+            color: #991b1b;
+        }
+        .trust-status.trust-none {
+            background: #eff6ff;
+            border: 1px solid #2563eb;
+            color: #1d4ed8;
+        }
+        .trust-status.trust-warn {
+            background: #fff7ed;
+            border: 1px solid #ea580c;
+            color: #9a3412;
+        }
+        .trust-status.trust-unsigned {
+            background: #f3f4f6;
+            border: 1px solid #9ca3af;
+            color: #374151;
+        }
+        .mono {
+            font-family: 'Courier New', monospace;
+            color: #1f2937;
+            font-size: 0.95em;
+        }
         .footer {
             margin-top: 30px;
             text-align: center;
@@ -260,7 +389,7 @@
                 <div class="fetch-panel">
                     <h3>Fetch Receipt from URL</h3>
                     <p style="margin-bottom: 20px; color: #6b7280;">Enter a direct URL to a receipt JSON file or a GitHub repository release.</p>
-                    
+
                     <div class="input-group">
                         <label for="receiptUrl">Receipt URL</label>
                         <input 
@@ -292,7 +421,23 @@
                     </button>
                 </div>
             </div>
-            
+
+            <section class="trust-config" aria-labelledby="trust-config-heading">
+                <div class="trust-config-header">
+                    <h2 id="trust-config-heading">Trusted public keys</h2>
+                    <button type="button" id="trustedKeysReset" class="link-button" aria-label="Clear trusted keys">
+                        Reset
+                    </button>
+                </div>
+                <p style="color: #374151; margin-bottom: 12px;">
+                    Paste the Ed25519 public keys you trust below. When a receipt is signed by one of these keys and the signature verifies, the verifier will mark it as trusted.
+                </p>
+                <textarea id="trustedKeysInput" placeholder="0123abcd... (one 64-character hex key per line)" aria-describedby="trusted-keys-hint"></textarea>
+                <div class="input-hint" id="trusted-keys-hint">
+                    One key per line. Non-hex entries are ignored with a warning. Keep private keys somewhere safe—only public keys belong here.
+                </div>
+            </section>
+
             <div id="loading" class="loading" style="display: none;" role="status" aria-live="polite">
                 <div class="spinner" aria-hidden="true"></div>
                 <p>Loading receipt...</p>
@@ -311,14 +456,18 @@
                     <strong>Signature Verification:</strong> Ed25519 signatures verified using 
                     <a href="https://github.com/dchest/tweetnacl-js" target="_blank" rel="noopener noreferrer">TweetNaCl.js</a> (optional).
                 </p>
+                <p style="margin-top: 10px;">
+                    Prefer the command line? Run <code>python3 tools/verify_trs10.py</code> or <code>python3 verifier/replay.py</code>.
+                    See <a href="../SIGNING_AND_TRUST.md">Signing &amp; Trust</a> for automation tips.
+                </p>
                 <p style="margin-top: 10px;">Part of the <a href="https://github.com/sethirus/The-Thiele-Machine" target="_blank" rel="noopener noreferrer">Thiele Machine</a> self-hosting kernel project</p>
             </footer>
         </main>
     </div>
     <!-- Optional: Load nacl.js for Ed25519 signature verification -->
     <!-- Gracefully degrades if not available -->
-    <script src="https://cdn.jsdelivr.net/npm/tweetnacl@1.0.3/nacl-fast.min.js" 
-            integrity="sha384-j1pf9nBhS8cS4aMv5BH4d6uuXH8K9qMvYzJlBPzcppKJNSfNchLPmsCTfYxJJPP/"
+    <script src="https://cdn.jsdelivr.net/npm/tweetnacl@1.0.3/nacl-fast.min.js"
+            integrity="sha384-05+sicyRJQ56XpL4U9HJ8YbtSzFDvAg7apPKOGV6A0JsAJKFM68jp5oLnUjG5mEp"
             crossorigin="anonymous"
             onerror="console.warn('Ed25519 verification unavailable: nacl.js not loaded')"></script>
     <script src="replay.js"></script>
@@ -420,7 +569,7 @@
                 
                 // Verify the receipt using the existing replay.js logic
                 if (window.verifyReceipt) {
-                    window.verifyReceipt(receipt);
+                    window.verifyReceipt(receipt, fetchUrl || 'Fetched receipt');
                 } else {
                     // Fallback: display receipt info
                     showSuccess(receipt);
@@ -436,7 +585,16 @@
             resultDiv.className = 'result error';
             resultDiv.style.display = 'block';
             document.getElementById('resultTitle').textContent = '❌ Error';
-            document.getElementById('resultContent').innerHTML = `<p>${message}</p>`;
+
+            const content = document.getElementById('resultContent');
+            if (!content) {
+                return;
+            }
+
+            content.textContent = '';
+            const paragraph = document.createElement('p');
+            paragraph.textContent = String(message ?? '');
+            content.appendChild(paragraph);
         }
         
         function showSuccess(receipt) {

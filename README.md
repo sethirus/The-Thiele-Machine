@@ -8,6 +8,8 @@
 
 **📖 [Complete Receipt Guide](RECEIPT_GUIDE.md)** - What they are, why use them, and how to create them for any project
 
+**🔐 [Signing & Trust Setup](SIGNING_AND_TRUST.md)** - Generate keys, sign receipts, and configure trust manifests in minutes
+
 **📦 [Repository Ingestion Guide](REPO_INGESTION_GUIDE.md)** - NEW! Archive fetching, directory uploads, and metadata auto-fill
 
 **⚡ Quick Start:**
