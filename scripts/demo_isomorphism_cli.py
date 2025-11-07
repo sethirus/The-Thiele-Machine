@@ -26,6 +26,8 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
+from scripts.keys import get_or_create_signing_key
+
 
 def main():
     p = argparse.ArgumentParser(description="Demo isomorphism CLI")
@@ -116,13 +118,9 @@ def main():
     if args.sign and "signature" not in data:
         try:
             from thielecpu.receipts import ensure_kernel_keys
-            from nacl import signing
 
             ensure_kernel_keys()
-            secret_path = Path("kernel_secret.key")
-            if not secret_path.exists():
-                raise FileNotFoundError(str(secret_path))
-            sk = signing.SigningKey(secret_path.read_bytes())
+            sk = get_or_create_signing_key(Path("kernel_secret.key"))
             sig = sk.sign(bytes.fromhex(data["global_digest"]))
             data["signature"] = sig.signature.hex()
             receipt_path.write_text(json.dumps(data, ensure_ascii=False, sort_keys=True, indent=2))
