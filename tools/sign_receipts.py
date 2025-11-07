@@ -11,7 +11,7 @@ import sys
 from pathlib import Path
 
 
-def sign_receipt(receipt_path: str, private_key_hex: str, output_path: str = None):
+def sign_receipt(receipt_path: str, private_key_hex: str, output_path: str = None, key_id: str = None):
     """
     Sign a receipt with Ed25519.
     
@@ -45,18 +45,27 @@ def sign_receipt(receipt_path: str, private_key_hex: str, output_path: str = Non
     try:
         private_key_bytes = bytes.fromhex(private_key_hex)
         private_key = ed25519.Ed25519PrivateKey.from_private_bytes(private_key_bytes)
+        public_key = private_key.public_key()
     except Exception as e:
         print(f"Error loading private key: {e}", file=sys.stderr)
         return False
     
     # Sign the global digest
-    digest_bytes = bytes.fromhex(global_digest)
-    signature_bytes = private_key.sign(digest_bytes)
+    message = global_digest.encode('utf-8')
+    signature_bytes = private_key.sign(message)
     signature_hex = signature_bytes.hex()
     
     # Update receipt
     receipt['sig_scheme'] = 'ed25519'
     receipt['signature'] = signature_hex
+
+    public_key_hex = public_key.public_bytes(
+        encoding=serialization.Encoding.Raw,
+        format=serialization.PublicFormat.Raw,
+    ).hex()
+    receipt['public_key'] = public_key_hex
+    if key_id:
+        receipt['key_id'] = key_id
     
     # Write output
     output = output_path or receipt_path
@@ -120,10 +129,10 @@ def verify_signature_stdlib(global_digest_hex: str, signature_hex: str, public_k
         public_key_bytes = bytes.fromhex(public_key_hex)
         public_key = ed25519.Ed25519PublicKey.from_public_bytes(public_key_bytes)
         
-        digest_bytes = bytes.fromhex(global_digest_hex)
+        message = global_digest_hex.encode('utf-8')
         signature_bytes = bytes.fromhex(signature_hex)
-        
-        public_key.verify(signature_bytes, digest_bytes)
+
+        public_key.verify(signature_bytes, message)
         return True
     except Exception as e:
         print(f"Signature verification failed: {e}", file=sys.stderr)
@@ -145,6 +154,7 @@ def main():
     sign_parser.add_argument('receipt', help='Receipt file to sign')
     sign_parser.add_argument('--key', required=True, help='Private key (hex)')
     sign_parser.add_argument('--output', help='Output file (default: overwrite)')
+    sign_parser.add_argument('--key-id', help='Identifier recorded in the signed receipt')
     
     # Verify signature
     verify_parser = subparsers.add_parser('verify', help='Verify a signature')
@@ -162,7 +172,7 @@ def main():
             print("\n⚠️  Keep private key secret!")
     
     elif args.command == 'sign':
-        success = sign_receipt(args.receipt, args.key, args.output)
+        success = sign_receipt(args.receipt, args.key, args.output, key_id=args.key_id)
         sys.exit(0 if success else 1)
     
     elif args.command == 'verify':

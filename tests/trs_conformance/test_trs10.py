@@ -32,6 +32,49 @@ except ImportError:
     HAS_NACL = False
 
 
+TEST_PRIVATE_KEY_HEX = "082c001813feb4d26e8bb941414b0e577c7ece64fcfa71d0012dc653abccfbff"
+TEST_PUBLIC_KEY_HEX = "254b57576959e5fb37d087a60d5a72bb75dcf82240cbd62577059695dda0ebea"
+
+if HAS_NACL:
+    TEST_SIGNING_KEY = signing.SigningKey(bytes.fromhex(TEST_PRIVATE_KEY_HEX))
+else:  # pragma: no cover - PyNaCl is expected during test runs.
+    TEST_SIGNING_KEY = None
+
+
+def attach_signature(receipt: dict) -> None:
+    """Attach a deterministic Ed25519 signature to ``receipt`` for tests."""
+
+    message = receipt.get('global_digest', '')
+    if not isinstance(message, str):
+        raise ValueError('global_digest must be a hex string before signing')
+
+    if HAS_NACL:
+        signature_bytes = TEST_SIGNING_KEY.sign(message.encode('utf-8')).signature
+        signature_hex = signature_bytes.hex()
+    else:
+        signature_hex = '00' * 64
+
+    receipt['sig_scheme'] = 'ed25519'
+    receipt['signature'] = signature_hex
+    receipt['public_key'] = TEST_PUBLIC_KEY_HEX
+    receipt.setdefault('key_id', 'test-suite')
+
+
+for vector in ALL_TEST_VECTORS:
+    receipt = vector["receipt"]
+    if vector.get("expected") == "invalid_signature":
+        receipt.setdefault('public_key', TEST_PUBLIC_KEY_HEX)
+        receipt['sig_scheme'] = 'ed25519'
+        receipt.setdefault('key_id', 'test-suite')
+        continue
+
+    if receipt.get('global_digest') in (None, 'computed'):
+        files = receipt.get('files', [])
+        receipt['global_digest'] = compute_global_digest(files)
+
+    attach_signature(receipt)
+
+
 class SimpleTRS10Verifier:
     """
     Minimal TRS-1.0 verifier for conformance testing.
@@ -100,37 +143,27 @@ class SimpleTRS10Verifier:
                     f'Computed: {computed_digest}'
                 )
             
-            # Signature verification (basic check, no crypto yet)
-            if receipt['sig_scheme'] == 'none':
-                if receipt['signature'] != '':
-                    return False, 'signature', 'Signature must be empty when sig_scheme is "none"'
-            elif receipt['sig_scheme'] == 'ed25519':
-                if not receipt['signature']:
-                    return False, 'signature', 'Signature required when sig_scheme is "ed25519"'
-                
-                # Perform full cryptographic verification if nacl is available
-                if HAS_NACL and 'public_key' in receipt:
-                    try:
-                        # Get public key
-                        public_key_bytes = bytes.fromhex(receipt['public_key'])
-                        verify_key = signing.VerifyKey(public_key_bytes)
-                        
-                        # Get signature
-                        signature_bytes = bytes.fromhex(receipt['signature'])
-                        
-                        # Message is global_digest as UTF-8 bytes
-                        message = receipt['global_digest'].encode('utf-8')
-                        
-                        # Verify signature
-                        verify_key.verify(message, signature_bytes)
-                        
-                    except BadSignatureError:
-                        return False, 'signature', 'Ed25519 signature verification failed'
-                    except Exception as e:
-                        return False, 'signature', f'Signature verification error: {str(e)}'
-            else:
-                return False, 'signature', f'Unknown signature scheme: {receipt["sig_scheme"]}'
-            
+            if receipt['sig_scheme'] != 'ed25519':
+                return False, 'signature', 'Receipt must be signed with Ed25519'
+
+            if not receipt.get('signature'):
+                return False, 'signature', 'Signature required when sig_scheme is "ed25519"'
+
+            if 'public_key' not in receipt:
+                return False, 'signature', 'Missing public_key for Ed25519 signature'
+
+            if HAS_NACL:
+                try:
+                    public_key_bytes = bytes.fromhex(receipt['public_key'])
+                    verify_key = signing.VerifyKey(public_key_bytes)
+                    signature_bytes = bytes.fromhex(receipt['signature'])
+                    message = receipt['global_digest'].encode('utf-8')
+                    verify_key.verify(message, signature_bytes)
+                except BadSignatureError:
+                    return False, 'signature', 'Ed25519 signature verification failed'
+                except Exception as e:
+                    return False, 'signature', f'Signature verification error: {str(e)}'
+
             return True, None, None
             
         except Exception as e:
@@ -251,31 +284,29 @@ class TestVerifierImplementation:
         """Verifier must reject receipts without version field."""
         receipt = {
             "files": [],
-            "global_digest": "abc",
-            "kernel_sha256": "abc",
+            "global_digest": compute_global_digest([]),
+            "kernel_sha256": "0" * 64,
             "timestamp": "2025-11-04T00:00:00Z",
-            "sig_scheme": "none",
-            "signature": ""
         }
+        attach_signature(receipt)
         is_valid, error_type, _ = verifier.verify_receipt(receipt)
         assert not is_valid
         assert error_type == "structure"
-    
+
     def test_rejects_unsupported_version(self, verifier):
         """Verifier must reject unsupported versions."""
         receipt = {
             "version": "TRS-99.0",
             "files": [],
             "global_digest": compute_global_digest([]),
-            "kernel_sha256": "abc",
+            "kernel_sha256": "0" * 64,
             "timestamp": "2025-11-04T00:00:00Z",
-            "sig_scheme": "none",
-            "signature": ""
         }
+        attach_signature(receipt)
         is_valid, error_type, _ = verifier.verify_receipt(receipt)
         assert not is_valid
         assert error_type == "version"
-    
+
     def test_accepts_unknown_metadata(self, verifier):
         """Verifier must ignore unknown metadata fields (forward compat)."""
         files = [{"path": "test.txt", "size": 10, 
@@ -286,13 +317,12 @@ class TestVerifierImplementation:
             "global_digest": compute_global_digest(files),
             "kernel_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             "timestamp": "2025-11-04T00:00:00Z",
-            "sig_scheme": "none",
-            "signature": "",
             "unknown_field": "should be ignored",
             "metadata": {
                 "unknown_meta": "also ignored"
             }
         }
+        attach_signature(receipt)
         is_valid, _, _ = verifier.verify_receipt(receipt)
         assert is_valid
     
@@ -312,11 +342,10 @@ class TestVerifierImplementation:
                 "version": "TRS-1.0",
                 "files": files,
                 "global_digest": compute_global_digest(files),
-                "kernel_sha256": "abc",
+                "kernel_sha256": "0" * 64,
                 "timestamp": "2025-11-04T00:00:00Z",
-                "sig_scheme": "none",
-                "signature": ""
             }
+            attach_signature(receipt)
             is_valid, error_type, _ = verifier.verify_receipt(receipt)
             assert not is_valid, f"Should reject path: {bad_path}"
             assert error_type == "path", f"Should be path error for: {bad_path}"
@@ -336,11 +365,10 @@ class TestVerifierImplementation:
                 "version": "TRS-1.0",
                 "files": files,
                 "global_digest": compute_global_digest(files),
-                "kernel_sha256": "abc",
+                "kernel_sha256": "0" * 64,
                 "timestamp": "2025-11-04T00:00:00Z",
-                "sig_scheme": "none",
-                "signature": ""
             }
+            attach_signature(receipt)
             is_valid, error_type, _ = verifier.verify_receipt(receipt)
             assert not is_valid, f"Should reject path: {bad_path}"
             assert error_type == "path", f"Should be path error for: {bad_path}"

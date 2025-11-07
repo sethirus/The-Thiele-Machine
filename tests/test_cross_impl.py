@@ -11,18 +11,21 @@ Tests bidirectional compatibility between:
 Includes positive tests (valid receipts) and negative tests (corruption detection).
 """
 
-import sys
 import json
-import tempfile
-import subprocess
+import os
 import random
 import string
+import subprocess
+import sys
+import tempfile
 from pathlib import Path
 import pytest
 
 # Add project root to path
 PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
+TEST_PRIVATE_KEY_HEX = "082c001813feb4d26e8bb941414b0e577c7ece64fcfa71d0012dc653abccfbff"
+TEST_PUBLIC_KEY_HEX = "254b57576959e5fb37d087a60d5a72bb75dcf82240cbd62577059695dda0ebea"
 
 
 class TestCrossImplementation:
@@ -74,13 +77,22 @@ class TestCrossImplementation:
         
         # Add output
         cmd.extend(["--output", str(output_path)])
-        
+
         # Add metadata if provided
         if metadata:
             cmd.extend(["--metadata", json.dumps(metadata)])
-        
-        result = subprocess.run(cmd, capture_output=True, text=True, cwd=PROJECT_ROOT)
-        
+
+        with tempfile.NamedTemporaryFile('w', delete=False) as key_file:
+            key_file.write(TEST_PRIVATE_KEY_HEX)
+            key_path = key_file.name
+
+        cmd.extend(["--sign", key_path, "--key-id", "test-suite"])
+
+        try:
+            result = subprocess.run(cmd, capture_output=True, text=True, cwd=PROJECT_ROOT)
+        finally:
+            os.unlink(key_path)
+
         if result.returncode != 0:
             print(f"STDOUT: {result.stdout}")
             print(f"STDERR: {result.stderr}")
@@ -94,7 +106,9 @@ class TestCrossImplementation:
         cmd = [
             sys.executable,
             str(PROJECT_ROOT / "tools" / "verify_trs10.py"),
-            str(receipt_path)
+            str(receipt_path),
+            "--trusted-pubkey",
+            TEST_PUBLIC_KEY_HEX,
         ]
         
         result = subprocess.run(cmd, capture_output=True, text=True, cwd=PROJECT_ROOT)
@@ -460,9 +474,9 @@ class TestReceiptFormat:
         # Create a simple file
         test_file = tmp_path / "test.txt"
         test_file.write_text("Hello, World!")
-        
+
         receipt_path = tmp_path / "receipt.json"
-        
+
         # Create receipt
         cmd = [
             sys.executable,
@@ -470,9 +484,18 @@ class TestReceiptFormat:
             str(test_file),
             "--output", str(receipt_path)
         ]
-        
-        subprocess.run(cmd, check=True, cwd=PROJECT_ROOT)
-        
+
+        with tempfile.NamedTemporaryFile('w', delete=False) as key_file:
+            key_file.write(TEST_PRIVATE_KEY_HEX)
+            key_path = key_file.name
+
+        cmd.extend(["--sign", key_path, "--key-id", "test-suite"])
+
+        try:
+            subprocess.run(cmd, check=True, cwd=PROJECT_ROOT)
+        finally:
+            os.unlink(key_path)
+
         # Check receipt structure
         with open(receipt_path) as f:
             receipt = json.load(f)
@@ -491,18 +514,27 @@ class TestReceiptFormat:
         """Test: Global digest is properly formatted."""
         test_file = tmp_path / "test.txt"
         test_file.write_text("Test content")
-        
+
         receipt_path = tmp_path / "receipt.json"
-        
+
         cmd = [
             sys.executable,
             str(PROJECT_ROOT / "create_receipt.py"),
             str(test_file),
             "--output", str(receipt_path)
         ]
-        
-        subprocess.run(cmd, check=True, cwd=PROJECT_ROOT)
-        
+
+        with tempfile.NamedTemporaryFile('w', delete=False) as key_file:
+            key_file.write(TEST_PRIVATE_KEY_HEX)
+            key_path = key_file.name
+
+        cmd.extend(["--sign", key_path, "--key-id", "test-suite"])
+
+        try:
+            subprocess.run(cmd, check=True, cwd=PROJECT_ROOT)
+        finally:
+            os.unlink(key_path)
+
         with open(receipt_path) as f:
             receipt = json.load(f)
         
