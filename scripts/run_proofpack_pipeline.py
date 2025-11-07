@@ -22,6 +22,7 @@ from experiments.public_data import run_dataset as run_public_dataset
 from tools.proofpack_bundler import BundleResult, bundle_proofpack
 from experiments.turbulence import PROTOCOLS as TURBULENCE_PROTOCOLS
 from experiments.turbulence import run_dataset as run_turbulence_dataset
+from scripts.keys import get_or_create_signing_key
 
 
 @dataclass(frozen=True)
@@ -425,8 +426,8 @@ def _timestamp() -> str:
 
 
 def _ensure_signing_key(path: Path) -> Path:
-    if not path.exists():
-        raise FileNotFoundError(f"Signing key not found: {path}")
+    public_candidate = path.with_name("kernel_public.key") if path.name == "kernel_secret.key" else None
+    get_or_create_signing_key(path, public_key_path=public_candidate)
     return path.resolve()
 
 
