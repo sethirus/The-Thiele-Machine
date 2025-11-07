@@ -355,7 +355,14 @@ python3 tools/verify_trs10.py my_script_receipt.json \
     --trusted-pubkey 254b57576959e5fb37d087a60d5a72bb75dcf82240cbd62577059695dda0ebea
 ```
 
-If you maintain many receipts, place a `trust_manifest.json` alongside them (or use `receipts/trust_manifest.json`) to map `key_id` values to trusted public keys.
+If you maintain many receipts, place a `trust_manifest.json` alongside them (or use `receipts/trust_manifest.json`) to map `key_id` values to trusted public keys. See the [Signing & Trust Setup guide](SIGNING_AND_TRUST.md) for a full walkthrough covering key generation, manifest structure, and verification flows.
+
+**Trust manifest auto-discovery:**
+
+- `tools/verify_trs10.py` looks next to the receipt for `trust_manifest.json`, then falls back to `receipts/trust_manifest.json` at the repository root.
+- `verifier/replay.py` checks for `trust_manifest.json` alongside the file you pass (or within the directory), then falls back to `receipts/trust_manifest.json`.
+
+If neither location exists, provide `--trusted-pubkey <hex>` explicitly or create a manifest.
 
 ## Using Receipts in Your Project
 
