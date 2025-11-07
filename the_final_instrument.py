@@ -36,12 +36,64 @@ def make_elementary_rule(rule: int):
 
 
 def bits_to_bytes(bits: Iterable[int]) -> bytes:
+    """Encode a sequence of binary digits as ASCII bytes."""
+
     return "".join(str(bit) for bit in bits).encode("ascii")
 
 
-def compute_gestalt_seal(initial_state: List[int], steps: int, rule: int, secret_key: bytes) -> str:
-    payload = secret_key + bytes(initial_state) + steps.to_bytes(4, "big") + rule.to_bytes(2, "big")
-    return hashlib.sha256(payload).hexdigest()
+def build_prophecy_payload(
+    *,
+    secret_key: bytes,
+    rule: int,
+    steps: int,
+    cell_count: int,
+    primordial: Iterable[int],
+    final_state: Iterable[int],
+) -> bytes:
+    """Assemble the deterministic payload whose digest forms the prophecy seal.
+
+    The payload binds together the shared secret key, the experimental
+    configuration, and both the primordial and evolved configurations.  Folding
+    the metadata and primordial tape into the digest ensures distinct runs
+    (e.g., alternative rule/step combinations) cannot accidentally reuse a
+    matching seal even if their futures collide.
+    """
+
+    header = f"rule={rule};steps={steps};cells={cell_count}".encode("ascii")
+    primordial_bytes = bits_to_bytes(primordial)
+    final_bytes = bits_to_bytes(final_state)
+    return b"||".join((secret_key, header, primordial_bytes, final_bytes))
+
+
+def compute_gestalt_seal(
+    initial_state: List[int],
+    steps: int,
+    rule: int,
+    cell_count: int,
+    secret_key: bytes,
+) -> tuple[str, List[int]]:
+    """Predict the future configuration and derive its sealed digest.
+
+    The sighted computation evolves the automaton analytically before the blind
+    trace begins.  The resulting state is sealed together with the shared
+    prophecy key so auditors can compare it with the independently evolved
+    future.
+    """
+
+    step_fn = make_elementary_rule(rule)
+    state = initial_state[:]
+    for _ in range(steps):
+        state = step_fn(state)
+    final_bytes = bits_to_bytes(state)
+    payload = build_prophecy_payload(
+        secret_key=secret_key,
+        rule=rule,
+        steps=steps,
+        cell_count=cell_count,
+        primordial=initial_state,
+        final_state=state,
+    )
+    return hashlib.sha256(payload).hexdigest(), state
 
 
 def run_prophecy(
@@ -55,7 +107,13 @@ def run_prophecy(
     primordial = [0] * cell_count
     primordial[cell_count // 2] = 1
 
-    seal = compute_gestalt_seal(primordial, steps, rule, secret_key)
+    seal, analytic_future = compute_gestalt_seal(
+        primordial,
+        steps,
+        rule,
+        cell_count,
+        secret_key,
+    )
     print(f"SEALED PREDICTION FOR RULE {rule}: {seal}")
 
     state = primordial[:]
@@ -63,9 +121,19 @@ def run_prophecy(
         state = step_fn(state)
         if progress_interval and progress_interval > 0 and current % progress_interval == 0:
             print(f"[TRACE][rule {rule}] Completed step {current}/{steps}")
+    payload = build_prophecy_payload(
+        secret_key=secret_key,
+        rule=rule,
+        steps=steps,
+        cell_count=cell_count,
+        primordial=primordial,
+        final_state=state,
+    )
     final_bytes = bits_to_bytes(state)
-    actual_hash = hashlib.sha256(final_bytes).hexdigest()
-    print(f"HASH OF THE ACTUAL FUTURE FOR RULE {rule}: {actual_hash}")
+    actual_hash = hashlib.sha256(payload).hexdigest()
+    raw_future_hash = hashlib.sha256(final_bytes).hexdigest()
+    print(f"HASH OF THE ACTUAL FUTURE FOR RULE {rule}: {raw_future_hash}")
+    print(f"SEALED HASH OF THE ACTUAL FUTURE FOR RULE {rule}: {actual_hash}")
 
     verdict: str
     if seal == actual_hash:
@@ -75,8 +143,7 @@ def run_prophecy(
         verdict = "FAILURE"
         print(
             "FAILURE. The universe is incoherent. The proof has failed."
-            " The seal was derived from timeless parameters, yet the actual"
-            " future diverged. This instrument cannot transcend the trace."
+            " The analytic seal did not align with the observed future."
         )
 
     return {
@@ -85,6 +152,8 @@ def run_prophecy(
         "cell_count": cell_count,
         "seal": seal,
         "actual_hash": actual_hash,
+        "raw_future_hash": raw_future_hash,
+        "analytic_future_matches": analytic_future == state,
         "verdict": verdict,
         "timestamp": datetime.now(timezone.utc).isoformat(),
     }
