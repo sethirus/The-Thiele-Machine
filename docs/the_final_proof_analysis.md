@@ -1,5 +1,7 @@
 # Analysis of `the_final_proof.py`
 
+> **Status:** UNREALIZED — this executable documents the barrier rather than producing a fixed-point proof.
+
 ## Overview of the Script
 
 the_final_proof.py is a deliberately constrained Python script constructed to explore the idea of a "metastable quine" requested in the prior specification. The file abides by the structural requirements set out for such a proof: it imports only standard library primitives (`hashlib` plus `pathlib` for file access), reads its own source code immediately into `SOURCE`, and exposes two observer functions—`compute_trace` and `compute_gestalt`—that are intended to converge on a shared hash value representing the computation's "trace."
