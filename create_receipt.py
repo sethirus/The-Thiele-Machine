@@ -960,9 +960,15 @@ Learn more: RECEIPT_GUIDE.md
         action='store_true',
         help='Verify the receipt after creation (requires verifier/replay.py)'
     )
-    
+
     args = parser.parse_args()
-    
+
+    if args.sign and not args.key_id:
+        print(
+            "Hint: signing without --key-id; set --key-id <name> and add it to your trust manifest for easier verification.",
+            file=sys.stderr,
+        )
+
     # Validate arguments
     mode_count = sum([bool(args.project), bool(args.directory), bool(args.archive), bool(args.files)])
     if mode_count > 1:

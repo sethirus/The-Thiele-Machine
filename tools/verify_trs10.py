@@ -184,6 +184,11 @@ def verify_trs10_receipt(
                         f"Error: no trust manifest or trusted public key for {receipt_path.name}",
                         file=sys.stderr,
                     )
+                    print(
+                        "Hint: provide --trust-manifest <path> or --trusted-pubkey <hex>; "
+                        "use --allow-unsigned for testing only.",
+                        file=sys.stderr,
+                    )
                     return False
             else:
                 try:
@@ -219,21 +224,35 @@ def verify_trs10_receipt(
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Verify TRS-1.0 receipts")
+    parser = argparse.ArgumentParser(
+        description="Verify TRS-1.0 receipts with Ed25519 trust enforcement"
+    )
     parser.add_argument("receipt", help="Path to the receipt JSON file")
     parser.add_argument(
         "--files-dir",
         help="Directory containing the referenced files (defaults to receipt directory)",
     )
-    parser.add_argument('--trust-manifest', help='Path to trust_manifest.json (auto-discovered if omitted)')
+    parser.add_argument(
+        '--trust-manifest',
+        help=(
+            'Path to trust_manifest.json (defaults to the receipt directory or '
+            "receipts/trust_manifest.json if present)"
+        ),
+    )
     parser.add_argument(
         '--trusted-pubkey',
-        help='Hex-encoded Ed25519 public key trusted for this receipt (overrides manifest)',
+        help=(
+            'Hex-encoded Ed25519 public key to trust for this receipt '
+            '(overrides manifest lookup)'
+        ),
     )
     parser.add_argument(
         '--allow-unsigned',
         action='store_true',
-        help='Permit unsigned receipts (testing only; overrides signature enforcement)',
+        help=(
+            'Permit unsigned receipts (testing only). Overrides signature '
+            'enforcement when no trust anchor is available.'
+        ),
     )
 
     args = parser.parse_args()
