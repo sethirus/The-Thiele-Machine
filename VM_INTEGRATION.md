@@ -102,6 +102,20 @@ verdict = classify_geometric_signature(signature)
 # Returns: "STRUCTURED" or "CHAOTIC"
 ```
 
+### Sandbox filesystem API
+
+The Python VM now exposes a minimal in-memory filesystem instead of Python's
+`open`. Sandboxed programs may call:
+
+- `vm_write_text(path, data)` / `vm_read_text(path)` – UTF-8 text helpers
+- `vm_write_bytes(path, data)` / `vm_read_bytes(path)` – binary payload helpers
+- `vm_listdir(path="")` – list immediate children under a virtual directory
+- `vm_exists(path)` – check whether a virtual file has been written
+
+Paths are always relative to the sandbox root. Absolute paths or traversal
+segments (e.g., `..`) raise `SecurityError`, each file is capped at 512 KiB, and
+the total sandbox footprint is limited to 2 MiB to prevent resource abuse.
+
 ## Instruction Specifications
 
 ### PDISCOVER

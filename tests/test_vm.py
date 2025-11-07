@@ -36,3 +36,36 @@ def test_execute_symbolic_brute_force_respects_limit(monkeypatch):
     res, out = vm.execute_symbolic_brute_force('', symbolic_assignments, var_names, code_to_run)
     assert res is None
     assert 'Workload too large' in out
+
+
+def test_vm_blocks_builtin_open(tmp_path):
+    vm = VM(State())
+    host_file = tmp_path / "host.txt"
+    host_file.write_text("secret")
+
+    result, output = vm.execute_python(f'open("{host_file}", "r").read()')
+
+    assert result is None
+    assert "SecurityError" in output
+    # Ensure the file on disk remains untouched
+    assert host_file.read_text() == "secret"
+
+
+def test_vm_virtual_fs_roundtrip():
+    vm = VM(State())
+
+    # Write and read back via the sandbox API
+    vm.execute_python('vm_write_text("logs/out.txt", "hello world")')
+    result, _ = vm.execute_python('__result__ = vm_read_text("logs/out.txt")')
+
+    assert result == "hello world"
+    snapshot = vm.export_virtual_files()
+    assert snapshot["logs/out.txt"] == b"hello world"
+
+
+def test_vm_virtual_fs_rejects_path_traversal():
+    vm = VM(State())
+    result, output = vm.execute_python('vm_write_text("../oops.txt", "nope")')
+
+    assert result is None
+    assert "SecurityError" in output

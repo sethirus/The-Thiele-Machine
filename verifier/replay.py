@@ -1,15 +1,21 @@
 #!/usr/bin/env python3
-"""
-Thiele Receipt Replay Verifier
-Reconstructs kernel from cryptographically verifiable receipts.
-Target: ≤200 LoC (excluding comments/blank lines)
-"""
+"""Thiele Receipt Replay Verifier."""
+
 import hashlib
 import json
 import os
 import sys
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
+
+from verifier.signature_utils import (
+    SignatureVerificationError,
+    TrustContextError,
+    TrustManifest,
+    TrustManifestError,
+    resolve_trust,
+    verify_ed25519_signature,
+)
 
 
 def sha256_hex(data: bytes) -> str:
@@ -41,6 +47,16 @@ def compute_state_hash(virtual_fs: Dict[str, bytes], exec_flags: Dict[str, bool]
         parts.append(sha256_hex(virtual_fs[path]).encode('utf-8'))
         parts.append(b'1' if exec_flags.get(path, False) else b'0')
     return sha256_hex(b''.join(parts))
+
+
+def compute_receipt_digest(steps: List[Dict[str, Any]]) -> str:
+    """Compute the TRS-0 ``global_digest`` from canonicalised ``steps``."""
+
+    step_hashes = []
+    for step in steps:
+        canonical_bytes = canonical_json(step)
+        step_hashes.append(hashlib.sha256(canonical_bytes).digest())
+    return hashlib.sha256(b''.join(step_hashes)).hexdigest()
 
 
 def validate_path(path: str, step_num: int, whitelist: List[str] = None) -> bool:
@@ -81,7 +97,17 @@ def validate_path(path: str, step_num: int, whitelist: List[str] = None) -> bool
     return True
 
 
-def verify_receipts(receipts_dir: str, max_total_bytes: int = 1024 * 1024, path_whitelist: List[str] = None, emit_dir: str = '.', dry_run: bool = False, strict: bool = False) -> int:
+def verify_receipts(
+    receipts_dir: str,
+    max_total_bytes: int = 1024 * 1024,
+    path_whitelist: List[str] = None,
+    emit_dir: str = '.',
+    dry_run: bool = False,
+    strict: bool = False,
+    trust_manifest: Optional[TrustManifest] = None,
+    trusted_pubkey: Optional[str] = None,
+    allow_unsigned: bool = False,
+) -> int:
     """
     Main verification logic.
     
@@ -128,7 +154,96 @@ def verify_receipts(receipts_dir: str, max_total_bytes: int = 1024 * 1024, path_
         if 'steps' not in receipt:
             print(f"Error: receipt missing 'steps': {receipt_file}", file=sys.stderr)
             return 1
-        
+
+        try:
+            computed_digest = compute_receipt_digest(receipt['steps'])
+        except Exception as exc:
+            print(f"Error: failed to compute digest for {receipt_file}: {exc}", file=sys.stderr)
+            return 1
+
+        declared_digest = receipt.get('global_digest')
+        if computed_digest != declared_digest:
+            print(f"Error: receipt global_digest mismatch in {receipt_file}", file=sys.stderr)
+            print(f"  Declared: {declared_digest}", file=sys.stderr)
+            print(f"  Computed: {computed_digest}", file=sys.stderr)
+            return 1
+
+        sig_scheme = receipt.get('sig_scheme')
+        signature_hex = receipt.get('signature', '')
+
+        expected_pubkey: Optional[str] = None
+        manifest_entry = None
+        if sig_scheme == 'ed25519':
+            if not signature_hex:
+                print(f"Error: receipt {receipt_file.name} missing signature", file=sys.stderr)
+                return 1
+
+            manifest_error: Optional[TrustManifestError] = None
+            if trust_manifest is not None:
+                try:
+                    manifest_entry = trust_manifest.select_entry(receipt_file, receipt)
+                except TrustManifestError as exc:
+                    manifest_error = exc
+
+            if manifest_entry is not None:
+                expected_pubkey = manifest_entry.public_key.lower()
+
+                receipt_pubkey = receipt.get('public_key')
+                if receipt_pubkey and receipt_pubkey.lower() != expected_pubkey:
+                    print(
+                        f"Error: public_key in {receipt_file.name} does not match manifest",
+                        file=sys.stderr,
+                    )
+                    return 1
+
+            if trusted_pubkey is not None:
+                if manifest_entry is not None and manifest_entry.public_key.lower() != trusted_pubkey.lower():
+                    print(
+                        f"Error: trusted public key does not match manifest for {receipt_file.name}",
+                        file=sys.stderr,
+                    )
+                    return 1
+                expected_pubkey = trusted_pubkey.lower()
+
+            if expected_pubkey is None and manifest_error is not None:
+                print(f"Error: {manifest_error}", file=sys.stderr)
+                return 1
+
+            if expected_pubkey is None:
+                if allow_unsigned:
+                    print(
+                        f"Warning: no trust anchor for {receipt_file.name}; signature skipped",
+                        file=sys.stderr,
+                    )
+                else:
+                    print(
+                        f"Error: no trust manifest or trusted public key for {receipt_file.name}",
+                        file=sys.stderr,
+                    )
+                    return 1
+            else:
+                try:
+                    verify_ed25519_signature(declared_digest, signature_hex, expected_pubkey)
+                except SignatureVerificationError as exc:
+                    print(
+                        f"Error: signature verification failed for {receipt_file.name}: {exc}",
+                        file=sys.stderr,
+                    )
+                    return 1
+
+        else:
+            if allow_unsigned:
+                print(
+                    f"Warning: unsigned receipt {receipt_file.name} accepted due to --allow-unsigned",
+                    file=sys.stderr,
+                )
+            else:
+                print(
+                    f"Error: receipt {receipt_file.name} must be signed with Ed25519",
+                    file=sys.stderr,
+                )
+                return 1
+
         # Process each step
         for step_data in receipt['steps']:
             step_num = step_data.get('step', '?')
@@ -262,6 +377,16 @@ def main():
     parser.add_argument('--print-digest', action='store_true', help='Print only global_digest and exit')
     parser.add_argument('--max-bytes', type=int, default=1024*1024, help='Max total bytes (default: 1 MiB)')
     parser.add_argument('--whitelist', nargs='*', help='Allowed file paths')
+    parser.add_argument('--trust-manifest', help='Path to trust_manifest.json (auto-discovered if omitted)')
+    parser.add_argument(
+        '--trusted-pubkey',
+        help='Hex-encoded Ed25519 public key trusted for all receipts (overrides manifest)',
+    )
+    parser.add_argument(
+        '--allow-unsigned',
+        action='store_true',
+        help='Permit unsigned receipts (testing only; overrides signature enforcement)',
+    )
     
     args = parser.parse_args()
     
@@ -277,6 +402,25 @@ def main():
                 print(receipt['global_digest'])
         sys.exit(0)
     
+    manifest_path = args.trust_manifest
+    if manifest_path is None:
+        candidate = Path(args.receipts_dir) / 'trust_manifest.json'
+        if candidate.exists():
+            manifest_path = str(candidate)
+        else:
+            repo_default = Path('receipts') / 'trust_manifest.json'
+            if repo_default.exists():
+                manifest_path = str(repo_default)
+
+    try:
+        trust_manifest, trusted_pubkey = resolve_trust(manifest_path, args.trusted_pubkey)
+    except TrustContextError as exc:
+        print(f"Error: {exc}", file=sys.stderr)
+        if args.allow_unsigned:
+            trust_manifest, trusted_pubkey = None, None
+        else:
+            sys.exit(1)
+
     # Run verification
     exit_code = verify_receipts(
         args.receipts_dir,
@@ -284,7 +428,10 @@ def main():
         path_whitelist=args.whitelist,
         emit_dir=args.emit_dir,
         dry_run=args.dry_run,
-        strict=args.strict
+        strict=args.strict,
+        trust_manifest=trust_manifest,
+        trusted_pubkey=trusted_pubkey,
+        allow_unsigned=args.allow_unsigned,
     )
     sys.exit(exit_code)
 

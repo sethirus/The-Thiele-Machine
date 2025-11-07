@@ -58,7 +58,12 @@ SAFE_FUNCTIONS = {
     "map",
     "filter",
     "placeholder",
-    "open",
+    "vm_read_text",
+    "vm_write_text",
+    "vm_read_bytes",
+    "vm_write_bytes",
+    "vm_exists",
+    "vm_listdir",
 }
 SAFE_METHOD_CALLS = {"append", "extend", "items", "keys", "values", "get", "update", "add", "check", "model", "as_long", "format"}
 SAFE_MODULE_CALLS = {
@@ -453,6 +458,121 @@ class SecurityError(RuntimeError):
     """Raised when a PYEXEC payload violates sandbox policy."""
 
 
+class VirtualFilesystem:
+    """Minimal in-memory filesystem exposed to sandboxed programs.
+
+    Provides a small API for reading and writing files without granting
+    access to the host filesystem. Paths are normalised to a virtual root,
+    forbid traversal (".."), and limit total storage.
+    """
+
+    MAX_FILE_SIZE = 512 * 1024  # 512 KiB per file to bound memory use
+    MAX_TOTAL_BYTES = 2 * 1024 * 1024  # 2 MiB across all files
+
+    def __init__(self) -> None:
+        self._files: Dict[str, bytes] = {}
+        self._total_bytes = 0
+
+    @staticmethod
+    def _ensure_utf8(path: str) -> None:
+        try:
+            path.encode("utf-8")
+        except UnicodeEncodeError as exc:  # pragma: no cover - defensive
+            raise SecurityError("Paths must be valid UTF-8") from exc
+
+    def _normalize(self, path: str, *, allow_root: bool = False) -> str:
+        if not isinstance(path, str):
+            raise SecurityError("Path must be a string")
+        stripped = path.strip()
+        if not stripped:
+            if allow_root:
+                return ""
+            raise SecurityError("Empty path not permitted")
+        if stripped.startswith("/"):
+            raise SecurityError("Absolute paths are not permitted")
+        parts = []
+        for part in stripped.split("/"):
+            if not part or part == ".":
+                continue
+            if part == "..":
+                raise SecurityError("Path traversal is not permitted")
+            parts.append(part)
+        normalized = "/".join(parts)
+        if not normalized and not allow_root:
+            raise SecurityError("Path resolves to virtual root")
+        self._ensure_utf8(normalized)
+        return normalized
+
+    def _write(self, path: str, data: bytes) -> None:
+        normalized = self._normalize(path)
+        if len(data) > self.MAX_FILE_SIZE:
+            raise SecurityError("File exceeds sandbox size limit")
+        previous = self._files.get(normalized, b"")
+        new_total = self._total_bytes - len(previous) + len(data)
+        if new_total > self.MAX_TOTAL_BYTES:
+            raise SecurityError("Sandbox storage limit exceeded")
+        self._files[normalized] = bytes(data)
+        self._total_bytes = new_total
+
+    def write_text(self, path: str, data: str) -> None:
+        if not isinstance(data, str):
+            raise SecurityError("vm_write_text expects string data")
+        self._write(path, data.encode("utf-8"))
+
+    def write_bytes(self, path: str, data: bytes | bytearray) -> None:
+        if not isinstance(data, (bytes, bytearray)):
+            raise SecurityError("vm_write_bytes expects bytes-like data")
+        self._write(path, bytes(data))
+
+    def _read(self, path: str) -> bytes:
+        normalized = self._normalize(path)
+        if normalized not in self._files:
+            raise SecurityError("File does not exist in sandbox")
+        return self._files[normalized]
+
+    def read_text(self, path: str) -> str:
+        return self._read(path).decode("utf-8")
+
+    def read_bytes(self, path: str) -> bytes:
+        return bytes(self._read(path))
+
+    def exists(self, path: str) -> bool:
+        try:
+            normalized = self._normalize(path)
+        except SecurityError:
+            return False
+        return normalized in self._files
+
+    def listdir(self, path: str = "") -> List[str]:
+        normalized = self._normalize(path, allow_root=True)
+        prefix = f"{normalized}/" if normalized else ""
+        entries: set[str] = set()
+        for stored in self._files:
+            if not stored.startswith(prefix):
+                continue
+            remainder = stored[len(prefix) :]
+            if not remainder:
+                continue
+            name = remainder.split("/", 1)[0]
+            entries.add(name)
+        return sorted(entries)
+
+    def snapshot(self) -> Dict[str, bytes]:
+        return {path: bytes(data) for path, data in self._files.items()}
+
+    def load_snapshot(self, files: Dict[str, bytes | bytearray | str]) -> None:
+        self._files.clear()
+        self._total_bytes = 0
+        for path, payload in files.items():
+            if isinstance(payload, str):
+                data = payload.encode("utf-8")
+            elif isinstance(payload, (bytes, bytearray)):
+                data = bytes(payload)
+            else:
+                raise SecurityError("Snapshot payload must be bytes or str")
+            self._write(path, data)
+
+
 class SafeNodeVisitor(ast.NodeVisitor):
     """AST visitor enforcing a restrictive whitelist of constructs."""
 
@@ -691,6 +811,7 @@ def search_chunk(chunk_combinations, var_names, code_to_run):
 class VM:
     state: State
     python_globals: Dict[str, Any] = None  # type: ignore
+    virtual_fs: VirtualFilesystem = field(default_factory=VirtualFilesystem)
     witness_state: WitnessState = field(default_factory=WitnessState)
     step_receipts: List[StepReceipt] = field(default_factory=list)
 
@@ -704,6 +825,12 @@ class VM:
                 "math": math,
                 "json": json,
                 "self": self,
+                "vm_read_text": self.virtual_fs.read_text,
+                "vm_write_text": self.virtual_fs.write_text,
+                "vm_read_bytes": self.virtual_fs.read_bytes,
+                "vm_write_bytes": self.virtual_fs.write_bytes,
+                "vm_exists": self.virtual_fs.exists,
+                "vm_listdir": self.virtual_fs.listdir,
             }
             for name in SAFE_FUNCTIONS:
                 if name in globals_scope:
@@ -713,8 +840,29 @@ class VM:
                 elif hasattr(builtins, name):
                     globals_scope[name] = getattr(builtins, name)
             self.python_globals = globals_scope
+        else:
+            # Ensure filesystem helpers are present even with custom globals
+            self.python_globals.setdefault("vm_read_text", self.virtual_fs.read_text)
+            self.python_globals.setdefault("vm_write_text", self.virtual_fs.write_text)
+            self.python_globals.setdefault("vm_read_bytes", self.virtual_fs.read_bytes)
+            self.python_globals.setdefault("vm_write_bytes", self.virtual_fs.write_bytes)
+            self.python_globals.setdefault("vm_exists", self.virtual_fs.exists)
+            self.python_globals.setdefault("vm_listdir", self.virtual_fs.listdir)
         self.witness_state = WitnessState()
         self.step_receipts = []
+
+    def export_virtual_files(self) -> Dict[str, bytes]:
+        """Return a copy of the virtual filesystem contents."""
+
+        return self.virtual_fs.snapshot()
+
+    def load_virtual_files(self, files: Dict[str, bytes | bytearray | str]) -> None:
+        """Replace the virtual filesystem with ``files``.
+
+        ``files`` maps sandbox-relative paths to bytes (or UTF-8 strings).
+        """
+
+        self.virtual_fs.load_snapshot(files)
 
     def _simulate_witness_step(
         self, instruction: InstructionWitness, pre_state: WitnessState
