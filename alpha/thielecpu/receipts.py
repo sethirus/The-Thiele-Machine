@@ -13,13 +13,12 @@ import json
 import os
 from pathlib import Path
 import string
-import subprocess
-import sys
 from typing import Any, Dict, Optional
 
 from nacl import signing
 from nacl.exceptions import BadSignatureError
 
+from scripts.keys import ensure_public_key, get_or_create_signing_key
 SIGNING_KEY_ENV = "THIELE_KERNEL_SIGNING_KEY"
 VERIFY_KEY_ENV = "THIELE_KERNEL_VERIFY_KEY"
 DEFAULT_SIGNING_KEY_PATH = "kernel_secret.key"
@@ -80,60 +79,44 @@ def ensure_kernel_keys(
     public_path = _resolve_verify_key(verifying_key_path)
 
     regenerate = False
-    signing_key_bytes: Optional[bytes] = None
+    signing_key: Optional[signing.SigningKey] = None
 
-    if not secret_path.exists() or not public_path.exists():
+    try:
+        signing_key_bytes = secret_path.read_bytes()
+    except FileNotFoundError:
         regenerate = True
+        signing_key_bytes = None
+    except OSError:
+        regenerate = True
+        signing_key_bytes = None
     else:
         try:
-            signing_key_bytes = secret_path.read_bytes()
-        except OSError:
+            signing_key = signing.SigningKey(signing_key_bytes)
+        except Exception:  # pragma: no cover - defensive: corrupted key material
+            regenerate = True
+            signing_key = None
+
+    if not regenerate and signing_key is not None:
+        try:
+            stored_verify = _load_verify_key_bytes(public_path)
+        except (OSError, ValueError):
             regenerate = True
         else:
-            if len(signing_key_bytes) != 32:
+            if stored_verify != signing_key.verify_key.encode():
                 regenerate = True
-            else:
-                try:
-                    signing_key = signing.SigningKey(signing_key_bytes)
-                except Exception:  # pragma: no cover - defensive: corrupted key material
-                    regenerate = True
-                else:
-                    derived_verify = signing_key.verify_key.encode()
-                    try:
-                        stored_verify = _load_verify_key_bytes(public_path)
-                    except (OSError, ValueError):
-                        regenerate = True
-                    else:
-                        if stored_verify != derived_verify:
-                            regenerate = True
 
-    if not regenerate:
-        return
-
-    # In production mode, do not auto-generate key material. Operators must
-    # provision signing keys explicitly to avoid accidental key rotation or
-    # test-key reuse. Set THIELE_PRODUCTION=1 in the environment to enable
-    # this behaviour. Tests and local dev will continue to auto-generate.
-    if os.environ.get("THIELE_PRODUCTION", "0") == "1":
+    if regenerate and os.environ.get("THIELE_PRODUCTION", "0") == "1":
         raise RuntimeError(
             "Kernel keypair missing or invalid and THIELE_PRODUCTION=1: refusing to auto-generate keys"
         )
 
-    generator = Path(__file__).resolve().parent.parent / "scripts" / "generate_kernel_keys.py"
-    cmd = [
-        sys.executable,
-        str(generator),
-        "--secret-path",
-        str(secret_path),
-        "--public-path",
-        str(public_path),
-        "--deterministic-test-key",
-        "--force",
-    ]
-    subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    print(
-        "INFO: Default deterministic keypair was missing or corrupt. Regenerated to ensure reproducibility."
-    )
+    if regenerate or signing_key is None:
+        signing_key = get_or_create_signing_key(secret_path, public_key_path=public_path)
+        print(
+            "INFO: Generated a new local kernel signing keypair for reproducible demos."
+        )
+    else:
+        ensure_public_key(signing_key, public_path)
 
 
 def sign_receipt(
@@ -145,7 +128,7 @@ def sign_receipt(
 
     key_path = _resolve_signing_key(signing_key_path)
     message = _canonical_json(payload).encode("utf-8")
-    signing_key = signing.SigningKey(key_path.read_bytes())
+    signing_key = get_or_create_signing_key(key_path)
     signature = signing_key.sign(message).signature
     return signature.hex()
 
