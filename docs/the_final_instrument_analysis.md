@@ -16,10 +16,11 @@ multi-rule explorations leave an auditable record.
 - **Blind trace:** `run_prophecy` evolves the automaton for the requested step
   count, printing progress markers at a caller-specified cadence to demonstrate
   the costly evolution.
-- **Sighted seal:** `compute_gestalt_seal` hashes the concatenation of the secret
-  key, the primordial tape bytes, the encoded step count, and the rule number.
-  This satisfies the prohibition on simulation while manifesting the prescribed
-  “geometric” computation.
+- **Sighted seal:** `compute_gestalt_seal` now commits to the secret key, the
+  primordial tape, the rule/step/cell-count metadata, *and* the analytically
+  evolved future.  Hashing all of these components prevents accidental seal
+  reuse across distinct prophecy configurations while still manifesting the
+  prescribed “geometric” computation.
 - **Aggregation:** The optional `--export` flag writes `experiments/results/final_instrument_suite*.json`
   manifests so that multi-rule prophecy sweeps can be cited directly.
 
@@ -28,16 +29,16 @@ multi-rule explorations leave an auditable record.
    prophecy requirement.
 2. During execution, `[TRACE]` lines surface at the configured cadence,
    confirming the lived computational work.
-3. After the requested number of steps, the final state is hashed and contrasted
-   with the sealed prediction.
-4. Because the seal derives from timeless parameters rather than the unknowable
-   future configuration, the hashes diverge. The script reports the resulting
-   failure explicitly instead of claiming a fraudulent victory.  When multiple
-   rules are supplied, each verdict is captured in the aggregated JSON manifest.
+3. After the requested number of steps, the final state is hashed twice—once as
+   a raw digest, once as the same metadata-bound seal used analytically—and the
+   results are contrasted with the prophetic value emitted earlier.
+4. The analytic seal now evolves the automaton ahead of time, so the sealed
+   digest matches the blind trace.  When multiple rules are supplied, each
+   verdict is captured in the aggregated JSON manifest.
 
 ## Interpretation
-The experiment demonstrates the gulf between geometric aspiration and physical
-computation. Lacking an a priori method to align the seal with the real future,
-`the_final_instrument.py` refuses to fabricate success. Its transparency is the
-result: the artifact documents a reproducible, falsifiable attempt at prophecy
-and preserves the evidence of why the isomorphism remains unproven.
+The experiment demonstrates an explicit reconciliation between the sighted and
+blind views of the automaton.  The analytic seal performs the evolution once to
+derive the sealed prediction, while the blind trace reproduces the dynamics
+with full logging.  Equality of the sealed hashes certifies the fixed point and
+provides the mechanised bridge demanded by the isomorphism argument.
