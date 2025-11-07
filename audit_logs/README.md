@@ -10,6 +10,7 @@ history.
 
 The active workflow is instead governed by the ephemeral gate in
 `scripts/run_partition_ephemeral.py`, the reconciled final-instrument payload,
-and the updated Operation Cosmic Witness search. Auditors should treat the
-legacy note as superseded by the new protocol while keeping it available for
-context.
+and the updated Operation Cosmic Witness search (explicitly labelled as a toy
+CHSH-style decision rule over 16 scalar CMB temperatures). Auditors should
+treat the legacy note as superseded by the new protocol while keeping it
+available for context.
