@@ -16,6 +16,17 @@ from pathlib import Path
 import sys
 
 
+# Ensure repository root is on the import path when invoked as a script. When
+# this module is executed from within the ``scripts`` directory Python adds the
+# current directory to ``sys.path`` which prevents ``import scripts.*`` from
+# resolving (it would otherwise look for ``scripts/`` within ``scripts/``).
+# Adding the repo root allows ``scripts`` to be treated as a package regardless
+# of the current working directory.
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+
 def main():
     p = argparse.ArgumentParser(description="Demo isomorphism CLI")
     p.add_argument("--receipt", help="Path to a receipt JSON file to canonicalize and verify")

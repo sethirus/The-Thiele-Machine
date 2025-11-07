@@ -1,6 +1,9 @@
 # Thiele Machine Experiment Inference Report
+
+> **Status:** Legacy diagnostic run. Superseded by the ephemeral gate `scripts/run_partition_ephemeral.py`; retained for historical context.
+
 Problem: tseitin
-Timestamp: 1761349900
+Timestamp: 1761350823
 
 ## Pre-registered Decision Criteria
 - Blind fits exp better than poly by ΔAIC ≥ 10: FAIL
