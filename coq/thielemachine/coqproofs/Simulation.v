@@ -10,6 +10,28 @@
 (*   - utm_program: defined as empty program                           *)
 (*   - utm_program_blind: proved from the definition                   *)
 (*                                                                      *)
+(* COMPILATION STATUS (Nov 2025):                                      *)
+(*   ⚠️ This file does NOT currently compile!                          *)
+(*                                                                      *)
+(*   KEY ISSUES:                                                        *)
+(*   1. utm_interpreter_no_rule_found_halts (line ~3584): ADMITTED     *)
+(*      - Has type mismatch: decode_state expects ThieleMachine.State  *)
+(*        but ThieleUniversal.run_n returns CPU.State                  *)
+(*      - Needs state conversion function or lemma restatement         *)
+(*                                                                      *)
+(*   2. utm_simulate_one_step (line ~3615): Depends on #1              *)
+(*      - Contains TODO comments for halting behavior                  *)
+(*      - Calls admitted lemma utm_interpreter_no_rule_found_halts     *)
+(*                                                                      *)
+(*   3. Fundamental architecture issue:                                 *)
+(*      - thiele_step defined as identity: thiele_step p st = st       *)
+(*      - Therefore thiele_step_n p st k = st (always!)                *)
+(*      - Lemmas state: decode_state (thiele_step_n ...) = tm_step     *)
+(*      - This can only be true if we redefine thiele_step OR          *)
+(*        restate lemmas differently                                    *)
+(*                                                                      *)
+(*   See /tmp/COMPLETING_TODOS_GUIDE.md for detailed completion plan.  *)
+(*                                                                      *)
 (* Imported lemmas from archive (UTM_Program.v):                       *)
 (*   The file already imports and uses lemmas from ThieleUniversal     *)
 (*   modules including:                                                 *)
@@ -25,10 +47,6 @@
 (*   2. ThieleUniversal.CPU.State {regs;mem;cost} - implementation     *)
 (* TM configurations are encoded in the pc field, and actual execution *)
 (* happens via CPU semantics (ThieleUniversal.run_n).                  *)
-(*                                                                      *)
-(* REMAINING WORK: Several proof obligations remain incomplete and     *)
-(* would need to properly connect the two state spaces. See TODOs      *)
-(* in utm_interpreter_no_rule_found_halts and related lemmas.          *)
 (* ================================================================= *)
 From Coq Require Import List Arith Lia PeanoNat Bool.
 From ThieleUniversal Require Import TM UTM_Rules.
@@ -3591,19 +3609,26 @@ Lemma utm_interpreter_no_rule_found_halts :
     rules_fit tm ->
     decode_state tm (ThieleUniversal.run_n cpu_find 10) = conf.
 Proof.
-  intros tm conf cpu_find conf_def sym_def Hfind Hcore Hstart Hfit.
-  (* The proof involves symbolic execution of the loop until it reaches
-     the Jnz REG_TEMP1 0 instruction at PC=11, which halts.
-     After a few steps, the PC is stable and no registers affecting
-     the decoded state are changed. *)
- (* The proof involves symbolic execution of the loop until it reaches
-    the Jnz REG_TEMP1 0 instruction at PC=11, which halts.
-    After a few steps, the PC is stable and no registers affecting
-    the decoded state are changed.
-    Since the TM does not change state when no rule is found, the
-    decoded state remains the same as conf.
- *)
- Qed.
+  (* TODO: Complete this proof via symbolic execution.
+     
+     TYPE ERROR: This lemma statement has a type mismatch:
+     - decode_state tm expects ThieleMachine.State (with {pc : nat})
+     - ThieleUniversal.run_n cpu_find 10 returns CPU.State (with {regs; mem; cost})
+     
+     To fix this, either:
+     1. Add a conversion function from CPU.State to ThieleMachine.State
+     2. Restate the lemma to work entirely in one state space
+     3. Define a bridge that extracts the pc value from CPU state
+     
+     Proof strategy once type issue is resolved:
+     - Start with cpu_find in FindRule_Start state (PC=3)  
+     - Execute 10 CPU instructions symbolically
+     - Show that when no rule matches (find_rule returns None),
+       the loop reaches PC=11 where Jnz REG_TEMP1 0 halts
+     - Prove that the TM configuration (q, tape, head) remains unchanged
+     - Use lemmas: program_instrs_pc11, utm_decode_findrule_*, ThieleUniversal.run1_*
+  *)
+Admitted.
 
 Lemma utm_simulate_one_step :
   forall tm conf,
