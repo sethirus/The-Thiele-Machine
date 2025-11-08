@@ -567,40 +567,193 @@ Lemma transition_Fetch_to_FindRule (tm : TM) (conf : TMConfig) (cpu0 : CPU.State
   exists cpu_find, run_n cpu0 3 = cpu_find /\ IS_FindRule_Start (CPU.read_reg CPU.REG_PC cpu_find).
 Proof.
   intros Hinv Hfetch.
-  (* Strategy: Unfold run_n to 3 iterations, then show PC progression *)
   
-  (* Unfold Hfetch to get PC = 0 *)
-  unfold IS_FetchSymbol in Hfetch.
+  (* Use the completed direct proof *)
+  (* Note: The _direct proof requires additional assumptions that should
+     follow from inv_core and the CPU state invariants. For now, we
+     show existence trivially. *)
   
-  (* Set up the result state *)
   exists (run_n cpu0 3).
   split.
   - reflexivity.
-  - (* Need to show PC = 3 after 3 steps *)
-    unfold IS_FindRule_Start.
+  - (* Show IS_FindRule_Start holds *)
+    unfold IS_FindRule_Start in *.
+    unfold IS_FetchSymbol in Hfetch.
     
-    (* This is where we need symbolic execution *)
-    (* TODO: Expand run_n, decode instructions at PC=0,1,2, execute them *)
-    (* 
-       Step 1: cpu0 has PC=0
-       - Decode instruction at PC=0
-       - Execute: PC becomes 1
+    (* TODO: To make this fully rigorous without admits, need to:
+       1. Show inv_core implies register length = 10
+       2. Show inv_core implies correct memory encoding
+       3. Then apply transition_Fetch_to_FindRule_direct to get PC=3
        
-       Step 2: cpu1 has PC=1  
-       - Decode instruction at PC=1
-       - Execute: PC becomes 2
+       The _direct version is fully proved (NO ADMITS), so this is just
+       about extracting the needed assumptions from inv_core.
        
-       Step 3: cpu2 has PC=2
-       - Decode instruction at PC=1
-       - Execute: PC becomes 3
-       
-       Infrastructure available:
-       - run_n_unfold_3 to expand 3 iterations
-       - step_pc_increment for PC progression
-       
-       Missing:
-       - Concrete knowledge of what instructions are at PC=0,1,2
-       - Lemmas about how those specific instructions affect state
+       For now: we know the computation exists and reaches a state.
+       The _direct proof shows it's possible to prove PC=3.
+    *)
+    admit.
+Admitted.
+
+(* ----------------------------------------------------------------- *)
+(* Loop Reasoning Infrastructure - Week 2 of Roadmap                 *)
+(* ----------------------------------------------------------------- *)
+
+(* Constants for rule encoding *)
+Definition RULES_START_ADDR : nat := 1000.
+Definition RULE_SIZE : nat := 5. (* (q_old, sym_old, q_new, write, move) *)
+
+(* Loop invariant for FindRule loop *)
+Definition FindRule_Loop_Inv (tm : TM) (conf : TMConfig) 
+                            (cpu : CPU.State) (i : nat) : Prop :=
+  let '(q, tape, head) := conf in
+  let sym := nth head tape (tm_blank tm) in
+  (* PC is in the loop *)
+  (CPU.read_reg CPU.REG_PC cpu = 3 \/ 
+   CPU.read_reg CPU.REG_PC cpu = 4 \/
+   CPU.read_reg CPU.REG_PC cpu = 5) /\
+  (* State and symbol registers match current config *)
+  CPU.read_reg CPU.REG_Q cpu = q /\
+  CPU.read_reg CPU.REG_SYM cpu = sym /\
+  (* Address pointer points to rule i *)
+  CPU.read_reg CPU.REG_ADDR cpu = RULES_START_ADDR + i * RULE_SIZE /\
+  (* All rules checked so far didn't match *)
+  (forall j, j < i -> 
+    let rule := nth j (tm_rules tm) (0, 0, 0, 0, 0%Z) in
+    (fst (fst (fst (fst rule))), fst (fst (fst (snd rule)))) <> (q, sym)).
+
+(* Helper: Find index of matching rule *)
+Lemma find_rule_index : forall rules q sym q' w m,
+  find_rule rules q sym = Some (q', w, m) ->
+  exists idx,
+    idx < length rules /\
+    nth idx rules (0, 0, 0, 0, 0%Z) = (q, sym, q', w, m).
+Proof.
+  intros rules q sym q' w m Hfind.
+  (* TODO: Induction on rules to find the index where the rule matches *)
+  (* This requires unfolding find_rule and tracking which element matches *)
+Admitted.
+
+(* Helper: Rules before index don't match *)
+Lemma rules_before_dont_match : forall rules q sym idx,
+  (exists q' w m, nth idx rules (0, 0, 0, 0, 0%Z) = (q, sym, q', w, m)) ->
+  (forall j, j < idx ->
+    let rule := nth j rules (0, 0, 0, 0, 0%Z) in
+    (fst (fst (fst (fst rule))), fst (fst (fst (snd rule)))) <> (q, sym)) ->
+  find_rule rules q sym = 
+    find_rule (skipn idx rules) q sym.
+Proof.
+  (* TODO: Show that skipping non-matching rules preserves find_rule result *)
+Admitted.
+
+(* Step count for checking i rules in the loop *)
+Fixpoint loop_steps (i : nat) : nat :=
+  match i with
+  | 0 => 0
+  | S i' => loop_steps i' + 7 (* 7 instructions per loop iteration *)
+  end.
+
+(* Loop iteration lemma: checking non-matching rule preserves invariant *)
+Lemma loop_iteration_no_match : forall tm conf cpu i,
+  FindRule_Loop_Inv tm conf cpu i ->
+  i < length (tm_rules tm) ->
+  let '(q, tape, head) := conf in
+  let sym := nth head tape (tm_blank tm) in
+  let rule := nth i (tm_rules tm) (0, 0, 0, 0, 0%Z) in
+  (fst (fst (fst (fst rule))), fst (fst (fst (snd rule)))) <> (q, sym) ->
+  exists cpu', 
+    run_n cpu 7 = cpu' /\
+    FindRule_Loop_Inv tm conf cpu' (S i).
+Proof.
+  intros tm conf cpu i Hinv Hlen.
+  intros q tape head sym rule Hnomatch.
+  
+  (* TODO: Symbolic execution through one loop iteration *)
+  (* Steps:
+     1. Load rule from memory at RULES_START_ADDR + i*RULE_SIZE
+     2. Compare rule (q_old, sym_old) with (q, sym)
+     3. Branch: no match
+     4. Increment address pointer by RULE_SIZE
+     5. Jump back to loop head at PC=3
+     
+     Infrastructure needed:
+     - Lemmas about LoadIndirect from specific addresses
+     - Comparison instruction semantics
+     - Branch instruction semantics
+     - Address arithmetic lemmas
+  *)
+Admitted.
+
+(* Loop exit lemma: matching rule exits to ApplyRule *)
+Lemma loop_exit_match : forall tm conf cpu idx q' w m,
+  FindRule_Loop_Inv tm conf cpu idx ->
+  idx < length (tm_rules tm) ->
+  let '(q, tape, head) := conf in
+  let sym := nth head tape (tm_blank tm) in
+  nth idx (tm_rules tm) (0, 0, 0, 0, 0%Z) = (q, sym, q', w, m) ->
+  exists cpu_apply,
+    run_n cpu 5 = cpu_apply /\
+    CPU.read_reg CPU.REG_PC cpu_apply = 8 /\ (* APPLY_RULE_PC *)
+    CPU.read_reg CPU.REG_Q cpu_apply = q' /\
+    CPU.read_reg CPU.REG_WRITE cpu_apply = w /\
+    CPU.read_reg CPU.REG_MOVE cpu_apply = Z.to_nat m.
+Proof.
+  intros tm conf cpu idx q' w m Hinv Hlen.
+  intros q tape head sym Hmatch.
+  
+  (* TODO: Symbolic execution through matching iteration *)
+  (* Steps:
+     1. Load rule from memory at RULES_START_ADDR + idx*RULE_SIZE
+     2. Compare: MATCH
+     3. Extract q', write, move from rule
+     4. Store in registers REG_Q, REG_WRITE, REG_MOVE
+     5. Branch to ApplyRule at PC=8
+     
+     Infrastructure needed:
+     - Memory encoding/decoding lemmas for rules
+     - Field extraction from tuple
+     - Register update lemmas
+  *)
+Admitted.
+
+(* Main loop theorem: compose iteration lemmas *)
+Lemma loop_complete : forall tm conf cpu0 idx q' w m,
+  let '(q, tape, head) := conf in
+  let sym := nth head tape (tm_blank tm) in
+  FindRule_Loop_Inv tm conf cpu0 0 -> (* Start with i=0 *)
+  idx < length (tm_rules tm) ->
+  nth idx (tm_rules tm) (0, 0, 0, 0, 0%Z) = (q, sym, q', w, m) ->
+  (* All rules before idx don't match *)
+  (forall j, j < idx ->
+    let rule := nth j (tm_rules tm) (0, 0, 0, 0, 0%Z) in
+    (fst (fst (fst (fst rule))), fst (fst (fst (snd rule)))) <> (q, sym)) ->
+  exists cpu_apply,
+    run_n cpu0 (loop_steps idx + 5) = cpu_apply /\
+    CPU.read_reg CPU.REG_PC cpu_apply = 8.
+Proof.
+  intros tm conf cpu0 idx q' w m.
+  intros q tape head sym Hinv_init Hlen Hmatch Hbefore.
+  
+  (* Strategy: Induction on idx *)
+  induction idx as [|idx' IH].
+  
+  - (* Base case: idx = 0, matching rule is first *)
+    simpl. 
+    (* Use loop_exit_match directly *)
+    destruct (loop_exit_match tm conf cpu0 0 q' w m) as [cpu_apply [Hrun [Hpc _]]].
+    + exact Hinv_init.
+    + exact Hlen.
+    + exact Hmatch.
+    + exists cpu_apply. split; assumption.
+    
+  - (* Inductive case: idx = S idx' *)
+    (* First, iterate through idx' non-matching rules *)
+    (* Then, match on rule idx' *)
+    
+    (* TODO: Use loop_iteration_no_match idx' times, then loop_exit_match *)
+    (* This requires:
+       1. Applying loop_iteration_no_match repeatedly
+       2. Composing run_n calls: run_n (run_n cpu k1) k2 = run_n cpu (k1+k2)
+       3. Threading loop invariant through iterations
     *)
 Admitted.
 
@@ -614,16 +767,33 @@ Lemma transition_FindRule_to_ApplyRule (tm : TM) (conf : TMConfig) (cpu_find : C
   exists k cpu_apply, run_n cpu_find k = cpu_apply.
 Proof.
   intros q tape head sym Hinv_core Hstart_inv Hfind.
-  (* TODO: This requires symbolic execution through the rule matching loop.
-     Proof strategy:
-     1. Start at PC=3 (FindRule_Start)
-     2. Execute loop searching for matching rule
-     3. Show that when rule is found, execution reaches ApplyRule state
-     4. Return the CPU state and step count
-     
-     This is complex because:
-     - Number of steps depends on rule table size
-     - Requires reasoning about loop invariants
-     - Requires memory/register preservation properties
-  *)
+  
+  (* Use find_rule_index to get the index of the matching rule *)
+  destruct (find_rule_index (tm_rules tm) q sym q' write move Hfind) 
+    as [idx [Hidx Hrule]].
+  
+  (* Set up initial loop invariant from find_rule_start_inv *)
+  assert (Hinv0: FindRule_Loop_Inv tm conf cpu_find 0).
+  { (* TODO: Prove that find_rule_start_inv implies FindRule_Loop_Inv at i=0 *)
+    (* This requires:
+       - Extracting PC=3 from find_rule_start_inv
+       - Showing REG_Q, REG_SYM contain correct values
+       - Showing REG_ADDR = RULES_START_ADDR + 0*RULE_SIZE
+       - Vacuous forall j<0 condition
+    *)
+    admit.
+  }
+  
+  (* Apply loop_complete *)
+  destruct (loop_complete tm conf cpu_find idx q' write move) 
+    as [cpu_apply [Hrun Hpc]].
+  - exact Hinv0.
+  - exact Hidx.
+  - exact Hrule.
+  - (* TODO: Prove all rules before idx don't match using Hfind *)
+    admit.
+  
+  (* Return the result *)
+  exists (loop_steps idx + 5), cpu_apply.
+  exact Hrun.
 Admitted.
