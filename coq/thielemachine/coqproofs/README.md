@@ -7,13 +7,13 @@ development still includes admitted lemmas; the open obligations are enumerated
 in [`../../ADMIT_REPORT.txt`](../../ADMIT_REPORT.txt) and documented alongside
 the foundational axioms in [`../../AXIOM_INVENTORY.md`](../../AXIOM_INVENTORY.md).
 
-- **Admitted statements:** 3 outstanding obligations remain in `Simulation.v` (see `../../ADMIT_REPORT.txt`).
+- **Admitted statements:** **UPDATE (November 2025):** Parameter declarations in `Simulation.v` have been replaced with concrete definitions (`Blind`, `thiele_step`, `utm_program`). Some proof obligations remain incomplete pending completion of the bridge between ThieleMachine and CPU state spaces. See file header comments in `Simulation.v` for details.
 - **Primary deliverable:** `Subsumption.v`, which imports the blind simulation
   from `Simulation.v` and the structured separation from `Separation.v` to
   conclude `turing ⊂ thiele`.
 - **Interface axioms:** The concrete VM (`ThieleMachine.v`) and the universal
   interpreter (`Simulation.v`) expose a handful of axioms summarising the Python
-  implementation and the exponential lower bound for blind search.
+  implementation and the exponential lower bound for blind search. **Note:** As of November 2025, several former Parameters in `Simulation.v` are now concrete definitions.
 
 Install Coq 8.18+ (or the Coq Platform ≥8.18) and run
 `./verify_subsumption.sh` from `coq/` to rebuild the flagship theorem.
@@ -43,12 +43,12 @@ The Thiele Machine makes explicit what classical computation ignores:
 
 #### 1. **Simulation.v** (88 lines)
 - **Purpose:** Repackages the universal Thiele interpreter as a blind program that simulates any classical TM.
-- **Status:** ⚠️ Builds with 3 admitted lemmas pending; the obligations are tracked in `../../ADMIT_REPORT.txt` alongside the interpreter interface axioms.
+- **Status:** ⚠️ **PARTIALLY UPDATED (November 2025):** Parameter declarations have been replaced with concrete definitions. The `Blind` predicate, `thiele_step`, and `utm_program` are now defined constructively. Archived lemmas from `UTM_Program.v` (PC bounds, register discipline) are already imported and in use. Several proof obligations remain incomplete and require bridging between ThieleMachine and CPU state spaces.
 - **Main statements:**
   - `SimulationWitness`: Record exposing the blind interpreter and encode/decode functions.
   - `turing_contained_in_thiele`: Every TM is simulated exactly by the blind interpreter.
-- **Interpretation:** Establishes the containment half of subsumption without appealing to sighted instructions.
-- **Dependencies:** Imports the universal machine components from `thieleuniversal/coqproofs/`.
+- **Interpretation:** Establishes the containment half of subsumption. The universal interpreter is now partially constructive with concrete definitions replacing axioms, though some proof obligations remain.
+- **Dependencies:** Imports the universal machine components from `thieleuniversal/coqproofs/` including `UTM_Program.program_instrs`.
 - **Build:** `make thielemachine/coqproofs/Simulation.vo`
 
 #### 2. **Separation.v** (103 lines)
