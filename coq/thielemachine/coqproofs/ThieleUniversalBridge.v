@@ -454,6 +454,62 @@ Proof.
     simpl. rewrite Nat.min_l by lia. lia.
 Qed.
 
+(* Lemma for StoreIndirect execution *)
+Lemma step_StoreIndirect : forall cpu ra rv,
+  length cpu.(CPU.regs) = 10 ->
+  CPU.read_reg CPU.REG_PC (CPU.step (CPU.StoreIndirect ra rv) cpu) = S (CPU.read_reg CPU.REG_PC cpu).
+Proof.
+  intros cpu ra rv Hlen.
+  apply CPU.step_pc_succ.
+  unfold CPU.pc_unchanged. discriminate. (* REG_PC not modified by StoreIndirect *)
+Qed.
+
+(* Lemma for Branch (unconditional jump) *)
+Lemma step_Branch : forall cpu target,
+  CPU.read_reg CPU.REG_PC (CPU.step (CPU.Branch target) cpu) = target.
+Proof.
+  intros cpu target.
+  unfold CPU.step. simpl.
+  unfold CPU.read_reg. simpl.
+  (* Branch sets PC directly to target *)
+  unfold CPU.write_reg at 1. simpl.
+  destruct (Nat.eqb CPU.REG_PC CPU.REG_PC) eqn:Heq.
+  - (* PC = PC, so we read the written value *)
+    reflexivity.
+  - (* Impossible: PC <> PC *)
+    apply Nat.eqb_neq in Heq. contradiction.
+Qed.
+
+(* Lemma for BranchZero (conditional) when rs = 0 *)
+Lemma step_BranchZero_taken : forall cpu rs target,
+  CPU.read_reg rs cpu = 0 ->
+  length cpu.(CPU.regs) = 10 ->
+  CPU.read_reg CPU.REG_PC (CPU.step (CPU.BranchZero rs target) cpu) = target.
+Proof.
+  intros cpu rs target Hzero Hlen.
+  unfold CPU.step. simpl.
+  rewrite Hzero.
+  unfold CPU.read_reg at 1. simpl.
+  unfold CPU.write_reg at 1. simpl.
+  destruct (Nat.eqb CPU.REG_PC CPU.REG_PC) eqn:Heq.
+  - reflexivity.
+  - apply Nat.eqb_neq in Heq. contradiction.
+Qed.
+
+(* Lemma for BranchZero (conditional) when rs <> 0 *)
+Lemma step_BranchZero_not_taken : forall cpu rs target,
+  CPU.read_reg rs cpu <> 0 ->
+  length cpu.(CPU.regs) = 10 ->
+  CPU.read_reg CPU.REG_PC (CPU.step (CPU.BranchZero rs target) cpu) = S (CPU.read_reg CPU.REG_PC cpu).
+Proof.
+  intros cpu rs target Hnonzero Hlen.
+  unfold CPU.step. simpl.
+  destruct (CPU.read_reg rs cpu) eqn:Hrs.
+  - contradiction.
+  - apply CPU.step_pc_succ.
+    unfold CPU.pc_unchanged. discriminate.
+Qed.
+
 (* ----------------------------------------------------------------- *)
 (* Symbolic Execution - Attempt at Proof 1                          *)
 (* ----------------------------------------------------------------- *)
@@ -629,9 +685,25 @@ Lemma find_rule_index : forall rules q sym q' w m,
     nth idx rules (0, 0, 0, 0, 0%Z) = (q, sym, q', w, m).
 Proof.
   intros rules q sym q' w m Hfind.
-  (* TODO: Induction on rules to find the index where the rule matches *)
-  (* This requires unfolding find_rule and tracking which element matches *)
-Admitted.
+  (* Induction on rules to find the index where the rule matches *)
+  induction rules as [|rule rest IH].
+  - (* Empty list case: impossible since find_rule returns None *)
+    simpl in Hfind. discriminate.
+  - (* Cons case *)
+    simpl in Hfind.
+    destruct rule as ((((q_r, sym_r), q'_r), w_r), m_r).
+    destruct (Nat.eqb q q_r && Nat.eqb sym sym_r) eqn:Hmatch.
+    + (* Match found at head *)
+      injection Hfind as Eq1 Eq2 Eq3.
+      exists 0. split.
+      * simpl. lia.
+      * simpl. subst. reflexivity.
+    + (* No match, recurse *)
+      destruct (IH Hfind) as [idx [Hlt Hnth]].
+      exists (S idx). split.
+      * simpl. lia.
+      * simpl. exact Hnth.
+Qed.
 
 (* Helper: Rules before index don't match *)
 Lemma rules_before_dont_match : forall rules q sym idx,
@@ -651,6 +723,15 @@ Fixpoint loop_steps (i : nat) : nat :=
   | 0 => 0
   | S i' => loop_steps i' + 7 (* 7 instructions per loop iteration *)
   end.
+
+(* Simple property: loop_steps is linear *)
+Lemma loop_steps_linear : forall i,
+  loop_steps i = 7 * i.
+Proof.
+  induction i.
+  - reflexivity.
+  - simpl. rewrite IHi. lia.
+Qed.
 
 (* Loop iteration lemma: checking non-matching rule preserves invariant *)
 Lemma loop_iteration_no_match : forall tm conf cpu i,
