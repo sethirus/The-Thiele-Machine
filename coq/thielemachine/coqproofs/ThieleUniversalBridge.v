@@ -182,25 +182,152 @@ Qed.
 (* Placeholder transition lemmas - these would need full proofs *)
 (* For now we provide stubs that can be filled in *)
 
+(* ----------------------------------------------------------------- *)
+(* Common Infrastructure Lemmas                                      *)
+(* ----------------------------------------------------------------- *)
+
+(* Step composition lemmas *)
+Lemma run_n_add : forall cpu m n,
+  run_n cpu (m + n) = run_n (run_n cpu m) n.
+Proof.
+  intros cpu m n.
+  revert cpu.
+  induction m as [|m' IH]; intros cpu.
+  - simpl. reflexivity.
+  - simpl. rewrite IH. reflexivity.
+Qed.
+
+Lemma run_n_S : forall cpu n,
+  run_n cpu (S n) = run1 (run_n cpu n).
+Proof.
+  intros cpu n.
+  revert cpu.
+  induction n as [|n' IH]; intros cpu.
+  - simpl. reflexivity.
+  - simpl. rewrite IH. reflexivity.
+Qed.
+
+Lemma run_n_0 : forall cpu,
+  run_n cpu 0 = cpu.
+Proof.
+  intros cpu. reflexivity.
+Qed.
+
+Lemma run_n_1 : forall cpu,
+  run_n cpu 1 = run1 cpu.
+Proof.
+  intros cpu. reflexivity.
+Qed.
+
+(* Rewrite run_n in terms of iterations *)
+Lemma run_n_unfold_3 : forall cpu,
+  run_n cpu 3 = run1 (run1 (run1 cpu)).
+Proof.
+  intros cpu.
+  unfold run_n at 1.
+  unfold run_n at 1.
+  unfold run_n at 1.
+  simpl.
+  reflexivity.
+Qed.
+
+(* Memory and register helpers *)
+Lemma read_reg_bounds : forall cpu r,
+  r < 10 ->
+  exists v, CPU.read_reg r cpu = v.
+Proof.
+  intros cpu r Hr.
+  exists (CPU.read_reg r cpu).
+  reflexivity.
+Qed.
+
+(* CPU.step PC progression for non-branching instructions *)
+Lemma step_pc_increment : forall cpu instr,
+  (forall rc tgt, instr <> CPU.Jz rc tgt) ->
+  (forall rc tgt, instr <> CPU.Jnz rc tgt) ->
+  instr <> CPU.Halt ->
+  CPU.read_reg CPU.REG_PC (CPU.step instr cpu) = S (CPU.read_reg CPU.REG_PC cpu).
+Proof.
+  intros cpu instr Hnot_jz Hnot_jnz Hnot_halt.
+  unfold CPU.step.
+  destruct instr; simpl;
+    try (unfold CPU.write_reg; simpl; reflexivity);
+    try contradiction.
+  - (* Jz case *) exfalso. apply (Hnot_jz r n). reflexivity.
+  - (* Jnz case *) exfalso. apply (Hnot_jnz r n). reflexivity.
+  - (* Halt case *) exfalso. apply Hnot_halt. reflexivity.
+Qed.
+
+(* Placeholder for PC progression - will be refined *)
+Axiom pc_in_bounds : forall cpu,
+  CPU.read_reg CPU.REG_PC cpu < 100. (* Rough upper bound *)
+
+(* ----------------------------------------------------------------- *)
+(* Simplified Proof Attempt - Proof 1 Foundation                    *)
+(* ----------------------------------------------------------------- *)
+
+(* First, let's try to prove a simplified version where we just show
+   the structure without full symbolic execution *)
+
+Lemma transition_Fetch_to_FindRule_structure : forall tm conf cpu0,
+  inv_core cpu0 tm conf ->
+  IS_FetchSymbol (CPU.read_reg CPU.REG_PC cpu0) ->
+  exists cpu_find, run_n cpu0 3 = cpu_find.
+Proof.
+  intros tm conf cpu0 Hinv Hfetch.
+  (* This is trivially true - running for 3 steps produces some state *)
+  exists (run_n cpu0 3).
+  reflexivity.
+Qed.
+
+(* Now we need to show PC advances correctly *)
+(* This requires knowing what instructions are at PC=0, 1, 2 *)
+
+(* ----------------------------------------------------------------- *)
+(* Transition Lemmas                                                 *)
+(* ----------------------------------------------------------------- *)
+
 Lemma transition_Fetch_to_FindRule (tm : TM) (conf : TMConfig) (cpu0 : CPU.State) :
   inv_core cpu0 tm conf ->
   IS_FetchSymbol (CPU.read_reg CPU.REG_PC cpu0) ->
   exists cpu_find, run_n cpu0 3 = cpu_find /\ IS_FindRule_Start (CPU.read_reg CPU.REG_PC cpu_find).
 Proof.
   intros Hinv Hfetch.
-  (* TODO: This requires symbolic execution of 3 CPU steps.
-     Proof strategy:
-     1. Start at PC=0 (FetchSymbol state)
-     2. Execute LoadConst instruction at PC=0
-     3. Execute next instruction at PC=1  
-     4. Execute next instruction at PC=2
-     5. Show PC=3 after 3 steps (FindRule_Start state)
-     
-     This would use:
-     - run_n definition  
-     - CPU.step semantics
-     - program_instrs properties
-  *)
+  (* Strategy: Unfold run_n to 3 iterations, then show PC progression *)
+  
+  (* Unfold Hfetch to get PC = 0 *)
+  unfold IS_FetchSymbol in Hfetch.
+  
+  (* Set up the result state *)
+  exists (run_n cpu0 3).
+  split.
+  - reflexivity.
+  - (* Need to show PC = 3 after 3 steps *)
+    unfold IS_FindRule_Start.
+    
+    (* This is where we need symbolic execution *)
+    (* TODO: Expand run_n, decode instructions at PC=0,1,2, execute them *)
+    (* 
+       Step 1: cpu0 has PC=0
+       - Decode instruction at PC=0
+       - Execute: PC becomes 1
+       
+       Step 2: cpu1 has PC=1  
+       - Decode instruction at PC=1
+       - Execute: PC becomes 2
+       
+       Step 3: cpu2 has PC=2
+       - Decode instruction at PC=1
+       - Execute: PC becomes 3
+       
+       Infrastructure available:
+       - run_n_unfold_3 to expand 3 iterations
+       - step_pc_increment for PC progression
+       
+       Missing:
+       - Concrete knowledge of what instructions are at PC=0,1,2
+       - Lemmas about how those specific instructions affect state
+    *)
 Admitted.
 
 Lemma transition_FindRule_to_ApplyRule (tm : TM) (conf : TMConfig) (cpu_find : CPU.State) 
