@@ -88,10 +88,10 @@ jobs:
           mkdir -p /tmp/fuzz_test
           python3 roadmap-enhancements/fuzzing/fuzz/mutate_receipts.py bootstrap_receipts/050_kernel_emit.json --count 100 --out-dir /tmp/fuzz_test
           
-          # Count rejections
+          # Count rejections (use generated kernel_public.key as trust anchor)
           REJECTED=0
           for f in /tmp/fuzz_test/*.json; do
-            if ! python3 verifier/replay.py "$f" --dry-run > /dev/null 2>&1; then
+            if ! python3 verifier/replay.py "$f" --dry-run --trusted-pubkey "$(cat kernel_public.key)" > /dev/null 2>&1; then
               REJECTED=$((REJECTED + 1))
             fi
           done
