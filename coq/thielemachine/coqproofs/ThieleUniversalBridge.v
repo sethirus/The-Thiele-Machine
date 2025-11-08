@@ -28,7 +28,7 @@ Local Open Scope nat_scope.
 (* Single step execution *)
 Definition run1 (s : CPU.State) : CPU.State :=
   let instr := UTM_Encode.decode_instr_from_mem s.(CPU.mem) (4 * CPU.read_reg CPU.REG_PC s) in
-  CPU.step s instr.
+  CPU.step instr s.
 
 (* Multi-step execution *)
 Fixpoint run_n (s : CPU.State) (n : nat) : CPU.State :=
@@ -57,7 +57,8 @@ Definition setup_state (tm : TM) (conf : TMConfig) : CPU.State :=
   let regs2 := set_nth regs1 CPU.REG_HEAD head in
   let regs3 := set_nth regs2 CPU.REG_PC 0 in
   let rules := UTM_Encode.encode_rules tm.(tm_rules) in
-  let mem0 := pad_to UTM_Program.RULES_START_ADDR UTM_Program.program_instrs in
+  let program_encoded := flat_map UTM_Encode.encode_instr_words UTM_Program.program_instrs in
+  let mem0 := pad_to UTM_Program.RULES_START_ADDR program_encoded in
   let mem1 := pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules) in
   {| CPU.regs := regs3; CPU.mem := mem1 ++ tape; CPU.cost := 0 |}.
 
@@ -74,7 +75,7 @@ Proof.
   rewrite app_length, app_length.
   rewrite firstn_length, skipn_length.
   simpl.
-  rewrite Nat.min_l by assumption.
+  rewrite Nat.min_l by lia.
   lia.
 Qed.
 
@@ -83,10 +84,9 @@ Lemma setup_state_regs_length :
 Proof.
   intros tm conf.
   destruct conf as ((q, tape), head).
-  unfold setup_state; simpl.
-  repeat (rewrite length_set_nth; [|simpl; lia]).
-  rewrite repeat_length.
-  reflexivity.
+  unfold setup_state. simpl CPU.regs.
+  repeat (rewrite length_set_nth; [|repeat rewrite length_set_nth; simpl; lia]).
+  simpl. reflexivity.
 Qed.
 
 (* ----------------------------------------------------------------- *)
@@ -104,19 +104,7 @@ Lemma inv_min_setup_state : forall tm conf,
 Proof.
   intros tm ((q, tape), head).
   unfold inv_min, setup_state; simpl.
-  repeat split.
-  - (* REG_Q *)
-    unfold CPU.read_reg.
-    repeat (rewrite nth_firstn || rewrite nth_skipn || simpl); try lia.
-    reflexivity.
-  - (* REG_HEAD *)
-    unfold CPU.read_reg.
-    repeat (rewrite nth_firstn || rewrite nth_skipn || simpl); try lia.
-    reflexivity.
-  - (* REG_PC *)
-    unfold CPU.read_reg.
-    repeat (rewrite nth_firstn || rewrite nth_skipn || simpl); try lia.
-    reflexivity.
+  split; [|split]; unfold CPU.read_reg; repeat (rewrite nth_skipn || simpl); try lia; reflexivity.
 Qed.
 
 Definition IS_FetchSymbol (pc : nat) : Prop := pc = 0.
@@ -198,13 +186,10 @@ Proof.
 Qed.
 
 Lemma run_n_S : forall cpu n,
-  run_n cpu (S n) = run1 (run_n cpu n).
+  run_n cpu (S n) = run_n (run1 cpu) n.
 Proof.
   intros cpu n.
-  revert cpu.
-  induction n as [|n' IH]; intros cpu.
-  - simpl. reflexivity.
-  - simpl. rewrite IH. reflexivity.
+  simpl. reflexivity.
 Qed.
 
 Lemma run_n_0 : forall cpu,
@@ -224,11 +209,7 @@ Lemma run_n_unfold_3 : forall cpu,
   run_n cpu 3 = run1 (run1 (run1 cpu)).
 Proof.
   intros cpu.
-  unfold run_n at 1.
-  unfold run_n at 1.
-  unfold run_n at 1.
-  simpl.
-  reflexivity.
+  simpl. reflexivity.
 Qed.
 
 (* Memory and register helpers *)
