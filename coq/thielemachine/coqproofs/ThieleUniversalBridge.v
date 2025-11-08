@@ -22,6 +22,14 @@ Import ListNotations.
 Local Open Scope nat_scope.
 
 (* ----------------------------------------------------------------- *)
+(* Program encoding                                                  *)
+(* ----------------------------------------------------------------- *)
+
+(* The encoded universal program *)
+Definition program : list nat :=
+  flat_map UTM_Encode.encode_instr_words UTM_Program.program_instrs.
+
+(* ----------------------------------------------------------------- *)
 (* CPU Execution - from ThieleUniversal_Run1.v                      *)
 (* ----------------------------------------------------------------- *)
 
@@ -57,8 +65,7 @@ Definition setup_state (tm : TM) (conf : TMConfig) : CPU.State :=
   let regs2 := set_nth regs1 CPU.REG_HEAD head in
   let regs3 := set_nth regs2 CPU.REG_PC 0 in
   let rules := UTM_Encode.encode_rules tm.(tm_rules) in
-  let program_encoded := flat_map UTM_Encode.encode_instr_words UTM_Program.program_instrs in
-  let mem0 := pad_to UTM_Program.RULES_START_ADDR program_encoded in
+  let mem0 := pad_to UTM_Program.RULES_START_ADDR program in
   let mem1 := pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules) in
   {| CPU.regs := regs3; CPU.mem := mem1 ++ tape; CPU.cost := 0 |}.
 
@@ -121,8 +128,7 @@ Definition inv (st : CPU.State) (tm : TM) (conf : TMConfig) : Prop :=
   CPU.read_reg CPU.REG_HEAD st = head /\
   CPU.read_reg CPU.REG_PC st = 0 /\
   tape_window_ok st tape /\
-  firstn (length (flat_map UTM_Encode.encode_instr_words UTM_Program.program_instrs)) st.(CPU.mem) = 
-    flat_map UTM_Encode.encode_instr_words UTM_Program.program_instrs /\
+  firstn (length program) st.(CPU.mem) = program /\
   firstn (length (UTM_Encode.encode_rules tm.(tm_rules)))
          (skipn UTM_Program.RULES_START_ADDR st.(CPU.mem)) = 
     UTM_Encode.encode_rules tm.(tm_rules).
