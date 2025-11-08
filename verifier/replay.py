@@ -449,6 +449,13 @@ def main():
             if repo_default.exists():
                 manifest_path = str(repo_default)
 
+    # Prefer an explicit trusted pubkey argument; otherwise, if a kernel_public.key
+    # file exists (created by CI's generate_kernel_keys.py), use it as the trust anchor.
+    kernel_pub = Path("kernel_public.key")
+    if args.trusted_pubkey is None and kernel_pub.exists():
+        args.trusted_pubkey = kernel_pub.read_text().strip()
+        print(f"Using generated trust anchor from kernel_public.key: {args.trusted_pubkey}")
+
     try:
         trust_manifest, trusted_pubkey = resolve_trust(manifest_path, args.trusted_pubkey)
     except TrustContextError as exc:
