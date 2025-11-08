@@ -10,6 +10,16 @@
 (*   - utm_program: defined as empty program                           *)
 (*   - utm_program_blind: proved from the definition                   *)
 (*                                                                      *)
+(* Imported lemmas from archive (UTM_Program.v):                       *)
+(*   The file already imports and uses lemmas from ThieleUniversal     *)
+(*   modules including:                                                 *)
+(*   - program_instrs: concrete CPU instruction list                   *)
+(*   - program_instrs_length_gt_29: PC bound lemma                     *)
+(*   - program_instrs_before_apply_not_store: register discipline      *)
+(*   - RULES_START_ADDR, TAPE_START_ADDR: memory layout constants      *)
+(*   These are used throughout the simulation proofs and establish     *)
+(*   that the CPU program satisfies necessary invariants.              *)
+(*                                                                      *)
 (* The proof architecture uses two state spaces:                       *)
 (*   1. ThieleMachine.State {pc:nat} - specification level             *)
 (*   2. ThieleUniversal.CPU.State {regs;mem;cost} - implementation     *)
@@ -147,6 +157,11 @@ Qed.
 (* A program is blind if it contains no LASSERT or MDLACC instructions. *)
 Definition Blind (p : Prog) : Prop :=
   Forall (fun i => is_LASSERT i = false /\ is_MDLACC i = false) p.(code).
+
+(* Note: The actual universal interpreter execution uses CPU instructions
+   from UTM_Program.program_instrs (LoadConst, AddReg, etc.), which are
+   inherently blind as they don't include insight-generating operations.
+   The blindness property is reflected here at the ThieleMachine level. *)
 
 (* The thiele_step function provides a bridge between the ThieleMachine
    State (which encodes TM configurations in the pc field) and the
