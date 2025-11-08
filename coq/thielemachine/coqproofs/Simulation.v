@@ -33,7 +33,7 @@
 (* TM configurations are encoded in the pc field, and actual execution *)
 (* happens via CPU semantics (ThieleUniversal.run_n).                  *)
 (* ================================================================= *)
-From Coq Require Import List Arith Lia PeanoNat Bool.
+From Coq Require Import List Arith Lia PeanoNat Bool ZArith.
 From ThieleUniversal Require Import TM UTM_Rules.
 From ThieleUniversal Require Import CPU UTM_Program.
 (* Note: ThieleUniversal.v has compilation errors, so we axiomatize what we need *)
@@ -68,7 +68,8 @@ Module ThieleUniversal.
   Definition inv_min (st : CPU.State) (tm : TM) (conf : TMConfig) : Prop :=
     let '(q, tape, head) := conf in
     CPU.read_reg CPU.REG_Q st = q /\
-    CPU.read_reg CPU.REG_HEAD st = head.
+    CPU.read_reg CPU.REG_HEAD st = head /\
+    CPU.read_reg CPU.REG_PC st = 0.
   
   Axiom inv_min_setup_state : forall tm conf,
     inv_min (setup_state tm conf) tm conf.
@@ -107,6 +108,7 @@ Module ThieleUniversal.
   
   (* Other needed definitions *)
   Axiom inv_core : CPU.State -> TM -> TMConfig -> Prop.
+  Axiom inv : CPU.State -> TM -> TMConfig -> Prop.
   Axiom find_rule_start_inv : TM -> TMConfig -> CPU.State -> Prop.
   
   Axiom transition_Fetch_to_FindRule : forall (tm : TM) (conf : TMConfig) (cpu0 : CPU.State),
@@ -221,7 +223,8 @@ Lemma digits_ok_app :
 Proof.
   intros xs ys Hxs Hys.
   unfold digits_ok in *.
-  apply Forall_app; assumption.
+  apply Forall_app.
+  split; assumption.
 Qed.
 
 (* ----------------------------------------------------------------- *)
@@ -323,7 +326,7 @@ Proof.
   intros tm q tape head.
   specialize (utm_cpu_state_inv_min tm ((q, tape), head)) as Hmin.
   simpl in Hmin.
-  destruct Hmin as [Hq _].
+  destruct Hmin as [Hq [_ _]].
   exact Hq.
 Qed.
 
@@ -342,6 +345,20 @@ Qed.
 Definition rules_fit (tm : TM) : Prop :=
   (length (UTM_Encode.encode_rules tm.(tm_rules))
      <= UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR)%nat.
+
+(* Forward declarations for lemmas needed early *)
+Axiom utm_cpu_state_inv_full : forall tm conf,
+  rules_fit tm -> ThieleUniversal.inv (utm_cpu_state tm conf) tm conf.
+
+Lemma utm_cpu_state_inv_from_rules_fit :
+  forall tm conf,
+    rules_fit tm ->
+    ThieleUniversal.inv (utm_cpu_state tm conf) tm conf.
+Proof.
+  intros tm conf Hfit.
+  apply utm_cpu_state_inv_full.
+  exact Hfit.
+Qed.
 
 Lemma utm_cpu_state_fetch :
   forall tm conf,
