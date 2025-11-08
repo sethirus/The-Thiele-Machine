@@ -128,6 +128,16 @@ Definition inv (st : CPU.State) (tm : TM) (conf : TMConfig) : Prop :=
   (* Additional invariants would go here *)
   True.
 
+Lemma inv_setup_state : forall tm conf,
+  inv (setup_state tm conf) tm conf.
+Proof.
+  intros tm conf.
+  unfold inv.
+  split.
+  - apply inv_min_setup_state.
+  - exact I.
+Qed.
+
 Definition inv_core (st : CPU.State) (tm : TM) (conf : TMConfig) : Prop :=
   inv_min st tm conf.
 
@@ -172,7 +182,7 @@ Qed.
 (* Placeholder transition lemmas - these would need full proofs *)
 (* For now we provide stubs that can be filled in *)
 
-Definition transition_Fetch_to_FindRule (tm : TM) (conf : TMConfig) (cpu0 : CPU.State) :
+Lemma transition_Fetch_to_FindRule (tm : TM) (conf : TMConfig) (cpu0 : CPU.State) :
   inv_core cpu0 tm conf ->
   IS_FetchSymbol (CPU.read_reg CPU.REG_PC cpu0) ->
   exists cpu_find, run_n cpu0 3 = cpu_find /\ IS_FindRule_Start (CPU.read_reg CPU.REG_PC cpu_find).
@@ -193,7 +203,7 @@ Proof.
   *)
 Admitted.
 
-Definition transition_FindRule_to_ApplyRule (tm : TM) (conf : TMConfig) (cpu_find : CPU.State) 
+Lemma transition_FindRule_to_ApplyRule (tm : TM) (conf : TMConfig) (cpu_find : CPU.State) 
   (q' write : nat) (move : Z) :
   let '(q, tape, head) := conf in
   let sym := nth head tape (tm_blank tm) in
