@@ -523,8 +523,29 @@ Lemma find_rule_index : forall rules q sym q' w m,
     idx < length rules /\
     nth idx rules (0, 0, 0, 0, 0%Z) = (q, sym, q', w, m).
 Proof.
-  (* TODO: Complete proof about finding rule index *)
-Admitted.
+  intros rules q sym q' w m Hfind.
+  induction rules as [|rule rest IH].
+  - (* Empty list: impossible since find_rule returns None *)
+    simpl in Hfind. discriminate.
+  - (* Cons case *)
+    simpl in Hfind.
+    destruct rule as ((((q_r, sym_r), q'_r), w_r), m_r).
+    destruct (Nat.eqb q_r q && Nat.eqb sym_r sym) eqn:Hmatch.
+    + (* Match found at head *)
+      apply andb_true_iff in Hmatch.
+      destruct Hmatch as [Hq Hsym].
+      apply Nat.eqb_eq in Hq. apply Nat.eqb_eq in Hsym.
+      subst q_r sym_r.
+      inversion Hfind; subst.
+      exists 0. split.
+      * simpl. lia.
+      * simpl. reflexivity.
+    + (* No match, recurse *)
+      destruct (IH Hfind) as [idx [Hlt Hnth]].
+      exists (S idx). split.
+      * simpl. lia.
+      * simpl. exact Hnth.
+Qed.
 
 (* Helper: Rules before index don't match *)
 Lemma rules_before_dont_match : forall rules q sym idx,
