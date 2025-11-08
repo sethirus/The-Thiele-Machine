@@ -320,7 +320,8 @@ Proof.
   intros tm q tape head Hfit Hlt.
   set (cpu0 := utm_cpu_state tm ((q, tape), head)).
   pose proof (utm_cpu_state_inv_from_rules_fit tm ((q, tape), head) Hfit) as Hinv.
-  destruct Hinv as [_ [_ [_ [Htape _]]]].
+  destruct Hinv as [_ [_ [_ [Htape [_ _]]]]].
+  unfold ThieleUniversal.tape_window_ok in Htape.
   unfold ThieleUniversal.CPU.read_mem, cpu0.
   rewrite ThieleUniversal.nth_add_skipn.
   rewrite <- Htape.
