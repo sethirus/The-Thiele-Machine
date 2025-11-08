@@ -714,8 +714,40 @@ Lemma rules_before_dont_match : forall rules q sym idx,
   find_rule rules q sym = 
     find_rule (skipn idx rules) q sym.
 Proof.
-  (* TODO: Show that skipping non-matching rules preserves find_rule result *)
-Admitted.
+  intros rules q sym idx [q' [w [m Hidx]]] Hbefore.
+  (* Induction on idx to show we can skip non-matching rules *)
+  revert rules Hidx Hbefore.
+  induction idx as [|idx' IH]; intros rules Hidx Hbefore.
+  - (* Base case: idx = 0, no rules to skip *)
+    simpl. reflexivity.
+  - (* Inductive case: idx = S idx' *)
+    destruct rules as [|r rules'].
+    + (* Empty list case - contradiction *)
+      simpl in Hidx. discriminate.
+    + (* Non-empty list *)
+      simpl find_rule.
+      destruct r as [[[[q0 sym0] q'0] w0] m0].
+      destruct (Nat.eqb q0 q && Nat.eqb sym0 sym) eqn:Hmatch.
+      * (* This rule matches - but we said rules before idx don't match *)
+        (* Contradiction with Hbefore at j=0 *)
+        assert (Hcontra: 0 < S idx') by lia.
+        specialize (Hbefore 0 Hcontra).
+        simpl in Hbefore.
+        apply andb_true_iff in Hmatch.
+        destruct Hmatch as [Heq1 Heq2].
+        apply Nat.eqb_eq in Heq1. apply Nat.eqb_eq in Heq2.
+        subst q0 sym0.
+        contradiction Hbefore. reflexivity.
+      * (* This rule doesn't match - recurse *)
+        simpl skipn.
+        apply IH.
+        -- simpl in Hidx. exact Hidx.
+        -- intros j Hj.
+           assert (Hj': S j < S idx') by lia.
+           specialize (Hbefore (S j) Hj').
+           simpl in Hbefore.
+           exact Hbefore.
+Qed.
 
 (* Step count for checking i rules in the loop *)
 Fixpoint loop_steps (i : nat) : nat :=
