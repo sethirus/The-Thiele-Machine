@@ -336,7 +336,10 @@ Lemma step_LoadConst : forall cpu rd v,
   CPU.read_reg CPU.REG_PC (CPU.step (CPU.LoadConst rd v) cpu) = S (CPU.read_reg CPU.REG_PC cpu) /\
   CPU.read_reg rd (CPU.step (CPU.LoadConst rd v) cpu) = v.
 Proof.
-  (* TODO: Complete proof about LoadConst execution *)
+  intros cpu rd v Hneq Hlen.
+  split.
+  - apply CPU.step_pc_succ. unfold CPU.pc_unchanged. exact Hneq.
+  - unfold CPU.step. simpl. admit.
 Admitted.
 
 (* Lemma for AddReg execution *)
@@ -347,7 +350,10 @@ Lemma step_AddReg : forall cpu rd rs1 rs2,
   CPU.read_reg rd (CPU.step (CPU.AddReg rd rs1 rs2) cpu) = 
     CPU.read_reg rs1 cpu + CPU.read_reg rs2 cpu.
 Proof.
-  (* TODO: Complete proof about AddReg execution *)
+  intros cpu rd rs1 rs2 Hneq Hlen.
+  split.
+  - apply CPU.step_pc_succ. unfold CPU.pc_unchanged. exact Hneq.
+  - unfold CPU.step. simpl. admit.
 Admitted.
 
 (* Lemma for LoadIndirect execution *)
@@ -358,7 +364,10 @@ Lemma step_LoadIndirect : forall cpu rd ra,
   CPU.read_reg rd (CPU.step (CPU.LoadIndirect rd ra) cpu) = 
     CPU.read_mem (CPU.read_reg ra cpu) cpu.
 Proof.
-  (* TODO: Complete proof about LoadIndirect execution *)
+  intros cpu rd ra Hneq Hlen.
+  split.
+  - apply CPU.step_pc_succ. unfold CPU.pc_unchanged. exact Hneq.
+  - unfold CPU.step. simpl. admit.
 Admitted.
 
 (* Lemma for StoreIndirect execution *)
@@ -366,8 +375,10 @@ Lemma step_StoreIndirect : forall cpu ra rv,
   length cpu.(CPU.regs) = 10 ->
   CPU.read_reg CPU.REG_PC (CPU.step (CPU.StoreIndirect ra rv) cpu) = S (CPU.read_reg CPU.REG_PC cpu).
 Proof.
-  (* TODO: Complete proof about StoreIndirect execution *)
-Admitted.
+  intros cpu ra rv Hlen.
+  apply CPU.step_pc_succ.
+  unfold CPU.pc_unchanged. exact I.
+Qed.
 
 (* Lemma for BranchZero (conditional) when rs = 0 *)
 Lemma step_BranchZero_taken : forall cpu rs target,
@@ -375,8 +386,10 @@ Lemma step_BranchZero_taken : forall cpu rs target,
   length cpu.(CPU.regs) = 10 ->
   CPU.read_reg CPU.REG_PC (CPU.step (CPU.Jz rs target) cpu) = target.
 Proof.
-  (* TODO: Complete proof about Jz execution when register is zero *)
-Admitted.
+  intros cpu rs target Hzero Hlen.
+  apply CPU.step_jz_true.
+  apply Nat.eqb_eq. exact Hzero.
+Qed.
 
 (* Lemma for BranchZero (conditional) when rs <> 0 *)
 Lemma step_BranchZero_not_taken : forall cpu rs target,
@@ -384,8 +397,10 @@ Lemma step_BranchZero_not_taken : forall cpu rs target,
   length cpu.(CPU.regs) = 10 ->
   CPU.read_reg CPU.REG_PC (CPU.step (CPU.Jz rs target) cpu) = S (CPU.read_reg CPU.REG_PC cpu).
 Proof.
-  (* TODO: Complete proof about Jz execution when register is non-zero *)
-Admitted.
+  intros cpu rs target Hnonzero Hlen.
+  apply CPU.step_jz_false.
+  apply Nat.eqb_neq. exact Hnonzero.
+Qed.
 
 (* ----------------------------------------------------------------- *)
 (* Symbolic Execution - Attempt at Proof 1                          *)
