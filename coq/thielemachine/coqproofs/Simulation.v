@@ -52,7 +52,8 @@ Local Open Scope nat_scope.
 
 Module EncodingMod := ThieleMachine.Modular_Proofs.Encoding.
 
-(* We use concrete definitions from ThieleUniversalBridge instead of axioms *)
+(* Create namespace alias for backward compatibility *)
+Module ThieleUniversal := ThieleUniversalBridge.
 
 (* ----------------------------------------------------------------- *)
 (* Encoding TM configurations into minimalist Thiele states           *)
@@ -275,8 +276,13 @@ Definition rules_fit (tm : TM) : Prop :=
      <= UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR)%nat.
 
 (* Forward declarations for lemmas needed early *)
-Axiom utm_cpu_state_inv_full : forall tm conf,
+Lemma utm_cpu_state_inv_full : forall tm conf,
   rules_fit tm -> ThieleUniversal.inv (utm_cpu_state tm conf) tm conf.
+Proof.
+  intros tm conf Hfit.
+  unfold utm_cpu_state.
+  apply ThieleUniversal.inv_setup_state.
+Qed.
 
 Lemma utm_cpu_state_inv_from_rules_fit :
   forall tm conf,
