@@ -263,6 +263,48 @@ Axiom pc_in_bounds : forall cpu,
   CPU.read_reg CPU.REG_PC cpu < 100. (* Rough upper bound *)
 
 (* ----------------------------------------------------------------- *)
+(* Instruction Decoding Lemmas                                       *)
+(* ----------------------------------------------------------------- *)
+
+(* Import the actual UTM program from archive *)
+(* The program starts at PC=0 with these instructions:
+   PC=0: LoadConst REG_TEMP1 TAPE_START_ADDR  (Fetch phase)
+   PC=1: AddReg REG_ADDR REG_TEMP1 REG_HEAD
+   PC=2: LoadIndirect REG_SYM REG_ADDR
+   PC=3: LoadConst REG_ADDR RULES_START_ADDR  (FindRule phase starts)
+   ...
+*)
+
+(* Lemmas about what instructions are at specific PCs *)
+Lemma instr_at_pc_0 : 
+  nth 0 UTM_Program.program_instrs CPU.Halt = 
+  CPU.LoadConst CPU.REG_TEMP1 CPU.TAPE_START_ADDR.
+Proof.
+  unfold UTM_Program.program_instrs. simpl. reflexivity.
+Qed.
+
+Lemma instr_at_pc_1 :
+  nth 1 UTM_Program.program_instrs CPU.Halt =
+  CPU.AddReg CPU.REG_ADDR CPU.REG_TEMP1 CPU.REG_HEAD.
+Proof.
+  unfold UTM_Program.program_instrs. simpl. reflexivity.
+Qed.
+
+Lemma instr_at_pc_2 :
+  nth 2 UTM_Program.program_instrs CPU.Halt =
+  CPU.LoadIndirect CPU.REG_SYM CPU.REG_ADDR.
+Proof.
+  unfold UTM_Program.program_instrs. simpl. reflexivity.
+Qed.
+
+Lemma instr_at_pc_3 :
+  nth 3 UTM_Program.program_instrs CPU.Halt =
+  CPU.LoadConst CPU.REG_ADDR CPU.RULES_START_ADDR.
+Proof.
+  unfold UTM_Program.program_instrs. simpl. reflexivity.
+Qed.
+
+(* ----------------------------------------------------------------- *)
 (* Simplified Proof Attempt - Proof 1 Foundation                    *)
 (* ----------------------------------------------------------------- *)
 
@@ -279,6 +321,97 @@ Proof.
   exists (run_n cpu0 3).
   reflexivity.
 Qed.
+
+(* ----------------------------------------------------------------- *)
+(* CPU Step Execution Lemmas                                         *)
+(* ----------------------------------------------------------------- *)
+
+(* Lemma for LoadConst execution *)
+Lemma step_LoadConst : forall cpu rd v,
+  CPU.read_reg CPU.REG_PC (CPU.step (CPU.LoadConst rd v) cpu) = S (CPU.read_reg CPU.REG_PC cpu) /\
+  CPU.read_reg rd (CPU.step (CPU.LoadConst rd v) cpu) = v.
+Proof.
+  intros cpu rd v.
+  unfold CPU.step.
+  simpl.
+  split.
+  - unfold CPU.write_reg, CPU.read_reg. simpl. reflexivity.
+  - unfold CPU.write_reg, CPU.read_reg. simpl.
+    (* This needs more detail about register file structure *)
+Admitted.
+
+(* Lemma for AddReg execution *)
+Lemma step_AddReg : forall cpu rd rs1 rs2,
+  CPU.read_reg CPU.REG_PC (CPU.step (CPU.AddReg rd rs1 rs2) cpu) = S (CPU.read_reg CPU.REG_PC cpu) /\
+  CPU.read_reg rd (CPU.step (CPU.AddReg rd rs1 rs2) cpu) = 
+    CPU.read_reg rs1 cpu + CPU.read_reg rs2 cpu.
+Proof.
+  intros cpu rd rs1 rs2.
+  unfold CPU.step.
+  simpl.
+  split.
+  - unfold CPU.write_reg, CPU.read_reg. simpl. reflexivity.
+  - unfold CPU.write_reg, CPU.read_reg. simpl.
+    (* This needs more detail about register file structure *)
+Admitted.
+
+(* Lemma for LoadIndirect execution *)
+Lemma step_LoadIndirect : forall cpu rd ra,
+  CPU.read_reg CPU.REG_PC (CPU.step (CPU.LoadIndirect rd ra) cpu) = S (CPU.read_reg CPU.REG_PC cpu) /\
+  CPU.read_reg rd (CPU.step (CPU.LoadIndirect rd ra) cpu) = 
+    CPU.read_mem (CPU.read_reg ra cpu) cpu.
+Proof.
+  intros cpu rd ra.
+  unfold CPU.step.
+  simpl.
+  split.
+  - unfold CPU.write_reg, CPU.read_reg. simpl. reflexivity.
+  - unfold CPU.write_reg, CPU.read_reg. simpl.
+    (* This needs more detail about register file structure *)
+Admitted.
+
+(* ----------------------------------------------------------------- *)
+(* Symbolic Execution - Attempt at Proof 1                          *)
+(* ----------------------------------------------------------------- *)
+
+(* Try a direct proof approach using the specific instructions *)
+Lemma transition_Fetch_to_FindRule_direct : forall tm conf cpu0,
+  inv_core cpu0 tm conf ->
+  IS_FetchSymbol (CPU.read_reg CPU.REG_PC cpu0) ->
+  CPU.read_reg CPU.REG_PC cpu0 = 0 ->
+  (* Assume we can decode instructions from memory encoded program *)
+  (forall pc, UTM_Encode.decode_instr_from_mem cpu0.(CPU.mem) (4 * pc) = 
+              nth pc UTM_Program.program_instrs CPU.Halt) ->
+  exists cpu_find, 
+    run_n cpu0 3 = cpu_find /\ 
+    IS_FindRule_Start (CPU.read_reg CPU.REG_PC cpu_find) /\
+    CPU.read_reg CPU.REG_PC cpu_find = 3.
+Proof.
+  intros tm conf cpu0 Hinv Hfetch Hpc0 Hdecode.
+  
+  (* Expand run_n 3 = run1 (run1 (run1 cpu0)) *)
+  exists (run_n cpu0 3).
+  split; [reflexivity|].
+  split.
+  - unfold IS_FindRule_Start. 
+    (* We need to show PC = 3 *)
+    
+    (* Step 1: Execute instruction at PC=0 *)
+    assert (H_step0 : run_n cpu0 1 = run1 cpu0) by reflexivity.
+    
+    (* Instruction at PC=0 is LoadConst REG_TEMP1 TAPE_START_ADDR *)
+    assert (H_instr0 : UTM_Encode.decode_instr_from_mem cpu0.(CPU.mem) (4 * 0) = 
+                       CPU.LoadConst CPU.REG_TEMP1 CPU.TAPE_START_ADDR).
+    { rewrite Hdecode. rewrite instr_at_pc_0. reflexivity. }
+    
+    (* After step 1, PC = 1 *)
+    unfold run1 at 1.
+    rewrite H_instr0.
+    
+    (* Now we need to show that after 3 steps, PC = 3 *)
+    (* This requires unfolding run_n further and tracking PC through each step *)
+    
+Admitted.
 
 (* Now we need to show PC advances correctly *)
 (* This requires knowing what instructions are at PC=0, 1, 2 *)
