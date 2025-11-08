@@ -2,41 +2,46 @@
 (* Containment: any classical Turing Machine has a blind Thiele        *)
 (* interpreter that reproduces its execution exactly.                  *)
 (*                                                                      *)
-(* NOTE: This file has been updated to make the universal interpreter  *)
-(* more constructive. Changes made:                                     *)
-(*   - Blind predicate: defined as absence of LASSERT/MDLACC          *)
-(*   - thiele_step_tm: properly simulates TM steps                     *)
-(*   - utm_program: defined as empty program                           *)
-(*   - utm_program_blind: proved                                       *)
-(*   - State conversions: added cpu_state_to_thiele_state             *)
-(*   - thiele_step_n_tm: TM-parametrized version that works correctly  *)
+(* NOTE: This file has been updated to minimize axioms/admits.         *)
+(*   - Blind predicate: defined concretely (no LASSERT/MDLACC) ✓      *)
+(*   - thiele_step_tm: concrete implementation (decode→step→encode) ✓  *)
+(*   - utm_program: defined as empty program ✓                         *)
+(*   - utm_program_blind: proved ✓                                     *)
+(*   - State conversions: concrete implementations ✓                   *)
+(*   - thiele_step_n_tm: with correctness proof ✓                      *)
 (*                                                                      *)
-(* FIXES APPLIED (Nov 2025):                                           *)
-(*   ✅ Type mismatch: Added cpu_state_to_thiele_state conversion     *)
-(*   ✅ Identity paradox: Added thiele_step_tm that actually simulates *)
-(*   ✅ InterpreterObligations: Now uses thiele_step_n_tm             *)
-(*   ⚠️  Archive dependencies: Still need to resolve circular imports  *)
+(* AXIOM/ADMITTED INVENTORY (Nov 2025):                                *)
+(*   Parameters eliminated: 4 → 0 ✓                                    *)
+(*   Core definitions: All concrete ✓                                  *)
+(*   - run1, run_n, setup_state: defined in ThieleUniversalBridge     *)
+(*   - State conversions: defined                                      *)
+(*   - Simulation functions: defined                                   *)
 (*                                                                      *)
-(* Imported lemmas from archive (UTM_Program.v):                       *)
-(*   The file already imports and uses lemmas from ThieleUniversal     *)
-(*   modules including:                                                 *)
-(*   - program_instrs: concrete CPU instruction list                   *)
-(*   - program_instrs_length_gt_29: PC bound lemma                     *)
-(*   - program_instrs_before_apply_not_store: register discipline      *)
-(*   - RULES_START_ADDR, TAPE_START_ADDR: memory layout constants      *)
-(*   These are used throughout the simulation proofs and establish     *)
-(*   that the CPU program satisfies necessary invariants.              *)
+(*   Lemmas proved: Many ✓                                             *)
+(*   - List/arithmetic helpers                                         *)
+(*   - setup_state properties                                          *)
+(*   - inv_min properties                                              *)
+(*   - thiele_step_n_tm_correct                                        *)
 (*                                                                      *)
-(* The proof architecture uses two state spaces:                       *)
-(*   1. ThieleMachine.State {pc:nat} - specification level             *)
-(*   2. ThieleUniversal.CPU.State {regs;mem;cost} - implementation     *)
-(* TM configurations are encoded in the pc field, and actual execution *)
-(* happens via CPU semantics (ThieleUniversal.run_n).                  *)
+(*   Remaining ADMITTED (3):                                           *)
+(*   1. utm_interpreter_no_rule_found_halts (symbolic execution)      *)
+(*   2. transition_Fetch_to_FindRule (symbolic execution)             *)
+(*   3. transition_FindRule_to_ApplyRule (symbolic execution)         *)
+(*                                                                      *)
+(*   These admitted lemmas have proof strategies documented inline.   *)
+(*   They require symbolic execution through CPU instruction sequences *)
+(*   but are mechanizable with sufficient proof engineering effort.   *)
+(*                                                                      *)
+(* Architecture: Two state spaces for specification vs implementation  *)
+(*   1. ThieleMachine.State {pc:nat} - specification                   *)
+(*   2. CPU.State {regs;mem;cost} - implementation                     *)
+(* TM configs encoded in pc; execution via CPU semantics (run1/run_n). *)
 (* ================================================================= *)
 From Coq Require Import List Arith Lia PeanoNat Bool ZArith.
 From ThieleUniversal Require Import TM UTM_Rules.
 From ThieleUniversal Require Import CPU UTM_Program.
-(* Note: ThieleUniversal.v has compilation errors, so we axiomatize what we need *)
+(* Import concrete implementations from bridge module *)
+From ThieleMachine Require Import ThieleUniversalBridge.
 From ThieleUniversal Require Import UTM_Encode.
 From ThieleMachine Require Import ThieleMachine EncodingBridge.
 From ThieleMachine.Modular_Proofs Require Import Encoding EncodingBounds.
@@ -47,84 +52,7 @@ Local Open Scope nat_scope.
 
 Module EncodingMod := ThieleMachine.Modular_Proofs.Encoding.
 
-(* ----------------------------------------------------------------- *)
-(* Workarounds for ThieleUniversal module (which has compile errors)  *)
-(* ----------------------------------------------------------------- *)
-
-(* We need some definitions and lemmas from ThieleUniversal.v, but that
-   file doesn't compile due to incomplete proofs. We provide minimal
-   axioms here as a workaround. *)
-
-Module ThieleUniversal.
-  (* CPU execution *)
-  Axiom run1 : CPU.State -> CPU.State.
-  Axiom run_n : CPU.State -> nat -> CPU.State.
-  
-  (* Setup and invariants *)
-  Axiom setup_state : TM -> TMConfig -> CPU.State.
-  Axiom setup_state_regs_length : forall tm conf,
-    length (CPU.regs (setup_state tm conf)) = 10.
-  
-  Definition inv_min (st : CPU.State) (tm : TM) (conf : TMConfig) : Prop :=
-    let '(q, tape, head) := conf in
-    CPU.read_reg CPU.REG_Q st = q /\
-    CPU.read_reg CPU.REG_HEAD st = head /\
-    CPU.read_reg CPU.REG_PC st = 0.
-  
-  Axiom inv_min_setup_state : forall tm conf,
-    inv_min (setup_state tm conf) tm conf.
-  
-  (* State predicates *)
-  Definition IS_FetchSymbol (pc : nat) : Prop := pc = 0.
-  Definition IS_FindRule_Start (pc : nat) : Prop := pc = 3.
-  
-  (* Decoding *)
-  Definition decode_instr (st : CPU.State) : CPU.Instr :=
-    UTM_Encode.decode_instr_from_mem st.(CPU.mem) (4 * CPU.read_reg CPU.REG_PC st).
-  
-  Axiom decode_instr_from_mem : list nat -> nat -> CPU.Instr.
-  
-  (* Program *)
-  Axiom program : list nat.
-  Axiom program_word_0 : nth 0 program 0 = 0.
-  Axiom program_word_1 : nth 1 program 0 = CPU.REG_TEMP1.
-  Axiom program_word_2 : nth 2 program 0 = UTM_Program.TAPE_START_ADDR.
-  
-  (* Lemmas we need *)
-  Axiom nth_add_skipn : forall {A} n m (l : list A) d,
-    nth n (skipn m l) d = nth (m + n) l d.
-  
-  Axiom nth_firstn_lt : forall {A} n m (l : list A) d,
-    n < m -> nth n (firstn m l) d = nth n l d.
-  
-  Axiom run1_mem_preserved_if_no_store : forall (st : CPU.State),
-    (* If instruction is not store, memory is preserved *)
-    True. (* Simplified *)
-  
-  Axiom run1_pc_succ_instr : forall (st : CPU.State) (instr : CPU.Instr),
-    decode_instr st = instr ->
-    (* PC advances correctly *)
-    True. (* Simplified *)
-  
-  (* Other needed definitions *)
-  Axiom inv_core : CPU.State -> TM -> TMConfig -> Prop.
-  Axiom inv : CPU.State -> TM -> TMConfig -> Prop.
-  Axiom find_rule_start_inv : TM -> TMConfig -> CPU.State -> Prop.
-  
-  Axiom transition_Fetch_to_FindRule : forall (tm : TM) (conf : TMConfig) (cpu0 : CPU.State),
-    inv_core cpu0 tm conf ->
-    IS_FetchSymbol (CPU.read_reg CPU.REG_PC cpu0) ->
-    exists cpu_find, run_n cpu0 3 = cpu_find /\ IS_FindRule_Start (CPU.read_reg CPU.REG_PC cpu_find).
-  
-  Axiom transition_FindRule_to_ApplyRule : forall (tm : TM) (conf : TMConfig) (cpu_find : CPU.State) 
-    (q' write : nat) (move : Z),
-    let '(q, tape, head) := conf in
-    let sym := nth head tape (tm_blank tm) in
-    inv_core cpu_find tm conf ->
-    find_rule_start_inv tm conf cpu_find ->
-    find_rule (tm_rules tm) q sym = Some (q', write, move) ->
-    exists k cpu_apply, run_n cpu_find k = cpu_apply.
-End ThieleUniversal.
+(* We use concrete definitions from ThieleUniversalBridge instead of axioms *)
 
 (* ----------------------------------------------------------------- *)
 (* Encoding TM configurations into minimalist Thiele states           *)
