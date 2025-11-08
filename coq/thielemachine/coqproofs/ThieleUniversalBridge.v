@@ -256,13 +256,29 @@ Proof.
     apply Nat.ltb_lt in Hlt.
     rewrite app_nth1.
     + apply nth_firstn_lt. exact Hlt.
-    + rewrite firstn_length. rewrite Nat.min_l by lia. lia.
+    + rewrite firstn_length. rewrite Nat.min_l; [lia|lia].
   - (* Case r1 >= r2, but r1 <> r2, so r1 > r2 *)
     apply Nat.ltb_nlt in Hlt.
     assert (r1 > r2) by lia.
-    (* For now, admit this case - requires careful skipn reasoning *)
-    admit.
-Admitted.
+    (* r1 is beyond the firstn r2 part *)
+    rewrite app_nth2.
+    + rewrite firstn_length. rewrite Nat.min_l; [|lia].
+      (* nth (r1 - r2) ([v] ++ skipn (S r2) regs) 0 = nth r1 regs 0 *)
+      destruct (r1 - r2) as [|n] eqn:Hdiff; [lia|].
+      simpl.
+      (* nth n (skipn (S r2) regs) 0 = nth r1 regs 0 *)
+      assert (Heqr1: r1 = S r2 + n) by lia.
+      rewrite Heqr1.
+      (* Now prove: nth n (skipn (S r2) regs) 0 = nth (S r2 + n) regs 0 *)
+      clear Heqr1 Hdiff Hneq Hr1 Hr2 H Hlt v r1.
+      generalize dependent n. generalize dependent r2.
+      induction (CPU.regs st) as [|x xs IH]; intros.
+      { destruct n, r2; reflexivity. }
+      destruct r2; simpl.
+      { destruct n; reflexivity. }
+      { apply IH. }
+    + rewrite firstn_length. rewrite Nat.min_l; [lia|lia].
+Qed.
 
 (* CPU.step PC progression for non-branching instructions *)
 Lemma step_pc_increment : forall cpu instr,
