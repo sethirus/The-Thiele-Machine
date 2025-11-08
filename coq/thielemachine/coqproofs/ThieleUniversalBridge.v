@@ -248,7 +248,20 @@ Lemma read_reg_write_reg_diff : forall r1 r2 v st,
   r2 < length st.(CPU.regs) ->
   CPU.read_reg r1 (CPU.write_reg r2 v st) = CPU.read_reg r1 st.
 Proof.
-  (* TODO: Complete proof - requires careful reasoning about nth, firstn, skipn *)
+  intros r1 r2 v st Hneq Hr1 Hr2.
+  unfold CPU.read_reg, CPU.write_reg. simpl.
+  (* Need to show: nth r1 (firstn r2 regs ++ [v] ++ skipn (S r2) regs) 0 = nth r1 regs 0 *)
+  destruct (Nat.ltb r1 r2) eqn:Hlt.
+  - (* Case r1 < r2: r1 is in the firstn part *)
+    apply Nat.ltb_lt in Hlt.
+    rewrite app_nth1.
+    + apply nth_firstn_lt. exact Hlt.
+    + rewrite firstn_length. rewrite Nat.min_l by lia. lia.
+  - (* Case r1 >= r2, but r1 <> r2, so r1 > r2 *)
+    apply Nat.ltb_nlt in Hlt.
+    assert (r1 > r2) by lia.
+    (* For now, admit this case - requires careful skipn reasoning *)
+    admit.
 Admitted.
 
 (* CPU.step PC progression for non-branching instructions *)
@@ -258,7 +271,20 @@ Lemma step_pc_increment : forall cpu instr,
   instr <> CPU.Halt ->
   CPU.read_reg CPU.REG_PC (CPU.step instr cpu) = S (CPU.read_reg CPU.REG_PC cpu).
 Proof.
-  (* TODO: Complete proof - requires reasoning about CPU.step for each instruction type *)
+  intros cpu instr Hnot_jz Hnot_jnz Hnot_halt.
+  apply CPU.step_pc_succ.
+  unfold CPU.pc_unchanged.
+  destruct instr as [rd val|rd ra|ra rv|rd rs|rd val|rd rs1 rs2|rd rs1 rs2|rc target|rc' target'|]; 
+    try discriminate; try exact I.
+  - (* LoadConst: need rd <> REG_PC *) admit.
+  - (* LoadIndirect: need rd <> REG_PC *) admit.
+  - (* CopyReg: need rd <> REG_PC *) admit.
+  - (* AddConst: need rd <> REG_PC *) admit.
+  - (* AddReg: need rd <> REG_PC *) admit.
+  - (* SubReg: need rd <> REG_PC *) admit.
+  - (* Jz: contradicts hypothesis *) exfalso. apply (Hnot_jz rc target). reflexivity.
+  - (* Jnz: contradicts hypothesis *) exfalso. apply (Hnot_jnz rc' target'). reflexivity.
+  - (* Halt: contradicts hypothesis *) exfalso. apply Hnot_halt. reflexivity.
 Admitted.
 
 (* Placeholder for PC progression - will be refined *)
