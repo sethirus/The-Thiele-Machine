@@ -241,6 +241,55 @@ Proof.
   reflexivity.
 Qed.
 
+(* Key lemma: reading from the register you just wrote gives the value *)
+Lemma read_reg_write_reg_same : forall r v st,
+  r < length st.(CPU.regs) ->
+  CPU.read_reg r (CPU.write_reg r v st) = v.
+Proof.
+  intros r v st Hr.
+  unfold CPU.read_reg, CPU.write_reg. simpl.
+  (* After write_reg r v, the register file is: firstn r regs ++ [v] ++ skipn (S r) regs *)
+  (* Reading at position r gives v *)
+  rewrite app_nth2.
+  - rewrite firstn_length.
+    rewrite Nat.min_l by assumption.
+    replace (r - r) with 0 by lia.
+    simpl. reflexivity.
+  - rewrite firstn_length.
+    rewrite Nat.min_l by assumption.
+    lia.
+Qed.
+
+(* Reading a different register after write *)
+Lemma read_reg_write_reg_diff : forall r1 r2 v st,
+  r1 <> r2 ->
+  r1 < length st.(CPU.regs) ->
+  r2 < length st.(CPU.regs) ->
+  CPU.read_reg r1 (CPU.write_reg r2 v st) = CPU.read_reg r1 st.
+Proof.
+  intros r1 r2 v st Hneq Hr1 Hr2.
+  unfold CPU.read_reg, CPU.write_reg. simpl.
+  (* Need to show nth r1 (firstn r2 regs ++ [v] ++ skipn (S r2) regs) = nth r1 regs *)
+  destruct (Nat.ltb r1 r2) eqn:Hlt.
+  - (* r1 < r2: r1 is in the firstn part *)
+    apply Nat.ltb_lt in Hlt.
+    rewrite app_nth1.
+    + rewrite nth_firstn by assumption. reflexivity.
+    + rewrite firstn_length. rewrite Nat.min_l by assumption. assumption.
+  - (* r1 >= r2, but r1 <> r2, so r1 > r2 *)
+    apply Nat.ltb_nlt in Hlt.
+    assert (r1 > r2) by lia.
+    rewrite app_nth2.
+    + rewrite firstn_length. rewrite Nat.min_l by assumption.
+      destruct (r1 - r2) as [|n] eqn:Hsub.
+      * lia. (* contradicts r1 > r2 *)
+      * simpl. (* Now in skipn part *)
+        rewrite <- (nth_skipn (r1 - r2 - 1) (S r2) st.(CPU.regs)).
+        replace (S r2 + (r1 - r2 - 1)) with r1 by lia.
+        reflexivity.
+    + rewrite firstn_length. rewrite Nat.min_l by assumption. lia.
+Qed.
+
 (* CPU.step PC progression for non-branching instructions *)
 Lemma step_pc_increment : forall cpu instr,
   (forall rc tgt, instr <> CPU.Jz rc tgt) ->
@@ -326,49 +375,84 @@ Qed.
 (* CPU Step Execution Lemmas                                         *)
 (* ----------------------------------------------------------------- *)
 
-(* Lemma for LoadConst execution *)
+(* Lemma for LoadConst execution - use existing CPU lemmas *)
 Lemma step_LoadConst : forall cpu rd v,
+  rd <> CPU.REG_PC ->
+  length cpu.(CPU.regs) = 10 ->
   CPU.read_reg CPU.REG_PC (CPU.step (CPU.LoadConst rd v) cpu) = S (CPU.read_reg CPU.REG_PC cpu) /\
   CPU.read_reg rd (CPU.step (CPU.LoadConst rd v) cpu) = v.
 Proof.
-  intros cpu rd v.
-  unfold CPU.step.
-  simpl.
+  intros cpu rd v Hneq Hlen.
   split.
-  - unfold CPU.write_reg, CPU.read_reg. simpl. reflexivity.
-  - unfold CPU.write_reg, CPU.read_reg. simpl.
-    (* This needs more detail about register file structure *)
-Admitted.
+  - (* PC increments - use existing CPU.step_pc_succ lemma *)
+    apply CPU.step_pc_succ.
+    unfold CPU.pc_unchanged. exact Hneq.
+  - (* rd gets value v *)
+    unfold CPU.step. simpl.
+    (* After incrementing PC (write_reg PC (S pc)), then writing rd to v *)
+    set (st' := CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu)) cpu).
+    assert (Hlen': length st'.(CPU.regs) = 10).
+    { unfold st'. unfold CPU.write_reg. simpl.
+      rewrite app_length, app_length, firstn_length, skipn_length.
+      simpl. rewrite Nat.min_l by lia. lia. }
+    (* Now reading rd from (write_reg rd v st') *)
+    apply read_reg_write_reg_same.
+    unfold st'. unfold CPU.write_reg. simpl.
+    rewrite app_length, app_length, firstn_length, skipn_length.
+    simpl. rewrite Nat.min_l by lia. lia.
+Qed.
 
 (* Lemma for AddReg execution *)
 Lemma step_AddReg : forall cpu rd rs1 rs2,
+  rd <> CPU.REG_PC ->
+  length cpu.(CPU.regs) = 10 ->
   CPU.read_reg CPU.REG_PC (CPU.step (CPU.AddReg rd rs1 rs2) cpu) = S (CPU.read_reg CPU.REG_PC cpu) /\
   CPU.read_reg rd (CPU.step (CPU.AddReg rd rs1 rs2) cpu) = 
     CPU.read_reg rs1 cpu + CPU.read_reg rs2 cpu.
 Proof.
-  intros cpu rd rs1 rs2.
-  unfold CPU.step.
-  simpl.
+  intros cpu rd rs1 rs2 Hneq Hlen.
   split.
-  - unfold CPU.write_reg, CPU.read_reg. simpl. reflexivity.
-  - unfold CPU.write_reg, CPU.read_reg. simpl.
-    (* This needs more detail about register file structure *)
-Admitted.
+  - (* PC increments *)
+    apply CPU.step_pc_succ.
+    unfold CPU.pc_unchanged. exact Hneq.
+  - (* rd gets rs1 + rs2 *)
+    unfold CPU.step. simpl.
+    set (st' := CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu)) cpu).
+    assert (Hlen': length st'.(CPU.regs) = 10).
+    { unfold st'. unfold CPU.write_reg. simpl.
+      rewrite app_length, app_length, firstn_length, skipn_length.
+      simpl. rewrite Nat.min_l by lia. lia. }
+    apply read_reg_write_reg_same.
+    unfold st'. unfold CPU.write_reg. simpl.
+    rewrite app_length, app_length, firstn_length, skipn_length.
+    simpl. rewrite Nat.min_l by lia. lia.
+Qed.
 
 (* Lemma for LoadIndirect execution *)
 Lemma step_LoadIndirect : forall cpu rd ra,
+  rd <> CPU.REG_PC ->
+  length cpu.(CPU.regs) = 10 ->
   CPU.read_reg CPU.REG_PC (CPU.step (CPU.LoadIndirect rd ra) cpu) = S (CPU.read_reg CPU.REG_PC cpu) /\
   CPU.read_reg rd (CPU.step (CPU.LoadIndirect rd ra) cpu) = 
     CPU.read_mem (CPU.read_reg ra cpu) cpu.
 Proof.
-  intros cpu rd ra.
-  unfold CPU.step.
-  simpl.
+  intros cpu rd ra Hneq Hlen.
   split.
-  - unfold CPU.write_reg, CPU.read_reg. simpl. reflexivity.
-  - unfold CPU.write_reg, CPU.read_reg. simpl.
-    (* This needs more detail about register file structure *)
-Admitted.
+  - (* PC increments *)
+    apply CPU.step_pc_succ.
+    unfold CPU.pc_unchanged. exact Hneq.
+  - (* rd gets mem[ra] *)
+    unfold CPU.step. simpl.
+    set (st' := CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu)) cpu).
+    assert (Hlen': length st'.(CPU.regs) = 10).
+    { unfold st'. unfold CPU.write_reg. simpl.
+      rewrite app_length, app_length, firstn_length, skipn_length.
+      simpl. rewrite Nat.min_l by lia. lia. }
+    apply read_reg_write_reg_same.
+    unfold st'. unfold CPU.write_reg. simpl.
+    rewrite app_length, app_length, firstn_length, skipn_length.
+    simpl. rewrite Nat.min_l by lia. lia.
+Qed.
 
 (* ----------------------------------------------------------------- *)
 (* Symbolic Execution - Attempt at Proof 1                          *)
@@ -379,6 +463,7 @@ Lemma transition_Fetch_to_FindRule_direct : forall tm conf cpu0,
   inv_core cpu0 tm conf ->
   IS_FetchSymbol (CPU.read_reg CPU.REG_PC cpu0) ->
   CPU.read_reg CPU.REG_PC cpu0 = 0 ->
+  length cpu0.(CPU.regs) = 10 ->
   (* Assume we can decode instructions from memory encoded program *)
   (forall pc, UTM_Encode.decode_instr_from_mem cpu0.(CPU.mem) (4 * pc) = 
               nth pc UTM_Program.program_instrs CPU.Halt) ->
@@ -387,31 +472,87 @@ Lemma transition_Fetch_to_FindRule_direct : forall tm conf cpu0,
     IS_FindRule_Start (CPU.read_reg CPU.REG_PC cpu_find) /\
     CPU.read_reg CPU.REG_PC cpu_find = 3.
 Proof.
-  intros tm conf cpu0 Hinv Hfetch Hpc0 Hdecode.
+  intros tm conf cpu0 Hinv Hfetch Hpc0 Hlen Hdecode.
   
   (* Expand run_n 3 = run1 (run1 (run1 cpu0)) *)
   exists (run_n cpu0 3).
   split; [reflexivity|].
-  split.
-  - unfold IS_FindRule_Start. 
-    (* We need to show PC = 3 *)
+  
+  (* Prove PC = 3 after 3 steps *)
+  assert (Hpc3: CPU.read_reg CPU.REG_PC (run_n cpu0 3) = 3).
+  {
+    (* Unfold run_n 3 *)
+    rewrite run_n_unfold_3.
     
     (* Step 1: Execute instruction at PC=0 *)
-    assert (H_step0 : run_n cpu0 1 = run1 cpu0) by reflexivity.
+    unfold run1 at 3.
+    rewrite Hpc0.
+    replace (4 * 0) with 0 by lia.
+    rewrite Hdecode.
+    rewrite instr_at_pc_0.
     
-    (* Instruction at PC=0 is LoadConst REG_TEMP1 TAPE_START_ADDR *)
-    assert (H_instr0 : UTM_Encode.decode_instr_from_mem cpu0.(CPU.mem) (4 * 0) = 
-                       CPU.LoadConst CPU.REG_TEMP1 CPU.TAPE_START_ADDR).
-    { rewrite Hdecode. rewrite instr_at_pc_0. reflexivity. }
+    (* After LoadConst REG_TEMP1 TAPE_START_ADDR, PC becomes 1 *)
+    assert (H_step0: CPU.read_reg CPU.REG_PC (CPU.step (CPU.LoadConst CPU.REG_TEMP1 CPU.TAPE_START_ADDR) cpu0) = 1).
+    { rewrite Hpc0. 
+      destruct (step_LoadConst cpu0 CPU.REG_TEMP1 CPU.TAPE_START_ADDR) as [Hpc _].
+      - discriminate. (* REG_TEMP1 = 8 <> 0 = REG_PC *)
+      - exact Hlen.
+      - rewrite Hpc. simpl. reflexivity. }
     
-    (* After step 1, PC = 1 *)
+    set (cpu1 := CPU.step (CPU.LoadConst CPU.REG_TEMP1 CPU.TAPE_START_ADDR) cpu0).
+    
+    (* Prove cpu1 has regs length 10 *)
+    assert (Hlen1: length cpu1.(CPU.regs) = 10).
+    { unfold cpu1. unfold CPU.step. simpl.
+      unfold CPU.write_reg. simpl.
+      rewrite app_length, app_length, firstn_length, skipn_length.
+      simpl. rewrite Nat.min_l by lia. lia. }
+    
+    (* Step 2: Execute instruction at PC=1 *)
+    unfold run1 at 2.
+    rewrite H_step0.
+    replace (4 * 1) with 4 by lia.
+    rewrite Hdecode.
+    rewrite instr_at_pc_1.
+    
+    (* After AddReg REG_ADDR REG_TEMP1 REG_HEAD, PC becomes 2 *)
+    assert (H_step1: CPU.read_reg CPU.REG_PC (CPU.step (CPU.AddReg CPU.REG_ADDR CPU.REG_TEMP1 CPU.REG_HEAD) cpu1) = 2).
+    { rewrite H_step0.
+      destruct (step_AddReg cpu1 CPU.REG_ADDR CPU.REG_TEMP1 CPU.REG_HEAD) as [Hpc _].
+      - discriminate. (* REG_ADDR = 7 <> 0 = REG_PC *)
+      - exact Hlen1.
+      - rewrite Hpc. simpl. reflexivity. }
+    
+    set (cpu2 := CPU.step (CPU.AddReg CPU.REG_ADDR CPU.REG_TEMP1 CPU.REG_HEAD) cpu1).
+    
+    (* Prove cpu2 has regs length 10 *)
+    assert (Hlen2: length cpu2.(CPU.regs) = 10).
+    { unfold cpu2. unfold CPU.step. simpl.
+      unfold CPU.write_reg. simpl.
+      rewrite app_length, app_length, firstn_length, skipn_length.
+      simpl. rewrite Nat.min_l by lia. lia. }
+    
+    (* Step 3: Execute instruction at PC=2 *)
     unfold run1 at 1.
-    rewrite H_instr0.
+    rewrite H_step1.
+    replace (4 * 2) with 8 by lia.
+    rewrite Hdecode.
+    rewrite instr_at_pc_2.
     
-    (* Now we need to show that after 3 steps, PC = 3 *)
-    (* This requires unfolding run_n further and tracking PC through each step *)
-    
-Admitted.
+    (* After LoadIndirect REG_SYM REG_ADDR, PC becomes 3 *)
+    rewrite H_step1.
+    destruct (step_LoadIndirect cpu2 CPU.REG_SYM CPU.REG_ADDR) as [Hpc _].
+    - discriminate. (* REG_SYM = 3 <> 0 = REG_PC *)
+    - exact Hlen2.
+    - rewrite Hpc. simpl. reflexivity.
+  }
+  
+  split.
+  - (* IS_FindRule_Start holds *) 
+    unfold IS_FindRule_Start. exact Hpc3.
+  - (* PC = 3 *)
+    exact Hpc3.
+Qed.
 
 (* Now we need to show PC advances correctly *)
 (* This requires knowing what instructions are at PC=0, 1, 2 *)
