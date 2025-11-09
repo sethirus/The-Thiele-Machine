@@ -18,7 +18,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 REPLAY_CLI = PROJECT_ROOT / "verifier" / "replay.py"
 TRS10_CLI = PROJECT_ROOT / "tools" / "verify_trs10.py"
 
-from verifier.replay import compute_receipt_digest, compute_state_hash, sha256_hex
+from verifier.replay_helpers import compute_receipt_digest, compute_state_hash, sha256_hex
 from tools.verify_trs10 import compute_global_digest
 
 

@@ -1,4 +1,4 @@
-from verifier.replay import _gather_receipt_files
+from verifier.replay_helpers import _gather_receipt_files
 
 
 def test_gather_receipt_files_single_file(tmp_path):
