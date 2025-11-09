@@ -199,6 +199,13 @@ If you want to know whether a Thiele Machine “can do the same thing” as a Tu
 
 **Audit note (Coq mechanisation):** The repository maintains a single machine-generated inventory of every admitted lemma and axiom declaration at `ADMIT_REPORT.txt`. Regenerate it with `python -m tools.generate_admit_report` any time you touch the Coq sources. At this commit the report records 10 admitted lemmas and 2 axioms (all in the active Coq tree). Consult `coq/AXIOM_INVENTORY.md` for the narrative discussion of each assumption. README callouts reference these reports wherever a statement relies on them.
 
+**Detailed proof status:** The Coq development spans three main files with 133 proven theorems/lemmas (93% completion rate):
+- **HyperThiele_Halting.v**: 1 axiom (halting oracle correctness), 1 proven theorem, 0 admitted
+- **Simulation.v**: 0 axioms, 103 proven lemmas, 3 admitted (memory/encoding details)
+- **ThieleUniversalBridge.v**: 1 axiom (PC bounds), 29 proven lemmas, 7 admitted (transition details)
+
+The 10 admitted lemmas are structural (memory layout, instruction decoding, execution transitions) rather than foundational—they don't assume computational powers or bypass complexity arguments. The 2 axioms are standard: oracle correctness (expected for halting analysis) and PC bounds (implementation constraint). See detailed analysis in `docs/COQ_PROOF_STATUS.md`.
+
 **Replication guidance:** External researchers should start with [`REPLICATION_GUIDE.md`](REPLICATION_GUIDE.md) for exact CLI invocations, expected outputs, and instructions on publishing new proofpacks. The guide also explains how to interpret “slack” values in the table above and how to contribute new datasets via pull request.
 
 <div align="center">
