@@ -9,6 +9,41 @@ from verifier.replay_helpers import verify_receipts
 from verifier.signature_utils import resolve_trust, TrustContextError
 
 
+def validate_path(path: str, flags: int) -> bool:
+    """
+    Validate that a path is safe for use in receipts.
+    
+    Args:
+        path: The path to validate
+        flags: Optional flags (currently unused, for future extensibility)
+    
+    Returns:
+        True if the path is valid, False otherwise
+    
+    A valid path must:
+    - Be non-empty
+    - Not contain path traversal (..)
+    - Not be an absolute path (start with /)
+    - Not contain duplicate slashes (//)
+    """
+    if not path:
+        return False
+    
+    # Check for duplicate slashes
+    if '//' in path:
+        return False
+    
+    # Check for path traversal
+    if '..' in path.split('/'):
+        return False
+    
+    # Check for absolute paths
+    if path.startswith('/'):
+        return False
+    
+    return True
+
+
 def main():
     import argparse
 
