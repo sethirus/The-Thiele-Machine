@@ -6,10 +6,9 @@ features and the (derived) geometric rule, the predicted CHSH trial follows.
 **Framing:** This script does not claim to have built a perfect predictive
 model of the universe. It demonstrates a proof-of-concept for a sighted
 Thiele Machine method: by treating physical data as an explicit logical
-constraint, a tiny interpretable rule—now selected from both single-feature
-thresholds and two-feature linear probes—can imply a definite trial outcome.
+constraint, a simple, interpretable rule can imply a definite trial outcome.
 
-- timestamp: 2025-11-07T03:45:30.240790Z
+- timestamp: 2025-11-08T22:05:44.948031Z
 - mode: offline
 - data_origin: csv:cmb_sample.csv
 - fallback_reason: none
@@ -22,9 +21,7 @@ thresholds and two-feature linear probes—can imply a definite trial outcome.
 - sample_robust_fraction: 1.0
 
 ## Interpretation
-- The induced classifier is drawn from a search that now considers both
-  single-threshold and two-feature linear rules derived from the committed
-  training set.
+- The induced classifier is a single-threshold rule derived from the committed training set.
 - The analytic receipts certify only that this rule is internally consistent with the provided features.
 - No cosmological inference is claimed; additional data would be required for any physical conclusion.
 

@@ -319,7 +319,10 @@ class TestReceiptCreation:
         receipt = create_receipt(
             files,
             output_path=str(receipt_path),
-            base_dir=tmp_path
+            base_dir=tmp_path,
+            sign_key="kernel_secret.key",
+            public_key="kernel_public.key",
+            key_id="thiele-core-2025"
         )
         
         # Check that paths in receipt are relative
@@ -337,7 +340,10 @@ class TestReceiptCreation:
         receipt_path = tmp_path / "receipt.json"
         receipt = create_receipt(
             [str(test_file)],
-            output_path=str(receipt_path)
+            output_path=str(receipt_path),
+            sign_key="kernel_secret.key",
+            public_key="kernel_public.key",
+            key_id="thiele-core-2025"
         )
         
         assert len(receipt["files"]) == 1
@@ -359,7 +365,10 @@ class TestReceiptCreation:
             files,
             output_path=str(receipt_path),
             metadata=metadata,
-            base_dir=tmp_path
+            base_dir=tmp_path,
+            sign_key="kernel_secret.key",
+            public_key="kernel_public.key",
+            key_id="thiele-core-2025"
         )
         
         assert "metadata" in receipt
@@ -402,7 +411,10 @@ class TestIntegration:
             files,
             output_path=str(receipt_path),
             metadata=metadata,
-            base_dir=project
+            base_dir=project,
+            sign_key="kernel_secret.key",
+            public_key="kernel_public.key",
+            key_id="thiele-core-2025"
         )
         
         # Verify receipt

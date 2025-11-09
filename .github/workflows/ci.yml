@@ -36,6 +36,27 @@ jobs:
       - name: Set PYTHONPATH for job
         run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
 
+      - name: Provision kernel key (CI only)
+        run: |
+          # Create a deterministic kernel key for CI tests.
+          # This replaces the previous random key generation to ensure
+          # receipts and demos can be verified reproducibly across CI runs.
+          python scripts/generate_kernel_keys.py --deterministic-test-key --force
+      
+      - name: Set trust anchor from receipt (CI only)
+        run: |
+          # Overwrite kernel_public.key with the receipt's public_key for CI-only verification
+          python - <<'PY'
+          import json
+          p = "bootstrap_receipts/050_kernel_emit.json"
+          r = json.load(open(p, "r", encoding="utf-8"))
+          pub = r.get("public_key")
+          if not pub:
+              raise SystemExit("receipt missing public_key")
+          open("kernel_public.key", "w").write(pub.strip() + "\n")
+          print("kernel_public.key written from", p)
+          PY
+
       - name: Check Python syntax
         run: python -m py_compile demos/research-demos/problem-solving/attempt.py demos/research-demos/architecture/demonstrate_isomorphism.py
 
@@ -66,27 +87,6 @@ jobs:
         run: |
           python -m tools.generate_admit_report
           git diff --exit-code ADMIT_REPORT.txt
-
-      - name: Provision kernel key (CI only)
-        run: |
-          # Create a deterministic kernel key for CI tests.
-          # This replaces the previous random key generation to ensure
-          # receipts and demos can be verified reproducibly across CI runs.
-          python scripts/generate_kernel_keys.py --deterministic-test-key --force
-      
-      - name: Set trust anchor from receipt (CI only)
-        run: |
-          # Overwrite kernel_public.key with the receipt's public_key for CI-only verification
-          python - <<'PY'
-          import json
-          p = "bootstrap_receipts/050_kernel_emit.json"
-          r = json.load(open(p, "r", encoding="utf-8"))
-          pub = r.get("public_key")
-          if not pub:
-              raise SystemExit("receipt missing public_key")
-          open("kernel_public.key", "w").write(pub.strip() + "\n")
-          print("kernel_public.key written from", p)
-          PY
 
       - name: Verify Bell artifact
         run: ./verify_bell.sh
