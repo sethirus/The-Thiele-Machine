@@ -199,12 +199,17 @@ If you want to know whether a Thiele Machine “can do the same thing” as a Tu
 
 **Audit note (Coq mechanisation):** The repository maintains a single machine-generated inventory of every admitted lemma and axiom declaration at `ADMIT_REPORT.txt`. Regenerate it with `python -m tools.generate_admit_report` any time you touch the Coq sources. At this commit the report records 10 admitted lemmas and 2 axioms (all in the active Coq tree). Consult `coq/AXIOM_INVENTORY.md` for the narrative discussion of each assumption. README callouts reference these reports wherever a statement relies on them.
 
-**Detailed proof status:** The Coq development spans three main files with 133 proven theorems/lemmas (93% completion rate):
-- **HyperThiele_Halting.v**: 1 axiom (halting oracle correctness), 1 proven theorem, 0 admitted
-- **Simulation.v**: 0 axioms, 103 proven lemmas, 3 admitted (memory/encoding details)
-- **ThieleUniversalBridge.v**: 1 axiom (PC bounds), 29 proven lemmas, 7 admitted (transition details)
+**Comprehensive proof status:** The Coq development spans **63 files across 10 directories** with **604 proven theorems/lemmas (98.4% completion rate)**:
+- **Core Kernel** (coq/kernel/): 67 proven, 0 admitted, 0 axioms - 100% complete
+- **Main Thiele Proofs** (coq/thielemachine/coqproofs/): 406 proven, 10 admitted, 2 axioms - 97.6% complete
+  - Standout: BellInequality.v with 181 proven theorems
+  - Simulation.v: 104 proven, 3 admitted (memory/encoding)
+  - ThieleUniversalBridge.v: 29 proven, 7 admitted (transitions)
+- **Sandboxes** (coq/sandboxes/): 50 proven, 0 admitted, 0 axioms - 100% complete
+- **Modular Proofs** (coq/modular_proofs/): 54 proven, 0 admitted, 0 axioms - 100% complete
+- **Specialized** (Shor, Cerberus, P=NP, etc.): 27 proven, 0 admitted, 0 axioms - 100% complete
 
-The 10 admitted lemmas are structural (memory layout, instruction decoding, execution transitions) rather than foundational—they don't assume computational powers or bypass complexity arguments. The 2 axioms are standard: oracle correctness (expected for halting analysis) and PC bounds (implementation constraint). See detailed analysis in `docs/COQ_PROOF_STATUS.md`.
+**46 of 63 files (76%)** are completely proven with zero admitted lemmas or axioms. The 10 admitted lemmas are structural (memory layout, instruction decoding, execution transitions) rather than foundational—they don't assume computational powers or bypass complexity arguments. The 2 axioms are standard: oracle correctness (expected for halting analysis) and PC bounds (implementation constraint). See comprehensive analysis of all 63 files in `docs/COQ_PROOF_STATUS.md`.
 
 **Replication guidance:** External researchers should start with [`REPLICATION_GUIDE.md`](REPLICATION_GUIDE.md) for exact CLI invocations, expected outputs, and instructions on publishing new proofpacks. The guide also explains how to interpret “slack” values in the table above and how to contribute new datasets via pull request.
 
