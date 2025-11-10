@@ -278,8 +278,8 @@ Proof.
   split. exact Hpc.
   split. apply tape_window_ok_setup_state; assumption.
   split.
-  - unfold setup_state in *.
-    cbn [fst snd] in *.
+  - unfold setup_state.
+    simpl.
     set (rules := UTM_Encode.encode_rules tm.(tm_rules)).
     set (mem0 := pad_to UTM_Program.RULES_START_ADDR program).
     set (mem1 := pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)).
@@ -300,8 +300,8 @@ Proof.
     rewrite firstn_app_le' by (rewrite Hmem0_len; lia).
     subst mem0.
     apply firstn_pad_to. exact Hprog.
-  - unfold setup_state in *.
-    cbn [fst snd] in *.
+  - unfold setup_state.
+    simpl.
     set (rules := UTM_Encode.encode_rules tm.(tm_rules)).
     set (mem0 := pad_to UTM_Program.RULES_START_ADDR program).
     set (mem1 := pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)).
