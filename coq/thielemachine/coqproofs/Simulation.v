@@ -275,12 +275,6 @@ Definition rules_fit (tm : TM) : Prop :=
   (length (UTM_Encode.encode_rules tm.(tm_rules))
      <= UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR)%nat.
 
-Lemma utm_program_fits :
-  (length ThieleUniversal.program <= UTM_Program.RULES_START_ADDR)%nat.
-Proof.
-  admit.
-Admitted.
-
 (* Forward declarations for lemmas needed early *)
 Lemma utm_cpu_state_inv_full : forall tm conf,
   rules_fit tm -> ThieleUniversal.inv (utm_cpu_state tm conf) tm conf.
@@ -639,6 +633,12 @@ Proof.
   reflexivity.
 Qed.
 
+Lemma utm_program_fits :
+  (length ThieleUniversal.program <= UTM_Program.RULES_START_ADDR)%nat.
+Proof.
+  vm_compute.
+  reflexivity.
+Qed.
 
 Lemma utm_rules_encoded_length :
   length (UTM_Encode.encode_rules utm_tm.(tm_rules)) = 40.
