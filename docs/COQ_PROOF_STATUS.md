@@ -132,7 +132,7 @@ CatNet - categorical neural networks.
 
 **Status:** 100% complete
 
-## Complete List of Axioms (2 total)
+## Complete List of Axioms (1 total)
 
 ### 1. H_correct (coq/thielemachine/coqproofs/HyperThiele_Halting.v:14)
 ```coq
@@ -144,64 +144,13 @@ Axiom H_correct : forall e, H e = true <-> Halts e.
 
 **Nature:** Computability axiom (expected and necessary)
 
-### 2. pc_in_bounds (coq/thielemachine/coqproofs/ThieleUniversalBridge.v:330)
-```coq
-Axiom pc_in_bounds : forall cpu,
-  CPU.read_reg CPU.REG_PC cpu < 100.
-```
-**Purpose:** Upper bound on program counter (program fits in 100 instructions).
+## Complete List of Admitted Lemmas (1 total)
 
-**Justification:** Implementation detail that would be verified by counting instructions in actual program.
+The remaining admitted lemma lives in `coq/thielemachine/coqproofs/`:
 
-**Nature:** Engineering constraint (not conceptual)
-
-## Complete List of Admitted Lemmas (10 total)
-
-All 10 admitted lemmas are in coq/thielemachine/coqproofs/:
-
-### From Simulation.v (3 admitted)
-
-1. **utm_cpu_state_read_tape (line 311)**
-   - Memory layout lemma about tape encoding
-   - Nature: List manipulation arithmetic
-
-2. **utm_decode_fetch_instruction (line 337)**
-   - Instruction decoding from memory
-   - Nature: Memory encoding detail
-
-3. **utm_interpreter_no_rule_found_halts (line 3673)**
-   - Halting when no TM rule matches
-   - Nature: Symbolic execution (10 instructions)
-
-### From ThieleUniversalBridge.v (7 admitted)
-
-4. **inv_setup_state (line 136)**
-   - Initial state invariant
-   - Nature: Initialization property
-
-5. **transition_Fetch_to_FindRule_direct (line 529)**
-   - Direct Fetch→FindRule transition
-   - Nature: Phase transition
-
-6. **transition_Fetch_to_FindRule (line 575)**
-   - General Fetch→FindRule transition
-   - Nature: Phase transition
-
-7. **loop_iteration_no_match (line 693)**
-   - Loop continues when rule doesn't match
-   - Nature: Control flow
-
-8. **loop_exit_match (line 736)**
-   - Loop exits when rule matches
-   - Nature: Control flow
-
-9. **loop_complete (line 777)**
-   - Loop completes correctly
-   - Nature: Termination property
-
-10. **transition_FindRule_to_ApplyRule (line 821)**
-    - FindRule→ApplyRule transition
-    - Nature: Phase transition
+1. **utm_interpreter_no_rule_found_halts (Simulation.v:3797)**
+   - Ensures the interpreter preserves the TM configuration when no rule applies
+   - Nature: Symbolic execution of the rule-search loop
 
 ## Proof Completion by Category
 
