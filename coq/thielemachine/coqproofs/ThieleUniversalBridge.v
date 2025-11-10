@@ -1044,7 +1044,7 @@ Axiom decode_instr_before_apply_jump_target_lt : forall st,
   forall r target, decode_instr st = CPU.Jz r target \/ decode_instr st = CPU.Jnz r target ->
   target < length UTM_Program.program_instrs.
 
-Axiom UTM_Program.program_instrs_before_apply_not_store : forall n,
+Axiom program_instrs_before_apply_not_store : forall n,
   n < length UTM_Program.program_instrs ->
   forall ra rv, nth n UTM_Program.program_instrs CPU.Halt <> CPU.StoreIndirect ra rv.
 
@@ -1069,9 +1069,7 @@ Axiom decode_instr_from_mem : forall mem pc,
 Axiom inv_init : forall tm conf,
   inv (setup_state tm conf) tm conf.
 
-Axiom inv_core : forall st tm conf, Prop.
 
-Axiom find_rule_start_inv : forall tm conf cpu, Prop.
 
 Axiom find_rule_loop_inv_pc_lt_12 : forall tm conf cpu i,
   FindRule_Loop_Inv tm conf cpu i ->

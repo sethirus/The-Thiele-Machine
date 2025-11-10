@@ -21,17 +21,15 @@ Axiom    coq/thielemachine/coqproofs/ThieleUniversalBridge.v:1024: Axiom run1_pc
 Axiom    coq/thielemachine/coqproofs/ThieleUniversalBridge.v:1031: Axiom decode_instr_before_apply_pc_unchanged : forall st,
 Axiom    coq/thielemachine/coqproofs/ThieleUniversalBridge.v:1036: Axiom decode_instr_before_apply_not_store : forall st,
 Axiom    coq/thielemachine/coqproofs/ThieleUniversalBridge.v:1041: Axiom decode_instr_before_apply_jump_target_lt : forall st,
-Axiom    coq/thielemachine/coqproofs/ThieleUniversalBridge.v:1047: Axiom UTM_Program.program_instrs_before_apply_not_store : forall n,
+Axiom    coq/thielemachine/coqproofs/ThieleUniversalBridge.v:1047: Axiom program_instrs_before_apply_not_store : forall n,
 Axiom    coq/thielemachine/coqproofs/ThieleUniversalBridge.v:1051: Axiom decode_instr_program_state : forall st,
 Axiom    coq/thielemachine/coqproofs/ThieleUniversalBridge.v:1056: Axiom decode_instr_program_at_pc : forall st pc,
 Axiom    coq/thielemachine/coqproofs/ThieleUniversalBridge.v:1062: Axiom decode_instr_from_mem : forall mem pc,
 Axiom    coq/thielemachine/coqproofs/ThieleUniversalBridge.v:1069: Axiom inv_init : forall tm conf,
-Axiom    coq/thielemachine/coqproofs/ThieleUniversalBridge.v:1072: Axiom inv_core : forall st tm conf, Prop.
-Axiom    coq/thielemachine/coqproofs/ThieleUniversalBridge.v:1074: Axiom find_rule_start_inv : forall tm conf cpu, Prop.
-Axiom    coq/thielemachine/coqproofs/ThieleUniversalBridge.v:1076: Axiom find_rule_loop_inv_pc_lt_12 : forall tm conf cpu i,
-Axiom    coq/thielemachine/coqproofs/ThieleUniversalBridge.v:1080: Axiom find_rule_loop_preserves_inv : forall tm conf cpu i,
+Axiom    coq/thielemachine/coqproofs/ThieleUniversalBridge.v:1074: Axiom find_rule_loop_inv_pc_lt_12 : forall tm conf cpu i,
+Axiom    coq/thielemachine/coqproofs/ThieleUniversalBridge.v:1078: Axiom find_rule_loop_preserves_inv : forall tm conf cpu i,
 
 Summary
 -------
 Total admitted: 14
-Total axioms:  14
+Total axioms:  12
