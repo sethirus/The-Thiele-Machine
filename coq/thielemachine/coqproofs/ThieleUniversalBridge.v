@@ -27,7 +27,7 @@ Local Open Scope nat_scope.
 
 (* The encoded universal program *)
 Definition program : list nat :=
-  flat_map UTM_Encode.encode_instr_words UTM_Program.UTM_Program.program_instrs.
+  flat_map UTM_Encode.encode_instr_words UTM_Program.program_instrs.
 
 (* ----------------------------------------------------------------- *)
 (* CPU Execution - from ThieleUniversal_Run1.v                      *)
@@ -273,44 +273,56 @@ Proof.
   destruct Hmin as [Hq [Hhead Hpc]].
   unfold inv.
   simpl.
-  split. exact Hq.
-  split. exact Hhead.
-  split. exact Hpc.
-  split. apply tape_window_ok_setup_state; assumption.
-  split.
+  repeat split.
+  - exact Hq.
+  - exact Hhead.
+  - exact Hpc.
+  - apply tape_window_ok_setup_state; assumption.
   - unfold setup_state.
+    simpl.
     set (rules := UTM_Encode.encode_rules tm.(tm_rules)).
     set (mem0 := pad_to UTM_Program.RULES_START_ADDR program).
     set (mem1 := pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)).
-    simpl CPU.mem.
     assert (Hmem0_len : length mem0 = UTM_Program.RULES_START_ADDR).
     { subst mem0. apply length_pad_to_ge. exact Hprog. }
     assert (Hfit : length (mem0 ++ rules) <= UTM_Program.TAPE_START_ADDR).
     { rewrite app_length, Hmem0_len.
-      assert (Heq: UTM_Program.TAPE_START_ADDR =
-        UTM_Program.RULES_START_ADDR + (UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR)).
-      { unfold UTM_Program.TAPE_START_ADDR, UTM_Program.RULES_START_ADDR. lia. }
-      rewrite Heq.
+      replace UTM_Program.TAPE_START_ADDR with
+        (UTM_Program.RULES_START_ADDR + (UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR)) by lia.
       apply Nat.add_le_mono_l. exact Hrules. }
     assert (Hmem1_len : length mem1 = UTM_Program.TAPE_START_ADDR).
     { subst mem1. apply length_pad_to_ge. exact Hfit. }
-    admit.
+    subst mem1.
+    rewrite firstn_app_le' by (rewrite Hmem1_len; pose proof UTM_Program.RULES_START_ADDR_le_TAPE_START_ADDR; lia).
+    rewrite firstn_pad_to_le by (rewrite app_length, Hmem0_len; lia).
+    rewrite firstn_app_le' by (rewrite Hmem0_len; lia).
+    subst mem0.
+    apply firstn_pad_to. exact Hprog.
   - unfold setup_state.
+    simpl.
     set (rules := UTM_Encode.encode_rules tm.(tm_rules)).
     set (mem0 := pad_to UTM_Program.RULES_START_ADDR program).
     set (mem1 := pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)).
-    simpl CPU.mem.
     assert (Hmem0_len : length mem0 = UTM_Program.RULES_START_ADDR).
     { subst mem0. apply length_pad_to_ge. exact Hprog. }
     assert (Hfit : length (mem0 ++ rules) <= UTM_Program.TAPE_START_ADDR).
     { rewrite app_length, Hmem0_len.
-      assert (Heq: UTM_Program.TAPE_START_ADDR =
-        UTM_Program.RULES_START_ADDR + (UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR)).
-      { unfold UTM_Program.TAPE_START_ADDR, UTM_Program.RULES_START_ADDR. lia. }
-      rewrite Heq.
+      replace UTM_Program.TAPE_START_ADDR with
+        (UTM_Program.RULES_START_ADDR + (UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR)) by lia.
       apply Nat.add_le_mono_l. exact Hrules. }
-    admit.
-Admitted.
+    subst mem1.
+    rewrite skipn_app_le' by (rewrite length_pad_to_ge with (l := mem0 ++ rules) (n := UTM_Program.TAPE_START_ADDR) by exact Hfit; pose proof UTM_Program.RULES_START_ADDR_le_TAPE_START_ADDR; lia).
+    rewrite skipn_pad_to_split by (rewrite app_length, Hmem0_len; lia).
+    rewrite skipn_app_le' by (rewrite Hmem0_len; lia).
+    rewrite <- Hmem0_len.
+    rewrite skipn_all.
+    simpl.
+    rewrite app_nil_l.
+    rewrite <- app_assoc.
+    rewrite firstn_app_le' by lia.
+    rewrite firstn_app_le' by lia.
+    reflexivity.
+Qed.
 
 Definition inv_core (st : CPU.State) (tm : TM) (conf : TMConfig) : Prop :=
   inv_min st tm conf.
@@ -510,31 +522,31 @@ Qed.
 
 (* Lemmas about what instructions are at specific PCs *)
 Lemma instr_at_pc_0 : 
-  nth 0 UTM_Program.UTM_Program.program_instrs CPU.Halt = 
+  nth 0 UTM_Program.program_instrs CPU.Halt = 
   CPU.LoadConst CPU.REG_TEMP1 UTM_Program.TAPE_START_ADDR.
 Proof.
-  unfold UTM_Program.UTM_Program.program_instrs. simpl. reflexivity.
+  unfold UTM_Program.program_instrs. simpl. reflexivity.
 Qed.
 
 Lemma instr_at_pc_1 :
-  nth 1 UTM_Program.UTM_Program.program_instrs CPU.Halt =
+  nth 1 UTM_Program.program_instrs CPU.Halt =
   CPU.AddReg CPU.REG_ADDR CPU.REG_TEMP1 CPU.REG_HEAD.
 Proof.
-  unfold UTM_Program.UTM_Program.program_instrs. simpl. reflexivity.
+  unfold UTM_Program.program_instrs. simpl. reflexivity.
 Qed.
 
 Lemma instr_at_pc_2 :
-  nth 2 UTM_Program.UTM_Program.program_instrs CPU.Halt =
+  nth 2 UTM_Program.program_instrs CPU.Halt =
   CPU.LoadIndirect CPU.REG_SYM CPU.REG_ADDR.
 Proof.
-  unfold UTM_Program.UTM_Program.program_instrs. simpl. reflexivity.
+  unfold UTM_Program.program_instrs. simpl. reflexivity.
 Qed.
 
 Lemma instr_at_pc_3 :
-  nth 3 UTM_Program.UTM_Program.program_instrs CPU.Halt =
+  nth 3 UTM_Program.program_instrs CPU.Halt =
   CPU.LoadConst CPU.REG_ADDR UTM_Program.RULES_START_ADDR.
 Proof.
-  unfold UTM_Program.UTM_Program.program_instrs. simpl. reflexivity.
+  unfold UTM_Program.program_instrs. simpl. reflexivity.
 Qed.
 
 (* ----------------------------------------------------------------- *)
@@ -803,8 +815,129 @@ Lemma transition_Fetch_to_FindRule_direct : forall tm conf cpu0,
 Proof.
   intros tm conf cpu0 Hinv_core Hfetch Hpc0 Hlen
          Hdecode0 Hdecode1 Hdecode2.
-  admit.
-Admitted.
+
+  (* The proof proceeds by symbolic execution through 3 instructions:
+     PC=0: LoadConst REG_TEMP1 TAPE_START_ADDR  -> PC=1
+     PC=1: AddReg REG_ADDR REG_TEMP1 REG_HEAD   -> PC=2
+     PC=2: LoadIndirect REG_SYM REG_ADDR        -> PC=3
+
+     Each instruction:
+     1. Is decoded from memory at (4 * PC)
+     2. Matches the expected instruction from program_instrs
+     3. Increments PC by 1 (since rd ≠ REG_PC for all three)
+
+     The full proof requires unfolding run_n and step through each
+     instruction, tracking PC and register values. *)
+
+  (* Step 1: PC 0 -> 1 via LoadConst *)
+  set (cpu1 := CPU.step (CPU.LoadConst CPU.REG_TEMP1 UTM_Program.TAPE_START_ADDR) cpu0).
+  assert (Hrun1 : run1 cpu0 = cpu1).
+  { unfold cpu1, run1.
+    rewrite Hpc0.
+    simpl.
+    rewrite Hdecode0.
+    reflexivity. }
+  assert (Hpc1 : CPU.read_reg CPU.REG_PC cpu1 = 1).
+  { subst cpu1.
+    assert (Hneq_temp1 : CPU.REG_TEMP1 <> CPU.REG_PC) by (cbv [CPU.REG_TEMP1 CPU.REG_PC]; lia).
+    assert (Hlt_temp1 : CPU.REG_TEMP1 < 10) by (cbv [CPU.REG_TEMP1]; lia).
+    destruct (step_LoadConst cpu0 CPU.REG_TEMP1 UTM_Program.TAPE_START_ADDR
+              Hneq_temp1 Hlt_temp1 Hlen) as [Hpc1 _].
+    exact Hpc1. }
+  assert (Hlen1 : length (CPU.regs cpu1) = 10).
+  { subst cpu1.
+    unfold CPU.step.
+    simpl.
+    set (st' := CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu0)) cpu0).
+    assert (Hlen_pc : length st'.(CPU.regs) = length cpu0.(CPU.regs)).
+    { subst st'. apply length_write_reg.
+      rewrite Hlen. cbv [CPU.REG_PC]; lia. }
+    rewrite Hlen_pc.
+    assert (Hlt_temp1 : CPU.REG_TEMP1 < 10) by (cbv [CPU.REG_TEMP1]; lia).
+    apply length_write_reg.
+    rewrite Hlen_pc, Hlen.
+    exact Hlt_temp1. }
+  assert (Hmem1 : CPU.mem cpu1 = CPU.mem cpu0).
+  { subst cpu1. unfold CPU.step. simpl. reflexivity. }
+
+  (* Step 2: PC 1 -> 2 via AddReg *)
+  set (cpu2 := CPU.step (CPU.AddReg CPU.REG_ADDR CPU.REG_TEMP1 CPU.REG_HEAD) cpu1).
+  assert (Hdecode1' : decode_instr cpu1 =
+    CPU.AddReg CPU.REG_ADDR CPU.REG_TEMP1 CPU.REG_HEAD).
+  { rewrite <- Hrun1. exact Hdecode1. }
+  assert (Hrun2 : run1 cpu1 = cpu2).
+  { unfold cpu2, run1.
+    rewrite Hpc1.
+    simpl.
+    rewrite Hmem1.
+    rewrite Hdecode1'.
+    reflexivity. }
+  assert (Hpc2 : CPU.read_reg CPU.REG_PC cpu2 = 2).
+  { subst cpu2.
+    assert (Hneq_addr : CPU.REG_ADDR <> CPU.REG_PC) by (cbv [CPU.REG_ADDR CPU.REG_PC]; lia).
+    assert (Hlt_addr : CPU.REG_ADDR < 10) by (cbv [CPU.REG_ADDR]; lia).
+    destruct (step_AddReg cpu1 CPU.REG_ADDR CPU.REG_TEMP1 CPU.REG_HEAD
+              Hneq_addr Hlt_addr Hlen1) as [Hpc2 _].
+    exact Hpc2. }
+  assert (Hlen2 : length (CPU.regs cpu2) = 10).
+  { subst cpu2.
+    unfold CPU.step.
+    simpl.
+    set (st' := CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu1)) cpu1).
+    assert (Hlen_pc : length st'.(CPU.regs) = length cpu1.(CPU.regs)).
+    { subst st'. apply length_write_reg.
+      rewrite Hlen1. cbv [CPU.REG_PC]; lia. }
+    rewrite Hlen_pc.
+    assert (Hlt_addr : CPU.REG_ADDR < 10) by (cbv [CPU.REG_ADDR]; lia).
+    apply length_write_reg.
+    rewrite Hlen_pc, Hlen1.
+    exact Hlt_addr. }
+  assert (Hmem2 : CPU.mem cpu2 = CPU.mem cpu1).
+  { subst cpu2. unfold CPU.step. simpl. reflexivity. }
+
+  (* Step 3: PC 2 -> 3 via LoadIndirect *)
+  set (cpu3 := CPU.step (CPU.LoadIndirect CPU.REG_SYM CPU.REG_ADDR) cpu2).
+  assert (Hrun_n2 : run_n cpu0 2 = run1 cpu1).
+  { simpl. rewrite Hrun1. reflexivity. }
+  assert (Hdecode2' : decode_instr cpu2 =
+    CPU.LoadIndirect CPU.REG_SYM CPU.REG_ADDR).
+  { rewrite <- Hrun2.
+    rewrite <- Hrun_n2 in Hdecode2.
+    exact Hdecode2. }
+  assert (Hrun3 : run1 cpu2 = cpu3).
+  { unfold cpu3, run1.
+    rewrite Hpc2.
+    simpl.
+    rewrite Hmem2, Hmem1.
+    rewrite Hdecode2'.
+    reflexivity. }
+  assert (Hpc3 : CPU.read_reg CPU.REG_PC cpu3 = 3).
+  { subst cpu3.
+    assert (Hneq_sym : CPU.REG_SYM <> CPU.REG_PC) by (cbv [CPU.REG_SYM CPU.REG_PC]; lia).
+    assert (Hlt_sym : CPU.REG_SYM < 10) by (cbv [CPU.REG_SYM]; lia).
+    destruct (step_LoadIndirect cpu2 CPU.REG_SYM CPU.REG_ADDR
+              Hneq_sym Hlt_sym Hlen2) as [Hpc3 _].
+    exact Hpc3. }
+
+  exists (run_n cpu0 3).
+  split; [reflexivity |].
+  split.
+  - unfold IS_FindRule_Start.
+    simpl.
+    rewrite Hrun1.
+    simpl.
+    rewrite Hrun2.
+    simpl.
+    rewrite Hrun3.
+    exact Hpc3.
+  - simpl.
+    rewrite Hrun1.
+    simpl.
+    rewrite Hrun2.
+    simpl.
+    rewrite Hrun3.
+    exact Hpc3.
+Qed.
 
 (* Now we need to show PC advances correctly *)
 (* This requires knowing what instructions are at PC=0, 1, 2 *)
@@ -952,8 +1085,229 @@ Lemma loop_iteration_no_match : forall tm conf cpu i,
     run_n cpu 6 = cpu' /\
     FindRule_Loop_Inv tm conf cpu' (S i).
 Proof.
-  admit.
-Admitted.
+  intros tm conf cpu i Hinv Hi_len Hpc Hlen Hdecode0 Hdecode1 Hdecode2
+         Hdecode3 Hdecode4 Hdecode5.
+  destruct conf as ((q, tape), head).
+  simpl in *.
+  intros rule_mismatch Htemp_nonzero.
+
+  unfold FindRule_Loop_Inv in Hinv.
+  simpl in Hinv.
+  destruct Hinv as [[Hpc3 | [Hpc4 | Hpc5]] [Hq [Hsym [Haddr Hchecked]]]].
+  - rewrite Hpc in Hpc3. lia.
+  - rewrite Hpc in Hpc4. clear Hpc3 Hpc5.
+  - rewrite Hpc in Hpc5. lia.
+
+  (* Concrete states after each instruction. *)
+  set (cpu1 := CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) cpu).
+  set (cpu2 := CPU.step (CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q) cpu1).
+  set (cpu3 := CPU.step (CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q') cpu2).
+  set (cpu4 := CPU.step (CPU.Jz CPU.REG_TEMP1 12) cpu3).
+  set (cpu5 := CPU.step (CPU.AddConst CPU.REG_ADDR RULE_SIZE) cpu4).
+  set (cpu6 := CPU.step (CPU.Jnz CPU.REG_TEMP1 4) cpu5).
+
+  assert (Hrun1 : run1 cpu = cpu1).
+  { unfold cpu1, run1. rewrite Hpc. simpl. rewrite Hdecode0. reflexivity. }
+  assert (Hrun2 : run1 cpu1 = cpu2).
+  { unfold cpu2, run1. subst cpu1. simpl.
+    rewrite (proj1 (step_LoadIndirect _ _ _ _ _ _ Hlen)).
+    rewrite Hdecode1. reflexivity.
+  }
+  assert (Hrun3 : run1 cpu2 = cpu3).
+  { unfold cpu3, run1. subst cpu2. simpl.
+    rewrite (proj1 (step_CopyReg _ _ _ _ _ _ Hlen)).
+    rewrite Hdecode2. reflexivity.
+  }
+  assert (Hrun4 : run1 cpu3 = cpu4).
+  { unfold cpu4, run1. subst cpu3. simpl.
+    rewrite (proj1 (step_SubReg _ _ _ _ _ _ Hlen)).
+    rewrite Hdecode3. reflexivity.
+  }
+  assert (Hrun5 : run1 cpu4 = cpu5).
+  { unfold cpu5, run1. subst cpu4. simpl.
+    destruct (step_BranchZero_not_taken _ _ _ Htemp_nonzero Hlen) as Hpc_step.
+    rewrite Hpc_step, Hdecode4. reflexivity.
+  }
+  assert (Hrun6 : run1 cpu5 = cpu6).
+  { unfold cpu6, run1. subst cpu5. simpl.
+    destruct (step_AddConst _ _ _ _ _ _ Hlen) as [Hpc_step Hadd].
+    rewrite Hpc_step, Hdecode5. reflexivity.
+  }
+
+  simpl.
+  rewrite Hrun1. simpl.
+  rewrite Hrun2. simpl.
+  rewrite Hrun3. simpl.
+  rewrite Hrun4. simpl.
+  rewrite Hrun5. simpl.
+  rewrite Hrun6. simpl.
+  exists cpu6.
+  split; [reflexivity|].
+
+  (* Program counter evolution. *)
+  assert (Hpc1 : CPU.read_reg CPU.REG_PC cpu1 = 5).
+  { subst cpu1. destruct (step_LoadIndirect _ _ _ _ _ _ Hlen) as [Hpc1 _]. simpl in Hpc1. lia. }
+  assert (Hpc2 : CPU.read_reg CPU.REG_PC cpu2 = 6).
+  { subst cpu2. destruct (step_CopyReg _ _ _ _ _ _ Hlen) as [Hpc2 _]. simpl in Hpc2. lia. }
+  assert (Hpc3' : CPU.read_reg CPU.REG_PC cpu3 = 7).
+  { subst cpu3. destruct (step_SubReg _ _ _ _ _ _ Hlen) as [Hpc3' _]. simpl in Hpc3'. lia. }
+  assert (Hpc4' : CPU.read_reg CPU.REG_PC cpu4 = 8).
+  { subst cpu4. destruct (step_BranchZero_not_taken _ _ _ Htemp_nonzero Hlen) as Hpc4'. simpl in Hpc4'. lia. }
+  assert (Hpc5' : CPU.read_reg CPU.REG_PC cpu5 = 9).
+  { subst cpu5. destruct (step_AddConst _ _ _ _ _ _ Hlen) as [Hpc5' _]. simpl in Hpc5'. lia. }
+  assert (Hpc6 : CPU.read_reg CPU.REG_PC cpu6 = 4).
+  { subst cpu6. destruct (step_JumpNonZero_taken _ _ _ Htemp_nonzero Hlen) as Hpc6. exact Hpc6. }
+
+  (* q register preservation. *)
+  assert (Hq1 : CPU.read_reg CPU.REG_Q cpu1 = q).
+  { subst cpu1. apply read_reg_write_reg_diff with (st := cpu) (r2 := CPU.REG_Q') (v := _);
+      try lia; try assumption.
+    cbv [CPU.REG_Q CPU.REG_Q']; lia.
+  }
+  assert (Hq2 : CPU.read_reg CPU.REG_Q cpu2 = q).
+  { subst cpu2. apply read_reg_write_reg_diff with (st := cpu1) (r2 := CPU.REG_TEMP1) (v := _);
+      try lia; try assumption.
+    cbv [CPU.REG_Q CPU.REG_TEMP1]; lia.
+  }
+  assert (Hq3 : CPU.read_reg CPU.REG_Q cpu3 = q).
+  { subst cpu3. apply read_reg_write_reg_diff with (st := cpu2) (r2 := CPU.REG_TEMP1) (v := _);
+      try lia; try assumption.
+    cbv [CPU.REG_Q CPU.REG_TEMP1]; lia.
+  }
+  assert (Hq4 : CPU.read_reg CPU.REG_Q cpu4 = q).
+  { subst cpu4. unfold CPU.step.
+    rewrite Hpc3'. simpl.
+    unfold CPU.write_reg. simpl.
+    apply read_reg_write_reg_diff with (r1 := CPU.REG_Q) (r2 := CPU.REG_PC) (st := cpu3) (v := 12);
+      try assumption; try lia.
+    cbv [CPU.REG_Q CPU.REG_PC]; lia.
+  }
+  assert (Hq5 : CPU.read_reg CPU.REG_Q cpu5 = q).
+  { subst cpu5. destruct (step_AddConst _ _ _ _ _ _ Hlen) as [_ Hadd].
+    unfold CPU.step.
+    rewrite Hpc4'. simpl.
+    unfold CPU.write_reg. simpl.
+    apply read_reg_write_reg_diff with (r1 := CPU.REG_Q) (r2 := CPU.REG_ADDR) (st := cpu4)
+      (v := CPU.read_reg CPU.REG_ADDR cpu4 + RULE_SIZE);
+      try assumption; try lia.
+    cbv [CPU.REG_Q CPU.REG_ADDR]; lia.
+  }
+  assert (Hq6 : CPU.read_reg CPU.REG_Q cpu6 = q).
+  { subst cpu6. unfold CPU.step.
+    rewrite Hpc5'. simpl.
+    unfold CPU.write_reg. simpl.
+    apply read_reg_write_reg_diff with (r1 := CPU.REG_Q) (r2 := CPU.REG_PC) (st := cpu5) (v := 4);
+      try assumption; try lia.
+    cbv [CPU.REG_Q CPU.REG_PC]; lia.
+  }
+
+  (* sym register preservation. *)
+  assert (Hsym1 : CPU.read_reg CPU.REG_SYM cpu1 = sym).
+  { subst cpu1. apply read_reg_write_reg_diff with (st := cpu) (r2 := CPU.REG_Q') (v := _);
+      try lia; try assumption.
+    cbv [CPU.REG_SYM CPU.REG_Q']; lia.
+  }
+  assert (Hsym2 : CPU.read_reg CPU.REG_SYM cpu2 = sym).
+  { subst cpu2. apply read_reg_write_reg_diff with (st := cpu1) (r2 := CPU.REG_TEMP1) (v := _);
+      try lia; try assumption.
+    cbv [CPU.REG_SYM CPU.REG_TEMP1]; lia.
+  }
+  assert (Hsym3 : CPU.read_reg CPU.REG_SYM cpu3 = sym).
+  { subst cpu3. apply read_reg_write_reg_diff with (st := cpu2) (r2 := CPU.REG_TEMP1) (v := _);
+      try lia; try assumption.
+    cbv [CPU.REG_SYM CPU.REG_TEMP1]; lia.
+  }
+  assert (Hsym4 : CPU.read_reg CPU.REG_SYM cpu4 = sym).
+  { subst cpu4. unfold CPU.step.
+    rewrite Hpc3'. simpl.
+    unfold CPU.write_reg. simpl.
+    apply read_reg_write_reg_diff with (r1 := CPU.REG_SYM) (r2 := CPU.REG_PC) (st := cpu3) (v := 12);
+      try assumption; try lia.
+    cbv [CPU.REG_SYM CPU.REG_PC]; lia.
+  }
+  assert (Hsym5 : CPU.read_reg CPU.REG_SYM cpu5 = sym).
+  { subst cpu5. destruct (step_AddConst _ _ _ _ _ _ Hlen) as [_ Hadd].
+    unfold CPU.step.
+    rewrite Hpc4'. simpl.
+    unfold CPU.write_reg. simpl.
+    apply read_reg_write_reg_diff with (r1 := CPU.REG_SYM) (r2 := CPU.REG_ADDR) (st := cpu4)
+      (v := CPU.read_reg CPU.REG_ADDR cpu4 + RULE_SIZE);
+      try assumption; try lia.
+    cbv [CPU.REG_SYM CPU.REG_ADDR]; lia.
+  }
+  assert (Hsym6 : CPU.read_reg CPU.REG_SYM cpu6 = sym).
+  { subst cpu6. unfold CPU.step.
+    rewrite Hpc5'. simpl.
+    unfold CPU.write_reg. simpl.
+    apply read_reg_write_reg_diff with (r1 := CPU.REG_SYM) (r2 := CPU.REG_PC) (st := cpu5) (v := 4);
+      try assumption; try lia.
+    cbv [CPU.REG_SYM CPU.REG_PC]; lia.
+  }
+
+  (* Address update. *)
+  assert (Haddr5 : CPU.read_reg CPU.REG_ADDR cpu5 = CPU.read_reg CPU.REG_ADDR cpu4 + RULE_SIZE).
+  { subst cpu5. destruct (step_AddConst _ _ _ _ _ _ Hlen) as [_ Hadd]. exact Hadd. }
+  assert (Haddr6 : CPU.read_reg CPU.REG_ADDR cpu6 = CPU.read_reg CPU.REG_ADDR cpu5).
+  { subst cpu6. unfold CPU.step.
+    rewrite Hpc5'. simpl.
+    unfold CPU.write_reg. simpl.
+    apply read_reg_write_reg_diff with (r1 := CPU.REG_ADDR) (r2 := CPU.REG_PC) (st := cpu5) (v := 4);
+      try assumption; try lia.
+    cbv [CPU.REG_ADDR CPU.REG_PC]; lia.
+  }
+  assert (Haddr4_val : CPU.read_reg CPU.REG_ADDR cpu4 = CPU.read_reg CPU.REG_ADDR cpu3).
+  { subst cpu4. unfold CPU.step.
+    rewrite Hpc3'. simpl.
+    unfold CPU.write_reg. simpl.
+    apply read_reg_write_reg_diff with (r1 := CPU.REG_ADDR) (r2 := CPU.REG_PC) (st := cpu3) (v := 12);
+      try assumption; try lia.
+    cbv [CPU.REG_ADDR CPU.REG_PC]; lia.
+  }
+  assert (Haddr3_val : CPU.read_reg CPU.REG_ADDR cpu3 = CPU.read_reg CPU.REG_ADDR cpu2).
+  { subst cpu3. apply read_reg_write_reg_diff with (st := cpu2) (r1 := CPU.REG_ADDR) (r2 := CPU.REG_TEMP1) (v := _);
+      try assumption; try lia.
+    cbv [CPU.REG_ADDR CPU.REG_TEMP1]; lia.
+  }
+  assert (Haddr2_val : CPU.read_reg CPU.REG_ADDR cpu2 = CPU.read_reg CPU.REG_ADDR cpu1).
+  { subst cpu2. apply read_reg_write_reg_diff with (st := cpu1) (r1 := CPU.REG_ADDR) (r2 := CPU.REG_TEMP1) (v := _);
+      try assumption; try lia.
+    cbv [CPU.REG_ADDR CPU.REG_TEMP1]; lia.
+  }
+  assert (Haddr1_val : CPU.read_reg CPU.REG_ADDR cpu1 = CPU.read_reg CPU.REG_ADDR cpu).
+  { subst cpu1. apply read_reg_write_reg_diff with (st := cpu) (r1 := CPU.REG_ADDR) (r2 := CPU.REG_Q') (v := _);
+      try assumption; try lia.
+    cbv [CPU.REG_ADDR CPU.REG_Q']; lia.
+  }
+
+  assert (Haddr_final : CPU.read_reg CPU.REG_ADDR cpu6 = RULES_START_ADDR + S i * RULE_SIZE).
+  { rewrite Haddr6, Haddr5, Haddr4_val, Haddr3_val, Haddr2_val, Haddr1_val.
+    rewrite Haddr.
+    cbv [RULE_SIZE]. lia.
+  }
+
+  assert (Hchecked' : forall j,
+            j < S i ->
+            let rule_j := nth j (tm_rules tm) (0, 0, 0, 0, 0%Z) in
+            (fst (fst (fst (fst rule_j))), snd (fst (fst (fst rule_j))))
+              <> (q, nth head tape (tm_blank tm))).
+  {
+    intros j Hj.
+    apply lt_n_Sm_le in Hj.
+    destruct (Nat.lt_lt_succ_r _ _ Hj) as [Hlt | Heq].
+    - apply Hchecked. exact Hlt.
+    - subst j. exact rule_mismatch.
+  }
+
+  split.
+  { right. left. exact Hpc6. }
+  split.
+  { exact Hq6. }
+  split.
+  { exact Hsym6. }
+  split.
+  { exact Haddr_final. }
+  exact Hchecked'.
+Qed.
 
 (*
    Loop exit lemma (partial): when a matching rule is found the loop
@@ -984,8 +1338,136 @@ Proof.
   intros tm conf cpu idx Hinv Hlen_idx.
   destruct conf as ((q, tape), head).
   simpl.
-  admit.
-Admitted.
+  intros Hlen_regs Hdecode0 Hdecode1 Hdecode2 Hdecode3 Htemp_zero.
+
+  unfold FindRule_Loop_Inv in Hinv.
+  simpl in Hinv.
+  destruct Hinv as [[Hpc3 | [Hpc4 | Hpc5]] [Hq [Hsym [Haddr Hchecked]]]].
+  - rewrite Hpc3 in Hdecode0. discriminate.
+  - rewrite Hpc4 in Hdecode0.
+  - rewrite Hpc5 in Hdecode0. discriminate.
+
+  (* Concrete states for the four-step match path. *)
+  set (cpu1 := CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) cpu).
+  set (cpu2 := CPU.step (CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q) cpu1).
+  set (cpu3 := CPU.step (CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q') cpu2).
+  set (cpu4 := CPU.step (CPU.Jz CPU.REG_TEMP1 12) cpu3).
+
+  assert (Hrun1 : run1 cpu = cpu1).
+  { unfold cpu1, run1. rewrite Hpc4. simpl. rewrite Hdecode0. reflexivity. }
+  assert (Hrun2 : run1 cpu1 = cpu2).
+  { unfold cpu2, run1. subst cpu1. simpl.
+    rewrite (proj1 (step_LoadIndirect _ _ _ _ _ _ Hlen_regs)).
+    rewrite Hdecode1. reflexivity. }
+  assert (Hrun3 : run1 cpu2 = cpu3).
+  { unfold cpu3, run1. subst cpu2. simpl.
+    rewrite (proj1 (step_CopyReg _ _ _ _ _ _ Hlen_regs)).
+    rewrite Hdecode2. reflexivity. }
+  assert (Hrun4 : run1 cpu3 = cpu4).
+  { unfold cpu4, run1. subst cpu3. simpl.
+    rewrite (proj1 (step_SubReg _ _ _ _ _ _ Hlen_regs)).
+    rewrite Hdecode3. reflexivity. }
+
+  simpl.
+  rewrite Hrun1. simpl.
+  rewrite Hrun2. simpl.
+  rewrite Hrun3. simpl.
+  rewrite Hrun4. simpl.
+  exists cpu4.
+  split; [reflexivity|].
+
+  (* Program counter: branch taken to PC=12. *)
+  assert (Hpc1 : CPU.read_reg CPU.REG_PC cpu1 = 5).
+  { subst cpu1. destruct (step_LoadIndirect _ _ _ _ _ _ Hlen_regs) as [Hpc1 _].
+    simpl in Hpc1. lia. }
+  assert (Hpc2 : CPU.read_reg CPU.REG_PC cpu2 = 6).
+  { subst cpu2. destruct (step_CopyReg _ _ _ _ _ _ Hlen_regs) as [Hpc2 _].
+    simpl in Hpc2. lia. }
+  assert (Hpc3' : CPU.read_reg CPU.REG_PC cpu3 = 7).
+  { subst cpu3. destruct (step_SubReg _ _ _ _ _ _ Hlen_regs) as [Hpc3' _].
+    simpl in Hpc3'. lia. }
+  assert (Hpc4' : CPU.read_reg CPU.REG_PC cpu4 = 12).
+  { subst cpu4. destruct (step_BranchZero_taken _ _ _ Htemp_zero Hlen_regs) as Hpc4'.
+    exact Hpc4'. }
+
+  split; [exact Hpc4'|].
+
+  (* q register preserved. *)
+  assert (Hq1 : CPU.read_reg CPU.REG_Q cpu1 = q).
+  { subst cpu1. apply read_reg_write_reg_diff with (st := cpu)
+      (r2 := CPU.REG_Q') (v := _); try lia; try assumption.
+    cbv [CPU.REG_Q CPU.REG_Q']; lia. }
+  assert (Hq2 : CPU.read_reg CPU.REG_Q cpu2 = q).
+  { subst cpu2. apply read_reg_write_reg_diff with (st := cpu1)
+      (r2 := CPU.REG_TEMP1) (v := _); try lia; try assumption.
+    cbv [CPU.REG_Q CPU.REG_TEMP1]; lia. }
+  assert (Hq3 : CPU.read_reg CPU.REG_Q cpu3 = q).
+  { subst cpu3. apply read_reg_write_reg_diff with (st := cpu2)
+      (r2 := CPU.REG_TEMP1) (v := _); try lia; try assumption.
+    cbv [CPU.REG_Q CPU.REG_TEMP1]; lia. }
+  assert (Hq4 : CPU.read_reg CPU.REG_Q cpu4 = q).
+  { subst cpu4. unfold CPU.step.
+    rewrite Hpc3'. simpl.
+    unfold CPU.write_reg. simpl.
+    apply read_reg_write_reg_diff with (r1 := CPU.REG_Q) (r2 := CPU.REG_PC)
+      (st := cpu3) (v := 12); try lia; try assumption.
+    cbv [CPU.REG_Q CPU.REG_PC]; lia. }
+
+  split; [exact Hq4|].
+
+  (* sym register preserved. *)
+  assert (Hsym1 : CPU.read_reg CPU.REG_SYM cpu1 = sym).
+  { subst cpu1. apply read_reg_write_reg_diff with (st := cpu)
+      (r2 := CPU.REG_Q') (v := _); try lia; try assumption.
+    cbv [CPU.REG_SYM CPU.REG_Q']; lia. }
+  assert (Hsym2 : CPU.read_reg CPU.REG_SYM cpu2 = sym).
+  { subst cpu2. apply read_reg_write_reg_diff with (st := cpu1)
+      (r2 := CPU.REG_TEMP1) (v := _); try lia; try assumption.
+    cbv [CPU.REG_SYM CPU.REG_TEMP1]; lia. }
+  assert (Hsym3 : CPU.read_reg CPU.REG_SYM cpu3 = sym).
+  { subst cpu3. apply read_reg_write_reg_diff with (st := cpu2)
+      (r2 := CPU.REG_TEMP1) (v := _); try lia; try assumption.
+    cbv [CPU.REG_SYM CPU.REG_TEMP1]; lia. }
+  assert (Hsym4 : CPU.read_reg CPU.REG_SYM cpu4 = sym).
+  { subst cpu4. unfold CPU.step.
+    rewrite Hpc3'. simpl.
+    unfold CPU.write_reg. simpl.
+    apply read_reg_write_reg_diff with (r1 := CPU.REG_SYM)
+      (r2 := CPU.REG_PC) (st := cpu3) (v := 12);
+      try lia; try assumption.
+    cbv [CPU.REG_SYM CPU.REG_PC]; lia. }
+
+  split; [exact Hsym4|].
+
+  (* Address register unchanged through the branch. *)
+  assert (Haddr1 : CPU.read_reg CPU.REG_ADDR cpu1 = CPU.read_reg CPU.REG_ADDR cpu).
+  { subst cpu1. apply read_reg_write_reg_diff with (st := cpu)
+      (r1 := CPU.REG_ADDR) (r2 := CPU.REG_Q') (v := _);
+      try lia; try assumption.
+    cbv [CPU.REG_ADDR CPU.REG_Q']; lia. }
+  assert (Haddr2 : CPU.read_reg CPU.REG_ADDR cpu2 = CPU.read_reg CPU.REG_ADDR cpu1).
+  { subst cpu2. apply read_reg_write_reg_diff with (st := cpu1)
+      (r1 := CPU.REG_ADDR) (r2 := CPU.REG_TEMP1) (v := _);
+      try lia; try assumption.
+    cbv [CPU.REG_ADDR CPU.REG_TEMP1]; lia. }
+  assert (Haddr3 : CPU.read_reg CPU.REG_ADDR cpu3 = CPU.read_reg CPU.REG_ADDR cpu2).
+  { subst cpu3. apply read_reg_write_reg_diff with (st := cpu2)
+      (r1 := CPU.REG_ADDR) (r2 := CPU.REG_TEMP1) (v := _);
+      try lia; try assumption.
+    cbv [CPU.REG_ADDR CPU.REG_TEMP1]; lia. }
+  assert (Haddr4 : CPU.read_reg CPU.REG_ADDR cpu4 = CPU.read_reg CPU.REG_ADDR cpu3).
+  { subst cpu4. unfold CPU.step.
+    rewrite Hpc3'. simpl.
+    unfold CPU.write_reg. simpl.
+    apply read_reg_write_reg_diff with (r1 := CPU.REG_ADDR)
+      (r2 := CPU.REG_PC) (st := cpu3) (v := 12);
+      try lia; try assumption.
+    cbv [CPU.REG_ADDR CPU.REG_PC]; lia. }
+
+  rewrite Haddr4, Haddr3, Haddr2, Haddr1.
+  rewrite Haddr.
+  reflexivity.
+Qed.
 
 (* Main loop theorem: compose iteration lemmas *)
 Lemma transition_FindRule_to_ApplyRule (tm : TM) (conf : TMConfig) (cpu_find : CPU.State)
@@ -1010,72 +1492,16 @@ Lemma transition_FindRule_to_ApplyRule (tm : TM) (conf : TMConfig) (cpu_find : C
     CPU.read_reg CPU.REG_SYM cpu_apply = sym /\
     CPU.read_reg CPU.REG_ADDR cpu_apply = RULES_START_ADDR.
 Proof.
-  admit.
-Admitted.
-
-(* ================================================================= *)
-(* Missing infrastructure axioms for Simulation.v compatibility     *)
-(* ================================================================= *)
-
-(* These axioms provide the interface that Simulation.v expects from 
-   the ThieleUniversal module. They represent lemmas that were proven
-   in the full archive version but are axiomatized here for compilation. *)
-
-Axiom run1_pc_succ_instr : forall (s : CPU.State) (instr : CPU.Instr),
-  decode_instr s = instr ->
-  CPU.pc_unchanged instr ->
-  CPU.read_reg CPU.REG_PC (run1 s) = S (CPU.read_reg CPU.REG_PC s).
-
-(* Additional missing definitions and lemmas needed by Simulation.v *)
-
-Axiom decode_instr_before_apply_pc_unchanged : forall st,
-  CPU.read_reg CPU.REG_PC st = 0 ->
-  firstn (length program) st.(CPU.mem) = program ->
-  CPU.pc_unchanged (decode_instr st).
-
-Axiom decode_instr_before_apply_not_store : forall st,
-  CPU.read_reg CPU.REG_PC st = 0 ->
-  firstn (length program) st.(CPU.mem) = program ->
-  forall ra rv, decode_instr st <> CPU.StoreIndirect ra rv.
-
-Axiom decode_instr_before_apply_jump_target_lt : forall st,
-  CPU.read_reg CPU.REG_PC st = 0 ->
-  firstn (length program) st.(CPU.mem) = program ->
-  forall r target, decode_instr st = CPU.Jz r target \/ decode_instr st = CPU.Jnz r target ->
-  target < length UTM_Program.program_instrs.
-
-Axiom program_instrs_before_apply_not_store : forall n,
-  n < length UTM_Program.program_instrs ->
-  forall ra rv, nth n UTM_Program.program_instrs CPU.Halt <> CPU.StoreIndirect ra rv.
-
-Axiom decode_instr_program_state : forall st,
-  firstn (length program) st.(CPU.mem) = program ->
-  CPU.read_reg CPU.REG_PC st < length UTM_Program.program_instrs ->
-  decode_instr st = nth (CPU.read_reg CPU.REG_PC st) UTM_Program.program_instrs CPU.Halt.
-
-Axiom decode_instr_program_at_pc : forall st pc,
-  firstn (length program) st.(CPU.mem) = program ->
-  CPU.read_reg CPU.REG_PC st = pc ->
-  pc < length UTM_Program.program_instrs ->
-  decode_instr st = nth pc UTM_Program.program_instrs CPU.Halt.
-
-Axiom decode_instr_from_mem : forall mem pc,
-  firstn (length program) mem = program ->
-  pc < length UTM_Program.program_instrs ->
-  UTM_Encode.decode_instr_from_mem mem (4 * pc) = nth pc UTM_Program.program_instrs CPU.Halt.
-
-(* Invariant lemmas *)
-
-Axiom inv_init : forall tm conf,
-  inv (setup_state tm conf) tm conf.
-
-
-
-Axiom find_rule_loop_inv_pc_lt_12 : forall tm conf cpu i,
-  FindRule_Loop_Inv tm conf cpu i ->
-  CPU.read_reg CPU.REG_PC cpu < 12.
-
-Axiom find_rule_loop_preserves_inv : forall tm conf cpu i,
-  FindRule_Loop_Inv tm conf cpu i ->
-  i < length (tm_rules tm) ->
-  FindRule_Loop_Inv tm conf (run_n cpu 6) (S i).
+  destruct conf as ((q, tape), head).
+  simpl.
+  intros Hinv_loop Hlen_regs Hpc4 Hdecode0 Hdecode1 Hdecode2 Hdecode3 Htemp_zero Haddr_base Hrule0.
+  assert (Hlen_rules : 0 < length (tm_rules tm)).
+  { destruct (tm_rules tm) as [|r rest]; simpl in Hrule0; try discriminate; lia. }
+  pose proof (loop_exit_match tm ((q, tape), head) cpu_find 0
+                Hinv_loop Hlen_rules Hlen_regs
+                Hdecode0 Hdecode1 Hdecode2 Hdecode3 Htemp_zero) as Hex.
+  simpl in Hex.
+  destruct Hex as [cpu_branch [Hrun [Hpc12 [Hq [Hsym Haddr]]]]].
+  exists cpu_branch.
+  repeat split; assumption.
+Qed.
