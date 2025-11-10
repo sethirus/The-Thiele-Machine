@@ -55,21 +55,6 @@ Module EncodingMod := ThieleMachine.Modular_Proofs.Encoding.
 (* Create namespace alias for backward compatibility *)
 Module ThieleUniversal := ThieleUniversalBridge.
 
-(* Add missing definitions that were in old ThieleUniversal - admitted as stubs *)
-Axiom run1_pc_succ_instr : forall (cpu : ThieleUniversal.CPU.State) (instr : ThieleUniversal.CPU.Instr),
-  ThieleUniversal.decode_instr cpu = instr ->
-  (forall H : ThieleUniversal.CPU.Instr -> Prop, H instr -> 
-    ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC (ThieleUniversal.run1 cpu) = 
-    S (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu)).
-
-Module ThieleUniversalCompat.
-  Definition run1_pc_succ_instr := run1_pc_succ_instr.
-  
-  Module CPU.
-    Definition pc_unchanged (instr : ThieleUniversal.CPU.Instr) : Prop := True.
-  End CPU.
-End ThieleUniversalCompat.
-
 (* ----------------------------------------------------------------- *)
 (* Encoding TM configurations into minimalist Thiele states           *)
 (* ----------------------------------------------------------------- *)
@@ -487,14 +472,14 @@ Proof.
   assert (Hpc1 :
             ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu1 = 1).
   { pose proof
-      (ThieleUniversalCompat.run1_pc_succ_instr cpu0
+      (ThieleUniversal.run1_pc_succ_instr cpu0
          (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_TEMP1
             UTM_Program.TAPE_START_ADDR)
          Hdecode0) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_TEMP1
                  UTM_Program.TAPE_START_ADDR)) as Hunchanged.
-    { unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia. }
+    { unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia. }
     specialize (Hsucc Hunchanged).
     rewrite Hpc0 in Hsucc. exact Hsucc. }
   assert (Hmem_prog : forall n,
@@ -566,22 +551,22 @@ Proof.
   assert (Hpc1 :
             ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu1 = 1).
   { pose proof
-      (ThieleUniversalCompat.run1_pc_succ_instr cpu0 _ Hdecode0) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+      (ThieleUniversal.run1_pc_succ_instr cpu0 _ Hdecode0) as Hsucc.
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_TEMP1
                  UTM_Program.TAPE_START_ADDR)) as Hunchanged.
-    { unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia. }
+    { unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia. }
     specialize (Hsucc Hunchanged).
     rewrite Hpc0 in Hsucc. exact Hsucc. }
   assert (Hpc2 :
             ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu2 = 2).
   { pose proof
-      (ThieleUniversalCompat.run1_pc_succ_instr cpu1 _ Hdecode1) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+      (ThieleUniversal.run1_pc_succ_instr cpu1 _ Hdecode1) as Hsucc.
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.AddReg ThieleUniversal.CPU.REG_ADDR
                  ThieleUniversal.CPU.REG_TEMP1 ThieleUniversal.CPU.REG_HEAD))
       as Hunchanged.
-    { unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia. }
+    { unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia. }
     specialize (Hsucc Hunchanged).
     rewrite Hpc1 in Hsucc. exact Hsucc. }
   assert (Hmem_prog : forall n,
@@ -776,11 +761,11 @@ Proof.
     - exact Hregs_len.
   }
   assert (Hpc1 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu1 = 1).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr
+  { pose proof (ThieleUniversal.run1_pc_succ_instr
                   cpu0 (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_TEMP1
                            UTM_Program.TAPE_START_ADDR) Hdecode0)
       as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_TEMP1
                  UTM_Program.TAPE_START_ADDR)) by (simpl; lia).
     specialize (Hsucc H).
@@ -887,11 +872,11 @@ Proof.
     - exact Hregs_len.
   }
   assert (Hpc1 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu1 = 1).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr
+  { pose proof (ThieleUniversal.run1_pc_succ_instr
                   cpu0 (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_TEMP1
                            UTM_Program.TAPE_START_ADDR) Hdecode0)
       as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_TEMP1
                  UTM_Program.TAPE_START_ADDR)) by (simpl; lia).
     specialize (Hsucc H).
@@ -1006,14 +991,14 @@ Proof.
                 cpu1 ThieleUniversal.CPU.REG_ADDR
                 ThieleUniversal.CPU.REG_TEMP1 ThieleUniversal.CPU.REG_HEAD
                 Hdecode1
-                (ThieleUniversalCompat.run1_pc_succ_instr cpu0 _ Hdecode0
-                   (ltac:(unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia)))
+                (ThieleUniversal.run1_pc_succ_instr cpu0 _ Hdecode0
+                   (ltac:(unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia)))
                 Haddr_lt) as Haddr_cpu2.
   pose proof (ThieleUniversal.run1_preserves_reg_loadindirect
                 cpu2 ThieleUniversal.CPU.REG_SYM ThieleUniversal.CPU.REG_ADDR
                 ThieleUniversal.CPU.REG_ADDR Hdecode2
-                (ThieleUniversalCompat.run1_pc_succ_instr cpu1 _ Hdecode1
-                   (ltac:(unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia)))
+                (ThieleUniversal.run1_pc_succ_instr cpu1 _ Hdecode1
+                   (ltac:(unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia)))
                 Hsym_bound Haddr_lt Haddr_lt ltac:(discriminate) ltac:(discriminate))
     as Haddr_cpu3.
   simpl in Haddr_cpu3.
@@ -1088,21 +1073,21 @@ Proof.
                 cpu1 ThieleUniversal.CPU.REG_ADDR
                 ThieleUniversal.CPU.REG_TEMP1 ThieleUniversal.CPU.REG_HEAD
                 Hdecode1
-                (ThieleUniversalCompat.run1_pc_succ_instr cpu0 _ Hdecode0
-                   (ltac:(unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia)))
+                (ThieleUniversal.run1_pc_succ_instr cpu0 _ Hdecode0
+                   (ltac:(unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia)))
                 Haddr_lt) as Haddr_cpu2.
   pose proof (ThieleUniversal.run1_preserves_reg_loadindirect
                 cpu2 ThieleUniversal.CPU.REG_SYM ThieleUniversal.CPU.REG_ADDR
                 ThieleUniversal.CPU.REG_ADDR Hdecode2
-                (ThieleUniversalCompat.run1_pc_succ_instr cpu1 _ Hdecode1
-                   (ltac:(unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia)))
+                (ThieleUniversal.run1_pc_succ_instr cpu1 _ Hdecode1
+                   (ltac:(unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia)))
                 Hsym_lt Haddr_lt Haddr_lt ltac:(discriminate) ltac:(discriminate))
     as Haddr_cpu3.
   pose proof (ThieleUniversal.run1_loadindirect_result
                 cpu2 ThieleUniversal.CPU.REG_SYM ThieleUniversal.CPU.REG_ADDR
                 Hdecode2
-                (ThieleUniversalCompat.run1_pc_succ_instr cpu1 _ Hdecode1
-                   (ltac:(unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia)))
+                (ThieleUniversal.run1_pc_succ_instr cpu1 _ Hdecode1
+                   (ltac:(unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia)))
                 Hsym_lt) as Hsym_cpu3.
   simpl in Haddr_cpu3.
   rewrite Haddr_cpu3 in Hsym_cpu3.
@@ -1426,21 +1411,21 @@ Proof.
                   cpu1 ThieleUniversal.CPU.REG_ADDR
                   ThieleUniversal.CPU.REG_TEMP1 ThieleUniversal.CPU.REG_HEAD
                   Hdecode1
-                  (ThieleUniversalCompat.run1_pc_succ_instr cpu0 _ Hdecode0
-                     (ltac:(unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia)))
+                  (ThieleUniversal.run1_pc_succ_instr cpu0 _ Hdecode0
+                     (ltac:(unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia)))
                   Haddr_lt) as Haddr_cpu2.
     pose proof (ThieleUniversal.run1_preserves_reg_loadindirect
                   cpu2 ThieleUniversal.CPU.REG_SYM ThieleUniversal.CPU.REG_ADDR
                   ThieleUniversal.CPU.REG_ADDR Hdecode2
-                  (ThieleUniversalCompat.run1_pc_succ_instr cpu1 _ Hdecode1
-                     (ltac:(unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia)))
+                  (ThieleUniversal.run1_pc_succ_instr cpu1 _ Hdecode1
+                     (ltac:(unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia)))
                   Hsym_lt Haddr_lt Haddr_lt ltac:(discriminate) ltac:(discriminate))
       as Haddr_cpu3.
     pose proof (ThieleUniversal.run1_loadindirect_result
                   cpu2 ThieleUniversal.CPU.REG_SYM ThieleUniversal.CPU.REG_ADDR
                   Hdecode2
-                  (ThieleUniversalCompat.run1_pc_succ_instr cpu1 _ Hdecode1
-                     (ltac:(unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia)))
+                  (ThieleUniversal.run1_pc_succ_instr cpu1 _ Hdecode1
+                     (ltac:(unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia)))
                   Hsym_lt) as Hsym_cpu3.
     simpl in Haddr_cpu3.
     rewrite Haddr_cpu3 in Hsym_cpu3.
@@ -1512,7 +1497,7 @@ Proof.
   remember (ThieleUniversal.decode_instr st) as instr eqn:Hinstr.
   destruct instr;
     try (rewrite Hinstr in Hunchanged;
-         pose proof (ThieleUniversalCompat.run1_pc_succ_instr st _ Hinstr Hunchanged)
+         pose proof (ThieleUniversal.run1_pc_succ_instr st _ Hinstr Hunchanged)
            as Hsucc;
          rewrite Hsucc;
          lia).
@@ -1571,42 +1556,42 @@ Proof.
   assert (Hpc1 :
             ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu1 = 1).
   { pose proof
-      (ThieleUniversalCompat.run1_pc_succ_instr cpu0
+      (ThieleUniversal.run1_pc_succ_instr cpu0
          (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_TEMP1
             UTM_Program.TAPE_START_ADDR)
          Hdecode0) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_TEMP1
                  UTM_Program.TAPE_START_ADDR)) as Hunchanged.
-    { unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia. }
+    { unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia. }
     specialize (Hsucc Hunchanged).
     rewrite Hpc_init in Hsucc.
     exact Hsucc. }
   assert (Hpc2 :
             ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu2 = 2).
   { pose proof
-      (ThieleUniversalCompat.run1_pc_succ_instr cpu1
+      (ThieleUniversal.run1_pc_succ_instr cpu1
          (ThieleUniversal.CPU.AddReg ThieleUniversal.CPU.REG_ADDR
             ThieleUniversal.CPU.REG_TEMP1 ThieleUniversal.CPU.REG_HEAD)
          Hdecode1) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.AddReg ThieleUniversal.CPU.REG_ADDR
                  ThieleUniversal.CPU.REG_TEMP1 ThieleUniversal.CPU.REG_HEAD))
-      as Hunchanged by (unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia).
+      as Hunchanged by (unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia).
     specialize (Hsucc Hunchanged).
     rewrite Hpc1 in Hsucc.
     exact Hsucc. }
   assert (Hpc3 :
             ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu3 = 3).
   { pose proof
-      (ThieleUniversalCompat.run1_pc_succ_instr cpu2
+      (ThieleUniversal.run1_pc_succ_instr cpu2
          (ThieleUniversal.CPU.LoadIndirect ThieleUniversal.CPU.REG_SYM
             ThieleUniversal.CPU.REG_ADDR)
          Hdecode2) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.LoadIndirect ThieleUniversal.CPU.REG_SYM
                  ThieleUniversal.CPU.REG_ADDR))
-      as Hunchanged by (unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia).
+      as Hunchanged by (unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia).
     specialize (Hsucc Hunchanged).
     rewrite Hpc2 in Hsucc.
     exact Hsucc. }
@@ -1771,8 +1756,8 @@ Proof.
     - exact Hregs_len0.
   }
   assert (Hpc1 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu1 = 1).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr cpu0 _ Hdecode0) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+  { pose proof (ThieleUniversal.run1_pc_succ_instr cpu0 _ Hdecode0) as Hsucc.
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_TEMP1
                  UTM_Program.TAPE_START_ADDR)) by (simpl; lia).
     specialize (Hsucc H).
@@ -1792,8 +1777,8 @@ Proof.
     - exact Hlen_cpu1.
   }
   assert (Hpc2 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu2 = 2).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr cpu1 _ Hdecode1) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+  { pose proof (ThieleUniversal.run1_pc_succ_instr cpu1 _ Hdecode1) as Hsucc.
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.AddReg ThieleUniversal.CPU.REG_ADDR
                  ThieleUniversal.CPU.REG_TEMP1 ThieleUniversal.CPU.REG_HEAD))
       by (simpl; lia).
@@ -1976,15 +1961,15 @@ Proof.
     as [_ [_ [_ Hpc4]]].
   pose proof (utm_decode_findrule_load_rule_instruction tm q tape head Hfit)
     as Hdecode4.
-  pose proof (ThieleUniversalCompat.run1_pc_succ_instr
+  pose proof (ThieleUniversal.run1_pc_succ_instr
                 cpu4
                 (ThieleUniversal.CPU.LoadIndirect ThieleUniversal.CPU.REG_Q'
                    ThieleUniversal.CPU.REG_ADDR)
                 Hdecode4) as Hsucc.
-  assert (ThieleUniversalCompat.CPU.pc_unchanged
+  assert (ThieleUniversal.CPU.pc_unchanged
             (ThieleUniversal.CPU.LoadIndirect ThieleUniversal.CPU.REG_Q'
                ThieleUniversal.CPU.REG_ADDR)) as Hunchanged
-    by (unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia).
+    by (unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia).
   specialize (Hsucc Hunchanged).
   rewrite Hpc4 in Hsucc.
   rewrite <- (ThieleUniversal.run_n_add cpu0 3 2).
@@ -2074,18 +2059,18 @@ Proof.
   pose proof (utm_decode_findrule_symbol_instruction tm q tape head Hfit)
     as Hdecode2.
   assert (Hpc1 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu1 = 1).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr
+  { pose proof (ThieleUniversal.run1_pc_succ_instr
                   cpu0 _ Hdecode0) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_TEMP1
                  UTM_Program.TAPE_START_ADDR)) by (simpl; lia).
     specialize (Hsucc H).
     rewrite Hpc0 in Hsucc.
     exact Hsucc. }
   assert (Hpc2 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu2 = 2).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr
+  { pose proof (ThieleUniversal.run1_pc_succ_instr
                   cpu1 _ Hdecode1) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.AddReg ThieleUniversal.CPU.REG_ADDR
                  ThieleUniversal.CPU.REG_TEMP1 ThieleUniversal.CPU.REG_HEAD))
       by (simpl; lia).
@@ -2093,9 +2078,9 @@ Proof.
     rewrite Hpc1 in Hsucc.
     exact Hsucc. }
   assert (Hpc3 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu3 = 3).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr
+  { pose proof (ThieleUniversal.run1_pc_succ_instr
                   cpu2 _ Hdecode2) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.LoadIndirect ThieleUniversal.CPU.REG_SYM
                  ThieleUniversal.CPU.REG_ADDR)) by (simpl; lia).
     specialize (Hsucc H).
@@ -2155,43 +2140,43 @@ Proof.
   pose proof (utm_decode_findrule_reset_instruction tm q tape head Hfit)
     as Hdecode3.
   assert (Hpc1 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu1 = 1).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr
+  { pose proof (ThieleUniversal.run1_pc_succ_instr
                   cpu0 _ Hdecode0) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_TEMP1
                  UTM_Program.TAPE_START_ADDR)) as Hunchanged by
-        (unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia).
+        (unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia).
     specialize (Hsucc Hunchanged).
     rewrite Hpc0 in Hsucc.
     exact Hsucc. }
   assert (Hpc2 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu2 = 2).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr
+  { pose proof (ThieleUniversal.run1_pc_succ_instr
                   cpu1 _ Hdecode1) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.AddReg ThieleUniversal.CPU.REG_ADDR
                  ThieleUniversal.CPU.REG_TEMP1 ThieleUniversal.CPU.REG_HEAD))
       as Hunchanged by
-        (unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia).
+        (unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia).
     specialize (Hsucc Hunchanged).
     rewrite Hpc1 in Hsucc.
     exact Hsucc. }
   assert (Hpc3 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu3 = 3).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr
+  { pose proof (ThieleUniversal.run1_pc_succ_instr
                   cpu2 _ Hdecode2) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.LoadIndirect ThieleUniversal.CPU.REG_SYM
                  ThieleUniversal.CPU.REG_ADDR)) as Hunchanged by
-        (unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia).
+        (unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia).
     specialize (Hsucc Hunchanged).
     rewrite Hpc2 in Hsucc.
     exact Hsucc. }
   assert (Hpc4 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu4 = 4).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr
+  { pose proof (ThieleUniversal.run1_pc_succ_instr
                   cpu3 _ Hdecode3) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_ADDR
                  UTM_Program.RULES_START_ADDR)) as Hunchanged by
-        (unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia).
+        (unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia).
     specialize (Hsucc Hunchanged).
     rewrite Hpc3 in Hsucc.
     exact Hsucc. }
@@ -2256,53 +2241,53 @@ Proof.
   pose proof (utm_decode_findrule_load_rule_instruction tm q tape head Hfit)
     as Hdecode4.
   assert (Hpc1 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu1 = 1).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr
+  { pose proof (ThieleUniversal.run1_pc_succ_instr
                   cpu0 _ Hdecode0) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_TEMP1
                  UTM_Program.TAPE_START_ADDR)) as Hunchanged by
-        (unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia).
+        (unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia).
     specialize (Hsucc Hunchanged).
     rewrite Hpc0 in Hsucc.
     exact Hsucc. }
   assert (Hpc2 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu2 = 2).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr
+  { pose proof (ThieleUniversal.run1_pc_succ_instr
                   cpu1 _ Hdecode1) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.AddReg ThieleUniversal.CPU.REG_ADDR
                  ThieleUniversal.CPU.REG_TEMP1 ThieleUniversal.CPU.REG_HEAD))
       as Hunchanged by
-        (unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia).
+        (unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia).
     specialize (Hsucc Hunchanged).
     rewrite Hpc1 in Hsucc.
     exact Hsucc. }
   assert (Hpc3 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu3 = 3).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr
+  { pose proof (ThieleUniversal.run1_pc_succ_instr
                   cpu2 _ Hdecode2) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.LoadIndirect ThieleUniversal.CPU.REG_SYM
                  ThieleUniversal.CPU.REG_ADDR)) as Hunchanged by
-        (unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia).
+        (unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia).
     specialize (Hsucc Hunchanged).
     rewrite Hpc2 in Hsucc.
     exact Hsucc. }
   assert (Hpc4 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu4 = 4).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr
+  { pose proof (ThieleUniversal.run1_pc_succ_instr
                   cpu3 _ Hdecode3) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_ADDR
                  UTM_Program.RULES_START_ADDR)) as Hunchanged by
-        (unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia).
+        (unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia).
     specialize (Hsucc Hunchanged).
     rewrite Hpc3 in Hsucc.
     exact Hsucc. }
   assert (Hpc5 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu5 = 5).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr
+  { pose proof (ThieleUniversal.run1_pc_succ_instr
                   cpu4 _ Hdecode4) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.LoadIndirect ThieleUniversal.CPU.REG_Q'
                  ThieleUniversal.CPU.REG_ADDR)) as Hunchanged by
-        (unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia).
+        (unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia).
     specialize (Hsucc Hunchanged).
     rewrite Hpc4 in Hsucc.
     exact Hsucc. }
@@ -2373,52 +2358,52 @@ Proof.
   pose proof (utm_decode_findrule_copy_q_instruction tm q tape head Hfit)
     as Hdecode5.
   assert (Hpc1 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu1 = 1).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr cpu0 _ Hdecode0) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+  { pose proof (ThieleUniversal.run1_pc_succ_instr cpu0 _ Hdecode0) as Hsucc.
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_TEMP1
                  UTM_Program.TAPE_START_ADDR)) as Hunchanged by
-        (unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia).
+        (unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia).
     specialize (Hsucc Hunchanged).
     rewrite Hpc0 in Hsucc. exact Hsucc. }
   assert (Hpc2 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu2 = 2).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr cpu1 _ Hdecode1) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+  { pose proof (ThieleUniversal.run1_pc_succ_instr cpu1 _ Hdecode1) as Hsucc.
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.AddReg ThieleUniversal.CPU.REG_ADDR
                  ThieleUniversal.CPU.REG_TEMP1 ThieleUniversal.CPU.REG_HEAD))
       as Hunchanged by
-        (unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia).
+        (unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia).
     specialize (Hsucc Hunchanged).
     rewrite Hpc1 in Hsucc. exact Hsucc. }
   assert (Hpc3 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu3 = 3).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr cpu2 _ Hdecode2) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+  { pose proof (ThieleUniversal.run1_pc_succ_instr cpu2 _ Hdecode2) as Hsucc.
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.LoadIndirect ThieleUniversal.CPU.REG_SYM
                  ThieleUniversal.CPU.REG_ADDR)) as Hunchanged by
-        (unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia).
+        (unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia).
     specialize (Hsucc Hunchanged).
     rewrite Hpc2 in Hsucc. exact Hsucc. }
   assert (Hpc4 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu4 = 4).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr cpu3 _ Hdecode3) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+  { pose proof (ThieleUniversal.run1_pc_succ_instr cpu3 _ Hdecode3) as Hsucc.
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_ADDR
                  UTM_Program.RULES_START_ADDR)) as Hunchanged by
-        (unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia).
+        (unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia).
     specialize (Hsucc Hunchanged).
     rewrite Hpc3 in Hsucc. exact Hsucc. }
   assert (Hpc5 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu5 = 5).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr cpu4 _ Hdecode4) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+  { pose proof (ThieleUniversal.run1_pc_succ_instr cpu4 _ Hdecode4) as Hsucc.
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.LoadIndirect ThieleUniversal.CPU.REG_Q'
                  ThieleUniversal.CPU.REG_ADDR)) as Hunchanged by
-        (unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia).
+        (unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia).
     specialize (Hsucc Hunchanged).
     rewrite Hpc4 in Hsucc. exact Hsucc. }
   assert (Hpc6 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu6 = 6).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr cpu5 _ Hdecode5) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+  { pose proof (ThieleUniversal.run1_pc_succ_instr cpu5 _ Hdecode5) as Hsucc.
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.CopyReg ThieleUniversal.CPU.REG_TEMP1
                  ThieleUniversal.CPU.REG_Q)) as Hunchanged by
-        (unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia).
+        (unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia).
     specialize (Hsucc Hunchanged).
     rewrite Hpc5 in Hsucc. exact Hsucc. }
   assert (Hmem01 : ThieleUniversal.CPU.mem cpu1 = ThieleUniversal.CPU.mem cpu0).
@@ -2491,16 +2476,16 @@ Proof.
   pose proof (utm_decode_findrule_subtract_instruction tm q tape head Hfit)
     as Hdecode6.
   assert (Hpc1 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu1 = 1).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr cpu0 _ Hdecode0) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+  { pose proof (ThieleUniversal.run1_pc_succ_instr cpu0 _ Hdecode0) as Hsucc.
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_TEMP1
                  UTM_Program.TAPE_START_ADDR)) by (simpl; lia).
     specialize (Hsucc H).
     rewrite Hpc0 in Hsucc.
     exact Hsucc. }
   assert (Hpc2 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu2 = 2).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr cpu1 _ Hdecode1) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+  { pose proof (ThieleUniversal.run1_pc_succ_instr cpu1 _ Hdecode1) as Hsucc.
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.AddReg ThieleUniversal.CPU.REG_ADDR
                  ThieleUniversal.CPU.REG_TEMP1 ThieleUniversal.CPU.REG_HEAD))
       by (simpl; lia).
@@ -2508,40 +2493,40 @@ Proof.
     rewrite Hpc1 in Hsucc.
     exact Hsucc. }
   assert (Hpc3 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu3 = 3).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr cpu2 _ Hdecode2) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+  { pose proof (ThieleUniversal.run1_pc_succ_instr cpu2 _ Hdecode2) as Hsucc.
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.LoadIndirect ThieleUniversal.CPU.REG_SYM
                  ThieleUniversal.CPU.REG_ADDR)) by (simpl; lia).
     specialize (Hsucc H).
     rewrite Hpc2 in Hsucc.
     exact Hsucc. }
   assert (Hpc4 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu4 = 4).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr cpu3 _ Hdecode3) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+  { pose proof (ThieleUniversal.run1_pc_succ_instr cpu3 _ Hdecode3) as Hsucc.
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_ADDR
                  UTM_Program.RULES_START_ADDR)) by (simpl; lia).
     specialize (Hsucc H).
     rewrite Hpc3 in Hsucc.
     exact Hsucc. }
   assert (Hpc5 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu5 = 5).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr cpu4 _ Hdecode4) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+  { pose proof (ThieleUniversal.run1_pc_succ_instr cpu4 _ Hdecode4) as Hsucc.
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.LoadIndirect ThieleUniversal.CPU.REG_Q'
                  ThieleUniversal.CPU.REG_ADDR)) by (simpl; lia).
     specialize (Hsucc H).
     rewrite Hpc4 in Hsucc.
     exact Hsucc. }
   assert (Hpc6 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu6 = 6).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr cpu5 _ Hdecode5) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+  { pose proof (ThieleUniversal.run1_pc_succ_instr cpu5 _ Hdecode5) as Hsucc.
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.CopyReg ThieleUniversal.CPU.REG_TEMP1
                  ThieleUniversal.CPU.REG_Q)) by (simpl; lia).
     specialize (Hsucc H).
     rewrite Hpc5 in Hsucc.
     exact Hsucc. }
   assert (Hpc7 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu7 = 7).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr cpu6 _ Hdecode6) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+  { pose proof (ThieleUniversal.run1_pc_succ_instr cpu6 _ Hdecode6) as Hsucc.
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.SubReg ThieleUniversal.CPU.REG_TEMP1
                  ThieleUniversal.CPU.REG_TEMP1 ThieleUniversal.CPU.REG_Q'))
       by (simpl; lia).
@@ -2604,13 +2589,13 @@ Proof.
     as [_ [_ [_ Hpc4]]].
   pose proof (utm_decode_findrule_load_rule_instruction tm q tape head Hfit)
     as Hdecode4.
-  pose proof (ThieleUniversalCompat.run1_pc_succ_instr
+  pose proof (ThieleUniversal.run1_pc_succ_instr
                 (ThieleUniversal.run_n (utm_cpu_state tm ((q, tape), head)) 4)
                 _ Hdecode4) as Hsucc.
-  assert (ThieleUniversalCompat.CPU.pc_unchanged
+  assert (ThieleUniversal.CPU.pc_unchanged
             (ThieleUniversal.CPU.LoadIndirect ThieleUniversal.CPU.REG_Q'
                ThieleUniversal.CPU.REG_ADDR)) by
-    (unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia).
+    (unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia).
   specialize (Hsucc H).
   change (ThieleUniversal.run_n (utm_cpu_state tm ((q, tape), head)) 5)
     with (ThieleUniversal.run1
@@ -2637,12 +2622,12 @@ Proof.
   assert (Hpc_succ6 :
             ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu7 = 7).
   { subst cpu7.
-    apply (ThieleUniversalCompat.run1_pc_succ_instr
+    apply (ThieleUniversal.run1_pc_succ_instr
              cpu6
              (ThieleUniversal.CPU.SubReg ThieleUniversal.CPU.REG_TEMP1
                 ThieleUniversal.CPU.REG_TEMP1 ThieleUniversal.CPU.REG_Q')).
     - exact Hdecode6.
-    - unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia.
+    - unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia.
   }
   subst cpu5 cpu6 cpu7.
   change (ThieleUniversal.run_n cpu0 7)
@@ -2664,13 +2649,13 @@ Proof.
   pose proof (utm_fetch_pc_after_five_steps tm q tape head Hfit) as Hpc5.
   pose proof (utm_decode_findrule_copy_q_instruction tm q tape head Hfit)
     as Hdecode5.
-  pose proof (ThieleUniversalCompat.run1_pc_succ_instr
+  pose proof (ThieleUniversal.run1_pc_succ_instr
                 (ThieleUniversal.run_n (utm_cpu_state tm ((q, tape), head)) 5)
                 _ Hdecode5) as Hsucc.
-  assert (ThieleUniversalCompat.CPU.pc_unchanged
+  assert (ThieleUniversal.CPU.pc_unchanged
             (ThieleUniversal.CPU.CopyReg ThieleUniversal.CPU.REG_TEMP1
                ThieleUniversal.CPU.REG_Q)) by
-    (unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia).
+    (unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia).
   specialize (Hsucc H).
   rewrite Hpc5 in Hsucc.
   change (ThieleUniversal.run_n
@@ -2699,33 +2684,33 @@ Proof.
   pose proof (utm_fetch_pc_after_five_steps tm q tape head Hfit) as Hpc5.
   pose proof (utm_decode_findrule_copy_q_instruction tm q tape head Hfit)
     as Hdecode5.
-  pose proof (ThieleUniversalCompat.run1_pc_succ_instr
+  pose proof (ThieleUniversal.run1_pc_succ_instr
                 (ThieleUniversal.run_n cpu0 5)
                 (ThieleUniversal.CPU.CopyReg ThieleUniversal.CPU.REG_TEMP1
                    ThieleUniversal.CPU.REG_Q)
                 Hdecode5) as Hsucc5.
-  assert (Hunchanged5 : ThieleUniversalCompat.CPU.pc_unchanged
+  assert (Hunchanged5 : ThieleUniversal.CPU.pc_unchanged
                            (ThieleUniversal.CPU.CopyReg
                               ThieleUniversal.CPU.REG_TEMP1
                               ThieleUniversal.CPU.REG_Q))
-    by (unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia).
+    by (unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia).
   specialize (Hsucc5 Hunchanged5).
   change (ThieleUniversal.run_n cpu0 6)
     with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu0 5)) in Hsucc5.
   rewrite Hpc5 in Hsucc5.
   pose proof (utm_decode_findrule_subtract_instruction tm q tape head Hfit)
     as Hdecode6.
-  pose proof (ThieleUniversalCompat.run1_pc_succ_instr
+  pose proof (ThieleUniversal.run1_pc_succ_instr
                 (ThieleUniversal.run_n cpu0 6)
                 (ThieleUniversal.CPU.SubReg ThieleUniversal.CPU.REG_TEMP1
                    ThieleUniversal.CPU.REG_TEMP1 ThieleUniversal.CPU.REG_Q')
                 Hdecode6) as Hsucc6.
-  assert (Hunchanged6 : ThieleUniversalCompat.CPU.pc_unchanged
+  assert (Hunchanged6 : ThieleUniversal.CPU.pc_unchanged
                            (ThieleUniversal.CPU.SubReg
                               ThieleUniversal.CPU.REG_TEMP1
                               ThieleUniversal.CPU.REG_TEMP1
                               ThieleUniversal.CPU.REG_Q'))
-    by (unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia).
+    by (unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia).
   specialize (Hsucc6 Hunchanged6).
   change (ThieleUniversal.run_n cpu0 7)
     with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu0 6)) in Hsucc6.
@@ -2877,13 +2862,13 @@ Proof.
     change (nth 12 ThieleUniversal.program_instrs ThieleUniversal.Halt)
       with (ThieleUniversal.CPU.CopyReg ThieleUniversal.CPU.REG_TEMP1
               ThieleUniversal.CPU.REG_ADDR) in Hdecode8.
-    pose proof (ThieleUniversalCompat.run1_pc_succ_instr
+    pose proof (ThieleUniversal.run1_pc_succ_instr
                   cpu8 _ Hdecode8) as Hsucc.
-    assert (Hunchanged : ThieleUniversalCompat.CPU.pc_unchanged
+    assert (Hunchanged : ThieleUniversal.CPU.pc_unchanged
                             (ThieleUniversal.CPU.CopyReg
                                ThieleUniversal.CPU.REG_TEMP1
                                ThieleUniversal.CPU.REG_ADDR))
-      by (unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia).
+      by (unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia).
     specialize (Hsucc Hunchanged).
     rewrite Hpc8 in Hsucc.
     simpl in Hsucc.
@@ -2907,12 +2892,12 @@ Proof.
     change (nth 8 ThieleUniversal.program_instrs ThieleUniversal.Halt)
       with (ThieleUniversal.CPU.AddConst ThieleUniversal.CPU.REG_ADDR 5)
       in Hdecode8.
-    pose proof (ThieleUniversalCompat.run1_pc_succ_instr
+    pose proof (ThieleUniversal.run1_pc_succ_instr
                   cpu8 _ Hdecode8) as Hsucc.
-    assert (Hunchanged : ThieleUniversalCompat.CPU.pc_unchanged
+    assert (Hunchanged : ThieleUniversal.CPU.pc_unchanged
                             (ThieleUniversal.CPU.AddConst
                                ThieleUniversal.CPU.REG_ADDR 5))
-      by (unfold ThieleUniversalCompat.CPU.pc_unchanged; simpl; lia).
+      by (unfold ThieleUniversal.CPU.pc_unchanged; simpl; lia).
     specialize (Hsucc Hunchanged).
     rewrite Hpc8 in Hsucc.
     simpl in Hsucc.
@@ -2970,16 +2955,16 @@ Proof.
   pose proof (utm_decode_findrule_reset_instruction tm q tape head Hfit)
     as Hdecode3.
   assert (Hpc1 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu1 = 1).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr cpu0 _ Hdecode0) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+  { pose proof (ThieleUniversal.run1_pc_succ_instr cpu0 _ Hdecode0) as Hsucc.
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_TEMP1
                  UTM_Program.TAPE_START_ADDR)) by (simpl; lia).
     specialize (Hsucc H).
     rewrite Hpc0 in Hsucc.
     exact Hsucc. }
   assert (Hpc2 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu2 = 2).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr cpu1 _ Hdecode1) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+  { pose proof (ThieleUniversal.run1_pc_succ_instr cpu1 _ Hdecode1) as Hsucc.
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.AddReg ThieleUniversal.CPU.REG_ADDR
                  ThieleUniversal.CPU.REG_TEMP1 ThieleUniversal.CPU.REG_HEAD))
       by (simpl; lia).
@@ -2987,8 +2972,8 @@ Proof.
     rewrite Hpc1 in Hsucc.
     exact Hsucc. }
   assert (Hpc3 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu3 = 3).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr cpu2 _ Hdecode2) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+  { pose proof (ThieleUniversal.run1_pc_succ_instr cpu2 _ Hdecode2) as Hsucc.
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.LoadIndirect ThieleUniversal.CPU.REG_SYM
                  ThieleUniversal.CPU.REG_ADDR)) by (simpl; lia).
     specialize (Hsucc H).
@@ -3022,8 +3007,8 @@ Proof.
     - exact Hlen_cpu2.
   }
   assert (Hpc4 : ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu4 = 4).
-  { pose proof (ThieleUniversalCompat.run1_pc_succ_instr cpu3 _ Hdecode3) as Hsucc.
-    assert (ThieleUniversalCompat.CPU.pc_unchanged
+  { pose proof (ThieleUniversal.run1_pc_succ_instr cpu3 _ Hdecode3) as Hsucc.
+    assert (ThieleUniversal.CPU.pc_unchanged
               (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_ADDR
                  UTM_Program.RULES_START_ADDR)) by (simpl; lia).
     specialize (Hsucc H).
