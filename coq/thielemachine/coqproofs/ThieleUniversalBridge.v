@@ -278,8 +278,8 @@ Proof.
   split. exact Hpc.
   split. apply tape_window_ok_setup_state; assumption.
   split.
-  - unfold setup_state.
-    simpl.
+  - unfold setup_state in *.
+    cbn [fst snd] in *.
     set (rules := UTM_Encode.encode_rules tm.(tm_rules)).
     set (mem0 := pad_to UTM_Program.RULES_START_ADDR program).
     set (mem1 := pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)).
@@ -294,15 +294,14 @@ Proof.
       apply Nat.add_le_mono_l. exact Hrules. }
     assert (Hmem1_len : length mem1 = UTM_Program.TAPE_START_ADDR).
     { subst mem1. apply length_pad_to_ge. exact Hfit. }
-    fold mem1.
-    rewrite firstn_app_le' by (rewrite Hmem1_len; pose proof UTM_Program.RULES_START_ADDR_le_TAPE_START_ADDR; lia).
     subst mem1.
+    rewrite firstn_app_le' by (rewrite Hmem1_len; pose proof UTM_Program.RULES_START_ADDR_le_TAPE_START_ADDR; lia).
     rewrite firstn_pad_to_le by (rewrite app_length, Hmem0_len; lia).
     rewrite firstn_app_le' by (rewrite Hmem0_len; lia).
     subst mem0.
     apply firstn_pad_to. exact Hprog.
-  - unfold setup_state.
-    simpl.
+  - unfold setup_state in *.
+    cbn [fst snd] in *.
     set (rules := UTM_Encode.encode_rules tm.(tm_rules)).
     set (mem0 := pad_to UTM_Program.RULES_START_ADDR program).
     set (mem1 := pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)).
