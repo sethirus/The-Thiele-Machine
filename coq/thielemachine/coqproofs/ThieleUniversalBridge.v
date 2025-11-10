@@ -294,8 +294,9 @@ Proof.
       apply Nat.add_le_mono_l. exact Hrules. }
     assert (Hmem1_len : length mem1 = UTM_Program.TAPE_START_ADDR).
     { subst mem1. apply length_pad_to_ge. exact Hfit. }
-    subst mem1.
+    fold mem1.
     rewrite firstn_app_le' by (rewrite Hmem1_len; pose proof UTM_Program.RULES_START_ADDR_le_TAPE_START_ADDR; lia).
+    subst mem1.
     rewrite firstn_pad_to_le by (rewrite app_length, Hmem0_len; lia).
     rewrite firstn_app_le' by (rewrite Hmem0_len; lia).
     subst mem0.
