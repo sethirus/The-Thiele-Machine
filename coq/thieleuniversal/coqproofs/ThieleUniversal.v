@@ -4199,8 +4199,8 @@ Qed.
         }
         rewrite Hfind_goal.
         simpl.
-        exists 6.
         exists st6.
+        exists 6.
         split; [reflexivity|].
         rewrite Hrun_st6.
         split.
