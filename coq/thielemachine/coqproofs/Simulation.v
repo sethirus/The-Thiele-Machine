@@ -282,6 +282,8 @@ Proof.
   intros tm conf Hfit.
   unfold utm_cpu_state.
   apply ThieleUniversal.inv_setup_state.
+  - exact utm_program_fits.
+  - exact Hfit.
 Qed.
 
 Lemma utm_cpu_state_inv_from_rules_fit :
@@ -322,17 +324,33 @@ Proof.
   destruct Hinv as [_ [_ [_ [Htape [_ _]]]]].
   unfold ThieleUniversal.tape_window_ok in Htape.
   unfold ThieleUniversal.CPU.read_mem.
-  
-  (* The proof requires showing:
-     nth (TAPE_START_ADDR + head) (mem (utm_cpu_state tm ((q, tape), head))) 0
-     = nth head tape (tm_blank tm)
-     
-     From Htape we have:
-     firstn (length tape) (skipn TAPE_START_ADDR (mem (utm_cpu_state...))) = tape
-     
-     The key is to relate nth of the full memory to nth of the skipn.
-     This requires nth_add_skipn and firstn properties. *)
-Admitted.
+  set (mem := ThieleUniversal.CPU.mem (utm_cpu_state tm ((q, tape), head))) in *.
+  assert (Hlen_eq := f_equal (@length _) Htape).
+  rewrite firstn_length in Hlen_eq.
+  assert (Hlen_skip :
+            length tape <= length (skipn UTM_Program.TAPE_START_ADDR mem)).
+  { destruct (Nat.leb_spec (length tape)
+               (length (skipn UTM_Program.TAPE_START_ADDR mem))) as [Hle|Hgt].
+    - exact Hle.
+    - exfalso.
+      assert (Hle : length (skipn UTM_Program.TAPE_START_ADDR mem)
+                    <= length tape) by lia.
+      pose proof (Nat.min_r (length tape)
+                              (length (skipn UTM_Program.TAPE_START_ADDR mem))
+                              Hle) as Hmin.
+      rewrite Hmin in Hlen_eq.
+      lia. }
+  assert (Hhead_skip :
+            head < length (skipn UTM_Program.TAPE_START_ADDR mem)) by lia.
+  rewrite <- (ThieleUniversal.nth_add_skipn head
+                UTM_Program.TAPE_START_ADDR mem 0).
+  pose proof (@nth_indep nat (skipn UTM_Program.TAPE_START_ADDR mem)
+                        head 0 (tm.(tm_blank)) Hhead_skip) as Hindep.
+  rewrite Hindep.
+  rewrite <- Htape.
+  rewrite ThieleUniversal.nth_firstn_lt with (d := tm.(tm_blank)) by exact Hlt.
+  reflexivity.
+Qed.
 
 Lemma utm_decode_fetch_instruction :
   forall tm q tape head,
@@ -345,15 +363,89 @@ Proof.
   pose proof (utm_cpu_state_inv_from_rules_fit tm ((q, tape), head) Hfit)
     as Hinv.
   destruct Hinv as [_ [_ [Hpc0 [_ [Hprog _]]]]].
-  
-  (* This proof requires:
-     1. Decoding the first instruction from memory
-     2. Showing memory at position 0 contains encoded LoadConst
-     3. Using Hprog to relate memory to program
-     4. Using program_word lemmas to show specific values
-     
-     The structure is sound but requires detailed memory reasoning *)
-Admitted.
+
+  unfold ThieleUniversal.decode_instr.
+  rewrite Hpc0.
+  cbn [Nat.mul].
+  set (mem := ThieleUniversal.CPU.mem (utm_cpu_state tm ((q, tape), head))).
+  change (UTM_Encode.decode_instr_from_mem mem 0 =
+          ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_TEMP1
+            UTM_Program.TAPE_START_ADDR).
+  cbn [UTM_Encode.decode_instr_from_mem Nat.add].
+
+  assert (Hlen_prog : 4 <= length ThieleUniversal.program).
+  { unfold ThieleUniversal.program.
+    unfold UTM_Program.program_instrs.
+    cbn [flat_map].
+    cbn [UTM_Encode.encode_instr_words].
+    simpl.
+    lia. }
+
+  assert (Hnth_mem :
+            forall k,
+              k < length ThieleUniversal.program ->
+              nth k mem 0 = nth k ThieleUniversal.program 0).
+  { intros k Hk.
+    unfold mem.
+    rewrite <- (ThieleUniversal.nth_firstn_lt k (length ThieleUniversal.program)
+                  (ThieleUniversal.CPU.mem (utm_cpu_state tm ((q, tape), head))) 0 Hk).
+    rewrite Hprog.
+    reflexivity. }
+
+  assert (Hprog0 : nth 0 ThieleUniversal.program 0 = 0).
+  { unfold ThieleUniversal.program.
+    unfold UTM_Program.program_instrs.
+    cbn [flat_map UTM_Encode.encode_instr_words].
+    reflexivity. }
+  assert (Hprog1 : nth 1 ThieleUniversal.program 0 = ThieleUniversal.CPU.REG_TEMP1).
+  { unfold ThieleUniversal.program.
+    unfold UTM_Program.program_instrs.
+    cbn [flat_map UTM_Encode.encode_instr_words].
+    reflexivity. }
+  assert (Hprog2 : nth 2 ThieleUniversal.program 0 = UTM_Program.TAPE_START_ADDR).
+  { unfold ThieleUniversal.program.
+    unfold UTM_Program.program_instrs.
+    cbn [flat_map UTM_Encode.encode_instr_words].
+    reflexivity. }
+  assert (Hprog3 : nth 3 ThieleUniversal.program 0 = 0).
+  { unfold ThieleUniversal.program.
+    unfold UTM_Program.program_instrs.
+    cbn [flat_map UTM_Encode.encode_instr_words].
+    reflexivity. }
+
+  assert (Hnth0 : nth 0 mem 0 = nth 0 ThieleUniversal.program 0).
+  { apply Hnth_mem.
+    apply Nat.lt_le_trans with (m := 4); lia. }
+  assert (Hnth1 : nth 1 mem 0 = nth 1 ThieleUniversal.program 0).
+  { apply Hnth_mem.
+    apply Nat.lt_le_trans with (m := 4); lia. }
+  assert (Hnth2 : nth 2 mem 0 = nth 2 ThieleUniversal.program 0).
+  { apply Hnth_mem.
+    apply Nat.lt_le_trans with (m := 4); lia. }
+  assert (Hnth3 : nth 3 mem 0 = nth 3 ThieleUniversal.program 0).
+  { apply Hnth_mem.
+    apply Nat.lt_le_trans with (m := 4); lia. }
+
+  remember (nth 0 mem 0) as opcode eqn:Hopcode.
+  remember (nth 1 mem 0) as arg1 eqn:Harg1.
+  remember (nth 2 mem 0) as arg2 eqn:Harg2.
+  remember (nth 3 mem 0) as arg3 eqn:Harg3.
+  cbn [UTM_Encode.decode_instr_from_mem Nat.add].
+
+  rewrite Hnth0 in Hopcode.
+  rewrite Hprog0 in Hopcode.
+  subst opcode.
+  rewrite Hnth1 in Harg1.
+  rewrite Hprog1 in Harg1.
+  subst arg1.
+  rewrite Hnth2 in Harg2.
+  rewrite Hprog2 in Harg2.
+  subst arg2.
+  rewrite Hnth3 in Harg3.
+  rewrite Hprog3 in Harg3.
+  subst arg3.
+  reflexivity.
+Qed.
 
 Lemma utm_decode_findrule_address_instruction :
   forall tm q tape head,
@@ -612,8 +704,16 @@ Proof.
   pose proof (utm_cpu_state_inv_from_rules_fit tm ((q, tape), head) Hfit)
     as Hinv.
   pose proof (utm_cpu_state_fetch tm ((q, tape), head)) as Hfetch.
+  pose proof (utm_cpu_state_regs_length tm ((q, tape), head)) as Hregs_len.
+  pose proof (utm_decode_fetch_instruction tm q tape head Hfit) as Hdecode_fetch.
+  pose proof (utm_decode_findrule_address_instruction tm q tape head Hfit)
+    as Hdecode_addr.
+  pose proof (utm_decode_findrule_symbol_instruction tm q tape head Hfit)
+    as Hdecode_symbol.
   destruct (ThieleUniversal.transition_Fetch_to_FindRule tm ((q, tape), head)
-              cpu0 Hinv Hfetch) as [cpu_find [Hrun Hpc]].
+              cpu0 Hinv Hfetch Hregs_len
+              Hdecode_fetch Hdecode_addr Hdecode_symbol)
+    as [cpu_find [Hrun Hpc]].
   simpl in Hrun.
   unfold ThieleUniversal.IS_FindRule_Start in Hpc.
   rewrite <- Hrun.
@@ -3731,7 +3831,9 @@ Proof.
   (* These register bounds and the concrete fetch transition collectively set up
      the hypotheses required by the `transition_FindRule_to_ApplyRule` lemma. *)
   destruct (ThieleUniversal.transition_Fetch_to_FindRule tm ((q, tape), head) cpu0
-              Hinv_full Hfetch) as [cpu_find [Hrun_fetch Hpc_find]].
+              Hinv_full Hfetch Hregs_len
+              Hdecode_fetch Hdecode_addr Hdecode_symbol)
+    as [cpu_find [Hrun_fetch Hpc_find]].
   pose proof (utm_fetch_pc_after_three_steps tm q tape head Hfit) as Hpc_after_fetch.
   rewrite <- Hrun_fetch in Hpc_after_fetch.
   pose proof (utm_fetch_preserves_q tm q tape head Hfit) as Hq_after_fetch.
