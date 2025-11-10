@@ -273,11 +273,11 @@ Proof.
   destruct Hmin as [Hq [Hhead Hpc]].
   unfold inv.
   simpl.
-  repeat split.
-  - exact Hq.
-  - exact Hhead.
-  - exact Hpc.
-  - apply tape_window_ok_setup_state; assumption.
+  split. exact Hq.
+  split. exact Hhead.
+  split. exact Hpc.
+  split. apply tape_window_ok_setup_state; assumption.
+  split.
   - unfold setup_state.
     simpl.
     set (rules := UTM_Encode.encode_rules tm.(tm_rules)).
@@ -287,8 +287,10 @@ Proof.
     { subst mem0. apply length_pad_to_ge. exact Hprog. }
     assert (Hfit : length (mem0 ++ rules) <= UTM_Program.TAPE_START_ADDR).
     { rewrite app_length, Hmem0_len.
-      replace UTM_Program.TAPE_START_ADDR with
-        (UTM_Program.RULES_START_ADDR + (UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR)) by lia.
+      assert (Heq: UTM_Program.TAPE_START_ADDR =
+        UTM_Program.RULES_START_ADDR + (UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR)).
+      { unfold UTM_Program.TAPE_START_ADDR, UTM_Program.RULES_START_ADDR. lia. }
+      rewrite Heq.
       apply Nat.add_le_mono_l. exact Hrules. }
     assert (Hmem1_len : length mem1 = UTM_Program.TAPE_START_ADDR).
     { subst mem1. apply length_pad_to_ge. exact Hfit. }
@@ -307,8 +309,10 @@ Proof.
     { subst mem0. apply length_pad_to_ge. exact Hprog. }
     assert (Hfit : length (mem0 ++ rules) <= UTM_Program.TAPE_START_ADDR).
     { rewrite app_length, Hmem0_len.
-      replace UTM_Program.TAPE_START_ADDR with
-        (UTM_Program.RULES_START_ADDR + (UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR)) by lia.
+      assert (Heq: UTM_Program.TAPE_START_ADDR =
+        UTM_Program.RULES_START_ADDR + (UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR)).
+      { unfold UTM_Program.TAPE_START_ADDR, UTM_Program.RULES_START_ADDR. lia. }
+      rewrite Heq.
       apply Nat.add_le_mono_l. exact Hrules. }
     subst mem1.
     rewrite skipn_app_le' by (rewrite length_pad_to_ge with (l := mem0 ++ rules) (n := UTM_Program.TAPE_START_ADDR) by exact Hfit; pose proof UTM_Program.RULES_START_ADDR_le_TAPE_START_ADDR; lia).
