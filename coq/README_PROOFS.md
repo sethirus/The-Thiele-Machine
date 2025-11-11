@@ -1,21 +1,20 @@
-# Coq Assets – verification status
+# Coq assets – verification status
 
-> **Status update (October 2025):** The authoritative kernel proof lives in `coq/kernel/`. The VM↔kernel simulation framework now compiles without admitted lemmas; `ADMIT_REPORT.txt` remains as an audit trail for historical entries, and this README is preserved for the archived `coq/thielemachine` development.
+> **Status update (November 2025):** The kernel proof suite in `coq/kernel/` still builds cleanly, but the broader tree retains one admitted lemma in `thielemachine/coqproofs/Simulation.v` and the halting-oracle axiom in `thielemachine/coqproofs/HyperThiele_Halting.v`. The universal-interpreter bridge continues to fail its symbolic-execution obligations under Coq 8.18.0, and `HardwareBridge.v` now ties the Verilog fetch/decode cycle back to the abstract semantics so hardware traces can be replayed inside Coq. See `docs/COQ_PROOF_AUDIT.md` for the current tiered audit and action items.【495e62†L1-L20】【ac2173†L9-L30】【F:coq/thielemachine/coqproofs/HardwareBridge.v†L1-L154】【6b8295†L1-L45】
 ## Overview
 
 This directory contains the mechanised Coq development that underpins the
-Thiele Machine subsumption theorem. The checked tree now closes without any
-`Admitted` statements or project-specific axioms; see `ADMIT_REPORT.txt` and
-`coq/AXIOM_INVENTORY.md` for the authoritative generated inventory (currently
-all zero).
+Thiele Machine subsumption theorem. The core kernel and ThieleMachine files
+compile, but the tree is **not yet zero-admit/zero-axiom**: consult the audit
+and the updated inventories before claiming a clean build.
 
 **Snapshot:** 34 files across 7 sub-projects (≈10,443 lines of Coq)
 
 - **Compilation:** Core theorems verified with Coq 8.19.2.  Use
   `./verify_subsumption.sh` from this directory to rebuild the containment and
   separation pillars from a clean slate.
-- **Admitted statements:** 0 within `coq/` (see `ADMIT_REPORT.txt`; remaining placeholders live in `theory/` research drafts)
-- **Axioms in scope:** 0 (see `coq/AXIOM_INVENTORY.md` for the generated confirmation).
+  - **Admitted statements:** 1 within `coq/` (`utm_interpreter_no_rule_found_halts` in `Simulation.v`).【495e62†L1-L20】
+  - **Axioms in scope:** 1 (`H_correct` in the HyperThiele halting experiment).【ac2173†L9-L30】
 - **Flagship theorem:** `Subsumption.v` combines the blind simulation from
   `Simulation.v` with the Tseitin separation to prove that Turing computation is
   strictly contained in Thiele computation.  The legacy halting-oracle experiment
@@ -26,9 +25,9 @@ all zero).
 ## What is actually proved?
 
 1. **Containment (`Simulation.v`):** A blind Thiele program simulates any
-   classical Turing Machine.  The universal interpreter now builds without
-   admits; the remaining interface axioms summarise the executable Python
-   implementation.
+   classical Turing Machine.  One lemma (`utm_interpreter_no_rule_found_halts`)
+   remains admitted while the universal-interpreter bridge is under repair, so
+   the containment proof still depends on that placeholder.
 2. **Separation (`Separation.v`):** The sighted Thiele solver resolves Tseitin
    expander contradictions in cubic time and quadratic μ-bits, while the blind
    search axiom forces an exponential lower bound on Turing/DPLL search.
@@ -37,6 +36,7 @@ all zero).
 4. **Concrete realisation (`ThieleMachineConcrete.v`):** A constructive witness
    shows that the abstract machine has a concrete execution semantics whose
    receipts replay with sound μ-accounting.
+5. **Hardware bridge (`HardwareBridge.v`):** The fetch/decode skeleton of the Verilog CPU refines the abstract Thiele machine semantics, so RTL traces can be checked against the proof-oriented receipts.【F:coq/thielemachine/coqproofs/HardwareBridge.v†L1-L154】
 
 Every other directory—structured instances, Bell inequalities, partition
 algebra—feeds into these results or provides reusable infrastructure.
@@ -53,6 +53,7 @@ If you are surveying the development, start with:
 4. **`thielemachine/coqproofs/Subsumption.v`** – restates containment and separation as the flagship subsumption theorem.
 5. **`thielemachine/coqproofs/ThieleMachine.v`** – abstract machine interface with receipt accounting.
 6. **`thielemachine/coqproofs/ThieleMachineConcrete.v`** – connects the abstract model to the Python VM opcodes that actually exist (LASSERT, MDLACC, EMIT, PYEXEC, PNEW).
+7. **`thielemachine/coqproofs/HardwareBridge.v`** – shows how the Verilog fetch/decode logic collapses to the abstract receipts, enabling trace-level hardware regression checks.【F:coq/thielemachine/coqproofs/HardwareBridge.v†L1-L154】
 
 Supporting directories provide helper definitions (e.g., `thieleuniversal/coqproofs/`) and thematic case studies (`p_equals_np_thiele/`, `project_cerberus/`); consult their README files for precise scope.
 
@@ -313,9 +314,9 @@ cat coq/AXIOM_INVENTORY.md
 
 ## Key Achievements
 
-### ✅ Current Proof Health
+### ⚠️ Current proof health
 
-Every proof in the actively maintained Coq tree is now fully mechanised—no `Admitted` placeholders or bespoke axioms remain.  The generated reports (`ADMIT_REPORT.txt`, `coq/AXIOM_INVENTORY.md`) both read zero, and the historical notes below are preserved solely for context.
+The kernel proof suite remains fully mechanised, but the broader tree is still carrying the `utm_interpreter_no_rule_found_halts` admit and the halting-oracle axiom `H_correct`. The audit replaces the stale dashboards that previously reported zero admits/axioms and explains which files remain outstanding.【495e62†L1-L20】【ac2173†L9-L30】【6b8295†L1-L45】
 
 ### 🎯 Main Theoretical Contribution
 

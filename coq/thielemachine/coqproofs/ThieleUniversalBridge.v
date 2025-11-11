@@ -109,6 +109,16 @@ Proof.
   reflexivity.
 Qed.
 
+Lemma firstn_pad_to_app_le : forall l n rest k,
+  k <= length l -> firstn k (pad_to n l ++ rest) = firstn k l.
+Proof.
+  intros l n rest k Hk.
+  unfold pad_to.
+  rewrite firstn_app_le' by (rewrite app_length, repeat_length; lia).
+  rewrite firstn_app_le' by lia.
+  reflexivity.
+Qed.
+
 Lemma skipn_pad_to_app : forall l n rest,
   length l <= n -> skipn n (pad_to n l ++ rest) = rest.
 Proof.
@@ -282,7 +292,7 @@ Proof.
     simpl.
     set (rules := UTM_Encode.encode_rules tm.(tm_rules)).
     set (mem0 := pad_to UTM_Program.RULES_START_ADDR program).
-    set (mem1 := pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)).
+    remember (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)) as mem1 eqn:Hmem1.
     assert (Hmem0_len : length mem0 = UTM_Program.RULES_START_ADDR).
     { subst mem0. apply length_pad_to_ge. exact Hprog. }
     assert (Hfit : length (mem0 ++ rules) <= UTM_Program.TAPE_START_ADDR).
@@ -292,13 +302,14 @@ Proof.
       { unfold UTM_Program.TAPE_START_ADDR, UTM_Program.RULES_START_ADDR. lia. }
       rewrite Heq.
       apply Nat.add_le_mono_l. exact Hrules. }
-    assert (Hmem1_len : length mem1 = UTM_Program.TAPE_START_ADDR).
-    { subst mem1. apply length_pad_to_ge. exact Hfit. }
     subst mem1.
-    rewrite firstn_app_le' by (rewrite Hmem1_len; pose proof UTM_Program.RULES_START_ADDR_le_TAPE_START_ADDR; lia).
-    rewrite firstn_pad_to_le by (rewrite app_length, Hmem0_len; lia).
-    rewrite firstn_app_le' by (rewrite Hmem0_len; lia).
+    unfold pad_to at 1.
+    rewrite firstn_app_le' by (rewrite app_length, Hmem0_len; lia).
     subst mem0.
+    unfold pad_to at 1.
+    rewrite firstn_app_le' by (rewrite length_pad_to_ge with (l := program)
+                                                 (n := UTM_Program.RULES_START_ADDR)
+                                                 by exact Hprog; lia).
     apply firstn_pad_to. exact Hprog.
   - unfold setup_state.
     simpl.
