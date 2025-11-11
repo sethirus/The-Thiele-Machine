@@ -1,14 +1,14 @@
-Admit and axiom inventory
+Admit and axiom inventory (updated after November 2025 audit)
 
-Sandboxes
+Core tree
 ---------
-None.
+- `thielemachine/coqproofs/Simulation.v:3797` – `utm_interpreter_no_rule_found_halts` remains `Admitted`; completing the symbolic execution of the universal program is still open.【495e62†L1-L20】
 
-Archive
--------
-None.
+Halting-oracle experiment
+-------------------------
+- `thielemachine/coqproofs/HyperThiele_Halting.v:14` – `H_correct` stays axiomatic while the oracle interface lacks a constructive witness.【ac2173†L9-L30】
 
 Summary
 -------
-Total admitted: 0
-Total axioms:  0
+Total admitted: 1
+Total axioms:  1

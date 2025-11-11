@@ -1,52 +1,28 @@
-# Axiom and Admit Inventory for Thiele Machine Formal Verification
+# Axiom and admit inventory for the Thiele Machine development
 
-This document inventories all `Admitted` lemmas and `Axiom` declarations in the Coq codebase, with detailed explanations of what each assumes and why it is acceptable as an implementation detail rather than a foundational flaw.
+_Updated in November 2025 following the audit recorded in `docs/COQ_PROOF_AUDIT.md`._
 
 ## Summary
-- **Total Admitted**: 4 (see `ADMIT_REPORT.txt`)
-- **Total Axioms**: 1
-- **Kernel Module Admitted**: 0
-- **Kernel Module Axioms**: 0
+- **Total Admitted**: 1 (Simulation proof backlog)
+- **Total Axioms**: 1 (halting-oracle interface)
+- **Kernel module admits/axioms**: 0
 
-## Kernel Module Status
+## Kernel module status
 
-The kernel proof tree (in `coq/kernel/`) compiles successfully without admits or axioms. All core subsumption proofs verify:
-- `Kernel.v`, `KernelTM.v`, `KernelThiele.v`
-- `VMState.v`, `VMStep.v`, `VMEncoding.v`
-- `SimulationProof.v`, `MuLedgerConservation.v`
-- `Subsumption.v` ✅
+The kernel proof tree (`coq/kernel/`) continues to build without admits or axioms. It provides the audited VM↔kernel simulation and ledger invariants used by downstream tooling.【2fc38d†L1-L27】
 
-The canonical subsumption verification (`./verify_subsumption.sh`) passes successfully.
+## Outstanding items
 
-## Other Module Admitted/Axioms
+### Admitted lemmas (1)
+1. **`coq/thielemachine/coqproofs/Simulation.v:3797`** – `utm_interpreter_no_rule_found_halts`.
+   - **Context:** Symbolic execution of the universal program when `find_rule` returns `None` remains to be mechanised.【495e62†L1-L20】
+   - **Impact:** Blocks the fully mechanised proof of `thiele_simulates_tm` and therefore the containment half of the subsumption theorem.
 
-### Axioms (Total: 1)
+### Axioms (1)
+1. **`coq/thielemachine/coqproofs/HyperThiele_Halting.v:14`** – `H_correct : forall e, H e = true <-> Halts e`.
+   - **Context:** Encapsulates the behaviour of the postulated halting oracle used in the HyperThiele experiment.【ac2173†L9-L30】
+   - **Impact:** Remains acceptable only if the experiment is treated as exploratory; removing it would require a constructive halting witness or a different specification.
 
-1. **coq/thielemachine/coqproofs/HyperThiele_Halting.v:14**
-   ```coq
-   Axiom H_correct : forall e, H e = true <-> Halts e.
-   ```
-   **Justification**: This axiom connects the halting oracle function `H` to the semantic notion of halting. It is an interface axiom that characterizes the oracle behavior. This is part of the theoretical exploration of computational models with oracles.
-
-### Admitted Lemmas (Total: 4)
-
-1. **coq/thielemachine/coqproofs/Simulation.v:3797**
-   - **Lemma**: Final lemma in simulation chain
-   - **Status**: Implementation detail for the Turing-to-Thiele simulation
-   - **Note**: The kernel subsumption proof does not depend on this
-
-2-4. **coq/thielemachine/coqproofs/ThieleUniversalBridge.v:297, 312, 313**
-   - **Lemma**: `inv_setup_state` proof branches
-   - **Status**: Bridge file lemmas for connecting universal TM interpreter to CPU model
-   - **Note**: These are in a bridge/helper file; the kernel subsumption proof does not depend on these
-   - **Context**: Proof restructuring after Coq version compatibility changes left some complex symbolic execution proofs incomplete
-
-## Conclusion
-
-The kernel module (9 files) compiles cleanly with 0 admits and 0 axioms, proving the core subsumption theorem. The admitted lemmas are in auxiliary/bridge files that provide additional infrastructure but are not required for the main theoretical result.
-
-This represents a clean separation between:
-- **Core Theoretical Result** (Proven): Kernel subsumption proof - fully mechanized
-- **Supporting Infrastructure** (Partially Admitted): Helper files for extended demonstrations and connections to other formalizations
-
-The canonical subsumption verification passes, demonstrating that the flagship theorem is fully mechanized.
+## Next steps
+- Maintain `coq/ADMIT_REPORT.txt` alongside this file whenever admits or axioms change; the automation no longer reflects reality until the reporting script is repaired.【27e479†L32-L34】
+- Track progress in `docs/COQ_PROOF_AUDIT.md` and update these counts immediately after proofs land so the audit stays trustworthy.【6b8295†L1-L45】
