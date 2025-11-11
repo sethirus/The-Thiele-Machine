@@ -1,7 +1,7 @@
 .PHONY: experiments-small experiments-falsify experiments-budget experiments-full artifacts
 .PHONY: experiments-small-save experiments-falsify-save experiments-budget-save experiments-full-save
 .PHONY: proofpack-smoke proofpack-turbulence-high
-.PHONY: vm-run rtl-run compare clean purge
+.PHONY: vm-run rtl-run compare clean purge verify-end-to-end
 
 # Quick experiments (no outputs saved)
 experiments-small:
@@ -81,6 +81,9 @@ clean:
 
 purge:
 	find experiments -type d -mtime +1 -exec rm -rf {} +
+
+verify-end-to-end:
+	python3 tools/verify_end_to_end.py
 
 # Zero-trust proofpack smoke profile (runs quick pipeline + bundler)
 proofpack-smoke:

@@ -54,16 +54,29 @@ The Thiele CPU is a specialized hardware processor designed for partition-native
 | 0x03 | LASSERT | Logic assertion (Z3 interface) |
 | 0x04 | LJOIN | Join certificates |
 | 0x05 | MDLACC | Accumulate μ-bits |
-| 0x06 | EMIT | Emit result value |
 | 0x07 | XFER | Transfer data between modules |
 | 0x08 | PYEXEC | Execute Python code |
+| 0x0A | XOR_LOAD | Load matrix rows for Gaussian elimination |
+| 0x0B | XOR_ADD | Add a row into another row |
+| 0x0C | XOR_SWAP | Swap two rows |
+| 0x0D | XOR_RANK | Emit rank information |
+| 0x0E | EMIT | Emit receipt payload |
+| 0xFF | HALT | Terminate program execution |
 
 ## Simulation and Testing
 
 ### Prerequisites
 
 - Icarus Verilog (`iverilog`) for open-source simulation
-- Or Vivado/ModelSim for commercial simulation
+- Yosys (`yosys`) for structural checks and synthesis experiments
+- Coq 8.18.x for replaying the proof-level hardware bridge against the RTL trace
+- (Optional) Vivado/ModelSim for commercial simulation
+
+On Debian/Ubuntu systems the required open-source tools can be installed with:
+
+```bash
+sudo apt-get install coq iverilog yosys
+```
 
 ### Running Tests
 
@@ -76,18 +89,26 @@ The test suite will:
 1. Verify Verilog file presence
 2. Compile and simulate the design
 3. Execute a comprehensive instruction sequence
-4. Generate detailed test reports
+4. Generate detailed test reports (`simulation_output.log` and `test_report.md`)
+
+### End-to-end verification workflow
+
+To cross-check the RTL, the audited Python VM, and the mechanised Coq semantics in one pass, run:
+
+```bash
+make verify-end-to-end
+```
+
+This orchestrates the core Coq build, runs a Yosys structural-elaboration check on the CPU RTL (using the lightweight `YOSYS_LITE` configuration baked into `thiele_cpu.v`), reruns the Verilog regression, and feeds the log into `tools/verify_end_to_end.py`, which decodes every instruction word and rejects mismatches in partition counts, μ-cost, or final PC/state.
 
 ### Test Program Sequence
 
-The testbench executes the following sequence:
+The bundled regression focuses on the Gaussian-elimination microcode used in the proofs:
 
-1. **PNEW {10}** - Create partition module with 10-element region
-2. **PSPLIT 1, 0** - Split module 1 into even/odd partitions
-3. **PMERGE 2, 3** - Merge partitions 2 and 3
-4. **MDLACC 4** - Calculate MDL cost for merged partition
-5. **EMIT 1, 2** - Output result value
-6. **HALT** - End execution
+1. **XOR_ADD** operations iteratively triangularise the test matrix.
+2. **XOR_SWAP** moves pivot rows into position.
+3. **EMIT 0, 6** reports the observed μ-information gain.
+4. **HALT** terminates execution and drives the final status/error words consumed by the verifier.
 
 ## Hardware Specifications
 
