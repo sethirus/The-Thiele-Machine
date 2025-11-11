@@ -61,8 +61,13 @@ module thiele_cpu (
 // PARAMETERS AND CONSTANTS
 // ============================================================================
 
+`ifdef YOSYS_LITE
+localparam NUM_MODULES = 4;
+localparam REGION_SIZE = 16;
+`else
 localparam NUM_MODULES = 64;
 localparam REGION_SIZE = 1024;
+`endif
 localparam MAX_MU = 32'hFFFFFFFF;
 
 // Instruction opcodes
@@ -106,8 +111,8 @@ reg [31:0] mu_accumulator;
 // XOR matrix for Gaussian elimination
 reg [31:0] xor_matrix [0:23]; // 4 rows x 6 columns
 reg [31:0] xor_parity [0:3]; // 4 parity bits
-reg [5:0] xor_rows = 4;
-reg [5:0] xor_cols = 6;
+localparam integer XOR_ROWS = 4;
+localparam integer XOR_COLS = 6;
 
 // Performance counters
 reg [31:0] partition_ops_counter;
@@ -125,6 +130,8 @@ reg [31:0] module_table [0:NUM_MODULES-1];
 reg [31:0] region_table [0:NUM_MODULES-1][0:REGION_SIZE-1];
 reg [5:0] current_module;
 reg [5:0] next_module_id;
+reg [31:0] swap_temp;
+reg [31:0] rank_temp;
 
 // State machine
 reg [3:0] state;
@@ -336,8 +343,10 @@ task execute_pnew;
             next_module_id <= next_module_id + 1;
 
             // Initialize region
-            for (i = 0; i < region_size && i < REGION_SIZE; i = i + 1) begin
-                region_table[next_module_id][i] <= i;
+            for (i = 0; i < REGION_SIZE; i = i + 1) begin
+                if (i < region_size) begin
+                    region_table[next_module_id][i] <= i;
+                end
             end
 
             csr_status <= 32'h1; // Success
@@ -360,13 +369,15 @@ task execute_psplit;
             even_count = 0;
             odd_count = 0;
 
-            for (i = 0; i < region_size && i < REGION_SIZE; i = i + 1) begin
-                if ((region_table[module_id][i] % 2) == 0) begin
-                    region_table[next_module_id][even_count] <= region_table[module_id][i];
-                    even_count = even_count + 1;
-                end else begin
-                    region_table[next_module_id + 1][odd_count] <= region_table[module_id][i];
-                    odd_count = odd_count + 1;
+            for (i = 0; i < REGION_SIZE; i = i + 1) begin
+                if (i < region_size) begin
+                    if ((region_table[module_id][i] % 2) == 0) begin
+                        region_table[next_module_id][even_count] <= region_table[module_id][i];
+                        even_count = even_count + 1;
+                    end else begin
+                        region_table[next_module_id + 1][odd_count] <= region_table[module_id][i];
+                        odd_count = odd_count + 1;
+                    end
                 end
             end
 
@@ -394,11 +405,15 @@ task execute_pmerge;
 
             if (total_size <= REGION_SIZE) begin
                 // Copy regions
-                for (i = 0; i < size_a; i = i + 1) begin
-                    region_table[next_module_id][i] <= region_table[module_a][i];
+                for (i = 0; i < REGION_SIZE; i = i + 1) begin
+                    if (i < size_a) begin
+                        region_table[next_module_id][i] <= region_table[module_a][i];
+                    end
                 end
-                for (i = 0; i < size_b; i = i + 1) begin
-                    region_table[next_module_id][i + size_a] <= region_table[module_b][i];
+                for (i = 0; i < REGION_SIZE; i = i + 1) begin
+                    if (i < size_b) begin
+                        region_table[next_module_id][i + size_a] <= region_table[module_b][i];
+                    end
                 end
 
                 module_table[next_module_id] <= total_size;
@@ -523,10 +538,9 @@ task execute_xor_add;
     input [7:0] source_row;
     begin
         // Add source_row to target_row in XOR matrix
-        integer i;
-        if (target_row < xor_rows && source_row < xor_rows) begin
-            for (i = 0; i < xor_cols; i = i + 1) begin
-                xor_matrix[target_row * xor_cols + i] <= xor_matrix[target_row * xor_cols + i] ^ xor_matrix[source_row * xor_cols + i];
+        if (target_row < XOR_ROWS && source_row < XOR_ROWS) begin
+            for (i = 0; i < XOR_COLS; i = i + 1) begin
+                xor_matrix[target_row * XOR_COLS + i] <= xor_matrix[target_row * XOR_COLS + i] ^ xor_matrix[source_row * XOR_COLS + i];
             end
             xor_parity[target_row] <= xor_parity[target_row] ^ xor_parity[source_row];
             partition_ops_counter <= partition_ops_counter + 1; // Count as partition op
@@ -542,17 +556,15 @@ task execute_xor_swap;
     input [7:0] row2;
     begin
         // Swap two rows in XOR matrix
-        integer i;
-        reg [31:0] temp;
-        if (row1 < xor_rows && row2 < xor_rows) begin
-            for (i = 0; i < xor_cols; i = i + 1) begin
-                temp = xor_matrix[row1 * xor_cols + i];
-                xor_matrix[row1 * xor_cols + i] <= xor_matrix[row2 * xor_cols + i];
-                xor_matrix[row2 * xor_cols + i] <= temp;
+        if (row1 < XOR_ROWS && row2 < XOR_ROWS) begin
+            for (i = 0; i < XOR_COLS; i = i + 1) begin
+                swap_temp = xor_matrix[row1 * XOR_COLS + i];
+                xor_matrix[row1 * XOR_COLS + i] <= xor_matrix[row2 * XOR_COLS + i];
+                xor_matrix[row2 * XOR_COLS + i] <= swap_temp;
             end
-            temp = xor_parity[row1];
+            swap_temp = xor_parity[row1];
             xor_parity[row1] <= xor_parity[row2];
-            xor_parity[row2] <= temp;
+            xor_parity[row2] <= swap_temp;
             partition_ops_counter <= partition_ops_counter + 1; // Count as partition op
             csr_status <= 32'h9; // XOR swap successful
         end else begin
@@ -564,15 +576,14 @@ endtask
 task execute_xor_rank;
     begin
         // Compute rank of XOR matrix (simplified)
-        integer rank = 0;
-        integer i;
-        for (i = 0; i < xor_rows; i = i + 1) begin
-            if (xor_matrix[i * xor_cols] != 0) begin
-                rank = rank + 1;
+        rank_temp = 0;
+        for (i = 0; i < XOR_ROWS; i = i + 1) begin
+            if (xor_matrix[i * XOR_COLS] != 0) begin
+                rank_temp = rank_temp + 1;
             end
         end
-        // mdl_ops_counter <= mdl_ops_counter + xor_rows; // Removed to match VM
-        csr_status <= rank; // Return rank
+        // mdl_ops_counter <= mdl_ops_counter + XOR_ROWS; // Removed to match VM
+        csr_status <= rank_temp; // Return rank
     end
 endtask
 
