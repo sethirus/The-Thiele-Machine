@@ -1,0 +1,117 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Bell Receipt Entry",
+  "description": "Schema for entries produced by tools/make_bell_receipt.py",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": [
+        "trial",
+        "settings",
+        "outcomes",
+        "contribution",
+        "previous_hash",
+        "crypto_hash"
+      ],
+      "properties": {
+        "trial": {"type": "integer", "minimum": 0},
+        "settings": {
+          "type": "object",
+          "required": ["a", "b"],
+          "properties": {
+            "a": {"type": "integer", "minimum": 0, "maximum": 1},
+            "b": {"type": "integer", "minimum": 0, "maximum": 1}
+          },
+          "additionalProperties": false
+        },
+        "outcomes": {
+          "type": "object",
+          "required": ["bell", "lhv"],
+          "properties": {
+            "bell": {
+              "type": "object",
+              "required": ["x", "y", "product"],
+              "properties": {
+                "x": {"type": "integer", "enum": [-1, 1]},
+                "y": {"type": "integer", "enum": [-1, 1]},
+                "product": {"type": "integer", "enum": [-1, 1]}
+              },
+              "additionalProperties": false
+            },
+            "lhv": {
+              "type": "object",
+              "required": ["x", "y", "product"],
+              "properties": {
+                "x": {"type": "integer", "enum": [-1, 1]},
+                "y": {"type": "integer", "enum": [-1, 1]},
+                "product": {"type": "integer", "enum": [-1, 1]}
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "contribution": {"type": "object"},
+        "previous_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "crypto_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "event",
+        "generator",
+        "counts",
+        "E",
+        "S",
+        "epsilon",
+        "violation_margin",
+        "classical_gap",
+        "mdl_bits",
+        "coq_check",
+        "chain_validation",
+        "previous_hash",
+        "crypto_hash",
+        "signature"
+      ],
+      "properties": {
+        "event": {"const": "bell_summary"},
+        "generator": {"type": "object"},
+        "counts": {"type": "object"},
+        "E": {"type": "object"},
+        "S": {"type": "object"},
+        "epsilon": {"type": "number"},
+        "violation_margin": {"type": "object"},
+        "classical_gap": {"type": "object"},
+        "mdl_bits": {"type": "object"},
+        "coq_check": {
+          "type": "object",
+          "required": [
+            "harness_path",
+            "artifact_hash",
+            "artifact_bytes",
+            "passed",
+            "coq_args"
+          ],
+          "properties": {
+            "harness_path": {"type": "string"},
+            "artifact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "artifact_bytes": {"type": "integer", "minimum": 0},
+            "passed": {"type": "boolean"},
+            "coq_args": {
+              "type": "array",
+              "items": {"type": "string"}
+            }
+          },
+          "additionalProperties": false
+        },
+        "chain_validation": {"type": "object"},
+        "previous_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "crypto_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "signature": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      },
+      "additionalProperties": true
+    }
+  ]
+}

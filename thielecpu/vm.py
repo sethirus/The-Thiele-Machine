@@ -12,7 +12,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from pathlib import Path
 import json
-from typing import List, Dict, Any, Optional, Tuple
+from typing import List, Dict, Any, Optional, Tuple, Mapping
 import ast
 import sys
 from io import StringIO
@@ -735,6 +735,17 @@ def extract_target_modulus(code: str) -> Optional[int]:
         pass
     return None
 
+
+@dataclass
+class TraceConfig:
+    """Configuration for runtime self-tracing."""
+
+    workload_id: str
+    observer: object
+    metadata: Mapping[str, Any] = field(default_factory=dict)
+    enabled: bool = True
+
+
 def placeholder(domain: Optional[List[str]] = None) -> SymbolicVariable:
     """Create a symbolic variable placeholder for logical deduction."""
     global _symbolic_var_counter
@@ -850,6 +861,30 @@ class VM:
             self.python_globals.setdefault("vm_listdir", self.virtual_fs.listdir)
         self.witness_state = WitnessState()
         self.step_receipts = []
+
+    def _trace_call(
+        self, config: Optional[TraceConfig], hook: str, payload: Mapping[str, Any]
+    ) -> None:
+        if config is None or not config.enabled:
+            return
+        method = getattr(config.observer, hook, None)
+        if method is None:
+            return
+        try:
+            method(dict(payload))
+        except Exception:
+            pass
+
+    def _trace_partition_signature(self) -> Mapping[str, object]:
+        modules = getattr(self.state.regions, "modules", {})
+        sizes = sorted(len(region) for region in modules.values())
+        digest_source = json.dumps(sizes, separators=(",", ":")).encode("utf-8")
+        digest = hashlib.sha256(digest_source).hexdigest()[:16] if sizes else "0" * 16
+        return {
+            "module_count": len(sizes),
+            "region_sizes": sizes,
+            "digest": digest,
+        }
 
     def export_virtual_files(self) -> Dict[str, bytes]:
         """Return a copy of the virtual filesystem contents."""
@@ -1360,7 +1395,9 @@ class VM:
         
         return result
 
-    def run(self, program: List[Instruction], outdir: Path) -> None:
+    def run(
+        self, program: List[Instruction], outdir: Path, trace_config: Optional[TraceConfig] = None
+    ) -> None:
         outdir.mkdir(parents=True, exist_ok=True)
         trace_lines: List[str] = []
         ledger: List[LedgerEntry] = []
@@ -1382,13 +1419,34 @@ class VM:
         except Exception:
             pass
 
-        for op, arg in program:
+        logical_step = 0
+        if trace_config and trace_config.enabled:
+            start_payload = {
+                "event": "trace_start",
+                "workload": trace_config.workload_id,
+                "program_length": len(program),
+                "outdir": str(outdir),
+                "metadata": dict(trace_config.metadata),
+                "initial_partition": self._trace_partition_signature(),
+                "mu_snapshot": {
+                    "mu_operational": self.state.mu_operational,
+                    "mu_information": self.state.mu_information,
+                    "mu_total": self.state.mu,
+                },
+            }
+            self._trace_call(trace_config, "on_start", start_payload)
+
+        for pc_index, (op, arg) in enumerate(program):
+            logical_step += 1
             step += 1
             print(f"Step {step:3d}: {op} {arg}")
             step += 1
             pre_witness = WitnessState(**self.witness_state.snapshot())
             receipt_instruction: Optional[InstructionWitness] = None
             halt_after_receipt = False
+            before_mu_operational = self.state.mu_operational
+            before_mu_information = self.state.mu_information
+            before_mu_total = self.state.mu
             if op == "PNEW":
                 # PNEW region_spec - create new module for region
                 if arg and arg.strip().startswith('{') and arg.strip().endswith('}'):
@@ -1606,6 +1664,37 @@ class VM:
             else:
                 raise ValueError(f"unknown opcode {op}")
 
+            after_mu_operational = self.state.mu_operational
+            after_mu_information = self.state.mu_information
+            after_mu_total = self.state.mu
+            if trace_config and trace_config.enabled:
+                truncated_arg = arg if len(arg) <= 256 else arg[:253] + "..."
+                event_payload = {
+                    "event": "trace_step",
+                    "workload": trace_config.workload_id,
+                    "step": logical_step,
+                    "pc": pc_index,
+                    "op": op,
+                    "arg": truncated_arg,
+                    "mu": {
+                        "mu_operational": after_mu_operational,
+                        "mu_information": after_mu_information,
+                        "mu_total": after_mu_total,
+                    },
+                    "delta": {
+                        "mu_operational": after_mu_operational - before_mu_operational,
+                        "mu_information": after_mu_information - before_mu_information,
+                        "mu_total": after_mu_total - before_mu_total,
+                    },
+                    "csr": {
+                        "status": int(self.state.csr.get(CSR.STATUS, 0)),
+                        "err": int(self.state.csr.get(CSR.ERR, 0)),
+                    },
+                    "partition": self._trace_partition_signature(),
+                    "metadata": dict(trace_config.metadata),
+                }
+                self._trace_call(trace_config, "on_step", event_payload)
+
             if receipt_instruction is None:
                 receipt_instruction = InstructionWitness("PYEXEC", f"{op} {arg}".strip())
             self._record_receipt(step, pre_witness, receipt_instruction)
@@ -1636,6 +1725,16 @@ class VM:
             "mu_total": self.state.mu,
             "cert": self.state.csr[CSR.CERT_ADDR],
         }
+        if trace_config and trace_config.enabled:
+            finish_payload = {
+                "event": "trace_end",
+                "workload": trace_config.workload_id,
+                "steps": logical_step,
+                "mu_snapshot": summary,
+                "partition": self._trace_partition_signature(),
+                "metadata": dict(trace_config.metadata),
+            }
+            self._trace_call(trace_config, "on_finish", finish_payload)
         (outdir / "summary.json").write_text(json.dumps(summary), encoding='utf-8')
 
         receipts_path = outdir / "step_receipts.json"
@@ -1694,4 +1793,4 @@ if __name__ == "__main__":
     main()
 
 
-__all__ = ["VM"]
+__all__ = ["VM", "TraceConfig"]

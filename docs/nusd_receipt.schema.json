@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "NUSD Receipt",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "event": {
+        "type": "string",
+        "enum": [
+          "domain_slice",
+          "tseitin_step",
+          "automaton_row",
+          "turbulence_energy",
+          "nusd_summary"
+        ]
+      },
+      "crypto_hash": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      },
+      "previous_hash": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      },
+      "domain": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "detail": {
+            "type": "object"
+          },
+          "provenance": {
+            "type": "object"
+          }
+        },
+        "required": ["name", "detail", "provenance"]
+      },
+      "mdl_bits": {
+        "type": "object",
+        "properties": {
+          "model_bits": {"type": "number"},
+          "residual_bits": {"type": "number"},
+          "baseline_bits": {"type": "number"},
+          "total_bits": {"type": "number"},
+          "delta_vs_baseline": {"type": "number"}
+        }
+      },
+      "nusd_bound": {
+        "type": "object",
+        "properties": {
+          "mu_question_bits": {"type": "number"},
+          "mu_answer_bits": {"type": "number"},
+          "mu_total_bits": {"type": "number"},
+          "epsilon_bits": {"type": "number"},
+          "landauer_factor_j_per_bit": {"type": "number"},
+          "landauer_work_bound_joules": {"type": "number"}
+        },
+        "required": [
+          "mu_question_bits",
+          "mu_answer_bits",
+          "mu_total_bits",
+          "epsilon_bits",
+          "landauer_factor_j_per_bit",
+          "landauer_work_bound_joules"
+        ]
+      },
+      "signature": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      },
+      "signature_algorithm": {
+        "type": "string"
+      }
+    },
+    "required": ["event", "crypto_hash", "previous_hash"],
+    "additionalProperties": true
+  }
+}
