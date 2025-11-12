@@ -1,7 +1,14 @@
 .PHONY: experiments-small experiments-falsify experiments-budget experiments-full artifacts
 .PHONY: experiments-small-save experiments-falsify-save experiments-budget-save experiments-full-save
-.PHONY: proofpack-smoke proofpack-turbulence-high
+.PHONY: proofpack-smoke proofpack-turbulence-high proofpack-phase3 bell law nusd headtohead turbulence-law turbulence-law-v2 turbulence-closure-v1 self-model-v1
 .PHONY: vm-run rtl-run compare clean purge verify-end-to-end
+
+COQTOP ?= coqtop
+BELL_SKIP_COQ ?= 0
+LAW_SKIP_COQ ?= 0
+
+coq/%.vo:
+	$(MAKE) -C coq $(patsubst coq/%,%,$@)
 
 # Quick experiments (no outputs saved)
 experiments-small:
@@ -85,6 +92,49 @@ purge:
 verify-end-to-end:
 	python3 tools/verify_end_to_end.py
 
+bell: coq/thielemachine/coqproofs/BellCheck.vo
+	python3 tools/make_bell_receipt.py --N 20000 --epsilon 0.01 --seed 1337
+	python3 tools/verify_bell_receipt.py artifacts/bell_receipt.jsonl $(if $(filter 1,$(BELL_SKIP_COQ)),--skip-coq,) --coqtop $(COQTOP)
+	python3 tools/verify_end_to_end.py --skip-hardware --skip-yosys
+
+law: coq/thielemachine/coqproofs/LawCheck.vo
+	python3 tools/make_law_receipt.py --sites 8 --steps 16 --seed 2025
+	python3 tools/verify_law_receipt.py artifacts/law_receipt.jsonl $(if $(filter 1,$(LAW_SKIP_COQ)),--skip-coq,) --coq-binary $(COQTOP)
+
+nusd:
+	python3 tools/make_nusd_receipt.py --domain lattice --output artifacts/nusd_lattice.jsonl
+	python3 tools/verify_nusd_receipt.py artifacts/nusd_lattice.jsonl
+	python3 tools/make_nusd_receipt.py --domain tseitin --output artifacts/nusd_tseitin.jsonl
+	python3 tools/verify_nusd_receipt.py artifacts/nusd_tseitin.jsonl
+	python3 tools/make_nusd_receipt.py --domain automaton --output artifacts/nusd_automaton.jsonl
+	python3 tools/verify_nusd_receipt.py artifacts/nusd_automaton.jsonl
+	python3 tools/make_nusd_receipt.py --domain turbulence --output artifacts/nusd_turbulence.jsonl
+	python3 tools/verify_nusd_receipt.py artifacts/nusd_turbulence.jsonl
+
+headtohead:
+	python3 tools/make_turbulence_head_to_head.py
+	python3 tools/verify_turbulence_head_to_head.py artifacts/turbulence_head_to_head.jsonl
+
+turbulence-law:
+	python3 tools/make_turbulence_law_receipt.py --eval-dataset public_data/jhtdb/sample/jhtdb_samples.json
+	python3 tools/verify_turbulence_law_receipt.py artifacts/turbulence_law_receipt.jsonl
+
+turbulence-law-v2:
+	python3 tools/discover_turbulence_law_v2.py --json-out artifacts/turbulence_law_v2_summary.json
+	python3 tools/make_turbulence_law_v2_receipt.py --eval-dataset public_data/jhtdb/sample/jhtdb_samples.json
+	python3 tools/verify_turbulence_law_v2_receipt.py artifacts/turbulence_law_v2_receipt.jsonl
+
+turbulence-closure-v1:
+	python3 tools/discover_turbulence_closure_v1.py --json-out artifacts/turbulence_closure_v1_summary.json
+	python3 tools/make_turbulence_closure_v1_receipt.py
+	python3 tools/verify_turbulence_closure_v1_receipt.py artifacts/turbulence_closure_v1_receipt.jsonl
+
+self-model-v1:
+	python3 tools/make_self_traces.py
+	python3 tools/discover_self_model_v1.py --output artifacts/self_model_v1_summary.json
+	python3 tools/make_self_model_v1_receipt.py
+	python3 tools/verify_self_model_v1_receipt.py artifacts/self_model_v1_receipt.jsonl
+
 # Zero-trust proofpack smoke profile (runs quick pipeline + bundler)
 proofpack-smoke:
 	@run_tag=$${RUN_TAG:-ci-smoke}; \
@@ -94,7 +144,15 @@ proofpack-smoke:
 
 # Scheduled high-budget turbulence pipeline run (mirrors JHTDB fixtures)
 proofpack-turbulence-high:
-	@run_tag=$${RUN_TAG:-ci-turbulence}; \
-	  echo "Running high-budget turbulence pipeline with run tag '$$run_tag'"; \
-	  rm -rf artifacts/experiments/$$run_tag; \
-	  PYTHONPATH=. python scripts/run_proofpack_pipeline.py --profile quick --signing-key kernel_secret.key --run-tag $$run_tag --note CI-turbulence --public-data-root archive --turbulence-dataset isotropic1024_8pt --turbulence-dataset isotropic1024_12pt --turbulence-protocol sighted --turbulence-protocol blind --turbulence-protocol destroyed --turbulence-seed 11
+        @run_tag=$${RUN_TAG:-ci-turbulence}; \
+          echo "Running high-budget turbulence pipeline with run tag '$$run_tag'"; \
+          rm -rf artifacts/experiments/$$run_tag; \
+          PYTHONPATH=. python scripts/run_proofpack_pipeline.py --profile quick --signing-key kernel_secret.key --run-tag $$run_tag --note CI-turbulence --public-data-root archive --turbulence-dataset isotropic1024_8pt --turbulence-dataset isotropic1024_12pt --turbulence-protocol sighted --turbulence-protocol blind --turbulence-protocol destroyed --turbulence-seed 11
+
+proofpack-phase3: coq/thielemachine/coqproofs/PhaseThree.vo
+	$(MAKE) bell
+	$(MAKE) law
+	$(MAKE) nusd
+	$(MAKE) headtohead
+	python3 tools/make_phase_three_proofpack.py
+	python3 tools/verify_phase_three_proofpack.py artifacts/phase_three/phase_three_proofpack.tar.gz --coqc coqc
