@@ -1,0 +1,284 @@
+[
+  {
+    "step": 2,
+    "instruction": {
+      "op": "PNEW",
+      "payload": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    "pre_state": {
+      "pc": 0,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "post_state": {
+      "pc": 1,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "observation": {
+      "event": {
+        "tag": "InferenceComplete"
+      },
+      "mu_delta": 0,
+      "cert": {
+        "smt_query": "",
+        "solver_reply": "",
+        "metadata": "",
+        "timestamp": 0,
+        "sequence": 0
+      }
+    },
+    "pre_state_hash": "3be4ab3e30347c3b36b3c176e39c564d8b2e1e6c6f816f53070d67ed3cd381f4",
+    "post_state_hash": "2e59cea3b3cf0e0427b5d1025581d2f165a69235777b0cabab6bdd7773234376",
+    "signature": "e0b369d046128e29cde32cb0712693a3af571d04dea3c3942f773d32345830f19d955b73507e6481c9e5cc2ac12b2cca518095efa2dc5f7b70a71d2fff63760c"
+  },
+  {
+    "step": 4,
+    "instruction": {
+      "op": "MDLACC",
+      "payload": 1
+    },
+    "pre_state": {
+      "pc": 1,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "post_state": {
+      "pc": 2,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "observation": {
+      "event": null,
+      "mu_delta": 0,
+      "cert": {
+        "smt_query": "",
+        "solver_reply": "",
+        "metadata": "",
+        "timestamp": 0,
+        "sequence": 0
+      }
+    },
+    "pre_state_hash": "2e59cea3b3cf0e0427b5d1025581d2f165a69235777b0cabab6bdd7773234376",
+    "post_state_hash": "15713ac6773c4903303bd6ba812422142bcbd5b39ba256b43969353ac4f47f59",
+    "signature": "4e6383af6c6928d822660c392ec16a12a85e92169da2b2132c2308323f651d16f7541802b37eb3b3631098d92d13456cca1f778ff59c4687291dd927ece5800a"
+  },
+  {
+    "step": 6,
+    "instruction": {
+      "op": "PYEXEC",
+      "payload": "PSPLIT 2"
+    },
+    "pre_state": {
+      "pc": 2,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "post_state": {
+      "pc": 3,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "observation": {
+      "event": {
+        "tag": "PolicyCheck",
+        "value": "PSPLIT 2"
+      },
+      "mu_delta": 0,
+      "cert": {
+        "smt_query": "",
+        "solver_reply": "",
+        "metadata": "",
+        "timestamp": 0,
+        "sequence": 0
+      }
+    },
+    "pre_state_hash": "15713ac6773c4903303bd6ba812422142bcbd5b39ba256b43969353ac4f47f59",
+    "post_state_hash": "6295c09d07120cab3fa48d4f08d9b07a275c79d0d10d9ba5f2b858f670f25c59",
+    "signature": "59df143265e0184dcc42ae45b0faeef9fae192916779ba049abaac0b9a2745ec36d99ef42b18e00b28114dfa23d4336852370fa0540f08778193f15b7476c90b"
+  },
+  {
+    "step": 8,
+    "instruction": {
+      "op": "MDLACC",
+      "payload": 1
+    },
+    "pre_state": {
+      "pc": 3,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "post_state": {
+      "pc": 4,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "observation": {
+      "event": null,
+      "mu_delta": 0,
+      "cert": {
+        "smt_query": "",
+        "solver_reply": "",
+        "metadata": "",
+        "timestamp": 0,
+        "sequence": 0
+      }
+    },
+    "pre_state_hash": "6295c09d07120cab3fa48d4f08d9b07a275c79d0d10d9ba5f2b858f670f25c59",
+    "post_state_hash": "700da4c068b172264a4f0599d5bb6e22ef3321e4c9967d4430c31cefb17ce59d",
+    "signature": "a3ba3a6e423c9d7dec16864b7e57af781c7656fc0e4dc917485beeefa6df3bdeba253e0c62f46c94b74e5b5ba63842832a4518c97fa4d006ee5087486749c704"
+  },
+  {
+    "step": 10,
+    "instruction": {
+      "op": "PYEXEC",
+      "payload": "PMERGE 3 4"
+    },
+    "pre_state": {
+      "pc": 4,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "post_state": {
+      "pc": 5,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "observation": {
+      "event": {
+        "tag": "PolicyCheck",
+        "value": "PMERGE 3 4"
+      },
+      "mu_delta": 0,
+      "cert": {
+        "smt_query": "",
+        "solver_reply": "",
+        "metadata": "",
+        "timestamp": 0,
+        "sequence": 0
+      }
+    },
+    "pre_state_hash": "700da4c068b172264a4f0599d5bb6e22ef3321e4c9967d4430c31cefb17ce59d",
+    "post_state_hash": "53d2b5fca8a9bff9db6e5cec50d67b7ad15c79f0099704e6276a8e8f89ac3406",
+    "signature": "223fce25c4d7ffec2286f0258ddcea3a34afada30f137250951ebdab778a03e49a33fe5e535d60758aeff19f6aea977d62398b77383c0de614e4cf84259c8802"
+  },
+  {
+    "step": 12,
+    "instruction": {
+      "op": "MDLACC",
+      "payload": 1
+    },
+    "pre_state": {
+      "pc": 5,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "post_state": {
+      "pc": 6,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "observation": {
+      "event": null,
+      "mu_delta": 0,
+      "cert": {
+        "smt_query": "",
+        "solver_reply": "",
+        "metadata": "",
+        "timestamp": 0,
+        "sequence": 0
+      }
+    },
+    "pre_state_hash": "53d2b5fca8a9bff9db6e5cec50d67b7ad15c79f0099704e6276a8e8f89ac3406",
+    "post_state_hash": "2a0d06363ed0d9cf8edca57124fb893e94f8c59d51db6769dc0eef350c74dbe8",
+    "signature": "ed0b9ad1b924ebf7f9201b2d64eac8da02ede890beb545891c58abdf7e0c03465662fb88d4546d802de55a077cf95e86905dc3bed5f685fe099c3bb2b9b2a103"
+  },
+  {
+    "step": 14,
+    "instruction": {
+      "op": "EMIT",
+      "payload": "partition-cycle"
+    },
+    "pre_state": {
+      "pc": 6,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "post_state": {
+      "pc": 7,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "observation": {
+      "event": {
+        "tag": "ErrorOccurred",
+        "value": "partition-cycle"
+      },
+      "mu_delta": 0,
+      "cert": {
+        "smt_query": "",
+        "solver_reply": "",
+        "metadata": "",
+        "timestamp": 0,
+        "sequence": 0
+      }
+    },
+    "pre_state_hash": "2a0d06363ed0d9cf8edca57124fb893e94f8c59d51db6769dc0eef350c74dbe8",
+    "post_state_hash": "ffbe92c6a6b720d0046c28b0d5c09d20b7161ba480d1fe24f9b47c45a4e149ff",
+    "signature": "c76051c8224d22271407816b853b284b9acf5a74ba1c16374ba19e9f9a22742fb99debafc09dd05611b7bc726fde41f1c33cea0a7eacbc409be1d3b008420e03"
+  },
+  {
+    "step": 16,
+    "instruction": {
+      "op": "MDLACC",
+      "payload": 1
+    },
+    "pre_state": {
+      "pc": 7,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "post_state": {
+      "pc": 8,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "observation": {
+      "event": null,
+      "mu_delta": 0,
+      "cert": {
+        "smt_query": "",
+        "solver_reply": "",
+        "metadata": "",
+        "timestamp": 0,
+        "sequence": 0
+      }
+    },
+    "pre_state_hash": "ffbe92c6a6b720d0046c28b0d5c09d20b7161ba480d1fe24f9b47c45a4e149ff",
+    "post_state_hash": "5d6ef162da416b5f7930868b362df36d7050fac8af26c743ac78cb61e3c6c66e",
+    "signature": "3ba9f4d909db642d898959b72298da0642e305421ba9560f6dbd4d90f164f744b1eb2bf6a0b26ff8c14c9adb5115c1e86625ec525e3aa5161b86b03f95a2aa0b"
+  }
+]
