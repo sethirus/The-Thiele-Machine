@@ -1,0 +1,133 @@
+{
+  "max_steps": 32,
+  "programs": [
+    {
+      "program": "halt_immediately",
+      "description": "Trivial program that halts without touching state.",
+      "initial_state": {
+        "__input__": 0
+      },
+      "baseline": {
+        "status": "HALTS",
+        "steps": 1,
+        "pc": 0,
+        "final_state": {
+          "__input__": 0
+        }
+      },
+      "vm": {
+        "status": "HALTS",
+        "steps": 1,
+        "pc": 0,
+        "final_state": {
+          "__input__": 0
+        }
+      },
+      "agreement": true
+    },
+    {
+      "program": "countdown_three",
+      "description": "Countdown loop that decrements a counter then halts.",
+      "initial_state": {
+        "counter": 3,
+        "__input__": 1
+      },
+      "baseline": {
+        "status": "HALTS",
+        "steps": 5,
+        "pc": 1,
+        "final_state": {
+          "counter": 0,
+          "__input__": 1
+        }
+      },
+      "vm": {
+        "status": "HALTS",
+        "steps": 5,
+        "pc": 1,
+        "final_state": {
+          "counter": 0,
+          "__input__": 1
+        }
+      },
+      "agreement": true
+    },
+    {
+      "program": "self_loop",
+      "description": "Immediate self-loop with no halting branch.",
+      "initial_state": {
+        "__input__": 2
+      },
+      "baseline": {
+        "status": "LOOP",
+        "steps": 1,
+        "pc": 0,
+        "final_state": {
+          "__input__": 2
+        }
+      },
+      "vm": {
+        "status": "LOOP",
+        "steps": 1,
+        "pc": 0,
+        "final_state": {
+          "__input__": 2
+        }
+      },
+      "agreement": true
+    },
+    {
+      "program": "branch_on_input",
+      "description": "Halts iff the provided flag is zero; otherwise loops.",
+      "initial_state": {
+        "flag": 0,
+        "__input__": 3
+      },
+      "baseline": {
+        "status": "LOOP",
+        "steps": 2,
+        "pc": 2,
+        "final_state": {
+          "flag": 0,
+          "__input__": 3
+        }
+      },
+      "vm": {
+        "status": "LOOP",
+        "steps": 2,
+        "pc": 2,
+        "final_state": {
+          "flag": 0,
+          "__input__": 3
+        }
+      },
+      "agreement": true
+    },
+    {
+      "program": "diagonal_like",
+      "description": "Toggles on its own index: loops when the encoded input is non-zero, halts otherwise.  This mimics a diagonal self-query in miniature.",
+      "initial_state": {
+        "__input__": 0
+      },
+      "baseline": {
+        "status": "HALTS",
+        "steps": 3,
+        "pc": 3,
+        "final_state": {
+          "__input__": 0,
+          "flag": 0
+        }
+      },
+      "vm": {
+        "status": "HALTS",
+        "steps": 3,
+        "pc": 3,
+        "final_state": {
+          "__input__": 0,
+          "flag": 0
+        }
+      },
+      "agreement": true
+    }
+  ]
+}

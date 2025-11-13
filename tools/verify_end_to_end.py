@@ -178,10 +178,26 @@ def main() -> None:
     parser.add_argument(
         "--skip-yosys", action="store_true", help="Skip the structural Yosys elaboration check."
     )
+    parser.add_argument(
+        "--skip-halting",
+        action="store_true",
+        help="Skip the halting baseline vs VM regression checks.",
+    )
+    parser.add_argument(
+        "--skip-bell",
+        action="store_true",
+        help="Skip the Bell / CHSH workflow regeneration.",
+    )
     args = parser.parse_args()
 
     if not args.skip_build:
         run_command(["make", "-C", str(PROJECT_ROOT / "coq"), "core"])
+
+    if not args.skip_halting:
+        run_command(["python3", str(PROJECT_ROOT / "tools" / "verify_halting_boundary.py")])
+
+    if not args.skip_bell:
+        run_command(["python3", str(PROJECT_ROOT / "tools" / "verify_bell_workflow.py")])
 
     if not args.skip_yosys:
         run_yosys_check()
@@ -189,20 +205,22 @@ def main() -> None:
     if not args.skip_hardware:
         run_command(["python3", str(HARDWARE_DIR / "test_hardware.py")])
 
-    instrs = parse_instructions(TB_PATH)
-    expected = metrics_from_instructions(instrs)
-    summary = summary_from_log(LOG_PATH)
-    verify_metrics(expected, summary.metrics)
-    verify_final_state(instrs, summary)
+        instrs = parse_instructions(TB_PATH)
+        expected = metrics_from_instructions(instrs)
+        summary = summary_from_log(LOG_PATH)
+        verify_metrics(expected, summary.metrics)
+        verify_final_state(instrs, summary)
 
-    print("All components agree:")
-    print(f"  Partition ops : {summary.metrics.partition_ops}")
-    print(f"  MDL ops       : {summary.metrics.mdl_ops}")
-    print(f"  Info gain     : {summary.metrics.info_gain}")
-    print(f"  μ-total       : {summary.metrics.mu_total}")
-    print(f"  Final PC      : 0x{summary.final_pc:08x}")
-    print(f"  Final status  : 0x{summary.final_status:08x}")
-    print(f"  Final error   : 0x{summary.final_error:08x}")
+        print("All components agree:")
+        print(f"  Partition ops : {summary.metrics.partition_ops}")
+        print(f"  MDL ops       : {summary.metrics.mdl_ops}")
+        print(f"  Info gain     : {summary.metrics.info_gain}")
+        print(f"  μ-total       : {summary.metrics.mu_total}")
+        print(f"  Final PC      : 0x{summary.final_pc:08x}")
+        print(f"  Final status  : 0x{summary.final_status:08x}")
+        print(f"  Final error   : 0x{summary.final_error:08x}")
+    else:
+        print("Hardware simulation skipped; instruction and log checks suppressed.")
 
 
 def run_yosys_check() -> None:

@@ -1,0 +1,38 @@
+[
+  {
+    "step": 2,
+    "instruction": {
+      "op": "PYEXEC",
+      "payload": "\nimport json\n\nprogram = json.loads('[{\"op\": \"SET\", \"reg\": \"flag\", \"value\": \"__input__\"}, {\"op\": \"JZ\", \"reg\": \"flag\", \"target\": 3}, {\"op\": \"GOTO\", \"target\": 1}, {\"op\": \"HALT\"}]')\nstate = json.loads('{\"__input__\": 0}')\nmax_steps = 32\n\npc = 0\nsteps = 0\nvisited = set()\nstatus = \"UNKNOWN\"\n\nwhile steps < max_steps:\n    key = (pc, tuple(sorted(state.items())))\n    if key in visited:\n        status = \"LOOP\"\n        break\n    visited.add(key)\n\n    if pc < 0 or pc >= len(program):\n        status = \"CRASH\"\n        break\n\n    inst = program[pc]\n    op = inst['op']\n\n    if op == 'HALT':\n        steps += 1\n        status = 'HALTS'\n        break\n    elif op == 'GOTO':\n        pc = int(inst['target'])\n    elif op == 'JZ':\n        reg = str(inst['reg'])\n        target = int(inst['target'])\n        if state.get(reg, 0) == 0:\n            pc = target\n        else:\n            pc += 1\n    elif op == 'DECJNZ':\n        reg = str(inst['reg'])\n        target = int(inst['target'])\n        if state.get(reg, 0) > 0:\n            state[reg] = state.get(reg, 0) - 1\n            pc = target\n        else:\n            pc += 1\n    elif op == 'SET':\n        reg = str(inst['reg'])\n        value = inst.get('value', 0)\n        if value == '__input__':\n            state[reg] = state.get('__input__', 0)\n        else:\n            state[reg] = int(value)\n        pc += 1\n    else:\n        status = 'ERROR:' + op\n        break\n\n    steps += 1\nelse:\n    status = 'UNKNOWN'\n\n__result__ = {\n    'status': status,\n    'steps': steps,\n    'pc': pc,\n    'final_state': state,\n}\n"
+    },
+    "pre_state": {
+      "pc": 0,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "post_state": {
+      "pc": 1,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "observation": {
+      "event": {
+        "tag": "PolicyCheck",
+        "value": "\nimport json\n\nprogram = json.loads('[{\"op\": \"SET\", \"reg\": \"flag\", \"value\": \"__input__\"}, {\"op\": \"JZ\", \"reg\": \"flag\", \"target\": 3}, {\"op\": \"GOTO\", \"target\": 1}, {\"op\": \"HALT\"}]')\nstate = json.loads('{\"__input__\": 0}')\nmax_steps = 32\n\npc = 0\nsteps = 0\nvisited = set()\nstatus = \"UNKNOWN\"\n\nwhile steps < max_steps:\n    key = (pc, tuple(sorted(state.items())))\n    if key in visited:\n        status = \"LOOP\"\n        break\n    visited.add(key)\n\n    if pc < 0 or pc >= len(program):\n        status = \"CRASH\"\n        break\n\n    inst = program[pc]\n    op = inst['op']\n\n    if op == 'HALT':\n        steps += 1\n        status = 'HALTS'\n        break\n    elif op == 'GOTO':\n        pc = int(inst['target'])\n    elif op == 'JZ':\n        reg = str(inst['reg'])\n        target = int(inst['target'])\n        if state.get(reg, 0) == 0:\n            pc = target\n        else:\n            pc += 1\n    elif op == 'DECJNZ':\n        reg = str(inst['reg'])\n        target = int(inst['target'])\n        if state.get(reg, 0) > 0:\n            state[reg] = state.get(reg, 0) - 1\n            pc = target\n        else:\n            pc += 1\n    elif op == 'SET':\n        reg = str(inst['reg'])\n        value = inst.get('value', 0)\n        if value == '__input__':\n            state[reg] = state.get('__input__', 0)\n        else:\n            state[reg] = int(value)\n        pc += 1\n    else:\n        status = 'ERROR:' + op\n        break\n\n    steps += 1\nelse:\n    status = 'UNKNOWN'\n\n__result__ = {\n    'status': status,\n    'steps': steps,\n    'pc': pc,\n    'final_state': state,\n}\n"
+      },
+      "mu_delta": 0,
+      "cert": {
+        "smt_query": "",
+        "solver_reply": "",
+        "metadata": "",
+        "timestamp": 0,
+        "sequence": 0
+      }
+    },
+    "pre_state_hash": "3be4ab3e30347c3b36b3c176e39c564d8b2e1e6c6f816f53070d67ed3cd381f4",
+    "post_state_hash": "2e59cea3b3cf0e0427b5d1025581d2f165a69235777b0cabab6bdd7773234376",
+    "signature": "6a6d4b600e52de2009c8b6dcd0ab7493652d1420c60c336029a639a337d6adf272a8b2dfad2406eee1bf081ecf72d9b25b1212b7575829e78c48fa62b5b93802"
+  }
+]

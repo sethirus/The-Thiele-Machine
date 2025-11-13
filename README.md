@@ -197,19 +197,15 @@ You do not get to treat this like another programming project. Start from the pr
 
 If you want to know whether a Thiele Machine “can do the same thing” as a Turing machine, the answer is yes—but the reverse is false. Set \(\Pi = \{S\}\) and you have a classical trace that pays in time because it cannot spend μ. Allow non-trivial partitions, pay the discovery bill, and you recover computations that the blind trace cannot stabilise. That is the point: sight is not a metaphor, it is an explicit, measurable resource.
 
-**Audit note (Coq mechanisation):** The repository maintains a single machine-generated inventory of every admitted lemma and axiom declaration at `ADMIT_REPORT.txt`. Regenerate it with `python -m tools.generate_admit_report` any time you touch the Coq sources. At this commit the report records 10 admitted lemmas and 2 axioms (all in the active Coq tree). Consult `coq/AXIOM_INVENTORY.md` for the narrative discussion of each assumption. README callouts reference these reports wherever a statement relies on them.
+**Audit note (Coq mechanisation):** The repository maintains a single machine-generated inventory of every admitted lemma and axiom declaration at `ADMIT_REPORT.txt`. Regenerate it with `python -m tools.generate_admit_report` any time you touch the Coq sources. At this commit the report records **two admitted lemmas and zero global axioms**: the live simulation obligation in `coq/thielemachine/coqproofs/Simulation.v` and the planning stub in `coq/ThieleMap.v`. Consult `coq/AXIOM_INVENTORY.md` for the narrative discussion of each obligation. README callouts reference these reports wherever a statement relies on them.
 
-**Comprehensive proof status:** The Coq development spans **63 files across 10 directories** with **604 proven theorems/lemmas (98.4% completion rate)**:
-- **Core Kernel** (coq/kernel/): 67 proven, 0 admitted, 0 axioms - 100% complete
-- **Main Thiele Proofs** (coq/thielemachine/coqproofs/): 406 proven, 10 admitted, 2 axioms - 97.6% complete
-  - Standout: BellInequality.v with 181 proven theorems
-  - Simulation.v: 104 proven, 3 admitted (memory/encoding)
-  - ThieleUniversalBridge.v: 29 proven, 7 admitted (transitions)
-- **Sandboxes** (coq/sandboxes/): 50 proven, 0 admitted, 0 axioms - 100% complete
-- **Modular Proofs** (coq/modular_proofs/): 54 proven, 0 admitted, 0 axioms - 100% complete
-- **Specialized** (Shor, Cerberus, P=NP, etc.): 27 proven, 0 admitted, 0 axioms - 100% complete
+**Comprehensive proof status:** The Coq development spans **63 files across 10 directories** and currently builds without axioms. Highlights:
+- **Core Kernel** (`coq/kernel/`): all lemmas and theorems proven; no admits or axioms remain.【F:coq/AXIOM_INVENTORY.md†L6-L18】
+- **Main Thiele Proofs** (`coq/thielemachine/coqproofs/`): every lemma is mechanised except `utm_interpreter_no_rule_found_halts`, which keeps the universal interpreter proof open.【F:coq/ADMIT_REPORT.txt†L5-L12】
+- **Bridging / roadmap** (`coq/ThieleMap.v`): documents the planned subsumption wrapper and is tracked as a non-core admitted stub until the simulator proof lands.【F:coq/ADMIT_REPORT.txt†L9-L15】
+- **Optional studies** (`coq/sandboxes/`, `coq/modular_proofs/`, specialised subdirectories): continue to compile with zero admits/axioms.【F:coq/AXIOM_INVENTORY.md†L10-L18】
 
-**46 of 63 files (76%)** are completely proven with zero admitted lemmas or axioms. The 10 admitted lemmas are structural (memory layout, instruction decoding, execution transitions) rather than foundational—they don't assume computational powers or bypass complexity arguments. The 2 axioms are standard: oracle correctness (expected for halting analysis) and PC bounds (implementation constraint). See comprehensive analysis of all 63 files in `docs/COQ_PROOF_STATUS.md`.
+Every other Coq file is free of admits and axioms; the two outstanding items are explicitly catalogued so auditors can focus on them. See `docs/COQ_PROOF_STATUS.md` for the narrative dashboard that mirrors the inventories.
 
 **Replication guidance:** External researchers should start with [`REPLICATION_GUIDE.md`](REPLICATION_GUIDE.md) for exact CLI invocations, expected outputs, and instructions on publishing new proofpacks. The guide also explains how to interpret “slack” values in the table above and how to contribute new datasets via pull request.
 
@@ -488,13 +484,13 @@ This repository simulates the Thiele Machine and publishes cryptographically sea
 
 **Handle the transcripts with care, document your derivations, and keep discussions about hypothetical offensive capability grounded in the published receipts.**
 
-**Evidence of Compliance:** Recent verification runs confirm cryptographic integrity—`python scripts/challenge.py verify receipts` replayed every manifest with total μ=7.0 and verified the signatures. Current Coq builds report 10 admitted lemmas and 2 axioms as documented in `ADMIT_REPORT.txt`.
+**Evidence of Compliance:** Recent verification runs confirm cryptographic integrity—`python scripts/challenge.py verify receipts` replayed every manifest with total μ=7.0 and verified the signatures. Current Coq builds report **two admitted lemmas and zero axioms**, matching the live inventories in `ADMIT_REPORT.txt`.
 
 ## Repository Guarantees
 
 This repository now packages the full subsumption argument together with the supporting artefacts. Highlights:
 
-- **Mechanised subsumption core:** The Sovereign Witness audit recompiled the shared kernel (`Kernel.v`, `KernelTM.v`, `KernelThiele.v`) and the strict containment theorem in `Subsumption.v`. The VM bridge files (`coq/kernel/SimulationProof.v`, `coq/kernel/VMEncoding.v`, `coq/kernel/VMStep.v`) complete the bridge implementation. Current status: 10 admitted lemmas and 2 axioms as catalogued in `ADMIT_REPORT.txt`.【F:audit_logs/agent_coq_verification.log†L1-L318】【F:coq/kernel/Subsumption.v†L23-L118】【F:coq/kernel/SimulationProof.v†L1-L204】【F:coq/kernel/VMEncoding.v†L372-L399】【F:coq/kernel/VMStep.v†L1-L26】【F:ADMIT_REPORT.txt†L1-L21】
+- **Mechanised subsumption core:** The Sovereign Witness audit recompiled the shared kernel (`Kernel.v`, `KernelTM.v`, `KernelThiele.v`) and the strict containment theorem in `Subsumption.v`. The VM bridge files (`coq/kernel/SimulationProof.v`, `coq/kernel/VMEncoding.v`, `coq/kernel/VMStep.v`) complete the bridge implementation. Current status: the kernel stack is axiom-free and only the universal-interpreter lemma in `Simulation.v` remains admitted, as catalogued in `ADMIT_REPORT.txt`.【F:audit_logs/agent_coq_verification.log†L1-L318】【F:coq/kernel/Subsumption.v†L23-L118】【F:coq/kernel/SimulationProof.v†L1-L204】【F:coq/kernel/VMEncoding.v†L372-L399】【F:coq/kernel/VMStep.v†L1-L26】【F:coq/ADMIT_REPORT.txt†L5-L12】
 - **Executable VM with μ-ledger parity:** The Python Thiele Machine (`thielecpu/vm.py`, `thielecpu/mu.py`) executes the audited instruction set, emits receipts, and tallies μ-costs that match the kernel bridge and the hardware solver to the bit.【F:thielecpu/vm.py†L1-L460】【F:thielecpu/mu.py†L1-L92】【F:audit_logs/agent_software_reproduction.log†L1-L158】
 - **Autonomous hardware oracle:** The general-purpose reasoning fabric (`hardware/synthesis_trap/reasoning_core.v`) and its backtracking controller (`thiele_autonomous_solver.v`) reproduce the software μ-ledger under simulation and synthesis, with transcripts captured in the audit logs.【F:hardware/synthesis_trap/reasoning_core.v†L1-L308】【F:hardware/synthesis_trap/thiele_autonomous_solver.v†L1-L389】【F:audit_logs/agent_hardware_verification.log†L780-L842】
 - **Receipts and verification harness:** `scripts/challenge.py verify receipts` replays every signed receipt, checks Ed25519 manifests, and validates both the analytic certificates and any legacy SAT/SMT artefacts; `scripts/prove_it_all.sh` and `coq/verify_subsumption.sh` provide end-to-end Coq replay for the canonical demonstrations.【F:scripts/challenge.py†L1-L220】【F:scripts/prove_it_all.sh†L1-L155】
@@ -504,7 +500,7 @@ This repository now packages the full subsumption argument together with the sup
 
 `the_final_proof.py` is a stress-test and impossibility witness: it hashes its own bytes, compares against an archival digest, and reports that the SHA-256 fixed point is unreachable under current assumptions. It does **not** ship a completed fixed-point proof and is documented as future work.
 
-**Verification Status:** The latest regeneration (see the timestamps in `artifacts/MANIFEST.sha256`) rebuilds the Coq developments (with 10 admitted lemmas and 2 axioms as reported by `ADMIT_REPORT.txt`), replays every signed receipt, and refreshes the supra-quantum witness (`S = 16/5`) ledger. These runs substantiate the repository's reproducibility claims while keeping the historical documents (e.g., `documents/The_Thiele_Machine.tex`) for provenance alongside the canonical runtime ledgers and receipts.
+**Verification Status:** The latest regeneration (see the timestamps in `artifacts/MANIFEST.sha256`) rebuilds the Coq developments (with two admitted lemmas and zero axioms as reported by `ADMIT_REPORT.txt`), replays every signed receipt, and refreshes the supra-quantum witness (`S = 16/5`) ledger. These runs substantiate the repository's reproducibility claims while keeping the historical documents (e.g., `documents/The_Thiele_Machine.tex`) for provenance alongside the canonical runtime ledgers and receipts.
 
 ## A Reviewer's Contract
 

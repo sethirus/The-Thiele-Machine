@@ -19,7 +19,9 @@ This command will:
 2. execute `tools/verify_bell_receipt.py` to recompute correlators, MDL totals,
    verify the hash chain, re-run the Coq harness, and confirm the HMAC
    signature, and
-3. finish with `tools/verify_end_to_end.py --skip-hardware`.
+3. finish with `tools/verify_end_to_end.py --skip-hardware` (the script now also
+   regenerates the halting boundary checks and Bell workflow; pass
+   `--skip-bell` if you only need the receipt harness).
 
 ## Standalone verification
 
