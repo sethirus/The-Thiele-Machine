@@ -15,8 +15,8 @@ probe halting behaviour from multiple angles:
 | `halt_immediately` | Terminates in one step without touching state. | Halts |
 | `countdown_three` | Decrements a counter to zero then halts. | Halts |
 | `self_loop` | Immediate `GOTO 0` self-loop. | Loops |
-| `branch_on_input` | Halts iff a flag register starts at zero. | Loops under the recorded input |
-| `diagonal_like` | Branches on its own encoding, mimicking a diagonal self-query. | Halts under the recorded input |
+| `branch_on_input` | Halts iff a flag register starts at zero | Loops under the recorded input |
+| `diagonal_like` | Branches on its own encoding, mimicking a diagonal self-query | Halts under the recorded input |
 
 Running the harness with a 32-step budget records the baseline interpreter’s
 verdict, the VM verdict, and whether they agree for every program.  The latest
