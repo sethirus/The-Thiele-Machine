@@ -5,8 +5,8 @@ _Updated after the November 2025 audit recorded in `docs/COQ_PROOF_AUDIT.md`._
 ## Current status
 
 - `make -C coq -j2` fails in `thieleuniversal/coqproofs/ThieleUniversal.v` when symbolic-execution goals try to equate the concrete `run_n` trace with a short-hand state name; the failure is reproducible with the default apt-installed Coq 8.18.0 toolchain.【35dec9†L1-L38】
-- One lemma remains `Admitted` (`utm_interpreter_no_rule_found_halts`), blocking the blind-interpreter simulation module that feeds the subsumption theorem.【495e62†L1-L20】
-- The halting-oracle experiment still relies on the interface axiom `H_correct`, so the repository is not axiom-free despite outdated dashboards claiming otherwise.【ac2173†L9-L30】
+- Two lemmas remain `Admitted`: `utm_interpreter_no_rule_found_halts` in `Simulation.v` and the roadmap stub `thiele_simulates_by_tm` in `ThieleMap.v`. The former blocks the blind-interpreter simulation module that feeds the subsumption theorem; the latter tracks the pending wrapper around the finished proof once the interpreter lemma lands.【495e62†L1-L20】
+- The hyper-halting experiment phrases its oracle requirement as a section hypothesis rather than a global axiom, so the core tree is axiom-free while still documenting the dependency explicitly.【F:coq/thielemachine/coqproofs/HyperThiele_Halting.v†L1-L35】
 - `ThieleUniversalBridge.v` and `ThieleUniversal.v` both acknowledge unfinished transition proofs and symbolic-execution stubs, so the universal-interpreter refactor is still in flight.【96a0c1†L1-L28】【0249db†L47-L63】
 - The Verilog RTL now has a dedicated decode skeleton: `coq/thielemachine/coqproofs/HardwareBridge.v` provides the opcode map, partition counters, and small-step helper lemmas the Python tooling reuses to compare hardware traces against the Coq receipts.【F:coq/thielemachine/coqproofs/HardwareBridge.v†L1-L148】
 

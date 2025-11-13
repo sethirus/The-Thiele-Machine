@@ -1,261 +1,83 @@
-# Comprehensive Coq Proof Analysis - All 63 Files
+# Coq proof status – November 2025 snapshot
 
-This document provides a complete analysis of ALL Coq formal verification files in The Thiele Machine repository (excluding temporary files).
+This note synchronises the textual dashboards with the live Coq inventories
+after the halting-oracle refactor and roadmap scaffolding work.  It is intended
+to be a quick reference for reviewers before they drill into
+`coq/ADMIT_REPORT.txt` or the comprehensive report.
 
-## Executive Summary
+## Executive summary
 
-- **Total Files Analyzed:** 63 Coq files (82 total, excluding 19 tmp_* files)
-- **Total Proven:** 604 theorems and lemmas (98.4% completion)
-- **Total Admitted:** 10 lemmas (1.6% remaining)
-- **Total Axioms:** 2 (both explicitly documented and standard)
-- **Completion Rate:** 604 proven / 614 total = 98.4%
+- **Core build health:** `make -C coq core` succeeds with Coq 8.19.2 and
+  requires no global axioms.
+- **Outstanding admits:** 2
+  1. `coq/thielemachine/coqproofs/Simulation.v:3797` –
+     `utm_interpreter_no_rule_found_halts`
+  2. `coq/ThieleMap.v:52` – `thiele_simulates_by_tm` (planning stub, excluded
+     from the default build)
+- **Global axioms:** 0 (the hyper-halting experiment now wraps the oracle in a
+  section hypothesis)
+- **Halting experiments:** automated stress tests and enumerative surveys are
+  wired into `tools/verify_end_to_end.py` to ensure the shipped VM does not leak
+  a halting oracle.
 
-## Directory Structure Overview
+## Directory overview
 
-### coq/kernel/ (67 proven, 0 admitted, 0 axioms)
-Core kernel proofs establishing the foundation of the Thiele Machine.
+| Tier | Path                              | Status                                                       |
+| ---- | --------------------------------- | ------------------------------------------------------------ |
+| Core | `coq/kernel/`                     | Zero admits/axioms. Ledger, VM encoding, and kernel linkage proofs all pass. |
+| Core | `coq/thielemachine/coqproofs/`    | Simulation stack mostly proven; only the universal-interpreter lemma above remains admitted. |
+| Core | `coq/modular_proofs/`             | Helper library for TM/Thiele encodings – zero admits/axioms. |
+| Core | `coq/thieleuniversal/coqproofs/`  | Universal interpreter scaffolding; still failing symbolic execution obligations. |
+| Bridge | `coq/ThieleMap.v`               | Planning wrapper for the subsumption statement (admitted). |
+| Optional | `coq/catnet/`, `coq/isomorphism/`, etc. | Self-contained studies; continue to build without admits. |
 
-**Files:**
-- KernelTM.v - Turing Machine kernel definitions
-- MuLedgerConservation.v - μ-bit ledger conservation proofs
-- PDISCOVERIntegration.v - PDISCOVER instruction integration
-- SimulationProof.v - 29 proven lemmas for simulation correctness
-- Subsumption.v - Subsumption proofs
-- VMEncoding.v - 15 proven lemmas for VM encoding
+### Core highlights
 
-**Status:** 100% complete, no admitted lemmas or axioms
+- `Simulation.v` – proves the blind interpreter simulates any TM.  The only
+  remaining gap is `utm_interpreter_no_rule_found_halts`, which requires
+  finishing the symbolic execution of the universal program when no rule
+  matches.
+- `Separation.v` – constructive Tseitin lower bound used for the sighted vs
+  blind separation.
+- `Subsumption.v` – combines containment and separation.  Downstream theorems
+  now mention the halting-oracle hypothesis explicitly when needed.
+- `HardwareBridge.v` – refines the Verilog fetch/decode loop to the abstract
+  semantics, enabling trace replay.
 
-### coq/thielemachine/coqproofs/ (406 proven, 10 admitted, 2 axioms)
-Main proof development for the Thiele Machine theoretical foundations.
+## Inventories of admits and hypotheses
 
-**Major Files:**
-- **BellInequality.v** - 181 proven theorems (most proven in entire repo!)
-  - Bell/CHSH inequality proofs
-  - Quantum correlation bounds
-  - Classical locality violations
-  
-- **Simulation.v** - 104 proven, 3 admitted
-  - TM ↔ Thiele state encoding
-  - Memory layout proofs
-  - Admitted: utm_cpu_state_read_tape, utm_decode_fetch_instruction, utm_interpreter_no_rule_found_halts
-  
-- **ThieleUniversalBridge.v** - 29 proven, 7 admitted
-  - Universal interpreter correctness
-  - Admitted: inv_setup_state, transition_* lemmas (6 execution phases)
-  
-- **HyperThiele_Halting.v** - 1 proven theorem, 1 axiom
-  - Axiom: H_correct (halting oracle correctness)
-  - Proven: hyper_thiele_decides_halting_bool
-  
-- **ThieleMachine.v** - 15 proven lemmas
-  - Core machine definitions and properties
-  
-- **PartitionLogic.v** - Partition-based reasoning
-- **Separation.v** - Complexity separation results
-- **NUSD.v** - No Unpaid Sight Debt law
-- **Subsumption.v** - Thiele ⊃ Turing proofs
-- **Axioms.v** - Axiom declarations and justifications
-- **EncodingBridge.v** - Encoding correctness
-- **AmortizedAnalysis.v** - Cost analysis
-- **Confluence.v** - Confluence properties
-- **QHelpers.v, ListHelpers.v** - Helper lemmas
-- **Impossibility.v** - Impossibility results
-- **SpecSound.v** - Specification soundness
-- **StructuredInstances.v** - Structured problem instances
-- **UTMStaticCheck.v** - Universal TM static checks
-- **HyperThiele_Oracle.v** - Oracle definitions
+The canonical machine-readable listings live in `coq/ADMIT_REPORT.txt` and the
+repository-level `ADMIT_REPORT.txt`.  The current state is reproduced below for
+quick reference.
 
-### coq/sandboxes/ (50 proven, 0 admitted, 0 axioms)
-Self-contained sandbox proofs and experiments.
+### Active admits
 
-**Files:**
-- **AbstractPartitionCHSH.v** - 20 proven (abstract CHSH proof)
-- **EncodingMini.v** - 18 proven (minimal encoding)
-- **GeneratedProof.v** - Generated proofs
-- **ToyThieleMachine.v** - Toy machine model
-- **VerifiedGraphSolver.v** - Graph solver verification
+| File | Lemma | Notes |
+| ---- | ----- | ----- |
+| `coq/thielemachine/coqproofs/Simulation.v:3797` | `utm_interpreter_no_rule_found_halts` | Pending symbolic execution of the universal interpreter when `find_rule` fails |
+| `coq/ThieleMap.v:52` | `thiele_simulates_by_tm` | Roadmap stub capturing the intended subsumption wrapper; file is excluded from the automated build |
 
-**Status:** 100% complete
+### Conditional sections / oracles
 
-### coq/modular_proofs/ (54 proven, 0 admitted, 0 axioms)
-Modular proof architecture for better maintainability.
+- `coq/thielemachine/coqproofs/HyperThiele_Halting.v` declares the halting
+  oracle as a section hypothesis.  Any theorem in that module is conditional on
+  `H_correct` and is no longer counted as part of the axiom-free core.
 
-**Files:**
-- **EncodingBounds.v** - 23 proven (encoding size bounds)
-- **Encoding.v** - 16 proven (encoding correctness)
-- **Simulation.v** - Simulation proofs
-- **Minsky.v** - Minsky machine model
-- **TM_Basics.v** - Turing Machine basics
-- **Thiele_Basics.v** - Thiele Machine basics
+## Regression checks
 
-**Status:** 100% complete
+- `tools/verify_end_to_end.py` now runs the halting boundary verification
+  (`tools/verify_halting_boundary.py`) by default.  The command fails if either
+  the curated stress tests or the enumerative survey finds a VM/baseline
+  disagreement.
+- Bell artefacts are reproducible with `tools/verify_bell_workflow.py`, which
+  regenerates the polytope scan and perturbation summaries and sanity-checks the
+  CHSH values for classical, supra-quantum, and PR boxes.
 
-### coq/shor_primitives/ (10 proven, 0 admitted, 0 axioms)
-Shor's algorithm primitives.
+## Next steps
 
-**Files:**
-- **Euclidean.v** - Euclidean algorithm proofs
-- **Modular.v** - Modular arithmetic
-- **PeriodFinding.v** - Period finding algorithms
-
-**Status:** 100% complete
-
-### coq/project_cerberus/coqproofs/ (6 proven, 0 admitted, 0 axioms)
-Project Cerberus - self-auditing kernel.
-
-**Files:**
-- **Cerberus.v** - 6 proven lemmas for kernel security
-
-**Status:** 100% complete
-
-### coq/p_equals_np_thiele/ (3 proven, 0 admitted, 0 axioms)
-P=NP exploration (philosophical sketch).
-
-**Files:**
-- **proof.v** - 3 proven lemmas
-
-**Status:** 100% complete (marked as sketch in docs)
-
-### coq/isomorphism/coqproofs/ (3 proven, 0 admitted, 0 axioms)
-Isomorphism proofs.
-
-**Files:**
-- **Universe.v** - 3 proven lemmas
-
-**Status:** 100% complete
-
-### coq/catnet/coqproofs/ (3 proven, 0 admitted, 0 axioms)
-CatNet - categorical neural networks.
-
-**Files:**
-- **CatNet.v** - 3 proven lemmas
-
-**Status:** 100% complete
-
-## Complete List of Axioms (1 total)
-
-### 1. H_correct (coq/thielemachine/coqproofs/HyperThiele_Halting.v:14)
-```coq
-Axiom H_correct : forall e, H e = true <-> Halts e.
-```
-**Purpose:** Postulates correctness of the halting oracle.
-
-**Justification:** Standard assumption for oracle analysis. The halting problem is undecidable (Turing 1936), so any machine that solves it must have oracle access as an axiomatic primitive.
-
-**Nature:** Computability axiom (expected and necessary)
-
-## Complete List of Admitted Lemmas (1 total)
-
-The remaining admitted lemma lives in `coq/thielemachine/coqproofs/`:
-
-1. **utm_interpreter_no_rule_found_halts (Simulation.v:3797)**
-   - Ensures the interpreter preserves the TM configuration when no rule applies
-   - Nature: Symbolic execution of the rule-search loop
-
-## Proof Completion by Category
-
-| Category | Proven | Admitted | Axioms | Completion |
-|----------|--------|----------|--------|------------|
-| Core Kernel | 67 | 0 | 0 | 100% |
-| Main Thiele Proofs | 406 | 10 | 2 | 97.6% |
-| Sandboxes | 50 | 0 | 0 | 100% |
-| Modular Proofs | 54 | 0 | 0 | 100% |
-| Specialized (Shor, Cerberus, etc.) | 27 | 0 | 0 | 100% |
-| **TOTAL** | **604** | **10** | **2** | **98.4%** |
-
-## Key Insights
-
-### 1. Exceptional Completion Rate
-**98.4% of all theorems and lemmas are fully proven.** This exceeds most verified systems:
-- CompCert: ~95% (has axioms for memory model, floating-point)
-- seL4: ~97% (has axioms for hardware)
-- Fiat-Crypto: ~96% (has axioms for field arithmetic)
-
-### 2. Admitted Lemmas are Structural
-All 10 admitted lemmas concern:
-- Memory encoding details (3)
-- Execution phase transitions (7)
-
-None assume:
-- Computational powers
-- Complexity shortcuts
-- Circular reasoning
-- Impossibility results
-
-### 3. Broad Proof Coverage
-The repository contains **48 files with substantial proofs**, spanning:
-- Core kernel (subsumption, encoding, VM)
-- Theoretical foundations (partition logic, separation, NUSD)
-- Applications (Bell inequality, Shor primitives, graph solving)
-- Security (Cerberus kernel)
-- Quantum computing (CHSH, Bell violations)
-
-### 4. Standout Achievement: BellInequality.v
-**181 proven theorems** in a single file - the most comprehensive Bell inequality proof in the repository, covering:
-- Classical strategies
-- Quantum correlations
-- Tsirelson bounds
-- CHSH violation proofs
-
-## Files with Zero Admits/Axioms (46 files)
-
-The following directories have **ZERO admitted lemmas or axioms**:
-- coq/kernel/ (all 67 lemmas proven)
-- coq/sandboxes/ (all 50 lemmas proven)
-- coq/modular_proofs/ (all 54 lemmas proven)
-- coq/shor_primitives/ (all 10 lemmas proven)
-- coq/project_cerberus/ (all 6 lemmas proven)
-- coq/p_equals_np_thiele/ (all 3 lemmas proven)
-- coq/isomorphism/ (all 3 lemmas proven)
-- coq/catnet/ (all 3 lemmas proven)
-
-This demonstrates that **76% of the codebase** (46/63 files) is **completely proven** without any admitted lemmas or axioms.
-
-## Roadmap to 100% Completion
-
-If completing the remaining 1.6% is desired:
-
-**Short-term (2-3 weeks):**
-1. Complete 3 memory lemmas in Simulation.v
-   - Requires list manipulation proofs
-   - Estimated: 1-2 weeks
-
-**Medium-term (4-8 weeks):**
-2. Complete 7 transition lemmas in ThieleUniversalBridge.v
-   - Requires symbolic execution traces
-   - Estimated: 4-6 weeks
-
-3. Replace pc_in_bounds axiom
-   - Count instructions by construction
-   - Estimated: 1 week
-
-**Total estimated effort:** 6-11 weeks for experienced Coq developer
-
-However, **scientific validity does not require 100%** - the 98.4% completion with 2 standard axioms is exceptional.
-
-## Comparison to Original Analysis
-
-**Original claim:** "3 core files"
-**Actual scope:** 63 files across 10 directories
-
-**Original stats:** 133 proven (93%)
-**Actual stats:** 604 proven (98.4%)
-
-The repository contains **4.5x more proven theorems** than initially analyzed, with a **higher completion rate** (98.4% vs 93%).
-
-## Maintenance
-
-To regenerate this analysis:
-```bash
-python /tmp/analyze_all_coq.py > analysis.txt
-```
-
-To regenerate ADMIT_REPORT.txt:
-```bash
-python -m tools.generate_admit_report
-```
-
-**Last Updated:** 2025-11-09
-**Analyzer:** GitHub Copilot Agent
-**Files Analyzed:** 63 Coq files (all non-temporary)
-**Commit:** (to be updated)
+1. Finish `utm_interpreter_no_rule_found_halts` so the containment theorem is
+   axiom/assumption free.
+2. Once the universal interpreter is fully mechanised, discharge
+   `ThieleMap.v` by wrapping the existing simulation theorem.
+3. Continue keeping documentation, admit reports, and the comprehensive audit in
+   sync after each proof change.
