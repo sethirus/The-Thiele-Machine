@@ -1,14 +1,14 @@
-Admit and axiom inventory (updated after November 2025 audit)
+Admit inventory (updated after halting-oracle refactor)
 
 Core tree
 ---------
 - `thielemachine/coqproofs/Simulation.v:3797` – `utm_interpreter_no_rule_found_halts` remains `Admitted`; completing the symbolic execution of the universal program is still open.【495e62†L1-L20】
 
-Halting-oracle experiment
--------------------------
-- `thielemachine/coqproofs/HyperThiele_Halting.v:14` – `H_correct` stays axiomatic while the oracle interface lacks a constructive witness.【ac2173†L9-L30】
+Roadmap scaffolding
+-------------------
+- `ThieleMap.v:52` – `thiele_simulates_by_tm` is deliberately left `Admitted` as a planning stub while the simulation roadmap is documented; it is not yet part of the automated build.
 
 Summary
 -------
-Total admitted: 1
-Total axioms:  1
+Total admitted: 2
+Total axioms:  0

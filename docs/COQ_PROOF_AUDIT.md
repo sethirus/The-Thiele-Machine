@@ -6,7 +6,7 @@
 - Captured the RTL fetch/decode skeleton in `coq/thielemachine/coqproofs/HardwareBridge.v`, packaging the opcode decoder, partition counters, and small-step transition helpers that downstream proofs and the Python tooling use to align hardware traces with the abstract Thiele machine.【F:coq/thielemachine/coqproofs/HardwareBridge.v†L1-L148】
 - Established the categorical packaging of Thiele programs in `coq/thielemachine/coqproofs/ThieleProc.v`, exposing closed-run semantics (`run_closed`), the receipt trace witness `trace_of_prog`, and the observational equivalence lemmas needed to treat sequential composition as categorical composition for the geometric roadmap.【F:coq/thielemachine/coqproofs/ThieleProc.v†L1-L240】
 - Added `tools/verify_end_to_end.py` so the Coq core build, RTL simulation, and receipt metrics are exercised together when checking regressions.【F:tools/verify_end_to_end.py†L1-L206】
-- Enumerated live admits and axioms directly from the sources. The only remaining `Admitted` lemma is `utm_interpreter_no_rule_found_halts` in `thielemachine/coqproofs/Simulation.v`, and the only explicit axiom is `H_correct` in `thielemachine/coqproofs/HyperThiele_Halting.v` that characterises the postulated halting oracle.【495e62†L1-L20】【ac2173†L9-L30】
+- Enumerated live admits directly from the sources. Two `Admitted` lemmas remain: `utm_interpreter_no_rule_found_halts` in `thielemachine/coqproofs/Simulation.v` and the roadmap stub `thiele_simulates_by_tm` in `coq/ThieleMap.v`. The hyper-halting experiment now phrases its oracle requirement as a section hypothesis rather than a global axiom.【495e62†L1-L20】【F:coq/thielemachine/coqproofs/HyperThiele_Halting.v†L1-L35】
 - Reviewed the partially completed universal-interpreter development. `ThieleUniversalBridge.v` documents that the transition lemmas are still unfinished, and `ThieleUniversal.v` retains stubbed obligations such as `pc_29_implies_registers_from_rule_table` that lacks a proof term.【96a0c1†L1-L28】【0249db†L47-L63】
 
 ## Build tiers and recommended workflow
@@ -26,7 +26,7 @@
 
 ## Immediate documentation fixes
 
-1. Update the admit/axiom inventory to reflect the single outstanding admit and the halting-oracle axiom instead of the outdated counts that referenced retired bridge admits.【495e62†L1-L20】【ac2173†L9-L30】
+1. Update the admit/axiom inventory to reflect the single outstanding admit and the fact that the halting-oracle requirement now lives as a section hypothesis rather than a global axiom.【495e62†L1-L20】【F:coq/thielemachine/coqproofs/HyperThiele_Halting.v†L1-L35】
 2. Revise the completion plan to focus on auditing whether optional studies should stay in the default build, and to document the precise failure mode in `ThieleUniversal.v` before attempting further proof work.【35dec9†L1-L38】
 3. Refresh contributor guidance (`coq/AGENTS.md` and `coq/README_PROOFS.md`) so new work items flow from this audit rather than the superseded milestone checklist.【96a0c1†L1-L28】【495e62†L1-L20】
 

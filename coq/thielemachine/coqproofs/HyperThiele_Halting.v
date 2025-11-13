@@ -6,28 +6,34 @@ Import HyperThieleOracleMinimal.
 
 Module HyperThiele_Halting.
 
-  (** Postulate a hyper-oracle `H` and an abstract halting predicate.
-      This isolates the non-computable assumption in one place. *)
-  Parameter H : Oracle.
-  Parameter Halts : nat -> Prop.
+  Section WithHaltingOracle.
 
-  Axiom H_correct : forall e, H e = true <-> Halts e.
+    (** Postulate a hyper-oracle `H` and an abstract halting predicate.
+        This isolates the non-computable assumption in one place and ensures
+        downstream developments must import the section explicitly when they
+        wish to reason under the oracle hypothesis. *)
+    Variable H : Oracle.
+    Variable Halts : nat -> Prop.
 
-  (** A tiny high-level Thiele program that queries the oracle on `e`. *)
-  Definition halting_solver (e : nat) : Program := [ Ask e ].
+    Hypothesis H_correct : forall e, H e = true <-> Halts e.
 
-  (** The solver returns `[true]` exactly when `Halts e` holds. *)
-  Theorem hyper_thiele_decides_halting_bool :
-    forall e,
-      run_program H (halting_solver e) = [true] <-> Halts e.
-  Proof.
-    intros e. simpl. unfold halting_solver. simpl.
-    split; intros Hres.
-    - destruct (H e) eqn:Heq.
-      + apply H_correct. assumption.
-      + simpl in Hres. discriminate Hres.
+    (** A tiny high-level Thiele program that queries the oracle on `e`. *)
+    Definition halting_solver (e : nat) : Program := [ Ask e ].
+
+    (** The solver returns `[true]` exactly when `Halts e` holds. *)
+    Theorem hyper_thiele_decides_halting_bool :
+      forall e,
+        run_program H (halting_solver e) = [true] <-> Halts e.
+    Proof.
+      intros e. simpl. unfold halting_solver. simpl.
+      split; intros Hres.
+      - destruct (H e) eqn:Heq.
+        + apply H_correct. assumption.
+        + simpl in Hres. discriminate Hres.
       - apply H_correct in Hres. rewrite Hres. reflexivity.
-  Qed.
+    Qed.
+
+  End WithHaltingOracle.
 
 End HyperThiele_Halting.
 
