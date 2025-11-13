@@ -15,7 +15,7 @@ The November 2025 audit reclassified every Coq subproject into **core**, **bridg
 
 ## Reporting obligations
 
-- If you touch `Simulation.v`, document whether the remaining admit `utm_interpreter_no_rule_found_halts` moved or gained supporting lemmas, and restate the proof obligations you uncovered.【495e62†L1-L20】
+- If you touch `Simulation.v`, document whether the remaining admits `utm_no_rule_preserves_tape_len` / `utm_no_rule_preserves_cpu_config` moved or gained supporting lemmas, and restate the proof obligations you uncovered.【495e62†L1-L20】
 - Any change to the halting-oracle experiments must call out the axiom `H_correct` and justify whether it is still required.【ac2173†L9-L30】
 - Until the automation is fixed, update `coq/ADMIT_REPORT.txt` and `coq/AXIOM_INVENTORY.md` manually whenever you introduce or discharge admits/axioms; the existing scripts under-report the current counts.【27e479†L32-L34】
 
