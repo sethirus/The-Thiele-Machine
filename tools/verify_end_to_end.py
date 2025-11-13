@@ -1,5 +1,19 @@
 #!/usr/bin/env python3
-"""Run the Thiele machine end-to-end verification workflow."""
+"""Run the canonical Thiele Machine end-to-end verification workflow.
+
+This harness is intended to be the single command reviewers execute to
+validate the public tree.  By default it performs the following checks:
+
+* Python unit test suite via ``pytest``
+* Phase-three receipt/μ-ledger verification
+* Core Coq build (``make -C coq core``)
+* Halting boundary regression harness
+* Bell/CHSH sandbox regeneration and validation
+* Optional Yosys structural check and hardware simulation replay
+
+Individual stages can be skipped with the dedicated ``--skip-*`` flags if a
+reviewer needs a lighter pass, but a green run without skips is the baseline
+signal that the repository is coherent."""
 from __future__ import annotations
 
 import argparse
@@ -173,6 +187,16 @@ def verify_final_state(instrs: List[InstructionWord], summary: ExecutionSummary)
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--skip-pytests",
+        action="store_true",
+        help="Skip running the Python unit test suite (pytest).",
+    )
+    parser.add_argument(
+        "--skip-receipts",
+        action="store_true",
+        help="Skip the phase-three proofpack / receipt verification.",
+    )
     parser.add_argument("--skip-build", action="store_true", help="Skip the Coq core build step.")
     parser.add_argument("--skip-hardware", action="store_true", help="Skip running the hardware simulation test suite.")
     parser.add_argument(
@@ -189,6 +213,32 @@ def main() -> None:
         help="Skip the Bell / CHSH workflow regeneration.",
     )
     args = parser.parse_args()
+
+    if not args.skip_pytests:
+        run_command(["pytest", "-q"], cwd=PROJECT_ROOT)
+
+    if not args.skip_receipts:
+        proofpack_tar = PROJECT_ROOT / "artifacts" / "phase_three" / "phase_three_proofpack.tar.gz"
+        proofpack_dir = PROJECT_ROOT / "artifacts" / "phase_three" / "phase_three_bundle"
+        proofpack_arg: Optional[pathlib.Path] | None = None
+
+        if proofpack_tar.exists():
+            proofpack_arg = proofpack_tar
+        elif proofpack_dir.exists():
+            proofpack_arg = proofpack_dir
+        else:
+            print(
+                "Phase-three proofpack artifacts not found; skipping receipt verification."
+            )
+
+        if proofpack_arg is not None:
+            run_command(
+                [
+                    "python3",
+                    str(PROJECT_ROOT / "tools" / "verify_phase_three_proofpack.py"),
+                    str(proofpack_arg),
+                ]
+            )
 
     if not args.skip_build:
         run_command(["make", "-C", str(PROJECT_ROOT / "coq"), "core"])
