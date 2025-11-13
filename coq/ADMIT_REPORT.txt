@@ -1,14 +1,15 @@
-Admit inventory (updated after halting-oracle refactor)
+Admit inventory (updated after end-to-end harness refresh)
 
 Core tree
 ---------
-- `thielemachine/coqproofs/Simulation.v:3797` – `utm_interpreter_no_rule_found_halts` remains `Admitted`; completing the symbolic execution of the universal program is still open.【495e62†L1-L20】
+- `thielemachine/coqproofs/Simulation.v:4323` – `utm_no_rule_preserves_tape_len` isolates the final tape-window equality required by the universal interpreter.  Proving this lemma amounts to symbolically executing the ten-instruction “no rule found” sweep and showing that none of the instructions extend or shrink the observed tape window; all register, head, and suffix witnesses are already in place.【495e62†L1-L20】
+- `thielemachine/coqproofs/Simulation.v:4346` – `utm_no_rule_preserves_cpu_config` now depends on the previous lemma plus the guard-restoration argument.  Once the loop catalogue is composed to re-establish `find_rule_start_inv` for the post-state, `utm_no_rule_preserves_tape_len` and `find_rule_start_inv_cpu_state_to_tm_config_eq` will conclude the equality proof.【495e62†L1-L20】
 
 Roadmap scaffolding
 -------------------
-- `ThieleMap.v:52` – `thiele_simulates_by_tm` is deliberately left `Admitted` as a planning stub while the simulation roadmap is documented; it is not yet part of the automated build.
+- `ThieleMap.v:66` – `thiele_simulates_by_tm` is deliberately left `Admitted` as a planning stub while the simulation roadmap is documented.  The new lemma `thiele_simulates_tm_prefix` records the proven finite-prefix behaviour the roadmap extends; the file remains excluded from the automated build.
 
 Summary
 -------
-Total admitted: 2
+Total admitted: 3
 Total axioms:  0

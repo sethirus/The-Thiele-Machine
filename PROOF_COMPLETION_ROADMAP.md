@@ -9,7 +9,54 @@ This document provides a detailed roadmap for completing the 3 remaining `Admitt
 - ✅ 0 Parameters (eliminated 4)
 - ✅ All core definitions concrete
 - ✅ Many lemmas proved
-- ⚠️ 3 Admitted lemmas remain
+- ⚠️ 2 Admitted lemmas remain
+- ✅ Helper `cpu_state_to_tm_config_tape_prefix` now recovers the inspected tape
+  prefix from the universal interpreter state when the tape fits within the
+  fixed extraction window, tightening the remaining symbolic-execution goal.
+- ✅ Bridge `find_rule_start_inv_cpu_state_to_tm_config_tape_prefix` packages
+  that tape-prefix recovery directly under the `find_rule_start` guard so the
+  symbolic-execution proof can reuse the invariant without re-establishing the
+  intermediate reasoning.
+- ✅ Lemma `config_ok_tape_fits_window` discharges the tape-length side
+  condition from `config_ok`, ensuring the fixed 100-cell extraction window is
+  applicable for well-formed TM configurations without additional bookkeeping.
+- ✅ Lemma `config_ok_head_lt_shift_len` packages the head-position bound from
+  `config_ok`, so the symbolic-execution proof can reuse the guard without
+  re-deriving the admissible cursor range for the 100-cell window.
+- ✅ Lemma `find_rule_start_inv_cpu_state_to_tm_config_components` bundles the
+  q/head equalities with the recovered tape prefix, yielding a single
+  ready-to-apply fact about the decoded configuration whenever the
+  `find_rule_start` guard holds and the configuration is well formed.
+- ✅ Lemma `cpu_state_to_tm_config_eq_components` turns matching q/head/tape
+  equations into an immediate configuration equality, allowing the symbolic
+  execution to focus on proving each component separately before invoking the
+  ready-made bridge.
+- ✅ Lemma `find_rule_start_inv_cpu_state_to_tm_config_tape_extension`
+  decomposes the captured tape as the expected prefix plus an explicit suffix,
+  making it clear that only the residual window needs to be shown inert during
+  the no-rule branch.
+- ✅ Lemma `find_rule_start_inv_cpu_state_to_tm_config_tape_extension_bound`
+  refines that decomposition with an explicit `length suffix + length tape`
+  bound, confirming the leftover cells stay inside the fixed 100-cell window.
+- ✅ Lemmas `tape_window_ok_cpu_state_to_tm_config_tape_prefix`,
+  `tape_window_ok_cpu_state_to_tm_config_tape_extension`, and
+  `tape_window_ok_cpu_state_to_tm_config_tape_extension_bound` replay the tape
+  recovery and bounding arguments directly from the `tape_window_ok` predicate,
+  allowing future steps to apply the fetch-stage invariant without reinstating
+  the full `inv` hypothesis for tape reasoning.
+- ✅ Lemma `decode_state_cpu_state_to_thiele_state` packages the decode/encode
+  round-trip once `config_ok` is available, allowing the final admit to focus
+  solely on establishing the configuration equality and the symbolic execution
+  of the rule-search loop.
+- ✅ Lemma `find_rule_none_forall` records that every rule examined before the
+  no-match exit disagrees on `(q, sym)`, so the symbolic-execution proof can
+  reuse this fact instead of re-running the list search argument.
+- ✅ Lemma `find_rule_none_skipn` shows that a `find_rule` miss persists after
+  advancing the search window with `skipn`, enabling the loop proof to chain the
+  per-iteration progress lemma without restating the list search computation.
+- ✅ Lemma `find_rule_loop_inv_rule_mismatch` lifts that disagreement into the
+  loop invariant itself, so each symbolic-execution step has immediate access to
+  the `(q, sym)` mismatch while iterating through the rule table.
 
 **Files Involved:**
 - `coq/thielemachine/coqproofs/ThieleUniversalBridge.v`: 2 admitted lemmas
@@ -357,25 +404,26 @@ Lemma branch_semantics : forall cpu cond,
 
 ---
 
-## Proof 3: `utm_interpreter_no_rule_found_halts`
+## Proof 3: `utm_no_rule_preserves_cpu_config`
 
-**Location:** `Simulation.v`, line ~3700-3723
+**Location:** `Simulation.v`, line ~4265-4295
 
 **Statement:**
 ```coq
-Lemma utm_interpreter_no_rule_found_halts :
+Lemma utm_no_rule_preserves_cpu_config :
   forall tm conf cpu_find,
+    config_ok tm conf ->
     let '((q, tape), head) := conf in
     let sym := nth head tape tm.(tm_blank) in
     find_rule tm.(tm_rules) q sym = None ->
     ThieleUniversal.inv_core cpu_find tm conf ->
     ThieleUniversal.find_rule_start_inv tm conf cpu_find ->
     rules_fit tm ->
-    decode_state tm (cpu_state_to_thiele_state tm (ThieleUniversal.run_n cpu_find 10)) = conf.
+    cpu_state_to_tm_config (ThieleUniversal.run_n cpu_find 10) = conf.
 ```
 
 **What It Proves:**
-When no rule matches, the CPU executes through all rules (finding none match), reaches the halt state at PC=11, and the TM configuration remains unchanged.
+When no rule matches, the CPU executes through all rules (finding none match) and the extracted TM configuration remains unchanged; with the explicit `config_ok` hypothesis in place, the outstanding obligations are now split into (a) `utm_no_rule_preserves_tape_len`, which must show that the ten-instruction sweep leaves the observed tape length unchanged, and (b) this wrapper lemma, which then has to compose the catalogue lemma `ThieleUniversal.loop_iteration_no_match` with the tape-window helpers so the six-step iteration and four-step reset return to PC = 3 with `ThieleUniversal.find_rule_start_inv` restored.  Once those facts hold, `find_rule_start_inv_cpu_state_to_tm_config_eq` and `cpu_state_to_tm_config_eq_components` discharge the equality goal.  The wrapper lemma `utm_no_rule_implies_halting_cfg` now follows immediately from this helper and the decode/encode round-trip.  The missing work is therefore (1) a concrete tape-length preservation lemma and (2) a guard-restoration proof spelling out that `run_n cpu_find 6` followed by the reset sequence re-establishes the guard while leaving the observed tape suffix untouched; without both pieces, the equality cannot yet be closed.
 
 **Estimated Effort:** 10-20 hours
 
@@ -391,19 +439,7 @@ Same as Proof 2, plus:
 
 Similar to Proof 2, but all iterations fail:
 
-```coq
-Proof.
-  intros tm ((q, tape), head) cpu_find sym Hno_rule Hinv Hstart Hfit.
-  
-  (* Prove we check ALL rules *)
-  pose proof (check_all_rules tm cpu_find) as Hall.
-  
-  (* Induction on number of rules *)
-  induction (tm_rules tm) as [|rule rules IH].
-  - (* Base: empty rules, immediate halt *)
-  - (* Step: check one rule, doesn't match, continue *)
-Qed.
-```
+The direct symbolic execution remains the open task; prior attempts showed that the loop-invariant machinery, tape-window helpers, and mismatch evidence suffice once the post-state is shown to satisfy `find_rule_start_inv` again.
 
 #### Phase 2: Halt State Proof (2-4 hours)
 
@@ -433,6 +469,17 @@ Proof.
   (* Tape in memory unchanged *)
 Qed.
 ```
+
+The helpers `find_rule_start_inv_cpu_state_to_tm_config_core`,
+`inv_implies_inv_core`, and `find_rule_start_inv_pc` package the register
+equalities established by the start-of-loop guard.  The newer
+`find_rule_loop_inv_cpu_state_to_tm_config_components` extends those bridges to
+states already inside the loop, bundling the q/head/tape-prefix equalities,
+explicit suffix decomposition, an exact tape-length identity (via
+`find_rule_loop_inv_cpu_state_to_tm_config_tape_length`), and the PC=4 fact that
+will feed the symbolic execution.  What remains here is to propagate the
+untouched tape suffix across the final rule-search iteration and finish the
+concrete symbolic execution of the no-match branch.
 
 #### Phase 4: Decode/Encode Round-Trip (1-2 hours)
 
@@ -547,7 +594,7 @@ Ltac resolve_mem_lookup :=
    - Generalize to full proof
 
 3. **Week 3 (10-15 hours):**
-   - Complete Proof 3 (`utm_interpreter_no_rule_found_halts`)
+   - Complete Proof 3 (`utm_no_rule_preserves_cpu_config`)
    - Reuse infrastructure from Proof 2
    - Integration testing
    - Documentation
@@ -702,11 +749,15 @@ coq/thielemachine/coqproofs/
     [ ] Step count (2-3h)
     [ ] Assembly (1-2h)
     
-[ ] Proof 3: utm_interpreter_no_rule_found_halts
+[ ] Proof 3: utm_no_rule_preserves_cpu_config
     [ ] Loop exhaustion (4-6h)
     [ ] Halt state (2-4h)
     [ ] Config preservation (3-5h)
     [ ] Round-trip (1-2h)
+
+[ ] Proof 3a: utm_no_rule_preserves_tape_len
+    [ ] Symbolic sweep (6-8h)
+    [ ] Tape window audit (2-3h)
 ```
 
 ### Contact Points

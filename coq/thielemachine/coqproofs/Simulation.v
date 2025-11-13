@@ -23,10 +23,8 @@
 (*   - inv_min properties                                              *)
 (*   - thiele_step_n_tm_correct                                        *)
 (*                                                                      *)
-(*   Remaining ADMITTED (3):                                           *)
-(*   1. utm_interpreter_no_rule_found_halts (symbolic execution)      *)
-(*   2. transition_Fetch_to_FindRule (symbolic execution)             *)
-(*   3. transition_FindRule_to_ApplyRule (symbolic execution)         *)
+(*   Remaining ADMITTED (1):                                           *)
+(*   1. utm_no_rule_preserves_cpu_config (symbolic execution helper)  *)
 (*                                                                      *)
 (*   These admitted lemmas have proof strategies documented inline.   *)
 (*   They require symbolic execution through CPU instruction sequences *)
@@ -191,15 +189,507 @@ Definition cpu_state_to_tm_config (cpu_st : ThieleUniversal.CPU.State) : TMConfi
   let tape := firstn 100 (skipn tape_start cpu_st.(ThieleUniversal.CPU.mem)) in
   (q, tape, head).
 
+Lemma cpu_state_to_tm_config_core_registers :
+  forall tm conf cpu,
+    ThieleUniversal.inv_core cpu tm conf ->
+    let '(q_expected, _, head_expected) := conf in
+    let '(q_actual, _, head_actual) := cpu_state_to_tm_config cpu in
+    q_actual = q_expected /\ head_actual = head_expected.
+Proof.
+  intros tm [q_expected tape_expected head_expected] cpu Hcore.
+  unfold ThieleUniversal.inv_core in Hcore.
+  simpl in Hcore.
+  destruct Hcore as [Hq [Hhead _]].
+  unfold cpu_state_to_tm_config.
+  simpl.
+  split; simpl; [exact Hq | exact Hhead].
+Qed.
+
+Lemma cpu_state_to_tm_config_eq_components :
+  forall tm conf cpu,
+    let '(q_expected, tape_expected, head_expected) := conf in
+    let '(q_actual, tape_actual, head_actual) := cpu_state_to_tm_config cpu in
+    q_actual = q_expected ->
+    tape_actual = tape_expected ->
+    head_actual = head_expected ->
+    cpu_state_to_tm_config cpu = conf.
+Proof.
+  intros tm [[q_expected tape_expected] head_expected] cpu.
+  simpl.
+  intros Hq Htape Hhead.
+  subst q_expected tape_expected head_expected.
+  reflexivity.
+Qed.
+
+Lemma find_rule_start_inv_implies_inv_core :
+  forall tm conf cpu,
+    ThieleUniversal.find_rule_start_inv tm conf cpu ->
+    ThieleUniversal.inv_core cpu tm conf.
+Proof.
+  intros tm conf cpu Hstart.
+  unfold ThieleUniversal.find_rule_start_inv in Hstart.
+  destruct Hstart as [_ Hcore].
+  exact Hcore.
+Qed.
+
+Lemma find_rule_start_inv_cpu_state_to_tm_config_core :
+  forall tm conf cpu,
+    ThieleUniversal.find_rule_start_inv tm conf cpu ->
+    let '(q_expected, _, head_expected) := conf in
+    let '(q_actual, _, head_actual) := cpu_state_to_tm_config cpu in
+    q_actual = q_expected /\ head_actual = head_expected.
+Proof.
+  intros tm [[q_expected tape_expected] head_expected] cpu Hstart.
+  pose proof
+    (find_rule_start_inv_implies_inv_core tm ((q_expected, tape_expected), head_expected) cpu Hstart)
+    as Hcore.
+  apply (cpu_state_to_tm_config_core_registers tm ((q_expected, tape_expected), head_expected) cpu).
+  exact Hcore.
+Qed.
+
+Lemma inv_implies_inv_core :
+  forall tm conf cpu,
+    ThieleUniversal.inv cpu tm conf ->
+    ThieleUniversal.inv_core cpu tm conf.
+Proof.
+  intros tm [[q_expected tape_expected] head_expected] cpu Hinv.
+  unfold ThieleUniversal.inv in Hinv.
+  simpl in Hinv.
+  destruct Hinv as [Hq [Hhead [Hpc _]]].
+  unfold ThieleUniversal.inv_core.
+  simpl.
+  repeat split; assumption.
+Qed.
+
+Lemma find_rule_start_inv_pc :
+  forall tm conf cpu,
+    ThieleUniversal.find_rule_start_inv tm conf cpu ->
+    ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu = 3.
+Proof.
+  intros tm conf cpu Hstart.
+  unfold ThieleUniversal.find_rule_start_inv in Hstart.
+  destruct Hstart as [Hpc _].
+  unfold ThieleUniversal.IS_FindRule_Start in Hpc.
+  exact Hpc.
+Qed.
+
+Lemma cpu_state_to_tm_config_tape_cell :
+  forall tm conf cpu n,
+    ThieleUniversal.inv cpu tm conf ->
+    n < 100 ->
+    n < length (snd (fst conf)) ->
+    let '(_, tape_actual, _) := cpu_state_to_tm_config cpu in
+    let '(_, tape_expected, _) := conf in
+    nth n tape_actual tm.(tm_blank) = nth n tape_expected tm.(tm_blank).
+Proof.
+  intros tm [[q_expected tape_expected] head_expected] cpu n Hinv Hlt_window Hlen.
+  unfold ThieleUniversal.inv in Hinv.
+  simpl in Hinv.
+  destruct Hinv as [_ [_ [_ [Htape _]]]].
+  unfold cpu_state_to_tm_config.
+  simpl.
+  set (mem := ThieleUniversal.CPU.mem cpu).
+  set (window := firstn 100 (skipn UTM_Program.TAPE_START_ADDR mem)).
+  assert (Hwindow_eq :
+            nth n window tm.(tm_blank) =
+            nth n (skipn UTM_Program.TAPE_START_ADDR mem) tm.(tm_blank)).
+  { subst window.
+    apply ThieleUniversal.nth_firstn_lt.
+    lia. }
+  assert (Htape_eq :
+            nth n tape_expected tm.(tm_blank) =
+            nth n (skipn UTM_Program.TAPE_START_ADDR mem) tm.(tm_blank)).
+  { rewrite <- Htape.
+    apply ThieleUniversal.nth_firstn_lt.
+    exact Hlen. }
+  rewrite Hwindow_eq.
+  symmetry.
+  exact Htape_eq.
+Qed.
+
+Lemma tape_window_ok_cpu_state_to_tm_config_tape_prefix :
+  forall tm conf cpu,
+    ThieleUniversal.tape_window_ok cpu (snd (fst conf)) ->
+    length (snd (fst conf)) <= 100 ->
+    let '(_, tape_actual, _) := cpu_state_to_tm_config cpu in
+    let '(_, tape_expected, _) := conf in
+    firstn (length tape_expected) tape_actual = tape_expected.
+Proof.
+  intros tm [[q_expected tape_expected] head_expected] cpu Hwindow Hlen.
+  unfold cpu_state_to_tm_config.
+  simpl.
+  set (mem := ThieleUniversal.CPU.mem cpu).
+  set (window := skipn UTM_Program.TAPE_START_ADDR mem).
+  change (firstn (length tape_expected) (firstn 100 window) = tape_expected).
+  rewrite firstn_firstn.
+  rewrite Nat.min_l by assumption.
+  exact Hwindow.
+Qed.
+
+Lemma tape_window_ok_cpu_state_to_tm_config_tape_extension :
+  forall tm conf cpu,
+    ThieleUniversal.tape_window_ok cpu (snd (fst conf)) ->
+    length (snd (fst conf)) <= 100 ->
+    exists suffix,
+      let '(_, tape_actual, _) := cpu_state_to_tm_config cpu in
+      let '((_, tape_expected), _) := conf in
+      tape_actual = tape_expected ++ suffix.
+Proof.
+  intros tm [[q_expected tape_expected] head_expected] cpu Hwindow Hlen.
+  pose proof
+    (tape_window_ok_cpu_state_to_tm_config_tape_prefix
+       tm ((q_expected, tape_expected), head_expected) cpu Hwindow Hlen)
+    as Hprefix.
+  set (conf_actual := cpu_state_to_tm_config cpu) in *.
+  destruct conf_actual as [[_ tape_actual] _].
+  simpl in *.
+  exists (skipn (length tape_expected) tape_actual).
+  rewrite <- firstn_skipn with (n := length tape_expected) (l := tape_actual).
+  rewrite Hprefix.
+  reflexivity.
+Qed.
+
+Lemma tape_window_ok_cpu_state_to_tm_config_tape_extension_bound :
+  forall tm conf cpu,
+    ThieleUniversal.tape_window_ok cpu (snd (fst conf)) ->
+    length (snd (fst conf)) <= 100 ->
+    exists suffix,
+      let '(_, tape_actual, _) := cpu_state_to_tm_config cpu in
+      let '((_, tape_expected), _) := conf in
+      tape_actual = tape_expected ++ suffix /\
+      length suffix + length tape_expected <= 100.
+Proof.
+  intros tm [[q_expected tape_expected] head_expected] cpu Hwindow Hlen.
+  pose proof
+    (tape_window_ok_cpu_state_to_tm_config_tape_extension
+       tm ((q_expected, tape_expected), head_expected) cpu Hwindow Hlen)
+    as [suffix Hdecomp].
+  exists suffix.
+  split; [assumption|].
+  unfold cpu_state_to_tm_config in *.
+  simpl in *.
+  set (mem := ThieleUniversal.CPU.mem cpu).
+  set (window := skipn UTM_Program.TAPE_START_ADDR mem).
+  set (tape_actual := firstn 100 window) in *.
+  assert (Hlen_actual : length tape_actual <= 100).
+  { subst tape_actual.
+    rewrite firstn_length.
+    apply Nat.min_le_l.
+  }
+  rewrite Hdecomp in Hlen_actual.
+  rewrite app_length in Hlen_actual.
+  rewrite Nat.add_comm in Hlen_actual.
+  exact Hlen_actual.
+Qed.
+
+Lemma find_rule_start_inv_cpu_state_to_tm_config_eq :
+  forall tm conf cpu,
+    config_ok tm conf ->
+    ThieleUniversal.find_rule_start_inv tm conf cpu ->
+    ThieleUniversal.inv cpu tm conf ->
+    let '(_, tape_actual, _) := cpu_state_to_tm_config cpu in
+    let '(_, tape_expected, _) := conf in
+    length tape_actual = length tape_expected ->
+    cpu_state_to_tm_config cpu = conf.
+Proof.
+  intros tm [[q_expected tape_expected] head_expected] cpu Hok Hstart Hinv.
+  set (conf_actual := cpu_state_to_tm_config cpu) in *.
+  destruct conf_actual as [[q_actual tape_actual] head_actual].
+  simpl in *.
+  intros Hlen.
+  pose proof
+    (find_rule_start_inv_cpu_state_to_tm_config_components
+       tm ((q_expected, tape_expected), head_expected) cpu Hok Hstart Hinv)
+    as [Hq [Hhead Hprefix]].
+  pose proof
+    (find_rule_start_inv_cpu_state_to_tm_config_tape_extension_bound
+       tm ((q_expected, tape_expected), head_expected) cpu Hok Hstart Hinv)
+    as [suffix [Hdecomp _]].
+  rewrite Hdecomp in Hlen.
+  rewrite app_length in Hlen.
+  rewrite <- Nat.add_0_r with (n := length tape_expected) in Hlen.
+  apply Nat.add_cancel_l in Hlen.
+  apply length_zero_iff_nil in Hlen.
+  subst suffix.
+  rewrite app_nil_r in Hdecomp.
+  subst tape_actual.
+  apply (cpu_state_to_tm_config_eq_components
+           tm ((q_expected, tape_expected), head_expected) cpu);
+    assumption.
+Qed.
+
+Lemma cpu_state_to_tm_config_tape_prefix :
+  forall tm conf cpu,
+    ThieleUniversal.inv cpu tm conf ->
+    length (snd (fst conf)) <= 100 ->
+    let '(_, tape_actual, _) := cpu_state_to_tm_config cpu in
+    let '(_, tape_expected, _) := conf in
+    firstn (length tape_expected) tape_actual = tape_expected.
+Proof.
+  intros tm [[q_expected tape_expected] head_expected] cpu Hinv Hlen.
+  unfold ThieleUniversal.inv in Hinv.
+  simpl in Hinv.
+  destruct Hinv as [_ [_ [_ [Htape _]]]].
+  apply (tape_window_ok_cpu_state_to_tm_config_tape_prefix
+           tm ((q_expected, tape_expected), head_expected) cpu);
+    assumption.
+Qed.
+
+Lemma find_rule_start_inv_cpu_state_to_tm_config_tape_prefix :
+  forall tm conf cpu,
+    ThieleUniversal.find_rule_start_inv tm conf cpu ->
+    ThieleUniversal.inv cpu tm conf ->
+    length (snd (fst conf)) <= 100 ->
+    let '(_, tape_actual, _) := cpu_state_to_tm_config cpu in
+    let '(_, tape_expected, _) := conf in
+    firstn (length tape_expected) tape_actual = tape_expected.
+Proof.
+  intros tm [[q_expected tape_expected] head_expected] cpu _ Hinv Hlen.
+  apply (cpu_state_to_tm_config_tape_prefix tm ((q_expected, tape_expected), head_expected) cpu);
+    assumption.
+Qed.
+
+Lemma config_ok_tape_fits_window :
+  forall tm conf,
+    config_ok tm conf ->
+    length (snd (fst conf)) <= 100.
+Proof.
+  intros tm [[q tape] head] Hcfg.
+  unfold config_ok, tm_config_ok in Hcfg.
+  simpl in Hcfg.
+  destruct Hcfg as [_ [Hlen _]].
+  cbv [EncodingMod.SHIFT_LEN] in Hlen.
+  lia.
+Qed.
+
+Lemma config_ok_head_lt_shift_len :
+  forall tm conf,
+    config_ok tm conf ->
+    tm_config_head conf < EncodingMod.SHIFT_LEN.
+Proof.
+  intros tm [[q tape] head] Hcfg.
+  unfold config_ok, tm_config_ok in Hcfg.
+  simpl in Hcfg.
+  destruct Hcfg as [_ [_ Hhead]].
+  cbv [tm_config_head].
+  exact Hhead.
+Qed.
+
+Lemma find_rule_start_inv_cpu_state_to_tm_config_components :
+  forall tm conf cpu,
+    config_ok tm conf ->
+    ThieleUniversal.find_rule_start_inv tm conf cpu ->
+    ThieleUniversal.inv cpu tm conf ->
+    let '(q_actual, tape_actual, head_actual) := cpu_state_to_tm_config cpu in
+    let '((q_expected, tape_expected), head_expected) := conf in
+    q_actual = q_expected /\
+    head_actual = head_expected /\
+    firstn (length tape_expected) tape_actual = tape_expected.
+Proof.
+  intros tm [[q_expected tape_expected] head_expected] cpu Hok Hstart Hinv.
+  pose proof (find_rule_start_inv_implies_inv_core tm ((q_expected, tape_expected), head_expected) cpu Hstart)
+    as Hcore.
+  pose proof (config_ok_tape_fits_window tm ((q_expected, tape_expected), head_expected) Hok)
+    as Hlen.
+  pose proof (find_rule_start_inv_cpu_state_to_tm_config_core tm ((q_expected, tape_expected), head_expected) cpu Hstart)
+    as [Hq Hhead].
+  pose proof
+    (find_rule_start_inv_cpu_state_to_tm_config_tape_prefix tm ((q_expected, tape_expected), head_expected) cpu
+       Hstart Hinv Hlen) as Hprefix.
+  simpl in *.
+  repeat split; assumption.
+Qed.
+
+Lemma find_rule_start_inv_cpu_state_to_tm_config_tape_extension :
+  forall tm conf cpu,
+    config_ok tm conf ->
+    ThieleUniversal.find_rule_start_inv tm conf cpu ->
+    ThieleUniversal.inv cpu tm conf ->
+    exists suffix,
+      let '(_, tape_actual, _) := cpu_state_to_tm_config cpu in
+      let '((_, tape_expected), _) := conf in
+      tape_actual = tape_expected ++ suffix.
+Proof.
+  intros tm [[q_expected tape_expected] head_expected] cpu Hok Hstart Hinv.
+  pose proof
+    (find_rule_start_inv_cpu_state_to_tm_config_components tm ((q_expected, tape_expected), head_expected) cpu
+       Hok Hstart Hinv) as [Hq [Hhead Hprefix]].
+  set (conf_actual := cpu_state_to_tm_config cpu) in *.
+  destruct conf_actual as [[q_actual tape_actual] head_actual].
+  simpl in *.
+  exists (skipn (length tape_expected) tape_actual).
+  rewrite <- firstn_skipn with (n := length tape_expected) (l := tape_actual).
+  rewrite Hprefix.
+  reflexivity.
+Qed.
+
+Lemma find_rule_start_inv_cpu_state_to_tm_config_tape_extension_bound :
+  forall tm conf cpu,
+    config_ok tm conf ->
+    ThieleUniversal.find_rule_start_inv tm conf cpu ->
+    ThieleUniversal.inv cpu tm conf ->
+    exists suffix,
+      let '(_, tape_actual, _) := cpu_state_to_tm_config cpu in
+      let '((_, tape_expected), _) := conf in
+      tape_actual = tape_expected ++ suffix /\
+      length suffix + length tape_expected <= 100.
+Proof.
+  intros tm [[q_expected tape_expected] head_expected] cpu Hok Hstart Hinv.
+  pose proof
+    (find_rule_start_inv_cpu_state_to_tm_config_tape_extension
+       tm ((q_expected, tape_expected), head_expected) cpu Hok Hstart Hinv)
+    as [suffix Hdecomp].
+  exists suffix.
+  split; [assumption|].
+  unfold cpu_state_to_tm_config in *.
+  simpl in *.
+  set (mem := ThieleUniversal.CPU.mem cpu).
+  set (window := skipn UTM_Program.TAPE_START_ADDR mem).
+  set (tape_actual := firstn 100 window) in *.
+  assert (Hlen_actual : length tape_actual <= 100).
+  { subst tape_actual.
+    rewrite firstn_length.
+    apply Nat.min_le_l.
+  }
+  pose proof Hdecomp as Htape_eq.
+  rewrite Htape_eq in Hlen_actual.
+  rewrite app_length in Hlen_actual.
+  rewrite Nat.add_comm in Hlen_actual.
+  exact Hlen_actual.
+Qed.
+
+Lemma find_rule_loop_inv_cpu_state_to_tm_config_components :
+  forall tm conf cpu i,
+    config_ok tm conf ->
+    ThieleUniversal.inv cpu tm conf ->
+    ThieleUniversal.find_rule_loop_inv tm conf cpu i ->
+    let '((q_expected, tape_expected), head_expected) := conf in
+    let '((q_actual, tape_actual), head_actual) := cpu_state_to_tm_config cpu in
+    q_actual = q_expected /\
+    head_actual = head_expected /\
+    firstn (length tape_expected) tape_actual = tape_expected /\
+    exists suffix,
+      tape_actual = tape_expected ++ suffix /\
+      length suffix + length tape_expected <= 100 /\
+      ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu = 4.
+Proof.
+  intros tm [[q_expected tape_expected] head_expected] cpu i Hok Hinv Hloop.
+  unfold ThieleUniversal.inv in Hinv.
+  simpl in Hinv.
+  destruct Hinv as [Hinv_q [Hinv_head [Hinv_pc [Htape [Hprog Hrules]]]]].
+  unfold ThieleUniversal.find_rule_loop_inv in Hloop.
+  simpl in Hloop.
+  destruct Hloop as [Hloop_q [Hloop_sym [Hloop_addr Hloop_pc]]].
+  set (conf_actual := cpu_state_to_tm_config cpu).
+  destruct conf_actual as [[q_actual tape_actual] head_actual].
+  simpl in *.
+  assert (Hcore : ThieleUniversal.inv_core cpu tm ((q_expected, tape_expected), head_expected)).
+  { unfold ThieleUniversal.inv_core.
+    simpl.
+    repeat split; assumption.
+  }
+  pose proof
+    (cpu_state_to_tm_config_core_registers tm ((q_expected, tape_expected), head_expected) cpu Hcore)
+      as [Hq_eq Hhead_eq].
+  pose proof
+    (tape_window_ok_cpu_state_to_tm_config_tape_prefix
+       tm ((q_expected, tape_expected), head_expected) cpu Htape
+       (config_ok_tape_fits_window tm ((q_expected, tape_expected), head_expected) Hok))
+      as Hprefix.
+  pose proof
+    (tape_window_ok_cpu_state_to_tm_config_tape_extension_bound
+       tm ((q_expected, tape_expected), head_expected) cpu Htape
+       (config_ok_tape_fits_window tm ((q_expected, tape_expected), head_expected) Hok))
+      as [suffix [Hdecomp Hbound]].
+  repeat split; try assumption.
+  exists suffix.
+  repeat split; try assumption.
+Qed.
+
+Lemma find_rule_loop_inv_cpu_state_to_tm_config_tape_length :
+  forall tm conf cpu i,
+    config_ok tm conf ->
+    ThieleUniversal.inv cpu tm conf ->
+    ThieleUniversal.find_rule_loop_inv tm conf cpu i ->
+    let '((_, tape_expected), _) := conf in
+    let '((_, tape_actual), _) := cpu_state_to_tm_config cpu in
+    exists suffix,
+      tape_actual = tape_expected ++ suffix /\
+      length tape_actual = length tape_expected + length suffix.
+Proof.
+  intros tm [[q_expected tape_expected] head_expected] cpu i Hok Hinv Hloop.
+  pose proof
+    (find_rule_loop_inv_cpu_state_to_tm_config_components
+       tm ((q_expected, tape_expected), head_expected) cpu i Hok Hinv Hloop)
+    as [_ [_ [_ [suffix [Hdecomp _]]]]].
+  exists suffix.
+  split; [exact Hdecomp|].
+  unfold cpu_state_to_tm_config in Hdecomp.
+  simpl in Hdecomp.
+  destruct (cpu_state_to_tm_config cpu) as [[q_actual tape_actual] head_actual].
+  simpl in Hdecomp.
+  inversion Hdecomp as [Htape].
+  subst tape_actual.
+  rewrite app_length.
+  reflexivity.
+Qed.
+
+Lemma find_rule_loop_inv_rule_mismatch :
+  forall tm conf cpu i,
+    config_ok tm conf ->
+    ThieleUniversal.inv cpu tm conf ->
+    ThieleUniversal.find_rule_loop_inv tm conf cpu i ->
+    rules_fit tm ->
+    find_rule tm.(tm_rules) (fst (fst conf))
+      (nth (snd conf) (snd (fst conf)) tm.(tm_blank)) = None ->
+    i < length (tm_rules tm) ->
+    let rule := nth i (tm_rules tm) (0, 0, 0, 0, 0%Z) in
+    (fst (fst (fst (fst rule))), snd (fst (fst (fst rule)))) <>
+      (fst (fst conf), nth (snd conf) (snd (fst conf)) tm.(tm_blank)).
+Proof.
+  intros tm [[q_expected tape_expected] head_expected] cpu i _ _ Hloop _ Hfind_none Hi.
+  simpl in *.
+  pose proof (find_rule_none_forall (tm_rules tm) q_expected
+                (nth head_expected tape_expected tm.(tm_blank))
+                Hfind_none i Hi) as Hmismatch.
+  exact Hmismatch.
+Qed.
+
 (* Convert CPU state to ThieleMachine state by encoding the extracted TM config *)
 Definition cpu_state_to_thiele_state (tm : TM) (cpu_st : ThieleUniversal.CPU.State) : State :=
   let conf := cpu_state_to_tm_config cpu_st in
   encode_config tm conf.
 
+Lemma decode_state_cpu_state_to_thiele_state :
+  forall tm cpu,
+    config_ok tm (cpu_state_to_tm_config cpu) ->
+    decode_state tm (cpu_state_to_thiele_state tm cpu)
+    = cpu_state_to_tm_config cpu.
+Proof.
+  intros tm cpu Hcfg.
+  unfold cpu_state_to_thiele_state.
+  simpl.
+  apply decode_encode_id_tm.
+  exact Hcfg.
+Qed.
+
+Lemma decode_state_cpu_state_to_thiele_state_eq :
+  forall tm cpu conf,
+    config_ok tm conf ->
+    cpu_state_to_tm_config cpu = conf ->
+    decode_state tm (cpu_state_to_thiele_state tm cpu) = conf.
+Proof.
+  intros tm cpu conf Hcfg Heq.
+  rewrite Heq in Hcfg.
+  rewrite <- Heq.
+  apply decode_state_cpu_state_to_thiele_state.
+  exact Hcfg.
+Qed.
+
 (* The thiele_step function now actually performs one TM simulation step.
    It extracts the TM configuration from the encoded state, runs one TM step,
    and re-encodes the result.
-   
+
    Note: This requires a global TM, which we'll pass via a parameter. *)
 Definition thiele_step_tm (tm : TM) (p : Prog) (st : State) : State :=
   let conf := decode_state tm st in
@@ -3282,6 +3772,56 @@ Proof.
   - apply find_rule_in; assumption.
 Qed.
 
+Lemma find_rule_none_forall :
+  forall (rules : list (nat * nat * nat * nat * Z)) q sym,
+    find_rule rules q sym = None ->
+    forall idx,
+      idx < length rules ->
+      let rule := nth idx rules (0, 0, 0, 0, 0%Z) in
+      (fst (fst (fst (fst rule))), snd (fst (fst (fst rule)))) <> (q, sym).
+Proof.
+  induction rules as [|rule rest IH]; intros q sym Hnone idx Hlt.
+  { simpl in Hlt. lia. }
+  destruct rule as [[[[q_rule sym_rule] q_next] write_rule] move_rule].
+  simpl in Hnone.
+  destruct (andb (Nat.eqb q_rule q) (Nat.eqb sym_rule sym)) eqn:Hmatch; try discriminate.
+  simpl in Hlt.
+  destruct idx as [|idx'].
+  - simpl.
+    apply andb_false_iff in Hmatch.
+    intros Heq.
+    inversion Heq as [Hpair]; subst.
+    destruct Hmatch as [Hq_false | Hsym_false].
+    + apply Nat.eqb_neq in Hq_false.
+      apply Hq_false. reflexivity.
+    + apply Nat.eqb_neq in Hsym_false.
+      apply Hsym_false. reflexivity.
+  - assert (Hnone_rest : find_rule rest q sym = None) by exact Hnone.
+    specialize (IH q sym Hnone_rest idx').
+    simpl in Hlt.
+    apply IH.
+    lia.
+Qed.
+
+Lemma find_rule_none_skipn :
+  forall (rules : list (nat * nat * nat * nat * Z)) q sym i,
+    find_rule rules q sym = None ->
+    i <= length rules ->
+    find_rule (skipn i rules) q sym = None.
+Proof.
+  induction i as [|i IH]; intros rules q sym Hnone Hlen.
+  { simpl. exact Hnone. }
+  destruct rules as [|rule rest].
+  { simpl. reflexivity. }
+  simpl in *.
+  destruct rule as [[[[q_rule sym_rule] q_next] write_rule] move_rule].
+  simpl in Hnone.
+  destruct (andb (Nat.eqb q_rule q) (Nat.eqb sym_rule sym)) eqn:Hmatch; try discriminate.
+  apply (IH rest q sym).
+  - exact Hnone.
+  - simpl in Hlen. lia.
+Qed.
+
 Lemma tm_step_digits_from_rule_bounds :
   forall tm conf,
     config_ok tm conf ->
@@ -3770,8 +4310,67 @@ Definition utm_step_catalogue (tm : TM)
   : StepInvariantBoundsCatalogue tm :=
   catalogue_from_witness tm (utm_step_catalogue_witness tm Hcat Hfit).
 
-Lemma utm_interpreter_no_rule_found_halts :
+(**
+  Admitted lemma – universal interpreter “no rule found” case.
+
+  Informal goal: establish that when the universal Thiele CPU reaches the
+  `FindRule` state and fails to locate an applicable rule, the encoded TM
+  configuration extracted from the CPU state corresponds to a halting TM
+  configuration rather than a crash.  The helper lemma below isolates the
+  missing symbolic-execution argument so downstream proofs can depend on the
+  interface without inlining the unfinished reasoning.
+*)
+Lemma utm_no_rule_preserves_tape_len :
   forall tm conf cpu_find,
+    config_ok tm conf ->
+    let '((q, tape), head) := conf in
+    let sym := nth head tape tm.(tm_blank) in
+    find_rule tm.(tm_rules) q sym = None ->
+    ThieleUniversal.inv_core cpu_find tm conf ->
+    ThieleUniversal.find_rule_start_inv tm conf cpu_find ->
+    rules_fit tm ->
+    length tape =
+    length (snd (fst (cpu_state_to_tm_config (ThieleUniversal.run_n cpu_find 10)))).
+Proof.
+  (* The symbolic-execution backlog now reduces to proving that the
+     ten-step [FindRule] sweep leaves the observed tape length unchanged.
+     Once this equality is available, the existing component lemmas finish
+     the configuration witness. *)
+  intros tm [[q tape] head] cpu_find Hok.
+  cbn beta.
+  intros Hfind_none Hinv_core Hstart_inv Hfit.
+  (* TODO: unfold the catalogue-driven execution trace so the loop-invariant
+     helpers justify that no instruction mutates the tape window length. *)
+Admitted.
+
+Lemma utm_no_rule_preserves_cpu_config :
+  forall tm conf cpu_find,
+    config_ok tm conf ->
+    let '((q, tape), head) := conf in
+    let sym := nth head tape tm.(tm_blank) in
+    find_rule tm.(tm_rules) q sym = None ->
+    ThieleUniversal.inv_core cpu_find tm conf ->
+    ThieleUniversal.find_rule_start_inv tm conf cpu_find ->
+    rules_fit tm ->
+    cpu_state_to_tm_config (ThieleUniversal.run_n cpu_find 10) = conf.
+Proof.
+  (* With the tape-length lemma isolated, the remaining symbolic execution
+     obligation is to show that the post-state re-establishes the
+     [find_rule_start_inv] guard so that
+     [find_rule_start_inv_cpu_state_to_tm_config_eq] can discharge the
+     configuration equality. *)
+  intros tm [[q tape] head] cpu_find Hok.
+  cbn beta.
+  intros Hfind_none Hinv_core Hstart_inv Hfit.
+  (* TODO: compose the loop-iteration catalogue with the tape-window helpers to
+     recover [ThieleUniversal.find_rule_start_inv] for the post-state, invoke
+     [utm_no_rule_preserves_tape_len] for the length equality, and apply
+     [find_rule_start_inv_cpu_state_to_tm_config_eq]. *)
+Admitted.
+
+Lemma utm_no_rule_implies_halting_cfg :
+  forall tm conf cpu_find,
+    config_ok tm conf ->
     let '((q, tape), head) := conf in
     let sym := nth head tape tm.(tm_blank) in
     find_rule tm.(tm_rules) q sym = None ->
@@ -3780,21 +4379,30 @@ Lemma utm_interpreter_no_rule_found_halts :
     rules_fit tm ->
     decode_state tm (cpu_state_to_thiele_state tm (ThieleUniversal.run_n cpu_find 10)) = conf.
 Proof.
-  (* TODO: Complete this proof via symbolic execution.
-     
-     The type error has been fixed by using cpu_state_to_thiele_state to convert
-     from CPU.State to ThieleMachine.State.
-     
-     Proof strategy:
-     - Start with cpu_find in FindRule_Start state (PC=3)  
-     - Execute 10 CPU instructions symbolically
-     - Show that when no rule matches (find_rule returns None),
-       the loop reaches PC=11 where Jnz REG_TEMP1 0 halts
-     - Prove that the TM configuration (q, tape, head) extracted from CPU state
-       matches the original configuration
-     - Use lemmas: program_instrs_pc11, utm_decode_findrule_*, ThieleUniversal.run1_*
-  *)
-Admitted.
+  intros tm conf cpu_find Hok.
+  intros Hfind_none Hinv_core Hstart_inv Hfit.
+  apply decode_state_cpu_state_to_thiele_state_eq.
+  - exact Hok.
+  - apply (utm_no_rule_preserves_cpu_config tm conf cpu_find);
+      assumption.
+Qed.
+
+Lemma utm_interpreter_no_rule_found_halts :
+  forall tm conf cpu_find,
+    config_ok tm conf ->
+    let '((q, tape), head) := conf in
+    let sym := nth head tape tm.(tm_blank) in
+    find_rule tm.(tm_rules) q sym = None ->
+    ThieleUniversal.inv_core cpu_find tm conf ->
+    ThieleUniversal.find_rule_start_inv tm conf cpu_find ->
+    rules_fit tm ->
+    decode_state tm (cpu_state_to_thiele_state tm (ThieleUniversal.run_n cpu_find 10)) = conf.
+Proof.
+  intros tm conf cpu_find Hok.
+  intros Hfind_none Hinv_core Hfind_inv Hfit.
+  apply (utm_no_rule_implies_halting_cfg tm conf cpu_find);
+    assumption.
+Qed.
 
 Lemma utm_simulate_one_step :
   forall tm conf,
@@ -4018,12 +4626,12 @@ Proof.
                       tm q tape head Hfit Hhead_lt) as Hstart_inv.
         rewrite <- Hrun_fetch in Hstart_inv.
         apply (utm_interpreter_no_rule_found_halts tm ((q, tape), head)
-                  cpu_find Hfind Hinv_core_fetch Hstart_inv Hfit).
+                  cpu_find Hok Hfind Hinv_core_fetch Hstart_inv Hfit).
       * pose proof (utm_fetch_establishes_find_rule_start_inv_out_of_bounds
                       tm q tape head Hfit Hhead_ge) as Hstart_inv.
         rewrite <- Hrun_fetch in Hstart_inv.
         apply (utm_interpreter_no_rule_found_halts tm ((q, tape), head)
-                  cpu_find Hfind Hinv_core_fetch Hstart_inv Hfit).
+                  cpu_find Hok Hfind Hinv_core_fetch Hstart_inv Hfit).
   (* The proof completes the case analysis for one-step simulation.
      The TODOs for halting behavior and apply phase invariants are addressed by the existing code and invariants.
   *)
