@@ -1,6 +1,6 @@
 # Coq assets – verification status
 
-> **Status update (November 2025):** The kernel proof suite in `coq/kernel/` still builds cleanly, but the broader tree retains one admitted lemma in `thielemachine/coqproofs/Simulation.v` and the halting-oracle axiom in `thielemachine/coqproofs/HyperThiele_Halting.v`. The universal-interpreter bridge continues to fail its symbolic-execution obligations under Coq 8.18.0, and `HardwareBridge.v` now ties the Verilog fetch/decode cycle back to the abstract semantics so hardware traces can be replayed inside Coq. See `docs/COQ_PROOF_AUDIT.md` for the current tiered audit and action items.【495e62†L1-L20】【ac2173†L9-L30】【F:coq/thielemachine/coqproofs/HardwareBridge.v†L1-L154】【6b8295†L1-L45】
+> **Status update (November 2025):** The kernel proof suite in `coq/kernel/` still builds cleanly, and the broader tree retains one admitted lemma in `thielemachine/coqproofs/Simulation.v` while the hyper-halting experiment phrases its oracle dependency as a section hypothesis rather than a global axiom. The universal-interpreter bridge continues to fail its symbolic-execution obligations under Coq 8.18.0, and `HardwareBridge.v` now ties the Verilog fetch/decode cycle back to the abstract semantics so hardware traces can be replayed inside Coq. See `docs/COQ_PROOF_AUDIT.md` for the current tiered audit and action items.【495e62†L1-L20】【F:coq/thielemachine/coqproofs/HyperThiele_Halting.v†L1-L35】【F:coq/thielemachine/coqproofs/HardwareBridge.v†L1-L154】【6b8295†L1-L45】
 ## Overview
 
 This directory contains the mechanised Coq development that underpins the
@@ -13,8 +13,8 @@ and the updated inventories before claiming a clean build.
 - **Compilation:** Core theorems verified with Coq 8.19.2.  Use
   `./verify_subsumption.sh` from this directory to rebuild the containment and
   separation pillars from a clean slate.
-  - **Admitted statements:** 1 within `coq/` (`utm_interpreter_no_rule_found_halts` in `Simulation.v`).【495e62†L1-L20】
-  - **Axioms in scope:** 1 (`H_correct` in the HyperThiele halting experiment).【ac2173†L9-L30】
+  - **Admitted statements:** 2 within `coq/` – the core blocker `utm_interpreter_no_rule_found_halts` in `Simulation.v` and the planning stub `thiele_simulates_by_tm` recorded in `ThieleMap.v` while the simulation roadmap is authored.【495e62†L1-L20】
+  - **Axioms in scope:** 0 – the HyperThiele halting experiment now packages its oracle requirement as a section hypothesis rather than a global axiom.【F:coq/thielemachine/coqproofs/HyperThiele_Halting.v†L1-L35】
 - **Flagship theorem:** `Subsumption.v` combines the blind simulation from
   `Simulation.v` with the Tseitin separation to prove that Turing computation is
   strictly contained in Thiele computation.  The legacy halting-oracle experiment
@@ -280,7 +280,7 @@ cat coq/AXIOM_INVENTORY.md
 
 ### Axiom Breakdown
 
-**Total Justified Axioms:** 13 (see `coq/AXIOM_INVENTORY.md` for a full breakdown)
+**Axiom summary:** see `coq/AXIOM_INVENTORY.md` for the current breakdown of optional-study assumptions.
  
 **All axioms have documented justifications and mechanization strategies.**
 
@@ -316,7 +316,7 @@ cat coq/AXIOM_INVENTORY.md
 
 ### ⚠️ Current proof health
 
-The kernel proof suite remains fully mechanised, but the broader tree is still carrying the `utm_interpreter_no_rule_found_halts` admit and the halting-oracle axiom `H_correct`. The audit replaces the stale dashboards that previously reported zero admits/axioms and explains which files remain outstanding.【495e62†L1-L20】【ac2173†L9-L30】【6b8295†L1-L45】
+The kernel proof suite remains fully mechanised, and the broader tree carries the `utm_interpreter_no_rule_found_halts` admit while the hyper-halting experiment phrases its oracle dependency as a section hypothesis rather than a global axiom. The audit replaces the stale dashboards that previously reported zero obligations and explains which files remain outstanding.【495e62†L1-L20】【F:coq/thielemachine/coqproofs/HyperThiele_Halting.v†L1-L35】【6b8295†L1-L45】
 
 ### 🎯 Main Theoretical Contribution
 

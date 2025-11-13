@@ -15,7 +15,9 @@ The target performs three steps:
 
 1. `python3 tools/make_law_receipt.py --sites 8 --steps 16 --seed 2025`
 2. `python3 tools/verify_law_receipt.py artifacts/law_receipt.jsonl --coq-binary $(COQTOP)`
-3. `python3 tools/verify_end_to_end.py --skip-hardware`
+3. `python3 tools/verify_end_to_end.py --skip-hardware` (the verifier now bundles
+   the halting boundary and Bell/CHSH checks; add `--skip-bell` if those artefacts
+   are already confirmed on your system)
 
 Set `LAW_SKIP_COQ=1` when the Coq toolchain is unavailable. The verifier
 skips the harness check in that mode and still validates the receipt
