@@ -406,7 +406,7 @@ Lemma branch_semantics : forall cpu cond,
 
 ## Proof 3: `utm_no_rule_preserves_cpu_config`
 
-**Location:** `Simulation.v`, line ~4265-4295
+**Location:** `Simulation.v`, line ~4346-4369
 
 **Statement:**
 ```coq
