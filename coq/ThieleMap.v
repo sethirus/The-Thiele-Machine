@@ -48,6 +48,20 @@ Lemma sim_run_placeholder :
     sim_rel tm sem tp -> True.
 Proof. intros; exact I. Qed.
 
+(** Finite-prefix simulation – discharged. *)
+Lemma thiele_simulates_tm_prefix :
+  forall (tm : TuringMachine) (conf : TMConfig) (n : nat),
+    Simulation.config_ok tm conf ->
+    Simulation.rules_fit tm ->
+    Simulation.decode_state tm
+      (Simulation.thiele_step_n_tm tm Simulation.utm_program
+         (Simulation.encode_config tm conf) n)
+    = ThieleUniversal.tm_step_n tm conf n.
+Proof.
+  intros tm conf n Hok Hfit.
+  apply Simulation.thiele_step_n_utm_simulates; assumption.
+Qed.
+
 (** Target theorem: every Turing machine has a Thiele program simulator. *)
 Theorem thiele_simulates_by_tm : Prop.
 Admitted.

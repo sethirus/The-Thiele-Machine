@@ -6,7 +6,7 @@
 - Captured the RTL fetch/decode skeleton in `coq/thielemachine/coqproofs/HardwareBridge.v`, packaging the opcode decoder, partition counters, and small-step transition helpers that downstream proofs and the Python tooling use to align hardware traces with the abstract Thiele machine.【F:coq/thielemachine/coqproofs/HardwareBridge.v†L1-L148】
 - Established the categorical packaging of Thiele programs in `coq/thielemachine/coqproofs/ThieleProc.v`, exposing closed-run semantics (`run_closed`), the receipt trace witness `trace_of_prog`, and the observational equivalence lemmas needed to treat sequential composition as categorical composition for the geometric roadmap.【F:coq/thielemachine/coqproofs/ThieleProc.v†L1-L240】
 - Added `tools/verify_end_to_end.py` so the Coq core build, RTL simulation, and receipt metrics are exercised together when checking regressions.【F:tools/verify_end_to_end.py†L1-L206】
-- Enumerated live admits directly from the sources. Two `Admitted` lemmas remain: `utm_interpreter_no_rule_found_halts` in `thielemachine/coqproofs/Simulation.v` and the roadmap stub `thiele_simulates_by_tm` in `coq/ThieleMap.v`. The hyper-halting experiment now phrases its oracle requirement as a section hypothesis rather than a global axiom.【495e62†L1-L20】【F:coq/thielemachine/coqproofs/HyperThiele_Halting.v†L1-L35】
+- Enumerated live admits directly from the sources. Three `Admitted` lemmas remain: the tape-length helper `utm_no_rule_preserves_tape_len` and the wrapper `utm_no_rule_preserves_cpu_config` in `thielemachine/coqproofs/Simulation.v`, plus the roadmap stub `thiele_simulates_by_tm` in `coq/ThieleMap.v`. The hyper-halting experiment now phrases its oracle requirement as a section hypothesis rather than a global axiom.【495e62†L1-L20】【F:coq/thielemachine/coqproofs/HyperThiele_Halting.v†L1-L35】
 - Reviewed the partially completed universal-interpreter development. `ThieleUniversalBridge.v` documents that the transition lemmas are still unfinished, and `ThieleUniversal.v` retains stubbed obligations such as `pc_29_implies_registers_from_rule_table` that lacks a proof term.【96a0c1†L1-L28】【0249db†L47-L63】
 
 ## Build tiers and recommended workflow
@@ -14,7 +14,7 @@
 | Tier | Scope | Role in repository | Build expectation | Notes |
 | --- | --- | --- | --- | --- |
 | **Core** | `coq/kernel/` | Mechanises the audited VM↔kernel simulation and ledger invariants that underpin the “kernel” certificate pipeline.【2fc38d†L1-L27】 | ✅ Compiles today; keep in CI. |
-|  | `coq/thielemachine/coqproofs/` (excluding archival experiments) | Defines the abstract Thiele machine, its concrete VM, the new RTL bridge, and the subsumption theorem wrapper that imports simulation and separation results.【890263†L1-L40】【F:coq/thielemachine/coqproofs/HardwareBridge.v†L1-L148】 | ⚠️ Builds except for the single admitted lemma in `Simulation.v`; guard against regressions while the proof is outstanding.【495e62†L1-L20】 |
+|  | `coq/thielemachine/coqproofs/` (excluding archival experiments) | Defines the abstract Thiele machine, its concrete VM, the new RTL bridge, and the subsumption theorem wrapper that imports simulation and separation results.【890263†L1-L40】【F:coq/thielemachine/coqproofs/HardwareBridge.v†L1-L148】 | ⚠️ Builds except for the two admitted lemmas in `Simulation.v`; guard against regressions while the tape-length and guard-restoration proofs remain outstanding.【495e62†L1-L20】 |
 |  | `coq/modular_proofs/` | Supplies encoding bounds and Minsky-machine infrastructure consumed by the simulation development.【04dda2†L31-L48】 | ✅ Compiles; treat as required when touching simulation. |
 | **Bridging / investigative** | `coq/thielemachine/coqproofs/ThieleUniversalBridge.v` + `coq/thieleuniversal/coqproofs/` | Provide the concrete universal TM implementation that the simulation proof references; still mid-refactor and failing in symbolic-execution lemmas.【96a0c1†L1-L28】【0249db†L47-L63】 | ❌ Currently fails; isolate from default workflows until the symbolic execution is repaired. |
 | **Applied studies** | `coq/project_cerberus/coqproofs/` | Security-oriented case study that builds on the Thiele framework.【e34533†L1-L24】 | ✅ Optional; build on demand. |
@@ -26,7 +26,7 @@
 
 ## Immediate documentation fixes
 
-1. Update the admit/axiom inventory to reflect the single outstanding admit and the fact that the halting-oracle requirement now lives as a section hypothesis rather than a global axiom.【495e62†L1-L20】【F:coq/thielemachine/coqproofs/HyperThiele_Halting.v†L1-L35】
+1. Update the admit/axiom inventory to reflect the two-step Simulation backlog (tape length + configuration equality) and the fact that the halting-oracle requirement now lives as a section hypothesis rather than a global axiom.【495e62†L1-L20】【F:coq/thielemachine/coqproofs/HyperThiele_Halting.v†L1-L35】
 2. Revise the completion plan to focus on auditing whether optional studies should stay in the default build, and to document the precise failure mode in `ThieleUniversal.v` before attempting further proof work.【35dec9†L1-L38】
 3. Refresh contributor guidance (`coq/AGENTS.md` and `coq/README_PROOFS.md`) so new work items flow from this audit rather than the superseded milestone checklist.【96a0c1†L1-L28】【495e62†L1-L20】
 

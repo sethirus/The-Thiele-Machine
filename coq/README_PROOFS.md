@@ -13,7 +13,7 @@ and the updated inventories before claiming a clean build.
 - **Compilation:** Core theorems verified with Coq 8.19.2.  Use
   `./verify_subsumption.sh` from this directory to rebuild the containment and
   separation pillars from a clean slate.
-  - **Admitted statements:** 2 within `coq/` – the core blocker `utm_interpreter_no_rule_found_halts` in `Simulation.v` and the planning stub `thiele_simulates_by_tm` recorded in `ThieleMap.v` while the simulation roadmap is authored.【495e62†L1-L20】
+  - **Admitted statements:** 3 within `coq/` – the tape-length helper `utm_no_rule_preserves_tape_len` and the wrapper `utm_no_rule_preserves_cpu_config` in `Simulation.v`, plus the planning stub `thiele_simulates_by_tm` recorded in `ThieleMap.v` while the simulation roadmap is authored.【495e62†L1-L20】
   - **Axioms in scope:** 0 – the HyperThiele halting experiment now packages its oracle requirement as a section hypothesis rather than a global axiom.【F:coq/thielemachine/coqproofs/HyperThiele_Halting.v†L1-L35】
 - **Flagship theorem:** `Subsumption.v` combines the blind simulation from
   `Simulation.v` with the Tseitin separation to prove that Turing computation is
@@ -25,9 +25,11 @@ and the updated inventories before claiming a clean build.
 ## What is actually proved?
 
 1. **Containment (`Simulation.v`):** A blind Thiele program simulates any
-   classical Turing Machine.  One lemma (`utm_interpreter_no_rule_found_halts`)
-   remains admitted while the universal-interpreter bridge is under repair, so
-   the containment proof still depends on that placeholder.
+  classical Turing Machine.  The remaining helper lemmas (`utm_no_rule_preserves_tape_len` / `utm_no_rule_preserves_cpu_config`)
+   remains admitted while the universal-interpreter bridge is under repair; the
+   statement now assumes `config_ok` explicitly and the outstanding goal has been
+   reduced to the equality `cpu_state_to_tm_config (run_n cpu_find 10) = conf` for
+   the find-rule loop’s no-match branch.
 2. **Separation (`Separation.v`):** The sighted Thiele solver resolves Tseitin
    expander contradictions in cubic time and quadratic μ-bits, while the blind
    search axiom forces an exponential lower bound on Turing/DPLL search.
@@ -316,7 +318,7 @@ cat coq/AXIOM_INVENTORY.md
 
 ### ⚠️ Current proof health
 
-The kernel proof suite remains fully mechanised, and the broader tree carries the `utm_interpreter_no_rule_found_halts` admit while the hyper-halting experiment phrases its oracle dependency as a section hypothesis rather than a global axiom. The audit replaces the stale dashboards that previously reported zero obligations and explains which files remain outstanding.【495e62†L1-L20】【F:coq/thielemachine/coqproofs/HyperThiele_Halting.v†L1-L35】【6b8295†L1-L45】
+The kernel proof suite remains fully mechanised, and the broader tree carries the `utm_no_rule_preserves_tape_len` / `utm_no_rule_preserves_cpu_config` admits while the hyper-halting experiment phrases its oracle dependency as a section hypothesis rather than a global axiom. The audit replaces the stale dashboards that previously reported zero obligations and explains which files remain outstanding.【495e62†L1-L20】【F:coq/thielemachine/coqproofs/HyperThiele_Halting.v†L1-L35】【6b8295†L1-L45】
 
 ### 🎯 Main Theoretical Contribution
 

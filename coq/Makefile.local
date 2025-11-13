@@ -58,7 +58,10 @@ OPTIONAL_VO := \
   shor_primitives/PeriodFinding.vo \
   test_vscoq/coqproofs/test_vscoq.vo
 
-.PHONY: core bridge optional
+ORACLE_VO := \
+  thielemachine/coqproofs/HyperThiele_Halting.vo
+
+.PHONY: core bridge optional oracle
 
 core:
 	$(MAKE) $(CORE_VO)
@@ -68,3 +71,6 @@ bridge:
 
 optional:
 	$(MAKE) $(OPTIONAL_VO)
+
+oracle:
+	$(MAKE) $(ORACLE_VO)
