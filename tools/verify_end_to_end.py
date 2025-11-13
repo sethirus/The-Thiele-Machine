@@ -220,7 +220,7 @@ def main() -> None:
     if not args.skip_receipts:
         proofpack_tar = PROJECT_ROOT / "artifacts" / "phase_three" / "phase_three_proofpack.tar.gz"
         proofpack_dir = PROJECT_ROOT / "artifacts" / "phase_three" / "phase_three_bundle"
-        proofpack_arg: Optional[pathlib.Path] | None = None
+        proofpack_arg: Optional[pathlib.Path] = None
 
         if proofpack_tar.exists():
             proofpack_arg = proofpack_tar
