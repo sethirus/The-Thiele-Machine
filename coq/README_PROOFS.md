@@ -26,7 +26,7 @@ and the updated inventories before claiming a clean build.
 
 1. **Containment (`Simulation.v`):** A blind Thiele program simulates any
   classical Turing Machine.  The remaining helper lemmas (`utm_no_rule_preserves_tape_len` / `utm_no_rule_preserves_cpu_config`)
-   remains admitted while the universal-interpreter bridge is under repair; the
+   remain admitted while the universal-interpreter bridge is under repair; the
    statement now assumes `config_ok` explicitly and the outstanding goal has been
    reduced to the equality `cpu_state_to_tm_config (run_n cpu_find 10) = conf` for
    the find-rule loop’s no-match branch.
