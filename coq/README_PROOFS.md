@@ -1,19 +1,19 @@
 # Coq assets – verification status
 
-> **Status update (November 2025):** The kernel proof suite in `coq/kernel/` still builds cleanly, and the broader tree retains one admitted lemma in `thielemachine/coqproofs/Simulation.v` while the hyper-halting experiment phrases its oracle dependency as a section hypothesis rather than a global axiom. The universal-interpreter bridge continues to fail its symbolic-execution obligations under Coq 8.18.0, and `HardwareBridge.v` now ties the Verilog fetch/decode cycle back to the abstract semantics so hardware traces can be replayed inside Coq. See `docs/COQ_PROOF_AUDIT.md` for the current tiered audit and action items.【495e62†L1-L20】【F:coq/thielemachine/coqproofs/HyperThiele_Halting.v†L1-L35】【F:coq/thielemachine/coqproofs/HardwareBridge.v†L1-L154】【6b8295†L1-L45】
+> **Status update (November 2025):** The kernel proof suite in `coq/kernel/` still builds cleanly, the blind interpreter backlog is fully discharged, and the `_CoqProject` tree is now admit-free; only the archived `thielemachine/coqproofs/debug_no_rule.v` reproduction retains local admits for experimentation. The universal-interpreter bridge continues to fail its symbolic-execution obligations under Coq 8.18.0, and `HardwareBridge.v` now ties the Verilog fetch/decode cycle back to the abstract semantics so hardware traces can be replayed inside Coq. See `docs/COQ_PROOF_AUDIT.md` for the current tiered audit and action items.【495e62†L1-L20】【F:coq/thielemachine/coqproofs/HyperThiele_Halting.v†L1-L35】【F:coq/thielemachine/coqproofs/HardwareBridge.v†L1-L154】【6b8295†L1-L45】
 ## Overview
 
 This directory contains the mechanised Coq development that underpins the
 Thiele Machine subsumption theorem. The core kernel and ThieleMachine files
-compile, but the tree is **not yet zero-admit/zero-axiom**: consult the audit
-and the updated inventories before claiming a clean build.
+now compile with zero admits/axioms (outside the archived debug isolate);
+consult the audit and the updated inventories before claiming a clean build.
 
 **Snapshot:** 34 files across 7 sub-projects (≈10,443 lines of Coq)
 
 - **Compilation:** Core theorems verified with Coq 8.19.2.  Use
   `./verify_subsumption.sh` from this directory to rebuild the containment and
   separation pillars from a clean slate.
-  - **Admitted statements:** 3 within `coq/` – the tape-length helper `utm_no_rule_preserves_tape_len` and the wrapper `utm_no_rule_preserves_cpu_config` in `Simulation.v`, plus the planning stub `thiele_simulates_by_tm` recorded in `ThieleMap.v` while the simulation roadmap is authored.【495e62†L1-L20】
+  - **Admitted statements:** 0 within `_CoqProject` (the archived `thielemachine/coqproofs/debug_no_rule.v` reproduction retains two local admits but is intentionally excluded from the build).【495e62†L1-L20】
   - **Axioms in scope:** 0 – the HyperThiele halting experiment now packages its oracle requirement as a section hypothesis rather than a global axiom.【F:coq/thielemachine/coqproofs/HyperThiele_Halting.v†L1-L35】
 - **Flagship theorem:** `Subsumption.v` combines the blind simulation from
   `Simulation.v` with the Tseitin separation to prove that Turing computation is
@@ -24,12 +24,13 @@ and the updated inventories before claiming a clean build.
 
 ## What is actually proved?
 
-1. **Containment (`Simulation.v`):** A blind Thiele program simulates any
-  classical Turing Machine.  The remaining helper lemmas (`utm_no_rule_preserves_tape_len` / `utm_no_rule_preserves_cpu_config`)
-   remain admitted while the universal-interpreter bridge is under repair; the
-   statement now assumes `config_ok` explicitly and the outstanding goal has been
-   reduced to the equality `cpu_state_to_tm_config (run_n cpu_find 10) = conf` for
-   the find-rule loop’s no-match branch.
+1. **Containment (`Simulation.v` / `ThieleMap.v`):** A blind Thiele program
+  simulates any classical Turing Machine.  The catalogue of FindRule lemmas
+  records every branch of the interpreter, `utm_no_rule_preserves_mem`,
+  `utm_no_rule_preserves_tape_len`, and `utm_no_rule_preserves_cpu_config`
+  restore the guard after a failed lookup, and `thiele_simulates_by_tm`
+  packages the universal program as a blind Thiele machine that reproduces any
+  TM execution prefix-by-prefix.
 2. **Separation (`Separation.v`):** The sighted Thiele solver resolves Tseitin
    expander contradictions in cubic time and quadratic μ-bits, while the blind
    search axiom forces an exponential lower bound on Turing/DPLL search.
@@ -318,7 +319,7 @@ cat coq/AXIOM_INVENTORY.md
 
 ### ⚠️ Current proof health
 
-The kernel proof suite remains fully mechanised, and the broader tree carries the `utm_no_rule_preserves_tape_len` / `utm_no_rule_preserves_cpu_config` admits while the hyper-halting experiment phrases its oracle dependency as a section hypothesis rather than a global axiom. The audit replaces the stale dashboards that previously reported zero obligations and explains which files remain outstanding.【495e62†L1-L20】【F:coq/thielemachine/coqproofs/HyperThiele_Halting.v†L1-L35】【6b8295†L1-L45】
+The kernel proof suite remains fully mechanised, and the broader `_CoqProject` tree is now admit-free; only the archived `thielemachine/coqproofs/debug_no_rule.v` reproduction keeps local admits for experimentation, and the hyper-halting experiment phrases its oracle dependency as a section hypothesis rather than a global axiom. The audit replaces the stale dashboards that previously reported zero obligations and explains the remaining `ThieleUniversal.v` bridge work.【495e62†L1-L20】【F:coq/thielemachine/coqproofs/HyperThiele_Halting.v†L1-L35】【6b8295†L1-L45】
 
 ### 🎯 Main Theoretical Contribution
 

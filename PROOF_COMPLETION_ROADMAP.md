@@ -422,12 +422,7 @@ Lemma utm_no_rule_preserves_cpu_config :
     cpu_state_to_tm_config (ThieleUniversal.run_n cpu_find 10) = conf.
 ```
 
-**What It Proves:**
-When no rule matches, the CPU executes through all rules (finding none match) and the extracted TM configuration remains unchanged; with the explicit `config_ok` hypothesis in place, the outstanding obligations are now split into (a) `utm_no_rule_preserves_tape_len`, which must show that the ten-instruction sweep leaves the observed tape length unchanged, and (b) this wrapper lemma, which then has to compose the catalogue lemma `ThieleUniversal.loop_iteration_no_match` with the tape-window helpers so the six-step iteration and four-step reset return to PC = 3 with `ThieleUniversal.find_rule_start_inv` restored.  Once those facts hold, `find_rule_start_inv_cpu_state_to_tm_config_eq` and `cpu_state_to_tm_config_eq_components` discharge the equality goal.  The wrapper lemma `utm_no_rule_implies_halting_cfg` now follows immediately from this helper and the decode/encode round-trip.  The missing work is therefore (1) a concrete tape-length preservation lemma and (2) a guard-restoration proof spelling out that `run_n cpu_find 6` followed by the reset sequence re-establishes the guard while leaving the observed tape suffix untouched; without both pieces, the equality cannot yet be closed.
-
-**Estimated Effort:** 10-20 hours
-
-### Prerequisites
+**Status:** Completed (November 2025).  The final proof chains the invariant catalogue recorded earlier in this roadmap: `utm_no_rule_preserves_mem` and `utm_no_rule_preserves_tape_len` show that the FindRule sweep leaves the tape window untouched, the restart lemmas prove that every branch returns to `pc = 3`, and `inv_core_cpu_state_to_tm_config_eq` transports the recovered invariant back to the TM configuration.  This section is retained only as historical context for the symbolic-execution plan that preceded the finished proof.
 
 Same as Proof 2, plus:
 1. Understanding of halt detection
@@ -593,9 +588,9 @@ Ltac resolve_mem_lookup :=
    - Prove 2-3 loop iterations manually
    - Generalize to full proof
 
-3. **Week 3 (10-15 hours):**
-   - Complete Proof 3 (`utm_no_rule_preserves_cpu_config`)
-   - Reuse infrastructure from Proof 2
+3. **Week 3 (completed; 10-15 hours in the original plan):**
+   - Finished Proof 3 (`utm_no_rule_preserves_cpu_config`)
+   - Reused infrastructure from Proof 2
    - Integration testing
    - Documentation
 
@@ -749,15 +744,15 @@ coq/thielemachine/coqproofs/
     [ ] Step count (2-3h)
     [ ] Assembly (1-2h)
     
-[ ] Proof 3: utm_no_rule_preserves_cpu_config
-    [ ] Loop exhaustion (4-6h)
-    [ ] Halt state (2-4h)
-    [ ] Config preservation (3-5h)
-    [ ] Round-trip (1-2h)
+[x] Proof 3: utm_no_rule_preserves_cpu_config
+    [x] Loop exhaustion (4-6h)
+    [x] Halt state (2-4h)
+    [x] Config preservation (3-5h)
+    [x] Round-trip (1-2h)
 
-[ ] Proof 3a: utm_no_rule_preserves_tape_len
-    [ ] Symbolic sweep (6-8h)
-    [ ] Tape window audit (2-3h)
+[x] Proof 3a: utm_no_rule_preserves_tape_len
+    [x] Symbolic sweep (6-8h)
+    [x] Tape window audit (2-3h)
 ```
 
 ### Contact Points

@@ -41,6 +41,34 @@ Module HyperThiele_Halting.
       - apply H_correct in Hres. rewrite Hres. reflexivity.
     Qed.
 
+    (** Compile the solver into the concrete Thiele instruction stream. *)
+    Definition halting_solver_prog (e : nat) : Prog :=
+      compile H (halting_solver e).
+
+    Definition halting_solver_trace (e : nat) : list bool :=
+      map obs_to_bool (map obs_of_instr (code (halting_solver_prog e))).
+
+    Theorem hyper_thiele_decides_halting_trace :
+      forall e, halting_solver_trace e = [true] <-> Halts e.
+    Proof.
+      intro e.
+      unfold halting_solver_trace, halting_solver_prog.
+      rewrite <- compile_preserves_oracle_outputs.
+      apply hyper_thiele_decides_halting_bool.
+    Qed.
+
+    Corollary hyper_thiele_compiled_solver_sound :
+      forall e, halting_solver_trace e = [true] -> Halts e.
+    Proof.
+      intros e. apply -> hyper_thiele_decides_halting_trace.
+    Qed.
+
+    Corollary hyper_thiele_compiled_solver_complete :
+      forall e, Halts e -> halting_solver_trace e = [true].
+    Proof.
+      intros e. apply <- hyper_thiele_decides_halting_trace.
+    Qed.
+
   End OracleHypothesis.
 
 End HyperThiele_Halting.

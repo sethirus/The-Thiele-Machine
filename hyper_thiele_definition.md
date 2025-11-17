@@ -96,4 +96,9 @@ To connect to physics:
 This provides a conditional result: If physics allows supertasks, then Hyper-Thiele is realizable and Church-Turing is false.
 
 ### Formal Coq Proof
-The theorem is formalized in `coq/thielemachine/coqproofs/HyperThiele.v`, with axioms for encoding and limits, proving that Hyper-Thiele subsumes Turing computation by deciding the Halting problem.
+The executable Coq development for this outline lives in
+`coq/thielemachine/coqproofs/HyperThiele_Halting.v`.  Inside the oracle
+section, the lemmas `hyper_thiele_decides_halting_bool` and
+`hyper_thiele_decides_halting_trace` show, respectively, that the abstract
+supertask program and its compiled Thiele instruction stream both decide the
+halting predicate whenever the oracle hypothesis `H_correct` holds.
