@@ -63,7 +63,21 @@ Proof.
 Qed.
 
 (** Target theorem: every Turing machine has a Thiele program simulator. *)
-Theorem thiele_simulates_by_tm : Prop.
-Admitted.
+Theorem thiele_simulates_by_tm :
+  exists tp : ThieleProgram,
+    Simulation.Blind tp /\
+    forall (tm : TuringMachine) (conf : TMConfig) (n : nat),
+      Simulation.config_ok tm conf ->
+      Simulation.rules_fit tm ->
+      Simulation.decode_state tm
+        (Simulation.thiele_step_n_tm tm tp (Simulation.encode_config tm conf) n)
+      = ThieleUniversal.tm_step_n tm conf n.
+Proof.
+  exists Simulation.utm_program.
+  split.
+  - exact Simulation.utm_program_blind.
+  - intros tm conf n Hok Hfit.
+    apply Simulation.thiele_step_n_utm_simulates; assumption.
+Qed.
 
 (* End of ThieleMap.v *)
