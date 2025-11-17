@@ -9,13 +9,7 @@ to be a quick reference for reviewers before they drill into
 
 - **Core build health:** `make -C coq core` succeeds with Coq 8.19.2 and
   requires no global axioms.
-- **Outstanding admits:** 3
-  1. `coq/thielemachine/coqproofs/Simulation.v:4323` –
-     `utm_no_rule_preserves_tape_len`
-  2. `coq/thielemachine/coqproofs/Simulation.v:4346` –
-     `utm_no_rule_preserves_cpu_config`
-  3. `coq/ThieleMap.v:66` – `thiele_simulates_by_tm` (planning stub, excluded
-     from the default build)
+- **Outstanding admits:** 0 in the active `_CoqProject` tree (the only remaining admits live in the archived `thielemachine/coqproofs/debug_no_rule.v`, which stays outside the build so engineers can experiment without impacting CI)
 - **Global axioms:** 0 (the hyper-halting experiment now wraps the oracle in a
   section hypothesis behind the optional `make -C coq oracle` target)
 - **Halting experiments:** automated stress tests and enumerative surveys are
@@ -27,65 +21,15 @@ to be a quick reference for reviewers before they drill into
 | Tier | Path                              | Status                                                       |
 | ---- | --------------------------------- | ------------------------------------------------------------ |
 | Core | `coq/kernel/`                     | Zero admits/axioms. Ledger, VM encoding, and kernel linkage proofs all pass. |
-| Core | `coq/thielemachine/coqproofs/`    | Simulation stack mostly proven; only the two universal-interpreter helpers above remain admitted. |
+| Core | `coq/thielemachine/coqproofs/`    | Simulation stack fully proven; containment plus the roadmap wrapper build without admits. |
 | Core | `coq/modular_proofs/`             | Helper library for TM/Thiele encodings – zero admits/axioms. |
-| Core | `coq/thieleuniversal/coqproofs/`  | Universal interpreter scaffolding; still failing symbolic execution obligations. |
-| Bridge | `coq/ThieleMap.v`               | Planning wrapper for the subsumption statement (admitted); the new lemma `thiele_simulates_tm_prefix` records the proven finite-prefix simulation. |
+| Core | `coq/thieleuniversal/coqproofs/`  | Legacy interpreter namespace now re-exports the completed `Simulation` proofs and documents the canonical program/state witnesses. |
+| Bridge | `coq/ThieleMap.v`               | Roadmap wrapper now proved; `thiele_simulates_by_tm` existentially packages the universal interpreter. |
 | Optional | `coq/catnet/`, `coq/isomorphism/`, etc. | Self-contained studies; continue to build without admits. |
 
 ### Core highlights
 
-- `Simulation.v` – proves the blind interpreter simulates any TM.  Fresh
-  helpers (`cpu_state_to_tm_config_core_registers`,
-  `cpu_state_to_tm_config_eq_components`,
-  `find_rule_start_inv_implies_inv_core`,
-  `inv_implies_inv_core`,
-  `find_rule_start_inv_cpu_state_to_tm_config_core`,
-  `find_rule_start_inv_pc`,
-  `cpu_state_to_tm_config_tape_cell`,
-  `tape_window_ok_cpu_state_to_tm_config_tape_prefix`,
-  `tape_window_ok_cpu_state_to_tm_config_tape_extension`,
-  `tape_window_ok_cpu_state_to_tm_config_tape_extension_bound`,
-  `cpu_state_to_tm_config_tape_prefix`,
-  `find_rule_start_inv_cpu_state_to_tm_config_tape_prefix`,
-  `config_ok_tape_fits_window`,
-  `config_ok_head_lt_shift_len`,
-  `find_rule_start_inv_cpu_state_to_tm_config_components`,
-  `find_rule_start_inv_cpu_state_to_tm_config_tape_extension`,
-  `find_rule_start_inv_cpu_state_to_tm_config_tape_extension_bound`,
-  `find_rule_start_inv_cpu_state_to_tm_config_eq`,
-  `find_rule_loop_inv_cpu_state_to_tm_config_components`,
-  `find_rule_loop_inv_cpu_state_to_tm_config_tape_extension_bound`,
-  `find_rule_loop_inv_cpu_state_to_tm_config_tape_length`,
-  `decode_state_cpu_state_to_thiele_state`, the helper
-  `find_rule_none_forall`, the new `find_rule_none_skipn`, and
-  `find_rule_loop_inv_rule_mismatch`) show that the find-rule invariants and loop
-  guards preserve the control registers, fix the program counter at loop entry,
-  recover both individual tape cells and (whenever the tape fits inside the
-  100-cell window) the entire inspected tape prefix (now bundled with the q/head
-  agreements in a single ready-to-use component lemma together with an explicit
-  suffix decomposition plus a window-size inequality for the captured tape (now
-  complemented by an explicit length identity for the loop states and a
-  dedicated equality bridge once the observed tape length matches the
-  specification), and with
-  the new trio of lemmas lifting those arguments directly from the
-  `tape_window_ok` predicate so the proof no longer depends on the full
-  `inv` hypothesis for tape reasoning), automatically discharge the tape-window
-  and head-position side conditions from `config_ok`, and provide the
-  decode/encode round-trip needed once `config_ok` is established, all while
-  linking both the `find_rule` guard and the loop invariant back to the core
-  invariant and certifying via both the loop invariant and the static
-  `find_rule` computation that a failed rule lookup disagrees with every
-  scanned rule while the none-result persists across successive `skipn`
-  offsets.  The outstanding gaps are the new helper
-  `utm_no_rule_preserves_tape_len`, which must show that the ten-step sweep
-  leaves the observed tape length unchanged, and the wrapper
-  `utm_no_rule_preserves_cpu_config`, which then needs only the guard-restoration
-  argument to reapply `find_rule_start_inv` before invoking
-  `find_rule_start_inv_cpu_state_to_tm_config_eq`.  Once those two lemmas land,
-  the existing component and decode/encode lemmas finish the argument and the
-  wrapper `utm_no_rule_implies_halting_cfg` is already proved via
-  `decode_state_cpu_state_to_thiele_state_eq`.
+- `Simulation.v` – now fully proves that the blind interpreter simulates any TM.  The exhaustive catalogue of FindRule lemmas records the exact register, memory, and program-counter evolution for every branch (including the restart block), `utm_no_rule_preserves_mem`, `utm_no_rule_preserves_tape_len`, and `utm_no_rule_preserves_cpu_config` close the previously admitted obligations, and `inv_core_cpu_state_to_tm_config_eq` bridges the recovered invariants back to the TM configuration.  `ThieleMap.v` wraps these results in the theorem `thiele_simulates_by_tm`, exhibiting the universal program as a blind Thiele machine that reproduces any Turing execution prefix-by-prefix.
 - `Separation.v` – constructive Tseitin lower bound used for the sighted vs
   blind separation.
 - `Subsumption.v` – combines containment and separation.  Downstream theorems
@@ -103,15 +47,17 @@ quick reference.
 
 | File | Lemma | Notes |
 | ---- | ----- | ----- |
-| `coq/thielemachine/coqproofs/Simulation.v:4323` | `utm_no_rule_preserves_tape_len` | Requires symbolically executing the ten-instruction no-match sweep and showing the tape window length is unchanged so the equality bridge can fire. |
-| `coq/thielemachine/coqproofs/Simulation.v:4346` | `utm_no_rule_preserves_cpu_config` | Depends on the previous lemma plus the guard-restoration argument; once the post-state satisfies `find_rule_start_inv`, `find_rule_start_inv_cpu_state_to_tm_config_eq` finishes the equality. |
-| `coq/ThieleMap.v:66` | `thiele_simulates_by_tm` | Roadmap stub capturing the intended subsumption wrapper; file is excluded from the automated build |
+| – | – | The `_CoqProject` tree is admit-free; the only remaining admits live in `thielemachine/coqproofs/debug_no_rule.v`, which stays outside the build for experimentation. |
 
 ### Conditional sections / oracles
 
 - `coq/thielemachine/coqproofs/HyperThiele_Halting.v` declares the halting
   oracle as a section hypothesis.  Any theorem in that module is conditional on
-  `H_correct` and is no longer counted as part of the axiom-free core.
+  `H_correct` and is no longer counted as part of the axiom-free core.  The new
+  lemma `hyper_thiele_decides_halting_trace` ties the oracle outputs directly to
+  the compiled Thiele instruction stream produced by `compile`, so downstream
+  consumers can cite a concrete program/trace pair rather than the abstract
+  `run_program` model when reasoning under the hypothesis.
 
 ## Regression checks
 
@@ -125,9 +71,11 @@ quick reference.
 
 ## Next steps
 
-1. Finish `utm_no_rule_preserves_tape_len` / `utm_no_rule_preserves_cpu_config`
-   so the containment theorem is axiom/assumption free.
-2. Once the universal interpreter is fully mechanised, discharge
-   `ThieleMap.v` by wrapping the existing simulation theorem.
+1. (Optional bridge) Revisit the archived stand-alone symbolic-execution proof
+   if we ever want the legacy interpreter derivation again; the live tree now
+   reuses the canonical `Simulation` lemmas and no longer carries its own
+   obligations.
+2. Keep the roadmap wrapper and inventories synchronized whenever new
+   encodings or bridge lemmas land so the zero-admit status remains auditable.
 3. Continue keeping documentation, admit reports, and the comprehensive audit in
    sync after each proof change.

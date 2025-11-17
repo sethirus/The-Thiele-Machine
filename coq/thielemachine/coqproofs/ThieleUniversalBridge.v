@@ -57,6 +57,10 @@ Definition set_nth {A : Type} (l : list A) (n : nat) (v : A) : list A :=
 Definition pad_to (n : nat) (l : list nat) : list nat :=
   l ++ repeat 0 (n - length l).
 
+Lemma pad_to_expand : forall n l,
+  pad_to n l = l ++ repeat 0 (n - length l).
+Proof. reflexivity. Qed.
+
 Lemma length_pad_to_ge : forall l n,
   length l <= n -> length (pad_to n l) = n.
 Proof.
@@ -133,6 +137,39 @@ Proof.
   reflexivity.
 Qed.
 
+Lemma firstn_program_prefix :
+  length program <= UTM_Program.RULES_START_ADDR ->
+  forall rules,
+    firstn (length program)
+      (pad_to UTM_Program.TAPE_START_ADDR
+         (pad_to UTM_Program.RULES_START_ADDR program ++ rules)) = program.
+Proof.
+  intros Hprog rules.
+  remember (length program) as len_prog eqn:Hlen_prog.
+  assert (Hprog_len : length program <= UTM_Program.RULES_START_ADDR)
+    by (rewrite <- Hlen_prog; exact Hprog).
+  assert (Hpad_window : firstn len_prog
+           (pad_to UTM_Program.TAPE_START_ADDR
+              (pad_to UTM_Program.RULES_START_ADDR program ++ rules)) =
+          firstn len_prog (pad_to UTM_Program.RULES_START_ADDR program ++ rules)).
+  { apply firstn_pad_to_le.
+    rewrite app_length, length_pad_to_ge with (l := program)
+        (n := UTM_Program.RULES_START_ADDR) by exact Hprog_len.
+    rewrite Hlen_prog. lia. }
+  assert (Hmem_prog : firstn len_prog
+            (pad_to UTM_Program.RULES_START_ADDR program ++ rules) =
+          firstn len_prog program).
+  { rewrite firstn_pad_to_app_le with (l := program)
+        (n := UTM_Program.RULES_START_ADDR) (rest := rules) (k := len_prog)
+      by (rewrite Hlen_prog; lia).
+    reflexivity. }
+  assert (Hfirstn_prog : firstn len_prog program = program).
+  { rewrite Hlen_prog. apply firstn_all. }
+  eapply eq_trans. exact Hpad_window.
+  eapply eq_trans. exact Hmem_prog.
+  exact Hfirstn_prog.
+Qed.
+
 Lemma firstn_skipn_pad_to_app : forall l n rest,
   length l <= n -> firstn (length rest) (skipn n (pad_to n l ++ rest)) = rest.
 Proof.
@@ -149,6 +186,41 @@ Proof.
   unfold pad_to.
   rewrite skipn_app_le' by lia.
   reflexivity.
+Qed.
+
+Lemma firstn_rules_window :
+  length program <= UTM_Program.RULES_START_ADDR ->
+  forall rules,
+    length rules <= UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR ->
+    firstn (length rules)
+      (skipn UTM_Program.RULES_START_ADDR
+         (pad_to UTM_Program.TAPE_START_ADDR
+            (pad_to UTM_Program.RULES_START_ADDR program ++ rules))) = rules.
+Proof.
+  intros Hprog rules Hfit.
+  set (memprog := pad_to UTM_Program.RULES_START_ADDR program).
+  set (memrules := memprog ++ rules).
+  assert (Hmemprog_len : length memprog = UTM_Program.RULES_START_ADDR).
+  { subst memprog. apply length_pad_to_ge. exact Hprog. }
+  assert (Hskip_memrules : skipn UTM_Program.RULES_START_ADDR memrules = rules).
+  { unfold memrules.
+    rewrite skipn_app_le' by (rewrite Hmemprog_len; lia).
+    rewrite <- Hmemprog_len.
+    rewrite skipn_all.
+    simpl. reflexivity. }
+  assert (Hskip_pad :
+    skipn UTM_Program.RULES_START_ADDR
+      (pad_to UTM_Program.TAPE_START_ADDR memrules) =
+    skipn UTM_Program.RULES_START_ADDR memrules ++
+      repeat 0 (UTM_Program.TAPE_START_ADDR - length memrules)).
+  { apply skipn_pad_to_split.
+    unfold memrules.
+    rewrite app_length, Hmemprog_len.
+    lia. }
+  rewrite Hskip_pad.
+  rewrite Hskip_memrules.
+  rewrite firstn_app_le' by lia.
+  apply firstn_all.
 Qed.
 
 Lemma firstn_skipn_app_exact : forall {A} (pref rest : list A) n,
@@ -211,15 +283,14 @@ Qed.
 Definition inv_min (st : CPU.State) (tm : TM) (conf : TMConfig) : Prop :=
   let '(q, tape, head) := conf in
   CPU.read_reg CPU.REG_Q st = q /\
-  CPU.read_reg CPU.REG_HEAD st = head /\
-  CPU.read_reg CPU.REG_PC st = 0.
+  CPU.read_reg CPU.REG_HEAD st = head.
 
 Lemma inv_min_setup_state : forall tm conf,
   inv_min (setup_state tm conf) tm conf.
 Proof.
   intros tm ((q, tape), head).
   unfold inv_min, setup_state; simpl.
-  split; [|split]; unfold CPU.read_reg; repeat (rewrite nth_skipn || simpl); try lia; reflexivity.
+  split; unfold CPU.read_reg; repeat (rewrite nth_skipn || simpl); try lia; reflexivity.
 Qed.
 
 Definition IS_FetchSymbol (pc : nat) : Prop := pc = 0.
@@ -280,19 +351,22 @@ Lemma inv_setup_state : forall tm conf,
 Proof.
   intros tm ((q, tape), head) Hprog Hrules.
   pose proof (inv_min_setup_state tm ((q, tape), head)) as Hmin.
-  destruct Hmin as [Hq [Hhead Hpc]].
+  destruct Hmin as [Hq Hhead].
   unfold inv.
   simpl.
   split. exact Hq.
   split. exact Hhead.
-  split. exact Hpc.
+  split.
+  { unfold setup_state.
+    simpl.
+    unfold CPU.read_reg.
+    repeat (rewrite nth_skipn || simpl); try lia; reflexivity. }
   split. apply tape_window_ok_setup_state; assumption.
   split.
   - unfold setup_state.
     simpl.
     set (rules := UTM_Encode.encode_rules tm.(tm_rules)).
     set (mem0 := pad_to UTM_Program.RULES_START_ADDR program).
-    remember (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)) as mem1 eqn:Hmem1.
     assert (Hmem0_len : length mem0 = UTM_Program.RULES_START_ADDR).
     { subst mem0. apply length_pad_to_ge. exact Hprog. }
     assert (Hfit : length (mem0 ++ rules) <= UTM_Program.TAPE_START_ADDR).
@@ -302,20 +376,25 @@ Proof.
       { unfold UTM_Program.TAPE_START_ADDR, UTM_Program.RULES_START_ADDR. lia. }
       rewrite Heq.
       apply Nat.add_le_mono_l. exact Hrules. }
-    subst mem1.
-    unfold pad_to at 1.
-    rewrite firstn_app_le' by (rewrite app_length, Hmem0_len; lia).
-    subst mem0.
-    unfold pad_to at 1.
-    rewrite firstn_app_le' by (rewrite length_pad_to_ge with (l := program)
-                                                 (n := UTM_Program.RULES_START_ADDR)
-                                                 by exact Hprog; lia).
-    apply firstn_pad_to. exact Hprog.
+    assert (Hmem1_len : length (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules))
+                        = UTM_Program.TAPE_START_ADDR).
+    { apply length_pad_to_ge. exact Hfit. }
+    assert (Hprefix :
+      firstn (length program)
+        ((pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)) ++ tape)
+      = firstn (length program)
+          (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules))).
+    { apply firstn_app_le'.
+      rewrite Hmem1_len.
+      apply (Nat.le_trans _ _ _ Hprog).
+      exact UTM_Program.RULES_START_ADDR_le_TAPE_START_ADDR. }
+    eapply eq_trans.
+    2:{ subst mem0. apply (firstn_program_prefix Hprog rules). }
+    exact Hprefix.
   - unfold setup_state.
     simpl.
     set (rules := UTM_Encode.encode_rules tm.(tm_rules)).
     set (mem0 := pad_to UTM_Program.RULES_START_ADDR program).
-    set (mem1 := pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)).
     assert (Hmem0_len : length mem0 = UTM_Program.RULES_START_ADDR).
     { subst mem0. apply length_pad_to_ge. exact Hprog. }
     assert (Hfit : length (mem0 ++ rules) <= UTM_Program.TAPE_START_ADDR).
@@ -325,22 +404,53 @@ Proof.
       { unfold UTM_Program.TAPE_START_ADDR, UTM_Program.RULES_START_ADDR. lia. }
       rewrite Heq.
       apply Nat.add_le_mono_l. exact Hrules. }
-    subst mem1.
-    rewrite skipn_app_le' by (rewrite length_pad_to_ge with (l := mem0 ++ rules) (n := UTM_Program.TAPE_START_ADDR) by exact Hfit; pose proof UTM_Program.RULES_START_ADDR_le_TAPE_START_ADDR; lia).
-    rewrite skipn_pad_to_split by (rewrite app_length, Hmem0_len; lia).
-    rewrite skipn_app_le' by (rewrite Hmem0_len; lia).
-    rewrite <- Hmem0_len.
-    rewrite skipn_all.
-    simpl.
-    rewrite app_nil_l.
-    rewrite <- app_assoc.
-    rewrite firstn_app_le' by lia.
-    rewrite firstn_app_le' by lia.
-    reflexivity.
+    assert (Hmem1_len : length (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules))
+                        = UTM_Program.TAPE_START_ADDR).
+    { apply length_pad_to_ge. exact Hfit. }
+    assert (Hskip :
+      skipn UTM_Program.RULES_START_ADDR
+        ((pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)) ++ tape)
+      = skipn UTM_Program.RULES_START_ADDR
+          (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)) ++ tape).
+    { apply skipn_app_le'.
+      rewrite Hmem1_len.
+      exact UTM_Program.RULES_START_ADDR_le_TAPE_START_ADDR. }
+    assert (Hskip_first :
+      firstn (length rules)
+        (skipn UTM_Program.RULES_START_ADDR
+                 ((pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)) ++ tape))
+      = firstn (length rules)
+          (skipn UTM_Program.RULES_START_ADDR
+                   (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)) ++ tape)).
+    { rewrite Hskip. reflexivity. }
+    assert (Hdrop :
+      firstn (length rules)
+        (skipn UTM_Program.RULES_START_ADDR
+                 (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)) ++ tape)
+      = firstn (length rules)
+          (skipn UTM_Program.RULES_START_ADDR
+                 (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)))).
+    { apply firstn_app_le'.
+      rewrite skipn_length, Hmem1_len.
+      apply (Nat.le_trans _ _ _ Hrules).
+      lia. }
+    eapply eq_trans.
+    2:{ eapply eq_trans.
+        2:{ subst mem0. apply (firstn_rules_window Hprog rules). exact Hrules. }
+        exact Hdrop. }
+    exact Hskip_first.
 Qed.
 
 Definition inv_core (st : CPU.State) (tm : TM) (conf : TMConfig) : Prop :=
-  inv_min st tm conf.
+  let '((q, tape), head) := conf in
+  CPU.read_reg CPU.REG_Q st = q /\
+  CPU.read_reg CPU.REG_HEAD st = head /\
+  tape_window_ok st tape /\
+  firstn (length program) st.(CPU.mem) = program /\
+  firstn (length (UTM_Encode.encode_rules tm.(tm_rules)))
+        (skipn UTM_Program.RULES_START_ADDR st.(CPU.mem)) =
+    UTM_Encode.encode_rules tm.(tm_rules) /\
+  length (skipn UTM_Program.TAPE_START_ADDR st.(CPU.mem)) = length tape.
 
 Definition find_rule_start_inv (tm : TM) (conf : TMConfig) (cpu : CPU.State) : Prop :=
   IS_FindRule_Start (CPU.read_reg CPU.REG_PC cpu) /\
@@ -352,6 +462,20 @@ Definition find_rule_start_inv (tm : TM) (conf : TMConfig) (cpu : CPU.State) : P
 
 Definition decode_instr (st : CPU.State) : CPU.Instr :=
   UTM_Encode.decode_instr_from_mem st.(CPU.mem) (4 * CPU.read_reg CPU.REG_PC st).
+
+Lemma run1_decode_instr : forall cpu,
+  run1 cpu = CPU.step (decode_instr cpu) cpu.
+Proof.
+  intros cpu. reflexivity.
+Qed.
+
+Lemma run1_decode : forall st,
+  run1 st = CPU.step (decode_instr st) st.
+Proof.
+  intro st.
+  unfold run1, decode_instr.
+  reflexivity.
+Qed.
 
 (* ----------------------------------------------------------------- *)
 (* Helper lemmas                                                      *)
@@ -847,9 +971,8 @@ Proof.
   (* Step 1: PC 0 -> 1 via LoadConst *)
   set (cpu1 := CPU.step (CPU.LoadConst CPU.REG_TEMP1 UTM_Program.TAPE_START_ADDR) cpu0).
   assert (Hrun1 : run1 cpu0 = cpu1).
-  { unfold cpu1, run1.
-    rewrite Hpc0.
-    simpl.
+  { unfold cpu1.
+    rewrite run1_decode.
     rewrite Hdecode0.
     reflexivity. }
   assert (Hpc1 : CPU.read_reg CPU.REG_PC cpu1 = 1).
@@ -857,21 +980,24 @@ Proof.
     assert (Hneq_temp1 : CPU.REG_TEMP1 <> CPU.REG_PC) by (cbv [CPU.REG_TEMP1 CPU.REG_PC]; lia).
     assert (Hlt_temp1 : CPU.REG_TEMP1 < 10) by (cbv [CPU.REG_TEMP1]; lia).
     destruct (step_LoadConst cpu0 CPU.REG_TEMP1 UTM_Program.TAPE_START_ADDR
-              Hneq_temp1 Hlt_temp1 Hlen) as [Hpc1 _].
-    exact Hpc1. }
+              Hneq_temp1 Hlt_temp1 Hlen) as [Hpc1_step _].
+    rewrite Hpc0 in Hpc1_step.
+    exact Hpc1_step. }
   assert (Hlen1 : length (CPU.regs cpu1) = 10).
   { subst cpu1.
-    unfold CPU.step.
-    simpl.
+    unfold CPU.step; simpl.
     set (st' := CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu0)) cpu0).
-    assert (Hlen_pc : length st'.(CPU.regs) = length cpu0.(CPU.regs)).
-    { subst st'. apply length_write_reg.
-      rewrite Hlen. cbv [CPU.REG_PC]; lia. }
-    rewrite Hlen_pc.
-    assert (Hlt_temp1 : CPU.REG_TEMP1 < 10) by (cbv [CPU.REG_TEMP1]; lia).
-    apply length_write_reg.
-    rewrite Hlen_pc, Hlen.
-    exact Hlt_temp1. }
+    assert (Hlen_eq : length st'.(CPU.regs) = length cpu0.(CPU.regs)).
+    { subst st'.
+      apply length_write_reg.
+      rewrite Hlen; cbv [CPU.REG_PC]; lia. }
+    assert (Hlen_st' : length st'.(CPU.regs) = 10) by (rewrite Hlen_eq, Hlen; reflexivity).
+    assert (Hlt_temp1_len : CPU.REG_TEMP1 < length st'.(CPU.regs)).
+    { rewrite Hlen_st'. cbv [CPU.REG_TEMP1]; lia. }
+    pose proof (length_write_reg CPU.REG_TEMP1 UTM_Program.TAPE_START_ADDR st' Hlt_temp1_len)
+      as Hlen_after.
+    rewrite Hlen_st' in Hlen_after.
+    exact Hlen_after. }
   assert (Hmem1 : CPU.mem cpu1 = CPU.mem cpu0).
   { subst cpu1. unfold CPU.step. simpl. reflexivity. }
 
@@ -881,10 +1007,8 @@ Proof.
     CPU.AddReg CPU.REG_ADDR CPU.REG_TEMP1 CPU.REG_HEAD).
   { rewrite <- Hrun1. exact Hdecode1. }
   assert (Hrun2 : run1 cpu1 = cpu2).
-  { unfold cpu2, run1.
-    rewrite Hpc1.
-    simpl.
-    rewrite Hmem1.
+  { unfold cpu2.
+    rewrite run1_decode.
     rewrite Hdecode1'.
     reflexivity. }
   assert (Hpc2 : CPU.read_reg CPU.REG_PC cpu2 = 2).
@@ -892,21 +1016,24 @@ Proof.
     assert (Hneq_addr : CPU.REG_ADDR <> CPU.REG_PC) by (cbv [CPU.REG_ADDR CPU.REG_PC]; lia).
     assert (Hlt_addr : CPU.REG_ADDR < 10) by (cbv [CPU.REG_ADDR]; lia).
     destruct (step_AddReg cpu1 CPU.REG_ADDR CPU.REG_TEMP1 CPU.REG_HEAD
-              Hneq_addr Hlt_addr Hlen1) as [Hpc2 _].
-    exact Hpc2. }
+              Hneq_addr Hlt_addr Hlen1) as [Hpc2_step _].
+    rewrite Hpc1 in Hpc2_step.
+    exact Hpc2_step. }
   assert (Hlen2 : length (CPU.regs cpu2) = 10).
   { subst cpu2.
-    unfold CPU.step.
-    simpl.
+    unfold CPU.step; simpl.
     set (st' := CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu1)) cpu1).
-    assert (Hlen_pc : length st'.(CPU.regs) = length cpu1.(CPU.regs)).
-    { subst st'. apply length_write_reg.
-      rewrite Hlen1. cbv [CPU.REG_PC]; lia. }
-    rewrite Hlen_pc.
-    assert (Hlt_addr : CPU.REG_ADDR < 10) by (cbv [CPU.REG_ADDR]; lia).
-    apply length_write_reg.
-    rewrite Hlen_pc, Hlen1.
-    exact Hlt_addr. }
+    assert (Hlen_eq : length st'.(CPU.regs) = length cpu1.(CPU.regs)).
+    { subst st'.
+      apply length_write_reg.
+      rewrite Hlen1; cbv [CPU.REG_PC]; lia. }
+    assert (Hlen_st' : length st'.(CPU.regs) = 10) by (rewrite Hlen_eq, Hlen1; reflexivity).
+    assert (Hlt_addr_len : CPU.REG_ADDR < length st'.(CPU.regs)).
+    { rewrite Hlen_st'. cbv [CPU.REG_ADDR]; lia. }
+    pose proof (length_write_reg CPU.REG_ADDR (CPU.read_reg CPU.REG_TEMP1 cpu1 + CPU.read_reg CPU.REG_HEAD cpu1) st'
+                 Hlt_addr_len) as Hlen_after.
+    rewrite Hlen_st' in Hlen_after.
+    exact Hlen_after. }
   assert (Hmem2 : CPU.mem cpu2 = CPU.mem cpu1).
   { subst cpu2. unfold CPU.step. simpl. reflexivity. }
 
@@ -917,13 +1044,11 @@ Proof.
   assert (Hdecode2' : decode_instr cpu2 =
     CPU.LoadIndirect CPU.REG_SYM CPU.REG_ADDR).
   { rewrite <- Hrun2.
-    rewrite <- Hrun_n2 in Hdecode2.
+    rewrite Hrun_n2 in Hdecode2.
     exact Hdecode2. }
   assert (Hrun3 : run1 cpu2 = cpu3).
-  { unfold cpu3, run1.
-    rewrite Hpc2.
-    simpl.
-    rewrite Hmem2, Hmem1.
+  { unfold cpu3.
+    rewrite run1_decode.
     rewrite Hdecode2'.
     reflexivity. }
   assert (Hpc3 : CPU.read_reg CPU.REG_PC cpu3 = 3).
@@ -931,8 +1056,9 @@ Proof.
     assert (Hneq_sym : CPU.REG_SYM <> CPU.REG_PC) by (cbv [CPU.REG_SYM CPU.REG_PC]; lia).
     assert (Hlt_sym : CPU.REG_SYM < 10) by (cbv [CPU.REG_SYM]; lia).
     destruct (step_LoadIndirect cpu2 CPU.REG_SYM CPU.REG_ADDR
-              Hneq_sym Hlt_sym Hlen2) as [Hpc3 _].
-    exact Hpc3. }
+              Hneq_sym Hlt_sym Hlen2) as [Hpc3_step _].
+    rewrite Hpc2 in Hpc3_step.
+    exact Hpc3_step. }
 
   exists (run_n cpu0 3).
   split; [reflexivity |].
@@ -975,14 +1101,8 @@ Lemma transition_Fetch_to_FindRule (tm : TM) (conf : TMConfig) (cpu0 : CPU.State
 Proof.
   intros Hinv Hfetch Hlen Hdecode0 Hdecode1 Hdecode2.
 
-  unfold inv_core, inv_min in Hinv.
-  destruct conf as ((q, tape), head).
-  simpl in Hinv.
-  destruct Hinv as [Hq [Hhead Hpc]].
-
-  destruct (transition_Fetch_to_FindRule_direct tm ((q, tape), head) cpu0
-              (conj Hq (conj Hhead Hpc))
-              Hfetch Hpc Hlen Hdecode0 Hdecode1 Hdecode2)
+  destruct (transition_Fetch_to_FindRule_direct tm conf cpu0
+              Hinv Hfetch Hfetch Hlen Hdecode0 Hdecode1 Hdecode2)
     as [cpu_find [Hrun [Hstart _]]].
   exists cpu_find.
   split; assumption.
@@ -1108,10 +1228,10 @@ Proof.
 
   unfold FindRule_Loop_Inv in Hinv.
   simpl in Hinv.
-  destruct Hinv as [[Hpc3 | [Hpc4 | Hpc5]] [Hq [Hsym [Haddr Hchecked]]]].
-  - rewrite Hpc in Hpc3. lia.
-  - rewrite Hpc in Hpc4. clear Hpc3 Hpc5.
-  - rewrite Hpc in Hpc5. lia.
+  destruct Hinv as [[Hpc3 | [Hpc4 | Hpc5]] [Hq [Hsym [Haddr Hchecked]]]];
+    try (rewrite Hpc in Hpc3; lia);
+    try (rewrite Hpc in Hpc5; lia).
+  rewrite Hpc in Hpc4.
 
   (* Concrete states after each instruction. *)
   set (cpu1 := CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) cpu).
@@ -1122,7 +1242,10 @@ Proof.
   set (cpu6 := CPU.step (CPU.Jnz CPU.REG_TEMP1 4) cpu5).
 
   assert (Hrun1 : run1 cpu = cpu1).
-  { unfold cpu1, run1. rewrite Hpc. simpl. rewrite Hdecode0. reflexivity. }
+  { unfold cpu1.
+    rewrite run1_decode.
+    rewrite Hdecode0.
+    reflexivity. }
   assert (Hrun2 : run1 cpu1 = cpu2).
   { unfold cpu2, run1. subst cpu1. simpl.
     rewrite (proj1 (step_LoadIndirect _ _ _ _ _ _ Hlen)).

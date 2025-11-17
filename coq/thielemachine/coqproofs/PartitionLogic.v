@@ -1,6 +1,6 @@
 (* PartitionLogic.v: Witness Composition and Partition Admissibility Theorems *)
 
-Require Import List Arith Bool.
+Require Import List Arith Bool PeanoNat.
 Require Import Lia.
 Require Import Permutation.
 Import ListNotations.
@@ -74,6 +74,30 @@ Proof.
   intros. unfold sum. apply fold_left_add_zeros.
 Qed.
 
+Fixpoint nat_in (n : nat) (l : list nat) : bool :=
+  match l with
+  | [] => false
+  | x :: xs => if Nat.eqb n x then true else nat_in n xs
+  end.
+
+Fixpoint coarsen_modules_aux
+         (mods : list (list nat))
+         (indices : list nat)
+         (i : nat)
+  : list (list nat) * list nat :=
+  match mods with
+  | [] => ([], [])
+  | m :: ms =>
+      let '(kept_tail, merged_tail) := coarsen_modules_aux ms indices (S i) in
+      if nat_in i indices then
+        (kept_tail, m ++ merged_tail)
+      else
+        (m :: kept_tail, merged_tail)
+  end.
+
+Definition partition_total_size (P : Partition) : nat :=
+  sum (map (@length nat) (modules P)).
+
 (* Interface axioms that must be satisfied between modules *)
 Definition interface_satisfied (w1 w2 : LocalWitness) (axiom : list nat) : bool :=
   (* Check if witness data is consistent with interface axioms *)
@@ -115,13 +139,24 @@ Definition refine_partition (P : Partition) (module_idx : nat) (submodules : lis
 
 (* Coarsening: merge modules together *)
 Definition coarsen_partition (P : Partition) (module_indices : list nat) : Partition :=
-  (* Merge modules at specified indices *)
-  P.  (* Placeholder implementation *)
+  let mods := modules P in
+  let '(kept, merged) := coarsen_modules_aux mods module_indices 0 in
+  let merged_modules :=
+      match merged with
+      | [] => kept
+      | _ => kept ++ [merged]
+      end in
+  {| modules := merged_modules;
+     interfaces := interfaces P |}.
 
 (* Cost of partition change *)
 Definition partition_change_cost (old_P new_P : Partition) : nat :=
-  (* Calculate the information cost of changing partitions *)
-  length (modules new_P) - length (modules old_P).
+  let old_size := partition_total_size old_P in
+  let new_size := partition_total_size new_P in
+  if old_size <=? new_size then
+    new_size - old_size
+  else
+    old_size - new_size.
 
 (* Theorem 7: Refinement admissibility *)
 Theorem refinement_admissible :
@@ -163,13 +198,24 @@ Proof.
     exists 0.
     exists [m].
     (* Since P' = P, length(modules P) - length(modules P') = 0, partition_change_cost P P' = 0 *)
+    assert (modules (refine_partition P 0 [m]) = modules P) as H_same_modules.
+    { unfold refine_partition. simpl. rewrite H_modules. reflexivity. }
     assert (length (modules (refine_partition P 0 [m])) = length (modules P)) as H_len.
-    { unfold refine_partition. simpl. rewrite H_modules. simpl. reflexivity. }
-    unfold partition_change_cost.
+    { rewrite H_same_modules. reflexivity. }
+    unfold ge.
     rewrite H_len.
-    rewrite H_modules.
+    assert (partition_change_cost P (refine_partition P 0 [m]) = 0) as H_cost.
+    { unfold partition_change_cost.
+      assert (partition_total_size (refine_partition P 0 [m]) = partition_total_size P) as H_size.
+      { unfold partition_total_size. rewrite H_same_modules. reflexivity. }
+      rewrite H_size.
+      rewrite Nat.leb_refl.
+      simpl.
+      now rewrite Nat.sub_diag.
+    }
+    rewrite H_cost.
     simpl.
-    apply Nat.le_refl.
+    lia.
 Qed.
 
 (* === Order-Invariance with Costs === *)
