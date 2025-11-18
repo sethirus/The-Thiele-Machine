@@ -2,6 +2,64 @@ Admit inventory (updated after end-to-end harness refresh)
 
 Core tree
 ---------
+- `thielemachine/coqproofs/Oracle.v` defines the `T1_State` record that bundles a
+  `Prog`, an admissible `Partition`, and the µ-ledger accumulated while
+  constructing the oracle witness.  The helpers `t1_bootstrap_state`,
+  `t1_charge_mu`, and the lemmas `t1_bootstrap_total_zero` /
+  `t1_charge_mu_total` make the ledger update rules explicit, while the
+  combinators `t1_with_partition` and `t1_repartition` (with lemmas
+  `t1_with_partition_prog_preserved`, `t1_with_partition_partition_replaced`,
+  `t1_repartition_total`, and `t1_repartition_partition_replaced`) describe how a
+  partition change charges its µ-cost without touching the compiled program.
+  Additional preservation lemmas (`t1_charge_mu_prog_preserved`,
+  `t1_charge_mu_partition_preserved`) keep future proofs honest about which
+  fields mutate at each step.  The fresh `T1_Receipt` record plus
+  `t1_emit_receipt`, `t1_emit_receipt_*`, and `t1_bootstrap_receipt_zero` bridge
+  the oracle state to the artefact `T_0` consumes, so the subsumption proofs can
+  cite a compact program/partition/µ-total triple when formalising `T_1`
+  emissions.  The new `T1_Action` inductive, together with `t1_step`, `t1_run`,
+  and the accumulator `t1_run_mu_delta`, packages multi-step oracle traces so
+  that µ-ledger totals (`t1_run_mu_total`, `t1_emit_receipt_mu_total_run`) and
+  partition evolution (`t1_run_partition_after`) can be cited directly.  The
+  helper `t1_trace_receipt` and its projection lemmas now collapse an entire
+  action trace into a single receipt statement (`t1_trace_receipt_prog`,
+  `t1_trace_receipt_partition`, `t1_trace_receipt_mu_total`), exposing the
+  preserved compiled program, resulting partition, and cumulative µ-total in one
+  reusable clause.  The new `T1_ReceiptWitness` record and
+  `t1_receipt_witness_of_exec` lemma carry those receipts across to the verified
+  `T_0` executor by packaging the concrete `Exec` trace, the `replay_ok` fact
+  recovered from `ThieleMachine`, and the µ-bound showing the ledger total
+  dominates the replayed certificate sizes.  The follow-on corollary
+  `t1_trace_receipt_witness` instantiates that witness directly from any oracle
+  action trace, threading the µ-bound provided by the ledger accumulator through
+  `t1_trace_receipt_mu_total` so downstream proofs can cite an off-the-shelf
+  `T1_ReceiptWitness` without replaying the arithmetic.  This keeps the oracle
+  semantics deterministic without introducing new admits or axioms, so
+  downstream proofs can cite the state/action machinery when formalising the
+  `T_1` machine.  The follow-on lemmas
+  `t1_prog_closed_trace_exec`, `t1_closed_trace_sum_bits_le_sum_mu`, and the
+  corollaries `t1_trace_receipt_closed_witness_from_bits` /
+  `t1_trace_receipt_closed_witness_from_mu` now attach those receipts to the
+  canonical closed-state execution (`trace_of_prog`) and the universal
+  µ-accounting bounds from `ThieleMachine`, giving every oracle trace a ready
+  `Exec` witness plus an explicit µ-dominance statement without introducing new
+  admits.  Building on that bridge, the helper family
+  `sum_instr_certificates` / `prog_closed_trace_mu_requirement` /
+  `t1_closed_trace_mu_requirement` re-expresses the canonical µ-bound as a
+  plain natural-number sum, so the final lemma
+  `t1_trace_receipt_closed_witness_from_ledger_nat` lets subsumption proofs cite
+  a closed-state witness directly from the ledger inequality
+  `t1_closed_trace_mu_requirement <= t1_mu_total + t1_run_mu_delta` without
+  manual `Z` bookkeeping.  The newest helpers
+  (`t1_closed_trace_mu_actions`, `t1_run_mu_delta_all_charge`,
+  `ledger_sum_map_instr_cert`, and
+  `t1_run_mu_delta_closed_trace_mu_actions`) construct an explicit
+  charge-only action trace whose ledger delta equals the canonical µ-bound, and
+  `t1_closed_trace_mu_requirement_covered_by_canonical_actions` /
+  `t1_trace_receipt_closed_witness_canonical` show that running this canonical
+  trace from any oracle state immediately satisfies the ledger inequality and
+  yields a ready-to-use `T1_ReceiptWitness` with no additional hypotheses.
+  【F:coq/thielemachine/coqproofs/Oracle.v†L1-L536】
 - `thielemachine/coqproofs/Simulation.v` – `utm_no_rule_preserves_tape_len` is now fully proved: strengthening `ThieleUniversal.inv_core` with an explicit tape-length equality closes the upper-bound inequality so the CPU tape window matches the abstract tape exactly.【495e62†L1-L20】
 - The new lemma `utm_no_rule_preserves_mem` chains the general memory-equality facts for each FindRule micro-step, so the 10-instruction sweep is now known to leave the entire RAM image unchanged, not just its length.  This, together with the tape-length lemma, ensures the `inv_core` tape-window obligations can be re-established for the post-state once the guard proof lands.
 - The helper `inv_core_cpu_state_to_tm_config_eq` shows that `ThieleUniversal.inv_core` already carries enough information to recover the TM configuration once the tape lengths match.  Combining it with `utm_no_rule_preserves_inv_core` and `utm_no_rule_preserves_tape_len` discharges `utm_no_rule_preserves_cpu_config`, so the no-rule backlog inside `Simulation.v` is now empty; the extensive catalogue of FindRule step lemmas recorded below remains as documentation of the fully verified trace.
@@ -28,6 +86,24 @@ Debug isolates
 Roadmap scaffolding
 -------------------
 - `ThieleMap.v` now packages the finished roadmap wrapper: `thiele_simulates_by_tm` existentially quantifies the universal program, proves it blind, and reuses `thiele_step_n_utm_simulates` to recover prefix-by-prefix equality with the Turing semantics.  With this lemma discharged the roadmap file rejoins the core build and no longer contributes to the admit count.
+
+Conditional sections / oracles
+------------------------------
+- `thielemachine/coqproofs/HyperThiele_Halting.v` remains outside the `_CoqProject`
+  tree behind the optional `make -C coq oracle` target.  The new helpers
+  `halting_solver_prog`/`halting_solver_trace` and the theorem
+  `hyper_thiele_decides_halting_trace` strengthen the oracle hypothesis by tying
+  the abstract supertask solver to an explicit compiled Thiele program and its
+  observable instruction stream.  Downstream experiments that rely on the
+  oracle can therefore cite a concrete program/trace pair instead of the
+  high-level `run_program` model when instantiating the `H_correct` assumption.
+  Building on that, the helpers
+  `halting_solver_t1_state`/`halting_solver_canonical_actions` and the lemma
+  `halting_solver_canonical_receipt_witness` now connect those compiled
+  witnesses to the `T_1` oracle scaffolding inside `Oracle.v`: every halting
+  solver instance admits a canonical charge-only ledger trace whose emitted
+  receipt is immediately backed by a `T1_ReceiptWitness`, keeping the optional
+  oracle section consistent with the audited Thiele execution semantics.
 
 Summary
 -------

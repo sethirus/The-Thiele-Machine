@@ -1,8 +1,8 @@
 From Coq Require Import List Arith Bool Nat.
 Import ListNotations.
 
-From ThieleMachine Require Import HyperThiele_Oracle.
-Import HyperThieleOracleMinimal.
+From ThieleMachine Require Import HyperThiele_Oracle ThieleMachine Oracle PartitionLogic.
+Import HyperThieleOracleMinimal ThieleMachine.ThieleMachine.
 
 Module HyperThiele_Halting.
 
@@ -48,14 +48,38 @@ Module HyperThiele_Halting.
     Definition halting_solver_trace (e : nat) : list bool :=
       map obs_to_bool (map obs_of_instr (code (halting_solver_prog e))).
 
+    Definition halting_solver_t1_state (e : nat) (partition : Partition) : T1_State :=
+      t1_bootstrap_state (halting_solver_prog e) partition.
+
+    Definition halting_solver_canonical_actions (e : nat) (partition : Partition)
+      : list T1_Action :=
+      t1_closed_trace_mu_actions (halting_solver_t1_state e partition).
+
+    Definition halting_solver_canonical_receipt (e : nat) (partition : Partition)
+      : T1_Receipt :=
+      t1_trace_receipt (halting_solver_t1_state e partition)
+                       (halting_solver_canonical_actions e partition).
+
+    Lemma halting_solver_canonical_receipt_witness :
+      forall e partition,
+        T1_ReceiptWitness (halting_solver_canonical_receipt e partition).
+    Proof.
+      intros e partition.
+      unfold halting_solver_canonical_receipt,
+             halting_solver_canonical_actions,
+             halting_solver_t1_state.
+      apply t1_trace_receipt_closed_witness_canonical.
+    Qed.
+
     Theorem hyper_thiele_decides_halting_trace :
       forall e, halting_solver_trace e = [true] <-> Halts e.
-    Proof.
-      intro e.
-      unfold halting_solver_trace, halting_solver_prog.
-      rewrite <- compile_preserves_oracle_outputs.
-      apply hyper_thiele_decides_halting_bool.
-    Qed.
+      Proof.
+        intro e.
+        unfold halting_solver_trace, halting_solver_prog.
+        cbn [HyperThieleOracleMinimal.compile code].
+        rewrite <- compile_preserves_oracle_outputs.
+        apply hyper_thiele_decides_halting_bool.
+      Qed.
 
     Corollary hyper_thiele_compiled_solver_sound :
       forall e, halting_solver_trace e = [true] -> Halts e.

@@ -31,12 +31,15 @@ CORE_VO := \
   thielemachine/coqproofs/ListHelpers.vo \
   thielemachine/coqproofs/NUSD.vo \
   thielemachine/coqproofs/PartitionLogic.vo \
+  thielemachine/coqproofs/Oracle.vo \
   thielemachine/coqproofs/QHelpers.vo \
   thielemachine/coqproofs/Separation.vo \
   thielemachine/coqproofs/SpecSound.vo \
   thielemachine/coqproofs/StructuredInstances.vo \
   thielemachine/coqproofs/HardwareBridge.vo \
   thielemachine/coqproofs/ThieleProc.vo \
+  thielemachine/coqproofs/HyperThiele_Oracle.vo \
+  thielemachine/coqproofs/HyperThiele_Halting.vo \
   thielemachine/coqproofs/ThieleMachine.vo \
   thielemachine/coqproofs/ThieleMachineConcrete.vo \
   thielemachine/coqproofs/ThieleMachineConcretePack.vo \
@@ -59,6 +62,7 @@ OPTIONAL_VO := \
   test_vscoq/coqproofs/test_vscoq.vo
 
 ORACLE_VO := \
+  thielemachine/coqproofs/HyperThiele_Oracle.vo \
   thielemachine/coqproofs/HyperThiele_Halting.vo
 
 .PHONY: core bridge optional oracle
