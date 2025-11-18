@@ -6,7 +6,8 @@ From Coq Require Import Arith Lia.
 
 From ThieleUniversal Require Import TM.
 From ThieleMachine Require Import ThieleMachine.
-From ThieleMachine Require Import Simulation Separation.
+From ThieleMachine Require Import Simulation Separation HyperThiele_Halting HyperThiele_Oracle.
+Import HyperThieleOracleMinimal HyperThiele_Halting.
 
 Definition strict_advantage_statement : Prop :=
   exists (N C D : nat), forall n, n >= N ->
@@ -26,3 +27,27 @@ Proof.
     apply turing_contained_in_thiele; assumption.
   - exact thiele_exponential_separation.
 Qed.
+
+Section HyperOracleSubsumption.
+
+  Context (H : Oracle) (Halts : nat -> Prop).
+  Hypothesis H_correct : forall e, H e = true <-> Halts e.
+
+  Definition hyper_thiele_halting_statement : Prop :=
+    forall e, halting_solver_trace H Halts H_correct e = [true] <-> Halts e.
+
+  Theorem thiele_formally_subsumes_turing_with_hyperoracle :
+    (forall tm : TM
+            (Hcat : catalogue_static_check tm = true)
+            (Hfit : rules_fit tm),
+        thiele_simulates_tm tm Hcat Hfit) /\
+    strict_advantage_statement /\
+    hyper_thiele_halting_statement.
+  Proof.
+    destruct thiele_formally_subsumes_turing as [Hsim Hsep].
+    split; [exact Hsim|].
+    split; [exact Hsep|].
+    intros e. apply hyper_thiele_decides_halting_trace.
+  Qed.
+
+End HyperOracleSubsumption.
