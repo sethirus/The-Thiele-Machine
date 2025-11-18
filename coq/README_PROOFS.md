@@ -10,15 +10,45 @@ consult the audit and the updated inventories before claiming a clean build.
 
 **Snapshot:** 34 files across 7 sub-projects (≈10,443 lines of Coq)
 
-- **Compilation:** Core theorems verified with Coq 8.19.2.  Use
-  `./verify_subsumption.sh` from this directory to rebuild the containment and
-  separation pillars from a clean slate.
+- **Compilation:** Core theorems verified with the apt-provided Coq 8.18.0
+  toolchain.  Install it with `sudo apt-get install -y coq coq-theories`
+  (or run `scripts/setup_coq_toolchain.sh` to provision the matching opam
+  switch), then use `./verify_subsumption.sh` from this directory to rebuild
+  the containment and separation pillars from a clean slate.
   - **Admitted statements:** 0 within `_CoqProject` (the archived `thielemachine/coqproofs/debug_no_rule.v` reproduction retains two local admits but is intentionally excluded from the build).【495e62†L1-L20】
   - **Axioms in scope:** 0 – the HyperThiele halting experiment now packages its oracle requirement as a section hypothesis rather than a global axiom.【F:coq/thielemachine/coqproofs/HyperThiele_Halting.v†L1-L35】
 - **Flagship theorem:** `Subsumption.v` combines the blind simulation from
   `Simulation.v` with the Tseitin separation to prove that Turing computation is
   strictly contained in Thiele computation.  The legacy halting-oracle experiment
   remains archived at `archive/coq/Subsumption_Legacy.v` for historical context.
+
+### Reproducing the audited toolchain
+
+1. `sudo apt-get update` to refresh the Ubuntu 24.04 package indices.
+2. `sudo apt-get install -y coq coq-theories` to pull in
+   `coq` 8.18.0+dfsg-1build2, `libcoq-stdlib`, and the matching OCaml 4.14.1
+   runtime used throughout the audit.
+3. Run `coqc -v` and confirm it prints `The Coq Proof Assistant, version 8.18.0`
+   so the apt-managed binaries are on your `$PATH`.
+4. Invoke `make -C coq core -j2` (or `./verify_subsumption.sh`) to rebuild the
+   zero-admit core and verify the ledger/simulation stack before touching any
+   proofs.
+
+### HyperThiele halting-oracle experiments
+
+- The supertask helper in `thielemachine/coqproofs/HyperThiele_Halting.v` is now
+  part of `_CoqProject` and the `make -C coq core` target, so every audit build
+  emits the compiled program/trace witness pair alongside the constructive
+  subsumption stack (`Simulation.v`, `Separation.v`, `Subsumption.v`).
+- `make -C coq oracle` still exists as a convenience wrapper around the same
+  `.vo` file; use it when iterating exclusively on the hyper-oracle lemmas to
+  avoid rebuilding the entire core suite.
+- The strengthened helper lemmas expose the compiled Thiele instruction stream
+  that decides the halting predicate under the `H_correct` hypothesis.  The
+  flagship subsumption file now re-exports this fact via
+  `thiele_formally_subsumes_turing_with_hyperoracle`, so downstream projects can
+  cite a single theorem covering containment, separation, and the explicit
+  halting trace witness.
 
 ---
 

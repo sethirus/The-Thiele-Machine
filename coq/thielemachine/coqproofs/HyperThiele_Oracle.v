@@ -7,6 +7,7 @@ Import ListNotations.
    certificates, and a correctness lemma linking high-level
    oracle outputs to `obs_of_instr` on the compiled code. *)
 From ThieleMachine Require Import ThieleMachine.
+Import ThieleMachine.ThieleMachine.
 
 Module HyperThieleOracleMinimal.
 
