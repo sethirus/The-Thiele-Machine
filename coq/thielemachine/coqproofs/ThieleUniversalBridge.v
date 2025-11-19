@@ -1302,24 +1302,34 @@ Proof.
   (* Program counter evolution. *)
   assert (Hpc1 : CPU.read_reg CPU.REG_PC cpu1 = 5) by
     (unfold cpu1; destruct (step_LoadIndirect cpu CPU.REG_Q' CPU.REG_ADDR ltac:(cbv; discriminate) ltac:(cbv; lia) Hlen) as [Hpc1 _]; rewrite Hpc in Hpc1; exact Hpc1).
-  assert (Hlen1: length cpu1.(CPU.regs) = 10) by
-    (unfold cpu1, CPU.step; simpl; repeat (try rewrite length_write_reg; [|rewrite Hlen; cbv; lia]); exact Hlen).
+  assert (Hlen1: length cpu1.(CPU.regs) = 10).
+  { unfold cpu1, CPU.step. simpl.
+    repeat (try rewrite length_write_reg; [|rewrite Hlen; cbv; lia]).
+    exact Hlen. }
   assert (Hpc2 : CPU.read_reg CPU.REG_PC cpu2 = 6) by
     (unfold cpu2; destruct (step_CopyReg cpu1 CPU.REG_TEMP1 CPU.REG_Q ltac:(cbv; discriminate) ltac:(cbv; lia) Hlen1) as [Hpc2 _]; rewrite Hpc1 in Hpc2; exact Hpc2).
-  assert (Hlen2: length cpu2.(CPU.regs) = 10) by
-    (unfold cpu2, CPU.step; simpl; repeat (try rewrite length_write_reg; [|rewrite Hlen1; cbv; lia]); exact Hlen1).
+  assert (Hlen2: length cpu2.(CPU.regs) = 10).
+  { unfold cpu2, CPU.step. simpl.
+    repeat (try rewrite length_write_reg; [|rewrite Hlen1; cbv; lia]).
+    exact Hlen1. }
   assert (Hpc3' : CPU.read_reg CPU.REG_PC cpu3 = 7) by
     (unfold cpu3; destruct (step_SubReg cpu2 CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q' ltac:(cbv; discriminate) ltac:(cbv; lia) Hlen2) as [Hpc3' _]; rewrite Hpc2 in Hpc3'; exact Hpc3').
-  assert (Hlen3: length cpu3.(CPU.regs) = 10) by
-    (unfold cpu3, CPU.step; simpl; repeat (try rewrite length_write_reg; [|rewrite Hlen2; cbv; lia]); exact Hlen2).
+  assert (Hlen3: length cpu3.(CPU.regs) = 10).
+  { unfold cpu3, CPU.step. simpl.
+    repeat (try rewrite length_write_reg; [|rewrite Hlen2; cbv; lia]).
+    exact Hlen2. }
   assert (Hpc4' : CPU.read_reg CPU.REG_PC cpu4 = 8) by
     (unfold cpu4; destruct (step_BranchZero_not_taken cpu3 CPU.REG_TEMP1 12 Htemp_nonzero Hlen3) as Hpc4'; rewrite Hpc3' in Hpc4'; exact Hpc4').
-  assert (Hlen4: length cpu4.(CPU.regs) = 10) by
-    (unfold cpu4, CPU.step; simpl; rewrite length_write_reg by (rewrite Hlen3; cbv; lia); exact Hlen3).
+  assert (Hlen4: length cpu4.(CPU.regs) = 10).
+  { unfold cpu4, CPU.step. simpl.
+    rewrite length_write_reg by (rewrite Hlen3; cbv; lia).
+    exact Hlen3. }
   assert (Hpc5' : CPU.read_reg CPU.REG_PC cpu5 = 9) by
     (unfold cpu5; destruct (step_AddConst cpu4 CPU.REG_ADDR RULE_SIZE ltac:(cbv; discriminate) ltac:(cbv; lia) Hlen4) as [Hpc5' _]; rewrite Hpc4' in Hpc5'; exact Hpc5').
-  assert (Hlen5: length cpu5.(CPU.regs) = 10) by
-    (unfold cpu5, CPU.step; simpl; repeat (try rewrite length_write_reg; [|rewrite Hlen4; cbv; lia]); exact Hlen4).
+  assert (Hlen5: length cpu5.(CPU.regs) = 10).
+  { unfold cpu5, CPU.step. simpl.
+    repeat (try rewrite length_write_reg; [|rewrite Hlen4; cbv; lia]).
+    exact Hlen4. }
   assert (Hpc6 : CPU.read_reg CPU.REG_PC cpu6 = 4) by
     (unfold cpu6; destruct (step_JumpNonZero_taken cpu5 CPU.REG_TEMP1 4 Htemp_nonzero Hlen5) as Hpc6; exact Hpc6).
 
@@ -1348,7 +1358,7 @@ Proof.
     cbv [CPU.REG_Q CPU.REG_PC]; lia.
   }
   assert (Hq5 : CPU.read_reg CPU.REG_Q cpu5 = q).
-  { subst cpu5. destruct (step_AddConst _ _ _ _ _ Hlen) as [_ Hadd].
+  { subst cpu5. destruct (step_AddConst cpu4 CPU.REG_ADDR RULE_SIZE ltac:(cbv; discriminate) ltac:(cbv; lia) Hlen4) as [_ Hadd].
     unfold CPU.step.
     rewrite Hpc4'. simpl.
     unfold CPU.write_reg. simpl.
@@ -1391,7 +1401,7 @@ Proof.
     cbv [CPU.REG_SYM CPU.REG_PC]; lia.
   }
   assert (Hsym5 : CPU.read_reg CPU.REG_SYM cpu5 = sym).
-  { subst cpu5. destruct (step_AddConst _ _ _ _ _ Hlen) as [_ Hadd].
+  { subst cpu5. destruct (step_AddConst cpu4 CPU.REG_ADDR RULE_SIZE ltac:(cbv; discriminate) ltac:(cbv; lia) Hlen4) as [_ Hadd].
     unfold CPU.step.
     rewrite Hpc4'. simpl.
     unfold CPU.write_reg. simpl.
@@ -1411,7 +1421,7 @@ Proof.
 
   (* Address update. *)
   assert (Haddr5 : CPU.read_reg CPU.REG_ADDR cpu5 = CPU.read_reg CPU.REG_ADDR cpu4 + RULE_SIZE).
-  { subst cpu5. destruct (step_AddConst _ _ _ _ _ Hlen) as [_ Hadd]. exact Hadd. }
+  { subst cpu5. destruct (step_AddConst cpu4 CPU.REG_ADDR RULE_SIZE ltac:(cbv; discriminate) ltac:(cbv; lia) Hlen4) as [_ Hadd]. exact Hadd. }
   assert (Haddr6 : CPU.read_reg CPU.REG_ADDR cpu6 = CPU.read_reg CPU.REG_ADDR cpu5).
   { subst cpu6. unfold CPU.step.
     rewrite Hpc5'. simpl.
@@ -1552,16 +1562,22 @@ Proof.
 
   (* Program counter: branch taken to PC=12. *)
   assert (Hpc1 : CPU.read_reg CPU.REG_PC cpu1 = 5).
-  { subst cpu1. destruct (step_LoadIndirect _ _ _ _ _ Hlen_regs) as [Hpc1 _].
-    simpl in Hpc1. lia. }
+  { unfold cpu1. destruct (step_LoadIndirect cpu CPU.REG_Q' CPU.REG_ADDR ltac:(cbv; discriminate) ltac:(cbv; lia) Hlen_regs) as [Hpc1 _].
+    rewrite Hpc4 in Hpc1. exact Hpc1. }
+  assert (Hlen1: length cpu1.(CPU.regs) = 10).
+  { unfold cpu1, CPU.step. simpl. repeat (try rewrite length_write_reg; [|rewrite Hlen_regs; cbv; lia]). exact Hlen_regs. }
   assert (Hpc2 : CPU.read_reg CPU.REG_PC cpu2 = 6).
-  { subst cpu2. destruct (step_CopyReg _ _ _ _ _ Hlen_regs) as [Hpc2 _].
-    simpl in Hpc2. lia. }
+  { unfold cpu2. destruct (step_CopyReg cpu1 CPU.REG_TEMP1 CPU.REG_Q ltac:(cbv; discriminate) ltac:(cbv; lia) Hlen1) as [Hpc2 _].
+    rewrite Hpc1 in Hpc2. exact Hpc2. }
+  assert (Hlen2: length cpu2.(CPU.regs) = 10).
+  { unfold cpu2, CPU.step. simpl. repeat (try rewrite length_write_reg; [|rewrite Hlen1; cbv; lia]). exact Hlen1. }
   assert (Hpc3' : CPU.read_reg CPU.REG_PC cpu3 = 7).
-  { subst cpu3. destruct (step_SubReg _ _ _ _ _ _ Hlen_regs) as [Hpc3' _].
-    simpl in Hpc3'. lia. }
+  { unfold cpu3. destruct (step_SubReg cpu2 CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q' ltac:(cbv; discriminate) ltac:(cbv; lia) Hlen2) as [Hpc3' _].
+    rewrite Hpc2 in Hpc3'. exact Hpc3'. }
+  assert (Hlen3: length cpu3.(CPU.regs) = 10).
+  { unfold cpu3, CPU.step. simpl. repeat (try rewrite length_write_reg; [|rewrite Hlen2; cbv; lia]). exact Hlen2. }
   assert (Hpc4' : CPU.read_reg CPU.REG_PC cpu4 = 12).
-  { subst cpu4. destruct (step_BranchZero_taken _ _ _ Htemp_zero Hlen_regs) as Hpc4'.
+  { unfold cpu4. destruct (step_BranchZero_taken cpu3 CPU.REG_TEMP1 12 Htemp_zero Hlen3) as Hpc4'.
     exact Hpc4'. }
 
   split; [exact Hpc4'|].
