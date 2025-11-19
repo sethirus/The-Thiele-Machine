@@ -1381,23 +1381,37 @@ Proof.
         cbv [CPU.REG_TEMP1 CPU.REG_PC]. discriminate. }
     (* Prove TEMP1 is preserved from cpu4 to cpu5 *)
     assert (Htemp_cpu5: CPU.read_reg CPU.REG_TEMP1 cpu5 = CPU.read_reg CPU.REG_TEMP1 cpu4).
-    { unfold cpu5. unfold CPU.step. simpl.
-      (* The goal is: read_reg TEMP1 (write_reg ADDR val (write_reg PC val2 cpu4)) = read_reg TEMP1 cpu4 *)
-      (* First prove TEMP1 preserved across ADDR write *)
-      assert (H1: CPU.read_reg CPU.REG_TEMP1 (CPU.write_reg CPU.REG_ADDR (CPU.read_reg CPU.REG_ADDR cpu4 + RULE_SIZE) (CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu4)) cpu4)) =
-                  CPU.read_reg CPU.REG_TEMP1 (CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu4)) cpu4)).
-      { apply (read_reg_write_reg_diff CPU.REG_TEMP1 CPU.REG_ADDR).
-        - cbv [CPU.REG_TEMP1 CPU.REG_ADDR]. discriminate.
-        - unfold CPU.write_reg. simpl. rewrite app_length, firstn_length.
-          rewrite Hlen4. cbv [CPU.REG_TEMP1 CPU.REG_PC]. simpl. lia.
-        - unfold CPU.write_reg. simpl. rewrite app_length, firstn_length.
-          rewrite Hlen4. cbv [CPU.REG_ADDR CPU.REG_PC]. simpl. lia. }
-      rewrite H1.
-      (* Then prove TEMP1 preserved across PC write *)
-      apply (read_reg_write_reg_diff CPU.REG_TEMP1 CPU.REG_PC).
-      - cbv [CPU.REG_TEMP1 CPU.REG_PC]. discriminate.
-      - rewrite Hlen4. cbv [CPU.REG_TEMP1]. lia.
-      - rewrite Hlen4. cbv [CPU.REG_PC]. lia. }
+    { unfold cpu5, CPU.step.
+      (* The goal is now about a match on (AddConst ADDR RULE_SIZE) *)
+      (* After the match, we get: write_reg ADDR (read_reg ADDR cpu4 + RULE_SIZE) (write_reg PC ... cpu4) *)
+      (* Use transitivity to break this into two steps *)
+      change (CPU.read_reg CPU.REG_TEMP1
+               match CPU.AddConst CPU.REG_ADDR RULE_SIZE with
+               | CPU.LoadConst rd v => CPU.write_reg rd v (CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu4)) cpu4)
+               | CPU.LoadIndirect rd ra => CPU.write_reg rd (CPU.read_mem (CPU.read_reg ra cpu4) cpu4) (CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu4)) cpu4)
+               | CPU.CopyReg rd rs => CPU.write_reg rd (CPU.read_reg rs cpu4) (CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu4)) cpu4)
+               | CPU.AddReg rd rs1 rs2 => CPU.write_reg rd (CPU.read_reg rs1 cpu4 + CPU.read_reg rs2 cpu4) (CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu4)) cpu4)
+               | CPU.SubReg rd rs1 rs2 => CPU.write_reg rd (CPU.read_reg rs1 cpu4 - CPU.read_reg rs2 cpu4) (CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu4)) cpu4)
+               | CPU.AddConst rd v => CPU.write_reg rd (CPU.read_reg rd cpu4 + v) (CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu4)) cpu4)
+               | _ => CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu4)) cpu4
+               end =
+              CPU.read_reg CPU.REG_TEMP1 cpu4).
+      simpl.
+      (* Now the goal should be simpler *)
+      transitivity (CPU.read_reg CPU.REG_TEMP1 (CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu4)) cpu4)).
+      - apply (read_reg_write_reg_diff CPU.REG_TEMP1 CPU.REG_ADDR).
+        + cbv [CPU.REG_TEMP1 CPU.REG_ADDR]. discriminate.
+        + pose proof (length_write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu4)) cpu4) as Hlen_pc.
+          assert (Hlt_pc: CPU.REG_PC < length cpu4.(CPU.regs)) by (rewrite Hlen4; cbv; lia).
+          specialize (Hlen_pc Hlt_pc). rewrite Hlen_pc. rewrite Hlen4. cbv [CPU.REG_TEMP1]. lia.
+        + pose proof (length_write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu4)) cpu4) as Hlen_pc.
+          assert (Hlt_pc: CPU.REG_PC < length cpu4.(CPU.regs)) by (rewrite Hlen4; cbv; lia).
+          specialize (Hlen_pc Hlt_pc). rewrite Hlen_pc. rewrite Hlen4. cbv [CPU.REG_ADDR]. lia.
+      - (* Then prove TEMP1 preserved across PC write *)
+        apply (read_reg_write_reg_diff CPU.REG_TEMP1 CPU.REG_PC).
+        + cbv [CPU.REG_TEMP1 CPU.REG_PC]. discriminate.
+        + rewrite Hlen4. cbv [CPU.REG_TEMP1]. lia.
+        + rewrite Hlen4. cbv [CPU.REG_PC]. lia. }
     assert (Htemp_cpu5_ne0: CPU.read_reg CPU.REG_TEMP1 cpu5 <> 0).
     { rewrite Htemp_cpu5, Htemp_cpu4. exact Htemp_cpu3. }
     pose proof (step_JumpNonZero_taken cpu5 CPU.REG_TEMP1 4 Htemp_cpu5_ne0 Hlen5) as Hpc6.
@@ -1405,20 +1419,47 @@ Proof.
 
   (* q register preservation. *)
   assert (Hq1 : CPU.read_reg CPU.REG_Q cpu1 = q).
-  { subst cpu1. apply read_reg_write_reg_diff with (st := cpu) (r2 := CPU.REG_Q') (v := _);
-      try lia; try assumption.
-    cbv [CPU.REG_Q CPU.REG_Q']; lia.
-  }
+  { unfold cpu1, CPU.step. simpl.
+    set (st_pc := CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu)) cpu).
+    transitivity (CPU.read_reg CPU.REG_Q st_pc).
+    - apply (read_reg_write_reg_diff CPU.REG_Q CPU.REG_Q' (CPU.read_mem (CPU.read_reg CPU.REG_ADDR cpu) cpu) st_pc).
+      + cbv [CPU.REG_Q CPU.REG_Q']. discriminate.
+      + subst st_pc. rewrite length_write_reg by (rewrite Hlen; cbv; lia). rewrite Hlen. cbv [CPU.REG_Q]. lia.
+      + subst st_pc. rewrite length_write_reg by (rewrite Hlen; cbv; lia). rewrite Hlen. cbv [CPU.REG_Q']. lia.
+    - transitivity (CPU.read_reg CPU.REG_Q cpu).
+      + subst st_pc. apply (read_reg_write_reg_diff CPU.REG_Q CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu)) cpu).
+        * cbv [CPU.REG_Q CPU.REG_PC]. discriminate.
+        * rewrite Hlen. cbv [CPU.REG_Q]. lia.
+        * rewrite Hlen. cbv [CPU.REG_PC]. lia.
+      + exact Hq. }
   assert (Hq2 : CPU.read_reg CPU.REG_Q cpu2 = q).
-  { subst cpu2. apply read_reg_write_reg_diff with (st := cpu1) (r2 := CPU.REG_TEMP1) (v := _);
-      try lia; try assumption.
-    cbv [CPU.REG_Q CPU.REG_TEMP1]; lia.
-  }
+  { unfold cpu2, CPU.step. simpl.
+    set (st_pc := CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu1)) cpu1).
+    transitivity (CPU.read_reg CPU.REG_Q st_pc).
+    - apply (read_reg_write_reg_diff CPU.REG_Q CPU.REG_TEMP1 (CPU.read_reg CPU.REG_Q cpu1) st_pc).
+      + cbv [CPU.REG_Q CPU.REG_TEMP1]. discriminate.
+      + subst st_pc. rewrite length_write_reg by (rewrite Hlen1; cbv; lia). rewrite Hlen1. cbv [CPU.REG_Q]. lia.
+      + subst st_pc. rewrite length_write_reg by (rewrite Hlen1; cbv; lia). rewrite Hlen1. cbv [CPU.REG_TEMP1]. lia.
+    - transitivity (CPU.read_reg CPU.REG_Q cpu1).
+      + subst st_pc. apply (read_reg_write_reg_diff CPU.REG_Q CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu1)) cpu1).
+        * cbv [CPU.REG_Q CPU.REG_PC]. discriminate.
+        * rewrite Hlen1. cbv [CPU.REG_Q]. lia.
+        * rewrite Hlen1. cbv [CPU.REG_PC]. lia.
+      + exact Hq1. }
   assert (Hq3 : CPU.read_reg CPU.REG_Q cpu3 = q).
-  { subst cpu3. apply read_reg_write_reg_diff with (st := cpu2) (r2 := CPU.REG_TEMP1) (v := _);
-      try lia; try assumption.
-    cbv [CPU.REG_Q CPU.REG_TEMP1]; lia.
-  }
+  { unfold cpu3, CPU.step. simpl.
+    set (st_pc := CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu2)) cpu2).
+    transitivity (CPU.read_reg CPU.REG_Q st_pc).
+    - apply (read_reg_write_reg_diff CPU.REG_Q CPU.REG_TEMP1 (CPU.read_reg CPU.REG_TEMP1 cpu2 - CPU.read_reg CPU.REG_Q' cpu2) st_pc).
+      + cbv [CPU.REG_Q CPU.REG_TEMP1]. discriminate.
+      + subst st_pc. rewrite length_write_reg by (rewrite Hlen2; cbv; lia). rewrite Hlen2. cbv [CPU.REG_Q]. lia.
+      + subst st_pc. rewrite length_write_reg by (rewrite Hlen2; cbv; lia). rewrite Hlen2. cbv [CPU.REG_TEMP1]. lia.
+    - transitivity (CPU.read_reg CPU.REG_Q cpu2).
+      + subst st_pc. apply (read_reg_write_reg_diff CPU.REG_Q CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu2)) cpu2).
+        * cbv [CPU.REG_Q CPU.REG_PC]. discriminate.
+        * rewrite Hlen2. cbv [CPU.REG_Q]. lia.
+        * rewrite Hlen2. cbv [CPU.REG_PC]. lia.
+      + exact Hq2. }
   assert (Hq4 : CPU.read_reg CPU.REG_Q cpu4 = q).
   { subst cpu4. unfold CPU.step.
     rewrite Hpc3'. simpl.
