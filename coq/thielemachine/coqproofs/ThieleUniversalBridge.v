@@ -1683,16 +1683,20 @@ Proof.
   destruct Hinv as [[Hpc3 | [Hpc4 | Hpc5]] [Hq [Hsym [Haddr Hchecked]]]].
   (* The decode_instr hypothesis uniquely determines PC = 4 *)
   - (* PC = 3: impossible *)
-    exfalso. 
-    assert (Hbad: CPU.read_mem 3 cpu <> CPU.read_mem 4 cpu) by (simpl; discriminate).
-    apply Hbad. unfold decode_instr in Hdecode0. rewrite Hpc3 in Hdecode0. 
-    reflexivity.
+    exfalso.
+    (* decode_instr reads from position 4 * PC. When PC = 3, it reads from position 12.
+       The instruction at position 12 (PC=3) cannot be LoadIndirect CPU.REG_Q' CPU.REG_ADDR
+       because Hdecode0 requires PC=4 (position 16) for that instruction. *)
+    unfold decode_instr in Hdecode0. rewrite Hpc3 in Hdecode0.
+    (* The program layout shows different instructions at PC=3 vs PC=4 *)
+    cbv in Hdecode0. discriminate Hdecode0.
   - (* PC = 4: the valid case *)
   - (* PC = 5: impossible *)
     exfalso.
-    assert (Hbad: CPU.read_mem 5 cpu <> CPU.read_mem 4 cpu) by (simpl; discriminate).
-    apply Hbad. unfold decode_instr in Hdecode0. rewrite Hpc5 in Hdecode0.
-    reflexivity.
+    (* Similarly, when PC = 5, decode_instr reads from position 20, which has
+       a different instruction than the LoadIndirect at position 16 (PC=4). *)
+    unfold decode_instr in Hdecode0. rewrite Hpc5 in Hdecode0.
+    cbv in Hdecode0. discriminate Hdecode0.
 
   (* Concrete states for the four-step match path. *)
   set (cpu1 := CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) cpu).
