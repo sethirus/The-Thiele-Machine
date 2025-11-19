@@ -1304,8 +1304,9 @@ Proof.
     (unfold cpu1; destruct (step_LoadIndirect cpu CPU.REG_Q' CPU.REG_ADDR ltac:(cbv; discriminate) ltac:(cbv; lia) Hlen) as [Hpc1 _]; rewrite Hpc in Hpc1; exact Hpc1).
   assert (Hlen1: length cpu1.(CPU.regs) = 10).
   { unfold cpu1, CPU.step. simpl.
-    repeat (try rewrite length_write_reg; [|rewrite Hlen; cbv; lia]).
-    exact Hlen. }
+    apply eq_trans with (length (write_reg REG_PC (S (read_reg REG_PC cpu)) cpu).(regs)).
+    - apply length_write_reg. rewrite Hlen. cbv [CPU.REG_Q']. lia.
+    - apply length_write_reg. rewrite Hlen. cbv [CPU.REG_PC]. lia. }
   assert (Hpc2 : CPU.read_reg CPU.REG_PC cpu2 = 6) by
     (unfold cpu2; destruct (step_CopyReg cpu1 CPU.REG_TEMP1 CPU.REG_Q ltac:(cbv; discriminate) ltac:(cbv; lia) Hlen1) as [Hpc2 _]; rewrite Hpc1 in Hpc2; exact Hpc2).
   assert (Hlen2: length cpu2.(CPU.regs) = 10).
