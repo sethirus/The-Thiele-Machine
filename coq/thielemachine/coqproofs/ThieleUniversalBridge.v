@@ -1619,7 +1619,9 @@ Proof.
   assert (Haddr_final : CPU.read_reg CPU.REG_ADDR cpu6 = RULES_START_ADDR + S i * RULE_SIZE).
   { rewrite Haddr6, Haddr5, Haddr4_val, Haddr3_val, Haddr2_val, Haddr1_val.
     rewrite Haddr.
-    rewrite Nat.mul_succ_l. lia.
+    unfold RULE_SIZE.
+    replace (S i * 5) with (i * 5 + 5) by lia.
+    reflexivity.
   }
 
   assert (Hchecked' : forall j,
@@ -1629,10 +1631,9 @@ Proof.
               <> (q, nth head tape (tm_blank tm))).
   {
     intros j Hj.
-    apply lt_n_Sm_le in Hj.
-    destruct (Nat.lt_lt_succ_r _ _ Hj) as [Hlt | Heq].
+    destruct (Nat.lt_ge_cases j i) as [Hlt | Hge].
     - apply Hchecked. exact Hlt.
-    - subst j. exact rule_mismatch.
+    - assert (Heq: j = i) by lia. subst j. exact rule_mismatch.
   }
 
   split.
