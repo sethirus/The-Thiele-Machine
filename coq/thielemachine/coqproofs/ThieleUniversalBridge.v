@@ -1247,29 +1247,46 @@ Proof.
     rewrite Hdecode0.
     reflexivity. }
   assert (Hrun2 : run1 cpu1 = cpu2).
-  { unfold cpu2, run1. subst cpu1. simpl.
-    rewrite (proj1 (step_LoadIndirect _ _ _ _ _ _ Hlen)).
-    rewrite Hdecode1. reflexivity.
+  { rewrite run1_decode.
+    assert (Heq: decode_instr cpu1 = decode_instr (run1 cpu)).
+    { rewrite <- Hrun1. reflexivity. }
+    rewrite Heq, Hdecode1. unfold cpu2. reflexivity.
   }
   assert (Hrun3 : run1 cpu2 = cpu3).
-  { unfold cpu3, run1. subst cpu2. simpl.
-    rewrite (proj1 (step_CopyReg _ _ _ _ _ _ Hlen)).
-    rewrite Hdecode2. reflexivity.
+  { unfold cpu3.
+    rewrite run1_decode.
+    f_equal.
+    assert (Heq_n2: run_n cpu 2 = cpu2).
+    { simpl. rewrite Hrun1, Hrun2. reflexivity. }
+    rewrite <- Heq_n2.
+    exact Hdecode2.
   }
   assert (Hrun4 : run1 cpu3 = cpu4).
-  { unfold cpu4, run1. subst cpu3. simpl.
-    rewrite (proj1 (step_SubReg _ _ _ _ _ _ Hlen)).
-    rewrite Hdecode3. reflexivity.
+  { unfold cpu4.
+    rewrite run1_decode.
+    f_equal.
+    assert (Heq_n3: run_n cpu 3 = cpu3).
+    { simpl. rewrite Hrun1, Hrun2, Hrun3. reflexivity. }
+    rewrite <- Heq_n3.
+    exact Hdecode3.
   }
   assert (Hrun5 : run1 cpu4 = cpu5).
-  { unfold cpu5, run1. subst cpu4. simpl.
-    destruct (step_BranchZero_not_taken _ _ _ Htemp_nonzero Hlen) as Hpc_step.
-    rewrite Hpc_step, Hdecode4. reflexivity.
+  { unfold cpu5.
+    rewrite run1_decode.
+    f_equal.
+    assert (Heq_n4: run_n cpu 4 = cpu4).
+    { simpl. rewrite Hrun1, Hrun2, Hrun3, Hrun4. reflexivity. }
+    rewrite <- Heq_n4.
+    exact Hdecode4.
   }
   assert (Hrun6 : run1 cpu5 = cpu6).
-  { unfold cpu6, run1. subst cpu5. simpl.
-    destruct (step_AddConst _ _ _ _ _ _ Hlen) as [Hpc_step Hadd].
-    rewrite Hpc_step, Hdecode5. reflexivity.
+  { unfold cpu6.
+    rewrite run1_decode.
+    f_equal.
+    assert (Heq_n5: run_n cpu 5 = cpu5).
+    { simpl. rewrite Hrun1, Hrun2, Hrun3, Hrun4, Hrun5. reflexivity. }
+    rewrite <- Heq_n5.
+    exact Hdecode5.
   }
 
   simpl.
@@ -1284,15 +1301,15 @@ Proof.
 
   (* Program counter evolution. *)
   assert (Hpc1 : CPU.read_reg CPU.REG_PC cpu1 = 5).
-  { subst cpu1. destruct (step_LoadIndirect _ _ _ _ _ _ Hlen) as [Hpc1 _]. simpl in Hpc1. lia. }
+  { subst cpu1. destruct (step_LoadIndirect _ _ _ _ _ Hlen) as [Hpc1 _]. simpl in Hpc1. lia. }
   assert (Hpc2 : CPU.read_reg CPU.REG_PC cpu2 = 6).
-  { subst cpu2. destruct (step_CopyReg _ _ _ _ _ _ Hlen) as [Hpc2 _]. simpl in Hpc2. lia. }
+  { subst cpu2. destruct (step_CopyReg _ _ _ _ _ Hlen) as [Hpc2 _]. simpl in Hpc2. lia. }
   assert (Hpc3' : CPU.read_reg CPU.REG_PC cpu3 = 7).
   { subst cpu3. destruct (step_SubReg _ _ _ _ _ _ Hlen) as [Hpc3' _]. simpl in Hpc3'. lia. }
   assert (Hpc4' : CPU.read_reg CPU.REG_PC cpu4 = 8).
   { subst cpu4. destruct (step_BranchZero_not_taken _ _ _ Htemp_nonzero Hlen) as Hpc4'. simpl in Hpc4'. lia. }
   assert (Hpc5' : CPU.read_reg CPU.REG_PC cpu5 = 9).
-  { subst cpu5. destruct (step_AddConst _ _ _ _ _ _ Hlen) as [Hpc5' _]. simpl in Hpc5'. lia. }
+  { subst cpu5. destruct (step_AddConst _ _ _ _ _ Hlen) as [Hpc5' _]. simpl in Hpc5'. lia. }
   assert (Hpc6 : CPU.read_reg CPU.REG_PC cpu6 = 4).
   { subst cpu6. destruct (step_JumpNonZero_taken _ _ _ Htemp_nonzero Hlen) as Hpc6. exact Hpc6. }
 
@@ -1321,7 +1338,7 @@ Proof.
     cbv [CPU.REG_Q CPU.REG_PC]; lia.
   }
   assert (Hq5 : CPU.read_reg CPU.REG_Q cpu5 = q).
-  { subst cpu5. destruct (step_AddConst _ _ _ _ _ _ Hlen) as [_ Hadd].
+  { subst cpu5. destruct (step_AddConst _ _ _ _ _ Hlen) as [_ Hadd].
     unfold CPU.step.
     rewrite Hpc4'. simpl.
     unfold CPU.write_reg. simpl.
@@ -1364,7 +1381,7 @@ Proof.
     cbv [CPU.REG_SYM CPU.REG_PC]; lia.
   }
   assert (Hsym5 : CPU.read_reg CPU.REG_SYM cpu5 = sym).
-  { subst cpu5. destruct (step_AddConst _ _ _ _ _ _ Hlen) as [_ Hadd].
+  { subst cpu5. destruct (step_AddConst _ _ _ _ _ Hlen) as [_ Hadd].
     unfold CPU.step.
     rewrite Hpc4'. simpl.
     unfold CPU.write_reg. simpl.
@@ -1384,7 +1401,7 @@ Proof.
 
   (* Address update. *)
   assert (Haddr5 : CPU.read_reg CPU.REG_ADDR cpu5 = CPU.read_reg CPU.REG_ADDR cpu4 + RULE_SIZE).
-  { subst cpu5. destruct (step_AddConst _ _ _ _ _ _ Hlen) as [_ Hadd]. exact Hadd. }
+  { subst cpu5. destruct (step_AddConst _ _ _ _ _ Hlen) as [_ Hadd]. exact Hadd. }
   assert (Haddr6 : CPU.read_reg CPU.REG_ADDR cpu6 = CPU.read_reg CPU.REG_ADDR cpu5).
   { subst cpu6. unfold CPU.step.
     rewrite Hpc5'. simpl.
@@ -1494,17 +1511,26 @@ Proof.
   assert (Hrun1 : run1 cpu = cpu1).
   { unfold cpu1, run1. rewrite Hpc4. simpl. rewrite Hdecode0. reflexivity. }
   assert (Hrun2 : run1 cpu1 = cpu2).
-  { unfold cpu2, run1. subst cpu1. simpl.
-    rewrite (proj1 (step_LoadIndirect _ _ _ _ _ _ Hlen_regs)).
-    rewrite Hdecode1. reflexivity. }
+  { rewrite run1_decode.
+    assert (Heq: decode_instr cpu1 = decode_instr (run1 cpu)).
+    { rewrite <- Hrun1. reflexivity. }
+    rewrite Heq, Hdecode1. unfold cpu2. reflexivity. }
   assert (Hrun3 : run1 cpu2 = cpu3).
-  { unfold cpu3, run1. subst cpu2. simpl.
-    rewrite (proj1 (step_CopyReg _ _ _ _ _ _ Hlen_regs)).
-    rewrite Hdecode2. reflexivity. }
+  { unfold cpu3.
+    rewrite run1_decode.
+    f_equal.
+    assert (Heq_n2: run_n cpu 2 = cpu2).
+    { simpl. rewrite Hrun1, Hrun2. reflexivity. }
+    rewrite <- Heq_n2.
+    exact Hdecode2. }
   assert (Hrun4 : run1 cpu3 = cpu4).
-  { unfold cpu4, run1. subst cpu3. simpl.
-    rewrite (proj1 (step_SubReg _ _ _ _ _ _ Hlen_regs)).
-    rewrite Hdecode3. reflexivity. }
+  { unfold cpu4.
+    rewrite run1_decode.
+    f_equal.
+    assert (Heq_n3: run_n cpu 3 = cpu3).
+    { simpl. rewrite Hrun1, Hrun2, Hrun3. reflexivity. }
+    rewrite <- Heq_n3.
+    exact Hdecode3. }
 
   simpl.
   rewrite Hrun1. simpl.
@@ -1516,10 +1542,10 @@ Proof.
 
   (* Program counter: branch taken to PC=12. *)
   assert (Hpc1 : CPU.read_reg CPU.REG_PC cpu1 = 5).
-  { subst cpu1. destruct (step_LoadIndirect _ _ _ _ _ _ Hlen_regs) as [Hpc1 _].
+  { subst cpu1. destruct (step_LoadIndirect _ _ _ _ _ Hlen_regs) as [Hpc1 _].
     simpl in Hpc1. lia. }
   assert (Hpc2 : CPU.read_reg CPU.REG_PC cpu2 = 6).
-  { subst cpu2. destruct (step_CopyReg _ _ _ _ _ _ Hlen_regs) as [Hpc2 _].
+  { subst cpu2. destruct (step_CopyReg _ _ _ _ _ Hlen_regs) as [Hpc2 _].
     simpl in Hpc2. lia. }
   assert (Hpc3' : CPU.read_reg CPU.REG_PC cpu3 = 7).
   { subst cpu3. destruct (step_SubReg _ _ _ _ _ _ Hlen_regs) as [Hpc3' _].
