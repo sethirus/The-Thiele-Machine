@@ -1681,9 +1681,18 @@ Proof.
   unfold FindRule_Loop_Inv in Hinv.
   simpl in Hinv.
   destruct Hinv as [[Hpc3 | [Hpc4 | Hpc5]] [Hq [Hsym [Haddr Hchecked]]]].
-  - rewrite Hpc3 in Hdecode0. discriminate.
-  - rewrite Hpc4 in Hdecode0.
-  - rewrite Hpc5 in Hdecode0. discriminate.
+  (* The decode_instr hypothesis uniquely determines PC = 4 *)
+  - (* PC = 3: impossible *)
+    exfalso. 
+    assert (Hbad: CPU.read_mem 3 cpu <> CPU.read_mem 4 cpu) by (simpl; discriminate).
+    apply Hbad. unfold decode_instr in Hdecode0. rewrite Hpc3 in Hdecode0. 
+    reflexivity.
+  - (* PC = 4: the valid case *)
+  - (* PC = 5: impossible *)
+    exfalso.
+    assert (Hbad: CPU.read_mem 5 cpu <> CPU.read_mem 4 cpu) by (simpl; discriminate).
+    apply Hbad. unfold decode_instr in Hdecode0. rewrite Hpc5 in Hdecode0.
+    reflexivity.
 
   (* Concrete states for the four-step match path. *)
   set (cpu1 := CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) cpu).
