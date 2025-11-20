@@ -105,7 +105,17 @@ Conditional sections / oracles
   receipt is immediately backed by a `T1_ReceiptWitness`, keeping the optional
   oracle section consistent with the audited Thiele execution semantics.
 
+Bridge quarantine
+-----------------
+- The verification bridge remains isolated from the core build, but the
+  FindRule entry/loop transition lemmas are now fully proved using the new
+  layout lookup and fast small-step tactics; no admits remain in
+  `thielemachine/verification/ThieleUniversalBridge.v`.
+- Timed runs of the bridge continue to time out; `make -C coq bridge-timed
+  BRIDGE_TIMEOUT=30` currently exits after 30s while replaying the archived
+  execution trace.【c42ed6†L1-L7】
+
 Summary
 -------
-Total admitted: 0
+Total admitted: 2 (debug helper `debug_no_rule.v`, excluded from `_CoqProject`)
 Total axioms:  0

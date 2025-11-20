@@ -5,12 +5,12 @@ The November 2025 audit reclassified every Coq subproject into **core**, **bridg
 ## Before you edit
 
 - [ ] Read the current snapshots in `docs/COQ_PROOF_AUDIT.md` and the condensed checklist in `docs/COQ_PROOF_COMPLETION_PLAN.md` so you know which tier the files you plan to touch belong to.【6b8295†L1-L45】【27e479†L5-L26】
-- [ ] Confirm whether your task targets a **core** file (kernel, modular proofs, thielemachine), the failing **bridging** code (`ThieleUniversalBridge.v`, `ThieleUniversal.v`), or an **optional** study (CatNet, universe isomorphism, P=NP sketch, Shor primitives, Project Cerberus, VSCoq smoke test).【6b8295†L15-L45】【27e479†L14-L22】
+- [ ] Confirm whether your task targets a **core** file (kernel, modular proofs, thielemachine), the failing **bridging** code (`verification/ThieleUniversalBridge.v`, `ThieleUniversal.v`), or an **optional** study (CatNet, universe isomorphism, P=NP sketch, Shor primitives, Project Cerberus, VSCoq smoke test).【6b8295†L15-L45】【27e479†L14-L22】
 
 ## Required checks
 
 - For core changes, run `make -C coq core` before committing.
-- When iterating on the bridging proofs, run `make -C coq core` first and then the specific `.vo` targets you touched inside `thielemachine/coqproofs/ThieleUniversalBridge.v` or `thieleuniversal/coqproofs/ThieleUniversal.v` so partial progress is visible despite the known failure.【35dec9†L1-L38】【0249db†L47-L63】
+- When iterating on the bridging proofs, run `make -C coq core` first and then the specific `.vo` targets you touched inside `thielemachine/verification/ThieleUniversalBridge.v` or `thieleuniversal/coqproofs/ThieleUniversal.v` so partial progress is visible despite the known failure.【35dec9†L1-L38】【0249db†L47-L63】 If you need to keep CI logs responsive, prefer `make -C coq bridge-timed BRIDGE_TIMEOUT=900` so long symbolic-execution runs produce a bounded, explicit timeout instead of hanging jobs.
 - Optional studies should use targeted builds (`make -C coq catnet/coqproofs/CatNet.vo`, etc.) so they do not block core CI unless explicitly requested.【6b8295†L33-L45】
 
 ## Reporting obligations
