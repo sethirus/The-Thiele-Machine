@@ -3,7 +3,7 @@
 _Updated after the halting-oracle refactor captured in `docs/COQ_PROOF_AUDIT.md`._
 
 ## Summary
-- **Total Admitted**: 0 (roadmap wrapper proved; debug isolates remain excluded from the core build)
+- **Total Admitted**: 2 (debug-only `debug_no_rule.v`, excluded from the core build)
 - **Total Axioms**: 0 (all oracle hypotheses are now section parameters behind the optional `make oracle` target)
 - **Kernel module admits/axioms**: 0
 
@@ -17,7 +17,9 @@ The kernel proof tree (`coq/kernel/`) continues to build without admits or axiom
 ## Outstanding items
 
 ### Admitted lemmas
-- _None_.  All lemmas in the core tree now have completed proofs.
+- The only remaining admits live in the debugging artefact
+  `coq/thielemachine/coqproofs/debug_no_rule.v`, which is not part of the
+  `_CoqProject` core or bridge builds.
 
 ### Planning stubs
 - _None_.  The roadmap wrapper `thiele_simulates_by_tm` has been proved and the file participates in the standard build.
