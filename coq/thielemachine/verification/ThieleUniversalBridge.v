@@ -20,11 +20,19 @@
 (* sequence and maintaining invariants.                             *)
 (* ================================================================= *)
 
-From Coq Require Import List Arith Lia PeanoNat Bool ZArith.
+From Coq Require Import List Arith Lia PeanoNat Bool ZArith String.
 From ThieleUniversal Require Import TM UTM_Rules CPU UTM_Program UTM_Encode.
 Import ListNotations.
 
 Local Open Scope nat_scope.
+Local Notation length := List.length.
+
+(* Instrumentation helpers to locate long-running proofs during timed bridge
+   builds.  The [Time] vernac modifier is applied to the key loop lemmas, and
+   [bridge_checkpoint] marks entry into their proofs so a timed build can
+   report the last completed milestone before hitting a timeout. *)
+Ltac bridge_checkpoint msg :=
+  let s := eval compute in msg in idtac "[bridge]" s.
 
 (* ----------------------------------------------------------------- *)
 (* Program encoding                                                  *)
@@ -36,19 +44,22 @@ Definition program : list nat :=
 
 (* Compute the concrete program length once so decoding bounds can reuse it
    without re-running a large reduction. *)
-Definition program_len : nat := Eval vm_compute in length program.
+Definition program_len : nat := Eval vm_compute in List.length program.
 
-Lemma program_length_eq : length program = program_len.
+Lemma program_length_eq : List.length program = program_len.
 Proof. reflexivity. Qed.
 
 (* ----------------------------------------------------------------- *)
 (* CPU Execution - from ThieleUniversal_Run1.v                      *)
 (* ----------------------------------------------------------------- *)
 
+(* Decode the instruction at the current program counter. *)
+Definition decode_instr (st : CPU.State) : CPU.Instr :=
+  UTM_Encode.decode_instr_from_mem st.(CPU.mem) (4 * CPU.read_reg CPU.REG_PC st).
+
 (* Single step execution *)
 Definition run1 (s : CPU.State) : CPU.State :=
-  let instr := UTM_Encode.decode_instr_from_mem s.(CPU.mem) (4 * CPU.read_reg CPU.REG_PC s) in
-  CPU.step instr s.
+  CPU.step (decode_instr s) s.
 
 (* Multi-step execution *)
 Fixpoint run_n (s : CPU.State) (n : nat) : CPU.State :=
@@ -347,6 +358,19 @@ Proof.
   apply firstn_all.
 Qed.
 
+(* Padding preserves existing elements below the original length. *)
+Lemma nth_pad_to_lt : forall (l : list nat) n d k,
+  n < length l ->
+  nth n (pad_to k l) d = nth n l d.
+Proof.
+  intros l n d k Hlt.
+  unfold pad_to.
+  apply nth_app_lt; lia.
+Qed.
+
+(* Avoid expanding large padded memories during later proofs. *)
+#[local] Opaque pad_to repeat.
+
 (* Setup initial CPU state from TM configuration *)
 Definition setup_state (tm : TM) (conf : TMConfig) : CPU.State :=
   let '((q, tape), head) := conf in
@@ -379,39 +403,34 @@ Lemma program_memory_lookup : forall tm conf n,
 Proof.
   intros tm conf n Hn.
   destruct conf as ((q, tape), head).
-  unfold setup_state, pad_to; simpl.
+  unfold setup_state; simpl.
   set (rules := UTM_Encode.encode_rules tm.(tm_rules)).
   set (mem0 := pad_to UTM_Program.RULES_START_ADDR program).
   set (mem1 := pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)).
-  assert (Hmem0_ge : length mem0 >= length program).
-  { subst mem0. apply length_pad_to_ge_base. }
-  assert (Hmem1_ge : length mem1 >= length mem0).
-  { subst mem1. rewrite pad_to_expand. rewrite app_length, repeat_length.
-    assert (Hpref : length (mem0 ++ rules) >= length mem0) by (rewrite app_length; lia).
-    assert (Hpad : length (mem0 ++ rules)
-                   + (UTM_Program.TAPE_START_ADDR - length (mem0 ++ rules))
-                   >= length (mem0 ++ rules)) by lia.
-    lia. }
-  assert (Hlen_mem1 : n < length mem1) by lia.
-  remember (mem1 ++ tape) as full_mem.
-  assert (Hnth_mem1 : nth n full_mem 0 = nth n mem1 0).
-  { subst full_mem. apply nth_app_lt; lia. }
-  eapply eq_trans; [exact Hnth_mem1|].
+  assert (Hmem0_len : n < length mem0).
+  { subst mem0. eapply Nat.lt_le_trans; [exact Hn|]. apply length_pad_to_ge_base. }
+  assert (Hmem1_len : n < length mem1).
+  { subst mem1.
+    eapply Nat.lt_le_trans; [| apply length_pad_to_ge_base ].
+    eapply Nat.lt_le_trans; [exact Hmem0_len|].
+    rewrite app_length; lia.
+  }
   subst mem1.
-  rewrite pad_to_expand.
-  assert (Hnth_pad : nth n ((mem0 ++ rules)
-                             ++ repeat 0 (UTM_Program.TAPE_START_ADDR - length (mem0 ++ rules))) 0
-                       = nth n (mem0 ++ rules) 0) by (apply nth_app_lt; lia).
-  eapply eq_trans; [exact Hnth_pad|].
-  assert (Hnth_rules : nth n (mem0 ++ rules) 0 = nth n mem0 0) by (apply nth_app_lt; lia).
-  eapply eq_trans; [exact Hnth_rules|].
+  eapply eq_trans.
+  { apply (@nth_app_lt nat (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)) tape n 0).
+    exact Hmem1_len. }
+  eapply eq_trans.
+  { apply (nth_pad_to_lt (mem0 ++ rules) n 0 UTM_Program.TAPE_START_ADDR).
+    rewrite app_length. lia. }
+  rewrite nth_app_lt by lia.
   subst mem0.
-  rewrite pad_to_expand.
-  assert (Hnth_prog : nth n (program ++ repeat 0 (UTM_Program.RULES_START_ADDR - length program)) 0
-                       = nth n program 0).
-  { apply nth_app_lt. rewrite app_length, repeat_length. lia. }
-  eapply eq_trans; [exact Hnth_prog| reflexivity].
+  rewrite (nth_pad_to_lt program n 0 UTM_Program.RULES_START_ADDR) by exact Hn.
+  reflexivity.
 Qed.
+
+(* If a state already exposes the concrete program prefix, we can reuse that
+   fact to read directly from [program] without re-running the padding
+   expansions.  This lets later steps avoid reopening [setup_state]. *)
 
 Lemma decode_program_at_pc : forall tm conf pc,
   4 * pc + 3 < length program ->
@@ -423,24 +442,6 @@ Proof.
   repeat rewrite program_memory_lookup; try lia.
   reflexivity.
 Qed.
-
-(* Specialised small-stepper for states whose memory prefix is the encoded
-   program.  By rewriting the decoder to the constant [program] list first, we
-   avoid repeatedly traversing the symbolic rules/tape suffix. *)
-Ltac step_fast :=
-  unfold run1, CPU.step;
-  try rewrite decode_program_at_pc by calc_bounds;
-  cbn [CPU.read_reg CPU.mem CPU.regs CPU.cost];
-  simpl.
-
-Ltac step_n n :=
-  lazymatch n with
-  | 0 => cbn [run_n] in *
-  | S ?n' =>
-      cbn [run_n] in *;
-      step_fast;
-      step_n n'
-  end.
 
 (* ----------------------------------------------------------------- *)
 (* Basic lemmas about setup_state                                    *)
@@ -556,82 +557,69 @@ Proof.
     repeat (rewrite nth_skipn || simpl); try lia; reflexivity. }
   split. apply tape_window_ok_setup_state; assumption.
   split.
-  - unfold setup_state.
-    simpl.
+  - unfold setup_state; simpl.
     set (rules := UTM_Encode.encode_rules tm.(tm_rules)).
     set (mem0 := pad_to UTM_Program.RULES_START_ADDR program).
-    assert (Hmem0_len : length mem0 = UTM_Program.RULES_START_ADDR).
-    { subst mem0. apply length_pad_to_ge. exact Hprog. }
+    assert (Hmem0_len : length mem0 = UTM_Program.RULES_START_ADDR)
+      by (subst mem0; apply length_pad_to_ge; exact Hprog).
     assert (Hfit : length (mem0 ++ rules) <= UTM_Program.TAPE_START_ADDR).
     { rewrite app_length, Hmem0_len.
-      assert (Heq: UTM_Program.TAPE_START_ADDR =
-        UTM_Program.RULES_START_ADDR + (UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR)).
-      { unfold UTM_Program.TAPE_START_ADDR, UTM_Program.RULES_START_ADDR. lia. }
-      rewrite Heq.
-      apply Nat.add_le_mono_l. exact Hrules. }
+      assert (Heq : UTM_Program.TAPE_START_ADDR =
+        UTM_Program.RULES_START_ADDR + (UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR))
+        by (unfold UTM_Program.TAPE_START_ADDR, UTM_Program.RULES_START_ADDR; lia).
+      rewrite Heq. apply Nat.add_le_mono_l. exact Hrules. }
     assert (Hmem1_len : length (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules))
-                        = UTM_Program.TAPE_START_ADDR).
-    { apply length_pad_to_ge. exact Hfit. }
+                        = UTM_Program.TAPE_START_ADDR)
+      by (apply length_pad_to_ge; exact Hfit).
     assert (Hprefix :
       firstn (length program)
         ((pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)) ++ tape)
       = firstn (length program)
-          (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules))).
-    { apply firstn_app_le'.
-      rewrite Hmem1_len.
-      apply (Nat.le_trans _ _ _ Hprog).
-      exact UTM_Program.RULES_START_ADDR_le_TAPE_START_ADDR. }
-    eapply eq_trans.
-    2:{ subst mem0. apply (firstn_program_prefix Hprog rules). }
-    exact Hprefix.
-  - unfold setup_state.
-    simpl.
+          (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)))
+      by (apply firstn_app_le'; rewrite Hmem1_len;
+          apply (Nat.le_trans _ _ _ Hprog); exact UTM_Program.RULES_START_ADDR_le_TAPE_START_ADDR).
+    eapply eq_trans; [exact Hprefix|].
+    subst mem0. apply (firstn_program_prefix Hprog rules).
+  - unfold setup_state; simpl.
     set (rules := UTM_Encode.encode_rules tm.(tm_rules)).
     set (mem0 := pad_to UTM_Program.RULES_START_ADDR program).
-    assert (Hmem0_len : length mem0 = UTM_Program.RULES_START_ADDR).
-    { subst mem0. apply length_pad_to_ge. exact Hprog. }
+    assert (Hmem0_len : length mem0 = UTM_Program.RULES_START_ADDR)
+      by (subst mem0; apply length_pad_to_ge; exact Hprog).
     assert (Hfit : length (mem0 ++ rules) <= UTM_Program.TAPE_START_ADDR).
     { rewrite app_length, Hmem0_len.
-      assert (Heq: UTM_Program.TAPE_START_ADDR =
-        UTM_Program.RULES_START_ADDR + (UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR)).
-      { unfold UTM_Program.TAPE_START_ADDR, UTM_Program.RULES_START_ADDR. lia. }
-      rewrite Heq.
-      apply Nat.add_le_mono_l. exact Hrules. }
+      assert (Heq : UTM_Program.TAPE_START_ADDR =
+        UTM_Program.RULES_START_ADDR + (UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR))
+        by (unfold UTM_Program.TAPE_START_ADDR, UTM_Program.RULES_START_ADDR; lia).
+      rewrite Heq. apply Nat.add_le_mono_l. exact Hrules. }
     assert (Hmem1_len : length (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules))
-                        = UTM_Program.TAPE_START_ADDR).
-    { apply length_pad_to_ge. exact Hfit. }
+                        = UTM_Program.TAPE_START_ADDR)
+      by (apply length_pad_to_ge; exact Hfit).
     assert (Hskip :
       skipn UTM_Program.RULES_START_ADDR
         ((pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)) ++ tape)
       = skipn UTM_Program.RULES_START_ADDR
-          (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)) ++ tape).
-    { apply skipn_app_le'.
-      rewrite Hmem1_len.
-      exact UTM_Program.RULES_START_ADDR_le_TAPE_START_ADDR. }
+          (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)) ++ tape)
+      by (apply skipn_app_le'; rewrite Hmem1_len; exact UTM_Program.RULES_START_ADDR_le_TAPE_START_ADDR).
     assert (Hskip_first :
       firstn (length rules)
         (skipn UTM_Program.RULES_START_ADDR
                  ((pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)) ++ tape))
       = firstn (length rules)
           (skipn UTM_Program.RULES_START_ADDR
-                   (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)) ++ tape)).
-    { rewrite Hskip. reflexivity. }
+                   (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)) ++ tape))
+      by (rewrite Hskip; reflexivity).
     assert (Hdrop :
       firstn (length rules)
         (skipn UTM_Program.RULES_START_ADDR
                  (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)) ++ tape)
       = firstn (length rules)
           (skipn UTM_Program.RULES_START_ADDR
-                 (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules)))).
-    { apply firstn_app_le'.
-      rewrite skipn_length, Hmem1_len.
-      apply (Nat.le_trans _ _ _ Hrules).
-      lia. }
-    eapply eq_trans.
-    2:{ eapply eq_trans.
-        2:{ subst mem0. apply (firstn_rules_window Hprog rules). exact Hrules. }
-        exact Hdrop. }
-    exact Hskip_first.
+                 (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules))))
+      by (apply firstn_app_le'; rewrite skipn_length, Hmem1_len;
+          apply (Nat.le_trans _ _ _ Hrules); lia).
+    eapply eq_trans; [exact Hskip_first|].
+    eapply eq_trans; [exact Hdrop|].
+    subst mem0. apply (firstn_rules_window Hprog rules). exact Hrules.
 Qed.
 
 Definition inv_core (st : CPU.State) (tm : TM) (conf : TMConfig) : Prop :=
@@ -649,18 +637,39 @@ Definition find_rule_start_inv (tm : TM) (conf : TMConfig) (cpu : CPU.State) : P
   IS_FindRule_Start (CPU.read_reg CPU.REG_PC cpu) /\
   inv_min cpu tm conf.
 
-(* ----------------------------------------------------------------- *)
-(* Decoding                                                          *)
-(* ----------------------------------------------------------------- *)
+(* Specialised small-stepper for states whose memory prefix is the encoded
+   program.  When explicit decoder hypotheses are available, rewrite with them
+   instead of unfolding the program prefix; this keeps small goal states during
+   timed builds. *)
+Ltac step_fast :=
+  unfold run1, CPU.step;
+  (* Prefer explicit decoder hypotheses over unfolding the concrete program, so
+     small symbolic goals avoid expensive [calc_bounds] calls. *)
+  first
+    [ match goal with
+      | H : decode_instr ?s = _ |- context [decode_instr ?s] => rewrite H
+      end
+    (* If no hypothesis is available, compute the decoder result directly
+       instead of triggering [calc_bounds] on the program prefix.  This keeps
+       timed bridge builds from spending most of their budget in the fallback
+       bound solver when stepping through short concrete traces. *)
+    | lazymatch goal with
+      | |- context [decode_instr ?s] =>
+          let inst := eval vm_compute in (decode_instr s) in
+          change (decode_instr s) with inst
+      end
+    | try rewrite decode_program_at_pc by calc_bounds ];
+  cbn [CPU.read_reg CPU.mem CPU.regs CPU.cost];
+  simpl.
 
-Definition decode_instr (st : CPU.State) : CPU.Instr :=
-  UTM_Encode.decode_instr_from_mem st.(CPU.mem) (4 * CPU.read_reg CPU.REG_PC st).
-
-Lemma run1_decode_instr : forall cpu,
-  run1 cpu = CPU.step (decode_instr cpu) cpu.
-Proof.
-  intros cpu. reflexivity.
-Qed.
+Ltac step_n n :=
+  lazymatch n with
+  | 0 => cbn [run_n] in *
+  | S ?n' =>
+      cbn [run_n] in *;
+      step_fast;
+      step_n n'
+  end.
 
 Lemma run1_decode : forall st,
   run1 st = CPU.step (decode_instr st) st.
@@ -733,6 +742,12 @@ Lemma run_n_1 : forall cpu,
 Proof.
   intros cpu. reflexivity.
 Qed.
+
+(* Prevent large proof terms from repeatedly unfolding the small-step
+   interpreter.  The structural lemmas above expose the only rewrites we
+   rely on, so the operational definitions can remain opaque during the
+   heavy FindRule proofs. *)
+#[local] Opaque run_n decode_instr.
 
 (* Rewrite run_n in terms of iterations *)
 Lemma run_n_unfold_3 : forall cpu,
@@ -1129,7 +1144,7 @@ Qed.
    3. Proof that each instruction matches the expected one from UTM_Program
    
    The structure shows how to reason about multi-step execution. *)
-Lemma transition_Fetch_to_FindRule_direct : forall tm conf cpu0,
+Time Lemma transition_Fetch_to_FindRule_direct : forall tm conf cpu0,
   inv_core cpu0 tm conf ->
   IS_FetchSymbol (CPU.read_reg CPU.REG_PC cpu0) ->
   cpu0 = setup_state tm conf ->
@@ -1146,16 +1161,84 @@ Lemma transition_Fetch_to_FindRule_direct : forall tm conf cpu0,
     IS_FindRule_Start (CPU.read_reg CPU.REG_PC cpu_find) /\
     CPU.read_reg CPU.REG_PC cpu_find = 3.
 Proof.
+  bridge_checkpoint ("transition_Fetch_to_FindRule_direct"%string).
   intros tm conf cpu0 Hinv_core Hfetch Hsetup Hpc0 Hlen
          Hdecode0 Hdecode1 Hdecode2.
   subst cpu0.
-  exists (run_n (setup_state tm conf) 3).
+  remember (setup_state tm conf) as cpu_init eqn:Hinit.
+
+  pose proof Hlen as Hlen_init.
+  pose proof Hpc0 as Hpc0_init.
+  pose proof Hdecode0 as Hdecode0_init.
+  pose proof Hdecode1 as Hdecode1_init.
+  pose proof Hdecode2 as Hdecode2_init.
+
+  assert (Hrd_pc : CPU.REG_TEMP1 <> CPU.REG_PC) by (cbv; discriminate).
+  assert (Hrd_bound : CPU.REG_TEMP1 < 10) by (cbv; lia).
+  assert (Haddr_pc : CPU.REG_ADDR <> CPU.REG_PC) by (cbv; discriminate).
+  assert (Haddr_bound : CPU.REG_ADDR < 10) by (cbv; lia).
+  assert (Hsym_pc : CPU.REG_SYM <> CPU.REG_PC) by (cbv; discriminate).
+  assert (Hsym_bound : CPU.REG_SYM < 10) by (cbv; lia).
+
+  (* Step 0 → 1: LoadConst TEMP1, PC increments to 1. *)
+  assert (Hpc1 : CPU.read_reg CPU.REG_PC (run1 cpu_init) = 1).
+  { rewrite run1_decode, Hdecode0_init.
+    destruct (step_LoadConst cpu_init CPU.REG_TEMP1 UTM_Program.TAPE_START_ADDR
+               Hrd_pc Hrd_bound Hlen_init) as [Hpc _].
+    now rewrite Hpc0_init in Hpc.
+  }
+  assert (Hlen1 : length (CPU.regs (run1 cpu_init)) = 10).
+  { rewrite run1_decode, Hdecode0_init.
+    unfold CPU.step.
+    set (st_pc := CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu_init)) cpu_init).
+    assert (Hlen_pc : length (CPU.regs st_pc) = 10).
+    { subst st_pc. rewrite length_write_reg by (rewrite Hlen_init; cbv; lia). exact Hlen_init. }
+    set (st_reg := CPU.write_reg CPU.REG_TEMP1 UTM_Program.TAPE_START_ADDR st_pc).
+    assert (Hlen_reg : length (CPU.regs st_reg) = 10).
+    { subst st_reg. rewrite length_write_reg by (rewrite Hlen_pc; cbv; lia). exact Hlen_pc. }
+    exact Hlen_reg.
+  }
+
+  (* Step 1 → 2: AddReg ADDR := TEMP1 + HEAD, PC increments to 2. *)
+  assert (Hpc2 : CPU.read_reg CPU.REG_PC (run1 (run1 cpu_init)) = 2).
+  { rewrite run1_decode, Hdecode1_init.
+    destruct (step_AddReg (run1 cpu_init) CPU.REG_ADDR CPU.REG_TEMP1 CPU.REG_HEAD
+               Haddr_pc Haddr_bound Hlen1) as [Hpc _].
+    replace (CPU.read_reg CPU.REG_PC (run1 cpu_init)) with 1 in Hpc by exact Hpc1.
+    lia.
+  }
+  assert (Hlen2 : length (CPU.regs (run1 (run1 cpu_init))) = 10).
+  { rewrite run1_decode, Hdecode1_init.
+    unfold CPU.step.
+    set (st_pc := CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC (run1 cpu_init))) (run1 cpu_init)).
+    assert (Hlen_pc : length (CPU.regs st_pc) = 10).
+    { subst st_pc. rewrite length_write_reg by (rewrite Hlen1; cbv; lia). exact Hlen1. }
+    set (st_reg := CPU.write_reg CPU.REG_ADDR (CPU.read_reg CPU.REG_TEMP1 (run1 cpu_init) + CPU.read_reg CPU.REG_HEAD (run1 cpu_init)) st_pc).
+    assert (Hlen_reg : length (CPU.regs st_reg) = 10).
+    { subst st_reg. rewrite length_write_reg by (rewrite Hlen_pc; cbv; lia). exact Hlen_pc. }
+    exact Hlen_reg.
+  }
+
+  (* Step 2 → 3: LoadIndirect SYM := mem[ADDR], PC increments to 3. *)
+  assert (Hpc3 : CPU.read_reg CPU.REG_PC (run1 (run1 (run1 cpu_init))) = 3).
+  { pose proof Hdecode2_init as Hdecode2_run1.
+    rewrite (run_n_S cpu_init 1) in Hdecode2_run1.
+    rewrite run_n_1 in Hdecode2_run1.
+    rewrite run1_decode, Hdecode2_run1.
+    destruct (step_LoadIndirect (run1 (run1 cpu_init)) CPU.REG_SYM CPU.REG_ADDR
+               Hsym_pc Hsym_bound Hlen2) as [Hpc _].
+    replace (CPU.read_reg CPU.REG_PC (run1 (run1 cpu_init))) with 2 in Hpc by exact Hpc2.
+    lia.
+  }
+
+  exists (run_n cpu_init 3).
   split; [reflexivity|].
   split.
   - unfold IS_FindRule_Start.
-    change (CPU.read_reg CPU.REG_PC (run_n (setup_state tm conf) 3) = 3).
-    step_n 3. reflexivity.
-  - step_n 3. reflexivity.
+    rewrite run_n_unfold_3.
+    exact Hpc3.
+  - rewrite run_n_unfold_3.
+    exact Hpc3.
 Qed.
 
 (* Now we need to show PC advances correctly *)
@@ -1165,7 +1248,7 @@ Qed.
 (* Transition Lemmas                                                 *)
 (* ----------------------------------------------------------------- *)
 
-Lemma transition_Fetch_to_FindRule (tm : TM) (conf : TMConfig) (cpu0 : CPU.State) :
+Time Lemma transition_Fetch_to_FindRule (tm : TM) (conf : TMConfig) (cpu0 : CPU.State) :
   inv_core cpu0 tm conf ->
   IS_FetchSymbol (CPU.read_reg CPU.REG_PC cpu0) ->
   cpu0 = setup_state tm conf ->
@@ -1178,6 +1261,7 @@ Lemma transition_Fetch_to_FindRule (tm : TM) (conf : TMConfig) (cpu0 : CPU.State
     CPU.LoadIndirect CPU.REG_SYM CPU.REG_ADDR ->
   exists cpu_find, run_n cpu0 3 = cpu_find /\ IS_FindRule_Start (CPU.read_reg CPU.REG_PC cpu_find).
 Proof.
+  bridge_checkpoint ("transition_Fetch_to_FindRule"%string).
   intros Hinv Hfetch Hsetup Hlen Hdecode0 Hdecode1 Hdecode2.
 
   destruct (transition_Fetch_to_FindRule_direct tm conf cpu0
@@ -1218,10 +1302,11 @@ Definition FindRule_Loop_Inv (tm : TM) (conf : TMConfig)
 Definition findrule_entry_state (tm : TM) (conf : TMConfig) : CPU.State :=
   run_n (setup_state tm conf) 3.
 
-(* Concrete computation for the non-matching path: the temporary register is
-   non-zero, so the Jz falls through, the address increments by RULE_SIZE, and
-   control returns to PC=4 for the next iteration. *)
-Lemma transition_FindRule_Next (tm : TM) (conf : TMConfig) :
+(* Reopen the small-step interpreter locally for the short FindRule traces and
+   re-opaque it after the concrete 6- and 4-step lemmas below. *)
+#[local] Transparent run_n decode_instr.
+
+Time Lemma transition_FindRule_Next (tm : TM) (conf : TMConfig) :
   let cpu := findrule_entry_state tm conf in
   CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3) <> 0 ->
   exists cpu',
@@ -1229,36 +1314,69 @@ Lemma transition_FindRule_Next (tm : TM) (conf : TMConfig) :
     CPU.read_reg CPU.REG_PC cpu' = 4 /\
     CPU.read_reg CPU.REG_ADDR cpu' = CPU.read_reg CPU.REG_ADDR cpu + RULE_SIZE.
 Proof.
+  bridge_checkpoint ("transition_FindRule_Next"%string).
   intros cpu Htemp.
-  subst cpu.
-  unfold findrule_entry_state.
-  exists (run_n (run_n (setup_state tm conf) 3) 6).
+  subst cpu. unfold findrule_entry_state.
+  set (cpu0 := setup_state tm conf) in *.
+  Local Opaque CPU.read_mem.
+
+  (* The guard is known to be non-zero at the Jz. *)
+  assert (Hguard_false : CPU.read_reg CPU.REG_TEMP1 (run_n (run_n cpu0 3) 3) =? 0 = false).
+  { apply Nat.eqb_neq.
+    rewrite <- run_n_add.
+    exact Htemp. }
+
+  exists (run_n (run_n cpu0 3) 6).
+  split; [reflexivity|].
   split.
-  - reflexivity.
-  - rewrite <- run_n_add.
-    step_n 9.
-    simpl. split; [reflexivity| reflexivity].
+  - cbn [run_n].
+    step_n 3.
+    rewrite Hguard_false.
+    cbn [run_n].
+    step_n 3.
+    reflexivity.
+  - cbn [run_n].
+    step_n 3.
+    rewrite Hguard_false.
+    cbn [run_n].
+    step_n 3.
+    reflexivity.
+  bridge_checkpoint ("transition_FindRule_Next_done"%string).
 Qed.
 
 (* Concrete computation for the matching path: the temporary register is zero,
    so the Jz is taken and control jumps to the Found block at PC=12. *)
-Lemma transition_FindRule_Found (tm : TM) (conf : TMConfig) :
+Time Lemma transition_FindRule_Found (tm : TM) (conf : TMConfig) :
   let cpu := findrule_entry_state tm conf in
   CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3) = 0 ->
   exists cpu',
     run_n cpu 4 = cpu' /\
     CPU.read_reg CPU.REG_PC cpu' = 12.
 Proof.
+  bridge_checkpoint ("transition_FindRule_Found"%string).
   intros cpu Htemp.
-  subst cpu.
-  unfold findrule_entry_state.
-  exists (run_n (run_n (setup_state tm conf) 3) 4).
-  split.
-  - reflexivity.
-  - rewrite <- run_n_add.
-    step_n 7.
-    reflexivity.
+  subst cpu. unfold findrule_entry_state.
+  set (cpu0 := setup_state tm conf) in *.
+  Local Opaque CPU.read_mem.
+
+  assert (Hguard_true : CPU.read_reg CPU.REG_TEMP1 (run_n (run_n cpu0 3) 3) =? 0 = true).
+  { apply Nat.eqb_eq.
+    rewrite <- run_n_add.
+    exact Htemp. }
+
+  exists (run_n (run_n cpu0 3) 4).
+  split; [reflexivity|].
+  cbn [run_n].
+  step_n 3.
+  rewrite Hguard_true.
+  cbn [run_n].
+  step_n 1.
+  reflexivity.
+  bridge_checkpoint ("transition_FindRule_Found_done"%string).
 Qed.
+
+(* Restore opacity for the remainder of the file. *)
+#[local] Opaque run_n decode_instr.
 
 (* Helper: Find index of matching rule *)
 Lemma find_rule_index : forall rules q sym q' w m,
@@ -1324,7 +1442,7 @@ Proof.
 Qed.
 
 (* Loop iteration lemma: checking non-matching rule preserves invariant *)
-Lemma loop_iteration_no_match : forall tm conf cpu i,
+Time Lemma loop_iteration_no_match : forall tm conf cpu i,
   FindRule_Loop_Inv tm conf cpu i ->
   i < length (tm_rules tm) ->
   CPU.read_reg CPU.REG_PC cpu = 4 ->
@@ -1345,6 +1463,7 @@ Lemma loop_iteration_no_match : forall tm conf cpu i,
     run_n cpu 6 = cpu' /\
     FindRule_Loop_Inv tm conf cpu' (S i).
 Proof.
+    bridge_checkpoint ("loop_iteration_no_match"%string).
   intros tm conf cpu i Hinv Hi_len Hpc Hlen Hdecode0 Hdecode1 Hdecode2
          Hdecode3 Hdecode4 Hdecode5.
   destruct conf as ((q, tape), head).
@@ -1778,7 +1897,7 @@ Qed.
    the first control-flow jump here; loading the rule payload and
    executing the ApplyRule block is proved separately.
  *)
-Lemma loop_exit_match : forall tm conf cpu idx,
+Time Lemma loop_exit_match : forall tm conf cpu idx,
   FindRule_Loop_Inv tm conf cpu idx ->
   idx < length (tm_rules tm) ->
   let '(q, tape, head) := conf in
@@ -1798,6 +1917,7 @@ Lemma loop_exit_match : forall tm conf cpu idx,
     CPU.read_reg CPU.REG_ADDR cpu_branch =
       RULES_START_ADDR + idx * RULE_SIZE.
 Proof.
+    bridge_checkpoint ("loop_exit_match"%string).
   intros tm conf cpu idx Hinv Hlen_idx.
   destruct conf as ((q, tape), head).
   simpl.
@@ -1972,7 +2092,7 @@ Proof.
 Qed.
 
 (* Main loop theorem: compose iteration lemmas *)
-Lemma transition_FindRule_to_ApplyRule (tm : TM) (conf : TMConfig) (cpu_find : CPU.State)
+Time Lemma transition_FindRule_to_ApplyRule (tm : TM) (conf : TMConfig) (cpu_find : CPU.State)
   (q' write : nat) (move : Z) :
   let '(q, tape, head) := conf in
   let sym := nth head tape (tm_blank tm) in
@@ -1994,6 +2114,7 @@ Lemma transition_FindRule_to_ApplyRule (tm : TM) (conf : TMConfig) (cpu_find : C
     CPU.read_reg CPU.REG_SYM cpu_apply = sym /\
     CPU.read_reg CPU.REG_ADDR cpu_apply = RULES_START_ADDR.
 Proof.
+    bridge_checkpoint ("transition_FindRule_to_ApplyRule"%string).
   destruct conf as ((q, tape), head).
   simpl.
   intros Hinv_loop Hlen_regs Hpc4 Hdecode0 Hdecode1 Hdecode2 Hdecode3 Htemp_zero Haddr_base Hrule0.
