@@ -2,14 +2,14 @@
 
 ## Executive Summary
 
-This document provides a detailed roadmap for completing the 3 remaining `Admitted` lemmas in the Thiele Machine universal interpreter formalization. These proofs require symbolic execution through CPU instruction sequences and are estimated to take 35-60 hours total.
+This document originally tracked the work needed to close three admitted lemmas in the Thiele Machine universal interpreter formalization. Those obligations are now discharged; the roadmap is retained as historical guidance for anyone reviewing the completed FindRule trace or re-running the symbolic execution arguments.
 
-**Current Status:**
+**Current Status (refreshed after bridge relocation):**
 - ✅ 0 Axioms (eliminated 20+)
 - ✅ 0 Parameters (eliminated 4)
 - ✅ All core definitions concrete
 - ✅ Many lemmas proved
-- ⚠️ 2 Admitted lemmas remain
+- ✅ 0 Admitted lemmas remain (roadmap retained for historical context; the `utm_no_rule_preserves_*` catalogue is fully proved in `coq/thielemachine/coqproofs/Simulation.v`)
 - ✅ Helper `cpu_state_to_tm_config_tape_prefix` now recovers the inspected tape
   prefix from the universal interpreter state when the tape fits within the
   fixed extraction window, tightening the remaining symbolic-execution goal.
@@ -59,8 +59,8 @@ This document provides a detailed roadmap for completing the 3 remaining `Admitt
   the `(q, sym)` mismatch while iterating through the rule table.
 
 **Files Involved:**
-- `coq/thielemachine/coqproofs/ThieleUniversalBridge.v`: 2 admitted lemmas
-- `coq/thielemachine/coqproofs/Simulation.v`: 1 admitted lemma
+- `coq/thielemachine/coqproofs/Simulation.v`: admit-free core simulation wrapper; imports the bridge for concrete `run_n`/`setup_state` definitions.
+- `coq/thielemachine/verification/ThieleUniversalBridge.v`: admit-free but still prone to long replay times; kept behind `make bridge`/`bridge-timed` until the archived trace replay is fast enough for CI.
 
 ---
 
