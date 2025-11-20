@@ -59,7 +59,7 @@ This document provides a detailed roadmap for completing the 3 remaining `Admitt
   the `(q, sym)` mismatch while iterating through the rule table.
 
 **Files Involved:**
-- `coq/thielemachine/coqproofs/ThieleUniversalBridge.v`: 2 admitted lemmas
+- `coq/thielemachine/verification/ThieleUniversalBridge.v`: 2 admitted lemmas
 - `coq/thielemachine/coqproofs/Simulation.v`: 1 admitted lemma
 
 ---
