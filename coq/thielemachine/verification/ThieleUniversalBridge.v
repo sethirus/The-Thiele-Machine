@@ -146,7 +146,7 @@ Ltac vm_run_n :=
    symbolic, but the program being fetched is concrete. *)
 Ltac step_symbolic :=
   cbv [run1 CPU.step UTM_Encode.decode_instr_from_mem] in *;
-  simpl in *.
+  simpl.
 
 (* ----------------------------------------------------------------- *)
 (* State Setup - extracted from ThieleUniversal.v                   *)
@@ -1337,28 +1337,28 @@ Proof.
   pose (cpu1 := CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) (run_n cpu0 3)).
   assert (Hstep0: run1 (run_n cpu0 3) = cpu1).
   { unfold cpu1. rewrite run1_decode. rewrite Hdec0. reflexivity. }
-  cbn delta [run_n] beta iota. rewrite Hstep0 in *.
+  (* unfold run_n. rewrite Hstep0 in *. *)
   cbn [CPU.step CPU.read_reg CPU.write_reg firstn skipn app nth Z.add] in cpu1.
   
   (* Forward execution pattern: step 1 *)
   pose (cpu2 := CPU.step (CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q) cpu1).
   assert (Hstep1: run1 cpu1 = cpu2).
   { unfold cpu2. rewrite run1_decode. rewrite Hdec1. reflexivity. }
-  cbn delta [run_n] beta iota. rewrite Hstep1 in *.
+  (* unfold run_n. rewrite Hstep1 in *. *)
   cbn [CPU.step CPU.read_reg CPU.write_reg firstn skipn app nth Z.add] in cpu2.
   
   (* Forward execution pattern: step 2 *)
   pose (cpu3 := CPU.step (CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q') cpu2).
   assert (Hstep2: run1 cpu2 = cpu3).
   { unfold cpu3. rewrite run1_decode. rewrite Hdec2. reflexivity. }
-  cbn delta [run_n] beta iota. rewrite Hstep2 in *.
+  (* unfold run_n. rewrite Hstep2 in *. *)
   cbn [CPU.step CPU.read_reg CPU.write_reg firstn skipn app nth Z.add Z.sub] in cpu3.
   
   (* Forward execution pattern: step 3 *)
   pose (cpu4 := CPU.step (CPU.Jz CPU.REG_TEMP1 12) cpu3).
   assert (Hstep3: run1 cpu3 = cpu4).
   { unfold cpu4. rewrite run1_decode. rewrite Hdec3. reflexivity. }
-  cbn delta [run_n] beta iota. rewrite Hstep3 in *.
+  (* unfold run_n. rewrite Hstep3 in *. *)
   cbn [CPU.step] in cpu4. rewrite Hguard_false in cpu4.
   cbn [CPU.read_reg CPU.write_reg firstn skipn app nth Z.add] in cpu4.
   
@@ -1366,20 +1366,20 @@ Proof.
   pose (cpu5 := CPU.step (CPU.AddConst CPU.REG_ADDR RULE_SIZE) cpu4).
   assert (Hstep4: run1 cpu4 = cpu5).
   { unfold cpu5. rewrite run1_decode. rewrite Hdec4. reflexivity. }
-  cbn delta [run_n] beta iota. rewrite Hstep4 in *.
+  (* unfold run_n. rewrite Hstep4 in *. *)
   cbn [CPU.step CPU.read_reg CPU.write_reg firstn skipn app nth Z.add] in cpu5.
   
   (* Forward execution pattern: step 5 *)
   pose (cpu6 := CPU.step (CPU.Jnz CPU.REG_TEMP1 4) cpu5).
   assert (Hstep5: run1 cpu5 = cpu6).
   { unfold cpu6. rewrite run1_decode. rewrite Hdec5. reflexivity. }
-  cbn delta [run_n] beta iota. rewrite Hstep5 in *.
+  (* unfold run_n. rewrite Hstep5 in *. *)
   cbn [CPU.step CPU.read_reg CPU.write_reg firstn skipn app nth Z.add] in cpu6.
   
   (* Final goal simplification *)
-  cbn [run_n]. rewrite Hstep0. cbn [run_n]. rewrite Hstep1.
-  cbn [run_n]. rewrite Hstep2. cbn [run_n]. rewrite Hstep3.
-  cbn [run_n]. rewrite Hstep4. cbn [run_n]. rewrite Hstep5.
+  unfold run_n. rewrite Hstep0 in *. unfold run_n. rewrite Hstep1 in *.
+  unfold run_n. rewrite Hstep2 in *. unfold run_n. rewrite Hstep3 in *.
+  unfold run_n. rewrite Hstep4 in *. unfold run_n. rewrite Hstep5 in *.
   cbn [run_n].
   unfold cpu6. cbn [CPU.step CPU.read_reg]. reflexivity.
 Qed.
@@ -1404,28 +1404,28 @@ Proof.
   pose (cpu1 := CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) (run_n cpu0 3)).
   assert (Hstep0: run1 (run_n cpu0 3) = cpu1).
   { unfold cpu1. rewrite run1_decode. rewrite Hdec0. reflexivity. }
-  cbn delta [run_n] beta iota. rewrite Hstep0 in *.
+  (* unfold run_n. rewrite Hstep0 in *. *)
   cbn [CPU.step CPU.read_reg CPU.write_reg firstn skipn app nth Z.add] in cpu1.
   
   (* Forward execution pattern: step 1 *)
   pose (cpu2 := CPU.step (CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q) cpu1).
   assert (Hstep1: run1 cpu1 = cpu2).
   { unfold cpu2. rewrite run1_decode. rewrite Hdec1. reflexivity. }
-  cbn delta [run_n] beta iota. rewrite Hstep1 in *.
+  (* unfold run_n. rewrite Hstep1 in *. *)
   cbn [CPU.step CPU.read_reg CPU.write_reg firstn skipn app nth Z.add] in cpu2.
   
   (* Forward execution pattern: step 2 *)
   pose (cpu3 := CPU.step (CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q') cpu2).
   assert (Hstep2: run1 cpu2 = cpu3).
   { unfold cpu3. rewrite run1_decode. rewrite Hdec2. reflexivity. }
-  cbn delta [run_n] beta iota. rewrite Hstep2 in *.
+  (* unfold run_n. rewrite Hstep2 in *. *)
   cbn [CPU.step CPU.read_reg CPU.write_reg firstn skipn app nth Z.add Z.sub] in cpu3.
   
   (* Forward execution pattern: step 3 *)
   pose (cpu4 := CPU.step (CPU.Jz CPU.REG_TEMP1 12) cpu3).
   assert (Hstep3: run1 cpu3 = cpu4).
   { unfold cpu4. rewrite run1_decode. rewrite Hdec3. reflexivity. }
-  cbn delta [run_n] beta iota. rewrite Hstep3 in *.
+  (* unfold run_n. rewrite Hstep3 in *. *)
   cbn [CPU.step] in cpu4. rewrite Hguard_false in cpu4.
   cbn [CPU.read_reg CPU.write_reg firstn skipn app nth Z.add] in cpu4.
   
@@ -1433,20 +1433,20 @@ Proof.
   pose (cpu5 := CPU.step (CPU.AddConst CPU.REG_ADDR RULE_SIZE) cpu4).
   assert (Hstep4: run1 cpu4 = cpu5).
   { unfold cpu5. rewrite run1_decode. rewrite Hdec4. reflexivity. }
-  cbn delta [run_n] beta iota. rewrite Hstep4 in *.
+  (* unfold run_n. rewrite Hstep4 in *. *)
   cbn [CPU.step CPU.read_reg CPU.write_reg firstn skipn app nth Z.add] in cpu5.
   
   (* Forward execution pattern: step 5 *)
   pose (cpu6 := CPU.step (CPU.Jnz CPU.REG_TEMP1 4) cpu5).
   assert (Hstep5: run1 cpu5 = cpu6).
   { unfold cpu6. rewrite run1_decode. rewrite Hdec5. reflexivity. }
-  cbn delta [run_n] beta iota. rewrite Hstep5 in *.
+  (* unfold run_n. rewrite Hstep5 in *. *)
   cbn [CPU.step CPU.read_reg CPU.write_reg firstn skipn app nth Z.add] in cpu6.
   
   (* Final goal simplification *)
-  cbn [run_n]. rewrite Hstep0. cbn [run_n]. rewrite Hstep1.
-  cbn [run_n]. rewrite Hstep2. cbn [run_n]. rewrite Hstep3.
-  cbn [run_n]. rewrite Hstep4. cbn [run_n]. rewrite Hstep5.
+  unfold run_n. rewrite Hstep0 in *. unfold run_n. rewrite Hstep1 in *.
+  unfold run_n. rewrite Hstep2 in *. unfold run_n. rewrite Hstep3 in *.
+  unfold run_n. rewrite Hstep4 in *. unfold run_n. rewrite Hstep5 in *.
   cbn [run_n].
   unfold cpu6. cbn [CPU.step CPU.read_reg]. reflexivity.
 Qed.
@@ -1468,34 +1468,34 @@ Proof.
   pose (cpu1 := CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) (run_n cpu0 3)).
   assert (Hstep0: run1 (run_n cpu0 3) = cpu1).
   { unfold cpu1. rewrite run1_decode. rewrite Hdec0. reflexivity. }
-  cbn delta [run_n] beta iota. rewrite Hstep0 in *.
+  (* unfold run_n. rewrite Hstep0 in *. *)
   cbn [CPU.step CPU.read_reg CPU.write_reg firstn skipn app nth Z.add] in cpu1.
   
   (* Forward execution pattern: step 1 *)
   pose (cpu2 := CPU.step (CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q) cpu1).
   assert (Hstep1: run1 cpu1 = cpu2).
   { unfold cpu2. rewrite run1_decode. rewrite Hdec1. reflexivity. }
-  cbn delta [run_n] beta iota. rewrite Hstep1 in *.
+  (* unfold run_n. rewrite Hstep1 in *. *)
   cbn [CPU.step CPU.read_reg CPU.write_reg firstn skipn app nth Z.add] in cpu2.
   
   (* Forward execution pattern: step 2 *)
   pose (cpu3 := CPU.step (CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q') cpu2).
   assert (Hstep2: run1 cpu2 = cpu3).
   { unfold cpu3. rewrite run1_decode. rewrite Hdec2. reflexivity. }
-  cbn delta [run_n] beta iota. rewrite Hstep2 in *.
+  (* unfold run_n. rewrite Hstep2 in *. *)
   cbn [CPU.step CPU.read_reg CPU.write_reg firstn skipn app nth Z.add Z.sub] in cpu3.
   
   (* Forward execution pattern: step 3 *)
   pose (cpu4 := CPU.step (CPU.Jz CPU.REG_TEMP1 12) cpu3).
   assert (Hstep3: run1 cpu3 = cpu4).
   { unfold cpu4. rewrite run1_decode. rewrite Hdec3. reflexivity. }
-  cbn delta [run_n] beta iota. rewrite Hstep3 in *.
+  (* unfold run_n. rewrite Hstep3 in *. *)
   cbn [CPU.step] in cpu4. rewrite Hguard_true in cpu4.
   cbn [CPU.read_reg CPU.write_reg firstn skipn app nth Z.add] in cpu4.
   
   (* Final goal simplification *)
-  cbn [run_n]. rewrite Hstep0. cbn [run_n]. rewrite Hstep1.
-  cbn [run_n]. rewrite Hstep2. cbn [run_n]. rewrite Hstep3.
+  unfold run_n. rewrite Hstep0 in *. unfold run_n. rewrite Hstep1 in *.
+  unfold run_n. rewrite Hstep2 in *. unfold run_n. rewrite Hstep3 in *.
   cbn [run_n].
   unfold cpu4. cbn [CPU.step CPU.read_reg]. reflexivity.
 Qed.
@@ -1518,7 +1518,7 @@ Proof.
   bridge_checkpoint ("transition_FindRule_Next"%string).
   intros cpu Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5 Htemp.
   subst cpu. unfold findrule_entry_state.
-  set (cpu0 := setup_state tm conf) in *.
+  set (cpu0 := setup_state tm conf).
   Local Opaque CPU.read_mem.
 
   (* The guard is known to be non-zero at the Jz. *)
@@ -1556,7 +1556,7 @@ Proof.
   bridge_checkpoint ("transition_FindRule_Found"%string).
   intros cpu Hdec0 Hdec1 Hdec2 Hdec3 Htemp.
   subst cpu. unfold findrule_entry_state.
-  set (cpu0 := setup_state tm conf) in *.
+  set (cpu0 := setup_state tm conf).
   Local Opaque CPU.read_mem.
 
   assert (Hguard_true : CPU.read_reg CPU.REG_TEMP1 (run_n (run_n cpu0 3) 3) =? 0 = true).
@@ -1728,7 +1728,7 @@ Proof.
   intros tm conf cpu i Hinv Hi_len Hpc Hlen Hdecode0 Hdecode1 Hdecode2
          Hdecode3 Hdecode4 Hdecode5.
   destruct conf as ((q, tape), head).
-  simpl in *.
+  simpl.
   intros rule_mismatch Htemp_nonzero.
 
   unfold FindRule_Loop_Inv in Hinv.
