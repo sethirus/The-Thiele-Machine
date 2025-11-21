@@ -1358,7 +1358,29 @@ Lemma transition_FindRule_Found_step : forall cpu0,
   CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3) =? 0 = true ->
   CPU.read_reg CPU.REG_PC (run_n cpu 4) = 12.
 Proof.
-Admitted.
+  intros cpu0 cpu Hdec0 Hdec1 Hdec2 Hdec3 Htemp_zero.
+  
+  (* Convert run_n cpu 4 to a form we can work with *)
+  change (run_n cpu 4) with (run1 (run1 (run1 (run1 cpu)))).
+  
+  (* Similarly for run_n cpu 3 *)
+  assert (E3: run_n cpu 3 = run1 (run1 (run1 cpu))).
+  { reflexivity. }
+  
+  (* Rewrite to use run_n cpu 3 *)
+  rewrite <- E3.
+  
+  (* Apply run1_decode *)
+  rewrite run1_decode.
+  
+  (* Apply Hdec3 *)
+  rewrite Hdec3.
+  
+  (* Now goal is: read_reg PC (step (Jz TEMP1 12) (run_n cpu 3)) = 12 *)
+  (* Use CPU.step_jz_true directly - it expects =? 0 = true *)
+  apply CPU.step_jz_true.
+  exact Htemp_zero.
+Qed.
 
 Time Lemma transition_FindRule_Next (tm : TM) (conf : TMConfig) :
   let cpu := findrule_entry_state tm conf in
