@@ -1333,39 +1333,19 @@ Proof.
   intros cpu0 cpu Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5 Hguard_false.
   subst cpu.
   
-  (* Prove the goal by expanding run_n and using hypotheses *)
-  change (run_n (run_n cpu0 3) 6) with 
-         (run1 (run1 (run1 (run1 (run1 (run1 (run_n cpu0 3))))))).
+  (* Expand run_n to expose run1 chain *)
+  change (run_n (run_n cpu0 3) 6) with (run1 (run1 (run1 (run1 (run1 (run1 (run_n cpu0 3))))))).
   
-  (* Step 1 - unfold run1, apply Hdec0 *)
-  unfold run1 at 1.
-  rewrite Hdec0.
-  simpl CPU.step.
+  (* Step through each run1, rewriting with hypotheses *)
+  unfold run1 at 1. rewrite Hdec5. cbn [CPU.step CPU.read_reg CPU.write_reg].
+  unfold run1 at 1. rewrite Hdec4. cbn [CPU.step CPU.read_reg CPU.write_reg].
+  unfold run1 at 1. rewrite Hdec3. cbn [CPU.step]. rewrite Hguard_false. cbn [CPU.read_reg CPU.write_reg].
+  unfold run1 at 1. rewrite Hdec2. cbn [CPU.step CPU.read_reg CPU.write_reg].
+  unfold run1 at 1. rewrite Hdec1. cbn [CPU.step CPU.read_reg CPU.write_reg].
+  unfold run1 at 1. rewrite Hdec0. cbn [CPU.step CPU.read_reg CPU.write_reg].
   
-  (* Step 2 - unfold run1, need to show decode_instr matches Hdec1 *)
-  unfold run1 at 1.
-  (* The decode_instr now is of (CPU.step ... (run_n cpu0 3)), which equals run1 (run_n cpu0 3) *)
-  assert (Eq1: CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) (run_n cpu0 3) = run1 (run_n cpu0 3)).
-  { unfold run1. rewrite Hdec0. reflexivity. }
-  rewrite <- Eq1 in Hdec1.
-  simpl in Hdec1.
-  rewrite Hdec1.
-  simpl CPU.step.
-  
-  (* Step 3 *)
-  unfold run1 at 1.
-  assert (Eq2: CPU.step (CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q) 
-                  (CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) (run_n cpu0 3)) = 
-               run_n (run_n cpu0 3) 2).
-  { simpl. unfold run1 at 1. rewrite Hdec0. simpl. unfold run1 at 1. rewrite <- Eq1 in Hdec1.
-    simpl in Hdec1. rewrite Hdec1. reflexivity. }
-  rewrite <- Eq2 in Hdec2.
-  simpl in Hdec2.
-  rewrite Hdec2.
-  simpl CPU.step.
-  
-  (* Continue this pattern... this is still complex. Let me commit what we have and document *)
-  Abort.
+  reflexivity.
+Qed.
   cbn [run_n].
   rewrite run1_decode, Hdec4.
   cbn [CPU.step CPU.read_reg CPU.write_reg].
@@ -1396,34 +1376,53 @@ Proof.
   intros cpu0 cpu Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5 Hguard_false.
   subst cpu.
   
-  (* Manual algebraic stepping *)
-  cbn [run_n].
-  rewrite run1_decode, Hdec0.
+  (* Introduce intermediate assertions for each state *)
+  assert (Hstate1: run_n (run_n cpu0 3) 1 = run1 (run_n cpu0 3)).
+  { reflexivity. }
+  
+  assert (Hstate2: run_n (run_n cpu0 3) 2 = run1 (run1 (run_n cpu0 3))).
+  { simpl. reflexivity. }
+  
+  assert (Hstate3: run_n (run_n cpu0 3) 3 = run1 (run1 (run1 (run_n cpu0 3)))).
+  { simpl. reflexivity. }
+  
+  assert (Hstate4: run_n (run_n cpu0 3) 4 = run1 (run1 (run1 (run1 (run_n cpu0 3))))).
+  { simpl. reflexivity. }
+  
+  assert (Hstate5: run_n (run_n cpu0 3) 5 = run1 (run1 (run1 (run1 (run1 (run_n cpu0 3)))))).
+  { simpl. reflexivity. }
+  
+  assert (Hstate6: run_n (run_n cpu0 3) 6 = run1 (run1 (run1 (run1 (run1 (run1 (run_n cpu0 3))))))).
+  { simpl. reflexivity. }
+  
+  (* Chain the rewrites - work from innermost to outermost *)
+  unfold run1 at 1.
+  rewrite Hdec5.
   cbn [CPU.step CPU.read_reg CPU.write_reg].
   
-  cbn [run_n].
-  rewrite run1_decode, Hdec1.
+  unfold run1 at 1.
+  rewrite Hdec4.
   cbn [CPU.step CPU.read_reg CPU.write_reg].
   
-  cbn [run_n].
-  rewrite run1_decode, Hdec2.
-  cbn [CPU.step CPU.read_reg CPU.write_reg].
-  
-  cbn [run_n].
-  rewrite run1_decode, Hdec3.
+  unfold run1 at 1.
+  rewrite Hdec3.
   cbn [CPU.step].
+  rewrite <- Hstate3 in Hguard_false.
   rewrite Hguard_false.
   cbn [CPU.read_reg CPU.write_reg].
   
-  cbn [run_n].
-  rewrite run1_decode, Hdec4.
+  unfold run1 at 1.
+  rewrite Hdec2.
   cbn [CPU.step CPU.read_reg CPU.write_reg].
   
-  cbn [run_n].
-  rewrite run1_decode, Hdec5.
+  unfold run1 at 1.
+  rewrite Hdec1.
   cbn [CPU.step CPU.read_reg CPU.write_reg].
   
-  cbn [run_n].
+  unfold run1 at 1.
+  rewrite Hdec0.
+  cbn [CPU.step CPU.read_reg CPU.write_reg].
+  
   reflexivity.
 Qed.
 
@@ -1440,26 +1439,39 @@ Proof.
   intros cpu0 cpu Hdec0 Hdec1 Hdec2 Hdec3 Hguard_true.
   subst cpu.
   
-  (* Manual algebraic stepping *)
-  cbn [run_n].
-  rewrite run1_decode, Hdec0.
-  cbn [CPU.step CPU.read_reg CPU.write_reg].
+  (* Introduce intermediate assertions for each state *)
+  assert (Hstate1: run_n (run_n cpu0 3) 1 = run1 (run_n cpu0 3)).
+  { reflexivity. }
   
-  cbn [run_n].
-  rewrite run1_decode, Hdec1.
-  cbn [CPU.step CPU.read_reg CPU.write_reg].
+  assert (Hstate2: run_n (run_n cpu0 3) 2 = run1 (run1 (run_n cpu0 3))).
+  { simpl. reflexivity. }
   
-  cbn [run_n].
-  rewrite run1_decode, Hdec2.
-  cbn [CPU.step CPU.read_reg CPU.write_reg].
+  assert (Hstate3: run_n (run_n cpu0 3) 3 = run1 (run1 (run1 (run_n cpu0 3)))).
+  { simpl. reflexivity. }
   
-  cbn [run_n].
-  rewrite run1_decode, Hdec3.
+  assert (Hstate4: run_n (run_n cpu0 3) 4 = run1 (run1 (run1 (run1 (run_n cpu0 3))))).
+  { simpl. reflexivity. }
+  
+  (* Chain the rewrites - work from innermost to outermost *)
+  unfold run1 at 1.
+  rewrite Hdec3.
   cbn [CPU.step].
+  rewrite <- Hstate3 in Hguard_true.
   rewrite Hguard_true.
   cbn [CPU.read_reg CPU.write_reg].
   
-  cbn [run_n].
+  unfold run1 at 1.
+  rewrite Hdec2.
+  cbn [CPU.step CPU.read_reg CPU.write_reg].
+  
+  unfold run1 at 1.
+  rewrite Hdec1.
+  cbn [CPU.step CPU.read_reg CPU.write_reg].
+  
+  unfold run1 at 1.
+  rewrite Hdec0.
+  cbn [CPU.step CPU.read_reg CPU.write_reg].
+  
   reflexivity.
 Qed.
 
