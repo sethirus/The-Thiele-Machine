@@ -833,7 +833,7 @@ Proof.
     + rewrite firstn_length. rewrite Nat.min_l; [lia|lia].
 Qed.
 
-(* Writing to a register never shrinks the register file. *)
+(*Writing to a register never shrinks the register file. *)
 Lemma length_write_reg_ge : forall r v st,
   length (CPU.write_reg r v st).(CPU.regs) >= length st.(CPU.regs).
 Proof.
@@ -843,10 +843,11 @@ Proof.
   set (regs := CPU.regs st).
   assert (Hlen: forall (l : list nat) n m,
     length (firstn n l ++ m :: skipn (S n) l) >= length l).
-  { intros l. induction l as [|x xs IHxs]; intros n m; simpl.
+  { intros l. induction l as [|x xs IHxs]; intros n m.
     - destruct n; simpl; lia.
-    - destruct n; simpl; try lia.
-      specialize (IHxs n m). simpl in IHxs. lia. }
+    - destruct n; simpl.
+      + lia.
+      + simpl in IHxs. specialize (IHxs n m). simpl. lia. }
   apply (Hlen regs r v).
 Qed.
 
@@ -856,35 +857,42 @@ Lemma length_step_ge : forall instr st,
 Proof.
   intros instr st.
   unfold CPU.step.
-  set (st_pc := CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC st)) st).
+  remember (CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC st)) st) as st_pc eqn:Heq_st_pc.
   assert (Hlen_pc : length (CPU.regs st_pc) >= length st.(CPU.regs)).
   { subst st_pc. apply length_write_reg_ge. }
+  clear Heq_st_pc.
   destruct instr; simpl.
-  - (* LoadConst *) apply Nat.le_trans with (m := length (CPU.regs st_pc)); [apply length_write_reg_ge|lia].
-  - (* LoadIndirect *) apply Nat.le_trans with (m := length (CPU.regs st_pc)); [apply length_write_reg_ge|lia].
-  - (* StoreIndirect: write_mem preserves regs *)
-    unfold CPU.write_mem; simpl.
-    (* After write_mem, the regs field is st_pc.(regs) *)
-    lia.
-  - (* CopyReg *) apply Nat.le_trans with (m := length (CPU.regs st_pc)); [apply length_write_reg_ge|lia].
-  - (* AddConst *) apply Nat.le_trans with (m := length (CPU.regs st_pc)); [apply length_write_reg_ge|lia].
-  - (* AddReg *) apply Nat.le_trans with (m := length (CPU.regs st_pc)); [apply length_write_reg_ge|lia].
-  - (* SubReg *) apply Nat.le_trans with (m := length (CPU.regs st_pc)); [apply length_write_reg_ge|lia].
-  - (* Jz *) destruct (Nat.eqb (CPU.read_reg rc st) 0); 
-    [apply Nat.le_trans with (m := length (CPU.regs st_pc)); [apply length_write_reg_ge|lia]|lia].
-  - (* Jnz *) destruct (Nat.eqb (CPU.read_reg rc st) 0); 
-    [lia|apply Nat.le_trans with (m := length (CPU.regs st_pc)); [apply length_write_reg_ge|lia]].
-  - (* Halt: no regs change at all *) lia.
+  - (* LoadConst *) eapply Nat.le_trans; [apply Hlen_pc|apply length_write_reg_ge].
+  - (* LoadIndirect *) eapply Nat.le_trans; [apply Hlen_pc|apply length_write_reg_ge].
+  - (* StoreIndirect *) unfold CPU.write_mem; simpl; assumption.
+  - (* CopyReg *) eapply Nat.le_trans; [apply Hlen_pc|apply length_write_reg_ge].
+  - (* AddConst *) eapply Nat.le_trans; [apply Hlen_pc|apply length_write_reg_ge].
+  - (* AddReg *) eapply Nat.le_trans; [apply Hlen_pc|apply length_write_reg_ge].
+  - (* SubReg *) eapply Nat.le_trans; [apply Hlen_pc|apply length_write_reg_ge].
+  - (* Jz: if zero, write_reg to st; otherwise st_pc *)
+    destruct (Nat.eqb (CPU.read_reg rc st) 0).
+    + apply length_write_reg_ge.
+    + assumption.
+  - (* Jnz: if zero, st_pc; otherwise write_reg to st *)
+    destruct (Nat.eqb (CPU.read_reg rc st) 0).
+    + assumption.
+    + apply length_write_reg_ge.
+  - (* Halt: returns st unchanged *)
+    apply Nat.le_refl.
 Qed.
 
 (* Multi-step execution preserves or grows the register file length. *)
 Lemma length_run_n_ge : forall st n,
   length (CPU.regs (run_n st n)) >= length st.(CPU.regs).
 Proof.
-  intros st n. induction n as [|n IH].
-  - simpl. lia.
-  - simpl. apply Nat.le_trans with (m := length (CPU.regs (run_n st n))).
-    + apply length_step_ge.
+  intros st n. revert st. induction n as [|n IH]; intros st.
+  - (* Base case: n = 0 *) 
+    simpl. apply Nat.le_refl.
+  - (* Inductive case: n = S n' *)
+    simpl.
+    (* Goal: length (regs (run_n (run1 st) n)) >= length (regs st) *)
+    eapply Nat.le_trans.
+    + apply (length_step_ge (decode_instr st) st).
     + apply IH.
 Qed.
 
