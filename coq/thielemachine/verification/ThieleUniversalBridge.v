@@ -1306,6 +1306,67 @@ Definition findrule_entry_state (tm : TM) (conf : TMConfig) : CPU.State :=
    re-opaque it after the concrete 6- and 4-step lemmas below. *)
 #[local] Transparent run_n decode_instr.
 
+(* Helper lemmas to break down transition_FindRule_Next into smaller chunks.
+   This prevents OOM by forcing Coq to seal proof terms at each checkpoint.
+   Use manual unfolding instead of step_n to avoid vm_compute. *)
+
+Lemma transition_FindRule_Next_step2b : forall cpu0,
+  let cpu := run_n cpu0 3 in
+  CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3) =? 0 = false ->
+  CPU.read_reg CPU.REG_PC (run_n cpu 6) = 4.
+Proof.
+  intros cpu0 cpu Hguard_false.
+  subst cpu.
+  (* Manual expansion without heavy computation *)
+  do 6 (unfold run_n at 1; unfold run1 at 1; fold run_n).
+  simpl CPU.step.
+  simpl CPU.step.
+  simpl CPU.step.
+  rewrite Hguard_false.
+  simpl CPU.step.
+  simpl CPU.step.
+  simpl CPU.step.
+  reflexivity.
+Qed.
+
+Lemma transition_FindRule_Next_step3b : forall cpu0,
+  let cpu := run_n cpu0 3 in
+  CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3) =? 0 = false ->
+  CPU.read_reg CPU.REG_ADDR (run_n cpu 6) = 
+    CPU.read_reg CPU.REG_ADDR cpu + RULE_SIZE.
+Proof.
+  intros cpu0 cpu Hguard_false.
+  subst cpu.
+  (* Manual expansion without heavy computation *)
+  do 6 (unfold run_n at 1; unfold run1 at 1; fold run_n).
+  simpl CPU.step.
+  simpl CPU.step.
+  simpl CPU.step.
+  rewrite Hguard_false.
+  simpl CPU.step.
+  simpl CPU.step.
+  simpl CPU.step.
+  reflexivity.
+Qed.
+
+(* Helper lemma for transition_FindRule_Found *)
+Lemma transition_FindRule_Found_step : forall cpu0,
+  let cpu := run_n cpu0 3 in
+  CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3) =? 0 = true ->
+  CPU.read_reg CPU.REG_PC (run_n cpu 4) = 12.
+Proof.
+  intros cpu0 cpu Hguard_true.
+  subst cpu.
+  (* Manual expansion without heavy computation *)
+  do 4 (unfold run_n at 1; unfold run1 at 1; fold run_n).
+  simpl CPU.step.
+  simpl CPU.step.
+  simpl CPU.step.
+  rewrite Hguard_true.
+  simpl CPU.step.
+  reflexivity.
+Qed.
+
 Time Lemma transition_FindRule_Next (tm : TM) (conf : TMConfig) :
   let cpu := findrule_entry_state tm conf in
   CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3) <> 0 ->
@@ -1329,18 +1390,12 @@ Proof.
   exists (run_n (run_n cpu0 3) 6).
   split; [reflexivity|].
   split.
-  - cbn [run_n].
-    step_n 3.
-    rewrite Hguard_false.
-    cbn [run_n].
-    step_n 3.
-    reflexivity.
-  - cbn [run_n].
-    step_n 3.
-    rewrite Hguard_false.
-    cbn [run_n].
-    step_n 3.
-    reflexivity.
+  - (* Use helper lemma to avoid OOM *)
+    apply (transition_FindRule_Next_step2b cpu0).
+    exact Hguard_false.
+  - (* Use helper lemma to avoid OOM *)
+    apply (transition_FindRule_Next_step3b cpu0).
+    exact Hguard_false.
   bridge_checkpoint ("transition_FindRule_Next_done"%string).
 Qed.
 
@@ -1366,12 +1421,9 @@ Proof.
 
   exists (run_n (run_n cpu0 3) 4).
   split; [reflexivity|].
-  cbn [run_n].
-  step_n 3.
-  rewrite Hguard_true.
-  cbn [run_n].
-  step_n 1.
-  reflexivity.
+  (* Use helper lemma to avoid OOM *)
+  apply (transition_FindRule_Found_step cpu0).
+  exact Hguard_true.
   bridge_checkpoint ("transition_FindRule_Found_done"%string).
 Qed.
 
@@ -1441,6 +1493,70 @@ Proof.
   - simpl. rewrite IHi. lia.
 Qed.
 
+(* Helper lemmas to break down loop_iteration_no_match.
+   These establish properties of the 6-step loop iteration. *)
+
+Lemma loop_iteration_run_equations : forall cpu i tm tape head q sym,
+  CPU.read_reg CPU.REG_PC cpu = 4 ->
+  length cpu.(CPU.regs) = 10 ->
+  decode_instr cpu = CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR ->
+  decode_instr (run1 cpu) = CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q ->
+  decode_instr (run_n cpu 2) = CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q' ->
+  decode_instr (run_n cpu 3) = CPU.Jz CPU.REG_TEMP1 12 ->
+  decode_instr (run_n cpu 4) = CPU.AddConst CPU.REG_ADDR RULE_SIZE ->
+  decode_instr (run_n cpu 5) = CPU.Jnz CPU.REG_TEMP1 4 ->
+  let cpu1 := CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) cpu in
+  let cpu2 := CPU.step (CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q) cpu1 in
+  let cpu3 := CPU.step (CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q') cpu2 in
+  let cpu4 := CPU.step (CPU.Jz CPU.REG_TEMP1 12) cpu3 in
+  let cpu5 := CPU.step (CPU.AddConst CPU.REG_ADDR RULE_SIZE) cpu4 in
+  let cpu6 := CPU.step (CPU.Jnz CPU.REG_TEMP1 4) cpu5 in
+  run1 cpu = cpu1 /\
+  run1 cpu1 = cpu2 /\
+  run1 cpu2 = cpu3 /\
+  run1 cpu3 = cpu4 /\
+  run1 cpu4 = cpu5 /\
+  run1 cpu5 = cpu6.
+Proof.
+  intros cpu i tm tape head q sym Hpc Hlen Hdecode0 Hdecode1 Hdecode2 Hdecode3 Hdecode4 Hdecode5.
+  set (cpu1 := CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) cpu).
+  set (cpu2 := CPU.step (CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q) cpu1).
+  set (cpu3 := CPU.step (CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q') cpu2).
+  set (cpu4 := CPU.step (CPU.Jz CPU.REG_TEMP1 12) cpu3).
+  set (cpu5 := CPU.step (CPU.AddConst CPU.REG_ADDR RULE_SIZE) cpu4).
+  set (cpu6 := CPU.step (CPU.Jnz CPU.REG_TEMP1 4) cpu5).
+  
+  assert (Hrun1 : run1 cpu = cpu1).
+  { unfold cpu1. rewrite run1_decode. rewrite Hdecode0. reflexivity. }
+  assert (Hrun2 : run1 cpu1 = cpu2).
+  { rewrite run1_decode.
+    assert (Heq: decode_instr cpu1 = decode_instr (run1 cpu)).
+    { rewrite <- Hrun1. reflexivity. }
+    rewrite Heq, Hdecode1. unfold cpu2. reflexivity. }
+  assert (Hrun3 : run1 cpu2 = cpu3).
+  { unfold cpu3. rewrite run1_decode. f_equal.
+    assert (Heq_n2: run_n cpu 2 = cpu2).
+    { simpl. rewrite Hrun1, Hrun2. reflexivity. }
+    rewrite <- Heq_n2. exact Hdecode2. }
+  assert (Hrun4 : run1 cpu3 = cpu4).
+  { unfold cpu4. rewrite run1_decode. f_equal.
+    assert (Heq_n3: run_n cpu 3 = cpu3).
+    { simpl. rewrite Hrun1, Hrun2, Hrun3. reflexivity. }
+    rewrite <- Heq_n3. exact Hdecode3. }
+  assert (Hrun5 : run1 cpu4 = cpu5).
+  { unfold cpu5. rewrite run1_decode. f_equal.
+    assert (Heq_n4: run_n cpu 4 = cpu4).
+    { simpl. rewrite Hrun1, Hrun2, Hrun3, Hrun4. reflexivity. }
+    rewrite <- Heq_n4. exact Hdecode4. }
+  assert (Hrun6 : run1 cpu5 = cpu6).
+  { unfold cpu6. rewrite run1_decode. f_equal.
+    assert (Heq_n5: run_n cpu 5 = cpu5).
+    { simpl. rewrite Hrun1, Hrun2, Hrun3, Hrun4, Hrun5. reflexivity. }
+    rewrite <- Heq_n5. exact Hdecode5. }
+  
+  repeat split; assumption.
+Qed.
+
 (* Loop iteration lemma: checking non-matching rule preserves invariant *)
 Time Lemma loop_iteration_no_match : forall tm conf cpu i,
   FindRule_Loop_Inv tm conf cpu i ->
@@ -1488,53 +1604,10 @@ Proof.
   set (cpu5 := CPU.step (CPU.AddConst CPU.REG_ADDR RULE_SIZE) cpu4).
   set (cpu6 := CPU.step (CPU.Jnz CPU.REG_TEMP1 4) cpu5).
 
-  assert (Hrun1 : run1 cpu = cpu1).
-  { unfold cpu1.
-    rewrite run1_decode.
-    rewrite Hdecode0.
-    reflexivity. }
-  assert (Hrun2 : run1 cpu1 = cpu2).
-  { rewrite run1_decode.
-    assert (Heq: decode_instr cpu1 = decode_instr (run1 cpu)).
-    { rewrite <- Hrun1. reflexivity. }
-    rewrite Heq, Hdecode1. unfold cpu2. reflexivity.
-  }
-  assert (Hrun3 : run1 cpu2 = cpu3).
-  { unfold cpu3.
-    rewrite run1_decode.
-    f_equal.
-    assert (Heq_n2: run_n cpu 2 = cpu2).
-    { simpl. rewrite Hrun1, Hrun2. reflexivity. }
-    rewrite <- Heq_n2.
-    exact Hdecode2.
-  }
-  assert (Hrun4 : run1 cpu3 = cpu4).
-  { unfold cpu4.
-    rewrite run1_decode.
-    f_equal.
-    assert (Heq_n3: run_n cpu 3 = cpu3).
-    { simpl. rewrite Hrun1, Hrun2, Hrun3. reflexivity. }
-    rewrite <- Heq_n3.
-    exact Hdecode3.
-  }
-  assert (Hrun5 : run1 cpu4 = cpu5).
-  { unfold cpu5.
-    rewrite run1_decode.
-    f_equal.
-    assert (Heq_n4: run_n cpu 4 = cpu4).
-    { simpl. rewrite Hrun1, Hrun2, Hrun3, Hrun4. reflexivity. }
-    rewrite <- Heq_n4.
-    exact Hdecode4.
-  }
-  assert (Hrun6 : run1 cpu5 = cpu6).
-  { unfold cpu6.
-    rewrite run1_decode.
-    f_equal.
-    assert (Heq_n5: run_n cpu 5 = cpu5).
-    { simpl. rewrite Hrun1, Hrun2, Hrun3, Hrun4, Hrun5. reflexivity. }
-    rewrite <- Heq_n5.
-    exact Hdecode5.
-  }
+  (* Use helper lemma to establish run equations - avoids OOM *)
+  destruct (loop_iteration_run_equations cpu i tm tape head q sym 
+             Hpc Hlen Hdecode0 Hdecode1 Hdecode2 Hdecode3 Hdecode4 Hdecode5)
+    as [Hrun1 [Hrun2 [Hrun3 [Hrun4 [Hrun5 Hrun6]]]]].
 
   simpl.
   rewrite Hrun1. simpl.
