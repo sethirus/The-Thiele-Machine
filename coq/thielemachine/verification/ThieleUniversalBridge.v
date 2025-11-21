@@ -383,6 +383,8 @@ Definition setup_state (tm : TM) (conf : TMConfig) : CPU.State :=
   let mem1 := pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules) in
   {| CPU.regs := regs3; CPU.mem := mem1 ++ tape; CPU.cost := 0 |}.
 
+(* Don't make these opaque yet - we need them for foundational lemmas *)
+
 (* ----------------------------------------------------------------- *)
 (* Program layout shortcuts                                          *)
 (* ----------------------------------------------------------------- *)
@@ -748,6 +750,12 @@ Qed.
    rely on, so the operational definitions can remain opaque during the
    heavy FindRule proofs. *)
 #[local] Opaque run_n decode_instr.
+
+(* Make key definitions opaque to prevent expensive unfolding during proofs.
+   This stops the unifier from expanding massive symbolic lists. *)
+#[global] Opaque program.
+#[global] Opaque pad_to.
+#[global] Opaque setup_state.
 
 (* Rewrite run_n in terms of iterations *)
 Lemma run_n_unfold_3 : forall cpu,
@@ -1308,67 +1316,145 @@ Definition findrule_entry_state (tm : TM) (conf : TMConfig) : CPU.State :=
 
 (* Helper lemmas to break down transition_FindRule_Next into smaller chunks.
    This prevents OOM by forcing Coq to seal proof terms at each checkpoint.
-   Use manual unfolding instead of step_n to avoid vm_compute. *)
+   Strategy: Use explicit decode_instr hypotheses and rewrite, NOT vm_compute. *)
 
 Lemma transition_FindRule_Next_step2b : forall cpu0,
   let cpu := run_n cpu0 3 in
+  (* Provide explicit decode_instr results as hypotheses *)
+  decode_instr cpu = CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR ->
+  decode_instr (run1 cpu) = CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q ->
+  decode_instr (run_n cpu 2) = CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q' ->
+  decode_instr (run_n cpu 3) = CPU.Jz CPU.REG_TEMP1 12 ->
+  decode_instr (run_n cpu 4) = CPU.AddConst CPU.REG_ADDR RULE_SIZE ->
+  decode_instr (run_n cpu 5) = CPU.Jnz CPU.REG_TEMP1 4 ->
   CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3) =? 0 = false ->
   CPU.read_reg CPU.REG_PC (run_n cpu 6) = 4.
 Proof.
-  intros cpu0 cpu Hguard_false.
-  subst cpu.
-  (* Manual expansion without heavy computation *)
-  do 6 (unfold run_n at 1; unfold run1 at 1; fold run_n).
-  simpl CPU.step.
-  simpl CPU.step.
-  simpl CPU.step.
-  rewrite Hguard_false.
-  simpl CPU.step.
-  simpl CPU.step.
-  simpl CPU.step.
+  (* Work directly without subst to preserve hypothesis structure *)
+  intros cpu0 cpu Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5 Hguard_false.
+  (* Unfold cpu in the goal only *)
+  unfold cpu.
+  (* Now work algebraically *)
+  change (run_n (run_n cpu0 3) 6) with (run1 (run1 (run1 (run1 (run1 (run1 (run_n cpu0 3))))))).
+  (* Step 1 *)
+  rewrite run1_decode. 
+  change (decode_instr (run_n cpu0 3)) with (decode_instr (let cpu := run_n cpu0 3 in cpu)).
+  rewrite Hdec0. simpl CPU.step.
+  (* Step 2 *)
+  rewrite run1_decode.
+  change (decode_instr (run1 (run_n cpu0 3))) with (decode_instr (let cpu := run_n cpu0 3 in run1 cpu)).
+  rewrite Hdec1. simpl CPU.step.
+  (* Step 3 *)
+  rewrite run1_decode.
+  change (decode_instr (run_n (run1 (run1 (run_n cpu0 3))) 0)) with 
+         (decode_instr (let cpu := run_n cpu0 3 in run_n cpu 2)).
+  rewrite Hdec2. simpl CPU.step.
+  (* Step 4 - Jz *)
+  rewrite run1_decode.
+  change (decode_instr (run_n (run1 (run1 (run1 (run_n cpu0 3)))) 0)) with
+         (decode_instr (let cpu := run_n cpu0 3 in run_n cpu 3)).
+  rewrite Hdec3. simpl CPU.step.
+  change (CPU.read_reg CPU.REG_TEMP1 (run1 (run1 (run1 (run_n cpu0 3)))) =? 0) with
+         (let cpu := run_n cpu0 3 in CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3) =? 0).
+  rewrite Hguard_false. simpl.
+  (* Step 5 *)
+  rewrite run1_decode.
+  change (decode_instr (run_n (run1 (run1 (run1 (run1 (run_n cpu0 3))))) 0)) with
+         (decode_instr (let cpu := run_n cpu0 3 in run_n cpu 4)).
+  rewrite Hdec4. simpl CPU.step.
+  (* Step 6 *)
+  rewrite run1_decode.
+  change (decode_instr (run_n (run1 (run1 (run1 (run1 (run1 (run_n cpu0 3)))))) 0)) with
+         (decode_instr (let cpu := run_n cpu0 3 in run_n cpu 5)).
+  rewrite Hdec5. simpl CPU.step.
   reflexivity.
 Qed.
 
 Lemma transition_FindRule_Next_step3b : forall cpu0,
   let cpu := run_n cpu0 3 in
+  (* Provide explicit decode_instr results as hypotheses *)
+  decode_instr cpu = CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR ->
+  decode_instr (run1 cpu) = CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q ->
+  decode_instr (run_n cpu 2) = CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q' ->
+  decode_instr (run_n cpu 3) = CPU.Jz CPU.REG_TEMP1 12 ->
+  decode_instr (run_n cpu 4) = CPU.AddConst CPU.REG_ADDR RULE_SIZE ->
+  decode_instr (run_n cpu 5) = CPU.Jnz CPU.REG_TEMP1 4 ->
   CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3) =? 0 = false ->
   CPU.read_reg CPU.REG_ADDR (run_n cpu 6) = 
     CPU.read_reg CPU.REG_ADDR cpu + RULE_SIZE.
 Proof.
-  intros cpu0 cpu Hguard_false.
-  subst cpu.
-  (* Manual expansion without heavy computation *)
-  do 6 (unfold run_n at 1; unfold run1 at 1; fold run_n).
-  simpl CPU.step.
-  simpl CPU.step.
-  simpl CPU.step.
-  rewrite Hguard_false.
-  simpl CPU.step.
-  simpl CPU.step.
-  simpl CPU.step.
-  reflexivity.
+  intros cpu0 cpu Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5 Hguard_false.
+  unfold cpu.
+  change (run_n (run_n cpu0 3) 6) with (run1 (run1 (run1 (run1 (run1 (run1 (run_n cpu0 3))))))).
+  rewrite run1_decode.
+  change (decode_instr (run_n cpu0 3)) with (decode_instr (let cpu := run_n cpu0 3 in cpu)).
+  rewrite Hdec0. simpl CPU.step.
+  rewrite run1_decode.
+  change (decode_instr (run1 (run_n cpu0 3))) with (decode_instr (let cpu := run_n cpu0 3 in run1 cpu)).
+  rewrite Hdec1. simpl CPU.step.
+  rewrite run1_decode.
+  change (decode_instr (run_n (run1 (run1 (run_n cpu0 3))) 0)) with 
+         (decode_instr (let cpu := run_n cpu0 3 in run_n cpu 2)).
+  rewrite Hdec2. simpl CPU.step.
+  rewrite run1_decode.
+  change (decode_instr (run_n (run1 (run1 (run1 (run_n cpu0 3)))) 0)) with
+         (decode_instr (let cpu := run_n cpu0 3 in run_n cpu 3)).
+  rewrite Hdec3. simpl CPU.step.
+  change (CPU.read_reg CPU.REG_TEMP1 (run1 (run1 (run1 (run_n cpu0 3)))) =? 0) with
+         (let cpu := run_n cpu0 3 in CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3) =? 0).
+  rewrite Hguard_false. simpl.
+  rewrite run1_decode.
+  change (decode_instr (run_n (run1 (run1 (run1 (run1 (run_n cpu0 3))))) 0)) with
+         (decode_instr (let cpu := run_n cpu0 3 in run_n cpu 4)).
+  rewrite Hdec4. simpl CPU.step.
+  rewrite run1_decode.
+  change (decode_instr (run_n (run1 (run1 (run1 (run1 (run1 (run_n cpu0 3)))))) 0)) with
+         (decode_instr (let cpu := run_n cpu0 3 in run_n cpu 5)).
+  rewrite Hdec5. simpl CPU.step.
+  simpl. reflexivity.
 Qed.
 
 (* Helper lemma for transition_FindRule_Found *)
 Lemma transition_FindRule_Found_step : forall cpu0,
   let cpu := run_n cpu0 3 in
+  decode_instr cpu = CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR ->
+  decode_instr (run1 cpu) = CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q ->
+  decode_instr (run_n cpu 2) = CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q' ->
+  decode_instr (run_n cpu 3) = CPU.Jz CPU.REG_TEMP1 12 ->
   CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3) =? 0 = true ->
   CPU.read_reg CPU.REG_PC (run_n cpu 4) = 12.
 Proof.
-  intros cpu0 cpu Hguard_true.
-  subst cpu.
-  (* Manual expansion without heavy computation *)
-  do 4 (unfold run_n at 1; unfold run1 at 1; fold run_n).
-  simpl CPU.step.
-  simpl CPU.step.
-  simpl CPU.step.
-  rewrite Hguard_true.
-  simpl CPU.step.
-  reflexivity.
+  intros cpu0 cpu Hdec0 Hdec1 Hdec2 Hdec3 Hguard_true.
+  unfold cpu.
+  change (run_n (run_n cpu0 3) 4) with (run1 (run1 (run1 (run1 (run_n cpu0 3))))).
+  rewrite run1_decode.
+  change (decode_instr (run_n cpu0 3)) with (decode_instr (let cpu := run_n cpu0 3 in cpu)).
+  rewrite Hdec0. simpl CPU.step.
+  rewrite run1_decode.
+  change (decode_instr (run1 (run_n cpu0 3))) with (decode_instr (let cpu := run_n cpu0 3 in run1 cpu)).
+  rewrite Hdec1. simpl CPU.step.
+  rewrite run1_decode.
+  change (decode_instr (run_n (run1 (run1 (run_n cpu0 3))) 0)) with 
+         (decode_instr (let cpu := run_n cpu0 3 in run_n cpu 2)).
+  rewrite Hdec2. simpl CPU.step.
+  rewrite run1_decode.
+  change (decode_instr (run_n (run1 (run1 (run1 (run_n cpu0 3)))) 0)) with
+         (decode_instr (let cpu := run_n cpu0 3 in run_n cpu 3)).
+  rewrite Hdec3. simpl CPU.step.
+  change (CPU.read_reg CPU.REG_TEMP1 (run1 (run1 (run1 (run_n cpu0 3)))) =? 0) with
+         (let cpu := run_n cpu0 3 in CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3) =? 0).
+  rewrite Hguard_true. simpl. reflexivity.
 Qed.
 
 Time Lemma transition_FindRule_Next (tm : TM) (conf : TMConfig) :
   let cpu := findrule_entry_state tm conf in
+  (* Add explicit decode_instr hypotheses to avoid vm_compute *)
+  decode_instr cpu = CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR ->
+  decode_instr (run1 cpu) = CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q ->
+  decode_instr (run_n cpu 2) = CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q' ->
+  decode_instr (run_n cpu 3) = CPU.Jz CPU.REG_TEMP1 12 ->
+  decode_instr (run_n cpu 4) = CPU.AddConst CPU.REG_ADDR RULE_SIZE ->
+  decode_instr (run_n cpu 5) = CPU.Jnz CPU.REG_TEMP1 4 ->
   CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3) <> 0 ->
   exists cpu',
     run_n cpu 6 = cpu' /\
@@ -1376,7 +1462,7 @@ Time Lemma transition_FindRule_Next (tm : TM) (conf : TMConfig) :
     CPU.read_reg CPU.REG_ADDR cpu' = CPU.read_reg CPU.REG_ADDR cpu + RULE_SIZE.
 Proof.
   bridge_checkpoint ("transition_FindRule_Next"%string).
-  intros cpu Htemp.
+  intros cpu Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5 Htemp.
   subst cpu. unfold findrule_entry_state.
   set (cpu0 := setup_state tm conf) in *.
   Local Opaque CPU.read_mem.
@@ -1391,10 +1477,10 @@ Proof.
   split; [reflexivity|].
   split.
   - (* Use helper lemma to avoid OOM *)
-    apply (transition_FindRule_Next_step2b cpu0).
+    apply (transition_FindRule_Next_step2b cpu0 Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5).
     exact Hguard_false.
   - (* Use helper lemma to avoid OOM *)
-    apply (transition_FindRule_Next_step3b cpu0).
+    apply (transition_FindRule_Next_step3b cpu0 Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5).
     exact Hguard_false.
   bridge_checkpoint ("transition_FindRule_Next_done"%string).
 Qed.
@@ -1403,13 +1489,18 @@ Qed.
    so the Jz is taken and control jumps to the Found block at PC=12. *)
 Time Lemma transition_FindRule_Found (tm : TM) (conf : TMConfig) :
   let cpu := findrule_entry_state tm conf in
+  (* Add explicit decode_instr hypotheses to avoid vm_compute *)
+  decode_instr cpu = CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR ->
+  decode_instr (run1 cpu) = CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q ->
+  decode_instr (run_n cpu 2) = CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q' ->
+  decode_instr (run_n cpu 3) = CPU.Jz CPU.REG_TEMP1 12 ->
   CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3) = 0 ->
   exists cpu',
     run_n cpu 4 = cpu' /\
     CPU.read_reg CPU.REG_PC cpu' = 12.
 Proof.
   bridge_checkpoint ("transition_FindRule_Found"%string).
-  intros cpu Htemp.
+  intros cpu Hdec0 Hdec1 Hdec2 Hdec3 Htemp.
   subst cpu. unfold findrule_entry_state.
   set (cpu0 := setup_state tm conf) in *.
   Local Opaque CPU.read_mem.
@@ -1422,7 +1513,7 @@ Proof.
   exists (run_n (run_n cpu0 3) 4).
   split; [reflexivity|].
   (* Use helper lemma to avoid OOM *)
-  apply (transition_FindRule_Found_step cpu0).
+  apply (transition_FindRule_Found_step cpu0 Hdec0 Hdec1 Hdec2 Hdec3).
   exact Hguard_true.
   bridge_checkpoint ("transition_FindRule_Found_done"%string).
 Qed.
