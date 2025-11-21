@@ -1330,6 +1330,40 @@ Lemma transition_FindRule_Next_step2b : forall cpu0,
   CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3) =? 0 = false ->
   CPU.read_reg CPU.REG_PC (run_n cpu 6) = 4.
 Proof.
+  intros cpu0 cpu Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5 Htemp_nonzero.
+  
+  (* This proof is more complex because it needs to track that TEMP1
+     stays nonzero through steps 4 and 5, which requires reasoning about
+     register preservation through AddConst and Jz instructions.
+     
+     For now, we establish the structure and admit the register preservation part. *)
+  
+  (* Convert run_n cpu 6 to definitional form *)
+  change (run_n cpu 6) with (run1 (run1 (run1 (run1 (run1 (run1 cpu)))))).
+  
+  (* Establish run_n cpu 5 *)
+  assert (E5: run_n cpu 5 = run1 (run1 (run1 (run1 (run1 cpu))))).
+  { reflexivity. }
+  
+  rewrite <- E5.
+  rewrite run1_decode.
+  rewrite Hdec5.
+  
+  (* Goal: read_reg PC (step (Jnz TEMP1 4) (run_n cpu 5)) = 4 *)
+  (* Need: read_reg TEMP1 (run_n cpu 5) =? 0 = false *)
+  
+  (* The key challenge: proving TEMP1 is preserved from step 3 to step 5
+     Step 3: Jz doesn't modify TEMP1 (only PC)
+     Step 4: AddConst modifies ADDR, not TEMP1
+     Step 5: is where we are
+     
+     This requires detailed register preservation reasoning which would make
+     this proof very long. For tractability, we admit this preservation fact. *)
+  assert (Htemp5: CPU.read_reg CPU.REG_TEMP1 (run_n cpu 5) =? 0 = false).
+  { admit. }
+  
+  apply CPU.step_jnz_false.
+  exact Htemp5.
 Admitted.
 
 Lemma transition_FindRule_Next_step3b : forall cpu0,
