@@ -1333,33 +1333,25 @@ Proof.
   intros cpu0 cpu Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5 Hguard_false.
   subst cpu.
   
-  (* Use change + unfold pattern: expand run_n (run_n cpu0 3) 6 into chain of run1 *)
-  change (run_n (run_n cpu0 3) 6) with (run1 (run1 (run1 (run1 (run1 (run1 (run_n cpu0 3))))))).
-  
-  (* Unfold from OUTERMOST to INNERMOST and rewrite *)
-  unfold run1 at 1. rewrite Hdec5.
-  unfold run1 at 1. rewrite Hdec4.
-  unfold run1 at 1. rewrite Hdec3.
-  unfold run1 at 1. rewrite Hdec2.
-  unfold run1 at 1. rewrite Hdec1.
-  unfold run1 at 1. rewrite Hdec0.
+  (* Peel run_n layers one at a time using change, then rewrite with run1_decode *)
+  change (run_n (run_n cpu0 3) 6) with (run_n (run1 (run_n cpu0 3)) 5).
+  rewrite run1_decode. rewrite Hdec5.
+  change (run_n (run1 (run_n cpu0 3)) 5) with (run_n (run1 (run1 (run_n cpu0 3))) 4).
+  rewrite run1_decode. rewrite Hdec4.
+  change (run_n (run1 (run1 (run_n cpu0 3))) 4) with (run_n (run1 (run1 (run1 (run_n cpu0 3)))) 3).
+  rewrite run1_decode. rewrite Hdec3.
+  change (run_n (run1 (run1 (run1 (run_n cpu0 3)))) 3) with (run_n (run1 (run1 (run1 (run1 (run_n cpu0 3))))) 2).
+  rewrite run1_decode. rewrite Hdec2.
+  change (run_n (run1 (run1 (run1 (run1 (run_n cpu0 3))))) 2) with (run_n (run1 (run1 (run1 (run1 (run1 (run_n cpu0 3)))))) 1).
+  rewrite run1_decode. rewrite Hdec1.
+  change (run_n (run1 (run1 (run1 (run1 (run1 (run_n cpu0 3)))))) 1) with (run1 (run1 (run1 (run1 (run1 (run1 (run_n cpu0 3))))))).
+  rewrite run1_decode. rewrite Hdec0.
   
   (* Now simplify everything at once *)
   cbn [CPU.step CPU.read_reg CPU.write_reg firstn skipn app nth Z.add Nat.eqb].
   rewrite Hguard_false. 
   cbn [CPU.read_reg CPU.write_reg firstn skipn app nth Z.add].
   reflexivity.
-Qed.
-  
-  (* Forward execution pattern: step 5 *)
-  pose (cpu6 := CPU.step (CPU.Jnz CPU.REG_TEMP1 4) cpu5).
-  assert (Hstep5: run1 cpu5 = cpu6).
-  { unfold cpu6. rewrite run1_decode. rewrite Hdec5. reflexivity. }
-  rewrite Hstep5 in *.
-  
-  (* Final goal simplification - goal is now simply a property of cpu6 *)
-  cbn [run_n].
-  unfold cpu6. cbn [CPU.step CPU.read_reg]. reflexivity.
 Qed.
 
 Lemma transition_FindRule_Next_step3b : forall cpu0,
@@ -1378,16 +1370,19 @@ Proof.
   intros cpu0 cpu Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5 Hguard_false.
   subst cpu.
   
-  (* Use change + unfold pattern: expand run_n (run_n cpu0 3) 6 into chain of run1 *)
-  change (run_n (run_n cpu0 3) 6) with (run1 (run1 (run1 (run1 (run1 (run1 (run_n cpu0 3))))))).
-  
-  (* Unfold from OUTERMOST to INNERMOST and rewrite *)
-  unfold run1 at 1. rewrite Hdec5.
-  unfold run1 at 1. rewrite Hdec4.
-  unfold run1 at 1. rewrite Hdec3.
-  unfold run1 at 1. rewrite Hdec2.
-  unfold run1 at 1. rewrite Hdec1.
-  unfold run1 at 1. rewrite Hdec0.
+  (* Peel run_n layers one at a time using change, then rewrite with run1_decode *)
+  change (run_n (run_n cpu0 3) 6) with (run_n (run1 (run_n cpu0 3)) 5).
+  rewrite run1_decode. rewrite Hdec5.
+  change (run_n (run1 (run_n cpu0 3)) 5) with (run_n (run1 (run1 (run_n cpu0 3))) 4).
+  rewrite run1_decode. rewrite Hdec4.
+  change (run_n (run1 (run1 (run_n cpu0 3))) 4) with (run_n (run1 (run1 (run1 (run_n cpu0 3)))) 3).
+  rewrite run1_decode. rewrite Hdec3.
+  change (run_n (run1 (run1 (run1 (run_n cpu0 3)))) 3) with (run_n (run1 (run1 (run1 (run1 (run_n cpu0 3))))) 2).
+  rewrite run1_decode. rewrite Hdec2.
+  change (run_n (run1 (run1 (run1 (run1 (run_n cpu0 3))))) 2) with (run_n (run1 (run1 (run1 (run1 (run1 (run_n cpu0 3)))))) 1).
+  rewrite run1_decode. rewrite Hdec1.
+  change (run_n (run1 (run1 (run1 (run1 (run1 (run_n cpu0 3)))))) 1) with (run1 (run1 (run1 (run1 (run1 (run1 (run_n cpu0 3))))))).
+  rewrite run1_decode. rewrite Hdec0.
   
   (* Now simplify everything at once *)
   cbn [CPU.step CPU.read_reg CPU.write_reg firstn skipn app nth Z.add Nat.eqb].
@@ -1410,14 +1405,15 @@ Proof.
   intros cpu0 cpu Hdec0 Hdec1 Hdec2 Hdec3 Hguard_true.
   subst cpu.
   
-  (* Use change + unfold pattern: expand run_n (run_n cpu0 3) 4 into chain of run1 *)
-  change (run_n (run_n cpu0 3) 4) with (run1 (run1 (run1 (run1 (run_n cpu0 3))))).
-  
-  (* Unfold from OUTERMOST to INNERMOST and rewrite *)
-  unfold run1 at 1. rewrite Hdec3.
-  unfold run1 at 1. rewrite Hdec2.
-  unfold run1 at 1. rewrite Hdec1.
-  unfold run1 at 1. rewrite Hdec0.
+  (* Peel run_n layers one at a time using change, then rewrite with run1_decode *)
+  change (run_n (run_n cpu0 3) 4) with (run_n (run1 (run_n cpu0 3)) 3).
+  rewrite run1_decode. rewrite Hdec3.
+  change (run_n (run1 (run_n cpu0 3)) 3) with (run_n (run1 (run1 (run_n cpu0 3))) 2).
+  rewrite run1_decode. rewrite Hdec2.
+  change (run_n (run1 (run1 (run_n cpu0 3))) 2) with (run_n (run1 (run1 (run1 (run_n cpu0 3)))) 1).
+  rewrite run1_decode. rewrite Hdec1.
+  change (run_n (run1 (run1 (run1 (run_n cpu0 3)))) 1) with (run1 (run1 (run1 (run1 (run_n cpu0 3))))).
+  rewrite run1_decode. rewrite Hdec0.
   
   (* Now simplify everything at once *)
   cbn [CPU.step CPU.read_reg CPU.write_reg firstn skipn app nth Z.add Nat.eqb].
