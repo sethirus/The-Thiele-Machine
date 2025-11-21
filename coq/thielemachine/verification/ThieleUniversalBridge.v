@@ -839,12 +839,15 @@ Lemma length_write_reg_ge : forall r v st,
 Proof.
   intros r v st.
   unfold CPU.write_reg. simpl.
-  generalize dependent r. generalize dependent v.
-  induction (CPU.regs st) as [|x xs IH]; intros.
-  - destruct r; simpl; lia.
-  - destruct r; simpl.
-    + lia.
-    + specialize (IH r v). lia.
+  (* After unfolding: firstn r (CPU.regs st) ++ [v] ++ skipn (S r) (CPU.regs st) *)
+  set (regs := CPU.regs st).
+  assert (Hlen: forall (l : list nat) n m,
+    length (firstn n l ++ m :: skipn (S n) l) >= length l).
+  { intros l. induction l as [|x xs IHxs]; intros n m; simpl.
+    - destruct n; simpl; lia.
+    - destruct n; simpl; try lia.
+      specialize (IHxs n m). simpl in IHxs. lia. }
+  apply (Hlen regs r v).
 Qed.
 
 (* Stepping cannot shorten the register file. *)
@@ -856,9 +859,22 @@ Proof.
   set (st_pc := CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC st)) st).
   assert (Hlen_pc : length (CPU.regs st_pc) >= length st.(CPU.regs)).
   { subst st_pc. apply length_write_reg_ge. }
-  destruct instr; simpl; try lia.
-  all: try (apply Nat.le_trans with (m := length (CPU.regs st_pc)); [apply length_write_reg_ge|lia]).
-  all: destruct (Nat.eqb (CPU.read_reg n st) 0); lia.
+  destruct instr; simpl.
+  - (* LoadConst *) apply Nat.le_trans with (m := length (CPU.regs st_pc)); [apply length_write_reg_ge|lia].
+  - (* LoadIndirect *) apply Nat.le_trans with (m := length (CPU.regs st_pc)); [apply length_write_reg_ge|lia].
+  - (* StoreIndirect: write_mem preserves regs *)
+    unfold CPU.write_mem; simpl.
+    (* After write_mem, the regs field is st_pc.(regs) *)
+    lia.
+  - (* CopyReg *) apply Nat.le_trans with (m := length (CPU.regs st_pc)); [apply length_write_reg_ge|lia].
+  - (* AddConst *) apply Nat.le_trans with (m := length (CPU.regs st_pc)); [apply length_write_reg_ge|lia].
+  - (* AddReg *) apply Nat.le_trans with (m := length (CPU.regs st_pc)); [apply length_write_reg_ge|lia].
+  - (* SubReg *) apply Nat.le_trans with (m := length (CPU.regs st_pc)); [apply length_write_reg_ge|lia].
+  - (* Jz *) destruct (Nat.eqb (CPU.read_reg rc st) 0); 
+    [apply Nat.le_trans with (m := length (CPU.regs st_pc)); [apply length_write_reg_ge|lia]|lia].
+  - (* Jnz *) destruct (Nat.eqb (CPU.read_reg rc st) 0); 
+    [lia|apply Nat.le_trans with (m := length (CPU.regs st_pc)); [apply length_write_reg_ge|lia]].
+  - (* Halt: no regs change at all *) lia.
 Qed.
 
 (* Multi-step execution preserves or grows the register file length. *)
