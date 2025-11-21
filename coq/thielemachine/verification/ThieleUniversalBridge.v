@@ -1353,12 +1353,11 @@ Proof.
   (* Need: read_reg TEMP1 (run_n cpu 5) =? 0 = false *)
   
   (* The key challenge: proving TEMP1 is preserved from step 3 to step 5
-     Step 3: Jz doesn't modify TEMP1 (only PC)
-     Step 4: AddConst modifies ADDR, not TEMP1
-     Step 5: is where we are
+     Step 3→4: Jz (branch not taken) only modifies PC
+     Step 4→5: AddConst modifies ADDR (reg 3), not TEMP1 (reg 1)
      
-     This requires detailed register preservation reasoning which would make
-     this proof very long. For tractability, we admit this preservation fact. *)
+     This requires explicit unfolding of write_reg and read_reg operations
+     and reasoning about register indices. Admitting for tractability. *)
   assert (Htemp5: CPU.read_reg CPU.REG_TEMP1 (run_n cpu 5) =? 0 = false).
   { admit. }
   
@@ -1586,6 +1585,13 @@ Proof.
   set (cpu4 := CPU.step (CPU.Jz CPU.REG_TEMP1 12) cpu3).
   set (cpu5 := CPU.step (CPU.AddConst CPU.REG_ADDR RULE_SIZE) cpu4).
   set (cpu6 := CPU.step (CPU.Jnz CPU.REG_TEMP1 4) cpu5).
+  
+  (* Prove each equation by unfolding and using decode hypotheses *)
+  repeat split; unfold cpu1, cpu2, cpu3, cpu4, cpu5, cpu6;
+    repeat (rewrite run1_decode || idtac);
+    try (rewrite Hdecode0 || rewrite Hdecode1 || rewrite Hdecode2 || 
+         rewrite Hdecode3 || rewrite Hdecode4 || rewrite Hdecode5);
+    try reflexivity.
 Admitted.
 
 (* Loop iteration lemma: checking non-matching rule preserves invariant *)
