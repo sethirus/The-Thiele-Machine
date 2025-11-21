@@ -1770,8 +1770,49 @@ Lemma loop_iteration_run_equations : forall cpu,
   run1 cpu4 = cpu5 /\
   run1 cpu5 = cpu6.
 Proof.
-  (* TODO: Proof has issues with rewrite after set. Temporarily admitted. *)
-Admitted.
+  intros cpu Hpc Hlen Hdecode0 Hdecode1 Hdecode2 Hdecode3 Hdecode4 Hdecode5.
+
+  (* Expand the [run_n] occurrences in the decode hypotheses so we can
+     rewrite them step-by-step using the previously established run1
+     equalities. *)
+  simpl in Hdecode2, Hdecode3, Hdecode4, Hdecode5.
+
+  (* Prove each run1 equation *)
+  assert (Hrun1 : run1 cpu = CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) cpu).
+  { unfold run1. rewrite Hdecode0. reflexivity. }
+
+  assert (Hdecode1' : decode_instr (CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) cpu) = CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q).
+  { rewrite <- Hrun1. exact Hdecode1. }
+
+  assert (Hrun2 : run1 (CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) cpu) = CPU.step (CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q) (CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) cpu)).
+  { unfold run1. rewrite Hdecode1'. reflexivity. }
+
+  assert (Hdecode2' : decode_instr (CPU.step (CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q) (CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) cpu)) = CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q').
+  { rewrite <- Hrun2. exact Hdecode2. }
+
+  assert (Hrun3 : run1 (CPU.step (CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q) (CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) cpu)) = CPU.step (CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q') (CPU.step (CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q) (CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) cpu))).
+  { unfold run1. rewrite Hdecode2'. reflexivity. }
+
+  assert (Hdecode3' : decode_instr (CPU.step (CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q') (CPU.step (CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q) (CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) cpu))) = CPU.Jz CPU.REG_TEMP1 12).
+  { rewrite <- Hrun3. exact Hdecode3. }
+
+  assert (Hrun4 : run1 (CPU.step (CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q') (CPU.step (CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q) (CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) cpu))) = CPU.step (CPU.Jz CPU.REG_TEMP1 12) (CPU.step (CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q') (CPU.step (CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q) (CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) cpu)))).
+  { unfold run1. rewrite Hdecode3'. reflexivity. }
+
+  assert (Hdecode4' : decode_instr (CPU.step (CPU.Jz CPU.REG_TEMP1 12) (CPU.step (CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q') (CPU.step (CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q) (CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) cpu)))) = CPU.AddConst CPU.REG_ADDR RULE_SIZE).
+  { rewrite <- Hrun4. exact Hdecode4. }
+
+  assert (Hrun5 : run1 (CPU.step (CPU.Jz CPU.REG_TEMP1 12) (CPU.step (CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q') (CPU.step (CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q) (CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) cpu)))) = CPU.step (CPU.AddConst CPU.REG_ADDR RULE_SIZE) (CPU.step (CPU.Jz CPU.REG_TEMP1 12) (CPU.step (CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q') (CPU.step (CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q) (CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) cpu))))).
+  { unfold run1. rewrite Hdecode4'. reflexivity. }
+
+  assert (Hdecode5' : decode_instr (CPU.step (CPU.AddConst CPU.REG_ADDR RULE_SIZE) (CPU.step (CPU.Jz CPU.REG_TEMP1 12) (CPU.step (CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q') (CPU.step (CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q) (CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) cpu))))) = CPU.Jnz CPU.REG_TEMP1 4).
+  { rewrite <- Hrun5. exact Hdecode5. }
+
+  assert (Hrun6 : run1 (CPU.step (CPU.AddConst CPU.REG_ADDR RULE_SIZE) (CPU.step (CPU.Jz CPU.REG_TEMP1 12) (CPU.step (CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q') (CPU.step (CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q) (CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) cpu))))) = CPU.step (CPU.Jnz CPU.REG_TEMP1 4) (CPU.step (CPU.AddConst CPU.REG_ADDR RULE_SIZE) (CPU.step (CPU.Jz CPU.REG_TEMP1 12) (CPU.step (CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q') (CPU.step (CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q) (CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) cpu)))))).
+  { unfold run1. rewrite Hdecode5'. reflexivity. }
+
+  repeat split; assumption.
+Qed.
 
 (* Loop iteration lemma: checking non-matching rule preserves invariant *)
 Time Lemma loop_iteration_no_match : forall tm conf cpu i,
