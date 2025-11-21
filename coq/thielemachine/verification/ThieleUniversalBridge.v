@@ -885,11 +885,21 @@ Qed.
 Lemma length_run_n_ge : forall st n,
   length (CPU.regs (run_n st n)) >= length st.(CPU.regs).
 Proof.
-  (* TODO: This proof needs to be completed. The original version used lia
-     which doesn't work in Coq 8.18.0, and the corrected version with revert
-     causes issues in downstream proofs that rely on this lemma when run_n
-     is transparent. *)
-Admitted.
+  intros st n.
+  revert st. (* Generalize st before induction so IH is universal *)
+  induction n as [|n' IHn]; intros st.
+  - (* Base case: n = 0 *)
+    simpl. apply Nat.le_refl.
+  - (* Inductive case: n = S n' *)
+    simpl. (* run_n st (S n') = run_n (run1 st) n' *)
+    (* IHn : forall st', length (run_n st' n') >= length st' *)
+    (* Need: length (run_n (run1 st) n') >= length st *)
+    assert (H1: length (CPU.regs (run1 st)) >= length (CPU.regs st)).
+    { unfold run1. apply length_step_ge. }
+    assert (H2: length (CPU.regs (run_n (run1 st) n')) >= length (CPU.regs (run1 st))).
+    { apply IHn. }
+    eapply Nat.le_trans; [exact H1 | exact H2].
+Qed.
 
 (* Helper: length is preserved by write_reg *)
 Lemma length_write_reg : forall r v st,
