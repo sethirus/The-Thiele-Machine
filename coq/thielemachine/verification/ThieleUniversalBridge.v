@@ -1492,8 +1492,83 @@ Lemma transition_FindRule_Next_step3b : forall cpu0,
   CPU.read_reg CPU.REG_ADDR (run_n cpu 6) =
     CPU.read_reg CPU.REG_ADDR cpu + RULE_SIZE.
 Proof.
-  (* TODO: Similar issue as step2b - temporarily admitted. *)
-Admitted.
+  intros cpu0 Hlen0 cpu Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5 Htemp_nonzero.
+
+  (* Register-file length is preserved across the short trace. *)
+  assert (Hlen_cpu : length (CPU.regs cpu) >= 10).
+  { subst cpu. 
+    eapply Nat.le_trans; [|apply length_run_n_ge].
+    rewrite Hlen0. apply Nat.le_refl. }
+
+  assert (Hlen3 : length (CPU.regs (run_n cpu 3)) >= 10).
+  { eapply Nat.le_trans; [|apply length_run_n_ge]. exact Hlen_cpu. }
+
+  assert (Hlen4 : length (CPU.regs (run_n cpu 4)) >= 10).
+  { eapply Nat.le_trans; [|apply length_run_n_ge]. exact Hlen3. }
+
+  assert (Hlen5 : length (CPU.regs (run_n cpu 5)) >= 10).
+  { eapply Nat.le_trans; [|apply length_run_n_ge]. exact Hlen4. }
+
+  (* Step 3 → 4: Jz with nonzero guard leaves ADDR unchanged. *)
+  assert (Haddr4 : CPU.read_reg CPU.REG_ADDR (run_n cpu 4)
+                   = CPU.read_reg CPU.REG_ADDR (run_n cpu 3)).
+  { change (run_n cpu 4) with (run1 (run_n cpu 3)).
+    rewrite run1_decode, Hdec3.
+    unfold CPU.step.
+    set (st_pc := CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC (run_n cpu 3))) (run_n cpu 3)).
+    rewrite Htemp_nonzero. simpl.
+    subst st_pc.
+    apply read_reg_write_reg_diff; cbv; try lia; try exact Hlen3.
+  }
+
+  (* Step 4 → 5: AddConst bumps ADDR by RULE_SIZE. *)
+  assert (Haddr5 : CPU.read_reg CPU.REG_ADDR (run_n cpu 5)
+                   = CPU.read_reg CPU.REG_ADDR (run_n cpu 3) + RULE_SIZE).
+  { change (run_n cpu 5) with (run1 (run_n cpu 4)).
+    rewrite run1_decode, Hdec4.
+    unfold CPU.step.
+    set (st_pc := CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC (run_n cpu 4))) (run_n cpu 4)).
+    set (st_addr := CPU.write_reg CPU.REG_ADDR (CPU.read_reg CPU.REG_ADDR (run_n cpu 4) + RULE_SIZE) st_pc).
+    simpl.
+    assert (Hlen_pc : length (CPU.regs st_pc) >= 10).
+    { subst st_pc.
+      apply Nat.le_trans with (m := length (CPU.regs (run_n cpu 4))); [apply length_write_reg_ge|exact Hlen4]. }
+    assert (Haddr_st : CPU.read_reg CPU.REG_ADDR st_addr
+                        = CPU.read_reg CPU.REG_ADDR (run_n cpu 4) + RULE_SIZE).
+    { subst st_addr. apply read_reg_write_reg_same; cbv; lia. }
+    rewrite Haddr_st, Haddr4. reflexivity.
+  }
+
+  (* Guard remains non-zero through Jnz. *)
+  assert (Htemp5_val : CPU.read_reg CPU.REG_TEMP1 (run_n cpu 5)
+                        = CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3)).
+  { change (run_n cpu 5) with (run1 (run_n cpu 4)).
+    rewrite run1_decode, Hdec4.
+    unfold CPU.step.
+    set (st_pc := CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC (run_n cpu 4))) (run_n cpu 4)).
+    set (st_addr := CPU.write_reg CPU.REG_ADDR (CPU.read_reg CPU.REG_ADDR (run_n cpu 4) + RULE_SIZE) st_pc).
+    simpl.
+    assert (Htemp_pc : CPU.read_reg CPU.REG_TEMP1 st_pc = CPU.read_reg CPU.REG_TEMP1 (run_n cpu 4)).
+    { subst st_pc. apply read_reg_write_reg_diff; cbv; try lia; try exact Hlen4. }
+    assert (Hlen_pc : length (CPU.regs st_pc) >= 10).
+    { subst st_pc. apply Nat.le_trans with (m := length (CPU.regs (run_n cpu 4))); [apply length_write_reg_ge|exact Hlen4]. }
+    assert (Htemp_addr : CPU.read_reg CPU.REG_TEMP1 st_addr = CPU.read_reg CPU.REG_TEMP1 st_pc).
+    { subst st_addr. apply read_reg_write_reg_diff; cbv; try lia; try exact Hlen_pc. }
+    rewrite Htemp_addr, Htemp_pc. reflexivity.
+  }
+
+  assert (Htemp5 : CPU.read_reg CPU.REG_TEMP1 (run_n cpu 5) =? 0 = false).
+  { rewrite Htemp5_val, Htemp_nonzero. reflexivity. }
+
+  (* Final Jnz step leaves ADDR untouched. *)
+  change (run_n cpu 6) with (run1 (run_n cpu 5)).
+  rewrite run1_decode, Hdec5.
+  unfold CPU.step.
+  set (st_pc := CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC (run_n cpu 5))) (run_n cpu 5)).
+  rewrite Htemp5. simpl.
+  subst st_pc.
+  apply read_reg_write_reg_diff; cbv; try lia; try exact Hlen5.
+Qed.
 
 
 (* Helper lemma for transition_FindRule_Found *)
