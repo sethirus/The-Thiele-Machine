@@ -1412,10 +1412,25 @@ Proof.
 
   (* Register file remains at least length 10 throughout. *)
   assert (Hlen_cpu : length (CPU.regs cpu) >= 10).
-  { subst cpu. rewrite Hlen0. apply length_run_n_ge. }
+  { subst cpu. 
+    (* Compute length of run_n cpu0 3 = run1 (run1 (run1 cpu0)) *)
+    assert (Hlen1: length (CPU.regs (run1 cpu0)) >= length (CPU.regs cpu0)).
+    { apply length_step_ge. }
+    assert (Hlen2: length (CPU.regs (run1 (run1 cpu0))) >= length (CPU.regs cpu0)).
+    { eapply Nat.le_trans; [apply length_step_ge | exact Hlen1]. }
+    assert (Hlen3_tmp: length (CPU.regs (run1 (run1 (run1 cpu0)))) >= length (CPU.regs cpu0)).
+    { eapply Nat.le_trans; [apply length_step_ge | exact Hlen2]. }
+    change (run_n cpu0 3) with (run1 (run1 (run1 cpu0))).
+    eapply Nat.le_trans; [rewrite Hlen0; apply Nat.le_refl | exact Hlen3_tmp]. }
 
   assert (Hlen3 : length (CPU.regs (run_n cpu 3)) >= 10).
-  { apply Nat.le_trans with (m := length (CPU.regs cpu)); [apply length_run_n_ge|lia]. }
+  { (* run_n cpu 3 = run1 (run1 (run1 cpu)) *)
+    change (run_n cpu 3) with (run1 (run1 (run1 cpu))).
+    assert (Hlen_c1: length (CPU.regs (run1 cpu)) >= 10).
+    { eapply Nat.le_trans; [exact Hlen_cpu | apply length_step_ge]. }
+    assert (Hlen_c2: length (CPU.regs (run1 (run1 cpu))) >= 10).
+    { eapply Nat.le_trans; [exact Hlen_c1 | apply length_step_ge]. }
+    eapply Nat.le_trans; [exact Hlen_c2 | apply length_step_ge]. }
 
   (* Step 3 → 4: Jz with nonzero guard does not change TEMP1. *)
   assert (Htemp4 : CPU.read_reg CPU.REG_TEMP1 (run_n cpu 4)
@@ -1424,7 +1439,6 @@ Proof.
     rewrite run1_decode, Hdec3.
     unfold CPU.step.
     set (st_pc := CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC (run_n cpu 3))) (run_n cpu 3)).
-    simpl.
     rewrite Htemp_nonzero. simpl.
     subst st_pc.
     apply read_reg_write_reg_diff; cbv; try lia.
