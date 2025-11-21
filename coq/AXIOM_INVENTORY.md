@@ -3,7 +3,9 @@
 _Updated after the halting-oracle refactor captured in `docs/COQ_PROOF_AUDIT.md`._
 
 ## Summary
-- **Total Admitted**: 2 (debug-only `debug_no_rule.v`, excluded from the core build)
+- **Total Admitted**: 5 (three in the quarantined bridge
+  `thielemachine/verification/ThieleUniversalBridge.v` plus two in the
+  debug-only `debug_no_rule.v`, excluded from the core build)
 - **Total Axioms**: 0 (all oracle hypotheses are now section parameters behind the optional `make oracle` target)
 - **Kernel module admits/axioms**: 0
 
@@ -17,7 +19,11 @@ The kernel proof tree (`coq/kernel/`) continues to build without admits or axiom
 ## Outstanding items
 
 ### Admitted lemmas
-- The only remaining admits live in the debugging artefact
+- Three admits remain in the quarantined verification bridge
+  (`coq/thielemachine/verification/ThieleUniversalBridge.v`). The auxiliary
+  `loop_iteration_run_equations` lemma has been discharged so the remaining
+  transition proofs can rely on explicit `run1`/`decode_instr` equalities.
+- Two admits remain in the debugging artefact
   `coq/thielemachine/coqproofs/debug_no_rule.v`, which is not part of the
   `_CoqProject` core or bridge builds.
 
