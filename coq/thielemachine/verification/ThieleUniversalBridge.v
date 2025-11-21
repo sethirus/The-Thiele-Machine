@@ -1353,14 +1353,10 @@ Proof.
   (* Need: read_reg TEMP1 (run_n cpu 5) =? 0 = false *)
   
   (* The key challenge: proving TEMP1 is preserved from step 3 to step 5
-     Step 3→4: Jz (branch not taken) only modifies PC  
-     Step 4→5: AddConst modifies ADDR (reg 3), not TEMP1 (reg 1)
+     Both step 3→4 (Jz branch not taken) and step 4→5 (AddConst) don't modify TEMP1.
      
-     This requires proving: read_reg TEMP1 (run_n cpu 5) = read_reg TEMP1 (run_n cpu 3)
-     Which needs unfolding CPU.step for Jz and AddConst instructions and showing
-     they don't write to TEMP1. This is a register preservation lemma.
-     
-     Admitting this sub-goal to keep proof tractable. *)
+     This requires tracking register file lengths and using read_reg_write_reg_diff lemmas.
+     The proof is complex due to needing length bounds. Admitting for now. *)
   assert (Htemp5: CPU.read_reg CPU.REG_TEMP1 (run_n cpu 5) =? 0 = false).
   { admit. }
   
