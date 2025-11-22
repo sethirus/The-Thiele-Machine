@@ -984,6 +984,41 @@ Proof.
   intros. apply nth_write_diff; assumption.
 Qed.
 
+(* Specialized lemma for nested writes (common CPU.step pattern) *)
+(* CPU.step typically writes PC first, then the target register *)
+Lemma nth_double_write_diff : forall (l : list nat) (r r1 r2 v1 v2 : nat),
+  r <> r1 ->
+  r <> r2 ->
+  r < length l ->
+  r1 < length l ->
+  r2 < length l ->
+  nth r (firstn r2 (firstn r1 l ++ [v1] ++ skipn (S r1) l) ++ [v2] ++ 
+         skipn (S r2) (firstn r1 l ++ [v1] ++ skipn (S r1) l)) 0 =
+  nth r l 0.
+Proof.
+  intros l r r1 r2 v1 v2 Hneq1 Hneq2 Hr Hr1 Hr2.
+  (* Apply nth_nat_write_diff for the outer write *)
+  assert (Hlen_inner: length (firstn r1 l ++ [v1] ++ skipn (S r1) l) = length l).
+  { repeat rewrite app_length. repeat rewrite firstn_length. repeat rewrite skipn_length.
+    simpl. rewrite Nat.min_l by lia. lia. }
+  rewrite nth_nat_write_diff.
+  - (* Apply nth_nat_write_diff for the inner write *)
+    apply nth_nat_write_diff; assumption.
+  - exact Hneq2.
+  - rewrite Hlen_inner. exact Hr.
+  - rewrite Hlen_inner. exact Hr2.
+Qed.
+
+(* Ltac automation for register preservation goals *)
+Ltac solve_reg_preservation :=
+  match goal with
+  | |- nth ?r (firstn ?r' _ ++ _ ++ skipn _ _) _ = nth ?r _ _ =>
+    apply nth_nat_write_diff; [lia | lia | lia]
+  | |- nth ?r (firstn ?r2 (firstn ?r1 _ ++ _ ++ skipn _ _) ++ _ ++ 
+                skipn _ (firstn ?r1 _ ++ _ ++ skipn _ _)) _ = nth ?r _ _ =>
+    apply nth_double_write_diff; [lia | lia | lia | lia | lia]
+  end.
+
 (* CPU.step PC progression for non-branching instructions *)
 (* Note: This lemma requires that rd <> REG_PC for all register-writing instructions.
    This is a constraint on the instruction encoding that should be enforced by the
