@@ -1836,24 +1836,61 @@ Proof.
   simpl in *.
   destruct Hinv as [Hpc_in_loop [Hq [Hsym [Haddr Hprev_rules]]]].
   
-  (* Now prove FindRule_Loop_Inv tm (q, tape, head) (run_n cpu 6) (S i) *)
+  (* The PC starts at 4 from Hpc hypothesis, so take the middle case *)
+  assert (Hpc_eq: CPU.read_reg CPU.REG_PC cpu = 4) by (destruct Hpc_in_loop as [H|[H|H]]; [lia|exact H|lia]).
+  clear Hpc_in_loop Hpc. (* Clean up, we have Hpc_eq *)
+  
+  (* Define intermediate states for clarity *)
+  set (cpu1 := run1 cpu).
+  set (cpu2 := run1 cpu1).
+  set (cpu3 := run1 cpu2).
+  set (cpu4 := run1 cpu3).
+  set (cpu5 := run1 cpu4).
+  set (cpu6 := run1 cpu5).
+  
+  (* Prove that run_n cpu 6 = cpu6 via the run_n unfolding *)
+  assert (Hrun6: run_n cpu 6 = cpu6).
+  { unfold cpu6, cpu5, cpu4, cpu3, cpu2, cpu1.
+    rewrite run_n_S. rewrite run_n_S. rewrite run_n_S.
+    rewrite run_n_S. rewrite run_n_S. rewrite run_n_1.
+    reflexivity. }
+  rewrite Hrun6.
+  
+  (* Prove cpu3 = run_n cpu 3 for use with Htemp_nonzero *)
+  assert (Hcpu3_eq: cpu3 = run_n cpu 3).
+  { unfold cpu3, cpu2, cpu1.
+    rewrite run_n_S. rewrite run_n_S. rewrite run_n_1.
+    reflexivity. }
+  
+  (* Now prove FindRule_Loop_Inv tm (q, tape, head) cpu6 (S i) *)
   unfold FindRule_Loop_Inv.
   simpl.
   
   (* We need to prove all components of the invariant after 6 steps *)
   split; [|split; [|split; [|split]]].
   
-  - (* PC is in the loop after 6 steps *)
-    (* After Jnz with nonzero TEMP1, PC jumps to 4 *)
+  - (* PC is at 4 after 6 steps *)
+    (* cpu6 = run1 cpu5 = step(decode_instr cpu5) cpu5 *)
+    (* decode_instr cpu5 = Jnz TEMP1 4, and TEMP1 is nonzero so PC jumps to 4 *)
+    right; left. (* Choose the middle case: PC = 4 *)
+    
+    unfold cpu6, cpu5, cpu4, cpu3, cpu2, cpu1.
+    (* We need to show that after the Jnz instruction with nonzero TEMP1, PC = 4 *)
+    admit. (* TODO: Use step_JumpNonZero_taken and track TEMP1 preservation *)
+    
+  - (* REG_Q is preserved through all 6 steps *)
+    (* REG_Q is never modified in any of the 6 instructions *)
+    (* LoadIndirect writes to Q', CopyReg writes to TEMP1, SubReg writes to TEMP1,
+       Jz doesn't write, AddConst writes to ADDR, Jnz doesn't write *)
     admit.
     
-  - (* REG_Q is preserved *)
-    admit.
-    
-  - (* REG_SYM is preserved *)
+  - (* REG_SYM is preserved through all 6 steps *)
+    (* REG_SYM is never modified in any of the 6 instructions *)
     admit.
     
   - (* REG_ADDR is incremented by RULE_SIZE *)
+    (* Step 5 (cpu4->cpu5) executes AddConst REG_ADDR RULE_SIZE *)
+    (* Steps 0-4 don't modify ADDR, step 6 doesn't modify ADDR *)
     admit.
     
   - (* All rules j < S i don't match *)
