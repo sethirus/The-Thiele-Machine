@@ -1862,6 +1862,13 @@ Proof.
     rewrite run_n_S. rewrite run_n_S. rewrite run_n_1.
     reflexivity. }
   
+  (* Prove cpu5 = run_n cpu 5 for use with Hdecode5 *)
+  assert (Hcpu5_eq: cpu5 = run_n cpu 5).
+  { unfold cpu5, cpu4, cpu3, cpu2, cpu1.
+    rewrite run_n_S. rewrite run_n_S. rewrite run_n_S.
+    rewrite run_n_S. rewrite run_n_1.
+    reflexivity. }
+  
   (* Now prove FindRule_Loop_Inv tm (q, tape, head) cpu6 (S i) *)
   unfold FindRule_Loop_Inv.
   simpl.
@@ -1876,11 +1883,69 @@ Proof.
     
     (* cpu6 = run1 cpu5, and decode_instr cpu5 = Jnz TEMP1 4 *)
     unfold cpu6. unfold run1.
+    rewrite <- Hcpu5_eq in Hdecode5.
     rewrite Hdecode5.
-    (* Need to prove TEMP1 is nonzero in cpu5, then use step_JumpNonZero_taken *)
-    (* First, prove TEMP1 = nonzero value in cpu3 from Htemp_nonzero *)
-    (* Then track that TEMP1 is preserved through steps 3->4->5 *)
-    admit. (* TODO: Track TEMP1 preservation through Jz, AddConst steps *)
+    
+    (* Use step_JumpNonZero_taken to show PC jumps to 4 *)
+    (* Need to prove TEMP1 is nonzero in cpu5 *)
+    assert (Htemp5_nz: CPU.read_reg CPU.REG_TEMP1 cpu5 <> 0).
+    { (* TEMP1 is nonzero in run_n cpu 3 from Htemp_nonzero *)
+      (* Prove cpu3 has nonzero TEMP1 *)
+      assert (Htemp3_nz: CPU.read_reg CPU.REG_TEMP1 cpu3 <> 0).
+      { rewrite Hcpu3_eq. exact Htemp_nonzero. }
+      (* Track TEMP1 from cpu3 to cpu4: Jz doesn't write registers *)
+      assert (Htemp4_nz: CPU.read_reg CPU.REG_TEMP1 cpu4 <> 0).
+      { unfold cpu4, run1.
+        assert (Hcpu3_dec: decode_instr cpu3 = CPU.Jz CPU.REG_TEMP1 12).
+        { rewrite Hcpu3_eq. exact Hdecode3. }
+        rewrite Hcpu3_dec.
+        unfold CPU.step. simpl.
+        (* After Jz, TEMP1 is preserved - it's only PC that changes *)
+        destruct (CPU.read_reg CPU.REG_TEMP1 cpu3 =? 0) eqn:Heq.
+        - (* Case: TEMP1 = 0, contradicts Htemp3_nz *)
+          apply Nat.eqb_eq in Heq. contradiction.
+        - (* Case: TEMP1 <> 0, PC is incremented, use read_reg_write_reg_diff *)
+          assert (Hlen3: length cpu3.(CPU.regs) = 10).
+          { rewrite Hcpu3_eq.
+            (* run_n doesn't grow registers, cpu has 10 regs, so cpu3 has 10 regs *)
+            assert (Hge:= length_run_n_ge cpu 3).
+            simpl in Hge. rewrite Hlen in Hge.
+            (* We have >= 10, but we know it's exactly 10 from how run_n works *)
+            assert (Hle: length (CPU.regs (run_n cpu 3)) <= 10).
+            { (* run_n doesn't grow the register file, it stays at 10 *)
+              admit. (* TODO: need a lemma that run_n preserves exact length *) }
+            lia. }
+          rewrite (read_reg_write_reg_diff CPU.REG_TEMP1 CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu3)) cpu3).
+          + exact Htemp3_nz.
+          + unfold CPU.REG_TEMP1, CPU.REG_PC. lia.
+          + unfold CPU.REG_TEMP1. lia.
+          + unfold CPU.REG_PC. lia. }
+      (* Track TEMP1 from cpu4 to cpu5: AddConst writes to ADDR (7), not TEMP1 (8) *)
+      unfold cpu5, run1.
+      assert (Hcpu4_dec: decode_instr cpu4 = CPU.AddConst CPU.REG_ADDR RULE_SIZE).
+      { assert (Hcpu4_eq: cpu4 = run_n cpu 4).
+        { unfold cpu4, cpu3, cpu2, cpu1.
+          unfold run1.
+          rewrite run_n_S. rewrite run_n_S. rewrite run_n_S. rewrite run_n_1.
+          reflexivity. }
+        rewrite Hcpu4_eq. exact Hdecode4. }
+      rewrite Hcpu4_dec.
+      unfold CPU.step, CPU.write_reg. simpl.
+      assert (Hlen4: length cpu4.(CPU.regs) = 10).
+      { unfold cpu4. unfold run1. unfold cpu3.
+        rewrite Hcpu3_eq. apply length_run_n_ge in Hlen. simpl. lia. }
+      unfold CPU.read_reg. simpl.
+      (* After write to register 7, register 8 (TEMP1) is preserved *)
+      rewrite app_nth1.
+      + rewrite firstn_length.
+        rewrite Nat.min_l by lia.
+        exact Htemp4_nz.
+      + rewrite firstn_length.
+        rewrite Nat.min_l by lia. unfold CPU.REG_TEMP1. lia. }
+    
+    (* Now apply step_JumpNonZero_taken *)
+    apply (step_JumpNonZero_taken cpu5 CPU.REG_TEMP1 4 Htemp5_nz).
+    rewrite Hcpu5_eq. apply length_run_n_ge in Hlen. lia.
     
   - (* REG_Q is preserved through all 6 steps *)
     (* REG_Q is never modified in any of the 6 instructions *)
@@ -1890,32 +1955,61 @@ Proof.
     unfold cpu6, cpu5, cpu4, cpu3, cpu2, cpu1.
     unfold run1.
     rewrite Hdecode0, Hdecode1, Hdecode2, Hdecode3, Hdecode4, Hdecode5.
-    (* Now we need to track REG_Q through each step *)
-    (* Step 0: LoadIndirect writes to Q', not Q *)
-    (* Step 1: CopyReg writes to TEMP1, not Q *)
-    (* Step 2: SubReg writes to TEMP1, not Q *)
-    (* Step 3: Jz doesn't write any register *)
-    (* Step 4: AddConst writes to ADDR, not Q *)
-    (* Step 5: Jnz doesn't write any register *)
-    admit. (* TODO: Use read_reg_write_reg_diff and step lemmas to track Q *)
+    (* Track REG_Q through each step using read_reg_write_reg_diff *)
+    unfold CPU.step. simpl. unfold CPU.read_reg, CPU.write_reg. simpl.
+    (* REG_Q = 1, the instructions write to: Q'=4, TEMP1=8, TEMP1=8, none, ADDR=7, none *)
+    (* All different from REG_Q, so REG_Q is preserved *)
+    repeat (rewrite app_nth1 by (rewrite firstn_length; try lia)).
+    rewrite firstn_length. simpl.
+    rewrite Nat.min_l by lia.
+    exact Hq.
     
   - (* REG_SYM is preserved through all 6 steps *)
     (* REG_SYM is never modified in any of the 6 instructions *)
     unfold cpu6, cpu5, cpu4, cpu3, cpu2, cpu1.
     unfold run1.
     rewrite Hdecode0, Hdecode1, Hdecode2, Hdecode3, Hdecode4, Hdecode5.
-    (* Similar to REG_Q: none of the 6 instructions write to REG_SYM *)
-    admit. (* TODO: Use read_reg_write_reg_diff to track SYM *)
+    (* Track REG_SYM through each step *)
+    unfold CPU.step. simpl. unfold CPU.read_reg, CPU.write_reg. simpl.
+    (* REG_SYM = 3, the instructions write to: Q'=4, TEMP1=8, TEMP1=8, none, ADDR=7, none *)
+    (* All different from REG_SYM, so REG_SYM is preserved *)
+    repeat (rewrite app_nth1 by (rewrite firstn_length; try lia)).
+    rewrite firstn_length. simpl.
+    rewrite Nat.min_l by lia.
+    exact Hsym.
     
   - (* REG_ADDR is incremented by RULE_SIZE *)
-    (* Step 5 (cpu4->cpu5) executes AddConst REG_ADDR RULE_SIZE *)
-    (* Steps 0-4 don't modify ADDR, step 6 doesn't modify ADDR *)
+    (* Step 4 (cpu4->cpu5) executes AddConst REG_ADDR RULE_SIZE *)
+    (* Steps 0-3 don't modify ADDR, step 5 doesn't modify ADDR *)
     unfold cpu6, cpu5, cpu4, cpu3, cpu2, cpu1.
     unfold run1.
     rewrite Hdecode0, Hdecode1, Hdecode2, Hdecode3, Hdecode4, Hdecode5.
-    (* Use step_AddConst at step 4 to show ADDR is incremented *)
-    (* Then show ADDR is preserved through steps 0-3 and step 5 *)
-    admit. (* TODO: Use step_AddConst and read_reg_write_reg_diff *)
+    (* Step 4 adds RULE_SIZE to ADDR *)
+    unfold CPU.step at 2. unfold CPU.write_reg at 2. simpl.
+    (* After AddConst at step 4, ADDR = old_ADDR + RULE_SIZE *)
+    (* Step 5 (Jnz) doesn't write, so ADDR is preserved *)
+    unfold CPU.step at 1. simpl.
+    unfold CPU.read_reg at 1. simpl.
+    (* ADDR = register 7, written at step 4 *)
+    rewrite app_nth2 by (rewrite firstn_length; simpl; lia).
+    rewrite firstn_length. simpl.
+    rewrite Nat.min_l by lia.
+    replace (7 - 7) with 0 by lia. simpl.
+    (* Now show that ADDR in cpu4 = ADDR in cpu *)
+    (* Track ADDR through steps 0-3: LoadIndirect writes Q'=4, CopyReg writes TEMP1=8,
+       SubReg writes TEMP1=8, Jz doesn't write *)
+    unfold CPU.step at 5. unfold CPU.write_reg at 1. simpl.
+    unfold CPU.step at 4. unfold CPU.write_reg at 1. simpl.
+    unfold CPU.step at 3. unfold CPU.write_reg at 1. simpl.
+    unfold CPU.step at 2. simpl.
+    unfold CPU.read_reg at 2. simpl.
+    (* ADDR = 7 is preserved through steps that write to 4, 8, 8 *)
+    repeat (rewrite app_nth1 by (rewrite firstn_length; simpl; try lia)).
+    rewrite firstn_length. simpl.
+    rewrite Nat.min_l by lia.
+    (* Now we have ADDR in cpu + RULE_SIZE *)
+    rewrite Haddr.
+    reflexivity.
     
   - (* All rules j < S i don't match *)
     intros j Hj.
