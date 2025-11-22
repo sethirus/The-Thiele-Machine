@@ -2004,31 +2004,31 @@ Proof.
         assert (Hcpu3_dec: decode_instr cpu3 = CPU.Jz CPU.REG_TEMP1 12).
         { rewrite Hcpu3_eq. exact Hdecode3. }
         rewrite Hcpu3_dec.
-        unfold CPU.step. simpl.
-        (* After Jz, TEMP1 is preserved - it's only PC that changes *)
-        destruct (CPU.read_reg CPU.REG_TEMP1 cpu3 =? 0) eqn:Heq.
-        - (* Case: TEMP1 = 0, contradicts Htemp3_nz *)
-          apply Nat.eqb_eq in Heq. contradiction.
-        - (* Case: TEMP1 <> 0, PC is incremented, TEMP1 preserved *)
-          assert (Hlen3: length cpu3.(CPU.regs) = 10).
-          { rewrite Hcpu3_eq.
-            (* run_n preserves exact length = 10 for the universal program *)
-            apply (length_run_n_eq_bounded cpu 3 Hlen). }
-          (* After Jz when false, only PC is updated, TEMP1 is unchanged *)
-          (* CHALLENGE: After `unfold CPU.step. simpl.` on line 2007 and the destruct, *)
-          (* the goal is fully expanded and the record structure makes pattern matching difficult. *)
-          (* The simpl on line 2007 expands write_reg into firstn/skipn form AND expands the record constructor. *)
-          (* *)
-          (* Attempted approaches: *)
-          (* 1. Using read_reg_write_reg_diff - pattern doesn't match due to record expansion *)
-          (* 2. Using nth_nat_write_diff infrastructure - pattern doesn't match, constants already evaluated *)
-          (* 3. Additional simpl - makes pattern matching worse *)
-          (* *)
-          (* Possible solutions: *)
-          (* - Modify line 2007 to NOT use simpl, keeping structure abstract *)
-          (* - Create specialized lemma for this exact expanded pattern *)
-          (* - Use `change` tactic to manually rewrite goal into matchable form *)
-          admit. }
+        (* First establish length *)
+        assert (Hlen3: length cpu3.(CPU.regs) = 10).
+        { rewrite Hcpu3_eq.
+          (* run_n preserves exact length = 10 for the universal program *)
+          apply (length_run_n_eq_bounded cpu 3 Hlen). }
+        (* Solution: Don't unfold CPU.step yet - use abstract reasoning *)
+        (* We know from Htemp3_nz that TEMP1 <> 0 in cpu3 *)
+        (* The Jz instruction either jumps (if TEMP1 = 0) or increments PC (if TEMP1 <> 0) *)
+        (* Both cases only modify PC, preserving TEMP1 *)
+        assert (Hjz_preserves_temp1: 
+          CPU.read_reg CPU.REG_TEMP1 (CPU.step (CPU.Jz CPU.REG_TEMP1 12) cpu3) 
+          = CPU.read_reg CPU.REG_TEMP1 cpu3).
+        { unfold CPU.step.
+          destruct (CPU.read_reg CPU.REG_TEMP1 cpu3 =? 0).
+          - (* Jump case: write_reg REG_PC 12 cpu3 *)
+            apply read_reg_write_reg_diff.
+            + unfold CPU.REG_TEMP1, CPU.REG_PC. lia.
+            + unfold CPU.REG_TEMP1. rewrite Hlen3. lia.
+            + unfold CPU.REG_PC. rewrite Hlen3. lia.
+          - (* No jump case: write_reg REG_PC (S (read_reg REG_PC cpu3)) cpu3 *)
+            apply read_reg_write_reg_diff.
+            + unfold CPU.REG_TEMP1, CPU.REG_PC. lia.
+            + unfold CPU.REG_TEMP1. rewrite Hlen3. lia.
+            + unfold CPU.REG_PC. rewrite Hlen3. lia. }
+        rewrite Hjz_preserves_temp1. exact Htemp3_nz. }
       (* Track TEMP1 from cpu4 to cpu5: AddConst writes to ADDR (7), not TEMP1 (8) *)
       unfold cpu5, run1.
       assert (Hcpu4_dec: decode_instr cpu4 = CPU.AddConst CPU.REG_ADDR RULE_SIZE).
