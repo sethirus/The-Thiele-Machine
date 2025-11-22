@@ -1386,6 +1386,97 @@ Definition findrule_entry_state (tm : TM) (conf : TMConfig) : CPU.State :=
    This prevents OOM by forcing Coq to seal proof terms at each checkpoint.
    Strategy: Use explicit decode_instr hypotheses and rewrite, NOT vm_compute. *)
 
+(* Sealed helper lemmas to prevent term explosion - Strategy 2: Checkpoint Method *)
+
+(* Checkpoint 1: Length preservation through run_n *)
+Lemma transition_FindRule_step2b_len_cpu : forall cpu0,
+  length cpu0.(CPU.regs) = 10 ->
+  let cpu := run_n cpu0 3 in
+  length (CPU.regs cpu) >= 10.
+Proof.
+  intros cpu0 Hlen0 cpu.
+  subst cpu.
+  eapply Nat.le_trans; [|apply length_run_n_ge].
+  rewrite Hlen0. apply Nat.le_refl.
+Qed.
+
+(* Checkpoint 2: Length at step 3 *)
+Lemma transition_FindRule_step2b_len3 : forall cpu,
+  length (CPU.regs cpu) >= 10 ->
+  length (CPU.regs (run_n cpu 3)) >= 10.
+Proof.
+  intros cpu Hlen_cpu.
+  eapply Nat.le_trans; [|apply length_run_n_ge]. exact Hlen_cpu.
+Qed.
+
+(* Checkpoint 3: TEMP1 preserved through Jz step 3->4 *)
+Lemma transition_FindRule_step2b_temp4 : forall cpu,
+  decode_instr (run_n cpu 3) = CPU.Jz CPU.REG_TEMP1 12 ->
+  CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3) =? 0 = false ->
+  length (CPU.regs (run_n cpu 3)) >= 10 ->
+  CPU.read_reg CPU.REG_TEMP1 (run_n cpu 4) = CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3).
+Proof.
+  intros cpu Hdec3 Htemp_nonzero Hlen3.
+  abstract (
+    change (run_n cpu 4) with (run1 (run_n cpu 3));
+    rewrite run1_decode, Hdec3;
+    unfold CPU.step;
+    rewrite Htemp_nonzero;
+    apply read_reg_write_reg_diff;
+    [ unfold CPU.REG_TEMP1, CPU.REG_PC; discriminate
+    | unfold CPU.REG_TEMP1; lia
+    | unfold CPU.REG_PC; lia ]
+  ).
+Qed.
+
+(* Checkpoint 4: Length at step 4 *)
+Lemma transition_FindRule_step2b_len4 : forall cpu,
+  length (CPU.regs (run_n cpu 3)) >= 10 ->
+  length (CPU.regs (run_n cpu 4)) >= 10.
+Proof.
+  intros cpu Hlen3.
+  eapply Nat.le_trans; [exact Hlen3|].
+  assert (H: length (CPU.regs (run_n cpu 3)) <= length (CPU.regs (run_n cpu 4))).
+  { change (run_n cpu 4) with (run1 (run_n cpu 3)).
+    unfold run1. apply length_step_ge. }
+  exact H.
+Qed.
+
+(* Checkpoint 5: TEMP1 preserved through AddConst step 4->5 *)
+Lemma transition_FindRule_step2b_temp5 : forall cpu,
+  decode_instr (run_n cpu 4) = CPU.AddConst CPU.REG_ADDR RULE_SIZE ->
+  CPU.read_reg CPU.REG_TEMP1 (run_n cpu 4) = CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3) ->
+  length (CPU.regs (run_n cpu 4)) >= 10 ->
+  CPU.read_reg CPU.REG_TEMP1 (run_n cpu 5) = CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3).
+Proof.
+  intros cpu Hdec4 Htemp4 Hlen4.
+  change (run_n cpu 5) with (run1 (run_n cpu 4)).
+  rewrite run1_decode, Hdec4.
+  unfold CPU.step.
+  set (st_pc := CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC (run_n cpu 4))) (run_n cpu 4)).
+  set (st_addr := CPU.write_reg CPU.REG_ADDR (CPU.read_reg CPU.REG_ADDR (run_n cpu 4) + RULE_SIZE) st_pc).
+  assert (Htemp_pc : CPU.read_reg CPU.REG_TEMP1 st_pc = CPU.read_reg CPU.REG_TEMP1 (run_n cpu 4)).
+  { subst st_pc. apply read_reg_write_reg_diff.
+    - unfold CPU.REG_TEMP1, CPU.REG_PC. discriminate.
+    - unfold CPU.REG_TEMP1. lia.
+    - unfold CPU.REG_PC. lia.
+  }
+  assert (Hlen_pc : length (CPU.regs st_pc) >= 10).
+  { subst st_pc.
+    eapply Nat.le_trans; [|apply length_write_reg_ge].
+    exact Hlen4.
+  }
+  assert (Htemp_addr : CPU.read_reg CPU.REG_TEMP1 st_addr = CPU.read_reg CPU.REG_TEMP1 st_pc).
+  { subst st_addr. apply read_reg_write_reg_diff.
+    - unfold CPU.REG_TEMP1, CPU.REG_ADDR. discriminate.
+    - unfold CPU.REG_TEMP1. lia.
+    - unfold CPU.REG_ADDR. lia.
+  }
+  subst st_addr.
+  simpl.
+  rewrite Htemp_pc, Htemp4. reflexivity.
+Qed.
+
 Lemma transition_FindRule_Next_step2b : forall cpu0,
   length cpu0.(CPU.regs) = 10 ->
   let cpu := run_n cpu0 3 in
@@ -1401,82 +1492,31 @@ Lemma transition_FindRule_Next_step2b : forall cpu0,
 Proof.
   intros cpu0 Hlen0 cpu Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5 Htemp_nonzero.
 
-  (* Convert run_n cpu 6 to definitional form *)
-  change (run_n cpu 6) with (run1 (run1 (run1 (run1 (run1 (run1 cpu)))))).
-  
-  (* Establish run_n cpu 5 *)
-  assert (E5: run_n cpu 5 = run1 (run1 (run1 (run1 (run1 cpu))))).
-  { reflexivity. }
-
-  rewrite <- E5.
-  rewrite run1_decode.
-  rewrite Hdec5.
-
-  (* Goal: read_reg PC (step (Jnz TEMP1 4) (run_n cpu 5)) = 4 *)
-  (* Need: read_reg TEMP1 (run_n cpu 5) =? 0 = false *)
-
-  (* Register file remains at least length 10 throughout. *)
+  (* Use sealed checkpoints to prevent term explosion *)
   assert (Hlen_cpu : length (CPU.regs cpu) >= 10).
-  { subst cpu. 
-    eapply Nat.le_trans; [|apply length_run_n_ge].
-    rewrite Hlen0. apply Nat.le_refl. }
+  { apply (transition_FindRule_step2b_len_cpu cpu0 Hlen0). }
 
   assert (Hlen3 : length (CPU.regs (run_n cpu 3)) >= 10).
-  { eapply Nat.le_trans; [|apply length_run_n_ge]. exact Hlen_cpu. }
+  { apply (transition_FindRule_step2b_len3 cpu Hlen_cpu). }
 
-  (* Step 3 → 4: Jz with nonzero guard does not change TEMP1. *)
   assert (Htemp4 : CPU.read_reg CPU.REG_TEMP1 (run_n cpu 4)
                    = CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3)).
-  { change (run_n cpu 4) with (run1 (run_n cpu 3)).
-    rewrite run1_decode, Hdec3.
-    unfold CPU.step.
-    rewrite Htemp_nonzero.
-    (* The Jz with false condition writes PC and doesn't touch TEMP1 *)
-    apply read_reg_write_reg_diff.
-    - unfold CPU.REG_TEMP1, CPU.REG_PC. discriminate.
-    - unfold CPU.REG_TEMP1. lia.
-    - unfold CPU.REG_PC. lia.
-  }
+  { apply (transition_FindRule_step2b_temp4 cpu Hdec3 Htemp_nonzero Hlen3). }
 
   assert (Hlen4 : length (CPU.regs (run_n cpu 4)) >= 10).
-  { eapply Nat.le_trans; [exact Hlen3|].
-    assert (H: length (CPU.regs (run_n cpu 3)) <= length (CPU.regs (run_n cpu 4))).
-    { change (run_n cpu 4) with (run1 (run_n cpu 3)).
-      unfold run1. apply length_step_ge. }
-    exact H. }
+  { apply (transition_FindRule_step2b_len4 cpu Hlen3). }
 
-  (* Step 4 → 5: AddConst modifies ADDR only, so TEMP1 is preserved. *)
   assert (Htemp5_val : CPU.read_reg CPU.REG_TEMP1 (run_n cpu 5)
                        = CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3)).
-  { change (run_n cpu 5) with (run1 (run_n cpu 4)).
-    rewrite run1_decode, Hdec4.
-    unfold CPU.step.
-    set (st_pc := CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC (run_n cpu 4))) (run_n cpu 4)).
-    set (st_addr := CPU.write_reg CPU.REG_ADDR (CPU.read_reg CPU.REG_ADDR (run_n cpu 4) + RULE_SIZE) st_pc).
-    simpl.
-    assert (Htemp_pc : CPU.read_reg CPU.REG_TEMP1 st_pc = CPU.read_reg CPU.REG_TEMP1 (run_n cpu 4)).
-    { subst st_pc. apply read_reg_write_reg_diff; cbv; try lia.
-      - discriminate.
-      - lia.
-      - exact Hlen4.
-    }
-    assert (Hlen_pc : length (CPU.regs st_pc) >= 10).
-    { subst st_pc. apply Nat.le_trans with (m := length (CPU.regs (run_n cpu 4))).
-      - apply length_write_reg_ge.
-      - exact Hlen4.
-    }
-    assert (Htemp_addr : CPU.read_reg CPU.REG_TEMP1 st_addr = CPU.read_reg CPU.REG_TEMP1 st_pc).
-    { subst st_addr. apply read_reg_write_reg_diff; cbv; try lia.
-      - discriminate.
-      - lia.
-      - exact Hlen_pc.
-    }
-    rewrite Htemp_addr, Htemp_pc, Htemp4. reflexivity.
-  }
+  { apply (transition_FindRule_step2b_temp5 cpu Hdec4 Htemp4 Hlen4). }
 
+  (* Final step: TEMP1 is non-zero at step 5, so Jnz goes to 4 *)
   assert (Htemp5 : CPU.read_reg CPU.REG_TEMP1 (run_n cpu 5) =? 0 = false).
   { rewrite Htemp5_val, Htemp_nonzero. reflexivity. }
 
+  (* Convert run_n cpu 6 to single step form *)
+  change (run_n cpu 6) with (run1 (run_n cpu 5)).
+  rewrite run1_decode, Hdec5.
   apply CPU.step_jnz_false.
   exact Htemp5.
 Qed.
