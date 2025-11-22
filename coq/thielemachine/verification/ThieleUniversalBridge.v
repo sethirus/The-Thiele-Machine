@@ -1874,24 +1874,48 @@ Proof.
     (* decode_instr cpu5 = Jnz TEMP1 4, and TEMP1 is nonzero so PC jumps to 4 *)
     right; left. (* Choose the middle case: PC = 4 *)
     
-    unfold cpu6, cpu5, cpu4, cpu3, cpu2, cpu1.
-    (* We need to show that after the Jnz instruction with nonzero TEMP1, PC = 4 *)
-    admit. (* TODO: Use step_JumpNonZero_taken and track TEMP1 preservation *)
+    (* cpu6 = run1 cpu5, and decode_instr cpu5 = Jnz TEMP1 4 *)
+    unfold cpu6. unfold run1.
+    rewrite Hdecode5.
+    (* Need to prove TEMP1 is nonzero in cpu5, then use step_JumpNonZero_taken *)
+    (* First, prove TEMP1 = nonzero value in cpu3 from Htemp_nonzero *)
+    (* Then track that TEMP1 is preserved through steps 3->4->5 *)
+    admit. (* TODO: Track TEMP1 preservation through Jz, AddConst steps *)
     
   - (* REG_Q is preserved through all 6 steps *)
     (* REG_Q is never modified in any of the 6 instructions *)
     (* LoadIndirect writes to Q', CopyReg writes to TEMP1, SubReg writes to TEMP1,
        Jz doesn't write, AddConst writes to ADDR, Jnz doesn't write *)
-    admit.
+    (* Therefore REG_Q in cpu6 = REG_Q in cpu *)
+    unfold cpu6, cpu5, cpu4, cpu3, cpu2, cpu1.
+    unfold run1.
+    rewrite Hdecode0, Hdecode1, Hdecode2, Hdecode3, Hdecode4, Hdecode5.
+    (* Now we need to track REG_Q through each step *)
+    (* Step 0: LoadIndirect writes to Q', not Q *)
+    (* Step 1: CopyReg writes to TEMP1, not Q *)
+    (* Step 2: SubReg writes to TEMP1, not Q *)
+    (* Step 3: Jz doesn't write any register *)
+    (* Step 4: AddConst writes to ADDR, not Q *)
+    (* Step 5: Jnz doesn't write any register *)
+    admit. (* TODO: Use read_reg_write_reg_diff and step lemmas to track Q *)
     
   - (* REG_SYM is preserved through all 6 steps *)
     (* REG_SYM is never modified in any of the 6 instructions *)
-    admit.
+    unfold cpu6, cpu5, cpu4, cpu3, cpu2, cpu1.
+    unfold run1.
+    rewrite Hdecode0, Hdecode1, Hdecode2, Hdecode3, Hdecode4, Hdecode5.
+    (* Similar to REG_Q: none of the 6 instructions write to REG_SYM *)
+    admit. (* TODO: Use read_reg_write_reg_diff to track SYM *)
     
   - (* REG_ADDR is incremented by RULE_SIZE *)
     (* Step 5 (cpu4->cpu5) executes AddConst REG_ADDR RULE_SIZE *)
     (* Steps 0-4 don't modify ADDR, step 6 doesn't modify ADDR *)
-    admit.
+    unfold cpu6, cpu5, cpu4, cpu3, cpu2, cpu1.
+    unfold run1.
+    rewrite Hdecode0, Hdecode1, Hdecode2, Hdecode3, Hdecode4, Hdecode5.
+    (* Use step_AddConst at step 4 to show ADDR is incremented *)
+    (* Then show ADDR is preserved through steps 0-3 and step 5 *)
+    admit. (* TODO: Use step_AddConst and read_reg_write_reg_diff *)
     
   - (* All rules j < S i don't match *)
     intros j Hj.
