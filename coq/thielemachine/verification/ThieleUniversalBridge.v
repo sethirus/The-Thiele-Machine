@@ -2039,28 +2039,39 @@ Proof.
           reflexivity. }
         rewrite Hcpu4_eq. exact Hdecode4. }
       rewrite Hcpu4_dec.
-      unfold CPU.step, CPU.write_reg. simpl.
+      (* First establish length *)
       assert (Hlen4: length cpu4.(CPU.regs) = 10).
-      { (* TODO: Prove length preservation through run_n *)
-        (* Requires establishing cpu4 = run_n cpu 4 without causing timeout *)
-        admit. }
-      unfold CPU.read_reg. simpl.
-      (* After write to register 7, register 8 (TEMP1) is preserved *)
-      (* TODO: Use nth_double_write_diff infrastructure lemma *)
-      (* After simpl, goal should be: nth 8 (firstn 7 (firstn 0 regs ++ [v1] ++ ...) ++ [v2] ++ ...) 0 <> 0 *)
-      (* Strategy to complete:
-           1. Assert Htemp4_nz is known (TEMP1 in cpu4 is nonzero)
-           2. Goal is nth TEMP1 (double_write...) <> 0
-           3. Apply nth_double_write_diff to show nth TEMP1 (double_write...) = nth TEMP1 (regs cpu4)
-           4. Rewrite with this equality, then apply Htemp4_nz
-           5. Side conditions: TEMP1 <> PC, TEMP1 <> ADDR (8 ≠ 0, 8 ≠ 7), lengths from Hlen4
-         Example proof structure:
-           assert (H_preserve: nth 8 (firstn 7 (firstn 0 (cpu4.(CPU.regs)) ++ [...] ++ ...) ++ [...] ++ ...) 0 
-                              = nth 8 (cpu4.(CPU.regs)) 0).
-           { apply nth_double_write_diff; unfold CPU.REG_TEMP1, CPU.REG_PC, CPU.REG_ADDR; try lia; rewrite Hlen4; lia. }
-           rewrite H_preserve. unfold CPU.REG_TEMP1 in Htemp4_nz. unfold CPU.read_reg in Htemp4_nz. exact Htemp4_nz.
-      *)
-      admit. }
+      { assert (Hcpu4_eq_run: cpu4 = run_n cpu 4).
+        { unfold cpu4, cpu3, cpu2, cpu1.
+          unfold run1.
+          rewrite run_n_S. rewrite run_n_S. rewrite run_n_S. rewrite run_n_1.
+          reflexivity. }
+        rewrite Hcpu4_eq_run.
+        apply (length_run_n_eq_bounded cpu 4 Hlen). }
+      (* AddConst writes to PC and ADDR, preserving TEMP1 *)
+      (* Use abstract reasoning like in the Jz case *)
+      assert (Haddconst_preserves_temp1:
+        CPU.read_reg CPU.REG_TEMP1 (CPU.step (CPU.AddConst CPU.REG_ADDR RULE_SIZE) cpu4)
+        = CPU.read_reg CPU.REG_TEMP1 cpu4).
+      { unfold CPU.step.
+        (* AddConst writes PC first, then the target register *)
+        (* read_reg TEMP1 (write_reg ADDR ... (write_reg PC ... cpu4)) = read_reg TEMP1 cpu4 *)
+        transitivity (CPU.read_reg CPU.REG_TEMP1 (CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu4)) cpu4)).
+        - apply read_reg_write_reg_diff.
+          + (* TEMP1 <> ADDR *) unfold CPU.REG_TEMP1, CPU.REG_ADDR. lia.
+          + (* TEMP1 < length of inner state *)
+            assert (Hlen_pc_write: length (CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu4)) cpu4).(CPU.regs) = length cpu4.(CPU.regs)).
+            { apply length_write_reg. unfold CPU.REG_PC. rewrite Hlen4. lia. }
+            unfold CPU.REG_TEMP1. rewrite Hlen_pc_write, Hlen4. lia.
+          + (* ADDR < length of inner state *) 
+            assert (Hlen_pc_write: length (CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu4)) cpu4).(CPU.regs) = length cpu4.(CPU.regs)).
+            { apply length_write_reg. unfold CPU.REG_PC. rewrite Hlen4. lia. }
+            unfold CPU.REG_ADDR. rewrite Hlen_pc_write, Hlen4. lia.
+        - apply read_reg_write_reg_diff.
+          + (* TEMP1 <> PC *) unfold CPU.REG_TEMP1, CPU.REG_PC. lia.
+          + (* TEMP1 < length *) unfold CPU.REG_TEMP1. rewrite Hlen4. lia.
+          + (* PC < length *) unfold CPU.REG_PC. rewrite Hlen4. lia. }
+      rewrite Haddconst_preserves_temp1. exact Htemp4_nz. }
     
     (* Now apply step_JumpNonZero_taken *)
     apply (step_JumpNonZero_taken cpu5 CPU.REG_TEMP1 4 Htemp5_nz).
