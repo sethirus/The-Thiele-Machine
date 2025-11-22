@@ -1821,7 +1821,50 @@ Time Lemma loop_iteration_no_match : forall tm conf cpu i,
     run_n cpu 6 = cpu' /\
     FindRule_Loop_Inv tm conf cpu' (S i).
 Proof.
-    bridge_checkpoint ("loop_iteration_no_match"%string).
+  intros tm conf cpu i Hinv Hi_bound Hpc Hlen
+         Hdecode0 Hdecode1 Hdecode2 Hdecode3 Hdecode4 Hdecode5.
+  (* Destruct conf to introduce the let bindings *)
+  destruct conf as [[q tape] head].
+  intros sym rule Hrule_no_match Htemp_nonzero.
+  
+  (* Witness: cpu' = run_n cpu 6 *)
+  exists (run_n cpu 6).
+  split; [reflexivity|].
+  
+  (* Unfold the loop invariant for the input state *)
+  unfold FindRule_Loop_Inv in Hinv.
+  simpl in *.
+  destruct Hinv as [Hpc_in_loop [Hq [Hsym [Haddr Hprev_rules]]]].
+  
+  (* Now prove FindRule_Loop_Inv tm (q, tape, head) (run_n cpu 6) (S i) *)
+  unfold FindRule_Loop_Inv.
+  simpl.
+  
+  (* We need to prove all components of the invariant after 6 steps *)
+  split; [|split; [|split; [|split]]].
+  
+  - (* PC is in the loop after 6 steps *)
+    (* After Jnz with nonzero TEMP1, PC jumps to 4 *)
+    admit.
+    
+  - (* REG_Q is preserved *)
+    admit.
+    
+  - (* REG_SYM is preserved *)
+    admit.
+    
+  - (* REG_ADDR is incremented by RULE_SIZE *)
+    admit.
+    
+  - (* All rules j < S i don't match *)
+    intros j Hj.
+    destruct (Nat.eq_dec j i) as [Heq|Hneq].
+    + (* j = i: use Hrule_no_match *)
+      subst j.
+      exact Hrule_no_match.
+    + (* j < i: use Hprev_rules *)
+      apply Hprev_rules.
+      lia.
 Admitted.
 
 (*
