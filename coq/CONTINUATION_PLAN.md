@@ -4,98 +4,101 @@
 
 File compiles successfully with documented admits. Previous work identified `length_run_n_eq_bounded` as the critical blocker.
 
-## Attempted Work
+## Work Attempted in This Session
 
-Tried to prove `length_run_n_eq_bounded` by:
-1. Creating `instr_writes_bounded` predicate to classify instructions writing to registers < n
-2. Proving `step_preserves_length_bounded` lemma to show single-step length preservation
+Attempted to prove the TODOs in `loop_iteration_no_match` using admitted `length_run_n_eq_bounded`:
 
-### Technical Challenge Encountered
+### TODOs Attempted:
 
-The `step_preserves_length_bounded` proof encounters difficulties with Coq's simplification tactics:
-- After `unfold CPU.step` and `simpl`, the goal expands into complex nested expressions involving `firstn`, `skipn`, `app`
-- The `CPU.write_reg` definition expands differently depending on the structure of the register list
-- Simply rewriting with `length_write_reg` doesn't work because the pattern doesn't match after simplification
-- Need to manually reason about list lengths through the app/firstn/skipn operations
+1. **Line 1936** (TEMP1 preservation through Jz): 
+   - **Technical Challenge**: After `unfold CPU.step. simpl.`, the `read_reg_write_reg_diff` lemma pattern doesn't match
+   - The goal expands into `nth` on `firstn`/`skipn`/`app` expressions
+   - Need manual list reasoning to prove register preservation
 
-### Viable Approach
+2. **Line 1948** (length of cpu4 = 10):
+   - **Approach**: Prove `cpu4 = run_n cpu 4` then apply `length_run_n_eq_bounded`
+   - **Issue**: The proof `unfold cpu4, cpu3, cpu2, cpu1. unfold run1. rewrite run_n_S...` causes compilation timeout
+   - Likely due to aggressive unfolding creating large proof terms
 
-The proof strategy is sound but requires more manual list reasoning:
+3. **Line 1953** (TEMP1 preservation through AddConst):
+   - Same issue as TODO 1 - pattern matching fails after simpl
 
+4. **Line 1957** (length of cpu5 = 10):
+   - Same issue as TODO 2 - compilation timeout with unfolding approach
+
+### Root Cause Analysis
+
+The fundamental issue is that after `simpl` or extensive unfolding:
+- `CPU.read_reg` expands to `nth r regs 0`
+- `CPU.write_reg` expands to `firstn r regs ++ [v] ++ skipn (S r) regs`
+- Existing lemmas like `read_reg_write_reg_diff` no longer match the expanded forms
+- Trying to prove equalities by excessive unfolding creates large proof terms that cause timeouts
+
+### Viable Approaches Forward
+
+#### Approach 1: Strengthen Helper Lemmas
+
+Create wrapper lemmas that work after simpl:
 ```coq
-(* After unfold CPU.step, destruct instr, simpl, unfold CPU.write_reg *)
-(* Goal becomes: length (firstn r regs ++ [v] ++ skipn (S r) regs) = n *)
-(* Can prove using: *)
-repeat rewrite app_length.
-repeat rewrite firstn_length.
-repeat rewrite skipn_length.
-rewrite Nat.min_l by lia.
-(* Then arithmetic with lia *)
+Lemma read_reg_nth_preservation : forall r r' v regs,
+  r <> r' ->
+  r < length regs ->
+  r' < length regs ->
+  nth r (firstn r' regs ++ [v] ++ skipn (S r') regs) 0 = nth r regs 0.
 ```
 
-However, this approach requires careful attention to:
-- When to apply `simpl` vs when to keep things abstract
-- Managing hypotheses after simplification destroys structure
-- The record construction at the end of CPU.step that wraps everything
+This lemma would match the expanded form and could be proved once, then reused.
 
-## Alternative Approach: Admit Helper, Proceed with Dependent Lemmas
+#### Approach 2: Avoid Simpl, Use Abstract Reasoning
 
-Since `length_run_n_eq_bounded` is blocking progress on multiple other lemmas, an alternative strategy is:
+Don't use `simpl` after `unfold CPU.step`. Instead:
+1. Reason about `CPU.step` abstractly using its properties
+2. Use `change` tactic to transform goals without expanding definitions
+3. Apply lemmas at the abstract level before any simplification
 
-1. **Accept current admit of `length_run_n_eq_bounded`** with clear TODO
-2. **Use it to prove dependent lemmas** that have more direct value
-3. **Return to prove `length_run_n_eq_bounded` later** once the dependent proofs demonstrate its utility
+#### Approach 3: Use run_n Properties Directly
 
-### Lemmas That Can Now Be Attempted (with `length_run_n_eq_bounded` available):
-
-#### 1. TODOs in `loop_iteration_no_match` (Lines 1933, 1947, 1950, 1954, 1957, 1965, 1970, 1976)
-
-These are register tracking subgoals that need `length=10` to apply `read_reg_write_reg_diff`:
-
-**Subgoal 1 (PC = 4)**:
+Instead of unfolding cpu4 to run_n cpu 4, state it as a separate lemma:
 ```coq
-(* Line 1933 - TEMP1 preservation through Jz *)
-(* After Jz when not taken, only PC is updated *)
-unfold CPU.step, CPU.Jz. simpl.
-(* Use read_reg_write_reg_diff with TEMP1 != PC *)
-apply read_reg_write_reg_diff.
-- discriminate. (* TEMP1 = 8, PC = 0 *)
-- apply length_run_n_eq_bounded. exact Hlen3.
-- unfold CPU.REG_PC. apply length_run_n_eq_bounded. exact Hlen3. 
+Lemma cpu4_is_run_n_4 : cpu4 = run_n cpu 4.
+Proof. (* Prove once, seal it *) Qed.
 ```
 
-**Subgoal 2 (REG_Q preserved)** - Similar approach tracking through 6 steps
-
-**Subgoal 3 (REG_SYM preserved)** - Similar approach
-
-**Subgoal 4 (REG_ADDR incremented)** - Track preservation 0-3, show increment at step 4
-
-#### 2. `transition_FindRule_step2b_temp5` (Line 1463)
-
-Shows TEMP1 preserved through AddConst step. Similar pattern to above.
-
-#### 3. `loop_exit_match` (Line 1992)
-
-When TEMP1 = 0, the Jz is taken and PC jumps to 12. Can prove using:
-- `step_JumpZero_taken` lemma (need to verify this exists or create it)
-- Register tracking with `length_run_n_eq_bounded`
+Then reuse without re-unfolding.
 
 ## Recommendation
 
-Given the user's "CONTINUE" directive, the most productive path forward is:
+The original plan to "use admitted `length_run_n_eq_bounded` to unblock dependent lemmas" encounters the same fundamental issues that blocked `length_run_n_eq_bounded` itself: Coq's simplification and unfolding create forms that don't match existing lemma patterns.
 
-1. **Document the `step_preserves_length_bounded` approach** as partially implemented with known challenges
-2. **Use admitted `length_run_n_eq_bounded`** to unblock and prove the dependent lemmas
-3. **Demonstrate value** by completing 1-2 of the TODOs in `loop_iteration_no_match`
-4. **Return to `length_run_n_eq_bounded`** once the dependent work shows the approach is correct
+**Revised Strategy**:
 
-This provides tangible progress on multiple fronts rather than getting stuck on a single difficult lemma.
+1. **Create infrastructure lemmas first** (Approach 1 above)
+   - Lemmas that work on the expanded nth/firstn/skipn forms
+   - Prove once, use many times
+   
+2. **Then tackle TODOs systematically** using the new infrastructure
+
+3. **Alternative: Extract CPU reasoning to separate module**
+   - Create a CPU_Properties module with all register tracking lemmas
+   - Prove them once in their natural expanded form
+   - Import and use throughout ThieleUniversalBridge
+
+This is more foundational work but would unblock all the register tracking proofs at once.
+
+## Attempted Work in This Session
+
+Successfully identified:
+- Exact location and nature of pattern matching failures
+- Compilation timeout issues with excessive unfolding
+- Need for infrastructure lemmas at the expanded form level
+
+The work demonstrates that the proof strategy is sound but requires better tooling/infrastructure before the individual TODOs can be completed efficiently.
 
 ## Next Concrete Steps
 
-1. Prove TODO at line 1933 (TEMP1 preservation through Jz)
-2. Prove TODO at line 1947 (length = 10 for cpu4)
-3. Prove TODO at line 1950 (TEMP1 preservation through AddConst)
-4. Prove TODO at line 1954 (length = 10 for cpu5)
+1. Create `read_reg_nth_preservation` and similar infrastructure lemmas
+2. Test on one TODO to validate approach
+3. Apply systematically to remaining TODOs
+4. Return to `length_run_n_eq_bounded` with same infrastructure
 
-These can be done in sequence, each building confidence in the approach.
+This foundational work would benefit not just these proofs but all future register-tracking proofs in the file.
