@@ -2015,19 +2015,19 @@ Proof.
             (* run_n preserves exact length = 10 for the universal program *)
             apply (length_run_n_eq_bounded cpu 3 Hlen). }
           (* After Jz when false, only PC is updated, TEMP1 is unchanged *)
-          (* TODO: Need to prove this using register inequality *)
-          (* After simpl, goal should be: nth 8 (firstn 0 regs ++ [v] ++ skipn 1 regs) 0 <> 0 *)
-          (* Strategy to complete:
-               1. Goal is nth TEMP1 (write_reg PC val cpu3) <> 0, which expands after simpl
-               2. Apply nth_nat_write_diff to show nth 8 (firstn 0 regs ++ [...] ++ ...) 0 = nth 8 regs 0
-               3. Side conditions: TEMP1 <> PC (8 ≠ 0), lengths from Hlen3
-               4. Then rewrite and apply Htemp3_nz
-             Example proof structure:
-               assert (H_preserve: nth 8 (firstn 0 (cpu3.(CPU.regs)) ++ [...] ++ skipn 1 (cpu3.(CPU.regs))) 0
-                                  = nth 8 (cpu3.(CPU.regs)) 0).
-               { apply nth_nat_write_diff; unfold CPU.REG_TEMP1, CPU.REG_PC; try lia; rewrite Hlen3; lia. }
-               rewrite H_preserve. unfold CPU.REG_TEMP1 in Htemp3_nz. unfold CPU.read_reg in Htemp3_nz. exact Htemp3_nz.
-          *)
+          (* CHALLENGE: After `unfold CPU.step. simpl.` on line 2007 and the destruct, *)
+          (* the goal is fully expanded and the record structure makes pattern matching difficult. *)
+          (* The simpl on line 2007 expands write_reg into firstn/skipn form AND expands the record constructor. *)
+          (* *)
+          (* Attempted approaches: *)
+          (* 1. Using read_reg_write_reg_diff - pattern doesn't match due to record expansion *)
+          (* 2. Using nth_nat_write_diff infrastructure - pattern doesn't match, constants already evaluated *)
+          (* 3. Additional simpl - makes pattern matching worse *)
+          (* *)
+          (* Possible solutions: *)
+          (* - Modify line 2007 to NOT use simpl, keeping structure abstract *)
+          (* - Create specialized lemma for this exact expanded pattern *)
+          (* - Use `change` tactic to manually rewrite goal into matchable form *)
           admit. }
       (* Track TEMP1 from cpu4 to cpu5: AddConst writes to ADDR (7), not TEMP1 (8) *)
       unfold cpu5, run1.
