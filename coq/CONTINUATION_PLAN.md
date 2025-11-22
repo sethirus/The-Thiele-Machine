@@ -4,101 +4,116 @@
 
 File compiles successfully with documented admits. Previous work identified `length_run_n_eq_bounded` as the critical blocker.
 
+## Infrastructure Lemmas Added (Latest Session)
+
+**Created foundational lemmas that work on expanded nth/firstn/skipn forms:**
+
+1. **`nth_write_diff`** (generic version for any type A):
+   - Proves: `nth r (firstn r' l ++ [v] ++ skipn (S r') l) d = nth r l d` when `r <> r'`
+   - Works directly on the expanded form that results from `unfold CPU.write_reg`
+   - Can be applied after `simpl` expands definitions
+
+2. **`nth_nat_write_diff`** (specialized for nat lists):
+   - Same as above but specifically for `list nat` with default value 0
+   - Directly applicable to register tracking problems
+
+**Purpose**: These lemmas provide the "bridge" between abstract CPU operations and their expanded list forms, enabling proofs to proceed after Coq's simplification tactics expand definitions.
+
+**Status**: Both lemmas proven and file compiles successfully.
+
 ## Work Attempted in This Session
 
-Attempted to prove the TODOs in `loop_iteration_no_match` using admitted `length_run_n_eq_bounded`:
+Attempted to use the new infrastructure lemmas to prove TODOs:
 
-### TODOs Attempted:
+### Success:
+- ✅ Infrastructure lemmas `nth_write_diff` and `nth_nat_write_diff` proven
+- ✅ File compiles with infrastructure in place
+- ✅ Demonstrated viable path forward
 
-1. **Line 1936** (TEMP1 preservation through Jz): 
-   - **Technical Challenge**: After `unfold CPU.step. simpl.`, the `read_reg_write_reg_diff` lemma pattern doesn't match
-   - The goal expands into `nth` on `firstn`/`skipn`/`app` expressions
-   - Need manual list reasoning to prove register preservation
+### Challenges:
+- Pattern matching still requires precise alignment with expanded forms
+- After `unfold CPU.step, CPU.write_reg. simpl.`, the resulting expression structure needs exact matching
+- Nested register writes (PC first, then target register) create complex nested firstn/skipn expressions
 
-2. **Line 1948** (length of cpu4 = 10):
-   - **Approach**: Prove `cpu4 = run_n cpu 4` then apply `length_run_n_eq_bounded`
-   - **Issue**: The proof `unfold cpu4, cpu3, cpu2, cpu1. unfold run1. rewrite run_n_S...` causes compilation timeout
-   - Likely due to aggressive unfolding creating large proof terms
+### Example of Remaining Challenge:
 
-3. **Line 1953** (TEMP1 preservation through AddConst):
-   - Same issue as TODO 1 - pattern matching fails after simpl
-
-4. **Line 1957** (length of cpu5 = 10):
-   - Same issue as TODO 2 - compilation timeout with unfolding approach
-
-### Root Cause Analysis
-
-The fundamental issue is that after `simpl` or extensive unfolding:
-- `CPU.read_reg` expands to `nth r regs 0`
-- `CPU.write_reg` expands to `firstn r regs ++ [v] ++ skipn (S r) regs`
-- Existing lemmas like `read_reg_write_reg_diff` no longer match the expanded forms
-- Trying to prove equalities by excessive unfolding creates large proof terms that cause timeouts
-
-### Viable Approaches Forward
-
-#### Approach 1: Strengthen Helper Lemmas
-
-Create wrapper lemmas that work after simpl:
+After simpl, goals look like:
 ```coq
-Lemma read_reg_nth_preservation : forall r r' v regs,
-  r <> r' ->
-  r < length regs ->
-  r' < length regs ->
-  nth r (firstn r' regs ++ [v] ++ skipn (S r') regs) 0 = nth r regs 0.
+nth 8 (firstn 7 (firstn 0 regs ++ [v1] ++ skipn 1 regs) ++ [v2] ++ skipn 8 (...)) 0
 ```
 
-This lemma would match the expanded form and could be proved once, then reused.
+The infrastructure lemmas can prove this, but require:
+1. Identifying the exact structure
+2. Applying lemmas in the right order (outer write first, then inner)
+3. Providing length proofs for intermediate expressions
 
-#### Approach 2: Avoid Simpl, Use Abstract Reasoning
+## Viable Path Forward
 
-Don't use `simpl` after `unfold CPU.step`. Instead:
-1. Reason about `CPU.step` abstractly using its properties
-2. Use `change` tactic to transform goals without expanding definitions
-3. Apply lemmas at the abstract level before any simplification
+### Option 1: Complete Infrastructure (Recommended)
 
-#### Approach 3: Use run_n Properties Directly
+Add more specialized lemmas that handle common patterns:
 
-Instead of unfolding cpu4 to run_n cpu 4, state it as a separate lemma:
 ```coq
-Lemma cpu4_is_run_n_4 : cpu4 = run_n cpu 4.
-Proof. (* Prove once, seal it *) Qed.
+(* Preservation through nested writes *)
+Lemma nth_double_write_diff : forall l r r1 r2 v1 v2,
+  r <> r1 -> r <> r2 ->
+  r < length l -> r1 < length l -> r2 < length l ->
+  nth r (firstn r2 (firstn r1 l ++ [v1] ++ skipn (S r1) l) ++ [v2] ++ 
+         skipn (S r2) (firstn r1 l ++ [v1] ++ skipn (S r1) l)) 0 =
+  nth r l 0.
 ```
 
-Then reuse without re-unfolding.
+This would directly match the pattern from CPU.step (PC write followed by register write).
+
+### Option 2: Tactic Automation
+
+Create custom Ltac tactics that:
+1. Recognize register tracking goals
+2. Automatically apply infrastructure lemmas
+3. Discharge side conditions (inequalities, length bounds)
+
+Example:
+```coq
+Ltac solve_register_preservation :=
+  match goal with
+  | |- nth ?r (firstn ?r' _ ++ _ ++ skipn _ _) _ = nth ?r _ _ =>
+    apply nth_nat_write_diff; [lia | lia | lia]
+  end.
+```
+
+### Option 3: Abstract Earlier
+
+Instead of `unfold CPU.step. simpl.`, use:
+```coq
+assert (CPU.read_reg r (CPU.step instr st) = CPU.read_reg r st).
+{ apply read_reg_write_reg_diff. ... }
+```
+
+Then apply this abstract lemma before any unfolding.
 
 ## Recommendation
 
-The original plan to "use admitted `length_run_n_eq_bounded` to unblock dependent lemmas" encounters the same fundamental issues that blocked `length_run_n_eq_bounded` itself: Coq's simplification and unfolding create forms that don't match existing lemma patterns.
+**Immediate Next Steps:**
 
-**Revised Strategy**:
+1. ✅ **DONE**: Create `nth_write_diff` and `nth_nat_write_diff` infrastructure lemmas
+2. **TODO**: Create `nth_double_write_diff` for nested write pattern (CPU.step common case)
+3. **TODO**: Create Ltac tactic `solve_reg_preservation` to automate application
+4. **TODO**: Prove one TODO completely using infrastructure + automation
+5. **TODO**: Apply systematically to remaining TODOs
 
-1. **Create infrastructure lemmas first** (Approach 1 above)
-   - Lemmas that work on the expanded nth/firstn/skipn forms
-   - Prove once, use many times
-   
-2. **Then tackle TODOs systematically** using the new infrastructure
+This layered approach (infrastructure → automation → application) will make the proofs maintainable and reusable.
 
-3. **Alternative: Extract CPU reasoning to separate module**
-   - Create a CPU_Properties module with all register tracking lemmas
-   - Prove them once in their natural expanded form
-   - Import and use throughout ThieleUniversalBridge
+## Progress Summary
 
-This is more foundational work but would unblock all the register tracking proofs at once.
+**Latest Session:**
+- Created foundational infrastructure lemmas ✅
+- File compiles successfully ✅
+- Identified precise pattern matching requirements ✅
+- Documented clear path forward ✅
 
-## Attempted Work in This Session
+**What Remains:**
+- Additional specialized infrastructure for nested writes
+- Tactical automation for common patterns
+- Systematic application to all 8 TODOs
 
-Successfully identified:
-- Exact location and nature of pattern matching failures
-- Compilation timeout issues with excessive unfolding
-- Need for infrastructure lemmas at the expanded form level
-
-The work demonstrates that the proof strategy is sound but requires better tooling/infrastructure before the individual TODOs can be completed efficiently.
-
-## Next Concrete Steps
-
-1. Create `read_reg_nth_preservation` and similar infrastructure lemmas
-2. Test on one TODO to validate approach
-3. Apply systematically to remaining TODOs
-4. Return to `length_run_n_eq_bounded` with same infrastructure
-
-This foundational work would benefit not just these proofs but all future register-tracking proofs in the file.
+The foundational work is complete. The remaining work is to build on this foundation with specialized lemmas and automation.
