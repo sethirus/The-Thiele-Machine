@@ -1430,17 +1430,20 @@ Proof.
   { change (run_n cpu 4) with (run1 (run_n cpu 3)).
     rewrite run1_decode, Hdec3.
     unfold CPU.step.
-    set (st_pc := CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC (run_n cpu 3))) (run_n cpu 3)).
-    rewrite Htemp_nonzero. simpl.
-    subst st_pc.
-    apply read_reg_write_reg_diff; cbv; try lia.
-    - discriminate.
-    - lia.
-    - exact Hlen3.
+    rewrite Htemp_nonzero.
+    (* The Jz with false condition writes PC and doesn't touch TEMP1 *)
+    apply read_reg_write_reg_diff.
+    - unfold CPU.REG_TEMP1, CPU.REG_PC. discriminate.
+    - unfold CPU.REG_TEMP1. lia.
+    - unfold CPU.REG_PC. lia.
   }
 
   assert (Hlen4 : length (CPU.regs (run_n cpu 4)) >= 10).
-  { apply Nat.le_trans with (m := length (CPU.regs (run_n cpu 3))); [apply length_run_n_ge|lia]. }
+  { eapply Nat.le_trans; [exact Hlen3|].
+    assert (H: length (CPU.regs (run_n cpu 3)) <= length (CPU.regs (run_n cpu 4))).
+    { change (run_n cpu 4) with (run1 (run_n cpu 3)).
+      unfold run1. apply length_step_ge. }
+    exact H. }
 
   (* Step 4 → 5: AddConst modifies ADDR only, so TEMP1 is preserved. *)
   assert (Htemp5_val : CPU.read_reg CPU.REG_TEMP1 (run_n cpu 5)
