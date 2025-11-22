@@ -934,6 +934,56 @@ Proof.
     + simpl. rewrite IH by (simpl in Hr; lia). reflexivity.
 Qed.
 
+(* Infrastructure lemmas for register tracking after simpl/unfold *)
+(* These lemmas work on the expanded nth/firstn/skipn/app forms *)
+
+(* Helper: nth on list built with firstn/skipn/app preserves original value for different indices *)
+Lemma nth_write_diff : forall {A : Type} (l : list A) (r r' : nat) (v d : A),
+  r <> r' ->
+  r < length l ->
+  r' < length l ->
+  nth r (firstn r' l ++ [v] ++ skipn (S r') l) d = nth r l d.
+Proof.
+  intros A l r r' v d Hneq Hr Hr'.
+  destruct (Nat.ltb r r') eqn:Hlt.
+  - (* Case r < r': r is in the firstn part *)
+    apply Nat.ltb_lt in Hlt.
+    rewrite app_nth1.
+    + apply nth_firstn_lt. exact Hlt.
+    + rewrite firstn_length. rewrite Nat.min_l; [lia|lia].
+  - (* Case r >= r', but r <> r', so r > r' *)
+    apply Nat.ltb_nlt in Hlt.
+    assert (r > r') by lia.
+    (* r is beyond the firstn r' part *)
+    rewrite app_nth2.
+    + rewrite firstn_length. rewrite Nat.min_l; [|lia].
+      (* nth (r - r') ([v] ++ skipn (S r') l) d = nth r l d *)
+      destruct (r - r') as [|n] eqn:Hdiff; [lia|].
+      simpl.
+      (* nth n (skipn (S r') l) d = nth r l d *)
+      assert (Heqr: r = S r' + n) by lia.
+      rewrite Heqr.
+      (* Now prove: nth n (skipn (S r') l) d = nth (S r' + n) l d *)
+      clear Heqr Hdiff Hneq Hr Hr' H Hlt v r.
+      generalize dependent n. generalize dependent r'.
+      induction l as [|x xs IH]; intros.
+      { destruct n, r'; reflexivity. }
+      destruct r'; simpl.
+      { destruct n; reflexivity. }
+      { apply IH. }
+    + rewrite firstn_length. rewrite Nat.min_l; [lia|lia].
+Qed.
+
+(* Specialized version for nat lists (most common case) *)
+Lemma nth_nat_write_diff : forall (l : list nat) (r r' v : nat),
+  r <> r' ->
+  r < length l ->
+  r' < length l ->
+  nth r (firstn r' l ++ [v] ++ skipn (S r') l) 0 = nth r l 0.
+Proof.
+  intros. apply nth_write_diff; assumption.
+Qed.
+
 (* CPU.step PC progression for non-branching instructions *)
 (* Note: This lemma requires that rd <> REG_PC for all register-writing instructions.
    This is a constraint on the instruction encoding that should be enforced by the
@@ -1947,10 +1997,15 @@ Proof.
       unfold CPU.step, CPU.write_reg. simpl.
       assert (Hlen4: length cpu4.(CPU.regs) = 10).
       { (* TODO: Prove length preservation through run_n *)
+        (* Requires establishing cpu4 = run_n cpu 4 without causing timeout *)
         admit. }
       unfold CPU.read_reg. simpl.
       (* After write to register 7, register 8 (TEMP1) is preserved *)
-      admit. (* TODO: Prove TEMP1 preservation through AddConst *) }
+      (* TODO: Use nth_nat_write_diff infrastructure lemma *)
+      (* After simpl, goal becomes complex nested nth/firstn/skipn expression *)
+      (* The infrastructure lemma nth_nat_write_diff can prove this, *)
+      (* but requires precise matching of the expanded form *)
+      admit. }
     
     (* Now apply step_JumpNonZero_taken *)
     apply (step_JumpNonZero_taken cpu5 CPU.REG_TEMP1 4 Htemp5_nz).
