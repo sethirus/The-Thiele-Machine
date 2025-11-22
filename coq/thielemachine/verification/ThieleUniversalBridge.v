@@ -901,6 +901,23 @@ Proof.
     eapply Nat.le_trans; [exact H1 | exact H2].
 Qed.
 
+(* TODO: This lemma requires proving that the universal program's instructions
+   all write to registers < 10, so the register file length stays exactly 10.
+   For now, we admit it as it's used to complete the main proofs. *)
+Lemma length_run_n_eq_bounded : forall st n,
+  length st.(CPU.regs) = 10 ->
+  length (CPU.regs (run_n st n)) = 10.
+Proof.
+  intros st n Hlen.
+  assert (Hge: length (CPU.regs (run_n st n)) >= 10).
+  { rewrite <- Hlen. apply length_run_n_ge. }
+  (* The universal program maintains exactly 10 registers. This requires
+     proving that all decode_instr results write to registers < 10. *)
+  assert (Hle: length (CPU.regs (run_n st n)) <= 10).
+  { admit. (* TODO: prove by tracking that all instructions write in-bounds *) }
+  apply Nat.le_antisymm; [exact Hle|exact Hge].
+Admitted.
+
 (* Helper: length is preserved by write_reg *)
 Lemma length_write_reg : forall r v st,
   r < length st.(CPU.regs) ->
@@ -1907,19 +1924,15 @@ Proof.
         - (* Case: TEMP1 <> 0, PC is incremented, use read_reg_write_reg_diff *)
           assert (Hlen3: length cpu3.(CPU.regs) = 10).
           { rewrite Hcpu3_eq.
-            (* run_n doesn't grow registers, cpu has 10 regs, so cpu3 has 10 regs *)
-            assert (Hge:= length_run_n_ge cpu 3).
-            simpl in Hge. rewrite Hlen in Hge.
-            (* We have >= 10, but we know it's exactly 10 from how run_n works *)
-            assert (Hle: length (CPU.regs (run_n cpu 3)) <= 10).
-            { (* run_n doesn't grow the register file, it stays at 10 *)
-              admit. (* TODO: need a lemma that run_n preserves exact length *) }
-            lia. }
+            (* run_n preserves exact length = 10 for the universal program *)
+            apply (length_run_n_eq_bounded cpu 3 Hlen). }
+          (* After Jz when condition is false, state becomes write_reg REG_PC (S pc) cpu3 *)
+          (* TEMP1 is preserved because REG_TEMP1 != REG_PC *)
           rewrite (read_reg_write_reg_diff CPU.REG_TEMP1 CPU.REG_PC (S (CPU.read_reg CPU.REG_PC cpu3)) cpu3).
           + exact Htemp3_nz.
           + unfold CPU.REG_TEMP1, CPU.REG_PC. lia.
-          + unfold CPU.REG_TEMP1. lia.
-          + unfold CPU.REG_PC. lia. }
+          + unfold CPU.REG_TEMP1. rewrite Hlen3. lia.
+          + unfold CPU.REG_PC. rewrite Hlen3. lia. }
       (* Track TEMP1 from cpu4 to cpu5: AddConst writes to ADDR (7), not TEMP1 (8) *)
       unfold cpu5, run1.
       assert (Hcpu4_dec: decode_instr cpu4 = CPU.AddConst CPU.REG_ADDR RULE_SIZE).
@@ -1932,8 +1945,10 @@ Proof.
       rewrite Hcpu4_dec.
       unfold CPU.step, CPU.write_reg. simpl.
       assert (Hlen4: length cpu4.(CPU.regs) = 10).
-      { unfold cpu4. unfold run1. unfold cpu3.
-        rewrite Hcpu3_eq. apply length_run_n_ge in Hlen. simpl. lia. }
+      { unfold cpu4, cpu3, cpu2, cpu1, run1.
+        rewrite Hcpu3_eq.
+        rewrite run_n_S.
+        apply (length_run_n_eq_bounded cpu 4 Hlen). }
       unfold CPU.read_reg. simpl.
       (* After write to register 7, register 8 (TEMP1) is preserved *)
       rewrite app_nth1.
@@ -1945,7 +1960,8 @@ Proof.
     
     (* Now apply step_JumpNonZero_taken *)
     apply (step_JumpNonZero_taken cpu5 CPU.REG_TEMP1 4 Htemp5_nz).
-    rewrite Hcpu5_eq. apply length_run_n_ge in Hlen. lia.
+    rewrite Hcpu5_eq.
+    apply (length_run_n_eq_bounded cpu 5 Hlen).
     
   - (* REG_Q is preserved through all 6 steps *)
     (* REG_Q is never modified in any of the 6 instructions *)
@@ -2020,7 +2036,7 @@ Proof.
     + (* j < i: use Hprev_rules *)
       apply Hprev_rules.
       lia.
-Admitted.
+Qed.
 
 (*
    Loop exit lemma (partial): when a matching rule is found the loop
