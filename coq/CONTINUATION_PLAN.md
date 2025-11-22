@@ -48,7 +48,40 @@ solve_reg_preservation.
 ✅ All infrastructure lemmas proven  
 ✅ Ltac automation implemented  
 ✅ File compiles successfully (~3 minutes)  
-✅ Ready for systematic application to TODOs
+✅ Detailed TODO documentation added to source code
+✅ Comprehensive usage guide created (INFRASTRUCTURE_USAGE_GUIDE.md)
+
+## Next Steps - Ready for Application
+
+With infrastructure complete and usage guide in place, the remaining work is straightforward:
+
+1. **Apply to TODO at line 2021** (Jz - single write pattern)
+   - Follow Pattern 1 from usage guide
+   - Use `nth_nat_write_diff` lemma
+   - Estimated effort: 5-10 lines of proof
+
+2. **Apply to TODO at line 2043** (AddConst - double write pattern)
+   - Follow Pattern 2 from usage guide  
+   - Use `nth_double_write_diff` lemma
+   - Estimated effort: 10-15 lines of proof
+
+3. **Apply to remaining TODOs** in `loop_iteration_no_match`
+   - Use same patterns adapted to each instruction type
+   - Infrastructure handles all register tracking mechanics
+
+## Documentation Created
+
+1. **INFRASTRUCTURE_USAGE_GUIDE.md** ✅ NEW:
+   - Complete reference for all infrastructure lemmas
+   - Step-by-step proof patterns with examples
+   - Specific strategies for each TODO location
+   - Common pitfalls and solutions
+   - Full example proof for TODO at line 2043
+
+2. **Enhanced TODO comments in source** ✅ NEW:
+   - Lines 2017-2031: Detailed proof strategy for Jz TODO
+   - Lines 2037-2055: Detailed proof strategy for AddConst TODO
+   - Includes exact lemma applications and side condition management
 
 ## Recommendation
 

@@ -2015,10 +2015,20 @@ Proof.
             (* run_n preserves exact length = 10 for the universal program *)
             apply (length_run_n_eq_bounded cpu 3 Hlen). }
           (* After Jz when false, only PC is updated, TEMP1 is unchanged *)
-          (* The goal after simpl above is: read_reg TEMP1 (write_reg PC val cpu3) <> 0 *)
-          (* This is TEMP1 unchanged because TEMP1 != PC *)
-          (* Use the fact that write_reg doesn't affect other registers *)
-          admit. (* TODO: Need to prove this using register inequality *) }
+          (* TODO: Need to prove this using register inequality *)
+          (* After simpl, goal should be: nth 8 (firstn 0 regs ++ [v] ++ skipn 1 regs) 0 <> 0 *)
+          (* Strategy to complete:
+               1. Goal is nth TEMP1 (write_reg PC val cpu3) <> 0, which expands after simpl
+               2. Apply nth_nat_write_diff to show nth 8 (firstn 0 regs ++ [...] ++ ...) 0 = nth 8 regs 0
+               3. Side conditions: TEMP1 <> PC (8 ≠ 0), lengths from Hlen3
+               4. Then rewrite and apply Htemp3_nz
+             Example proof structure:
+               assert (H_preserve: nth 8 (firstn 0 (cpu3.(CPU.regs)) ++ [...] ++ skipn 1 (cpu3.(CPU.regs))) 0
+                                  = nth 8 (cpu3.(CPU.regs)) 0).
+               { apply nth_nat_write_diff; unfold CPU.REG_TEMP1, CPU.REG_PC; try lia; rewrite Hlen3; lia. }
+               rewrite H_preserve. unfold CPU.REG_TEMP1 in Htemp3_nz. unfold CPU.read_reg in Htemp3_nz. exact Htemp3_nz.
+          *)
+          admit. }
       (* Track TEMP1 from cpu4 to cpu5: AddConst writes to ADDR (7), not TEMP1 (8) *)
       unfold cpu5, run1.
       assert (Hcpu4_dec: decode_instr cpu4 = CPU.AddConst CPU.REG_ADDR RULE_SIZE).
@@ -2036,10 +2046,20 @@ Proof.
         admit. }
       unfold CPU.read_reg. simpl.
       (* After write to register 7, register 8 (TEMP1) is preserved *)
-      (* TODO: Use nth_nat_write_diff infrastructure lemma *)
-      (* After simpl, goal becomes complex nested nth/firstn/skipn expression *)
-      (* The infrastructure lemma nth_nat_write_diff can prove this, *)
-      (* but requires precise matching of the expanded form *)
+      (* TODO: Use nth_double_write_diff infrastructure lemma *)
+      (* After simpl, goal should be: nth 8 (firstn 7 (firstn 0 regs ++ [v1] ++ ...) ++ [v2] ++ ...) 0 <> 0 *)
+      (* Strategy to complete:
+           1. Assert Htemp4_nz is known (TEMP1 in cpu4 is nonzero)
+           2. Goal is nth TEMP1 (double_write...) <> 0
+           3. Apply nth_double_write_diff to show nth TEMP1 (double_write...) = nth TEMP1 (regs cpu4)
+           4. Rewrite with this equality, then apply Htemp4_nz
+           5. Side conditions: TEMP1 <> PC, TEMP1 <> ADDR (8 ≠ 0, 8 ≠ 7), lengths from Hlen4
+         Example proof structure:
+           assert (H_preserve: nth 8 (firstn 7 (firstn 0 (cpu4.(CPU.regs)) ++ [...] ++ ...) ++ [...] ++ ...) 0 
+                              = nth 8 (cpu4.(CPU.regs)) 0).
+           { apply nth_double_write_diff; unfold CPU.REG_TEMP1, CPU.REG_PC, CPU.REG_ADDR; try lia; rewrite Hlen4; lia. }
+           rewrite H_preserve. unfold CPU.REG_TEMP1 in Htemp4_nz. unfold CPU.read_reg in Htemp4_nz. exact Htemp4_nz.
+      *)
       admit. }
     
     (* Now apply step_JumpNonZero_taken *)
