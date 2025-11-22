@@ -1795,7 +1795,7 @@ Lemma loop_iteration_run_equations : forall cpu,
   run1 cpu5 = cpu6.
 Proof.
   intros cpu Hpc Hlen Hdecode0 Hdecode1 Hdecode2 Hdecode3 Hdecode4 Hdecode5.
-  (* TODO: This proof needs careful handling of run_n unfolding to avoid term explosion *)
+  (* TODO: This proof needs to be in the transparent run_n section or use checkpoints *)
   admit.
 Admitted.
 
