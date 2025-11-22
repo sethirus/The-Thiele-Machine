@@ -2039,28 +2039,34 @@ Proof.
           reflexivity. }
         rewrite Hcpu4_eq. exact Hdecode4. }
       rewrite Hcpu4_dec.
-      unfold CPU.step, CPU.write_reg. simpl.
+      unfold CPU.step, CPU.write_reg, CPU.read_reg. simpl.
       assert (Hlen4: length cpu4.(CPU.regs) = 10).
       { (* TODO: Prove length preservation through run_n *)
         (* Requires establishing cpu4 = run_n cpu 4 without causing timeout *)
         admit. }
-      unfold CPU.read_reg. simpl.
-      (* After write to register 7, register 8 (TEMP1) is preserved *)
-      (* TODO: Use nth_double_write_diff infrastructure lemma *)
-      (* After simpl, goal should be: nth 8 (firstn 7 (firstn 0 regs ++ [v1] ++ ...) ++ [v2] ++ ...) 0 <> 0 *)
-      (* Strategy to complete:
-           1. Assert Htemp4_nz is known (TEMP1 in cpu4 is nonzero)
-           2. Goal is nth TEMP1 (double_write...) <> 0
-           3. Apply nth_double_write_diff to show nth TEMP1 (double_write...) = nth TEMP1 (regs cpu4)
-           4. Rewrite with this equality, then apply Htemp4_nz
-           5. Side conditions: TEMP1 <> PC, TEMP1 <> ADDR (8 ≠ 0, 8 ≠ 7), lengths from Hlen4
-         Example proof structure:
-           assert (H_preserve: nth 8 (firstn 7 (firstn 0 (cpu4.(CPU.regs)) ++ [...] ++ ...) ++ [...] ++ ...) 0 
-                              = nth 8 (cpu4.(CPU.regs)) 0).
-           { apply nth_double_write_diff; unfold CPU.REG_TEMP1, CPU.REG_PC, CPU.REG_ADDR; try lia; rewrite Hlen4; lia. }
-           rewrite H_preserve. unfold CPU.REG_TEMP1 in Htemp4_nz. unfold CPU.read_reg in Htemp4_nz. exact Htemp4_nz.
-      *)
-      admit. }
+      (* After AddConst to register 7, register 8 (TEMP1) is preserved *)
+      (* Apply nth_double_write_diff to show TEMP1 preserved through PC and ADDR writes *)
+      assert (H_preserve: 
+        nth 8 (firstn 7 (firstn 0 (regs cpu4) ++ 
+                         [S (nth 0 (regs cpu4) 0)] ++ 
+                         skipn 1 (regs cpu4)) ++ 
+               [nth 7 (firstn 0 (regs cpu4) ++ 
+                       [S (nth 0 (regs cpu4) 0)] ++ 
+                       skipn 1 (regs cpu4)) 0 + RULE_SIZE] ++ 
+               skipn 8 (firstn 0 (regs cpu4) ++ 
+                       [S (nth 0 (regs cpu4) 0)] ++ 
+                       skipn 1 (regs cpu4))) 0
+        = nth 8 (regs cpu4) 0).
+      { apply nth_double_write_diff.
+        - (* TEMP1 <> PC *) unfold CPU.REG_TEMP1, CPU.REG_PC. lia.
+        - (* TEMP1 <> ADDR *) unfold CPU.REG_TEMP1, CPU.REG_ADDR. lia.
+        - (* PC < length *) unfold CPU.REG_PC. rewrite Hlen4. lia.
+        - (* ADDR < length *) unfold CPU.REG_ADDR. rewrite Hlen4. lia.
+        - (* TEMP1 < length *) unfold CPU.REG_TEMP1. rewrite Hlen4. lia. }
+      rewrite H_preserve.
+      unfold CPU.REG_TEMP1 in Htemp4_nz.
+      unfold CPU.read_reg in Htemp4_nz.
+      exact Htemp4_nz. }
     
     (* Now apply step_JumpNonZero_taken *)
     apply (step_JumpNonZero_taken cpu5 CPU.REG_TEMP1 4 Htemp5_nz).
