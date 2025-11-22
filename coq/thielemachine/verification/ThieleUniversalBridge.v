@@ -1811,8 +1811,11 @@ Lemma loop_iteration_run_equations : forall cpu,
   run1 cpu4 = cpu5 /\
   run1 cpu5 = cpu6.
 Proof.
-  intros cpu Hpc Hlen Hdecode0 Hdecode1 Hdecode2 Hdecode3 Hdecode4 Hdecode5.
-  (* TODO: This proof needs to be in the transparent run_n section or use checkpoints *)
+  intros cpu Hpc Hlen Hdecode0 Hdecode1 Hdecode2 Hdecode3 Hdecode4 Hdecode5 cpu1 cpu2 cpu3 cpu4 cpu5 cpu6.
+  (* TODO: This proof requires careful management of the unfolding and rewriting order.
+     The key insight is that each cpuN is defined as CPU.step instr cpu(N-1),
+     and we need to show this equals run1 cpu(N-1) which is CPU.step (decode_instr cpu(N-1)) cpu(N-1).
+     This should be straightforward but requires precise tactic application. *)
   admit.
 Admitted.
 
