@@ -276,6 +276,8 @@ Priority order:
 
 ## Understanding the Proof Structure
 
+**Important**: The extracted modules in `modular/` are for **analysis purposes only**. Some module boundaries cut through proof statements, which is acceptable for understanding structure and complexity. For actual compilation and proof work, use the original `ThieleUniversalBridge.v` file.
+
 ### Execution Model
 
 The proof shows a CPU simulating a Turing machine:
