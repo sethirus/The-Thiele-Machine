@@ -1552,9 +1552,41 @@ Lemma transition_FindRule_step2b_temp5 : forall cpu,
   CPU.read_reg CPU.REG_TEMP1 (run_n cpu 5) = CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3).
 Proof.
   intros cpu Hdec4 Htemp4 Hlen4.
-  (* TODO: This proof causes term expansion. Need vm_compute or further partitioning. *)
-  admit.
-Admitted.
+  (* run_n cpu 5 = run1 (run_n cpu 4) = CPU.step (decode_instr (run_n cpu 4)) (run_n cpu 4) *)
+  change (run_n cpu 5) with (run1 (run_n cpu 4)).
+  rewrite run1_decode, Hdec4.
+  (* Now goal is: read_reg TEMP1 (CPU.step (AddConst ADDR RULE_SIZE) (run_n cpu 4)) 
+                  = read_reg TEMP1 (run_n cpu 3) *)
+  (* CPU.step (AddConst rd v) st first writes PC, then writes rd *)
+  unfold CPU.step.
+  (* After unfolding: write_reg ADDR (read_reg ADDR (run_n cpu 4) + RULE_SIZE) 
+                      (write_reg PC (S (read_reg PC (run_n cpu 4))) (run_n cpu 4)) *)
+  (* TEMP1 is preserved through PC write (TEMP1 ≠ PC) *)
+  transitivity (CPU.read_reg CPU.REG_TEMP1 
+                  (CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC (run_n cpu 4))) (run_n cpu 4))).
+  - (* TEMP1 preserved through ADDR write *)
+    apply read_reg_write_reg_diff.
+    + (* TEMP1 ≠ ADDR *) unfold CPU.REG_TEMP1, CPU.REG_ADDR. lia.
+    + (* TEMP1 < length *)
+      unfold CPU.REG_TEMP1.
+      assert (Hlen_pc: length (CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC (run_n cpu 4))) (run_n cpu 4)).(CPU.regs) 
+                       = length (run_n cpu 4).(CPU.regs)).
+      { apply length_write_reg. unfold CPU.REG_PC. lia. }
+      rewrite Hlen_pc. lia.
+    + (* ADDR < length *)
+      unfold CPU.REG_ADDR.
+      assert (Hlen_pc: length (CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC (run_n cpu 4))) (run_n cpu 4)).(CPU.regs) 
+                       = length (run_n cpu 4).(CPU.regs)).
+      { apply length_write_reg. unfold CPU.REG_PC. lia. }
+      rewrite Hlen_pc. lia.
+  - (* TEMP1 preserved through PC write *)
+    rewrite read_reg_write_reg_diff.
+    + (* Conclude with Htemp4 *)
+      exact Htemp4.
+    + (* TEMP1 ≠ PC *) unfold CPU.REG_TEMP1, CPU.REG_PC. lia.
+    + (* TEMP1 < length *) unfold CPU.REG_TEMP1. lia.
+    + (* PC < length *) unfold CPU.REG_PC. lia.
+Qed.
 
 Lemma transition_FindRule_Next_step2b : forall cpu0,
   length cpu0.(CPU.regs) = 10 ->
