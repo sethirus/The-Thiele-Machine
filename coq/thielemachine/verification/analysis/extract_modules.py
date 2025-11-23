@@ -53,7 +53,8 @@ def parse_bridge_file(filepath: Path) -> Tuple[List[str], List[CoqModule]]:
         end_idx = min(end, len(lines))
         
         content = ''.join(lines[start_idx:end_idx])
-        modules.append(CoqModule(name, start, end_idx, content))
+        # Use the original end line number (not end_idx) in the module
+        modules.append(CoqModule(name, start, end, content))
     
     return lines, modules
 
