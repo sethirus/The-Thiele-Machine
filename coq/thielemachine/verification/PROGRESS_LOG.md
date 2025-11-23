@@ -70,11 +70,38 @@ Given time constraints and need for progress:
 
 The goal is to make **measurable progress** and identify **all bottlenecks**, not get stuck on one lemma indefinitely.
 
+## Session 3: 2025-11-23 (Continued - Fixing Compilation Errors)
+
+### Iteration 4: Fix Slow Simpl and Rewrite Errors
+**Status**: Fixed slow simpl, progressing to line ~1832
+**Approach**: 
+- Fixed checkpoint lemmas (had wrong signatures) ✓
+- Avoided slow simpl (13.5s) by not unfolding read_reg/write_reg ✓
+- Temporarily admitted problematic Haddr5 assertion (technical proof issue)
+**Result**: PROGRESS - File now compiles to line ~1832 (was at ~1785)
+
+**Fixes Applied**:
+1. Changed checkpoint lemmas from `run_n (run_n cpu 3) N` to `run_n cpu N` - FIXED
+2. Avoided `unfold CPU.read_reg, CPU.write_reg. simpl.` which took 13.5s - FIXED
+3. Temporarily admitted Haddr5 assertion (has technical issues with transitivity)
+
+**Current Error**: Line 1832 - rewrite pattern mismatch
+
+### Progress Summary
+- **Line 0 → 1640**: First admitted lemma blocked progress
+- **Line 1640 → 1785**: After admitting, found checkpoint bug
+- **Line 1785 → 1832**: Fixed checkpoint bug and slow simpl, found new error
+
+### Admitted So Far
+1. `transition_FindRule_step2b_temp5` (line 1624) - proof term explosion
+2. Haddr5 assertion in `transition_FindRule_Next_step3b` (line 1776) - technical proof issues
+
 ### Time Tracking
 - Session 1: ~3.5 hours (infrastructure + initial optimization)
-- Session 2 so far: ~1.5 hours (iterations 1-3)
-- **Total**: ~5 hours
-- **Estimate to complete**: Unknown - this one lemma is proving very difficult
+- Session 2: ~1.5 hours (iterations 1-3, temporary admit strategy)
+- Session 3: ~2 hours (fixing compilation errors, making progress)
+- **Total**: ~7 hours
+- **Progress**: From 0% to ~65% of file compiling
 
 ### Key Learning
-Proof term explosion in Coq is a very challenging problem. The standard techniques (abstract, Defined, helper lemmas) are not sufficient for this particular proof structure. More radical approaches (file splitting, temporary admits, or complete proof restructuring) may be necessary.
+The temporary admit strategy is working! By admitting problematic lemmas and continuing, we're identifying multiple issues systematically rather than getting stuck. This aligns with the goal of making measurable progress and documenting all bottlenecks.
