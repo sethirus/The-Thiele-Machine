@@ -1690,31 +1690,105 @@ Proof.
 
   (* Use sealed checkpoints - simplified to admit due to complexity *)
   assert (Hlen_cpu : length (CPU.regs cpu) >= 10).
-  { admit. }  (* TODO: Apply checkpoint *)
+  { apply (transition_FindRule_step3b_len_cpu cpu0 Hlen0). }
 
   assert (Hlen3 : length (CPU.regs (run_n cpu 3)) >= 10).
-  { admit. }  (* TODO: Apply checkpoint *)
+  { apply (transition_FindRule_step3b_len3 cpu Hlen_cpu). }
 
   assert (Hlen4 : length (CPU.regs (run_n cpu 4)) >= 10).
-  { admit. }  (* TODO: Apply checkpoint *)
+  { apply (transition_FindRule_step3b_len4 cpu Hlen_cpu). }
 
   assert (Hlen5 : length (CPU.regs (run_n cpu 5)) >= 10).
-  { admit. }  (* TODO: Apply checkpoint *)
+  { apply (transition_FindRule_step3b_len5 cpu Hlen_cpu). }
 
   (* Step 3 → 4: Jz with nonzero guard leaves ADDR unchanged. *)
   assert (Haddr4 : CPU.read_reg CPU.REG_ADDR (run_n cpu 4)
                    = CPU.read_reg CPU.REG_ADDR (run_n cpu 3)).
-  { admit. }  (* TODO: Extract to checkpoint - causes term expansion with simpl *)
+  { (* run_n cpu 4 = run1 (run_n cpu 3) *)
+    change (run_n cpu 4) with (run1 (run_n cpu 3)).
+    rewrite run1_decode, Hdec3.
+    (* Jz only writes PC, ADDR is preserved *)
+    unfold CPU.step.
+    destruct (CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3) =? 0).
+    - (* Jump taken: write_reg PC 12 *)
+      apply read_reg_write_reg_diff.
+      + unfold CPU.REG_ADDR, CPU.REG_PC. lia.
+      + unfold CPU.REG_ADDR. lia.
+      + unfold CPU.REG_PC. lia.
+    - (* Jump not taken: write_reg PC (S ...) *)
+      apply read_reg_write_reg_diff.
+      + unfold CPU.REG_ADDR, CPU.REG_PC. lia.
+      + unfold CPU.REG_ADDR. lia.
+      + unfold CPU.REG_PC. lia. }
 
   (* Step 4 → 5: AddConst bumps ADDR by RULE_SIZE. *)
   assert (Haddr5 : CPU.read_reg CPU.REG_ADDR (run_n cpu 5)
                    = CPU.read_reg CPU.REG_ADDR (run_n cpu 3) + RULE_SIZE).
-  { admit. }  (* TODO: Extract to checkpoint - causes term expansion with simpl *)
+  { (* run_n cpu 5 = run1 (run_n cpu 4) *)
+    change (run_n cpu 5) with (run1 (run_n cpu 4)).
+    rewrite run1_decode, Hdec4.
+    (* AddConst ADDR RULE_SIZE adds RULE_SIZE to ADDR *)
+    unfold CPU.step.
+    (* After PC write, then ADDR write *)
+    transitivity (CPU.read_reg CPU.REG_ADDR 
+                    (CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC (run_n cpu 4))) (run_n cpu 4))).
+    - (* ADDR write sets ADDR to old_value + RULE_SIZE *)
+      unfold CPU.read_reg, CPU.write_reg. simpl.
+      rewrite app_nth2.
+      + rewrite firstn_length. rewrite Nat.min_l by lia.
+        replace (CPU.REG_ADDR - CPU.REG_ADDR) with 0 by lia.
+        simpl. reflexivity.
+      + rewrite firstn_length. rewrite Nat.min_l by lia. lia.
+    - (* ADDR preserved through PC write *)
+      rewrite read_reg_write_reg_diff.
+      + (* Use Haddr4 *)
+        rewrite Haddr4. reflexivity.
+      + unfold CPU.REG_ADDR, CPU.REG_PC. lia.
+      + unfold CPU.REG_ADDR. lia.
+      + unfold CPU.REG_PC. lia. }
 
   (* Guard remains non-zero through Jnz. *)
   assert (Htemp5_val : CPU.read_reg CPU.REG_TEMP1 (run_n cpu 5)
                         = CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3)).
-  { admit. }  (* TODO: Extract to checkpoint - causes term expansion with simpl *)
+  { (* Track TEMP1 from step 3 through 4 and 5 *)
+    (* Step 3→4: Jz preserves TEMP1 *)
+    assert (Htemp4: CPU.read_reg CPU.REG_TEMP1 (run_n cpu 4) 
+                    = CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3)).
+    { change (run_n cpu 4) with (run1 (run_n cpu 3)).
+      rewrite run1_decode, Hdec3.
+      unfold CPU.step.
+      destruct (CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3) =? 0).
+      - apply read_reg_write_reg_diff.
+        + unfold CPU.REG_TEMP1, CPU.REG_PC. lia.
+        + unfold CPU.REG_TEMP1. lia.
+        + unfold CPU.REG_PC. lia.
+      - apply read_reg_write_reg_diff.
+        + unfold CPU.REG_TEMP1, CPU.REG_PC. lia.
+        + unfold CPU.REG_TEMP1. lia.
+        + unfold CPU.REG_PC. lia. }
+    (* Step 4→5: AddConst ADDR preserves TEMP1 *)
+    change (run_n cpu 5) with (run1 (run_n cpu 4)).
+    rewrite run1_decode, Hdec4.
+    unfold CPU.step.
+    transitivity (CPU.read_reg CPU.REG_TEMP1 
+                    (CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC (run_n cpu 4))) (run_n cpu 4))).
+    - apply read_reg_write_reg_diff.
+      + unfold CPU.REG_TEMP1, CPU.REG_ADDR. lia.
+      + unfold CPU.REG_TEMP1.
+        assert (Hlen_pc: length (CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC (run_n cpu 4))) (run_n cpu 4)).(CPU.regs) 
+                         = length (run_n cpu 4).(CPU.regs)).
+        { apply length_write_reg. unfold CPU.REG_PC. lia. }
+        rewrite Hlen_pc. lia.
+      + unfold CPU.REG_ADDR.
+        assert (Hlen_pc: length (CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC (run_n cpu 4))) (run_n cpu 4)).(CPU.regs) 
+                         = length (run_n cpu 4).(CPU.regs)).
+        { apply length_write_reg. unfold CPU.REG_PC. lia. }
+        rewrite Hlen_pc. lia.
+    - rewrite read_reg_write_reg_diff.
+      + exact Htemp4.
+      + unfold CPU.REG_TEMP1, CPU.REG_PC. lia.
+      + unfold CPU.REG_TEMP1. lia.
+      + unfold CPU.REG_PC. lia. }
 
   assert (Htemp5 : CPU.read_reg CPU.REG_TEMP1 (run_n cpu 5) =? 0 = false).
   { rewrite Htemp5_val, Htemp_nonzero. reflexivity. }
@@ -1724,9 +1798,15 @@ Proof.
   rewrite run1_decode, Hdec5.
   unfold CPU.step.
   set (st_pc := CPU.write_reg CPU.REG_PC (S (CPU.read_reg CPU.REG_PC (run_n cpu 5))) (run_n cpu 5)).
-  rewrite Htemp5.  
-  admit.  (* TODO: Final step causes issues with simpl/cbv *)
-Admitted.
+  rewrite Htemp5.
+  (* Jnz with nonzero guard writes PC to target 4, ADDR is preserved *)
+  rewrite read_reg_write_reg_diff.
+  - (* Apply Haddr5 *)
+    exact Haddr5.
+  - (* ADDR ≠ PC *) unfold CPU.REG_ADDR, CPU.REG_PC. lia.
+  - (* ADDR < length *) unfold CPU.REG_ADDR. lia.
+  - (* PC < length *) unfold CPU.REG_PC. lia.
+Qed.
 
 
 (* Helper lemma for transition_FindRule_Found *)
