@@ -2653,7 +2653,173 @@ Time Lemma loop_exit_match : forall tm conf cpu idx,
     CPU.read_reg CPU.REG_ADDR cpu_branch =
       RULES_START_ADDR + idx * RULE_SIZE.
 Proof.
-Admitted.
+  intros tm conf cpu idx Hinv Hidx_bound Hlen Hdecode0 Hdecode1 Hdecode2 Hdecode3 Htemp_zero.
+  destruct conf as [[q tape] head]. simpl in *.
+  
+  (* Witness: cpu_branch = run_n cpu 4 *)
+  exists (run_n cpu 4).
+  
+  (* Unfold the invariant to get register values *)
+  unfold FindRule_Loop_Inv in Hinv. simpl in Hinv.
+  destruct Hinv as [Hpc_in_loop [Hq [Hsym [Haddr Hprev_rules]]]].
+  
+  split; [reflexivity|].
+  
+  (* Need to prove all register values after 4 steps *)
+  split.
+  - (* PC = 12 after step 3->4 *)
+    (* Step 3->4 is Jz TEMP1 12, and TEMP1 = 0, so jumps to 12 *)
+    change (run_n cpu 4) with (run1 (run_n cpu 3)).
+    unfold run1. rewrite Hdecode3.
+    unfold CPU.step.
+    rewrite Htemp_zero.
+    simpl. (* Jz with condition true writes PC to 12 *)
+    unfold CPU.read_reg, CPU.write_reg. simpl.
+    rewrite app_nth2.
+    + rewrite firstn_length. rewrite Nat.min_l by lia.
+      replace (CPU.REG_PC - CPU.REG_PC) with 0 by lia.
+      simpl. reflexivity.
+    + rewrite firstn_length. rewrite Nat.min_l by lia.
+      unfold CPU.REG_PC. lia.
+  
+  split.
+  - (* REG_Q preserved through steps 0-3 *)
+    (* Step 0: LoadIndirect writes to Q', not Q *)
+    assert (Hq1: CPU.read_reg CPU.REG_Q (run1 cpu) = CPU.read_reg CPU.REG_Q cpu).
+    { unfold run1. rewrite Hdecode0. unfold CPU.step.
+      apply read_reg_write_reg_diff.
+      - unfold CPU.REG_Q, CPU.REG_Q'. lia.
+      - unfold CPU.REG_Q. rewrite Hlen. lia.
+      - unfold CPU.REG_Q'. rewrite Hlen. lia. }
+    
+    (* Step 1: CopyReg reads from Q, writes to TEMP1 *)
+    assert (Hq2: CPU.read_reg CPU.REG_Q (run_n cpu 2) = CPU.read_reg CPU.REG_Q (run1 cpu)).
+    { change (run_n cpu 2) with (run1 (run1 cpu)).
+      unfold run1 at 1. rewrite Hdecode1. unfold CPU.step.
+      apply read_reg_write_reg_diff.
+      - unfold CPU.REG_Q, CPU.REG_TEMP1. lia.
+      - unfold CPU.REG_Q.
+        assert (Hlen1: length (run1 cpu).(CPU.regs) = 10).
+        { unfold run1. rewrite Hdecode0. unfold CPU.step.
+          apply length_write_reg. unfold CPU.REG_Q'. rewrite Hlen. lia. }
+        rewrite Hlen1. lia.
+      - unfold CPU.REG_TEMP1.
+        assert (Hlen1: length (run1 cpu).(CPU.regs) = 10).
+        { unfold run1. rewrite Hdecode0. unfold CPU.step.
+          apply length_write_reg. unfold CPU.REG_Q'. rewrite Hlen. lia. }
+        rewrite Hlen1. lia. }
+    
+    (* Step 2: SubReg writes to TEMP1, not Q *)
+    assert (Hq3: CPU.read_reg CPU.REG_Q (run_n cpu 3) = CPU.read_reg CPU.REG_Q (run_n cpu 2)).
+    { change (run_n cpu 3) with (run1 (run_n cpu 2)).
+      unfold run1. rewrite Hdecode2. unfold CPU.step.
+      apply read_reg_write_reg_diff.
+      - unfold CPU.REG_Q, CPU.REG_TEMP1. lia.
+      - unfold CPU.REG_Q. apply (length_run_n_eq_bounded cpu 2 Hlen).
+      - unfold CPU.REG_TEMP1. apply (length_run_n_eq_bounded cpu 2 Hlen). }
+    
+    (* Step 3: Jz writes only to PC, not Q *)
+    assert (Hq4: CPU.read_reg CPU.REG_Q (run_n cpu 4) = CPU.read_reg CPU.REG_Q (run_n cpu 3)).
+    { change (run_n cpu 4) with (run1 (run_n cpu 3)).
+      unfold run1. rewrite Hdecode3. unfold CPU.step.
+      rewrite Htemp_zero. simpl.
+      apply read_reg_write_reg_diff.
+      - unfold CPU.REG_Q, CPU.REG_PC. lia.
+      - unfold CPU.REG_Q. apply (length_run_n_eq_bounded cpu 3 Hlen).
+      - unfold CPU.REG_PC. apply (length_run_n_eq_bounded cpu 3 Hlen). }
+    
+    (* Chain all equalities *)
+    rewrite Hq4, Hq3, Hq2, Hq1. exact Hq.
+  
+  split.
+  - (* REG_SYM preserved through steps 0-3 *)
+    (* Similar to Q, SYM is not written by any of the instructions *)
+    assert (Hsym1: CPU.read_reg CPU.REG_SYM (run1 cpu) = CPU.read_reg CPU.REG_SYM cpu).
+    { unfold run1. rewrite Hdecode0. unfold CPU.step.
+      apply read_reg_write_reg_diff.
+      - unfold CPU.REG_SYM, CPU.REG_Q'. lia.
+      - unfold CPU.REG_SYM. rewrite Hlen. lia.
+      - unfold CPU.REG_Q'. rewrite Hlen. lia. }
+    
+    assert (Hsym2: CPU.read_reg CPU.REG_SYM (run_n cpu 2) = CPU.read_reg CPU.REG_SYM (run1 cpu)).
+    { change (run_n cpu 2) with (run1 (run1 cpu)).
+      unfold run1 at 1. rewrite Hdecode1. unfold CPU.step.
+      apply read_reg_write_reg_diff.
+      - unfold CPU.REG_SYM, CPU.REG_TEMP1. lia.
+      - unfold CPU.REG_SYM.
+        assert (Hlen1: length (run1 cpu).(CPU.regs) = 10).
+        { unfold run1. rewrite Hdecode0. unfold CPU.step.
+          apply length_write_reg. unfold CPU.REG_Q'. rewrite Hlen. lia. }
+        rewrite Hlen1. lia.
+      - unfold CPU.REG_TEMP1.
+        assert (Hlen1: length (run1 cpu).(CPU.regs) = 10).
+        { unfold run1. rewrite Hdecode0. unfold CPU.step.
+          apply length_write_reg. unfold CPU.REG_Q'. rewrite Hlen. lia. }
+        rewrite Hlen1. lia. }
+    
+    assert (Hsym3: CPU.read_reg CPU.REG_SYM (run_n cpu 3) = CPU.read_reg CPU.REG_SYM (run_n cpu 2)).
+    { change (run_n cpu 3) with (run1 (run_n cpu 2)).
+      unfold run1. rewrite Hdecode2. unfold CPU.step.
+      apply read_reg_write_reg_diff.
+      - unfold CPU.REG_SYM, CPU.REG_TEMP1. lia.
+      - unfold CPU.REG_SYM. apply (length_run_n_eq_bounded cpu 2 Hlen).
+      - unfold CPU.REG_TEMP1. apply (length_run_n_eq_bounded cpu 2 Hlen). }
+    
+    assert (Hsym4: CPU.read_reg CPU.REG_SYM (run_n cpu 4) = CPU.read_reg CPU.REG_SYM (run_n cpu 3)).
+    { change (run_n cpu 4) with (run1 (run_n cpu 3)).
+      unfold run1. rewrite Hdecode3. unfold CPU.step.
+      rewrite Htemp_zero. simpl.
+      apply read_reg_write_reg_diff.
+      - unfold CPU.REG_SYM, CPU.REG_PC. lia.
+      - unfold CPU.REG_SYM. apply (length_run_n_eq_bounded cpu 3 Hlen).
+      - unfold CPU.REG_PC. apply (length_run_n_eq_bounded cpu 3 Hlen). }
+    
+    rewrite Hsym4, Hsym3, Hsym2, Hsym1. exact Hsym.
+  
+  - (* REG_ADDR preserved through steps 0-3 *)
+    (* Similar pattern: ADDR is not written until step 4, which we don't execute *)
+    assert (Haddr1: CPU.read_reg CPU.REG_ADDR (run1 cpu) = CPU.read_reg CPU.REG_ADDR cpu).
+    { unfold run1. rewrite Hdecode0. unfold CPU.step.
+      apply read_reg_write_reg_diff.
+      - unfold CPU.REG_ADDR, CPU.REG_Q'. lia.
+      - unfold CPU.REG_ADDR. rewrite Hlen. lia.
+      - unfold CPU.REG_Q'. rewrite Hlen. lia. }
+    
+    assert (Haddr2: CPU.read_reg CPU.REG_ADDR (run_n cpu 2) = CPU.read_reg CPU.REG_ADDR (run1 cpu)).
+    { change (run_n cpu 2) with (run1 (run1 cpu)).
+      unfold run1 at 1. rewrite Hdecode1. unfold CPU.step.
+      apply read_reg_write_reg_diff.
+      - unfold CPU.REG_ADDR, CPU.REG_TEMP1. lia.
+      - unfold CPU.REG_ADDR.
+        assert (Hlen1: length (run1 cpu).(CPU.regs) = 10).
+        { unfold run1. rewrite Hdecode0. unfold CPU.step.
+          apply length_write_reg. unfold CPU.REG_Q'. rewrite Hlen. lia. }
+        rewrite Hlen1. lia.
+      - unfold CPU.REG_TEMP1.
+        assert (Hlen1: length (run1 cpu).(CPU.regs) = 10).
+        { unfold run1. rewrite Hdecode0. unfold CPU.step.
+          apply length_write_reg. unfold CPU.REG_Q'. rewrite Hlen. lia. }
+        rewrite Hlen1. lia. }
+    
+    assert (Haddr3: CPU.read_reg CPU.REG_ADDR (run_n cpu 3) = CPU.read_reg CPU.REG_ADDR (run_n cpu 2)).
+    { change (run_n cpu 3) with (run1 (run_n cpu 2)).
+      unfold run1. rewrite Hdecode2. unfold CPU.step.
+      apply read_reg_write_reg_diff.
+      - unfold CPU.REG_ADDR, CPU.REG_TEMP1. lia.
+      - unfold CPU.REG_ADDR. apply (length_run_n_eq_bounded cpu 2 Hlen).
+      - unfold CPU.REG_TEMP1. apply (length_run_n_eq_bounded cpu 2 Hlen). }
+    
+    assert (Haddr4: CPU.read_reg CPU.REG_ADDR (run_n cpu 4) = CPU.read_reg CPU.REG_ADDR (run_n cpu 3)).
+    { change (run_n cpu 4) with (run1 (run_n cpu 3)).
+      unfold run1. rewrite Hdecode3. unfold CPU.step.
+      rewrite Htemp_zero. simpl.
+      apply read_reg_write_reg_diff.
+      - unfold CPU.REG_ADDR, CPU.REG_PC. lia.
+      - unfold CPU.REG_ADDR. apply (length_run_n_eq_bounded cpu 3 Hlen).
+      - unfold CPU.REG_PC. apply (length_run_n_eq_bounded cpu 3 Hlen). }
+    
+    rewrite Haddr4, Haddr3, Haddr2, Haddr1. exact Haddr.
+Qed.
 
 (* Main loop theorem: compose iteration lemmas *)
 Time Lemma transition_FindRule_to_ApplyRule (tm : TM) (conf : TMConfig) (cpu_find : CPU.State)
@@ -2675,4 +2841,29 @@ Time Lemma transition_FindRule_to_ApplyRule (tm : TM) (conf : TMConfig) (cpu_fin
     run_n cpu_find 4 = cpu_apply /\
     CPU.read_reg CPU.REG_PC cpu_apply = 12.
 Proof.
-Admitted.
+  intros tm conf cpu_find q' write move Hinv Hlen Hpc Hdecode0 Hdecode1 Hdecode2 Hdecode3 Htemp_zero Haddr_init Hrule_match.
+  destruct conf as [[q tape] head]. simpl in *.
+  
+  (* Apply loop_exit_match with idx = 0 *)
+  assert (Hidx_bound: 0 < length (tm_rules tm)).
+  { (* The rule exists since we have Hrule_match *)
+    destruct (tm_rules tm) as [|r rs] eqn:Hrules.
+    - (* Empty list - contradiction *)
+      simpl in Hrule_match. discriminate Hrule_match.
+    - simpl. lia. }
+  
+  (* Update the invariant to use idx = 0 *)
+  assert (Hinv0: FindRule_Loop_Inv tm (q, tape, head) cpu_find 0).
+  { exact Hinv. }
+  
+  (* Apply loop_exit_match *)
+  destruct (loop_exit_match tm (q, tape, head) cpu_find 0 Hinv0 Hidx_bound Hlen
+             Hdecode0 Hdecode1 Hdecode2 Hdecode3 Htemp_zero)
+    as [cpu_branch [Hcpu_branch [Hpc_branch [Hq_branch [Hsym_branch Haddr_branch]]]]].
+  
+  (* Witness cpu_apply = cpu_branch *)
+  exists cpu_branch.
+  split.
+  - exact Hcpu_branch.
+  - exact Hpc_branch.
+Qed.
