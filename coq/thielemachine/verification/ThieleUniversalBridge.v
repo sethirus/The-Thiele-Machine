@@ -1888,6 +1888,68 @@ Proof.
   exact Htemp_zero.
 Qed.
 
+(* Break transition_FindRule_Next into micro-lemmas to avoid proof term explosion *)
+
+Lemma transition_FindRule_Next_witness (tm : TM) (conf : TMConfig) :
+  let cpu := findrule_entry_state tm conf in
+  let cpu0 := setup_state tm conf in
+  run_n cpu 6 = run_n (run_n cpu0 3) 6.
+Proof.
+  intros cpu cpu0.
+  unfold cpu, findrule_entry_state, cpu0.
+  reflexivity.
+Defined.
+
+Lemma transition_FindRule_Next_pc_prop (tm : TM) (conf : TMConfig) :
+  let cpu := findrule_entry_state tm conf in
+  decode_instr cpu = CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR ->
+  decode_instr (run1 cpu) = CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q ->
+  decode_instr (run_n cpu 2) = CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q' ->
+  decode_instr (run_n cpu 3) = CPU.Jz CPU.REG_TEMP1 12 ->
+  decode_instr (run_n cpu 4) = CPU.AddConst CPU.REG_ADDR RULE_SIZE ->
+  decode_instr (run_n cpu 5) = CPU.Jnz CPU.REG_TEMP1 4 ->
+  CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3) <> 0 ->
+  CPU.read_reg CPU.REG_PC (run_n cpu 6) = 4.
+Proof.
+  intros cpu Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5 Htemp.
+  subst cpu. unfold findrule_entry_state.
+  set (cpu0 := setup_state tm conf).
+  assert (Hlen0 : length cpu0.(CPU.regs) = 10).
+  { subst cpu0. apply setup_state_regs_length. }
+  Local Opaque CPU.read_mem.
+
+  assert (Hguard_false : CPU.read_reg CPU.REG_TEMP1 (run_n (run_n cpu0 3) 3) =? 0 = false).
+  { apply Nat.eqb_neq. rewrite <- run_n_add. exact Htemp. }
+
+  apply (transition_FindRule_Next_step2b cpu0 Hlen0 Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5).
+  exact Hguard_false.
+Defined.
+
+Lemma transition_FindRule_Next_addr_prop (tm : TM) (conf : TMConfig) :
+  let cpu := findrule_entry_state tm conf in
+  decode_instr cpu = CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR ->
+  decode_instr (run1 cpu) = CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q ->
+  decode_instr (run_n cpu 2) = CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q' ->
+  decode_instr (run_n cpu 3) = CPU.Jz CPU.REG_TEMP1 12 ->
+  decode_instr (run_n cpu 4) = CPU.AddConst CPU.REG_ADDR RULE_SIZE ->
+  decode_instr (run_n cpu 5) = CPU.Jnz CPU.REG_TEMP1 4 ->
+  CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3) <> 0 ->
+  CPU.read_reg CPU.REG_ADDR (run_n cpu 6) = CPU.read_reg CPU.REG_ADDR cpu + RULE_SIZE.
+Proof.
+  intros cpu Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5 Htemp.
+  subst cpu. unfold findrule_entry_state.
+  set (cpu0 := setup_state tm conf).
+  assert (Hlen0 : length cpu0.(CPU.regs) = 10).
+  { subst cpu0. apply setup_state_regs_length. }
+  Local Opaque CPU.read_mem.
+
+  assert (Hguard_false : CPU.read_reg CPU.REG_TEMP1 (run_n (run_n cpu0 3) 3) =? 0 = false).
+  { apply Nat.eqb_neq. rewrite <- run_n_add. exact Htemp. }
+
+  apply (transition_FindRule_Next_step3b cpu0 Hlen0 Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5).
+  exact Hguard_false.
+Defined.
+
 Time Lemma transition_FindRule_Next (tm : TM) (conf : TMConfig) :
   let cpu := findrule_entry_state tm conf in
   (* Add explicit decode_instr hypotheses to avoid vm_compute *)
@@ -1903,31 +1965,13 @@ Time Lemma transition_FindRule_Next (tm : TM) (conf : TMConfig) :
     CPU.read_reg CPU.REG_PC cpu' = 4 /\
     CPU.read_reg CPU.REG_ADDR cpu' = CPU.read_reg CPU.REG_ADDR cpu + RULE_SIZE.
 Proof.
-  bridge_checkpoint ("transition_FindRule_Next"%string).
   intros cpu Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5 Htemp.
-  subst cpu. unfold findrule_entry_state.
-  set (cpu0 := setup_state tm conf).
-  assert (Hlen0 : length cpu0.(CPU.regs) = 10).
-  { subst cpu0. apply setup_state_regs_length. }
-  Local Opaque CPU.read_mem.
-
-  (* The guard is known to be non-zero at the Jz. *)
-  assert (Hguard_false : CPU.read_reg CPU.REG_TEMP1 (run_n (run_n cpu0 3) 3) =? 0 = false).
-  { apply Nat.eqb_neq.
-    rewrite <- run_n_add.
-    exact Htemp. }
-
-  bridge_checkpoint ("transition_FindRule_Next_done"%string).
-  exists (run_n (run_n cpu0 3) 6).
+  exists (run_n cpu 6).
   split; [reflexivity|].
   split.
-  - (* Use helper lemma to avoid OOM *)
-    apply (transition_FindRule_Next_step2b cpu0 Hlen0 Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5).
-    exact Hguard_false.
-  - (* Use helper lemma to avoid OOM *)
-    apply (transition_FindRule_Next_step3b cpu0 Hlen0 Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5).
-    exact Hguard_false.
-Qed.
+  - apply (transition_FindRule_Next_pc_prop tm conf Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5 Htemp).
+  - apply (transition_FindRule_Next_addr_prop tm conf Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5 Htemp).
+Defined.
 
 (* Concrete computation for the matching path: the temporary register is zero,
    so the Jz is taken and control jumps to the Found block at PC=12. *)
