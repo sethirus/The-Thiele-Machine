@@ -918,16 +918,15 @@ Lemma length_run_n_eq_bounded : forall st n,
   length (CPU.regs (run_n st n)) = 10.
 Proof.
   intros st n Hlen.
-  assert (Hge: length (CPU.regs (run_n st n)) >= 10).
-  { rewrite <- Hlen. apply length_run_n_ge. }
   (* The universal program maintains exactly 10 registers using the axiom. *)
+  (* First prove by induction that length <= 10 *)
   assert (Hle: length (CPU.regs (run_n st n)) <= 10).
-  { (* Prove by induction on n *)
-    revert st Hlen. induction n as [|n' IHn]; intros st Hlen.
+  { revert st Hlen. induction n as [|n' IHn]; intros st Hlen.
     - (* Base case: n = 0 *)
-      simpl. lia.
+      simpl. apply Nat.eq_le_incl. exact Hlen.
     - (* Inductive case: n = S n' *)
       simpl. (* run_n st (S n') = run_n (run1 st) n' *)
+      change (run_n st (S n')) with (run_n (run1 st) n').
       (* Need: length (run_n (run1 st) n') <= 10 *)
       (* By IH, need: length (run1 st) = 10 *)
       assert (Hlen1: length (CPU.regs (run1 st)) = 10).
@@ -937,12 +936,20 @@ Proof.
         assert (Hle_step: length (CPU.regs (CPU.step (decode_instr st) st)) <= 10).
         { apply universal_program_bounded_writes.
           - reflexivity.
-          - rewrite Hlen. lia. }
+          - rewrite Hlen. apply Nat.le_refl. }
         assert (Hge_step: length (CPU.regs (CPU.step (decode_instr st) st)) >= 10).
-        { apply length_step_ge. rewrite Hlen. lia. }
+        { assert (H_ge: length (CPU.regs (CPU.step (decode_instr st) st)) >= length st.(CPU.regs)).
+          { apply length_step_ge. }
+          rewrite Hlen in H_ge. exact H_ge. }
         lia. }
       apply IHn. exact Hlen1. }
-  apply Nat.le_antisymm; [exact Hle|exact Hge].
+  (* Then prove that length >= 10 *)
+  assert (Hge: length (CPU.regs (run_n st n)) >= 10).
+  { assert (H_ge: length (CPU.regs (run_n st n)) >= length st.(CPU.regs)).
+    { apply length_run_n_ge. }
+    rewrite Hlen in H_ge. exact H_ge. }
+  (* Combine both directions *)
+  apply Nat.le_antisymm; [exact Hle | exact Hge].
 Qed.
 
 (* Helper: length is preserved by write_reg *)
