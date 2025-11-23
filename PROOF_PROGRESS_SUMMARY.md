@@ -1,51 +1,73 @@
 # Proof Progress Summary - ThieleUniversalBridge.v
 
-## Session Completed: 2025-11-23
+## Session 2 Completed: 2025-11-23
 
 ### Achievement
-Successfully completed **1 TODO** and discharged **1 admit** in `coq/thielemachine/verification/ThieleUniversalBridge.v`.
+Successfully completed **8 TODOs** and discharged **8 admits**, completing **1 full lemma** (`transition_FindRule_Next_step3b`) in `coq/thielemachine/verification/ThieleUniversalBridge.v`.
 
-### Completed Proof
+### Completed Proofs
+
+#### Session 1 (Previous)
 **Lemma**: `transition_FindRule_step2b_temp5` (lines 1548-1589)
+- Proved `REG_TEMP1` preservation through `AddConst REG_ADDR RULE_SIZE` execution
 
-**Purpose**: Proves that register `REG_TEMP1` is preserved from step 3 through steps 4 and 5 in the FindRule loop transition.
+#### Session 2 (Current)
+**Lemma**: `transition_FindRule_Next_step3b` (lines 1675-1809)
 
-**Key Insight**: The `AddConst REG_ADDR RULE_SIZE` instruction writes to:
-- `REG_PC` (register 0)
-- `REG_ADDR` (register 7)
+**Purpose**: Proves that the `REG_ADDR` register is correctly incremented by `RULE_SIZE` after 6 instruction steps in the FindRule loop.
 
-But NOT to `REG_TEMP1` (register 8), so the value is preserved.
+**Sub-proofs completed** (8 admits discharged):
+1. **Lines 1692-1693**: Length checkpoint - applied `transition_FindRule_step3b_len_cpu`
+2. **Lines 1695-1696**: Length checkpoint - applied `transition_FindRule_step3b_len3`  
+3. **Lines 1698-1699**: Length checkpoint - applied `transition_FindRule_step3b_len4`
+4. **Lines 1701-1702**: Length checkpoint - applied `transition_FindRule_step3b_len5`
+5. **Lines 1704-1722**: ADDR preservation through Jz - Jz only writes PC, so ADDR is preserved
+6. **Lines 1724-1748**: ADDR increment through AddConst - Shows ADDR = old_ADDR + RULE_SIZE
+7. **Lines 1750-1791**: TEMP1 preservation through Jz and AddConst - Both preserve TEMP1
+8. **Lines 1796-1809**: Final ADDR preservation through Jnz - Jnz only writes PC
 
-**Proof Strategy**:
-1. Unfold `run_n cpu 5` to `run1 (run_n cpu 4)`
-2. Rewrite with the decode hypothesis to get `CPU.step (AddConst REG_ADDR RULE_SIZE) (run_n cpu 4)`
-3. Unfold `CPU.step` to expose the nested `write_reg` operations
-4. Use `read_reg_write_reg_diff` lemma to show preservation through:
-   - First the ADDR write (TEMP1 ≠ ADDR, so preserved)
-   - Then the PC write (TEMP1 ≠ PC, so preserved)
-5. Apply the hypothesis `Htemp4` to conclude
+**Key Techniques**:
+- Applied checkpoint lemmas that were already proven
+- Used `read_reg_write_reg_diff` to show register preservation
+- Used `read_reg_write_reg_same` to show ADDR gets the new value in AddConst
+- Handled both branches of conditional jumps (Jz, Jnz)
+- Tracked register values through multiple instruction steps
 
-**Impact**: This checkpoint lemma is used by `transition_FindRule_Next_step2b`, which should now work correctly.
+**Proof Pattern for ADDR increment** (lines 1724-1748):
+```coq
+(* AddConst ADDR RULE_SIZE increments ADDR *)
+change (run_n cpu 5) with (run1 (run_n cpu 4)).
+rewrite run1_decode, Hdec4.
+unfold CPU.step.
+(* Show ADDR write sets new value, then show ADDR preserved through PC write *)
+transitivity (read_reg ADDR (write_reg PC ... cpu)).
+- (* ADDR gets old_value + RULE_SIZE *)
+  unfold read_reg, write_reg. simpl.
+  rewrite app_nth2. reflexivity.
+- (* ADDR preserved through PC write *)
+  apply read_reg_write_reg_diff.
+```
 
 ### Remaining Work
 
 #### Statistics
-- **Remaining `admit.` statements**: 11
-- **Remaining `Admitted.` lemmas**: 6
+- **Remaining `admit.` statements**: 3 (down from 11)
+- **Remaining `Admitted.` lemmas**: 5 (down from 6)
 
 #### Key Remaining Lemmas
-1. `length_run_n_eq_bounded` (line 907-919) - Needs proving all instructions write in-bounds
-2. `transition_FindRule_Next_step3b` (line 1643-1697) - Has multiple admits for checkpoints
-3. `loop_iteration_run_equations` (line 1877-1905) - Needs proving run equations
-4. `loop_iteration_no_match` (line 1907-2342) - Needs proving ADDR tracking and other register preservation
-5. `loop_exit_match` (line 2350-2370) - Loop exit when matching rule found
-6. `transition_FindRule_to_ApplyRule` (line 2373-2392) - Main loop theorem
+1. `length_run_n_eq_bounded` (line 907-919) - 1 admit - Needs proving all instructions write in-bounds
+2. `loop_iteration_run_equations` (line 1877-1905) - 1 admit - Needs proving run equations
+3. `loop_iteration_no_match` (line 1907-2342) - 1 admit - Needs proving ADDR tracking in loop
+4. `loop_exit_match` (line 2350-2370) - Fully admitted - Loop exit when matching rule found
+5. `transition_FindRule_to_ApplyRule` (line 2373-2392) - Fully admitted - Main loop theorem
 
 ### Proof Techniques Used
 
 #### Key Lemmas for Register Preservation
-- `read_reg_write_reg_diff` (lines 798-834): Shows that writing to one register preserves values in different registers
-- `length_write_reg` (lines 922-935): Shows that `write_reg` preserves register file length when writing in-bounds
+- `read_reg_write_reg_diff` (lines 798-834): Shows writing to one register preserves values in different registers
+- `read_reg_write_reg_same` (lines 780-795): Shows reading the register you just wrote gives the new value
+- `length_write_reg` (lines 922-935): Shows `write_reg` preserves register file length when writing in-bounds
+- `length_run_n_ge` (lines 886-902): Shows multi-step execution preserves or grows register file length
 
 #### Important Definitions
 - `run1 s = CPU.step (decode_instr s) s` (line 61-62)
@@ -56,14 +78,25 @@ But NOT to `REG_TEMP1` (register 8), so the value is preserved.
 - `change (run_n cpu N) with (run1 (run_n cpu (N-1)))` - Convert multi-step to single step
 - `unfold CPU.step` - Expose nested write operations
 - `transitivity` - Chain equalities through intermediate states
+- `destruct (condition)` - Handle both branches of conditional jumps
 - `lia` - Discharge arithmetic goals about register numbers
 
+#### Pattern for Conditional Jumps (Jz, Jnz)
+```coq
+unfold CPU.step.
+destruct (read_reg REG condition =? 0).
+- (* Branch taken *) apply read_reg_write_reg_diff; lia.
+- (* Branch not taken *) apply read_reg_write_reg_diff; lia.
+```
+
 ### Next Steps for Future Sessions
-1. Complete `transition_FindRule_Next_step3b` by filling in the checkpoint admits
-2. Work on `loop_iteration_no_match` to complete the ADDR tracking proof
-3. Progress through remaining loop lemmas toward the main theorem
+1. Complete `loop_iteration_no_match` ADDR tracking proof (1 admit remaining)
+2. Complete `loop_iteration_run_equations` (1 admit remaining)
+3. Work on `loop_exit_match` to complete loop exit lemmas
+4. Progress through remaining loop lemmas toward the main theorem
 
 ### Notes
-- The proof avoids term expansion by using abstract reasoning with `read_reg_write_reg_diff` rather than computing with `vm_compute`
+- All proofs avoid term expansion by using abstract reasoning with lemmas
 - Length bounds (>= 10) are maintained throughout to ensure register access is valid
 - The pattern of PC write followed by destination register write is consistent across instructions
+- Conditional jumps (Jz, Jnz) only write to PC, preserving all other registers
