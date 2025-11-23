@@ -1564,6 +1564,7 @@ Proof.
     | unfold CPU.REG_PC; lia ]
   ).
 Qed.
+Global Opaque transition_FindRule_step2b_temp4.
 
 (* Checkpoint 4: Length at step 4 *)
 Lemma transition_FindRule_step2b_len4 : forall cpu,
@@ -1685,6 +1686,8 @@ Proof.
   apply CPU.step_jnz_false.
   exact Htemp5.
 Qed.
+(* Make immediately opaque to prevent proof term expansion in later lemmas *)
+Global Opaque transition_FindRule_Next_step2b.
 
 
 (* Checkpoints for transition_FindRule_Next_step3b *)
@@ -1852,6 +1855,8 @@ Proof.
   - (* ADDR < length *) unfold CPU.REG_ADDR. lia.
   - (* PC < length *) unfold CPU.REG_PC. lia.
 Qed.
+(* Make immediately opaque to prevent proof term expansion in later lemmas *)
+Global Opaque transition_FindRule_Next_step3b.
 
 
 (* Helper lemma for transition_FindRule_Found *)
@@ -1898,7 +1903,9 @@ Proof.
   intros cpu cpu0.
   unfold cpu, findrule_entry_state, cpu0.
   reflexivity.
-Defined.
+Qed.
+(* Make this immediately opaque to prevent proof term expansion *)
+Global Opaque transition_FindRule_Next_witness.
 
 Lemma transition_FindRule_Next_pc_prop (tm : TM) (conf : TMConfig) :
   let cpu := findrule_entry_state tm conf in
@@ -1923,7 +1930,9 @@ Proof.
 
   apply (transition_FindRule_Next_step2b cpu0 Hlen0 Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5).
   exact Hguard_false.
-Defined.
+Qed.
+(* Make immediately opaque to prevent proof term expansion *)
+Global Opaque transition_FindRule_Next_pc_prop.
 
 Lemma transition_FindRule_Next_addr_prop (tm : TM) (conf : TMConfig) :
   let cpu := findrule_entry_state tm conf in
@@ -1948,7 +1957,9 @@ Proof.
 
   apply (transition_FindRule_Next_step3b cpu0 Hlen0 Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5).
   exact Hguard_false.
-Defined.
+Qed.
+(* Make immediately opaque to prevent proof term expansion *)
+Global Opaque transition_FindRule_Next_addr_prop.
 
 Time Lemma transition_FindRule_Next (tm : TM) (conf : TMConfig) :
   let cpu := findrule_entry_state tm conf in
@@ -1971,7 +1982,7 @@ Proof.
   split.
   - apply (transition_FindRule_Next_pc_prop tm conf Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5 Htemp).
   - apply (transition_FindRule_Next_addr_prop tm conf Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5 Htemp).
-Defined.
+Qed.
 
 (* Concrete computation for the matching path: the temporary register is zero,
    so the Jz is taken and control jumps to the Found block at PC=12. *)
