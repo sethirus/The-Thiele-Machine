@@ -1,0 +1,116 @@
+# Makefile for modular ThieleUniversalBridge proof development
+# This enables iterative compilation and analysis of proof modules
+
+COQ_DIR = ../../..
+VERIFICATION_DIR = .
+MODULAR_DIR = $(VERIFICATION_DIR)/modular
+ANALYSIS_DIR = $(VERIFICATION_DIR)/analysis
+
+COQC = coqc
+COQFLAGS = -Q $(COQ_DIR) ""
+COQC_TIME = $(COQC) $(COQFLAGS) -time
+
+# Module files in dependency order
+MODULES = \
+	$(MODULAR_DIR)/Bridge_BridgeHeader.v \
+	$(MODULAR_DIR)/Bridge_BridgeCore.v \
+	$(MODULAR_DIR)/Bridge_ProgramEncoding.v \
+	$(MODULAR_DIR)/Bridge_SetupState.v \
+	$(MODULAR_DIR)/Bridge_Invariants.v \
+	$(MODULAR_DIR)/Bridge_BasicLemmas.v \
+	$(MODULAR_DIR)/Bridge_LengthPreservation.v \
+	$(MODULAR_DIR)/Bridge_RegisterLemmas.v \
+	$(MODULAR_DIR)/Bridge_StepLemmas.v \
+	$(MODULAR_DIR)/Bridge_TransitionFetch.v \
+	$(MODULAR_DIR)/Bridge_TransitionFindRuleNext.v \
+	$(MODULAR_DIR)/Bridge_LoopIterationNoMatch.v \
+	$(MODULAR_DIR)/Bridge_LoopExitMatch.v \
+	$(MODULAR_DIR)/Bridge_MainTheorem.v
+
+VO_FILES = $(MODULES:.v=.vo)
+
+.PHONY: all clean extract analyze profile help
+
+help:
+	@echo "ThieleUniversalBridge Modular Build System"
+	@echo ""
+	@echo "Targets:"
+	@echo "  all         - Compile all modules"
+	@echo "  extract     - Extract modules from ThieleUniversalBridge.v"
+	@echo "  analyze     - Analyze module structure"
+	@echo "  profile     - Profile proof compilation times"
+	@echo "  clean       - Remove generated files"
+	@echo "  help        - Show this help"
+	@echo ""
+	@echo "Individual module targets:"
+	@echo "  header      - Compile Bridge_BridgeHeader.v"
+	@echo "  core        - Compile Bridge_BridgeCore.v"
+	@echo "  encoding    - Compile Bridge_ProgramEncoding.v"
+	@echo "  setup       - Compile Bridge_SetupState.v"
+	@echo "  invariants  - Compile Bridge_Invariants.v"
+	@echo "  basiclemmas - Compile Bridge_BasicLemmas.v"
+	@echo "  length      - Compile Bridge_LengthPreservation.v (CRITICAL)"
+	@echo "  registers   - Compile Bridge_RegisterLemmas.v"
+	@echo "  steps       - Compile Bridge_StepLemmas.v"
+	@echo "  fetch       - Compile Bridge_TransitionFetch.v"
+	@echo "  findrule    - Compile Bridge_TransitionFindRuleNext.v"
+	@echo "  loopnomatch - Compile Bridge_LoopIterationNoMatch.v"
+	@echo "  loopmatch   - Compile Bridge_LoopExitMatch.v"
+	@echo "  main        - Compile Bridge_MainTheorem.v"
+
+all: $(VO_FILES)
+
+extract:
+	@echo "Extracting modules from ThieleUniversalBridge.v..."
+	python3 $(ANALYSIS_DIR)/extract_modules.py
+
+analyze:
+	@echo "Analyzing module structure..."
+	bash $(ANALYSIS_DIR)/analyze_proof_terms.sh
+
+profile:
+	@echo "Profiling proof compilation..."
+	python3 $(ANALYSIS_DIR)/profile_proofs.py
+
+# Generic rule for compiling .v files to .vo
+%.vo: %.v
+	@echo "Compiling $<..."
+	@$(COQC_TIME) $<
+
+# Individual module targets
+header: $(MODULAR_DIR)/Bridge_BridgeHeader.vo
+
+core: $(MODULAR_DIR)/Bridge_BridgeCore.vo
+
+encoding: $(MODULAR_DIR)/Bridge_ProgramEncoding.vo
+
+setup: $(MODULAR_DIR)/Bridge_SetupState.vo
+
+invariants: $(MODULAR_DIR)/Bridge_Invariants.vo
+
+basiclemmas: $(MODULAR_DIR)/Bridge_BasicLemmas.vo
+
+length: $(MODULAR_DIR)/Bridge_LengthPreservation.vo
+
+registers: $(MODULAR_DIR)/Bridge_RegisterLemmas.vo
+
+steps: $(MODULAR_DIR)/Bridge_StepLemmas.vo
+
+fetch: $(MODULAR_DIR)/Bridge_TransitionFetch.vo
+
+findrule: $(MODULAR_DIR)/Bridge_TransitionFindRuleNext.vo
+
+loopnomatch: $(MODULAR_DIR)/Bridge_LoopIterationNoMatch.vo
+
+loopmatch: $(MODULAR_DIR)/Bridge_LoopExitMatch.vo
+
+main: $(MODULAR_DIR)/Bridge_MainTheorem.vo
+
+clean:
+	@echo "Cleaning generated files..."
+	rm -f $(MODULAR_DIR)/*.vo $(MODULAR_DIR)/*.vok $(MODULAR_DIR)/*.vos
+	rm -f $(MODULAR_DIR)/*.glob $(MODULAR_DIR)/*.aux
+	rm -f $(ANALYSIS_DIR)/*.json $(ANALYSIS_DIR)/PROFILING_REPORT.md
+	@echo "Clean complete."
+
+.PRECIOUS: %.vo
