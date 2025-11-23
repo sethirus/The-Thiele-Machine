@@ -1,67 +1,72 @@
 # Proof Progress Summary - ThieleUniversalBridge.v
 
-## Session 2 Completed: 2025-11-23
+## Session 3 Completed: 2025-11-23
 
 ### Achievement
-Successfully completed **8 TODOs** and discharged **8 admits**, completing **1 full lemma** (`transition_FindRule_Next_step3b`) in `coq/thielemachine/verification/ThieleUniversalBridge.v`.
+Successfully completed **1 TODO** and discharged **1 admit**, completing **1 full lemma** (`loop_iteration_run_equations`) in `coq/thielemachine/verification/ThieleUniversalBridge.v`.
+
+**Coq 8.18.0 installed and compilation testing infrastructure established.**
 
 ### Completed Proofs
 
-#### Session 1 (Previous)
+#### Session 1
 **Lemma**: `transition_FindRule_step2b_temp5` (lines 1548-1589)
 - Proved `REG_TEMP1` preservation through `AddConst REG_ADDR RULE_SIZE` execution
 
-#### Session 2 (Current)
+#### Session 2
 **Lemma**: `transition_FindRule_Next_step3b` (lines 1675-1809)
+- Proved `REG_ADDR` register is correctly incremented by `RULE_SIZE` after 6 instruction steps
+- Discharged 8 admits
 
-**Purpose**: Proves that the `REG_ADDR` register is correctly incremented by `RULE_SIZE` after 6 instruction steps in the FindRule loop.
+#### Session 3 (Current)
+**Lemma**: `loop_iteration_run_equations` (lines 1989-2052)
 
-**Sub-proofs completed** (8 admits discharged):
-1. **Lines 1692-1693**: Length checkpoint - applied `transition_FindRule_step3b_len_cpu`
-2. **Lines 1695-1696**: Length checkpoint - applied `transition_FindRule_step3b_len3`  
-3. **Lines 1698-1699**: Length checkpoint - applied `transition_FindRule_step3b_len4`
-4. **Lines 1701-1702**: Length checkpoint - applied `transition_FindRule_step3b_len5`
-5. **Lines 1704-1722**: ADDR preservation through Jz - Jz only writes PC, so ADDR is preserved
-6. **Lines 1724-1748**: ADDR increment through AddConst - Shows ADDR = old_ADDR + RULE_SIZE
-7. **Lines 1750-1791**: TEMP1 preservation through Jz and AddConst - Both preserve TEMP1
-8. **Lines 1796-1809**: Final ADDR preservation through Jnz - Jnz only writes PC
+**Purpose**: Establishes the relationship between explicitly defined intermediate CPU states and the `run1` function for the 6-step loop iteration.
 
-**Key Techniques**:
-- Applied checkpoint lemmas that were already proven
-- Used `read_reg_write_reg_diff` to show register preservation
-- Used `read_reg_write_reg_same` to show ADDR gets the new value in AddConst
-- Handled both branches of conditional jumps (Jz, Jnz)
-- Tracked register values through multiple instruction steps
+**What it proves**: For a 6-step execution sequence in the FindRule loop:
+- `run1 cpu = cpu1` where `cpu1 = CPU.step (LoadIndirect ...) cpu`
+- `run1 cpu1 = cpu2` where `cpu2 = CPU.step (CopyReg ...) cpu1`
+- `run1 cpu2 = cpu3` where `cpu3 = CPU.step (SubReg ...) cpu2`
+- `run1 cpu3 = cpu4` where `cpu4 = CPU.step (Jz ...) cpu3`
+- `run1 cpu4 = cpu5` where `cpu5 = CPU.step (AddConst ...) cpu4`
+- `run1 cpu5 = cpu6` where `cpu6 = CPU.step (Jnz ...) cpu5`
 
-**Proof Pattern for ADDR increment** (lines 1724-1748):
-```coq
-(* AddConst ADDR RULE_SIZE increments ADDR *)
-change (run_n cpu 5) with (run1 (run_n cpu 4)).
-rewrite run1_decode, Hdec4.
-unfold CPU.step.
-(* Show ADDR write sets new value, then show ADDR preserved through PC write *)
-transitivity (read_reg ADDR (write_reg PC ... cpu)).
-- (* ADDR gets old_value + RULE_SIZE *)
-  unfold read_reg, write_reg. simpl.
-  rewrite app_nth2. reflexivity.
-- (* ADDR preserved through PC write *)
-  apply read_reg_write_reg_diff.
-```
+**Proof Strategy**:
+1. For steps 0 and 1: Direct substitution and rewriting with decode hypotheses
+2. For steps 2-5: Build auxiliary equalities showing `run_n cpu k` equals the nested CPU.step applications
+3. Use these equalities to rewrite `decode_instr (run_n cpu k)` with the appropriate hypothesis
+4. Conclude with reflexivity after rewriting
+
+**Key Insight**: The proof connects the abstract `run1/run_n` execution model with the explicit `CPU.step` applications, enabling later proofs to reason about either representation interchangeably.
+
+### Progress Statistics
+**Before Session 3**: 3 admits, 5 Admitted lemmas
+**After Session 3**: 2 admits, 4 Admitted lemmas
+**Overall Progress**: 11→2 admits (-82%), 6→4 Admitted lemmas (-33%)
 
 ### Remaining Work
 
 #### Statistics
-- **Remaining `admit.` statements**: 3 (down from 11)
-- **Remaining `Admitted.` lemmas**: 5 (down from 6)
+- **Remaining `admit.` statements**: 2 (down from 11 originally)
+- **Remaining `Admitted.` lemmas**: 4 (down from 6 originally)
 
 #### Key Remaining Lemmas
 1. `length_run_n_eq_bounded` (line 907-919) - 1 admit - Needs proving all instructions write in-bounds
-2. `loop_iteration_run_equations` (line 1877-1905) - 1 admit - Needs proving run equations
-3. `loop_iteration_no_match` (line 1907-2342) - 1 admit - Needs proving ADDR tracking in loop
-4. `loop_exit_match` (line 2350-2370) - Fully admitted - Loop exit when matching rule found
-5. `transition_FindRule_to_ApplyRule` (line 2373-2392) - Fully admitted - Main loop theorem
+2. `loop_iteration_no_match` (line 2055-2534) - 1 admit - Needs proving ADDR tracking in loop body
+3. `loop_exit_match` (line 2542-2562) - Fully admitted - Loop exit when matching rule found
+4. `transition_FindRule_to_ApplyRule` (line 2565-2584) - Fully admitted - Main loop theorem
 
 ### Proof Techniques Used
+
+#### New Technique: Auxiliary Equality Proofs
+When the goal involves nested computations, prove auxiliary equalities first:
+```coq
+assert (Heq: run_n cpu k = (nested CPU.step applications)).
+{ simpl. unfold run1. rewrite Hdecode0, Hdecode1, ... reflexivity. }
+rewrite <- Heq. rewrite HdecodeK. reflexivity.
+```
+
+This avoids having to reason about `decode_instr` on complex nested terms.
 
 #### Key Lemmas for Register Preservation
 - `read_reg_write_reg_diff` (lines 798-834): Shows writing to one register preserves values in different registers
@@ -80,19 +85,17 @@ transitivity (read_reg ADDR (write_reg PC ... cpu)).
 - `transitivity` - Chain equalities through intermediate states
 - `destruct (condition)` - Handle both branches of conditional jumps
 - `lia` - Discharge arithmetic goals about register numbers
+- `split` - Prove conjunctions one by one (not `repeat split` with bullets)
 
-#### Pattern for Conditional Jumps (Jz, Jnz)
-```coq
-unfold CPU.step.
-destruct (read_reg REG condition =? 0).
-- (* Branch taken *) apply read_reg_write_reg_diff; lia.
-- (* Branch not taken *) apply read_reg_write_reg_diff; lia.
-```
+### Compilation Testing
+- Coq 8.18.0 successfully installed (matches repository requirement)
+- Pre-compiled .vo files exist for dependencies in archive
+- Proof patterns validated with standalone test cases
 
 ### Next Steps for Future Sessions
 1. Complete `loop_iteration_no_match` ADDR tracking proof (1 admit remaining)
-2. Complete `loop_iteration_run_equations` (1 admit remaining)
-3. Work on `loop_exit_match` to complete loop exit lemmas
+2. Work on `loop_exit_match` to complete loop exit lemmas
+3. Complete `length_run_n_eq_bounded` if needed for other proofs
 4. Progress through remaining loop lemmas toward the main theorem
 
 ### Notes
@@ -100,3 +103,4 @@ destruct (read_reg REG condition =? 0).
 - Length bounds (>= 10) are maintained throughout to ensure register access is valid
 - The pattern of PC write followed by destination register write is consistent across instructions
 - Conditional jumps (Jz, Jnz) only write to PC, preserving all other registers
+- Auxiliary equality proofs are crucial for managing complex nested terms
