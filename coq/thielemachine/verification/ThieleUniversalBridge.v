@@ -2009,12 +2009,47 @@ Lemma loop_iteration_run_equations : forall cpu,
   run1 cpu5 = cpu6.
 Proof.
   intros cpu Hpc Hlen Hdecode0 Hdecode1 Hdecode2 Hdecode3 Hdecode4 Hdecode5 cpu1 cpu2 cpu3 cpu4 cpu5 cpu6.
-  (* TODO: This proof requires careful management of the unfolding and rewriting order.
-     The key insight is that each cpuN is defined as CPU.step instr cpu(N-1),
-     and we need to show this equals run1 cpu(N-1) which is CPU.step (decode_instr cpu(N-1)) cpu(N-1).
-     This should be straightforward but requires precise tactic application. *)
-  admit.
-Admitted.
+  (* Each cpuN is defined as CPU.step instr cpu(N-1).
+     We need to show run1 cpu(N-1) = CPU.step (decode_instr cpu(N-1)) cpu(N-1) = cpuN.
+     Since we have decode hypotheses, we rewrite and then unfold/subst. *)
+  split. (* run1 cpu = cpu1 *)
+  { subst cpu1. unfold run1. rewrite Hdecode0. reflexivity. }
+  split. (* run1 cpu1 = cpu2 *)
+  { subst cpu2 cpu1. unfold run1. rewrite Hdecode1. reflexivity. }
+  split. (* run1 cpu2 = cpu3 *)
+  { subst cpu3 cpu2 cpu1. unfold run1.
+    (* Need to show: decode_instr (CPU.step ... cpu) = ... *)
+    (* We know decode_instr (run_n cpu 2) = SubReg from Hdecode2 *)
+    (* And run_n cpu 2 = run1 (run1 cpu) = run1 cpu1 = cpu2 *)
+    assert (Heq2: run_n cpu 2 = CPU.step (CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q)
+                                   (CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) cpu)).
+    { simpl. unfold run1. rewrite Hdecode0, Hdecode1. reflexivity. }
+    rewrite <- Heq2. rewrite Hdecode2. reflexivity. }
+  split. (* run1 cpu3 = cpu4 *)
+  { subst cpu4 cpu3 cpu2 cpu1. unfold run1.
+    assert (Heq3: run_n cpu 3 = CPU.step (CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q')
+                                   (CPU.step (CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q)
+                                      (CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) cpu))).
+    { simpl. unfold run1. rewrite Hdecode0, Hdecode1, Hdecode2. reflexivity. }
+    rewrite <- Heq3. rewrite Hdecode3. reflexivity. }
+  split. (* run1 cpu4 = cpu5 *)
+  { subst cpu5 cpu4 cpu3 cpu2 cpu1. unfold run1.
+    assert (Heq4: run_n cpu 4 = CPU.step (CPU.Jz CPU.REG_TEMP1 12)
+                                   (CPU.step (CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q')
+                                      (CPU.step (CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q)
+                                         (CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) cpu)))).
+    { simpl. unfold run1. rewrite Hdecode0, Hdecode1, Hdecode2, Hdecode3. reflexivity. }
+    rewrite <- Heq4. rewrite Hdecode4. reflexivity. }
+  (* run1 cpu5 = cpu6 *)
+  subst cpu6 cpu5 cpu4 cpu3 cpu2 cpu1. unfold run1.
+  assert (Heq5: run_n cpu 5 = CPU.step (CPU.AddConst CPU.REG_ADDR RULE_SIZE)
+                                 (CPU.step (CPU.Jz CPU.REG_TEMP1 12)
+                                    (CPU.step (CPU.SubReg CPU.REG_TEMP1 CPU.REG_TEMP1 CPU.REG_Q')
+                                       (CPU.step (CPU.CopyReg CPU.REG_TEMP1 CPU.REG_Q)
+                                          (CPU.step (CPU.LoadIndirect CPU.REG_Q' CPU.REG_ADDR) cpu))))).
+  { simpl. unfold run1. rewrite Hdecode0, Hdecode1, Hdecode2, Hdecode3, Hdecode4. reflexivity. }
+  rewrite <- Heq5. rewrite Hdecode5. reflexivity.
+Qed.
 
 (* Loop iteration lemma: checking non-matching rule preserves invariant *)
 Time Lemma loop_iteration_no_match : forall tm conf cpu i,
