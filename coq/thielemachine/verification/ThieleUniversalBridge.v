@@ -1628,12 +1628,19 @@ Lemma transition_FindRule_step2b_temp5 : forall cpu,
   length (CPU.regs (run_n cpu 4)) >= 10 ->
   CPU.read_reg CPU.REG_TEMP1 (run_n cpu 5) = CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3).
 Proof.
-  (* TEMPORARILY ADMITTED - Proof causes compilation timeout
-     See PROGRESS_LOG.md for details on attempted optimizations.
-     The proof is correct (uses helper lemmas temp1_preserved_through_*_write),
-     but composition causes proof term explosion during type-checking.
-     TODO: Revisit with more radical optimization (file splitting, reflection, etc.) *)
-Admitted.
+  intros cpu Hdec4 Htemp4 Hlen4.
+  transitivity (CPU.read_reg CPU.REG_TEMP1 (run_n cpu 4)).
+  - (* Show TEMP1 unchanged from step 4 to 5 *)
+    (* Step 5 = step 4 + AddConst ADDR RULE_SIZE *)
+    change (run_n cpu 5) with (run1 (run_n cpu 4)).
+    rewrite run1_decode, Hdec4.
+    unfold CPU.step. simpl.
+    (* After simpl: write_reg ADDR (read_reg ADDR ...) (record update with PC incremented) *)
+    (* Use the helper lemma directly - it should match after simpl *)
+    apply temp1_preserved_through_addr_write.
+    assumption.
+  - exact Htemp4.
+Qed.
 
 Lemma transition_FindRule_Next_step2b : forall cpu0,
   length cpu0.(CPU.regs) = 10 ->
@@ -1771,9 +1778,18 @@ Proof.
   (* Step 4 → 5: AddConst bumps ADDR by RULE_SIZE. *)
   assert (Haddr5 : CPU.read_reg CPU.REG_ADDR (run_n cpu 5)
                    = CPU.read_reg CPU.REG_ADDR (run_n cpu 3) + RULE_SIZE).
-  { (* TEMPORARILY ADMITTED - Proof has technical issues with transitivity after read_reg_write_reg_same
-       TODO: Fix the proof logic *)
-    admit.
+  { (* run_n cpu 5 = run1 (run_n cpu 4) *)
+    change (run_n cpu 5) with (run1 (run_n cpu 4)).
+    rewrite run1_decode, Hdec4.
+    (* AddConst ADDR RULE_SIZE: step writes ADDR then PC *)
+    unfold CPU.step.
+    (* Read ADDR from state after both writes *)
+    rewrite read_reg_write_reg_same by (rewrite length_write_reg; [unfold CPU.REG_ADDR; lia | unfold CPU.REG_PC; lia]).
+    (* ADDR was written with (old ADDR + RULE_SIZE), need to get old ADDR from PC-written state *)
+    rewrite read_reg_write_reg_diff by (unfold CPU.REG_ADDR, CPU.REG_PC; lia || lia || lia).
+    (* Now we have: (read_reg ADDR (run_n cpu 4) + RULE_SIZE) = (read_reg ADDR (run_n cpu 3) + RULE_SIZE) *)
+    rewrite Haddr4.
+    reflexivity.
   }
 
   (* Guard remains non-zero through Jnz. *)
