@@ -411,3 +411,17 @@ The system is ready for immediate use. Maintainers can now systematically identi
 - **Quick ref**: `QUICK_REFERENCE.md`
 - **Diagnosis**: `../../../docs/BRIDGE_DIAGNOSIS.md`
 - **Status**: `../../../coq/BRIDGE_LEMMA_STATUS.md`
+
+## Important Notes
+
+### Module Boundaries
+The extracted modules use fixed line ranges for logical analysis. Some boundaries may cut through proof statements, which is acceptable since these modules are **for analysis only**, not for independent compilation. The original `ThieleUniversalBridge.v` should be used for actual proof work.
+
+### Extracted Module Purpose
+These modules enable:
+- **Size analysis**: Understanding which sections are large
+- **Complexity analysis**: Counting definitions, lemmas, admits
+- **Structure understanding**: Seeing logical organization
+- **Bottleneck identification**: Knowing where timeouts occur
+
+They are not meant to compile independently or replace the original file.
