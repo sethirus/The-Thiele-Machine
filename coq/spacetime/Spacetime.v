@@ -69,8 +69,9 @@ Lemma spacetime_is_self_referential :
 Proof.
   intros [F [P [HP _]]].
   exists P; split; simpl.
-  - exists (fun _ => true), (trajectory F 0). split; auto.
-    intros _ _. exact HP.
+  - exists (fun _ => true), (trajectory F 0). split.
+    + unfold at_event. reflexivity.
+    + intros e _. exact HP.
   - assumption.
 Qed.
 
