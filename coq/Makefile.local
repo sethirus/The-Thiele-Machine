@@ -57,12 +57,26 @@ BRIDGE_TIMEOUT ?= 300
 
 OPTIONAL_VO := \
   catnet/coqproofs/CatNet.vo \
+  physics/DiscreteModel.vo \
+  physics/DissipativeModel.vo \
+  physics/WaveModel.vo \
   isomorphism/coqproofs/Universe.vo \
   p_equals_np_thiele/proof.vo \
   project_cerberus/coqproofs/Cerberus.vo \
   shor_primitives/Euclidean.vo \
   shor_primitives/Modular.vo \
   shor_primitives/PeriodFinding.vo \
+  self_reference/SelfReference.vo \
+  spacetime/Spacetime.vo \
+  thiele_manifold/ThieleManifold.vo \
+  thiele_manifold/ThieleManifoldBridge.vo \
+  thiele_manifold/PhysicalConstants.vo \
+  thiele_manifold/PhysicsIsomorphism.vo \
+  thielemachine/coqproofs/PhysicsEmbedding.vo \
+  thielemachine/coqproofs/DissipativeEmbedding.vo \
+  thielemachine/coqproofs/WaveEmbedding.vo \
+  thielemachine/coqproofs/HardwareVMHarness.vo \
+  spacetime_projection/SpacetimeProjection.vo \
   test_vscoq/coqproofs/test_vscoq.vo
 
 ORACLE_VO := \
