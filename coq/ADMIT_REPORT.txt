@@ -1,125 +1,22 @@
-Admit inventory (updated after end-to-end harness refresh)
-
-Core tree
----------
-- `thielemachine/coqproofs/Oracle.v` defines the `T1_State` record that bundles a
-  `Prog`, an admissible `Partition`, and the µ-ledger accumulated while
-  constructing the oracle witness.  The helpers `t1_bootstrap_state`,
-  `t1_charge_mu`, and the lemmas `t1_bootstrap_total_zero` /
-  `t1_charge_mu_total` make the ledger update rules explicit, while the
-  combinators `t1_with_partition` and `t1_repartition` (with lemmas
-  `t1_with_partition_prog_preserved`, `t1_with_partition_partition_replaced`,
-  `t1_repartition_total`, and `t1_repartition_partition_replaced`) describe how a
-  partition change charges its µ-cost without touching the compiled program.
-  Additional preservation lemmas (`t1_charge_mu_prog_preserved`,
-  `t1_charge_mu_partition_preserved`) keep future proofs honest about which
-  fields mutate at each step.  The fresh `T1_Receipt` record plus
-  `t1_emit_receipt`, `t1_emit_receipt_*`, and `t1_bootstrap_receipt_zero` bridge
-  the oracle state to the artefact `T_0` consumes, so the subsumption proofs can
-  cite a compact program/partition/µ-total triple when formalising `T_1`
-  emissions.  The new `T1_Action` inductive, together with `t1_step`, `t1_run`,
-  and the accumulator `t1_run_mu_delta`, packages multi-step oracle traces so
-  that µ-ledger totals (`t1_run_mu_total`, `t1_emit_receipt_mu_total_run`) and
-  partition evolution (`t1_run_partition_after`) can be cited directly.  The
-  helper `t1_trace_receipt` and its projection lemmas now collapse an entire
-  action trace into a single receipt statement (`t1_trace_receipt_prog`,
-  `t1_trace_receipt_partition`, `t1_trace_receipt_mu_total`), exposing the
-  preserved compiled program, resulting partition, and cumulative µ-total in one
-  reusable clause.  The new `T1_ReceiptWitness` record and
-  `t1_receipt_witness_of_exec` lemma carry those receipts across to the verified
-  `T_0` executor by packaging the concrete `Exec` trace, the `replay_ok` fact
-  recovered from `ThieleMachine`, and the µ-bound showing the ledger total
-  dominates the replayed certificate sizes.  The follow-on corollary
-  `t1_trace_receipt_witness` instantiates that witness directly from any oracle
-  action trace, threading the µ-bound provided by the ledger accumulator through
-  `t1_trace_receipt_mu_total` so downstream proofs can cite an off-the-shelf
-  `T1_ReceiptWitness` without replaying the arithmetic.  This keeps the oracle
-  semantics deterministic without introducing new admits or axioms, so
-  downstream proofs can cite the state/action machinery when formalising the
-  `T_1` machine.  The follow-on lemmas
-  `t1_prog_closed_trace_exec`, `t1_closed_trace_sum_bits_le_sum_mu`, and the
-  corollaries `t1_trace_receipt_closed_witness_from_bits` /
-  `t1_trace_receipt_closed_witness_from_mu` now attach those receipts to the
-  canonical closed-state execution (`trace_of_prog`) and the universal
-  µ-accounting bounds from `ThieleMachine`, giving every oracle trace a ready
-  `Exec` witness plus an explicit µ-dominance statement without introducing new
-  admits.  Building on that bridge, the helper family
-  `sum_instr_certificates` / `prog_closed_trace_mu_requirement` /
-  `t1_closed_trace_mu_requirement` re-expresses the canonical µ-bound as a
-  plain natural-number sum, so the final lemma
-  `t1_trace_receipt_closed_witness_from_ledger_nat` lets subsumption proofs cite
-  a closed-state witness directly from the ledger inequality
-  `t1_closed_trace_mu_requirement <= t1_mu_total + t1_run_mu_delta` without
-  manual `Z` bookkeeping.  The newest helpers
-  (`t1_closed_trace_mu_actions`, `t1_run_mu_delta_all_charge`,
-  `ledger_sum_map_instr_cert`, and
-  `t1_run_mu_delta_closed_trace_mu_actions`) construct an explicit
-  charge-only action trace whose ledger delta equals the canonical µ-bound, and
-  `t1_closed_trace_mu_requirement_covered_by_canonical_actions` /
-  `t1_trace_receipt_closed_witness_canonical` show that running this canonical
-  trace from any oracle state immediately satisfies the ledger inequality and
-  yields a ready-to-use `T1_ReceiptWitness` with no additional hypotheses.
-  【F:coq/thielemachine/coqproofs/Oracle.v†L1-L536】
-- `thielemachine/coqproofs/Simulation.v` – `utm_no_rule_preserves_tape_len` is now fully proved: strengthening `ThieleUniversal.inv_core` with an explicit tape-length equality closes the upper-bound inequality so the CPU tape window matches the abstract tape exactly.【495e62†L1-L20】
-- The new lemma `utm_no_rule_preserves_mem` chains the general memory-equality facts for each FindRule micro-step, so the 10-instruction sweep is now known to leave the entire RAM image unchanged, not just its length.  This, together with the tape-length lemma, ensures the `inv_core` tape-window obligations can be re-established for the post-state once the guard proof lands.
-- The helper `inv_core_cpu_state_to_tm_config_eq` shows that `ThieleUniversal.inv_core` already carries enough information to recover the TM configuration once the tape lengths match.  Combining it with `utm_no_rule_preserves_inv_core` and `utm_no_rule_preserves_tape_len` discharges `utm_no_rule_preserves_cpu_config`, so the no-rule backlog inside `Simulation.v` is now empty; the extensive catalogue of FindRule step lemmas recorded below remains as documentation of the fully verified trace.
-- *(The detailed catalogue that follows is retained as a historical audit trail even though the obligations it references are now closed.)*
-- The helper `inv_core_mem_eq_of_inv_min` shows that matching RAM plus the recovered `inv_min` guard is enough to rebuild `inv_core`, and the corollary `utm_no_rule_preserves_inv_core` applies it to the full sweep.  The follow-on lemma `utm_no_rule_preserves_find_rule_start_inv_from_pc` now packages the remaining guard-restoration work so that once the post-state program counter is proved to be 3, the previously established `inv_min` immediately re-establishes `find_rule_start_inv`.  The outstanding work for `utm_no_rule_preserves_cpu_config` is therefore limited to recovering that PC fact for the no-rule sweep.
-- A concrete control-flow trace for the no-rule branch has now been recorded: starting at the FindRule entry point (`pc = 3`), the interpreter steps through `LoadConst`, `LoadIndirect`, `CopyReg`, and `SubReg` before hitting `Jz` at `pc = 7`; the failing branch of that jump executes `AddConst` at `pc = 8`, reaches `Jnz` at `pc = 9`, and—when `REG_TEMP1` is zero—falls through to the `LoadConst` / `Jnz` pair at `pc = 10/11`, landing at `pc = 12` just before the `CopyReg` that begins the exit path.  Documenting this sequence makes the remaining obligation entirely explicit: we must finish the symbolic execution across the `pc = 12–14` instructions to show that the final `Jmp` rewinds the counter to 3 so the guard lemma applies.
-- The new control-flow lemma `utm_find_rule_step8_pc_false_branch_nonzero` carries the program-counter analysis one micro-step further by showing that the continued-scan branch lands at PC 5 after eight instructions, the helper `utm_find_rule_step9_pc_false_branch_nonzero` extends that reasoning through the ninth instruction so the no-rule path is fixed at PC 6 before the final subtraction, the follow-up lemma `utm_find_rule_step9_pc_true_branch_zero` nails down the zero-branch behaviour by proving that the fall-through path reaches PC 12 after the same nine micro-steps, the lemma `utm_find_rule_step10_pc_false_branch_nonzero` advances the continued-scan trace through the tenth micro-step to record that the PC advances to 7 before the loop restarts, the lemma `utm_find_rule_step10_pc_true_branch_zero` shows that the zero branch lands at PC 13 ready to exit, the helper `utm_find_rule_step11_pc_true_branch_zero` executes the ensuing `AddConst` so the matched-rule path is now known to advance to PC 14, the lemma `utm_find_rule_step12_pc_true_branch_zero` symbolically executes the load-indirect step so the path is fixed at PC 15, the lemma `utm_find_rule_step13_pc_true_branch_zero` handles the follow-on `CopyReg` so the path reaches PC 16, the helper `utm_find_rule_step14_pc_true_branch_zero` symbolically executes the subtraction so the zero-branch trace lands at PC 17, the lemma `utm_find_rule_step15_pc_true_branch_zero` handles the guarded jump to PC 22, `utm_find_rule_step16_pc_true_branch_zero` carries that zero branch through the `CopyReg` at PC 22 so the interpreter is now known to advance to PC 23 after sixteen micro-steps, `utm_find_rule_step17_pc_true_branch_zero` executes the ensuing `AddConst` so the program counter is fixed at PC 24 after seventeen micro-steps, the lemma `utm_find_rule_step18_pc_true_branch_zero` executes the `LoadIndirect` at PC 24 so the path advances to PC 25, the helper `utm_find_rule_step19_pc_true_branch_zero` handles the `AddConst` at PC 25 so the zero branch is now proven to reach PC 26, the lemma `utm_find_rule_step20_pc_true_branch_zero` executes the subsequent `LoadIndirect` so the trace is fixed at PC 27, `utm_find_rule_step21_pc_true_branch_zero` executes the follow-on `AddConst` so the matched-rule execution advances to PC 28, the lemma `utm_find_rule_step22_pc_true_branch_zero` symbolically executes the `LoadIndirect` at PC 28 so the apply block is now proven to reach PC 29 after twenty-two micro-steps, `utm_find_rule_step23_pc_true_branch_zero` executes the `CopyReg` at PC 29 so the matched-rule trace is fixed at PC 30, the lemma `utm_find_rule_step24_pc_true_branch_zero` runs the subsequent `LoadConst` so the interpreter is now proven to reach PC 31 after twenty-four micro-steps, and the fresh lemma `utm_find_rule_step25_pc_true_branch_zero` executes the `AddReg` at `pc = 31` so the matched-rule trace now reaches `pc = 32`.  The remaining control-flow work therefore starts at PC 32 (the `StoreIndirect` that applies the write symbol together with the register-update block that resets the tape) and runs through the restart jump; once that final block is analysed and shown to rewind the counter to 3 the guard can be rebuilt immediately.
-- The helper suite now includes `utm_find_rule_step26_pc_true_branch_zero`, which executes the `StoreIndirect` at `pc = 32` so the matched-rule path is fixed at `pc = 33` after the tape write, leaving only the register-update and restart block to analyse before the PC equality feeding `utm_no_rule_preserves_cpu_config` can be recovered.  The remaining symbolic-execution work is now fully localised: starting from `pc = 33` we must prove that the CopyReg/Jnz head-adjustment pair (`pc = 33/34`) either rewinds immediately or drops into the already-documented head-update ladder at `pc = 35–45`.  The new lemmas `utm_find_rule_step32_pc_true_branch_zero_move_zero`, `utm_find_rule_step33_pc_true_branch_zero_move_zero`, and `utm_find_rule_step34_pc_true_branch_zero_move_zero` then execute the restart block for the move=0 branch, showing that the `pc = 46` CopyReg advances to `pc = 47`, the `pc = 47` LoadConst stores `1` in `REG_TEMP1` while advancing to `pc = 48`, and the guarded `Jnz` at `pc = 48` jumps to `pc = 0`.  The remaining control-flow work is therefore confined to the continued-scan branch of the restart sequence and the fetch instructions at `pc = 0–2` that re-establish `pc = 3` for the next loop iteration; no new invariants are needed—each pending lemma simply threads the established memory/tape equalities through a known instruction from `UTM_Program.program_instrs`.
-- Building on that, the new lemmas `utm_find_rule_step34_pc_true_branch_zero_move_nonzero_move_zero` through `utm_find_rule_step36_pc_true_branch_zero_move_nonzero_move_zero` show that the continued-scan branch where the decremented move offset hits zero also marches through the `pc = 46–48` restart block without touching memory: `pc = 34` now leads deterministically to `pc = 47`, the subsequent `LoadConst` step records `REG_TEMP1 = 1` while moving to `pc = 48`, and the guarded `Jnz` is proven to jump back to `pc = 0`.  The fresh lemmas `utm_find_rule_step35_pc_true_branch_zero_move_nonzero_move_nonzero` and `utm_find_rule_step36_pc_true_branch_zero_move_nonzero_move_nonzero` extend that reasoning to the strictly-nonzero decrement branch, so every restart outcome is now proven to land at `pc = 0` with the temporary register initialised for the next fetch.  With all restart paths discharged, the outstanding control-flow work is confined to the fetch instructions at `pc = 0–2` that must be replayed to advance the counter back to `pc = 3` before the guard lemma fires.
-- The helper `utm_find_rule_step26_program_image_true_branch_zero` now packages the long prefix-preservation argument around the tape write, proving that `run_n cpu_find 26` still presents the exact encoded program to the decoder.  This lets every post-store PC lemma reuse the canonical instruction table immediately, instead of replaying the `write_mem` algebra each time the exit path needs to be decoded.
-- The new lemma `utm_find_rule_step27_pc_true_branch_zero` symbolically executes the `CopyReg REG_TEMP1 REG_MOVE` instruction at `pc = 33`, showing that the matched-rule trace now advances to `pc = 34` immediately after the tape write while preserving the program image via the freshly added store-prefix algebra.
-- The paired lemmas `utm_find_rule_step28_pc_true_branch_zero_move_zero` and `utm_find_rule_step28_pc_true_branch_zero_move_nonzero` now execute the `Jnz REG_TEMP1 38` guard at `pc = 34` under both outcomes: if the copied move code is zero the interpreter falls through to `pc = 35`, and otherwise it jumps to `pc = 38` to continue the head-adjustment ladder.  Building on that, the new lemmas `utm_find_rule_step29_pc_true_branch_zero_move_zero`, `utm_find_rule_step30_pc_true_branch_zero_move_zero`, and `utm_find_rule_step31_pc_true_branch_zero_move_zero` symbolically execute the zero-move ladder through `pc = 35/36/37` and show that it immediately jumps to `pc = 46`, rejoining the apply block.  The complementary lemmas `utm_find_rule_step29_pc_true_branch_zero_move_nonzero`, `utm_find_rule_step30_pc_true_branch_zero_move_nonzero`, `utm_find_rule_step31_pc_true_branch_zero_move_nonzero_move_nonzero`, and `utm_find_rule_step31_pc_true_branch_zero_move_nonzero_move_zero` now execute the `LoadConst`/`SubReg`/`Jnz` trio at `pc = 38/39/40` for both non-zero subcases: if the decrement remains non-zero the program counter jumps directly to `pc = 43`, while the fall-through case lands at `pc = 41` before the unconditional jump at `pc = 42` rejoins the apply block.  The new lemmas `utm_find_rule_step32_pc_true_branch_zero_move_nonzero_move_zero`, `utm_find_rule_step33_pc_true_branch_zero_move_nonzero_move_zero`, and `utm_find_rule_step32_pc_true_branch_zero_move_nonzero_move_nonzero`–`utm_find_rule_step34_pc_true_branch_zero_move_nonzero_move_nonzero` extend that analysis by proving that the `pc = 41/42` stay-move detour and the `pc = 43/44/45` increment ladder both advance deterministically to `pc = 46`.  With every head-adjustment branch now known to rejoin the apply block, the remaining control-flow work begins at the restart sequence (the `pc = 46–48` block and its jump back to `pc = 3`).
-- The new lemma `utm_find_rule_step25_store_addr_bound` proves that the `StoreIndirect` at `pc = 32` writes strictly beyond the encoded program prefix by showing `length program <= REG_ADDR` immediately before the write.  This provides the algebra needed to keep the decoded instruction stream stable after the tape update, so upcoming PC lemmas can reuse the `decode_instr_program_state` machinery without re-establishing the prefix from scratch.
-- The helper `utm_restart_fetch_block_pc3` now captures the final fetch micro-steps: starting from any state whose program counter is 0 and whose memory prefix matches `ThieleUniversal.program`, running the three instructions at `pc = 0/1/2` leaves the program prefix untouched and lands at `pc = 3`.  The zero-move restart path instantiates this helper via `utm_find_rule_restart_program_image_move_zero` / `utm_find_rule_restart_fetch_pc3_move_zero`, the continued-scan branch whose decremented move offset hits zero uses `utm_find_rule_restart_program_image_move_nonzero_move_zero` / `utm_find_rule_restart_fetch_pc3_move_nonzero_move_zero`, and the new lemmas `utm_find_rule_restart_program_image_move_nonzero_move_nonzero` / `utm_find_rule_restart_fetch_pc3_move_nonzero_move_nonzero` supply the same witness for the strictly-nonzero restart outcome.  With every restart branch now proven to replay the fetch block and return to `pc = 3`, the remaining guard-restoration work is purely bookkeeping: thread these fetch witnesses through the preserved `inv_min` to restate `find_rule_start_inv` and discharge `utm_no_rule_preserves_cpu_config`.
-- Building on those witnesses, the lemma `utm_find_rule_restart_fetch_pc3_cases` now performs the final case split once and for all: regardless of whether the restart jumps out immediately (`steps = 37`) or threads the additional move-adjustment ladder (`steps = 39`), the lemma returns a concrete state with `pc = 3` and the canonical program prefix intact.  This keeps the remaining guard-restoration bookkeeping local to `find_rule_start_inv` instead of duplicating the restart reasoning in multiple places.
-- The follow-up helper `utm_find_rule_restart_fetch_pc3_dichotomy` removes the existential witness entirely by presenting the restart result as an explicit two-way branch: either the loop exits after 37 micro-steps or after 39, and in both cases the canonical program image and the `pc = 3` fact are recovered immediately.  Future proofs can now destruct the dichotomy directly instead of repeating the existential reasoning.
-- To unblock that tape-write analysis, the list helper `firstn_write_mem_prefix_high` now states that `write_mem` leaves the program prefix untouched whenever the target address lies beyond the prefix length.  Together with the existing bound `TAPE_START_ADDR > length program`, this supplies the missing algebra for the upcoming StoreIndirect lemmas so the decoded program image can be reused immediately after the write.
-- The new helper `utm_find_rule_step15_pc_true_branch_zero` executes the `Jz` at `pc = 17` under the zero guard and proves that the program counter jumps to `22`, the follow-on lemma `utm_find_rule_step16_pc_true_branch_zero` shows that running the `CopyReg` at `pc = 22` advances the interpreter to `pc = 23` without disturbing memory, `utm_find_rule_step17_pc_true_branch_zero` pushes the trace through the `AddConst` at `pc = 23`, yielding `pc = 24`, the lemma `utm_find_rule_step18_pc_true_branch_zero` executes the `LoadIndirect` at `pc = 24` so the zero branch is now known to reach `pc = 25`, the helper `utm_find_rule_step19_pc_true_branch_zero` handles the subsequent `AddConst` so the interpreter is fixed at `pc = 26` after nineteen micro-steps, the lemma `utm_find_rule_step20_pc_true_branch_zero` executes the next `LoadIndirect` so the post-state is pinned at `pc = 27`, `utm_find_rule_step21_pc_true_branch_zero` covers the subsequent `AddConst` so the zero branch advances to `pc = 28`, the lemma `utm_find_rule_step22_pc_true_branch_zero` executes the `LoadIndirect` at `pc = 28` so the apply block is now known to land at `pc = 29`, `utm_find_rule_step23_pc_true_branch_zero` executes the `CopyReg` at `pc = 29` so the matched-rule path advances to `pc = 30`, the fresh lemma `utm_find_rule_step24_pc_true_branch_zero` executes the `LoadConst` at `pc = 30` so the post-state is fixed at `pc = 31`, and the new helper `utm_find_rule_step25_pc_true_branch_zero` executes the `AddReg` at `pc = 31` so the matched-rule execution is now known to reach `pc = 32`.  What remains is to analyse the complementary non-zero guard so the no-rule path is known to continue to the restart jump, and to show that the subsequent block (PC 32 through the final jump) rewinds the counter to 3 so `find_rule_start_inv` can be reinstated.
-
-Debug isolates
---------------
-- `thielemachine/coqproofs/debug_no_rule.v` preserves the old compact reproduction of the no-rule lemmas and keeps `utm_no_rule_implies_halting_cfg` admitted locally so engineers can continue to experiment with alternative symbolic-execution strategies without touching the now-complete core proof.  The file remains excluded from the core build.
-
-Roadmap scaffolding
--------------------
-- `ThieleMap.v` now packages the finished roadmap wrapper: `thiele_simulates_by_tm` existentially quantifies the universal program, proves it blind, and reuses `thiele_step_n_utm_simulates` to recover prefix-by-prefix equality with the Turing semantics.  With this lemma discharged the roadmap file rejoins the core build and no longer contributes to the admit count.
-
-Conditional sections / oracles
-------------------------------
-- `thielemachine/coqproofs/HyperThiele_Halting.v` remains outside the `_CoqProject`
-  tree behind the optional `make -C coq oracle` target.  The new helpers
-  `halting_solver_prog`/`halting_solver_trace` and the theorem
-  `hyper_thiele_decides_halting_trace` strengthen the oracle hypothesis by tying
-  the abstract supertask solver to an explicit compiled Thiele program and its
-  observable instruction stream.  Downstream experiments that rely on the
-  oracle can therefore cite a concrete program/trace pair instead of the
-  high-level `run_program` model when instantiating the `H_correct` assumption.
-  Building on that, the helpers
-  `halting_solver_t1_state`/`halting_solver_canonical_actions` and the lemma
-  `halting_solver_canonical_receipt_witness` now connect those compiled
-  witnesses to the `T_1` oracle scaffolding inside `Oracle.v`: every halting
-  solver instance admits a canonical charge-only ledger trace whose emitted
-  receipt is immediately backed by a `T1_ReceiptWitness`, keeping the optional
-  oracle section consistent with the audited Thiele execution semantics.
-
--Bridge quarantine
-------------------
-- The verification bridge remains isolated from the core build. Three admits
-  persist in `thielemachine/verification/ThieleUniversalBridge.v`, covering the
-  remaining FindRule non-match iteration, the matching exit path, and the final
-  composition lemma. The non-zero guard helpers `transition_FindRule_Next_step2b`
-  and `transition_FindRule_Next_step3b` are now proved using register-length
-  preservation lemmas, further reducing reliance on admitted
-  symbolic-execution stubs.
-- Timed runs of the bridge continue to time out; `make -C coq bridge-timed
-  BRIDGE_TIMEOUT=30` currently exits after 30s while replaying the archived
-  execution trace.【c42ed6†L1-L7】
+Admit inventory (full-tree audit, November 2025)
 
 Summary
 -------
-Total admitted: 5 (3 in `thielemachine/verification/ThieleUniversalBridge.v`,
-2 in the debug helper `debug_no_rule.v`, excluded from `_CoqProject`)
-Total axioms:  0
+- **Total admitted statements across repository**: 6.
+  - Four unit-test placeholders in `thielemachine/verification/ThieleUniversalBridge_Axiom_Tests.v`.
+  - Two historical debugging admits in `thielemachine/coqproofs/debug_no_rule.v` (not wired into `_CoqProject`).
+- **Admits inside `_CoqProject` targets**: 0. The `make -C coq core` and `make -C coq optional` builds
+  completed without introducing new admits.
+- **Bridge status**: `thielemachine/verification/ThieleUniversalBridge.v` itself contains no `Admitted.`
+  statements but still carries axioms; `make -C coq bridge-timed BRIDGE_TIMEOUT=300` timed out while
+  replaying the archived trace.
+
+Details by file
+---------------
+- `thielemachine/verification/ThieleUniversalBridge_Axiom_Tests.v`: four admitted stubs remain from the
+  validation harness that exercises axiomatized lemmas. They are not part of `_CoqProject` but remain in the
+  repository for regression tracking.
+- `thielemachine/coqproofs/debug_no_rule.v`: two local admits preserved as an experimental reproduction of
+  the no-rule path; still excluded from `_CoqProject` and the audited builds.
+- All other `.v` files in the tree are admit-free as of the latest audit (core, optional studies, and the
+  main bridge file).
