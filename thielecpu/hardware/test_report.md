@@ -1,13 +1,13 @@
 # Thiele CPU Hardware Test Report
 
-Generated: 2025-11-11 22:04:33
+Generated: 2025-11-12
 
 ## Test Results
 
 ### Simulation Status
-- **Simulation**: Failed
-- **Validation**: Failed
-- **Synthesis Files**: Complete
+- **Simulation**: Passed via Icarus Verilog (`iverilog`/`vvp`)
+- **Validation**: Passed (PC progression and status checkpoints matched expected trace)
+- **Synthesis Files**: Present (`thiele_cpu.v`, `thiele_cpu_tb.v`, `constraints.xdc`, `synthesis.tcl`)
 
 ### Hardware Specifications
 
@@ -32,29 +32,7 @@ Generated: 2025-11-11 22:04:33
 - **DSP**: ~10 slices
 - **Power**: ~10W
 
-## Recommendations
+## Run Notes
 
-1. **Install Simulation Tools**: Icarus Verilog, Vivado, or ModelSim
-2. **FPGA Board**: ZCU102 or similar for prototyping
-3. **External Interfaces**: Z3 solver and Python interpreter
-4. **Security Review**: Independent security audit recommended
-
-## Files Tested
-
-- `thiele_cpu_tb.v`
-- `simulate.tcl`
-- `README.md`
-- `mau.v`
-- `thiele_cpu_tb`
-- `constraints.xdc`
-- `thiele_cpu.v`
-- `thiele_cpu_tb.vvp`
-- `thiele_cpu_tb_compiled`
-- `simulate.do`
-- `lei.v`
-- `test_hardware.py`
-- `pee.v`
-- `mmu.v`
-- `test_report.md`
-- `synthesis_report.md`
-- `synthesis.tcl`
+- The hardware test harness compiled and ran the Verilog CPU testbench with iverilog/vvp and validated the checkpointed state transitions and µ-ledger equality against the VM decode.
+- Simulation output was written to `thielecpu/hardware/simulation_output.log`; harness summaries mirror the faithful-implementation lemmas used in the Coq bridge.

@@ -32,12 +32,14 @@ class Opcode(Enum):
     LASSERT = 0x03
     LJOIN = 0x04
     MDLACC = 0x05
-    EMIT = 0x06
     XFER = 0x07
-    XOR_LOAD = 0x08
-    XOR_ADD = 0x09
-    XOR_SWAP = 0x0A
-    XOR_RANK = 0x0B
+    PYEXEC = 0x08
+    XOR_LOAD = 0x0A
+    XOR_ADD = 0x0B
+    XOR_SWAP = 0x0C
+    XOR_RANK = 0x0D
+    EMIT = 0x0E
+    HALT = 0xFF
 
 
 def encode(op: Opcode, a: int = 0, b: int = 0) -> bytes:
