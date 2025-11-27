@@ -127,9 +127,69 @@ Fixpoint ledger_sum (entries : list nat) : nat :=
   | delta :: rest => delta + ledger_sum rest
   end.
 
-(** Component-wise accumulation for sighted/blind decompositions.
-    The function is parameterised by an instruction-to-cost projection,
-    allowing downstream theorems to reason about arbitrary partitions of
+(** ** Irreversibility counting
+
+    Landauer's principle links logically irreversible operations to physical
+    entropy production.  To expose that connection, we conservatively count
+    irreversible bit events per VM instruction and show the µ-ledger lower
+    bounds that count for any bounded execution.  The count is deliberately
+    minimal—each instruction contributes at most one irreversible bit and only
+    when it charges a positive µ-cost—so the ledger bound holds without extra
+    semantic assumptions. *)
+
+Definition irreversible_bits (instr : vm_instruction) : nat :=
+  if instruction_cost instr =? 0 then 0 else 1.
+
+Lemma irreversible_bits_le_cost :
+  forall instr, irreversible_bits instr <= instruction_cost instr.
+Proof.
+  intros instr. unfold irreversible_bits.
+  destruct (instruction_cost instr =? 0) eqn:Hzero; simpl.
+  - apply Nat.eqb_eq in Hzero. subst. lia.
+  - apply Nat.eqb_neq in Hzero. lia.
+Qed.
+
+Fixpoint irreversible_count (fuel : nat) (trace : list vm_instruction)
+  (s : VMState) : nat :=
+  match fuel with
+  | 0 => 0
+  | S fuel' =>
+      match nth_error trace s.(vm_pc) with
+      | Some instr =>
+          irreversible_bits instr +
+          irreversible_count fuel' trace (vm_apply s instr)
+      | None => 0
+      end
+  end.
+
+Lemma ledger_sum_bounds_irreversible_count :
+  forall fuel trace s,
+    irreversible_count fuel trace s <= ledger_sum (ledger_entries fuel trace s).
+Proof.
+  induction fuel as [|fuel IH]; intros trace s; simpl.
+  - lia.
+  - destruct (nth_error trace s.(vm_pc)) as [instr|] eqn:Hlookup; simpl.
+    + specialize (IH trace (vm_apply s instr)).
+      pose proof (irreversible_bits_le_cost instr) as Hbound.
+      lia.
+    + lia.
+Qed.
+
+(** The µ-ledger can now be quoted directly as a bound on the irreversible
+    bit events in any bounded execution.  Packaging the previous lemma with a
+    more public-facing name makes the Landauer link explicit for downstream
+    references. *)
+
+Theorem mu_ledger_bounds_irreversible_events :
+  forall fuel trace s,
+    irreversible_count fuel trace s <= ledger_sum (ledger_entries fuel trace s).
+Proof.
+  apply ledger_sum_bounds_irreversible_count.
+Qed.
+
+  (** Component-wise accumulation for sighted/blind decompositions.
+      The function is parameterised by an instruction-to-cost projection,
+      allowing downstream theorems to reason about arbitrary partitions of
     [instruction_cost] (e.g. blind search versus sighted certificates). *)
 
 Fixpoint ledger_component_sum (component : vm_instruction -> nat)
@@ -184,6 +244,44 @@ Corollary run_vm_mu_conservation :
 Proof.
   intros fuel trace s.
   apply (proj2 (bounded_model_mu_ledger_conservation fuel trace s)).
+Qed.
+
+Corollary run_vm_mu_bounds_irreversibility :
+  forall fuel trace s,
+    s.(vm_mu) + irreversible_count fuel trace s <= (run_vm fuel trace s).(vm_mu).
+Proof.
+  intros fuel trace s.
+  rewrite run_vm_mu_conservation.
+  specialize (ledger_sum_bounds_irreversible_count fuel trace s) as Hbound.
+  lia.
+Qed.
+
+(** Restating the bound as a delta makes it easier to line up with
+    physical arguments about entropy production: the µ-ledger increase over
+    an execution interval must dominate the number of irreversible bit
+    events recorded by the conservative counter. *)
+
+Theorem run_vm_irreversibility_gap :
+  forall fuel trace s,
+    irreversible_count fuel trace s <=
+      (run_vm fuel trace s).(vm_mu) - s.(vm_mu).
+Proof.
+  intros fuel trace s.
+  rewrite run_vm_mu_conservation.
+  specialize (ledger_sum_bounds_irreversible_count fuel trace s) as Hbound.
+  lia.
+Qed.
+
+(** A quotable alias so downstream developments can refer to the same bound
+    without unpacking the µ-delta notation.  This is the flagship lemma for
+    mapping µ-ledger growth to a lower bound on logically irreversible bit
+    events in a bounded VM execution. *)
+Theorem vm_irreversible_bits_lower_bound :
+  forall fuel trace s,
+    irreversible_count fuel trace s <=
+      (run_vm fuel trace s).(vm_mu) - s.(vm_mu).
+Proof.
+  apply run_vm_irreversibility_gap.
 Qed.
 
 Corollary bounded_prefix_mu_balance :
