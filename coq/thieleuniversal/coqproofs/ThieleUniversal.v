@@ -36,7 +36,19 @@ Proof. exact (fun _ Hfit => Hfit). Qed.
 Lemma cpu_program_is_blind : Simulation.Blind thiele_program.
 Proof. exact Simulation.utm_program_blind. Qed.
 
-(** * Completed simulation theorems *)
+(** * Completed simulation theorems
+
+    NOTE: The theorems below use [all_steps_ok] as a precondition, which requires
+    that ALL intermediate configurations satisfy [config_ok]. This is a stronger
+    requirement than just checking the initial configuration.
+    
+    The reason is that [tm_step] can produce configurations that violate
+    [config_ok] (e.g., head position may exceed SHIFT_LEN). Since the encoding/
+    decoding roundtrip only works for valid configurations, we need to ensure
+    validity is maintained throughout execution.
+    
+    For TMs that stay within bounds (e.g., those with bounded tape and head
+    movement), [all_steps_ok] can be established from the TM's properties. *)
 
 Theorem thiele_universal_recap :
   exists tp : ThieleMachine.Prog,
