@@ -312,6 +312,15 @@ def run_all_falsification_tests() -> Dict[str, Any]:
         ("Cross-Implementation Consistency", test_cross_implementation_consistency),
     ]
     
+    # Map test names to their specific success key
+    success_keys = {
+        "Information Conservation": "conserved",
+        "μ-Cost Monotonicity": "monotonic",
+        "Partition Independence": "independent",
+        "Trivial Equivalence": "equivalent",
+        "Cross-Implementation Consistency": "consistent",
+    }
+    
     results = {}
     all_passed = True
     
@@ -319,12 +328,9 @@ def run_all_falsification_tests() -> Dict[str, Any]:
         result = test_fn()
         results[name] = result
         
-        # Each test has a key indicating if the claim holds
-        claim_holds = result.get('conserved', True) and \
-                      result.get('monotonic', True) and \
-                      result.get('independent', True) and \
-                      result.get('equivalent', True) and \
-                      result.get('consistent', True)
+        # Check the specific success key for this test
+        success_key = success_keys.get(name, "success")
+        claim_holds = result.get(success_key, False)
         
         if not claim_holds:
             all_passed = False
