@@ -1124,7 +1124,9 @@ The Thiele Machine is a beginning, not an end—a new way to think about what co
 ### System Requirements
 
 - **Python 3.12+** (matches the pinned demonstration environment)
-- **Coq 8.18** (install via `sudo apt install coq` on Ubuntu/Debian, or automatically provisioned by `scripts/setup_coq_toolchain.sh` via opam when `./verify_bell.sh` is invoked)
+- **Coq 8.18** (optional, for formal verification):
+  - **Ubuntu/Debian:** `sudo apt install coq`
+  - **Via opam:** Automatically provisioned by `scripts/setup_coq_toolchain.sh` when `./verify_bell.sh` is invoked
 - **FPGA Synthesis Tools** (optional, for hardware implementation)
   - Vivado for Xilinx Zynq UltraScale+
   - Yosys for open-source synthesis
@@ -1162,14 +1164,15 @@ python3 demonstrate_isomorphism.py
 For full functionality including Thiele CPU, hardware synthesis, and formal verification:
 
 ```bash
-# Core Python dependencies
+# Option A: Install all pinned dependencies from requirements.txt
 pip install -r requirements.txt
 
-# OR install with optional extras for experiments:
+# Option B: Install with optional extras (recommended for experiments)
+# This installs the [full] extras group from pyproject.toml
 pip install -e ".[full]"
 
-# Optional: solver extras for legacy SMT traces
-pip install z3-solver python-sat[pblib,aiger]
+# Note: Either option provides all dependencies needed for experiments.
+# Use Option A for exact version pinning, Option B for flexibility.
 
 # Optional: Install Coq 8.18 via apt (Ubuntu/Debian)
 sudo apt install coq
