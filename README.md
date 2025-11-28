@@ -159,8 +159,10 @@ The Thiele CPU has 12 opcodes, each with a 32-bit encoding:
 | `LASSERT` | 0x03 | Assert logical constraint with certificate | O(cert) |
 | `LJOIN` | 0x04 | Join certificates from modules | O(1) |
 | `MDLACC` | 0x05 | Accumulate μ-bit cost | O(1) |
+| — | 0x06 | Reserved | — |
 | `XFER` | 0x07 | Transfer data between partitions | O(data) |
 | `PYEXEC` | 0x08 | Execute sandboxed Python | O(code) |
+| — | 0x09 | Reserved | — |
 | `XOR_LOAD` | 0x0A | Load XOR constraints | O(n) |
 | `XOR_ADD` | 0x0B | Add XOR equation | O(1) |
 | `XOR_SWAP` | 0x0C | Swap rows in XOR matrix | O(1) |
@@ -422,12 +424,12 @@ coqc -Q theory theory theory/CostIsComplexity.v
 |-----------|-------|--------|--------|--------|
 | Kernel | 4 | 0 | 0 | ✅ Complete |
 | Theory | 11 | 0 | 0 | ✅ Complete |
-| ThieleMachine | 15 | 1* | 0 | ✅ Complete |
-| Verification | 8 | 4† | 1‡ | 🔧 Test stubs |
+| ThieleMachine | 15 | 1¹ | 0 | ✅ Complete |
+| Verification | 8 | 4² | 1³ | 🔧 Test stubs |
 
-\* `Simulation.v:248` — Legacy proof, not in critical path  
-† Test placeholders in `ThieleUniversalBridge_Axiom_Tests.v`  
-‡ `universal_program_bounded_writes` — Explicit assumption, not in main build
+¹ `Simulation.v:248` — Legacy proof, not in critical path  
+² Test placeholders in `ThieleUniversalBridge_Axiom_Tests.v`  
+³ `universal_program_bounded_writes` — Explicit assumption, not in main build
 
 See `ADMIT_REPORT.txt` for the complete inventory.
 
