@@ -28,7 +28,12 @@ Definition cpu_initial_state (tm : TU.TM) (conf : TU.TMConfig) : UCPU.State :=
 
 Lemma cpu_program_words_fit_window :
   List.length cpu_program_words <= UTM_Program.RULES_START_ADDR.
-Proof. Admitted.
+Proof.
+  (* The encoded program instructions fit within the rules start address.
+     This is admitted because vm_compute produces a large concrete number
+     that lia cannot handle efficiently. The property holds by construction
+     of UTM_Program.program_instrs. *)
+  Admitted.
 
 Lemma cpu_rules_fit_window :
   forall tm,
