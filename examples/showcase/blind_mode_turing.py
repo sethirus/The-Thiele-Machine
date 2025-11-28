@@ -6,9 +6,13 @@
 """
 Blind Mode Turing Machine - Expert/Theoretical Thiele Machine Program
 
-Demonstrates backwards compatibility:
+Demonstrates backwards compatibility with real μ-spec v2.0 costs:
+
+    μ_total(q, N, M) = 8|canon(q)| + log₂(N/M)
+
+Key concepts:
 - Thiele Machine with trivial partition = Turing Machine
-- Same computations, same results
+- Same computations, same results, same μ-costs
 - Shows the machine is a strict SUPERSET of Turing
 - "Blind mode" = degenerate Thiele without partition advantage
 
@@ -16,13 +20,46 @@ This is an EXPERT/THEORETICAL program showing compatibility.
 """
 
 from typing import Dict, Any, Optional, List
-import hashlib
 import math
+
+# Import real μ-spec v2.0 implementation
+try:
+    from thielecpu.mu import (
+        question_cost_bits,
+        canonical_s_expression,
+    )
+except ImportError:
+    # Fallback for standalone execution
+    def canonical_s_expression(expr: str) -> str:
+        tokens = []
+        current = []
+        for ch in expr:
+            if ch in "()":
+                if current:
+                    tokens.append("".join(current))
+                    current = []
+                tokens.append(ch)
+            elif ch.isspace():
+                if current:
+                    tokens.append("".join(current))
+                    current = []
+            else:
+                current.append(ch)
+        if current:
+            tokens.append("".join(current))
+        return " ".join(tokens)
+    
+    def question_cost_bits(expr: str) -> int:
+        canonical = canonical_s_expression(expr)
+        return len(canonical.encode("utf-8")) * 8
 
 
 class ThieleMachineEmulator:
     """
     Emulates both blind (Turing) and sighted (Thiele) modes.
+    
+    Uses real μ-spec v2.0 costs:
+        μ = 8|canon(code)|
     
     Key insight: A Thiele Machine with a single trivial partition
     behaves exactly like a Turing Machine. The partition logic
@@ -57,7 +94,7 @@ class ThieleMachineEmulator:
         code: str, 
         namespace: Optional[Dict] = None
     ) -> Any:
-        """Execute code within a specific partition."""
+        """Execute code within a specific partition using real μ-spec v2.0 costs."""
         if namespace is None:
             namespace = {}
         
@@ -79,8 +116,10 @@ class ThieleMachineEmulator:
         try:
             result = eval(code, safe_globals)
             
-            # μ-cost: description length of the computation
-            mu_cost = len(code) * 8
+            # Real μ-spec v2.0 cost: 8 × |canonical(code)|
+            # Wrap code as S-expression for canonical form
+            question = f"(eval {code})"
+            mu_cost = question_cost_bits(question)
             self.mu_trace.append(mu_before + mu_cost)
             
             return result

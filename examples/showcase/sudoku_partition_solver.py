@@ -6,23 +6,65 @@
 """
 Sudoku Partition Solver - Educational Thiele Machine Program
 
-Demonstrates partition logic for constraint propagation:
-- Each box (2x2 for 4x4, 3x3 for 9x9) is a module
-- Constraints propagate within modules first
+Demonstrates partition logic for constraint propagation with real μ-spec v2.0 costs:
+
+    μ_total(q, N, M) = 8|canon(q)| + log₂(N/M)
+
+Key concepts:
+- Each box (2x2 for 4x4, 3x3 for 9x9) is a module/partition
+- Constraints propagate within modules first (local reasoning)
 - Cross-module constraints use composite witnesses
-- Shows exponential speedup on structured problems
+- μ-cost tracks real information revealed
 
 This is a NORMAL/EDUCATIONAL program showing basic Thiele concepts.
 """
 
-from typing import List, Dict, Any, Optional, Set, Tuple
+from typing import List, Dict, Any, Set, Tuple
 import hashlib
 import math
 
-
-def _box_index(row: int, col: int, box_size: int) -> int:
-    """Get the box index for a cell."""
-    return (row // box_size) * box_size + (col // box_size)
+# Import real μ-spec v2.0 implementation
+try:
+    from thielecpu.mu import (
+        calculate_mu_cost,
+        question_cost_bits,
+        information_gain_bits,
+        canonical_s_expression,
+    )
+except ImportError:
+    # Fallback for standalone execution
+    def canonical_s_expression(expr: str) -> str:
+        tokens = []
+        current = []
+        for ch in expr:
+            if ch in "()":
+                if current:
+                    tokens.append("".join(current))
+                    current = []
+                tokens.append(ch)
+            elif ch.isspace():
+                if current:
+                    tokens.append("".join(current))
+                    current = []
+            else:
+                current.append(ch)
+        if current:
+            tokens.append("".join(current))
+        return " ".join(tokens)
+    
+    def question_cost_bits(expr: str) -> int:
+        canonical = canonical_s_expression(expr)
+        return len(canonical.encode("utf-8")) * 8
+    
+    def information_gain_bits(before: int, after: int) -> float:
+        if before <= 0 or after <= 0 or after > before:
+            return 0.0
+        if after == before:
+            return 0.0
+        return math.log2(before / after)
+    
+    def calculate_mu_cost(expr: str, before: int, after: int) -> float:
+        return question_cost_bits(expr) + information_gain_bits(before, after)
 
 
 def _get_box_cells(box_idx: int, size: int, box_size: int) -> List[Tuple[int, int]]:
@@ -70,9 +112,12 @@ def _propagate_in_partition(
     puzzle: List[List[int]], 
     box_idx: int, 
     size: int
-) -> Tuple[bool, int, Dict[str, Any]]:
+) -> Tuple[bool, float, Dict[str, Any]]:
     """
     Propagate constraints within a single partition (box).
+    
+    Uses real μ-spec v2.0 costs:
+        μ = 8|canon(question)| + log₂(candidates_before / candidates_after)
     
     Returns:
         (changed, mu_cost, certificate)
@@ -81,25 +126,39 @@ def _propagate_in_partition(
     cells = _get_box_cells(box_idx, size, box_size)
     
     changed = False
-    mu_cost = 0
+    mu_cost = 0.0
     assignments = []
     
     for row, col in cells:
         if puzzle[row][col] == 0:
             candidates = _get_candidates(puzzle, row, col, size)
+            candidates_before = len(candidates) if len(candidates) > 0 else size
             
-            # μ-cost: log₂ of candidates eliminated
             if len(candidates) == 1:
                 val = list(candidates)[0]
                 puzzle[row][col] = val
                 changed = True
-                # Information revealed: went from |candidates| to 1
-                mu_cost += math.log2(size)  # Approximate
+                
+                # Real μ-spec v2.0 cost calculation:
+                # Question: "(assign cell[row,col] val)"
+                question = f"(assign cell[{row},{col}] {val})"
+                mu_question = question_cost_bits(question)
+                
+                # Information gain: log₂(candidates_before / 1)
+                mu_info = information_gain_bits(candidates_before, 1) if candidates_before > 1 else 0.0
+                
+                step_mu = mu_question + mu_info
+                mu_cost += step_mu
+                
                 assignments.append({
                     'cell': (row, col),
                     'value': val,
-                    'candidates_before': size,
-                    'candidates_after': 1
+                    'candidates_before': candidates_before,
+                    'candidates_after': 1,
+                    'question': question,
+                    'mu_question': mu_question,
+                    'mu_information': mu_info,
+                    'mu_total': step_mu
                 })
             elif len(candidates) == 0:
                 # Contradiction - unsolvable
@@ -213,8 +272,15 @@ def solve_sudoku_partitioned(
             
             # Try first candidate (simplified - full solver would backtrack)
             r, c = best_cell
-            grid[r][c] = list(best_candidates)[0]
-            total_mu += math.log2(len(best_candidates))
+            chosen_val = list(best_candidates)[0]
+            grid[r][c] = chosen_val
+            
+            # Real μ-spec v2.0 cost for guessing:
+            # Question cost + information gain from narrowing candidates
+            guess_question = f"(guess cell[{r},{c}] {chosen_val})"
+            mu_question = question_cost_bits(guess_question)
+            mu_info = information_gain_bits(len(best_candidates), 1) if len(best_candidates) > 1 else 0.0
+            total_mu += mu_question + mu_info
     
     return {
         'solved': False,
