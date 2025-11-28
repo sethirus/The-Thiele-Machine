@@ -74,8 +74,11 @@ Lemma physics_trace_cost_positive :
   forall pc instr, nth_error physics_trace pc = Some instr -> instruction_cost instr >= 1.
 Proof.
   intros pc instr Hlookup. destruct pc; simpl in *.
-  - inversion Hlookup; subst; simpl; lia.
-  - destruct pc; simpl in *; inversion Hlookup.
+  - (* pc = 0: eraser_instr has cost 1 *)
+    inversion Hlookup; subst; simpl; lia.
+  - (* pc >= 1: physics_trace has only 1 element, so nth_error returns None,
+       contradicting Hlookup : nth_error _ pc = Some instr *)
+    destruct pc; simpl in *; inversion Hlookup.
 Qed.
 
 Lemma dissipative_vm_step_simulation :
@@ -130,6 +133,9 @@ Corollary dissipative_mu_gap_generic :
     (run_vm fuel physics_trace s).(vm_mu) >= s.(vm_mu) + 1.
 Proof.
   intros fuel s instr Hfuel Hlookup.
+  (* Explicit type application needed because dissipative_embedding_mu_gap
+     is parameterized by DiscretePhysics (implicit) and ThieleEmbedding (explicit).
+     The underscore allows Coq to infer dissipative_model. *)
   apply (@dissipative_embedding_mu_gap _ dissipative_embedding
          dissipative_trace_cost_positive fuel s instr Hfuel Hlookup).
 Qed.
