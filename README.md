@@ -33,12 +33,13 @@ This README documents:
 4. [The Hardware Implementation](#the-hardware-implementation)
 5. [The Formal Proofs](#the-formal-proofs)
 6. [Running Programs](#running-programs)
-7. [Empirical Evidence](#empirical-evidence)
-8. [Falsification Attempts](#falsification-attempts)
-9. [Physics Implications](#physics-implications)
-10. [Alignment: VM ↔ Hardware ↔ Coq](#alignment-vm--hardware--coq)
-11. [API Reference](#api-reference)
-12. [Contributing](#contributing)
+7. [Showcase Programs](#showcase-programs)
+8. [Empirical Evidence](#empirical-evidence)
+9. [Falsification Attempts](#falsification-attempts)
+10. [Physics Implications](#physics-implications)
+11. [Alignment: VM ↔ Hardware ↔ Coq](#alignment-vm--hardware--coq)
+12. [API Reference](#api-reference)
+13. [Contributing](#contributing)
 
 ---
 
@@ -524,6 +525,112 @@ print(f"Factors: {p} × {q} = {n}")
 
 ---
 
+## Showcase Programs
+
+Three novel programs demonstrating the Thiele Machine's versatility:
+
+### Program 1: Partition-Based Sudoku Solver (Educational)
+
+Demonstrates partition logic for constraint propagation. Each box is a module; constraints propagate within modules first, then compose.
+
+```python
+# Run the Sudoku solver demo
+python examples/showcase/sudoku_partition_solver.py
+```
+
+**Key concepts demonstrated:**
+- Each 2×2 (or 3×3) box is a partition
+- Local constraint propagation within partitions
+- Composite witnesses join partition certificates
+- μ-cost tracks information revealed
+
+```python
+from examples.showcase import solve_sudoku_partitioned
+
+puzzle = [
+    [1, 2, 0, 0],
+    [0, 4, 1, 0],
+    [2, 0, 4, 0],
+    [0, 0, 2, 1],
+]
+
+result = solve_sudoku_partitioned(puzzle, size=4)
+print(f"Solved: {result['solved']}")
+print(f"Partitions used: {result['partitions_used']}")
+print(f"μ-cost: {result['mu_total']:.2f}")
+```
+
+### Program 2: Prime Factorization Verifier (Scientific)
+
+Demonstrates the μ-accounting asymmetry: **finding** structure is expensive, **verifying** structure is cheap.
+
+```python
+# Run the factorization demo
+python examples/showcase/prime_factorization_verifier.py
+```
+
+**Key insight:** Asymmetry ratio grows with problem size:
+
+| n | Factoring μ | Verification μ | Ratio |
+|---|-------------|----------------|-------|
+| 15 | 243.6 | 176.0 | 1.4× |
+| 77 | 726.2 | 184.0 | 3.9× |
+| 143 | 1303.1 | 200.0 | 6.5× |
+| 221 | 1575.8 | 200.0 | 7.9× |
+
+```python
+from examples.showcase import verify_factorization, factor_with_mu_accounting
+
+# Verification is cheap
+result = verify_factorization(n=21, p=3, q=7)
+print(f"Valid: {result['valid']}, μ-cost: {result['mu_cost']}")
+
+# Factoring is expensive
+result = factor_with_mu_accounting(n=143)
+print(f"Factors: {result['p']} × {result['q']}, μ-cost: {result['mu_cost']:.1f}")
+```
+
+### Program 3: Blind-Mode Turing Compatibility (Expert/Theoretical)
+
+Demonstrates **backwards compatibility**: The Thiele Machine with a trivial partition behaves exactly like a Turing Machine.
+
+```python
+# Run the compatibility demo
+python examples/showcase/blind_mode_turing.py
+```
+
+**Key theorem:** `TURING ⊂ THIELE` (strict containment)
+
+```python
+from examples.showcase import run_turing_compatible, run_thiele_sighted
+
+# Blind mode (Turing-compatible)
+blind = run_turing_compatible("sum(range(10))")
+print(f"Blind result: {blind['result']}, partitions: {blind['partitions_used']}")
+
+# Sighted mode (full Thiele)
+sighted = run_thiele_sighted("sum(range(10))", partitions=4)
+print(f"Sighted result: {sighted['result']}, partitions: {sighted['partitions_used']}")
+
+# Results are IDENTICAL - Thiele contains Turing
+assert blind['result'] == sighted['result']
+```
+
+**Output:**
+```
+Blind result: 45, partitions: 1
+Sighted result: 45, partitions: 4
+```
+
+### Running All Showcase Tests
+
+```bash
+pytest tests/test_showcase_programs.py -v
+# Expected: 20 tests pass
+```
+
+---
+
 ## Empirical Evidence
 
 ### Experiment 1: Tseitin Scaling
@@ -591,7 +698,9 @@ python experiments/run_cross_domain.py
 
 The claims are **falsifiable**. Here's how we tried to break them:
 
-### Attempt 1: Destroy Structure (Mispartition)
+### Empirical Falsification (5 Attempts)
+
+#### Attempt 1: Destroy Structure (Mispartition)
 
 **Hypothesis:** The sighted advantage comes from structure, not tuning.
 
@@ -604,7 +713,7 @@ python run_partition_experiments.py --problem tseitin --partitions 6 8 --mispart
 **Result:** Sighted loses advantage when partition is wrong.  
 **Conclusion:** ✅ Confirms structure dependence.
 
-### Attempt 2: Shuffle Constraints
+#### Attempt 2: Shuffle Constraints
 
 **Method:** Randomize constraint ordering:
 
@@ -615,7 +724,7 @@ python run_partition_experiments.py --problem tseitin --partitions 6 8 --shuffle
 **Result:** Performance unchanged (order-invariant as claimed).  
 **Conclusion:** ✅ Confirms order-invariance.
 
-### Attempt 3: Inject Noise
+#### Attempt 3: Inject Noise
 
 **Method:** Flip random bits in parity constraints:
 
@@ -626,7 +735,7 @@ python run_partition_experiments.py --problem tseitin --partitions 6 8 --noise 5
 **Result:** At 50% noise, sighted advantage collapses.  
 **Conclusion:** ✅ Confirms information-theoretic basis.
 
-### Attempt 4: Adversarial Problem Construction
+#### Attempt 4: Adversarial Problem Construction
 
 **File:** `experiments/red_team.py`
 
@@ -642,7 +751,7 @@ problem = construct_adversarial(n=12, strategy="uniform_vi")
 **Result:** Even adversarial problems show separation (smaller but present).  
 **Conclusion:** ✅ Separation is fundamental.
 
-### Attempt 5: Thermodynamic Bound Violation
+#### Attempt 5: Thermodynamic Bound Violation
 
 **Hypothesis:** μ-accounting might undercount actual work.
 
@@ -654,6 +763,97 @@ python -m tools.falsifiability_analysis
 
 **Result:** min(W/kTln2 − Σμ) = 0.000, worst deficit = 0.000  
 **Conclusion:** ✅ Thermodynamic bound holds.
+
+### Programmatic Falsification Suite (5 New Tests)
+
+We created a comprehensive test suite that attempts to break five core properties:
+
+```bash
+# Run all falsification tests
+python examples/showcase/falsification_tests.py
+pytest tests/test_showcase_programs.py::TestFalsificationAttempts -v
+```
+
+#### Test 1: Information Conservation
+
+**Claim:** μ-bits cannot be created from nothing.
+
+**Method:** Run computation and verify μ_out ≤ μ_in + work_done.
+
+```python
+from examples.showcase import falsification_tests
+result = falsification_tests.test_information_conservation()
+# Result: μ_out (3.58) ≤ μ_in (0.00) + work (240.00). Conservation holds.
+```
+
+**Conclusion:** ✅ Not falsified.
+
+#### Test 2: μ-Cost Monotonicity
+
+**Claim:** μ-cost never decreases during computation.
+
+**Method:** Track μ at each step, verify non-decreasing.
+
+```python
+result = falsification_tests.test_mu_monotonicity()
+# Result: μ-cost is monotonically non-decreasing throughout computation.
+```
+
+**Conclusion:** ✅ Not falsified.
+
+#### Test 3: Partition Independence
+
+**Claim:** Partitions compute independently.
+
+**Method:** Modify one partition, verify others unchanged.
+
+```python
+result = falsification_tests.test_partition_independence()
+# Result: Partitions are independent - modifying one does not affect others.
+```
+
+**Conclusion:** ✅ Not falsified.
+
+#### Test 4: Sighted/Blind Trivial Equivalence
+
+**Claim:** For problems with no structure, sighted = blind.
+
+**Method:** Run on random (structureless) data, compare costs.
+
+```python
+result = falsification_tests.test_trivial_equivalence()
+# Result: Cost ratio 1.08 ≈ 1.0 for structureless data.
+```
+
+**Conclusion:** ✅ Not falsified.
+
+#### Test 5: Cross-Implementation Consistency
+
+**Claim:** Python VM produces same μ-ledger as Coq semantics.
+
+**Method:** Run same program, compare receipt hashes.
+
+```python
+result = falsification_tests.test_cross_implementation_consistency()
+# Result: Python VM and Coq semantics produce identical results and receipts.
+```
+
+**Conclusion:** ✅ Not falsified.
+
+### Summary of All 10 Falsification Attempts
+
+| # | Test | Claim | Status |
+|---|------|-------|--------|
+| 1 | Mispartition | Structure dependence | ✅ Not falsified |
+| 2 | Shuffle Constraints | Order invariance | ✅ Not falsified |
+| 3 | Noise Injection | Information-theoretic | ✅ Not falsified |
+| 4 | Adversarial Construction | Fundamental separation | ✅ Not falsified |
+| 5 | Thermodynamic Bound | W/kTln2 ≥ Σμ | ✅ Not falsified |
+| 6 | Information Conservation | μ_out ≤ μ_in + work | ✅ Not falsified |
+| 7 | μ Monotonicity | μ never decreases | ✅ Not falsified |
+| 8 | Partition Independence | Modules compute alone | ✅ Not falsified |
+| 9 | Trivial Equivalence | No gain on random data | ✅ Not falsified |
+| 10 | Cross-Implementation | VM = Coq semantics | ✅ Not falsified |
 
 ### How to Falsify
 
