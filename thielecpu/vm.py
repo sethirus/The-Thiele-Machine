@@ -979,6 +979,54 @@ class VM:
         self.step_receipts.append(receipt)
         self.witness_state = post_state
 
+    def auto_discover_partition(
+        self, 
+        clauses: List[List[int]], 
+        max_mu_budget: float = 10000.0
+    ) -> Dict[str, Any]:
+        """Automatically discover a near-optimal partition for a problem.
+        
+        This implements the PDISCOVER_AUTO opcode, which uses polynomial-time
+        spectral clustering to find natural problem structure.
+        
+        Args:
+            clauses: CNF clauses as list of list of literals
+            max_mu_budget: Maximum μ-bits to spend on discovery
+            
+        Returns:
+            Dictionary with discovered partition and metadata:
+            - modules: List of variable sets (the partition)
+            - mdl_cost: MDL cost of the partition
+            - discovery_cost: μ-bits spent
+            - method: Algorithm used
+            - discovery_time: Wall-clock time
+        """
+        from .discovery import Problem, EfficientPartitionDiscovery
+        
+        # Convert CNF to Problem
+        problem = Problem.from_cnf_clauses(clauses, name="auto-discovered")
+        
+        # Discover partition
+        discoverer = EfficientPartitionDiscovery()
+        candidate = discoverer.discover_partition(problem, max_mu_budget)
+        
+        # Charge the discovery cost to the state
+        self.state.mu_operational += candidate.discovery_cost_mu
+        
+        # Create partitions in VM state
+        for module in candidate.modules:
+            self.state.pnew(module)
+        
+        return {
+            "modules": [list(m) for m in candidate.modules],
+            "mdl_cost": candidate.mdl_cost,
+            "discovery_cost": candidate.discovery_cost_mu,
+            "method": candidate.method,
+            "discovery_time": candidate.discovery_time,
+            "num_modules": candidate.num_modules,
+            "total_variables": candidate.total_variables,
+        }
+
     def execute_python(self, code_or_path: str) -> Any:
         """Execute Python code or file in a sandboxed environment."""
         try:
