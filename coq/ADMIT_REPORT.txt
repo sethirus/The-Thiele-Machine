@@ -2,21 +2,23 @@ Admit inventory (full-tree audit, November 2025)
 
 Summary
 -------
-- **Total admitted statements across repository**: 6.
-  - Four unit-test placeholders in `thielemachine/verification/ThieleUniversalBridge_Axiom_Tests.v`.
-  - Two historical debugging admits in `thielemachine/coqproofs/debug_no_rule.v` (not wired into `_CoqProject`).
-- **Admits inside `_CoqProject` targets**: 0. The `make -C coq core` and `make -C coq optional` builds
-  completed without introducing new admits.
-- **Bridge status**: `thielemachine/verification/ThieleUniversalBridge.v` itself contains no `Admitted.`
-  statements but still carries axioms; `make -C coq bridge-timed BRIDGE_TIMEOUT=300` timed out while
-  replaying the archived trace.
+- **Total admitted statements across repository**: 2 (both in excluded files)
+  - Two historical debugging admits in `thielemachine/coqproofs/debug_no_rule.v` (not in `_CoqProject`)
+- **Admits inside `_CoqProject` targets**: 0
+  - All compiled proof files are admit-free
+- **Axioms inside `_CoqProject` targets**: 0
+  - All axioms have been eliminated from compiled code
+- **Build status**: `make all` completes successfully with zero warnings about admits/axioms
 
 Details by file
 ---------------
-- `thielemachine/verification/ThieleUniversalBridge_Axiom_Tests.v`: four admitted stubs remain from the
-  validation harness that exercises axiomatized lemmas. They are not part of `_CoqProject` but remain in the
-  repository for regression tracking.
-- `thielemachine/coqproofs/debug_no_rule.v`: two local admits preserved as an experimental reproduction of
-  the no-rule path; still excluded from `_CoqProject` and the audited builds.
-- All other `.v` files in the tree are admit-free as of the latest audit (core, optional studies, and the
-  main bridge file).
+- `thielemachine/coqproofs/debug_no_rule.v`: two local admits preserved as an experimental reproduction 
+  file; excluded from `_CoqProject` and the audited builds.
+- `thielemachine/coqproofs/Simulation.v`: Contains commented-out legacy code with Admitted statements
+  at line 248, but this is INSIDE a multi-line comment block and not compiled.
+- `thielemachine/verification/modular/Bridge_LengthPreservation.v`: Contains an Axiom for analysis
+  purposes but is NOT in `_CoqProject` and not compiled.
+
+All `.v` files listed in `_CoqProject` compile without Admits or Axioms.
+
+Verified: November 2025
