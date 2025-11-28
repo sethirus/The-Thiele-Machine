@@ -199,7 +199,7 @@ If you want to know whether a Thiele Machine “can do the same thing” as a Tu
 
 **Audit note (Coq mechanisation):** The repository maintains a single machine-generated inventory of every admitted lemma and axiom declaration at `ADMIT_REPORT.txt`. Regenerate it with `python -m tools.generate_admit_report` any time you touch the Coq sources. At this commit the report records **two archived admits and zero global axioms**—both belong to `coq/thielemachine/coqproofs/debug_no_rule.v`, which is intentionally excluded from `_CoqProject` so the live tree stays admit-free. Consult `coq/AXIOM_INVENTORY.md` for the narrative discussion. README callouts reference these reports wherever a statement relies on them.
 
-**Comprehensive proof status:** The Coq development spans **63 files across 10 directories** and currently builds without axioms. Highlights:
+**Comprehensive proof status:** The Coq development spans **89 files across 17 directories** (as listed in `_CoqProject`) and currently builds without axioms. Highlights:
 - **Core Kernel** (`coq/kernel/`): all lemmas and theorems proven; no admits or axioms remain.【F:coq/AXIOM_INVENTORY.md†L6-L18】
 - **Main Thiele Proofs** (`coq/thielemachine/coqproofs/`): every lemma is mechanised; the no-rule catalogue and `thiele_simulates_by_tm` are now proved. The only remaining admits live in the archived debug reproduction outside `_CoqProject`.【F:coq/ADMIT_REPORT.txt†L1-L11】
 - **Bridging / roadmap** (`coq/ThieleMap.v`): now proves `thiele_simulates_by_tm`, packaging the universal interpreter as a blind Thiele program that simulates any TM.【F:coq/ThieleMap.v†L42-L83】
@@ -1124,10 +1124,24 @@ The Thiele Machine is a beginning, not an end—a new way to think about what co
 ### System Requirements
 
 - **Python 3.12+** (matches the pinned demonstration environment)
-- **Coq 8.18** (automatically provisioned by `scripts/setup_coq_toolchain.sh` when `./verify_bell.sh` is invoked)
+- **Coq 8.18** (install via `sudo apt install coq` on Ubuntu/Debian, or automatically provisioned by `scripts/setup_coq_toolchain.sh` via opam when `./verify_bell.sh` is invoked)
 - **FPGA Synthesis Tools** (optional, for hardware implementation)
   - Vivado for Xilinx Zynq UltraScale+
   - Yosys for open-source synthesis
+
+### Quick Setup (Linux/macOS)
+
+```bash
+# 1. Create virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
+
+# 2. Install dependencies
+pip install -e .
+
+# 3. Run the canonical thesis demonstration
+python3 demonstrate_isomorphism.py
+```
 
 ### Quick Setup (Windows)
 
@@ -1147,18 +1161,24 @@ python3 demonstrate_isomorphism.py
 
 For full functionality including Thiele CPU, hardware synthesis, and formal verification:
 
-```powershell
+```bash
 # Core Python dependencies
 pip install -r requirements.txt
 
+# OR install with optional extras for experiments:
+pip install -e ".[full]"
+
 # Optional: solver extras for legacy SMT traces
 pip install z3-solver python-sat[pblib,aiger]
+
+# Optional: Install Coq 8.18 via apt (Ubuntu/Debian)
+sudo apt install coq
 
 # Optional: Hardware synthesis (requires Vivado)
 # Install Xilinx Vivado Design Suite for FPGA synthesis
 
 # Optional: Formal verification (requires Coq)
-# Run ./verify_bell.sh (invokes scripts/setup_coq_toolchain.sh)
+# Either install Coq via apt (above) or run ./verify_bell.sh (invokes scripts/setup_coq_toolchain.sh via opam)
 ```
 
 ### Running the Artifact

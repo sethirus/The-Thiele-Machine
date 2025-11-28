@@ -1,6 +1,6 @@
 {
-  "epsilon": 0.05,
-  "eta": 0.05,
+  "epsilon": 0.2,
+  "eta": 0.2,
   "metadata_digest_matches": {
     "blind": true,
     "destroyed": true,
@@ -8,39 +8,39 @@
   },
   "penalty_checks": [
     {
-      "diff_bits": -2.623224523346501,
+      "diff_bits": 192.67182950353248,
       "key": {
-        "T": 0.9,
-        "seed": 2,
+        "T": 1.0,
+        "seed": 0,
         "trial_id": 0
       },
-      "mutual_information_bits": 1.5849625007,
-      "penalty_bits_blind": 0.0,
-      "penalty_bound_holds": false,
+      "mutual_information_bits": 3.3219280949,
+      "penalty_bits_blind": 192.6718295035,
+      "penalty_bound_holds": true,
       "penalty_matches_ledger": true
     }
   ],
   "sighted_trials": [
     {
       "key": {
-        "T": 0.9,
+        "T": 1.0,
         "protocol": "sighted",
-        "seed": 2,
+        "seed": 0,
         "trial_id": 0
       },
-      "mu_ledger": 2.665959710544285,
-      "mu_summary": 2.6659597105,
-      "mutual_information_ledger": 1.5849625007211559,
-      "mutual_information_summary": 1.5849625007,
+      "mu_ledger": 13.112548304242177,
+      "mu_summary": 13.1125483042,
+      "mutual_information_ledger": 3.321928094887362,
+      "mutual_information_summary": 3.3219280949,
       "penalty_bits_ledger": 0.0,
       "penalty_bits_summary": 0.0,
       "success_rate_ledger": 1.0,
       "success_rate_summary": 1.0,
       "summary_matches_ledger": true,
       "within_tolerance": true,
-      "work_bits_ledger": 2.665959710544286,
-      "work_bits_summary": 2.6659597105
+      "work_bits_ledger": 13.112548304242178,
+      "work_bits_summary": 13.1125483042
     }
   ],
-  "status": false
+  "status": true
 }
