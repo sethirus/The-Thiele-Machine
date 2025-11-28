@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-10-23T19:23:00.423260Z",
+  "timestamp": "2025-11-28T07:50:27.412067Z",
   "mode": "offline",
   "data_origin": "csv:cmb_sample.csv",
   "fallback_reason": null,
@@ -22,7 +22,7 @@
       0,
       1
     ],
-    "description": "feature[2] > 2.72474 -> (1, 0), else -> (0, 1)"
+    "description": "1\u00b7feature[2] > 2.72474 -> (1, 0), else -> (0, 1)"
   },
   "predicted_trial": {
     "alice": 1,
@@ -36,10 +36,10 @@
     "sample_fraction": 1.0,
     "param_bits": 16,
     "proof_method": "analytic",
-    "certificate": "Operation Cosmic Witness \u2014 robustness certificate:\n  feature[2] = 2.725466\n  threshold    = 2.724743\n  eps          = 7.23e-05\n  margin       = 0.000723\n  Base prediction = (1, 0).\n  Claimed robust prediction = (1, 0).\n  Perturbation lower bound: 2.7253937 > 2.724743 \u21d2 still true branch.\n  All perturbations respect the original branch; robustness holds."
+    "certificate": "Operation Cosmic Witness \u2014 robustness certificate:\n  linear value = 2.725466\n  threshold    = 2.724743\n  eps          = 7.23e-05\n  margin       = 0.000723\n  Base prediction = (1, 0).\n  Claimed robust prediction = (1, 0).\n  Perturbation lower bound: 2.7253937 > 2.724743 \u21d2 still true branch.\n  All perturbations respect the original branch; robustness holds."
   },
   "prediction_proved": true,
   "prediction_proof_method": "analytic",
-  "prediction_certificate": "Operation Cosmic Witness \u2014 prediction certificate:\n  feature[2] = 2.725466\n  threshold    = 2.724743\n  rule true  branch -> (1, 0)\n  rule false branch -> (0, 1)\n  Comparison: feature[2] > threshold \u21d2 follow true branch.\n  Branch output = (1, 0).\n  Claimed prediction = (1, 0).\n  Verification: chosen branch output matches claimed prediction.",
+  "prediction_certificate": "Operation Cosmic Witness \u2014 prediction certificate:\n  feature[2] = 2.725466\n  linear form = 1 * feature[2] = 2.725466\n  threshold    = 2.724743\n  rule true  branch -> (1, 0)\n  rule false branch -> (0, 1)\n  Comparison: linear form > threshold \u21d2 follow true branch.\n  Branch output = (1, 0).\n  Claimed prediction = (1, 0).\n  Verification: chosen branch output matches claimed prediction.",
   "mdl_bits": 24.0
 }
