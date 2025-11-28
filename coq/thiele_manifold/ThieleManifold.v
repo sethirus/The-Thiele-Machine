@@ -125,14 +125,27 @@ Qed.
 (** ** Spacetime as a lossy shadow of the manifold *)
 Definition spacetime_shadow (M : ThieleManifold) : System := pi4 M.
 
-(* FIXME: Type mismatch between spacetime_shadow (simple sentences) and spacetime_system (complex sentences with LocalPredicate).
-   The canonical_manifold uses sentences := fun P => P, but spacetime_system requires
-   sentences to satisfy spacetime_sentences (exists LocalPredicate...).
-   This needs architectural redesign. Admitting for now to unblock compilation. *)
+(* CREATIVE FIX: canonical_manifold accepts ALL Props (sentences := fun P => P).
+   Since spacetime_sentences P is itself a Prop, canonical_manifold can reason about it.
+   We just need to show: if spacetime_system can express P, then so can the shadow. *)
 Lemma tower_projects_to_spacetime :
   can_reason_about (spacetime_shadow canonical_manifold) spacetime_system.
 Proof.
-Admitted.
+  unfold can_reason_about. intros P HP.
+  (* HP : sentences spacetime_system P, which is spacetime_sentences P *)
+  (* Goal : sentences (spacetime_shadow canonical_manifold) P *)
+  unfold spacetime_shadow, pi4. simpl.
+  (* Goal : sentences (level canonical_manifold 0) P *)
+  unfold canonical_manifold, canonical_level. simpl.
+  (* Goal : P *)
+  unfold spacetime_system in HP. simpl in HP.
+  (* HP : spacetime_sentences P *)
+  unfold spacetime_sentences in HP.
+  destruct HP as [Q [e [He Himpl]]].
+  unfold at_event in He.
+  (* Apply the implication to the witness event e *)
+  exact (Himpl e He).
+Qed.
 
 Lemma projection_discards_dimensions :
   dimensionally_richer (level canonical_manifold 1) (spacetime_shadow canonical_manifold).
