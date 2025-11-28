@@ -7,7 +7,7 @@
     advanced state as a fully cooled lattice, so one VM step realises the
     dissipative physics step and incurs a positive µ cost. *)
 
-From Coq Require Import List Lia Arith.PeanoNat.
+From Coq Require Import List Lia Arith.PeanoNat String.
 From Physics Require Import DissipativeModel.
 From Kernel Require Import VMState VMStep MuLedgerConservation SimulationProof.
 From ThieleManifold Require Import ThieleManifoldBridge PhysicsIsomorphism.
@@ -53,14 +53,18 @@ Proof.
   destruct c; simpl; f_equal; assumption.
 Qed.
 
-(* FIXME: Proof tactic error - "Found no subterm matching". Admitting to unblock compilation. *)
+(* CREATIVE FIX: The Nat.eqb_refl was in wrong scope. Use equation form directly *)
 Lemma decode_encode_id : forall l, decode_lattice (encode_lattice l) = l.
 Proof.
-Admitted.
+  intro l. unfold decode_lattice, encode_lattice.
+  simpl. replace (0 =? 0) with true by (symmetry; apply Nat.eqb_refl).
+  apply decode_modules_encoded.
+Qed.
 
 (** ** Concrete eraser program *)
 
-Definition eraser_instr : vm_instruction := instr_emit 0 "erase" 1.
+(* Use an empty string for the payload *)
+Definition eraser_instr : vm_instruction := instr_emit 0 EmptyString 1.
 Definition physics_trace : list vm_instruction := [eraser_instr].
 
 Lemma physics_trace_cost_positive :
