@@ -158,6 +158,9 @@ class TestCategory(Enum):
     CONSERVATION = "Conservation Laws"
     EDGE_CASE = "Edge Cases"
     INFRASTRUCTURE = "Infrastructure"
+    PHYSICS_PROOFS = "Physics Proofs"
+    PHYSICS_EMBEDDINGS = "Physics Embeddings"
+    ISOMORPHISM_PROOFS = "Isomorphism Proofs"
 
 
 # =============================================================================
@@ -480,7 +483,328 @@ def test_edge_cases() -> List[TestResult]:
 
 
 # =============================================================================
-# SECTION 4: Test Runner and Reporter
+# SECTION 4: Physics Proof Tests
+# =============================================================================
+
+def check_coq_theorem_exists(filename: str, theorem_name: str) -> bool:
+    """Check if a Coq theorem exists in a file."""
+    file_path = REPO_ROOT / "coq" / filename
+    if not file_path.exists():
+        return False
+    content = file_path.read_text()
+    # Match Theorem, Lemma, or Corollary
+    pattern = rf"(Theorem|Lemma|Corollary)\s+{theorem_name}\s*:"
+    return bool(re.search(pattern, content))
+
+
+def check_coq_no_admitted(filename: str) -> Tuple[bool, List[str]]:
+    """Check that a Coq file has no Admitted proofs."""
+    file_path = REPO_ROOT / "coq" / filename
+    if not file_path.exists():
+        return False, [f"File not found: {filename}"]
+    
+    content = file_path.read_text()
+    admitted_lines = []
+    
+    for i, line in enumerate(content.split("\n"), 1):
+        if re.search(r"\bAdmitted\b", line) and not line.strip().startswith("(*"):
+            admitted_lines.append(f"Line {i}: {line.strip()}")
+    
+    return len(admitted_lines) == 0, admitted_lines
+
+
+def check_coq_no_axioms(filename: str) -> Tuple[bool, List[str]]:
+    """Check that a Coq file has no Axiom declarations."""
+    file_path = REPO_ROOT / "coq" / filename
+    if not file_path.exists():
+        return False, [f"File not found: {filename}"]
+    
+    content = file_path.read_text()
+    axiom_lines = []
+    
+    for i, line in enumerate(content.split("\n"), 1):
+        if re.search(r"^\s*Axiom\s+", line):
+            axiom_lines.append(f"Line {i}: {line.strip()}")
+    
+    return len(axiom_lines) == 0, axiom_lines
+
+
+def test_physics_proofs() -> List[TestResult]:
+    """Test physics proof files for completeness and correctness."""
+    results = []
+    
+    # ==========================================================================
+    # DISCRETE MODEL (Reversible Lattice Gas)
+    # ==========================================================================
+    discrete_theorems = [
+        ("physics_preserves_particle_count", "Particle count conservation"),
+        ("physics_preserves_momentum", "Momentum conservation"),
+        ("physics_step_involutive", "Step is involutive (reversible)"),
+        ("lattice_particles_conserved", "Named alias for particle conservation"),
+        ("lattice_momentum_conserved", "Named alias for momentum conservation"),
+        ("lattice_step_involutive", "Named alias for involutivity"),
+        ("physics_conservation_bundle", "Combined conservation bundle"),
+        ("embedded_particle_count_conserved", "Embedded particle count conservation"),
+        ("embedded_momentum_conserved", "Embedded momentum conservation"),
+    ]
+    
+    for theorem, description in discrete_theorems:
+        exists = check_coq_theorem_exists("physics/DiscreteModel.v", theorem)
+        results.append(TestResult(
+            name=f"DiscreteModel: {description}",
+            passed=exists,
+            message=f"{theorem} {'exists' if exists else 'NOT FOUND'}",
+            details={"theorem": theorem, "file": "physics/DiscreteModel.v"}
+        ))
+    
+    # Check no Admitted in DiscreteModel.v
+    no_admitted, admitted_lines = check_coq_no_admitted("physics/DiscreteModel.v")
+    results.append(TestResult(
+        name="DiscreteModel: No Admitted proofs",
+        passed=no_admitted,
+        message="0 Admitted" if no_admitted else f"{len(admitted_lines)} Admitted found",
+        details={"admitted_lines": admitted_lines}
+    ))
+    
+    # ==========================================================================
+    # DISSIPATIVE MODEL
+    # ==========================================================================
+    dissipative_theorems = [
+        ("dissipative_step_energy_zero", "Step drives energy to zero"),
+        ("dissipative_energy_nonincreasing", "Energy is monotonically decreasing"),
+        ("dissipative_energy_strict_when_hot", "Strict decrease when hot"),
+        ("dissipative_energy_strictly_decreasing", "Named strict decrease theorem"),
+        ("embedded_energy_nonincreasing", "Embedded energy monotone"),
+    ]
+    
+    for theorem, description in dissipative_theorems:
+        exists = check_coq_theorem_exists("physics/DissipativeModel.v", theorem)
+        results.append(TestResult(
+            name=f"DissipativeModel: {description}",
+            passed=exists,
+            message=f"{theorem} {'exists' if exists else 'NOT FOUND'}",
+            details={"theorem": theorem, "file": "physics/DissipativeModel.v"}
+        ))
+    
+    # Check no Admitted in DissipativeModel.v
+    no_admitted, admitted_lines = check_coq_no_admitted("physics/DissipativeModel.v")
+    results.append(TestResult(
+        name="DissipativeModel: No Admitted proofs",
+        passed=no_admitted,
+        message="0 Admitted" if no_admitted else f"{len(admitted_lines)} Admitted found",
+        details={"admitted_lines": admitted_lines}
+    ))
+    
+    # ==========================================================================
+    # WAVE MODEL
+    # ==========================================================================
+    wave_theorems = [
+        ("wave_energy_conserved", "Wave energy conservation"),
+        ("wave_momentum_conserved", "Wave momentum conservation"),
+        ("wave_step_reversible", "Wave step is reversible"),
+        ("wave_step_inverse", "Wave step has explicit inverse"),
+        ("wave_step_preserves_left", "Left amplitude preserved"),
+        ("wave_step_preserves_right", "Right amplitude preserved"),
+        ("wave_conservation_bundle", "Combined conservation bundle"),
+        ("embedded_energy_conserved", "Embedded energy conservation"),
+        ("embedded_momentum_conserved", "Embedded momentum conservation"),
+    ]
+    
+    for theorem, description in wave_theorems:
+        exists = check_coq_theorem_exists("physics/WaveModel.v", theorem)
+        results.append(TestResult(
+            name=f"WaveModel: {description}",
+            passed=exists,
+            message=f"{theorem} {'exists' if exists else 'NOT FOUND'}",
+            details={"theorem": theorem, "file": "physics/WaveModel.v"}
+        ))
+    
+    # Check no Admitted in WaveModel.v
+    no_admitted, admitted_lines = check_coq_no_admitted("physics/WaveModel.v")
+    results.append(TestResult(
+        name="WaveModel: No Admitted proofs",
+        passed=no_admitted,
+        message="0 Admitted" if no_admitted else f"{len(admitted_lines)} Admitted found",
+        details={"admitted_lines": admitted_lines}
+    ))
+    
+    return results
+
+
+def test_physics_embeddings() -> List[TestResult]:
+    """Test physics embedding proofs for completeness."""
+    results = []
+    
+    # ==========================================================================
+    # PHYSICS EMBEDDING (Lattice Gas -> VM)
+    # ==========================================================================
+    embedding_theorems = [
+        ("thielemachine/coqproofs/PhysicsEmbedding.v", "thiele_implements_physics_step", "VM implements physics step"),
+        ("thielemachine/coqproofs/PhysicsEmbedding.v", "vm_preserves_particle_count", "VM preserves particle count"),
+        ("thielemachine/coqproofs/PhysicsEmbedding.v", "vm_preserves_momentum", "VM preserves momentum"),
+        ("thielemachine/coqproofs/PhysicsEmbedding.v", "lattice_vm_conserves_observables", "VM conserves observables"),
+        ("thielemachine/coqproofs/PhysicsEmbedding.v", "lattice_irreversible_count_zero", "Zero irreversible bits"),
+        ("thielemachine/coqproofs/PhysicsEmbedding.v", "lattice_gas_embeddable", "Lattice gas is embeddable"),
+    ]
+    
+    for file, theorem, description in embedding_theorems:
+        exists = check_coq_theorem_exists(file, theorem)
+        results.append(TestResult(
+            name=f"PhysicsEmbedding: {description}",
+            passed=exists,
+            message=f"{theorem} {'exists' if exists else 'NOT FOUND'}",
+            details={"theorem": theorem, "file": file}
+        ))
+    
+    # Check no Admitted
+    no_admitted, admitted_lines = check_coq_no_admitted("thielemachine/coqproofs/PhysicsEmbedding.v")
+    results.append(TestResult(
+        name="PhysicsEmbedding: No Admitted proofs",
+        passed=no_admitted,
+        message="0 Admitted" if no_admitted else f"{len(admitted_lines)} Admitted found",
+        details={"admitted_lines": admitted_lines}
+    ))
+    
+    # ==========================================================================
+    # WAVE EMBEDDING (Wave -> VM)
+    # ==========================================================================
+    wave_embedding_theorems = [
+        ("thielemachine/coqproofs/WaveEmbedding.v", "thiele_implements_wave_step", "VM implements wave step"),
+        ("thielemachine/coqproofs/WaveEmbedding.v", "vm_preserves_wave_energy", "VM preserves wave energy"),
+        ("thielemachine/coqproofs/WaveEmbedding.v", "vm_preserves_wave_momentum", "VM preserves wave momentum"),
+        ("thielemachine/coqproofs/WaveEmbedding.v", "wave_irreversible_count_zero", "Zero irreversible bits"),
+        ("thielemachine/coqproofs/WaveEmbedding.v", "wave_embeddable", "Wave is embeddable"),
+    ]
+    
+    for file, theorem, description in wave_embedding_theorems:
+        exists = check_coq_theorem_exists(file, theorem)
+        results.append(TestResult(
+            name=f"WaveEmbedding: {description}",
+            passed=exists,
+            message=f"{theorem} {'exists' if exists else 'NOT FOUND'}",
+            details={"theorem": theorem, "file": file}
+        ))
+    
+    # Check no Admitted
+    no_admitted, admitted_lines = check_coq_no_admitted("thielemachine/coqproofs/WaveEmbedding.v")
+    results.append(TestResult(
+        name="WaveEmbedding: No Admitted proofs",
+        passed=no_admitted,
+        message="0 Admitted" if no_admitted else f"{len(admitted_lines)} Admitted found",
+        details={"admitted_lines": admitted_lines}
+    ))
+    
+    # ==========================================================================
+    # DISSIPATIVE EMBEDDING (Dissipative -> VM with μ-gap)
+    # ==========================================================================
+    dissipative_embedding_theorems = [
+        ("thielemachine/coqproofs/DissipativeEmbedding.v", "decode_encode_id", "Roundtrip identity"),
+        ("thielemachine/coqproofs/DissipativeEmbedding.v", "dissipative_embeddable", "Dissipative is embeddable"),
+    ]
+    
+    for file, theorem, description in dissipative_embedding_theorems:
+        exists = check_coq_theorem_exists(file, theorem)
+        results.append(TestResult(
+            name=f"DissipativeEmbedding: {description}",
+            passed=exists,
+            message=f"{theorem} {'exists' if exists else 'NOT FOUND'}",
+            details={"theorem": theorem, "file": file}
+        ))
+    
+    # Check no Admitted
+    no_admitted, admitted_lines = check_coq_no_admitted("thielemachine/coqproofs/DissipativeEmbedding.v")
+    results.append(TestResult(
+        name="DissipativeEmbedding: No Admitted proofs",
+        passed=no_admitted,
+        message="0 Admitted" if no_admitted else f"{len(admitted_lines)} Admitted found",
+        details={"admitted_lines": admitted_lines}
+    ))
+    
+    return results
+
+
+def test_isomorphism_proofs() -> List[TestResult]:
+    """Test categorical isomorphism proofs."""
+    results = []
+    
+    # ==========================================================================
+    # UNIVERSE.V - Categorical Formulation
+    # ==========================================================================
+    universe_theorems = [
+        ("isomorphism/coqproofs/Universe.v", "F_hom_proof", "Functor preserves morphisms"),
+        ("isomorphism/coqproofs/Universe.v", "Thiele_Functor_Is_Sound", "Grand unified theorem"),
+        ("isomorphism/coqproofs/Universe.v", "list_sum_app", "List sum distributes over append"),
+    ]
+    
+    for file, theorem, description in universe_theorems:
+        exists = check_coq_theorem_exists(file, theorem)
+        results.append(TestResult(
+            name=f"Universe: {description}",
+            passed=exists,
+            message=f"{theorem} {'exists' if exists else 'NOT FOUND'}",
+            details={"theorem": theorem, "file": file}
+        ))
+    
+    # Check no Admitted/Axioms
+    no_admitted, admitted_lines = check_coq_no_admitted("isomorphism/coqproofs/Universe.v")
+    results.append(TestResult(
+        name="Universe: No Admitted proofs",
+        passed=no_admitted,
+        message="0 Admitted" if no_admitted else f"{len(admitted_lines)} Admitted found",
+        details={"admitted_lines": admitted_lines}
+    ))
+    
+    no_axioms, axiom_lines = check_coq_no_axioms("isomorphism/coqproofs/Universe.v")
+    results.append(TestResult(
+        name="Universe: No Axioms",
+        passed=no_axioms,
+        message="0 Axioms" if no_axioms else f"{len(axiom_lines)} Axioms found",
+        details={"axiom_lines": axiom_lines}
+    ))
+    
+    # ==========================================================================
+    # PHYSICS ISOMORPHISM - ThieleEmbedding functors
+    # ==========================================================================
+    physics_iso_theorems = [
+        ("thiele_manifold/PhysicsIsomorphism.v", "reversible_trace_irreversibility_count_zero", "Reversible trace has zero irreversibility"),
+        ("thiele_manifold/PhysicsIsomorphism.v", "reversible_trace_ledger_sum_zero", "Reversible trace has zero ledger sum"),
+        ("thiele_manifold/PhysicsIsomorphism.v", "reversible_embedding_zero_irreversibility", "Reversible embedding preserves μ"),
+        ("thiele_manifold/PhysicsIsomorphism.v", "dissipative_embedding_mu_gap", "Dissipative embedding has μ-gap"),
+        ("thiele_manifold/PhysicsIsomorphism.v", "reversible_embedding_zero_irreversibility_hw", "Hardware reversible embedding"),
+        ("thiele_manifold/PhysicsIsomorphism.v", "dissipative_embedding_mu_gap_hw", "Hardware dissipative μ-gap"),
+    ]
+    
+    for file, theorem, description in physics_iso_theorems:
+        exists = check_coq_theorem_exists(file, theorem)
+        results.append(TestResult(
+            name=f"PhysicsIsomorphism: {description}",
+            passed=exists,
+            message=f"{theorem} {'exists' if exists else 'NOT FOUND'}",
+            details={"theorem": theorem, "file": file}
+        ))
+    
+    # Check no Admitted/Axioms
+    no_admitted, admitted_lines = check_coq_no_admitted("thiele_manifold/PhysicsIsomorphism.v")
+    results.append(TestResult(
+        name="PhysicsIsomorphism: No Admitted proofs",
+        passed=no_admitted,
+        message="0 Admitted" if no_admitted else f"{len(admitted_lines)} Admitted found",
+        details={"admitted_lines": admitted_lines}
+    ))
+    
+    no_axioms, axiom_lines = check_coq_no_axioms("thiele_manifold/PhysicsIsomorphism.v")
+    results.append(TestResult(
+        name="PhysicsIsomorphism: No Axioms",
+        passed=no_axioms,
+        message="0 Axioms" if no_axioms else f"{len(axiom_lines)} Axioms found",
+        details={"axiom_lines": axiom_lines}
+    ))
+    
+    return results
+
+
+# =============================================================================
+# SECTION 5: Test Runner and Reporter
 # =============================================================================
 
 def run_all_tests() -> Tuple[List[TestResult], int, int]:
@@ -499,6 +823,9 @@ def run_all_tests() -> Tuple[List[TestResult], int, int]:
         (TestCategory.CONSERVATION, test_conservation_theorems),
         (TestCategory.INFRASTRUCTURE, test_infrastructure),
         (TestCategory.EDGE_CASE, test_edge_cases),
+        (TestCategory.PHYSICS_PROOFS, test_physics_proofs),
+        (TestCategory.PHYSICS_EMBEDDINGS, test_physics_embeddings),
+        (TestCategory.ISOMORPHISM_PROOFS, test_isomorphism_proofs),
     ]
     
     for category, test_func in test_categories:
