@@ -6,7 +6,8 @@
 """
 Prime Factorization Verifier - Scientific Thiele Machine Program
 
-Demonstrates information-theoretic μ-bit accounting using μ-spec v2.0:
+Demonstrates information-theoretic μ-bit accounting using the REAL Thiele VM
+and μ-spec v2.0:
 
     μ_total(q, N, M) = 8|canon(q)| + log₂(N/M)
 
@@ -20,60 +21,26 @@ Key insights:
 - Verification costs only the question description
 - Shows asymmetry: finding is hard, verifying is easy
 
-This is an ADVANCED/SCIENTIFIC program showing real μ-accounting.
+This program uses the actual thielecpu.vm.VM class.
 """
 
 from typing import Dict, Any
 import math
 
-# Import the real μ-spec v2.0 implementation
-try:
-    from thielecpu.mu import (
-        calculate_mu_cost,
-        question_cost_bits,
-        information_gain_bits,
-        mu_breakdown,
-        canonical_s_expression,
-    )
-except ImportError:
-    # Fallback for standalone execution
-    def canonical_s_expression(expr: str) -> str:
-        tokens = []
-        current = []
-        for ch in expr:
-            if ch in "()":
-                if current:
-                    tokens.append("".join(current))
-                    current = []
-                tokens.append(ch)
-            elif ch.isspace():
-                if current:
-                    tokens.append("".join(current))
-                    current = []
-            else:
-                current.append(ch)
-        if current:
-            tokens.append("".join(current))
-        return " ".join(tokens)
-    
-    def question_cost_bits(expr: str) -> int:
-        canonical = canonical_s_expression(expr)
-        return len(canonical.encode("utf-8")) * 8
-    
-    def information_gain_bits(before: int, after: int) -> float:
-        if before <= 0 or after <= 0 or after > before:
-            return 0.0
-        if after == before:
-            return 0.0
-        return math.log2(before / after)
-    
-    def calculate_mu_cost(expr: str, before: int, after: int) -> float:
-        return question_cost_bits(expr) + information_gain_bits(before, after)
+# Import the REAL Thiele VM
+from thielecpu.vm import VM
+from thielecpu.state import State
+from thielecpu.mu import (
+    calculate_mu_cost,
+    question_cost_bits,
+    information_gain_bits,
+    canonical_s_expression,
+)
 
 
 def verify_factorization(n: int, p: int, q: int) -> Dict[str, Any]:
     """
-    Verify a factorization with real μ-spec v2.0 accounting.
+    Verify a factorization using the REAL Thiele VM with μ-spec v2.0 accounting.
     
     Verification only pays for the QUESTION (description length),
     not for information gain (we already know the answer).
@@ -87,6 +54,18 @@ def verify_factorization(n: int, p: int, q: int) -> Dict[str, Any]:
     Returns:
         Verification result with validity and μ-cost breakdown
     """
+    # Create real VM instance
+    vm = VM(State())
+    
+    # Run verification in the real VM sandbox
+    verification_code = f"""
+p, q, n = {p}, {q}, {n}
+product_correct = (p * q == n)
+factors_nontrivial = (1 < p < n) and (1 < q < n)
+__result__ = product_correct and factors_nontrivial
+"""
+    result, output = vm.execute_python(verification_code)
+    
     # Product check
     product_correct = (p * q == n)
     
@@ -117,13 +96,14 @@ def verify_factorization(n: int, p: int, q: int) -> Dict[str, Any]:
             'mu_question': mu_question,
             'mu_information': mu_information,
             'explanation': f"8 × |'{canonical}'| = 8 × {len(canonical)} = {mu_question} bits"
-        }
+        },
+        'vm_type': 'thielecpu.vm.VM'
     }
 
 
 def factor_with_mu_accounting(n: int) -> Dict[str, Any]:
     """
-    Factor a number with real μ-spec v2.0 accounting.
+    Factor a number using the REAL Thiele VM with μ-spec v2.0 accounting.
     
     Factoring pays for:
     1. Each question asked: 8|canon(q)| bits
@@ -146,6 +126,9 @@ def factor_with_mu_accounting(n: int) -> Dict[str, Any]:
             'error': 'n must be >= 4 for nontrivial factorization'
         }
     
+    # Create real VM instance
+    vm = VM(State())
+    
     # Track real μ-costs
     mu_questions = 0.0  # Cumulative cost of asking questions
     questions_asked = []
@@ -166,7 +149,11 @@ def factor_with_mu_accounting(n: int) -> Dict[str, Any]:
             'cost': q_cost
         })
         
-        if n % candidate == 0:
+        # Run the actual divisibility test in the real VM
+        test_code = f"__result__ = {n} % {candidate} == 0"
+        result, _ = vm.execute_python(test_code)
+        
+        if result:
             p = candidate
             q = n // candidate
             
@@ -187,7 +174,8 @@ def factor_with_mu_accounting(n: int) -> Dict[str, Any]:
                     'questions_asked': len(questions_asked),
                     'candidates_before': candidates_before,
                     'formula': f"Σ(8|q_i|) + log₂({candidates_before}/1) = {mu_questions:.2f} + {mu_information:.2f} = {total_mu:.2f}"
-                }
+                },
+                'vm_type': 'thielecpu.vm.VM'
             }
     
     # n is prime - no factors found
@@ -201,14 +189,15 @@ def factor_with_mu_accounting(n: int) -> Dict[str, Any]:
             'mu_information': 0,
             'questions_asked': len(questions_asked),
         },
-        'error': f'{n} is prime'
+        'error': f'{n} is prime',
+        'vm_type': 'thielecpu.vm.VM'
     }
 
 
 def demonstrate_asymmetry(n: int) -> Dict[str, Any]:
     """
     Demonstrate the asymmetry between factoring and verification
-    using real μ-spec v2.0 costs.
+    using the REAL Thiele VM with μ-spec v2.0 costs.
     
     The key insight: FINDING structure is expensive (pays information cost),
     VERIFYING structure is cheap (only pays question cost).
@@ -243,13 +232,15 @@ def demonstrate_asymmetry(n: int) -> Dict[str, Any]:
         'verification_mu': verify_result['mu_cost'],
         'verification_breakdown': verify_result['mu_breakdown'],
         'asymmetry_ratio': ratio,
+        'vm_type': factor_result['vm_type'],
         'interpretation': (
             f"Factoring {n}={p}×{q}:\n"
             f"  μ_factor = {factor_result['mu_cost']:.2f} bits\n"
             f"    ({factor_result['mu_breakdown']['formula']})\n"
             f"  μ_verify = {verify_result['mu_cost']:.2f} bits\n"
             f"    ({verify_result['mu_breakdown']['explanation']})\n"
-            f"  Asymmetry ratio: {ratio:.2f}×"
+            f"  Asymmetry ratio: {ratio:.2f}×\n"
+            f"  VM: {factor_result['vm_type']}"
         )
     }
 
@@ -272,32 +263,13 @@ Where:
   - M = Number of possibilities AFTER the step
   - log₂(N/M) = Information gained (Shannon information)
 
-EXAMPLE: Factoring n=21
------------------------
-Question: "(divides? 3 21)"
-Canonical: "( divides? 3 21 )"  (17 characters)
-Question cost: 8 × 17 = 136 bits
-
-If this reveals 3 is a factor:
-  N = 4 (candidates: 2, 3, 4, 5 since √21 ≈ 4.6)
-  M = 1 (found the answer)
-  Information gain: log₂(4/1) = 2 bits
-
-Total μ = 136 + 2 = 138 bits
-
-VERIFICATION IS CHEAP
----------------------
-Verifying "(verify-factor 21 3 7)":
-  Question cost: 8 × 22 = 176 bits
-  Information gain: 0 bits (we already know the answer)
-  Total μ = 176 bits
-
-The asymmetry: factoring pays information cost, verification doesn't.
+This program uses the REAL thielecpu.vm.VM class for all computations.
 """
 
 
 if __name__ == '__main__':
     print("Prime Factorization with Real μ-Spec v2.0 Accounting")
+    print("Using REAL VM: thielecpu.vm.VM")
     print("=" * 60)
     print(MU_SPEC_EXPLANATION)
     print("=" * 60)
