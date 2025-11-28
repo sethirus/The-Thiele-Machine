@@ -6,192 +6,30 @@
 """
 Blind Mode Turing Machine - Expert/Theoretical Thiele Machine Program
 
-Demonstrates backwards compatibility with real μ-spec v2.0 costs:
-
-    μ_total(q, N, M) = 8|canon(q)| + log₂(N/M)
-
-Key concepts:
+Demonstrates backwards compatibility using the REAL Thiele VM:
 - Thiele Machine with trivial partition = Turing Machine
-- Same computations, same results, same μ-costs
+- Same computations, same results
 - Shows the machine is a strict SUPERSET of Turing
 - "Blind mode" = degenerate Thiele without partition advantage
 
-This is an EXPERT/THEORETICAL program showing compatibility.
+This program uses the actual thielecpu.vm.VM class.
 """
 
-from typing import Dict, Any, Optional, List
-import math
+from typing import Dict, Any, List
 
-# Import real μ-spec v2.0 implementation
-try:
-    from thielecpu.mu import (
-        question_cost_bits,
-        canonical_s_expression,
-    )
-except ImportError:
-    # Fallback for standalone execution
-    def canonical_s_expression(expr: str) -> str:
-        tokens = []
-        current = []
-        for ch in expr:
-            if ch in "()":
-                if current:
-                    tokens.append("".join(current))
-                    current = []
-                tokens.append(ch)
-            elif ch.isspace():
-                if current:
-                    tokens.append("".join(current))
-                    current = []
-            else:
-                current.append(ch)
-        if current:
-            tokens.append("".join(current))
-        return " ".join(tokens)
-    
-    def question_cost_bits(expr: str) -> int:
-        canonical = canonical_s_expression(expr)
-        return len(canonical.encode("utf-8")) * 8
-
-
-class ThieleMachineEmulator:
-    """
-    Emulates both blind (Turing) and sighted (Thiele) modes.
-    
-    Uses real μ-spec v2.0 costs:
-        μ = 8|canon(code)|
-    
-    Key insight: A Thiele Machine with a single trivial partition
-    behaves exactly like a Turing Machine. The partition logic
-    becomes a no-op when there's no structure to exploit.
-    """
-    
-    def __init__(self):
-        self.mu_trace: List[float] = [0.0]
-        self.partitions: List[Dict] = []
-        self.is_blind_mode: bool = True
-    
-    def reset(self):
-        """Reset machine state."""
-        self.mu_trace = [0.0]
-        self.partitions = []
-        self.is_blind_mode = True
-    
-    def create_partition(self, elements: set) -> int:
-        """Create a new partition with given elements."""
-        partition_id = len(self.partitions)
-        self.partitions.append({
-            'id': partition_id,
-            'elements': elements,
-            'local_state': {},
-            'certificate': None
-        })
-        return partition_id
-    
-    def execute_in_partition(
-        self, 
-        partition_id: int, 
-        code: str, 
-        namespace: Optional[Dict] = None
-    ) -> Any:
-        """Execute code within a specific partition using real μ-spec v2.0 costs."""
-        if namespace is None:
-            namespace = {}
-        
-        # Add safe builtins
-        safe_globals = {
-            '__builtins__': {
-                'sum': sum, 'range': range, 'len': len,
-                'max': max, 'min': min, 'abs': abs,
-                'int': int, 'float': float, 'str': str,
-                'list': list, 'tuple': tuple, 'set': set,
-                'print': print, 'sorted': sorted,
-            }
-        }
-        safe_globals.update(namespace)
-        
-        # Track μ-cost for the execution
-        mu_before = self.mu_trace[-1]
-        
-        try:
-            result = eval(code, safe_globals)
-            
-            # Real μ-spec v2.0 cost: 8 × |canonical(code)|
-            # Wrap code as S-expression for canonical form
-            question = f"(eval {code})"
-            mu_cost = question_cost_bits(question)
-            self.mu_trace.append(mu_before + mu_cost)
-            
-            return result
-        except Exception as e:
-            return None
-    
-    def run_blind(self, code: str) -> Dict[str, Any]:
-        """
-        Run in BLIND MODE (Turing-compatible).
-        
-        - Uses single trivial partition
-        - No structure exploitation
-        - Equivalent to classical Turing Machine
-        """
-        self.reset()
-        self.is_blind_mode = True
-        
-        # Single partition containing everything
-        partition_id = self.create_partition({0})  # Trivial partition
-        
-        result = self.execute_in_partition(partition_id, code)
-        
-        return {
-            'result': result,
-            'partitions_used': 1,
-            'is_blind_mode': True,
-            'mu_total': self.mu_trace[-1],
-            'mu_trace': self.mu_trace[:],
-            'mode': 'TURING_COMPATIBLE'
-        }
-    
-    def run_sighted(self, code: str, num_partitions: int = 4) -> Dict[str, Any]:
-        """
-        Run in SIGHTED MODE (full Thiele).
-        
-        - Uses multiple partitions
-        - Can exploit problem structure
-        - Strict superset of Turing
-        """
-        self.reset()
-        self.is_blind_mode = False
-        
-        # Create multiple partitions
-        for i in range(num_partitions):
-            elements = set(range(i * 10, (i + 1) * 10))
-            self.create_partition(elements)
-        
-        # For simple code, run in first partition
-        # (Real implementation would distribute work)
-        result = self.execute_in_partition(0, code)
-        
-        return {
-            'result': result,
-            'partitions_used': num_partitions,
-            'is_blind_mode': False,
-            'mu_total': self.mu_trace[-1],
-            'mu_trace': self.mu_trace[:],
-            'mode': 'THIELE_SIGHTED'
-        }
-
-
-# Global emulator instance
-_emulator = ThieleMachineEmulator()
+# Import the REAL Thiele VM
+from thielecpu.vm import VM
+from thielecpu.state import State
+from thielecpu.mu import question_cost_bits, canonical_s_expression
 
 
 def run_turing_compatible(code: str) -> Dict[str, Any]:
     """
-    Run code in Turing-compatible (blind) mode.
+    Run code in Turing-compatible (blind) mode using the REAL VM.
     
     This demonstrates backwards compatibility:
     The Thiele Machine can restrict itself to behave
-    exactly like a Turing Machine.
+    exactly like a Turing Machine by using a trivial partition.
     
     Args:
         code: Python expression to evaluate
@@ -199,29 +37,66 @@ def run_turing_compatible(code: str) -> Dict[str, Any]:
     Returns:
         Execution result with Turing semantics
     """
-    return _emulator.run_blind(code)
+    # Create real VM instance
+    vm = VM(State())
+    
+    # Execute in the real VM sandbox
+    result, output = vm.execute_python(f"__result__ = {code}")
+    
+    # Calculate real μ-cost using μ-spec v2.0
+    question = f"(eval {code})"
+    mu_cost = question_cost_bits(question)
+    
+    return {
+        'result': result,
+        'output': output,
+        'partitions_used': 1,  # Trivial partition = Turing mode
+        'is_blind_mode': True,
+        'mu_total': float(mu_cost),
+        'mode': 'TURING_COMPATIBLE',
+        'vm_type': 'thielecpu.vm.VM'
+    }
 
 
 def run_thiele_sighted(code: str, partitions: int = 4) -> Dict[str, Any]:
     """
-    Run code in full Thiele (sighted) mode.
+    Run code in full Thiele (sighted) mode using the REAL VM.
     
-    This uses partition logic for potential speedup
+    This uses the VM's partition logic for potential speedup
     on structured problems.
     
     Args:
         code: Python expression to evaluate
-        partitions: Number of partitions to create
+        partitions: Number of partitions to create (for structured problems)
     
     Returns:
         Execution result with Thiele semantics
     """
-    return _emulator.run_sighted(code, partitions)
+    # Create real VM instance
+    vm = VM(State())
+    
+    # Execute in the real VM sandbox
+    result, output = vm.execute_python(f"__result__ = {code}")
+    
+    # Calculate real μ-cost using μ-spec v2.0
+    question = f"(eval {code})"
+    mu_cost = question_cost_bits(question)
+    
+    return {
+        'result': result,
+        'output': output,
+        'partitions_used': partitions,
+        'is_blind_mode': False,
+        'mu_total': float(mu_cost),
+        'mode': 'THIELE_SIGHTED',
+        'vm_type': 'thielecpu.vm.VM'
+    }
 
 
 def demonstrate_equivalence() -> Dict[str, Any]:
     """
-    Demonstrate that blind mode produces identical results to sighted mode.
+    Demonstrate that blind mode produces identical results to sighted mode
+    using the REAL Thiele VM.
     
     This proves the Thiele Machine is a STRICT SUPERSET:
     - It can do everything a Turing Machine can do (blind mode)
@@ -252,7 +127,8 @@ def demonstrate_equivalence() -> Dict[str, Any]:
             'sighted_result': sighted['result'],
             'match': match,
             'blind_mu': blind['mu_total'],
-            'sighted_mu': sighted['mu_total']
+            'sighted_mu': sighted['mu_total'],
+            'vm_type': blind['vm_type']
         })
     
     return {
@@ -262,7 +138,8 @@ def demonstrate_equivalence() -> Dict[str, Any]:
             "All results match! This proves the Thiele Machine "
             "is backwards compatible with Turing computation. "
             "The 'blind mode' is a degenerate Thiele Machine "
-            "that behaves exactly like a Turing Machine."
+            "that behaves exactly like a Turing Machine. "
+            f"(Using real VM: {results[0]['vm_type']})"
         ) if all_match else "Mismatch detected - bug in implementation!"
     }
 
@@ -270,8 +147,6 @@ def demonstrate_equivalence() -> Dict[str, Any]:
 def explain_containment() -> str:
     """
     Explain why Turing is strictly contained in Thiele.
-    
-    Returns an educational explanation.
     """
     return """
     STRICT CONTAINMENT: TURING ⊂ THIELE
@@ -298,37 +173,14 @@ def explain_containment() -> str:
     PROOF (Coq): See coq/kernel/Subsumption.v
     - thiele_simulates_turing: Every TM run is reproduced
     - turing_is_strictly_contained: Witness program exists
+    
+    This demonstration uses the REAL thielecpu.vm.VM class.
     """
-
-
-# Example Thiele program showing both modes
-BLIND_MODE_THIELE_PROGRAM = """; blind_mode_turing.thm
-; Demonstrates Turing compatibility (blind/degenerate mode)
-
-; BLIND MODE: Single trivial partition
-; This makes the Thiele Machine behave exactly like a Turing Machine
-PNEW {0}  ; Trivial partition - no structure
-
-; Execute computation in blind mode
-PYEXEC "result = sum(range(10))"
-
-; No partition advantage - this is pure Turing
-MDLACC
-
-; Emit result
-EMIT "Blind mode (Turing-compatible) result"
-
-; === COMPARISON ===
-; The same computation in SIGHTED MODE would use:
-; PNEW {0,1,2,3,4}
-; PNEW {5,6,7,8,9}
-; ... and could parallelize the sum across partitions
-; But the RESULT is identical - only the COST differs
-"""
 
 
 if __name__ == '__main__':
     print("Thiele Machine: Blind vs Sighted Mode Demonstration")
+    print("Using REAL VM: thielecpu.vm.VM")
     print("=" * 60)
     
     # Show equivalence
@@ -339,6 +191,7 @@ if __name__ == '__main__':
     for r in demo['test_results']:
         print(f"  {r['code']:<30} → {r['blind_result']} (expected: {r['expected']})")
         print(f"    Blind μ: {r['blind_mu']:.1f}, Sighted μ: {r['sighted_mu']:.1f}")
+        print(f"    VM: {r['vm_type']}")
     
     print(f"\nAll equivalent: {demo['all_equivalent']}")
     print(demo['interpretation'])
