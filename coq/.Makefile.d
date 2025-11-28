@@ -58,6 +58,9 @@ kernel/SimulationProof.vos kernel/SimulationProof.vok kernel/SimulationProof.req
 kernel/MuLedgerConservation.vo kernel/MuLedgerConservation.glob kernel/MuLedgerConservation.v.beautified kernel/MuLedgerConservation.required_vo: kernel/MuLedgerConservation.v kernel/VMState.vo kernel/VMStep.vo kernel/SimulationProof.vo
 kernel/MuLedgerConservation.vio: kernel/MuLedgerConservation.v kernel/VMState.vio kernel/VMStep.vio kernel/SimulationProof.vio
 kernel/MuLedgerConservation.vos kernel/MuLedgerConservation.vok kernel/MuLedgerConservation.required_vos: kernel/MuLedgerConservation.v kernel/VMState.vos kernel/VMStep.vos kernel/SimulationProof.vos
+kernel/PDISCOVERIntegration.vo kernel/PDISCOVERIntegration.glob kernel/PDISCOVERIntegration.v.beautified kernel/PDISCOVERIntegration.required_vo: kernel/PDISCOVERIntegration.v kernel/Kernel.vo kernel/KernelThiele.vo kernel/VMState.vo kernel/VMStep.vo
+kernel/PDISCOVERIntegration.vio: kernel/PDISCOVERIntegration.v kernel/Kernel.vio kernel/KernelThiele.vio kernel/VMState.vio kernel/VMStep.vio
+kernel/PDISCOVERIntegration.vos kernel/PDISCOVERIntegration.vok kernel/PDISCOVERIntegration.required_vos: kernel/PDISCOVERIntegration.v kernel/Kernel.vos kernel/KernelThiele.vos kernel/VMState.vos kernel/VMStep.vos
 modular_proofs/CornerstoneThiele.vo modular_proofs/CornerstoneThiele.glob modular_proofs/CornerstoneThiele.v.beautified modular_proofs/CornerstoneThiele.required_vo: modular_proofs/CornerstoneThiele.v 
 modular_proofs/CornerstoneThiele.vio: modular_proofs/CornerstoneThiele.v 
 modular_proofs/CornerstoneThiele.vos modular_proofs/CornerstoneThiele.vok modular_proofs/CornerstoneThiele.required_vos: modular_proofs/CornerstoneThiele.v 
@@ -79,6 +82,9 @@ modular_proofs/TM_Basics.vos modular_proofs/TM_Basics.vok modular_proofs/TM_Basi
 modular_proofs/Thiele_Basics.vo modular_proofs/Thiele_Basics.glob modular_proofs/Thiele_Basics.v.beautified modular_proofs/Thiele_Basics.required_vo: modular_proofs/Thiele_Basics.v modular_proofs/TM_Basics.vo
 modular_proofs/Thiele_Basics.vio: modular_proofs/Thiele_Basics.v modular_proofs/TM_Basics.vio
 modular_proofs/Thiele_Basics.vos modular_proofs/Thiele_Basics.vok modular_proofs/Thiele_Basics.required_vos: modular_proofs/Thiele_Basics.v modular_proofs/TM_Basics.vos
+modular_proofs/TM_to_Minsky.vo modular_proofs/TM_to_Minsky.glob modular_proofs/TM_to_Minsky.v.beautified modular_proofs/TM_to_Minsky.required_vo: modular_proofs/TM_to_Minsky.v thieleuniversal/coqproofs/TM.vo modular_proofs/Minsky.vo
+modular_proofs/TM_to_Minsky.vio: modular_proofs/TM_to_Minsky.v thieleuniversal/coqproofs/TM.vio modular_proofs/Minsky.vio
+modular_proofs/TM_to_Minsky.vos modular_proofs/TM_to_Minsky.vok modular_proofs/TM_to_Minsky.required_vos: modular_proofs/TM_to_Minsky.v thieleuniversal/coqproofs/TM.vos modular_proofs/Minsky.vos
 p_equals_np_thiele/proof.vo p_equals_np_thiele/proof.glob p_equals_np_thiele/proof.v.beautified p_equals_np_thiele/proof.required_vo: p_equals_np_thiele/proof.v 
 p_equals_np_thiele/proof.vio: p_equals_np_thiele/proof.v 
 p_equals_np_thiele/proof.vos p_equals_np_thiele/proof.vok p_equals_np_thiele/proof.required_vos: p_equals_np_thiele/proof.v 
@@ -190,6 +196,12 @@ thielemachine/coqproofs/HyperThiele_Oracle.vos thielemachine/coqproofs/HyperThie
 thielemachine/coqproofs/HyperThiele_Halting.vo thielemachine/coqproofs/HyperThiele_Halting.glob thielemachine/coqproofs/HyperThiele_Halting.v.beautified thielemachine/coqproofs/HyperThiele_Halting.required_vo: thielemachine/coqproofs/HyperThiele_Halting.v thielemachine/coqproofs/HyperThiele_Oracle.vo thielemachine/coqproofs/ThieleMachine.vo thielemachine/coqproofs/Oracle.vo thielemachine/coqproofs/PartitionLogic.vo
 thielemachine/coqproofs/HyperThiele_Halting.vio: thielemachine/coqproofs/HyperThiele_Halting.v thielemachine/coqproofs/HyperThiele_Oracle.vio thielemachine/coqproofs/ThieleMachine.vio thielemachine/coqproofs/Oracle.vio thielemachine/coqproofs/PartitionLogic.vio
 thielemachine/coqproofs/HyperThiele_Halting.vos thielemachine/coqproofs/HyperThiele_Halting.vok thielemachine/coqproofs/HyperThiele_Halting.required_vos: thielemachine/coqproofs/HyperThiele_Halting.v thielemachine/coqproofs/HyperThiele_Oracle.vos thielemachine/coqproofs/ThieleMachine.vos thielemachine/coqproofs/Oracle.vos thielemachine/coqproofs/PartitionLogic.vos
+thielemachine/coqproofs/HyperThiele.vo thielemachine/coqproofs/HyperThiele.glob thielemachine/coqproofs/HyperThiele.v.beautified thielemachine/coqproofs/HyperThiele.required_vo: thielemachine/coqproofs/HyperThiele.v 
+thielemachine/coqproofs/HyperThiele.vio: thielemachine/coqproofs/HyperThiele.v 
+thielemachine/coqproofs/HyperThiele.vos thielemachine/coqproofs/HyperThiele.vok thielemachine/coqproofs/HyperThiele.required_vos: thielemachine/coqproofs/HyperThiele.v 
+thielemachine/coqproofs/Impossibility.vo thielemachine/coqproofs/Impossibility.glob thielemachine/coqproofs/Impossibility.v.beautified thielemachine/coqproofs/Impossibility.required_vo: thielemachine/coqproofs/Impossibility.v thieleuniversal/coqproofs/TM.vo thielemachine/coqproofs/BellInequality.vo
+thielemachine/coqproofs/Impossibility.vio: thielemachine/coqproofs/Impossibility.v thieleuniversal/coqproofs/TM.vio thielemachine/coqproofs/BellInequality.vio
+thielemachine/coqproofs/Impossibility.vos thielemachine/coqproofs/Impossibility.vok thielemachine/coqproofs/Impossibility.required_vos: thielemachine/coqproofs/Impossibility.v thieleuniversal/coqproofs/TM.vos thielemachine/coqproofs/BellInequality.vos
 thielemachine/coqproofs/ThieleMachine.vo thielemachine/coqproofs/ThieleMachine.glob thielemachine/coqproofs/ThieleMachine.v.beautified thielemachine/coqproofs/ThieleMachine.required_vo: thielemachine/coqproofs/ThieleMachine.v 
 thielemachine/coqproofs/ThieleMachine.vio: thielemachine/coqproofs/ThieleMachine.v 
 thielemachine/coqproofs/ThieleMachine.vos thielemachine/coqproofs/ThieleMachine.vok thielemachine/coqproofs/ThieleMachine.required_vos: thielemachine/coqproofs/ThieleMachine.v 
