@@ -383,10 +383,10 @@ pip install -r requirements.txt
 # OR with optional extras
 pip install -e ".[full]"
 
-# Coq (Ubuntu/Debian)
+# Coq (Ubuntu/Debian) - provides Coq 8.18 on recent Ubuntu
 sudo apt install coq
 
-# OR via opam (any platform)
+# OR via opam (any platform, guarantees version 8.18)
 ./verify_bell.sh  # Auto-provisions Coq 8.18
 ```
 
@@ -473,9 +473,9 @@ Apache License 2.0 — see [LICENSE](LICENSE)
 
 ### Advanced Topics
 
-- **[As Above, So Below](#as-above-so-below)** — μ-preserving equivalence between physics/logic/computation
+- **As Above, So Below** (see Appendix below) — μ-preserving equivalence between physics/logic/computation
 - **[Project Cerberus](coq/project_cerberus/README.md)** — Self-auditing kernel
-- **[CatNet](#catnet)** — Thiele-native neural networks
+- **[CatNet](archive/showcase/catnet/)** — Thiele-native neural networks
 - **[VM Integration](VM_INTEGRATION.md)** — Self-aware structure detection
 
 ### Contact
