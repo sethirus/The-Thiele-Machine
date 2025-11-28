@@ -57,13 +57,21 @@ Proof.
   apply mu_cost_positive_for_projection; lia.
 Qed.
 
-(* FIXME: Same architectural issue as in ThieleManifold.v - type mismatch between
-   simple sentences (fun P => P) and complex spacetime_sentences.
-   Admitting to unblock compilation. *)
+(* CREATIVE FIX: Extract P from spacetime_sentences P using the witness *)
 Lemma canonical_projection_can_reason :
   can_reason_about (manifold_to_spacetime_system canonical_manifold) spacetime_system.
 Proof.
-Admitted.
+  unfold can_reason_about. intros P HP.
+  unfold manifold_to_spacetime_system, pi4. simpl.
+  unfold canonical_manifold, canonical_level. simpl.
+  (* Goal : P *)
+  unfold spacetime_system in HP. simpl in HP.
+  unfold spacetime_sentences in HP.
+  destruct HP as [Q [e [He Himpl]]].
+  unfold at_event in He.
+  (* Apply the implication to the witness event e *)
+  exact (Himpl e He).
+Qed.
 
 (** ** Quantum-like projection artefacts *)
 Definition superposition (s1 s2 : ThieleState) : Prop := s1 <> s2.
