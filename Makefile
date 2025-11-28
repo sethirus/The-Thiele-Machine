@@ -2,10 +2,30 @@
 .PHONY: experiments-small-save experiments-falsify-save experiments-budget-save experiments-full-save
 .PHONY: proofpack-smoke proofpack-turbulence-high proofpack-phase3 bell law nusd headtohead turbulence-law turbulence-law-v2 turbulence-closure-v1 self-model-v1
 .PHONY: vm-run rtl-run compare clean purge verify-end-to-end
+.PHONY: showcase test-isomorphism test-alignment test-all
 
 COQTOP ?= coqtop
 BELL_SKIP_COQ ?= 0
 LAW_SKIP_COQ ?= 0
+
+# Showcase and alignment verification
+showcase:
+	python3 tools/run_thiele_showcase.py --verbose
+
+showcase-quick:
+	python3 tools/run_thiele_showcase.py --quick
+
+test-isomorphism:
+	pytest tests/test_isomorphism_complete.py -v
+
+test-alignment:
+	pytest tests/alignment/ -v
+
+test-showcase:
+	pytest tests/test_showcase_programs.py -v
+
+test-all:
+	pytest tests/test_vm.py tests/test_mu.py tests/test_showcase_programs.py tests/test_isomorphism_complete.py tests/alignment/ tests/test_opcode_alignment.py tests/test_hardware_alignment.py -v
 
 coq/%.vo:
 	$(MAKE) -C coq $(patsubst coq/%,%,$@)
