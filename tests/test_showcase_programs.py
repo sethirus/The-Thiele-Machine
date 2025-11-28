@@ -13,7 +13,6 @@ These tests use TDD methodology - tests written first, then implementations.
 """
 
 import pytest
-from pathlib import Path
 
 
 class TestSudokuSolver:

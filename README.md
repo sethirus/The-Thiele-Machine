@@ -562,39 +562,61 @@ print(f"μ-cost: {result['mu_total']:.2f}")
 
 ### Program 2: Prime Factorization Verifier (Scientific)
 
-Demonstrates the μ-accounting asymmetry: **finding** structure is expensive, **verifying** structure is cheap.
+Demonstrates the μ-accounting asymmetry using **real μ-spec v2.0** costs:
 
-```python
+```
+μ_total(q, N, M) = 8|canon(q)| + log₂(N/M)
+```
+
+Where:
+- `canon(q)` = Canonical S-expression of the question
+- `N` = Possibilities before, `M` = Possibilities after
+- Factoring pays information cost (`log₂(N/1)`), verification pays only question cost
+
+```bash
 # Run the factorization demo
 python examples/showcase/prime_factorization_verifier.py
 ```
 
-**Key insight:** Asymmetry ratio grows with problem size:
+**Real μ-bit costs** (from actual program execution):
 
-| n | Factoring μ | Verification μ | Ratio |
-|---|-------------|----------------|-------|
-| 15 | 243.6 | 176.0 | 1.4× |
-| 77 | 726.2 | 184.0 | 3.9× |
-| 143 | 1303.1 | 200.0 | 6.5× |
-| 221 | 1575.8 | 200.0 | 7.9× |
+| n | Factoring μ (bits) | Verification μ (bits) | Ratio | Formula |
+|---|-------------------|----------------------|-------|---------|
+| 15 | 273.58 | 192.00 | 1.42× | Σ(8\|q_i\|) + log₂(3/1) |
+| 21 | 274.00 | 192.00 | 1.43× | Σ(8\|q_i\|) + log₂(4/1) |
+| 77 | 819.00 | 200.00 | 4.09× | Σ(8\|q_i\|) + log₂(8/1) |
+| 143 | 1459.46 | 216.00 | 6.76× | Σ(8\|q_i\|) + log₂(11/1) |
+| 221 | 1763.81 | 216.00 | 8.17× | Σ(8\|q_i\|) + log₂(14/1) |
+
+**Example breakdown for n=21:**
+- Question: `(divides? 3 21)` → Canonical: `( divides? 3 21 )` (17 chars)
+- Question cost: 8 × 17 = 136 bits per question
+- Information gain: log₂(4/1) = 2 bits (narrowed from 4 candidates to 1)
+- Verification: `( verify-factor 21 3 7 )` = 8 × 24 = 192 bits, 0 information gain
 
 ```python
 from examples.showcase import verify_factorization, factor_with_mu_accounting
 
-# Verification is cheap
+# Verification is cheap (only question cost)
 result = verify_factorization(n=21, p=3, q=7)
-print(f"Valid: {result['valid']}, μ-cost: {result['mu_cost']}")
+print(f"Valid: {result['valid']}, μ-cost: {result['mu_cost']:.2f} bits")
+# Output: Valid: True, μ-cost: 192.00 bits
 
-# Factoring is expensive
+# Factoring is expensive (question cost + information gain)
 result = factor_with_mu_accounting(n=143)
-print(f"Factors: {result['p']} × {result['q']}, μ-cost: {result['mu_cost']:.1f}")
+print(f"Factors: {result['p']} × {result['q']}")
+print(f"μ-cost: {result['mu_cost']:.2f} bits")
+print(f"Breakdown: {result['mu_breakdown']['formula']}")
+# Output: Factors: 11 × 13
+#         μ-cost: 1459.46 bits
+#         Breakdown: Σ(8|q_i|) + log₂(11/1) = 1456.00 + 3.46 = 1459.46
 ```
 
 ### Program 3: Blind-Mode Turing Compatibility (Expert/Theoretical)
 
 Demonstrates **backwards compatibility**: The Thiele Machine with a trivial partition behaves exactly like a Turing Machine.
 
-```python
+```bash
 # Run the compatibility demo
 python examples/showcase/blind_mode_turing.py
 ```
