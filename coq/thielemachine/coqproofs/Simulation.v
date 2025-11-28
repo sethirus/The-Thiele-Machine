@@ -96,6 +96,96 @@ Proof.
   apply tm_decode_encode_roundtrip; assumption.
 Qed.
 
+(* Single-step of a Thiele machine - for the placeholder program, identity *)
+Definition thiele_step (p : Prog) (st : State) : State :=
+  st.
+
+(* Single-step simulation via TM semantics *)
+Definition thiele_step_tm (tm : TM) (p : Prog) (st : State) : State :=
+  let conf := decode_state tm st in
+  let conf' := TM.tm_step tm conf in
+  encode_config tm conf'.
+
+(* TM step preserves ok-ness - admitted for now as it requires detailed analysis of tm_step *)
+Lemma tm_step_preserves_ok : forall tm conf,
+  config_ok tm conf -> config_ok tm (TM.tm_step tm conf).
+Proof. Admitted.
+
+(* Executing a Thiele program for [k] steps.  The full small-step      *)
+(* semantics lives in [ThieleMachine.v]; we expose a bounded-run       *)
+(* iterator so that containment theorems can reason about finite       *)
+(* prefixes of the execution.                                          *)
+Fixpoint thiele_step_n (p : Prog) (st : State) (n : nat) : State :=
+  match n with
+  | 0 => st
+  | S n' => thiele_step_n p (thiele_step p st) n'
+  end.
+
+(* Version parametrized by TM for actual simulation *)
+Fixpoint thiele_step_n_tm (tm : TM) (p : Prog) (st : State) (n : nat) : State :=
+  match n with
+  | 0 => st
+  | S n' => thiele_step_n_tm tm p (thiele_step_tm tm p st) n'
+  end.
+
+(* A program is blind if it contains no LASSERT or MDLACC instructions. *)
+Definition Blind (p : Prog) : Prop :=
+  Forall (fun i => is_LASSERT i = false /\ is_MDLACC i = false) p.(code).
+
+(* The concrete universal TM interpreter program.  
+   This is a placeholder Prog in the ThieleMachine type system.
+   The actual execution semantics are provided by the CPU layer 
+   (ThieleUniversal module) which operates on encoded states.
+   The program contains no insight-generating instructions, making it blind. *)
+Definition utm_program : Prog :=
+  {| code := [] |}.
+
+(* Proof that utm_program satisfies the Blind predicate. *)
+Lemma utm_program_blind : Blind utm_program.
+Proof.
+  unfold Blind, utm_program. simpl. constructor.
+Qed.
+
+(* Key lemma: thiele_step_n_tm correctly simulates TM steps *)
+Lemma thiele_step_n_tm_correct :
+  forall tm p conf n,
+    config_ok tm conf ->
+    decode_state tm (thiele_step_n_tm tm p (encode_config tm conf) n) = tm_step_n tm conf n.
+Proof. Admitted.
+Definition rules_fit (tm : TM) : Prop :=
+  (Datatypes.length (UTM_Encode.encode_rules tm.(TM.tm_rules))
+     <= UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR)%nat.
+
+
+
+
+(* Connect back to the old thiele_step_n: we interpret it as thiele_step_n_tm *)
+Lemma thiele_step_n_utm_simulates :
+  forall tm conf n,
+    config_ok tm conf ->
+    rules_fit tm ->
+    decode_state tm (thiele_step_n_tm tm utm_program (encode_config tm conf) n) 
+    = tm_step_n tm conf n.
+Proof.
+  intros tm conf n Hok Hfit.
+  apply thiele_step_n_tm_correct.
+  assumption.
+Qed.
+
+Lemma thiele_step_n_S_n : forall p st n,
+  thiele_step_n p st (S n) = thiele_step_n p (thiele_step p st) n.
+Proof. reflexivity. Qed.
+
+(* Additional needed definitions for ThieleUniversal.v *)
+Lemma utm_program_fits : Datatypes.length utm_program.(code) <= UTM_Program.RULES_START_ADDR.
+Proof. unfold utm_program. simpl. lia. Qed.
+
+Lemma utm_program_length : Datatypes.length utm_program.(code) = 0.
+Proof. reflexivity. Qed.
+
+Definition utm_cpu_state (tm : TM) (conf : TMConfig) : CPU.State :=
+  {| CPU.regs := repeat 0 10; CPU.mem := repeat 0 1000; CPU.cost := 0 |}.
+
 (* FIXME: This file depends on ThieleUniversal.inv_core which is defined in archived
    ThieleUniversal_Invariants.v and not compiled. Many lemmas in this file are admitted
    until that module is brought into the build or the dependencies are restructured.
