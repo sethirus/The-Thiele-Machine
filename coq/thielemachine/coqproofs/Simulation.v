@@ -106,11 +106,6 @@ Definition thiele_step_tm (tm : TM) (p : Prog) (st : State) : State :=
   let conf' := TM.tm_step tm conf in
   encode_config tm conf'.
 
-(* TM step preserves ok-ness - admitted for now as it requires detailed analysis of tm_step *)
-Lemma tm_step_preserves_ok : forall tm conf,
-  config_ok tm conf -> config_ok tm (TM.tm_step tm conf).
-Proof. Admitted.
-
 (* Executing a Thiele program for [k] steps.  The full small-step      *)
 (* semantics lives in [ThieleMachine.v]; we expose a bounded-run       *)
 (* iterator so that containment theorems can reason about finite       *)
@@ -146,28 +141,64 @@ Proof.
   unfold Blind, utm_program. simpl. constructor.
 Qed.
 
-(* Key lemma: thiele_step_n_tm correctly simulates TM steps *)
-Lemma thiele_step_n_tm_correct :
-  forall tm p conf n,
-    config_ok tm conf ->
-    decode_state tm (thiele_step_n_tm tm p (encode_config tm conf) n) = tm_step_n tm conf n.
-Proof. Admitted.
 Definition rules_fit (tm : TM) : Prop :=
   (Datatypes.length (UTM_Encode.encode_rules tm.(TM.tm_rules))
      <= UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR)%nat.
 
+(* For the simulation to work correctly, all intermediate configurations
+   must satisfy config_ok. This is a property of the specific TM and 
+   initial configuration. *)
+Definition all_steps_ok (tm : TM) (conf : TMConfig) (n : nat) : Prop :=
+  forall (k : nat), k <= n -> config_ok tm (tm_step_n tm conf k).
 
+Lemma all_steps_ok_step :
+  forall tm conf n,
+    all_steps_ok tm conf (S n) ->
+    all_steps_ok tm (tm_step tm conf) n.
+Proof.
+  intros tm conf n Hall k Hk.
+  apply (Hall (S k)).
+  lia.
+Qed.
 
+Lemma all_steps_ok_zero :
+  forall tm conf n,
+    all_steps_ok tm conf (S n) ->
+    config_ok tm conf.
+Proof.
+  intros tm conf n Hall.
+  apply (Hall 0). lia.
+Qed.
+
+(* Key lemma: thiele_step_n_tm correctly simulates TM steps when all
+   intermediate configurations satisfy config_ok *)
+Lemma thiele_step_n_tm_correct :
+  forall tm p conf n,
+    all_steps_ok tm conf n ->
+    decode_state tm (thiele_step_n_tm tm p (encode_config tm conf) n) = tm_step_n tm conf n.
+Proof.
+  intros tm p conf n Hall.
+  revert conf Hall.
+  induction n as [|n IH]; intros conf Hall.
+  - (* n = 0 *)
+    simpl. apply decode_encode_id_tm. apply (Hall 0). lia.
+  - (* n = S n' *)
+    simpl.
+    unfold thiele_step_tm at 1.
+    rewrite decode_encode_id_tm by (apply all_steps_ok_zero with n; assumption).
+    apply IH.
+    apply all_steps_ok_step. assumption.
+Qed.
 
 (* Connect back to the old thiele_step_n: we interpret it as thiele_step_n_tm *)
 Lemma thiele_step_n_utm_simulates :
   forall tm conf n,
-    config_ok tm conf ->
+    all_steps_ok tm conf n ->
     rules_fit tm ->
     decode_state tm (thiele_step_n_tm tm utm_program (encode_config tm conf) n) 
     = tm_step_n tm conf n.
 Proof.
-  intros tm conf n Hok Hfit.
+  intros tm conf n Hall Hfit.
   apply thiele_step_n_tm_correct.
   assumption.
 Qed.
