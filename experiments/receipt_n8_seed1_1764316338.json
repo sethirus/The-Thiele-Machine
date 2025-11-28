@@ -1,0 +1,206 @@
+{
+  "provenance": {
+    "git_commit": "27fcdcfc87646c40537f408b39a5f8853a2bb255",
+    "python_version": "3.12.3 (main, Aug 14 2025, 17:47:21) [GCC 13.3.0]",
+    "pip_freeze_hash": "f7ca65cf1468deb3c66a803cbba96d7e16b32ef3aab8873a00813e095aa057e2",
+    "timestamp": 1764316338
+  },
+  "experiment_config": {
+    "n": 8,
+    "seed": 1,
+    "conf_budget": 100000,
+    "prop_budget": 5000000,
+    "global_seed": 123456789,
+    "mispartition": false,
+    "shuffle_constraints": false,
+    "noise": null
+  },
+  "instance": {
+    "matrix": [
+      [
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "parity": [
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1
+    ]
+  },
+  "blind_result": {
+    "status": "unsat",
+    "conflicts": 20,
+    "props": 114,
+    "decisions": 30,
+    "config": {
+      "solver": "Cadical153",
+      "conf_budget": 100000,
+      "prop_budget": null,
+      "rnd_seed": 123456789,
+      "rnd_init_act": null,
+      "var_decay": null,
+      "phase_saving": null
+    }
+  },
+  "sighted_result": {
+    "result": "unsat",
+    "rank_A": 7,
+    "rank_aug": 8,
+    "rank_gap": 1,
+    "conflict_steps": 24,
+    "rank_ops": 24
+  },
+  "mu_metrics": {
+    "mu_blind": 220,
+    "mu_sighted": 348.0,
+    "mu_question": 192,
+    "mu_answer": 12.0,
+    "conflict_steps": 24,
+    "rank_ops": 24,
+    "mdl_bytes": 0,
+    "partition_ops": 20
+  },
+  "counters": {
+    "partition_ops": 20,
+    "conflict_steps": 24,
+    "rank_ops": 24,
+    "mdl_bytes": 0,
+    "info_gain": 12.0
+  },
+  "partition_csv": {
+    "path": "experiments/results/partition_blind_vs_sighted_scaling.csv",
+    "sha256": "0c47fd4070cd5b51ca00e4acad7a5318e32eadf46344f08d8c0c0163bc5481b7",
+    "row_index": 3,
+    "row": {
+      "size_param": 8,
+      "seed": 1,
+      "blind_status": "unsat",
+      "blind_conflicts": 20,
+      "blind_props": 114,
+      "blind_decisions": 30,
+      "blind_time_seconds": 0.0006,
+      "sighted_result": "unsat",
+      "sighted_rank_gap": 1,
+      "sighted_cost": 348.0,
+      "sighted_time_seconds": null,
+      "mu_blind": 220,
+      "mu_sighted": 348.0,
+      "mu_answer": 12.0,
+      "mu_question": 192
+    }
+  }
+}
