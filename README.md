@@ -653,20 +653,20 @@ from thielecpu.discovery import (
     EfficientPartitionDiscovery
 )
 
-# Define a problem
+# Define a problem (100 variables in a chain structure)
 problem = Problem(
-    variables=set(range(100)),
-    constraints=[(i, i+1) for i in range(99)],
-    density=0.1
+    num_variables=100,
+    interactions=[(i, i+1) for i in range(99)]  # Chain: 0-1, 1-2, ..., 98-99
 )
 
 # Discover partitions
 discovery = EfficientPartitionDiscovery()
-candidate = discovery.discover(problem, mu_budget=1000)
+candidate = discovery.discover_partition(problem, max_mu_budget=1000.0)
 
 print(f"Partitions: {len(candidate.modules)}")
-print(f"MDL cost: {candidate.mdl_cost}")
-print(f"Discovery cost: {candidate.discovery_cost}")
+print(f"MDL cost: {candidate.mdl_cost:.2f} bits")
+print(f"Discovery cost: {candidate.discovery_cost_mu:.2f} μ-bits")
+print(f"Interaction density: {problem.interaction_density:.2%}")
 ```
 
 **Coq Verification:**
