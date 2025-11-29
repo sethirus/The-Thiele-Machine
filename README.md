@@ -1455,6 +1455,145 @@ File issues tagged `counterexample` with:
 - CLI commands to reproduce
 - Expected vs actual results
 
+### Claude's Additional Falsification Tests (2 New Tests)
+
+Beyond the 10 existing falsification attempts, two additional comprehensive test suites were created by Claude (AI Assistant) on 2025-11-29:
+
+#### Test 11: Claude's Partition Collapse Test
+
+**Location:** `experiments/claude_partition_collapse_test.py`
+
+**Strategy:** Construct adversarial problems specifically designed to eliminate partition advantage:
+
+1. **Fully Connected Problems** — No partitions possible
+2. **Uniform Random** — No structure to exploit
+3. **Adversarial Hierarchy** — Wrong partition granularity
+4. **Misleading Clusters** — Hidden coupling between apparent clusters
+5. **Pathological Symmetry** — All partitions equally good/bad
+
+**Hypothesis to Falsify:**
+> "Sighted solving with partitions is always faster than blind solving on structured problems."
+
+**Test Coverage:**
+- 25 adversarial problem instances
+- Sizes ranging from n=8 to n=32
+- Multiple interaction densities (0.3 to 1.0)
+- Various symmetry degrees (0.3 to 1.0)
+
+**Run the test:**
+```bash
+python experiments/claude_partition_collapse_test.py
+# Output: experiments/claude_tests/partition_collapse_results.json
+```
+
+**Expected Outcomes:**
+- If claim is FALSE: Should find cases where sighted ≤ blind
+- If claim is TRUE: All cases show sighted > blind despite adversarial construction
+
+#### Test 12: Claude's Comprehensive Stress Test Suite
+
+**Location:** `experiments/claude_comprehensive_stress_test.py`
+
+**Strategy:** Multi-dimensional stress testing across 5 categories:
+
+| Category | Tests | What It Stresses |
+|----------|-------|------------------|
+| **SCALE** | 2 | 10,000 variables, 1,000 partitions, recursion depth 1,000 |
+| **μ-COST** | 2 | Budget exhaustion, conservation under merges |
+| **PARTITION** | 1 | Extreme granularities (n singletons vs 1 module) |
+| **ADVERSARIAL** | 1 | Fully connected worst-case inputs |
+| **CONSERVATION** | 1 | μ-monotonicity across 10,000 operations |
+
+**Pass Criteria:**
+- All tests must complete without crashes
+- μ-cost must NEVER decrease (conservation law)
+- Performance must stay within polynomial bounds
+- Memory usage must be reasonable
+
+**Run the test:**
+```bash
+python experiments/claude_comprehensive_stress_test.py
+# Output: experiments/claude_tests/stress_test_report.json
+```
+
+**Expected Outcomes:**
+- If system is robust: All 7 tests pass
+- If system has bugs: Specific failure modes identified
+
+### Summary of All 12 Falsification Attempts
+
+| # | Test | Type | Status |
+|---|------|------|--------|
+| 1-5 | Original Empirical | Published | ✅ Not falsified |
+| 6-10 | Original Programmatic | Published | ✅ Not falsified |
+| 11 | Claude's Partition Collapse | **New** | ⏳ Awaiting execution |
+| 12 | Claude's Stress Test Suite | **New** | ⏳ Awaiting execution |
+
+**To run all Claude tests:**
+```bash
+# Run falsification test
+python experiments/claude_partition_collapse_test.py
+
+# Run stress test
+python experiments/claude_comprehensive_stress_test.py
+
+# View results
+cat experiments/claude_tests/partition_collapse_results.json
+cat experiments/claude_tests/stress_test_report.json
+```
+
+---
+
+## Additional Documentation
+
+### Understanding the Coq Proofs (Deep Dive)
+
+**Location:** `docs/UNDERSTANDING_COQ_PROOFS.md`
+
+A comprehensive educational guide to understanding all 106 Coq proof files, including:
+
+- **Proof Architecture**: How the 5 levels (Kernel → Bridge → Semantics → Theorems → Applications) build on each other
+- **Detailed Examples**: Step-by-step walkthroughs of key proofs with annotations
+- **The 29,666-Line Simulation**: Explanation of why `Simulation.v` is so large and what it proves
+- **Reading Guide**: How to read Coq tactics and understand proof strategies
+- **Common Patterns**: Induction, case analysis, proof by construction, contradiction
+
+**Key sections:**
+- Level 0: Kernel Subsumption (`Subsumption.v` — TURING ⊂ THIELE)
+- Level 1: Bridge Verification (Hardware ↔ VM ↔ Coq alignment)
+- Level 2: Machine Semantics (`ThieleMachine.v`, `PartitionLogic.v`)
+- Level 3: Advanced Theorems (Exponential Separation)
+- Level 4: Applications (Physics, CatNet, Cerberus)
+
+**To read:**
+```bash
+cat docs/UNDERSTANDING_COQ_PROOFS.md
+# Or view in browser with markdown renderer
+```
+
+### The Autotelic Engine Experiment
+
+**Location:** `experiments/autotelic_engine/README.md`
+
+Documentation of the Alpha/Beta/Forge experimental variants:
+
+- **What is Autotelic?** — Self-defining purpose through evolutionary loops
+- **The Three Components**: Forge (evolution), Critic (analysis), Purpose Synthesizer (objective generation)
+- **Alpha vs Beta Variants**: Development vs stability testing
+- **Empyrean Forge Hardware**: Hardware acceleration for evolutionary computation (~100× speedup)
+- **Experimental Results**: 3-cycle autonomous objective evolution
+
+**Key finding:** The engine successfully evolved objectives 3 times without human intervention, demonstrating meta-level partition discovery in objective space.
+
+**To explore:**
+```bash
+cd experiments/autotelic_engine
+cat README.md
+
+# Note: Alpha and Beta directories remain in their original locations
+# (/alpha and /beta) for backward compatibility but are documented here
+```
+
 ---
 
 ## Physics Implications
