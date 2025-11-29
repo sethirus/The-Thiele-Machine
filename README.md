@@ -426,11 +426,18 @@ coqc -Q theory theory theory/CostIsComplexity.v
 | Kernel | 10 | 0 | 0 | ✅ Complete |
 | Theory | 11 | 0 | 0 | ✅ Complete |
 | ThieleMachine | 40+ | 1¹ | 0 | ✅ Complete |
-| Verification | 8 | 4² | 1³ | 🔧 Test stubs |
+| Verification | 8 | 4² | 1³ | 🔧 Test stubs (excluded) |
+| EfficientDiscovery | 1 | 0 | 5⁴ | 📋 Spec axioms (excluded) |
 
-¹ `Simulation.v:248` — Legacy proof, not in critical path  
-² Test placeholders in `ThieleUniversalBridge_Axiom_Tests.v`  
-³ `universal_program_bounded_writes` — Explicit assumption, not in main build
+¹ `Simulation.v:248` — Helper lemma for UTM symbolic execution, not in critical path  
+² Test placeholders in `ThieleUniversalBridge_Axiom_Tests.v` (not in `_CoqProject`)  
+³ `universal_program_bounded_writes` — Explicit assumption, not in main build  
+⁴ Specification axioms for Python partition discovery algorithm (not in `_CoqProject`)
+
+**Summary**: All core theorems are fully proved. The one admitted lemma in compiled code is a 
+helper lemma for detailed UTM simulation, unrelated to the main subsumption and separation theorems.
+
+Run `bash scripts/find_admits.sh` for a comprehensive audit.
 
 See `ADMIT_REPORT.txt` for the complete inventory.
 
@@ -447,7 +454,10 @@ cd coq && bash verify_separation.sh
 
 # Build all Coq files
 cd coq && make -j4
-# Expected: 89 files compile, 0 errors
+# Expected: 84 files compile, 0 errors
+
+# Run comprehensive axiom/admit audit
+bash scripts/find_admits.sh
 
 # Individual file compilation
 coqc -Q kernel Kernel kernel/Subsumption.v

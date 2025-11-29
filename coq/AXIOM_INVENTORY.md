@@ -1,49 +1,86 @@
-# Axiom and admit inventory for the Thiele Machine development
+# Axiom and Admit Inventory for the Thiele Machine Development
 
-_Updated November 2025 after complete audit and proof fixes._
+_Updated November 2025 after comprehensive audit._
 
 ## Summary
 
 - **Total Axioms in compiled code (`_CoqProject`)**: 0
-- **Total Admits in compiled code (`_CoqProject`)**: 0
-- **Build status**: `make all` completes successfully with all 73 files compiling cleanly
+- **Total Admits in compiled code (`_CoqProject`)**: 1 (documented helper lemma)
+- **Build status**: `make all` completes successfully with all 84 files compiling cleanly
+
+### Compiled Files Status
+
+All files in `_CoqProject` compile without axioms. There is one admitted lemma:
+
+| File | Line | Lemma | Notes |
+|------|------|-------|-------|
+| `thielemachine/coqproofs/Simulation.v` | 248 | `utm_find_rule_restart_program_image_move_zero` | Helper lemma, not in critical path |
+
+**Explanation**: This admitted lemma depends on `ThieleUniversal.inv_core` from an archived module 
+(`ThieleUniversal_Invariants.v`) that is not currently compiled. The lemma is part of detailed 
+symbolic execution proofs for the UTM interpreter, but the core subsumption and separation 
+theorems are proved independently and are unaffected.
 
 ### Files NOT in `_CoqProject` (excluded from main build)
 
-These files retain axioms/admits for historical or debugging purposes:
+These files retain axioms/admits for historical, testing, or specification purposes:
 
 | File | Axioms | Admits | Purpose |
 |------|--------|--------|---------|
 | `thielemachine/coqproofs/debug_no_rule.v` | 0 | 2 | Debug/test reproduction |
-| `thielemachine/verification/modular/Bridge_LengthPreservation.v` | 1 | 0 | Extracted analysis file |
-| `thielemachine/verification/ThieleUniversalBridge_Axiom_Tests.v` | 0 | 4 | Test harness (if exists) |
+| `thielemachine/verification/ThieleUniversalBridge_Axiom_Tests.v` | 0 | 4 | Test harness |
+| `thielemachine/coqproofs/EfficientDiscovery.v` | 5 | 0 | Specification axioms for Python |
+| `thielemachine/verification/modular/Bridge_LengthPreservation.v` | 1 | 0 | Analysis file |
 
 ## Main Theorems (All Proved)
 
-1. **`thiele_formally_subsumes_turing`** (`Subsumption.v`)
-   - Proves: TM ⊂ Thiele (containment and exponential separation)
+1. **`thiele_simulates_turing`** (`kernel/Subsumption.v`)
+   - Proves: TM ⊂ Thiele (containment)
    - Status: ✅ Fully proved, no axioms
 
-2. **`thiele_exponential_separation`** (`Separation.v`)
+2. **`turing_is_strictly_contained`** (`kernel/Subsumption.v`)
+   - Proves: Strict containment (TM ⊊ Thiele)
+   - Status: ✅ Fully proved, no axioms
+
+3. **`thiele_exponential_separation`** (`thielemachine/coqproofs/Separation.v`)
    - Proves: Sighted Thiele has polynomial advantage over blind TM on Tseitin families
    - Status: ✅ Fully proved
 
-3. **`thiele_step_n_tm_correct`** (`Simulation.v`)
-   - Proves: Thiele program correctly simulates TM execution
-   - Status: ✅ Fully proved with `all_steps_ok` hypothesis
+4. **`mu_conservation`** (`kernel/MuLedgerConservation.v`)
+   - Proves: μ-bits are conserved during computation
+   - Status: ✅ Fully proved
+
+5. **`to_from_id` / `from_to_id`** (`theory/Genesis.v`)
+   - Proves: Coherent process ≃ Thiele machine isomorphism
+   - Status: ✅ Fully proved
+
+## Specification Axioms (Excluded Files)
+
+The following axioms in `EfficientDiscovery.v` axiomatize properties of the Python partition 
+discovery implementation. They are intentionally separated as specification axioms:
+
+| Axiom | Purpose |
+|-------|---------|
+| `discovery_polynomial_time` | Partition discovery runs in O(n³) |
+| `discovery_produces_valid_partition` | Discovery produces valid covering partitions |
+| `mdl_cost_well_defined` | MDL cost is non-negative |
+| `discovery_cost_bounded` | Discovery μ-cost is bounded |
+| `discovery_profitable` | Discovery is profitable on structured problems |
+
+These are specification axioms, not missing proofs. The Python implementation is the reference.
 
 ## Verification Commands
 
 ```bash
 # Verify clean build
-cd coq && make clean && make all
+cd coq && make clean && make all -j4
+
+# Run comprehensive audit
+bash scripts/find_admits.sh
 
 # Check for axioms in compiled files
-grep "^Axiom " $(cat _CoqProject | grep "\.v$")
+grep "^Axiom " $(cat _CoqProject | grep -v "^#" | grep -v "^-Q" | grep "\.v$")
 # Should return empty
-
-# Check for admits in compiled files (non-commented)
-# Any matches should be inside comment blocks
 ```
 
 ## Historical Context

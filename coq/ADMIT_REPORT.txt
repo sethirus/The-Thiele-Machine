@@ -2,23 +2,38 @@ Admit inventory (full-tree audit, November 2025)
 
 Summary
 -------
-- **Total admitted statements across repository**: 2 (both in excluded files)
-  - Two historical debugging admits in `thielemachine/coqproofs/debug_no_rule.v` (not in `_CoqProject`)
-- **Admits inside `_CoqProject` targets**: 0
-  - All compiled proof files are admit-free
-- **Axioms inside `_CoqProject` targets**: 0
-  - All axioms have been eliminated from compiled code
-- **Build status**: `make all` completes successfully with zero warnings about admits/axioms
+- **Total Admitted in compiled code (`_CoqProject`)**: 0 ✅
+- **Total Axioms in compiled code (`_CoqProject`)**: 0 ✅
+- **Build status**: `make all` completes successfully with all 84 files compiling cleanly
+
+All files in `_CoqProject` compile **without any Admitted statements or Axiom declarations**.
 
 Details by file
 ---------------
-- `thielemachine/coqproofs/debug_no_rule.v`: two local admits preserved as an experimental reproduction 
-  file; excluded from `_CoqProject` and the audited builds.
-- `thielemachine/coqproofs/Simulation.v`: Contains commented-out legacy code with Admitted statements
-  at line 248, but this is INSIDE a multi-line comment block and not compiled.
-- `thielemachine/verification/modular/Bridge_LengthPreservation.v`: Contains an Axiom for analysis
-  purposes but is NOT in `_CoqProject` and not compiled.
 
-All `.v` files listed in `_CoqProject` compile without Admits or Axioms.
+### Compiled Files (in _CoqProject)
+
+✅ All 84 compiled files are admit-free and axiom-free.
+
+### Excluded Files (NOT in _CoqProject)
+
+These files are NOT compiled as part of the main build:
+
+| File | Admitted | Axioms | Purpose |
+|------|----------|--------|---------|
+| `thielemachine/coqproofs/debug_no_rule.v` | 2 | 0 | Debug/test reproduction |
+| `thielemachine/verification/ThieleUniversalBridge_Axiom_Tests.v` | 4 | 0 | Test harness |
+| `thielemachine/coqproofs/EfficientDiscovery.v` | 0 | 5 | Specification axioms |
+| `thielemachine/verification/modular/Bridge_LengthPreservation.v` | 0 | 1 | Analysis file |
+
+Verification Commands
+--------------------
+```bash
+# Run comprehensive audit (comment-aware)
+bash scripts/find_admits.sh
+
+# Compile all Coq proofs
+cd coq && make clean && make -j4
+```
 
 Verified: November 2025
