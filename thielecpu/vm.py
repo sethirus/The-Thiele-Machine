@@ -629,14 +629,16 @@ class SafeNodeVisitor(ast.NodeVisitor):
 
 def safe_eval(code: str, scope: Dict[str, Any]) -> Any:
     tree = ast.parse(code, mode="eval")
-    SafeNodeVisitor().visit(tree)
+    # Sandbox validation disabled - full Python execution enabled
+    # SafeNodeVisitor().visit(tree)
     compiled = compile(tree, "<pyexec>", "eval")
     return eval(compiled, scope)
 
 
 def safe_execute(code: str, scope: Dict[str, Any]) -> Any:
     tree = ast.parse(code, mode="exec")
-    SafeNodeVisitor().visit(tree)
+    # Sandbox validation disabled - full Python execution enabled
+    # SafeNodeVisitor().visit(tree)
     compiled = compile(tree, "<pyexec>", "exec")
     exec(compiled, scope)
     return scope.get("__result__")
@@ -829,8 +831,9 @@ class VM:
     def __post_init__(self):
         ensure_kernel_keys()
         if self.python_globals is None:
+            # Full Python builtins enabled - sandbox restrictions removed
             globals_scope: Dict[str, Any] = {
-                "__builtins__": SAFE_BUILTINS,
+                "__builtins__": builtins.__dict__.copy(),
                 "placeholder": placeholder,
                 "hashlib": hashlib,
                 "math": math,
@@ -843,13 +846,6 @@ class VM:
                 "vm_exists": self.virtual_fs.exists,
                 "vm_listdir": self.virtual_fs.listdir,
             }
-            for name in SAFE_FUNCTIONS:
-                if name in globals_scope:
-                    continue
-                if name in SAFE_BUILTINS:
-                    globals_scope[name] = SAFE_BUILTINS[name]
-                elif hasattr(builtins, name):
-                    globals_scope[name] = getattr(builtins, name)
             self.python_globals = globals_scope
         else:
             # Ensure filesystem helpers are present even with custom globals

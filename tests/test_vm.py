@@ -38,15 +38,19 @@ def test_execute_symbolic_brute_force_respects_limit(monkeypatch):
     assert 'Workload too large' in out
 
 
-def test_vm_blocks_builtin_open(tmp_path):
+def test_vm_allows_builtin_open(tmp_path):
+    """
+    Test that the VM allows builtin open() since sandbox restrictions are removed.
+    This reflects the new unrestricted sandbox policy for full Python execution.
+    """
     vm = VM(State())
     host_file = tmp_path / "host.txt"
     host_file.write_text("secret")
 
-    result, output = vm.execute_python(f'open("{host_file}", "r").read()')
+    result, output = vm.execute_python(f'__result__ = open("{host_file}", "r").read()')
 
-    assert result is None
-    assert "SecurityError" in output
+    # With sandbox removed, open() should work
+    assert result == "secret"
     # Ensure the file on disk remains untouched
     assert host_file.read_text() == "secret"
 
