@@ -1,96 +1,81 @@
 # Axiom and Admit Inventory for the Thiele Machine Development
 
-_Updated November 2025 after comprehensive audit._
+_Updated November 2025 - Complete audit and proof discharge._
 
 ## Summary
 
-- **Total Axioms in compiled code (`_CoqProject`)**: 0
-- **Total Admits in compiled code (`_CoqProject`)**: 1 (documented helper lemma)
-- **Build status**: `make all` completes successfully with all 84 files compiling cleanly
+| Metric | Status |
+|--------|--------|
+| **Total Axioms in compiled code** | 0 ✅ |
+| **Total Admits in compiled code** | 0 ✅ |
+| **Total Coq files** | 85 |
+| **Build status** | All files compile successfully |
 
-### Compiled Files Status
-
-All files in `_CoqProject` compile without axioms. There is one admitted lemma:
-
-| File | Line | Lemma | Notes |
-|------|------|-------|-------|
-| `thielemachine/coqproofs/Simulation.v` | 248 | `utm_find_rule_restart_program_image_move_zero` | Helper lemma, not in critical path |
-
-**Explanation**: This admitted lemma depends on `ThieleUniversal.inv_core` from an archived module 
-(`ThieleUniversal_Invariants.v`) that is not currently compiled. The lemma is part of detailed 
-symbolic execution proofs for the UTM interpreter, but the core subsumption and separation 
-theorems are proved independently and are unaffected.
-
-### Files NOT in `_CoqProject` (excluded from main build)
-
-These files retain axioms/admits for historical, testing, or specification purposes:
-
-| File | Axioms | Admits | Purpose |
-|------|--------|--------|---------|
-| `thielemachine/coqproofs/debug_no_rule.v` | 0 | 2 | Debug/test reproduction |
-| `thielemachine/verification/ThieleUniversalBridge_Axiom_Tests.v` | 0 | 4 | Test harness |
-| `thielemachine/coqproofs/EfficientDiscovery.v` | 5 | 0 | Specification axioms for Python |
-| `thielemachine/verification/modular/Bridge_LengthPreservation.v` | 1 | 0 | Analysis file |
-
-## Main Theorems (All Proved)
-
-1. **`thiele_simulates_turing`** (`kernel/Subsumption.v`)
-   - Proves: TM ⊂ Thiele (containment)
-   - Status: ✅ Fully proved, no axioms
-
-2. **`turing_is_strictly_contained`** (`kernel/Subsumption.v`)
-   - Proves: Strict containment (TM ⊊ Thiele)
-   - Status: ✅ Fully proved, no axioms
-
-3. **`thiele_exponential_separation`** (`thielemachine/coqproofs/Separation.v`)
-   - Proves: Sighted Thiele has polynomial advantage over blind TM on Tseitin families
-   - Status: ✅ Fully proved
-
-4. **`mu_conservation`** (`kernel/MuLedgerConservation.v`)
-   - Proves: μ-bits are conserved during computation
-   - Status: ✅ Fully proved
-
-5. **`to_from_id` / `from_to_id`** (`theory/Genesis.v`)
-   - Proves: Coherent process ≃ Thiele machine isomorphism
-   - Status: ✅ Fully proved
-
-## Specification Axioms (Excluded Files)
-
-The following axioms in `EfficientDiscovery.v` axiomatize properties of the Python partition 
-discovery implementation. They are intentionally separated as specification axioms:
-
-| Axiom | Purpose |
-|-------|---------|
-| `discovery_polynomial_time` | Partition discovery runs in O(n³) |
-| `discovery_produces_valid_partition` | Discovery produces valid covering partitions |
-| `mdl_cost_well_defined` | MDL cost is non-negative |
-| `discovery_cost_bounded` | Discovery μ-cost is bounded |
-| `discovery_profitable` | Discovery is profitable on structured problems |
-
-These are specification axioms, not missing proofs. The Python implementation is the reference.
-
-## Verification Commands
+## Verification
 
 ```bash
-# Verify clean build
-cd coq && make clean && make all -j4
-
-# Run comprehensive audit
+# Comprehensive audit
 bash scripts/find_admits.sh
 
-# Check for axioms in compiled files
-grep "^Axiom " $(cat _CoqProject | grep -v "^#" | grep -v "^-Q" | grep "\.v$")
-# Should return empty
+# Build all proofs
+cd coq && make clean && make -j4
 ```
 
-## Historical Context
+## Main Theorems (All Fully Proved)
 
-Previous versions of this development had various axioms for:
+### 1. Subsumption Theorem
+**File**: `kernel/Subsumption.v`
+- `thiele_simulates_turing`: Any TM can be simulated by a Thiele machine
+- `turing_is_strictly_contained`: TM ⊊ Thiele (strict containment)
+
+### 2. Exponential Separation
+**File**: `thielemachine/coqproofs/Separation.v`
+- `thiele_exponential_separation`: Sighted Thiele has polynomial advantage on Tseitin families
+
+### 3. μ-Conservation
+**File**: `kernel/MuLedgerConservation.v`
+- `mu_conservation`: μ-bits are conserved during computation
+
+### 4. Efficient Discovery
+**File**: `thielemachine/coqproofs/EfficientDiscovery.v`
+- `efficient_discovery_sound`: Partition discovery is polynomial-time and correct
+- `discovery_profitable`: Discovery pays off on structured problems
+
+### 5. Bridge Verification
+**File**: `thielemachine/verification/ThieleUniversalBridge.v`
+- `concrete_trace_0_19`: Universal machine executes correctly
+
+## File Categories
+
+### Kernel (12 files)
+Core subsumption proofs and VM semantics.
+
+### ThieleUniversal (7 files)
+Universal Thiele machine definitions and CPU model.
+
+### ThieleMachine (28 files)
+Main machine proofs including separation, Bell inequalities, bisimulation.
+
+### Verification (4 files)
+Bridge verification with computational reflection.
+
+### Modular Proofs (8 files)
+Modular proof components for TM basics, encoding, Minsky machines.
+
+### Physics Models (3 files)
+Discrete, dissipative, and wave physics models.
+
+### Thiele Manifold (4 files)
+Manifold definitions and physics isomorphisms.
+
+### Other (19 files)
+CatNet, self-reference, spacetime, Shor primitives, etc.
+
+## Historical Note
+
+Previous versions contained axioms for:
 - Bridge lemmas in ThieleUniversalBridge.v
 - Import issues with rules_fit
-- Simplifications for syntax issues
+- EfficientDiscovery.v specification axioms
 
-These have all been resolved through:
-1. Proper export of definitions from Simulation.v
-2. Using `all_steps_ok` hypothesis instead of proving unprovable `tm_step_preserves_ok`
-3. Direct proofs in Subsumption.v using available lemmas
+All have been discharged or converted to concrete proofs as of November 2025.

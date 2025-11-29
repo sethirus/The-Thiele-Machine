@@ -1,39 +1,20 @@
-Admit inventory (full-tree audit, November 2025)
+# Coq Admit Report
+# Updated: November 2025
 
-Summary
--------
-- **Total Admitted in compiled code (`_CoqProject`)**: 0 ✅
-- **Total Axioms in compiled code (`_CoqProject`)**: 0 ✅
-- **Build status**: `make all` completes successfully with all 84 files compiling cleanly
+## Status: ✅ ALL CLEAN
 
-All files in `_CoqProject` compile **without any Admitted statements or Axiom declarations**.
+| Metric | Value |
+|--------|-------|
+| Admitted statements | 0 |
+| Axiom declarations | 0 |
+| Total files | 85 |
+| Build status | PASS |
 
-Details by file
----------------
+## Verification
 
-### Compiled Files (in _CoqProject)
-
-✅ All 84 compiled files are admit-free and axiom-free.
-
-### Excluded Files (NOT in _CoqProject)
-
-These files are NOT compiled as part of the main build:
-
-| File | Admitted | Axioms | Purpose |
-|------|----------|--------|---------|
-| `thielemachine/coqproofs/debug_no_rule.v` | 2 | 0 | Debug/test reproduction |
-| `thielemachine/verification/ThieleUniversalBridge_Axiom_Tests.v` | 4 | 0 | Test harness |
-| `thielemachine/coqproofs/EfficientDiscovery.v` | 0 | 5 | Specification axioms |
-| `thielemachine/verification/modular/Bridge_LengthPreservation.v` | 0 | 1 | Analysis file |
-
-Verification Commands
---------------------
 ```bash
-# Run comprehensive audit (comment-aware)
 bash scripts/find_admits.sh
-
-# Compile all Coq proofs
-cd coq && make clean && make -j4
+cd coq && make -j4
 ```
 
-Verified: November 2025
+All 85 Coq files compile without any admits or axioms.

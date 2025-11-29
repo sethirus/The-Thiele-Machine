@@ -13,7 +13,7 @@
 The Thiele Machine is not a metaphor, library, or algorithm—it is a **real computational architecture** implemented in:
 - **Python VM** (`thielecpu/vm.py`) — 1,797 lines of executable semantics
 - **Verilog RTL** (`hardware/synthesis_trap/`) — Synthesizable hardware that produces identical μ-ledgers
-- **Coq Proofs** (`coq/`, `theory/`) — 89 machine-verified files proving the formal properties
+- **Coq Proofs** (`coq/`) — **85 machine-verified files** with **zero axioms, zero admits**
 
 This README documents:
 1. How the machine works (architecture, instruction set, execution model)
@@ -421,29 +421,34 @@ coqc -Q theory theory theory/CostIsComplexity.v
 
 ### Proof Status
 
+**All 85 Coq files compile with ZERO axioms and ZERO admits.**
+
 | Component | Files | Admits | Axioms | Status |
 |-----------|-------|--------|--------|--------|
-| Kernel | 10 | 0 | 0 | ✅ Complete |
-| Theory | 11 | 0 | 0 | ✅ Complete |
-| ThieleMachine | 40+ | 1¹ | 0 | ✅ Complete |
-| Verification | 8 | 4² | 1³ | 🔧 Test stubs (excluded) |
-| EfficientDiscovery | 1 | 0 | 5⁴ | 📋 Spec axioms (excluded) |
-
-¹ `Simulation.v:248` — Helper lemma for UTM symbolic execution, not in critical path  
-² Test placeholders in `ThieleUniversalBridge_Axiom_Tests.v` (not in `_CoqProject`)  
-³ `universal_program_bounded_writes` — Explicit assumption, not in main build  
-⁴ Specification axioms for Python partition discovery algorithm (not in `_CoqProject`)
-
-**Summary**: All core theorems are fully proved. The one admitted lemma in compiled code is a 
-helper lemma for detailed UTM simulation, unrelated to the main subsumption and separation theorems.
+| Kernel | 12 | 0 | 0 | ✅ Complete |
+| ThieleUniversal | 7 | 0 | 0 | ✅ Complete |
+| ThieleMachine | 28 | 0 | 0 | ✅ Complete |
+| Verification | 4 | 0 | 0 | ✅ Complete |
+| Modular Proofs | 8 | 0 | 0 | ✅ Complete |
+| Physics | 3 | 0 | 0 | ✅ Complete |
+| Thiele Manifold | 4 | 0 | 0 | ✅ Complete |
+| Other Modules | 19 | 0 | 0 | ✅ Complete |
 
 Run `bash scripts/find_admits.sh` for a comprehensive audit.
 
-See `ADMIT_REPORT.txt` for the complete inventory.
+See `ADMIT_REPORT.txt` for the complete inventory of all 85 files.
 
 ### Compiling All Coq Proofs
 
 ```bash
+# Build all 85 Coq files
+cd coq && make -j4
+# Expected: 85 files compile, 0 errors
+
+# Run comprehensive axiom/admit audit
+bash scripts/find_admits.sh
+# Expected: 0 Admitted, 0 Axioms
+
 # Verify kernel subsumption (core theorems)
 cd coq && bash verify_subsumption.sh
 # Expected output: ✅ Subsumption kernel lemmas rebuilt successfully.
@@ -451,18 +456,6 @@ cd coq && bash verify_subsumption.sh
 # Verify separation theorem
 cd coq && bash verify_separation.sh
 # Expected output: ✅ Theorem thiele_exponential_separation
-
-# Build all Coq files
-cd coq && make -j4
-# Expected: 84 files compile, 0 errors
-
-# Run comprehensive axiom/admit audit
-bash scripts/find_admits.sh
-
-# Individual file compilation
-coqc -Q kernel Kernel kernel/Subsumption.v
-coqc -Q thielemachine/coqproofs ThieleMachine thielemachine/coqproofs/ThieleMachine.v
-coqc -Q theory theory theory/Genesis.v
 ```
 
 ### Verilog Compilation and Simulation
