@@ -26,6 +26,13 @@ This README documents:
 
 ## Table of Contents
 
+**📚 New to computational theory? Start here:** [`docs/FROM_FIRST_PRINCIPLES.md`](docs/FROM_FIRST_PRINCIPLES.md)
+> A comprehensive, ground-up explanation building from "What is computation?" to the full Thiele Machine with concrete examples.
+
+---
+
+### Quick Navigation
+
 1. [What Is The Thiele Machine?](#what-is-the-thiele-machine)
 2. [Quick Start](#quick-start)
 3. [Complete File Inventories](#complete-file-inventories)
@@ -578,7 +585,7 @@ Level 0: Kernel Subsumption (TURING ⊂ THIELE)
 
 The Python VM implementation provides the reference semantics for the Thiele Machine. This section details how the VM works internally.
 
-#### `vm.py` — The Heart of the Thiele Machine (1,549 lines)
+#### `vm.py` — The Heart of the Thiele Machine (1,862 lines)
 
 The main VM file implements four core capabilities:
 
