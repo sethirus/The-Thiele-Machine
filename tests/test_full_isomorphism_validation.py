@@ -17,6 +17,8 @@ This test suite validates that:
 import pytest
 import subprocess
 import re
+import tempfile
+import os
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).parent.parent
@@ -157,73 +159,94 @@ class TestVerilogCompilation:
         """Verilog compiles with iverilog."""
         hw_dir = REPO_ROOT / "thielecpu" / "hardware"
         
-        result = subprocess.run(
-            ["iverilog", "-g2012", "-o", "/tmp/thiele_test", 
-             str(hw_dir / "thiele_cpu.v"), 
-             str(hw_dir / "thiele_cpu_tb.v")],
-            capture_output=True,
-            timeout=60
-        )
+        with tempfile.NamedTemporaryFile(suffix='_thiele_test', delete=False) as tmp:
+            tmp_path = tmp.name
         
-        assert result.returncode == 0, f"Verilog compilation failed: {result.stderr.decode()}"
+        try:
+            result = subprocess.run(
+                ["iverilog", "-g2012", "-o", tmp_path, 
+                 str(hw_dir / "thiele_cpu.v"), 
+                 str(hw_dir / "thiele_cpu_tb.v")],
+                capture_output=True,
+                timeout=60
+            )
+            
+            assert result.returncode == 0, f"Verilog compilation failed: {result.stderr.decode()}"
+        finally:
+            if os.path.exists(tmp_path):
+                os.unlink(tmp_path)
     
     def test_verilog_simulation_runs(self):
         """Verilog simulation completes without errors."""
         hw_dir = REPO_ROOT / "thielecpu" / "hardware"
         
-        # Compile
-        subprocess.run(
-            ["iverilog", "-g2012", "-o", "/tmp/thiele_test",
-             str(hw_dir / "thiele_cpu.v"),
-             str(hw_dir / "thiele_cpu_tb.v")],
-            check=True,
-            timeout=60
-        )
+        with tempfile.NamedTemporaryFile(suffix='_thiele_test', delete=False) as tmp:
+            tmp_path = tmp.name
         
-        # Simulate
-        result = subprocess.run(
-            ["vvp", "/tmp/thiele_test"],
-            capture_output=True,
-            timeout=30
-        )
-        
-        output = result.stdout.decode()
-        assert "Test completed!" in output, "Verilog simulation did not complete"
-        assert result.returncode == 0, f"Verilog simulation failed: {result.stderr.decode()}"
+        try:
+            # Compile
+            subprocess.run(
+                ["iverilog", "-g2012", "-o", tmp_path,
+                 str(hw_dir / "thiele_cpu.v"),
+                 str(hw_dir / "thiele_cpu_tb.v")],
+                check=True,
+                timeout=60
+            )
+            
+            # Simulate
+            result = subprocess.run(
+                ["vvp", tmp_path],
+                capture_output=True,
+                timeout=30
+            )
+            
+            output = result.stdout.decode()
+            assert "Test completed!" in output, "Verilog simulation did not complete"
+            assert result.returncode == 0, f"Verilog simulation failed: {result.stderr.decode()}"
+        finally:
+            if os.path.exists(tmp_path):
+                os.unlink(tmp_path)
     
     def test_verilog_produces_valid_metrics(self):
         """Verilog simulation produces valid partition_ops and info_gain."""
         hw_dir = REPO_ROOT / "thielecpu" / "hardware"
         
-        # Compile and run
-        subprocess.run(
-            ["iverilog", "-g2012", "-o", "/tmp/thiele_test",
-             str(hw_dir / "thiele_cpu.v"),
-             str(hw_dir / "thiele_cpu_tb.v")],
-            check=True,
-            timeout=60
-        )
+        with tempfile.NamedTemporaryFile(suffix='_thiele_test', delete=False) as tmp:
+            tmp_path = tmp.name
         
-        result = subprocess.run(
-            ["vvp", "/tmp/thiele_test"],
-            capture_output=True,
-            timeout=30
-        )
-        
-        output = result.stdout.decode()
-        
-        # Extract metrics
-        partition_ops_match = re.search(r'"partition_ops":\s*(\d+)', output)
-        info_gain_match = re.search(r'"info_gain":\s*(\d+)', output)
-        
-        assert partition_ops_match, "partition_ops not found in Verilog output"
-        assert info_gain_match, "info_gain not found in Verilog output"
-        
-        partition_ops = int(partition_ops_match.group(1))
-        info_gain = int(info_gain_match.group(1))
-        
-        assert partition_ops >= 0, "partition_ops should be non-negative"
-        assert info_gain >= 0, "info_gain should be non-negative"
+        try:
+            # Compile and run
+            subprocess.run(
+                ["iverilog", "-g2012", "-o", tmp_path,
+                 str(hw_dir / "thiele_cpu.v"),
+                 str(hw_dir / "thiele_cpu_tb.v")],
+                check=True,
+                timeout=60
+            )
+            
+            result = subprocess.run(
+                ["vvp", tmp_path],
+                capture_output=True,
+                timeout=30
+            )
+            
+            output = result.stdout.decode()
+            
+            # Extract metrics
+            partition_ops_match = re.search(r'"partition_ops":\s*(\d+)', output)
+            info_gain_match = re.search(r'"info_gain":\s*(\d+)', output)
+            
+            assert partition_ops_match, "partition_ops not found in Verilog output"
+            assert info_gain_match, "info_gain not found in Verilog output"
+            
+            partition_ops = int(partition_ops_match.group(1))
+            info_gain = int(info_gain_match.group(1))
+            
+            assert partition_ops >= 0, "partition_ops should be non-negative"
+            assert info_gain >= 0, "info_gain should be non-negative"
+        finally:
+            if os.path.exists(tmp_path):
+                os.unlink(tmp_path)
 
 
 class TestCoqCompilation:
@@ -427,14 +450,22 @@ class TestEndToEndIsomorphism:
         
         # Verilog compiles (structure matches)
         hw_dir = REPO_ROOT / "thielecpu" / "hardware"
-        result = subprocess.run(
-            ["iverilog", "-g2012", "-o", "/tmp/thiele_test",
-             str(hw_dir / "thiele_cpu.v"),
-             str(hw_dir / "thiele_cpu_tb.v")],
-            capture_output=True,
-            timeout=60
-        )
-        assert result.returncode == 0, "Verilog compilation failed"
+        
+        with tempfile.NamedTemporaryFile(suffix='_thiele_test', delete=False) as tmp:
+            tmp_path = tmp.name
+        
+        try:
+            result = subprocess.run(
+                ["iverilog", "-g2012", "-o", tmp_path,
+                 str(hw_dir / "thiele_cpu.v"),
+                 str(hw_dir / "thiele_cpu_tb.v")],
+                capture_output=True,
+                timeout=60
+            )
+            assert result.returncode == 0, "Verilog compilation failed"
+        finally:
+            if os.path.exists(tmp_path):
+                os.unlink(tmp_path)
         
         # Coq files exist (proofs are maintained)
         coq_dir = REPO_ROOT / "coq" / "thielemachine" / "coqproofs"
