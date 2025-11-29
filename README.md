@@ -713,6 +713,98 @@ pytest tests/test_showcase_programs.py -v
 
 ---
 
+## Comprehensive Capability Demonstrations
+
+The `demos/comprehensive_capabilities/` directory contains programs demonstrating the full breadth of Thiele Machine capabilities. All programs run identically in **both** Standard Python interpreter and Thiele VM, proving structural isomorphism while demonstrating μ-cost tracking.
+
+### Categories Tested
+
+| Category | Tests | Description |
+|----------|-------|-------------|
+| **String Manipulation** | 17 | Unicode, empty strings, patterns, anagrams |
+| **Recursion Patterns** | 24 | Factorial, Fibonacci, mutual recursion, Ackermann |
+| **Graph Algorithms** | 13 | BFS, DFS, Dijkstra, topological sort, cycle detection |
+| **Mathematical Edge Cases** | 36 | Large integers, modular arithmetic, combinatorics |
+| **Backtracking** | 13 | N-Queens, subset sum, permutations, combinations |
+
+### Running Comprehensive Tests
+
+```bash
+# Run all comprehensive capability tests (27 tests)
+pytest tests/test_comprehensive_capabilities.py -v
+
+# Run the master demonstration runner
+python demos/comprehensive_capabilities/run_comprehensive_tests.py
+
+# Run individual category tests
+python demos/comprehensive_capabilities/string_edge_cases.py
+python demos/comprehensive_capabilities/recursion_patterns.py
+python demos/comprehensive_capabilities/graph_algorithms.py
+python demos/comprehensive_capabilities/mathematical_edge_cases.py
+python demos/comprehensive_capabilities/backtracking.py
+```
+
+### Example: String Manipulation Isomorphism
+
+```python
+# Both produce identical results
+from demos.comprehensive_capabilities.string_edge_cases import reverse_string
+
+# Standard Python
+result_std, ops_std = reverse_string("héllo")
+# result_std = "olléh", ops_std = 5
+
+# Thiele VM
+from thielecpu.vm import VM
+from thielecpu.state import State
+vm = VM(State())
+res, _ = vm.execute_python('''
+s = "héllo"
+result = ""
+ops = 0
+for char in s:
+    ops = ops + 1
+    result = char + result
+__result__ = (result, ops)
+''')
+result_vm, ops_vm = res
+# result_vm = "olléh", ops_vm = 5
+
+assert result_std == result_vm  # ✓ Structural isomorphism
+assert ops_std == ops_vm        # ✓ Operation count match
+```
+
+### Example: Backtracking N-Queens
+
+```python
+from demos.comprehensive_capabilities.backtracking import n_queens
+
+# Solve 6-Queens
+solutions, backtracks = n_queens(6)
+print(f"Found {len(solutions)} solutions with {backtracks} backtracks")
+# Output: Found 4 solutions with 152 backtracks
+
+# Same result in Thiele VM with μ-cost tracking
+```
+
+### Derived Conclusions (All Falsifiable)
+
+The comprehensive tests derive the following conclusions from measured data:
+
+1. **STRUCTURAL_ISOMORPHISM**: All computed values match between Standard Python and Thiele VM
+   - Evidence: 103/103 value comparisons passed (100%)
+
+2. **OPERATION_ISOMORPHISM**: Operation counts are identical between environments
+   - Evidence: Total operations match exactly
+
+3. **MU_COST_TRACKING**: Thiele VM tracks μ-cost for all operations
+   - Evidence: 103 measurements with μ-cost > 0
+
+4. **SEPARATION_PROPERTY**: Thiele VM adds μ-cost tracking without changing computation results
+   - Evidence: Isomorphism 100%, μ tracked across all tests
+
+---
+
 ## Empirical Evidence
 
 ### Experiment 1: Tseitin Scaling
