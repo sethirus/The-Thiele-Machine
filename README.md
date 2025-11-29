@@ -730,10 +730,10 @@ The `demos/comprehensive_capabilities/` directory contains programs demonstratin
 ### Running Comprehensive Tests
 
 ```bash
-# Run all comprehensive capability tests (27 tests)
+# Run all comprehensive capability tests (27 pytest test methods covering 103 capability tests)
 pytest tests/test_comprehensive_capabilities.py -v
 
-# Run the master demonstration runner
+# Run the master demonstration runner (generates report with all 103 tests)
 python demos/comprehensive_capabilities/run_comprehensive_tests.py
 
 # Run individual category tests
@@ -789,10 +789,10 @@ print(f"Found {len(solutions)} solutions with {backtracks} backtracks")
 
 ### Derived Conclusions (All Falsifiable)
 
-The comprehensive tests derive the following conclusions from measured data:
+The comprehensive tests derive the following conclusions from measured data. Run `python demos/comprehensive_capabilities/run_comprehensive_tests.py` to regenerate:
 
 1. **STRUCTURAL_ISOMORPHISM**: All computed values match between Standard Python and Thiele VM
-   - Evidence: 103/103 value comparisons passed (100%)
+   - Evidence: Run comprehensive tests to verify current pass rate
 
 2. **OPERATION_ISOMORPHISM**: Operation counts are identical between environments
    - Evidence: Total operations match exactly
