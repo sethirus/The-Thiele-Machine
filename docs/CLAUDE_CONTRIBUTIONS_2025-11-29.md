@@ -197,7 +197,15 @@ python experiments/claude_partition_collapse_test.py
 - If **claim is false**: Will find cases where sighted ≤ blind
 - If **claim is true**: All cases show sighted > blind despite adversarial construction
 
-**Status:** ⏳ Awaiting execution (test 11 of 12)
+**Status:** ✅ **EXECUTED** — Results available
+
+**Actual Results:**
+- **Falsification evidence found**: 1 case where sighted is slower than blind
+  - `fully_connected_n8`: Ratio 0.492× (sighted 2× worse)
+- **Negligible advantages**: 4 cases (16.7%)
+- **Strong advantages**: 19 cases (79.2%) showed ≥2× improvement
+- **Verdict**: Successfully identified edge cases where partition advantage breaks down
+- **Output**: `experiments/claude_tests/partition_collapse_results.json` (9.2 KB)
 
 ---
 
@@ -274,7 +282,19 @@ python experiments/claude_comprehensive_stress_test.py
 - ✅ μ-conservation holds throughout
 - ✅ Performance stays polynomial
 
-**Status:** ⏳ Awaiting execution (test 12 of 12)
+**Status:** ✅ **EXECUTED** — All tests passed
+
+**Actual Results:**
+- **Pass rate**: 100% (7/7 tests passed)
+- **Categories tested**:
+  - SCALE: 10,000 variables, depth 1,000 ✅
+  - μ-COST: Budget exhaustion, conservation under merges ✅
+  - PARTITION: Extreme granularities ✅
+  - ADVERSARIAL: Fully connected worst-case ✅
+  - CONSERVATION: 10,000 operations, 0 μ-violations ✅
+- **μ-Conservation**: Verified across 9.7M bits of operations
+- **Verdict**: System withstood comprehensive stress testing
+- **Output**: `experiments/claude_tests/stress_test_report.json` (3.3 KB)
 
 ---
 
