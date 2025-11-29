@@ -628,16 +628,34 @@ class SafeNodeVisitor(ast.NodeVisitor):
 
 
 def safe_eval(code: str, scope: Dict[str, Any]) -> Any:
+    """Evaluate a Python expression in a sandboxed environment.
+    
+    Note: Sandbox validation is disabled to enable full Python execution.
+    This allows function definitions, recursion, and all standard library
+    functions. Use with trusted code only.
+    
+    For security-sensitive deployments, re-enable SafeNodeVisitor validation.
+    """
     tree = ast.parse(code, mode="eval")
     # Sandbox validation disabled - full Python execution enabled
+    # To re-enable security restrictions, uncomment:
     # SafeNodeVisitor().visit(tree)
     compiled = compile(tree, "<pyexec>", "eval")
     return eval(compiled, scope)
 
 
 def safe_execute(code: str, scope: Dict[str, Any]) -> Any:
+    """Execute Python code in a sandboxed environment.
+    
+    Note: Sandbox validation is disabled to enable full Python execution.
+    This allows function definitions, recursion, and all standard library
+    functions. Use with trusted code only.
+    
+    For security-sensitive deployments, re-enable SafeNodeVisitor validation.
+    """
     tree = ast.parse(code, mode="exec")
     # Sandbox validation disabled - full Python execution enabled
+    # To re-enable security restrictions, uncomment:
     # SafeNodeVisitor().visit(tree)
     compiled = compile(tree, "<pyexec>", "exec")
     exec(compiled, scope)
@@ -831,7 +849,11 @@ class VM:
     def __post_init__(self):
         ensure_kernel_keys()
         if self.python_globals is None:
-            # Full Python builtins enabled - sandbox restrictions removed
+            # Full Python builtins enabled - sandbox restrictions removed.
+            # This allows function definitions, recursion, and standard library usage.
+            # 
+            # SECURITY NOTE: Use with trusted code only. For security-sensitive
+            # deployments, replace with SAFE_BUILTINS and re-enable SafeNodeVisitor.
             globals_scope: Dict[str, Any] = {
                 "__builtins__": builtins.__dict__.copy(),
                 "placeholder": placeholder,
