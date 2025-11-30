@@ -24,6 +24,9 @@ class Opcode(Enum):
     The encoding assigns a unique 8-bit value to each mnemonic. The remaining
     24 bits of the 32-bit instruction word are currently used as generic
     operands and are interpreted by each instruction individually.
+
+    IMPORTANT: These values must match the Verilog hardware implementation
+    in alpha/thielecpu/hardware/thiele_cpu.v exactly for isomorphism.
     """
 
     PNEW = 0x00
@@ -32,12 +35,13 @@ class Opcode(Enum):
     LASSERT = 0x03
     LJOIN = 0x04
     MDLACC = 0x05
-    EMIT = 0x06
+    EMIT = 0x0E  # Fixed: was 0x06, must match Verilog
     XFER = 0x07
-    XOR_LOAD = 0x08
-    XOR_ADD = 0x09
-    XOR_SWAP = 0x0A
-    XOR_RANK = 0x0B
+    PYEXEC = 0x08  # Added: missing opcode that Verilog has
+    XOR_LOAD = 0x0A  # Fixed: was 0x08, must match Verilog
+    XOR_ADD = 0x0B  # Fixed: was 0x09, must match Verilog
+    XOR_SWAP = 0x0C  # Fixed: was 0x0A, must match Verilog
+    XOR_RANK = 0x0D  # Fixed: was 0x0B, must match Verilog
 
 
 def encode(op: Opcode, a: int = 0, b: int = 0) -> bytes:
