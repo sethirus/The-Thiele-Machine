@@ -37,13 +37,16 @@ def load_distribution(path: Path) -> Dict[Tuple[int, int, int, int], Fraction]:
             y = int(row["y"])
             a = int(row["a"])
             b = int(row["b"])
-            prob_str = row["probability"]
+            prob_str = row["probability"].strip()
             
-            if "/" in prob_str:
-                num, denom = prob_str.split("/")
-                prob = Fraction(int(num), int(denom))
-            else:
-                prob = Fraction(int(prob_str), 1)
+            try:
+                if "/" in prob_str:
+                    num, denom = prob_str.split("/")
+                    prob = Fraction(int(num), int(denom))
+                else:
+                    prob = Fraction(int(prob_str), 1)
+            except ValueError as e:
+                raise ValueError(f"Invalid probability format '{prob_str}' at ({x},{y},{a},{b}): {e}")
             
             probabilities[(x, y, a, b)] = prob
     

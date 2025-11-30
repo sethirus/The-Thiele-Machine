@@ -15,6 +15,7 @@ The tests verify that all three representations agree on:
 from __future__ import annotations
 
 import math
+import shutil
 import subprocess
 import sys
 from fractions import Fraction
@@ -160,7 +161,7 @@ class TestCoqIsomorphism:
         assert "8 < (16/5) * (16/5)" in content
 
     @pytest.mark.skipif(
-        subprocess.run(["which", "coqc"], capture_output=True).returncode != 0,
+        shutil.which("coqc") is None,
         reason="coqc not available"
     )
     def test_coq_compiles(self) -> None:
@@ -190,22 +191,38 @@ class TestDistributionProperties:
             assert prob <= 1, f"Probability > 1 at {key}: {prob}"
 
     def test_marginals_uniform(self) -> None:
-        """Marginal distributions P(a|x) and P(b|y) should be uniform (1/2)."""
+        """Marginal distributions P(a|x) and P(b|y) should be uniform (1/2).
+        
+        For a no-signaling distribution, P(a|x) = sum_y sum_b P(a,b|x,y) / 2
+        should equal 1/2 for all a, x (and similarly for Bob).
+        
+        This is a consequence of the uniform marginals in our specific distribution.
+        """
         probs = load_distribution(CSV_PATH)
         
-        # Check Alice's marginals
+        # Check Alice's marginals: P(a|x) should be 1/2 for all a, x
+        # We sum over all (y, b) pairs and divide by 2 (number of y values)
+        # to get the average marginal P(a|x) = sum_y P(a|x,y) / 2
         for x in [0, 1]:
             for a in [0, 1]:
-                marginal = sum(probs.get((x, y, a, b), Fraction(0))
-                              for y in [0, 1] for b in [0, 1]) / 2
+                # Sum P(a,b|x,y) over all y and b
+                total = sum(probs.get((x, y, a, b), Fraction(0))
+                           for y in [0, 1] for b in [0, 1])
+                # This equals sum_y P(a|x,y) = 2 * P(a|x) due to no-signaling
+                # So P(a|x) = total / 2
+                marginal = total / 2
                 assert marginal == Fraction(1, 2), \
                     f"P(a={a}|x={x}) = {marginal}, expected 1/2"
         
-        # Check Bob's marginals
+        # Check Bob's marginals: P(b|y) should be 1/2 for all b, y
         for y in [0, 1]:
             for b in [0, 1]:
-                marginal = sum(probs.get((x, y, a, b), Fraction(0))
-                              for x in [0, 1] for a in [0, 1]) / 2
+                # Sum P(a,b|x,y) over all x and a
+                total = sum(probs.get((x, y, a, b), Fraction(0))
+                           for x in [0, 1] for a in [0, 1])
+                # This equals sum_x P(b|x,y) = 2 * P(b|y) due to no-signaling
+                # So P(b|y) = total / 2
+                marginal = total / 2
                 assert marginal == Fraction(1, 2), \
                     f"P(b={b}|y={y}) = {marginal}, expected 1/2"
 
