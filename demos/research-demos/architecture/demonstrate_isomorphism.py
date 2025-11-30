@@ -628,7 +628,7 @@ def main(
     coq_snippet: Optional[str] = None
     try:
         coq_text = coq_sandbox_path.read_text(encoding="utf-8")
-        witness_start = coq_text.index("Definition pr_box_like_witness")
+        witness_start = coq_text.index("Definition supra_quantum_ns")
         theorem_start = coq_text.index("Theorem sighted_is_supra_quantum")
         theorem_qed = coq_text.index("Qed.", theorem_start)
         coq_snippet = coq_text[witness_start : theorem_qed + len("Qed.")]
