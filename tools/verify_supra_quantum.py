@@ -9,6 +9,11 @@ This script validates that:
 
 This provides the Python verification side of the isomorphism with the
 Coq proof in coq/sandboxes/AbstractPartitionCHSH.v (theorem sighted_is_supra_quantum).
+
+IMPORTANT CLARIFICATION:
+- The 16/5 distribution achieves CHSH = 3.2, which EXCEEDS the quantum bound (2√2 ≈ 2.828)
+- This is NOT the maximum achievable value (the PR-box achieves S = 4)
+- The hierarchy is: Classical (2) < Quantum (2.828) < Our dist (3.2) < PR-box (4)
 """
 
 from __future__ import annotations
@@ -182,9 +187,9 @@ def verify_distribution(path: Path = CSV_PATH) -> dict:
 
 def main() -> None:
     """Run verification and print results."""
-    print("=" * 60)
+    print("=" * 70)
     print("Supra-Quantum 16/5 Distribution Verification")
-    print("=" * 60)
+    print("=" * 70)
     print()
     
     try:
@@ -206,6 +211,23 @@ def main() -> None:
         print(f"  S > 2√2: {result['exceeds_tsirelson']}")
         print()
         
+        # Bounds hierarchy
+        print("Bounds hierarchy:")
+        print(f"  Classical (local realism):  |S| ≤ 2")
+        print(f"  Quantum (Tsirelson):        |S| ≤ 2√2 ≈ 2.828")
+        print(f"  Our distribution:           S = {result['chsh']} = {result['chsh_float']:.4f}  ← SUPRA-QUANTUM")
+        print(f"  PR-box (no-signaling max):  S = 4")
+        print()
+        
+        # Gap analysis
+        tsirelson = result['tsirelson_bound']
+        gap = result['chsh_float'] - tsirelson
+        gap_percent = gap / tsirelson * 100
+        print(f"Analysis:")
+        print(f"  Gap above Tsirelson: {gap:.6f}")
+        print(f"  Percentage above quantum: {gap_percent:.2f}%")
+        print()
+        
         print("Coq isomorphism:")
         print("  The Python verification matches the Coq proof:")
         print("    - Theorem sighted_is_supra_quantum in AbstractPartitionCHSH.v")
@@ -213,9 +235,14 @@ def main() -> None:
         print("    - 8 < (chsh_ns supra_quantum_ns) * (chsh_ns supra_quantum_ns)")
         print()
         
-        print("=" * 60)
+        print("IMPORTANT CLARIFICATION:")
+        print("  The 16/5 value is what this specific sighted Thiele protocol achieves.")
+        print("  It is NOT the theoretical maximum (the PR-box achieves S = 4).")
+        print()
+        
+        print("=" * 70)
         print("✓ All verifications passed!")
-        print("=" * 60)
+        print("=" * 70)
         
     except Exception as e:
         print(f"✗ Verification failed: {e}")
