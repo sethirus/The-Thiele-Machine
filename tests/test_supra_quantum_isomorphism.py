@@ -237,3 +237,106 @@ class TestDistributionProperties:
         probs = load_distribution(CSV_PATH)
         chsh = compute_chsh(probs)
         assert chsh <= 4, f"CHSH = {chsh} exceeds PR-box bound of 4"
+
+
+class TestStressAndEdgeCases:
+    """Extreme stress tests and edge cases for the distribution."""
+
+    def test_exact_chsh_squared(self) -> None:
+        """S² = (16/5)² = 256/25 should exceed 8 (= 200/25)."""
+        probs = load_distribution(CSV_PATH)
+        chsh = compute_chsh(probs)
+        chsh_squared = chsh * chsh
+        expected_squared = Fraction(256, 25)
+        assert chsh_squared == expected_squared, f"S² = {chsh_squared}, expected {expected_squared}"
+        assert chsh_squared > 8, f"S² = {chsh_squared} should be > 8"
+
+    def test_convex_decomposition(self) -> None:
+        """16/5 = (3/5)×4 + (2/5)×2 (convex combination of PR-box and classical)."""
+        lambda_pr = Fraction(3, 5)
+        lambda_cl = Fraction(2, 5)
+        # PR-box CHSH = 4, classical perfectly-correlated CHSH = 2
+        reconstructed = lambda_pr * 4 + lambda_cl * 2
+        expected = Fraction(16, 5)
+        assert reconstructed == expected, f"Convex reconstruction = {reconstructed}, expected {expected}"
+        assert lambda_pr + lambda_cl == 1, "Convex weights should sum to 1"
+
+    def test_gap_above_tsirelson(self) -> None:
+        """The gap above Tsirelson should be approximately 13.14%."""
+        probs = load_distribution(CSV_PATH)
+        chsh = compute_chsh(probs)
+        tsirelson = 2 * math.sqrt(2)
+        gap_percent = (float(chsh) - tsirelson) / tsirelson * 100
+        # Should be approximately 13.14%
+        assert 13.0 < gap_percent < 14.0, f"Gap = {gap_percent}%, expected ~13.14%"
+
+    def test_e11_specific_value(self) -> None:
+        """E(1,1) = -1/5 should be the only anti-correlated setting."""
+        probs = load_distribution(CSV_PATH)
+        e11 = compute_expectation(probs, 1, 1)
+        assert e11 == Fraction(-1, 5), f"E(1,1) = {e11}, expected -1/5"
+        # The other three should all be +1
+        for (x, y) in [(0, 0), (0, 1), (1, 0)]:
+            e_val = compute_expectation(probs, x, y)
+            assert e_val == Fraction(1), f"E({x},{y}) = {e_val}, expected 1"
+
+    def test_probability_fractions_exact(self) -> None:
+        """Verify exact fractional probabilities for (1,1) setting."""
+        probs = load_distribution(CSV_PATH)
+        # Expected: 1/5, 3/10, 3/10, 1/5
+        assert probs[(1, 1, 0, 0)] == Fraction(1, 5)
+        assert probs[(1, 1, 0, 1)] == Fraction(3, 10)
+        assert probs[(1, 1, 1, 0)] == Fraction(3, 10)
+        assert probs[(1, 1, 1, 1)] == Fraction(1, 5)
+
+    def test_perfectly_correlated_settings(self) -> None:
+        """For (x,y) in {(0,0), (0,1), (1,0)}, P(a≠b) = 0."""
+        probs = load_distribution(CSV_PATH)
+        for (x, y) in [(0, 0), (0, 1), (1, 0)]:
+            p_diff = probs.get((x, y, 0, 1), 0) + probs.get((x, y, 1, 0), 0)
+            assert p_diff == 0, f"P(a≠b|{x},{y}) = {p_diff}, expected 0"
+
+    def test_all_chsh_variants_bounded(self) -> None:
+        """All 8 CHSH variants should satisfy |S| ≤ 4."""
+        probs = load_distribution(CSV_PATH)
+        e00 = compute_expectation(probs, 0, 0)
+        e01 = compute_expectation(probs, 0, 1)
+        e10 = compute_expectation(probs, 1, 0)
+        e11 = compute_expectation(probs, 1, 1)
+        
+        variants = [
+            (+1, +1, +1, -1), (+1, +1, -1, +1), (+1, -1, +1, +1), (-1, +1, +1, +1),
+            (+1, -1, -1, -1), (-1, +1, -1, -1), (-1, -1, +1, -1), (-1, -1, -1, +1),
+        ]
+        for (s00, s01, s10, s11) in variants:
+            S = s00 * e00 + s01 * e01 + s10 * e10 + s11 * e11
+            assert abs(S) <= 4, f"CHSH variant = {S}, violates |S| ≤ 4"
+
+    def test_numerical_precision_extreme(self) -> None:
+        """Test at extreme numerical precision."""
+        probs = load_distribution(CSV_PATH)
+        chsh = compute_chsh(probs)
+        
+        # Exact comparison
+        assert chsh == Fraction(16, 5)
+        
+        # High-precision floating point
+        chsh_float = float(chsh)
+        tsirelson_float = 2 * math.sqrt(2)
+        
+        assert chsh_float == 3.2
+        assert chsh_float > tsirelson_float
+        assert abs(chsh_float - 3.2) < 1e-15  # Machine precision
+
+    def test_supra_quantum_gap_positive(self) -> None:
+        """The distribution should have a strictly positive supra-quantum gap."""
+        probs = load_distribution(CSV_PATH)
+        chsh = compute_chsh(probs)
+        
+        # S² - 8 should be positive (since S > 2√2 ⟺ S² > 8)
+        gap = chsh * chsh - Fraction(8)
+        assert gap > 0, f"S² - 8 = {gap}, should be positive"
+        
+        # The gap should be exactly 256/25 - 200/25 = 56/25
+        expected_gap = Fraction(256, 25) - Fraction(200, 25)
+        assert gap == expected_gap, f"Gap = {gap}, expected {expected_gap}"
