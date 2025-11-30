@@ -469,60 +469,59 @@ Qed.
       - 16/5 distribution status: requires further analysis
     
     =========================================================================
-    OPTIMALITY ANALYSIS FOR THE 16/5 CONSTRUCTION
+    ANALYSIS OF THE 16/5 VALUE (NOT "OPTIMAL" - SEE CLARIFICATION)
     =========================================================================
     
-    ** Why 16/5 for the Sighted Thiele Witness? **
+    ** IMPORTANT CLARIFICATION **
     
-    The value 16/5 arises from a specific constraint: maintain perfect
-    correlation (E = 1) for three measurement settings while allowing
-    a single "defect" setting.
+    The value 16/5 = 3.2 is NOT the maximum achievable supra-quantum value!
     
-    Given the constraint that E(0,0) = E(0,1) = E(1,0) = 1, the CHSH value is:
-      S = 1 + 1 + 1 - E(1,1) = 3 - E(1,1)
+    Hierarchy of bounds:
+      Classical (local realism):  |S| ≤ 2
+      Quantum (Tsirelson):        |S| ≤ 2√2 ≈ 2.828
+      Our distribution:           S = 16/5 = 3.2
+      PR-box (no-signaling max):  S = 4
     
-    The defect correlator E(1,1) can range from -1 (PR-box) to +1 (classical),
-    but must satisfy the no-signaling polytope constraints.
+    The PR-box achieves S = 4, which is GREATER than our 16/5 = 3.2.
     
-    ** No-Signaling Constraint on E(1,1) **
+    ** What We Actually Prove **
     
-    For a valid no-signaling distribution with E(0,0)=E(0,1)=E(1,0)=1:
+    ✓ The 16/5 distribution is valid (normalized, no-signaling)
+    ✓ S = 16/5 = 3.2 exceeds the Tsirelson bound: 3.2 > 2√2 ≈ 2.828
+    ✓ The distribution can be realized by the sighted Thiele protocol
     
-    The marginal uniformity requirement (P(a|x) = 1/2 for all a,x) combined
-    with perfect correlation on three settings forces the fourth setting
-    to have symmetric marginals. The no-signaling constraints then imply:
+    We do NOT claim:
+    ✗ That 16/5 is the maximum achievable by any Thiele program
+    ✗ That 16/5 is "optimal" in any global sense
     
-      - P(a,b|1,1) must have P(0|1,y) = P(1|1,y) = 1/2 for both y
-      - P(a,b|1,1) must have P(b=0|x,1) = P(b=1|x,1) = 1/2 for both x
+    ** Why 16/5 for This Specific Construction? **
     
-    Given perfect correlation elsewhere, the feasible range is:
-      E(1,1) ∈ [-1, 1]  (full range available)
+    The value 16/5 arises from maintaining perfect correlation (E = 1) for
+    three measurement settings while allowing a single "defect" setting:
     
-    ** Why Choose E(1,1) = -1/5? **
+      E(0,0) = E(0,1) = E(1,0) = 1 (perfectly correlated)
+      E(1,1) = -1/5 (partially anti-correlated)
     
-    The choice E(1,1) = -1/5 is NOT the maximum possible (that would be -1,
-    giving the PR-box with S = 4). Instead, it represents a specific point
-    in the Thiele Machine's "sighted" operational regime where:
+    CHSH = 1 + 1 + 1 - (-1/5) = 3 + 1/5 = 16/5
     
-    1. The partition logic can be executed with finite μ-cost
-    2. The correlations are reproducible via geometric witness sharing
-    3. The value exceeds quantum mechanics while remaining verifiable
+    ** Feasible Range for E(1,1) **
     
-    The 16/5 value is thus OPTIMAL for the Thiele construction in the sense
-    that it maximizes the gap above quantum while:
-      - Remaining efficiently verifiable (finite μ-cost)
-      - Maintaining the partition-logic operational semantics
-      - Allowing deterministic receipt generation
+    Given no-signaling constraints with E(0,0) = E(0,1) = E(1,0) = 1:
     
-    ** Mathematical Expression of Optimality **
+    The correlator E(1,1) can theoretically range from -1 to +1:
+      - E(1,1) = -1  → S = 3 - (-1) = 4 (PR-box)
+      - E(1,1) = -1/5 → S = 3 - (-1/5) = 16/5 = 3.2 (our distribution)
+      - E(1,1) = +1  → S = 3 - 1 = 2 (classical limit)
     
-    For the sighted Thiele protocol with partition size N and measurement
-    precision ε, the achievable CHSH value is bounded by:
+    ** Why Not Use E(1,1) = -1 (PR-box)? **
     
-      S_max(N,ε) ≤ 4 - f(N,ε)
+    The PR-box with S = 4 is the theoretical maximum for no-signaling
+    correlations. The 16/5 construction uses E(1,1) = -1/5 because this
+    specific value arises from the geometric partition-sharing mechanism
+    in the sighted Thiele protocol.
     
-    where f(N,ε) → 0 as N → ∞ and ε → 0. The 16/5 construction corresponds
-    to a specific finite (N,ε) choice optimized for the demonstration.
+    The value represents what this SPECIFIC implementation achieves,
+    not a fundamental limit of the Thiele Machine framework.
     
     =========================================================================
     ISOMORPHISM STRUCTURE
