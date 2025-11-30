@@ -76,6 +76,7 @@
  *)
 
 From Coq Require Import Arith ZArith Lia List Nat Bool.
+From Coq Require Import Sorting.Permutation.
 Import ListNotations.
 
 (** =========================================================================
@@ -125,8 +126,8 @@ Definition build_adjacency (g : VariableGraph) : list (list nat) :=
 (** Compute degree of each vertex *)
 Definition vertex_degrees (g : VariableGraph) : list nat :=
   let n := num_vars g in
-  let count_edges v := length (filter (fun e => 
-    let (a, b) := e in (Nat.eqb a v) || (Nat.eqb b v)) (edges g)) in
+  let count_edges (v : nat) := length (filter (fun e : nat * nat => 
+    let '(a, b) := e in (Nat.eqb a v) || (Nat.eqb b v)) (edges g)) in
   map count_edges (seq 0 n).
 
 (** Trivial partition: all variables in one module *)
@@ -134,11 +135,8 @@ Definition trivial_partition (n : nat) : Partition :=
   {| partition_modules := [seq 1 n] |}.
 
 (** Check if partition is valid (covers all variables exactly once) *)
-Fixpoint flatten_partition (p : Partition) : list nat :=
-  match partition_modules p with
-  | [] => []
-  | m :: rest => m ++ flatten_partition {| partition_modules := rest |}
-  end.
+Definition flatten_partition (p : Partition) : list nat :=
+  flat_map (fun m => m) (partition_modules p).
 
 Definition is_valid_partition (p : Partition) (n : nat) : Prop :=
   Permutation (flatten_partition p) (seq 1 n).
@@ -352,5 +350,3 @@ Definition classify_signature (sig : GeometricSignature) : bool :=
     CLAIM 5: μ-cost accounting is consistent across implementations
     FALSIFICATION: Find case where μ-costs diverge
  *)
-
-End.
