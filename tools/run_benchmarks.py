@@ -58,12 +58,8 @@ def run_benchmark(
 ) -> SolverResult:
     """Run a single benchmark."""
     
-    # Generate instance
-    if family == "period_finding":
-        # For period finding, size is N and seed is base
-        instance = generate_instance(family, size, seed)
-    else:
-        instance = generate_instance(family, size, seed)
+    # Generate instance (same API for all families)
+    instance = generate_instance(family, size, seed)
     
     # Run appropriate solver
     if mode == "blind":

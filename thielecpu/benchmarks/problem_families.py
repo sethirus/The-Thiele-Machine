@@ -162,8 +162,12 @@ def generate_tseitin_instance(n: int, seed: int) -> BenchmarkInstance:
     num_vars = len(edges)
     
     # Generate charge function (odd parity at each vertex for UNSAT)
+    # Setting all charges to 1 (odd) creates an unsatisfiable Tseitin formula
+    # because the sum of parities over all vertices equals the number of edges
+    # counted twice (each edge contributes to exactly 2 vertices), which is even.
+    # But with all odd charges, we require an odd total, creating a contradiction.
     rng = random.Random(seed + 1)
-    charges = {v: 1 for v in range(n)}  # All odd = UNSAT
+    charges = {v: 1 for v in range(n)}  # All odd charges = guaranteed UNSAT
     
     # Build Tseitin clauses
     clauses = []
@@ -180,9 +184,12 @@ def generate_tseitin_instance(n: int, seed: int) -> BenchmarkInstance:
             
         # Generate XOR constraint: sum of edges ≡ charge[v] (mod 2)
         # Encode as CNF using standard XOR-to-CNF conversion
+        # Note: This enumeration is O(2^k) where k = vertex degree.
+        # For degree-3 graphs (our case), k ≤ 3, so 2^k ≤ 8 is efficient.
+        # For higher degrees, use Tseitin auxiliary variable encoding.
         charge = charges[v]
         
-        # For small cases, enumerate all satisfying assignments
+        # For degree-3 graphs, enumerate all 2^k assignments (at most 8)
         k = len(incident)
         for assignment in range(2**k):
             parity = bin(assignment).count('1') % 2
