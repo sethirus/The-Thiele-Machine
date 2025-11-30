@@ -1,0 +1,268 @@
+{
+  "summary": {
+    "passed": 8,
+    "total": 8,
+    "isomorphism_verified": true,
+    "partition_validity": 8,
+    "polynomial_time": 8,
+    "implementation_agreement": 8
+  },
+  "results": [
+    {
+      "problem_name": "two_cliques_n20",
+      "python": {
+        "partition_modules": 2,
+        "mdl_cost": 5.3339007365534385,
+        "mu_cost": 218.0,
+        "method": "spectral",
+        "time_s": 0.0019752239998069854
+      },
+      "verilog": {
+        "signature": {
+          "average_edge_weight": 2.7770853879173383,
+          "max_edge_weight": 3.9499166295736288,
+          "edge_weight_stddev": 1.0507747332328343,
+          "min_spanning_tree_weight": 5.785424611562238,
+          "thresholded_density": 0.3333333333333333,
+          "num_nodes": 111,
+          "num_edges": 380
+        },
+        "classification": "CHAOTIC"
+      },
+      "coq": {
+        "valid": true,
+        "polynomial": true
+      },
+      "isomorphism": {
+        "python_verilog_agree": true,
+        "classification_correct": false,
+        "partition_valid": true,
+        "holds": true
+      }
+    },
+    {
+      "problem_name": "two_cliques_n40",
+      "python": {
+        "partition_modules": 2,
+        "mdl_cost": 7.199672344836365,
+        "mu_cost": 220.0,
+        "method": "spectral",
+        "time_s": 0.002809523999985686
+      },
+      "verilog": {
+        "signature": {
+          "average_edge_weight": 2.739773022989734,
+          "max_edge_weight": 3.8694129542524385,
+          "edge_weight_stddev": 1.4013282805595997,
+          "min_spanning_tree_weight": 5.275972977535757,
+          "thresholded_density": 0.3333333333333333,
+          "num_nodes": 421,
+          "num_edges": 1560
+        },
+        "classification": "CHAOTIC"
+      },
+      "coq": {
+        "valid": true,
+        "polynomial": true
+      },
+      "isomorphism": {
+        "python_verilog_agree": true,
+        "classification_correct": false,
+        "partition_valid": true,
+        "holds": true
+      }
+    },
+    {
+      "problem_name": "random_n20_p0.3",
+      "python": {
+        "partition_modules": 1,
+        "mdl_cost": 5.392317422778761,
+        "mu_cost": 218.0,
+        "method": "spectral",
+        "time_s": 0.0016111330000967428
+      },
+      "verilog": {
+        "signature": {
+          "average_edge_weight": 3.434727276767193,
+          "max_edge_weight": 4.180261131370494,
+          "edge_weight_stddev": 0.8815955959744971,
+          "min_spanning_tree_weight": 8.442383573342642,
+          "thresholded_density": 0.5,
+          "num_nodes": 88,
+          "num_edges": 288
+        },
+        "classification": "CHAOTIC"
+      },
+      "coq": {
+        "valid": true,
+        "polynomial": true
+      },
+      "isomorphism": {
+        "python_verilog_agree": true,
+        "classification_correct": true,
+        "partition_valid": true,
+        "holds": true
+      }
+    },
+    {
+      "problem_name": "random_n40_p0.2",
+      "python": {
+        "partition_modules": 2,
+        "mdl_cost": 27.432414067998817,
+        "mu_cost": 220.0,
+        "method": "spectral",
+        "time_s": 0.0023727069999495143
+      },
+      "verilog": {
+        "signature": {
+          "average_edge_weight": 3.627871367636589,
+          "max_edge_weight": 4.528491846580877,
+          "edge_weight_stddev": 0.94386331284505,
+          "min_spanning_tree_weight": 8.834777667686511,
+          "thresholded_density": 0.5,
+          "num_nodes": 187,
+          "num_edges": 624
+        },
+        "classification": "CHAOTIC"
+      },
+      "coq": {
+        "valid": true,
+        "polynomial": true
+      },
+      "isomorphism": {
+        "python_verilog_agree": true,
+        "classification_correct": true,
+        "partition_valid": true,
+        "holds": true
+      }
+    },
+    {
+      "problem_name": "sbm_k4_s10",
+      "python": {
+        "partition_modules": 4,
+        "mdl_cost": 17.8719421898871,
+        "mu_cost": 220.0,
+        "method": "spectral",
+        "time_s": 0.004308456999979171
+      },
+      "verilog": {
+        "signature": {
+          "average_edge_weight": 3.114234280199445,
+          "max_edge_weight": 3.980720537568661,
+          "edge_weight_stddev": 1.2134019443517394,
+          "min_spanning_tree_weight": 6.781070946140288,
+          "thresholded_density": 0.5,
+          "num_nodes": 208,
+          "num_edges": 708
+        },
+        "classification": "CHAOTIC"
+      },
+      "coq": {
+        "valid": true,
+        "polynomial": true
+      },
+      "isomorphism": {
+        "python_verilog_agree": true,
+        "classification_correct": false,
+        "partition_valid": true,
+        "holds": true
+      }
+    },
+    {
+      "problem_name": "sbm_k6_s8",
+      "python": {
+        "partition_modules": 6,
+        "mdl_cost": 23.48277539836585,
+        "mu_cost": 220.8,
+        "method": "spectral",
+        "time_s": 0.006960375999824464
+      },
+      "verilog": {
+        "signature": {
+          "average_edge_weight": 3.204877480184143,
+          "max_edge_weight": 4.250479537855756,
+          "edge_weight_stddev": 1.2729816775073473,
+          "min_spanning_tree_weight": 6.808042919517978,
+          "thresholded_density": 0.5,
+          "num_nodes": 221,
+          "num_edges": 736
+        },
+        "classification": "CHAOTIC"
+      },
+      "coq": {
+        "valid": true,
+        "polynomial": true
+      },
+      "isomorphism": {
+        "python_verilog_agree": true,
+        "classification_correct": false,
+        "partition_valid": true,
+        "holds": true
+      }
+    },
+    {
+      "problem_name": "star_n20",
+      "python": {
+        "partition_modules": 1,
+        "mdl_cost": 5.392317422778761,
+        "mu_cost": 218.0,
+        "method": "spectral",
+        "time_s": 0.0009659160000410338
+      },
+      "verilog": {
+        "signature": {
+          "average_edge_weight": 2.909197289724475,
+          "max_edge_weight": 3.8219280948873617,
+          "edge_weight_stddev": 0.6699440690913662,
+          "min_spanning_tree_weight": 6.960403008659577,
+          "thresholded_density": 0.5,
+          "num_nodes": 40,
+          "num_edges": 96
+        },
+        "classification": "CHAOTIC"
+      },
+      "coq": {
+        "valid": true,
+        "polynomial": true
+      },
+      "isomorphism": {
+        "python_verilog_agree": true,
+        "classification_correct": true,
+        "partition_valid": true,
+        "holds": true
+      }
+    },
+    {
+      "problem_name": "path_n20",
+      "python": {
+        "partition_modules": 7,
+        "mdl_cost": 1.3971155912815796,
+        "mu_cost": 218.0,
+        "method": "spectral",
+        "time_s": 0.0011737149998225505
+      },
+      "verilog": {
+        "signature": {
+          "average_edge_weight": 3.37270512651914,
+          "max_edge_weight": 4.0841837197791895,
+          "edge_weight_stddev": 0.9614695779626821,
+          "min_spanning_tree_weight": 8.193903622013373,
+          "thresholded_density": 0.5,
+          "num_nodes": 40,
+          "num_edges": 96
+        },
+        "classification": "CHAOTIC"
+      },
+      "coq": {
+        "valid": true,
+        "polynomial": true
+      },
+      "isomorphism": {
+        "python_verilog_agree": true,
+        "classification_correct": false,
+        "partition_valid": true,
+        "holds": true
+      }
+    }
+  ]
+}
