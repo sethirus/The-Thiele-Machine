@@ -47,7 +47,7 @@ class SolverResult:
     decisions: int               # Number of branching decisions
     propagations: int            # Number of unit propagations
     conflicts: int               # Number of conflicts/backtracks
-    oracle_calls: int            # Total solver API calls
+    oracle_calls: int            # Number of recursive DPLL calls / solver iterations
     
     # μ-cost accounting
     mu_discovery: float          # Cost of partition discovery (0 for blind)
@@ -442,8 +442,12 @@ class SightedSolver:
                 
                 for lit in clause:
                     var = abs(lit)
+                    # For module-local solving, we only evaluate variables in this module.
+                    # Cross-module clauses are handled separately in the main solve() method.
+                    # This is safe because module_clauses only contains clauses that are
+                    # fully contained within this module.
                     if var not in module_vars:
-                        continue  # Skip variables not in this module
+                        continue  # This shouldn't happen for properly classified clauses
                     if var in assignment:
                         if (lit > 0) == assignment[var]:
                             satisfied = True
