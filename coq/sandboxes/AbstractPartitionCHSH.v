@@ -406,3 +406,153 @@ Proof.
   exists pr_ns. split; [apply pr_valid | apply pr_chsh].
 Qed.
 
+(** ** Supra-quantum 16/5 distribution
+    
+    This distribution achieves CHSH = 16/5 = 3.2, strictly exceeding the
+    Tsirelson bound of 2√2 ≈ 2.828 while remaining no-signaling.
+    
+    The code uses: chsh_ns = E(0,0) + E(0,1) + E(1,0) - E(1,1)
+    To get 16/5 = 3.2, we need: E(0,0) = E(0,1) = E(1,0) = 1, E(1,1) = -1/5
+    So: 1 + 1 + 1 - (-1/5) = 3 + 1/5 = 16/5
+    
+    The probability distribution:
+      P(a,b|x=0,y=0): 00->1/2, 01->0, 10->0, 11->1/2   (E=1)
+      P(a,b|x=0,y=1): 00->1/2, 01->0, 10->0, 11->1/2   (E=1)
+      P(a,b|x=1,y=0): 00->1/2, 01->0, 10->0, 11->1/2   (E=1)
+      P(a,b|x=1,y=1): 00->1/5, 01->3/10, 10->3/10, 11->1/5 (E=-1/5)
+    
+    The correlators are:
+      E(0,0) = 1      (perfectly correlated)
+      E(0,1) = 1      (perfectly correlated)
+      E(1,0) = 1      (perfectly correlated)
+      E(1,1) = -1/5   (anti-correlated)
+    
+    Thus: chsh_ns = E(0,0) + E(0,1) + E(1,0) - E(1,1) = 1 + 1 + 1 - (-1/5) = 16/5
+    
+    This is isomorphic to artifacts/bell/supra_quantum_16_5.csv with a relabeling
+    of the (x,y) settings.
+*)
+
+(** The probability distribution P(a,b|x,y) for the supra-quantum 16/5 witness *)
+Definition supra_quantum_p (a b x y : bool) : R :=
+  match x, y with
+  | true, true =>
+      (* x=1, y=1: E = -1/5, so P(same) = 2/5, P(diff) = 3/5 *)
+      match a, b with
+      | false, false => 1/5   (* P(0,0|1,1) = 1/5 *)
+      | false, true => 3/10   (* P(0,1|1,1) = 3/10 *)
+      | true, false => 3/10   (* P(1,0|1,1) = 3/10 *)
+      | true, true => 1/5     (* P(1,1|1,1) = 1/5 *)
+      end
+  | false, false | false, true | true, false =>
+      (* For all other settings: E = 1, perfectly correlated *)
+      match a, b with
+      | false, false => 1/2   (* P(0,0) = 1/2 *)
+      | false, true => 0      (* P(0,1) = 0 *)
+      | true, false => 0      (* P(1,0) = 0 *)
+      | true, true => 1/2     (* P(1,1) = 1/2 *)
+      end
+  end.
+
+(** The non-signaling strategy record for the supra-quantum 16/5 distribution *)
+Definition supra_quantum_ns : NonSignalingStrategy := {|
+  (* P(a,b|x=0,y=0): 00->1/2, 01->0, 10->0, 11->1/2 (E=1) *)
+  p00 := (1/2, 0, 0, 1/2);
+  (* P(a,b|x=0,y=1): 00->1/2, 01->0, 10->0, 11->1/2 (E=1) *)
+  p01 := (1/2, 0, 0, 1/2);
+  (* P(a,b|x=1,y=0): 00->1/2, 01->0, 10->0, 11->1/2 (E=1) *)
+  p10 := (1/2, 0, 0, 1/2);
+  (* P(a,b|x=1,y=1): 00->1/5, 01->3/10, 10->3/10, 11->1/5 (E=-1/5) *)
+  p11 := (1/5, 3/10, 3/10, 1/5)
+|}.
+
+(** Verify the expectation value E(0,0) = 1 *)
+Lemma e_ns_supra_quantum_false_false : e_ns supra_quantum_ns false false = 1.
+Proof.
+  unfold e_ns, supra_quantum_ns, get_p; simpl.
+  field.
+Qed.
+
+(** Verify the expectation value E(0,1) = 1 *)
+Lemma e_ns_supra_quantum_false_true : e_ns supra_quantum_ns false true = 1.
+Proof.
+  unfold e_ns, supra_quantum_ns, get_p; simpl.
+  field.
+Qed.
+
+(** Verify the expectation value E(1,0) = 1 *)
+Lemma e_ns_supra_quantum_true_false : e_ns supra_quantum_ns true false = 1.
+Proof.
+  unfold e_ns, supra_quantum_ns, get_p; simpl.
+  field.
+Qed.
+
+(** Verify the expectation value E(1,1) = -1/5 *)
+Lemma e_ns_supra_quantum_true_true : e_ns supra_quantum_ns true true = -1/5.
+Proof.
+  unfold e_ns, supra_quantum_ns, get_p; simpl.
+  field.
+Qed.
+
+(** The CHSH value for the supra-quantum distribution is exactly 16/5 *)
+Lemma supra_quantum_chsh : chsh_ns supra_quantum_ns = 16/5.
+Proof.
+  unfold chsh_ns.
+  rewrite e_ns_supra_quantum_false_false,
+          e_ns_supra_quantum_false_true,
+          e_ns_supra_quantum_true_false,
+          e_ns_supra_quantum_true_true.
+  (* 1 + 1 + 1 - (-1/5) = 3 + 1/5 = 16/5 *)
+  field.
+Qed.
+
+(** Verify that the supra-quantum distribution is valid (non-signaling) *)
+Lemma supra_quantum_valid : valid_ns supra_quantum_ns.
+Proof.
+  unfold valid_ns, supra_quantum_ns, get_p.
+  repeat split.
+  - (* Positivity: all probabilities are non-negative *)
+    intros x y a b; destruct x, y, a, b; simpl; lra.
+  - (* Normalization: probabilities sum to 1 for each (x,y) *)
+    intros x y; destruct x, y; simpl; lra.
+  - (* No-signaling Alice: marginal P(a|x) independent of y *)
+    intros x a; destruct x, a; simpl; lra.
+  - (* No-signaling Bob: marginal P(b|y) independent of x *)
+    intros y b; destruct y, b; simpl; lra.
+Qed.
+
+(** 16/5 exceeds the Tsirelson bound of 2√2.
+    Since 2√2 ≈ 2.828 and 16/5 = 3.2, we have 16/5 > 2√2.
+    We prove this by showing (16/5)² > 8 (since (2√2)² = 8). *)
+Lemma supra_quantum_exceeds_tsirelson : 8 < (16/5) * (16/5).
+Proof.
+  (* 8 < 256/25 ⟺ 8 * 25 < 256 ⟺ 200 < 256 *)
+  lra.
+Qed.
+
+(** The supra-quantum distribution lies strictly between 2√2 and 4 *)
+Lemma supra_quantum_bounds : 2 < 16/5 /\ 16/5 < 4.
+Proof.
+  split; lra.
+Qed.
+
+(** Main theorem: The 16/5 distribution is a valid supra-quantum witness
+    that achieves CHSH = 16/5 > 2√2 (Tsirelson bound) *)
+Theorem sighted_is_supra_quantum :
+  exists ns, valid_ns ns /\ chsh_ns ns = 16/5 /\ 8 < (chsh_ns ns) * (chsh_ns ns).
+Proof.
+  exists supra_quantum_ns.
+  split; [apply supra_quantum_valid |].
+  split; [apply supra_quantum_chsh |].
+  rewrite supra_quantum_chsh.
+  apply supra_quantum_exceeds_tsirelson.
+Qed.
+
+(** Corollary: There exists a non-signaling distribution exceeding the Tsirelson bound *)
+Corollary supra_quantum_exists :
+  exists ns, valid_ns ns /\ 8 < (chsh_ns ns) * (chsh_ns ns).
+Proof.
+  destruct sighted_is_supra_quantum as [ns [Hvalid [Hchsh Hexceeds]]].
+  exists ns. split; assumption.
+Qed.
+

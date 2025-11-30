@@ -11,9 +11,9 @@ Pinned environment variables for reproducibility:
 - PYTHONHASHSEED=0
 Formal toolchain versions detected:
 - Python: Python 3.12.3
-- Z3: unavailable
+- Z3: Z3 version 4.15.1 - 64 bit
 - Coq: The Coq Proof Assistant, version 8.18.0
-- Repository commit: e200b58f9b04f6436f7cb7584601b7f406615373
+- Repository commit: de79a1bc3f8badc1ba30e72463379d3a621aef8e
 - Host platform: Linux-6.11.0-1018-azure-x86_64-with-glibc2.39
 Network isolation is enforced; passing --allow-network explicitly opts into live data fetching.
 Decimal arithmetic uses 80 digits of precision; all rational witnesses are emitted exactly.
@@ -270,7 +270,100 @@ Tsirelson witness inequalities:
 ```
 **This runtime measurement pins the classical/quantum boundary; every fraction is derived in integer arithmetic.**
 Abstract proof excerpt (Coq sandbox) certifying the supra-quantum witness and the inequality sandwich between 2√2 and 4:
-(Coq sandbox not found; supra-quantum excerpt unavailable in this run.)
+```coq
+Definition supra_quantum_ns : NonSignalingStrategy := {|
+  (* P(a,b|x=0,y=0): 00->1/2, 01->0, 10->0, 11->1/2 (E=1) *)
+  p00 := (1/2, 0, 0, 1/2);
+  (* P(a,b|x=0,y=1): 00->1/2, 01->0, 10->0, 11->1/2 (E=1) *)
+  p01 := (1/2, 0, 0, 1/2);
+  (* P(a,b|x=1,y=0): 00->1/2, 01->0, 10->0, 11->1/2 (E=1) *)
+  p10 := (1/2, 0, 0, 1/2);
+  (* P(a,b|x=1,y=1): 00->1/5, 01->3/10, 10->3/10, 11->1/5 (E=-1/5) *)
+  p11 := (1/5, 3/10, 3/10, 1/5)
+|}.
+
+(** Verify the expectation value E(0,0) = 1 *)
+Lemma e_ns_supra_quantum_false_false : e_ns supra_quantum_ns false false = 1.
+Proof.
+  unfold e_ns, supra_quantum_ns, get_p; simpl.
+  field.
+Qed.
+
+(** Verify the expectation value E(0,1) = 1 *)
+Lemma e_ns_supra_quantum_false_true : e_ns supra_quantum_ns false true = 1.
+Proof.
+  unfold e_ns, supra_quantum_ns, get_p; simpl.
+  field.
+Qed.
+
+(** Verify the expectation value E(1,0) = 1 *)
+Lemma e_ns_supra_quantum_true_false : e_ns supra_quantum_ns true false = 1.
+Proof.
+  unfold e_ns, supra_quantum_ns, get_p; simpl.
+  field.
+Qed.
+
+(** Verify the expectation value E(1,1) = -1/5 *)
+Lemma e_ns_supra_quantum_true_true : e_ns supra_quantum_ns true true = -1/5.
+Proof.
+  unfold e_ns, supra_quantum_ns, get_p; simpl.
+  field.
+Qed.
+
+(** The CHSH value for the supra-quantum distribution is exactly 16/5 *)
+Lemma supra_quantum_chsh : chsh_ns supra_quantum_ns = 16/5.
+Proof.
+  unfold chsh_ns.
+  rewrite e_ns_supra_quantum_false_false,
+          e_ns_supra_quantum_false_true,
+          e_ns_supra_quantum_true_false,
+          e_ns_supra_quantum_true_true.
+  (* 1 + 1 + 1 - (-1/5) = 3 + 1/5 = 16/5 *)
+  field.
+Qed.
+
+(** Verify that the supra-quantum distribution is valid (non-signaling) *)
+Lemma supra_quantum_valid : valid_ns supra_quantum_ns.
+Proof.
+  unfold valid_ns, supra_quantum_ns, get_p.
+  repeat split.
+  - (* Positivity: all probabilities are non-negative *)
+    intros x y a b; destruct x, y, a, b; simpl; lra.
+  - (* Normalization: probabilities sum to 1 for each (x,y) *)
+    intros x y; destruct x, y; simpl; lra.
+  - (* No-signaling Alice: marginal P(a|x) independent of y *)
+    intros x a; destruct x, a; simpl; lra.
+  - (* No-signaling Bob: marginal P(b|y) independent of x *)
+    intros y b; destruct y, b; simpl; lra.
+Qed.
+
+(** 16/5 exceeds the Tsirelson bound of 2√2.
+    Since 2√2 ≈ 2.828 and 16/5 = 3.2, we have 16/5 > 2√2.
+    We prove this by showing (16/5)² > 8 (since (2√2)² = 8). *)
+Lemma supra_quantum_exceeds_tsirelson : 8 < (16/5) * (16/5).
+Proof.
+  (* 8 < 256/25 ⟺ 8 * 25 < 256 ⟺ 200 < 256 *)
+  lra.
+Qed.
+
+(** The supra-quantum distribution lies strictly between 2√2 and 4 *)
+Lemma supra_quantum_bounds : 2 < 16/5 /\ 16/5 < 4.
+Proof.
+  split; lra.
+Qed.
+
+(** Main theorem: The 16/5 distribution is a valid supra-quantum witness
+    that achieves CHSH = 16/5 > 2√2 (Tsirelson bound) *)
+Theorem sighted_is_supra_quantum :
+  exists ns, valid_ns ns /\ chsh_ns ns = 16/5 /\ 8 < (chsh_ns ns) * (chsh_ns ns).
+Proof.
+  exists supra_quantum_ns.
+  split; [apply supra_quantum_valid |].
+  split; [apply supra_quantum_chsh |].
+  rewrite supra_quantum_chsh.
+  apply supra_quantum_exceeds_tsirelson.
+Qed.
+```
 **The machine-checked conclusion: a valid sighted strategy reaches S = 16/5, strictly greater than 2√2 yet bounded by the PR-box limit of 4.**
 ## Act IV — Consolidated Artifact
 All evidence is collated into BELL_INEQUALITY_VERIFIED_RESULTS.md.
@@ -293,24 +386,6 @@ Coq proof obligations discharged (The Coq Proof Assistant, version 8.18.0).
 ```
 **Q.E.D. — The runtime receipts coincide with the mechanised witness.**
 Coq replay confirms the canonical program receipts; any alternative log must produce identical instruction/state triples to be accepted.
-## Act VI — Operation Cosmic Witness
-Cosmic microwave background data is converted into a formally proved prediction.
-
-Correctness: the analytic certificate shows the induced rule outputs the logged CHSH setting for the recorded features (solvers remain optional corroboration).
-Robustness: the same analytic reasoning demonstrates the prediction remains stable within the recorded noise model (ε-ball) derived from the offline dataset.
-Operation Cosmic Witness mode=offline, data_source=offline, allow_network=False
-Loading offline CMB sample from /home/runner/work/The-Thiele-Machine/The-Thiele-Machine/data/cmb_sample.csv
-Extracted feature vector (mean, stdev, min, max, gradient): 2.7254761875, 6.79355163007e-06, 2.725466, 2.725489, -1.25000000004e-05
-Data origin recorded as csv:cmb_sample.csv.
-Induced rule: 1·feature[2] > 2.72474 -> (1, 0), else -> (0, 1) (param_count=1)
-Predicted CHSH trial: alice=1, bob=0
-Analytic certificate confirms the prediction; robustness proved (eps=7.230e-05).
-Persisted Operation Cosmic Witness receipts and proofs to disk.
-Operation Cosmic Witness artifacts written to the artifacts/ directory for audit.
-- Prediction receipt: /home/runner/work/The-Thiele-Machine/The-Thiele-Machine/artifacts/cosmic_witness_prediction_receipt.json
-- Prediction proof: /home/runner/work/The-Thiele-Machine/The-Thiele-Machine/artifacts/cosmic_witness_prediction_proof.txt
-- Robustness proof: /home/runner/work/The-Thiele-Machine/The-Thiele-Machine/artifacts/cosmic_witness_prediction_proof_robust.txt
-- Prediction proved (analytic): True
 ## Conclusion — Verification Gates
 The thesis run is accepted only when these audit checks succeed.
 
