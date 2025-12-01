@@ -39,6 +39,9 @@ SIGNING_KEY = b"ThieleWaveKey"
 COQ_LOAD_ARGS = ["-Q", "coq/thielemachine/coqproofs", "ThieleMachine"]
 
 # Numerical constants
+# CFL (Courant-Friedrichs-Lewy) stability condition: for the 1D wave equation,
+# the numerical scheme is stable when c*dt/dx <= 1/sqrt(2) ≈ 0.707.
+# This ensures that information does not propagate faster than the grid allows.
 CFL_STABILITY_THRESHOLD = 1.0 / np.sqrt(2)  # Maximum stable CFL number for wave equation
 QUANTIZATION_PRECISION = 1e-10  # Precision for coefficient encoding and residual comparison
 COEFFICIENT_PRECISION_BITS = 10  # Bits of precision for coefficient encoding
@@ -580,7 +583,11 @@ def generate_coq_formalization(
     
     # Convert coefficients to fractions for exact arithmetic in Coq
     def to_fraction_str(x: float, denominator: int = COQ_FRACTION_DENOMINATOR) -> str:
-        numer = round(x * denominator)
+        """Convert a float to a Coq rational number representation."""
+        if denominator <= 0:
+            raise ValueError("Denominator must be positive")
+        # Use int() after round() to ensure we get an integer, handle large values
+        numer = int(round(x * denominator))
         return f"(({numer})%Z # (Pos.of_nat {denominator}))"
     
     coq_code = f'''(* Emergent Wave Equation - Discovered via Thiele Machine *)
