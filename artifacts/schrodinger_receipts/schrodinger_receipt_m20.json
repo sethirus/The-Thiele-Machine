@@ -1,0 +1,122 @@
+[
+  {
+    "event": "schrodinger_data_generation",
+    "timesteps": 200,
+    "lattice_size": 64,
+    "data_sha256": "e14e8b9817ea02efccda9f620b1380ad3da1e13d9fafccae54d26cf41d50801a",
+    "model_params": {
+      "mass": 2.0,
+      "dt": 0.01,
+      "dx": 1.0,
+      "potential_kind": "harmonic",
+      "omega": 0.2,
+      "seed": 42
+    },
+    "generator": "SchrodingerModel",
+    "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "crypto_hash": "9c53417a2a38c80e923be6d86774b02900004428a904ade06ece26a383dec7ae"
+  },
+  {
+    "event": "model_enumeration",
+    "candidates": [
+      {
+        "name": "local_decoupled",
+        "description": "a(t+1) = \u03b1\u2080a, b(t+1) = \u03b2\u2080b (no coupling, no space)",
+        "num_parameters": 2,
+        "mu_discovery": 564.0447356260569,
+        "mu_execution": 528913.3332265965,
+        "mu_total": 529477.3779622226,
+        "rms_error": 0.00018059807939721484
+      },
+      {
+        "name": "local_coupled",
+        "description": "a(t+1) = \u03b1\u2080a + \u03b1\u2081b, b(t+1) = \u03b2\u2080b + \u03b2\u2081a (coupled, no space)",
+        "num_parameters": 4,
+        "mu_discovery": 640.0894712521139,
+        "mu_execution": 504997.6407810092,
+        "mu_total": 505637.73025226133,
+        "rms_error": 9.759487906970174e-05
+      },
+      {
+        "name": "laplacian_coupled",
+        "description": "Includes Laplacian coupling (no potential)",
+        "num_parameters": 6,
+        "mu_discovery": 828.1342068781707,
+        "mu_execution": 500783.61024801584,
+        "mu_total": 501611.74445489404,
+        "rms_error": 8.647621205601424e-05
+      },
+      {
+        "name": "full_schrodinger",
+        "description": "Full Schr\u00f6dinger: Laplacian + potential coupling",
+        "num_parameters": 8,
+        "mu_discovery": 928.1789425042276,
+        "mu_execution": 62.03591505931453,
+        "mu_total": 990.2148575635422,
+        "rms_error": 3.709791811488098e-17
+      }
+    ],
+    "previous_hash": "9c53417a2a38c80e923be6d86774b02900004428a904ade06ece26a383dec7ae",
+    "crypto_hash": "e9662f5a52f1e4e19b47fcedf84349100bd1217cf3a67aaf2644bf0a94f8402c"
+  },
+  {
+    "event": "model_selection",
+    "selected_model": "full_schrodinger",
+    "mu_discovery": 928.1789425042276,
+    "mu_execution": 62.03591505931453,
+    "mu_total": 990.2148575635422,
+    "selection_criterion": "minimal_mu_total",
+    "previous_hash": "e9662f5a52f1e4e19b47fcedf84349100bd1217cf3a67aaf2644bf0a94f8402c",
+    "crypto_hash": "3978814a8cc080840851bb185f95f199e538c72ae6b2cb54f9b2da15f127e25c"
+  },
+  {
+    "event": "coefficient_extraction",
+    "coefficients_a": {
+      "a": 0.9999999999999994,
+      "b": 3.8163916471489756e-17,
+      "lap_b": -0.00250000000000003,
+      "Vb": 0.010000000000000005
+    },
+    "coefficients_b": {
+      "b": 1.0,
+      "a": -4.597017211338539e-17,
+      "lap_a": 0.0025000000000000152,
+      "Va": -0.009999999999999997
+    },
+    "fitting_rms_error": 3.709791811488098e-17,
+    "previous_hash": "3978814a8cc080840851bb185f95f199e538c72ae6b2cb54f9b2da15f127e25c",
+    "crypto_hash": "310215990899a367e5012cd36a726152f34024bf757d336bb2565a438d535984"
+  },
+  {
+    "event": "pde_extraction",
+    "pde_type": "schrodinger_equation",
+    "extracted_mass": 1.9999999999999822,
+    "extracted_inv_2m": 0.2500000000000022,
+    "extracted_dt": 0.010000000000000002,
+    "equation": "i\u2202\u03c8/\u2202t = -1/(2m)\u2202\u00b2\u03c8/\u2202x\u00b2 + V(x)\u03c8",
+    "previous_hash": "310215990899a367e5012cd36a726152f34024bf757d336bb2565a438d535984",
+    "crypto_hash": "0731d49bb46a5d367864064f9cf310643efe63304efb2fcf002339ed4d5f4ace"
+  },
+  {
+    "event": "validation",
+    "rms_error": 2.385760911461744e-16,
+    "max_error": 2.220446049250313e-15,
+    "threshold": 0.0001,
+    "status": "PASS",
+    "previous_hash": "0731d49bb46a5d367864064f9cf310643efe63304efb2fcf002339ed4d5f4ace",
+    "crypto_hash": "b4ad78b3c730d0ddb2233fd417260eba2b957732a40329627d6fa5b9906a60b6"
+  },
+  {
+    "event": "schrodinger_summary",
+    "model": "full_schrodinger",
+    "mu_discovery": 928.1789425042276,
+    "mu_execution": 62.03591505931453,
+    "extracted_mass": 1.9999999999999822,
+    "rms_error": 2.385760911461744e-16,
+    "verdict": "verified",
+    "coq_artifact": "artifacts/schrodinger_receipts/EmergentSchrodingerEquation.v",
+    "previous_hash": "b4ad78b3c730d0ddb2233fd417260eba2b957732a40329627d6fa5b9906a60b6",
+    "crypto_hash": "f23f108fa7a9b8c733161dd95e6ae303db30abd7fe2e2a6abc965a772d0ea2cf",
+    "signature": "52d8b44aace799e73b86d9be61f50e1b80dad236942b375169eb4145ae2d482a"
+  }
+]

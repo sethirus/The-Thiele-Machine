@@ -273,6 +273,85 @@ Validation RMS error: 6.48e-15
 
 ---
 
+## Emergent Schrödinger Equation Demo
+
+This demo shows the Thiele Machine **recovering the Schrödinger equation as the minimal-μ structure** from raw quantum wave function evolution data.
+
+### Target PDE
+
+The 1D Schrödinger equation (ħ = 1):
+```
+i ∂ψ/∂t = -1/(2m) ∂²ψ/∂x² + V(x)ψ
+```
+
+Written in terms of real (a) and imaginary (b) parts where ψ = a + ib:
+```
+∂a/∂t = -1/(2m) ∂²b/∂x² + V(x)b
+∂b/∂t =  1/(2m) ∂²a/∂x² - V(x)a
+```
+
+### What It Does
+
+1. **Generates** quantum wave function evolution on a 1D lattice
+2. **Enumerates** candidate model structures:
+   - local_decoupled: No coupling, no space
+   - local_coupled: Cross-field coupling, no space
+   - laplacian_coupled: Laplacian + coupling, no potential
+   - full_schrodinger: Complete Schrödinger equation form
+3. **Computes** μ-discovery and μ-execution costs for each
+4. **Selects** the model with minimal total μ-cost
+5. **Extracts** the particle mass m from fitted coefficients
+6. **Validates** with machine-precision accuracy
+
+### Run the Demo
+
+```bash
+# Basic run with default parameters (m=1.0, harmonic potential)
+python tools/schrodinger_equation_derivation.py --output artifacts/schrodinger_receipt.json
+
+# Run with different masses
+python tools/schrodinger_equation_derivation.py --mass 0.5 --output artifacts/schrodinger_receipts/schrodinger_m05.json
+python tools/schrodinger_equation_derivation.py --mass 2.0 --output artifacts/schrodinger_receipts/schrodinger_m20.json
+
+# Run with free particle (V=0)
+python tools/schrodinger_equation_derivation.py --potential free --output artifacts/schrodinger_receipts/schrodinger_free.json
+
+# Run the falsification test
+python tools/schrodinger_falsification_test.py
+```
+
+### Output Files
+
+| File | Description |
+|------|-------------|
+| `artifacts/schrodinger_receipts/schrodinger_receipt_*.json` | Receipt chain documenting the derivation |
+| `artifacts/schrodinger_receipts/EmergentSchrodingerEquation.v` | Coq formalization (compilable) |
+
+### Compile the Coq Artifact
+
+```bash
+coqc artifacts/EmergentSchrodingerEquation.v
+# Creates EmergentSchrodingerEquation.vo - the compiled proof
+```
+
+### Example Output
+
+```
+============================================================
+DERIVATION COMPLETE
+============================================================
+Verdict: VERIFIED
+Model chosen: full_schrodinger
+μ_discovery: 928.18 bits
+μ_execution: 62.04 bits
+Extracted mass = 1.000000 (true: 1.0)
+Validation RMS error: 3.34e-16
+```
+
+**This demonstrates the machine recovering the Schrödinger equation (a fundamental quantum PDE) as minimal μ.**
+
+---
+
 ## Complete File Inventories
 
 This section provides **complete inventories** of every file in the codebase. Each file is listed with its line count, purpose, and location.
