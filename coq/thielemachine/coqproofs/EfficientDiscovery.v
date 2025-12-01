@@ -103,7 +103,7 @@ Proof.
   (* Full proof in DiscoveryProof.spectral_produces_partition *)
 Admitted. (* Requires full clustering formalization - see DiscoveryProof.v *)
 
-(** For n = 0, partition is trivially valid *)
+(** For n = 0, partition is trivially valid if it covers nothing *)
 Lemma discovery_valid_zero :
   forall prob : Problem,
     problem_size prob = 0 ->
@@ -111,7 +111,11 @@ Lemma discovery_valid_zero :
 Proof.
   intros prob H0.
   unfold is_valid_partition.
-  (* Empty partition is valid for n=0 *)
+  (* For n = 0, we need: length (covers_range (modules _) []) = 0 /\ NoDup (covers_range _ []) *)
+  (* This depends on what discover_partition returns for size-0 problems *)
+  (* We need to assume it returns an empty partition for n=0 *)
+  (* Since discover_partition is a Parameter, we cannot prove this without assumptions *)
+  (* This is a specification requirement that the implementation must satisfy *)
 Admitted.
 
 (** ** Key Theorem 3: MDL Cost is Well-Defined
@@ -209,9 +213,11 @@ Theorem efficient_discovery_sound :
     (* The costs are well-defined *)
     mdl_cost (discover_partition prob) >= 0.
 Proof.
-  intros prob.
-  (* Follows from individual theorems above *)
-Admitted.
+  intro prob.
+  exact (conj (discovery_polynomial_time prob) 
+              (conj (discovery_produces_valid_partition prob)
+                    (mdl_cost_well_defined prob))).
+Qed.
 
 (** ** Connection to μ-Accounting
     
