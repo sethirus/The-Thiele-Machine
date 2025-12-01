@@ -209,6 +209,70 @@ cd coq && make -j4
 
 ---
 
+## Emergent Wave Equation Demo
+
+This demo shows the Thiele Machine **recovering a known PDE (the wave equation) as the minimal-μ structure** from raw lattice evolution data.
+
+### What It Does
+
+1. **Generates** 1D wave evolution data on a periodic lattice
+2. **Enumerates** candidate local update structures (partitions)
+3. **Computes** μ-discovery and μ-execution costs for each
+4. **Selects** the partition with minimal total μ-cost
+5. **Extracts** the discrete update rule coefficients
+6. **Converts** to the continuous wave equation: ∂²u/∂t² = c² ∂²u/∂x²
+7. **Validates** with machine-precision accuracy (RMS error < 10⁻¹⁴)
+
+### Run the Demo
+
+```bash
+# Basic run with default parameters (c=0.5, n=64)
+python tools/wave_equation_derivation.py --output artifacts/wave_receipt.json
+
+# Run with different wave speeds
+python tools/wave_equation_derivation.py --wave-speed 0.3 --output artifacts/wave_receipts/wave_c03.json
+python tools/wave_equation_derivation.py --wave-speed 0.6 --output artifacts/wave_receipts/wave_c06.json
+
+# Run with different lattice sizes and seeds
+python tools/wave_equation_derivation.py --lattice-size 128 --timesteps 200 --seed 999 \
+    --output artifacts/wave_receipts/wave_large.json
+
+# Run the falsification test
+python tools/wave_falsification_test.py
+```
+
+### Output Files
+
+| File | Description |
+|------|-------------|
+| `artifacts/wave_receipts/wave_receipt_*.json` | Receipt chain documenting the derivation |
+| `artifacts/wave_receipts/EmergentWaveEquation.v` | Coq formalization (compilable) |
+
+### Compile the Coq Artifact
+
+```bash
+coqc artifacts/wave_receipts/EmergentWaveEquation.v
+# Creates EmergentWaveEquation.vo - the compiled proof
+```
+
+### Example Output
+
+```
+============================================================
+DERIVATION COMPLETE
+============================================================
+Verdict: VERIFIED
+Partition chosen: 2nd_order_time
+μ_discovery: 296.09 bits
+μ_execution: 42.97 bits
+Extracted c² = 0.250000 (true: 0.25)
+Validation RMS error: 6.48e-15
+```
+
+**This demonstrates the machine recovering a known PDE as minimal μ.**
+
+---
+
 ## Complete File Inventories
 
 This section provides **complete inventories** of every file in the codebase. Each file is listed with its line count, purpose, and location.
