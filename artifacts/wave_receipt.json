@@ -1,0 +1,133 @@
+[
+  {
+    "event": "wave_data_generation",
+    "timesteps": 100,
+    "lattice_size": 64,
+    "data_sha256": "a839bc625100dcc7bc37404309f63aac76070818d6691571d06ca9f4f48b7501",
+    "seed": 42,
+    "generator": "WaveModel",
+    "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "crypto_hash": "7e8110580c566eb83a019090315994554e9199714f9f317e16d5622eb9bc84be"
+  },
+  {
+    "event": "partition_enumeration",
+    "candidates": [
+      {
+        "name": "1_local",
+        "description": "1-local: u(x,t+1) = f(u(x,t))",
+        "num_parameters": 1,
+        "mu_discovery": 70.02236781302845,
+        "mu_execution": 174630.81554403936,
+        "mu_total": 174700.8379118524,
+        "rms_error": 0.024045151080289075
+      },
+      {
+        "name": "2_local_space",
+        "description": "2-local: u(x,t+1) = f(u(x-1,t), u(x,t), u(x+1,t))",
+        "num_parameters": 3,
+        "mu_discovery": 218.06710343908537,
+        "mu_execution": 174616.84910560504,
+        "mu_total": 174834.91620904414,
+        "rms_error": 0.023954650635708497
+      },
+      {
+        "name": "3_local_space",
+        "description": "3-local: u(x,t+1) = f(u(x-2,t),...,u(x+2,t))",
+        "num_parameters": 5,
+        "mu_discovery": 366.11183906514225,
+        "mu_execution": 174636.71154105183,
+        "mu_total": 175002.82338011698,
+        "rms_error": 0.02395450366341399
+      },
+      {
+        "name": "2nd_order_time",
+        "description": "2nd-order: u(x,t+1) = g(u(x,t-1), u(x-1,t), u(x,t), u(x+1,t))",
+        "num_parameters": 4,
+        "mu_discovery": 296.0894712521138,
+        "mu_execution": 42.965784284662085,
+        "mu_total": 339.0552555367759,
+        "rms_error": 2.094518030916286e-16
+      },
+      {
+        "name": "local_second_order",
+        "description": "local_second_order: Standard wave equation stencil",
+        "num_parameters": 4,
+        "mu_discovery": 296.0894712521138,
+        "mu_execution": 42.965784284662085,
+        "mu_total": 339.0552555367759,
+        "rms_error": 2.094518030916286e-16
+      },
+      {
+        "name": "extended_second_order",
+        "description": "extended_second_order: Full 2nd order with spatial coupling",
+        "num_parameters": 6,
+        "mu_discovery": 460.13420687817074,
+        "mu_execution": 42.965784284662085,
+        "mu_total": 503.09999116283285,
+        "rms_error": 1.545651749797139e-16
+      }
+    ],
+    "previous_hash": "7e8110580c566eb83a019090315994554e9199714f9f317e16d5622eb9bc84be",
+    "crypto_hash": "965e0ca3719e9afaa5fdb6339af3ef765f47ccb864f1c271fa514746b1adb6e4"
+  },
+  {
+    "event": "partition_selection",
+    "selected_partition": "2nd_order_time",
+    "mu_discovery": 296.0894712521138,
+    "mu_execution": 42.965784284662085,
+    "mu_total": 339.0552555367759,
+    "selection_criterion": "minimal_mu_total",
+    "previous_hash": "965e0ca3719e9afaa5fdb6339af3ef765f47ccb864f1c271fa514746b1adb6e4",
+    "crypto_hash": "5e7f3e01132b74dac3423e19399e5a461d690ed4c3066104d4ff4ec9fda3f66b"
+  },
+  {
+    "event": "rule_extraction",
+    "rule_coefficients": {
+      "coeff_u_t": 1.5000000000000004,
+      "coeff_u_tm1": -1.000000000000001,
+      "coeff_u_xp": 0.24999999999999972,
+      "coeff_u_xm": 0.25
+    },
+    "rule_string": "u(x,t+1) = 1.500000*u(x,t) + -1.000000*u(x,t-1) + 0.250000*u(x+1,t) + 0.250000*u(x-1,t)",
+    "fitting_rms_error": 2.094518030916286e-16,
+    "previous_hash": "5e7f3e01132b74dac3423e19399e5a461d690ed4c3066104d4ff4ec9fda3f66b",
+    "crypto_hash": "812ec436edbb8d9f2c88537dd4472dd5cb4205da2d0ad0be74face7be5f5fbaa"
+  },
+  {
+    "event": "pde_conversion",
+    "pde_type": "wave_equation",
+    "wave_speed_squared": 0.24999999999999986,
+    "wave_speed": 0.49999999999999983,
+    "equation": "\u2202\u00b2u/\u2202t\u00b2 = 0.250000 * \u2202\u00b2u/\u2202x\u00b2",
+    "previous_hash": "812ec436edbb8d9f2c88537dd4472dd5cb4205da2d0ad0be74face7be5f5fbaa",
+    "crypto_hash": "5bf4b2ec5fa8c9775af9eaca9a4ac8575542425669a3e6a1102d1df3a73ec4e1"
+  },
+  {
+    "event": "validation",
+    "rms_error": 6.47824509665192e-15,
+    "max_error": 3.419486915845482e-14,
+    "threshold": 1e-06,
+    "status": "PASS",
+    "previous_hash": "5bf4b2ec5fa8c9775af9eaca9a4ac8575542425669a3e6a1102d1df3a73ec4e1",
+    "crypto_hash": "f011d9e2186380f72e1c80ef507e43d467209f35fe9ef2fe4fb7620eea6996de"
+  },
+  {
+    "event": "wave_summary",
+    "partition": "2nd_order_time",
+    "mu_discovery": 296.0894712521138,
+    "mu_execution": 42.965784284662085,
+    "rule_coeffs": {
+      "coeff_u_t": 1.5000000000000004,
+      "coeff_u_tm1": -1.000000000000001,
+      "coeff_u_xp": 0.24999999999999972,
+      "coeff_u_xm": 0.25
+    },
+    "pde_constant": 0.24999999999999986,
+    "rms_error": 6.47824509665192e-15,
+    "verdict": "verified",
+    "coq_artifact": "artifacts/EmergentWaveEquation.v",
+    "previous_hash": "f011d9e2186380f72e1c80ef507e43d467209f35fe9ef2fe4fb7620eea6996de",
+    "crypto_hash": "0c89f5b4f24034a776bee7fd26185b4fd0c18eaf3409aaeb88e657e8a2827d84",
+    "signature": "bb0885b78064a52194b370d4a230f48ae2e48f462f077c6244fa66a64518d018"
+  }
+]
