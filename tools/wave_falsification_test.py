@@ -47,6 +47,11 @@ except ImportError:
         validate_rule,
     )
 
+# Tolerance for coefficient verification: allows for floating-point rounding errors
+# in the least-squares fitting while still ensuring physically meaningful results.
+# 1e-4 corresponds to 0.01% relative error for typical coefficient magnitudes.
+COEFFICIENT_TOLERANCE = 1e-4
+
 
 def run_falsification_test(
     lattice_size: int = 64,
@@ -174,13 +179,11 @@ def run_falsification_test(
     expected_coeff_u_tm1 = -1.0
     expected_coeff_neighbors = wave_speed**2
     
-    coeff_tolerance = 1e-4
-    
-    coeff_u_t_pass = abs(rule.coeff_u_t - expected_coeff_u_t) < coeff_tolerance
-    coeff_u_tm1_pass = abs(rule.coeff_u_tm1 - expected_coeff_u_tm1) < coeff_tolerance
+    coeff_u_t_pass = abs(rule.coeff_u_t - expected_coeff_u_t) < COEFFICIENT_TOLERANCE
+    coeff_u_tm1_pass = abs(rule.coeff_u_tm1 - expected_coeff_u_tm1) < COEFFICIENT_TOLERANCE
     coeff_neighbors_pass = (
-        abs(rule.coeff_u_xp - expected_coeff_neighbors) < coeff_tolerance and
-        abs(rule.coeff_u_xm - expected_coeff_neighbors) < coeff_tolerance
+        abs(rule.coeff_u_xp - expected_coeff_neighbors) < COEFFICIENT_TOLERANCE and
+        abs(rule.coeff_u_xm - expected_coeff_neighbors) < COEFFICIENT_TOLERANCE
     )
     
     if not coeff_u_t_pass:
