@@ -163,24 +163,22 @@ Proof.
   destruct Hmatch as [Hcoeff_t [Hcoeff_tm1 [Hcoeff_xp Hcoeff_xm]]].
   unfold discrete_wave_equation_holds, discrete_d2_dt2, discrete_d2_dx2.
   unfold wave_update in Hupdate.
-  (* 
-     The proof requires showing:
-     u_tp1 - 2*u_t + u_tm1 == c² * (u_xp - 2*u_t + u_xm)
-     
-     From the update rule:
-     u_tp1 = 2(1-c²)*u_t - u_tm1 + c²*(u_xp + u_xm)
-     
-     LHS = 2(1-c²)*u_t - u_tm1 + c²*(u_xp + u_xm) - 2*u_t + u_tm1
-         = 2*u_t - 2*c²*u_t - u_tm1 + c²*u_xp + c²*u_xm - 2*u_t + u_tm1
-         = -2*c²*u_t + c²*u_xp + c²*u_xm
-         = c² * (u_xp - 2*u_t + u_xm)
-         = RHS
-     
-     This algebraic identity holds by the construction of wave_update.
-  *)
-  (* For now we use admit as the full algebraic proof requires Q arithmetic lemmas *)
-  admit.
-Admitted.
+  
+  set (c_sq := wave_c_squared (ws_pde ws)) in *.
+  set (w := ws_coefficients ws) in *.
+  
+  (* Rewrite u_tp1 using Hupdate, then substitute coefficient values *)
+  rewrite Hupdate.
+  rewrite Hcoeff_t, Hcoeff_tm1, Hcoeff_xp, Hcoeff_xm.
+  
+  (* The algebraic identity now follows directly:
+     LHS: 2*(1-c_sq)*u_t + (-1)*u_tm1 + c_sq*u_xp + c_sq*u_xm - 2*u_t + u_tm1
+        = 2*u_t - 2*c_sq*u_t - u_tm1 + c_sq*u_xp + c_sq*u_xm - 2*u_t + u_tm1
+        = -2*c_sq*u_t + c_sq*u_xp + c_sq*u_xm
+        = c_sq * (u_xp - 2*u_t + u_xm) = RHS *)
+  ring_simplify.
+  reflexivity.
+Qed.
 
 Local Close Scope Z_scope.
 Local Close Scope Q_scope.
