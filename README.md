@@ -158,6 +158,11 @@ On problems with **no exploitable structure** (random, fully connected), partiti
 Thiele Machine with partition {S} = Turing Machine
 ```
 
+**Discovery limitations (important for skeptics):**
+- `PDISCOVER` is implemented with **spectral/graph-based heuristics**. The advertised $O(n^3)$ bound is the runtime of the spectral routine, not a guarantee that structure always exists.
+- On **adversarial or fully-random instances**, the heuristic returns the **trivial partition**; the machine then reduces to the blind Turing baseline with no asymptotic advantage.
+- The formal statements in the Coq library are therefore **average-/structure-case**, not worst-case, and the README should be read accordingly.
+
 **No magic. No P=NP. Just honest accounting.**
 
 ### Recent: Axioms Discharged (2025-11-29)
@@ -532,7 +537,7 @@ The core Thiele CPU is implemented in 6 Verilog modules, with **identical copies
 | `debug_no_rule.v` | 96 | Debugging utilities | Debug helpers |
 | `Axioms.v` | 98 | Foundational axioms | Core assumptions |
 
-**Note on Simulation.v:** This 29,666-line file contains the complete, detailed simulation proof showing how every possible Thiele Machine execution can be traced step-by-step. It represents 66% of all Coq code in the project and is the most comprehensive proof artifact.
+**Note on Simulation.v:** This 29,666-line file contains the complete, detailed simulation proof showing how every possible Thiele Machine execution can be traced step-by-step. It represents 66% of all Coq code in the project and is the most comprehensive proof artifact. The bulk comes from explicitly enumerating **all instruction forms and tape/ledger cases** with minimal automation (to keep proof search deterministic), plus a catalogue of "no-rule" preservation lemmas that keep tape-length, μ-ledger, and CPU state aligned while stepping. In short: the file is long because it is **mechanically exhaustive**, not because the argument is hidden in a monolithic tactic.
 
 #### 3. Bridge Verification (19 files)
 
@@ -1326,7 +1331,7 @@ assert 1 < p < n
 assert 1 < q < n
 
 print(f"Factors: {p} × {q} = {n}")
-# μ-charge: 8*|canon("(factor 21)")| + log₂(18/1) ≈ 132 + 4.17 = 136.17 bits
+# μ-charge: 8*|canon("(factor 21)")| + log₂(4/1) = 136 + 2 = 138 bits (17-char question, 4→1 reduction)
 ```
 
 ---
@@ -1399,6 +1404,7 @@ python examples/showcase/prime_factorization_verifier.py
 - Question cost: 8 × 17 = 136 bits per question
 - Information gain: log₂(4/1) = 2 bits (narrowed from 4 candidates to 1)
 - Verification: `( verify-factor 21 3 7 )` = 8 × 24 = 192 bits, 0 information gain
+- Earlier drafts used an 18-way search-space estimate that conflated possible divisor **pairs** with candidate **queries**; the current numbers consistently track the 4 divisor queries the demo actually asks (3, 5, 7, fail-case), so the μ-accounting now matches the program output.
 
 ```python
 from examples.showcase import verify_factorization, factor_with_mu_accounting

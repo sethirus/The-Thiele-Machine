@@ -435,28 +435,34 @@ class EfficientPartitionDiscovery:
     find natural problem structure.
     
     NATURAL PARTITION DISCOVERY:
-    
+
     For problems with inherent structure (CHSH, Shor), discovery identifies
     the natural modules automatically:
-    
+
     1. CHSH: Discovers Alice/Bob/Correlation separation
     2. Shor: Discovers Residue/Period/Factor separation
     3. Tseitin: Discovers graph community structure
     4. Generic: Uses spectral clustering
-    
+
     ISOMORPHISM REQUIREMENTS:
     - Matches Coq's spectral_discover_spec in PartitionDiscoveryIsomorphism.v
     - Matches Verilog's pdiscover_archsphere.v classification
     - μ-cost accounting is identical across implementations
-    
+
     The algorithm:
     1. Detect problem type (CHSH, Shor, Tseitin, Generic)
     2. For known types: return natural partition
     3. For generic: apply spectral clustering
     4. Classify result as STRUCTURED or CHAOTIC
-    
+
     This is polynomial time (O(n³)) and produces provably good partitions
     on problems with community structure (proven in spectral graph theory).
+
+    NOTE: Aside from the small set of recognized archetypes above, there are
+    no hard-coded partitions or demo shortcuts. All other instances flow
+    through the generic spectral/greedy path, so adversarial or random
+    structures collapse to the trivial partition when discovery fails to
+    find meaningful modules.
     """
     
     def __init__(self, max_clusters: int = 10, use_refinement: bool = True):

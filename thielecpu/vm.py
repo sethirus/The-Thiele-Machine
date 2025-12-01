@@ -177,6 +177,210 @@ SAFE_BUILTINS["__import__"] = _safe_import
 
 
 # ============================================================================
+# EMERGENT-PHYSICS CORE EXECUTION OVERLAY
+# ============================================================================
+
+
+@dataclass
+class Distribution:
+    """Compact discrete distribution with basic thermodynamic helpers."""
+
+    mass: Dict[int, float]
+
+    def __post_init__(self) -> None:
+        self._normalize()
+
+    @classmethod
+    def point(cls, value: int) -> "Distribution":
+        return cls({value: 1.0})
+
+    def support(self) -> List[int]:
+        return list(self.mass.keys())
+
+    def expectation(self) -> float:
+        return sum(v * p for v, p in self.mass.items())
+
+    def entropy(self) -> float:
+        eps = 1e-12
+        return -sum(p * math.log(p + eps, 2) for p in self.mass.values())
+
+    def _normalize(self) -> None:
+        total = sum(self.mass.values())
+        if total <= 0:
+            # Uniform noise if everything cancelled out
+            uniform_prob = 1.0 / max(1, len(self.mass))
+            for key in self.mass:
+                self.mass[key] = uniform_prob
+            return
+        for key in list(self.mass.keys()):
+            self.mass[key] = max(self.mass[key], 0.0)
+        total = sum(self.mass.values())
+        if total == 0:
+            return
+        for key in list(self.mass.keys()):
+            self.mass[key] /= total
+
+    def convolve_add(self, other: "Distribution") -> "Distribution":
+        """Additive convolution to model wave-like value diffusion."""
+
+        result: Dict[int, float] = {}
+        for v1, p1 in self.mass.items():
+            for v2, p2 in other.mass.items():
+                result[v1 + v2] = result.get(v1 + v2, 0.0) + p1 * p2
+        return Distribution(result)
+
+    def mix(self, noise: float) -> "Distribution":
+        """Blend in a uniform noise component to simulate tunneling."""
+
+        if not self.mass:
+            return Distribution({0: 1.0})
+        support = list(self.mass.keys())
+        uniform = 1.0 / len(support)
+        mixed = {k: (1 - noise) * p + noise * uniform for k, p in self.mass.items()}
+        return Distribution(mixed)
+
+    def collapse(self) -> "Distribution":
+        """Collapse to the maximum likelihood value (measurement)."""
+
+        if not self.mass:
+            return Distribution({0: 1.0})
+        best_value = max(self.mass.items(), key=lambda kv: kv[1])[0]
+        return Distribution.point(best_value)
+
+
+class PathIntegralPointer:
+    """Lightweight path-integral style instruction pointer model."""
+
+    def __init__(self, program_length: int) -> None:
+        self.program_length = program_length
+        self.amplitudes: Dict[int, float] = {0: 1.0}
+
+    def step(self, logical_step: int) -> Dict[int, float]:
+        """Diffuse probability mass forward with a softmin action rule."""
+
+        next_wave: Dict[int, float] = {}
+        for idx, amp in self.amplitudes.items():
+            if idx >= self.program_length:
+                continue
+            action = math.exp(-0.1 * (logical_step - idx))
+            next_idx = min(idx + 1, self.program_length)
+            next_wave[next_idx] = next_wave.get(next_idx, 0.0) + amp * action
+        total = sum(next_wave.values()) or 1.0
+        for key in list(next_wave.keys()):
+            next_wave[key] /= total
+        self.amplitudes = next_wave
+        return dict(self.amplitudes)
+
+    def collapse(self, target: Optional[int] = None) -> None:
+        """Collapse onto a single instruction index (least action path)."""
+
+        if target is None:
+            target = min(self.amplitudes.items(), key=lambda kv: (-kv[1], kv[0]))[0]
+        self.amplitudes = {target: 1.0}
+
+
+@dataclass
+class EmergentPhysicsState:
+    """Background physics-inspired execution context.
+
+    The VM continues to execute discrete instructions, but every step is
+    accompanied by a parallel diffusion process over register distributions
+    and a soft path-integral instruction pointer. This keeps the "physics"
+    behavior resident in normal execution rather than as a demo-only path.
+    """
+
+    program_length: int
+    registers: Dict[str, Distribution] = field(default_factory=dict)
+    temperature: float = 0.25
+    entropy_trace: List[float] = field(default_factory=list)
+    ip_wave: PathIntegralPointer = field(init=False)
+
+    def __post_init__(self) -> None:
+        self.ip_wave = PathIntegralPointer(self.program_length)
+
+    def get_register(self, name: str) -> Distribution:
+        if name not in self.registers:
+            self.registers[name] = Distribution.point(0)
+        return self.registers[name]
+
+    def set_register(self, name: str, dist: Distribution) -> None:
+        self.registers[name] = dist
+
+    def _update_temperature(self) -> None:
+        entropies = [dist.entropy() for dist in self.registers.values()]
+        if entropies:
+            avg_entropy = sum(entropies) / len(entropies)
+            self.temperature = 0.5 * self.temperature + 0.5 * min(2.0, max(0.05, avg_entropy))
+            self.entropy_trace.append(avg_entropy)
+
+    def _tunnel_noise(self) -> None:
+        for name, dist in list(self.registers.items()):
+            self.registers[name] = dist.mix(0.15)
+
+    def _collapse_hot_state(self) -> None:
+        # Collapse the highest-entropy register to reduce chaos
+        if not self.registers:
+            return
+        target = max(self.registers.items(), key=lambda kv: kv[1].entropy())[0]
+        self.registers[target] = self.registers[target].collapse()
+
+    def _entangle(self, a: str, b: str) -> None:
+        ra = self.get_register(a)
+        rb = self.get_register(b)
+        combined = ra.convolve_add(rb)
+        self.set_register(a, combined)
+        self.set_register(b, combined)
+
+    def observe_instruction(self, op: str, arg: str, logical_step: int) -> str:
+        """Update the physics layer based on the current instruction."""
+
+        event = ""
+        ip_snapshot = self.ip_wave.step(logical_step)
+        self.set_register("ip_entropy", Distribution.point(int(1000 * sum(ip_snapshot.values()))))
+
+        if op in {"PNEW", "PSPLIT", "PMERGE"}:
+            self._entangle("partition_left", "partition_right")
+            event = "entangle_partition"
+        elif op == "LASSERT":
+            self._collapse_hot_state()
+            event = "measurement"
+        elif op == "EMIT":
+            self.set_register("last_emit_len", Distribution.point(len(arg)))
+            event = "record_emit"
+        elif op == "PDISCOVER":
+            self._tunnel_noise()
+            event = "tunnel"
+        else:
+            # Default gentle diffusion: mix a little noise to avoid freezing
+            for name in list(self.registers.keys()) or ["accumulator"]:
+                self.registers[name] = self.registers[name].mix(0.05)
+            event = "diffuse"
+
+        self._update_temperature()
+        if self.temperature < 0.15:
+            self._tunnel_noise()
+            event += "/tunnel"
+        elif self.temperature > 1.2:
+            self._collapse_hot_state()
+            event += "/collapse"
+        return event
+
+    def observe_discovery(self, verdict: str) -> str:
+        """Adjust the state based on PDISCOVER verdict."""
+
+        if verdict == "STRUCTURED":
+            self.ip_wave.collapse()
+            self.temperature = max(0.05, self.temperature * 0.7)
+            return "structured_collapse"
+        if verdict == "CHAOTIC":
+            for name in list(self.registers.keys()) or ["chaos"]:
+                self.registers[name] = self.registers[name].mix(0.25)
+            self.temperature = min(2.0, self.temperature + 0.25)
+            return "chaotic_noise"
+        return "neutral"
+
+
+# ============================================================================
 # SIGHT LOGGING INTEGRATION - Geometric Signature Analysis
 # ============================================================================
 
@@ -879,6 +1083,10 @@ class VM:
             self.python_globals.setdefault("vm_listdir", self.virtual_fs.listdir)
         self.witness_state = WitnessState()
         self.step_receipts = []
+        # Minimal register file and scratch memory so hardware-style XOR opcodes
+        # and HALT can execute alongside the existing partition/logical flow.
+        self.register_file = [0] * 32
+        self.data_memory = [0] * 256
 
     def _trace_call(
         self, config: Optional[TraceConfig], hook: str, payload: Mapping[str, Any]
@@ -978,6 +1186,26 @@ class VM:
                 event={"tag": "ErrorOccurred", "value": payload},
                 mu_delta=0,
                 cert=_empty_cert(),
+            )
+        elif op in {"XOR_ADD", "XOR_SWAP", "XOR_LOAD", "XOR_RANK", "XFER"}:
+            post_state = WitnessState(
+                pc=pre_state.pc + 1,
+                status=pre_state.status,
+                mu_acc=pre_state.mu_acc,
+                cert_addr=pre_state.cert_addr,
+            )
+            observation = StepObservation(
+                event={"tag": "AluOp", "value": op}, mu_delta=0, cert=_empty_cert()
+            )
+        elif op == "HALT":
+            post_state = WitnessState(
+                pc=pre_state.pc + 1,
+                status=pre_state.status,
+                mu_acc=pre_state.mu_acc,
+                cert_addr=pre_state.cert_addr,
+            )
+            observation = StepObservation(
+                event={"tag": "Halt"}, mu_delta=0, cert=_empty_cert()
             )
         else:
             raise ValueError(f"Unsupported instruction for receipts: {op}")
@@ -1473,6 +1701,7 @@ class VM:
         step = 0
         self.step_receipts = []
         self.witness_state = WitnessState()
+        physics = EmergentPhysicsState(program_length=len(program))
 
         print("Thiele Machine VM starting execution...")
         print(f"Program has {len(program)} instructions")
@@ -1502,6 +1731,19 @@ class VM:
             }
             self._trace_call(trace_config, "on_start", start_payload)
 
+        def _parse_operands(arg: str, expected: int = 2) -> List[int]:
+            tokens = arg.split()
+            values: List[int] = []
+            for idx in range(expected):
+                if idx < len(tokens):
+                    try:
+                        values.append(int(tokens[idx]))
+                    except ValueError:
+                        values.append(0)
+                else:
+                    values.append(0)
+            return values
+
         for pc_index, (op, arg) in enumerate(program):
             logical_step += 1
             step += 1
@@ -1513,6 +1755,7 @@ class VM:
             before_mu_operational = self.state.mu_operational
             before_mu_information = self.state.mu_information
             before_mu_total = self.state.mu
+            physics_event = physics.observe_instruction(op, arg, logical_step)
             if op == "PNEW":
                 # PNEW region_spec - create new module for region
                 if arg and arg.strip().startswith('{') and arg.strip().endswith('}'):
@@ -1588,12 +1831,63 @@ class VM:
                 receipt_instruction = InstructionWitness("MDLACC", int(module_id))
             elif op == "EMIT":
                 # EMIT value - emit value to output
-                trace_lines.append(f"{step}: EMIT {arg}")
-                receipt_instruction = InstructionWitness("EMIT", arg)
+                tokens = arg.split()
+                info_bits = None
+                if tokens and all(token.lstrip("-").isdigit() for token in tokens):
+                    _, payload_b = _parse_operands(arg, expected=2)
+                    info_bits = payload_b
+                    prev_info = self.state.mu_information
+                    info_charge(self.state, info_bits)
+                    ledger.append({
+                        "step": step,
+                        "delta_mu_operational": 0,
+                        "delta_mu_information": self.state.mu_information - prev_info,
+                        "total_mu_operational": self.state.mu_operational,
+                        "total_mu_information": self.state.mu_information,
+                        "total_mu": self.state.mu,
+                        "reason": "emit_info_gain",
+                    })
+                    trace_lines.append(f"{step}: EMIT bits={info_bits}")
+                else:
+                    trace_lines.append(f"{step}: EMIT {arg}")
+                receipt_instruction = InstructionWitness("EMIT", arg if info_bits is None else info_bits)
                 try:
                     logger.info("vm.emit", {"value": arg, "step": step, "module": current_module})
                 except Exception:
                     pass
+            elif op == "XFER":
+                dest, src = _parse_operands(arg, expected=2)
+                self.register_file[dest % len(self.register_file)] = self.register_file[src % len(self.register_file)]
+                trace_lines.append(f"{step}: XFER r{dest} <- r{src}")
+                receipt_instruction = InstructionWitness("XFER", {"dest": dest, "src": src})
+            elif op == "XOR_LOAD":
+                dest, addr = _parse_operands(arg, expected=2)
+                addr = addr % len(self.data_memory)
+                value = self.data_memory[addr]
+                self.register_file[dest % len(self.register_file)] = value
+                trace_lines.append(f"{step}: XOR_LOAD r{dest} <= mem[{addr}] (0x{value:08x})")
+                receipt_instruction = InstructionWitness("XOR_LOAD", {"dest": dest, "addr": addr, "value": int(value)})
+            elif op == "XOR_ADD":
+                dest, src = _parse_operands(arg, expected=2)
+                dest_idx = dest % len(self.register_file)
+                src_idx = src % len(self.register_file)
+                self.register_file[dest_idx] ^= self.register_file[src_idx]
+                trace_lines.append(f"{step}: XOR_ADD r{dest} ^= r{src} -> 0x{self.register_file[dest_idx]:08x}")
+                receipt_instruction = InstructionWitness("XOR_ADD", {"dest": dest, "src": src, "value": int(self.register_file[dest_idx])})
+            elif op == "XOR_SWAP":
+                a, b = _parse_operands(arg, expected=2)
+                a_idx = a % len(self.register_file)
+                b_idx = b % len(self.register_file)
+                self.register_file[a_idx], self.register_file[b_idx] = self.register_file[b_idx], self.register_file[a_idx]
+                trace_lines.append(f"{step}: XOR_SWAP r{a} <-> r{b}")
+                receipt_instruction = InstructionWitness("XOR_SWAP", {"a": a, "b": b})
+            elif op == "XOR_RANK":
+                dest, src = _parse_operands(arg, expected=2)
+                src_idx = src % len(self.register_file)
+                rank = bin(self.register_file[src_idx] & 0xFFFFFFFF).count("1")
+                self.register_file[dest % len(self.register_file)] = rank
+                trace_lines.append(f"{step}: XOR_RANK r{dest} := popcount(r{src}) = {rank}")
+                receipt_instruction = InstructionWitness("XOR_RANK", {"dest": dest, "src": src, "rank": rank})
             elif op == "PDISCOVER":
                 # PDISCOVER module_id axioms_file1 [axioms_file2] - geometric signature analysis
                 parts = arg.split()
@@ -1605,7 +1899,10 @@ class VM:
 
                 # Perform geometric signature analysis
                 result = self.pdiscover(module_id, axioms_list, cert_dir, trace_lines, step)
-                
+
+                # Update physics overlay with the verdict
+                physics_event = physics.observe_discovery(result.get("verdict", "")) or physics_event
+
                 # Store result in state for PDISCERN to access
                 self.state.last_pdiscover_result = result
                 
@@ -1727,8 +2024,15 @@ class VM:
                     trace_lines.append(f"{step}: PYEXEC error detected - halting VM")
                     halt_after_receipt = True
                 receipt_instruction = InstructionWitness("PYEXEC", python_code)
+            elif op == "HALT":
+                trace_lines.append(f"{step}: HALT")
+                receipt_instruction = InstructionWitness("HALT", None)
+                halt_after_receipt = True
             else:
                 raise ValueError(f"unknown opcode {op}")
+
+            if physics_event:
+                trace_lines.append(f"{step}: PHYSICS {physics_event} T={physics.temperature:.3f}")
 
             after_mu_operational = self.state.mu_operational
             after_mu_information = self.state.mu_information
