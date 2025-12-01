@@ -1,0 +1,126 @@
+[
+  {
+    "implementation": "python_vm",
+    "program_name": "modular_arithmetic",
+    "exit_status": 0,
+    "execution_time_ns": 13661459,
+    "final_state": {
+      "mu_operational": Infinity,
+      "mu_information": 0.0,
+      "regions": {
+        "1": [
+          0
+        ],
+        "2": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      }
+    },
+    "mu_operational": Infinity,
+    "mu_information": 0.0,
+    "mu_total": Infinity,
+    "instruction_count": 4,
+    "trace": [
+      "2: PNEW {1,2,3,4,5,6,7,8,9,10} -> module 2",
+      "4: PYEXEC output: Error: invalid syntax (<unknown>, line 1)",
+      "4: PYEXEC /tmp/tmpkl1xko2w/stress_test_results/test6_mod.py",
+      "4: PYEXEC error detected - halting VM",
+      "4: ERR flag set - halting VM"
+    ],
+    "stdout": "",
+    "stderr": "",
+    "receipts": [
+      {
+        "step": 2,
+        "instruction": {
+          "op": "PNEW",
+          "payload": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        },
+        "pre_state": {
+          "pc": 0,
+          "status": 0,
+          "mu_acc": 0,
+          "cert_addr": ""
+        },
+        "post_state": {
+          "pc": 1,
+          "status": 0,
+          "mu_acc": 0,
+          "cert_addr": ""
+        },
+        "observation": {
+          "event": {
+            "tag": "InferenceComplete"
+          },
+          "mu_delta": 0,
+          "cert": {
+            "smt_query": "",
+            "solver_reply": "",
+            "metadata": "",
+            "timestamp": 0,
+            "sequence": 0
+          }
+        },
+        "pre_state_hash": "3be4ab3e30347c3b36b3c176e39c564d8b2e1e6c6f816f53070d67ed3cd381f4",
+        "post_state_hash": "2e59cea3b3cf0e0427b5d1025581d2f165a69235777b0cabab6bdd7773234376",
+        "signature": "d8604238a5574e9ca16a3903bcc4b1f43cae5affedea75edde2eb16235197f960016fd87387443e4dc12af0a093a3cf2409fb6d1d956ae4164bf6a8916eefa0c"
+      },
+      {
+        "step": 4,
+        "instruction": {
+          "op": "PYEXEC",
+          "payload": "/tmp/tmpkl1xko2w/stress_test_results/test6_mod.py"
+        },
+        "pre_state": {
+          "pc": 1,
+          "status": 0,
+          "mu_acc": 0,
+          "cert_addr": ""
+        },
+        "post_state": {
+          "pc": 2,
+          "status": 0,
+          "mu_acc": 0,
+          "cert_addr": ""
+        },
+        "observation": {
+          "event": {
+            "tag": "PolicyCheck",
+            "value": "/tmp/tmpkl1xko2w/stress_test_results/test6_mod.py"
+          },
+          "mu_delta": 0,
+          "cert": {
+            "smt_query": "",
+            "solver_reply": "",
+            "metadata": "",
+            "timestamp": 0,
+            "sequence": 0
+          }
+        },
+        "pre_state_hash": "2e59cea3b3cf0e0427b5d1025581d2f165a69235777b0cabab6bdd7773234376",
+        "post_state_hash": "15713ac6773c4903303bd6ba812422142bcbd5b39ba256b43969353ac4f47f59",
+        "signature": "f0e79f770cde70e81b744f0f2bf5c7a6886cd0e41ad1470f4be31ce57094e146798b9650b9eb5a57b1c7492a64573b058372b2b0b730953d4237d90cfac1f208"
+      }
+    ]
+  }
+]
