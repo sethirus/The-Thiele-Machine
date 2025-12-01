@@ -13,9 +13,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-# Add parent directory to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
+# Import from tools package - pytest handles sys.path configuration via conftest.py
 from tools.wave_equation_derivation import (
     WaveModel,
     enumerate_partitions,
@@ -203,7 +201,8 @@ class TestDerivation:
         assert "Definition wave_coeff_u_t" in coq_code
         assert "Definition wave_c_squared" in coq_code
         assert "Theorem emergent_wave_eq" in coq_code
-        assert "WaveCheck" in coq_code
+        assert "discrete_wave_equation_holds" in coq_code
+        assert "Coq.QArith.QArith" in coq_code
 
 
 class TestFalsificationTest:
