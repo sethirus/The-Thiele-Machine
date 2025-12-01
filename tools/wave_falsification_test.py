@@ -23,18 +23,29 @@ import sys
 from pathlib import Path
 from typing import Optional, Sequence
 
-# Add parent directory to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
-from tools.wave_equation_derivation import (
-    WaveModel,
-    enumerate_partitions,
-    fit_partition,
-    select_best_partition,
-    extract_discrete_rule,
-    discrete_to_pde,
-    validate_rule,
-)
+# Import from same package - works when run as module or script
+try:
+    from tools.wave_equation_derivation import (
+        WaveModel,
+        enumerate_partitions,
+        fit_partition,
+        select_best_partition,
+        extract_discrete_rule,
+        discrete_to_pde,
+        validate_rule,
+    )
+except ImportError:
+    # Fallback for direct script execution
+    sys.path.insert(0, str(Path(__file__).parent.parent))
+    from tools.wave_equation_derivation import (
+        WaveModel,
+        enumerate_partitions,
+        fit_partition,
+        select_best_partition,
+        extract_discrete_rule,
+        discrete_to_pde,
+        validate_rule,
+    )
 
 
 def run_falsification_test(
