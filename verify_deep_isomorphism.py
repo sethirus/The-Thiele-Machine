@@ -25,8 +25,8 @@ import re
 
 def extract_python_opcodes():
     """Extract opcodes from Python VM implementation."""
-    vm_path = Path("alpha/thielecpu/vm.py")
-    isa_path = Path("alpha/thielecpu/isa.py")
+    vm_path = Path("thielecpu/vm.py")  # Real VM (not alpha/beta hemispheres)
+    isa_path = Path("thielecpu/isa.py")  # Real ISA
 
     opcodes = {}
 
@@ -188,8 +188,8 @@ def analyze_partition_semantics():
     print("PART 3: PARTITION OPERATION SEMANTICS")
     print("=" * 80)
 
-    # Check Python implementation
-    state_path = Path("alpha/thielecpu/state.py")
+    # Check Python implementation (real VM)
+    state_path = Path("thielecpu/state.py")
     state_content = state_path.read_text()
 
     # Check Verilog implementation
@@ -229,8 +229,8 @@ def verify_partition_discovery():
     print("PART 4: PARTITION DISCOVERY ALGORITHM")
     print("=" * 80)
 
-    # Check for geometric signature computation in Python VM
-    vm_path = Path("alpha/thielecpu/vm.py")
+    # Check for geometric signature computation in Python VM (real VM)
+    vm_path = Path("thielecpu/vm.py")
     vm_content = vm_path.read_text()
 
     print("\n--- Python VM Geometric Signature ---")
@@ -293,9 +293,9 @@ def verify_mu_accounting():
     print("PART 5: μ-COST ACCOUNTING")
     print("=" * 80)
 
-    # Check Python μ-cost tracking
-    state_path = Path("alpha/thielecpu/state.py")
-    vm_path = Path("alpha/thielecpu/vm.py")
+    # Check Python μ-cost tracking (real VM)
+    state_path = Path("thielecpu/state.py")
+    vm_path = Path("thielecpu/vm.py")
 
     state_content = state_path.read_text()
     vm_content = vm_path.read_text()
