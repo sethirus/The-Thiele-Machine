@@ -229,6 +229,15 @@ Qed.
 
 (** ** Main Discovery Algorithm - PROVEN polynomial given primitives *)
 
+(** Complexity constant for spectral discovery:
+    n² + n² + n³ + 100*n² + 10*n³ = 102*n² + 11*n³
+    For n >= 1, n² <= n³, so 102*n² <= 102*n³
+    Total <= 102*n³ + 11*n³ = 113*n³
+    
+    This constant (113) bounds the algorithm's time complexity.
+*)
+Definition spectral_discovery_complexity_constant : nat := 113.
+
 Definition spectral_discover_steps (n : nat) : nat :=
   let adjacency_build := n * n in
   let laplacian_compute := n * n in
@@ -239,13 +248,11 @@ Definition spectral_discover_steps (n : nat) : nat :=
 
 Theorem spectral_discover_polynomial : forall n,
   n > 0 ->
-  spectral_discover_steps n <= 113 * n * n * n.
+  spectral_discover_steps n <= spectral_discovery_complexity_constant * n * n * n.
 Proof.
   intros n Hn.
-  unfold spectral_discover_steps.
-  (* n² + n² + n³ + 100*n² + 10*n³ = 102*n² + 11*n³ *)
-  (* For n >= 1, n² <= n³, so 102*n² <= 102*n³ *)
-  (* Total <= 102*n³ + 11*n³ = 113*n³ *)
+  unfold spectral_discover_steps, spectral_discovery_complexity_constant.
+  (* n² + n² + n³ + 100*n² + 10*n³ = 102*n² + 11*n³ <= 113*n³ *)
   assert (n * n <= n * n * n) as Hnsq.
   { 
     assert (n * n * 1 <= n * n * n) as H.
@@ -254,6 +261,13 @@ Proof.
   }
   lia.
 Qed.
+
+(** Helper lemmas for polynomial time theorem *)
+Lemma pow3_eq : forall n, n ^ 3 = n * n * n.
+Proof. intro n. simpl. ring. Qed.
+
+Lemma mul_assoc_for_const : forall c n, c * n * n * n = c * (n * n * n).
+Proof. intros. ring. Qed.
 
 (** ** THEOREM 1: Discovery is Polynomial Time - PROVEN *)
 
@@ -264,16 +278,19 @@ Theorem discovery_polynomial_time_PROVEN :
       spectral_discover_steps (problem_size prob) <= c * (problem_size prob)^3.
 Proof.
   intros prob.
-  exists 113.
+  exists spectral_discovery_complexity_constant.
   split.
-  - lia.
+  - unfold spectral_discovery_complexity_constant. lia.
   - destruct (Nat.eq_dec (problem_size prob) 0) as [Hz|Hnz].
     + (* n = 0 case *)
       rewrite Hz. unfold spectral_discover_steps. simpl. lia.
     + (* n > 0 case *)
       assert (problem_size prob > 0) as Hpos by lia.
       pose proof (spectral_discover_polynomial (problem_size prob) Hpos) as H.
-      simpl. nia.
+      unfold spectral_discovery_complexity_constant in *.
+      rewrite pow3_eq.
+      rewrite <- mul_assoc_for_const.
+      exact H.
 Qed.
 
 (** ** THEOREM 2: Discovery Produces Valid Partitions - PROVEN *)
