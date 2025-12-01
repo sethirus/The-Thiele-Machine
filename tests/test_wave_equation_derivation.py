@@ -41,7 +41,8 @@ class TestWaveModel:
     def test_cfl_condition_violation(self):
         """Test that CFL condition violations raise errors."""
         with pytest.raises(ValueError, match="CFL condition violated"):
-            WaveModel(lattice_size=64, wave_speed=1.0)  # Too fast
+            # Wave speed 1.0 violates CFL stability: c*dt/dx = 1.0 > 1/sqrt(2) ≈ 0.707
+            WaveModel(lattice_size=64, wave_speed=1.0)
     
     def test_initial_packet_shape(self):
         """Test initial packet has correct shape."""
