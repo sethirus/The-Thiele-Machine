@@ -29,7 +29,7 @@ RE_INSTR = re.compile(
 )
 
 RE_LOG_METRIC = re.compile(
-    r"\{\s*\"partition_ops\":\s*(?P<partition>\d+),\s*\"mdl_ops\":\s*(?P<mdl>\d+),\s*\"info_gain\":\s*(?P<info>\d+)\s*\}"
+    r"\{\s*\"partition_ops\":\s*(?P<partition>\d+),\s*\"mdl_ops\":\s*(?P<mdl>\d+),\s*\"info_gain\":\s*(?P<info>\d+)(?:,\s*\"mu_total\":\s*(?P<mu>\d+))?\s*\}"
 )
 
 RE_FIELD = re.compile(r"^(?P<label>Final PC|Status|Error):\s*(?P<value>[0-9a-fA-Fx]+)")
@@ -122,11 +122,12 @@ def summary_from_log(path: pathlib.Path) -> ExecutionSummary:
     if metrics_match is None:
         raise RuntimeError(f"unable to find metrics in {path}")
     lines = text.splitlines()
+    mu_total_value = int(metrics_match.group("mu")) if metrics_match.group("mu") else int(metrics_match.group("info"))
     metrics = Metrics(
         partition_ops=int(metrics_match.group("partition")),
         mdl_ops=int(metrics_match.group("mdl")),
         info_gain=int(metrics_match.group("info")),
-        mu_total=int(metrics_match.group("info")),
+        mu_total=mu_total_value,
     )
 
     final_pc = _parse_last_hex_field(lines, "Final PC")

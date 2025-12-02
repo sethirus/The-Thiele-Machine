@@ -37,9 +37,9 @@ The Autotelic Engine is a self-evolving computational system that **redefines it
 
 ## Experimental Variants
 
-### Alpha Variant (`alpha/`)
+### Unified Implementation
 
-**Purpose**: Development and rapid prototyping
+**Purpose**: Combined development and validation
 
 **Configuration**:
 - Generations per cycle: 5 (fast iteration)
@@ -51,20 +51,11 @@ The Autotelic Engine is a self-evolving computational system that **redefines it
 - `riemann_search.thiele` — Riemann hypothesis zero-hunting
 - `current_objective.thiele` — Active evolving objective
 
-### Beta Variant (`beta/`)
-
-**Purpose**: Stability testing and validation
-
-**Configuration**:
-- Identical to Alpha (for A/B comparison)
-- Different random seeds
-- Independent evolutionary trajectories
-
-**Purpose**: Validate that objective evolution is reproducible and not seed-dependent
+**Validation**: Multiple runs with different seeds validate reproducibility
 
 ## The Forge — Evolutionary Strategy Generator
 
-**Location**: `alpha/tools/forge.py`, `beta/tools/forge.py`
+**Location**: `tools/forge.py`
 
 **Function**: Evolves computational strategies using genetic algorithms.
 
@@ -79,7 +70,7 @@ The Autotelic Engine is a self-evolving computational system that **redefines it
 
 ## The Critic — Performance Analyzer
 
-**Location**: `alpha/tools/critic.py`, `beta/tools/critic.py`
+**Location**: `tools/critic.py`
 
 **Function**: Analyzes evolutionary history to identify patterns, plateaus, and opportunities.
 
@@ -93,7 +84,7 @@ The Autotelic Engine is a self-evolving computational system that **redefines it
 
 ## The Purpose Synthesizer — Objective Generator
 
-**Location**: `alpha/tools/purpose_synthesizer.py`, `beta/tools/purpose_synthesizer.py`
+**Location**: `tools/purpose_synthesizer.py`
 
 **Function**: Creates new objectives based on Critic's analysis.
 
@@ -119,7 +110,7 @@ The Autotelic Engine is a self-evolving computational system that **redefines it
 
 1. **Self-Improvement**: The engine successfully evolved objectives 3 times without human intervention
 2. **Complexity Escalation**: Each new objective was measurably more sophisticated
-3. **Alpha-Beta Divergence**: Despite identical configurations, Alpha and Beta evolved different objective trajectories (confirming path-dependence)
+3. **Path Dependence**: Different random seeds lead to different evolutionary trajectories
 
 ## Connection to Thiele Machine
 
@@ -149,19 +140,10 @@ localparam PRIM_COMMUNITY = 8'd8;      // Community detection
 
 ## Running the Autotelic Engine
 
-### Alpha Variant
-
 ```bash
-cd alpha
+cd experiments/autotelic_engine
 ./run_autotelic_engine.sh 5 10 20
 # Arguments: cycles=5, generations=10, population=20
-```
-
-### Beta Variant
-
-```bash
-cd beta
-./run_autotelic_engine.sh 5 10 20
 ```
 
 ### Expected Output
@@ -251,7 +233,7 @@ New objective saved: objectives/cycle_2_objective.thiele
 The Autotelic Engine makes these **testable predictions**:
 
 1. **Objective Complexity**: New objectives should be measurably more complex than predecessors
-2. **Path Independence**: Different seeds → different trajectories (tested via Alpha/Beta)
+2. **Path Independence**: Different seeds → different trajectories
 3. **Convergence**: Eventually exhausts local objective space and requires human intervention
 4. **μ-Cost Scaling**: Objective synthesis cost should be O(|previous objectives|)
 
