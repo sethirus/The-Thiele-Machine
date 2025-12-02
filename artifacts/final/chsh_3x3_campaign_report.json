@@ -1,34 +1,56 @@
 {
   "campaign_id": "campaign_20251202_152618_78498f",
-  "completed_at": "2025-12-02T15:30:00Z",
+  "completed_at": "2025-12-02T16:56:00Z",
   "statistics": {
     "total_runs": 20,
     "successful_runs": 20,
     "extremal_candidates": 7,
     "unique_extremal": 4,
     "best_bell_value": 8.400629854181618,
-    "note": "Bell values > 4.0 are NUMERIC ARTIFACTS. The true NS bound for 3\u00d73\u00d72\u00d72 is 4.0 (PR-lift)."
+    "lp_verified_maximum": 9.0,
+    "note": "LP verification confirms NS maximum is 9.0. Bell values < 9.0 are suboptimal but genuine NS boxes."
+  },
+  "lp_verification": {
+    "method": "scipy.optimize.linprog (HiGHS)",
+    "shape": [3, 3, 2, 2],
+    "ns_maximum": 9.0,
+    "optimal_box": {
+      "description": "Shared-randomness box with uniform marginals",
+      "structure": "P(a=b|x,y)=1 for (x,y)≠(1,1), P(a≠b|1,1)=1",
+      "marginals": "All P(a|x)=P(b|y)=[0.5, 0.5] (uniform)",
+      "correlators": {
+        "(0,0)": 1.0, "(0,1)": 1.0, "(0,2)": 1.0,
+        "(1,0)": 1.0, "(1,1)": -1.0, "(1,2)": 1.0,
+        "(2,0)": 1.0, "(2,1)": 1.0, "(2,2)": 1.0
+      },
+      "bell_value": 9.0
+    },
+    "conclusion": "The 8.40 value is a GENUINE NS box (suboptimal). The true NS maximum is 9.0."
   },
   "top_candidates": [
     {
       "hash": "7acee9d494f5c8d0",
       "bell_value": 8.400629854181618,
-      "scenario": "3x3x2x2"
+      "scenario": "3x3x2x2",
+      "status": "GENUINE NS - suboptimal (max is 9.0)"
     },
     {
       "hash": "3cf4a14e20f36244",
       "bell_value": 7.7185945698000005,
-      "scenario": "3x3x2x2"
+      "scenario": "3x3x2x2",
+      "status": "GENUINE NS - suboptimal"
     },
     {
       "hash": "212e80f2ecbc0d27",
       "bell_value": 7.0,
-      "scenario": "3x3x2x2"
+      "scenario": "3x3x2x2",
+      "status": "GENUINE NS - suboptimal"
     },
     {
       "hash": "7b3e55a3bcc54dd6",
       "bell_value": 7.0,
-      "scenario": "3x3x2x2"
+      "scenario": "3x3x2x2",
+      "status": "GENUINE NS - suboptimal"
     }
   ],
   "verification": {
@@ -38,30 +60,21 @@
     "mu_accounting": true,
     "pytest_tests": "50 passed, 2 skipped"
   },
-  "bell_value_verification": {
-    "question": "Is the 8.40 Bell value REAL or NUMERIC GARBAGE?",
-    "answer": "NUMERIC ARTIFACT",
+  "refined_understanding": {
+    "previous_claim": "Values > 4.0 are numeric artifacts (PR-lift is max)",
+    "corrected_finding": "LP verification shows NS maximum is 9.0, not 4.0",
     "explanation": [
-      "The CHSH-like functional extended to 3\u00d73 has 9 input pairs.",
-      "The PR-lift bound for 3\u00d73 is 4.0 (only 2\u00d72 subblock is PR, rest is uniform).",
-      "Values > 4.0 require all 9 correlators to be near-deterministic.",
-      "This is mathematically possible in the algebraic limit (max = 9.0).",
-      "However, genuine NS boxes with all |E(x,y)| \u2248 1 are extremely constrained.",
-      "Our optimization exploits numerical slack in the NS projection (~1e-5 errors).",
-      "These errors accumulate to allow values > 4.0."
+      "The 3×3×2×2 NS polytope has a vertex with Bell value 9.0",
+      "This optimal box has deterministic correlations with uniform marginals",
+      "P(a=b|x,y)=1 for all (x,y) except (1,1) where P(a≠b|1,1)=1",
+      "All marginals are uniform [0.5, 0.5], satisfying NS constraints exactly",
+      "The PR-lift (4.0) is a valid but suboptimal NS box",
+      "Our search found boxes with values up to 8.40, which are genuine but suboptimal"
     ],
-    "rigorous_analysis": {
-      "ns_constraint_errors": "~1e-5 to 1e-6",
-      "near_deterministic_correlators": "4-6 out of 9",
-      "pr_lift_value": 4.0,
-      "algebraic_maximum": 9.0,
-      "achievable_by_genuine_ns": "\u2264 4.0 (PR-lift)",
-      "values_above_4": "NUMERIC ARTIFACTS from optimization"
-    },
-    "conclusion": {
-      "8.40_value": "NOT REAL - result of numerical precision issues in NS projection",
-      "correct_bound": "For genuine NS boxes in 3\u00d73\u00d72\u00d72, the maximum is 4.0 (PR-lift)",
-      "recommendation": "Use Linear Programming (LP) solver to verify NS membership rigorously"
-    }
-  }
+    "key_insight": "Shared-randomness boxes can achieve much higher Bell values than PR-lifts in extended scenarios"
+  },
+  "tools_added": [
+    "tools/lp_ns_verification.py - LP-based rigorous NS verification",
+    "tools/verify_bell_value.py - Updated with correct 3×3 bounds"
+  ]
 }
