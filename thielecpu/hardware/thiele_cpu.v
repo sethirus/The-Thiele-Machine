@@ -84,6 +84,7 @@ localparam [7:0] OPCODE_XOR_LOAD = 8'h0A;
 localparam [7:0] OPCODE_XOR_ADD = 8'h0B;
 localparam [7:0] OPCODE_XOR_SWAP = 8'h0C;
 localparam [7:0] OPCODE_XOR_RANK = 8'h0D;
+localparam [7:0] OPCODE_HALT = 8'hFF;
 
 // CSR addresses
 localparam [7:0] CSR_CERT_ADDR = 8'h00;
@@ -262,6 +263,17 @@ always @(posedge clk or negedge rst_n) begin
                         state <= STATE_PYTHON;
                     end
 
+                    OPCODE_MDLACC: begin
+                        // Accumulate MDL for module; operand_a==0 means current module
+                        if (operand_a == 8'h00) begin
+                            execute_mdlacc(current_module);
+                        end else begin
+                            execute_mdlacc(operand_a);
+                        end
+                        pc_reg <= pc_reg + 4;
+                        state <= STATE_FETCH;
+                    end
+
                     OPCODE_XOR_LOAD: begin
                         // Load XOR matrix row
                         execute_xor_load(operand_a, operand_b);
@@ -286,6 +298,13 @@ always @(posedge clk or negedge rst_n) begin
                     OPCODE_XOR_RANK: begin
                         // Compute rank of XOR matrix
                         execute_xor_rank();
+                        pc_reg <= pc_reg + 4;
+                        state <= STATE_FETCH;
+                    end
+
+                    OPCODE_HALT: begin
+                        // Charge MDL for the current module before halting
+                        execute_mdlacc(current_module);
                         pc_reg <= pc_reg + 4;
                         state <= STATE_FETCH;
                     end
@@ -455,19 +474,30 @@ task execute_mdlacc;
         if (module_id < next_module_id) begin
             module_size = module_table[module_id];
 
-            // Simple MDL calculation: log2 of module size
+            // MDL calculation: partition_bits = bit_length(max_element) * module_size
             if (module_size > 0) begin
-                mdl_cost = 0;
-                temp_size = module_size;
-                while (temp_size > 1) begin
-                    temp_size = temp_size >> 1;
-                    mdl_cost = mdl_cost + 1;
+                integer max_element;
+                integer bit_length;
+                integer k;
+                max_element = 0;
+                for (k = 0; k < module_size; k = k + 1) begin
+                    if (region_table[module_id][k] > max_element) begin
+                        max_element = region_table[module_id][k];
+                    end
                 end
+                // compute bit length as ceil(log2(max_element+1)) using $clog2
+                if (max_element == 0) begin
+                    bit_length = 1;
+                end else begin
+                    bit_length = $clog2(max_element + 1);
+                end
+                mdl_cost = bit_length * module_size;
             end else begin
                 mdl_cost = 0;
             end
 
             if (mu_accumulator + mdl_cost <= MAX_MU) begin
+                $display("MDLACC module=%0d size=%0d mdl_cost=%0d mu_acc(before)=%0d", module_id, module_size, mdl_cost, mu_accumulator);
                 mu_accumulator <= mu_accumulator + mdl_cost;
                 csr_status <= 32'h5; // MDL accumulation successful
                 mdl_ops_counter <= mdl_ops_counter + 1;

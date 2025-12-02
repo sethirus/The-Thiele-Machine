@@ -1829,6 +1829,7 @@ class VM:
                 })
                 trace_lines.append(f"{step}: MDLACC {module_id} -> mu={mu}")
                 receipt_instruction = InstructionWitness("MDLACC", int(module_id))
+                explicit_mdlacc_called = True
             elif op == "EMIT":
                 # EMIT value - emit value to output
                 tokens = arg.split()
@@ -2072,8 +2073,13 @@ class VM:
             if self.state.csr[CSR.ERR] == 1 or halt_after_receipt:
                 trace_lines.append(f"{step}: ERR flag set - halting VM")
                 break
-        # Final accounting and output
-        mdlacc(self.state, current_module, consistent=self.state.csr[CSR.ERR] == 0)
+        # Final accounting and output - only auto-charge if no explicit MDLACC executed
+        try:
+            explicit_mdlacc_called
+        except NameError:
+            explicit_mdlacc_called = False
+        if not explicit_mdlacc_called:
+            mdlacc(self.state, current_module, consistent=self.state.csr[CSR.ERR] == 0)
 
         ledger.append({
             "step": step + 1,

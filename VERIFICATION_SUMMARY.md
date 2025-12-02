@@ -29,20 +29,19 @@ The three implementations (Python VM in `/thielecpu/`, Verilog CPU, and Coq proo
 
 ### 1. Critical Bug Found and Fixed
 
-**Issue**: Alpha/beta hemispheres had ISA encoding errors
+**Issue**: Experimental variants had ISA encoding errors
 - Missing `PYEXEC` opcode
 - Wrong opcode values for `EMIT` and `XOR_*` instructions
 - Would cause binary incompatibility with hardware
 
 **Resolution**:
-- Fixed `alpha/thielecpu/isa.py` and `beta/thielecpu/isa.py`
+- Fixed ISA encoding issues in experimental variants
 - Real VM (`/thielecpu/isa.py`) was already correct!
-- Alpha/beta were just experimental "brain hemispheres"
+- Experimental variants were removed to avoid confusion
 
 ### 2. Real VM Location
 
 **Correct VM**: `/thielecpu/` (root level)
-**Not**: `alpha/` or `beta/` (experimental hemispheres)
 
 The real implementation has been correct all along.
 
@@ -234,7 +233,7 @@ python stress_test_isomorphism.py
 
 ### ✅ Completed
 - [x] Located all three implementations
-- [x] Fixed ISA encoding bugs in alpha/beta hemispheres
+- [x] Fixed ISA encoding bugs in experimental variants
 - [x] Verified real VM (`/thielecpu/`) is correct
 - [x] Created deep isomorphism verification tool
 - [x] Created comprehensive stress test suite
@@ -276,7 +275,7 @@ python stress_test_isomorphism.py
 
 ### For Production Use
 
-1. ✅ **Use `/thielecpu/` VM** (not alpha/beta)
+1. ✅ **Use `/thielecpu/` VM**
 2. ✅ **ISA encoding is correct** (13/13 opcodes match)
 3. ⚠️ **Test PYEXEC with multi-line files** (parsing issue exists)
 4. ✅ **μ-cost accounting is accurate**

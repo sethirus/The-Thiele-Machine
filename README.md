@@ -11,8 +11,8 @@
 ## Executive Summary
 
 The Thiele Machine is not a metaphor, library, or algorithm—it is a **real computational architecture** implemented in:
-- **Python VM** (`alpha/thielecpu/`) — 1,549 lines of executable semantics in `vm.py`
-- **Verilog RTL** (6 hardware modules × 3 variants) — Synthesizable hardware producing identical μ-ledgers
+- **Python VM** (`thielecpu/`) — 1,549 lines of executable semantics in `vm.py`
+- **Verilog RTL** (6 hardware modules) — Synthesizable hardware producing identical μ-ledgers
 - **Coq Proofs** (106 files, ~45,000 lines) — Machine-verified formal properties
 
 This README documents:
@@ -363,7 +363,7 @@ This section provides **complete inventories** of every file in the codebase. Ea
 
 ### Python VM Files
 
-**Location:** `/alpha/thielecpu/`
+**Location:** `/thielecpu/`
 **Total:** 21 Python files, ~5,500 lines
 
 #### Core VM Files (7 files)
@@ -407,14 +407,11 @@ This section provides **complete inventories** of every file in the codebase. Ea
 
 ### Verilog Hardware Files
 
-**Total:** 24 Verilog files across 3 variants (alpha, beta, main) plus specialized modules
+**Total:** 24 Verilog files plus specialized modules
 
-#### Core CPU Modules (6 files × 3 variants = 18 files)
+#### Core CPU Modules (6 files)
 
-The core Thiele CPU is implemented in 6 Verilog modules, with **identical copies** in three locations:
-- `/alpha/thielecpu/hardware/` — Alpha variant (development)
-- `/beta/thielecpu/hardware/` — Beta variant (testing)
-- Main implementation — Production version
+The core Thiele CPU is implemented in 6 Verilog modules:
 
 | File | Lines | Purpose |
 |------|-------|---------|
@@ -424,12 +421,6 @@ The core Thiele CPU is implemented in 6 Verilog modules, with **identical copies
 | `mau.v` | 180 | Memory Access Unit: load/store operations, address translation |
 | `mmu.v` | 247 | Memory Management Unit: virtual memory, protection, caching |
 | `pee.v` | 215 | Python Execution Engine: sandboxed Python execution interface |
-
-**Note on variants:**
-- **Alpha:** Development version with experimental features
-- **Beta:** Stable testing version for validation
-- **Main:** Production-ready implementation
-- All three produce **bit-identical μ-ledgers** when executing the same programs
 
 #### Specialized Hardware Modules (6 files)
 
@@ -734,7 +725,7 @@ The core Thiele CPU is implemented in 6 Verilog modules, with **identical copies
 
 ### Virtual Machine Architecture
 
-The Python VM (`alpha/thielecpu/vm.py`) implements the complete Thiele Machine semantics.
+The Python VM (`thielecpu/vm.py`) implements the complete Thiele Machine semantics.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -773,7 +764,7 @@ The Python VM (`alpha/thielecpu/vm.py`) implements the complete Thiele Machine s
 
 ### Hardware Architecture
 
-The Verilog implementation (`alpha/thielecpu/hardware/thiele_cpu.v`) provides a synthesizable RTL design.
+The Verilog implementation (`thielecpu/hardware/thiele_cpu.v`) provides a synthesizable RTL design.
 
 **Key Modules:**
 
@@ -1837,9 +1828,6 @@ Documentation of the Alpha/Beta/Forge experimental variants:
 ```bash
 cd experiments/autotelic_engine
 cat README.md
-
-# Note: Alpha and Beta directories remain in their original locations
-# (/alpha and /beta) for backward compatibility but are documented here
 ```
 
 ---
