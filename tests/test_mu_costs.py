@@ -316,7 +316,7 @@ class TestMuCostReferenceTable:
         ("PNEW", {0, 1, 2, 3}, 4, 0),
         ("PNEW", set(), 0, 0),  # Empty region
         ("PSPLIT", None, 0, MASK_WIDTH),  # PSPLIT always costs MASK_WIDTH
-        ("PMERGE", None, None, 4),  # PMERGE costs 4 (discovery depends on merged size)
+        ("PMERGE", None, 0, 4),  # PMERGE costs 4 execution, 0 discovery
     ]
     
     def test_pnew_costs_match_reference(self):
