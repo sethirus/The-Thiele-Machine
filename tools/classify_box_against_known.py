@@ -130,8 +130,81 @@ def make_classical_box(alice_strategy: List[int], bob_strategy: List[int]) -> Kn
     )
 
 
-def get_known_boxes() -> List[KnownBox]:
-    """Get the list of known reference boxes."""
+def make_pr_lift_3x3() -> KnownBox:
+    """Create a PR-lift to 3x3x2x2 scenario.
+    
+    This lifts the 2x2 PR box to a 3x3 scenario by embedding
+    it in a sub-block and extending with uniform distributions.
+    """
+    P = np.zeros((3, 3, 2, 2))
+    
+    # Embed 2x2 PR box in upper-left corner
+    for x in range(2):
+        for y in range(2):
+            for a in range(2):
+                for b in range(2):
+                    if (a ^ b) == (x * y):
+                        P[x, y, a, b] = 0.5
+    
+    # Fill remaining cells with uniform distribution
+    for x in range(3):
+        for y in range(3):
+            if x >= 2 or y >= 2:
+                P[x, y, :, :] = 0.25  # Uniform over 2x2
+    
+    return KnownBox(
+        name="PR-Lift-3x3",
+        probs=P,
+        category="pr_lift_like",
+        bell_value=4.0,  # Inherited from embedded PR
+        description="PR box lifted to 3x3 scenario via sub-block embedding"
+    )
+
+
+def make_local_3x3(alice_strategy: List[int], bob_strategy: List[int]) -> KnownBox:
+    """Create a local deterministic box for 3x3x2x2."""
+    P = np.zeros((3, 3, 2, 2))
+    for x in range(3):
+        for y in range(3):
+            a = alice_strategy[x]
+            b = bob_strategy[y]
+            P[x, y, a, b] = 1.0
+    
+    strategy_name = f"Alice={alice_strategy}, Bob={bob_strategy}"
+    return KnownBox(
+        name=f"Local-3x3({strategy_name})",
+        probs=P,
+        category="local",
+        bell_value=0.0,  # No CHSH for 3x3
+        description=f"Local deterministic 3x3: {strategy_name}"
+    )
+
+
+def get_known_boxes_3x3() -> List[KnownBox]:
+    """Get the list of known reference boxes for 3x3x2x2."""
+    boxes = []
+    
+    # PR-lift
+    boxes.append(make_pr_lift_3x3())
+    
+    # All local deterministic boxes for 3x3x2x2
+    for a0 in range(2):
+        for a1 in range(2):
+            for a2 in range(2):
+                for b0 in range(2):
+                    for b1 in range(2):
+                        for b2 in range(2):
+                            boxes.append(make_local_3x3([a0, a1, a2], [b0, b1, b2]))
+    
+    return boxes
+
+
+def get_known_boxes(shape: Tuple[int, ...] = (2, 2, 2, 2)) -> List[KnownBox]:
+    """Get the list of known reference boxes for the given shape."""
+    if shape == (3, 3, 2, 2):
+        return get_known_boxes_3x3()
+    
+    # Default: 2x2x2x2 boxes
     boxes = []
     
     # PR box
@@ -172,7 +245,7 @@ def compute_fidelity(P1: np.ndarray, P2: np.ndarray) -> float:
 def classify_box(box: np.ndarray, known_boxes: Optional[List[KnownBox]] = None) -> Dict[str, Any]:
     """Classify a box against known reference boxes."""
     if known_boxes is None:
-        known_boxes = get_known_boxes()
+        known_boxes = get_known_boxes(box.shape)
     
     result = {
         "shape": list(box.shape),
