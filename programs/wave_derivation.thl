@@ -1,0 +1,28 @@
+; Wave function derivation test program
+; Tests partition operations for quantum state decomposition
+; Used for isomorphism verification with Coq proofs
+
+; Create initial wave state region {10, 11, 12, 13, 14, 15, 16, 17}
+; Represents 8 basis states for a 3-qubit system
+PNEW {10,11,12,13,14,15,16,17}
+
+; Split into even/odd parity sectors
+PSPLIT 1
+
+; Create ancilla region {20, 21}
+PNEW {20,21}
+
+; Further split for entanglement structure
+PSPLIT 2
+
+; Merge complementary sectors
+PMERGE 3 4
+
+; Track μ-cost of wave decomposition
+MDLACC 5
+
+; Emit decomposition result
+EMIT "wave_derivation_complete"
+
+; Halt
+HALT
