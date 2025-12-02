@@ -143,10 +143,12 @@ module partition_core_tb;
         execute_op(OPC_PNEW);
         write_trace_entry("PNEW", 64'h30);
         
-        // Test 3: PSPLIT module 0 with mask 0b1 (keep bit 0)
-        $display("Test 3: PSPLIT module=0, mask=0x1");
+        // Test 3: PSPLIT module 0 with mask selecting only bit 0
+        // Split mask = 0b1 means: new module gets elements where bit 0 is set
+        // Original module keeps elements where bit 0 is not set
+        $display("Test 3: PSPLIT module=0, mask=0x1 (bit 0 -> new module)");
         psplit_module_id <= 0;
-        psplit_mask <= 64'h1;
+        psplit_mask <= 64'h1;  // Binary: 0...001 - selects only element 0
         execute_op(OPC_PSPLIT);
         write_trace_entry("PSPLIT", 64'h1);
         
