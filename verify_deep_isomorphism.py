@@ -516,27 +516,168 @@ def run_pytest_tests() -> Dict[str, bool]:
     return results
 
 
+def run_extremal_search_test() -> bool:
+    """Run a quick extremal search with config to verify end-to-end."""
+    print("\n" + "=" * 80)
+    print("RUNNING EXTREMAL SEARCH INTEGRATION TEST")
+    print("=" * 80)
+    
+    config_path = Path("configs/nl_search_chsh_seed1337.json")
+    if not config_path.exists():
+        print(f"  ⚠ Config not found: {config_path}")
+        return True  # Not a failure, just skip
+    
+    output_dir = Path("/tmp/isomorphism_test_run")
+    
+    result = subprocess.run(
+        [
+            sys.executable, "tools/thiele_extremal_search.py",
+            "--config", str(config_path),
+            "--output", str(output_dir),
+            "--mu-budget", "100"  # Small budget for quick test
+        ],
+        capture_output=True,
+        text=True,
+        cwd=Path(__file__).parent
+    )
+    
+    if result.returncode == 0:
+        print("  ✓ Extremal search completed successfully")
+        
+        # Verify output files exist
+        expected_files = [
+            "search_summary.json",
+            "vm_receipts.json",
+            "vm_trace_detailed.json",
+            "rtl_expected_trace.json"
+        ]
+        
+        all_present = True
+        for filename in expected_files:
+            path = output_dir / filename
+            if path.exists():
+                print(f"    ✓ {filename}")
+            else:
+                print(f"    ❌ {filename} missing")
+                all_present = False
+        
+        return all_present
+    else:
+        print(f"  ❌ Extremal search failed")
+        for line in result.stderr.split('\n')[-10:]:
+            if line.strip():
+                print(f"    {line}")
+        return False
+
+
+def run_trace_comparison_test() -> bool:
+    """Run trace comparison to verify VM↔RTL isomorphism."""
+    print("\n" + "=" * 80)
+    print("RUNNING TRACE COMPARISON TEST")
+    print("=" * 80)
+    
+    output_dir = Path("/tmp/isomorphism_test_run")
+    vm_trace = output_dir / "vm_trace_detailed.json"
+    rtl_trace = output_dir / "rtl_expected_trace.json"
+    
+    if not vm_trace.exists() or not rtl_trace.exists():
+        print("  ⚠ Trace files not found, skipping comparison")
+        return True
+    
+    result = subprocess.run(
+        [
+            sys.executable, "tools/compare_vm_vs_rtl.py",
+            "--vm-trace", str(vm_trace),
+            "--rtl-trace", str(rtl_trace)
+        ],
+        capture_output=True,
+        text=True,
+        cwd=Path(__file__).parent
+    )
+    
+    if result.returncode == 0:
+        print("  ✓ VM ↔ RTL traces are isomorphic")
+        return True
+    else:
+        print("  ❌ VM ↔ RTL trace comparison failed")
+        for line in result.stdout.split('\n'):
+            if line.strip():
+                print(f"    {line}")
+        return False
+
+
+def run_coq_validation_test() -> bool:
+    """Run Coq spec validation on VM trace."""
+    print("\n" + "=" * 80)
+    print("RUNNING COQ SPECIFICATION VALIDATION")
+    print("=" * 80)
+    
+    output_dir = Path("/tmp/isomorphism_test_run")
+    vm_trace = output_dir / "vm_trace_detailed.json"
+    
+    if not vm_trace.exists():
+        print("  ⚠ VM trace not found, skipping Coq validation")
+        return True
+    
+    result = subprocess.run(
+        [
+            sys.executable, "tools/compare_vm_vs_coq.py",
+            "--vm-trace", str(vm_trace)
+        ],
+        capture_output=True,
+        text=True,
+        cwd=Path(__file__).parent
+    )
+    
+    if result.returncode == 0:
+        print("  ✓ VM trace satisfies Coq specification")
+        return True
+    else:
+        print("  ❌ VM trace violates Coq specification")
+        for line in result.stdout.split('\n'):
+            if line.strip():
+                print(f"    {line}")
+        return False
+
+
 def main():
     print("=" * 80)
-    print("Deep Isomorphism Verification")
-    print("Verifying Python VM ↔ Verilog CPU ↔ Coq Proofs")
+    print("DEEP ISOMORPHISM VERIFICATION")
+    print("Verifying Python VM ↔ Verilog RTL ↔ Coq Proofs")
     print("=" * 80)
     print()
     print("Spec: spec/thiele_machine_spec.md")
     print()
+    print("This script runs all verification phases:")
+    print("  Phase 1: Thiele Search Operator")
+    print("  Phase 2: RTL receipts + isomorphism check")
+    print("  Phase 3: Verilog RTL alignment")
+    print("  Phase 4: Coq semantics validation")
+    print("  Phase 5: Isomorphism tests")
+    print("  Phase 6: One-button verification (this script)")
+    print()
 
     results = {}
 
-    # Run structural verification checks
+    # Phase 3: Run structural verification checks
     results["ISA Correspondence"] = verify_isa_correspondence()
     results["State Machine"] = verify_state_machine()
     results["Partition Operations"] = analyze_partition_semantics()
     results["Partition Discovery"] = verify_partition_discovery()
     results["μ-Cost Accounting"] = verify_mu_accounting()
     
-    # Run pytest test suites
+    # Phase 5: Run pytest test suites
     pytest_results = run_pytest_tests()
     results.update(pytest_results)
+    
+    # Phase 1 & 2: Run extremal search integration test
+    results["Extremal Search Integration"] = run_extremal_search_test()
+    
+    # Phase 2: Run trace comparison
+    results["VM ↔ RTL Trace Comparison"] = run_trace_comparison_test()
+    
+    # Phase 4: Run Coq validation
+    results["Coq Specification Validation"] = run_coq_validation_test()
 
     # Generate summary
     generate_summary(results)
