@@ -784,6 +784,66 @@ def save_artifacts(result: SearchResult, outdir: Path) -> None:
     summary_path.write_text(json.dumps(summary, indent=2), encoding='utf-8')
 
 
+# Base index offset to avoid overlap with VM's initial module at {0}
+REGION_BASE_OFFSET = 10
+
+
+def load_config(config_path: Path) -> Dict[str, Any]:
+    """Load search configuration from JSON file."""
+    with open(config_path, 'r', encoding='utf-8') as f:
+        config = json.load(f)
+    
+    # Validate required fields
+    required = ['shape', 'seed', 'mu_budget']
+    for field in required:
+        if field not in config:
+            raise ValueError(f"Config file missing required field: {field}")
+    
+    return config
+
+
+def calculate_region_mask(element_count: int, base_offset: int = REGION_BASE_OFFSET) -> int:
+    """Calculate a region bitmask for the given number of elements.
+    
+    Args:
+        element_count: Number of elements to include in the region
+        base_offset: Starting bit position to avoid conflicts
+    
+    Returns:
+        Bitmask with element_count bits set starting at base_offset
+    """
+    max_elements = min(element_count, MASK_WIDTH - base_offset)
+    return sum(1 << (base_offset + i) for i in range(max_elements))
+
+
+def generate_rtl_trace_program(box: NSBox, config: Dict[str, Any]) -> str:
+    """Generate a Verilog testbench program that matches the Python VM operations.
+    
+    This produces a sequence of operations that the RTL can execute to generate
+    matching traces for isomorphism verification.
+    """
+    lines = []
+    lines.append("// Auto-generated RTL test program for isomorphism verification")
+    lines.append(f"// Config: shape={config.get('shape')}, seed={config.get('seed')}")
+    lines.append(f"// Box hash: {box.canonical_hash()}")
+    lines.append("")
+    
+    # Map box elements to regions using the shared helper
+    region = calculate_region_mask(box.X * box.Y)
+    
+    lines.append(f"// PNEW operation: region = 0x{region:016x}")
+    lines.append(f"pnew_region <= 64'h{region:016x};")
+    lines.append("execute_op(OPC_PNEW);")
+    lines.append("")
+    
+    lines.append("// PSPLIT operation")
+    lines.append("psplit_module_id <= 2;")
+    lines.append("psplit_mask <= 64'h0000000000000001;")
+    lines.append("execute_op(OPC_PSPLIT);")
+    
+    return "\n".join(lines)
+
+
 # =============================================================================
 # CLI Entry Point
 # =============================================================================
@@ -822,25 +882,134 @@ def main():
         default="louvain,spectral,degree,balanced",
         help="Comma-separated list of partition discovery strategies"
     )
+    parser.add_argument(
+        "--config",
+        type=Path,
+        default=None,
+        help="Load search parameters from JSON config file"
+    )
+    parser.add_argument(
+        "--emit-vm-trace",
+        action="store_true",
+        help="Emit detailed VM trace for isomorphism verification"
+    )
+    parser.add_argument(
+        "--emit-rtl-trace",
+        action="store_true",
+        help="Generate RTL test program for hardware trace comparison"
+    )
     
     args = parser.parse_args()
     
-    # Parse shape
-    shape = tuple(map(int, args.shape.split(",")))
+    # Load from config file if provided
+    if args.config:
+        config = load_config(args.config)
+        shape = tuple(config['shape'])
+        seed = config['seed']
+        mu_budget = config['mu_budget']
+        strategies = config.get('strategies', ['louvain', 'spectral', 'degree', 'balanced'])
+        emit_vm_trace = config.get('emit_vm_trace', False) or args.emit_vm_trace
+        emit_rtl_trace = config.get('emit_rtl_trace', False) or args.emit_rtl_trace
+        
+        print(f"Loaded config from: {args.config}")
+        print(f"  Name: {config.get('name', 'unnamed')}")
+        print(f"  Description: {config.get('description', 'N/A')}")
+    else:
+        # Parse shape
+        shape = tuple(map(int, args.shape.split(",")))
+        seed = args.seed
+        mu_budget = args.mu_budget
+        strategies = args.strategies.split(",")
+        emit_vm_trace = args.emit_vm_trace
+        emit_rtl_trace = args.emit_rtl_trace
+    
     if len(shape) != 4:
         parser.error("Shape must have exactly 4 components: X,Y,A,B")
-    
-    # Parse strategies
-    strategies = args.strategies.split(",")
     
     # Run search
     result = thiele_extremal_search(
         shape=shape,
-        seed=args.seed,
-        mu_budget=args.mu_budget,
+        seed=seed,
+        mu_budget=mu_budget,
         outdir=args.output,
         strategies=strategies
     )
+    
+    # Emit detailed VM trace if requested
+    if emit_vm_trace:
+        print("\n=== VM Trace Mode Enabled ===")
+        vm_trace_path = args.output / "vm_trace_detailed.json"
+        vm_trace = {
+            "config": {
+                "shape": list(shape),
+                "seed": seed,
+                "mu_budget": mu_budget,
+                "strategies": strategies
+            },
+            "box_hash": result.canonical_hash,
+            "operations": [
+                {
+                    "step": i,
+                    "op": r.get("instruction", {}).get("op", "UNKNOWN"),
+                    "payload": r.get("instruction", {}).get("payload", None),
+                    "pre_state": r.get("pre_state", {}),
+                    "post_state": r.get("post_state", {}),
+                    "observation": r.get("observation", {})
+                }
+                for i, r in enumerate(result.vm_receipts)
+            ],
+            "mu_summary": {
+                "mu_discovery": result.mu_discovery,
+                "mu_execution": result.mu_execution,
+                "mu_total": result.mu_total
+            }
+        }
+        vm_trace_path.write_text(json.dumps(vm_trace, indent=2), encoding='utf-8')
+        print(f"  VM trace written to: {vm_trace_path}")
+    
+    # Emit RTL test program if requested
+    if emit_rtl_trace:
+        print("\n=== RTL Trace Mode Enabled ===")
+        rtl_program_path = args.output / "rtl_test_program.v"
+        rtl_program = generate_rtl_trace_program(result.box, {
+            'shape': list(shape),
+            'seed': seed
+        })
+        rtl_program_path.write_text(rtl_program, encoding='utf-8')
+        print(f"  RTL test program written to: {rtl_program_path}")
+        
+        # Also save expected RTL trace based on spec using the helper function
+        rtl_expected_path = args.output / "rtl_expected_trace.json"
+        element_count = shape[0] * shape[1]
+        region_mask = calculate_region_mask(element_count)
+        rtl_expected = {
+            "config": {
+                "shape": list(shape),
+                "seed": seed
+            },
+            "box_hash": result.canonical_hash,
+            "expected_operations": [
+                {
+                    "step": 0,
+                    "opcode": "PNEW",
+                    "region": region_mask,
+                    "mu_discovery_delta": min(element_count, MASK_WIDTH - REGION_BASE_OFFSET),
+                    "mu_execution_delta": 0
+                },
+                {
+                    "step": 1,
+                    "opcode": "PSPLIT",
+                    "region": 0,
+                    "mu_discovery_delta": 0,
+                    "mu_execution_delta": MASK_WIDTH
+                }
+            ],
+            "expected_mu_discovery": result.mu_discovery,
+            "expected_mu_execution": result.mu_execution,
+            "note": "RTL should produce identical μ-costs to VM"
+        }
+        rtl_expected_path.write_text(json.dumps(rtl_expected, indent=2), encoding='utf-8')
+        print(f"  RTL expected trace written to: {rtl_expected_path}")
     
     # Print summary
     print("\n" + "=" * 60)
@@ -853,6 +1022,9 @@ def main():
     print(f"Structure: {result.structure_verdict}")
     print(f"Iterations: {result.search_iterations}")
     print(f"Time: {result.search_time:.2f}s")
+    
+    if emit_vm_trace or emit_rtl_trace:
+        print(f"\nTrace files written to: {args.output}")
     
     return 0
 
