@@ -203,12 +203,13 @@ def compute_theoretical_bounds(shape: Tuple[int, int, int, int]) -> Dict[str, fl
             "note": "NS maximum is 9.0 (LP-verified). Achieved by shared-randomness box with uniform marginals."
         }
     else:
-        # Generic bounds
+        # Generic bounds for other shapes
+        # Use tools/lp_ns_verification.py for exact LP-verified bounds
         num_terms = X * Y
         return {
             "classical_bound": 2.0,
-            "ns_bound": float(num_terms),  # LP would give exact bound
-            "algebraic_max": float(num_terms),  # Upper bound if all |E|=1
+            "ns_bound": float(num_terms),  # Upper bound; use LP for exact value
+            "algebraic_max": float(num_terms),  # Achieved if all |E|=1
         }
 
 
