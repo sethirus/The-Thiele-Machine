@@ -1,0 +1,19 @@
+; CHSH-style partition program
+; Creates Bell-state-like partition structure
+
+; Create measurement modules (Alice's settings)
+PNEW {0,1,2,3}
+
+; Create Bob's measurement modules
+PNEW {8,9,10,11}
+
+; Split Alice's module
+PSPLIT 1
+
+; Split Bob's module  
+PSPLIT 2
+
+; Emit correlation structure
+EMIT "chsh_partition_ready"
+
+HALT
