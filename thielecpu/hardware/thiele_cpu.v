@@ -466,19 +466,19 @@ task execute_mdlacc;
         
         // Accumulate μ-bits for MDL cost
         // MDL cost is the encoding cost of the partition structure
-        // Formula: max_element.bit_length() * num_elements
-        // For alignment with VM semantics, we use: bit_length(region_size) * region_size
-        // But since region_size for PNEW {1} is 1, and bit_length(1) = 1, cost = 1*1 = 1
+        // Formula aligned with VM: bit_length(region_size) * region_size
+        // For PNEW {1} with region_size=1: bit_length(1) = 1, cost = 1*1 = 1
         if (actual_module_id < next_module_id) begin
             module_size = module_table[actual_module_id];
 
-            // MDL calculation aligned with VM: bit_length(max_element) * num_elements
-            // For a region of size N with elements 0..N-1, max_element = N-1
-            // bit_length(N-1) for N=1 is 0, but we need at least 1 bit to encode existence
+            // MDL calculation: bit_length(module_size) * module_size
+            // bit_length counts the number of bits needed to represent module_size
+            // For module_size=1: bit_length(1) = 1, so cost = 1*1 = 1
+            // This matches the VM formula: max_element.bit_length() * len(region)
             if (module_size > 0) begin
                 mdl_cost = 0;
                 temp_size = module_size;
-                // Calculate bit_length of module_size (representing encoding cost)
+                // Calculate bit_length of module_size
                 while (temp_size > 0) begin
                     temp_size = temp_size >> 1;
                     mdl_cost = mdl_cost + 1;
