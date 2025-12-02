@@ -26,6 +26,12 @@ from typing import Any, Dict, List, Optional, Tuple
 import numpy as np
 
 
+# Constants for thresholds
+NEAR_DETERMINISTIC_THRESHOLD = 0.9  # |E| > 0.9 is near-deterministic
+PR_LIFT_BOUND_3X3 = 4.0  # Maximum for genuine NS boxes in 3x3x2x2
+MIN_SUSPICIOUS_CORRELATORS = 4  # Threshold for suspicious near-deterministic count
+
+
 def load_box(path: Path) -> Dict[str, Any]:
     """Load box from JSON file."""
     with open(path, 'r', encoding='utf-8') as f:
@@ -195,8 +201,8 @@ def compute_theoretical_bounds(shape: Tuple[int, int, int, int]) -> Dict[str, fl
             "quantum_bound": 2.0 * np.sqrt(2),  # Quantum on 2x2 subblock
             "ns_bound": 4.0,  # PR-lift is still the best known NS box
             "algebraic_max": 9.0,  # If all 9 correlators were ±1 with right signs
-            "pr_lift_value": 4.0,  # What PR-lift actually achieves
-            "note": "Values > 4.0 require careful NS analysis - likely artifacts"
+            "pr_lift_value": PR_LIFT_BOUND_3X3,  # What PR-lift actually achieves
+            "note": "Values > 4.0 in 3x3x2x2 scenario require rigorous LP verification - often numerical artifacts"
         }
     else:
         # Generic bounds
@@ -295,11 +301,11 @@ def verify_bell_value(
         elif recomputed_value > bounds.get("algebraic_max", float('inf')) + tolerance:
             result["verdict"] = "NUMERIC_GARBAGE"
             result["reason"] = f"Value {recomputed_value} exceeds algebraic maximum {bounds['algebraic_max']}"
-        elif shape == (3, 3, 2, 2) and recomputed_value > 4.0 + tolerance:
-            # For 3x3 scenario, values > 4 need special scrutiny
+        elif shape == (3, 3, 2, 2) and recomputed_value > bounds.get("pr_lift_value", PR_LIFT_BOUND_3X3) + tolerance:
+            # For 3x3 scenario, values > PR-lift need special scrutiny
             result["verdict"] = "SUSPICIOUS"
             result["reason"] = (
-                f"Value {recomputed_value:.4f} exceeds PR-lift bound (4.0). "
+                f"Value {recomputed_value:.4f} exceeds PR-lift bound ({bounds.get('pr_lift_value', PR_LIFT_BOUND_3X3)}). "
                 "This is theoretically possible but rare. "
                 "Requires rigorous LP verification to confirm."
             )
@@ -336,7 +342,7 @@ def verify_bell_value(
                 "correlator_E": E,
                 "contribution": corr["contribution"],
                 "magnitude": abs(E),
-                "is_near_deterministic": abs(E) > 0.9
+                "is_near_deterministic": abs(E) > NEAR_DETERMINISTIC_THRESHOLD
             })
         
         result["correlator_analysis"] = correlator_analysis
@@ -345,9 +351,9 @@ def verify_bell_value(
         near_det_count = sum(1 for c in correlator_analysis if c["is_near_deterministic"])
         result["near_deterministic_count"] = near_det_count
         
-        if near_det_count > 4 and recomputed_value > 4.0:
+        if near_det_count > MIN_SUSPICIOUS_CORRELATORS and recomputed_value > bounds.get("pr_lift_value", PR_LIFT_BOUND_3X3):
             result["analysis_note"] = (
-                f"{near_det_count}/9 correlators are near-deterministic (|E|>0.9). "
+                f"{near_det_count}/9 correlators are near-deterministic (|E|>{NEAR_DETERMINISTIC_THRESHOLD}). "
                 "This pattern is unusual for a genuine NS extremal box and "
                 "suggests the optimization pushed toward invalid deterministic corners."
             )
@@ -438,20 +444,34 @@ def main():
         verdict = result.get("verdict", "UNKNOWN")
         reason = result.get("reason", "")
         
-        print("=" * 70)
-        if verdict == "NUMERIC_GARBAGE":
-            print(f"❌ VERDICT: {verdict}")
-            print(f"   The claimed value is NOT REAL - it's a numerical artifact.")
-        elif verdict == "SUSPICIOUS":
-            print(f"⚠️  VERDICT: {verdict}")
-            print(f"   The value requires additional verification.")
-        elif verdict in ["SUPER_QUANTUM", "SUPER_PR", "NONLOCAL"]:
-            print(f"✓ VERDICT: {verdict}")
-            print(f"   The value appears to be genuine.")
-        else:
-            print(f"ℹ️  VERDICT: {verdict}")
+        # Use ASCII-safe indicators for terminal compatibility
+        verdict_symbols = {
+            "NUMERIC_GARBAGE": "[X]",
+            "SUSPICIOUS": "[?]",
+            "SUPER_QUANTUM": "[OK]",
+            "SUPER_PR": "[OK]", 
+            "NONLOCAL": "[OK]",
+            "LOCAL": "[--]",
+            "COMPUTED": "[i]",
+            "ERROR": "[!]",
+            "UNKNOWN": "[?]"
+        }
         
-        print(f"   Reason: {reason}")
+        print("=" * 70)
+        symbol = verdict_symbols.get(verdict, "[?]")
+        if verdict == "NUMERIC_GARBAGE":
+            print(f"{symbol} VERDICT: {verdict}")
+            print(f"    The claimed value is NOT REAL - it's a numerical artifact.")
+        elif verdict == "SUSPICIOUS":
+            print(f"{symbol} VERDICT: {verdict}")
+            print(f"    The value requires additional verification.")
+        elif verdict in ["SUPER_QUANTUM", "SUPER_PR", "NONLOCAL"]:
+            print(f"{symbol} VERDICT: {verdict}")
+            print(f"    The value appears to be genuine.")
+        else:
+            print(f"{symbol} VERDICT: {verdict}")
+        
+        print(f"    Reason: {reason}")
         print("=" * 70)
     
     if args.output:
