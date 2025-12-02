@@ -296,6 +296,22 @@ def maximize_bell_over_ns(
         }
 
 
+def compute_ns_bound_lp(functional) -> float:
+    """
+    Compute the NS bound for a Bell functional using LP.
+    
+    Args:
+        functional: BellFunctional object with coefficients and shape
+    
+    Returns:
+        Maximum value achievable over NS polytope
+    """
+    result = maximize_bell_over_ns(functional.shape, functional.coefficients)
+    if result.get("success"):
+        return result["max_value"]
+    return 0.0
+
+
 def verify_box_file(path: Path, tolerance: float = NS_TOLERANCE) -> Dict[str, Any]:
     """Verify a box from a JSON file."""
     try:
