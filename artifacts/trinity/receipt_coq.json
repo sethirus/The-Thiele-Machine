@@ -17,6 +17,12 @@
   },
   "program": [
     {
+      "a": 0,
+      "b": 1,
+      "op": "PNEW",
+      "word_hex": "00000100"
+    },
+    {
       "a": 3,
       "b": 0,
       "op": "XOR_ADD",
@@ -73,10 +79,16 @@
     {
       "a": 0,
       "b": 0,
+      "op": "MDLACC",
+      "word_hex": "05000000"
+    },
+    {
+      "a": 0,
+      "b": 0,
       "op": "HALT",
       "word_hex": "ff000000"
     }
   ],
-  "program_digest": "595313574a63e052cf8e93399e2727a8758032cd6573e0504211e9fdc56ae0b8",
+  "program_digest": "8d6bb517a70f95e3c1819ade26d2e1879129a0a3eef168c1e7e175962182a34e",
   "source": "coq"
 }

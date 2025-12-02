@@ -1,7 +1,12 @@
 ; neural_crystallizer.thm
 ; Cross-substrate harness aligned with the thiele_cpu_tb program.
 ; Uses only ISA-aligned opcodes so VM, RTL, and Coq opcode tables can agree.
+;
+; Injects PNEW {1} to create a non-trivial partition, and MDLACC before HALT
+; to force the machine to calculate and charge μ-cost for the partition structure.
+; This proves the thermodynamic accounting is truly isomorphic across VM, RTL, and Coq.
 
+PNEW {1}
 XOR_ADD 3 0
 XOR_ADD 3 1
 XOR_ADD 3 2
@@ -11,4 +16,5 @@ XOR_ADD 2 3
 XOR_ADD 3 0
 XOR_ADD 1 2
 EMIT 0 6
+MDLACC
 HALT

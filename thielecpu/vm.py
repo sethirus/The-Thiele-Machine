@@ -1702,6 +1702,7 @@ class VM:
         self.step_receipts = []
         self.witness_state = WitnessState()
         physics = EmergentPhysicsState(program_length=len(program))
+        explicit_mdlacc_called = False  # Track if MDLACC was explicitly called
 
         print("Thiele Machine VM starting execution...")
         print(f"Program has {len(program)} instructions")
@@ -1829,6 +1830,7 @@ class VM:
                 })
                 trace_lines.append(f"{step}: MDLACC {module_id} -> mu={mu}")
                 receipt_instruction = InstructionWitness("MDLACC", int(module_id))
+                explicit_mdlacc_called = True  # Mark that MDLACC was explicitly called
             elif op == "EMIT":
                 # EMIT value - emit value to output
                 tokens = arg.split()
@@ -2073,7 +2075,9 @@ class VM:
                 trace_lines.append(f"{step}: ERR flag set - halting VM")
                 break
         # Final accounting and output
-        mdlacc(self.state, current_module, consistent=self.state.csr[CSR.ERR] == 0)
+        # Only do final mdlacc if no explicit MDLACC instruction was executed
+        if not explicit_mdlacc_called:
+            mdlacc(self.state, current_module, consistent=self.state.csr[CSR.ERR] == 0)
 
         ledger.append({
             "step": step + 1,

@@ -1,6 +1,12 @@
 {
   "program": [
     {
+      "a": 0,
+      "b": 1,
+      "op": "PNEW",
+      "word_hex": "00000100"
+    },
+    {
       "a": 3,
       "b": 0,
       "op": "XOR_ADD",
@@ -57,16 +63,22 @@
     {
       "a": 0,
       "b": 0,
+      "op": "MDLACC",
+      "word_hex": "05000000"
+    },
+    {
+      "a": 0,
+      "b": 0,
       "op": "HALT",
       "word_hex": "ff000000"
     }
   ],
   "source": "vm",
-  "step_receipts_hash": "1b771f87a877fe7258cf92ae9dd36f6817f4fbfc4e038a4771fdf1eb7451bd4a",
+  "step_receipts_hash": "cc558e2f34d6a9c2b30929f314b705c2b2a9e8eac5aec94bae1ddc1ce07a101b",
   "summary": {
     "cert": "",
     "mu_information": 6.0,
-    "mu_operational": 0.0,
-    "mu_total": 6.0
+    "mu_operational": 1.0,
+    "mu_total": 7.0
   }
 }

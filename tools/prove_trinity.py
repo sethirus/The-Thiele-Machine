@@ -46,9 +46,24 @@ def _normalise_program(path: Path) -> Tuple[List[Tuple[str, str]], List[Dict[str
     encoded = []
     for op, arg in program:
         opcode = Opcode[op]
-        operands = [int(tok) for tok in arg.split()] if arg else []
-        a = operands[0] if len(operands) > 0 else 0
-        b = operands[1] if len(operands) > 1 else 0
+        a = 0
+        b = 0
+        if arg:
+            # Handle PNEW region specification: {n} or {n,m,...}
+            if arg.strip().startswith('{') and arg.strip().endswith('}'):
+                region_str = arg.strip()[1:-1]  # Remove {}
+                if region_str:
+                    # Encode region as operand: for {1}, a=0, b=1
+                    # For multi-element regions like {1,2,3}, use first element
+                    elements = [int(x.strip()) for x in region_str.split(',')]
+                    if elements:
+                        a = 0  # Region high byte
+                        b = elements[0]  # Region low byte (first element)
+            else:
+                # Regular numeric operands
+                operands = [int(tok) for tok in arg.split()]
+                a = operands[0] if len(operands) > 0 else 0
+                b = operands[1] if len(operands) > 1 else 0
         encoded.append({
             "op": op,
             "a": a,

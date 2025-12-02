@@ -25,6 +25,7 @@ wire [31:0] error_code;
 wire [31:0] partition_ops;
 wire [31:0] mdl_ops;
 wire [31:0] info_gain;
+wire [31:0] mu_total_hw;  // Total μ-cost from hardware
 
 // Memory interface
 wire [31:0] mem_addr;
@@ -68,6 +69,7 @@ thiele_cpu dut (
     .partition_ops(partition_ops),
     .mdl_ops(mdl_ops),
     .info_gain(info_gain),
+    .mu_total(mu_total_hw),
     .mem_addr(mem_addr),
     .mem_wdata(mem_wdata),
     .mem_rdata(mem_rdata),
@@ -100,19 +102,22 @@ end
 
 initial begin
     // Initialize instruction memory with test program
+    // Aligned with examples/neural_crystallizer.thm for cross-substrate verification.
+    // Includes PNEW {1} at start and MDLACC before HALT to verify thermodynamic accounting.
+    instr_memory[0] = {8'h00, 8'h00, 8'h01, 8'h00}; // PNEW {1} - create partition with region {1}
     // XOR operations for Gaussian elimination
-    instr_memory[0] = {8'h0B, 8'h03, 8'h00, 8'h00}; // XOR_ADD 3, 0
-    instr_memory[1] = {8'h0B, 8'h03, 8'h01, 8'h00}; // XOR_ADD 3, 1
-    instr_memory[2] = {8'h0B, 8'h03, 8'h02, 8'h00}; // XOR_ADD 3, 2
-    instr_memory[3] = {8'h0B, 8'h00, 8'h03, 8'h00}; // XOR_ADD 0, 3
-    instr_memory[4] = {8'h0B, 8'h01, 8'h03, 8'h00}; // XOR_ADD 1, 3
-    instr_memory[5] = {8'h0B, 8'h02, 8'h03, 8'h00}; // XOR_ADD 2, 3
-    instr_memory[6] = {8'h0B, 8'h03, 8'h00, 8'h00}; // XOR_ADD 3, 0
-    instr_memory[7] = {8'h0B, 8'h01, 8'h02, 8'h00}; // XOR_ADD 1, 2
-    instr_memory[8] = {8'h0E, 8'h00, 8'h06, 8'h00}; // EMIT 0, 6
-
+    instr_memory[1] = {8'h0B, 8'h03, 8'h00, 8'h00}; // XOR_ADD 3, 0
+    instr_memory[2] = {8'h0B, 8'h03, 8'h01, 8'h00}; // XOR_ADD 3, 1
+    instr_memory[3] = {8'h0B, 8'h03, 8'h02, 8'h00}; // XOR_ADD 3, 2
+    instr_memory[4] = {8'h0B, 8'h00, 8'h03, 8'h00}; // XOR_ADD 0, 3
+    instr_memory[5] = {8'h0B, 8'h01, 8'h03, 8'h00}; // XOR_ADD 1, 3
+    instr_memory[6] = {8'h0B, 8'h02, 8'h03, 8'h00}; // XOR_ADD 2, 3
+    instr_memory[7] = {8'h0B, 8'h03, 8'h00, 8'h00}; // XOR_ADD 3, 0
+    instr_memory[8] = {8'h0B, 8'h01, 8'h02, 8'h00}; // XOR_ADD 1, 2
+    instr_memory[9] = {8'h0E, 8'h00, 8'h06, 8'h00}; // EMIT 0, 6
+    instr_memory[10] = {8'h05, 8'h00, 8'h00, 8'h00}; // MDLACC - accumulate μ-cost for partition
     // HALT
-    instr_memory[9] = {8'hFF, 8'h00, 8'h00, 8'h00}; // HALT
+    instr_memory[11] = {8'hFF, 8'h00, 8'h00, 8'h00}; // HALT
 
     // Initialize data memory with XOR matrix
     // Row 0: 1 0 0 1 0 1 -> 0x29 (bits 0,3,5)
@@ -130,7 +135,7 @@ initial begin
     data_memory[27] = 32'h00000000; // row 3 parity 0
 
     // Initialize other memory locations
-    for (i = 10; i < 256; i = i + 1) begin
+    for (i = 12; i < 256; i = i + 1) begin
         instr_memory[i] = 32'h00000000;
     end
     for (i = 0; i < 256; i = i + 1) begin
@@ -201,7 +206,7 @@ initial begin
             $finish;
         end
         begin
-            wait (pc == 32'h28); // Wait for PC to reach HALT address
+            wait (pc == 32'h30); // Wait for PC to reach HALT address (12 instructions * 4 bytes = 0x30)
             #10; // Small delay
             // Check results
             $display("Test completed!");
@@ -212,10 +217,12 @@ initial begin
             $display("Partition Ops: %d", partition_ops);
             $display("MDL Ops: %d", mdl_ops);
             $display("Info Gain: %d", info_gain);
+            $display("Mu Total: %d", mu_total_hw);
             $display("{");
             $display("  \"partition_ops\": %d,", partition_ops);
             $display("  \"mdl_ops\": %d,", mdl_ops);
-            $display("  \"info_gain\": %d", info_gain);
+            $display("  \"info_gain\": %d,", info_gain);
+            $display("  \"mu_total\": %d", mu_total_hw);
             $display("}");
             $finish;
         end
@@ -228,8 +235,8 @@ end
 
 always @(posedge clk) begin
     if (rst_n) begin
-        $display("Time: %t, PC: %h, State: %h, Status: %h, Error: %h",
-                 $time, pc, dut.state, status, error_code);
+        $display("Time: %t, PC: %h, State: %h, Status: %h, Error: %h, Mu: %d",
+                 $time, pc, dut.state, status, error_code, mu_total_hw);
     end
 end
 

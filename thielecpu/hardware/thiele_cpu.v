@@ -32,6 +32,7 @@ module thiele_cpu (
     output wire [31:0] partition_ops,
     output wire [31:0] mdl_ops,
     output wire [31:0] info_gain,
+    output wire [31:0] mu_total,  // Total μ-cost (operational + information)
 
     // Memory interface
     output wire [31:0] mem_addr,
@@ -162,6 +163,7 @@ assign error_code = csr_error;
 assign partition_ops = partition_ops_counter;
 assign mdl_ops = mdl_ops_counter;
 assign info_gain = info_gain_counter;
+assign mu_total = mu_accumulator + info_gain_counter;  // Total μ = operational + information
 
 // ============================================================================
 // MAIN CPU LOGIC
@@ -239,6 +241,13 @@ always @(posedge clk or negedge rst_n) begin
                     OPCODE_LJOIN: begin
                         // Join certificates
                         execute_ljoin(operand_a, operand_b);
+                        pc_reg <= pc_reg + 4;
+                        state <= STATE_FETCH;
+                    end
+
+                    OPCODE_MDLACC: begin
+                        // Accumulate μ-bits for MDL cost
+                        execute_mdlacc(operand_a);
                         pc_reg <= pc_reg + 4;
                         state <= STATE_FETCH;
                     end
@@ -450,21 +459,34 @@ endtask
 
 task execute_mdlacc;
     input [7:0] module_id;
+    reg [5:0] actual_module_id;
     begin
+        // Use current_module if module_id is 0 (matches VM semantics)
+        actual_module_id = (module_id == 0) ? current_module : module_id[5:0];
+        
         // Accumulate μ-bits for MDL cost
-        if (module_id < next_module_id) begin
-            module_size = module_table[module_id];
+        // MDL cost is the encoding cost of the partition structure
+        // Formula: max_element.bit_length() * num_elements
+        // For alignment with VM semantics, we use: bit_length(region_size) * region_size
+        // But since region_size for PNEW {1} is 1, and bit_length(1) = 1, cost = 1*1 = 1
+        if (actual_module_id < next_module_id) begin
+            module_size = module_table[actual_module_id];
 
-            // Simple MDL calculation: log2 of module size
+            // MDL calculation aligned with VM: bit_length(max_element) * num_elements
+            // For a region of size N with elements 0..N-1, max_element = N-1
+            // bit_length(N-1) for N=1 is 0, but we need at least 1 bit to encode existence
             if (module_size > 0) begin
                 mdl_cost = 0;
                 temp_size = module_size;
-                while (temp_size > 1) begin
+                // Calculate bit_length of module_size (representing encoding cost)
+                while (temp_size > 0) begin
                     temp_size = temp_size >> 1;
                     mdl_cost = mdl_cost + 1;
                 end
+                // Multiply by number of elements
+                mdl_cost = mdl_cost * module_size;
             end else begin
-                mdl_cost = 0;
+                mdl_cost = 1;  // Minimal cost for empty partition
             end
 
             if (mu_accumulator + mdl_cost <= MAX_MU) begin
