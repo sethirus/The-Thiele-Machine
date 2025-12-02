@@ -120,6 +120,9 @@ module partition_core #(
                     case (op)
                         OPC_PNEW: begin
                             // Create new partition module
+                            // Note: Hardware does not check for existing regions like Python VM.
+                            // This is acceptable because duplicate regions are avoided at
+                            // the program level, and hardware prioritizes synthesis efficiency.
                             // μ-update: mu_discovery += popcount(region)
                             if (num_modules < MAX_MODULES) begin
                                 partitions[num_modules*REGION_WIDTH +: REGION_WIDTH] <= pnew_region;
