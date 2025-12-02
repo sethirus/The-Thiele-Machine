@@ -1,0 +1,35 @@
+Root Cause Analysis: VM/RTL μ-total Mismatch
+--------------------------------------------------
+
+Summary:
+- Observation: Initial Trinity run reported a μ-total mismatch: VM=0.0, RTL=6.
+- The mismatch was caused by the RTL testbench executing a static, repository-internal
+  program which includes an EMIT instruction (`instr_memory[8] = {8'h0E, 8'h00, 8'h06}`)
+  that increments `info_gain` by 6. The VM run executed the provided `examples/genesis.thm` 
+  (a single `PYEXEC` instruction referencing `genesis.py`) which does not contain an EMIT.
+
+Findings:
+- VM `mu_ledger.json` shows no μ-bits were charged; MDL and info charges are zero.
+- RTL `rtl.log` initially reported `Info Gain: 6` because of the TB's static EMIT 0,6.
+- This is a workflow/test harness discrepancy: different programs were being compared.
+
+Fix Implemented:
+- `tools/prove_trinity.py` updated to write a `program.mem` file containing the encoded 
+  instruction words from the VM run and generate a dynamic `thiele_cpu_tb_generated.v` testbench
+  that loads `program.mem` via `$readmemh`. The RTL simulation now executes the same program
+  as the VM.
+
+Verification:
+- After the change, re-running `prove_trinity.py` on `examples/genesis.thm` produced matching
+  mu totals and passed the trinity check: "✅ Trinity confirmed".
+
+Conclusion:
+- The underlying hardware and VM were not inconsistent; the earlier mismatch was due to a
+  testbench/program mismatch. The fix ensures RTL runs the exact program used by the VM,
+  aligning μ accounting across layers.
+
+Relevant Artifacts:
+- VM logs:  artifacts/trinity_minimal/vm/trace.log
+- VM ledger: artifacts/trinity_minimal/vm/mu_ledger.json
+- RTL logs: artifacts/trinity_minimal/rtl.log
+- Trinity receipts: artifacts/trinity_minimal/receipt_vm.json, receipt_rtl.json, receipt_coq.json

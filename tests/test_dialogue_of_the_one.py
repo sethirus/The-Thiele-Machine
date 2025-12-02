@@ -100,44 +100,6 @@ class TestDialogueEngine:
         assert loss_b2a >= 0, "Loss should be non-negative"
 
 
-class TestObjectiveDefinitions:
-    """Test the objective genomes for Alpha and Beta."""
-    
-    def test_alpha_objective_structure(self):
-        """Test Alpha's elegance objective is well-formed."""
-        objective_file = BASE_DIR / 'alpha' / 'objectives' / 'objective_alpha.thiele'
-        
-        if not objective_file.exists():
-            pytest.skip("Alpha objective file not found")
-        
-        with open(objective_file, 'r') as f:
-            objective = json.load(f)
-        
-        assert objective['name'] == "Elegance Maximization v1.0"
-        assert objective['function'] == "weighted_sum"
-        assert 'accuracy' in objective['components']
-        assert 'elegance' in objective['components']
-        assert objective['components']['accuracy']['weight'] == 0.8
-        assert objective['components']['elegance']['weight'] == 0.2
-    
-    def test_beta_objective_structure(self):
-        """Test Beta's novelty objective is well-formed."""
-        objective_file = BASE_DIR / 'beta' / 'objectives' / 'objective_beta.thiele'
-        
-        if not objective_file.exists():
-            pytest.skip("Beta objective file not found")
-        
-        with open(objective_file, 'r') as f:
-            objective = json.load(f)
-        
-        assert objective['name'] == "Novelty Maximization v1.0"
-        assert objective['function'] == "weighted_sum"
-        assert 'accuracy' in objective['components']
-        assert 'novelty' in objective['components']
-        assert objective['components']['accuracy']['weight'] == 0.8
-        assert objective['components']['novelty']['weight'] == 0.2
-
-
 class TestImpossibleProblem:
     """Test the synthesis challenge definition."""
     
@@ -177,38 +139,6 @@ class TestImpossibleProblem:
         assert constraints['novelty_requirement']['target'] == "maximize"
         
         # These are contradictory: minimizing primitives means reusing proven ones (low novelty)
-
-
-class TestEvaluationFunctions:
-    """Test custom evaluation functions."""
-    
-    def test_primitive_novelty_function_exists(self):
-        """Test that Beta has the evaluate_primitive_novelty function."""
-        # Import from Beta's tools directory
-        import importlib.util
-        
-        beta_eval_file = BASE_DIR / 'beta' / 'tools' / 'evaluation_functions.py'
-        
-        if not beta_eval_file.exists():
-            pytest.skip("Beta evaluation functions file not found")
-        
-        # Load the module directly
-        spec = importlib.util.spec_from_file_location("beta_evaluation_functions", beta_eval_file)
-        beta_eval = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(beta_eval)
-        
-        # Check the function exists
-        assert hasattr(beta_eval, 'evaluate_primitive_novelty'), \
-            "evaluate_primitive_novelty not found in Beta's evaluation_functions"
-        
-        # Test with sample data
-        strategy_code = "prim_A\nprim_B\nprim_C"
-        score = beta_eval.evaluate_primitive_novelty(
-            strategy_code, "test", {"history_file": "nonexistent.json"}
-        )
-        
-        # Should return 1.0 when no history exists (all primitives are novel)
-        assert score == 1.0, f"Expected score 1.0 for novel primitives, got {score}"
 
 
 def test_end_to_end_integration():

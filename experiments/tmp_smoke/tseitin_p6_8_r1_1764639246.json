@@ -1,0 +1,634 @@
+[
+  {
+    "n": 6,
+    "seed": 0,
+    "conf_budget": 100000,
+    "instance_hash": "5769808791ddb964085469fe3e253aabacbe04fb38ac7a30c3aa355203a5d067",
+    "blind_results": {
+      "status": "unsat",
+      "conflicts": 13,
+      "props": 62,
+      "decisions": 12,
+      "config": {
+        "solver": "Cadical153",
+        "conf_budget": 100000,
+        "prop_budget": null,
+        "rnd_seed": 123456789,
+        "rnd_init_act": null,
+        "var_decay": null,
+        "phase_saving": null
+      }
+    },
+    "sighted_results": {
+      "result": "unsat",
+      "rank_A": 5,
+      "rank_aug": 6,
+      "rank_gap": 1,
+      "conflict_steps": 16,
+      "rank_ops": 18
+    },
+    "conflict_steps": 16,
+    "rank_ops": 18,
+    "mdl_bytes": 0,
+    "partition_ops": 13,
+    "timings": {
+      "gen_s": 0.0031,
+      "blind_s": 0.0648
+    },
+    "instance": {
+      "matrix": [
+        [
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1
+        ]
+      ],
+      "parity": [
+        0,
+        1,
+        0,
+        1,
+        1,
+        0
+      ]
+    },
+    "cnf_clauses": [
+      [
+        1,
+        2,
+        -3
+      ],
+      [
+        1,
+        -2,
+        3
+      ],
+      [
+        -1,
+        2,
+        3
+      ],
+      [
+        -1,
+        -2,
+        -3
+      ],
+      [
+        1,
+        4,
+        5
+      ],
+      [
+        1,
+        -4,
+        -5
+      ],
+      [
+        -1,
+        4,
+        -5
+      ],
+      [
+        -1,
+        -4,
+        5
+      ],
+      [
+        2,
+        4,
+        -6
+      ],
+      [
+        2,
+        -4,
+        6
+      ],
+      [
+        -2,
+        4,
+        6
+      ],
+      [
+        -2,
+        -4,
+        -6
+      ],
+      [
+        6,
+        7,
+        8
+      ],
+      [
+        6,
+        -7,
+        -8
+      ],
+      [
+        -6,
+        7,
+        -8
+      ],
+      [
+        -6,
+        -7,
+        8
+      ],
+      [
+        5,
+        7,
+        9
+      ],
+      [
+        5,
+        -7,
+        -9
+      ],
+      [
+        -5,
+        7,
+        -9
+      ],
+      [
+        -5,
+        -7,
+        9
+      ],
+      [
+        3,
+        8,
+        -9
+      ],
+      [
+        3,
+        -8,
+        9
+      ],
+      [
+        -3,
+        8,
+        9
+      ],
+      [
+        -3,
+        -8,
+        -9
+      ]
+    ],
+    "blind_trace_file": "/workspaces/The-Thiele-Machine/experiments/tmp_smoke/traces/trace_n6_seed0.json",
+    "blind_trace_summary": {
+      "status": "unsat",
+      "decisions": 134,
+      "conflicts": 68,
+      "backtracks": 134,
+      "variables": 9
+    },
+    "mu_sighted": 285.0,
+    "mu_blind_solver": 13,
+    "mu_blind": 68,
+    "mu_question": 192,
+    "mu_answer": 9.0,
+    "mu_thiele_sighted": 84,
+    "partition_level": 6,
+    "partition_csv_row": {
+      "size_param": 6,
+      "seed": 0,
+      "blind_status": "unsat",
+      "blind_conflicts": 13,
+      "blind_props": 62,
+      "blind_decisions": 12,
+      "blind_time_seconds": 0.0648,
+      "sighted_result": "unsat",
+      "sighted_rank_gap": 1,
+      "sighted_cost": 285.0,
+      "sighted_time_seconds": null,
+      "mu_blind": 68,
+      "mu_sighted": 285.0,
+      "mu_answer": 9.0,
+      "mu_question": 192
+    },
+    "partition_csv_path": "/workspaces/The-Thiele-Machine/experiments/tmp_smoke/partition_blind_vs_sighted_scaling.csv",
+    "partition_csv_sha256": "66aa29e63446d4b3d7f88fcc11939d4418f1bec846f7853964150dd72dc56458",
+    "partition_csv_index": 0
+  },
+  {
+    "n": 8,
+    "seed": 0,
+    "conf_budget": 100000,
+    "instance_hash": "d73bf6a0d5eff7933fd65b0648a433df457c6686ea2f9f1377ba6d426cfec5c4",
+    "blind_results": {
+      "status": "unsat",
+      "conflicts": 27,
+      "props": 159,
+      "decisions": 26,
+      "config": {
+        "solver": "Cadical153",
+        "conf_budget": 100000,
+        "prop_budget": null,
+        "rnd_seed": 123456789,
+        "rnd_init_act": null,
+        "var_decay": null,
+        "phase_saving": null
+      }
+    },
+    "sighted_results": {
+      "result": "unsat",
+      "rank_A": 7,
+      "rank_aug": 8,
+      "rank_gap": 1,
+      "conflict_steps": 26,
+      "rank_ops": 24
+    },
+    "conflict_steps": 26,
+    "rank_ops": 24,
+    "mdl_bytes": 0,
+    "partition_ops": 27,
+    "timings": {
+      "gen_s": 0.0016,
+      "blind_s": 0.0031
+    },
+    "instance": {
+      "matrix": [
+        [
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1
+        ]
+      ],
+      "parity": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "cnf_clauses": [
+      [
+        1,
+        2,
+        3
+      ],
+      [
+        1,
+        -2,
+        -3
+      ],
+      [
+        -1,
+        2,
+        -3
+      ],
+      [
+        -1,
+        -2,
+        3
+      ],
+      [
+        4,
+        5,
+        6
+      ],
+      [
+        4,
+        -5,
+        -6
+      ],
+      [
+        -4,
+        5,
+        -6
+      ],
+      [
+        -4,
+        -5,
+        6
+      ],
+      [
+        4,
+        7,
+        8
+      ],
+      [
+        4,
+        -7,
+        -8
+      ],
+      [
+        -4,
+        7,
+        -8
+      ],
+      [
+        -4,
+        -7,
+        8
+      ],
+      [
+        1,
+        5,
+        9
+      ],
+      [
+        1,
+        -5,
+        -9
+      ],
+      [
+        -1,
+        5,
+        -9
+      ],
+      [
+        -1,
+        -5,
+        9
+      ],
+      [
+        7,
+        10,
+        11
+      ],
+      [
+        7,
+        -10,
+        -11
+      ],
+      [
+        -7,
+        10,
+        -11
+      ],
+      [
+        -7,
+        -10,
+        11
+      ],
+      [
+        2,
+        8,
+        -9
+      ],
+      [
+        2,
+        -8,
+        9
+      ],
+      [
+        -2,
+        8,
+        9
+      ],
+      [
+        -2,
+        -8,
+        -9
+      ],
+      [
+        6,
+        10,
+        -12
+      ],
+      [
+        6,
+        -10,
+        12
+      ],
+      [
+        -6,
+        10,
+        12
+      ],
+      [
+        -6,
+        -10,
+        -12
+      ],
+      [
+        3,
+        11,
+        -12
+      ],
+      [
+        3,
+        -11,
+        12
+      ],
+      [
+        -3,
+        11,
+        12
+      ],
+      [
+        -3,
+        -11,
+        -12
+      ]
+    ],
+    "blind_trace_file": "/workspaces/The-Thiele-Machine/experiments/tmp_smoke/traces/trace_n8_seed0.json",
+    "blind_trace_summary": {
+      "status": "unsat",
+      "decisions": 390,
+      "conflicts": 196,
+      "backtracks": 390,
+      "variables": 12
+    },
+    "mu_sighted": 348.0,
+    "mu_blind_solver": 27,
+    "mu_blind": 196,
+    "mu_question": 192,
+    "mu_answer": 12.0,
+    "mu_thiele_sighted": 144,
+    "partition_level": 8,
+    "partition_csv_row": {
+      "size_param": 8,
+      "seed": 0,
+      "blind_status": "unsat",
+      "blind_conflicts": 27,
+      "blind_props": 159,
+      "blind_decisions": 26,
+      "blind_time_seconds": 0.0031,
+      "sighted_result": "unsat",
+      "sighted_rank_gap": 1,
+      "sighted_cost": 348.0,
+      "sighted_time_seconds": null,
+      "mu_blind": 196,
+      "mu_sighted": 348.0,
+      "mu_answer": 12.0,
+      "mu_question": 192
+    },
+    "partition_csv_path": "/workspaces/The-Thiele-Machine/experiments/tmp_smoke/partition_blind_vs_sighted_scaling.csv",
+    "partition_csv_sha256": "6ca2044c861ab2123a21c8dd4cb45714e86959fda9c0bc204cea41f39a44ae3f",
+    "partition_csv_index": 1
+  }
+]
