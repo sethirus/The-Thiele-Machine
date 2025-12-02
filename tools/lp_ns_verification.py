@@ -29,8 +29,7 @@ import numpy as np
 
 # Try to import scipy for LP
 try:
-    from scipy.optimize import linprog, OptimizeResult
-    from scipy.sparse import csr_matrix
+    from scipy.optimize import linprog
     HAS_SCIPY = True
 except ImportError:
     HAS_SCIPY = False
@@ -277,7 +276,7 @@ def maximize_bell_over_ns(
         A_eq=A_eq, 
         b_eq=b_eq, 
         bounds=bounds,
-        method='highs'
+        method='highs'  # HiGHS is default and most robust for LP
     )
     
     if result.success:
