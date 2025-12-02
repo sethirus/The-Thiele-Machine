@@ -1,0 +1,19 @@
+; Shor-style partition program
+; Demonstrates period-finding partition structure
+
+; Create period registers
+PNEW {0,1,2,3,4,5,6,7}
+
+; Create QFT target
+PNEW {16,17,18,19,20,21,22,23}
+
+; Split period register by mod 2
+PSPLIT 1
+
+; Merge for final measurement
+PMERGE 2 3
+
+; Emit result
+EMIT "shor_partition_complete"
+
+HALT

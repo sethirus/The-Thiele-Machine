@@ -3,12 +3,16 @@
 # Copyright 2025 Devon Thiele
 # See the LICENSE file in the repository root for full terms.
 
-"""Machine state and partition operations."""
+"""Machine state and partition operations.
+
+This module implements the canonical state representation as defined in
+spec/thiele_machine_spec.md for isomorphism with Verilog RTL and Coq proofs.
+"""
 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Callable, Set, Tuple, Dict, List
+from typing import Callable, Set, Tuple, Dict, List, Any
 
 try:
     from .isa import CSR
@@ -24,15 +28,108 @@ except ImportError:
     from _types import ModuleId
 
 
+# =============================================================================
+# Canonical Constants (must match spec/thiele_machine_spec.md)
+# =============================================================================
+
+MASK_WIDTH = 64  # Fixed width for hardware compatibility
+MAX_MODULES = 8  # Maximum number of active modules
+
+# Type alias for partition masks
+PartitionMask = int  # 0..(1<<MASK_WIDTH)-1
+
+
+# =============================================================================
+# Bitmask Helper Functions
+# =============================================================================
+
+def mask_of_indices(indices: Set[int]) -> PartitionMask:
+    """Convert a set of indices to a bitmask representation."""
+    mask = 0
+    for idx in indices:
+        if 0 <= idx < MASK_WIDTH:
+            mask |= (1 << idx)
+    return mask
+
+
+def indices_of_mask(mask: PartitionMask) -> Set[int]:
+    """Convert a bitmask to a set of indices."""
+    indices = set()
+    for i in range(MASK_WIDTH):
+        if mask & (1 << i):
+            indices.add(i)
+    return indices
+
+
+def mask_union(a: PartitionMask, b: PartitionMask) -> PartitionMask:
+    """Compute the union of two partition masks."""
+    return a | b
+
+
+def mask_intersection(a: PartitionMask, b: PartitionMask) -> PartitionMask:
+    """Compute the intersection of two partition masks."""
+    return a & b
+
+
+def mask_disjoint(a: PartitionMask, b: PartitionMask) -> bool:
+    """Check if two partition masks are disjoint (no overlap)."""
+    return (a & b) == 0
+
+
+def mask_popcount(mask: PartitionMask) -> int:
+    """Count the number of set bits in a mask (population count)."""
+    return bin(mask & ((1 << MASK_WIDTH) - 1)).count('1')
+
+
+# =============================================================================
+# μ-Ledger (Canonical Definition)
+# =============================================================================
+
+@dataclass
+class MuLedger:
+    """Tracks μ-bit costs for discovery and execution.
+    
+    This implements the canonical μ-ledger as defined in spec/thiele_machine_spec.md.
+    All μ-values are monotonically non-decreasing.
+    """
+    
+    mu_discovery: int = 0   # Cost of partition discovery operations
+    mu_execution: int = 0   # Cost of instruction execution
+    
+    @property
+    def total(self) -> int:
+        """Total μ-cost (discovery + execution)."""
+        return self.mu_discovery + self.mu_execution
+    
+    def snapshot(self) -> Dict[str, int]:
+        """Return a dictionary snapshot for tracing."""
+        return {
+            "mu_discovery": self.mu_discovery,
+            "mu_execution": self.mu_execution,
+            "mu_total": self.total,
+        }
+    
+    def copy(self) -> "MuLedger":
+        """Create a copy of this ledger."""
+        return MuLedger(
+            mu_discovery=self.mu_discovery,
+            mu_execution=self.mu_execution,
+        )
+
+
 Predicate = Callable[[int], bool]
 
 
 @dataclass
 class State:
-    """Holds machine state ``S`` and partition table ``Π``."""
+    """Holds machine state ``S`` and partition table ``Π``.
+    
+    This implements the canonical state representation as defined in
+    spec/thiele_machine_spec.md for isomorphism verification.
+    """
 
-    mu_operational: float = 0.0  # Cost of operations (current mu)
-    mu_information: float = 0.0  # Cost of information revealed
+    mu_operational: float = 0.0  # Cost of operations (current mu) - legacy
+    mu_information: float = 0.0  # Cost of information revealed - legacy
     _next_id: int = 1
     regions: RegionGraph = field(default_factory=RegionGraph)
     axioms: Dict[ModuleId, List[str]] = field(default_factory=dict)  # Axioms per module
@@ -40,32 +137,64 @@ class State:
         default_factory=lambda: {CSR.CERT_ADDR: "", CSR.STATUS: 0, CSR.ERR: 0}
     )
     step_count: int = 0
+    
+    # Canonical μ-ledger (spec/thiele_machine_spec.md)
+    mu_ledger: MuLedger = field(default_factory=MuLedger)
+    
+    # Bitmask-based partition storage for hardware isomorphism
+    partition_masks: Dict[ModuleId, PartitionMask] = field(default_factory=dict)
 
     @property
     def mu(self) -> float:
         """Total mu cost (operational + information)."""
         return self.mu_operational + self.mu_information
+    
+    @property
+    def num_modules(self) -> int:
+        """Return the number of active modules."""
+        return len(self.partition_masks)
 
-    def _alloc(self, region: Set[int]) -> ModuleId:
+    def _alloc(self, region: Set[int], charge_discovery: bool = False) -> ModuleId:
+        """Allocate a new module for region.
+        
+        Args:
+            region: Set of indices for this module
+            charge_discovery: If True, charge discovery cost (only for PNEW)
+        """
         mid = self._next_id
         self._next_id += 1
         self.regions.add(mid, region)
+        # Also update bitmask representation
+        region_mask = mask_of_indices(region)
+        self.partition_masks[ModuleId(mid)] = region_mask
+        
+        if charge_discovery:
+            self.mu_ledger.mu_discovery += mask_popcount(region_mask)
+        
         return ModuleId(mid)
 
     def pnew(self, region: Set[int]) -> ModuleId:
-        """Create a module for ``region`` if not already present."""
-
+        """Create a module for ``region`` if not already present.
+        
+        μ-update: mu_discovery += popcount(region)
+        """
+        if self.num_modules >= MAX_MODULES:
+            raise ValueError(f"Cannot create module: max modules ({MAX_MODULES}) reached")
+        
         existing = self.regions.find(region)
         if existing is not None:
             return ModuleId(existing)
-        mid = self._alloc(region)
+        mid = self._alloc(region, charge_discovery=True)
         self.axioms[mid] = []  # Initialize empty axioms for new module
+        
         self._enforce_invariant()
         return mid
 
     def psplit(self, module: ModuleId, pred: Predicate) -> Tuple[ModuleId, ModuleId]:
-        """Split ``module``'s region using ``pred`` into two modules."""
-
+        """Split ``module``'s region using ``pred`` into two modules.
+        
+        μ-update: mu_execution += MASK_WIDTH
+        """
         region = self.regions[module]
         part1 = {x for x in region if pred(x)}
         part2 = region - part1
@@ -75,18 +204,27 @@ class State:
             self._enforce_invariant()
             return module, empty
         self.regions.remove(module)
+        # Remove from bitmask representation
+        self.partition_masks.pop(module, None)
+        
         axioms = self.axioms.pop(module, [])  # Get axioms before removing
         m1 = self._alloc(part1)
         m2 = self._alloc(part2)
         # Copy axioms to both new modules
         self.axioms[m1] = axioms.copy()
         self.axioms[m2] = axioms.copy()
+        
+        # μ-update per spec: split costs MASK_WIDTH
+        self.mu_ledger.mu_execution += MASK_WIDTH
+        
         self._enforce_invariant()
         return m1, m2
 
     def pmerge(self, m1: ModuleId, m2: ModuleId) -> ModuleId:
-        """Merge two modules into one if their regions are disjoint."""
-
+        """Merge two modules into one if their regions are disjoint.
+        
+        μ-update: mu_execution += 4
+        """
         if m1 == m2:
             raise ValueError("cannot merge module with itself")
         r1 = self.regions[m1]
@@ -96,6 +234,10 @@ class State:
         union = r1 | r2
         self.regions.remove(m1)
         self.regions.remove(m2)
+        # Remove from bitmask representation
+        self.partition_masks.pop(m1, None)
+        self.partition_masks.pop(m2, None)
+        
         axioms1 = self.axioms.pop(m1, [])
         axioms2 = self.axioms.pop(m2, [])
         existing = self.regions.find(union)
@@ -107,6 +249,10 @@ class State:
             return existing_id
         mid = self._alloc(union)
         self.axioms[mid] = axioms1 + axioms2  # Combine axioms
+        
+        # μ-update per spec: merge costs 4
+        self.mu_ledger.mu_execution += 4
+        
         self._enforce_invariant()
         return mid
 
@@ -127,3 +273,19 @@ class State:
     def get_module_axioms(self, module: ModuleId) -> List[str]:
         """Get all axioms for a module."""
         return self.axioms.get(module, [])
+    
+    def get_state_snapshot(self) -> Dict[str, Any]:
+        """Return a snapshot of the current state for tracing.
+        
+        This format is designed for isomorphism verification with
+        Verilog RTL and Coq proofs.
+        """
+        return {
+            "num_modules": self.num_modules,
+            "partition_masks": [
+                int(self.partition_masks.get(ModuleId(i + 1), 0))
+                for i in range(MAX_MODULES)
+            ],
+            "mu": self.mu_ledger.snapshot(),
+            "step_count": self.step_count,
+        }
