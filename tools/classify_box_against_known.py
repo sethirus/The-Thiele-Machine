@@ -175,13 +175,25 @@ def make_local_3x3(alice_strategy: List[int], bob_strategy: List[int]) -> KnownB
         name=f"Local-3x3({strategy_name})",
         probs=P,
         category="local",
-        bell_value=0.0,  # No CHSH for 3x3
+        bell_value=0.0,  # Local deterministic - no Bell violation
         description=f"Local deterministic 3x3: {strategy_name}"
     )
 
 
+# Memoized cache for known boxes to avoid recomputation
+_KNOWN_BOXES_3x3_CACHE: Optional[List[KnownBox]] = None
+
+
 def get_known_boxes_3x3() -> List[KnownBox]:
-    """Get the list of known reference boxes for 3x3x2x2."""
+    """Get the list of known reference boxes for 3x3x2x2.
+    
+    Results are memoized since the local deterministic boxes are static.
+    """
+    global _KNOWN_BOXES_3x3_CACHE
+    
+    if _KNOWN_BOXES_3x3_CACHE is not None:
+        return _KNOWN_BOXES_3x3_CACHE
+    
     boxes = []
     
     # PR-lift
@@ -196,6 +208,7 @@ def get_known_boxes_3x3() -> List[KnownBox]:
                         for b2 in range(2):
                             boxes.append(make_local_3x3([a0, a1, a2], [b0, b1, b2]))
     
+    _KNOWN_BOXES_3x3_CACHE = boxes
     return boxes
 
 
