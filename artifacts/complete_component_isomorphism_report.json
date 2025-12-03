@@ -1,0 +1,303 @@
+{
+  "python_files": [
+    "thielecpu/logger.py",
+    "thielecpu/geometric_oracle.py",
+    "thielecpu/factoring.py",
+    "thielecpu/discovery.py",
+    "thielecpu/mu.py",
+    "thielecpu/assemble.py",
+    "thielecpu/mdl.py",
+    "thielecpu/memory.py",
+    "thielecpu/riemann_primitives.py",
+    "thielecpu/_types.py",
+    "thielecpu/certcheck.py",
+    "thielecpu/mu_fixed.py",
+    "thielecpu/state.py",
+    "thielecpu/primitives.py",
+    "thielecpu/logic.py",
+    "thielecpu/shor_oracle.py",
+    "thielecpu/isa.py",
+    "thielecpu/vm.py",
+    "thielecpu/cnf.py",
+    "thielecpu/security_monitor.py",
+    "thielecpu/receipts.py",
+    "thielecpu/delta.py",
+    "thielecpu/__init__.py",
+    "thielecpu/certs.py",
+    "thielecpu/benchmarks/problem_families.py",
+    "thielecpu/benchmarks/__init__.py",
+    "thielecpu/benchmarks/solvers.py",
+    "thielecpu/hardware/test_hardware.py"
+  ],
+  "verilog_files": [
+    "thielecpu/hardware/mau.v",
+    "thielecpu/hardware/thiele_cpu.v",
+    "thielecpu/hardware/thiele_cpu_tb.v",
+    "thielecpu/hardware/lei.v",
+    "thielecpu/hardware/pee.v",
+    "thielecpu/hardware/mu_alu.v",
+    "thielecpu/hardware/mmu.v",
+    "thielecpu/hardware/mu_alu_tb.v",
+    "hardware/pdiscover_archsphere.v",
+    "hardware/chsh_partition.v",
+    "hardware/shor_partition.v",
+    "hardware/partition_core_tb.v",
+    "hardware/partition_core.v",
+    "hardware/forge/primitive_matrix_decomp.v",
+    "hardware/forge/primitive_graph_node.v",
+    "hardware/forge/empyrean_forge.v",
+    "hardware/forge/primitive_community_assign.v",
+    "hardware/synthesis_trap/reasoning_core.v",
+    "hardware/synthesis_trap/thiele_graph_solver_tb.v",
+    "hardware/synthesis_trap/classical_solver.v",
+    "hardware/synthesis_trap/thiele_graph_solver.v",
+    "hardware/synthesis_trap/thiele_autonomous_solver.v",
+    "hardware/resonator/period_finder.v",
+    "hardware/resonator/classical_period_finder.v"
+  ],
+  "coq_files": [
+    "coq/thielemachine/coqproofs/Confluence.v",
+    "coq/thielemachine/coqproofs/Separation.v",
+    "coq/thielemachine/coqproofs/HardwareBridge.v",
+    "coq/thielemachine/coqproofs/ThieleMachineConcrete.v",
+    "coq/thielemachine/coqproofs/PartitionLogic.v",
+    "coq/thielemachine/coqproofs/WaveEmbedding.v",
+    "coq/thielemachine/coqproofs/MuAlu.v",
+    "coq/thielemachine/coqproofs/ThieleMachineModular.v",
+    "coq/thielemachine/coqproofs/Oracle.v",
+    "coq/thielemachine/coqproofs/BlindSighted.v",
+    "coq/thielemachine/coqproofs/SpectralApproximation.v",
+    "coq/thielemachine/coqproofs/SpecSound.v",
+    "coq/thielemachine/coqproofs/Subsumption.v",
+    "coq/thielemachine/coqproofs/ListHelpers.v",
+    "coq/thielemachine/coqproofs/PhysicsEmbedding.v",
+    "coq/thielemachine/coqproofs/StructuredInstances.v",
+    "coq/thielemachine/coqproofs/DissipativeEmbedding.v",
+    "coq/thielemachine/coqproofs/HyperThiele_Halting.v",
+    "coq/thielemachine/coqproofs/HardwareVMHarness.v",
+    "coq/thielemachine/coqproofs/HyperThiele.v",
+    "coq/thielemachine/coqproofs/Axioms.v",
+    "coq/thielemachine/coqproofs/WaveCheck.v",
+    "coq/thielemachine/coqproofs/HyperThiele_Oracle.v",
+    "coq/thielemachine/coqproofs/EncodingBridge.v",
+    "coq/thielemachine/coqproofs/ThieleMachineUniv.v",
+    "coq/thielemachine/coqproofs/PhaseThree.v",
+    "coq/thielemachine/coqproofs/ThieleMachineSig.v",
+    "coq/thielemachine/coqproofs/PartitionDiscoveryIsomorphism.v",
+    "coq/thielemachine/coqproofs/ThieleMachineConcretePack.v",
+    "coq/thielemachine/coqproofs/BellCheck.v",
+    "coq/thielemachine/coqproofs/ThieleProc.v",
+    "coq/thielemachine/coqproofs/BellInequality.v",
+    "coq/thielemachine/coqproofs/QHelpers.v",
+    "coq/thielemachine/coqproofs/Impossibility.v",
+    "coq/thielemachine/coqproofs/Simulation.v",
+    "coq/thielemachine/coqproofs/EfficientDiscovery.v",
+    "coq/thielemachine/coqproofs/Bisimulation.v",
+    "coq/thielemachine/coqproofs/LawCheck.v",
+    "coq/thielemachine/coqproofs/AmortizedAnalysis.v",
+    "coq/thielemachine/coqproofs/DiscoveryProof.v",
+    "coq/thielemachine/coqproofs/UTMStaticCheck.v",
+    "coq/thielemachine/coqproofs/NUSD.v",
+    "coq/thielemachine/coqproofs/ThieleMachine.v",
+    "coq/thielemachine/coqproofs/MuAlignmentExample.v",
+    "coq/kernel/Subsumption.v",
+    "coq/kernel/KernelTM.v",
+    "coq/kernel/KernelThiele.v",
+    "coq/kernel/VMEncoding.v",
+    "coq/kernel/VMState.v",
+    "coq/kernel/MuLedgerConservation.v",
+    "coq/kernel/Kernel.v",
+    "coq/kernel/SimulationProof.v",
+    "coq/kernel/PDISCOVERIntegration.v",
+    "coq/kernel/VMStep.v"
+  ],
+  "component_mappings": [
+    {
+      "component": "Instruction Set Architecture (ISA)",
+      "python": "thielecpu/isa.py",
+      "verilog": "thielecpu/hardware/thiele_cpu.v",
+      "coq": "coq/thielemachine/coqproofs/ThieleMachine.v"
+    },
+    {
+      "component": "\u03bc-ALU (Arithmetic Unit)",
+      "python": "thielecpu/mu_fixed.py",
+      "verilog": "thielecpu/hardware/mu_alu.v",
+      "coq": "coq/thielemachine/coqproofs/MuAlu.v"
+    },
+    {
+      "component": "Memory Management",
+      "python": "thielecpu/memory.py",
+      "verilog": "thielecpu/hardware/mmu.v",
+      "coq": "coq/kernel/VMState.v"
+    },
+    {
+      "component": "State Representation",
+      "python": "thielecpu/state.py",
+      "verilog": "thielecpu/hardware/thiele_cpu.v",
+      "coq": "coq/kernel/VMState.v"
+    },
+    {
+      "component": "Logic Operations",
+      "python": "thielecpu/logic.py",
+      "verilog": "thielecpu/hardware/lei.v",
+      "coq": "coq/thielemachine/coqproofs/PartitionLogic.v"
+    },
+    {
+      "component": "Primitives",
+      "python": "thielecpu/primitives.py",
+      "verilog": "thielecpu/hardware/pee.v",
+      "coq": "coq/thielemachine/coqproofs/ThieleMachine.v"
+    },
+    {
+      "component": "MDL (Minimum Description Length)",
+      "python": "thielecpu/mdl.py",
+      "verilog": "thielecpu/hardware/mau.v",
+      "coq": "coq/kernel/MuLedgerConservation.v"
+    },
+    {
+      "component": "Discovery Engine",
+      "python": "thielecpu/discovery.py",
+      "verilog": "hardware/pdiscover_archsphere.v",
+      "coq": "coq/thielemachine/coqproofs/EfficientDiscovery.v"
+    },
+    {
+      "component": "Factoring Oracle",
+      "python": "thielecpu/factoring.py",
+      "verilog": "hardware/shor_partition.v",
+      "coq": "coq/shor_primitives/PeriodFinding.v"
+    },
+    {
+      "component": "Geometric Oracle",
+      "python": "thielecpu/geometric_oracle.py",
+      "verilog": "hardware/chsh_partition.v",
+      "coq": "coq/thielemachine/coqproofs/BellCheck.v"
+    },
+    {
+      "component": "VM Execution Engine",
+      "python": "thielecpu/isa.py",
+      "verilog": "thielecpu/hardware/thiele_cpu.v",
+      "coq": "coq/kernel/VMStep.v"
+    },
+    {
+      "component": "Spectral Approximation",
+      "python": "thielecpu/discovery.py",
+      "verilog": null,
+      "coq": "coq/thielemachine/coqproofs/SpectralApproximation.v"
+    }
+  ],
+  "isomorphism_checks": [
+    {
+      "check": "Opcode CERT_ADDR",
+      "status": "FAIL",
+      "python": "0x00",
+      "verilog": "MISSING"
+    },
+    {
+      "check": "Opcode EMIT",
+      "status": "FAIL",
+      "python": "0x0E",
+      "verilog": "MISSING"
+    },
+    {
+      "check": "Opcode ERR",
+      "status": "FAIL",
+      "python": "0x02",
+      "verilog": "MISSING"
+    },
+    {
+      "check": "Opcode HALT",
+      "status": "FAIL",
+      "python": "0xFF",
+      "verilog": "MISSING"
+    },
+    {
+      "check": "Opcode LASSERT",
+      "status": "FAIL",
+      "python": "0x03",
+      "verilog": "MISSING"
+    },
+    {
+      "check": "Opcode LJOIN",
+      "status": "FAIL",
+      "python": "0x04",
+      "verilog": "MISSING"
+    },
+    {
+      "check": "Opcode MDLACC",
+      "status": "FAIL",
+      "python": "0x05",
+      "verilog": "MISSING"
+    },
+    {
+      "check": "Opcode PDISCOVER",
+      "status": "FAIL",
+      "python": "0x06",
+      "verilog": "MISSING"
+    },
+    {
+      "check": "Opcode PMERGE",
+      "status": "FAIL",
+      "python": "0x02",
+      "verilog": "MISSING"
+    },
+    {
+      "check": "Opcode PNEW",
+      "status": "FAIL",
+      "python": "0x00",
+      "verilog": "MISSING"
+    },
+    {
+      "check": "Opcode PSPLIT",
+      "status": "FAIL",
+      "python": "0x01",
+      "verilog": "MISSING"
+    },
+    {
+      "check": "Opcode PYEXEC",
+      "status": "FAIL",
+      "python": "0x08",
+      "verilog": "MISSING"
+    },
+    {
+      "check": "Opcode STATUS",
+      "status": "FAIL",
+      "python": "0x01",
+      "verilog": "MISSING"
+    },
+    {
+      "check": "Opcode XFER",
+      "status": "FAIL",
+      "python": "0x07",
+      "verilog": "MISSING"
+    },
+    {
+      "check": "Opcode XOR_ADD",
+      "status": "FAIL",
+      "python": "0x0B",
+      "verilog": "MISSING"
+    },
+    {
+      "check": "Opcode XOR_LOAD",
+      "status": "FAIL",
+      "python": "0x0A",
+      "verilog": "MISSING"
+    },
+    {
+      "check": "Opcode XOR_RANK",
+      "status": "FAIL",
+      "python": "0x0D",
+      "verilog": "MISSING"
+    },
+    {
+      "check": "Opcode XOR_SWAP",
+      "status": "FAIL",
+      "python": "0x0C",
+      "verilog": "MISSING"
+    }
+  ],
+  "total_passed": 3,
+  "total_failed": 18,
+  "status": "PARTIAL_ISOMORPHISM",
+  "total_files": 106,
+  "total_components": 12
+}
