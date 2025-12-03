@@ -347,6 +347,19 @@ class GrammarCrawler:
         
         return None
     
+    def tournament_select(self, population: List[Equation], tournament_size: int = 3) -> Equation:
+        """Select an equation using tournament selection.
+        
+        Args:
+            population: Population to select from
+            tournament_size: Number of candidates in tournament
+            
+        Returns:
+            Selected equation
+        """
+        tournament = random.sample(population, min(tournament_size, len(population)))
+        return max(tournament, key=lambda eq: eq.fitness)
+    
     def crossover(self, parent1: Equation, parent2: Equation) -> Equation:
         """Perform crossover between two parent equations.
         
