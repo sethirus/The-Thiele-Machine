@@ -1,0 +1,203 @@
+{
+  "test_suite": "cross_platform_isomorphism",
+  "results": [
+    {
+      "operation": "add",
+      "operand_a": 1.0,
+      "operand_b": 1.0,
+      "expected": 2.0,
+      "python_result": 2.0,
+      "verilog_result": null,
+      "coq_verified": false,
+      "isomorphic": true,
+      "python_q16": 131072
+    },
+    {
+      "operation": "add",
+      "operand_a": 3.5,
+      "operand_b": 2.25,
+      "expected": 5.75,
+      "python_result": 5.75,
+      "verilog_result": null,
+      "coq_verified": false,
+      "isomorphic": true,
+      "python_q16": 376832
+    },
+    {
+      "operation": "sub",
+      "operand_a": 5.0,
+      "operand_b": 3.0,
+      "expected": 2.0,
+      "python_result": 2.0,
+      "verilog_result": null,
+      "coq_verified": false,
+      "isomorphic": true,
+      "python_q16": 131072
+    },
+    {
+      "operation": "sub",
+      "operand_a": 10.5,
+      "operand_b": 4.25,
+      "expected": 6.25,
+      "python_result": 6.25,
+      "verilog_result": null,
+      "coq_verified": false,
+      "isomorphic": true,
+      "python_q16": 409600
+    },
+    {
+      "operation": "mul",
+      "operand_a": 2.0,
+      "operand_b": 3.0,
+      "expected": 6.0,
+      "python_result": 6.0,
+      "verilog_result": null,
+      "coq_verified": false,
+      "isomorphic": true,
+      "python_q16": 393216
+    },
+    {
+      "operation": "mul",
+      "operand_a": 1.5,
+      "operand_b": 2.5,
+      "expected": 3.75,
+      "python_result": 3.75,
+      "verilog_result": null,
+      "coq_verified": false,
+      "isomorphic": true,
+      "python_q16": 245760
+    },
+    {
+      "operation": "div",
+      "operand_a": 6.0,
+      "operand_b": 2.0,
+      "expected": 3.0,
+      "python_result": 3.0,
+      "verilog_result": null,
+      "coq_verified": false,
+      "isomorphic": true,
+      "python_q16": 196608
+    },
+    {
+      "operation": "div",
+      "operand_a": 10.0,
+      "operand_b": 4.0,
+      "expected": 2.5,
+      "python_result": 2.5,
+      "verilog_result": null,
+      "coq_verified": false,
+      "isomorphic": true,
+      "python_q16": 163840
+    },
+    {
+      "operation": "log2",
+      "operand": 1.0,
+      "expected": 0.0,
+      "python_result": 0.0,
+      "verilog_result": null,
+      "coq_verified": false,
+      "isomorphic": true,
+      "python_q16": 0
+    },
+    {
+      "operation": "log2",
+      "operand": 2.0,
+      "expected": 1.0,
+      "python_result": 1.0,
+      "verilog_result": null,
+      "coq_verified": false,
+      "isomorphic": true,
+      "python_q16": 65536
+    },
+    {
+      "operation": "log2",
+      "operand": 4.0,
+      "expected": 2.0,
+      "python_result": 2.0,
+      "verilog_result": null,
+      "coq_verified": false,
+      "isomorphic": true,
+      "python_q16": 131072
+    },
+    {
+      "operation": "log2",
+      "operand": 1.4,
+      "expected": 0.48542682717024166,
+      "python_result": 0.4838104248046875,
+      "verilog_result": null,
+      "coq_verified": false,
+      "isomorphic": true,
+      "python_q16": 31707
+    },
+    {
+      "operation": "log2",
+      "operand": 0.5,
+      "expected": -1.0,
+      "python_result": -1.0,
+      "verilog_result": null,
+      "coq_verified": false,
+      "isomorphic": true,
+      "python_q16": 4294901760
+    },
+    {
+      "operation": "info_gain",
+      "before": 7,
+      "after": 5,
+      "expected": 0.48542682717024166,
+      "python_result": 0.4838104248046875,
+      "verilog_result": null,
+      "coq_verified": false,
+      "isomorphic": true,
+      "python_q16": 31707
+    },
+    {
+      "operation": "info_gain",
+      "before": 11,
+      "after": 1,
+      "expected": 3.4594316186372973,
+      "python_result": 3.4594268798828125,
+      "verilog_result": null,
+      "coq_verified": false,
+      "isomorphic": true,
+      "python_q16": 226717
+    },
+    {
+      "operation": "info_gain",
+      "before": 4,
+      "after": 1,
+      "expected": 2.0,
+      "python_result": 2.0,
+      "verilog_result": null,
+      "coq_verified": false,
+      "isomorphic": true,
+      "python_q16": 131072
+    },
+    {
+      "operation": "info_gain",
+      "before": 100,
+      "after": 50,
+      "expected": 1.0,
+      "python_result": 1.0,
+      "verilog_result": null,
+      "coq_verified": false,
+      "isomorphic": true,
+      "python_q16": 65536
+    },
+    {
+      "operation": "info_gain",
+      "before": 21,
+      "after": 7,
+      "expected": 1.584962500721156,
+      "python_result": 1.5849609375,
+      "verilog_result": null,
+      "coq_verified": false,
+      "isomorphic": true,
+      "python_q16": 103872
+    }
+  ],
+  "summary": {
+    "total_tests": 18,
+    "passed": 18,
+    "failed": 0
+  }
+}
