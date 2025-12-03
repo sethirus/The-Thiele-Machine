@@ -5,14 +5,13 @@ the Verilog hardware implementation. All operations must produce identical
 results to the hardware to ensure ledger consistency.
 
 CRITICAL: This implementation MUST NOT use floating-point math internally.
-All intermediate values are Q16.16 fixed-point.
+All intermediate values are Q16.16 fixed-point. The LUT is precomputed offline.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import Tuple
-import math
 
 
 # Q16.16 constants
@@ -22,6 +21,44 @@ Q16_MAX = 0x7FFFFFFF      # Maximum positive value
 Q16_MIN = -0x80000000     # Maximum negative value (as signed 32-bit)
 
 
+# Precomputed log2 LUT for [1.0, 2.0) in Q16.16 format
+# Generated offline using: int(math.log2(1.0 + i/256.0) * 65536) for i in 0..255
+_LOG2_LUT_PRECOMPUTED = [
+    0x00000000, 0x000005C5, 0x00000B8A, 0x0000114E, 0x00001711, 0x00001CD3, 0x00002294, 0x00002854,
+    0x00002E13, 0x000033D1, 0x0000398E, 0x00003F4A, 0x00004504, 0x00004ABD, 0x00005075, 0x0000562C,
+    0x00005BE2, 0x00006196, 0x00006749, 0x00006CFB, 0x000072AB, 0x0000785A, 0x00007E08, 0x000083B5,
+    0x00008960, 0x00008F0A, 0x000094B3, 0x00009A5A, 0x0000A000, 0x0000A5A5, 0x0000AB48, 0x0000B0EA,
+    0x0000B68A, 0x0000BC29, 0x0000C1C7, 0x0000C763, 0x0000CCFE, 0x0000D297, 0x0000D82F, 0x0000DDC6,
+    0x0000E35C, 0x0000E8F0, 0x0000EE83, 0x0000F415, 0x0000F9A6, 0x0000FF35, 0x000104C4, 0x00010A51,
+    0x00010FDD, 0x00011568, 0x00011AF2, 0x0001207A, 0x00012602, 0x00012B88, 0x0001310D, 0x00013691,
+    0x00013C14, 0x00014196, 0x00014716, 0x00014C95, 0x00015213, 0x00015790, 0x00015D0C, 0x00016286,
+    0x00016800, 0x00016D78, 0x000172F0, 0x00017866, 0x00017DDB, 0x0001834F, 0x000188C2, 0x00018E34,
+    0x000193A5, 0x00019915, 0x00019E84, 0x0001A3F2, 0x0001A95F, 0x0001AECB, 0x0001B436, 0x0001B9A0,
+    0x0001BF09, 0x0001C471, 0x0001C9D8, 0x0001CF3E, 0x0001D4A3, 0x0001DA07, 0x0001DF6A, 0x0001E4CC,
+    0x0001EA2D, 0x0001EF8D, 0x0001F4EC, 0x0001FA4A, 0x0001FFA7, 0x00020503, 0x00020A5E, 0x00020FB8,
+    0x00021511, 0x00021A69, 0x00021FC0, 0x00022516, 0x00022A6B, 0x00022FBF, 0x00023512, 0x00023A64,
+    0x00023FB5, 0x00024505, 0x00024A54, 0x00024FA2, 0x000254EF, 0x00025A3B, 0x00025F86, 0x000264D0,
+    0x00026A19, 0x00026F61, 0x000274A8, 0x000279EE, 0x00027F33, 0x00028477, 0x000289BA, 0x00028EFC,
+    0x0002943D, 0x0002997D, 0x00029EBC, 0x0002A3FA, 0x0002A937, 0x0002AE73, 0x0002B3AE, 0x0002B8E8,
+    0x0002BE21, 0x0002C359, 0x0002C890, 0x0002CDC6, 0x0002D2FB, 0x0002D82F, 0x0002DD62, 0x0002E294,
+    0x0002E7C5, 0x0002ECF5, 0x0002F224, 0x0002F752, 0x0002FC7F, 0x000301AB, 0x000306D6, 0x00030C00,
+    0x00031129, 0x00031651, 0x00031B78, 0x0003209E, 0x000325C3, 0x00032AE7, 0x0003300A, 0x0003352C,
+    0x00033A4D, 0x00033F6D, 0x0003448C, 0x000349AA, 0x00034EC7, 0x000353E3, 0x000358FE, 0x00035E18,
+    0x00036331, 0x00036849, 0x00036D60, 0x00037276, 0x0003778B, 0x00037C9F, 0x000381B2, 0x000386C4,
+    0x00038BD5, 0x000390E5, 0x000395F4, 0x00039B02, 0x0003A00F, 0x0003A51B, 0x0003AA26, 0x0003AF30,
+    0x0003B439, 0x0003B941, 0x0003BE48, 0x0003C34E, 0x0003C853, 0x0003CD57, 0x0003D25A, 0x0003D75C,
+    0x0003DC5D, 0x0003E15D, 0x0003E65C, 0x0003EB5A, 0x0003F057, 0x0003F553, 0x0003FA4E, 0x0003FF48,
+    0x00040441, 0x00040939, 0x00040E30, 0x00041326, 0x0004181B, 0x00041D0F, 0x00042202, 0x000426F4,
+    0x00042BE5, 0x000430D5, 0x000435C4, 0x00043AB2, 0x00043F9F, 0x0004448B, 0x00044976, 0x00044E60,
+    0x00045349, 0x00045831, 0x00045D18, 0x000461FE, 0x000466E3, 0x00046BC7, 0x000470AA, 0x0004758C,
+    0x00047A6D, 0x00047F4D, 0x0004842C, 0x0004890A, 0x00048DE7, 0x000492C3, 0x0004979E, 0x00049C78,
+    0x0004A151, 0x0004A629, 0x0004AB00, 0x0004AFD6, 0x0004B4AB, 0x0004B97F, 0x0004BE52, 0x0004C324,
+    0x0004C7F5, 0x0004CCC5, 0x0004D194, 0x0004D662, 0x0004DB2F, 0x0004DFFB, 0x0004E4C6, 0x0004E990,
+    0x0004EE59, 0x0004F321, 0x0004F7E8, 0x0004FCAE, 0x00050173, 0x00050637, 0x00050AFA, 0x00050FBC,
+    0x0005147D, 0x0005193D, 0x00051DFC, 0x000522BA, 0x00052777, 0x00052C33, 0x000530EE, 0x000535A8
+]
+
+
 class FixedPointMu:
     """Q16.16 fixed-point arithmetic for μ-calculations.
     
@@ -29,29 +66,26 @@ class FixedPointMu:
     defined in spec/mu_alu_v1.md.
     """
     
-    # Log2 LUT for values in [1.0, 2.0) with 256 entries
-    # Each entry is Q16.16 format
-    # Generated using: log2(1.0 + i/256.0) for i in 0..255
-    _LOG2_LUT = None
-    
-    @classmethod
-    def _init_lut(cls):
-        """Initialize the log2 lookup table if not already initialized."""
-        if cls._LOG2_LUT is not None:
-            return
-        
-        cls._LOG2_LUT = []
-        for i in range(256):
-            x = 1.0 + (i / 256.0)
-            log2_x = math.log2(x)
-            # Convert to Q16.16 by multiplying by 2^16 and rounding
-            q16_value = int(log2_x * Q16_ONE)
-            cls._LOG2_LUT.append(q16_value)
+    # Log2 LUT is precomputed and loaded from constant
+    _LOG2_LUT = _LOG2_LUT_PRECOMPUTED
     
     def __init__(self):
         """Initialize the fixed-point μ calculator."""
-        FixedPointMu._init_lut()
         self.accumulator = 0  # Q16.16 μ-bit accumulator
+    
+    @staticmethod
+    def _to_unsigned32(value: int) -> int:
+        """Convert signed value to unsigned 32-bit representation.
+        
+        Args:
+            value: Signed integer
+            
+        Returns:
+            Unsigned 32-bit representation
+        """
+        if value < 0:
+            return value & 0xFFFFFFFF
+        return value
     
     @staticmethod
     def to_q16(value: float) -> int:
@@ -69,10 +103,7 @@ class FixedPointMu:
             return Q16_MAX
         if q16 < Q16_MIN:
             return Q16_MIN
-        # Convert to signed 32-bit representation
-        if q16 < 0:
-            return (q16 & 0xFFFFFFFF)
-        return q16
+        return FixedPointMu._to_unsigned32(q16)
     
     @staticmethod
     def from_q16(q16: int) -> float:
@@ -211,10 +242,7 @@ class FixedPointMu:
         else:
             result = temp
         
-        # Convert back to unsigned 32-bit representation
-        if result < 0:
-            return (result & 0xFFFFFFFF)
-        return result
+        return FixedPointMu._to_unsigned32(result)
     
     @staticmethod
     def log2_q16(x: int) -> int:
@@ -226,12 +254,9 @@ class FixedPointMu:
         Returns:
             Q16.16 result representing log₂(x)
         """
-        # Ensure LUT is initialized
-        FixedPointMu._init_lut()
-        
         if x <= 0:
             # Return minimum representable value for log2(0) or negative
-            return Q16_MIN & 0xFFFFFFFF
+            return FixedPointMu._to_unsigned32(Q16_MIN)
         
         # Special case: log2(1.0) = 0
         if x == Q16_ONE:
@@ -279,10 +304,7 @@ class FixedPointMu:
         elif result_signed < Q16_MIN:
             result_signed = Q16_MIN
         
-        # Convert to unsigned 32-bit representation
-        if result_signed < 0:
-            return (result_signed & 0xFFFFFFFF)
-        return result_signed
+        return FixedPointMu._to_unsigned32(result_signed)
     
     def information_gain_q16(self, before: int, after: int) -> int:
         """Compute information gain in Q16.16 format.
