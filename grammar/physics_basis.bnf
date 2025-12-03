@@ -1,0 +1,98 @@
+# Physics Basis Grammar v1.0
+
+This grammar defines the atomic operations allowed for synthesizing physical equations in the Thiele Machine. The key principle is that complex operators (Laplacian, Hamiltonian, Wave Operator) must **emerge** from composition of atomic operations, not be provided as primitives.
+
+## Backus-Naur Form (BNF)
+
+```bnf
+<equation> ::= <expr> "=" <expr>
+
+<expr> ::= <term>
+         | <expr> "+" <term>
+         | <expr> "-" <term>
+
+<term> ::= <factor>
+         | <term> "*" <factor>
+         | <term> "/" <factor>
+
+<factor> ::= <variable>
+           | <constant>
+           | <derivative>
+           | <shift>
+           | "(" <expr> ")"
+           | "-" <factor>
+
+<derivative> ::= "∂" <expr> "/∂" <var_name>
+               | "∂" <expr> "/∂" <var_name> "∂" <var_name>  ; Second-order partial
+
+<shift> ::= "shift_left" "(" <expr> "," <integer> ")"
+          | "shift_right" "(" <expr> "," <integer> ")"
+
+<variable> ::= <symbol> "(" <var_list> ")"
+             | <symbol>
+
+<var_list> ::= <var_name>
+             | <var_list> "," <var_name>
+
+<var_name> ::= "t" | "x" | "y" | "z" | <identifier>
+
+<symbol> ::= "ψ" | "φ" | "E" | "V" | <identifier>
+
+<constant> ::= <number>
+             | "i"       ; Imaginary unit
+             | "ħ"       ; Reduced Planck constant
+             | "m"       ; Mass
+             | "c"       ; Speed of light
+
+<identifier> ::= <letter> { <letter> | <digit> }
+
+<number> ::= <integer>
+           | <integer> "." <integer>
+
+<integer> ::= <digit> { <digit> }
+
+<digit> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+
+<letter> ::= "a" | "b" | ... | "z" | "A" | "B" | ... | "Z"
+```
+
+## Allowed Atomic Operations
+
+### Arithmetic Operations
+- **Addition** (`+`): Binary operator for summing terms
+- **Subtraction** (`-`): Binary operator for difference
+- **Multiplication** (`*`): Binary operator for products
+- **Division** (`/`): Binary operator for ratios
+
+### Derivatives
+- **Partial derivative** (`∂/∂x`): First-order partial derivative with respect to variable `x`
+- **Time derivative** (`∂/∂t`): Special case of partial derivative with respect to time
+- **Composition**: Second-order derivatives MUST be expressed as `∂/∂x (∂/∂x f)`, not as primitive `∂²/∂x²`
+
+### Bit Shift Operations (for discrete implementations)
+- **shift_left(expr, n)**: Shift expression left by n bits (multiply by 2^n)
+- **shift_right(expr, n)**: Shift expression right by n bits (divide by 2^n)
+
+## Forbidden Primitives
+
+These operators are **NOT** allowed as primitives. They must emerge from composition:
+
+### ❌ Laplacian Operator
+- **NOT ALLOWED**: `∇²` or `Δ` as a primitive
+- **MUST CONSTRUCT**: From `∂/∂x (∂/∂x f) + ∂/∂y (∂/∂y f) + ∂/∂z (∂/∂z f)`
+
+### ❌ Hamiltonian Operator
+- **NOT ALLOWED**: `Ĥ` as a primitive
+- **MUST CONSTRUCT**: From kinetic energy operator `-(ħ²/2m)∇²` plus potential `V`
+
+### ❌ Wave Operator (D'Alembertian)
+- **NOT ALLOWED**: `□` or `∂²/∂t² - c²∇²` as a primitive
+- **MUST CONSTRUCT**: From time and space derivatives
+
+### ❌ Higher-order operators
+- **NOT ALLOWED**: `∂²/∂x²`, `∂³/∂x³`, etc. as single primitives
+- **MUST CONSTRUCT**: By composing first-order derivatives
+
+## Version History
+
+- **v1.0** (2025-12-03): Initial grammar specification for Phase 2
