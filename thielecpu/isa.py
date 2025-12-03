@@ -32,6 +32,7 @@ class Opcode(Enum):
     LASSERT = 0x03
     LJOIN = 0x04
     MDLACC = 0x05
+    PDISCOVER = 0x06
     XFER = 0x07
     PYEXEC = 0x08
     XOR_LOAD = 0x0A
