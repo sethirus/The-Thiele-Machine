@@ -137,6 +137,17 @@ reg [7:0] lut_index;
 reg signed [63:0] mul_temp;
 reg signed [63:0] div_temp;
 
+// LOG2 computation state
+reg [31:0] log2_input;
+reg [5:0] leading_zeros;
+reg [5:0] highest_bit;
+reg signed [31:0] integer_log2;
+reg [31:0] normalized;
+reg signed [31:0] shift_amount;
+reg [31:0] frac_part;
+reg [31:0] frac_log;
+reg signed [31:0] result_temp;
+
 // ============================================================================
 // ARITHMETIC OPERATIONS
 // ============================================================================
@@ -257,19 +268,75 @@ always @(posedge clk or negedge rst_n) begin
                 ready <= 1'b1;
                 state <= 6'd0;
             end else begin
+                log2_input <= operand_a;
                 state <= 6'd2;
             end
         end else if (state == 6'd2) begin
-            // Find MSB position (leading zeros count)
-            // This is a simplified version - production would use priority encoder
+            // Count leading zeros to find MSB position
+            // This matches the Python implementation's loop
+            leading_zeros <= 6'd0;
+            temp_result <= log2_input;
             state <= 6'd3;
         end else if (state == 6'd3) begin
-            // Normalize and extract LUT index
-            // For now, return approximate log2 (simplified)
-            // Full implementation would match Python exactly
-            result <= 32'h00010000;  // Placeholder: return 1.0
+            // Continue counting leading zeros
+            if (temp_result[31] == 1'b1 || leading_zeros >= 6'd31) begin
+                // Found MSB or reached end
+                highest_bit <= 6'd31 - leading_zeros;
+                state <= 6'd4;
+            end else begin
+                temp_result <= temp_result << 1;
+                leading_zeros <= leading_zeros + 6'd1;
+                state <= 6'd3;
+            end
+        end else if (state == 6'd4) begin
+            // Calculate integer part of log2
+            // integer_log2 = highest_bit - 16 (relative to Q16.16 format)
+            integer_log2 <= $signed({1'b0, highest_bit}) - 16;
+            shift_amount <= $signed({1'b0, highest_bit}) - 16;
+            state <= 6'd5;
+        end else if (state == 6'd5) begin
+            // Normalize to [1.0, 2.0) range
+            if (shift_amount > 0) begin
+                normalized <= log2_input >> shift_amount;
+            end else if (shift_amount < 0) begin
+                normalized <= log2_input << (-shift_amount);
+            end else begin
+                normalized <= log2_input;
+            end
+            state <= 6'd6;
+        end else if (state == 6'd6) begin
+            // Extract fractional part
+            if ($signed(normalized - Q16_ONE) < 0) begin
+                frac_part <= 32'h0;
+            end else begin
+                frac_part <= normalized - Q16_ONE;
+            end
+            state <= 6'd7;
+        end else if (state == 6'd7) begin
+            // Extract LUT index from top 8 bits of fractional part
+            lut_index <= (frac_part >> 8) & 8'hFF;
+            state <= 6'd8;
+        end else if (state == 6'd8) begin
+            // Look up fractional log from LUT
+            frac_log <= log2_lut[lut_index];
+            state <= 6'd9;
+        end else if (state == 6'd9) begin
+            // Combine integer and fractional parts
+            result_temp <= (integer_log2 << Q16_SHIFT) + $signed(frac_log);
+            state <= 6'd20;
+        end else if (state == 6'd20) begin
+            // Saturate and output result
+            if (result_temp > $signed(Q16_MAX)) begin
+                result <= Q16_MAX;
+                overflow <= 1'b1;
+            end else if (result_temp < Q16_MIN) begin
+                result <= Q16_MIN;
+                overflow <= 1'b1;
+            end else begin
+                result <= result_temp[31:0];
+                overflow <= 1'b0;
+            end
             ready <= 1'b1;
-            overflow <= 1'b0;
             state <= 6'd0;
         end else if (state == 6'd10) begin
             // INFO_GAIN operation
@@ -291,12 +358,26 @@ always @(posedge clk or negedge rst_n) begin
                 state <= 6'd11;
             end
         end else if (state == 6'd11) begin
-            // Compute log2 of the ratio (stored in temp_result)
-            // For now, simplified - full implementation would call log2 logic
-            result <= temp_result;  // Placeholder
-            ready <= 1'b1;
-            overflow <= 1'b0;
-            state <= 6'd0;
+            // Now compute log2 of the ratio (stored in temp_result)
+            // This reuses the LOG2 logic starting from state 6'd1
+            log2_input <= temp_result;
+            state <= 6'd12;
+        end else if (state == 6'd12) begin
+            // Check special cases for log2
+            if (temp_result == 32'h0 || $signed(temp_result) < 0) begin
+                result <= Q16_MIN;
+                overflow <= 1'b1;
+                ready <= 1'b1;
+                state <= 6'd0;
+            end else if (temp_result == Q16_ONE) begin
+                result <= 32'h0;
+                overflow <= 1'b0;
+                ready <= 1'b1;
+                state <= 6'd0;
+            end else begin
+                // Jump to LOG2 computation (reuse states 2-9)
+                state <= 6'd2;
+            end
         end
     end
 end
