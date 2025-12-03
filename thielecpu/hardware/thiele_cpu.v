@@ -77,13 +77,14 @@ localparam [7:0] OPCODE_PMERGE = 8'h02;
 localparam [7:0] OPCODE_LASSERT = 8'h03;
 localparam [7:0] OPCODE_LJOIN  = 8'h04;
 localparam [7:0] OPCODE_MDLACC = 8'h05;
-localparam [7:0] OPCODE_EMIT   = 8'h0E;
+localparam [7:0] OPCODE_PDISCOVER = 8'h06;
 localparam [7:0] OPCODE_XFER   = 8'h07;
 localparam [7:0] OPCODE_PYEXEC = 8'h08;
 localparam [7:0] OPCODE_XOR_LOAD = 8'h0A;
 localparam [7:0] OPCODE_XOR_ADD = 8'h0B;
 localparam [7:0] OPCODE_XOR_SWAP = 8'h0C;
 localparam [7:0] OPCODE_XOR_RANK = 8'h0D;
+localparam [7:0] OPCODE_EMIT   = 8'h0E;
 localparam [7:0] OPCODE_HALT = 8'hFF;
 
 // CSR addresses
