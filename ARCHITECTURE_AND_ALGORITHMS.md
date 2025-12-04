@@ -325,7 +325,7 @@ For N = 15:
 Blind factorization: μ_blind = √15 ≈ 4 trial divisions = 4 bits (lucky)
 Sighted factorization: μ_sighted = 16 bits
 
-BUT: For larger N (e.g., RSA-2048):
+BUT: For larger N (e.g., 2048-bit modulus):
   Blind: μ_blind = 2^1024 operations (infeasible)
   Sighted: μ_sighted = 2048^3 ≈ 2^33 operations (polynomial)
 ```
@@ -716,7 +716,7 @@ Sighted (N=15):
 
 Verdict: Blind wins for N=15!
 
-BUT for RSA-2048 (N = 2^2048):
+BUT for 2048-bit modulus (N = 2^2048):
   Blind: μ_blind = 2^1024 bits (INFEASIBLE)
   Sighted: μ_sighted = 2048^3 ≈ 2^33 bits (POLYNOMIAL!)
 ```

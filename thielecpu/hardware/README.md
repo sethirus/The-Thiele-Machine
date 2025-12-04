@@ -140,8 +140,8 @@ vivado -mode batch -source synthesis.tcl
 ⚠️ **CRITICAL WARNING** ⚠️
 
 This hardware implements partition-native computation that could theoretically be used for:
-- Breaking RSA and other public-key cryptographic systems
-- Large-scale cryptanalysis on classical hardware
+- Large-scale cryptanalysis of public-key cryptographic systems
+- Large-scale computational analysis on classical hardware
 - Undermining digital security infrastructure
 
 **ETHICAL USE ONLY:**

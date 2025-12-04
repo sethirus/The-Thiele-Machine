@@ -19,8 +19,8 @@ solver can fetch all clauses relevant to a particular variable using
 from collections import defaultdict
 from typing import Dict, List, Tuple
 
-# The target number (RSA-250)
-RSA_250_N = int(
+# The target composite (example-250)
+TARGET_COMPOSITE_250_N = int(
     "214032465024074496126442307283933356300861471514475501779775492088141802344714013664334551909580467961099285187247091458768"
     "7396261921557363047454770520805119056493106687691590019759405693457452230589325976697471681738069364894699871578494975937497937"
 )
@@ -32,7 +32,7 @@ Clause = List[int]
 class CnfProvider:
     """Provide CNF clauses for a multiplier circuit on demand."""
 
-    def __init__(self, bit_width: int = 415, N: int = RSA_250_N) -> None:
+    def __init__(self, bit_width: int = 415, N: int = TARGET_COMPOSITE_250_N) -> None:
         self.bit_width = bit_width
         self.N = N
         self.var_counter = 0
@@ -181,5 +181,5 @@ class CnfProvider:
         return out
 
 
-__all__ = ["CnfProvider", "RSA_250_N"]
+__all__ = ["CnfProvider", "TARGET_COMPOSITE_250_N"]
 

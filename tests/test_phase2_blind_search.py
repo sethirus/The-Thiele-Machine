@@ -333,7 +333,7 @@ def test_blind_search_discovers_second_derivatives():
     print("\n✓ Test 3 COMPLETE: Blind search executed successfully")
     print("  Receipt shows constructive derivation from atomic primitives")
     
-    return best_equation, receipt
+    return best_equation, receipt, crawler
 
 
 def test_no_timeout():
@@ -436,7 +436,7 @@ def test_full_phase2_integration():
     # Run all tests
     test_grammar_crawler_no_forbidden_strings()
     test_synthetic_diffusion_problem()
-    equation, receipt = test_blind_search_discovers_second_derivatives()
+    equation, receipt, crawler = test_blind_search_discovers_second_derivatives()
     test_no_timeout()
     test_derivation_tree_shows_construction()
     

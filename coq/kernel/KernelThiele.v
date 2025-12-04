@@ -1,8 +1,8 @@
 From Coq Require Import List Bool.
 Import ListNotations.
 
-Require Import Kernel.Kernel.
-Require Import Kernel.KernelTM.
+Require Import Kernel.
+Require Import KernelTM.
 
 Definition step_thiele (prog : program) (st : state) : state :=
   match fetch prog st with

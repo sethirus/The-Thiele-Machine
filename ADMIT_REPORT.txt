@@ -10,6 +10,13 @@ Admitted coq/thielemachine/coqproofs/EfficientDiscovery.v:119: Admitted.
 Admitted coq/thielemachine/coqproofs/EfficientDiscovery.v:157: Admitted. (* Requires connecting to μ-cost function - implementation detail *)
 Admitted coq/thielemachine/coqproofs/EfficientDiscovery.v:199: Admitted. (* Requires stronger assumptions about problem structure *)
 Admitted coq/thielemachine/coqproofs/Simulation.v:248: Admitted.
+Axiom    coq/thielemachine/coqproofs/SpectralApproximation.v:18: Axiom partition_cost : Graph -> PartitionAssignment -> Z.
+Axiom    coq/thielemachine/coqproofs/SpectralApproximation.v:21: Axiom spectral_partition : Graph -> nat -> PartitionAssignment.
+Axiom    coq/thielemachine/coqproofs/SpectralApproximation.v:24: Axiom optimal_partition : Graph -> PartitionAssignment.
+Axiom    coq/thielemachine/coqproofs/SpectralApproximation.v:27: Axiom optimal_is_minimal : forall g p,
+Axiom    coq/thielemachine/coqproofs/SpectralApproximation.v:45: Axiom spectral_worst_case_exists :
+Axiom    coq/thielemachine/coqproofs/SpectralApproximation.v:51: Axiom spectral_approximation_unbounded :
+Axiom    coq/thielemachine/coqproofs/SpectralApproximation.v:61: Axiom spectral_average_case_bounded :
 Admitted coq/thielemachine/verification/ThieleUniversalBridge_Axiom_Tests.v:67: Admitted. (* Test placeholder - would need concrete execution *)
 Admitted coq/thielemachine/verification/ThieleUniversalBridge_Axiom_Tests.v:77: Admitted. (* Test placeholder *)
 Admitted coq/thielemachine/verification/ThieleUniversalBridge_Axiom_Tests.v:99: Admitted. (* Requires CPU module implementation details *)
@@ -25,4 +32,4 @@ Admitted artifacts/wave_receipts/EmergentWaveEquation.v:110: Admitted.
 Summary
 -------
 Total admitted: 15
-Total axioms:  1
+Total axioms:  8

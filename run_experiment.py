@@ -4,7 +4,7 @@ import random
 import math
 from typing import List, Tuple, Optional
 
-from scripts.multiplier_cnf_provider import CnfProvider, RSA_250_N
+from scripts.multiplier_cnf_provider import CnfProvider, TARGET_COMPOSITE_250_N
 from scripts.thiele_simulator import ThieleSimulator
 
 
@@ -283,7 +283,7 @@ def compare_algorithms():
     print("- Pollard's Rho: Good general-purpose algorithm")
     print("- ECM: Excellent for finding medium-sized factors")
     print("- SAT Approach: Exponential time, but can find any factor")
-    print("- For RSA-250: GNFS (General Number Field Sieve) is fastest")
+    print("- For example-250: GNFS (General Number Field Sieve) is fastest")
     print("="*80)
 
 
@@ -383,7 +383,7 @@ def sat_vs_classical_comparison():
 def solve_worker(assumptions: List[int], result_queue: multiprocessing.Queue) -> None:
     """Solve the CNF under the given assumptions and report any solution."""
     try:
-        provider = CnfProvider(bit_width=415, N=RSA_250_N)
+        provider = CnfProvider(bit_width=415, N=TARGET_COMPOSITE_250_N)
         simulator = ThieleSimulator(provider)
         solution = simulator.solve(assumptions=assumptions)
         if solution:

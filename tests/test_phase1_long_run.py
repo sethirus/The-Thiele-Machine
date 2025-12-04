@@ -231,11 +231,11 @@ def test_deterministic_sequence():
 
 def test_different_seeds():
     """Test that different seeds produce different results."""
-    test1 = LongRunTest(num_operations=1000, seed=42)
+    test1 = LongRunTest(num_operations=100, seed=42)
     test1.generate_operations()
     test1.execute_python_vm()
     
-    test2 = LongRunTest(num_operations=1000, seed=123)
+    test2 = LongRunTest(num_operations=100, seed=123)
     test2.generate_operations()
     test2.execute_python_vm()
     

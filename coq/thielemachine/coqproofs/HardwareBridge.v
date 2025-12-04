@@ -50,6 +50,7 @@ Definition opcode_PMERGE    : N := 2%N.
 Definition opcode_LASSERT   : N := 3%N.
 Definition opcode_LJOIN     : N := 4%N.
 Definition opcode_MDLACC    : N := 5%N.
+Definition opcode_PDISCOVER : N := 6%N.
 Definition opcode_EMIT      : N := 14%N.  (* Matches RTL constant 8'h0E. *)
 Definition opcode_XFER      : N := 7%N.
 Definition opcode_PYEXEC    : N := 8%N.

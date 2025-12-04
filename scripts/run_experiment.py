@@ -7,7 +7,7 @@ import multiprocessing
 import time
 from typing import List
 
-from scripts.multiplier_cnf_provider import CnfProvider, RSA_250_N
+from scripts.multiplier_cnf_provider import CnfProvider, TARGET_COMPOSITE_250_N
 from thielecpu.vm import VM
 from thielecpu.state import State
 import ast
@@ -17,7 +17,7 @@ import ast
 def solve_worker(assumptions: List[int], result_queue: multiprocessing.Queue) -> None:
     """Solve the CNF under the given assumptions and report any solution."""
     try:
-        provider = CnfProvider(bit_width=415, N=RSA_250_N)
+        provider = CnfProvider(bit_width=415, N=TARGET_COMPOSITE_250_N)
         # Solve using the virtual machine
         clauses = provider.clauses
         for assumption in assumptions:
@@ -64,7 +64,7 @@ if __name__ == "__main__":
 
     # Prepare assumptions for the two least significant bits of p and q
     # N is odd, so p[0] and q[0] must be true.
-    provider_for_vars = CnfProvider(bit_width=415, N=RSA_250_N)
+    provider_for_vars = CnfProvider(bit_width=415, N=TARGET_COMPOSITE_250_N)
     p_low = [provider_for_vars.p_bits[0], provider_for_vars.p_bits[1]]
     q_low = [provider_for_vars.q_bits[0], provider_for_vars.q_bits[1]]
 
@@ -94,8 +94,8 @@ if __name__ == "__main__":
                 print(f"\nFactor p:\n{p}")
                 print(f"\nFactor q:\n{q}")
                 print("\nVerifying result...")
-                if p * q == RSA_250_N:
-                    print("VERIFICATION SUCCESSFUL: p * q = RSA-250")
+                if p * q == TARGET_COMPOSITE_250_N:
+                    print("VERIFICATION SUCCESSFUL: p * q = example-250 composite")
                 else:
                     print("VERIFICATION FAILED: p * q != RSA_250")
                 pool.terminate()

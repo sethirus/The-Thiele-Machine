@@ -10,11 +10,11 @@ Pinned environment variables for reproducibility:
 - LANG=C
 - PYTHONHASHSEED=0
 Formal toolchain versions detected:
-- Python: Python 3.12.3
-- Z3: Z3 version 4.15.1 - 64 bit
+- Python: Python 3.12.1
+- Z3: Z3 version 4.8.12 - 64 bit
 - Coq: The Coq Proof Assistant, version 8.18.0
-- Repository commit: 3410b9ddbe47901a6bb9637f034a706fccdff7e7
-- Host platform: Linux-6.11.0-1018-azure-x86_64-with-glibc2.39
+- Repository commit: 380384e1949e9c56455bfe966471afb4809f6659
+- Host platform: Linux-6.8.0-1030-azure-x86_64-with-glibc2.39
 Network isolation is enforced; passing --allow-network explicitly opts into live data fetching.
 Decimal arithmetic uses 80 digits of precision; all rational witnesses are emitted exactly.
 ## Trusted Computing Base
@@ -373,7 +373,7 @@ Receipts are regenerated, summarised, and optionally sent to Coq for mechanised 
 
 Receipt generation transcript:
 ```text
-Wrote 5 receipts to /home/runner/work/The-Thiele-Machine/The-Thiele-Machine/examples/tsirelson_step_receipts.json
+Wrote 5 receipts to /workspaces/The-Thiele-Machine/examples/tsirelson_step_receipts.json
 ```
 Receipt summary:
 - count = 5
@@ -386,6 +386,24 @@ Coq proof obligations discharged (The Coq Proof Assistant, version 8.18.0).
 ```
 **Q.E.D. — The runtime receipts coincide with the mechanised witness.**
 Coq replay confirms the canonical program receipts; any alternative log must produce identical instruction/state triples to be accepted.
+## Act VI — Operation Cosmic Witness
+Cosmic microwave background data is converted into a formally proved prediction.
+
+Correctness: the analytic certificate shows the induced rule outputs the logged CHSH setting for the recorded features (solvers remain optional corroboration).
+Robustness: the same analytic reasoning demonstrates the prediction remains stable within the recorded noise model (ε-ball) derived from the offline dataset.
+Operation Cosmic Witness mode=offline, data_source=offline, allow_network=False
+Loading offline CMB sample from /workspaces/The-Thiele-Machine/data/cmb_sample.csv
+Extracted feature vector (mean, stdev, min, max, gradient): 2.7254761875, 6.79355163007e-06, 2.725466, 2.725489, -1.25000000004e-05
+Data origin recorded as csv:cmb_sample.csv.
+Induced rule: 1·feature[2] > 2.72474 -> (1, 0), else -> (0, 1) (param_count=1)
+Predicted CHSH trial: alice=1, bob=0
+Analytic certificate confirms the prediction; robustness proved (eps=7.230e-05).
+Persisted Operation Cosmic Witness receipts and proofs to disk.
+Operation Cosmic Witness artifacts written to the artifacts/ directory for audit.
+- Prediction receipt: /workspaces/The-Thiele-Machine/artifacts/cosmic_witness_prediction_receipt.json
+- Prediction proof: /workspaces/The-Thiele-Machine/artifacts/cosmic_witness_prediction_proof.txt
+- Robustness proof: /workspaces/The-Thiele-Machine/artifacts/cosmic_witness_prediction_proof_robust.txt
+- Prediction proved (analytic): True
 ## Conclusion — Verification Gates
 The thesis run is accepted only when these audit checks succeed.
 

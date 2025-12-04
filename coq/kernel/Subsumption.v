@@ -1,9 +1,9 @@
 From Coq Require Import List Bool Arith.PeanoNat.
 Import ListNotations.
 
-Require Import Kernel.Kernel.
-Require Import Kernel.KernelTM.
-Require Import Kernel.KernelThiele.
+Require Import Kernel.
+Require Import KernelTM.
+Require Import KernelThiele.
 
 Lemma Forall_nth_error'
   {A : Type} {P : A -> Prop} {l : list A} :
