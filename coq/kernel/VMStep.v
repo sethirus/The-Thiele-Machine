@@ -2,7 +2,7 @@ From Coq Require Import List Bool Arith.PeanoNat.
 From Coq Require Import Strings.String.
 Import ListNotations.
 
-Require Import Kernel.VMState.
+Require Import VMState.
 
 (** * Operational semantics for the Python VM instruction set *)
 

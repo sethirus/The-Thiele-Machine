@@ -6,10 +6,10 @@ Require Import Coq.Lists.List.
 Require Import Coq.Arith.PeanoNat.
 Import ListNotations.
 
-Require Import Kernel.Kernel.
-Require Import Kernel.KernelThiele.
-Require Import Kernel.VMState.
-Require Import Kernel.VMStep.
+Require Import Kernel.
+Require Import KernelThiele.
+Require Import VMState.
+Require Import VMStep.
 
 Module PDISCOVERIntegration.
 

@@ -1174,6 +1174,19 @@ class VM:
                 mu_delta=0,
                 cert=_empty_cert(),
             )
+        elif op == "PYTHON":
+            code = str(instruction.payload)
+            post_state = WitnessState(
+                pc=pre_state.pc + 1,
+                status=pre_state.status,
+                mu_acc=pre_state.mu_acc,
+                cert_addr=pre_state.cert_addr,
+            )
+            observation = StepObservation(
+                event={"tag": "PythonExec", "value": code},
+                mu_delta=0,
+                cert=_empty_cert(),
+            )
         elif op == "EMIT":
             payload = str(instruction.payload)
             post_state = WitnessState(
@@ -1273,51 +1286,7 @@ class VM:
             "total_variables": candidate.total_variables,
         }
 
-    def execute_python(self, code_or_path: str) -> Any:
-        """Execute Python code or file in a sandboxed environment."""
-        try:
-            # Check if it's a file path
-            if code_or_path.endswith('.py') or ('\n' not in code_or_path.strip() and Path(code_or_path).exists()):
-                try:
-                    # Try to read as file
-                    code = Path(code_or_path).read_text(encoding='utf-8')
-                    source_info = f"file: {code_or_path}"
-                except (FileNotFoundError, OSError):
-                    # Not a file, treat as inline code
-                    code = code_or_path
-                    source_info = "inline"
-            else:
-                # Inline code
-                code = code_or_path
-                source_info = "inline"
-
-            # Check if code contains symbolic variables
-            if 'placeholder(' in code:
-                return self.execute_symbolic_python(code, source_info)
-
-            # Capture stdout
-            old_stdout = sys.stdout
-            sys.stdout = captured_output = StringIO()
-
-            try:
-                result = safe_execute(code, self.python_globals)
-                output = captured_output.getvalue()
-                return result, output
-            except SyntaxError:
-                result = safe_eval(code, self.python_globals)
-                output = captured_output.getvalue()
-                return result, output
-            except SecurityError as exc:
-                output = captured_output.getvalue()
-                return None, output + f"\nSecurityError: {exc}"
-            finally:
-                sys.stdout = old_stdout
-        except Exception as e:
-            output = captured_output.getvalue()
-            sys.stdout = old_stdout
-            return None, output + f"\nError: {str(e)}"
-
-    def execute_symbolic_python(self, code: str, source_info: str) -> Any:
+    def execute_symbolic_python(self, code: str, source_info: str = "") -> Any:
         """Execute Python code with symbolic variables using Z3 SMT solver."""
 
         # 1. Parse the code and find symbolic assignments
@@ -1344,25 +1313,27 @@ class VM:
                             for kw in node.value.keywords:
                                 if kw.arg == 'domain':
                                     domain_val = None
-                                    if (isinstance(kw.value, ast.Call) and
-                                        isinstance(kw.value.func, ast.Name) and
-                                        kw.value.func.id == 'list' and
-                                        len(kw.value.args) == 1):
-
-                                        arg_node = kw.value.args[0]
-                                        str_val = None
-
-                                        if isinstance(arg_node, ast.Constant) and isinstance(arg_node.value, str):
-                                            str_val = arg_node.value
-                                        elif hasattr(ast, 'Str') and isinstance(arg_node, ast.Str):
-                                            str_val = arg_node.s
-
-                                        if str_val is not None:
-                                            domain_val = list(str(str_val))
-
-                                    if domain_val is None:
+                                    try:
+                                        # Try ast.literal_eval first for simple literals
+                                        domain_val = ast.literal_eval(kw.value)
+                                    except (ValueError, TypeError):
+                                        # For expressions like list(range(...)), use eval with restricted globals
                                         try:
-                                            domain_val = ast.literal_eval(kw.value)
+                                            code = ast.unparse(kw.value)
+                                            restricted_globals = {
+                                                '__builtins__': {},
+                                                'list': list,
+                                                'range': range,
+                                                'str': str,
+                                                'int': int,
+                                                'float': float,
+                                                'bool': bool,
+                                                'tuple': tuple,
+                                                'set': set,
+                                                'frozenset': frozenset,
+                                                'dict': dict,
+                                            }
+                                            domain_val = eval(code, restricted_globals)
                                         except Exception:
                                             pass
 
@@ -1392,8 +1363,10 @@ class VM:
         # Check if this is arithmetic (integer) or string-based symbolic execution
         is_arithmetic = False
         class ArithmeticChecker(ast.NodeVisitor):
+            def __init__(self):
+                self.is_arithmetic = False
             def visit_BinOp(self, node):
-                if isinstance(node.op, (ast.Mult, ast.Add, ast.Sub, ast.Div, ast.Mod)):
+                if isinstance(node.op, (ast.Mult, ast.Add, ast.Sub, ast.Div, ast.FloorDiv, ast.Mod)):
                     self.is_arithmetic = True
                 self.generic_visit(node)
             def visit_Compare(self, node):
@@ -1426,6 +1399,12 @@ class VM:
             # Create Z3 integer variables
             for var_name in var_names:
                 z3_vars[var_name] = z3.Int(var_name)
+                # Add domain constraints
+                domain = symbolic_assignments[var_name]
+                if isinstance(domain, list) and domain:
+                    if all(isinstance(x, int) for x in domain):
+                        solver.add(z3_vars[var_name] >= min(domain))
+                        solver.add(z3_vars[var_name] <= max(domain))
         else:
             solver = z3.SolverFor("QF_S")
             z3_vars = {}
@@ -1435,7 +1414,7 @@ class VM:
                 z3_vars[var_name] = z3_var
 
         # Check if constraints involve unsupported operations (e.g., cryptography)
-        has_unsupported_assertions = 'hashlib' in code
+        has_unsupported_assertions = 'hashlib' in code or '%' in code
 
         if has_unsupported_assertions:
             # Fall back to brute force for cryptographic constraints
@@ -1447,6 +1426,15 @@ class VM:
                 print("Using Z3 SMT solver for arithmetic constraints...")
             else:
                 print("Using Z3 SMT solver for logical constraints...")
+
+            # Add distinctness constraints if all variables have the same finite domain
+            domains = list(symbolic_assignments.values())
+            if len(set(tuple(sorted(d)) for d in domains)) == 1 and domains[0]:
+                # All variables have the same domain, likely need to be distinct
+                domain_size = len(domains[0])
+                if len(var_names) == domain_size:
+                    print(f"Adding distinctness constraints for {len(var_names)} variables")
+                    solver.add(z3.Distinct(*[z3_vars[name] for name in var_names]))
 
             # Find assertions and convert to Z3 constraints
             class AssertionVisitor(ast.NodeVisitor):
@@ -1472,6 +1460,33 @@ class VM:
                                     return left > right
                                 elif isinstance(op, ast.GtE):
                                     return left >= right
+                        elif len(expr.ops) > 1:
+                            # Chained comparison: a < b < c becomes (a < b) and (b < c)
+                            constraints = []
+                            left = self.convert_expr_to_z3(expr.left, is_arithmetic)
+                            for i, op in enumerate(expr.ops):
+                                right = self.convert_expr_to_z3(expr.comparators[i], is_arithmetic)
+                                if left is not None and right is not None:
+                                    if isinstance(op, ast.Eq):
+                                        constraints.append(left == right)
+                                    elif isinstance(op, ast.Lt):
+                                        constraints.append(left < right)
+                                    elif isinstance(op, ast.LtE):
+                                        constraints.append(left <= right)
+                                    elif isinstance(op, ast.Gt):
+                                        constraints.append(left > right)
+                                    elif isinstance(op, ast.GtE):
+                                        constraints.append(left >= right)
+                                left = right
+                            if constraints:
+                                return z3.And(*constraints)
+                    elif isinstance(expr, ast.BoolOp):
+                        converted_values = [self.convert_expr_to_z3(value, is_arithmetic) for value in expr.values]
+                        if all(v is not None for v in converted_values):
+                            if isinstance(expr.op, ast.And):
+                                return z3.And(*converted_values)
+                            elif isinstance(expr.op, ast.Or):
+                                return z3.Or(*converted_values)
                     elif isinstance(expr, ast.BinOp):
                         left = self.convert_expr_to_z3(expr.left, is_arithmetic)
                         right = self.convert_expr_to_z3(expr.right, is_arithmetic)
@@ -1489,6 +1504,8 @@ class VM:
                                 return left / right
                             elif isinstance(expr.op, ast.Mod):
                                 return left % right
+                            elif isinstance(expr.op, ast.Pow):
+                                return left ** right
                     elif isinstance(expr, ast.Call):
                         if isinstance(expr.func, ast.Attribute) and expr.func.attr == 'startswith':
                             obj = self.convert_expr_to_z3(expr.func.value, is_arithmetic)
@@ -1543,6 +1560,48 @@ class VM:
                     return None, f"Execution failed with solution: {e}"
             else:
                 return None, "No satisfying assignment found (unsatisfiable constraints)"
+
+    def execute_python(self, code_or_path: str) -> Any:
+        """Execute Python code or file in a sandboxed environment."""
+        # Check if it's a file path
+        if code_or_path.endswith('.py') or ('\n' not in code_or_path.strip() and Path(code_or_path).exists()):
+            try:
+                # Try to read as file
+                code = Path(code_or_path).read_text(encoding='utf-8')
+                source_info = f"file: {code_or_path}"
+            except (FileNotFoundError, OSError):
+                # Not a file, treat as inline code
+                code = code_or_path
+                source_info = "inline"
+        else:
+            # Inline code
+            code = code_or_path
+            source_info = "inline"
+
+        # Check if code contains symbolic variables
+        if 'placeholder(' in code:
+            return self.execute_symbolic_python(code, source_info)
+
+        # Capture stdout
+        old_stdout = sys.stdout
+        captured_output = StringIO()
+        sys.stdout = captured_output
+
+        try:
+            result = safe_execute(code, self.python_globals)
+            output = captured_output.getvalue()
+            return result, output
+        except SyntaxError:
+            result = safe_eval(code, self.python_globals)
+            output = captured_output.getvalue()
+            return result, output
+        except SecurityError as exc:
+            output = captured_output.getvalue()
+            return None, output + f"\nSecurityError: {exc}"
+        finally:
+            sys.stdout = old_stdout
+
+        return None, "Python execution completed"
 
     def execute_symbolic_brute_force(self, _code: str, symbolic_assignments: dict, var_names: list, code_to_run: str) -> Any:
         """Brute force search for symbolic variables when Z3 cannot handle constraints.
@@ -2025,6 +2084,48 @@ class VM:
                     trace_lines.append(f"{step}: PYEXEC error detected - halting VM")
                     halt_after_receipt = True
                 receipt_instruction = InstructionWitness("PYEXEC", python_code)
+            elif op == "PYTHON":
+                # PYTHON code - execute Python code directly as an interpreter
+                # Unescape the code
+                code = arg.replace('\\n', '\n').replace('\\"', '"').replace('\\\\', '\\')
+                result, output = self.execute_python(code)
+                if output:
+                    # Split output into lines for better readability
+                    for line in output.strip().split('\n'):
+                        if line.strip():
+                            trace_lines.append(f"{step}: PYTHON output: {line}")
+                try:
+                    logger.info(
+                        "vm.python",
+                        {
+                            "code": (arg if len(arg) < 256 else arg[:256] + "..."),
+                            "output": (output if output else ""),
+                            "step": step,
+                        },
+                    )
+                except Exception:
+                    pass
+                
+                # Check for result
+                actual_result = result
+                if actual_result is None and '__result__' in self.python_globals:
+                    actual_result = self.python_globals['__result__']
+                
+                if actual_result is not None:
+                    trace_lines.append(f"{step}: PYTHON result: {actual_result}")
+                    # Store result in python globals for later use
+                    self.python_globals['_last_result'] = actual_result
+
+                # Show what was executed (truncated for readability)
+                if len(arg) > 50:
+                    trace_lines.append(f"{step}: PYTHON {arg[:47]}...")
+                else:
+                    trace_lines.append(f"{step}: PYTHON {arg}")
+                if "Error:" in output:
+                    self.state.csr[CSR.ERR] = 1
+                    trace_lines.append(f"{step}: PYTHON error detected - halting VM")
+                    halt_after_receipt = True
+                receipt_instruction = InstructionWitness("PYTHON", arg)
             elif op == "HALT":
                 trace_lines.append(f"{step}: HALT")
                 receipt_instruction = InstructionWitness("HALT", None)
@@ -2125,7 +2226,7 @@ class VM:
 
 
 def main():
-    """Run Python files directly through the Thiele CPU VM."""
+    """Run Python files directly through the Thiele CPU VM as a Python interpreter."""
     if len(sys.argv) < 2:
         print("Usage: python3 vm.py <python_file.py> [output_dir]")
         print("Example: python3 vm.py scripts/solve_sudoku.py")
@@ -2140,18 +2241,19 @@ def main():
         print(f"Error: {python_file} not found")
         sys.exit(1)
 
+    # Read the Python file content
+    python_code = Path(python_file).read_text(encoding='utf-8')
+
     # Create output directory
     if len(sys.argv) > 2:
         outdir = Path(sys.argv[2])
     else:
         outdir = Path('out') / Path(python_file).stem
 
-    # Create a simple Thiele program to execute the Python file
-    program_text = f"""; Auto-generated Thiele program to execute {python_file}
-PNEW {{10,11,12,13,14,15,16,17,18}}
-PYEXEC {python_file}
-MDLACC
-EMIT "Python execution completed"
+    # Create a simple Thiele program to execute the Python code directly
+    escaped_code = python_code.replace('\n', '\\n').replace('"', '\\"')
+    program_text = f"""; Auto-generated Thiele program to execute {python_file} as Python interpreter
+PYTHON "{escaped_code}"
 """
 
     # Parse the program
@@ -2162,7 +2264,7 @@ EMIT "Python execution completed"
     vm = VM(State())
     vm.run(program, outdir)
 
-    print(f"Execution completed. Output written to {outdir}/")
+    print(f"Python execution completed. Output written to {outdir}/")
 
 
 if __name__ == "__main__":
