@@ -10,7 +10,7 @@
 # ============================================================================
 #
 # This package implements the Thiele CPU - a partition-native virtual machine
-# that could be weaponized for cryptanalysis of RSA and other systems.
+# that could be misused for cryptanalysis of public-key cryptosystems.
 #
 # ETHICAL USE REQUIREMENTS:
 # - Defensive security research only

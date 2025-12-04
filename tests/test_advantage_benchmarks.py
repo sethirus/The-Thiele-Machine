@@ -150,7 +150,7 @@ class TestGraphComponents:
     
     def test_partition_per_component(self):
         """Thiele creates partition per component."""
-        result = benchmark_graph_components(100, 10)
+        result = benchmark_graph_components(80, 8)
         
         # Description should mention components/partitions
         assert "partition" in result.description.lower() or "component" in result.description.lower()

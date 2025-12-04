@@ -1,9 +1,9 @@
 From Coq Require Import List Arith.PeanoNat Lia.
 Import ListNotations.
 
-Require Import Kernel.VMState.
-Require Import Kernel.VMStep.
-Require Import Kernel.SimulationProof.
+Require Import VMState.
+Require Import VMStep.
+Require Import SimulationProof.
 
 (** * Bounded-model µ-ledger conservation *)
 

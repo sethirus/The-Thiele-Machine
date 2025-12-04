@@ -113,6 +113,8 @@ def metrics_from_instructions(instrs: Iterable[InstructionWord]) -> Metrics:
             mu_total += instr.operand_b
         if opc == OPCODE_MDLACC:
             mdl_ops += 1
+        if opc == OPCODE_HALT:
+            mdl_ops += 1  # HALT charges MDL for current module
     return Metrics(partition_ops=partition_ops, mdl_ops=mdl_ops, info_gain=info_gain, mu_total=mu_total)
 
 

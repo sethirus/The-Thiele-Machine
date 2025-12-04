@@ -1,7 +1,7 @@
 From Coq Require Import List Bool Arith.PeanoNat.
 Import ListNotations.
 
-Require Import Kernel.Kernel.
+Require Import Kernel.
 
 Definition fetch (prog : program) (st : state) : instruction :=
   match nth_error prog st.(tm_state) with

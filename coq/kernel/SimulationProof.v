@@ -1,12 +1,12 @@
 From Coq Require Import Strings.String List Bool Arith.PeanoNat.
 Import ListNotations.
 
-Require Import Kernel.Kernel.
-Require Import Kernel.KernelTM.
-Require Import Kernel.KernelThiele.
-Require Import Kernel.VMState.
-Require Import Kernel.VMStep.
-Require Import Kernel.VMEncoding.
+Require Import Kernel.
+Require Import KernelTM.
+Require Import KernelThiele.
+Require Import VMState.
+Require Import VMStep.
+Require Import VMEncoding.
 
 (** * Simulation between the Python VM semantics and the kernel machine *)
 

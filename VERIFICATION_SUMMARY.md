@@ -184,7 +184,7 @@ Module 3: Factor extraction (GCD)
    - Extract factors via GCD
 3. **Result**: O((log N)³) vs O(√N)
 
-**μ-Cost** (RSA-2048):
+**μ-Cost** (2048-bit modulus):
 - Blind: 2^1024 operations (INFEASIBLE)
 - Sighted: 2048³ ≈ 2^33 operations (POLYNOMIAL!)
 

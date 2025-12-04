@@ -1,9 +1,9 @@
-"""Lightweight reasoning primitives for congruence-based RSA heuristics.
+"""Lightweight reasoning primitives for congruence-based heuristics.
 
 This module deliberately avoids heavy-weight SMT tooling.  It provides a
 minimal "geometric oracle" that answers questions about the compatibility of
 congruence classes with a target modulus without ever producing concrete
-factors.  The RSA demo consumes this oracle to illustrate how the Thiele
+factors.  The demo code consumes this oracle to illustrate how the Thiele
 Machine can spend μ-bits to erase impossible regions of the search space using
 pure arithmetic structure.
 """

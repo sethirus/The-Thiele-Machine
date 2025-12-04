@@ -3,9 +3,9 @@ From Coq Require Import Strings.String Strings.Ascii.
 Import ListNotations.
 Local Open Scope list_scope.
 
-Require Import Kernel.Kernel.
-Require Import Kernel.VMState.
-Require Import Kernel.VMStep.
+Require Import Kernel.
+Require Import VMState.
+Require Import VMStep.
 
 (** * Canonical binary encoding of VM state onto the kernel tape. *)
 

@@ -18,7 +18,7 @@ except ImportError:
     print("Install it with: pip install sympy")
 
 
-def recover_factors_partitioned(n: int) -> tuple[int, int]:
+def recover_factors_partitioned(n: int, show_progress: bool = True) -> tuple[int, int]:
     """
     Recovers the prime factors of n using the Thiele partitioning concept.
     
@@ -34,32 +34,48 @@ def recover_factors_partitioned(n: int) -> tuple[int, int]:
     if n < 2:
         raise ValueError("Number to be factored must be greater than 1.")
     
+    if show_progress:
+        print(f"    Starting partition discovery for {n.bit_length()}-bit number...")
+    
     if n % 2 == 0:
+        if show_progress:
+            print("    ✓ Found factor 2 (even number)")
         return 2, n // 2
 
     if SYMPY_AVAILABLE:
         try:
+            if show_progress:
+                print("    Using sympy's elliptic curve method...")
             # Use sympy's highly optimized factoring function. It returns a dict of {prime: exponent}.
-            # For RSA, we expect two primes, each with an exponent of 1.
+            # For a typical two-prime composite we expect two primes, each with an exponent of 1.
             factors = factorint(n)
             factor_list = list(factors.items())
             if len(factor_list) == 2 and factor_list[0][1] == 1 and factor_list[1][1] == 1:
                 p = int(factor_list[0][0])
                 q = int(factor_list[1][0])
+                if show_progress:
+                    print(f"    ✓ Found prime factors: {p} and {q}")
                 return (p, q) if p < q else (q, p)
             else:
                 # Fallback for non-RSA numbers or if sympy gives an unexpected result
                 p = int(factor_list[0][0])
+                if show_progress:
+                    print(f"    ✓ Found factor: {p}")
                 return p, n // p
         except Exception as e:
-            print(f"sympy factoring failed with error: {e}. The number may be prime or very difficult.")
+            if show_progress:
+                print(f"    sympy factoring failed with error: {e}. The number may be prime or very difficult.")
             raise ValueError(f"Factoring failed for n={n}") from e
     else:
         # If sympy is not available, fall back to the slower, less reliable Pollard's Rho
         # This will likely fail for numbers > 100 bits.
+        if show_progress:
+            print("    Falling back to Pollard's rho algorithm...")
         p = pollard_rho(n)
         if p == n:
             raise ValueError("Factoring failed: pollard_rho returned n, number may be prime.")
+        if show_progress:
+            print(f"    ✓ Found factor: {p}")
         return p, n // p
 
 
