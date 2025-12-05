@@ -547,7 +547,7 @@ class EfficientPartitionDiscovery:
         L = np.eye(n) - D_inv_sqrt @ adj @ D_inv_sqrt
         
         # Find optimal number of clusters using eigengap heuristic
-        num_clusters = min(self.max_clusters, n - 1, 10)
+        num_clusters = min(self.max_clusters, n - 1)
         if num_clusters < 2:
             num_clusters = 2
         
@@ -557,25 +557,65 @@ class EfficientPartitionDiscovery:
         except np.linalg.LinAlgError:
             return self._greedy_discover(problem, start_time, base_mu)
         
-        # Improved eigengap heuristic for determining number of clusters
-        # Uses relative gaps and thresholding to avoid over-partitioning
-        best_k, eigengap_info = self._compute_optimal_k_eigengap(
-            eigenvalues, max_k=min(self.max_clusters, n // 2, 10)
+        # Attempt to determine number of clusters.
+        # First compute eigengap heuristic for a baseline suggestion.
+        best_k_eigengap, eigengap_info = self._compute_optimal_k_eigengap(
+            eigenvalues, max_k=min(self.max_clusters, n // 2, n - 1)
         )
+
+        # Now evaluate candidate k values (2..max_k) and pick partition
+        # with minimal MDL. This is more robust than relying solely on
+        # eigengap which can favor k=2 in many datasets.
+        max_k_to_try = min(self.max_clusters, n // 2, n - 1)
+        if max_k_to_try < 2:
+            max_k_to_try = 2
+
+        best_mdl = float('inf')
+        best_k = best_k_eigengap
+        best_modules = None
+        best_kmeans_iters = 0
+
+        # Evaluate each k candidate
+        # To control runtime for large n, try a deterministic subset of k values:
+        #  * small ks (2..20) for coarse partitions
+        #  * sampled larger ks up to max_k_to_try for potential many-cluster partition
+        k_candidates = list(range(2, min(20, max_k_to_try) + 1))
+        if max_k_to_try > 20:
+            step = max(1, (max_k_to_try - 20) // 10)
+            k_candidates += list(range(25, max_k_to_try + 1, step))
+        k_candidates = sorted(set(k_candidates))
+
+        for k in k_candidates:
+            if k > max_k_to_try:
+                break
+            embedding = eigenvectors[:, :k]
+            labels, kmeans_iters = self._kmeans(embedding, k)
+            modules = [set() for _ in range(k)]
+            for i, label in enumerate(labels):
+                modules[label].add(i + 1)
+            modules = [m for m in modules if m]
+            mdl_val = compute_partition_mdl(problem, modules)
+            if mdl_val < best_mdl:
+                best_mdl = mdl_val
+                best_k = k
+                best_modules = modules
+                best_kmeans_iters = kmeans_iters
+
+        # If best_modules wasn't set (rare), fall back to eigengap-selected k
+        if best_modules is None:
+            embedding = eigenvectors[:, :best_k_eigengap]
+            labels, kmeans_iters = self._kmeans(embedding, best_k_eigengap)
+            modules = [set() for _ in range(best_k_eigengap)]
+            for i, label in enumerate(labels):
+                modules[label].add(i + 1)
+            modules = [m for m in modules if m]
+            best_modules = modules
+            best_kmeans_iters = kmeans_iters
         
         # Cluster using k-means on first k eigenvectors
-        embedding = eigenvectors[:, :best_k]
-
-        # K-means clustering with k-means++ initialization
-        labels, kmeans_iters = self._kmeans(embedding, best_k)
-
-        # Build modules from labels
-        modules = [set() for _ in range(best_k)]
-        for i, label in enumerate(labels):
-            modules[label].add(i + 1)  # Variables are 1-indexed
-
-        # Remove empty modules
-        modules = [m for m in modules if m]
+        # Use the modules selected by minimal MDL selection
+        modules = best_modules
+        kmeans_iters = best_kmeans_iters
 
         # Refinement step with adaptive early stopping
         refinement_iters = 0

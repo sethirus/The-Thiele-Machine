@@ -65,7 +65,7 @@ def test_large_graph():
     
     # Test spectral clustering
     start = time.time()
-    result_spectral = cluster_spectral(G, k=n_communities, ground_truth=ground_truth)
+    result_spectral = cluster_spectral(G, num_clusters=n_communities, ground_truth=ground_truth)
     spectral_time = time.time() - start
     
     # Test Louvain clustering
@@ -107,7 +107,7 @@ def test_dense_graph():
     
     # Test clustering (no ground truth for random graph)
     result_thiele = cluster_thiele(G, None)
-    result_spectral = cluster_spectral(G, k=3, ground_truth=None)
+    result_spectral = cluster_spectral(G, num_clusters=3, ground_truth=None)
     result_louvain = cluster_louvain(G, None)
     
     print(f"\nThiele:   modularity={result_thiele.modularity:.3f}, clusters={result_thiele.num_clusters}")
@@ -144,7 +144,7 @@ def test_sparse_graph():
     
     # Test clustering
     result_thiele = cluster_thiele(G, None)
-    result_spectral = cluster_spectral(G, k=3, ground_truth=None)
+    result_spectral = cluster_spectral(G, num_clusters=3, ground_truth=None)
     result_louvain = cluster_louvain(G, None)
     
     print(f"\nThiele:   modularity={result_thiele.modularity:.3f}, clusters={result_thiele.num_clusters}")
@@ -179,7 +179,7 @@ def test_scale_free_network():
     
     # Test clustering
     result_thiele = cluster_thiele(G, None)
-    result_spectral = cluster_spectral(G, k=5, ground_truth=None)
+    result_spectral = cluster_spectral(G, num_clusters=5, ground_truth=None)
     result_louvain = cluster_louvain(G, None)
     
     print(f"\nThiele:   modularity={result_thiele.modularity:.3f}, clusters={result_thiele.num_clusters}")

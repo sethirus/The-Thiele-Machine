@@ -147,20 +147,30 @@ def cluster_thiele(
     import time
     start_time = time.time()
     
-    # Convert graph to Problem
-    interactions = list(G.edges())
+    # Convert graph to Problem using 1-indexed variable IDs expected by discovery
+    node_list = list(G.nodes())
+    node_to_var = {node: i + 1 for i, node in enumerate(node_list)}
+    interactions = [(node_to_var[u], node_to_var[v]) for u, v in G.edges()]
     problem = Problem(
-        num_variables=G.number_of_nodes(),
+        num_variables=len(node_list),
         interactions=interactions,
         name=f"graph_n{G.number_of_nodes()}_m{G.number_of_edges()}"
     )
     
-    # Discover partition
-    discovery = EfficientPartitionDiscovery()
+    # Discover partition with adaptive max clusters based on graph size
+    max_clusters = min(100, max(10, G.number_of_nodes() // 10))
+    discovery = EfficientPartitionDiscovery(max_clusters=max_clusters, use_refinement=True, seed=42)
     candidate = discovery.discover_partition(problem, max_mu_budget=1000.0)
+    # Debug: print discovery metadata to help understand clustering behavior
+    try:
+        print(f"Discovery method: {candidate.method}, modules: {len(candidate.modules)}, mdl={candidate.mdl_cost:.3f}, discovery_mu={candidate.discovery_cost_mu:.3f}")
+        if 'eigengap' in candidate.metadata:
+            print(f"Eigengap metadata: {candidate.metadata.get('eigengap', '')}")
+    except Exception:
+        pass
     
-    # Convert modules to clusters (sets)
-    clusters = [set(module) for module in candidate.modules]
+    # Convert modules (1-indexed variable IDs) back to graph node labels
+    clusters = [set(node_list[var - 1] for var in module) for module in candidate.modules]
     
     runtime = time.time() - start_time
     
