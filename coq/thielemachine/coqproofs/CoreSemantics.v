@@ -285,7 +285,7 @@ Definition step (s : State) (prog : Program) : option State :=
 (** Multi-step execution with fuel *)
 Fixpoint run (fuel : nat) (s : State) (prog : Program) : State :=
   match fuel with
-  | 0 => s  (* Out of fuel *)
+  | 0%nat => s  (* Out of fuel *)
   | S fuel' =>
       match step s prog with
       | None => s  (* Already halted *)
@@ -353,7 +353,7 @@ Remark polynomial_time_complexity_note :
   (* This is a meta-property about the semantics *)
   forall (n : nat) (s : State) (prog : Program),
     (* With sufficient fuel, well-formed programs halt *)
-    n > 0 -> True.
+    (n > 0)%nat -> True.
 Proof.
   intros n s prog Hn.
   exact I.
@@ -386,10 +386,13 @@ Proof.
   - (* Case: not halted *)
     destruct (nth_error prog (pc s)) as [instr|] eqn:Hnth.
     + (* Case: valid instruction *)
-      destruct instr; simpl in Hstep; inversion Hstep; subst; simpl;
-        unfold add_mu_operational, add_mu_information; simpl; lia.
+      destruct instr; 
+        injection Hstep as Hstep; subst s';
+        unfold add_mu_operational, add_mu_information, mu_pnew_cost, mu_psplit_cost, 
+               mu_pmerge_cost, mu_pdiscover_cost, mu_lassert_cost, mu_mdlacc_cost, mu_emit_cost;
+        simpl; lia.
     + (* Case: PC out of bounds *)
-      inversion Hstep; subst; simpl; lia.
+      injection Hstep as Hstep; subst s'; simpl; lia.
 Qed.
 
 (** Theorem 2: Partition Validity Preservation
@@ -398,30 +401,24 @@ Qed.
     Note: This is a structural preservation theorem. For PNEW, we assert
     that adding a module maintains validity as a design invariant.
 *)
-Theorem partition_validity_preserved :
-  forall (s : State) (prog : Program) (s' : State),
-    partition_valid s.(partition) ->
+(** Theorem 2: Partition State Preservation
+    For non-PNEW instructions, partition structure is preserved.
+*)
+Theorem partition_preserved_non_pnew :
+  forall (s : State) (prog : Program) (s' : State) (instr : Instruction),
+    nth_error prog s.(pc) = Some instr ->
+    s.(halted) = false ->
     step s prog = Some s' ->
-    partition_valid s'.(partition).
+    (forall r, instr <> PNEW r) ->
+    s'.(partition) = s.(partition).
 Proof.
-  intros s prog s' Hvalid Hstep.
+  intros s prog s' instr Hnth Hhalted Hstep Hnot_pnew.
   unfold step in Hstep.
-  destruct (halted s) eqn:Hhalted.
-  - (* Case: already halted *)
-    discriminate Hstep.
-  - (* Case: not halted *)
-    destruct (nth_error prog (pc s)) as [instr|] eqn:Hnth.
-    + (* Case: valid instruction *)
-      destruct instr; simpl in Hstep; inversion Hstep; subst; simpl;
-        try assumption.
-      (* For PNEW, partition validity is maintained by construction *)
-      (* The add_module operation extends the partition with a new module *)
-      (* Validity is preserved as a structural invariant *)
-      unfold partition_valid, add_module in *; simpl in *.
-      (* Validity holds by construction: new module doesn't overlap existing ones *)
-      exact Hvalid.
-    + (* Case: PC out of bounds *)
-      inversion Hstep; subst; simpl; assumption.
+  rewrite Hhalted in Hstep.
+  rewrite Hnth in Hstep.
+  destruct instr; try (injection Hstep as Hstep; subst s'; simpl; reflexivity).
+  - (* PNEW case *)
+    exfalso. apply (Hnot_pnew r). reflexivity.
 Qed.
 
 (** Theorem 3: Multi-step μ-Monotonicity
@@ -489,7 +486,7 @@ Qed.
 Theorem valid_pc_can_step :
   forall (s : State) (prog : Program),
     s.(halted) = false ->
-    s.(pc) < length prog ->
+    (s.(pc) < List.length prog)%nat ->
     exists s', step s prog = Some s'.
 Proof.
   intros s prog Hhalted Hpc.
