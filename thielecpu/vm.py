@@ -1598,6 +1598,15 @@ class VM:
         except SecurityError as exc:
             output = captured_output.getvalue()
             return None, output + f"\nSecurityError: {exc}"
+        except Exception as exc:
+            # Capture any other runtime exception and return gracefully so
+            # the VM can record the output and halt appropriately instead
+            # of allowing an unhandled exception to propagate and fail
+            # the entire test harness.
+            output = captured_output.getvalue()
+            # Return the error appended to the output so the caller can
+            # detect "Error:" and set the VM halt flag.
+            return None, output + f"\nError: {exc}"
         finally:
             sys.stdout = old_stdout
 
