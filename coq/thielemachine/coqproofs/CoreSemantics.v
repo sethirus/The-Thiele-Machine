@@ -62,12 +62,12 @@ Record Partition := {
 (** Empty partition (initialization) *)
 Definition empty_partition : Partition :=
   {| modules := [];
-     next_module_id := 0 |}.
+     next_module_id := 0%nat |}.
 
 (** Trivial partition: all variables in one module *)
 Definition trivial_partition (vars : Region) : Partition :=
-  {| modules := [(0, vars)];
-     next_module_id := 1 |}.
+  {| modules := [(0%nat, vars)];
+     next_module_id := 1%nat |}.
 
 (** μ-Ledger: Tracks information cost *)
 Record MuLedger := {
@@ -167,13 +167,16 @@ Definition add_module (p : Partition) (r : Region) : Partition :=
      next_module_id := S p.(next_module_id) |}.
 
 (** Helper: Find module by ID *)
-Fixpoint find_module (p : Partition) (mid : ModuleId) : option Region :=
-  match p.(modules) with
+Fixpoint find_module_in_list (mods : list (ModuleId * Region)) (mid : ModuleId) : option Region :=
+  match mods with
   | [] => None
   | (id, r) :: rest =>
       if Nat.eqb id mid then Some r
-      else find_module {| modules := rest; next_module_id := p.(next_module_id) |} mid
+      else find_module_in_list rest mid
   end.
+
+Definition find_module (p : Partition) (mid : ModuleId) : option Region :=
+  find_module_in_list p.(modules) mid.
 
 (** μ-cost for partition operations (from μ-spec v2.0) *)
 Definition mu_pnew_cost : Z := 8.     (* Cost to create module *)
