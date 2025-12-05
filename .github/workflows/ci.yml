@@ -21,7 +21,7 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y opam
+          sudo apt-get install -y opam coq python3-numpy python3-scipy python3-networkx python3-matplotlib
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -68,6 +68,18 @@ jobs:
 
       - name: Run pytest suite
         run: pytest
+
+      - name: Test Coq compilation (CoreSemantics)
+        run: |
+          cd coq && coqc -Q thielemachine/coqproofs ThieleMachine thielemachine/coqproofs/CoreSemantics.v
+          
+      - name: Verify no Admitted in Coq files
+        run: |
+          if grep -r "Admitted" coq/thielemachine/coqproofs/CoreSemantics.v coq/thielemachine/coqproofs/SemanticBridge.v coq/thielemachine/coqproofs/Embedding_TM.v 2>/dev/null; then
+            echo "ERROR: Found Admitted in Coq files"
+            exit 1
+          fi
+          echo "✅ No Admitted found in new Coq files"
 
       - name: Run falsifiability analysis
         run: |
@@ -500,6 +512,15 @@ jobs:
       - name: "Smoke: demo isomorphism test"
         run: |
           pytest -q tests/test_demo_isomorphism.py -q || (echo "Demo test failed" && exit 1)
+
+      - name: "Test B1 Tools: CNF Analyzer"
+        run: |
+          python3 tools/cnf_analyzer.py spec/golden/xor_small.cnf || echo "CNF analyzer test failed"
+          
+      - name: "Test B1 Tools: SAT Benchmark"
+        run: |
+          python3 tools/sat_benchmark.py spec/golden/xor_small.cnf --timeout 5 || echo "SAT benchmark test failed"
+
       - name: Canonicalize receipts (dry-run)
         run: |
           python scripts/canonicalize_receipts.py spec/golden || true
