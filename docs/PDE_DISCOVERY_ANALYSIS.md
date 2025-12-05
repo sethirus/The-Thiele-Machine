@@ -68,28 +68,39 @@ Following μ-spec v2.0:
 
 **Ground Truth**: iℏ∂ψ/∂t = -ℏ²/2m ∂²ψ/∂x² + ½mω²x²ψ
 
+**ACTUAL RESULTS** (executed tests):
+
 | Test Case | True ω | Recovered ω | Error | μ_total | R² |
 |-----------|--------|-------------|-------|---------|-----|
-| schrod_w10_n64 | 1.000 | 1.000 | <1e-12% | 67.2 bits | 1.000 |
-| schrod_w10_n128 | 1.000 | 1.000 | <1e-12% | 69.3 bits | 1.000 |
-| schrod_w20_n64 | 2.000 | 2.000 | <1e-12% | 67.1 bits | 1.000 |
-| schrod_w05_n64 | 0.500 | 0.500 | <1e-12% | 68.4 bits | 1.000 |
-| schrod_w15_n32 | 1.500 | 1.500 | <1e-12% | 64.7 bits | 1.000 |
+| schrod_w10_n64 | 1.000 | 0.372 | 62.8% | 60.9 bits | 0.268 |
+| schrod_w10_n128 | 1.000 | 0.387 | 61.3% | 62.9 bits | 0.278 |
+| schrod_w20_n64 | 2.000 | 0.386 | 80.7% | 60.9 bits | 0.284 |
+| schrod_w05_n64 | 0.500 | 0.368 | 26.4% | 60.9 bits | 0.258 |
+| schrod_w15_n32 | 1.500 | 0.370 | 75.4% | 58.9 bits | 0.262 |
 
-**Success Rate**: 5/5 (100%)  
-**Mean Error**: <1e-12%  
-**Mean μ_total**: 67.3 ± 1.7 bits  
+**Success Rate**: 0/5 (0%) - ⚠️ **FAILED**  
+**Mean Error**: 61.3%  
+**Mean R²**: 0.270 (poor fit)
+**Mean μ_total**: 60.9 ± 1.4 bits  
 
-**Note**: Schrödinger μ-costs slightly higher due to complex arithmetic.
+**Issue**: Simplified fitting approach does not properly capture quantum dynamics. The complex-valued nature of the Schrödinger equation requires more sophisticated treatment than simple least-squares fitting on the real part.
+
+**Future Work Needed**:
+1. Implement proper complex-valued PDE fitting
+2. Use unitary time evolution schemes
+3. Add proper quantum observable analysis
+4. Re-test with improved quantum-aware approach
 
 ## Statistical Analysis
 
 ### Overall Performance
 - **Total Tests**: 15 (5 wave + 5 diffusion + 5 Schrödinger)
-- **Perfect Recovery**: 15/15 (100%)
-- **Mean Parameter Error**: <1e-12%
-- **Mean R² Score**: 1.000 (perfect fit)
-- **μ-Cost Range**: 60-69 bits
+- **Perfect Recovery**: 10/15 (67%) - Wave and Diffusion only
+- **Failed Tests**: 5/15 (33%) - Schrödinger tests
+- **Mean Parameter Error (successful)**: <1e-13%
+- **Mean R² Score (successful)**: 1.000 (perfect fit)
+- **Mean R² Score (failed)**: 0.270 (poor fit)
+- **μ-Cost Range**: 60-65 bits (consistent across all tests)
 
 ### μ-Cost Breakdown
 **Discovery Cost** (~48 bits):
@@ -153,18 +164,21 @@ Similarly, fitting advection (1st order space) to any data:
 - Hyperbolic PDE
 - 2nd order in time and space
 - Describes oscillations, vibrations, sound
+- **Result**: ✅ **Perfect recovery (5/5 tests)**
 
 **Thermodynamics** (Diffusion Equation):
 - Parabolic PDE
 - 1st order in time, 2nd order in space
 - Describes heat flow, concentration gradients
+- **Result**: ✅ **Perfect recovery (5/5 tests)**
 
 **Quantum Mechanics** (Schrödinger Equation):
 - Complex-valued PDE
 - 1st order in time, 2nd order in space
 - Describes quantum evolution
+- **Result**: ⚠️ **Failed recovery (0/5 tests)** - needs more sophisticated approach
 
-**Result**: μ-minimization correctly recovers all three.
+**Result**: μ-minimization works excellently for classical PDEs (10/10), but quantum systems require special treatment.
 
 ### Universality of MDL Principle
 The same algorithm (enumerate → fit → compute μ → select minimum) works across:
@@ -221,39 +235,51 @@ Current tests use N ∈ [32, 128] spatial points. For larger problems:
 |--------|-------|--------------|------------|--------|
 | Wave Mechanics | 5 | 100% | <1e-13% | ✅ VALIDATED |
 | Thermodynamics | 5 | 100% | <1e-13% | ✅ VALIDATED |
-| Quantum Mechanics | 5 | 100% | <1e-12% | ✅ VALIDATED |
-| **Overall** | **15** | **100%** | **<1e-12%** | **✅ STRONGLY SUPPORTED** |
+| Quantum Mechanics | 5 | 0% | 61.3% | ⚠️ NEEDS WORK |
+| **Overall** | **15** | **67%** | **<1e-13% (classical)** | **⚠️ PARTIAL SUPPORT** |
 
 ### Conclusion
-**H3 is STRONGLY SUPPORTED by the data.**
+**H3 is PARTIALLY SUPPORTED by the data.**
 
-Physical laws across three different domains (classical mechanics, thermodynamics, quantum mechanics) are consistently μ-minimal. This provides strong evidence that:
+Physical laws in classical domains (wave, diffusion) are consistently μ-minimal and recovered perfectly (10/10 tests). However, quantum systems (Schrödinger) require more sophisticated treatment and current approach fails (0/5 tests).
 
-1. **MDL works for physics discovery**
-2. **μ-cost is a universal measure** across domains
-3. **Nature prefers low-description-length laws**
+**Strong Evidence For**:
+1. **MDL works for classical physics discovery** (100% success on 10/10 tests)
+2. **μ-cost is a valid measure for classical PDEs**
+3. **Classical nature prefers low-description-length laws**
 
-This is the first demonstration of using information-theoretic criteria to successfully recover fundamental PDEs across multiple physics domains.
+**Limitations**:
+1. **Complex-valued quantum PDEs need special handling**
+2. **Simple least-squares insufficient for quantum dynamics**
+3. **Current hypothesis class inadequate for Schrödinger equation**
+
+This is the first demonstration of using information-theoretic criteria to successfully recover fundamental classical PDEs without domain-specific priors.
 
 ## Scientific Significance
 
 ### Novel Contribution
-**First system to recover PDEs purely from information-theoretic principles** without:
+**First system to recover classical PDEs purely from information-theoretic principles** without:
 - Domain-specific priors
 - Manual feature engineering
 - Tunable hyperparameters
+
+**Success on classical systems (wave, diffusion)**, but quantum systems need more work.
 
 ### Theoretical Impact
 Connects:
 - **Information theory** (Kolmogorov complexity, MDL)
 - **Machine learning** (model selection, regularization)
-- **Physics** (fundamental laws)
+- **Classical physics** (wave and diffusion equations)
+
+**Limitation**: Quantum systems (complex-valued PDEs) require special treatment.
 
 ### Practical Impact
 Provides:
-- **Automated PDE discovery** tool
+- **Automated classical PDE discovery** tool (validated on wave + diffusion)
 - **Principled model selection** criterion
-- **Cross-domain applicability**
+- **Cross-domain applicability** (for classical systems)
+
+**Future work needed**: Extend to quantum systems with proper complex-valued fitting.
 
 ## Reproducibility
 
@@ -287,10 +313,12 @@ See artifacts/:
 - `pde_diffusion_results.csv` - Diffusion equation (5 tests)
 - `pde_schrodinger_results.csv` - Schrödinger equation (5 tests)
 
-Total: 15 tests, 15/15 perfect recovery, 100% success rate.
+Total: 15 tests, 10/15 perfect recovery (wave + diffusion), 5/15 failed (Schrödinger), 67% success rate.
 
 ---
 
-**Track C1 Status**: ✅ COMPLETE (5/5 tasks)  
-**H3 Status**: ✅ STRONGLY VALIDATED  
-**Next**: Apply to more complex systems (C2: turbulence, C3: patterns)
+**Track C1 Status**: ⚠️ **80% COMPLETE** (4/5 tasks fully done, 1 partial)  
+**H3 Status**: ⚠️ **PARTIALLY VALIDATED** (classical systems only)  
+**Next**: Either improve Schrödinger fitting OR move to other tracks (C2: turbulence, C3: patterns)
+
+**Honest Assessment**: Strong results on classical PDEs (wave, diffusion), but quantum systems need more sophisticated treatment than current implementation provides.
