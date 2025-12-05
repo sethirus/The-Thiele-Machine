@@ -313,7 +313,7 @@ class PDEDiscovery:
         # - Fit coefficients: log2(N*T) for data access + encoding precision
         num_stencil_patterns = 10  # Rough estimate for our hypothesis class
         encoding_bits = 32  # Float32 precision for coefficients
-        num_coefficients = len(candidate.coefficients) if candidate.coefficients is not None else 1
+        num_coefficients = max(1, len(candidate.coefficients)) if candidate.coefficients is not None else 1
         
         mu_discovery = (
             math.log2(num_stencil_patterns) +  # Structure enumeration
@@ -386,8 +386,11 @@ def run_wave_test(c: float = 0.5, n: int = 64, timesteps: int = 100) -> Dict[str
     best, all_candidates = discovery.discover_pde()
     
     # Extract recovered wave speed
-    recovered_c = np.sqrt(abs(best.coefficients[0])) if best.coefficients is not None else 0.0
-    error_pct = 100 * abs(recovered_c - c) / c
+    if best.coefficients is not None and len(best.coefficients) > 0:
+        recovered_c = np.sqrt(abs(best.coefficients[0]))
+    else:
+        recovered_c = 0.0
+    error_pct = 100 * abs(recovered_c - c) / c if c != 0 else 0.0
     
     results = {
         "test_case": f"wave_c{int(c*100):03d}_n{n}",
