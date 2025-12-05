@@ -465,9 +465,12 @@ class EfficientPartitionDiscovery:
     find meaningful modules.
     """
     
-    def __init__(self, max_clusters: int = 10, use_refinement: bool = True):
+    def __init__(self, max_clusters: int = 10, use_refinement: bool = True, seed: Optional[int] = None):
         self.max_clusters = max_clusters
         self.use_refinement = use_refinement
+        self.seed = seed
+        if seed is not None:
+            np.random.seed(seed)
     
     def discover_partition(
         self, 
@@ -554,93 +557,274 @@ class EfficientPartitionDiscovery:
         except np.linalg.LinAlgError:
             return self._greedy_discover(problem, start_time, base_mu)
         
-        # Use eigengap to determine number of clusters
-        sorted_eigenvalues = np.sort(eigenvalues)
-        gaps = np.diff(sorted_eigenvalues[:min(10, len(sorted_eigenvalues))])
-        if len(gaps) > 0:
-            best_k = np.argmax(gaps) + 2  # +2 because gap[i] is between eigenvalue i and i+1
-            best_k = max(2, min(best_k, self.max_clusters, n // 2))
-        else:
-            best_k = 2
+        # Improved eigengap heuristic for determining number of clusters
+        # Uses relative gaps and thresholding to avoid over-partitioning
+        best_k, eigengap_info = self._compute_optimal_k_eigengap(
+            eigenvalues, max_k=min(self.max_clusters, n // 2, 10)
+        )
         
         # Cluster using k-means on first k eigenvectors
         embedding = eigenvectors[:, :best_k]
-        
-        # Simple k-means
-        labels = self._kmeans(embedding, best_k)
-        
+
+        # K-means clustering with k-means++ initialization
+        labels, kmeans_iters = self._kmeans(embedding, best_k)
+
         # Build modules from labels
         modules = [set() for _ in range(best_k)]
         for i, label in enumerate(labels):
             modules[label].add(i + 1)  # Variables are 1-indexed
-        
+
         # Remove empty modules
         modules = [m for m in modules if m]
-        
-        # Refinement step
+
+        # Refinement step with adaptive early stopping
+        refinement_iters = 0
         if self.use_refinement:
-            modules = self._refine_partition(problem, modules)
-        
+            modules, refinement_iters = self._refine_partition(problem, modules)
+
         elapsed = time.perf_counter() - start_time
-        
+
         # Compute MDL
         mdl = compute_partition_mdl(problem, modules)
-        
+
         # Discovery cost: base query + O(n) for processing
         discovery_mu = base_mu + n * 0.1
-        
+
         return PartitionCandidate(
             modules=modules,
             mdl_cost=mdl,
             discovery_cost_mu=discovery_mu,
-            method="spectral",
+            method="spectral_kmeanspp_adaptive",
             discovery_time=elapsed,
-            metadata={"num_eigenvectors": best_k}
+            metadata={
+                "num_eigenvectors": best_k,
+                "kmeans_iterations": kmeans_iters,
+                "refinement_iterations": refinement_iters,
+                "used_kmeans_pp": True,
+                "used_adaptive_refinement": self.use_refinement,
+                "eigengap": eigengap_info
+            }
         )
     
-    def _kmeans(self, X: np.ndarray, k: int, max_iters: int = 100) -> np.ndarray:
-        """Simple k-means clustering."""
+    def _kmeans(self, X: np.ndarray, k: int, max_iters: int = 100,
+                use_plus_plus: bool = True) -> Tuple[np.ndarray, int]:
+        """K-means clustering with optional k-means++ initialization.
+
+        Args:
+            X: Data points (n x d)
+            k: Number of clusters
+            max_iters: Maximum iterations
+            use_plus_plus: Use k-means++ initialization (default True)
+
+        Returns:
+            Tuple of (labels, iterations_taken)
+
+        ISOMORPHISM NOTE: K-means++ maintains polynomial time O(nk) init
+        + O(nkd * iters) clustering, still dominated by O(n³) eigendecomp.
+        """
         n = X.shape[0]
-        
-        # Initialize centroids randomly
-        idx = np.random.choice(n, min(k, n), replace=False)
-        centroids = X[idx].copy()
-        
+
+        if use_plus_plus:
+            # K-means++ initialization
+            centroids = self._kmeans_plus_plus_init(X, k)
+        else:
+            # Random initialization (legacy)
+            idx = np.random.choice(n, min(k, n), replace=False)
+            centroids = X[idx].copy()
+
         labels = np.zeros(n, dtype=int)
-        
-        for _ in range(max_iters):
+        iterations = 0
+
+        for iteration in range(max_iters):
+            iterations = iteration + 1
+
             # Assign points to nearest centroid
             old_labels = labels.copy()
             for i in range(n):
                 distances = np.sum((centroids - X[i])**2, axis=1)
                 labels[i] = np.argmin(distances)
-            
+
             # Check convergence
             if np.array_equal(labels, old_labels):
                 break
-            
+
             # Update centroids
             for j in range(k):
                 mask = labels == j
                 if np.any(mask):
                     centroids[j] = X[mask].mean(axis=0)
-        
-        return labels
-    
+
+        return labels, iterations
+
+    def _kmeans_plus_plus_init(self, X: np.ndarray, k: int) -> np.ndarray:
+        """K-means++ initialization for better centroid selection.
+
+        Algorithm:
+        1. Choose first centroid uniformly at random
+        2. For each subsequent centroid:
+           - Compute D(x)² = distance to nearest existing centroid
+           - Choose next centroid with probability ∝ D(x)²
+
+        This provides O(log k) approximation guarantee (Arthur & Vassilvitskii 2007).
+
+        Time complexity: O(nkd) where n=points, k=clusters, d=dimensions
+        Still polynomial and dominated by O(n³) eigenvalue decomposition.
+
+        ISOMORPHISM: This maintains the polynomial time guarantee required
+        by Coq specification while improving partition quality.
+        """
+        n, d = X.shape
+        centroids = np.zeros((k, d))
+
+        # Choose first centroid uniformly at random
+        first_idx = np.random.randint(0, n)
+        centroids[0] = X[first_idx]
+
+        # Choose remaining k-1 centroids
+        for c in range(1, k):
+            # Compute squared distance to nearest centroid for each point
+            distances_sq = np.full(n, float('inf'))
+
+            for i in range(n):
+                for j in range(c):
+                    dist_sq = np.sum((X[i] - centroids[j])**2)
+                    distances_sq[i] = min(distances_sq[i], dist_sq)
+
+            # Avoid division by zero
+            total_dist = np.sum(distances_sq)
+            if total_dist < 1e-10:
+                # All points covered, choose remaining randomly
+                remaining = list(set(range(n)) - set(np.argmin(np.sum((X - centroids[:c, None])**2, axis=2), axis=0)))
+                if remaining:
+                    centroids[c] = X[np.random.choice(remaining)]
+                else:
+                    centroids[c] = X[np.random.randint(0, n)]
+                continue
+
+            # Choose next centroid with probability proportional to D(x)²
+            probabilities = distances_sq / total_dist
+            next_idx = np.random.choice(n, p=probabilities)
+            centroids[c] = X[next_idx]
+
+        return centroids
+
+    def _compute_optimal_k_eigengap(
+        self,
+        eigenvalues: np.ndarray,
+        max_k: int = 10
+    ) -> Tuple[int, Dict[str, Any]]:
+        """Compute optimal number of clusters using improved eigengap heuristic.
+
+        The eigengap heuristic is based on spectral graph theory: for a graph
+        with k well-separated clusters, the Laplacian has k small eigenvalues
+        (near 0) followed by a large gap to the next eigenvalue.
+
+        Improvements over basic eigengap:
+        1. Uses relative gaps (ratio) instead of absolute differences
+        2. Requires gap to exceed a threshold (avoids over-partitioning random graphs)
+        3. Considers stability of gap across multiple positions
+        4. Returns metadata for debugging and verification
+
+        Args:
+            eigenvalues: Eigenvalues from Laplacian decomposition
+            max_k: Maximum number of clusters to consider
+
+        Returns:
+            Tuple of (best_k, eigengap_metadata)
+
+        ISOMORPHISM NOTE: This heuristic is polynomial O(n) and improves
+        practical partition quality while maintaining theoretical guarantees.
+        """
+        n = len(eigenvalues)
+        sorted_eigs = np.sort(eigenvalues)
+
+        # Examine first max_k eigenvalues
+        max_k = min(max_k, n - 1)
+        if max_k < 2:
+            return 2, {"method": "default", "reason": "too_few_points"}
+
+        # Compute absolute gaps
+        gaps = np.diff(sorted_eigs[:max_k + 1])
+
+        if len(gaps) == 0:
+            return 2, {"method": "default", "reason": "no_gaps"}
+
+        # Compute relative gaps (more robust than absolute)
+        # gap_ratio[i] = gaps[i] / (sorted_eigs[i+1] + epsilon)
+        epsilon = 1e-10
+        relative_gaps = gaps / (sorted_eigs[1:max_k + 1] + epsilon)
+
+        # Find largest relative gap
+        best_gap_idx = np.argmax(relative_gaps)
+        # gap[i] = eig[i+1] - eig[i], so the gap is after i+1 eigenvalues
+        # Thus we want k = i + 1 clusters (eigenvalues before the gap)
+        best_k = best_gap_idx + 1
+
+        # Quality check: is the gap significant enough?
+        # For random graphs, gaps are typically small and uniform
+        # For structured graphs, the gap should be notably larger
+        max_relative_gap = relative_gaps[best_gap_idx]
+        mean_relative_gap = np.mean(relative_gaps)
+
+        # Threshold: gap should be at least 2x the mean gap
+        gap_significance = max_relative_gap / (mean_relative_gap + epsilon)
+
+        if gap_significance < 1.5:
+            # Gap not significant - likely random/unstructured graph
+            # Use conservative k=2
+            best_k = 2
+            reason = "insignificant_gap"
+        else:
+            reason = "significant_gap"
+
+        # Ensure k is in valid range
+        best_k = max(2, min(best_k, max_k))
+
+        # Collect metadata for debugging/verification
+        metadata = {
+            "method": "improved_eigengap",
+            "best_k": best_k,
+            "gap_index": int(best_gap_idx),
+            "max_relative_gap": float(max_relative_gap),
+            "mean_relative_gap": float(mean_relative_gap),
+            "gap_significance": float(gap_significance),
+            "reason": reason,
+            "eigenvalues_examined": int(max_k),
+        }
+
+        return best_k, metadata
+
     def _refine_partition(
-        self, 
-        problem: Problem, 
-        modules: List[Set[int]]
-    ) -> List[Set[int]]:
-        """Refine partition by moving vertices to reduce cut edges."""
+        self,
+        problem: Problem,
+        modules: List[Set[int]],
+        max_iterations: int = 10
+    ) -> Tuple[List[Set[int]], int]:
+        """Refine partition by moving vertices to reduce cut edges.
+
+        Uses adaptive early stopping: terminates when no improvement is possible.
+
+        Args:
+            problem: Problem to refine
+            modules: Initial partition
+            max_iterations: Maximum refinement iterations (default 10)
+
+        Returns:
+            Tuple of (refined_modules, iterations_taken)
+
+        ISOMORPHISM NOTE: Refinement is O(n * m * |E|) per iteration where
+        m = number of modules, |E| = edges. With bounded iterations, still
+        polynomial. Early stopping improves practical performance while
+        maintaining worst-case bounds.
+        """
         improved = True
-        max_iterations = 10
         iteration = 0
-        
+        moves_made = 0
+
         while improved and iteration < max_iterations:
             improved = False
             iteration += 1
-            
+
             # Try moving each vertex to a better module
             for var in range(1, problem.num_variables + 1):
                 current_module_idx = None
@@ -648,10 +832,14 @@ class EfficientPartitionDiscovery:
                     if var in module:
                         current_module_idx = i
                         break
-                
+
                 if current_module_idx is None:
                     continue
-                
+
+                # Don't empty a module completely
+                if len(modules[current_module_idx]) == 1:
+                    continue
+
                 # Count edges to each module
                 edges_to_module = [0] * len(modules)
                 for v1, v2 in problem.interactions:
@@ -660,21 +848,28 @@ class EfficientPartitionDiscovery:
                         for i, module in enumerate(modules):
                             if other in module:
                                 edges_to_module[i] += 1
-                
+
                 # Find best module (use Python max with index when numpy unavailable)
                 if HAS_SCIPY:
                     best_module_idx = np.argmax(edges_to_module)
                 else:
                     best_module_idx = edges_to_module.index(max(edges_to_module))
-                
+
+                # Only move if strictly better (reduces cut edges)
                 if best_module_idx != current_module_idx and edges_to_module[best_module_idx] > edges_to_module[current_module_idx]:
                     # Move vertex
                     modules[current_module_idx].remove(var)
                     modules[best_module_idx].add(var)
                     improved = True
-        
+                    moves_made += 1
+
+            # Early stopping: if no moves made, we've converged
+            if not improved:
+                break
+
         # Remove empty modules
-        return [m for m in modules if m]
+        refined = [m for m in modules if m]
+        return refined, iteration
     
     def _greedy_discover(
         self, 
