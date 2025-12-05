@@ -1,8 +1,115 @@
+# Thiele Machine - Makefile
+# ==========================
+# E1.1: One-Command Reproducibility Demos
+
+.PHONY: help demo_cnf demo_sat demo_analysis demo_all run_all install_deps verify clean_demos
 .PHONY: experiments-small experiments-falsify experiments-budget experiments-full artifacts
 .PHONY: experiments-small-save experiments-falsify-save experiments-budget-save experiments-full-save
 .PHONY: proofpack-smoke proofpack-turbulence-high proofpack-phase3 bell law nusd headtohead turbulence-law turbulence-law-v2 turbulence-closure-v1 self-model-v1
 .PHONY: vm-run rtl-run compare clean purge verify-end-to-end
 .PHONY: showcase test-isomorphism test-alignment test-all
+
+# ============================================================================
+# E1.1: DEMO TARGETS - One-Command Reproducibility
+# ============================================================================
+
+help:
+	@echo "Thiele Machine - Available Targets"
+	@echo "==================================="
+	@echo ""
+	@echo "DEMO TARGETS (E1.1):"
+	@echo "  make demo_cnf       - CNF analyzer demonstration"
+	@echo "  make demo_sat       - SAT benchmark demonstration"
+	@echo "  make demo_analysis  - Statistical analysis demonstration"
+	@echo "  make demo_all       - Run all demos"
+	@echo "  make install_deps   - Install required dependencies"
+	@echo "  make verify         - Verify installation"
+	@echo ""
+	@echo "EXISTING TARGETS:"
+	@echo "  make showcase       - Run showcase programs"
+	@echo "  make test-all       - Run all tests"
+	@echo "  make experiments-*  - Run partition experiments"
+	@echo ""
+
+# Install dependencies
+install_deps:
+	@echo "Installing dependencies..."
+	@sudo apt-get update -qq && sudo apt-get install -y -qq python3-numpy python3-scipy python3-matplotlib python3-networkx coq
+	@pip install z3-solver --quiet
+	@echo "✓ Dependencies installed"
+
+# Demo 1: CNF Analyzer
+demo_cnf:
+	@echo ""
+	@echo "========================================"
+	@echo "DEMO: CNF Analyzer (B1.1)"
+	@echo "========================================"
+	@echo "Analyzing CNF files with partition discovery..."
+	@python3 tools/cnf_analyzer.py spec/golden/xor_small.cnf
+	@echo ""
+	@echo "✓ CNF Analyzer demo complete"
+
+# Demo 2: SAT Benchmark
+demo_sat:
+	@echo ""
+	@echo "========================================"
+	@echo "DEMO: SAT Benchmark (B1.2)"
+	@echo "========================================"
+	@echo "Comparing baseline vs sighted SAT solving..."
+	@mkdir -p benchmarks/instances
+	@python3 tools/generate_cnf_instances.py --type modular --vars 30 --modules 5 --output benchmarks/instances/demo_modular.cnf
+	@timeout 30 python3 tools/sat_benchmark.py benchmarks/instances/demo_modular.cnf --timeout 10 || true
+	@echo ""
+	@echo "✓ SAT Benchmark demo complete"
+
+# Demo 3: Statistical Analysis
+demo_analysis:
+	@echo ""
+	@echo "========================================"
+	@echo "DEMO: Statistical Analysis (B1.4)"
+	@echo "========================================"
+	@if [ -f benchmarks/sat_results.csv ]; then \
+		python3 tools/analyze_sat_results.py benchmarks/sat_results.csv; \
+	else \
+		echo "Generating quick benchmark..."; \
+		mkdir -p benchmarks/instances; \
+		python3 tools/generate_cnf_instances.py --type modular --vars 20 --modules 4 --output benchmarks/instances/quick1.cnf; \
+		python3 tools/generate_cnf_instances.py --type random --vars 20 --output benchmarks/instances/quick2.cnf; \
+		timeout 60 python3 tools/run_batch_benchmarks.py --input-dir benchmarks/instances --output benchmarks/quick_results.csv --timeout 10 || true; \
+		[ -f benchmarks/quick_results.csv ] && python3 tools/analyze_sat_results.py benchmarks/quick_results.csv || echo "Demo data unavailable"; \
+	fi
+	@echo ""
+	@echo "✓ Analysis demo complete"
+
+# Run all demos
+demo_all: demo_cnf demo_sat demo_analysis
+	@echo ""
+	@echo "========================================"
+	@echo "ALL DEMOS COMPLETE"
+	@echo "========================================"
+	@echo "✓ CNF analyzer demonstrated"
+	@echo "✓ SAT benchmark demonstrated"
+	@echo "✓ Statistical analysis demonstrated"
+
+run_all: demo_all
+
+# Verify installation
+verify:
+	@echo "Verifying installation..."
+	@python3 --version
+	@python3 -c "import numpy" && echo "✓ numpy installed" || echo "✗ numpy missing"
+	@python3 -c "import scipy" && echo "✓ scipy installed" || echo "✗ scipy missing"
+	@python3 -c "import z3" && echo "✓ z3 installed" || echo "✗ z3 missing"
+	@coqc --version | head -1 || echo "✗ coq missing"
+
+# Clean demo files
+clean_demos:
+	@rm -rf benchmarks/instances/demo_*.cnf benchmarks/instances/quick*.cnf benchmarks/quick_results.csv
+	@echo "✓ Demo files cleaned"
+
+# ============================================================================
+# EXISTING TARGETS
+# ============================================================================
 
 COQTOP ?= coqtop
 BELL_SKIP_COQ ?= 0
