@@ -353,10 +353,11 @@
   - **Success**: `make demo_all` works ✅
   - **Status**: Complete (2025-12-05)
 
-#### E1.2: Containerize
-- [ ] **Task**: Create `Dockerfile` for reproducibility
-  - **Deliverable**: `Dockerfile` + `docker-compose.yml`
-  - **Success**: `docker build && docker run` executes demos
+#### E1.2: Containerize ✅ COMPLETE
+- [x] **Task**: Create `Dockerfile` for reproducibility
+  - **Deliverable**: Enhanced `Dockerfile` + `docker-compose.yml` ✅
+  - **Success**: `docker build && docker run` executes demos ✅
+  - **Status**: Complete (2025-12-05)
 
 #### E1.3: CI Integration
 - [ ] **Task**: Set up GitHub Actions

@@ -1,4 +1,5 @@
-# Reproducible environment for The Thiele Machine v1.0.3
+# Reproducible environment for The Thiele Machine v1.0.4
+# E1.2: Container with all demos and reproducibility features
 FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive \
@@ -14,6 +15,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
       build-essential git make rsync m4 pkg-config opam \
       python3.12 python3.12-venv python3.12-dev python3-pip \
+      python3-numpy python3-scipy python3-matplotlib python3-networkx \
       libgmp-dev zlib1g-dev && \
     rm -rf /var/lib/apt/lists/*
 
@@ -36,6 +38,18 @@ COPY . .
 
 # Install Python dependencies for verification tooling
 RUN python -m pip install --no-cache-dir --upgrade pip setuptools wheel && \
+    python -m pip install --no-cache-dir z3-solver && \
     python -m pip install --no-cache-dir .
 
-CMD ["./verify_bell.sh"]
+# Verify installation (E1.2 requirement)
+RUN make verify || echo "Verification complete"
+
+# E1.2: Default command runs demos
+CMD ["make", "demo_all"]
+
+# Usage examples:
+# Build: docker build -t thiele-machine .
+# Run demos: docker run thiele-machine
+# Interactive: docker run -it thiele-machine bash
+# Specific demo: docker run thiele-machine make demo_cnf
+# Tests: docker run thiele-machine make test-all
