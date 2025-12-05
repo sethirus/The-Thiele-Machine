@@ -1024,6 +1024,12 @@ def run_derivation(
     
     # Step 3: Fit and compute μ-costs
     print("\n[3] Computing μ-discovery and μ-execution for each model...")
+    # Also run Universal MDL comparison (REAL vs COMPLEX)
+    try:
+        from tools.universal_pde_solver import compare_real_vs_complex
+    except Exception:
+        compare_real_vs_complex = None
+
     results = []
     for candidate in models:
         result = fit_model(evolution, V, dx, candidate)
@@ -1055,6 +1061,21 @@ def run_derivation(
     validation_rms, validation_max = validate_model(evolution, V, dx, best_result)
     print(f"    RMS validation error: {validation_rms:.2e}")
     print(f"    Max validation error: {validation_max:.2e}")
+
+    # Universal MDL comparison (REAL vs COMPLEX)
+    if compare_real_vs_complex is not None:
+        try:
+            real_res, complex_res = compare_real_vs_complex(evolution, V, dx)
+            print('\n[UNIVERSAL MDL SOLVER] Comparison:')
+            print(f"[REAL]    MSE: {real_res.rms_error_total:.2e} | Total Cost: {real_res.mu_total:.0f} bits")
+            print(f"[COMPLEX] MSE: {complex_res.rms_error_total:.2e} | Total Cost: {complex_res.mu_total:.0f} bits")
+            advantage = real_res.mu_total - complex_res.mu_total
+            if advantage > 0:
+                print(f">>> RESULT: SYSTEM IS QUANTUM/COMPLEX (Advantage: {advantage:.0f} bits)")
+            else:
+                print(f">>> RESULT: SYSTEM IS CLASSICAL/REAL (Advantage: {-advantage:.0f} bits)")
+        except Exception as e:
+            print(f"[UNIVERSAL MDL SOLVER] Error during comparison: {e}")
     
     # Step 7: Generate Coq formalization
     print("\n[7] Generating Coq formalization...")
