@@ -493,6 +493,13 @@ class EfficientPartitionDiscovery:
             PartitionCandidate with discovered modules
         """
         start_time = time.perf_counter()
+        # Deterministic seeding to ensure reproducible discovery across runs
+        seed = self.seed
+        if seed is None:
+            # Derive a seed from the problem to keep discovery deterministic
+            import hashlib
+            seed = int(hashlib.sha256(str(problem.interactions).encode()).hexdigest(), 16) % (2 ** 32)
+        np.random.seed(seed)
         
         # Discovery query cost
         query = f"(discover-partition n={problem.num_variables})"
@@ -590,7 +597,11 @@ class EfficientPartitionDiscovery:
         gaps = np.diff(eigs_to_consider)
         k_candidates = set()
         if gaps.size > 0:
-            gap_idxs = np.argsort(gaps)[::-1][:num_gap_candidates]
+            relative_gaps = gaps / (eigs_to_consider[1 : len(eigs_to_consider)] + 1e-10)
+            mean_relative = float(np.mean(relative_gaps)) if relative_gaps.size else 0.0
+            gap_idxs_unsorted = np.argsort(gaps)[::-1]
+            # Filter to significant gaps only
+            gap_idxs = [int(idx) for idx in gap_idxs_unsorted if relative_gaps[idx] >= max(1.5 * mean_relative, 1e-9)][:num_gap_candidates]
             for idx in gap_idxs:
                 k_val = int(idx + 1)
                 if 2 <= k_val <= max_k_to_try:
@@ -679,6 +690,17 @@ class EfficientPartitionDiscovery:
         selected_k = best_k
         selected_kmeans_iters = best_kmeans_iters
 
+        # Prefer eigengap-selected k when the eigengap heuristic is strong,
+        # since it reflects clear spectral separation.
+        if eigengap_info.get("reason") == "significant_gap":
+            for (k, mods, mdl_val, iters) in candidate_results:
+                if k == int(best_k_eigengap):
+                    selected_modules = mods
+                    selected_mdl = mdl_val
+                    selected_k = k
+                    selected_kmeans_iters = iters
+                    break
+
         # selection guard: if another candidate offers markedly higher
         # modularity and their MDL is within a reasonable overhead, prefer it
         baseline_mod = compute_modularity_for_modules(selected_modules) if selected_modules else 0.0
@@ -695,10 +717,18 @@ class EfficientPartitionDiscovery:
         modules = selected_modules
         kmeans_iters = selected_kmeans_iters
 
-        # Refinement step with adaptive early stopping
+        # Refinement step with adaptive early stopping; ensure we don't
+        # significantly worsen MDL by refinement.
         refinement_iters = 0
         if self.use_refinement:
-            modules, refinement_iters = self._refine_partition(problem, modules)
+            orig_mdl = compute_partition_mdl(problem, modules)
+            refined_modules, refinement_iters = self._refine_partition(problem, modules)
+            refined_mdl = compute_partition_mdl(problem, refined_modules)
+            # Only accept refinement if MDL improved or stayed similar
+            if refined_mdl <= orig_mdl * 1.05:
+                modules = refined_modules
+            else:
+                refinement_iters = 0
 
         elapsed = time.perf_counter() - start_time
 
