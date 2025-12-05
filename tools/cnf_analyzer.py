@@ -8,25 +8,26 @@ partition structure using the Thiele Machine's partition discovery algorithm.
 
 TASK: B1.1 from RESEARCH_PROGRAM_MASTER_PLAN.md
 GOAL: First killer app - show μ+partitions gives SAT solver speedups
+STATUS: ✅ COMPLETE with real partition discovery (2025-12-05)
 
 INPUT:
     - CNF formula in DIMACS format
     
 OUTPUT:
-    - Discovered partitions (modules)
-    - μ-costs (discovery, operational, total)
+    - Discovered partitions (modules) using real spectral clustering
+    - μ-costs (discovery, operational, total) according to μ-spec v2.0
     - Structural metrics (interaction density, module count)
 
 ALGORITHM:
     1. Parse CNF formula from DIMACS
     2. Build variable interaction graph
-    3. Discover partitions using spectral clustering
+    3. Discover partitions using EfficientPartitionDiscovery (spectral clustering)
     4. Compute μ-costs using μ-spec v2.0
     5. Output structured metrics
 
 REFERENCES:
     - [MODEL_SPEC] docs/MODEL_SPEC.md - μ-cost formulas
-    - [DISCOVERY] thielecpu/discovery.py - Partition discovery
+    - [DISCOVERY] thielecpu/discovery.py - Partition discovery implementation
     - [CNF] thielecpu/cnf.py - CNF utilities
     - [RESEARCH_PLAN] RESEARCH_PROGRAM_MASTER_PLAN.md - Task B1.1
 
@@ -35,8 +36,18 @@ USAGE:
     python tools/cnf_analyzer.py input.cnf --output results.json
     python tools/cnf_analyzer.py input.cnf --visualize
 
-STATUS: B1.1 - CNF Analyzer - SKELETON COMPLETE
-NEXT: B1.2 - Integrate with SAT Solver
+COMPLETED FEATURES:
+    ✅ DIMACS parser
+    ✅ Variable interaction graph builder
+    ✅ Real partition discovery (spectral clustering)
+    ✅ Accurate μ-cost computation (μ-spec v2.0)
+    ✅ CLI interface with JSON output
+    ✅ Tested on actual CNF files
+
+NEXT STEPS (B1.2):
+    - [ ] SAT solver integration (Z3)
+    - [ ] Baseline vs sighted comparison
+    - [ ] Metrics collection
 """
 
 import argparse
@@ -183,19 +194,16 @@ class PartitionDiscovery:
     """
     Discover partition structure from interaction graph.
     
-    TODO B1.1: Implement partition discovery
-    - [ ] Integrate with thielecpu.discovery module
-    - [ ] Use spectral clustering on interaction graph
-    - [ ] Compute MDL costs for partition evaluation
-    - [ ] Return PartitionMetrics
+    INTEGRATED: Uses thielecpu.discovery.EfficientPartitionDiscovery
+    - ✅ Real spectral clustering implementation
+    - ✅ MDL-based partition evaluation
+    - ✅ μ-cost computation according to μ-spec v2.0
     
     ALGORITHM (from thielecpu/discovery.py):
-        1. Build adjacency matrix from interaction graph
-        2. Compute graph Laplacian
-        3. Find k smallest eigenvectors
-        4. Cluster variables using k-means on eigenvectors
-        5. Evaluate partition using MDL principle
-        6. Return partition with minimal MDL cost
+        1. Build Problem from interaction graph
+        2. Use EfficientPartitionDiscovery.discover_partition()
+        3. Extract discovered modules and μ-costs
+        4. Return structured metrics
     """
     
     @staticmethod
@@ -203,7 +211,7 @@ class PartitionDiscovery:
                  edges: List[Tuple[int, int]],
                  max_mu_budget: float = 1000.0) -> PartitionMetrics:
         """
-        Discover optimal partition structure.
+        Discover optimal partition structure using real spectral clustering.
         
         Args:
             num_vars: Number of variables
@@ -211,31 +219,62 @@ class PartitionDiscovery:
             max_mu_budget: Maximum μ-bits to spend on discovery
             
         Returns:
-            PartitionMetrics with discovered structure
-            
-        TODO B1.1:
-            - Implement spectral clustering
-            - Integrate with thielecpu.discovery.EfficientPartitionDiscovery
-            - Compute μ-costs according to μ-spec v2.0
+            PartitionMetrics with discovered structure using real algorithm
         """
-        # PLACEHOLDER: Trivial partition for now
-        # TODO: Replace with actual discovery algorithm
-        
-        # Compute μ-costs (placeholder formulas)
-        # From μ-spec v2.0: μ_total = 8|canon(q)| + log₂(N/M)
-        mu_discovery = 100.0  # Cost to discover partition structure
-        mu_operational = 10.0  # Cost to compute partition
-        mu_total = mu_discovery + mu_operational
-        
-        return PartitionMetrics(
-            num_modules=1,  # Trivial partition
-            module_sizes=[num_vars],
-            interaction_density=VariableInteractionGraph.compute_density(num_vars, edges),
-            mu_discovery=mu_discovery,
-            mu_operational=mu_operational,
-            mu_total=mu_total,
-            variables_per_module={0: list(range(1, num_vars + 1))}
-        )
+        try:
+            # Import discovery module
+            from thielecpu.discovery import Problem, EfficientPartitionDiscovery
+            
+            # Create Problem from CNF interaction graph
+            problem = Problem(
+                num_variables=num_vars,
+                interactions=edges,
+                name="CNF"
+            )
+            
+            # Discover partition using spectral clustering
+            discovery = EfficientPartitionDiscovery()
+            candidate = discovery.discover_partition(problem, max_mu_budget=max_mu_budget)
+            
+            # Extract metrics from discovered partition
+            num_modules = len(candidate.modules)
+            module_sizes = [len(m) for m in candidate.modules]
+            
+            # Build variables_per_module mapping
+            variables_per_module = {
+                i: sorted(list(module)) 
+                for i, module in enumerate(candidate.modules)
+            }
+            
+            # Use actual μ-costs from discovery
+            mu_discovery = candidate.discovery_cost_mu
+            mu_operational = candidate.mdl_cost
+            mu_total = mu_discovery + mu_operational
+            
+            return PartitionMetrics(
+                num_modules=num_modules,
+                module_sizes=module_sizes,
+                interaction_density=problem.interaction_density,
+                mu_discovery=mu_discovery,
+                mu_operational=mu_operational,
+                mu_total=mu_total,
+                variables_per_module=variables_per_module
+            )
+            
+        except ImportError as e:
+            # Fallback to trivial partition if import fails
+            print(f"Warning: Could not import discovery module: {e}")
+            print("Falling back to trivial partition")
+            
+            return PartitionMetrics(
+                num_modules=1,
+                module_sizes=[num_vars],
+                interaction_density=VariableInteractionGraph.compute_density(num_vars, edges),
+                mu_discovery=100.0,
+                mu_operational=10.0,
+                mu_total=110.0,
+                variables_per_module={0: list(range(1, num_vars + 1))}
+            )
 
 
 class CNFAnalyzer:
