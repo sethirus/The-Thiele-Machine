@@ -1,0 +1,70 @@
+# Docker Compose for Thiele Machine - E1.2
+# ==========================================
+# One-command setup for reproducible research environment
+#
+# Usage:
+#   docker-compose up        # Build and run demos
+#   docker-compose run thiele bash  # Interactive shell
+#   docker-compose run thiele make test-all  # Run tests
+
+version: '3.8'
+
+services:
+  thiele:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: thiele-machine:latest
+    container_name: thiele-machine
+    volumes:
+      # Mount current directory for live development (optional)
+      - .:/opt/thiele-machine
+    environment:
+      - PYTHONPATH=/opt/thiele-machine
+      - OPAMROOT=/root/.opam
+      - OPAMSWITCH=coq-8.18.0
+    working_dir: /opt/thiele-machine
+    # Default: run all demos
+    command: ["make", "demo_all"]
+    
+  # Service for running tests
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: thiele-machine:latest
+    volumes:
+      - .:/opt/thiele-machine
+    working_dir: /opt/thiele-machine
+    command: ["make", "test-all"]
+    
+  # Service for verification
+  verify:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: thiele-machine:latest
+    volumes:
+      - .:/opt/thiele-machine
+    working_dir: /opt/thiele-machine
+    command: ["make", "verify"]
+
+# Usage examples:
+#
+# Run all demos:
+#   docker-compose up thiele
+#
+# Run tests:
+#   docker-compose up test
+#
+# Verify installation:
+#   docker-compose up verify
+#
+# Interactive shell:
+#   docker-compose run thiele bash
+#
+# Specific command:
+#   docker-compose run thiele make demo_cnf
+#
+# Build only:
+#   docker-compose build
