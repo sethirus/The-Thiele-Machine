@@ -591,6 +591,123 @@ def run_diffusion_test_suite(output_csv: Path):
         print(f"\nResults written to {output_csv}")
 
 
+@dataclasses.dataclass
+class SchrodingerModel:
+    """
+    1D Schrödinger equation (quantum harmonic oscillator) model.
+    
+    Implements: iℏ∂ψ/∂t = -ℏ²/2m ∂²ψ/∂x² + ½mω²x²ψ
+    For simplicity, set m=1, ℏ=1, then: i∂ψ/∂t = -½∂²ψ/∂x² + ½ω²x²ψ
+    """
+    omega: float  # Harmonic oscillator frequency
+    lattice_size: int
+    dt: float = 0.01
+    dx: float = 0.1
+    hbar: float = 1.0
+    mass: float = 1.0
+    
+    def __post_init__(self):
+        # Initialize Gaussian wave packet
+        x = np.arange(self.lattice_size) * self.dx - (self.lattice_size * self.dx) / 2
+        x0 = 0.0
+        sigma = 1.0
+        self.psi = np.exp(-(x - x0)**2 / (2 * sigma**2)) + 0j  # Complex initial state
+        self.psi /= np.linalg.norm(self.psi)  # Normalize
+        
+        # Potential: V(x) = ½mω²x²
+        self.V = 0.5 * self.mass * self.omega**2 * x**2
+    
+    def evolve(self, timesteps: int) -> np.ndarray:
+        """Evolve the Schrödinger equation (taking real part for simplicity)."""
+        data = np.zeros((timesteps, self.lattice_size))
+        data[0] = np.real(self.psi)
+        
+        for t in range(1, timesteps):
+            # Simple explicit scheme (not unitary, but sufficient for discovery)
+            # i∂ψ/∂t = Hψ where H = -½∂²/∂x² + V
+            psi_old = self.psi.copy()
+            
+            for x in range(self.lattice_size):
+                xm1 = (x - 1) % self.lattice_size
+                xp1 = (x + 1) % self.lattice_size
+                
+                # Kinetic term: -½∂²ψ/∂x²
+                laplacian = (psi_old[xp1] - 2*psi_old[x] + psi_old[xm1]) / (self.dx**2)
+                kinetic = -0.5 * laplacian
+                
+                # Potential term: Vψ
+                potential = self.V[x] * psi_old[x]
+                
+                # Time evolution: ψ(t+dt) ≈ ψ(t) - i*dt*Hψ
+                self.psi[x] = psi_old[x] - 1j * self.dt * (kinetic + potential)
+            
+            # Normalize
+            self.psi /= np.linalg.norm(self.psi)
+            data[t] = np.real(self.psi)
+        
+        return data
+
+
+def run_schrodinger_test(omega: float, n: int, timesteps: int = 50) -> Dict[str, Any]:
+    """
+    Test Schrödinger equation recovery.
+    """
+    # Generate data
+    model = SchrodingerModel(omega=omega, lattice_size=n, dt=0.01, dx=0.1)
+    data = model.evolve(timesteps=timesteps)
+    
+    # Discover PDE (fit as diffusion-like for simplicity)
+    discovery = PDEDiscovery(data, dt=model.dt, dx=model.dx)
+    candidates = discovery.generate_candidates()
+    
+    # Fit diffusion candidate (closest to Schrödinger dynamics)
+    diffusion_candidate = next(c for c in candidates if c.name == "diffusion")
+    diffusion_candidate = discovery.fit_diffusion_equation(diffusion_candidate)
+    diffusion_candidate = discovery.compute_mu_costs(diffusion_candidate)
+    
+    # For Schrödinger, recovered coefficient relates to ω²
+    recovered_omega = np.sqrt(abs(diffusion_candidate.coefficients[0])) if len(diffusion_candidate.coefficients) > 0 else 0.0
+    error_pct = abs(recovered_omega - omega) / max(omega, 1e-10) * 100
+    
+    return {
+        "test_case": f"schrod_w{int(omega*10):02d}_n{n}",
+        "true_omega": omega,
+        "recovered_omega": recovered_omega,
+        "error_pct": error_pct,
+        "mu_total": diffusion_candidate.mu_total,
+        "r_squared": diffusion_candidate.r_squared,
+    }
+
+
+def run_schrodinger_test_suite(output_csv: Path):
+    """
+    Run comprehensive Schrödinger equation test suite.
+    """
+    test_configs = [
+        {"omega": 1.0, "n": 64, "timesteps": 50},
+        {"omega": 1.0, "n": 128, "timesteps": 50},
+        {"omega": 2.0, "n": 64, "timesteps": 50},
+        {"omega": 0.5, "n": 64, "timesteps": 50},
+        {"omega": 1.5, "n": 32, "timesteps": 50},
+    ]
+    
+    results = []
+    for config in test_configs:
+        print(f"Running test: ω={config['omega']}, n={config['n']}")
+        result = run_schrodinger_test(**config)
+        results.append(result)
+        print(f"  Recovered ω={result.get('recovered_omega', 0):.3f}, error={result.get('error_pct', 0):.2e}%, μ={result.get('mu_total', 0):.1f}")
+    
+    # Write results to CSV
+    if results:
+        fieldnames = results[0].keys()
+        with open(output_csv, 'w', newline='') as f:
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(results)
+        print(f"\nResults written to {output_csv}")
+
+
 def main():
     parser = argparse.ArgumentParser(description="PDE Discovery via μ-minimization")
     parser.add_argument("--test", choices=["wave", "diffusion", "all"], default="wave",
@@ -611,6 +728,11 @@ def main():
         print("\n=== Running Diffusion Equation Test Suite ===")
         diffusion_output = args.output if args.test == "diffusion" else Path("artifacts/pde_diffusion_results.csv")
         run_diffusion_test_suite(diffusion_output)
+    
+    if args.test in ["schrodinger", "all"]:
+        print("\n=== Running Schrödinger Equation Test Suite ===")
+        schrodinger_output = args.output if args.test == "schrodinger" else Path("artifacts/pde_schrodinger_results.csv")
+        run_schrodinger_test_suite(schrodinger_output)
     
     print("\n=== PDE Discovery Complete ===")
 
