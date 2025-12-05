@@ -408,6 +408,131 @@ def run_wave_test(c: float = 0.5, n: int = 64, timesteps: int = 100) -> Dict[str
     return results
 
 
+@dataclasses.dataclass
+class DiffusionModel:
+    """
+    1D diffusion equation model on a periodic lattice.
+    
+    Implements the discrete diffusion equation:
+        u(x, t+1) = u(x, t) + D*dt/dx² * (u(x-1, t) - 2*u(x, t) + u(x+1, t))
+    
+    which emerges from the continuous diffusion equation:
+        ∂u/∂t = D * ∂²u/∂x²
+    """
+    
+    lattice_size: int
+    diffusion_coeff: float = 0.1  # D, should be <= dx²/(2*dt) for stability
+    dt: float = 0.1
+    dx: float = 1.0
+    
+    def __post_init__(self):
+        # Stability condition for diffusion
+        self.d_over_dx2 = self.diffusion_coeff * self.dt / (self.dx ** 2)
+        if self.d_over_dx2 > 0.5:
+            raise ValueError(f"Stability condition violated: D*dt/dx² = {self.d_over_dx2} > 0.5")
+    
+    def initial_gaussian(self, center: Optional[int] = None, width: float = 3.0, amplitude: float = 1.0) -> np.ndarray:
+        """Generate a localized Gaussian distribution."""
+        if center is None:
+            center = self.lattice_size // 2
+        x = np.arange(self.lattice_size)
+        gaussian = amplitude * np.exp(-((x - center) ** 2) / (2 * width ** 2))
+        return gaussian
+    
+    def evolve_step(self, u_current: np.ndarray) -> np.ndarray:
+        """Evolve the diffusion by one timestep using the discrete diffusion equation."""
+        u_plus = np.roll(u_current, -1)
+        u_minus = np.roll(u_current, 1)
+        laplacian = u_plus - 2 * u_current + u_minus
+        u_next = u_current + self.d_over_dx2 * laplacian
+        return u_next
+    
+    def generate_evolution(self, timesteps: int, initial_u: Optional[np.ndarray] = None) -> np.ndarray:
+        """Generate the full lattice evolution over T timesteps."""
+        if initial_u is None:
+            initial_u = self.initial_gaussian()
+        
+        evolution = np.zeros((timesteps, self.lattice_size))
+        evolution[0] = initial_u.copy()
+        
+        u_current = initial_u.copy()
+        
+        for t in range(1, timesteps):
+            u_current = self.evolve_step(u_current)
+            evolution[t] = u_current.copy()
+        
+        return evolution
+
+
+def run_diffusion_test(D: float, n: int, timesteps: int = 100) -> Dict[str, Any]:
+    """
+    Test PDE discovery on diffusion equation.
+    
+    Args:
+        D: Diffusion coefficient
+        n: Lattice size
+        timesteps: Number of time steps
+    
+    Returns:
+        Dictionary with test results
+    """
+    # Generate diffusion evolution
+    model = DiffusionModel(lattice_size=n, diffusion_coeff=D, dt=0.1, dx=1.0)
+    evolution = model.generate_evolution(timesteps=timesteps)
+    
+    # Discover PDE
+    discovery = PDEDiscovery(data=evolution, dt=model.dt, dx=model.dx)
+    candidates = discovery.generate_candidates()
+    
+    # Fit all candidates
+    fitted_candidates = []
+    for cand in candidates:
+        if cand.time_order == 1 and cand.space_order == 2 and cand.name == "diffusion":
+            # Fit diffusion equation
+            fitted = discovery.fit_diffusion_equation(cand)
+            fitted = discovery.compute_mu_costs(fitted)
+            fitted_candidates.append(fitted)
+    
+    if not fitted_candidates:
+        # Fall back to all candidates if no diffusion-specific one found
+        for c in candidates:
+            if c.time_order == 2:
+                fitted = discovery.fit_wave_equation(c)
+            else:
+                fitted = discovery.fit_diffusion_equation(c)
+            fitted = discovery.compute_mu_costs(fitted)
+            fitted_candidates.append(fitted)
+    
+    # Select best based on μ-cost
+    best = min(fitted_candidates, key=lambda x: x.mu_total)
+    
+    # Extract recovered diffusion coefficient
+    # For ∂u/∂t = D * ∂²u/∂x², coefficient is D
+    coeffs = best.coefficients if best.coefficients is not None else np.array([0.0])
+    recovered_D = coeffs[0] if len(coeffs) > 0 else 0.0
+    
+    error_abs = abs(recovered_D - D)
+    error_pct = 100.0 * error_abs / max(D, 1e-10)
+    
+    test_case = f"diffusion_D{int(D*1000):03d}_n{n}"
+    
+    results = {
+        "test_case": test_case,
+        "true_D": D,
+        "recovered_D": recovered_D,
+        "error_abs": error_abs,
+        "error_pct": error_pct,
+        "mu_total": best.mu_total,
+        "mu_discovery": best.mu_discovery,
+        "mu_execution": best.mu_execution,
+        "r_squared": best.r_squared,
+        "best_model": best.name,
+        "pde_form": best.to_pde_string()
+    }
+    
+    return results
+
+
 def run_wave_test_suite(output_csv: Path):
     """
     Run comprehensive wave equation test suite.
@@ -437,6 +562,35 @@ def run_wave_test_suite(output_csv: Path):
         print(f"\nResults written to {output_csv}")
 
 
+def run_diffusion_test_suite(output_csv: Path):
+    """
+    Run comprehensive diffusion equation test suite.
+    """
+    test_configs = [
+        {"D": 0.1, "n": 64, "timesteps": 100},
+        {"D": 0.1, "n": 128, "timesteps": 100},
+        {"D": 0.2, "n": 64, "timesteps": 100},
+        {"D": 0.05, "n": 64, "timesteps": 150},
+        {"D": 0.15, "n": 32, "timesteps": 100},
+    ]
+    
+    results = []
+    for config in test_configs:
+        print(f"Running test: D={config['D']}, n={config['n']}")
+        result = run_diffusion_test(**config)
+        results.append(result)
+        print(f"  Recovered D={result.get('recovered_D', 0):.3f}, error={result.get('error_pct', 0):.2f}%, μ={result.get('mu_total', 0):.1f}")
+    
+    # Write results to CSV
+    if results:
+        fieldnames = results[0].keys()
+        with open(output_csv, 'w', newline='') as f:
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(results)
+        print(f"\nResults written to {output_csv}")
+
+
 def main():
     parser = argparse.ArgumentParser(description="PDE Discovery via μ-minimization")
     parser.add_argument("--test", choices=["wave", "diffusion", "all"], default="wave",
@@ -450,10 +604,13 @@ def main():
     
     if args.test in ["wave", "all"]:
         print("=== Running Wave Equation Test Suite ===")
-        run_wave_test_suite(args.output)
+        wave_output = args.output if args.test == "wave" else Path("artifacts/pde_wave_results.csv")
+        run_wave_test_suite(wave_output)
     
-    if args.test == "diffusion":
-        print("Diffusion tests not yet implemented")
+    if args.test in ["diffusion", "all"]:
+        print("\n=== Running Diffusion Equation Test Suite ===")
+        diffusion_output = args.output if args.test == "diffusion" else Path("artifacts/pde_diffusion_results.csv")
+        run_diffusion_test_suite(diffusion_output)
     
     print("\n=== PDE Discovery Complete ===")
 
