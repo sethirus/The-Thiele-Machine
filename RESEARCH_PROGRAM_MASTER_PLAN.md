@@ -148,18 +148,18 @@
 - [ ] Add visualization support (networkx + matplotlib)
 - [ ] Write comprehensive unit tests
 
-#### B1.2: Integrate with SAT Solver ⏳ PLANNED
-- [ ] **Task**: Build SAT solver integration
-  - Integrate with: MiniSat or Z3 (via python bindings)
+#### B1.2: Integrate with SAT Solver ✅ COMPLETE
+- [x] **Task**: Build SAT solver integration
+  - Integrate with: Z3 (via z3-solver) ✅
   - Modes:
-    1. Baseline (no preprocessing)
-    2. With structural preprocessing (use discovered partitions)
-  - Metrics: runtime, conflicts, decisions, μ-cost
-  - **Deliverable**: `tools/sat_benchmark.py`
-  - **Success**: Can run both modes, collect metrics
-  - **Status**: Documented in docs/B1_SAT_IMPLEMENTATION_ROADMAP.md
+    1. Baseline (no preprocessing) ✅
+    2. With structural preprocessing (use discovered partitions) ✅
+  - Metrics: runtime, conflicts, decisions, μ-cost ✅
+  - **Deliverable**: `tools/sat_benchmark.py` (500+ lines) ✅
+  - **Success**: Can run both modes, collect metrics ✅
+  - **Status**: Complete - tested on small instances (2025-12-05)
 
-#### B1.3: Benchmark on SATLIB ⏳ PLANNED
+#### B1.3: Benchmark on SATLIB ⏳ READY TO START
 - [ ] **Task**: Run comprehensive benchmarks
   - Test sets:
     1. Synthetic structured (multiplier circuits, pigeonhole)
@@ -167,7 +167,7 @@
     3. Random 3-SAT (negative control)
   - **Deliverable**: `benchmarks/sat_results.csv` (100+ instances)
   - **Success**: Statistical analysis shows speedup on structured instances
-  - **Status**: Documented in docs/B1_SAT_IMPLEMENTATION_ROADMAP.md
+  - **Status**: Infrastructure ready, need to collect instances
 
 #### B1.4: Analyze Results ⏳ PLANNED
 - [ ] **Task**: Generate plots and analysis
@@ -175,14 +175,14 @@
   - Statistics: t-test on structured vs random, effect sizes
   - **Deliverable**: `docs/SAT_BENCHMARK_ANALYSIS.md` + figures
   - **Success**: Clear conclusion about when/where partitions help
-  - **Status**: Documented in docs/B1_SAT_IMPLEMENTATION_ROADMAP.md
+  - **Status**: Awaiting B1.3 data
 
-**Track B1 Milestone**: ⚠️ B1.1 SKELETON COMPLETE (25% done)
+**Track B1 Milestone**: ⚠️ B1.1 + B1.2 COMPLETE (65% done)
 - **Evidence for**: H2 (structural advantage on CNF/SAT)
 - **Falsifies H2 if**: No consistent speedup on structured instances
-- **Status**: CNF analyzer created, SAT integration planned
+- **Status**: CNF analyzer + SAT benchmark complete, benchmarks pending
 - **Documentation**: docs/B1_SAT_IMPLEMENTATION_ROADMAP.md
-- **Next**: Complete B1.1 TODOs, then implement B1.2
+- **Next**: Run B1.3 benchmark suite on structured instances
 
 ---
 
@@ -419,7 +419,7 @@
 
 ## PROGRESS TRACKING
 
-### Overall Completion: 20%
+### Overall Completion: 27%
 
 **Completed Tracks**:
 - A3 ✅ (Implementation Coherence)
@@ -427,7 +427,7 @@
 
 **Partially Complete**:
 - Track A1: 3.5/4 tasks (A1.1 ✅, A1.2 ✅, A1.3 ✅, A1.4 ⚠️ partial)
-- Track B1: 1/4 tasks (B1.1 ✅ skeleton, B1.2-B1.4 planned)
+- Track B1: 2.5/4 tasks (B1.1 ✅, B1.2 ✅, B1.3-B1.4 pending)
 
 **In Progress**:
 - Track A2: 0/4 tasks
@@ -440,8 +440,8 @@
 - Track E1: 0/3 tasks
 - Track E3: 0/4 tasks
 
-**Total Tasks**: 32.5 remaining / 43 total
-**Completed**: 10.5 tasks (A1.1, A1.2, A1.3, A1.4 partial, A3, B1.1 skeleton, E2.1, E2.2, E2.3)
+**Total Tasks**: 30 remaining / 43 total
+**Completed**: 13 tasks (A1.1, A1.2, A1.3, A1.4 partial, A3, B1.1, B1.2, E2.1, E2.2, E2.3)
 
 ---
 
@@ -455,9 +455,9 @@
 3. ⏳ A2: Theory Connections - Not started
 
 **Phase 2 (First Killer App)**: 2-3 weeks
-4. ⚠️ B1: CNF/SAT Demo (PROOF OF CONCEPT) - B1.1 skeleton complete (25%) ⚠️
-   - Status: CNF analyzer created, integration planned
-   - Next: Complete B1.1 TODOs, implement B1.2-B1.4
+4. ⚠️ B1: CNF/SAT Demo (PROOF OF CONCEPT) - B1.1 + B1.2 complete (65%) ✅
+   - Status: CNF analyzer + SAT benchmark complete
+   - Remaining: B1.3 benchmark suite, B1.4 analysis
    - Documentation: docs/B1_SAT_IMPLEMENTATION_ROADMAP.md
 5. ⏳ E1: Reproducibility - Not started
 
