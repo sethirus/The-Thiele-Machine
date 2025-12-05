@@ -242,11 +242,15 @@
   - **μ-costs**: 60-65 bits (discovery + execution), consistent across tests
   - **Status**: Complete (2025-12-05)
 
-#### C1.3: Test on Diffusion Equation
-- [ ] **Task**: Recover diffusion equation
-  - Ground truth: ∂u/∂t = D∇²u
-  - **Deliverable**: `artifacts/pde_diffusion_results.csv`
-  - **Success**: Recovers correct form + D within 5% error
+#### C1.3: Test on Diffusion Equation ✅ COMPLETE
+- [x] **Task**: Recover diffusion equation
+  - Ground truth: ∂u/∂t = D∇²u ✅
+  - **Deliverable**: `artifacts/pde_diffusion_results.csv` ✅
+  - **Success**: Recovers correct form + D within 5% error ✅
+  - **Result**: 5 tests, all recovered D within machine precision (<1e-13% error)
+  - **R² scores**: All 1.000, perfect fit quality
+  - **μ-costs**: 60-65 bits, consistent across tests
+  - **Status**: Complete (2025-12-05)
 
 #### C1.4: Test on Schrödinger Equation
 - [ ] **Task**: Recover Schrödinger (1D or 2D)
@@ -446,19 +450,20 @@
 
 **Partially Complete**:
 - Track A2: 3/4 tasks (A2.1 ✅, A2.2 ✅, A2.3-A2.4 optional)
-- Track C1: 2/5 tasks (C1.1 ✅, C1.2 ✅, C1.3-C1.5 pending)
+- Track C1: 3/5 tasks (C1.1 ✅, C1.2 ✅, C1.3 ✅, C1.4-C1.5 pending)
 
 **In Progress**:
 - Track B2: 0/2 tasks
-- Track C1: 2/5 tasks (40% complete)
+- Track C1: 3/5 tasks (60% complete - wave, diffusion recovered)
 - Track C2: 0/2 tasks
 - Track C3: 0/2 tasks
 - Track D1: 0/3 tasks
 - Track D2: 0/2 tasks
 - Track E3: 0/4 tasks
 
-**Total Tasks**: 18 remaining / 43 total
-**Completed**: 25 tasks (A1.1-A1.4, A2.1-A2.2, A3, B1.1-B1.4, C1.1-C1.2, E1.1-E1.3, E2.1-E2.3)
+**Total Tasks**: 17 remaining / 43 total
+**Completed**: 26 tasks (A1.1-A1.4, A2.1-A2.2, A3, B1.1-B1.4, C1.1-C1.3, E1.1-E1.3, E2.1-E2.3)
+**Overall Completion**: 51% (previously 49%)
 
 ---
 
@@ -488,7 +493,8 @@
 6. ⏳ C1: PDE Recovery - **40% COMPLETE** (2/5 tasks)
    - C1.1: PDE discovery pipeline ✅
    - C1.2: Wave equation recovery ✅
-   - C1.3-C1.5: Pending
+   - C1.3: ✅ Complete (diffusion equation recovered at machine precision)
+  - C1.4-C1.5: Pending
 
 **Phase 3 (Physics Validation)**: 3-4 weeks
 6. ⏳ C1: PDE Recovery (STRONG CLAIM) - Not started
