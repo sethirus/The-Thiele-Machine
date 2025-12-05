@@ -296,7 +296,11 @@ def compute_partition_mdl(problem: Problem, modules: List[Set[int]]) -> float:
         solving_benefit = math.log2(n / max_module + 1) * len(modules)
     
     # 3. Communication cost: cut edges require coordination
-    communication_cost = cut_edges * 0.5  # Each cut edge costs 0.5 bits
+    # Reduce per-cut-edge weight so that planted-partition structure with moderate
+    # inter-cluster noise (p_out ~ 0.01..0.05) is not overwhelming the MDL.
+    # We use a small per-cut-edge weight (0.02) scaled conservatively.
+    communication_cost_per_edge = 0.02
+    communication_cost = cut_edges * communication_cost_per_edge
     
     # Total MDL (lower is better)
     mdl = description_cost - solving_benefit + communication_cost
@@ -575,26 +579,83 @@ class EfficientPartitionDiscovery:
         best_modules = None
         best_kmeans_iters = 0
 
-        # Evaluate each k candidate
-        # To control runtime for large n, try a deterministic subset of k values:
-        #  * small ks (2..20) for coarse partitions
-        #  * sampled larger ks up to max_k_to_try for potential many-cluster partition
-        k_candidates = list(range(2, min(20, max_k_to_try) + 1))
-        if max_k_to_try > 20:
-            step = max(1, (max_k_to_try - 20) // 10)
-            k_candidates += list(range(25, max_k_to_try + 1, step))
-        k_candidates = sorted(set(k_candidates))
+        # Evaluate several candidate k values selected by eigengap heuristic
+        # and small default ks to balance speed/accuracy.
+        # 1) Compute eigenvalue gaps and pick top-N gap indices (k candidates)
+        # 2) Expand each candidate by a small neighborhood (k-1, k+1, k+2)
+        # 3) Ensure small ks (2..5) are included
+        num_gap_candidates = 3
+        sorted_eigs = np.sort(eigenvalues)
+        eigs_to_consider = sorted_eigs[: max_k_to_try + 1]
+        gaps = np.diff(eigs_to_consider)
+        k_candidates = set()
+        if gaps.size > 0:
+            gap_idxs = np.argsort(gaps)[::-1][:num_gap_candidates]
+            for idx in gap_idxs:
+                k_val = int(idx + 1)
+                if 2 <= k_val <= max_k_to_try:
+                    k_candidates.add(k_val)
+                    # expand neighborhood
+                    for delta in (-1, 1, 2):
+                        nc = k_val + delta
+                        if 2 <= nc <= max_k_to_try:
+                            k_candidates.add(nc)
+
+        # Always consider small ks as defaults
+        for smallk in range(2, min(6, max_k_to_try + 1)):
+            k_candidates.add(smallk)
+
+        # Also include the eigengap baseline and a fallback if available
+        k_candidates.add(int(best_k_eigengap))
+        k_candidates = sorted(k_candidates)
+        # (Debug prints removed) candidates computed
+
+        candidate_results = []
+
+        def compute_modularity_for_modules(mods: List[Set[int]]) -> float:
+            m = len(problem.interactions)
+            if m == 0:
+                return 0.0
+            deg = [0] * (n + 1)
+            for a, b in problem.interactions:
+                if 1 <= a <= n:
+                    deg[a] += 1
+                if 1 <= b <= n:
+                    deg[b] += 1
+            mem = {}
+            for i, module in enumerate(mods):
+                for v in module:
+                    mem[v] = i
+            mod_internal = [0] * len(mods)
+            mod_degree_sum = [0] * len(mods)
+            for i, module in enumerate(mods):
+                for v in module:
+                    mod_degree_sum[i] += deg[v]
+            for u, v in problem.interactions:
+                mu = mem.get(u)
+                mv = mem.get(v)
+                if mu is not None and mu == mv:
+                    mod_internal[mu] += 1
+            Q = 0.0
+            total_m = m
+            for internal, dsum in zip(mod_internal, mod_degree_sum):
+                Q += (internal / (2.0 * total_m)) - (dsum / (2.0 * total_m)) ** 2
+            return Q
 
         for k in k_candidates:
             if k > max_k_to_try:
-                break
+                continue
             embedding = eigenvectors[:, :k]
-            labels, kmeans_iters = self._kmeans(embedding, k)
+            # Use multiple k-means restarts for larger k to avoid poor local minima
+            n_init = 5 if k > 20 else 1
+            labels, kmeans_iters = self._kmeans(embedding, k, n_init=n_init)
             modules = [set() for _ in range(k)]
             for i, label in enumerate(labels):
                 modules[label].add(i + 1)
             modules = [m for m in modules if m]
             mdl_val = compute_partition_mdl(problem, modules)
+            # Candidate processed: k=%d, mdl=%f
+            candidate_results.append((k, modules, mdl_val, kmeans_iters))
             if mdl_val < best_mdl:
                 best_mdl = mdl_val
                 best_k = k
@@ -612,10 +673,27 @@ class EfficientPartitionDiscovery:
             best_modules = modules
             best_kmeans_iters = kmeans_iters
         
-        # Cluster using k-means on first k eigenvectors
         # Use the modules selected by minimal MDL selection
-        modules = best_modules
-        kmeans_iters = best_kmeans_iters
+        selected_modules = best_modules
+        selected_mdl = best_mdl
+        selected_k = best_k
+        selected_kmeans_iters = best_kmeans_iters
+
+        # selection guard: if another candidate offers markedly higher
+        # modularity and their MDL is within a reasonable overhead, prefer it
+        baseline_mod = compute_modularity_for_modules(selected_modules) if selected_modules else 0.0
+        modularity_delta_threshold = 0.15
+        mdl_overhead_threshold = max(0.5 * n, 10.0)
+        for (k, mods, mdl_val, iters) in candidate_results:
+            q = compute_modularity_for_modules(mods)
+            if q > baseline_mod + modularity_delta_threshold and mdl_val <= selected_mdl + mdl_overhead_threshold:
+                selected_modules = mods
+                selected_mdl = mdl_val
+                selected_k = k
+                selected_kmeans_iters = iters
+
+        modules = selected_modules
+        kmeans_iters = selected_kmeans_iters
 
         # Refinement step with adaptive early stopping
         refinement_iters = 0
@@ -637,7 +715,7 @@ class EfficientPartitionDiscovery:
             method="spectral_kmeanspp_adaptive",
             discovery_time=elapsed,
             metadata={
-                "num_eigenvectors": best_k,
+                "num_eigenvectors": selected_k,
                 "kmeans_iterations": kmeans_iters,
                 "refinement_iterations": refinement_iters,
                 "used_kmeans_pp": True,
@@ -647,7 +725,7 @@ class EfficientPartitionDiscovery:
         )
     
     def _kmeans(self, X: np.ndarray, k: int, max_iters: int = 100,
-                use_plus_plus: bool = True) -> Tuple[np.ndarray, int]:
+                use_plus_plus: bool = True, n_init: int = 1) -> Tuple[np.ndarray, int]:
         """K-means clustering with optional k-means++ initialization.
 
         Args:
@@ -664,37 +742,47 @@ class EfficientPartitionDiscovery:
         """
         n = X.shape[0]
 
-        if use_plus_plus:
-            # K-means++ initialization
-            centroids = self._kmeans_plus_plus_init(X, k)
-        else:
-            # Random initialization (legacy)
-            idx = np.random.choice(n, min(k, n), replace=False)
-            centroids = X[idx].copy()
+        best_inertia = float('inf')
+        best_labels = np.zeros(n, dtype=int)
+        best_iters = 0
+        for init_run in range(max(1, n_init)):
+            if use_plus_plus:
+                centroids = self._kmeans_plus_plus_init(X, k)
+            else:
+                idx = np.random.choice(n, min(k, n), replace=False)
+                centroids = X[idx].copy()
 
-        labels = np.zeros(n, dtype=int)
-        iterations = 0
+            labels = np.zeros(n, dtype=int)
+            iterations = 0
 
-        for iteration in range(max_iters):
-            iterations = iteration + 1
+            for iteration in range(max_iters):
+                iterations = iteration + 1
+                old_labels = labels.copy()
 
-            # Assign points to nearest centroid
-            old_labels = labels.copy()
-            for i in range(n):
-                distances = np.sum((centroids - X[i])**2, axis=1)
-                labels[i] = np.argmin(distances)
+                # Assign points to nearest centroid
+                for i in range(n):
+                    distances = np.sum((centroids - X[i])**2, axis=1)
+                    labels[i] = np.argmin(distances)
 
-            # Check convergence
-            if np.array_equal(labels, old_labels):
-                break
+                # Check convergence
+                if np.array_equal(labels, old_labels):
+                    break
 
-            # Update centroids
-            for j in range(k):
-                mask = labels == j
-                if np.any(mask):
-                    centroids[j] = X[mask].mean(axis=0)
+                # Update centroids
+                for j in range(k):
+                    mask = labels == j
+                    if np.any(mask):
+                        centroids[j] = X[mask].mean(axis=0)
 
-        return labels, iterations
+            # Compute inertia (sum of squared distances)
+            inertia = float(np.sum((X - centroids[labels])**2))
+
+            if inertia < best_inertia:
+                best_inertia = inertia
+                best_labels = labels.copy()
+                best_iters = iterations
+
+        return best_labels, best_iters
 
     def _kmeans_plus_plus_init(self, X: np.ndarray, k: int) -> np.ndarray:
         """K-means++ initialization for better centroid selection.
@@ -832,7 +920,7 @@ class EfficientPartitionDiscovery:
             "eigenvalues_examined": int(max_k),
         }
 
-        return best_k, metadata
+        return int(best_k), dict(metadata)
 
     def _refine_partition(
         self,
