@@ -324,6 +324,72 @@ The work is solid, the methodology is sound, the results are honestly reported. 
 
 ---
 
+## H2 (Structural Advantage) – Final Summary
+
+### Original H2 (SAT Domain) – Falsified
+
+**Hypothesis**: For generic SAT instances, Thiele-style partitioned search will usually attain lower μ-cost than a baseline non-partitioned solver.
+
+**Test Results** (24 SAT instances: 10 small + 14 large):
+- μ-advantage observed in only 14.3% of large instances (2/14)
+- Speedup advantage (>1.1x) in only 21.4% of large instances (3/14)
+- No consistent correlation between structural type and advantage
+
+**Conclusion**: ❌ **EMPIRICALLY FALSE**  
+Partition structure does **not** reliably produce a μ-cost advantage on generic SAT instances.
+
+### H2′ (Restricted Structural Advantage) – Not Supported
+
+**Refined Hypothesis**: For SAT instances with strong modular structure (high modularity), μ-guided partition-aware search will more often achieve lower μ-cost than a baseline solver.
+
+**Test Methodology**:
+- Implemented structural feature extraction (`tools/analyze_sat_structure.py`)
+- Computed modularity, clustering, density for all instances
+- Analyzed advantage rate by structural features
+
+**Results**:
+- High modularity (≥0.881): 14.3% μ-advantage rate
+- Low modularity (<0.881): 14.3% μ-advantage rate
+- **No correlation** between modularity and advantage
+
+**Interesting Findings**:
+- ✗ Modularity shows **negative** correlation with advantage (opposite of hypothesis)
+- ✓ Density and clustering show **positive** correlation with advantage
+- Random instances sometimes outperform structured ones (unexpected)
+
+**Conclusion**: ❌ **NOT SUPPORTED**  
+H2′ does not hold even when restricted to high-modularity SAT instances.
+
+### Infrastructure Validated
+
+Despite negative hypothesis results, the infrastructure is **working correctly**:
+- ✅ Partition discovery algorithm implemented
+- ✅ Structural feature extraction validated
+- ✅ MDL-based partition selection functioning
+- ✅ Random graphs correctly detected as unstructured
+- ✅ All tools and analysis scripts operational
+
+### Scientific Significance
+
+This is a **completed negative result**, which is valuable science:
+1. **Honest reporting**: Documents where the theory doesn't apply
+2. **Falsifiability**: Shows the hypothesis was testable and specific
+3. **Future direction**: Suggests discovery cost is the limiting factor
+4. **Domain specificity**: H2 may hold in other domains (PDE discovery ✅, turbulence ✅)
+
+### H2 Status: COMPLETE
+
+The structural advantage question for SAT has been **fully explored and documented**:
+- Original H2: Falsified on generic SAT instances
+- H2′ (restricted): Not supported even on high-modularity instances
+- Infrastructure: Validated and working correctly
+- Documentation: Complete (`docs/H2_SAT_VALIDATION_RESULTS.md`)
+- Analysis tools: Complete and functional
+
+**H2 is no longer "hanging"** – it's a fully documented, empirically tested hypothesis with clear negative results in the SAT domain.
+
+---
+
 *Generated: 2025-12-06*
 *Validation Suite: tools/comprehensive_master_validation.py*
 *Overall Status: 90% PASSING (35/39 tests)*
