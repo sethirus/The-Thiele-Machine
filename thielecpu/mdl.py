@@ -125,4 +125,35 @@ def info_charge(state: State, bits_revealed: float) -> float:
     return state.mu_information
 
 
-__all__ = ["mdlacc", "detect_fragment_type"]
+def compute_mu_cost_rom(features: 'np.ndarray',
+                        A: 'np.ndarray',
+                        dt: float,
+                        dof: int,
+                        include_state_storage: bool = True,
+                        precision_bits: int = 64) -> float:
+    """Compute μ-cost for a reduced-order model (ROM).
+
+    This function centralizes μ-cost accounting for ROMs and can be used by
+    multiple tools. Computation includes:
+    - μ_discovery: encoding the dynamics matrix A
+    - μ_execution: cost of executing the ROM in feature-space
+    - μ_state_storage: optional cost to store/transmit coarse-grained state
+    """
+    import numpy as _np
+
+    nt, n_feat = features.shape
+
+    # μ_discovery: Cost to encode ROM parameters - 32 bits per param
+    mu_discovery = n_feat * n_feat * 32
+
+    # μ_execution: feature-space execution cost
+    mu_execution = nt * (_np.log2(nt) + n_feat * 32)
+
+    # μ_state_storage: cost to store coarse-grained DOF if included
+    mu_state_storage = dof * nt * precision_bits if include_state_storage else 0
+
+    mu_total = mu_discovery + mu_execution + mu_state_storage
+    return float(mu_total)
+
+
+__all__ = ["mdlacc", "detect_fragment_type", "compute_mu_cost_rom"]

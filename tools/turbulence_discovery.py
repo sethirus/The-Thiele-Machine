@@ -16,6 +16,7 @@ System: 2D Navier-Stokes with periodic boundary conditions
 import numpy as np
 import time
 from typing import Dict, Tuple, List
+from thielecpu.mdl import compute_mu_cost_rom as compute_mu_cost_rom_helper
 import csv
 
 
@@ -198,42 +199,16 @@ def fit_rom_dynamics(features: np.ndarray,
     return A, error
 
 
-def compute_mu_cost_rom(features: np.ndarray, 
-                        A: np.ndarray, 
-                        dt: float) -> float:
-    """
-    Compute μ-cost of ROM.
-    
-    μ = μ_discovery + μ_execution
-    
-    Args:
-        features: (nt, n_features) feature timeseries
-        A: (n_features, n_features) dynamics matrix
-        dt: Timestep
-        
-    Returns:
-        mu_total: Total μ-cost in bits
-    """
-    nt, n_feat = features.shape
-    
-    # μ_discovery: Cost to encode ROM parameters
-    # Each element of A encoded with 32 bits (single precision)
-    mu_discovery = n_feat * n_feat * 32
-    
-    # μ_execution: Cost to run ROM for nt steps
-    # Each step: n_feat multiplications and n_feat additions
-    # Encoded with log2(nt) + n_feat * 32 bits per step
-    mu_execution = nt * (np.log2(nt) + n_feat * 32)
-    
-    mu_total = mu_discovery + mu_execution
-    
-    return mu_total
+def compute_mu_cost_rom(features: np.ndarray, A: np.ndarray, dt: float, dof: int, include_state_storage: bool = True, precision_bits: int = 64) -> float:
+    """Delegates μ-cost computation to centralized helper in thielecpu.mdl."""
+    return compute_mu_cost_rom_helper(features, A, dt, dof, include_state_storage, precision_bits)
 
 
 def benchmark_closure_models(vorticity_fine: np.ndarray,
                              energy_fine: np.ndarray,
                              dt: float,
-                             factors: List[int] = [2, 4, 8]) -> Dict:
+                             factors: List[int] = [2, 4, 8],
+                             include_state_storage: bool = True) -> Dict:
     """
     Benchmark different closure models.
     
@@ -260,12 +235,14 @@ def benchmark_closure_models(vorticity_fine: np.ndarray,
         # Fit ROM dynamics
         A, error = fit_rom_dynamics(features, dt)
         
-        # Compute μ-cost
-        mu_cost = compute_mu_cost_rom(features, A, dt)
-        
-        runtime = time.time() - start_time
-        
+        # Extract coarse-grid dimensions and DOF
         nt, nx_c, ny_c = vorticity_coarse.shape
+        dof = nx_c * ny_c
+
+        # Compute μ-cost: pass DOF (coarse-grained) and include state storage
+        mu_cost = compute_mu_cost_rom(features, A, dt, dof=dof, include_state_storage=include_state_storage)
+
+        runtime = time.time() - start_time
         dof = nx_c * ny_c
         
         print(f"  DOF: {dof} (reduced from {vorticity_fine.shape[1] * vorticity_fine.shape[2]})")
@@ -300,18 +277,31 @@ def find_mu_optimal_closure(results: Dict) -> str:
     """
     best_key = None
     best_mu = float('inf')
+    best_error = float('inf')
     
+    # Use an epsilon for μ-cost comparisons (1 bit)
+    EPS_BITS = 1.0
     for key, res in results.items():
-        if res['mu_cost'] < best_mu:
-            best_mu = res['mu_cost']
+        mu = res['mu_cost']
+        err = res.get('error', float('inf'))
+        # Prefer strictly lower μ (always win)
+        if mu < best_mu:
+            best_mu = mu
+            best_error = err
             best_key = key
+        # If μ is effectively equal (within EPS), prefer lower error
+        elif abs(mu - best_mu) <= EPS_BITS:
+            if err < best_error:
+                best_error = err
+                best_key = key
     
     return best_key
 
 
 def analyze_turbulence(nx: int = 64, ny: int = 64, nt: int = 200,
                        Re: float = 1000, dt: float = 0.001,
-                       output_file: str = 'benchmarks/turbulence_results.csv'):
+                       output_file: str = 'benchmarks/turbulence_results.csv',
+                       include_state_storage: bool = True):
     """
     Main analysis: Discover turbulence closure via μ-minimization.
     
@@ -346,7 +336,7 @@ def analyze_turbulence(nx: int = 64, ny: int = 64, nt: int = 200,
     print(f"{'='*70}")
     
     factors = [2, 4, 8]
-    results = benchmark_closure_models(vorticity, energy, dt, factors)
+    results = benchmark_closure_models(vorticity, energy, dt, factors, include_state_storage=include_state_storage)
     
     # Find μ-optimal
     print(f"\n{'='*70}")
@@ -355,12 +345,21 @@ def analyze_turbulence(nx: int = 64, ny: int = 64, nt: int = 200,
     
     best_key = find_mu_optimal_closure(results)
     best_result = results[best_key]
+
+    # Find best accuracy closure separately (for reporting/choice)
+    best_accuracy_key = min(results.items(), key=lambda kv: kv[1]['error'])[0]
+    best_accuracy_result = results[best_accuracy_key]
     
     print(f"\nμ-Optimal closure: {best_key}")
     print(f"  DOF: {best_result['dof']}")
     print(f"  Compression: {best_result['compression']:.1f}×")
     print(f"  Prediction error: {best_result['error']:.4f}")
     print(f"  μ-cost: {best_result['mu_cost']:.2f} bits")
+    print(f"\nBest-accuracy closure: {best_accuracy_key}")
+    print(f"  DOF: {best_accuracy_result['dof']}")
+    print(f"  Compression: {best_accuracy_result['compression']:.1f}×")
+    print(f"  Prediction error: {best_accuracy_result['error']:.4f}")
+    print(f"  μ-cost: {best_accuracy_result['mu_cost']:.2f} bits")
     
     # Save results
     with open(output_file, 'w', newline='') as f:
@@ -396,14 +395,22 @@ def analyze_turbulence(nx: int = 64, ny: int = 64, nt: int = 200,
 
 
 if __name__ == '__main__':
-    import sys
-    
-    output_file = 'benchmarks/turbulence_results.csv'
-    if len(sys.argv) > 1:
-        if sys.argv[1] == '--output':
-            output_file = sys.argv[2]
-    
+    import argparse
+
+    parser = argparse.ArgumentParser(description='Turbulence closure discovery via μ-minimization')
+    parser.add_argument('--output', dest='output_file', default='benchmarks/turbulence_results.csv')
+    parser.add_argument('--nx', type=int, default=64)
+    parser.add_argument('--ny', type=int, default=64)
+    parser.add_argument('--nt', type=int, default=200)
+    parser.add_argument('--Re', type=float, default=1000.0)
+    parser.add_argument('--dt', type=float, default=0.001)
+    parser.add_argument('--include-state-storage', dest='include_state_storage', action='store_true')
+    parser.add_argument('--no-state-storage', dest='include_state_storage', action='store_false')
+    parser.set_defaults(include_state_storage=True)
+
+    args = parser.parse_args()
+
     results = analyze_turbulence(
-        nx=64, ny=64, nt=200, Re=1000, dt=0.001,
-        output_file=output_file
+        nx=args.nx, ny=args.ny, nt=args.nt, Re=args.Re, dt=args.dt,
+        output_file=args.output_file, include_state_storage=args.include_state_storage
     )
