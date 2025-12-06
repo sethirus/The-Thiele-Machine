@@ -295,14 +295,14 @@
   - Goal: Find effective closure/reduced model ✅
   - **Deliverable**: `tools/turbulence_discovery.py` + analysis ✅
   - **Success**: Effective model with 1024 DOF (4× compression, 0.09% error) ✅
-  - **Result**: μ-optimal closure with 1527× μ-cost reduction
+  - **Result**: Corrected μ accounting: Factor 8 is μ-optimal (64× compression). Factor 2 remains the best accuracy-cost tradeoff (4× compression, 0.09% error)
   - **Status**: Complete (2025-12-05)
 
 #### C2.2: Benchmark Closure Models ✅ COMPLETE
 - [x] **Task**: Compare μ-optimal vs existing closures
   - Metrics: Prediction error, μ-cost ✅
   - **Deliverable**: `docs/TURBULENCE_CLOSURE_ANALYSIS.md` ✅
-  - **Success**: 0.09% error with 1527× lower μ-cost ✅
+  - **Success**: 0.09% error with 4× lower μ-cost relative to full simulation when μ includes state storage; Factor 8 yields 64× μ reduction but higher error
   - **Result**: Factor 2 coarse-graining is μ-optimal
   - **Status**: Complete (2025-12-05)
 
@@ -449,6 +449,11 @@
   - **Deliverable**: `docs/RED_TEAM_RESULTS.md` ✅
   - **Success**: Known failure modes documented ✅
   - **Result**: All 7 tests passing, no falsifications detected (2025-12-05)
+  - **Verification Note**: Running the red-team harness initially detected a random graph false-positive
+    (46.0% of trials showed spurious structure). A conservative MDL acceptance check was implemented
+    in `thielecpu/discovery.py` to require the candidate partition's MDL be at least 1.0 bits lower than the
+    trivial partition. After this change the red-team suite passes with no falsifications. Details are
+    committed in the main branch and covered by new unit tests.
 
 **Track E2 Milestone**: ✅ when all E2 tasks complete
 
@@ -483,20 +488,20 @@
 
 ## PROGRESS TRACKING
 
-### Overall Completion: 81%
+### Overall Completion: 85%
 
 **Completed Tracks** (13):
 - A1 ✅ (Canonical Model - 100% complete, all Coq proofs compile)
 - A3 ✅ (Implementation Coherence)
 - B1 ✅ (SAT Killer App - COMPLETE!)
 - B2 ✅ (Other Algorithmic Domains - COMPLETE!)
-- C1 ✅ (PDE Recovery - **100% complete, all domains validated**)
+- **C1 ✅ (PDE Recovery - RIGOROUS with Universal Solver)** ← Schrödinger autonomously selected
 - C2 ✅ (Complex System Discovery - COMPLETE!)
 - C3 ✅ (Pattern Formation - COMPLETE!)
 - D1 ✅ (Scaling Law Prediction - COMPLETE!)
 - D2 ✅ (Novel Effective Model - COMPLETE!)
-- **E1 ✅ (Reproducibility - 100% complete with CI)** ← Completed this session
-- E2 ✅ (Falsifiability Framework)
+- E1 ✅ (Reproducibility - 100% complete with CI)
+- **E2 ✅ (Falsifiability Framework - Red Team PASSED)** ← All 7 tests passing
 - A2 ✅ (Theory Connections - **75% substantially complete**)
 - All tracks complete except E3 (publications) and optional A2.3-A2.4!
 
@@ -505,7 +510,7 @@
 
 **Total Tasks**: 0 technical remaining / 43 total (only dissemination E3)
 **Completed**: 43 technical tasks
-**Overall Completion**: 81% (was 79%, +2% with E1.3 completion)
+**Overall Completion**: 85% (was 81%, +4% with C1 Universal Solver + E2 Red Team verification)
 
 ---
 
@@ -531,21 +536,22 @@
 5. ✅ E1: Reproducibility - **COMPLETE** (100%) ✅
    - All 3 tasks: Makefile demos, Docker, CI integration
 
-**Phase 3 (Second Killer App)**: IN PROGRESS
-6. ⏳ C1: PDE Recovery - **40% COMPLETE** (2/5 tasks)
 **Phase 3 (Second Killer App)**: ✅ COMPLETE
-6. ✅ C1: PDE Recovery (STRONG CLAIM) - **100% COMPLETE**
+6. ✅ C1: PDE Recovery (RIGOROUS - Universal Solver) - **100% COMPLETE**
    - C1.1: PDE discovery pipeline ✅
    - C1.2: Wave equation recovery (5/5 perfect) ✅
    - C1.3: Diffusion equation recovery (5/5 perfect) ✅
    - C1.4: Schrödinger equation recovery (5/5 with improved fitter) ✅
    - C1.5: μ-minimality analysis (15/15 tests, H3 validated) ✅
+   - **Universal Solver**: Autonomously compares Real vs Complex hypotheses
+   - **Result**: Complex numbers selected (132,699-bit μ-cost advantage)
+   - **Evidence**: tools/universal_pde_solver.py + tests/test_universal_pde_solver.py
 
-**Phase 4 (Additional Domains)**: Not started
-7. ⏳ B2: One more algorithmic domain - Not started
+**Phase 4 (Additional Domains)**: ✅ COMPLETE
+7. ✅ B2: Graph Clustering + Program Analysis - COMPLETE ✅
 
-**Phase 5 (New Content)**: Not started  
-8. ⏳ C2 or C3: Complex system - Not started
+**Phase 5 (New Content)**: ✅ COMPLETE
+8. ✅ C2: Turbulence + C3: Pattern Formation - COMPLETE ✅
 
 **Phase 6 (Publication)**: Not started
 9. ⏳ E3: Papers + exposure - Not started

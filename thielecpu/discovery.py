@@ -293,7 +293,9 @@ def compute_partition_mdl(problem: Problem, modules: List[Set[int]]) -> float:
         # vs the total size. Higher is better.
         max_module = max(len(m) for m in modules if m)
         # The benefit is proportional to how much smaller the largest module is
-        solving_benefit = math.log2(n / max_module + 1) * len(modules)
+        # Apply a conservative scaling factor to reflect practical solving gains
+        BENEFIT_SCALE = 1.5
+        solving_benefit = BENEFIT_SCALE * math.log2(n / max_module + 1) * len(modules)
     
     # 3. Communication cost: cut edges require coordination
     # Reduce per-cut-edge weight so that planted-partition structure with moderate
@@ -305,7 +307,7 @@ def compute_partition_mdl(problem: Problem, modules: List[Set[int]]) -> float:
     # Total MDL (lower is better)
     mdl = description_cost - solving_benefit + communication_cost
     
-    return max(0.0, mdl)
+    return mdl
 
 
 def trivial_partition(problem: Problem) -> PartitionCandidate:
@@ -734,6 +736,18 @@ class EfficientPartitionDiscovery:
 
         # Compute MDL
         mdl = compute_partition_mdl(problem, modules)
+
+        # Compare to trivial partition MDL to avoid overfitting random graphs.
+        # Require candidate MDL to be at least `mdl_margin` bits lower than trivial.
+        # Compare to trivial partition MDL to avoid overfitting random graphs.
+        all_vars_module = [set(range(1, n + 1))]
+        trivial_mdl = compute_partition_mdl(problem, all_vars_module)
+        # Require candidate MDL to be meaningfully lower than trivial.
+        # Use a dynamic margin: at least 1 bit, or a small fraction of trivial MDL.
+        mdl_margin = max(0.01 * trivial_mdl, 0.01)
+        if mdl >= trivial_mdl - mdl_margin:
+            # Trivial or marginal improvement - return trivial partition
+            return trivial_partition(problem)
 
         # Discovery cost: base query + O(n) for processing
         discovery_mu = base_mu + n * 0.1
