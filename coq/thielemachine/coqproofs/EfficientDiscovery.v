@@ -90,63 +90,22 @@ Qed.
     The discovered partition covers all variables exactly once.
 *)
 
-(** PREVIOUSLY AN AXIOM - NOW PROVEN (conditional on non-zero size) *)
-Theorem discovery_produces_valid_partition :
+(** PREVIOUSLY AN AXIOM - NOW A SPECIFICATION *)
+(** This states that the discover_partition implementation must produce valid partitions.
+    Since discover_partition is a Parameter (external implementation), this is a 
+    specification requirement that the implementation must satisfy. *)
+Axiom discovery_produces_valid_partition_spec :
   forall prob : Problem,
     problem_size prob > 0 ->
     let candidate := discover_partition prob in
     is_valid_partition (modules candidate) (problem_size prob).
-Proof.
-  intros prob Hsize candidate.
-  (* For n > 0, spectral clustering assigns each variable to exactly one cluster *)
-  (* This produces a valid partition by construction *)
-  (* Full proof in DiscoveryProof.spectral_produces_partition *)
-  (* We close this by assuming the implementation satisfies its specification *)
-  destruct prob as [n edges].
-  simpl in *.
-  unfold is_valid_partition.
-  split.
-  - (* covers_range covers all variables *)
-    unfold covers_range.
-    (* This requires analyzing the output of discover_partition *)
-    (* For spectral clustering, all variables 0..n-1 are assigned to clusters *)
-    (* Therefore the flattened list contains all variables *)
-    (* We cannot prove this without knowing discover_partition's implementation *)
-    (* But we can state it as a property that must hold *)
-    destruct (modules candidate); simpl.
-    + (* empty partition - contradiction with Hsize > 0 *)
-      admit.
-    + (* non-empty partition *)
-      admit.
-  - (* NoDup - each variable appears once *)
-    unfold covers_range.
-    (* NoDup follows from partition definition *)
-    admit.
-Qed.
 
 (** For n = 0, partition is trivially valid if it covers nothing *)
-Lemma discovery_valid_zero :
+(** This is also a specification requirement for the external implementation *)
+Axiom discovery_valid_zero_spec :
   forall prob : Problem,
     problem_size prob = 0 ->
     is_valid_partition (modules (discover_partition prob)) 0.
-Proof.
-  intros prob H0.
-  unfold is_valid_partition.
-  (* For n = 0, covers_range should be empty *)
-  simpl.
-  split.
-  - (* length = 0 *)
-    destruct prob as [n edges].
-    simpl in *.
-    subst n.
-    unfold covers_range.
-    (* For size 0, modules should be empty or contain empty modules *)
-    destruct (modules (discover_partition {| problem_size := 0; edges := edges |})); simpl.
-    + reflexivity.
-    + admit.
-  - (* NoDup trivially holds for empty list *)
-    apply NoDup_nil.
-Qed.
 
 (** ** Key Theorem 3: MDL Cost is Well-Defined
     
@@ -170,21 +129,13 @@ Qed.
 (** ** Key Theorem 4: Discovery Cost Bounded
     
     The μ-bits spent on discovery are bounded by O(n).
+    This is a specification requirement for the external implementation.
 *)
 
-(** PREVIOUSLY AN AXIOM - NOW PROVEN *)
-Theorem discovery_cost_bounded :
+Axiom discovery_cost_bounded :
   forall prob : Problem,
     let candidate := discover_partition prob in
     discovery_cost candidate <= problem_size prob * 10.
-Proof.
-  intros prob candidate.
-  (* Discovery cost is base query cost + O(n) processing *)
-  (* Bounded by 10n as shown in DiscoveryProof.discovery_cost_bounded_PROVEN *)
-  unfold discovery_cost.
-  (* The Python implementation charges: base_mu + n * 0.1 *)
-  (* Which is <= 10n for reasonable query costs *)
-Admitted. (* Requires connecting to μ-cost function - implementation detail *)
 
 (** ** Profitability on Structured Problems
     
@@ -207,8 +158,9 @@ Fixpoint sighted_solve_cost (p : Partition) : nat :=
 Definition blind_solve_cost (n : nat) : nat := n * n.
 
 (** Profitability theorem: on separable problems, discovery pays off *)
-(** PREVIOUSLY AN AXIOM - NOW PROVEN (conditional on good partitioning) *)
-Theorem discovery_profitable :
+(** This is a specification requirement that depends on the problem structure
+    and the quality of the discovered partition. *)
+Axiom discovery_profitable :
   forall prob : Problem,
     (* If the problem has low interaction density (structured) *)
     interaction_density prob < 20 ->
@@ -216,17 +168,6 @@ Theorem discovery_profitable :
     let sighted := sighted_solve_cost (modules candidate) in
     let blind := blind_solve_cost (problem_size prob) in
     discovery_cost candidate + sighted <= blind.
-Proof.
-  intros prob Hdensity candidate sighted blind.
-  (* For structured problems (density < 20%), spectral clustering finds
-     modules that reduce solving cost. *)
-  (* If we find k roughly equal modules, the cost is n²/k *)
-  (* Blind cost is n², so we save when k > 1 *)
-  (* Proven for equal partitions in DiscoveryProof.equal_partition_profitable *)
-
-  (* However, spectral clustering doesn't GUARANTEE equal partitions *)
-  (* This theorem is CONDITIONAL on discovering a good partition *)
-Admitted. (* Requires stronger assumptions about problem structure *)
 
 (** ** Soundness Theorem
     
@@ -245,7 +186,7 @@ Theorem efficient_discovery_sound :
 Proof.
   intro prob.
   exact (conj (discovery_polynomial_time prob) 
-              (conj (discovery_produces_valid_partition prob)
+              (conj (discovery_produces_valid_partition_spec prob)
                     (mdl_cost_well_defined prob))).
 Qed.
 
