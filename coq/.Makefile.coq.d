@@ -130,6 +130,9 @@ thielemachine/coqproofs/Axioms.vos thielemachine/coqproofs/Axioms.vok thielemach
 thielemachine/coqproofs/CoreSemantics.vo thielemachine/coqproofs/CoreSemantics.glob thielemachine/coqproofs/CoreSemantics.v.beautified thielemachine/coqproofs/CoreSemantics.required_vo: thielemachine/coqproofs/CoreSemantics.v 
 thielemachine/coqproofs/CoreSemantics.vio: thielemachine/coqproofs/CoreSemantics.v 
 thielemachine/coqproofs/CoreSemantics.vos thielemachine/coqproofs/CoreSemantics.vok thielemachine/coqproofs/CoreSemantics.required_vos: thielemachine/coqproofs/CoreSemantics.v 
+thielemachine/coqproofs/BlindSighted.vo thielemachine/coqproofs/BlindSighted.glob thielemachine/coqproofs/BlindSighted.v.beautified thielemachine/coqproofs/BlindSighted.required_vo: thielemachine/coqproofs/BlindSighted.v 
+thielemachine/coqproofs/BlindSighted.vio: thielemachine/coqproofs/BlindSighted.v 
+thielemachine/coqproofs/BlindSighted.vos thielemachine/coqproofs/BlindSighted.vok thielemachine/coqproofs/BlindSighted.required_vos: thielemachine/coqproofs/BlindSighted.v 
 thielemachine/coqproofs/SemanticBridge.vo thielemachine/coqproofs/SemanticBridge.glob thielemachine/coqproofs/SemanticBridge.v.beautified thielemachine/coqproofs/SemanticBridge.required_vo: thielemachine/coqproofs/SemanticBridge.v thielemachine/coqproofs/CoreSemantics.vo thielemachine/coqproofs/BlindSighted.vo thielemachine/coqproofs/ThieleMachine.vo
 thielemachine/coqproofs/SemanticBridge.vio: thielemachine/coqproofs/SemanticBridge.v thielemachine/coqproofs/CoreSemantics.vio thielemachine/coqproofs/BlindSighted.vio thielemachine/coqproofs/ThieleMachine.vio
 thielemachine/coqproofs/SemanticBridge.vos thielemachine/coqproofs/SemanticBridge.vok thielemachine/coqproofs/SemanticBridge.required_vos: thielemachine/coqproofs/SemanticBridge.v thielemachine/coqproofs/CoreSemantics.vos thielemachine/coqproofs/BlindSighted.vos thielemachine/coqproofs/ThieleMachine.vos
