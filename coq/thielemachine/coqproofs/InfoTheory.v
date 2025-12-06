@@ -29,7 +29,7 @@ Definition shannon_entropy (probs : list Q) : Q :=
   (* H(X) = -Σᵢ pᵢ log₂(pᵢ) *)
   (* Simplified: we use state space size *)
   let n := Z.of_nat (length probs) in
-  if (n =? 0)%Z then 0 else Q.max 0 (inject_Z (Z.log2 n)).
+  if (n =? 0)%Z then 0 else inject_Z (Z.log2 n).
 
 (* State space reduction entropy *)
 Definition state_reduction_entropy (before after : positive) : Q :=
