@@ -26,13 +26,13 @@ Theorem tm_embeds :
   forall (cfg : BlindSighted.TuringConfig),
     exists (prog : CoreSemantics.Program) (final : CoreSemantics.State),
       final.(CoreSemantics.result) = Some (BlindSighted.tm_output cfg) /\
-      length prog <= 2.
+      Z.of_nat (List.length prog) <= 2.
 Proof.
   intro cfg.
   destruct (BlindSighted.TM_as_BlindThiele cfg) as [blind_prog [blind_final [Hblind Hresult]]].
   exists [CoreSemantics.EMIT (BlindSighted.tm_output cfg); CoreSemantics.HALT].
-  exists {| CoreSemantics.partition := BlindSighted.trivial_partition [];
-            CoreSemantics.mu_ledger := BlindSighted.zero_ledger;
+  exists {| CoreSemantics.partition := blind_partition_to_core (BlindSighted.trivial_partition []);
+            CoreSemantics.mu_ledger := blind_ledger_to_core BlindSighted.zero_ledger;
             CoreSemantics.pc := 1%nat;
             CoreSemantics.halted := true;
             CoreSemantics.result := Some (BlindSighted.tm_output cfg) |}.
@@ -45,8 +45,8 @@ Qed.
 
 Lemma space_overhead_linear :
   forall (cfg : BlindSighted.TuringConfig),
-    let tape_len := length cfg.(BlindSighted.tm_tape) in
-    length (BlindSighted.encode_tm_config cfg) <= tape_len + 2.
+    let tape_len := Z.of_nat (List.length cfg.(BlindSighted.tm_tape)) in
+    Z.of_nat (List.length (BlindSighted.encode_tm_config cfg)) <= tape_len + 2.
 Proof.
   intro cfg.
   unfold BlindSighted.encode_tm_config.
@@ -79,7 +79,7 @@ Theorem turing_machine_embedding_complete :
   forall (cfg : BlindSighted.TuringConfig),
     exists (prog : CoreSemantics.Program),
       (exists final, final.(CoreSemantics.result) = Some (BlindSighted.tm_output cfg)) /\
-      length prog <= 2.
+      Z.of_nat (List.length prog) <= 2.
 Proof.
   intro cfg.
   destruct (tm_embeds cfg) as [prog [final [Hresult Hoverhead]]].
