@@ -21,8 +21,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from tools.program_analyzer import (
-    analyze_program_structure,
-    compute_module_quality
+    analyze_program,
+    compute_cohesion_coupling
 )
 
 
@@ -69,7 +69,7 @@ def test_large_program():
         
         # Analyze
         print("Analyzing...")
-        result = analyze_program_structure(filename)
+        result = analyze_program(Path(filename))
         
         print(f"\nResults:")
         print(f"  Functions: {result.num_functions}")
@@ -113,7 +113,7 @@ def test_dense_dependencies():
         
         # Analyze
         print("Analyzing...")
-        result = analyze_program_structure(filename)
+        result = analyze_program(Path(filename))
         
         print(f"\nResults:")
         print(f"  Functions: {result.num_functions}")
@@ -155,7 +155,7 @@ def test_sparse_dependencies():
         
         # Analyze
         print("Analyzing...")
-        result = analyze_program_structure(filename)
+        result = analyze_program(Path(filename))
         
         print(f"\nResults:")
         print(f"  Functions: {result.num_functions}")
@@ -196,7 +196,7 @@ def test_isolated_functions():
         
         # Analyze
         print("Analyzing...")
-        result = analyze_program_structure(filename)
+        result = analyze_program(Path(filename))
         
         print(f"\nResults:")
         print(f"  Functions: {result.num_functions}")
@@ -264,7 +264,7 @@ def test_modular_structure():
     try:
         # Analyze
         print("Analyzing modular program...")
-        result = analyze_program_structure(filename_actual)
+        result = analyze_program(filename_actual)
         
         print(f"\nResults:")
         print(f"  Functions: {result.num_functions}")
@@ -310,7 +310,7 @@ def test_deeply_nested():
     try:
         # Analyze
         print(f"Analyzing program with depth-{depth} call chain...")
-        result = analyze_program_structure(filename_actual)
+        result = analyze_program(filename_actual)
         
         print(f"\nResults:")
         print(f"  Functions: {result.num_functions}")

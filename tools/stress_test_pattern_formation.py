@@ -23,11 +23,11 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from tools.pattern_simulator import (
     reaction_diffusion_gray_scott,
-    game_of_life,
-    spiral_pattern,
+    cellular_automaton_life,
+    cellular_automaton_spiral,
     phyllotaxis_pattern,
     random_pattern,
-    compute_pattern_mu_cost
+    compute_mu_cost
 )
 
 
@@ -54,19 +54,19 @@ def test_large_grid_patterns():
         F=0.060,
         k=0.062
     )
-    cost_gs = compute_pattern_mu_cost(pattern_gs.data)
+    cost_gs = compute_mu_cost(pattern_gs.data)
     print(f"Gray-Scott: μ-cost = {cost_gs:.2f} bits/1000px")
     
     # Phyllotaxis on large grid
     print("\nGenerating phyllotaxis pattern on 512×512 grid...")
     pattern_phyl = phyllotaxis_pattern(size=LARGE_SIZE, n_points=1000)
-    cost_phyl = compute_pattern_mu_cost(pattern_phyl.data)
+    cost_phyl = compute_mu_cost(pattern_phyl.data)
     print(f"Phyllotaxis: μ-cost = {cost_phyl:.2f} bits/1000px")
     
     # Random on large grid
     print("\nGenerating random pattern on 512×512 grid...")
     pattern_rand = random_pattern(size=LARGE_SIZE, density=0.5)
-    cost_rand = compute_pattern_mu_cost(pattern_rand.data)
+    cost_rand = compute_mu_cost(pattern_rand.data)
     print(f"Random: μ-cost = {cost_rand:.2f} bits/1000px")
     
     # Validation: Structured should have lower cost than random
@@ -97,7 +97,7 @@ def test_long_evolution():
         F=0.060,
         k=0.062
     )
-    cost = compute_pattern_mu_cost(pattern.data)
+    cost = compute_mu_cost(pattern.data)
     print(f"μ-cost after {LONG_STEPS} steps: {cost:.2f} bits/1000px")
     
     # Should still produce valid pattern
@@ -119,7 +119,7 @@ def test_extreme_parameters():
     pattern_high_F = reaction_diffusion_gray_scott(
         size=128, steps=2000, F=0.15, k=0.062
     )
-    cost_high_F = compute_pattern_mu_cost(pattern_high_F.data)
+    cost_high_F = compute_mu_cost(pattern_high_F.data)
     print(f"High F: μ-cost = {cost_high_F:.2f} bits/1000px")
     
     # Very low feed rate
@@ -127,7 +127,7 @@ def test_extreme_parameters():
     pattern_low_F = reaction_diffusion_gray_scott(
         size=128, steps=2000, F=0.01, k=0.062
     )
-    cost_low_F = compute_pattern_mu_cost(pattern_low_F.data)
+    cost_low_F = compute_mu_cost(pattern_low_F.data)
     print(f"Low F: μ-cost = {cost_low_F:.2f} bits/1000px")
     
     # High diffusion contrast
@@ -135,7 +135,7 @@ def test_extreme_parameters():
     pattern_diff = reaction_diffusion_gray_scott(
         size=128, steps=2000, Du=0.5, Dv=0.01, F=0.060, k=0.062
     )
-    cost_diff = compute_pattern_mu_cost(pattern_diff.data)
+    cost_diff = compute_mu_cost(pattern_diff.data)
     print(f"High diffusion contrast: μ-cost = {cost_diff:.2f} bits/1000px")
     
     # All should produce valid costs
@@ -157,8 +157,8 @@ def test_multiple_spiral_arms():
     arms_list = [2, 3, 5, 8, 13]  # Fibonacci numbers
     
     for n_arms in arms_list:
-        pattern = spiral_pattern(size=256, arms=n_arms, turns=5)
-        cost = compute_pattern_mu_cost(pattern.data)
+        pattern = cellular_automaton_spiral(size=256, arms=n_arms, turns=5)
+        cost = compute_mu_cost(pattern.data)
         costs.append(cost)
         print(f"{n_arms} arms: μ-cost = {cost:.2f} bits/1000px")
     
@@ -181,25 +181,25 @@ def test_edge_cases():
     # Uniform pattern (all zeros)
     print("\nUniform (all zeros)...")
     uniform_zero = np.zeros((size, size))
-    cost_zero = compute_pattern_mu_cost(uniform_zero)
+    cost_zero = compute_mu_cost(uniform_zero)
     print(f"All zeros: μ-cost = {cost_zero:.2f} bits/1000px")
     
     # Uniform pattern (all ones)
     print("\nUniform (all ones)...")
     uniform_one = np.ones((size, size))
-    cost_one = compute_pattern_mu_cost(uniform_one)
+    cost_one = compute_mu_cost(uniform_one)
     print(f"All ones: μ-cost = {cost_one:.2f} bits/1000px")
     
     # Pure noise (uniform random)
     print("\nPure noise (uniform random)...")
     noise = np.random.rand(size, size)
-    cost_noise = compute_pattern_mu_cost(noise)
+    cost_noise = compute_mu_cost(noise)
     print(f"Noise: μ-cost = {cost_noise:.2f} bits/1000px")
     
     # Binary noise (salt and pepper)
     print("\nBinary noise (salt and pepper)...")
     binary_noise = (np.random.rand(size, size) > 0.5).astype(float)
-    cost_binary = compute_pattern_mu_cost(binary_noise)
+    cost_binary = compute_mu_cost(binary_noise)
     print(f"Binary noise: μ-cost = {cost_binary:.2f} bits/1000px")
     
     # Uniform should have very low cost (high compressibility)
@@ -225,13 +225,13 @@ def test_high_contrast_patterns():
     print("\nCheckerboard pattern...")
     x, y = np.meshgrid(np.arange(size), np.arange(size))
     checkerboard = ((x // 16 + y // 16) % 2).astype(float)
-    cost_check = compute_pattern_mu_cost(checkerboard)
+    cost_check = compute_mu_cost(checkerboard)
     print(f"Checkerboard: μ-cost = {cost_check:.2f} bits/1000px")
     
     # Stripes pattern
     print("\nStripes pattern...")
     stripes = (x // 10 % 2).astype(float)
-    cost_stripes = compute_pattern_mu_cost(stripes)
+    cost_stripes = compute_mu_cost(stripes)
     print(f"Stripes: μ-cost = {cost_stripes:.2f} bits/1000px")
     
     # Concentric circles
@@ -239,7 +239,7 @@ def test_high_contrast_patterns():
     center = size // 2
     r = np.sqrt((x - center)**2 + (y - center)**2)
     circles = (r // 15 % 2).astype(float)
-    cost_circles = compute_pattern_mu_cost(circles)
+    cost_circles = compute_mu_cost(circles)
     print(f"Circles: μ-cost = {cost_circles:.2f} bits/1000px")
     
     # All should have low-to-medium cost (highly structured)
