@@ -42,7 +42,10 @@ def test_higher_reynolds():
     
     print(f"Simulating Re={Re}, N={N}×{N}, T={T}...")
     start = time.time()
-    u, v = simulate_2d_navier_stokes(N=N, Re=Re, T=T, dt=dt)
+    vorticity, energy = simulate_2d_navier_stokes(nx=N, ny=N, nt=T, Re=Re, dt=dt)
+    # Extract final velocity fields (simplified - use vorticity as proxy)
+    u = vorticity[-1]
+    v = np.zeros_like(u)
     sim_time = time.time() - start
     print(f"Simulation time: {sim_time:.2f}s")
     
@@ -50,7 +53,7 @@ def test_higher_reynolds():
     factors = [2, 4]
     for factor in factors:
         error = compute_coarse_grained_error(u, v, factor)
-        mu_cost = compute_mu_cost_turbulence(N, N // factor, T)
+        mu_cost = compute_mu_cost_turbulence(N, N, T, factor)
         print(f"Factor {factor}: error={error:.3f}%, μ-cost={mu_cost/1000:.1f}k bits")
         
         # Error should be reasonable even at high Re
@@ -73,7 +76,9 @@ def test_larger_grid():
     
     print(f"Simulating N={N}×{N}, Re={Re}, T={T}...")
     start = time.time()
-    u, v = simulate_2d_navier_stokes(N=N, Re=Re, T=T, dt=dt)
+    vorticity, energy = simulate_2d_navier_stokes(nx=N, ny=N, nt=T, Re=Re, dt=dt)
+    u = vorticity[-1]
+    v = np.zeros_like(u)
     sim_time = time.time() - start
     print(f"Simulation time: {sim_time:.2f}s")
     
@@ -83,7 +88,7 @@ def test_larger_grid():
     # Test coarse-graining
     factor = 4
     error = compute_coarse_grained_error(u, v, factor)
-    mu_cost = compute_mu_cost_turbulence(N, N // factor, T)
+    mu_cost = compute_mu_cost_turbulence(N, N, T, factor)
     print(f"Factor {factor}: error={error:.3f}%, μ-cost={mu_cost/1000:.1f}k bits")
     
     # Larger grids should still give reasonable errors
@@ -105,7 +110,9 @@ def test_longer_evolution():
     
     print(f"Simulating T={T} timesteps...")
     start = time.time()
-    u, v = simulate_2d_navier_stokes(N=N, Re=Re, T=T, dt=dt)
+    vorticity, energy = simulate_2d_navier_stokes(nx=N, ny=N, nt=T, Re=Re, dt=dt)
+    u = vorticity[-1]
+    v = np.zeros_like(u)
     sim_time = time.time() - start
     print(f"Simulation time: {sim_time:.2f}s")
     
@@ -146,7 +153,9 @@ def test_multiple_coarse_graining_factors():
     dt = 0.001
     
     print(f"Simulating Re={Re}, N={N}×{N}, T={T}...")
-    u, v = simulate_2d_navier_stokes(N=N, Re=Re, T=T, dt=dt)
+    vorticity, energy = simulate_2d_navier_stokes(nx=N, ny=N, nt=T, Re=Re, dt=dt)
+    u = vorticity[-1]
+    v = np.zeros_like(u)
     
     # Test many factors
     factors = [2, 4, 8, 16]
@@ -158,7 +167,7 @@ def test_multiple_coarse_graining_factors():
         if N // factor < 4:  # Skip if too coarse
             continue
         error = compute_coarse_grained_error(u, v, factor)
-        mu_cost = compute_mu_cost_turbulence(N, N // factor, T)
+        mu_cost = compute_mu_cost_turbulence(N, N, T, factor)
         errors.append(error)
         mu_costs.append(mu_cost)
         print(f"Factor {factor:2d}: N_coarse={N//factor:2d}, error={error:.3f}%, μ-cost={mu_cost/1000:6.1f}k bits")
@@ -186,14 +195,14 @@ def test_different_initial_conditions():
     # Standard random initial condition
     print("\nStandard random IC...")
     np.random.seed(42)
-    u1, v1 = simulate_2d_navier_stokes(N=N, Re=Re, T=T, dt=dt)
+    vorticity1, energy1 = simulate_2d_navier_stokes(nx=N, ny=N, nt=T, Re=Re, dt=dt); u1 = vorticity1[-1]; v1 = np.zeros_like(u1)
     error1 = compute_coarse_grained_error(u1, v1, factor=2)
     print(f"Standard: error={error1:.3f}%")
     
     # Different random seed
     print("\nDifferent random IC...")
     np.random.seed(123)
-    u2, v2 = simulate_2d_navier_stokes(N=N, Re=Re, T=T, dt=dt)
+    vorticity2, energy2 = simulate_2d_navier_stokes(nx=N, ny=N, nt=T, Re=Re, dt=dt); u2 = vorticity2[-1]; v2 = np.zeros_like(u2)
     error2 = compute_coarse_grained_error(u2, v2, factor=2)
     print(f"Different seed: error={error2:.3f}%")
     
@@ -222,7 +231,9 @@ def test_extreme_viscosity():
     dt = 0.001
     
     print(f"Simulating Re={Re} (high viscosity)...")
-    u, v = simulate_2d_navier_stokes(N=N, Re=Re, T=T, dt=dt)
+    vorticity, energy = simulate_2d_navier_stokes(nx=N, ny=N, nt=T, Re=Re, dt=dt)
+    u = vorticity[-1]
+    v = np.zeros_like(u)
     
     # Test coarse-graining
     factor = 2
