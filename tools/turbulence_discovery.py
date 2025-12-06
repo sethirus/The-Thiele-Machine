@@ -129,6 +129,70 @@ def coarse_grain_field(field: np.ndarray, factor: int) -> np.ndarray:
     return coarse
 
 
+def compute_coarse_grained_error(u: np.ndarray, v: np.ndarray, factor: int) -> float:
+    """
+    Compute the prediction error from coarse-graining velocity fields.
+
+    Args:
+        u: (nx, ny) x-velocity field
+        v: (nx, ny) y-velocity field
+        factor: Coarse-graining factor
+
+    Returns:
+        error: RMS relative error from coarse-graining
+    """
+    # Coarse-grain the fields
+    u_coarse = coarse_grain_field(u, factor)
+    v_coarse = coarse_grain_field(v, factor)
+
+    # Reconstruct by upsampling (simple replication)
+    nx, ny = u.shape
+    u_recon = np.repeat(np.repeat(u_coarse, factor, axis=0), factor, axis=1)
+    v_recon = np.repeat(np.repeat(v_coarse, factor, axis=0), factor, axis=1)
+
+    # Ensure same shape
+    u_recon = u_recon[:nx, :ny]
+    v_recon = v_recon[:nx, :ny]
+
+    # Compute RMS error
+    error_u = np.sqrt(np.mean((u - u_recon)**2))
+    error_v = np.sqrt(np.mean((v - v_recon)**2))
+    norm_u = np.sqrt(np.mean(u**2))
+    norm_v = np.sqrt(np.mean(v**2))
+
+    relative_error = np.sqrt((error_u**2 + error_v**2) / (norm_u**2 + norm_v**2))
+
+    return relative_error
+
+
+def compute_mu_cost_turbulence(nx: int, ny: int, nt: int, factor: int) -> float:
+    """
+    Compute μ-cost for turbulence simulation with coarse-graining.
+
+    Args:
+        nx, ny: Fine grid resolution
+        nt: Number of timesteps
+        factor: Coarse-graining factor
+
+    Returns:
+        mu_cost: Total μ-cost in bits
+    """
+    # Full DOF
+    dof_fine = nx * ny * nt
+
+    # Coarse DOF
+    dof_coarse = (nx // factor) * (ny // factor) * nt
+
+    # μ-cost includes:
+    # 1. Encoding the coarse-graining operation (log2 of compression ratio)
+    # 2. Storing coarse-grained state (64 bits per DOF)
+    compression_ratio = dof_fine / dof_coarse
+    mu_discovery = np.log2(compression_ratio)
+    mu_execution = dof_coarse * 64  # 64-bit floats
+
+    return mu_discovery + mu_execution
+
+
 def extract_rom_features(vorticity_fine: np.ndarray, 
                          factor: int) -> Tuple[np.ndarray, np.ndarray]:
     """
