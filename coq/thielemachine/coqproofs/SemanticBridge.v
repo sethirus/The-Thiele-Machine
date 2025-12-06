@@ -19,18 +19,56 @@ Require Import ThieleMachine.ThieleMachine.
     STATE SPACE CORRESPONDENCE
     ========================================================================= *)
 
+(** Convert partition types between CoreSemantics and BlindSighted *)
+Definition core_partition_to_blind (p : CoreSemantics.Partition) : BlindSighted.Partition :=
+  {| BlindSighted.modules := p.(CoreSemantics.modules);
+     BlindSighted.next_id := p.(CoreSemantics.next_module_id) |}.
+
+Definition blind_partition_to_core (p : BlindSighted.Partition) : CoreSemantics.Partition :=
+  {| CoreSemantics.modules := p.(BlindSighted.modules);
+     CoreSemantics.next_module_id := p.(BlindSighted.next_id) |}.
+
+(** Convert μ-ledger types between CoreSemantics and BlindSighted *)
+Definition core_ledger_to_blind (l : CoreSemantics.MuLedger) : BlindSighted.MuLedger :=
+  {| BlindSighted.mu_operational := l.(CoreSemantics.mu_operational);
+     BlindSighted.mu_discovery := l.(CoreSemantics.mu_information);
+     BlindSighted.mu_total := l.(CoreSemantics.mu_total) |}.
+
+Definition blind_ledger_to_core (l : BlindSighted.MuLedger) : CoreSemantics.MuLedger :=
+  {| CoreSemantics.mu_operational := l.(BlindSighted.mu_operational);
+     CoreSemantics.mu_information := l.(BlindSighted.mu_discovery);
+     CoreSemantics.mu_total := l.(BlindSighted.mu_total) |}.
+
 Definition core_to_blind (s : CoreSemantics.State) : BlindSighted.ThieleState :=
-  {| BlindSighted.partition := s.(CoreSemantics.partition);
-     BlindSighted.ledger := s.(CoreSemantics.mu_ledger);
+  {| BlindSighted.partition := core_partition_to_blind s.(CoreSemantics.partition);
+     BlindSighted.ledger := core_ledger_to_blind s.(CoreSemantics.mu_ledger);
      BlindSighted.halted := s.(CoreSemantics.halted);
      BlindSighted.answer := s.(CoreSemantics.result) |}.
 
 Definition blind_to_core (s : BlindSighted.ThieleState) (pc : nat) : CoreSemantics.State :=
-  {| CoreSemantics.partition := s.(BlindSighted.partition);
-     CoreSemantics.mu_ledger := s.(BlindSighted.ledger);
+  {| CoreSemantics.partition := blind_partition_to_core s.(BlindSighted.partition);
+     CoreSemantics.mu_ledger := blind_ledger_to_core s.(BlindSighted.ledger);
      CoreSemantics.pc := pc;
      CoreSemantics.halted := s.(BlindSighted.halted);
      CoreSemantics.result := s.(BlindSighted.answer) |}.
+
+Lemma partition_conversion_roundtrip :
+  forall (p : CoreSemantics.Partition),
+    blind_partition_to_core (core_partition_to_blind p) = p.
+Proof.
+  intros p.
+  unfold core_partition_to_blind, blind_partition_to_core.
+  destruct p; simpl; reflexivity.
+Qed.
+
+Lemma ledger_conversion_roundtrip :
+  forall (l : CoreSemantics.MuLedger),
+    blind_ledger_to_core (core_ledger_to_blind l) = l.
+Proof.
+  intros l.
+  unfold core_ledger_to_blind, blind_ledger_to_core.
+  destruct l; simpl; reflexivity.
+Qed.
 
 Lemma state_correspondence :
   forall (s : CoreSemantics.State),
@@ -44,7 +82,9 @@ Proof.
   intros s s' s''.
   unfold core_to_blind, blind_to_core in *.
   simpl.
-  repeat split; reflexivity.
+  split; [apply partition_conversion_roundtrip|].
+  split; [apply ledger_conversion_roundtrip|].
+  split; reflexivity.
 Qed.
 
 (** =========================================================================
@@ -79,8 +119,8 @@ Proof.
   intro cfg.
   destruct (BlindSighted.TM_as_BlindThiele cfg) as [blind_prog [blind_final [Hblind Hresult]]].
   exists [CoreSemantics.EMIT (BlindSighted.tm_output cfg); CoreSemantics.HALT].
-  exists {| CoreSemantics.partition := BlindSighted.trivial_partition [];
-            CoreSemantics.mu_ledger := BlindSighted.zero_ledger;
+  exists {| CoreSemantics.partition := blind_partition_to_core (BlindSighted.trivial_partition []);
+            CoreSemantics.mu_ledger := blind_ledger_to_core BlindSighted.zero_ledger;
             CoreSemantics.pc := 1%nat;
             CoreSemantics.halted := true;
             CoreSemantics.result := Some (BlindSighted.tm_output cfg) |}.
