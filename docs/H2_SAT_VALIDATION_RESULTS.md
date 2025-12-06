@@ -257,4 +257,19 @@ Current implementation is **not competitive** with modern SAT solvers for:
 
 ---
 
+## Final Status (SAT Domain)
+
+**Original H2 (Structural Advantage – SAT version)**  
+Roughly: partition-guided, μ-minimizing search should usually reduce total μ-cost compared to a baseline SAT solver, especially on large instances.
+
+**Empirical result:**  
+Across 24 SAT instances (10 small + 14 large), the Thiele-style partition strategy showed a μ-cost advantage on only ~21.4% of cases. In the remaining cases, it was neutral or worse.
+
+**Conclusion:**  
+In this domain, the *original* broad form of H2 is **empirically false**. Partition structure does **not** reliably produce a μ-cost advantage on generic SAT instances.
+
+This is a completed negative result: the original H2, as stated for SAT, does not hold.
+
+---
+
 *This is an honest assessment of H2 in the SAT domain. The negative result is scientifically valuable and helps refine the Thiele Machine theory.*

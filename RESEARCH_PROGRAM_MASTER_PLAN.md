@@ -9,7 +9,8 @@
 ## Grand Hypotheses (What We're Testing)
 
 - **H1: Unified Information Currency** - μ-measure is precisely defined, computable across domains, behaves consistently as "cost of revealed structure"
-- **H2: Structural Advantage** - μ + partitions yields lower work than blind baselines, scaling with information discovered
+- **H2 (Original – SAT, now falsified)**: Structural Advantage (strong form) - For generic SAT instances, Thiele-style partitioned search will usually attain lower μ-cost than a baseline non-partitioned solver. **Status: Falsified in the SAT domain** (see `docs/H2_SAT_VALIDATION_RESULTS.md`). Advantage observed in only ~21.4% of cases.
+- **H2′ (Restricted Structural Advantage)**: For SAT instances with strong, measurable modular structure (e.g., high community structure / low inter-module edge ratio), μ-guided, partition-aware search will **more often than not** achieve lower μ-cost than a baseline solver. This is now the active, refined hypothesis to be tested.
 - **H3: Cross-Domain Law Selection** - Effective laws are μ-minimizers in hypothesis classes (PDEs, physics, growth)
 - **H4: Implementation Coherence** - Formal model matches VM, hardware, and proof assistant implementations
 
