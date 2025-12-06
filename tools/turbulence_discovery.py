@@ -165,7 +165,7 @@ def compute_coarse_grained_error(u: np.ndarray, v: np.ndarray, factor: int) -> f
     return relative_error
 
 
-def compute_mu_cost_turbulence(nx: int, ny: int, nt: int, factor: int) -> float:
+def compute_mu_cost_turbulence(nx: int, ny: int, nt: int, factor: int = 1) -> float:
     """
     Compute μ-cost for turbulence simulation with coarse-graining.
 
@@ -181,13 +181,13 @@ def compute_mu_cost_turbulence(nx: int, ny: int, nt: int, factor: int) -> float:
     dof_fine = nx * ny * nt
 
     # Coarse DOF
-    dof_coarse = (nx // factor) * (ny // factor) * nt
+    dof_coarse = (nx // factor) * (ny // factor) * nt if factor > 1 else dof_fine
 
     # μ-cost includes:
     # 1. Encoding the coarse-graining operation (log2 of compression ratio)
     # 2. Storing coarse-grained state (64 bits per DOF)
-    compression_ratio = dof_fine / dof_coarse
-    mu_discovery = np.log2(compression_ratio)
+    compression_ratio = dof_fine / dof_coarse if factor > 1 else 1
+    mu_discovery = np.log2(compression_ratio) if factor > 1 else 0
     mu_execution = dof_coarse * 64  # 64-bit floats
 
     return mu_discovery + mu_execution
