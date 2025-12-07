@@ -231,7 +231,7 @@ $$\frac{W}{kT \ln 2} \geq \mu_{\text{total}}$$
 | **Bell Inequality** | `coq/thielemachine/coqproofs/BellInequality.v` | `classical_bound` (2487 lines) | ✅ **Proven** |
 | **Full Simulation** | `coq/thielemachine/coqproofs/Simulation.v` | (29,666 lines, 66% of codebase) | ✅ **Proven** |
 
-**Total Proof Burden:** 106 Coq files, ~45,000 lines of machine-checked proofs.
+**Total Proof Burden:** 114 Coq files, ~54,600 lines of machine-checked proofs.
 
 ---
 
@@ -261,7 +261,7 @@ All claims in this document are mechanically verifiable. Execute the following t
 ```bash
 cd coq && make -j4
 ```
-Expected: 106 files compile with 0 errors. Any admitted lemmas are test infrastructure only (see `ThieleUniversalBridge_Axiom_Tests.v`).
+Expected: 114 files compile with 0 errors. Any admitted lemmas are test infrastructure only (see `ThieleUniversalBridge_Axiom_Tests.v`).
 
 **Run complete test suite:**
 ```bash
@@ -289,14 +289,14 @@ For additional detail, see:
 
 - **README.md** — Complete system overview, demos, empirical results
 - **docs/THEORY.md** — (if exists) Extended theoretical development
-- **coq/** — All 106 proof files with detailed comments
+- **coq/** — All 114 proof files with detailed comments
 - **FINAL_RIGOROUS_VERIFICATION.md** — How each algorithm is implemented without handwaving
 - **docs/AXIOM_DISCHARGE_2025-11-29.md** — How the original axioms were discharged into proven theorems
 
 ---
 
 **Verification Status (2025-12-07):**
-- **Coq:** All core theorems machine-verified in Coq 8.18+ (106 files, ~45,000 lines)
+- **Coq:** All core theorems machine-verified in Coq 8.18+ (114 files, ~54,600 lines)
 - **Tests:** 1143+ tests passing, 39 cross-implementation isomorphism tests passing
 - **Falsification:** 12 adversarial tests executed, 0 falsifications detected
 - **Axioms:** 1 remaining (eigenvalue decomposition O(n³), established in numerical analysis literature)

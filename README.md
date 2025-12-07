@@ -13,7 +13,7 @@
 The Thiele Machine is not a metaphor, library, or algorithm—it is a **real computational architecture** implemented in:
 - **Python VM** (`thielecpu/`) — 1,549 lines of executable semantics in `vm.py`
 - **Verilog RTL** (6 hardware modules) — Synthesizable hardware producing identical μ-ledgers
-- **Coq Proofs** (106 files, ~45,000 lines) — Machine-verified formal properties
+- **Coq Proofs** (114 files, ~54,600 lines) — Machine-verified formal properties
 
 **Status (November 2025):**
 - **RIGOROUSLY VERIFIED**: All "handwaved" simulations have been replaced with deterministic, falsifiable algorithms.
@@ -39,7 +39,7 @@ We claim **TURING ⊊ THIELE** (strict containment). Not metaphorically. Formall
   - **Theorem 1:** Every Turing computation embeds in blind-restricted Thiele → `Subsumption.v:48`
   - **Theorem 2:** Thiele with partitions+μ is strictly richer → `Subsumption.v:107`
   - **Theorem 3-5:** μ-conservation, O(n³) discovery, exponential separation on structured instances
-  - All machine-verified in 106 Coq files (~45,000 lines)
+  - All machine-verified in 114 Coq files (~54,600 lines)
 
 - **[PAPER.md](PAPER.md)** — Complete paper skeleton (arXiv-ready)
   - Formal model with no handwaving
@@ -90,7 +90,7 @@ We claim **TURING ⊊ THIELE** (strict containment). Not metaphorically. Formall
 3. [Complete File Inventories](#complete-file-inventories)
    - [Python VM Files (21 files)](#python-vm-files)
    - [Verilog Hardware Files (24 files)](#verilog-hardware-files)
-   - [Coq Proof Files (106 files)](#coq-proof-files)
+   - [Coq Proof Files (114 files)](#coq-proof-files)
 4. [Architecture Details](#architecture-details)
    - [Virtual Machine Architecture](#virtual-machine-architecture)
    - [Hardware Architecture](#hardware-architecture)
@@ -194,7 +194,7 @@ The Thiele Machine is a 5-tuple **T = (S, Π, A, R, L)**:
 
 ✅ **An enriched computational model** with explicit sight/cost accounting
 ✅ **Turing-complete**: Computes the same functions as a Turing Machine
-✅ **Formally verified**: 106 Coq proofs (45,000 lines) verify all claims
+✅ **Formally verified**: 114 Coq proofs (54,600 lines) verify all claims
 ✅ **Physically grounded**: μ-bits connect to Landauer's Principle (kT ln(2) per bit)
 
 ❌ **NOT a refutation of Church-Turing** (computes same functions)
@@ -263,7 +263,7 @@ pytest tests/ -v
 
 ```bash
 cd coq && make -j4
-# Expected: 106 files compile, 0 errors
+# Expected: 114 files compile, 0 errors
 ```
 
 ### Run the Impossible Demonstration
@@ -584,7 +584,7 @@ The core Thiele CPU is implemented in 6 Verilog modules:
 
 ### Coq Proof Files
 
-**Total:** 106 Coq files, ~45,000 lines of machine-verified proofs
+**Total:** 114 Coq files, ~54,600 lines of machine-verified proofs
 
 #### 1. Kernel — Core Subsumption (10 files)
 
@@ -841,7 +841,7 @@ The core Thiele CPU is implemented in 6 Verilog modules:
 | Modular Proofs | 8 | ~1,260 | 3% |
 | Physics Models | 3 | ~516 | 1% |
 | Other (manifold, spacetime, etc.) | 19 | ~2,000 | 4% |
-| **Total** | **106** | **~45,000** | **100%** |
+| **Total** | **114** | **~54,600** | **100%** |
 
 ---
 
@@ -1056,7 +1056,7 @@ def information_gain_bits(N: int, M: int) -> float:
         raise ValueError("M cannot be zero")
     return math.log2(N / M)
 
-def total_mu_cost(expr: str, N: int, M: int) -> float:
+def calculate_mu_cost(expr: str, N: int, M: int) -> float:
     """μ_total = 8|canon(q)| + log₂(N/M)"""
     return question_cost_bits(expr) + information_gain_bits(N, M)
 ```
@@ -1348,7 +1348,7 @@ Discovers optimal partition architectures using sphere-based search.
 
 ### Understanding the Coq Proofs
 
-The Coq proofs establish the formal correctness of the Thiele Machine through a layered verification strategy. See the [Complete File Inventories](#coq-proof-files) section above for the full breakdown of all 106 proof files.
+The Coq proofs establish the formal correctness of the Thiele Machine through a layered verification strategy. See the [Complete File Inventories](#coq-proof-files) section above for the full breakdown of all 114 proof files.
 
 **Key Proof Strategy:**
 
@@ -1943,7 +1943,7 @@ cat experiments/additional_tests/stress_test_report.json
 
 **Location:** `docs/UNDERSTANDING_COQ_PROOFS.md`
 
-A comprehensive educational guide to understanding all 106 Coq proof files, including:
+A comprehensive educational guide to understanding all 114 Coq proof files, including:
 
 - **Proof Architecture**: How the 5 levels (Kernel → Bridge → Semantics → Theorems → Applications) build on each other
 - **Detailed Examples**: Step-by-step walkthroughs of key proofs with annotations
