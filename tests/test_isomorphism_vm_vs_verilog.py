@@ -17,7 +17,7 @@ import subprocess
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).parent.parent
-HARDWARE_DIR = REPO_ROOT / "hardware"
+HARDWARE_DIR = REPO_ROOT / "thielecpu" / "hardware" / "partition_discovery"
 BUILD_DIR = REPO_ROOT / "build"
 PROGRAMS_DIR = REPO_ROOT / "programs"
 

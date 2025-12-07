@@ -382,7 +382,7 @@ class TestVerilogCompiles:
 
     def test_verilog_files_exist(self):
         """Test that key Verilog files exist."""
-        hw_dir = REPO_ROOT / "hardware" / "synthesis_trap"
+        hw_dir = REPO_ROOT / "thielecpu" / "hardware" / "synthesis_trap"
         
         required_files = [
             "reasoning_core.v",
@@ -397,7 +397,7 @@ class TestVerilogCompiles:
 
     def test_verilog_compiles(self):
         """Test that Verilog source files can be parsed."""
-        hw_dir = REPO_ROOT / "hardware" / "synthesis_trap"
+        hw_dir = REPO_ROOT / "thielecpu" / "hardware" / "synthesis_trap"
         
         # Check that key Verilog files have proper structure
         main_file = hw_dir / "thiele_graph_solver.v"
