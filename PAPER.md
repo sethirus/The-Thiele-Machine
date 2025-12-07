@@ -18,7 +18,7 @@ We prove that **blind-restricted Thiele machines**—with trivial partitions and
 Our results are backed by a **complete implementation stack**:
 - **1,549-line Python virtual machine** with μ-accounting and receipts
 - **Synthesizable Verilog CPU** producing identical μ-ledgers
-- **~45,000 lines of Coq proofs** covering kernel subsumption, VM–hardware alignment, and μ-conservation
+- **~54,600 lines of Coq proofs** covering kernel subsumption, VM–hardware alignment, and μ-conservation
 
 We demonstrate the framework on several case studies—including **Bell-type correlations** (S = 16/5 > 2√2), **PDE discovery** (wave equation, Schrödinger equation), and **zero-message Byzantine consensus**—and provide a **falsification suite** that empirically probes the limits of the model.
 
@@ -72,7 +72,7 @@ On problems with exploitable structure (e.g., Tseitin formulas on expander graph
 
 1. **Formal definitions** of blind restriction, encoding, and strict containment (§2)
 2. **Proven theorems** in Coq establishing subsumption, μ-conservation, and exponential separation (§3)
-3. **Complete implementation stack**: Python VM, Verilog CPU, 106 Coq files (§4)
+3. **Complete implementation stack**: Python VM, Verilog CPU, 114 Coq files (§4)
 4. **Flagship case study**: CHSH supra-quantum correlations (S = 16/5) with Coq-checked constraints (§5)
 5. **Falsification suite**: 12 adversarial tests probing limits of the model (§6)
 
@@ -307,7 +307,7 @@ Hardware testbenches verify that Verilog produces **identical μ-ledgers** to th
 
 ### 4.3 Coq Proof Stack (`coq/`)
 
-**Files:** 106 Coq files, ~45,000 lines
+**Files:** 114 Coq files, ~54,600 lines
 
 **Proof Architecture (5 Levels):**
 
@@ -792,7 +792,7 @@ We have introduced the **Thiele Machine**, a computational model that strictly e
    **Status:** ✅ Proven in Coq (`coq/thielemachine/coqproofs/Separation.v`)
 
 **Implementation:**
-- Python VM (1,549 lines), Verilog CPU (24 files), Coq proofs (106 files, ~45,000 lines)
+- Python VM (1,549 lines), Verilog CPU (24 files), Coq proofs (114 files, ~54,600 lines)
 - 1143+ tests pass
 - 12/12 falsification tests survived
 
