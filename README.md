@@ -8,16 +8,6 @@
 
 ---
 
-[![CI](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml/badge.svg)](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Python](https://img.shields.io/badge/Python-3.12+-blue.svg)](https://www.python.org/) [![Coq](https://img.shields.io/badge/Coq-8.18+-blue.svg)](https://coq.inria.fr/) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17316437.svg)](https://doi.org/10.5281/zenodo.17316437)
-
-<div align="center">
-   <h1>The Thiele Machine</h1>
-   <p><strong>A Computational Model That Strictly Contains the Turing Machine</strong></p>
-   <p><em>Self-Installing Proofs. No Source. No Trust. Only Mathematics.</em></p>
-</div>
-
----
-
 ## Executive Summary
 
 The Thiele Machine is not a metaphor, library, or algorithm—it is a **real computational architecture** implemented in:
@@ -41,6 +31,24 @@ This README documents:
 
 ## Table of Contents
 
+1. [Executive Summary](#executive-summary)
+2. [Quick Navigation](#quick-navigation)
+3. [What Is The Thiele Machine?](#what-is-the-thiele-machine)
+4. [Quick Start](#quick-start)
+5. [Emergent Wave Equation Demo](#emergent-wave-equation-demo)
+6. [Emergent Schrödinger Equation Demo](#emergent-schrödinger-equation-demo)
+7. [Complete File Inventories](#complete-file-inventories)
+8. [Architecture Details](#architecture-details)
+9. [Understanding the Implementation](#understanding-the-implementation)
+10. [Running Programs](#running-programs)
+11. [Showcase Programs](#showcase-programs)
+12. [Empirical Evidence](#empirical-evidence)
+13. [Falsification Attempts](#falsification-attempts)
+14. [Additional Documentation](#additional-documentation)
+15. [Physics Implications](#physics-implications)
+16. [Alignment: VM ↔ Hardware ↔ Coq](#alignment-vm--hardware--coq)
+17. [API Reference](#api-reference)
+18. [Contributing](#contributing)
 
 ---
 
@@ -217,7 +225,7 @@ python3 verifier/replay.py bootstrap_receipts && sha256sum thiele_min.py
 
 ```bash
 pytest tests/ -v
-# Expected: 600+ tests pass
+# Expected: 1143+ tests pass
 ```
 
 ### Compile the Coq Proofs
@@ -245,7 +253,7 @@ python3 demonstrate_impossible.py
 
 ### Verify the Rigor
 
-Read `FINAL_RIGOROUS_VERIFICATION.md` to understand exactly how each algorithm is implemented without "handwaving".
+Read [`FINAL_RIGOROUS_VERIFICATION.md`](FINAL_RIGOROUS_VERIFICATION.md) to understand exactly how each algorithm is implemented without "handwaving".
 
 ---
 
@@ -472,9 +480,9 @@ The core Thiele CPU is implemented in 6 Verilog modules:
 | `mmu.v` | 247 | Memory Management Unit: virtual memory, protection, caching |
 | `pee.v` | 215 | Python Execution Engine: sandboxed Python execution interface |
 
-#### Specialized Hardware Modules (6 files)
+#### Specialized Hardware Modules
 
-**Synthesis Trap** (`hardware/synthesis_trap/`) — Graph solving hardware
+**Synthesis Trap** (`thielecpu/hardware/synthesis_trap/`) — Graph solving hardware
 
 | File | Lines | Purpose |
 |------|-------|---------|
@@ -484,14 +492,14 @@ The core Thiele CPU is implemented in 6 Verilog modules:
 | `thiele_graph_solver_tb.v` | 182 | Testbench for graph solver validation |
 | `classical_solver.v` | 137 | Classical (blind) baseline for comparison |
 
-**Resonator** (`hardware/resonator/`) — Period-finding hardware
+**Resonator** (`thielecpu/hardware/resonator/`) — Period-finding hardware
 
 | File | Lines | Purpose |
 |------|-------|---------|
 | `period_finder.v` | 370 | Thiele-based period finding with partition discovery |
 | `classical_period_finder.v` | 125 | Classical period finder baseline |
 
-**Forge** (`hardware/forge/`) — Primitive discovery hardware
+**Forge** (`thielecpu/hardware/forge/`) — Primitive discovery hardware
 
 | File | Lines | Purpose |
 |------|-------|---------|
@@ -500,7 +508,7 @@ The core Thiele CPU is implemented in 6 Verilog modules:
 | `primitive_matrix_decomp.v` | 108 | Matrix decomposition primitive |
 | `primitive_community_assign.v` | 139 | Community detection primitive |
 
-**Discovery** (`hardware/`) — Partition discovery architecture
+**Discovery** (`thielecpu/hardware/partition_discovery/`) — Partition discovery architecture
 
 | File | Lines | Purpose |
 |------|-------|---------|
@@ -849,9 +857,9 @@ Level 0: Kernel Subsumption (TURING ⊂ THIELE)
 
 The Python VM implementation provides the reference semantics for the Thiele Machine. This section details how the VM works internally.
 
-#### `vm.py` — The Heart of the Thiele Machine (1,862 lines)
+#### `vm.py` — The Heart of the Thiele Machine
 
-The main VM file implements four core capabilities:
+The main VM file (~1,549 lines) implements four core capabilities:
 
 **1. Sandboxed Python Execution**
    - AST-based code validation
@@ -875,13 +883,13 @@ The main VM file implements four core capabilities:
 
 ```python
 # Key sections in vm.py:
-# Lines 1-50: Imports and safety constants
-# Lines 51-150: SAFE_FUNCTIONS, SAFE_NODE_TYPES whitelists
-# Lines 151-400: AST validation and code checking
-# Lines 401-800: Python execution engine
-# Lines 801-1200: Symbolic solving (Z3 + brute force)
-# Lines 1201-1600: Partition discovery integration
-# Lines 1601-1862: Receipt generation and verification
+# - Imports and safety constants
+# - SAFE_FUNCTIONS, SAFE_NODE_TYPES whitelists
+# - AST validation and code checking
+# - Python execution engine
+# - Symbolic solving (Z3 + brute force)
+# - Partition discovery integration
+# - Receipt generation and verification
 ```
 
 #### `discovery.py` — Polynomial-Time Partition Discovery
@@ -1031,9 +1039,9 @@ The Verilog implementation provides a synthesizable hardware realization of the 
 
 #### Core CPU Architecture
 
-**`thiele_cpu.v` — Main CPU Module (607 lines)**
+**`thiele_cpu.v` — Main CPU Module**
 
-The central processor implementing the Thiele Machine in hardware.
+The central processor implementing the Thiele Machine in hardware (~600 lines).
 
 **Architecture:**
 
