@@ -1,24 +1,43 @@
-Admit inventory (full-tree audit, November 2025)
+Admit and axiom inventory
+
+Active Coq tree
+---------------
+Axiom    coq/thielemachine/coqproofs/DiscoveryProof.v:50:   Axiom eigen_complexity :
+Axiom    coq/thielemachine/coqproofs/DiscoveryProof.v:180: Axiom range_check_in_range_with_length : forall l start len x,
+Axiom    coq/thielemachine/coqproofs/EfficientDiscovery.v:97: Axiom discovery_produces_valid_partition_spec :
+Axiom    coq/thielemachine/coqproofs/EfficientDiscovery.v:105: Axiom discovery_valid_zero_spec :
+Axiom    coq/thielemachine/coqproofs/EfficientDiscovery.v:135: Axiom discovery_cost_bounded :
+Axiom    coq/thielemachine/coqproofs/EfficientDiscovery.v:163: Axiom discovery_profitable :
+Axiom    coq/thielemachine/coqproofs/InfoTheory.v:63: Axiom question_cost_nonnegative :
+Axiom    coq/thielemachine/coqproofs/InfoTheory.v:68: Axiom log2_monotonic :
+Axiom    coq/thielemachine/coqproofs/InfoTheory.v:74: Axiom mu_bounds_shannon_entropy :
+Axiom    coq/thielemachine/coqproofs/InfoTheory.v:80: Axiom mu_cost_nonnegative :
+Axiom    coq/thielemachine/coqproofs/InfoTheory.v:112: Axiom partition_discovery_mu_includes_mdl :
+Axiom    coq/thielemachine/coqproofs/InfoTheory.v:124: Axiom kolmogorov_complexity : forall (data : list bool), Q.
+Axiom    coq/thielemachine/coqproofs/InfoTheory.v:127: Axiom mu_bounds_kolmogorov :
+Axiom    coq/thielemachine/coqproofs/InfoTheory.v:141: Axiom mu_monotonicity_conservation :
+Axiom    coq/thielemachine/coqproofs/InfoTheory.v:158: Axiom binary_search_bound :
+Axiom    coq/thielemachine/coqproofs/Simulation.v:232: Axiom utm_find_rule_restart_program_image_move_zero :
+Axiom    coq/thielemachine/coqproofs/SpectralApproximation.v:18: Axiom partition_cost : Graph -> PartitionAssignment -> Z.
+Axiom    coq/thielemachine/coqproofs/SpectralApproximation.v:21: Axiom spectral_partition : Graph -> nat -> PartitionAssignment.
+Axiom    coq/thielemachine/coqproofs/SpectralApproximation.v:24: Axiom optimal_partition : Graph -> PartitionAssignment.
+Axiom    coq/thielemachine/coqproofs/SpectralApproximation.v:27: Axiom optimal_is_minimal : forall g p,
+Axiom    coq/thielemachine/coqproofs/SpectralApproximation.v:45: Axiom spectral_worst_case_exists :
+Axiom    coq/thielemachine/coqproofs/SpectralApproximation.v:51: Axiom spectral_approximation_unbounded :
+Axiom    coq/thielemachine/coqproofs/SpectralApproximation.v:61: Axiom spectral_average_case_bounded :
+Admitted coq/thielemachine/verification/ThieleUniversalBridge_Axiom_Tests.v:67: Admitted. (* Test placeholder - would need concrete execution *)
+Admitted coq/thielemachine/verification/ThieleUniversalBridge_Axiom_Tests.v:77: Admitted. (* Test placeholder *)
+Admitted coq/thielemachine/verification/ThieleUniversalBridge_Axiom_Tests.v:99: Admitted. (* Requires CPU module implementation details *)
+Admitted coq/thielemachine/verification/ThieleUniversalBridge_Axiom_Tests.v:106: Admitted. (* Requires CPU register definitions *)
+
+Other
+-----
+Admitted artifacts/EmergentWaveEquation.v:109:   admit.
+Admitted artifacts/EmergentWaveEquation.v:110: Admitted.
+Admitted artifacts/wave_receipts/EmergentWaveEquation.v:109:   admit.
+Admitted artifacts/wave_receipts/EmergentWaveEquation.v:110: Admitted.
 
 Summary
 -------
-- **Total admitted statements across repository**: 2 (both in excluded files)
-  - Two historical debugging admits in `thielemachine/coqproofs/debug_no_rule.v` (not in `_CoqProject`)
-- **Admits inside `_CoqProject` targets**: 0
-  - All compiled proof files are admit-free
-- **Axioms inside `_CoqProject` targets**: 0
-  - All axioms have been eliminated from compiled code
-- **Build status**: `make all` completes successfully with zero warnings about admits/axioms
-
-Details by file
----------------
-- `thielemachine/coqproofs/debug_no_rule.v`: two local admits preserved as an experimental reproduction 
-  file; excluded from `_CoqProject` and the audited builds.
-- `thielemachine/coqproofs/Simulation.v`: Contains commented-out legacy code with Admitted statements
-  at line 248, but this is INSIDE a multi-line comment block and not compiled.
-- `thielemachine/verification/modular/Bridge_LengthPreservation.v`: Contains an Axiom for analysis
-  purposes but is NOT in `_CoqProject` and not compiled.
-
-All `.v` files listed in `_CoqProject` compile without Admits or Axioms.
-
-Verified: November 2025
+Total admitted: 8
+Total axioms:  23

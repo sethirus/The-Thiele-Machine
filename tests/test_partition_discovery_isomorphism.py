@@ -583,7 +583,7 @@ class TestVerilogSpecification:
     
     def test_verilog_file_exists(self):
         """Verify Verilog specification file exists."""
-        verilog_path = Path(__file__).parent.parent / "hardware" / "pdiscover_archsphere.v"
+        verilog_path = Path(__file__).parent.parent / "thielecpu" / "hardware" / "partition_discovery" / "pdiscover_archsphere.v"
         assert verilog_path.exists(), f"Missing Verilog file: {verilog_path}"
     
     def test_geometric_signature_matches_spec(self, two_cliques_problem):

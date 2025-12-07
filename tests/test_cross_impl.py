@@ -69,7 +69,7 @@ class TestCrossImplementation:
         """Create a receipt using the CLI tool."""
         cmd = [
             sys.executable,
-            str(PROJECT_ROOT / "create_receipt.py"),
+            str(PROJECT_ROOT / "tools" / "create_receipt.py"),
         ]
         
         # Add files
@@ -480,7 +480,7 @@ class TestReceiptFormat:
         # Create receipt
         cmd = [
             sys.executable,
-            str(PROJECT_ROOT / "create_receipt.py"),
+            str(PROJECT_ROOT / "tools" / "create_receipt.py"),
             str(test_file),
             "--output", str(receipt_path)
         ]
@@ -519,7 +519,7 @@ class TestReceiptFormat:
 
         cmd = [
             sys.executable,
-            str(PROJECT_ROOT / "create_receipt.py"),
+            str(PROJECT_ROOT / "tools" / "create_receipt.py"),
             str(test_file),
             "--output", str(receipt_path)
         ]
