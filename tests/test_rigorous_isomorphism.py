@@ -23,11 +23,17 @@ import re
 import tempfile
 import os
 import json
+import shutil
 from pathlib import Path
 from dataclasses import dataclass
 from typing import Dict, List, Any, Tuple
 
 REPO_ROOT = Path(__file__).parent.parent
+
+
+def has_iverilog():
+    """Check if iverilog is available."""
+    return shutil.which("iverilog") is not None
 
 
 # =============================================================================
@@ -255,6 +261,9 @@ class TestBehavioralIsomorphism:
     
     def test_verilog_simulation_completes(self):
         """Verilog simulation completes successfully."""
+        if not has_iverilog():
+            pytest.skip("iverilog not available")
+            
         hw_dir = REPO_ROOT / "thielecpu" / "hardware"
         
         with tempfile.NamedTemporaryFile(suffix='_test', delete=False) as tmp:
@@ -331,6 +340,9 @@ class TestVerilogPythonAlignment:
     
     def test_verilog_metrics_structure(self):
         """Verilog produces metrics in same structure as Python would."""
+        if not has_iverilog():
+            pytest.skip("iverilog not available")
+            
         hw_dir = REPO_ROOT / "thielecpu" / "hardware"
         
         with tempfile.NamedTemporaryFile(suffix='_test', delete=False) as tmp:
@@ -489,6 +501,9 @@ class TestCompleteIsomorphism:
     
     def test_full_compilation_chain(self):
         """Full compilation chain works: Coq compiles, Verilog compiles, Python imports."""
+        if not has_iverilog():
+            pytest.skip("iverilog not available")
+            
         # Python imports
         from thielecpu.vm import VM
         from thielecpu.state import State

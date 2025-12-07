@@ -19,9 +19,20 @@ import subprocess
 import re
 import tempfile
 import os
+import shutil
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).parent.parent
+
+
+def has_iverilog():
+    """Check if iverilog is available."""
+    return shutil.which("iverilog") is not None
+
+
+def has_coqc():
+    """Check if coqc is available."""
+    return shutil.which("coqc") is not None
 
 
 class TestOpcodeIsomorphism:
@@ -157,6 +168,9 @@ class TestVerilogCompilation:
     
     def test_verilog_compiles(self):
         """Verilog compiles with iverilog."""
+        if not has_iverilog():
+            pytest.skip("iverilog not available")
+            
         hw_dir = REPO_ROOT / "thielecpu" / "hardware"
         
         with tempfile.NamedTemporaryFile(suffix='_thiele_test', delete=False) as tmp:
@@ -180,6 +194,9 @@ class TestVerilogCompilation:
     
     def test_verilog_simulation_runs(self):
         """Verilog simulation completes without errors."""
+        if not has_iverilog():
+            pytest.skip("iverilog not available")
+            
         hw_dir = REPO_ROOT / "thielecpu" / "hardware"
         
         with tempfile.NamedTemporaryFile(suffix='_thiele_test', delete=False) as tmp:
@@ -213,6 +230,9 @@ class TestVerilogCompilation:
     
     def test_verilog_produces_valid_metrics(self):
         """Verilog simulation produces valid partition_ops and info_gain."""
+        if not has_iverilog():
+            pytest.skip("iverilog not available")
+            
         hw_dir = REPO_ROOT / "thielecpu" / "hardware"
         
         with tempfile.NamedTemporaryFile(suffix='_thiele_test', delete=False) as tmp:
@@ -273,6 +293,9 @@ class TestCoqCompilation:
     
     def test_thiele_machine_compiles(self):
         """ThieleMachine.v compiles with coqc."""
+        if not has_coqc():
+            pytest.skip("coqc not available")
+            
         coq_dir = REPO_ROOT / "coq"
         coq_file = coq_dir / "thielemachine" / "coqproofs" / "ThieleMachine.v"
         
@@ -446,6 +469,9 @@ class TestEndToEndIsomorphism:
     
     def test_all_layers_produce_consistent_results(self):
         """All three layers (Python, Verilog, Coq) are consistent."""
+        if not has_iverilog():
+            pytest.skip("iverilog not available")
+            
         # Python VM produces correct results
         from thielecpu.vm import VM
         from thielecpu.state import State
