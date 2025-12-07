@@ -510,7 +510,7 @@ class TestVerilogIsomorphism:
     
     def test_verilog_files_exist(self):
         """Verify Verilog files exist."""
-        hardware_dir = Path(__file__).parent.parent / "hardware"
+        hardware_dir = Path(__file__).parent.parent / "thielecpu" / "hardware" / "partition_discovery"
         
         required_files = [
             "partition_core.v",

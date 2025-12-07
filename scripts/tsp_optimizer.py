@@ -502,7 +502,7 @@ def optimize_tsp(tsp_file, max_iterations=10):
     print(f"Loaded {num_cities} cities from {tsp_file.name}")
 
     # Create a working directory for this run (Thiele outputs, axioms, certs)
-    work_base = Path("tsp_work") / tsp_file.stem
+    work_base = Path("results/tsp") / tsp_file.stem
     work_base.mkdir(parents=True, exist_ok=True)
 
     # Start with heuristic solution
