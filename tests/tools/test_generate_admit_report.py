@@ -10,7 +10,7 @@ def test_report_matches_checked_in_file() -> None:
         generate_admit_report.generate_findings(generate_admit_report.REPO_ROOT)
     )
 
-    reference = (generate_admit_report.REPO_ROOT / "ADMIT_REPORT.txt").read_text(
+    reference = (generate_admit_report.REPO_ROOT / "coq" / "ADMIT_REPORT.txt").read_text(
         encoding="utf-8"
     )
 
@@ -29,6 +29,6 @@ def test_cli_writes_requested_output(tmp_path: Path) -> None:
 
     assert result.returncode == 0
     assert output_path.read_text(encoding="utf-8") == (
-        generate_admit_report.REPO_ROOT / "ADMIT_REPORT.txt"
+        generate_admit_report.REPO_ROOT / "coq" / "ADMIT_REPORT.txt"
     ).read_text(encoding="utf-8")
 

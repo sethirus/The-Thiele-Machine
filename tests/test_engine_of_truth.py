@@ -175,7 +175,7 @@ class TestObjectiveMinimizeSelf:
     
     def test_objective_file_exists(self):
         """Test that objective file was created."""
-        objective_path = BASE_DIR / 'objectives' / 'objective_minimize_self.thiele'
+        objective_path = BASE_DIR / 'forge' / 'objectives' / 'objective_minimize_self.thiele'
         
         assert objective_path.exists(), "objective_minimize_self.thiele should exist"
     
@@ -183,7 +183,7 @@ class TestObjectiveMinimizeSelf:
         """Test that objective has correct structure."""
         import json
         
-        objective_path = BASE_DIR / 'objectives' / 'objective_minimize_self.thiele'
+        objective_path = BASE_DIR / 'forge' / 'objectives' / 'objective_minimize_self.thiele'
         
         with open(objective_path, 'r') as f:
             objective = json.load(f)
