@@ -1543,7 +1543,7 @@ python run_partition_experiments.py \
 ### Experiment 2: Bell Inequality Demonstration
 
 ```bash
-python3 scripts/verification/demonstrate_isomorphism.py
+python3 demos/research-demos/architecture/demonstrate_isomorphism.py
 # Produces: BELL_INEQUALITY_VERIFIED_RESULTS.md
 ```
 
