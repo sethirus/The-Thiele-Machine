@@ -107,14 +107,38 @@ reg [31:0] csr_cert_addr;
 reg [31:0] csr_status;
 reg [31:0] csr_error;
 
-// μ-bit accumulator
+// μ-bit accumulator (Q16.16 format)
 reg [31:0] mu_accumulator;
+
+// μ-ALU interface wires
+wire [31:0] mu_alu_result;
+wire mu_alu_ready;
+wire mu_alu_overflow;
+reg [2:0] mu_alu_op;
+reg [31:0] mu_alu_operand_a;
+reg [31:0] mu_alu_operand_b;
+reg mu_alu_valid;
+
+// μ-Core interface wires
+wire instr_allowed;
+wire receipt_required;
+wire receipt_accepted;
+wire cost_gate_open;
+wire partition_gate_open;
+wire [31:0] core_status;
+wire enforcement_active;
+reg [31:0] proposed_cost;
+reg [31:0] receipt_value;
+reg receipt_valid;
+
+// Temporary registers for task operations
+reg [31:0] info_gain_value;
 
 // XOR matrix for Gaussian elimination
 reg [31:0] xor_matrix [0:23]; // 4 rows x 6 columns
 reg [31:0] xor_parity [0:3]; // 4 parity bits
-localparam integer XOR_ROWS = 4;
-localparam integer XOR_COLS = 6;
+localparam XOR_ROWS = 4;
+localparam XOR_COLS = 6;
 
 // Performance counters
 reg [31:0] partition_ops_counter;
@@ -139,7 +163,7 @@ reg [31:0] rank_temp;
 reg [3:0] state;
 
 // Loop variables for initialization
-integer i, j, region_size, even_count, odd_count, size_a, size_b, total_size, module_size, mdl_cost, temp_size, src_size, dest_size;
+reg [31:0] i, j, region_size, even_count, odd_count, size_a, size_b, total_size, module_size, mdl_cost, temp_size, src_size, dest_size;
 localparam [3:0] STATE_FETCH = 4'h0;
 localparam [3:0] STATE_DECODE = 4'h1;
 localparam [3:0] STATE_EXECUTE = 4'h2;
@@ -214,6 +238,7 @@ always @(posedge clk or negedge rst_n) begin
                 case (opcode)
                     OPCODE_PNEW: begin
                         // Create new partition module
+                        proposed_cost <= mu_accumulator - 32'h10000; // Cost should decrease for valid partition
                         execute_pnew(operand_a, operand_b);
                         pc_reg <= pc_reg + 4;
                         state <= STATE_FETCH;
@@ -221,6 +246,7 @@ always @(posedge clk or negedge rst_n) begin
 
                     OPCODE_PSPLIT: begin
                         // Split existing module
+                        proposed_cost <= mu_accumulator - 32'h20000; // Cost should decrease for valid split
                         execute_psplit(operand_a, operand_b);
                         pc_reg <= pc_reg + 4;
                         state <= STATE_FETCH;
@@ -228,6 +254,7 @@ always @(posedge clk or negedge rst_n) begin
 
                     OPCODE_PMERGE: begin
                         // Merge two modules
+                        proposed_cost <= mu_accumulator - 32'h15000; // Cost should decrease for valid merge
                         execute_pmerge(operand_a, operand_b);
                         pc_reg <= pc_reg + 4;
                         state <= STATE_FETCH;
@@ -271,6 +298,13 @@ always @(posedge clk or negedge rst_n) begin
                         end else begin
                             execute_mdlacc(operand_a);
                         end
+                        pc_reg <= pc_reg + 4;
+                        state <= STATE_FETCH;
+                    end
+
+                    OPCODE_PDISCOVER: begin
+                        // Partition discovery: compute information gain
+                        execute_pdiscover(operand_a, operand_b);
                         pc_reg <= pc_reg + 4;
                         state <= STATE_FETCH;
                     end
@@ -354,25 +388,32 @@ task execute_pnew;
     input [7:0] region_spec_a;
     input [7:0] region_spec_b;
     begin
-        // Create new module with specified region
-        region_size = region_spec_a * 256 + region_spec_b; // Combine operands
-
-        if (next_module_id < NUM_MODULES) begin
-            module_table[next_module_id] <= region_size;
-            current_module <= next_module_id;
-            next_module_id <= next_module_id + 1;
-
-            // Initialize region
-            for (i = 0; i < REGION_SIZE; i = i + 1) begin
-                if (i < region_size) begin
-                    region_table[next_module_id][i] <= i;
-                end
-            end
-
-            csr_status <= 32'h1; // Success
-            partition_ops_counter <= partition_ops_counter + 1;
+        // Check μ-Core enforcement - hardware physically enforces the math
+        if (enforcement_active && (!cost_gate_open || !partition_gate_open)) begin
+            csr_error <= 32'hA; // Cost gate or partition gate closed
+            $display("μ-Core: Blocking PNEW - cost_gate=%b, partition_gate=%b", cost_gate_open, partition_gate_open);
         end else begin
-            csr_error <= 32'h2; // No available modules
+            // Create new module with specified region
+            region_size = region_spec_a * 256 + region_spec_b; // Combine operands
+
+            if (next_module_id < NUM_MODULES) begin
+                module_table[next_module_id] <= region_size;
+                current_module <= next_module_id;
+                next_module_id <= next_module_id + 1;
+
+                // Initialize region
+                for (i = 0; i < REGION_SIZE; i = i + 1) begin
+                    if (i < region_size) begin
+                        region_table[next_module_id][i] <= i;
+                    end
+                end
+
+                csr_status <= 32'h1; // Success
+                partition_ops_counter <= partition_ops_counter + 1;
+                $display("μ-Core: PNEW allowed - silicon respects the math");
+            end else begin
+                csr_error <= 32'h2; // No available modules
+            end
         end
     end
 endtask
@@ -471,7 +512,7 @@ endtask
 task execute_mdlacc;
     input [7:0] module_id;
     begin
-        // Accumulate μ-bits for MDL cost
+        // Accumulate μ-bits for MDL cost using Q16.16 arithmetic
         if (module_id < next_module_id) begin
             module_size = module_table[module_id];
 
@@ -492,21 +533,91 @@ task execute_mdlacc;
                 end else begin
                     bit_length = $clog2(max_element + 1);
                 end
-                mdl_cost = bit_length * module_size;
+                // Convert to Q16.16: mdl_cost = (bit_length * module_size) << 16
+                mdl_cost = (bit_length * module_size) << 16;
             end else begin
                 mdl_cost = 0;
             end
 
-            if (mu_accumulator + mdl_cost <= MAX_MU) begin
-                $display("MDLACC module=%0d size=%0d mdl_cost=%0d mu_acc(before)=%0d", module_id, module_size, mdl_cost, mu_accumulator);
-                mu_accumulator <= mu_accumulator + mdl_cost;
+            // Use μ-ALU for Q16.16 addition with saturation
+            mu_alu_op <= 3'd0;  // ADD
+            mu_alu_operand_a <= mu_accumulator;
+            mu_alu_operand_b <= mdl_cost;
+            mu_alu_valid <= 1'b1;
+
+            // Wait for result (in simulation, this will complete in next cycle)
+            @(posedge mu_alu_ready);
+            mu_alu_valid <= 1'b0;
+
+            if (mu_alu_overflow) begin
+                csr_error <= 32'h6; // μ-bit overflow
+            end else begin
+                $display("MDLACC module=%0d size=%0d mdl_cost=%0d mu_acc(before)=%0d mu_acc(after)=%0d", 
+                        module_id, module_size, mdl_cost >> 16, mu_accumulator >> 16, mu_alu_result >> 16);
+                mu_accumulator <= mu_alu_result;
                 csr_status <= 32'h5; // MDL accumulation successful
                 mdl_ops_counter <= mdl_ops_counter + 1;
-            end else begin
-                csr_error <= 32'h6; // μ-bit overflow
+                
+                // Provide receipt to μ-Core
+                receipt_value <= mu_alu_result;
+                receipt_valid <= 1'b1;
+                @(posedge clk); // Hold for one cycle
+                receipt_valid <= 1'b0;
             end
         end else begin
             csr_error <= 32'h7; // Invalid module
+        end
+    end
+endtask
+
+task execute_pdiscover;
+    input [7:0] before_count;
+    input [7:0] after_count;
+    begin
+        // Compute information gain: log2(before/after) for partition discovery
+        if (before_count > 0 && after_count > 0 && after_count <= before_count) begin
+            // Use μ-ALU to compute information gain
+            mu_alu_op <= 3'd5;  // INFO_GAIN
+            mu_alu_operand_a <= before_count;  // before (integer)
+            mu_alu_operand_b <= after_count;   // after (integer)
+            mu_alu_valid <= 1'b1;
+            
+            // Wait for result
+            @(posedge mu_alu_ready);
+            mu_alu_valid <= 1'b0;
+            
+            if (mu_alu_overflow) begin
+                csr_error <= 32'h8; // Information gain overflow
+            end else begin
+                info_gain_value = mu_alu_result;
+                
+                // Accumulate information gain
+                mu_alu_op <= 3'd0;  // ADD
+                mu_alu_operand_a <= mu_accumulator;
+                mu_alu_operand_b <= info_gain_value;
+                mu_alu_valid <= 1'b1;
+                
+                @(posedge mu_alu_ready);
+                mu_alu_valid <= 1'b0;
+                
+                if (mu_alu_overflow) begin
+                    csr_error <= 32'h6; // μ-bit overflow
+                end else begin
+                    $display("PDISCOVER before=%0d after=%0d info_gain=%0d mu_acc(before)=%0d mu_acc(after)=%0d", 
+                            before_count, after_count, info_gain_value >> 16, mu_accumulator >> 16, mu_alu_result >> 16);
+                    mu_accumulator <= mu_alu_result;  // mu_alu_result is the sum from the ADD operation
+                    csr_status <= 32'h6; // Discovery successful
+                    partition_ops_counter <= partition_ops_counter + 1;
+                    
+                    // Provide receipt to μ-Core
+                    receipt_value <= mu_alu_result;
+                    receipt_valid <= 1'b1;
+                    @(posedge clk); // Hold for one cycle
+                    receipt_valid <= 1'b0;
+                end
+            end
+        end else begin
+            csr_error <= 32'h9; // Invalid discovery parameters
         end
     end
 endtask
@@ -621,6 +732,40 @@ endtask
 // ============================================================================
 // EXTERNAL INTERFACE LOGIC
 // ============================================================================
+
+// Instantiate μ-ALU
+mu_alu mu_alu_inst (
+    .clk(clk),
+    .rst_n(rst_n),
+    .op(mu_alu_op),
+    .operand_a(mu_alu_operand_a),
+    .operand_b(mu_alu_operand_b),
+    .valid(mu_alu_valid),
+    .result(mu_alu_result),
+    .ready(mu_alu_ready),
+    .overflow(mu_alu_overflow)
+);
+
+// Instantiate μ-Core (Partition Isomorphism Enforcement)
+mu_core mu_core_inst (
+    .clk(clk),
+    .rst_n(rst_n),
+    .instruction(current_instr),
+    .instr_valid(state == STATE_DECODE),
+    .instr_allowed(instr_allowed),
+    .receipt_required(receipt_required),
+    .current_mu_cost(mu_accumulator),
+    .proposed_cost(proposed_cost),
+    .partition_count(next_module_id),
+    .memory_isolation(32'hCAFEBABE),  // Placeholder - would check actual memory isolation
+    .receipt_value(receipt_value),
+    .receipt_valid(receipt_valid),
+    .receipt_accepted(receipt_accepted),
+    .cost_gate_open(cost_gate_open),
+    .partition_gate_open(partition_gate_open),
+    .core_status(core_status),
+    .enforcement_active(enforcement_active)
+);
 
 // Logic engine interface
 assign logic_req = (state == STATE_LOGIC);

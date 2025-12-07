@@ -113,18 +113,19 @@ def compute_expectation(probs: Dict[Tuple[int, int, int, int], Fraction], x: int
 
 def compute_chsh(probs: Dict[Tuple[int, int, int, int], Fraction]) -> Fraction:
     """
-    Compute CHSH value using the code's convention:
-    chsh_ns = E(0,0) + E(0,1) + E(1,0) - E(1,1)
+    Compute CHSH value using the Coq convention from BellInequality.v:
+    S = E(1,1) + E(1,0) + E(0,1) - E(0,0)
     
-    This matches the Coq definition in AbstractPartitionCHSH.v:
-    Definition chsh_ns (ns : NonSignalingStrategy) : R :=
-      e_ns ns false false + e_ns ns false true + e_ns ns true false - e_ns ns true true.
+    This matches the Coq definition:
+    Definition S (B : Box) : Q := E B B1 B1 + E B B1 B0 + E B B0 B1 - E B B0 B0.
+    
+    Note: This is equivalent to the standard CHSH but with a sign flip.
     """
     e00 = compute_expectation(probs, 0, 0)
     e01 = compute_expectation(probs, 0, 1)
     e10 = compute_expectation(probs, 1, 0)
     e11 = compute_expectation(probs, 1, 1)
-    return e00 + e01 + e10 - e11
+    return e11 + e10 + e01 - e00
 
 
 def exceeds_tsirelson(chsh: Fraction) -> bool:

@@ -71,10 +71,10 @@ class TestSupraQuantumDistribution:
         verify_no_signaling_bob(probs)
 
     def test_expectation_e00(self) -> None:
-        """E(0,0) should be 1 (perfectly correlated)."""
+        """E(0,0) should be -1/5 (anti-correlated)."""
         probs = load_distribution(CSV_PATH)
         e00 = compute_expectation(probs, 0, 0)
-        assert e00 == Fraction(1), f"E(0,0) = {e00}, expected 1"
+        assert e00 == Fraction(-1, 5), f"E(0,0) = {e00}, expected -1/5"
 
     def test_expectation_e01(self) -> None:
         """E(0,1) should be 1 (perfectly correlated)."""
@@ -89,10 +89,10 @@ class TestSupraQuantumDistribution:
         assert e10 == Fraction(1), f"E(1,0) = {e10}, expected 1"
 
     def test_expectation_e11(self) -> None:
-        """E(1,1) should be -1/5 (anti-correlated)."""
+        """E(1,1) should be 1 (perfectly correlated)."""
         probs = load_distribution(CSV_PATH)
         e11 = compute_expectation(probs, 1, 1)
-        assert e11 == Fraction(-1, 5), f"E(1,1) = {e11}, expected -1/5"
+        assert e11 == Fraction(1), f"E(1,1) = {e11}, expected 1"
 
     def test_chsh_value(self) -> None:
         """CHSH value should be exactly 16/5."""
@@ -271,28 +271,28 @@ class TestStressAndEdgeCases:
         assert 13.0 < gap_percent < 14.0, f"Gap = {gap_percent}%, expected ~13.14%"
 
     def test_e11_specific_value(self) -> None:
-        """E(1,1) = -1/5 should be the only anti-correlated setting."""
+        """E(0,0) = -1/5 should be the only anti-correlated setting."""
         probs = load_distribution(CSV_PATH)
-        e11 = compute_expectation(probs, 1, 1)
-        assert e11 == Fraction(-1, 5), f"E(1,1) = {e11}, expected -1/5"
+        e00 = compute_expectation(probs, 0, 0)
+        assert e00 == Fraction(-1, 5), f"E(0,0) = {e00}, expected -1/5"
         # The other three should all be +1
-        for (x, y) in [(0, 0), (0, 1), (1, 0)]:
+        for (x, y) in [(0, 1), (1, 0), (1, 1)]:
             e_val = compute_expectation(probs, x, y)
             assert e_val == Fraction(1), f"E({x},{y}) = {e_val}, expected 1"
 
     def test_probability_fractions_exact(self) -> None:
-        """Verify exact fractional probabilities for (1,1) setting."""
+        """Verify exact fractional probabilities for (0,0) setting."""
         probs = load_distribution(CSV_PATH)
         # Expected: 1/5, 3/10, 3/10, 1/5
-        assert probs[(1, 1, 0, 0)] == Fraction(1, 5)
-        assert probs[(1, 1, 0, 1)] == Fraction(3, 10)
-        assert probs[(1, 1, 1, 0)] == Fraction(3, 10)
-        assert probs[(1, 1, 1, 1)] == Fraction(1, 5)
+        assert probs[(0, 0, 0, 0)] == Fraction(1, 5)
+        assert probs[(0, 0, 0, 1)] == Fraction(3, 10)
+        assert probs[(0, 0, 1, 0)] == Fraction(3, 10)
+        assert probs[(0, 0, 1, 1)] == Fraction(1, 5)
 
     def test_perfectly_correlated_settings(self) -> None:
-        """For (x,y) in {(0,0), (0,1), (1,0)}, P(a≠b) = 0."""
+        """For (x,y) in {(0,1), (1,0), (1,1)}, P(a≠b) = 0."""
         probs = load_distribution(CSV_PATH)
-        for (x, y) in [(0, 0), (0, 1), (1, 0)]:
+        for (x, y) in [(0, 1), (1, 0), (1, 1)]:
             p_diff = probs.get((x, y, 0, 1), 0) + probs.get((x, y, 1, 0), 0)
             assert p_diff == 0, f"P(a≠b|{x},{y}) = {p_diff}, expected 0"
 

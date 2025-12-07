@@ -72,7 +72,40 @@ def find_period_with_claims(
     if max_period <= 0:
         raise ValueError("max_period must be positive")
 
-    residues = {k: pow(a, k, n) for k in range(0, max_period + 1)}
+    print(f"  • Computing {max_period + 1} modular exponentiation residues...")
+    import time
+    start_time = time.time()
+    
+    # Try to import psutil for memory monitoring
+    try:
+        import psutil
+        process = psutil.Process()
+        initial_memory = process.memory_info().rss / 1024 / 1024  # MB
+        memory_monitoring = True
+    except ImportError:
+        memory_monitoring = False
+        print("  • Memory monitoring unavailable (install psutil for memory stats)")
+    
+    residues = {}
+    for k in range(0, max_period + 1):
+        residues[k] = pow(a, k, n)
+        if k % 100000 == 0 and k > 0:  # Progress every 100k computations
+            elapsed = time.time() - start_time
+            rate = k / elapsed if elapsed > 0 else 0
+            if memory_monitoring:
+                current_memory = process.memory_info().rss / 1024 / 1024
+                memory_used = current_memory - initial_memory
+                print(f"    - Computed {k}/{max_period + 1} residues ({k/(max_period + 1)*100:.1f}%) - {rate:.0f} ops/sec - Memory: +{memory_used:.1f} MB")
+            else:
+                print(f"    - Computed {k}/{max_period + 1} residues ({k/(max_period + 1)*100:.1f}%) - {rate:.0f} ops/sec")
+    elapsed = time.time() - start_time
+    if memory_monitoring:
+        final_memory = process.memory_info().rss / 1024 / 1024
+        total_memory_used = final_memory - initial_memory
+        print(f"  ✓ Residues computed in {elapsed:.2f}s ({len(residues)} total) - Peak memory usage: {total_memory_used:.1f} MB")
+    else:
+        print(f"  ✓ Residues computed in {elapsed:.2f}s ({len(residues)} total)")
+
     stabilisers = [k for k in range(1, max_period + 1) if residues[k] == 1]
     if not stabilisers:
         raise ValueError("failed to locate a stabilising exponent within limit")
@@ -86,17 +119,28 @@ def find_period_with_claims(
         minimal_period_candidates = [min(stabilisers)]
     period = min(minimal_period_candidates)
 
+    print(f"  • Setting up Z3 solver with {len(residues)} constraints...")
     solver = z3.Solver()
     r = z3.Int("r")
     pow_mod = z3.Function("pow_mod", z3.IntSort(), z3.IntSort())
 
     solver.add(r >= 1, r <= max_period)
+    constraint_count = 0
     for exponent, residue in residues.items():
         solver.add(pow_mod(z3.IntVal(exponent)) == residue)
+        constraint_count += 1
+        if constraint_count % 100000 == 0:
+            if memory_monitoring:
+                current_memory = process.memory_info().rss / 1024 / 1024
+                memory_used = current_memory - initial_memory
+                print(f"    - Added {constraint_count}/{len(residues)} constraints - Memory: +{memory_used:.1f} MB")
+            else:
+                print(f"    - Added {constraint_count}/{len(residues)} constraints")
     solver.add(pow_mod(r) == 1)
     for exponent in range(1, max_period):
         if residues[exponent] == 1:
             solver.add(r <= exponent)
+    print(f"  ✓ Z3 solver initialized with {constraint_count} constraints")
 
     claims: List[ClaimRecord] = []
     mu_total = 0.0
@@ -105,6 +149,7 @@ def find_period_with_claims(
     def assess(statement: str, predicate: z3.BoolRef, **details: object) -> None:
         nonlocal mu_total, solver_queries
 
+        print(f"    • Assessing claim: {statement}")
         mu_delta = 0.0
         solver.push()
         solver.add(z3.Not(predicate))
@@ -125,6 +170,7 @@ def find_period_with_claims(
                     details=dict(details, query="negated"),
                 )
             )
+            print(f"      ✓ Proven (μ-cost: {mu_delta:.2f}, candidates: {len(candidates)})")
             return
 
         solver.push()
@@ -146,6 +192,7 @@ def find_period_with_claims(
                     details=dict(details, query="affirmed"),
                 )
             )
+            print(f"      ✗ Refuted (μ-cost: {mu_delta:.2f}, candidates: {len(candidates)})")
         else:
             claims.append(
                 ClaimRecord(
@@ -156,7 +203,9 @@ def find_period_with_claims(
                     details=dict(details, query="both"),
                 )
             )
+            print(f"      ? Inconclusive (μ-cost: {mu_delta:.2f}, candidates: {len(candidates)})")
 
+    print(f"  • Assessing geometric claims to constrain period...")
     lower_bound = max(1, period - 1)
     assess(
         statement=f"Period exceeds {lower_bound}",
@@ -198,10 +247,13 @@ def find_period_with_claims(
         property="identity",
     )
 
+    print(f"  ✓ Claims assessment complete ({len(claims)} claims, μ-total: {mu_total:.2f}, queries: {solver_queries})")
+    print("  • Extracting final period from solver model...")
     if solver.check() != z3.sat:
         raise RuntimeError("solver lost satisfiability while assessing claims")
     model = solver.model()
     final_period = int(model[r].as_long())
+    print(f"  ✓ Final period extracted: r = {final_period}")
 
     summary = {
         "number": n,

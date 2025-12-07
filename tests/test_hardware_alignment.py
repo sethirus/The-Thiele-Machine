@@ -35,6 +35,8 @@ def test_rtl_trace_matches_decoded_metrics():
         "thiele_cpu_tb",
         "thiele_cpu.v",
         "thiele_cpu_tb.v",
+        "mu_alu.v",
+        "mu_core.v",
     ]
     subprocess.run(compile_cmd, cwd=HARDWARE_DIR, check=True, capture_output=True)
 

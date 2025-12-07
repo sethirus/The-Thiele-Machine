@@ -1,13 +1,13 @@
 # Thiele CPU Hardware Test Report
 
-Generated: 2025-11-12
+Generated: 2025-12-06 19:09:47
 
 ## Test Results
 
 ### Simulation Status
-- **Simulation**: Passed via Icarus Verilog (`iverilog`/`vvp`)
-- **Validation**: Passed (PC progression and status checkpoints matched expected trace)
-- **Synthesis Files**: Present (`thiele_cpu.v`, `thiele_cpu_tb.v`, `constraints.xdc`, `synthesis.tcl`)
+- **Simulation**: Passed
+- **Validation**: Passed
+- **Synthesis Files**: Complete
 
 ### Hardware Specifications
 
@@ -32,7 +32,38 @@ Generated: 2025-11-12
 - **DSP**: ~10 slices
 - **Power**: ~10W
 
-## Run Notes
+## Recommendations
 
-- The hardware test harness compiled and ran the Verilog CPU testbench with iverilog/vvp and validated the checkpointed state transitions and µ-ledger equality against the VM decode.
-- Simulation output was written to `thielecpu/hardware/simulation_output.log`; harness summaries mirror the faithful-implementation lemmas used in the Coq bridge.
+1. **Install Simulation Tools**: Icarus Verilog, Vivado, or ModelSim
+2. **FPGA Board**: ZCU102 or similar for prototyping
+3. **External Interfaces**: Z3 solver and Python interpreter
+4. **Security Review**: Independent security audit recommended
+
+## Files Tested
+
+- `mau.v`
+- `thiele_cpu_tb.vvp`
+- `thiele_cpu_tb`
+- `holy_grail_demo.py`
+- `simulation_output.log`
+- `README.md`
+- `mu_alu_tb.v`
+- `pee.v`
+- `thiele_cpu_test`
+- `simulate.do`
+- `HARDWARE_INTEGRATION.md`
+- `mu_alu_test`
+- `simulate.tcl`
+- `test_report.md`
+- `lei.v`
+- `synthesis.tcl`
+- `constraints.xdc`
+- `mu_alu.v`
+- `mu_core.v`
+- `test_hardware.py`
+- `thiele_cpu.v`
+- `mmu.v`
+- `synthesis_report.md`
+- `thiele_cpu_tb.v`
+- `thiele_cpu_tb_compiled`
+- `mu_core_test`

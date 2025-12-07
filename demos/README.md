@@ -2,6 +2,37 @@
 
 This directory contains all demonstration code organized by purpose and complexity.
 
+## Quick Start: Impossible Logic Demo
+
+### `demo_impossible_logic.py` - Five "Impossible" Demonstrations
+
+**NEW**: One unified file demonstrating five capabilities impossible under classical/quantum constraints.
+These are NOT simulations - they use the REAL Thiele VM with PNEW/PYEXEC/EMIT opcodes.
+
+**Demonstrations:**
+1. CHSH Game - Beats quantum mechanics (90% vs 85.36% limit)
+2. Neural Pruning - 99% weight removal before training
+3. Quantum Cryptography - Device-independent key generation
+4. Protein Allostery - Finding undruggable target sites
+5. Byzantine Consensus - Zero-message distributed agreement
+
+**Usage:**
+```bash
+# Run all 5 demonstrations
+python3 demos/demo_impossible_logic.py
+
+# Run specific demo
+python3 demos/demo_impossible_logic.py --demo 1
+
+# Custom parameters
+python3 demos/demo_impossible_logic.py --demo 1 --chsh-rounds 100000
+python3 demos/demo_impossible_logic.py --demo 3 --key-bits 1024
+```
+
+**Expected:** All demos show ✓ SUCCESS with results exceeding classical/quantum limits.
+
+---
+
 ## Directory Structure
 
 ### `core-examples/` - Basic Thiele Programming
