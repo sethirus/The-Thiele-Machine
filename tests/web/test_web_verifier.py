@@ -278,7 +278,11 @@ class TestWebVerifierDocumentation:
 
     def test_github_pages_setup_documented(self):
         """Verify GitHub Pages setup is documented."""
-        docs = [Path("GITHUB_PAGES_SETUP.md"), Path("README.md")]
+        docs = [
+            Path("docs/archive/GITHUB_PAGES_SETUP.md"), 
+            Path("docs/COMPREHENSIVE_TESTING_SUMMARY.md"),
+            Path("README.md")
+        ]
         found = False
         for doc in docs:
             if doc.exists():
@@ -291,13 +295,13 @@ class TestWebVerifierDocumentation:
 
 def test_verify_web_pages_script_exists():
     """Verify the web pages verification script exists."""
-    script = Path("verify_web_pages.py")
+    script = Path("scripts/verification/verify_web_pages.py")
     assert script.exists(), "verify_web_pages.py script not found"
 
 
 def test_verify_web_pages_script_runnable():
     """Verify the script has main function."""
-    script = Path("verify_web_pages.py")
+    script = Path("scripts/verification/verify_web_pages.py")
     if script.exists():
         content = script.read_text()
         assert "def main()" in content, "Script missing main function"

@@ -160,12 +160,12 @@ class TestCHSHIsomorphism:
     
     def test_verilog_file_exists(self):
         """Verify Verilog implementation file exists."""
-        verilog_path = Path(__file__).parent.parent / "hardware" / "chsh_partition.v"
+        verilog_path = Path(__file__).parent.parent / "thielecpu" / "hardware" / "partition_discovery" / "chsh_partition.v"
         assert verilog_path.exists(), f"Missing Verilog file: {verilog_path}"
     
     def test_verilog_constants_match_spec(self):
         """Verify Verilog constants match specification."""
-        verilog_path = Path(__file__).parent.parent / "hardware" / "chsh_partition.v"
+        verilog_path = Path(__file__).parent.parent / "thielecpu" / "hardware" / "partition_discovery" / "chsh_partition.v"
         content = verilog_path.read_text()
         
         # Check for key constants
@@ -268,12 +268,12 @@ class TestShorIsomorphism:
     
     def test_verilog_file_exists(self):
         """Verify Verilog implementation file exists."""
-        verilog_path = Path(__file__).parent.parent / "hardware" / "shor_partition.v"
+        verilog_path = Path(__file__).parent.parent / "thielecpu" / "hardware" / "partition_discovery" / "shor_partition.v"
         assert verilog_path.exists(), f"Missing Verilog file: {verilog_path}"
     
     def test_verilog_has_gcd_function(self):
         """Verify Verilog implements GCD for factor extraction."""
-        verilog_path = Path(__file__).parent.parent / "hardware" / "shor_partition.v"
+        verilog_path = Path(__file__).parent.parent / "thielecpu" / "hardware" / "partition_discovery" / "shor_partition.v"
         content = verilog_path.read_text()
         
         assert "gcd" in content.lower(), \
@@ -281,7 +281,7 @@ class TestShorIsomorphism:
     
     def test_verilog_has_partition_structure(self):
         """Verify Verilog uses partition framework."""
-        verilog_path = Path(__file__).parent.parent / "hardware" / "shor_partition.v"
+        verilog_path = Path(__file__).parent.parent / "thielecpu" / "hardware" / "partition_discovery" / "shor_partition.v"
         content = verilog_path.read_text()
         
         assert "module_id" in content.lower() or "partition" in content.lower(), \
@@ -362,9 +362,9 @@ class TestVerilogSynthesis:
     """Tests for Verilog synthesis readiness."""
     
     VERILOG_FILES = [
-        "hardware/chsh_partition.v",
-        "hardware/shor_partition.v",
-        "hardware/pdiscover_archsphere.v",
+        "thielecpu/hardware/partition_discovery/chsh_partition.v",
+        "thielecpu/hardware/partition_discovery/shor_partition.v",
+        "thielecpu/hardware/partition_discovery/pdiscover_archsphere.v",
     ]
     
     def test_all_verilog_files_exist(self):
@@ -478,7 +478,7 @@ class TestEndToEndIsomorphism:
         assert result.is_valid_partition(10)
         
         # Verilog: Check pdiscover module exists
-        verilog_path = Path(__file__).parent.parent / "hardware" / "pdiscover_archsphere.v"
+        verilog_path = Path(__file__).parent.parent / "thielecpu" / "hardware" / "partition_discovery" / "pdiscover_archsphere.v"
         assert verilog_path.exists()
 
 
