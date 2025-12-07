@@ -29,6 +29,36 @@ This README documents:
 
 ---
 
+## 📚 Formal Mathematics & Paper
+
+**For researchers, reviewers, and those who want the "fuck you but in math" version:**
+
+- **[THEOREMS.md](THEOREMS.md)** — Core mathematical definitions and theorems with Coq proofs
+  - Definition 1: Turing Machine (baseline)
+  - Definition 2: Thiele Machine (full sighted model)
+  - Definition 3: Blind Restriction (the Turing shadow)
+  - Theorem 1: Subsumption (TURING ⊂ THIELE) — **Proven in Coq**
+  - Theorem 2: Strictness (TURING ⊊ THIELE) — **Proven in Coq**
+  - Theorem 3-5: μ-Conservation, Polynomial Discovery, Exponential Separation
+
+- **[PAPER.md](PAPER.md)** — Full academic paper skeleton
+  - Abstract, Introduction, Formal Model, Strictness Result
+  - Implementation stack, CHSH case study, Falsification suite
+  - Ready for arXiv/journal submission
+
+- **[PROOF_MAP.md](PROOF_MAP.md)** — Complete navigation guide
+  - Maps every theorem to its Coq proof, Python implementation, and hardware realization
+  - For reviewers who want to verify claims line-by-line
+
+- **[demos/CHSH_FLAGSHIP_DEMO.md](demos/CHSH_FLAGSHIP_DEMO.md)** — Flagship case study
+  - CHSH supra-quantum correlations (S = 16/5 = 3.2 > 2√2)
+  - Complete derivation, Coq verification, empirical validation
+  - Standalone document with all math spelled out
+
+**TL;DR:** If you want to tell us we're wrong, these are the artifacts you have to touch.
+
+---
+
 ## Table of Contents
 
 1. [Executive Summary](#executive-summary)
