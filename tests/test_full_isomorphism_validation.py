@@ -166,7 +166,9 @@ class TestVerilogCompilation:
             result = subprocess.run(
                 ["iverilog", "-g2012", "-o", tmp_path, 
                  str(hw_dir / "thiele_cpu.v"), 
-                 str(hw_dir / "thiele_cpu_tb.v")],
+                 str(hw_dir / "thiele_cpu_tb.v"),
+                 str(hw_dir / "mu_alu.v"),
+                 str(hw_dir / "mu_core.v")],
                 capture_output=True,
                 timeout=60
             )
@@ -188,7 +190,9 @@ class TestVerilogCompilation:
             subprocess.run(
                 ["iverilog", "-g2012", "-o", tmp_path,
                  str(hw_dir / "thiele_cpu.v"),
-                 str(hw_dir / "thiele_cpu_tb.v")],
+                 str(hw_dir / "thiele_cpu_tb.v"),
+                 str(hw_dir / "mu_alu.v"),
+                 str(hw_dir / "mu_core.v")],
                 check=True,
                 timeout=60
             )
@@ -219,7 +223,9 @@ class TestVerilogCompilation:
             subprocess.run(
                 ["iverilog", "-g2012", "-o", tmp_path,
                  str(hw_dir / "thiele_cpu.v"),
-                 str(hw_dir / "thiele_cpu_tb.v")],
+                 str(hw_dir / "thiele_cpu_tb.v"),
+                 str(hw_dir / "mu_alu.v"),
+                 str(hw_dir / "mu_core.v")],
                 check=True,
                 timeout=60
             )
@@ -458,7 +464,9 @@ class TestEndToEndIsomorphism:
             result = subprocess.run(
                 ["iverilog", "-g2012", "-o", tmp_path,
                  str(hw_dir / "thiele_cpu.v"),
-                 str(hw_dir / "thiele_cpu_tb.v")],
+                 str(hw_dir / "thiele_cpu_tb.v"),
+                 str(hw_dir / "mu_alu.v"),
+                 str(hw_dir / "mu_core.v")],
                 capture_output=True,
                 timeout=60
             )

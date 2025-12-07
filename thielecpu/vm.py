@@ -1058,12 +1058,17 @@ class VM:
             # 
             # SECURITY NOTE: Use with trusted code only. For security-sensitive
             # deployments, replace with SAFE_BUILTINS and re-enable SafeNodeVisitor.
+            
             globals_scope: Dict[str, Any] = {
                 "__builtins__": builtins.__dict__.copy(),
                 "placeholder": placeholder,
                 "hashlib": hashlib,
                 "math": math,
                 "json": json,
+                "sys": sys,
+                "np": np,
+                "numpy": np,
+                "Path": Path,
                 "self": self,
                 "vm_read_text": self.virtual_fs.read_text,
                 "vm_write_text": self.virtual_fs.write_text,
@@ -1072,6 +1077,10 @@ class VM:
                 "vm_exists": self.virtual_fs.exists,
                 "vm_listdir": self.virtual_fs.listdir,
             }
+            
+            # NOTE: PyTorch NOT added to VM globals due to Python 3.12 compatibility bug
+            # Users should run PyTorch code outside VM and pass results via PYEXEC
+            
             self.python_globals = globals_scope
         else:
             # Ensure filesystem helpers are present even with custom globals

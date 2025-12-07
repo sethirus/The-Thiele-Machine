@@ -1063,17 +1063,17 @@ Qed.
 
 Definition supra_quantum_p (a b x y : Bit) : Q :=
   match x, y with
-  | B1, B1 =>
-      (* x=1, y=1: E = -1/5 *)
+  | B0, B0 =>
+      (* x=0, y=0: E = -1/5 *)
       (* P(same) = 2/5, P(diff) = 3/5 *)
       match a, b with
-      | B0, B0 => 1#5    (* P(0,0|1,1) = 1/5 *)
-      | B0, B1 => 3#10   (* P(0,1|1,1) = 3/10 *)
-      | B1, B0 => 3#10   (* P(1,0|1,1) = 3/10 *)
-      | B1, B1 => 1#5    (* P(1,1|1,1) = 1/5 *)
+      | B0, B0 => 1#5    (* P(0,0|0,0) = 1/5 *)
+      | B0, B1 => 3#10   (* P(0,1|0,0) = 3/10 *)
+      | B1, B0 => 3#10   (* P(1,0|0,0) = 3/10 *)
+      | B1, B1 => 1#5    (* P(1,1|0,0) = 1/5 *)
       end
   | _, _ =>
-      (* For all other settings (0,0), (0,1), (1,0): E = 1 *)
+      (* For all other settings (0,1), (1,0), (1,1): E = 1 *)
       (* Perfect correlation: P(same) = 1, P(diff) = 0 *)
       match a, b with
       | B0, B0 => 1#2    (* P(0,0) = 1/2 *)
@@ -1152,7 +1152,7 @@ Definition SupraQuantum : Box := {|
 
 (* Verify the expectation values *)
 
-Lemma E_SupraQuantum_B0_B0 : E SupraQuantum B0 B0 == 1#1.
+Lemma E_SupraQuantum_B0_B0 : E SupraQuantum B0 B0 == -1#5.
 Proof.
   unfold E, SupraQuantum, supra_quantum_p; simpl.
   unfold sum_bit2, sum_bit; simpl.
@@ -1173,7 +1173,7 @@ Proof.
   ring.
 Qed.
 
-Lemma E_SupraQuantum_B1_B1 : E SupraQuantum B1 B1 == -1#5.
+Lemma E_SupraQuantum_B1_B1 : E SupraQuantum B1 B1 == 1#1.
 Proof.
   unfold E, SupraQuantum, supra_quantum_p; simpl.
   unfold sum_bit2, sum_bit; simpl.
@@ -1185,12 +1185,12 @@ Qed.
 Theorem S_SupraQuantum : S SupraQuantum == 16#5.
 Proof.
   unfold S.
-  rewrite E_SupraQuantum_B1_B1.
-  rewrite E_SupraQuantum_B1_B0.
-  rewrite E_SupraQuantum_B0_B1.
   rewrite E_SupraQuantum_B0_B0.
-  (* 1 + 1 + 1 - (-1/5) = 3 + 1/5 = 16/5 *)
-  ring.
+  rewrite E_SupraQuantum_B0_B1.
+  rewrite E_SupraQuantum_B1_B0.
+  rewrite E_SupraQuantum_B1_B1.
+  (* Goal: 1 # 1 + 1 # 1 + 1 # 1 - (- (1 # 5)) == 16 # 5 *)
+  unfold Qeq; vm_compute; reflexivity.
 Qed.
 
 (* Verify that 16/5 exceeds the Tsirelson bound *)
@@ -1214,17 +1214,16 @@ Proof.
   unfold Qlt; simpl; lia.
 Qed.
 
-Theorem SupraQuantum_not_local : ~ local SupraQuantum.
+Lemma Qabs_pos_eq : forall x, 0#1 <= x -> Qabs x == x.
 Proof.
-  intros Hlocal.
-  pose proof (local_CHSH_bound SupraQuantum Hlocal) as Hbound.
-  pose proof (Qeq_le_compat (Qabs (S SupraQuantum)) (16#5) (2#1)
-             (Qabs_pos_eq _ (proj1 (S_SupraQuantum_bounds))) Hbound) as Hbound'.
-  rewrite S_SupraQuantum in Hbound'.
-  unfold Qle in Hbound'; simpl in Hbound'.
-  (* 16/5 > 2, so this is a contradiction *)
-  assert (Hcontra : ~ (16 * 1 <= 2 * 5)%Z) by lia.
-  apply Hcontra; exact Hbound'.
+  intros x H.
+  unfold Qabs.
+  destruct (Qle_bool 0 x) eqn:Heq.
+  - reflexivity.
+  - exfalso.
+    apply Qle_bool_iff in H.
+    rewrite H in Heq.
+    discriminate.
 Qed.
 
 Lemma S_SupraQuantum_bounds : 0#1 <= S SupraQuantum /\ S SupraQuantum < inject_Z 4.
@@ -1232,6 +1231,29 @@ Proof.
   split.
   - rewrite S_SupraQuantum. unfold Qle; simpl; lia.
   - apply supra_quantum_below_PR.
+Qed.
+
+Theorem SupraQuantum_not_local : ~ local SupraQuantum.
+Proof.
+  intros Hlocal.
+  pose proof (local_CHSH_bound SupraQuantum Hlocal) as Hbound.
+  setoid_rewrite S_SupraQuantum in Hbound.
+  (* We have Hbound : Qabs (16#5) <= 2#1 *)
+  (* But 16#5 > 2#1, so this is a contradiction *)
+  assert (Hcontra : ~ (16#5 <= 2#1)).
+  { unfold Qle. simpl. lia. }
+  (* Since 16#5 > 0, Qabs (16#5) = 16#5 *)
+  assert (Hpos : 0#1 <= 16#5) by (unfold Qle; simpl; lia).
+  unfold Qabs in Hbound.
+  destruct (Qle_bool 0 (16#5)) eqn:Heq.
+  - (* Qle_bool 0 (16#5) = true, so Qabs (16#5) = 16#5 *)
+    apply Hcontra.
+    exact Hbound.
+  - (* Qle_bool 0 (16#5) = false, but we know 16#5 >= 0 *)
+    exfalso.
+    apply Qle_bool_iff in Hpos.
+    rewrite Hpos in Heq.
+    discriminate.
 Qed.
 
 (* Main existence theorem: a valid no-signaling distribution exceeds Tsirelson *)
@@ -2028,11 +2050,10 @@ Theorem supra_quantum_program_valid :
   inject_Z 8 < (S SupraQuantum) * (S SupraQuantum) /\
   ~ local SupraQuantum.
 Proof.
-  repeat split.
-  - apply supra_quantum_receipts_sound.
-  - apply S_SupraQuantum.
-  - rewrite S_SupraQuantum. apply supra_quantum_exceeds_tsirelson_squared.
-  - apply SupraQuantum_not_local.
+  split. { apply supra_quantum_receipts_sound. }
+  split. { apply S_SupraQuantum. }
+  split. { rewrite S_SupraQuantum. apply supra_quantum_exceeds_tsirelson_squared. }
+  apply SupraQuantum_not_local.
 Qed.
 
 (*  SUMMARY (GPT Framework):
@@ -2969,196 +2990,3 @@ Proof.
   exact tsirelson_measurements_sound.
 Qed.
 
-(* ------------------------------------------------------------------------- *)
-(*  Supra-quantum 16/5 program scaffolding                                   *)
-(*                                                                           *)
-(*  This program produces the supra-quantum distribution with CHSH = 16/5.   *)
-(*  The distribution achieves S = 16/5 > 2√2 (Tsirelson bound) while         *)
-(*  remaining no-signaling.                                                  *)
-(*                                                                           *)
-(*  See coq/sandboxes/AbstractPartitionCHSH.v for the mathematical proofs:   *)
-(*    - supra_quantum_ns : the probability distribution                      *)
-(*    - supra_quantum_valid : the distribution is no-signaling               *)
-(*    - supra_quantum_chsh : chsh_ns supra_quantum_ns = 16/5                 *)
-(*    - sighted_is_supra_quantum : main theorem                              *)
-(*                                                                           *)
-(* ========================================================================= *)
-(*  ISOMORPHISM EXPLANATION (Paper-Style)                                    *)
-(* ========================================================================= *)
-(*                                                                           *)
-(*  The Thiele Machine establishes a verified correspondence between:        *)
-(*                                                                           *)
-(*  (A) Abstract Mathematical Model:                                         *)
-(*      - A no-signaling probability distribution P(a,b|x,y)                 *)
-(*      - CHSH value S = E(0,0) + E(0,1) + E(1,0) - E(1,1) = 16/5            *)
-(*      - Proven in Coq: supra_quantum_valid, supra_quantum_chsh             *)
-(*                                                                           *)
-(*  (B) Operational Execution Model:                                         *)
-(*      - Thiele VM program: PNEW → PYEXEC → PYEXEC → PYEXEC → EMIT          *)
-(*      - Receipt trace with cryptographic commitments                       *)
-(*      - Proven in Coq: supra_quantum_receipts_sound                        *)
-(*                                                                           *)
-(*  (C) External Verification:                                               *)
-(*      - Python script loads CSV, verifies constraints                      *)
-(*      - Independent calculation confirms S = 16/5 > 2√2                    *)
-(*      - Cryptographic receipts allow third-party audit                     *)
-(*                                                                           *)
-(*  The isomorphism is established by showing that:                          *)
-(*                                                                           *)
-(*    1. The Coq NonSignalingStrategy record matches the CSV entries         *)
-(*    2. The Thiele program produces receipts consistent with the strategy   *)
-(*    3. The Python verification agrees with both Coq proofs and CSV data    *)
-(*    4. All three verify the same inequality: (16/5)² > 8 ⟹ 16/5 > 2√2     *)
-(*                                                                           *)
-(*  This three-way correspondence ensures that any physical execution of     *)
-(*  the protocol can be audited against both the formal specification and    *)
-(*  the computational verification.                                          *)
-(*                                                                           *)
-(* ========================================================================= *)
-(*  CLARIFICATION: WHY 16/5 (NOT A CLAIM OF OPTIMALITY)                      *)
-(* ========================================================================= *)
-(*                                                                           *)
-(*  IMPORTANT: 16/5 = 3.2 is NOT the maximum achievable supra-quantum value! *)
-(*  The PR-box achieves S = 4, which is greater than 16/5.                   *)
-(*                                                                           *)
-(*  What we prove about 16/5:                                                *)
-(*    ✓ It exceeds the Tsirelson bound: 3.2 > 2√2 ≈ 2.828                    *)
-(*    ✓ It is a valid no-signaling distribution                             *)
-(*    ✓ It can be realized by the sighted Thiele protocol                   *)
-(*                                                                           *)
-(*  What we do NOT claim:                                                    *)
-(*    ✗ That 16/5 is the maximum achievable by any Thiele program           *)
-(*    ✗ That 16/5 is "optimal" in a global sense                            *)
-(*                                                                           *)
-(*  The 16/5 value arises from this SPECIFIC implementation:                 *)
-(*                                                                           *)
-(*  1. STRUCTURAL CHOICE: Three settings have perfect correlation (E = 1),  *)
-(*     establishing the shared geometric partition.                          *)
-(*                                                                           *)
-(*  2. FOURTH SETTING: E(1,1) = -1/5 arises from the partition geometry.    *)
-(*     This could theoretically go to -1 (PR-box, S=4), but this specific   *)
-(*     protocol produces E(1,1) = -1/5.                                     *)
-(*                                                                           *)
-(*  3. CONVEX STRUCTURE: The 16/5 point is a convex combination:             *)
-(*       16/5 = (3/5) × 4 + (2/5) × 2                                        *)
-(*     i.e., 60% PR-box + 40% classical perfectly-correlated strategy.       *)
-(*                                                                           *)
-(*  The sighted protocol achieves S = 16/5 = 3.2, exceeding quantum by ~13%. *)
-(*                                                                           *)
-(* ------------------------------------------------------------------------- *)
-
-(** The supra-quantum program uses the same Thiele instruction sequence
-    as the Tsirelson program, but the measurement outcomes are interpreted
-    according to the supra-quantum distribution instead of the quantum
-    distribution.
-    
-    In the supra-quantum case:
-      - E(0,0) = 1, E(0,1) = 1, E(1,0) = 1 (perfectly correlated)
-      - E(1,1) = -1/5 (anti-correlated)
-    
-    This yields: chsh = E(0,0) + E(0,1) + E(1,0) - E(1,1) = 1 + 1 + 1 - (-1/5) = 16/5
-*)
-Definition supra_quantum_program : list TM.ThieleInstr :=
-  [TM.PNEW [0%nat; 1%nat];
-   TM.PYEXEC "prepare_supra_quantum_partition"%string;
-   TM.PYEXEC "alice_measurement"%string;
-   TM.PYEXEC "bob_measurement"%string;
-   TM.EMIT "supra_quantum_outcome"%string].
-
-Definition supra_quantum_start : TM.ConcreteState := TM.default_concrete_state.
-
-Definition supra_quantum_receipts : list TM.ConcreteReceipt :=
-  TM.concrete_receipts_of supra_quantum_start supra_quantum_program.
-
-Definition supra_quantum_frames :
-  list (BridgeReceiptFrame TM.ThieleInstr TM.ConcreteState TM.StepObs) :=
-  List.map concrete_receipt_frame supra_quantum_receipts.
-
-Lemma supra_quantum_receipts_sound :
-  @receipts_sound _ _ _ concrete_step_frame supra_quantum_start supra_quantum_frames.
-Proof.
-  unfold supra_quantum_frames, supra_quantum_receipts.
-  apply concrete_receipts_sound.
-Qed.
-
-Lemma supra_quantum_receipts_length :
-  List.length supra_quantum_receipts = List.length supra_quantum_program.
-Proof.
-  unfold supra_quantum_receipts.
-  apply TM.concrete_receipts_length.
-Qed.
-
-Lemma supra_quantum_frames_length :
-  List.length supra_quantum_frames = 5%nat.
-Proof.
-  unfold supra_quantum_frames.
-  rewrite List.map_length.
-  rewrite supra_quantum_receipts_length.
-  unfold supra_quantum_program.
-  simpl.
-  reflexivity.
-Qed.
-
-Lemma supra_quantum_receipts_instrs :
-  List.map TM.receipt_instr supra_quantum_receipts = supra_quantum_program.
-Proof.
-  unfold supra_quantum_receipts, supra_quantum_program.
-  apply TM.concrete_receipts_instrs.
-Qed.
-
-Definition supra_quantum_state (pc : nat) : TM.ConcreteState :=
-  {| TM.pc := pc;
-     TM.status := 0%Z;
-     TM.mu_acc := 0%Z;
-     TM.cert_addr := EmptyString |}.
-
-Lemma supra_quantum_start_state :
-  supra_quantum_start = supra_quantum_state 0%nat.
-Proof.
-  reflexivity.
-Qed.
-
-(** The supra-quantum CHSH value 16/5 expressed as a rational number *)
-Definition supra_quantum_chsh_value : Q := 16#5.
-
-(** Verify that 16/5 exceeds the classical bound of 2 *)
-Lemma supra_quantum_exceeds_classical : 2#1 < supra_quantum_chsh_value.
-Proof.
-  unfold supra_quantum_chsh_value, Qlt; simpl; lia.
-Qed.
-
-(** Verify that (16/5)² > 8, i.e., 16/5 > 2√2 (Tsirelson bound) *)
-Lemma supra_quantum_exceeds_tsirelson_Q : 8#1 < supra_quantum_chsh_value * supra_quantum_chsh_value.
-Proof.
-  unfold supra_quantum_chsh_value, Qlt, Qmult; simpl; lia.
-Qed.
-
-(** Verify that 16/5 is strictly less than the PR-box bound of 4 *)
-Lemma supra_quantum_below_pr_bound : supra_quantum_chsh_value < 4#1.
-Proof.
-  unfold supra_quantum_chsh_value, Qlt; simpl; lia.
-Qed.
-
-(** Main theorem: The supra-quantum program produces a distribution
-    with CHSH = 16/5 that exceeds the Tsirelson bound.
-    
-    This theorem connects:
-    1. The Thiele Machine program (supra_quantum_program)
-    2. The receipt trace (supra_quantum_receipts_sound)
-    3. The mathematical bound (supra_quantum_exceeds_tsirelson_Q)
-    
-    Together with the proofs in AbstractPartitionCHSH.v, this establishes
-    the isomorphism between:
-    - The Coq formalization (sighted_is_supra_quantum)
-    - The Python verification (tools/verify_supra_quantum.py)
-    - The CSV data (artifacts/bell/supra_quantum_16_5.csv)
-*)
-Theorem supra_quantum_program_valid :
-  @receipts_sound _ _ _ concrete_step_frame supra_quantum_start supra_quantum_frames /\
-  supra_quantum_chsh_value = 16#5 /\
-  8#1 < supra_quantum_chsh_value * supra_quantum_chsh_value.
-Proof.
-  split; [apply supra_quantum_receipts_sound|].
-  split; [reflexivity|].
-  apply supra_quantum_exceeds_tsirelson_Q.
-Qed.
