@@ -542,7 +542,7 @@ def _parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("graph_demo_output"),
+        default=Path("results/graphs"),
         help="Directory for receipts and analysis artefacts.",
     )
     parser.add_argument(

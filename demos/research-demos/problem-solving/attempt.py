@@ -513,7 +513,7 @@ def run_prove_tseitin_tm_subsumption_batch(ns=(4, 5), seeds=(0, 1)):
     """
     Run the Tseitin TM subsumption proof for multiple (n, seed) pairs and summarize results.
     """
-    os.makedirs("shape_of_truth_out", exist_ok=True)
+    os.makedirs("results/proofs", exist_ok=True)
     results = []
     for n in ns:
         if n % 2 != 0:
@@ -526,7 +526,7 @@ def run_prove_tseitin_tm_subsumption_batch(ns=(4, 5), seeds=(0, 1)):
                 "seed": seed,
                 "ok": ok,
                 "sha256": h,
-                "proof_file": f"shape_of_truth_out/bisimulation_tseitin_proof_n{n}_seed{seed}.txt"
+                "proof_file": f"results/proofs/bisimulation_tseitin_proof_n{n}_seed{seed}.txt"
             })
     # Print summary table
     print("\n=== Tseitin TM Subsumption Batch Summary ===")
@@ -538,9 +538,9 @@ def run_prove_tseitin_tm_subsumption(n=4, seed=0):
     """
     Run the universal TM subsumption proof on a real Tseitin expander encoded as a TM.
     """
-    os.makedirs("shape_of_truth_out", exist_ok=True)
+    os.makedirs("results/proofs", exist_ok=True)
     tm = tseitin_expander_to_tm(n=n, seed=seed)
-    out_path = f"shape_of_truth_out/bisimulation_tseitin_proof_n{n}_seed{seed}.txt"
+    out_path = f"results/proofs/bisimulation_tseitin_proof_n{n}_seed{seed}.txt"
     ok = prove_tm_subsumption_universal(tm, out_path)
     h = hashlib.sha256(open(out_path,"rb").read()).hexdigest()
     print("\n=== Pi_trace: Tseitin Expander TM Subsumption (UNSAT counterexample) ===")
@@ -550,27 +550,27 @@ def run_prove_tseitin_tm_subsumption(n=4, seed=0):
 # ---------- Driver functions to call from your main ----------
 def run_prove_tm_subsumption():
     """Run the universal TM subsumption proof and print results."""
-    os.makedirs("shape_of_truth_out", exist_ok=True)
-    ok = prove_tm_subsumption_universal(toy_tm(), "shape_of_truth_out/bisimulation_proof.txt")
-    h = hashlib.sha256(open("shape_of_truth_out/bisimulation_proof.txt","rb").read()).hexdigest()
+    os.makedirs("results/proofs", exist_ok=True)
+    ok = prove_tm_subsumption_universal(toy_tm(), "results/proofs/bisimulation_proof.txt")
+    h = hashlib.sha256(open("results/proofs/bisimulation_proof.txt","rb").read()).hexdigest()
     print("\n=== Pi_trace: Turing Subsumption (UNSAT counterexample) ===")
     print("[PASS] Universal one-step equality; determinism => bisimulation." if ok else "[FAIL] Counterexample found.")
-    print("Proof:", "shape_of_truth_out/bisimulation_proof.txt", "SHA256:", h)
+    print("Proof:", "results/proofs/bisimulation_proof.txt", "SHA256:", h)
     return ok, h
 
 def run_prove_vn_subsumption():
     """Run the VN subsumption proof for all instruction schemas and print results."""
-    os.makedirs("shape_of_truth_out/vn_proofs", exist_ok=True)
+    os.makedirs("results/proofs/vn_proofs", exist_ok=True)
     vn = VNEnc()
     results = []
-    results.append(vn.prove_LOAD (r=0, a=1, out_path="shape_of_truth_out/vn_proofs/LOAD.unsat.txt"))
-    results.append(vn.prove_STORE(a=2, r=1,   out_path="shape_of_truth_out/vn_proofs/STORE.unsat.txt"))
-    results.append(vn.prove_ADD  (r=2, sreg=1,  out_path="shape_of_truth_out/vn_proofs/ADD.unsat.txt"))
-    results.append(vn.prove_JZ   (r=0, off=1,   out_path="shape_of_truth_out/vn_proofs/JZ.unsat.txt"))
-    results.append(vn.prove_JMP  (off=-1,       out_path="shape_of_truth_out/vn_proofs/JMP.unsat.txt"))
-    results.append(vn.prove_HALT (               out_path="shape_of_truth_out/vn_proofs/HALT.unsat.txt"))
+    results.append(vn.prove_LOAD (r=0, a=1, out_path="results/proofs/vn_proofs/LOAD.unsat.txt"))
+    results.append(vn.prove_STORE(a=2, r=1,   out_path="results/proofs/vn_proofs/STORE.unsat.txt"))
+    results.append(vn.prove_ADD  (r=2, sreg=1,  out_path="results/proofs/vn_proofs/ADD.unsat.txt"))
+    results.append(vn.prove_JZ   (r=0, off=1,   out_path="results/proofs/vn_proofs/JZ.unsat.txt"))
+    results.append(vn.prove_JMP  (off=-1,       out_path="results/proofs/vn_proofs/JMP.unsat.txt"))
+    results.append(vn.prove_HALT (               out_path="results/proofs/vn_proofs/HALT.unsat.txt"))
     files = ["LOAD.unsat.txt","STORE.unsat.txt","ADD.unsat.txt","JZ.unsat.txt","JMP.unsat.txt","HALT.unsat.txt"]
-    files = [os.path.join("shape_of_truth_out","vn_proofs",f) for f in files]
+    files = [os.path.join("results/proofs","vn_proofs",f) for f in files]
     hashes = {os.path.basename(p): hashlib.sha256(open(p,"rb").read()).hexdigest() for p in files}
     print("\n=== Pi_trace: von Neumann (RAM) Subsumption (UNSAT per-instruction) ===")
     if all(results):

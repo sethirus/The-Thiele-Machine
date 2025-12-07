@@ -175,7 +175,7 @@ def _parse_args(argv: List[str]) -> argparse.Namespace:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("shor_demo_output"),
+        default=Path("results/shor"),
         help="Directory to store receipts and analysis.",
     )
     parser.add_argument(

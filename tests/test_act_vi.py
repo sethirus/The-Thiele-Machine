@@ -5,6 +5,10 @@
 
 import json
 from pathlib import Path
+import sys
+
+# Add demos path for demonstrate_isomorphism
+sys.path.insert(0, str(Path(__file__).parent.parent / "demos" / "research-demos" / "architecture"))
 
 from demonstrate_isomorphism import run_act_vi
 
