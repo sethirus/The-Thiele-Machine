@@ -229,7 +229,7 @@ Lemma vm_apply_mu :
 
 **μ-Spec v2.0:**
 ```python
-def total_mu_cost(expr: str, N: int, M: int) -> float:
+def calculate_mu_cost(expr: str, N: int, M: int) -> float:
     """
     μ_total(q, N, M) = 8|canon(q)| + log₂(N/M)
     """
@@ -737,7 +737,7 @@ pytest tests/test_mu_*.py -v
 
 ## 11. Complete File Index
 
-### Coq Proofs (106 files)
+### Coq Proofs (114 files)
 
 **Core Theorems:**
 - `coq/kernel/Subsumption.v` — TURING ⊂ THIELE
@@ -791,7 +791,7 @@ pytest tests/test_mu_*.py -v
 
 ```bash
 cd coq && make -j4
-# Expected: 106 files compile, 0 errors
+# Expected: 114 files compile, 0 errors
 ```
 
 ---
@@ -838,7 +838,7 @@ pytest tests/test_opcode_alignment.py -v
 
 **Action:**
 1. Install Coq 8.18+
-2. Compile all 106 files: `cd coq && make -j4`
+2. Compile all 114 files: `cd coq && make -j4`
 3. Inspect any admitted lemmas: `grep -r "Admitted" coq/`
    - Expected: Only test stubs in `ThieleUniversalBridge_Axiom_Tests.v` (4 admits for test infrastructure, not core theorems)
 
