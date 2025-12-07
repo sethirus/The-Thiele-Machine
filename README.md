@@ -237,10 +237,10 @@ cd coq && make -j4
 
 ### Run the Impossible Demonstration
 
-This script executes the full suite of quantum advantage proofs using the Thiele VM. It is rigorous, deterministic, and falsifiable.
+This script executes demonstrations of the Thiele Machine's capabilities. It is rigorous, deterministic, and falsifiable.
 
 ```bash
-python3 demonstrate_impossible.py
+python3 demos/demo_impossible_logic.py
 ```
 
 **What you will see:**
@@ -1543,7 +1543,7 @@ python run_partition_experiments.py \
 ### Experiment 2: Bell Inequality Demonstration
 
 ```bash
-python3 demonstrate_isomorphism.py
+python3 scripts/verification/demonstrate_isomorphism.py
 # Produces: BELL_INEQUALITY_VERIFIED_RESULTS.md
 ```
 
@@ -1949,7 +1949,7 @@ is empirically validated across all experiments (slack ≥ 0).
 
 ### As Above, So Below
 
-The `theory/` proofs establish a μ-preserving equivalence between four categories:
+The Coq proofs establish a μ-preserving equivalence between four categories:
 
 ```
     Phys (Physical processes)
@@ -1987,7 +1987,7 @@ Theorem no_free_information :
 |-------|----------|----------|---------|
 | VM | `thielecpu/` | Python | Reference semantics, receipts |
 | Hardware | `thielecpu/hardware/` | SystemVerilog | Synthesizable RTL, μ-ledger |
-| Proofs | `coq/`, `theory/` | Coq | Formal verification |
+| Proofs | `coq/` | Coq | Formal verification |
 
 ### Cross-Layer Isomorphism
 
