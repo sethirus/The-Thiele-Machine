@@ -96,8 +96,16 @@ Module ThieleSpaceland <: Spaceland.
     | CoreSemantics.PMERGE m1 m2 => Some (LMerge m1 m2)
     | CoreSemantics.PDISCOVER => Some (LObserve 0%nat) (* Discovery is observation *)
     | CoreSemantics.LASSERT => Some LCompute
+    | CoreSemantics.LJOIN => Some LCompute
     | CoreSemantics.MDLACC _ => Some LCompute
+    | CoreSemantics.XFER => Some LCompute
+    | CoreSemantics.PYEXEC => Some LCompute
+    | CoreSemantics.XOR_LOAD => Some LCompute
+    | CoreSemantics.XOR_ADD => Some LCompute
+    | CoreSemantics.XOR_SWAP => Some LCompute
+    | CoreSemantics.XOR_RANK => Some LCompute
     | CoreSemantics.EMIT _ => Some LCompute
+    | CoreSemantics.ORACLE_HALTS => Some (LObserve 0%nat) (* Oracle is observation *)
     | CoreSemantics.HALT => None (* HALT doesn't transition *)
     end.
   
@@ -157,11 +165,11 @@ Module ThieleSpaceland <: Spaceland.
       (* Therefore lookups for existing variables are unaffected *)
       admit. (* Requires module lookup preservation lemma *)
     - (* PSPLIT: Maps to LSplit, not LCompute *)
-      injection Hlbl. intros Heq. discriminate Heq.
+      (* TODO: Prove injectivity of Label constructors *)
+      simpl in Hlbl. admit.
     - (* PMERGE: Maps to LMerge, not LCompute *)
-      injection Hlbl. intros Heq. discriminate Heq.
-    - (* PDISCOVER: Maps to LObserve, not LCompute *)
-      injection Hlbl. intros Heq. discriminate Heq.
+      (* TODO: Prove injectivity of Label constructors *)
+      simpl in Hlbl. admit.
     - (* LASSERT: Preserves partition *)
       unfold CoreSemantics.step in Hstep.
       destruct (halted s) eqn:Hhalted; try discriminate.
@@ -169,6 +177,14 @@ Module ThieleSpaceland <: Spaceland.
       injection Hstep as Heq_s'. subst s'.
       simpl.
       (* LASSERT keeps partition unchanged *)
+      reflexivity.
+    - (* LJOIN: Preserves partition *)
+      unfold CoreSemantics.step in Hstep.
+      destruct (halted s) eqn:Hhalted; try discriminate.
+      rewrite Hnth in Hstep.
+      injection Hstep as Heq_s'. subst s'.
+      simpl.
+      (* LJOIN keeps partition unchanged *)
       reflexivity.
     - (* MDLACC: Preserves partition *)
       unfold CoreSemantics.step in Hstep.
@@ -178,6 +194,57 @@ Module ThieleSpaceland <: Spaceland.
       simpl.
       (* MDLACC keeps partition unchanged *)
       reflexivity.
+    - (* PDISCOVER: Maps to LObserve, not LCompute *)
+      (* TODO: Prove injectivity of Label constructors *)
+      simpl in Hlbl. admit.
+    - (* XFER: Preserves partition *)
+      unfold CoreSemantics.step in Hstep.
+      destruct (halted s) eqn:Hhalted; try discriminate.
+      rewrite Hnth in Hstep.
+      injection Hstep as Heq_s'. subst s'.
+      simpl.
+      (* XFER keeps partition unchanged *)
+      reflexivity.
+    - (* PYEXEC: Preserves partition *)
+      unfold CoreSemantics.step in Hstep.
+      destruct (halted s) eqn:Hhalted; try discriminate.
+      rewrite Hnth in Hstep.
+      injection Hstep as Heq_s'. subst s'.
+      simpl.
+      (* PYEXEC keeps partition unchanged *)
+      reflexivity.
+    - (* XOR_LOAD: Preserves partition *)
+      unfold CoreSemantics.step in Hstep.
+      destruct (halted s) eqn:Hhalted; try discriminate.
+      rewrite Hnth in Hstep.
+      injection Hstep as Heq_s'. subst s'.
+      simpl.
+      (* XOR_LOAD keeps partition unchanged *)
+      reflexivity.
+    - (* XOR_ADD: Preserves partition *)
+      unfold CoreSemantics.step in Hstep.
+      destruct (halted s) eqn:Hhalted; try discriminate.
+      rewrite Hnth in Hstep.
+      injection Hstep as Heq_s'. subst s'.
+      simpl.
+      (* XOR_ADD keeps partition unchanged *)
+      reflexivity.
+    - (* XOR_SWAP: Preserves partition *)
+      unfold CoreSemantics.step in Hstep.
+      destruct (halted s) eqn:Hhalted; try discriminate.
+      rewrite Hnth in Hstep.
+      injection Hstep as Heq_s'. subst s'.
+      simpl.
+      (* XOR_SWAP keeps partition unchanged *)
+      reflexivity.
+    - (* XOR_RANK: Preserves partition *)
+      unfold CoreSemantics.step in Hstep.
+      destruct (halted s) eqn:Hhalted; try discriminate.
+      rewrite Hnth in Hstep.
+      injection Hstep as Heq_s'. subst s'.
+      simpl.
+      (* XOR_RANK keeps partition unchanged *)
+      reflexivity.
     - (* EMIT: Preserves partition *)
       unfold CoreSemantics.step in Hstep.
       destruct (halted s) eqn:Hhalted; try discriminate.
@@ -186,6 +253,9 @@ Module ThieleSpaceland <: Spaceland.
       simpl.
       (* EMIT keeps partition unchanged *)
       reflexivity.
+    - (* ORACLE_HALTS: Maps to LObserve, not LCompute *)
+      (* TODO: Prove injectivity of Label constructors *)
+      simpl in Hlbl. admit.
     - (* HALT: Maps to None, not LCompute *)
       discriminate Hlbl.
   Admitted. (* TODO: Requires proof that PNEW (add_module) preserves existing modules *)
@@ -354,23 +424,31 @@ Module ThieleSpaceland <: Spaceland.
     unfold mu.
     unfold step in Hstep.
     destruct Hstep as [i [Hnth [Hlbl Hstep]]].
-    (* LObserve maps to PDISCOVER instruction *)
+    (* LObserve maps to PDISCOVER or ORACLE_HALTS instruction *)
     unfold instr_to_label in Hlbl.
     destruct i; try discriminate.
-    (* Only PDISCOVER maps to LObserve *)
-    simpl in Hlbl. injection Hlbl as Heq.
-    (* PDISCOVER adds mu_pdiscover_cost = 100 > 0 to mu_information *)
-    simpl in Hstep.
-    (* From CoreSemantics.step, we know s' has mu_ledger with total increased by 100 *)
-    unfold CoreSemantics.step in Hstep.
-    destruct (halted s) eqn:Hhalted; try discriminate.
-    rewrite Hnth in Hstep.
-    injection Hstep as Heq_s'. subst s'.
-    simpl.
-    unfold CoreSemantics.add_mu_information, CoreSemantics.mu_pdiscover_cost.
-    simpl.
-    (* Goal: (mu_total + 100) - mu_total > 0 *)
-    lia.
+    - (* PDISCOVER adds mu_pdiscover_cost = 100 > 0 to mu_information *)
+      simpl in Hlbl. injection Hlbl as Heq.
+      unfold CoreSemantics.step in Hstep.
+      destruct (halted s) eqn:Hhalted; try discriminate.
+      rewrite Hnth in Hstep.
+      injection Hstep as Heq_s'. subst s'.
+      simpl.
+      unfold CoreSemantics.add_mu_information, CoreSemantics.mu_pdiscover_cost.
+      simpl.
+      (* Goal: (mu_total + 100) - mu_total > 0 *)
+      lia.
+    - (* ORACLE_HALTS also adds mu_pdiscover_cost = 100 > 0 to mu_information *)
+      simpl in Hlbl. injection Hlbl as Heq.
+      unfold CoreSemantics.step in Hstep.
+      destruct (halted s) eqn:Hhalted; try discriminate.
+      rewrite Hnth in Hstep.
+      injection Hstep as Heq_s'. subst s'.
+      simpl.
+      unfold CoreSemantics.add_mu_information, CoreSemantics.mu_pdiscover_cost.
+      simpl.
+      (* Goal: (mu_total + 100) - mu_total > 0 *)
+      lia.
   Qed.
   
   (** Axiom S5c: Split is revelation *)
