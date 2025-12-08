@@ -22,7 +22,7 @@
     =========================================================================
 *)
 
-From Coq Require Import List Bool ZArith Lia QArith.
+From Coq Require Import List Bool ZArith Lia QArith Psatz.
 From ThieleMachine Require Import CoreSemantics Spaceland.
 Import ListNotations.
 Open Scope Z_scope.
@@ -301,17 +301,17 @@ Module ThieleSpaceland <: Spaceland.
     simpl in Hlbl. injection Hlbl as Heq.
     (* PDISCOVER adds mu_pdiscover_cost = 100 > 0 to mu_information *)
     simpl in Hstep.
-    inversion Hstep; subst; clear Hstep.
+    (* From CoreSemantics.step, we know s' has mu_ledger with total increased by 100 *)
+    unfold CoreSemantics.step in Hstep.
+    destruct (halted s) eqn:Hhalted; try discriminate.
+    rewrite Hnth in Hstep.
+    injection Hstep as Heq_s'. subst s'.
     simpl.
-    unfold CoreSemantics.add_mu_information.
+    unfold CoreSemantics.add_mu_information, CoreSemantics.mu_pdiscover_cost.
     simpl.
-    (* After simplification: (old_total + 100) - old_total > 0, which is 100 > 0 *)
-    (* This is true, but requires specific Q arithmetic tactics *)
-    unfold CoreSemantics.mu_pdiscover_cost.
-    (* TODO: Complete with lra or Psatz.Qpsatz Q. for Q arithmetic *)
-    (* The goal simplifies to: inject_Z 100 > 0, which is trivially true *)
-    admit.
-  Admitted. (* Design issue FIXED: PDISCOVER now maps to LObserve. Proof strategy sound, needs Q arithmetic tactic. *)
+    (* Goal: (mu_total + 100) - mu_total > 0 *)
+    lia.
+  Qed.
   
   (** Axiom S5c: Split is revelation *)
   Lemma mu_split_positive : forall s m s',
@@ -329,17 +329,17 @@ Module ThieleSpaceland <: Spaceland.
     simpl in Hlbl. injection Hlbl as Heq. subst m0.
     (* PSPLIT adds mu_psplit_cost which is 16 > 0 *)
     simpl in Hstep.
-    inversion Hstep; subst; clear Hstep.
+    (* From CoreSemantics.step, we know s' has mu_ledger with total increased by 16 *)
+    unfold CoreSemantics.step in Hstep.
+    destruct (halted s) eqn:Hhalted; try discriminate.
+    rewrite Hnth in Hstep.
+    injection Hstep as Heq_s'. subst s'.
     simpl.
-    unfold CoreSemantics.add_mu_operational.
+    unfold CoreSemantics.add_mu_operational, CoreSemantics.mu_psplit_cost.
     simpl.
-    (* After simplification: (old_total + 16) - old_total > 0, which is 16 > 0 *)
-    (* This is true, but requires specific Q arithmetic tactics *)
-    unfold CoreSemantics.mu_psplit_cost.
-    (* TODO: Complete with lra or Psatz.Qpsatz Q. for Q arithmetic *)
-    (* The goal simplifies to: inject_Z 16 > 0, which is trivially true *)
-    admit.
-  Admitted. (* Proof strategy sound, needs Q arithmetic tactic (lra or Qpsatz). *)
+    (* Goal: (mu_total + 16) - mu_total > 0 *)
+    lia.
+  Qed.
   
   (** Axiom S5d: Merge can be free *)
   Lemma mu_merge_free : forall s m1 m2 s',
