@@ -145,10 +145,15 @@ Module Dynamics.
     - (* t1 = TNil *)
       destruct t2 as [s2' | s2' l2 t2']; simpl in *.
       + (* t2 = TNil *)
-        simpl in Hi1. simpl in Hi2.
-        subst.
-        split; reflexivity.
-      + (* t2 = TCons *) discriminate.
+        (* Hi1: s1' = (p, mu1), Hi2: s2' = (p, mu2) *)
+        unfold partition_seq, mu_seq. simpl.
+        (* Destruct the states to avoid rewrite loop *)
+        destruct s1' as [p1 m1], s2' as [p2 m2].
+        injection Hi1 as Hp1 Hm1. injection Hi2 as Hp2 Hm2.
+        subst. simpl. auto.
+      + (* t2 = TCons *) 
+        (* Hlabels: [] = l2 :: ... which is absurd *)
+        simpl in Hlabels. discriminate Hlabels.
     - (* t1 = TCons *)
       destruct t2 as [s2' | s2' l2 t2']; simpl in *.
       + (* t2 = TNil *) discriminate.
