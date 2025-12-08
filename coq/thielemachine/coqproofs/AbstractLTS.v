@@ -56,7 +56,7 @@ Module AbstractLTS <: Spaceland.
   (** Module membership: which module contains variable n? *)
   Fixpoint find_var_module (p : Partition) (v : nat) (idx : nat) : ModuleId :=
     match p with
-    | [] => 0 (* Default *)
+    | [] => 0%nat (* Default *)
     | module :: rest =>
         if existsb (Nat.eqb v) module
         then idx
@@ -64,7 +64,7 @@ Module AbstractLTS <: Spaceland.
     end.
   
   Definition module_of (s : State) (v : nat) : ModuleId :=
-    find_var_module (get_partition s) v 0.
+    find_var_module (get_partition s) v 0%nat.
   
   Definition same_partition (s1 s2 : State) : Prop :=
     partition_label s1 = partition_label s2.
@@ -72,11 +72,11 @@ Module AbstractLTS <: Spaceland.
   (** Partition well-formedness *)
   Lemma partition_wellformed : forall (s : State),
     exists (modules : list ModuleId),
-      length modules > 0.
+      (length modules > 0)%nat.
   Proof.
     intros s.
     (* Always at least one module (even if empty) *)
-    exists [0].
+    exists [0%nat].
     simpl. lia.
   Qed.
   
@@ -101,7 +101,7 @@ Module AbstractLTS <: Spaceland.
     match p with
     | [] => []
     | module :: rest =>
-        if Nat.eqb mid 0
+        if Nat.eqb mid 0%nat
         then
           (* Split this module into two halves *)
           let len := length module in
@@ -109,12 +109,12 @@ Module AbstractLTS <: Spaceland.
           let (first, second) := list_split module half in
           first :: second :: rest
         else
-          module :: split_module rest (mid - 1)
+          module :: split_module rest (mid - 1)%nat
     end
   with
   list_split {A : Type} (l : list A) (n : nat) : list A * list A :=
     match n, l with
-    | 0, _ => ([], l)
+    | 0%nat, _ => ([], l)
     | _, [] => ([], [])
     | S n', x :: xs =>
         let (left, right) := list_split xs n' in
