@@ -181,16 +181,53 @@ After `rewrite Hi1, Hi2`, this becomes `[fst (p, mu1)] = [fst (p, mu2)]` which s
 ## Priority 3: Complete AbstractLTS.v Proofs (2 admits)
 
 ### 3.1 mu_monotone (Line 237)
-**Analysis:** Same as ThieleSpaceland but simpler model
-**Estimated Time:** 4-6 hours
-**Strategy:** Use trace structure + mu_nonneg
+**Status:** **ISSUE IDENTIFIED** - Lemma statement is under-constrained
+
+**Analysis:** 
+- Lemma states: `forall t1 s l s', step s l s' -> trace_mu (TCons s l t1) >= trace_mu t1`
+- Problem: There's no constraint linking `s'` (the step's target) to the initial state of `t1`
+- Without a valid trace constraint (s' = trace_init t1), we cannot prove the lemma
+- The issue is fundamental: an arbitrary trace t1 may start from any state, not necessarily s'
+
+**Root Cause:** Missing trace validity/well-formedness predicate
+
+**Solution Required:**
+1. Define a `valid_trace` predicate that ensures consecutive states match
+2. Reformulate lemma as: `forall t1 s l s', step s l s' -> valid_trace (TCons s l t1) -> trace_mu (TCons s l t1) >= trace_mu t1`
+3. Or require `t1 = TNil s' | TCons s' _ _` explicitly
+
+**Estimated Time:** 2-3 hours (after adding trace validity)
+**Current Status:** Lemma statement needs revision, not just proof completion
 
 ### 3.2 mu_additive (Line 252)
-**Analysis:** Trace concatenation preserves μ sum
-**Estimated Time:** 4-6 hours
-**Strategy:** Induction on trace structure
+**Status:** **LEMMA IS FALSE** - Fundamental issue identified
 
-**AbstractLTS.v Total:** 1-2 days
+**Analysis:** 
+- Lemma states: `trace_mu (trace_concat t1 t2) = trace_mu t1 + trace_mu t2`
+- Problem: `trace_concat` inserts a `LCompute` step between t1 and t2
+- The inserted step `TCons s LCompute t2` has its own μ cost: `mu s LCompute (trace_init t2)`
+- This cost is NOT accounted for in `trace_mu t1 + trace_mu t2`
+
+**Concrete Counterexample:**
+```coq
+t1 = TNil s1  (* trace_mu = 0 *)
+t2 = TNil s2  (* trace_mu = 0 *)
+trace_concat t1 t2 = TCons s1 LCompute (TNil s2)
+trace_mu (trace_concat t1 t2) = mu s1 LCompute s2
+LHS ≠ 0 = RHS (unless mu s1 LCompute s2 = 0, which isn't guaranteed)
+```
+
+**Root Cause:** `trace_concat` definition inserts a connecting step with potential cost
+
+**Solutions:**
+1. **Fix definition:** Define trace_concat to append without inserting extra steps
+2. **Fix lemma:** Account for the inserted step cost
+3. **Add constraint:** Require that the inserted LCompute has zero cost (mu s LCompute s' = 0)
+
+**Estimated Time:** 1-2 hours (after fixing definition or lemma statement)
+**Current Status:** Lemma is provably false as stated
+
+**AbstractLTS.v Total:** Requires design fixes, not just proof completion
 
 ## Priority 4: RepresentationTheorem.v (21 axioms by design)
 
@@ -208,14 +245,16 @@ After `rewrite Hi1, Hi2`, this becomes `[fst (p, mu1)] = [fst (p, mu2)]` which s
 
 ## Overall Timeline Summary
 
-| Task | Estimated Time | Dependencies |
-|------|---------------|--------------|
-| Fix SpacelandComplete.v | 4-6 hours | None |
-| AbstractLTS.v (2 admits) | 1-2 days | None |
-| ThieleSpaceland.v (9 admits) | 15-20 days | CoreSemantics analysis |
-| RepresentationTheorem.v | N/A | Intentional axioms |
+| Task | Estimated Time | Dependencies | Status |
+|------|---------------|--------------|--------|
+| Fix SpacelandComplete.v | 4-6 hours | None | Attempted - needs different approach |
+| AbstractLTS.v (2 admits) | **Requires design fixes** | Lemma statements need revision | ⚠️ **ISSUES IDENTIFIED** |
+| ThieleSpaceland.v (9 admits) | 15-20 days | CoreSemantics analysis | Not attempted |
+| RepresentationTheorem.v | N/A | Intentional axioms | Complete by design |
 
-**Total Estimated Time:** 18-24 days of focused proof work
+**Total Estimated Time:** 18-24 days of focused proof work (original estimate)
+
+**Updated Analysis:** AbstractLTS.v admits reveal fundamental issues with lemma statements, not just incomplete proofs. Requires design-level fixes before proof completion.
 
 ## Recommended Approach
 
@@ -234,19 +273,51 @@ After `rewrite Hi1, Hi2`, this becomes `[fst (p, mu1)] = [fst (p, mu2)]` which s
 
 ## Next Steps
 
-1. **Immediate:** Fix SpacelandComplete.v line 150 proof loop
+1. **Immediate:** Fix AbstractLTS.v lemma statements
+   - Add `valid_trace` predicate for proper trace constraints
+   - Fix `trace_concat` to not insert extra steps, or
+   - Revise `mu_additive` to account for inserted step cost
+   - Update mu_monotone to require trace validity
+
+2. **Then:** Fix SpacelandComplete.v line 150 proof loop
    - Use injection approach to avoid rewrite loop
    - Add helper lemma for list discrimination if needed
    - Complete the inductive case
 
-2. **Next:** Complete AbstractLTS.v admits
-   - Both are relatively straightforward
-   - Good warm-up for more complex proofs
+3. **Next:** Complete simpler ThieleSpaceland admits
+   - Start with admits that don't require deep CoreSemantics analysis
+   - Document CoreSemantics properties as discovered
 
-3. **Then:** Tackle ThieleSpaceland.v systematically
-   - Start with simpler admits (mu_monotone, mu_additive)
-   - Analyze CoreSemantics properties needed
+4. **Finally:** Tackle complex ThieleSpaceland.v admits
+   - Analyze CoreSemantics properties systematically
    - Work through instruction-dependent admits
+
+## Key Findings from Investigation
+
+### AbstractLTS.v Admits Are Not Just Incomplete Proofs
+
+**Discovery:** The two admits in AbstractLTS.v reveal fundamental design issues:
+
+1. **mu_monotone:** Lemma statement is under-constrained
+   - Missing trace validity constraint
+   - Cannot prove without linking s' to t1's initial state
+   - Needs design fix, not just proof completion
+
+2. **mu_additive:** Lemma is provably FALSE as stated
+   - `trace_concat` inserts LCompute step with its own cost
+   - Additivity doesn't hold: `trace_mu (concat t1 t2) ≠ trace_mu t1 + trace_mu t2`
+   - Requires either fixing the definition or revising the lemma
+
+**Implication:** These aren't "admits to discharge" - they're design issues that need resolution before proof completion is possible.
+
+### Recommended Action
+
+Before attempting to discharge more admits:
+1. Review all lemma statements for correctness
+2. Add missing predicates (valid_trace, well_formed_state, etc.)
+3. Verify lemmas are actually provable before attempting proofs
+
+This analysis saves significant time by identifying unprovable goals early.
 
 ## Success Criteria
 
