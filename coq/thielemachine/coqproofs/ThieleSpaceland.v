@@ -124,6 +124,7 @@ Module ThieleSpaceland <: Spaceland.
     (* CoreSemantics.step is deterministic *)
     rewrite Hstep2 in Hstep1.
     injection Hstep1 as Heq.
+    symmetry.
     exact Heq.
   Qed.
   
@@ -207,10 +208,10 @@ Module ThieleSpaceland <: Spaceland.
     intros s l s' Hstep.
     unfold mu.
     unfold step in Hstep.
-    destruct Hstep as [prog [i [Hnth [Hlbl Hcstep]]]].
+    destruct Hstep as [i [Hnth [Hlbl Hcstep]]].
     (* CoreSemantics.step ensures μ never decreases *)
     assert (Hmono : CoreSemantics.mu_monotonic s s').
-    { apply CoreSemantics.mu_never_decreases with (prog := prog). exact Hcstep. }
+    { apply CoreSemantics.mu_never_decreases. exact Hcstep. }
     unfold CoreSemantics.mu_monotonic, CoreSemantics.mu_of_state in Hmono.
     lia.
   Qed.
@@ -331,16 +332,16 @@ Module ThieleSpaceland <: Spaceland.
     intros s s' Hstep Hsame.
     unfold mu.
     unfold step in Hstep.
-    destruct Hstep as [prog [i [Hnth [Hlbl Hstep]]]].
+    destruct Hstep as [i [Hnth [Hlbl Hstep]]].
     (* The axiom is now weakened to >= 0 instead of = 0.
        This accurately reflects that partition-preserving operations may have
        operational costs (LASSERT: 20, MDLACC: 5, EMIT: 1) even though they
        don't reveal partition structure.
-       
+
        The proof follows from mu_nonneg which we already proved. *)
     apply mu_nonneg with (l := LCompute).
     unfold step.
-    exists prog, i.
+    exists i.
     split; [exact Hnth | split; [exact Hlbl | exact Hstep]].
   Qed.
   
@@ -352,7 +353,7 @@ Module ThieleSpaceland <: Spaceland.
     intros s m s' Hstep.
     unfold mu.
     unfold step in Hstep.
-    destruct Hstep as [prog [i [Hnth [Hlbl Hstep]]]].
+    destruct Hstep as [i [Hnth [Hlbl Hstep]]].
     (* LObserve maps to PDISCOVER instruction *)
     unfold instr_to_label in Hlbl.
     destruct i; try discriminate.
@@ -380,7 +381,7 @@ Module ThieleSpaceland <: Spaceland.
     intros s m s' Hstep.
     unfold mu.
     unfold step in Hstep.
-    destruct Hstep as [prog [i [Hnth [Hlbl Hstep]]]].
+    destruct Hstep as [i [Hnth [Hlbl Hstep]]].
     (* LSplit maps to PSPLIT instruction *)
     unfold instr_to_label in Hlbl.
     destruct i; try discriminate.
@@ -443,7 +444,15 @@ Module ThieleSpaceland <: Spaceland.
       PART 4: RECEIPTS AND VERIFIABILITY (Axiom S7)
       ======================================================================= *)
 
-  (** Single execution step witness for receipts *)
+  (** Simple receipt for Spaceland interface compliance *)
+  Record Receipt : Type := {
+    initial_partition : Partition;
+    label_sequence : list Label;
+    final_partition : Partition;
+    total_mu : Z;
+  }.
+
+  (** Single execution step witness for enhanced receipts *)
   Record StepWitness : Type := {
     step_pre_state : State;
     step_instruction : CoreSemantics.Instruction;
@@ -452,20 +461,12 @@ Module ThieleSpaceland <: Spaceland.
     step_mu : Z;  (* μ-cost of this single step *)
   }.
 
-  (** Enhanced Receipt with full execution trace *)
-  Record Receipt : Type := {
-    initial_state : State;
-    step_witnesses : list StepWitness;  (* Full step-by-step trace *)
-    final_state : State;
-    total_mu : Z;
-  }.
-
-  (** Legacy simple receipt (for backward compatibility during transition) *)
-  Record SimpleReceipt : Type := {
-    initial_partition : Partition;
-    label_sequence : list Label;
-    final_partition : Partition;
-    simple_total_mu : Z;
+  (** Enhanced Receipt with full execution trace (for future use) *)
+  Record EnhancedReceipt : Type := {
+    enh_initial_state : State;
+    enh_step_witnesses : list StepWitness;  (* Full step-by-step trace *)
+    enh_final_state : State;
+    enh_total_mu : Z;
   }.
   
   Fixpoint trace_labels (t : Trace) : list Label :=
@@ -480,72 +481,18 @@ Module ThieleSpaceland <: Spaceland.
     | TCons s _ _ => s
     end.
 
-  (** Convert a trace to a list of step witnesses *)
-  Fixpoint trace_to_witnesses (t : Trace) : list StepWitness :=
-    match t with
-    | TNil _ => []
-    | TCons s l rest =>
-        match rest with
-        | TNil s' =>
-            (* Single step from s to s' *)
-            (* We need to extract the instruction and μ-cost *)
-            (* For now, use placeholder values *)
-            [{| step_pre_state := s;
-                step_instruction := CoreSemantics.HALT; (* placeholder *)
-                step_label := l;
-                step_post_state := s';
-                step_mu := mu s l s' |}]
-        | TCons s' _ _ =>
-            (* Multi-step: s -> s', then rest *)
-            {| step_pre_state := s;
-               step_instruction := CoreSemantics.HALT; (* placeholder *)
-               step_label := l;
-               step_post_state := s';
-               step_mu := mu s l s' |} :: trace_to_witnesses rest
-        end
-    end.
-
-  (** Create enhanced receipt from trace *)
+  (** Create simple receipt from trace (for Spaceland interface) *)
   Definition make_receipt (t : Trace) : Receipt :=
-    {| initial_state := trace_initial t;
-       step_witnesses := trace_to_witnesses t;
-       final_state := trace_final t;
+    {| initial_partition := get_partition (trace_initial t);
+       label_sequence := trace_labels t;
+       final_partition := get_partition (trace_final t);
        total_mu := trace_mu t |}.
 
-  (** Validity predicate for receipts *)
-  Definition valid_receipt (r : Receipt) : Prop :=
-    (* Initial state matches first witness *)
-    (match r.(step_witnesses) with
-     | [] => r.(initial_state) = r.(final_state)
-     | w :: _ => r.(initial_state) = w.(step_pre_state)
-     end) /\
-    (* Each step is valid *)
-    (forall i w,
-      nth_error r.(step_witnesses) i = Some w ->
-      step w.(step_pre_state) w.(step_label) w.(step_post_state)) /\
-    (* Steps chain correctly *)
-    (forall i w1 w2,
-      nth_error r.(step_witnesses) i = Some w1 ->
-      nth_error r.(step_witnesses) (S i) = Some w2 ->
-      w1.(step_post_state) = w2.(step_pre_state)) /\
-    (* Final state matches last witness *)
-    (match List.last r.(step_witnesses) with
-     | None => r.(initial_state) = r.(final_state)
-     | Some w => r.(final_state) = w.(step_post_state)
-     end) /\
-    (* Total μ is sum of step costs *)
-    r.(total_mu) = fold_left (fun acc w => acc + w.(step_mu))
-                             r.(step_witnesses) 0.
-
-  (** Receipt verification - checks validity predicate *)
+  (** Receipt verification (placeholder for Spaceland interface) *)
   Definition verify_receipt (r : Receipt) : bool :=
-    (* In practice: verify cryptographic signatures, check validity predicate *)
-    (* For now: simplified check that could be implemented *)
-    (* Real implementation would use decidable versions of validity checks *)
-    match r.(step_witnesses) with
-    | [] => true (* Empty trace is valid *)
-    | _ => true  (* Non-empty trace requires full verification *)
-    end.
+    (* In practice: verify cryptographic signatures, replay execution, etc. *)
+    (* For now: always accept (full implementation would be in Python/Verilog) *)
+    true.
   
   (** Axiom S7a: Receipt soundness *)
   Lemma receipt_sound : forall (r : Receipt),
@@ -554,31 +501,21 @@ Module ThieleSpaceland <: Spaceland.
       make_receipt t = r.
   Proof.
     intros r Hverify.
-    (* With enhanced receipts containing full step witnesses, *)
-    (* we can reconstruct a trace from the receipt *)
-    (* Strategy: Build trace from step_witnesses *)
-    destruct (step_witnesses r) as [| w ws] eqn:Hws.
-    - (* Empty witness list: create trivial trace *)
-      exists (TNil r.(initial_state)).
-      unfold make_receipt. simpl.
-      rewrite Hws. simpl.
-      (* Need to show: initial_state = initial_state, *)
-      (* final_state = initial_state (since no steps), *)
-      (* total_mu = 0 (since no steps) *)
-      admit. (* Requires witness list empty → states equal *)
-    - (* Non-empty witness list: reconstruct trace from witnesses *)
-      (* This requires a helper function: witnesses_to_trace *)
-      (* For now, we note this is possible in principle *)
-      (* The enhanced receipt structure makes this feasible *)
-      admit. (* Requires witnesses_to_trace helper function *)
-  Admitted. (* TODO: Implement witnesses_to_trace to fully complete proof *)
-  
+    (* Since verify_receipt always returns true (by definition), *)
+    (* and make_receipt is surjective onto valid receipts, *)
+    (* we can construct a trace that produces this receipt *)
+    (* For the simple receipt implementation, this requires *)
+    (* reconstructing execution from partition sequence *)
+    (* This is a design-level assumption about receipt structure *)
+    admit. (* Requires trace reconstruction from simple receipt data *)
+  Admitted. (* TODO: Implement trace reconstruction or richer receipt structure *)
+
   (** Axiom S7b: Receipt completeness *)
   Lemma receipt_complete : forall (t : Trace),
     verify_receipt (make_receipt t) = true.
   Proof.
     intros t.
-    (* Our verify_receipt always returns true *)
+    (* verify_receipt always returns true *)
     reflexivity.
   Qed.
   

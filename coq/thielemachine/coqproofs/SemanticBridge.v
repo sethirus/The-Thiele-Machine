@@ -45,12 +45,13 @@ Definition core_to_blind (s : CoreSemantics.State) : BlindSighted.ThieleState :=
      BlindSighted.halted := s.(CoreSemantics.halted);
      BlindSighted.answer := s.(CoreSemantics.result) |}.
 
-Definition blind_to_core (s : BlindSighted.ThieleState) (pc : nat) : CoreSemantics.State :=
+Definition blind_to_core (s : BlindSighted.ThieleState) (pc : nat) (prog : CoreSemantics.Program) : CoreSemantics.State :=
   {| CoreSemantics.partition := blind_partition_to_core s.(BlindSighted.partition);
      CoreSemantics.mu_ledger := blind_ledger_to_core s.(BlindSighted.ledger);
      CoreSemantics.pc := pc;
      CoreSemantics.halted := s.(BlindSighted.halted);
-     CoreSemantics.result := s.(BlindSighted.answer) |}.
+     CoreSemantics.result := s.(BlindSighted.answer);
+     CoreSemantics.program := prog |}.
 
 Lemma partition_conversion_roundtrip :
   forall (p : CoreSemantics.Partition),
@@ -73,17 +74,19 @@ Qed.
 Lemma state_correspondence :
   forall (s : CoreSemantics.State),
     let s' := core_to_blind s in
-    let s'' := blind_to_core s' s.(CoreSemantics.pc) in
+    let s'' := blind_to_core s' s.(CoreSemantics.pc) s.(CoreSemantics.program) in
     s''.(CoreSemantics.partition) = s.(CoreSemantics.partition) /\
     s''.(CoreSemantics.mu_ledger) = s.(CoreSemantics.mu_ledger) /\
     s''.(CoreSemantics.halted) = s.(CoreSemantics.halted) /\
-    s''.(CoreSemantics.result) = s.(CoreSemantics.result).
+    s''.(CoreSemantics.result) = s.(CoreSemantics.result) /\
+    s''.(CoreSemantics.program) = s.(CoreSemantics.program).
 Proof.
   intros s s' s''.
   unfold core_to_blind, blind_to_core in *.
   simpl.
   split; [apply partition_conversion_roundtrip|].
   split; [apply ledger_conversion_roundtrip|].
+  split; [reflexivity|].
   split; reflexivity.
 Qed.
 

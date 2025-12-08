@@ -94,6 +94,20 @@ Definition add_mu_information (l : MuLedger) (delta : Z) : MuLedger :=
      mu_information := l.(mu_information) + delta;
      mu_total := l.(mu_total) + delta |}.
 
+(** Instruction set - defined before State to avoid forward reference *)
+Inductive Instruction : Type :=
+  | PNEW : Region -> Instruction              (* 0x00: Create module *)
+  | PSPLIT : ModuleId -> Instruction          (* 0x01: Split module *)
+  | PMERGE : ModuleId -> ModuleId -> Instruction  (* 0x02: Merge modules *)
+  | PDISCOVER : Instruction                   (* 0x03: Discover partition *)
+  | LASSERT : Instruction                     (* 0x03: Logical assertion *)
+  | MDLACC : ModuleId -> Instruction          (* 0x05: Accumulate MDL *)
+  | EMIT : nat -> Instruction                 (* 0x0E: Emit result *)
+  | HALT : Instruction.                       (* 0x0F: Halt *)
+
+(** Program: List of instructions *)
+Definition Program := list Instruction.
+
 (** Complete Thiele Machine State *)
 Record State := {
   partition : Partition;    (* Current partition structure *)
@@ -134,18 +148,7 @@ Definition initial_state (vars : Region) (prog : Program) : State :=
     
     ========================================================================= *)
 
-Inductive Instruction : Type :=
-  | PNEW : Region -> Instruction              (* 0x00: Create module *)
-  | PSPLIT : ModuleId -> Instruction          (* 0x01: Split module *)
-  | PMERGE : ModuleId -> ModuleId -> Instruction  (* 0x02: Merge modules *)
-  | PDISCOVER : Instruction                   (* 0x03: Discover partition *)
-  | LASSERT : Instruction                     (* 0x03: Logical assertion *)
-  | MDLACC : ModuleId -> Instruction          (* 0x05: Accumulate MDL *)
-  | EMIT : nat -> Instruction                 (* 0x0E: Emit result *)
-  | HALT : Instruction.                       (* 0x0F: Halt *)
-
-(** Program: List of instructions *)
-Definition Program := list Instruction.
+(** Note: Instruction and Program types defined earlier (before State record) *)
 
 (** =========================================================================
     SECTION 3: TRANSITION SYSTEM (STEP FUNCTION)
@@ -210,7 +213,7 @@ Qed.
 
 (** Lemma: add_module preserves existing module lookups *)
 Lemma add_module_preserves : forall p r mid,
-  mid < p.(next_module_id) ->
+  (mid < p.(next_module_id))%nat ->
   find_module (add_module p r) mid = find_module p mid.
 Proof.
   intros p r mid Hlt.
@@ -223,7 +226,11 @@ Proof.
     injection Heq as Heq_id Heq_r.
     subst id.
     (* next_module_id > mid by assumption *)
-    lia.
+    (* mid < next_module_id means mid <> next_module_id *)
+    intros Heq_contra.
+    rewrite Heq_contra in Hlt.
+    apply Nat.lt_irrefl in Hlt.
+    exact Hlt.
   - (* No other entries in the singleton list *)
     contradiction.
 Qed.
