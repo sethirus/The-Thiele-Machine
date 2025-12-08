@@ -146,48 +146,40 @@ Module ThieleSpaceland <: Spaceland.
     exact Heq.
   Qed.
   
-  (** Helper lemma: find_module_of is preserved when appending new modules *)
-  Lemma find_module_of_app : forall mods var mid region,
+  (** Helper lemma: find_module_of preserves Some results when appending *)
+  Lemma find_module_of_app_some : forall mods var mid new_mod new_region,
     find_module_of mods var = Some mid ->
-    find_module_of (mods ++ [(0%nat, region)]) var = Some mid.
+    find_module_of (mods ++ [(new_mod, new_region)]) var = Some mid.
   Proof.
-    intros mods var mid region Hfind.
+    intros mods var mid new_mod new_region Hfind.
     induction mods as [|[id r] rest IH].
-    - (* Base case: empty list, contradiction *)
+    - (* Base case: empty list - contradiction *)
       simpl in Hfind. discriminate Hfind.
     - (* Inductive case *)
-      simpl in Hfind.
-      simpl.
+      simpl in Hfind. simpl.
       destruct (existsb (Nat.eqb var) r) eqn:Hexists.
       + (* Found in current module *)
         assumption.
-      + (* Not in current module, recurse *)
+      + (* Not in current module - recurse *)
         apply IH. assumption.
   Qed.
   
-  (** Helper lemma: find_module_of returns None when appending if it was None before *)
-  Lemma find_module_of_none_app : forall mods var region,
+  (** Helper lemma: find_module_of preserves None results when var not in new region *)
+  Lemma find_module_of_app_none : forall mods var new_mod new_region,
     find_module_of mods var = None ->
-    ~ existsb (Nat.eqb var) region = true ->
-    find_module_of (mods ++ [(0%nat, region)]) var = None.
+    existsb (Nat.eqb var) new_region = false ->
+    find_module_of (mods ++ [(new_mod, new_region)]) var = None.
   Proof.
-    intros mods var region Hnone Hnot_in.
+    intros mods var new_mod new_region Hnone Hnot_in.
     induction mods as [|[id r] rest IH].
     - (* Base case: empty list *)
-      simpl in Hnone.
-      simpl.
-      destruct (existsb (Nat.eqb var) region) eqn:Hexists.
-      + (* Contradiction: var is in region *)
-        exfalso. apply Hnot_in. reflexivity.
-      + (* var not in region, return None *)
-        reflexivity.
+      simpl. rewrite Hnot_in. reflexivity.
     - (* Inductive case *)
-      simpl in Hnone.
-      simpl.
+      simpl in Hnone. simpl.
       destruct (existsb (Nat.eqb var) r) eqn:Hexists.
-      + (* Found in current module, contradiction *)
+      + (* Found in current module - contradiction *)
         discriminate Hnone.
-      + (* Not in current module, recurse *)
+      + (* Not in current module - recurse *)
         apply IH. assumption.
   Qed.
 
@@ -209,16 +201,22 @@ Module ThieleSpaceland <: Spaceland.
       rewrite Hnth in Hstep.
       injection Hstep as Heq_s'. subst s'.
       simpl.
-      (* module_of looks up in the partition *)
       unfold module_of, get_partition. simpl.
       unfold CoreSemantics.add_module. simpl.
-      (* The appended module has a fresh ID (next_module_id) *)
-      (* Therefore it doesn't interfere with lookups for existing variables *)
-      (* This follows from the structural property of find_module_of *)
-      (* For a complete proof, we'd need to show that m' is not in region r *)
-      (* or that find_module_of respects the append structure *)
-      (* For now, this is a fundamental property of the partition structure *)
-      admit. (* TODO: Complete with find_module_of preservation lemma *)
+      (* For variables already in modules, lookups are preserved *)
+      destruct (find_module_of (CoreSemantics.modules (CoreSemantics.partition s)) m') eqn:Hfind.
+      + (* m' was in module m0 - lookup preserved by append *)
+        erewrite find_module_of_app_some; eauto.
+      + (* m' not in any module - returns default 0 *)
+        destruct (existsb (Nat.eqb m') r) eqn:Hin_r.
+        * (* m' is in new region r - will be assigned to new module *)
+          (* This case requires well-formedness: either *)
+          (* (a) next_module_id = 0 for first module, OR *)
+          (* (b) variables are pre-assigned to modules *)
+          (* Without these assumptions, the theorem doesn't hold *)
+          admit.
+        * (* m' not in r - still not in any module *)
+          erewrite find_module_of_app_none; eauto.
     - (* PSPLIT: Maps to LSplit, not LCompute *)
       simpl in Hlbl. injection Hlbl as Hlbl'.
       symmetry in Hlbl'.
@@ -317,7 +315,7 @@ Module ThieleSpaceland <: Spaceland.
       exfalso. apply (LCompute_not_LObserve 0%nat Hlbl').
     - (* HALT: Maps to None, not LCompute *)
       discriminate Hlbl.
-  Admitted. (* PNEW case needs find_module_of preservation lemma - all other cases proven *)
+  Admitted. (* PNEW case requires well-formedness assumption - see comment above *)
   
   (** =======================================================================
       PART 2: INFORMATION COST (Axioms S4-S5)
@@ -668,22 +666,55 @@ Module ThieleSpaceland <: Spaceland.
     admit. (* TODO: Extend to non-trivial traces using label sequence *)
   Admitted. (* Requires execution replay from labels or richer receipt structure *)
 
+  (** Helper lemma: trace_mu is always non-negative for valid traces *)
+  Lemma trace_mu_nonneg : forall t,
+    valid_trace t -> trace_mu t >= 0.
+  Proof.
+    intros t Hvalid.
+    induction t as [s | s l t' IH].
+    - (* Base case: TNil s *)
+      simpl. lia.
+    - (* Inductive case: TCons s l t' *)
+      simpl in Hvalid. destruct Hvalid as [Hstep Hvalid'].
+      simpl. destruct t' as [s' | s' l' t''].
+      + (* t' = TNil s' *)
+        (* trace_mu (TCons s l (TNil s')) = mu s l s' *)
+        (* By mu_nonneg, this is >= 0 *)
+        apply mu_nonneg. assumption.
+      + (* t' = TCons s' l' t'' *)
+        (* trace_mu (TCons s l (TCons s' l' t'')) = mu s l s' + trace_mu (TCons s' l' t'') *)
+        (* By mu_nonneg, mu s l s' >= 0 *)
+        (* By IH, trace_mu (TCons s' l' t'') >= 0 *)
+        (* Therefore their sum >= 0 *)
+        assert (Hmu : mu s l s' >= 0) by (apply mu_nonneg; assumption).
+        assert (Htrace : trace_mu (TCons s' l' t'') >= 0) by (apply IH; assumption).
+        lia.
+  Qed.
+
   (** Axiom S7b: Receipt completeness *)
   Lemma receipt_complete : forall (t : Trace),
     verify_receipt (make_receipt t) = true.
   Proof.
     intros t.
     unfold verify_receipt, make_receipt. simpl.
-    (* Show that trace_mu t >= 0 *)
-    (* This follows from μ-monotonicity *)
     apply andb_true_intro. split.
     - (* total_mu >= 0 *)
       apply Z.geb_le.
-      (* trace_mu is non-negative by construction *)
-      admit. (* TODO: Prove trace_mu_nonneg lemma *)
+      (* For a trace to have a valid receipt, we need it to be valid *)
+      (* But we don't have that assumption! *)
+      (* However, make_receipt can be called on any trace, even invalid ones *)
+      (* For invalid traces, trace_mu might be negative in principle *)
+      (* But actually, trace_mu is defined structurally and uses mu *)
+      (* And mu is the difference of mu_ledgers *)
+      (* Without the valid_trace assumption, we can't prove this *)
+      (* Let me check if there's a weaker property... *)
+      (* Actually, trace_mu just sums up mu values *)
+      (* And mu uses mu_ledger totals, which are always non-negative by construction *)
+      (* Let me try proving it without valid_trace *)
+      admit. (* Need to prove trace_mu_nonneg without valid_trace assumption *)
     - (* label sequence check *)
       destruct (trace_labels t); reflexivity.
-  Admitted. (* Requires trace_mu_nonneg lemma *)
+  Admitted. (* Requires proving trace_mu is non-negative even for non-valid traces *)
   
   (** =======================================================================
       PART 5: THERMODYNAMIC CONNECTION (Axiom S8)
