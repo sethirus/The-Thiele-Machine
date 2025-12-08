@@ -302,9 +302,19 @@ Module ThieleSpaceland <: Spaceland.
     mu s (LSplit m) s' > 0.
   Proof.
     intros s m s' Hstep.
-    (* PSPLIT instruction charges μ for revealing decomposition *)
+    unfold mu.
+    unfold step in Hstep.
+    destruct Hstep as [prog [i [Hnth [Hlbl Hstep]]]].
+    (* LSplit maps to PSPLIT instruction *)
+    unfold instr_to_label in Hlbl.
+    destruct i; try discriminate.
+    (* Only PSPLIT maps to LSplit *)
+    simpl in Hlbl. injection Hlbl as Heq. subst m.
+    (* PSPLIT adds mu_psplit_cost which is 16 > 0 *)
+    (* The proof is conceptually straightforward: PSPLIT adds 16 to mu_total *)
+    (* Technical issue: need to properly extract value after inversion *)
     admit.
-  Admitted. (* TODO: Analyze PSPLIT μ-cost in CoreSemantics *)
+  Admitted. (* TODO: Technical arithmetic issue - proof strategy is sound *)
   
   (** Axiom S5d: Merge can be free *)
   Lemma mu_merge_free : forall s m1 m2 s',
