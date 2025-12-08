@@ -164,6 +164,28 @@ Module ThieleSpaceland <: Spaceland.
     | TNil : State -> Trace
     | TCons : State -> Label -> Trace -> Trace.
   
+  (** Get the initial state of a trace *)
+  Definition trace_init (t : Trace) : State :=
+    match t with
+    | TNil s => s
+    | TCons s _ _ => s
+    end.
+  
+  (** Get the final state of a trace *)
+  Fixpoint trace_final (t : Trace) : State :=
+    match t with
+    | TNil s => s
+    | TCons _ _ rest => trace_final rest
+    end.
+  
+  (** Valid trace: consecutive states are connected by steps *)
+  Fixpoint valid_trace (t : Trace) : Prop :=
+    match t with
+    | TNil _ => True
+    | TCons s l rest => 
+        step s l (trace_init rest) /\ valid_trace rest
+    end.
+  
   (** Total μ-cost of a trace *)
   Fixpoint trace_mu (t : Trace) : Z :=
     match t with
@@ -176,39 +198,41 @@ Module ThieleSpaceland <: Spaceland.
     end.
   
   (** Axiom S4b: Monotonicity *)
-  Lemma mu_monotone : forall t1 s l s',
-    step s l s' ->
+  Lemma mu_monotone : forall t1 s l,
+    valid_trace (TCons s l t1) ->
     trace_mu (TCons s l t1) >= trace_mu t1.
   Proof.
-    intros t1 s l s' Hstep.
-    unfold trace_mu at 1. (* Unfold only the outer trace_mu *)
+    intros t1 s l Hvalid.
+    (* With valid_trace, we know step s l (trace_init t1) *)
+    simpl in Hvalid. destruct Hvalid as [Hstep _].
     destruct t1 as [s1 | s1 l1 t1'].
     - (* t1 = TNil s1 *)
       simpl.
-      (* Here s' is the actual next state from step *)
-      assert (Hnonneg : mu s l s1 >= 0).
-      { (* Need to show step s l s1, but we only have step s l s' *)
-        (* This proof is incomplete - need to relate s1 and s' *)
-        admit. }
-      lia.
+      simpl in Hstep.
+      (* Hstep: step s l s1, so mu s l s1 >= 0 *)
+      apply mu_nonneg. exact Hstep.
     - (* t1 = TCons s1 l1 t1' *)
       simpl.
-      assert (Hnonneg : mu s l s1 >= 0).
-      { admit. }
-      fold trace_mu. lia.
+      simpl in Hstep.
+      (* Hstep: step s l s1 *)
+      assert (Hnonneg : mu s l s1 >= 0) by (apply mu_nonneg; exact Hstep).
+      destruct t1' as [s1' | s1' l1' t1''].
+      + simpl. lia.
+      + simpl. lia.
   Admitted. (* TODO: Fix step relation to connect states properly *)
   
   (** Axiom S4c: Additivity *)
   Fixpoint trace_concat (t1 t2 : Trace) : Trace :=
     match t1 with
-    | TNil s => TCons s LCompute t2
+    | TNil s => t2
     | TCons s l rest => TCons s l (trace_concat rest t2)
     end.
   
   Lemma mu_additive : forall t1 t2,
+    trace_final t1 = trace_init t2 ->
     trace_mu (trace_concat t1 t2) = trace_mu t1 + trace_mu t2.
   Proof.
-    intros t1 t2.
+    intros t1 t2 Hconnect.
     (* Complex induction needed - admit for now *)
     admit.
   Admitted. (* TODO: Fix arithmetic reasoning with proper case analysis *)
@@ -311,12 +335,6 @@ Module ThieleSpaceland <: Spaceland.
     match t with
     | TNil s => s
     | TCons s _ _ => s
-    end.
-  
-  Fixpoint trace_final (t : Trace) : State :=
-    match t with
-    | TNil s => s
-    | TCons _ _ rest => trace_final rest
     end.
   
   Definition make_receipt (t : Trace) : Receipt :=

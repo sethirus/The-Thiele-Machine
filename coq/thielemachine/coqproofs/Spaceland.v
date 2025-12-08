@@ -128,6 +128,28 @@ Module Type Spaceland.
     | TNil : State -> Trace
     | TCons : State -> Label -> Trace -> Trace.
   
+  (** Get the initial state of a trace *)
+  Definition trace_init (t : Trace) : State :=
+    match t with
+    | TNil s => s
+    | TCons s _ _ => s
+    end.
+  
+  (** Get the final state of a trace *)
+  Fixpoint trace_final (t : Trace) : State :=
+    match t with
+    | TNil s => s
+    | TCons _ _ rest => trace_final rest
+    end.
+  
+  (** Valid trace: consecutive states are connected by steps *)
+  Fixpoint valid_trace (t : Trace) : Prop :=
+    match t with
+    | TNil _ => True
+    | TCons s l rest => 
+        step s l (trace_init rest) /\ valid_trace rest
+    end.
+  
   (** Total μ-cost of a trace *)
   Fixpoint trace_mu (t : Trace) : Z :=
     match t with
@@ -140,18 +162,19 @@ Module Type Spaceland.
     end.
   
   (** Axiom S4b: Monotonicity
-      μ-cost is non-decreasing along any execution.
+      μ-cost is non-decreasing along any valid execution.
   *)
-  Axiom mu_monotone : forall t1 s l s',
-    step s l s' ->
+  Axiom mu_monotone : forall t1 s l,
+    valid_trace (TCons s l t1) ->
     trace_mu (TCons s l t1) >= trace_mu t1.
   
   (** Axiom S4c: Additivity
-      Concatenating traces adds their costs.
+      Concatenating traces adds their costs (when traces connect properly).
   *)
   Parameter trace_concat : Trace -> Trace -> Trace.
   
   Axiom mu_additive : forall t1 t2,
+    trace_final t1 = trace_init t2 ->
     trace_mu (trace_concat t1 t2) = trace_mu t1 + trace_mu t2.
   
   (** Axiom S5: μ charges for structure revelation
@@ -257,12 +280,6 @@ Module Type Spaceland.
     match t with
     | TNil s => s
     | TCons s _ _ => s
-    end.
-  
-  Fixpoint trace_final (t : Trace) : State :=
-    match t with
-    | TNil s => s
-    | TCons _ _ rest => trace_final rest
     end.
   
   Definition make_receipt (t : Trace) : Receipt :=
