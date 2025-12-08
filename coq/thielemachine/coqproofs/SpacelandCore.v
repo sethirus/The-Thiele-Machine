@@ -191,20 +191,24 @@ Module SimpleSpaceland <: MinimalSpaceland.
     | _ => p (* Simplified - just return unchanged *)
     end.
   
-  (** Step relation *)
-  Inductive step : State -> Label -> State -> Prop :=
+  (** Step relation - defined inductively *)
+  Inductive step_rel : State -> Label -> State -> Prop :=
     | StepCompute : forall p mu,
-        step (p, mu) LCompute (p, mu)
+        step_rel (p, mu) LCompute (p, mu)
     | StepSplit : forall p mu idx,
-        step (p, mu) (LSplit idx) (split_at p idx, (mu + 1)%Z)
+        step_rel (p, mu) (LSplit idx) (split_at p idx, (mu + 1)%Z)
     | StepMerge : forall p mu idx1 idx2,
-        step (p, mu) (LMerge idx1 idx2) (merge_at p idx1 idx2, mu).
+        step_rel (p, mu) (LMerge idx1 idx2) (merge_at p idx1 idx2, mu).
+  
+  (** Expose as a definition to match signature *)
+  Definition step : State -> Label -> State -> Prop := step_rel.
   
   (** Determinism proof *)
   Lemma step_det : forall s l s1 s2,
     step s l s1 -> step s l s2 -> s1 = s2.
   Proof.
     intros s l s1 s2 H1 H2.
+    unfold step in *.
     destruct H1; inversion H2; subst; reflexivity.
   Qed.
   
@@ -217,6 +221,7 @@ Module SimpleSpaceland <: MinimalSpaceland.
     step s l s' -> mu s l s' >= 0.
   Proof.
     intros s l s' Hstep.
+    unfold step in Hstep.
     inversion Hstep; subst; unfold mu; simpl; lia.
   Qed.
   
@@ -227,6 +232,7 @@ Module SimpleSpaceland <: MinimalSpaceland.
     mu s LCompute s' = 0.
   Proof.
     intros s s' Hstep Hpart.
+    unfold step in Hstep.
     inversion Hstep; subst.
     unfold mu, get_partition in *; simpl in *.
     lia.
@@ -265,20 +271,28 @@ Module SimpleObservableComplete.
   Proof.
     unfold observable_complete.
     intros s1 s2 Hneq.
-    exists (TEnd s1), (TEnd s2).
+    exists (T.TEnd s1), (T.TEnd s2).
     split. { constructor. }
     split. { constructor. }
     split. { reflexivity. }
     split. { reflexivity. }
     unfold project; simpl.
     intros Heq.
-    inversion Heq as [[Hpart Hmu]].
     apply states_differ_observably in Hneq.
+    unfold project in Heq. simpl in Heq.
     destruct Hneq as [Hneq_part | Hneq_mu].
-    - unfold get_partition in Hpart. simpl in Hpart.
+    - (* Partitions differ *)
       apply Hneq_part.
-      inversion Hpart. reflexivity.
-    - apply Hneq_mu. assumption.
+      unfold get_partition. simpl.
+      assert (H: fst ([fst s1], 0) = fst ([fst s2], 0)).
+      { rewrite Heq. reflexivity. }
+      simpl in H. inversion H. reflexivity.
+    - (* μ values differ *)
+      apply Hneq_mu.
+      simpl.
+      assert (H: snd ([fst s1], 0) = snd ([fst s2], 0)).
+      { rewrite Heq. reflexivity. }
+      simpl in H. assumption.
   Qed.
 
 End SimpleObservableComplete.
