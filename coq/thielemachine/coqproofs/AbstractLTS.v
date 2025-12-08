@@ -229,12 +229,22 @@ Module AbstractLTS <: Spaceland.
     destruct t1 as [s1 | s1 l1 t1'].
     - (* t1 = TNil s1 *)
       simpl.
-      (* Need to relate s1 and s' from step *)
+      (* trace_mu (TCons s l (TNil s1)) = mu s l s1 *)
+      (* Need to show: mu s l s1 >= 0 *)
+      (* But we have step s l s', not step s l s1 *)
+      (* The issue is that s1 is arbitrary - not connected to s or s' *)
+      (* We need the trace to be valid, meaning s' = s1 *)
+      (* Without that constraint, we can't prove this *)
+      (* Let's assume s' = s1 for now *)
       admit.
     - (* t1 = TCons s1 l1 t1' *)
       simpl.
+      (* trace_mu (TCons s l (TCons s1 l1 t1')) = mu s l s1 + trace_mu (TCons s1 l1 t1') *)
+      (* Need to show: mu s l s1 + trace_mu (TCons s1 l1 t1') >= trace_mu (TCons s1 l1 t1') *)
+      (* This follows if mu s l s1 >= 0 *)
+      (* Again, we need s' = s1 from trace validity *)
       admit.
-  Admitted. (* TODO: Fix step relation to connect states *)
+  Admitted. (* TODO: Requires trace validity constraint linking s' and first state of t1 *)
   
   (** Additivity *)
   Fixpoint trace_concat (t1 t2 : Trace) : Trace :=
@@ -247,9 +257,42 @@ Module AbstractLTS <: Spaceland.
     trace_mu (trace_concat t1 t2) = trace_mu t1 + trace_mu t2.
   Proof.
     intros t1 t2.
-    (* Complex induction needed - admit for now *)
-    admit.
-  Admitted. (* TODO: Fix arithmetic reasoning *)
+    induction t1 as [s1 | s1 l1 t1' IH].
+    - (* t1 = TNil s1 *)
+      simpl.
+      (* trace_concat (TNil s1) t2 = TCons s1 LCompute t2 *)
+      (* trace_mu (TCons s1 LCompute t2) = ? *)
+      destruct t2 as [s2 | s2 l2 t2'].
+      + (* t2 = TNil s2 *)
+        simpl.
+        (* LHS: mu s1 LCompute s2, RHS: 0 + 0 *)
+        (* This doesn't hold in general - mu s1 LCompute s2 depends on the states *)
+        (* The issue is we're inserting LCompute between arbitrary traces *)
+        admit.
+      + (* t2 = TCons s2 l2 t2' *)
+        simpl.
+        (* Similar issue *)
+        admit.
+    - (* t1 = TCons s1 l1 t1' *)
+      simpl.
+      (* trace_concat (TCons s1 l1 t1') t2 = TCons s1 l1 (trace_concat t1' t2) *)
+      destruct t1' as [s1' | s1' l1' t1''].
+      + (* t1' = TNil s1' *)
+        destruct t2 as [s2 | s2 l2 t2'].
+        * (* t2 = TNil s2 *)
+          simpl.
+          (* trace_mu (TCons s1 l1 (TCons s1' LCompute (TNil s2))) *)
+          (*   = mu s1 l1 s1' + mu s1' LCompute s2 *)
+          (* trace_mu (TCons s1 l1 (TNil s1')) + trace_mu (TNil s2) *)
+          (*   = mu s1 l1 s1' + 0 *)
+          (* These don't match due to the inserted LCompute *)
+          admit.
+        * (* t2 = TCons s2 l2 t2' *)
+          admit.
+      + (* t1' = TCons s1' l1' t1'' *)
+        (* IH: trace_mu (trace_concat t1' t2) = trace_mu t1' + trace_mu t2 *)
+        admit.
+  Admitted. (* TODO: trace_concat inserts LCompute which changes μ - additivity doesn't hold as stated *)
   
   (** =======================================================================
       PART 4: STRUCTURE REVELATION COSTS
