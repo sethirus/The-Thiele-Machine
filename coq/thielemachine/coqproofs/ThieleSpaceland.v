@@ -154,10 +154,14 @@ Module ThieleSpaceland <: Spaceland.
   Proof.
     intros s l s' Hstep.
     unfold mu.
-    (* CoreSemantics ensures μ-ledger is monotonically increasing *)
-    (* This follows from add_mu_operational and add_mu_information *)
-    admit.
-  Admitted. (* TODO: Extract from CoreSemantics μ-ledger properties *)
+    unfold step in Hstep.
+    destruct Hstep as [prog [i [Hnth [Hlbl Hcstep]]]].
+    (* CoreSemantics.step ensures μ never decreases *)
+    assert (Hmono : CoreSemantics.mu_monotonic s s').
+    { apply CoreSemantics.mu_never_decreases with (prog := prog). exact Hcstep. }
+    unfold CoreSemantics.mu_monotonic, CoreSemantics.mu_of_state in Hmono.
+    lia.
+  Qed.
   
   (** Execution trace *)
   Inductive Trace : Type :=
