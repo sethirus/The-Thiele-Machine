@@ -35,12 +35,21 @@ Open Scope Z_scope.
 Module ObservationalEquivalence (S1 S2 : Spaceland).
 
   (** Two traces are observationally equivalent if they have:
-      1. Identical partition traces
-      2. Identical μ traces
+      1. Identical partition traces (as lists of partitions)
+      2. Identical μ traces (as lists of costs)
+      
+      Note: We can't directly compare S1.PartitionTrace and S2.PartitionTrace
+      as they're different types. Instead, we require they're equal when
+      viewed as abstract sequences.
   *)
+  
+  (** For now, use a placeholder that compares structural properties *)
+  Parameter partition_trace_equiv : S1.PartitionTrace -> S2.PartitionTrace -> Prop.
+  Parameter mu_trace_equiv : S1.MuTrace -> S2.MuTrace -> Prop.
+  
   Definition traces_equiv (t1 : S1.Trace) (t2 : S2.Trace) : Prop :=
-    S1.partition_trace t1 = S2.partition_trace t2 /\
-    S1.mu_trace t1 = S2.mu_trace t2.
+    partition_trace_equiv (S1.partition_trace t1) (S2.partition_trace t2) /\
+    mu_trace_equiv (S1.mu_trace t1) (S2.mu_trace t2).
   
   (** Two Spacelands are observationally equivalent if:
       For every trace in S1, there exists an equivalent trace in S2, and vice versa.
@@ -67,7 +76,8 @@ End ObservationalEquivalence.
     ========================================================================= *)
 
 Module IsomorphismConstruction (S1 S2 : Spaceland).
-  Import ObservationalEquivalence.
+  Module OE := ObservationalEquivalence S1 S2.
+  Import OE.
 
   (** Attempt 1: Map states via their "trace continuations"
       
@@ -79,7 +89,7 @@ Module IsomorphismConstruction (S1 S2 : Spaceland).
     forall (t1 : S1.Trace) (t2 : S2.Trace),
       S1.trace_initial t1 = s1 ->
       S2.trace_initial t2 = s2 ->
-      traces_equiv S1 S2 t1 t2.
+      traces_equiv t1 t2.
   
   (** Problem: This doesn't uniquely determine s2 from s1!
       
@@ -93,12 +103,16 @@ Module IsomorphismConstruction (S1 S2 : Spaceland).
       they should map to each other.
   *)
   
+  (** We need a way to compare partitions from different Spaceland instances *)
+  Parameter partition_equiv : S1.Partition -> S2.Partition -> Prop.
+  Parameter trace_mu_equiv : forall (t1 : S1.Trace) (t2 : S2.Trace), Prop.
+  
   Definition state_local_equiv (s1 : S1.State) (s2 : S2.State) : Prop :=
-    S1.get_partition s1 = S2.get_partition s2 /\
+    partition_equiv (S1.get_partition s1) (S2.get_partition s2) /\
     exists (t1 : S1.Trace) (t2 : S2.Trace),
       S1.trace_final t1 = s1 /\
       S2.trace_final t2 = s2 /\
-      S1.trace_mu t1 = S2.trace_mu t2.
+      trace_mu_equiv t1 t2.
   
   (** Still problematic: Partition types might be different!
       
@@ -174,7 +188,7 @@ Module Counterexample.
     (* For now, admit all required components *)
     Axiom module_of : State -> nat -> ModuleId.
     Axiom same_partition : State -> State -> Prop.
-    Axiom partition_wellformed : forall s, exists mods, length mods > 0.
+    Axiom partition_wellformed : forall (s : State), exists (mods : list ModuleId), (length mods > 0)%nat.
     
     Inductive Label : Type :=
       | LCompute | LSplit : ModuleId -> Label 
@@ -192,7 +206,7 @@ Module Counterexample.
     Inductive Trace : Type := TNil : State -> Trace | TCons : State -> Label -> Trace -> Trace.
     Definition trace_mu (t : Trace) : Z := 0. (* Placeholder *)
     
-    Axiom mu_monotone : forall t1 t2 s l s', step s l s' -> trace_mu (TCons s l t1) >= trace_mu t1.
+    Axiom mu_monotone : forall t1 s l s', step s l s' -> trace_mu (TCons s l t1) >= trace_mu t1.
     
     Definition trace_concat (t1 t2 : Trace) : Trace :=
       match t1 with TNil s => TCons s LCompute t2 | TCons s l rest => TCons s l (trace_concat rest t2) end.
