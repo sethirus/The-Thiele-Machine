@@ -85,6 +85,7 @@ localparam [7:0] OPCODE_XOR_ADD = 8'h0B;
 localparam [7:0] OPCODE_XOR_SWAP = 8'h0C;
 localparam [7:0] OPCODE_XOR_RANK = 8'h0D;
 localparam [7:0] OPCODE_EMIT   = 8'h0E;
+localparam [7:0] OPCODE_ORACLE_HALTS = 8'h0F;
 localparam [7:0] OPCODE_HALT = 8'hFF;
 
 // CSR addresses
@@ -333,6 +334,15 @@ always @(posedge clk or negedge rst_n) begin
                     OPCODE_XOR_RANK: begin
                         // Compute rank of XOR matrix
                         execute_xor_rank();
+                        pc_reg <= pc_reg + 4;
+                        state <= STATE_FETCH;
+                    end
+
+                    OPCODE_ORACLE_HALTS: begin
+                        // Hyper-Thiele Oracle Primitive
+                        // In hardware, this would trigger an external oracle interface
+                        // For now, we simulate the cost and interface
+                        execute_oracle_halts(operand_a, operand_b);
                         pc_reg <= pc_reg + 4;
                         state <= STATE_FETCH;
                     end
@@ -726,6 +736,39 @@ task execute_xor_rank;
         end
         // mdl_ops_counter <= mdl_ops_counter + XOR_ROWS; // Removed to match VM
         csr_status <= rank_temp; // Return rank
+    end
+endtask
+
+task execute_oracle_halts;
+    input [7:0] desc_ptr_a;
+    input [7:0] desc_ptr_b;
+    begin
+        // Hyper-Thiele Oracle Operation
+        // This is a semantic primitive that is not Turing-computable.
+        // In a physical realization, this would interface with a hyper-computer
+        // or be a placeholder for a non-computable transition.
+        
+        // Charge the distinct "Oracle μ" cost (arbitrary high value)
+        // Using μ-ALU to add cost
+        mu_alu_op <= 3'd0;  // ADD
+        mu_alu_operand_a <= mu_accumulator;
+        mu_alu_operand_b <= 32'd1000000; // High cost
+        mu_alu_valid <= 1'b1;
+        
+        @(posedge mu_alu_ready);
+        mu_alu_valid <= 1'b0;
+        
+        if (mu_alu_overflow) begin
+            csr_error <= 32'h6; // μ-bit overflow
+        end else begin
+            mu_accumulator <= mu_alu_result;
+            
+            // Signal that we are performing a hyper-computation
+            // In simulation, we might set a specific status code
+            csr_status <= 32'h42; // "Answer to Life, Universe, and Everything" placeholder
+            
+            $display("ORACLE_HALTS invoked - Hyper-Thiele transition");
+        end
     end
 endtask
 
