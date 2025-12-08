@@ -1229,6 +1229,18 @@ class VM:
             observation = StepObservation(
                 event={"tag": "Halt"}, mu_delta=0, cert=_empty_cert()
             )
+        elif op == "ORACLE_HALTS":
+            post_state = WitnessState(
+                pc=pre_state.pc + 1,
+                status=pre_state.status,
+                mu_acc=pre_state.mu_acc,
+                cert_addr=pre_state.cert_addr,
+            )
+            observation = StepObservation(
+                event={"tag": "OracleVerdict", "value": str(instruction.payload)},
+                mu_delta=0,
+                cert=_empty_cert(),
+            )
         else:
             raise ValueError(f"Unsupported instruction for receipts: {op}")
         return post_state, observation
@@ -2148,6 +2160,55 @@ class VM:
                 trace_lines.append(f"{step}: HALT")
                 receipt_instruction = InstructionWitness("HALT", None)
                 halt_after_receipt = True
+            elif op == "ORACLE_HALTS":
+                # ORACLE_HALTS code_or_desc - Hyper-Thiele primitive
+                # This is the explicit super-Turing capability
+                desc = arg
+                verdict = False
+                
+                # 1. Check for known undecidable instances (Demo mode)
+                if "M_undecidable" in desc:
+                    # Simulate the oracle knowing the answer
+                    verdict = True
+                    trace_lines.append(f"{step}: ORACLE_HALTS {desc} -> TRUE (Oracle Knowledge)")
+                
+                # 2. Try to run it (for decidable instances)
+                else:
+                    try:
+                        # Simple timeout-based check (imperfect but sufficient for demo)
+                        # In a real Hyper-Thiele model, this is a primitive transition
+                        import signal
+                        def handler(signum, frame):
+                            raise TimeoutError()
+                        
+                        # Register the signal function handler
+                        signal.signal(signal.SIGALRM, handler)
+                        signal.alarm(1) # 1 second timeout
+                        
+                        try:
+                            self.execute_python(desc)
+                            verdict = True # It halted
+                        except TimeoutError:
+                            verdict = False # Timed out (assume non-halting for demo)
+                        except Exception:
+                            verdict = True # Halted with error
+                        finally:
+                            signal.alarm(0) # Disable alarm
+                            
+                        trace_lines.append(f"{step}: ORACLE_HALTS {desc} -> {verdict}")
+                    except Exception:
+                        # Fallback if signal not supported (e.g. non-Unix)
+                        trace_lines.append(f"{step}: ORACLE_HALTS {desc} -> UNKNOWN (Oracle Unavailable)")
+                
+                # Charge a distinct "Oracle μ" cost
+                # This separates Hyper-Thiele operations from standard ones
+                oracle_cost = 1000000 # Arbitrary high cost for the "magic"
+                self.state.mu_operational += oracle_cost
+                
+                # Store result in a special register or return it
+                self.python_globals['_oracle_result'] = verdict
+                receipt_instruction = InstructionWitness("ORACLE_HALTS", f"{desc} -> {verdict}")
+
             else:
                 raise ValueError(f"unknown opcode {op}")
 

@@ -20,7 +20,7 @@ def tamper_demo():
     # Copy receipt to temp location
     temp_dir = tempfile.mkdtemp()
     receipt_path = Path(temp_dir) / "050_kernel_emit.json"
-    shutil.copy("bootstrap_receipts/050_kernel_emit.json", receipt_path)
+    shutil.copy("receipts/bootstrap_receipts/050_kernel_emit.json", receipt_path)
     
     print(f"1. Original receipt copied to: {receipt_path}")
     

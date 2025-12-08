@@ -473,10 +473,23 @@ Definition graph_offset (tape : list bool) : nat :=
   err_offset_min.  (* Conservative underestimate *)
 
 (** Compute offset to CSR region (depends on graph size) *)
-(* TODO: Implement after fixing type issues *)
 Definition csr_offset (tape : list bool) : nat :=
-  (* CSR starts after graph, which starts after fixed header *)
-  err_offset_min.  (* Conservative underestimate *)
+  match decode_nat tape with
+  | Some (_, rest1) =>
+      match decode_nat rest1 with
+      | Some (_, rest2) =>
+          match decode_bool rest2 with
+          | Some (_, rest3) =>
+              match decode_partition_graph rest3 with
+              | Some (_, rest4) => List.length tape - List.length rest4
+              | None => 0 (* Error case *)
+              end
+          | None => 0
+          end
+      | None => 0
+      end
+  | None => 0
+  end.
 
 (** Update a specific field in the tape efficiently *)
 Definition update_vm_pc_in_tape (tape : list bool) (new_pc : nat) : list bool :=

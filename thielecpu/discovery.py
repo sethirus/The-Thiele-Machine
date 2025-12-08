@@ -660,7 +660,8 @@ class EfficientPartitionDiscovery:
                 continue
             embedding = eigenvectors[:, :k]
             # Use multiple k-means restarts for larger k to avoid poor local minima
-            n_init = 5 if k > 20 else 1
+            # With k-means++, 1 run is usually sufficient for well-separated clusters
+            n_init = 1
             labels, kmeans_iters = self._kmeans(embedding, k, n_init=n_init)
             modules = [set() for _ in range(k)]
             for i, label in enumerate(labels):
@@ -804,9 +805,10 @@ class EfficientPartitionDiscovery:
                 old_labels = labels.copy()
 
                 # Assign points to nearest centroid
-                for i in range(n):
-                    distances = np.sum((centroids - X[i])**2, axis=1)
-                    labels[i] = np.argmin(distances)
+                # Vectorized distance computation using broadcasting
+                # X: (n, d), centroids: (k, d) -> (n, k, d) -> sum sq -> (n, k)
+                dists = np.sum((X[:, np.newaxis, :] - centroids[np.newaxis, :, :]) ** 2, axis=2)
+                labels = np.argmin(dists, axis=1)
 
                 # Check convergence
                 if np.array_equal(labels, old_labels):
@@ -855,12 +857,10 @@ class EfficientPartitionDiscovery:
         # Choose remaining k-1 centroids
         for c in range(1, k):
             # Compute squared distance to nearest centroid for each point
-            distances_sq = np.full(n, float('inf'))
-
-            for i in range(n):
-                for j in range(c):
-                    dist_sq = np.sum((X[i] - centroids[j])**2)
-                    distances_sq[i] = min(distances_sq[i], dist_sq)
+            # Vectorized: dists to all existing centroids (c)
+            # X: (n, d), centroids[:c]: (c, d) -> (n, c, d) -> sum sq -> (n, c)
+            dists_to_existing = np.sum((X[:, np.newaxis, :] - centroids[np.newaxis, :c, :]) ** 2, axis=2)
+            distances_sq = np.min(dists_to_existing, axis=1)
 
             # Avoid division by zero
             total_dist = np.sum(distances_sq)

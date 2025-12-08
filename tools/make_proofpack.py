@@ -39,10 +39,10 @@ def make_proofpack(output_dir: str = "dist") -> str:
     # Files to include in proof pack
     files_to_pack = [
         "verifier/replay.py",
-        "bootstrap_receipts/050_kernel_emit.json",
-        "receipt_schema.md",
-        "roadmap-enhancements/supply-chain/attestations/REPRODUCIBILITY.md",
-        "checksums/receipts_sha256.txt",
+        "receipts/bootstrap_receipts/050_kernel_emit.json",
+        "docs/specs/receipt_schema.md",
+        "docs/REPRODUCIBILITY.md",
+        "receipts/checksums/receipts_sha256.txt",
         "tests/expected_kernel_sha256.txt",
     ]
     
@@ -57,7 +57,7 @@ def make_proofpack(output_dir: str = "dist") -> str:
         kernel_sha256 = f.read().strip()
     
     # Compute global digest from receipts
-    with open("bootstrap_receipts/050_kernel_emit.json", 'r') as f:
+    with open("receipts/bootstrap_receipts/050_kernel_emit.json", 'r') as f:
         receipt = json.load(f)
     
     steps = receipt.get('steps', [])
@@ -92,7 +92,7 @@ This proof pack contains the minimal files needed to:
 
 To use:
   1. Extract this tarball
-  2. Run: python3 verifier/replay.py bootstrap_receipts
+  2. Run: python3 verifier/replay.py receipts/bootstrap_receipts
   3. Verify: sha256sum thiele_min.py
 
 Expected kernel hash: {kernel_sha256}
@@ -157,7 +157,7 @@ def main():
         print(f"\n✓ Success! Proof pack ready at: {proofpack_path}")
         print(f"\nTo verify:")
         print(f"  tar -xf {proofpack_path}")
-        print(f"  python3 verifier/replay.py bootstrap_receipts")
+        print(f"  python3 verifier/replay.py receipts/bootstrap_receipts")
         print(f"  sha256sum thiele_min.py")
         return 0
     else:

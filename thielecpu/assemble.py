@@ -34,7 +34,10 @@ def parse(lines: Iterable[str], base: Path) -> List[Instruction]:
         # Only resolve paths for opcodes that expect file arguments
         if op in ["LASSERT", "PYEXEC"]:
             if arg and not Path(arg).is_absolute():
-                arg = str((base / arg).resolve())
+                # Only resolve if it actually exists as a file
+                candidate = base / arg
+                if candidate.exists():
+                    arg = str(candidate.resolve())
         elif op == "PDISCOVER":
             # PDISCOVER module_id file1 [file2 ...]
             parts = arg.split()

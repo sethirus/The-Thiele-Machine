@@ -43,6 +43,7 @@ COMPLETED FEATURES:
     ✅ Accurate μ-cost computation (μ-spec v2.0)
     ✅ CLI interface with JSON output
     ✅ Tested on actual CNF files
+    ✅ Visualization of interaction graph
 
 NEXT STEPS (B1.2):
     - [ ] SAT solver integration (Z3)
@@ -341,6 +342,58 @@ class CNFAnalyzer:
         print(f"  μ-discovery: {self.partition.mu_discovery:.2f} bits")
         print(f"  μ-operational: {self.partition.mu_operational:.2f} bits")
         print(f"  μ-total: {self.partition.mu_total:.2f} bits")
+
+    def visualize(self) -> None:
+        """Visualize the interaction graph and partitions."""
+        print("\nGenerating visualization...")
+        
+        if self.structure is None or self.partition is None:
+            raise RuntimeError("Must run full analysis first")
+            
+        try:
+            import networkx as nx
+            import matplotlib.pyplot as plt
+            import matplotlib.cm as cm
+            import numpy as np
+        except ImportError as e:
+            print(f"Error: Could not import visualization libraries: {e}")
+            print("Please install networkx and matplotlib.")
+            return
+
+        # Create graph
+        G = nx.Graph()
+        G.add_nodes_from(range(1, self.structure.num_variables + 1))
+        G.add_edges_from(self.structure.variable_interactions)
+        
+        # Determine node colors based on modules
+        node_colors = []
+        # Map variable to module index
+        var_to_module = {}
+        for mod_idx, vars_in_mod in self.partition.variables_per_module.items():
+            for v in vars_in_mod:
+                var_to_module[v] = mod_idx
+        
+        # Generate colors
+        cmap = cm.get_cmap('viridis', self.partition.num_modules)
+        
+        for node in G.nodes():
+            mod_idx = var_to_module.get(node, 0)
+            node_colors.append(cmap(mod_idx))
+            
+        plt.figure(figsize=(12, 10))
+        pos = nx.spring_layout(G, seed=42)
+        
+        nx.draw_networkx_nodes(G, pos, node_color=node_colors, node_size=300, alpha=0.8)
+        nx.draw_networkx_edges(G, pos, alpha=0.2)
+        nx.draw_networkx_labels(G, pos, font_size=8)
+        
+        plt.title(f"CNF Interaction Graph\n{self.partition.num_modules} Modules, Density: {self.partition.interaction_density:.2f}")
+        plt.axis('off')
+        
+        output_file = self.filepath.with_suffix('.png')
+        plt.savefig(output_file, dpi=300, bbox_inches='tight')
+        print(f"Visualization saved to: {output_file}")
+        plt.close()
     
     def report(self, output_path: Optional[Path] = None) -> Dict:
         """
@@ -389,8 +442,8 @@ Examples:
     # Save results to JSON
     python tools/cnf_analyzer.py input.cnf --output results.json
     
-    # TODO B1.1: Add visualization option
-    # python tools/cnf_analyzer.py input.cnf --visualize
+    # Visualize interaction graph
+    python tools/cnf_analyzer.py input.cnf --visualize
     
 References:
     - RESEARCH_PROGRAM_MASTER_PLAN.md (Task B1.1)
@@ -402,7 +455,7 @@ References:
     parser.add_argument('input', type=Path, help='CNF file in DIMACS format')
     parser.add_argument('--output', '-o', type=Path, help='Output JSON file')
     parser.add_argument('--visualize', '-v', action='store_true', 
-                       help='Visualize interaction graph (TODO B1.1)')
+                       help='Visualize interaction graph')
     
     args = parser.parse_args()
     
@@ -431,10 +484,7 @@ References:
         print("="*60)
         
         if args.visualize:
-            print("\nVisualization: TODO B1.1")
-            print("  - Implement graph visualization")
-            print("  - Show modules as colored clusters")
-            print("  - Display μ-costs")
+            analyzer.visualize()
         
         return 0
         

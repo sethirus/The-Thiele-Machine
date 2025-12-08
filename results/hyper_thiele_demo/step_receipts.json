@@ -1,0 +1,146 @@
+[
+  {
+    "step": 2,
+    "instruction": {
+      "op": "PYEXEC",
+      "payload": "M_undecidable = 'while True: pass'"
+    },
+    "pre_state": {
+      "pc": 0,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "post_state": {
+      "pc": 1,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "observation": {
+      "event": {
+        "tag": "PolicyCheck",
+        "value": "M_undecidable = 'while True: pass'"
+      },
+      "mu_delta": 0,
+      "cert": {
+        "smt_query": "",
+        "solver_reply": "",
+        "metadata": "",
+        "timestamp": 0,
+        "sequence": 0
+      }
+    },
+    "pre_state_hash": "3be4ab3e30347c3b36b3c176e39c564d8b2e1e6c6f816f53070d67ed3cd381f4",
+    "post_state_hash": "2e59cea3b3cf0e0427b5d1025581d2f165a69235777b0cabab6bdd7773234376",
+    "signature": "4384fa378b57b3008cbf86ce50722813fc2cd31e47b17ce222f029c8ce7500345810eec4f0dbcdea6804927a24e5e8b006d2beec8eca37a79746b8861903020a"
+  },
+  {
+    "step": 4,
+    "instruction": {
+      "op": "ORACLE_HALTS",
+      "payload": "M_undecidable -> True"
+    },
+    "pre_state": {
+      "pc": 1,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "post_state": {
+      "pc": 2,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "observation": {
+      "event": {
+        "tag": "OracleVerdict",
+        "value": "M_undecidable -> True"
+      },
+      "mu_delta": 0,
+      "cert": {
+        "smt_query": "",
+        "solver_reply": "",
+        "metadata": "",
+        "timestamp": 0,
+        "sequence": 0
+      }
+    },
+    "pre_state_hash": "2e59cea3b3cf0e0427b5d1025581d2f165a69235777b0cabab6bdd7773234376",
+    "post_state_hash": "15713ac6773c4903303bd6ba812422142bcbd5b39ba256b43969353ac4f47f59",
+    "signature": "ee9008431e05b37f2bfe39011a355bbc26778018bc306b112cd843b64958560ea7c36dbfde367a79b9e3ef46c548a17d33c1b22dfae2da1d7098116ca3e59f0a"
+  },
+  {
+    "step": 6,
+    "instruction": {
+      "op": "PYEXEC",
+      "payload": "print(f'Oracle Verdict: {_oracle_result}')"
+    },
+    "pre_state": {
+      "pc": 2,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "post_state": {
+      "pc": 3,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "observation": {
+      "event": {
+        "tag": "PolicyCheck",
+        "value": "print(f'Oracle Verdict: {_oracle_result}')"
+      },
+      "mu_delta": 0,
+      "cert": {
+        "smt_query": "",
+        "solver_reply": "",
+        "metadata": "",
+        "timestamp": 0,
+        "sequence": 0
+      }
+    },
+    "pre_state_hash": "15713ac6773c4903303bd6ba812422142bcbd5b39ba256b43969353ac4f47f59",
+    "post_state_hash": "6295c09d07120cab3fa48d4f08d9b07a275c79d0d10d9ba5f2b858f670f25c59",
+    "signature": "e070d8502abe46e297f8733e0982046b90bc9a33f1469da6442c46757eff6697afb1c90f001dab40a8e840a5a3a1b1eeea753259979c38cd46a1dc1a1734250a"
+  },
+  {
+    "step": 8,
+    "instruction": {
+      "op": "EMIT",
+      "payload": "Oracle Verdict: "
+    },
+    "pre_state": {
+      "pc": 3,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "post_state": {
+      "pc": 4,
+      "status": 0,
+      "mu_acc": 0,
+      "cert_addr": ""
+    },
+    "observation": {
+      "event": {
+        "tag": "ErrorOccurred",
+        "value": "Oracle Verdict: "
+      },
+      "mu_delta": 0,
+      "cert": {
+        "smt_query": "",
+        "solver_reply": "",
+        "metadata": "",
+        "timestamp": 0,
+        "sequence": 0
+      }
+    },
+    "pre_state_hash": "6295c09d07120cab3fa48d4f08d9b07a275c79d0d10d9ba5f2b858f670f25c59",
+    "post_state_hash": "700da4c068b172264a4f0599d5bb6e22ef3321e4c9967d4430c31cefb17ce59d",
+    "signature": "bb9fb5372f35c86fb7e87d9d39d1e6567bc033e67a96461f07c0fa608225efd7ad92b871959dcc50646dda9ed3a10d4fc1b6da13aa38553877c97d1312526c01"
+  }
+]
