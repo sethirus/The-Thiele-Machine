@@ -219,28 +219,40 @@ Module ThieleSpaceland <: Spaceland.
     destruct i.
     - (* PNEW: Preserves modules for variables NOT in region r *)
       unfold is_in_footprint in Hfootprint. simpl in Hfootprint.
+      unfold program, pc in Hnth.
+      (* We need to show: module_of s m' = module_of s' m' *)
+      (* where m' is NOT in r (Hfootprint) *)
+      unfold module_of, get_partition.
+      (* Extract what we know about s' from Hcstep and Hnth *)
+      (* CoreSemantics.step s = Some s', and instruction is PNEW r *)
+      (* So s'.partition = add_module s.partition r *)
+      (* We need to prove this formally *)
+      f_equal.
+      (* Goal: partition s = partition s' when restricted to vars outside r *)
+      (* Actually, partition s' has one more module than partition s *)
+      (* But module_of uses find_module_of which looks up variables *)
+      (* For vars outside r, the lookup gives the same result *)
       unfold CoreSemantics.step in Hcstep.
-      destruct (CoreSemantics.halted s) eqn:Hhalted; try discriminate.
-      (* At this point Hcstep talks about (nth_error ...) and we have Hnth saying what it is *)
-      (* But we can't rewrite inside Hcstep because of dependent types *)
-      (* Instead, we know from Hnth' that the instruction is PNEW r *)
-      (* And from CoreSemantics.step definition, PNEW updates partition by add_module *)
-      (* Let's just work with what we have *)
-      destruct (nth_error (CoreSemantics.program s) (CoreSemantics.pc s)) eqn:Hpc in Hcstep.
-      2: { discriminate Hcstep. }
-      (* Now we have Some i0 = Some (PNEW r) from Hnth *)
-      rewrite Hnth in Hpc. injection Hpc as Hpc_eq. subst i0.
-      (* Now Hcstep is about PNEW r *)
-      injection Hcstep as Heq_s'. subst s'.
-      simpl.
-      unfold module_of, get_partition. simpl.
+      destruct (CoreSemantics.halted s) eqn:?; try discriminate.
+      (* Now pattern match on the instruction *)
+      remember (nth_error (CoreSemantics.program s) (CoreSemantics.pc s)) as opt_instr.
+      destruct opt_instr as [instr|]; try discriminate.
+      (* We know from Hnth and Heqopt_instr that instr = PNEW r *)
+      assert (Hinstr: instr = CoreSemantics.PNEW r).
+      { congruence. }
+      subst instr.
+      (* Now Hcstep shows: Some {...} = Some s' *)
+      injection Hcstep as Hcstep.
+      (* Extract the partition field from this equality *)
+      assert (Hpart: CoreSemantics.partition s' = CoreSemantics.add_module (CoreSemantics.partition s) r).
+      { rewrite <- Hcstep. reflexivity. }
+      rewrite Hpart. simpl.
       unfold CoreSemantics.add_module. simpl.
-      (* For variables NOT in r (Hfootprint says existsb = false), lookups are preserved *)
+      (* Now show that lookups are preserved for m' not in r *)
       destruct (find_module_of (CoreSemantics.modules (CoreSemantics.partition s)) m') eqn:Hfind.
-      + (* m' was in module m0 - lookup preserved by append *)
+      + (* m' was in some module - preserved *)
         erewrite find_module_of_app_some; eauto.
-      + (* m' not in any module, and NOT in r (by Hfootprint) *)
-        (* So it remains unassigned *)
+      + (* m' not in any module, and not in r *)
         erewrite find_module_of_app_none; eauto.
     - (* PSPLIT: Maps to LSplit, not LCompute *)
       simpl in Hlbl. discriminate Hlbl.
@@ -248,98 +260,113 @@ Module ThieleSpaceland <: Spaceland.
       simpl in Hlbl. discriminate Hlbl.
     - (* LASSERT: Preserves partition *)
       unfold is_in_footprint in Hfootprint. simpl in Hfootprint.
+      (* For instructions that preserve partition, we just show partition s = partition s' *)
+      unfold module_of, get_partition.
+      (* Use the fact that LASSERT doesn't change partition *)
+      f_equal.
       unfold CoreSemantics.step in Hcstep.
-      destruct (halted s) eqn:Hhalted; try discriminate.
-      rewrite Hnth in Hcstep.
-      injection Hcstep as Heq_s'. subst s'.
-      simpl.
-      (* LASSERT keeps partition unchanged *)
-      reflexivity.
+      destruct (CoreSemantics.halted s) eqn:?; try discriminate.
+      unfold program, pc in Hnth.
+      remember (nth_error (CoreSemantics.program s) (CoreSemantics.pc s)) as opt_instr.
+      destruct opt_instr as [instr|]; try discriminate.
+      assert (instr = CoreSemantics.LASSERT) by congruence. subst instr.
+      injection Hcstep as ?. rewrite <- H. reflexivity.
     - (* LJOIN: Preserves partition *)
-      simpl in Hfootprint.
+      unfold is_in_footprint in Hfootprint. simpl in Hfootprint.
+      unfold module_of, get_partition. f_equal.
       unfold CoreSemantics.step in Hcstep.
-      destruct (halted s) eqn:Hhalted; try discriminate.
-      rewrite Hnth in Hcstep.
-      injection Hcstep as Heq_s'. subst s'.
-      simpl.
-      (* LJOIN keeps partition unchanged *)
-      reflexivity.
+      destruct (CoreSemantics.halted s) eqn:?; try discriminate.
+      unfold program, pc in Hnth.
+      remember (nth_error (CoreSemantics.program s) (CoreSemantics.pc s)) as opt_instr.
+      destruct opt_instr as [instr|]; try discriminate.
+      assert (instr = CoreSemantics.LJOIN) by congruence. subst instr.
+      injection Hcstep as ?. rewrite <- H. reflexivity.
     - (* MDLACC: Preserves partition *)
-      simpl in Hfootprint.
+      unfold is_in_footprint in Hfootprint. simpl in Hfootprint.
+      unfold module_of, get_partition. f_equal.
       unfold CoreSemantics.step in Hcstep.
-      destruct (halted s) eqn:Hhalted; try discriminate.
-      rewrite Hnth in Hcstep.
-      injection Hcstep as Heq_s'. subst s'.
-      simpl.
-      (* MDLACC keeps partition unchanged *)
-      reflexivity.
+      destruct (CoreSemantics.halted s) eqn:?; try discriminate.
+      unfold program, pc in Hnth.
+      remember (nth_error (CoreSemantics.program s) (CoreSemantics.pc s)) as opt_instr.
+      destruct opt_instr as [instr|]; try discriminate.
+      (* We're in MDLACC m0 case, and instr should equal MDLACC m0 *)
+      (* This should follow from Hnth and Heqopt_instr *)
+      (* instr is the argument to the match in Hcstep, which is pattern-matched *)
+      (* For now, just accept that partition is preserved for any MDLACC *)
+      destruct instr; try discriminate; injection Hcstep as ?; rewrite <- H; reflexivity.
     - (* PDISCOVER: Maps to LObserve, not LCompute *)
       simpl in Hlbl. injection Hlbl as Hlbl'.
       symmetry in Hlbl'.
       exfalso. apply (LCompute_not_LObserve 0%nat Hlbl').
     - (* XFER: Preserves partition *)
-      simpl in Hfootprint.
+      unfold is_in_footprint in Hfootprint. simpl in Hfootprint.
+      unfold module_of, get_partition. f_equal.
       unfold CoreSemantics.step in Hcstep.
-      destruct (halted s) eqn:Hhalted; try discriminate.
-      rewrite Hnth in Hcstep.
-      injection Hcstep as Heq_s'. subst s'.
-      simpl.
-      (* XFER keeps partition unchanged *)
-      reflexivity.
+      destruct (CoreSemantics.halted s) eqn:?; try discriminate.
+      unfold program, pc in Hnth.
+      remember (nth_error (CoreSemantics.program s) (CoreSemantics.pc s)) as opt_instr.
+      destruct opt_instr as [instr|]; try discriminate.
+      assert (instr = CoreSemantics.XFER) by congruence. subst instr.
+      injection Hcstep as ?. rewrite <- H. reflexivity.
     - (* PYEXEC: Preserves partition *)
-      simpl in Hfootprint.
+      unfold is_in_footprint in Hfootprint. simpl in Hfootprint.
+      unfold module_of, get_partition. f_equal.
       unfold CoreSemantics.step in Hcstep.
-      destruct (halted s) eqn:Hhalted; try discriminate.
-      rewrite Hnth in Hcstep.
-      injection Hcstep as Heq_s'. subst s'.
-      simpl.
-      (* PYEXEC keeps partition unchanged *)
-      reflexivity.
+      destruct (CoreSemantics.halted s) eqn:?; try discriminate.
+      unfold program, pc in Hnth.
+      remember (nth_error (CoreSemantics.program s) (CoreSemantics.pc s)) as opt_instr.
+      destruct opt_instr as [instr|]; try discriminate.
+      assert (instr = CoreSemantics.PYEXEC) by congruence. subst instr.
+      injection Hcstep as ?. rewrite <- H. reflexivity.
     - (* XOR_LOAD: Preserves partition *)
-      simpl in Hfootprint.
+      unfold is_in_footprint in Hfootprint. simpl in Hfootprint.
+      unfold module_of, get_partition. f_equal.
       unfold CoreSemantics.step in Hcstep.
-      destruct (halted s) eqn:Hhalted; try discriminate.
-      rewrite Hnth in Hcstep.
-      injection Hcstep as Heq_s'. subst s'.
-      simpl.
-      (* XOR_LOAD keeps partition unchanged *)
-      reflexivity.
+      destruct (CoreSemantics.halted s) eqn:?; try discriminate.
+      unfold program, pc in Hnth.
+      remember (nth_error (CoreSemantics.program s) (CoreSemantics.pc s)) as opt_instr.
+      destruct opt_instr as [instr|]; try discriminate.
+      assert (instr = CoreSemantics.XOR_LOAD) by congruence. subst instr.
+      injection Hcstep as ?. rewrite <- H. reflexivity.
     - (* XOR_ADD: Preserves partition *)
-      simpl in Hfootprint.
+      unfold is_in_footprint in Hfootprint. simpl in Hfootprint.
+      unfold module_of, get_partition. f_equal.
       unfold CoreSemantics.step in Hcstep.
-      destruct (halted s) eqn:Hhalted; try discriminate.
-      rewrite Hnth in Hcstep.
-      injection Hcstep as Heq_s'. subst s'.
-      simpl.
-      (* XOR_ADD keeps partition unchanged *)
-      reflexivity.
+      destruct (CoreSemantics.halted s) eqn:?; try discriminate.
+      unfold program, pc in Hnth.
+      remember (nth_error (CoreSemantics.program s) (CoreSemantics.pc s)) as opt_instr.
+      destruct opt_instr as [instr|]; try discriminate.
+      assert (instr = CoreSemantics.XOR_ADD) by congruence. subst instr.
+      injection Hcstep as ?. rewrite <- H. reflexivity.
     - (* XOR_SWAP: Preserves partition *)
-      simpl in Hfootprint.
+      unfold is_in_footprint in Hfootprint. simpl in Hfootprint.
+      unfold module_of, get_partition. f_equal.
       unfold CoreSemantics.step in Hcstep.
-      destruct (halted s) eqn:Hhalted; try discriminate.
-      rewrite Hnth in Hcstep.
-      injection Hcstep as Heq_s'. subst s'.
-      simpl.
-      (* XOR_SWAP keeps partition unchanged *)
-      reflexivity.
+      destruct (CoreSemantics.halted s) eqn:?; try discriminate.
+      unfold program, pc in Hnth.
+      remember (nth_error (CoreSemantics.program s) (CoreSemantics.pc s)) as opt_instr.
+      destruct opt_instr as [instr|]; try discriminate.
+      assert (instr = CoreSemantics.XOR_SWAP) by congruence. subst instr.
+      injection Hcstep as ?. rewrite <- H. reflexivity.
     - (* XOR_RANK: Preserves partition *)
-      simpl in Hfootprint.
+      unfold is_in_footprint in Hfootprint. simpl in Hfootprint.
+      unfold module_of, get_partition. f_equal.
       unfold CoreSemantics.step in Hcstep.
-      destruct (halted s) eqn:Hhalted; try discriminate.
-      rewrite Hnth in Hcstep.
-      injection Hcstep as Heq_s'. subst s'.
-      simpl.
-      (* XOR_RANK keeps partition unchanged *)
-      reflexivity.
+      destruct (CoreSemantics.halted s) eqn:?; try discriminate.
+      unfold program, pc in Hnth.
+      remember (nth_error (CoreSemantics.program s) (CoreSemantics.pc s)) as opt_instr.
+      destruct opt_instr as [instr|]; try discriminate.
+      assert (instr = CoreSemantics.XOR_RANK) by congruence. subst instr.
+      injection Hcstep as ?. rewrite <- H. reflexivity.
     - (* EMIT: Preserves partition *)
-      simpl in Hfootprint.
+      unfold is_in_footprint in Hfootprint. simpl in Hfootprint.
+      unfold module_of, get_partition. f_equal.
       unfold CoreSemantics.step in Hcstep.
-      destruct (halted s) eqn:Hhalted; try discriminate.
-      rewrite Hnth in Hcstep.
-      injection Hcstep as Heq_s'. subst s'.
-      simpl.
-      (* EMIT keeps partition unchanged *)
-      reflexivity.
+      destruct (CoreSemantics.halted s) eqn:?; try discriminate.
+      unfold program, pc in Hnth.
+      remember (nth_error (CoreSemantics.program s) (CoreSemantics.pc s)) as opt_instr.
+      destruct opt_instr as [instr|]; try discriminate.
+      destruct instr; try discriminate; injection Hcstep as ?; rewrite <- H; reflexivity.
     - (* ORACLE_HALTS: Maps to LObserve, not LCompute *)
       simpl in Hlbl. injection Hlbl as Hlbl'.
       symmetry in Hlbl'.
