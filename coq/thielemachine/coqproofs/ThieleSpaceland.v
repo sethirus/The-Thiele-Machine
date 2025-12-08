@@ -219,7 +219,7 @@ Module ThieleSpaceland <: Spaceland.
       destruct t1' as [s1' | s1' l1' t1''].
       + simpl. lia.
       + simpl. lia.
-  Admitted. (* TODO: Fix step relation to connect states properly *)
+  Qed.
   
   (** Axiom S4c: Additivity *)
   Fixpoint trace_concat (t1 t2 : Trace) : Trace :=
@@ -233,9 +233,36 @@ Module ThieleSpaceland <: Spaceland.
     trace_mu (trace_concat t1 t2) = trace_mu t1 + trace_mu t2.
   Proof.
     intros t1 t2 Hconnect.
-    (* Complex induction needed - admit for now *)
-    admit.
-  Admitted. (* TODO: Fix arithmetic reasoning with proper case analysis *)
+    induction t1 as [s1 | s1 l1 rest1 IH].
+    - (* Base case: t1 = TNil s1 *)
+      simpl. simpl in Hconnect. subst s1. ring.
+    - (* Inductive case: t1 = TCons s1 l1 rest1 *)
+      destruct rest1 as [s_rest | s_rest l_rest rest1'].
+      + (* rest1 = TNil s_rest *)
+        simpl in *. subst s_rest.
+        destruct t2 as [s2 | s2 l2 rest2].
+        * simpl. ring.
+        * simpl. ring.
+      + (* rest1 = TCons s_rest l_rest rest1' *)
+        simpl trace_concat.
+        (* trace_concat (TCons s1 l1 (TCons s_rest l_rest rest1')) t2 = 
+           TCons s1 l1 (TCons s_rest l_rest (trace_concat rest1' t2)) *)
+        destruct (trace_concat rest1' t2) eqn:Hconcat.
+        * (* trace_concat rest1' t2 = TNil s *)
+          simpl trace_mu.
+          specialize (IH Hconnect).
+          simpl trace_concat in IH.
+          rewrite Hconcat in IH.
+          simpl trace_mu in IH.
+          rewrite IH. ring.
+        * (* trace_concat rest1' t2 = TCons s l t *)
+          simpl trace_mu.
+          specialize (IH Hconnect).
+          simpl trace_concat in IH.
+          rewrite Hconcat in IH.
+          simpl trace_mu in IH.
+          rewrite IH. ring.
+  Qed.
   
   (** Axiom S5: μ charges for structure revelation *)
   
