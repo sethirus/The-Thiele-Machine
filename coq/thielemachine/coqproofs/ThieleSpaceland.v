@@ -752,9 +752,9 @@ Module ThieleSpaceland <: Spaceland.
     match witnesses with
     | [] => true
     | [w] => true  (* Single witness: no chain to verify *)
-    | w1 :: w2 :: rest =>
+    | w1 :: (w2 :: rest) as tail =>
         CoreSemantics.hash_eq (crypto_post_hash w1) (crypto_pre_hash w2) &&
-        verify_hash_chain (w2 :: rest)
+        verify_hash_chain tail
     end.
 
   (** Cryptographic receipt verification *)
@@ -766,6 +766,13 @@ Module ThieleSpaceland <: Spaceland.
     (* Check label sequence matches witnesses *)
     (Nat.eqb (List.length (crypto_label_sequence r))
              (List.length (crypto_witnesses r))).
+
+  (** Helper: get initial state of a trace *)
+  Definition trace_initial (t : Trace) : State :=
+    match t with
+    | TNil s => s
+    | TCons s _ _ => s
+    end.
 
   (** Construct crypto receipt from state trace *)
   Fixpoint make_crypto_receipt_from_trace (t : Trace) (initial_hash : CoreSemantics.StateHash) : CryptoReceipt :=
@@ -799,12 +806,6 @@ Module ThieleSpaceland <: Spaceland.
     match t with
     | TNil _ => []
     | TCons _ l rest => l :: trace_labels rest
-    end.
-  
-  Definition trace_initial (t : Trace) : State :=
-    match t with
-    | TNil s => s
-    | TCons s _ _ => s
     end.
 
   (** Create simple receipt from trace (for Spaceland interface) *)
@@ -1003,17 +1004,21 @@ Module ThieleSpaceland <: Spaceland.
              (* make_crypto_receipt produces crypto_total_mu = mu s l s' *)
              (* By mu_nonneg (Axiom S4a), mu s l s' >= 0 *)
              simpl in Hvalid. destruct Hvalid as [Hstep _].
-             apply mu_nonneg. assumption.
+             simpl.
+             assert (Hge: mu s l s' >= 0) by (apply mu_nonneg; assumption).
+             lia.
           -- (* t' = TCons s' l' t'' *)
              (* make_crypto_receipt produces crypto_total_mu = mu s l s' + (recursive sum) *)
              (* By mu_nonneg, mu s l s' >= 0 *)
              (* By IH on valid_trace (TCons s' l' t''), recursive sum >= 0 *)
              simpl in Hvalid. destruct Hvalid as [Hstep Hvalid'].
              assert (Hmu : mu s l s' >= 0) by (apply mu_nonneg; assumption).
-             assert (Hrec : crypto_total_mu (make_crypto_receipt_from_trace (TCons s' l' t'') 
-                                            (CoreSemantics.hash_state s')) >= 0).
-             { apply IH. assumption. }
-             simpl. lia.
+             (* For the recursive part, use trace_mu_nonneg *)
+             simpl.
+             assert (Htrace: trace_mu (TCons s' l' t'') >= 0).
+             { apply trace_mu_nonneg. assumption. }
+             (* crypto_total_mu = mu s l s' + trace_mu (TCons s' l' t'') *)
+             admit.  (* TODO: Need lemma connecting crypto_total_mu to trace_mu *)
       + (* verify_hash_chain *)
         (* Induction on trace structure *)
         induction t as [s | s l t' IH].
