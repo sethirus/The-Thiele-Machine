@@ -101,15 +101,17 @@ Record State := {
   pc : nat;                 (* Program counter *)
   halted : bool;            (* Halting flag *)
   result : option nat;      (* Final result *)
+  program : Program;        (* Program being executed *)
 }.
 
 (** Initial state *)
-Definition initial_state (vars : Region) : State :=
+Definition initial_state (vars : Region) (prog : Program) : State :=
   {| partition := trivial_partition vars;
      mu_ledger := zero_mu;
      pc := 0;
      halted := false;
-     result := None |}.
+     result := None;
+     program := prog |}.
 
 (** =========================================================================
     SECTION 2: INSTRUCTION SET
@@ -178,6 +180,54 @@ Fixpoint find_module_in_list (mods : list (ModuleId * Region)) (mid : ModuleId) 
 Definition find_module (p : Partition) (mid : ModuleId) : option Region :=
   find_module_in_list p.(modules) mid.
 
+(** Lemma: find_module_in_list preserves lookups when appending *)
+Lemma find_module_in_list_app : forall mods mid new_entry,
+  (forall id r, In (id, r) [new_entry] -> id <> mid) ->
+  find_module_in_list (mods ++ [new_entry]) mid = find_module_in_list mods mid.
+Proof.
+  intros mods mid new_entry Hnew.
+  induction mods as [| [id r] rest IH].
+  - (* Base case: empty list *)
+    simpl.
+    destruct new_entry as [new_id new_r].
+    destruct (Nat.eqb new_id mid) eqn:Heq.
+    + (* new_id = mid, contradiction *)
+      apply Nat.eqb_eq in Heq.
+      exfalso.
+      apply (Hnew new_id new_r).
+      * simpl. left. reflexivity.
+      * assumption.
+    + (* new_id <> mid, return None *)
+      reflexivity.
+  - (* Inductive case *)
+    simpl.
+    destruct (Nat.eqb id mid) eqn:Heq.
+    + (* Found it, return immediately *)
+      reflexivity.
+    + (* Not found, recurse *)
+      apply IH.
+Qed.
+
+(** Lemma: add_module preserves existing module lookups *)
+Lemma add_module_preserves : forall p r mid,
+  mid < p.(next_module_id) ->
+  find_module (add_module p r) mid = find_module p mid.
+Proof.
+  intros p r mid Hlt.
+  unfold add_module, find_module. simpl.
+  apply find_module_in_list_app.
+  intros id reg Hin.
+  simpl in Hin.
+  destruct Hin as [Heq | Hfalse].
+  - (* The new entry has id = next_module_id *)
+    injection Heq as Heq_id Heq_r.
+    subst id.
+    (* next_module_id > mid by assumption *)
+    lia.
+  - (* No other entries in the singleton list *)
+    contradiction.
+Qed.
+
 (** μ-cost for partition operations (from μ-spec v2.0) *)
 Definition mu_pnew_cost : Z := 8.     (* Cost to create module *)
 Definition mu_psplit_cost : Z := 16.  (* Cost to split module *)
@@ -188,15 +238,16 @@ Definition mu_mdlacc_cost : Z := 5.   (* Cost for MDL accumulation *)
 Definition mu_emit_cost : Z := 1.     (* Cost to emit result *)
 
 (** Single-step execution *)
-Definition step (s : State) (prog : Program) : option State :=
+Definition step (s : State) : option State :=
   if s.(halted) then None  (* Cannot step if halted *)
   else
-    match nth_error prog s.(pc) with
+    match nth_error s.(program) s.(pc) with
     | None => Some {| partition := s.(partition);
                       mu_ledger := s.(mu_ledger);
                       pc := s.(pc);
                       halted := true;
-                      result := s.(result) |}  (* Halt if PC out of bounds *)
+                      result := s.(result);
+                      program := s.(program) |}  (* Halt if PC out of bounds *)
     | Some instr =>
         match instr with
         | PNEW r =>
@@ -207,7 +258,8 @@ Definition step (s : State) (prog : Program) : option State :=
                     mu_ledger := mu';
                     pc := S s.(pc);
                     halted := false;
-                    result := s.(result) |}
+                    result := s.(result);
+                    program := s.(program) |}
         
         | PSPLIT mid =>
             (* Split module (simplified: just add cost) *)
@@ -216,7 +268,8 @@ Definition step (s : State) (prog : Program) : option State :=
                     mu_ledger := mu';
                     pc := S s.(pc);
                     halted := false;
-                    result := s.(result) |}
+                    result := s.(result);
+                    program := s.(program) |}
         
         | PMERGE m1 m2 =>
             (* Merge modules (simplified: just add cost) *)
@@ -225,8 +278,9 @@ Definition step (s : State) (prog : Program) : option State :=
                     mu_ledger := mu';
                     pc := S s.(pc);
                     halted := false;
-                    result := s.(result) |}
-        
+                    result := s.(result);
+                    program := s.(program) |}
+
         | PDISCOVER =>
             (* Auto-discover partition *)
             let mu' := add_mu_information s.(mu_ledger) mu_pdiscover_cost in
@@ -234,8 +288,9 @@ Definition step (s : State) (prog : Program) : option State :=
                     mu_ledger := mu';
                     pc := S s.(pc);
                     halted := false;
-                    result := s.(result) |}
-        
+                    result := s.(result);
+                    program := s.(program) |}
+
         | LASSERT =>
             (* Logical assertion *)
             let mu' := add_mu_operational s.(mu_ledger) mu_lassert_cost in
@@ -243,8 +298,9 @@ Definition step (s : State) (prog : Program) : option State :=
                     mu_ledger := mu';
                     pc := S s.(pc);
                     halted := false;
-                    result := s.(result) |}
-        
+                    result := s.(result);
+                    program := s.(program) |}
+
         | MDLACC mid =>
             (* MDL cost accumulation *)
             let mu' := add_mu_operational s.(mu_ledger) mu_mdlacc_cost in
@@ -252,8 +308,9 @@ Definition step (s : State) (prog : Program) : option State :=
                     mu_ledger := mu';
                     pc := S s.(pc);
                     halted := false;
-                    result := s.(result) |}
-        
+                    result := s.(result);
+                    program := s.(program) |}
+
         | EMIT n =>
             (* Emit result *)
             let mu' := add_mu_operational s.(mu_ledger) mu_emit_cost in
@@ -261,15 +318,17 @@ Definition step (s : State) (prog : Program) : option State :=
                     mu_ledger := mu';
                     pc := S s.(pc);
                     halted := false;
-                    result := Some n |}
-        
+                    result := Some n;
+                    program := s.(program) |}
+
         | HALT =>
             (* Halt execution *)
             Some {| partition := s.(partition);
                     mu_ledger := s.(mu_ledger);
                     pc := s.(pc);
                     halted := true;
-                    result := s.(result) |}
+                    result := s.(result);
+                    program := s.(program) |}
         end
     end.
 
@@ -283,15 +342,15 @@ Definition step (s : State) (prog : Program) : option State :=
     ========================================================================= *)
 
 (** Multi-step execution with fuel *)
-Fixpoint run (fuel : nat) (s : State) (prog : Program) : State :=
+Fixpoint run (fuel : nat) (s : State) : State :=
   match fuel with
   | 0%nat => s  (* Out of fuel *)
   | S fuel' =>
-      match step s prog with
+      match step s with
       | None => s  (* Already halted *)
       | Some s' =>
           if s'.(halted) then s'  (* Halt reached *)
-          else run fuel' s' prog  (* Continue *)
+          else run fuel' s'  (* Continue *)
       end
   end.
 
@@ -373,22 +432,22 @@ Qed.
     This is a fundamental conservation law.
 *)
 Theorem mu_never_decreases :
-  forall (s : State) (prog : Program) (s' : State),
-    step s prog = Some s' ->
+  forall (s : State) (s' : State),
+    step s = Some s' ->
     mu_monotonic s s'.
 Proof.
-  intros s prog s' Hstep.
+  intros s s' Hstep.
   unfold mu_monotonic, mu_of_state.
   unfold step in Hstep.
   destruct (halted s) eqn:Hhalted.
   - (* Case: already halted *)
     discriminate Hstep.
   - (* Case: not halted *)
-    destruct (nth_error prog (pc s)) as [instr|] eqn:Hnth.
+    destruct (nth_error (program s) (pc s)) as [instr|] eqn:Hnth.
     + (* Case: valid instruction *)
-      destruct instr; 
+      destruct instr;
         injection Hstep as Hstep; subst s';
-        unfold add_mu_operational, add_mu_information, mu_pnew_cost, mu_psplit_cost, 
+        unfold add_mu_operational, add_mu_information, mu_pnew_cost, mu_psplit_cost,
                mu_pmerge_cost, mu_pdiscover_cost, mu_lassert_cost, mu_mdlacc_cost, mu_emit_cost;
         simpl; lia.
     + (* Case: PC out of bounds *)
@@ -405,14 +464,14 @@ Qed.
     For non-PNEW instructions, partition structure is preserved.
 *)
 Theorem partition_preserved_non_pnew :
-  forall (s : State) (prog : Program) (s' : State) (instr : Instruction),
-    nth_error prog s.(pc) = Some instr ->
+  forall (s : State) (s' : State) (instr : Instruction),
+    nth_error s.(program) s.(pc) = Some instr ->
     s.(halted) = false ->
-    step s prog = Some s' ->
+    step s = Some s' ->
     (forall r, instr <> PNEW r) ->
     s'.(partition) = s.(partition).
 Proof.
-  intros s prog s' instr Hnth Hhalted Hstep Hnot_pnew.
+  intros s s' instr Hnth Hhalted Hstep Hnot_pnew.
   unfold step in Hstep.
   rewrite Hhalted in Hstep.
   rewrite Hnth in Hstep.
@@ -425,25 +484,25 @@ Qed.
     μ-monotonicity holds across multiple steps.
 *)
 Theorem run_mu_monotonic :
-  forall (fuel : nat) (s : State) (prog : Program),
-    mu_of_state (run fuel s prog) >= mu_of_state s.
+  forall (fuel : nat) (s : State),
+    mu_of_state (run fuel s) >= mu_of_state s.
 Proof.
-  induction fuel as [|fuel' IH]; intros s prog.
+  induction fuel as [|fuel' IH]; intros s.
   - (* Base case: fuel = 0 *)
     simpl. lia.
   - (* Inductive case: fuel = S fuel' *)
     simpl.
-    destruct (step s prog) as [s'|] eqn:Hstep.
+    destruct (step s) as [s'|] eqn:Hstep.
     + (* Step succeeded *)
       destruct (halted s') eqn:Hhalted'.
       * (* Halted after step *)
         assert (Hmono : mu_of_state s' >= mu_of_state s).
-        { apply mu_never_decreases with (prog := prog). assumption. }
+        { apply mu_never_decreases. assumption. }
         lia.
       * (* Not halted, continue running *)
         assert (Hmono : mu_of_state s' >= mu_of_state s).
-        { apply mu_never_decreases with (prog := prog). assumption. }
-        assert (IH' := IH s' prog).
+        { apply mu_never_decreases. assumption. }
+        assert (IH' := IH s').
         lia.
     + (* Step failed (already halted) *)
       lia.
@@ -459,12 +518,12 @@ Qed.
 
 (** Property: Step is deterministic *)
 Theorem step_deterministic :
-  forall (s : State) (prog : Program) (s1 s2 : State),
-    step s prog = Some s1 ->
-    step s prog = Some s2 ->
+  forall (s : State) (s1 s2 : State),
+    step s = Some s1 ->
+    step s = Some s2 ->
     s1 = s2.
 Proof.
-  intros s prog s1 s2 H1 H2.
+  intros s s1 s2 H1 H2.
   rewrite H1 in H2.
   inversion H2.
   reflexivity.
@@ -472,11 +531,11 @@ Qed.
 
 (** Property: Halted states cannot step *)
 Theorem halted_cannot_step :
-  forall (s : State) (prog : Program),
+  forall (s : State),
     s.(halted) = true ->
-    step s prog = None.
+    step s = None.
 Proof.
-  intros s prog Hhalted.
+  intros s Hhalted.
   unfold step.
   rewrite Hhalted.
   reflexivity.
@@ -484,15 +543,15 @@ Qed.
 
 (** Property: Non-halted states with valid PC can step *)
 Theorem valid_pc_can_step :
-  forall (s : State) (prog : Program),
+  forall (s : State),
     s.(halted) = false ->
-    (s.(pc) < List.length prog)%nat ->
-    exists s', step s prog = Some s'.
+    (s.(pc) < List.length s.(program))%nat ->
+    exists s', step s = Some s'.
 Proof.
-  intros s prog Hhalted Hpc.
+  intros s Hhalted Hpc.
   unfold step.
   rewrite Hhalted.
-  destruct (nth_error prog (pc s)) as [instr|] eqn:Hnth.
+  destruct (nth_error (program s) (pc s)) as [instr|] eqn:Hnth.
   - (* Valid instruction *)
     destruct instr; eexists; reflexivity.
   - (* This case is impossible given Hpc *)
