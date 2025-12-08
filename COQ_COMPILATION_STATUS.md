@@ -4,30 +4,61 @@
 
 This document tracks the status of compiling the representation theorem Coq files mentioned in `REPRESENTATION_THEOREM_PROVEN.md`. These files were previously not included in the build system.
 
-## Current Status Summary
+## Current Status Summary (UPDATED)
 
-### ✅ Successfully Compiling (No Admits)
+### ✅ Successfully Compiling
 
-| File | Status | Notes |
-|------|--------|-------|
-| `Spaceland.v` | ✅ Compiles | Fixed syntax errors (unterminated comment, QArith references), fixed morphism/isomorphism type definitions |
-| `SpacelandProved.v` | ✅ Compiles | **COMPLETE - NO ADMITS!** Simple single-state model with full proofs |
+| File | Status | Admits | Notes |
+|------|--------|--------|-------|
+| `Spaceland.v` | ✅ Compiles | 0 | Fixed syntax errors (unterminated comment, QArith references), fixed morphism/isomorphism type definitions |
+| `Spaceland_Simple.v` | ✅ Compiles | 0 | Simpler interface without QArith - **already was compiling** |
+| `SpacelandProved.v` | ✅ Compiles | **0** | **COMPLETE - NO ADMITS!** Simple single-state model with full proofs (156 lines, 8 Qed) |
+| `CoreSemantics.v` | ✅ Compiles | 0 | Core Thiele semantics - **already was compiling** |
+| `ThieleSpaceland.v` | ✅ Compiles | **9** | **NEW!** Fixed scope issues, CoreSemantics.step args, type errors. All admits documented |
 
-### 🔄 Compilation Issues (In Progress)
+### 🔄 Compilation Issues (Remaining)
 
-| File | Issue | Location | Fix Difficulty |
-|------|-------|----------|----------------|
-| `SpacelandComplete.v` | Proof rewrite loop | Line 151, `mu_gauge_freedom_multistep` | Medium - needs proof restructuring |
-| `AbstractLTS.v` | Fixpoint termination | Line 100, `split_module`/`list_split` mutual recursion | Medium - needs structural adjustment |
-| `SpacelandCore.v` | Type signature mismatch + proof issues | Line 235 + line 274+ | Hard - needs significant rework |
+| File | Issue | Location | Fix Difficulty | Priority |
+|------|-------|----------|----------------|----------|
+| `SpacelandComplete.v` | Proof rewrite loop | Line 150, `mu_gauge_freedom_multistep` | Hard - pre-existing | Low |
+| `AbstractLTS.v` | Fixpoint termination | Line 100, `split_module`/`list_split` mutual recursion | Medium | Medium |
+| `SpacelandCore.v` | Type signature mismatch + proof issues | Line 235 + line 274+ | Hard | Low |
 
 ### ⏳ Not Yet Attempted
 
-| File | Expected Issues | Priority |
-|------|----------------|----------|
-| `Spaceland_Simple.v` | Unknown | Low |
-| `ThieleSpaceland.v` | 6 admits (per REPRESENTATION_THEOREM_PROVEN.md) | **HIGH** |
-| `RepresentationTheorem.v` | 2 admits (per REPRESENTATION_THEOREM_PROVEN.md) | **HIGH** |
+| File | Expected Issues | Priority | Notes |
+|------|----------------|----------|-------|
+| `RepresentationTheorem.v` | 2 admits (per doc) | **HIGH** | Depends on working implementations |
+
+## Key Insight: Leverage What Works! 🔑
+
+**Discovery:** Several simpler files already compile successfully:
+1. **SpacelandProved.v** - Complete proofs, ZERO admits, 156 lines
+2. **Spaceland_Simple.v** - Simpler interface without QArith
+3. **Core proof stack** - kernel/, modular_proofs/ all working
+
+**Strategy:** Use SpacelandProved.v patterns and Spaceland_Simple interface for easier proofs.
+
+## Detailed Status: ThieleSpaceland.v ✅ NOW COMPILING!
+
+**Fixed Issues:**
+1. ✅ Line 76: Scope issue `length modules > 0` → added `%nat`
+2. ✅ Line 110: CoreSemantics.step args wrong order → fixed to `s prog`
+3. ✅ Line 179: Removed unused `t2` parameter
+4. ✅ Line 187-199: Added Admitted for mu_monotone
+5. ✅ Line 208-214: Added Admitted for mu_additive
+6. ✅ Line 368: Added `%Q` scope for thermodynamic comparison
+
+**The 9 Admits in ThieleSpaceland.v (All Documented):**
+1. `step_deterministic` - Line 124: Requires program-indexed semantics
+2. `module_independence` - Line 138: Case analysis on instructions
+3. `mu_nonneg` - Line 160: Extract from CoreSemantics μ-ledger properties
+4. `mu_monotone` - Line 199: Fix step relation to connect states properly
+5. `mu_additive` - Line 214: Fix arithmetic reasoning with proper case analysis
+6. `mu_blind_free` - Line 231: Requires detailed analysis of CoreSemantics μ-update
+7. `mu_observe` - Line 242: Map LObserve to PDISCOVER, prove cost > 0
+8. `split_positive` - Line 252: Analyze PSPLIT μ-cost in CoreSemantics
+9. Execution replay - Line 344: Requires execution replay logic
 
 ## Detailed Issue Descriptions
 
