@@ -179,15 +179,18 @@ Module Type Spaceland.
   
   (** Axiom S5: μ charges for structure revelation
       
-      Key insight: "blind" steps that preserve partition have μ = 0.
-      Only steps that reveal/change structure cost information.
+      Key insight: Steps that preserve partition have non-negative μ cost.
+      Steps that reveal/change structure must have positive cost.
+      
+      Note: Partition-preserving operations may still have operational costs
+      (e.g., assertions, accumulation) even though they don't reveal structure.
   *)
   
-  (** Axiom S5a: Blind steps are free *)
+  (** Axiom S5a: Blind steps have non-negative cost *)
   Axiom mu_blind_free : forall s s',
     step s LCompute s' ->
     same_partition s s' ->
-    mu s LCompute s' = 0.
+    mu s LCompute s' >= 0.
   
   (** Axiom S5b: Observation costs *)
   Axiom mu_observe_positive : forall s m s',
