@@ -117,11 +117,27 @@ Module ThieleSpaceland <: Spaceland.
     unfold step in *.
     destruct H1 as [prog1 [i1 [Hnth1 [Hlbl1 Hstep1]]]].
     destruct H2 as [prog2 [i2 [Hnth2 [Hlbl2 Hstep2]]]].
-    (* CoreSemantics.step is deterministic for fixed program *)
-    (* This requires programs are the same - in practice, we fix the program *)
-    (* For now, admit this - full proof requires program context *)
-    admit.
-  Admitted. (* TODO: Requires program-indexed semantics *)
+    (* The programs and instructions must be the same *)
+    (* because they're both determined by the state's pc and loaded program *)
+    (* In practice, the program is fixed in the state *)
+    (* For this proof, we need to show prog1 = prog2 and i1 = i2 *)
+    (* This follows from the fact that both are extracted from same state *)
+    (* However, without explicit program in state, we must admit *)
+    (* Alternative: assume programs are equal *)
+    assert (Hprog_eq: prog1 = prog2).
+    { (* In real implementation, programs come from same source *)
+      (* This would be proven if State contained program explicitly *)
+      admit. }
+    subst prog2.
+    assert (Hi_eq: i1 = i2).
+    { rewrite Hnth2 in Hnth1. injection Hnth1 as H. symmetry. exact H. }
+    subst i2.
+    (* Now both steps use same program, so results must be equal *)
+    rewrite Hstep2 in Hstep1.
+    injection Hstep1 as H.
+    symmetry.
+    exact H.
+  Admitted. (* TODO: Requires explicit program in State or global program assumption *)
   
   (** Axiom S3b: Module Independence *)
   Lemma module_independence : forall s s' m,
@@ -132,10 +148,46 @@ Module ThieleSpaceland <: Spaceland.
     (* Compute steps preserve partition structure *)
     unfold step in Hstep.
     destruct Hstep as [prog [i [Hnth [Hlbl Hstep]]]].
-    (* Need to analyze which instructions preserve partitions *)
-    (* Most blind operations preserve partition → module membership unchanged *)
-    admit.
-  Admitted. (* TODO: Case analysis on instructions *)
+    (* Analyze which instructions map to LCompute *)
+    unfold instr_to_label in Hlbl.
+    destruct i.
+    - (* PNEW: Creates new module, but preserves existing modules *)
+      (* This requires understanding how add_module works *)
+      (* For now, admit - requires proof about add_module *)
+      admit.
+    - (* PSPLIT: Maps to LSplit, not LCompute *)
+      injection Hlbl. intros Heq. discriminate Heq.
+    - (* PMERGE: Maps to LMerge, not LCompute *)
+      injection Hlbl. intros Heq. discriminate Heq.
+    - (* PDISCOVER: Maps to LObserve, not LCompute *)
+      injection Hlbl. intros Heq. discriminate Heq.
+    - (* LASSERT: Preserves partition *)
+      unfold CoreSemantics.step in Hstep.
+      destruct (halted s) eqn:Hhalted; try discriminate.
+      rewrite Hnth in Hstep.
+      injection Hstep as Heq_s'. subst s'.
+      simpl.
+      (* LASSERT keeps partition unchanged *)
+      reflexivity.
+    - (* MDLACC: Preserves partition *)
+      unfold CoreSemantics.step in Hstep.
+      destruct (halted s) eqn:Hhalted; try discriminate.
+      rewrite Hnth in Hstep.
+      injection Hstep as Heq_s'. subst s'.
+      simpl.
+      (* MDLACC keeps partition unchanged *)
+      reflexivity.
+    - (* EMIT: Preserves partition *)
+      unfold CoreSemantics.step in Hstep.
+      destruct (halted s) eqn:Hhalted; try discriminate.
+      rewrite Hnth in Hstep.
+      injection Hstep as Heq_s'. subst s'.
+      simpl.
+      (* EMIT keeps partition unchanged *)
+      reflexivity.
+    - (* HALT: Maps to None, not LCompute *)
+      discriminate Hlbl.
+  Admitted. (* TODO: Requires proof that PNEW (add_module) preserves existing modules *)
   
   (** =======================================================================
       PART 2: INFORMATION COST (Axioms S4-S5)
@@ -429,10 +481,29 @@ Module ThieleSpaceland <: Spaceland.
       make_receipt t = r.
   Proof.
     intros r Hverify.
-    (* This requires full execution semantics *)
-    (* In practice: receipt contains enough info to reconstruct trace *)
+    (* Since verify_receipt always returns true (by definition), *)
+    (* and make_receipt is surjective onto valid receipts, *)
+    (* we can construct a trivial trace that produces this receipt *)
+    (* For the placeholder implementation where receipts are just Z, *)
+    (* we use a single-step trace with an initial state *)
+    exists (TNil {| partition := trivial_partition [];
+                    mu_ledger := {| mu_operational := 0; mu_information := 0; mu_total := 0 |};
+                    pc := 0;
+                    halted := false;
+                    result := None |}).
+    (* The receipt is computed deterministically from trace *)
+    unfold make_receipt, trace_mu.
+    simpl.
+    (* Receipt is just the final μ value *)
+    (* For our placeholder, we construct a trace that gives us the receipt value r *)
+    (* In real implementation, would reconstruct actual trace from receipt data *)
+    (* Since r is arbitrary and make_receipt is surjective, this always works *)
+    unfold CoreSemantics.mu_total. simpl.
+    (* The placeholder always gives 0 for empty trace, but in principle *)
+    (* we could construct a trace with appropriate μ-cost to match r *)
+    (* This requires additional structure in receipts *)
     admit.
-  Admitted. (* TODO: Requires execution replay logic *)
+  Admitted. (* TODO: Requires richer receipt structure to be fully surjective *)
   
   (** Axiom S7b: Receipt completeness *)
   Lemma receipt_complete : forall (t : Trace),
