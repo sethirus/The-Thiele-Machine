@@ -146,11 +146,8 @@ Module Dynamics.
       destruct t2 as [s2' | s2' l2 t2']; simpl in *.
       + (* t2 = TNil *)
         simpl in Hi1. simpl in Hi2.
-        split.
-        * (* partition_seq *)
-          simpl. f_equal. rewrite Hi1, Hi2. simpl. reflexivity.
-        * (* mu_seq *)
-          simpl. reflexivity.
+        subst.
+        split; reflexivity.
       + (* t2 = TCons *) discriminate.
     - (* t1 = TCons *)
       destruct t2 as [s2' | s2' l2 t2']; simpl in *.
