@@ -123,9 +123,12 @@ Predicate = Callable[[int], bool]
 @dataclass
 class State:
     """Holds machine state ``S`` and partition table ``Π``.
-    
+
     This implements the canonical state representation as defined in
     spec/thiele_machine_spec.md for isomorphism verification.
+
+    IMPORTANT: This structure must align with CoreSemantics.State in Coq for
+    cross-layer isomorphism verification.
     """
 
     mu_operational: float = 0.0  # Cost of operations (current mu) - legacy
@@ -137,12 +140,15 @@ class State:
         default_factory=lambda: {CSR.CERT_ADDR: "", CSR.STATUS: 0, CSR.ERR: 0}
     )
     step_count: int = 0
-    
+
     # Canonical μ-ledger (spec/thiele_machine_spec.md)
     mu_ledger: MuLedger = field(default_factory=MuLedger)
-    
+
     # Bitmask-based partition storage for hardware isomorphism
     partition_masks: Dict[ModuleId, PartitionMask] = field(default_factory=dict)
+
+    # Program being executed (matches CoreSemantics.State.program field in Coq)
+    program: List[Any] = field(default_factory=list)
 
     @property
     def mu(self) -> float:
@@ -276,7 +282,7 @@ class State:
     
     def get_state_snapshot(self) -> Dict[str, Any]:
         """Return a snapshot of the current state for tracing.
-        
+
         This format is designed for isomorphism verification with
         Verilog RTL and Coq proofs.
         """
@@ -288,4 +294,5 @@ class State:
             ],
             "mu": self.mu_ledger.snapshot(),
             "step_count": self.step_count,
+            "program_length": len(self.program),
         }
