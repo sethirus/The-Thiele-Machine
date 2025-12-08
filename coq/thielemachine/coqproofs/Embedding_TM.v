@@ -30,12 +30,14 @@ Theorem tm_embeds :
 Proof.
   intro cfg.
   destruct (BlindSighted.TM_as_BlindThiele cfg) as [blind_prog [blind_final [Hblind Hresult]]].
-  exists [CoreSemantics.EMIT (BlindSighted.tm_output cfg); CoreSemantics.HALT].
+  set (prog := [CoreSemantics.EMIT (BlindSighted.tm_output cfg); CoreSemantics.HALT]).
+  exists prog.
   exists {| CoreSemantics.partition := blind_partition_to_core (BlindSighted.trivial_partition []);
             CoreSemantics.mu_ledger := blind_ledger_to_core BlindSighted.zero_ledger;
             CoreSemantics.pc := 1%nat;
             CoreSemantics.halted := true;
-            CoreSemantics.result := Some (BlindSighted.tm_output cfg) |}.
+            CoreSemantics.result := Some (BlindSighted.tm_output cfg);
+            CoreSemantics.program := prog |}.
   split; [simpl; reflexivity | simpl; lia].
 Qed.
 
