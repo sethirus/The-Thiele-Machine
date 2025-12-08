@@ -747,13 +747,24 @@ Module ThieleSpaceland <: Spaceland.
       make_receipt t = r.
   Proof.
     intros r Hverify.
-    (* For a simple receipt, we can construct a trace that produces it *)
-    (* The key insight: any valid receipt describes a valid execution *)
-    (* We construct a witness trace with matching partitions and μ-cost *)
+    (* The current receipt structure and verify_receipt are minimal *)
+    (* They don't capture enough information to reconstruct a unique execution *)
+    (* However, we can prove soundness by constructing a WITNESS trace *)
+    (* that produces a receipt equal to r *)
     
-    (* Construct initial state with the receipt's initial partition *)
-    exists (TNil {| CoreSemantics.partition := initial_partition r;
-                    CoreSemantics.mu_ledger := CoreSemantics.zero_mu;
+    (* Key insight: Since verify_receipt only checks μ >= 0 and labels well-formed, *)
+    (* we can construct a trace that matches all the receipt fields *)
+    
+    (* For simplicity, construct a single-state trace with the right properties *)
+    (* A more complete approach would replay execution from labels *)
+    (* but that requires determinism assumptions not in current semantics *)
+    
+    (* Construct a state with the receipt's final partition and μ-ledger *)
+    (* such that the trace produces the correct receipt *)
+    exists (TNil {| CoreSemantics.partition := final_partition r;
+                    CoreSemantics.mu_ledger := {| CoreSemantics.mu_operational := total_mu r;
+                                                    CoreSemantics.mu_information := 0;
+                                                    CoreSemantics.mu_total := total_mu r |};
                     CoreSemantics.pc := 0;
                     CoreSemantics.halted := true;
                     CoreSemantics.result := None;
@@ -763,11 +774,23 @@ Module ThieleSpaceland <: Spaceland.
     unfold make_receipt, trace_initial, get_partition, trace_final, trace_mu, trace_labels.
     simpl.
     
-    (* This construction matches for trivial traces *)
-    (* For non-trivial traces, we'd need to reconstruct the full execution *)
-    (* which requires the label sequence to fully determine the trace *)
-    admit. (* TODO: Extend to non-trivial traces using label sequence *)
-  Admitted. (* Requires execution replay from labels or richer receipt structure *)
+    (* Now we need to show the constructed receipt equals r *)
+    (* This requires that initial_partition, label_sequence can be arbitrary *)
+    (* which is a limitation of the current receipt structure *)
+    (* The trace we construct only matches final_partition and total_mu *)
+    (* To fully match r, we'd need execution replay from labels *)
+    
+    (* For a pragmatic proof: the receipt structure is underconstrained *)
+    (* A single-state trace can produce SOME valid receipt, but not necessarily r *)
+    (* This indicates receipt_sound as stated is actually false without *)
+    (* additional structure (e.g., execution witnesses, determinism) *)
+    
+    (* The honest approach: weaken to existential soundness *)
+    (* OR enhance receipts with execution witnesses *)
+    (* For now, acknowledge the limitation *)
+  Admitted. (* Requires: (1) deterministic replay from labels, OR
+                          (2) receipts include execution witnesses, OR
+                          (3) weaker soundness statement *)
 
   (** Helper lemma: trace_mu is always non-negative for valid traces *)
   Lemma trace_mu_nonneg : forall t,
@@ -803,21 +826,29 @@ Module ThieleSpaceland <: Spaceland.
     apply andb_true_intro. split.
     - (* total_mu >= 0 *)
       apply Z.geb_le.
-      (* For a trace to have a valid receipt, we need it to be valid *)
-      (* But we don't have that assumption! *)
-      (* However, make_receipt can be called on any trace, even invalid ones *)
-      (* For invalid traces, trace_mu might be negative in principle *)
-      (* But actually, trace_mu is defined structurally and uses mu *)
-      (* And mu is the difference of mu_ledgers *)
-      (* Without the valid_trace assumption, we can't prove this *)
-      (* Let me check if there's a weaker property... *)
-      (* Actually, trace_mu just sums up mu values *)
-      (* And mu uses mu_ledger totals, which are always non-negative by construction *)
-      (* Let me try proving it without valid_trace *)
-      admit. (* Need to prove trace_mu_nonneg without valid_trace assumption *)
-    - (* label sequence check *)
-      destruct (trace_labels t); reflexivity.
-  Admitted. (* Requires proving trace_mu is non-negative even for non-valid traces *)
+      (* To prove trace_mu t >= 0, we need to show that the sum of μ-costs is non-negative *)
+      (* For traces constructed via actual execution steps, this follows from mu_nonneg *)
+      (* However, Trace is an inductive type that allows constructing arbitrary traces *)
+      (* including ones with arbitrary states that weren't reached via step *)
+      (* For such arbitrary traces, μ-costs could theoretically be negative *)
+      
+      (* The mathematical reality: *)
+      (* - trace_mu_nonneg proves μ >= 0 for VALID traces *)
+      (* - receipt_complete needs μ >= 0 for ALL traces *)
+      (* - This gap is fundamental: we can construct Trace values with arbitrary states *)
+      
+      (* Pragmatic solutions: *)
+      (* Option A: Refine Trace to only allow valid sequences (dependent type) *)
+      (* Option B: Add valid_trace precondition to receipt_complete *)
+      (* Option C: Make verify_receipt return a result type instead of bool *)
+      
+      (* Current limitation acknowledged: receipt_complete holds for valid traces *)
+      (* but is unprovable for arbitrary trace values *)
+  Admitted. (* Limitation: Trace type allows arbitrary state sequences.
+                         Holds for valid traces (those constructed via step).
+                         Would require: (1) dependent type restricting Trace, OR
+                                       (2) precondition valid_trace t, OR  
+                                       (3) universal μ non-negativity invariant *)
   
   (** =======================================================================
       PART 5: THERMODYNAMIC CONNECTION (Axiom S8)
