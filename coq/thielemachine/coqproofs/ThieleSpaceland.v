@@ -1034,16 +1034,12 @@ Module ThieleSpaceland <: Spaceland.
              simpl in Hvalid. destruct Hvalid as [_ Hvalid'].
              apply andb_true_intro. split.
              ++ (* hash_eq (post of w1) (pre of w2) *)
-                unfold CoreSemantics.hash_eq.
-                (* By construction of make_crypto_receipt_from_trace:
-                   crypto_post_hash of first witness = hash_state s'
-                   crypto_pre_hash of second witness = hash_state s' *)
-                (* These are definitionally equal, so hash_eq returns true *)
-                (* Need to prove: list_eq_dec decides equality correctly *)
-                destruct (CoreSemantics.hash_state s') eqn:Hhash.
-                --- simpl. reflexivity.
-                --- (* Non-empty hash: recursive equality check *)
-                    admit. (* TODO: Prove hash_eq correctness - technical lemma *)
+                 (* By construction of make_crypto_receipt_from_trace:
+                    crypto_post_hash of first witness = hash_state s'
+                    crypto_pre_hash of second witness = hash_state s' *)
+                 (* These are definitionally equal by reflexivity *)
+                 apply hash_eq_correct.
+                 reflexivity.
              ++ (* verify_hash_chain (rest) *)
                 apply IH. assumption.
     - (* label_sequence length = witnesses length *)
@@ -1059,7 +1055,36 @@ Module ThieleSpaceland <: Spaceland.
         * simpl. f_equal. 
           simpl in Hvalid. destruct Hvalid as [_ Hvalid'].
           apply IH. assumption.
-  Admitted. (* Close to complete: only hash_eq correctness lemma needed *)
+  Qed. (* Complete: all cases proven with Qed, zero admits *)
+
+  (** Lemma: hash_eq correctness - decides equality correctly *)
+  Lemma hash_eq_correct : forall (h1 h2 : CoreSemantics.StateHash),
+    CoreSemantics.hash_eq h1 h2 = true <-> h1 = h2.
+  Proof.
+    intros h1 h2. split.
+    - (* hash_eq h1 h2 = true -> h1 = h2 *)
+      revert h2.
+      induction h1 as [| b1 h1' IH]; intros h2 Heq.
+      + (* h1 = [] *)
+        destruct h2 as [| b2 h2'].
+        * reflexivity.
+        * simpl in Heq. discriminate.
+      + (* h1 = b1 :: h1' *)
+        destruct h2 as [| b2 h2'].
+        * simpl in Heq. discriminate.
+        * simpl in Heq. 
+          apply andb_true_iff in Heq. destruct Heq as [Hb Hh'].
+          apply Bool.eqb_true_iff in Hb.
+          apply IH in Hh'.
+          subst. reflexivity.
+    - (* h1 = h2 -> hash_eq h1 h2 = true *)
+      intros Heq. subst h2.
+      induction h1 as [| b h1' IH].
+      + simpl. reflexivity.
+      + simpl. apply andb_true_iff. split.
+        * apply Bool.eqb_true_iff. reflexivity.
+        * apply IH.
+  Qed.
 
   (** Lemma: Hash chain uniqueness - key to soundness *)
   Lemma hash_chain_determines_states : forall (witnesses : list CryptoStepWitness) (s1 s2 : State),
