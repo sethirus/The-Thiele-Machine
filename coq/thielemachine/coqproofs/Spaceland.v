@@ -301,12 +301,12 @@ Module Type Spaceland.
       this inequality is satisfiable.
   *)
   
-  (** Landauer's constArith.Q. (* Rational approximation of kT ln(2) *)
+  (** Landauer's constant: Rational approximation of kT ln(2) *)
+  Parameter kT_ln2 : Q.
   
   (** Physical work required for Δμ bits of information *)
-  Definition landauer_bound (delta_mu : Z) : QArith.Q :=
-    QArith.Qmult kT_ln2 (QArith.andauer_bound (delta_mu : Z) : Q :=
-    kT_ln2 * (inject_Z delta_mu).
+  Definition landauer_bound (delta_mu : Z) : Q :=
+    Qmult kT_ln2 (inject_Z delta_mu).
   
   (** Axiom S8a: μ corresponds to thermodynamic cost
       
@@ -316,9 +316,9 @@ Module Type Spaceland.
       We don't require that EVERY implementation achieves this bound,
       just that it's the theoretical minimum.
   *)
-  Axiom mu_thermodynamic : forall s l s' (W : QArith.Q),
+  Axiom mu_thermodynamic : forall s l s' (W : Q),
     step s l s' ->
-    QArith.Qle (landauer_bound (mu s l s')) W ->
+    Qle (landauer_bound (mu s l s')) W ->
     True. (* Implementation is thermodynamically possible *)
   
   (** Axiom S8b: Blind steps are reversible
@@ -348,6 +348,7 @@ Module SpacelandMorphism (S1 S2 : Spaceland).
   Record Morphism : Type := {
     state_map : S1.State -> S2.State;
     partition_map : S1.Partition -> S2.Partition;
+    label_map : S1.Label -> S2.Label;
     
     (** Preserve partition structure *)
     preserve_partition : forall s,
@@ -356,27 +357,59 @@ Module SpacelandMorphism (S1 S2 : Spaceland).
     (** Preserve transitions *)
     preserve_step : forall s l s',
       S1.step s l s' ->
-      S2.step (state_map s) l (state_map s');
+      S2.step (state_map s) (label_map l) (state_map s');
     
     (** Preserve μ-cost *)
     preserve_mu : forall s l s',
       S1.step s l s' ->
-      S1.mu s l s' = S2.mu (state_map s) l (state_map s');
+      S1.mu s l s' = S2.mu (state_map s) (label_map l) (state_map s');
   }.
   
-  (** Isomorphism: morphism with inverse *)
+End SpacelandMorphism.
+
+(** Isomorphism between two Spacelands *)
+Module SpacelandIsomorphism (S1 S2 : Spaceland).
+  
+  (** An isomorphism requires morphisms in both directions *)
   Record Isomorphism : Type := {
-    forward : Morphism;
-    backward : Morphism;
+    (** Forward map S1 -> S2 *)
+    state_map_fwd : S1.State -> S2.State;
+    partition_map_fwd : S1.Partition -> S2.Partition;
+    label_map_fwd : S1.Label -> S2.Label;
+    
+    (** Backward map S2 -> S1 *)
+    state_map_bwd : S2.State -> S1.State;
+    partition_map_bwd : S2.Partition -> S1.Partition;
+    label_map_bwd : S2.Label -> S1.Label;
+    
+    (** Forward preserves structure *)
+    preserve_partition_fwd : forall s,
+      partition_map_fwd (S1.get_partition s) = S2.get_partition (state_map_fwd s);
+    preserve_step_fwd : forall s l s',
+      S1.step s l s' ->
+      S2.step (state_map_fwd s) (label_map_fwd l) (state_map_fwd s');
+    preserve_mu_fwd : forall s l s',
+      S1.step s l s' ->
+      S1.mu s l s' = S2.mu (state_map_fwd s) (label_map_fwd l) (state_map_fwd s');
+    
+    (** Backward preserves structure *)
+    preserve_partition_bwd : forall s,
+      partition_map_bwd (S2.get_partition s) = S1.get_partition (state_map_bwd s);
+    preserve_step_bwd : forall s l s',
+      S2.step s l s' ->
+      S1.step (state_map_bwd s) (label_map_bwd l) (state_map_bwd s');
+    preserve_mu_bwd : forall s l s',
+      S2.step s l s' ->
+      S2.mu s l s' = S1.mu (state_map_bwd s) (label_map_bwd l) (state_map_bwd s');
     
     (** Compose to identity *)
-    forward_backward : forall s,
-      state_map backward (state_map forward s) = s;
-    backward_forward : forall s,
-      state_map forward (state_map backward s) = s;
+    inverse_state_fwd_bwd : forall (s : S1.State),
+      state_map_bwd (state_map_fwd s) = s;
+    inverse_state_bwd_fwd : forall (s : S2.State),
+      state_map_fwd (state_map_bwd s) = s;
   }.
 
-End SpacelandMorphism.
+End SpacelandIsomorphism.
 
 (** =========================================================================
     REPRESENTATION THEOREM (STATEMENT)
@@ -396,17 +429,14 @@ Module Type RepresentationTheorem.
   Declare Module S2 : Spaceland.
   
   (** If two Spacelands have identical projections on ALL traces... *)
-  Axiom same_projection : forall (t1 : S1.Trace) (t2 : S2.Trace),
-    S1.partition_trace t1 = S2.partition_trace t2 ->
-    S1.mu_trace t1 = S2.mu_trace t2 ->
-    True. (* Placeholder for "same projection" *)
+  (** (This is a placeholder - proper formulation requires more structure) *)
+  Axiom same_projection : 
+    True. (* Placeholder for "same observable projection" predicate *)
   
   (** ...then they are isomorphic *)
-  Parameter iso : SpacelandMorphism.Isomorphism S1 S2.
-  
-  Axiom representation : forall (t1 : S1.Trace) (t2 : S2.Trace),
-    S1.project t1 = S2.project t2 ->
-    exists iso, True. (* Spacelands are isomorphic *)
+  (** (This is also a placeholder - requires proper isomorphism construction) *)
+  Axiom representation : 
+    True. (* Placeholder: Spacelands with same projections are isomorphic *)
 
 End RepresentationTheorem.
 
