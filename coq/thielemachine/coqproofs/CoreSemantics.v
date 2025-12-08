@@ -151,17 +151,47 @@ Definition initial_state (vars : Region) (prog : Program) : State :=
     ========================================================================= *)
 
 (** State hash: 256-bit cryptographic commitment to state 
-    Represented as list of 256 booleans (bits) *)
+    Represented as list of 256 booleans (bits)
+    
+    BIT ORDERING: Big-endian (MSB first)
+    - Position 0 = most significant bit
+    - Position 255 = least significant bit
+    
+    CANONICAL ENCODING: States are serialized deterministically as:
+    1. Partition: sorted list of (module_id, sorted_variables)
+    2. μ-ledger: (mu_operational, mu_information, mu_total) as big-endian Z
+    3. PC: nat as big-endian
+    4. Halted: 0 or 1
+    5. Result: None = 0x00, Some(n) = 0x01 || n
+    6. Program: SHA-256 hash of program (not full program)
+    
+    This encoding MUST match Python hash_snapshot() and Verilog state_hasher
+    for cross-layer isomorphism.
+*)
 Definition StateHash := list bool.
 
 (** Hash function: State -> 256-bit commitment
     This is axiomatized - actual implementation verified against Python/Verilog.
-    In practice: SHA-256(canonical_encoding(state)) *)
+    
+    IMPLEMENTATION: SHA-256(canonical_encoding(state))
+    - Python: hashlib.sha256(json.dumps(canonical_state, sort_keys=True))
+    - Verilog: SHA-256 hardware core operating on serialized state
+    - Coq: Axiomatized (verified externally via isomorphism tests)
+*)
 Parameter hash_state : State -> StateHash.
 
 (** Hash function properties - standard cryptographic assumptions *)
 
-(** Axiom: Collision resistance - if hashes equal, states equal *)
+(** Axiom: Collision resistance - if hashes equal, states equal
+    
+    NOTE: This is an IDEALIZED assumption. Real SHA-256 is computationally
+    collision-resistant (~2^128 operations to find collision), not perfectly
+    injective. We axiomatize perfect collision resistance for formal reasoning,
+    acknowledging that in practice:
+    - Probability of accidental collision: negligible (~2^-128)
+    - Probability of adversarial collision: computationally infeasible
+    - For receipt forgery resistance, computational assumption suffices
+*)
 Axiom hash_collision_resistance : forall (s1 s2 : State),
   hash_state s1 = hash_state s2 -> s1 = s2.
 
@@ -169,7 +199,15 @@ Axiom hash_collision_resistance : forall (s1 s2 : State),
 Axiom hash_length : forall (s : State),
   List.length (hash_state s) = 256%nat.
 
-(** Helper: Compare state hashes for equality *)
+(** Helper: Compare state hashes for equality
+    
+    NOTE: This recursive implementation performs 256 comparisons for full hash.
+    For actual implementations (Python/Verilog), use optimized equality:
+    - Python: h1 == h2 (native string/bytes comparison)
+    - Verilog: assign equal = (h1 == h2); (hardware parallel comparison)
+    
+    The recursive Fixpoint is used here for Coq reasoning and proof simplicity.
+*)
 Fixpoint hash_eq (h1 h2 : StateHash) : bool :=
   match h1, h2 with
   | [], [] => true
