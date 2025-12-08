@@ -209,6 +209,28 @@ Module AbstractLTS <: Spaceland.
     | TNil : State -> Trace
     | TCons : State -> Label -> Trace -> Trace.
   
+  (** Get the initial state of a trace *)
+  Definition trace_init (t : Trace) : State :=
+    match t with
+    | TNil s => s
+    | TCons s _ _ => s
+    end.
+  
+  (** Get the final state of a trace *)
+  Fixpoint trace_final (t : Trace) : State :=
+    match t with
+    | TNil s => s
+    | TCons _ _ rest => trace_final rest
+    end.
+  
+  (** Valid trace: consecutive states are connected by steps *)
+  Fixpoint valid_trace (t : Trace) : Prop :=
+    match t with
+    | TNil _ => True
+    | TCons s l rest => 
+        step s l (trace_init rest) /\ valid_trace rest
+    end.
+  
   Fixpoint trace_mu (t : Trace) : Z :=
     match t with
     | TNil _ => 0
@@ -219,80 +241,91 @@ Module AbstractLTS <: Spaceland.
         end
     end.
   
-  (** Monotonicity *)
-  Lemma mu_monotone : forall t1 s l s',
-    step s l s' ->
+  (** Monotonicity: valid traces have non-decreasing mu *)
+  Lemma mu_monotone : forall t1 s l,
+    valid_trace (TCons s l t1) ->
     trace_mu (TCons s l t1) >= trace_mu t1.
   Proof.
-    intros t1 s l s' Hstep.
-    unfold trace_mu at 1.
+    intros t1 s l Hvalid.
     destruct t1 as [s1 | s1 l1 t1'].
     - (* t1 = TNil s1 *)
       simpl.
       (* trace_mu (TCons s l (TNil s1)) = mu s l s1 *)
-      (* Need to show: mu s l s1 >= 0 *)
-      (* But we have step s l s', not step s l s1 *)
-      (* The issue is that s1 is arbitrary - not connected to s or s' *)
-      (* We need the trace to be valid, meaning s' = s1 *)
-      (* Without that constraint, we can't prove this *)
-      (* Let's assume s' = s1 for now *)
-      admit.
+      (* valid_trace gives us: step s l s1 *)
+      simpl in Hvalid. destruct Hvalid as [Hstep _].
+      (* mu s l s1 >= 0 by mu_nonneg *)
+      apply mu_nonneg. exact Hstep.
     - (* t1 = TCons s1 l1 t1' *)
       simpl.
       (* trace_mu (TCons s l (TCons s1 l1 t1')) = mu s l s1 + trace_mu (TCons s1 l1 t1') *)
-      (* Need to show: mu s l s1 + trace_mu (TCons s1 l1 t1') >= trace_mu (TCons s1 l1 t1') *)
+      (* Need: mu s l s1 + trace_mu (TCons s1 l1 t1') >= trace_mu (TCons s1 l1 t1') *)
+      simpl in Hvalid. destruct Hvalid as [Hstep _].
       (* This follows if mu s l s1 >= 0 *)
-      (* Again, we need s' = s1 from trace validity *)
-      admit.
-  Admitted. (* TODO: Requires trace validity constraint linking s' and first state of t1 *)
+      assert (Hge : mu s l s1 >= 0) by (apply mu_nonneg; exact Hstep).
+      destruct t1' as [s1' | s1' l1' t1''].
+      + (* t1' = TNil *)
+        simpl. lia.
+      + (* t1' = TCons *)
+        simpl. lia.
+  Qed.
   
-  (** Additivity *)
+  (** Trace concatenation: properly connect two traces *)
   Fixpoint trace_concat (t1 t2 : Trace) : Trace :=
     match t1 with
-    | TNil s => TCons s LCompute t2
+    | TNil s => 
+        (* Connect t1's final state to t2's initial state *)
+        (* If they're already equal, just use t2 *)
+        (* Otherwise we need a connecting step - but for now, just use t2 *)
+        t2
     | TCons s l rest => TCons s l (trace_concat rest t2)
     end.
   
+  (** Additivity: μ-cost is additive for concatenated traces 
+      Note: This requires that trace_final t1 = trace_init t2 for proper connection *)
   Lemma mu_additive : forall t1 t2,
+    trace_final t1 = trace_init t2 ->
     trace_mu (trace_concat t1 t2) = trace_mu t1 + trace_mu t2.
   Proof.
-    intros t1 t2.
+    intros t1 t2 Hconnect.
     induction t1 as [s1 | s1 l1 t1' IH].
     - (* t1 = TNil s1 *)
       simpl.
-      (* trace_concat (TNil s1) t2 = TCons s1 LCompute t2 *)
-      (* trace_mu (TCons s1 LCompute t2) = ? *)
-      destruct t2 as [s2 | s2 l2 t2'].
-      + (* t2 = TNil s2 *)
-        simpl.
-        (* LHS: mu s1 LCompute s2, RHS: 0 + 0 *)
-        (* This doesn't hold in general - mu s1 LCompute s2 depends on the states *)
-        (* The issue is we're inserting LCompute between arbitrary traces *)
-        admit.
-      + (* t2 = TCons s2 l2 t2' *)
-        simpl.
-        (* Similar issue *)
-        admit.
+      (* trace_concat (TNil s1) t2 = t2 *)
+      (* trace_mu t2 = 0 + trace_mu t2 *)
+      lia.
     - (* t1 = TCons s1 l1 t1' *)
       simpl.
       (* trace_concat (TCons s1 l1 t1') t2 = TCons s1 l1 (trace_concat t1' t2) *)
       destruct t1' as [s1' | s1' l1' t1''].
       + (* t1' = TNil s1' *)
+        simpl.
+        simpl in Hconnect.
+        (* Hconnect: s1' = trace_init t2 *)
+        (* trace_concat (TNil s1') t2 = t2 *)
         destruct t2 as [s2 | s2 l2 t2'].
         * (* t2 = TNil s2 *)
-          simpl.
-          (* trace_mu (TCons s1 l1 (TCons s1' LCompute (TNil s2))) *)
-          (*   = mu s1 l1 s1' + mu s1' LCompute s2 *)
-          (* trace_mu (TCons s1 l1 (TNil s1')) + trace_mu (TNil s2) *)
-          (*   = mu s1 l1 s1' + 0 *)
-          (* These don't match due to the inserted LCompute *)
-          admit.
+          (* Hconnect: s1' = s2 *)
+          (* Goal: mu s1 l1 s1' = mu s1 l1 s1' + 0 *)
+          simpl. unfold trace_mu. simpl. 
+          rewrite Hconnect. simpl. unfold mu. simpl. ring.
         * (* t2 = TCons s2 l2 t2' *)
-          admit.
+          (* Hconnect: s1' = s2 *)
+          simpl.
+          (* Goal: mu s1 l1 s1' + trace_mu (TCons s1' l2 t2') = mu s1 l1 s1' + trace_mu (TCons s2 l2 t2') *)
+          rewrite Hconnect. reflexivity.
       + (* t1' = TCons s1' l1' t1'' *)
-        (* IH: trace_mu (trace_concat t1' t2) = trace_mu t1' + trace_mu t2 *)
-        admit.
-  Admitted. (* TODO: trace_concat inserts LCompute which changes μ - additivity doesn't hold as stated *)
+        simpl.
+        (* IH applies with trace_final t1' = trace_init t2 *)
+        simpl in IH.
+        assert (Hfinal : trace_final (TCons s1' l1' t1'') = trace_init t2) by exact Hconnect.
+        specialize (IH Hfinal).
+        (* trace_mu (TCons s1 l1 (trace_concat t1' t2)) = mu s1 l1 s1' + trace_mu (trace_concat t1' t2) *)
+        (* = mu s1 l1 s1' + trace_mu t1' + trace_mu t2 by IH *)
+        rewrite IH.
+        (* Now simplify trace_mu (TCons s1 l1 t1') *)
+        simpl. 
+        lia.
+  Qed.
   
   (** =======================================================================
       PART 4: STRUCTURE REVELATION COSTS
@@ -393,12 +426,6 @@ Module AbstractLTS <: Spaceland.
     match t with
     | TNil s => s
     | TCons s _ _ => s
-    end.
-  
-  Fixpoint trace_final (t : Trace) : State :=
-    match t with
-    | TNil s => s
-    | TCons _ _ rest => trace_final rest
     end.
   
   Definition make_receipt (t : Trace) : Receipt :=
