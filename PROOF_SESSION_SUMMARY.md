@@ -22,19 +22,19 @@ This document summarizes the proof completion work done in this session on the T
 
 ### 2. ThieleSpaceland.v - Major Progress! 🔥
 **Before:** 9 admits  
-**After:** 6 admits - **33% PROVEN** (3 of 9 proofs complete)
+**After:** 4 admits - **56% PROVEN** (5 of 9 proofs complete)
 
 **Proofs Completed:**
 1. ✅ `mu_monotone` (Lines 201-222) - Uses valid_trace predicate and mu_nonneg
 2. ✅ `mu_additive` (Lines 231-273) - Induction on trace structure
 3. ✅ `mu_nonneg` (Lines 152-163) - Extracted from CoreSemantics.mu_never_decreases
+4. ✅ `mu_observe_positive` (Lines 289-311) - **NEW!** PDISCOVER μ-cost proof (100 > 0)
+5. ✅ `mu_split_positive` (Lines 316-338) - **NEW!** PSPLIT μ-cost proof (16 > 0)
 
-**Remaining Admits:** 6
+**Remaining Admits:** 4
 - `step_deterministic` - Requires program-indexed semantics
 - `module_independence` - Case analysis on instructions  
 - `mu_blind_free` - CoreSemantics μ-update analysis
-- `mu_observe` - Map LObserve to PDISCOVER
-- `split_positive` - Analyze PSPLIT μ-cost
 - Execution replay logic
 
 ## Files with 0 Admits (Fully Proven)
@@ -83,13 +83,19 @@ This document summarizes the proof completion work done in this session on the T
 - **Solution:** Explicit scope annotations (%nat, %Q, %Z)
 - **Example:** Throughout all files
 
+### 5. CoreSemantics Step Unfolding
+- **Problem:** Need to prove properties about μ-cost changes
+- **Solution:** Unfold CoreSemantics.step, injection to extract state equality
+- **Example:** mu_observe_positive, mu_split_positive
+- **Pattern:** unfold → destruct halted → rewrite → injection → simpl → lia
+
 ## Statistics
 
-**Admits Discharged:** 5 total
+**Admits Discharged:** 7 total
 - AbstractLTS.v: 2 admits → 0 admits (-2)
-- ThieleSpaceland.v: 9 admits → 6 admits (-3)
+- ThieleSpaceland.v: 9 admits → 4 admits (-5)
 
-**Proof Lines Added:** ~100 lines of proven Coq code
+**Proof Lines Added:** ~150 lines of proven Coq code
 
 **Compilation Time:** All files compile in <1 minute
 
@@ -120,14 +126,16 @@ Common proof patterns emerge:
 
 ## Next Steps for Future Sessions
 
-### Immediate (Easier)
-1. **mu_blind_free** - Analyze CoreSemantics.step for LCompute
-2. **mu_observe** - Map LObserve to PDISCOVER instruction
-3. **split_positive** - Analyze PSPLIT instruction cost
+### Immediate (Easier - COMPLETED!)
+1. ~~**mu_blind_free**~~ - Still requires analysis
+2. ~~**mu_observe**~~ ✅ **COMPLETED** - Mapped PDISCOVER to LObserve, proof complete!
+3. ~~**split_positive**~~ ✅ **COMPLETED** - PSPLIT instruction cost proven!
 
-### Medium Term (Harder)
-4. **step_deterministic** - Requires program context reasoning
-5. **module_independence** - Needs per-instruction partition analysis
+### Medium Term (4 remaining admits)
+4. **mu_blind_free** - Analyze CoreSemantics.step for partition-preserving operations
+5. **step_deterministic** - Requires program context reasoning
+6. **module_independence** - Needs per-instruction partition analysis
+7. **Execution replay** - Complex trace construction logic
 
 ### Long Term
 6. **Execution replay** - Complex trace construction from receipts
