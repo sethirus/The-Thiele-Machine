@@ -99,11 +99,19 @@ Inductive Instruction : Type :=
   | PNEW : Region -> Instruction              (* 0x00: Create module *)
   | PSPLIT : ModuleId -> Instruction          (* 0x01: Split module *)
   | PMERGE : ModuleId -> ModuleId -> Instruction  (* 0x02: Merge modules *)
-  | PDISCOVER : Instruction                   (* 0x03: Discover partition *)
   | LASSERT : Instruction                     (* 0x03: Logical assertion *)
+  | LJOIN : Instruction                       (* 0x04: Logical join *)
   | MDLACC : ModuleId -> Instruction          (* 0x05: Accumulate MDL *)
+  | PDISCOVER : Instruction                   (* 0x06: Discover partition *)
+  | XFER : Instruction                        (* 0x07: Transfer *)
+  | PYEXEC : Instruction                      (* 0x08: Python execution *)
+  | XOR_LOAD : Instruction                    (* 0x0A: XOR load *)
+  | XOR_ADD : Instruction                     (* 0x0B: XOR add *)
+  | XOR_SWAP : Instruction                    (* 0x0C: XOR swap *)
+  | XOR_RANK : Instruction                    (* 0x0D: XOR rank *)
   | EMIT : nat -> Instruction                 (* 0x0E: Emit result *)
-  | HALT : Instruction.                       (* 0x0F: Halt *)
+  | ORACLE_HALTS : Instruction                (* 0x0F: Oracle halting *)
+  | HALT : Instruction.                       (* 0xFF: Halt *)
 
 (** Program: List of instructions *)
 Definition Program := list Instruction.
@@ -308,9 +316,79 @@ Definition step (s : State) : option State :=
                     result := s.(result);
                     program := s.(program) |}
 
+        | LJOIN =>
+            (* Logical join *)
+            let mu' := add_mu_operational s.(mu_ledger) mu_lassert_cost in
+            Some {| partition := s.(partition);
+                    mu_ledger := mu';
+                    pc := S s.(pc);
+                    halted := false;
+                    result := s.(result);
+                    program := s.(program) |}
+
         | MDLACC mid =>
             (* MDL cost accumulation *)
             let mu' := add_mu_operational s.(mu_ledger) mu_mdlacc_cost in
+            Some {| partition := s.(partition);
+                    mu_ledger := mu';
+                    pc := S s.(pc);
+                    halted := false;
+                    result := s.(result);
+                    program := s.(program) |}
+
+        | XFER =>
+            (* Transfer operation *)
+            let mu' := add_mu_operational s.(mu_ledger) mu_emit_cost in
+            Some {| partition := s.(partition);
+                    mu_ledger := mu';
+                    pc := S s.(pc);
+                    halted := false;
+                    result := s.(result);
+                    program := s.(program) |}
+
+        | PYEXEC =>
+            (* Python execution *)
+            let mu' := add_mu_operational s.(mu_ledger) mu_lassert_cost in
+            Some {| partition := s.(partition);
+                    mu_ledger := mu';
+                    pc := S s.(pc);
+                    halted := false;
+                    result := s.(result);
+                    program := s.(program) |}
+
+        | XOR_LOAD =>
+            (* XOR load operation *)
+            let mu' := add_mu_operational s.(mu_ledger) mu_emit_cost in
+            Some {| partition := s.(partition);
+                    mu_ledger := mu';
+                    pc := S s.(pc);
+                    halted := false;
+                    result := s.(result);
+                    program := s.(program) |}
+
+        | XOR_ADD =>
+            (* XOR add operation *)
+            let mu' := add_mu_operational s.(mu_ledger) mu_emit_cost in
+            Some {| partition := s.(partition);
+                    mu_ledger := mu';
+                    pc := S s.(pc);
+                    halted := false;
+                    result := s.(result);
+                    program := s.(program) |}
+
+        | XOR_SWAP =>
+            (* XOR swap operation *)
+            let mu' := add_mu_operational s.(mu_ledger) mu_emit_cost in
+            Some {| partition := s.(partition);
+                    mu_ledger := mu';
+                    pc := S s.(pc);
+                    halted := false;
+                    result := s.(result);
+                    program := s.(program) |}
+
+        | XOR_RANK =>
+            (* XOR rank operation *)
+            let mu' := add_mu_operational s.(mu_ledger) mu_emit_cost in
             Some {| partition := s.(partition);
                     mu_ledger := mu';
                     pc := S s.(pc);
@@ -326,6 +404,16 @@ Definition step (s : State) : option State :=
                     pc := S s.(pc);
                     halted := false;
                     result := Some n;
+                    program := s.(program) |}
+
+        | ORACLE_HALTS =>
+            (* Oracle halting check *)
+            let mu' := add_mu_information s.(mu_ledger) mu_pdiscover_cost in
+            Some {| partition := s.(partition);
+                    mu_ledger := mu';
+                    pc := S s.(pc);
+                    halted := false;
+                    result := s.(result);
                     program := s.(program) |}
 
         | HALT =>
