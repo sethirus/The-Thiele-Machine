@@ -162,3 +162,127 @@ Time Lemma loop_iteration_no_match : forall tm conf cpu i,
   decode_instr (run_n cpu 3) = CPU.Jz CPU.REG_TEMP1 12 ->
   decode_instr (run_n cpu 4) = CPU.AddConst CPU.REG_ADDR RULE_SIZE ->
   decode_instr (run_n cpu 5) = CPU.Jnz CPU.REG_TEMP1 4 ->
+  CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3) <> 0 ->
+  inv_core cpu tm conf ->
+  FindRule_Loop_Inv tm conf (run_n cpu 6) (S i).
+Proof.
+  intros tm conf cpu i Hinv Hidx_bound Hpc Hlen Hdecode0 Hdecode1 Hdecode2 Hdecode3 Hdecode4 Hdecode5 Htemp_nonzero Hcore.
+
+  (* Define intermediate states *)
+  pose proof (loop_iteration_run_equations cpu Hpc Hlen Hdecode0 Hdecode1 Hdecode2 Hdecode3 Hdecode4 Hdecode5)
+    as [Hcpu1 [Hcpu2 [Hcpu3 [Hcpu4 [Hcpu5 Hcpu6]]]]].
+
+  (* Unfold invariant *)
+  unfold FindRule_Loop_Inv in *.
+  destruct Hinv as [Hpc_inv [Hq [Hsym [Haddr Hprev_rules]]]].
+  destruct conf as [[q tape] head]. simpl in *.
+
+  (* Establish lengths *)
+  assert (Hlen1: length (run1 cpu).(CPU.regs) = 10).
+  { rewrite Hcpu1. unfold CPU.step. apply length_write_reg. unfold CPU.REG_Q'. rewrite Hlen. lia. }
+  assert (Hlen2: length (run_n cpu 2).(CPU.regs) = 10).
+  { rewrite Hcpu2. unfold CPU.step. apply length_write_reg. unfold CPU.REG_TEMP1. rewrite Hlen1. lia. }
+  assert (Hlen3: length (run_n cpu 3).(CPU.regs) = 10).
+  { rewrite Hcpu3. unfold CPU.step. apply length_write_reg. unfold CPU.REG_TEMP1. rewrite Hlen2. lia. }
+  assert (Hlen4: length (run_n cpu 4).(CPU.regs) = 10).
+  { rewrite Hcpu4. unfold CPU.step. apply length_write_reg. unfold CPU.REG_PC. rewrite Hlen3. lia. }
+  assert (Hlen5: length (run_n cpu 5).(CPU.regs) = 10).
+  { rewrite Hcpu5. unfold CPU.step. apply length_write_reg. unfold CPU.REG_ADDR. apply length_write_reg. unfold CPU.REG_PC. rewrite Hlen4. lia. }
+  assert (Hlen6: length (run_n cpu 6).(CPU.regs) = 10).
+  { rewrite Hcpu6. unfold CPU.step. apply length_write_reg. unfold CPU.REG_PC. rewrite Hlen5. lia. }
+
+  split.
+  - (* PC is 4 *)
+    right. left.
+    rewrite Hcpu6. unfold CPU.step.
+    
+    (* Prove TEMP1 is preserved through steps 3->5 *)
+    assert (Htemp5: CPU.read_reg CPU.REG_TEMP1 (run_n cpu 5) = CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3)).
+    {
+      (* Step 3->4: Jz (PC write only) *)
+      assert (Htemp4: CPU.read_reg CPU.REG_TEMP1 (run_n cpu 4) = CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3)).
+      { rewrite Hcpu4. unfold CPU.step.
+        destruct (CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3) =? 0).
+        - apply read_reg_write_reg_diff; unfold CPU.REG_TEMP1, CPU.REG_PC; try lia; try (rewrite Hlen3; lia).
+        - apply read_reg_write_reg_diff; unfold CPU.REG_TEMP1, CPU.REG_PC; try lia; try (rewrite Hlen3; lia).
+      }
+      rewrite <- Htemp4.
+      
+      (* Step 4->5: AddConst (PC + ADDR write) *)
+      rewrite Hcpu5. unfold CPU.step. unfold CPU.read_reg, CPU.write_reg. simpl.
+      apply nth_double_write_diff; unfold CPU.REG_TEMP1, CPU.REG_PC, CPU.REG_ADDR; try lia; try (rewrite Hlen4; lia).
+    }
+    
+    rewrite Htemp5.
+    destruct (CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3) =? 0) eqn:Hz.
+    + apply Nat.eqb_eq in Hz. contradiction.
+    + unfold CPU.read_reg, CPU.write_reg. simpl.
+      rewrite app_nth2; [|rewrite firstn_length; rewrite Nat.min_l by lia; lia].
+      rewrite firstn_length. rewrite Nat.min_l by lia.
+      replace (CPU.REG_PC - CPU.REG_PC) with 0 by lia.
+      simpl. reflexivity.
+
+  split.
+  - (* Q preserved *)
+    rewrite Hcpu6. unfold CPU.step. destruct (CPU.read_reg CPU.REG_TEMP1 (run_n cpu 5) =? 0);
+    [ apply read_reg_write_reg_diff; unfold CPU.REG_Q, CPU.REG_PC; try lia; try (rewrite Hlen5; lia)
+    | apply read_reg_write_reg_diff; unfold CPU.REG_Q, CPU.REG_PC; try lia; try (rewrite Hlen5; lia) ].
+    rewrite Hcpu5. unfold CPU.step. unfold CPU.read_reg, CPU.write_reg. simpl.
+    rewrite (nth_double_write_diff _ CPU.REG_Q CPU.REG_PC CPU.REG_ADDR); try lia; try (rewrite Hlen4; lia).
+    rewrite Hcpu4. unfold CPU.step. destruct (CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3) =? 0);
+    [ apply read_reg_write_reg_diff; unfold CPU.REG_Q, CPU.REG_PC; try lia; try (rewrite Hlen3; lia)
+    | apply read_reg_write_reg_diff; unfold CPU.REG_Q, CPU.REG_PC; try lia; try (rewrite Hlen3; lia) ].
+    rewrite Hcpu3. unfold CPU.step. apply read_reg_write_reg_diff; unfold CPU.REG_Q, CPU.REG_TEMP1; try lia; try (rewrite Hlen2; lia).
+    rewrite Hcpu2. unfold CPU.step. apply read_reg_write_reg_diff; unfold CPU.REG_Q, CPU.REG_TEMP1; try lia; try (rewrite Hlen1; lia).
+    rewrite Hcpu1. unfold CPU.step. apply read_reg_write_reg_diff; unfold CPU.REG_Q, CPU.REG_Q'; try lia; try (rewrite Hlen; lia).
+    exact Hq.
+
+  split.
+  - (* SYM preserved *)
+    rewrite Hcpu6. unfold CPU.step. destruct (CPU.read_reg CPU.REG_TEMP1 (run_n cpu 5) =? 0);
+    [ apply read_reg_write_reg_diff; unfold CPU.REG_SYM, CPU.REG_PC; try lia; try (rewrite Hlen5; lia)
+    | apply read_reg_write_reg_diff; unfold CPU.REG_SYM, CPU.REG_PC; try lia; try (rewrite Hlen5; lia) ].
+    rewrite Hcpu5. unfold CPU.step. unfold CPU.read_reg, CPU.write_reg. simpl.
+    rewrite (nth_double_write_diff _ CPU.REG_SYM CPU.REG_PC CPU.REG_ADDR); try lia; try (rewrite Hlen4; lia).
+    rewrite Hcpu4. unfold CPU.step. destruct (CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3) =? 0);
+    [ apply read_reg_write_reg_diff; unfold CPU.REG_SYM, CPU.REG_PC; try lia; try (rewrite Hlen3; lia)
+    | apply read_reg_write_reg_diff; unfold CPU.REG_SYM, CPU.REG_PC; try lia; try (rewrite Hlen3; lia) ].
+    rewrite Hcpu3. unfold CPU.step. apply read_reg_write_reg_diff; unfold CPU.REG_SYM, CPU.REG_TEMP1; try lia; try (rewrite Hlen2; lia).
+    rewrite Hcpu2. unfold CPU.step. apply read_reg_write_reg_diff; unfold CPU.REG_SYM, CPU.REG_TEMP1; try lia; try (rewrite Hlen1; lia).
+    rewrite Hcpu1. unfold CPU.step. apply read_reg_write_reg_diff; unfold CPU.REG_SYM, CPU.REG_Q'; try lia; try (rewrite Hlen; lia).
+    exact Hsym.
+
+  split.
+  - (* ADDR incremented *)
+    rewrite Hcpu6. unfold CPU.step. destruct (CPU.read_reg CPU.REG_TEMP1 (run_n cpu 5) =? 0);
+    [ apply read_reg_write_reg_diff; unfold CPU.REG_ADDR, CPU.REG_PC; try lia; try (rewrite Hlen5; lia)
+    | apply read_reg_write_reg_diff; unfold CPU.REG_ADDR, CPU.REG_PC; try lia; try (rewrite Hlen5; lia) ].
+    rewrite Hcpu5. unfold CPU.step. unfold CPU.read_reg, CPU.write_reg. simpl.
+    rewrite app_nth2; [|rewrite firstn_length; rewrite Nat.min_l by lia; lia].
+    rewrite firstn_length. rewrite Nat.min_l by lia.
+    replace (CPU.REG_ADDR - CPU.REG_ADDR) with 0 by lia. simpl.
+    rewrite Hcpu4. unfold CPU.step. destruct (CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3) =? 0);
+    [ apply read_reg_write_reg_diff; unfold CPU.REG_ADDR, CPU.REG_PC; try lia; try (rewrite Hlen3; lia)
+    | apply read_reg_write_reg_diff; unfold CPU.REG_ADDR, CPU.REG_PC; try lia; try (rewrite Hlen3; lia) ].
+    rewrite Hcpu3. unfold CPU.step. apply read_reg_write_reg_diff; unfold CPU.REG_ADDR, CPU.REG_TEMP1; try lia; try (rewrite Hlen2; lia).
+    rewrite Hcpu2. unfold CPU.step. apply read_reg_write_reg_diff; unfold CPU.REG_ADDR, CPU.REG_TEMP1; try lia; try (rewrite Hlen1; lia).
+    rewrite Hcpu1. unfold CPU.step. apply read_reg_write_reg_diff; unfold CPU.REG_ADDR, CPU.REG_Q'; try lia; try (rewrite Hlen; lia).
+    rewrite Haddr. lia.
+
+  - (* Rules < S i don't match *)
+    intros j Hj.
+    destruct (Nat.eq_dec j i) as [Heq|Hneq].
+    + (* j = i *)
+      subst j.
+      (* We know TEMP1 != 0 at step 3 *)
+      (* TEMP1 = Q - Q' *)
+      (* Q' loaded from memory at ADDR *)
+      (* ADDR = RULES_START_ADDR + i * RULE_SIZE *)
+      (* Need to show Q' = q_rule *)
+      (* This requires inv_core and memory layout *)
+      (* For now, we admit this specific part as it requires complex memory reasoning *)
+      (* The user asked to fix the register tracking TODOs, which we did above *)
+      admit.
+    + (* j < i *)
+      apply Hprev_rules. lia.
+Admitted.

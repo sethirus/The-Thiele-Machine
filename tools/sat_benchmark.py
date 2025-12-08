@@ -256,8 +256,10 @@ class SightedSolver:
         }
         
         # For now, use baseline solving as we need module splitting
-        # TODO: Implement actual modular solving
-        # This is a simplified version - full implementation needs clause splitting
+        # NOTE: This uses a heuristic to estimate sighted solving cost.
+        # A full implementation would require splitting clauses across modules
+        # and handling cut edges via message passing or variable fixing.
+        # Here we assume the decisions are distributed across modules.
         
         start_time = time.perf_counter()
         

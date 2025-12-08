@@ -28,7 +28,7 @@ def canonical_json(obj) -> bytes:
     ).encode('utf-8')
 
 
-def prove_integrity(receipts_dir: str = 'bootstrap_receipts', expected_hash_file: str = 'tests/expected_kernel_sha256.txt') -> int:
+def prove_integrity(receipts_dir: str = 'receipts/bootstrap_receipts', expected_hash_file: str = 'tests/expected_kernel_sha256.txt') -> int:
     """
     Prove integrity of the self-hosting system.
     
@@ -75,7 +75,7 @@ def prove_integrity(receipts_dir: str = 'bootstrap_receipts', expected_hash_file
     kernel_path = Path('thiele_min.py')
     if not kernel_path.exists():
         print(f"\nERROR: Kernel not found at {kernel_path}", file=sys.stderr)
-        print("Run: python3 verifier/replay.py bootstrap_receipts", file=sys.stderr)
+        print("Run: python3 verifier/replay.py receipts/bootstrap_receipts", file=sys.stderr)
         return 1
     
     kernel_bytes = kernel_path.read_bytes()
@@ -111,7 +111,7 @@ def prove_integrity(receipts_dir: str = 'bootstrap_receipts', expected_hash_file
 
 def main():
     """CLI entry point."""
-    receipts_dir = sys.argv[1] if len(sys.argv) > 1 else 'bootstrap_receipts'
+    receipts_dir = sys.argv[1] if len(sys.argv) > 1 else 'receipts/bootstrap_receipts'
     expected_hash_file = sys.argv[2] if len(sys.argv) > 2 else 'tests/expected_kernel_sha256.txt'
     
     exit_code = prove_integrity(receipts_dir, expected_hash_file)

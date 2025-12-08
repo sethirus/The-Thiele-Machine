@@ -40,6 +40,7 @@ class Opcode(Enum):
     XOR_SWAP = 0x0C
     XOR_RANK = 0x0D
     EMIT = 0x0E
+    ORACLE_HALTS = 0x0F
     HALT = 0xFF
 
 
