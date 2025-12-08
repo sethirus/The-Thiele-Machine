@@ -102,13 +102,23 @@ Module Type Spaceland.
   Axiom step_deterministic : forall s l s1 s2,
     step s l s1 -> step s l s2 -> s1 = s2.
   
-  (** Axiom S3b: Module Independence
-      If a computation step only affects module M, other modules are unchanged.
-      This formalizes the semantic meaning of "partition."
-  *)
-  Axiom module_independence : forall s s' m,
+  (** Axiom S3b: Module Independence (Refined)
+      For LCompute steps, variables maintain their module assignment except for those
+      explicitly in the footprint of operations like PNEW.
+      
+      The implementation must provide nth_error access to determine instruction type,
+      and the footprint is instruction-specific (e.g., for PNEW with region r,
+      variables NOT in r maintain their module assignment).
+   *)
+  Parameter Instruction : Type.
+  Parameter program : State -> list Instruction.
+  Parameter pc : State -> nat.
+  Parameter is_in_footprint : Instruction -> nat -> bool.
+  
+  Axiom module_independence : forall s s' i,
     step s LCompute s' ->
-    (forall m', m' <> m -> module_of s m' = module_of s' m').
+    nth_error (program s) (pc s) = Some i ->
+    (forall m', is_in_footprint i m' = false -> module_of s m' = module_of s' m').
   
   (** =======================================================================
       PART 2: INFORMATION COST (Axioms S4-S5)

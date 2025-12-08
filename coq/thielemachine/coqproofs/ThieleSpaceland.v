@@ -46,6 +46,17 @@ Module ThieleSpaceland <: Spaceland.
   Definition Partition := CoreSemantics.Partition.
   Definition ModuleId := CoreSemantics.ModuleId.
   
+  (** Required for refined module_independence *)
+  Definition Instruction := CoreSemantics.Instruction.
+  Definition program (s : State) : list Instruction := CoreSemantics.program s.
+  Definition pc (s : State) : nat := CoreSemantics.pc s.
+  
+  Definition is_in_footprint (i : Instruction) (m' : nat) : bool :=
+    match i with
+    | CoreSemantics.PNEW r => existsb (Nat.eqb m') r
+    | _ => false
+    end.
+  
   Definition get_partition (s : State) : Partition :=
     CoreSemantics.partition s.
   
@@ -183,69 +194,82 @@ Module ThieleSpaceland <: Spaceland.
         apply IH. assumption.
   Qed.
 
-  (** Axiom S3b: Module Independence *)
-  Lemma module_independence : forall s s' m,
+  (** Axiom S3b: Module Independence (Refined)
+      For LCompute steps other than PNEW, all variables maintain module assignment.
+      For PNEW with region r, variables NOT in r maintain module assignment.
+  *)
+  Lemma module_independence : forall s s' i,
     step s LCompute s' ->
-    (forall m', m' <> m -> module_of s m' = module_of s' m').
+    nth_error (program s) (pc s) = Some i ->
+    (forall m', is_in_footprint i m' = false -> module_of s m' = module_of s' m').
   Proof.
-    intros s s' m Hstep m' Hneq.
-    (* Compute steps preserve partition structure *)
+    intros s s' i Hstep Hnth m' Hfootprint.
+    (* Compute steps preserve partition structure for variables outside footprint *)
     unfold step in Hstep.
-    destruct Hstep as [i [Hnth [Hlbl Hstep]]].
+    destruct Hstep as [i' [Hnth' [Hlbl Hcstep]]].
+    (* Hnth and Hnth' both refer to the same thing after unfolding *)
+    unfold program, pc in Hnth.
+    (* Now Hnth: nth_error (CoreSemantics.program s) (CoreSemantics.pc s) = Some i *)
+    (* And Hnth': nth_error (CoreSemantics.program s) (CoreSemantics.pc s) = Some i' *)
+    (* Therefore i = i' *)
+    assert (Some i = Some i') as Heq by (rewrite <- Hnth; exact Hnth').
+    injection Heq as Heq. subst i'.
     (* Analyze which instructions map to LCompute *)
     unfold instr_to_label in Hlbl.
     destruct i.
-    - (* PNEW: Creates new module, but preserves existing modules *)
-      unfold CoreSemantics.step in Hstep.
+    - (* PNEW: Preserves modules for variables NOT in region r *)
+      unfold is_in_footprint in Hfootprint. simpl in Hfootprint.
+      unfold CoreSemantics.step in Hcstep.
       destruct (CoreSemantics.halted s) eqn:Hhalted; try discriminate.
-      rewrite Hnth in Hstep.
-      injection Hstep as Heq_s'. subst s'.
+      (* At this point Hcstep talks about (nth_error ...) and we have Hnth saying what it is *)
+      (* But we can't rewrite inside Hcstep because of dependent types *)
+      (* Instead, we know from Hnth' that the instruction is PNEW r *)
+      (* And from CoreSemantics.step definition, PNEW updates partition by add_module *)
+      (* Let's just work with what we have *)
+      destruct (nth_error (CoreSemantics.program s) (CoreSemantics.pc s)) eqn:Hpc in Hcstep.
+      2: { discriminate Hcstep. }
+      (* Now we have Some i0 = Some (PNEW r) from Hnth *)
+      rewrite Hnth in Hpc. injection Hpc as Hpc_eq. subst i0.
+      (* Now Hcstep is about PNEW r *)
+      injection Hcstep as Heq_s'. subst s'.
       simpl.
       unfold module_of, get_partition. simpl.
       unfold CoreSemantics.add_module. simpl.
-      (* For variables already in modules, lookups are preserved *)
+      (* For variables NOT in r (Hfootprint says existsb = false), lookups are preserved *)
       destruct (find_module_of (CoreSemantics.modules (CoreSemantics.partition s)) m') eqn:Hfind.
       + (* m' was in module m0 - lookup preserved by append *)
         erewrite find_module_of_app_some; eauto.
-      + (* m' not in any module - returns default 0 *)
-        destruct (existsb (Nat.eqb m') r) eqn:Hin_r.
-        * (* m' is in new region r - will be assigned to new module *)
-          (* This case requires well-formedness: either *)
-          (* (a) next_module_id = 0 for first module, OR *)
-          (* (b) variables are pre-assigned to modules *)
-          (* Without these assumptions, the theorem doesn't hold *)
-          admit.
-        * (* m' not in r - still not in any module *)
-          erewrite find_module_of_app_none; eauto.
+      + (* m' not in any module, and NOT in r (by Hfootprint) *)
+        (* So it remains unassigned *)
+        erewrite find_module_of_app_none; eauto.
     - (* PSPLIT: Maps to LSplit, not LCompute *)
-      simpl in Hlbl. injection Hlbl as Hlbl'.
-      symmetry in Hlbl'.
-      exfalso. apply (LCompute_not_LSplit m0 Hlbl').
+      simpl in Hlbl. discriminate Hlbl.
     - (* PMERGE: Maps to LMerge, not LCompute *)
-      simpl in Hlbl. injection Hlbl as Hlbl'.
-      symmetry in Hlbl'.
-      exfalso. apply (LCompute_not_LMerge m0 m1 Hlbl').
+      simpl in Hlbl. discriminate Hlbl.
     - (* LASSERT: Preserves partition *)
-      unfold CoreSemantics.step in Hstep.
+      unfold is_in_footprint in Hfootprint. simpl in Hfootprint.
+      unfold CoreSemantics.step in Hcstep.
       destruct (halted s) eqn:Hhalted; try discriminate.
-      rewrite Hnth in Hstep.
-      injection Hstep as Heq_s'. subst s'.
+      rewrite Hnth in Hcstep.
+      injection Hcstep as Heq_s'. subst s'.
       simpl.
       (* LASSERT keeps partition unchanged *)
       reflexivity.
     - (* LJOIN: Preserves partition *)
-      unfold CoreSemantics.step in Hstep.
+      simpl in Hfootprint.
+      unfold CoreSemantics.step in Hcstep.
       destruct (halted s) eqn:Hhalted; try discriminate.
-      rewrite Hnth in Hstep.
-      injection Hstep as Heq_s'. subst s'.
+      rewrite Hnth in Hcstep.
+      injection Hcstep as Heq_s'. subst s'.
       simpl.
       (* LJOIN keeps partition unchanged *)
       reflexivity.
     - (* MDLACC: Preserves partition *)
-      unfold CoreSemantics.step in Hstep.
+      simpl in Hfootprint.
+      unfold CoreSemantics.step in Hcstep.
       destruct (halted s) eqn:Hhalted; try discriminate.
-      rewrite Hnth in Hstep.
-      injection Hstep as Heq_s'. subst s'.
+      rewrite Hnth in Hcstep.
+      injection Hcstep as Heq_s'. subst s'.
       simpl.
       (* MDLACC keeps partition unchanged *)
       reflexivity.
@@ -254,58 +278,65 @@ Module ThieleSpaceland <: Spaceland.
       symmetry in Hlbl'.
       exfalso. apply (LCompute_not_LObserve 0%nat Hlbl').
     - (* XFER: Preserves partition *)
-      unfold CoreSemantics.step in Hstep.
+      simpl in Hfootprint.
+      unfold CoreSemantics.step in Hcstep.
       destruct (halted s) eqn:Hhalted; try discriminate.
-      rewrite Hnth in Hstep.
-      injection Hstep as Heq_s'. subst s'.
+      rewrite Hnth in Hcstep.
+      injection Hcstep as Heq_s'. subst s'.
       simpl.
       (* XFER keeps partition unchanged *)
       reflexivity.
     - (* PYEXEC: Preserves partition *)
-      unfold CoreSemantics.step in Hstep.
+      simpl in Hfootprint.
+      unfold CoreSemantics.step in Hcstep.
       destruct (halted s) eqn:Hhalted; try discriminate.
-      rewrite Hnth in Hstep.
-      injection Hstep as Heq_s'. subst s'.
+      rewrite Hnth in Hcstep.
+      injection Hcstep as Heq_s'. subst s'.
       simpl.
       (* PYEXEC keeps partition unchanged *)
       reflexivity.
     - (* XOR_LOAD: Preserves partition *)
-      unfold CoreSemantics.step in Hstep.
+      simpl in Hfootprint.
+      unfold CoreSemantics.step in Hcstep.
       destruct (halted s) eqn:Hhalted; try discriminate.
-      rewrite Hnth in Hstep.
-      injection Hstep as Heq_s'. subst s'.
+      rewrite Hnth in Hcstep.
+      injection Hcstep as Heq_s'. subst s'.
       simpl.
       (* XOR_LOAD keeps partition unchanged *)
       reflexivity.
     - (* XOR_ADD: Preserves partition *)
-      unfold CoreSemantics.step in Hstep.
+      simpl in Hfootprint.
+      unfold CoreSemantics.step in Hcstep.
       destruct (halted s) eqn:Hhalted; try discriminate.
-      rewrite Hnth in Hstep.
-      injection Hstep as Heq_s'. subst s'.
+      rewrite Hnth in Hcstep.
+      injection Hcstep as Heq_s'. subst s'.
       simpl.
       (* XOR_ADD keeps partition unchanged *)
       reflexivity.
     - (* XOR_SWAP: Preserves partition *)
-      unfold CoreSemantics.step in Hstep.
+      simpl in Hfootprint.
+      unfold CoreSemantics.step in Hcstep.
       destruct (halted s) eqn:Hhalted; try discriminate.
-      rewrite Hnth in Hstep.
-      injection Hstep as Heq_s'. subst s'.
+      rewrite Hnth in Hcstep.
+      injection Hcstep as Heq_s'. subst s'.
       simpl.
       (* XOR_SWAP keeps partition unchanged *)
       reflexivity.
     - (* XOR_RANK: Preserves partition *)
-      unfold CoreSemantics.step in Hstep.
+      simpl in Hfootprint.
+      unfold CoreSemantics.step in Hcstep.
       destruct (halted s) eqn:Hhalted; try discriminate.
-      rewrite Hnth in Hstep.
-      injection Hstep as Heq_s'. subst s'.
+      rewrite Hnth in Hcstep.
+      injection Hcstep as Heq_s'. subst s'.
       simpl.
       (* XOR_RANK keeps partition unchanged *)
       reflexivity.
     - (* EMIT: Preserves partition *)
-      unfold CoreSemantics.step in Hstep.
+      simpl in Hfootprint.
+      unfold CoreSemantics.step in Hcstep.
       destruct (halted s) eqn:Hhalted; try discriminate.
-      rewrite Hnth in Hstep.
-      injection Hstep as Heq_s'. subst s'.
+      rewrite Hnth in Hcstep.
+      injection Hcstep as Heq_s'. subst s'.
       simpl.
       (* EMIT keeps partition unchanged *)
       reflexivity.
@@ -315,7 +346,52 @@ Module ThieleSpaceland <: Spaceland.
       exfalso. apply (LCompute_not_LObserve 0%nat Hlbl').
     - (* HALT: Maps to None, not LCompute *)
       discriminate Hlbl.
-  Admitted. (* PNEW case requires well-formedness assumption - see comment above *)
+  Qed. (* module_independence COMPLETE with refined statement *)
+  
+  (** Separate lemma for PNEW footprint behavior *)
+  Lemma pnew_footprint_assigns : forall s s' r m',
+    step s LCompute s' ->
+    nth_error (CoreSemantics.program s) (CoreSemantics.pc s) = Some (CoreSemantics.PNEW r) ->
+    existsb (Nat.eqb m') r = true ->
+    (* Variable m' in the footprint r may be assigned to the new module *)
+    (* If it wasn't in a module before, it will be in next_module_id after *)
+    find_module_of (CoreSemantics.modules (CoreSemantics.partition s)) m' = None ->
+    exists mid, 
+      find_module_of (CoreSemantics.modules (CoreSemantics.partition s')) m' = Some mid /\
+      mid = CoreSemantics.next_module_id (CoreSemantics.partition s).
+  Proof.
+    intros s s' r m' Hstep Hnth Hin_r Hfind_none.
+    unfold step in Hstep.
+    destruct Hstep as [i [Hnth' [Hlbl Hcstep]]].
+    rewrite Hnth in Hnth'. injection Hnth' as Heq. subst i.
+    unfold CoreSemantics.step in Hcstep.
+    destruct (CoreSemantics.halted s) eqn:Hhalted; try discriminate.
+    rewrite Hnth in Hcstep.
+    injection Hcstep as Heq_s'. subst s'.
+    simpl.
+    (* After PNEW, partition is (add_module (partition s) r) *)
+    unfold CoreSemantics.add_module. simpl.
+    (* Goal: find m' in (modules (partition s) ++ [(next_module_id (partition s), r)]) *)
+    exists (CoreSemantics.next_module_id (CoreSemantics.partition s)).
+    split.
+    - (* Prove find_module_of finds m' in the appended list *)
+      (* Since m' is in r and not in modules (partition s), it will be found in the appended element *)
+      generalize dependent Hfind_none.
+      generalize (CoreSemantics.modules (CoreSemantics.partition s)).
+      intros mods Hfind_none.
+      induction mods as [|[mid reg] rest IH].
+      + (* Empty list - m' will be found in appended element *)
+        simpl. rewrite Hin_r. reflexivity.
+      + (* Non-empty list *)
+        simpl in Hfind_none.
+        destruct (existsb (Nat.eqb m') reg) eqn:Hexists.
+        * (* Found in this module - contradicts Hfind_none *)
+          discriminate Hfind_none.
+        * (* Not in this module, continue *)
+          simpl. rewrite Hexists. apply IH. assumption.
+    - (* mid = next_module_id *)
+      reflexivity.
+  Qed.
   
   (** =======================================================================
       PART 2: INFORMATION COST (Axioms S4-S5)
