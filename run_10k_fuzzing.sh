@@ -32,7 +32,7 @@ echo "Starting fuzzing campaign at $(date)..."
 echo ""
 
 python3 -m pytest \
-    tests/adversarial_fuzzing.py::TestAdversarialFalsification::test_python_verilog_behavioral_isomorphism \
+    "$REPO_ROOT/tests/adversarial_fuzzing.py::TestAdversarialFalsification::test_python_verilog_behavioral_isomorphism" \
     -v \
     --tb=short \
     2>&1 | tee "$LOG_FILE"
