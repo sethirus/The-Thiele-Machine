@@ -430,11 +430,11 @@ def _write_series_csv(path: Path, series_rows: Sequence[MutableMapping[str, floa
             writer.writerow(
                 {
                     "seed": row["seed"],
-                    "T": f"{float(row["T"]):.6f}",
+                    "T": f"{float(row['T']):.6f}",
                     "trial_id": row["trial_id"],
                     "step": row["step"],
-                    "mu_cumulative": f"{float(row["mu_cumulative"]):.10f}",
-                    "entropy_cumulative": f"{float(row["entropy_cumulative"]):.10f}",
+                    "mu_cumulative": f"{float(row['mu_cumulative']):.10f}",
+                    "entropy_cumulative": f"{float(row['entropy_cumulative']):.10f}",
                 }
             )
 
