@@ -246,6 +246,10 @@ initial begin
                 
                 OPCODE_HALT: begin
                     $display("[%04d] PC=%02h: HALT", step_count, pc);
+                    
+                    // μ-cost: 1 for HALT (to match Python VM)
+                    mu_execution = mu_execution + 1;
+                    
                     halted = 1;
                 end
                 
