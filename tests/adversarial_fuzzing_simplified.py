@@ -377,39 +377,34 @@ def run_simplified_falsification_campaign(max_examples: int = 1000):
     print("\n--- Running property-based fuzzing ---")
     
     try:
-        # Test 1: Determinism
-        print("\nTest 1: State hash determinism...")
-        original_test = test_instance.test_state_hash_is_deterministic
-        configured_test = settings(max_examples=max_examples, deadline=None)(
-            original_test.hypothesis.inner_test
-        )
-        configured_test()
-        print("✓ PASSED: State hashing is deterministic")
+        # Run tests via pytest instead of manually
+        import subprocess
+        import sys
         
-        # Test 2: Non-negative μ-cost
-        print("\nTest 2: Non-negative μ-cost...")
-        original_test = test_instance.test_mu_cost_is_non_negative
-        configured_test = settings(max_examples=max_examples, deadline=None)(
-            original_test.hypothesis.inner_test
+        result = subprocess.run(
+            [sys.executable, "-m", "pytest", 
+             "tests/adversarial_fuzzing_simplified.py::TestAdversarialFalsificationSimplified::test_state_hash_is_deterministic",
+             "tests/adversarial_fuzzing_simplified.py::TestAdversarialFalsificationSimplified::test_mu_cost_is_non_negative",
+             "tests/adversarial_fuzzing_simplified.py::TestAdversarialFalsificationSimplified::test_mu_cost_increases_with_operations",
+             "-v", "--tb=short"],
+            capture_output=False,
+            cwd="/home/runner/work/The-Thiele-Machine/The-Thiele-Machine"
         )
-        configured_test()
-        print("✓ PASSED: μ-cost is always non-negative")
         
-        # Test 3: μ-cost monotonicity
-        print("\nTest 3: μ-cost monotonicity...")
-        original_test = test_instance.test_mu_cost_increases_with_operations
-        configured_test = settings(max_examples=max_examples//2, deadline=None)(
-            original_test.hypothesis.inner_test
-        )
-        configured_test()
-        print("✓ PASSED: μ-cost increases with operations")
-        
-        print("\n" + "=" * 80)
-        print("✓ FALSIFICATION FAILED (All properties hold)")
-        print("=" * 80)
-        print(f"All {max_examples} random programs verified successfully.")
-        print("Cryptographic receipt properties hold under adversarial fuzzing.")
-        print("=" * 80)
+        if result.returncode == 0:
+            print("\n" + "=" * 80)
+            print("✓ FALSIFICATION FAILED (All properties hold)")
+            print("=" * 80)
+            print(f"All property-based tests passed.")
+            print("Cryptographic receipt properties hold under adversarial fuzzing.")
+            print("=" * 80)
+        else:
+            print("\n" + "=" * 80)
+            print("⚠️  FALSIFICATION SUCCESSFUL (Property violated)")
+            print("=" * 80)
+            print(f"Some tests failed - property violations found")
+            print("=" * 80)
+            sys.exit(1)
         
     except AssertionError as e:
         print("\n" + "=" * 80)
