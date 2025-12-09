@@ -1042,12 +1042,19 @@ Module ThieleSpaceland <: Spaceland.
              (* By IH on valid_trace (TCons s' l' t''), recursive sum >= 0 *)
              simpl in Hvalid. destruct Hvalid as [Hstep Hvalid'].
              assert (Hmu : mu s l s' >= 0) by (apply mu_nonneg; assumption).
-             (* For the recursive part, use trace_mu_nonneg *)
-             simpl.
-             assert (Htrace: trace_mu (TCons s' l' t'') >= 0).
-             { apply trace_mu_nonneg. assumption. }
-             (* crypto_total_mu = mu s l s' + trace_mu (TCons s' l' t'') *)
-             admit.  (* TODO: Need lemma connecting crypto_total_mu to trace_mu *)
+             (* For the recursive part, apply IH to the tail *)
+             assert (Hrest : 0 <= crypto_total_mu (make_crypto_receipt_from_trace (TCons s' l' t'')
+                                               (CoreSemantics.hash_state (trace_initial (TCons s' l' t''))))).
+             { apply IH. simpl. exact Hvalid'. }
+             (* By definition: crypto_total_mu = step_mu + crypto_total_mu rest *)
+             (* trace_initial (TCons s' l' t'') = s', so hashes match *)
+             (* Therefore: mu s l s' + crypto_total_mu rest >= 0 *)
+             simpl. unfold make_crypto_receipt_from_trace at 1. fold make_crypto_receipt_from_trace.
+             simpl. unfold crypto_total_mu at 1. fold crypto_total_mu.
+             (* Goal: 0 <= mu s l s' + crypto_total_mu rest *)
+             (* Hmu: mu s l s' >= 0, Hrest: 0 <= crypto_total_mu rest *)
+             assert (Hmu' : 0 <= mu s l s') by lia.
+             apply Z.add_nonneg_nonneg; assumption.
       + (* verify_hash_chain *)
         (* Induction on trace structure *)
         induction t as [s | s l t' IH].
@@ -1090,6 +1097,16 @@ Module ThieleSpaceland <: Spaceland.
           simpl in Hvalid. destruct Hvalid as [_ Hvalid'].
           apply IH. assumption.
   Qed. (* Complete: all cases proven with Qed, zero admits *)
+
+  (** Helper lemma: crypto_final_hash equals hash of trace_final *)
+  Lemma crypto_final_hash_correct : forall (t : Trace),
+    crypto_final_hash (make_crypto_receipt_from_trace t (CoreSemantics.hash_state (trace_initial t))) =
+    CoreSemantics.hash_state (trace_final t).
+  Proof.
+    induction t as [st | st lt t' IH]; simpl; try reflexivity.
+    destruct t' as [st' | st' lt' t'']; simpl; try reflexivity.
+    exact IH.
+  Qed.
 
   (** Lemma: Hash chain uniqueness - key to soundness *)
   Lemma hash_chain_determines_states : forall (witnesses : list CryptoStepWitness) (s1 s2 : State),
@@ -1135,17 +1152,8 @@ Module ThieleSpaceland <: Spaceland.
     - (* trace_final t1 = trace_final t2 *)
       (* Similar reasoning using crypto_final_hash *)
       apply CoreSemantics.hash_collision_resistance.
-      assert (H1: crypto_final_hash (make_crypto_receipt_from_trace t1 
-                    (CoreSemantics.hash_state (trace_initial t1))) = 
-                  CoreSemantics.hash_state (trace_final t1)).
-      { induction t1; simpl; try reflexivity.
-        destruct t1; simpl; try reflexivity. }
-      assert (H2: crypto_final_hash (make_crypto_receipt_from_trace t2 
-                    (CoreSemantics.hash_state (trace_initial t2))) = 
-                  CoreSemantics.hash_state (trace_final t2)).
-      { induction t2; simpl; try reflexivity.
-        destruct t2; simpl; try reflexivity. }
-      rewrite <- H1. rewrite <- H2.
+      rewrite <- (crypto_final_hash_correct t1).
+      rewrite <- (crypto_final_hash_correct t2).
       rewrite Heq. reflexivity.
   Qed.
 
@@ -1191,7 +1199,9 @@ Module ThieleSpaceland <: Spaceland.
   Proof.
     intros r t1 t2 Hverify Ht1 Ht2.
     (* Apply hash_chain_determines_states *)
-    apply (hash_chain_determines_states (crypto_witnesses r)).
+    apply (hash_chain_determines_states (crypto_witnesses r)
+                                        (trace_initial t1)
+                                        (trace_final t1)).
     - (* verify_hash_chain *)
       unfold verify_crypto_receipt in Hverify.
       apply andb_true_iff in Hverify. destruct Hverify as [H1 H2].
@@ -1202,7 +1212,7 @@ Module ThieleSpaceland <: Spaceland.
     - (* final hash match *)
       reflexivity.
     - (* receipt equality *)
-      rewrite <- Ht1. rewrite <- Ht2. reflexivity.
+      rewrite Ht1. rewrite Ht2. reflexivity.
   Qed.
 
 End ThieleSpaceland.

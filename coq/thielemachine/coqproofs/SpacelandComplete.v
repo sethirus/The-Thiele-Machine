@@ -276,8 +276,11 @@ Module ObservationalEquivalence.
     - (* partition_seq *)
       induction t as [s | s l t' IHt]; simpl.
       + (* TNil *) destruct s; reflexivity.
-      + (* TCons *) destruct s as [p m]. simpl. f_equal.
-        apply IHt. destruct Hv as [_ Hv]. assumption.
+      + (* TCons *) destruct s as [p m].
+        destruct t' as [s' | s' l' t''].
+        * (* t' = TNil s' *) destruct s' as [p' m']. simpl. reflexivity.
+        * (* t' = TCons s' l' t'' *) destruct s' as [p' m']. simpl. f_equal.
+          apply IHt. destruct Hv as [_ Hv]. exact Hv.
     - (* mu_seq *)
       induction t; simpl; destruct s as [p m]; try reflexivity.
       destruct t as [ [p' m'] | [p' m'] l' t'' ].
