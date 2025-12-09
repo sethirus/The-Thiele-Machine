@@ -218,8 +218,7 @@ initial begin
                     // Load value into XOR matrix
                     data_memory[operand_a] = operand_b;
                     
-                    // μ-cost: 1 for memory operation
-                    mu_execution = mu_execution + 1;
+                    // μ-cost: 0 (XOR operations are free, they're just state updates)
                     
                     pc = pc + 1;
                     step_count = step_count + 1;
@@ -232,8 +231,7 @@ initial begin
                     // XOR addition
                     data_memory[operand_a] = data_memory[operand_a] ^ data_memory[operand_b];
                     
-                    // μ-cost: 1 for XOR operation
-                    mu_execution = mu_execution + 1;
+                    // μ-cost: 0 (XOR operations are free)
                     
                     pc = pc + 1;
                     step_count = step_count + 1;
@@ -248,8 +246,7 @@ initial begin
                     data_memory[operand_b] = data_memory[operand_a] ^ data_memory[operand_b];
                     data_memory[operand_a] = data_memory[operand_a] ^ data_memory[operand_b];
                     
-                    // μ-cost: 3 for three XOR operations
-                    mu_execution = mu_execution + 3;
+                    // μ-cost: 0 (XOR operations are free)
                     
                     pc = pc + 1;
                     step_count = step_count + 1;
