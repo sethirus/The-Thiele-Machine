@@ -251,10 +251,10 @@ Module ObservationalEquivalence.
   Proof.
     induction t; intros k Hv; simpl in *.
     - destruct s. constructor.
-    - destruct s as [p m]. destruct t.
-      + destruct s as [p' m']. simpl in Hv.
+    - destruct s as [p m]. destruct t as [s' | s' l' t'].
+      + destruct s' as [p' m']. simpl in Hv.
         apply step_shift with (k:=k) in Hv. assumption.
-      + destruct s0 as [p' m']. destruct Hv as [Hstep Hv].
+      + destruct s' as [p' m']. destruct Hv as [Hstep Hv].
         split.
         * apply step_shift with (k:=k) in Hstep. assumption.
         * apply IHt. assumption.
@@ -274,9 +274,10 @@ Module ObservationalEquivalence.
     intros t k Hv.
     unfold observable. f_equal.
     - (* partition_seq *)
-      induction t; simpl; destruct s; try reflexivity.
-      f_equal. apply IHt.
-      destruct t; simpl in Hv; [trivial | destruct Hv; assumption].
+      induction t as [s | s l t' IHt]; simpl.
+      + (* TNil *) destruct s; reflexivity.
+      + (* TCons *) destruct s as [p m]. simpl. f_equal.
+        apply IHt. destruct Hv as [_ Hv]. assumption.
     - (* mu_seq *)
       induction t; simpl; destruct s as [p m]; try reflexivity.
       destruct t as [ [p' m'] | [p' m'] l' t'' ].
