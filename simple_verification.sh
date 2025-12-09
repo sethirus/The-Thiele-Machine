@@ -1,7 +1,9 @@
 #!/bin/bash
 echo "=== Coq Verification ==="
-cd coq && find . -name "*.vo" | wc -l
-echo "Coq .vo files found"
+cd coq
+TOTAL_SOURCE=$(find . -name "*.v" | wc -l)
+COMPILED=$(find . -name "*.vo" | wc -l)
+echo "$COMPILED/$TOTAL_SOURCE Coq files compiled ($TOTAL_SOURCE source, $COMPILED actively compiled)"
 
 echo ""
 echo "=== Verilog Verification ==="

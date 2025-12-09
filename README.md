@@ -12,8 +12,8 @@
 
 The Thiele Machine is a **real computational architecture** implemented in:
 - **Python VM** (`thielecpu/`) — 2,292 lines of executable semantics
-- **Verilog RTL** (25 hardware files) — Synthesizable hardware producing identical μ-ledgers
-- **Coq Proofs** (115 files, 54,773 lines) — Machine-verified formal properties
+- **Verilog RTL** (31 hardware files) — Synthesizable hardware producing identical μ-ledgers
+- **Coq Proofs** (124 files, 59,135 lines; 98 actively compiled) — Machine-verified formal properties
 
 This README documents the architecture, verification stack, and empirical evidence supporting the claim that **TURING ⊊ THIELE** (strict containment).
 
