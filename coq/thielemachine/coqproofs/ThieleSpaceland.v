@@ -973,14 +973,43 @@ Module ThieleSpaceland <: Spaceland.
   (** =========================================================================
       CRYPTOGRAPHIC RECEIPT SOUNDNESS AND COMPLETENESS
       =========================================================================
-      
+
       These theorems prove that cryptographic receipts provide unforgeable
       proof-of-execution by leveraging SHA-256 collision resistance.
-      
+
       Key property: Any two executions producing the same crypto receipt must
       have traversed the same sequence of states (by hash chain uniqueness).
-      
+
       ========================================================================= *)
+
+  (** Lemma: hash_eq correctness - decides equality correctly *)
+  Lemma hash_eq_correct : forall (h1 h2 : CoreSemantics.StateHash),
+    CoreSemantics.hash_eq h1 h2 = true <-> h1 = h2.
+  Proof.
+    intros h1 h2. split.
+    - (* hash_eq h1 h2 = true -> h1 = h2 *)
+      revert h2.
+      induction h1 as [| b1 h1' IH]; intros h2 Heq.
+      + (* h1 = [] *)
+        destruct h2 as [| b2 h2'].
+        * reflexivity.
+        * simpl in Heq. discriminate.
+      + (* h1 = b1 :: h1' *)
+        destruct h2 as [| b2 h2'].
+        * simpl in Heq. discriminate.
+        * simpl in Heq.
+          apply andb_true_iff in Heq. destruct Heq as [Hb Hh'].
+          apply Bool.eqb_prop in Hb.
+          apply IH in Hh'.
+          subst. reflexivity.
+    - (* h1 = h2 -> hash_eq h1 h2 = true *)
+      intros Heq. subst h2.
+      induction h1 as [| b h1' IH].
+      + simpl. reflexivity.
+      + simpl. apply andb_true_iff. split.
+        * apply Bool.eqb_reflx.
+        * apply IH.
+  Qed.
 
   (** Theorem: Cryptographic receipts are complete *)
   Theorem crypto_receipt_complete : forall (t : Trace) (valid: valid_trace t),
@@ -1061,35 +1090,6 @@ Module ThieleSpaceland <: Spaceland.
           simpl in Hvalid. destruct Hvalid as [_ Hvalid'].
           apply IH. assumption.
   Qed. (* Complete: all cases proven with Qed, zero admits *)
-
-  (** Lemma: hash_eq correctness - decides equality correctly *)
-  Lemma hash_eq_correct : forall (h1 h2 : CoreSemantics.StateHash),
-    CoreSemantics.hash_eq h1 h2 = true <-> h1 = h2.
-  Proof.
-    intros h1 h2. split.
-    - (* hash_eq h1 h2 = true -> h1 = h2 *)
-      revert h2.
-      induction h1 as [| b1 h1' IH]; intros h2 Heq.
-      + (* h1 = [] *)
-        destruct h2 as [| b2 h2'].
-        * reflexivity.
-        * simpl in Heq. discriminate.
-      + (* h1 = b1 :: h1' *)
-        destruct h2 as [| b2 h2'].
-        * simpl in Heq. discriminate.
-        * simpl in Heq. 
-          apply andb_true_iff in Heq. destruct Heq as [Hb Hh'].
-          apply Bool.eqb_true_iff in Hb.
-          apply IH in Hh'.
-          subst. reflexivity.
-    - (* h1 = h2 -> hash_eq h1 h2 = true *)
-      intros Heq. subst h2.
-      induction h1 as [| b h1' IH].
-      + simpl. reflexivity.
-      + simpl. apply andb_true_iff. split.
-        * apply Bool.eqb_true_iff. reflexivity.
-        * apply IH.
-  Qed.
 
   (** Lemma: Hash chain uniqueness - key to soundness *)
   Lemma hash_chain_determines_states : forall (witnesses : list CryptoStepWitness) (s1 s2 : State),

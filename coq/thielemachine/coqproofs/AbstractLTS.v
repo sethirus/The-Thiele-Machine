@@ -130,6 +130,21 @@ Module AbstractLTS <: Spaceland.
     | _ => p (* Simplified - real impl would splice lists *)
     end.
   
+  (** Instructions: abstract operations (for Spaceland interface) *)
+  Inductive InstructionType : Type :=
+    | ICompute : InstructionType
+    | ISplit : ModuleId -> InstructionType
+    | IMerge : ModuleId -> ModuleId -> InstructionType
+    | IObserve : ModuleId -> InstructionType.
+
+  Definition Instruction := InstructionType.
+
+  Definition program (s : State) : list Instruction := [].
+
+  Definition pc (s : State) : nat := state_id s.
+
+  Definition is_in_footprint (i : Instruction) (v : nat) : bool := false.
+
   (** Step relation: partition evolution *)
   Definition step (s : State) (l : Label) (s' : State) : Prop :=
     match l with
@@ -174,11 +189,12 @@ Module AbstractLTS <: Spaceland.
   Qed.
   
   (** Module independence *)
-  Lemma module_independence : forall s s' m,
+  Lemma module_independence : forall s s' i,
     step s LCompute s' ->
-    (forall m', m' <> m -> module_of s m' = module_of s' m').
+    nth_error (program s) (pc s) = Some i ->
+    (forall m', is_in_footprint i m' = false -> module_of s m' = module_of s' m').
   Proof.
-    intros s s' m Hstep m' Hneq.
+    intros s s' i Hstep Hprog m' Hfootprint.
     unfold step in Hstep.
     destruct Hstep as [Hpart [Hmu Hid]].
     (* Partition unchanged → module membership unchanged *)
