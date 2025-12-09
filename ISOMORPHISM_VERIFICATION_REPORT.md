@@ -16,12 +16,17 @@ Perfect isomorphism confirmed between all three implementations of the Thiele Ma
 
 ### 1. Coq Compilation ✅
 
-**Status**: ALL FILES COMPILE SUCCESSFULLY
+**Status**: ALL ACTIVE FILES COMPILE SUCCESSFULLY
 
-- **Total files**: 124 .v source files
-- **Compiled**: 98 .vo object files
+- **Total source files**: 124 .v files in repository
+- **Actively compiled**: 98 .vo object files (listed in _CoqProject)
+- **Excluded files**: 26 files (sandboxes and experimental work-in-progress, not in _CoqProject)
+  - `sandboxes/` directory: 5 experimental files (commented out in _CoqProject)
+  - Work-in-progress modules: 21 files (InfoTheory, MuAlu, OracleImpossibility, etc.)
+- **Compilation status**: ✅ 100% success (all 98 active files compile)
 - **Errors**: 0
 - **Warnings**: Minor (native compiler fallback - expected)
+- **Total lines of code**: 59,135 lines across all 124 files
 
 **Key modules verified**:
 - `kernel/Subsumption.v` - Turing ⊊ Thiele containment proof
