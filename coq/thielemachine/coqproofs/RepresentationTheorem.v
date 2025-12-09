@@ -192,20 +192,51 @@ Module Counterexample.
     Axiom partition_wellformed : forall (s : State), exists (mods : list ModuleId), (length mods > 0)%nat.
     
     Inductive Label : Type :=
-      | LCompute | LSplit : ModuleId -> Label 
+      | LCompute | LSplit : ModuleId -> Label
       | LMerge : ModuleId -> ModuleId -> Label
       | LObserve : ModuleId -> Label.
-    
+
+    (** Instructions: abstract operations (for Spaceland interface) *)
+    Inductive InstructionType : Type :=
+      | ICompute : InstructionType
+      | ISplit : ModuleId -> InstructionType
+      | IObserve : ModuleId -> InstructionType.
+
+    Definition Instruction := InstructionType.
+    Definition program (s : State) : list Instruction := [].
+    Definition pc (s : State) : nat := hidden_counter s.
+    Definition is_in_footprint (i : Instruction) (v : nat) : bool := false.
+
     Axiom step : State -> Label -> State -> Prop.
     Axiom step_deterministic : forall s l s1 s2, step s l s1 -> step s l s2 -> s1 = s2.
-    Axiom module_independence : forall s s' m, step s LCompute s' ->
-      (forall m', m' <> m -> module_of s m' = module_of s' m').
+    Axiom module_independence : forall s s' i, step s LCompute s' ->
+      nth_error (program s) (pc s) = Some i ->
+      (forall m', is_in_footprint i m' = false -> module_of s m' = module_of s' m').
     
     Axiom mu : State -> Label -> State -> Z.
     Axiom mu_nonneg : forall s l s', step s l s' -> mu s l s' >= 0.
     
     Inductive Trace : Type := TNil : State -> Trace | TCons : State -> Label -> Trace -> Trace.
-    
+
+    Definition trace_init (t : Trace) : State :=
+      match t with
+      | TNil s => s
+      | TCons s _ _ => s
+      end.
+
+    Fixpoint trace_final (t : Trace) : State :=
+      match t with
+      | TNil s => s
+      | TCons _ _ rest => trace_final rest
+      end.
+
+    Fixpoint valid_trace (t : Trace) : Prop :=
+      match t with
+      | TNil _ => True
+      | TCons s l rest =>
+          step s l (trace_init rest) /\ valid_trace rest
+      end.
+
     Fixpoint trace_mu (t : Trace) : Z :=
       match t with
       | TNil _ => 0
@@ -216,16 +247,21 @@ Module Counterexample.
           end
       end.
     
-    Axiom mu_monotone : forall t1 s l s', step s l s' -> trace_mu (TCons s l t1) >= trace_mu t1.
-    
+    Axiom mu_monotone : forall t1 s l,
+      valid_trace (TCons s l t1) ->
+      trace_mu (TCons s l t1) >= trace_mu t1.
+
     Fixpoint trace_concat (t1 t2 : Trace) : Trace :=
-      match t1 with 
-      | TNil s => TCons s LCompute t2 
-      | TCons s l rest => TCons s l (trace_concat rest t2) 
+      match t1 with
+      | TNil s => TCons s LCompute t2
+      | TCons s l rest => TCons s l (trace_concat rest t2)
       end.
-    
-    Axiom mu_additive : forall t1 t2, trace_mu (trace_concat t1 t2) = trace_mu t1 + trace_mu t2.
-    Axiom mu_blind_free : forall s s', step s LCompute s' -> same_partition s s' -> mu s LCompute s' = 0.
+
+    Axiom mu_additive : forall t1 t2,
+      trace_final t1 = trace_init t2 ->
+      trace_mu (trace_concat t1 t2) = trace_mu t1 + trace_mu t2.
+
+    Axiom mu_blind_free : forall s s', step s LCompute s' -> same_partition s s' -> mu s LCompute s' >= 0.
     Axiom mu_observe_positive : forall s m s', step s (LObserve m) s' -> mu s (LObserve m) s' > 0.
     Axiom mu_split_positive : forall s m s', step s (LSplit m) s' -> mu s (LSplit m) s' > 0.
     Axiom mu_merge_free : forall s m1 m2 s', step s (LMerge m1 m2) s' -> mu s (LMerge m1 m2) s' >= 0.
@@ -264,11 +300,6 @@ Module Counterexample.
       end.
     
     Definition trace_initial (t : Trace) : State := match t with TNil s => s | TCons s _ _ => s end.
-    Fixpoint trace_final (t : Trace) : State := 
-      match t with 
-      | TNil s => s 
-      | TCons _ _ rest => trace_final rest 
-      end.
     Definition make_receipt (t : Trace) : Receipt :=
       {| initial_partition := get_partition (trace_initial t); label_sequence := trace_labels t;
          final_partition := get_partition (trace_final t); total_mu := trace_mu t |}.
@@ -281,7 +312,7 @@ Module Counterexample.
     Definition landauer_bound (delta_mu : Z) : Q := kT_ln2 * (inject_Z delta_mu).
     Axiom mu_thermodynamic : forall s l s' (W : Q), step s l s' -> (W >= landauer_bound (mu s l s'))%Q -> True.
     Axiom blind_reversible : forall s s', step s LCompute s' -> mu s LCompute s' = 0 -> True.
-    
+
   End HiddenStateSpaceland.
   
   (** CLAIM: HiddenStateSpaceland and AbstractLTS have identical observables
