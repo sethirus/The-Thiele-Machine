@@ -251,10 +251,10 @@ Module ObservationalEquivalence.
   Proof.
     induction t; intros k Hv; simpl in *.
     - destruct s. constructor.
-    - destruct s as [p m]. destruct t as [s_inner | s_inner l_inner t_inner].
-      + destruct s_inner as [p' m']. simpl in Hv.
+    - destruct s as [p m]. destruct t.
+      + destruct s as [p' m']. simpl in Hv.
         apply step_shift with (k:=k) in Hv. assumption.
-      + destruct s_inner as [p' m']. destruct Hv as [Hstep Hv].
+      + destruct s0 as [p' m']. destruct Hv as [Hstep Hv].
         split.
         * apply step_shift with (k:=k) in Hstep. assumption.
         * apply IHt. assumption.
@@ -267,13 +267,6 @@ Module ObservationalEquivalence.
     intros. destruct t; simpl; destruct s; reflexivity.
   Qed.
 
-  Lemma shift_trace_partition_seq : forall t k,
-    partition_seq (shift_trace t k) = partition_seq t.
-  Proof.
-    induction t; intros k; simpl; destruct s as [p m]; try reflexivity.
-    simpl. f_equal. apply IHt.
-  Qed.
-
   Lemma shift_trace_observable : forall t k,
     valid_trace t ->
     observable (shift_trace t k) = observable t.
@@ -281,7 +274,9 @@ Module ObservationalEquivalence.
     intros t k Hv.
     unfold observable. f_equal.
     - (* partition_seq *)
-      apply shift_trace_partition_seq.
+      induction t; simpl; destruct s; try reflexivity.
+      f_equal. apply IHt.
+      destruct t; simpl in Hv; [trivial | destruct Hv; assumption].
     - (* mu_seq *)
       induction t; simpl; destruct s as [p m]; try reflexivity.
       destruct t as [ [p' m'] | [p' m'] l' t'' ].

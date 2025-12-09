@@ -196,32 +196,15 @@ Module Counterexample.
       | LMerge : ModuleId -> ModuleId -> Label
       | LObserve : ModuleId -> Label.
     
-    (** Abstract instructions (required by Spaceland signature) *)
-    Definition Instruction := Label.
-    Definition pc (s : State) : nat := hidden_counter s.  (* Use hidden counter as PC *)
-    Definition program (s : State) : list Instruction := [].
-    Definition is_in_footprint (i : Instruction) (v : nat) : bool := true.
-    
     Axiom step : State -> Label -> State -> Prop.
     Axiom step_deterministic : forall s l s1 s2, step s l s1 -> step s l s2 -> s1 = s2.
-    Axiom module_independence : forall s s' i, step s LCompute s' ->
-      nth_error (program s) (pc s) = Some i ->
-      (forall m', is_in_footprint i m' = false -> module_of s m' = module_of s' m').
+    Axiom module_independence : forall s s' m, step s LCompute s' ->
+      (forall m', m' <> m -> module_of s m' = module_of s' m').
     
     Axiom mu : State -> Label -> State -> Z.
     Axiom mu_nonneg : forall s l s', step s l s' -> mu s l s' >= 0.
     
     Inductive Trace : Type := TNil : State -> Trace | TCons : State -> Label -> Trace -> Trace.
-    
-    Definition trace_initial (t : Trace) : State := match t with TNil s => s | TCons s _ _ => s end.
-    Definition trace_init := trace_initial.  (* Alias for Spaceland signature compatibility *)
-    
-    Fixpoint valid_trace (t : Trace) : Prop :=
-      match t with
-      | TNil _ => True
-      | TCons s l rest => 
-          step s l (trace_init rest) /\ valid_trace rest
-      end.
     
     Fixpoint trace_mu (t : Trace) : Z :=
       match t with
@@ -280,6 +263,7 @@ Module Counterexample.
       | TCons _ l rest => l :: trace_labels rest
       end.
     
+    Definition trace_initial (t : Trace) : State := match t with TNil s => s | TCons s _ _ => s end.
     Fixpoint trace_final (t : Trace) : State := 
       match t with 
       | TNil s => s 
