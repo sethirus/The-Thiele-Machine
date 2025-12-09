@@ -80,6 +80,8 @@ integer i, j;
 integer program_length;
 integer halted;
 integer timeout_counter;
+integer existing_found;
+reg [63:0] new_mask;
 
 // ============================================================================
 // INSTRUCTION DECODE
@@ -157,6 +159,14 @@ initial begin
         partition_masks[i] = 0;
     end
     
+    // Create initial module (matches Python VM line 1789)
+    // Python: current_module = self.state.pnew({0})
+    module_ids[0] = 0;  // module_id 0 initially but will be updated
+    partition_masks[0] = 64'h1;  // region {0} = bit 0 set
+    next_id = 1;  // Will be assigned to first user PNEW
+    num_modules = 1;  // Start with 1 module (the initial one)
+    mu_discovery = 1;  // Initial module costs 1 μ
+    
     // Reset
     #20 rst_n = 1;
     #10;
@@ -174,17 +184,28 @@ initial begin
                     $display("[%04d] PC=%02h: PNEW region={%0d}", 
                              step_count, pc, operand_a);
                     
-                    // Create new module
-                    if (num_modules < 64) begin
+                    // Check if module with this region already exists (deduplication)
+                    // For simplicity, check if any existing module has the same mask
+                    existing_found = 0;
+                    new_mask = (64'h1 << operand_a);
+                    
+                    for (j = 0; j < num_modules; j = j + 1) begin
+                        if (partition_masks[j] == new_mask) begin
+                            existing_found = 1;
+                        end
+                    end
+                    
+                    if (!existing_found && num_modules < 64) begin
+                        // Create new module
                         module_ids[num_modules] = next_id;
-                        // Set bit for the region index
-                        partition_masks[num_modules] = (64'h1 << operand_a);
+                        partition_masks[num_modules] = new_mask;
                         next_id = next_id + 1;
                         num_modules = num_modules + 1;
                         
                         // μ-cost: popcount of region = 1 (single element)
                         mu_discovery = mu_discovery + 1;
                     end
+                    // If existing_found, no new module is created and no μ is charged
                     
                     pc = pc + 1;
                     step_count = step_count + 1;
@@ -247,8 +268,7 @@ initial begin
                 OPCODE_HALT: begin
                     $display("[%04d] PC=%02h: HALT", step_count, pc);
                     
-                    // μ-cost: 1 for HALT (to match Python VM)
-                    mu_execution = mu_execution + 1;
+                    // μ-cost: 0 (HALT is free in Python VM)
                     
                     halted = 1;
                 end
