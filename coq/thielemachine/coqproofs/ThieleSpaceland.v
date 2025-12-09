@@ -970,6 +970,35 @@ Module ThieleSpaceland <: Spaceland.
     intros. exact I.
   Qed.
 
+  (** Lemma: hash_eq correctness - decides equality correctly *)
+  Lemma hash_eq_correct : forall (h1 h2 : CoreSemantics.StateHash),
+    CoreSemantics.hash_eq h1 h2 = true <-> h1 = h2.
+  Proof.
+    intros h1 h2. split.
+    - (* hash_eq h1 h2 = true -> h1 = h2 *)
+      revert h2.
+      induction h1 as [| b1 h1' IH]; intros h2 Heq.
+      + (* h1 = [] *)
+        destruct h2 as [| b2 h2'].
+        * reflexivity.
+        * simpl in Heq. discriminate.
+      + (* h1 = b1 :: h1' *)
+        destruct h2 as [| b2 h2'].
+        * simpl in Heq. discriminate.
+        * simpl in Heq. 
+          apply andb_true_iff in Heq. destruct Heq as [Hb Hh'].
+          f_equal.
+          -- apply Bool.eqb_true_iff. exact Hb.
+          -- apply IH. exact Hh'.
+    - (* h1 = h2 -> hash_eq h1 h2 = true *)
+      intros Heq. subst h2.
+      induction h1 as [| b h1' IH].
+      + simpl. reflexivity.
+      + simpl. apply andb_true_iff. split.
+        * apply Bool.eqb_true_iff. reflexivity.
+        * apply IH.
+  Qed.
+
   (** =========================================================================
       CRYPTOGRAPHIC RECEIPT SOUNDNESS AND COMPLETENESS
       =========================================================================
@@ -1018,7 +1047,8 @@ Module ThieleSpaceland <: Spaceland.
              assert (Htrace: trace_mu (TCons s' l' t'') >= 0).
              { apply trace_mu_nonneg. assumption. }
              (* crypto_total_mu = mu s l s' + trace_mu (TCons s' l' t'') *)
-             admit.  (* TODO: Need lemma connecting crypto_total_mu to trace_mu *)
+             (* TODO: Need lemma connecting make_crypto_receipt_from_trace structure to trace_mu *)
+             admit.
       + (* verify_hash_chain *)
         (* Induction on trace structure *)
         induction t as [s | s l t' IH].
@@ -1060,36 +1090,7 @@ Module ThieleSpaceland <: Spaceland.
         * simpl. f_equal. 
           simpl in Hvalid. destruct Hvalid as [_ Hvalid'].
           apply IH. assumption.
-  Qed. (* Complete: all cases proven with Qed, zero admits *)
-
-  (** Lemma: hash_eq correctness - decides equality correctly *)
-  Lemma hash_eq_correct : forall (h1 h2 : CoreSemantics.StateHash),
-    CoreSemantics.hash_eq h1 h2 = true <-> h1 = h2.
-  Proof.
-    intros h1 h2. split.
-    - (* hash_eq h1 h2 = true -> h1 = h2 *)
-      revert h2.
-      induction h1 as [| b1 h1' IH]; intros h2 Heq.
-      + (* h1 = [] *)
-        destruct h2 as [| b2 h2'].
-        * reflexivity.
-        * simpl in Heq. discriminate.
-      + (* h1 = b1 :: h1' *)
-        destruct h2 as [| b2 h2'].
-        * simpl in Heq. discriminate.
-        * simpl in Heq. 
-          apply andb_true_iff in Heq. destruct Heq as [Hb Hh'].
-          apply Bool.eqb_true_iff in Hb.
-          apply IH in Hh'.
-          subst. reflexivity.
-    - (* h1 = h2 -> hash_eq h1 h2 = true *)
-      intros Heq. subst h2.
-      induction h1 as [| b h1' IH].
-      + simpl. reflexivity.
-      + simpl. apply andb_true_iff. split.
-        * apply Bool.eqb_true_iff. reflexivity.
-        * apply IH.
-  Qed.
+  Admitted. (* TODO: One admit in crypto_total_mu >= 0 proof - needs make_crypto_receipt_from_trace structure lemma *)
 
   (** Lemma: Hash chain uniqueness - key to soundness *)
   Lemma hash_chain_determines_states : forall (witnesses : list CryptoStepWitness) (s1 s2 : State),

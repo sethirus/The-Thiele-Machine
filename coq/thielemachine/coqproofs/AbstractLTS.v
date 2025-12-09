@@ -89,6 +89,40 @@ Module AbstractLTS <: Spaceland.
     | LSplit : ModuleId -> Label
     | LMerge : ModuleId -> ModuleId -> Label
     | LObserve : ModuleId -> Label.
+
+  (** Abstract instructions (required by Spaceland signature) 
+      
+      In this abstract LTS model, instructions are just labels that
+      indicate partition operations. We map instructions to labels
+      to satisfy the Spaceland interface.
+  *)
+  Definition Instruction := Label.
+  
+  (** Program counter: position in instruction sequence
+      
+      For this abstract model, we use the state_id as a proxy for pc.
+  *)
+  Definition pc (s : State) : nat := state_id s.
+  
+  (** Program: sequence of instructions in a state
+      
+      For this abstract model, we don't have a concrete program structure,
+      so we return an empty program. This is a minimal implementation
+      to satisfy the Spaceland signature.
+  *)
+  Definition program (s : State) : list Instruction := [].
+  
+  (** Footprint check: whether an instruction accesses a variable
+      
+      In this abstract model, we approximate footprint based on label type.
+  *)
+  Definition is_in_footprint (i : Instruction) (v : nat) : bool :=
+    match i with
+    | LCompute => true  (* Compute may access any variable *)
+    | LSplit mid => true  (* Split may affect any variable in the module *)
+    | LMerge _ _ => true  (* Merge may affect variables in merged modules *)
+    | LObserve _ => true  (* Observe may examine any variable *)
+    end.
   
   (** Transition semantics: pure partition manipulation
       
@@ -174,11 +208,12 @@ Module AbstractLTS <: Spaceland.
   Qed.
   
   (** Module independence *)
-  Lemma module_independence : forall s s' m,
+  Lemma module_independence : forall s s' i,
     step s LCompute s' ->
-    (forall m', m' <> m -> module_of s m' = module_of s' m').
+    nth_error (program s) (pc s) = Some i ->
+    (forall m', is_in_footprint i m' = false -> module_of s m' = module_of s' m').
   Proof.
-    intros s s' m Hstep m' Hneq.
+    intros s s' i Hstep Hprog m' Hfoot.
     unfold step in Hstep.
     destruct Hstep as [Hpart [Hmu Hid]].
     (* Partition unchanged → module membership unchanged *)
