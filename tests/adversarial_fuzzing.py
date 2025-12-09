@@ -59,10 +59,13 @@ def encode_instruction(opcode: Opcode, a: int = 0, b: int = 0) -> bytes:
 
 def instruction_to_hex(opcode: Opcode, a: int = 0, b: int = 0) -> str:
     """Convert instruction to hex string for Verilog memory file."""
-    # Verilog expects big-endian 32-bit hex
+    # Verilog $readmemh expects 32-bit hex in big-endian format
+    # Our encoding is: [opcode, a, b, reserved]
+    # For Verilog:  opcode in bits [31:24], a in [23:16], b in [15:8], reserved in [7:0]
     word = encode_instruction(opcode, a, b)
-    # Reverse bytes for big-endian representation
-    return f"{word[3]:02x}{word[2]:02x}{word[1]:02x}{word[0]:02x}"
+    # word is little-endian: [opcode, a, b, reserved]
+    # Reverse for big-endian representation for Verilog
+    return f"{word[0]:02x}{word[1]:02x}{word[2]:02x}{word[3]:02x}"
 
 
 def write_program_hex(program: List[Tuple[Opcode, int, int]], hex_file: Path) -> None:
@@ -230,16 +233,13 @@ def execute_verilog(program: List[Tuple[Opcode, int, int]], work_dir: Path) -> D
     hex_file = work_dir / "fuzz_program.hex"
     write_program_hex(program, hex_file)
     
-    # Compile Verilog
+    # Compile Verilog (using simplified harness that doesn't require μ-core)
     sim_executable = work_dir / "fuzz_sim"
     compile_cmd = [
         "iverilog",
         "-g2012",  # SystemVerilog 2012
         "-o", str(sim_executable),
-        str(HARDWARE_DIR / "fuzz_harness.v"),
-        str(HARDWARE_DIR / "thiele_cpu.v"),
-        str(HARDWARE_DIR / "mu_alu.v"),
-        str(HARDWARE_DIR / "mu_core.v"),
+        str(HARDWARE_DIR / "fuzz_harness_simple.v"),
     ]
     
     try:
