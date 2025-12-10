@@ -189,6 +189,10 @@ initial begin
     logic_ack = 0;
     py_ack = 0;
     mem_rdata = 32'h0;
+    
+    // Enable VCD dumping for waveform generation
+    $dumpfile("thiele_cpu_tb.vcd");
+    $dumpvars(0, thiele_cpu_tb);
 
     // Reset
     #20 rst_n = 1;

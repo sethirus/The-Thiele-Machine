@@ -40,6 +40,10 @@ initial begin
     $display("μ-ALU Test Bench");
     $display("================");
     
+    // Enable VCD dumping for waveform generation
+    $dumpfile("mu_alu_tb.vcd");
+    $dumpvars(0, mu_alu_tb);
+    
     // Initialize
     rst_n = 0;
     op = 0;

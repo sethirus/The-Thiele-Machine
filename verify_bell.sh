@@ -1,1 +1,0 @@
-scripts/verification/verify_bell.sh

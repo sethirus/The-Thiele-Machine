@@ -26,7 +26,8 @@ RESET = '\033[0m'
 
 class IsomorphismVerifier:
     def __init__(self):
-        self.repo_root = Path("/home/runner/work/The-Thiele-Machine/The-Thiele-Machine")
+        # Use current working directory as repo root
+        self.repo_root = Path.cwd()
         self.results = {
             "python_files": [],
             "verilog_files": [],
@@ -188,21 +189,35 @@ class IsomorphismVerifier:
         python_opcodes = {}
         if isa_file.exists():
             content = isa_file.read_text()
-            # Look for opcode definitions like: OPCODE_NAME = 0xNN
-            for match in re.finditer(r'(\w+)\s*=\s*(0x[0-9A-Fa-f]+)', content):
-                name, value = match.groups()
-                if name.isupper() and name not in ['OPCODE_MASK']:
-                    python_opcodes[name] = value
+            # Look for opcode definitions in the Opcode enum
+            in_opcode_enum = False
+            for line in content.split('\n'):
+                line = line.strip()
+                if 'class Opcode(Enum):' in line:
+                    in_opcode_enum = True
+                elif line.startswith('class ') and 'Opcode' not in line:
+                    in_opcode_enum = False
+                elif in_opcode_enum and '=' in line and not line.startswith('#'):
+                    # Parse NAME = 0xVALUE
+                    parts = line.split('=')
+                    if len(parts) == 2:
+                        name = parts[0].strip()
+                        value = parts[1].strip().rstrip(',')
+                        if name and value.startswith('0x'):
+                            python_opcodes[name] = value
         
         # Extract opcodes from Verilog
         cpu_file = self.repo_root / "thielecpu" / "hardware" / "thiele_cpu.v"
         verilog_opcodes = {}
         if cpu_file.exists():
             content = cpu_file.read_text()
-            # Look for localparam definitions like: localparam OPCODE_NAME = 8'hNN;
-            for match in re.finditer(r'localparam\s+(\w+)\s*=\s*8\'h([0-9A-Fa-f]+)', content):
+            # Look for localparam definitions like: localparam [7:0] OPCODE_NAME = 8'hNN;
+            for match in re.finditer(r'localparam\s+\[7:0\]\s+(\w+)\s*=\s*8\'h([0-9A-Fa-f]+)', content):
                 name, value = match.groups()
-                verilog_opcodes[name] = f"0x{value.upper()}"
+                if name.startswith('OPCODE_'):
+                    # Remove OPCODE_ prefix to match Python names
+                    short_name = name[7:]  # Remove 'OPCODE_'
+                    verilog_opcodes[short_name] = f"0x{value.upper()}"
         
         # Compare
         all_opcodes = set(python_opcodes.keys()) | set(verilog_opcodes.keys())

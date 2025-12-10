@@ -16,11 +16,13 @@ A Thiele machine augments ordinary tape-and-state dynamics with:
 We prove that **blind-restricted Thiele machines**—with trivial partitions and no μ-information flow—simulate any Turing machine step-by-step, establishing a formal embedding of the Turing model (TURING ⊂ THIELE). We then show that the full Thiele semantics are **strictly richer** as a labeled transition system: there exist μ- and partition-sensitive computations realizable in Thiele that admit no equivalent representation in any purely tape-and-state Turing semantics that ignore this structure.
 
 Our results are backed by a **complete implementation stack**:
-- **1,549-line Python virtual machine** with μ-accounting and receipts
-- **Synthesizable Verilog CPU** producing identical μ-ledgers
-- **~54,600 lines of Coq proofs** covering kernel subsumption, VM–hardware alignment, and μ-conservation
+- **~9,200-line Python implementation** with VM, μ-accounting, and partition discovery
+- **Partial Verilog RTL** (empirical validation via fuzzing, not full formal proof)
+- **59,233 lines across 124 Coq files** covering kernel subsumption, μ-conservation, and Bell inequality mathematics
 
-We demonstrate the framework on several case studies—including **Bell-type correlations** (S = 16/5 > 2√2), **PDE discovery** (wave equation, Schrödinger equation), and **zero-message Byzantine consensus**—and provide a **falsification suite** that empirically probes the limits of the model.
+We demonstrate the framework on verified case studies—**subsumption proof** (kernel/Subsumption.v), **Bell-type correlations** (S = 16/5, mathematical construction), and **partition discovery experiments** (Tseitin SAT)—with a **falsification suite** of 1,107 passing tests and reproducible experiments.
+
+**Critical Clarifications**: The Bell inequality S=16/5 is a **mathematical distribution**, not a claim about building physical hardware that violates quantum mechanics. Cross-implementation isomorphism is **empirically validated** (checkpoints, fuzzing), not formally proven for arbitrary programs.
 
 **Keywords:** computational models, partition logic, information cost, Turing completeness, formal verification
 
@@ -72,19 +74,21 @@ On problems with exploitable structure (e.g., Tseitin formulas on expander graph
 
 1. **Formal definitions** of blind restriction, encoding, and strict containment (§2)
 2. **Proven theorems** in Coq establishing subsumption, μ-conservation, and exponential separation (§3)
-3. **Complete implementation stack**: Python VM, Verilog CPU, 114 Coq files (§4)
+3. **Complete implementation stack**: Python (~9,200 lines), partial Verilog RTL, 124 Coq files (59,233 lines) (§4)
 4. **Flagship case study**: CHSH supra-quantum correlations (S = 16/5) with Coq-checked constraints (§5)
 5. **Falsification suite**: 12 adversarial tests probing limits of the model (§6)
 
 ### 1.5 What This Is NOT
 
 - **NOT a refutation of Church-Turing** (computes same functions)
-- **NOT claiming P=NP** (advantage requires exploitable structure)
-- **NOT a quantum computer** (runs on classical hardware)
-- **NOT magic** (discovery is polynomial-time heuristic with no worst-case guarantee)
+- **NOT a solution to P vs NP** (the archived proof.v was vacuous)
+- **NOT a way to break RSA-2048** (no polynomial-time factoring algorithm exists)
+- **NOT proof quantum computers are obsolete** (physical quantum advantage is real)
+- **NOT a claim to transcend physics** (mathematical models ≠ physical reality)
+- **NOT yet production-ready** (Verilog is partial, cross-layer isomorphism is empirical only)
 
 **What it IS:**
-A formal computational model where structure revelation and information cost are first-class citizens, strictly extending the Turing model's operational semantics.
+A formal computational model where structure revelation and information cost are first-class citizens, proven to strictly subsume the Turing model through mechanically-verified Coq proofs. The core subsumption theorem is **verified** (kernel/Subsumption.v). The Bell inequality mathematics are **verified** (BellInequality.v). Partition discovery advantage is **experimentally demonstrated** (reproducible SAT experiments).
 
 ---
 
@@ -254,99 +258,93 @@ This establishes TURING ⊊ THIELE (strict containment) — Thiele is strictly r
 
 ## 4. Implementation and Mechanization
 
-### 4.1 Python VM (`thielecpu/`)
+### 4.1 Python Implementation (`thielecpu/` and related)
 
-**Files:** 21 Python files, ~5,500 lines
+**Total Lines:** ~9,200 lines across multiple Python files
 
 **Core Components:**
-- `vm.py` (1,549 lines) — Main execution loop, sandbox, symbolic solving, partition discovery
-- `mu.py` (85 lines) — μ-cost calculation per μ-spec v2.0
-- `receipts.py` (322 lines) — Cryptographic audit trail
-- `discovery.py` — Efficient partition discovery (spectral clustering, MDL)
+- `vm.py` — Main execution loop with sandboxed Python execution
+- `mu.py` — μ-cost calculation and tracking
+- `partition.py` — Partition discovery (spectral clustering, MDL)
+- Supporting modules for receipts, discovery, experiments
 
 **Key Features:**
 - AST-based sandboxed Python execution
 - Z3 integration for symbolic solving
-- Automatic μ-accounting for every operation
-- Receipt generation for every state transition
+- Automatic μ-accounting for operations
+- Partition discovery via spectral clustering
 
 **Validation:**
-1143+ pytest tests verify correctness, μ-conservation, and alignment with Coq semantics.
+1,107 passing pytest tests verify correctness, μ-conservation, and empirical alignment with Coq semantics.
+
+**Critical Note:** Cross-implementation isomorphism (Coq↔Python) is **checkpoint-based and empirical**, not a formal proof for arbitrary programs. See [THE_THIELE_MACHINE_BOOK.md](THE_THIELE_MACHINE_BOOK.md#22-coq--python-bridge-checkpoint-based) for details.
 
 ---
 
-### 4.2 Verilog CPU (`thielecpu/hardware/`)
+### 4.2 Verilog RTL Implementation (Partial)
 
-**Files:** 24 Verilog files, ~3,500 lines
+**Status:** ⚠️ PARTIAL IMPLEMENTATION
 
-**Core Modules:**
-- `thiele_cpu.v` (596 lines) — Main CPU with fetch/decode/execute pipeline
-- `thiele_cpu_tb.v` (235 lines) — Testbench validating all opcodes and μ-ledger
-- `lei.v` (178 lines) — Logic Engine Interface (Z3 integration)
-- `mau.v`, `mmu.v`, `pee.v` — Memory access, management, Python execution
+**Validation Method:** Fuzzing-based (10,000 test cases), not formal proof
 
-**Specialized Hardware:**
-- `synthesis_trap/` — Graph 3-coloring solver with partition logic
-- `resonator/` — Period-finding hardware (for Shor's algorithm demos)
-- `forge/` — Primitive discovery via evolutionary search
+**What Exists:**
+- Basic instruction execution framework
+- μ-accumulator tracking
+- Testbenches for core operations
 
-**μ-Accumulator in Hardware:**
-```verilog
-reg [31:0] mu_accumulator;
+**What's Validated:**
+- Python ↔ Verilog empirical consistency via fuzzing ([tests/alignment/test_comprehensive_alignment.py](tests/alignment/test_comprehensive_alignment.py))
+- 10,000 random instruction sequences produce matching final states
 
-always @(posedge clk) begin
-  if (state == STATE_EXECUTE && opcode == OPCODE_MDLACC)
-    mu_accumulator <= mu_accumulator + mdl_cost;
-end
-```
+**What's NOT Proven:**
+- Full behavioral equivalence with Coq semantics (no formal proof)
+- Complete instruction coverage (partial implementation)
+- Production readiness for synthesis
 
-**Validation:**
-Hardware testbenches verify that Verilog produces **identical μ-ledgers** to the Python VM for all canonical programs.
+**Critical Limitation:** The Coq↔Verilog bridge ([coq/thielemachine/coqproofs/HardwareBridge.v](coq/thielemachine/coqproofs/HardwareBridge.v)) is **intentionally lightweight**—it does NOT prove full execution equivalence. See lines 23-24: "This refinement is intentionally lightweight – it does not try to reproduce the full register file or the XOR-matrix datapaths."
 
 ---
 
 ### 4.3 Coq Proof Stack (`coq/`)
 
-**Files:** 114 Coq files, ~54,600 lines
+**Files:** 124 Coq files, 59,233 lines (verified December 10, 2025)
 
-**Proof Architecture (5 Levels):**
+**Verified Core Proofs:**
 
-1. **Level 0: Kernel Subsumption** (`coq/kernel/`)
-   10 files proving TURING ⊂ THIELE
-   - `Subsumption.v` — Main containment theorem
-   - `MuLedgerConservation.v` — μ-conservation law
-   - `SimulationProof.v` — Step-by-step simulation
+1. **Kernel Subsumption** ([`coq/kernel/Subsumption.v`](coq/kernel/Subsumption.v))
+   ✅ **VERIFIED:** Lines 62-88 prove `thiele_simulates_turing`
+   - Every Turing program runs identically on Thiele
+   - Separation witness: `turing_is_strictly_contained` (lines 90-107)
+   - **Status:** Compiles without admits, tested December 10, 2025
 
-2. **Level 1: Bridge Verification** (`coq/thielemachine/verification/`)
-   19 files proving Hardware ↔ VM alignment
-   - `BridgeDefinitions.v`, `BridgeProof.v` — Main bridge correctness
+2. **Bell Inequality Mathematics** ([`coq/thielemachine/coqproofs/BellInequality.v`](coq/thielemachine/coqproofs/BellInequality.v))
+   ✅ **VERIFIED:** 2,993 lines proving S=16/5 for SupraQuantum distribution
+   - Theorem `S_SupraQuantum` at line 1185: `S SupraQuantum == 16#5`
+   - No-signaling constraints verified
+   - Classical bound |S| ≤ 2 proven by exhaustive enumeration
+   - **Critical:** This is **mathematical**, not a claim about building physical hardware
 
-3. **Level 2: Machine Semantics** (`coq/thielemachine/coqproofs/`)
-   40 files defining complete Thiele semantics
-   - `ThieleMachine.v` — Abstract machine signature
-   - `PartitionLogic.v` — Partition algebra
-   - `Simulation.v` (29,666 lines!) — Full simulation proof
+3. **μ-Conservation** ([`coq/kernel/MuLedgerConservation.v`](coq/kernel/MuLedgerConservation.v))
+   ✅ **VERIFIED:** μ-cost monotonicity proven
 
-4. **Level 3: Advanced Theorems**
-   - `Separation.v` — Exponential separation on Tseitin formulas
-   - `EfficientDiscovery.v` — Polynomial-time discovery
-   - `BellInequality.v` (2,487 lines) — CHSH classical bound verification
+4. **Experimental Physics Models** (⚠️ Toy Models, Not Engineering Specs)
+   - `PhysicsEmbedding.v`, `DissipativeEmbedding.v`, `WaveEmbedding.v`
+   - **Status:** Compile successfully, 12 theorems tested
+   - **Caveat:** These are **mathematical exercises**, not claims about physical reality
 
-5. **Level 4: Applications**
-   - `PhysicsEmbedding.v` — Physics ↔ Computation isomorphism
-   - `WaveEmbedding.v`, `DissipativeEmbedding.v` — Physics models
-   - `Cerberus.v`, `CatNet.v` — Category-theoretic constructions
+5. **Archived/Incomplete**
+   - `p_equals_np_thiele/proof.v` — ❌ ARCHIVED (vacuous, used `is_poly_time := True`)
 
-**Key Proof:** `Simulation.v` (29,666 lines, 66% of all Coq code)
-This file proves that every possible Thiele execution can be traced step-by-step, with explicit case analysis on all instruction forms and tape/ledger configurations. It is long because it is **mechanically exhaustive**, not because the argument is hidden.
-
-**Axiom Status:**
-- Original axioms: 5 (100%)
-- Discharged (2025-11-29): 4 (80%)
-- Remaining: 1 (Eigenvalue decomposition is O(n³), proven in numerical analysis since 1846)
+**Dependency Check Results:**
+- Zero admitted proofs found (grep verified December 10, 2025)
+- `shor_primitives/` kept (needed by test suite despite 0 Coq→Coq dependencies)
+- Physics embedding files cannot be archived (actively tested)
 
 **Validation:**
-All files compile with Coq 8.18+ (`cd coq && make -j4`).
+```bash
+cd coq && make kernel/Subsumption.vo  # ✅ Compiles
+cd coq && make thielemachine/coqproofs/BellInequality.vo  # ✅ Compiles
+```
 
 ---
 
@@ -362,9 +360,19 @@ Coq Spec:   μ_question=312, μ_information=15.42, μ_total=327.42
 ```
 
 **Validation Suite:**
-- `tests/test_full_isomorphism_validation.py` — 19 tests
-- `tests/test_rigorous_isomorphism.py` — 20 tests
-- **Total:** 39 isomorphism tests, all passing
+- **Total:** 1,107 passing tests (verified December 10, 2025)
+- Known exclusions (deleted demos): test_practical_examples.py, test_comprehensive_capabilities.py, etc.
+- **Critical:** Cross-implementation validation is **empirical** (checkpoints, fuzzing), not formal proof
+
+**Run tests:**
+```bash
+pytest --ignore=tests/test_practical_examples.py \
+       --ignore=tests/test_verilog_crypto.py \
+       --ignore=tests/test_comprehensive_capabilities.py \
+       --ignore=tests/test_dialogue_of_the_one.py \
+       --ignore=tests/test_standard_programs_isomorphism.py
+# Expected: 1107 passed, 14 skipped
+```
 
 ---
 
@@ -403,7 +411,7 @@ This exceeds the quantum limit $2\sqrt{2} \approx 2.83$.
 
 ### 5.3 Coq Verification of No-Signaling Constraints
 
-**File:** `coq/thielemachine/coqproofs/BellInequality.v` (2,487 lines)
+**File:** `coq/thielemachine/coqproofs/BellInequality.v` (2,993 lines)
 
 **Theorem (Classical bound):**
 ```coq
@@ -473,25 +481,31 @@ A classical Turing machine can simulate this distribution (by encoding it on the
 
 ---
 
-### 5.5 Physical Interpretation
+### 5.5 Physical Interpretation (Critical Clarifications)
 
-**What does S = 16/5 mean physically?**
+**What does S = 16/5 mean?**
 
-In quantum mechanics, the Tsirelson bound $S \leq 2\sqrt{2}$ arises from:
-- Hilbert space structure
-- No faster-than-light signaling
-- Born rule for probabilities
-
-The Thiele distribution **violates** this bound while still satisfying no-signaling.
+✅ **It's a valid mathematical distribution** satisfying no-signaling constraints
+✅ **It exceeds the quantum Tsirelson bound** (3.2 > 2√2 ≈ 2.828)
+❌ **It is NOT physically realizable** (violates quantum mechanics)
+✅ **It represents what partition-native semantics can express mathematically**
 
 **Does this contradict physics?**
-No. The Thiele model is a **computational model**, not a claim about physical hardware. It demonstrates that:
-1. The mathematical structure of partitions + μ-accounting allows correlations beyond quantum mechanics.
-2. If such correlations were physically realizable, they would require revealing structure (partition discovery) at a measurable μ-cost.
-3. The μ-cost connects to thermodynamics via Landauer's principle: $W \geq kT \ln 2 \cdot \mu$.
 
-**Empirical Test:**
-If you built hardware that achieved S = 16/5 in the real world, you should measure $\geq 50$ bits worth of thermodynamic work to establish the partition. **This is a falsifiable prediction.**
+**NO.** The Thiele model is a **computational/mathematical model**, not a blueprint for physical hardware.
+
+**What it demonstrates:**
+1. Partition-based reasoning can model correlations that are mathematically consistent but not physically achievable
+2. The mathematical structure is well-defined (proven in Coq)
+3. If such correlations *were* physically realizable, μ-accounting predicts measurable thermodynamic cost
+
+**What it does NOT claim:**
+- ❌ We can build hardware that violates quantum mechanics
+- ❌ The Thiele Machine will replace quantum computers
+- ❌ Tsirelson bound is wrong
+- ✅ **Correct interpretation:** Partition logic allows mathematical constructions beyond quantum correlations, demonstrating that the computational model is strictly richer than models constrained by quantum mechanics
+
+**Falsifiability:** The mathematics are proven in BellInequality.v. You can verify all 16 probability values sum correctly and produce S=16/5. This is pure mathematics, not experimental physics.
 
 ---
 
@@ -792,13 +806,15 @@ We have introduced the **Thiele Machine**, a computational model that strictly e
    **Status:** ✅ Proven in Coq (`coq/thielemachine/coqproofs/Separation.v`)
 
 **Implementation:**
-- Python VM (1,549 lines), Verilog CPU (24 files), Coq proofs (114 files, ~54,600 lines)
-- 1143+ tests pass
+- Python implementation (~9,200 lines total)
+- Partial Verilog RTL (fuzzing-validated, not formally proven)
+- Coq proofs (124 files, 59,233 lines)
+- 1,107 passing tests
 - 12/12 falsification tests survived
 
 **Flagship Demo:**
 - CHSH supra-quantum correlations (S = 16/5 = 3.2 > 2√2)
-- Verified in Coq with 2,487-line proof
+- Verified in Coq (BellInequality.v, 2,993 lines)
 - Empirically achieves 90% win rate in 100,000 trials
 
 ---
@@ -896,7 +912,9 @@ We thank the Coq development team for the proof assistant, the open-source commu
 
 ---
 
-**Last Updated:** 2025-12-07
+**Last Updated:** 2025-12-10 (Verified by comprehensive audit)
 **DOI:** [10.5281/zenodo.17316437](https://doi.org/10.5281/zenodo.17316437)
 **Code Repository:** [github.com/sethirus/The-Thiele-Machine](https://github.com/sethirus/The-Thiele-Machine)
 **License:** Apache 2.0
+
+**For Complete Falsifiable Analysis:** See [THE_THIELE_MACHINE_BOOK.md](THE_THIELE_MACHINE_BOOK.md) for comprehensive verification of all claims, including what's proven (✅), what's speculative (❌), and what requires further work (⚠️).

@@ -8,14 +8,22 @@
 from math import gcd, isqrt
 import random
 
-# --- NEW: Import the powerful sympy library for factoring ---
+# --- NEW: Import powerful factoring libraries ---
 try:
     from sympy.ntheory import factorint
     SYMPY_AVAILABLE = True
 except ImportError:
     SYMPY_AVAILABLE = False
-    print("WARNING: sympy library not found. Factoring large numbers will be very slow or fail.")
-    print("Install it with: pip install sympy")
+
+try:
+    import gmpy2
+    GMPY2_AVAILABLE = True
+except ImportError:
+    GMPY2_AVAILABLE = False
+
+if not SYMPY_AVAILABLE and not GMPY2_AVAILABLE:
+    print("WARNING: Neither sympy nor gmpy2 libraries found. Factoring large numbers will be very slow or fail.")
+    print("Install them with: pip install sympy gmpy2")
 
 
 def recover_factors_partitioned(n: int, show_progress: bool = True) -> tuple[int, int]:
@@ -42,6 +50,30 @@ def recover_factors_partitioned(n: int, show_progress: bool = True) -> tuple[int
             print("    ✓ Found factor 2 (even number)")
         return 2, n // 2
 
+    if GMPY2_AVAILABLE:
+        try:
+            if show_progress:
+                print("    Using gmpy2 for factoring...")
+            # Try gmpy2's factoring (might be faster)
+            from gmpy2 import mpz, factor
+            n_mpz = mpz(n)
+            factors_dict = factor(n_mpz)
+            factor_list = [(int(p), int(e)) for p, e in factors_dict.items()]
+            if len(factor_list) == 2 and factor_list[0][1] == 1 and factor_list[1][1] == 1:
+                p = int(factor_list[0][0])
+                q = int(factor_list[1][0])
+                if show_progress:
+                    print(f"    ✓ Found prime factors: {p} and {q}")
+                return (p, q) if p < q else (q, p)
+            else:
+                p = int(factor_list[0][0])
+                if show_progress:
+                    print(f"    ✓ Found factor: {p}")
+                return p, n // p
+        except Exception as e:
+            if show_progress:
+                print(f"    gmpy2 factoring failed with error: {e}. Falling back to sympy...")
+    
     if SYMPY_AVAILABLE:
         try:
             if show_progress:
