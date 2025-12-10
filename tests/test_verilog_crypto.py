@@ -15,7 +15,7 @@ Validates:
 
 import cocotb
 from cocotb.clock import Clock
-from cocotb.triggers import RisingEdge, FallenEdge, Timer
+from cocotb.triggers import RisingEdge, FallingEdge, Timer
 from cocotb.result import TestFailure
 import random
 import struct

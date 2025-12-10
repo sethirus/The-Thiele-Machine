@@ -10,9 +10,9 @@ from pathlib import Path
 # Check if we're being run as the main script before module operations
 _IS_MAIN = __name__ == "__main__"
 
-_MODULE_PATH = Path(__file__).resolve().parent / "demos" / "research-demos" / "architecture" / "demonstrate_isomorphism.py"
+_MODULE_PATH = Path(__file__).resolve().parent / "demonstrate_isomorphism_impl.py"
 _SPEC = importlib.util.spec_from_file_location(
-    "demos.research_demos.architecture.demonstrate_isomorphism", str(_MODULE_PATH)
+    "scripts.verification.demonstrate_isomorphism_impl", str(_MODULE_PATH)
 )
 if _SPEC is None or _SPEC.loader is None:
     raise ImportError(f"Unable to load demonstrate_isomorphism from {_MODULE_PATH}")

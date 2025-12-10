@@ -1,0 +1,103 @@
+{
+  "timestamp": "2025-12-09T19:21:01.601290",
+  "categories": [
+    {
+      "name": "String Manipulation",
+      "tests_run": 17,
+      "tests_passed": 17,
+      "all_match": true,
+      "total_operations_std": 1559,
+      "total_operations_vm": 1559,
+      "total_mu_cost": 4285.95,
+      "execution_time": 2.614830493927002
+    },
+    {
+      "name": "Recursion Patterns",
+      "tests_run": 24,
+      "tests_passed": 24,
+      "all_match": true,
+      "total_operations_std": 5666,
+      "total_operations_vm": 5666,
+      "total_mu_cost": 5798.6,
+      "execution_time": 0.02811741828918457
+    },
+    {
+      "name": "Graph Algorithms",
+      "tests_run": 13,
+      "tests_passed": 13,
+      "all_match": true,
+      "total_operations_std": 133,
+      "total_operations_vm": 133,
+      "total_mu_cost": 2605.3,
+      "execution_time": 0.015199422836303711
+    },
+    {
+      "name": "Mathematical Edge Cases",
+      "tests_run": 36,
+      "tests_passed": 36,
+      "all_match": true,
+      "total_operations_std": 267,
+      "total_operations_vm": 267,
+      "total_mu_cost": 6490.7,
+      "execution_time": 0.029378890991210938
+    },
+    {
+      "name": "Backtracking",
+      "tests_run": 13,
+      "tests_passed": 13,
+      "all_match": true,
+      "total_operations_std": 9898,
+      "total_operations_vm": 9898,
+      "total_mu_cost": 3845.8,
+      "execution_time": 0.056921958923339844
+    }
+  ],
+  "aggregate": {
+    "total_categories": 5,
+    "total_tests": 103,
+    "total_passed": 103,
+    "pass_rate": 1.0,
+    "total_operations_std": 17523,
+    "total_operations_vm": 17523,
+    "operations_match": true,
+    "total_mu_cost": 23026.35,
+    "all_categories_pass": true
+  },
+  "derived_conclusions": [
+    {
+      "type": "STRUCTURAL_ISOMORPHISM",
+      "statement": "Standard Python and Thiele VM produce identical results for all test cases",
+      "evidence": "103/103 tests passed (100%)",
+      "falsifiable": true,
+      "supported": true
+    },
+    {
+      "type": "OPERATION_ISOMORPHISM",
+      "statement": "Operation counts are identical between Standard Python and Thiele VM",
+      "evidence": "Total operations: Std=17523, VM=17523",
+      "falsifiable": true,
+      "supported": true
+    },
+    {
+      "type": "MU_COST_TRACKING",
+      "statement": "Thiele VM successfully tracks \u03bc-cost for all operations",
+      "evidence": "Total \u03bc-cost tracked: 23026.35 bits across 103 tests",
+      "falsifiable": true,
+      "supported": true
+    },
+    {
+      "type": "CAPABILITY_COVERAGE",
+      "statement": "Validated 5 distinct capability categories",
+      "evidence": "String Manipulation, Recursion Patterns, Graph Algorithms, Mathematical Edge Cases, Backtracking",
+      "falsifiable": true,
+      "supported": true
+    },
+    {
+      "type": "SEPARATION_PROPERTY",
+      "statement": "Thiele VM adds \u03bc-cost tracking without changing computation results",
+      "evidence": "Isomorphism: 100.0%, \u03bc tracked: 23026.35 bits",
+      "falsifiable": true,
+      "supported": true
+    }
+  ]
+}
