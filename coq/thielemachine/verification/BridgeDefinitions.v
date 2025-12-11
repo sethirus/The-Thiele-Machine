@@ -489,19 +489,22 @@ Definition IS_FindRule_Start (pc : nat) : Prop := pc = 3.
 Definition tape_window_ok (st : CPU.State) (tape : list nat) : Prop :=
   firstn (length tape) (skipn UTM_Program.TAPE_START_ADDR st.(CPU.mem)) = tape.
 
+Transparent setup_state.
 Lemma tape_window_ok_setup_state : forall tm q tape head,
   length program <= UTM_Program.RULES_START_ADDR ->
   length (UTM_Encode.encode_rules tm.(tm_rules))
     <= UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR ->
   tape_window_ok (setup_state tm ((q, tape), head)) tape.
-Transparent setup_state.
 Proof.
   intros tm q tape head Hprog Hrules.
-  unfold tape_window_ok, setup_state.
+  unfold tape_window_ok.
+  set (conf := ((q, tape), head)).
+  unfold setup_state.
+  destruct conf as ((q', tape'), head').
+  simpl.
   set (rrules := UTM_Encode.encode_rules tm.(tm_rules)).
   set (mem0 := pad_to UTM_Program.RULES_START_ADDR program).
   set (mem1 := pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rrules)).
-  simpl.
   assert (Hmem0_len : length mem0 = UTM_Program.RULES_START_ADDR).
   { subst mem0. apply length_pad_to_ge. exact Hprog. }
   
@@ -513,16 +516,11 @@ Proof.
     { unfold k. rewrite app_length, Hmem0_len.
         apply Nat.add_le_mono_l with (n := length rrules) (m := UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR) (p := UTM_Program.RULES_START_ADDR) in Hrules.
       exact Hrules. }
-    (* Build the padded prefix using `pad_to` (keep it opaque) and use the
-       exact firstn/skipn lemma which matches the `pad_to` shape directly. *)
-    set (pref := pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rrules)).
+    set (pref := mem1).
     assert (Hpref_len : length pref = UTM_Program.TAPE_START_ADDR).
     { unfold pref. apply length_pad_to_ge. exact Hk_le. }
-    assert (Heq : mem1 = pref) by reflexivity.
-    rewrite Heq.
-    simpl.
-    change (tape_window_ok (setup_state tm ((q, tape), head)) tape) with (firstn (length tape) (skipn UTM_Program.TAPE_START_ADDR (pref ++ tape)) = tape).
-    exact (firstn_skipn_app_exact pref tape UTM_Program.TAPE_START_ADDR Hpref_len).
+    apply eq_sym.
+    apply (firstn_skipn_app_exact pref tape UTM_Program.TAPE_START_ADDR Hpref_len).
 Qed.
 
 (* Full invariant relating CPU state to TM configuration *)
@@ -718,7 +716,6 @@ Qed.
    This stops the unifier from expanding massive symbolic lists. *)
 #[global] Opaque program.
 #[global] Opaque pad_to.
-#[global] Opaque setup_state.
 
 (* Rewrite run_n in terms of iterations *)
 Lemma run_n_unfold_3 : forall cpu,
