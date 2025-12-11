@@ -1,0 +1,51 @@
+{
+  "coq_instructions": [
+    "pnew",
+    "psplit",
+    "pmerge",
+    "lassert",
+    "ljoin",
+    "mdlacc",
+    "emit",
+    "pdiscover",
+    "pyexec"
+  ],
+  "coq_instruction_count": 9,
+  "coq_step_rules": [
+    "pnew",
+    "psplit",
+    "psplit_failure",
+    "pmerge",
+    "pmerge_failure",
+    "lassert_sat",
+    "lassert_unsat",
+    "ljoin_equal",
+    "ljoin_mismatch",
+    "mdlacc",
+    "emit",
+    "pdiscover",
+    "pyexec"
+  ],
+  "coq_step_count": 13,
+  "verilog_opcodes": {
+    "PNEW": "8'h00",
+    "PSPLIT": "8'h01",
+    "PMERGE": "8'h02",
+    "LASSERT": "8'h03",
+    "LJOIN": "8'h04",
+    "MDLACC": "8'h05",
+    "PDISCOVER": "8'h06",
+    "XFER": "8'h07",
+    "PYEXEC": "8'h08",
+    "XOR_LOAD": "8'h0A",
+    "XOR_ADD": "8'h0B",
+    "XOR_SWAP": "8'h0C",
+    "XOR_RANK": "8'h0D",
+    "EMIT": "8'h0E",
+    "ORACLE_HALTS": "8'h0F",
+    "HALT": "8'hFF"
+  },
+  "verilog_opcode_count": 16,
+  "all_mapped": true,
+  "verdict": "CORRECT"
+}
