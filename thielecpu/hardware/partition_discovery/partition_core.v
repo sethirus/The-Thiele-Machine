@@ -152,11 +152,22 @@ module partition_core #(
                             // Merge two modules
                             // μ-update: mu_execution += 4
                             if (pmerge_m1 < num_modules && pmerge_m2 < num_modules && pmerge_m1 != pmerge_m2) begin
-                                partitions[pmerge_m1*REGION_WIDTH +: REGION_WIDTH] <= 
+                                partitions[pmerge_m1*REGION_WIDTH +: REGION_WIDTH] <=
                                     partitions[pmerge_m1*REGION_WIDTH +: REGION_WIDTH] |
                                     partitions[pmerge_m2*REGION_WIDTH +: REGION_WIDTH];
-                                partitions[pmerge_m2*REGION_WIDTH +: REGION_WIDTH] <= 0;
+                                // Compact the partition table so module indices remain dense
+                                // after merging. Move the final active module into the slot
+                                // vacated by pmerge_m2 (unless pmerge_m2 already references
+                                // the last active entry), then clear the old tail.
+                                if (pmerge_m2 != num_modules - 1) begin
+                                    partitions[pmerge_m2*REGION_WIDTH +: REGION_WIDTH] <=
+                                        partitions[(num_modules-1)*REGION_WIDTH +: REGION_WIDTH];
+                                end else begin
+                                    partitions[pmerge_m2*REGION_WIDTH +: REGION_WIDTH] <= 0;
+                                end
+                                partitions[(num_modules-1)*REGION_WIDTH +: REGION_WIDTH] <= 0;
                                 result_module_id <= pmerge_m1;
+                                num_modules <= num_modules - 1;
                                 mu_execution <= mu_execution + 4;
                             end
                         end
