@@ -1,0 +1,117 @@
+{
+  "coq_instructions": [
+    "pnew",
+    "psplit",
+    "pmerge",
+    "lassert"
+  ],
+  "coq_step_rules": [
+    "pnew",
+    "psplit",
+    "psplit_failure",
+    "pmerge",
+    "pmerge_failure",
+    "lassert_sat",
+    "lassert_unsat",
+    "ljoin_equal",
+    "ljoin_mismatch",
+    "mdlacc",
+    "emit",
+    "pdiscover",
+    "pyexec"
+  ],
+  "verilog_opcodes": {
+    "PNEW": "00",
+    "PSPLIT": "01",
+    "PMERGE": "02",
+    "LASSERT": "03",
+    "LJOIN": "04",
+    "MDLACC": "05",
+    "PDISCOVER": "06",
+    "XFER": "07",
+    "PYEXEC": "08",
+    "XOR_LOAD": "0A",
+    "XOR_ADD": "0B",
+    "XOR_SWAP": "0C",
+    "XOR_RANK": "0D",
+    "EMIT": "0E",
+    "ORACLE_HALTS": "0F",
+    "HALT": "FF"
+  },
+  "verilog_handlers": [
+    "HALT",
+    "XOR_ADD",
+    "PNEW",
+    "EMIT",
+    "PDISCOVER",
+    "LASSERT",
+    "XOR_LOAD",
+    "XOR_RANK",
+    "ORACLE_HALTS",
+    "LJOIN",
+    "MDLACC",
+    "XOR_SWAP",
+    "PMERGE",
+    "PSPLIT",
+    "XFER",
+    "PYEXEC"
+  ],
+  "additional_opcodes": {
+    "XFER": "07",
+    "XOR_LOAD": "0A",
+    "XOR_ADD": "0B",
+    "XOR_SWAP": "0C",
+    "XOR_RANK": "0D",
+    "ORACLE_HALTS": "0F",
+    "HALT": "FF"
+  },
+  "mapping_results": {
+    "pnew": {
+      "verilog_name": "PNEW",
+      "has_opcode": true,
+      "has_handler": true,
+      "has_execution": true,
+      "is_complete": true,
+      "step_rules": [
+        "pnew"
+      ]
+    },
+    "psplit": {
+      "verilog_name": "PSPLIT",
+      "has_opcode": true,
+      "has_handler": true,
+      "has_execution": true,
+      "is_complete": true,
+      "step_rules": [
+        "psplit",
+        "psplit_failure"
+      ]
+    },
+    "pmerge": {
+      "verilog_name": "PMERGE",
+      "has_opcode": true,
+      "has_handler": true,
+      "has_execution": true,
+      "is_complete": true,
+      "step_rules": [
+        "pmerge",
+        "pmerge_failure"
+      ]
+    },
+    "lassert": {
+      "verilog_name": "LASSERT",
+      "has_opcode": true,
+      "has_handler": true,
+      "has_execution": true,
+      "is_complete": true,
+      "step_rules": [
+        "lassert_sat",
+        "lassert_unsat"
+      ]
+    }
+  },
+  "complete_count": 4,
+  "total_count": 4,
+  "coverage_percentage": 100.0,
+  "verdict": "CORRECT"
+}
