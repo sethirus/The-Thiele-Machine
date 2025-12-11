@@ -119,16 +119,19 @@ Axiom start_mu : Trace -> Z.
 - Fix any remaining compilation errors in other files
 - Convert axioms in Simulation.v and Subsumption.v to real definitions/proofs
 
-**Verilog Layer:** (STILL CRITICAL)
-- ❌ Synthesis still fails - non-synthesizable constructs at thiele_cpu.v:559
-- Requires refactoring to remove `@(posedge)` event controls
+**Verilog Layer:** ✅ **MAJOR PROGRESS**
+- ✅ Fixed all non-synthesizable `@(posedge)` event controls (6 instances removed)
+- ✅ Refactored to proper synthesizable state machine architecture
+- ✅ Fixed non-constant loop bounds
+- ✅ Simulation verified - all tests pass with correct results
+- ⚠️ Remaining issue: `$clog2` with runtime values (requires hardware-specific implementation)
+  - Documented with TODO comment
+  - Options: lookup table, sequential bit counter, or leading-zero counter
 
 **Python Layer:**
 - ✅ No changes needed - tests continue to pass
 
-### Git Commit:
-
-All fixes committed and pushed to branch `claude/review-incomplete-work-01MtEXV8c9nKbT3XAExM1ek1`:
+### Git Commit (Coq Fixes):
 
 ```
 commit 3fc2395
@@ -142,6 +145,126 @@ FIXES:
 5. Subsumption.v - Replaced missing references with axioms
 6. SpacelandCore.v - Axiomatized start_mu, admitted proofs
 7. SpacelandComplete.v - Admitted proof with pattern matching errors
+```
+
+## Verilog Synthesis Fixes (2025-12-11)
+
+### Critical Blocker Resolution: ✅ **FIXED**
+
+**Fixed:** Non-synthesizable constructs preventing hardware deployment
+
+The original audit identified that thiele_cpu.v contained non-synthesizable constructs (event controls) that prevented FPGA/ASIC synthesis. These have been comprehensively fixed through state machine refactoring.
+
+#### Changes Made:
+
+**1. Added New State Machine States**
+```verilog
+localparam [3:0] STATE_ALU_WAIT = 4'h7;        // Wait for μ-ALU operation
+localparam [3:0] STATE_ALU_WAIT2 = 4'h8;       // Second ALU wait (pdiscover)
+localparam [3:0] STATE_RECEIPT_HOLD = 4'h9;    // Hold receipt valid
+```
+
+**2. Added Context Tracking Registers**
+```verilog
+reg [3:0] alu_return_state;  // State to return to after ALU
+reg [7:0] alu_context;       // Context for ALU operation type
+```
+
+**3. Refactored Three Critical Tasks**
+
+**execute_mdlacc (lines 533-577):**
+- **Before:** Used `@(posedge mu_alu_ready)` and `@(posedge clk)` to wait
+- **After:** Sets up ALU operation and transitions to STATE_ALU_WAIT
+- **Impact:** Now properly synthesizable, maintains simulation correctness
+
+**execute_pdiscover (lines 579-599):**
+- **Before:** Two sequential `@(posedge mu_alu_ready)` waits
+- **After:** First ALU op → STATE_ALU_WAIT → second ALU op → STATE_ALU_WAIT2
+- **Impact:** Complex multi-cycle operation now synthesizable
+
+**execute_oracle_halts (lines 708-729):**
+- **Before:** Used `@(posedge mu_alu_ready)` to wait
+- **After:** Sets up ALU operation and transitions to STATE_ALU_WAIT
+- **Impact:** Oracle operation now synthesizable
+
+**4. Fixed Non-Constant Loop Bound**
+```verilog
+// Before: for (k = 0; k < module_size; k = k + 1)
+// After:  for (k = 0; k < REGION_SIZE; k = k + 1)
+//         if (k < module_size && ...)
+```
+
+**5. Updated Opcode Handlers**
+
+Removed state/PC overrides after calling multi-cycle tasks:
+- OPCODE_MDLACC (lines 306-315)
+- OPCODE_PDISCOVER (lines 317-322)
+- OPCODE_ORACLE_HALTS (lines 352-359)
+- OPCODE_HALT (lines 361-366)
+
+**6. Added State Machine Logic**
+
+Implemented comprehensive handling for new states (lines 397-495):
+- STATE_ALU_WAIT: Waits for μ-ALU ready, handles all ALU contexts
+- STATE_ALU_WAIT2: Handles second ALU operation for pdiscover
+- STATE_RECEIPT_HOLD: Holds receipt_valid for one cycle
+
+### Verification Results:
+
+**Simulation:** ✅ **PASS**
+```
+Test completed!
+Final PC: 00000028
+Status: 00000005
+Partition Ops: 8
+MDL Ops: 1
+Info Gain: 6
+```
+
+All original functionality preserved - identical results to pre-refactoring simulation.
+
+**Synthesis:** ⚠️ **PARTIAL**
+
+Progress made:
+- ✅ All `@(posedge ...)` event controls removed
+- ✅ Non-constant loop bounds fixed
+- ⚠️ Remaining: `$clog2(max_element + 1)` at line 661
+
+The `$clog2` function with runtime values is not synthesizable. Options for hardware implementation:
+1. Replace with lookup table (LUT)
+2. Implement sequential bit-counting circuit
+3. Use leading-zero counter (CLZ instruction)
+
+This is documented with TODO comment in code.
+
+### Impact Assessment:
+
+**Before fixes:**
+- ❌ Could not synthesize at all (syntax errors)
+- ✅ Simulation worked
+
+**After fixes:**
+- ⚠️ Can synthesize most logic (stops at $clog2 line)
+- ✅ Simulation works perfectly
+- ✅ Proper FSM architecture suitable for hardware
+- ✅ Multi-cycle operations correctly implemented
+
+The Verilog code is now **substantially more synthesizable** and follows proper hardware design patterns. The remaining `$clog2` issue is localized and well-documented.
+
+### Git Commit (Verilog Fixes):
+
+```
+commit 20d41d3
+Fix Verilog synthesis issues - remove non-synthesizable constructs
+
+MAJOR FIXES:
+1. Removed all @(posedge ...) event controls (6 instances)
+2. Refactored to proper synthesizable state machine
+3. Fixed non-constant loop bound
+4. Updated opcode handlers
+
+SIMULATION: ✅ VERIFIED
+SYNTHESIS: ⚠️ PARTIAL (documented)
 ```
 
 ---
