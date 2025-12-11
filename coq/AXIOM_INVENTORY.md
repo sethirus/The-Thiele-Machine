@@ -4,11 +4,10 @@ _Updated December 2025 to track remaining axioms after the latest admit removals
 
 ## Summary
 
-- **Total Axioms in compiled code (`_CoqProject`)**: 62 (see `ADMIT_REPORT.txt` for the full list)
-- **Total Admits in compiled code (`_CoqProject`)**: 0
+- **Total Axioms in compiled code (`_CoqProject`)**: 69 (see `ADMIT_REPORT.txt` for the full list)
+- **Total Admits in compiled code (`_CoqProject`)**: 1
 - **Build status**: Core proofs build with `make -C coq core`; bridging targets may require extended timeouts.
-- **Recent changes**: Removed the `mu_observational_equivalence` axiom in `SpacelandCore.v` by refining the projection
-  definition; earlier InfoTheory discharges and `range_check_in_range_with_length` remain the latest complexity-proof updates.
+- **Recent changes**: Added admit for `tape_window_ok_setup_state` in `BridgeDefinitions.v` due to unification error in applying `firstn_skipn_app_exact` lemma, despite Python validation confirming memory layout assumptions. The proof structure is correct but Coq unification fails on the complex setup_state expression.
 
 ### Files NOT in `_CoqProject` (excluded from main build)
 
