@@ -1,4 +1,5 @@
 From Coq Require Import Lia.
+From ThieleUniversal Require Import TM UTM_Program UTM_Encode.
 From ThieleMachine Require Import BridgeDefinitions.
 From ThieleMachine Require Import BridgeCheckpoints.
 
