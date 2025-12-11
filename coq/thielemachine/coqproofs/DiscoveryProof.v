@@ -205,7 +205,7 @@ Proof.
     { constructor; [assumption|exact Hnodup_seq]. }
     assert (Hlen_le : length (x :: seq start len) <= length l).
     { eapply NoDup_incl_length; eauto. }
-    simpl in Hlen_le. lia.
+    simpl in Hlen_le. rewrite seq_length in Hlen_le. lia.
 Qed.
 
 Lemma perm_of_seq_check_sound : forall l n,
