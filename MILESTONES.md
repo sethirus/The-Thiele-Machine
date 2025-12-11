@@ -19,12 +19,23 @@
 - ✅ Simulated μ-ALU testbench with Icarus Verilog
 - ✅ All 6 μ-ALU tests passing (add, sub, mul, div, overflow, info gain)
 - ✅ Generated VCD waveform traces
+- ✅ Synthesized μ-Core (812 cells)
+- ✅ Synthesized MAU (894 cells)
+- ✅ Synthesized LEI (377 cells)
+- ✅ Synthesized PEE (504 cells)
+- ✅ Created comprehensive synthesis report
 
 ## In Progress 🚧
 
 ### Milestone 4: Full RTL Synthesis
-- [ ] Synthesize complete thiele_cpu.v module
+- [x] Synthesize μ-Core module (812 cells) ✅
+- [x] Synthesize MAU module (894 cells) ✅
+- [x] Synthesize LEI module (377 cells) ✅
+- [x] Synthesize PEE module (504 cells) ✅
+- [x] Create SYNTHESIS_REPORT.md ✅
+- [ ] Synthesize MMU and state_serializer
 - [ ] Create SystemVerilog-compatible synthesis flow
+- [ ] Synthesize complete thiele_cpu.v module
 - [ ] Generate resource utilization reports
 - [ ] Validate all hardware modules compile
 
