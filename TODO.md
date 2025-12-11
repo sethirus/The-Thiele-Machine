@@ -15,6 +15,11 @@
 ### Synthesis
 - [x] Synthesize μ-ALU module with Yosys
 - [x] Simulate μ-ALU with iverilog
+- [x] Synthesize μ-Core module (812 cells) ✅
+- [x] Synthesize MAU module (894 cells) ✅
+- [x] Synthesize LEI module (377 cells) ✅
+- [x] Synthesize PEE module (504 cells) ✅
+- [x] Create SYNTHESIS_REPORT.md ✅
 - [ ] Fix SystemVerilog compatibility in thiele_cpu.v
 - [ ] Synthesize complete thiele_cpu.v module
 - [ ] Create synthesis report for all modules
@@ -22,17 +27,17 @@
 
 ### Hardware Modules Status
 - [x] mu_alu.v - TESTED & WORKING ✅
-- [ ] mu_core.v - needs synthesis test
-- [ ] mau.v - needs synthesis test
-- [ ] lei.v - needs synthesis test
-- [ ] pee.v - needs synthesis test
+- [x] mu_core.v - SYNTHESIZED (812 cells) ✅
+- [x] mau.v - SYNTHESIZED (894 cells) ✅
+- [x] lei.v - SYNTHESIZED (377 cells) ✅
+- [x] pee.v - SYNTHESIZED (504 cells) ✅
 - [ ] mmu.v - needs synthesis test
 - [ ] thiele_cpu.v - needs SystemVerilog fix
 - [ ] state_serializer.v - needs synthesis test
 
 ### Synthesis Scripts
-- [x] Create synth_mu_alu.ys for μ-ALU
-- [ ] Create synth_all.ys for complete system
+- [x] Create synth_mu_alu.ys for μ-ALU ✅
+- [x] Create synth_all_modules.ys for batch synthesis ✅
 - [ ] Create synthesis wrapper script
 - [ ] Add synthesis to CI/CD pipeline
 
