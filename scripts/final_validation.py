@@ -95,8 +95,8 @@ def main():
     )
     
     results['mu_ledger_import'] = run_command(
-        "python3 -c 'from thielecpu.mu import MuLedger; print(\"OK\")'",
-        "μ-Ledger module import"
+        "python3 -c 'from thielecpu.mu import information_gain_bits; print(\"OK\")'",
+        "μ-cost utility functions import"
     )
     
     results['primitives_import'] = run_command(
