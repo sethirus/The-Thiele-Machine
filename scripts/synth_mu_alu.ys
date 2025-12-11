@@ -1,0 +1,26 @@
+# Simple Yosys synthesis test for mu_alu module
+# Tests basic synthesis flow for Thiele Machine μ-cost ALU
+
+# Read the μ-ALU module
+read_verilog thielecpu/hardware/mu_alu.v
+
+# Elaborate design
+hierarchy -check -top mu_alu
+
+# Run synthesis
+proc
+opt
+memory
+opt
+techmap
+opt
+
+# Show statistics
+stat
+
+# Write outputs
+write_json /tmp/mu_alu_synth.json
+write_verilog /tmp/mu_alu_synth.v
+
+# Final statistics
+stat -top mu_alu
