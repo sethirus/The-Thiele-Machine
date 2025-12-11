@@ -162,6 +162,8 @@ reg [31:0] rank_temp;
 
 // State machine
 reg [3:0] state;
+reg [3:0] alu_return_state;  // State to return to after ALU operation
+reg [7:0] alu_context;       // Context for ALU operation (which task/phase)
 
 // Loop variables for initialization
 reg [31:0] i, j, region_size, even_count, odd_count, size_a, size_b, total_size, module_size, mdl_cost, temp_size, src_size, dest_size;
@@ -172,6 +174,15 @@ localparam [3:0] STATE_MEMORY = 4'h3;
 localparam [3:0] STATE_LOGIC = 4'h4;
 localparam [3:0] STATE_PYTHON = 4'h5;
 localparam [3:0] STATE_COMPLETE = 4'h6;
+localparam [3:0] STATE_ALU_WAIT = 4'h7;        // Wait for μ-ALU operation
+localparam [3:0] STATE_ALU_WAIT2 = 4'h8;       // Second ALU wait (for pdiscover)
+localparam [3:0] STATE_RECEIPT_HOLD = 4'h9;    // Hold receipt valid for one cycle
+
+// Context values for ALU operations
+localparam [7:0] ALU_CTX_MDLACC = 8'h01;
+localparam [7:0] ALU_CTX_PDISCOVER1 = 8'h02;   // First ALU op in pdiscover
+localparam [7:0] ALU_CTX_PDISCOVER2 = 8'h03;   // Second ALU op in pdiscover
+localparam [7:0] ALU_CTX_ORACLE = 8'h04;
 
 // ============================================================================
 // ASSIGNMENTS
@@ -294,20 +305,20 @@ always @(posedge clk or negedge rst_n) begin
 
                     OPCODE_MDLACC: begin
                         // Accumulate MDL for module; operand_a==0 means current module
+                        // Note: execute_mdlacc handles state transition to ALU_WAIT
                         if (operand_a == 8'h00) begin
                             execute_mdlacc(current_module);
                         end else begin
                             execute_mdlacc(operand_a);
                         end
-                        pc_reg <= pc_reg + 4;
-                        state <= STATE_FETCH;
+                        // Don't set pc_reg or state here - task handles it
                     end
 
                     OPCODE_PDISCOVER: begin
                         // Partition discovery: compute information gain
+                        // Note: execute_pdiscover handles state transition to ALU_WAIT
                         execute_pdiscover(operand_a, operand_b);
-                        pc_reg <= pc_reg + 4;
-                        state <= STATE_FETCH;
+                        // Don't set pc_reg or state here - task handles it
                     end
 
                     OPCODE_XOR_LOAD: begin
@@ -342,16 +353,16 @@ always @(posedge clk or negedge rst_n) begin
                         // Hyper-Thiele Oracle Primitive
                         // In hardware, this would trigger an external oracle interface
                         // For now, we simulate the cost and interface
+                        // Note: execute_oracle_halts handles state transition to ALU_WAIT
                         execute_oracle_halts(operand_a, operand_b);
-                        pc_reg <= pc_reg + 4;
-                        state <= STATE_FETCH;
+                        // Don't set pc_reg or state here - task handles it
                     end
 
                     OPCODE_HALT: begin
                         // Charge MDL for the current module before halting
+                        // Note: execute_mdlacc handles state transition to ALU_WAIT
                         execute_mdlacc(current_module);
-                        pc_reg <= pc_reg + 4;
-                        state <= STATE_FETCH;
+                        // Don't set pc_reg or state here - task handles it
                     end
 
                     default: begin
@@ -381,6 +392,106 @@ always @(posedge clk or negedge rst_n) begin
                     pc_reg <= pc_reg + 4;
                     state <= STATE_FETCH;
                 end
+            end
+
+            STATE_ALU_WAIT: begin
+                // Wait for μ-ALU operation to complete
+                if (mu_alu_ready) begin
+                    mu_alu_valid <= 1'b0;
+
+                    // Handle result based on context
+                    case (alu_context)
+                        ALU_CTX_MDLACC: begin
+                            if (mu_alu_overflow) begin
+                                csr_error <= 32'h6; // μ-bit overflow
+                                pc_reg <= pc_reg + 4;
+                                state <= STATE_FETCH;
+                            end else begin
+                                $display("MDLACC size=%0d mdl_cost=%0d mu_acc(before)=%0d mu_acc(after)=%0d",
+                                        module_size, mdl_cost >> 16, mu_accumulator >> 16, mu_alu_result >> 16);
+                                mu_accumulator <= mu_alu_result;
+                                csr_status <= 32'h5; // MDL accumulation successful
+                                mdl_ops_counter <= mdl_ops_counter + 1;
+
+                                // Provide receipt to μ-Core and transition to hold state
+                                receipt_value <= mu_alu_result;
+                                receipt_valid <= 1'b1;
+                                state <= STATE_RECEIPT_HOLD;
+                            end
+                        end
+
+                        ALU_CTX_PDISCOVER1: begin
+                            if (mu_alu_overflow) begin
+                                csr_error <= 32'h8; // Information gain overflow
+                                pc_reg <= pc_reg + 4;
+                                state <= STATE_FETCH;
+                            end else begin
+                                info_gain_value <= mu_alu_result;
+
+                                // Set up second ALU operation (accumulate info gain)
+                                mu_alu_op <= 3'd0;  // ADD
+                                mu_alu_operand_a <= mu_accumulator;
+                                mu_alu_operand_b <= mu_alu_result;
+                                mu_alu_valid <= 1'b1;
+                                alu_context <= ALU_CTX_PDISCOVER2;
+                                state <= STATE_ALU_WAIT2;
+                            end
+                        end
+
+                        ALU_CTX_ORACLE: begin
+                            if (mu_alu_overflow) begin
+                                csr_error <= 32'h6; // μ-bit overflow
+                            end else begin
+                                mu_accumulator <= mu_alu_result;
+                                csr_status <= 32'h42; // "Answer to Life, Universe, and Everything" placeholder
+                                $display("ORACLE_HALTS invoked - Hyper-Thiele transition");
+                            end
+                            pc_reg <= pc_reg + 4;
+                            state <= STATE_FETCH;
+                        end
+
+                        default: begin
+                            pc_reg <= pc_reg + 4;
+                            state <= alu_return_state;
+                        end
+                    endcase
+                end
+            end
+
+            STATE_ALU_WAIT2: begin
+                // Second ALU wait (for pdiscover)
+                if (mu_alu_ready) begin
+                    mu_alu_valid <= 1'b0;
+
+                    if (alu_context == ALU_CTX_PDISCOVER2) begin
+                        if (mu_alu_overflow) begin
+                            csr_error <= 32'h6; // μ-bit overflow
+                            pc_reg <= pc_reg + 4;
+                            state <= STATE_FETCH;
+                        end else begin
+                            $display("PDISCOVER info_gain=%0d mu_acc(before)=%0d mu_acc(after)=%0d",
+                                    info_gain_value >> 16, mu_accumulator >> 16, mu_alu_result >> 16);
+                            mu_accumulator <= mu_alu_result;
+                            csr_status <= 32'h6; // Discovery successful
+                            partition_ops_counter <= partition_ops_counter + 1;
+
+                            // Provide receipt to μ-Core and transition to hold state
+                            receipt_value <= mu_alu_result;
+                            receipt_valid <= 1'b1;
+                            state <= STATE_RECEIPT_HOLD;
+                        end
+                    end else begin
+                        pc_reg <= pc_reg + 4;
+                        state <= alu_return_state;
+                    end
+                end
+            end
+
+            STATE_RECEIPT_HOLD: begin
+                // Hold receipt valid for one cycle, then clear
+                receipt_valid <= 1'b0;
+                pc_reg <= pc_reg + 4;
+                state <= STATE_FETCH;
             end
 
             default: begin
@@ -532,12 +643,18 @@ task execute_mdlacc;
                 integer bit_length;
                 integer k;
                 max_element = 0;
-                for (k = 0; k < module_size; k = k + 1) begin
-                    if (region_table[module_id][k] > max_element) begin
+                // Use constant loop bound for synthesis
+                for (k = 0; k < REGION_SIZE; k = k + 1) begin
+                    if (k < module_size && region_table[module_id][k] > max_element) begin
                         max_element = region_table[module_id][k];
                     end
                 end
-                // compute bit length as ceil(log2(max_element+1)) using $clog2
+                // TODO SYNTHESIS: $clog2 with runtime values is not synthesizable
+                // For hardware synthesis, this needs to be replaced with:
+                // 1. A lookup table, OR
+                // 2. A sequential bit-counting circuit, OR
+                // 3. A leading-zero counter
+                // For now, using $clog2 for simulation correctness
                 if (max_element == 0) begin
                     bit_length = 1;
                 end else begin
@@ -555,25 +672,10 @@ task execute_mdlacc;
             mu_alu_operand_b <= mdl_cost;
             mu_alu_valid <= 1'b1;
 
-            // Wait for result (in simulation, this will complete in next cycle)
-            @(posedge mu_alu_ready);
-            mu_alu_valid <= 1'b0;
-
-            if (mu_alu_overflow) begin
-                csr_error <= 32'h6; // μ-bit overflow
-            end else begin
-                $display("MDLACC module=%0d size=%0d mdl_cost=%0d mu_acc(before)=%0d mu_acc(after)=%0d", 
-                        module_id, module_size, mdl_cost >> 16, mu_accumulator >> 16, mu_alu_result >> 16);
-                mu_accumulator <= mu_alu_result;
-                csr_status <= 32'h5; // MDL accumulation successful
-                mdl_ops_counter <= mdl_ops_counter + 1;
-                
-                // Provide receipt to μ-Core
-                receipt_value <= mu_alu_result;
-                receipt_valid <= 1'b1;
-                @(posedge clk); // Hold for one cycle
-                receipt_valid <= 1'b0;
-            end
+            // Set up context and transition to wait state
+            alu_context <= ALU_CTX_MDLACC;
+            alu_return_state <= STATE_FETCH;
+            state <= STATE_ALU_WAIT;
         end else begin
             csr_error <= 32'h7; // Invalid module
         end
@@ -591,41 +693,11 @@ task execute_pdiscover;
             mu_alu_operand_a <= before_count;  // before (integer)
             mu_alu_operand_b <= after_count;   // after (integer)
             mu_alu_valid <= 1'b1;
-            
-            // Wait for result
-            @(posedge mu_alu_ready);
-            mu_alu_valid <= 1'b0;
-            
-            if (mu_alu_overflow) begin
-                csr_error <= 32'h8; // Information gain overflow
-            end else begin
-                info_gain_value = mu_alu_result;
-                
-                // Accumulate information gain
-                mu_alu_op <= 3'd0;  // ADD
-                mu_alu_operand_a <= mu_accumulator;
-                mu_alu_operand_b <= info_gain_value;
-                mu_alu_valid <= 1'b1;
-                
-                @(posedge mu_alu_ready);
-                mu_alu_valid <= 1'b0;
-                
-                if (mu_alu_overflow) begin
-                    csr_error <= 32'h6; // μ-bit overflow
-                end else begin
-                    $display("PDISCOVER before=%0d after=%0d info_gain=%0d mu_acc(before)=%0d mu_acc(after)=%0d", 
-                            before_count, after_count, info_gain_value >> 16, mu_accumulator >> 16, mu_alu_result >> 16);
-                    mu_accumulator <= mu_alu_result;  // mu_alu_result is the sum from the ADD operation
-                    csr_status <= 32'h6; // Discovery successful
-                    partition_ops_counter <= partition_ops_counter + 1;
-                    
-                    // Provide receipt to μ-Core
-                    receipt_value <= mu_alu_result;
-                    receipt_valid <= 1'b1;
-                    @(posedge clk); // Hold for one cycle
-                    receipt_valid <= 1'b0;
-                end
-            end
+
+            // Set up context for first ALU operation
+            alu_context <= ALU_CTX_PDISCOVER1;
+            alu_return_state <= STATE_FETCH;
+            state <= STATE_ALU_WAIT;
         end else begin
             csr_error <= 32'h9; // Invalid discovery parameters
         end
@@ -747,28 +819,18 @@ task execute_oracle_halts;
         // This is a semantic primitive that is not Turing-computable.
         // In a physical realization, this would interface with a hyper-computer
         // or be a placeholder for a non-computable transition.
-        
+
         // Charge the distinct "Oracle μ" cost (arbitrary high value)
         // Using μ-ALU to add cost
         mu_alu_op <= 3'd0;  // ADD
         mu_alu_operand_a <= mu_accumulator;
         mu_alu_operand_b <= 32'd1000000; // High cost
         mu_alu_valid <= 1'b1;
-        
-        @(posedge mu_alu_ready);
-        mu_alu_valid <= 1'b0;
-        
-        if (mu_alu_overflow) begin
-            csr_error <= 32'h6; // μ-bit overflow
-        end else begin
-            mu_accumulator <= mu_alu_result;
-            
-            // Signal that we are performing a hyper-computation
-            // In simulation, we might set a specific status code
-            csr_status <= 32'h42; // "Answer to Life, Universe, and Everything" placeholder
-            
-            $display("ORACLE_HALTS invoked - Hyper-Thiele transition");
-        end
+
+        // Set up context and transition to wait state
+        alu_context <= ALU_CTX_ORACLE;
+        alu_return_state <= STATE_FETCH;
+        state <= STATE_ALU_WAIT;
     end
 endtask
 
