@@ -47,7 +47,8 @@ def test_vm_allows_builtin_open(tmp_path):
     host_file = tmp_path / "host.txt"
     host_file.write_text("secret")
 
-    result, output = vm.execute_python(f'__result__ = open("{host_file}", "r").read()')
+    # Use POSIX path here so the string literal is valid when parsed on any OS.
+    result, output = vm.execute_python(f'__result__ = open("{host_file.as_posix()}", "r").read()')
 
     # With sandbox removed, open() should work
     assert result == "secret"

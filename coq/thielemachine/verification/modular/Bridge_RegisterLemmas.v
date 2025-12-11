@@ -292,3 +292,93 @@ Lemma step_CopyReg : forall cpu rd rs,
   CPU.read_reg rd (CPU.step (CPU.CopyReg rd rs) cpu) =
     CPU.read_reg rs cpu.
 Proof.
+ Proof.
+ intros cpu rd rs Hneq Hrd_bound Hlen.
+ split.
+ - apply CPU.step_pc_succ. unfold CPU.pc_unchanged. exact Hneq.
+ - unfold CPU.step, CPU.read_reg, CPU.write_reg. simpl.
+   unfold CPU.REG_PC in Hneq.
+   assert (rd >= 1) by (destruct rd; [contradiction|lia]).
+   destruct (CPU.regs cpu) as [|r0 rest]; [simpl in Hlen; lia|].
+   simpl.
+   rewrite app_nth2.
+   + rewrite firstn_length. simpl.
+     assert (Hle: rd <= S (length rest)) by (simpl in Hlen; lia).
+     rewrite Nat.min_l by exact Hle.
+     replace (rd - rd) with 0 by lia. simpl. reflexivity.
+   + rewrite firstn_length. simpl.
+     assert (Hle: rd <= S (length rest)) by (simpl in Hlen; lia).
+     rewrite Nat.min_l by exact Hle. lia.
+ Qed.
+
+Lemma step_LoadIndirect : forall cpu rd ra,
+  rd <> CPU.REG_PC ->
+  rd < 10 ->
+  length cpu.(CPU.regs) = 10 ->
+  CPU.read_reg CPU.REG_PC (CPU.step (CPU.LoadIndirect rd ra) cpu) = S (CPU.read_reg CPU.REG_PC cpu) /\
+  CPU.read_reg rd (CPU.step (CPU.LoadIndirect rd ra) cpu) = read_mem (read_reg ra cpu) cpu.
+Proof.
+  intros cpu rd ra Hneq Hrd_bound Hlen.
+  split.
+  - apply CPU.step_pc_succ. unfold CPU.pc_unchanged. exact Hneq.
+  - unfold CPU.step, CPU.read_reg, CPU.write_reg. simpl.
+    unfold CPU.REG_PC in Hneq.
+    destruct (CPU.regs cpu) as [|r0 rest]; [simpl in Hlen; lia|].
+    simpl.
+    rewrite app_nth2.
+    + rewrite firstn_length. simpl.
+      assert (Hle: rd <= S (length rest)) by (simpl in Hlen; lia).
+      rewrite Nat.min_l by exact Hle.
+      replace (rd - rd) with 0 by lia. simpl. reflexivity.
+    + rewrite firstn_length. simpl.
+      assert (Hle: rd <= S (length rest)) by (simpl in Hlen; lia).
+      rewrite Nat.min_l by exact Hle. lia.
+Qed.
+
+Lemma step_AddConst : forall cpu rd v,
+  rd <> CPU.REG_PC ->
+  rd < 10 ->
+  length cpu.(CPU.regs) = 10 ->
+  CPU.read_reg CPU.REG_PC (CPU.step (CPU.AddConst rd v) cpu) = S (CPU.read_reg CPU.REG_PC cpu) /\
+  CPU.read_reg rd (CPU.step (CPU.AddConst rd v) cpu) = CPU.read_reg rd cpu + v.
+Proof.
+  intros cpu rd v Hneq Hrd_bound Hlen.
+  split.
+  - apply CPU.step_pc_succ. unfold CPU.pc_unchanged. exact Hneq.
+  - unfold CPU.step, CPU.read_reg, CPU.write_reg. simpl.
+    unfold CPU.REG_PC in Hneq.
+    destruct (CPU.regs cpu) as [|r0 rest]; [simpl in Hlen; lia|].
+    simpl.
+    rewrite app_nth2.
+    + rewrite firstn_length. simpl.
+      assert (Hle: rd <= S (length rest)) by (simpl in Hlen; lia).
+      rewrite Nat.min_l by exact Hle.
+      replace (rd - rd) with 0 by lia. simpl. reflexivity.
+    + rewrite firstn_length. simpl.
+      assert (Hle: rd <= S (length rest)) by (simpl in Hlen; lia).
+      rewrite Nat.min_l by exact Hle. lia.
+Qed.
+
+Lemma step_SubReg : forall cpu rd rs1 rs2,
+  rd <> CPU.REG_PC ->
+  rd < 10 ->
+  length cpu.(CPU.regs) = 10 ->
+  CPU.read_reg CPU.REG_PC (CPU.step (CPU.SubReg rd rs1 rs2) cpu) = S (CPU.read_reg CPU.REG_PC cpu) /\
+  CPU.read_reg rd (CPU.step (CPU.SubReg rd rs1 rs2) cpu) = CPU.read_reg rs1 cpu - CPU.read_reg rs2 cpu.
+Proof.
+  intros cpu rd rs1 rs2 Hneq Hrd_bound Hlen.
+  split.
+  - apply CPU.step_pc_succ. unfold CPU.pc_unchanged. exact Hneq.
+  - unfold CPU.step, CPU.read_reg, CPU.write_reg. simpl.
+    unfold CPU.REG_PC in Hneq.
+    destruct (CPU.regs cpu) as [|r0 rest]; [simpl in Hlen; lia|].
+    simpl.
+    rewrite app_nth2.
+    + rewrite firstn_length. simpl.
+      assert (Hle: rd <= S (length rest)) by (simpl in Hlen; lia).
+      rewrite Nat.min_l by exact Hle.
+      replace (rd - rd) with 0 by lia. simpl. reflexivity.
+    + rewrite firstn_length. simpl.
+      assert (Hle: rd <= S (length rest)) by (simpl in Hlen; lia).
+      rewrite Nat.min_l by exact Hle. lia.
+Qed.

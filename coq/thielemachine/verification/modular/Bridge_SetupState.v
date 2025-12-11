@@ -45,10 +45,12 @@ Definition setup_state (tm : TM) (conf : TMConfig) : CPU.State :=
   let regs1 := set_nth regs0 CPU.REG_Q q in
   let regs2 := set_nth regs1 CPU.REG_HEAD head in
   let regs3 := set_nth regs2 CPU.REG_PC 0 in
+  let regs4 := set_nth regs3 CPU.REG_TEMP1 UTM_Program.TAPE_START_ADDR in
+  let regs5 := set_nth regs4 CPU.REG_ADDR (UTM_Program.TAPE_START_ADDR + head) in
   let rules := UTM_Encode.encode_rules tm.(tm_rules) in
   let mem0 := pad_to UTM_Program.RULES_START_ADDR program in
   let mem1 := pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules) in
-  {| CPU.regs := regs3; CPU.mem := mem1 ++ tape; CPU.cost := 0 |}.
+  {| CPU.regs := regs5; CPU.mem := mem1 ++ tape; CPU.cost := 0 |}.
 
 (* Don't make these opaque yet - we need them for foundational lemmas *)
 
@@ -178,20 +180,14 @@ Proof.
   assert (Hmem0_len : length mem0 = UTM_Program.RULES_START_ADDR).
   { subst mem0. apply length_pad_to_ge. exact Hprog. }
   assert (Hfit : length (mem0 ++ rrules) <= UTM_Program.TAPE_START_ADDR).
-  { rewrite app_length, Hmem0_len.
+  { rewrite app_length. rewrite Hmem0_len.
     pose proof UTM_Program.RULES_START_ADDR_le_TAPE_START_ADDR as Hle.
-    rewrite <- (Arith_prebase.le_plus_minus_r_stt _ _ Hle).
-    apply Nat.add_le_mono_l. exact Hrules. }
+    lia. }
   subst mem1.
   assert (Hmem1_len : length (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rrules))
                         = UTM_Program.TAPE_START_ADDR).
   { apply length_pad_to_ge. exact Hfit. }
-  apply (@firstn_skipn_app_exact
-           nat
-           (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rrules))
-           tape
-           UTM_Program.TAPE_START_ADDR).
-  exact Hmem1_len.
+  rewrite (firstn_skipn_app_exact (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rrules)) tape UTM_Program.TAPE_START_ADDR Hmem1_len).
 Qed.
 
 (* Full invariant relating CPU state to TM configuration *)

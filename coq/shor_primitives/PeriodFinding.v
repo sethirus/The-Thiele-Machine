@@ -116,7 +116,6 @@
  *)
 
 From Coq Require Import Arith.
-From Coq Require Import NPeano.
 From Coq Require Import Lia.
 
 Require Import ShorPrimitives.Modular.
