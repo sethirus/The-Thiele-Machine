@@ -8,7 +8,6 @@
  *)
 
 From Coq Require Import Arith.
-From Coq Require Import NPeano.
 
 (** We re-export the most common facts from the [Nat] namespace so clients can
     depend on a single module. *)

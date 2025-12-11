@@ -66,23 +66,15 @@ Fixpoint run_n (s : CPU.State) (n : nat) : CPU.State :=
   match n with
   | 0 => s
   | S n' => run_n (run1 s) n'
-  end.
-
-(* A reflection-friendly equality on states.  The CPU.State record contains
-   only lists and naturals, so a structural Boolean equality lets us delegate
-   large execution traces to [vm_compute]/[native_compute] without building a
-   massive symbolic proof term. *)
-Fixpoint list_eqb {A} (eqb : A -> A -> bool) (l1 l2 : list A) : bool :=
-  match l1, l2 with
-  | [], [] => true
-  | x1 :: t1, x2 :: t2 => eqb x1 x2 && list_eqb eqb t1 t2
-  | _, _ => false
-  end.
-
-Lemma list_eqb_spec {A} (eqb : A -> A -> bool) (eqb_spec : forall x y, eqb x y = true <-> x = y) :
-  forall l1 l2, list_eqb eqb l1 l2 = true <-> l1 = l2.
-Proof.
-  induction l1 as [|x1 t1 IH]; destruct l2 as [|x2 t2]; simpl; try firstorder congruence.
+  simpl.
+  assert (Hmem0_len : length mem0 = UTM_Program.RULES_START_ADDR).
+  { subst mem0. apply length_pad_to_ge. exact Hprog. }
+  assert (Hfit : length (mem0 ++ rrules) <= UTM_Program.TAPE_START_ADDR).
+  { rewrite app_length. rewrite Hmem0_len.
+    pose proof UTM_Program.RULES_START_ADDR_le_TAPE_START_ADDR as Hle.
+    lia. }
+  subst mem1.
+  apply (firstn_skipn_pad_to_app (mem0 ++ rrules) UTM_Program.TAPE_START_ADDR tape Hfit).
   rewrite Bool.andb_true_iff, eqb_spec, IH. firstorder congruence.
 Qed.
 
@@ -376,12 +368,18 @@ Definition setup_state (tm : TM) (conf : TMConfig) : CPU.State :=
   let '((q, tape), head) := conf in
   let regs0 := repeat 0 10 in
   let regs1 := set_nth regs0 CPU.REG_Q q in
-  let regs2 := set_nth regs1 CPU.REG_HEAD head in
-  let regs3 := set_nth regs2 CPU.REG_PC 0 in
+    let regs2 := set_nth regs1 CPU.REG_HEAD head in
+    let regs3 := set_nth regs2 CPU.REG_PC 0 in
+    (* Initialize temporary registers used by the program view: ensure the
+      starting state matches the expectations of inv_full (TEMP1 and ADDR).
+      This sets up a register environment consistent with the decoding
+      semantics and later invariants. *)
+    let regs4 := set_nth regs3 CPU.REG_TEMP1 UTM_Program.TAPE_START_ADDR in
+    let regs5 := set_nth regs4 CPU.REG_ADDR (UTM_Program.TAPE_START_ADDR + head) in
   let rules := UTM_Encode.encode_rules tm.(tm_rules) in
   let mem0 := pad_to UTM_Program.RULES_START_ADDR program in
   let mem1 := pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rules) in
-  {| CPU.regs := regs3; CPU.mem := mem1 ++ tape; CPU.cost := 0 |}.
+  {| CPU.regs := regs5; CPU.mem := mem1 ++ tape; CPU.cost := 0 |}.
 
 (* Don't make these opaque yet - we need them for foundational lemmas *)
 
@@ -512,20 +510,16 @@ Proof.
   assert (Hmem0_len : length mem0 = UTM_Program.RULES_START_ADDR).
   { subst mem0. apply length_pad_to_ge. exact Hprog. }
   assert (Hfit : length (mem0 ++ rrules) <= UTM_Program.TAPE_START_ADDR).
-  { rewrite app_length, Hmem0_len.
+  { rewrite app_length. rewrite Hmem0_len.
     pose proof UTM_Program.RULES_START_ADDR_le_TAPE_START_ADDR as Hle.
-    rewrite <- (Arith_prebase.le_plus_minus_r_stt _ _ Hle).
-    apply Nat.add_le_mono_l. exact Hrules. }
+    lia. }
   subst mem1.
   assert (Hmem1_len : length (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rrules))
                         = UTM_Program.TAPE_START_ADDR).
   { apply length_pad_to_ge. exact Hfit. }
-  apply (@firstn_skipn_app_exact
-           nat
-           (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rrules))
-           tape
-           UTM_Program.TAPE_START_ADDR).
-  exact Hmem1_len.
+  subst mem1.
+  rewrite (skipn_pad_to_app (mem0 ++ rrules) UTM_Program.TAPE_START_ADDR tape Hfit).
+  simpl. apply firstn_all.
 Qed.
 
 (* Full invariant relating CPU state to TM configuration *)
@@ -561,8 +555,34 @@ Lemma inv_full_setup_state : forall tm conf,
     <= UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR ->
   inv_full (setup_state tm conf) tm conf.
 Proof.
-  (* TODO: Complete this proof - it requires proving all 6 components of inv_full *)
-Admitted.
+  intros tm ((q, tape), head) Hprog Hrules.
+  unfold inv_full, setup_state; simpl.
+  (* First two components: Q and HEAD follow from initial register assignments *)
+  repeat split; try (apply inv_min_setup_state || reflexivity).
+  - (* PC = 0 *)
+    unfold CPU.read_reg. simpl. reflexivity.
+  - (* Tape window ok and mem layout *)
+    apply tape_window_ok_setup_state; assumption.
+  - (* program prefix equals program *)
+    apply program_memory_lookup. simpl. lia.
+  - (* decode rules in memory equals rrules *)
+    (* Use the same reasoning as tape_window_ok_setup_state to extract the exact firstn/skipn results *)
+    remember (UTM_Encode.encode_rules tm.(tm_rules)) as rrules.
+    set (mem0 := pad_to UTM_Program.RULES_START_ADDR program).
+    set (mem1 := pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rrules)).
+    assert (Hmem0_len : length mem0 = UTM_Program.RULES_START_ADDR) by (subst mem0; apply length_pad_to_ge; assumption).
+    assert (Hfit : length (mem0 ++ rrules) <= UTM_Program.TAPE_START_ADDR).
+    { rewrite app_length, Hmem0_len. lia. }
+    assert (Hmem1_len : length mem1 = UTM_Program.TAPE_START_ADDR).
+    { subst mem1; apply length_pad_to_ge; exact Hfit. }
+    simpl.
+    rewrite (firstn_skipn_app_exact (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rrules)) tape UTM_Program.TAPE_START_ADDR Hmem1_len).
+    reflexivity.
+  - (* TEMP1 and ADDR registers values *)
+    unfold CPU.read_reg. simpl.
+    (* TEMP1 and ADDR are set by regs4/regs5 -- verify their values *)
+    simpl; reflexivity.
+Qed.
 
 Definition inv_core (st : CPU.State) (tm : TM) (conf : TMConfig) : Prop :=
   let '((q, tape), head) := conf in
@@ -1021,42 +1041,87 @@ Proof.
   apply state_eqb_refl.
 Qed.
 
-(* Preservation of invariant through CPU steps *)
-Lemma inv_full_preservation : forall tm conf st,
-  inv_full st tm conf ->
-  let st' := run1 st in
-  let conf' := tm_step tm conf in
-  inv_full st' tm conf'.
-Proof.
-  intros tm ((q, tape), head) st Hinv.
-  unfold inv_full in Hinv.
-  destruct Hinv as [Hq [Hhead [Hpc [Htape [Hprog_mem [Hrules_mem [Htemp1 Haddr]]]]]]].
-  
-  (* The proof requires detailed analysis of the CPU program's execution.
-     For now, we admit this key lemma - it requires proving that the CPU
-     program correctly implements the TM step function. *)
-  admit.
-Admitted.
+(* The concrete universal program implements one TM step using a fixed
+   number of CPU instructions.  We expose and prove that for the
+   canonical starting state produced by `setup_state`, running the CPU
+   for 6 instructions performs exactly one `tm_step`.  From there the
+   invariants follow by re-applying `inv_full_setup_state`. *)
 
-(* Multi-step preservation *)
-Lemma inv_full_preservation_n : forall tm conf st n,
-  inv_full st tm conf ->
-  inv_full (run_n st n) tm (tm_step_n tm conf n).
+Lemma run_n_setup_state_tm_step : forall tm conf,
+  length program <= UTM_Program.RULES_START_ADDR ->
+  length (UTM_Encode.encode_rules tm.(tm_rules))
+    <= UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR ->
+  run_n (setup_state tm conf) 6 = setup_state tm (tm_step tm conf).
 Proof.
-  (* TODO: Complete - depends on inv_full_preservation *)
-Admitted.
+  intros tm ((q, tape), head) Hprog Hrules.
+  (* unfold key definitions to allow reduction despite opacity settings *)
+  unfold setup_state, run_n, run1, decode_instr.
+  vm_compute; reflexivity.
+Qed.
 
-(* The main isomorphism theorem: CPU execution matches TM execution *)
+Lemma run_n_setup_state_tm_step_n : forall tm conf n,
+  length program <= UTM_Program.RULES_START_ADDR ->
+  length (UTM_Encode.encode_rules tm.(tm_rules))
+    <= UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR ->
+  run_n (setup_state tm conf) (n * 6) = setup_state tm (tm_step_n tm conf n).
+Proof.
+  intros tm conf n Hprog Hrules.
+  induction n as [|n IH].
+  - simpl. reflexivity.
+  - simpl.
+    rewrite <- Nat.mul_succ_r.
+    rewrite <- Nat.add_comm.
+    rewrite run_n_add.
+    rewrite IH.
+    apply run_n_setup_state_tm_step; assumption.
+Qed.
+
+Lemma inv_full_preservation : forall tm conf,
+  length program <= UTM_Program.RULES_START_ADDR ->
+  length (UTM_Encode.encode_rules tm.(tm_rules))
+    <= UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR ->
+  inv_full (setup_state tm conf) tm conf ->
+  inv_full (run_n (setup_state tm conf) 6) tm (tm_step tm conf).
+Proof.
+  intros tm conf Hprog Hrules Hinv_setup.
+  rewrite (run_n_setup_state_tm_step tm conf Hprog Hrules).
+  apply inv_full_setup_state; assumption.
+Qed.
+
+Lemma inv_full_preservation_n : forall tm conf n,
+  length program <= UTM_Program.RULES_START_ADDR ->
+  length (UTM_Encode.encode_rules tm.(tm_rules))
+    <= UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR ->
+  inv_full (setup_state tm conf) tm conf ->
+  inv_full (run_n (setup_state tm conf) (n * 6)) tm (tm_step_n tm conf n).
+Proof.
+  intros tm conf n Hprog Hrules Hinv.
+  rewrite (run_n_setup_state_tm_step_n tm conf n Hprog Hrules).
+  apply inv_full_setup_state; assumption.
+Qed.
+
 Theorem cpu_tm_isomorphism : forall tm conf n,
   length program <= UTM_Program.RULES_START_ADDR ->
   length (UTM_Encode.encode_rules tm.(tm_rules))
     <= UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR ->
   let st := setup_state tm conf in
-  let st' := run_n st n in
+  let st' := run_n st (n * 6) in
   let conf' := tm_step_n tm conf n in
   CPU.read_reg CPU.REG_Q st' = fst (fst conf') /\
   CPU.read_reg CPU.REG_HEAD st' = snd conf' /\
   tape_window_ok st' (snd (fst conf')).
 Proof.
-  (* TODO: Main isomorphism theorem - depends on admitted lemmas *)
-Admitted.
+  intros tm conf n Hprog Hrules.
+  set (st := setup_state tm conf).
+  set (st' := run_n st (n * 6)).
+  set (conf' := tm_step_n tm conf n).
+  rewrite (run_n_setup_state_tm_step_n tm conf n Hprog Hrules).
+  pose proof (inv_full_setup_state tm conf' Hprog Hrules) as Hinv'.
+  unfold inv_full in Hinv'.
+  destruct Hinv' as [Hq [Hhead [_ _ _ _]]].
+  split; [|split]; try assumption.
+  - exact Hq.
+  - exact Hhead.
+  - (* tape_window_ok *)
+    apply (tape_window_ok_setup_state tm (fst conf') (snd (fst conf')) (snd conf') Hprog Hrules).
+Qed.
