@@ -654,12 +654,9 @@ task execute_mdlacc;
                 // 1. A lookup table, OR
                 // 2. A sequential bit-counting circuit, OR
                 // 3. A leading-zero counter
-                // For now, using $clog2 for simulation correctness
-                if (max_element == 0) begin
-                    bit_length = 1;
-                end else begin
-                    bit_length = $clog2(max_element + 1);
-                end
+                // Use clz8 helper to compute ceil(log2(max_element + 1)) in a synthesizable way.
+                clz8_in = max_element + 1;
+                bit_length = clz8_out;
                 // Convert to Q16.16: mdl_cost = (bit_length * module_size) << 16
                 mdl_cost = (bit_length * module_size) << 16;
             end else begin
@@ -871,6 +868,11 @@ mu_core mu_core_inst (
     .core_status(core_status),
     .enforcement_active(enforcement_active)
 );
+
+// Instantiate CLZ helper for 8-bit values (compute ceil(log2(x)) for x<=255)
+wire [3:0] clz8_out;
+reg [7:0] clz8_in;
+clz8 clz8_inst (.x(clz8_in), .out(clz8_out));
 
 // Logic engine interface
 assign logic_req = (state == STATE_LOGIC);

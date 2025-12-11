@@ -7,7 +7,6 @@
  *)
 
 From Coq Require Import Arith.
-From Coq Require Import NPeano.
 From Coq Require Import PeanoNat.
 From Coq Require Import Wf_nat.
 From Coq Require Import Lia.
