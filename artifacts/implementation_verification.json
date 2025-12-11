@@ -1,0 +1,259 @@
+{
+  "timestamp": "/home/runner/work/The-Thiele-Machine/The-Thiele-Machine",
+  "coq_kernel": {
+    "file": "coq/kernel/VMStep.v",
+    "instruction_count": 16,
+    "instructions": [
+      "pnew",
+      "psplit",
+      "pmerge",
+      "lassert",
+      "ljoin",
+      "mdlacc",
+      "pdiscover",
+      "xfer",
+      "pyexec",
+      "xor_load",
+      "xor_add",
+      "xor_swap",
+      "xor_rank",
+      "emit",
+      "oracle_halts",
+      "halt"
+    ]
+  },
+  "verilog_cpu": {
+    "file_exists": true,
+    "instructions": {
+      "pnew": {
+        "has_opcode_definition": true,
+        "has_execute_case": true,
+        "has_related_logic": false,
+        "implemented": true
+      },
+      "psplit": {
+        "has_opcode_definition": true,
+        "has_execute_case": true,
+        "has_related_logic": false,
+        "implemented": true
+      },
+      "pmerge": {
+        "has_opcode_definition": true,
+        "has_execute_case": true,
+        "has_related_logic": false,
+        "implemented": true
+      },
+      "lassert": {
+        "has_opcode_definition": true,
+        "has_execute_case": true,
+        "has_related_logic": false,
+        "implemented": true
+      },
+      "ljoin": {
+        "has_opcode_definition": true,
+        "has_execute_case": true,
+        "has_related_logic": false,
+        "implemented": true
+      },
+      "mdlacc": {
+        "has_opcode_definition": true,
+        "has_execute_case": true,
+        "has_related_logic": false,
+        "implemented": true
+      },
+      "pdiscover": {
+        "has_opcode_definition": true,
+        "has_execute_case": true,
+        "has_related_logic": false,
+        "implemented": true
+      },
+      "xfer": {
+        "has_opcode_definition": true,
+        "has_execute_case": true,
+        "has_related_logic": false,
+        "implemented": true
+      },
+      "pyexec": {
+        "has_opcode_definition": true,
+        "has_execute_case": true,
+        "has_related_logic": false,
+        "implemented": true
+      },
+      "xor_load": {
+        "has_opcode_definition": true,
+        "has_execute_case": true,
+        "has_related_logic": false,
+        "implemented": true
+      },
+      "xor_add": {
+        "has_opcode_definition": true,
+        "has_execute_case": true,
+        "has_related_logic": false,
+        "implemented": true
+      },
+      "xor_swap": {
+        "has_opcode_definition": true,
+        "has_execute_case": true,
+        "has_related_logic": false,
+        "implemented": true
+      },
+      "xor_rank": {
+        "has_opcode_definition": true,
+        "has_execute_case": true,
+        "has_related_logic": false,
+        "implemented": true
+      },
+      "emit": {
+        "has_opcode_definition": true,
+        "has_execute_case": true,
+        "has_related_logic": true,
+        "implemented": true
+      },
+      "oracle_halts": {
+        "has_opcode_definition": true,
+        "has_execute_case": true,
+        "has_related_logic": false,
+        "implemented": true
+      },
+      "halt": {
+        "has_opcode_definition": true,
+        "has_execute_case": true,
+        "has_related_logic": false,
+        "implemented": true
+      }
+    },
+    "missing": [],
+    "issues": [],
+    "total": 16,
+    "implemented_count": 16,
+    "coverage": 100.0
+  },
+  "python_vm": {
+    "file_exists": true,
+    "instructions": {
+      "pnew": {
+        "has_reference": true,
+        "has_execution_branch": true,
+        "has_handler_function": false,
+        "implemented": true,
+        "reference_count": 3
+      },
+      "psplit": {
+        "has_reference": true,
+        "has_execution_branch": true,
+        "has_handler_function": false,
+        "implemented": true,
+        "reference_count": 3
+      },
+      "pmerge": {
+        "has_reference": true,
+        "has_execution_branch": true,
+        "has_handler_function": false,
+        "implemented": true,
+        "reference_count": 3
+      },
+      "lassert": {
+        "has_reference": true,
+        "has_execution_branch": true,
+        "has_handler_function": false,
+        "implemented": true,
+        "reference_count": 2
+      },
+      "ljoin": {
+        "has_reference": true,
+        "has_execution_branch": true,
+        "has_handler_function": false,
+        "implemented": true,
+        "reference_count": 2
+      },
+      "mdlacc": {
+        "has_reference": true,
+        "has_execution_branch": true,
+        "has_handler_function": false,
+        "implemented": true,
+        "reference_count": 2
+      },
+      "pdiscover": {
+        "has_reference": true,
+        "has_execution_branch": true,
+        "has_handler_function": true,
+        "implemented": true,
+        "reference_count": 2
+      },
+      "xfer": {
+        "has_reference": true,
+        "has_execution_branch": true,
+        "has_handler_function": false,
+        "implemented": true,
+        "reference_count": 3
+      },
+      "pyexec": {
+        "has_reference": true,
+        "has_execution_branch": true,
+        "has_handler_function": false,
+        "implemented": true,
+        "reference_count": 2
+      },
+      "xor_load": {
+        "has_reference": true,
+        "has_execution_branch": true,
+        "has_handler_function": false,
+        "implemented": true,
+        "reference_count": 3
+      },
+      "xor_add": {
+        "has_reference": true,
+        "has_execution_branch": true,
+        "has_handler_function": false,
+        "implemented": true,
+        "reference_count": 3
+      },
+      "xor_swap": {
+        "has_reference": true,
+        "has_execution_branch": true,
+        "has_handler_function": false,
+        "implemented": true,
+        "reference_count": 3
+      },
+      "xor_rank": {
+        "has_reference": true,
+        "has_execution_branch": true,
+        "has_handler_function": false,
+        "implemented": true,
+        "reference_count": 3
+      },
+      "emit": {
+        "has_reference": true,
+        "has_execution_branch": true,
+        "has_handler_function": false,
+        "implemented": true,
+        "reference_count": 2
+      },
+      "oracle_halts": {
+        "has_reference": true,
+        "has_execution_branch": true,
+        "has_handler_function": false,
+        "implemented": true,
+        "reference_count": 2
+      },
+      "halt": {
+        "has_reference": true,
+        "has_execution_branch": true,
+        "has_handler_function": false,
+        "implemented": true,
+        "reference_count": 2
+      }
+    },
+    "missing": [],
+    "issues": [],
+    "total": 16,
+    "implemented_count": 16,
+    "coverage": 100.0
+  },
+  "summary": {
+    "total_instructions": 16,
+    "verilog_coverage": 100.0,
+    "python_coverage": 100.0,
+    "both_complete": true
+  }
+}
