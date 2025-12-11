@@ -1,0 +1,70 @@
+Admit and axiom inventory
+
+Active Coq tree
+---------------
+Axiom    coq/thielemachine/coqproofs/CoreSemantics.v:195: Axiom hash_collision_resistance : forall (s1 s2 : State),
+Axiom    coq/thielemachine/coqproofs/CoreSemantics.v:199: Axiom hash_length : forall (s : State),
+Axiom    coq/thielemachine/coqproofs/DiscoveryProof.v:50:   Axiom eigen_complexity :
+Axiom    coq/thielemachine/coqproofs/EfficientDiscovery.v:97: Axiom discovery_produces_valid_partition_spec :
+Axiom    coq/thielemachine/coqproofs/EfficientDiscovery.v:105: Axiom discovery_valid_zero_spec :
+Axiom    coq/thielemachine/coqproofs/EfficientDiscovery.v:135: Axiom discovery_cost_bounded :
+Axiom    coq/thielemachine/coqproofs/EfficientDiscovery.v:163: Axiom discovery_profitable :
+Axiom    coq/thielemachine/coqproofs/InfoTheory.v:169: Axiom kolmogorov_complexity : forall (data : list bool), Q.
+Axiom    coq/thielemachine/coqproofs/InfoTheory.v:172: Axiom mu_bounds_kolmogorov :
+Axiom    coq/thielemachine/coqproofs/RepresentationTheorem.v:189:     Axiom module_of : State -> nat -> ModuleId.
+Axiom    coq/thielemachine/coqproofs/RepresentationTheorem.v:192:     Axiom partition_wellformed : forall (s : State), exists (mods : list ModuleId), (length mods > 0)%nat.
+Axiom    coq/thielemachine/coqproofs/RepresentationTheorem.v:210:     Axiom step : State -> Label -> State -> Prop.
+Axiom    coq/thielemachine/coqproofs/RepresentationTheorem.v:211:     Axiom step_deterministic : forall s l s1 s2, step s l s1 -> step s l s2 -> s1 = s2.
+Axiom    coq/thielemachine/coqproofs/RepresentationTheorem.v:212:     Axiom module_independence : forall s s' i, step s LCompute s' ->
+Axiom    coq/thielemachine/coqproofs/RepresentationTheorem.v:216:     Axiom mu : State -> Label -> State -> Z.
+Axiom    coq/thielemachine/coqproofs/RepresentationTheorem.v:217:     Axiom mu_nonneg : forall s l s', step s l s' -> mu s l s' >= 0.
+Axiom    coq/thielemachine/coqproofs/RepresentationTheorem.v:250:     Axiom mu_monotone : forall t1 s l,
+Axiom    coq/thielemachine/coqproofs/RepresentationTheorem.v:260:     Axiom mu_additive : forall t1 t2,
+Axiom    coq/thielemachine/coqproofs/RepresentationTheorem.v:264:     Axiom mu_blind_free : forall s s', step s LCompute s' -> same_partition s s' -> mu s LCompute s' >= 0.
+Axiom    coq/thielemachine/coqproofs/RepresentationTheorem.v:265:     Axiom mu_observe_positive : forall s m s', step s (LObserve m) s' -> mu s (LObserve m) s' > 0.
+Axiom    coq/thielemachine/coqproofs/RepresentationTheorem.v:266:     Axiom mu_split_positive : forall s m s', step s (LSplit m) s' -> mu s (LSplit m) s' > 0.
+Axiom    coq/thielemachine/coqproofs/RepresentationTheorem.v:267:     Axiom mu_merge_free : forall s m1 m2 s', step s (LMerge m1 m2) s' -> mu s (LMerge m1 m2) s' >= 0.
+Axiom    coq/thielemachine/coqproofs/RepresentationTheorem.v:308:     Axiom receipt_sound : forall r, verify_receipt r = true -> exists t, make_receipt t = r.
+Axiom    coq/thielemachine/coqproofs/RepresentationTheorem.v:309:     Axiom receipt_complete : forall t, verify_receipt (make_receipt t) = true.
+Axiom    coq/thielemachine/coqproofs/RepresentationTheorem.v:313:     Axiom mu_thermodynamic : forall s l s' (W : Q), step s l s' -> (W >= landauer_bound (mu s l s'))%Q -> True.
+Axiom    coq/thielemachine/coqproofs/RepresentationTheorem.v:314:     Axiom blind_reversible : forall s s', step s LCompute s' -> mu s LCompute s' = 0 -> True.
+Axiom    coq/thielemachine/coqproofs/RepresentationTheorem.v:361:   Axiom observable_complete : forall (S : Type), Prop.
+Axiom    coq/thielemachine/coqproofs/RepresentationTheorem.v:364:   Axiom representation_refined : forall (S1 S2 : Type),
+Axiom    coq/thielemachine/coqproofs/Spaceland.v:82:   Axiom partition_wellformed : forall (s : State),
+Axiom    coq/thielemachine/coqproofs/Spaceland.v:102:   Axiom step_deterministic : forall s l s1 s2,
+Axiom    coq/thielemachine/coqproofs/Spaceland.v:118:   Axiom module_independence : forall s s' i,
+Axiom    coq/thielemachine/coqproofs/Spaceland.v:133:   Axiom mu_nonneg : forall s l s',
+Axiom    coq/thielemachine/coqproofs/Spaceland.v:177:   Axiom mu_monotone : forall t1 s l,
+Axiom    coq/thielemachine/coqproofs/Spaceland.v:186:   Axiom mu_additive : forall t1 t2,
+Axiom    coq/thielemachine/coqproofs/Spaceland.v:200:   Axiom mu_blind_free : forall s s',
+Axiom    coq/thielemachine/coqproofs/Spaceland.v:206:   Axiom mu_observe_positive : forall s m s',
+Axiom    coq/thielemachine/coqproofs/Spaceland.v:211:   Axiom mu_split_positive : forall s m s',
+Axiom    coq/thielemachine/coqproofs/Spaceland.v:216:   Axiom mu_merge_free : forall s m1 m2 s',
+Axiom    coq/thielemachine/coqproofs/Spaceland.v:310:   Axiom receipt_sound : forall (r : Receipt),
+Axiom    coq/thielemachine/coqproofs/Spaceland.v:318:   Axiom receipt_complete : forall (t : Trace),
+Axiom    coq/thielemachine/coqproofs/Spaceland.v:349:   Axiom mu_thermodynamic : forall s l s' (W : Q),
+Axiom    coq/thielemachine/coqproofs/Spaceland.v:359:   Axiom blind_reversible : forall s s',
+Axiom    coq/thielemachine/coqproofs/Spaceland.v:463:   Axiom same_projection :
+Axiom    coq/thielemachine/coqproofs/Spaceland.v:468:   Axiom representation :
+Axiom    coq/thielemachine/coqproofs/SpacelandCore.v:44:   Axiom step_det : forall s l s1 s2,
+Axiom    coq/thielemachine/coqproofs/SpacelandCore.v:51:   Axiom mu_nonneg : forall s l s',
+Axiom    coq/thielemachine/coqproofs/SpacelandCore.v:55:   Axiom mu_blind_free : forall s s',
+Axiom    coq/thielemachine/coqproofs/Spaceland_Simple.v:17:   Axiom partition_wellformed : forall (s : State),
+Axiom    coq/thielemachine/coqproofs/Spaceland_Simple.v:28:   Axiom step_deterministic : forall s l s1 s2,
+Axiom    coq/thielemachine/coqproofs/Spaceland_Simple.v:31:   Axiom module_independence : forall s s' m,
+Axiom    coq/thielemachine/coqproofs/Spaceland_Simple.v:37:   Axiom mu_nonneg : forall s l s',
+Axiom    coq/thielemachine/coqproofs/Spaceland_Simple.v:56:   Axiom mu_blind_free : forall s s',
+Axiom    coq/thielemachine/coqproofs/SpectralApproximation.v:18: Axiom partition_cost : Graph -> PartitionAssignment -> Z.
+Axiom    coq/thielemachine/coqproofs/SpectralApproximation.v:21: Axiom spectral_partition : Graph -> nat -> PartitionAssignment.
+Axiom    coq/thielemachine/coqproofs/SpectralApproximation.v:24: Axiom optimal_partition : Graph -> PartitionAssignment.
+Axiom    coq/thielemachine/coqproofs/SpectralApproximation.v:27: Axiom optimal_is_minimal : forall g p,
+Axiom    coq/thielemachine/coqproofs/SpectralApproximation.v:45: Axiom spectral_worst_case_exists :
+Axiom    coq/thielemachine/coqproofs/SpectralApproximation.v:51: Axiom spectral_approximation_unbounded :
+Axiom    coq/thielemachine/coqproofs/SpectralApproximation.v:61: Axiom spectral_average_case_bounded :
+Axiom    coq/thielemachine/coqproofs/ThieleFoundations.v:90: Axiom Semantic_Strictness : exists (T1 T2 : CoreThieleMachine) (tau1 tau2 : Trace),
+Axiom    coq/thielemachine/coqproofs/ThieleFoundations.v:122: Axiom Strict_Containment :
+
+Summary
+-------
+Total admitted: 0
+Total axioms:  61
