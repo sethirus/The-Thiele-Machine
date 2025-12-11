@@ -285,6 +285,20 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
   | instr_pyexec payload cost =>
       advance_state s (instr_pyexec payload cost)
         s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
+  | instr_xfer src dst cost =>
+      advance_state s (instr_xfer src dst cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
+  | instr_xor_load addr cost =>
+      advance_state s (instr_xor_load addr cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
+  | instr_xor_add val cost =>
+      advance_state s (instr_xor_add val cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
+  | instr_xor_swap cost =>
+      advance_state s (instr_xor_swap cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
+  | instr_xor_rank cost =>
+      advance_state s (instr_xor_rank cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
+  | instr_oracle_halts payload cost =>
+      advance_state s (instr_oracle_halts payload cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
+  | instr_halt cost =>
+      advance_state s (instr_halt cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
   end.
 
 Fixpoint run_vm (fuel : nat) (trace : list vm_instruction) (s : VMState)
