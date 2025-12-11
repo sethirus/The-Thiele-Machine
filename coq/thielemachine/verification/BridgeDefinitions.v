@@ -1,3 +1,4 @@
+
 (* ================================================================= *)
 (* Bridge module providing concrete implementations from archive    *)
 (* This module extracts working definitions from the archive to     *)
@@ -26,6 +27,9 @@ Import ListNotations.
 
 Local Open Scope nat_scope.
 Local Notation length := List.length.
+
+(* Bring in bridge core helpers (list_eqb, state_eqb, etc.) *)
+Require Import ThieleMachine.modular.Bridge_BridgeCore.
 
 (* Instrumentation helpers to locate long-running proofs during timed bridge
    builds.  The [Time] vernac modifier is applied to the key loop lemmas, and
@@ -66,17 +70,7 @@ Fixpoint run_n (s : CPU.State) (n : nat) : CPU.State :=
   match n with
   | 0 => s
   | S n' => run_n (run1 s) n'
-  simpl.
-  assert (Hmem0_len : length mem0 = UTM_Program.RULES_START_ADDR).
-  { subst mem0. apply length_pad_to_ge. exact Hprog. }
-  assert (Hfit : length (mem0 ++ rrules) <= UTM_Program.TAPE_START_ADDR).
-  { rewrite app_length. rewrite Hmem0_len.
-    pose proof UTM_Program.RULES_START_ADDR_le_TAPE_START_ADDR as Hle.
-    lia. }
-  subst mem1.
-  apply (firstn_skipn_pad_to_app (mem0 ++ rrules) UTM_Program.TAPE_START_ADDR tape Hfit).
-  rewrite Bool.andb_true_iff, eqb_spec, IH. firstorder congruence.
-Qed.
+  end.
 
 Lemma list_eqb_refl {A} (eqb : A -> A -> bool) (eqb_refl : forall x, eqb x x = true) :
   forall l, list_eqb eqb l l = true.
@@ -509,17 +503,22 @@ Proof.
   simpl.
   assert (Hmem0_len : length mem0 = UTM_Program.RULES_START_ADDR).
   { subst mem0. apply length_pad_to_ge. exact Hprog. }
-  assert (Hfit : length (mem0 ++ rrules) <= UTM_Program.TAPE_START_ADDR).
-  { rewrite app_length. rewrite Hmem0_len.
-    pose proof UTM_Program.RULES_START_ADDR_le_TAPE_START_ADDR as Hle.
-    lia. }
-  subst mem1.
-  assert (Hmem1_len : length (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rrules))
-                        = UTM_Program.TAPE_START_ADDR).
-  { apply length_pad_to_ge. exact Hfit. }
-  subst mem1.
-  rewrite (skipn_pad_to_app (mem0 ++ rrules) UTM_Program.TAPE_START_ADDR tape Hfit).
-  simpl. apply firstn_all.
+  
+    (* Expand pad_to and reason about lengths directly avoiding existential-search
+      tactics by using the concrete length equality lemma `firstn_skipn_app_exact`.
+    *)
+    set (k := length (mem0 ++ rrules)).
+    assert (Hk_le : k <= UTM_Program.TAPE_START_ADDR).
+    { unfold k. rewrite app_length, Hmem0_len.
+      apply (Nat.add_le_mono_l (UTM_Program.RULES_START_ADDR) (length rrules) (UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR)).
+      exact Hrules. }
+    (* Build the padded prefix using `pad_to` (keep it opaque) and use the
+       exact firstn/skipn lemma which matches the `pad_to` shape directly. *)
+    set (pref := pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rrules)).
+    assert (Hpref_len : length pref = UTM_Program.TAPE_START_ADDR).
+    { unfold pref. apply length_pad_to_ge. exact Hk_le. }
+    rewrite (firstn_skipn_app_exact pref tape UTM_Program.TAPE_START_ADDR Hpref_len).
+    apply firstn_all.
 Qed.
 
 (* Full invariant relating CPU state to TM configuration *)
