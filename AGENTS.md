@@ -19,9 +19,9 @@ Before working with this repository, ensure the required toolchains are installe
 If package names differ on your system, prefer distro packages for reproducibility.
 
 ## Current Status (Updated Dec 11, 2025)
-- Coq build environment is fully functional: `make -C coq` succeeds with no admits.
-- All proofs in BridgeDefinitions.v are complete and verified, establishing the CPU-TM isomorphism.
-- The Coq→Verilog→VM chain is ready for maintenance; ensure isomorphism is preserved during RTL/VM changes.
+- Coq build environment has issues: `make -C coq` fails due to a unification error in the tape_window_ok_setup_state proof in BridgeDefinitions.v.
+- Proofs in BridgeDefinitions.v are incomplete; the tape_window_ok_setup_state lemma is not verified.
+- The Coq→Verilog→VM chain is not ready until the build succeeds.
 
 ## Proof, RTL, and VM work
 - Keep Coq proofs admit-free. If you must introduce or retain an axiom, document why it is unavoidable and update `coq/ADMIT_REPORT.txt` and `coq/AXIOM_INVENTORY.md` in the same change.

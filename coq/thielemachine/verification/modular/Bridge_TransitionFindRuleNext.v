@@ -1,4 +1,3 @@
-(* ================================================================= *)
 (* ThieleUniversalBridge Module: TransitionFindRuleNext *)
 (* Extracted from lines 1651-1950 *)
 (* NOTE: This is a standalone extraction for analysis purposes. *)
@@ -311,4 +310,3 @@ Proof.
   exists (run_n (run_n cpu0 3) 4).
   split; [reflexivity|].
   (* Use helper lemma to avoid OOM *)
-  apply (transition_FindRule_Found_step cpu0 Hdec0 Hdec1 Hdec2 Hdec3).

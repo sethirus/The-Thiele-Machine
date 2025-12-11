@@ -1,4 +1,3 @@
-(* ================================================================= *)
 (* ThieleUniversalBridge Module: StepLemmas *)
 (* Extracted from lines 1201-1400 *)
 (* NOTE: This is a standalone extraction for analysis purposes. *)
@@ -214,4 +213,3 @@ Proof.
   { rewrite run1_decode, Hdecode0_init.
     destruct (step_LoadConst cpu_init CPU.REG_TEMP1 UTM_Program.TAPE_START_ADDR
                Hrd_pc Hrd_bound Hlen_init) as [Hpc _].
-    now rewrite Hpc0_init in Hpc.

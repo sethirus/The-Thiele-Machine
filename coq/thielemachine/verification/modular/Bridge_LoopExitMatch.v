@@ -1,4 +1,3 @@
-(* ================================================================= *)
 (* ThieleUniversalBridge Module: LoopExitMatch *)
 (* Extracted from lines 2101-2300 *)
 (* NOTE: This is a standalone extraction for analysis purposes. *)
@@ -211,4 +210,3 @@ Proof.
     assert (HQ_step2: CPU.read_reg CPU.REG_Q cpu3 = CPU.read_reg CPU.REG_Q cpu2).
     { unfold cpu3, run1. rewrite <- Hcpu3_eq in Hdecode2. rewrite Hdecode2.
       unfold CPU.step.
-      apply read_reg_write_reg_diff.

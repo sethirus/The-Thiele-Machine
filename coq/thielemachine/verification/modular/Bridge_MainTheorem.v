@@ -1,4 +1,3 @@
-(* ================================================================= *)
 (* ThieleUniversalBridge Module: MainTheorem *)
 (* Extracted from lines 2301-2876 *)
 (* NOTE: This is a standalone extraction for analysis purposes. *)
@@ -587,4 +586,3 @@ Proof.
   split.
   - exact Hcpu_branch.
   - exact Hpc_branch.
-Qed.

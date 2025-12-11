@@ -1,4 +1,3 @@
-(* ================================================================= *)
 (* ThieleUniversalBridge Module: BasicLemmas *)
 (* Extracted from lines 701-900 *)
 (* NOTE: This is a standalone extraction for analysis purposes. *)
@@ -211,4 +210,3 @@ Proof.
     assert (H1: length (CPU.regs (run1 st)) >= length (CPU.regs st)).
     { unfold run1. apply length_step_ge. }
     assert (H2: length (CPU.regs (run_n (run1 st) n')) >= length (CPU.regs (run1 st))).
-    { apply IHn. }

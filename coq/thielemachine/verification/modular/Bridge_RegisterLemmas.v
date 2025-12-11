@@ -1,4 +1,3 @@
-(* ================================================================= *)
 (* ThieleUniversalBridge Module: RegisterLemmas *)
 (* Extracted from lines 921-1200 *)
 (* NOTE: This is a standalone extraction for analysis purposes. *)
@@ -381,4 +380,3 @@ Proof.
     + rewrite firstn_length. simpl.
       assert (Hle: rd <= S (length rest)) by (simpl in Hlen; lia).
       rewrite Nat.min_l by exact Hle. lia.
-Qed.
