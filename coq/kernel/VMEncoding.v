@@ -663,6 +663,27 @@ Definition compile_vm_operation (instr : vm_instruction) : program :=
   | instr_pyexec payload cost =>
       (* Set err to true - affects fixed header err bit *)
       compile_update_err true
+  | instr_xfer src dst cost =>
+      (* Transfer operation - no state change beyond pc/μ *)
+      [T_Halt]
+  | instr_xor_load addr cost =>
+      (* XOR load operation *)
+      [T_Halt]
+  | instr_xor_add val cost =>
+      (* XOR add operation *)
+      [T_Halt]
+  | instr_xor_swap cost =>
+      (* XOR swap operation *)
+      [T_Halt]
+  | instr_xor_rank cost =>
+      (* XOR rank operation *)
+      [T_Halt]
+  | instr_oracle_halts payload cost =>
+      (* Oracle halting check *)
+      [T_Halt]
+  | instr_halt cost =>
+      (* Halt instruction *)
+      [T_Halt]
   end.
 
 (** ** Layout bounds proof *)

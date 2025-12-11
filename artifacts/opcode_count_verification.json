@@ -6,11 +6,18 @@
     "lassert",
     "ljoin",
     "mdlacc",
-    "emit",
     "pdiscover",
-    "pyexec"
+    "xfer",
+    "pyexec",
+    "xor_load",
+    "xor_add",
+    "xor_swap",
+    "xor_rank",
+    "emit",
+    "oracle_halts",
+    "halt"
   ],
-  "coq_instruction_count": 9,
+  "coq_instruction_count": 16,
   "coq_step_rules": [
     "pnew",
     "psplit",
@@ -24,9 +31,16 @@
     "mdlacc",
     "emit",
     "pdiscover",
-    "pyexec"
+    "pyexec",
+    "xfer",
+    "xor_load",
+    "xor_add",
+    "xor_swap",
+    "xor_rank",
+    "oracle_halts",
+    "halt"
   ],
-  "coq_step_count": 13,
+  "coq_step_count": 20,
   "verilog_opcodes": {
     "PNEW": "8'h00",
     "PSPLIT": "8'h01",
@@ -47,5 +61,5 @@
   },
   "verilog_opcode_count": 16,
   "all_mapped": true,
-  "verdict": "CORRECT"
+  "verdict": "INCORRECT"
 }
