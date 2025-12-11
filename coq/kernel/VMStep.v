@@ -25,9 +25,16 @@ Inductive vm_instruction :=
     (cert : lassert_certificate) (mu_delta : nat)
 | instr_ljoin (cert1 cert2 : string) (mu_delta : nat)
 | instr_mdlacc (module : ModuleID) (mu_delta : nat)
-| instr_emit (module : ModuleID) (payload : string) (mu_delta : nat)
 | instr_pdiscover (module : ModuleID) (evidence : list VMAxiom) (mu_delta : nat)
-| instr_pyexec (payload : string) (mu_delta : nat).
+| instr_xfer (src dst : ModuleID) (mu_delta : nat)
+| instr_pyexec (payload : string) (mu_delta : nat)
+| instr_xor_load (addr : nat) (mu_delta : nat)
+| instr_xor_add (val : nat) (mu_delta : nat)
+| instr_xor_swap (mu_delta : nat)
+| instr_xor_rank (mu_delta : nat)
+| instr_emit (module : ModuleID) (payload : string) (mu_delta : nat)
+| instr_oracle_halts (payload : string) (mu_delta : nat)
+| instr_halt (mu_delta : nat).
 
 Definition instruction_cost (instr : vm_instruction) : nat :=
   match instr with
@@ -37,9 +44,16 @@ Definition instruction_cost (instr : vm_instruction) : nat :=
   | instr_lassert _ _ _ cost => cost
   | instr_ljoin _ _ cost => cost
   | instr_mdlacc _ cost => cost
-  | instr_emit _ _ cost => cost
   | instr_pdiscover _ _ cost => cost
+  | instr_xfer _ _ cost => cost
   | instr_pyexec _ cost => cost
+  | instr_xor_load _ cost => cost
+  | instr_xor_add _ cost => cost
+  | instr_xor_swap cost => cost
+  | instr_xor_rank cost => cost
+  | instr_emit _ _ cost => cost
+  | instr_oracle_halts _ cost => cost
+  | instr_halt cost => cost
   end.
 
 Definition apply_cost (s : VMState) (instr : vm_instruction) : nat :=
@@ -124,4 +138,32 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
 | step_pyexec : forall s payload cost,
     vm_step s (instr_pyexec payload cost)
       (advance_state s (instr_pyexec payload cost)
-        s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)).
+        s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
+| step_xfer : forall s src dst cost,
+    vm_step s (instr_xfer src dst cost)
+      (advance_state s (instr_xfer src dst cost)
+        s.(vm_graph) s.(vm_csrs) s.(vm_err))
+| step_xor_load : forall s addr cost,
+    vm_step s (instr_xor_load addr cost)
+      (advance_state s (instr_xor_load addr cost)
+        s.(vm_graph) s.(vm_csrs) s.(vm_err))
+| step_xor_add : forall s val cost,
+    vm_step s (instr_xor_add val cost)
+      (advance_state s (instr_xor_add val cost)
+        s.(vm_graph) s.(vm_csrs) s.(vm_err))
+| step_xor_swap : forall s cost,
+    vm_step s (instr_xor_swap cost)
+      (advance_state s (instr_xor_swap cost)
+        s.(vm_graph) s.(vm_csrs) s.(vm_err))
+| step_xor_rank : forall s cost,
+    vm_step s (instr_xor_rank cost)
+      (advance_state s (instr_xor_rank cost)
+        s.(vm_graph) s.(vm_csrs) s.(vm_err))
+| step_oracle_halts : forall s payload cost,
+    vm_step s (instr_oracle_halts payload cost)
+      (advance_state s (instr_oracle_halts payload cost)
+        s.(vm_graph) s.(vm_csrs) s.(vm_err))
+| step_halt : forall s cost,
+    vm_step s (instr_halt cost)
+      (advance_state s (instr_halt cost)
+        s.(vm_graph) s.(vm_csrs) s.(vm_err)).
