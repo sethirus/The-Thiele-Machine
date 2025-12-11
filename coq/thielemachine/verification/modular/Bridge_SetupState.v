@@ -1,4 +1,3 @@
-(* ================================================================= *)
 (* ThieleUniversalBridge Module: SetupState *)
 (* Extracted from lines 351-530 *)
 (* NOTE: This is a standalone extraction for analysis purposes. *)
@@ -190,4 +189,3 @@ Proof.
   rewrite (firstn_skipn_app_exact (pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rrules)) tape UTM_Program.TAPE_START_ADDR Hmem1_len).
 Qed.
 
-(* Full invariant relating CPU state to TM configuration *)

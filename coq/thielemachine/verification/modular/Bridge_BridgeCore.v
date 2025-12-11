@@ -1,9 +1,5 @@
-(* ================================================================= *)
 (* ThieleUniversalBridge Module: BridgeCore *)
-(* Extracted from lines 51-200 *)
-(* NOTE: This is a standalone extraction for analysis purposes. *)
-(*       It may not compile independently due to dependencies. *)
-(*       Use the original ThieleUniversalBridge.v for actual compilation. *)
+(* Cleaned extraction for repository build. *)
 (* ================================================================= *)
 
 From Coq Require Import List Arith Lia PeanoNat Bool ZArith String.
@@ -52,9 +48,9 @@ Qed.
 
 Lemma list_eqb_refl {A} (eqb : A -> A -> bool) (eqb_refl : forall x, eqb x x = true) :
   forall l, list_eqb eqb l l = true.
-Proof.
-  induction l as [|x t IH]; simpl; rewrite ?eqb_refl, ?IH; reflexivity.
-Qed.
+  Proof.
+    induction l as [|x t IH]; simpl; rewrite ?eqb_refl, ?IH; reflexivity.
+  Qed.
 
 Definition state_eqb (s1 s2 : CPU.State) : bool :=
   Nat.eqb s1.(CPU.cost) s2.(CPU.cost)
@@ -161,4 +157,10 @@ Proof.
   intros l n Hle.
   unfold pad_to.
   rewrite firstn_app.
-  rewrite Nat.sub_diag.
+  replace (length l - length l) with 0 by lia.
+  simpl.
+  rewrite firstn_all.
+  rewrite app_nil_r.
+  reflexivity.
+Qed.
+

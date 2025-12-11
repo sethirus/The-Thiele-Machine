@@ -1,4 +1,3 @@
-(* ================================================================= *)
 (* ThieleUniversalBridge Module: TransitionFetch *)
 (* Extracted from lines 1401-1650 *)
 (* NOTE: This is a standalone extraction for analysis purposes. *)
@@ -261,4 +260,3 @@ Proof.
   assert (Htemp4 : CPU.read_reg CPU.REG_TEMP1 (run_n cpu 4)
                    = CPU.read_reg CPU.REG_TEMP1 (run_n cpu 3)).
   { apply (transition_FindRule_step2b_temp4 cpu Hdec3 Htemp_nonzero Hlen3). }
-

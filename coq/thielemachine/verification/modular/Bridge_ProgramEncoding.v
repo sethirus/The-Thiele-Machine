@@ -1,4 +1,3 @@
-(* ================================================================= *)
 (* ThieleUniversalBridge Module: ProgramEncoding *)
 (* Extracted from lines 201-350 *)
 (* NOTE: This is a standalone extraction for analysis purposes. *)
@@ -161,4 +160,3 @@ Qed.
 Lemma firstn_skipn_app_exact : forall {A} (pref rest : list A) n,
   length pref = n ->
   firstn (length rest) (skipn n (pref ++ rest)) = rest.
-Proof.
