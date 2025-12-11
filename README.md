@@ -96,9 +96,15 @@ pytest --ignore=tests/test_practical_examples.py \
 |-------|----------|--------|----------------|
 | **Formal Spec** | Coq 8.18+ | ✅ 45,284 lines | Mechanically verified |
 | **VM** | Python 3.12 | ✅ ~3,000 lines | 1,107 passing tests |
-| **Hardware** | Verilog | ⚠️ Partial | Fuzzing only |
+| **Hardware** | Verilog | ✅ μ-ALU validated | Synthesis + simulation |
 
-**Critical**: These layers are **empirically validated** but **NOT formally proven isomorphic**. See [THE_THIELE_MACHINE_BOOK.md](THE_THIELE_MACHINE_BOOK.md#22-coq--python-bridge-checkpoint-based) for details.
+**Integration Status** (Dec 2025):
+- ✅ Coq proofs compile (kernel, subsumption, Bell inequality)
+- ✅ Verilog μ-ALU synthesized (777 cells) and simulated (6/6 tests)
+- ✅ VM-RTL equivalence framework established
+- ⚠️ Full CPU RTL synthesis in progress
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the complete three-layer integration guide and [INTEGRATION_SUMMARY.md](INTEGRATION_SUMMARY.md) for current status.
 
 ### Instruction Set
 
@@ -125,6 +131,12 @@ Tseitin-12: blind μ=1108 → sighted μ=530 (55% cost reduction)
 **Conservation Law**: `μ_cost(t+1) ≥ μ_cost(t)` (proven in Coq)
 
 ## Key Documentation
+
+### For Integration & Development
+- [**ARCHITECTURE.md**](ARCHITECTURE.md) - Three-layer architecture guide (Coq → Verilog → VM)
+- [**INTEGRATION_SUMMARY.md**](INTEGRATION_SUMMARY.md) - Current integration status and validation results
+- [**MILESTONES.md**](MILESTONES.md) - Development milestone tracking
+- [**TODO.md**](TODO.md) - Comprehensive task list and roadmap
 
 ### For Researchers
 
