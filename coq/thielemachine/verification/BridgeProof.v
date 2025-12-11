@@ -29,3 +29,18 @@ Theorem prove_segment_15_19:
 Proof.
   native_compute. reflexivity.
 Qed.
+
+(* General isomorphism proof - CPU execution matches TM semantics *)
+Theorem cpu_tm_general_isomorphism : forall tm conf n,
+  length program <= UTM_Program.RULES_START_ADDR ->
+  length (UTM_Encode.encode_rules tm.(tm_rules))
+    <= UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR ->
+  let st := setup_state tm conf in
+  let st' := run_n st n in
+  let conf' := tm_step_n tm conf n in
+  CPU.read_reg CPU.REG_Q st' = fst (fst conf') /\
+  CPU.read_reg CPU.REG_HEAD st' = snd conf' /\
+  tape_window_ok st' (snd (fst conf')).
+Proof.
+  apply cpu_tm_isomorphism.
+Qed.
