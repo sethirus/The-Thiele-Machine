@@ -494,6 +494,7 @@ Lemma tape_window_ok_setup_state : forall tm q tape head,
   length (UTM_Encode.encode_rules tm.(tm_rules))
     <= UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR ->
   tape_window_ok (setup_state tm ((q, tape), head)) tape.
+Transparent setup_state.
 Proof.
   intros tm q tape head Hprog Hrules.
   unfold tape_window_ok, setup_state.
@@ -510,15 +511,18 @@ Proof.
     set (k := length (mem0 ++ rrules)).
     assert (Hk_le : k <= UTM_Program.TAPE_START_ADDR).
     { unfold k. rewrite app_length, Hmem0_len.
-      apply (Nat.add_le_mono_l (UTM_Program.RULES_START_ADDR) (length rrules) (UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR)).
+        apply Nat.add_le_mono_l with (n := length rrules) (m := UTM_Program.TAPE_START_ADDR - UTM_Program.RULES_START_ADDR) (p := UTM_Program.RULES_START_ADDR) in Hrules.
       exact Hrules. }
     (* Build the padded prefix using `pad_to` (keep it opaque) and use the
        exact firstn/skipn lemma which matches the `pad_to` shape directly. *)
     set (pref := pad_to UTM_Program.TAPE_START_ADDR (mem0 ++ rrules)).
     assert (Hpref_len : length pref = UTM_Program.TAPE_START_ADDR).
     { unfold pref. apply length_pad_to_ge. exact Hk_le. }
-    rewrite (firstn_skipn_app_exact pref tape UTM_Program.TAPE_START_ADDR Hpref_len).
-    apply firstn_all.
+    assert (Heq : mem1 = pref) by reflexivity.
+    rewrite Heq.
+    simpl.
+    change (tape_window_ok (setup_state tm ((q, tape), head)) tape) with (firstn (length tape) (skipn UTM_Program.TAPE_START_ADDR (pref ++ tape)) = tape).
+    exact (firstn_skipn_app_exact pref tape UTM_Program.TAPE_START_ADDR Hpref_len).
 Qed.
 
 (* Full invariant relating CPU state to TM configuration *)

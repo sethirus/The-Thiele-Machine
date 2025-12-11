@@ -1,4 +1,3 @@
-(* ================================================================= *)
 (* ThieleUniversalBridge Module: LoopIterationNoMatch *)
 (* Extracted from lines 1951-2100 *)
 (* NOTE: This is a standalone extraction for analysis purposes. *)
@@ -286,4 +285,3 @@ Proof.
       exact I.
     + (* j < i *)
       apply Hprev_rules. lia.
-Qed.

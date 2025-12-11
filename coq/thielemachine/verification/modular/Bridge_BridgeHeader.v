@@ -1,4 +1,3 @@
-(* ================================================================= *)
 (* ThieleUniversalBridge Module: BridgeHeader *)
 (* Extracted from lines 1-50 *)
 (* NOTE: This is a standalone extraction for analysis purposes. *)
@@ -64,4 +63,3 @@ Definition program : list nat :=
 Definition program_len : nat := Eval vm_compute in List.length program.
 
 Lemma program_length_eq : List.length program = program_len.
-Proof. reflexivity. Qed.

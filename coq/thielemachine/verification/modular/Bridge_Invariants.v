@@ -1,4 +1,3 @@
-(* ================================================================= *)
 (* ThieleUniversalBridge Module: Invariants *)
 (* Extracted from lines 531-700 *)
 (* NOTE: This is a standalone extraction for analysis purposes. *)
@@ -181,4 +180,3 @@ Proof.
     + simpl. apply IH.
 Qed.
 
-Lemma nth_firstn_lt : forall {A} n m (l : list A) d,
