@@ -172,16 +172,41 @@ Proof.
       * lia.
 Qed.
 
-(** Key property: if range_check passes and length l = len, 
+(** Key property: if range_check passes and length l = len,
     then all elements of l must be in the checked range.
     This is a fundamental property of the range_check function that follows
     from its definition: it checks that each element start..start+len-1 appears
     exactly once, and if length l = len, then l contains exactly those elements. *)
-Axiom range_check_in_range_with_length : forall l start len x,
+Lemma range_check_in_range_with_length : forall l start len x,
   length l = len ->
   range_check l start len = true ->
   In x l ->
   start <= x < start + len.
+Proof.
+  intros l start len x Hlen Hrc Hin.
+  assert (Hin_range : forall i, start <= i < start + len -> In i l).
+  { intros i Hi.
+    pose proof (range_check_count l start len i Hrc Hi) as Hcount.
+    rewrite count_occ_nat_eq in Hcount.
+    apply (proj2 (count_occ_In Nat.eq_dec l i)).
+    lia.
+  }
+  destruct (in_dec Nat.eq_dec x (seq start len)) as [Hx_in|Hx_notin].
+  - apply in_seq in Hx_in. lia.
+  - exfalso.
+    assert (Hseq_in_l : incl (seq start len) l).
+    { intros i Hi. apply Hin_range. apply in_seq in Hi. lia. }
+    assert (Hnodup_seq : NoDup (seq start len)) by apply seq_NoDup.
+    assert (Hincl : incl (x :: seq start len) l).
+    { intros i Hi. destruct Hi as [Hi|Hi].
+      + subst. exact Hin.
+      + apply Hseq_in_l. exact Hi. }
+    assert (Hnodup_extra : NoDup (x :: seq start len)).
+    { constructor; [assumption|exact Hnodup_seq]. }
+    assert (Hlen_le : length (x :: seq start len) <= length l).
+    { eapply NoDup_incl_length; eauto. }
+    simpl in Hlen_le. lia.
+Qed.
 
 Lemma perm_of_seq_check_sound : forall l n,
   perm_of_seq_check l n = true -> Permutation l (seq 1 n).

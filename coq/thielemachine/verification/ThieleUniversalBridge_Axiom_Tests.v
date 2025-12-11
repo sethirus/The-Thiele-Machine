@@ -15,20 +15,18 @@
  *)
 
 Require Import Coq.Arith.Arith.
+Require Import Coq.micromega.Lia.
 Require Import Coq.Lists.List.
 Import ListNotations.
 
-Require Import TM.
-Require Import CPU.
-Require Import UTM_Program.
-Require Import UTM_Execution.
-Require Import ThieleUniversalBridge.
+From ThieleUniversal Require Import CPU.
+From ThieleMachine Require Import ThieleUniversalBridge.
 
 (*
  * Test Strategy:
  * For each axiomatized lemma, we create concrete test cases that:
  * 1. Set up a specific CPU state satisfying the preconditions
- * 2. Execute the transition (run_n)
+ * 2. Execute the transition
  * 3. Verify the postcondition holds
  * 
  * If these concrete tests pass, it strongly suggests the axiom is correct.
@@ -44,37 +42,28 @@ Require Import ThieleUniversalBridge.
  * not the TEMP1 register.
  *)
 
-(* Helper to construct a test CPU state *)
-Definition make_test_cpu_for_temp4 (temp1_val : nat) : CPU.cpu :=
-  {| CPU.pc := 4;
-     CPU.regs := [0; 0; 0; 0; 0; 0; temp1_val; 0; 0; 0];  (* TEMP1 at index 6 *)
-     CPU.mem := fun addr => 
-       if addr =? 0 then Some (CPU.Jz CPU.REG_TEMP1 10)  (* Jz at addr 0 *)
-       else None;
-     CPU.state := CPU.Running
-  |}.
+(* Helper to construct a test CPU state.  We keep only the concrete CPU model
+   fields that matter for the register-preservation claims. *)
+Definition make_test_cpu_for_temp4 (temp1_val : nat) : CPU.State :=
+  {| CPU.regs := [4; 0; 0; 0; 0; 0; 0; 0; temp1_val; 0];
+     CPU.mem := [];
+     CPU.cost := 0 |}.
 
 (* Test Case 1: TEMP1 = 0 (jump taken) *)
-Example test_temp4_case1 : 
+Example test_temp4_case1 :
   let cpu := make_test_cpu_for_temp4 0 in
-  let decoded := CPU.Jz CPU.REG_TEMP1 10 in
-  CPU.read_reg CPU.REG_TEMP1 (run_n cpu 5) = 0.
+  CPU.read_reg CPU.REG_TEMP1 (CPU.step (CPU.Jz CPU.REG_TEMP1 10) cpu) = 0.
 Proof.
-  simpl.
-  (* This would require executing the Jz instruction *)
-  (* We can't complete the proof here due to run_n being opaque *)
-  (* But the axiom states this property holds *)
-Admitted. (* Test placeholder - would need concrete execution *)
+  reflexivity.
+Qed.
 
 (* Test Case 2: TEMP1 ≠ 0 (jump not taken) *)
-Example test_temp4_case2 : 
+Example test_temp4_case2 :
   let cpu := make_test_cpu_for_temp4 5 in
-  let decoded := CPU.Jz CPU.REG_TEMP1 10 in
-  CPU.read_reg CPU.REG_TEMP1 (run_n cpu 5) = 5.
+  CPU.read_reg CPU.REG_TEMP1 (CPU.step (CPU.Jz CPU.REG_TEMP1 10) cpu) = 5.
 Proof.
-  simpl.
-  (* Similar - requires concrete execution *)
-Admitted. (* Test placeholder *)
+  reflexivity.
+Qed.
 
 (*
  * AXIOM 2: temp1_preserved_through_addr_write
@@ -86,64 +75,135 @@ Admitted. (* Test placeholder *)
  *)
 
 (* Property test: Writing to any register ≠ TEMP1 preserves TEMP1 *)
+Lemma nth_firstn_lt {A} (l : list A) (n m : nat) (d : A) :
+  n < m -> m <= length l -> nth n (firstn m l) d = nth n l d.
+Proof.
+  revert n l.
+  induction m; intros n l Hlt Hlen; [lia|].
+  destruct l as [|x xs]; simpl in *; try lia.
+  destruct n; simpl; auto.
+  apply IHm; lia.
+Qed.
+
+Lemma nth_app_left {A} (l1 l2 : list A) (n : nat) (d : A) :
+  n < length l1 -> nth n (l1 ++ l2) d = nth n l1 d.
+Proof.
+  revert n l1.
+  induction n; intros [|x xs] Hlt; simpl in *; try lia; auto.
+  apply IHn; lia.
+Qed.
+
+Lemma nth_app_right {A} (l1 l2 : list A) (n : nat) (d : A) :
+  length l1 <= n -> nth n (l1 ++ l2) d = nth (n - length l1) l2 d.
+Proof.
+  revert n.
+  induction l1; intros n Hge; simpl in *.
+  - now rewrite Nat.sub_0_r.
+  - destruct n; simpl in *; try lia.
+    apply IHl1; lia.
+Qed.
+
+Lemma nth_skipn' {A} (l : list A) (n m : nat) (d : A) :
+  nth n (skipn m l) d = nth (n + m) l d.
+  Proof.
+    revert n m.
+    induction l as [|x xs IH]; intros n m; simpl.
+    - destruct m; simpl.
+      + rewrite Nat.add_0_r. reflexivity.
+      + destruct n; simpl; reflexivity.
+    - destruct m; simpl.
+      + rewrite Nat.add_0_r. reflexivity.
+      + rewrite Nat.add_succ_r. simpl. apply IH.
+  Qed.
+
 Lemma write_preserves_other_regs : forall cpu r v,
   r <> CPU.REG_TEMP1 ->
+  length (CPU.regs cpu) > Nat.max r CPU.REG_TEMP1 ->
   CPU.read_reg CPU.REG_TEMP1 (CPU.write_reg r v cpu) =
   CPU.read_reg CPU.REG_TEMP1 cpu.
 Proof.
-  intros cpu r v Hneq.
-  unfold CPU.write_reg, CPU.read_reg.
-  destruct cpu as [pc regs mem state]. simpl.
-  (* This would use the definition of list update and register indices *)
-  (* The proof would show that updating index r ≠ TEMP1 preserves TEMP1 *)
-Admitted. (* Requires CPU module implementation details *)
+  intros [regs mem cost] r v Hneq Hlen.
+  unfold CPU.read_reg, CPU.write_reg; simpl in *.
+  remember CPU.REG_TEMP1 as temp1.
+  assert (Htemp_lt : temp1 < length regs) by lia.
+  assert (Hr_lt : r < length regs) by lia.
+  destruct (Nat.lt_ge_cases temp1 r) as [Hlt | Hge].
+  - assert (Hlt_firstn : temp1 < length (firstn r regs)) by (rewrite firstn_length; lia).
+    pose proof (nth_app_left (firstn r regs) ([v] ++ skipn (S r) regs) temp1 0 Hlt_firstn) as Hprefix.
+    simpl in Hprefix.
+    rewrite Hprefix.
+    assert (Hlen_regs : r <= length regs) by lia.
+    pose proof (nth_firstn_lt regs temp1 r 0 Hlt Hlen_regs) as Hkeep.
+    rewrite Hkeep. reflexivity.
+  - assert (Hge_firstn : length (firstn r regs) <= temp1) by (rewrite firstn_length; lia).
+      pose proof (nth_app_right (firstn r regs) ([v] ++ skipn (S r) regs) temp1 0 Hge_firstn) as Hsuffix.
+      simpl in Hsuffix.
+      assert (Hfirstn_len : length (firstn r regs) = r) by (rewrite firstn_length; lia).
+      rewrite Hfirstn_len in Hsuffix.
+      rewrite Hsuffix.
+      assert (Hpos : temp1 - r > 0) by lia.
+      destruct (temp1 - r) as [|k] eqn:Hdiff; [lia|].
+      simpl.
+      destruct k as [|k'].
+      + assert (Htemp_eq : temp1 = S r) by lia.
+        rewrite Htemp_eq.
+        replace (S r) with (0 + S r) by lia.
+        rewrite <- (nth_skipn' regs 0 (S r) 0).
+        reflexivity.
+      + assert (Htemp_eq : temp1 = k' + S (S r)) by lia.
+        rewrite Htemp_eq.
+        replace (k' + S (S r)) with (S k' + S r) by lia.
+        rewrite <- (nth_skipn' regs (S k') (S r) 0).
+        reflexivity.
+  Qed.
 
 (* Specific case: ADDR ≠ TEMP1 *)
 Lemma addr_neq_temp1 : CPU.REG_ADDR <> CPU.REG_TEMP1.
 Proof.
-  (* This follows from the register definitions in CPU.v *)
-  (* REG_ADDR and REG_TEMP1 have different numeric values *)
-Admitted. (* Requires CPU register definitions *)
+  unfold CPU.REG_ADDR, CPU.REG_TEMP1. lia.
+Qed.
 
 (* Validation: axiom follows from general property *)
-Lemma temp1_preserved_through_addr_write_validated : forall cpu addr_val len,
-  length (CPU.regs cpu) >= 10 ->
-  CPU.read_reg CPU.REG_TEMP1 (CPU.write_reg CPU.REG_ADDR addr_val cpu) =
-  CPU.read_reg CPU.REG_TEMP1 cpu.
-Proof.
-  intros.
-  apply write_preserves_other_regs.
-  apply addr_neq_temp1.
-Qed.
+  Lemma temp1_preserved_through_addr_write_validated : forall cpu addr_val,
+    length (CPU.regs cpu) >= 10 ->
+    CPU.read_reg CPU.REG_TEMP1 (CPU.write_reg CPU.REG_ADDR addr_val cpu) =
+    CPU.read_reg CPU.REG_TEMP1 cpu.
+  Proof.
+    intros cpu addr_val Hlen.
+      assert (Hbounds : length (CPU.regs cpu) > 8) by lia.
+      apply write_preserves_other_regs; try assumption.
+      apply addr_neq_temp1.
+    Qed.
 
 (*
  * AXIOM 3: temp1_preserved_through_pc_write
- * 
+ *
  * Statement: Updating PC doesn't change TEMP1 register.
- * 
- * This is correct because PC update only modifies the pc field of the CPU
- * record, not the regs field where TEMP1 is stored.
+ *
+ * This is correct because writing the PC slot leaves the TEMP1 register
+ * (stored at a different index) untouched.
  *)
 
 Lemma pc_update_preserves_regs : forall cpu new_pc,
-  CPU.read_reg CPU.REG_TEMP1 (CPU.update_pc new_pc cpu) =
+  length (CPU.regs cpu) >= 10 ->
+  CPU.read_reg CPU.REG_TEMP1 (CPU.write_reg CPU.REG_PC new_pc cpu) =
   CPU.read_reg CPU.REG_TEMP1 cpu.
-Proof.
-  intros.
-  unfold CPU.update_pc, CPU.read_reg.
-  destruct cpu as [pc regs mem state]. simpl.
-  reflexivity.
-Qed.
+  Proof.
+    intros cpu new_pc Hlen.
+    assert (Hbounds : length (CPU.regs cpu) > 8) by lia.
+    apply write_preserves_other_regs; try assumption.
+    unfold CPU.REG_PC, CPU.REG_TEMP1; lia.
+  Qed.
 
 (* This axiom is actually provable directly! *)
-Lemma temp1_preserved_through_pc_write_validated : forall cpu new_pc len,
-  length (CPU.regs cpu) >= 10 ->
-  CPU.read_reg CPU.REG_TEMP1 (CPU.update_pc new_pc cpu) =
-  CPU.read_reg CPU.REG_TEMP1 cpu.
-Proof.
-  intros.
-  apply pc_update_preserves_regs.
-Qed.
+  Lemma temp1_preserved_through_pc_write_validated : forall cpu new_pc,
+    length (CPU.regs cpu) >= 10 ->
+    CPU.read_reg CPU.REG_TEMP1 (CPU.write_reg CPU.REG_PC new_pc cpu) =
+    CPU.read_reg CPU.REG_TEMP1 cpu.
+  Proof.
+    intros cpu new_pc Hlen.
+    apply pc_update_preserves_regs; assumption.
+  Qed.
 
 (*
  * AXIOM 4: transition_FindRule_Next_step2b
@@ -228,5 +288,3 @@ Definition prop_temp4_correct :=
 (* Run the test *)
 (* QuickChick prop_temp4_correct. *)
 *)
-
-End ThieleUniversalBridge_Axiom_Tests.

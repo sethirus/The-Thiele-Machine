@@ -4,6 +4,7 @@
 Require Import Coq.QArith.QArith.
 Require Import Coq.ZArith.ZArith.
 Require Import Coq.Lists.List.
+Require Import Coq.setoid_ring.Qring.
 Import ListNotations.
 
 Open Scope Q_scope.
@@ -83,7 +84,7 @@ Theorem emergent_wave_eq :
   forall u_tp1 u_t u_tm1 u_xp u_xm,
     u_tp1 == wave_update u_t u_tm1 u_xp u_xm ->
     (* The algebraic identity showing wave equation structure *)
-    discrete_d2_dt2 u_tp1 u_t u_tm1 == 
+    discrete_d2_dt2 u_tp1 u_t u_tm1 ==
     wave_c_squared * discrete_d2_dx2 u_xp u_t u_xm.
 Proof.
   (* 
@@ -104,10 +105,11 @@ Proof.
      the wave equation PDE.
   *)
   intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.
-  (* Full algebraic proof requires Q arithmetic tactics *)
-  (* We state the theorem; numerical verification confirms it *)
-  admit.
-Admitted.
+  unfold discrete_d2_dt2, discrete_d2_dx2, wave_update, wave_c_squared in *.
+  setoid_rewrite Hupdate.
+  unfold wave_coeff_u_t, wave_coeff_u_tm1, wave_coeff_u_xp, wave_coeff_u_xm.
+  ring.
+Qed.
 
 Close Scope Z_scope.
 Close Scope Q_scope.

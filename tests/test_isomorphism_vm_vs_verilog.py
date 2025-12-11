@@ -27,6 +27,102 @@ def has_iverilog():
     return shutil.which("iverilog") is not None
 
 
+def normalize_trace(trace_entries):
+    """Strip padding and coerce numeric fields for comparison."""
+    normalized = []
+    for entry in trace_entries:
+        normalized.append(
+            {
+                "step": int(entry["step"]),
+                "opcode": entry["opcode"].strip(),
+                "region": int(entry["region"]),
+                "num_modules": int(entry["num_modules"]),
+                "mu_discovery": int(entry["mu_discovery"]),
+                "mu_execution": int(entry["mu_execution"]),
+                "mu_total": int(entry["mu_total"]),
+            }
+        )
+    return normalized
+
+
+def run_verilog_trace():
+    """Compile and simulate the Verilog core, returning the JSON trace."""
+    BUILD_DIR.mkdir(parents=True, exist_ok=True)
+
+    subprocess.run(
+        [
+            "iverilog",
+            "-g2012",
+            "-o",
+            str(BUILD_DIR / "partition_core_tb"),
+            str(HARDWARE_DIR / "partition_core.v"),
+            str(HARDWARE_DIR / "partition_core_tb.v"),
+        ],
+        check=True,
+    )
+
+    subprocess.run(
+        ["vvp", str(BUILD_DIR / "partition_core_tb")],
+        check=True,
+        cwd=BUILD_DIR,
+    )
+
+    trace_file = BUILD_DIR / "hw_trace.json"
+    raw_lines = trace_file.read_text().splitlines()
+
+    # The trace writer omits commas between objects; reassemble a valid JSON list
+    # by concatenating consecutive lines until we see a closing brace.
+    objects = []
+    current = ""
+    for line in raw_lines:
+        stripped = line.strip()
+        if stripped in {"[", "]", ""}:
+            continue
+        current = f"{current} {stripped}".strip()
+        if stripped.endswith("}"):
+            objects.append(current)
+            current = ""
+
+    trace_data = json.loads(f"[{','.join(objects)}]")
+    return normalize_trace(trace_data)
+
+
+def vm_reference_trace():
+    """Run the Python VM through the same sequence as the Verilog TB."""
+    from thielecpu.state import State, indices_of_mask
+
+    state = State()
+    trace = []
+
+    def record(opcode: str, region_mask: int):
+        trace.append(
+            {
+                "step": len(trace),
+                "opcode": opcode,
+                "region": region_mask,
+                "num_modules": state.num_modules,
+                "mu_discovery": state.mu_ledger.mu_discovery,
+                "mu_execution": state.mu_ledger.mu_execution,
+                "mu_total": state.mu_ledger.total,
+            }
+        )
+
+    # Sequence mirrors partition_core_tb.v
+    first = state.pnew(indices_of_mask(0x7))
+    record("PNEW", 0x7)
+
+    _second = state.pnew(indices_of_mask(0x30))
+    record("PNEW", 0x30)
+
+    split_a, split_b = state.psplit(first, lambda idx: bool(0x1 & (1 << idx)))
+    record("PSPLIT", 0x1)
+
+    state.pmerge(split_a, split_b)
+    record("PMERGE", 0x0)
+
+    return trace
+
+
 def run_vm_trace(program_path: Path) -> dict:
     """Run Python VM on a program and return final state."""
     from thielecpu.state import State
@@ -120,7 +216,7 @@ class TestVerilogTraceAlignment:
     def test_verilog_compiles(self):
         """Verilog should compile without errors."""
         BUILD_DIR.mkdir(parents=True, exist_ok=True)
-        
+
         result = subprocess.run(
             ["iverilog", "-g2012", "-o", str(BUILD_DIR / "partition_core_tb"),
              str(HARDWARE_DIR / "partition_core.v"),
@@ -133,29 +229,19 @@ class TestVerilogTraceAlignment:
     
     def test_verilog_simulation_runs(self):
         """Verilog simulation should run and produce trace."""
-        BUILD_DIR.mkdir(parents=True, exist_ok=True)
-        
-        # Compile
-        subprocess.run(
-            ["iverilog", "-g2012", "-o", str(BUILD_DIR / "partition_core_tb"),
-             str(HARDWARE_DIR / "partition_core.v"),
-             str(HARDWARE_DIR / "partition_core_tb.v")],
-            check=True
-        )
-        
-        # Run simulation
-        result = subprocess.run(
-            ["vvp", str(BUILD_DIR / "partition_core_tb")],
-            capture_output=True,
-            text=True,
-            cwd=BUILD_DIR
-        )
-        
-        assert result.returncode == 0, f"Simulation failed: {result.stderr}"
-        
-        # Check trace file was created
+        trace = run_verilog_trace()
         trace_file = BUILD_DIR / "hw_trace.json"
         assert trace_file.exists(), "Trace file was not created"
+        assert trace, "Trace is empty"
+
+    def test_vm_trace_matches_verilog_trace(self):
+        """Verilog JSON trace should match the Python VM reference trace bit-for-bit."""
+        verilog_trace = run_verilog_trace()
+        python_trace = vm_reference_trace()
+
+        assert verilog_trace == python_trace, (
+            f"Trace mismatch\nVerilog: {verilog_trace}\nPython: {python_trace}"
+        )
 
 
 class TestOpcodeEncodingAlignment:

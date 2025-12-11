@@ -1,12 +1,14 @@
 # Axiom and admit inventory for the Thiele Machine development
 
-_Updated November 2025 after complete audit and proof fixes._
+_Updated December 2025 to track remaining axioms after the latest admit removals._
 
 ## Summary
 
-- **Total Axioms in compiled code (`_CoqProject`)**: 0
+- **Total Axioms in compiled code (`_CoqProject`)**: 62 (see `ADMIT_REPORT.txt` for the full list)
 - **Total Admits in compiled code (`_CoqProject`)**: 0
-- **Build status**: `make all` completes successfully with all 73 files compiling cleanly
+- **Build status**: Core proofs build with `make -C coq core`; bridging targets may require extended timeouts.
+- **Recent changes**: Removed the `mu_observational_equivalence` axiom in `SpacelandCore.v` by refining the projection
+  definition; earlier InfoTheory discharges and `range_check_in_range_with_length` remain the latest complexity-proof updates.
 
 ### Files NOT in `_CoqProject` (excluded from main build)
 
@@ -17,6 +19,28 @@ These files retain axioms/admits for historical or debugging purposes:
 | `thielemachine/coqproofs/debug_no_rule.v` | 0 | 2 | Debug/test reproduction |
 | `thielemachine/verification/modular/Bridge_LengthPreservation.v` | 1 | 0 | Extracted analysis file |
 | `thielemachine/verification/ThieleUniversalBridge_Axiom_Tests.v` | 0 | 4 | Test harness (if exists) |
+
+## Rationale for remaining axioms
+
+The 62 axioms in the active tree fall into three buckets:
+
+1. **Foundational assumptions** that formalize physics/cryptography/information-theory limits we cannot derive constructively:
+   - `hash_collision_resistance`, `hash_length` (cryptography, SHA-256 collision and length discipline).
+   - `kolmogorov_complexity`, `mu_bounds_kolmogorov` (uncomputable Kolmogorov K and its upper bound relationship to μ-cost).
+   - `mu_thermodynamic`, `blind_reversible` in Representation/Spaceland (Landauer-bound style thermodynamic constraints on μ, and reversibility of blind steps when μ=0).
+
+2. **Abstract interface contracts** that describe the behavior of external components or high-level models the Coq development reasons about but does not implement directly:
+   - `module_of`, `partition_wellformed`, `step`, `step_deterministic`, `module_independence` (and their Spaceland variants) state the shape and determinism of the abstract labeled transition system we are relating to the concrete Thiele machine.
+   - `mu`, `mu_nonneg`, `mu_monotone`, `mu_additive`, `mu_blind_free`, `mu_observe_positive`, `mu_split_positive`, `mu_merge_free` describe the μ-cost accounting rules required of any implementation we connect to the theory.
+   - Receipt axioms (`receipt_sound`, `receipt_complete`, `receipt`/`representation` projections) assert that the receipt/observation API faithfully summarizes executions.
+   - `observable_complete`, `representation_refined`, `same_projection`, `representation` capture the abstract completeness/representation properties needed to transfer results between models.
+
+3. **Algorithmic or oracle boundaries** where the implementation is treated as an external procedure:
+   - Discovery and partitioning (`eigen_complexity`, `discovery_*` trio) model an external graph partition oracle used by the bridge proofs.
+   - Spectral approximation axioms (`partition_cost`, `spectral_partition`, `optimal_partition`, `optimal_is_minimal`, `spectral_*`) treat the spectral graph partitioner as a black-box oracle with standard optimality/approximation guarantees.
+   - `Semantic_Strictness`, `Strict_Containment` capture meta-level containment properties imported from prior foundational work.
+
+For each category, the Coq code either already contains constructive implementations (e.g., `SimpleSpaceland` proves determinism) or explicitly marks the boundary where external assumptions begin. These sentences are the intended justifications reviewers should expect when auditing the remaining axioms.
 
 ## Main Theorems (All Proved)
 
