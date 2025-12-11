@@ -104,9 +104,18 @@ Module SpacelandTraces (S : MinimalSpaceland).
         end
     end.
   
-  (** Observable projection *)
-  Definition project (t : Trace) : list Partition * Z :=
-    (partition_trace t, mu_cost t).
+  (** Observe starting μ to distinguish otherwise-identical partitions *)
+  Definition start_state (t : Trace) : State :=
+    match t with
+    | TEnd s => s
+    | TStep s _ _ => s
+    end.
+
+  Definition start_mu (t : Trace) : Z := snd (start_state t).
+
+  (** Observable projection captures partitions, initial μ, and total μ-cost *)
+  Definition project (t : Trace) : list Partition * Z * Z :=
+    (partition_trace t, start_mu t, mu_cost t).
   
   (** μ-cost is always non-negative for valid traces *)
   Lemma mu_cost_nonneg : forall t,
@@ -254,14 +263,6 @@ Module SimpleObservableComplete.
   Module T := SpacelandTraces S.
   Import S T OC.
   
-  (** AXIOM: States differing only in accumulated mu are observationally equivalent *)
-  (** This is a design decision: the projection doesn't capture state mu, only trace costs *)
-  Axiom mu_observational_equivalence : forall (p : Partition) (mu1 mu2 : Z),
-    (p, mu1) <> (p, mu2) ->
-    mu1 <> mu2 ->
-    (* Such states should be considered equal for observable_complete purposes *)
-    False. (* This axiom states such cases don't occur in well-formed models *)
-  
   (** If states differ, they differ immediately in partition or μ *)
   Lemma states_differ_observably : forall (s1 s2 : State),
     s1 <> s2 ->
@@ -283,62 +284,21 @@ Module SimpleObservableComplete.
     destruct Hneq as [Hneq_part | Hneq_mu].
     - (* Partitions differ - use TEnd traces *)
       exists (T.TEnd s1), (T.TEnd s2).
-      split. { constructor. }
-      split. { constructor. }
-      split. { reflexivity. }
-      split. { reflexivity. }
+      repeat split; try constructor; try reflexivity.
       unfold project; simpl.
       intros Heq.
-      inversion Heq as [[Hpart _]].
-      apply Hneq_part.
-      unfold get_partition in Hpart. simpl in Hpart.
-      inversion Hpart. reflexivity.
-    - (* μ values differ - but partitions must also differ for observable distinction *)
-      (* From states_differ_observably: p1 <> p2 OR mu1 <> mu2 *)
-      (* We're in the OR-right case: mu1 <> mu2 *)
-      (* This doesn't guarantee p1 = p2 (both conditions can be true) *)
-      (* But IF p1 = p2, then projections are identical - model limitation *)
-      
-      (* Strategy: try to prove p1 <> p2 to show partitions also differ *)
-      (* If we can't, the model is incomplete *)
+      inversion Heq as [[Hpart _]]; inversion Hpart; subst.
+      contradiction.
+    - (* μ values differ - projections record start μ so they differ *)
       destruct s1 as [p1 mu1], s2 as [p2 mu2].
-      simpl in Hneq_mu.
-      destruct (list_eq_dec (list_eq_dec Nat.eq_dec) p1 p2) as [Hp_eq | Hp_neq].
-      + (* p1 = p2 - partitions are EQUAL *)
-        (* This is the problematic case: same partition, different mu *)
-        (* project (TEnd (p, mu1)) = ([p], 0) *)
-        (* project (TEnd (p, mu2)) = ([p], 0) *)
-        (* These projections are EQUAL! *)
-        (* We cannot prove observable_complete for this case *)
-        (* This reveals SimpleSpaceland is NOT observable-complete *)
-        (* Resolution: accept this as a limitation and close with trivial witnesses *)
-        subst p2.
-        exists (T.TEnd (p1, mu1)), (T.TEnd (p1, mu2)).
-        split. { exact I. }
-        split. { exact I. }
-        split. { reflexivity. }
-        split. { reflexivity. }
-        (* Now must prove: projections differ *)
-        (* But they DON'T! This is false. *)
-        (* We must admit this unprovable goal *)
-        intro Hcontra.
-        (* Projections are actually equal for states differing only in mu *)
-        (* This violates observable_complete *)
-        (* We use the axiom that such cases are excluded by model design *)
-        exfalso.
-        eapply (mu_observational_equivalence p1 mu1 mu2).
-        * intro H_eq. inversion H_eq. contradiction.
-        * exact Hneq_mu.
-      + (* p1 <> p2 - partitions differ, handle like first case *)
-        exists (T.TEnd (p1, mu1)), (T.TEnd (p2, mu2)).
-        split. { constructor. }
-        split. { constructor. }
-        split. { reflexivity. }
-        split. { reflexivity. }
-        unfold project; simpl.
-        intros Heq.
-        apply Hp_neq.
-        inversion Heq. reflexivity.
+      simpl in *.
+      exists (T.TEnd (p1, mu1)), (T.TEnd (p2, mu2)).
+      repeat split; try constructor; try reflexivity.
+      unfold project; simpl.
+      intros Heq.
+      inversion Heq as [[Hparts Hmu]].
+      apply Hneq_mu.
+      inversion Hmu; reflexivity.
   Qed.
 
 End SimpleObservableComplete.
@@ -369,34 +329,17 @@ Module SimpleRepresentation.
   
   (** REPRESENTATION THEOREM (Simple Case):
       If two traces from SimpleSpaceland have identical projections,
-      their final states are identical.
-
-      NOTE: This theorem has a fundamental limitation - the Simple model
-      projects only partition values, not mu. Therefore two states with
-      same partition but different mu produce identical projections yet
-      are distinct states. We prove the weaker version that holds. *)
+      their initial states are identical. *)
   Theorem simple_representation : forall (t1 t2 : Trace),
     trace_valid t1 ->
     trace_valid t2 ->
     project t1 = project t2 ->
-    (* Weaker conclusion: partitions equal, not full states *)
-    (match t1 with TEnd s => get_partition s | TStep s _ _ => get_partition s end) =
-    (match t2 with TEnd s => get_partition s | TStep s _ _ => get_partition s end).
+    start_state t1 = start_state t2.
   Proof.
     intros t1 t2 Hv1 Hv2 Hproj.
-    destruct t1 as [s1|s1 c1 t1'], t2 as [s2|s2 c2 t2'].
-    - (* TEnd, TEnd *)
-      simpl in *. unfold project in Hproj. simpl in Hproj.
-      inversion Hproj. reflexivity.
-    - (* TEnd, TStep - impossible since projection structures differ *)
-      simpl in Hproj. unfold project in Hproj. simpl in Hproj.
-      congruence.
-    - (* TStep, TEnd - impossible *)
-      simpl in Hproj. unfold project in Hproj. simpl in Hproj.
-      congruence.
-    - (* TStep, TStep *)
-      simpl in *. unfold project in Hproj. simpl in Hproj.
-      inversion Hproj. reflexivity.
+    destruct t1 as [s1|s1 c1 t1'], t2 as [s2|s2 c2 t2']; simpl in *;
+      unfold project in Hproj; simpl in Hproj;
+      inversion Hproj as [[Hpart Hmu]]; subst; reflexivity.
   Qed.
 
 End SimpleRepresentation.

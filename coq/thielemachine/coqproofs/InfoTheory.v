@@ -59,27 +59,67 @@ Definition mu_cost (query_bytes : nat) (before after : positive) : Q :=
 (* Key Theorems *)
 (* ================================================================ *)
 
-(* Axiom: Query encoding cost is non-negative *)
-Axiom question_cost_nonnegative :
+(* Query encoding cost is non-negative *)
+Lemma question_cost_nonnegative :
   forall (query_bytes : nat),
     question_cost query_bytes >= 0.
+Proof.
+  intro query_bytes.
+  unfold question_cost.
+  rewrite <- inject_Z_0.
+  apply (proj2 (inject_Z_le 0 (8 * Z.of_nat query_bytes)%Z)).
+  lia.
+Qed.
 
-(* Axiom: Log2 is monotonic *)
-Axiom log2_monotonic :
+(* Log2 monotonicity (ceiling vs floor) *)
+Lemma log2_monotonic :
   forall (n m : positive),
     (n > m)%positive ->
     inject_Z (Z.log2_up (Z.pos n)) >= inject_Z (Z.log2 (Z.pos m)).
+Proof.
+  intros n m Hgt.
+  apply (proj2 (inject_Z_le _ _)).
+  assert (Hle_nm : (Z.pos m <= Z.pos n)%Z) by (apply Pos2Z.pos_lt_pos_iff in Hgt; lia).
+  assert (Hlog_m_le_n : (Z.log2 (Z.pos m) <= Z.log2 (Z.pos n))%Z).
+  { apply Z.log2_le_mono; lia. }
+  assert (Hlog_n_le_up : (Z.log2 (Z.pos n) <= Z.log2_up (Z.pos n))%Z).
+  { apply Z.le_log2_log2_up. }
+  lia.
+Qed.
 
-(* Axiom: μ-cost bounds Shannon entropy (a + b >= b when a >= 0) *)
-Axiom mu_bounds_shannon_entropy :
+(* μ-cost bounds Shannon entropy (a + b >= b when a >= 0) *)
+Lemma mu_bounds_shannon_entropy :
   forall (query_bytes : nat) (before after : positive),
     (after < before)%positive ->
     mu_cost query_bytes before after >= information_cost before after.
+Proof.
+  intros query_bytes before after _.
+  unfold mu_cost, information_cost.
+  pose proof (question_cost_nonnegative query_bytes) as Hq.
+  lra.
+Qed.
 
-(* Axiom: μ-cost is always non-negative *)
-Axiom mu_cost_nonnegative :
+(* μ-cost is always non-negative *)
+Lemma mu_cost_nonnegative :
   forall (query_bytes : nat) (before after : positive),
     mu_cost query_bytes before after >= 0.
+Proof.
+  intros query_bytes before after.
+  unfold mu_cost, information_cost, state_reduction_entropy, question_cost.
+  destruct (Pos.leb before after) eqn:Hcmp.
+  - rewrite <- inject_Z_0.
+    apply (proj2 (inject_Z_le 0 (8 * Z.of_nat query_bytes)%Z)); lia.
+  - rewrite <- inject_Z_0.
+    apply Qplus_le_le_0_compat.
+    + apply (proj2 (inject_Z_le 0 (8 * Z.of_nat query_bytes)%Z)); lia.
+    + apply (proj2 (inject_Z_le 0
+                    (Z.log2_up (Z.pos before) - Z.log2 (Z.pos after))%Z)).
+      assert ((Z.pos after < Z.pos before)%Z) as HltZ by (apply Pos2Z.pos_lt_pos_iff; lia).
+      pose proof (Z.log2_le_mono (Z.pos after) (Z.pos before)) as Hmono.
+      assert (0 <= Z.log2 (Z.pos after))%Z by (apply Z.log2_nonneg; lia).
+      specialize (Hmono HltZ).
+      lia.
+Qed.
 
 (* Theorem: Information component equals Shannon entropy reduction *)
 Theorem information_equals_shannon_reduction :
@@ -109,12 +149,17 @@ Definition mdl_cost (num_parameters parameter_bits data_points : nat)
   data_description_length data_points residual_entropy.
 
 (* μ-cost for partition discovery includes MDL *)
-Axiom partition_discovery_mu_includes_mdl :
+Lemma partition_discovery_mu_includes_mdl :
   forall (partition_description_bits : nat)
          (data_points : nat)
          (residual : Q),
     exists (mu_discovery : Q),
       mu_discovery >= mdl_cost 1 partition_description_bits data_points residual.
+Proof.
+  intros partition_description_bits data_points residual.
+  exists (mdl_cost 1 partition_description_bits data_points residual).
+  lra.
+Qed.
 
 (* ================================================================ *)
 (* Kolmogorov Complexity Connection *)
@@ -137,11 +182,15 @@ Axiom mu_bounds_kolmogorov :
 (* Conservation Law *)
 (* ================================================================ *)
 
-(* Axiom: μ-monotonicity implies information conservation *)
-Axiom mu_monotonicity_conservation :
+(* μ-monotonicity implies information conservation *)
+Lemma mu_monotonicity_conservation :
   forall (mu_before mu_after : Q),
     mu_after >= mu_before ->
     mu_after - mu_before >= 0.
+Proof.
+  intros mu_before mu_after Hge.
+  lra.
+Qed.
 
 (* ================================================================ *)
 (* Practical Bounds *)
@@ -154,9 +203,27 @@ Definition binary_search_mu_cost (n : nat) (query_bytes : nat) : Q :=
   let num_queries := Z.log2_up (Z.of_nat n) in
   inject_Z num_queries * question_cost query_bytes.
 
-(* Axiom: Binary search μ-cost is bounded below by log(n) *)
-Axiom binary_search_bound :
+(* Binary search μ-cost is bounded below by log(n) when queries are non-empty *)
+Lemma binary_search_bound :
   forall (n query_bytes : nat),
     n > 0 ->
+    query_bytes > 0 ->
     (binary_search_mu_cost n query_bytes >=
       inject_Z (Z.log2_up (Z.of_nat n)))%Q.
+Proof.
+  intros n query_bytes Hn_pos Hbytes_pos.
+  unfold binary_search_mu_cost, question_cost.
+  set (num_queries := Z.log2_up (Z.of_nat n)).
+  assert (Hnum_nonneg : (0 <= num_queries)%Z).
+  { unfold num_queries.
+    destruct n as [|n']; [lia|].
+    simpl.
+    apply Z.log2_up_nonneg.
+    lia. }
+  assert (Hcost_pos : 1 <= 8 * Z.of_nat query_bytes)%Z by lia.
+  apply (proj2 (inject_Z_le _ _)).
+  (* Rewrite goal in Z domain to use monotonicity of multiplication *)
+  assert (Hnum_le : (num_queries <= num_queries * (8 * Z.of_nat query_bytes))%Z).
+  { apply Z.le_mul_of_pos_r; lia. }
+  exact Hnum_le.
+Qed.
