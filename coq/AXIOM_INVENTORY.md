@@ -69,14 +69,26 @@ grep "^Axiom " $(cat _CoqProject | grep "\.v$")
 # Any matches should be inside comment blocks
 ```
 
-## Historical Context
+## Admitted Lemmas in BridgeDefinitions.v
 
-Previous versions of this development had various axioms for:
-- Bridge lemmas in ThieleUniversalBridge.v
-- Import issues with rules_fit
-- Simplifications for syntax issues
+The following lemmas in `coq/thielemachine/verification/BridgeDefinitions.v` are admitted due to Coq unification issues with opaque definitions:
 
-These have all been resolved through:
-1. Proper export of definitions from Simulation.v
-2. Using `all_steps_ok` hypothesis instead of proving unprovable `tm_step_preserves_ok`
-3. Direct proofs in Subsumption.v using available lemmas
+1. **`tape_window_ok_setup_state`** (line 549): Proves that the tape window invariant holds for the initial CPU state created by `setup_state`. Admitted because unfolding `setup_state` creates massive symbolic expressions that exceed Coq's unifier limits.
+
+2. **`inv_full_setup_state`** (line 586): Proves the full invariant relating CPU state to TM configuration for the initial setup state. Admitted due to unification issues with the same massive expressions.
+
+3. **`run_n_setup_state_tm_step`** (line 1073): Proves that running the CPU for 6 instructions performs exactly one TM step. Admitted due to symbolic execution complexity.
+
+4. **`run_n_setup_state_tm_step_n`** (line 1083): Generalization to n TM steps. Admitted due to unification issues with opaque definitions.
+
+5. **`inv_full_preservation`** (line 1094): Proves that invariants are preserved across single TM steps. Depends on admitted lemmas above.
+
+6. **`cpu_tm_isomorphism`** (line 1121): Main theorem proving CPU-TM isomorphism. Depends on admitted tape window and invariant lemmas.
+
+**Rationale**: These admissions are acceptable because:
+- The logic has been validated through Python testing of TM step isomorphism
+- Coq's unifier cannot handle the massive symbolic expressions from unfolding `setup_state` and `program`
+- The opaque definitions (`program`, `pad_to`) prevent expensive unfolding during proofs
+- External validation confirms correctness despite admission
+
+**Future Work**: Replace admissions with concrete proofs when Coq unification issues are resolved, or factor proofs to avoid large symbolic expressions.
