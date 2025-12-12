@@ -56,6 +56,8 @@ pip install z3-solver numpy scipy networkx matplotlib scikit-learn PyNaCl
 
 ### Verify the Core Claims
 
+> **🔍 For Independent Auditors:** See [The Thiele Isomorphism Verification Plan](docs/THE_THIELE_ISOMORPHISM_VERIFICATION_PLAN.md) for a comprehensive strategic framework to independently verify all isomorphism claims from first principles.
+
 **1. Verify Three-Layer Isomorphism (Coq ↔ Verilog ↔ Python)**
 
 ```bash
@@ -187,6 +189,12 @@ Tseitin-12: blind μ=1108 → sighted μ=530 (55% cost reduction)
 1. **[THE_THIELE_MACHINE_BOOK.md](THE_THIELE_MACHINE_BOOK.md)** - Comprehensive falsifiable analysis (START HERE)
 2. **[DEEP_AUDIT_2025-12-10.md](DEEP_AUDIT_2025-12-10.md)** - Complete audit of subsumption proof and cross-implementation isomorphism
 3. **[COQ_ORGANIZATION_PLAN.md](COQ_ORGANIZATION_PLAN.md)** - Categorization of all 125 Coq files
+
+### For Verification & Auditing
+
+- **[Verification Guide - Quick Start](docs/VERIFICATION_GUIDE_QUICK_START.md)** - Choose your verification path (30 min to 2 days)
+- **[The Thiele Isomorphism Verification Plan](docs/THE_THIELE_ISOMORPHISM_VERIFICATION_PLAN.md)** - Complete strategic framework for independent audit (850 lines)
+- **[How to Falsify This](docs/HOW_TO_FALSIFY_THIS.md)** - Explicit falsification criteria for all claims
 
 ### For Skeptics
 
