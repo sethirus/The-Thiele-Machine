@@ -1,0 +1,50 @@
+{
+  "measurements": {
+    "state_size": {
+      "total_state_size": 48,
+      "mu_ledger_size": 48,
+      "regions_size": 48,
+      "partition_masks_size": 224,
+      "csr_size": 224,
+      "num_modules": 2
+    },
+    "conservation": {
+      "operations": 1000,
+      "mu_start": 0,
+      "mu_end": 8,
+      "mu_delta": 8,
+      "monotonicity_violations": 0,
+      "monotonicity_preserved": true
+    }
+  },
+  "fuzzing": {
+    "random_programs": {
+      "programs_tested": 10000,
+      "errors_found": 0,
+      "violations_found": 0,
+      "max_modules_reached": 8,
+      "crashes": []
+    },
+    "boundary_conditions": {
+      "tests_run": 2,
+      "failures": []
+    }
+  },
+  "benchmarks": {
+    "state_creation": {
+      "mean_ns": 1548.2734998442993,
+      "total_ms": 15.482734998442993,
+      "throughput_per_sec": 645880.7181680524
+    },
+    "partition_operations": {
+      "pnew": {
+        "mean_ns": 2353.163999998742,
+        "ops_per_sec": 424959.7563113045
+      },
+      "psplit": {
+        "mean_ns": 3684.727000120347,
+        "ops_per_sec": 271390.5263449203
+      }
+    }
+  }
+}
