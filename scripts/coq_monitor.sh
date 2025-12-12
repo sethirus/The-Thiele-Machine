@@ -92,6 +92,7 @@ make "$TARGET" 2>&1 | tee "$MAIN_LOG" | while IFS= read -r line; do
         
         CURRENT_FILE=$(echo "$line" | sed 's/.*COQC //')
         FILE_START_TIME=$(date +%s)
+        echo "START,$CURRENT_FILE,$FILE_START_TIME" >> "$TIMING_LOG"
         echo -e "\n${GREEN}▶ COMPILING:${NC} ${YELLOW}$CURRENT_FILE${NC}"
     fi
     
