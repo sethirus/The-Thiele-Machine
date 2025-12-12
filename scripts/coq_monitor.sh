@@ -74,7 +74,10 @@ MONITOR_PID=$!
 trap "kill $MONITOR_PID 2>/dev/null; exit" INT TERM EXIT
 
 # Parse and display build output
-cd /workspaces/The-Thiele-Machine/coq || exit 1
+# Use script location to find repo root to avoid hardcoded devcontainer paths
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+cd "$REPO_ROOT/coq" || exit 1
 
 make "$TARGET" 2>&1 | tee "$MAIN_LOG" | while IFS= read -r line; do
     echo "$line"
