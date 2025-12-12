@@ -1610,20 +1610,16 @@ class VM:
 
         try:
             result = safe_execute(code, self.python_globals)
-            self.state.mu_ledger.mu_execution += 1
             output = captured_output.getvalue()
             return result, output
         except SyntaxError:
             result = safe_eval(code, self.python_globals)
-            self.state.mu_ledger.mu_execution += 1
             output = captured_output.getvalue()
             return result, output
         except SecurityError as exc:
-            self.state.mu_ledger.mu_execution += 1
             output = captured_output.getvalue()
             return None, output + f"\nSecurityError: {exc}"
         except Exception as exc:
-            self.state.mu_ledger.mu_execution += 1
             # Capture any other runtime exception and return gracefully so
             # the VM can record the output and halt appropriately instead
             # of allowing an unhandled exception to propagate and fail
@@ -1633,6 +1629,7 @@ class VM:
             # detect "Error:" and set the VM halt flag.
             return None, output + f"\nError: {exc}"
         finally:
+            self.state.mu_ledger.mu_execution += 1
             sys.stdout = old_stdout
 
         return None, "Python execution completed"
