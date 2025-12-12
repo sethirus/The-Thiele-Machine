@@ -96,6 +96,8 @@ Proof.
   apply tm_decode_encode_roundtrip; assumption.
 Qed.
 
+(*
+
 Lemma utm_find_rule_restart_program_image_move_zero :
   forall tm conf cpu_find,
     ThieleUniversal.inv_core cpu_find tm conf ->
@@ -1269,6 +1271,7 @@ Proof.
     subst steps.
     split; assumption.
 Qed.
+*)
 
 Lemma utm_find_rule_step24_pc_true_branch_zero :
   forall tm conf cpu_find,
@@ -23691,6 +23694,1123 @@ Proof.
   split.
   - rewrite Hq_pres. exact Hq9.
   - rewrite Hhead_pres. exact Hhead9.
+Qed.
+
+Lemma utm_find_rule_restart_program_image_move_zero :
+  forall tm conf cpu_find,
+    ThieleUniversal.inv_core cpu_find tm conf ->
+    ThieleUniversal.find_rule_start_inv tm conf cpu_find ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 4)) 0 = false ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 6)) 0 = true ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 14)) 0 = true ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 27)) 0 = true ->
+    firstn (length ThieleUniversal.program)
+      (ThieleUniversal.CPU.mem (ThieleUniversal.run_n cpu_find 34))
+    = ThieleUniversal.program.
+Proof.
+  intros tm conf cpu_find Hcore Hstart Hz4 Hz6 Hz14 Hmove_zero.
+  pose proof Hcore as Hcore_full.
+  pose proof Hstart as Hstart_full.
+  set (cpu26 := ThieleUniversal.run_n cpu_find 26).
+  set (cpu27 := ThieleUniversal.run_n cpu_find 27).
+  set (cpu28 := ThieleUniversal.run_n cpu_find 28).
+  set (cpu29 := ThieleUniversal.run_n cpu_find 29).
+  set (cpu30 := ThieleUniversal.run_n cpu_find 30).
+  set (cpu31 := ThieleUniversal.run_n cpu_find 31).
+  set (cpu32 := ThieleUniversal.run_n cpu_find 32).
+  set (cpu33 := ThieleUniversal.run_n cpu_find 33).
+  set (cpu34 := ThieleUniversal.run_n cpu_find 34).
+  pose proof
+    (utm_find_rule_step26_pc_true_branch_zero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14) as Hpc26.
+  pose proof
+    (utm_find_rule_step27_pc_true_branch_zero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14) as Hpc27.
+  pose proof
+    (utm_find_rule_step28_pc_true_branch_zero_move_zero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14 Hmove_zero) as Hpc28.
+  pose proof
+    (utm_find_rule_step29_pc_true_branch_zero_move_zero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14 Hmove_zero) as Hpc29.
+  pose proof
+    (utm_find_rule_step30_pc_true_branch_zero_move_zero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14 Hmove_zero) as Hpc30.
+  pose proof
+    (utm_find_rule_step31_pc_true_branch_zero_move_zero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14 Hmove_zero) as Hpc31.
+  pose proof
+    (utm_find_rule_step32_pc_true_branch_zero_move_zero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14 Hmove_zero) as Hpc32.
+  pose proof
+    (utm_find_rule_step33_pc_true_branch_zero_move_zero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14 Hmove_zero)
+    as [Hpc33 Htemp1].
+  pose proof
+    (utm_find_rule_step26_program_image_true_branch_zero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14) as Hprog26.
+  assert (Hpc_lt26 :
+            ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu26
+            < length ThieleUniversal.program_instrs)
+    by (rewrite Hpc26; apply ThieleUniversal.program_instrs_length_gt_48).
+  pose proof
+    (ThieleUniversal.decode_instr_program_state cpu26 Hpc_lt26 Hprog26)
+    as Hdecode26.
+  rewrite Hpc26 in Hdecode26.
+  rewrite ThieleUniversal.decode_instr_program_at_pc with (pc := 33) in Hdecode26
+    by (pose proof ThieleUniversal.program_instrs_length_gt_48; lia).
+  change (nth 33 ThieleUniversal.program_instrs ThieleUniversal.Halt)
+    with (ThieleUniversal.CPU.CopyReg ThieleUniversal.CPU.REG_TEMP1
+            ThieleUniversal.CPU.REG_MOVE) in Hdecode26.
+  assert (Hmem27 : ThieleUniversal.CPU.mem cpu27 = ThieleUniversal.CPU.mem cpu26).
+  { unfold cpu27.
+    change (ThieleUniversal.run_n cpu_find 27)
+      with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu_find 26)).
+    apply ThieleUniversal.run1_mem_preserved_if_no_store.
+    rewrite Hdecode26. simpl. exact I. }
+  assert (Hprog27 :
+            firstn (length ThieleUniversal.program)
+                   (ThieleUniversal.CPU.mem cpu27)
+            = ThieleUniversal.program)
+    by (rewrite Hmem27; exact Hprog26).
+  assert (Hpc_lt27 :
+            ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu27
+            < length ThieleUniversal.program_instrs)
+    by (rewrite Hpc27; apply ThieleUniversal.program_instrs_length_gt_48).
+  pose proof
+    (ThieleUniversal.decode_instr_program_state cpu27 Hpc_lt27 Hprog27)
+    as Hdecode27.
+  rewrite Hpc27 in Hdecode27.
+  rewrite ThieleUniversal.decode_instr_program_at_pc with (pc := 34) in Hdecode27
+    by (pose proof ThieleUniversal.program_instrs_length_gt_48; lia).
+  change (nth 34 ThieleUniversal.program_instrs ThieleUniversal.Halt)
+    with (ThieleUniversal.CPU.Jnz ThieleUniversal.CPU.REG_TEMP1 38)
+      in Hdecode27.
+  assert (Hmem28 : ThieleUniversal.CPU.mem cpu28 = ThieleUniversal.CPU.mem cpu27).
+  { unfold cpu28.
+    change (ThieleUniversal.run_n cpu_find 28)
+      with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu_find 27)).
+    apply ThieleUniversal.run1_mem_preserved_if_no_store.
+    rewrite Hdecode27. simpl. exact I. }
+  assert (Hprog28 :
+            firstn (length ThieleUniversal.program)
+                   (ThieleUniversal.CPU.mem cpu28)
+            = ThieleUniversal.program)
+    by (rewrite Hmem28; exact Hprog27).
+  assert (Hpc_lt28 :
+            ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu28
+            < length ThieleUniversal.program_instrs)
+    by (rewrite Hpc28; apply ThieleUniversal.program_instrs_length_gt_48).
+  pose proof
+    (ThieleUniversal.decode_instr_program_state cpu28 Hpc_lt28 Hprog28)
+    as Hdecode28.
+  rewrite Hpc28 in Hdecode28.
+  rewrite ThieleUniversal.decode_instr_program_at_pc with (pc := 35) in Hdecode28
+    by (pose proof ThieleUniversal.program_instrs_length_gt_48; lia).
+  change (nth 35 ThieleUniversal.program_instrs ThieleUniversal.Halt)
+    with (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_TEMP2 1)
+      in Hdecode28.
+  assert (Hmem29 : ThieleUniversal.CPU.mem cpu29 = ThieleUniversal.CPU.mem cpu28).
+  { unfold cpu29.
+    change (ThieleUniversal.run_n cpu_find 29)
+      with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu_find 28)).
+    apply ThieleUniversal.run1_mem_preserved_if_no_store.
+    rewrite Hdecode28. simpl. exact I. }
+  assert (Hprog29 :
+            firstn (length ThieleUniversal.program)
+                   (ThieleUniversal.CPU.mem cpu29)
+            = ThieleUniversal.program)
+    by (rewrite Hmem29; exact Hprog28).
+  assert (Hpc_lt29 :
+            ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu29
+            < length ThieleUniversal.program_instrs)
+    by (rewrite Hpc29; apply ThieleUniversal.program_instrs_length_gt_48).
+  pose proof
+    (ThieleUniversal.decode_instr_program_state cpu29 Hpc_lt29 Hprog29)
+    as Hdecode29.
+  rewrite Hpc29 in Hdecode29.
+  rewrite ThieleUniversal.decode_instr_program_at_pc with (pc := 36) in Hdecode29
+    by (pose proof ThieleUniversal.program_instrs_length_gt_48; lia).
+  change (nth 36 ThieleUniversal.program_instrs ThieleUniversal.Halt)
+    with (ThieleUniversal.CPU.SubReg ThieleUniversal.CPU.REG_HEAD
+            ThieleUniversal.CPU.REG_HEAD ThieleUniversal.CPU.REG_TEMP2)
+      in Hdecode29.
+  assert (Hmem30 : ThieleUniversal.CPU.mem cpu30 = ThieleUniversal.CPU.mem cpu29).
+  { unfold cpu30.
+    change (ThieleUniversal.run_n cpu_find 30)
+      with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu_find 29)).
+    apply ThieleUniversal.run1_mem_preserved_if_no_store.
+    rewrite Hdecode29. simpl. exact I. }
+  assert (Hprog30 :
+            firstn (length ThieleUniversal.program)
+                   (ThieleUniversal.CPU.mem cpu30)
+            = ThieleUniversal.program)
+    by (rewrite Hmem30; exact Hprog29).
+  assert (Hpc_lt30 :
+            ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu30
+            < length ThieleUniversal.program_instrs)
+    by (rewrite Hpc30; apply ThieleUniversal.program_instrs_length_gt_48).
+  pose proof
+    (ThieleUniversal.decode_instr_program_state cpu30 Hpc_lt30 Hprog30)
+    as Hdecode30.
+  rewrite Hpc30 in Hdecode30.
+  rewrite ThieleUniversal.decode_instr_program_at_pc with (pc := 37) in Hdecode30
+    by (pose proof ThieleUniversal.program_instrs_length_gt_48; lia).
+  change (nth 37 ThieleUniversal.program_instrs ThieleUniversal.Halt)
+    with (ThieleUniversal.CPU.Jnz ThieleUniversal.CPU.REG_TEMP2 46)
+      in Hdecode30.
+  assert (Hmem31 : ThieleUniversal.CPU.mem cpu31 = ThieleUniversal.CPU.mem cpu30).
+  { unfold cpu31.
+    change (ThieleUniversal.run_n cpu_find 31)
+      with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu_find 30)).
+    apply ThieleUniversal.run1_mem_preserved_if_no_store.
+    rewrite Hdecode30. simpl. exact I. }
+  assert (Hprog31 :
+            firstn (length ThieleUniversal.program)
+                   (ThieleUniversal.CPU.mem cpu31)
+            = ThieleUniversal.program)
+    by (rewrite Hmem31; exact Hprog30).
+  assert (Hpc_lt31 :
+            ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu31
+            < length ThieleUniversal.program_instrs)
+    by (rewrite Hpc31; apply ThieleUniversal.program_instrs_length_gt_48).
+  pose proof
+    (ThieleUniversal.decode_instr_program_state cpu31 Hpc_lt31 Hprog31)
+    as Hdecode31.
+  rewrite Hpc31 in Hdecode31.
+  rewrite ThieleUniversal.decode_instr_program_at_pc with (pc := 46) in Hdecode31
+    by (pose proof ThieleUniversal.program_instrs_length_gt_48; lia).
+  change (nth 46 ThieleUniversal.program_instrs ThieleUniversal.Halt)
+    with (ThieleUniversal.CPU.CopyReg ThieleUniversal.CPU.REG_Q
+            ThieleUniversal.CPU.REG_Q') in Hdecode31.
+  assert (Hmem32 : ThieleUniversal.CPU.mem cpu32 = ThieleUniversal.CPU.mem cpu31).
+  { unfold cpu32.
+    change (ThieleUniversal.run_n cpu_find 32)
+      with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu_find 31)).
+    apply ThieleUniversal.run1_mem_preserved_if_no_store.
+    rewrite Hdecode31. simpl. exact I. }
+  assert (Hprog32 :
+            firstn (length ThieleUniversal.program)
+                   (ThieleUniversal.CPU.mem cpu32)
+            = ThieleUniversal.program)
+    by (rewrite Hmem32; exact Hprog31).
+  assert (Hpc_lt32 :
+            ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu32
+            < length ThieleUniversal.program_instrs)
+    by (rewrite Hpc32; apply ThieleUniversal.program_instrs_length_gt_48).
+  pose proof
+    (ThieleUniversal.decode_instr_program_state cpu32 Hpc_lt32 Hprog32)
+    as Hdecode32.
+  rewrite Hpc32 in Hdecode32.
+  rewrite ThieleUniversal.decode_instr_program_at_pc with (pc := 47) in Hdecode32
+    by (pose proof ThieleUniversal.program_instrs_length_gt_48; lia).
+  change (nth 47 ThieleUniversal.program_instrs ThieleUniversal.Halt)
+    with (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_TEMP1 1)
+      in Hdecode32.
+  assert (Hmem33 : ThieleUniversal.CPU.mem cpu33 = ThieleUniversal.CPU.mem cpu32).
+  { unfold cpu33.
+    change (ThieleUniversal.run_n cpu_find 33)
+      with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu_find 32)).
+    apply ThieleUniversal.run1_mem_preserved_if_no_store.
+    rewrite Hdecode32. simpl. exact I. }
+  assert (Hprog33 :
+            firstn (length ThieleUniversal.program)
+                   (ThieleUniversal.CPU.mem cpu33)
+            = ThieleUniversal.program)
+    by (rewrite Hmem33; exact Hprog32).
+  assert (Hpc_lt33 :
+            ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu33
+            < length ThieleUniversal.program_instrs)
+    by (rewrite Hpc33; apply ThieleUniversal.program_instrs_length_gt_48).
+  pose proof
+    (ThieleUniversal.decode_instr_program_state cpu33 Hpc_lt33 Hprog33)
+    as Hdecode33.
+  rewrite Hpc33 in Hdecode33.
+  rewrite ThieleUniversal.decode_instr_program_at_pc with (pc := 48) in Hdecode33
+    by (pose proof ThieleUniversal.program_instrs_length_gt_48; lia).
+  change (nth 48 ThieleUniversal.program_instrs ThieleUniversal.Halt)
+    with (ThieleUniversal.CPU.Jnz ThieleUniversal.CPU.REG_TEMP1 0)
+      in Hdecode33.
+  assert (Hmem34 : ThieleUniversal.CPU.mem cpu34 = ThieleUniversal.CPU.mem cpu33).
+  { unfold cpu34.
+    change (ThieleUniversal.run_n cpu_find 34)
+      with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu_find 33)).
+    apply ThieleUniversal.run1_mem_preserved_if_no_store.
+    rewrite Hdecode33. simpl. exact I. }
+  assert (Hprog34 :
+            firstn (length ThieleUniversal.program)
+                   (ThieleUniversal.CPU.mem cpu34)
+            = ThieleUniversal.program)
+    by (rewrite Hmem34; exact Hprog33).
+  exact Hprog34.
+Qed.
+
+Lemma utm_find_rule_restart_program_image_move_nonzero_move_zero :
+  forall tm conf cpu_find,
+    ThieleUniversal.inv_core cpu_find tm conf ->
+    ThieleUniversal.find_rule_start_inv tm conf cpu_find ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 4)) 0 = false ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 6)) 0 = true ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 14)) 0 = true ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 27)) 0 = false ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 30)) 0 = true ->
+    firstn (length ThieleUniversal.program)
+      (ThieleUniversal.CPU.mem (ThieleUniversal.run_n cpu_find 36))
+    = ThieleUniversal.program.
+Proof.
+  intros tm conf cpu_find Hcore Hstart Hz4 Hz6 Hz14 Hmove_nonzero Hmove_sub.
+  pose proof Hcore as Hcore_full.
+  pose proof Hstart as Hstart_full.
+  set (cpu26 := ThieleUniversal.run_n cpu_find 26).
+  set (cpu27 := ThieleUniversal.run_n cpu_find 27).
+  set (cpu28 := ThieleUniversal.run_n cpu_find 28).
+  set (cpu29 := ThieleUniversal.run_n cpu_find 29).
+  set (cpu30 := ThieleUniversal.run_n cpu_find 30).
+  set (cpu31 := ThieleUniversal.run_n cpu_find 31).
+  set (cpu32 := ThieleUniversal.run_n cpu_find 32).
+  set (cpu33 := ThieleUniversal.run_n cpu_find 33).
+  set (cpu34 := ThieleUniversal.run_n cpu_find 34).
+  set (cpu35 := ThieleUniversal.run_n cpu_find 35).
+  set (cpu36 := ThieleUniversal.run_n cpu_find 36).
+  pose proof
+    (utm_find_rule_step26_pc_true_branch_zero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14) as Hpc26.
+  pose proof
+    (utm_find_rule_step27_pc_true_branch_zero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14) as Hpc27.
+  pose proof
+    (utm_find_rule_step28_pc_true_branch_zero_move_nonzero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14 Hmove_nonzero)
+    as Hpc28.
+  pose proof
+    (utm_find_rule_step29_pc_true_branch_zero_move_nonzero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14 Hmove_nonzero)
+    as Hpc29.
+  pose proof
+    (utm_find_rule_step30_pc_true_branch_zero_move_nonzero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14 Hmove_nonzero)
+    as Hpc30.
+  pose proof
+    (utm_find_rule_step31_pc_true_branch_zero_move_nonzero_move_zero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14
+       Hmove_nonzero Hmove_sub) as Hpc31.
+  pose proof
+    (utm_find_rule_step32_pc_true_branch_zero_move_nonzero_move_zero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14
+       Hmove_nonzero Hmove_sub) as Hpc32.
+  pose proof
+    (utm_find_rule_step33_pc_true_branch_zero_move_nonzero_move_zero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14
+       Hmove_nonzero Hmove_sub) as Hpc33.
+  pose proof
+    (utm_find_rule_step34_pc_true_branch_zero_move_nonzero_move_zero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14
+       Hmove_nonzero Hmove_sub) as Hpc34.
+  pose proof
+    (utm_find_rule_step35_pc_true_branch_zero_move_nonzero_move_zero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14
+       Hmove_nonzero Hmove_sub) as [Hpc35 Htemp1].
+  pose proof
+    (utm_find_rule_step36_pc_true_branch_zero_move_nonzero_move_zero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14
+       Hmove_nonzero Hmove_sub) as Hpc36.
+  pose proof
+    (utm_find_rule_step26_program_image_true_branch_zero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14) as Hprog26.
+  assert (Hpc_lt26 :
+            ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu26
+            < length ThieleUniversal.program_instrs)
+    by (rewrite Hpc26; apply ThieleUniversal.program_instrs_length_gt_48).
+  pose proof
+    (ThieleUniversal.decode_instr_program_state cpu26 Hpc_lt26 Hprog26)
+    as Hdecode26.
+  rewrite Hpc26 in Hdecode26.
+  rewrite ThieleUniversal.decode_instr_program_at_pc with (pc := 33) in Hdecode26
+    by (pose proof ThieleUniversal.program_instrs_length_gt_48; lia).
+  change (nth 33 ThieleUniversal.program_instrs ThieleUniversal.Halt)
+    with (ThieleUniversal.CPU.CopyReg ThieleUniversal.CPU.REG_TEMP1
+            ThieleUniversal.CPU.REG_MOVE) in Hdecode26.
+  assert (Hmem27 : ThieleUniversal.CPU.mem cpu27 = ThieleUniversal.CPU.mem cpu26).
+  { unfold cpu27.
+    change (ThieleUniversal.run_n cpu_find 27)
+      with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu_find 26)).
+    apply ThieleUniversal.run1_mem_preserved_if_no_store.
+    rewrite Hdecode26. simpl. exact I. }
+  assert (Hprog27 :
+            firstn (length ThieleUniversal.program)
+                   (ThieleUniversal.CPU.mem cpu27)
+            = ThieleUniversal.program)
+    by (rewrite Hmem27; exact Hprog26).
+  assert (Hpc_lt27 :
+            ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu27
+            < length ThieleUniversal.program_instrs)
+    by (rewrite Hpc27; apply ThieleUniversal.program_instrs_length_gt_48).
+  pose proof
+    (ThieleUniversal.decode_instr_program_state cpu27 Hpc_lt27 Hprog27)
+    as Hdecode27.
+  rewrite Hpc27 in Hdecode27.
+  rewrite ThieleUniversal.decode_instr_program_at_pc with (pc := 34) in Hdecode27
+    by (pose proof ThieleUniversal.program_instrs_length_gt_48; lia).
+  change (nth 34 ThieleUniversal.program_instrs ThieleUniversal.Halt)
+    with (ThieleUniversal.CPU.Jnz ThieleUniversal.CPU.REG_TEMP1 38)
+      in Hdecode27.
+  assert (Hmem28 : ThieleUniversal.CPU.mem cpu28 = ThieleUniversal.CPU.mem cpu27).
+  { unfold cpu28.
+    change (ThieleUniversal.run_n cpu_find 28)
+      with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu_find 27)).
+    apply ThieleUniversal.run1_mem_preserved_if_no_store.
+    rewrite Hdecode27. simpl. exact I. }
+  assert (Hprog28 :
+            firstn (length ThieleUniversal.program)
+                   (ThieleUniversal.CPU.mem cpu28)
+            = ThieleUniversal.program)
+    by (rewrite Hmem28; exact Hprog27).
+  assert (Hpc_lt28 :
+            ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu28
+            < length ThieleUniversal.program_instrs)
+    by (rewrite Hpc28; apply ThieleUniversal.program_instrs_length_gt_48).
+  pose proof
+    (ThieleUniversal.decode_instr_program_state cpu28 Hpc_lt28 Hprog28)
+    as Hdecode28.
+  rewrite Hpc28 in Hdecode28.
+  rewrite ThieleUniversal.decode_instr_program_at_pc with (pc := 38) in Hdecode28
+    by (pose proof ThieleUniversal.program_instrs_length_gt_48; lia).
+  change (nth 38 ThieleUniversal.program_instrs ThieleUniversal.Halt)
+    with (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_TEMP2 1)
+      in Hdecode28.
+  assert (Hmem29 : ThieleUniversal.CPU.mem cpu29 = ThieleUniversal.CPU.mem cpu28).
+  { unfold cpu29.
+    change (ThieleUniversal.run_n cpu_find 29)
+      with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu_find 28)).
+    apply ThieleUniversal.run1_mem_preserved_if_no_store.
+    rewrite Hdecode28. simpl. exact I. }
+  assert (Hprog29 :
+            firstn (length ThieleUniversal.program)
+                   (ThieleUniversal.CPU.mem cpu29)
+            = ThieleUniversal.program)
+    by (rewrite Hmem29; exact Hprog28).
+  assert (Hpc_lt29 :
+            ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu29
+            < length ThieleUniversal.program_instrs)
+    by (rewrite Hpc29; apply ThieleUniversal.program_instrs_length_gt_48).
+  pose proof
+    (ThieleUniversal.decode_instr_program_state cpu29 Hpc_lt29 Hprog29)
+    as Hdecode29.
+  rewrite Hpc29 in Hdecode29.
+  rewrite ThieleUniversal.decode_instr_program_at_pc with (pc := 39) in Hdecode29
+    by (pose proof ThieleUniversal.program_instrs_length_gt_48; lia).
+  change (nth 39 ThieleUniversal.program_instrs ThieleUniversal.Halt)
+    with (ThieleUniversal.CPU.SubReg ThieleUniversal.CPU.REG_TEMP1
+            ThieleUniversal.CPU.REG_MOVE ThieleUniversal.CPU.REG_TEMP2)
+      in Hdecode29.
+  assert (Hmem30 : ThieleUniversal.CPU.mem cpu30 = ThieleUniversal.CPU.mem cpu29).
+  { unfold cpu30.
+    change (ThieleUniversal.run_n cpu_find 30)
+      with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu_find 29)).
+    apply ThieleUniversal.run1_mem_preserved_if_no_store.
+    rewrite Hdecode29. simpl. exact I. }
+  assert (Hprog30 :
+            firstn (length ThieleUniversal.program)
+                   (ThieleUniversal.CPU.mem cpu30)
+            = ThieleUniversal.program)
+    by (rewrite Hmem30; exact Hprog29).
+  assert (Hpc_lt30 :
+            ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu30
+            < length ThieleUniversal.program_instrs)
+    by (rewrite Hpc30; apply ThieleUniversal.program_instrs_length_gt_48).
+  pose proof
+    (ThieleUniversal.decode_instr_program_state cpu30 Hpc_lt30 Hprog30)
+    as Hdecode30.
+  rewrite Hpc30 in Hdecode30.
+  rewrite ThieleUniversal.decode_instr_program_at_pc with (pc := 40) in Hdecode30
+    by (pose proof ThieleUniversal.program_instrs_length_gt_48; lia).
+  change (nth 40 ThieleUniversal.program_instrs ThieleUniversal.Halt)
+    with (ThieleUniversal.CPU.Jnz ThieleUniversal.CPU.REG_TEMP1 43)
+      in Hdecode30.
+  assert (Hmem31 : ThieleUniversal.CPU.mem cpu31 = ThieleUniversal.CPU.mem cpu30).
+  { unfold cpu31.
+    change (ThieleUniversal.run_n cpu_find 31)
+      with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu_find 30)).
+    apply ThieleUniversal.run1_mem_preserved_if_no_store.
+    rewrite Hdecode30. simpl. exact I. }
+  assert (Hprog31 :
+            firstn (length ThieleUniversal.program)
+                   (ThieleUniversal.CPU.mem cpu31)
+            = ThieleUniversal.program)
+    by (rewrite Hmem31; exact Hprog30).
+  assert (Hpc_lt31 :
+            ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu31
+            < length ThieleUniversal.program_instrs)
+    by (rewrite Hpc31; apply ThieleUniversal.program_instrs_length_gt_48).
+  pose proof
+    (ThieleUniversal.decode_instr_program_state cpu31 Hpc_lt31 Hprog31)
+    as Hdecode31.
+  rewrite Hpc31 in Hdecode31.
+  rewrite ThieleUniversal.decode_instr_program_at_pc with (pc := 41) in Hdecode31
+    by (pose proof ThieleUniversal.program_instrs_length_gt_48; lia).
+  change (nth 41 ThieleUniversal.program_instrs ThieleUniversal.Halt)
+    with (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_TEMP1 1)
+      in Hdecode31.
+  assert (Hmem32 : ThieleUniversal.CPU.mem cpu32 = ThieleUniversal.CPU.mem cpu31).
+  { unfold cpu32.
+    change (ThieleUniversal.run_n cpu_find 32)
+      with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu_find 31)).
+    apply ThieleUniversal.run1_mem_preserved_if_no_store.
+    rewrite Hdecode31. simpl. exact I. }
+  assert (Hprog32 :
+            firstn (length ThieleUniversal.program)
+                   (ThieleUniversal.CPU.mem cpu32)
+            = ThieleUniversal.program)
+    by (rewrite Hmem32; exact Hprog31).
+  assert (Hpc_lt32 :
+            ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu32
+            < length ThieleUniversal.program_instrs)
+    by (rewrite Hpc32; apply ThieleUniversal.program_instrs_length_gt_48).
+  pose proof
+    (ThieleUniversal.decode_instr_program_state cpu32 Hpc_lt32 Hprog32)
+    as Hdecode32.
+  rewrite Hpc32 in Hdecode32.
+  rewrite ThieleUniversal.decode_instr_program_at_pc with (pc := 42) in Hdecode32
+    by (pose proof ThieleUniversal.program_instrs_length_gt_48; lia).
+  change (nth 42 ThieleUniversal.program_instrs ThieleUniversal.Halt)
+    with (ThieleUniversal.CPU.Jnz ThieleUniversal.CPU.REG_TEMP1 46)
+      in Hdecode32.
+  assert (Hmem33 : ThieleUniversal.CPU.mem cpu33 = ThieleUniversal.CPU.mem cpu32).
+  { unfold cpu33.
+    change (ThieleUniversal.run_n cpu_find 33)
+      with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu_find 32)).
+    apply ThieleUniversal.run1_mem_preserved_if_no_store.
+    rewrite Hdecode32. simpl. exact I. }
+  assert (Hprog33 :
+            firstn (length ThieleUniversal.program)
+                   (ThieleUniversal.CPU.mem cpu33)
+            = ThieleUniversal.program)
+    by (rewrite Hmem33; exact Hprog32).
+  assert (Hpc_lt33 :
+            ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu33
+            < length ThieleUniversal.program_instrs)
+    by (rewrite Hpc33; apply ThieleUniversal.program_instrs_length_gt_48).
+  pose proof
+    (ThieleUniversal.decode_instr_program_state cpu33 Hpc_lt33 Hprog33)
+    as Hdecode33.
+  rewrite Hpc33 in Hdecode33.
+  rewrite ThieleUniversal.decode_instr_program_at_pc with (pc := 46) in Hdecode33
+    by (pose proof ThieleUniversal.program_instrs_length_gt_48; lia).
+  change (nth 46 ThieleUniversal.program_instrs ThieleUniversal.Halt)
+    with (ThieleUniversal.CPU.CopyReg ThieleUniversal.CPU.REG_Q
+            ThieleUniversal.CPU.REG_Q') in Hdecode33.
+  assert (Hmem34 : ThieleUniversal.CPU.mem cpu34 = ThieleUniversal.CPU.mem cpu33).
+  { unfold cpu34.
+    change (ThieleUniversal.run_n cpu_find 34)
+      with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu_find 33)).
+    apply ThieleUniversal.run1_mem_preserved_if_no_store.
+    rewrite Hdecode33. simpl. exact I. }
+  assert (Hprog34 :
+            firstn (length ThieleUniversal.program)
+                   (ThieleUniversal.CPU.mem cpu34)
+            = ThieleUniversal.program)
+    by (rewrite Hmem34; exact Hprog33).
+  assert (Hpc_lt34 :
+            ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu34
+            < length ThieleUniversal.program_instrs)
+    by (rewrite Hpc34; apply ThieleUniversal.program_instrs_length_gt_48).
+  pose proof
+    (ThieleUniversal.decode_instr_program_state cpu34 Hpc_lt34 Hprog34)
+    as Hdecode34.
+  rewrite Hpc34 in Hdecode34.
+  rewrite ThieleUniversal.decode_instr_program_at_pc with (pc := 47) in Hdecode34
+    by (pose proof ThieleUniversal.program_instrs_length_gt_48; lia).
+  change (nth 47 ThieleUniversal.program_instrs ThieleUniversal.Halt)
+    with (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_TEMP1 1)
+      in Hdecode34.
+  assert (Hmem35 : ThieleUniversal.CPU.mem cpu35 = ThieleUniversal.CPU.mem cpu34).
+  { unfold cpu35.
+    change (ThieleUniversal.run_n cpu_find 35)
+      with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu_find 34)).
+    apply ThieleUniversal.run1_mem_preserved_if_no_store.
+    rewrite Hdecode34. simpl. exact I. }
+  assert (Hprog35 :
+            firstn (length ThieleUniversal.program)
+                   (ThieleUniversal.CPU.mem cpu35)
+            = ThieleUniversal.program)
+    by (rewrite Hmem35; exact Hprog34).
+  assert (Hpc_lt35 :
+            ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu35
+            < length ThieleUniversal.program_instrs)
+    by (rewrite Hpc35; apply ThieleUniversal.program_instrs_length_gt_48).
+  pose proof
+    (ThieleUniversal.decode_instr_program_state cpu35 Hpc_lt35 Hprog35)
+    as Hdecode35.
+  rewrite Hpc35 in Hdecode35.
+  rewrite ThieleUniversal.decode_instr_program_at_pc with (pc := 48) in Hdecode35
+    by (pose proof ThieleUniversal.program_instrs_length_gt_48; lia).
+  change (nth 48 ThieleUniversal.program_instrs ThieleUniversal.Halt)
+    with (ThieleUniversal.CPU.Jnz ThieleUniversal.CPU.REG_TEMP1 0)
+      in Hdecode35.
+  assert (Hmem36 : ThieleUniversal.CPU.mem cpu36 = ThieleUniversal.CPU.mem cpu35).
+  { unfold cpu36.
+    change (ThieleUniversal.run_n cpu_find 36)
+      with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu_find 35)).
+    apply ThieleUniversal.run1_mem_preserved_if_no_store.
+    rewrite Hdecode35. simpl. exact I. }
+  assert (Hprog36 :
+            firstn (length ThieleUniversal.program)
+                   (ThieleUniversal.CPU.mem cpu36)
+            = ThieleUniversal.program)
+    by (rewrite Hmem36; exact Hprog35).
+  exact Hprog36.
+Qed.
+
+Lemma utm_find_rule_restart_program_image_move_nonzero_move_nonzero :
+  forall tm conf cpu_find,
+    ThieleUniversal.inv_core cpu_find tm conf ->
+    ThieleUniversal.find_rule_start_inv tm conf cpu_find ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 4)) 0 = false ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 6)) 0 = true ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 14)) 0 = true ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 27)) 0 = false ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 30)) 0 = false ->
+    firstn (length ThieleUniversal.program)
+      (ThieleUniversal.CPU.mem (ThieleUniversal.run_n cpu_find 36))
+    = ThieleUniversal.program.
+Proof.
+  intros tm conf cpu_find Hcore Hstart Hz4 Hz6 Hz14 Hmove_nonzero Hmove_sub.
+  pose proof Hcore as Hcore_full.
+  pose proof Hstart as Hstart_full.
+  set (cpu26 := ThieleUniversal.run_n cpu_find 26).
+  set (cpu27 := ThieleUniversal.run_n cpu_find 27).
+  set (cpu28 := ThieleUniversal.run_n cpu_find 28).
+  set (cpu29 := ThieleUniversal.run_n cpu_find 29).
+  set (cpu30 := ThieleUniversal.run_n cpu_find 30).
+  set (cpu31 := ThieleUniversal.run_n cpu_find 31).
+  set (cpu32 := ThieleUniversal.run_n cpu_find 32).
+  set (cpu33 := ThieleUniversal.run_n cpu_find 33).
+  set (cpu34 := ThieleUniversal.run_n cpu_find 34).
+  set (cpu35 := ThieleUniversal.run_n cpu_find 35).
+  set (cpu36 := ThieleUniversal.run_n cpu_find 36).
+  pose proof
+    (utm_find_rule_step26_pc_true_branch_zero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14) as Hpc26.
+  pose proof
+    (utm_find_rule_step27_pc_true_branch_zero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14) as Hpc27.
+  pose proof
+    (utm_find_rule_step28_pc_true_branch_zero_move_nonzero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14 Hmove_nonzero)
+    as Hpc28.
+  pose proof
+    (utm_find_rule_step29_pc_true_branch_zero_move_nonzero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14 Hmove_nonzero)
+    as Hpc29.
+  pose proof
+    (utm_find_rule_step30_pc_true_branch_zero_move_nonzero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14 Hmove_nonzero)
+    as Hpc30.
+  pose proof
+    (utm_find_rule_step31_pc_true_branch_zero_move_nonzero_move_nonzero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14
+       Hmove_nonzero Hmove_sub) as Hpc31.
+  pose proof
+    (utm_find_rule_step32_pc_true_branch_zero_move_nonzero_move_nonzero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14
+       Hmove_nonzero Hmove_sub) as Hpc32.
+  pose proof
+    (utm_find_rule_step33_pc_true_branch_zero_move_nonzero_move_nonzero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14
+       Hmove_nonzero Hmove_sub) as Hpc33.
+  pose proof
+    (utm_find_rule_step34_pc_true_branch_zero_move_nonzero_move_nonzero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14
+       Hmove_nonzero Hmove_sub) as Hpc34.
+  pose proof
+    (utm_find_rule_step35_pc_true_branch_zero_move_nonzero_move_nonzero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14
+       Hmove_nonzero Hmove_sub) as [Hpc35 Htemp1].
+  pose proof
+    (utm_find_rule_step36_pc_true_branch_zero_move_nonzero_move_nonzero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14
+       Hmove_nonzero Hmove_sub) as Hpc36.
+  pose proof
+    (utm_find_rule_step26_program_image_true_branch_zero
+       tm conf cpu_find Hcore_full Hstart_full Hz4 Hz6 Hz14) as Hprog26.
+  assert (Hpc_lt26 :
+            ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu26
+            < length ThieleUniversal.program_instrs)
+    by (rewrite Hpc26; apply ThieleUniversal.program_instrs_length_gt_48).
+  pose proof
+    (ThieleUniversal.decode_instr_program_state cpu26 Hpc_lt26 Hprog26)
+    as Hdecode26.
+  rewrite Hpc26 in Hdecode26.
+  rewrite ThieleUniversal.decode_instr_program_at_pc with (pc := 33) in Hdecode26
+    by (pose proof ThieleUniversal.program_instrs_length_gt_48; lia).
+  change (nth 33 ThieleUniversal.program_instrs ThieleUniversal.Halt)
+    with (ThieleUniversal.CPU.CopyReg ThieleUniversal.CPU.REG_TEMP1
+            ThieleUniversal.CPU.REG_MOVE) in Hdecode26.
+  assert (Hmem27 : ThieleUniversal.CPU.mem cpu27 = ThieleUniversal.CPU.mem cpu26).
+  { unfold cpu27.
+    change (ThieleUniversal.run_n cpu_find 27)
+      with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu_find 26)).
+    apply ThieleUniversal.run1_mem_preserved_if_no_store.
+    rewrite Hdecode26. simpl. exact I. }
+  assert (Hprog27 :
+            firstn (length ThieleUniversal.program)
+                   (ThieleUniversal.CPU.mem cpu27)
+            = ThieleUniversal.program)
+    by (rewrite Hmem27; exact Hprog26).
+  assert (Hpc_lt27 :
+            ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu27
+            < length ThieleUniversal.program_instrs)
+    by (rewrite Hpc27; apply ThieleUniversal.program_instrs_length_gt_48).
+  pose proof
+    (ThieleUniversal.decode_instr_program_state cpu27 Hpc_lt27 Hprog27)
+    as Hdecode27.
+  rewrite Hpc27 in Hdecode27.
+  rewrite ThieleUniversal.decode_instr_program_at_pc with (pc := 34) in Hdecode27
+    by (pose proof ThieleUniversal.program_instrs_length_gt_48; lia).
+  change (nth 34 ThieleUniversal.program_instrs ThieleUniversal.Halt)
+    with (ThieleUniversal.CPU.Jnz ThieleUniversal.CPU.REG_TEMP1 38)
+      in Hdecode27.
+  assert (Hmem28 : ThieleUniversal.CPU.mem cpu28 = ThieleUniversal.CPU.mem cpu27).
+  { unfold cpu28.
+    change (ThieleUniversal.run_n cpu_find 28)
+      with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu_find 27)).
+    apply ThieleUniversal.run1_mem_preserved_if_no_store.
+    rewrite Hdecode27. simpl. exact I. }
+  assert (Hprog28 :
+            firstn (length ThieleUniversal.program)
+                   (ThieleUniversal.CPU.mem cpu28)
+            = ThieleUniversal.program)
+    by (rewrite Hmem28; exact Hprog27).
+  assert (Hpc_lt28 :
+            ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu28
+            < length ThieleUniversal.program_instrs)
+    by (rewrite Hpc28; apply ThieleUniversal.program_instrs_length_gt_48).
+  pose proof
+    (ThieleUniversal.decode_instr_program_state cpu28 Hpc_lt28 Hprog28)
+    as Hdecode28.
+  rewrite Hpc28 in Hdecode28.
+  rewrite ThieleUniversal.decode_instr_program_at_pc with (pc := 38) in Hdecode28
+    by (pose proof ThieleUniversal.program_instrs_length_gt_48; lia).
+  change (nth 38 ThieleUniversal.program_instrs ThieleUniversal.Halt)
+    with (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_TEMP2 1)
+      in Hdecode28.
+  assert (Hmem29 : ThieleUniversal.CPU.mem cpu29 = ThieleUniversal.CPU.mem cpu28).
+  { unfold cpu29.
+    change (ThieleUniversal.run_n cpu_find 29)
+      with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu_find 28)).
+    apply ThieleUniversal.run1_mem_preserved_if_no_store.
+    rewrite Hdecode28. simpl. exact I. }
+  assert (Hprog29 :
+            firstn (length ThieleUniversal.program)
+                   (ThieleUniversal.CPU.mem cpu29)
+            = ThieleUniversal.program)
+    by (rewrite Hmem29; exact Hprog28).
+  assert (Hpc_lt29 :
+            ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu29
+            < length ThieleUniversal.program_instrs)
+    by (rewrite Hpc29; apply ThieleUniversal.program_instrs_length_gt_48).
+  pose proof
+    (ThieleUniversal.decode_instr_program_state cpu29 Hpc_lt29 Hprog29)
+    as Hdecode29.
+  rewrite Hpc29 in Hdecode29.
+  rewrite ThieleUniversal.decode_instr_program_at_pc with (pc := 39) in Hdecode29
+    by (pose proof ThieleUniversal.program_instrs_length_gt_48; lia).
+  change (nth 39 ThieleUniversal.program_instrs ThieleUniversal.Halt)
+    with (ThieleUniversal.CPU.SubReg ThieleUniversal.CPU.REG_TEMP1
+            ThieleUniversal.CPU.REG_MOVE ThieleUniversal.CPU.REG_TEMP2)
+      in Hdecode29.
+  assert (Hmem30 : ThieleUniversal.CPU.mem cpu30 = ThieleUniversal.CPU.mem cpu29).
+  { unfold cpu30.
+    change (ThieleUniversal.run_n cpu_find 30)
+      with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu_find 29)).
+    apply ThieleUniversal.run1_mem_preserved_if_no_store.
+    rewrite Hdecode29. simpl. exact I. }
+  assert (Hprog30 :
+            firstn (length ThieleUniversal.program)
+                   (ThieleUniversal.CPU.mem cpu30)
+            = ThieleUniversal.program)
+    by (rewrite Hmem30; exact Hprog29).
+  assert (Hpc_lt30 :
+            ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu30
+            < length ThieleUniversal.program_instrs)
+    by (rewrite Hpc30; apply ThieleUniversal.program_instrs_length_gt_48).
+  pose proof
+    (ThieleUniversal.decode_instr_program_state cpu30 Hpc_lt30 Hprog30)
+    as Hdecode30.
+  rewrite Hpc30 in Hdecode30.
+  rewrite ThieleUniversal.decode_instr_program_at_pc with (pc := 40) in Hdecode30
+    by (pose proof ThieleUniversal.program_instrs_length_gt_48; lia).
+  change (nth 40 ThieleUniversal.program_instrs ThieleUniversal.Halt)
+    with (ThieleUniversal.CPU.Jnz ThieleUniversal.CPU.REG_TEMP1 43)
+      in Hdecode30.
+  assert (Hmem31 : ThieleUniversal.CPU.mem cpu31 = ThieleUniversal.CPU.mem cpu30).
+  { unfold cpu31.
+    change (ThieleUniversal.run_n cpu_find 31)
+      with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu_find 30)).
+    apply ThieleUniversal.run1_mem_preserved_if_no_store.
+    rewrite Hdecode30. simpl. exact I. }
+  assert (Hprog31 :
+            firstn (length ThieleUniversal.program)
+                   (ThieleUniversal.CPU.mem cpu31)
+            = ThieleUniversal.program)
+    by (rewrite Hmem31; exact Hprog30).
+  assert (Hpc_lt31 :
+            ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu31
+            < length ThieleUniversal.program_instrs)
+    by (rewrite Hpc31; apply ThieleUniversal.program_instrs_length_gt_48).
+  pose proof
+    (ThieleUniversal.decode_instr_program_state cpu31 Hpc_lt31 Hprog31)
+    as Hdecode31.
+  rewrite Hpc31 in Hdecode31.
+  rewrite ThieleUniversal.decode_instr_program_at_pc with (pc := 41) in Hdecode31
+    by (pose proof ThieleUniversal.program_instrs_length_gt_48; lia).
+  change (nth 41 ThieleUniversal.program_instrs ThieleUniversal.Halt)
+    with (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_TEMP1 1)
+      in Hdecode31.
+  assert (Hmem32 : ThieleUniversal.CPU.mem cpu32 = ThieleUniversal.CPU.mem cpu31).
+  { unfold cpu32.
+    change (ThieleUniversal.run_n cpu_find 32)
+      with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu_find 31)).
+    apply ThieleUniversal.run1_mem_preserved_if_no_store.
+    rewrite Hdecode31. simpl. exact I. }
+  assert (Hprog32 :
+            firstn (length ThieleUniversal.program)
+                   (ThieleUniversal.CPU.mem cpu32)
+            = ThieleUniversal.program)
+    by (rewrite Hmem32; exact Hprog31).
+  assert (Hpc_lt32 :
+            ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu32
+            < length ThieleUniversal.program_instrs)
+    by (rewrite Hpc32; apply ThieleUniversal.program_instrs_length_gt_48).
+  pose proof
+    (ThieleUniversal.decode_instr_program_state cpu32 Hpc_lt32 Hprog32)
+    as Hdecode32.
+  rewrite Hpc32 in Hdecode32.
+  rewrite ThieleUniversal.decode_instr_program_at_pc with (pc := 42) in Hdecode32
+    by (pose proof ThieleUniversal.program_instrs_length_gt_48; lia).
+  change (nth 42 ThieleUniversal.program_instrs ThieleUniversal.Halt)
+    with (ThieleUniversal.CPU.Jnz ThieleUniversal.CPU.REG_TEMP1 46)
+      in Hdecode32.
+  assert (Hmem33 : ThieleUniversal.CPU.mem cpu33 = ThieleUniversal.CPU.mem cpu32).
+  { unfold cpu33.
+    change (ThieleUniversal.run_n cpu_find 33)
+      with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu_find 32)).
+    apply ThieleUniversal.run1_mem_preserved_if_no_store.
+    rewrite Hdecode32. simpl. exact I. }
+  assert (Hprog33 :
+            firstn (length ThieleUniversal.program)
+                   (ThieleUniversal.CPU.mem cpu33)
+            = ThieleUniversal.program)
+    by (rewrite Hmem33; exact Hprog32).
+  assert (Hpc_lt33 :
+            ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu33
+            < length ThieleUniversal.program_instrs)
+    by (rewrite Hpc33; apply ThieleUniversal.program_instrs_length_gt_48).
+  pose proof
+    (ThieleUniversal.decode_instr_program_state cpu33 Hpc_lt33 Hprog33)
+    as Hdecode33.
+  rewrite Hpc33 in Hdecode33.
+  rewrite ThieleUniversal.decode_instr_program_at_pc with (pc := 46) in Hdecode33
+    by (pose proof ThieleUniversal.program_instrs_length_gt_48; lia).
+  change (nth 46 ThieleUniversal.program_instrs ThieleUniversal.Halt)
+    with (ThieleUniversal.CPU.CopyReg ThieleUniversal.CPU.REG_Q
+            ThieleUniversal.CPU.REG_Q') in Hdecode33.
+  assert (Hmem34 : ThieleUniversal.CPU.mem cpu34 = ThieleUniversal.CPU.mem cpu33).
+  { unfold cpu34.
+    change (ThieleUniversal.run_n cpu_find 34)
+      with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu_find 33)).
+    apply ThieleUniversal.run1_mem_preserved_if_no_store.
+    rewrite Hdecode33. simpl. exact I. }
+  assert (Hprog34 :
+            firstn (length ThieleUniversal.program)
+                   (ThieleUniversal.CPU.mem cpu34)
+            = ThieleUniversal.program)
+    by (rewrite Hmem34; exact Hprog33).
+  assert (Hpc_lt34 :
+            ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu34
+            < length ThieleUniversal.program_instrs)
+    by (rewrite Hpc34; apply ThieleUniversal.program_instrs_length_gt_48).
+  pose proof
+    (ThieleUniversal.decode_instr_program_state cpu34 Hpc_lt34 Hprog34)
+    as Hdecode34.
+  rewrite Hpc34 in Hdecode34.
+  rewrite ThieleUniversal.decode_instr_program_at_pc with (pc := 47) in Hdecode34
+    by (pose proof ThieleUniversal.program_instrs_length_gt_48; lia).
+  change (nth 47 ThieleUniversal.program_instrs ThieleUniversal.Halt)
+    with (ThieleUniversal.CPU.LoadConst ThieleUniversal.CPU.REG_TEMP1 1)
+      in Hdecode34.
+  assert (Hmem35 : ThieleUniversal.CPU.mem cpu35 = ThieleUniversal.CPU.mem cpu34).
+  { unfold cpu35.
+    change (ThieleUniversal.run_n cpu_find 35)
+      with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu_find 34)).
+    apply ThieleUniversal.run1_mem_preserved_if_no_store.
+    rewrite Hdecode34. simpl. exact I. }
+  assert (Hprog35 :
+            firstn (length ThieleUniversal.program)
+                   (ThieleUniversal.CPU.mem cpu35)
+            = ThieleUniversal.program)
+    by (rewrite Hmem35; exact Hprog34).
+  assert (Hpc_lt35 :
+            ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC cpu35
+            < length ThieleUniversal.program_instrs)
+    by (rewrite Hpc35; apply ThieleUniversal.program_instrs_length_gt_48).
+  pose proof
+    (ThieleUniversal.decode_instr_program_state cpu35 Hpc_lt35 Hprog35)
+    as Hdecode35.
+  rewrite Hpc35 in Hdecode35.
+  rewrite ThieleUniversal.decode_instr_program_at_pc with (pc := 48) in Hdecode35
+    by (pose proof ThieleUniversal.program_instrs_length_gt_48; lia).
+  change (nth 48 ThieleUniversal.program_instrs ThieleUniversal.Halt)
+    with (ThieleUniversal.CPU.Jnz ThieleUniversal.CPU.REG_TEMP1 0)
+      in Hdecode35.
+  assert (Hmem36 : ThieleUniversal.CPU.mem cpu36 = ThieleUniversal.CPU.mem cpu35).
+  { unfold cpu36.
+    change (ThieleUniversal.run_n cpu_find 36)
+      with (ThieleUniversal.run1 (ThieleUniversal.run_n cpu_find 35)).
+    apply ThieleUniversal.run1_mem_preserved_if_no_store.
+    rewrite Hdecode35. simpl. exact I. }
+  assert (Hprog36 :
+            firstn (length ThieleUniversal.program)
+                   (ThieleUniversal.CPU.mem cpu36)
+            = ThieleUniversal.program)
+    by (rewrite Hmem36; exact Hprog35).
+  exact Hprog36.
+Qed.
+
+Lemma utm_find_rule_restart_fetch_pc3_move_zero :
+  forall tm conf cpu_find,
+    ThieleUniversal.inv_core cpu_find tm conf ->
+    ThieleUniversal.find_rule_start_inv tm conf cpu_find ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 4)) 0 = false ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 6)) 0 = true ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 14)) 0 = true ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 27)) 0 = true ->
+    firstn (length ThieleUniversal.program)
+      (ThieleUniversal.CPU.mem (ThieleUniversal.run_n cpu_find 37))
+      = ThieleUniversal.program /\
+    ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC
+      (ThieleUniversal.run_n cpu_find 37) = 3.
+Proof.
+  intros tm conf cpu_find Hcore Hstart Hz4 Hz6 Hz14 Hmove_zero.
+  set (cpu34 := ThieleUniversal.run_n cpu_find 34).
+  pose proof
+    (utm_find_rule_step34_pc_true_branch_zero_move_zero
+       tm conf cpu_find Hcore Hstart Hz4 Hz6 Hz14 Hmove_zero) as Hpc34.
+  pose proof
+    (utm_find_rule_restart_program_image_move_zero
+       tm conf cpu_find Hcore Hstart Hz4 Hz6 Hz14 Hmove_zero) as Hprog34.
+  pose proof (utm_restart_fetch_block_pc3 cpu34 Hprog34 Hpc34)
+    as [Hprog37 Hpc37].
+  split;
+    rewrite <- (ThieleUniversal.run_n_add cpu_find 34 3);
+    assumption.
+Qed.
+
+Lemma utm_find_rule_restart_fetch_pc3_move_nonzero_move_zero :
+  forall tm conf cpu_find,
+    ThieleUniversal.inv_core cpu_find tm conf ->
+    ThieleUniversal.find_rule_start_inv tm conf cpu_find ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 4)) 0 = false ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 6)) 0 = true ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 14)) 0 = true ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 27)) 0 = false ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 30)) 0 = true ->
+    firstn (length ThieleUniversal.program)
+      (ThieleUniversal.CPU.mem (ThieleUniversal.run_n cpu_find 39))
+      = ThieleUniversal.program /\
+    ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC
+      (ThieleUniversal.run_n cpu_find 39) = 3.
+Proof.
+  intros tm conf cpu_find Hcore Hstart Hz4 Hz6 Hz14 Hmove_nonzero Hmove_sub.
+  set (cpu36 := ThieleUniversal.run_n cpu_find 36).
+  pose proof
+    (utm_find_rule_step36_pc_true_branch_zero_move_nonzero_move_zero
+       tm conf cpu_find Hcore Hstart Hz4 Hz6 Hz14 Hmove_nonzero Hmove_sub)
+    as Hpc36.
+  pose proof
+    (utm_find_rule_restart_program_image_move_nonzero_move_zero
+       tm conf cpu_find Hcore Hstart Hz4 Hz6 Hz14 Hmove_nonzero Hmove_sub)
+    as Hprog36.
+  pose proof (utm_restart_fetch_block_pc3 cpu36 Hprog36 Hpc36)
+    as [Hprog39 Hpc39].
+  split;
+    rewrite <- (ThieleUniversal.run_n_add cpu_find 36 3);
+    assumption.
+Qed.
+
+Lemma utm_find_rule_restart_fetch_pc3_move_nonzero_move_nonzero :
+  forall tm conf cpu_find,
+    ThieleUniversal.inv_core cpu_find tm conf ->
+    ThieleUniversal.find_rule_start_inv tm conf cpu_find ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 4)) 0 = false ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 6)) 0 = true ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 14)) 0 = true ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 27)) 0 = false ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 30)) 0 = false ->
+    firstn (length ThieleUniversal.program)
+      (ThieleUniversal.CPU.mem (ThieleUniversal.run_n cpu_find 39))
+      = ThieleUniversal.program /\
+    ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC
+      (ThieleUniversal.run_n cpu_find 39) = 3.
+Proof.
+  intros tm conf cpu_find Hcore Hstart Hz4 Hz6 Hz14 Hmove_nonzero Hmove_sub.
+  set (cpu36 := ThieleUniversal.run_n cpu_find 36).
+  pose proof
+    (utm_find_rule_step36_pc_true_branch_zero_move_nonzero_move_nonzero
+       tm conf cpu_find Hcore Hstart Hz4 Hz6 Hz14 Hmove_nonzero Hmove_sub)
+    as Hpc36.
+  pose proof
+    (utm_find_rule_restart_program_image_move_nonzero_move_nonzero
+       tm conf cpu_find Hcore Hstart Hz4 Hz6 Hz14 Hmove_nonzero Hmove_sub)
+    as Hprog36.
+  pose proof (utm_restart_fetch_block_pc3 cpu36 Hprog36 Hpc36)
+    as [Hprog39 Hpc39].
+  split; rewrite <- (ThieleUniversal.run_n_add cpu_find 36 3);
+    assumption.
+Qed.
+
+Lemma utm_find_rule_restart_fetch_pc3_cases :
+  forall tm conf cpu_find,
+    ThieleUniversal.inv_core cpu_find tm conf ->
+    ThieleUniversal.find_rule_start_inv tm conf cpu_find ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 4)) 0 = false ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 6)) 0 = true ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 14)) 0 = true ->
+    exists steps,
+      (steps = 37 \/ steps = 39) /\
+      firstn (length ThieleUniversal.program)
+        (ThieleUniversal.CPU.mem (ThieleUniversal.run_n cpu_find steps))
+        = ThieleUniversal.program /\
+      ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC
+        (ThieleUniversal.run_n cpu_find steps) = 3.
+Proof.
+  intros tm conf cpu_find Hcore Hstart Hz4 Hz6 Hz14.
+  destruct (Nat.eqb
+              (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+                 (ThieleUniversal.run_n cpu_find 27)) 0) eqn:Hmove27.
+  - exists 37.
+    split; [left; reflexivity|].
+    pose proof
+      (utm_find_rule_restart_fetch_pc3_move_zero
+         tm conf cpu_find Hcore Hstart Hz4 Hz6 Hz14 Hmove27)
+      as [Hprog Hpc].
+    split; assumption.
+  - destruct (Nat.eqb
+                (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+                   (ThieleUniversal.run_n cpu_find 30)) 0) eqn:Hmove30.
+    + exists 39.
+      split; [right; reflexivity|].
+      pose proof
+        (utm_find_rule_restart_fetch_pc3_move_nonzero_move_zero
+           tm conf cpu_find Hcore Hstart Hz4 Hz6 Hz14 Hmove27 Hmove30)
+        as [Hprog Hpc].
+      split; assumption.
+    + exists 39.
+      split; [right; reflexivity|].
+      pose proof
+        (utm_find_rule_restart_fetch_pc3_move_nonzero_move_nonzero
+           tm conf cpu_find Hcore Hstart Hz4 Hz6 Hz14 Hmove27 Hmove30)
+        as [Hprog Hpc].
+      split; assumption.
+Qed.
+
+Lemma utm_find_rule_restart_fetch_pc3_dichotomy :
+  forall tm conf cpu_find,
+    ThieleUniversal.inv_core cpu_find tm conf ->
+    ThieleUniversal.find_rule_start_inv tm conf cpu_find ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 4)) 0 = false ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 6)) 0 = true ->
+    Nat.eqb
+      (ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_TEMP1
+         (ThieleUniversal.run_n cpu_find 14)) 0 = true ->
+    (firstn (length ThieleUniversal.program)
+       (ThieleUniversal.CPU.mem (ThieleUniversal.run_n cpu_find 37))
+     = ThieleUniversal.program /\
+     ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC
+       (ThieleUniversal.run_n cpu_find 37) = 3)
+    \/
+    (firstn (length ThieleUniversal.program)
+       (ThieleUniversal.CPU.mem (ThieleUniversal.run_n cpu_find 39))
+     = ThieleUniversal.program /\
+     ThieleUniversal.CPU.read_reg ThieleUniversal.CPU.REG_PC
+       (ThieleUniversal.run_n cpu_find 39) = 3).
+Proof.
+  intros tm conf cpu_find Hcore Hstart Hz4 Hz6 Hz14.
+  pose proof
+    (utm_find_rule_restart_fetch_pc3_cases tm conf cpu_find Hcore Hstart
+       Hz4 Hz6 Hz14) as Hcases.
+  destruct Hcases as [steps [[Hsteps|Hsteps] [Hprog Hpc]]].
+  - left.
+    subst steps.
+    split; assumption.
+  - right.
+    subst steps.
+    split; assumption.
 Qed.
 
 Lemma utm_no_rule_preserves_cpu_config :
