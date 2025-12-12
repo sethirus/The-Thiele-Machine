@@ -1610,10 +1610,12 @@ class VM:
 
         try:
             result = safe_execute(code, self.python_globals)
+            self.state.mu_ledger.mu_execution += 1
             output = captured_output.getvalue()
             return result, output
         except SyntaxError:
             result = safe_eval(code, self.python_globals)
+            self.state.mu_ledger.mu_execution += 1
             output = captured_output.getvalue()
             return result, output
         except SecurityError as exc:

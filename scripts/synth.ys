@@ -2,7 +2,7 @@
 # This script synthesizes the core Thiele CPU modules and validates their structure
 
 # Read the Verilog source files
-echo "=== Reading Thiele CPU Verilog Sources ==="
+log === Reading Thiele CPU Verilog Sources ===
 read_verilog -sv thielecpu/hardware/mu_alu.v
 read_verilog -sv thielecpu/hardware/mau.v
 read_verilog -sv thielecpu/hardware/lei.v
@@ -11,27 +11,27 @@ read_verilog -sv thielecpu/hardware/mmu.v
 read_verilog -sv thielecpu/hardware/mu_core.v
 
 # Elaborate design hierarchy
-echo "=== Elaborating Design Hierarchy ==="
+log === Elaborating Design Hierarchy ===
 hierarchy -check -top mu_core
 
 # Perform high-level synthesis
-echo "=== Running High-Level Synthesis ==="
+log === Running High-Level Synthesis ===
 proc; opt; memory; opt
 
 # Technology mapping (generic ASIC library)
-echo "=== Technology Mapping ==="
+log === Technology Mapping ===
 techmap; opt
 
 # Generate statistics
-echo "=== Design Statistics ==="
+log === Design Statistics ===
 stat
 
 # Write output netlist
-echo "=== Writing Output Files ==="
+log === Writing Output Files ===
 write_json artifacts/mu_core_synth.json
 write_verilog artifacts/mu_core_synth.v
 
-echo "=== Synthesis Complete ==="
-echo "Output files:"
-echo "  - artifacts/mu_core_synth.json (netlist)"
-echo "  - artifacts/mu_core_synth.v (synthesized verilog)"
+log === Synthesis Complete ===
+log Output files:
+log  "  - artifacts/mu_core_synth.json (netlist)"
+log  "  - artifacts/mu_core_synth.v (synthesized verilog)"
