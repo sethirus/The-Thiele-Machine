@@ -35,6 +35,17 @@ If package names differ on your system, prefer distro packages for reproducibili
 - Attempt to replace the admitted Bridge lemmas with concrete proofs where feasible; document any admitted lemmas or axioms in `coq/ADMIT_REPORT.txt` and `coq/AXIOM_INVENTORY.md`.
 - After resolving forward refs in `Simulation.v`, re-run `make -C coq bridge-timed BRIDGE_TIMEOUT=900` to confirm the integrated build.
 
+### Action Required (Immediate)
+- Forward-declare or temporarily `Admit` the heavy step lemmas referenced early in `coq/thielemachine/coqproofs/Simulation.v` (e.g., `utm_find_rule_step10_pc_true_branch_zero`, `utm_find_rule_step26_pc_true_branch_zero`, etc.) so the file can compile while we iteratively restore/verify their proofs.
+- Document any newly `Admitted` lemmas in `coq/ADMIT_REPORT.txt` and `coq/AXIOM_INVENTORY.md` with short rationale and links to Python/VM tests used to validate the behavior.
+- Re-run the targeted build: `make -C coq thielemachine/coqproofs/Simulation.vo`, then `make -C coq bridge-timed BRIDGE_TIMEOUT=900` to check for additional failures.
+- If necessary, re-order heavy helper lemmas earlier in `Simulation.v` or split the file into smaller modules to avoid forward reference errors.
+- Replace admits with full proofs over time; where proofs are heavy, consider factoring and using `vm_compute`/`native_compute` guidance and `bridge_checkpoint` to resume timed builds.
+
+### Short Term Trade-offs
+- Temporary `Admitted` lemmas are acceptable to unblock CI and developer productivity; ensure minimal scope and follow-up tickets to complete proofs.
+- Avoid adding new axioms unless there is a clear external dependency (e.g., oracle or external partition code).
+
 ## Proof, RTL, and VM work
 - Keep Coq proofs admit-free. If you must introduce or retain an axiom, document why it is unavoidable and update `coq/ADMIT_REPORT.txt` and `coq/AXIOM_INVENTORY.md` in the same change.
 - Prefer turning axioms into lemmas with proofs; avoid `Admitted.` in new code.

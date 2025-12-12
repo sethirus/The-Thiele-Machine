@@ -906,5 +906,69 @@
       "steps": 8,
       "receipts": 4
     }
+  },
+  {
+    "timestamp": "2025-12-12T02:23:00.088977Z",
+    "session_id": "ff8ec3e6fa0aa34f",
+    "pid": 206589,
+    "process": "MainProcess",
+    "thread": 140156845396096,
+    "activity": "vm.run.start",
+    "details": {
+      "program_len": 4,
+      "outdir": "results/hyper_thiele_demo"
+    }
+  },
+  {
+    "timestamp": "2025-12-12T02:23:00.107257Z",
+    "session_id": "ff8ec3e6fa0aa34f",
+    "pid": 206589,
+    "process": "MainProcess",
+    "thread": 140156845396096,
+    "activity": "vm.pyexec",
+    "details": {
+      "code": "M_undecidable = 'while True: pass'",
+      "output": "",
+      "step": 2
+    }
+  },
+  {
+    "timestamp": "2025-12-12T02:23:00.111681Z",
+    "session_id": "ff8ec3e6fa0aa34f",
+    "pid": 206589,
+    "process": "MainProcess",
+    "thread": 140156845396096,
+    "activity": "vm.pyexec",
+    "details": {
+      "code": "print(f'Oracle Verdict: {_oracle_result}')",
+      "output": "Oracle Verdict: True\n",
+      "step": 6
+    }
+  },
+  {
+    "timestamp": "2025-12-12T02:23:00.116978Z",
+    "session_id": "ff8ec3e6fa0aa34f",
+    "pid": 206589,
+    "process": "MainProcess",
+    "thread": 140156845396096,
+    "activity": "vm.emit",
+    "details": {
+      "value": "Oracle Verdict: ",
+      "step": 8,
+      "module": 1
+    }
+  },
+  {
+    "timestamp": "2025-12-12T02:23:00.139508Z",
+    "session_id": "ff8ec3e6fa0aa34f",
+    "pid": 206589,
+    "process": "MainProcess",
+    "thread": 140156845396096,
+    "activity": "vm.run.finish",
+    "details": {
+      "outdir": "results/hyper_thiele_demo",
+      "steps": 8,
+      "receipts": 4
+    }
   }
 ]
