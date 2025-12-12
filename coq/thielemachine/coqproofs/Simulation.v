@@ -12,6 +12,7 @@ Import ListNotations.
 
 From ThieleUniversal Require Import TM UTM_Rules UTM_Program UTM_Encode CPU.
 From ThieleMachine Require Import ThieleMachine EncodingBridge.
+From ThieleMachine Require Import BridgeDefinitions.
 
 Local Open Scope nat_scope.
 
@@ -138,6 +139,4 @@ Qed.
 (* ----------------------------------------------------------------- *)
 
 Definition utm_cpu_state (tm : TM) (conf : TMConfig) : ThieleUniversal.CPU.State :=
-  {| ThieleUniversal.CPU.regs := repeat 0 10;
-     ThieleUniversal.CPU.mem := [];
-     ThieleUniversal.CPU.cost := 0 |}.
+  BridgeDefinitions.setup_state tm conf.
