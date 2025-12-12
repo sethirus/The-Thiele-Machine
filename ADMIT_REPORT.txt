@@ -30,6 +30,7 @@ Axiom    coq/thielemachine/coqproofs/RepresentationTheorem.v:313:     Axiom mu_t
 Axiom    coq/thielemachine/coqproofs/RepresentationTheorem.v:314:     Axiom blind_reversible : forall s s', step s LCompute s' -> mu s LCompute s' = 0 -> True.
 Axiom    coq/thielemachine/coqproofs/RepresentationTheorem.v:361:   Axiom observable_complete : forall (S : Type), Prop.
 Axiom    coq/thielemachine/coqproofs/RepresentationTheorem.v:364:   Axiom representation_refined : forall (S1 S2 : Type),
+Axiom    coq/thielemachine/coqproofs/Simulation.v:2: Axiom utm_find_rule_restart_program_image_move_zero : True.
 Axiom    coq/thielemachine/coqproofs/Spaceland.v:82:   Axiom partition_wellformed : forall (s : State),
 Axiom    coq/thielemachine/coqproofs/Spaceland.v:102:   Axiom step_deterministic : forall s l s1 s2,
 Axiom    coq/thielemachine/coqproofs/Spaceland.v:118:   Axiom module_independence : forall s s' i,
@@ -46,9 +47,15 @@ Axiom    coq/thielemachine/coqproofs/Spaceland.v:349:   Axiom mu_thermodynamic :
 Axiom    coq/thielemachine/coqproofs/Spaceland.v:359:   Axiom blind_reversible : forall s s',
 Axiom    coq/thielemachine/coqproofs/Spaceland.v:463:   Axiom same_projection :
 Axiom    coq/thielemachine/coqproofs/Spaceland.v:468:   Axiom representation :
+Admitted coq/thielemachine/coqproofs/SpacelandComplete.v:141:   Admitted.
 Axiom    coq/thielemachine/coqproofs/SpacelandCore.v:44:   Axiom step_det : forall s l s1 s2,
 Axiom    coq/thielemachine/coqproofs/SpacelandCore.v:51:   Axiom mu_nonneg : forall s l s',
 Axiom    coq/thielemachine/coqproofs/SpacelandCore.v:55:   Axiom mu_blind_free : forall s s',
+Axiom    coq/thielemachine/coqproofs/SpacelandCore.v:114:   Axiom start_mu : Trace -> Z.
+Admitted coq/thielemachine/coqproofs/SpacelandCore.v:299:       admit. (* TODO: fix start_mu definition *)
+Admitted coq/thielemachine/coqproofs/SpacelandCore.v:300:   Admitted.
+Admitted coq/thielemachine/coqproofs/SpacelandCore.v:336:     admit. (* TODO: Complete this proof - requires proper start_mu definition *)
+Admitted coq/thielemachine/coqproofs/SpacelandCore.v:337:   Admitted.
 Axiom    coq/thielemachine/coqproofs/Spaceland_Simple.v:17:   Axiom partition_wellformed : forall (s : State),
 Axiom    coq/thielemachine/coqproofs/Spaceland_Simple.v:28:   Axiom step_deterministic : forall s l s1 s2,
 Axiom    coq/thielemachine/coqproofs/Spaceland_Simple.v:31:   Axiom module_independence : forall s s' m,
@@ -61,10 +68,29 @@ Axiom    coq/thielemachine/coqproofs/SpectralApproximation.v:27: Axiom optimal_i
 Axiom    coq/thielemachine/coqproofs/SpectralApproximation.v:45: Axiom spectral_worst_case_exists :
 Axiom    coq/thielemachine/coqproofs/SpectralApproximation.v:51: Axiom spectral_approximation_unbounded :
 Axiom    coq/thielemachine/coqproofs/SpectralApproximation.v:61: Axiom spectral_average_case_bounded :
+Axiom    coq/thielemachine/coqproofs/Subsumption.v:14: Axiom strict_advantage_statement : Prop.
+Axiom    coq/thielemachine/coqproofs/Subsumption.v:21: Axiom thiele_simulates_tm_via_simulation : forall (tm : TM), Prop.
+Axiom    coq/thielemachine/coqproofs/Subsumption.v:23: Axiom turing_subsumption : Prop.
+Axiom    coq/thielemachine/coqproofs/Subsumption.v:28: Axiom strict_separation : Prop.
+Axiom    coq/thielemachine/coqproofs/Subsumption.v:31: Axiom main_subsumption : Prop.
 Axiom    coq/thielemachine/coqproofs/ThieleFoundations.v:90: Axiom Semantic_Strictness : exists (T1 T2 : CoreThieleMachine) (tau1 tau2 : Trace),
 Axiom    coq/thielemachine/coqproofs/ThieleFoundations.v:122: Axiom Strict_Containment :
+Admitted coq/thielemachine/verification/BridgeDefinitions.v:502:   Admitted.
+Admitted coq/thielemachine/verification/BridgeDefinitions.v:539:   Admitted.
+Admitted coq/thielemachine/verification/BridgeDefinitions.v:1011:   Admitted.
+Admitted coq/thielemachine/verification/BridgeDefinitions.v:1021:   Admitted.
+Admitted coq/thielemachine/verification/BridgeDefinitions.v:1032:   Admitted.
+Admitted coq/thielemachine/verification/BridgeDefinitions.v:1043:   Admitted.
+Admitted coq/thielemachine/verification/BridgeDefinitions.v:1058:   Admitted.
+Admitted coq/thielemachine/verification/FullIsomorphism.WIP.v:78:   Admitted.  (* Placeholder - this is the main proof to complete *)
+Admitted coq/thielemachine/verification/FullIsomorphism.WIP.v:93:   Admitted.
+Admitted coq/thielemachine/verification/FullIsomorphism.WIP.v:106:   Admitted.
+Admitted coq/thielemachine/verification/FullIsomorphism.WIP.v:126:   Admitted.
+Admitted coq/thielemachine/verification/FullIsomorphism.v:89:   Admitted.  (* Placeholder - this is the main proof to complete *)
+Axiom    coq/thielemachine/verification/FullIsomorphism.v:132: Axiom initial_states_correspond : forall tape head tm_state mu_cost,
+Admitted coq/thielemachine/verification/FullIsomorphism.v:156:   Admitted. *)
 
 Summary
 -------
-Total admitted: 0
-Total axioms:  61
+Total admitted: 18
+Total axioms:  69

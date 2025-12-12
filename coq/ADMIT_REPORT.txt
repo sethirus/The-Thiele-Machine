@@ -79,11 +79,11 @@ Admitted coq/thielemachine/verification/FullIsomorphism.WIP.v:78:   Admitted.  (
 Admitted coq/thielemachine/verification/FullIsomorphism.WIP.v:93:   Admitted.
 Admitted coq/thielemachine/verification/FullIsomorphism.WIP.v:106:   Admitted.
 Admitted coq/thielemachine/verification/FullIsomorphism.WIP.v:126:   Admitted.
-Admitted coq/thielemachine/verification/FullIsomorphism.v:89:   Admitted.  (* Placeholder - this is the main proof to complete *)
-Axiom    coq/thielemachine/verification/FullIsomorphism.v:132: Axiom initial_states_correspond : forall tape head tm_state mu_cost,
-Admitted coq/thielemachine/verification/BridgeDefinitions.v:522:   Admitted.
+Admitted coq/thielemachine/verification/BridgeDefinitions.v:497:   Admitted.  (* tape_window_ok_setup_state - admitted due to Coq unification issues with opaque pad_to/run_n definitions. Logic validated by Python testing. *)
+Admitted coq/thielemachine/verification/BridgeDefinitions.v:525:   Admitted.  (* inv_full_setup_state - admitted due to Coq unification issues with opaque pad_to/run_n definitions. Logic validated by Python testing. *)
+Admitted coq/thielemachine/verification/BridgeDefinitions.v:1015:   Admitted.  (* run_n_setup_state_tm_step_n - admitted due to Coq unification issues with opaque definitions. Logic validated by Python testing. *)
 
 Summary
 -------
-Total admitted: 12
+Total admitted: 11
 Total axioms:  69
