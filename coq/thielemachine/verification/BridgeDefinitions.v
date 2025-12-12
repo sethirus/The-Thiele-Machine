@@ -1187,6 +1187,11 @@ Qed.
    for 6 instructions performs exactly one `tm_step`.  From there the
    invariants follow by re-applying `inv_full_setup_state`. *)
 
+(* Prevent expensive unfolding of the small-step evaluator while
+   typechecking the following admitted lemmas; this keeps the build
+   from spending minutes reducing run_n/CPU.step during compilation. *)
+Local Opaque run_n CPU.step decode_instr.
+
 Lemma run_n_setup_state_tm_step : forall tm conf,
   length program <= UTM_Program.RULES_START_ADDR ->
   length (UTM_Encode.encode_rules tm.(tm_rules))
