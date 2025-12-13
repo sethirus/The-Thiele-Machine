@@ -319,6 +319,84 @@ PSPLIT(1):   μ = (2, 64)     # Split costs 64 bits
 PDISCOVER:   μ = (226, 64)   # 224 query + 2 processing
 ```
 
+### 3.6 μ-Monotonicity Theorem (PROVEN)
+
+**Theorem** (Coq `SimulationProof.v` lines 377-381):
+```coq
+Lemma vm_step_mu : forall s instr s',
+  vm_step s instr s' ->
+  s'.(vm_mu) = s.(vm_mu) + instruction_cost instr.
+```
+
+**English**: For any valid VM step, μ-cost **accumulates** by exactly the instruction cost. The μ-ledger **never decreases**.
+
+**Key Properties**:
+
+1. **Accumulation, not gating**: μ-cost is a **passive ledger**, not an enforcement mechanism.
+   - Operations execute if their graph/logical preconditions are met
+   - μ-cost records the information-theoretic cost **after** the operation succeeds
+   - There are **no μ-budget checks** in the core semantics
+
+2. **Strict Monotonicity**: 
+   ```
+   ∀S, S', instr. step(S, instr, S') → μ(S') ≥ μ(S) + cost(instr) > μ(S)
+   ```
+   (assuming `cost(instr) > 0` for non-trivial operations)
+
+3. **Deterministic Cost**: For a given instruction `I`, the cost is **fixed** and independent of:
+   - Current μ-ledger value
+   - Partition graph structure
+   - Execution history
+   - External state
+
+4. **Additive Over Sequences**:
+   ```
+   μ(run(S, [I₁, I₂, ..., Iₙ])) = μ(S) + Σᵢ cost(Iᵢ)
+   ```
+
+**Implementation Verification** (3-Way Isomorphism):
+
+All three implementations maintain identical μ-accumulation:
+
+- **Coq** (`kernel/VMStep.v:66-78`):
+  ```coq
+  Definition apply_cost (s : VMState) (instr : vm_instruction) : nat :=
+    s.(vm_mu) + instruction_cost instr.
+  
+  Definition advance_state (s : VMState) (instr : vm_instruction) 
+                           (pg : PartitionGraph) : VMState :=
+    {| vm_mu := apply_cost s instr;
+       vm_graph := pg;
+       vm_err := false; |}.
+  ```
+
+- **Python VM** (`thielecpu/vm.py`):
+  ```python
+  def step(self, instr: Instruction) -> None:
+      cost = self._instruction_cost(instr)
+      # ... execute operation ...
+      self.state.mu += cost  # Accumulate after success
+  ```
+
+- **Verilog RTL** (`thielecpu/hardware/thiele_cpu.v:248,257,266`):
+  ```verilog
+  OPCODE_PNEW: begin
+      execute_pnew(operand_a, operand_b);
+      // Coq semantics: vm_mu := s.vm_mu + instruction_cost
+      mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
+      pc_reg <= pc_reg + 4;
+      state <= STATE_FETCH;
+  end
+  ```
+
+**Historical Note**: Previous RTL versions incorrectly treated μ-cost as a budget (subtracting on operations). This violated the Coq theorem and broke 3-way isomorphism. The correct semantics is **accumulation only** (fixed December 2025).
+
+**Testing**: All isomorphism tests verify:
+```
+py.mu == coq.vm_mu == rtl.mu_accumulator
+```
+for identical instruction sequences.
+
 ---
 
 ## 4. Partition Operations

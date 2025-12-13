@@ -31,6 +31,7 @@ def test_rtl_trace_matches_decoded_metrics():
     compile_cmd = [
         "iverilog",
         "-g2012",
+        "-I", str(HARDWARE_DIR),
         "-o",
         "thiele_cpu_tb",
         "thiele_cpu.v",
