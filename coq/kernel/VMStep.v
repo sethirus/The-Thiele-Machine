@@ -10,8 +10,15 @@ Require Import VMState.
     LASSERT instructions must provide a certificate that validates
     either an LRAT refutation (unsatisfiable) or a satisfying model.  *)
 
-Parameter check_lrat : string -> string -> bool.
-Parameter check_model : string -> string -> bool.
+Module Type CertChecker.
+  Parameter check_lrat : string -> string -> bool.
+  Parameter check_model : string -> string -> bool.
+End CertChecker.
+
+Module Make (C : CertChecker).
+
+Definition check_lrat : string -> string -> bool := C.check_lrat.
+Definition check_model : string -> string -> bool := C.check_model.
 
 Inductive lassert_certificate :=
 | lassert_cert_unsat (proof : string)
@@ -26,12 +33,12 @@ Inductive vm_instruction :=
 | instr_ljoin (cert1 cert2 : string) (mu_delta : nat)
 | instr_mdlacc (module : ModuleID) (mu_delta : nat)
 | instr_pdiscover (module : ModuleID) (evidence : list VMAxiom) (mu_delta : nat)
-| instr_xfer (src dst : ModuleID) (mu_delta : nat)
+| instr_xfer (dst src : nat) (mu_delta : nat)
 | instr_pyexec (payload : string) (mu_delta : nat)
-| instr_xor_load (addr : nat) (mu_delta : nat)
-| instr_xor_add (val : nat) (mu_delta : nat)
-| instr_xor_swap (mu_delta : nat)
-| instr_xor_rank (mu_delta : nat)
+| instr_xor_load (dst addr : nat) (mu_delta : nat)
+| instr_xor_add (dst src : nat) (mu_delta : nat)
+| instr_xor_swap (a b : nat) (mu_delta : nat)
+| instr_xor_rank (dst src : nat) (mu_delta : nat)
 | instr_emit (module : ModuleID) (payload : string) (mu_delta : nat)
 | instr_oracle_halts (payload : string) (mu_delta : nat)
 | instr_halt (mu_delta : nat).
@@ -47,10 +54,10 @@ Definition instruction_cost (instr : vm_instruction) : nat :=
   | instr_pdiscover _ _ cost => cost
   | instr_xfer _ _ cost => cost
   | instr_pyexec _ cost => cost
-  | instr_xor_load _ cost => cost
-  | instr_xor_add _ cost => cost
-  | instr_xor_swap cost => cost
-  | instr_xor_rank cost => cost
+  | instr_xor_load _ _ cost => cost
+  | instr_xor_add _ _ cost => cost
+  | instr_xor_swap _ _ cost => cost
+  | instr_xor_rank _ _ cost => cost
   | instr_emit _ _ cost => cost
   | instr_oracle_halts _ cost => cost
   | instr_halt cost => cost
@@ -67,9 +74,23 @@ Definition advance_state (s : VMState) (instr : vm_instruction)
   : VMState :=
   {| vm_graph := graph;
      vm_csrs := csrs;
+  vm_regs := s.(vm_regs);
+  vm_mem := s.(vm_mem);
      vm_pc := S s.(vm_pc);
      vm_mu := apply_cost s instr;
      vm_err := err_flag |}.
+
+Definition advance_state_rm (s : VMState) (instr : vm_instruction)
+  (graph : PartitionGraph) (csrs : CSRState)
+  (regs : list nat) (mem : list nat) (err_flag : bool)
+  : VMState :=
+  {| vm_graph := graph;
+  vm_csrs := csrs;
+  vm_regs := regs;
+  vm_mem := mem;
+  vm_pc := S s.(vm_pc);
+  vm_mu := apply_cost s instr;
+  vm_err := err_flag |}.
 
 Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
 | step_pnew : forall s region cost graph' mid,
@@ -139,26 +160,35 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     vm_step s (instr_pyexec payload cost)
       (advance_state s (instr_pyexec payload cost)
         s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
-| step_xfer : forall s src dst cost,
-    vm_step s (instr_xfer src dst cost)
-      (advance_state s (instr_xfer src dst cost)
-        s.(vm_graph) s.(vm_csrs) s.(vm_err))
-| step_xor_load : forall s addr cost,
-    vm_step s (instr_xor_load addr cost)
-      (advance_state s (instr_xor_load addr cost)
-        s.(vm_graph) s.(vm_csrs) s.(vm_err))
-| step_xor_add : forall s val cost,
-    vm_step s (instr_xor_add val cost)
-      (advance_state s (instr_xor_add val cost)
-        s.(vm_graph) s.(vm_csrs) s.(vm_err))
-| step_xor_swap : forall s cost,
-    vm_step s (instr_xor_swap cost)
-      (advance_state s (instr_xor_swap cost)
-        s.(vm_graph) s.(vm_csrs) s.(vm_err))
-| step_xor_rank : forall s cost,
-    vm_step s (instr_xor_rank cost)
-      (advance_state s (instr_xor_rank cost)
-        s.(vm_graph) s.(vm_csrs) s.(vm_err))
+| step_xfer : forall s dst src cost regs',
+    regs' = write_reg s dst (read_reg s src) ->
+    vm_step s (instr_xfer dst src cost)
+      (advance_state_rm s (instr_xfer dst src cost)
+        s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+| step_xor_load : forall s dst addr cost regs' value,
+    value = read_mem s addr ->
+    regs' = write_reg s dst value ->
+    vm_step s (instr_xor_load dst addr cost)
+      (advance_state_rm s (instr_xor_load dst addr cost)
+        s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+| step_xor_add : forall s dst src cost regs' vdst vsrc,
+    vdst = read_reg s dst ->
+    vsrc = read_reg s src ->
+    regs' = write_reg s dst (word32_xor vdst vsrc) ->
+    vm_step s (instr_xor_add dst src cost)
+      (advance_state_rm s (instr_xor_add dst src cost)
+        s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+| step_xor_swap : forall s a b cost regs',
+    regs' = swap_regs s.(vm_regs) a b ->
+    vm_step s (instr_xor_swap a b cost)
+      (advance_state_rm s (instr_xor_swap a b cost)
+        s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+| step_xor_rank : forall s dst src cost regs' vsrc,
+    vsrc = read_reg s src ->
+    regs' = write_reg s dst (word32_popcount vsrc) ->
+    vm_step s (instr_xor_rank dst src cost)
+      (advance_state_rm s (instr_xor_rank dst src cost)
+        s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
 | step_oracle_halts : forall s payload cost,
     vm_step s (instr_oracle_halts payload cost)
       (advance_state s (instr_oracle_halts payload cost)
@@ -167,3 +197,13 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     vm_step s (instr_halt cost)
       (advance_state s (instr_halt cost)
         s.(vm_graph) s.(vm_csrs) s.(vm_err)).
+
+End Make.
+
+Module DefaultCertChecker <: CertChecker.
+  Definition check_lrat (_ _ : string) : bool := false.
+  Definition check_model (_ _ : string) : bool := false.
+End DefaultCertChecker.
+
+Module VMStep := Make(DefaultCertChecker).
+Export VMStep.

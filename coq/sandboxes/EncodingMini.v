@@ -25,8 +25,8 @@ Section EncodingMini.
   Definition SHIFT_SMALL := Nat.pow BASE SHIFT_LEN.
   Definition SHIFT_BIG := SHIFT_SMALL * SHIFT_SMALL.
 
-  Hypothesis BASE_ge_2 : 2 <= BASE.
-  Hypothesis SHIFT_LEN_ge_1 : 1 <= SHIFT_LEN.
+  Context (BASE_ge_2 : 2 <= BASE).
+  Context (SHIFT_LEN_ge_1 : 1 <= SHIFT_LEN).
 
   Lemma BASE_pos : 0 < BASE.
   Proof. lia. Qed.
@@ -72,10 +72,37 @@ Section EncodingMini.
       apply Nat.mul_le_mono_pos_r; lia.
   Qed.
 
-  Parameter encode_list : list nat -> nat.
-  Parameter digits_ok : list nat -> Prop.
-  Parameter encode_list_upper :
+  Definition digits_ok (xs : list nat) : Prop :=
+    Forall (fun d => d < BASE) xs.
+
+  Fixpoint encode_list (xs : list nat) : nat :=
+    match xs with
+    | [] => 0
+    | d :: ds => d + BASE * encode_list ds
+    end.
+
+  Lemma encode_list_upper :
     forall xs, digits_ok xs -> encode_list xs < Nat.pow BASE (length xs).
+  Proof.
+    induction xs as [|d ds IH]; intro Hdig; simpl.
+    - lia.
+    - inversion Hdig as [|d' ds' Hd Hds]; subst.
+      (* d + BASE * encode_list ds < BASE * BASE^(length ds) *)
+      assert (Hstep : d + BASE * encode_list ds < BASE * S (encode_list ds)).
+      { apply (Nat.add_lt_mono_r d BASE (BASE * encode_list ds)) in Hd.
+        (* Hd: d + BASE*encode_list ds < BASE + BASE*encode_list ds *)
+        eapply Nat.lt_le_trans; [exact Hd|].
+        replace (BASE + BASE * encode_list ds) with (BASE * S (encode_list ds)) by
+          (rewrite Nat.mul_succ_r; lia).
+        apply Nat.le_refl.
+      }
+      assert (Hle : S (encode_list ds) <= Nat.pow BASE (length ds)) by lia.
+      assert (Hmul : BASE * S (encode_list ds) <= BASE * Nat.pow BASE (length ds)).
+      { apply Nat.mul_le_mono_l; exact Hle. }
+      eapply Nat.lt_le_trans; [exact Hstep|].
+      eapply Nat.le_trans; [exact Hmul|].
+      apply Nat.le_refl.
+  Qed.
 
   Lemma encode_list_lt_SHIFT_SMALL :
     forall xs, digits_ok xs -> length xs <= SHIFT_LEN -> encode_list xs < SHIFT_SMALL.

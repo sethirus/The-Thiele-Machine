@@ -285,16 +285,30 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
   | instr_pyexec payload cost =>
       advance_state s (instr_pyexec payload cost)
         s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
-  | instr_xfer src dst cost =>
-      advance_state s (instr_xfer src dst cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
-  | instr_xor_load addr cost =>
-      advance_state s (instr_xor_load addr cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
-  | instr_xor_add val cost =>
-      advance_state s (instr_xor_add val cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
-  | instr_xor_swap cost =>
-      advance_state s (instr_xor_swap cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
-  | instr_xor_rank cost =>
-      advance_state s (instr_xor_rank cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
+    | instr_xfer dst src cost =>
+      let regs' := write_reg s dst (read_reg s src) in
+      advance_state_rm s (instr_xfer dst src cost)
+      s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
+    | instr_xor_load dst addr cost =>
+      let value := read_mem s addr in
+      let regs' := write_reg s dst value in
+      advance_state_rm s (instr_xor_load dst addr cost)
+      s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
+    | instr_xor_add dst src cost =>
+      let vdst := read_reg s dst in
+      let vsrc := read_reg s src in
+      let regs' := write_reg s dst (word32_xor vdst vsrc) in
+      advance_state_rm s (instr_xor_add dst src cost)
+      s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
+    | instr_xor_swap a b cost =>
+      let regs' := swap_regs s.(vm_regs) a b in
+      advance_state_rm s (instr_xor_swap a b cost)
+      s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
+    | instr_xor_rank dst src cost =>
+      let vsrc := read_reg s src in
+      let regs' := write_reg s dst (word32_popcount vsrc) in
+      advance_state_rm s (instr_xor_rank dst src cost)
+      s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
   | instr_oracle_halts payload cost =>
       advance_state s (instr_oracle_halts payload cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
   | instr_halt cost =>
@@ -328,6 +342,11 @@ Lemma vm_step_vm_apply :
 Proof.
   intros s instr s' Hstep.
   inversion Hstep; subst; simpl;
+    (* With the default checker, successful LASSERT steps are uninhabited. *)
+    try match goal with
+        | H : check_model _ _ = true |- _ => cbn in H; discriminate H
+        | H : check_lrat _ _ = true |- _ => cbn in H; discriminate H
+        end;
     repeat match goal with
            | H : _ = _ |- _ => rewrite H
            end; reflexivity.
@@ -446,6 +465,8 @@ Lemma compile_increment_pc_correct :
     exists s_vm',
       s_vm' = {| vm_graph := s_vm.(vm_graph);
                  vm_csrs := s_vm.(vm_csrs);
+                 vm_regs := s_vm.(vm_regs);
+                 vm_mem := s_vm.(vm_mem);
                  vm_pc := S s_vm.(vm_pc);
                  vm_mu := s_vm.(vm_mu);
                  vm_err := s_vm.(vm_err) |} /\
@@ -461,6 +482,8 @@ Proof.
   intros s_kernel s_vm _.
   refine (ex_intro _ {| vm_graph := s_vm.(vm_graph);
                         vm_csrs := s_vm.(vm_csrs);
+                        vm_regs := s_vm.(vm_regs);
+                        vm_mem := s_vm.(vm_mem);
                         vm_pc := S s_vm.(vm_pc);
                         vm_mu := s_vm.(vm_mu);
                         vm_err := s_vm.(vm_err) |} _).
@@ -470,6 +493,8 @@ Proof.
   unfold encode_vm_state_to_tape.
   rewrite <- app_nil_r with (l := encode_vm_state {| vm_graph := vm_graph s_vm;
                                                      vm_csrs := vm_csrs s_vm;
+                                                     vm_regs := vm_regs s_vm;
+                                                     vm_mem := vm_mem s_vm;
                                                      vm_pc := S (vm_pc s_vm);
                                                      vm_mu := vm_mu s_vm;
                                                      vm_err := vm_err s_vm |}).
@@ -481,6 +506,8 @@ Lemma compile_add_mu_correct :
     states_related s_vm s_kernel ->
     let s_vm' := {| vm_graph := s_vm.(vm_graph);
                     vm_csrs := s_vm.(vm_csrs);
+                    vm_regs := s_vm.(vm_regs);
+                    vm_mem := s_vm.(vm_mem);
                     vm_pc := s_vm.(vm_pc);
                     vm_mu := s_vm.(vm_mu) + delta;
                     vm_err := s_vm.(vm_err) |} in
@@ -507,6 +534,8 @@ Lemma decode_vm_state_update_err :
     decode_vm_state (update_vm_err_in_tape tape new_err) =
       Some ({| vm_graph := s.(vm_graph);
               vm_csrs := s.(vm_csrs);
+              vm_regs := s.(vm_regs);
+              vm_mem := s.(vm_mem);
               vm_pc := s.(vm_pc);
               vm_mu := s.(vm_mu);
               vm_err := new_err |}, []).
@@ -521,6 +550,8 @@ Proof.
   rewrite <- app_nil_r with (l := encode_vm_state
                                 {| vm_graph := vm_graph s;
                                    vm_csrs := vm_csrs s;
+                          vm_regs := vm_regs s;
+                          vm_mem := vm_mem s;
                                    vm_pc := vm_pc s;
                                    vm_mu := vm_mu s;
                                    vm_err := new_err |}).
@@ -535,6 +566,8 @@ Lemma compile_update_err_correct :
     states_related
       {| vm_graph := s_vm.(vm_graph);
          vm_csrs := s_vm.(vm_csrs);
+        vm_regs := s_vm.(vm_regs);
+        vm_mem := s_vm.(vm_mem);
          vm_pc := s_vm.(vm_pc);
          vm_mu := s_vm.(vm_mu);
          vm_err := new_err |}

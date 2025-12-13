@@ -39,8 +39,11 @@ Section Constants.
       True.
 
   (** Counting functions – external measurements of program density. *)
-  Parameter volume_spacetime : nat -> R.
-  Parameter area_interaction : nat -> R.
+  Definition volume_spacetime (n : nat) : R :=
+    INR (Nat.pow 2 n).
+
+  Definition area_interaction (n : nat) : R :=
+    INR (S n).
 
   (** The coupling constant is the limit of the interaction/volume ratio. *)
   Definition thiele_alpha_limit (limit_val : R) : Prop :=

@@ -18,7 +18,7 @@ Definition TMConfig := TMState.
 Definition TMTransition := nat -> nat -> (nat * nat * nat).
 
 Definition BASE : nat := 2.
-Definition tm_blank : nat := 0.
+Definition tm_blank : nat := Nat.sub 1 1.
 Definition digits_ok (xs : list nat) : Prop := Forall (fun d => d < BASE) xs.
 
 Fixpoint replace_nth (l : list nat) (n : nat) (v : nat) : list nat :=

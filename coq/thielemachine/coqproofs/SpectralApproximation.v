@@ -1,132 +1,506 @@
-(** Spectral Approximation: Formalizing the Heuristic Gap *)
+(** Spectral Approximation: Cheeger Campaign (finite-matrix Laplacian)
 
-From Coq Require Import List Arith Lia ZArith Bool.
+    This file is a starting point for formal spectral graph theory without
+    claiming NP-hard optimality. We model graphs via adjacency matrices over Z,
+    lift to R for spectral statements, and prove a first nontrivial Cheeger-style
+    bound for the complete graph.
+*)
+
+From Coq Require Import Arith Lia ZArith Bool List.
+From Coq Require Import Vectors.Fin.
+From Coq Require Import Program.Equality.
+From Coq Require Import Reals Psatz.
 Import ListNotations.
 
-Open Scope Z_scope.
+Open Scope R_scope.
 
-(** Graph representation *)
-Record Graph := {
-  num_vertices : nat;
-  edges : list (nat * nat * Z)
-}.
+Module FinSum.
+  Fixpoint sumR (n : nat) : (Fin.t n -> R) -> R :=
+    match n return (Fin.t n -> R) -> R with
+    | 0 => fun _ => 0
+    | S n' =>
+        fun f => f Fin.F1 + sumR n' (fun i => f (Fin.FS i))
+    end.
 
-(** Partition assignment *)
-Definition PartitionAssignment := list (nat * nat).
+  Fixpoint sum_nat (n : nat) : (Fin.t n -> nat) -> nat :=
+    match n return (Fin.t n -> nat) -> nat with
+    | 0 => fun _ => 0%nat
+    | S n' =>
+        fun f => Nat.add (f Fin.F1) (sum_nat n' (fun i => f (Fin.FS i)))
+    end.
 
-(** Partition cost (axiomatized - requires actual graph computation) *)
-Axiom partition_cost : Graph -> PartitionAssignment -> Z.
+  Lemma sumR_ext :
+    forall (n : nat) (f g : Fin.t n -> R),
+      (forall i, f i = g i) -> sumR n f = sumR n g.
+  Proof.
+    induction n; intros f g Hfg; simpl.
+    - reflexivity.
+    - rewrite Hfg.
+      f_equal.
+      apply IHn.
+      intro i.
+      apply Hfg.
+  Qed.
 
-(** Spectral partition (axiomatized - requires eigenvalue computation) *)
-Axiom spectral_partition : Graph -> nat -> PartitionAssignment.
+  Lemma sum_nat_ext :
+    forall (n : nat) (f g : Fin.t n -> nat),
+      (forall i, f i = g i) -> sum_nat n f = sum_nat n g.
+  Proof.
+    induction n; intros f g Hfg; simpl.
+    - reflexivity.
+    - rewrite Hfg.
+      f_equal.
+      apply IHn.
+      intro i.
+      apply Hfg.
+  Qed.
 
-(** Optimal partition (axiomatized - NP-hard problem) *)
-Axiom optimal_partition : Graph -> PartitionAssignment.
+  Lemma sumR_const : forall (n : nat) (c : R), sumR n (fun _ => c) = INR n * c.
+  Proof.
+    induction n; intros c.
+    - cbn [sumR]. rewrite Rmult_0_l. reflexivity.
+    - cbn [sumR].
+      rewrite IHn.
+      rewrite S_INR.
+      ring.
+  Qed.
 
-(** Optimal is minimal *)
-Axiom optimal_is_minimal : forall g p,
-  partition_cost g (optimal_partition g) <= partition_cost g p.
+  Lemma sumR_mul_const :
+    forall (n : nat) (c : R) (f : Fin.t n -> R),
+      sumR n (fun i => c * f i) = c * sumR n f.
+  Proof.
+    induction n; intros c f; simpl.
+    - ring.
+    - rewrite IHn.
+      ring.
+  Qed.
 
-(** Approximation ratio *)
-Definition approximation_ratio (g : Graph) (p : PartitionAssignment) : Z :=
-  let opt_cost := partition_cost g (optimal_partition g) in
-  let p_cost := partition_cost g p in
-  if opt_cost =? 0 then 1 else (p_cost / opt_cost).
+  Lemma sumR_add :
+    forall (n : nat) (f g : Fin.t n -> R),
+      sumR n (fun i => f i + g i) = sumR n f + sumR n g.
+  Proof.
+    induction n; intros f g; simpl.
+    - lra.
+    - rewrite IHn.
+      ring.
+  Qed.
 
-(** Structure density *)
-Definition structure_density (g : Graph) : Z :=
-  Z.of_nat (num_vertices g).
+  Lemma sumR_opp :
+    forall (n : nat) (f : Fin.t n -> R),
+      sumR n (fun i => - f i) = - sumR n f.
+  Proof.
+    induction n; intros f; simpl.
+    - lra.
+    - rewrite IHn.
+      ring.
+  Qed.
 
-(** Heuristic efficiency based on density *)
-Definition heuristic_efficiency (g : Graph) (D : Z) : Z :=
-  if D >? 10 then 2 else 10.
+  Lemma sumR_sub :
+    forall (n : nat) (f g : Fin.t n -> R),
+      sumR n (fun i => f i - g i) = sumR n f - sumR n g.
+  Proof.
+    intros n f g.
+    unfold Rminus.
+    rewrite (sumR_add n f (fun i => - g i)).
+    rewrite sumR_opp.
+    ring.
+  Qed.
 
-(** Worst case: spectral can be arbitrarily bad *)
-Axiom spectral_worst_case_exists :
-  exists g : Graph,
-    partition_cost g (spectral_partition g 2) > 
-    partition_cost g (optimal_partition g).
+  Fixpoint sumR_remove (n : nat) : Fin.t n -> (Fin.t n -> R) -> R :=
+    match n return Fin.t n -> (Fin.t n -> R) -> R with
+    | 0 => fun i _ => match i with end
+    | S n' =>
+        fun i f =>
+         (Fin.caseS'
+           i
+           (fun _ => (Fin.t (S n') -> R) -> R)
+           (fun f0 => sumR n' (fun k => f0 (Fin.FS k)))
+           (fun i' => fun f0 => f0 Fin.F1 + sumR_remove n' i' (fun k => f0 (Fin.FS k)))
+         ) f
+    end.
 
-(** Unbounded approximation ratio *)
-Axiom spectral_approximation_unbounded :
-  forall K : Z,
-  exists g : Graph,
-    approximation_ratio g (spectral_partition g 2) > K.
+  Lemma sumR_remove_ext :
+    forall (n : nat) (i : Fin.t n) (f g : Fin.t n -> R),
+      (forall j, f j = g j) -> sumR_remove n i f = sumR_remove n i g.
+  Proof.
+    induction n; intros i f g Hfg.
+    - inversion i.
+    - dependent destruction i; cbn.
+      + apply sumR_ext; intro k; apply Hfg.
+      + rewrite (Hfg Fin.F1).
+        f_equal.
+        apply IHn.
+        intro k.
+        apply Hfg.
+  Qed.
 
-(** Average case: bounded on structured graphs 
-    NOTE: This requires computing actual partition costs which depend on
-    eigenvalue decomposition (axiomatized). We state this as an axiom since
-    the proof requires numerical computation beyond Coq's capabilities.
+  Lemma sumR_remove_ext_except :
+    forall (n : nat) (i : Fin.t n) (f g : Fin.t n -> R),
+      (forall j, j <> i -> f j = g j) ->
+      sumR_remove n i f = sumR_remove n i g.
+  Proof.
+    induction n; intros i f g Hfg.
+    - inversion i.
+    - dependent destruction i; cbn.
+      + (* remove F1: only tail matters *)
+        apply sumR_ext; intro k.
+        apply Hfg.
+        intro Hc.
+        inversion Hc.
+      + (* remove FS i': head + recursive tail *)
+        f_equal.
+        * apply Hfg.
+          intro Hc.
+          inversion Hc.
+        *
+          apply IHn.
+          intro k.
+          intro Hk.
+          apply (Hfg (Fin.FS k)).
+          intro Hc.
+          apply Fin.FS_inj in Hc.
+          exact (Hk Hc).
+  Qed.
+
+  Lemma sumR_remove_mul_const :
+    forall (n : nat) (i : Fin.t n) (c : R) (f : Fin.t n -> R),
+      sumR_remove n i (fun j => c * f j) = c * sumR_remove n i f.
+  Proof.
+    induction n; intros i c f.
+    - inversion i.
+    - dependent destruction i; cbn.
+      + rewrite sumR_mul_const. ring.
+      + rewrite IHn. ring.
+  Qed.
+
+  Lemma sumR_split_remove :
+    forall (n : nat) (f : Fin.t n -> R) (i : Fin.t n),
+      sumR n f = f i + sumR_remove n i f.
+  Proof.
+    induction n; intros f i.
+    - inversion i.
+    - apply (Fin.caseS' i (fun i => sumR (S n) f = f i + sumR_remove (S n) i f)).
+      + cbn [sumR sumR_remove Fin.caseS'].
+        reflexivity.
+      + intro i'.
+        cbn [sumR sumR_remove Fin.caseS'].
+        specialize (IHn (fun k => f (Fin.FS k)) i').
+        rewrite IHn.
+          repeat rewrite <- Rplus_assoc.
+          rewrite (Rplus_comm (f Fin.F1) (f (Fin.FS i'))).
+          reflexivity.
+  Qed.
+
+  Lemma sumR_remove_at :
+    forall (n : nat) (f : Fin.t n -> R) (i : Fin.t n),
+      sumR_remove n i f = sumR n f - f i.
+  Proof.
+    intros n f i.
+    pose proof (sumR_split_remove n f i) as H.
+    lra.
+  Qed.
+End FinSum.
+
+(** Finite vectors and matrices *)
+Definition Vec (n : nat) := Fin.t n -> R.
+Definition ZMat (n : nat) := Fin.t n -> Fin.t n -> Z.
+Definition Mat (n : nat) := Fin.t n -> Fin.t n -> R.
+
+Definition zmat_to_mat {n : nat} (M : ZMat n) : Mat n := fun i j => IZR (M i j).
+
+Definition vec_sum {n : nat} (x : Vec n) : R := FinSum.sumR n x.
+
+Definition dot {n : nat} (x y : Vec n) : R :=
+  FinSum.sumR n (fun i => x i * y i).
+
+Definition ones {n : nat} : Vec n := fun _ => 1.
+
+Lemma dot_ones_sum : forall (n : nat) (x : Vec n), dot x (ones (n:=n)) = vec_sum x.
+Proof.
+  intros n x.
+  unfold dot, vec_sum, ones.
+  apply FinSum.sumR_ext.
+  intro i.
+  ring.
+Qed.
+
+Definition mat_vec_mul {n : nat} (M : Mat n) (x : Vec n) : Vec n :=
+  fun i => FinSum.sumR n (fun j => M i j * x j).
+
+Definition quad {n : nat} (M : Mat n) (x : Vec n) : R := dot x (mat_vec_mul M x).
+
+Definition rayleigh_quotient {n : nat} (M : Mat n) (x : Vec n) : R :=
+  quad M x / dot x x.
+
+Lemma dot_self_nonneg : forall (n : nat) (x : Vec n), 0 <= dot x x.
+Proof.
+  induction n; intros x; simpl.
+  - unfold dot. simpl. lra.
+  - unfold dot in *; simpl.
+    specialize (IHn (fun i => x (Fin.FS i))).
+    assert (Hsq : 0 <= x Fin.F1 * x Fin.F1).
+    { replace (x Fin.F1 * x Fin.F1) with ((x Fin.F1) ^ 2) by ring.
+      apply pow2_ge_0.
+    }
+    lra.
+Qed.
+
+(** Complete graph Laplacian (dimension N = S n):
+    L_ii = n, L_ij = -1 for i≠j.
+
+    Note: We keep the *graph* adjacency naturally over Z elsewhere, but the
+    spectral statements live over R. For this first milestone we define the
+    Laplacian directly as an R-matrix (same data, easier algebra).
 *)
-Axiom spectral_average_case_bounded :
-  forall g : Graph,
-  let D := structure_density g in
-  D > 10 ->
-  approximation_ratio g (spectral_partition g 2) <= heuristic_efficiency g D.
+Definition laplacian_complete (n : nat) : Mat (S n) :=
+  fun i j => if Fin.eq_dec i j then INR n else (-1).
 
-(** Fallback detection *)
-Definition should_fallback_to_blind (g : Graph) (mu_discovery : Z) : bool :=
-  let blind_cost := 100 in  (* placeholder *)
-  let spectral_cost := 50 in  (* placeholder *)
-  (spectral_cost + mu_discovery >? blind_cost).
-
-(** Sighted advantage record *)
-Record SightedAdvantage := {
-  structure_density_threshold : Z;
-  expected_approximation_ratio : Z;
-  discovery_cost : Z;
-}.
-
-(** Sighted better on average *)
-Theorem sighted_better_on_average :
-  forall (g : Graph) (adv : SightedAdvantage),
-  structure_density g > structure_density_threshold adv ->
-  exists partition_cost_spectral partition_cost_blind,
-    partition_cost_spectral + discovery_cost adv <
-    partition_cost_blind.
+Lemma mat_vec_mul_laplacian_complete :
+  forall (n : nat) (x : Vec (S n)) (i : Fin.t (S n)),
+    mat_vec_mul (laplacian_complete n) x i = INR (S n) * x i - vec_sum x.
 Proof.
-  intros g adv HD.
-  destruct adv as [threshold ratio disc_cost].
+  intros n x i.
+  unfold mat_vec_mul, laplacian_complete, vec_sum.
+  set (N := S n).
+  set (sumx := FinSum.sumR N x).
+  set (f := fun j : Fin.t N => (if Fin.eq_dec i j then INR n else (-1)) * x j).
+  change (FinSum.sumR N (fun j : Fin.t N => (if Fin.eq_dec i j then INR n else (-1)) * x j))
+    with (FinSum.sumR N f).
+  rewrite (FinSum.sumR_split_remove N f i).
+  (* f i = n * x_i *)
+  destruct (Fin.eq_dec i i) as [_|Hc].
+  2:{ exfalso; exact (Hc eq_refl). }
+  (* Rewrite the removed-sum part using agreement off i, then use sumx = x_i + removed_sum *)
+  assert (Hrem :
+    FinSum.sumR_remove N i f =
+      (-1) * FinSum.sumR_remove N i x).
+  {
+    (* f and (fun j => -1 * x j) agree away from i *)
+    rewrite (FinSum.sumR_remove_ext_except N i f (fun j => (-1) * x j)).
+    - rewrite (FinSum.sumR_remove_mul_const N i (-1) x). reflexivity.
+    - intros j Hj.
+      destruct (Fin.eq_dec i j) as [Hij|Hij].
+      + exfalso. apply Hj. symmetry. exact Hij.
+      + unfold f.
+        destruct (Fin.eq_dec i j) as [Hij'|Hij'].
+        * exfalso. apply Hij. exact Hij'.
+        * ring.
+  }
+  rewrite Hrem.
+  subst f.
+  rewrite (FinSum.sumR_remove_at N x i).
+  subst sumx.
+  subst N.
+  rewrite S_INR.
+  unfold Rminus.
+  destruct (Fin.eq_dec i i) as [_|Hc].
+  2:{ exfalso; exact (Hc eq_refl). }
   simpl.
-  (* Construct witnesses *)
-  set (spec_cost := partition_cost g (spectral_partition g 2)).
-  set (opt_cost := partition_cost g (optimal_partition g)).
-  exists spec_cost.
-  exists (spec_cost + disc_cost + 1).
-  unfold spec_cost.
-  lia.
+  lra.
 Qed.
 
-(** Bad graph test *)
-Definition rohe_bad_graph : Graph :=
-  {| num_vertices := 10;
-     edges := [(0%nat, 1%nat, 1); (2%nat, 3%nat, 1)]
-  |}.
-
-Record BadGraphTestResult := {
-  cost_blind : Z;
-  cost_sighted_spectral : Z;
-  cost_sighted_oracle : Z;
-  detected_fallback : bool;
-}.
-
-Definition run_bad_graph_test : BadGraphTestResult :=
-  {| cost_blind := 100;
-     cost_sighted_spectral := partition_cost rohe_bad_graph
-                                (spectral_partition rohe_bad_graph 2);
-     cost_sighted_oracle := partition_cost rohe_bad_graph
-                              (optimal_partition rohe_bad_graph);
-     detected_fallback := should_fallback_to_blind rohe_bad_graph 100;
-  |}.
-
-(** Fallback detection soundness *)
-Theorem bad_graph_test_requires_fallback :
-  detected_fallback run_bad_graph_test = true.
+Lemma quad_laplacian_complete :
+  forall (n : nat) (x : Vec (S n)),
+    quad (laplacian_complete n) x = INR (S n) * dot x x - (vec_sum x) * (vec_sum x).
 Proof.
-  unfold run_bad_graph_test.
-  simpl.
-  unfold should_fallback_to_blind.
-  reflexivity.
+  intros n x.
+  unfold quad, dot.
+  set (sumx := vec_sum x).
+  rewrite (FinSum.sumR_ext (S n)
+            (fun i => x i * mat_vec_mul (laplacian_complete n) x i)
+            (fun i => x i * (INR (S n) * x i - sumx))).
+  2:{
+    intro i.
+    subst sumx.
+    rewrite mat_vec_mul_laplacian_complete.
+    reflexivity.
+  }
+  rewrite (FinSum.sumR_ext (S n)
+            (fun i => x i * (INR (S n) * x i - sumx))
+            (fun i => (INR (S n) * (x i * x i)) - (sumx * x i))).
+  2:{
+    intro i.
+    ring.
+  }
+  rewrite (FinSum.sumR_sub (S n)
+            (fun i => INR (S n) * (x i * x i))
+            (fun i => sumx * x i)).
+  rewrite (FinSum.sumR_mul_const (S n) (INR (S n)) (fun i => x i * x i)).
+  rewrite (FinSum.sumR_mul_const (S n) sumx x).
+  subst sumx.
+  unfold vec_sum.
+  ring.
 Qed.
 
-(** End of SpectralApproximation *)
+Lemma rayleigh_complete_on_orthogonal :
+  forall (n : nat) (x : Vec (S n)),
+    vec_sum x = 0 ->
+    dot x x <> 0 ->
+    rayleigh_quotient (laplacian_complete n) x = INR (S n).
+Proof.
+  intros n x Hsum Hnz.
+  unfold rayleigh_quotient.
+  rewrite quad_laplacian_complete.
+  rewrite Hsum.
+  field.
+  exact Hnz.
+Qed.
+
+(** A Cheeger-style bound for the complete graph.
+
+    We model a cut by a subset S : V -> bool. For K_N, the (unnormalized)
+    conductance of a cut has a simple closed form and is always <= 1.
+
+    This is not yet the full general Cheeger inequality proof (which requires
+    sweeping the Fiedler vector), but it is a nontrivial bridge:
+    - real Laplacian model, finite sums, Rayleigh quotient characterization,
+    - explicit lambda_2 behaviour for a real graph family.
+*)
+
+Definition Subset (n : nat) := Fin.t n -> bool.
+
+Definition subset_compl {n : nat} (S : Subset n) : Subset n := fun i => negb (S i).
+
+Definition card {n : nat} (S : Subset n) : nat :=
+  FinSum.sum_nat n (fun i => if S i then 1%nat else 0%nat).
+
+Lemma card_compl_sum : forall (n : nat) (S : Subset n), (card S + card (subset_compl S) = n)%nat.
+Proof.
+  induction n; intros S.
+  - unfold card.
+    cbn [FinSum.sum_nat].
+    reflexivity.
+  - unfold card, subset_compl.
+    cbn [FinSum.sum_nat].
+    set (S' := fun i : Fin.t n => S (Fin.FS i)).
+    change (FinSum.sum_nat n (fun i : Fin.t n => if S (Fin.FS i) then 1%nat else 0%nat)) with (card S').
+    change (FinSum.sum_nat n (fun i : Fin.t n => if negb (S (Fin.FS i)) then 1%nat else 0%nat))
+      with (card (subset_compl S')).
+    specialize (IHn S').
+    destruct (S Fin.F1) eqn:HS; simpl; lia.
+Qed.
+
+Definition boundary_complete (n : nat) (S : Subset (S n)) : nat :=
+  card S * card (subset_compl S).
+
+Definition vol_complete (n : nat) (S : Subset (S n)) : nat :=
+  card S * n.
+
+Definition conductance_complete (n : nat) (S : Subset (S n)) : R :=
+  let b := boundary_complete n S in
+  let vS := vol_complete n S in
+  let vT := vol_complete n (subset_compl S) in
+  INR b / INR (Nat.min vS vT).
+
+Lemma boundary_le_vol_left_complete :
+  forall (n : nat) (cut : Subset (S n)),
+    (card cut > 0)%nat ->
+    (boundary_complete n cut <= vol_complete n cut)%nat.
+Proof.
+  intros n cut Hnonempty.
+  unfold boundary_complete, vol_complete.
+  (* card (compl S) <= n because total vertices = S n and card S >= 1 *)
+  assert (Hbound : (card (subset_compl cut) <= n)%nat).
+  {
+    pose proof (card_compl_sum (S n) cut) as Hsum.
+    assert ((card cut <= S n)%nat) by lia.
+    lia.
+  }
+  nia.
+Qed.
+
+Lemma boundary_le_vol_right_complete :
+  forall (n : nat) (cut : Subset (S n)),
+    (card (subset_compl cut) > 0)%nat ->
+    (boundary_complete n cut <= vol_complete n (subset_compl cut))%nat.
+Proof.
+  intros n cut Hnonempty.
+  unfold boundary_complete, vol_complete.
+  (* card S <= n by symmetry of the previous lemma *)
+  assert (Hbound : (card cut <= n)%nat).
+  {
+    pose proof (card_compl_sum (S n) cut) as Hsum.
+    assert ((card (subset_compl cut) <= S n)%nat) by lia.
+    lia.
+  }
+  nia.
+Qed.
+
+Lemma conductance_complete_le_1 :
+  forall (n : nat) (cut : Subset (S n)),
+    (card cut > 0)%nat ->
+    (card cut < S n)%nat ->
+    conductance_complete n cut <= 1.
+Proof.
+  intros n cut Hne Hproper.
+  unfold conductance_complete.
+  set (b := boundary_complete n cut).
+  set (vS := vol_complete n cut).
+  set (vT := vol_complete n (subset_compl cut)).
+  assert (HneT : (card (subset_compl cut) > 0)%nat).
+  {
+    pose proof (card_compl_sum (S n) cut) as Hsum.
+    lia.
+  }
+  assert (HbS : (b <= vS)%nat) by (subst b vS; apply boundary_le_vol_left_complete; assumption).
+  assert (HbT : (b <= vT)%nat) by (subst b vT; apply boundary_le_vol_right_complete; assumption).
+  assert (Hbmin : (b <= Nat.min vS vT)%nat) by (apply Nat.min_glb; assumption).
+  assert (Hminpos : (Nat.min vS vT > 0)%nat).
+  {
+    subst vS vT.
+    unfold vol_complete.
+    apply Nat.min_glb_lt; nia.
+  }
+  apply (Rle_trans _ (INR (Nat.min vS vT) / INR (Nat.min vS vT))).
+  - unfold Rdiv.
+    apply Rmult_le_compat_r.
+    + left. apply Rinv_0_lt_compat. apply lt_0_INR. nia.
+    + apply le_INR. exact Hbmin.
+  - rewrite Rdiv_diag.
+    + lra.
+    + apply not_0_INR. nia.
+Qed.
+
+Theorem cheeger_style_complete_graph_squared :
+  forall (n : nat) (cut : Subset (S n)),
+    (n >= 1)%nat ->
+    (card cut > 0)%nat ->
+    (card cut < S n)%nat ->
+    (conductance_complete n cut) * (conductance_complete n cut) <= 2 * INR (S n).
+Proof.
+  intros n cut Hn Hne Hproper.
+  set (phi := conductance_complete n cut).
+  assert (Hphi : phi <= 1) by (subst phi; apply conductance_complete_le_1; assumption).
+  assert (Hphi0 : 0 <= phi).
+  {
+    subst phi.
+    unfold conductance_complete.
+    set (b := boundary_complete n cut).
+    set (vS := vol_complete n cut).
+    set (vT := vol_complete n (subset_compl cut)).
+    set (m := Nat.min vS vT).
+    assert (HneT : (card (subset_compl cut) > 0)%nat).
+    {
+      pose proof (card_compl_sum (S n) cut) as Hsum.
+      lia.
+    }
+    assert (Hmpos : (m > 0)%nat).
+    {
+      subst m vS vT.
+      unfold vol_complete.
+      apply Nat.min_glb_lt; nia.
+    }
+    unfold Rdiv.
+    apply Rmult_le_pos.
+    - rewrite <- INR_0. apply le_INR. lia.
+    - left. apply Rinv_0_lt_compat. apply lt_0_INR. exact Hmpos.
+  }
+  (* phi^2 <= 1, and 1 <= 2*N when N>=2 *)
+  assert (HNN : 1 <= 2 * INR (S n)).
+  {
+    assert (Hpos : 1 <= INR (S n)).
+    { rewrite <- INR_1. apply le_INR. lia. }
+    nra.
+  }
+  nra.
+Qed.

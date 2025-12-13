@@ -239,6 +239,7 @@ def execute_verilog(program: List[Tuple[Opcode, int, int]], work_dir: Path) -> D
     compile_cmd = [
         "iverilog",
         "-g2012",  # SystemVerilog 2012
+        "-I", str(HARDWARE_DIR),
         "-o", str(sim_executable),
         str(HARDWARE_DIR / "fuzz_harness_simple.v"),
     ]

@@ -349,6 +349,9 @@ Definition encode_vm_state (s : VMState) : list bool :=
   encode_nat s.(vm_pc) ++
   encode_nat s.(vm_mu) ++
   encode_bool s.(vm_err) ++
+  (* Hardware-style scratch state *)
+  encode_nat_list s.(vm_regs) ++
+  encode_nat_list s.(vm_mem) ++
   (* Variable data: graph, csr *)
   encode_partition_graph s.(vm_graph) ++
   encode_csr s.(vm_csrs).
@@ -362,20 +365,31 @@ Definition decode_vm_state (bs : list bool)
       | Some (mu, rest') =>
           match decode_bool rest' with
           | Some (err, rest'') =>
-              (* Then decode variable data: graph, csr *)
-              match decode_partition_graph rest'' with
-              | Some (graph, rest''') =>
-                  match decode_csr rest''' with
-                  | Some (csrs, rest'''') =>
-                      Some ({| vm_graph := graph;
-                               vm_csrs := csrs;
-                               vm_pc := pc;
-                               vm_mu := mu;
-                               vm_err := err |}, rest'''')
-                  | None => None
-                  end
+        (* Then decode scratch state: regs, mem *)
+        match decode_nat_list rest'' with
+        | Some (regs, rest''') =>
+          match decode_nat_list rest''' with
+          | Some (mem, rest'''') =>
+            (* Then decode variable data: graph, csr *)
+            match decode_partition_graph rest'''' with
+            | Some (graph, rest''''') =>
+              match decode_csr rest''''' with
+              | Some (csrs, rest'''''') =>
+                Some ({| vm_graph := graph;
+                     vm_csrs := csrs;
+                     vm_regs := regs;
+                     vm_mem := mem;
+                     vm_pc := pc;
+                     vm_mu := mu;
+                     vm_err := err |}, rest'''''')
               | None => None
               end
+            | None => None
+            end
+          | None => None
+          end
+        | None => None
+        end
           | None => None
           end
       | None => None
@@ -390,18 +404,18 @@ Lemma decode_vm_state_correct :
   forall s rest,
     decode_vm_state (encode_vm_state s ++ rest) = Some (s, rest).
 Proof.
-  intros [graph csrs pc mu err] rest.
+  intros [graph csrs regs mem pc mu err] rest.
   unfold encode_vm_state, decode_vm_state.
   repeat rewrite <- app_assoc.
   rewrite decode_nat_correct.
   simpl.
-  replace (encode_nat mu ++ encode_bool err ++ encode_partition_graph graph ++ encode_csr csrs ++ rest)
-    with (encode_nat mu ++ (encode_bool err ++ encode_partition_graph graph ++ encode_csr csrs ++ rest))
+  replace (encode_nat mu ++ encode_bool err ++ encode_nat_list regs ++ encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ rest)
+    with (encode_nat mu ++ (encode_bool err ++ encode_nat_list regs ++ encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ rest))
     by (repeat rewrite app_assoc; reflexivity).
   rewrite decode_nat_correct.
   simpl.
-  set (tail := encode_partition_graph graph ++ encode_csr csrs ++ rest).
-  replace (encode_bool err ++ encode_partition_graph graph ++ encode_csr csrs ++ rest)
+  set (tail := encode_nat_list regs ++ encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ rest).
+  replace (encode_bool err ++ encode_nat_list regs ++ encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ rest)
     with (encode_bool err ++ tail)
     by (subst tail; repeat rewrite app_assoc; reflexivity).
   destruct (decode_bool (encode_bool err ++ tail)) as [[err' tail']|] eqn:Hbool.
@@ -411,28 +425,58 @@ Proof.
     simpl.
     clear Hbool Htarget.
     subst tail.
-    set (tail_graph := encode_csr csrs ++ rest).
-    replace (encode_partition_graph graph ++ encode_csr csrs ++ rest)
-      with (encode_partition_graph graph ++ tail_graph)
-      by (subst tail_graph; repeat rewrite app_assoc; reflexivity).
-    destruct (decode_partition_graph (encode_partition_graph graph ++ tail_graph))
-      as [[graph' tail'']|] eqn:Hgraph.
-    + pose proof (decode_partition_graph_correct graph tail_graph) as Hgraph_target.
-      rewrite Hgraph_target in Hgraph.
-      inversion Hgraph; subst graph' tail''.
+    set (tail_regs := encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ rest).
+    replace (encode_nat_list regs ++ encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ rest)
+      with (encode_nat_list regs ++ tail_regs)
+      by (subst tail_regs; repeat rewrite app_assoc; reflexivity).
+    destruct (decode_nat_list (encode_nat_list regs ++ tail_regs))
+      as [[regs' tail'']|] eqn:Hregs.
+    + pose proof (decode_nat_list_correct regs tail_regs) as Hregs_target.
+      rewrite Hregs_target in Hregs.
+      inversion Hregs; subst regs' tail''.
       simpl.
-      clear Hgraph Hgraph_target.
-      subst tail_graph.
-      destruct (decode_csr (encode_csr csrs ++ rest)) as [[csrs' rest']|] eqn:Hcsr.
-      * pose proof (decode_csr_correct csrs rest) as Hcsr_target.
-        rewrite Hcsr_target in Hcsr.
-        inversion Hcsr; subst csrs' rest'.
-        reflexivity.
-      * pose proof (decode_csr_correct csrs rest) as Hcsr_target.
-        rewrite Hcsr_target in Hcsr.
+      clear Hregs Hregs_target.
+      subst tail_regs.
+      set (tail_mem := encode_partition_graph graph ++ encode_csr csrs ++ rest).
+      replace (encode_nat_list mem ++ encode_partition_graph graph ++ encode_csr csrs ++ rest)
+        with (encode_nat_list mem ++ tail_mem)
+        by (subst tail_mem; repeat rewrite app_assoc; reflexivity).
+      destruct (decode_nat_list (encode_nat_list mem ++ tail_mem))
+        as [[mem' tail''']|] eqn:Hmem.
+      * pose proof (decode_nat_list_correct mem tail_mem) as Hmem_target.
+        rewrite Hmem_target in Hmem.
+        inversion Hmem; subst mem' tail'''.
+        simpl.
+        clear Hmem Hmem_target.
+        subst tail_mem.
+        set (tail_graph := encode_csr csrs ++ rest).
+        replace (encode_partition_graph graph ++ encode_csr csrs ++ rest)
+          with (encode_partition_graph graph ++ tail_graph)
+          by (subst tail_graph; repeat rewrite app_assoc; reflexivity).
+        destruct (decode_partition_graph (encode_partition_graph graph ++ tail_graph))
+          as [[graph' tail'''']|] eqn:Hgraph.
+        -- pose proof (decode_partition_graph_correct graph tail_graph) as Hgraph_target.
+           rewrite Hgraph_target in Hgraph.
+           inversion Hgraph; subst graph' tail''''.
+           simpl.
+           clear Hgraph Hgraph_target.
+           subst tail_graph.
+           destruct (decode_csr (encode_csr csrs ++ rest)) as [[csrs' rest']|] eqn:Hcsr.
+           ++ pose proof (decode_csr_correct csrs rest) as Hcsr_target.
+              rewrite Hcsr_target in Hcsr.
+              inversion Hcsr; subst csrs' rest'.
+              reflexivity.
+           ++ pose proof (decode_csr_correct csrs rest) as Hcsr_target.
+              rewrite Hcsr_target in Hcsr.
+              discriminate.
+        -- pose proof (decode_partition_graph_correct graph tail_graph) as Hgraph_target.
+           rewrite Hgraph_target in Hgraph.
+           discriminate.
+      * pose proof (decode_nat_list_correct mem tail_mem) as Hmem_target.
+        rewrite Hmem_target in Hmem.
         discriminate.
-    + pose proof (decode_partition_graph_correct graph tail_graph) as Hgraph_target.
-      rewrite Hgraph_target in Hgraph.
+    + pose proof (decode_nat_list_correct regs tail_regs) as Hregs_target.
+      rewrite Hregs_target in Hregs.
       discriminate.
   - pose proof (decode_bool_correct err tail) as Htarget.
     rewrite Htarget in Hbool.
@@ -448,7 +492,7 @@ Qed.
 *)
 
 (** Layout constants - updated for new encoding order *)
-Definition pc_offset : nat := 0.    (* pc starts at position 0 *)
+Definition pc_offset : nat := Nat.sub 1 1.    (* pc starts at position 0 *)
 Definition mu_offset_min : nat := 1. (* mu starts after at least 1 bit for pc *)
 Definition err_offset_min : nat := 2. (* err starts after at least 2 bits *)
 Definition csr_size : nat := 3.     (* cert_addr + status + err *)
@@ -480,10 +524,18 @@ Definition csr_offset (tape : list bool) : nat :=
       | Some (_, rest2) =>
           match decode_bool rest2 with
           | Some (_, rest3) =>
-              match decode_partition_graph rest3 with
-              | Some (_, rest4) => List.length tape - List.length rest4
-              | None => 0 (* Error case *)
-              end
+        match decode_nat_list rest3 with
+        | Some (_, rest4) =>
+          match decode_nat_list rest4 with
+          | Some (_, rest5) =>
+            match decode_partition_graph rest5 with
+            | Some (_, rest6) => List.length tape - List.length rest6
+            | None => 0 (* Error case *)
+            end
+          | None => 0
+          end
+        | None => 0
+        end
           | None => 0
           end
       | None => 0
@@ -497,6 +549,8 @@ Definition update_vm_pc_in_tape (tape : list bool) (new_pc : nat) : list bool :=
   | Some s =>
       let s' := {| vm_graph := s.(vm_graph);
                    vm_csrs := s.(vm_csrs);
+                   vm_regs := s.(vm_regs);
+                   vm_mem := s.(vm_mem);
                    vm_pc := new_pc;
                    vm_mu := s.(vm_mu);
                    vm_err := s.(vm_err) |} in
@@ -509,6 +563,8 @@ Definition update_vm_mu_in_tape (tape : list bool) (new_mu : nat) : list bool :=
   | Some s =>
       let s' := {| vm_graph := s.(vm_graph);
                    vm_csrs := s.(vm_csrs);
+                   vm_regs := s.(vm_regs);
+                   vm_mem := s.(vm_mem);
                    vm_pc := s.(vm_pc);
                    vm_mu := new_mu;
                    vm_err := s.(vm_err) |} in
@@ -521,6 +577,8 @@ Definition update_vm_err_in_tape (tape : list bool) (new_err : bool) : list bool
   | Some s =>
       let s' := {| vm_graph := s.(vm_graph);
                    vm_csrs := s.(vm_csrs);
+                   vm_regs := s.(vm_regs);
+                   vm_mem := s.(vm_mem);
                    vm_pc := s.(vm_pc);
                    vm_mu := s.(vm_mu);
                    vm_err := new_err |} in
@@ -534,6 +592,8 @@ Definition update_vm_graph_in_tape (tape : list bool) (new_graph : PartitionGrap
   | Some s =>
       let s' := {| vm_graph := new_graph;
                    vm_csrs := s.(vm_csrs);
+                   vm_regs := s.(vm_regs);
+                   vm_mem := s.(vm_mem);
                    vm_pc := s.(vm_pc);
                    vm_mu := s.(vm_mu);
                    vm_err := s.(vm_err) |} in
@@ -547,6 +607,8 @@ Definition update_vm_csrs_in_tape (tape : list bool) (new_csrs : CSRState) : lis
   | Some s =>
       let s' := {| vm_graph := s.(vm_graph);
                    vm_csrs := new_csrs;
+                   vm_regs := s.(vm_regs);
+                   vm_mem := s.(vm_mem);
                    vm_pc := s.(vm_pc);
                    vm_mu := s.(vm_mu);
                    vm_err := s.(vm_err) |} in
@@ -583,6 +645,8 @@ Proof.
   rewrite Hdecode.
   exists {| vm_graph := s.(vm_graph);
             vm_csrs := s.(vm_csrs);
+            vm_regs := s.(vm_regs);
+            vm_mem := s.(vm_mem);
             vm_pc := pc;
             vm_mu := s.(vm_mu);
             vm_err := s.(vm_err) |}.
@@ -663,19 +727,19 @@ Definition compile_vm_operation (instr : vm_instruction) : program :=
   | instr_pyexec payload cost =>
       (* Set err to true - affects fixed header err bit *)
       compile_update_err true
-  | instr_xfer src dst cost =>
+    | instr_xfer dst src cost =>
       (* Transfer operation - no state change beyond pc/μ *)
       [T_Halt]
-  | instr_xor_load addr cost =>
+    | instr_xor_load dst addr cost =>
       (* XOR load operation *)
       [T_Halt]
-  | instr_xor_add val cost =>
+    | instr_xor_add dst src cost =>
       (* XOR add operation *)
       [T_Halt]
-  | instr_xor_swap cost =>
+    | instr_xor_swap a b cost =>
       (* XOR swap operation *)
       [T_Halt]
-  | instr_xor_rank cost =>
+    | instr_xor_rank dst src cost =>
       (* XOR rank operation *)
       [T_Halt]
   | instr_oracle_halts payload cost =>

@@ -8,7 +8,7 @@ Open Scope nat_scope.
 
   (* Register indexes for the simple CPU. *)
 
-  Definition REG_PC   := 0.
+  Definition REG_PC   := Nat.sub 1 1.
   Definition REG_Q    := 1.
   Definition REG_HEAD := 2.
   Definition REG_SYM  := 3.

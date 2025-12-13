@@ -30,15 +30,8 @@ module fuzz_harness_simple;
 localparam MAX_INSTRUCTIONS = 256;
 localparam MAX_MEMORY = 1024;
 
-// Opcodes (matching ISA)
-localparam [7:0] OPCODE_PNEW      = 8'h00;
-localparam [7:0] OPCODE_PSPLIT    = 8'h01;
-localparam [7:0] OPCODE_PMERGE    = 8'h02;
-localparam [7:0] OPCODE_XOR_LOAD  = 8'h0A;
-localparam [7:0] OPCODE_XOR_ADD   = 8'h0B;
-localparam [7:0] OPCODE_XOR_SWAP  = 8'h0C;
-localparam [7:0] OPCODE_EMIT      = 8'h0E;
-localparam [7:0] OPCODE_HALT      = 8'hFF;
+// Opcodes (generated; source of truth matches Python ISA + RTL)
+`include "generated_opcodes.vh"
 
 // ============================================================================
 // SIGNALS
@@ -57,6 +50,9 @@ wire [7:0] operand_b;
 
 // Data memory
 reg [31:0] data_memory [0:MAX_MEMORY-1];
+
+// Compute register file (matches Python VM)
+reg [31:0] reg_file [0:31];
 
 // State tracking
 reg [31:0] num_modules;
@@ -112,6 +108,9 @@ initial begin
     end
     for (i = 0; i < MAX_MEMORY; i = i + 1) begin
         data_memory[i] = 32'h00000000;
+    end
+    for (i = 0; i < 32; i = i + 1) begin
+        reg_file[i] = 32'h00000000;
     end
     
     // Load program from hex file
@@ -215,8 +214,8 @@ initial begin
                     $display("[%04d] PC=%02h: XOR_LOAD %0d, %0d", 
                              step_count, pc, operand_a, operand_b);
                     
-                    // Load value into XOR matrix
-                    data_memory[operand_a] = operand_b;
+                    // Load from memory into register
+                    reg_file[operand_a[4:0]] = data_memory[operand_b];
                     
                     // μ-cost: 0 (XOR operations are free, they're just state updates)
                     
@@ -228,8 +227,8 @@ initial begin
                     $display("[%04d] PC=%02h: XOR_ADD %0d, %0d", 
                              step_count, pc, operand_a, operand_b);
                     
-                    // XOR addition
-                    data_memory[operand_a] = data_memory[operand_a] ^ data_memory[operand_b];
+                    // XOR addition over registers
+                    reg_file[operand_a[4:0]] = reg_file[operand_a[4:0]] ^ reg_file[operand_b[4:0]];
                     
                     // μ-cost: 0 (XOR operations are free)
                     
@@ -241,10 +240,10 @@ initial begin
                     $display("[%04d] PC=%02h: XOR_SWAP %0d, %0d", 
                              step_count, pc, operand_a, operand_b);
                     
-                    // Swap two memory locations
-                    data_memory[operand_a] = data_memory[operand_a] ^ data_memory[operand_b];
-                    data_memory[operand_b] = data_memory[operand_a] ^ data_memory[operand_b];
-                    data_memory[operand_a] = data_memory[operand_a] ^ data_memory[operand_b];
+                    // Swap two registers
+                    data_memory[0] = reg_file[operand_a[4:0]];
+                    reg_file[operand_a[4:0]] = reg_file[operand_b[4:0]];
+                    reg_file[operand_b[4:0]] = data_memory[0];
                     
                     // μ-cost: 0 (XOR operations are free)
                     

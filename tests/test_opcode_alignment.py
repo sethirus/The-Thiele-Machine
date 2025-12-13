@@ -21,13 +21,27 @@ COQ_PATH = ROOT / "coq" / "thielemachine" / "coqproofs" / "HardwareBridge.v"
 def _parse_rtl_opcodes(path: pathlib.Path) -> dict[str, int]:
     pattern = re.compile(r"localparam\s+\[7:0\]\s+OPCODE_([A-Z0-9_]+)\s*=\s*8'h([0-9a-fA-F]{2});")
     opcodes: dict[str, int] = {}
-    for line in path.read_text().splitlines():
+    text = path.read_text()
+    for line in text.splitlines():
         match = pattern.search(line)
         if match:
             name, value = match.groups()
             opcodes[name] = int(value, 16)
+
+    # If opcodes are not inlined, follow a simple `include "..."` convention.
     if not opcodes:
-        raise RuntimeError(f"no opcodes parsed from {path}")
+        inc = re.search(r"^\s*`include\s+\"([^\"]+)\"\s*$", text, re.M)
+        if inc:
+            inc_path = (path.parent / inc.group(1)).resolve()
+            inc_text = inc_path.read_text()
+            for line in inc_text.splitlines():
+                match = pattern.search(line)
+                if match:
+                    name, value = match.groups()
+                    opcodes[name] = int(value, 16)
+
+    if not opcodes:
+        raise RuntimeError(f"no opcodes parsed from {path} (or its include)")
     return opcodes
 
 

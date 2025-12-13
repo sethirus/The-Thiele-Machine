@@ -11,13 +11,14 @@ Import ListNotations.
 Record partition_type := { modules : list nat; interfaces : list nat }.
 
 Definition colors_used (solver : nat -> nat) (_ : list nat) : nat := solver 0.
-Definition solve_time (_ : partition_type) : nat := 0.
+Definition solve_time (p : partition_type) : nat := length (modules p) + length (interfaces p).
 Definition log (n : nat) : nat := S n.
 Definition speedup_ratio (n : nat) : nat := S n.
 Definition time_complexity (solver : nat -> bool) (n : nat) : nat :=
   if solver n then 1 else Nat.pow 2 n.
 
-Definition tseitin_3regular_expander (_ : nat) : Prop := True.
+Definition tseitin_3regular_expander (n : nat) : Prop :=
+  (12 <= n)%nat /\ n mod 3 = 0.
 
 Theorem tseitin_speedup_example :
   forall n,
@@ -35,7 +36,8 @@ Proof.
   - apply Nat.le_refl.
 Qed.
 
-Definition hidden_linear_system (_ : nat) : Prop := True.
+Definition hidden_linear_system (n : nat) : Prop :=
+  exists k, n = 2 * k.
 
 Theorem linear_structure_discovery :
   forall n,
@@ -51,7 +53,8 @@ Proof.
   - exact I.
 Qed.
 
-Definition modular_arithmetic_circuit (_ : nat) : Prop := True.
+Definition modular_arithmetic_circuit (n : nat) : Prop :=
+  (1 <= n)%nat.
 
 Theorem modular_circuit_speedup :
   forall n,
@@ -70,7 +73,8 @@ Proof.
     + exact I.
 Qed.
 
-Definition structured_coloring_instance (_ : nat) : Prop := True.
+Definition structured_coloring_instance (n : nat) : Prop :=
+  (4 <= n)%nat.
 
 Theorem coloring_structure_exploitation :
   forall n,
@@ -100,10 +104,10 @@ Theorem structured_classes_exist :
             thiele_advantage >= 10 /\
             True.
 Proof.
-  exists [fun _ => True].
+  exists [fun n => (1 <= n)%nat].
   intros cls Hcls.
   destruct Hcls as [Hcls | Hcls]; [subst|contradiction].
-  exists [fun _ => True].
+  exists [fun n => (1 <= n)%nat].
   intros inst Hinst.
   destruct Hinst as [Hinst | Hinst]; [subst|contradiction].
   exists 10%nat.

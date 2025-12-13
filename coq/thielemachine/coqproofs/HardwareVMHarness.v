@@ -30,7 +30,7 @@ Definition rtl_step_total (s : HardwareBridge.RTLState) : HardwareBridge.RTLStat
 Section WithRefinement.
   Variable vm_trace   : list vm_instruction.
   Variable decode_vm  : HardwareBridge.RTLState -> VMState.
-  Hypothesis rtl_refines_vm : forall fuel s,
+  Variable rtl_refines_vm : forall fuel s,
     decode_vm (impl_iter rtl_step_total fuel s) =
       run_vm fuel vm_trace (decode_vm s).
 

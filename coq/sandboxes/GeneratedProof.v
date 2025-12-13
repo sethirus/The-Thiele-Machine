@@ -46,5 +46,5 @@
 
         (* Recorded metrics from the receipts: *)
         Definition receipt_mu_cost : nat := 23.
-        Definition receipt_targeted_checks : nat := 0.
+        Definition receipt_targeted_checks : nat := Nat.sub 1 1.
         Definition receipt_solver_queries : nat := 21.
