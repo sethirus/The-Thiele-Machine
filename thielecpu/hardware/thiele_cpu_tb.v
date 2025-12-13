@@ -25,6 +25,7 @@ wire [31:0] error_code;
 wire [31:0] partition_ops;
 wire [31:0] mdl_ops;
 wire [31:0] info_gain;
+wire [31:0] mu;
 
 // Memory interface
 wire [31:0] mem_addr;
@@ -74,6 +75,7 @@ thiele_cpu dut (
     .partition_ops(partition_ops),
     .mdl_ops(mdl_ops),
     .info_gain(info_gain),
+    .mu(mu),
     .mem_addr(mem_addr),
     .mem_wdata(mem_wdata),
     .mem_rdata(mem_rdata),
@@ -118,21 +120,39 @@ initial begin
         $readmemh(program_hex_path, instr_memory);
     end else begin
         // Default compute program (Coq/Python/RTL shared semantics)
+        // Extended test program covering all compute instructions
+        
         // 1) Load 4 values from memory into r0..r3
         instr_memory[0] = {8'h0A, 8'h00, 8'h00, 8'h00}; // XOR_LOAD r0 <= mem[0]
         instr_memory[1] = {8'h0A, 8'h01, 8'h01, 8'h00}; // XOR_LOAD r1 <= mem[1]
         instr_memory[2] = {8'h0A, 8'h02, 8'h02, 8'h00}; // XOR_LOAD r2 <= mem[2]
         instr_memory[3] = {8'h0A, 8'h03, 8'h03, 8'h00}; // XOR_LOAD r3 <= mem[3]
 
-        // 2) Do some XOR algebra + swaps + transfers
+        // 2) XOR algebra operations
         instr_memory[4] = {8'h0B, 8'h03, 8'h00, 8'h00}; // XOR_ADD r3 ^= r0
         instr_memory[5] = {8'h0B, 8'h03, 8'h01, 8'h00}; // XOR_ADD r3 ^= r1
         instr_memory[6] = {8'h0C, 8'h00, 8'h03, 8'h00}; // XOR_SWAP r0 <-> r3
+        
+        // 3) Rank and reverse operations
         instr_memory[7] = {8'h07, 8'h02, 8'h04, 8'h00}; // XFER r4 <- r2
         instr_memory[8] = {8'h0D, 8'h05, 8'h04, 8'h00}; // XOR_RANK r5 := popcount(r4)
-
-        // 3) HALT
-        instr_memory[9] = {8'hFF, 8'h00, 8'h00, 8'h00}; // HALT
+        instr_memory[9] = {8'h0E, 8'h06, 8'h04, 8'h00}; // XOR_REV r6 := bitreverse(r4)
+        
+        // 4) Parity and AND operations
+        instr_memory[10] = {8'h0F, 8'h07, 8'h05, 8'h00}; // XOR_PARITY r7 := parity(r5)
+        instr_memory[11] = {8'h10, 8'h01, 8'h02, 8'h00}; // XOR_AND r1 &= r2
+        
+        // 5) Store results to memory
+        instr_memory[12] = {8'h11, 8'h05, 8'h04, 8'h00}; // XOR_STORE mem[4] <= r5
+        instr_memory[13] = {8'h11, 8'h06, 8'h05, 8'h00}; // XOR_STORE mem[5] <= r6
+        instr_memory[14] = {8'h11, 8'h07, 8'h06, 8'h00}; // XOR_STORE mem[6] <= r7
+        
+        // 6) Oracle and Python execution
+        instr_memory[15] = {8'h13, 8'h00, 8'h08, 8'h00}; // ORACLE r8 <- oracle[r0]
+        instr_memory[16] = {8'h14, 8'h09, 8'h00, 8'h00}; // PYEXEC r9 <- python(addr=0)
+        
+        // 7) HALT
+        instr_memory[17] = {8'hFF, 8'h00, 8'h00, 8'h00}; // HALT
     end
 
     // Initialize external data memory (kept for legacy mem interface)
@@ -242,6 +262,7 @@ initial begin
             $display("  \"partition_ops\": %d,", partition_ops);
             $display("  \"mdl_ops\": %d,", mdl_ops);
             $display("  \"info_gain\": %d,", info_gain);
+            $display("  \"mu\": %d,", mu);
             $display("  \"regs\": [");
             for (i = 0; i < 32; i = i + 1) begin
                 if (i < 31) $display("    %0d,", dut.reg_file[i]);
@@ -281,8 +302,8 @@ end
 `ifdef VERBOSE
 always @(posedge clk) begin
     if (rst_n) begin
-        $display("Time: %t, PC: %h, State: %h, Status: %h, Error: %h",
-                 $time, pc, dut.state, status, error_code);
+        $display("Time: %t, PC: %h, State: %h, Status: %h, Error: %h, MU: %h",
+                 $time, pc, dut.state, status, error_code, mu);
     end
 end
 `endif

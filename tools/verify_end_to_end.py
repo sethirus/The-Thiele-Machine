@@ -29,7 +29,7 @@ RE_INSTR = re.compile(
 )
 
 RE_LOG_METRIC = re.compile(
-    r"\{\s*\"partition_ops\":\s*(?P<partition>\d+),\s*\"mdl_ops\":\s*(?P<mdl>\d+),\s*\"info_gain\":\s*(?P<info>\d+)(?:,\s*\"mu_total\":\s*(?P<mu>\d+))?\s*\}"
+    r"\"partition_ops\":\s*(?P<partition>\d+),\s*\"mdl_ops\":\s*(?P<mdl>\d+),\s*\"info_gain\":\s*(?P<info>\d+)(?:,\s*\"mu(?:_total)?\":\s*(?P<mu>\d+))?"
 )
 
 RE_FIELD = re.compile(r"^(?P<label>Final PC|Status|Error):\s*(?P<value>[0-9a-fA-Fx]+)")
@@ -39,6 +39,9 @@ HARDWARE_DIR = PROJECT_ROOT / "thielecpu" / "hardware"
 TB_PATH = HARDWARE_DIR / "thiele_cpu_tb.v"
 LOG_PATH = HARDWARE_DIR / "simulation_output.log"
 
+OPCODE_PNEW = 0x00
+OPCODE_PSPLIT = 0x01
+OPCODE_PMERGE = 0x02
 OPCODE_MDLACC = 0x05
 OPCODE_XOR_ADD = 0x0B
 OPCODE_XOR_SWAP = 0x0C
@@ -106,15 +109,14 @@ def metrics_from_instructions(instrs: Iterable[InstructionWord]) -> Metrics:
     mu_total = 0
     for instr in instrs:
         opc = instr.opcode
-        if opc in {OPCODE_XOR_ADD, OPCODE_XOR_SWAP}:  # partition-mutating ops
+        if opc in {OPCODE_PNEW, OPCODE_PSPLIT, OPCODE_PMERGE}:  # partition-mutating ops
             partition_ops += 1
         if opc == OPCODE_EMIT:
             info_gain += instr.operand_b
             mu_total += instr.operand_b
         if opc == OPCODE_MDLACC:
             mdl_ops += 1
-        if opc == OPCODE_HALT:
-            mdl_ops += 1  # HALT charges MDL for current module
+        # Note: HALT no longer increments mdl_ops (removed in HALT contamination fix)
     return Metrics(partition_ops=partition_ops, mdl_ops=mdl_ops, info_gain=info_gain, mu_total=mu_total)
 
 

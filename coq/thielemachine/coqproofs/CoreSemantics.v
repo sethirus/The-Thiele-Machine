@@ -33,7 +33,7 @@
     ========================================================================= *)
 
 From Coq Require Import List String ZArith Lia Bool Nat.
-From ThieleMachine Require Import Hash256.
+Require Import thielemachine.coqproofs.Hash256.
 Import ListNotations.
 Open Scope Z_scope.
 

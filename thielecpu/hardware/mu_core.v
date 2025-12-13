@@ -104,19 +104,19 @@ always @(posedge clk or negedge rst_n) begin
 
             case (instruction[31:24])  // opcode
                 OPCODE_PNEW, OPCODE_PSPLIT, OPCODE_PMERGE: begin
-                    // Partition operations require receipt
-                    receipt_required <= 1'b1;
-                    instr_allowed <= 1'b0;
+                    // Partition operations - μ-cost must monotonically increase
+                    receipt_required <= 1'b0;  // No receipt needed for basic operations
+                    instr_allowed <= 1'b1;
 
                     // Check partition independence
                     partition_independent <= check_partition_independence(instruction, partition_count, memory_isolation);
                     partition_gate_open <= partition_independent;
 
-                    // Cost must decrease for partition operations
-                    cost_decreasing <= (proposed_cost < current_mu_cost);
-                    cost_gate_open <= (proposed_cost < current_mu_cost);
+                    // μ-cost accumulates (never decreases) - verify monotonicity
+                    cost_decreasing <= (proposed_cost >= current_mu_cost);
+                    cost_gate_open <= (proposed_cost >= current_mu_cost);
 
-                    if (partition_independent && (proposed_cost < current_mu_cost)) begin
+                    if (partition_independent && (proposed_cost >= current_mu_cost)) begin
                         expected_cost <= proposed_cost;
                         core_status <= STATUS_ALLOWED;
                     end else if (!partition_independent) begin

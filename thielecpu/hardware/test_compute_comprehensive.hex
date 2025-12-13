@@ -1,0 +1,36 @@
+// Comprehensive Compute Instruction Test for Thiele CPU
+// Tests: XOR_LOAD, XOR_ADD, XOR_SWAP, XOR_RANK, XFER, partition ops
+
+// Initialize registers from memory
+0A000000  // 00: XOR_LOAD r0 <= mem[0]  (load 5)
+0A010100  // 01: XOR_LOAD r1 <= mem[1]  (load 3)
+0A020200  // 02: XOR_LOAD r2 <= mem[2]  (load 8)
+0A030300  // 03: XOR_LOAD r3 <= mem[3]  (load 15)
+
+// Test XOR arithmetic
+0B030000  // 04: XOR_ADD r3 ^= r0  (15 ^ 5 = 10)
+0B030100  // 05: XOR_ADD r3 ^= r1  (10 ^ 3 = 9)
+
+// Test transfer
+07040300  // 06: XFER r4 <- r3  (r4 = 9)
+
+// Test XOR_RANK (popcount)
+0D050400  // 07: XOR_RANK r5 := popcount(r4)  (popcount(9) = popcount(0b1001) = 2)
+
+// Test XOR_SWAP
+0C000100  // 08: XOR_SWAP r0 <-> r1  (r0=3, r1=5)
+
+// Test partition operations
+01000500  // 09: PNEW region={5} -> module m0
+010A0600  // 0A: PNEW region={10} -> module m1 (if 0x0A interpreted as second region element)
+
+// HALT
+FF000000  // 0B: HALT
+
+// Expected final register values:
+// r0 = 3 (swapped from r1)
+// r1 = 5 (swapped from r0)
+// r2 = 8 (unchanged)
+// r3 = 9 (15 ^ 5 ^ 3)
+// r4 = 9 (copied from r3)
+// r5 = 2 (popcount of 9)

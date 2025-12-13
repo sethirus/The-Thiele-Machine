@@ -1871,6 +1871,7 @@ class VM:
                 # Simple predicate: even/odd based on first element
                 def pred(x): return x % 2 == 0
                 m1, m2 = self.state.psplit(module_id, pred)
+                current_module = m1  # Update current_module to first split result
                 trace_lines.append(f"{step}: PSPLIT {module_id} ({pred_expr}) -> {m1}, {m2}")
                 receipt_instruction = InstructionWitness("PYEXEC", f"PSPLIT {arg}")
             elif op == "PMERGE":

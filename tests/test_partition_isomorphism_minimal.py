@@ -126,7 +126,13 @@ def _rtl_regions_after_pnew(indices: list[int]) -> list[list[int]]:
         )
 
         out = run.stdout
-        start = out.find("{")
+        # Find JSON object start (has newline and spaces after opening brace)
+        start = out.find('{\n  "partition_ops":')
+        if start == -1:
+            # Try without newline
+            start = out.find('{ "partition_ops":')
+        if start == -1:
+            start = out.find('{"partition_ops":')
         decoder = json.JSONDecoder()
         payload, _end = decoder.raw_decode(out[start:])
 
