@@ -210,7 +210,10 @@ always @(posedge clk or negedge rst_n) begin
         next_module_id <= 6'h1;
         state <= STATE_FETCH;
 
-        // Initialize module table
+`ifndef SYNTHESIS
+        // Initialize module table (simulation-only; most synthesis flows cannot
+        // implement full memory clears on reset, and Yosys will reject async
+        // reset writes to inferred memories).
         for (i = 0; i < NUM_MODULES; i = i + 1) begin
             module_table[i] <= 32'h0;
             for (j = 0; j < REGION_SIZE; j = j + 1) begin
@@ -218,13 +221,14 @@ always @(posedge clk or negedge rst_n) begin
             end
         end
 
-        // Initialize compute state
+        // Initialize compute state (simulation-only)
         for (i = 0; i < 32; i = i + 1) begin
             reg_file[i] <= 32'h0;
         end
         for (i = 0; i < 256; i = i + 1) begin
             data_mem[i] <= 32'h0;
         end
+`endif
 
     end else begin
         case (state)
@@ -516,10 +520,12 @@ task execute_pnew;
             found = 0;
             found_id = 0;
 
-            for (i = 0; i < next_module_id; i = i + 1) begin
-                if (module_table[i] == 32'd1 && region_table[i][0] == region_spec_a) begin
-                    found = 1;
-                    found_id = i;
+            for (i = 0; i < NUM_MODULES; i = i + 1) begin
+                if (i < next_module_id) begin
+                    if (module_table[i] == 32'd1 && region_table[i][0] == region_spec_a) begin
+                        found = 1;
+                        found_id = i;
+                    end
                 end
             end
 
@@ -572,10 +578,14 @@ task execute_psplit;
                     
                     // Evaluate predicate based on mode
                     case (pred_mode)
-                        2'b00: matches_predicate = (element_value % 2) == 0; // Even/odd
+                        // 00=even/odd: pred_param[0]=0 => even, pred_param[0]=1 => odd
+                        2'b00: matches_predicate = (element_value[0] == pred_param[0]);
                         2'b01: matches_predicate = element_value >= pred_param; // Threshold
                         2'b10: matches_predicate = (element_value & (1 << pred_param)) != 0; // Bitwise test
-                        2'b11: matches_predicate = (element_value % (pred_param + 1)) == 0; // Modulo divisibility
+                        // 11=modulo divisibility (synth-safe subset): only supports power-of-two divisors.
+                        // divisor = pred_param + 1; if divisor is power-of-two, then (x % divisor)==0 iff (x & (divisor-1))==0.
+                        // Here (divisor-1) == pred_param.
+                        2'b11: matches_predicate = (((pred_param + 1) & pred_param) == 0) ? ((element_value & pred_param) == 0) : 1'b0;
                         default: matches_predicate = 0;
                     endcase
                     

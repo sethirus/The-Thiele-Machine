@@ -31,7 +31,7 @@ Local Open Scope nat_scope.
 Local Notation length := List.length.
 
 (* Bring in bridge core helpers (list_eqb, state_eqb, etc.) *)
-Require Import ThieleMachine.modular.Bridge_BridgeCore.
+Require Import ThieleMachineVerification.modular.Bridge_BridgeCore.
 
 (* Instrumentation helpers to locate long-running proofs during timed bridge
    builds.  The [Time] vernac modifier is applied to the key loop lemmas, and

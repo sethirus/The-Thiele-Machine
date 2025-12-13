@@ -2,23 +2,24 @@
 
 **A Computational Model with Partition-Discovery Semantics**
 
-[![CI](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml/badge.svg)](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Tests](https://img.shields.io/badge/Tests-1254%20Passing-brightgreen)](tests/)
+[![CI](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml/badge.svg)](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ## What Is This?
 
-The Thiele Machine is a **formal computational model** that extends Turing Machine semantics with partition-discovery operations. It is proven to **strictly subsume** the Turing Machine through formal verification in Coq, with complete executable implementation across three layers: **Coq extraction** ↔ **Python VM** ↔ **Verilog RTL**.
+The Thiele Machine is a **formal computational model** that extends Turing Machine semantics with partition-discovery operations. It is proven to **strictly subsume** the Turing Machine through formal verification in Coq, and comes with an executable Coq extraction + Python VM + Verilog RTL toolchain.
 
 **Core Achievement**: We prove `TURING ⊊ THIELE` (strict containment) in [`coq/kernel/Subsumption.v`](coq/kernel/Subsumption.v).
 
-**Production Ready**: ✅ Synthesizable RTL, ✅ 1161 Coq proofs (0 admits), ✅ 3-layer isomorphism verified, ✅ Forge pipeline GREEN.
+**Verified Implementation**: Three-layer architecture (Coq ↔ Python VM ↔ Verilog RTL) with **executable isomorphism gates**. Coverage is expanding opcode-by-opcode; the extracted runner is treated as the reference semantics for shared-state comparisons.
 
 ## What We Can Actually Prove ✅
 
 1. **Formal Subsumption** - Every Turing Machine program runs identically on Thiele ([Subsumption.v](coq/kernel/Subsumption.v))
 2. **Strict Separation** - Thiele can execute partition operations that Turing cannot
-3. **μ-Cost Conservation** - Information-theoretic cost ledger is monotonically non-decreasing ([MuLedgerConservation.v](coq/kernel/MuLedgerConservation.v))
-4. **3-Layer Isomorphism** - Coq ↔ Python ↔ Verilog all execute the same semantics (verified by `forge_artifact.sh`)
-5. **Partition Discovery Advantage** - Experimental evidence of reduced search costs on structured SAT problems
+3. **Bell Inequality S=16/5** - Mathematical construction of a no-signaling distribution exceeding Tsirelson bound ([BellInequality.v](coq/thielemachine/coqproofs/BellInequality.v))
+4. **μ-Cost Conservation** - Information-theoretic cost ledger is monotonically non-decreasing ([MuLedgerConservation.v](coq/kernel/MuLedgerConservation.v))
+5. **Executable Isomorphism Gates** - Python VM, extracted Coq semantics runner, and RTL are compared on concrete traces for an expanding subset of opcodes
+6. **Partition Discovery Advantage** - Experimental evidence of reduced search costs on structured SAT problems
 
 ## What This Is NOT ❌
 
@@ -26,7 +27,7 @@ The Thiele Machine is a **formal computational model** that extends Turing Machi
 - ❌ **NOT a way to break RSA-2048** (no polynomial-time factoring algorithm)
 - ❌ **NOT proof quantum computers are obsolete** (quantum advantage in hardware is real)
 - ❌ **NOT a claim to transcend physics** (mathematical models ≠ physical reality)
-- ✅ **IS a production-ready system** with synthesizable RTL, 1161 completed Coq proofs, and verified 3-layer isomorphism
+- ✅ **IS an executable three-layer toolchain** (Coq extracted semantics ↔ Python VM ↔ Verilog RTL) with expanding isomorphism gates
 
 ## Quick Start
 
@@ -34,9 +35,9 @@ The Thiele Machine is a **formal computational model** that extends Turing Machi
 
 ```bash
 # Required for complete verification
-Coq 8.18.0        # Formal proofs (1161 theorems)
+Coq 8.18.0        # Formal proofs
 Yosys 0.33        # Verilog synthesis
-iverilog 12.0     # Verilog simulation
+iverilog 11.0     # Verilog simulation
 Python 3.12+      # VM execution
 
 # Python dependencies
@@ -48,46 +49,54 @@ pip install -r requirements.txt
 ```bash
 git clone https://github.com/sethirus/The-Thiele-Machine.git
 cd The-Thiele-Machine
-python -m venv .venv
-source .venv/bin/activate
+
+# Install Python dependencies
 pip install -r requirements.txt
 ```
 
 ### Verify the Core Claims
 
-**1. Run the Forge Pipeline (Complete Verification)**
+> **For independent auditors:** prefer the executable gates in `scripts/forge_artifact.sh` + the focused pytest isomorphism tests, and treat `build/extracted_vm_runner` output as the oracle for shared state.
+
+**1. Run the end-to-end isomorphism gate (preferred)**
 
 ```bash
 bash scripts/forge_artifact.sh
-# Output: [SUCCESS] Foundry pipeline green
-# Verifies: Coq extraction + Python VM + Verilog RTL isomorphism
 ```
 
-**Focused isomorphism gates (fast, deterministic):**
+Focused gates (fast, deterministic):
 
 ```bash
 pytest -q tests/test_rtl_compute_isomorphism.py
 pytest -q tests/test_partition_isomorphism_minimal.py
 ```
 
-**2. Compile the Coq Kernel**
+`scripts/test_three_layer_isomorphism.py` is a convenience smoke test (tooling + basic coverage checks), not the authoritative isomorphism gate.
+
+**2. Compile the Coq Kernel (16 Instructions)**
 
 ```bash
-make -C coq core
-# Success → 1161 proofs compile (0 admits, 24 axioms in oracle modules)
+make -C coq kernel
+
+# Success → All 10 kernel files compile cleanly
+# VMStep.v (16 instructions), VMState.v, SimulationProof.v, 
+# MuLedgerConservation.v, Subsumption.v, VMEncoding.v,
+# PDISCOVERIntegration.v, Kernel.v, KernelTM.v, KernelThiele.v
 ```
 
-**3. Verify Synthesizable RTL**
+**3. Verify Verilog CPU Syntax**
 
 ```bash
-yosys -p "read_verilog thielecpu/hardware/thiele_cpu_synth.v; hierarchy; proc; synth"
-# Success → RTL synthesizes for FPGA/ASIC deployment
+iverilog -g2012 -tnull thielecpu/hardware/thiele_cpu.v
+
+# Success → CPU compiles, all 16 opcodes present
 ```
 
-**4. Verify Subsumption Proof**
+**4. Compile the Subsumption Proof**
 
 ```bash
-make -C coq kernel/Subsumption.vo
+cd coq
+make kernel/Subsumption.vo
 # Success → Thiele formally subsumes Turing (TURING ⊊ THIELE proven)
 ```
 

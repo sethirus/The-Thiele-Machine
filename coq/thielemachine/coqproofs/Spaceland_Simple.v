@@ -14,7 +14,7 @@ Module Type Spaceland.
   Definition same_partition (s1 s2 : State) : Prop :=
     get_partition s1 = get_partition s2.
   
-  Axiom partition_wellformed : forall (s : State),
+  Parameter partition_wellformed : forall (s : State),
     exists (modules : list ModuleId), (length modules > 0)%nat.
   
   Inductive Label : Type :=
@@ -25,16 +25,16 @@ Module Type Spaceland.
   
   Parameter step : State -> Label -> State -> Prop.
   
-  Axiom step_deterministic : forall s l s1 s2,
+  Parameter step_deterministic : forall s l s1 s2,
     step s l s1 -> step s l s2 -> s1 = s2.
   
-  Axiom module_independence : forall s s' m,
+  Parameter module_independence : forall s s' m,
     step s LCompute s' ->
     (forall m', m' <> m -> module_of s m' = module_of s' m').
   
   Parameter mu : State -> Label -> State -> Z.
   
-  Axiom mu_nonneg : forall s l s',
+  Parameter mu_nonneg : forall s l s',
     step s l s' -> mu s l s' >= 0.
   
   Inductive Trace : Type :=
@@ -53,7 +53,7 @@ Module Type Spaceland.
   
   Parameter trace_mu : Trace -> Z.
   
-  Axiom mu_blind_free : forall s s',
+  Parameter mu_blind_free : forall s s',
     step s LCompute s' ->
     same_partition s s' ->
     mu s LCompute s' = 0.

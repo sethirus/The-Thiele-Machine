@@ -10,8 +10,8 @@
 *)
 
 From Coq Require Import List ZArith.
-Require Import thielemachine.coqproofs.CoreSemantics.
-Require Import thielemachine.coqproofs.Hash256.
+Require Import ThieleMachine.CoreSemantics.
+Require Import ThieleMachine.Hash256.
 Import ListNotations.
 Open Scope Z_scope.
 

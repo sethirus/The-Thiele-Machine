@@ -20,7 +20,7 @@ Key Components:
 
 Implications:
 - SAT: First formal evidence that consciousness is compatible with physics
-- UNSAT: Proof that consciousness contradicts known laws (Nobel-level discovery)
+- UNSAT: Proof that consciousness contradicts known laws (Fundamental discovery)
 
 Run: python3 the_universe_as_a_thiele_machine.py
 Output: universe_demo/output/ with receipts, ledger, and certificate.witness

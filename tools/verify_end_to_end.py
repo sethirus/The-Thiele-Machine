@@ -29,7 +29,7 @@ RE_INSTR = re.compile(
 )
 
 RE_LOG_METRIC = re.compile(
-    r"\"partition_ops\":\s*(?P<partition>\d+),\s*\"mdl_ops\":\s*(?P<mdl>\d+),\s*\"info_gain\":\s*(?P<info>\d+)(?:,\s*\"mu(?:_total)?\":\s*(?P<mu>\d+))?"
+    r"\{\s*\"partition_ops\":\s*(?P<partition>\d+),\s*\"mdl_ops\":\s*(?P<mdl>\d+),\s*\"info_gain\":\s*(?P<info>\d+)(?:,\s*\"mu_total\":\s*(?P<mu>\d+))?\s*\}"
 )
 
 RE_FIELD = re.compile(r"^(?P<label>Final PC|Status|Error):\s*(?P<value>[0-9a-fA-Fx]+)")
@@ -116,7 +116,6 @@ def metrics_from_instructions(instrs: Iterable[InstructionWord]) -> Metrics:
             mu_total += instr.operand_b
         if opc == OPCODE_MDLACC:
             mdl_ops += 1
-        # Note: HALT no longer increments mdl_ops (removed in HALT contamination fix)
     return Metrics(partition_ops=partition_ops, mdl_ops=mdl_ops, info_gain=info_gain, mu_total=mu_total)
 
 

@@ -39,7 +39,7 @@ From Coq Require Import List Arith Lia PeanoNat Bool ZArith.
 From ThieleUniversal Require Import TM UTM_Rules.
 From ThieleUniversal Require Import CPU UTM_Program.
 (* Import concrete implementations from bridge module *)
-From ThieleMachine Require Import ThieleUniversalBridge.
+From ThieleMachineVerification Require Import ThieleUniversalBridge.
 From ThieleUniversal Require Import UTM_Encode.
 From ThieleMachine Require Import ThieleMachine EncodingBridge.
 From ThieleMachine.Modular_Proofs Require Import Encoding EncodingBounds.
