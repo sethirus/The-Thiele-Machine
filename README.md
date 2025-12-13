@@ -2,15 +2,15 @@
 
 **A Computational Model with Partition-Discovery Semantics**
 
-[![CI](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml/badge.svg)](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Tests](https://img.shields.io/badge/Tests-1107%20Passing-brightgreen)](tests/) [![Isomorphism](https://img.shields.io/badge/Isomorphism-Verified%20100%25-success)](scripts/test_three_layer_isomorphism.py)
+[![CI](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml/badge.svg)](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Tests](https://img.shields.io/badge/Tests-1107%20Passing-brightgreen)](tests/)
 
 ## What Is This?
 
-The Thiele Machine is a **formal computational model** that extends Turing Machine semantics with partition-discovery operations. It is proven to **strictly subsume** the Turing Machine through formal verification in Coq, with a complete three-layer implementation verified for isomorphism.
+The Thiele Machine is a **formal computational model** that extends Turing Machine semantics with partition-discovery operations. It is proven to **strictly subsume** the Turing Machine through formal verification in Coq, and comes with an executable Coq extraction + Python VM + Verilog RTL toolchain.
 
 **Core Achievement**: We prove `TURING ⊊ THIELE` (strict containment) in [`coq/kernel/Subsumption.v`](coq/kernel/Subsumption.v).
 
-**Verified Implementation**: Three-layer architecture (Coq ↔ Verilog ↔ Python) with proven functional isomorphism across all 16 instructions.
+**Verified Implementation**: Three-layer architecture (Coq ↔ Python VM ↔ Verilog RTL) with **executable isomorphism gates**. Coverage is expanding opcode-by-opcode; the extracted runner is treated as the reference semantics for shared-state comparisons.
 
 ## What We Can Actually Prove ✅
 
@@ -18,7 +18,7 @@ The Thiele Machine is a **formal computational model** that extends Turing Machi
 2. **Strict Separation** - Thiele can execute partition operations that Turing cannot
 3. **Bell Inequality S=16/5** - Mathematical construction of a no-signaling distribution exceeding Tsirelson bound ([BellInequality.v](coq/thielemachine/coqproofs/BellInequality.v))
 4. **μ-Cost Conservation** - Information-theoretic cost ledger is monotonically non-decreasing ([MuLedgerConservation.v](coq/kernel/MuLedgerConservation.v))
-5. **Three-Layer Isomorphism** - Coq formal proofs, Verilog RTL hardware, and Python VM are functionally equivalent (verified 6/6 tests, 100%)
+5. **Executable Isomorphism Gates** - Python VM, extracted Coq semantics runner, and RTL are compared on concrete traces for an expanding subset of opcodes
 6. **Partition Discovery Advantage** - Experimental evidence of reduced search costs on structured SAT problems
 
 ## What This Is NOT ❌
@@ -27,7 +27,7 @@ The Thiele Machine is a **formal computational model** that extends Turing Machi
 - ❌ **NOT a way to break RSA-2048** (no polynomial-time factoring algorithm)
 - ❌ **NOT proof quantum computers are obsolete** (quantum advantage in hardware is real)
 - ❌ **NOT a claim to transcend physics** (mathematical models ≠ physical reality)
-- ✅ **IS a verified three-layer implementation** (Coq kernel ↔ Verilog CPU ↔ Python VM all proven isomorphic)
+- ✅ **IS an executable three-layer toolchain** (Coq extracted semantics ↔ Python VM ↔ Verilog RTL) with expanding isomorphism gates
 
 ## Quick Start
 
@@ -56,27 +56,22 @@ pip install z3-solver numpy scipy networkx matplotlib scikit-learn PyNaCl
 
 ### Verify the Core Claims
 
-> **🔍 For Independent Auditors:** See [The Thiele Isomorphism Verification Plan](docs/THE_THIELE_ISOMORPHISM_VERIFICATION_PLAN.md) for a comprehensive strategic framework to independently verify all isomorphism claims from first principles.
+> **For independent auditors:** prefer the executable gates in `scripts/forge_artifact.sh` + the focused pytest isomorphism tests, and treat `build/extracted_vm_runner` output as the oracle for shared state.
 
-**1. Verify Three-Layer Isomorphism (Coq ↔ Verilog ↔ Python)**
+**1. Run the end-to-end isomorphism gate (preferred)**
 
 ```bash
-python3 scripts/test_three_layer_isomorphism.py
-
-# Expected output:
-# ============================================================
-# TEST SUMMARY
-# ============================================================
-# ✅ PASS  coq_compilation
-# ✅ PASS  verilog_syntax  
-# ✅ PASS  python_imports
-# ✅ PASS  instruction_execution
-# ✅ PASS  mu_cost_conservation
-# ✅ PASS  instruction_coverage
-#
-# Results: 6/6 tests passed (100%)
-# 🎉 SUCCESS: Three-layer isomorphism VERIFIED
+bash scripts/forge_artifact.sh
 ```
+
+Focused gates (fast, deterministic):
+
+```bash
+pytest -q tests/test_rtl_compute_isomorphism.py
+pytest -q tests/test_partition_isomorphism_minimal.py
+```
+
+`scripts/test_three_layer_isomorphism.py` is a convenience smoke test (tooling + basic coverage checks), not the authoritative isomorphism gate.
 
 **2. Compile the Coq Kernel (16 Instructions)**
 
