@@ -1,5 +1,8 @@
 # The Thiele Machine
 
+> **Deprecated**: this document is kept for historical context.
+> Prefer [README.md](README.md) for the current overview and [COQ_STATUS.md](COQ_STATUS.md) for up-to-date cross-layer isomorphism status.
+
 **A Computational Model with Partition-Discovery Semantics**
 
 [![CI](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml/badge.svg)](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Tests](https://img.shields.io/badge/Tests-1107%20Passing-brightgreen)](tests/)
