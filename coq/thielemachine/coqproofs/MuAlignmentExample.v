@@ -11,15 +11,22 @@ From Coq Require Import String ZArith Lia.
 Open Scope string_scope.
 Open Scope Z_scope.
 
-(** The μ-cost formula for LASSERT: length(query) × 8 bits *)
+(** A tiny, explicit string size function (character count). *)
+Fixpoint str_size (s : string) : nat :=
+  match s with
+  | EmptyString => 0%nat
+  | String _ rest => S (str_size rest)
+  end.
+
+(** The μ-cost formula for LASSERT: size(query) × 8 bits *)
 Definition lassert_mu_cost (query : string) : Z :=
-  Z.of_nat (String.length query) * 8.
+  Z.of_nat (str_size query) * 8.
 
 (** Concrete example: "x1 XOR x2" has 9 characters *)
 Definition test_clause : string := "x1 XOR x2".
 
-(** The clause length is 9 *)
-Lemma test_clause_length : String.length test_clause = 9%nat.
+(** The clause size is 9 *)
+Lemma test_clause_size : str_size test_clause = 9%nat.
 Proof. reflexivity. Qed.
 
 (** Therefore the μ-cost is exactly 72 bits *)
@@ -35,7 +42,7 @@ Qed.
 (** General theorem: μ-cost is always 8× the query length *)
 Theorem lassert_mu_cost_formula :
   forall query : string,
-    lassert_mu_cost query = Z.of_nat (String.length query) * 8.
+    lassert_mu_cost query = Z.of_nat (str_size query) * 8.
 Proof.
   intros query. unfold lassert_mu_cost. reflexivity.
 Qed.

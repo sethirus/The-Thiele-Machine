@@ -75,8 +75,12 @@ Definition discrete_wave_equation_holds
 
 (** Check locality: the update depends only on the 4-point stencil *)
 Definition wave_update_is_local (w : WaveCoefficients) : Prop :=
-  (* The update rule has exactly 4 non-zero inputs *)
-  True.  (* Trivially true by construction *)
+  forall u_t u_tm1 u_xp u_xm u_t' u_tm1' u_xp' u_xm',
+    u_t == u_t' ->
+    u_tm1 == u_tm1' ->
+    u_xp == u_xp' ->
+    u_xm == u_xm' ->
+    wave_update w u_t u_tm1 u_xp u_xm == wave_update w u_t' u_tm1' u_xp' u_xm'.
 
 (** Check coefficient consistency with standard wave equation form:
     For the standard discrete wave equation:

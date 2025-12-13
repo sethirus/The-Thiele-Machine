@@ -15,7 +15,6 @@ Export Nat.
 
 Section ModularArithmetic.
   Variable n : nat.
-  Hypothesis n_pos : n > 0.
 
   Definition mod_add (a b : nat) : nat := (a + b) mod n.
   Definition mod_mul (a b : nat) : nat := (a * b) mod n.

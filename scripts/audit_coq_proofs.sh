@@ -35,7 +35,8 @@ exec > >(tee "$AUDIT_LOG")
 echo "=== 1. SCANNING FOR ADMITTED PROOFS ==="
 echo ""
 while IFS= read -r file; do
-    ADMITS=$(grep -c "Admitted\." "$file" 2>/dev/null || echo 0)
+    # Use grep|wc so we always get a single numeric result (grep exits 1 on no matches).
+    ADMITS=$(grep -o "Admitted\." "$file" 2>/dev/null | wc -l | tr -d ' ')
     if [ "$ADMITS" -gt 0 ]; then
         echo -e "${YELLOW}$file: $ADMITS admits${NC}"
         grep -B 3 "Admitted\." "$file" | grep -E "^Lemma|^Theorem" | sed 's/^/  /'
@@ -47,10 +48,11 @@ echo ""
 echo "=== 2. SCANNING FOR AXIOMS ==="
 echo ""
 while IFS= read -r file; do
-    AXIOMS=$(grep -c "^Axiom " "$file" 2>/dev/null || echo 0)
+    # Match both top-level and indented axioms.
+    AXIOMS=$(grep -E -o "^[[:space:]]*Axiom[[:space:]]+" "$file" 2>/dev/null | wc -l | tr -d ' ')
     if [ "$AXIOMS" -gt 0 ]; then
         echo -e "${RED}$file: $AXIOMS axioms${NC}"
-        grep "^Axiom " "$file" | sed 's/^/  /'
+        grep -E "^[[:space:]]*Axiom[[:space:]]+" "$file" | sed 's/^/  /'
         TOTAL_AXIOMS=$((TOTAL_AXIOMS + AXIOMS))
     fi
 done < <(find "$COQ_DIR" -name "*.v" -type f)
@@ -59,7 +61,7 @@ echo ""
 echo "=== 3. SCANNING FOR OPAQUE DEFINITIONS ==="
 echo ""
 while IFS= read -r file; do
-    OPAQUE=$(grep -c "Opaque\|#\[global\] Opaque" "$file" 2>/dev/null || echo 0)
+    OPAQUE=$(grep -E "Opaque|#\[global\] Opaque" "$file" 2>/dev/null | wc -l | tr -d ' ')
     if [ "$OPAQUE" -gt 0 ]; then
         echo -e "${CYAN}$file: $OPAQUE opaque${NC}"
         grep -E "Opaque|#\[global\] Opaque" "$file" | sed 's/^/  /'
@@ -72,8 +74,8 @@ echo "=== 4. PROOF STATISTICS ==="
 echo ""
 while IFS= read -r file; do
     TOTAL_FILES=$((TOTAL_FILES + 1))
-    LEMMAS=$(grep -cE "^Lemma |^Theorem " "$file" 2>/dev/null || echo 0)
-    PROOFS=$(grep -cE "^Qed\.|^Defined\." "$file" 2>/dev/null || echo 0)
+    LEMMAS=$(grep -E "^Lemma |^Theorem " "$file" 2>/dev/null | wc -l | tr -d ' ')
+    PROOFS=$(grep -E "^(Qed\.|Defined\.)$" "$file" 2>/dev/null | wc -l | tr -d ' ')
     TOTAL_LEMMAS=$((TOTAL_LEMMAS + LEMMAS))
     TOTAL_PROOFS=$((TOTAL_PROOFS + PROOFS))
 done < <(find "$COQ_DIR" -name "*.v" -type f)

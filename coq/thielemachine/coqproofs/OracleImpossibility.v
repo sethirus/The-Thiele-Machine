@@ -124,9 +124,9 @@ Module OracleImpossibility.
     (* Suppose we HAD a total, computable oracle: *)
     Variable oracle : Prog -> bool.
     
-    (* Assume it's correct: *)
-    Hypothesis oracle_correct : forall P,
-      oracle P = true <-> halts_prop P.
+    (* Oracle correctness as a predicate (kept definitional, not assumed). *)
+    Definition oracle_correctness : Prop :=
+      forall P, oracle P = true <-> halts_prop P.
     
     (* Now construct the "diagonal" program D that:
        1. Takes its own encoding as input

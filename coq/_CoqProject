@@ -77,10 +77,12 @@ test_vscoq/coqproofs/test_vscoq.v
 
 thielemachine/coqproofs/AmortizedAnalysis.v
 thielemachine/coqproofs/Axioms.v
+thielemachine/coqproofs/Hash256.v
 thielemachine/coqproofs/CoreSemantics.v
 thielemachine/coqproofs/BlindSighted.v
 thielemachine/coqproofs/SemanticBridge.v
 thielemachine/coqproofs/Embedding_TM.v
+thielemachine/coqproofs/ThieleFoundations.v
 thielemachine/coqproofs/DiscoveryProof.v
 thielemachine/coqproofs/EfficientDiscovery.v
 thielemachine/coqproofs/BellInequality.v
@@ -95,6 +97,7 @@ thielemachine/coqproofs/NUSD.v
 thielemachine/coqproofs/PartitionLogic.v
 thielemachine/coqproofs/Oracle.v
 thielemachine/coqproofs/QHelpers.v
+thielemachine/coqproofs/SpectralApproximation.v
 thielemachine/coqproofs/Separation.v
 thielemachine/verification/modular/Bridge_BridgeCore.v
 thielemachine/verification/BridgeCheckpoints.v
@@ -135,3 +138,6 @@ thielemachine/coqproofs/RepresentationTheorem.v
 thieleuniversal/coqproofs/ThieleUniversal.v
 
 thiele_manifold/PhysicsIsomorphism.v
+
+# Foundry / codegen entrypoint (kept optional; invoked by scripts/forge_artifact.sh)
+Extraction.v

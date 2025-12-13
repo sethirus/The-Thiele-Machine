@@ -1,4 +1,5 @@
 From Coq Require Import List Bool Arith.PeanoNat.
+From Coq Require Import NArith.
 From Coq Require Import Strings.String Strings.Ascii.
 Import ListNotations.
 
@@ -241,10 +242,62 @@ Definition csr_set_cert_addr (csrs : CSRState) (addr : nat) : CSRState :=
 Record VMState := {
   vm_graph : PartitionGraph;
   vm_csrs : CSRState;
+  (** Hardware-style scratch state (mirrors [thielecpu.vm.VM]):
+      - 32 registers holding 32-bit words
+      - 256-word data memory
+   *)
+  vm_regs : list nat;
+  vm_mem : list nat;
   vm_pc : nat;
   vm_mu : nat;
   vm_err : bool
 }.
+
+Definition REG_COUNT : nat := 32.
+Definition MEM_SIZE : nat := 256.
+
+Definition word32_mask : N := N.ones 32.
+
+Definition word32 (x : nat) : nat :=
+  N.to_nat (N.land (N.of_nat x) word32_mask).
+
+Definition word32_xor (a b : nat) : nat :=
+  word32 (N.to_nat (N.lxor (N.of_nat a) (N.of_nat b))).
+
+Fixpoint popcount_upto (bits : nat) (x : N) : nat :=
+  match bits with
+  | 0 => 0
+  | S bits' =>
+      (if N.testbit x (N.of_nat bits') then 1 else 0) + popcount_upto bits' x
+  end.
+
+Definition word32_popcount (x : nat) : nat :=
+  popcount_upto 32 (N.land (N.of_nat x) word32_mask).
+
+Definition reg_index (r : nat) : nat := r mod REG_COUNT.
+Definition mem_index (a : nat) : nat := a mod MEM_SIZE.
+
+Definition read_reg (s : VMState) (r : nat) : nat :=
+  nth (reg_index r) s.(vm_regs) 0.
+
+Definition write_reg (s : VMState) (r v : nat) : list nat :=
+  let idx := reg_index r in
+  firstn idx s.(vm_regs) ++ [word32 v] ++ skipn (S idx) s.(vm_regs).
+
+Definition read_mem (s : VMState) (a : nat) : nat :=
+  nth (mem_index a) s.(vm_mem) 0.
+
+Definition write_mem (s : VMState) (a v : nat) : list nat :=
+  let idx := mem_index a in
+  firstn idx s.(vm_mem) ++ [word32 v] ++ skipn (S idx) s.(vm_mem).
+
+Definition swap_regs (regs : list nat) (a b : nat) : list nat :=
+  let a_idx := a mod REG_COUNT in
+  let b_idx := b mod REG_COUNT in
+  let va := nth a_idx regs 0 in
+  let vb := nth b_idx regs 0 in
+  let regs' := firstn a_idx regs ++ [vb] ++ skipn (S a_idx) regs in
+  firstn b_idx regs' ++ [va] ++ skipn (S b_idx) regs'.
 
 Definition advance_pc (s : VMState) : nat := S s.(vm_pc).
 
@@ -257,6 +310,8 @@ Definition update_state
   : VMState :=
   {| vm_graph := graph;
      vm_csrs := csrs;
+  vm_regs := s.(vm_regs);
+  vm_mem := s.(vm_mem);
      vm_pc := advance_pc s;
      vm_mu := mu;
      vm_err := err |}.

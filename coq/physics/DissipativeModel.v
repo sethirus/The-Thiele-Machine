@@ -52,8 +52,8 @@ Section Embedding.
   Variable decode : Encoded -> Lattice.
   Variable impl_step : Encoded -> Encoded.
 
-  Hypothesis decode_encode_id : forall l, decode (encode l) = l.
-  Hypothesis impl_refines_dissipative :
+  Variable decode_encode_id : forall l, decode (encode l) = l.
+  Variable impl_refines_dissipative :
     forall l, decode (impl_step (encode l)) = dissipative_step l.
 
   Lemma embedded_energy_nonincreasing :

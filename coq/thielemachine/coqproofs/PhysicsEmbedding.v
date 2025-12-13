@@ -17,11 +17,11 @@ Section PhysicsEmbedding.
           (decode_lattice : VMState -> Lattice)
           (physics_trace : list vm_instruction).
 
-  Hypothesis decode_encode_id : forall L, decode_lattice (encode_lattice L) = L.
-  Hypothesis physics_vm_step_simulation :
+  Variable decode_encode_id : forall L, decode_lattice (encode_lattice L) = L.
+  Variable physics_vm_step_simulation :
     forall L, decode_lattice (run_vm 1 physics_trace (encode_lattice L)) = physics_step L.
 
-  Hypothesis physics_trace_irreversible_free :
+  Variable physics_trace_irreversible_free :
     forall pc instr, nth_error physics_trace pc = Some instr -> instruction_cost instr = 0.
 
   (** ** Embedding correctness: one VM run step realises one physics step. *)

@@ -23,6 +23,53 @@ from pathlib import Path
 from typing import Dict, Any, List, Tuple, Optional
 
 
+class _SimpleAdam:
+    def __init__(
+        self,
+        params,
+        lr: float = 0.001,
+        betas: Tuple[float, float] = (0.9, 0.999),
+        eps: float = 1e-8,
+    ):
+        self._params = [p for p in params if p.requires_grad]
+        self._lr = lr
+        self._beta1, self._beta2 = betas
+        self._eps = eps
+        self._state: Dict[int, Dict[str, Any]] = {}
+
+    def zero_grad(self) -> None:
+        for p in self._params:
+            p.grad = None
+
+    @torch.no_grad()
+    def step(self) -> None:
+        for p in self._params:
+            if p.grad is None:
+                continue
+            sid = id(p)
+            st = self._state.get(sid)
+            if st is None:
+                st = {
+                    "t": 0,
+                    "m": torch.zeros_like(p),
+                    "v": torch.zeros_like(p),
+                }
+                self._state[sid] = st
+
+            st["t"] += 1
+            t = st["t"]
+            g = p.grad
+            m = st["m"]
+            v = st["v"]
+
+            m.mul_(self._beta1).add_(g, alpha=1.0 - self._beta1)
+            v.mul_(self._beta2).addcmul_(g, g, value=1.0 - self._beta2)
+
+            m_hat = m / (1.0 - (self._beta1**t))
+            v_hat = v / (1.0 - (self._beta2**t))
+            p.addcdiv_(m_hat, v_hat.sqrt().add_(self._eps), value=-self._lr)
+
+
 class LogOfSightEncoder(nn.Module):
     """
     Encoder network that compresses a Log of Sight into a latent vector.
@@ -167,16 +214,25 @@ class LanguageSystem:
         # Create encoder/decoder for Beta
         self.beta_encoder = LogOfSightEncoder(input_dim, latent_dim).to(device)
         self.beta_decoder = LogOfSightDecoder(latent_dim, input_dim).to(device)
-        
+
         # Optimizers
-        self.alpha_optimizer = torch.optim.Adam(
-            list(self.alpha_encoder.parameters()) + list(self.alpha_decoder.parameters()),
-            lr=0.001
-        )
-        self.beta_optimizer = torch.optim.Adam(
-            list(self.beta_encoder.parameters()) + list(self.beta_decoder.parameters()),
-            lr=0.001
-        )
+        # Lazily constructed on first training step. This avoids importing
+        # optional/fragile torch subsystems (e.g., dynamo) during simple
+        # initialization and test-time construction.
+        self.alpha_optimizer = None
+        self.beta_optimizer = None
+
+    def _ensure_optimizers(self) -> None:
+        if self.alpha_optimizer is None:
+            self.alpha_optimizer = _SimpleAdam(
+                list(self.alpha_encoder.parameters()) + list(self.alpha_decoder.parameters()),
+                lr=0.001,
+            )
+        if self.beta_optimizer is None:
+            self.beta_optimizer = _SimpleAdam(
+                list(self.beta_encoder.parameters()) + list(self.beta_decoder.parameters()),
+                lr=0.001,
+            )
     
     def vae_loss(self, recon_x: torch.Tensor, x: torch.Tensor, 
                  mu: torch.Tensor, logvar: torch.Tensor) -> torch.Tensor:
@@ -212,6 +268,8 @@ class LanguageSystem:
         """
         self.alpha_encoder.train()
         self.beta_decoder.train()
+
+        self._ensure_optimizers()
         
         # Alpha encodes
         z, mu, logvar = self.alpha_encoder(log_of_sight)
@@ -243,6 +301,8 @@ class LanguageSystem:
         """
         self.beta_encoder.train()
         self.alpha_decoder.train()
+
+        self._ensure_optimizers()
         
         # Beta encodes
         z, mu, logvar = self.beta_encoder(log_of_sight)

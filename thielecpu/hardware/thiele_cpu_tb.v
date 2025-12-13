@@ -52,6 +52,12 @@ wire [31:0] pc;
 // Data memory
 reg [31:0] data_memory [0:255];
 
+// Optional file inputs
+reg [1023:0] program_hex_path;
+reg [1023:0] data_hex_path;
+integer have_program_hex;
+integer have_data_hex;
+
 // Loop variable
 integer i;
 
@@ -99,45 +105,55 @@ end
 // ============================================================================
 
 initial begin
-    // Initialize instruction memory with test program
-    // XOR operations for Gaussian elimination
-    instr_memory[0] = {8'h0B, 8'h03, 8'h00, 8'h00}; // XOR_ADD 3, 0
-    instr_memory[1] = {8'h0B, 8'h03, 8'h01, 8'h00}; // XOR_ADD 3, 1
-    instr_memory[2] = {8'h0B, 8'h03, 8'h02, 8'h00}; // XOR_ADD 3, 2
-    instr_memory[3] = {8'h0B, 8'h00, 8'h03, 8'h00}; // XOR_ADD 0, 3
-    instr_memory[4] = {8'h0B, 8'h01, 8'h03, 8'h00}; // XOR_ADD 1, 3
-    instr_memory[5] = {8'h0B, 8'h02, 8'h03, 8'h00}; // XOR_ADD 2, 3
-    instr_memory[6] = {8'h0B, 8'h03, 8'h00, 8'h00}; // XOR_ADD 3, 0
-    instr_memory[7] = {8'h0B, 8'h01, 8'h02, 8'h00}; // XOR_ADD 1, 2
-    instr_memory[8] = {8'h0E, 8'h00, 8'h06, 8'h00}; // EMIT 0, 6
+    have_program_hex = $value$plusargs("PROGRAM=%s", program_hex_path);
+    have_data_hex = $value$plusargs("DATA=%s", data_hex_path);
 
-    // HALT
-    instr_memory[9] = {8'hFF, 8'h00, 8'h00, 8'h00}; // HALT
-
-    // Initialize data memory with XOR matrix
-    // Row 0: 1 0 0 1 0 1 -> 0x29 (bits 0,3,5)
-    data_memory[0] = 32'h00000029;
-    // Row 1: 0 1 0 0 1 0 -> 0x12 (bits 1,4)
-    data_memory[6] = 32'h00000012;
-    // Row 2: 0 0 1 0 0 1 -> 0x22 (bits 1,5)
-    data_memory[12] = 32'h00000022;
-    // Row 3: 1 1 0 0 0 0 -> 0x03 (bits 0,1)
-    data_memory[18] = 32'h00000003;
-    // Parity
-    data_memory[24] = 32'h00000000; // row 0 parity 0
-    data_memory[25] = 32'h00000001; // row 1 parity 1
-    data_memory[26] = 32'h00000001; // row 2 parity 1
-    data_memory[27] = 32'h00000000; // row 3 parity 0
-
-    // Initialize other memory locations
-    for (i = 10; i < 256; i = i + 1) begin
+    // Initialize instruction memory
+    for (i = 0; i < 256; i = i + 1) begin
         instr_memory[i] = 32'h00000000;
     end
-    for (i = 0; i < 256; i = i + 1) begin
-        if (i != 0 && i != 6 && i != 12 && i != 18 && i != 24 && i != 25 && i != 26 && i != 27) begin
-            data_memory[i] = 32'h00000000;
-        end
+
+    if (have_program_hex) begin
+        $display("Loading PROGRAM=%0s", program_hex_path);
+        $readmemh(program_hex_path, instr_memory);
+    end else begin
+        // Default compute program (Coq/Python/RTL shared semantics)
+        // 1) Load 4 values from memory into r0..r3
+        instr_memory[0] = {8'h0A, 8'h00, 8'h00, 8'h00}; // XOR_LOAD r0 <= mem[0]
+        instr_memory[1] = {8'h0A, 8'h01, 8'h01, 8'h00}; // XOR_LOAD r1 <= mem[1]
+        instr_memory[2] = {8'h0A, 8'h02, 8'h02, 8'h00}; // XOR_LOAD r2 <= mem[2]
+        instr_memory[3] = {8'h0A, 8'h03, 8'h03, 8'h00}; // XOR_LOAD r3 <= mem[3]
+
+        // 2) Do some XOR algebra + swaps + transfers
+        instr_memory[4] = {8'h0B, 8'h03, 8'h00, 8'h00}; // XOR_ADD r3 ^= r0
+        instr_memory[5] = {8'h0B, 8'h03, 8'h01, 8'h00}; // XOR_ADD r3 ^= r1
+        instr_memory[6] = {8'h0C, 8'h00, 8'h03, 8'h00}; // XOR_SWAP r0 <-> r3
+        instr_memory[7] = {8'h07, 8'h02, 8'h04, 8'h00}; // XFER r4 <- r2
+        instr_memory[8] = {8'h0D, 8'h05, 8'h04, 8'h00}; // XOR_RANK r5 := popcount(r4)
+
+        // 3) HALT
+        instr_memory[9] = {8'hFF, 8'h00, 8'h00, 8'h00}; // HALT
     end
+
+    // Initialize external data memory (kept for legacy mem interface)
+    for (i = 0; i < 256; i = i + 1) begin
+        data_memory[i] = 32'h00000000;
+    end
+
+    // Load initial compute-memory image into testbench buffer.
+    // NOTE: we copy this into dut.data_mem *after* reset deassert,
+    // otherwise the DUT reset logic will overwrite it.
+    if (have_data_hex) begin
+        $display("Loading DATA=%0s", data_hex_path);
+        $readmemh(data_hex_path, data_memory);
+    end else begin
+        // Default data values used by the default program
+        data_memory[0] = 32'h00000029;
+        data_memory[1] = 32'h00000012;
+        data_memory[2] = 32'h00000022;
+        data_memory[3] = 32'h00000003;
+    end
+
 end
 
 // ============================================================================
@@ -197,6 +213,12 @@ initial begin
     // Reset
     #20 rst_n = 1;
 
+    // After reset deassert and before the next clock edge, preload DUT compute memory.
+    #1;
+    for (i = 0; i < 256; i = i + 1) begin
+        dut.data_mem[i] = data_memory[i];
+    end
+
     // Wait for program completion or timeout
     fork
         begin
@@ -219,7 +241,33 @@ initial begin
             $display("{");
             $display("  \"partition_ops\": %d,", partition_ops);
             $display("  \"mdl_ops\": %d,", mdl_ops);
-            $display("  \"info_gain\": %d", info_gain);
+            $display("  \"info_gain\": %d,", info_gain);
+            $display("  \"regs\": [");
+            for (i = 0; i < 32; i = i + 1) begin
+                if (i < 31) $display("    %0d,", dut.reg_file[i]);
+                else $display("    %0d", dut.reg_file[i]);
+            end
+            $display("  ],");
+            $display("  \"mem\": [");
+            for (i = 0; i < 256; i = i + 1) begin
+                if (i < 255) $display("    %0d,", dut.data_mem[i]);
+                else $display("    %0d", dut.data_mem[i]);
+            end
+            $display("  ],");
+            $display("  \"modules\": [");
+            for (i = 0; i < 64; i = i + 1) begin
+                if (dut.module_table[i] != 0) begin
+                    integer k;
+                    $display("    {\"id\": %0d, \"region\": [", i);
+                    for (k = 0; k < dut.module_table[i]; k = k + 1) begin
+                        if (k < dut.module_table[i]-1) $display("      %0d,", dut.region_table[i][k]);
+                        else $display("      %0d", dut.region_table[i][k]);
+                    end
+                    $display("    ]},");
+                end
+            end
+            $display("    {\"id\": -1, \"region\": []}");
+            $display("  ]");
             $display("}");
             $finish;
         end
@@ -230,11 +278,13 @@ end
 // MONITORING
 // ============================================================================
 
+`ifdef VERBOSE
 always @(posedge clk) begin
     if (rst_n) begin
         $display("Time: %t, PC: %h, State: %h, Status: %h, Error: %h",
                  $time, pc, dut.state, status, error_code);
     end
 end
+`endif
 
 endmodule

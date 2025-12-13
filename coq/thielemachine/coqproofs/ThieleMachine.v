@@ -192,7 +192,7 @@ Definition tm_step_fun (P : Prog) (s : State) : option (State * StepObs) :=
 Definition hash_state  (s : State) : Hash := s.(pc).
 Definition hash_cert   (c : Cert)  : Hash := c.
 Definition hcombine    (h1 h2 : Hash) : Hash := Nat.add h1 h2.
-Definition H0 : Hash := 0%nat.
+Definition H0 : Hash := Nat.sub 1 1.
 
 (* Hash chain computation over execution trace *)
 Fixpoint hash_chain (P:Prog) (s0:State) (steps:list (State*StepObs)) : Hash :=

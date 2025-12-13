@@ -2,6 +2,7 @@
 Require Import Coq.Lists.List.
 Require Import Arith.
 Require Import Lia.
+Require Import Bool.
 Import ListNotations.
 
 
@@ -70,7 +71,8 @@ Definition Program := (list Instr * ProgramAxioms)%type.
 
 (* Temporary logic oracle used for demonstrations.
    The real system should supply a verified oracle instead. *)
-Definition logic_oracle (_ : list nat) : bool := true.
+Definition logic_oracle (axioms : list nat) : bool :=
+  negb (existsb (Nat.eqb 1) axioms).
 
 Definition mem_safe_program (mem_len : nat) (p : Program) : Prop :=
   forall i, In i (fst p) -> is_instr_mem_safe mem_len i = true.

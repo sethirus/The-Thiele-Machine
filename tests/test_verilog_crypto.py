@@ -13,17 +13,25 @@ Validates:
 - CSF specification compliance
 """
 
-import cocotb
+import pytest
+
+# These are cocotb-based HDL simulation tests. If cocotb isn't installed in the
+# current Python environment, skip this entire module cleanly (instead of
+# failing collection).
+cocotb = pytest.importorskip("cocotb")
+
 from cocotb.clock import Clock
 from cocotb.triggers import RisingEdge, FallingEdge, Timer
-from cocotb.result import TestFailure
 import random
 import struct
 import hashlib
 
 # Import Python crypto module for cross-layer validation
 import sys
-sys.path.insert(0, '/home/runner/work/The-Thiele-Machine/The-Thiele-Machine')
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(REPO_ROOT))
 from thielecpu.crypto import StateHasher, serialize_u32, serialize_u64, serialize_z
 
 @cocotb.test()
@@ -272,14 +280,13 @@ def test_runner():
     """Configure and run tests"""
     import os
     from cocotb_test.simulator import run
+
+    repo_root = Path(__file__).resolve().parents[1]
     
     verilog_sources = [
-        os.path.join("/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/thielecpu/hardware", 
-                     "state_serializer.v"),
-        os.path.join("/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/thielecpu/hardware", 
-                     "sha256_interface.v"),
-        os.path.join("/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/thielecpu/hardware", 
-                     "crypto_receipt_controller.v"),
+        str(repo_root / "thielecpu" / "hardware" / "state_serializer.v"),
+        str(repo_root / "thielecpu" / "hardware" / "sha256_interface.v"),
+        str(repo_root / "thielecpu" / "hardware" / "crypto_receipt_controller.v"),
     ]
     
     run(

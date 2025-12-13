@@ -33,6 +33,7 @@
     ========================================================================= *)
 
 From Coq Require Import List String ZArith Lia Bool Nat.
+From ThieleMachine Require Import Hash256.
 Import ListNotations.
 Open Scope Z_scope.
 
@@ -170,34 +171,77 @@ Definition initial_state (vars : Region) (prog : Program) : State :=
 *)
 Definition StateHash := list bool.
 
-(** Hash function: State -> 256-bit commitment
-    This is axiomatized - actual implementation verified against Python/Verilog.
-    
-    IMPLEMENTATION: SHA-256(canonical_encoding(state))
-    - Python: hashlib.sha256(json.dumps(canonical_state, sort_keys=True))
-    - Verilog: SHA-256 hardware core operating on serialized state
-    - Coq: Axiomatized (verified externally via isomorphism tests)
+(** Hash function: State -> 256-bit commitment.
+
+    This is an *executable* deterministic hash inside Coq (no Parameters/Axioms).
+    It is NOT a cryptographic hash. If you need cryptographic guarantees, keep
+    them as external claims and validate SHA-256 alignment in the Python/Verilog
+    pipeline.
 *)
-Parameter hash_state : State -> StateHash.
 
-(** Hash function properties - standard cryptographic assumptions *)
+Definition bool_to_Z (b : bool) : Z := if b then 1 else 0.
 
-(** Axiom: Collision resistance - if hashes equal, states equal
-    
-    NOTE: This is an IDEALIZED assumption. Real SHA-256 is computationally
-    collision-resistant (~2^128 operations to find collision), not perfectly
-    injective. We axiomatize perfect collision resistance for formal reasoning,
-    acknowledging that in practice:
-    - Probability of accidental collision: negligible (~2^-128)
-    - Probability of adversarial collision: computationally infeasible
-    - For receipt forgery resistance, computational assumption suffices
-*)
-Axiom hash_collision_resistance : forall (s1 s2 : State),
-  hash_state s1 = hash_state s2 -> s1 = s2.
+Fixpoint encode_region (r : Region) : list Z :=
+  match r with
+  | [] => []
+  | x :: xs => Z.of_nat x :: encode_region xs
+  end.
 
-(** Axiom: Hash has correct length (256 bits) *)
-Axiom hash_length : forall (s : State),
-  List.length (hash_state s) = 256%nat.
+Fixpoint encode_modules (ms : list (ModuleId * Region)) : list Z :=
+  match ms with
+  | [] => []
+  | (mid, r) :: ms' =>
+      Z.of_nat mid :: Z.of_nat (List.length r) :: encode_region r ++ encode_modules ms'
+  end.
+
+Definition encode_partition (p : Partition) : list Z :=
+  encode_modules p.(modules) ++ [Z.of_nat p.(next_module_id)].
+
+Definition instr_tag (i : Instruction) : Z :=
+  match i with
+  | PNEW _ => 0
+  | PSPLIT _ => 1
+  | PMERGE _ _ => 2
+  | LASSERT => 3
+  | LJOIN => 4
+  | MDLACC _ => 5
+  | PDISCOVER => 6
+  | XFER => 7
+  | PYEXEC => 8
+  | XOR_LOAD => 10
+  | XOR_ADD => 11
+  | XOR_SWAP => 12
+  | XOR_RANK => 13
+  | EMIT _ => 14
+  | ORACLE_HALTS => 15
+  | HALT => 255
+  end.
+
+Fixpoint encode_instruction (i : Instruction) : list Z :=
+  match i with
+  | PNEW r => [instr_tag i; Z.of_nat (List.length r)] ++ encode_region r
+  | PSPLIT m => [instr_tag i; Z.of_nat m]
+  | PMERGE m1 m2 => [instr_tag i; Z.of_nat m1; Z.of_nat m2]
+  | MDLACC m => [instr_tag i; Z.of_nat m]
+  | EMIT n => [instr_tag i; Z.of_nat n]
+  | _ => [instr_tag i]
+  end.
+
+Fixpoint encode_program (p : Program) : list Z :=
+  match p with
+  | [] => []
+  | i :: ps => encode_instruction i ++ encode_program ps
+  end.
+
+Definition encode_state (s : State) : list Z :=
+  encode_partition s.(partition)
+  ++ [s.(mu_ledger).(mu_operational); s.(mu_ledger).(mu_information); s.(mu_ledger).(mu_total)]
+  ++ [Z.of_nat s.(pc); bool_to_Z s.(halted)]
+  ++ (match s.(result) with None => [0] | Some n => [1; Z.of_nat n] end)
+  ++ [Z.of_nat (List.length s.(program))]
+  ++ encode_program s.(program).
+
+Definition hash_state (s : State) : StateHash := Hash256.hash256 (encode_state s).
 
 (** Helper: Compare state hashes for equality
     

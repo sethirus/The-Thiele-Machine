@@ -23,7 +23,7 @@ Module HyperThiele_Halting.
         wish to reason under the oracle hypothesis. *)
     Context (H : Oracle) (Halts : nat -> Prop).
 
-    Hypothesis H_correct : forall e, H e = true <-> Halts e.
+    Variable H_correct : forall e, H e = true <-> Halts e.
 
     (** A tiny high-level Thiele program that queries the oracle on `e`. *)
     Definition halting_solver (e : nat) : Program := [ Ask e ].

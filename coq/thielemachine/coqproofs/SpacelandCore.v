@@ -31,6 +31,9 @@ Module Type MinimalSpaceland.
   
   (** Every state has a partition *)
   Parameter get_partition : State -> Partition.
+
+  (** Every state has an observable absolute μ *)
+  Parameter get_mu : State -> Z.
   
   (** States can transition *)
   Inductive Label : Type :=
@@ -111,8 +114,7 @@ Module SpacelandTraces (S : MinimalSpaceland).
     | TStep s _ _ => s
     end.
 
-  Axiom start_mu : Trace -> Z.
-  (* Definition start_mu (t : Trace) : Z := snd (start_state t). *)
+  Definition start_mu (t : Trace) : Z := get_mu (start_state t).
 
   (** Observable projection captures partitions, initial μ, and total μ-cost *)
   Definition project (t : Trace) : list Partition * Z * Z :=
@@ -177,6 +179,8 @@ Module SimpleSpaceland <: MinimalSpaceland.
   Definition Partition : Type := list (list nat).
   
   Definition get_partition (s : State) : Partition := fst s.
+
+  Definition get_mu (s : State) : Z := snd s.
   
   Inductive Label : Type :=
     | LCompute : Label
@@ -296,8 +300,11 @@ Module SimpleObservableComplete.
       exists (T.TEnd (p1, mu1)), (T.TEnd (p2, mu2)).
       repeat split; try constructor; try reflexivity.
       unfold project; simpl.
-      admit. (* TODO: fix start_mu definition *)
-  Admitted.
+      intros Heq.
+          pose proof (f_equal (fun x => snd (fst x)) Heq) as Hmu.
+        simpl in Hmu.
+      contradiction.
+  Qed.
 
 End SimpleObservableComplete.
 
@@ -333,8 +340,16 @@ Module SimpleRepresentation.
     trace_valid t2 ->
     project t1 = project t2 ->
     start_state t1 = start_state t2.
-    admit. (* TODO: Complete this proof - requires proper start_mu definition *)
-  Admitted.
+  Proof.
+    intros t1 t2 _ _ Hproj.
+    destruct t1 as [s1 | s1 l1 rest1]; destruct t2 as [s2 | s2 l2 rest2]; simpl in *.
+    all: pose proof (f_equal (fun x => fst (fst x)) Hproj) as Hparts_list.
+    all: pose proof (f_equal (fun x => snd (fst x)) Hproj) as Hmus.
+    all: unfold start_mu in Hmus.
+    all: simpl in Hparts_list, Hmus.
+    all: injection Hparts_list as Hpart.
+    all: apply projection_determines_state; auto.
+  Qed.
 
 End SimpleRepresentation.
 

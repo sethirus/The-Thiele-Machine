@@ -1,5 +1,5 @@
 $date
-	Thu Dec 11 02:38:53 2025
+	Sat Dec 13 02:48:04 2025
 $end
 $version
 	Icarus Verilog
@@ -24,309 +24,350 @@ $var wire 32 - info_gain [31:0] $end
 $var wire 32 . error_code [31:0] $end
 $var wire 32 / cert_addr [31:0] $end
 $var reg 1 0 clk $end
-$var reg 1 1 logic_ack $end
-$var reg 32 2 logic_data [31:0] $end
-$var reg 32 3 mem_rdata [31:0] $end
-$var reg 1 4 py_ack $end
-$var reg 32 5 py_result [31:0] $end
-$var reg 1 6 rst_n $end
-$var integer 32 7 i [31:0] $end
+$var reg 1024 1 data_hex_path [1023:0] $end
+$var reg 1 2 logic_ack $end
+$var reg 32 3 logic_data [31:0] $end
+$var reg 32 4 mem_rdata [31:0] $end
+$var reg 1024 5 program_hex_path [1023:0] $end
+$var reg 1 6 py_ack $end
+$var reg 32 7 py_result [31:0] $end
+$var reg 1 8 rst_n $end
+$var integer 32 9 have_data_hex [31:0] $end
+$var integer 32 : have_program_hex [31:0] $end
+$var integer 32 ; i [31:0] $end
 $scope module dut $end
-$var wire 32 8 cert_addr [31:0] $end
+$var wire 32 < cert_addr [31:0] $end
 $var wire 1 0 clk $end
-$var wire 32 9 current_instr [31:0] $end
-$var wire 32 : error_code [31:0] $end
-$var wire 32 ; info_gain [31:0] $end
-$var wire 32 < instr_data [31:0] $end
-$var wire 1 1 logic_ack $end
-$var wire 32 = logic_data [31:0] $end
-$var wire 32 > mdl_ops [31:0] $end
-$var wire 32 ? mem_addr [31:0] $end
+$var wire 32 = current_instr [31:0] $end
+$var wire 32 > error_code [31:0] $end
+$var wire 32 ? info_gain [31:0] $end
+$var wire 32 @ instr_data [31:0] $end
+$var wire 1 2 logic_ack $end
+$var wire 32 A logic_data [31:0] $end
+$var wire 32 B mdl_ops [31:0] $end
+$var wire 32 C mem_addr [31:0] $end
 $var wire 1 ! mem_en $end
-$var wire 32 @ mem_rdata [31:0] $end
-$var wire 32 A mem_wdata [31:0] $end
+$var wire 32 D mem_rdata [31:0] $end
+$var wire 32 E mem_wdata [31:0] $end
 $var wire 1 # mem_we $end
-$var wire 32 B partition_ops [31:0] $end
-$var wire 32 C pc [31:0] $end
-$var wire 1 4 py_ack $end
-$var wire 32 D py_result [31:0] $end
-$var wire 1 6 rst_n $end
-$var wire 32 E status [31:0] $end
-$var wire 1 F receipt_required $end
-$var wire 1 G receipt_accepted $end
+$var wire 32 F partition_ops [31:0] $end
+$var wire 32 G pc [31:0] $end
+$var wire 1 6 py_ack $end
+$var wire 32 H py_result [31:0] $end
+$var wire 1 8 rst_n $end
+$var wire 32 I status [31:0] $end
+$var wire 1 J receipt_required $end
+$var wire 1 K receipt_accepted $end
 $var wire 1 % py_req $end
-$var wire 32 H py_code_addr [31:0] $end
-$var wire 1 I partition_gate_open $end
-$var wire 8 J operand_b [7:0] $end
-$var wire 8 K operand_a [7:0] $end
-$var wire 8 L opcode [7:0] $end
-$var wire 32 M mu_alu_result [31:0] $end
-$var wire 1 N mu_alu_ready $end
-$var wire 1 O mu_alu_overflow $end
+$var wire 32 L py_code_addr [31:0] $end
+$var wire 1 M partition_gate_open $end
+$var wire 8 N operand_b [7:0] $end
+$var wire 8 O operand_a [7:0] $end
+$var wire 8 P opcode [7:0] $end
+$var wire 32 Q mu_alu_result [31:0] $end
+$var wire 1 R mu_alu_ready $end
+$var wire 1 S mu_alu_overflow $end
 $var wire 1 + logic_req $end
-$var wire 32 P logic_addr [31:0] $end
-$var wire 1 Q instr_allowed $end
-$var wire 1 R enforcement_active $end
-$var wire 1 S cost_gate_open $end
-$var wire 32 T core_status [31:0] $end
-$var parameter 8 U CSR_CERT_ADDR $end
-$var parameter 8 V CSR_ERROR $end
-$var parameter 8 W CSR_INFO_GAIN $end
-$var parameter 8 X CSR_MDL_OPS $end
-$var parameter 8 Y CSR_PARTITION_OPS $end
-$var parameter 8 Z CSR_STATUS $end
-$var parameter 32 [ MAX_MU $end
-$var parameter 32 \ NUM_MODULES $end
-$var parameter 8 ] OPCODE_EMIT $end
-$var parameter 8 ^ OPCODE_HALT $end
-$var parameter 8 _ OPCODE_LASSERT $end
-$var parameter 8 ` OPCODE_LJOIN $end
-$var parameter 8 a OPCODE_MDLACC $end
-$var parameter 8 b OPCODE_ORACLE_HALTS $end
-$var parameter 8 c OPCODE_PDISCOVER $end
-$var parameter 8 d OPCODE_PMERGE $end
-$var parameter 8 e OPCODE_PNEW $end
-$var parameter 8 f OPCODE_PSPLIT $end
-$var parameter 8 g OPCODE_PYEXEC $end
-$var parameter 8 h OPCODE_XFER $end
-$var parameter 8 i OPCODE_XOR_ADD $end
-$var parameter 8 j OPCODE_XOR_LOAD $end
-$var parameter 8 k OPCODE_XOR_RANK $end
-$var parameter 8 l OPCODE_XOR_SWAP $end
-$var parameter 32 m REGION_SIZE $end
-$var parameter 4 n STATE_COMPLETE $end
-$var parameter 4 o STATE_DECODE $end
-$var parameter 4 p STATE_EXECUTE $end
-$var parameter 4 q STATE_FETCH $end
-$var parameter 4 r STATE_LOGIC $end
-$var parameter 4 s STATE_MEMORY $end
-$var parameter 4 t STATE_PYTHON $end
-$var parameter 32 u XOR_COLS $end
-$var parameter 32 v XOR_ROWS $end
-$var reg 32 w csr_cert_addr [31:0] $end
-$var reg 32 x csr_error [31:0] $end
-$var reg 32 y csr_status [31:0] $end
-$var reg 6 z current_module [5:0] $end
-$var reg 32 { dest_size [31:0] $end
-$var reg 32 | even_count [31:0] $end
-$var reg 32 } i [31:0] $end
-$var reg 32 ~ info_gain_counter [31:0] $end
-$var reg 32 !" info_gain_value [31:0] $end
-$var reg 32 "" j [31:0] $end
-$var reg 32 #" mdl_cost [31:0] $end
-$var reg 32 $" mdl_ops_counter [31:0] $end
-$var reg 32 %" module_size [31:0] $end
-$var reg 32 &" mu_accumulator [31:0] $end
-$var reg 3 '" mu_alu_op [2:0] $end
-$var reg 32 (" mu_alu_operand_a [31:0] $end
-$var reg 32 )" mu_alu_operand_b [31:0] $end
-$var reg 1 *" mu_alu_valid $end
-$var reg 6 +" next_module_id [5:0] $end
-$var reg 32 ," odd_count [31:0] $end
-$var reg 32 -" partition_ops_counter [31:0] $end
-$var reg 32 ." pc_reg [31:0] $end
-$var reg 32 /" proposed_cost [31:0] $end
-$var reg 32 0" rank_temp [31:0] $end
-$var reg 1 1" receipt_valid $end
-$var reg 32 2" receipt_value [31:0] $end
-$var reg 32 3" region_size [31:0] $end
-$var reg 32 4" size_a [31:0] $end
-$var reg 32 5" size_b [31:0] $end
-$var reg 32 6" src_size [31:0] $end
-$var reg 4 7" state [3:0] $end
-$var reg 32 8" swap_temp [31:0] $end
-$var reg 32 9" total_size [31:0] $end
+$var wire 32 T logic_addr [31:0] $end
+$var wire 1 U instr_allowed $end
+$var wire 1 V enforcement_active $end
+$var wire 1 W cost_gate_open $end
+$var wire 32 X core_status [31:0] $end
+$var wire 4 Y clz8_out [3:0] $end
+$var parameter 8 Z ALU_CTX_MDLACC $end
+$var parameter 8 [ ALU_CTX_ORACLE $end
+$var parameter 8 \ ALU_CTX_PDISCOVER1 $end
+$var parameter 8 ] ALU_CTX_PDISCOVER2 $end
+$var parameter 8 ^ CSR_CERT_ADDR $end
+$var parameter 8 _ CSR_ERROR $end
+$var parameter 8 ` CSR_INFO_GAIN $end
+$var parameter 8 a CSR_MDL_OPS $end
+$var parameter 8 b CSR_PARTITION_OPS $end
+$var parameter 8 c CSR_STATUS $end
+$var parameter 32 d MAX_MU $end
+$var parameter 32 e NUM_MODULES $end
+$var parameter 8 f OPCODE_EMIT $end
+$var parameter 8 g OPCODE_HALT $end
+$var parameter 8 h OPCODE_LASSERT $end
+$var parameter 8 i OPCODE_LJOIN $end
+$var parameter 8 j OPCODE_MDLACC $end
+$var parameter 8 k OPCODE_ORACLE_HALTS $end
+$var parameter 8 l OPCODE_PDISCOVER $end
+$var parameter 8 m OPCODE_PMERGE $end
+$var parameter 8 n OPCODE_PNEW $end
+$var parameter 8 o OPCODE_PSPLIT $end
+$var parameter 8 p OPCODE_PYEXEC $end
+$var parameter 8 q OPCODE_XFER $end
+$var parameter 8 r OPCODE_XOR_ADD $end
+$var parameter 8 s OPCODE_XOR_LOAD $end
+$var parameter 8 t OPCODE_XOR_RANK $end
+$var parameter 8 u OPCODE_XOR_SWAP $end
+$var parameter 32 v REGION_SIZE $end
+$var parameter 4 w STATE_ALU_WAIT $end
+$var parameter 4 x STATE_ALU_WAIT2 $end
+$var parameter 4 y STATE_COMPLETE $end
+$var parameter 4 z STATE_DECODE $end
+$var parameter 4 { STATE_EXECUTE $end
+$var parameter 4 | STATE_FETCH $end
+$var parameter 4 } STATE_LOGIC $end
+$var parameter 4 ~ STATE_MEMORY $end
+$var parameter 4 !" STATE_PYTHON $end
+$var parameter 4 "" STATE_RECEIPT_HOLD $end
+$var reg 8 #" alu_context [7:0] $end
+$var reg 4 $" alu_return_state [3:0] $end
+$var reg 8 %" clz8_in [7:0] $end
+$var reg 32 &" csr_cert_addr [31:0] $end
+$var reg 32 '" csr_error [31:0] $end
+$var reg 32 (" csr_status [31:0] $end
+$var reg 6 )" current_module [5:0] $end
+$var reg 32 *" even_count [31:0] $end
+$var reg 32 +" i [31:0] $end
+$var reg 32 ," info_gain_counter [31:0] $end
+$var reg 32 -" info_gain_value [31:0] $end
+$var reg 32 ." j [31:0] $end
+$var reg 32 /" mdl_cost [31:0] $end
+$var reg 32 0" mdl_ops_counter [31:0] $end
+$var reg 32 1" module_size [31:0] $end
+$var reg 32 2" mu_accumulator [31:0] $end
+$var reg 3 3" mu_alu_op [2:0] $end
+$var reg 32 4" mu_alu_operand_a [31:0] $end
+$var reg 32 5" mu_alu_operand_b [31:0] $end
+$var reg 1 6" mu_alu_valid $end
+$var reg 6 7" next_module_id [5:0] $end
+$var reg 32 8" odd_count [31:0] $end
+$var reg 32 9" partition_ops_counter [31:0] $end
+$var reg 32 :" pc_reg [31:0] $end
+$var reg 32 ;" proposed_cost [31:0] $end
+$var reg 1 <" receipt_valid $end
+$var reg 32 =" receipt_value [31:0] $end
+$var reg 32 >" region_size [31:0] $end
+$var reg 32 ?" size_a [31:0] $end
+$var reg 32 @" size_b [31:0] $end
+$var reg 4 A" state [3:0] $end
+$var reg 32 B" swap_temp [31:0] $end
+$var reg 32 C" total_size [31:0] $end
+$scope module clz8_inst $end
+$var wire 8 D" x [7:0] $end
+$var reg 4 E" out [3:0] $end
+$upscope $end
 $scope module mu_alu_inst $end
 $var wire 1 0 clk $end
-$var wire 3 :" op [2:0] $end
-$var wire 32 ;" operand_a [31:0] $end
-$var wire 32 <" operand_b [31:0] $end
-$var wire 1 6 rst_n $end
-$var wire 1 *" valid $end
-$var parameter 3 =" OP_ADD $end
-$var parameter 3 >" OP_DIV $end
-$var parameter 3 ?" OP_INFO_GAIN $end
-$var parameter 3 @" OP_LOG2 $end
-$var parameter 3 A" OP_MUL $end
-$var parameter 3 B" OP_SUB $end
-$var parameter 32 C" Q16_MAX $end
-$var parameter 32 D" Q16_MIN $end
-$var parameter 32 E" Q16_ONE $end
-$var parameter 32 F" Q16_SHIFT $end
-$var reg 64 G" div_temp [63:0] $end
-$var reg 32 H" frac_log [31:0] $end
-$var reg 32 I" frac_part [31:0] $end
-$var reg 6 J" highest_bit [5:0] $end
-$var reg 32 K" integer_log2 [31:0] $end
-$var reg 6 L" leading_zeros [5:0] $end
-$var reg 32 M" log2_input [31:0] $end
-$var reg 8 N" lut_index [7:0] $end
-$var reg 64 O" mul_temp [63:0] $end
-$var reg 32 P" normalized [31:0] $end
-$var reg 1 O overflow $end
-$var reg 1 N ready $end
-$var reg 32 Q" result [31:0] $end
-$var reg 32 R" result_temp [31:0] $end
-$var reg 32 S" shift_amount [31:0] $end
-$var reg 6 T" state [5:0] $end
-$var reg 32 U" temp_result [31:0] $end
+$var wire 3 F" op [2:0] $end
+$var wire 32 G" operand_a [31:0] $end
+$var wire 32 H" operand_b [31:0] $end
+$var wire 1 8 rst_n $end
+$var wire 1 6" valid $end
+$var parameter 3 I" OP_ADD $end
+$var parameter 3 J" OP_DIV $end
+$var parameter 3 K" OP_INFO_GAIN $end
+$var parameter 3 L" OP_LOG2 $end
+$var parameter 3 M" OP_MUL $end
+$var parameter 3 N" OP_SUB $end
+$var parameter 32 O" Q16_MAX $end
+$var parameter 32 P" Q16_MIN $end
+$var parameter 32 Q" Q16_ONE $end
+$var parameter 32 R" Q16_SHIFT $end
+$var reg 64 S" div_temp [63:0] $end
+$var reg 32 T" frac_log [31:0] $end
+$var reg 32 U" frac_part [31:0] $end
+$var reg 6 V" highest_bit [5:0] $end
+$var reg 32 W" integer_log2 [31:0] $end
+$var reg 6 X" leading_zeros [5:0] $end
+$var reg 32 Y" log2_input [31:0] $end
+$var reg 8 Z" lut_index [7:0] $end
+$var reg 64 [" mul_temp [63:0] $end
+$var reg 32 \" normalized [31:0] $end
+$var reg 1 S overflow $end
+$var reg 1 R ready $end
+$var reg 32 ]" result [31:0] $end
+$var reg 32 ^" result_temp [31:0] $end
+$var reg 32 _" shift_amount [31:0] $end
+$var reg 6 `" state [5:0] $end
+$var reg 32 a" temp_result [31:0] $end
 $upscope $end
 $scope module mu_core_inst $end
 $var wire 1 0 clk $end
-$var wire 32 V" current_mu_cost [31:0] $end
-$var wire 1 W" instr_valid $end
-$var wire 32 X" instruction [31:0] $end
-$var wire 32 Y" memory_isolation [31:0] $end
-$var wire 6 Z" partition_count [5:0] $end
-$var wire 32 [" proposed_cost [31:0] $end
-$var wire 1 1" receipt_valid $end
-$var wire 32 \" receipt_value [31:0] $end
-$var wire 1 6 rst_n $end
-$var parameter 8 ]" OPCODE_MDLACC $end
-$var parameter 8 ^" OPCODE_PDISCOVER $end
-$var parameter 8 _" OPCODE_PMERGE $end
-$var parameter 8 `" OPCODE_PNEW $end
-$var parameter 8 a" OPCODE_PSPLIT $end
-$var parameter 32 b" STATUS_ALLOWED $end
-$var parameter 32 c" STATUS_CHECKING $end
-$var parameter 32 d" STATUS_DENIED_COST $end
-$var parameter 32 e" STATUS_DENIED_ISO $end
-$var parameter 32 f" STATUS_IDLE $end
-$var parameter 32 g" STATUS_RECEIPT_OK $end
-$var reg 32 h" core_status [31:0] $end
-$var reg 1 i" cost_decreasing $end
-$var reg 1 S cost_gate_open $end
-$var reg 1 R enforcement_active $end
-$var reg 32 j" expected_cost [31:0] $end
-$var reg 1 Q instr_allowed $end
-$var reg 32 k" last_instruction [31:0] $end
-$var reg 1 I partition_gate_open $end
-$var reg 1 l" partition_independent $end
-$var reg 1 G receipt_accepted $end
-$var reg 1 F receipt_required $end
+$var wire 32 b" current_mu_cost [31:0] $end
+$var wire 1 c" instr_valid $end
+$var wire 32 d" instruction [31:0] $end
+$var wire 32 e" memory_isolation [31:0] $end
+$var wire 6 f" partition_count [5:0] $end
+$var wire 32 g" proposed_cost [31:0] $end
+$var wire 1 <" receipt_valid $end
+$var wire 32 h" receipt_value [31:0] $end
+$var wire 1 8 rst_n $end
+$var parameter 8 i" OPCODE_MDLACC $end
+$var parameter 8 j" OPCODE_PDISCOVER $end
+$var parameter 8 k" OPCODE_PMERGE $end
+$var parameter 8 l" OPCODE_PNEW $end
+$var parameter 8 m" OPCODE_PSPLIT $end
+$var parameter 32 n" STATUS_ALLOWED $end
+$var parameter 32 o" STATUS_CHECKING $end
+$var parameter 32 p" STATUS_DENIED_COST $end
+$var parameter 32 q" STATUS_DENIED_ISO $end
+$var parameter 32 r" STATUS_IDLE $end
+$var parameter 32 s" STATUS_RECEIPT_OK $end
+$var reg 32 t" core_status [31:0] $end
+$var reg 1 u" cost_decreasing $end
+$var reg 1 W cost_gate_open $end
+$var reg 1 V enforcement_active $end
+$var reg 32 v" expected_cost [31:0] $end
+$var reg 1 U instr_allowed $end
+$var reg 32 w" last_instruction [31:0] $end
+$var reg 1 M partition_gate_open $end
+$var reg 1 x" partition_independent $end
+$var reg 1 K receipt_accepted $end
+$var reg 1 J receipt_required $end
 $scope function check_partition_independence $end
-$var reg 32 m" instr [31:0] $end
-$var reg 32 n" mem_iso [31:0] $end
-$var reg 6 o" part_count [5:0] $end
+$var reg 32 y" instr [31:0] $end
+$var reg 32 z" mem_iso [31:0] $end
+$var reg 6 {" part_count [5:0] $end
 $upscope $end
 $upscope $end
 $scope task execute_emit $end
-$var reg 8 p" value_a [7:0] $end
-$var reg 8 q" value_b [7:0] $end
+$var reg 8 |" value_a [7:0] $end
+$var reg 8 }" value_b [7:0] $end
 $upscope $end
 $scope task execute_ljoin $end
-$var reg 8 r" cert_a [7:0] $end
-$var reg 8 s" cert_b [7:0] $end
+$var reg 8 ~" cert_a [7:0] $end
+$var reg 8 !# cert_b [7:0] $end
 $upscope $end
 $scope task execute_mdlacc $end
-$var reg 8 t" module_id [7:0] $end
-$scope begin $unm_blk_59 $end
-$var integer 32 u" bit_length [31:0] $end
-$var integer 32 v" k [31:0] $end
-$var integer 32 w" max_element [31:0] $end
+$var reg 8 "# module_id [7:0] $end
+$scope begin $unm_blk_80 $end
+$var integer 32 ## bit_length [31:0] $end
+$var integer 32 $# k [31:0] $end
+$var integer 32 %# max_element [31:0] $end
 $upscope $end
 $upscope $end
 $scope task execute_oracle_halts $end
-$var reg 8 x" desc_ptr_a [7:0] $end
-$var reg 8 y" desc_ptr_b [7:0] $end
+$var reg 8 &# desc_ptr_a [7:0] $end
+$var reg 8 '# desc_ptr_b [7:0] $end
 $upscope $end
 $scope task execute_pdiscover $end
-$var reg 8 z" after_count [7:0] $end
-$var reg 8 {" before_count [7:0] $end
+$var reg 8 (# after_count [7:0] $end
+$var reg 8 )# before_count [7:0] $end
 $upscope $end
 $scope task execute_pmerge $end
-$var reg 8 |" module_a [7:0] $end
-$var reg 8 }" module_b [7:0] $end
+$var reg 8 *# module_a [7:0] $end
+$var reg 8 +# module_b [7:0] $end
 $upscope $end
 $scope task execute_pnew $end
-$var reg 8 ~" region_spec_a [7:0] $end
-$var reg 8 !# region_spec_b [7:0] $end
+$var reg 8 ,# region_spec_a [7:0] $end
+$var reg 8 -# region_spec_b [7:0] $end
 $upscope $end
 $scope task execute_psplit $end
-$var reg 8 "# module_id [7:0] $end
-$var reg 8 ## predicate [7:0] $end
+$var reg 8 .# module_id [7:0] $end
+$var reg 8 /# predicate [7:0] $end
 $upscope $end
 $scope task execute_xfer $end
-$var reg 8 $# dest [7:0] $end
-$var reg 8 %# src [7:0] $end
+$var reg 8 0# dest [7:0] $end
+$var reg 8 1# src [7:0] $end
 $upscope $end
 $scope task execute_xor_add $end
-$var reg 8 &# source_row [7:0] $end
-$var reg 8 '# target_row [7:0] $end
+$var reg 8 2# dest [7:0] $end
+$var reg 8 3# src [7:0] $end
 $upscope $end
 $scope task execute_xor_load $end
-$var reg 8 (# data_high [7:0] $end
-$var reg 8 )# row [7:0] $end
+$var reg 8 4# addr [7:0] $end
+$var reg 8 5# dest [7:0] $end
 $upscope $end
 $scope task execute_xor_rank $end
+$var reg 32 6# cnt [31:0] $end
+$var reg 8 7# dest [7:0] $end
+$var reg 8 8# src [7:0] $end
+$var reg 32 9# v [31:0] $end
+$var integer 32 :# k [31:0] $end
 $upscope $end
 $scope task execute_xor_swap $end
-$var reg 8 *# row1 [7:0] $end
-$var reg 8 +# row2 [7:0] $end
+$var reg 8 ;# a [7:0] $end
+$var reg 8 <# b [7:0] $end
 $upscope $end
 $upscope $end
 $upscope $end
 $enddefinitions $end
 $comment Show the parameter values. $end
 $dumpall
-b101 g"
-b0 f"
-b100 e"
-b11 d"
-b1 c"
-b10 b"
-b1 a"
-b0 `"
-b10 _"
-b110 ^"
-b101 ]"
-b10000 F"
-b10000000000000000 E"
-b10000000000000000000000000000000 D"
-b1111111111111111111111111111111 C"
-b1 B"
-b10 A"
-b100 @"
-b101 ?"
-b11 >"
-b0 ="
-b100 v
-b110 u
-b101 t
-b11 s
-b100 r
-b0 q
-b10 p
+b101 s"
+b0 r"
+b100 q"
+b11 p"
+b1 o"
+b10 n"
+b1 m"
+b0 l"
+b10 k"
+b110 j"
+b101 i"
+b10000 R"
+b10000000000000000 Q"
+b10000000000000000000000000000000 P"
+b1111111111111111111111111111111 O"
+b1 N"
+b10 M"
+b100 L"
+b101 K"
+b11 J"
+b0 I"
+b1001 ""
+b101 !"
+b11 ~
+b100 }
+b0 |
+b10 {
+b1 z
+b110 y
+b1000 x
+b111 w
+b10000000000 v
+b1100 u
+b1101 t
+b1010 s
+b1011 r
+b111 q
+b1000 p
 b1 o
-b110 n
-b10000000000 m
-b1100 l
-b1101 k
-b1010 j
-b1011 i
-b111 h
-b1000 g
-b1 f
-b0 e
-b10 d
-b110 c
-b1111 b
-b101 a
-b100 `
-b11 _
-b11111111 ^
-b1110 ]
-b1000000 \
-b11111111111111111111111111111111 [
+b0 n
+b10 m
+b110 l
+b1111 k
+b101 j
+b100 i
+b11 h
+b11111111 g
+b1110 f
+b1000000 e
+b11111111111111111111111111111111 d
+b1 c
+b11 b
+b100 a
+b101 `
+b10 _
+b0 ^
+b11 ]
+b10 \
+b100 [
 b1 Z
-b11 Y
-b100 X
-b101 W
-b10 V
-b0 U
 $end
 #0
 $dumpvars
+bx <#
+bx ;#
+bx :#
+bx 9#
+bx 8#
+bx 7#
+bx 6#
+bx 5#
+bx 4#
+bx 3#
+bx 2#
+bx 1#
+bx 0#
+bx /#
+bx .#
+bx -#
+bx ,#
 bx +#
 bx *#
 bx )#
@@ -344,128 +385,123 @@ bx |"
 bx {"
 bx z"
 bx y"
-bx x"
-bx w"
-bx v"
-bx u"
-bx t"
-bx s"
-bx r"
-bx q"
-bx p"
-bx o"
-bx n"
-bx m"
-1l"
-b0 k"
-b0 j"
-0i"
-b0 h"
+1x"
+b0 w"
+b0 v"
+0u"
+b0 t"
+bx h"
+bx g"
+b1 f"
+b11001010111111101011101010111110 e"
+b1010000000000000000000000000 d"
+0c"
+b0 b"
+bx a"
+b0 `"
+bx _"
+bx ^"
+b0 ]"
 bx \"
 bx ["
-b1 Z"
-b11001010111111101011101010111110 Y"
-b1011000000110000000000000000 X"
-0W"
-b0 V"
+bx Z"
+bx Y"
+bx X"
+bx W"
+bx V"
 bx U"
-b0 T"
+bx T"
 bx S"
-bx R"
-b0 Q"
-bx P"
-bx O"
-bx N"
-bx M"
-bx L"
-bx K"
-bx J"
-bx I"
 bx H"
 bx G"
-bx <"
+bx F"
+bx E"
+bx D"
+bx C"
+bx B"
+b0 A"
+bx @"
+bx ?"
+bx >"
+bx ="
+x<"
 bx ;"
-bx :"
-bx 9"
+b0 :"
+b0 9"
 bx 8"
-b0 7"
-bx 6"
+b1 7"
+x6"
 bx 5"
 bx 4"
 bx 3"
-bx 2"
-x1"
-bx 0"
+b0 2"
+bx 1"
+b0 0"
 bx /"
-b0 ."
-b0 -"
-bx ,"
-b1 +"
-x*"
-bx )"
-bx ("
-bx '"
+b10000000000 ."
+bx -"
+b0 ,"
+b100000000 +"
+bx *"
+b0 )"
+b0 ("
+b0 '"
 b0 &"
 bx %"
-b0 $"
+bx $"
 bx #"
-b10000000000 ""
-bx !"
-b0 ~
-b1000000 }
-bx |
-bx {
-b0 z
-b0 y
-b0 x
-b0 w
+bx Y
+b0 X
+0W
+1V
+0U
 b0 T
 0S
-1R
-0Q
-b1100000000 P
-0O
-0N
-b0 M
-b1011 L
-b11 K
-b0 J
-0I
-b1100000000 H
-0G
-0F
+0R
+b0 Q
+b1010 P
+b0 O
+b0 N
+0M
+b0 L
+0K
+0J
+b0 I
+bx H
+b0 G
+b0 F
 b0 E
-bx D
+b0 D
 b0 C
 b0 B
-b0 A
-b0 @
+bx A
+b1010000000000000000000000000 @
 b0 ?
 b0 >
-bx =
-b1011000000110000000000000000 <
-b0 ;
+b1010000000000000000000000000 =
+b0 <
+b100000000 ;
 b0 :
-b1011000000110000000000000000 9
-b0 8
-b100000000 7
+b0 9
+08
+bx 7
 06
 bx 5
-04
-b0 3
-bx 2
-01
+b0 4
+bx 3
+02
+bx 1
 00
 b0 /
 b0 .
 b0 -
-b1100000000 ,
+b0 ,
 0+
 b0 *
 b0 )
 b0 (
 b0 '
-b1100000000 &
+b0 &
 0%
 b0 $
 0#
@@ -473,505 +509,505 @@ b0 "
 1!
 $end
 #5000
-b101001 3
-b101001 @
-b10000000000 ""
-b1000000 }
+b101001 4
+b101001 D
+b10000000000 ."
+b100000000 +"
 10
 #10000
 00
 #15000
-b10000000000 ""
-b1000000 }
+b10000000000 ."
+b100000000 +"
 10
 #20000
 00
-16
+18
+#21000
+b100000000 ;
 #25000
-1W"
-b1 7"
+1c"
+b1 A"
 10
 #30000
 00
 #35000
-1S
-1I
-1Q
-b0 T
-b0 h"
-b1011000000110000000000000000 k"
-0W"
-b10 7"
+1W
+1M
+1U
+b0 X
+b0 t"
+b1010000000000000000000000000 w"
+0c"
+b10 A"
 10
 #40000
 00
 #45000
-b1100000001 ,
-b1100000001 P
-b1100000001 &
-b1100000001 H
-b1 J
-b1011000000110000000100000000 9
-b1011000000110000000100000000 X"
-b1011000000110000000100000000 <
-b0 7"
+b100000001 ,
+b100000001 T
+b100000001 &
+b100000001 L
+b1 O
+b1 N
+b1010000000010000000100000000 =
+b1010000000010000000100000000 d"
+b1010000000010000000100000000 @
+b0 A"
 b100 )
-b100 ?
-b100 '
 b100 C
-b100 ."
-b1000 $
-b1000 E
-b1000 y
-b1 (
-b1 B
-b1 -"
-0I
-0S
-0Q
-b110 }
-b0 &#
-b11 '#
+b100 '
+b100 G
+b100 :"
+b111 $
+b111 I
+b111 ("
+0M
+0W
+0U
+b0 4#
+b0 5#
 10
 #50000
 00
 #55000
-1W"
-b1 7"
-b0 3
-b0 @
+1c"
+b1 A"
+b10010 4
+b10010 D
 10
 #60000
 00
 #65000
-0W"
-b10 7"
-1S
-1I
-1Q
-b0 T
-b0 h"
-b1011000000110000000100000000 k"
+0c"
+b10 A"
+1W
+1M
+1U
+b0 X
+b0 t"
+b1010000000010000000100000000 w"
 10
 #70000
 00
 #75000
-b1100000010 ,
-b1100000010 P
-b1100000010 &
-b1100000010 H
-b10 J
-b1011000000110000001000000000 9
-b1011000000110000001000000000 X"
-b1011000000110000001000000000 <
-b0 7"
+b1000000010 ,
+b1000000010 T
+b1000000010 &
+b1000000010 L
+b10 O
+b10 N
+b1010000000100000001000000000 =
+b1010000000100000001000000000 d"
+b1010000000100000001000000000 @
+b0 A"
 b1000 )
-b1000 ?
-b1000 '
 b1000 C
-b1000 ."
-b10 (
-b10 B
-b10 -"
-0I
-0S
-0Q
-b110 }
-b1 &#
+b1000 '
+b1000 G
+b1000 :"
+0M
+0W
+0U
+b1 4#
+b1 5#
 10
 #80000
 00
 #85000
-1W"
-b1 7"
+1c"
+b1 A"
+b100010 4
+b100010 D
 10
 #90000
 00
 #95000
-0W"
-b10 7"
-1S
-1I
-1Q
-b0 T
-b0 h"
-b1011000000110000001000000000 k"
+0c"
+b10 A"
+1W
+1M
+1U
+b0 X
+b0 t"
+b1010000000100000001000000000 w"
 10
 #100000
 00
 #105000
-b11 ,
-b11 P
-b11 &
-b11 H
-b0 K
-b11 J
-b1011000000000000001100000000 9
-b1011000000000000001100000000 X"
-b1011000000000000001100000000 <
-b0 7"
+b1100000011 ,
+b1100000011 T
+b1100000011 &
+b1100000011 L
+b11 O
+b11 N
+b1010000000110000001100000000 =
+b1010000000110000001100000000 d"
+b1010000000110000001100000000 @
+b0 A"
 b1100 )
-b1100 ?
-b1100 '
 b1100 C
-b1100 ."
-b11 (
-b11 B
-b11 -"
-0I
-0S
-0Q
-b110 }
-b10 &#
+b1100 '
+b1100 G
+b1100 :"
+0M
+0W
+0U
+b10 4#
+b10 5#
 10
 #110000
 00
 #115000
-1W"
-b1 7"
+1c"
+b1 A"
+b11 4
+b11 D
 10
 #120000
 00
 #125000
-0W"
-b10 7"
-1S
-1I
-1Q
-b0 T
-b0 h"
-b1011000000000000001100000000 k"
+0c"
+b10 A"
+1W
+1M
+1U
+b0 X
+b0 t"
+b1010000000110000001100000000 w"
 10
 #130000
 00
 #135000
-b100000011 ,
-b100000011 P
-b100000011 &
-b100000011 H
-b1 K
-b1011000000010000001100000000 9
-b1011000000010000001100000000 X"
-b1011000000010000001100000000 <
-b0 7"
+b1100000000 ,
+b1100000000 T
+b1100000000 &
+b1100000000 L
+b1011 P
+b0 N
+b1011000000110000000000000000 =
+b1011000000110000000000000000 d"
+b1011000000110000000000000000 @
+b0 A"
 b10000 )
-b10000 ?
-b10000 '
 b10000 C
-b10000 ."
-b100 (
-b100 B
-b100 -"
-0I
-0S
-0Q
-b110 }
-b11 &#
-b0 '#
+b10000 '
+b10000 G
+b10000 :"
+0M
+0W
+0U
+b11 4#
+b11 5#
 10
 #140000
 00
 #145000
-1W"
-b1 7"
+1c"
+b1 A"
+b0 4
+b0 D
 10
 #150000
 00
 #155000
-0W"
-b10 7"
-1S
-1I
-1Q
-b0 T
-b0 h"
-b1011000000010000001100000000 k"
+0c"
+b10 A"
+1W
+1M
+1U
+b0 X
+b0 t"
+b1011000000110000000000000000 w"
 10
 #160000
 00
 #165000
-b1000000011 ,
-b1000000011 P
-b1000000011 &
-b1000000011 H
-b10 K
-b1011000000100000001100000000 9
-b1011000000100000001100000000 X"
-b1011000000100000001100000000 <
-b0 7"
+b1100000001 ,
+b1100000001 T
+b1100000001 &
+b1100000001 L
+b1 N
+b1011000000110000000100000000 =
+b1011000000110000000100000000 d"
+b1011000000110000000100000000 @
+b0 A"
 b10100 )
-b10100 ?
-b10100 '
 b10100 C
-b10100 ."
-b101 (
-b101 B
-b101 -"
-0I
-0S
-0Q
-b110 }
-b1 '#
+b10100 '
+b10100 G
+b10100 :"
+b1000 $
+b1000 I
+b1000 ("
+0M
+0W
+0U
+b0 3#
+b11 2#
 10
 #170000
 00
 #175000
-1W"
-b1 7"
+1c"
+b1 A"
 10
 #180000
 00
 #185000
-0W"
-b10 7"
-1S
-1I
-1Q
-b0 T
-b0 h"
-b1011000000100000001100000000 k"
+0c"
+b10 A"
+1W
+1M
+1U
+b0 X
+b0 t"
+b1011000000110000000100000000 w"
 10
 #190000
 00
 #195000
-b1100000000 ,
-b1100000000 P
-b1100000000 &
-b1100000000 H
-b11 K
-b0 J
-b1011000000110000000000000000 9
-b1011000000110000000000000000 X"
-b1011000000110000000000000000 <
-b0 7"
+b11 ,
+b11 T
+b11 &
+b11 L
+b1100 P
+b0 O
+b11 N
+b1100000000000000001100000000 =
+b1100000000000000001100000000 d"
+b1100000000000000001100000000 @
+b0 A"
 b11000 )
-b11000 ?
-b11000 '
 b11000 C
-b11000 ."
-b110 (
-b110 B
-b110 -"
-0I
-0S
-0Q
-b110 }
-b10 '#
+b11000 '
+b11000 G
+b11000 :"
+0M
+0W
+0U
+b1 3#
 10
 #200000
 00
 #205000
-1W"
-b1 7"
-b10010 3
-b10010 @
+1c"
+b1 A"
 10
 #210000
 00
 #215000
-0W"
-b10 7"
-1S
-1I
-1Q
-b0 T
-b0 h"
-b1011000000110000000000000000 k"
+0c"
+b10 A"
+1W
+1M
+1U
+b0 X
+b0 t"
+b1100000000000000001100000000 w"
 10
 #220000
 00
 #225000
-b100000010 ,
-b100000010 P
-b100000010 &
-b100000010 H
-b1 K
-b10 J
-b1011000000010000001000000000 9
-b1011000000010000001000000000 X"
-b1011000000010000001000000000 <
-b0 7"
+b1000000100 ,
+b1000000100 T
+b1000000100 &
+b1000000100 L
+b111 P
+b10 O
+b100 N
+b111000000100000010000000000 =
+b111000000100000010000000000 d"
+b111000000100000010000000000 @
+b0 A"
 b11100 )
-b11100 ?
-b11100 '
 b11100 C
-b11100 ."
-b111 (
-b111 B
-b111 -"
-0I
-0S
-0Q
-b110 }
-b0 &#
-b11 '#
+b11100 '
+b11100 G
+b11100 :"
+b1001 $
+b1001 I
+b1001 ("
+0M
+0W
+0U
+b101001 B"
+b11 <#
+b0 ;#
 10
 #230000
 00
 #235000
-1W"
-b1 7"
-b0 3
-b0 @
+1c"
+b1 A"
 10
 #240000
 00
 #245000
-0W"
-b10 7"
-1S
-1I
-1Q
-b0 T
-b0 h"
-b1011000000010000001000000000 k"
+0c"
+b10 A"
+1W
+1M
+1U
+b0 X
+b0 t"
+b111000000100000010000000000 w"
 10
 #250000
 00
 #255000
-b110 ,
-b110 P
-b110 &
-b110 H
-b1110 L
-b0 K
-b110 J
-b1110000000000000011000000000 9
-b1110000000000000011000000000 X"
-b1110000000000000011000000000 <
-b0 7"
+b10100000100 ,
+b10100000100 T
+b10100000100 &
+b10100000100 L
+b1101 P
+b101 O
+b1101000001010000010000000000 =
+b1101000001010000010000000000 d"
+b1101000001010000010000000000 @
+b0 A"
 b100000 )
-b100000 ?
-b100000 '
 b100000 C
-b100000 ."
-b1000 (
-b1000 B
-b1000 -"
-0I
-0S
-0Q
-b110 }
-b10 &#
-b1 '#
+b100000 '
+b100000 G
+b100000 :"
+b110 $
+b110 I
+b110 ("
+0M
+0W
+0U
+b100 0#
+b10 1#
 10
 #260000
 00
 #265000
-1W"
-b1 7"
+1c"
+b1 A"
 10
 #270000
 00
 #275000
-0W"
-b10 7"
-1S
-1I
-1Q
-b0 T
-b0 h"
-b1110000000000000011000000000 k"
+0c"
+b10 A"
+1W
+1M
+1U
+b0 X
+b0 t"
+b1101000001010000010000000000 w"
 10
 #280000
 00
 #285000
 b0 ,
-b0 P
+b0 T
 b0 &
-b0 H
-b11111111 L
-b0 J
-b11111111000000000000000000000000 9
-b11111111000000000000000000000000 X"
-b11111111000000000000000000000000 <
-b0 7"
+b0 L
+b11111111 P
+b0 O
+b0 N
+b11111111000000000000000000000000 =
+b11111111000000000000000000000000 d"
+b11111111000000000000000000000000 @
+b0 A"
 b100100 )
-b100100 ?
-b100100 '
 b100100 C
-b100100 ."
-b1100000000000000000 $
-b1100000000000000000 E
-b1100000000000000000 y
-b110 -
-b110 ;
-b110 ~
-0I
-0S
-0Q
-b110 q"
-b0 p"
+b100100 '
+b100100 G
+b100100 :"
+b10 $
+b10 I
+b10 ("
+0M
+0W
+0U
+b100000 :#
+b10 6#
+b100010 9#
+b100 8#
+b101 7#
 10
 #290000
 00
 #295000
-1W"
-b1 7"
+1c"
+b1 A"
 10
 #300000
 00
 #305000
-0W"
-b10 7"
-1S
-1I
-1Q
-b0 T
-b0 h"
-b11111111000000000000000000000000 k"
+0c"
+b10 A"
+1W
+1M
+1U
+b0 X
+b0 t"
+b11111111000000000000000000000000 w"
 10
 #310000
 00
 #315000
-1*"
-b0 )"
-b0 <"
-b0 ("
-b0 ;"
-b0 '"
-b0 :"
-0I
-0S
-0Q
-b0 #"
-b0 %"
-b0 t"
+b111 A"
+b0 $"
+b1 #"
+16"
+b0 5"
+b0 H"
+b0 4"
+b0 G"
+b0 3"
+b0 F"
+0M
+0W
+0U
+b0 /"
+b0 1"
+b0 "#
 10
 #320000
 00
 #325000
-11"
-b0 2"
-b0 \"
-b1 *
-b1 >
-b1 $"
-b101 $
-b101 E
-b101 y
-0*"
-1N
-b0 U"
+1R
+b0 a"
 10
 #330000
 00
 #335000
-b0 L
-b0 9
-b0 X"
-b0 <
-b0 7"
-b101000 )
-b101000 ?
-b101000 '
-b101000 C
-b101000 ."
-01"
+b1001 A"
+1<"
+b0 ="
+b0 h"
+b1 *
+b1 B
+b1 0"
+b101 $
+b101 I
+b101 ("
+06"
+1R
 10
 #340000
 00
 #345000
-1W"
-b1 7"
+b0 P
+b0 =
+b0 d"
+b0 @
+b0 A"
+b101000 )
+b101000 C
+b101000 '
+b101000 G
+b101000 :"
+0<"
 10
+#350000
+00
+#355000
+1c"
+b1 A"
+10
+b100000000 ;

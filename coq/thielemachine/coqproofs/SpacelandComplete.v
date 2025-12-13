@@ -89,6 +89,36 @@ Module Dynamics.
     exists t, valid_trace t /\ trace_init t = s1 /\ trace_final t = s2.
   
   (** Observable projection *)
+  Fixpoint labels (t : Trace) : list Label :=
+    match t with
+    | TNil _ => []
+    | TCons _ l t' => l :: labels t'
+    end.
+
+  Definition next_partition (p : Partition) (l : Label) : Partition :=
+    match l with
+    | LCompute => p
+    | LSplit i => split_module p i
+    end.
+
+  Definition cost_of_label (l : Label) : Z :=
+    match l with
+    | LCompute => 0%Z
+    | LSplit _ => 1%Z
+    end.
+
+  Fixpoint partitions_from (p : Partition) (ls : list Label) : list Partition :=
+    match ls with
+    | [] => [p]
+    | l :: ls' => p :: partitions_from (next_partition p l) ls'
+    end.
+
+  Fixpoint mu_from (ls : list Label) : list Z :=
+    match ls with
+    | [] => []
+    | l :: ls' => cost_of_label l :: mu_from ls'
+    end.
+
   Fixpoint partition_seq (t : Trace) : list Partition :=
     match t with
     | TNil s => [fst s]
@@ -104,10 +134,53 @@ Module Dynamics.
   
   Definition observable (t : Trace) := (partition_seq t, mu_seq t).
 
-  Lemma mu_seq_cons : forall s l t',
-    mu_seq (TCons s l t') = mu_cost s l (trace_init t') :: mu_seq t'.
+  Lemma valid_trace_cons : forall s l t',
+    valid_trace (TCons s l t') -> step s l (trace_init t') /\ valid_trace t'.
   Proof.
-    intros. destruct t'; reflexivity.
+    intros s l t' Hv.
+    destruct t' as [s' | s' l' t'']; simpl in Hv.
+    - split; [assumption | exact I].
+    - exact Hv.
+  Qed.
+
+  Lemma step_fst : forall s l s',
+    step s l s' -> fst s' = next_partition (fst s) l.
+  Proof.
+    intros [p mu] l [p' mu'] H.
+    destruct l; inversion H; subst; simpl; reflexivity.
+  Qed.
+
+  Lemma step_cost : forall s l s',
+    step s l s' -> mu_cost s l s' = cost_of_label l.
+  Proof.
+    intros [p mu] l [p' mu'] H.
+    destruct l; inversion H; subst; unfold mu_cost; simpl; lia.
+  Qed.
+
+  Lemma partition_seq_by_labels : forall t,
+    valid_trace t -> partition_seq t = partitions_from (fst (trace_init t)) (labels t).
+  Proof.
+    intros t Hv.
+    induction t as [s | s l t' IH]; simpl in *.
+    - reflexivity.
+    - destruct (valid_trace_cons s l t' Hv) as [Hstep Hv'].
+      rewrite (IH Hv').
+      rewrite (step_fst _ _ _ Hstep).
+      reflexivity.
+  Qed.
+
+  Lemma mu_seq_by_labels : forall t,
+    valid_trace t -> mu_seq t = mu_from (labels t).
+  Proof.
+    intros t Hv.
+    induction t as [s | s l t' IH]; simpl in *.
+    - reflexivity.
+    - destruct t' as [s' | s' l' t'']; simpl in *.
+      + rewrite (step_cost _ _ _ Hv). reflexivity.
+      + destruct Hv as [Hstep Hv'].
+        rewrite (step_cost _ _ _ Hstep).
+        rewrite (IH Hv').
+        reflexivity.
   Qed.
   
   (** ===================================================================
@@ -123,22 +196,24 @@ Module Dynamics.
     trace_init t1 = s1 ->
     trace_init t2 = s2 ->
     (* Same label sequence *)
-    (fix get_labels (t : Trace) : list Label :=
-      match t with
-      | TNil _ => []
-      | TCons _ l t' => l :: get_labels t'
-      end) t1 = 
-    (fix get_labels (t : Trace) : list Label :=
-      match t with
-      | TNil _ => []
-      | TCons _ l t' => l :: get_labels t'
-      end) t2 ->
+    labels t1 = labels t2 ->
     (* Then observables differ only by constant μ offset *)
     partition_seq t1 = partition_seq t2 /\
     mu_seq t2 = mu_seq t1. (* Δμ values identical *)
   Proof.
-    (* TODO: Fix pattern matching - trace type mismatch *)
-  Admitted.
+    intros p mu1 mu2 t1 t2 s1 s2 Hv1 Hv2 Hi1 Hi2 Hlabels.
+    subst s1 s2.
+    split.
+    - rewrite (partition_seq_by_labels t1 Hv1).
+      rewrite (partition_seq_by_labels t2 Hv2).
+      simpl in Hi1, Hi2.
+      rewrite Hi1, Hi2.
+      simpl.
+      now rewrite Hlabels.
+    - rewrite (mu_seq_by_labels t1 Hv1).
+      rewrite (mu_seq_by_labels t2 Hv2).
+      now rewrite Hlabels.
+  Qed.
 
   (** ===================================================================
       Different partitions lead to different observable futures.
