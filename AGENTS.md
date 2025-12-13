@@ -1,8 +1,55 @@
 # Agent workflow for The Thiele Machine
 
-This repository now has Coq and Yosys toolchains installed in the build image. Keep the following rules in mind when iterating:
+This repo’s north star is **3-layer isomorphism**:
 
-## Toolchain Installation
+- **Coq kernel semantics** (source of truth)
+- **Extracted executable semantics** (`build/extracted_vm_runner`)
+- **Python VM** (`thielecpu/vm.py` + `thielecpu/state.py`)
+- **Verilog RTL** (`thielecpu/hardware/thiele_cpu.v`)
+
+The job of an agent is not to “make tests pass” in one layer; it’s to ensure the same step semantics and state projection hold across all layers.
+
+## The Inquisitor (required mindset)
+
+The **Inquisitor** is the role that makes progress non-illusory.
+
+**Inquisitor responsibilities**:
+- Treat Coq semantics (and its extracted runner) as authoritative.
+- For every opcode or state-field change: produce a **minimal trace** that distinguishes behaviors.
+- Convert that trace into a **3-way executable gate** (Python ↔ extracted runner ↔ RTL).
+- When divergence is found, reduce it to:
+  - a single opcode, a single instruction word, and a small state snapshot.
+- If a Coq proof must be `Admitted` due to unification/opacity limits, require:
+  - a corresponding executable test (Python VM) and
+  - an entry in `ADMIT_REPORT.txt` / `ADMIT_AUDIT_REPORT.md` explaining scope + validation.
+
+**Inquisitor definition of “done”**:
+- The same trace produces the same observable state across all three executors.
+- The gate is deterministic and CI-stable (no flaky pipes; robust JSON parsing).
+
+## Execution gates (how we enforce isomorphism)
+
+We enforce isomorphism by comparing **concrete executions**, not by eyeballing implementations.
+
+**Primary gate**:
+- `bash scripts/forge_artifact.sh`
+  - builds Coq + extraction artifacts
+  - regenerates shared opcode artifacts
+  - compiles and runs RTL simulations
+  - runs pytest gates
+
+**Targeted, fast gates**:
+- `pytest -q tests/test_rtl_compute_isomorphism.py`
+- `pytest -q tests/test_partition_isomorphism_minimal.py`
+
+**Extracted semantics runner**:
+- `build/extracted_vm_runner <trace.txt>` prints a final JSON snapshot including `pc`, `mu`, `err`, `regs`, `mem`, `csrs`, and `graph`.
+- Prefer `INIT_REG` / `INIT_MEM` directives in traces when you need controlled initial state.
+
+**RTL state export**:
+- `thielecpu/hardware/thiele_cpu_tb.v` prints a final JSON snapshot; tests decode the first JSON object from stdout.
+
+## Toolchain installation
 Before working with this repository, ensure the required toolchains are installed:
 
 - **Coq**: Install the Coq proof assistant and IDE:
@@ -257,13 +304,10 @@ def test_single_tm_step_matches_cpu():
 - Avoid adding new axioms unless there is a clear external dependency (e.g., oracle or external partition code).
 
 ## Proof, RTL, and VM work
-- Keep Coq proofs admit-free. If you must introduce or retain an axiom, document why it is unavoidable and update `coq/ADMIT_REPORT.txt` and `coq/AXIOM_INVENTORY.md` in the same change.
-- Prefer turning axioms into lemmas with proofs; avoid `Admitted.` in new code.
-- When altering the Verilog/RTL or VM generation flow, ensure it remains isomorphic to the proven Coq model. Regenerate both Coq artifacts and the Verilog outputs as needed.
-- Use test-driven development: add or update Coq tests before modifying proofs; for hardware changes, add yosys/iverilog checks where applicable.
-- If you land in an environment that does not already have the toolchain, install the Coq compiler along with Verilog/yosys utilities (`sudo apt-get update && sudo apt-get install -y coq yosys iverilog`) before running the required builds. If the package names differ, prefer the distro packages for `coq`, `coqide`, `yosys`, and `iverilog` so the end-to-end VM/RTL pipeline stays reproducible.
-- Keep the Coq→Verilog→VM chain healthy: after updating proofs, regenerate RTL artifacts (via the existing `scripts/synth.ys` or Makefile targets) and re-run the Python VM regression suite to ensure the extracted behavior matches the proven model.
-- Favor TDD when refining the Python VM: add unit tests in `tests/` mirroring the Coq obligations before modifying VM code so coverage tracks proof intent.
+- Keep Coq proofs admit-free. If you must introduce or retain an axiom/admit, document it and add an executable validation gate.
+- Prefer replacing axioms/admitted blocks with lemma proofs over time; minimize scope when temporarily required.
+- When altering RTL or the Python VM, **mirror the extracted semantics** and add/extend a 3-way test gate.
+- Favor TDD: write the smallest failing trace/test first, then implement fixes.
 
 ## Documentation hygiene
 - Remove or archive stale or inaccurate Markdown documents. Keep only current, accurate guidance in active locations.
@@ -271,10 +315,10 @@ def test_single_tm_step_matches_cpu():
 
 ## Required commands before committing
 - Run `make -C coq core` after touching files under `coq/`.
-- Run the specific `.vo` targets or RTL builds you altered, plus `make -C coq bridge-timed BRIDGE_TIMEOUT=900` when working on bridge proofs.
-- For RTL/VM changes, run yosys synthesis checks relevant to the modified modules (e.g., `yosys -s scripts/synth.ys`).
-- **Use monitoring tools to verify proofs compile**: `./scripts/coq_monitor.sh <target.vo>` to check memory usage and catch errors early.
-- **Run proof audit before major commits**: `./scripts/audit_coq_proofs.sh` to ensure no new admits/axioms were introduced.
+- Run the smallest relevant pytest gates (then the full forge pipeline when appropriate).
+- For RTL changes, run yosys/iverilog checks relevant to the modified modules.
+- Use `./scripts/coq_monitor.sh <target.vo>` to catch heavy proof failures early.
+- Use `./scripts/audit_coq_proofs.sh` to confirm no unexpected admits/axioms were introduced.
 
 ### Build Verification Commands
 ```bash
@@ -296,11 +340,14 @@ make -C coq thielemachine/verification/BridgeDefinitions.vo && echo "✅ Bridge 
 
 ### Quick Reproduce
 ```bash
-# Compile the Simulation bridge to verify the current errors
-make -C coq thielemachine/coqproofs/Simulation.vo
+# Compile a specific proof file
+make -C coq thielemachine/verification/BridgeDefinitions.vo
 
-# Run the timed bridge build for all bridge proofs
+# Run the timed bridge build (when working on bridge proofs)
 make -C coq bridge-timed BRIDGE_TIMEOUT=900
+
+# Run the full end-to-end foundry pipeline (preferred)
+bash scripts/forge_artifact.sh
 ```
 
 ## Progress reporting
