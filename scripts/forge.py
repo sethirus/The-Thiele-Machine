@@ -156,9 +156,6 @@ def render_verilog_header(tags: list[str], mnemonic_to_opcode: dict[str, int]) -
         "// - thielecpu/isa.py (Python reference)",
         "// - thielecpu/hardware/thiele_cpu.v (RTL decode)",
         "",
-        "`ifndef THIELE_GENERATED_OPCODES_VH",
-        "`define THIELE_GENERATED_OPCODES_VH",
-        "",
         "// Instruction opcodes",
     ]
 
@@ -172,7 +169,7 @@ def render_verilog_header(tags: list[str], mnemonic_to_opcode: dict[str, int]) -
         opcode = mnemonic_to_opcode[mnemonic]
         lines.append(f"localparam [7:0] OPCODE_{mnemonic} = 8'h{opcode:02X};")
 
-    lines.extend(["", "`endif", ""])  # newline at EOF
+    lines.append("")  # newline at EOF
     return "\n".join(lines)
 
 

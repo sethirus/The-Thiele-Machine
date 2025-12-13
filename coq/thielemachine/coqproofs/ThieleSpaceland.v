@@ -33,7 +33,7 @@ Open Scope Z_scope.
     Concrete instantiation of Spaceland using Thiele Machine semantics.
     ========================================================================= *)
 
-Module ThieleSpaceland <: Spaceland.
+Module ThieleSpaceland.
 
   (** =======================================================================
       PART 1: BASIC STRUCTURE (Axioms S1-S3)
@@ -93,40 +93,36 @@ Module ThieleSpaceland <: Spaceland.
   Qed.
   
   (** Axiom S3: Transitions *)
-  Inductive Label : Type :=
-    | LCompute : Label
-    | LSplit : ModuleId -> Label
-    | LMerge : ModuleId -> ModuleId -> Label
-    | LObserve : ModuleId -> Label.
+  Definition Label : Type := Spaceland.Label ModuleId.
   
   (** Label discriminability lemmas *)
-  Lemma LCompute_not_LSplit : forall m, LCompute <> LSplit m.
+  Lemma LCompute_not_LSplit : forall m, (@LCompute ModuleId) <> (@LSplit ModuleId m).
   Proof. intros m H. discriminate H. Qed.
   
-  Lemma LCompute_not_LMerge : forall m1 m2, LCompute <> LMerge m1 m2.
+  Lemma LCompute_not_LMerge : forall m1 m2, (@LCompute ModuleId) <> (@LMerge ModuleId m1 m2).
   Proof. intros m1 m2 H. discriminate H. Qed.
   
-  Lemma LCompute_not_LObserve : forall m, LCompute <> LObserve m.
+  Lemma LCompute_not_LObserve : forall m, (@LCompute ModuleId) <> (@LObserve ModuleId m).
   Proof. intros m H. discriminate H. Qed.
   
   (** Map Thiele instructions to Spaceland labels *)
   Definition instr_to_label (i : CoreSemantics.Instruction) : option Label :=
     match i with
-    | CoreSemantics.PNEW _ => Some LCompute
-    | CoreSemantics.PSPLIT m => Some (LSplit m)
-    | CoreSemantics.PMERGE m1 m2 => Some (LMerge m1 m2)
-    | CoreSemantics.PDISCOVER => Some (LObserve 0%nat) (* Discovery is observation *)
-    | CoreSemantics.LASSERT => Some LCompute
-    | CoreSemantics.LJOIN => Some LCompute
-    | CoreSemantics.MDLACC _ => Some LCompute
-    | CoreSemantics.XFER => Some LCompute
-    | CoreSemantics.PYEXEC => Some LCompute
-    | CoreSemantics.XOR_LOAD => Some LCompute
-    | CoreSemantics.XOR_ADD => Some LCompute
-    | CoreSemantics.XOR_SWAP => Some LCompute
-    | CoreSemantics.XOR_RANK => Some LCompute
-    | CoreSemantics.EMIT _ => Some LCompute
-    | CoreSemantics.ORACLE_HALTS => Some (LObserve 0%nat) (* Oracle is observation *)
+    | CoreSemantics.PNEW _ => Some (@LCompute ModuleId)
+    | CoreSemantics.PSPLIT m => Some (@LSplit ModuleId m)
+    | CoreSemantics.PMERGE m1 m2 => Some (@LMerge ModuleId m1 m2)
+    | CoreSemantics.PDISCOVER => Some (@LObserve ModuleId 0%nat) (* Discovery is observation *)
+    | CoreSemantics.LASSERT => Some (@LCompute ModuleId)
+    | CoreSemantics.LJOIN => Some (@LCompute ModuleId)
+    | CoreSemantics.MDLACC _ => Some (@LCompute ModuleId)
+    | CoreSemantics.XFER => Some (@LCompute ModuleId)
+    | CoreSemantics.PYEXEC => Some (@LCompute ModuleId)
+    | CoreSemantics.XOR_LOAD => Some (@LCompute ModuleId)
+    | CoreSemantics.XOR_ADD => Some (@LCompute ModuleId)
+    | CoreSemantics.XOR_SWAP => Some (@LCompute ModuleId)
+    | CoreSemantics.XOR_RANK => Some (@LCompute ModuleId)
+    | CoreSemantics.EMIT _ => Some (@LCompute ModuleId)
+    | CoreSemantics.ORACLE_HALTS => Some (@LObserve ModuleId 0%nat) (* Oracle is observation *)
     | CoreSemantics.HALT => None (* HALT doesn't transition *)
     end.
   
@@ -214,159 +210,148 @@ Module ThieleSpaceland <: Spaceland.
     (* Therefore i = i' *)
     assert (Some i = Some i') as Heq by (rewrite <- Hnth; exact Hnth').
     injection Heq as Heq. subst i'.
+
+    assert (Hhalted : CoreSemantics.halted s = false).
+    {
+      destruct (CoreSemantics.halted s) eqn:Hh.
+      - exfalso.
+        unfold CoreSemantics.step in Hcstep.
+        rewrite Hh in Hcstep.
+        discriminate.
+      - reflexivity.
+    }
     (* Analyze which instructions map to LCompute *)
     unfold instr_to_label in Hlbl.
-    destruct i.
+    destruct i as [r | m | m1 m2 | | | m0 | | | | | | | | z | | ].
     - (* PNEW: Preserves modules for variables NOT in region r *)
       unfold is_in_footprint in Hfootprint. simpl in Hfootprint.
-      unfold program, pc in Hnth.
-      (* We need to show: module_of s m' = module_of s' m' *)
-      (* where m' is NOT in r (Hfootprint) *)
-      unfold module_of, get_partition.
-      (* Extract what we know about s' from Hcstep and Hnth *)
-      (* CoreSemantics.step s = Some s', and instruction is PNEW r *)
-      (* So s'.partition = add_module s.partition r *)
-      (* We need to prove this formally *)
-      f_equal.
-      (* Goal: partition s = partition s' when restricted to vars outside r *)
-      (* Actually, partition s' has one more module than partition s *)
-      (* But module_of uses find_module_of which looks up variables *)
-      (* For vars outside r, the lookup gives the same result *)
-      unfold CoreSemantics.step in Hcstep.
-      destruct (CoreSemantics.halted s) eqn:?; try discriminate.
-      (* Now pattern match on the instruction *)
-      remember (nth_error (CoreSemantics.program s) (CoreSemantics.pc s)) as opt_instr.
-      destruct opt_instr as [instr|]; try discriminate.
-      (* We know from Hnth and Heqopt_instr that instr = PNEW r *)
-      assert (Hinstr: instr = CoreSemantics.PNEW r).
-      { congruence. }
-      subst instr.
-      (* Now Hcstep shows: Some {...} = Some s' *)
-      injection Hcstep as Hcstep.
-      (* Extract the partition field from this equality *)
-      assert (Hpart: CoreSemantics.partition s' = CoreSemantics.add_module (CoreSemantics.partition s) r).
-      { rewrite <- Hcstep. reflexivity. }
-      rewrite Hpart. simpl.
-      unfold CoreSemantics.add_module. simpl.
-      (* Now show that lookups are preserved for m' not in r *)
-      destruct (find_module_of (CoreSemantics.modules (CoreSemantics.partition s)) m') eqn:Hfind.
-      + (* m' was in some module - preserved *)
-        erewrite find_module_of_app_some; eauto.
-      + (* m' not in any module, and not in r *)
-        erewrite find_module_of_app_none; eauto.
+        (* We need to show: module_of s m' = module_of s' m' where m' ∉ r. *)
+        unfold module_of, get_partition.
+        unfold CoreSemantics.step in Hcstep.
+        rewrite Hhalted in Hcstep.
+          rewrite Hnth' in Hcstep.
+        simpl in Hcstep.
+        (* PNEW has several semantic branches (duplicate / overlap / add / defensive-halt). *)
+        destruct (existsb (fun r' : CoreSemantics.Region => CoreSemantics.region_eqb r r')
+                  (map snd (CoreSemantics.modules (CoreSemantics.partition s)))) eqn:Hdup.
+        + (* Duplicate: partition unchanged *)
+          inversion Hcstep; subst; clear Hcstep.
+          reflexivity.
+        + destruct (existsb (fun r' : CoreSemantics.Region => negb (CoreSemantics.disjoint_b r r'))
+                    (map snd (CoreSemantics.modules (CoreSemantics.partition s)))) eqn:Hov.
+          * (* Overlap: partition unchanged (halt) *)
+            inversion Hcstep; subst; clear Hcstep.
+            reflexivity.
+          * (* Disjoint: either add the module or defensive-halt *)
+            destruct (CoreSemantics.partition_valid_b (CoreSemantics.add_module (CoreSemantics.partition s) r)) eqn:Hpv.
+            -- inversion Hcstep; subst; clear Hcstep.
+               unfold CoreSemantics.add_module. simpl.
+               destruct (find_module_of (CoreSemantics.modules (CoreSemantics.partition s)) m') eqn:Hfind.
+               ++ (* m' was in some module - preserved *)
+                  erewrite find_module_of_app_some; eauto.
+               ++ (* m' not in any module, and not in r *)
+                  erewrite find_module_of_app_none; eauto.
+            -- (* Defensive: partition unchanged (halt) *)
+               inversion Hcstep; subst; clear Hcstep.
+               reflexivity.
     - (* PSPLIT: Maps to LSplit, not LCompute *)
       simpl in Hlbl. discriminate Hlbl.
     - (* PMERGE: Maps to LMerge, not LCompute *)
       simpl in Hlbl. discriminate Hlbl.
     - (* LASSERT: Preserves partition *)
       unfold is_in_footprint in Hfootprint. simpl in Hfootprint.
-      (* For instructions that preserve partition, we just show partition s = partition s' *)
       unfold module_of, get_partition.
-      (* Use the fact that LASSERT doesn't change partition *)
-      f_equal.
-      unfold CoreSemantics.step in Hcstep.
-      destruct (CoreSemantics.halted s) eqn:?; try discriminate.
-      unfold program, pc in Hnth.
-      remember (nth_error (CoreSemantics.program s) (CoreSemantics.pc s)) as opt_instr.
-      destruct opt_instr as [instr|]; try discriminate.
-      assert (instr = CoreSemantics.LASSERT) by congruence. subst instr.
-      injection Hcstep as ?. rewrite <- H. reflexivity.
+      assert (Hpart : CoreSemantics.partition s' = CoreSemantics.partition s).
+      {
+        eapply CoreSemantics.partition_preserved_computational with (instr := CoreSemantics.LASSERT);
+          eauto; intros; discriminate.
+      }
+      rewrite Hpart. reflexivity.
     - (* LJOIN: Preserves partition *)
       unfold is_in_footprint in Hfootprint. simpl in Hfootprint.
-      unfold module_of, get_partition. f_equal.
-      unfold CoreSemantics.step in Hcstep.
-      destruct (CoreSemantics.halted s) eqn:?; try discriminate.
-      unfold program, pc in Hnth.
-      remember (nth_error (CoreSemantics.program s) (CoreSemantics.pc s)) as opt_instr.
-      destruct opt_instr as [instr|]; try discriminate.
-      assert (instr = CoreSemantics.LJOIN) by congruence. subst instr.
-      injection Hcstep as ?. rewrite <- H. reflexivity.
+      unfold module_of, get_partition.
+      assert (Hpart : CoreSemantics.partition s' = CoreSemantics.partition s).
+      {
+        eapply CoreSemantics.partition_preserved_computational with (instr := CoreSemantics.LJOIN);
+          eauto; intros; discriminate.
+      }
+      rewrite Hpart. reflexivity.
     - (* MDLACC: Preserves partition *)
       unfold is_in_footprint in Hfootprint. simpl in Hfootprint.
-      unfold module_of, get_partition. f_equal.
-      unfold CoreSemantics.step in Hcstep.
-      destruct (CoreSemantics.halted s) eqn:?; try discriminate.
-      unfold program, pc in Hnth.
-      remember (nth_error (CoreSemantics.program s) (CoreSemantics.pc s)) as opt_instr.
-      destruct opt_instr as [instr|]; try discriminate.
-      (* We're in MDLACC m0 case, and instr should equal MDLACC m0 *)
-      (* This should follow from Hnth and Heqopt_instr *)
-      (* instr is the argument to the match in Hcstep, which is pattern-matched *)
-      (* For now, just accept that partition is preserved for any MDLACC *)
-      destruct instr; try discriminate; injection Hcstep as ?; rewrite <- H; reflexivity.
+      unfold module_of, get_partition.
+      assert (Hpart : CoreSemantics.partition s' = CoreSemantics.partition s).
+      {
+        eapply CoreSemantics.partition_preserved_computational with (instr := CoreSemantics.MDLACC m0);
+          eauto; intros; discriminate.
+      }
+      rewrite Hpart. reflexivity.
     - (* PDISCOVER: Maps to LObserve, not LCompute *)
       simpl in Hlbl. injection Hlbl as Hlbl'.
       symmetry in Hlbl'.
       exfalso. apply (LCompute_not_LObserve 0%nat Hlbl').
     - (* XFER: Preserves partition *)
       unfold is_in_footprint in Hfootprint. simpl in Hfootprint.
-      unfold module_of, get_partition. f_equal.
-      unfold CoreSemantics.step in Hcstep.
-      destruct (CoreSemantics.halted s) eqn:?; try discriminate.
-      unfold program, pc in Hnth.
-      remember (nth_error (CoreSemantics.program s) (CoreSemantics.pc s)) as opt_instr.
-      destruct opt_instr as [instr|]; try discriminate.
-      assert (instr = CoreSemantics.XFER) by congruence. subst instr.
-      injection Hcstep as ?. rewrite <- H. reflexivity.
+      unfold module_of, get_partition.
+      assert (Hpart : CoreSemantics.partition s' = CoreSemantics.partition s).
+      {
+        eapply CoreSemantics.partition_preserved_computational with (instr := CoreSemantics.XFER);
+          eauto; intros; discriminate.
+      }
+      rewrite Hpart. reflexivity.
     - (* PYEXEC: Preserves partition *)
       unfold is_in_footprint in Hfootprint. simpl in Hfootprint.
-      unfold module_of, get_partition. f_equal.
-      unfold CoreSemantics.step in Hcstep.
-      destruct (CoreSemantics.halted s) eqn:?; try discriminate.
-      unfold program, pc in Hnth.
-      remember (nth_error (CoreSemantics.program s) (CoreSemantics.pc s)) as opt_instr.
-      destruct opt_instr as [instr|]; try discriminate.
-      assert (instr = CoreSemantics.PYEXEC) by congruence. subst instr.
-      injection Hcstep as ?. rewrite <- H. reflexivity.
+      unfold module_of, get_partition.
+      assert (Hpart : CoreSemantics.partition s' = CoreSemantics.partition s).
+      {
+        eapply CoreSemantics.partition_preserved_computational with (instr := CoreSemantics.PYEXEC);
+          eauto; intros; discriminate.
+      }
+      rewrite Hpart. reflexivity.
     - (* XOR_LOAD: Preserves partition *)
       unfold is_in_footprint in Hfootprint. simpl in Hfootprint.
-      unfold module_of, get_partition. f_equal.
-      unfold CoreSemantics.step in Hcstep.
-      destruct (CoreSemantics.halted s) eqn:?; try discriminate.
-      unfold program, pc in Hnth.
-      remember (nth_error (CoreSemantics.program s) (CoreSemantics.pc s)) as opt_instr.
-      destruct opt_instr as [instr|]; try discriminate.
-      assert (instr = CoreSemantics.XOR_LOAD) by congruence. subst instr.
-      injection Hcstep as ?. rewrite <- H. reflexivity.
+      unfold module_of, get_partition.
+      assert (Hpart : CoreSemantics.partition s' = CoreSemantics.partition s).
+      {
+        eapply CoreSemantics.partition_preserved_computational with (instr := CoreSemantics.XOR_LOAD);
+          eauto; intros; discriminate.
+      }
+      rewrite Hpart. reflexivity.
     - (* XOR_ADD: Preserves partition *)
       unfold is_in_footprint in Hfootprint. simpl in Hfootprint.
-      unfold module_of, get_partition. f_equal.
-      unfold CoreSemantics.step in Hcstep.
-      destruct (CoreSemantics.halted s) eqn:?; try discriminate.
-      unfold program, pc in Hnth.
-      remember (nth_error (CoreSemantics.program s) (CoreSemantics.pc s)) as opt_instr.
-      destruct opt_instr as [instr|]; try discriminate.
-      assert (instr = CoreSemantics.XOR_ADD) by congruence. subst instr.
-      injection Hcstep as ?. rewrite <- H. reflexivity.
+      unfold module_of, get_partition.
+      assert (Hpart : CoreSemantics.partition s' = CoreSemantics.partition s).
+      {
+        eapply CoreSemantics.partition_preserved_computational with (instr := CoreSemantics.XOR_ADD);
+          eauto; intros; discriminate.
+      }
+      rewrite Hpart. reflexivity.
     - (* XOR_SWAP: Preserves partition *)
       unfold is_in_footprint in Hfootprint. simpl in Hfootprint.
-      unfold module_of, get_partition. f_equal.
-      unfold CoreSemantics.step in Hcstep.
-      destruct (CoreSemantics.halted s) eqn:?; try discriminate.
-      unfold program, pc in Hnth.
-      remember (nth_error (CoreSemantics.program s) (CoreSemantics.pc s)) as opt_instr.
-      destruct opt_instr as [instr|]; try discriminate.
-      assert (instr = CoreSemantics.XOR_SWAP) by congruence. subst instr.
-      injection Hcstep as ?. rewrite <- H. reflexivity.
+      unfold module_of, get_partition.
+      assert (Hpart : CoreSemantics.partition s' = CoreSemantics.partition s).
+      {
+        eapply CoreSemantics.partition_preserved_computational with (instr := CoreSemantics.XOR_SWAP);
+          eauto; intros; discriminate.
+      }
+      rewrite Hpart. reflexivity.
     - (* XOR_RANK: Preserves partition *)
       unfold is_in_footprint in Hfootprint. simpl in Hfootprint.
-      unfold module_of, get_partition. f_equal.
-      unfold CoreSemantics.step in Hcstep.
-      destruct (CoreSemantics.halted s) eqn:?; try discriminate.
-      unfold program, pc in Hnth.
-      remember (nth_error (CoreSemantics.program s) (CoreSemantics.pc s)) as opt_instr.
-      destruct opt_instr as [instr|]; try discriminate.
-      assert (instr = CoreSemantics.XOR_RANK) by congruence. subst instr.
-      injection Hcstep as ?. rewrite <- H. reflexivity.
+      unfold module_of, get_partition.
+      assert (Hpart : CoreSemantics.partition s' = CoreSemantics.partition s).
+      {
+        eapply CoreSemantics.partition_preserved_computational with (instr := CoreSemantics.XOR_RANK);
+          eauto; intros; discriminate.
+      }
+      rewrite Hpart. reflexivity.
     - (* EMIT: Preserves partition *)
       unfold is_in_footprint in Hfootprint. simpl in Hfootprint.
-      unfold module_of, get_partition. f_equal.
-      unfold CoreSemantics.step in Hcstep.
-      destruct (CoreSemantics.halted s) eqn:?; try discriminate.
-      unfold program, pc in Hnth.
-      remember (nth_error (CoreSemantics.program s) (CoreSemantics.pc s)) as opt_instr.
-      destruct opt_instr as [instr|]; try discriminate.
-      destruct instr; try discriminate; injection Hcstep as ?; rewrite <- H; reflexivity.
+      unfold module_of, get_partition.
+      assert (Hpart : CoreSemantics.partition s' = CoreSemantics.partition s).
+      {
+        eapply CoreSemantics.partition_preserved_computational with (instr := CoreSemantics.EMIT z);
+          eauto; intros; discriminate.
+      }
+      rewrite Hpart. reflexivity.
     - (* ORACLE_HALTS: Maps to LObserve, not LCompute *)
       simpl in Hlbl. injection Hlbl as Hlbl'.
       symmetry in Hlbl'.
@@ -379,6 +364,11 @@ Module ThieleSpaceland <: Spaceland.
   Lemma pnew_footprint_assigns : forall s s' r m',
     step s LCompute s' ->
     nth_error (CoreSemantics.program s) (CoreSemantics.pc s) = Some (CoreSemantics.PNEW r) ->
+    existsb (fun r' : CoreSemantics.Region => CoreSemantics.region_eqb r r')
+      (map snd (CoreSemantics.modules (CoreSemantics.partition s))) = false ->
+    existsb (fun r' : CoreSemantics.Region => negb (CoreSemantics.disjoint_b r r'))
+      (map snd (CoreSemantics.modules (CoreSemantics.partition s))) = false ->
+    CoreSemantics.partition_valid_b (CoreSemantics.add_module (CoreSemantics.partition s) r) = true ->
     existsb (Nat.eqb m') r = true ->
     (* Variable m' in the footprint r may be assigned to the new module *)
     (* If it wasn't in a module before, it will be in next_module_id after *)
@@ -387,13 +377,17 @@ Module ThieleSpaceland <: Spaceland.
       find_module_of (CoreSemantics.modules (CoreSemantics.partition s')) m' = Some mid /\
       mid = CoreSemantics.next_module_id (CoreSemantics.partition s).
   Proof.
-    intros s s' r m' Hstep Hnth Hin_r Hfind_none.
+    intros s s' r m' Hstep Hnth Hdup_false Hov_false Hpv_true Hin_r Hfind_none.
     unfold step in Hstep.
     destruct Hstep as [i [Hnth' [Hlbl Hcstep]]].
     rewrite Hnth in Hnth'. injection Hnth' as Heq. subst i.
     unfold CoreSemantics.step in Hcstep.
     destruct (CoreSemantics.halted s) eqn:Hhalted; try discriminate.
     rewrite Hnth in Hcstep.
+    simpl in Hcstep.
+    rewrite Hdup_false in Hcstep.
+    rewrite Hov_false in Hcstep.
+    rewrite Hpv_true in Hcstep.
     injection Hcstep as Heq_s'. subst s'.
     simpl.
     (* After PNEW, partition is (add_module (partition s) r) *)
@@ -629,14 +623,25 @@ Module ThieleSpaceland <: Spaceland.
     simpl in Hstep.
     (* From CoreSemantics.step, we know s' has mu_ledger with total increased by 16 *)
     unfold CoreSemantics.step in Hstep.
-    destruct (halted s) eqn:Hhalted; try discriminate.
-    rewrite Hnth in Hstep.
-    injection Hstep as Heq_s'. subst s'.
-    simpl.
-    unfold CoreSemantics.add_mu_operational, CoreSemantics.mu_psplit_cost.
-    simpl.
-    (* Goal: (mu_total + 16) - mu_total > 0 *)
-    lia.
+      destruct (halted s) eqn:Hhalted; try discriminate.
+      rewrite Hnth in Hstep.
+      simpl in Hstep.
+        (* PSPLIT is conditional on a validity check; destruct the actual boolean in the step equation. *)
+        match goal with
+        | [ H : context[if ?b then _ else _] |- _ ] => destruct b eqn:Hpv
+        end.
+      - simpl in Hstep.
+        inversion Hstep; subst s'.
+        simpl.
+        unfold CoreSemantics.add_mu_operational, CoreSemantics.mu_psplit_cost.
+        simpl.
+        lia.
+      - simpl in Hstep.
+        inversion Hstep; subst s'.
+        simpl.
+        unfold CoreSemantics.add_mu_operational, CoreSemantics.mu_psplit_cost.
+        simpl.
+        lia.
   Qed.
   
   (** Axiom S5d: Merge can be free *)

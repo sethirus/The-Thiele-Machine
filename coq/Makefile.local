@@ -132,3 +132,12 @@ optional:
 
 oracle:
 	$(MAKE) $(ORACLE_VO)
+
+# Coq loadpath hygiene
+#
+# coq_makefile injects `-R . Top` by default, which overlaps with the explicit
+# `-Q thielemachine/coqproofs ThieleMachine` mapping and can cause Coq to
+# remap `ThieleMachine.*` libraries into `Top.*`. Strip that implicit mapping
+# so the intended logical roots remain stable.
+COQLIBS := $(subst -R . Top,,$(COQLIBS))
+CMDLINE_COQLIBS := $(subst -R . Top,,$(CMDLINE_COQLIBS))

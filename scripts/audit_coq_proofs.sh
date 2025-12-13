@@ -5,6 +5,7 @@
 set -e
 
 COQ_DIR="/workspaces/The-Thiele-Machine/coq"
+ARCHIVE_COQ_DIR="/workspaces/The-Thiele-Machine/archive/coq"
 AUDIT_LOG="/tmp/coq_audit_$(date +%Y%m%d_%H%M%S).txt"
 
 # Colors
@@ -18,9 +19,17 @@ echo -e "${CYAN}=========================================="
 echo "COQ PROOF AUDIT"
 echo "=========================================="
 echo -e "Directory: ${YELLOW}$COQ_DIR${NC}"
+if [ -d "$ARCHIVE_COQ_DIR" ]; then
+    echo -e "Archive:   ${YELLOW}$ARCHIVE_COQ_DIR${NC}"
+fi
 echo -e "Report:    ${YELLOW}$AUDIT_LOG${NC}"
 echo -e "Started:   ${GREEN}$(date)${NC}"
 echo -e "==========================================${NC}\n"
+
+FIND_DIRS=("$COQ_DIR")
+if [ -d "$ARCHIVE_COQ_DIR" ]; then
+    FIND_DIRS+=("$ARCHIVE_COQ_DIR")
+fi
 
 # Initialize counters
 TOTAL_FILES=0
@@ -42,7 +51,7 @@ while IFS= read -r file; do
         grep -B 3 "Admitted\." "$file" | grep -E "^Lemma|^Theorem" | sed 's/^/  /'
         TOTAL_ADMITS=$((TOTAL_ADMITS + ADMITS))
     fi
-done < <(find "$COQ_DIR" -name "*.v" -type f)
+done < <(find "${FIND_DIRS[@]}" -name "*.v" -type f)
 
 echo ""
 echo "=== 2. SCANNING FOR AXIOMS ==="
@@ -55,7 +64,7 @@ while IFS= read -r file; do
         grep -E "^[[:space:]]*Axiom[[:space:]]+" "$file" | sed 's/^/  /'
         TOTAL_AXIOMS=$((TOTAL_AXIOMS + AXIOMS))
     fi
-done < <(find "$COQ_DIR" -name "*.v" -type f)
+done < <(find "${FIND_DIRS[@]}" -name "*.v" -type f)
 
 echo ""
 echo "=== 3. SCANNING FOR OPAQUE DEFINITIONS ==="
@@ -67,7 +76,7 @@ while IFS= read -r file; do
         grep -E "Opaque|#\[global\] Opaque" "$file" | sed 's/^/  /'
         TOTAL_OPAQUE=$((TOTAL_OPAQUE + OPAQUE))
     fi
-done < <(find "$COQ_DIR" -name "*.v" -type f)
+done < <(find "${FIND_DIRS[@]}" -name "*.v" -type f)
 
 echo ""
 echo "=== 4. PROOF STATISTICS ==="
@@ -78,7 +87,7 @@ while IFS= read -r file; do
     PROOFS=$(grep -E "^(Qed\.|Defined\.)$" "$file" 2>/dev/null | wc -l | tr -d ' ')
     TOTAL_LEMMAS=$((TOTAL_LEMMAS + LEMMAS))
     TOTAL_PROOFS=$((TOTAL_PROOFS + PROOFS))
-done < <(find "$COQ_DIR" -name "*.v" -type f)
+done < <(find "${FIND_DIRS[@]}" -name "*.v" -type f)
 
 echo "Total .v files: $TOTAL_FILES"
 echo "Total lemmas/theorems: $TOTAL_LEMMAS"

@@ -33,7 +33,7 @@
     ========================================================================= *)
 
 From Coq Require Import List String ZArith Lia Bool Nat.
-Require Import thielemachine.coqproofs.Hash256.
+Require Import ThieleMachine.Hash256.
 Import ListNotations.
 Open Scope Z_scope.
 
@@ -217,7 +217,7 @@ Definition instr_tag (i : Instruction) : Z :=
   | HALT => 255
   end.
 
-Fixpoint encode_instruction (i : Instruction) : list Z :=
+Definition encode_instruction (i : Instruction) : list Z :=
   match i with
   | PNEW r => [instr_tag i; Z.of_nat (List.length r)] ++ encode_region r
   | PSPLIT m => [instr_tag i; Z.of_nat m]
@@ -303,6 +303,23 @@ Definition add_module (p : Partition) (r : Region) : Partition :=
   {| modules := p.(modules) ++ [(p.(next_module_id), r)];
      next_module_id := S p.(next_module_id) |}.
 
+(** Region equality and overlap checks (used to enforce partition validity for PNEW). *)
+Fixpoint region_eqb (r1 r2 : Region) : bool :=
+  match r1, r2 with
+  | [], [] => true
+  | x :: xs, y :: ys => Nat.eqb x y && region_eqb xs ys
+  | _, _ => false
+  end.
+
+Definition region_overlap_b (r1 r2 : Region) : bool :=
+  existsb (fun x => existsb (Nat.eqb x) r2) r1.
+
+Lemma region_eqb_refl : forall r, region_eqb r r = true.
+Proof.
+  induction r as [|x xs IH]; simpl; auto.
+  rewrite Nat.eqb_refl. rewrite IH. reflexivity.
+Qed.
+
 (** Helper: Find module by ID *)
 Fixpoint find_module_in_list (mods : list (ModuleId * Region)) (mid : ModuleId) : option Region :=
   match mods with
@@ -367,6 +384,59 @@ Proof.
     contradiction.
 Qed.
 
+(** Helper: Split a region into even and odd variables *)
+Definition split_region (r : Region) : Region * Region :=
+  List.partition Nat.even r.
+
+(** Helper: Remove a module from the list *)
+Fixpoint remove_module_from_list (mods : list (ModuleId * Region)) (mid : ModuleId) : list (ModuleId * Region) :=
+  match mods with
+  | [] => []
+  | (id, r) :: rest =>
+      if Nat.eqb id mid then rest
+      else (id, r) :: remove_module_from_list rest mid
+  end.
+
+(** Helper: Update partition for PSPLIT *)
+Definition update_partition_split (p : Partition) (mid : ModuleId) : Partition :=
+  match find_module p mid with
+  | None => p
+  | Some r =>
+      let (r_even, r_odd) := split_region r in
+      let mods' := remove_module_from_list p.(modules) mid in
+      let id1 := p.(next_module_id) in
+      let id2 := S p.(next_module_id) in
+      {| modules := mods' ++ [(id1, r_even); (id2, r_odd)];
+         next_module_id := S (S p.(next_module_id)) |}
+  end.
+
+(** Helper: Update partition for PMERGE *)
+Definition update_partition_merge (p : Partition) (m1 m2 : ModuleId) : Partition :=
+  match find_module p m1, find_module p m2 with
+  | Some r1, Some r2 =>
+      let mods' := remove_module_from_list (remove_module_from_list p.(modules) m1) m2 in
+      let new_id := p.(next_module_id) in
+      {| modules := mods' ++ [(new_id, r1 ++ r2)];
+         next_module_id := S p.(next_module_id) |}
+  | _, _ => p
+  end.
+
+(** Helper: Boolean disjointness check *)
+Definition disjoint_b (r1 r2 : Region) : bool :=
+  forallb (fun x => negb (existsb (Nat.eqb x) r2)) r1.
+
+(** Helper: Boolean partition validity check *)
+Fixpoint regions_disjoint_b (regions : list Region) : bool :=
+  match regions with
+  | [] => true
+  | r :: rest =>
+      (forallb (fun r' => disjoint_b r r') rest) &&
+      regions_disjoint_b rest
+  end.
+
+Definition partition_valid_b (p : Partition) : bool :=
+  regions_disjoint_b (map snd p.(modules)).
+
 (** μ-cost for partition operations (from μ-spec v2.0) *)
 Definition mu_pnew_cost : Z := 8.     (* Cost to create module *)
 Definition mu_psplit_cost : Z := 16.  (* Cost to split module *)
@@ -375,6 +445,47 @@ Definition mu_pdiscover_cost : Z := 100. (* Cost to discover partition *)
 Definition mu_lassert_cost : Z := 20. (* Cost for logical assertion *)
 Definition mu_mdlacc_cost : Z := 5.   (* Cost for MDL accumulation *)
 Definition mu_emit_cost : Z := 1.     (* Cost to emit result *)
+
+Lemma mu_pnew_cost_nonneg : 0 <= mu_pnew_cost.
+Proof. cbv [mu_pnew_cost]. lia. Qed.
+
+Lemma mu_psplit_cost_nonneg : 0 <= mu_psplit_cost.
+Proof. cbv [mu_psplit_cost]. lia. Qed.
+
+Lemma mu_pmerge_cost_nonneg : 0 <= mu_pmerge_cost.
+Proof. cbv [mu_pmerge_cost]. lia. Qed.
+
+Lemma mu_pdiscover_cost_nonneg : 0 <= mu_pdiscover_cost.
+Proof. cbv [mu_pdiscover_cost]. lia. Qed.
+
+Lemma mu_lassert_cost_nonneg : 0 <= mu_lassert_cost.
+Proof. cbv [mu_lassert_cost]. lia. Qed.
+
+Lemma mu_mdlacc_cost_nonneg : 0 <= mu_mdlacc_cost.
+Proof. cbv [mu_mdlacc_cost]. lia. Qed.
+
+Lemma mu_emit_cost_nonneg : 0 <= mu_emit_cost.
+Proof. cbv [mu_emit_cost]. lia. Qed.
+
+Lemma add_mu_operational_mu_total_ge :
+  forall (l : MuLedger) (delta : Z),
+    0 <= delta ->
+    (add_mu_operational l delta).(mu_total) >= l.(mu_total).
+Proof.
+  intros l delta Hdelta.
+  unfold add_mu_operational. simpl.
+  lia.
+Qed.
+
+Lemma add_mu_information_mu_total_ge :
+  forall (l : MuLedger) (delta : Z),
+    0 <= delta ->
+    (add_mu_information l delta).(mu_total) >= l.(mu_total).
+Proof.
+  intros l delta Hdelta.
+  unfold add_mu_information. simpl.
+  lia.
+Qed.
 
 (** Single-step execution *)
 Definition step (s : State) : option State :=
@@ -390,35 +501,89 @@ Definition step (s : State) : option State :=
     | Some instr =>
         match instr with
         | PNEW r =>
-            (* Create new partition module *)
+          (* Create new partition module.
+             Canonical semantics (per MODEL_SPEC):
+             - Deduplicate exact duplicates (no-op, Δμ=0)
+             - Reject partial overlaps (halt)
+             - Otherwise add disjoint region.
+          *)
+          let regs := map snd s.(partition).(modules) in
+          if existsb (fun r' => region_eqb r r') regs then
+            (* Exact duplicate: no-op *)
+            Some {| partition := s.(partition);
+              mu_ledger := s.(mu_ledger);
+              pc := S s.(pc);
+              halted := false;
+              result := s.(result);
+              program := s.(program) |}
+          else if existsb (fun r' => negb (disjoint_b r r')) regs then
+            (* Partial overlap: halt (preserves validity) *)
+            Some {| partition := s.(partition);
+              mu_ledger := s.(mu_ledger);
+              pc := s.(pc);
+              halted := true;
+              result := None;
+              program := s.(program) |}
+          else
+            (* New disjoint region: add it and charge μ (only if validity holds). *)
             let p' := add_module s.(partition) r in
-            let mu' := add_mu_operational s.(mu_ledger) mu_pnew_cost in
-            Some {| partition := p';
-                    mu_ledger := mu';
-                    pc := S s.(pc);
-                    halted := false;
-                    result := s.(result);
-                    program := s.(program) |}
+            if partition_valid_b p' then
+              let mu' := add_mu_operational s.(mu_ledger) mu_pnew_cost in
+              Some {| partition := p';
+                mu_ledger := mu';
+                pc := S s.(pc);
+                halted := false;
+                result := s.(result);
+                program := s.(program) |}
+            else
+              (* Defensive: refuse to enter an invalid partition state. *)
+              Some {| partition := s.(partition);
+                mu_ledger := s.(mu_ledger);
+                pc := s.(pc);
+                halted := true;
+                result := None;
+                program := s.(program) |}
         
         | PSPLIT mid =>
-            (* Split module (simplified: just add cost) *)
-            let mu' := add_mu_operational s.(mu_ledger) mu_psplit_cost in
-            Some {| partition := s.(partition);
-                    mu_ledger := mu';
-                    pc := S s.(pc);
-                    halted := false;
-                    result := s.(result);
-                    program := s.(program) |}
+            (* Split module: Even/Odd split *)
+            let p' := update_partition_split s.(partition) mid in
+            if partition_valid_b p' then
+              let mu' := add_mu_operational s.(mu_ledger) mu_psplit_cost in
+              Some {| partition := p';
+                mu_ledger := mu';
+                pc := S s.(pc);
+                halted := false;
+                result := s.(result);
+                program := s.(program) |}
+            else
+              (* Defensive: refuse to enter an invalid partition state, but still charge μ for the attempted split. *)
+              let mu' := add_mu_operational s.(mu_ledger) mu_psplit_cost in
+              Some {| partition := s.(partition);
+                mu_ledger := mu';
+                pc := s.(pc);
+                halted := true;
+                result := None;
+                program := s.(program) |}
         
         | PMERGE m1 m2 =>
-            (* Merge modules (simplified: just add cost) *)
-            let mu' := add_mu_operational s.(mu_ledger) mu_pmerge_cost in
-            Some {| partition := s.(partition);
-                    mu_ledger := mu';
-                    pc := S s.(pc);
-                    halted := false;
-                    result := s.(result);
-                    program := s.(program) |}
+            (* Merge modules *)
+            let p' := update_partition_merge s.(partition) m1 m2 in
+            if partition_valid_b p' then
+              let mu' := add_mu_operational s.(mu_ledger) mu_pmerge_cost in
+              Some {| partition := p';
+                mu_ledger := mu';
+                pc := S s.(pc);
+                halted := false;
+                result := s.(result);
+                program := s.(program) |}
+            else
+              (* Defensive: refuse to enter an invalid partition state. *)
+              Some {| partition := s.(partition);
+                mu_ledger := s.(mu_ledger);
+                pc := s.(pc);
+                halted := true;
+                result := None;
+                program := s.(program) |}
 
         | PDISCOVER =>
             (* Auto-discover partition *)
@@ -431,14 +596,23 @@ Definition step (s : State) : option State :=
                     program := s.(program) |}
 
         | LASSERT =>
-            (* Logical assertion *)
-            let mu' := add_mu_operational s.(mu_ledger) mu_lassert_cost in
-            Some {| partition := s.(partition);
-                    mu_ledger := mu';
-                    pc := S s.(pc);
-                    halted := false;
-                    result := s.(result);
-                    program := s.(program) |}
+            (* Logical assertion: Check partition validity *)
+            if partition_valid_b s.(partition) then
+              let mu' := add_mu_operational s.(mu_ledger) mu_lassert_cost in
+              Some {| partition := s.(partition);
+                      mu_ledger := mu';
+                      pc := S s.(pc);
+                      halted := false;
+                      result := s.(result);
+                      program := s.(program) |}
+            else
+              (* Assertion failed: Halt *)
+              Some {| partition := s.(partition);
+                      mu_ledger := s.(mu_ledger);
+                      pc := s.(pc);
+                      halted := true;
+                      result := None;
+                      program := s.(program) |}
 
         | LJOIN =>
             (* Logical join *)
@@ -619,7 +793,7 @@ Fixpoint regions_disjoint (regions : list Region) : Prop :=
   end.
 
 Definition partition_valid (p : Partition) : Prop :=
-  regions_disjoint (map snd p.(modules)).
+  partition_valid_b p = true.
 
 (** Invariant 3: Polynomial Time Bound
     For a problem of size n, execution completes in O(n³) steps.
@@ -659,18 +833,123 @@ Proof.
   unfold mu_monotonic, mu_of_state.
   unfold step in Hstep.
   destruct (halted s) eqn:Hhalted.
-  - (* Case: already halted *)
-    discriminate Hstep.
-  - (* Case: not halted *)
-    destruct (nth_error (program s) (pc s)) as [instr|] eqn:Hnth.
-    + (* Case: valid instruction *)
-      destruct instr;
-        injection Hstep as Hstep; subst s';
-        unfold add_mu_operational, add_mu_information, mu_pnew_cost, mu_psplit_cost,
-               mu_pmerge_cost, mu_pdiscover_cost, mu_lassert_cost, mu_mdlacc_cost, mu_emit_cost;
-        simpl; lia.
-    + (* Case: PC out of bounds *)
-      injection Hstep as Hstep; subst s'; simpl; lia.
+  - discriminate Hstep.
+  - destruct (nth_error (program s) (pc s)) as [instr|] eqn:Hnth.
+    + destruct instr; simpl in Hstep.
+      * (* PNEW *)
+        destruct (existsb (fun r' : Region => region_eqb r r')
+                (map snd (modules (partition s)))) eqn:Hdup.
+        -- inversion Hstep; subst; clear Hstep. simpl. apply Z.le_ge. apply Z.le_refl.
+        -- destruct (existsb (fun r' : Region => negb (disjoint_b r r'))
+                 (map snd (modules (partition s)))) eqn:Hov.
+           ++ inversion Hstep; subst; clear Hstep. simpl. apply Z.le_ge. apply Z.le_refl.
+           ++ set (p' := add_module (partition s) r).
+              destruct (partition_valid_b p') eqn:Hpv.
+            ** unfold p' in Hpv.
+               rewrite Hpv in Hstep.
+               inversion Hstep; subst; clear Hstep.
+                  simpl.
+                  apply add_mu_operational_mu_total_ge.
+                  apply mu_pnew_cost_nonneg.
+                ** unfold p' in Hpv.
+                  rewrite Hpv in Hstep.
+                  inversion Hstep; subst; clear Hstep.
+                  simpl. apply Z.le_ge. apply Z.le_refl.
+      * (* PSPLIT *)
+        set (p' := update_partition_split (partition s) m).
+        destruct (partition_valid_b p') eqn:Hpv.
+          -- unfold p' in Hpv.
+             rewrite Hpv in Hstep.
+             inversion Hstep; subst; clear Hstep.
+            simpl.
+            apply add_mu_operational_mu_total_ge.
+            apply mu_psplit_cost_nonneg.
+        -- unfold p' in Hpv.
+          rewrite Hpv in Hstep.
+          inversion Hstep; subst; clear Hstep.
+          simpl.
+          apply add_mu_operational_mu_total_ge.
+          apply mu_psplit_cost_nonneg.
+      * (* PMERGE *)
+        set (p' := update_partition_merge (partition s) m m0).
+        destruct (partition_valid_b p') eqn:Hpv.
+          -- unfold p' in Hpv.
+             rewrite Hpv in Hstep.
+             inversion Hstep; subst; clear Hstep.
+            simpl.
+            apply add_mu_operational_mu_total_ge.
+            apply mu_pmerge_cost_nonneg.
+         -- unfold p' in Hpv.
+           rewrite Hpv in Hstep.
+           inversion Hstep; subst; clear Hstep.
+           simpl. apply Z.le_ge. apply Z.le_refl.
+      * (* LASSERT *)
+        destruct (partition_valid_b (partition s)) eqn:Hpv;
+          inversion Hstep; subst; clear Hstep.
+        -- simpl.
+           apply add_mu_operational_mu_total_ge.
+           apply mu_lassert_cost_nonneg.
+        -- simpl. apply Z.le_ge. apply Z.le_refl.
+      * (* LJOIN *)
+        inversion Hstep; subst; clear Hstep.
+        simpl.
+        apply add_mu_operational_mu_total_ge.
+        apply mu_lassert_cost_nonneg.
+      * (* MDLACC *)
+        inversion Hstep; subst; clear Hstep.
+        simpl.
+        apply add_mu_operational_mu_total_ge.
+        apply mu_mdlacc_cost_nonneg.
+      * (* PDISCOVER *)
+        inversion Hstep; subst; clear Hstep.
+        simpl.
+        apply add_mu_information_mu_total_ge.
+        apply mu_pdiscover_cost_nonneg.
+      * (* XFER *)
+        inversion Hstep; subst; clear Hstep.
+        simpl.
+        apply add_mu_operational_mu_total_ge.
+        apply mu_emit_cost_nonneg.
+      * (* PYEXEC *)
+        inversion Hstep; subst; clear Hstep.
+        simpl.
+        apply add_mu_operational_mu_total_ge.
+        apply mu_lassert_cost_nonneg.
+      * (* XOR_LOAD *)
+        inversion Hstep; subst; clear Hstep.
+        simpl.
+        apply add_mu_operational_mu_total_ge.
+        apply mu_emit_cost_nonneg.
+      * (* XOR_ADD *)
+        inversion Hstep; subst; clear Hstep.
+        simpl.
+        apply add_mu_operational_mu_total_ge.
+        apply mu_emit_cost_nonneg.
+      * (* XOR_SWAP *)
+        inversion Hstep; subst; clear Hstep.
+        simpl.
+        apply add_mu_operational_mu_total_ge.
+        apply mu_emit_cost_nonneg.
+      * (* XOR_RANK *)
+        inversion Hstep; subst; clear Hstep.
+        simpl.
+        apply add_mu_operational_mu_total_ge.
+        apply mu_emit_cost_nonneg.
+      * (* EMIT *)
+        inversion Hstep; subst; clear Hstep.
+        simpl.
+        apply add_mu_operational_mu_total_ge.
+        apply mu_emit_cost_nonneg.
+      * (* ORACLE_HALTS *)
+        inversion Hstep; subst; clear Hstep.
+        simpl.
+        apply add_mu_information_mu_total_ge.
+        apply mu_pdiscover_cost_nonneg.
+      * (* HALT *)
+        inversion Hstep; subst; clear Hstep.
+        simpl. apply Z.le_ge. apply Z.le_refl.
+    + inversion Hstep; subst; clear Hstep.
+      simpl. apply Z.le_ge. apply Z.le_refl.
 Qed.
 
 (** Theorem 2: Partition Validity Preservation
@@ -680,23 +959,133 @@ Qed.
     that adding a module maintains validity as a design invariant.
 *)
 (** Theorem 2: Partition State Preservation
-    For non-PNEW instructions, partition structure is preserved.
+    For computational instructions (non-partition ops), partition structure is preserved.
 *)
-Theorem partition_preserved_non_pnew :
+Theorem partition_preserved_computational :
   forall (s : State) (s' : State) (instr : Instruction),
     nth_error s.(program) s.(pc) = Some instr ->
     s.(halted) = false ->
     step s = Some s' ->
     (forall r, instr <> PNEW r) ->
+    (forall m, instr <> PSPLIT m) ->
+    (forall m1 m2, instr <> PMERGE m1 m2) ->
     s'.(partition) = s.(partition).
 Proof.
-  intros s s' instr Hnth Hhalted Hstep Hnot_pnew.
+  intros s s' instr Hnth Hhalted Hstep Hnot_pnew Hnot_psplit Hnot_pmerge.
   unfold step in Hstep.
   rewrite Hhalted in Hstep.
   rewrite Hnth in Hstep.
-  destruct instr; try (injection Hstep as Hstep; subst s'; simpl; reflexivity).
-  - (* PNEW case *)
-    exfalso. apply (Hnot_pnew r). reflexivity.
+  destruct instr.
+  - (* PNEW *)
+    exfalso. eapply Hnot_pnew. reflexivity.
+  - (* PSPLIT *)
+    exfalso. eapply Hnot_psplit. reflexivity.
+  - (* PMERGE *)
+    exfalso. eapply Hnot_pmerge. reflexivity.
+  - (* LASSERT *)
+    simpl in Hstep. destruct (partition_valid_b (partition s)); injection Hstep as Hstep; subst s'; reflexivity.
+  - (* LJOIN *)
+    injection Hstep as Hstep; subst s'; reflexivity.
+  - (* MDLACC *)
+    injection Hstep as Hstep; subst s'; reflexivity.
+  - (* PDISCOVER *)
+    injection Hstep as Hstep; subst s'; reflexivity.
+  - (* XFER *)
+    injection Hstep as Hstep; subst s'; reflexivity.
+  - (* PYEXEC *)
+    injection Hstep as Hstep; subst s'; reflexivity.
+  - (* XOR_LOAD *)
+    injection Hstep as Hstep; subst s'; reflexivity.
+  - (* XOR_ADD *)
+    injection Hstep as Hstep; subst s'; reflexivity.
+  - (* XOR_SWAP *)
+    injection Hstep as Hstep; subst s'; reflexivity.
+  - (* XOR_RANK *)
+    injection Hstep as Hstep; subst s'; reflexivity.
+  - (* EMIT *)
+    injection Hstep as Hstep; subst s'; reflexivity.
+  - (* ORACLE_HALTS *)
+    injection Hstep as Hstep; subst s'; reflexivity.
+  - (* HALT *)
+    injection Hstep as Hstep; subst s'; reflexivity.
+Qed.
+
+(** Theorem 2: Partition Validity Preservation
+    If a partition is valid before a step, it remains valid after.
+
+    Note: This relies on the strict PNEW semantics above: new regions must be
+    disjoint (duplicates are a no-op; partial overlaps halt).
+*)
+Theorem partition_validity_preserved :
+  forall (s s' : State),
+    step s = Some s' ->
+    partition_valid (partition s) ->
+    partition_valid (partition s').
+Proof.
+  intros s s' Hstep Hvalid.
+  unfold partition_valid in *.
+  unfold step in Hstep.
+  destruct (halted s) eqn:Hhalted.
+  - discriminate Hstep.
+  - destruct (nth_error (program s) (pc s)) as [instr|] eqn:Hnth.
+    + destruct instr; simpl in Hstep;
+      try (injection Hstep as Hstep; subst s'; simpl; exact Hvalid).
+
+    * (* PNEW *)
+      destruct (existsb (fun r' : Region => region_eqb r r')
+                  (map snd (modules (partition s)))) eqn:Hdup.
+      -- (* duplicate: partition unchanged *)
+        injection Hstep as Hstep; subst s'.
+        simpl. exact Hvalid.
+      -- destruct (existsb (fun r' : Region => negb (disjoint_b r r'))
+                    (map snd (modules (partition s)))) eqn:Hov.
+        ++ (* overlap: partition unchanged *)
+          injection Hstep as Hstep; subst s'.
+          simpl. exact Hvalid.
+        ++ (* disjoint: attempt to add; validity is checked in-step *)
+          set (p' := add_module (partition s) r).
+          destruct (partition_valid_b p') eqn:Hpv.
+            ** unfold p' in Hpv.
+               rewrite Hpv in Hstep.
+               injection Hstep as Hstep; subst s'.
+            simpl. exact Hpv.
+            ** unfold p' in Hpv.
+               rewrite Hpv in Hstep.
+               injection Hstep as Hstep; subst s'.
+            simpl. exact Hvalid.
+
+    * (* PSPLIT *)
+      set (p' := update_partition_split (partition s) m).
+      destruct (partition_valid_b p') eqn:Hpv.
+        -- unfold p' in Hpv.
+           rewrite Hpv in Hstep.
+           injection Hstep as Hstep; subst s'.
+        simpl. exact Hpv.
+        -- unfold p' in Hpv.
+           rewrite Hpv in Hstep.
+           injection Hstep as Hstep; subst s'.
+        simpl. exact Hvalid.
+
+    * (* PMERGE *)
+      set (p' := update_partition_merge (partition s) m m0).
+      destruct (partition_valid_b p') eqn:Hpv.
+        -- unfold p' in Hpv.
+           rewrite Hpv in Hstep.
+           injection Hstep as Hstep; subst s'.
+        simpl. exact Hpv.
+        -- unfold p' in Hpv.
+           rewrite Hpv in Hstep.
+           injection Hstep as Hstep; subst s'.
+        simpl. exact Hvalid.
+
+      * (* LASSERT *)
+        rewrite Hvalid in Hstep.
+        injection Hstep as Hstep; subst s'.
+        simpl. exact Hvalid.
+
+   + (* PC out of bounds: partition unchanged *)
+    injection Hstep as Hstep; subst s'.
+    simpl. exact Hvalid.
 Qed.
 
 (** Theorem 3: Multi-step μ-Monotonicity
@@ -772,7 +1161,37 @@ Proof.
   rewrite Hhalted.
   destruct (nth_error (program s) (pc s)) as [instr|] eqn:Hnth.
   - (* Valid instruction *)
-    destruct instr; eexists; reflexivity.
+    destruct instr.
+    + (* PNEW *)
+      destruct (existsb (fun r' : Region => region_eqb r r')
+                (map snd (modules (partition s)))).
+      * eexists; reflexivity.
+      * destruct (existsb (fun r' : Region => negb (disjoint_b r r'))
+                  (map snd (modules (partition s)))).
+        -- eexists; reflexivity.
+        -- destruct (partition_valid_b (add_module (partition s) r));
+             eexists; reflexivity.
+    + (* PSPLIT *)
+      destruct (partition_valid_b (update_partition_split (partition s) m));
+        eexists; reflexivity.
+    + (* PMERGE *)
+      destruct (partition_valid_b (update_partition_merge (partition s) m m0));
+        eexists; reflexivity.
+    + (* LASSERT *)
+      destruct (partition_valid_b (partition s));
+        eexists; reflexivity.
+    + (* LJOIN *) eexists; reflexivity.
+    + (* MDLACC *) eexists; reflexivity.
+    + (* PDISCOVER *) eexists; reflexivity.
+    + (* XFER *) eexists; reflexivity.
+    + (* PYEXEC *) eexists; reflexivity.
+    + (* XOR_LOAD *) eexists; reflexivity.
+    + (* XOR_ADD *) eexists; reflexivity.
+    + (* XOR_SWAP *) eexists; reflexivity.
+    + (* XOR_RANK *) eexists; reflexivity.
+    + (* EMIT *) eexists; reflexivity.
+    + (* ORACLE_HALTS *) eexists; reflexivity.
+    + (* HALT *) eexists; reflexivity.
   - (* This case is impossible given Hpc *)
     (* nth_error returns None only when pc >= length prog *)
     apply nth_error_None in Hnth.

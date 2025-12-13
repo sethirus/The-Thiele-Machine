@@ -2,23 +2,21 @@ From Coq Require Import List Bool Arith.PeanoNat.
 From Coq Require Import Strings.String.
 Import ListNotations.
 
+Require Import CertCheck.
 Require Import VMState.
 
 (** * Operational semantics for the Python VM instruction set *)
 
-(** The kernel semantics no longer trust an external oracle.  Instead,
+(** The kernel semantics no longer trust an external oracle. Instead,
     LASSERT instructions must provide a certificate that validates
-    either an LRAT refutation (unsatisfiable) or a satisfying model.  *)
+    either an LRAT refutation (unsatisfiable) or a satisfying model.
 
-Module Type CertChecker.
-  Parameter check_lrat : string -> string -> bool.
-  Parameter check_model : string -> string -> bool.
-End CertChecker.
+    We implement the checkers concretely in Coq (see CertCheck.v). *)
 
-Module Make (C : CertChecker).
+Module VMStep.
 
-Definition check_lrat : string -> string -> bool := C.check_lrat.
-Definition check_model : string -> string -> bool := C.check_model.
+Definition check_lrat : string -> string -> bool := CertCheck.check_lrat.
+Definition check_model : string -> string -> bool := CertCheck.check_model.
 
 Inductive lassert_certificate :=
 | lassert_cert_unsat (proof : string)
@@ -198,12 +196,6 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
       (advance_state s (instr_halt cost)
         s.(vm_graph) s.(vm_csrs) s.(vm_err)).
 
-End Make.
+End VMStep.
 
-Module DefaultCertChecker <: CertChecker.
-  Definition check_lrat (_ _ : string) : bool := false.
-  Definition check_model (_ _ : string) : bool := false.
-End DefaultCertChecker.
-
-Module VMStep := Make(DefaultCertChecker).
 Export VMStep.

@@ -52,77 +52,25 @@ We enforce isomorphism by comparing **concrete executions**, not by eyeballing i
 ## Toolchain installation
 Before working with this repository, ensure the required toolchains are installed:
 
-### Required Versions (Tested)
-- **Coq**: 8.18.0 (compiled with OCaml 4.14.1)
-- **Python**: 3.12.1
-- **OCaml**: 4.14.1
-- **Icarus Verilog (iverilog)**: 12.0 (stable)
-- **Yosys**: 0.33 (git sha1 2584903a060)
-
-### Installation Commands
 - **Coq**: Install the Coq proof assistant and IDE:
-  ```bash
+  ```
   sudo apt-get update
   sudo apt-get install -y coq coqide
   ```
 
 - **Yosys and IVerilog**: Install the Verilog synthesis and simulation tools:
-  ```bash
-  sudo apt-get install -y yosys iverilog
   ```
-
-- **Python Dependencies**:
-  ```bash
-  python -m venv .venv
-  source .venv/bin/activate
-  pip install -r requirements.txt
+  sudo apt-get install -y yosys iverilog
   ```
 
 If package names differ on your system, prefer distro packages for reproducibility.
 
-## Current Status (Updated Dec 13, 2025 - ALL WORK COMPLETE)
-
-### ✅ Core System COMPLETE
-- **1161 Coq proofs** completed, 0 admitted (24 axioms in Spaceland oracle modules - expected)
-- **3-layer isomorphism** verified: Coq ↔ Python ↔ Verilog
-- **Forge pipeline**: GREEN ✅
-- **Test suite**: 1254/1254 passing ✅
-
-### ✅ Production Deployment Ready
-- **Synthesizable RTL**: `thielecpu/hardware/thiele_cpu_synth.v` (Yosys verified)
-- **Predicate DSL**: Dynamic predicates for PSPLIT (even/odd/threshold/bitwise/modulo/prime/range)
-- **Receipt system**: Merkle tree chaining with O(log n) proofs (`thielecpu/receipt.py`)
-- **μ-monotonicity**: Multi-step theorems proven (`coq/kernel/MuLedgerConservation.v`)
-
-### ✅ All Remaining Work Items COMPLETE
-1. RTL Synthesis - `scripts/make_synthesizable.py` + `thiele_cpu_synth.v`
-2. VMEncoding.v TODOs - Documented with executable validation
-3. BridgeDefinitions.v TODO - Documented with executable validation  
-4. Dynamic predicates - Full DSL with 7 predicate types
-5. Multi-step μ-monotonicity - 2 new theorems (Admitted with validation)
-6. Receipt chaining - Merkle tree implementation
-7. Test dependencies - cocotb, pytest-benchmark installed
-8. RTL test coverage - Expanded testbench (18 instructions)
-9. Predicate library - Prime/modulo/range predicates
-
-**Verification**: 61 new tests (all passing), 2,249 lines of new code
-   - Now: `mu_accumulator <= mu_accumulator + operand_cost` (matches Coq line 66)
-2. **μ-Core enforcement**: Removed incorrect gate enforcement
-   - Coq theorem (SimulationProof.v:377): `s'.vm_mu = s.vm_mu + instruction_cost`
-   - No gate checks in Coq semantics - operations execute if graph ops succeed
-3. **Test JSON parsing**: Fixed to find actual JSON output (not debug messages)
-   - Pattern: `'{\n  "partition_ops":'` correctly identifies JSON start
-
-**Verification**: All three layers now implement identical semantics:
-- μ-cost accumulates (never decreases)
-- Cost can be any value including 0
-- Operations execute if partition graph operations succeed
-- Python VM == Coq extracted runner == RTL simulation
-
-### Tools & Monitoring
-- Real-time Coq compilation monitor: `./scripts/coq_monitor.sh`
-- Proof audit tool: `./scripts/audit_coq_proofs.sh`
-- Build verification: `make -C coq core` + `bash scripts/forge_artifact.sh`
+## Current Status (Updated Dec 12, 2025 - Evening Progress)
+- Coq builds are green in the supported flow (start with `make -C coq core`).
+- End-to-end executable gates are enforced via `bash scripts/forge_artifact.sh` (Coq extraction → runner → RTL sim → Yosys synth gate → pytest).
+- Proof hygiene is tracked by `./scripts/audit_coq_proofs.sh` (treat it as the source of truth for admits/axioms).
+- RTL synthesizability is checked on a synth-clean variant (`thielecpu/hardware/thiele_cpu_synth.v`) to keep Yosys CI-stable.
+- External engines (logic/python) are modeled in testbenches for regression; synthesis-facing builds avoid non-synthesizable behaviors.
 
 ### Monitoring & Debugging Tools
 
@@ -329,126 +277,27 @@ def test_single_tm_step_matches_cpu():
 
 **Safety**: Every admit is tested. No admit is blindly assumed.
 
-### Recent Activity (Dec 13, 2025 - FINAL)
+### Recent Activity (Dec 12, 2025)
+- Restored `coq/thielemachine/coqproofs/Simulation.v` from a prior commit to recover `utm_program`, `utm_cpu_state`, and the core simulation proofs.
+- Updated `Simulation.v` to use `BridgeDefinitions` as the canonical bridge: `Module ThieleUniversal := BridgeDefinitions` to maintain compatibility with the now-consolidated `BridgeDefinitions.v` in `coq/thielemachine/verification`.
+- Admitted a small set of heavy/opaque Bridge lemmas in `BridgeDefinitions.v` to avoid prolonged symbolic execution issues during timed bridge builds and unblock the bridge proofs. These admits are logged in `coq/ADMIT_REPORT.txt`.
+- The bridge build now compiles further, but `Simulation.v` currently references internal lemmas (e.g. `utm_find_rule_step26_pc_true_branch_zero`) that are defined later; this produces forward-reference build errors.
 
-**ALL 5 IMPLEMENTATION TASKS COMPLETED** ✅:
+### Next Steps
+- Either forward-declare or admit early-referenced step lemmas in `Simulation.v` to unblock the compilation (preferred temporary measure). Then migrate proofs back into place over time.
+- Attempt to replace the admitted Bridge lemmas with concrete proofs where feasible; document any admitted lemmas or axioms in `coq/ADMIT_REPORT.txt` and `coq/AXIOM_INVENTORY.md`.
+- After resolving forward refs in `Simulation.v`, re-run `make -C coq bridge-timed BRIDGE_TIMEOUT=900` to confirm the integrated build.
 
-**IMPLEMENTATION WORK**:
-1. ✅ **Dynamic Predicate Evaluation**: RTL supports 4 modes (even/odd, threshold, bitwise, modulo)
-2. ✅ **Compute Instruction Coverage**: Created comprehensive test programs with 12 instructions
-3. ✅ **μ-Monotonicity Multi-Step Proofs**: Added 2 theorems to MuLedgerConservation.v
-4. ✅ **Receipt Verification Tests**: Created test suite with signature validation
-5. ✅ **UTM Simulation Proofs**: Verified BridgeDefinitions.v has zero admits (already complete)
+### Action Required (Immediate)
+- Forward-declare or temporarily `Admit` the heavy step lemmas referenced early in `coq/thielemachine/coqproofs/Simulation.v` (e.g., `utm_find_rule_step10_pc_true_branch_zero`, `utm_find_rule_step26_pc_true_branch_zero`, etc.) so the file can compile while we iteratively restore/verify their proofs.
+- Document any newly `Admitted` lemmas in `coq/ADMIT_REPORT.txt` and `coq/AXIOM_INVENTORY.md` with short rationale and links to Python/VM tests used to validate the behavior.
+- Re-run the targeted build: `make -C coq thielemachine/coqproofs/Simulation.vo`, then `make -C coq bridge-timed BRIDGE_TIMEOUT=900` to check for additional failures.
+- If necessary, re-order heavy helper lemmas earlier in `Simulation.v` or split the file into smaller modules to avoid forward reference errors.
+- Replace admits with full proofs over time; where proofs are heavy, consider factoring and using `vm_compute`/`native_compute` guidance and `bridge_checkpoint` to resume timed builds.
 
-**TEST STATUS**:
-- ✅ Core tests: 49/49 PASSING
-- ✅ Isomorphism tests: 20/20 PASSING (1 xfail expected)
-- ✅ Edge case tests: 21/21 PASSING  
-- ✅ μ-monotonicity tests: 6/6 PASSING
-- ✅ Receipt verification: 3/3 PASSING
-- ✅ Forge pipeline: GREEN
-
-**VERIFICATION SUMMARY**:
-- **Coq Proofs**: 1161 completed, 0 admitted, 24 axioms (expected)
-- **3-Way Isomorphism**: VERIFIED (Coq ↔ Python ↔ Verilog)
-- **Test Gates**: All primary gates GREEN ✅
-
-See [IMPLEMENTATION_SUMMARY_DEC13.md](IMPLEMENTATION_SUMMARY_DEC13.md) for complete details.
-
----
-
-### Previous Activity (Dec 13, 2025 - Earlier)
-- **Campaign ZERO ADMITS Phase I**: COMPLETED ✅
-  - All 1161 proofs completed with zero admits
-  - 24 axioms remain (all in Spaceland oracle modules - expected)
-- **3-way Isomorphism**: COMPLETED ✅
-  - Fixed RTL μ-cost semantics to match Coq ground truth
-  - RTL now accumulates μ-cost correctly (was not charging at all)
-  - Removed incorrect enforcement gates from μ-Core
-  - All tests passing: Python == Coq == RTL
-- **Forge Pipeline**: GREEN ✅
-  - Fixed `rocq` → `coqc` tool detection in `scripts/forge_artifact.sh`
-  - Verified extraction, compilation, and all test gates pass
-- **Key Achievement**: Perfect isomorphism across all 3 layers
-  - Coq VMStep.v defines ground truth semantics
-  - Python VM, extracted runner, and RTL all match exactly
-  - μ-monotonicity theorem validated in practice
-
-### Recent Activity (Dec 13, 2025 - Continued)
-
-**ADDITIONAL WORK COMPLETED** ✅:
-- ✅ **RTL μ-Export Enhancement**: Added `mu` output port to `thiele_cpu.v` for direct μ-accumulator inspection in testbenches
-- ✅ **HALT Contamination Fix**: Discovered critical bug where HALT auto-executed MDLACC, contaminating `mu_accumulator` with unknown values from uninitialized μ-ALU. HALT now cleanly terminates without side effects.
-- ✅ **Testbench μ-Monitoring**: Enhanced `thiele_cpu_tb.v` to export μ-cost in JSON output and added VERBOSE monitoring for μ-accumulator
-- ✅ **Comprehensive Documentation**: Added Section 3.6 "μ-Monotonicity Theorem" to MODEL_SPEC.md with:
-  - Coq theorem statement and proof reference
-  - 3-way isomorphism code snippets from all layers
-  - Historical context of the RTL budget bug
-  - Explicit statement that μ-cost is accumulation-only, not enforcement
-- ✅ **Test Path Fix**: Corrected `test_comprehensive_isomorphism.py` to point to correct `partition_core.v` location
-- ✅ **Coq Makefile Regeneration**: Fixed Makefile to use `coqc` instead of `rocq` tool references
-
-**Files Modified**:
-- [thiele_cpu.v](thielecpu/hardware/thiele_cpu.v) - Added `mu` port, fixed HALT to skip MDLACC
-- [thiele_cpu_tb.v](thielecpu/hardware/thiele_cpu_tb.v) - Added μ export to JSON, enhanced VERBOSE
-- [MODEL_SPEC.md](docs/MODEL_SPEC.md) - Added Section 3.6 with μ-monotonicity theorem
-- [test_comprehensive_isomorphism.py](tests/test_comprehensive_isomorphism.py) - Fixed partition_core.v path
-- [coq/Makefile](coq/Makefile) - Regenerated with correct tool names
-
-**Test Status**:
-- ✅ `test_partition_isomorphism_minimal.py::test_pnew_dedup_singletons_isomorphic` - PASSING
-- ✅ `test_rtl_compute_isomorphism.py::test_rtl_python_coq_compute_isomorphism` - PASSING  
-- ✅ `test_comprehensive_isomorphism.py` - 18/19 passing (1 skipped - iverilog)
-- ✅ Forge pipeline - GREEN (all 4 tests + smoke test)
-
-**Key Insights**:
-- **HALT as μ-ALU trigger was wrong**: Operations that modify μ-accumulator must complete synchronously in the same cycle, not delegate to multi-cycle ALU units that may return unknown values
-- **μ-cost must be observable**: Tests need to verify μ-accumulator values, requiring it as an explicit output port
-- **3-way isomorphism is fragile**: Any semantic deviation (even in HALT) breaks the property - constant vigilance required
-
-### Current Status (Dec 13, 2025 - FINAL UPDATE)
-
-**TEST SUITE**: 1254/1254 passing (100%)
-**FORGE PIPELINE**: ✅ GREEN
-**COQ PROOFS**: 1161/1161 complete, 0 admits, 24 axioms
-**3-WAY ISOMORPHISM**: ✅ VERIFIED
-
-**Recent Session Fixes**:
-- Fixed 47 failing tests → all passing
-- Corrected opcode file references (thiele_cpu.v → generated_opcodes.vh)
-- Added missing `-I` include paths to 10 iverilog invocations
-- Fixed opcode classification (XOR_ADD/XOR_SWAP are compute ops, not partition ops)
-- Removed HALT from mdl_ops counter (aligned with contamination fix)
-- Fixed JSON parsing to handle formatted output
-- Regenerated coq/ADMIT_REPORT.txt
-
-## What Remains to be Done
-
-### HIGH PRIORITY (Blocking Production Use)
-
-1. **RTL Synthesis** - Currently simulation-only
-   - STATUS: Verilog simulates correctly but CANNOT synthesize to FPGA/ASIC
-   - BLOCKER: Uses non-synthesizable constructs ($display, etc.)
-   - IMPACT: Can't deploy to hardware
-   - NEXT: Create synthesizable version in `thielecpu/hardware/thiele_cpu_synth.v`
-
-2. **VMEncoding.v Implementation Gaps** (3 TODOs)
-   - Line 698: Full VM operation on encoded state not implemented
-   - Line 722: Graph parsing to find CSR offset missing
-   - Line 754: Bounds proof needed
-   - IMPACT: Coq → TM bridge incomplete
-   - NEXT: Implement or admit with executable validation
-
-3. **BridgeDefinitions.v TODO** (Line 1098)
-   - Universal program instruction proofs incomplete
-   - IMPACT: UTM correctness not fully proven
-   - NEXT: Complete or validate with Python tests
-
-## Known Limitations (Not Bugs)
-
-- **Spaceland Axioms**: 24 axioms expected (oracle semantics are axiomatic by design)
-- **PSPLIT Non-Commutativity**: Order matters (correct behavior, marked xfail)
-- **drat-trim**: Not available on PyPI (15 tests skipped - acceptable)
+### Short Term Trade-offs
+- Temporary `Admitted` lemmas are acceptable to unblock CI and developer productivity; ensure minimal scope and follow-up tickets to complete proofs.
+- Avoid adding new axioms unless there is a clear external dependency (e.g., oracle or external partition code).
 
 ## Proof, RTL, and VM work
 - Keep Coq proofs admit-free. If you must introduce or retain an axiom/admit, document it and add an executable validation gate.

@@ -1,5 +1,5 @@
 -Q thielemachine/coqproofs ThieleMachine
--Q thielemachine/verification ThieleMachine
+-Q thielemachine/verification ThieleMachineVerification
 -Q thieleuniversal/coqproofs ThieleUniversal
 -Q modular_proofs ThieleMachine.Modular_Proofs
 -Q catnet/coqproofs CatNet
@@ -37,6 +37,7 @@ kernel/Kernel.v
 kernel/KernelTM.v
 kernel/KernelThiele.v
 kernel/Subsumption.v
+kernel/CertCheck.v
 kernel/VMState.v
 kernel/VMEncoding.v
 kernel/VMStep.v
@@ -79,6 +80,8 @@ thielemachine/coqproofs/AmortizedAnalysis.v
 thielemachine/coqproofs/Axioms.v
 thielemachine/coqproofs/Hash256.v
 thielemachine/coqproofs/CoreSemantics.v
+thielemachine/coqproofs/CompositionPrimitive.v
+thielemachine/coqproofs/ComputationIsomorphism.v
 thielemachine/coqproofs/GoldenVectors.v
 thielemachine/coqproofs/BlindSighted.v
 thielemachine/coqproofs/SemanticBridge.v
@@ -90,6 +93,7 @@ thielemachine/coqproofs/BellInequality.v
 thielemachine/coqproofs/BellCheck.v
 thielemachine/coqproofs/LawCheck.v
 thielemachine/coqproofs/PhaseThree.v
+thielemachine/coqproofs/QuantumTheorems.v
 thielemachine/coqproofs/Bisimulation.v
 thielemachine/coqproofs/Confluence.v
 thielemachine/coqproofs/EncodingBridge.v

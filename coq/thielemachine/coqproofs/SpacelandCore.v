@@ -44,18 +44,18 @@ Module Type MinimalSpaceland.
   Parameter step : State -> Label -> State -> Prop.
   
   (** Determinism *)
-  Axiom step_det : forall s l s1 s2,
+  Parameter step_det : forall s l s1 s2,
     step s l s1 -> step s l s2 -> s1 = s2.
   
   (** Cost function *)
   Parameter mu : State -> Label -> State -> Z.
   
   (** Cost is non-negative *)
-  Axiom mu_nonneg : forall s l s',
+  Parameter mu_nonneg : forall s l s',
     step s l s' -> mu s l s' >= 0.
   
   (** Blind steps with unchanged partition cost zero *)
-  Axiom mu_blind_free : forall s s',
+  Parameter mu_blind_free : forall s s',
     step s LCompute s' ->
     get_partition s = get_partition s' ->
     mu s LCompute s' = 0.

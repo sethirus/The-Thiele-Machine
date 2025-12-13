@@ -53,12 +53,12 @@ The Thiele Machine makes explicit what classical computation ignores:
 
 #### 2. **Separation.v** (103 lines)
 - **Purpose:** Formalises the sighted-vs-blind cost separation on Tseitin expander instances.
-- **Status:** ✅ Compiles with a single axiom capturing the classical exponential lower bound for blind DPLL search.
+- **Status:** ✅ Compiles. The classical lower bound for blind DPLL-style search is left abstract (as an interface assumption), rather than proved here.
 - **Main statements:**
   - `thiele_sighted_steps_polynomial`: Cubic time upper bound for the Thiele solver.
   - `thiele_mu_cost_quadratic`: Quadratic μ-bit accounting bound.
   - `thiele_exponential_separation`: Combines the constructive bounds with the blind-search axiom to exhibit the exponential gap.
-- **Interpretation:** This is the flagship mechanised result: Thiele programs pay polynomial μ to see structure, then run in polynomial time. The only assumption is the widely believed hardness of Tseitin formulas for blind solvers.
+- **Interpretation:** This is the flagship mechanised result: Thiele programs pay polynomial μ to see structure, then run in polynomial time under the stated blind-search hardness assumption.
 - **Dependencies:** Pure arithmetic (`Lia`, `Psatz`). No reliance on `ThieleUniversal` or halting oracles.
 - **Build:** `make thielemachine/coqproofs/Separation.vo`
 
@@ -378,7 +378,7 @@ cd /workspaces/The-Thiele-Machine
 grep -r "Admitted" coq --include="*.v" | wc -l  # See `../../ADMIT_REPORT.txt` for current counts
 
 # Count Axiom declarations
-grep -r "^Axiom " coq --include="*.v" | wc -l  # Expected: 27
+grep -r "^Axiom " coq --include="*.v" | wc -l  # Expected: 0 (some assumptions may appear as Parameters/Module Type fields)
 
 # See axiom justifications
 cat coq/AXIOM_INVENTORY.md

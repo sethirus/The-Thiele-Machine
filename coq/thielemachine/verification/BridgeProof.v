@@ -1,7 +1,7 @@
 From Coq Require Import Lia.
 From ThieleUniversal Require Import TM UTM_Program UTM_Encode.
-From ThieleMachine Require Import BridgeDefinitions.
-From ThieleMachine Require Import BridgeCheckpoints.
+From ThieleMachineVerification Require Import BridgeDefinitions.
+From ThieleMachineVerification Require Import BridgeCheckpoints.
 
 (* CREATIVE OPTIMIZATION: Using native_compute instead of vm_compute for massive speedup.
    Native compilation of the computation is 10-100x faster than vm_compute.

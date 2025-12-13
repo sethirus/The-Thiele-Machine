@@ -329,13 +329,38 @@ Theorem run_vm_mu_monotonic_prefix :
   forall k1 k2 trace s,
     k1 <= k2 ->
     (run_vm k1 trace s).(vm_mu) <= (run_vm k2 trace s).(vm_mu).
-Admitted.  (* Validated by tests/test_mu_monotonicity.py *)
+Proof.
+  intros k1 k2 trace s Hle.
+  revert k1 s Hle.
+  induction k2 as [|k2 IH]; intros k1 s Hle.
+  - assert (k1 = 0) as -> by lia.
+    simpl.
+    lia.
+  - destruct k1 as [|k1].
+    + (* 0 <= S k2 *)
+      apply run_vm_mu_monotonic.
+    + (* S k1 <= S k2 *)
+      apply Nat.succ_le_mono in Hle.
+      destruct (nth_error trace (vm_pc s)) as [instr|] eqn:Hlookup; simpl.
+      * rewrite Hlookup.
+        simpl.
+        apply IH; assumption.
+      * rewrite Hlookup.
+        simpl.
+        lia.
+Qed.
 
 Theorem run_vm_mu_monotonic_composition :
   forall m n trace s,
     s.(vm_mu) <= (run_vm m trace s).(vm_mu) /\
     (run_vm m trace s).(vm_mu) <= (run_vm (m + n) trace s).(vm_mu).
-Admitted.  (* Validated by tests/test_mu_monotonicity.py *)
+Proof.
+  intros m n trace s.
+  split.
+  - apply run_vm_mu_monotonic.
+  - apply run_vm_mu_monotonic_prefix.
+    apply Nat.le_add_r.
+Qed.
 
 (** We now generalise the conservation statement by splitting the
     instruction cost into complementary components.  This allows the
