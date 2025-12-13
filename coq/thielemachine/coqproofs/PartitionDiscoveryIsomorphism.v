@@ -278,9 +278,10 @@ Qed.
  *)
 
 Definition is_structured (g : VariableGraph) : Prop :=
-  (* A graph is "structured" if it has clear community structure *)
-  (* This is determined by the geometric signature analysis *)
-  True.  (* Simplified - actual definition would use modularity *)
+  (* A minimal, falsifiable proxy for "structure":
+     require at least 2 variables and a sparse interaction pattern. *)
+  (2 <= num_vars g)%nat /\
+  (length (edges g) <= 2 * num_vars g)%nat.
 
 (** =========================================================================
     VERILOG GEOMETRIC SIGNATURE SPECIFICATION

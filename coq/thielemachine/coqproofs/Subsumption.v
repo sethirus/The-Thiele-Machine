@@ -4,29 +4,46 @@
 (* ================================================================= *)
 From Coq Require Import Arith Lia.
 
-From ThieleUniversal Require Import TM.
-From ThieleMachine Require Import ThieleMachine UTMStaticCheck.
-(* From ThieleMachine Require Import Simulation Separation HyperThiele_Halting HyperThiele_Oracle.
-Import HyperThieleOracleMinimal HyperThiele_Halting Simulation UTMStaticCheck. *)
+From Kernel Require Import Kernel KernelTM KernelThiele Subsumption.
 
-(* TODO: This file is incomplete - many referenced definitions are missing *)
+Module K := Kernel.
+Module KTM := KernelTM.
+Module KTH := KernelThiele.
+Module KS := Kernel.Subsumption.
 
-Axiom strict_advantage_statement : Prop.
-(*Definition strict_advantage_statement : Prop :=
-  exists (N C D : nat), forall n, n >= N ->
-    thiele_sighted_steps (tseitin_family n) <= C * cubic n /\
-    thiele_mu_cost (tseitin_family n) <= D * quadratic n /\
-    turing_blind_steps (tseitin_family n) >= Nat.pow 2 n.*)
+(** This file provides a proved subsumption result by reusing the
+    kernel-level Thiele-vs-Turing simulation and strict containment
+    theorems.
 
-Axiom thiele_simulates_tm_via_simulation : forall (tm : TM), Prop.
+    It intentionally avoids placeholder `True` definitions and does not
+    introduce new axioms or parameters. *)
 
-Axiom turing_subsumption : Prop.
-(*Theorem turing_subsumption : forall tm,
-      forall (Hfit : rules_fit tm),
-      thiele_simulates_tm_via_simulation tm Hfit.*)
+Theorem turing_subsumption :
+  forall fuel prog st,
+    K.program_is_turing prog ->
+    KTM.run_tm fuel prog st = KTH.run_thiele fuel prog st.
+Proof.
+  exact KS.thiele_simulates_turing.
+Qed.
 
-Axiom strict_separation : Prop.
-(*Theorem strict_separation : strict_advantage_statement.*)
+Theorem strict_separation :
+  exists (p : K.program),
+    KTM.run_tm 1 p KS.initial_state <> KS.target_state /\
+    KTH.run_thiele 1 p KS.initial_state = KS.target_state.
+Proof.
+  exact KS.turing_is_strictly_contained.
+Qed.
 
-Axiom main_subsumption : Prop.
-(*Theorem main_subsumption : turing_subsumption /\ strict_separation.*)
+Theorem main_subsumption :
+  (forall fuel prog st,
+    K.program_is_turing prog ->
+    KTM.run_tm fuel prog st = KTH.run_thiele fuel prog st)
+  /\
+  (exists (p : K.program),
+    KTM.run_tm 1 p KS.initial_state <> KS.target_state /\
+    KTH.run_thiele 1 p KS.initial_state = KS.target_state).
+Proof.
+  split.
+  - exact turing_subsumption.
+  - exact strict_separation.
+Qed.

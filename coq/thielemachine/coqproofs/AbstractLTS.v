@@ -139,7 +139,7 @@ Module AbstractLTS <: Spaceland.
 
   Definition Instruction := InstructionType.
 
-  Definition program (s : State) : list Instruction := [].
+  Definition program (s : State) : list Instruction := nil.
 
   Definition pc (s : State) : nat := state_id s.
 
@@ -450,47 +450,174 @@ Module AbstractLTS <: Spaceland.
        label_sequence := trace_labels t;
        final_partition := get_partition (trace_final t);
        total_mu := trace_mu t |}.
-  
-  Definition verify_receipt (r : Receipt) : bool := true.
+
+  Fixpoint list_nat_eqb (xs ys : list nat) : bool :=
+    match xs, ys with
+    | [], [] => true
+    | x :: xs', y :: ys' => Nat.eqb x y && list_nat_eqb xs' ys'
+    | _, _ => false
+    end.
+
+  Fixpoint partition_eqb (p q : Partition) : bool :=
+    match p, q with
+    | [], [] => true
+    | m :: p', n :: q' => list_nat_eqb m n && partition_eqb p' q'
+    | _, _ => false
+    end.
+
+  Lemma list_nat_eqb_refl : forall xs, list_nat_eqb xs xs = true.
+  Proof.
+    induction xs as [| x xs IH]; simpl.
+    - reflexivity.
+    - rewrite Nat.eqb_refl. now rewrite IH.
+  Qed.
+
+  Lemma partition_eqb_refl : forall p, partition_eqb p p = true.
+  Proof.
+    induction p as [| m p IH]; simpl.
+    - reflexivity.
+    - rewrite list_nat_eqb_refl. now rewrite IH.
+  Qed.
+
+  Lemma list_nat_eqb_eq : forall xs ys, list_nat_eqb xs ys = true -> xs = ys.
+  Proof.
+    induction xs as [| x xs IH]; destruct ys as [| y ys]; simpl; intros H; try discriminate.
+    - reflexivity.
+    - apply andb_true_iff in H as [Hxy Hrest].
+      apply Nat.eqb_eq in Hxy. subst y.
+      f_equal. apply IH. exact Hrest.
+  Qed.
+
+  Lemma partition_eqb_eq : forall p q, partition_eqb p q = true -> p = q.
+  Proof.
+    induction p as [| m p IH]; destruct q as [| n q]; simpl; intros H; try discriminate.
+    - reflexivity.
+    - apply andb_true_iff in H as [Hmn Hrest].
+      apply list_nat_eqb_eq in Hmn. subst n.
+      f_equal. apply IH. exact Hrest.
+  Qed.
+
+  (** A lightweight verifier sufficient to satisfy the Spaceland interface:
+      - non-empty label sequences are always accepted (we can always construct a trace)
+      - empty label sequences are only accepted when they can come from a TNil trace
+        (init=final and total_mu=0).
+  *)
+  Definition verify_receipt (r : Receipt) : bool :=
+    match label_sequence r with
+    | [] => andb (partition_eqb (initial_partition r) (final_partition r))
+                 (Z.eqb (total_mu r) 0)
+    | _ :: _ => true
+    end.
+
+  Definition mk_state (id : nat) (p : Partition) (mu0 : Z) : State :=
+    {| state_id := id; partition_label := p; mu_accumulated := mu0 |}.
+
+  Fixpoint build_receipt_trace (init_p final_p : Partition) (tot_mu : Z) (ls : list Label) (id : nat) : Trace :=
+    match ls with
+    | [] => TNil (mk_state id final_p tot_mu)
+    | l :: [] =>
+        TCons (mk_state id init_p 0) l (TNil (mk_state (S id) final_p tot_mu))
+    | l :: ls' =>
+        TCons (mk_state id init_p 0) l (build_receipt_trace init_p final_p tot_mu ls' (S id))
+    end.
+
+  Lemma trace_labels_build_receipt_trace : forall init_p final_p tot_mu ls id,
+    trace_labels (build_receipt_trace init_p final_p tot_mu ls id) = ls.
+  Proof.
+    induction ls as [| l ls IH]; intros id.
+    - cbn [build_receipt_trace trace_labels]. reflexivity.
+    - destruct ls as [| l2 ls2].
+      + cbn [build_receipt_trace trace_labels]. reflexivity.
+      + cbn [build_receipt_trace].
+        cbn [trace_labels].
+        f_equal.
+        exact (IH (S id)).
+  Qed.
+
+  Lemma get_partition_trace_initial_build_receipt_trace_nonempty : forall init_p final_p tot_mu ls id,
+    ls <> [] ->
+    get_partition (trace_initial (build_receipt_trace init_p final_p tot_mu ls id)) = init_p.
+  Proof.
+    intros init_p final_p tot_mu ls id Hne.
+    destruct ls as [| l ls].
+    - contradiction.
+    - destruct ls as [| l2 ls2].
+      + cbn [build_receipt_trace trace_initial get_partition mk_state]. reflexivity.
+      + cbn [build_receipt_trace trace_initial get_partition mk_state]. reflexivity.
+  Qed.
+
+  Lemma get_partition_trace_final_build_receipt_trace_nonempty : forall init_p final_p tot_mu ls id,
+    ls <> [] ->
+    get_partition (trace_final (build_receipt_trace init_p final_p tot_mu ls id)) = final_p.
+  Proof.
+    induction ls as [| l ls IH]; intros id Hne.
+    - contradiction.
+    - destruct ls as [| l2 ls2].
+      + cbn [build_receipt_trace trace_final get_partition mk_state]. reflexivity.
+      + cbn [build_receipt_trace].
+        cbn [trace_final].
+        exact (IH (S id) (ltac:(discriminate))).
+  Qed.
+
+  Lemma trace_mu_build_receipt_trace_nonempty : forall init_p final_p tot_mu ls id,
+    ls <> [] ->
+    trace_mu (build_receipt_trace init_p final_p tot_mu ls id) = tot_mu.
+  Proof.
+    induction ls as [| l ls IH]; intros id Hne.
+    - contradiction.
+    - destruct ls as [| l2 ls2].
+      + (* singleton label list *)
+        cbn [build_receipt_trace trace_mu]. unfold mu. cbn. lia.
+      + (* length >= 2 *)
+        destruct ls2 as [| l3 ls3].
+        * (* exactly two labels *)
+          cbn [build_receipt_trace trace_mu]. unfold mu. cbn. lia.
+        * (* three or more labels *)
+          cbn [build_receipt_trace].
+          cbn [trace_mu].
+          cbn [build_receipt_trace].
+          unfold mu. cbn.
+          exact (IH (S id) (ltac:(discriminate))).
+  Qed.
   
   Lemma receipt_sound : forall (r : Receipt),
     verify_receipt r = true ->
     exists (t : Trace),
       make_receipt t = r.
   Proof.
-    (* Receipt soundness: for any valid receipt, we can construct a corresponding trace *)
-    intros r Hverify.
-    (* The key insight: we weaken the claim to existence, not uniqueness *)
-    (* Any trace that produces the same observable projection works *)
-    (* For simplicity: construct a 2-state trace connecting initial to final *)
-    destruct r as [init_p labels final_p tot_mu].
-    (* Construct witness trace with arbitrary intermediate states *)
-    (* The mu values are distributed across steps according to the labels *)
-    exists (TCons {| state_id := 0; partition_label := init_p; mu_accumulated := 0 |}
-                  LCompute
-                  (TNil {| state_id := 1; partition_label := final_p; mu_accumulated := tot_mu |})).
-    (* Now show make_receipt of this trace equals r *)
-    unfold make_receipt. simpl.
-    unfold get_partition, trace_initial, trace_final, trace_labels. simpl.
-    (* Calculate trace_mu *)
-    unfold trace_mu at 1. simpl.
-    (* For this trace: mu from state 0 to state 1 via LCompute *)
-    (* We need: (init_p, [LCompute], final_p, tot_mu) = r *)
-    (* Since r already has these components by destructuring, *)
-    (* and our trace construction matches them, *)
-    (* we need to show the mu calculation gives tot_mu *)
-    unfold verify_receipt in Hverify. simpl in Hverify.
-    apply andb_true_iff in Hverify. destruct Hverify as [Hmu_check _].
-    (* The verification checked tot_mu >= 0, which means our receipt is valid *)
-    (* Our constructed trace assigns all mu cost to the single step *)
-    (* This matches the receipt's tot_mu by construction *)
-    f_equal. (* Prove structural equality *)
+    intros [init_p labels final_p tot_mu] Hverify.
+    unfold verify_receipt in Hverify.
+    destruct labels as [| l labels].
+    - (* Empty label sequence: verifier enforces init=final and tot_mu=0 *)
+      simpl in Hverify.
+      apply andb_true_iff in Hverify as [Hp Hz].
+      apply partition_eqb_eq in Hp. apply Z.eqb_eq in Hz.
+      subst final_p tot_mu.
+      exists (TNil (mk_state 0 init_p 0)).
+      unfold make_receipt. simpl.
+      unfold get_partition, trace_initial, trace_final, trace_labels, trace_mu.
+      simpl.
+      reflexivity.
+    - (* Non-empty label sequence: always realizable by construction *)
+      exists (build_receipt_trace init_p final_p tot_mu (l :: labels) 0).
+      unfold make_receipt.
+      rewrite (get_partition_trace_initial_build_receipt_trace_nonempty init_p final_p tot_mu (l :: labels) 0 (ltac:(discriminate))).
+      rewrite trace_labels_build_receipt_trace.
+      rewrite (get_partition_trace_final_build_receipt_trace_nonempty init_p final_p tot_mu (l :: labels) 0 (ltac:(discriminate))).
+      rewrite (trace_mu_build_receipt_trace_nonempty init_p final_p tot_mu (l :: labels) 0 (ltac:(discriminate))).
+      reflexivity.
   Qed.
   
   Lemma receipt_complete : forall (t : Trace),
     verify_receipt (make_receipt t) = true.
   Proof.
-    intros. reflexivity.
+    destruct t as [s | s l rest]; simpl.
+    - (* TNil: label_sequence = [] so verifier checks init=final and total_mu=0 *)
+      unfold verify_receipt. simpl.
+      rewrite partition_eqb_refl.
+      reflexivity.
+    - (* Non-empty label sequence always verifies *)
+      unfold verify_receipt. simpl. reflexivity.
   Qed.
   
   (** =======================================================================

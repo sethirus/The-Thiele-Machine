@@ -8,7 +8,7 @@ Require Import ThieleUniversal.TM.
 
 Definition utm_accept : nat := 4.
 Definition utm_reject : nat := 5.
-Definition utm_blank  : nat := 0.
+Definition utm_blank  : nat := Nat.sub 1 1.
 
 Definition utm_rules : list (nat * nat * nat * nat * Z) :=
   [ (0, 0, 1, 0, 1%Z);

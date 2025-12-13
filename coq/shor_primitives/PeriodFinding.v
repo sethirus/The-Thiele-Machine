@@ -123,7 +123,6 @@ Require Import ShorPrimitives.Euclidean.
 
 Section Periods.
   Variable N a : nat.
-  Hypothesis N_pos : N > 0.
 
   (** Modular exponentiation: a^x mod N *)
   Definition pow_mod (x : nat) : nat := mod_pow N a x.

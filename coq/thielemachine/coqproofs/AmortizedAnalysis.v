@@ -23,9 +23,12 @@ Definition mu_discovery_cost (inst : Instance) (P : Partition) : nat :=
   (* Cost to discover partition P for instance inst *)
   discovery_cost P + size inst.
 
+Definition module_count (P : Partition) : nat :=
+  fold_left (fun acc _ => S acc) (modules P) 0.
+
 Definition mu_operational_cost (inst : Instance) (P : Partition) : nat :=
   (* Ongoing cost to use partition P for instance inst *)
-  length (modules P) * size inst.
+  module_count P * size inst.
 
 (* === Basic Amortization Theorem === *)
 

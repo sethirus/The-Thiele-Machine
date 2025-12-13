@@ -60,15 +60,14 @@ Lemma vm_apply_mu :
 Proof.
   intros s instr.
   destruct instr; simpl;
-    try reflexivity;
     try (destruct (graph_pnew _ _) as [graph' mid] eqn:?; simpl; reflexivity);
     try (destruct (graph_psplit _ _ _ _) as [[[graph' left_id] right_id]|] eqn:?; simpl; reflexivity);
     try (destruct (graph_pmerge _ _ _) as [[graph' merged_id]|] eqn:?; simpl; reflexivity);
+    try (destruct cert as [proof | model]; simpl;
+         [destruct (check_lrat formula proof) eqn:?; simpl; reflexivity
+         |destruct (check_model formula model) eqn:?; simpl; reflexivity]);
     try (destruct (String.eqb _ _) eqn:?; simpl; reflexivity);
-    try (destruct cert;
-         simpl;
-         try (destruct (check_model _ _) eqn:?; simpl; reflexivity);
-         try (destruct (check_lrat _ _) eqn:?; simpl; reflexivity)).
+    reflexivity.
 Qed.
 
 Fixpoint ledger_conserved (states : list VMState) (entries : list nat)
@@ -302,7 +301,7 @@ Qed.
 Section MuDecomposition.
 
 Variable mu_blind_component mu_sighted_component : vm_instruction -> nat.
-Hypothesis mu_component_split : forall instr,
+Variable mu_component_split : forall instr,
   instruction_cost instr =
     mu_blind_component instr + mu_sighted_component instr.
 

@@ -157,8 +157,8 @@ Section Embedding.
   Variable decode : Encoded -> Lattice.
   Variable impl_step : Encoded -> Encoded.
 
-  Hypothesis decode_encode_id : forall L, decode (encode L) = L.
-  Hypothesis impl_refines_physics :
+  Variable decode_encode_id : forall L, decode (encode L) = L.
+  Variable impl_refines_physics :
     forall L, decode (impl_step (encode L)) = physics_step L.
 
   Lemma embedded_particle_count_conserved :

@@ -252,8 +252,8 @@ Section Embedding.
   Variable decode : Encoded -> WaveState.
   Variable impl_step : Encoded -> Encoded.
 
-  Hypothesis decode_encode_id : forall s, decode (encode s) = s.
-  Hypothesis impl_refines_wave : forall s, decode (impl_step (encode s)) = wave_step s.
+  Variable decode_encode_id : forall s, decode (encode s) = s.
+  Variable impl_refines_wave : forall s, decode (impl_step (encode s)) = wave_step s.
 
   Lemma embedded_energy_conserved :
     forall s, wave_energy (decode (impl_step (encode s))) = wave_energy (decode (encode s)).

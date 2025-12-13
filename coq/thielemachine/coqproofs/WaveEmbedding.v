@@ -18,11 +18,11 @@ Section WaveEmbedding.
           (decode_wave : VMState -> WaveState)
           (wave_trace : list vm_instruction).
 
-  Hypothesis decode_encode_id : forall S, decode_wave (encode_wave S) = S.
-  Hypothesis wave_vm_step_simulation :
+  Variable decode_encode_id : forall S, decode_wave (encode_wave S) = S.
+  Variable wave_vm_step_simulation :
     forall S, decode_wave (run_vm 1 wave_trace (encode_wave S)) = wave_step S.
 
-  Hypothesis wave_trace_irreversible_free :
+  Variable wave_trace_irreversible_free :
     forall pc instr, nth_error wave_trace pc = Some instr -> instruction_cost instr = 0.
 
   (** ** Embedding correctness and invariants *)

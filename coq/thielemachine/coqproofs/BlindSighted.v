@@ -30,20 +30,54 @@ Record ThieleState := {
   answer : option nat;
 }.
 
+(* Surface names used by cross-layer isomorphism tests. *)
+Definition ThieleSighted := ThieleState.
+
 Definition initial_state (universe : Region) : ThieleState :=
   {| partition := trivial_partition universe; ledger := zero_ledger; halted := false; answer := None |}.
 
-Inductive ThieleInstr : Type := EMIT : nat -> ThieleInstr | HALT : ThieleInstr.
+(* Sighted partition operations (restored surface). *)
+Inductive ThieleInstr : Type :=
+| PNEW : Region -> nat -> ThieleInstr
+| PSPLIT : ModuleId -> Region -> nat -> ThieleInstr
+| PMERGE : ModuleId -> ModuleId -> nat -> ThieleInstr
+| PDISCOVER : ModuleId -> nat -> ThieleInstr
+| EMIT : nat -> ThieleInstr
+| HALT : ThieleInstr.
+
 Definition ThieleProg := list ThieleInstr.
 
-Definition is_blind_safe (i : ThieleInstr) : bool := match i with EMIT _ => true | HALT => true end.
+Definition is_blind_safe (i : ThieleInstr) : bool :=
+  match i with
+  | EMIT _ => true
+  | HALT => true
+  | _ => false
+  end.
 Definition is_blind_program (p : ThieleProg) : bool := forallb is_blind_safe p.
 
+(* Natural partitions (restored symbols for isomorphism mapping). *)
+
+Definition chsh_natural_partition : Partition :=
+  {| modules := [(0, [1; 3]); (1, [2; 4]); (2, [5; 6; 7; 8])]; next_id := 3 |}.
+
+Definition shor_n_bits (N : nat) : nat := Nat.log2 (Nat.max 1 N) + 1.
+
+Definition shor_residue_vars (N : nat) : Region := seq 1 (shor_n_bits N).
+Definition shor_period_vars (N : nat) : Region := seq (1 + shor_n_bits N) (shor_n_bits N).
+Definition shor_factor_vars (N : nat) : Region := seq (1 + 2 * shor_n_bits N) (shor_n_bits N).
+
+Definition shor_natural_partition (N : nat) : Partition :=
+  {| modules := [(0, shor_residue_vars N);
+                (1, shor_period_vars N);
+                (2, shor_factor_vars N)];
+     next_id := 3 |}.
+
 Definition BlindThieleState := ThieleState.
+Definition ThieleBlind := BlindThieleState.
 Definition blind_initial (universe : Region) : BlindThieleState := initial_state universe.
 
 Record TuringConfig := { tm_tape : list nat; tm_head : nat; tm_state : nat }.
-Parameter tm_output : TuringConfig -> nat.
+Definition tm_output (cfg : TuringConfig) : nat := cfg.(tm_state).
 Definition encode_tm_config (cfg : TuringConfig) : Region := cfg.(tm_tape) ++ [cfg.(tm_head); cfg.(tm_state)].
 
 Theorem TM_as_BlindThiele : forall (cfg : TuringConfig), exists (blind_prog : ThieleProg) (final : BlindThieleState),

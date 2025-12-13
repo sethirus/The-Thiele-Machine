@@ -5,6 +5,7 @@ Require Import Coq.Lists.List.
 Import ListNotations.
 Require Import Arith.
 Require Import Coq.Strings.Ascii.
+Require Import Bool.
 
 Fixpoint string_to_list (s : string) : list ascii :=
   match s with
@@ -20,7 +21,9 @@ Record LogEntry := {
 Definition hash_entry (e : LogEntry) : nat :=
   (length (string_to_list e.(data))) + e.(previous_hash).
 
-Definition logic_oracle (_ : list nat) : bool := true.
+(* Minimal executable consistency oracle: reject any "unsafe" marker (1). *)
+Definition logic_oracle (axioms : list nat) : bool :=
+  negb (existsb (Nat.eqb 1) axioms).
 
 Definition AuditLog := list LogEntry.
 
