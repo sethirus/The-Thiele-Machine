@@ -50,8 +50,9 @@ class TestOpcodeIsomorphism:
     
     def test_verilog_opcodes_defined(self):
         """All required opcodes exist in Verilog RTL."""
-        verilog_path = REPO_ROOT / "thielecpu" / "hardware" / "thiele_cpu.v"
-        content = verilog_path.read_text()
+        # Opcodes are defined in generated_opcodes.vh (included by thiele_cpu.v)
+        opcodes_path = REPO_ROOT / "thielecpu" / "hardware" / "generated_opcodes.vh"
+        content = opcodes_path.read_text()
         
         required = {
             'OPCODE_PNEW': '8\'h00',
@@ -66,7 +67,7 @@ class TestOpcodeIsomorphism:
         
         for name, value in required.items():
             pattern = rf"localparam\s+\[7:0\]\s+{name}\s*=\s*{value}"
-            assert re.search(pattern, content), f"Verilog opcode {name} = {value} not found"
+            assert re.search(pattern, content), f"Verilog opcode {name} = {value} not found in generated_opcodes.vh"
     
     def test_coq_opcodes_defined(self):
         """All required opcodes exist in Coq HardwareBridge."""
@@ -104,9 +105,9 @@ class TestOpcodeIsomorphism:
             'PYEXEC': Opcode.PYEXEC.value,
         }
         
-        # Extract Verilog opcodes
-        verilog_path = REPO_ROOT / "thielecpu" / "hardware" / "thiele_cpu.v"
-        verilog_content = verilog_path.read_text()
+        # Extract Verilog opcodes (from generated_opcodes.vh)
+        opcodes_path = REPO_ROOT / "thielecpu" / "hardware" / "generated_opcodes.vh"
+        verilog_content = opcodes_path.read_text()
         verilog_opcodes = {}
         for match in re.finditer(r"localparam\s+\[7:0\]\s+OPCODE_(\w+)\s*=\s*8'h([0-9A-Fa-f]+)", verilog_content):
             verilog_opcodes[match.group(1)] = int(match.group(2), 16)
@@ -178,7 +179,7 @@ class TestVerilogCompilation:
         
         try:
             result = subprocess.run(
-                ["iverilog", "-g2012", "-o", tmp_path, 
+                ["iverilog", "-g2012", "-I", str(hw_dir), "-o", tmp_path, 
                  str(hw_dir / "thiele_cpu.v"), 
                  str(hw_dir / "thiele_cpu_tb.v"),
                  str(hw_dir / "mu_alu.v"),
@@ -205,7 +206,7 @@ class TestVerilogCompilation:
         try:
             # Compile
             subprocess.run(
-                ["iverilog", "-g2012", "-o", tmp_path,
+                ["iverilog", "-g2012", "-I", str(hw_dir), "-o", tmp_path,
                  str(hw_dir / "thiele_cpu.v"),
                  str(hw_dir / "thiele_cpu_tb.v"),
                  str(hw_dir / "mu_alu.v"),
@@ -241,7 +242,7 @@ class TestVerilogCompilation:
         try:
             # Compile and run
             subprocess.run(
-                ["iverilog", "-g2012", "-o", tmp_path,
+                ["iverilog", "-g2012", "-I", str(hw_dir), "-o", tmp_path,
                  str(hw_dir / "thiele_cpu.v"),
                  str(hw_dir / "thiele_cpu_tb.v"),
                  str(hw_dir / "mu_alu.v"),
@@ -488,7 +489,7 @@ class TestEndToEndIsomorphism:
         
         try:
             result = subprocess.run(
-                ["iverilog", "-g2012", "-o", tmp_path,
+                ["iverilog", "-g2012", "-I", str(hw_dir), "-o", tmp_path,
                  str(hw_dir / "thiele_cpu.v"),
                  str(hw_dir / "thiele_cpu_tb.v"),
                  str(hw_dir / "mu_alu.v"),
@@ -513,9 +514,9 @@ class TestEndToEndIsomorphism:
         # Count Python opcodes (excluding special values)
         python_count = len([op for op in Opcode if op.value < 0x10])
         
-        # Count Verilog opcodes
-        verilog_path = REPO_ROOT / "thielecpu" / "hardware" / "thiele_cpu.v"
-        verilog_content = verilog_path.read_text()
+        # Count Verilog opcodes (in generated_opcodes.vh)
+        opcodes_path = REPO_ROOT / "thielecpu" / "hardware" / "generated_opcodes.vh"
+        verilog_content = opcodes_path.read_text()
         verilog_count = len(re.findall(r"localparam\s+\[7:0\]\s+OPCODE_", verilog_content))
         
         # Count Coq opcodes

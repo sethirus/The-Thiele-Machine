@@ -87,7 +87,7 @@ def python_opcodes() -> Dict[str, int]:
 @pytest.fixture
 def verilog_opcodes() -> Dict[str, int]:
     """Extract opcodes from Verilog RTL."""
-    verilog_path = REPO_ROOT / "thielecpu" / "hardware" / "thiele_cpu.v"
+    verilog_path = REPO_ROOT / "thielecpu" / "hardware" / "generated_opcodes.vh"
     content = verilog_path.read_text()
     opcodes = {}
     for match in re.finditer(r"localparam\s+\[7:0\]\s+OPCODE_(\w+)\s*=\s*8'h([0-9A-Fa-f]+)", content):
@@ -272,7 +272,7 @@ class TestBehavioralIsomorphism:
         try:
             # Compile
             result = subprocess.run(
-                ["iverilog", "-g2012", "-o", tmp_path,
+                ["iverilog", "-g2012", "-I", str(hw_dir), "-o", tmp_path,
                  str(hw_dir / "thiele_cpu.v"),
                  str(hw_dir / "thiele_cpu_tb.v"),
                  str(hw_dir / "mu_alu.v"),
@@ -293,17 +293,25 @@ class TestBehavioralIsomorphism:
             assert "Test completed!" in output, "Simulation should complete"
             
             # Extract and verify metrics with proper error handling
-            json_match = re.search(r'\{[^}]+\}', output)
-            assert json_match, "Should produce JSON metrics in output"
+            # The testbench outputs metrics as standalone lines like:
+            #   "partition_ops": 0,
+            #   "mdl_ops": 0,
+            #   "info_gain": 0,
+            metrics = {}
+            for line in output.splitlines():
+                match = re.search(r'"partition_ops":\s*(\d+)', line)
+                if match:
+                    metrics['partition_ops'] = int(match.group(1))
+                match = re.search(r'"mdl_ops":\s*(\d+)', line)
+                if match:
+                    metrics['mdl_ops'] = int(match.group(1))
+                match = re.search(r'"info_gain":\s*(\d+)', line)
+                if match:
+                    metrics['info_gain'] = int(match.group(1))
             
-            try:
-                metrics = json.loads(json_match.group())
-            except json.JSONDecodeError:
-                pytest.fail("Invalid JSON in Verilog output")
-            
-            assert 'partition_ops' in metrics
-            assert 'mdl_ops' in metrics
-            assert 'info_gain' in metrics
+            assert 'partition_ops' in metrics, "Should find partition_ops in output"
+            assert 'mdl_ops' in metrics, "Should find mdl_ops in output"
+            assert 'info_gain' in metrics, "Should find info_gain in output"
         finally:
             if os.path.exists(tmp_path):
                 os.unlink(tmp_path)
@@ -350,7 +358,7 @@ class TestVerilogPythonAlignment:
         
         try:
             subprocess.run(
-                ["iverilog", "-g2012", "-o", tmp_path,
+                ["iverilog", "-g2012", "-I", str(hw_dir), "-o", tmp_path,
                  str(hw_dir / "thiele_cpu.v"),
                  str(hw_dir / "thiele_cpu_tb.v"),
                  str(hw_dir / "mu_alu.v"),
@@ -367,19 +375,23 @@ class TestVerilogPythonAlignment:
             
             output = result.stdout.decode()
             
-            # Extract JSON metrics with proper error handling
-            json_match = re.search(r'\{[^}]+\}', output)
-            assert json_match, "Should produce JSON metrics"
-            
-            try:
-                metrics = json.loads(json_match.group())
-            except json.JSONDecodeError:
-                pytest.fail("Invalid JSON in Verilog output")
+            # Extract metrics from output lines
+            metrics = {}
+            for line in output.splitlines():
+                match = re.search(r'"partition_ops":\s*(\d+)', line)
+                if match:
+                    metrics['partition_ops'] = int(match.group(1))
+                match = re.search(r'"mdl_ops":\s*(\d+)', line)
+                if match:
+                    metrics['mdl_ops'] = int(match.group(1))
+                match = re.search(r'"info_gain":\s*(\d+)', line)
+                if match:
+                    metrics['info_gain'] = int(match.group(1))
             
             # Verify structure matches Python VM expectations
-            assert isinstance(metrics.get('partition_ops'), int)
-            assert isinstance(metrics.get('mdl_ops'), int)
-            assert isinstance(metrics.get('info_gain'), int)
+            assert isinstance(metrics.get('partition_ops'), int), "Should have partition_ops"
+            assert isinstance(metrics.get('mdl_ops'), int), "Should have mdl_ops"
+            assert isinstance(metrics.get('info_gain'), int), "Should have info_gain"
             
             # Values should be non-negative
             assert metrics['partition_ops'] >= 0
@@ -517,7 +529,7 @@ class TestCompleteIsomorphism:
         
         try:
             result = subprocess.run(
-                ["iverilog", "-g2012", "-o", tmp_path,
+                ["iverilog", "-g2012", "-I", str(hw_dir), "-o", tmp_path,
                  str(hw_dir / "thiele_cpu.v"),
                  str(hw_dir / "thiele_cpu_tb.v"),
                  str(hw_dir / "mu_alu.v"),

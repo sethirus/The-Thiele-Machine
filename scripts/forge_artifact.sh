@@ -24,7 +24,7 @@ phase INIT "workspace=$ROOT"
 mkdir -p build thielecpu/hardware thielecpu/generated
 
 phase DISCOVER "checking toolchain availability"
-command -v rocq >/dev/null || die "rocq not found on PATH"
+command -v coqc >/dev/null || die "coqc not found on PATH"
 command -v iverilog >/dev/null || die "iverilog not found on PATH"
 command -v python3 >/dev/null || die "python3 not found on PATH"
 
