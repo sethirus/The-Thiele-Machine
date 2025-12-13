@@ -3,7 +3,6 @@
     =========================================================================
     
     PURPOSE: Build a DIFFERENT model that also satisfies Spaceland axioms.
-    
     This tests whether the axioms are too Thiele-specific or genuinely
     capture abstract structure.
     
@@ -27,14 +26,13 @@ Open Scope Z_scope.
     MODULE: AbstractLTS - Pure Mathematical Spaceland
     ========================================================================= *)
 
-Module AbstractLTS <: Spaceland.
+Module AbstractLTS.
 
   (** =======================================================================
       PART 1: BASIC STRUCTURE
       ======================================================================= *)
   
   (** States: abstract points with partition labels
-      
       Unlike Thiele (which has registers, PC, memory), these states
       are PURE structure - just an ID and a partition label.
   *)
@@ -83,12 +81,8 @@ Module AbstractLTS <: Spaceland.
   (** =======================================================================
       PART 2: TRANSITIONS
       ======================================================================= *)
-  
-  Inductive Label : Type :=
-    | LCompute : Label
-    | LSplit : ModuleId -> Label
-    | LMerge : ModuleId -> ModuleId -> Label
-    | LObserve : ModuleId -> Label.
+
+  (** Labels are provided by Spaceland.v as [Label ModuleId]. *)
   
   (** Transition semantics: pure partition manipulation
       
@@ -146,7 +140,7 @@ Module AbstractLTS <: Spaceland.
   Definition is_in_footprint (i : Instruction) (v : nat) : bool := false.
 
   (** Step relation: partition evolution *)
-  Definition step (s : State) (l : Label) (s' : State) : Prop :=
+  Definition step (s : State) (l : Label ModuleId) (s' : State) : Prop :=
     match l with
     | LCompute =>
         (* Blind computation: partition unchanged, μ unchanged *)
@@ -208,8 +202,8 @@ Module AbstractLTS <: Spaceland.
       ======================================================================= *)
   
   (** μ-function: difference in accumulated cost *)
-  Definition mu (s : State) (l : Label) (s' : State) : Z :=
-    mu_accumulated s' - mu_accumulated s.
+  Definition mu (s : State) (l : Label ModuleId) (s' : State) : Z :=
+      mu_accumulated s' - mu_accumulated s.
   
   (** Non-negativity *)
   Lemma mu_nonneg : forall s l s',
@@ -223,7 +217,7 @@ Module AbstractLTS <: Spaceland.
   (** Traces *)
   Inductive Trace : Type :=
     | TNil : State -> Trace
-    | TCons : State -> Label -> Trace -> Trace.
+    | TCons : State -> Label ModuleId -> Trace -> Trace.
   
   (** Get the initial state of a trace *)
   Definition trace_init (t : Trace) : State :=
@@ -428,12 +422,12 @@ Module AbstractLTS <: Spaceland.
   
   Record Receipt : Type := {
     initial_partition : Partition;
-    label_sequence : list Label;
+    label_sequence : list (Label ModuleId);
     final_partition : Partition;
     total_mu : Z;
   }.
   
-  Fixpoint trace_labels (t : Trace) : list Label :=
+  Fixpoint trace_labels (t : Trace) : list (Label ModuleId) :=
     match t with
     | TNil _ => []
     | TCons _ l rest => l :: trace_labels rest
@@ -512,7 +506,7 @@ Module AbstractLTS <: Spaceland.
   Definition mk_state (id : nat) (p : Partition) (mu0 : Z) : State :=
     {| state_id := id; partition_label := p; mu_accumulated := mu0 |}.
 
-  Fixpoint build_receipt_trace (init_p final_p : Partition) (tot_mu : Z) (ls : list Label) (id : nat) : Trace :=
+  Fixpoint build_receipt_trace (init_p final_p : Partition) (tot_mu : Z) (ls : list (Label ModuleId)) (id : nat) : Trace :=
     match ls with
     | [] => TNil (mk_state id final_p tot_mu)
     | l :: [] =>
@@ -631,19 +625,68 @@ Module AbstractLTS <: Spaceland.
   
   Lemma mu_thermodynamic : forall s l s' (W : Q),
     step s l s' ->
-    (W >= landauer_bound (mu s l s'))%Q ->
+    Qle (landauer_bound (mu s l s')) W ->
     True.
   Proof.
     intros. exact I.
   Qed.
   
   Lemma blind_reversible : forall s s',
-    step s LCompute s' ->
-    mu s LCompute s' = 0 ->
+    step s (@LCompute ModuleId) s' ->
+    mu s (@LCompute ModuleId) s' = 0 ->
     True.
   Proof.
     intros. exact I.
   Qed.
+
+  (** Bundle this model into the record-based Spaceland interface. *)
+  Definition spaceland : Spaceland :=
+     {| Spaceland.State := State;
+       Spaceland.Partition := Partition;
+       Spaceland.ModuleId := ModuleId;
+       Spaceland.get_partition := get_partition;
+       Spaceland.module_of := module_of;
+       Spaceland.same_partition := same_partition;
+       Spaceland.partition_wellformed := partition_wellformed;
+       Spaceland.Instruction := Instruction;
+       Spaceland.program := program;
+       Spaceland.pc := pc;
+       Spaceland.is_in_footprint := is_in_footprint;
+       Spaceland.step := step;
+       Spaceland.step_deterministic := step_deterministic;
+       Spaceland.module_independence := module_independence;
+       Spaceland.mu := mu;
+       Spaceland.mu_nonneg := mu_nonneg;
+       Spaceland.Trace := Trace;
+       Spaceland.TNil := TNil;
+       Spaceland.TCons := TCons;
+       Spaceland.trace_init := trace_init;
+       Spaceland.trace_final := trace_final;
+       Spaceland.valid_trace := valid_trace;
+       Spaceland.trace_mu := trace_mu;
+       Spaceland.mu_monotone := mu_monotone;
+       Spaceland.trace_concat := trace_concat;
+       Spaceland.mu_additive := mu_additive;
+       Spaceland.mu_blind_free := mu_blind_free;
+       Spaceland.mu_observe_positive := mu_observe_positive;
+       Spaceland.mu_split_positive := mu_split_positive;
+       Spaceland.mu_merge_free := mu_merge_free;
+       Spaceland.PartitionTrace := PartitionTrace;
+       Spaceland.MuTrace := MuTrace;
+       Spaceland.partition_trace := partition_trace;
+       Spaceland.mu_trace := mu_trace;
+       Spaceland.project := project;
+       Spaceland.Receipt := Receipt;
+       Spaceland.trace_labels := trace_labels;
+       Spaceland.trace_initial := trace_initial;
+       Spaceland.make_receipt := make_receipt;
+       Spaceland.verify_receipt := verify_receipt;
+       Spaceland.receipt_sound := receipt_sound;
+       Spaceland.receipt_complete := receipt_complete;
+       Spaceland.kT_ln2 := kT_ln2;
+       Spaceland.landauer_bound := landauer_bound;
+       Spaceland.mu_thermodynamic := mu_thermodynamic;
+       Spaceland.blind_reversible := blind_reversible |}.
 
 End AbstractLTS.
 

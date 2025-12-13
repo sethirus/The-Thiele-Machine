@@ -5,9 +5,6 @@
 // - thielecpu/isa.py (Python reference)
 // - thielecpu/hardware/thiele_cpu.v (RTL decode)
 
-`ifndef THIELE_GENERATED_OPCODES_VH
-`define THIELE_GENERATED_OPCODES_VH
-
 // Instruction opcodes
 localparam [7:0] OPCODE_PNEW = 8'h00;
 localparam [7:0] OPCODE_PSPLIT = 8'h01;
@@ -25,5 +22,3 @@ localparam [7:0] OPCODE_XOR_RANK = 8'h0D;
 localparam [7:0] OPCODE_EMIT = 8'h0E;
 localparam [7:0] OPCODE_ORACLE_HALTS = 8'h0F;
 localparam [7:0] OPCODE_HALT = 8'hFF;
-
-`endif

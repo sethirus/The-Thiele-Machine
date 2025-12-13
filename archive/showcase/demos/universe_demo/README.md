@@ -43,7 +43,7 @@ The Thiele Machine introduces several methodological breakthroughs:
 
 This work establishes a new field we term "Computational Metaphysics"—the use of formal verification to explore questions traditionally considered beyond empirical science. The SAT result provides computational evidence supporting theories of consciousness that were previously defended only through philosophical argumentation.
 
-If consciousness were incompatible with physics (resulting in UNSAT), it would represent a Nobel Prize-level discovery requiring fundamental revisions to either our understanding of consciousness or the laws of physics themselves. The fact that we obtain SAT suggests that consciousness may be a natural consequence of physical complexity rather than a miraculous addition to an otherwise mechanical universe.
+If consciousness were incompatible with physics (resulting in UNSAT), it would represent a fundamental discovery requiring major revisions to either our understanding of consciousness or the laws of physics themselves. The fact that we obtain SAT suggests that consciousness may be a natural consequence of physical complexity rather than a miraculous addition to an otherwise mechanical universe.
 
 ### Document Structure
 
@@ -896,7 +896,7 @@ If the result had been UNSAT, it would indicate:
 - Consciousness contradicts physics (formal paradox)
 - Either IIT or physical laws require revision
 - Consciousness is metaphysically impossible
-- Nobel Prize-level discovery in physics/philosophy
+- Fundamental discovery in physics/philosophy
 
 #### 4.8.2 Partial Consistency Analysis
 
@@ -1678,7 +1678,7 @@ An UNSAT result would necessitate radical revisions:
 
 **Supernatural Consciousness**: Consciousness as requiring non-physical explanation or supernatural intervention.
 
-#### 7.3.3 Nobel Prize-Level Discovery
+#### 7.3.3 Fundamental Discovery
 
 The UNSAT outcome would represent a revolutionary discovery:
 

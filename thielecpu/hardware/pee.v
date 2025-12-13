@@ -183,7 +183,14 @@ end
 // ============================================================================
 
 wire [31:0] total_combinations;
-assign total_combinations = symbolic_var_count * symbolic_domain_size;
+wire [31:0] symbolic_domain_n;
+wire [31:0] symbolic_domain_mask;
+
+// Domain size encoding is interpreted as an exponent: domain_n = 2^domain_size.
+// This keeps the symbolic assignment generator synthesizable (no variable '%').
+assign symbolic_domain_n = (symbolic_domain_size < 32) ? (32'h1 << symbolic_domain_size[4:0]) : 32'h0;
+assign symbolic_domain_mask = (symbolic_domain_n == 0) ? 32'h0 : (symbolic_domain_n - 1);
+assign total_combinations = symbolic_var_count * symbolic_domain_n;
 
 // Simple symbolic solver (brute force for demonstration)
 reg [31:0] current_try;
@@ -193,7 +200,7 @@ always @(posedge clk) begin
     if (state == STATE_SYMBOLIC) begin
         // Generate next assignment to try
         current_try <= current_try + 1;
-        assignment <= current_try % symbolic_domain_size;
+        assignment <= current_try & symbolic_domain_mask;
     end else begin
         current_try <= 32'h0;
         assignment <= 32'h0;

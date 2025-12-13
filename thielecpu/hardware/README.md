@@ -8,6 +8,40 @@ The Thiele CPU is a specialized hardware processor designed for partition-native
 
 ## Architecture
 
+### High-level block diagram
+
+```mermaid
+flowchart LR
+    subgraph CPU[thiele_cpu (RTL top)]
+        IF[Fetch / Decode\n(pc_reg, instr_data)] --> EX[Execute FSM\nSTATE_FETCH/DECODE/EXECUTE]
+
+        EX -->|compute ops| RF[Register file\nreg_file]
+        EX -->|compute ops| DM[Data memory\ndata_mem]
+
+        EX -->|partition ops| PE[Partition Engine\nmodule_table + region_table]
+        PE --> MU[μ-Core (enforcement)\nmu_core.v]
+        EX --> MALU[μ-ALU\nmu_alu.v]
+
+        MU --> CSR[CSRs / Counters\nstatus/error/partition_ops/mdl_ops/info_gain/mu]
+    end
+
+    subgraph EXT[External interfaces (modeled in testbench)]
+        MEM[External mem bus\nmem_en/mem_we/mem_addr]:::ext
+        LOGIC[Logic engine\nlogic_req/logic_ack]:::ext
+        PY[Python engine\npy_req/py_ack]:::ext
+    end
+
+    CPU --- MEM
+    CPU --- LOGIC
+    CPU --- PY
+
+    classDef ext fill:#f7f7f7,stroke:#999,color:#333;
+```
+
+Notes:
+- The open-source regression uses [thielecpu/hardware/thiele_cpu_tb.v](thielecpu/hardware/thiele_cpu_tb.v) to model the external interfaces.
+- For synthesis-facing checks we generate [thielecpu/hardware/thiele_cpu_synth.v](thielecpu/hardware/thiele_cpu_synth.v) (derived from [thielecpu/hardware/thiele_cpu.v](thielecpu/hardware/thiele_cpu.v)).
+
 ### Core Components
 
 - **Partition Engine**: Manages 64 concurrent partition modules with region-based memory isolation
@@ -114,6 +148,27 @@ sudo apt-get install coq iverilog yosys
 
 ### Running Tests
 
+Fastest “real execution” gates from repo root:
+
+```bash
+# Full end-to-end foundry pipeline (Coq extraction → runner → RTL compile/sim → Yosys synth gate → pytest)
+bash scripts/forge_artifact.sh
+
+# Focused 3-way isomorphism gates
+pytest -q tests/test_rtl_compute_isomorphism.py \
+         tests/test_partition_isomorphism_minimal.py \
+         tests/test_extracted_vm_runner.py
+```
+
+Direct RTL simulation (Icarus):
+
+```bash
+pushd thielecpu/hardware
+iverilog -g2012 -o ../../build/thiele_cpu_tb.out thiele_cpu.v thiele_cpu_tb.v mu_alu.v mu_core.v
+vvp ../../build/thiele_cpu_tb.out
+popd
+```
+
 ```bash
 cd thielecpu/hardware
 python3 test_hardware.py
@@ -187,14 +242,11 @@ Contact maintainers for security research applications.
 
 ## Development Status
 
-- ✅ Verilog implementation complete with μ-ALU and μ-Core
-- ✅ Hardware enforcement of mathematical isomorphism demonstrated
-- ✅ Q16.16 fixed-point arithmetic for bit-exact μ-bit calculations
-- ✅ Partition discovery (PDISCOVER) operation implemented
-- ✅ Holy Grail demonstration: hardware that cannot violate math
-- 🔄 Functional simulation verified (Python demonstration)
-- 🔄 Verilog compilation pending (syntax compatibility)
-- 🔄 FPGA synthesis pending (requires Vivado)
+- ✅ RTL compiles and simulates in CI-style flow (Icarus)
+- ✅ Yosys synthesizability gate runs (uses `YOSYS_LITE` + synth-clean RTL)
+- ✅ 3-way executable gates run (Python VM ↔ extracted semantics runner ↔ RTL)
+- ℹ Coq proof status (admits/axioms/opaque inventory) is reported by `./scripts/audit_coq_proofs.sh`
+- ⚠ Some external-facing functionality is stubbed in the open-source testbench (logic/python engines are modeled via simple handshakes)
 
 ## Contributing
 

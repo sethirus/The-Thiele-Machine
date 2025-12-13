@@ -2,10 +2,8 @@
 
    This file is intentionally a stub.
 
-   The previous draft contained placeholder admitted proofs and an axiom; it is
-   archived for reference:
-   - archive/coq/thielemachine/verification/FullIsomorphism.draft.v
-   - archive/coq/thielemachine/verification/FullIsomorphism.WIP.v
+   NOTE: Older draft/WIP variants previously lived under archive/ and contained
+   placeholders. They have been removed to keep the repository axiom/admit-free.
 *)
 
 From Coq Require Import List.

@@ -20,7 +20,7 @@ Require Import Coq.Lists.List.
 Import ListNotations.
 
 From ThieleUniversal Require Import CPU.
-From ThieleMachine Require Import ThieleUniversalBridge.
+From ThieleMachineVerification Require Import ThieleUniversalBridge.
 
 (*
  * Test Strategy:
