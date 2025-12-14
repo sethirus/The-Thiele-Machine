@@ -1,4 +1,4 @@
-From Coq Require Import List Bool Arith.PeanoNat.
+From Coq Require Import List ListDec Bool Arith.PeanoNat.
 From Coq Require Import NArith.
 From Coq Require Import Strings.String Strings.Ascii.
 From Coq Require Import micromega.Lia.
@@ -18,10 +18,30 @@ Fixpoint nat_list_mem (x : nat) (xs : list nat) : bool :=
   end.
 
 Definition nat_list_add (xs : list nat) (x : nat) : list nat :=
-  if nat_list_mem x xs then xs else x :: xs.
+  if nat_list_mem x xs then xs else xs ++ [x].
 
+(** Canonical region normalization: duplicate-free, stable, idempotent.
+
+    We use [nodup] to avoid order-instability that would otherwise leak into
+    kernel observables via repeated normalization.
+*)
 Definition normalize_region (region : list nat) : list nat :=
-  fold_left (fun acc n => nat_list_add acc n) region [].
+  nodup Nat.eq_dec region.
+
+Lemma normalize_region_nodup : forall region, NoDup (normalize_region region).
+Proof.
+  intro region. unfold normalize_region.
+  apply NoDup_nodup.
+Qed.
+
+Lemma normalize_region_idempotent : forall region,
+  normalize_region (normalize_region region) = normalize_region region.
+Proof.
+  intro region.
+  unfold normalize_region.
+  apply nodup_fixed_point.
+  apply NoDup_nodup.
+Qed.
 
 Definition nat_list_subset (xs ys : list nat) : bool :=
   forallb (fun x => nat_list_mem x ys) xs.
@@ -30,7 +50,7 @@ Definition nat_list_disjoint (xs ys : list nat) : bool :=
   forallb (fun x => negb (nat_list_mem x ys)) xs.
 
 Definition nat_list_union (xs ys : list nat) : list nat :=
-  fold_left (fun acc n => nat_list_add acc n) ys (normalize_region xs).
+  normalize_region (xs ++ ys).
 
 Definition nat_list_eq (xs ys : list nat) : bool :=
   nat_list_subset xs ys && nat_list_subset ys xs.

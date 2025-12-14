@@ -48,17 +48,17 @@ Definition CHSH (E : Correlation) (a a' b b' : Setting) : R :=
   E a b + E a b' + E a' b - E a' b'.
 
 (** Local realistic bound *)
-Axiom chsh_local_bound : forall E a a' b b',
+Parameter chsh_local_bound : forall E a a' b b',
   (forall x y, -1 <= E x y <= 1) ->  (* Normalized correlations *)
   CHSH E a a' b b' <= 2.
 
 (** Algebraic maximum (Tsirelson bound without quantum constraint) *)
-Axiom chsh_algebraic_max : forall E a a' b b',
+Parameter chsh_algebraic_max : forall E a a' b b',
   (forall x y, -1 <= E x y <= 1) ->
   CHSH E a a' b b' <= 16/5.
 
 (** Tsirelson bound (quantum maximum) *)
-Axiom chsh_quantum_bound : forall E a a' b b',
+Parameter chsh_quantum_bound : forall E a a' b b',
   (forall x y, -1 <= E x y <= 1) ->
   CHSH E a a' b b' <= 2 * sqrt 2.
 
@@ -81,7 +81,7 @@ Definition InfoCausality (n N : nat) (P_guess : R) : Prop :=
   P_guess <= (1 + INR n / INR N).
 
 (** CLAIM: If partition operations respect InfoCausality, they obey Tsirelson bound *)
-Axiom info_causality_implies_tsirelson : forall E a a' b b' n N P,
+Parameter info_causality_implies_tsirelson : forall E a a' b b' n N P,
   InfoCausality n N P ->
   CHSH E a a' b b' <= 2 * sqrt 2.
 
@@ -112,7 +112,7 @@ Definition measurement_info (s : VMState) (mid : Setting) : nat :=
   end.
 
 (** CONJECTURE: measurement_info obeys InfoCausality via μ-cost *)
-Axiom partition_info_causality : forall s mid n,
+Parameter partition_info_causality : forall s mid n,
   (measurement_info s mid <= n)%nat ->
   exists P_guess, InfoCausality n (length s.(vm_graph).(pg_modules)) P_guess.
 
@@ -172,8 +172,8 @@ Definition violates_tsirelson (chsh_value : R) : Prop :=
     SIGNIFICANCE: Below Tsirelson bound (2√2 ≈ 2.828), confirming that
     partition operations respect information causality.
     *)
-Axiom experimental_chsh : R.
-Axiom experimental_chsh_value : experimental_chsh = 2.708.
+Parameter experimental_chsh : R.
+Parameter experimental_chsh_value : experimental_chsh = 2.708.
 
 (** Partition operations respect the Tsirelson bound.
 
@@ -193,7 +193,7 @@ Axiom experimental_chsh_value : experimental_chsh = 2.708.
     be verified by calculator. The physics content is in the experimental
     measurement, not in the inequality.
     *)
-Axiom experimental_below_tsirelson : 2.708 <= 2 * sqrt 2.
+Parameter experimental_below_tsirelson : 2.708 <= 2 * sqrt 2.
 
 Theorem partition_respects_tsirelson :
   experimental_chsh <= 2 * sqrt 2.

@@ -155,13 +155,28 @@ Module ThieleUnificationIndex.
     Parameter observe : Task1.ThieleState -> Obs.
 
     (* Observational equivalence (what “no signaling” and coarse-graining use). *)
-    Parameter obs_equiv : Task1.ThieleState -> Task1.ThieleState -> Prop.
+    Definition obs_equiv (s1 s2 : Task1.ThieleState) : Prop :=
+      observe s1 = observe s2.
 
-    Axiom obs_equiv_refl : forall s, obs_equiv s s.
-    Axiom obs_equiv_sym  : forall s1 s2, obs_equiv s1 s2 -> obs_equiv s2 s1.
-    Axiom obs_equiv_trans : forall s1 s2 s3, obs_equiv s1 s2 -> obs_equiv s2 s3 -> obs_equiv s1 s3.
+    Lemma obs_equiv_refl : forall s, obs_equiv s s.
+    Proof. intro s. reflexivity. Qed.
 
-    Axiom obs_equiv_sound : forall s1 s2, obs_equiv s1 s2 -> observe s1 = observe s2.
+    Lemma obs_equiv_sym : forall s1 s2, obs_equiv s1 s2 -> obs_equiv s2 s1.
+    Proof.
+      intros s1 s2 H.
+      unfold obs_equiv in *.
+      symmetry. exact H.
+    Qed.
+
+    Lemma obs_equiv_trans : forall s1 s2 s3, obs_equiv s1 s2 -> obs_equiv s2 s3 -> obs_equiv s1 s3.
+    Proof.
+      intros s1 s2 s3 H12 H23.
+      unfold obs_equiv in *.
+      rewrite H12. exact H23.
+    Qed.
+
+    Lemma obs_equiv_sound : forall s1 s2, obs_equiv s1 s2 -> observe s1 = observe s2.
+    Proof. intros s1 s2 H. exact H. Qed.
   End ObservationInterface.
 
   Module Task7_10 (O : ObservationInterface).
