@@ -225,15 +225,9 @@ initial begin
     logic_ack = 0;
     py_ack = 0;
     mem_rdata = 32'h0;
-
-    // Enable VCD dumping for waveform generation.
-    // Use +VCD=<path> to avoid overwriting tracked files when run from repo root.
-    begin : vcd_setup
-        reg [1023:0] vcd_path;
-        vcd_path = "thiele_cpu_tb.vcd";
-        void'($value$plusargs("VCD=%s", vcd_path));
-        $dumpfile(vcd_path);
-    end
+    
+    // Enable VCD dumping for waveform generation
+    $dumpfile("thiele_cpu_tb.vcd");
     $dumpvars(0, thiele_cpu_tb);
 
     // Reset
