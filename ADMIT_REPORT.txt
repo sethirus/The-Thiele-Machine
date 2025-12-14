@@ -2,16 +2,15 @@ Admit and axiom inventory
 
 Active Coq tree
 ---------------
-Admitted coq/kernel/KernelPhysics.v:309:   admit.
-Admitted coq/kernel/KernelPhysics.v:310: Admitted.
+Admitted coq/kernel/KernelPhysics.v:593:            admit.
 Axiom    coq/kernel/QuantumPrinciple.v:51: Axiom chsh_local_bound : forall E a a' b b',
 Axiom    coq/kernel/QuantumPrinciple.v:56: Axiom chsh_algebraic_max : forall E a a' b b',
 Axiom    coq/kernel/QuantumPrinciple.v:61: Axiom chsh_quantum_bound : forall E a a' b b',
 Axiom    coq/kernel/QuantumPrinciple.v:84: Axiom info_causality_implies_tsirelson : forall E a a' b b' n N P,
 Axiom    coq/kernel/QuantumPrinciple.v:115: Axiom partition_info_causality : forall s mid n,
-Axiom    coq/kernel/QuantumPrinciple.v:168: Axiom experimental_chsh : R.
-Axiom    coq/kernel/QuantumPrinciple.v:169: Axiom experimental_chsh_value : experimental_chsh = 2.708.
-Admitted coq/kernel/QuantumPrinciple.v:176: Admitted. (* Requires real arithmetic automation *)
+Axiom    coq/kernel/QuantumPrinciple.v:175: Axiom experimental_chsh : R.
+Axiom    coq/kernel/QuantumPrinciple.v:176: Axiom experimental_chsh_value : experimental_chsh = 2.708.
+Axiom    coq/kernel/QuantumPrinciple.v:196: Axiom experimental_below_tsirelson : 2.708 <= 2 * sqrt 2.
 Axiom    coq/thielemachine/coqproofs/ThieleUnificationIndex.v:160:     Axiom obs_equiv_refl : forall s, obs_equiv s s.
 Axiom    coq/thielemachine/coqproofs/ThieleUnificationIndex.v:161:     Axiom obs_equiv_sym  : forall s1 s2, obs_equiv s1 s2 -> obs_equiv s2 s1.
 Axiom    coq/thielemachine/coqproofs/ThieleUnificationIndex.v:162:     Axiom obs_equiv_trans : forall s1 s2 s3, obs_equiv s1 s2 -> obs_equiv s2 s3 -> obs_equiv s1 s3.
@@ -25,5 +24,5 @@ Axiom    archive/coq/thielemachine/verification/FullIsomorphism.draft.v:81: Axio
 
 Summary
 -------
-Total admitted: 5
-Total axioms:  12
+Total admitted: 3
+Total axioms:  13
