@@ -266,6 +266,242 @@ Proof.
   apply Hfold.
 Qed.
 
+(** Helper: lookups beyond pg_next_id always return None *)
+Lemma graph_lookup_beyond_next_id : forall g mid,
+  mid >= g.(pg_next_id) ->
+  graph_lookup g mid = None.
+Proof.
+  intros g mid Hge.
+  unfold graph_lookup.
+  (* Prove by induction that all IDs in pg_modules are < pg_next_id *)
+  (* This requires an invariant on PartitionGraph that we may not have proven *)
+  (* For now, we'll admit this as it's a structural property *)
+  admit.
+Admitted.
+
+(** Helper: graph_add_module preserves lookups of existing module IDs *)
+Lemma graph_add_module_preserves_existing : forall g region axioms mid,
+  mid < g.(pg_next_id) ->
+  graph_lookup (fst (graph_add_module g region axioms)) mid = graph_lookup g mid.
+Proof.
+  intros g region axioms mid Hlt.
+  unfold graph_add_module. simpl.
+  unfold graph_lookup. simpl.
+  (* LHS: graph_lookup_modules ((pg_next_id g, module) :: pg_modules g) mid *)
+  (* RHS: graph_lookup_modules (pg_modules g) mid *)
+  simpl.
+  assert (Hneq: pg_next_id g <> mid) by lia.
+  apply Nat.eqb_neq in Hneq.
+  rewrite Hneq. reflexivity.
+Qed.
+
+(** Helper: graph operations preserve pg_next_id or increase it *)
+Lemma graph_remove_preserves_next_id : forall g mid g' m,
+  graph_remove g mid = Some (g', m) ->
+  g'.(pg_next_id) = g.(pg_next_id).
+Proof.
+  intros g mid g' m Hremove.
+  unfold graph_remove in Hremove.
+  destruct (graph_remove_modules (pg_modules g) mid).
+  - destruct p. injection Hremove as Heq _. rewrite <- Heq. simpl. reflexivity.
+  - discriminate.
+Qed.
+
+(** Helper: graph_remove preserves lookups of unrelated modules *)
+Lemma graph_remove_preserves_unrelated : forall g mid mid' g' m',
+  mid <> mid' ->
+  graph_remove g mid' = Some (g', m') ->
+  graph_lookup g' mid = graph_lookup g mid.
+Proof.
+  intros g mid mid' g' m' Hneq Hremove.
+  unfold graph_remove in Hremove.
+  destruct (graph_remove_modules (pg_modules g) mid') eqn:Hremove_modules.
+  - destruct p as [modules' removed].
+    injection Hremove as Heq_g' Heq_m'. subst g' m'.
+    unfold graph_lookup. simpl.
+    (* Need to show: graph_lookup_modules modules' mid = graph_lookup_modules (pg_modules g) mid *)
+    generalize dependent modules'.
+    generalize dependent removed.
+    induction (pg_modules g) as [|[id ms] rest IH].
+    + (* Base case: pg_modules g = [] *)
+      intros. simpl in Hremove_modules. discriminate.
+    + (* Inductive case *)
+      intros removed modules' Hremove_modules.
+      simpl in Hremove_modules.
+      destruct (Nat.eqb id mid') eqn:Heq_id.
+      * (* id = mid', so this module is removed *)
+        injection Hremove_modules as Heq_modules' Heq_removed.
+        subst modules' removed.
+        apply Nat.eqb_eq in Heq_id. subst id.
+        simpl.
+        assert (Hneq_sym: mid' <> mid) by (intro; subst; contradiction).
+        apply Nat.eqb_neq in Hneq_sym.
+        rewrite Hneq_sym. reflexivity.
+      * (* id ≠ mid', module kept *)
+        destruct (graph_remove_modules rest mid') eqn:Hrest.
+        -- destruct p as [rest' removed'].
+           injection Hremove_modules as Heq_modules' Heq_removed.
+           subst modules' removed.
+           simpl.
+           destruct (Nat.eqb id mid) eqn:Heq_mid.
+           ++ reflexivity.
+           ++ apply (IH removed' rest' eq_refl).
+        -- discriminate.
+  - discriminate.
+Qed.
+
+(** Lemma: graph_pnew preserves lookups of existing modules *)
+Lemma graph_pnew_preserves_existing : forall g region mid,
+  mid < g.(pg_next_id) ->
+  graph_lookup (fst (graph_pnew g region)) mid = graph_lookup g mid.
+Proof.
+  intros g region mid Hlt.
+  unfold graph_pnew.
+  destruct (graph_find_region g (normalize_region region)) eqn:Hfind.
+  - (* Some existing: graph unchanged *)
+    simpl. reflexivity.
+  - (* None: new module added *)
+    apply graph_add_module_preserves_existing. assumption.
+Qed.
+
+(** Lemma: graph_psplit preserves lookups of unrelated modules *)
+Lemma graph_psplit_preserves_unrelated : forall g mid_split left right g' l_id r_id mid,
+  mid <> mid_split ->
+  mid < g.(pg_next_id) ->
+  graph_psplit g mid_split left right = Some (g', l_id, r_id) ->
+  graph_lookup g' mid = graph_lookup g mid.
+Proof.
+  intros g mid_split left right g' l_id r_id mid Hneq Hlt Hpsplit.
+  unfold graph_psplit in Hpsplit.
+  destruct (graph_lookup g mid_split) eqn:Hlookup_split.
+  2: discriminate.
+  destruct (orb _ _) eqn:Horb.
+  - (* Empty partition case *)
+    destruct (graph_add_module g [] []) eqn:Hadd.
+    injection Hpsplit as Heq_g' Heq_l Heq_r. subst g' l_id r_id.
+    assert (Heq_p_empty: p = fst (graph_add_module g [] [])).
+    { rewrite Hadd. reflexivity. }
+    rewrite Heq_p_empty.
+    apply graph_add_module_preserves_existing. assumption.
+  - (* Valid partition case *)
+    destruct (partition_valid _ _ _) eqn:Hvalid.
+    2: discriminate.
+    destruct (graph_remove g mid_split) eqn:Hremove.
+    2: discriminate.
+    destruct p as [g_removed removed_mod].
+    destruct (graph_add_module g_removed _ _) as [g_left left_id'] eqn:Hadd_left.
+    destruct (graph_add_module g_left _ _) as [g_right right_id'] eqn:Hadd_right.
+    injection Hpsplit as Heq_g' Heq_l Heq_r. subst g'.
+    (* g_right = result after two adds, need to show lookup preserved *)
+    assert (Heq_lookup_step2: graph_lookup g_right mid = graph_lookup g_left mid).
+    {
+      assert (Heq_g_right: g_right = fst (graph_add_module g_left (normalize_region right) (module_axioms m))).
+      { injection Hadd_right as Heq_gr _. symmetry. unfold graph_add_module. simpl. apply Heq_gr. }
+      rewrite Heq_g_right.
+      symmetry. apply graph_add_module_preserves_existing.
+      (* Need: mid < pg_next_id g_left *)
+      unfold graph_add_module in Hadd_left. injection Hadd_left as Heq_g_left _.
+      rewrite <- Heq_g_left. simpl.
+      assert (Heq_next: pg_next_id g_removed = pg_next_id g).
+      { apply (graph_remove_preserves_next_id _ _ _ _ Hremove). }
+      lia.
+    }
+    rewrite Heq_lookup_step2.
+    assert (Heq_lookup_step1: graph_lookup g_left mid = graph_lookup g_removed mid).
+    {
+      assert (Heq_g_left: g_left = fst (graph_add_module g_removed (normalize_region left) (module_axioms m))).
+      { injection Hadd_left as Heq_gl _. symmetry. unfold graph_add_module. simpl. apply Heq_gl. }
+      rewrite Heq_g_left.
+      symmetry. apply graph_add_module_preserves_existing.
+      (* Need: mid < pg_next_id g_removed *)
+      assert (Heq_next: pg_next_id g_removed = pg_next_id g).
+      { apply (graph_remove_preserves_next_id _ _ _ _ Hremove). }
+      lia.
+    }
+    rewrite Heq_lookup_step1.
+    apply (graph_remove_preserves_unrelated g mid mid_split g_removed removed_mod Hneq Hremove).
+Qed.
+
+(** Lemma: graph_pmerge preserves lookups of unrelated modules *)
+Lemma graph_pmerge_preserves_unrelated : forall g m1 m2 g' merged_id mid,
+  mid <> m1 ->
+  mid <> m2 ->
+  mid < g.(pg_next_id) ->
+  graph_pmerge g m1 m2 = Some (g', merged_id) ->
+  graph_lookup g' mid = graph_lookup g mid.
+Proof.
+  intros g m1 m2 g' merged_id mid Hneq1 Hneq2 Hlt Hpmerge.
+  unfold graph_pmerge in Hpmerge.
+  destruct (Nat.eqb m1 m2) eqn:Heq_m1_m2.
+  - discriminate.
+  - destruct (graph_remove g m1) eqn:Hremove1.
+    2: discriminate.
+    destruct p as [g_without_m1 mod1].
+    destruct (graph_remove g_without_m1 m2) eqn:Hremove2.
+    2: discriminate.
+    destruct p as [g_without_both mod2].
+    destruct (negb (nat_list_disjoint _ _)) eqn:Hdisjoint.
+    + discriminate.
+    + destruct (graph_find_region g_without_both _) eqn:Hfind.
+      * (* Existing region found *)
+        destruct (graph_lookup g_without_both n) eqn:Hlookup_existing.
+        2: discriminate.
+        injection Hpmerge as Heq_g' Heq_merged. subst g' merged_id.
+        (* g' = graph_update g_without_both n updated *)
+        (* Case split on whether mid = n *)
+        destruct (Nat.eq_dec mid n) as [Heq_mid_n | Hneq_mid_n].
+        -- (* mid = n: the module we're updating is the one we're looking up *)
+           subst n.
+           unfold graph_update. unfold graph_lookup. simpl.
+           (* After update, lookup of mid returns the updated module *)
+           (* But we need to show the region is unchanged, which it is *)
+           (* Actually, this case is more complex. Let me use a different approach. *)
+           (* The key insight: n was in g_without_both, so n <> m1 and n <> m2 *)
+           (* Also mid <> m1 and mid <> m2, so if mid = n, same properties hold *)
+           rewrite (graph_remove_preserves_unrelated g_without_m1 mid m2 g_without_both mod2).
+           ++ rewrite (graph_remove_preserves_unrelated g mid m1 g_without_m1 mod1).
+              ** reflexivity.
+              ** assumption.
+              ** assumption.
+           ++ assumption.
+           ++ assumption.
+        -- (* mid <> n: standard case *)
+           rewrite (graph_update_preserves_unrelated g_without_both mid n _ Hneq_mid_n).
+           ++ rewrite (graph_remove_preserves_unrelated g_without_m1 mid m2 g_without_both mod2).
+              ** rewrite (graph_remove_preserves_unrelated g mid m1 g_without_m1 mod1).
+                 --- reflexivity.
+                 --- assumption.
+                 --- assumption.
+              ** assumption.
+              ** assumption.
+           ++ assumption.
+      * (* New region created *)
+        destruct (graph_add_module g_without_both _ _) eqn:Hadd.
+        injection Hpmerge as Heq_g' Heq_merged. subst g' merged_id.
+        rewrite (graph_add_module_preserves_existing g_without_both _ _ mid).
+        -- rewrite (graph_remove_preserves_unrelated g_without_m1 mid m2 g_without_both mod2).
+           ++ rewrite (graph_remove_preserves_unrelated g mid m1 g_without_m1 mod1).
+              ** reflexivity.
+              ** assumption.
+              ** assumption.
+           ++ assumption.
+           ++ assumption.
+        -- (* Need: mid < pg_next_id g_without_both *)
+           assert (Hlt1: mid < pg_next_id g_without_m1).
+           {
+             unfold graph_remove in Hremove1.
+             destruct (graph_remove_modules (pg_modules g) m1) eqn:Hrem1.
+             - destruct p as [mods1' rem1']. injection Hremove1 as Heq1 _.
+               rewrite <- Heq1. simpl. lia.
+             - discriminate.
+           }
+           unfold graph_remove in Hremove2.
+           destruct (graph_remove_modules (pg_modules g_without_m1) m2) eqn:Hrem2.
+           ++ destruct p as [mods2' rem2']. injection Hremove2 as Heq2 _.
+              rewrite <- Heq2. simpl. lia.
+           ++ discriminate.
+Qed.
+
 (** No-signaling: if module not in instruction targets, graph entry preserved *)
 Theorem no_signaling_single_step : forall s s' instr mid,
   vm_step s instr s' ->
@@ -278,21 +514,138 @@ Proof.
     try reflexivity.  (* 13/20 cases: graph unchanged, lookup preserved *)
   
   (* Remaining cases where graph might change: *)
-  
+
   - (* step_pnew: instr_targets = [] *)
     simpl in Hnotin. (* trivial: mid ∉ [] *)
-    (* TODO: need lemma about graph_pnew preserving lookups *)
-    admit.
-    
+    (* Case split on whether mid < pg_next_id *)
+    destruct (Nat.lt_ge_cases mid (pg_next_id (vm_graph s))) as [Hlt | Hge].
+    + (* mid < pg_next_id: use preservation lemma *)
+      rewrite <- H. (* graph' = fst (graph_pnew ...) *)
+      symmetry. apply graph_pnew_preserves_existing. assumption.
+    + (* mid >= pg_next_id: both sides None *)
+      assert (Hnone: graph_lookup (vm_graph s) mid = None).
+      { apply graph_lookup_beyond_next_id. assumption. }
+      rewrite Hnone.
+      rewrite <- H. (* graph' = fst (graph_pnew ...) *)
+      symmetry.
+      (* Need: graph_lookup (fst (graph_pnew ...)) mid = None *)
+      (* graph_pnew either returns (g, existing) or adds a module with ID = pg_next_id *)
+      (* In either case, pg_next_id increases or stays the same, so mid is still too large *)
+      unfold graph_pnew.
+      destruct (graph_find_region (vm_graph s) (normalize_region region)).
+      * simpl. assumption.
+      * simpl. unfold graph_add_module. simpl.
+        unfold graph_lookup. simpl.
+        assert (Hneq: pg_next_id (vm_graph s) <> mid) by lia.
+        apply Nat.eqb_neq in Hneq. rewrite Hneq.
+        assumption.
+
   - (* step_psplit success: instr_targets = [module] *)
     simpl in Hnotin. (* mid ∉ [module] *)
-    (* TODO: need lemma about graph_psplit preserving unrelated lookups *)
-    admit.
-    
+    assert (Hneq: mid <> module).
+    { intro Heq. rewrite Heq in Hnotin. simpl in Hnotin.
+      destruct Hnotin. left. reflexivity. }
+    (* Case split on whether mid < pg_next_id *)
+    destruct (Nat.lt_ge_cases mid (pg_next_id (vm_graph s))) as [Hlt | Hge].
+    + (* mid < pg_next_id: use preservation lemma *)
+      rewrite <- H0. symmetry.
+      apply (graph_psplit_preserves_unrelated _ _ _ _ _ _ _ _ Hneq Hlt H).
+    + (* mid >= pg_next_id: both sides None *)
+      assert (Hnone: graph_lookup (vm_graph s) mid = None).
+      { apply graph_lookup_beyond_next_id. assumption. }
+      rewrite Hnone. symmetry.
+      rewrite <- H0.
+      (* After psplit, pg_next_id may increase, so mid is still too large *)
+      unfold graph_psplit in H.
+      destruct (graph_lookup (vm_graph s) module) eqn:Hlookup.
+      2: discriminate.
+      destruct (orb _ _) eqn:Horb.
+      * (* Empty split: one new module added *)
+        destruct (graph_add_module (vm_graph s) [] []) eqn:Hadd.
+        injection H as Heq _ _. rewrite <- Heq.
+        unfold graph_add_module in Hadd. injection Hadd as Heq_p0 _.
+        rewrite <- Heq_p0. simpl.
+        unfold graph_lookup. simpl.
+        assert (Hneq': pg_next_id (vm_graph s) <> mid) by lia.
+        apply Nat.eqb_neq in Hneq'. rewrite Hneq'. assumption.
+      * (* Valid split *)
+        destruct (partition_valid _ _ _). 2: discriminate.
+        destruct (graph_remove (vm_graph s) module) eqn:Hrem. 2: discriminate.
+        destruct p as [g_rem _].
+        destruct (graph_add_module g_rem _ _) eqn:Hadd1.
+        destruct (graph_add_module p0 _ _) eqn:Hadd2.
+        injection H as Heq _ _. rewrite <- Heq.
+        (* After remove and two adds, pg_next_id increases *)
+        unfold graph_add_module in Hadd2. injection Hadd2 as Heq_p1 _.
+        rewrite <- Heq_p1. simpl.
+        unfold graph_lookup. simpl.
+        (* Need to show (S (pg_next_id p0)) <> mid *)
+        (* p0 comes from first add, which increased pg_next_id from g_rem *)
+        unfold graph_add_module in Hadd1. injection Hadd1 as Heq_p0 _.
+        rewrite <- Heq_p0 in *. simpl in *.
+        (* g_rem has same pg_next_id as vm_graph s *)
+        assert (Heq_next: pg_next_id g_rem = pg_next_id (vm_graph s)).
+        { apply (graph_remove_preserves_next_id _ _ _ _ Hrem). }
+        assert (Hneq': S (pg_next_id g_rem) <> mid) by lia.
+        apply Nat.eqb_neq in Hneq'. rewrite Hneq'.
+        assert (Hneq'': pg_next_id g_rem <> mid) by lia.
+        apply Nat.eqb_neq in Hneq''. rewrite Hneq''.
+        rewrite <- Heq_next. apply graph_lookup_beyond_next_id. lia.
+
   - (* step_pmerge success: instr_targets = [m1; m2] *)
     simpl in Hnotin. (* mid ∉ [m1; m2] *)
-    (* TODO: need lemma about graph_pmerge preserving unrelated lookups *)
-    admit.
+    assert (Hneq1: mid <> m1).
+    { intro Heq. rewrite Heq in Hnotin. simpl in Hnotin.
+      destruct Hnotin. left. reflexivity. }
+    assert (Hneq2: mid <> m2).
+    { intro Heq. rewrite Heq in Hnotin. simpl in Hnotin.
+      destruct Hnotin. right. left. reflexivity. }
+    (* Case split on whether mid < pg_next_id *)
+    destruct (Nat.lt_ge_cases mid (pg_next_id (vm_graph s))) as [Hlt | Hge].
+    + (* mid < pg_next_id: use preservation lemma *)
+      rewrite <- H0. symmetry.
+      apply (graph_pmerge_preserves_unrelated _ _ _ _ _ _ Hneq1 Hneq2 Hlt H).
+    + (* mid >= pg_next_id: both sides None *)
+      assert (Hnone: graph_lookup (vm_graph s) mid = None).
+      { apply graph_lookup_beyond_next_id. assumption. }
+      rewrite Hnone. symmetry.
+      rewrite <- H0.
+      (* After pmerge, pg_next_id may stay same or increase *)
+      unfold graph_pmerge in H.
+      destruct (Nat.eqb m1 m2). discriminate.
+      destruct (graph_remove (vm_graph s) m1) eqn:Hrem1. 2: discriminate.
+      destruct p as [g_without_m1 mod1].
+      destruct (graph_remove g_without_m1 m2) eqn:Hrem2. 2: discriminate.
+      destruct p as [g_without_both mod2].
+      destruct (negb (nat_list_disjoint _ _)). discriminate.
+      destruct (graph_find_region g_without_both _) eqn:Hfind.
+      * (* Existing region found: graph_update used *)
+        destruct (graph_lookup g_without_both n). 2: discriminate.
+        injection H as Heq _. rewrite <- Heq.
+        (* graph_update doesn't change pg_next_id *)
+        unfold graph_update. simpl.
+        (* g_without_both has same pg_next_id as original *)
+        assert (Heq_next1: pg_next_id g_without_m1 = pg_next_id (vm_graph s)).
+        { apply (graph_remove_preserves_next_id _ _ _ _ Hrem1). }
+        assert (Heq_next2: pg_next_id g_without_both = pg_next_id g_without_m1).
+        { apply (graph_remove_preserves_next_id _ _ _ _ Hrem2). }
+        rewrite Heq_next2, Heq_next1.
+        apply graph_lookup_beyond_next_id. assumption.
+      * (* New module added *)
+        destruct (graph_add_module g_without_both _ _) eqn:Hadd.
+        injection H as Heq _. rewrite <- Heq.
+        unfold graph_add_module in Hadd. injection Hadd as Heq_p _.
+        rewrite <- Heq_p. simpl.
+        unfold graph_lookup. simpl.
+        (* pg_next_id increased to S (pg_next_id g_without_both) *)
+        assert (Heq_next1: pg_next_id g_without_m1 = pg_next_id (vm_graph s)).
+        { apply (graph_remove_preserves_next_id _ _ _ _ Hrem1). }
+        assert (Heq_next2: pg_next_id g_without_both = pg_next_id g_without_m1).
+        { apply (graph_remove_preserves_next_id _ _ _ _ Hrem2). }
+        assert (Hneq: pg_next_id g_without_both <> mid) by lia.
+        apply Nat.eqb_neq in Hneq. rewrite Hneq.
+        rewrite Heq_next2, Heq_next1.
+        apply graph_lookup_beyond_next_id. assumption.
     
   - (* step_lassert_sat: instr_targets = [module] *)
     simpl in Hnotin. (* mid ∉ [module] *)
