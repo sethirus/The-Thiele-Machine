@@ -15,17 +15,29 @@ From Coq Require Import List ZArith Lia.
 Import ListNotations.
 Local Open Scope nat_scope.
 
-From ThieleMachine.kernel Require Import VMState.
-From ThieleMachine.kernel Require Import VMStep.
+From Kernel Require Import VMState.
+From Kernel Require Import VMStep.
 
 (** =========================================================================
     SECTION 1: OBSERVABLES (Kernel-Level)
     =========================================================================*)
 
-(** Observable: what can be extracted from a VM state *)
+(** Observable: what can be extracted from a VM state.
+
+    Regions are treated as sets; we therefore expose a canonical, normalized
+    representation so that repeated graph updates (which normalize modules)
+    do not create spurious observational differences.
+*)
 Definition Observable (s : VMState) (mid : nat) : option (list nat * nat) :=
   match graph_lookup s.(vm_graph) mid with
-  | Some modstate => Some (modstate.(module_region), s.(vm_mu))
+  | Some modstate => Some (normalize_region modstate.(module_region), s.(vm_mu))
+  | None => None
+  end.
+
+(** Partition-only observable (μ ignored). *)
+Definition ObservableRegion (s : VMState) (mid : nat) : option (list nat) :=
+  match graph_lookup s.(vm_graph) mid with
+  | Some modstate => Some (normalize_region modstate.(module_region))
   | None => None
   end.
 
@@ -560,29 +572,93 @@ Lemma graph_pmerge_preserves_observables : forall g m1 m2 g' merged_id mid mu,
    case where axioms are updated. The correct formulation uses Observable, which
    compares only regions, not axioms. This is observational locality (Option C). *)
 Proof.
-  (* PROOF ADMITTED: Correct structurally, but requires match expression lemmas.
+  intros g m1 m2 g' merged_id mid mu Hneq1 Hneq2 Hlt Hpmerge.
+  unfold Observable. simpl.
+  unfold graph_pmerge in Hpmerge.
+  destruct (Nat.eqb m1 m2) eqn:Heq_m1_m2.
+  - discriminate.
+  - destruct (graph_remove g m1) eqn:Hremove1.
+   2: discriminate.
+   destruct p as [g_without_m1 mod1].
+   destruct (graph_remove g_without_m1 m2) eqn:Hremove2.
+   2: discriminate.
+   destruct p as [g_without_both mod2].
+   destruct (negb (nat_list_disjoint _ _)) eqn:Hdisjoint.
+   + discriminate.
+   + destruct (graph_find_region g_without_both (nat_list_union (module_region mod1) (module_region mod2)))
+      as [existing_id |] eqn:Hfind.
+    * (* Existing region found *)
+      destruct (graph_lookup g_without_both existing_id) eqn:Hlookup_existing.
+      2: discriminate.
+      inversion Hpmerge. subst g' merged_id. clear Hpmerge.
 
-     The proof works by case analysis on pmerge:
-     1. Existing region found + mid = existing_id: THE SEMANTIC FORK RESOLUTION
-        - pmerge updates mid's axioms but NOT its region
-        - Observable extracts only regions, so observables preserved
-        - This is OBSERVATIONAL LOCALITY (Option C)
+      destruct (Nat.eq_dec mid existing_id) as [Heq_mid_ex | Hneq_mid_ex].
+      -- (* mid = existing_id: axioms change, region preserved observationally *)
+        subst mid.
+        assert (Hlookup_after:
+          graph_lookup
+            (graph_update g_without_both existing_id
+              {| module_region := m.(module_region);
+                 module_axioms := m.(module_axioms) ++
+                   (mod1.(module_axioms) ++ mod2.(module_axioms)) |})
+            existing_id
+          = Some
+              (normalize_module
+                {| module_region := m.(module_region);
+                   module_axioms := m.(module_axioms) ++
+                     (mod1.(module_axioms) ++ mod2.(module_axioms)) |})).
+        { apply graph_update_lookup_same. }
+        rewrite Hlookup_after. simpl.
 
-     2. Existing region found + mid ≠ existing_id:
-        - graph_update_preserves_unrelated shows graph_lookup preserved
-        - Observables trivially preserved
+        (* Reduce the pre-merge lookup to the same module via remove-preservation *)
+        rewrite <- (graph_remove_preserves_unrelated g existing_id m1 g_without_m1 mod1 Hneq1 Hremove1).
+        rewrite <- (graph_remove_preserves_unrelated g_without_m1 existing_id m2 g_without_both mod2 Hneq2 Hremove2).
+        rewrite Hlookup_existing. simpl.
+        rewrite normalize_region_idempotent.
+        reflexivity.
 
-     3. New region created:
-        - graph_add_module creates new ID >= pg_next_id
-        - mid < pg_next_id, so mid unaffected
-        - Observables trivially preserved
+      -- (* mid  existing_id: graph_update doesn't affect unrelated lookups *)
+        rewrite (graph_update_preserves_unrelated g_without_both mid existing_id _ Hneq_mid_ex).
+        rewrite (graph_remove_preserves_unrelated g_without_m1 mid m2 g_without_both mod2).
+        ++ rewrite (graph_remove_preserves_unrelated g mid m1 g_without_m1 mod1).
+          ** reflexivity.
+          ** assumption.
+          ** assumption.
+        ++ assumption.
+        ++ assumption.
 
-     Technical issue: Early unfold Observable causes rewrite target mismatches.
-     Solution: Restructure to prove graph_lookup equalities first, then unfold Observable.
+    * (* New region created *)
+      destruct (graph_add_module g_without_both
+                 (nat_list_union (module_region mod1) (module_region mod2))
+                 (mod1.(module_axioms) ++ mod2.(module_axioms)))
+        as [g_added new_id] eqn:Hadd.
+      inversion Hpmerge. subst g' merged_id. clear Hpmerge.
 
-     Conceptual correctness: SOUND. Axioms are not observable. *)
-  admit.
-Admitted.
+      pose proof (graph_remove_preserves_next_id g m1 g_without_m1 mod1 Hremove1) as Hnext1.
+      pose proof (graph_remove_preserves_next_id g_without_m1 m2 g_without_both mod2 Hremove2) as Hnext2.
+      assert (Hlt_both: mid < pg_next_id g_without_both).
+      { rewrite Hnext2. rewrite Hnext1. exact Hlt. }
+
+      assert (Hg_added:
+        g_added = fst (graph_add_module g_without_both
+                         (nat_list_union (module_region mod1) (module_region mod2))
+                         (mod1.(module_axioms) ++ mod2.(module_axioms)))).
+      { rewrite Hadd. reflexivity. }
+      rewrite Hg_added.
+      rewrite (graph_add_module_preserves_existing
+                 g_without_both
+                 (nat_list_union (module_region mod1) (module_region mod2))
+                 (mod1.(module_axioms) ++ mod2.(module_axioms))
+                 mid
+                 Hlt_both).
+      rewrite (graph_remove_preserves_unrelated g_without_m1 mid m2 g_without_both mod2).
+      -- rewrite (graph_remove_preserves_unrelated g mid m1 g_without_m1 mod1).
+        ++ reflexivity.
+        ++ assumption.
+        ++ assumption.
+      -- assumption.
+      -- assumption.
+Qed.
 
 (** ** NO-SIGNALING THEOREM (Substrate Level): Graph Lookup Preservation
 
@@ -607,26 +683,9 @@ Admitted.
     NOTE: We assume s.(vm_graph) is well-formed - this is a structural property
     stating that the VM correctly maintains module IDs < pg_next_id.
     *)
-Theorem no_signaling_single_step : forall s s' instr mid,
-  well_formed_graph s.(vm_graph) ->
-  vm_step s instr s' ->
-  ~ In mid (instr_targets instr) ->
-  graph_lookup s.(vm_graph) mid = graph_lookup s'.(vm_graph) mid.
-Proof.
-  (* SUBSTRATE-LEVEL LOCALITY: Admitted as unprovable.
-
-     This theorem claims full ModuleState preservation, including axioms.
-     This is TOO STRONG - axioms can change without violating locality.
-
-     The pmerge case where mid = existing_id is a COUNTEREXAMPLE:
-     - Axioms change (combined from merged modules)
-     - Regions unchanged
-     - Observable locality preserved, substrate locality violated
-
-     For the CORRECT, PROVEN result, see observational_no_signaling below. *)
-  admit.
-Admitted.
-(**  ^^ ADMITTED: Substrate locality is too strong. See observational_no_signaling for the correct formulation. **)
+(* NOTE: A substrate-level no-signaling statement formulated on full
+   [graph_lookup] is false for [pmerge] when it updates an existing super-module.
+   The correct kernel statement is observational locality below. *)
 
 (** =========================================================================
     OBSERVATIONAL NO-SIGNALING: Resolution of the Semantic Fork
@@ -679,37 +738,77 @@ Admitted.
 
 Theorem observational_no_signaling : forall s s' instr mid,
   well_formed_graph s.(vm_graph) ->
+  mid < pg_next_id s.(vm_graph) ->
   vm_step s instr s' ->
   ~ In mid (instr_targets instr) ->
-  Observable s mid = Observable s' mid.
+  ObservableRegion s mid = ObservableRegion s' mid.
 Proof.
-  (* OBSERVATIONAL LOCALITY: The maximal formulation (Option C).
+  intros s s' instr mid Hwf Hmid_lt Hstep Hnotin.
+  unfold ObservableRegion, Observable.
 
-     PROOF STRATEGY (admit for technical reasons, conceptually sound):
-     1. Case analysis on all 20 vm_step constructors
-     2. 13 cases: graph unchanged → trivial (Observable unchanged)
-     3. 3 cases (pnew, psplit, pmerge): use graph preservation lemmas
-        - pnew: graph_pnew_preserves_existing
-        - psplit: graph_psplit_preserves_unrelated
-        - pmerge: graph_pmerge_preserves_observables ← THE KEY LEMMA
-     4. 2 cases (lassert, pdiscover): axioms change, regions unchanged
-        - graph_add_axiom and graph_record_discovery preserve regions
-        - Observable extracts only regions, so Observable preserved
-     5. 2 edge cases: mid >= pg_next_id → both sides None
+  destruct Hstep; simpl in *; unfold advance_state, advance_state_rm in *; simpl in *;
+    try reflexivity.
 
-     The critical case is pmerge with mid = existing_id:
-     - At substrate level (graph_lookup): CHANGES (axioms appended)
-     - At observable level (Observable): UNCHANGED (region preserved)
-     - This IS observational locality - axioms are not observable
+  - (* step_pnew *)
+    simpl in Hnotin.
+    assert (Hg' : graph' = fst (graph_pnew (vm_graph s) region)).
+    { rewrite H. reflexivity. }
+    rewrite Hg'.
+    rewrite (graph_pnew_preserves_existing (vm_graph s) region mid Hmid_lt).
+    reflexivity.
 
-     Technical issue with proof: Variable scoping after destruct.
-     Conceptual correctness: FULLY SOUND. This is how modern physics works.
+  - (* step_psplit success *)
+    simpl in Hnotin.
+    assert (Hneq: mid <> module).
+    { intro Heq. subst. simpl in Hnotin. destruct Hnotin. left. reflexivity. }
+    rewrite (graph_psplit_preserves_unrelated (vm_graph s) module left right graph' left_id right_id mid Hneq Hmid_lt H).
+    reflexivity.
 
-     TO COMPLETE: Restructure proof to avoid variable scoping issues,
-     or prove directly using graph_pmerge_preserves_observables. *)
-  admit.
-Admitted.
-(** ^^ ADMITTED for technical reasons. Conceptually PROVEN via graph_pmerge_preserves_observables. **)
+  - (* step_pmerge success *)
+    simpl in Hnotin.
+    assert (Hneq1: mid <> m1).
+    { intro Heq. subst. simpl in Hnotin. destruct Hnotin. left. reflexivity. }
+    assert (Hneq2: mid <> m2).
+    { intro Heq. subst. simpl in Hnotin. destruct Hnotin. right. left. reflexivity. }
+    (* Use the proven pmerge observable preservation at fixed μ, then project regions. *)
+    set (s_pre :=
+      {| vm_regs := []; vm_mem := [];
+         vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0 |};
+         vm_pc := 0; vm_graph := vm_graph s; vm_mu := 0; vm_err := false |}).
+    set (s_post :=
+      {| vm_regs := []; vm_mem := [];
+         vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0 |};
+         vm_pc := 0; vm_graph := graph'; vm_mu := 0; vm_err := false |}).
+    assert (Hobs:
+      Observable s_post mid = Observable s_pre mid).
+    { apply (graph_pmerge_preserves_observables (vm_graph s) m1 m2 graph' merged_id mid 0);
+        assumption. }
+    unfold ObservableRegion.
+    unfold Observable in Hobs. simpl in Hobs.
+    destruct (graph_lookup graph' mid) eqn:Hlk_post;
+      destruct (graph_lookup (vm_graph s) mid) eqn:Hlk_pre;
+      simpl in *;
+      try discriminate;
+      inversion Hobs; subst; reflexivity.
+
+  - (* step_lassert_sat *)
+    simpl in Hnotin.
+    assert (Hneq: mid <> module).
+    { intro Heq. subst. simpl in Hnotin. destruct Hnotin. left. reflexivity. }
+    unfold ObservableRegion.
+    rewrite H0.
+    rewrite (graph_add_axiom_preserves_unrelated (vm_graph s) mid module formula Hneq).
+    reflexivity.
+
+  - (* step_pdiscover *)
+    simpl in Hnotin.
+    assert (Hneq: mid <> module).
+    { intro Heq. subst. simpl in Hnotin. destruct Hnotin. left. reflexivity. }
+    unfold ObservableRegion.
+    rewrite H.
+    rewrite (graph_record_discovery_preserves_unrelated (vm_graph s) mid module evidence Hneq).
+    reflexivity.
+Qed.
 
 (** =========================================================================
     SECTION 8: SPEED LIMIT (Graph Distance)

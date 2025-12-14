@@ -34,21 +34,28 @@ Fixpoint trace_mu_cost (trace : list VMStep.vm_instruction) : nat :=
     PREDICTED COST BOUNDS
     =========================================================================*)
 
+(** Region "size" as observed by the kernel: duplicates do not count. *)
+Definition region_size (region : list nat) : nat :=
+  length (normalize_region region).
+
+Definition evidence_size (evidence : list VMAxiom) : nat :=
+  length evidence.
+
 (** PREDICTION 1: PNEW cost is O(|region|) *)
 Definition pnew_cost_bound (region : list nat) : nat :=
-  length region.
+  region_size region.
 
 (** PREDICTION 2: PSPLIT cost is O(|left| + |right|) *)
 Definition psplit_cost_bound (left right : list nat) : nat :=
-  length left + length right.
+  region_size left + region_size right.
 
 (** PREDICTION 3: PMERGE cost is O(|m1.region| + |m2.region|) with dedup *)
 Definition pmerge_cost_bound (r1 r2 : list nat) : nat :=
-  length r1 + length r2.
+  region_size r1 + region_size r2.
 
 (** PREDICTION 4: Discovery cost is O(evidence size) *)
 Definition discover_cost_bound (evidence : list VMAxiom) : nat :=
-  length evidence.
+  evidence_size evidence.
 
 (** =========================================================================
     COST MONOTONICITY (Already proven in KernelPhysics.v)
@@ -103,15 +110,15 @@ Definition check_prediction (t : ExperimentalTrial) : bool :=
 
 (** TESTABLE PREDICTION 1: PNEW with n-element region costs ≤ C·n *)
 Definition pnew_linear_bound (C : nat) (region : list nat) (measured : nat) : Prop :=
-  (measured <= C * length region)%nat.
+  (measured <= C * region_size region)%nat.
 
 (** TESTABLE PREDICTION 2: Discovery cost scales with evidence count *)
 Definition discover_linear_bound (C : nat) (evidence : list VMAxiom) (measured : nat) : Prop :=
-  (measured <= C * length evidence)%nat.
+  (measured <= C * evidence_size evidence)%nat.
 
 (** TESTABLE PREDICTION 3: Merge deduplication savings *)
 Definition merge_dedup_savings (r1 r2 : list nat) (overlap : nat) (measured : nat) : Prop :=
-  (measured <= length r1 + length r2 - overlap)%nat.
+  (measured <= region_size r1 + region_size r2 - overlap)%nat.
 
 (** =========================================================================
     BENCHMARK SPECIFICATIONS (For Python implementation)
