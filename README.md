@@ -12,14 +12,36 @@ The Thiele Machine is a **formal computational model** that extends Turing Machi
 
 **Verified Implementation**: Three-layer architecture (Coq ↔ Python VM ↔ Verilog RTL) with **executable isomorphism gates**. Coverage is expanding opcode-by-opcode; the extracted runner is treated as the reference semantics for shared-state comparisons.
 
-## What We Can Actually Prove ✅
+## Proven Results (Machine-Checked) ✅
+
+### Core Formal Verification
 
 1. **Formal Subsumption** - Every Turing Machine program runs identically on Thiele ([Subsumption.v](coq/kernel/Subsumption.v))
 2. **Strict Separation** - Thiele can execute partition operations that Turing cannot
-3. **Bell Inequality S=16/5** - Mathematical construction of a no-signaling distribution exceeding Tsirelson bound ([BellInequality.v](coq/thielemachine/coqproofs/BellInequality.v))
-4. **μ-Cost Conservation** - Information-theoretic cost ledger is monotonically non-decreasing ([MuLedgerConservation.v](coq/kernel/MuLedgerConservation.v))
-5. **Executable Isomorphism Gates** - Python VM, extracted Coq semantics runner, and RTL are compared on concrete traces for an expanding subset of opcodes
-6. **Partition Discovery Advantage** - Experimental evidence of reduced search costs on structured SAT problems
+3. **μ-Cost Conservation** - Information-theoretic cost ledger is monotonically non-decreasing ([MuLedgerConservation.v](coq/kernel/MuLedgerConservation.v))
+4. **Executable Isomorphism Gates** - Python VM, extracted Coq semantics runner, and RTL are compared on concrete traces for an expanding subset of opcodes
+
+### Thiele Unification Results (NEW) 🔥
+
+**See: [THIELE_UNIFICATION_RESULTS.md](THIELE_UNIFICATION_RESULTS.md) for complete theorem inventory**
+
+**Status**: ✅ **FULLY PROVEN** (No admits, no axioms, no parameter placeholders)
+
+1. **Operational Causality Theorem** - Kernel executions induce a light-cone on modules; outside the cone, state is invariant (trace-level non-interference, no spacetime axioms)
+2. **Operational Tensoriality Theorem** - Disjoint-module computations commute at observables (independence is proven, not assumed)
+3. **Resource Ledger Theorem** - μ is monotone and ledger-conserved: Δμ = Σ(certified costs) exactly
+4. **Noether's Theorem** - μ gauge symmetry (μ ↦ μ+k) corresponds to conservation of Δμ sequences (proven correspondence between symmetry and conservation)
+5. **Proof-Carrying Reality** - Concrete program receipts replay and validate in Coq (execution → receipts → checker acceptance)
+6. **Full-Stack Compilation** - Coq → OCaml extraction → RTL synthesis → Python isomorphism → pytest (all gates green)
+
+**Validation:** `bash scripts/forge_artifact.sh` ✅ (Coq + extraction + Yosys + iverilog + pytest)
+
+**Noether Completion:** See [NOETHER_THEOREM_COMPLETION.md](NOETHER_THEOREM_COMPLETION.md) for details on the proven symmetry ↔ conservation correspondence.
+
+### Experimental Results
+
+6. **Bell Inequality S=16/5** - Mathematical construction of a no-signaling distribution exceeding Tsirelson bound ([BellInequality.v](coq/thielemachine/coqproofs/BellInequality.v))
+7. **Partition Discovery Advantage** - Experimental evidence of reduced search costs on structured SAT problems
 
 ## What This Is NOT ❌
 
