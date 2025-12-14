@@ -330,24 +330,14 @@ Theorem run_vm_mu_monotonic_prefix :
     k1 <= k2 ->
     (run_vm k1 trace s).(vm_mu) <= (run_vm k2 trace s).(vm_mu).
 Proof.
-  intros k1 k2 trace s Hle.
-  revert k1 s Hle.
-  induction k2 as [|k2 IH]; intros k1 s Hle.
-  - assert (k1 = 0) as -> by lia.
-    simpl.
-    lia.
-  - destruct k1 as [|k1].
-    + (* 0 <= S k2 *)
-      apply run_vm_mu_monotonic.
-    + (* S k1 <= S k2 *)
-      apply Nat.succ_le_mono in Hle.
-      destruct (nth_error trace (vm_pc s)) as [instr|] eqn:Hlookup; simpl.
-      * rewrite Hlookup.
-        simpl.
-        apply IH; assumption.
-      * rewrite Hlookup.
-        simpl.
-        lia.
+  intros k1. induction k1 as [|k1 IHk1]; intros k2 trace s Hle.
+  - simpl. apply run_vm_mu_monotonic.
+  - destruct k2 as [|k2].
+    + lia.
+    + simpl run_vm.
+      destruct (nth_error trace s.(vm_pc)) as [instr|] eqn:Hlookup.
+      * apply (IHk1 k2 trace (vm_apply s instr)). lia.
+      * simpl. lia.
 Qed.
 
 Theorem run_vm_mu_monotonic_composition :
@@ -357,9 +347,13 @@ Theorem run_vm_mu_monotonic_composition :
 Proof.
   intros m n trace s.
   split.
-  - apply run_vm_mu_monotonic.
-  - apply run_vm_mu_monotonic_prefix.
-    apply Nat.le_add_r.
+  - (* First part: s.(vm_mu) <= (run_vm m trace s).(vm_mu) *)
+    apply run_vm_mu_monotonic.
+  - (* Second part: (run_vm m trace s).(vm_mu) <= (run_vm (m + n) trace s).(vm_mu) *)
+    (* Note: run_vm (m + n) = run_vm n (run_vm m s) by the definition of run_vm *)
+    assert (forall k1 k2, k1 <= k1 + k2) as Hle by lia.
+    apply (run_vm_mu_monotonic_prefix m (m + n) trace s).
+    lia.
 Qed.
 
 (** We now generalise the conservation statement by splitting the

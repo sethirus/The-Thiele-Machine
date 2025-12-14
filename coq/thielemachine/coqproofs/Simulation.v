@@ -12,7 +12,7 @@ Import ListNotations.
 
 From ThieleUniversal Require Import TM UTM_Rules UTM_Program UTM_Encode CPU.
 From ThieleMachine Require Import ThieleMachine EncodingBridge.
-From ThieleMachineVerification Require Import BridgeDefinitions.
+From ThieleMachine Require Import BridgeDefinitions.
 
 Local Open Scope nat_scope.
 
