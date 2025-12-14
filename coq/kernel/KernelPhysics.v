@@ -296,18 +296,20 @@ Qed.
     for all reachable states s. This is a structural property of the VM,
     not a physics axiom.
     *)
+
+(** PROVEN THEOREM: Well-formed graphs have None for lookups beyond pg_next_id.
+
+    This uses VMState.wf_graph_lookup_beyond_next_id directly.
+    The well-formedness hypothesis is explicit - this is a structural
+    property, not a physics axiom.
+    *)
 Lemma graph_lookup_beyond_next_id : forall g mid,
+  well_formed_graph g ->
   mid >= g.(pg_next_id) ->
   graph_lookup g mid = None.
 Proof.
-  intros g mid Hge.
-  (* This is proven as wf_graph_lookup_beyond_next_id in VMState.v,
-     conditional on well_formed_graph g. We assume the VM maintains
-     this structural invariant. *)
-  (* To use the theorem, we would need: well_formed_graph g *)
-  (* For now, we axiomatize that all graphs in the VM are well-formed *)
-  admit.
-Admitted.
+  exact wf_graph_lookup_beyond_next_id.
+Qed.
 
 (** Adding a module preserves all existing module lookups.
 
@@ -462,28 +464,37 @@ Proof.
     (* g_right = result after two adds, need to show lookup preserved *)
     assert (Heq_lookup_step2: graph_lookup g_right mid = graph_lookup g_left mid).
     {
-      assert (Heq_g_right: g_right = fst (graph_add_module g_left (normalize_region right) (module_axioms m))).
-      { injection Hadd_right as Heq_gr _. symmetry. unfold graph_add_module. simpl. apply Heq_gr. }
-      rewrite Heq_g_right.
-      symmetry. apply graph_add_module_preserves_existing.
-      (* Need: mid < pg_next_id g_left *)
-      unfold graph_add_module in Hadd_left. injection Hadd_left as Heq_g_left _.
-      rewrite <- Heq_g_left. simpl.
-      assert (Heq_next: pg_next_id g_removed = pg_next_id g).
-      { apply (graph_remove_preserves_next_id _ _ _ _ Hremove). }
-      lia.
+      (* g_right = fst (graph_add_module g_left ...) *)
+      assert (Heq_gr: g_right = fst (graph_add_module g_left (normalize_region right) (module_axioms m))).
+      { injection Hadd_right as H _. symmetry. unfold graph_add_module. simpl. exact H. }
+      (* Now goal is: graph_lookup g_right mid = graph_lookup g_left mid *)
+      (* Rewrite g_right to fst (graph_add_module...) *)
+      rewrite Heq_gr.
+      (* Use preservation lemma *)
+      assert (Hlt_left: mid < pg_next_id g_left).
+      { unfold graph_add_module in Hadd_left. injection Hadd_left as Heq_g_left _.
+        rewrite <- Heq_g_left. simpl.
+        assert (Heq_next: pg_next_id g_removed = pg_next_id g).
+        { apply (graph_remove_preserves_next_id _ _ _ _ Hremove). }
+        lia.
+      }
+      apply (graph_add_module_preserves_existing _ _ _ _ Hlt_left).
     }
     rewrite Heq_lookup_step2.
     assert (Heq_lookup_step1: graph_lookup g_left mid = graph_lookup g_removed mid).
     {
-      assert (Heq_g_left: g_left = fst (graph_add_module g_removed (normalize_region left) (module_axioms m))).
-      { injection Hadd_left as Heq_gl _. symmetry. unfold graph_add_module. simpl. apply Heq_gl. }
-      rewrite Heq_g_left.
-      symmetry. apply graph_add_module_preserves_existing.
-      (* Need: mid < pg_next_id g_removed *)
-      assert (Heq_next: pg_next_id g_removed = pg_next_id g).
-      { apply (graph_remove_preserves_next_id _ _ _ _ Hremove). }
-      lia.
+      (* g_left = fst (graph_add_module g_removed ...) *)
+      assert (Heq_gl: g_left = fst (graph_add_module g_removed (normalize_region left) (module_axioms m))).
+      { injection Hadd_left as H _. symmetry. unfold graph_add_module. simpl. exact H. }
+      (* Now goal is: graph_lookup g_left mid = graph_lookup g_removed mid *)
+      rewrite Heq_gl.
+      (* Use preservation lemma *)
+      assert (Hlt_removed: mid < pg_next_id g_removed).
+      { assert (Heq_next: pg_next_id g_removed = pg_next_id g).
+        { apply (graph_remove_preserves_next_id _ _ _ _ Hremove). }
+        lia.
+      }
+      apply (graph_add_module_preserves_existing _ _ _ _ Hlt_removed).
     }
     rewrite Heq_lookup_step1.
     apply (graph_remove_preserves_unrelated g mid mid_split g_removed removed_mod Hneq Hremove).
@@ -530,38 +541,66 @@ Proof.
     destruct p as [g_without_both mod2].
     destruct (negb (nat_list_disjoint _ _)) eqn:Hdisjoint.
     + discriminate.
-    + destruct (graph_find_region g_without_both _) eqn:Hfind.
+    + destruct (graph_find_region g_without_both (nat_list_union (module_region mod1) (module_region mod2))) as [existing_id |] eqn:Hfind.
       * (* Existing region found *)
-        destruct (graph_lookup g_without_both n) eqn:Hlookup_existing.
+        destruct (graph_lookup g_without_both existing_id) eqn:Hlookup_existing.
         2: discriminate.
-        injection Hpmerge as Heq_g' Heq_merged. subst g' merged_id.
-        (* g' = graph_update g_without_both n updated *)
-        (* Case split on whether mid = n *)
-        destruct (Nat.eq_dec mid n) as [Heq_mid_n | Hneq_mid_n].
-        -- (* mid = n: the module we're updating is the one we're looking up *)
-           subst n.
-           unfold graph_update. unfold graph_lookup. simpl.
-           (* After update, lookup of mid returns the updated module *)
-           (* But we need to show the region is unchanged, which it is *)
-           (* Actually, this case is more complex. Let me use a different approach. *)
-           (* The key insight: n was in g_without_both, so n <> m1 and n <> m2 *)
-           (* Also mid <> m1 and mid <> m2, so if mid = n, same properties hold *)
+        injection Hpmerge as Heq_g' Heq_merged.
+        rewrite <- Heq_g'.
+        (* Key question: can mid = existing_id?
+           - We know existing_id is in g_without_both
+           - We know mid < pg_next_id g
+           - We know mid ≠ m1 and mid ≠ m2
+           - existing_id ≠ m1 and ≠ m2 (since it's in g_without_both)
+
+           So yes, mid could equal existing_id.
+           However, if mid = existing_id, then mid's region already contains
+           union(mod1.region, mod2.region). The question is whether this
+           violates no-signaling.
+
+           Actually, the simplest approach: case split on mid = existing_id vs mid ≠ existing_id *)
+        destruct (Nat.eq_dec mid existing_id) as [Heq_mid_ex | Hneq_mid_ex].
+        -- (* Case: mid = existing_id *)
+           subst existing_id.
+           (* SEMANTIC ISSUE: In this case, mid is a module whose region equals
+              union(mod1.region, mod2.region). The pmerge operation updates mid's
+              axioms by appending the axioms from m1 and m2.
+
+              The theorem states: if mid ∉ instr_targets (PMERGE m1 m2),
+              then mid is unchanged. We have mid ∉ [m1; m2] by hypothesis.
+
+              However, graph_update changes mid's axioms, so:
+                graph_lookup (graph_update g_without_both mid ...) mid
+              returns a ModuleState with DIFFERENT axioms than:
+                graph_lookup g mid
+
+              POSSIBLE RESOLUTIONS:
+              1. This case is impossible: prove that no module can exist with region
+                 equal to the union of two other disjoint modules' regions (requires
+                 an invariant about pairwise-disjoint module regions).
+
+              2. The theorem needs refinement: instr_targets should include existing_id
+                 when it exists, OR the theorem should only compare regions, not axioms.
+
+              3. There's a deeper semantic argument: if mid "contains" m1 and m2
+                 (its region is their union), then updating mid when merging m1 and m2
+                 is NOT a violation of no-signaling - it's a natural consequence of
+                 the hierarchical partition structure.
+
+              For now, this is ADMITTED pending deeper investigation of module region
+              invariants and the semantic intent of no-signaling for hierarchical
+              partitions. *)
+           admit.
+        -- (* Case: mid ≠ existing_id *)
+           (* Use graph_update_preserves_unrelated to eliminate the update *)
+           rewrite (graph_update_preserves_unrelated g_without_both mid existing_id _ Hneq_mid_ex).
+           (* Now work backwards through the removes *)
            rewrite (graph_remove_preserves_unrelated g_without_m1 mid m2 g_without_both mod2).
            ++ rewrite (graph_remove_preserves_unrelated g mid m1 g_without_m1 mod1).
               ** reflexivity.
               ** assumption.
               ** assumption.
            ++ assumption.
-           ++ assumption.
-        -- (* mid <> n: standard case *)
-           rewrite (graph_update_preserves_unrelated g_without_both mid n _ Hneq_mid_n).
-           ++ rewrite (graph_remove_preserves_unrelated g_without_m1 mid m2 g_without_both mod2).
-              ** rewrite (graph_remove_preserves_unrelated g mid m1 g_without_m1 mod1).
-                 --- reflexivity.
-                 --- assumption.
-                 --- assumption.
-              ** assumption.
-              ** assumption.
            ++ assumption.
       * (* New region created *)
         destruct (graph_add_module g_without_both _ _) eqn:Hadd.
@@ -622,13 +661,17 @@ Qed.
     The fact that we derive this from operational semantics (VMStep) with
     ZERO physics axioms shows that locality is a **consequence of computational
     structure**, not an independent physical postulate.
+
+    NOTE: We assume s.(vm_graph) is well-formed - this is a structural property
+    stating that the VM correctly maintains module IDs < pg_next_id.
     *)
 Theorem no_signaling_single_step : forall s s' instr mid,
+  well_formed_graph s.(vm_graph) ->
   vm_step s instr s' ->
   ~ In mid (instr_targets instr) ->
   graph_lookup s.(vm_graph) mid = graph_lookup s'.(vm_graph) mid.
 Proof.
-  intros s s' instr mid Hstep Hnotin.
+  intros s s' instr mid Hwf Hstep Hnotin.
   (* Case analysis on vm_step constructor *)
   destruct Hstep; simpl in *; unfold advance_state, advance_state_rm in *; simpl in *;
     try reflexivity.  (* 13/20 cases: graph unchanged, lookup preserved *)
@@ -644,7 +687,7 @@ Proof.
       symmetry. apply graph_pnew_preserves_existing. assumption.
     + (* mid >= pg_next_id: both sides None *)
       assert (Hnone: graph_lookup (vm_graph s) mid = None).
-      { apply graph_lookup_beyond_next_id. assumption. }
+      { apply graph_lookup_beyond_next_id. assumption. assumption. }
       rewrite Hnone.
       rewrite <- H. (* graph' = fst (graph_pnew ...) *)
       symmetry.
@@ -672,7 +715,7 @@ Proof.
       apply (graph_psplit_preserves_unrelated _ _ _ _ _ _ _ _ Hneq Hlt H).
     + (* mid >= pg_next_id: both sides None *)
       assert (Hnone: graph_lookup (vm_graph s) mid = None).
-      { apply graph_lookup_beyond_next_id. assumption. }
+      { apply graph_lookup_beyond_next_id. assumption. assumption. }
       rewrite Hnone. symmetry.
       rewrite <- H0.
       (* After psplit, pg_next_id may increase, so mid is still too large *)
@@ -706,11 +749,14 @@ Proof.
         (* g_rem has same pg_next_id as vm_graph s *)
         assert (Heq_next: pg_next_id g_rem = pg_next_id (vm_graph s)).
         { apply (graph_remove_preserves_next_id _ _ _ _ Hrem). }
+        (* g_rem is well-formed since graph_remove preserves well-formedness *)
+        assert (Hwf_rem: well_formed_graph g_rem).
+        { apply (graph_remove_preserves_wf _ _ _ _ Hwf Hrem). }
         assert (Hneq': S (pg_next_id g_rem) <> mid) by lia.
         apply Nat.eqb_neq in Hneq'. rewrite Hneq'.
         assert (Hneq'': pg_next_id g_rem <> mid) by lia.
         apply Nat.eqb_neq in Hneq''. rewrite Hneq''.
-        rewrite <- Heq_next. apply graph_lookup_beyond_next_id. lia.
+        rewrite <- Heq_next. apply graph_lookup_beyond_next_id. assumption. lia.
 
   - (* step_pmerge success: instr_targets = [m1; m2] *)
     simpl in Hnotin. (* mid ∉ [m1; m2] *)
@@ -727,7 +773,7 @@ Proof.
       apply (graph_pmerge_preserves_unrelated _ _ _ _ _ _ Hneq1 Hneq2 Hlt H).
     + (* mid >= pg_next_id: both sides None *)
       assert (Hnone: graph_lookup (vm_graph s) mid = None).
-      { apply graph_lookup_beyond_next_id. assumption. }
+      { apply graph_lookup_beyond_next_id. assumption. assumption. }
       rewrite Hnone. symmetry.
       rewrite <- H0.
       (* After pmerge, pg_next_id may stay same or increase *)
@@ -749,8 +795,13 @@ Proof.
         { apply (graph_remove_preserves_next_id _ _ _ _ Hrem1). }
         assert (Heq_next2: pg_next_id g_without_both = pg_next_id g_without_m1).
         { apply (graph_remove_preserves_next_id _ _ _ _ Hrem2). }
+        (* g_without_both is well-formed (two removes preserve wf) *)
+        assert (Hwf_m1: well_formed_graph g_without_m1).
+        { apply (graph_remove_preserves_wf _ _ _ _ Hwf Hrem1). }
+        assert (Hwf_both: well_formed_graph g_without_both).
+        { apply (graph_remove_preserves_wf _ _ _ _ Hwf_m1 Hrem2). }
         rewrite Heq_next2, Heq_next1.
-        apply graph_lookup_beyond_next_id. assumption.
+        apply graph_lookup_beyond_next_id. assumption. assumption.
       * (* New module added *)
         destruct (graph_add_module g_without_both _ _) eqn:Hadd.
         injection H as Heq _. rewrite <- Heq.
@@ -762,10 +813,15 @@ Proof.
         { apply (graph_remove_preserves_next_id _ _ _ _ Hrem1). }
         assert (Heq_next2: pg_next_id g_without_both = pg_next_id g_without_m1).
         { apply (graph_remove_preserves_next_id _ _ _ _ Hrem2). }
+        (* g_without_both is well-formed (two removes preserve wf) *)
+        assert (Hwf_m1: well_formed_graph g_without_m1).
+        { apply (graph_remove_preserves_wf _ _ _ _ Hwf Hrem1). }
+        assert (Hwf_both: well_formed_graph g_without_both).
+        { apply (graph_remove_preserves_wf _ _ _ _ Hwf_m1 Hrem2). }
         assert (Hneq: pg_next_id g_without_both <> mid) by lia.
         apply Nat.eqb_neq in Hneq. rewrite Hneq.
         rewrite Heq_next2, Heq_next1.
-        apply graph_lookup_beyond_next_id. assumption.
+        apply graph_lookup_beyond_next_id. assumption. assumption.
     
   - (* step_lassert_sat: instr_targets = [module] *)
     simpl in Hnotin. (* mid ∉ [module] *)
