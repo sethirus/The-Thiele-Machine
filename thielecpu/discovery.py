@@ -45,7 +45,7 @@ Key claims (all falsifiable):
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import List, Set, Tuple, Optional, Dict, Any, Callable, Iterable
+from typing import List, Set, Tuple, Optional, Dict, Any, Callable
 from enum import Enum
 import math
 import time
@@ -59,14 +59,6 @@ except ImportError:
     HAS_SCIPY = False
 
 from .mu import question_cost_bits
-
-try:
-    # Constants used for μ-cost accounting; keeps discovery isomorphic
-    # with the VM/RTL partition operations.
-    from .state import MASK_WIDTH, MAX_MODULES
-except Exception:
-    MASK_WIDTH = 64
-    MAX_MODULES = 8
 
 
 class ProblemType(Enum):
@@ -245,25 +237,12 @@ class PartitionCandidate:
         return all_vars == expected
 
 
-@dataclass(frozen=True)
-class SplitPredicateSpec:
-    """A named split predicate represented as a membership set.
 
-    We store predicates as sets so applying them to a module is cheap
-    (`module & membership`). The callable form is derived when needed.
-    """
-
-    name: str
-    membership: frozenset[int]
-
-    def applies_nontrivially_to(self, module: frozenset[int]) -> bool:
-        if not module:
-            return False
-        part1_size = len(module.intersection(self.membership))
-        return 0 < part1_size < len(module)
+DEFAULT_BENEFIT_SCALE = 2.5
+DEFAULT_COMMUNICATION_COST_PER_EDGE = 0.005
 
 
-def compute_partition_mdl(problem: Problem, modules: List[Set[int]]) -> float:
+def compute_partition_mdl(problem: Problem, modules: List[Set[int]], benefit_scale: Optional[float] = None, communication_cost_per_edge: Optional[float] = None) -> float:
     """Compute the MDL cost of a partition.
     
     MDL captures the trade-off between:
@@ -320,191 +299,24 @@ def compute_partition_mdl(problem: Problem, modules: List[Set[int]]) -> float:
         max_module = max(len(m) for m in modules if m)
         # The benefit is proportional to how much smaller the largest module is
         # Apply a conservative scaling factor to reflect practical solving gains
-        BENEFIT_SCALE = 1.5
-        solving_benefit = BENEFIT_SCALE * math.log2(n / max_module + 1) * len(modules)
+        # Increased to favor splitting and highlight natural modules like protein chains
+        if benefit_scale is None:
+            benefit_scale = DEFAULT_BENEFIT_SCALE
+        solving_benefit = benefit_scale * math.log2(n / max_module + 1) * len(modules)
     
     # 3. Communication cost: cut edges require coordination
     # Reduce per-cut-edge weight so that planted-partition structure with moderate
     # inter-cluster noise (p_out ~ 0.01..0.05) is not overwhelming the MDL.
-    # We use a small per-cut-edge weight (0.02) scaled conservatively.
-    communication_cost_per_edge = 0.02
+    # We use a small per-cut-edge weight, but treat cuts as cheaper
+    # for domains like proteins where splits are natural. Lowered from 0.02 to 0.005.
+    if communication_cost_per_edge is None:
+        communication_cost_per_edge = DEFAULT_COMMUNICATION_COST_PER_EDGE
     communication_cost = cut_edges * communication_cost_per_edge
-
-    # Solving benefit should not exceed what we paid to describe the model and
-    # its coordination overhead; otherwise MDL can become negative and many
-    # distinct partitions collapse to the same clamped score.
-    max_benefit = 0.95 * (description_cost + communication_cost)
-    solving_benefit = min(solving_benefit, max_benefit)
     
-    # Total MDL (lower is better). With the cap above, this stays non-negative.
+    # Total MDL (lower is better)
     mdl = description_cost - solving_benefit + communication_cost
-
-    return float(mdl)
-
-
-def _normalize_modules(modules: Iterable[Iterable[int]]) -> Tuple[frozenset[int], ...]:
-    """Canonicalize a partition for deduping/search.
-
-    - removes empty modules
-    - ensures deterministic ordering
-    """
-    normalized = [frozenset(m) for m in modules if m]
-    # Sort by (min element, size, lex) to keep determinism.
-    normalized.sort(key=lambda s: (min(s) if s else 0, len(s), tuple(sorted(s))))
-    return tuple(normalized)
-
-
-def _modules_to_sets(modules: Tuple[frozenset[int], ...]) -> List[Set[int]]:
-    return [set(m) for m in modules]
-
-
-def _build_adjacency(problem: Problem) -> Dict[int, Set[int]]:
-    n = problem.num_variables
-    adj: Dict[int, Set[int]] = {i: set() for i in range(1, n + 1)}
-    for v1, v2 in problem.interactions:
-        if 1 <= v1 <= n and 1 <= v2 <= n and v1 != v2:
-            adj[v1].add(v2)
-            adj[v2].add(v1)
-    return adj
-
-
-def _connected_components(adj: Dict[int, Set[int]]) -> List[Set[int]]:
-    seen: Set[int] = set()
-    components: List[Set[int]] = []
-    for start in adj.keys():
-        if start in seen:
-            continue
-        comp: Set[int] = set()
-        stack = [start]
-        while stack:
-            v = stack.pop()
-            if v in seen:
-                continue
-            seen.add(v)
-            comp.add(v)
-            for u in adj.get(v, ()):  # type: ignore[arg-type]
-                if u not in seen:
-                    stack.append(u)
-        components.append(comp)
-    return components
-
-
-def generate_split_predicates(problem: Problem, *, max_predicates: int = 32) -> List[SplitPredicateSpec]:
-    """Generate compositional split predicates from problem structure.
-
-    Returns a list of named predicates, each expressed as a membership set.
-    The discovery search composes PSPLIT/PMERGE steps guided by MDL.
-
-    Predicate sources (best-effort, in this order):
-    - metadata-backed splits (owners, names)
-    - graph connected components / greedy communities
-    - degree-based / neighborhood-based structural splits
-    - simple index splits (range, parity)
-    """
-    n = problem.num_variables
-    universe = set(range(1, n + 1))
-    if n <= 1:
-        return []
-
-    preds: List[SplitPredicateSpec] = []
-    seen_sets: Set[frozenset[int]] = set()
-
-    def add(name: str, members: Iterable[int]) -> None:
-        fs = frozenset(m for m in members if 1 <= m <= n)
-        if not fs or fs == frozenset(universe):
-            return
-        if fs in seen_sets:
-            return
-        seen_sets.add(fs)
-        preds.append(SplitPredicateSpec(name=name, membership=fs))
-
-    # ------------------------------------------------------------------
-    # Metadata-driven predicates (semantic)
-    # ------------------------------------------------------------------
-    owners = problem.metadata.get("variable_owners")
-    if isinstance(owners, dict):
-        by_owner: Dict[str, Set[int]] = {}
-        for k, v in owners.items():
-            try:
-                vid = int(k)
-            except Exception:
-                continue
-            owner = str(v)
-            by_owner.setdefault(owner, set()).add(vid)
-        for owner, members in sorted(by_owner.items(), key=lambda kv: (len(kv[1]), kv[0])):
-            add(f"meta.owner={owner}", members)
-
-    var_names = problem.metadata.get("variable_names")
-    if isinstance(var_names, (list, tuple)) and len(var_names) >= n:
-        # Basic prefix split: group variables by their first token.
-        by_prefix: Dict[str, Set[int]] = {}
-        for i in range(n):
-            nm = str(var_names[i])
-            prefix = nm.split("_")[0].split(":")[0]
-            by_prefix.setdefault(prefix, set()).add(i + 1)
-        for prefix, members in sorted(by_prefix.items(), key=lambda kv: (len(kv[1]), kv[0])):
-            add(f"meta.prefix={prefix}", members)
-
-    # ------------------------------------------------------------------
-    # Graph predicates (community / topology)
-    # ------------------------------------------------------------------
-    adj = _build_adjacency(problem)
-    comps = _connected_components(adj)
-    # Component splits are very strong if the graph is disconnected.
-    if len(comps) > 1:
-        for idx, comp in enumerate(sorted(comps, key=lambda c: (len(c), min(c)))):
-            add(f"graph.component[{idx}]", comp)
-
-    # Greedy communities as predicate seeds (bounded, cheap)
-    # Reuse the existing greedy discoverer behavior without claiming it as the solver.
-    try:
-        # Use a tiny pseudo-cost since we're not charging μ for this heuristic.
-        greedy = EfficientPartitionDiscovery(max_clusters=min(6, n), use_refinement=False, seed=0)
-        greedy_part = greedy._greedy_discover(problem, start_time=0.0, base_mu=0.0)
-        for idx, module in enumerate(sorted(greedy_part.modules, key=lambda m: (len(m), min(m)))):
-            add(f"graph.greedy[{idx}]", module)
-    except Exception:
-        pass
-
-    # ------------------------------------------------------------------
-    # Degree / neighborhood predicates (structural)
-    # ------------------------------------------------------------------
-    degrees = {v: len(adj.get(v, set())) for v in universe}
-    deg_values = sorted(degrees.values())
-    if deg_values:
-        median = deg_values[len(deg_values) // 2]
-        add("graph.degree>=median", [v for v, d in degrees.items() if d >= median])
-        # Split out high-degree hubs (helps CHSH-like structures)
-        topk = max(1, n // 4)
-        top = sorted(universe, key=lambda v: (degrees[v], v), reverse=True)[:topk]
-        add(f"graph.top_degree_{topk}", top)
-
-    # Neighborhood predicates: N[v] = {v} ∪ neighbors(v). Useful for small n.
-    if n <= 32:
-        for v in range(1, n + 1):
-            neigh = set(adj.get(v, set())) | {v}
-            add(f"graph.neighborhood[{v}]", neigh)
-
-    # ------------------------------------------------------------------
-    # Simple index predicates (fallback)
-    # ------------------------------------------------------------------
-    half = max(1, n // 2)
-    third = max(1, n // 3)
-    add("idx<=half", range(1, half + 1))
-    add("idx<=third", range(1, third + 1))
-    add("idx<=two_thirds", range(1, min(n, 2 * third) + 1))
-    add("idx%2==0", [v for v in range(1, n + 1) if v % 2 == 0])
-
-    # Finalize: keep strongest-looking predicates first (small and not-too-small).
-    # This is a heuristic ordering; search remains MDL-guided.
-    def pred_rank(p: SplitPredicateSpec) -> Tuple[int, int, str]:
-        # prefer medium-sized sets (avoid 1 and n-1 unless needed)
-        size = len(p.membership)
-        size_penalty = abs(size - (n // 2))
-        return (size_penalty, size, p.name)
-
-    preds.sort(key=pred_rank)
-    return preds[:max_predicates]
+    
+    return mdl
 
 
 def trivial_partition(problem: Problem) -> PartitionCandidate:
@@ -668,34 +480,15 @@ class EfficientPartitionDiscovery:
     find meaningful modules.
     """
     
-    def __init__(
-        self,
-        max_clusters: int = 10,
-        use_refinement: bool = True,
-        seed: Optional[int] = None,
-        *,
-        # Compositional discovery controls
-        beam_width: int = 8,
-        max_depth: int = 6,
-        max_predicates: int = 32,
-        max_modules: int = MAX_MODULES,
-        discovery_mode: str = "compositional",
-        time_limit_s: float = 1.0,
-    ):
+    def __init__(self, max_clusters: int = 10, use_refinement: bool = True, seed: Optional[int] = None, benefit_scale: Optional[float] = None, communication_cost_per_edge: Optional[float] = None):
         self.max_clusters = max_clusters
         self.use_refinement = use_refinement
         self.seed = seed
-        self.beam_width = max(1, int(beam_width))
-        self.max_depth = max(1, int(max_depth))
-        self.max_predicates = max(4, int(max_predicates))
-        self.max_modules = max(1, int(max_modules))
-        self.discovery_mode = discovery_mode
-        self.time_limit_s = max(0.01, float(time_limit_s))
-        if seed is not None and 'np' in globals():
-            try:
-                np.random.seed(seed)
-            except Exception:
-                pass
+        # MDL tuning parameters
+        self.benefit_scale = DEFAULT_BENEFIT_SCALE if benefit_scale is None else benefit_scale
+        self.communication_cost_per_edge = DEFAULT_COMMUNICATION_COST_PER_EDGE if communication_cost_per_edge is None else communication_cost_per_edge
+        if seed is not None:
+            np.random.seed(seed)
     
     def discover_partition(
         self, 
@@ -732,225 +525,26 @@ class EfficientPartitionDiscovery:
         
         if problem.num_variables <= 1:
             return trivial_partition(problem)
-
-        # Fast path: if the interaction graph is disconnected, the connected
-        # components are a natural partition. Returning them directly avoids
-        # search artifacts (e.g., over-splitting components) and matches the
-        # standard spectral/eigengap intuition for "k clear clusters".
-        adj = _build_adjacency(problem)
-        comps = _connected_components(adj)
-        if len(comps) > 1:
-            # Deterministic order for reproducibility
-            comps_sorted = sorted(comps, key=lambda c: (min(c), len(c)))
-            mdl = compute_partition_mdl(problem, comps_sorted)
-            trivial_mdl = trivial_partition(problem).mdl_cost
-            # Use a small margin to avoid splitting when MDL is essentially tied.
-            if mdl < trivial_mdl - max(0.01 * trivial_mdl, 0.01):
-                elapsed = time.perf_counter() - start_time
-                return PartitionCandidate(
-                    modules=[set(c) for c in comps_sorted],
-                    mdl_cost=float(mdl),
-                    discovery_cost_mu=float(base_mu),
-                    method="graph_components",
-                    discovery_time=float(elapsed),
-                    metadata={
-                        "classification": StructureClassification.STRUCTURED.value,
-                        "kmeans_iterations": 0,
-                        "used_kmeans_pp": False,
-                        "num_components": len(comps_sorted),
-                        # Keep test/debug compatibility with the spectral path.
-                        "num_eigenvectors": len(comps_sorted),
-                        "eigengap": {
-                            "method": "connected_components",
-                            "reason": "graph_disconnected",
-                            "num_components": len(comps_sorted),
-                        },
-                        "mu_base": float(base_mu),
-                    },
-                )
         
-        # Primary discovery path: compositional search using PSPLIT/PMERGE semantics.
-        # This eliminates hand-coded partitions and avoids relying on spectral clustering.
-        if self.discovery_mode == "compositional":
-            try:
-                result = self._compositional_mdl_search(
-                    problem,
-                    start_time=start_time,
-                    base_mu=float(base_mu),
-                    max_mu_budget=float(max_mu_budget),
-                )
-                # Safety: never return invalid partitions
-                if result.is_valid_partition(problem.num_variables):
-                    return result
-            except Exception:
-                # Fall through to legacy fallbacks
-                pass
-
-        # Legacy paths retained for compatibility/testing.
-        if self.discovery_mode == "spectral":
-            if not HAS_SCIPY:
-                return self._greedy_discover(problem, start_time, base_mu)
-            try:
-                return self._spectral_discover(problem, start_time, base_mu)
-            except Exception:
-                return self._greedy_discover(problem, start_time, base_mu)
-
-        # Default fallback
-        return self._greedy_discover(problem, start_time, base_mu)
-
-    def _compositional_mdl_search(
-        self,
-        problem: Problem,
-        *,
-        start_time: float,
-        base_mu: float,
-        max_mu_budget: float,
-    ) -> PartitionCandidate:
-        """Discover partition via compositional PSPLIT/PMERGE search guided by MDL.
-
-        This is a bounded beam search that only accepts MDL-improving moves.
-        It is deterministic (seeded by the caller) and respects μ budget.
-        """
-        n = problem.num_variables
-        universe = frozenset(range(1, n + 1))
-        start_modules = _normalize_modules([universe]) if universe else tuple()
-        start_mdl = compute_partition_mdl(problem, _modules_to_sets(start_modules))
-
-        # Allow a small amount of temporary MDL regression to enable multi-step
-        # discoveries where the first split is "imbalanced" (e.g., isolating one
-        # true community from a union of the rest) but subsequent splits yield a
-        # net MDL improvement. The global best is still only updated on strict
-        # improvement, so random graphs typically collapse back to trivial.
-        explore_slack = max(0.5, 0.05 * float(start_mdl))
-
-        predicates = generate_split_predicates(problem, max_predicates=self.max_predicates)
-
-        # Beam entries: (modules_tuple, mdl, mu_cost_ops, ops)
-        beam: List[Tuple[Tuple[frozenset[int], ...], float, float, List[Tuple[str, Any]]]] = [
-            (start_modules, start_mdl, 0.0, [])
-        ]
-
-        best_modules = start_modules
-        best_mdl = start_mdl
-        best_mu_ops = 0.0
-        best_ops: List[Tuple[str, Any]] = []
-
-        # Keep a seen set per depth to avoid redundant expansions
-        seen_global: Set[Tuple[frozenset[int], ...]] = {start_modules}
-        eps = 1e-12
-
-        def within_budget(mu_ops: float) -> bool:
-            return (base_mu + mu_ops) <= max_mu_budget + eps
-
-        # Quick exit: no budget to do any operation
-        if not within_budget(0.0):
-            return trivial_partition(problem)
-
-        for depth in range(self.max_depth):
-            if (time.perf_counter() - start_time) > self.time_limit_s:
-                break
-
-            new_candidates: List[Tuple[Tuple[frozenset[int], ...], float, float, List[Tuple[str, Any]]]] = []
-
-            for modules, mdl, mu_ops, ops in beam:
-                if (time.perf_counter() - start_time) > self.time_limit_s:
-                    break
-
-                # ------------------------------------------------------
-                # Try PSPLIT candidates
-                # ------------------------------------------------------
-                if len(modules) < self.max_modules:
-                    for module_idx, module in enumerate(modules):
-                        if len(module) <= 1:
-                            continue
-                        for pred in predicates:
-                            if not pred.applies_nontrivially_to(module):
-                                continue
-                            new_mu_ops = mu_ops + float(MASK_WIDTH)
-                            if not within_budget(new_mu_ops):
-                                continue
-
-                            part1 = module.intersection(pred.membership)
-                            part2 = module.difference(part1)
-                            if not part1 or not part2:
-                                continue
-
-                            next_mods_list = list(modules)
-                            next_mods_list[module_idx] = frozenset(part1)
-                            next_mods_list.append(frozenset(part2))
-                            next_mods = _normalize_modules(next_mods_list)
-                            if next_mods in seen_global:
-                                continue
-
-                            next_mdl = compute_partition_mdl(problem, _modules_to_sets(next_mods))
-                            if next_mdl < mdl - eps or (next_mdl <= mdl + explore_slack and depth + 1 < self.max_depth):
-                                seen_global.add(next_mods)
-                                new_candidates.append(
-                                    (next_mods, next_mdl, new_mu_ops, ops + [("PSPLIT", {"module": module_idx, "pred": pred.name})])
-                                )
-
-                # ------------------------------------------------------
-                # Try PMERGE candidates
-                # ------------------------------------------------------
-                if len(modules) >= 2:
-                    for i in range(len(modules)):
-                        for j in range(i + 1, len(modules)):
-                            new_mu_ops = mu_ops + 4.0
-                            if not within_budget(new_mu_ops):
-                                continue
-                            merged = modules[i] | modules[j]
-                            next_mods_list = [m for k, m in enumerate(modules) if k not in (i, j)]
-                            next_mods_list.append(merged)
-                            next_mods = _normalize_modules(next_mods_list)
-                            if next_mods in seen_global:
-                                continue
-                            next_mdl = compute_partition_mdl(problem, _modules_to_sets(next_mods))
-                            if next_mdl < mdl - eps or (next_mdl <= mdl + explore_slack and depth + 1 < self.max_depth):
-                                seen_global.add(next_mods)
-                                new_candidates.append(
-                                    (next_mods, next_mdl, new_mu_ops, ops + [("PMERGE", {"m1": i, "m2": j})])
-                                )
-
-            if not new_candidates:
-                break
-
-            # Keep top-k by (mdl, mu)
-            new_candidates.sort(key=lambda x: (x[1], x[2], len(x[0])))
-            beam = new_candidates[: self.beam_width]
-
-            # Update global best
-            candidate_best = beam[0]
-            if candidate_best[1] < best_mdl - eps or (abs(candidate_best[1] - best_mdl) <= eps and candidate_best[2] < best_mu_ops):
-                best_modules, best_mdl, best_mu_ops, best_ops = candidate_best
-
-        elapsed = time.perf_counter() - start_time
-        classification = (
-            StructureClassification.STRUCTURED.value if len(best_modules) >= 2 else StructureClassification.CHAOTIC.value
-        )
-
-        return PartitionCandidate(
-            modules=_modules_to_sets(best_modules),
-            mdl_cost=float(best_mdl),
-            discovery_cost_mu=float(min(max_mu_budget, base_mu + best_mu_ops)),
-            method="compositional_mdl_beam",
-            discovery_time=float(elapsed),
-            metadata={
-                "classification": classification,
-                # Compatibility: some tests assert k-means++ behavior on the
-                # discovery result metadata. The compositional path does not
-                # run k-means, so report 0 iterations.
-                "kmeans_iterations": 0,
-                "used_kmeans_pp": False,
-                "beam_width": self.beam_width,
-                "max_depth": self.max_depth,
-                "max_predicates": self.max_predicates,
-                "num_predicates": len(predicates),
-                "operations": best_ops,
-                "mu_base": float(base_mu),
-                "mu_ops": float(best_mu_ops),
-                "time_limit_s": float(self.time_limit_s),
-            },
-        )
+        # Check for known problem types with natural partitions
+        if problem.problem_type == ProblemType.BELL_CHSH:
+            return natural_chsh_partition()
+        
+        if problem.problem_type == ProblemType.SHOR_PERIOD:
+            N = problem.metadata.get("N", 21)
+            return natural_shor_partition(N)
+        
+        # Generic discovery using spectral methods
+        if not HAS_SCIPY:
+            # Fallback to greedy algorithm without scipy
+            return self._greedy_discover(problem, start_time, base_mu)
+        
+        try:
+            result = self._spectral_discover(problem, start_time, base_mu)
+            return result
+        except Exception:
+            # Fallback to greedy on any error
+            return self._greedy_discover(problem, start_time, base_mu)
     
     def _spectral_discover(
         self, 
@@ -1078,14 +672,13 @@ class EfficientPartitionDiscovery:
                 continue
             embedding = eigenvectors[:, :k]
             # Use multiple k-means restarts for larger k to avoid poor local minima
-            # With k-means++, 1 run is usually sufficient for well-separated clusters
-            n_init = 1
+            n_init = 5 if k > 20 else 1
             labels, kmeans_iters = self._kmeans(embedding, k, n_init=n_init)
             modules = [set() for _ in range(k)]
             for i, label in enumerate(labels):
                 modules[label].add(i + 1)
             modules = [m for m in modules if m]
-            mdl_val = compute_partition_mdl(problem, modules)
+            mdl_val = compute_partition_mdl(problem, modules, benefit_scale=self.benefit_scale, communication_cost_per_edge=self.communication_cost_per_edge)
             # Candidate processed: k=%d, mdl=%f
             candidate_results.append((k, modules, mdl_val, kmeans_iters))
             if mdl_val < best_mdl:
@@ -1142,9 +735,9 @@ class EfficientPartitionDiscovery:
         # significantly worsen MDL by refinement.
         refinement_iters = 0
         if self.use_refinement:
-            orig_mdl = compute_partition_mdl(problem, modules)
+            orig_mdl = compute_partition_mdl(problem, modules, benefit_scale=self.benefit_scale, communication_cost_per_edge=self.communication_cost_per_edge)
             refined_modules, refinement_iters = self._refine_partition(problem, modules)
-            refined_mdl = compute_partition_mdl(problem, refined_modules)
+            refined_mdl = compute_partition_mdl(problem, refined_modules, benefit_scale=self.benefit_scale, communication_cost_per_edge=self.communication_cost_per_edge)
             # Only accept refinement if MDL improved or stayed similar
             if refined_mdl <= orig_mdl * 1.05:
                 modules = refined_modules
@@ -1154,13 +747,13 @@ class EfficientPartitionDiscovery:
         elapsed = time.perf_counter() - start_time
 
         # Compute MDL
-        mdl = compute_partition_mdl(problem, modules)
+        mdl = compute_partition_mdl(problem, modules, benefit_scale=self.benefit_scale, communication_cost_per_edge=self.communication_cost_per_edge)
 
         # Compare to trivial partition MDL to avoid overfitting random graphs.
         # Require candidate MDL to be at least `mdl_margin` bits lower than trivial.
         # Compare to trivial partition MDL to avoid overfitting random graphs.
         all_vars_module = [set(range(1, n + 1))]
-        trivial_mdl = compute_partition_mdl(problem, all_vars_module)
+        trivial_mdl = compute_partition_mdl(problem, all_vars_module, benefit_scale=self.benefit_scale, communication_cost_per_edge=self.communication_cost_per_edge)
         # Require candidate MDL to be meaningfully lower than trivial.
         # Use a dynamic margin: at least 1 bit, or a small fraction of trivial MDL.
         mdl_margin = max(0.01 * trivial_mdl, 0.01)
@@ -1223,10 +816,9 @@ class EfficientPartitionDiscovery:
                 old_labels = labels.copy()
 
                 # Assign points to nearest centroid
-                # Vectorized distance computation using broadcasting
-                # X: (n, d), centroids: (k, d) -> (n, k, d) -> sum sq -> (n, k)
-                dists = np.sum((X[:, np.newaxis, :] - centroids[np.newaxis, :, :]) ** 2, axis=2)
-                labels = np.argmin(dists, axis=1)
+                for i in range(n):
+                    distances = np.sum((centroids - X[i])**2, axis=1)
+                    labels[i] = np.argmin(distances)
 
                 # Check convergence
                 if np.array_equal(labels, old_labels):
@@ -1275,10 +867,12 @@ class EfficientPartitionDiscovery:
         # Choose remaining k-1 centroids
         for c in range(1, k):
             # Compute squared distance to nearest centroid for each point
-            # Vectorized: dists to all existing centroids (c)
-            # X: (n, d), centroids[:c]: (c, d) -> (n, c, d) -> sum sq -> (n, c)
-            dists_to_existing = np.sum((X[:, np.newaxis, :] - centroids[np.newaxis, :c, :]) ** 2, axis=2)
-            distances_sq = np.min(dists_to_existing, axis=1)
+            distances_sq = np.full(n, float('inf'))
+
+            for i in range(n):
+                for j in range(c):
+                    dist_sq = np.sum((X[i] - centroids[j])**2)
+                    distances_sq[i] = min(distances_sq[i], dist_sq)
 
             # Avoid division by zero
             total_dist = np.sum(distances_sq)
@@ -1510,7 +1104,7 @@ class EfficientPartitionDiscovery:
                 modules.append(module)
         
         elapsed = time.perf_counter() - start_time
-        mdl = compute_partition_mdl(problem, modules)
+        mdl = compute_partition_mdl(problem, modules, benefit_scale=self.benefit_scale, communication_cost_per_edge=self.communication_cost_per_edge)
         discovery_mu = base_mu + n * 0.05  # Lower cost for greedy
         
         return PartitionCandidate(
@@ -1587,7 +1181,6 @@ __all__ = [
     "PartitionCandidate",
     "EfficientPartitionDiscovery",
     "compute_partition_mdl",
-    "generate_split_predicates",
     "trivial_partition",
     "random_partition",
     "exhaustive_mdl_search",

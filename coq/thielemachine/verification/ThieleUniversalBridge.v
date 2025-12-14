@@ -1,9 +1,9 @@
 
 From Coq Require Import List Arith Lia PeanoNat Bool ZArith String.
 From ThieleUniversal Require Import TM UTM_Rules CPU UTM_Program UTM_Encode.
-From ThieleMachineVerification Require Export BridgeDefinitions.
-From ThieleMachineVerification Require Import BridgeCheckpoints.
-From ThieleMachineVerification Require Import BridgeProof.
+From ThieleMachine Require Export BridgeDefinitions.
+From ThieleMachine Require Import BridgeCheckpoints.
+From ThieleMachine Require Import BridgeProof.
 Import ListNotations.
 
 Local Open Scope nat_scope.
