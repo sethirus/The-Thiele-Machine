@@ -1,6 +1,7 @@
 From Coq Require Import List Bool Arith.PeanoNat.
 From Coq Require Import NArith.
 From Coq Require Import Strings.String Strings.Ascii.
+From Coq Require Import micromega.Lia.
 Import ListNotations.
 
 (** * Virtual Machine state model closely mirroring [thielecpu.state] *)
@@ -48,9 +49,34 @@ Record PartitionGraph := {
   pg_modules : list (ModuleID * ModuleState)
 }.
 
+(** ** Well-Formedness Invariant for PartitionGraph
+
+    A PartitionGraph is well-formed if all module IDs in pg_modules
+    are strictly less than pg_next_id. This ensures:
+    - No ID collisions when adding new modules
+    - Lookups beyond pg_next_id always return None
+    - Module IDs are monotonically increasing
+    *)
+
+Fixpoint all_ids_below (modules : list (ModuleID * ModuleState)) (bound : nat) : Prop :=
+  match modules with
+  | [] => True
+  | (id, _) :: rest => (id < bound) /\ all_ids_below rest bound
+  end.
+
+Definition well_formed_graph (g : PartitionGraph) : Prop :=
+  all_ids_below g.(pg_modules) g.(pg_next_id).
+
 Definition empty_graph : PartitionGraph :=
   {| pg_next_id := 1;
      pg_modules := [] |}.
+
+(** The empty graph is well-formed *)
+Lemma empty_graph_well_formed : well_formed_graph empty_graph.
+Proof.
+  unfold well_formed_graph, empty_graph. simpl.
+  exact I.  (* all_ids_below [] _ = True *)
+Qed.
 
 Fixpoint graph_lookup_modules
   (modules : list (ModuleID * ModuleState)) (mid : ModuleID)
@@ -144,6 +170,101 @@ Definition graph_add_axioms (g : PartitionGraph) (mid : ModuleID)
 Definition graph_record_discovery (g : PartitionGraph) (mid : ModuleID)
   (evidence : list VMAxiom) : PartitionGraph :=
   graph_add_axioms g mid evidence.
+
+(** ** Well-Formedness Preservation Lemmas *)
+
+(** Helper: IDs strictly less than bound remain so after incrementing bound *)
+Lemma all_ids_below_weaken : forall modules n,
+  all_ids_below modules n ->
+  all_ids_below modules (S n).
+Proof.
+  induction modules as [|[id m] rest IH]; intros n Hall.
+  - exact I.
+  - simpl in *. destruct Hall as [Hlt Hrest].
+    split.
+    + lia.
+    + apply IH. exact Hrest.
+Qed.
+
+(** graph_add_module preserves well-formedness *)
+Lemma graph_add_module_preserves_wf : forall g region axioms,
+  well_formed_graph g ->
+  well_formed_graph (fst (graph_add_module g region axioms)).
+Proof.
+  intros g region axioms Hwf.
+  unfold graph_add_module. simpl.
+  unfold well_formed_graph. simpl.
+  split.
+  - lia.  (* pg_next_id < S pg_next_id *)
+  - apply all_ids_below_weaken. exact Hwf.
+Qed.
+
+(** Helper: removing an element preserves all_ids_below *)
+Lemma graph_remove_modules_preserves_all_ids_below : forall modules mid modules' m bound,
+  all_ids_below modules bound ->
+  graph_remove_modules modules mid = Some (modules', m) ->
+  all_ids_below modules' bound.
+Proof.
+  induction modules as [|[id ms] rest IH]; intros mid modules' m bound Hall Hrem.
+  - simpl in Hrem. discriminate.
+  - simpl in Hrem. simpl in Hall. destruct Hall as [Hid Hrest].
+    destruct (Nat.eqb id mid) eqn:Heq.
+    + injection Hrem as Heq_modules' Heq_m.
+      rewrite <- Heq_modules'. exact Hrest.
+    + destruct (graph_remove_modules rest mid) eqn:Hrest_rem.
+      * destruct p as [rest' removed']. injection Hrem as Heq_modules' Heq_m.
+        rewrite <- Heq_modules'. simpl. split.
+        -- exact Hid.
+        -- apply (IH mid rest' removed' bound Hrest Hrest_rem).
+      * discriminate.
+Qed.
+
+(** graph_remove preserves well-formedness *)
+Lemma graph_remove_preserves_wf : forall g mid g' m,
+  well_formed_graph g ->
+  graph_remove g mid = Some (g', m) ->
+  well_formed_graph g'.
+Proof.
+  intros g mid g' m Hwf Hrem.
+  unfold graph_remove in Hrem.
+  destruct (graph_remove_modules (pg_modules g) mid) eqn:Hrem_modules.
+  - destruct p as [modules' removed]. injection Hrem as Heq_g' Heq_m. subst.
+    unfold well_formed_graph. simpl.
+    apply (graph_remove_modules_preserves_all_ids_below _ _ _ _ _ Hwf Hrem_modules).
+  - discriminate.
+Qed.
+
+(** ** Key Structural Theorem: Lookups Beyond pg_next_id Return None *)
+
+(** Helper: If all IDs in a module list are < bound, then lookup of mid >= bound returns None *)
+Lemma all_ids_below_implies_lookup_none : forall modules mid bound,
+  all_ids_below modules bound ->
+  mid >= bound ->
+  graph_lookup_modules modules mid = None.
+Proof.
+  induction modules as [|[id m] rest IH]; intros mid bound Hall Hge.
+  - reflexivity.  (* lookup in empty list = None *)
+  - simpl in Hall. destruct Hall as [Hid Hrest].
+    simpl. destruct (Nat.eqb id mid) eqn:Heq.
+    + (* id = mid, but id < bound <= mid, contradiction *)
+      apply Nat.eqb_eq in Heq. subst id. lia.
+    + (* id ≠ mid, recurse *)
+      apply (IH mid bound Hrest Hge).
+Qed.
+
+(** THEOREM: Well-formed graphs have None for lookups beyond pg_next_id.
+
+    This completes the proof of graph_lookup_beyond_next_id in KernelPhysics.v.
+    *)
+Theorem wf_graph_lookup_beyond_next_id : forall g mid,
+  well_formed_graph g ->
+  mid >= g.(pg_next_id) ->
+  graph_lookup g mid = None.
+Proof.
+  intros g mid Hwf Hge.
+  unfold graph_lookup.
+  apply (all_ids_below_implies_lookup_none _ _ _ Hwf Hge).
+Qed.
 
 Definition graph_pnew (g : PartitionGraph) (region : list nat)
   : PartitionGraph * ModuleID :=
