@@ -90,9 +90,11 @@ Definition time_translate (n : nat) (s : ThieleState) (prog : ThieleProg) : Thie
 (** Time translation preserves energy (μ is monotone) *)
 Theorem time_translation_preserves_energy : forall (s : ThieleState) (prog : ThieleProg) (n : nat),
   BlindSighted.is_blind_program prog = true ->
-  True.  (* Simplified *)
+  (ledger (time_translate n s prog)).(mu_total) = s.(ledger).(mu_total).
 Proof.
-  intros. trivial.
+  intros s prog n Hblind.
+  unfold time_translate.
+  reflexivity.
 Qed.
 
 (** =========================================================================

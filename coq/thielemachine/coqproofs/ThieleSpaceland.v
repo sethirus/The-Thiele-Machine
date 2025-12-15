@@ -1055,25 +1055,27 @@ Module ThieleSpaceland.
   Definition landauer_bound (delta_mu : Z) : Q :=
     kT_ln2 * (inject_Z delta_mu).
   
-  (** Axiom S8a: μ corresponds to thermodynamic cost *)
-  Lemma mu_thermodynamic : forall s l s' (W : Q),
+  (** Thermodynamic witness: there exists a work budget meeting the bound. *)
+  Lemma mu_thermodynamic : forall s l s',
     step s l s' ->
-    (W >= landauer_bound (mu s l s'))%Q ->
-    True.
+    exists W : Q, Qle (landauer_bound (mu s l s')) W.
   Proof.
-    (* This is a physical constraint, not a mathematical proof *)
-    (* It states: implementations MUST provide enough energy *)
-    intros. exact I.
+    intros s l s' _.
+    exists (landauer_bound (mu s l s')).
+    apply Qle_refl.
   Qed.
   
-  (** Axiom S8b: Blind steps are reversible *)
+  (** Blind steps with zero μ imply zero Landauer cost. *)
   Lemma blind_reversible : forall s s',
     step s LCompute s' ->
     mu s LCompute s' = 0 ->
-    True.
+    landauer_bound (mu s LCompute s') == 0%Q.
   Proof.
-    (* If μ = 0, step can be implemented reversibly *)
-    intros. exact I.
+    intros s s' _ Hmu.
+    rewrite Hmu.
+    unfold landauer_bound, kT_ln2.
+    simpl.
+    now rewrite Qmult_0_r.
   Qed.
 
   (** =========================================================================

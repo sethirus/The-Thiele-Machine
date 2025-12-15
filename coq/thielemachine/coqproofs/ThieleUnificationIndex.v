@@ -154,6 +154,12 @@ Module ThieleUnificationIndex.
     Parameter Obs : Type.
     Parameter observe : Task1.ThieleState -> Obs.
 
+    (* Task 7 (Relativity / causal structure): requires a definition of
+       observables and admissible influence paths. We keep these as explicit
+       interface fields rather than global Parameters. *)
+    Parameter causal_influence : Task1.ThieleState -> Task1.ThieleState -> Prop.
+    Parameter light_cone : Task1.ThieleState -> list Task1.ThieleState.
+
     (* Observational equivalence (what “no signaling” and coarse-graining use). *)
     Definition obs_equiv (s1 s2 : Task1.ThieleState) : Prop :=
       observe s1 = observe s2.
@@ -180,11 +186,6 @@ Module ThieleUnificationIndex.
   End ObservationInterface.
 
   Module Task7_10 (O : ObservationInterface).
-    (* Task 7 (Relativity / causal structure): requires a definition of
-       observables and admissible influence paths. *)
-    Parameter causal_influence : Task1.ThieleState -> Task1.ThieleState -> Prop.
-    Parameter light_cone : Task1.ThieleState -> list Task1.ThieleState.
-
     (* Kernel-level causal structure (no spacetime): a simulated light-cone for
        `instr_pdiscover` traces and a non-interference theorem. *)
     Definition kernel_instr_targets := ThieleKernelCausality.ThieleKernelCausality.instr_targets.

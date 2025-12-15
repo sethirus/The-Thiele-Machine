@@ -109,14 +109,13 @@ Record Spaceland : Type :=
     (* Thermodynamic connection *)
     kT_ln2 : Q;
     landauer_bound : Z -> Q;
-    mu_thermodynamic : forall s l s' (W : Q),
+    mu_thermodynamic : forall s l s',
       step s l s' ->
-      Qle (landauer_bound (mu s l s')) W ->
-      True;
+      exists W : Q, Qle (landauer_bound (mu s l s')) W;
     blind_reversible : forall s s',
       step s (@LCompute ModuleId) s' ->
       mu s (@LCompute ModuleId) s' = 0 ->
-      True
+      landauer_bound (mu s (@LCompute ModuleId) s') == 0%Q
   }.
 
 (** Morphisms and isomorphisms between Spacelands. *)
@@ -179,6 +178,8 @@ End SpacelandIsomorphism.
 (** Placeholder statement of a representation theorem. *)
 Section RepresentationTheorem.
   Context (S1 S2 : Spaceland).
-  Definition same_projection : Prop := True.
-  Definition representation : Prop := True.
+  Definition same_projection : Prop :=
+    exists (iso : SpacelandIsomorphism.Isomorphism S1 S2), True.
+
+  Definition representation : Prop := same_projection.
 End RepresentationTheorem.
