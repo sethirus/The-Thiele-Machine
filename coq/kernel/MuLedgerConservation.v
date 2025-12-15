@@ -5,16 +5,23 @@ Require Import VMState.
 Require Import VMStep.
 Require Import SimulationProof.
 
-(** * Bounded-model µ-ledger conservation *)
-
-(** The virtual machine executes a bounded trace using [run_vm],
-    accumulating µ-costs in the [vm_mu] field of the state.  The ledger
-    associated to a bounded execution records, for each realised
-    instruction, the µ-delta charged by the specification.  This module
-    constructs that ledger and proves that every bounded execution
-    preserves the conservation law: the µ-accumulator equals the
-    initial µ plus the sum of the recorded deltas, and each consecutive
-    pair of states differs exactly by the corresponding ledger entry. *)
+(** * Bounded-model µ-ledger conservation
+    
+    STATUS (December 14, 2025): VERIFIED
+    
+    PROVEN THEOREM: mu_conservation_kernel
+      For every bounded execution, the μ-accumulator equals initial μ
+      plus the sum of recorded costs. This is the kernel-level
+      conservation law underlying thermodynamic interpretations.
+    
+    KEY RESULTS:
+    - ledger_sums_to_mu: Σ(costs) = μ_final - μ_init
+    - consecutive_ledger_step: Each step changes μ by exactly its cost
+    - mu_conservation_kernel: Complete conservation law
+    
+    Used in KernelPhysics.Noether theorem (gauge symmetry ↔ conservation).
+    All proofs complete. No axioms, no admits.
+    *)
 
 (** Ledger extraction from bounded executions. *)
 

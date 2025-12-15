@@ -9,38 +9,20 @@
     This is where "partition-native" becomes "category-native".
     =========================================================================*)
 
-Require Import VMState VMStep KernelPhysics.
+From Kernel Require Import VMState VMStep KernelPhysics.
 Require Import Coq.Lists.List.
 Require Import Coq.Bool.Bool.
 Require Import Coq.Arith.PeanoNat.
 Import ListNotations.
 Import Nat.
 
-(** Import vm_instruction from VMStep *)
-Import ThieleMachine.kernel.VMStep.
-
 (** =========================================================================
     CAUSAL CONE REMINDER (from KernelPhysics.v)
     =========================================================================*)
 
-(** Targets of a single instruction *)
-Definition instr_targets (i : vm_instruction) : list nat :=
-  match i with
-  | instr_pnew _ _ => []  (* PNEW creates new module, no existing target *)
-  | instr_pmerge m1 m2 _ => [m1; m2]
-  | instr_psplit module _ _ _ => [module]
-  | instr_lassert module _ _ _ => [module]
-  | instr_mdlacc module _ => [module]
-  | instr_pdiscover module _ _ => [module]
-  | _ => []
-  end.
-
-(** Causal cone: all module IDs influenced by a trace *)
-Fixpoint causal_cone (trace : list vm_instruction) : list nat :=
-  match trace with
-  | [] => []
-  | i :: rest => instr_targets i ++ causal_cone rest
-  end.
+(** This file intentionally re-uses the authoritative definitions from
+    [KernelPhysics.v]. Re-defining these locally risks drifting out of sync
+    with the operational semantics and the closure theorems. *)
 
 (** =========================================================================
     CONE COMPOSITION

@@ -216,9 +216,16 @@ Theorem lightweight_verification :
   forall (c : Cert),
     proof_ok c ->
     (* Verification can be done with lightweight checkers *)
-    True.
+    match prob_type c, proof_art c with
+    | SAT, ModelProof m => cnf_satisfied m (cnf c) = true
+    | UNSAT, DRATProof pi => drat_check (cnf c) pi
+    | UNSAT, LRATProof pi => lrat_check (cnf c) pi
+    | _, _ => False
+    end.
 Proof.
   intros c H_ok.
-  (* Proof would construct appropriate lightweight checker *)
-  trivial.
-  Qed.
+  (* Choose [expected_result] to be the certificate's own declared type. *)
+  apply (portable_proof_equivalence c (prob_type c)).
+  - exact H_ok.
+  - reflexivity.
+Qed.

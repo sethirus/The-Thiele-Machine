@@ -21,32 +21,25 @@ import dataclasses
 import datetime as _dt
 import os
 import re
+import subprocess
 import sys
 from pathlib import Path
 from typing import Iterable, Iterator
 
+from inquisitor_rules import summarize_text
+
 
 PROTECTED_BASENAMES = {"CoreSemantics.v", "BridgeDefinitions.v"}
 
-# Pure interface files (Module Type signatures). Declarations inside are not
-# "sins" and should not appear as findings.
-INTERFACE_BASENAMES = {
-    "Spaceland.v",
-    "SpacelandCore.v",
-    "Spaceland_Simple.v",
-    "ThieleMachineSig.v",
-}
-
-# Allowed locations for "sins" (demos / WIP / archived scratch).
+# Allowed locations for findings when allowlisting is explicitly enabled.
+# Default policy is *no allowlist*.
 ALLOWLIST_PATH_PARTS = (
-    "/demos/",
-    "/demo/",
-    "/wip/",
-    "/WIP/",
     "/archive/",
     "/scratch/",
     "/experimental/",
     "/sandboxes/",
+    "/wip/",
+    "/WIP/",
 )
 
 # Populated at runtime (see `main`) with .v files that are considered optional
@@ -66,8 +59,9 @@ class Finding:
     snippet: str
     message: str
 
-
-def is_allowlisted(path: Path) -> bool:
+def is_allowlisted(path: Path, *, enable_allowlist: bool) -> bool:
+    if not enable_allowlist:
+        return False
     if path in ALLOWLIST_EXACT_FILES:
         return True
     p = "/" + str(path.as_posix()).lstrip("/")
@@ -185,6 +179,33 @@ def scan_file(path: Path) -> list[Finding]:
 
     findings: list[Finding] = []
 
+    def iter_theorem_statements() -> Iterator[tuple[str, int, str]]:
+        """Yield (name, start_line, normalized_statement) for theorem-like items.
+
+        This avoids naive "first '.'" parsing because Coq module paths contain '.'
+        and would otherwise truncate statements.
+        """
+
+        start_re = re.compile(r"^[ \t]*(Theorem|Lemma|Corollary)\s+([A-Za-z0-9_']+)\b")
+        end_re = re.compile(r"\.[ \t]*$")
+        max_lines = 200
+        for idx, ln in enumerate(clean_lines, start=1):
+            m = start_re.match(ln)
+            if not m:
+                continue
+            name = m.group(2)
+            parts: list[str] = [ln.strip()]
+            j = idx + 1
+            while j <= len(clean_lines) and len(parts) < max_lines:
+                if end_re.search(parts[-1]):
+                    break
+                nxt = clean_lines[j - 1].strip()
+                if nxt:
+                    parts.append(nxt)
+                j += 1
+            stmt = re.sub(r"\s+", " ", " ".join(parts)).strip()
+            yield name, idx, stmt
+
     # Assumption surfaces.
     #
     # Important distinction:
@@ -204,14 +225,7 @@ def scan_file(path: Path) -> list[Finding]:
         snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else kind
 
         # Inside a Module Type, treat declarations as signature fields.
-        if (
-            1 <= line < len(in_module_type)
-            and in_module_type[line]
-            and kind in {"Axiom", "Parameter"}
-        ):
-            # In interface-only files, these are the *law*: do not report them.
-            if path.name in INTERFACE_BASENAMES:
-                continue
+        if 1 <= line < len(in_module_type) and in_module_type[line] and kind in {"Axiom", "Parameter"}:
             findings.append(
                 Finding(
                     rule_id="MODULE_SIGNATURE_DECL",
@@ -264,22 +278,59 @@ def scan_file(path: Path) -> list[Finding]:
             )
         )
 
-    # Theorem ... : True.
-    theorem_true = re.compile(r"(?m)^[ \t]*Theorem\s+([A-Za-z0-9_']+)\b[^:]*:\s*True\s*\.")
-    for m in theorem_true.finditer(text):
-        name = m.group(1)
-        line = line_of[m.start()]
-        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else m.group(0)
-        findings.append(
-            Finding(
-                rule_id="PROP_TAUTOLOGY",
-                severity=_classify_constant_severity(name, "HIGH"),
-                file=path,
-                line=line,
-                snippet=snippet.strip(),
-                message="Theorem statement is literally True.",
+    # Statement-level vacuity checks (robust parsing).
+    for name, line, stmt in iter_theorem_statements():
+        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else stmt
+
+        if re.search(r":\s*True\s*\.$", stmt):
+            findings.append(
+                Finding(
+                    rule_id="PROP_TAUTOLOGY",
+                    severity=_classify_constant_severity(name, "HIGH"),
+                    file=path,
+                    line=line,
+                    snippet=snippet.strip(),
+                    message="Statement is literally `True.`",
+                )
             )
-        )
+
+        if re.search(r"->\s*True\s*\.$", stmt):
+            findings.append(
+                Finding(
+                    rule_id="IMPLIES_TRUE_STMT",
+                    severity=_classify_constant_severity(name, "HIGH"),
+                    file=path,
+                    line=line,
+                    snippet=snippet.strip(),
+                    message="Statement ends in `-> True.` (likely vacuous).",
+                )
+            )
+
+        # Hidden vacuity via `let ... in True.`
+        if " let " in f" {stmt} " and re.search(r"\bin\s*True\s*\.$", stmt):
+            findings.append(
+                Finding(
+                    rule_id="LET_IN_TRUE_STMT",
+                    severity=_classify_constant_severity(name, "HIGH"),
+                    file=path,
+                    line=line,
+                    snippet=snippet.strip(),
+                    message="Statement ends in `let ... in True.` (hidden vacuity).",
+                )
+            )
+
+        # Vacuous existence: `exists ..., True.`
+        if re.search(r"\bexists\b[^.]*,\s*True\s*\.$", stmt):
+            findings.append(
+                Finding(
+                    rule_id="EXISTS_TRUE_STMT",
+                    severity=_classify_constant_severity(name, "HIGH"),
+                    file=path,
+                    line=line,
+                    snippet=snippet.strip(),
+                    message="Statement ends in `exists ..., True.` (likely vacuous).",
+                )
+            )
 
     # Definition ... := [].
     def_empty_list = re.compile(r"(?m)^[ \t]*Definition\s+([A-Za-z0-9_']+)\b.*:=\s*\[\]\s*\.")
@@ -335,6 +386,27 @@ def scan_file(path: Path) -> list[Finding]:
             )
         )
 
+    # Definition ... := fun _ => 1%Q / 0%Q (constant probability-like functions).
+    # These are almost always placeholders.
+    def_const_q_fun = re.compile(
+        r"(?m)^[ \t]*Definition\s+([A-Za-z0-9_']+)\b[^.]*:=\s*fun\s+_\s*=>\s*(0%Q|1%Q)\s*\."
+    )
+    for m in def_const_q_fun.finditer(text):
+        name = m.group(1)
+        val = m.group(2)
+        line = line_of[m.start()]
+        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else m.group(0)
+        findings.append(
+            Finding(
+                rule_id="CONST_Q_FUN",
+                severity=_classify_constant_severity(name, "HIGH"),
+                file=path,
+                line=line,
+                snippet=snippet.strip(),
+                message=f"Definition is constant function returning {val}.",
+            )
+        )
+
     # Circular logic: intros; assumption. paired with A -> A-ish statements.
     # Heuristic parsing: look for Lemma/Theorem headers, capture statement line, and
     # detect a proof body that starts with `intros` and immediately `assumption.`
@@ -378,6 +450,32 @@ def scan_file(path: Path) -> list[Finding]:
                 )
             )
 
+    return findings
+
+
+def scan_exists_const_q(path: Path) -> list[Finding]:
+    """Detect `exists (fun _ => 1%Q)` / `exists (fun _ => 0%Q)` witnesses."""
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    line_of = _line_map(text)
+    clean_lines = text.splitlines()
+
+    findings: list[Finding] = []
+    pat = re.compile(r"(?m)\bexists\s*\(fun\s+_\s*=>\s*(0%Q|1%Q)\)\s*\.")
+    for m in pat.finditer(text):
+        val = m.group(1)
+        line = line_of[m.start()]
+        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else m.group(0)
+        findings.append(
+            Finding(
+                rule_id="EXISTS_CONST_Q",
+                severity="HIGH",
+                file=path,
+                line=line,
+                snippet=snippet.strip(),
+                message=f"Uses constant witness `exists (fun _ => {val})`.",
+            )
+        )
     return findings
 
 
@@ -432,7 +530,25 @@ def scan_trivial_equalities(path: Path) -> list[Finding]:
     return findings
 
 
-def write_report(report_path: Path, repo_root: Path, findings: list[Finding], scanned_files: int) -> None:
+def _file_vacuity_summary(path: Path) -> tuple[int, tuple[str, ...]]:
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    scored = summarize_text(text)
+    return scored.score, scored.tags
+
+
+def _run_make_all(repo_root: Path) -> int:
+    proc = subprocess.run(["make", "-C", str(repo_root / "coq")], cwd=str(repo_root))
+    return proc.returncode
+
+
+def write_report(
+    report_path: Path,
+    repo_root: Path,
+    findings: list[Finding],
+    scanned_files: int,
+    vacuity_index: list[tuple[int, Path, tuple[str, ...]]],
+) -> None:
     now = _dt.datetime.now(_dt.UTC).strftime("%Y-%m-%d %H:%M:%SZ")
     by_sev = {"HIGH": [], "MEDIUM": [], "LOW": []}
     for f in findings:
@@ -461,9 +577,33 @@ def write_report(report_path: Path, repo_root: Path, findings: list[Finding], sc
     lines.append("- `ZERO_CONST`: `Definition ... := 0.` / `0%Z` / `0%nat`\n")
     lines.append("- `TRUE_CONST`: `Definition ... := True.` or `:= true.`\n")
     lines.append("- `PROP_TAUTOLOGY`: `Theorem ... : True.`\n")
+    lines.append("- `IMPLIES_TRUE_STMT`: statement ends with `-> True.`\n")
+    lines.append("- `LET_IN_TRUE_STMT`: statement ends with `let ... in True.`\n")
+    lines.append("- `EXISTS_TRUE_STMT`: statement ends with `exists ..., True.`\n")
     lines.append("- `CIRCULAR_INTROS_ASSUMPTION`: tautology + `intros; assumption.`\n")
     lines.append("- `TRIVIAL_EQUALITY`: theorem of form `X = X` with reflexivity-ish proof\n")
+    lines.append("- `CONST_Q_FUN`: `Definition ... := fun _ => 0%Q` / `1%Q`\n")
+    lines.append("- `EXISTS_CONST_Q`: `exists (fun _ => 0%Q)` / `exists (fun _ => 1%Q)`\n")
     lines.append("\n")
+
+    if not findings:
+        lines.append("## Findings\n")
+        lines.append("(none)\n")
+        report_path.write_text("".join(lines), encoding="utf-8")
+        return
+
+    if vacuity_index:
+        lines.append("## Vacuity Ranking (file-level)\n")
+        lines.append("Higher score = more likely unfinished/vacuous.\n\n")
+        lines.append("| score | tags | file |\n")
+        lines.append("|---:|---|---|\n")
+        for score, abs_path, tags in sorted(vacuity_index, key=lambda t: (-t[0], str(t[1]))):
+            try:
+                rel = abs_path.relative_to(repo_root).as_posix()
+            except Exception:
+                rel = abs_path.as_posix()
+            lines.append(f"| {score} | {', '.join(tags)} | `{esc(rel)}` |\n")
+        lines.append("\n")
 
     lines.append("## Findings\n")
     for sev in ("HIGH", "MEDIUM", "LOW"):
@@ -494,6 +634,24 @@ def main(argv: list[str]) -> int:
     ap.add_argument("--coq-root", default="coq", help="Root directory to scan (default: coq)")
     ap.add_argument("--report", default="INQUISITOR_REPORT.md", help="Markdown report path")
     ap.add_argument(
+        "--build",
+        action="store_true",
+        default=False,
+        help="Run canonical Coq build (`make -C coq`) before scanning.",
+    )
+    ap.add_argument(
+        "--allowlist",
+        action="store_true",
+        default=False,
+        help="Enable allowlist for archive/sandbox/WIP paths (default: disabled).",
+    )
+    ap.add_argument(
+        "--allowlist-makefile-optional",
+        action="store_true",
+        default=False,
+        help="When --allowlist is enabled, also allowlist OPTIONAL_VO from coq/Makefile.local.",
+    )
+    ap.add_argument(
         "--fail-on-protected",
         action="store_true",
         default=True,
@@ -505,11 +663,12 @@ def main(argv: list[str]) -> int:
         default=False,
         help="Fail on any HIGH finding outside allowlisted paths (scorched earth).",
     )
+    # Legacy option retained for backward compatibility; it now implies the new default.
     ap.add_argument(
         "--ignore-makefile-optional",
         action="store_true",
         default=False,
-        help="Do not treat coq/Makefile.local OPTIONAL_VO files as allowlisted.",
+        help=argparse.SUPPRESS,
     )
     ap.add_argument(
         "--no-fail-on-protected",
@@ -530,22 +689,33 @@ def main(argv: list[str]) -> int:
     report_path = (repo_root / args.report).resolve()
 
     global ALLOWLIST_EXACT_FILES
-    if not args.ignore_makefile_optional:
+    ALLOWLIST_EXACT_FILES = set()
+    if args.allowlist and args.allowlist_makefile_optional and not args.ignore_makefile_optional:
         ALLOWLIST_EXACT_FILES = _parse_optional_v_files(repo_root, coq_root)
-    else:
-        ALLOWLIST_EXACT_FILES = set()
 
     if not coq_root.exists():
         print(f"ERROR: coq root not found: {coq_root}", file=sys.stderr)
         return 2
 
+    if args.build:
+        rc = _run_make_all(repo_root)
+        if rc != 0:
+            print("INQUISITOR: FAIL — Coq build failed; not scanning.", file=sys.stderr)
+            return rc
+
     all_findings: list[Finding] = []
+    vacuity_index: list[tuple[int, Path, tuple[str, ...]]] = []
     scanned = 0
     for vf in iter_v_files(coq_root):
         scanned += 1
         try:
             all_findings.extend(scan_file(vf))
             all_findings.extend(scan_trivial_equalities(vf))
+            all_findings.extend(scan_exists_const_q(vf))
+
+            score, tags = _file_vacuity_summary(vf)
+            if score > 0:
+                vacuity_index.append((score, vf, tags))
         except Exception as e:
             all_findings.append(
                 Finding(
@@ -565,7 +735,7 @@ def main(argv: list[str]) -> int:
             if f.rule_id not in {"SECTION_BINDER", "MODULE_SIGNATURE_DECL"}
         ]
 
-    write_report(report_path, repo_root, all_findings, scanned)
+    write_report(report_path, repo_root, all_findings, scanned, vacuity_index)
 
     # Fail-fast policy: HIGH sins in protected files, unless allowlisted.
     protected_high = [
@@ -573,7 +743,7 @@ def main(argv: list[str]) -> int:
         for f in all_findings
         if f.severity == "HIGH"
         and f.file.name in PROTECTED_BASENAMES
-        and not is_allowlisted(f.file)
+        and not is_allowlisted(f.file, enable_allowlist=args.allowlist)
     ]
 
     if protected_high and args.fail_on_protected:
@@ -590,7 +760,7 @@ def main(argv: list[str]) -> int:
     if args.strict:
         strict_high = [
             f for f in all_findings
-            if f.severity == "HIGH" and not is_allowlisted(f.file)
+            if f.severity == "HIGH" and not is_allowlisted(f.file, enable_allowlist=args.allowlist)
         ]
         if strict_high:
             print(f"INQUISITOR: FAIL (strict) — {len(strict_high)} HIGH findings outside allowlist.")
