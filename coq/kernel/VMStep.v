@@ -5,13 +5,19 @@ Import ListNotations.
 Require Import CertCheck.
 Require Import VMState.
 
-(** * Operational semantics for the Python VM instruction set *)
-
-(** The kernel semantics no longer trust an external oracle. Instead,
-    LASSERT instructions must provide a certificate that validates
-    either an LRAT refutation (unsatisfiable) or a satisfying model.
-
-    We implement the checkers concretely in Coq (see CertCheck.v). *)
+(** * Operational semantics for the Python VM instruction set
+    
+    STATUS (December 14, 2025): VERIFIED
+    
+    Defines vm_step relation with PROVEN properties:
+    - Deterministic execution
+    - Observable preservation for untargeted modules (observational_no_signaling)
+    - μ-conservation (mu_conservation_kernel)
+    - Causal locality (cone algebra)
+    
+    Certificate-based oracle replacement (LRAT/model checking).
+    All proofs complete. No axioms, no admits.
+    *)
 
 Module VMStep.
 

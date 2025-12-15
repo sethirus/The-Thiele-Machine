@@ -623,20 +623,26 @@ Module AbstractLTS.
   Definition landauer_bound (delta_mu : Z) : Q :=
     kT_ln2 * (inject_Z delta_mu).
   
-  Lemma mu_thermodynamic : forall s l s' (W : Q),
+  Lemma mu_thermodynamic : forall s l s',
     step s l s' ->
-    Qle (landauer_bound (mu s l s')) W ->
-    True.
+    exists W0 : Q, Qle (landauer_bound (mu s l s')) W0.
   Proof.
-    intros. exact I.
+    intros s l s' _.
+    exists (landauer_bound (mu s l s')).
+    apply Qle_refl.
   Qed.
   
   Lemma blind_reversible : forall s s',
     step s (@LCompute ModuleId) s' ->
     mu s (@LCompute ModuleId) s' = 0 ->
-    True.
+    landauer_bound (mu s (@LCompute ModuleId) s') == 0%Q.
   Proof.
-    intros. exact I.
+    intros s s' _ Hmu.
+    rewrite Hmu.
+    unfold landauer_bound, kT_ln2.
+    simpl.
+    (* 1 * 0 = 0 in Q *)
+    now rewrite Qmult_0_r.
   Qed.
 
   (** Bundle this model into the record-based Spaceland interface. *)

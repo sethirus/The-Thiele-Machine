@@ -30,7 +30,8 @@ Open Scope Z_scope.
     definable in the constructive logic (which is trivially true for any 
     Coq function).
 *)
-Definition ThieleComputable (f : State -> option State) : Prop := True.
+Definition ThieleComputable (f : State -> option State) : Prop :=
+  exists s s', f s = Some s'.
 
 (** =========================================================================
     SECTION 2: EXECUTION IS COMPUTABLE
@@ -49,7 +50,9 @@ Theorem execution_is_computable :
 Proof.
   intros fuel.
   unfold ThieleComputable.
-  exact I.
+  exists (initial_state [] []).
+  exists (run fuel (initial_state [] [])).
+  reflexivity.
 Qed.
 
 (** =========================================================================

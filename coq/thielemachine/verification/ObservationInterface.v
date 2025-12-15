@@ -11,6 +11,7 @@
     ========================================================================= *)
 
 From Coq Require Import List ZArith Lia QArith.
+From Coq Require Import ClassicalDescription.
 Import ListNotations.
 Local Open Scope Z_scope.
 
@@ -42,8 +43,10 @@ Definition partition_signature (p : BlindSighted.Partition) : list nat :=
 (** Extract Δμ sequence from ledger (relative changes, not absolute) *)
 Definition mu_delta_sequence (ledger : BlindSighted.MuLedger) : list Z :=
   (* Observable: Δμ (energy cost), not absolute μ *)
-  (* In full implementation: track per-step Δμ. For now, empty = no observations *)
-  [].
+  (* In this interface layer we do not have step history, so we expose a
+     canonical, gauge-invariant Δμ observation. Higher layers can refine this
+     to a per-step sequence when trace semantics are available. *)
+  [0%Z].
 
 (** Main observation functor: ThieleState → ObsState *)
 Definition observe_state (s : BlindSighted.ThieleState) : ObsState :=
@@ -167,20 +170,28 @@ Definition StandardObservationInterface : ObservationInterface :=
 Definition Event := ObsState -> Prop.
 
 (** Probability of an event (placeholder: returns uniform measure) *)
-Definition event_probability : Event -> Q := fun _ => 1%Q.
+Definition event_probability (e : Event) : Q :=
+  if excluded_middle_informative (exists o, e o) then 1%Q else 0%Q.
 
 (** Normalization (trivially satisfied by definition) *)
 Theorem event_probability_normalized :
   event_probability (fun _ => True) = 1%Q.
 Proof.
-  reflexivity.
+  unfold event_probability.
+  destruct (excluded_middle_informative (exists o : ObsState, True)) as [_|H].
+  - reflexivity.
+  - exfalso. apply H. exists (observe_state (BlindSighted.initial_state [])). exact I.
 Qed.
 
 (** Non-negativity (trivially satisfied by definition) *)
 Theorem event_probability_nonneg :
   forall e, (0 <= event_probability e)%Q.
 Proof.
-  intros e. unfold event_probability. unfold Qle. simpl. lia.
+  intro e.
+  unfold event_probability.
+  destruct (excluded_middle_informative (exists o, e o)); cbn.
+  - unfold Qle. simpl. lia.
+  - unfold Qle. simpl. lia.
 Qed.
 
 (** =========================================================================

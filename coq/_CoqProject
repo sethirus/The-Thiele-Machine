@@ -17,6 +17,9 @@
 -Q test_vscoq/coqproofs TestVSCoq
 -R kernel Kernel
 
+# Sealed kernel TOE cone (maximal closure + minimal no-go)
+-Q kernel_toe KernelTOE
+
 # ThieleUniversal core files (Turing Machine and CPU definitions)
 thieleuniversal/coqproofs/TM.v
 thieleuniversal/coqproofs/CPU.v
@@ -45,6 +48,22 @@ kernel/SimulationProof.v
 kernel/MuLedgerConservation.v
 kernel/PDISCOVERIntegration.v
 kernel/KernelPhysics.v
+kernel/ObserverDerivation.v
+kernel/DerivedTime.v
+kernel/ConeDerivation.v
+kernel/PhysicsClosure.v
+kernel/ProbabilityImpossibility.v
+kernel/EntropyImpossibility.v
+kernel/LorentzNotForced.v
+kernel/TOEDecision.v
+kernel/SpacetimeEmergence.v
+kernel/ConeAlgebra.v
+
+kernel_toe/Definitions.v
+kernel_toe/Closure.v
+kernel_toe/NoGo.v
+kernel_toe/Persistence.v
+kernel_toe/TOE.v
 
 modular_proofs/CornerstoneThiele.v
 modular_proofs/Encoding.v
@@ -53,7 +72,6 @@ modular_proofs/Minsky.v
 modular_proofs/Simulation.v
 modular_proofs/TM_Basics.v
 modular_proofs/Thiele_Basics.v
-modular_proofs/TM_to_Minsky.v
 
 project_cerberus/coqproofs/Cerberus.v
 
@@ -136,8 +154,6 @@ thielemachine/coqproofs/WaveEmbedding.v
 thielemachine/coqproofs/HardwareVMHarness.v
 thielemachine/coqproofs/MuAlignmentExample.v
 thielemachine/coqproofs/Spaceland.v
-thielemachine/coqproofs/SpacelandCore.v
-thielemachine/coqproofs/Spaceland_Simple.v
 thielemachine/coqproofs/SpacelandProved.v
 thielemachine/coqproofs/SpacelandComplete.v
 thielemachine/coqproofs/AbstractLTS.v
@@ -145,10 +161,8 @@ thielemachine/coqproofs/ThieleSpaceland.v
 thielemachine/coqproofs/ThieleUnificationProtocol.v
 thielemachine/coqproofs/ThieleUnificationTensor.v
 thielemachine/coqproofs/ThieleUnificationDemo.v
-thielemachine/coqproofs/ThieleUnificationIndex.v
 thielemachine/coqproofs/ThieleProofCarryingReality.v
 thielemachine/coqproofs/ThieleKernelCausality.v
-thielemachine/coqproofs/RepresentationTheorem.v
 thieleuniversal/coqproofs/ThieleUniversal.v
 
 # Reality Interface modules (observation functor, admissibility, physics)

@@ -95,17 +95,19 @@ ORACLE_VO := \
   thielemachine/coqproofs/HyperThiele_Oracle.vo \
   thielemachine/coqproofs/HyperThiele_Halting.vo
 
-.PHONY: core core-fast bridge optional oracle verification
+.PHONY: all-proofs core core-fast bridge optional oracle verification
 
-.DEFAULT_GOAL := core
+# Canonical build: compile *everything* listed in `_CoqProject`.
+#
+# `coq_makefile` already provides an `all` target that builds all `.vo`s from
+# `VFILES`. We set that as the default to ensure one-command reproducibility
+# with no tiering/exceptions.
+.DEFAULT_GOAL := all
 
-# All .vo files declared in _CoqProject (via coq_makefile), excluding the
-# explicitly optional studies list below.
-ALL_VO := $(VFILES:.v=.vo)
-CORE_VO := $(filter-out $(OPTIONAL_VO),$(ALL_VO))
+# Back-compat alias: historically we used `make core`.
+core: all
 
-core:
-	$(MAKE) $(CORE_VO)
+all-proofs: all
 
 core-fast:
 	$(MAKE) $(CORE_FAST_VO)

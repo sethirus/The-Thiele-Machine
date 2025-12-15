@@ -53,8 +53,12 @@ Theorem born_rule_derivation : forall e : Event,
     forall s, event_probability (fun s' => s' = s) == (psi s * psi s)%Q.
 Proof.
   intros e.
-  exists (fun _ => 1%Q).
-  intros s. unfold event_probability. simpl. reflexivity.
+  exists (fun s => event_probability (fun s' => s' = s)).
+  intro s.
+  unfold event_probability.
+  destruct (ClassicalDescription.excluded_middle_informative (exists o : ObsState, o = s)) as [_|H].
+  - unfold Qeq. simpl. ring.
+  - exfalso. apply H. exists s. reflexivity.
 Qed.
 
 (** Connection to quantum mechanics: Born rule structure (placeholder) *)
@@ -64,7 +68,12 @@ Definition born_rule_amplitude (s : ThieleState) : Q :=
 Theorem born_rule_is_sqrt_mu : forall s,
   event_probability (fun s' => s' = observe_state s) = 1%Q.
 Proof.
-  intros s. unfold event_probability. reflexivity.
+  intro s.
+  unfold event_probability.
+  destruct (ClassicalDescription.excluded_middle_informative
+              (exists o : ObsState, o = observe_state s)) as [_|H].
+  - reflexivity.
+  - exfalso. apply H. exists (observe_state s). reflexivity.
 Qed.
 
 (** =========================================================================
@@ -224,7 +233,13 @@ Theorem physics_pillars_consistent :
               obs_equiv s1 s2).
 Proof.
   split; [intros s prog Hadm Hlocal; exact Hlocal | ].
-  split; [exists (fun s => 1%Q); intros s; reflexivity | ].
+  split; [
+    exists (fun s => event_probability (fun s' => s' = s));
+    intro s;
+    unfold event_probability;
+    destruct (ClassicalDescription.excluded_middle_informative (exists o : ObsState, o = s)) as [_|H];
+    [unfold Qeq; simpl; ring | exfalso; apply H; exists s; reflexivity]
+  | ].
   split; [apply observable_lorentz_invariance | ].
   split; [apply mu_gauge_preserves_obs | ].
   split; [intros obs cutoff; apply second_law_entropy | ].

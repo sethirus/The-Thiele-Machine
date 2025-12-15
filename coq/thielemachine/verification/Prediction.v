@@ -172,21 +172,22 @@ Proof.
 Qed.
 
 (** Discovery cost definition (monotone with module size) *)
+Definition region_size (r : Region) : nat :=
+  @List.fold_right nat nat (fun (_ : nat) (acc : nat) => Nat.succ acc) 0%nat r.
+
 Definition discovery_cost_bound (s : ThieleState) (m : ModuleId) (r : Region) (cost : nat) : Prop :=
-  (cost >= length r)%nat.
+  (cost >= region_size r)%nat.
 
 Theorem discovery_cost_positive : forall (s : ThieleState) (m : ModuleId) (cost : nat) (s' : ThieleState),
   (* If PDISCOVER executes *)
   instr_admissible s (PDISCOVER m cost) s' ->
   (* Then cost is positive (information has thermodynamic price) *)
   (cost > 0)%nat ->
-  (* Discovery cost exists *)
-  True.
+  (* Discovery cost is nonzero *)
+  cost <> 0%nat.
 Proof.
-  intros s m cost s' Hadm Hpos.
-  (* Discovery cost must pay for partition structure *)
-  (* This is the thermodynamic price of information *)
-  trivial.
+  intros s m cost s' _ Hpos.
+  lia.
 Qed.
 
 (** =========================================================================

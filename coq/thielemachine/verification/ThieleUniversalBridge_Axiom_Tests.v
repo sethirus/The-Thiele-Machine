@@ -218,25 +218,7 @@ Lemma pc_update_preserves_regs : forall cpu new_pc,
 (* The axiom states properties about PC, ADDR, TEMP1 after multiple steps *)
 (* We can validate individual properties: *)
 
-Lemma step2b_preserves_invariants_structure : 
-  (* The axiom is a conjunction of several independent properties *)
-  (* Each property involves register preservation or simple arithmetic *)
-  (* This structural analysis increases confidence *)
-  True.
-Proof.
-  (* The axiom statement can be decomposed into:
-     - PC value after execution (arithmetic)
-     - ADDR value after AddConst (should be old_addr + RULE_SIZE)
-     - TEMP1 preservation (follows from axioms 1-3)
-     - Length preservation (structural property)
-     
-     Each component is either:
-     - Provable independently (like temp1 preservation)
-     - Simple arithmetic (PC and ADDR updates)
-     - Structural (length preservation)
-  *)
-  trivial.
-Qed.
+
 
 (*
  * Summary of Validation:

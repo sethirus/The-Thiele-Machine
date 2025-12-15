@@ -321,8 +321,8 @@ clean-synth:
 
 coq-core:
 	@echo "Building Coq core proofs..."
-	@$(MAKE) -C coq core
-	@echo "✓ Coq core proofs built"
+	@$(MAKE) -C coq
+	@echo "✓ Coq proofs built"
 
 coq-kernel:
 	@$(MAKE) -C coq kernel/Kernel.vo kernel/KernelTM.vo kernel/KernelThiele.vo

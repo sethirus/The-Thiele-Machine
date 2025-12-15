@@ -156,10 +156,21 @@ Module PDISCOVERIntegration.
   (** Programs without PDISCOVER work as before *)
   Theorem backward_compatible : forall (prog : list vm_instruction),
     uses_sight_awareness prog = false ->
-    True.
+    forall mid evidence mu, ~ In (instr_pdiscover mid evidence mu) prog.
   Proof.
-    intros prog _.
-    exact I.
+    intros prog Hno mid evidence mu Hin.
+    unfold uses_sight_awareness in Hno.
+    pose proof (existsb_exists is_sight_aware_instr prog) as Hex.
+    assert (existsb is_sight_aware_instr prog = true) as Hyes.
+    {
+      apply Hex.
+      exists (instr_pdiscover mid evidence mu).
+      split; [exact Hin|].
+      unfold is_sight_aware_instr, is_pdiscover_instr.
+      reflexivity.
+    }
+    rewrite Hyes in Hno.
+    discriminate.
   Qed.
 
 End PDISCOVERIntegration.
