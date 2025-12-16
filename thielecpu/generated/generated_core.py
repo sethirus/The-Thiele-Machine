@@ -20,6 +20,7 @@ COQ_INSTRUCTION_TAGS: tuple[str, ...] = (
     'Coq_instr_pdiscover',
     'Coq_instr_xfer',
     'Coq_instr_pyexec',
+    'Coq_instr_chsh_trial',
     'Coq_instr_xor_load',
     'Coq_instr_xor_add',
     'Coq_instr_xor_swap',
@@ -39,6 +40,7 @@ COQ_TAG_TO_MNEMONIC: dict[str, str] = {
     'Coq_instr_pdiscover': 'PDISCOVER',
     'Coq_instr_xfer': 'XFER',
     'Coq_instr_pyexec': 'PYEXEC',
+    'Coq_instr_chsh_trial': 'CHSH_TRIAL',
     'Coq_instr_xor_load': 'XOR_LOAD',
     'Coq_instr_xor_add': 'XOR_ADD',
     'Coq_instr_xor_swap': 'XOR_SWAP',
@@ -49,6 +51,7 @@ COQ_TAG_TO_MNEMONIC: dict[str, str] = {
 }
 
 MNEMONIC_TO_OPCODE_BYTE: dict[str, int] = {
+    'CHSH_TRIAL': 9,
     'EMIT': 14,
     'HALT': 255,
     'LASSERT': 3,
@@ -77,6 +80,7 @@ COQ_TAG_TO_OPCODE_BYTE: dict[str, int] = {
     'Coq_instr_pdiscover': 6,
     'Coq_instr_xfer': 7,
     'Coq_instr_pyexec': 8,
+    'Coq_instr_chsh_trial': 9,
     'Coq_instr_xor_load': 10,
     'Coq_instr_xor_add': 11,
     'Coq_instr_xor_swap': 12,

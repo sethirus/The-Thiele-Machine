@@ -294,6 +294,7 @@ Module ThieleKernelCausality.
       | a_xor_swap b_xor_swap mu_xor_swap
       | dst_xor_rank src_xor_rank mu_xor_rank
       | mod_emit payload_emit mu_emit
+      | mod_reveal bits_reveal cert_reveal mu_reveal
       | payload_oracle mu_oracle
       | mu_halt
       ]; simpl in *.
@@ -361,6 +362,8 @@ Module ThieleKernelCausality.
     - (* xor_rank *)
       reflexivity.
     - (* emit *)
+      reflexivity.
+    - (* reveal *)
       reflexivity.
     - (* oracle_halts *)
       reflexivity.

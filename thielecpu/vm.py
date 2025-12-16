@@ -1135,7 +1135,9 @@ class VM:
         self.virtual_fs.load_snapshot(files)
 
     def _simulate_witness_step(
-        self, instruction: InstructionWitness, pre_state: WitnessState
+        self,
+        instruction: InstructionWitness,
+        pre_state: WitnessState,
     ) -> Tuple[WitnessState, StepObservation]:
         op = instruction.op
         if op == "LASSERT":
@@ -1195,6 +1197,26 @@ class VM:
                 event={"tag": "PythonExec", "value": code},
                 mu_delta=0,
                 cert=_empty_cert(),
+            )
+        elif op == "CHSH_TRIAL":
+            payload = dict(instruction.payload) if isinstance(instruction.payload, dict) else {}
+            x = int(payload.get("x", 0))
+            y = int(payload.get("y", 0))
+            a = int(payload.get("a", 0))
+            b = int(payload.get("b", 0))
+            meta = f"CHSH_{1 if x else 0}{1 if y else 0}{1 if a else 0}{1 if b else 0}"
+            cert = _empty_cert()
+            cert["metadata"] = meta
+            post_state = WitnessState(
+                pc=pre_state.pc + 1,
+                status=pre_state.status,
+                mu_acc=pre_state.mu_acc,
+                cert_addr=pre_state.cert_addr,
+            )
+            observation = StepObservation(
+                event={"tag": "ChshTrial", "value": meta},
+                mu_delta=0,
+                cert=cert,
             )
         elif op == "EMIT":
             payload = str(instruction.payload)
@@ -2158,6 +2180,19 @@ class VM:
                     trace_lines.append(f"{step}: PYTHON error detected - halting VM")
                     halt_after_receipt = True
                 receipt_instruction = InstructionWitness("PYTHON", arg)
+            elif op == "CHSH_TRIAL":
+                parts = arg.replace(",", " ").split()
+                if len(parts) != 4:
+                    raise ValueError(f"CHSH_TRIAL expects 4 integers (x y a b), got: {arg!r}")
+                x, y, a, b = (int(p) for p in parts)
+                if x not in (0, 1) or y not in (0, 1) or a not in (0, 1) or b not in (0, 1):
+                    raise ValueError(f"CHSH_TRIAL bits must be 0/1, got: {x} {y} {a} {b}")
+                meta = f"CHSH_{x}{y}{a}{b}"
+                trace_lines.append(f"{step}: CHSH_TRIAL {meta}")
+                receipt_instruction = InstructionWitness(
+                    "CHSH_TRIAL",
+                    {"x": x, "y": y, "a": a, "b": b},
+                )
             elif op == "HALT":
                 trace_lines.append(f"{step}: HALT")
                 receipt_instruction = InstructionWitness("HALT", None)

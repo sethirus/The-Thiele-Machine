@@ -9,6 +9,9 @@
 
 `timescale 1ns / 1ps
 
+// Opcodes are generated from Coq extraction and must match the RTL decode.
+`include "generated_opcodes.vh"
+
 module thiele_cpu_tb;
 
 // ============================================================================
@@ -307,5 +310,23 @@ always @(posedge clk) begin
     end
 end
 `endif
+
+// Emit CHSH trial events as traceable stdout lines.
+// These are parsed by the 3-layer pytest gate and converted into canonical
+// step receipts for CHSH computation.
+always @(posedge clk) begin
+    if (rst_n) begin
+        // STATE_EXECUTE is 4'h2 in thiele_cpu.v.
+        if (dut.state == 4'h2 && dut.opcode == OPCODE_CHSH_TRIAL) begin
+            $display(
+                "CHSH_TRIAL %0d %0d %0d %0d",
+                dut.operand_a[1],
+                dut.operand_a[0],
+                dut.operand_b[1],
+                dut.operand_b[0]
+            );
+        end
+    end
+end
 
 endmodule

@@ -54,6 +54,7 @@ Definition opcode_PDISCOVER : N := 6%N.
 Definition opcode_EMIT      : N := 14%N.  (* Matches RTL constant 8'h0E. *)
 Definition opcode_XFER      : N := 7%N.
 Definition opcode_PYEXEC    : N := 8%N.
+Definition opcode_CHSH_TRIAL : N := 9%N.
 Definition opcode_XOR_LOAD  : N := 10%N.
 Definition opcode_XOR_ADD   : N := 11%N.
 Definition opcode_XOR_SWAP  : N := 12%N.
