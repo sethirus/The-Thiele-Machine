@@ -3,6 +3,8 @@ from __future__ import annotations
 from fractions import Fraction
 from pathlib import Path
 
+from thielecpu.isa import CSR
+
 from thielecpu.state import State
 from thielecpu.vm import VM
 
@@ -18,9 +20,13 @@ def test_receipt_chsh_bridge_supra_16_5(tmp_path: Path) -> None:
     table = load_probability_table_csv(prob_csv)
     trials_expected = trials_from_probability_table(table)
     program = program_from_trials(trials_expected)
+    program.insert(1, ("REVEAL", "1 64 supra_16_5"))
 
     vm = VM(State())
     vm.run(program, outdir)
+
+    assert int(vm.state.csr.get(CSR.ERR, 0)) == 0
+    assert float(vm.state.mu_information) >= 64.0
 
     receipts_path = outdir / "step_receipts.json"
     assert receipts_path.exists(), "VM did not write step_receipts.json"
