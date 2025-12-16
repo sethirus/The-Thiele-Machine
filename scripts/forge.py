@@ -32,6 +32,17 @@ from pathlib import Path
 TYPE_RE = re.compile(r"^\s*type\s+vm_instruction\s*=\s*$")
 CTOR_RE = re.compile(r"^\s*\|\s*([A-Za-z0-9_']+)\b")
 
+# The extracted Coq kernel IR currently contains internal instructions that are
+# not part of the hardware/Python ISA surface. We intentionally *filter* these
+# out so Foundry locks the cross-layer instruction surface without forcing RTL
+# support for internal-only opcodes.
+#
+# IMPORTANT: This is an allowlist. If the IR grows a new tag unexpectedly,
+# Foundry should still fail unless that mnemonic is explicitly allowed here.
+IGNORED_COQ_MNEMONICS: set[str] = {
+    "REVEAL",
+}
+
 
 def _coq_tag_to_mnemonic(tag: str) -> str:
     # Coq extraction constructor names in this repo currently look like:
@@ -196,7 +207,8 @@ def main() -> int:
 
     ml_path = Path(args.input)
     ml_text = ml_path.read_text(encoding="utf-8", errors="replace")
-    tags = parse_vm_instruction_constructors(ml_text)
+    tags_all = parse_vm_instruction_constructors(ml_text)
+    tags = [t for t in tags_all if _coq_tag_to_mnemonic(t) not in IGNORED_COQ_MNEMONICS]
 
     # Resolve tags -> ISA opcode bytes using the repo's canonical Python ISA.
     try:

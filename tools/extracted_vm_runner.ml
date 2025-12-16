@@ -156,6 +156,14 @@ let parse_program (lines : string list) : int * int list * int list * VMStep.vm_
         Some (VMStep.Coq_instr_xor_swap (safe_int a, safe_int b, safe_int cost))
       | [ "XOR_RANK"; dst; src; cost ] ->
         Some (VMStep.Coq_instr_xor_rank (safe_int dst, safe_int src, safe_int cost))
+      | [ "CHSH_TRIAL"; x; y; a; b; cost ] ->
+        Some
+          (VMStep.Coq_instr_chsh_trial
+             ( safe_int x,
+               safe_int y,
+               safe_int a,
+               safe_int b,
+               safe_int cost ))
       | [ "HALT"; cost ] -> Some (VMStep.Coq_instr_halt (safe_int cost))
       | _ -> failwith ("unrecognized instruction line: " ^ t)
   in

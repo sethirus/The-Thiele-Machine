@@ -1,6 +1,6 @@
 # INQUISITOR REPORT
-Generated: 2025-12-14 21:48:23Z (UTC)
-Scanned: 163 Coq files under `coq/`
+Generated: 2025-12-15 23:03:23Z (UTC)
+Scanned: 172 Coq files under `coq/`
 ## Summary
 - HIGH: 0
 - MEDIUM: 0

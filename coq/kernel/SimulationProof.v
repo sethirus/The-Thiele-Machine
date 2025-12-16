@@ -279,12 +279,22 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
   | instr_emit module payload cost =>
       let csrs' := csr_set_cert_addr s.(vm_csrs) (ascii_checksum payload) in
       advance_state s (instr_emit module payload cost) s.(vm_graph) csrs' s.(vm_err)
+  | instr_reveal module bits cert cost =>
+      let csrs' := csr_set_cert_addr s.(vm_csrs) (ascii_checksum cert) in
+      advance_state s (instr_reveal module bits cert cost) s.(vm_graph) csrs' s.(vm_err)
   | instr_pdiscover module evidence cost =>
       let graph' := graph_record_discovery s.(vm_graph) module evidence in
       advance_state s (instr_pdiscover module evidence cost) graph' s.(vm_csrs) s.(vm_err)
   | instr_pyexec payload cost =>
       advance_state s (instr_pyexec payload cost)
         s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
+  | instr_chsh_trial x y a b cost =>
+      if chsh_bits_ok x y a b then
+        advance_state s (instr_chsh_trial x y a b cost)
+          s.(vm_graph) s.(vm_csrs) s.(vm_err)
+      else
+        advance_state s (instr_chsh_trial x y a b cost)
+          s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
     | instr_xfer dst src cost =>
       let regs' := write_reg s dst (read_reg s src) in
       advance_state_rm s (instr_xfer dst src cost)
