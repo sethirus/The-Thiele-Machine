@@ -35,6 +35,7 @@ class Opcode(Enum):
     PDISCOVER = 0x06
     XFER = 0x07
     PYEXEC = 0x08
+    CHSH_TRIAL = 0x09
     XOR_LOAD = 0x0A
     XOR_ADD = 0x0B
     XOR_SWAP = 0x0C

@@ -15,6 +15,7 @@ localparam [7:0] OPCODE_MDLACC = 8'h05;
 localparam [7:0] OPCODE_PDISCOVER = 8'h06;
 localparam [7:0] OPCODE_XFER = 8'h07;
 localparam [7:0] OPCODE_PYEXEC = 8'h08;
+localparam [7:0] OPCODE_CHSH_TRIAL = 8'h09;
 localparam [7:0] OPCODE_XOR_LOAD = 8'h0A;
 localparam [7:0] OPCODE_XOR_ADD = 8'h0B;
 localparam [7:0] OPCODE_XOR_SWAP = 8'h0C;

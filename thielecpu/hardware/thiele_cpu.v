@@ -303,6 +303,20 @@ always @(posedge clk or negedge rst_n) begin
                         state <= STATE_PYTHON;
                     end
 
+                    OPCODE_CHSH_TRIAL: begin
+                        // CHSH trial event.
+                        // Encoding convention used by the 3-layer CHSH gate:
+                        //   operand_a[1:0] = {x,y}
+                        //   operand_b[1:0] = {a,b}
+                        // Cost byte is reserved for μ-cost and should be 0.
+                        // Invalid bit encodings latch an error.
+                        if ((operand_a[7:2] != 6'b0) || (operand_b[7:2] != 6'b0)) begin
+                            csr_error <= 32'h1;
+                        end
+                        pc_reg <= pc_reg + 4;
+                        state <= STATE_FETCH;
+                    end
+
                     OPCODE_MDLACC: begin
                         // Accumulate MDL for module; operand_a==0 means current module
                         // Note: execute_mdlacc handles state transition to ALU_WAIT

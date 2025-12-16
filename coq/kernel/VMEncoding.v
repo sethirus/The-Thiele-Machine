@@ -723,12 +723,19 @@ Definition compile_vm_operation (instr : vm_instruction) : program :=
       (* Update CSR cert_addr - requires navigating past variable graph *)
       (* NOTE: Graph parsing implementation validated by Python VM tests *)
       [T_Halt]
+  | instr_reveal module bits cert cost =>
+      (* REVEAL opcode: Update CSR cert_addr with revelation certificate *)
+      (* Semantically: marks explicit information revelation *)
+      [T_Halt]
   | instr_pdiscover module evidence cost =>
       (* Update graph with discovery *)
       [T_Halt]
   | instr_pyexec payload cost =>
       (* Set err to true - affects fixed header err bit *)
       compile_update_err true
+  | instr_chsh_trial x y a b cost =>
+      (* CHSH trial event: does not change fixed header beyond pc/μ. *)
+      [T_Halt]
     | instr_xfer dst src cost =>
       (* Transfer operation - no state change beyond pc/μ *)
       [T_Halt]

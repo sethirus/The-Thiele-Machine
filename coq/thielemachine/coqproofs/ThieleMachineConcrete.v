@@ -7,7 +7,7 @@
  * step-by-step.
  *)
 
-From Coq Require Import List String ZArith Bool Lia.
+From Coq Require Import List String Ascii ZArith Bool Lia.
 Import ListNotations.
 Local Notation length := List.length.
 Open Scope string_scope.
@@ -29,11 +29,13 @@ Inductive ThieleInstr : Type :=
   | MDLACC : ThieleInstr
   | PNEW : list nat -> ThieleInstr
   | PYEXEC : string -> ThieleInstr
+  | CHSH_TRIAL : nat -> nat -> nat -> nat -> ThieleInstr
   | EMIT : string -> ThieleInstr.
 
 Inductive ThieleEvent : Type :=
   | PolicyCheck : string -> ThieleEvent
   | InferenceComplete : ThieleEvent
+  | ChshTrial : nat -> nat -> nat -> nat -> ThieleEvent
   | ErrorOccurred : string -> ThieleEvent.
 
 (* ================================================================= *)
@@ -98,6 +100,23 @@ Definition cert_for_pyexec (code : string) : ConcreteCert :=
        sequence := 0%nat |}
   else default_cert.
 
+Definition bit_char01 (n : nat) : ascii :=
+  if Nat.eqb n 0 then "0"%char else "1"%char.
+
+Definition bit_string01 (n : nat) : string :=
+  String (bit_char01 n) EmptyString.
+
+Definition is_bit_nat (n : nat) : bool :=
+  (Nat.eqb n 0 || Nat.eqb n 1)%bool.
+
+Definition cert_for_chsh_trial (x y a b : nat) : ConcreteCert :=
+  {| smt_query := EmptyString;
+     solver_reply := EmptyString;
+     metadata := "CHSH_" ++ bit_string01 x ++ bit_string01 y ++ bit_string01 a ++ bit_string01 b;
+     timestamp := 0;
+     sequence := 0%nat |}.
+
+
 Definition advance_pc (s : ConcreteState) : ConcreteState :=
   {| pc := S s.(pc);
      status := s.(status);
@@ -136,6 +155,17 @@ Definition cert_for_query (query : string) : ConcreteCert :=
      timestamp := 0;
      sequence := 0 |}.
 
+Lemma cert_for_query_metadata_empty : forall q, (cert_for_query q).(metadata) = EmptyString.
+Proof. intros; reflexivity. Qed.
+
+Lemma cert_for_pyexec_metadata_empty : forall code, (cert_for_pyexec code).(metadata) = EmptyString.
+Proof.
+  intro code.
+  unfold cert_for_pyexec.
+  destruct (String.eqb code "alice_measurement") eqn:Ha; [reflexivity|].
+  destruct (String.eqb code "bob_measurement") eqn:Hb; reflexivity.
+Qed.
+
 Definition concrete_step (instr : ThieleInstr) (s : ConcreteState) : StepResult :=
   match instr with
   | LASSERT query =>
@@ -159,12 +189,51 @@ Definition concrete_step (instr : ThieleInstr) (s : ConcreteState) : StepResult 
          observation := {| ev := Some (PolicyCheck code);
                            mu_delta := 0;
                            cert := cert_for_pyexec code |} |}
+  | CHSH_TRIAL x y a b =>
+      if (is_bit_nat x && is_bit_nat y && is_bit_nat a && is_bit_nat b)%bool then
+        {| post_state := advance_pc s;
+          observation := {| ev := Some (ChshTrial x y a b);
+                      mu_delta := 0;
+                      cert := cert_for_chsh_trial x y a b |} |}
+      else
+        {| post_state := advance_pc s;
+          observation := {| ev := Some (ErrorOccurred "CHSH_BADBITS"%string);
+                      mu_delta := 0;
+                      cert := default_cert |} |}
   | EMIT payload =>
       {| post_state := advance_pc s;
          observation := {| ev := Some (ErrorOccurred payload);
                            mu_delta := 0;
                            cert := default_cert |} |}
   end.
+
+Lemma chsh_metadata_only_from_chsh_trial :
+  forall instr s,
+    String.eqb
+      (String.substring 0 5 (concrete_step instr s).(observation).(cert).(metadata))
+      "CHSH_" = true ->
+    exists x y a b, instr = CHSH_TRIAL x y a b.
+Proof.
+  intros instr s H.
+  destruct instr; cbn in H.
+  - (* LASSERT *) vm_compute in H. discriminate.
+  - (* MDLACC *) vm_compute in H. discriminate.
+  - (* PNEW *) vm_compute in H. discriminate.
+  - (* PYEXEC *) rewrite cert_for_pyexec_metadata_empty in H. vm_compute in H. discriminate.
+  - (* CHSH_TRIAL *) eexists; eexists; eexists; eexists; reflexivity.
+  - (* EMIT *) vm_compute in H. discriminate.
+Qed.
+
+Lemma chsh_event_only_from_chsh_trial :
+  forall instr s x y a b,
+    (concrete_step instr s).(observation).(ev) = Some (ChshTrial x y a b) ->
+    instr = CHSH_TRIAL x y a b.
+Proof.
+  intros instr s x y a b H.
+  destruct instr; cbn in H; try discriminate.
+  destruct (is_bit_nat n && is_bit_nat n0 && is_bit_nat n1 && is_bit_nat n2)%bool; cbn in H; try discriminate.
+  inversion H. subst. reflexivity.
+Qed.
 
 (* ================================================================= *)
 (* Boolean Equality Helpers *)
@@ -190,6 +259,8 @@ Definition thiele_event_eqb (e1 e2 : ThieleEvent) : bool :=
   match e1, e2 with
   | PolicyCheck a, PolicyCheck b => String.eqb a b
   | InferenceComplete, InferenceComplete => true
+  | ChshTrial x1 y1 a1 b1, ChshTrial x2 y2 a2 b2 =>
+      Nat.eqb x1 x2 && Nat.eqb y1 y2 && Nat.eqb a1 a2 && Nat.eqb b1 b2
   | ErrorOccurred a, ErrorOccurred b => String.eqb a b
   | _, _ => false
   end.
@@ -215,7 +286,9 @@ Definition step_obs_eqb (o1 o2 : StepObs) : bool :=
 
 Lemma thiele_event_eqb_refl : forall e, thiele_event_eqb e e = true.
 Proof.
-  intros e. destruct e; simpl; try apply String.eqb_refl; reflexivity.
+  intros e. destruct e; simpl; try apply String.eqb_refl; try reflexivity.
+  repeat rewrite Nat.eqb_refl.
+  reflexivity.
 Qed.
 
 Lemma concrete_cert_eqb_refl : forall cert, concrete_cert_eqb cert cert = true.
@@ -273,8 +346,7 @@ Fixpoint concrete_replay_ok (s0 : ConcreteState) (rs : list ConcreteReceipt) : b
 
 Definition concrete_bitsize (c : ConcreteCert) : Z :=
   Z.of_nat (String.length c.(smt_query)
-            + String.length c.(solver_reply)
-            + String.length c.(metadata)) * 8.
+            + String.length c.(solver_reply)) * 8.
 
 Lemma concrete_bitsize_cert_for_query :
   forall query,
@@ -284,7 +356,6 @@ Proof.
   intros query.
   unfold concrete_bitsize, cert_for_query.
   simpl.
-  rewrite Nat.add_0_r.
   rewrite Nat.add_0_r.
   reflexivity.
 Qed.
@@ -310,6 +381,15 @@ Proof.
   unfold cert_for_pyexec.
   destruct (String.eqb code "alice_measurement"%string); simpl; try reflexivity.
   destruct (String.eqb code "bob_measurement"%string); simpl; reflexivity.
+Qed.
+
+Lemma concrete_bitsize_cert_for_chsh_trial :
+  forall x y a b, concrete_bitsize (cert_for_chsh_trial x y a b) = 0.
+Proof.
+  intros x y a b.
+  unfold concrete_bitsize, cert_for_chsh_trial.
+  simpl.
+  reflexivity.
 Qed.
 
 Fixpoint concrete_sum_mu (tr : list (ConcreteState * StepObs)) : Z :=
@@ -440,7 +520,7 @@ Proof.
   intros s prog.
   revert s.
   induction prog as [|instr tl IH]; intros s; simpl; auto.
-  destruct instr as [query | | params | code | payload]; simpl.
+  destruct instr as [query | | params | code | x y a b | payload]; simpl.
   - set (mu := (Z.of_nat (String.length query)) * 8).
     simpl.
     rewrite concrete_bitsize_cert_for_query.
@@ -454,6 +534,14 @@ Proof.
   - simpl.
     rewrite concrete_bitsize_cert_for_pyexec.
     rewrite (IH (advance_pc s)). reflexivity.
+  - simpl.
+    destruct (is_bit_nat x && is_bit_nat y && is_bit_nat a && is_bit_nat b)%bool; simpl.
+    + unfold concrete_bitsize, cert_for_chsh_trial.
+      simpl.
+      rewrite (IH (advance_pc s)). reflexivity.
+    + unfold concrete_bitsize, default_cert.
+      simpl.
+      rewrite (IH (advance_pc s)). reflexivity.
   - simpl.
     rewrite (IH (advance_pc s)). reflexivity.
 Qed.

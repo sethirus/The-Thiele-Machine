@@ -39,11 +39,13 @@ Inductive vm_instruction :=
 | instr_pdiscover (module : ModuleID) (evidence : list VMAxiom) (mu_delta : nat)
 | instr_xfer (dst src : nat) (mu_delta : nat)
 | instr_pyexec (payload : string) (mu_delta : nat)
+| instr_chsh_trial (x y a b : nat) (mu_delta : nat)
 | instr_xor_load (dst addr : nat) (mu_delta : nat)
 | instr_xor_add (dst src : nat) (mu_delta : nat)
 | instr_xor_swap (a b : nat) (mu_delta : nat)
 | instr_xor_rank (dst src : nat) (mu_delta : nat)
 | instr_emit (module : ModuleID) (payload : string) (mu_delta : nat)
+| instr_reveal (module : ModuleID) (bits : nat) (cert : string) (mu_delta : nat)
 | instr_oracle_halts (payload : string) (mu_delta : nat)
 | instr_halt (mu_delta : nat).
 
@@ -58,14 +60,22 @@ Definition instruction_cost (instr : vm_instruction) : nat :=
   | instr_pdiscover _ _ cost => cost
   | instr_xfer _ _ cost => cost
   | instr_pyexec _ cost => cost
+  | instr_chsh_trial _ _ _ _ cost => cost
   | instr_xor_load _ _ cost => cost
   | instr_xor_add _ _ cost => cost
   | instr_xor_swap _ _ cost => cost
   | instr_xor_rank _ _ cost => cost
   | instr_emit _ _ cost => cost
+  | instr_reveal _ _ _ cost => cost
   | instr_oracle_halts _ cost => cost
   | instr_halt cost => cost
   end.
+
+Definition is_bit (n : nat) : bool :=
+  orb (Nat.eqb n 0) (Nat.eqb n 1).
+
+Definition chsh_bits_ok (x y a b : nat) : bool :=
+  andb (andb (is_bit x) (is_bit y)) (andb (is_bit a) (is_bit b)).
 
 Definition apply_cost (s : VMState) (instr : vm_instruction) : nat :=
   s.(vm_mu) + instruction_cost instr.
@@ -155,6 +165,11 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     vm_step s (instr_emit module payload cost)
       (advance_state s (instr_emit module payload cost)
         s.(vm_graph) csrs' s.(vm_err))
+| step_reveal : forall s module bits cert cost csrs',
+    csrs' = csr_set_cert_addr s.(vm_csrs) (ascii_checksum cert) ->
+    vm_step s (instr_reveal module bits cert cost)
+      (advance_state s (instr_reveal module bits cert cost)
+        s.(vm_graph) csrs' s.(vm_err))
 | step_pdiscover : forall s module evidence cost graph',
     graph' = graph_record_discovery s.(vm_graph) module evidence ->
     vm_step s (instr_pdiscover module evidence cost)
@@ -163,6 +178,16 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
 | step_pyexec : forall s payload cost,
     vm_step s (instr_pyexec payload cost)
       (advance_state s (instr_pyexec payload cost)
+        s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
+| step_chsh_trial_ok : forall s x y a b cost,
+    chsh_bits_ok x y a b = true ->
+    vm_step s (instr_chsh_trial x y a b cost)
+      (advance_state s (instr_chsh_trial x y a b cost)
+        s.(vm_graph) s.(vm_csrs) s.(vm_err))
+| step_chsh_trial_badbits : forall s x y a b cost,
+    chsh_bits_ok x y a b = false ->
+    vm_step s (instr_chsh_trial x y a b cost)
+      (advance_state s (instr_chsh_trial x y a b cost)
         s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
 | step_xfer : forall s dst src cost regs',
     regs' = write_reg s dst (read_reg s src) ->

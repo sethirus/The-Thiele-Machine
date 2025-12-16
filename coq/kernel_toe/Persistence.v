@@ -20,7 +20,10 @@ Definition Dead (fs : FuelState) : Prop :=
 
 Definition fuel_cost (i : vm_instruction) : nat := instruction_cost i.
 
-Definition fuel_reward (_i : vm_instruction) : nat := 0.
+Definition fuel_reward (i : vm_instruction) : nat :=
+  match i with
+  | _ => 0
+  end.
 
 Inductive fuel_step : FuelState -> vm_instruction -> FuelState -> Prop :=
 | fuel_step_ok : forall s s' i fuel,
