@@ -28,6 +28,13 @@ The Thiele Machine is a **formal computational model** that extends Turing Machi
 - ❌ **NOT a claim to transcend physics** (mathematical models ≠ physical reality)
 - ✅ **IS a production-ready system** with synthesizable RTL, 1161 completed Coq proofs, and verified 3-layer isomorphism
 
+## Technical Thesis
+
+- Kernel-layer TOE thesis (what is derivable vs impossible): [THIELE_TOE_THESIS.md](THIELE_TOE_THESIS.md)
+- No Free Insight (single canonical doc): [docs/NO_FREE_INSIGHT.md](docs/NO_FREE_INSIGHT.md)
+- Full technical monograph / falsifiable audit: [THE_THIELE_MACHINE_BOOK.md](THE_THIELE_MACHINE_BOOK.md)
+- Paper-style writeup (long-form draft): [PAPER.md](PAPER.md)
+
 ## Quick Start
 
 ### Prerequisites
@@ -136,7 +143,10 @@ pytest --ignore=tests/test_practical_examples.py \
 - ✅ VM-RTL equivalence framework established
 - ⚠️ Full CPU RTL synthesis in progress
 
-See [ARCHITECTURE.md](ARCHITECTURE.md) for the complete three-layer integration guide and [INTEGRATION_SUMMARY.md](INTEGRATION_SUMMARY.md) for current status.
+Primary references:
+- Machine spec: [docs/spec/thiele_machine_spec.md](docs/spec/thiele_machine_spec.md)
+- μ-cost model: [docs/MODEL_SPEC.md](docs/MODEL_SPEC.md)
+- Receipt format: [docs/spec/receipt-v1.1.md](docs/spec/receipt-v1.1.md)
 
 ### Instruction Set
 
@@ -164,23 +174,29 @@ Tseitin-12: blind μ=1108 → sighted μ=530 (55% cost reduction)
 
 ## Key Documentation
 
-### For Integration & Development
-- [**ARCHITECTURE.md**](ARCHITECTURE.md) - Three-layer architecture guide (Coq → Verilog → VM)
-- [**INTEGRATION_SUMMARY.md**](INTEGRATION_SUMMARY.md) - Current integration status and validation results
-- [**MILESTONES.md**](MILESTONES.md) - Development milestone tracking
-- [**TODO.md**](TODO.md) - Comprehensive task list and roadmap
+### Core Theory
 
-### For Researchers
+**No Free Insight Theorem** - Explanation as Conserved Quantity
 
-1. **[THE_THIELE_MACHINE_BOOK.md](THE_THIELE_MACHINE_BOOK.md)** - Comprehensive falsifiable analysis (START HERE)
-2. **[DEEP_AUDIT_2025-12-10.md](DEEP_AUDIT_2025-12-10.md)** - Complete audit of subsumption proof and cross-implementation isomorphism
-3. **[COQ_ORGANIZATION_PLAN.md](COQ_ORGANIZATION_PLAN.md)** - Categorization of all 125 Coq files
+The Thiele Machine proves a fundamental impossibility theorem: systems with non-forgeable receipts, monotone information accounting, locality, and weak observation **cannot strengthen certified predicates without explicit revelation**.
+
+- [No Free Insight Theorem](docs/NO_FREE_INSIGHT_THEOREM.md) - Formal roadmap (axioms → definitions → theorems → milestones)
+  - **Milestone 1** ✅ CHSH instance proven (`coq/kernel/Certification.v`)
+  - **Milestone 2** ✅ General framework proven (`coq/kernel/NoFreeInsight.v`)
+- [General Proof](docs/NO_FREE_INSIGHT_GENERAL_PROOF.md) - Human-readable proof (no Coq expertise required)
+- [CHSH Proof Sketch](docs/NO_FREE_INSIGHT_PROOF_SKETCH.md) - Concrete instance (2 pages)
+- [Explanatory Conservation](docs/EXPLANATORY_CONSERVATION.md) - Executable witness with live results
+
+**Result**: Explanation is now a **conserved quantity** with the same mathematical status as energy/momentum in physics.
 
 ### For Verification & Auditing
+- [Verification Guide - Quick Start](docs/VERIFICATION_GUIDE_QUICK_START.md)
+- [The Thiele Isomorphism Verification Plan](docs/THE_THIELE_ISOMORPHISM_VERIFICATION_PLAN.md)
+- [How to Falsify This](docs/HOW_TO_FALSIFY_THIS.md)
 
-- **[Verification Guide - Quick Start](docs/VERIFICATION_GUIDE_QUICK_START.md)** - Choose your verification path (30 min to 2 days)
-- **[The Thiele Isomorphism Verification Plan](docs/THE_THIELE_ISOMORPHISM_VERIFICATION_PLAN.md)** - Complete strategic framework for independent audit (850 lines)
-- **[How to Falsify This](docs/HOW_TO_FALSIFY_THIS.md)** - Explicit falsification criteria for all claims
+### Web Verifier
+
+The browser verifier and demos can be hosted via GitHub Pages; see [docs/demos/README.md](docs/demos/README.md).
 
 ### For Skeptics
 
@@ -295,7 +311,6 @@ The-Thiele-Machine/
 ├── scripts/experiments/           # Reproducible experiments
 │   └── run_partition_experiments.py
 ├── THE_THIELE_MACHINE_BOOK.md     # 📘 Comprehensive guide
-├── DEEP_AUDIT_2025-12-10.md       # Audit of all claims
 └── README.md                      # This file
 ```
 

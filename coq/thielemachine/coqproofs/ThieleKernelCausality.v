@@ -289,6 +289,7 @@ Module ThieleKernelCausality.
       | mod_disc evidence mu_pdiscover
       | dst_xfer src_xfer mu_xfer
       | payload_pyexec mu_pyexec
+      | x_chsh y_chsh a_chsh b_chsh mu_chsh
       | dst_xor_load addr_xor_load mu_xor_load
       | dst_xor_add src_xor_add mu_xor_add
       | a_xor_swap b_xor_swap mu_xor_swap
@@ -353,6 +354,8 @@ Module ThieleKernelCausality.
       reflexivity.
     - (* pyexec *)
       reflexivity.
+    - (* chsh_trial *)
+      destruct (chsh_bits_ok x_chsh y_chsh a_chsh b_chsh); reflexivity.
     - (* xor_load *)
       reflexivity.
     - (* xor_add *)

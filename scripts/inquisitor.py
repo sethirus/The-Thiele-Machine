@@ -179,6 +179,54 @@ def scan_file(path: Path) -> list[Finding]:
 
     findings: list[Finding] = []
 
+    # Check for Admitted (incomplete proofs - FORBIDDEN)
+    admitted_pat = re.compile(r"(?m)^[ \t]*Admitted\s*\.")
+    for m in admitted_pat.finditer(text):
+        line = line_of[m.start()]
+        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else "Admitted."
+        findings.append(
+            Finding(
+                rule_id="ADMITTED",
+                severity="HIGH",
+                file=path,
+                line=line,
+                snippet=snippet.strip(),
+                message="Admitted found (incomplete proof - FORBIDDEN).",
+            )
+        )
+
+    # Check for admit tactic (proof shortcut - FORBIDDEN)
+    admit_tactic_pat = re.compile(r"(?m)^[ \t]*admit\s*\.")
+    for m in admit_tactic_pat.finditer(text):
+        line = line_of[m.start()]
+        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else "admit."
+        findings.append(
+            Finding(
+                rule_id="ADMIT_TACTIC",
+                severity="HIGH",
+                file=path,
+                line=line,
+                snippet=snippet.strip(),
+                message="admit tactic found (proof shortcut - FORBIDDEN).",
+            )
+        )
+
+    # Check for give_up tactic (proof shortcut - FORBIDDEN)
+    give_up_pat = re.compile(r"\bgive_up\b")
+    for m in give_up_pat.finditer(text):
+        line = line_of[m.start()]
+        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else text[m.start():m.end()]
+        findings.append(
+            Finding(
+                rule_id="GIVE_UP_TACTIC",
+                severity="HIGH",
+                file=path,
+                line=line,
+                snippet=snippet.strip(),
+                message="give_up tactic found (proof shortcut - FORBIDDEN).",
+            )
+        )
+
     def iter_theorem_statements() -> Iterator[tuple[str, int, str]]:
         """Yield (name, start_line, normalized_statement) for theorem-like items.
 
@@ -568,6 +616,9 @@ def write_report(
     lines.append("\n")
 
     lines.append("## Rules\n")
+    lines.append("- `ADMITTED`: `Admitted.` (incomplete proof - FORBIDDEN)\n")
+    lines.append("- `ADMIT_TACTIC`: `admit.` (proof shortcut - FORBIDDEN)\n")
+    lines.append("- `GIVE_UP_TACTIC`: `give_up` (proof shortcut - FORBIDDEN)\n")
     lines.append("- `AXIOM_OR_PARAMETER`: `Axiom` / `Parameter`\n")
     lines.append("- `HYPOTHESIS_ASSUME`: `Hypothesis` (escalates to HIGH for suspicious names)\n")
     lines.append("- `SECTION_BINDER`: `Context` / `Variable` / `Variables` (informational)\n")

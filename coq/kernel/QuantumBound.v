@@ -109,6 +109,7 @@ Proof.
       | m_pd ev_pd mu_pd
       | dst_xf src_xf mu_xf
       | payload_py mu_py
+      | x_ct y_ct a_ct b_ct mu_ct
       | dst_xl addr_xl mu_xl
       | dst_xa src_xa mu_xa
       | a_xs b_xs mu_xs
@@ -178,6 +179,7 @@ Proof.
              [ region mu_pnew  | m_ps left_ps right_ps mu_ps | m1_pm m2_pm mu_pm
              | m_la f_la cert_la mu_la | c1_lj c2_lj mu_lj | m_mdl mu_mdl
              | m_pd ev_pd mu_pd | dst_xf src_xf mu_xf | payload_py mu_py
+             | x_ct y_ct a_ct b_ct mu_ct
              | dst_xl addr_xl mu_xl | dst_xa src_xa mu_xa | a_xs b_xs mu_xs
              | dst_xr src_xr mu_xr | m_em p_em mu_em | m_rev bits_rev cert_rev mu_rev
              | p_oh mu_oh | mu_halt ].
@@ -190,6 +192,7 @@ Proof.
            ++ (* instr_pdiscover *) apply (IHt n'). exact Hn.
            ++ (* instr_xfer *) apply (IHt n'). exact Hn.
            ++ (* instr_pyexec *) apply (IHt n'). exact Hn.
+           ++ (* instr_chsh_trial *) apply (IHt n'). exact Hn.
            ++ (* instr_xor_load *) apply (IHt n'). exact Hn.
            ++ (* instr_xor_add *) apply (IHt n'). exact Hn.
            ++ (* instr_xor_swap *) apply (IHt n'). exact Hn.

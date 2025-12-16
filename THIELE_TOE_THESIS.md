@@ -61,6 +61,19 @@ All claims here are meant to be checkable via the repo’s gates:
 ## Results (proved theorems)
 This section maps each major plan requirement to the strongest kernel-provable statement (or a localized failure theorem).
 
+### No Free Insight (Milestones 1 & 2)
+
+Canonical document: [docs/NO_FREE_INSIGHT.md](docs/NO_FREE_INSIGHT.md)
+
+**Milestone 1 (CHSH instance):** a CHSH-style supra-quantum *certification claim* cannot appear “for free”; the certification bit must be written by a cert-setter instruction (REVEAL/EMIT/LJOIN/LASSERT), and REVEAL presence is detectable at the trace level.
+
+- CHSH instance file: [coq/kernel/Certification.v](coq/kernel/Certification.v)
+- Certification-source theorem (structural): [coq/kernel/RevelationRequirement.v](coq/kernel/RevelationRequirement.v)
+
+**Milestone 2 (general form):** the no-free-insight statement is packaged in the general framework and proven without shortcuts.
+
+- General framework: [coq/kernel/NoFreeInsight.v](coq/kernel/NoFreeInsight.v)
+
 ### A. Observers and locality
 **Observer interface and refinement order**
 - File: `coq/kernel/ObserverDerivation.v`

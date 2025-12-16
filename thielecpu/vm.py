@@ -25,6 +25,13 @@ import numpy as np
 import networkx as nx
 from sklearn.cluster import SpectralClustering
 
+from thielecpu.bell_semantics import (
+    BellCounts,
+    DEFAULT_ENFORCEMENT_MIN_TRIALS_PER_SETTING,
+    TSIRELSON_BOUND,
+    is_supra_quantum,
+)
+
 # Safety: maximum allowed classical combinations for brute-force searches.
 # Can be overridden by the environment variable THIELE_MAX_COMBINATIONS.
 import os
@@ -884,6 +891,7 @@ try:
     from .assemble import Instruction, parse
     from .logic import lassert, ljoin
     from .mdl import mdlacc, info_charge
+    from .certs import CertStore
     from .state import State
     from .isa import CSR
     from .memory import RegionGraph
@@ -906,6 +914,7 @@ except ImportError:
     from thielecpu.assemble import Instruction, parse
     from thielecpu.logic import lassert, ljoin
     from thielecpu.mdl import mdlacc, info_charge
+    from thielecpu.certs import CertStore
     from thielecpu.state import State
     from thielecpu.isa import CSR
     from thielecpu.memory import RegionGraph
@@ -1049,6 +1058,7 @@ class VM:
     virtual_fs: VirtualFilesystem = field(default_factory=VirtualFilesystem)
     witness_state: WitnessState = field(default_factory=WitnessState)
     step_receipts: List[StepReceipt] = field(default_factory=list)
+    explicit_mdlacc_called: bool = field(default=False, init=False, repr=False)
 
     def __post_init__(self):
         ensure_kernel_keys()
@@ -1216,6 +1226,24 @@ class VM:
             observation = StepObservation(
                 event={"tag": "ChshTrial", "value": meta},
                 mu_delta=0,
+                cert=cert,
+            )
+        elif op == "REVEAL":
+            payload = dict(instruction.payload) if isinstance(instruction.payload, dict) else {}
+            bits = float(payload.get("bits", 0.0))
+            module = str(payload.get("module", ""))
+            cert_sha256 = str(payload.get("cert_sha256", ""))
+            cert = _empty_cert()
+            cert["metadata"] = cert_sha256
+            post_state = WitnessState(
+                pc=pre_state.pc + 1,
+                status=pre_state.status,
+                mu_acc=pre_state.mu_acc + bits,
+                cert_addr=pre_state.cert_addr,
+            )
+            observation = StepObservation(
+                event={"tag": "Revelation", "value": module},
+                mu_delta=bits,
                 cert=cert,
             )
         elif op == "EMIT":
@@ -1814,6 +1842,8 @@ class VM:
         self.step_receipts = []
         self.witness_state = WitnessState()
         physics = EmergentPhysicsState(program_length=len(program))
+        bell_counts = BellCounts()
+        reveal_seen = False
 
         print("Thiele Machine VM starting execution...")
         print(f"Program has {len(program)} instructions")
@@ -1827,6 +1857,7 @@ class VM:
             pass
 
         logical_step = 0
+        self.explicit_mdlacc_called = False
         if trace_config and trace_config.enabled:
             start_payload = {
                 "event": "trace_start",
@@ -1942,7 +1973,7 @@ class VM:
                 })
                 trace_lines.append(f"{step}: MDLACC {module_id} -> mu={mu}")
                 receipt_instruction = InstructionWitness("MDLACC", int(module_id))
-                explicit_mdlacc_called = True
+                self.explicit_mdlacc_called = True
             elif op == "EMIT":
                 # EMIT value - emit value to output
                 tokens = arg.split()
@@ -1969,6 +2000,61 @@ class VM:
                     logger.info("vm.emit", {"value": arg, "step": step, "module": current_module})
                 except Exception:
                     pass
+            elif op == "REVEAL":
+                # REVEAL <module_id> <bits> <cert...>
+                # Explicit revelation primitive: charges μ-information and records a certificate payload.
+                reveal_seen = True
+                parts = arg.split()
+                module_id = current_module
+                bits = 0
+                cert_payload = ""
+                if parts:
+                    try:
+                        module_id = ModuleId(int(parts[0]))
+                    except ValueError:
+                        module_id = current_module
+                if len(parts) >= 2:
+                    try:
+                        bits = int(parts[1])
+                    except ValueError:
+                        bits = 0
+                if len(parts) >= 3:
+                    cert_payload = " ".join(parts[2:])
+
+                prev_info = self.state.mu_information
+                if bits > 0:
+                    info_charge(self.state, float(bits))
+                ledger.append(
+                    {
+                        "step": step,
+                        "delta_mu_operational": 0,
+                        "delta_mu_information": self.state.mu_information - prev_info,
+                        "total_mu_operational": self.state.mu_operational,
+                        "total_mu_information": self.state.mu_information,
+                        "total_mu": self.state.mu,
+                        "reason": f"reveal_module{int(module_id)}",
+                    }
+                )
+
+                # Persist the certificate payload so MDLACC can account for it.
+                store = CertStore(cert_dir)
+                cid = store.next_id()
+                cert_bytes = cert_payload.encode("utf-8")
+                store.write_bytes(cid, "reveal", cert_bytes)
+                digest = store.save_hash(cid, cert_bytes)
+                self.state.csr[CSR.CERT_ADDR] = str(store.hash_path(cid))
+
+                trace_lines.append(
+                    f"{step}: REVEAL module={int(module_id)} bits={bits} cert_sha256={digest}"
+                )
+                receipt_instruction = InstructionWitness(
+                    "REVEAL",
+                    {
+                        "module": int(module_id),
+                        "bits": bits,
+                        "cert_sha256": digest,
+                    },
+                )
             elif op == "XFER":
                 dest, src = _parse_operands(arg, expected=2)
                 self.register_file[dest % len(self.register_file)] = self.register_file[src % len(self.register_file)]
@@ -2189,6 +2275,21 @@ class VM:
                     raise ValueError(f"CHSH_TRIAL bits must be 0/1, got: {x} {y} {a} {b}")
                 meta = f"CHSH_{x}{y}{a}{b}"
                 trace_lines.append(f"{step}: CHSH_TRIAL {meta}")
+
+                # Canonical μ-ledger: executing a receipt-authenticated trial costs 1.
+                self.state.mu_ledger.mu_execution += 1
+
+                bell_counts.update_trial(x=x, y=y, a=a, b=b)
+                if bell_counts.is_balanced(
+                    min_trials_per_setting=DEFAULT_ENFORCEMENT_MIN_TRIALS_PER_SETTING
+                ):
+                    s_value = bell_counts.chsh()
+                    if is_supra_quantum(chsh=s_value, bound=TSIRELSON_BOUND) and not reveal_seen:
+                        self.state.csr[CSR.ERR] = 1
+                        trace_lines.append(
+                            f"{step}: CHSH={s_value} exceeds Tsirelson without REVEAL - setting ERR"
+                        )
+                        halt_after_receipt = True
                 receipt_instruction = InstructionWitness(
                     "CHSH_TRIAL",
                     {"x": x, "y": y, "a": a, "b": b},
@@ -2291,11 +2392,7 @@ class VM:
                 trace_lines.append(f"{step}: ERR flag set - halting VM")
                 break
         # Final accounting and output - only auto-charge if no explicit MDLACC executed
-        try:
-            explicit_mdlacc_called
-        except NameError:
-            explicit_mdlacc_called = False
-        if not explicit_mdlacc_called:
+        if not self.explicit_mdlacc_called:
             mdlacc(self.state, current_module, consistent=self.state.csr[CSR.ERR] == 0)
 
         ledger.append({

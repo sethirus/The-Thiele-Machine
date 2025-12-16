@@ -74,6 +74,7 @@ Proof.
          [destruct (check_lrat formula proof) eqn:?; simpl; reflexivity
          |destruct (check_model formula model) eqn:?; simpl; reflexivity]);
     try (destruct (String.eqb _ _) eqn:?; simpl; reflexivity);
+    try (destruct (chsh_bits_ok _ _ _ _) eqn:?; simpl; reflexivity);
     reflexivity.
 Qed.
 

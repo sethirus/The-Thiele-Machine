@@ -33,27 +33,44 @@ def parse_coq_instructions(coq_file):
         return []
     
     inductive_body = inductive_match.group(1)
-    
-    # Parse each instruction
+
+    # Coq constructors can be multi-line, and binders can group multiple names:
+    #   (left right : list nat)
+    # We normalize each constructor into a single string before parsing.
+    constructors = []
+    current = None
+    for line in inductive_body.splitlines():
+        stripped = line.strip()
+        if stripped.startswith("|"):
+            if current is not None:
+                constructors.append(current)
+            current = stripped[1:].strip()
+        else:
+            if current is not None and stripped:
+                current += " " + stripped
+    if current is not None:
+        constructors.append(current)
+
     instructions = []
-    pattern = r'\|\s+instr_(\w+)\s+([^\n]*)'
-    
-    for match in re.finditer(pattern, inductive_body):
-        instr_name = match.group(1)
-        params_str = match.group(2).strip()
-        
-        # Parse parameters
+    for ctor in constructors:
+        # Expect `instr_<name> (a : T) (b c : U) ...`
+        m = re.match(r"instr_(\w+)\b(.*)$", ctor)
+        if not m:
+            continue
+        instr_name = m.group(1)
+        params_str = m.group(2).strip()
+
         params = []
-        if params_str:
-            # Extract parameter names and types
-            param_pattern = r'\((\w+)\s*:\s*([^)]+)\)'
-            for param_match in re.finditer(param_pattern, params_str):
-                param_name = param_match.group(1)
-                param_type = param_match.group(2).strip()
-                params.append((param_name, param_type))
-        
+        for group in re.findall(r"\(([^)]+)\)", params_str):
+            if ":" not in group:
+                continue
+            names_part, type_part = group.split(":", 1)
+            param_type = type_part.strip()
+            for param_name in names_part.strip().split():
+                params.append((param_name.strip(), param_type))
+
         instructions.append((instr_name, params))
-    
+
     return instructions
 
 def coq_type_to_python(coq_type):

@@ -1,12 +1,15 @@
 # INQUISITOR REPORT
-Generated: 2025-12-15 23:03:23Z (UTC)
-Scanned: 172 Coq files under `coq/`
+Generated: 2025-12-16 09:07:02Z (UTC)
+Scanned: 178 Coq files under `coq/`
 ## Summary
 - HIGH: 0
 - MEDIUM: 0
 - LOW: 0
 
 ## Rules
+- `ADMITTED`: `Admitted.` (incomplete proof - FORBIDDEN)
+- `ADMIT_TACTIC`: `admit.` (proof shortcut - FORBIDDEN)
+- `GIVE_UP_TACTIC`: `give_up` (proof shortcut - FORBIDDEN)
 - `AXIOM_OR_PARAMETER`: `Axiom` / `Parameter`
 - `HYPOTHESIS_ASSUME`: `Hypothesis` (escalates to HIGH for suspicious names)
 - `SECTION_BINDER`: `Context` / `Variable` / `Variables` (informational)
