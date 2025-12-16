@@ -150,6 +150,9 @@ class State:
     # Program being executed (matches CoreSemantics.State.program field in Coq)
     program: List[Any] = field(default_factory=list)
 
+    # Optional bookkeeping used by higher-level VM helpers.
+    last_pdiscover_result: Dict[str, Any] | None = None
+
     @property
     def mu(self) -> float:
         """Total mu cost (operational + information)."""

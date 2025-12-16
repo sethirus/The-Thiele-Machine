@@ -8,6 +8,7 @@
 .PHONY: proofpack-smoke proofpack-turbulence-high proofpack-phase3 bell law nusd headtohead turbulence-law turbulence-law-v2 turbulence-closure-v1 self-model-v1
 .PHONY: vm-run rtl-run compare clean purge verify-end-to-end
 .PHONY: showcase test-isomorphism test-alignment test-all
+.PHONY: generate-python
 
 # ============================================================================
 # E1.1: DEMO TARGETS - One-Command Reproducibility
@@ -133,6 +134,9 @@ test-showcase:
 
 test-all:
 	pytest tests/test_vm.py tests/test_mu.py tests/test_showcase_programs.py tests/test_isomorphism_complete.py tests/alignment/ tests/test_opcode_alignment.py tests/test_hardware_alignment.py -v
+
+generate-python:
+	python3 scripts/generate_python_from_coq.py
 
 coq/%.vo:
 	$(MAKE) -C coq $(patsubst coq/%,%,$@)

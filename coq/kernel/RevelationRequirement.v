@@ -69,24 +69,8 @@ Proof.
   intro trace.
   induction trace as [|i rest IH].
   - right. intro H. exact H.
-  - destruct i; simpl.
-    + (* instr_pnew *) exact IH.
-    + (* instr_psplit *) exact IH.
-    + (* instr_pmerge *) exact IH.
-    + (* instr_lassert *) exact IH.
-    + (* instr_ljoin *) exact IH.
-    + (* instr_mdlacc *) exact IH.
-    + (* instr_pdiscover *) exact IH.
-    + (* instr_xfer *) exact IH.
-    + (* instr_pyexec *) exact IH.
-    + (* instr_xor_load *) exact IH.
-    + (* instr_xor_add *) exact IH.
-    + (* instr_xor_swap *) exact IH.
-    + (* instr_xor_rank *) exact IH.
-    + (* instr_emit *) exact IH.
-    + (* instr_reveal *) left. exact I.
-    + (* instr_oracle_halts *) exact IH.
-    + (* instr_halt *) exact IH.
+  - destruct i; simpl; try exact IH.
+    left. exact I.
 Qed.
 
 (** * Supra-Quantum Correlation Property *)
@@ -122,6 +106,8 @@ Proof.
   - (* pdiscover *) unfold advance_state. simpl. reflexivity.
   - (* xfer *) unfold advance_state_rm. simpl. reflexivity.
   - (* pyexec *) unfold advance_state. simpl. reflexivity.
+  - (* chsh_trial *) destruct (chsh_bits_ok _ _ _ _) eqn:?;
+      unfold advance_state, csr_set_err; simpl; reflexivity.
   - (* xor_load *) unfold advance_state_rm. simpl. reflexivity.
   - (* xor_add *) unfold advance_state_rm. simpl. reflexivity.
   - (* xor_swap *) unfold advance_state_rm. simpl. reflexivity.
@@ -185,6 +171,11 @@ Proof.
       * (* pyexec *) apply IH in Hrun.
         -- exact Hrun.
         -- unfold advance_state; simpl. exact Hinit.
+        -- exact Hfinal.
+      * (* chsh_trial *) apply IH in Hrun.
+        -- exact Hrun.
+        -- destruct (chsh_bits_ok _ _ _ _) eqn:?;
+             unfold advance_state, csr_set_err; simpl; exact Hinit.
         -- exact Hfinal.
       * (* xor_load *) apply IH in Hrun.
         -- exact Hrun.

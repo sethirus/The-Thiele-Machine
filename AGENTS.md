@@ -6,10 +6,13 @@ This repo’s north star is **3-layer isomorphism** (Coq ↔ executable extracti
 
 Treat Coq kernel semantics (and its extracted runner) as authoritative. Don’t “fix the layer you’re in”; instead, use a minimal distinguishing trace to locate and eliminate divergences.
 
-**Rules of engagement**:
-- Do not introduce `Admitted.` or `Axiom` in the active Coq tree.
+**Rules of engagement (ABSOLUTE)**:
+- **NO `Admitted.` EVER.** No incomplete proofs. No tactical admits. No shortcuts.
+- **NO `admit.` EVER.** No admit tactics inside proofs. No `give_up`. No shortcuts of any kind.
+- **NO `Axiom` EVER.** No unproven assumptions in the active Coq tree.
 - If a proof becomes hard, first reduce/strengthen the statement, factor lemmas, or canonicalize representations; then validate with a small executable gate.
 - For any opcode/state change: produce a minimal trace and add/extend a gate that runs Python ↔ extracted runner ↔ RTL.
+- The Inquisitor script (`scripts/inquisitor.py`) enforces these rules and must pass with 0 HIGH findings.
 
 ## Execution gates
 

@@ -33,6 +33,12 @@ def test_operational_scan_strategies(tmp_path: Path, strategy: str, expected: Fr
     else:
         assert abs(float(sample.chsh) - (2.0 * (2.0**0.5))) < 0.2
 
+    # Receipt-driven semantic enforcement: supra/pr without REVEAL sets ERR.
+    if strategy in {"supra_16_5", "pr"}:
+        assert sample.err == 1
+    else:
+        assert sample.err == 0
+
     # Sanity: ledger always accounts for instruction execution.
     assert sample.mu_execution >= 1
 
@@ -58,6 +64,8 @@ def test_oracle_charge_affects_information_mu(tmp_path: Path) -> None:
 
     assert free.chsh == Fraction(4, 1)
     assert charged.chsh == Fraction(4, 1)
+    assert free.err == 1
+    assert charged.err == 0
     assert charged.mu_information >= free.mu_information + 64.0
 
 
@@ -87,3 +95,7 @@ def test_default_policy_charges_nonlocal_strategies(tmp_path: Path) -> None:
     assert lhv.mu_information == 0.0
     assert supra.mu_information >= 64.0
     assert pr.mu_information >= 64.0
+
+    assert lhv.err == 0
+    assert supra.err == 0
+    assert pr.err == 0
