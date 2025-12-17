@@ -148,38 +148,19 @@ Definition Certified {A : Type}
                      (receipts : Receipts) : Prop :=
   s_final.(vm_err) = false /\ has_supra_cert s_final /\ P (decoder receipts) = true.
 
-(** * Definition D4: Revelation Event
-    
-    A revelation event is a step that:
-    1. Increases vm_mu by declared cost
-    2. Writes certification record (cert_addr ≠ 0)
-    3. Is detectable in receipts (uses_revelation predicate)
-    
-    WITNESS: RevelationRequirement.v::uses_revelation
-    *)
+(** * Definition D4: Structure Addition (semantic)
 
-(** Reuse revelation detection from RevelationRequirement.v *)
-Check uses_revelation.
+    We define structure-addition as an *execution-visible* event: during
+    execution starting from an unset certification CSR (cert_addr = 0),
+    some executed step makes cert_addr non-zero.
 
-(** * om partition-only observation (by A4)
-    - CHARGED by μ-ledger (by A2)
-    - DETECTABLE in receipts (by A1)
-    
-    This is the formal version of "explanation as conserved quantity".
-    *)
+    This avoids defining “structure addition” by enumerating opcodes.
+    See [RevelationRequirement.v] for the kernel lemma establishing that
+    any run that ends in [has_supra_cert] must contain such a transition.
+*)
 
-Definition adds_structure (i : vm_instruction) : Prop :=
-  match i with
-  | instr_reveal _ _ _ _ => True
-  | instr_emit _ _ _ => True
-  | instr_ljoin _ _ _ => True
-  | instr_lassert _ _ _ _ => True
-  | _ => False
-  end.
-
-(** Trace contains structure-addition event *)
-Definition has_structure_addition (trace : Receipts) : Prop :=
-  exists n i, nth_error trace n = Some i /\ adds_structure i.
+Definition has_structure_addition (fuel : nat) (trace : Receipts) (s_init : VMState) : Prop :=
+  structure_addition_in_run fuel trace s_init.
 
 (** Connecting the two bounded execution functions.
 
@@ -197,49 +178,6 @@ Proof.
     + reflexivity.
 Qed.
 
-Lemma uses_revelation_implies_nth_error_reveal :
-  forall trace,
-    uses_revelation trace ->
-    exists n module bits cert cost,
-      nth_error trace n = Some (instr_reveal module bits cert cost).
-Proof.
-  induction trace as [|hd tl IH]; intro Huse.
-  - simpl in Huse. contradiction.
-  - destruct hd; simpl in Huse;
-      first
-        [ (* reveal at head *)
-          exists 0; repeat eexists; simpl; reflexivity
-        | (* reveal in tail *)
-          destruct (IH Huse) as [n [modR [bitsR [certR [costR Hnth]]]]];
-          exists (S n), modR, bitsR, certR, costR;
-          simpl; exact Hnth
-        ].
-Qed.
-
-Lemma cert_setter_disjunction_implies_structure_addition :
-  forall trace,
-    uses_revelation trace \/
-    (exists n m p mu, nth_error trace n = Some (instr_emit m p mu)) \/
-    (exists n c1 c2 mu, nth_error trace n = Some (instr_ljoin c1 c2 mu)) \/
-    (exists n m f c mu, nth_error trace n = Some (instr_lassert m f c mu)) ->
-    has_structure_addition trace.
-Proof.
-  intro trace.
-  intros Hdisj.
-  destruct Hdisj as [Hrev | Hrest].
-  - destruct (uses_revelation_implies_nth_error_reveal trace Hrev)
-      as [n [module [bits [cert [cost Hnth]]]]].
-    exists n, (instr_reveal module bits cert cost).
-    split; [exact Hnth | simpl; exact I].
-  - destruct Hrest as [Hemit | Hrest].
-    + destruct Hemit as [n [m [p [mu Hnth]]]].
-      exists n, (instr_emit m p mu). split; [exact Hnth | simpl; exact I].
-    + destruct Hrest as [Hljoin | Hlassert].
-      * destruct Hljoin as [n [c1 [c2 [mu Hnth]]]].
-        exists n, (instr_ljoin c1 c2 mu). split; [exact Hnth | simpl; exact I].
-      * destruct Hlassert as [n [m [f [c [mu Hnth]]]]].
-        exists n, (instr_lassert m f c mu). split; [exact Hnth | simpl; exact I].
-Qed.
 
 (** * Lemma: Structure addition is necessary for strengthening
     
@@ -323,14 +261,13 @@ Theorem strengthening_requires_structure_addition :
     strictly_stronger P_strong P_weak ->
     s_init.(vm_csrs).(csr_cert_addr) = 0 ->
     Certified (run_vm fuel trace s_init) decoder P_strong trace ->
-    has_structure_addition trace.
+    has_structure_addition fuel trace s_init.
 Proof.
   intros A decoder P_weak P_strong trace s_init fuel Hstrict Hinit Hcert.
   destruct Hcert as [Herr [Hhascert Hpred]].
-  pose proof (no_free_insight_general trace s_init (run_vm fuel trace s_init) fuel) as Hgen.
-  specialize (Hgen (trace_run_run_vm fuel trace s_init) Hinit Hhascert).
-  apply cert_setter_disjunction_implies_structure_addition.
-  exact Hgen.
+  unfold has_structure_addition.
+  eapply supra_cert_implies_structure_addition_in_run; eauto.
+  apply trace_run_run_vm.
 Qed.
 
 (** * Corollary: CHSH Supra-Quantum as Instance

@@ -1079,7 +1079,6 @@ class VM:
                 "np": np,
                 "numpy": np,
                 "Path": Path,
-                "self": self,
                 "vm_read_text": self.virtual_fs.read_text,
                 "vm_write_text": self.virtual_fs.write_text,
                 "vm_read_bytes": self.virtual_fs.read_bytes,
@@ -1153,16 +1152,18 @@ class VM:
         if op == "LASSERT":
             payload = dict(instruction.payload) if isinstance(instruction.payload, dict) else {}
             mu_delta = float(payload.get("mu_delta", 0.0))
+            cert_payload = _cert_for_payload(payload)
+            cert_addr = str(cert_payload.get("metadata", ""))
             post_state = WitnessState(
                 pc=pre_state.pc + 1,
                 status=pre_state.status,
                 mu_acc=pre_state.mu_acc + mu_delta,
-                cert_addr=pre_state.cert_addr,
+                cert_addr=cert_addr or pre_state.cert_addr,
             )
             observation = StepObservation(
                 event={"tag": "ProofStatus", "value": payload.get("status", "UNKNOWN")},
                 mu_delta=mu_delta,
-                cert=_cert_for_payload(payload),
+                cert=cert_payload,
             )
         elif op == "MDLACC":
             post_state = WitnessState(
@@ -1239,7 +1240,7 @@ class VM:
                 pc=pre_state.pc + 1,
                 status=pre_state.status,
                 mu_acc=pre_state.mu_acc + bits,
-                cert_addr=pre_state.cert_addr,
+                cert_addr=cert_sha256 or pre_state.cert_addr,
             )
             observation = StepObservation(
                 event={"tag": "Revelation", "value": module},

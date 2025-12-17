@@ -1,0 +1,198 @@
+\documentclass[12pt, a4paper, oneside]{report}
+
+% ============================================================================
+% PACKAGES
+% ============================================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{parskip}
+\usepackage{tocloft}
+\usepackage[bookmarks=true,colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+
+% ============================================================================
+% PAGE GEOMETRY
+% ============================================================================
+\geometry{
+  top=1in,
+  bottom=1in,
+  left=1.25in,
+  right=1.25in
+}
+
+% Line spacing
+\onehalfspacing
+
+% ============================================================================
+% HEADERS AND FOOTERS
+% ============================================================================
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\leftmark}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ============================================================================
+% THEOREM ENVIRONMENTS
+% ============================================================================
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% ============================================================================
+% CODE LISTINGS
+% ============================================================================
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    frame=single
+}
+\lstset{style=mystyle}
+
+% ============================================================================
+% TABLE OF CONTENTS FORMATTING
+% ============================================================================
+\renewcommand{\cfttoctitlefont}{\hfill\Large\bfseries}
+\renewcommand{\cftaftertoctitle}{\hfill}
+\setlength{\cftbeforechapskip}{1em}
+
+% ============================================================================
+% TITLE
+% ============================================================================
+\title{
+    \vspace{-1cm}
+    \textbf{\Huge The Thiele Machine}\\[0.5cm]
+    \Large Computational Isomorphism and the Inevitability of Structure\\[1cm]
+    \large A Thesis in Theoretical Computer Science
+}
+\author{
+    \textbf{Devon Thiele}\\[0.5cm]
+    \normalsize December 2025
+}
+\date{}
+
+% ============================================================================
+% DOCUMENT
+% ============================================================================
+\begin{document}
+
+% Title page
+\maketitle
+\thispagestyle{empty}
+
+\newpage
+\thispagestyle{empty}
+\mbox{}
+
+% Abstract
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+This thesis presents the \textbf{Thiele Machine}, a formal model of computation that makes structural information an explicit, costly resource. Classical models (Turing Machine, RAM) treat memory as a flat, undifferentiated tape, incurring an implicit ``time tax'' when structure must be recovered through blind search. The Thiele Machine resolves this by introducing the \textbf{$\mu$-bit} as the atomic unit of structural cost.
+
+We formalize the machine as a 5-tuple $T = (S, \Pi, A, R, L)$ comprising state space, partition graph, axiom sets, transition rules, and logic engine. The partition graph decomposes state into disjoint modules, each carrying logical constraints. A monotonically non-decreasing $\mu$-ledger tracks cumulative structural cost throughout execution.
+
+We prove fundamental theorems in Coq 8.18 with \textbf{zero admits and zero axioms}:
+\begin{enumerate}
+    \item \textbf{Observational No-Signaling}: Operations on one module cannot affect observables of unrelated modules.
+    \item \textbf{$\mu$-Conservation}: The ledger grows monotonically and bounds irreversible bit operations.
+    \item \textbf{No Free Insight}: Strengthening certification predicates requires explicit, charged structure addition.
+\end{enumerate}
+
+We demonstrate \textbf{3-layer isomorphism}: identical state projections from Coq-extracted semantics, Python reference VM (2,489 lines), and Verilog RTL (932 lines). The Inquisitor tool enforces zero-admit discipline in continuous integration.
+
+Empirical evaluation validates CHSH correlation bounds (supra-quantum certification requires revelation) and $\mu$-ledger monotonicity across 60+ test cases. Hardware synthesis targets Xilinx 7-series FPGAs.
+
+The Thiele Machine establishes that structural cost is not an accounting convention but a provable physical law of the computational universe.
+
+\vspace{1cm}
+\noindent\textbf{Keywords:} Formal Verification, Coq, Computational Complexity, Information Theory, Hardware Synthesis, Partition Logic
+
+% Table of Contents
+\newpage
+\tableofcontents
+
+\chapter{Introduction}
+\input{chapters/01_introduction}
+
+\chapter{Background and Related Work}
+\input{chapters/02_background}
+
+\chapter{Theory: The Thiele Machine Model}
+\input{chapters/03_theory}
+
+\chapter{Implementation: The 3-Layer Isomorphism}
+\input{chapters/04_implementation}
+
+\chapter{Verification: The Coq Proofs}
+\input{chapters/05_verification}
+
+\chapter{Evaluation: Empirical Evidence}
+\input{chapters/06_evaluation}
+
+\chapter{Discussion: Implications and Future Work}
+\input{chapters/07_discussion}
+
+\chapter{Conclusion}
+\input{chapters/08_conclusion}
+
+\chapter{The Verifier System}
+\input{chapters/09_verifier_system}
+
+\chapter{Extended Proof Architecture}
+\input{chapters/10_extended_proofs}
+
+\chapter{Experimental Validation Suite}
+\input{chapters/11_experiments}
+
+\chapter{Physics Models and Algorithmic Primitives}
+\input{chapters/12_physics_and_primitives}
+
+\chapter{Hardware Implementation and Demonstrations}
+\input{chapters/13_hardware_and_demos}
+
+\appendix
+
+\chapter{Complete Theorem Index}
+\input{appendix/theorem_index}
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}

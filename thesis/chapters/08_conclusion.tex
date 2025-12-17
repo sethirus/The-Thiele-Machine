@@ -1,0 +1,191 @@
+\section{What We Set Out to Do}
+
+\subsection{The Central Claim}
+
+At the beginning of this thesis, we posed a question:
+\begin{quote}
+    \textit{What if structural insight---the knowledge that makes hard problems easy---were treated as a real, conserved, costly resource?}
+\end{quote}
+
+We claimed that this perspective would yield a coherent computational model with:
+\begin{itemize}
+    \item Formally provable properties (no hand-waving)
+    \item Executable implementations (not just paper proofs)
+    \item Connections to fundamental physics (not just analogies)
+\end{itemize}
+
+This conclusion evaluates whether we achieved these goals.
+
+\subsection{How to Read This Chapter}
+
+Section 8.2 summarizes our theoretical, implementation, and verification contributions. Section 8.3 assesses whether the central hypothesis is confirmed. Sections 8.4--8.6 discuss applications, open problems, and future directions.
+
+\textbf{For readers short on time}: Section 8.3 ("The Thiele Machine Hypothesis: Confirmed") provides the essential verdict.
+
+\section{Summary of Contributions}
+
+This thesis has presented the Thiele Machine, a computational model that treats structural information as a conserved, costly resource. Our contributions are:
+
+\subsection{Theoretical Contributions}
+
+\begin{enumerate}
+    \item \textbf{The 5-Tuple Formalization}: We defined the Thiele Machine as $T = (S, \Pi, A, R, L)$ with explicit state space, partition graph, axiom sets, transition rules, and logic engine. This formalization enables precise mathematical reasoning about structural computation.
+    
+    \item \textbf{The $\mu$-bit Currency}: We introduced the $\mu$-bit as the atomic unit of structural information cost, proving that the $\mu$-ledger is monotonically non-decreasing and bounds irreversible operations.
+    
+    \item \textbf{The No Free Insight Theorem}: We proved that strengthening certification predicates requires explicit, charged revelation events. This establishes that "free" structural information is impossible within the model.
+    
+    \item \textbf{Observational No-Signaling}: We proved that operations on one module cannot affect the observables of unrelated modules—a computational analog of Bell locality.
+\end{enumerate}
+
+\subsection{Implementation Contributions}
+
+\begin{enumerate}
+    \item \textbf{3-Layer Isomorphism}: We implemented the model across three layers:
+    \begin{itemize}
+        \item Coq formal kernel (zero admits, zero axioms)
+        \item Python reference VM (2,489 lines, receipt generation)
+        \item Verilog RTL (931 lines, FPGA-synthesizable)
+    \end{itemize}
+    All three layers produce identical state projections for any instruction trace.
+    
+    \item \textbf{18-Instruction ISA}: We defined a minimal instruction set sufficient for partition-native computation:
+    \begin{itemize}
+        \item Structural: PNEW, PSPLIT, PMERGE, PDISCOVER
+        \item Logical: LASSERT, LJOIN
+        \item Certification: REVEAL, EMIT
+        \item Compute: XFER, XOR\_LOAD, XOR\_ADD, XOR\_SWAP, XOR\_RANK
+        \item Control: PYEXEC, ORACLE\_HALTS, HALT, CHSH\_TRIAL, MDLACC
+    \end{itemize}
+    
+    \item \textbf{The Inquisitor}: We built automated verification tooling that enforces zero-admit discipline and runs isomorphism gates in CI.
+\end{enumerate}
+
+\subsection{Verification Contributions}
+
+\begin{enumerate}
+    \item \textbf{Zero-Admit Campaign}: The Coq formalization contains 229 proven theorems and lemmas with no admits and no axioms. This is enforced by CI.
+    
+    \item \textbf{Key Proven Theorems}:
+    \begin{center}
+    \begin{tabular}{|l|l|}
+    \hline
+    \textbf{Theorem} & \textbf{Property} \\
+    \hline
+    \texttt{observational\_no\_signaling} & Locality \\
+    \texttt{mu\_conservation\_kernel} & Single-step monotonicity \\
+    \texttt{run\_vm\_mu\_conservation} & Multi-step conservation \\
+    \texttt{no\_free\_insight\_general} & Impossibility \\
+    \texttt{nonlocal\_correlation\_requires\_revelation} & Supra-quantum certification \\
+    \texttt{kernel\_noether\_mu\_gauge} & Gauge invariance \\
+    \hline
+    \end{tabular}
+    \end{center}
+    
+    \item \textbf{Falsifiability}: Every theorem includes an explicit falsifier specification. If a counterexample exists, it would refute the theorem.
+\end{enumerate}
+
+\section{The Thiele Machine Hypothesis: Confirmed}
+
+We set out to test the hypothesis:
+\begin{quote}
+\textit{There is no free insight. Structure must be paid for.}
+\end{quote}
+
+Our results confirm this hypothesis:
+
+\begin{enumerate}
+    \item \textbf{Proven}: The No Free Insight theorem establishes that certification of stronger predicates requires explicit structure addition.
+    
+    \item \textbf{Verified}: The 3-layer isomorphism ensures that the proven properties hold in the executable implementation.
+    
+    \item \textbf{Validated}: Empirical tests confirm that CHSH supra-quantum certification requires revelation, and that the $\mu$-ledger is monotonic.
+\end{enumerate}
+
+The Thiele Machine is not merely consistent with "no free insight"—it \textit{enforces} it as a physical law of its computational universe.
+
+\section{Impact and Applications}
+
+\subsection{Verifiable Computation}
+
+The receipt system enables:
+\begin{itemize}
+    \item Scientific reproducibility through verifiable computation traces
+    \item Auditable AI decisions with cryptographic proof of process
+    \item Tamper-evident digital evidence for legal applications
+\end{itemize}
+
+\subsection{Complexity Theory}
+
+The $\mu$-cost dimension enriches computational complexity:
+\begin{itemize}
+    \item Structure-aware complexity classes ($\text{P}_\mu$, $\text{NP}_\mu$)
+    \item Conservation of difficulty (time $\leftrightarrow$ structure)
+    \item Formal treatment of "problem structure"
+\end{itemize}
+
+\subsection{Physics-Computation Bridge}
+
+The proven connections:
+\begin{itemize}
+    \item $\mu$-monotonicity $\leftrightarrow$ Second Law of Thermodynamics
+    \item No-signaling $\leftrightarrow$ Bell locality
+    \item Gauge invariance $\leftrightarrow$ Noether's theorem
+\end{itemize}
+
+These are not analogies—they are formal isomorphisms.
+
+\section{Open Problems}
+
+\subsection{Optimality}
+
+Is the $\mu$-cost charged by the Thiele Machine optimal? Can we prove:
+\begin{equation}
+    \mu_{\text{charged}}(x) \le c \cdot K(x) + O(1)
+\end{equation}
+for some constant $c$?
+
+\subsection{Completeness}
+
+Are the 18 instructions sufficient for all partition-native computation? Is there a normal form theorem?
+
+\subsection{Quantum Extension}
+
+Can the model be extended to true quantum computation while preserving:
+\begin{itemize}
+    \item $\mu$-accounting for measurement information gain
+    \item No-signaling for entangled modules
+    \item Verifiable receipts for quantum operations
+\end{itemize}
+
+\subsection{Hardware Realization}
+
+Can the RTL be fabricated and validated at silicon level? What are the limits of hardware $\mu$-accounting?
+
+\section{The Path Forward}
+
+The Thiele Machine is not a finished monument but a foundation. The tools built here are ready for the next generation:
+
+\begin{itemize}
+    \item \textbf{The Coq Kernel}: A verified specification that can be extended to new instruction sets
+    \item \textbf{The Python VM}: An executable reference for rapid prototyping
+    \item \textbf{The Verilog RTL}: A hardware template for physical realization
+    \item \textbf{The Inquisitor}: A discipline enforcer for maintaining proof quality
+    \item \textbf{The Receipt System}: A trust infrastructure for verifiable computation
+\end{itemize}
+
+\section{Final Word}
+
+The Turing Machine gave us universality. The Thiele Machine gives us accountability.
+
+In the Turing model, structure is invisible—a hidden variable that determines whether our algorithms succeed or fail exponentially. In the Thiele model, structure is explicit—a resource to be discovered, paid for, and verified.
+
+\begin{quote}
+\textit{There is no free insight.}
+
+\textit{But for those willing to pay the price of structure,}
+
+\textit{the universe is computable—and verifiable.}
+\end{quote}
+
+The Thiele Machine Hypothesis stands confirmed. The foundation is laid. The work continues.

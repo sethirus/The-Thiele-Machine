@@ -1,0 +1,292 @@
+\section{The Verifier System: Receipt-Defined Certification}
+
+\subsection{Why Verification Matters}
+
+Scientific claims require evidence. When a researcher claims ``this algorithm produces truly random numbers'' or ``this drug causes improved outcomes,'' we need a way to verify these claims independently. Traditional verification relies on trust: we trust that the researcher ran the experiments correctly, recorded the data accurately, and analyzed it properly.
+
+The Thiele Machine's verifier system replaces trust with \textit{cryptographic proof}. Every claim must be accompanied by a \textbf{receipt}---a tamper-proof record of the computation that produced the claim. Anyone can verify the receipt independently, without trusting the original claimant.
+
+This chapter documents the complete verification infrastructure. The system implements four certification modules (C-modules) that enforce the No Free Insight principle across different application domains:
+\begin{itemize}
+    \item \textbf{C-RAND}: Certified randomness---proving that bits are truly unpredictable
+    \item \textbf{C-TOMO}: Certified estimation---proving that measurements are accurate
+    \item \textbf{C-ENTROPY}: Certified entropy---proving that disorder is quantified correctly
+    \item \textbf{C-CAUSAL}: Certified causation---proving that causes actually produce effects
+\end{itemize}
+
+The key insight is that \textit{stronger claims require more evidence}. If you claim high-quality randomness, you must demonstrate the source of that randomness. If you claim precise measurements, you must show enough trials to support that precision. The verifier system makes this relationship explicit and enforceable.
+
+\section{Architecture Overview}
+
+\subsection{The Closed Work System}
+
+The verification system is orchestrated through a unified closed-work pipeline:
+\begin{verbatim}
+make closed_work
+\end{verbatim}
+
+This command produces verifiable artifacts for each certification module:
+\begin{itemize}
+    \item \texttt{C\_randomness/verification.json} -- Device-independent randomness
+    \item \texttt{C\_tomography/verification.json} -- Estimation precision
+    \item \texttt{C\_entropy/verification.json} -- Entropy with coarse-graining
+    \item \texttt{C\_causal/verification.json} -- Causal inference certification
+\end{itemize}
+
+Each verification includes:
+\begin{itemize}
+    \item PASS/FAIL/UNCERTIFIED status
+    \item Explicit falsifier attempts and outcomes
+    \item Declared structure additions (if any)
+    \item Complete $\mu$-accounting summary
+\end{itemize}
+
+\subsection{The TRS-1.0 Receipt Protocol}
+
+All verification is receipt-defined through the TRS-1.0 (Thiele Receipt Standard) protocol:
+\begin{verbatim}
+{
+    "version": "TRS-1.0",
+    "timestamp": "2025-12-17T00:00:00Z",
+    "manifest": {
+        "claim.json": "sha256:...",
+        "samples.csv": "sha256:...",
+        "disclosure.json": "sha256:..."
+    },
+    "signature": "ed25519:..."
+}
+\end{verbatim}
+
+Key properties:
+\begin{itemize}
+    \item \textbf{Content-addressed}: All artifacts are identified by SHA-256 hash
+    \item \textbf{Signed}: Ed25519 signatures prevent tampering
+    \item \textbf{Minimal}: Only receipted artifacts can influence verification
+\end{itemize}
+
+\subsection{Non-Negotiable Falsifier Pattern}
+
+Every C-module ships three mandatory falsifier tests:
+\begin{enumerate}
+    \item \textbf{Forge test}: Attempt to manufacture receipts without canonical channel/opcode
+    \item \textbf{Underpay test}: Attempt to obtain the claim while paying fewer $\mu$/info bits
+    \item \textbf{Bypass test}: Route around the channel and confirm rejection
+\end{enumerate}
+
+\section{C-RAND: Device-Independent Certified Randomness}
+
+\subsection{Claim Structure}
+
+A randomness claim specifies:
+\begin{verbatim}
+{
+    "n_bits": 1024,
+    "min_entropy_per_bit": 0.95
+}
+\end{verbatim}
+
+\subsection{Verification Rules}
+
+The verifier (\texttt{verifier/c\_randomness.py}) enforces:
+\begin{itemize}
+    \item Every input must appear in the TRS-1.0 receipt manifest
+    \item Min-entropy claims require explicit nonlocality/disclosure evidence
+    \item Required disclosure bits: $\lceil 1024 \cdot H_{min} \rceil$
+\end{itemize}
+
+\subsection{The Randomness Bound}
+
+From Coq (\texttt{coq/bridge/Randomness\_to\_Kernel.v}):
+\begin{verbatim}
+Definition RandChannel (r : Receipt) : bool :=
+  Nat.eqb (r_op r) RAND_TRIAL_OP.
+
+Lemma decode_is_filter_payloads :
+  forall tr,
+    decode RandChannel tr = map r_payload (filter RandChannel tr).
+\end{verbatim}
+
+This ensures that randomness claims are derived only from receipted trial data.
+
+\subsection{Falsifier Tests}
+
+\begin{itemize}
+    \item \textbf{Forge}: Create receipts claiming high entropy without running trials $\rightarrow$ REJECTED
+    \item \textbf{Underpay}: Claim $H_{min} = 0.99$ but provide only $H_{min} = 0.5$ disclosure $\rightarrow$ REJECTED
+    \item \textbf{Bypass}: Submit raw bits without receipt chain $\rightarrow$ UNCERTIFIED
+\end{itemize}
+
+\section{C-TOMO: Tomography as Priced Knowledge}
+
+\subsection{Claim Structure}
+
+A tomography claim specifies an estimate within tolerance:
+\begin{verbatim}
+{
+    "estimate": 0.785,
+    "epsilon": 0.01,
+    "n_trials": 10000
+}
+\end{verbatim}
+
+\subsection{Verification Rules}
+
+The verifier (\texttt{verifier/c\_tomography.py}) enforces:
+\begin{itemize}
+    \item Trial count must match receipted samples
+    \item Tighter $\epsilon$ requires more trials (cost rule)
+    \item Statistical consistency checks on estimate derivation
+\end{itemize}
+
+\subsection{The Precision-Cost Relationship}
+
+Estimation precision is priced: tighter $\epsilon$ requires proportionally more evidence:
+\begin{equation}
+    n_{required} \ge c \cdot \epsilon^{-2}
+\end{equation}
+
+where $c$ is a domain-specific constant.
+
+\section{C-ENTROPY: Coarse-Graining Made Explicit}
+
+\subsection{The Entropy Underdetermination Problem}
+
+Entropy is ill-defined without specifying a coarse-graining (partition). Two observers with different partitions will compute different entropies for the same physical state.
+
+\subsection{Claim Structure}
+
+An entropy claim must declare its coarse-graining:
+\begin{verbatim}
+{
+    "h_lower_bound_bits": 3.2,
+    "n_samples": 5000,
+    "coarse_graining": {
+        "type": "histogram",
+        "bins": 32
+    }
+}
+\end{verbatim}
+
+\subsection{Verification Rules}
+
+The verifier (\texttt{verifier/c\_entropy2.py}) enforces:
+\begin{itemize}
+    \item Entropy claims without declared coarse-graining $\rightarrow$ REJECTED
+    \item Coarse-graining must be in receipted manifest
+    \item Disclosure bits scale with entropy bound: $\lceil 1024 \cdot H \rceil$
+\end{itemize}
+
+\subsection{Coq Formalization}
+
+From \texttt{coq/kernel/EntropyImpossibility.v}:
+\begin{verbatim}
+Theorem region_equiv_class_infinite : forall s,
+  exists f : nat -> VMState,
+    (forall n, region_equiv s (f n)) /\
+    (forall n1 n2, f n1 = f n2 -> n1 = n2).
+\end{verbatim}
+
+This proves that observational equivalence classes are infinite, blocking entropy computation without explicit coarse-graining.
+
+\section{C-CAUSAL: No Free Causal Explanation}
+
+\subsection{The Causal Inference Problem}
+
+Claiming a unique causal DAG from observational data alone is impossible in general (Markov equivalence classes contain multiple DAGs). Stronger-than-observational claims require explicit assumptions or interventional evidence.
+
+\subsection{Claim Types}
+
+\begin{itemize}
+    \item \texttt{unique\_dag}: Claims a unique causal graph (requires 8192 disclosure bits)
+    \item \texttt{ate}: Claims average treatment effect (requires 2048 disclosure bits)
+\end{itemize}
+
+\subsection{Verification Rules}
+
+The verifier (\texttt{verifier/c\_causal.py}) enforces:
+\begin{itemize}
+    \item \texttt{unique\_dag} claims require \texttt{assumptions.json} or \texttt{interventions.csv}
+    \item Intervention count must match receipted data
+    \item Pure observational data cannot certify unique DAGs
+\end{itemize}
+
+\subsection{Falsifier Tests}
+
+\begin{verbatim}
+def test_unique_dag_without_assumptions_rejected():
+    # Claim unique DAG from pure observational data
+    # Must be rejected: causal claims need extra structure
+    result = verify_causal(run_dir, trust_manifest)
+    assert result.status == "REJECTED"
+\end{verbatim}
+
+\section{Bridge Modules: Kernel Integration}
+
+The \texttt{coq/bridge/} directory contains six verified bridges connecting application domains to the kernel:
+
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Bridge File} & \textbf{Domain} & \textbf{Lines} \\
+\hline
+\texttt{Randomness\_to\_Kernel.v} & Device-independent RNG & 30 \\
+\texttt{Entropy\_to\_Kernel.v} & Coarse-grained entropy & 45 \\
+\texttt{Causal\_to\_Kernel.v} & Causal inference & 52 \\
+\texttt{Tomography\_to\_Kernel.v} & State estimation & 38 \\
+\texttt{BoxWorld\_to\_Kernel.v} & Bell box semantics & 65 \\
+\texttt{FiniteQuantum\_to\_Kernel.v} & Finite quantum systems & 48 \\
+\hline
+\end{tabular}
+\end{center}
+
+Each bridge:
+\begin{itemize}
+    \item Defines a channel selector for its opcode class
+    \item Proves that decoding extracts only receipted payloads
+    \item Connects domain-specific claims to kernel $\mu$-accounting
+\end{itemize}
+
+\section{The Flagship Divergence Prediction}
+
+\subsection{The "Science Can't Cheat" Theorem}
+
+The flagship prediction derived from the verifier system:
+
+\begin{quote}
+\textit{Any pipeline claiming improved predictive power / stronger evaluation / stronger compression must carry an explicit, checkable structure/revelation certificate; otherwise it is vulnerable to undetectable "free insight" failures.}
+\end{quote}
+
+\subsection{Implementation}
+
+From \texttt{tests/test\_nofi\_prediction\_pipeline.py}:
+\begin{verbatim}
+def test_uncertified_improvement_detected():
+    # Attempt to claim better predictions without structure certificate
+    result = vm.verify_improvement(baseline, improved, certificate=None)
+    assert result.status == "UNCERTIFIED"
+    assert "missing revelation" in result.reason
+\end{verbatim}
+
+\subsection{Quantitative Bound}
+
+Under admissibility constraint $K$ (bounded $\mu$-information):
+\begin{equation}
+    \text{certified\_improvement}(\text{transcript}) \le f(K)
+\end{equation}
+
+This bound is machine-checked in Coq and enforced by the Python verifier.
+
+\section{Summary}
+
+The verifier system transforms the theoretical No Free Insight principle into practical, falsifiable enforcement:
+
+\begin{enumerate}
+    \item \textbf{C-RAND}: You cannot claim certified random bits without paying $\mu$-revelation
+    \item \textbf{C-TOMO}: Tighter precision requires proportionally more trials
+    \item \textbf{C-ENTROPY}: Entropy is undefined without declared coarse-graining
+    \item \textbf{C-CAUSAL}: Unique causal claims require interventions or explicit assumptions
+\end{enumerate}
+
+Each module includes forge/underpay/bypass falsifier tests that demonstrate the system correctly rejects attempts to circumvent the No Free Insight principle.
+
+The closed-work system (\texttt{make closed\_work}) produces cryptographically signed artifacts that enable third-party verification of all claims.

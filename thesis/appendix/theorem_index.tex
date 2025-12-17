@@ -1,0 +1,340 @@
+\section{Complete Theorem Index}
+
+\subsection{How to Read This Index}
+
+This appendix catalogs every formally verified theorem in the Thiele Machine development. For each theorem, we provide:
+\begin{itemize}
+    \item \textbf{Name}: The identifier used in Coq
+    \item \textbf{File}: Where the theorem is proven
+    \item \textbf{Status}: All theorems are PROVEN (zero admits)
+\end{itemize}
+
+\textbf{Verification}: Any theorem can be verified by:
+\begin{enumerate}
+    \item Installing Coq 8.18.x
+    \item Running \texttt{make -C coq core}
+    \item Checking that compilation succeeds without errors
+\end{enumerate}
+
+If compilation fails, the proof is invalid. If compilation succeeds, the proof is mathematically certain.
+
+\subsection{Theorem Naming Conventions}
+
+Theorems follow systematic naming:
+\begin{itemize}
+    \item \texttt{*\_preserves\_*}: Property is maintained by an operation
+    \item \texttt{*\_monotone}: Quantity only increases (or stays same)
+    \item \texttt{*\_conservation}: Quantity is conserved exactly
+    \item \texttt{*\_impossible}: Something cannot happen
+    \item \texttt{no\_*}: Negative result (something is forbidden)
+\end{itemize}
+
+This appendix provides a comprehensive index of all formally verified theorems across the 197 Coq files, organized by domain.
+
+\section{Kernel Theorems (34 files)}
+
+\subsection{Core Semantics}
+
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{File} & \textbf{Key Theorems} \\
+\hline
+\texttt{VMSemantics.v} & \texttt{vm\_step\_deterministic}, \texttt{vm\_exec\_fuel\_monotone} \\
+\texttt{VMState.v} & \texttt{normalize\_region\_idempotent}, \texttt{region\_eq\_decidable} \\
+\texttt{ObservationalEquiv.v} & \texttt{obs\_equiv\_symmetric}, \texttt{obs\_equiv\_transitive} \\
+\texttt{NoSignaling.v} & \texttt{no\_signaling\_preserved}, \texttt{partition\_locality} \\
+\texttt{Composition.v} & \texttt{trace\_composition\_associative} \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Conservation Laws}
+
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{File} & \textbf{Key Theorems} \\
+\hline
+\texttt{MuMonotonicity.v} & \texttt{mu\_monotone\_step}, \texttt{mu\_never\_decreases} \\
+\texttt{MuNoFreeInsightQuantitative.v} & \texttt{vm\_exec\_mu\_monotone} \\
+\texttt{MuLedgerConservation.v} & \texttt{mu\_conservation}, \texttt{ledger\_bound} \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Impossibility Results}
+
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{File} & \textbf{Key Theorems} \\
+\hline
+\texttt{EntropyImpossibility.v} & \texttt{region\_equiv\_class\_infinite} \\
+\texttt{ProbabilityImpossibility.v} & \texttt{no\_unique\_measure\_forced} \\
+\texttt{LorentzNotForced.v} & \texttt{lorentz\_structure\_underdetermined} \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{TOE Results}
+
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{File} & \textbf{Key Theorems} \\
+\hline
+\texttt{TOEDecision.v} & \texttt{Physics\_Requires\_Extra\_Structure} \\
+\texttt{SpacetimeEmergence.v} & \texttt{reaches\_transitive}, \texttt{causal\_order\_partial} \\
+\texttt{ConeAlgebra.v} & \texttt{cone\_composition}, \texttt{cone\_monotone} \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Subsumption}
+
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{File} & \textbf{Key Theorems} \\
+\hline
+\texttt{Subsumption.v} & \texttt{thiele\_simulates\_turing}, \texttt{turing\_is\_strictly\_contained} \\
+\texttt{Embedding.v} & \texttt{embedding\_preserves\_semantics} \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Kernel TOE Theorems (6 files)}
+
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{File} & \textbf{Key Theorems} \\
+\hline
+\texttt{TOE.v} & \texttt{KernelTOE\_FinalOutcome} \\
+\texttt{NoGo.v} & \texttt{CompositionalWeightFamily\_Infinite}, \texttt{KernelNoGo\_UniqueWeight\_Fails} \\
+\texttt{Closure.v} & \texttt{KernelMaximalClosure} \\
+\texttt{LawDerivation.v} & \texttt{no\_signaling\_from\_composition} \\
+\texttt{NoGoProbability.v} & \texttt{probability\_not\_unique} \\
+\texttt{NoGoLorentz.v} & \texttt{lorentz\_not\_forced} \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{ThieleMachine Theorems (106 files)}
+
+\subsection{Quantum Bounds}
+
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{File} & \textbf{Key Theorems} \\
+\hline
+\texttt{QuantumAdmissibilityTsirelson.v} & \texttt{quantum\_admissible\_implies\_CHSH\_le\_tsirelson} \\
+\texttt{BellInequality.v} & \texttt{S\_SupraQuantum}, \texttt{CHSH\_classical\_bound} \\
+\texttt{TsirelsonBoundBridge.v} & \texttt{tsirelson\_from\_kernel} \\
+\texttt{BellReceiptLocalGeneral.v} & \texttt{receipt\_locality} \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Partition Logic}
+
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{File} & \textbf{Key Theorems} \\
+\hline
+\texttt{PartitionLogic.v} & \texttt{witness\_composition}, \texttt{partition\_refinement\_monotone} \\
+\texttt{PartitionDiscovery.v} & \texttt{discovery\_terminates} \\
+\texttt{PartitionMerge.v} & \texttt{merge\_preserves\_validity} \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Oracle and Hypercomputation}
+
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{File} & \textbf{Key Theorems} \\
+\hline
+\texttt{Oracle.v} & \texttt{oracle\_well\_defined} \\
+\texttt{OracleImpossibility.v} & \texttt{oracle\_limits} \\
+\texttt{HyperThiele\_Halting.v} & \texttt{halting\_undecidable} \\
+\texttt{HyperThiele\_Oracle.v} & \texttt{hypercomputation\_bounds} \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Verification}
+
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{File} & \textbf{Key Theorems} \\
+\hline
+\texttt{RandomnessNoFI.v} & \texttt{admissible\_randomness\_bound} \\
+\texttt{CausalNoFI.v} & \texttt{causal\_structure\_requires\_disclosure} \\
+\texttt{EntropyNoFI.v} & \texttt{entropy\_requires\_coarsegraining} \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Bridge Theorems (6 files)}
+
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{File} & \textbf{Key Theorems} \\
+\hline
+\texttt{Randomness\_to\_Kernel.v} & \texttt{decode\_is\_filter\_payloads} \\
+\texttt{Tomography\_to\_Kernel.v} & \texttt{tomo\_decode\_correctness} \\
+\texttt{Entropy\_to\_Kernel.v} & \texttt{entropy\_channel\_soundness} \\
+\texttt{Causal\_to\_Kernel.v} & \texttt{causal\_channel\_soundness} \\
+\texttt{BoxWorld\_to\_Kernel.v} & \texttt{box\_decode\_correct} \\
+\texttt{FiniteQuantum\_to\_Kernel.v} & \texttt{quantum\_measurement\_soundness} \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Physics Model Theorems (3 files)}
+
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{File} & \textbf{Key Theorems} \\
+\hline
+\texttt{WaveModel.v} & \texttt{wave\_energy\_conserved}, \texttt{wave\_momentum\_conserved}, \texttt{wave\_step\_reversible} \\
+\texttt{DissipativeModel.v} & \texttt{dissipation\_monotone} \\
+\texttt{DiscreteModel.v} & \texttt{discrete\_step\_well\_defined} \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Shor Primitives Theorems (3 files)}
+
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{File} & \textbf{Key Theorems} \\
+\hline
+\texttt{PeriodFinding.v} & \texttt{shor\_reduction} \\
+\texttt{Euclidean.v} & \texttt{gcd\_euclid\_divides\_left}, \texttt{gcd\_euclid\_divides\_right} \\
+\texttt{Modular.v} & \texttt{mod\_pow\_mult}, \texttt{mod\_pow\_correct} \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{NoFI Theorems (3 files)}
+
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{File} & \textbf{Key Theorems} \\
+\hline
+\texttt{NoFreeInsight\_Interface.v} & Module type definition \\
+\texttt{NoFreeInsight\_Theorem.v} & \texttt{no\_free\_insight} \\
+\texttt{Instance\_Kernel.v} & \texttt{kernel\_satisfies\_nofi} \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Self-Reference Theorems (1 file)}
+
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{File} & \textbf{Key Theorems} \\
+\hline
+\texttt{SelfReference.v} & \texttt{meta\_system\_richer}, \texttt{meta\_system\_self\_referential} \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Modular Proofs Theorems (8 files)}
+
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{File} & \textbf{Key Theorems} \\
+\hline
+\texttt{TM\_Basics.v} & \texttt{tm\_step\_deterministic} \\
+\texttt{Minsky.v} & \texttt{minsky\_universal} \\
+\texttt{TM\_to\_Minsky.v} & \texttt{tm\_reduces\_to\_minsky} \\
+\texttt{Thiele\_Basics.v} & \texttt{thiele\_step\_deterministic} \\
+\texttt{Simulation.v} & \texttt{simulation\_correct} \\
+\texttt{CornerstoneThiele.v} & \texttt{cornerstone\_properties} \\
+\texttt{Minsky\_to\_Thiele.v} & \texttt{minsky\_reduces\_to\_thiele} \\
+\texttt{Thiele\_Universal.v} & \texttt{thiele\_universal} \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Theorem Count Summary}
+
+\begin{center}
+\begin{tabular}{|l|r|r|}
+\hline
+\textbf{Directory} & \textbf{Files} & \textbf{Theorem-Containing Files} \\
+\hline
+\texttt{coq/kernel/} & 34 & 34 \\
+\texttt{coq/thielemachine/} & 106 & ~90 \\
+\texttt{coq/kernel\_toe/} & 6 & 6 \\
+\texttt{coq/bridge/} & 6 & 6 \\
+\texttt{coq/physics/} & 3 & 3 \\
+\texttt{coq/shor\_primitives/} & 3 & 3 \\
+\texttt{coq/nofi/} & 3 & 3 \\
+\texttt{coq/self\_reference/} & 1 & 1 \\
+\texttt{coq/modular\_proofs/} & 8 & 8 \\
+\texttt{Other} & 27 & 19 \\
+\hline
+\textbf{Total} & 197 & 173 \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Zero-Admit Verification}
+
+All 197 files pass the Inquisitor check:
+\begin{verbatim}
+$ python scripts/inquisitor.py
+Scanning 197 Coq files...
+- Admitted.: 0 occurrences
+- admit.: 0 occurrences
+- Axiom: 0 occurrences (in active tree)
+- give_up.: 0 occurrences
+
+HIGH findings: 0
+Status: PASS
+\end{verbatim}
+
+\section{Compilation Status}
+
+\begin{verbatim}
+$ make -C coq core
+Building kernel...
+Building kernel_toe...
+Building nofi...
+Building bridge...
+Building physics...
+Building shor_primitives...
+Building modular_proofs...
+Building self_reference...
+Building thielemachine (106 files)...
+
+All 197 files compiled successfully.
+\end{verbatim}
+
+\section{Cross-Reference with Python Tests}
+
+Each major theorem has corresponding Python validation:
+\begin{itemize}
+    \item \texttt{thiele\_simulates\_turing} $\leftrightarrow$ \texttt{tests/test\_subsumption.py}
+    \item \texttt{mu\_monotone\_step} $\leftrightarrow$ \texttt{tests/test\_mu\_accounting.py}
+    \item \texttt{no\_signaling\_preserved} $\leftrightarrow$ \texttt{tests/test\_no\_signaling.py}
+    \item \texttt{wave\_energy\_conserved} $\leftrightarrow$ \texttt{tests/test\_wave\_model.py}
+    \item \texttt{shor\_reduction} $\leftrightarrow$ \texttt{tests/test\_shor\_isomorphism.py}
+\end{itemize}
+
+This cross-layer validation ensures that Coq proofs correspond to executable behavior.

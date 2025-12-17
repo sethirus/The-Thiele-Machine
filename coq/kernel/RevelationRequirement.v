@@ -82,6 +82,59 @@ Qed.
 Definition has_supra_cert (s : VMState) : Prop :=
   s.(vm_csrs).(csr_cert_addr) <> 0.
 
+(** * Semantic structure addition (execution-based)
+
+    To avoid defining “structure addition” by an opcode list, we define it
+    as an *observable transition* during execution:
+    the certification CSR changes from 0 to non-zero at some executed step.
+
+    This is intentionally expressed in terms of [trace_run] and [vm_apply],
+    and does not mention specific instruction constructors.
+*)
+
+Fixpoint structure_addition_in_run (fuel : nat) (trace : Trace) (s : VMState) : Prop :=
+  match fuel with
+  | 0 => False
+  | S fuel' =>
+      match nth_error trace (s.(vm_pc)) with
+      | None => False
+      | Some instr =>
+          let s' := vm_apply s instr in
+          (s.(vm_csrs).(csr_cert_addr) = 0 /\ s'.(vm_csrs).(csr_cert_addr) <> 0)
+          \/ structure_addition_in_run fuel' trace s'
+      end
+  end.
+
+Lemma supra_cert_implies_structure_addition_in_run :
+  forall (trace : Trace) (s_init s_final : VMState) (fuel : nat),
+    trace_run fuel trace s_init = Some s_final ->
+    s_init.(vm_csrs).(csr_cert_addr) = 0 ->
+    has_supra_cert s_final ->
+    structure_addition_in_run fuel trace s_init.
+Proof.
+  intros trace s_init s_final fuel.
+  revert trace s_init s_final.
+  induction fuel as [|fuel IH]; intros trace s_init s_final Hrun Hinit Hfinal.
+  - simpl in Hrun. injection Hrun as Heq. rewrite <- Heq in Hfinal.
+    unfold has_supra_cert in Hfinal. contradiction.
+  - simpl in Hrun.
+    destruct (nth_error trace (vm_pc s_init)) as [instr|] eqn:Hnth.
+    + set (s' := vm_apply s_init instr) in *.
+      (* Expose the disjunction in the goal. *)
+      simpl. rewrite Hnth. simpl.
+      destruct (Nat.eq_dec (s'.(vm_csrs).(csr_cert_addr)) 0) as [Hczero|Hcnz].
+      * (* cert still zero: recurse *)
+        right.
+        eapply IH; [exact Hrun | exact Hczero | exact Hfinal].
+      * (* cert became non-zero at this executed step *)
+        left.
+        split.
+        -- exact Hinit.
+        -- exact Hcnz.
+    + simpl in Hrun. injection Hrun as Heq. rewrite <- Heq in Hfinal.
+      unfold has_supra_cert in Hfinal. contradiction.
+Qed.
+
 (** * Graph Preservation Lemmas *)
 
 (** Non-reveal instructions preserve the certification state *)
