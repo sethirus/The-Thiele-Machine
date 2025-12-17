@@ -1,0 +1,556 @@
+\section{Why Three Layers?}
+
+\subsection{The Problem of Trust}
+
+A formal specification (Coq) proves properties but doesn't execute. An executable implementation (Python/Verilog) runs but might contain bugs. How can we trust that the implementation matches the specification?
+
+\textbf{Answer}: We build three independent implementations and verify they produce \textit{identical results} for all inputs.
+
+\subsection{The Three Layers}
+
+\begin{enumerate}
+    \item \textbf{Coq (Formal)}: Defines ground-truth semantics. Every property is machine-checked. The extracted OCaml serves as an oracle.
+    
+    \item \textbf{Python (Reference)}: A human-readable implementation for debugging, tracing, and experimentation. Generates receipts and traces.
+    
+    \item \textbf{Verilog (Hardware)}: A synthesizable RTL implementation targeting real FPGAs. Proves the model is physically realizable.
+\end{enumerate}
+
+\subsection{The Isomorphism Invariant}
+
+For \textit{any} instruction trace $\tau$:
+\[
+S_{\text{Coq}}(\tau) = S_{\text{Python}}(\tau) = S_{\text{Verilog}}(\tau)
+\]
+
+This is not aspirational---it is enforced by automated tests that run on every commit. Any divergence is a critical bug.
+
+\subsection{How to Read This Chapter}
+
+This chapter is practical---it shows real code:
+\begin{itemize}
+    \item Section 4.2: Coq formalization (state definitions, step relation, extraction)
+    \item Section 4.3: Python VM (state class, partition operations, receipt generation)
+    \item Section 4.4: Verilog RTL (CPU module, $\mu$-ALU, logic engine interface)
+    \item Section 4.5: Isomorphism verification (how we test equality)
+\end{itemize}
+
+\textbf{Key code to understand}:
+\begin{itemize}
+    \item \texttt{VMState} record (Coq and Python)
+    \item \texttt{vm\_step} relation (Coq)
+    \item \texttt{thiele\_cpu} module (Verilog)
+    \item \texttt{project\_state} function (isomorphism test)
+\end{itemize}
+
+\section{The 3-Layer Isomorphism Architecture}
+
+The Thiele Machine is implemented across three layers that maintain strict semantic equivalence:
+\begin{enumerate}
+    \item \textbf{Formal Layer (Coq)}: Defines ground-truth semantics with machine-checked proofs
+    \item \textbf{Reference Layer (Python)}: Executable specification with tracing and debugging
+    \item \textbf{Physical Layer (Verilog)}: RTL implementation targeting FPGA/ASIC synthesis
+\end{enumerate}
+
+The central invariant is \textit{3-way isomorphism}: for any instruction sequence $\tau$, the final state projection (pc, mu, err, regs, mem, csrs, graph) must be identical across all three layers. Any deviation is treated as a critical bug.
+
+\section{Layer 1: The Formal Kernel (Coq)}
+
+\subsection{Directory Structure}
+
+The Coq formalization resides in \texttt{coq/kernel/}, with 34 verified modules:
+\begin{verbatim}
+coq/kernel/
+|-- VMState.v              # State record, partition graph, well-formedness
+|-- VMStep.v               # 18-instruction ISA, vm_step relation
+|-- KernelPhysics.v        # No-signaling, gauge invariance, conservation
+|-- MuLedgerConservation.v # mu-monotonicity, irreversibility bounds
+|-- NoFreeInsight.v        # The impossibility theorem
+|-- RevelationRequirement.v # Supra-quantum certification constraints
+|-- CertCheck.v            # LRAT proof checking, model verification
+|-- SimulationProof.v      # Cross-layer simulation lemmas
+|-- Certification.v        # Certification framework
+|-- ReceiptCore.v          # Receipt chain definitions
+|-- KernelNoether.v        # Noether correspondence proofs
+|-- MuInformation.v        # Information-theoretic mu properties
+|-- PhysicsClosure.v       # Physical law closure proofs
+|-- CHSH.v                 # Bell inequality formalization
+|-- QuantumBound.v         # Tsirelson bound proofs
+`-- ... (20+ additional modules)
+\end{verbatim}
+
+\subsection{The VMState Record}
+
+The state is defined as a record with seven components:
+\begin{verbatim}
+Record VMState := {
+  vm_graph : PartitionGraph;
+  vm_csrs : CSRState;
+  vm_regs : list nat;
+  vm_mem : list nat;
+  vm_pc : nat;
+  vm_mu : nat;
+  vm_err : bool
+}.
+\end{verbatim}
+
+Each component has canonical width and representation:
+\begin{itemize}
+    \item \textbf{vm\_regs}: 32 registers (matching RISC-V convention)
+    \item \textbf{vm\_mem}: 256 words of data memory
+    \item \textbf{vm\_pc}: 32-bit program counter
+    \item \textbf{vm\_mu}: 32-bit $\mu$-ledger accumulator
+    \item \textbf{vm\_err}: Boolean error latch
+\end{itemize}
+
+\subsection{The Partition Graph}
+
+\begin{verbatim}
+Record PartitionGraph := {
+  pg_next_id : ModuleID;
+  pg_modules : list (ModuleID * ModuleState)
+}.
+
+Record ModuleState := {
+  module_region : list nat;
+  module_axioms : AxiomSet
+}.
+\end{verbatim}
+
+Key operations:
+\begin{itemize}
+    \item \texttt{graph\_pnew}: Create or find module for region
+    \item \texttt{graph\_psplit}: Split module by predicate
+    \item \texttt{graph\_pmerge}: Merge two disjoint modules
+    \item \texttt{graph\_lookup}: Retrieve module by ID
+    \item \texttt{graph\_add\_axiom}: Add logical constraint to module
+\end{itemize}
+
+\subsection{The Step Relation}
+
+The \texttt{vm\_step} relation is an inductive predicate with 18 constructors:
+\begin{verbatim}
+Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop := 
+| step_pnew : forall s region cost graph' mid,
+    graph_pnew s.(vm_graph) region = (graph', mid) ->
+    vm_step s (instr_pnew region cost)
+      (advance_state s (instr_pnew region cost) graph' s.(vm_csrs) s.(vm_err))
+| step_psplit : forall s m left right cost g' l' r',
+    graph_psplit s.(vm_graph) m left right = Some (g', l', r') ->
+    vm_step s (instr_psplit m left right cost)
+      (advance_state s (instr_psplit m left right cost) g' s.(vm_csrs) false)
+...
+\end{verbatim}
+
+The \texttt{advance\_state} helper atomically updates PC and $\mu$:
+\begin{verbatim}
+Definition advance_state (s : VMState) (instr : vm_instruction)
+  (graph' : PartitionGraph) (csrs' : CSRState) (err' : bool) : VMState :=
+  {| vm_graph := graph';
+     vm_csrs := csrs';
+     vm_regs := s.(vm_regs);
+     vm_mem := s.(vm_mem);
+     vm_pc := s.(vm_pc) + 1;
+     vm_mu := apply_cost s instr;
+     vm_err := err' |}.
+\end{verbatim}
+
+\subsection{Extraction}
+
+The Coq definitions are extracted to OCaml:
+\begin{verbatim}
+Require Extraction.
+Extraction Language OCaml.
+Extract Inductive bool => "bool" ["true" "false"].
+Extract Inductive nat => "int" ["0" "succ"].
+...
+Extraction "extracted/vm_kernel.ml" vm_step run_vm.
+\end{verbatim}
+
+The extracted code compiles to \texttt{build/extracted\_vm\_runner}, which serves as an oracle for Python/Verilog comparison.
+
+\section{Layer 2: The Reference VM (Python)}
+
+\subsection{Architecture Overview}
+
+The Python VM (\texttt{thielecpu/vm.py}) is a 2489-line implementation optimized for correctness and observability rather than performance.
+
+\subsubsection{Core Components}
+
+\begin{verbatim}
+thielecpu/
+|-- vm.py              # Main VM class (2489 lines)
+|-- state.py           # State representation, MuLedger
+|-- memory.py          # RegionGraph, memory operations
+|-- isa.py             # CSR definitions, opcodes
+|-- bell_semantics.py  # CHSH trial semantics
+|-- mu_fixed.py        # Q16.16 fixed-point mu-arithmetic
+`-- _types.py          # Type definitions (ModuleId, etc.)
+\end{verbatim}
+
+\subsubsection{The VM Class}
+
+\begin{verbatim}
+class VM:
+    def __init__(self, program: List[Any] = None, ...):
+        self.state = State()
+        self.trace: List[Dict[str, Any]] = []
+        self.receipt_chain: List[str] = []
+        self.python_globals: Dict[str, Any] = {}
+        self.python_outputs: List[str] = []
+        self._virtual_fs = VirtualFilesystem()
+\end{verbatim}
+
+\subsection{State Representation}
+
+The Python state mirrors the Coq definition:
+\begin{verbatim}
+@dataclass
+class State:
+    mu_operational: float = 0.0
+    mu_information: float = 0.0
+    _next_id: int = 1
+    regions: RegionGraph = field(default_factory=RegionGraph)
+    axioms: Dict[ModuleId, List[str]] = field(default_factory=dict)
+    csr: dict[CSR, int | str] = field(default_factory=...)
+    step_count: int = 0
+    mu_ledger: MuLedger = field(default_factory=MuLedger)
+    partition_masks: Dict[ModuleId, PartitionMask] = field(default_factory=dict)
+    program: List[Any] = field(default_factory=list)
+\end{verbatim}
+
+\subsection{The $\mu$-Ledger}
+
+\begin{verbatim}
+@dataclass
+class MuLedger:
+    mu_discovery: int = 0   # Cost of partition discovery operations
+    mu_execution: int = 0   # Cost of instruction execution
+    
+    @property
+    def total(self) -> int:
+        return self.mu_discovery + self.mu_execution
+\end{verbatim}
+
+\subsection{Partition Operations}
+
+\subsubsection{Bitmask Representation}
+
+For hardware isomorphism, partitions use 64-bit bitmasks:
+\begin{verbatim}
+MASK_WIDTH = 64  # Fixed width for hardware compatibility
+MAX_MODULES = 8  # Maximum number of active modules
+
+def mask_of_indices(indices: Set[int]) -> PartitionMask:
+    mask = 0
+    for idx in indices:
+        if 0 <= idx < MASK_WIDTH:
+            mask |= (1 << idx)
+    return mask
+\end{verbatim}
+
+\subsubsection{Module Creation (PNEW)}
+
+\begin{verbatim}
+def pnew(self, region: Set[int]) -> ModuleId:
+    if self.num_modules >= MAX_MODULES:
+        raise ValueError(f"Cannot create module: max modules reached")
+    existing = self.regions.find(region)
+    if existing is not None:
+        return ModuleId(existing)
+    mid = self._alloc(region, charge_discovery=True)
+    self.axioms[mid] = []
+    self._enforce_invariant()
+    return mid
+\end{verbatim}
+
+\subsection{Sandboxed Python Execution}
+
+The \texttt{PYEXEC} instruction executes Python in a restricted sandbox:
+
+\begin{verbatim}
+SAFE_IMPORTS = {"math", "json", "z3"}
+SAFE_FUNCTIONS = {
+    "abs", "all", "any", "bool", "divmod", "enumerate", 
+    "float", "int", "len", "list", "max", "min", "pow",
+    "print", "range", "round", "sorted", "sum", "tuple",
+    "zip", "str", "set", "dict", "map", "filter",
+    "vm_read_text", "vm_write_text", "vm_read_bytes",
+    "vm_write_bytes", "vm_exists", "vm_listdir",
+}
+\end{verbatim}
+
+The AST is validated before execution:
+\begin{verbatim}
+SAFE_NODE_TYPES = {
+    ast.Module, ast.FunctionDef, ast.ClassDef, ast.arguments,
+    ast.arg, ast.Expr, ast.Assign, ast.AugAssign, ast.Name,
+    ast.Load, ast.Store, ast.Constant, ast.BinOp, ast.UnaryOp,
+    ast.BoolOp, ast.Compare, ast.If, ast.For, ast.While, ...
+}
+\end{verbatim}
+
+\subsection{Receipt Generation}
+
+Every step generates a cryptographic receipt:
+\begin{verbatim}
+def _emit_receipt(self, instruction, pre_hash, post_hash, cost):
+    receipt = {
+        "pre_state_hash": pre_hash,
+        "instruction": str(instruction),
+        "post_state_hash": post_hash,
+        "mu_cost": cost,
+        "chain_link": hashlib.sha256(
+            json.dumps(self.receipt_chain[-1:]).encode()
+        ).hexdigest() if self.receipt_chain else "genesis"
+    }
+    self.receipt_chain.append(
+        hashlib.sha256(json.dumps(receipt).encode()).hexdigest()
+    )
+    return receipt
+\end{verbatim}
+
+\section{Layer 3: The Physical Core (Verilog)}
+
+\subsection{Module Hierarchy}
+
+The hardware implementation in \texttt{thielecpu/hardware/}:
+\begin{verbatim}
+thielecpu/hardware/
+|-- thiele_cpu.v       # Main CPU (931 lines)
+|-- mu_alu.v           # Q16.16 fixed-point ALU (385 lines)
+|-- lei.v              # Logic Engine Interface (179 lines)
+|-- mau.v              # MDL Accounting Unit (mu-cost)
+|-- mmu.v              # Memory Management Unit
+|-- mu_core.v          # mu-accounting core
+|-- generated_opcodes.vh  # Opcode definitions (from forge)
+`-- thiele_cpu_tb.v    # Testbench
+\end{verbatim}
+
+\subsection{The Main CPU}
+
+\begin{verbatim}
+module thiele_cpu (
+    input wire clk,
+    input wire rst_n,
+    output wire [31:0] cert_addr,
+    output wire [31:0] status,
+    output wire [31:0] error_code,
+    output wire [31:0] partition_ops,
+    output wire [31:0] mdl_ops,
+    output wire [31:0] info_gain,
+    output wire [31:0] mu,  // $\mu$-cost accumulator
+    output wire [31:0] mem_addr,
+    output wire [31:0] mem_wdata,
+    input wire [31:0] mem_rdata,
+    output wire mem_we,
+    output wire mem_en,
+    ...
+);
+\end{verbatim}
+
+Key signals:
+\begin{itemize}
+    \item \textbf{mu}: The $\mu$-accumulator, exported for 3-way isomorphism verification
+    \item \textbf{partition\_ops}: Counter for partition operations
+    \item \textbf{info\_gain}: Information gain accumulator
+    \item \textbf{cert\_addr}: Certificate address CSR
+\end{itemize}
+
+\subsection{State Machine}
+
+The CPU uses a 10-state FSM:
+\begin{verbatim}
+localparam [3:0] STATE_FETCH = 4'h0;
+localparam [3:0] STATE_DECODE = 4'h1;
+localparam [3:0] STATE_EXECUTE = 4'h2;
+localparam [3:0] STATE_MEMORY = 4'h3;
+localparam [3:0] STATE_LOGIC = 4'h4;
+localparam [3:0] STATE_PYTHON = 4'h5;
+localparam [3:0] STATE_COMPLETE = 4'h6;
+localparam [3:0] STATE_ALU_WAIT = 4'h7;
+localparam [3:0] STATE_ALU_WAIT2 = 4'h8;
+localparam [3:0] STATE_RECEIPT_HOLD = 4'h9;
+\end{verbatim}
+
+\subsection{Instruction Encoding}
+
+Each 32-bit instruction:
+\begin{verbatim}
+wire [7:0] opcode = current_instr[31:24];
+wire [7:0] operand_a = current_instr[23:16];
+wire [7:0] operand_b = current_instr[15:8];
+wire [7:0] operand_cost = current_instr[7:0];
+\end{verbatim}
+
+\subsection{$\mu$-Accumulator Updates}
+
+Every instruction atomically updates the $\mu$-accumulator:
+\begin{verbatim}
+OPCODE_PNEW: begin
+    execute_pnew(operand_a, operand_b);
+    // Coq semantics: vm_mu := s.vm_mu + instruction_cost
+    mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
+    pc_reg <= pc_reg + 4;
+    state <= STATE_FETCH;
+end
+\end{verbatim}
+
+\subsection{The $\mu$-ALU}
+
+The $\mu$-ALU (\texttt{mu\_alu.v}) implements Q16.16 fixed-point arithmetic:
+\begin{verbatim}
+module mu_alu (
+    input wire clk,
+    input wire rst_n,
+    input wire [2:0] op,      // 0=add, 1=sub, 2=mul, 3=div, 4=log2, 5=info_gain
+    input wire [31:0] operand_a,
+    input wire [31:0] operand_b,
+    input wire valid,
+    output reg [31:0] result,
+    output reg ready,
+    output reg overflow
+);
+
+localparam Q16_ONE = 32'h00010000;  // 1.0 in Q16.16
+\end{verbatim}
+
+The log2 computation uses a 256-entry LUT for bit-exact results:
+\begin{verbatim}
+reg [31:0] log2_lut [0:255];
+initial begin
+    log2_lut[0] = 32'h00000000;
+    log2_lut[1] = 32'h00000170;
+    log2_lut[2] = 32'h000002DF;
+    ...
+end
+\end{verbatim}
+
+\subsection{Logic Engine Interface}
+
+The LEI (\texttt{lei.v}) connects to external Z3:
+\begin{verbatim}
+module lei (
+    input wire clk,
+    input wire rst_n,
+    input wire logic_req,
+    input wire [31:0] logic_addr,
+    output wire logic_ack,
+    output wire [31:0] logic_data,
+    output wire z3_req,
+    output wire [31:0] z3_formula_addr,
+    input wire z3_ack,
+    input wire [31:0] z3_result,
+    input wire z3_sat,
+    input wire [31:0] z3_cert_hash,
+    ...
+);
+\end{verbatim}
+
+\section{Isomorphism Verification}
+
+\subsection{The Isomorphism Gate}
+
+The 3-way isomorphism is verified by \texttt{tests/test\_rtl\_compute\_isomorphism.py}:
+\begin{enumerate}
+    \item Generate instruction trace $\tau$
+    \item Execute $\tau$ on Python VM $\rightarrow$ state $S_{\text{py}}$
+    \item Execute $\tau$ on extracted runner $\rightarrow$ state $S_{\text{coq}}$
+    \item Execute $\tau$ on Verilog sim $\rightarrow$ state $S_{\text{rtl}}$
+    \item Assert $S_{\text{py}} = S_{\text{coq}} = S_{\text{rtl}}$
+\end{enumerate}
+
+\subsection{State Projection}
+
+For comparison, states are projected to a canonical 7-tuple:
+\begin{verbatim}
+def project_state(state):
+    return {
+        "pc": state.pc,
+        "mu": state.mu,
+        "err": state.err,
+        "regs": list(state.regs[:32]),
+        "mem": list(state.mem[:256]),
+        "csrs": state.csrs.to_dict(),
+        "graph": state.graph.to_canonical(),
+    }
+\end{verbatim}
+
+\subsection{The Inquisitor}
+
+The Inquisitor (\texttt{scripts/inquisitor.py}) enforces the AGENTS.md rules:
+\begin{itemize}
+    \item Scans all \texttt{coq/**/*.v} for \texttt{Admitted}, \texttt{admit.}, \texttt{Axiom}
+    \item Verifies all proofs compile with \texttt{make -C coq core}
+    \item Runs isomorphism gates
+    \item Reports HIGH/MEDIUM/LOW findings
+\end{itemize}
+
+The repository must have 0 HIGH findings to pass CI.
+
+\section{Synthesis Results}
+
+\subsection{FPGA Targeting}
+
+The RTL has been synthesized for Xilinx 7-series FPGAs:
+\begin{verbatim}
+$ yosys -p "read_verilog thiele_cpu.v; synth_xilinx -top thiele_cpu"
+\end{verbatim}
+
+\subsection{Resource Utilization}
+
+Under \texttt{YOSYS\_LITE} (reduced module table):
+\begin{itemize}
+    \item NUM\_MODULES = 4
+    \item REGION\_SIZE = 16
+    \item Estimated LUTs: $\sim$2,500
+    \item Estimated FFs: $\sim$1,200
+\end{itemize}
+
+Full configuration:
+\begin{itemize}
+    \item NUM\_MODULES = 64
+    \item REGION\_SIZE = 1024
+    \item Estimated LUTs: $\sim$45,000
+    \item Estimated FFs: $\sim$35,000
+\end{itemize}
+
+\section{Toolchain}
+
+\subsection{Verified Versions}
+
+\begin{itemize}
+    \item Coq 8.18.x (OCaml 4.14.x)
+    \item Python 3.12.x
+    \item Icarus Verilog 12.x
+    \item Yosys 0.33+
+\end{itemize}
+
+\subsection{Build Commands}
+
+\begin{verbatim}
+# Coq kernel
+make -C coq core
+
+# Python tests
+pytest -q tests/test_partition_isomorphism_minimal.py
+pytest -q tests/test_rtl_compute_isomorphism.py
+
+# RTL simulation
+iverilog -o thiele_cpu_tb thiele_cpu_tb.v thiele_cpu.v mu_alu.v
+vvp thiele_cpu_tb
+
+# Synthesis
+bash scripts/forge_artifact.sh
+\end{verbatim}
+
+\section{Summary}
+
+The 3-layer implementation ensures:
+\begin{itemize}
+    \item \textbf{Logical Certainty}: Coq proofs guarantee properties hold for all inputs
+    \item \textbf{Operational Visibility}: Python traces expose every state transition
+    \item \textbf{Physical Realizability}: Verilog synthesizes to real hardware
+\end{itemize}
+
+The binding across layers is not aspirational—it is enforced through automated isomorphism gates that run in CI. The Inquisitor ensures that no admits, no axioms, and no semantic divergences are ever committed to the main branch.

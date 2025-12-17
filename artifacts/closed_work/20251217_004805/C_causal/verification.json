@@ -1,0 +1,51 @@
+{
+  "falsifiers": [
+    {
+      "detail": {
+        "rejected": "Hash mismatch for assumptions.json: expected 2f2b8f80e75483ce4e70ea3d2f3ce31a81ac619d82de94358a2b731e8687a0c9, got 0a47e3abe2db9088203f674c3e29811b628cca598ab15c7149649785b8f62108"
+      },
+      "name": "forge",
+      "ok": true
+    },
+    {
+      "detail": {
+        "rejected": "Insufficient disclosure_bits: need >= 8192, got 1"
+      },
+      "name": "underpay",
+      "ok": true
+    },
+    {
+      "detail": {
+        "rejected": "Receipt missing required files: ['assumptions.json']"
+      },
+      "name": "bypass",
+      "ok": true
+    }
+  ],
+  "inputs": {
+    "receipt": "causal.receipt.json",
+    "run_dir": "artifacts/closed_work/20251217_004805/C_causal/run",
+    "trust_manifest": "artifacts/closed_work/20251217_004805/trust_manifest.json"
+  },
+  "metadata": {
+    "generated_by": "scripts/closed_work.py",
+    "timestamp": "2025-12-17T00:48:09.243857+00:00"
+  },
+  "module": "C_causal",
+  "mu_summary": {
+    "provided_disclosure_bits": 8192,
+    "required_disclosure_bits": 8192
+  },
+  "ok": true,
+  "results": {
+    "claim_type": "unique_dag",
+    "has_interventions": false,
+    "n_obs": 10,
+    "ok": true,
+    "provided_disclosure_bits": 8192,
+    "receipt": "causal.receipt.json",
+    "required_disclosure_bits": 8192
+  },
+  "schema_version": "TM-VERIFY-1",
+  "status": "PASS"
+}

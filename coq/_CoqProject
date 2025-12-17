@@ -17,6 +17,11 @@
 -Q test_vscoq/coqproofs TestVSCoq
 -R kernel Kernel
 
+# No-Free-Insight abstraction cone
+-Q nofi NoFI
+
+-R kernel Kernel
+
 # Sealed kernel TOE cone (maximal closure + minimal no-go)
 -Q kernel_toe KernelTOE
 
@@ -43,9 +48,14 @@ kernel/Subsumption.v
 kernel/CertCheck.v
 kernel/VMState.v
 kernel/VMEncoding.v
+kernel/ReceiptCore.v
 kernel/VMStep.v
 kernel/SimulationProof.v
 kernel/MuLedgerConservation.v
+kernel/MuInformation.v
+kernel/MuGeometry.v
+kernel/CHSH.v
+kernel/MuNoFreeInsightQuantitative.v
 kernel/RevelationRequirement.v
 kernel/Certification.v
 kernel/NoFreeInsight.v
@@ -62,6 +72,21 @@ kernel/LorentzNotForced.v
 kernel/TOEDecision.v
 kernel/SpacetimeEmergence.v
 kernel/ConeAlgebra.v
+
+# Flagship confrontation theorem track (DI randomness)
+thielemachine/verification/RandomnessNoFI.v
+
+# Bridge modules (operational physics embeddings)
+bridge/BoxWorld_to_Kernel.v
+bridge/FiniteQuantum_to_Kernel.v
+bridge/Randomness_to_Kernel.v
+bridge/Tomography_to_Kernel.v
+bridge/Entropy_to_Kernel.v
+bridge/Causal_to_Kernel.v
+
+nofi/NoFreeInsight_Interface.v
+nofi/NoFreeInsight_Theorem.v
+nofi/Instance_Kernel.v
 
 kernel_toe/Definitions.v
 kernel_toe/Closure.v
@@ -122,6 +147,9 @@ thielemachine/coqproofs/BellReceiptSemantics.v
 thielemachine/coqproofs/BellReceiptSoundness.v
 thielemachine/coqproofs/BellReceiptLocalGeneral.v
 thielemachine/coqproofs/BellReceiptLocalBound.v
+thielemachine/coqproofs/TsirelsonBoundBridge.v
+thielemachine/coqproofs/QuantumAdmissibilityTsirelson.v
+thielemachine/coqproofs/QuantumAdmissibilityDeliverableB.v
 thielemachine/coqproofs/LawCheck.v
 thielemachine/coqproofs/PhaseThree.v
 thielemachine/coqproofs/QuantumTheorems.v
@@ -181,6 +209,7 @@ thielemachine/verification/Admissibility.v
 thielemachine/verification/Symmetry.v
 thielemachine/verification/PhysicsPillars.v
 thielemachine/verification/Prediction.v
+thielemachine/verification/PredictionNoFI.v
 
 thiele_manifold/PhysicsIsomorphism.v
 

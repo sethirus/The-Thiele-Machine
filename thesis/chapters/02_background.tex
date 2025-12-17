@@ -1,0 +1,344 @@
+\section{Why This Background Matters}
+
+\subsection{A Foundation for Understanding}
+
+Before diving into the Thiele Machine, we need to understand \textit{what problem it solves}. This requires revisiting fundamental concepts from:
+\begin{itemize}
+    \item \textbf{Computation theory}: What is a computer, really? (Turing Machines, RAM models)
+    \item \textbf{Information theory}: What is information, and how do we measure it? (Shannon entropy, Kolmogorov complexity)
+    \item \textbf{Physics of computation}: What are the physical limits on computing? (Landauer's principle, thermodynamics)
+    \item \textbf{Quantum computing}: What does "quantum advantage" mean? (Bell's theorem, CHSH inequality)
+    \item \textbf{Formal verification}: How can we \textit{prove} things about programs? (Coq, proof assistants)
+\end{itemize}
+
+\subsection{The Central Question}
+
+Classical computers (Turing Machines, RAM machines) are \textit{structurally blind}---they cannot see the structure of their input. If you give a computer a sorted list, it doesn't "know" the list is sorted unless it checks.
+
+This raises a profound question: \textit{What if structural knowledge were a first-class resource that must be discovered, paid for, and accounted for?}
+
+To understand why this question matters, we first need to understand what classical computers can and cannot do, and what we mean by "structure" and "information."
+
+\subsection{How to Read This Chapter}
+
+This chapter is organized from concrete to abstract:
+\begin{enumerate}
+    \item Section 2.1: Classical computation models (Turing Machine, RAM)
+    \item Section 2.2: Information theory (Shannon, Kolmogorov, MDL)
+    \item Section 2.3: Physics of computation (Landauer, thermodynamics)
+    \item Section 2.4: Quantum computing and correlations (Bell, CHSH)
+    \item Section 2.5: Formal verification (Coq, proof-carrying code)
+\end{enumerate}
+
+If you are familiar with any section, feel free to skip it. The only prerequisite for later chapters is understanding:
+\begin{itemize}
+    \item The "blindness problem" in classical computation (§2.1.1)
+    \item Kolmogorov complexity and MDL (§2.2.2--2.2.3)
+    \item The CHSH inequality and Tsirelson bound (§2.4.1)
+\end{itemize}
+
+\section{Classical Computational Models}
+
+\subsection{The Turing Machine: Formal Definition}
+
+The Turing Machine, introduced by Alan Turing in 1936, is formally defined as a 7-tuple:
+\[
+M = (Q, \Sigma, \Gamma, \delta, q_0, q_{\text{accept}}, q_{\text{reject}})
+\]
+where:
+\begin{itemize}
+    \item $Q$ is a finite set of \textit{states}
+    \item $\Sigma$ is the \textit{input alphabet} (not containing the blank symbol $\sqcup$)
+    \item $\Gamma$ is the \textit{tape alphabet} where $\Sigma \subset \Gamma$ and $\sqcup \in \Gamma$
+    \item $\delta: Q \times \Gamma \to Q \times \Gamma \times \{L, R\}$ is the \textit{transition function}
+    \item $q_0 \in Q$ is the \textit{start state}
+    \item $q_{\text{accept}} \in Q$ is the \textit{accept state}
+    \item $q_{\text{reject}} \in Q$ is the \textit{reject state}, where $q_{\text{accept}} \neq q_{\text{reject}}$
+\end{itemize}
+
+A \textit{configuration} of a Turing Machine is a triple $(q, w, i)$ where $q \in Q$ is the current state, $w \in \Gamma^*$ is the tape contents, and $i \in \mathbb{N}$ is the head position. The machine's computation is a sequence of configurations:
+\[
+C_0 \vdash C_1 \vdash C_2 \vdash \cdots
+\]
+where $C_0 = (q_0, \sqcup w \sqcup, 1)$ for input $w$ and each transition is determined by $\delta$.
+
+\subsubsection{The Computational Universality Theorem}
+
+Turing proved that there exists a \textit{Universal Turing Machine} $U$ such that for any Turing Machine $M$ and input $w$:
+\[
+U(\langle M, w \rangle) = M(w)
+\]
+where $\langle M, w \rangle$ is an encoding of $M$ and $w$. This establishes the Church-Turing thesis: any mechanically computable function can be computed by a Turing Machine.
+
+\subsubsection{The Blindness Problem}
+
+The transition function $\delta$ is the locus of the blindness problem. Notice that $\delta$ is defined only over local state:
+\[
+\delta(q, \gamma) \mapsto (q', \gamma', d)
+\]
+The function receives only:
+\begin{enumerate}
+    \item The current machine state $q$ (finite, typically small)
+    \item The symbol $\gamma$ under the head (a single symbol)
+\end{enumerate}
+
+It does \textit{not} receive:
+\begin{itemize}
+    \item The global contents of the tape
+    \item The structure of the encoded data (e.g., that it represents a graph)
+    \item The relationships between different parts of the input
+\end{itemize}
+
+This is not a limitation that can be overcome by clever programming—it is an \textit{architectural constraint}. The Turing Machine is designed to be local and sequential. Any global property must be discovered through sequential scanning.
+
+\subsection{The Random Access Machine (RAM)}
+
+The RAM model, introduced to better model real computers, extends the Turing Machine with:
+\begin{itemize}
+    \item An infinite array of registers $M[0], M[1], M[2], \ldots$
+    \item An accumulator register $A$
+    \item A program counter $PC$
+    \item Instructions: LOAD $i$, STORE $i$, ADD $i$, SUB $i$, JMP $i$, JZ $i$, etc.
+\end{itemize}
+
+The key improvement is \textit{random access}: accessing $M[i]$ takes $O(1)$ time regardless of $i$. This eliminates the $O(n)$ seek time of the Turing Machine tape.
+
+However, the RAM model retains structural blindness. A RAM program can access $M[1000]$ directly, but it cannot know that $M[1000]$--$M[2000]$ encodes a sorted array without executing a verification algorithm. The structure is implicit in programmer knowledge, not explicit in machine architecture.
+
+\subsection{Complexity Classes and the P vs NP Problem}
+
+Classical complexity theory defines:
+\begin{itemize}
+    \item \textbf{P}: Decision problems solvable by a deterministic Turing Machine in polynomial time
+    \item \textbf{NP}: Decision problems where a "yes" instance has a polynomial-length certificate that can be verified in polynomial time
+    \item \textbf{NP-Complete}: The hardest problems in NP—all NP problems reduce to them
+\end{itemize}
+
+The central open question is whether $\mathbf{P} = \mathbf{NP}$. If $\mathbf{P} \neq \mathbf{NP}$, then there exist problems whose solutions can be \textit{verified} efficiently but not \textit{found} efficiently.
+
+The Thiele Machine perspective reframes this question. Consider an NP-complete problem like 3-SAT. A blind Turing Machine must search the exponential space $\{0,1\}^n$. But suppose the formula has hidden structure—say, it factors into independent sub-formulas. A machine that \textit{perceives} this structure can solve each sub-problem independently.
+
+The question becomes: \textit{What is the cost of perceiving the structure?}
+
+We argue that the apparent gap between P and NP is often the gap between:
+\begin{itemize}
+    \item Machines that have paid for structural insight ($\mu$-bits invested)
+    \item Machines that have not (and must pay the Time Tax)
+\end{itemize}
+
+This does not trivialize P vs NP—the structural information may itself be expensive to discover. But it reframes intractability as an \textit{accounting issue} rather than a \textit{fundamental barrier}.
+
+\section{Information Theory and Complexity}
+
+\subsection{Shannon Entropy}
+
+Claude Shannon's 1948 paper "A Mathematical Theory of Communication" established information as a quantifiable resource. The \textit{entropy} of a discrete random variable $X$ with probability mass function $p$ is:
+\[
+H(X) = -\sum_{x \in \mathcal{X}} p(x) \log_2 p(x)
+\]
+
+Shannon entropy measures the \textit{uncertainty} in a random variable, or equivalently, the expected number of bits needed to encode an outcome. Key properties:
+\begin{itemize}
+    \item $H(X) \ge 0$ with equality iff $X$ is deterministic
+    \item $H(X) \le \log_2 |\mathcal{X}|$ with equality iff $X$ is uniform
+    \item $H(X, Y) \le H(X) + H(Y)$ with equality iff $X \perp Y$ (independence)
+\end{itemize}
+
+The last property is crucial for the Thiele Machine: knowing that two variables are independent allows us to decompose the joint entropy into independent components, potentially enabling exponential speedups.
+
+\subsection{Kolmogorov Complexity}
+
+While Shannon entropy applies to random variables, \textit{Kolmogorov complexity} measures the structural content of individual strings. For a string $x$:
+\[
+K(x) = \min \{|p| : U(p) = x\}
+\]
+where $U$ is a universal Turing Machine and $|p|$ is the bit-length of program $p$.
+
+Kolmogorov complexity captures the intuition that a string like "010101010101..." (alternating) has low complexity (a short program can generate it), while a random string has high complexity (no program shorter than the string itself can produce it).
+
+Key theorems:
+\begin{itemize}
+    \item \textbf{Invariance Theorem}: $K_U(x) = K_{U'}(x) + O(1)$ for any two universal machines $U, U'$
+    \item \textbf{Incompressibility}: For any $n$, there exists a string $x$ of length $n$ with $K(x) \ge n$
+    \item \textbf{Uncomputability}: $K(x)$ is not computable (by reduction from the halting problem)
+\end{itemize}
+
+The uncomputability of Kolmogorov complexity is why the Thiele Machine uses \textit{Minimum Description Length} (MDL) instead—a computable approximation.
+
+\subsection{Minimum Description Length (MDL)}
+
+The MDL principle, developed by Jorma Rissanen \cite{rissanen1978modeling}, provides a computable proxy for Kolmogorov complexity. Given a hypothesis class $\mathcal{H}$ and data $D$, the MDL cost is:
+\[
+L(D) = \min_{H \in \mathcal{H}} \{L(H) + L(D|H)\}
+\]
+where:
+\begin{itemize}
+    \item $L(H)$ is the description length of hypothesis $H$
+    \item $L(D|H)$ is the description length of $D$ given $H$ (the "residual")
+\end{itemize}
+
+In the Thiele Machine, we adopt MDL as the basis for $\mu$-cost:
+\begin{itemize}
+    \item The "hypothesis" is the partition structure $\pi$
+    \item $L(\pi)$ is the $\mu$-cost of specifying the partition
+    \item $L(\text{computation}|\pi)$ is the operational cost given the structure
+\end{itemize}
+
+The total $\mu$-cost is thus analogous to the MDL of the computation.
+
+\section{The Physics of Computation}
+
+\subsection{Landauer's Principle}
+
+In 1961, Rolf Landauer proved a fundamental connection between information and thermodynamics \cite{landauer1961irreversibility}:
+
+\begin{theorem}[Landauer's Principle]
+The erasure of one bit of information in a computing device releases at least $k_B T \ln 2$ joules of heat into the environment.
+\end{theorem}
+
+Here $k_B$ is Boltzmann's constant and $T$ is the absolute temperature. At room temperature (300K), this is approximately $3 \times 10^{-21}$ joules per bit—a tiny amount, but fundamentally non-zero.
+
+Landauer's principle establishes that:
+\begin{enumerate}
+    \item \textbf{Information is physical}: It cannot be erased without physical consequences
+    \item \textbf{Irreversibility has a cost}: Logically irreversible operations (AND, OR, erasure) dissipate heat
+    \item \textbf{Computation is thermodynamic}: The ultimate limits of computation are set by thermodynamics
+\end{enumerate}
+
+\subsubsection{Reversible Computation}
+
+Charles Bennett showed that computation can be made thermodynamically reversible by keeping a history of all operations \cite{bennett1982thermodynamics}. A reversible Turing Machine can simulate any irreversible computation with only polynomial overhead in space.
+
+However, reversible computation has its own cost: the space required to store the history. This is another form of "structural debt"—you can avoid the heat cost by paying a space cost.
+
+\subsection{Maxwell's Demon and Szilard's Engine}
+
+The thought experiment of "Maxwell's Demon" illustrates the thermodynamic nature of information:
+
+Imagine a container divided by a partition with a door. A "demon" observes molecules and opens the door only when a fast molecule approaches from the left. Over time, fast molecules accumulate on the right, creating a temperature differential without apparent work.
+
+Leo Szilard's 1929 analysis \cite{szilard1929entropieverminderung} and later work by Bennett showed that the demon must pay for its information:
+\begin{enumerate}
+    \item \textbf{Acquiring information}: Measuring molecular velocities requires physical interaction
+    \item \textbf{Storing information}: The demon's memory has finite capacity
+    \item \textbf{Erasing information}: When memory fills, erasure releases heat (Landauer)
+\end{enumerate}
+
+The total entropy balance is preserved: the demon's information processing exactly compensates for the apparent entropy reduction.
+
+\subsection{Connection to the Thiele Machine}
+
+The Thiele Machine generalizes Landauer's principle from \textit{erasure} to \textit{structure}. Just as erasing information has a thermodynamic cost, \textit{asserting structure} has an information-theoretic cost:
+
+\begin{quote}
+    If erasing information costs $k_B T \ln 2$ joules per bit, then asserting that "this formula decomposes into $k$ independent parts" costs proportional $\mu$-bits of structural specification.
+\end{quote}
+
+The $\mu$-ledger is the computational analog of the thermodynamic entropy: a monotonically increasing quantity that tracks the irreversible commitments of the computation.
+
+\section{Quantum Computing and Correlations}
+
+\subsection{Bell's Theorem and Non-Locality}
+
+In 1964, John Bell proved that no "local hidden variable" theory can reproduce all predictions of quantum mechanics \cite{bell1964einstein}. The key insight is the CHSH inequality:
+
+Consider two spatially separated parties, Alice and Bob, who share an entangled quantum state. Each performs one of two measurements ($x, y \in \{0, 1\}$) and obtains one of two outcomes ($a, b \in \{0, 1\}$). Define:
+\[
+S = E(0,0) + E(0,1) + E(1,0) - E(1,1)
+\]
+where $E(x,y) = \Pr[a = b | x, y] - \Pr[a \neq b | x, y]$.
+
+Bell proved:
+\begin{itemize}
+    \item \textbf{Local Realistic Bound}: $|S| \le 2$
+    \item \textbf{Quantum Bound (Tsirelson)}: $|S| \le 2\sqrt{2} \approx 2.828$
+    \item \textbf{Algebraic Bound}: $|S| \le 4$
+\end{itemize}
+
+Quantum mechanics allows $S > 2$, violating local realism.
+
+\subsection{The Revelation Requirement}
+
+In the Thiele Machine framework, we prove (in \texttt{RevelationRequirement.v}) that:
+
+\begin{theorem}[Revelation Requirement]
+If a Thiele Machine execution produces a state with "supra-quantum" certification (CSR address $\neq 0$ starting from 0), then the execution trace must contain an explicit revelation-class instruction (\texttt{REVEAL}, \texttt{EMIT}, \texttt{LJOIN}, or \texttt{LASSERT}).
+\end{theorem}
+
+In other words, you cannot certify non-local correlations without explicitly paying the structural cost. This is proven as \texttt{nonlocal\_correlation\_requires\_revelation} in Coq.
+
+\section{Formal Verification}
+
+\subsection{The Coq Proof Assistant}
+
+Coq is an interactive theorem prover based on the Calculus of Inductive Constructions (CIC). It provides:
+\begin{itemize}
+    \item \textbf{Dependent types}: Types can depend on values
+    \item \textbf{Inductive definitions}: Data types and predicates defined by construction rules
+    \item \textbf{Proof terms}: Proofs are first-class objects that can be type-checked
+    \item \textbf{Extraction}: Proofs can be extracted to executable code (OCaml, Haskell)
+\end{itemize}
+
+A Coq development consists of:
+\begin{itemize}
+    \item \textbf{Definitions}: \texttt{Definition}, \texttt{Fixpoint}, \texttt{Inductive}
+    \item \textbf{Lemmas/Theorems}: Statements to prove
+    \item \textbf{Proofs}: Sequences of tactics that construct proof terms
+\end{itemize}
+
+\subsubsection{The Curry-Howard Correspondence}
+
+Coq embodies the Curry-Howard correspondence: propositions are types, and proofs are programs. A proof of "A implies B" is a function from evidence of A to evidence of B:
+\[
+\text{Proof of } (A \to B) \equiv \text{Function } f: A \to B
+\]
+
+This means that a verified Coq development is not just a logical argument—it is executable code that demonstrates the truth of the proposition.
+
+\subsection{The Inquisitor Standard}
+
+For the Thiele Machine, we adopt a strict methodology called the "Inquisitor Standard":
+
+\begin{enumerate}
+    \item \textbf{No \texttt{Admitted}}: Every lemma must be fully proven
+    \item \textbf{No \texttt{admit} tactics}: No tactical shortcuts inside proofs
+    \item \textbf{No \texttt{Axiom}}: No unproven assumptions except foundational logic
+\end{enumerate}
+
+This standard is enforced by the script \texttt{scripts/inquisitor.py}, which scans all \texttt{.v} files and reports violations. The standard ensures:
+\begin{itemize}
+    \item Every claim is machine-checkable
+    \item No hidden assumptions
+    \item Reproducible verification
+\end{itemize}
+
+\subsection{Proof-Carrying Code}
+
+The concept of Proof-Carrying Code (PCC), introduced by Necula and Lee \cite{necula1997proof}, allows code producers to attach proofs that the code satisfies certain properties. A code consumer can verify the proofs without re-analyzing the code.
+
+The Thiele Machine generalizes this: every execution step carries a "receipt" proving that:
+\begin{itemize}
+    \item The step is valid under the current axioms
+    \item The $\mu$-cost has been properly charged
+    \item The partition invariants are preserved
+\end{itemize}
+
+These receipts enable third-party verification: anyone can replay an execution and verify that the claimed costs were actually paid.
+
+\section{Related Work}
+
+\subsection{Algorithmic Information Theory}
+
+The work of Kolmogorov, Chaitin, and Solomonoff on algorithmic information theory provides the foundation for our $\mu$-bit currency. The key insight is that structure is quantifiable as description length.
+
+\subsection{Interactive Proof Systems}
+
+Interactive proof systems (IP = PSPACE) show that verification can be more powerful than expected. The Thiele Machine's Logic Engine $L$ is a deterministic analog: it provides a verifier oracle that checks logical consistency.
+
+\subsection{Partition Refinement Algorithms}
+
+Algorithms like Tarjan's partition refinement and the Paige-Tarjan algorithm efficiently maintain partitions under operations. The Thiele Machine's \texttt{PSPLIT} and \texttt{PMERGE} operations are inspired by these techniques.
+
+\subsection{Minimum Description Length in Machine Learning}
+
+MDL has been used extensively in machine learning for model selection (Occam's razor). The Thiele Machine applies MDL to \textit{computation} rather than \textit{learning}, treating the partition structure as a "model" of the problem.
