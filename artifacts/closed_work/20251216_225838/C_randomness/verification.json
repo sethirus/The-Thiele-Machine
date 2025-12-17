@@ -1,0 +1,51 @@
+{
+  "falsifiers": [
+    {
+      "detail": {
+        "rejected": "Hash mismatch for randomness.bin: expected 5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1, got 2661920f2409dd6c8adeb0c44972959f232b6429afa913845d0fd95e7e768234"
+      },
+      "name": "forge",
+      "ok": true
+    },
+    {
+      "detail": {
+        "rejected": "Insufficient disclosure_bits: need >= 1049, got 1"
+      },
+      "name": "underpay",
+      "ok": true
+    },
+    {
+      "detail": {
+        "rejected": "Receipt missing required files: ['randomness.bin']"
+      },
+      "name": "bypass",
+      "ok": true
+    }
+  ],
+  "inputs": {
+    "receipt": "randomness.receipt.json",
+    "run_dir": "artifacts/closed_work/20251216_225838/C_randomness/run",
+    "trust_manifest": "artifacts/closed_work/20251216_225838/trust_manifest.json"
+  },
+  "metadata": {
+    "generated_by": "scripts/closed_work.py",
+    "timestamp": "2025-12-16T22:58:42.672381+00:00"
+  },
+  "module": "C_randomness",
+  "mu_summary": {
+    "provided_disclosure_bits": 2000,
+    "required_disclosure_bits": 1049
+  },
+  "ok": true,
+  "results": {
+    "min_entropy_lower_bound": 1.024,
+    "min_entropy_per_bit": 0.001,
+    "n_bits": 1024,
+    "ok": true,
+    "provided_disclosure_bits": 2000,
+    "receipt": "randomness.receipt.json",
+    "required_disclosure_bits": 1049
+  },
+  "schema_version": "TM-VERIFY-1",
+  "status": "PASS"
+}

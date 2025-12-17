@@ -2,7 +2,7 @@
 # ==========================
 # E1.1: One-Command Reproducibility Demos
 
-.PHONY: help demo_cnf demo_sat demo_analysis demo_all run_all install_deps verify clean_demos
+.PHONY: help demo_cnf demo_sat demo_analysis demo_all run_all install_deps verify clean_demos closed_work
 .PHONY: experiments-small experiments-falsify experiments-budget experiments-full artifacts
 .PHONY: experiments-small-save experiments-falsify-save experiments-budget-save experiments-full-save
 .PHONY: proofpack-smoke proofpack-turbulence-high proofpack-phase3 bell law nusd headtohead turbulence-law turbulence-law-v2 turbulence-closure-v1 self-model-v1
@@ -31,6 +31,12 @@ help:
 	@echo "  make test-all       - Run all tests"
 	@echo "  make experiments-*  - Run partition experiments"
 	@echo ""
+	@echo "CLOSED WORK (A+B+C):"
+	@echo "  make closed_work    - Build Coq core + falsifier report + C verifier artifact"
+	@echo ""
+
+closed_work:
+	@python3 scripts/closed_work.py
 
 # Install dependencies
 install_deps:

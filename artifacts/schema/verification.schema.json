@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://thiele.machine/schemas/verification.schema.json",
+  "title": "Thiele Machine Verification Artifact",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "module",
+    "status",
+    "ok",
+    "inputs",
+    "results",
+    "falsifiers",
+    "mu_summary",
+    "metadata"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "TM-VERIFY-1" },
+    "module": { "type": "string", "minLength": 1 },
+    "status": { "type": "string", "enum": ["PASS", "FAIL", "UNCERTIFIED"] },
+    "ok": { "type": "boolean" },
+    "inputs": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["run_dir", "trust_manifest", "receipt"],
+      "properties": {
+        "run_dir": { "type": "string" },
+        "trust_manifest": { "type": "string" },
+        "receipt": { "type": "string" }
+      }
+    },
+    "results": { "type": "object" },
+    "falsifiers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["name", "ok"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "ok": { "type": "boolean" },
+          "detail": { "type": ["object", "string", "null"] }
+        }
+      }
+    },
+    "mu_summary": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["required_disclosure_bits", "provided_disclosure_bits"],
+      "properties": {
+        "required_disclosure_bits": { "type": "integer", "minimum": 0 },
+        "provided_disclosure_bits": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["generated_by"],
+      "properties": {
+        "generated_by": { "type": "string" },
+        "timestamp": { "type": "string" }
+      }
+    }
+  }
+}

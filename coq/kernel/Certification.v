@@ -1,4 +1,4 @@
-From Coq Require Import List Lia Arith.PeanoNat Bool.
+From Coq Require Import List Lia Arith.PeanoNat Bool QArith ZArith.
 From Coq Require Import Strings.String.
 Import ListNotations.
 
@@ -6,9 +6,13 @@ Require Import VMState.
 Require Import VMStep.
 Require Import KernelPhysics.
 Require Import MuLedgerConservation.
+Require Import MuInformation.
+Require Import MuNoFreeInsightQuantitative.
 Require Import RevelationRequirement.
 Require Import SimulationProof.
 Require Import NoFreeInsight.
+Require Import CHSH.
+Require Import QuantumBound.
 
 (** * Certification Theory: No Free Insight Formalization (CHSH Instance)
     
@@ -47,61 +51,42 @@ Definition Receipts := Trace.
 (** * CHSH Trial Extraction
     
     A CHSH trial is a tuple (x, y, a, b) where all are bits.
-    We extract trials from a trace by filtering for chsh_trial instructions.
+
+    The concrete receipt-backed CHSH statistic is defined in
+    [kernel/CHSH.v] as [KernelCHSH.chsh] over
+    [KernelCHSH.trials_of_receipts].
     *)
 
-Inductive CHSHTrial : Type :=
-| trial (x y a b : nat).
-
-Definition is_chsh_trial_instr (i : vm_instruction) : option CHSHTrial :=
-  match i with
-  | instr_chsh_trial x y a b _ =>
-      if chsh_bits_ok x y a b
-      then Some (trial x y a b)
-      else None
-  | _ => None
-  end.
-
-Fixpoint extract_chsh_trials (receipts : Receipts) : list CHSHTrial :=
-  match receipts with
-  | [] => []
-  | r :: rest =>
-      match is_chsh_trial_instr r with
-      | Some t => t :: extract_chsh_trials rest
-      | None => extract_chsh_trials rest
-      end
-  end.
+Definition extract_chsh_trials (receipts : Receipts) : list KernelCHSH.Trial :=
+  KernelCHSH.trials_of_receipts receipts.
 
 (** * CHSH Value Computation (Rational approximation)
-    
-    Runtime uses S = 16/5 as supra-quantum test value.
-    Tsirelson bound: 2√2 ≈ 2.828427... ≈ 5657/2000 (rational)
-    
-    For formalization, we use a simplified predicate:
-    "contains at least one CHSH trial" (sufficient for Milestone 1).
-    
-    Full CHSH computation (correlation expectation values) deferred to
-    future work since it requires probability distribution over trials.
-    *)
 
-Definition has_chsh_trials (receipts : Receipts) : Prop :=
-  extract_chsh_trials receipts <> [].
+    We use the concrete empirical CHSH statistic [KernelCHSH.chsh].
+    Tsirelson bound: $2\sqrt{2} \approx 2.828427$; we use a safe rational
+    approximation [5657/2000].
 
-(** * Supra-Quantum Predicate (placeholder for Milestone 1)
+    Note: This is an *empirical* statistic over the receipt stream; it is not
+    (yet) a probabilistic theorem about measurement distributions.
+*)
+
+Definition tsirelson_bound_q : Q := (5657#2000).
+
+Definition chsh_value (receipts : Receipts) : Q :=
+  KernelCHSH.chsh (extract_chsh_trials receipts).
+
+Definition has_supra_chsh (receipts : Receipts) : Prop :=
+  Qlt tsirelson_bound_q (chsh_value receipts).
+
+(** * Supra-Quantum Predicate
     
     RUNTIME DEFINITION (Python):
       S = compute_chsh_from_trials(trials)
       supra := S > TSIRELSON_BOUND  (where TSIRELSON_BOUND = 5657/2000)
     
-    COQ DEFINITION (this milestone):
-      For now, we model "supra-quantum" as "uses the specific probability
-      table from artifacts/bell/supra_quantum_16_5.csv", which is validated
-      by runtime to produce S = 16/5 > 2√2.
-    
-    This is sufficient to prove the structural claim: if you certify
-    supra-quantum correlations, REVEAL must be in the trace.
-    
-    Future work: formalize full CHSH computation in Coq.
+    COQ DEFINITION:
+      We take "supra-quantum" to mean the receipt-derived empirical
+      CHSH value exceeds the Tsirelson bound approximation.
     *)
 
 (** Simplified supra-quantum predicate for Milestone 1:
@@ -112,7 +97,16 @@ Definition has_chsh_trials (receipts : Receipts) : Prop :=
     *)
 
 Definition supra_quantum_certified (s : VMState) (receipts : Receipts) : Prop :=
-  has_chsh_trials receipts /\ has_supra_cert s.
+  has_supra_chsh receipts /\ has_supra_cert s.
+
+(** A more general “certified CHSH claim” predicate.
+
+    This is useful for stating divergence-style results below Tsirelson:
+    e.g., CHSH > 2 (Bell violation) is allowed by QM, but in this system
+    *certifying* such a claim still requires a paid cert-setting instruction.
+*)
+Definition chsh_claim_certified (q : Q) (s : VMState) (receipts : Receipts) : Prop :=
+  Qlt q (chsh_value receipts) /\ has_supra_cert s.
 
 (** * Certification Predicate
     
@@ -171,12 +165,12 @@ Lemma chsh_trials_non_forgeable :
     exists x y a b cost,
       In (instr_chsh_trial x y a b cost) receipts /\
       chsh_bits_ok x y a b = true /\
-      t = trial x y a b.
+      t = {| KernelCHSH.t_x := x; KernelCHSH.t_y := y; KernelCHSH.t_a := a; KernelCHSH.t_b := b |}.
 Proof.
   induction receipts as [|r rest IH]; intros t Hin.
   - simpl in Hin. contradiction.
   - simpl in Hin.
-    destruct (is_chsh_trial_instr r) as [t0|] eqn:Hopt.
+    destruct (KernelCHSH.is_trial_instr r) as [t0|] eqn:Hopt.
     + simpl in Hin.
       destruct Hin as [Ht | HinRest].
       * subst t.
@@ -242,7 +236,7 @@ Theorem no_free_insight_chsh :
     (* Execution completed successfully *)
     trace_run fuel trace s_init = Some s_final ->
     (* Initially no certification *)
-    s_init.(vm_csrs).(csr_cert_addr) = 0 ->
+    s_init.(vm_csrs).(csr_cert_addr) = 0%nat ->
     (* Final state certifies supra-quantum correlations *)
     Certified s_final supra_quantum_certified trace ->
     (* Then: revelation must be in trace *)
@@ -258,6 +252,137 @@ Proof.
   (* Apply revelation requirement theorem *)
   apply (nonlocal_correlation_requires_revelation trace s_init s_final fuel);
     try assumption.
+Qed.
+
+(** Quantitative strengthening: certified supra-CHSH implies a paid μ-cost.
+
+    This is the Phase I “μ lower bound” phrased directly in the certification
+    vocabulary (trace-run + Certified predicate).
+*)
+Theorem certified_supra_chsh_implies_mu_lower_bound :
+  forall (trace : Trace) (s_init s_final : VMState) (fuel : nat),
+    trace_run fuel trace s_init = Some s_final ->
+    s_init.(vm_csrs).(csr_cert_addr) = 0%nat ->
+    Certified s_final supra_quantum_certified trace ->
+    exists instr,
+      MuNoFreeInsightQuantitative.is_cert_setter instr /\
+      (s_final.(vm_mu) >= s_init.(vm_mu) + instruction_cost instr)%nat.
+Proof.
+  intros trace s_init s_final fuel Hrun Hinit Hcert.
+  destruct Hcert as [_ Hsupra].
+  destruct Hsupra as [_ Hhascert].
+  eapply MuNoFreeInsightQuantitative.supra_cert_implies_mu_lower_bound_trace_run; eauto.
+Qed.
+
+(** ------------------------------------------------------------------------- *)
+(** ** Tsirelson-from-admissibility (kernel boundary)
+
+    Kernel-level admissibility in [QuantumBound] forbids all cert-setting
+    instructions. Combining that with the CHSH certification predicate yields
+    a crisp boundary:
+
+      quantum_admissible(trace) ⇒ ¬ Certified(s_final, supra_quantum_certified, trace)
+
+    This is a *machine-semantic* formulation of “admissible ⇒ no supra-CHSH
+    certification” (a resource boundary, not a physics axiom).
+*)
+Theorem quantum_admissible_cannot_certify_supra_chsh :
+  forall (trace : Trace) (s_init s_final : VMState) (fuel : nat),
+    trace_run fuel trace s_init = Some s_final ->
+    s_init.(vm_csrs).(csr_cert_addr) = 0%nat ->
+    QuantumBound.quantum_admissible trace ->
+    ~ Certified s_final supra_quantum_certified trace.
+Proof.
+  intros trace s_init s_final fuel Hrun Hinit Hadm Hcert.
+  destruct Hcert as [_ Hsupra].
+  destruct Hsupra as [_ Hhascert].
+  (* QuantumBound: admissible traces cannot set certification. *)
+  eapply QuantumBound.quantum_admissible_implies_no_supra_cert; eauto.
+Qed.
+
+(** A more general admissibility boundary:
+
+    If a trace is quantum-admissible (contains no cert-setting instructions),
+    then it cannot certify *any* CHSH claim at any threshold [q].
+
+    This is the strongest statement available at the deterministic kernel
+    layer: it is a boundary on *certification*, not on the raw receipt stream.
+*)
+Theorem quantum_admissible_cannot_certify_chsh_claim :
+  forall (q : Q) (trace : Trace) (s_init s_final : VMState) (fuel : nat),
+    trace_run fuel trace s_init = Some s_final ->
+    s_init.(vm_csrs).(csr_cert_addr) = 0%nat ->
+    QuantumBound.quantum_admissible trace ->
+    ~ Certified s_final (chsh_claim_certified q) trace.
+Proof.
+  intros q trace s_init s_final fuel Hrun Hinit Hadm Hcert.
+  destruct Hcert as [_ Hclaim].
+  destruct Hclaim as [_ Hhascert].
+  eapply QuantumBound.quantum_admissible_implies_no_supra_cert; eauto.
+Qed.
+
+(** ------------------------------------------------------------------------- *)
+(** ** Divergence asset: certified Bell-violation implies paid μ
+
+    This statement is intentionally *epistemic/operational*:
+    it does not say nature forbids CHSH>2, only that *certifying* any such
+    CHSH claim in this system forces an explicit cert-setting instruction,
+    hence a paid μ-cost.
+*)
+Theorem certified_chsh_claim_implies_mu_lower_bound :
+  forall (q : Q) (trace : Trace) (s_init s_final : VMState) (fuel : nat),
+    trace_run fuel trace s_init = Some s_final ->
+    s_init.(vm_csrs).(csr_cert_addr) = 0%nat ->
+    Certified s_final (chsh_claim_certified q) trace ->
+    exists instr,
+      MuNoFreeInsightQuantitative.is_cert_setter instr /\
+      (s_final.(vm_mu) >= s_init.(vm_mu) + instruction_cost instr)%nat.
+Proof.
+  intros q trace s_init s_final fuel Hrun Hinit Hcert.
+  destruct Hcert as [_ Hclaim].
+  destruct Hclaim as [_ Hhascert].
+  eapply MuNoFreeInsightQuantitative.supra_cert_implies_mu_lower_bound_trace_run; eauto.
+Qed.
+
+Corollary certified_bell_violation_implies_mu_lower_bound :
+  forall (trace : Trace) (s_init s_final : VMState) (fuel : nat),
+    trace_run fuel trace s_init = Some s_final ->
+    s_init.(vm_csrs).(csr_cert_addr) = 0%nat ->
+    Certified s_final (chsh_claim_certified (2#1)) trace ->
+    exists instr,
+      MuNoFreeInsightQuantitative.is_cert_setter instr /\
+      (s_final.(vm_mu) >= s_init.(vm_mu) + instruction_cost instr)%nat.
+Proof.
+  intros trace s_init s_final fuel Hrun Hinit Hcert.
+  eapply certified_chsh_claim_implies_mu_lower_bound; eauto.
+Qed.
+
+(** Phase I (quantitative, receipt-backed): CHSH threshold implies Δμ lower bound.
+
+    This is the explicit “CHSH ↦ paid μ-information” statement:
+    if a run is *certified* and the receipt-derived CHSH value exceeds the
+    Tsirelson bound, then the μ-difference Δμ is at least the cost of some
+    cert-setting instruction that occurred along the execution.
+*)
+Theorem certified_supra_chsh_implies_mu_info_z_lower_bound :
+  forall (trace : Trace) (s_init s_final : VMState) (fuel : nat),
+    trace_run fuel trace s_init = Some s_final ->
+    s_init.(vm_csrs).(csr_cert_addr) = 0%nat ->
+    Certified s_final supra_quantum_certified trace ->
+    exists instr,
+      MuNoFreeInsightQuantitative.is_cert_setter instr /\
+      (Z.of_nat (instruction_cost instr) <= mu_info_z s_init s_final)%Z.
+Proof.
+  intros trace s_init s_final fuel Hrun Hinit Hcert.
+  destruct (certified_supra_chsh_implies_mu_lower_bound trace s_init s_final fuel Hrun Hinit Hcert)
+    as [instr [Hsetter Hmu_nat]].
+  exists instr.
+  split; [exact Hsetter|].
+  pose proof (proj1 (Nat2Z.inj_le (vm_mu s_init + instruction_cost instr) (vm_mu s_final)) Hmu_nat)
+    as Hmu_z.
+  rewrite Nat2Z.inj_add in Hmu_z.
+  unfold mu_info_z, mu_total.
+  lia.
 Qed.
 
 (** * Corollary: REVEAL is primary revelation mechanism

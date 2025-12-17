@@ -1,0 +1,42 @@
+{
+  "bounds": {
+    "standard_di": {
+      "assumption": "CHSH-only DI bound; ignores certification/structure-addition channels",
+      "hmin_lower_bound_bits": -0.0
+    },
+    "thiele_cert_step_envelope": {
+      "assumption": "Coq: executed cert-setter count \u2264 f_count(\u0394\u03bc)=max(0,\u0394\u03bc), with cert-setters costing \u22651 \u03bc",
+      "count_le_f_count": false,
+      "f_count": 0
+    },
+    "thiele_certified": {
+      "assumption": "DI bound gated on explicit structure-addition (cert transition) in receipts",
+      "epsilon": 1e-09,
+      "hmin_lower_bound_bits": 0.0
+    }
+  },
+  "inputs": {
+    "receipts": "examples/tsirelson_step_receipts.json"
+  },
+  "observed": {
+    "cert_setter_ops": [
+      "EMIT",
+      "LASSERT",
+      "LJOIN",
+      "REVEAL"
+    ],
+    "cert_setter_steps": 1,
+    "chsh": {
+      "den": 1,
+      "num": 0
+    },
+    "has_structure_addition": false,
+    "mu_acc_delta": 0,
+    "mu_acc_final": 0,
+    "mu_acc_init": 0,
+    "mu_delta_total": 0.0,
+    "n_per_setting": 0,
+    "n_trials": 0
+  },
+  "schema_version": "TM-DI-CONFLICT-1"
+}
