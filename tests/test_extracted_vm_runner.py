@@ -94,7 +94,7 @@ def test_extracted_pnew_pmerge_matches_python_state(tmp_path: Path) -> None:
     python_regions = _parse_regions_from_python_state(py_state)
     python_mu = py_state.mu_ledger.total
 
-    # In the extracted semantics, module IDs start at 0.
+    # In the extracted semantics, module IDs start at 1 (matching Python/RTL).
     # Costs are passed explicitly in the trace; choose costs so totals match
     # the Python μ-ledger for these operations.
     trace = "\n".join(
@@ -102,7 +102,7 @@ def test_extracted_pnew_pmerge_matches_python_state(tmp_path: Path) -> None:
             "FUEL 32",
             "PNEW {0,1} 2",
             "PNEW {2,3} 2",
-            "PMERGE 0 1 4",
+            "PMERGE 1 2 4",
         ]
     )
     trace_path = tmp_path / "trace.txt"

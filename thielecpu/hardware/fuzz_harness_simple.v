@@ -59,6 +59,7 @@ reg [31:0] num_modules;
 reg [31:0] module_ids [0:63];
 reg [63:0] partition_masks [0:63];  // Bitmask for each module
 reg [31:0] next_id;
+integer current_module_idx;
 
 // μ-cost tracking (simplified)
 reg [63:0] mu_discovery;
@@ -77,7 +78,32 @@ integer program_length;
 integer halted;
 integer timeout_counter;
 integer existing_found;
+integer existing_index;
 reg [63:0] new_mask;
+
+function integer mask_popcount(input [63:0] mask);
+    integer k;
+    begin
+        mask_popcount = 0;
+        for (k = 0; k < 64; k = k + 1) begin
+            if (mask[k]) begin
+                mask_popcount = mask_popcount + 1;
+            end
+        end
+    end
+endfunction
+
+function integer highest_set_bit(input [63:0] mask);
+    integer k;
+    begin
+        highest_set_bit = -1;
+        for (k = 0; k < 64; k = k + 1) begin
+            if (mask[k]) begin
+                highest_set_bit = k;
+            end
+        end
+    end
+endfunction
 
 // ============================================================================
 // INSTRUCTION DECODE
@@ -145,6 +171,7 @@ initial begin
     pc = 0;
     num_modules = 0;
     next_id = 0;
+    current_module_idx = 0;
     mu_discovery = 0;
     mu_execution = 0;
     mu_total = 0;
@@ -164,7 +191,8 @@ initial begin
     partition_masks[0] = 64'h1;  // region {0} = bit 0 set
     next_id = 1;  // Will be assigned to first user PNEW
     num_modules = 1;  // Start with 1 module (the initial one)
-    mu_discovery = 1;  // Initial module costs 1 μ
+    current_module_idx = 0;
+    mu_discovery = 0;  // Initial module is free (genesis module)
     
     // Reset
     #20 rst_n = 1;
@@ -186,23 +214,28 @@ initial begin
                     // Check if module with this region already exists (deduplication)
                     // For simplicity, check if any existing module has the same mask
                     existing_found = 0;
+                    existing_index = -1;
                     new_mask = (64'h1 << operand_a);
                     
                     for (j = 0; j < num_modules; j = j + 1) begin
                         if (partition_masks[j] == new_mask) begin
                             existing_found = 1;
+                            existing_index = j;
                         end
                     end
-                    
+
                     if (!existing_found && num_modules < 64) begin
                         // Create new module
                         module_ids[num_modules] = next_id;
                         partition_masks[num_modules] = new_mask;
                         next_id = next_id + 1;
+                        current_module_idx = num_modules;
                         num_modules = num_modules + 1;
-                        
+
                         // μ-cost: popcount of region = 1 (single element)
                         mu_discovery = mu_discovery + 1;
+                    end else if (existing_found) begin
+                        current_module_idx = existing_index;
                     end
                     // If existing_found, no new module is created and no μ is charged
                     
@@ -283,6 +316,33 @@ initial begin
     
     // Compute final state
     if (halted) begin
+        // Auto-charge MDLACC-style execution cost for the current module
+        if (current_module_idx >= 0 && current_module_idx < num_modules) begin
+            integer region_size;
+            integer max_bit;
+            integer bit_length;
+            integer mdl_cost;
+            integer temp;
+            region_size = mask_popcount(partition_masks[current_module_idx]);
+            max_bit = highest_set_bit(partition_masks[current_module_idx]);
+            bit_length = 0;
+            temp = max_bit;
+            if (max_bit == 0) begin
+                bit_length = 1;
+            end else begin
+                while (temp > 0) begin
+                    bit_length = bit_length + 1;
+                    temp = temp >> 1;
+                end
+            end
+            if (region_size > 0 && bit_length > 0) begin
+                mdl_cost = bit_length * region_size;
+            end else begin
+                mdl_cost = 1;
+            end
+            mu_execution = mu_execution + mdl_cost;
+        end
+
         // Compute μ-total
         mu_total = mu_discovery + mu_execution;
         

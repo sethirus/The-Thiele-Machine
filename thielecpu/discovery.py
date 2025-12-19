@@ -507,13 +507,11 @@ class EfficientPartitionDiscovery:
             PartitionCandidate with discovered modules
         """
         start_time = time.perf_counter()
-        # Deterministic seeding to ensure reproducible discovery across runs
-        seed = self.seed
-        if seed is None:
-            # Derive a seed from the problem to keep discovery deterministic
-            import hashlib
-            seed = int(hashlib.sha256(str(problem.interactions).encode()).hexdigest(), 16) % (2 ** 32)
-        np.random.seed(seed)
+        # NOTE: Discovery must be permutation-invariant w.r.t variable IDs.
+        # Avoid seeding RNGs from label-dependent representations; the spectral
+        # + k-means path below is implemented deterministically.
+        if self.seed is not None:
+            np.random.seed(self.seed)
         
         # Discovery query cost
         query = f"(discover-partition n={problem.num_variables})"
@@ -805,7 +803,9 @@ class EfficientPartitionDiscovery:
             if use_plus_plus:
                 centroids = self._kmeans_plus_plus_init(X, k)
             else:
-                idx = np.random.choice(n, min(k, n), replace=False)
+                # Deterministic fallback: choose k points by lexicographic order.
+                order = np.lexsort(np.flipud(X.T))
+                idx = order[: min(k, n)]
                 centroids = X[idx].copy()
 
             labels = np.zeros(n, dtype=int)
@@ -860,8 +860,17 @@ class EfficientPartitionDiscovery:
         n, d = X.shape
         centroids = np.zeros((k, d))
 
-        # Choose first centroid uniformly at random
-        first_idx = np.random.randint(0, n)
+        # Deterministic k-means++-like init (farthest-first) to preserve
+        # permutation invariance under variable relabelings.
+        # Choose first centroid as the point with largest squared norm;
+        # tie-break lexicographically on coordinates.
+        norms = np.sum(X**2, axis=1)
+        # Stable tie-breaker: lexsort on coordinates, then take max norm.
+        lex = np.lexsort(np.flipud(X.T))
+        # Among all points with maximal norm, pick the earliest in lex order.
+        max_norm = float(np.max(norms))
+        candidates = [int(i) for i in lex if float(norms[int(i)]) == max_norm]
+        first_idx = candidates[0] if candidates else int(lex[0])
         centroids[0] = X[first_idx]
 
         # Choose remaining k-1 centroids
@@ -885,9 +894,11 @@ class EfficientPartitionDiscovery:
                     centroids[c] = X[np.random.randint(0, n)]
                 continue
 
-            # Choose next centroid with probability proportional to D(x)²
-            probabilities = distances_sq / total_dist
-            next_idx = np.random.choice(n, p=probabilities)
+            # Deterministic next centroid: choose the farthest point (max D(x)^2)
+            # with a stable lexicographic tie-break.
+            max_d = float(np.max(distances_sq))
+            cand = [int(i) for i in lex if float(distances_sq[int(i)]) == max_d]
+            next_idx = cand[0] if cand else int(lex[0])
             centroids[c] = X[next_idx]
 
         return centroids
