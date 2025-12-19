@@ -20,7 +20,7 @@ class TestPnewEdgeCases:
     """Edge case tests for PNEW (partition new) operation."""
 
     def test_pnew_empty_region(self):
-        """PNEW with empty region should succeed and create empty partition."""
+        """PNEW with empty region gets deduplicated (empty regions are identical)."""
         state = State()
         vm = VM(state)
         
@@ -32,12 +32,12 @@ class TestPnewEdgeCases:
         with tempfile.TemporaryDirectory() as td:
             vm.run(program, Path(td))
         
-        # Should have base module {0} + empty module
-        assert len(state.partition_masks) == 2
+        # Empty regions are deduplicated - only base module remains
+        assert len(state.partition_masks) == 1
         
-        # One module should be empty (mask == 0)
+        # The module should be the empty module (mask == 0)
         masks = list(state.partition_masks.values())
-        assert 0 in masks or all(m != 0 for m in masks)  # Dedup might eliminate empty
+        assert 0 in masks  # Empty mask exists
 
     def test_pnew_singleton_regions(self):
         """PNEW with multiple singleton regions."""
@@ -56,8 +56,8 @@ class TestPnewEdgeCases:
         with tempfile.TemporaryDirectory() as td:
             vm.run(program, Path(td))
         
-        # Should have base {0} + 5 singletons = 6 modules
-        assert len(state.partition_masks) == 6
+        # Should have 5 singleton modules (no implicit base module)
+        assert len(state.partition_masks) == 5
         
         # Verify each singleton exists
         masks = list(state.partition_masks.values())
