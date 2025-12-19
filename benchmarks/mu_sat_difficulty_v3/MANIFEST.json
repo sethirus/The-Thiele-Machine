@@ -1,0 +1,55 @@
+{
+  "artifacts": {
+    "analysis_json": null,
+    "fig_mu_vs_runtime_png": null,
+    "instances_meta_jsonl": "e11b40383612cd39b33aee3990fb3b2df392d459228b7c2c483ad106527754c2",
+    "no_solve_receipt_json": null,
+    "predictions_jsonl": null,
+    "z3_results_csv": null
+  },
+  "created_at": "2025-12-18T02:25:39Z",
+  "git_head": "452c0657fc6a3d836c51d834689324f6c31d9bd6",
+  "order": [
+    "instances/meta.jsonl",
+    "predictions.jsonl",
+    "no_solve_receipt.json",
+    "z3_results.csv",
+    "analysis.json",
+    "fig_mu_vs_runtime.png"
+  ],
+  "params": {
+    "controls_per_size": 2,
+    "hard_threshold_s": 1.0,
+    "isolate_no_solve": true,
+    "min_family_holdout_solved": 5,
+    "min_holdout_solved": 20,
+    "no_solve": true,
+    "per_size": 15,
+    "permute_epsilon": 0.01,
+    "permute_pairs": 10,
+    "seed_base": 1000,
+    "sizes": [
+      20,
+      30,
+      40
+    ],
+    "split_seed": 7,
+    "test_ratio": 0.25,
+    "timeout_s": 5
+  },
+  "platform": {
+    "cpu": {
+      "cores": 2,
+      "model_name": "AMD EPYC 7763 64-Core Processor"
+    },
+    "machine": "x86_64",
+    "os": "Linux-6.8.0-1030-azure-x86_64-with-glibc2.39",
+    "python": "3.12.3"
+  },
+  "tool_hashes": {
+    "PREREG.md": "28c061043f47665d753509ba8175b461b87aab1ce5ad223bd4593ffc0e890d24",
+    "tools/cnf_analyzer.py": "7649b36ceb0ea24a9364adf8c41044544767ba13e0f7c9affcc918f0b29b8e84",
+    "tools/generate_cnf_instances.py": "e5f8529f0db7bb9c4d71f8022f7e2b96e4015c1867d96927d25822804856d554",
+    "tools/mu_sat_difficulty_scale.py": "423a3119a5c1deb89cee5086f18253a161d2e2e24561f6700031eb6fb7fd7c7f"
+  }
+}

@@ -159,6 +159,8 @@ always @(posedge clk or negedge rst_n) begin
         overflow <= 1'b0;
         state <= 6'd0;
     end else begin
+        // Default: not ready unless an operation completes this cycle.
+        ready <= 1'b0;
         if (valid && state == 6'd0) begin
             ready <= 1'b0;
             overflow <= 1'b0;

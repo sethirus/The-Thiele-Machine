@@ -182,27 +182,37 @@ class State:
         
         return ModuleId(mid)
 
-    def pnew(self, region: Set[int]) -> ModuleId:
+    def pnew(self, region: Set[int], *, charge_discovery: bool = True) -> ModuleId:
         """Create a module for ``region`` if not already present.
-        
-        μ-update: mu_discovery += popcount(region)
+
+        μ-update: mu_discovery += popcount(region) when ``charge_discovery`` is True.
         """
-        if self.num_modules >= MAX_MODULES:
-            raise ValueError(f"Cannot create module: max modules ({MAX_MODULES}) reached")
-        
         existing = self.regions.find(region)
         if existing is not None:
             return ModuleId(existing)
-        mid = self._alloc(region, charge_discovery=True)
+
+        if self.num_modules >= MAX_MODULES:
+            raise ValueError(f"Cannot create module: max modules ({MAX_MODULES}) reached")
+        mid = self._alloc(region, charge_discovery=charge_discovery)
         self.axioms[mid] = []  # Initialize empty axioms for new module
         
         self._enforce_invariant()
         return mid
 
-    def psplit(self, module: ModuleId, pred: Predicate) -> Tuple[ModuleId, ModuleId]:
+    def psplit(
+        self,
+        module: ModuleId,
+        pred: Predicate,
+        *,
+        charge_execution: bool = True,
+        cost: int | None = None,
+    ) -> Tuple[ModuleId, ModuleId]:
         """Split ``module``'s region using ``pred`` into two modules.
-        
-        μ-update: mu_execution += MASK_WIDTH
+
+        μ-update: by default, mu_execution += MASK_WIDTH.
+
+        For cross-layer evidence runs, callers may set ``charge_execution=False``
+        and charge an explicit per-instruction ``mu_delta`` externally.
         """
         region = self.regions[module]
         part1 = {x for x in region if pred(x)}
@@ -222,17 +232,60 @@ class State:
         # Copy axioms to both new modules
         self.axioms[m1] = axioms.copy()
         self.axioms[m2] = axioms.copy()
-        
-        # μ-update per spec: split costs MASK_WIDTH
-        self.mu_ledger.mu_execution += MASK_WIDTH
+        if charge_execution:
+            self.mu_ledger.mu_execution += int(cost) if cost is not None else MASK_WIDTH
         
         self._enforce_invariant()
         return m1, m2
 
-    def pmerge(self, m1: ModuleId, m2: ModuleId) -> ModuleId:
+    def psplit_explicit(
+        self,
+        module: ModuleId,
+        left: Set[int],
+        right: Set[int],
+        *,
+        charge_execution: bool = True,
+        cost: int | None = None,
+    ) -> Tuple[ModuleId, ModuleId]:
+        """Split ``module`` into explicit ``left`` and ``right`` regions.
+
+        This matches the extracted trace form: PSPLIT mid {left} {right} cost.
+        """
+        region = self.regions[module]
+        if left & right:
+            raise ValueError("psplit_explicit regions overlap")
+        if (left | right) != region:
+            raise ValueError("psplit_explicit regions must partition module region")
+
+        self.regions.remove(module)
+        self.partition_masks.pop(module, None)
+        axioms = self.axioms.pop(module, [])
+
+        m1 = self._alloc(left)
+        m2 = self._alloc(right)
+        self.axioms[m1] = axioms.copy()
+        self.axioms[m2] = axioms.copy()
+
+        if charge_execution:
+            self.mu_ledger.mu_execution += int(cost) if cost is not None else MASK_WIDTH
+
+        self._enforce_invariant()
+        return m1, m2
+
+    def pmerge(
+        self,
+        m1: ModuleId,
+        m2: ModuleId,
+        *,
+        charge_execution: bool = True,
+        cost: int | None = None,
+    ) -> ModuleId:
         """Merge two modules into one if their regions are disjoint.
-        
-        μ-update: mu_execution += 4
+
+        μ-update: by default, mu_execution += 4.
+
+        For cross-layer evidence runs, callers may set ``charge_execution=False``
+        and charge an explicit per-instruction ``mu_delta`` externally.
         """
         if m1 == m2:
             raise ValueError("cannot merge module with itself")
@@ -258,9 +311,8 @@ class State:
             return existing_id
         mid = self._alloc(union)
         self.axioms[mid] = axioms1 + axioms2  # Combine axioms
-        
-        # μ-update per spec: merge costs 4
-        self.mu_ledger.mu_execution += 4
+        if charge_execution:
+            self.mu_ledger.mu_execution += int(cost) if cost is not None else 4
         
         self._enforce_invariant()
         return mid

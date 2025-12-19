@@ -72,6 +72,18 @@ Definition extract_chsh_trials (receipts : Receipts) : list KernelCHSH.Trial :=
 
 Definition tsirelson_bound_q : Q := (5657#2000).
 
+(** Arithmetic sanity check: (5657/2000)^2 > 8 = (2*sqrt(2))^2.
+
+    This is a purely rational inequality, used to justify that
+    [tsirelson_bound_q] is a safe upper envelope for 2√2.
+*)
+Lemma tsirelson_bound_q_sq_gt_8 :
+  Qlt (8#1) (tsirelson_bound_q * tsirelson_bound_q).
+Proof.
+  unfold tsirelson_bound_q.
+  unfold Qlt. simpl. lia.
+Qed.
+
 Definition chsh_value (receipts : Receipts) : Q :=
   KernelCHSH.chsh (extract_chsh_trials receipts).
 

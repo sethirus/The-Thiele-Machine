@@ -7,6 +7,7 @@
 
 from __future__ import annotations
 
+import math
 import zlib
 
 try:
@@ -53,20 +54,26 @@ def mdlacc(state: State, module: ModuleId, *, consistent: bool) -> float:
 
     region = state.regions[module]
 
+    # Use a fixed saturation value for the canonical integer μ-ledger.
+    MU_SATURATION = (1 << 64) - 1
+
     # Check fragment type for auditor tractability
     fragment_type = detect_fragment_type(region)
     if fragment_type == "unknown":
         # Reject unknown fragments to guarantee tractability
         state.csr[CSR.ERR] = 1
         state.mu_operational = float("inf")
+        state.mu_ledger.mu_execution = MU_SATURATION
         return state.mu_operational
 
     if not consistent:
         state.csr[CSR.ERR] = 1
         state.mu_operational = float("inf")
+        state.mu_ledger.mu_execution = MU_SATURATION
         return state.mu_operational
 
     if state.mu_operational == float("inf"):
+        state.mu_ledger.mu_execution = MU_SATURATION
         return state.mu_operational
 
     # Calculate true MDL cost
@@ -100,7 +107,9 @@ def mdlacc(state: State, module: ModuleId, *, consistent: bool) -> float:
     # Number of bits needed to encode the region set
     if region:
         max_element = max(region)
-        partition_bits = max_element.bit_length() * len(region)  # bits per element * num elements
+        # At least one bit is required even for singleton {0}; mirror the RTL fuzz harness.
+        bit_length = max(1, max_element.bit_length())
+        partition_bits = bit_length * len(region)  # bits per element * num elements
         mdl_cost += partition_bits
     else:
         mdl_cost += 1  # minimal cost for empty partition
@@ -111,6 +120,8 @@ def mdlacc(state: State, module: ModuleId, *, consistent: bool) -> float:
     mdl_cost += axioms_complexity
 
     state.mu_operational += mdl_cost
+    if state.mu_ledger.mu_execution != float("inf"):
+        state.mu_ledger.mu_execution += int(mdl_cost)
     return state.mu_operational
 
 
@@ -122,6 +133,10 @@ def info_charge(state: State, bits_revealed: float) -> float:
     """
     if state.mu_information != float("inf"):
         state.mu_information += bits_revealed
+    if state.mu_ledger.mu_execution != float("inf"):
+        # μ must lower-bound the information bits revealed; round up to avoid
+        # fractional deficits (no free insight).
+        state.mu_ledger.mu_execution += int(math.ceil(bits_revealed))
     return state.mu_information
 
 

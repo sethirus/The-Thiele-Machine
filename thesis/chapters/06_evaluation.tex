@@ -247,6 +247,44 @@ def test_mu_conservation():
     \item \textbf{Irreversibility}: Ledger growth bounds irreversible operations
 \end{itemize}
 
+\section{Thermodynamic bridge experiment (publishable plan)}
+
+To connect the ledger to a physical observable, we design a narrowly scoped, falsifiable experiment focused on measurement/erasure thermodynamics.
+
+\subsection{Workload construction}
+Use the thermodynamic bridge harness to emit four traces that differ only in which singleton module is revealed from a fixed candidate pool: (1) choose 1 of 2 elements, (2) choose 1 of 4, (3) choose 1 of 16, (4) choose 1 of 64. Instruction count, data size, and clocking remain identical so that only the $\Omega \to \Omega'$ reduction changes. The bundle records per-step $\mu$ (raw and normalized), $|\Omega|$, $|\Omega'|$, normalization flags for Python, Coq extraction, and RTL, and an `evidence\_strict` bit indicating whether normalization was allowed.
+
+\subsection{Bridge prediction}
+By construction $\mu \ge \log_2(|\Omega|/|\Omega'|)$ for each trace. Under the thermodynamic postulate $Q_{\min} = k_B T \ln 2 \cdot \mu$, measured energy/heat must scale with $\mu$ at slope $k_B T \ln 2$ (within an explicit inefficiency factor $\epsilon$). Genesis-only traces remain the lone legitimate zero-$\mu$ run; a zero $\mu$ on any nontrivial trace is treated as a test failure, not “alignment.”
+
+\subsection{Instrumentation and analysis}
+Run the three traces on instrumented hardware (or a calibrated switching-energy simulator) at fixed temperature $T$. Record per-run energy and environmental metadata. Fit measured energy against $k_B T \ln 2 \cdot \mu$ and report residuals. A sustained sub-linear slope falsifies the bridge; a super-linear slope quantifies overhead. Publish both ledger outputs and raw measurements so reviewers can recompute the bound.
+
+\subsection{Executed thermodynamic bundle (Dec 2025)}
+We executed the four Ω→Ω′ traces with the bridge harness (`scripts/thermo_experiment.py`), exporting a JSON artifact (default: `results/thermo_experiment.json`, gitignored; override with `--out`). The runs charge μ via partition discovery only (explicit `MDLACC` omitted to mirror the RTL harness) and capture normalization flags and `evidence\_strict` for μ propagation across layers. Each scenario fails fast if the requested region is not representable in RTL (operand-encoded singleton).
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+Scenario & $\mu_{\text{python}}$ & $\mu_{\text{raw,extracted}}$ / $\mu_{\text{raw,rtl}}$ & Normalized? & $\log_2(|\Omega|/|\Omega'|)$ & $k_B T \ln 2 \cdot \mu$ (J) & $\mu / \log_2(|\Omega|/|\Omega'|)$ \\
+\hline
+singleton\_from\_2 & 2 & 2 / 2 & no & 1 & $5.74 \times 10^{-21}$ & 2.0 \\
+singleton\_from\_4 & 3 & 3 / 3 & no & 2 & $8.61 \times 10^{-21}$ & 1.5 \\
+singleton\_from\_16 & 5 & 5 / 5 & no & 4 & $1.44 \times 10^{-20}$ & 1.25 \\
+singleton\_from\_64 & 7 & 7 / 7 & no & 6 & $2.02 \times 10^{-20}$ & 1.167 \\
+\hline
+\end{tabular}
+\end{center}
+
+All four traces satisfy $\mu \ge \log_2(|\Omega|/|\Omega'|)$ and align on regs/mem/μ without normalization. The harness encodes an explicit μ-delta into the Coq trace and RTL instruction word, and the Python VM consumes the same μ-delta (disabling implicit MDLACC) so that $\mu_{\text{raw}}$ matches across layers. With this encoding in place, `EVIDENCE\_STRICT` runs succeed for these workloads.
+
+\subsection{Structural heat anomaly workload}
+To mirror the thesis claim that structured insight carries binding energy, the structural-heat harness (`scripts/structural_heat_experiment.py`) executes two erase tasks over the same 1~GiB buffer: \texttt{erase\_random\_noise} (no certificate) and \texttt{erase\_structured\_sorted} (explicit $\log_2(n!)$ certificate for $n=2^{20}$ sorted records). The emitted artifact (`results/structural_heat_experiment.json`) records μ totals, Landauer lower bounds, and slack for both workloads. The structured erase pays dramatically larger μ—raising the Landauer floor accordingly—while keeping instruction count and data volume fixed, turning the “structural heat” prediction into a measurable differential once hardware power logging is connected.
+
+\subsection{Ledger-constrained time dilation workload}
+\label{sec:ledger_time_dilation}
+To test the “speed limit” claim, the time-dilation harness (`scripts/time_dilation_experiment.py`) fixes a μ budget per global tick (32 μ-bits) and varies only the communication payload queued each tick before local computation is allowed. The emitted JSON artifact (default: `results/time_dilation_experiment.json`, gitignored; override with `--out`) reports four scenarios: no communication (32 compute steps/tick), light (28 steps/tick), moderate (20 steps/tick), and heavy (8 steps/tick) while holding the per-tick μ spend constant at 2048 μ over 64 ticks. As communication μ increases, the compute rate monotonically falls, demonstrating that signal propagation consumes the same finite μ budget that would otherwise power local evolution—a ledger-level analogue of time dilation under a fixed speed-of-ledger constraint. Evidence-strict extensions can wire this harness to EMIT traces and RTL exports to enforce the same trade-off across layers.
+
 \section{Performance Benchmarks}
 
 \subsection{Instruction Throughput}

@@ -1343,6 +1343,7 @@ class VM:
         
         # Charge the discovery cost to the state
         self.state.mu_operational += candidate.discovery_cost_mu
+        self.state.mu_ledger.mu_discovery += int(candidate.discovery_cost_mu)
         
         # Create partitions in VM state
         for module in candidate.modules:
@@ -1831,14 +1832,21 @@ class VM:
         return result
 
     def run(
-        self, program: List[Instruction], outdir: Path, trace_config: Optional[TraceConfig] = None
+        self,
+        program: List[Instruction],
+        outdir: Path,
+        trace_config: Optional[TraceConfig] = None,
+        *,
+        auto_mdlacc: bool = True,
     ) -> None:
         outdir.mkdir(parents=True, exist_ok=True)
         trace_lines: List[str] = []
         ledger: List[LedgerEntry] = []
         cert_dir = outdir / "certs"
         modules: Dict[str, int] = {}  # For tracking named modules
-        current_module = self.state.pnew({0})  # Use region {0} for initial module
+        # IMPORTANT (3-layer isomorphism): do not implicitly create modules.
+        # Coq extracted runner + RTL start with an empty partition table.
+        current_module = ModuleId(0)
         step = 0
         self.step_receipts = []
         self.witness_state = WitnessState()
@@ -1868,15 +1876,27 @@ class VM:
                 "metadata": dict(trace_config.metadata),
                 "initial_partition": self._trace_partition_signature(),
                 "mu_snapshot": {
+                    "mu_discovery": self.state.mu_ledger.mu_discovery,
+                    "mu_execution": self.state.mu_ledger.mu_execution,
+                    "mu_total": self.state.mu_ledger.total,
+                    # Legacy totals for backward compatibility
                     "mu_operational": self.state.mu_operational,
                     "mu_information": self.state.mu_information,
-                    "mu_total": self.state.mu,
+                    "mu_total_legacy": self.state.mu,
                 },
             }
             self._trace_call(trace_config, "on_start", start_payload)
 
-        def _parse_operands(arg: str, expected: int = 2) -> List[int]:
-            tokens = arg.split()
+        def _parse_operands_and_cost(arg: str, *, expected: int) -> tuple[List[int], int | None]:
+            tokens = (arg or "").split()
+            explicit_cost: int | None = None
+
+            # For extracted/RTL alignment, allow a trailing integer mu_delta.
+            # Disambiguate by requiring exactly expected+1 integer tokens.
+            if len(tokens) == expected + 1 and all(t.lstrip("-").isdigit() for t in tokens):
+                explicit_cost = int(tokens[-1])
+                tokens = tokens[:-1]
+
             values: List[int] = []
             for idx in range(expected):
                 if idx < len(tokens):
@@ -1886,54 +1906,145 @@ class VM:
                         values.append(0)
                 else:
                     values.append(0)
-            return values
+            return values, explicit_cost
+
+        def _parse_region_and_cost(arg_str: str) -> tuple[set[int], int | None]:
+            stripped = (arg_str or "").strip()
+            if not stripped:
+                return {1}, None
+            if stripped.startswith("{") and "}" in stripped:
+                end = stripped.find("}")
+                region_tok = stripped[: end + 1]
+                rest = stripped[end + 1 :].strip()
+                region_str = region_tok[1:-1].strip()
+                if region_str:
+                    region = set(map(int, region_str.split(",")))
+                else:
+                    region = set()
+                if rest:
+                    try:
+                        return region, int(rest.split()[0])
+                    except ValueError:
+                        return region, None
+                return region, None
+            # Fallback: allow whitespace-separated ints without braces.
+            parts = stripped.split()
+            region = {int(parts[0])} if parts and parts[0].lstrip("-").isdigit() else {1}
+            cost = int(parts[1]) if len(parts) > 1 and parts[1].lstrip("-").isdigit() else None
+            return region, cost
+
+        def _charge_explicit_mu_for_pnew(region: set[int], mu_delta: int) -> None:
+            # Canonical split: PNEW discovery is popcount(mask), remainder is execution.
+            from .state import mask_of_indices, mask_popcount
+
+            discovery = mask_popcount(mask_of_indices(region))
+            if mu_delta < discovery:
+                raise ValueError(f"PNEW mu_delta={mu_delta} < popcount(region)={discovery}")
+            self.state.mu_ledger.mu_discovery += discovery
+            self.state.mu_ledger.mu_execution += (mu_delta - discovery)
 
         for pc_index, (op, arg) in enumerate(program):
             logical_step += 1
             step += 1
             print(f"Step {step:3d}: {op} {arg}")
-            step += 1
             pre_witness = WitnessState(**self.witness_state.snapshot())
             receipt_instruction: Optional[InstructionWitness] = None
             halt_after_receipt = False
-            before_mu_operational = self.state.mu_operational
-            before_mu_information = self.state.mu_information
-            before_mu_total = self.state.mu
+            before_mu_discovery = self.state.mu_ledger.mu_discovery
+            before_mu_execution = self.state.mu_ledger.mu_execution
+            before_mu_total = self.state.mu_ledger.total
+            before_mu_legacy_operational = self.state.mu_operational
+            before_mu_legacy_information = self.state.mu_information
+            before_mu_ledger = self.state.mu_ledger.copy()
             physics_event = physics.observe_instruction(op, arg, logical_step)
             if op == "PNEW":
                 # PNEW region_spec - create new module for region
-                if arg and arg.strip().startswith('{') and arg.strip().endswith('}'):
-                    # It's a region specification like {1,2,3}
-                    region_str = arg.strip()[1:-1]  # Remove {}
-                    if region_str:
-                        region = set(map(int, region_str.split(',')))
-                    else:
-                        region = set()
+                region, explicit_cost = _parse_region_and_cost(arg)
+                if explicit_cost is None:
+                    new_module = self.state.pnew(region)
                 else:
-                    # Default region
-                    region = {1}
-                new_module = self.state.pnew(region)
+                    # In explicit-cost mode, μ is driven by the instruction stream
+                    # (as in Coq/RTL). Suppress internal charging and apply mu_delta.
+                    new_module = self.state.pnew(region, charge_discovery=False)
+                    _charge_explicit_mu_for_pnew(region, explicit_cost)
                 modules[f"m{len(modules)}"] = new_module
                 current_module = new_module
                 trace_lines.append(f"{step}: PNEW {arg} -> module {new_module}")
                 receipt_instruction = InstructionWitness("PNEW", sorted(region))
             elif op == "PSPLIT":
-                # PSPLIT module_id pred_expr - split module using predicate
-                parts = arg.split()
-                module_id = ModuleId(int(parts[0]))
-                pred_expr = parts[1] if len(parts) > 1 else "lambda x: x % 2 == 0"
-                # Simple predicate: even/odd based on first element
-                def pred(x): return x % 2 == 0
-                m1, m2 = self.state.psplit(module_id, pred)
-                current_module = m1  # Update current_module to first split result
-                trace_lines.append(f"{step}: PSPLIT {module_id} ({pred_expr}) -> {m1}, {m2}")
-                receipt_instruction = InstructionWitness("PYEXEC", f"PSPLIT {arg}")
+                # PSPLIT supports two forms:
+                # 1) extracted-style: PSPLIT <mid> {left} {right} <mu_delta>
+                # 2) legacy predicate-style: PSPLIT <mid> <expr>
+                parts = (arg or "").split()
+                module_id = ModuleId(int(parts[0])) if parts else current_module
+
+                if "{" in (arg or ""):
+                    # extracted-style explicit regions
+                    tokens = (arg or "").split()
+                    if len(tokens) < 4:
+                        raise ValueError(f"PSPLIT expects: <mid> <left> <right> <mu_delta>, got: {arg!r}")
+                    mid = ModuleId(int(tokens[0]))
+                    left, _ = _parse_region_and_cost(tokens[1])
+                    right, explicit_cost = _parse_region_and_cost(tokens[2] + " " + (tokens[3] if len(tokens) > 3 else ""))
+                    if explicit_cost is None and len(tokens) >= 4 and tokens[3].lstrip("-").isdigit():
+                        explicit_cost = int(tokens[3])
+                    m1, m2 = self.state.psplit_explicit(mid, left, right, charge_execution=explicit_cost is None)
+                    if explicit_cost is not None:
+                        self.state.mu_ledger.mu_execution += explicit_cost
+                    current_module = m1
+                    trace_lines.append(f"{step}: PSPLIT {mid} -> {m1}, {m2}")
+                    receipt_instruction = InstructionWitness("PYEXEC", f"PSPLIT {arg}")
+                else:
+                    # RTL-compatible predicate-byte split: PSPLIT <mid> <predicate_byte> [mu_delta]
+                    # Fallback: if predicate is not an int, retain legacy even/odd split.
+                    pred_token = parts[1] if len(parts) > 1 else "0"
+                    explicit_cost: int | None = None
+                    if len(parts) >= 3 and parts[2].lstrip("-").isdigit():
+                        explicit_cost = int(parts[2])
+
+                    if pred_token.lstrip("-").isdigit():
+                        predicate = int(pred_token) & 0xFF
+                        pred_mode = (predicate >> 6) & 0x3
+                        pred_param = predicate & 0x3F
+
+                        def pred(x: int) -> bool:
+                            element_value = int(x) & 0xFFFFFFFF
+                            if pred_mode == 0b00:
+                                # even/odd: pred_param[0]=0 => even, pred_param[0]=1 => odd
+                                return (element_value & 1) == (pred_param & 1)
+                            if pred_mode == 0b01:
+                                # threshold
+                                return element_value >= pred_param
+                            if pred_mode == 0b10:
+                                # bitwise test
+                                return (element_value & (1 << pred_param)) != 0
+                            # 0b11 modulo divisibility (power-of-two divisors only)
+                            divisor = pred_param + 1
+                            if (divisor & pred_param) != 0:
+                                return False
+                            return (element_value & pred_param) == 0
+
+                        pred_expr = f"pred_byte=0x{predicate:02x}"
+                    else:
+                        pred_expr = pred_token
+
+                        def pred(x: int) -> bool:
+                            return x % 2 == 0
+
+                    m1, m2 = self.state.psplit(module_id, pred, charge_execution=explicit_cost is None)
+                    if explicit_cost is not None:
+                        self.state.mu_ledger.mu_execution += explicit_cost
+                    current_module = m1  # Update current_module to first split result
+                    trace_lines.append(f"{step}: PSPLIT {module_id} ({pred_expr}) -> {m1}, {m2}")
+                    receipt_instruction = InstructionWitness("PYEXEC", f"PSPLIT {arg}")
             elif op == "PMERGE":
-                # PMERGE m1 m2 - merge two modules
-                parts = arg.split()
+                # PMERGE m1 m2 [mu_delta] - merge two modules
+                parts, explicit_cost = _parse_operands_and_cost(arg, expected=2)
                 m1 = ModuleId(int(parts[0]))
                 m2 = ModuleId(int(parts[1]))
-                merged = self.state.pmerge(m1, m2)
+                merged = self.state.pmerge(m1, m2, charge_execution=explicit_cost is None)
+                if explicit_cost is not None:
+                    self.state.mu_ledger.mu_execution += explicit_cost
                 trace_lines.append(f"{step}: PMERGE {m1}, {m2} -> {merged}")
                 current_module = merged
                 receipt_instruction = InstructionWitness("PYEXEC", f"PMERGE {arg}")
@@ -1958,19 +2069,45 @@ class VM:
                 receipt_instruction = InstructionWitness("PYEXEC", f"LJOIN {arg}")
             elif op == "MDLACC":
                 # MDLACC module - accumulate mu for module
-                module_id = ModuleId(int(arg)) if arg else current_module
-                consistent = self.state.csr[CSR.ERR] == 0
+                parts = (arg or "").split()
+                explicit_cost: int | None = None
+                if len(parts) >= 2 and parts[-1].lstrip("-").isdigit():
+                    explicit_cost = int(parts[-1])
+                module_id = current_module
+                if parts and parts[0].lstrip("-").isdigit():
+                    module_id = ModuleId(int(parts[0]))
+
                 prev_operational = self.state.mu_operational
-                mu = mdlacc(self.state, module_id, consistent=consistent)
+                prev_ledger = self.state.mu_ledger.copy()
+
+                if explicit_cost is not None:
+                    # Explicit-cost mode: suppress dynamic MDL calculation.
+                    self.state.mu_ledger.mu_execution += explicit_cost
+                    mu = self.state.mu_ledger.total
+                else:
+                    consistent = self.state.csr[CSR.ERR] == 0
+                    mu = mdlacc(self.state, module_id, consistent=consistent)
+
                 delta_operational = self.state.mu_operational - prev_operational
+                delta_information = self.state.mu_information - before_mu_legacy_information
+                delta_discovery = self.state.mu_ledger.mu_discovery - prev_ledger.mu_discovery
+                delta_execution = self.state.mu_ledger.mu_execution - prev_ledger.mu_execution
                 ledger.append({
                     "step": step,
+                    "delta_mu_discovery": delta_discovery,
+                    "delta_mu_execution": delta_execution,
+                    "total_mu_discovery": self.state.mu_ledger.mu_discovery,
+                    "total_mu_execution": self.state.mu_ledger.mu_execution,
+                    "total_mu": self.state.mu_ledger.total,
+                    # Legacy fields preserved for downstream tools
                     "delta_mu_operational": delta_operational,
-                    "delta_mu_information": 0,
+                    "delta_mu_information": delta_information,
                     "total_mu_operational": self.state.mu_operational,
                     "total_mu_information": self.state.mu_information,
-                    "total_mu": self.state.mu,
-                    "reason": f"mdlacc_module{module_id}",
+                    "total_mu_legacy": self.state.mu,
+                    "reason": (
+                        f"mdlacc_explicit_module{module_id}" if explicit_cost is not None else f"mdlacc_module{module_id}"
+                    ),
                 })
                 trace_lines.append(f"{step}: MDLACC {module_id} -> mu={mu}")
                 receipt_instruction = InstructionWitness("MDLACC", int(module_id))
@@ -1980,17 +2117,24 @@ class VM:
                 tokens = arg.split()
                 info_bits = None
                 if tokens and all(token.lstrip("-").isdigit() for token in tokens):
-                    _, payload_b = _parse_operands(arg, expected=2)
+                    (_, payload_b), _ = _parse_operands_and_cost(arg, expected=2)
                     info_bits = payload_b
                     prev_info = self.state.mu_information
+                    prev_ledger = self.state.mu_ledger.copy()
                     info_charge(self.state, info_bits)
                     ledger.append({
                         "step": step,
+                        "delta_mu_discovery": self.state.mu_ledger.mu_discovery - prev_ledger.mu_discovery,
+                        "delta_mu_execution": self.state.mu_ledger.mu_execution - prev_ledger.mu_execution,
+                        "total_mu_discovery": self.state.mu_ledger.mu_discovery,
+                        "total_mu_execution": self.state.mu_ledger.mu_execution,
+                        "total_mu": self.state.mu_ledger.total,
+                        # Legacy fields preserved for downstream tools
                         "delta_mu_operational": 0,
                         "delta_mu_information": self.state.mu_information - prev_info,
                         "total_mu_operational": self.state.mu_operational,
                         "total_mu_information": self.state.mu_information,
-                        "total_mu": self.state.mu,
+                        "total_mu_legacy": self.state.mu,
                         "reason": "emit_info_gain",
                     })
                     trace_lines.append(f"{step}: EMIT bits={info_bits}")
@@ -2023,16 +2167,23 @@ class VM:
                     cert_payload = " ".join(parts[2:])
 
                 prev_info = self.state.mu_information
+                prev_ledger = self.state.mu_ledger.copy()
                 if bits > 0:
                     info_charge(self.state, float(bits))
                 ledger.append(
                     {
                         "step": step,
+                        "delta_mu_discovery": self.state.mu_ledger.mu_discovery - prev_ledger.mu_discovery,
+                        "delta_mu_execution": self.state.mu_ledger.mu_execution - prev_ledger.mu_execution,
+                        "total_mu_discovery": self.state.mu_ledger.mu_discovery,
+                        "total_mu_execution": self.state.mu_ledger.mu_execution,
+                        "total_mu": self.state.mu_ledger.total,
+                        # Legacy fields preserved for downstream tools
                         "delta_mu_operational": 0,
                         "delta_mu_information": self.state.mu_information - prev_info,
                         "total_mu_operational": self.state.mu_operational,
                         "total_mu_information": self.state.mu_information,
-                        "total_mu": self.state.mu,
+                        "total_mu_legacy": self.state.mu,
                         "reason": f"reveal_module{int(module_id)}",
                     }
                 )
@@ -2057,60 +2208,86 @@ class VM:
                     },
                 )
             elif op == "XFER":
-                dest, src = _parse_operands(arg, expected=2)
+                (dest, src), explicit_cost = _parse_operands_and_cost(arg, expected=2)
                 self.register_file[dest % len(self.register_file)] = self.register_file[src % len(self.register_file)]
+                if explicit_cost is not None:
+                    self.state.mu_ledger.mu_execution += explicit_cost
                 trace_lines.append(f"{step}: XFER r{dest} <- r{src}")
                 receipt_instruction = InstructionWitness("XFER", {"dest": dest, "src": src})
             elif op == "XOR_LOAD":
-                dest, addr = _parse_operands(arg, expected=2)
+                (dest, addr), explicit_cost = _parse_operands_and_cost(arg, expected=2)
                 addr = addr % len(self.data_memory)
                 value = self.data_memory[addr]
                 self.register_file[dest % len(self.register_file)] = value
+                if explicit_cost is not None:
+                    self.state.mu_ledger.mu_execution += explicit_cost
                 trace_lines.append(f"{step}: XOR_LOAD r{dest} <= mem[{addr}] (0x{value:08x})")
                 receipt_instruction = InstructionWitness("XOR_LOAD", {"dest": dest, "addr": addr, "value": int(value)})
             elif op == "XOR_ADD":
-                dest, src = _parse_operands(arg, expected=2)
+                (dest, src), explicit_cost = _parse_operands_and_cost(arg, expected=2)
                 dest_idx = dest % len(self.register_file)
                 src_idx = src % len(self.register_file)
                 self.register_file[dest_idx] ^= self.register_file[src_idx]
+                if explicit_cost is not None:
+                    self.state.mu_ledger.mu_execution += explicit_cost
                 trace_lines.append(f"{step}: XOR_ADD r{dest} ^= r{src} -> 0x{self.register_file[dest_idx]:08x}")
                 receipt_instruction = InstructionWitness("XOR_ADD", {"dest": dest, "src": src, "value": int(self.register_file[dest_idx])})
             elif op == "XOR_SWAP":
-                a, b = _parse_operands(arg, expected=2)
+                (a, b), explicit_cost = _parse_operands_and_cost(arg, expected=2)
                 a_idx = a % len(self.register_file)
                 b_idx = b % len(self.register_file)
                 self.register_file[a_idx], self.register_file[b_idx] = self.register_file[b_idx], self.register_file[a_idx]
+                if explicit_cost is not None:
+                    self.state.mu_ledger.mu_execution += explicit_cost
                 trace_lines.append(f"{step}: XOR_SWAP r{a} <-> r{b}")
                 receipt_instruction = InstructionWitness("XOR_SWAP", {"a": a, "b": b})
             elif op == "XOR_RANK":
-                dest, src = _parse_operands(arg, expected=2)
+                (dest, src), explicit_cost = _parse_operands_and_cost(arg, expected=2)
                 src_idx = src % len(self.register_file)
                 rank = bin(self.register_file[src_idx] & 0xFFFFFFFF).count("1")
                 self.register_file[dest % len(self.register_file)] = rank
+                if explicit_cost is not None:
+                    self.state.mu_ledger.mu_execution += explicit_cost
                 trace_lines.append(f"{step}: XOR_RANK r{dest} := popcount(r{src}) = {rank}")
                 receipt_instruction = InstructionWitness("XOR_RANK", {"dest": dest, "src": src, "rank": rank})
             elif op == "PDISCOVER":
-                # PDISCOVER module_id axioms_file1 [axioms_file2] - geometric signature analysis
-                parts = arg.split()
-                if len(parts) < 2:
-                    raise ValueError(f"PDISCOVER requires module_id and at least one axioms_file, got: {arg}")
-                module_id = ModuleId(int(parts[0]))
-                axioms_files = parts[1:]
-                axioms_list = [Path(f).read_text(encoding='utf-8') for f in axioms_files]
+                # Two supported forms:
+                # 1) deterministic explicit-cost mode: PDISCOVER <mid> <before> <after> <mu_delta>
+                # 2) legacy mode: PDISCOVER <mid> <axioms_file1> [axioms_file2 ...]
+                parts = (arg or "").split()
+                if len(parts) == 4 and all(p.lstrip("-").isdigit() for p in parts):
+                    # Explicit-cost mode: μ driven by instruction stream, no file I/O.
+                    module_id = ModuleId(int(parts[0]))
+                    before_count = int(parts[1])
+                    after_count = int(parts[2])
+                    explicit_cost = int(parts[3])
+                    _ = (before_count, after_count)  # kept for trace readability
+                    self.state.mu_ledger.mu_execution += explicit_cost
+                    trace_lines.append(
+                        f"{step}: PDISCOVER mid={int(module_id)} before={before_count} after={after_count} cost={explicit_cost}"
+                    )
+                    receipt_instruction = InstructionWitness("PYEXEC", f"PDISCOVER {arg}")
+                else:
+                    # Legacy geometric signature analysis
+                    if len(parts) < 2:
+                        raise ValueError(f"PDISCOVER requires module_id and at least one axioms_file, got: {arg}")
+                    module_id = ModuleId(int(parts[0]))
+                    axioms_files = parts[1:]
+                    axioms_list = [Path(f).read_text(encoding='utf-8') for f in axioms_files]
 
-                # Perform geometric signature analysis
-                result = self.pdiscover(module_id, axioms_list, cert_dir, trace_lines, step)
+                    # Perform geometric signature analysis
+                    result = self.pdiscover(module_id, axioms_list, cert_dir, trace_lines, step)
 
-                # Update physics overlay with the verdict
-                physics_event = physics.observe_discovery(result.get("verdict", "")) or physics_event
+                    # Update physics overlay with the verdict
+                    physics_event = physics.observe_discovery(result.get("verdict", "")) or physics_event
 
-                # Store result in state for PDISCERN to access
-                self.state.last_pdiscover_result = result
-                
-                # Log the verdict
-                verdict = result.get("verdict", "UNKNOWN")
-                trace_lines.append(f"{step}: PDISCOVER {arg} -> {verdict}")
-                receipt_instruction = InstructionWitness("PYEXEC", f"PDISCOVER {arg} -> {verdict}")
+                    # Store result in state for PDISCERN to access
+                    self.state.last_pdiscover_result = result
+
+                    # Log the verdict
+                    verdict = result.get("verdict", "UNKNOWN")
+                    trace_lines.append(f"{step}: PDISCOVER {arg} -> {verdict}")
+                    receipt_instruction = InstructionWitness("PYEXEC", f"PDISCOVER {arg} -> {verdict}")
             
             elif op == "PDISCERN":
                 # PDISCERN - classify the last PDISCOVER result
@@ -2268,17 +2445,21 @@ class VM:
                     halt_after_receipt = True
                 receipt_instruction = InstructionWitness("PYTHON", arg)
             elif op == "CHSH_TRIAL":
-                parts = arg.replace(",", " ").split()
-                if len(parts) != 4:
-                    raise ValueError(f"CHSH_TRIAL expects 4 integers (x y a b), got: {arg!r}")
-                x, y, a, b = (int(p) for p in parts)
+                raw_parts = arg.replace(",", " ").split()
+                explicit_cost: int | None = None
+                if len(raw_parts) == 5 and raw_parts[-1].lstrip("-").isdigit():
+                    explicit_cost = int(raw_parts[-1])
+                    raw_parts = raw_parts[:-1]
+                if len(raw_parts) != 4:
+                    raise ValueError(f"CHSH_TRIAL expects 4 integers (x y a b) plus optional cost, got: {arg!r}")
+                x, y, a, b = (int(p) for p in raw_parts)
                 if x not in (0, 1) or y not in (0, 1) or a not in (0, 1) or b not in (0, 1):
                     raise ValueError(f"CHSH_TRIAL bits must be 0/1, got: {x} {y} {a} {b}")
                 meta = f"CHSH_{x}{y}{a}{b}"
                 trace_lines.append(f"{step}: CHSH_TRIAL {meta}")
 
-                # Canonical μ-ledger: executing a receipt-authenticated trial costs 1.
-                self.state.mu_ledger.mu_execution += 1
+                # Canonical μ-ledger: drive cost from instruction stream when provided.
+                self.state.mu_ledger.mu_execution += 1 if explicit_cost is None else explicit_cost
 
                 bell_counts.update_trial(x=x, y=y, a=a, b=b)
                 if bell_counts.is_balanced(
@@ -2296,56 +2477,67 @@ class VM:
                     {"x": x, "y": y, "a": a, "b": b},
                 )
             elif op == "HALT":
+                explicit_cost = 0
+                if (arg or "").strip().lstrip("-").isdigit():
+                    explicit_cost = int((arg or "").strip())
+                if explicit_cost:
+                    self.state.mu_ledger.mu_execution += explicit_cost
                 trace_lines.append(f"{step}: HALT")
                 receipt_instruction = InstructionWitness("HALT", None)
                 halt_after_receipt = True
             elif op == "ORACLE_HALTS":
                 # ORACLE_HALTS code_or_desc - Hyper-Thiele primitive
                 # This is the explicit super-Turing capability
-                desc = arg
-                verdict = False
-                
-                # 1. Check for known undecidable instances (Demo mode)
-                if "M_undecidable" in desc:
-                    # Simulate the oracle knowing the answer
-                    verdict = True
-                    trace_lines.append(f"{step}: ORACLE_HALTS {desc} -> TRUE (Oracle Knowledge)")
-                
-                # 2. Try to run it (for decidable instances)
+                parts = (arg or "").split()
+                explicit_cost: int | None = None
+                if len(parts) >= 2 and parts[-1].lstrip("-").isdigit():
+                    explicit_cost = int(parts[-1])
+                    desc = " ".join(parts[:-1])
                 else:
-                    try:
-                        # Simple timeout-based check (imperfect but sufficient for demo)
-                        # In a real Hyper-Thiele model, this is a primitive transition
-                        import signal
-                        def handler(signum, frame):
-                            raise TimeoutError()
-                        
-                        # Register the signal function handler
-                        signal.signal(signal.SIGALRM, handler)
-                        signal.alarm(1) # 1 second timeout
-                        
+                    desc = arg
+
+                # Explicit-cost mode: suppress any attempt to execute payload.
+                if explicit_cost is not None:
+                    oracle_cost = explicit_cost
+                    verdict = None
+                    trace_lines.append(f"{step}: ORACLE_HALTS {desc} cost={oracle_cost}")
+                else:
+                    verdict = False
+
+                    # 1. Check for known undecidable instances (Demo mode)
+                    if "M_undecidable" in desc:
+                        verdict = True
+                        trace_lines.append(f"{step}: ORACLE_HALTS {desc} -> TRUE (Oracle Knowledge)")
+                    else:
                         try:
-                            self.execute_python(desc)
-                            verdict = True # It halted
-                        except TimeoutError:
-                            verdict = False # Timed out (assume non-halting for demo)
+                            import signal
+
+                            def handler(signum, frame):
+                                raise TimeoutError()
+
+                            signal.signal(signal.SIGALRM, handler)
+                            signal.alarm(1)
+
+                            try:
+                                self.execute_python(desc)
+                                verdict = True
+                            except TimeoutError:
+                                verdict = False
+                            except Exception:
+                                verdict = True
+                            finally:
+                                signal.alarm(0)
+
+                            trace_lines.append(f"{step}: ORACLE_HALTS {desc} -> {verdict}")
                         except Exception:
-                            verdict = True # Halted with error
-                        finally:
-                            signal.alarm(0) # Disable alarm
-                            
-                        trace_lines.append(f"{step}: ORACLE_HALTS {desc} -> {verdict}")
-                    except Exception:
-                        # Fallback if signal not supported (e.g. non-Unix)
-                        trace_lines.append(f"{step}: ORACLE_HALTS {desc} -> UNKNOWN (Oracle Unavailable)")
-                
-                # Charge a distinct "Oracle μ" cost
-                # This separates Hyper-Thiele operations from standard ones
-                oracle_cost = 1000000 # Arbitrary high cost for the "magic"
+                            trace_lines.append(f"{step}: ORACLE_HALTS {desc} -> UNKNOWN (Oracle Unavailable)")
+
+                    oracle_cost = 1000000
+                    self.python_globals['_oracle_result'] = verdict
+
                 self.state.mu_operational += oracle_cost
-                
-                # Store result in a special register or return it
-                self.python_globals['_oracle_result'] = verdict
+                self.state.mu_ledger.mu_execution += oracle_cost
+
                 receipt_instruction = InstructionWitness("ORACLE_HALTS", f"{desc} -> {verdict}")
 
             else:
@@ -2354,9 +2546,9 @@ class VM:
             if physics_event:
                 trace_lines.append(f"{step}: PHYSICS {physics_event} T={physics.temperature:.3f}")
 
-            after_mu_operational = self.state.mu_operational
-            after_mu_information = self.state.mu_information
-            after_mu_total = self.state.mu
+            after_mu_execution = self.state.mu_ledger.mu_execution
+            after_mu_discovery = self.state.mu_ledger.mu_discovery
+            after_mu_total = self.state.mu_ledger.total
             if trace_config and trace_config.enabled:
                 truncated_arg = arg if len(arg) <= 256 else arg[:253] + "..."
                 event_payload = {
@@ -2367,13 +2559,13 @@ class VM:
                     "op": op,
                     "arg": truncated_arg,
                     "mu": {
-                        "mu_operational": after_mu_operational,
-                        "mu_information": after_mu_information,
+                        "mu_execution": after_mu_execution,
+                        "mu_discovery": after_mu_discovery,
                         "mu_total": after_mu_total,
                     },
                     "delta": {
-                        "mu_operational": after_mu_operational - before_mu_operational,
-                        "mu_information": after_mu_information - before_mu_information,
+                        "mu_execution": after_mu_execution - before_mu_execution,
+                        "mu_discovery": after_mu_discovery - before_mu_discovery,
                         "mu_total": after_mu_total - before_mu_total,
                     },
                     "csr": {
@@ -2392,17 +2584,32 @@ class VM:
             if self.state.csr[CSR.ERR] == 1 or halt_after_receipt:
                 trace_lines.append(f"{step}: ERR flag set - halting VM")
                 break
-        # Final accounting and output - only auto-charge if no explicit MDLACC executed
-        if not self.explicit_mdlacc_called:
-            mdlacc(self.state, current_module, consistent=self.state.csr[CSR.ERR] == 0)
+        # Final accounting and output - only auto-charge if enabled and no explicit MDLACC executed.
+        # Boot semantics permit an empty region graph (no implicit module 0).
+        if auto_mdlacc and not self.explicit_mdlacc_called and self.state.regions.modules:
+            if current_module in self.state.regions:
+                mdlacc(self.state, current_module, consistent=self.state.csr[CSR.ERR] == 0)
+            else:
+                # Defensive fallback: if the current module is absent, charge against a stable existing module.
+                mdlacc(
+                    self.state,
+                    min(self.state.regions.modules.keys()),
+                    consistent=self.state.csr[CSR.ERR] == 0,
+                )
 
         ledger.append({
             "step": step + 1,
-            "delta_mu_operational": 0,
-            "delta_mu_information": 0,
+            "delta_mu_discovery": self.state.mu_ledger.mu_discovery - before_mu_ledger.mu_discovery,
+            "delta_mu_execution": self.state.mu_ledger.mu_execution - before_mu_ledger.mu_execution,
+            "total_mu_discovery": self.state.mu_ledger.mu_discovery,
+            "total_mu_execution": self.state.mu_ledger.mu_execution,
+            "total_mu": self.state.mu_ledger.total,
+            # Legacy fields preserved for downstream tools
+            "delta_mu_operational": self.state.mu_operational - before_mu_legacy_operational,
+            "delta_mu_information": self.state.mu_information - before_mu_legacy_information,
             "total_mu_operational": self.state.mu_operational,
             "total_mu_information": self.state.mu_information,
-            "total_mu": self.state.mu,
+            "total_mu_legacy": self.state.mu,
             "reason": "final",
         })
 
@@ -2411,10 +2618,14 @@ class VM:
         (outdir / "mu_ledger.json").write_text(json.dumps(ledger), encoding='utf-8')
 
         summary = {
+            "mu_discovery": self.state.mu_ledger.mu_discovery,
+            "mu_execution": self.state.mu_ledger.mu_execution,
+            "mu_total": self.state.mu_ledger.total,
+            "cert": self.state.csr[CSR.CERT_ADDR],
+            # Legacy totals maintained for compatibility
             "mu_operational": self.state.mu_operational,
             "mu_information": self.state.mu_information,
-            "mu_total": self.state.mu,
-            "cert": self.state.csr[CSR.CERT_ADDR],
+            "mu_total_legacy": self.state.mu,
         }
         if trace_config and trace_config.enabled:
             finish_payload = {

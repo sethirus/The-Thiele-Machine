@@ -68,6 +68,15 @@ Theorem kernel_noether_mu_gauge : forall s k,
 
 The symmetry (freedom to shift $\mu$ by a constant) corresponds to the conserved quantity (partition structure). This is not metaphorical—it is the same mathematical relationship that underlies energy conservation in classical mechanics.
 
+\subsection{Thermodynamic bridge and falsifiable prediction}
+
+The bridge from a formally verified $\mu$-ledger to a physical claim requires an explicit translation dictionary and at least one measurement that could prove the bridge wrong.
+
+\paragraph{Translation dictionary.} Let $|\Omega|$ be the admissible microstate count of an $n$-bit device ($|\Omega| = 2^n$ at fixed resolution). A revelation step $\Omega \to \Omega'$ (e.g., \texttt{PNEW}, \texttt{PSPLIT}, \texttt{MDLACC}, \texttt{REVEAL}) shrinks the space by $|\Omega|/|\Omega'|$. The normalized certificate bitlength charged by the kernel is the canonical $\mu$ debit, and by construction $\mu \ge \log_2(|\Omega|/|\Omega'|)$. We adopt the bridge postulate that charging $\mu$ bits lower-bounds dissipated heat/work: $Q_{\min} = k_B T \ln 2 \cdot \mu$, with an explicit inefficiency factor $\epsilon \ge 1$ for real devices.
+
+\paragraph{Bridge theorem (sanity anchor).} Combining No Free Insight (proved: $\mu$ is monotone non-decreasing) with the postulate above yields a Landauer-style inequality: any trace implementing $\Omega \to \Omega'$ must dissipate at least $k_B T \ln 2 \cdot \log_2(|\Omega|/|\Omega'|)$, because the ledger charges at least that many bits for the reduction. The thermodynamic term is an assumption; the $\mu$ inequality is proved in Coq (see `kernel/MuLedgerConservation.v`).
+\paragraph{Falsifiable prediction.} Consider four paired workloads that differ only in which singleton module is revealed from a fixed pool (sizes 2, 4, 16, 64). The measured energy/heat must scale with $\mu$ at slope $k_B T \ln 2$ (within the stated $\epsilon$). A sustained sub-linear slope falsifies the bridge; a super-linear slope quantifies implementation overhead. Genesis-only traces remain the lone zero-$\mu$ case.
+\paragraph{Executed bridge runs.} The harness in Chapter 6 generated a JSON artifact for the four workloads (singleton pools of 2/4/16/64 elements; default: `results/thermo_experiment.json`, gitignored; override with `--out`). Python reports $\mu=\{2,3,5,7\}$; the extracted runner and RTL now report the same $\mu_{\text{raw}}$ because the μ-delta is explicitly encoded in the Coq trace and RTL instruction word, and the Python VM consumes that same μ-delta (disabling implicit MDLACC) for these workloads. With this encoding in place, `EVIDENCE\_STRICT` succeeds without normalization. The ledger still enforces $\mu \ge \log_2(|\Omega|/|\Omega'|)$ for each run; the $\mu/\log_2$ ratios (2.0, 1.5, 1.25, 1.167) quantify the slack now surfaced to reviewers.
 \subsection{The Physics-Computation Isomorphism}
 
 \begin{center}
@@ -84,6 +93,8 @@ Gauge symmetry & $\mu$-gauge invariance \\
 \hline
 \end{tabular}
 \end{center}
+
+The new time-dilation harness (Section~\ref{sec:ledger_time_dilation}) makes the ledger-speed connection concrete: with a fixed μ budget per tick, diverting μ to communication throttles the observed compute rate, matching the intuition that “mass/structure slows time” when μ is conserved. Evidence-strict extensions will carry the same trade-off across Python, extraction, and RTL once EMIT traces are instrumented.
 
 \section{Implications for Computational Complexity}
 

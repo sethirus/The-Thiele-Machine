@@ -250,7 +250,9 @@ initial begin
             $finish;
         end
         begin
-            wait (pc == 32'h28); // Wait for PC to reach HALT address
+            // Stop when the CPU is executing the HALT opcode.
+            // This allows external +PROGRAM hex files of arbitrary length.
+            wait (dut.state == 4'h2 && dut.opcode == OPCODE_HALT);
             #10; // Small delay
             // Check results
             $display("Test completed!");

@@ -7,6 +7,9 @@
         PNEW   {0,1,2} <cost>
         PSPLIT <mid> {0,2} {1,3} <cost>
         PMERGE <m1> <m2> <cost>
+        MDLACC <mid> <cost>
+        PDISCOVER <mid> {axiom1,axiom2,...} <cost>
+        ORACLE_HALTS <payload_token> <cost>
         HALT   <cost>
 
   Output: a single JSON object on stdout describing the final vMState.
@@ -43,6 +46,9 @@ let split_ws (s : string) : string list =
 let safe_int (s : string) : int =
   try int_of_string s with _ -> failwith ("invalid int: " ^ s)
 
+let char_list_of_string (s : string) : char list =
+  List.init (String.length s) (String.get s)
+
 let parse_region (tok : string) : int list =
   let t = trim tok in
   let len = String.length t in
@@ -56,6 +62,19 @@ let parse_region (tok : string) : int list =
     |> List.map trim
     |> List.filter (fun x -> x <> "")
     |> List.map safe_int
+
+let parse_brace_list (tok : string) : string list =
+  let t = trim tok in
+  let len = String.length t in
+  if len < 2 || t.[0] <> '{' || t.[len - 1] <> '}' then
+    failwith ("invalid list token (expected {...}): " ^ tok);
+  let inner = String.sub t 1 (len - 2) |> trim in
+  if inner = "" then []
+  else
+    inner
+    |> String.split_on_char ','
+    |> List.map trim
+    |> List.filter (fun x -> x <> "")
 
 let json_escape (s : string) : string =
   (* Minimal JSON string escape; we only really need quotes/backslashes here. *)
@@ -146,6 +165,14 @@ let parse_program (lines : string list) : int * int list * int list * VMStep.vm_
                  safe_int cost ))
       | [ "PMERGE"; m1; m2; cost ] ->
           Some (VMStep.Coq_instr_pmerge (safe_int m1, safe_int m2, safe_int cost))
+      | [ "MDLACC"; mid; cost ] ->
+          Some (VMStep.Coq_instr_mdlacc (safe_int mid, safe_int cost))
+      | [ "PDISCOVER"; mid; evidence_tok; cost ] ->
+          let evidence =
+            parse_brace_list evidence_tok
+            |> List.map char_list_of_string
+          in
+          Some (VMStep.Coq_instr_pdiscover (safe_int mid, evidence, safe_int cost))
       | [ "XFER"; dst; src; cost ] ->
         Some (VMStep.Coq_instr_xfer (safe_int dst, safe_int src, safe_int cost))
       | [ "XOR_LOAD"; dst; addr; cost ] ->
@@ -164,6 +191,8 @@ let parse_program (lines : string list) : int * int list * int list * VMStep.vm_
                safe_int a,
                safe_int b,
                safe_int cost ))
+      | [ "ORACLE_HALTS"; payload; cost ] ->
+        Some (VMStep.Coq_instr_oracle_halts (char_list_of_string payload, safe_int cost))
       | [ "HALT"; cost ] -> Some (VMStep.Coq_instr_halt (safe_int cost))
       | _ -> failwith ("unrecognized instruction line: " ^ t)
   in
@@ -174,7 +203,7 @@ let parse_program (lines : string list) : int * int list * int list * VMStep.vm_
 
 let initial_state () : vMState =
   {
-    vm_graph = { pg_next_id = 0; pg_modules = [] };
+    vm_graph = { pg_next_id = 1; pg_modules = [] };
     vm_csrs = { csr_cert_addr = 0; csr_status = 0; csr_err = 0 };
     vm_regs = List.init 32 (fun _ -> 0);
     vm_mem = List.init 256 (fun _ -> 0);
