@@ -98,6 +98,9 @@ reg [31:0] csr_error;
 // μ-bit accumulator (Q16.16 format)
 reg [31:0] mu_accumulator;
 
+// Temporary register for deterministic μ updates in multi-step ops.
+reg [31:0] pdiscover_mu_next;
+
 // μ-ALU interface wires
 wire [31:0] mu_alu_result;
 wire mu_alu_ready;
@@ -165,6 +168,8 @@ localparam [3:0] STATE_COMPLETE = 4'h6;
 localparam [3:0] STATE_ALU_WAIT = 4'h7;        // Wait for μ-ALU operation
 localparam [3:0] STATE_ALU_WAIT2 = 4'h8;       // Second ALU wait (for pdiscover)
 localparam [3:0] STATE_RECEIPT_HOLD = 4'h9;    // Hold receipt valid for one cycle
+localparam [3:0] STATE_PDISCOVER_LAUNCH2 = 4'hA;   // Launch second μ-ALU op for PDISCOVER
+localparam [3:0] STATE_PDISCOVER_ARM2 = 4'hB;      // Extra arm cycle before WAIT2 samples μ-ALU
 
 // Context values for ALU operations
 localparam [7:0] ALU_CTX_MDLACC = 8'h01;
@@ -274,12 +279,16 @@ always @(posedge clk or negedge rst_n) begin
 
                     OPCODE_LASSERT: begin
                         // Logic assertion
+                        // Coq semantics: vm_mu := s.vm_mu + instruction_cost
+                        mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
                         state <= STATE_LOGIC;
                     end
 
                     OPCODE_LJOIN: begin
                         // Join certificates
                         execute_ljoin(operand_a, operand_b);
+                        // Coq semantics: vm_mu := s.vm_mu + instruction_cost
+                        mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
                         pc_reg <= pc_reg + 4;
                         state <= STATE_FETCH;
                     end
@@ -287,6 +296,8 @@ always @(posedge clk or negedge rst_n) begin
                     OPCODE_EMIT: begin
                         // Emit value
                         execute_emit(operand_a, operand_b);
+                        // Coq semantics: vm_mu := s.vm_mu + instruction_cost
+                        mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
                         pc_reg <= pc_reg + 4;
                         state <= STATE_FETCH;
                     end
@@ -294,12 +305,16 @@ always @(posedge clk or negedge rst_n) begin
                     OPCODE_XFER: begin
                         // Transfer data
                         execute_xfer(operand_a, operand_b);
+                        // Coq semantics: vm_mu := s.vm_mu + instruction_cost
+                        mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
                         pc_reg <= pc_reg + 4;
                         state <= STATE_FETCH;
                     end
 
                     OPCODE_PYEXEC: begin
                         // Execute Python code
+                        // Coq semantics: vm_mu := s.vm_mu + instruction_cost
+                        mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
                         state <= STATE_PYTHON;
                     end
 
@@ -313,6 +328,8 @@ always @(posedge clk or negedge rst_n) begin
                         if ((operand_a[7:2] != 6'b0) || (operand_b[7:2] != 6'b0)) begin
                             csr_error <= 32'h1;
                         end
+                        // Coq semantics: vm_mu := s.vm_mu + instruction_cost
+                        mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
                         pc_reg <= pc_reg + 4;
                         state <= STATE_FETCH;
                     end
@@ -338,6 +355,8 @@ always @(posedge clk or negedge rst_n) begin
                     OPCODE_XOR_LOAD: begin
                         // Load XOR matrix row
                         execute_xor_load(operand_a, operand_b);
+                        // Coq semantics: vm_mu := s.vm_mu + instruction_cost
+                        mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
                         pc_reg <= pc_reg + 4;
                         state <= STATE_FETCH;
                     end
@@ -345,6 +364,8 @@ always @(posedge clk or negedge rst_n) begin
                     OPCODE_XOR_ADD: begin
                         // Add rows in XOR matrix
                         execute_xor_add(operand_a, operand_b);
+                        // Coq semantics: vm_mu := s.vm_mu + instruction_cost
+                        mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
                         pc_reg <= pc_reg + 4;
                         state <= STATE_FETCH;
                     end
@@ -352,6 +373,8 @@ always @(posedge clk or negedge rst_n) begin
                     OPCODE_XOR_SWAP: begin
                         // Swap rows in XOR matrix
                         execute_xor_swap(operand_a, operand_b);
+                        // Coq semantics: vm_mu := s.vm_mu + instruction_cost
+                        mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
                         pc_reg <= pc_reg + 4;
                         state <= STATE_FETCH;
                     end
@@ -359,6 +382,8 @@ always @(posedge clk or negedge rst_n) begin
                     OPCODE_XOR_RANK: begin
                         // Compute rank of XOR matrix
                         execute_xor_rank(operand_a, operand_b);
+                        // Coq semantics: vm_mu := s.vm_mu + instruction_cost
+                        mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
                         pc_reg <= pc_reg + 4;
                         state <= STATE_FETCH;
                     end
@@ -376,6 +401,8 @@ always @(posedge clk or negedge rst_n) begin
                         // Note: RTL formerly auto-charged MDL here, but this contaminates mu_accumulator
                         // with ALU results. For 3-way isomorphism, HALT must be pure.
                         // If MDL charging is needed, use explicit MDLACC before HALT.
+                        // Coq semantics: vm_mu := s.vm_mu + instruction_cost
+                        mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
                         pc_reg <= pc_reg + 4;
                         state <= STATE_FETCH;
                     end
@@ -443,13 +470,20 @@ always @(posedge clk or negedge rst_n) begin
                             end else begin
                                 info_gain_value <= mu_alu_result;
 
-                                // Set up second ALU operation (accumulate info gain)
-                                mu_alu_op <= 3'd0;  // ADD
-                                mu_alu_operand_a <= mu_accumulator;
-                                mu_alu_operand_b <= mu_alu_result;
-                                mu_alu_valid <= 1'b1;
-                                alu_context <= ALU_CTX_PDISCOVER2;
-                                state <= STATE_ALU_WAIT2;
+                                // Accumulate info gain directly. The μ-ALU result is already
+                                // in Q16.16; a second μ-ALU transaction here is fragile under
+                                // registered ready/result timing and can consume stale values.
+                                pdiscover_mu_next = mu_accumulator + mu_alu_result;
+                                $display("PDISCOVER info_gain=%0d mu_acc(before)=%0d mu_acc(after)=%0d",
+                                        mu_alu_result >> 16, mu_accumulator >> 16, pdiscover_mu_next >> 16);
+                                mu_accumulator <= pdiscover_mu_next;
+                                csr_status <= 32'h6; // Discovery successful
+                                partition_ops_counter <= partition_ops_counter + 1;
+
+                                // Provide receipt to μ-Core and transition to hold state
+                                receipt_value <= pdiscover_mu_next;
+                                receipt_valid <= 1'b1;
+                                state <= STATE_RECEIPT_HOLD;
                             end
                         end
 
@@ -471,6 +505,22 @@ always @(posedge clk or negedge rst_n) begin
                         end
                     endcase
                 end
+            end
+
+            STATE_PDISCOVER_LAUNCH2: begin
+                // Second-stage PDISCOVER: accumulate the previously computed info gain.
+                mu_alu_op <= 3'd0;  // ADD
+                mu_alu_operand_a <= mu_accumulator;
+                mu_alu_operand_b <= info_gain_value;
+                mu_alu_valid <= 1'b1;
+                alu_context <= ALU_CTX_PDISCOVER2;
+                // Give μ-ALU enough cycles that WAIT2 doesn't consume the
+                // previous operation's registered outputs.
+                state <= STATE_PDISCOVER_ARM2;
+            end
+
+            STATE_PDISCOVER_ARM2: begin
+                state <= STATE_ALU_WAIT2;
             end
 
             STATE_ALU_WAIT2: begin
@@ -615,6 +665,11 @@ task execute_psplit;
 
             module_table[next_module_id] <= even_count;
             module_table[next_module_id + 1] <= odd_count;
+
+            // Coq semantics: graph_psplit replaces module_id with the two new
+            // modules; the parent must be removed (no "zombie parent").
+            module_table[module_id] <= 32'h0;
+
             next_module_id <= next_module_id + 2;
 
             csr_status <= 32'h2; // Split successful
@@ -699,14 +754,11 @@ task execute_mdlacc;
                         max_element = region_table[module_id][k];
                     end
                 end
-                // TODO SYNTHESIS: $clog2 with runtime values is not synthesizable
-                // For hardware synthesis, this needs to be replaced with:
-                // 1. A lookup table, OR
-                // 2. A sequential bit-counting circuit, OR
-                // 3. A leading-zero counter
-                // Use clz8 helper to compute ceil(log2(max_element + 1)) in a synthesizable way.
-                clz8_in = max_element + 1;
-                bit_length = clz8_out;
+                // Compute ceil(log2(max_element + 1)) deterministically.
+                // NOTE: Do not depend on combinational clz8_out in the same
+                // procedural block after assigning clz8_in; that introduces
+                // delta-cycle ordering issues and can produce 'x' in simulation.
+                bit_length = ceil_log2_8(max_element + 1);
                 // Convert to Q16.16: mdl_cost = (bit_length * module_size) << 16
                 mdl_cost = (bit_length * module_size) << 16;
             end else begin
@@ -890,6 +942,22 @@ mu_core mu_core_inst (
 wire [3:0] clz8_out;
 reg [7:0] clz8_in;
 clz8 clz8_inst (.x(clz8_in), .out(clz8_out));
+
+// Deterministic helper for ceil(log2(x)) on small positive integers.
+function automatic integer ceil_log2_8;
+    input integer x;
+    begin
+        if (x <= 0) ceil_log2_8 = 1;
+        else if (x <= 2) ceil_log2_8 = 1;
+        else if (x <= 4) ceil_log2_8 = 2;
+        else if (x <= 8) ceil_log2_8 = 3;
+        else if (x <= 16) ceil_log2_8 = 4;
+        else if (x <= 32) ceil_log2_8 = 5;
+        else if (x <= 64) ceil_log2_8 = 6;
+        else if (x <= 128) ceil_log2_8 = 7;
+        else ceil_log2_8 = 8;
+    end
+endfunction
 
 // Logic engine interface
 assign logic_req = (state == STATE_LOGIC);
