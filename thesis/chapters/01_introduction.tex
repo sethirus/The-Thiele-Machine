@@ -2,24 +2,28 @@
 
 \subsection{For the Newcomer}
 
-This thesis presents the \textit{Thiele Machine}---a new model of computation that treats \textbf{structural information as a costly resource}.
+I, Devon Thiele, present the \textit{Thiele Machine}---a new model of computation that treats \textbf{structural information as a costly resource}.
+
+For clarity, I will use the term \textbf{structure} to mean \textit{explicit, checkable constraints about how parts of a computational state relate}. Formally, a piece of structure is a predicate over a subset of state variables (or a partition of state) that can be verified by a logic engine or certificate checker. Examples include: a memory region forming a balanced search tree, a graph decomposing into disconnected components, or a set of variables being independent. In classical models, these relationships are present only as interpretations \emph{external} to the machine. Here, they become internal objects with a measured cost, so a program must explicitly \emph{pay} to assert or certify them.
 
 If you are new to theoretical computer science, here is what you need to know:
 \begin{itemize}
     \item \textbf{Problem}: Computers can be incredibly slow on some problems (years to solve) and incredibly fast on others (milliseconds). Why?
-    \item \textbf{Answer}: Classical computers are "blind"---they cannot see the \textit{structure} of their input. If a problem has hidden structure (e.g., independent sub-problems), a blind computer cannot exploit it.
-    \item \textbf{Our Contribution}: We build a computer model where structural knowledge is explicit, measurable, and costly. This reveals \textit{why} some problems are hard and how that hardness can be transformed.
+    \item \textbf{Answer}: Classical computers are "blind"---they do not have \emph{primitive access} to the structure of their input. If a problem has hidden structure (e.g., independent sub-problems), a blind computer can still compute with it, but only by paying the time to discover that structure through ordinary computation. The distinction is between \emph{access} and \emph{ability}: blindness means the structure is not given for free, not that it is unreachable.
+    \item \textbf{My Contribution}: I build a computer model where structural knowledge is explicit, measurable, and costly. This reveals \textit{why} some problems are hard and how that hardness can be transformed.
 \end{itemize}
 
 \subsection{What Makes This Work Different}
 
-This is not a paper with informal arguments. Every claim is:
+This is not a paper with informal arguments. Every major claim is:
 \begin{enumerate}
     \item \textbf{Formally proven}: Machine-checked proofs in the Coq proof assistant (over 200 theorems)
     \item \textbf{Implemented}: Working code in Python and Verilog hardware description
     \item \textbf{Tested}: Automated tests verify that theory and implementation match
-    \item \textbf{Falsifiable}: We specify exactly what would disprove our claims
+    \item \textbf{Falsifiable}: I specify exactly what would disprove my claims
 \end{enumerate}
+
+In practice, this means there is a concrete trace or counterexample that would refute each theorem, and there are executable checks that replay traces to confirm that the mathematical and physical layers agree. The thesis is therefore not only a set of definitions, but a reproducible experiment: every claim is tied to an explicit verification routine.
 
 \subsection{How to Read This Document}
 
@@ -44,7 +48,7 @@ This is not a paper with informal arguments. Every claim is:
     \item Chapter 13: Hardware and demonstrations
 \end{itemize}
 
-\textbf{If you are an expert} and want to verify our claims, start with Chapter 5 (Verification) and the \texttt{coq/} directory.
+\textbf{If you are an expert} and want to verify my claims, start with Chapter 5 (Verification) and the formal proof development.
 
 \section{The Crisis of Blind Computation}
 
@@ -58,9 +62,9 @@ In 1936, Alan Turing published "On Computable Numbers," introducing a mathematic
     \item A read/write head that can examine and modify one cell at a time
 \end{itemize}
 
-This elegance comes at a profound cost: the Turing Machine is \textit{architecturally blind}. The transition function $\delta$ depends only on the current state $q$ and the symbol under the head. The machine cannot see the global structure of the tape. It cannot ask "Is this tape sorted?" or "Does this graph have a Hamiltonian path?" without reading every cell sequentially.
+This elegance comes at a profound cost: the Turing Machine is \textit{architecturally blind}. The transition function $\delta$ depends only on the current state $q$ and the symbol under the head. The machine cannot see the global structure of the tape as a primitive. It cannot ask "Is this tape sorted?" or "Does this graph have a Hamiltonian path?" without computing those properties by reading and processing the tape. This is not a weakness of the algorithm; it is a feature of the model’s interface. The model exposes only a local view, so any global property must be inferred from a sequence of local observations.
 
-Consider the concrete implications. Given a tape encoding a graph $G = (V, E)$ with $|V| = n$ vertices, the Turing Machine cannot perceive that the graph has two disconnected components without simulating a traversal algorithm that visits potentially all $n$ vertices and $m$ edges. The \textit{structure} of the graph—its partition into components—is invisible to the machine's transition function.
+Consider the concrete implications. Given a tape encoding a graph $G = (V, E)$ with $|V| = n$ vertices, the Turing Machine cannot directly perceive that the graph has two disconnected components. It must execute a traversal algorithm that, in the worst case, visits all $n$ vertices and $m$ edges. The \textit{structure} of the graph—its partition into components—is not part of the machine's primitive state.
 
 \subsection{The RAM Model: Random Access, Same Blindness}
 
@@ -71,7 +75,7 @@ The Random Access Machine (RAM) model improves on Turing by allowing $O(1)$ acce
     \item Instructions: LOAD, STORE, ADD, SUB, JUMP, etc.
 \end{itemize}
 
-The RAM can jump directly to address \texttt{0x1000}, but it still cannot \textit{perceive} that the data structures at addresses \texttt{0x1000}--\texttt{0x2000} form a balanced binary search tree unless a programmer has explicitly coded that logic. The machine provides memory addresses, not semantic structure.
+The RAM can jump directly to address \texttt{0x1000}, but it still cannot \textit{perceive} that the data structures at addresses \texttt{0x1000}--\texttt{0x2000} form a balanced binary search tree unless a program explicitly checks the tree invariants. The machine provides memory addresses, not semantic structure. In other words, the RAM gives you location and access, not the logical relationships you would need to exploit structure without computation.
 
 This is the fundamental limitation: both Turing Machines and RAM models treat the state space as a \textit{flat, unstructured landscape}. They measure cost in terms of:
 \begin{itemize}
@@ -79,13 +83,13 @@ This is the fundamental limitation: both Turing Machines and RAM models treat th
     \item \textbf{Space Complexity:} The number of cells/registers used $S(n)$
 \end{itemize}
 
-But they assign \textit{zero cost} to structural knowledge. The Dewey Decimal System of a library is "free." The invariants of a red-black tree are "free." The independence structure of a probabilistic graphical model is "free."
+But they assign \textit{zero cost} to structural knowledge. The Dewey Decimal System of a library is "free." The invariants of a red-black tree are "free." The independence structure of a probabilistic graphical model is "free." In other words, these models do not track the informational cost of asserting or certifying structure.
 
 \subsection{The Time Tax: The Exponential Price of Blindness}
 
 When a blind machine encounters a problem with inherent structure, it pays an exponential penalty. Consider the Boolean Satisfiability Problem (SAT): given a formula $\phi$ over $n$ variables, determine if there exists an assignment $\sigma: \{x_1, \ldots, x_n\} \to \{0, 1\}$ such that $\phi(\sigma) = \texttt{true}$.
 
-A blind machine, lacking knowledge of $\phi$'s structure, must search the space $\{0, 1\}^n$ of $2^n$ possible assignments. If $\phi$ happens to be decomposable into independent sub-formulas $\phi = \phi_1 \land \phi_2$ where $\text{vars}(\phi_1) \cap \text{vars}(\phi_2) = \emptyset$, a sighted machine could solve each sub-problem independently, reducing the complexity from $O(2^n)$ to $O(2^{n_1} + 2^{n_2})$ where $n_1 + n_2 = n$.
+A blind machine, lacking knowledge of $\phi$'s structure, must search the space $\{0, 1\}^n$ of $2^n$ possible assignments in the worst case. If $\phi$ happens to be decomposable into independent sub-formulas $\phi = \phi_1 \land \phi_2$ where $\text{vars}(\phi_1) \cap \text{vars}(\phi_2) = \emptyset$, a sighted machine could solve each sub-problem independently, reducing the complexity from $O(2^n)$ to $O(2^{n_1} + 2^{n_2})$ where $n_1 + n_2 = n$. This reduction relies on \emph{provable independence}; without it, the factorization cannot be justified.
 
 This is the \textbf{Time Tax}: because classical models refuse to account for structural information, they pay in exponential time. Specifically:
 
@@ -93,13 +97,13 @@ This is the \textbf{Time Tax}: because classical models refuse to account for st
     \textit{The Time Tax Principle:} A blind computation on a problem with $k$ independent components of size $n/k$ pays $O(2^{n/k})^k = O(2^n)$ in the worst case. A sighted computation that perceives the decomposition pays only $O(k \cdot 2^{n/k})$, an exponential improvement.
 \end{quote}
 
-The question this thesis addresses is: \textbf{What is the cost of sight?}
+The question this thesis addresses is: \textbf{What is the cost of sight?} Put differently, how many bits of certified structure are required to justify a given reduction in search effort?
 
 \section{The Thiele Machine: Computation with Explicit Structure}
 
 \subsection{The Central Hypothesis}
 
-This thesis proposes a radical extension of classical computation. We assert that \textit{structural information is not free}. Every assertion about the world—"this graph is bipartite," "these variables are independent," "this module satisfies invariant $\Phi$"—carries a cost measured in bits.
+This thesis proposes a radical extension of classical computation. I assert that \textit{structural information is not free}. Every assertion about the world—"this graph is bipartite," "these variables are independent," "this module satisfies invariant $\Phi$"—carries a cost measured in bits. That cost is the minimum number of bits required to encode the assertion in a fixed, unambiguous representation, plus any additional structure needed to justify that the assertion holds for the current state. The model therefore distinguishes between \emph{computing} a fact and \emph{certifying} it as a reusable piece of structure.
 
 The \textbf{Thiele Machine Hypothesis} states:
 
@@ -107,7 +111,7 @@ The \textbf{Thiele Machine Hypothesis} states:
     \textit{Any computational advantage over blind search must be paid for by an equivalent investment of structural information. There is no free insight.}
 \end{quote}
 
-We formalize this through a new model of computation: the Thiele Machine $T = (S, \Pi, A, R, L)$, where:
+I formalize this through a new model of computation: the Thiele Machine $T = (S, \Pi, A, R, L)$, where:
 \begin{itemize}
     \item $S$: The state space (registers, memory, program counter)
     \item $\Pi$: The space of partitions of $S$ into disjoint modules
@@ -121,15 +125,15 @@ We formalize this through a new model of computation: the Thiele Machine $T = (S
 The atomic unit of structural cost is the \textbf{$\mu$-bit}. Formally:
 
 \begin{definition}[$\mu$-bit]
-One $\mu$-bit is the information-theoretic cost of specifying one bit of structural constraint using a canonical prefix-free encoding.
+One $\mu$-bit is the information-theoretic cost of specifying one bit of structural constraint using a canonical prefix-free encoding. The prefix-free requirement ensures that each description has a unique parse, so its length is a well-defined and reproducible cost. This connects the model to Minimum Description Length: different assertions are charged by the size of their canonical descriptions, and canonicalization prevents hidden costs from representation choices.
 \end{definition}
 
-We adopt a canonical encoding based on SMT-LIB 2.0 syntax to ensure that $\mu$-costs are implementation-independent and reproducible. The total structural cost of a machine state is:
+I adopt a canonical encoding based on SMT-LIB 2.0 syntax to ensure that $\mu$-costs are implementation-independent and reproducible. The total structural cost of a machine state is:
 \[
 \mu(S, \pi) = \sum_{M \in \pi} |\text{encode}(M.\Phi)| + |\text{encode}(\pi)|
 \]
 
-where $|\cdot|$ denotes bit-length and $\Phi$ are the module's axioms.
+where $|\cdot|$ denotes bit-length, $\Phi$ are the module's axioms, and $\text{encode}(\pi)$ is a canonical description of the partition itself. This ensures that both \emph{what} is asserted and \emph{how the state is modularized} are charged.
 
 \subsection{The No Free Insight Theorem}
 
@@ -142,38 +146,33 @@ Let $T$ be a Thiele Machine. If an execution trace reduces the search space from
 \]
 \end{theorem}
 
-In other words, you cannot narrow the search space without paying the information-theoretic cost of that narrowing. This is proven in \texttt{coq/kernel/NoFreeInsight.v} as \texttt{no\_free\_insight\_general}, building on:
-\begin{itemize}
-    \item The $\mu$-ledger conservation law (\texttt{MuLedgerConservation.v})
-    \item The revelation requirement (\texttt{RevelationRequirement.v})
-    \item The observational no-signaling theorem (\texttt{KernelPhysics.v})
-\end{itemize}
+In other words, you cannot narrow the search space without paying the information-theoretic cost of that narrowing. The proof is a formal consequence of three principles: (i) a $\mu$-ledger that never decreases under valid transitions, (ii) a revelation rule that charges any strengthening of accepted predicates, and (iii) a locality principle that prevents uncharged influence across unrelated modules. Here the ``search space'' $\Omega$ should be read as the count of states consistent with current axioms; shrinking that set necessarily consumes bits of structural commitment. This is the exact sense in which ``insight'' is paid for: reduced uncertainty is not free, it is ledgered.
 
 \section{Methodology: The 3-Layer Isomorphism}
 
-To ensure our theoretical claims are not merely abstract speculation, we have constructed a complete, verified implementation of the Thiele Machine across three layers:
+To ensure my theoretical claims are not merely abstract speculation, I have constructed a complete, verified implementation of the Thiele Machine across three layers:
 
 \subsection{Layer 1: Coq (The Mathematical Ground Truth)}
 
-The Coq development in \texttt{coq/kernel/} provides machine-checked proofs of all core properties. The kernel consists of:
+The Coq development provides machine-checked proofs of all core properties. The kernel consists of:
 
 \begin{itemize}
-    \item \textbf{VMState.v}: Defines the state space, partition graphs, and region normalization. Contains the proven lemma \texttt{normalize\_region\_idempotent} ensuring canonical representations.
+    \item \textbf{State and partition definitions}: the formal state space, partition graphs, and region normalization, including a lemma ensuring canonical representations. These definitions make explicit which parts of state are observable and which are internal.
     
-    \item \textbf{VMStep.v}: Defines the 18-instruction ISA including structural operations (\texttt{instr\_pnew}, \texttt{instr\_psplit}, \texttt{instr\_pmerge}) and certification operations (\texttt{instr\_lassert}, \texttt{instr\_reveal}).
+    \item \textbf{Step semantics}: the 18-instruction ISA including structural operations (partition creation, split, merge) and certification operations (logical assertions and revelation). Each step rule specifies exact preconditions and ledger updates.
     
-    \item \textbf{KernelPhysics.v}: Proves the fundamental physics theorems:
+    \item \textbf{Kernel physics theorems}:
     \begin{itemize}
-        \item \texttt{mu\_conservation\_kernel}: $\mu$-monotonicity under all transitions
-        \item \texttt{observational\_no\_signaling}: Operations on module $A$ do not affect observables of unrelated module $B$
-        \item \texttt{kernel\_noether\_mu\_gauge}: Gauge symmetry ($\mu$-shift) preserves partition structure
+        \item $\mu$-monotonicity under all transitions
+        \item Observational no-signaling: operations on module $A$ do not affect observables of unrelated module $B$
+        \item Gauge symmetry: $\mu$-shifts preserve partition structure
     \end{itemize}
     
-    \item \textbf{MuLedgerConservation.v}: Proves the ledger conservation law with explicit bounds on irreversible bit events.
+    \item \textbf{Ledger conservation}: explicit bounds on irreversible bit events. This connects the abstract accounting rule to a concrete notion of irreversibility.
     
-    \item \textbf{RevelationRequirement.v}: Proves that supra-quantum correlations (CHSH $S > 2\sqrt{2}$) require explicit revelation events.
+    \item \textbf{Revelation requirement}: supra-quantum correlations (CHSH $S > 2\sqrt{2}$) require explicit revelation events.
     
-    \item \textbf{NoFreeInsight.v}: The flagship theorem establishing the impossibility of strengthening accepted predicates without charged revelation.
+    \item \textbf{No Free Insight}: the impossibility of strengthening accepted predicates without charged revelation.
 \end{itemize}
 
 \textbf{The Inquisitor Standard:} The Coq development adheres to a zero-tolerance policy:
@@ -183,16 +182,16 @@ The Coq development in \texttt{coq/kernel/} provides machine-checked proofs of a
     \item \textbf{No \texttt{Axiom} declarations}: No unproven assumptions in the active tree.
 \end{itemize}
 
-The script \texttt{scripts/inquisitor.py} automatically scans the codebase and blocks any commit with violations.
+An automated checker scans the codebase and blocks any commit with violations.
 
 \subsection{Layer 2: Python VM (The Executable Reference)}
 
-The Python implementation in \texttt{thielecpu/} provides an executable semantics that generates cryptographically signed receipts. Key components:
+The Python implementation provides an executable semantics that generates cryptographically signed receipts. Key components:
 
 \begin{itemize}
-    \item \textbf{state.py}: Implements the canonical state structure with bitmask-based partition storage for hardware isomorphism.
+    \item \textbf{State representation}: a canonical state structure with bitmask-based partition storage for hardware isomorphism.
     
-    \item \textbf{vm.py}: The main execution loop implementing all 18 instructions, including:
+    \item \textbf{Execution engine}: the main loop implementing all 18 instructions, including:
     \begin{itemize}
         \item Partition operations: \texttt{PNEW}, \texttt{PSPLIT}, \texttt{PMERGE}
         \item Logic operations: \texttt{LASSERT} (with Z3 integration), \texttt{LJOIN}
@@ -200,23 +199,23 @@ The Python implementation in \texttt{thielecpu/} provides an executable semantic
         \item Certification: \texttt{REVEAL}, \texttt{EMIT}
     \end{itemize}
     
-    \item \textbf{receipts.py}: Generates Ed25519-signed execution receipts that allow third-party verification.
+    \item \textbf{Receipt generator}: produces Ed25519-signed execution receipts that allow third-party verification.
     
-    \item \textbf{mu.py}: Implements the $\mu$-ledger with canonical cost accounting.
+    \item \textbf{$\mu$-ledger}: canonical cost accounting for structural information.
 \end{itemize}
 
 \subsection{Layer 3: Verilog RTL (The Physical Realization)}
 
-The hardware implementation in \texttt{thielecpu/hardware/} proves that the abstract $\mu$-costs correspond to real physical resources:
+The hardware implementation shows that the abstract $\mu$-costs correspond to real physical resources:
 
 \begin{itemize}
-    \item \textbf{thiele\_cpu.v}: The top-level CPU module implementing the fetch-decode-execute pipeline.
+    \item \textbf{CPU core}: the top-level module implementing the fetch-decode-execute pipeline.
     
-    \item \textbf{mu\_alu.v}: A dedicated Arithmetic Logic Unit for $\mu$-cost calculation, running in parallel with main execution.
+    \item \textbf{$\mu$-ALU}: a dedicated arithmetic unit for $\mu$-cost calculation, running in parallel with main execution.
     
-    \item \textbf{lei.v}: The Logic Engine Interface for offloading SMT queries to hardware or host oracle.
+    \item \textbf{Logic engine interface}: offloads SMT queries to hardware or a host oracle.
     
-    \item \textbf{mau.v}: The MDL Accounting Unit for $\mu$-cost computation with hardware-enforced monotonicity.
+    \item \textbf{Accounting unit}: computes $\mu$-costs with hardware-enforced monotonicity.
 \end{itemize}
 
 The RTL has been validated through Icarus Verilog simulation and Yosys synthesis targeting FPGA platforms.
@@ -231,7 +230,7 @@ These three layers are not independent implementations—they are \textit{isomor
     \item Running $\tau$ through the RTL simulation produces state $S_{\text{RTL}}$
 \end{enumerate}
 
-The Inquisitor pipeline verifies:
+The Inquisitor pipeline verifies equality of a common \emph{observable projection} of state:
 \[
 S_{\text{Coq}}.\text{registers} = S_{\text{Python}}.\text{registers} = S_{\text{RTL}}.\text{registers}
 \]
@@ -242,17 +241,17 @@ S_{\text{Coq}}.\mu = S_{\text{Python}}.\mu = S_{\text{RTL}}.\mu
 \text{etc. for all observable state components}
 \]
 
-This 3-layer isomorphism ensures that our theoretical claims are physically realizable and our implementations are provably correct.
+This 3-layer isomorphism ensures that my theoretical claims are physically realizable and my implementations are provably correct with respect to the shared projection.
 
 \section{Thesis Statement}
 
 This thesis advances the following central claim:
 
 \begin{quote}
-    \textit{Computational intractability is primarily a failure of structural accounting, not a fundamental barrier. By making the cost of structural information explicit through the $\mu$-bit currency and enforcing it through the Thiele Machine architecture, we can transform problems from exponential-time blind search to polynomial-time guided inference—paying the honest cost of insight rather than the dishonest cost of ignorance.}
+    \textit{Computational intractability is primarily a failure of structural accounting, not a fundamental barrier. By making the cost of structural information explicit through the $\mu$-bit currency and enforcing it through the Thiele Machine architecture, I can transform problems from exponential-time blind search to polynomial-time guided inference—paying the honest cost of insight rather than the dishonest cost of ignorance.}
 \end{quote}
 
-We prove this claim through:
+I prove this claim through:
 \begin{enumerate}
     \item Mechanically verified theorems in the Coq proof assistant
     \item Executable implementations that produce auditable receipts

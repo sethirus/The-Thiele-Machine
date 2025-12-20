@@ -2,14 +2,14 @@
 
 \subsection{The Problem of Trust}
 
-A formal specification (Coq) proves properties but doesn't execute. An executable implementation (Python/Verilog) runs but might contain bugs. How can we trust that the implementation matches the specification?
+A formal specification proves properties but doesn't execute on real workloads. An executable implementation runs but might contain bugs or subtle semantic drift. How can I trust that the implementation matches the specification?
 
-\textbf{Answer}: We build three independent implementations and verify they produce \textit{identical results} for all inputs.
+\textbf{Answer}: I build three independent implementations and verify they produce \textit{identical results} for all inputs. This makes the thesis rebuildable: every layer can be re-implemented from the definitions here, and any mismatch is detectable.
 
 \subsection{The Three Layers}
 
 \begin{enumerate}
-    \item \textbf{Coq (Formal)}: Defines ground-truth semantics. Every property is machine-checked. The extracted OCaml serves as an oracle.
+    \item \textbf{Coq (Formal)}: Defines ground-truth semantics. Every property is machine-checked. Extraction provides a reference evaluator.
     
     \item \textbf{Python (Reference)}: A human-readable implementation for debugging, tracing, and experimentation. Generates receipts and traces.
     
@@ -23,24 +23,24 @@ For \textit{any} instruction trace $\tau$:
 S_{\text{Coq}}(\tau) = S_{\text{Python}}(\tau) = S_{\text{Verilog}}(\tau)
 \]
 
-This is not aspirational---it is enforced by automated tests that run on every commit. Any divergence is a critical bug.
+This is not aspirational---it is enforced by automated tests. Any divergence is a critical bug, because it would mean at least one layer is not faithful to the formal semantics.
 
 \subsection{How to Read This Chapter}
 
-This chapter is practical---it shows real code:
+This chapter is practical: it explains how the theory is instantiated in three concrete artifacts and how they are kept in lockstep.
 \begin{itemize}
     \item Section 4.2: Coq formalization (state definitions, step relation, extraction)
     \item Section 4.3: Python VM (state class, partition operations, receipt generation)
     \item Section 4.4: Verilog RTL (CPU module, $\mu$-ALU, logic engine interface)
-    \item Section 4.5: Isomorphism verification (how we test equality)
+    \item Section 4.5: Isomorphism verification (how I test equality)
 \end{itemize}
 
-\textbf{Key code to understand}:
+\textbf{Key concepts to understand}:
 \begin{itemize}
-    \item \texttt{VMState} record (Coq and Python)
-    \item \texttt{vm\_step} relation (Coq)
-    \item \texttt{thiele\_cpu} module (Verilog)
-    \item \texttt{project\_state} function (isomorphism test)
+    \item The \textbf{state record} shared across layers
+    \item The \textbf{step relation} that advances state
+    \item The \textbf{state projection} used for isomorphism tests
+    \item The \textbf{receipt format} used for trace verification
 \end{itemize}
 
 \section{The 3-Layer Isomorphism Architecture}
@@ -52,32 +52,22 @@ The Thiele Machine is implemented across three layers that maintain strict seman
     \item \textbf{Physical Layer (Verilog)}: RTL implementation targeting FPGA/ASIC synthesis
 \end{enumerate}
 
-The central invariant is \textit{3-way isomorphism}: for any instruction sequence $\tau$, the final state projection (pc, mu, err, regs, mem, csrs, graph) must be identical across all three layers. Any deviation is treated as a critical bug.
+The central invariant is \textit{3-way isomorphism}: for any instruction sequence $\tau$, the final state projection (pc, $\mu$, err, registers, memory, control registers, partition graph) must be identical across all three layers. The projection is chosen to be observationally complete: it preserves exactly what the model claims is observable and discards only internal proof artifacts.
 
 \section{Layer 1: The Formal Kernel (Coq)}
 
-\subsection{Directory Structure}
+\subsection{Structure of the Formal Kernel}
 
-The Coq formalization resides in \texttt{coq/kernel/}, with 34 verified modules:
-\begin{verbatim}
-coq/kernel/
-|-- VMState.v              # State record, partition graph, well-formedness
-|-- VMStep.v               # 18-instruction ISA, vm_step relation
-|-- KernelPhysics.v        # No-signaling, gauge invariance, conservation
-|-- MuLedgerConservation.v # mu-monotonicity, irreversibility bounds
-|-- NoFreeInsight.v        # The impossibility theorem
-|-- RevelationRequirement.v # Supra-quantum certification constraints
-|-- CertCheck.v            # LRAT proof checking, model verification
-|-- SimulationProof.v      # Cross-layer simulation lemmas
-|-- Certification.v        # Certification framework
-|-- ReceiptCore.v          # Receipt chain definitions
-|-- KernelNoether.v        # Noether correspondence proofs
-|-- MuInformation.v        # Information-theoretic mu properties
-|-- PhysicsClosure.v       # Physical law closure proofs
-|-- CHSH.v                 # Bell inequality formalization
-|-- QuantumBound.v         # Tsirelson bound proofs
-`-- ... (20+ additional modules)
-\end{verbatim}
+The formal kernel is organized around a small set of interlocking definitions:
+\begin{itemize}
+    \item \textbf{State and partition structure}: the record that defines registers, memory, the partition graph, and the $\mu$-ledger.
+    \item \textbf{Step semantics}: the 18-instruction ISA and the inductive transition rules.
+    \item \textbf{Logical certificates}: checkers for proofs and models that allow deterministic verification.
+    \item \textbf{Conservation and locality}: theorems that enforce $\mu$-monotonicity and observational no-signaling.
+    \item \textbf{Receipts and simulation}: trace formats and cross-layer correspondence lemmas.
+\end{itemize}
+
+The goal is not to “encode” the implementation, but to define a minimal semantics from which every implementation can be reconstructed.
 
 \subsection{The VMState Record}
 
@@ -98,8 +88,8 @@ Each component has canonical width and representation:
 \begin{itemize}
     \item \textbf{vm\_regs}: 32 registers (matching RISC-V convention)
     \item \textbf{vm\_mem}: 256 words of data memory
-    \item \textbf{vm\_pc}: 32-bit program counter
-    \item \textbf{vm\_mu}: 32-bit $\mu$-ledger accumulator
+    \item \textbf{vm\_pc}: Program counter (modeled as a natural in proofs; masked to a fixed width in hardware)
+    \item \textbf{vm\_mu}: $\mu$-ledger accumulator (modeled as a natural; exported at fixed width in hardware)
     \item \textbf{vm\_err}: Boolean error latch
 \end{itemize}
 
@@ -128,7 +118,7 @@ Key operations:
 
 \subsection{The Step Relation}
 
-The \texttt{vm\_step} relation is an inductive predicate with 18 constructors:
+The step relation is an inductive predicate with 18 constructors, one per opcode. Each constructor states the exact preconditions and the resulting next state:
 \begin{verbatim}
 Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop := 
 | step_pnew : forall s region cost graph' mid,
@@ -138,7 +128,7 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
 | step_psplit : forall s m left right cost g' l' r',
     graph_psplit s.(vm_graph) m left right = Some (g', l', r') ->
     vm_step s (instr_psplit m left right cost)
-      (advance_state s (instr_psplit m left right cost) g' s.(vm_csrs) false)
+      (advance_state s (instr_psplit m left right cost) g' s.(vm_csrs) s.(vm_err))
 ...
 \end{verbatim}
 
@@ -157,7 +147,7 @@ Definition advance_state (s : VMState) (instr : vm_instruction)
 
 \subsection{Extraction}
 
-The Coq definitions are extracted to OCaml:
+The formal definitions are extracted to a functional evaluator to create a reference semantics:
 \begin{verbatim}
 Require Extraction.
 Extraction Language OCaml.
@@ -167,43 +157,38 @@ Extract Inductive nat => "int" ["0" "succ"].
 Extraction "extracted/vm_kernel.ml" vm_step run_vm.
 \end{verbatim}
 
-The extracted code compiles to \texttt{build/extracted\_vm\_runner}, which serves as an oracle for Python/Verilog comparison.
+The extracted code compiles to a small runner, which serves as an oracle for Python/Verilog comparison.
 
 \section{Layer 2: The Reference VM (Python)}
 
 \subsection{Architecture Overview}
 
-The Python VM (\texttt{thielecpu/vm.py}) is a 2489-line implementation optimized for correctness and observability rather than performance.
+The reference VM is optimized for correctness and observability rather than performance. Its purpose is to be readable and to expose every state transition for inspection and replay.
 
 \subsubsection{Core Components}
 
-\begin{verbatim}
-thielecpu/
-|-- vm.py              # Main VM class (2489 lines)
-|-- state.py           # State representation, MuLedger
-|-- memory.py          # RegionGraph, memory operations
-|-- isa.py             # CSR definitions, opcodes
-|-- bell_semantics.py  # CHSH trial semantics
-|-- mu_fixed.py        # Q16.16 fixed-point mu-arithmetic
-`-- _types.py          # Type definitions (ModuleId, etc.)
-\end{verbatim}
+The reference VM is structured around:
+\begin{itemize}
+    \item \textbf{State}: a dataclass mirroring the formal record (registers, memory, CSRs, partition graph, $\mu$-ledger).
+    \item \textbf{ISA decoding}: a compact representation of the 18 opcodes.
+    \item \textbf{Partition operations}: creation, split, merge, and discovery.
+    \item \textbf{Receipt generation}: cryptographic receipts for each step.
+\end{itemize}
 
 \subsubsection{The VM Class}
 
 \begin{verbatim}
 class VM:
-    def __init__(self, program: List[Any] = None, ...):
+    def __post_init__(self):
         self.state = State()
-        self.trace: List[Dict[str, Any]] = []
-        self.receipt_chain: List[str] = []
-        self.python_globals: Dict[str, Any] = {}
-        self.python_outputs: List[str] = []
-        self._virtual_fs = VirtualFilesystem()
+        self.step_receipts: List[StepReceipt] = []
+        self.virtual_fs = VirtualFilesystem()
+        self.witness_state = WitnessState()
 \end{verbatim}
 
 \subsection{State Representation}
 
-The Python state mirrors the Coq definition:
+The reference state mirrors the formal definition, with explicit fields for the partition graph, axioms, control/status registers, and $\mu$-ledger:
 \begin{verbatim}
 @dataclass
 class State:
@@ -236,7 +221,7 @@ class MuLedger:
 
 \subsubsection{Bitmask Representation}
 
-For hardware isomorphism, partitions use 64-bit bitmasks:
+For hardware isomorphism, partitions use fixed-width bitmasks. This makes the partition representation stable, deterministic, and easy to compare across layers:
 \begin{verbatim}
 MASK_WIDTH = 64  # Fixed width for hardware compatibility
 MAX_MODULES = 8  # Maximum number of active modules
@@ -266,7 +251,7 @@ def pnew(self, region: Set[int]) -> ModuleId:
 
 \subsection{Sandboxed Python Execution}
 
-The \texttt{PYEXEC} instruction executes Python in a restricted sandbox:
+The \texttt{PYEXEC} instruction executes user-supplied code. When sandboxing is enabled, execution is restricted to a safe builtins set and an AST allowlist. When sandboxing is disabled, the instruction behaves like a trusted host callback. The semantics are defined so that any side effects are observable in the trace, and any structural information revealed is charged in $\mu$.
 
 \begin{verbatim}
 SAFE_IMPORTS = {"math", "json", "z3"}
@@ -280,7 +265,7 @@ SAFE_FUNCTIONS = {
 }
 \end{verbatim}
 
-The AST is validated before execution:
+When sandboxing is enabled, the AST is validated before execution:
 \begin{verbatim}
 SAFE_NODE_TYPES = {
     ast.Module, ast.FunctionDef, ast.ClassDef, ast.arguments,
@@ -292,40 +277,24 @@ SAFE_NODE_TYPES = {
 
 \subsection{Receipt Generation}
 
-Every step generates a cryptographic receipt:
+Every step generates a cryptographic receipt that records the pre-state, instruction, post-state, and observable evidence:
 \begin{verbatim}
-def _emit_receipt(self, instruction, pre_hash, post_hash, cost):
-    receipt = {
-        "pre_state_hash": pre_hash,
-        "instruction": str(instruction),
-        "post_state_hash": post_hash,
-        "mu_cost": cost,
-        "chain_link": hashlib.sha256(
-            json.dumps(self.receipt_chain[-1:]).encode()
-        ).hexdigest() if self.receipt_chain else "genesis"
-    }
-    self.receipt_chain.append(
-        hashlib.sha256(json.dumps(receipt).encode()).hexdigest()
+def _record_receipt(self, step, pre_state, instruction):
+    post_state, observation = self._simulate_witness_step(
+        instruction, pre_state
     )
-    return receipt
+    receipt = StepReceipt.assemble(
+        step, instruction, pre_state, post_state, observation
+    )
+    self.step_receipts.append(receipt)
+    self.witness_state = post_state
 \end{verbatim}
 
 \section{Layer 3: The Physical Core (Verilog)}
 
 \subsection{Module Hierarchy}
 
-The hardware implementation in \texttt{thielecpu/hardware/}:
-\begin{verbatim}
-thielecpu/hardware/
-|-- thiele_cpu.v       # Main CPU (931 lines)
-|-- mu_alu.v           # Q16.16 fixed-point ALU (385 lines)
-|-- lei.v              # Logic Engine Interface (179 lines)
-|-- mau.v              # MDL Accounting Unit (mu-cost)
-|-- mmu.v              # Memory Management Unit
-|-- mu_core.v          # mu-accounting core
-|-- generated_opcodes.vh  # Opcode definitions (from forge)
-`-- thiele_cpu_tb.v    # Testbench
-\end{verbatim}
+The hardware implementation is organized into a CPU core, a $\mu$-accounting unit, a logic-engine interface, and a testbench. The hierarchy mirrors the formal model: the core executes the ISA, the accounting unit enforces $\mu$-monotonicity, and the logic interface brokers certificate checks. This makes the physical design a direct embodiment of the formal step relation.
 
 \subsection{The Main CPU}
 
@@ -375,7 +344,7 @@ localparam [3:0] STATE_RECEIPT_HOLD = 4'h9;
 
 \subsection{Instruction Encoding}
 
-Each 32-bit instruction:
+Each 32-bit instruction is decoded into opcode and operands. The fixed-width encoding ensures that hardware and software agree on exact bit-level semantics:
 \begin{verbatim}
 wire [7:0] opcode = current_instr[31:24];
 wire [7:0] operand_a = current_instr[23:16];
@@ -451,7 +420,7 @@ module lei (
 
 \subsection{The Isomorphism Gate}
 
-The 3-way isomorphism is verified by \texttt{tests/test\_rtl\_compute\_isomorphism.py}:
+The 3-way isomorphism is verified by a test that:
 \begin{enumerate}
     \item Generate instruction trace $\tau$
     \item Execute $\tau$ on Python VM $\rightarrow$ state $S_{\text{py}}$
@@ -462,7 +431,7 @@ The 3-way isomorphism is verified by \texttt{tests/test\_rtl\_compute\_isomorphi
 
 \subsection{State Projection}
 
-For comparison, states are projected to a canonical 7-tuple:
+For comparison, states are projected to a canonical 7-tuple. The projection discards internal certificates and preserves only the observable machine state:
 \begin{verbatim}
 def project_state(state):
     return {
@@ -478,10 +447,10 @@ def project_state(state):
 
 \subsection{The Inquisitor}
 
-The Inquisitor (\texttt{scripts/inquisitor.py}) enforces the AGENTS.md rules:
+The Inquisitor enforces the verification rules:
 \begin{itemize}
-    \item Scans all \texttt{coq/**/*.v} for \texttt{Admitted}, \texttt{admit.}, \texttt{Axiom}
-    \item Verifies all proofs compile with \texttt{make -C coq core}
+    \item Scans the proof sources for \texttt{Admitted}, \texttt{admit.}, \texttt{Axiom}
+    \item Verifies that the proof build completes successfully
     \item Runs isomorphism gates
     \item Reports HIGH/MEDIUM/LOW findings
 \end{itemize}
@@ -492,14 +461,14 @@ The repository must have 0 HIGH findings to pass CI.
 
 \subsection{FPGA Targeting}
 
-The RTL has been synthesized for Xilinx 7-series FPGAs:
+The RTL can be synthesized for Xilinx 7-series FPGAs:
 \begin{verbatim}
 $ yosys -p "read_verilog thiele_cpu.v; synth_xilinx -top thiele_cpu"
 \end{verbatim}
 
 \subsection{Resource Utilization}
 
-Under \texttt{YOSYS\_LITE} (reduced module table):
+Under a reduced configuration (fewer modules, smaller regions):
 \begin{itemize}
     \item NUM\_MODULES = 4
     \item REGION\_SIZE = 16
@@ -529,19 +498,11 @@ Full configuration:
 \subsection{Build Commands}
 
 \begin{verbatim}
-# Coq kernel
-make -C coq core
-
-# Python tests
-pytest -q tests/test_partition_isomorphism_minimal.py
-pytest -q tests/test_rtl_compute_isomorphism.py
-
-# RTL simulation
-iverilog -o thiele_cpu_tb thiele_cpu_tb.v thiele_cpu.v mu_alu.v
-vvp thiele_cpu_tb
-
-# Synthesis
-bash scripts/forge_artifact.sh
+# Example commands (paths may vary by environment):
+# - build the Coq kernel
+# - run the two isomorphism tests
+# - simulate the RTL testbench
+# - run full synthesis when toolchains are installed
 \end{verbatim}
 
 \section{Summary}
@@ -553,4 +514,4 @@ The 3-layer implementation ensures:
     \item \textbf{Physical Realizability}: Verilog synthesizes to real hardware
 \end{itemize}
 
-The binding across layers is not aspirational—it is enforced through automated isomorphism gates that run in CI. The Inquisitor ensures that no admits, no axioms, and no semantic divergences are ever committed to the main branch.
+The binding across layers is not aspirational—it is enforced through automated isomorphism gates. The Inquisitor ensures that no admits, no axioms, and no semantic divergences are ever committed to the main branch.

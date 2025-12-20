@@ -7,7 +7,7 @@ The previous chapter established the \textit{problem}: classical computers are s
 The model is defined formally because informal descriptions are ambiguous. A formal definition:
 \begin{itemize}
     \item Eliminates ambiguity: Every term has a precise meaning
-    \item Enables proof: We can mathematically prove properties
+    \item Enables proof: I can mathematically prove properties
     \item Ensures implementation: The formal definition guides code
 \end{itemize}
 
@@ -61,7 +61,7 @@ The state space $S$ represents the complete instantaneous description of the mac
 
 \subsubsection{Formal Definition}
 
-In the Coq formalization (\texttt{VMState.v}), the state is defined as:
+In the formal development, the state is defined as:
 
 \begin{verbatim}
 Record VMState := {
@@ -95,11 +95,11 @@ Definition word32 (x : nat) : nat :=
   N.to_nat (N.land (N.of_nat x) word32_mask).
 \end{verbatim}
 
-This ensures that all arithmetic operations properly wrap at $2^{32}$.
+This ensures that all arithmetic operations properly wrap at $2^{32}$, so word-level behavior is explicit and deterministic.
 
 \subsection{Partition Graph $\Pi$}
 
-The partition graph is the central innovation of the Thiele Machine. It represents the decomposition of the state into disjoint modules.
+The partition graph is the central innovation of the Thiele Machine. It represents the decomposition of the state into modules, with disjointness enforced by the partition operations that construct and modify those modules.
 
 \subsubsection{Formal Definition}
 
@@ -115,16 +115,16 @@ Record ModuleState := {
 }.
 \end{verbatim}
 
-Key properties:
+Key properties and intended semantics:
 \begin{itemize}
-    \item \textbf{Disjointness}: Module regions must be disjoint ($M_i \cap M_j = \emptyset$ for $i \neq j$)
-    \item \textbf{Coverage}: The union of all module regions covers the relevant state
-    \item \textbf{ID Monotonicity}: Module IDs are monotonically increasing ($\forall M \in \text{pg\_modules}, M.\text{id} < \text{pg\_next\_id}$)
+    \item \textbf{ID Monotonicity}: Module IDs are monotonically increasing ($\forall M \in \text{pg\_modules}, M.\text{id} < \text{pg\_next\_id}$). This is the invariant enforced globally.
+    \item \textbf{Disjointness}: Module regions are intended to be disjoint. This is enforced by checks during operations such as \texttt{PMERGE} (which rejects overlapping regions) and \texttt{PSPLIT} (which validates disjoint partitions).
+    \item \textbf{Coverage}: Partition operations ensure that a split covers the original region and that merges preserve region union. Global coverage of all machine state is not required; modules describe only the regions explicitly placed under partition structure.
 \end{itemize}
 
 \subsubsection{Well-Formedness Invariant}
 
-The partition graph must satisfy a well-formedness invariant:
+The partition graph must satisfy a well-formedness invariant focused on ID discipline:
 \begin{verbatim}
 Definition well_formed_graph (g : PartitionGraph) : Prop :=
   all_ids_below g.(pg_modules) g.(pg_next_id).
@@ -151,7 +151,7 @@ Lemma normalize_region_idempotent : forall region,
   normalize_region (normalize_region region) = normalize_region region.
 \end{verbatim}
 
-This is proven in \texttt{VMState.v} and ensures that repeated normalization does not change the representation.
+This ensures that repeated normalization does not change the representation, which makes observables stable across equivalent encodings.
 
 \subsection{Axiom Set $A$}
 
@@ -189,7 +189,7 @@ When modules are split, axioms are copied to both children. When modules are mer
 
 \subsection{Transition Rules $R$}
 
-The transition rules define how the machine state evolves. The Thiele Machine has 18 instructions, defined in \texttt{VMStep.v}.
+The transition rules define how the machine state evolves. The Thiele Machine has 18 instructions, defined in the formal step semantics.
 
 \subsubsection{Instruction Set}
 
@@ -270,7 +270,7 @@ Each instruction has one or more step rules. For example, \texttt{PNEW}:
 
 \subsection{Logic Engine $L$}
 
-The Logic Engine is an oracle that verifies logical consistency. In the Coq formalization, it is modeled through certificate checking.
+The Logic Engine is an oracle that verifies logical consistency. In the formal model, it is represented through certificate checking.
 
 \subsubsection{Certificate-Based Verification}
 
@@ -304,7 +304,7 @@ The kernel verifies the certificate but does not search for solutions. This ensu
 The $\mu$-bit is the atomic unit of structural information cost.
 
 \begin{definition}[$\mu$-bit]
-One $\mu$-bit is the cost of specifying one bit of structural constraint using the canonical SMT-LIB 2.0 prefix-free encoding.
+One $\mu$-bit is the cost of specifying one bit of structural constraint using the canonical SMT-LIB 2.0 prefix-free encoding. The prefix-free requirement makes the encoding length a well-defined, reproducible cost.
 \end{definition}
 
 \subsection{The $\mu$-Ledger}
@@ -329,7 +329,7 @@ Definition apply_cost (s : VMState) (instr : vm_instruction) : nat :=
 
 \subsection{Conservation Laws}
 
-The $\mu$-ledger satisfies fundamental conservation laws, proven in \texttt{MuLedgerConservation.v}.
+The $\mu$-ledger satisfies fundamental conservation laws, proven in the formal development.
 
 \subsubsection{Single-Step Monotonicity}
 
@@ -456,7 +456,7 @@ If module $\text{mid}$ is not in the target set of instruction $\text{instr}$, t
 \]
 \end{theorem}
 
-Proven as \texttt{observational\_no\_signaling} in \texttt{KernelPhysics.v}:
+Proven as \texttt{observational\_no\_signaling} in the formal development:
 \begin{verbatim}
 Theorem observational_no_signaling : forall s s' instr mid,
   well_formed_graph s.(vm_graph) ->
@@ -527,7 +527,7 @@ Theorem strengthening_requires_structure_addition :
 
 \subsection{Revelation Requirement}
 
-As a corollary, we prove that supra-quantum certification requires explicit revelation:
+As a corollary, I prove that supra-quantum certification requires explicit revelation:
 
 \begin{verbatim}
 Theorem nonlocal_correlation_requires_revelation :
@@ -569,4 +569,3 @@ Theorem kernel_noether_mu_gauge : forall s k,
 \end{verbatim}
 
 This is the computational analog of Noether's theorem: the gauge symmetry (ability to shift $\mu$ by a constant) corresponds to the conservation of partition structure.
-

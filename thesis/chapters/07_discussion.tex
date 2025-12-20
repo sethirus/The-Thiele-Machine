@@ -6,10 +6,10 @@ The previous chapters established that the Thiele Machine \textit{works}---it is
 \begin{itemize}
     \item What does this model \textit{mean} for computation?
     \item How does it connect to physics?
-    \item What can we build with it?
+    \item What can I build with it?
 \end{itemize}
 
-This chapter steps back from technical details to explore the broader significance of treating structure as a conserved resource.
+This chapter steps back from technical details to explore the broader significance of treating structure as a conserved resource. The aim is not to introduce new formal claims, but to interpret the verified results in terms that guide future design and experimentation. Every statement below is either (i) a direct restatement of a proven invariant, or (ii) an explicit hypothesis about how those invariants might connect to physics, complexity, or systems practice.
 
 \subsection{How to Read This Chapter}
 
@@ -31,7 +31,7 @@ The Thiele Machine is more than a new computational model; it is a proposal for 
 
 \subsection{Landauer's Principle}
 
-Landauer's principle states that erasing one bit of information requires at least $kT \ln 2$ of energy dissipation, where $k$ is Boltzmann's constant and $T$ is temperature. This establishes a fundamental connection between information and thermodynamics.
+Landauer's principle states that erasing one bit of information requires at least $kT \ln 2$ of energy dissipation, where $k$ is Boltzmann's constant and $T$ is temperature. This establishes a fundamental connection between logical irreversibility and thermodynamics: many-to-one mappings (like erasure) cannot be implemented without heat dissipation in a physical device.
 
 The Thiele Machine's $\mu$-ledger formalizes a computational analog:
 \begin{verbatim}
@@ -41,7 +41,7 @@ Theorem vm_irreversible_bits_lower_bound :
       (run_vm fuel trace s).(vm_mu) - s.(vm_mu).
 \end{verbatim}
 
-The $\mu$-ledger growth lower-bounds the number of irreversible bit operations. This is not merely an analogy—it is a provable property of the kernel.
+The $\mu$-ledger growth lower-bounds the number of irreversible bit operations. This is not merely an analogy—it is a provable property of the kernel. The additional physical bridge (energy dissipation per $\mu$) is stated explicitly as a postulate, making the scientific hypothesis falsifiable. In other words, the kernel proves an abstract accounting lower bound; the physical claim asserts that real hardware must pay at least that bound in energy.
 
 \subsection{No-Signaling and Bell Locality}
 
@@ -55,7 +55,7 @@ Theorem observational_no_signaling : forall s s' instr mid,
   ObservableRegion s mid = ObservableRegion s' mid.
 \end{verbatim}
 
-In physics, Bell locality states that operations on system A cannot instantaneously affect system B. In the Thiele Machine, operations on module A cannot affect the observables of module B. This is enforced by construction, not assumed as a physical postulate.
+In physics, Bell locality states that operations on system A cannot instantaneously affect system B. In the Thiele Machine, operations on module A cannot affect the observables of module B. This is enforced by construction, not assumed as a physical postulate. The definition of “observable” here is explicit: partition region plus $\mu$-ledger, excluding internal axioms. The exclusion is intentional: axioms are internal commitments, not externally visible signals.
 
 \subsection{Noether's Theorem}
 
@@ -66,17 +66,17 @@ Theorem kernel_noether_mu_gauge : forall s k,
   conserved_partition_structure (nat_action k s).
 \end{verbatim}
 
-The symmetry (freedom to shift $\mu$ by a constant) corresponds to the conserved quantity (partition structure). This is not metaphorical—it is the same mathematical relationship that underlies energy conservation in classical mechanics.
+The symmetry (freedom to shift $\mu$ by a constant) corresponds to the conserved quantity (partition structure). This is not metaphorical—it is the same mathematical relationship that underlies energy conservation in classical mechanics: a symmetry of the dynamics induces a conserved observable.
 
 \subsection{Thermodynamic bridge and falsifiable prediction}
 
 The bridge from a formally verified $\mu$-ledger to a physical claim requires an explicit translation dictionary and at least one measurement that could prove the bridge wrong.
 
-\paragraph{Translation dictionary.} Let $|\Omega|$ be the admissible microstate count of an $n$-bit device ($|\Omega| = 2^n$ at fixed resolution). A revelation step $\Omega \to \Omega'$ (e.g., \texttt{PNEW}, \texttt{PSPLIT}, \texttt{MDLACC}, \texttt{REVEAL}) shrinks the space by $|\Omega|/|\Omega'|$. The normalized certificate bitlength charged by the kernel is the canonical $\mu$ debit, and by construction $\mu \ge \log_2(|\Omega|/|\Omega'|)$. We adopt the bridge postulate that charging $\mu$ bits lower-bounds dissipated heat/work: $Q_{\min} = k_B T \ln 2 \cdot \mu$, with an explicit inefficiency factor $\epsilon \ge 1$ for real devices.
+\paragraph{Translation dictionary.} Let $|\Omega|$ be the admissible microstate count of an $n$-bit device ($|\Omega| = 2^n$ at fixed resolution). A revelation step $\Omega \to \Omega'$ (e.g., \texttt{PNEW}, \texttt{PSPLIT}, \texttt{MDLACC}, \texttt{REVEAL}) shrinks the space by $|\Omega|/|\Omega'|$. The normalized certificate bitlength charged by the kernel is the canonical $\mu$ debit, and by construction $\mu \ge \log_2(|\Omega|/|\Omega'|)$. I adopt the bridge postulate that charging $\mu$ bits lower-bounds dissipated heat/work: $Q_{\min} = k_B T \ln 2 \cdot \mu$, with an explicit inefficiency factor $\epsilon \ge 1$ for real devices. This postulate is external to the kernel and is presented as an empirical claim.
 
-\paragraph{Bridge theorem (sanity anchor).} Combining No Free Insight (proved: $\mu$ is monotone non-decreasing) with the postulate above yields a Landauer-style inequality: any trace implementing $\Omega \to \Omega'$ must dissipate at least $k_B T \ln 2 \cdot \log_2(|\Omega|/|\Omega'|)$, because the ledger charges at least that many bits for the reduction. The thermodynamic term is an assumption; the $\mu$ inequality is proved in Coq (see `kernel/MuLedgerConservation.v`).
+\paragraph{Bridge theorem (sanity anchor).} Combining No Free Insight (proved: $\mu$ is monotone non-decreasing) with the postulate above yields a Landauer-style inequality: any trace implementing $\Omega \to \Omega'$ must dissipate at least $k_B T \ln 2 \cdot \log_2(|\Omega|/|\Omega'|)$, because the ledger charges at least that many bits for the reduction. The thermodynamic term is an assumption; the $\mu$ inequality is proved in Coq.
 \paragraph{Falsifiable prediction.} Consider four paired workloads that differ only in which singleton module is revealed from a fixed pool (sizes 2, 4, 16, 64). The measured energy/heat must scale with $\mu$ at slope $k_B T \ln 2$ (within the stated $\epsilon$). A sustained sub-linear slope falsifies the bridge; a super-linear slope quantifies implementation overhead. Genesis-only traces remain the lone zero-$\mu$ case.
-\paragraph{Executed bridge runs.} The harness in Chapter 6 generated a JSON artifact for the four workloads (singleton pools of 2/4/16/64 elements; default: `results/thermo_experiment.json`, gitignored; override with `--out`). Python reports $\mu=\{2,3,5,7\}$; the extracted runner and RTL now report the same $\mu_{\text{raw}}$ because the μ-delta is explicitly encoded in the Coq trace and RTL instruction word, and the Python VM consumes that same μ-delta (disabling implicit MDLACC) for these workloads. With this encoding in place, `EVIDENCE\_STRICT` succeeds without normalization. The ledger still enforces $\mu \ge \log_2(|\Omega|/|\Omega'|)$ for each run; the $\mu/\log_2$ ratios (2.0, 1.5, 1.25, 1.167) quantify the slack now surfaced to reviewers.
+\paragraph{Executed bridge runs.} The evaluation in Chapter 6 reports the four workloads (singleton pools of 2/4/16/64 elements). Python reports $\mu=\{2,3,5,7\}$; the extracted runner and RTL report the same $\mu_{\text{raw}}$ because the μ-delta is explicitly encoded in the trace and instruction word, and the reference VM consumes that same μ-delta (disabling implicit MDLACC) for these workloads. With this encoding in place, \texttt{EVIDENCE\_STRICT} succeeds without normalization. The ledger still enforces $\mu \ge \log_2(|\Omega|/|\Omega'|)$ for each run; the $\mu/\log_2$ ratios (2.0, 1.5, 1.25, 1.167) quantify the slack now surfaced to reviewers.
 \subsection{The Physics-Computation Isomorphism}
 
 \begin{center}
@@ -94,7 +94,7 @@ Gauge symmetry & $\mu$-gauge invariance \\
 \end{tabular}
 \end{center}
 
-The new time-dilation harness (Section~\ref{sec:ledger_time_dilation}) makes the ledger-speed connection concrete: with a fixed μ budget per tick, diverting μ to communication throttles the observed compute rate, matching the intuition that “mass/structure slows time” when μ is conserved. Evidence-strict extensions will carry the same trade-off across Python, extraction, and RTL once EMIT traces are instrumented.
+The new time-dilation harness (Section~\ref{sec:ledger_time_dilation}) makes the ledger-speed connection concrete: with a fixed μ budget per tick, diverting μ to communication throttles the observed compute rate, matching the intuition that “mass/structure slows time” when μ is conserved. Evidence-strict extensions will carry the same trade-off across Python, extraction, and RTL once EMIT traces are instrumented. The point is not to claim a physical time dilation effect, but to show an internal conservation law that forces a trade-off between signaling and local computation under a fixed μ budget.
 
 \section{Implications for Computational Complexity}
 
@@ -122,18 +122,18 @@ For problems like SAT:
     T_{\text{sighted}}(n) = O(n^k), \quad \mu_{\text{sighted}} = O(2^n)
 \end{equation}
 
-The difficulty is conserved—it shifts between time and structure.
+The difficulty is conserved—it shifts between time and structure. The formal theorems do not claim that $\mu_{\text{sighted}}$ is always exponentially large, only that any reduction in search space must be paid for in $\mu$; the asymptotics depend on how structure is discovered and encoded.
 
 \subsection{Structure-Aware Complexity Classes}
 
-We can define new complexity classes:
+I can define new complexity classes:
 \begin{itemize}
     \item $\text{P}_\mu$: Problems solvable in polynomial time with polynomial $\mu$-cost
     \item $\text{NP}_\mu$: Problems verifiable in polynomial time; witness provides $\mu$-cost
     \item $\text{PSPACE}_\mu$: Problems solvable with polynomial space and unbounded $\mu$
 \end{itemize}
 
-The relationship $\text{P} \subseteq \text{P}_\mu \subseteq \text{NP}_\mu$ is strict under reasonable assumptions.
+The relationship $\text{P} \subseteq \text{P}_\mu \subseteq \text{NP}_\mu$ is strict under reasonable assumptions. These classes are proposed as a vocabulary for reasoning about the time/structure trade-off rather than as settled complexity-theoretic results.
 
 \section{Implications for Artificial Intelligence}
 
@@ -153,7 +153,7 @@ if not verified:
 output = hypothesis if verified else None
 \end{verbatim}
 
-False structural hypotheses incur $\mu$-cost without producing valid receipts. This creates Darwinian pressure for truth.
+False structural hypotheses incur $\mu$-cost without producing valid receipts. This creates Darwinian pressure for truth. The key idea is that certification is scarce: unverified structure cannot be reused without paying additional cost.
 
 \subsection{Neuro-Symbolic Integration}
 
@@ -163,7 +163,7 @@ The Thiele Machine provides a bridge between:
     \item \textbf{Symbolic}: Exact, verifiable logical reasoning
 \end{itemize}
 
-A neural network predicts partitions (structure hypotheses). The Thiele kernel verifies them. Failed hypotheses are penalized.
+A neural network predicts partitions (structure hypotheses). The Thiele kernel verifies them. Failed hypotheses are penalized. The model does not assume the neural component is trustworthy; it treats it as a proposer whose claims must be certified.
 
 \section{Implications for Trust and Verification}
 
@@ -205,7 +205,7 @@ The true Kolmogorov complexity $K(x)$ is uncomputable. Therefore, the $\mu$-cost
     \mu_{\text{charged}}(x) \ge K(x)
 \end{equation}
 
-We pay for the structure we \textit{find}, not necessarily the minimal structure that \textit{exists}. Better compression heuristics could reduce $\mu$-overhead.
+I pay for the structure I \textit{find}, not necessarily the minimal structure that \textit{exists}. Better compression heuristics could reduce $\mu$-overhead.
 
 \subsection{Hardware Scalability}
 

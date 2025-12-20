@@ -204,14 +204,24 @@ Theorem mu_conservation :
 ```
 
 **What this means**:
-- ✅ μ-cost never decreases
-- ✅ Each operation has a defined information cost
+- ✅ μ-cost never decreases across `step_thiele`
+- ✅ Each operation has a defined information cost recorded in the ledger
 - ✅ Partition discovery costs are amortized, not free
+- ✅ μ is a *ledger* of information flow, not a runtime or energy meter
 
 **What this does NOT mean**:
 - ❌ Lower μ-cost does NOT imply faster wall-clock time
 - ❌ μ-cost is NOT a physical energy measurement
 - ✅ μ-cost is a mathematical abstraction for reasoning about information flow
+
+**Intuition**:
+- The ledger counts **how much new information** the machine commits to in each step.
+- When a partition is discovered, the ledger records the cost of **committing to a narrower state space**.
+- When no new information is gained, the ledger stays flat (but still never decreases).
+
+**Concrete reading**:
+- μ-cost is analogous to “information spent” to move the machine from one valid state set to a smaller one.
+- It is *not* a claim about thermodynamic energy, hardware cost, or running time.
 
 ### 3.2 Partition Discovery μ-Costs
 
@@ -224,8 +234,61 @@ For Tseitin-12 (unsat):
 
 **Interpretation**:
 - ✅ Structured problems have lower μ-costs when partitions are discovered
+- ✅ The ledger captures *where* the structure shows up (not *why* it exists)
 - ⚠️ This is amortized accounting, not a free lunch
 - ❌ This does NOT violate computational complexity theory
+
+**What “partition-sighted” means**:
+- The solver discovers a partition that collapses many candidate states at once.
+- The μ-ledger records the cost of that collapse, instead of charging every path equally.
+- The outcome is lower μ for *structured* instances, but little advantage for random ones.
+
+**Important guardrails**:
+- μ-savings do **not** imply fewer CPU cycles.
+- μ-savings do **not** imply a polynomial-time algorithm for NP-complete problems.
+- μ-savings **do** indicate that the search space has exploitable structure.
+
+### 3.3 μ-Ledger Bookkeeping (How Costs Are Charged)
+
+**Ledger rule (informal)**:
+- Each instruction contributes a nonnegative μ increment based on **information gain**.
+- The ledger is monotone: `mu_cost st' >= mu_cost st` for every step.
+
+**Typical sources of μ-increase**:
+1. **Partition commits**: claiming a set is empty/non-empty (or narrowing a region).
+2. **State refinement**: transitioning from a larger equivalence class to a smaller one.
+3. **Constraint propagation**: encoding additional relations between variables.
+
+**Why this matters**:
+- It prevents “free” information from appearing out of nowhere.
+- It makes **information flow explicit**, which is critical for comparing Coq, Python, and RTL semantics.
+
+**Non-example**:
+- A bookkeeping model that assigns *zero* μ to partition claims would violate the conservation law.
+- That would let the machine “cheat” by collapsing states without paying the information cost.
+
+### 3.4 A Simple Walkthrough (μ-Cost in One Trace)
+
+**Scenario**: A tiny program runs on a structured instance and discovers a partition.
+
+1. **Initial state**  
+   - Large candidate set, minimal constraints  
+   - μ starts at a baseline determined by the input encoding
+
+2. **Observation step**  
+   - Machine checks a property that splits the state set  
+   - μ increases to reflect committing to the smaller subspace
+
+3. **Refinement step**  
+   - The partition implies several constraints at once  
+   - μ increases again, but fewer blind branches remain
+
+4. **Result**  
+   - The ledger shows *why* the instance was easy: structure let the machine compress the state space
+
+**Takeaway**:
+- μ-cost is a *diagnostic*: it tells you where information is gained and where it is not.
+- It is not a runtime claim; it is a reasoning tool for identifying structure-dependent advantages.
 
 ---
 
