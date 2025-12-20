@@ -2,9 +2,9 @@
 
 \subsection{The Limits of Testing}
 
-Testing can find bugs, but it cannot prove their absence. If you test a sorting algorithm on 1000 inputs, you have evidence it works on those 1000 inputs---but there are infinitely many possible inputs.
+Testing can find bugs, but it cannot prove their absence. If you test a sorting algorithm on 1000 inputs, you have evidence it works on those 1000 inputs---but there are infinitely many possible inputs. Formal verification replaces empirical sampling with universal quantification.
 
-\textbf{Formal verification} proves properties hold for \textit{all} inputs. When we prove "$\mu$ is monotonically non-decreasing," we don't test it on examples---we prove it mathematically.
+\textbf{Formal verification} proves properties hold for \textit{all} inputs. When I prove "$\mu$ is monotonically non-decreasing," I don't test it on examples---I prove it mathematically.
 
 \subsection{The Coq Proof Assistant}
 
@@ -24,9 +24,9 @@ The Thiele Machine uses an unusually strict standard:
     \item \textbf{No \texttt{Axiom}}: No unproven assumptions (except foundational logic)
 \end{itemize}
 
-This standard is enforced automatically. Any commit introducing an admit fails CI.
+This standard is enforced automatically. Any commit introducing an admit fails CI. This matters because it guarantees every theorem in the active proof tree is fully discharged.
 
-\subsection{What We Prove}
+\subsection{What I Prove}
 
 The key theorems proven in Coq are:
 \begin{enumerate}
@@ -38,7 +38,7 @@ The key theorems proven in Coq are:
 
 \subsection{How to Read This Chapter}
 
-This chapter shows the actual Coq code and proofs. If you are unfamiliar with Coq:
+This chapter explains the proof structure and key statements. If you are unfamiliar with Coq:
 \begin{itemize}
     \item \texttt{Theorem}, \texttt{Lemma}: Statements to prove
     \item \texttt{Proof. ... Qed.}: The proof itself
@@ -48,49 +48,34 @@ This chapter shows the actual Coq code and proofs. If you are unfamiliar with Co
     \item \texttt{\textbackslash/}: Or (disjunction)
 \end{itemize}
 
-Focus on understanding the \textit{statements} (what we prove), not the proof details.
+Focus on understanding the \textit{statements} (what I prove), not the proof details. Every statement is written so it can be re-derived from the definitions given in Chapters 3 and 4.
 
 \section{The Formal Verification Campaign}
 
-The credibility of the Thiele Machine rests on machine-checked proofs. This chapter documents the formal verification campaign that culminated in December 2025 with "Campaign Zero Admits: Complete"---the elimination of all \texttt{Admitted}, \texttt{admit.}, and \texttt{Axiom} declarations from the active Coq tree.
+The credibility of the Thiele Machine rests on machine-checked proofs. This chapter documents the verification campaign that culminated in a full removal of \texttt{Admitted}, \texttt{admit.}, and \texttt{Axiom} declarations from the active Coq tree. The practical consequence is rebuildability: a reader can re-implement the definitions and re-prove the same claims without relying on hidden assumptions.
 
 All proofs are verified by Coq 8.18.x. The Inquisitor enforces this invariant: any commit introducing an admit or axiom fails CI.
 
 \section{Proof Architecture}
 
-\subsection{Module Hierarchy}
+\subsection{Conceptual Hierarchy}
 
-The formalization resides in \texttt{coq/kernel/} with 34 verified modules. Core files:
+The proof corpus is organized by concept rather than by implementation detail:
+\begin{itemize}
+    \item \textbf{State and partitions}: definitions of the machine state, partition graph, and normalization.
+    \item \textbf{Step semantics}: the instruction set and its inductive transition rules.
+    \item \textbf{Certification and receipts}: the logic of certificates and trace decoding.
+    \item \textbf{Conservation and locality}: theorems about $\mu$-monotonicity and no-signaling.
+    \item \textbf{Impossibility theorems}: No Free Insight and its corollaries.
+\end{itemize}
 
-\begin{verbatim}
-coq/kernel/
-|-- VMState.v              # State definitions, partition graph, well-formedness
-|-- VMStep.v               # Instruction set, vm_step relation
-|-- KernelPhysics.v        # Conservation laws, locality, gauge symmetry
-|-- MuLedgerConservation.v # mu-monotonicity, irreversibility bounds
-|-- NoFreeInsight.v        # Impossibility theorem
-|-- RevelationRequirement.v # Supra-quantum certification constraints
-|-- SimulationProof.v      # Cross-layer simulation lemmas
-|-- CertCheck.v            # Certificate verification
-|-- Certification.v        # Certification framework
-|-- ReceiptCore.v          # Receipt chain core definitions
-|-- KernelNoether.v        # Noether correspondence proofs
-`-- ... (additional physics and mathematics modules)
-\end{verbatim}
+The goal is not to “encode” the implementation, but to define a minimal semantics from which every implementation can be reconstructed. Each later proof depends only on earlier definitions and lemmas, so the dependency structure is acyclic and reproducible.
 
-\subsection{Dependency Graph}
+\subsection{Dependency Sketch}
 
-\begin{verbatim}
-VMState.v
-    `-- VMStep.v
-          |-- KernelPhysics.v
-          |     `-- MuLedgerConservation.v
-          |-- SimulationProof.v
-          `-- RevelationRequirement.v
-                `-- NoFreeInsight.v
-\end{verbatim}
+The proofs build outward from the state and step definitions: first the operational semantics, then conservation/locality lemmas, and finally the impossibility results that rely on those invariants. The ordering is important: no theorem about $\mu$ or locality is used before the step relation is fixed.
 
-\section{VMState.v: Foundation Definitions}
+\section{State Definitions: Foundation Layer}
 
 \subsection{The State Record}
 
@@ -108,7 +93,7 @@ Record VMState := {
 
 \subsection{Canonical Region Normalization}
 
-Regions are stored in canonical form:
+Regions are stored in canonical form to make observational equality well-defined:
 \begin{verbatim}
 Definition normalize_region (region : list nat) : list nat :=
   nodup Nat.eq_dec region.
@@ -122,7 +107,7 @@ Lemma normalize_region_idempotent : forall region,
 \end{theorem}
 
 \begin{proof}
-By \texttt{nodup\_nodup\_iff}: applying \texttt{nodup} twice yields the same result.
+By \texttt{nodup\_fixed\_point}: applying \texttt{nodup} twice yields the same result, so normalization is idempotent and comparisons are stable.
 \end{proof}
 
 \subsection{Graph Well-Formedness}
@@ -143,13 +128,14 @@ Lemma graph_add_module_preserves_wf : forall g region axioms g' mid,
 
 \begin{theorem}[Preservation Under Remove]
 \begin{verbatim}
-Lemma graph_remove_preserves_wf : forall g mid,
+Lemma graph_remove_preserves_wf : forall g mid g' m,
   well_formed_graph g ->
-  well_formed_graph (graph_remove g mid).
+  graph_remove g mid = Some (g', m) ->
+  well_formed_graph g'.
 \end{verbatim}
 \end{theorem}
 
-\section{VMStep.v: Operational Semantics}
+\section{Operational Semantics}
 
 \subsection{The Instruction Type}
 
@@ -184,12 +170,14 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop := ...
 
 Each instruction has one or more step rules. Key properties:
 \begin{itemize}
-    \item Deterministic: Each (state, instruction) pair has at most one successor
-    \item Total on valid inputs: Well-formed states have defined transitions
-    \item Cost-charging: Every rule updates \texttt{vm\_mu}
+    \item \textbf{Deterministic}: Each (state, instruction) pair has at most one successor when its preconditions hold.
+    \item \textbf{Partial on invalid inputs}: Instructions with invalid certificates or failed structural checks can be undefined.
+    \item \textbf{Cost-charging}: Every rule updates \texttt{vm\_mu} by the declared instruction cost.
 \end{itemize}
 
-\section{KernelPhysics.v: Conservation Laws}
+This gives a complete operational semantics: given a well-formed state and a valid instruction, the next state is uniquely determined.
+
+\section{Conservation and Locality}
 
 This file establishes the physical laws of the Thiele Machine kernel—properties that hold for all executions without exception.
 
@@ -209,7 +197,7 @@ Definition ObservableRegion (s : VMState) (mid : nat) : option (list nat) :=
   end.
 \end{verbatim}
 
-Note: Axioms are \textbf{not} observable—they are internal implementation details.
+Note: Axioms are \textbf{not} observable—they are internal implementation details. Observables contain only partition regions and the $\mu$-ledger, which is the cost-visible interface of the model.
 
 \subsection{Instruction Target Sets}
 
@@ -287,7 +275,7 @@ Theorem mu_conservation_kernel : forall s s' instr,
 By definition of \texttt{vm\_step}: every step rule updates \texttt{vm\_mu} to \texttt{apply\_cost s instr}, which adds a non-negative cost.
 \end{proof}
 
-\section{MuLedgerConservation.v: Multi-Step Conservation}
+\section{Multi-Step Conservation}
 
 \subsection{Run Function}
 
@@ -348,7 +336,7 @@ Theorem vm_irreversible_bits_lower_bound :
 
 \textbf{Physical Interpretation}: The $\mu$-ledger growth lower-bounds irreversible bit events—connecting to Landauer's principle.
 
-\section{NoFreeInsight.v: The Impossibility Theorem}
+\section{No Free Insight: The Impossibility Theorem}
 
 \subsection{Receipt Predicates}
 
@@ -396,7 +384,7 @@ Theorem no_free_insight_general :
 \end{theorem}
 
 \begin{proof}
-By \texttt{nonlocal\_correlation\_requires\_revelation} from \texttt{RevelationRequirement.v}. The structure-addition analysis shows that if \texttt{csr\_cert\_addr} starts at 0 and ends non-zero (\texttt{has\_supra\_cert}), some instruction in the trace must have set it.
+By the revelation requirement. The structure-addition analysis shows that if \texttt{csr\_cert\_addr} starts at 0 and ends non-zero (\texttt{has\_supra\_cert}), some instruction in the trace must have set it.
 \end{proof}
 
 \subsection{Strengthening Theorem}
@@ -425,7 +413,7 @@ Theorem strengthening_requires_structure_addition :
 \end{enumerate}
 \end{proof}
 
-\section{RevelationRequirement.v: Supra-Quantum Certification}
+\section{Revelation Requirement: Supra-Quantum Certification}
 
 \begin{theorem}[Nonlocal Correlation Requires Revelation]
 \begin{verbatim}
@@ -443,48 +431,9 @@ Theorem nonlocal_correlation_requires_revelation :
 
 \textbf{Interpretation}: To achieve supra-quantum certification, you must explicitly pay for it through a revelation-type instruction. There is no backdoor.
 
-\section{Proof Statistics}
+\section{Proof Summary}
 
-\subsection{Campaign Zero Admits}
-
-The git history shows the systematic elimination of admits:
-\begin{verbatim}
-commit a1b2c3d: "Campaign ZERO ADMITS: Complete"
-commit e4f5g6h: "No Free Insight: abstract limit theorem"  
-commit i7j8k9l: "Observational Locality Proven"
-commit m0n1o2p: "mu-conservation kernel proof"
-\end{verbatim}
-
-\subsection{Final State (December 2025)}
-
-\begin{itemize}
-    \item \textbf{Files}: 34 kernel files
-    \item \textbf{Total Theorems/Lemmas}: 229 proven theorems and lemmas
-    \item \textbf{Admitted}: 0
-    \item \textbf{Axioms}: 0
-    \item \textbf{Lines of Coq}: $\sim$8,000
-\end{itemize}
-
-\subsection{Key Theorems}
-
-\begin{center}
-\begin{tabular}{|l|l|l|}
-\hline
-\textbf{Theorem} & \textbf{File} & \textbf{Status} \\
-\hline
-\texttt{observational\_no\_signaling} & KernelPhysics.v & PROVEN \\
-\texttt{mu\_conservation\_kernel} & KernelPhysics.v & PROVEN \\
-\texttt{kernel\_noether\_mu\_gauge} & KernelPhysics.v & PROVEN \\
-\texttt{run\_vm\_mu\_conservation} & MuLedgerConservation.v & PROVEN \\
-\texttt{vm\_irreversible\_bits\_lower\_bound} & MuLedgerConservation.v & PROVEN \\
-\texttt{no\_free\_insight\_general} & NoFreeInsight.v & PROVEN \\
-\texttt{strengthening\_requires\_structure\_addition} & NoFreeInsight.v & PROVEN \\
-\texttt{nonlocal\_correlation\_requires\_revelation} & RevelationRequirement.v & PROVEN \\
-\texttt{normalize\_region\_idempotent} & VMState.v & PROVEN \\
-\texttt{graph\_add\_module\_preserves\_wf} & VMState.v & PROVEN \\
-\hline
-\end{tabular}
-\end{center}
+At the end of the verification campaign, the active proof tree contains no admits and no axioms beyond foundational logic. The result is a closed, machine-checked account of the model’s physics, accounting rules, and impossibility results. Every theorem in this chapter can be reconstructed from the definitions and lemmas above.
 
 \section{Falsifiability}
 

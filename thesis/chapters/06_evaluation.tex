@@ -2,47 +2,47 @@
 
 \subsection{From Theory to Evidence}
 
-The previous chapters established the \textit{theoretical} foundations of the Thiele Machine: definitions, proofs, and implementations. But theoretical correctness is not sufficient---we must also demonstrate that the theory \textit{works in practice}.
+The previous chapters established the \textit{theoretical} foundations of the Thiele Machine: definitions, proofs, and implementations. But theoretical correctness is not sufficient---I must also demonstrate that the theory \textit{works in practice}. Evaluation has a different role than proof: it does not establish truth for all inputs, but it validates that implementations faithfully realize the formal semantics and that the predicted invariants hold under realistic workloads.
 
 This chapter presents empirical evaluation addressing three fundamental questions:
 \begin{enumerate}
     \item \textbf{Does the 3-layer isomorphism actually hold?} \\
-    The theory claims that Coq, Python, and Verilog implementations produce identical results. We test this claim on thousands of instruction sequences.
+    The theory claims that Coq, Python, and Verilog implementations produce identical results. I test this claim on thousands of instruction sequences, including randomized traces and structured micro-programs designed to stress the ISA.
     
     \item \textbf{Does the revelation requirement actually enforce costs?} \\
-    The theory claims that supra-quantum correlations require explicit revelation. We run CHSH experiments to verify this constraint is enforced.
+    The theory claims that supra-quantum correlations require explicit revelation. I run CHSH experiments to verify this constraint is enforced and that the ledger charges match the structure disclosed.
     
     \item \textbf{Is the implementation practical?} \\
-    A beautiful theory that runs too slowly is useless. We benchmark performance and resource utilization to assess practicality.
+    A beautiful theory that runs too slowly is useless. I benchmark performance and resource utilization to assess practicality, focusing on the overhead of receipts and the hardware cost of the accounting units.
 \end{enumerate}
 
 \subsection{Methodology}
 
 All experiments follow scientific best practices:
 \begin{itemize}
-    \item \textbf{Reproducibility}: Every experiment can be re-run from the repository
-    \item \textbf{Automation}: Tests are automated in the CI pipeline
-    \item \textbf{Adversarial testing}: We actively try to break the system, not just confirm it works
+    \item \textbf{Reproducibility}: Every experiment can be re-run from the published artifacts and trace descriptions
+    \item \textbf{Automation}: Tests are automated in a continuous validation pipeline
+    \item \textbf{Adversarial testing}: I actively try to break the system, not just confirm it works
 \end{itemize}
 
-All experiments use the Python Reference VM with receipt generation enabled. Results are reproducible via the test suite in \texttt{tests/}.
+All experiments use the reference VM with receipt generation enabled. Each run produces receipts and state snapshots so that results can be rechecked independently. The emphasis is on \textit{replayability}: anyone can take the same trace, replay it through each layer, and confirm equality of the observable projection.
 
 \section{3-Layer Isomorphism Verification}
 
 \subsection{Test Architecture}
 
-The isomorphism gate verifies that Python VM, extracted Coq semantics, and RTL simulation produce identical final states for the same instruction traces.
+The isomorphism gate verifies that Python VM, extracted Coq semantics, and RTL simulation produce identical final states for the same instruction traces. The comparison uses a fixed projection that captures the observable machine state (pc, $\mu$, err, registers, memory, control registers, and partition graph) and ignores internal proof objects.
 
 \subsubsection{Test Implementation}
 
-From \texttt{tests/test\_rtl\_compute\_isomorphism.py}:
+Representative test (simplified):
 \begin{verbatim}
 def test_rtl_python_coq_compute_isomorphism():
     # Small, deterministic compute program.
     # Semantics must match across:
-    #   - Python VM (thielecpu/vm.py)
-    #   - extracted Coq semantics runner (build/extracted_vm_runner)
-    #   - RTL sim (thielecpu/hardware/thiele_cpu.v + thiele_cpu_tb.v)
+    #   - Python reference VM
+    #   - extracted formal semantics runner
+    #   - RTL simulation
     
     init_mem[0] = 0x29
     init_mem[1] = 0x12
@@ -87,7 +87,7 @@ Final states are projected to canonical form:
 
 \subsection{Partition Operation Tests}
 
-From \texttt{tests/test\_partition\_isomorphism\_minimal.py}:
+Representative test (simplified):
 \begin{verbatim}
 def test_pnew_dedup_singletons_isomorphic():
     # Same singleton regions requested multiple times; canonical semantics dedup.
@@ -100,7 +100,7 @@ def test_pnew_dedup_singletons_isomorphic():
     assert py_regions == coq_regions == rtl_regions
 \end{verbatim}
 
-This verifies that the canonical normalization (\texttt{normalize\_region}) produces identical results across all layers.
+This verifies that canonical normalization produces identical results across all layers, which is essential because partitions are represented as lists but compared modulo ordering and duplicates.
 
 \subsection{Results Summary}
 
@@ -125,7 +125,11 @@ $\mu$-Ledger Updates & PASS & PASS & PASS \\
 
 \subsection{Bell Test Protocol}
 
-The CHSH inequality bounds correlations in local realistic theories:
+The CHSH inequality bounds correlations in local realistic theories. For measurement settings $x,y \in \{0,1\}$ and outcomes $a,b \in \{0,1\}$, define
+\[
+E(x,y) = \Pr[a=b \mid x,y] - \Pr[a \neq b \mid x,y].
+\]
+Then:
 \begin{equation}
     S = |E(a,b) - E(a,b') + E(a',b) + E(a',b')| \le 2
 \end{equation}
@@ -148,7 +152,7 @@ Where:
 
 \subsection{Correlation Bounds}
 
-From \texttt{thielecpu/bell\_semantics.py}:
+The implementation enforces a Tsirelson bound:
 \begin{verbatim}
 TSIRELSON_BOUND = 2 * math.sqrt(2)  # ~2.828
 
@@ -160,7 +164,7 @@ DEFAULT_ENFORCEMENT_MIN_TRIALS_PER_SETTING = 100
 
 \subsection{Experimental Design}
 
-Test from \texttt{tests/test\_bell\_artifact\_supra\_quantum\_csv.py}:
+The CHSH evaluation pipeline:
 \begin{enumerate}
     \item Generate CHSH trial sequences
     \item Execute on Python VM with receipt generation
@@ -207,7 +211,7 @@ Supra-Quantum & $> 2.828$ & \textbf{Required} & $\mu_{\text{reveal}}$ \\
 
 \subsection{Monotonicity Tests}
 
-From \texttt{tests/test\_mu\_monotonicity.py}:
+Representative monotonicity check:
 \begin{verbatim}
 def test_mu_monotonic_under_any_trace():
     for _ in range(100):
@@ -222,7 +226,7 @@ def test_mu_monotonic_under_any_trace():
 
 \subsection{Conservation Tests}
 
-From \texttt{tests/test\_mu\_costs.py}:
+Representative conservation check:
 \begin{verbatim}
 def test_mu_conservation():
     program = [
@@ -249,10 +253,10 @@ def test_mu_conservation():
 
 \section{Thermodynamic bridge experiment (publishable plan)}
 
-To connect the ledger to a physical observable, we design a narrowly scoped, falsifiable experiment focused on measurement/erasure thermodynamics.
+To connect the ledger to a physical observable, I design a narrowly scoped, falsifiable experiment focused on measurement/erasure thermodynamics.
 
 \subsection{Workload construction}
-Use the thermodynamic bridge harness to emit four traces that differ only in which singleton module is revealed from a fixed candidate pool: (1) choose 1 of 2 elements, (2) choose 1 of 4, (3) choose 1 of 16, (4) choose 1 of 64. Instruction count, data size, and clocking remain identical so that only the $\Omega \to \Omega'$ reduction changes. The bundle records per-step $\mu$ (raw and normalized), $|\Omega|$, $|\Omega'|$, normalization flags for Python, Coq extraction, and RTL, and an `evidence\_strict` bit indicating whether normalization was allowed.
+Use the thermodynamic bridge harness to emit four traces that differ only in which singleton module is revealed from a fixed candidate pool: (1) choose 1 of 2 elements, (2) choose 1 of 4, (3) choose 1 of 16, (4) choose 1 of 64. Instruction count, data size, and clocking remain identical so that only the $\Omega \to \Omega'$ reduction changes. The bundle records per-step $\mu$ (raw and normalized), $|\Omega|$, $|\Omega'|$, normalization flags for the formal, reference, and hardware layers, and an `evidence\_strict` bit indicating whether normalization was allowed.
 
 \subsection{Bridge prediction}
 By construction $\mu \ge \log_2(|\Omega|/|\Omega'|)$ for each trace. Under the thermodynamic postulate $Q_{\min} = k_B T \ln 2 \cdot \mu$, measured energy/heat must scale with $\mu$ at slope $k_B T \ln 2$ (within an explicit inefficiency factor $\epsilon$). Genesis-only traces remain the lone legitimate zero-$\mu$ run; a zero $\mu$ on any nontrivial trace is treated as a test failure, not “alignment.”
@@ -261,7 +265,7 @@ By construction $\mu \ge \log_2(|\Omega|/|\Omega'|)$ for each trace. Under the t
 Run the three traces on instrumented hardware (or a calibrated switching-energy simulator) at fixed temperature $T$. Record per-run energy and environmental metadata. Fit measured energy against $k_B T \ln 2 \cdot \mu$ and report residuals. A sustained sub-linear slope falsifies the bridge; a super-linear slope quantifies overhead. Publish both ledger outputs and raw measurements so reviewers can recompute the bound.
 
 \subsection{Executed thermodynamic bundle (Dec 2025)}
-We executed the four Ω→Ω′ traces with the bridge harness (`scripts/thermo_experiment.py`), exporting a JSON artifact (default: `results/thermo_experiment.json`, gitignored; override with `--out`). The runs charge μ via partition discovery only (explicit `MDLACC` omitted to mirror the RTL harness) and capture normalization flags and `evidence\_strict` for μ propagation across layers. Each scenario fails fast if the requested region is not representable in RTL (operand-encoded singleton).
+I executed the four Ω→Ω′ traces with the bridge harness, exporting a JSON artifact. The runs charge μ via partition discovery only (explicit \texttt{MDLACC} omitted to mirror the hardware harness) and capture normalization flags and \texttt{evidence\_strict} for μ propagation across layers. Each scenario fails fast if the requested region is not representable by the hardware encoding. These runs are intended to validate that the ledger and trace machinery produce consistent, reproducible μ values that a future physical experiment can bind to energy.
 
 \begin{center}
 \begin{tabular}{|l|c|c|c|c|c|c|}
@@ -276,14 +280,14 @@ singleton\_from\_64 & 7 & 7 / 7 & no & 6 & $2.02 \times 10^{-20}$ & 1.167 \\
 \end{tabular}
 \end{center}
 
-All four traces satisfy $\mu \ge \log_2(|\Omega|/|\Omega'|)$ and align on regs/mem/μ without normalization. The harness encodes an explicit μ-delta into the Coq trace and RTL instruction word, and the Python VM consumes the same μ-delta (disabling implicit MDLACC) so that $\mu_{\text{raw}}$ matches across layers. With this encoding in place, `EVIDENCE\_STRICT` runs succeed for these workloads.
+All four traces satisfy $\mu \ge \log_2(|\Omega|/|\Omega'|)$ and align on regs/mem/μ without normalization. The harness encodes an explicit μ-delta into the formal trace and hardware instruction word, and the reference VM consumes the same μ-delta (disabling implicit MDLACC) so that $\mu_{\text{raw}}$ matches across layers. With this encoding in place, `EVIDENCE\_STRICT` runs succeed for these workloads.
 
 \subsection{Structural heat anomaly workload}
-To mirror the thesis claim that structured insight carries binding energy, the structural-heat harness (`scripts/structural_heat_experiment.py`) executes two erase tasks over the same 1~GiB buffer: \texttt{erase\_random\_noise} (no certificate) and \texttt{erase\_structured\_sorted} (explicit $\log_2(n!)$ certificate for $n=2^{20}$ sorted records). The emitted artifact (`results/structural_heat_experiment.json`) records μ totals, Landauer lower bounds, and slack for both workloads. The structured erase pays dramatically larger μ—raising the Landauer floor accordingly—while keeping instruction count and data volume fixed, turning the “structural heat” prediction into a measurable differential once hardware power logging is connected.
+To mirror the thesis claim that structured insight carries binding energy, the structural-heat harness executes two erase tasks over the same 1~GiB buffer: \texttt{erase\_random\_noise} (no certificate) and \texttt{erase\_structured\_sorted} (explicit $\log_2(n!)$ certificate for $n=2^{20}$ sorted records). The emitted artifact records μ totals, Landauer lower bounds, and slack for both workloads. The structured erase pays dramatically larger μ—raising the Landauer floor accordingly—while keeping instruction count and data volume fixed, turning the “structural heat” prediction into a measurable differential once hardware power logging is connected.
 
 \subsection{Ledger-constrained time dilation workload}
 \label{sec:ledger_time_dilation}
-To test the “speed limit” claim, the time-dilation harness (`scripts/time_dilation_experiment.py`) fixes a μ budget per global tick (32 μ-bits) and varies only the communication payload queued each tick before local computation is allowed. The emitted JSON artifact (default: `results/time_dilation_experiment.json`, gitignored; override with `--out`) reports four scenarios: no communication (32 compute steps/tick), light (28 steps/tick), moderate (20 steps/tick), and heavy (8 steps/tick) while holding the per-tick μ spend constant at 2048 μ over 64 ticks. As communication μ increases, the compute rate monotonically falls, demonstrating that signal propagation consumes the same finite μ budget that would otherwise power local evolution—a ledger-level analogue of time dilation under a fixed speed-of-ledger constraint. Evidence-strict extensions can wire this harness to EMIT traces and RTL exports to enforce the same trade-off across layers.
+To test the “speed limit” claim, the time-dilation harness fixes a μ budget per global tick (32 μ-bits) and varies only the communication payload queued each tick before local computation is allowed. The emitted JSON artifact reports four scenarios: no communication (32 compute steps/tick), light (28 steps/tick), moderate (20 steps/tick), and heavy (8 steps/tick) while holding the per-tick μ spend constant at 2048 μ over 64 ticks. As communication μ increases, the compute rate monotonically falls, demonstrating that signal propagation consumes the same finite μ budget that would otherwise power local evolution—a ledger-level analogue of time dilation under a fixed speed-of-ledger constraint. Evidence-strict extensions can wire this harness to EMIT traces and RTL exports to enforce the same trade-off across layers.
 
 \section{Performance Benchmarks}
 
@@ -315,8 +319,6 @@ Total per-step overhead: $\sim$150 bytes
 
 \subsection{Hardware Synthesis Results}
 
-From \texttt{scripts/run\_synthesis.sh}:
-
 \textbf{YOSYS\_LITE Configuration:}
 \begin{verbatim}
 NUM_MODULES = 4
@@ -339,73 +341,45 @@ REGION_SIZE = 1024
     \item Target: Xilinx UltraScale+
 \end{itemize}
 
-\section{Comprehensive Test Suite}
+\section{Validation Coverage}
 
 \subsection{Test Categories}
 
-The repository contains 156 test files covering:
+The evaluation suite is organized by the kinds of claims it is meant to stress:
 
-\begin{center}
-\begin{tabular}{|l|c|}
-\hline
-\textbf{Category} & \textbf{Test Count} \\
-\hline
-Isomorphism (Python/Coq/RTL) & 15 \\
-Partition Operations & 12 \\
-$\mu$-Ledger & 8 \\
-CHSH/Bell Tests & 10 \\
-Receipt Verification & 6 \\
-Security/Adversarial & 5 \\
-Performance Benchmarks & 8 \\
-\hline
-\textbf{Total} & $>$60 core tests \\
-\hline
-\end{tabular}
-\end{center}
+\begin{itemize}
+    \item \textbf{Isomorphism tests}: cross-layer equality of the observable state projection.
+    \item \textbf{Partition operations}: normalization, split/merge preconditions, and canonical region equality.
+    \item \textbf{$\mu$-ledger tests}: monotonicity, conservation, and irreversibility lower bounds.
+    \item \textbf{CHSH/Bell tests}: enforcement of correlation bounds and revelation requirements.
+    \item \textbf{Receipt verification}: signature integrity and step-by-step replay.
+    \item \textbf{Adversarial tests}: malformed traces and invalid certificates.
+    \item \textbf{Performance benchmarks}: throughput with and without receipts.
+\end{itemize}
 
-\subsection{CI Integration}
+\subsection{Automation}
 
-Every commit triggers:
-\begin{verbatim}
-make -C coq core                           # Coq compilation
-pytest tests/test_partition_isomorphism_minimal.py
-pytest tests/test_rtl_compute_isomorphism.py
-python scripts/inquisitor.py               # Admit/axiom scan
-\end{verbatim}
+The evaluation pipeline is automated: each change is checked against proof compilation, isomorphism gates, and verification policy checks to prevent semantic drift.
 
-\subsection{Execution Gates (from AGENTS.md)}
+\subsection{Execution Gates}
 
-\textbf{Fast Local Gates:}
-\begin{verbatim}
-make -C coq core
-pytest -q tests/test_partition_isomorphism_minimal.py
-pytest -q tests/test_rtl_compute_isomorphism.py
-\end{verbatim}
-
-\textbf{Full Foundry Gate:}
-\begin{verbatim}
-bash scripts/forge_artifact.sh
-\end{verbatim}
+The fast local gates are proof compilation and the two isomorphism tests. The full foundry gate adds synthesis when the hardware toolchain is available.
 
 \section{Reproducibility}
 
-\subsection{Artifact Directory}
+\subsection{Artifact Bundles}
 
-Key artifacts in \texttt{artifacts/}:
+Key artifacts include:
 \begin{itemize}
-    \item \texttt{isomorphism\_test\_results.json}: 3-way comparison results
-    \item \texttt{cross\_platform\_isomorphism\_results.json}: Platform-specific tests
-    \item \texttt{mu\_core\_synth.json}: Synthesis reports
-    \item \texttt{MANIFEST.sha256}: Content hashes for all artifacts
+    \item 3-way comparison results
+    \item Cross-platform isomorphism summaries
+    \item Synthesis reports
+    \item Content hashes for artifact bundles
 \end{itemize}
 
-\subsection{Docker Reproducibility}
+\subsection{Container Reproducibility}
 
-\begin{verbatim}
-docker build -t thiele-machine .
-docker run thiele-machine make -C coq core
-docker run thiele-machine pytest tests/
-\end{verbatim}
+Containerized builds are supported to ensure reproducibility across environments.
 
 \section{Summary}
 
@@ -415,7 +389,7 @@ The evaluation demonstrates:
     \item \textbf{CHSH Correctness}: Supra-quantum certification requires revelation as predicted by theory
     \item \textbf{$\mu$-Conservation}: The ledger is monotonic and exactly tracks declared costs
     \item \textbf{Scalability}: Hardware synthesis targets modern FPGAs with reasonable resource utilization
-    \item \textbf{Reproducibility}: All results can be reproduced via the provided test suite and artifacts
+    \item \textbf{Reproducibility}: All results can be reproduced from the published traces and artifact bundles
 \end{enumerate}
 
 The empirical results validate the theoretical claims: the Thiele Machine enforces structural accounting as a physical law, not merely as a convention.
