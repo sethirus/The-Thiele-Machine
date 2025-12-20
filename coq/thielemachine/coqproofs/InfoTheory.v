@@ -66,8 +66,8 @@ Lemma question_cost_nonnegative :
 Proof.
   intro query_bytes.
   unfold question_cost.
-  rewrite <- inject_Z_0.
-  apply (proj2 (inject_Z_le 0 (8 * Z.of_nat query_bytes)%Z)).
+  change (inject_Z 0 <= inject_Z (8 * Z.of_nat query_bytes))%Q.
+  rewrite <- Zle_Qle.
   lia.
 Qed.
 
@@ -78,8 +78,11 @@ Lemma log2_monotonic :
     inject_Z (Z.log2_up (Z.pos n)) >= inject_Z (Z.log2 (Z.pos m)).
 Proof.
   intros n m Hgt.
-  apply (proj2 (inject_Z_le _ _)).
-  assert (Hle_nm : (Z.pos m <= Z.pos n)%Z) by (apply Pos2Z.pos_lt_pos_iff in Hgt; lia).
+  change (inject_Z (Z.log2 (Z.pos m)) <= inject_Z (Z.log2_up (Z.pos n)))%Q.
+  rewrite <- Zle_Qle.
+  pose proof (Pos.gt_lt n m Hgt) as Hlt_mn.
+  pose proof (Pos2Z.pos_lt_pos _ _ Hlt_mn) as Hlt_nm.
+  assert (Hle_nm : (Z.pos m <= Z.pos n)%Z) by lia.
   assert (Hlog_m_le_n : (Z.log2 (Z.pos m) <= Z.log2 (Z.pos n))%Z).
   { apply Z.log2_le_mono; lia. }
   assert (Hlog_n_le_up : (Z.log2 (Z.pos n) <= Z.log2_up (Z.pos n))%Z).
@@ -96,7 +99,16 @@ Proof.
   intros query_bytes before after _.
   unfold mu_cost, information_cost.
   pose proof (question_cost_nonnegative query_bytes) as Hq.
-  lra.
+  (* Reduce to 0 <= question_cost query_bytes. *)
+  change (state_reduction_entropy before after <=
+            question_cost query_bytes + state_reduction_entropy before after)%Q.
+  rewrite Qle_minus_iff.
+  setoid_rewrite <- (Qplus_assoc (question_cost query_bytes)
+                                (state_reduction_entropy before after)
+                                (- state_reduction_entropy before after)).
+  setoid_rewrite (Qplus_opp_r (state_reduction_entropy before after)).
+  setoid_rewrite Qplus_0_r.
+  exact Hq.
 Qed.
 
 (* μ-cost is always non-negative *)
@@ -107,17 +119,31 @@ Proof.
   intros query_bytes before after.
   unfold mu_cost, information_cost, state_reduction_entropy, question_cost.
   destruct (Pos.leb before after) eqn:Hcmp.
-  - rewrite <- inject_Z_0.
-    apply (proj2 (inject_Z_le 0 (8 * Z.of_nat query_bytes)%Z)); lia.
-  - rewrite <- inject_Z_0.
-    apply Qplus_le_le_0_compat.
-    + apply (proj2 (inject_Z_le 0 (8 * Z.of_nat query_bytes)%Z)); lia.
-    + apply (proj2 (inject_Z_le 0
-                    (Z.log2_up (Z.pos before) - Z.log2 (Z.pos after))%Z)).
-      assert ((Z.pos after < Z.pos before)%Z) as HltZ by (apply Pos2Z.pos_lt_pos_iff; lia).
-      pose proof (Z.log2_le_mono (Z.pos after) (Z.pos before)) as Hmono.
-      assert (0 <= Z.log2 (Z.pos after))%Z by (apply Z.log2_nonneg; lia).
-      specialize (Hmono HltZ).
+  - setoid_rewrite Qplus_0_r.
+    change (inject_Z 0 <= inject_Z (8 * Z.of_nat query_bytes))%Q.
+    rewrite <- Zle_Qle.
+    lia.
+  - (* before > after, so the entropy term is a nonnegative difference *)
+    setoid_replace 0 with (0 + 0)%Q by (symmetry; apply Qplus_0_l).
+    apply Qplus_le_compat.
+    + change (inject_Z 0 <= inject_Z (8 * Z.of_nat query_bytes))%Q.
+      rewrite <- Zle_Qle.
+      lia.
+    + (* Reduce the Q inequality to a Z inequality using the inject_Z algebra laws. *)
+      set (a := Z.log2_up (Z.pos before)).
+      set (b := Z.log2 (Z.pos after)).
+      unfold Qminus.
+      rewrite <- inject_Z_opp.
+      rewrite <- inject_Z_plus.
+      change (inject_Z 0 <= inject_Z (a + - b))%Q.
+      rewrite <- Zle_Qle.
+      subst a b.
+      pose proof ((proj1 (Pos.leb_gt before after)) Hcmp) as Hafter_lt_before.
+      assert (HltZ : (Z.pos after < Z.pos before)%Z)
+        by (apply Pos2Z.pos_lt_pos; exact Hafter_lt_before).
+      assert (HleZ : (Z.pos after <= Z.pos before)%Z) by lia.
+      pose proof (Z.log2_le_mono (Z.pos after) (Z.pos before) HleZ) as Hlog_m_le_n.
+      pose proof (Z.le_log2_log2_up (Z.pos before)) as Hlog_n_le_up.
       lia.
 Qed.
 
@@ -158,7 +184,7 @@ Lemma partition_discovery_mu_includes_mdl :
 Proof.
   intros partition_description_bits data_points residual.
   exists (mdl_cost 1 partition_description_bits data_points residual).
-  lra.
+  apply Qle_refl.
 Qed.
 
 (* ================================================================ *)
@@ -187,8 +213,19 @@ Lemma mu_bounds_kolmogorov :
 Proof.
   intros data program_bytes Hmu.
   exists (kolmogorov_complexity data).
-  unfold kolmogorov_complexity.
-  lra.
+  set (K := kolmogorov_complexity data).
+  (* Goal: K <= mu + K. Rewrite RHS as K + mu, then cancel K. *)
+  setoid_replace (mu_cost program_bytes 1 1 + K) with (K + mu_cost program_bytes 1 1)
+    by (apply Qplus_comm).
+  rewrite Qle_minus_iff.
+  (* 0 <= (K + mu) - K = mu *)
+  unfold Qminus.
+  setoid_rewrite <- (Qplus_assoc K (mu_cost program_bytes 1 1) (-K)).
+  setoid_rewrite (Qplus_comm (mu_cost program_bytes 1 1) (-K)).
+  setoid_rewrite (Qplus_assoc K (-K) (mu_cost program_bytes 1 1)).
+  setoid_rewrite (Qplus_opp_r K).
+  setoid_rewrite Qplus_0_l.
+  exact Hmu.
 Qed.
 
 (* ================================================================ *)
@@ -202,7 +239,8 @@ Lemma mu_monotonicity_conservation :
     mu_after - mu_before >= 0.
 Proof.
   intros mu_before mu_after Hge.
-  lra.
+  unfold Qminus.
+  exact (proj1 (Qle_minus_iff mu_before mu_after) Hge).
 Qed.
 
 (* ================================================================ *)
@@ -227,16 +265,19 @@ Proof.
   intros n query_bytes Hn_pos Hbytes_pos.
   unfold binary_search_mu_cost, question_cost.
   set (num_queries := Z.log2_up (Z.of_nat n)).
-  assert (Hnum_nonneg : (0 <= num_queries)%Z).
-  { unfold num_queries.
-    destruct n as [|n']; [lia|].
-    simpl.
-    apply Z.log2_up_nonneg.
-    lia. }
-  assert (Hcost_pos : 1 <= 8 * Z.of_nat query_bytes)%Z by lia.
-  apply (proj2 (inject_Z_le _ _)).
+  assert (Hnum_nonneg : (0 <= num_queries)%Z)
+    by (unfold num_queries; apply Z.log2_up_nonneg).
+  assert (Hcost_pos : (1 <= 8 * Z.of_nat query_bytes)%Z) by lia.
+  (* Convert the goal into a Z inequality. *)
+  change (inject_Z num_queries <= inject_Z num_queries * inject_Z (8 * Z.of_nat query_bytes))%Q.
+  rewrite <- inject_Z_mult.
+  rewrite <- Zle_Qle.
   (* Rewrite goal in Z domain to use monotonicity of multiplication *)
   assert (Hnum_le : (num_queries <= num_queries * (8 * Z.of_nat query_bytes))%Z).
-  { apply Z.le_mul_of_pos_r; lia. }
+  { pose proof (Z.mul_le_mono_nonneg_l 1 (8 * Z.of_nat query_bytes) num_queries
+                    Hnum_nonneg Hcost_pos) as Hmul.
+    (* Hmul: num_queries * 1 <= num_queries * cost *)
+    rewrite Z.mul_1_r in Hmul.
+    exact Hmul. }
   exact Hnum_le.
 Qed.

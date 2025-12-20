@@ -276,8 +276,8 @@ True
    - Hacker News (Show HN)
 
 2. **Fix known bugs**:
-   - Update test_partition_edge_cases.py expectations
-   - Document all test failures
+   - ✅ Update test_partition_edge_cases.py expectations (now 21/21 passing)
+   - Keep hard failures documented if any reappear
    - Strengthen weak claims
 
 3. **Respond to feedback**:

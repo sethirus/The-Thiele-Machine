@@ -21,7 +21,10 @@ class _ThieleLogger:
             fmt = logging.Formatter("%(asctime)s %(levelname)s %(name)s: %(message)s")
             h.setFormatter(fmt)
             self._logger.addHandler(h)
-            self._logger.setLevel(logging.INFO)
+            # Respect an explicitly configured log level.
+            # Only default to INFO when the logger is still NOTSET.
+            if self._logger.level == logging.NOTSET:
+                self._logger.setLevel(logging.INFO)
 
     def info(self, activity: str, details: Optional[Dict[str, Any]] = None, **kwargs) -> None:
         # Prefer an explicit details dict; if kwargs are present merge them

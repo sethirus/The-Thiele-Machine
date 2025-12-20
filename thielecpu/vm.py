@@ -16,6 +16,7 @@ from typing import List, Dict, Any, Optional, Tuple, Mapping
 import ast
 import sys
 from io import StringIO
+import runpy
 import hashlib
 import string
 import math
@@ -135,6 +136,31 @@ SAFE_NODE_TYPES = {
     ast.Raise,
     ast.Assert,
 }
+
+
+class _TeeTextIO:
+    """File-like object that writes to both a primary stream and a capture buffer."""
+
+    def __init__(self, primary, capture: StringIO):
+        self._primary = primary
+        self._capture = capture
+
+    def write(self, s: str) -> int:  # pragma: no cover - thin wrapper
+        n1 = self._primary.write(s)
+        self._capture.write(s)
+        return n1
+
+    def flush(self) -> None:  # pragma: no cover - thin wrapper
+        try:
+            self._primary.flush()
+        except Exception:
+            pass
+
+    def isatty(self) -> bool:  # pragma: no cover - thin wrapper
+        try:
+            return bool(getattr(self._primary, "isatty")())
+        except Exception:
+            return False
 SAFE_NODE_TYPES.update(
     {
         ast.Add,
@@ -1059,6 +1085,7 @@ class VM:
     witness_state: WitnessState = field(default_factory=WitnessState)
     step_receipts: List[StepReceipt] = field(default_factory=list)
     explicit_mdlacc_called: bool = field(default=False, init=False, repr=False)
+    last_exit_code: int = field(default=0, init=False)
 
     def __post_init__(self):
         ensure_kernel_keys()
@@ -1634,14 +1661,32 @@ class VM:
             else:
                 return None, "No satisfying assignment found (unsatisfiable constraints)"
 
-    def execute_python(self, code_or_path: str) -> Any:
-        """Execute Python code or file in a sandboxed environment."""
+    def execute_python(self, code_or_path: str, argv: Optional[Sequence[str]] = None) -> Any:
+        """Execute Python code or a file.
+
+        When executing a file, this emulates standard Python semantics closely:
+        - sets ``__file__`` and ``__name__`` in the execution globals
+        - sets ``sys.argv`` and temporarily prepends the script directory to ``sys.path``
+
+        Note: sandbox restrictions are currently disabled in this repo (trusted-code mode).
+        """
+        # Special case: module execution (python -m)
+        is_module = False
+        module_name: str | None = None
+        if code_or_path.startswith("module:"):
+            is_module = True
+            module_name = code_or_path[len("module:") :].strip()
+
         # Check if it's a file path
-        if code_or_path.endswith('.py') or ('\n' not in code_or_path.strip() and Path(code_or_path).exists()):
+        is_file = False
+        script_path: Path | None = None
+        if (not is_module) and (code_or_path.endswith('.py') or ('\n' not in code_or_path.strip() and Path(code_or_path).exists())):
             try:
                 # Try to read as file
-                code = Path(code_or_path).read_text(encoding='utf-8')
-                source_info = f"file: {code_or_path}"
+                script_path = Path(code_or_path).resolve()
+                code = script_path.read_text(encoding='utf-8')
+                source_info = f"file: {script_path}"
+                is_file = True
             except (FileNotFoundError, OSError):
                 # Not a file, treat as inline code
                 code = code_or_path
@@ -1655,21 +1700,133 @@ class VM:
         if 'placeholder(' in code:
             return self.execute_symbolic_python(code, source_info)
 
-        # Capture stdout
+        # Capture stdout. For interactive parity, optionally tee output to the real stdout
+        # so input() prompts and prints remain visible while we still log trace output.
         old_stdout = sys.stdout
         captured_output = StringIO()
-        sys.stdout = captured_output
+        force_tee = bool(self.python_globals.get("_vm_tee_stdout"))
+        auto_tee = False
+        try:
+            auto_tee = bool(getattr(sys.stdin, "isatty")()) and bool(getattr(old_stdout, "isatty")())
+        except Exception:
+            auto_tee = False
+        if force_tee or auto_tee:
+            sys.stdout = _TeeTextIO(old_stdout, captured_output)
+        else:
+            sys.stdout = captured_output
+
+        old_argv: list[str] | None = None
+        old_sys_path: list[str] | None = None
+        # Provide interpreter-like globals for module/file execution.
+        if (not is_file) and (not is_module) and argv is None:
+            argv0 = self.python_globals.get("_vm_argv0")
+            vm_args = self.python_globals.get("_vm_script_args")
+            if isinstance(argv0, str) and isinstance(vm_args, list) and all(isinstance(x, str) for x in vm_args):
+                argv = [argv0, *vm_args]
+            elif isinstance(argv0, str):
+                argv = [argv0]
+
+        if is_module and module_name:
+            self.python_globals.setdefault("__name__", "__main__")
+            # For -m execution, argv[0] is the module name.
+            if argv is None:
+                vm_args = self.python_globals.get("_vm_script_args")
+                if isinstance(vm_args, list) and all(isinstance(x, str) for x in vm_args):
+                    argv = [module_name, *vm_args]
+                else:
+                    argv = [module_name]
+            try:
+                old_argv = list(sys.argv)
+                sys.argv = list(argv)
+            except Exception:
+                old_argv = None
+            try:
+                old_sys_path = list(sys.path)
+                # Match CPython: for `python -m`, sys.path[0] is the CWD (often '').
+                sys.path = ["", *[p for p in old_sys_path if p != ""]]
+            except Exception:
+                old_sys_path = None
+        elif is_file and script_path is not None:
+            self.python_globals.setdefault("__name__", "__main__")
+            self.python_globals["__file__"] = str(script_path)
+            self.python_globals.setdefault("__package__", None)
+            self.python_globals.setdefault("__spec__", None)
+
+            if argv is None:
+                vm_args = self.python_globals.get("_vm_script_args")
+                if isinstance(vm_args, list) and all(isinstance(x, str) for x in vm_args):
+                    argv = [str(script_path), *vm_args]
+                else:
+                    argv = [str(script_path)]
+            try:
+                old_argv = list(sys.argv)
+                sys.argv = list(argv) if argv is not None else [str(script_path)]
+            except Exception:
+                old_argv = None
+            try:
+                old_sys_path = list(sys.path)
+                script_dir = str(script_path.parent)
+                sys.path = [script_dir, *[p for p in old_sys_path if p != script_dir]]
+            except Exception:
+                old_sys_path = None
+        else:
+            # Inline execution: default to a VM-ish name, but if argv was supplied
+            # (e.g., from CLI -c or stdin), match interpreter behavior.
+            if argv is not None:
+                self.python_globals.setdefault("__name__", "__main__")
+                try:
+                    old_argv = list(sys.argv)
+                    sys.argv = list(argv)
+                except Exception:
+                    old_argv = None
+                try:
+                    old_sys_path = list(sys.path)
+                    sys.path = ["", *[p for p in old_sys_path if p != ""]]
+                except Exception:
+                    old_sys_path = None
+            else:
+                self.python_globals.setdefault("__name__", "__vm__")
 
         try:
+            if is_module and module_name:
+                # Match CPython `python -m module` semantics.
+                runpy.run_module(
+                    module_name,
+                    run_name="__main__",
+                    alter_sys=True,
+                    init_globals=self.python_globals,
+                )
+                self.last_exit_code = 0
+                result = self.python_globals.get("__result__")
+                output = captured_output.getvalue()
+                return result, output
+
+            if is_file and script_path is not None:
+                runpy.run_path(str(script_path), run_name="__main__", init_globals=self.python_globals)
+                self.last_exit_code = 0
+                result = self.python_globals.get("__result__")
+                output = captured_output.getvalue()
+                return result, output
+
             result = safe_execute(code, self.python_globals)
+            self.last_exit_code = 0
             output = captured_output.getvalue()
             return result, output
         except SyntaxError:
             result = safe_eval(code, self.python_globals)
+            self.last_exit_code = 0
             output = captured_output.getvalue()
             return result, output
+        except SystemExit as exc:
+            # Treat sys.exit(...) as a normal VM-visible termination signal rather
+            # than aborting the whole VM run.
+            output = captured_output.getvalue()
+            exit_code = getattr(exc, "code", None)
+            self.last_exit_code = int(exit_code) if isinstance(exit_code, int) else 0
+            return None, output + f"\nSystemExit: {exit_code}"
         except SecurityError as exc:
             output = captured_output.getvalue()
+            self.last_exit_code = 1
             return None, output + f"\nSecurityError: {exc}"
         except Exception as exc:
             # Capture any other runtime exception and return gracefully so
@@ -1679,10 +1836,21 @@ class VM:
             output = captured_output.getvalue()
             # Return the error appended to the output so the caller can
             # detect "Error:" and set the VM halt flag.
+            self.last_exit_code = 1
             return None, output + f"\nError: {exc}"
         finally:
             self.state.mu_ledger.mu_execution += 1
             sys.stdout = old_stdout
+            if old_argv is not None:
+                try:
+                    sys.argv = old_argv
+                except Exception:
+                    pass
+            if old_sys_path is not None:
+                try:
+                    sys.path = old_sys_path
+                except Exception:
+                    pass
 
         return None, "Python execution completed"
 
@@ -2652,44 +2820,131 @@ class VM:
 
 def main():
     """Run Python files directly through the Thiele CPU VM as a Python interpreter."""
-    if len(sys.argv) < 2:
-        print("Usage: python3 vm.py <python_file.py> [output_dir]")
-        print("Example: python3 vm.py scripts/solve_sudoku.py")
-        sys.exit(1)
+    import argparse
 
-    python_file = sys.argv[1]
-    if not python_file.endswith('.py'):
-        print(f"Error: {python_file} is not a Python file")
-        sys.exit(1)
-
-    if not Path(python_file).exists():
-        print(f"Error: {python_file} not found")
-        sys.exit(1)
-
-    # Read the Python file content
-    python_code = Path(python_file).read_text(encoding='utf-8')
-
-    # Create output directory
-    if len(sys.argv) > 2:
-        outdir = Path(sys.argv[2])
+    # Split VM args vs script args using the conventional "--" separator.
+    # Everything after "--" is forwarded to the target script.
+    raw = sys.argv[1:]
+    script_args: list[str] = []
+    if "--" in raw:
+        sep = raw.index("--")
+        vm_argv = raw[:sep]
+        script_args = raw[sep + 1 :]
     else:
-        outdir = Path('out') / Path(python_file).stem
+        vm_argv = raw
 
-    # Create a simple Thiele program to execute the Python code directly
-    escaped_code = python_code.replace('\n', '\\n').replace('"', '\\"')
-    program_text = f"""; Auto-generated Thiele program to execute {python_file} as Python interpreter
-PYTHON "{escaped_code}"
-"""
+    ap = argparse.ArgumentParser(
+        prog="python3 thielecpu/vm.py",
+        add_help=True,
+        description="Run a Python script through the Thiele VM (emits μ/receipts/trace).",
+    )
+    ap.add_argument(
+        "-m",
+        "--module",
+        dest="module",
+        default=None,
+        help="Run a library module as a script (python -m). Example: -m package.module",
+    )
+    ap.add_argument(
+        "-c",
+        dest="command",
+        default=None,
+        help="Program passed in as a string (python -c).",
+    )
+    ap.add_argument("python_file", nargs="?", default=None, help="Path to a .py script, or '-' for stdin")
+    # Backward-compatible positional outdir (only usable when not forwarding script args).
+    ap.add_argument("legacy_outdir", nargs="?", default=None)
+    ap.add_argument(
+        "--outdir",
+        type=Path,
+        default=None,
+        help="Directory to write VM artifacts (default: out/<script_stem>)",
+    )
+    ap.add_argument(
+        "--tee-stdout",
+        action="store_true",
+        help="Also print script stdout to the real terminal while still capturing it for VM traces.",
+    )
+    ap.add_argument(
+        "-i",
+        "--interactive",
+        action="store_true",
+        help="After running, drop into an interactive REPL (like python -i).",
+    )
+    args = ap.parse_args(vm_argv)
 
-    # Parse the program
-    program_lines = program_text.split('\n')
-    program = parse(program_lines, Path(python_file).parent)
+    mode_count = int(args.module is not None) + int(args.command is not None) + int(args.python_file is not None)
+    if mode_count != 1:
+        print("Error: provide exactly one of: <python_file.py> OR -m/--module <name> OR -c <code> OR '-' for stdin")
+        sys.exit(2)
+
+    python_file = args.python_file
+    if python_file is not None:
+        # stdin mode: python -
+        if python_file == "-":
+            pass
+        elif not python_file.endswith('.py'):
+            print(f"Error: {python_file} is not a Python file")
+            sys.exit(1)
+
+        if python_file != "-" and not Path(python_file).exists():
+            print(f"Error: {python_file} not found")
+            sys.exit(1)
+
+    if args.outdir is not None:
+        outdir = args.outdir
+    elif args.legacy_outdir is not None and not script_args:
+        outdir = Path(args.legacy_outdir)
+    else:
+        if args.command is not None:
+            outdir = Path('out') / "command"
+        elif python_file == "-":
+            outdir = Path('out') / "stdin"
+        else:
+            outdir = Path('out') / (Path(python_file).stem if python_file is not None else str(args.module).replace('.', '_'))
+
+    # Build the program directly (avoid assembler quirks like ';' comment stripping
+    # which would break `-c` code strings).
+    if args.module is not None:
+        pyexec_payload = f"module:{args.module}"
+    elif args.command is not None:
+        pyexec_payload = args.command
+    elif python_file == "-":
+        pyexec_payload = sys.stdin.read()
+    else:
+        pyexec_payload = str(Path(python_file).resolve())
+
+    program = [("PYEXEC", pyexec_payload)]
 
     # Run the VM
     vm = VM(State())
+    # Forward argv-style args to the script.
+    vm.python_globals["_vm_script_args"] = script_args
+    if args.tee_stdout or args.interactive:
+        vm.python_globals["_vm_tee_stdout"] = True
+    if args.command is not None:
+        vm.python_globals["_vm_argv0"] = "-c"
+    elif python_file == "-":
+        vm.python_globals["_vm_argv0"] = "-"
     vm.run(program, outdir)
 
     print(f"Python execution completed. Output written to {outdir}/")
+
+    if args.interactive:
+        # Match CPython: -i should only happen after a successful run.
+        if getattr(vm, "last_exit_code", 0) != 0:
+            raise SystemExit(getattr(vm, "last_exit_code", 0))
+        import code as _code
+
+        banner = "Thiele VM interactive (post-run). Globals are the script globals." \
+            " Type Ctrl-D to exit."
+        try:
+            _code.interact(banner=banner, local=vm.python_globals)
+        except SystemExit as exc:
+            # Respect exit codes from within the REPL.
+            raise
+
+    raise SystemExit(getattr(vm, "last_exit_code", 0))
 
 
 if __name__ == "__main__":
