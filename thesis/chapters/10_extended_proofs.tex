@@ -4,9 +4,9 @@
 
 Mathematical proofs have been the gold standard of certainty for millennia. When Euclid proved the infinitude of primes, his proof was ``checked'' by human readers. But human checking is fallible---history is littered with ``proofs'' that contained subtle errors discovered years later.
 
-\textbf{Machine-checked proofs} eliminate this uncertainty. A proof assistant like Coq is a computer program that verifies every logical step. If Coq accepts a proof, the proof is correct---not because we trust the programmer, but because Coq's core logic (the Calculus of Inductive Constructions) has been formally verified.
+\textbf{Machine-checked proofs} eliminate this uncertainty. A proof assistant like Coq is a computer program that verifies every logical step. If Coq accepts a proof, the proof is correct relative to the system’s foundational logic---not because I trust the programmer, but because the kernel enforces the inference rules.
 
-The Thiele Machine development contains \textbf{197 verified Coq files} with:
+The Thiele Machine development contains a large, fully verified Coq proof corpus with:
 \begin{itemize}
     \item \textbf{Zero admits}: No proof is left incomplete
     \item \textbf{Zero axioms}: No unproven assumptions (beyond foundational logic)
@@ -36,32 +36,21 @@ This states ``for all natural numbers n, n + 0 = n'' and proves it by induction.
 
 \section{Proof Inventory}
 
-\begin{center}
-\begin{tabular}{|l|c|c|}
-\hline
-\textbf{Directory} & \textbf{Files} & \textbf{Description} \\
-\hline
-\texttt{coq/kernel/} & 34 & Core VM semantics and physics \\
-\texttt{coq/thielemachine/} & 106 & Extended machine proofs \\
-\texttt{coq/kernel\_toe/} & 6 & Theory of Everything attempts \\
-\texttt{coq/modular\_proofs/} & 8 & Turing/Minsky simulation \\
-\texttt{coq/bridge/} & 6 & Domain bridges \\
-\texttt{coq/physics/} & 3 & Physical models \\
-\texttt{coq/nofi/} & 3 & No Free Insight interface \\
-\texttt{coq/shor\_primitives/} & 3 & Factoring primitives \\
-\texttt{coq/self\_reference/} & 1 & Meta-level reasoning \\
-\texttt{Other} & 27 & Specialized modules \\
-\hline
-\textbf{Total} & 197 & \\
-\hline
-\end{tabular}
-\end{center}
+The proof corpus is organized by \emph{domain} rather than by implementation detail. The major blocks are:
+\begin{itemize}
+    \item \textbf{Kernel semantics}: state, step relation, $\mu$-accounting, observables.
+    \item \textbf{Extended machine proofs}: partition logic, discovery, simulation, and subsumption.
+    \item \textbf{Bridge lemmas}: connections from application domains to kernel obligations.
+    \item \textbf{Physics models}: locality, cone algebra, and symmetry results.
+    \item \textbf{No Free Insight interface}: abstract axiomatization of the impossibility theorem.
+    \item \textbf{Self-reference and meta-theory}: formal limits of self-description.
+\end{itemize}
 
 \section{The ThieleMachine Proof Suite (106 Files)}
 
 \subsection{Partition Logic}
 
-From \texttt{coq/thielemachine/coqproofs/PartitionLogic.v}:
+Representative definitions:
 \begin{verbatim}
 Record Partition := {
   modules : list (list nat);
@@ -89,7 +78,7 @@ Key theorems:
 
 \subsection{Quantum Admissibility and Tsirelson Bound}
 
-From \texttt{coq/thielemachine/coqproofs/QuantumAdmissibilityTsirelson.v}:
+Representative theorem:
 \begin{verbatim}
 Definition quantum_admissible_box (B : Box) : Prop :=
   local B \/ B = TsirelsonApprox.
@@ -118,7 +107,7 @@ Multiple Bell-related proofs:
 
 \subsection{Turing Machine Embedding}
 
-From \texttt{coq/thielemachine/coqproofs/Embedding\_TM.v}:
+Representative theorem:
 \begin{verbatim}
 Theorem thiele_simulates_turing :
   forall fuel prog st,
@@ -139,35 +128,15 @@ This proves that the Thiele Machine properly subsumes Turing computation.
 
 \subsection{Additional ThieleMachine Proofs}
 
-\begin{center}
-\begin{tabular}{|l|l|}
-\hline
-\textbf{File} & \textbf{Content} \\
-\hline
-\texttt{BlindSighted.v} & Blind vs sighted computation \\
-\texttt{Confluence.v} & Confluence properties \\
-\texttt{CoreSemantics.v} & Core operational semantics \\
-\texttt{DiscoveryProof.v} & Discovery operation proofs \\
-\texttt{EfficientDiscovery.v} & Efficient discovery algorithms \\
-\texttt{HardwareBridge.v} & Hardware-software bridge \\
-\texttt{InfoTheory.v} & Information theory connections \\
-\texttt{Separation.v} & Module separation theorems \\
-\texttt{Simulation.v} & Simulation relations \\
-\texttt{SpacelandProved.v} & Spaceland theorem \\
-\texttt{ThieleFoundations.v} & Foundational definitions \\
-\texttt{ThieleMachineUniv.v} & Universality proofs \\
-\texttt{ThieleProofCarryingReality.v} & Proof-carrying computation \\
-\hline
-\end{tabular}
-\end{center}
+Further results cover: blind vs sighted computation, confluence, simulation relations, separation theorems, and proof-carrying computation. These theorems are not isolated; they reuse the kernel invariants and the partition logic to show that the same structural accounting principles scale to richer settings.
 
 \section{Theory of Everything (TOE) Proofs}
 
-The \texttt{coq/kernel\_toe/} directory represents an ambitious attempt to derive physics from the kernel semantics.
+This branch of the development attempts to derive physics from kernel semantics alone.
 
 \subsection{The Final Outcome Theorem}
 
-From \texttt{coq/kernel\_toe/TOE.v}:
+Representative theorem:
 \begin{verbatim}
 Theorem KernelTOE_FinalOutcome :
   KernelMaximalClosureP /\ KernelNoGoForTOE_P.
@@ -181,7 +150,7 @@ This establishes both:
 
 \subsection{The No-Go Theorem}
 
-From \texttt{coq/kernel\_toe/NoGo.v}:
+Representative theorem:
 \begin{verbatim}
 Theorem CompositionalWeightFamily_Infinite :
   exists w : nat -> Weight,
@@ -199,7 +168,7 @@ No unique weight is forced by compositionality alone.
 
 \subsection{Physics Requires Extra Structure}
 
-From \texttt{coq/kernel/TOEDecision.v}:
+Representative theorem:
 \begin{verbatim}
 Theorem Physics_Requires_Extra_Structure :
   KernelNoGoForTOE_P.
@@ -209,7 +178,7 @@ This is the definitive statement: deriving a unique physical theory from the ker
 
 \subsection{Closure Theorems}
 
-From \texttt{coq/kernel\_toe/Closure.v}:
+Representative theorem:
 \begin{verbatim}
 Theorem KernelMaximalClosure :
   KernelMaximalClosureP.
@@ -226,7 +195,7 @@ The kernel does force:
 
 \subsection{Causal Structure from Steps}
 
-From \texttt{coq/kernel/SpacetimeEmergence.v}:
+Representative definitions:
 \begin{verbatim}
 Definition step_rel (s s' : VMState) : Prop := exists instr, vm_step s instr s'.
 
@@ -239,7 +208,7 @@ Spacetime emerges from the \texttt{reaches} relation: states are ``events,'' and
 
 \subsection{Cone Algebra}
 
-From \texttt{coq/kernel/ConeAlgebra.v}:
+Representative theorem:
 \begin{verbatim}
 Theorem cone_composition : forall t1 t2,
   (forall x, In x (causal_cone (t1 ++ t2)) <->
@@ -250,13 +219,13 @@ Causal cones compose via set union when traces are concatenated. This gives cone
 
 \subsection{Lorentz Structure Not Forced}
 
-From \texttt{coq/kernel/LorentzNotForced.v}: The kernel does not force Lorentz invariance---that would require additional geometric structure beyond the partition graph.
+The kernel does not force Lorentz invariance---that would require additional geometric structure beyond the partition graph.
 
 \section{Impossibility Theorems}
 
 \subsection{Entropy Impossibility}
 
-From \texttt{coq/kernel/EntropyImpossibility.v}:
+Representative theorem:
 \begin{verbatim}
 Theorem region_equiv_class_infinite : forall s,
   exists f : nat -> VMState,
@@ -268,13 +237,13 @@ Observational equivalence classes are infinite, blocking log-cardinality entropy
 
 \subsection{Probability Impossibility}
 
-From \texttt{coq/kernel/ProbabilityImpossibility.v}: No unique probability measure over traces is forced by the kernel semantics.
+No unique probability measure over traces is forced by the kernel semantics.
 
 \section{Quantum Bound Proofs}
 
 \subsection{Kernel-Level Guarantee}
 
-From \texttt{coq/kernel/QuantumBound.v}:
+Representative theorem:
 \begin{verbatim}
 Definition quantum_admissible (trace : list vm_instruction) : Prop :=
   (* Contains no cert-setting instructions *)
@@ -291,7 +260,7 @@ Quantum-admissible traces cannot set the certification CSR.
 
 \subsection{Quantitative $\mu$ Lower Bound}
 
-From \texttt{coq/kernel/MuNoFreeInsightQuantitative.v}:
+Representative lemma:
 \begin{verbatim}
 Lemma vm_exec_mu_monotone :
   forall fuel trace s0 sf,
@@ -305,7 +274,7 @@ If supra-certification happens, then $\mu$ must increase by at least the cert-se
 
 \subsection{Abstract Interface}
 
-From \texttt{coq/nofi/NoFreeInsight\_Interface.v}:
+Representative module type:
 \begin{verbatim}
 Module Type NO_FREE_INSIGHT_SYSTEM.
   Parameter S : Type.
@@ -329,11 +298,11 @@ This allows the No Free Insight theorem to be instantiated for any system satisf
 
 \subsection{Kernel Instance}
 
-From \texttt{coq/nofi/Instance\_Kernel.v}: The kernel is proven to satisfy the NO\_FREE\_INSIGHT\_SYSTEM interface.
+The kernel is proven to satisfy the NO\_FREE\_INSIGHT\_SYSTEM interface.
 
 \section{Self-Reference}
 
-From \texttt{coq/self\_reference/SelfReference.v}:
+Representative definitions:
 \begin{verbatim}
 Definition contains_self_reference (S : System) : Prop :=
   exists P : Prop, sentences S P /\ P.
@@ -350,7 +319,7 @@ This formalizes why self-referential systems require meta-levels with additional
 
 \section{Modular Simulation Proofs}
 
-From \texttt{coq/modular\_proofs/}:
+Representative list:
 \begin{itemize}
     \item \texttt{TM\_Basics.v}: Turing Machine fundamentals
     \item \texttt{Minsky.v}: Minsky register machines
@@ -362,7 +331,7 @@ From \texttt{coq/modular\_proofs/}:
 
 \subsection{Subsumption Theorem}
 
-From \texttt{coq/kernel/Subsumption.v}:
+Representative theorem:
 \begin{verbatim}
 Theorem thiele_simulates_turing :
   forall fuel prog st,
@@ -374,7 +343,7 @@ The Thiele Machine properly subsumes Turing Machine computation.
 
 \section{Falsifiable Predictions}
 
-From \texttt{coq/kernel/FalsifiablePrediction.v}:
+Representative definitions:
 \begin{verbatim}
 Definition pnew_cost_bound (region : list nat) : nat :=
   region_size region.
@@ -389,12 +358,12 @@ These predictions are falsifiable: if benchmarks show costs outside these bounds
 
 The extended proof architecture establishes:
 \begin{enumerate}
-    \item \textbf{197 verified Coq files} with zero admits and zero axioms
-    \item \textbf{Quantum bounds}: Literal CHSH $\le$ 5657/2000
-    \item \textbf{TOE limits}: Physics requires extra structure beyond compositionality
-    \item \textbf{Impossibility theorems}: Entropy, probability, unique weights not forced
-    \item \textbf{Subsumption}: Thiele properly extends Turing
-    \item \textbf{Falsifiable predictions}: Concrete, testable cost bounds
+    \item \textbf{Zero-admit corpus}: A fully discharged proof tree with no admits or unproven axioms beyond foundational logic.
+    \item \textbf{Quantum bounds}: Literal CHSH $\le$ 5657/2000.
+    \item \textbf{TOE limits}: Physics requires extra structure beyond compositionality.
+    \item \textbf{Impossibility theorems}: Entropy, probability, and unique weights are not forced by the kernel alone.
+    \item \textbf{Subsumption}: Thiele properly extends Turing computation.
+    \item \textbf{Falsifiable predictions}: Concrete, testable cost bounds.
 \end{enumerate}
 
-This represents one of the most comprehensive mechanically-verified computational physics developments to date.
+This represents a large mechanically-verified computational physics development built to be reconstructed from first principles.

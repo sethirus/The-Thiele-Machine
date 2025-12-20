@@ -4,7 +4,7 @@
 
 A central claim of this thesis is that computation is not merely an abstract mathematical process---it is a \textit{physical} process subject to physical laws. When a computer erases a bit, it dissipates heat. When it stores information, it consumes energy. The $\mu$-ledger tracks these physical costs.
 
-To validate this connection, we develop explicit physics models within the Coq framework:
+To validate this connection, I develop explicit physics models within the Coq framework:
 \begin{itemize}
     \item \textbf{Wave propagation}: A model of reversible dynamics with conservation laws
     \item \textbf{Dissipative systems}: A model of irreversible dynamics connecting to $\mu$-monotonicity
@@ -26,11 +26,11 @@ This chapter documents the physics models that demonstrate emergent conservation
 
 \section{Physics Models}
 
-The \texttt{coq/physics/} directory contains three verified physics models that demonstrate how physical laws emerge from computational structure.
+The formal development contains verified physics models that demonstrate how physical laws emerge from computational structure.
 
 \subsection{Wave Propagation Model}
 
-From \texttt{coq/physics/WaveModel.v}, a 1D wave dynamics model with left- and right-moving amplitudes:
+Representative model: a 1D wave dynamics model with left- and right-moving amplitudes:
 \begin{verbatim}
 Record WaveCell := {
   left_amp : nat;
@@ -61,19 +61,19 @@ These proofs demonstrate that even simple computational models exhibit physical-
 
 \subsection{Dissipative Model}
 
-From \texttt{coq/physics/DissipativeModel.v}: Models systems with irreversible dynamics, connecting to the $\mu$-monotonicity of the kernel.
+The dissipative model captures irreversible dynamics, connecting to $\mu$-monotonicity of the kernel.
 
 \subsection{Discrete Model}
 
-From \texttt{coq/physics/DiscreteModel.v}: Lattice-based dynamics for discrete spacetime emergence.
+The discrete model uses lattice-based dynamics for discrete spacetime emergence.
 
 \section{Shor Primitives}
 
-The \texttt{coq/shor\_primitives/} directory formalizes the mathematical foundations of Shor's factoring algorithm.
+The formalization includes the mathematical foundations of Shor's factoring algorithm.
 
 \subsection{Period Finding}
 
-From \texttt{coq/shor\_primitives/PeriodFinding.v}:
+Representative definitions:
 \begin{verbatim}
 Definition is_period (r : nat) : Prop :=
   r > 0 /\ forall k, pow_mod (k + r) = pow_mod k.
@@ -99,7 +99,7 @@ Theorem shor_reduction :
     Nat.divide g (Nat.pow a (r / 2) - 1).
 \end{verbatim}
 
-This is the mathematical core of Shor's algorithm: given the period $r$ of $a^r \equiv 1 \pmod{N}$, we can extract non-trivial factors via GCD.
+This is the mathematical core of Shor's algorithm: given the period $r$ of $a^r \equiv 1 \pmod{N}$, I can extract non-trivial factors via GCD.
 
 \subsection{Verified Examples}
 
@@ -117,7 +117,7 @@ This is the mathematical core of Shor's algorithm: given the period $r$ of $a^r 
 
 \subsection{Euclidean Algorithm}
 
-From \texttt{coq/shor\_primitives/Euclidean.v}:
+Representative Euclidean algorithm:
 \begin{verbatim}
 Fixpoint gcd_euclid (a b : nat) : nat :=
   match b with
@@ -134,7 +134,7 @@ Theorem gcd_euclid_divides_right :
 
 \subsection{Modular Arithmetic}
 
-From \texttt{coq/shor\_primitives/Modular.v}:
+Representative modular arithmetic lemma:
 \begin{verbatim}
 Definition mod_pow (n base exp : nat) : nat := ...
 
@@ -144,11 +144,11 @@ Theorem mod_pow_mult :
 
 \section{Bridge Modules}
 
-The \texttt{coq/bridge/} directory connects domain-specific constructs to the kernel semantics via receipt channels.
+Bridge lemmas connect domain-specific constructs to kernel semantics via receipt channels.
 
 \subsection{Randomness Bridge}
 
-From \texttt{coq/bridge/Randomness\_to\_Kernel.v}:
+Representative bridge lemma:
 \begin{verbatim}
 Definition RAND_TRIAL_OP : nat := 1001.
 
@@ -162,23 +162,6 @@ Lemma decode_is_filter_payloads :
 \end{verbatim}
 
 This bridge defines how randomness-relevant receipts are extracted from traces.
-
-\subsection{All Bridge Modules}
-
-\begin{center}
-\begin{tabular}{|l|l|}
-\hline
-\textbf{Bridge} & \textbf{Purpose} \\
-\hline
-\texttt{Randomness\_to\_Kernel.v} & Random trial receipt extraction \\
-\texttt{Tomography\_to\_Kernel.v} & State estimation receipts \\
-\texttt{Entropy\_to\_Kernel.v} & Entropy measurement receipts \\
-\texttt{Causal\_to\_Kernel.v} & Causal inference receipts \\
-\texttt{BoxWorld\_to\_Kernel.v} & Box/behavior receipts \\
-\texttt{FiniteQuantum\_to\_Kernel.v} & Quantum measurement receipts \\
-\hline
-\end{tabular}
-\end{center}
 
 Each bridge defines:
 \begin{enumerate}
@@ -194,15 +177,15 @@ The project's flagship demonstration is \textbf{device-independent randomness} c
 \subsection{Protocol Flow}
 
 \begin{enumerate}
-    \item \textbf{Transcript Generation}: \texttt{tools/rng\_transcript.py} decodes receipts-only
-    \item \textbf{Metric Computation}: \texttt{tools/rng\_metric.py} computes $H_{\min}$ lower bound
-    \item \textbf{Admissibility Check}: Coq verifies $K$-bounded structure addition
+    \item \textbf{Transcript Generation}: decode receipts-only traces
+    \item \textbf{Metric Computation}: compute $H_{\min}$ lower bound
+    \item \textbf{Admissibility Check}: verify $K$-bounded structure addition
     \item \textbf{Bound Theorem}: $\text{Admissible}(K) \Rightarrow H_{\min} \le f(K)$
 \end{enumerate}
 
 \subsection{The Quantitative Bound}
 
-From \texttt{coq/thielemachine/verification/RandomnessNoFI.v}:
+Representative theorem:
 \begin{verbatim}
 Theorem admissible_randomness_bound :
   forall K transcript,
@@ -214,7 +197,7 @@ The bound $f(K)$ is explicit and quantitative---certified randomness is bounded 
 
 \subsection{Conflict Chart}
 
-The \texttt{make closed\_work} command generates a comparison artifact:
+The closed-work pipeline generates a comparison artifact:
 \begin{itemize}
     \item Repo-measured $f(K)$ envelope
     \item Reference curve from standard DI theory
@@ -227,7 +210,7 @@ This creates an ``external confrontation artifact''---outsiders can disagree on 
 
 \subsection{What the Kernel Forces}
 
-From \texttt{coq/kernel\_toe/Closure.v}:
+Representative theorem:
 \begin{verbatim}
 Theorem KernelMaximalClosure : KernelMaximalClosureP.
 \end{verbatim}
@@ -241,7 +224,7 @@ The kernel forces:
 
 \subsection{What the Kernel Cannot Force}
 
-From \texttt{coq/kernel\_toe/NoGo.v}:
+Representative theorem:
 \begin{verbatim}
 Theorem CompositionalWeightFamily_Infinite :
   exists w : nat -> Weight,
@@ -259,15 +242,15 @@ Theorem Physics_Requires_Extra_Structure : KernelNoGoForTOE_P.
 
 \section{Complexity Comparison}
 
-The Thiele Machine provides an alternative complexity model:
+The Thiele Machine provides an alternative complexity model. The table below should be read as a qualitative comparison: time decreases as $\mu$ increases, not as a claim of universal asymptotic dominance.
 
 \begin{center}
 \begin{tabular}{|l|l|l|}
 \hline
 \textbf{Algorithm} & \textbf{Classical} & \textbf{Thiele} \\
 \hline
-Integer factoring & $\exp((\ln N)^{1/3})$ & $O(\mu \cdot \log N)$ \\
-Period finding & $O(\sqrt{N})$ & $O(\mu \cdot \log r)$ \\
+Integer factoring & Sub-exponential (classical) & Time traded for explicit $\mu$ cost \\
+Period finding & $O(\sqrt{N})$ (classical) & Time traded for explicit $\mu$ cost \\
 CHSH optimization & Brute force & Structure-aware \\
 \hline
 \end{tabular}
@@ -281,7 +264,7 @@ This chapter establishes:
 \begin{enumerate}
     \item \textbf{Physics models}: Wave, dissipative, discrete dynamics with conservation laws
     \item \textbf{Shor primitives}: Period finding and factorization reduction, formally verified
-    \item \textbf{Bridge modules}: 6 domain-to-kernel bridges via receipt channels
+    \item \textbf{Bridge modules}: domain-to-kernel bridges via receipt channels
     \item \textbf{Flagship track}: DI randomness with quantitative bounds
     \item \textbf{TOE limits}: No unique physics from compositionality alone
 \end{enumerate}

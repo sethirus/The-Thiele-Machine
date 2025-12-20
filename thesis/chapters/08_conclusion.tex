@@ -1,55 +1,55 @@
-\section{What We Set Out to Do}
+\section{What I Set Out to Do}
 
 \subsection{The Central Claim}
 
-At the beginning of this thesis, we posed a question:
+At the beginning of this thesis, I posed a question:
 \begin{quote}
     \textit{What if structural insight---the knowledge that makes hard problems easy---were treated as a real, conserved, costly resource?}
 \end{quote}
 
-We claimed that this perspective would yield a coherent computational model with:
+I claimed that this perspective would yield a coherent computational model with:
 \begin{itemize}
     \item Formally provable properties (no hand-waving)
     \item Executable implementations (not just paper proofs)
     \item Connections to fundamental physics (not just analogies)
 \end{itemize}
 
-This conclusion evaluates whether we achieved these goals.
+This conclusion evaluates whether I achieved these goals and clarifies which claims are proved, which are implemented, and which remain empirical hypotheses. The guiding standard is rebuildability: a reader should be able to reconstruct the model and its evidence from the thesis text alone.
 
 \subsection{How to Read This Chapter}
 
-Section 8.2 summarizes our theoretical, implementation, and verification contributions. Section 8.3 assesses whether the central hypothesis is confirmed. Sections 8.4--8.6 discuss applications, open problems, and future directions.
+Section 8.2 summarizes my theoretical, implementation, and verification contributions. Section 8.3 assesses whether the central hypothesis is confirmed. Sections 8.4--8.6 discuss applications, open problems, and future directions.
 
 \textbf{For readers short on time}: Section 8.3 ("The Thiele Machine Hypothesis: Confirmed") provides the essential verdict.
 
 \section{Summary of Contributions}
 
-This thesis has presented the Thiele Machine, a computational model that treats structural information as a conserved, costly resource. Our contributions are:
+This thesis has presented the Thiele Machine, a computational model that treats structural information as a conserved, costly resource. My contributions are:
 
 \subsection{Theoretical Contributions}
 
 \begin{enumerate}
-    \item \textbf{The 5-Tuple Formalization}: We defined the Thiele Machine as $T = (S, \Pi, A, R, L)$ with explicit state space, partition graph, axiom sets, transition rules, and logic engine. This formalization enables precise mathematical reasoning about structural computation.
+    \item \textbf{The 5-Tuple Formalization}: I defined the Thiele Machine as $T = (S, \Pi, A, R, L)$ with explicit state space, partition graph, axiom sets, transition rules, and logic engine. This formalization enables precise mathematical reasoning about structural computation.
     
-    \item \textbf{The $\mu$-bit Currency}: We introduced the $\mu$-bit as the atomic unit of structural information cost, proving that the $\mu$-ledger is monotonically non-decreasing and bounds irreversible operations.
+    \item \textbf{The $\mu$-bit Currency}: I introduced the $\mu$-bit as the atomic unit of structural information cost. The ledger is proven monotone, and its growth lower-bounds irreversible bit events; this ties structural accounting to an operational notion of irreversibility.
     
-    \item \textbf{The No Free Insight Theorem}: We proved that strengthening certification predicates requires explicit, charged revelation events. This establishes that "free" structural information is impossible within the model.
+    \item \textbf{The No Free Insight Theorem}: I proved that strengthening certification predicates requires explicit, charged revelation events. This establishes that "free" structural information is impossible within the model’s rules.
     
-    \item \textbf{Observational No-Signaling}: We proved that operations on one module cannot affect the observables of unrelated modules—a computational analog of Bell locality.
+    \item \textbf{Observational No-Signaling}: I proved that operations on one module cannot affect the observables of unrelated modules—a computational analog of Bell locality.
 \end{enumerate}
 
 \subsection{Implementation Contributions}
 
 \begin{enumerate}
-    \item \textbf{3-Layer Isomorphism}: We implemented the model across three layers:
+    \item \textbf{3-Layer Isomorphism}: I implemented the model across three layers:
     \begin{itemize}
         \item Coq formal kernel (zero admits, zero axioms)
-        \item Python reference VM (2,489 lines, receipt generation)
-        \item Verilog RTL (931 lines, FPGA-synthesizable)
+        \item Python reference VM with receipts and trace replay
+        \item Verilog RTL suitable for synthesis
     \end{itemize}
-    All three layers produce identical state projections for any instruction trace.
+    All three layers produce identical state projections for any instruction trace. The projection is fixed in advance and contains only observable state: registers, memory, control/status registers, the partition graph, the program counter, and the $\mu$-ledger.
     
-    \item \textbf{18-Instruction ISA}: We defined a minimal instruction set sufficient for partition-native computation:
+    \item \textbf{18-Instruction ISA}: I defined a minimal instruction set sufficient for partition-native computation. The ISA is intentionally small so that each opcode has a clear semantic role: structure creation, structure modification, certification, computation, and control.
     \begin{itemize}
         \item Structural: PNEW, PSPLIT, PMERGE, PDISCOVER
         \item Logical: LASSERT, LJOIN
@@ -58,13 +58,13 @@ This thesis has presented the Thiele Machine, a computational model that treats 
         \item Control: PYEXEC, ORACLE\_HALTS, HALT, CHSH\_TRIAL, MDLACC
     \end{itemize}
     
-    \item \textbf{The Inquisitor}: We built automated verification tooling that enforces zero-admit discipline and runs isomorphism gates in CI.
+    \item \textbf{The Inquisitor}: I built automated verification tooling that enforces zero-admit discipline and runs the isomorphism gates.
 \end{enumerate}
 
 \subsection{Verification Contributions}
 
 \begin{enumerate}
-    \item \textbf{Zero-Admit Campaign}: The Coq formalization contains 229 proven theorems and lemmas with no admits and no axioms. This is enforced by CI.
+    \item \textbf{Zero-Admit Campaign}: The Coq formalization contains a complete proof tree with no admits and no axioms beyond foundational logic. This is enforced by the verification tooling and guarantees that every theorem is fully discharged within the formal system.
     
     \item \textbf{Key Proven Theorems}:
     \begin{center}
@@ -82,17 +82,17 @@ This thesis has presented the Thiele Machine, a computational model that treats 
     \end{tabular}
     \end{center}
     
-    \item \textbf{Falsifiability}: Every theorem includes an explicit falsifier specification. If a counterexample exists, it would refute the theorem.
+    \item \textbf{Falsifiability}: Every theorem includes an explicit falsifier specification. If a counterexample exists, it would refute the theorem and identify the precise assumption that failed.
 \end{enumerate}
 
 \section{The Thiele Machine Hypothesis: Confirmed}
 
-We set out to test the hypothesis:
+I set out to test the hypothesis:
 \begin{quote}
 \textit{There is no free insight. Structure must be paid for.}
 \end{quote}
 
-Our results confirm this hypothesis:
+My results confirm this hypothesis within the model:
 
 \begin{enumerate}
     \item \textbf{Proven}: The No Free Insight theorem establishes that certification of stronger predicates requires explicit structure addition.
@@ -102,7 +102,7 @@ Our results confirm this hypothesis:
     \item \textbf{Validated}: Empirical tests confirm that CHSH supra-quantum certification requires revelation, and that the $\mu$-ledger is monotonic.
 \end{enumerate}
 
-The Thiele Machine is not merely consistent with "no free insight"—it \textit{enforces} it as a physical law of its computational universe.
+The Thiele Machine is not merely consistent with "no free insight"—it \textit{enforces} it as a law of its computational universe. Any further physical interpretation (e.g., thermodynamic dissipation) is stated explicitly as a bridge postulate and is testable rather than assumed.
 
 \section{Impact and Applications}
 
@@ -133,17 +133,17 @@ The proven connections:
     \item Gauge invariance $\leftrightarrow$ Noether's theorem
 \end{itemize}
 
-These are not analogies—they are formal isomorphisms.
+These are not analogies—they are formal isomorphisms at the level of the model’s observables and invariants. The physical bridge (energy per $\mu$) is stated separately as an empirical hypothesis.
 
 \section{Open Problems}
 
 \subsection{Optimality}
 
-Is the $\mu$-cost charged by the Thiele Machine optimal? Can we prove:
+Is the $\mu$-cost charged by the Thiele Machine optimal? Can I prove:
 \begin{equation}
     \mu_{\text{charged}}(x) \le c \cdot K(x) + O(1)
 \end{equation}
-for some constant $c$?
+for some constant $c$? This would formalize how close the ledger comes to the best possible description length.
 
 \subsection{Completeness}
 
@@ -160,7 +160,7 @@ Can the model be extended to true quantum computation while preserving:
 
 \subsection{Hardware Realization}
 
-Can the RTL be fabricated and validated at silicon level? What are the limits of hardware $\mu$-accounting?
+Can the RTL be fabricated and validated at silicon level? What are the limits of hardware $\mu$-accounting and what is the physical overhead of enforcing ledger monotonicity? A silicon prototype would also allow direct testing of the thermodynamic bridge.
 
 \section{The Path Forward}
 
@@ -176,9 +176,9 @@ The Thiele Machine is not a finished monument but a foundation. The tools built 
 
 \section{Final Word}
 
-The Turing Machine gave us universality. The Thiele Machine gives us accountability.
+The Turing Machine gave me universality. The Thiele Machine gives me accountability.
 
-In the Turing model, structure is invisible—a hidden variable that determines whether our algorithms succeed or fail exponentially. In the Thiele model, structure is explicit—a resource to be discovered, paid for, and verified.
+In the Turing model, structure is invisible—a hidden variable that determines whether my algorithms succeed or fail exponentially. In the Thiele model, structure is explicit—a resource to be discovered, paid for, and verified.
 
 \begin{quote}
 \textit{There is no free insight.}
@@ -188,4 +188,4 @@ In the Turing model, structure is invisible—a hidden variable that determines 
 \textit{the universe is computable—and verifiable.}
 \end{quote}
 
-The Thiele Machine Hypothesis stands confirmed. The foundation is laid. The work continues.
+The Thiele Machine Hypothesis stands confirmed within the model. The foundation is laid. The work continues.

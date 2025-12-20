@@ -4,7 +4,7 @@
 
 A computational model is only as credible as its implementation. The Turing Machine was a thought experiment---it was never built as a physical device (though it could be). The Church-Turing thesis claims that any ``mechanical'' computation can be performed by a Turing Machine, but this claim rests on an informal notion of ``mechanical.''
 
-The Thiele Machine is different: we provide a \textbf{hardware implementation} in Verilog RTL that can be synthesized to real silicon. This serves three purposes:
+The Thiele Machine is different: I provide a \textbf{hardware implementation} in Verilog RTL that can be synthesized to real silicon. This serves three purposes:
 \begin{enumerate}
     \item \textbf{Realizability}: The abstract $\mu$-costs correspond to real physical resources (logic gates, flip-flops, clock cycles)
     \item \textbf{Verification}: The 3-layer isomorphism (Coq $\leftrightarrow$ Python $\leftrightarrow$ RTL) ensures correctness across abstraction levels
@@ -23,34 +23,32 @@ This chapter traces the complete path from Coq proofs to synthesizable hardware:
     \item Verilog is synthesized to FPGA bitstreams
 \end{itemize}
 
-This chapter documents the complete hardware implementation (RTL layer) and the demonstration suite showcasing the Thiele Machine's capabilities.
+This chapter documents the complete hardware implementation (RTL layer) and the demonstration suite showcasing the Thiele Machine's capabilities. The goal is rebuildability: a reader should be able to reconstruct the hardware pipeline and the demo protocols from the descriptions here without relying on hidden repository details.
 
 \section{Hardware Architecture}
 
-The \texttt{thielecpu/hardware/} directory contains 932+ lines of synthesizable Verilog implementing the Thiele CPU.
+The hardware implementation consists of a synthesizable Verilog core plus supporting modules for $\mu$-accounting, memory, and logic-engine interfacing.
 
 \subsection{Core Modules}
 
 \begin{center}
-\begin{tabular}{|l|l|l|}
+\begin{tabular}{|l|l|}
 \hline
-\textbf{Module} & \textbf{File} & \textbf{Purpose} \\
+\textbf{Module} & \textbf{Purpose} \\
 \hline
-Thiele CPU & \texttt{thiele\_cpu.v} & Top-level processor \\
-$\mu$-ALU & \texttt{mu\_alu.v} & $\mu$-cost arithmetic unit \\
-$\mu$-Core & \texttt{mu\_core.v} & Cost accounting engine \\
-MMU & \texttt{mmu.v} & Memory management unit \\
-MAU & \texttt{mau.v} & Memory access unit \\
-LEI & \texttt{lei.v} & Logic engine interface \\
-PEE & \texttt{pee.v} & Partition execution engine \\
-State Serializer & \texttt{state\_serializer.v} & JSON state export \\
+CPU core & Fetch/decode/execute pipeline for the ISA \\
+$\mu$-ALU & $\mu$-cost arithmetic unit (addition only) \\
+$\mu$-Core & Cost accounting engine and ledger storage \\
+MMU & Memory management unit \\
+LEI & Logic engine interface \\
+State serializer & JSON state export for isomorphism checks \\
 \hline
 \end{tabular}
 \end{center}
 
 \subsection{Instruction Encoding}
 
-From \texttt{thielecpu/hardware/generated\_opcodes.vh}:
+Representative opcode encoding:
 \begin{verbatim}
 // Core opcodes
 `define OP_NOP      8'h00
@@ -133,7 +131,7 @@ Max Frequency & 125 MHz \\
 
 \subsection{Main Testbench}
 
-From \texttt{thielecpu/hardware/thiele\_cpu\_tb.v}:
+Representative testbench snippet:
 \begin{verbatim}
 module thiele_cpu_tb;
     // Load test program
@@ -149,11 +147,11 @@ module thiele_cpu_tb;
 endmodule
 \end{verbatim}
 
-The testbench outputs JSON, parsed by Python tests for isomorphism verification.
+The testbench outputs JSON, parsed by the isomorphism harness for cross-layer verification.
 
 \subsection{Fuzzing Harness}
 
-From \texttt{thielecpu/hardware/fuzz\_harness.v}: Random instruction sequences test robustness:
+Representative fuzzing harness: random instruction sequences test robustness:
 \begin{itemize}
     \item No crashes or undefined states
     \item $\mu$-monotonicity preserved under all inputs
@@ -164,12 +162,12 @@ From \texttt{thielecpu/hardware/fuzz\_harness.v}: Random instruction sequences t
 
 The isomorphism tests verify identical behavior across:
 \begin{enumerate}
-    \item \textbf{Python VM} (\texttt{thielecpu/vm.py}): 2,489 lines
-    \item \textbf{Extracted Runner} (\texttt{build/extracted\_vm\_runner}): OCaml from Coq
-    \item \textbf{RTL Simulation} (\texttt{thielecpu/hardware/thiele\_cpu\_tb.v}): 932 lines
+    \item \textbf{Python VM}: executable reference semantics
+    \item \textbf{Extracted Runner}: executable semantics extracted from the formal model
+    \item \textbf{RTL Simulation}: hardware-level behavior from the Verilog core
 \end{enumerate}
 
-From \texttt{tests/test\_rtl\_compute\_isomorphism.py}:
+Representative isomorphism test:
 \begin{verbatim}
 def test_rtl_matches_python():
     # Run same program in both
@@ -191,15 +189,15 @@ def test_rtl_matches_python():
 \hline
 \textbf{Demo} & \textbf{Purpose} \\
 \hline
-\texttt{demo\_chsh\_game.py} & Interactive CHSH correlation game \\
-\texttt{demo\_impossible\_logic.py} & Impossibility theorem demonstration \\
+CHSH game & Interactive CHSH correlation game \\
+Impossibility demo & Demonstrate No Free Insight constraints \\
 \hline
 \end{tabular}
 \end{center}
 
 \subsection{Research Demonstrations}
 
-The \texttt{demos/research-demos/} directory contains:
+Research demonstrations include:
 \begin{itemize}
     \item \texttt{architecture/}: Architectural explorations
     \item \texttt{partition/}: Partition discovery visualizations
@@ -208,7 +206,7 @@ The \texttt{demos/research-demos/} directory contains:
 
 \subsection{Verification Demonstrations}
 
-The \texttt{demos/verification-demos/} directory contains:
+Verification demonstrations include:
 \begin{itemize}
     \item Receipt verification workflows
     \item Cross-layer consistency checks
@@ -217,7 +215,7 @@ The \texttt{demos/verification-demos/} directory contains:
 
 \subsection{Practical Examples}
 
-The \texttt{demos/practical\_examples/} directory contains:
+Practical demonstrations include:
 \begin{itemize}
     \item Real-world partition discovery applications
     \item Integration with external systems
@@ -226,10 +224,8 @@ The \texttt{demos/practical\_examples/} directory contains:
 
 \subsection{CHSH Flagship Demo}
 
-From \texttt{demos/CHSH\_FLAGSHIP\_DEMO.md}:
+Representative flagship output:
 \begin{verbatim}
-$ python demos/demo_chsh_game.py
-
 +--------------------------------------------+
 |         CHSH GAME DEMONSTRATION            |
 +--------------------------------------------+
@@ -244,7 +240,7 @@ $ python demos/demo_chsh_game.py
 
 \section{Standard Programs}
 
-The \texttt{demos/standard\_programs/} directory contains reference implementations:
+Standard programs provide reference implementations:
 \begin{itemize}
     \item Partition discovery algorithms
     \item Certification workflows
@@ -255,7 +251,7 @@ The \texttt{demos/standard\_programs/} directory contains reference implementati
 
 \subsection{Hardware Benchmarks}
 
-From \texttt{thielecpu/hardware/test\_hardware.py}:
+Representative hardware benchmarks:
 \begin{itemize}
     \item Instruction throughput
     \item Memory access latency
@@ -265,7 +261,7 @@ From \texttt{thielecpu/hardware/test\_hardware.py}:
 
 \subsection{Demo Benchmarks}
 
-From \texttt{demos/benchmarks/}:
+Representative demo benchmarks:
 \begin{itemize}
     \item CHSH game rounds per second
     \item Partition discovery scaling
@@ -276,7 +272,7 @@ From \texttt{demos/benchmarks/}:
 
 \subsection{Python VM Integration}
 
-The Python VM (\texttt{thielecpu/vm.py}) provides:
+The Python VM provides:
 \begin{verbatim}
 class ThieleVM:
     def __init__(self):
@@ -293,7 +289,7 @@ class ThieleVM:
 
 \subsection{Extracted Runner Integration}
 
-The extracted runner (\texttt{build/extracted\_vm\_runner}) reads trace files:
+The extracted runner reads trace files:
 \begin{verbatim}
 $ ./extracted_vm_runner trace.txt
 {"pc":100,"mu":500,"err":0,"regs":[...],"mem":[...],"csrs":{...}}
@@ -303,8 +299,6 @@ $ ./extracted_vm_runner trace.txt
 
 The RTL testbench reads hex programs and outputs JSON:
 \begin{verbatim}
-$ iverilog -o tb thiele_cpu_tb.v thiele_cpu.v ...
-$ vvp tb
 {"pc":100,"mu":500,"err":0,"regs":[...],"mem":[...],"csrs":{...}}
 \end{verbatim}
 
@@ -312,12 +306,12 @@ $ vvp tb
 
 The hardware implementation and demonstration suite establish:
 \begin{enumerate}
-    \item \textbf{Synthesizable RTL}: 932+ lines of Verilog targeting Xilinx 7-series
+    \item \textbf{Synthesizable RTL}: A complete Verilog implementation targeting FPGA synthesis
     \item \textbf{$\mu$-ALU}: Hardware-enforced cost accounting with no subtract path
     \item \textbf{State serialization}: JSON export for cross-layer verification
     \item \textbf{3-layer isomorphism}: Verified identical behavior across Python/extracted/RTL
-    \item \textbf{20+ demonstrations}: Interactive showcases of capabilities
-    \item \textbf{Comprehensive benchmarks}: Performance measurements across layers
+    \item \textbf{Demonstrations}: Interactive showcases of capabilities
+    \item \textbf{Benchmarks}: Performance measurements across layers
 \end{enumerate}
 
 The hardware layer proves that the Thiele Machine is not merely a theoretical construct but a realizable computational architecture with silicon-enforced guarantees.
