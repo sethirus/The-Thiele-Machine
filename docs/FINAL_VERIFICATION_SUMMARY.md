@@ -324,10 +324,10 @@ Every physical claim includes:
 ## 9. Known Issues & Limitations
 
 ### Test Suite Issues
-- **test_partition_edge_cases.py**: 16/21 tests failing (test bugs, not implementation bugs)
-  - Cause: Outdated expectations (e.g., expecting non-existent "base module {0}")
-  - Status: Documented in ZERO_BUDGET_VERIFICATION.md
-  - Impact: Does not affect core isomorphism verification
+- **test_partition_edge_cases.py**: ✅ PASSING (21/21)
+   - Previous failures were due to outdated expectations (e.g., assuming an implicit "base module {0}" and brace-based PSPLIT syntax).
+   - Current status: aligned with extracted/RTL semantics (no implicit module creation).
+   - Impact: strengthens the overall verification story (edge cases now covered and green).
 
 ### Extraction Trust
 - Coq → OCaml extraction is a **trust assumption**
@@ -430,7 +430,7 @@ pytest -q tests/test_equivalence_bundle.py \
 
 ### Formal Verification Strengthening (Free)
 - [ ] Formal Turing equivalence proof in Coq
-- [ ] Fix test_partition_edge_cases.py expectations
+- [x] Fix test_partition_edge_cases.py expectations
 - [ ] Extend isomorphism test coverage
 
 **Timeline**: 2026-01 to 2026-06
