@@ -2,22 +2,22 @@
 
 \subsection{A Foundation for Understanding}
 
-Before diving into the Thiele Machine, we need to understand \textit{what problem it solves}. This requires revisiting fundamental concepts from:
+Before diving into the Thiele Machine, I need to understand \textit{what problem it solves}. This requires revisiting fundamental concepts from:
 \begin{itemize}
     \item \textbf{Computation theory}: What is a computer, really? (Turing Machines, RAM models)
-    \item \textbf{Information theory}: What is information, and how do we measure it? (Shannon entropy, Kolmogorov complexity)
+    \item \textbf{Information theory}: What is information, and how do I measure it? (Shannon entropy, Kolmogorov complexity)
     \item \textbf{Physics of computation}: What are the physical limits on computing? (Landauer's principle, thermodynamics)
     \item \textbf{Quantum computing}: What does "quantum advantage" mean? (Bell's theorem, CHSH inequality)
-    \item \textbf{Formal verification}: How can we \textit{prove} things about programs? (Coq, proof assistants)
+    \item \textbf{Formal verification}: How can I \textit{prove} things about programs? (Coq, proof assistants)
 \end{itemize}
 
 \subsection{The Central Question}
 
-Classical computers (Turing Machines, RAM machines) are \textit{structurally blind}---they cannot see the structure of their input. If you give a computer a sorted list, it doesn't "know" the list is sorted unless it checks.
+Classical computers (Turing Machines, RAM machines) are \textit{structurally blind}---they lack primitive access to the structure of their input. If you give a computer a sorted list, it doesn't "know" the list is sorted unless it checks. This is a statement about the interface of the model, not about what is computable. The distinction is between \emph{access} and \emph{ability}: structure is discoverable, but only through explicit computation.
 
 This raises a profound question: \textit{What if structural knowledge were a first-class resource that must be discovered, paid for, and accounted for?}
 
-To understand why this question matters, we first need to understand what classical computers can and cannot do, and what we mean by "structure" and "information."
+To understand why this question matters, I first need to understand what classical computers can and cannot do, and what I mean by "structure" and "information."
 
 \subsection{How to Read This Chapter}
 
@@ -41,7 +41,7 @@ If you are familiar with any section, feel free to skip it. The only prerequisit
 
 \subsection{The Turing Machine: Formal Definition}
 
-The Turing Machine, introduced by Alan Turing in 1936, is formally defined as a 7-tuple:
+The Turing Machine, introduced by Alan Turing in 1936 \cite{turing1936computable}, is formally defined as a 7-tuple:
 \[
 M = (Q, \Sigma, \Gamma, \delta, q_0, q_{\text{accept}}, q_{\text{reject}})
 \]
@@ -56,7 +56,7 @@ where:
     \item $q_{\text{reject}} \in Q$ is the \textit{reject state}, where $q_{\text{accept}} \neq q_{\text{reject}}$
 \end{itemize}
 
-A \textit{configuration} of a Turing Machine is a triple $(q, w, i)$ where $q \in Q$ is the current state, $w \in \Gamma^*$ is the tape contents, and $i \in \mathbb{N}$ is the head position. The machine's computation is a sequence of configurations:
+The tape is conceptually unbounded in both directions and holds a finite, non-blank region surrounded by blanks. A \textit{configuration} of a Turing Machine is a triple $(q, w, i)$ where $q \in Q$ is the current state, $w \in \Gamma^*$ is the tape contents (with blanks outside the finite non-blank region), and $i \in \mathbb{N}$ is the head position. Each step reads one symbol, writes one symbol, and moves the head one cell left or right. The machine's computation is a sequence of configurations:
 \[
 C_0 \vdash C_1 \vdash C_2 \vdash \cdots
 \]
@@ -68,7 +68,7 @@ Turing proved that there exists a \textit{Universal Turing Machine} $U$ such tha
 \[
 U(\langle M, w \rangle) = M(w)
 \]
-where $\langle M, w \rangle$ is an encoding of $M$ and $w$. This establishes the Church-Turing thesis: any mechanically computable function can be computed by a Turing Machine.
+where $\langle M, w \rangle$ is an encoding of $M$ and $w$. This establishes a formal universality result for Turing Machines and supports the Church-Turing thesis: any mechanically computable function can be computed by a Turing Machine.
 
 \subsubsection{The Blindness Problem}
 
@@ -89,7 +89,7 @@ It does \textit{not} receive:
     \item The relationships between different parts of the input
 \end{itemize}
 
-This is not a limitation that can be overcome by clever programming—it is an \textit{architectural constraint}. The Turing Machine is designed to be local and sequential. Any global property must be discovered through sequential scanning.
+This is not a limitation that can be overcome by clever programming—it is an \textit{architectural constraint}. The Turing Machine is designed to be local and sequential. Any global property must be discovered through sequential scanning, so structure is accessible only through computation, not as a primitive oracle.
 
 \subsection{The Random Access Machine (RAM)}
 
@@ -101,7 +101,7 @@ The RAM model, introduced to better model real computers, extends the Turing Mac
     \item Instructions: LOAD $i$, STORE $i$, ADD $i$, SUB $i$, JMP $i$, JZ $i$, etc.
 \end{itemize}
 
-The key improvement is \textit{random access}: accessing $M[i]$ takes $O(1)$ time regardless of $i$. This eliminates the $O(n)$ seek time of the Turing Machine tape.
+The key improvement is \textit{random access}: accessing $M[i]$ takes $O(1)$ time regardless of $i$ (on the unit-cost RAM model). This eliminates the $O(n)$ seek time of the Turing Machine tape. In log-cost variants, addressing large indices has a cost proportional to the index length, but the model remains structurally blind either way.
 
 However, the RAM model retains structural blindness. A RAM program can access $M[1000]$ directly, but it cannot know that $M[1000]$--$M[2000]$ encodes a sorted array without executing a verification algorithm. The structure is implicit in programmer knowledge, not explicit in machine architecture.
 
@@ -116,35 +116,41 @@ Classical complexity theory defines:
 
 The central open question is whether $\mathbf{P} = \mathbf{NP}$. If $\mathbf{P} \neq \mathbf{NP}$, then there exist problems whose solutions can be \textit{verified} efficiently but not \textit{found} efficiently.
 
-The Thiele Machine perspective reframes this question. Consider an NP-complete problem like 3-SAT. A blind Turing Machine must search the exponential space $\{0,1\}^n$. But suppose the formula has hidden structure—say, it factors into independent sub-formulas. A machine that \textit{perceives} this structure can solve each sub-problem independently.
+The Thiele Machine perspective reframes this question. Consider an NP-complete problem like 3-SAT. A blind Turing Machine must search the exponential space $\{0,1\}^n$ in the worst case. But suppose the formula has hidden structure—say, it factors into independent sub-formulas. A machine that \textit{perceives} this structure can solve each sub-problem independently. The key point is that \emph{perceiving} the factorization is itself a form of information that must be justified, not an assumption that can be taken for free.
 
 The question becomes: \textit{What is the cost of perceiving the structure?}
 
-We argue that the apparent gap between P and NP is often the gap between:
+I argue that the apparent gap between P and NP is often the gap between:
 \begin{itemize}
     \item Machines that have paid for structural insight ($\mu$-bits invested)
     \item Machines that have not (and must pay the Time Tax)
 \end{itemize}
 
-This does not trivialize P vs NP—the structural information may itself be expensive to discover. But it reframes intractability as an \textit{accounting issue} rather than a \textit{fundamental barrier}.
+This does not trivialize P vs NP—the structural information may itself be expensive to discover. But it reframes intractability as an \textit{accounting issue} rather than a \textit{fundamental barrier}, emphasizing the cost of certifying structure rather than assuming it for free.
 
 \section{Information Theory and Complexity}
 
 \subsection{Shannon Entropy}
 
-Claude Shannon's 1948 paper "A Mathematical Theory of Communication" established information as a quantifiable resource. The \textit{entropy} of a discrete random variable $X$ with probability mass function $p$ is:
+Claude Shannon's 1948 paper "A Mathematical Theory of Communication" established information as a quantifiable resource \cite{shannon1948mathematical}. The basic unit is \emph{self-information}: an event with probability $p$ carries surprise $I = -\log_2 p$ bits, because rare events convey more information than common ones. The \textit{entropy} of a discrete random variable $X$ with probability mass function $p$ is the expected surprise:
 \[
 H(X) = -\sum_{x \in \mathcal{X}} p(x) \log_2 p(x)
 \]
 
-Shannon entropy measures the \textit{uncertainty} in a random variable, or equivalently, the expected number of bits needed to encode an outcome. Key properties:
+Shannon entropy measures the \textit{uncertainty} in a random variable, or equivalently, the expected number of bits needed to encode an outcome under an optimal prefix-free code. The coding interpretation follows from Kraft's inequality: assigning code lengths $\ell(x)$ with $\sum 2^{-\ell(x)} \le 1$ yields an expected length minimized (up to 1 bit) by $\ell(x) \approx -\log_2 p(x)$. Key properties:
 \begin{itemize}
     \item $H(X) \ge 0$ with equality iff $X$ is deterministic
     \item $H(X) \le \log_2 |\mathcal{X}|$ with equality iff $X$ is uniform
     \item $H(X, Y) \le H(X) + H(Y)$ with equality iff $X \perp Y$ (independence)
 \end{itemize}
 
-The last property is crucial for the Thiele Machine: knowing that two variables are independent allows us to decompose the joint entropy into independent components, potentially enabling exponential speedups.
+The last property is crucial for the Thiele Machine: knowing that two variables are independent allows me to decompose the joint entropy into independent components, potentially enabling exponential speedups. Independence is itself a structural assertion that must be paid for in the Thiele Machine model.
+
+\subsubsection{Entropy, Models, and What Is Actually Random}
+
+Shannon entropy is a property of a \emph{distribution}, not of the underlying world. When I model a system with a random variable, I am quantifying my uncertainty and compressibility, not asserting that nature is literally rolling dice. A weather simulator, for example, may use Monte Carlo sampling or stochastic parameterizations to represent unresolved turbulence. The atmosphere itself is not sampling random numbers; the randomness is in my \emph{model} of an overwhelmingly complex, chaotic system. In other words, stochasticity is often epistemic: it reflects limited knowledge and coarse-grained descriptions rather than intrinsic indeterminism.
+
+This distinction matters for the Thiele Machine because it highlights where "structure" lives. A partition that lets me treat two subsystems as independent is not a free fact about reality; it is an explicit modeling choice that I must justify and pay for. The entropy ledger charges me for the compressed description I claim to possess, not for any metaphysical randomness in the world.
 
 \subsection{Kolmogorov Complexity}
 
@@ -154,7 +160,7 @@ K(x) = \min \{|p| : U(p) = x\}
 \]
 where $U$ is a universal Turing Machine and $|p|$ is the bit-length of program $p$.
 
-Kolmogorov complexity captures the intuition that a string like "010101010101..." (alternating) has low complexity (a short program can generate it), while a random string has high complexity (no program shorter than the string itself can produce it).
+Kolmogorov complexity captures the intuition that a string like "010101010101..." (alternating) has low complexity (a short program can generate it), while a random string has high complexity (no program substantially shorter than the string itself can produce it).
 
 Key theorems:
 \begin{itemize}
@@ -163,7 +169,7 @@ Key theorems:
     \item \textbf{Uncomputability}: $K(x)$ is not computable (by reduction from the halting problem)
 \end{itemize}
 
-The uncomputability of Kolmogorov complexity is why the Thiele Machine uses \textit{Minimum Description Length} (MDL) instead—a computable approximation.
+The uncomputability of Kolmogorov complexity is why the Thiele Machine uses \textit{Minimum Description Length} (MDL) instead—a computable approximation that captures description length without requiring the impossible oracle.
 
 \subsection{Minimum Description Length (MDL)}
 
@@ -177,14 +183,14 @@ where:
     \item $L(D|H)$ is the description length of $D$ given $H$ (the "residual")
 \end{itemize}
 
-In the Thiele Machine, we adopt MDL as the basis for $\mu$-cost:
+In the Thiele Machine, I adopt MDL as the basis for $\mu$-cost:
 \begin{itemize}
     \item The "hypothesis" is the partition structure $\pi$
     \item $L(\pi)$ is the $\mu$-cost of specifying the partition
     \item $L(\text{computation}|\pi)$ is the operational cost given the structure
 \end{itemize}
 
-The total $\mu$-cost is thus analogous to the MDL of the computation.
+The total $\mu$-cost is thus analogous to the MDL of the computation, with the partition description and its axioms charged explicitly as a model of structure. This separates the cost of \emph{describing} structure from the cost of \emph{using} it.
 
 \section{The Physics of Computation}
 
@@ -201,15 +207,29 @@ Here $k_B$ is Boltzmann's constant and $T$ is the absolute temperature. At room 
 Landauer's principle establishes that:
 \begin{enumerate}
     \item \textbf{Information is physical}: It cannot be erased without physical consequences
-    \item \textbf{Irreversibility has a cost}: Logically irreversible operations (AND, OR, erasure) dissipate heat
+    \item \textbf{Irreversibility has a cost}: Logically irreversible operations (many-to-one maps such as AND, OR, erasure) dissipate heat
     \item \textbf{Computation is thermodynamic}: The ultimate limits of computation are set by thermodynamics
 \end{enumerate}
 
+From a first-principles perspective, the key step is that erasure reduces the logical state space. Mapping two possible inputs to a single output decreases the system's entropy by $\Delta S = k_B \ln 2$. To satisfy the second law, that entropy must be exported to the environment as heat $Q \ge T \Delta S$, yielding the $k_B T \ln 2$ bound. Reversible gates avoid this penalty by preserving a one-to-one mapping between logical states, but they shift the cost to auxiliary memory and garbage bits that must eventually be erased.
+
 \subsubsection{Reversible Computation}
 
-Charles Bennett showed that computation can be made thermodynamically reversible by keeping a history of all operations \cite{bennett1982thermodynamics}. A reversible Turing Machine can simulate any irreversible computation with only polynomial overhead in space.
+Charles Bennett showed that computation can be made thermodynamically reversible by keeping a history of all operations \cite{bennett1982thermodynamics}. A reversible Turing Machine can simulate any irreversible computation with only polynomial overhead in space (and at most polynomial overhead in time, depending on the simulation strategy).
 
 However, reversible computation has its own cost: the space required to store the history. This is another form of "structural debt"—you can avoid the heat cost by paying a space cost.
+
+\subsubsection{Simulation Versus Physical Reality}
+
+It is tempting to say "if I can simulate it, I have reproduced it," but physics makes that statement precise: a simulation manipulates \emph{symbols} that represent a system, while the system itself evolves under physical laws. A climate model can produce temperature fields, hurricanes, or droughts on a screen, yet it does not warm the room or generate real rainfall. The computation is physical---it dissipates heat, uses energy, and has real thermodynamic cost---but the simulated climate is an informational artifact, not a new atmosphere.
+
+This matters because any claim about "cost" depends on the level of description. A Monte Carlo weather model may treat unresolved convection as a random process, but the real atmosphere is not a Monte Carlo chain; it is a high-dimensional deterministic (or quantum-to-classical) system whose unpredictability is amplified by chaos. When I trade the real dynamics for a stochastic approximation, I am asserting a structural model that saves compute at the price of fidelity. The Thiele Machine makes that trade explicit: the cost of declaring independence, randomness, or coarse-grained behavior must be booked in $\mu$-bits.
+
+\subsubsection{Renormalization and Coarse-Grained Structure}
+
+Renormalization is a formal way to justify this kind of model compression. In statistical physics and quantum field theory, I group microscopic degrees of freedom into blocks, integrate out short-scale details, and obtain an effective theory at a larger scale. This is a principled, repeatable way of asserting structure: I discard information about microstates but gain predictive power at the macro level. The price is an explicit approximation error and new effective parameters.
+
+From the Thiele Machine perspective, renormalization is a structured partition of state space. I am committing to a hierarchy of equivalence classes that summarize behavior at each scale. The $\mu$-ledger charges for these commitments, making the bookkeeping of coarse-grained structure as explicit as the bookkeeping of energy.
 
 \subsection{Maxwell's Demon and Szilard's Engine}
 
@@ -234,7 +254,7 @@ The Thiele Machine generalizes Landauer's principle from \textit{erasure} to \te
     If erasing information costs $k_B T \ln 2$ joules per bit, then asserting that "this formula decomposes into $k$ independent parts" costs proportional $\mu$-bits of structural specification.
 \end{quote}
 
-The $\mu$-ledger is the computational analog of the thermodynamic entropy: a monotonically increasing quantity that tracks the irreversible commitments of the computation.
+The $\mu$-ledger is the computational analog of the thermodynamic entropy: a monotonically increasing quantity that tracks the irreversible commitments of the computation. The analogy is not that $\mu$ is a physical entropy, but that both act as bookkeepers for irreversible choices.
 
 \section{Quantum Computing and Correlations}
 
@@ -246,7 +266,7 @@ Consider two spatially separated parties, Alice and Bob, who share an entangled 
 \[
 S = E(0,0) + E(0,1) + E(1,0) - E(1,1)
 \]
-where $E(x,y) = \Pr[a = b | x, y] - \Pr[a \neq b | x, y]$.
+where $E(x,y) = \Pr[a = b | x, y] - \Pr[a \neq b | x, y] = \mathbb{E}[(-1)^{a \oplus b} \mid x,y]$.
 
 Bell proved:
 \begin{itemize}
@@ -255,17 +275,27 @@ Bell proved:
     \item \textbf{Algebraic Bound}: $|S| \le 4$
 \end{itemize}
 
-Quantum mechanics allows $S > 2$, violating local realism.
+The CHSH form was later refined for experimental tests \cite{clauser1969proposed}. If Alice and Bob's outcomes are determined by a shared hidden variable $\lambda$ and local response functions $A_x(\lambda), B_y(\lambda) \in \{-1,+1\}$, then
+\[
+S = \mathbb{E}_\lambda[A_0 B_0 + A_0 B_1 + A_1 B_0 - A_1 B_1]
+\]
+and each term is $\pm 1$, so the absolute value of the sum is at most $2$ for any deterministic strategy; convex combinations (probabilistic mixtures) cannot exceed this bound. Quantum mechanics allows $S > 2$ by using entangled states and non-commuting measurements, and Tsirelson showed the tight quantum limit is $2\sqrt{2}$ \cite{tsirelson1980quantum}. This violation is the operational signature that no local hidden-variable model can reproduce all quantum correlations.
+
+\subsection{Decoherence, Measurement, and Informational Cost}
+
+Quantum correlations are fragile because measurement is a physical interaction. Decoherence occurs when a quantum system becomes entangled with an uncontrolled environment, effectively "measuring" it and suppressing interference. The act of extracting a classical record is not a cost-free epistemic update; it is a physical process that dumps phase information into the environment. In this sense, gaining a classical bit of knowledge about a quantum system is analogous to Landauer's principle: it requires a thermodynamic footprint somewhere in the larger system.
+
+This perspective ties directly to the Thiele Machine's revelation rule. When the machine asserts a supra-quantum certification, it must emit an explicit revelation-class instruction, because the correlation is not just a mathematical artifact---it is a structural claim that needs a physical bookkeeping event. The model mirrors the physics: information is not free, whether it is classical or quantum.
 
 \subsection{The Revelation Requirement}
 
-In the Thiele Machine framework, we prove (in \texttt{RevelationRequirement.v}) that:
+In the Thiele Machine framework, I prove that:
 
 \begin{theorem}[Revelation Requirement]
-If a Thiele Machine execution produces a state with "supra-quantum" certification (CSR address $\neq 0$ starting from 0), then the execution trace must contain an explicit revelation-class instruction (\texttt{REVEAL}, \texttt{EMIT}, \texttt{LJOIN}, or \texttt{LASSERT}).
+If a Thiele Machine execution produces a state with "supra-quantum" certification (a nonzero certification flag in a control/status register, starting from 0), then the execution trace must contain an explicit revelation-class instruction (\texttt{REVEAL}, \texttt{EMIT}, \texttt{LJOIN}, or \texttt{LASSERT}).
 \end{theorem}
 
-In other words, you cannot certify non-local correlations without explicitly paying the structural cost. This is proven as \texttt{nonlocal\_correlation\_requires\_revelation} in Coq.
+In other words, you cannot certify non-local correlations without explicitly paying the structural cost. This is a model-specific theorem, included here to motivate later chapters.
 
 \section{Formal Verification}
 
@@ -297,7 +327,7 @@ This means that a verified Coq development is not just a logical argument—it i
 
 \subsection{The Inquisitor Standard}
 
-For the Thiele Machine, we adopt a strict methodology called the "Inquisitor Standard":
+For the Thiele Machine, I adopt a strict methodology called the "Inquisitor Standard":
 
 \begin{enumerate}
     \item \textbf{No \texttt{Admitted}}: Every lemma must be fully proven
@@ -305,7 +335,7 @@ For the Thiele Machine, we adopt a strict methodology called the "Inquisitor Sta
     \item \textbf{No \texttt{Axiom}}: No unproven assumptions except foundational logic
 \end{enumerate}
 
-This standard is enforced by the script \texttt{scripts/inquisitor.py}, which scans all \texttt{.v} files and reports violations. The standard ensures:
+This standard is enforced by an automated checker that scans all proof files and reports violations. The standard ensures:
 \begin{itemize}
     \item Every claim is machine-checkable
     \item No hidden assumptions
@@ -329,11 +359,11 @@ These receipts enable third-party verification: anyone can replay an execution a
 
 \subsection{Algorithmic Information Theory}
 
-The work of Kolmogorov, Chaitin, and Solomonoff on algorithmic information theory provides the foundation for our $\mu$-bit currency. The key insight is that structure is quantifiable as description length.
+The work of Kolmogorov, Chaitin, and Solomonoff on algorithmic information theory provides the foundation for my $\mu$-bit currency. The key insight is that structure is quantifiable as description length.
 
 \subsection{Interactive Proof Systems}
 
-Interactive proof systems (IP = PSPACE) show that verification can be more powerful than expected. The Thiele Machine's Logic Engine $L$ is a deterministic analog: it provides a verifier oracle that checks logical consistency.
+Interactive proof systems (IP = PSPACE) show that verification can be more powerful than expected. The Thiele Machine's Logic Engine $L$ is a deterministic verifier-style component inspired by these results: it checks logical consistency under the current axioms.
 
 \subsection{Partition Refinement Algorithms}
 
