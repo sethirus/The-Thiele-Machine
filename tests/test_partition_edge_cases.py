@@ -20,7 +20,7 @@ class TestPnewEdgeCases:
     """Edge case tests for PNEW (partition new) operation."""
 
     def test_pnew_empty_region(self):
-        """PNEW with empty region gets deduplicated (empty regions are identical)."""
+        """PNEW with empty region creates the empty-module (mask == 0)."""
         state = State()
         vm = VM(state)
         
@@ -31,11 +31,11 @@ class TestPnewEdgeCases:
         
         with tempfile.TemporaryDirectory() as td:
             vm.run(program, Path(td))
-        
-        # Empty regions are deduplicated - only base module remains
+
+        # No implicit base module: only the explicit empty region exists.
         assert len(state.partition_masks) == 1
-        
-        # The module should be the empty module (mask == 0)
+
+        # The module should be the empty module (mask == 0).
         masks = list(state.partition_masks.values())
         assert 0 in masks  # Empty mask exists
 
@@ -79,9 +79,9 @@ class TestPnewEdgeCases:
         
         with tempfile.TemporaryDirectory() as td:
             vm.run(program, Path(td))
-        
-        # Should have base {0} + one {10,11,12} = 2 modules
-        assert len(state.partition_masks) == 2
+
+        # Deduplication should result in exactly one module for the region.
+        assert len(state.partition_masks) == 1
         
         target_mask = (1 << 10) | (1 << 11) | (1 << 12)
         masks = list(state.partition_masks.values())
@@ -101,9 +101,9 @@ class TestPnewEdgeCases:
         
         with tempfile.TemporaryDirectory() as td:
             vm.run(program, Path(td))
-        
-        # Should have base {0} + 3 disjoint regions = 4 modules
-        assert len(state.partition_masks) == 4
+
+        # No implicit base module: exactly the three requested regions.
+        assert len(state.partition_masks) == 3
         
         mask1 = (1 << 20) | (1 << 21) | (1 << 22)
         mask2 = (1 << 23) | (1 << 24) | (1 << 25)
@@ -128,9 +128,9 @@ class TestPnewEdgeCases:
         
         with tempfile.TemporaryDirectory() as td:
             vm.run(program, Path(td))
-        
-        # Should have base {0} + large region = 2 modules
-        assert len(state.partition_masks) == 2
+
+        # No implicit base module: only the requested region.
+        assert len(state.partition_masks) == 1
         
         # Verify all indices present
         large_mask = sum(1 << i for i in range(10, 31))
@@ -169,15 +169,15 @@ class TestPsplitEdgeCases:
         
         program = [
             ("PNEW", "{41,43,45,47}"),  # All odd - none match x % 2 == 0
-            ("PSPLIT", "2 {}"),  # Split module 2 (predicate doesn't matter, hardcoded to even/odd)
+            ("PSPLIT", "1 0"),  # Split module 1 using even/odd predicate-byte (0 => even)
             ("HALT", ""),
         ]
         
         with tempfile.TemporaryDirectory() as td:
             vm.run(program, Path(td))
         
-        # Should have base {0} + original {41,43,45,47} (all odd, so one part empty) + empty
-        assert len(state.partition_masks) >= 2
+        # One split result is empty, the other contains all odds.
+        assert len(state.partition_masks) >= 1
 
     def test_psplit_full_predicate(self):
         """PSPLIT where predicate matches all elements (all even)."""
@@ -186,14 +186,14 @@ class TestPsplitEdgeCases:
         
         program = [
             ("PNEW", "{50,52,54}"),  # All even - all match x % 2 == 0
-            ("PSPLIT", "2 {50,52,54}"),  # Module 2
+            ("PSPLIT", "1 0"),  # Module 1, even/odd split
             ("HALT", ""),
         ]
         
         with tempfile.TemporaryDirectory() as td:
             vm.run(program, Path(td))
         
-        # All elements match predicate, so one part full, one empty
+        # All elements match predicate, so one part full, one empty.
         assert len(state.partition_masks) >= 2
 
     def test_psplit_singleton_module(self):
@@ -203,14 +203,14 @@ class TestPsplitEdgeCases:
         
         program = [
             ("PNEW", "{60}"),
-            ("PSPLIT", "2 {60}"),  # Split module 2 (singleton)
+            ("PSPLIT", "1 0"),  # Split module 1 (singleton)
             ("HALT", ""),
         ]
         
         with tempfile.TemporaryDirectory() as td:
             vm.run(program, Path(td))
         
-        # Should complete successfully (60 is even, so matches predicate, one part empty)
+        # Should complete successfully (60 is even, so matches predicate, one part empty).
         assert len(state.partition_masks) >= 1
 
     def test_psplit_half_split(self):
@@ -220,17 +220,15 @@ class TestPsplitEdgeCases:
         
         program = [
             ("PNEW", "{30,31,32,33}"),
-            ("PSPLIT", "2 even"),  # Module 2, splits on x % 2 == 0
+            ("PSPLIT", "1 0"),  # Module 1, predicate-byte even/odd
             ("HALT", ""),
         ]
         
         with tempfile.TemporaryDirectory() as td:
             vm.run(program, Path(td))
         
-        # Should have base {0} + two split results (original is removed)
-        # PSPLIT removes the original module and creates two new ones
-        # Predicate is x % 2 == 0, so even={30,32}, odd={31,33}
-        assert len(state.partition_masks) >= 3
+        # PSPLIT removes the original module and creates two new ones.
+        assert len(state.partition_masks) >= 2
         
         masks = list(state.partition_masks.values())
         mask_even = (1 << 30) | (1 << 32)  # Even indices
@@ -252,15 +250,15 @@ class TestPmergeEdgeCases:
         program = [
             ("PNEW", "{15,16,17}"),
             ("PNEW", "{25,26,27}"),
-            ("PMERGE", "2 3"),  # Merge modules 2 and 3
+            ("PMERGE", "1 2"),  # Merge modules 1 and 2
             ("HALT", ""),
         ]
         
         with tempfile.TemporaryDirectory() as td:
             vm.run(program, Path(td))
         
-        # Should have base {0} + merged result
-        assert len(state.partition_masks) >= 2
+        # Should have merged result.
+        assert len(state.partition_masks) >= 1
         
         merged_mask = (1 << 15) | (1 << 16) | (1 << 17) | (1 << 25) | (1 << 26) | (1 << 27)
         masks = list(state.partition_masks.values())
@@ -274,7 +272,7 @@ class TestPmergeEdgeCases:
         program = [
             ("PNEW", "{35,36,37}"),
             ("PNEW", "{38,39,40}"),  # Adjacent but disjoint
-            ("PMERGE", "2 3"),  # Merge modules 2 and 3
+            ("PMERGE", "1 2"),  # Merge modules 1 and 2
             ("HALT", ""),
         ]
         
@@ -313,7 +311,7 @@ class TestPmergeEdgeCases:
         program = [
             ("PNEW", "{18}"),  # Changed indices to avoid conflicts
             ("PNEW", "{19}"),
-            ("PMERGE", "2 3"),  # Merge modules 2 and 3
+            ("PMERGE", "1 2"),  # Merge modules 1 and 2
             ("HALT", ""),
         ]
         
@@ -333,7 +331,7 @@ class TestPmergeEdgeCases:
         program = [
             ("PNEW", "{}"),      # Empty
             ("PNEW", "{55,56}"),
-            ("PMERGE", "2 3"),   # Merge modules 2 and 3
+            ("PMERGE", "1 2"),   # Merge modules 1 and 2
             ("HALT", ""),
         ]
         
@@ -359,7 +357,7 @@ class TestMuCostEdgeCases:
             ("PNEW", "{1}"),      # cost 1
             ("PNEW", "{2}"),      # cost 1
             ("PMERGE", "1 2"),    # cost varies
-            ("PSPLIT", "3 {1}"),  # cost varies
+            ("PSPLIT", "3 0"),    # cost varies (even/odd split)
             ("HALT", ""),
         ]
         
@@ -377,12 +375,12 @@ class TestMuCostEdgeCases:
         vm = VM(state)
         
         program = [
-            ("PNEW", "{10,11}"),   # Module 2
-            ("PNEW", "{12,13}"),   # Module 3
-            ("PNEW", "{14,15}"),   # Module 4  
-            ("PMERGE", "2 3"),     # Merge 2+3 -> Module 5
-            ("PMERGE", "5 4"),     # Merge 5+4 -> Module 6
-            ("PSPLIT", "6 even"),  # Split 6 -> Modules 7,8
+            ("PNEW", "{10,11}"),   # Module 1
+            ("PNEW", "{12,13}"),   # Module 2
+            ("PNEW", "{14,15}"),   # Module 3
+            ("PMERGE", "1 2"),     # Merge 1+2 -> Module 4
+            ("PMERGE", "4 3"),     # Merge 4+3 -> Module 5
+            ("PSPLIT", "5 0"),     # Split 5 -> two modules (even/odd)
             ("HALT", ""),
         ]
         
@@ -395,7 +393,7 @@ class TestMuCostEdgeCases:
         assert state.mu_ledger.total >= 0
 
     def test_mu_cost_minimal_for_empty_program(self):
-        """Empty program (only HALT) has minimal μ-cost (discovery charge only)."""
+        """Empty program (only HALT) has zero μ-cost."""
         state = State()
         vm = VM(state)
         
@@ -405,10 +403,9 @@ class TestMuCostEdgeCases:
         
         with tempfile.TemporaryDirectory() as td:
             vm.run(program, Path(td))
-        
-        # Discovery charge is 1, no execution costs
-        assert state.mu_ledger.total == 1
-        assert state.mu_ledger.mu_discovery == 1
+
+        assert state.mu_ledger.total == 0
+        assert state.mu_ledger.mu_discovery == 0
         assert state.mu_ledger.mu_execution == 0
 
 
@@ -421,10 +418,10 @@ class TestPartitionInvariants:
         vm = VM(state)
         
         program = [
-            ("PNEW", "{5,6,7}"),   # Module 2
-            ("PNEW", "{8,9}"),     # Module 3
-            ("PMERGE", "2 3"),     # Merge -> Module 4
-            ("PSPLIT", "4 even"),  # Split 4 -> Modules 5,6 (predicate: even/odd)
+            ("PNEW", "{5,6,7}"),   # Module 1
+            ("PNEW", "{8,9}"),     # Module 2
+            ("PMERGE", "1 2"),     # Merge -> Module 3
+            ("PSPLIT", "3 0"),     # Split 3 -> two modules (even/odd)
             ("HALT", ""),
         ]
         
@@ -437,8 +434,8 @@ class TestPartitionInvariants:
             assert isinstance(mask, int)
             assert mask >= 0
 
-    def test_base_module_always_exists(self):
-        """Base module {0} always exists in partition graph."""
+    def test_no_implicit_base_module(self):
+        """No implicit base module is created unless explicitly requested."""
         state = State()
         vm = VM(state)
         
@@ -450,10 +447,10 @@ class TestPartitionInvariants:
         
         with tempfile.TemporaryDirectory() as td:
             vm.run(program, Path(td))
-        
-        # Base module {0} (mask = 1) should exist
+
+        # Since we never request index 0, no module should have bit0 set.
         masks = list(state.partition_masks.values())
-        assert 1 in masks  # 1 << 0 = 1
+        assert 1 not in masks  # 1 << 0
 
     def test_no_duplicate_masks_after_operations(self):
         """No duplicate masks exist after deduplication."""
