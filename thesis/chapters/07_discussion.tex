@@ -2,7 +2,7 @@
 
 \subsection{From Proofs to Meaning}
 
-The previous chapters established that the Thiele Machine \textit{works}---it is formally correct (Chapter 4), implemented across three layers (Chapter 5), and empirically validated (Chapter 6). But technical correctness does not answer deeper questions:
+The previous chapters established that the Thiele Machine \textit{works}---it is formally verified (Chapter 5), implemented across three layers (Chapter 4), and empirically validated (Chapter 6). But technical correctness does not answer deeper questions:
 \begin{itemize}
     \item What does this model \textit{mean} for computation?
     \item How does it connect to physics?
@@ -34,39 +34,42 @@ The Thiele Machine is more than a new computational model; it is a proposal for 
 Landauer's principle states that erasing one bit of information requires at least $kT \ln 2$ of energy dissipation, where $k$ is Boltzmann's constant and $T$ is temperature. This establishes a fundamental connection between logical irreversibility and thermodynamics: many-to-one mappings (like erasure) cannot be implemented without heat dissipation in a physical device.
 
 The Thiele Machine's $\mu$-ledger formalizes a computational analog:
-\begin{verbatim}
+\begin{lstlisting}
 Theorem vm_irreversible_bits_lower_bound :
   forall fuel trace s,
     irreversible_count fuel trace s <=
       (run_vm fuel trace s).(vm_mu) - s.(vm_mu).
-\end{verbatim}
+\end{lstlisting}
 
 The $\mu$-ledger growth lower-bounds the number of irreversible bit operations. This is not merely an analogy—it is a provable property of the kernel. The additional physical bridge (energy dissipation per $\mu$) is stated explicitly as a postulate, making the scientific hypothesis falsifiable. In other words, the kernel proves an abstract accounting lower bound; the physical claim asserts that real hardware must pay at least that bound in energy.
+The theorem above is proven in \texttt{coq/kernel/MuLedgerConservation.v}. Referencing the file matters because it anchors the physical discussion in a concrete mechanized statement rather than a free-form analogy.
 
 \subsection{No-Signaling and Bell Locality}
 
 The \texttt{observational\_no\_signaling} theorem is the computational analog of Bell locality:
-\begin{verbatim}
+\begin{lstlisting}
 Theorem observational_no_signaling : forall s s' instr mid,
   well_formed_graph s.(vm_graph) ->
   mid < pg_next_id s.(vm_graph) ->
   vm_step s instr s' ->
   ~ In mid (instr_targets instr) ->
   ObservableRegion s mid = ObservableRegion s' mid.
-\end{verbatim}
+\end{lstlisting}
 
 In physics, Bell locality states that operations on system A cannot instantaneously affect system B. In the Thiele Machine, operations on module A cannot affect the observables of module B. This is enforced by construction, not assumed as a physical postulate. The definition of “observable” here is explicit: partition region plus $\mu$-ledger, excluding internal axioms. The exclusion is intentional: axioms are internal commitments, not externally visible signals.
+The formal statement shown here corresponds to \texttt{observational\_no\_signaling} in \texttt{coq/kernel/KernelPhysics.v}, which is proved using the observable projections defined in \texttt{coq/kernel/VMState.v}. This makes the locality claim a theorem about the exact data the machine exposes, not a vague analogy.
 
 \subsection{Noether's Theorem}
 
 The gauge invariance theorem mirrors Noether's theorem from physics:
-\begin{verbatim}
+\begin{lstlisting}
 Theorem kernel_noether_mu_gauge : forall s k,
   conserved_partition_structure s = 
   conserved_partition_structure (nat_action k s).
-\end{verbatim}
+\end{lstlisting}
 
 The symmetry (freedom to shift $\mu$ by a constant) corresponds to the conserved quantity (partition structure). This is not metaphorical—it is the same mathematical relationship that underlies energy conservation in classical mechanics: a symmetry of the dynamics induces a conserved observable.
+The proof lives in \texttt{coq/kernel/KernelNoether.v}, where the \texttt{z\_gauge\_shift} action and its invariants are developed explicitly. This is a genuine Noether-style argument: the conservation law is derived from a symmetry of the semantics rather than assumed.
 
 \subsection{Thermodynamic bridge and falsifiable prediction}
 
@@ -95,6 +98,7 @@ Gauge symmetry & $\mu$-gauge invariance \\
 \end{center}
 
 The new time-dilation harness (Section~\ref{sec:ledger_time_dilation}) makes the ledger-speed connection concrete: with a fixed μ budget per tick, diverting μ to communication throttles the observed compute rate, matching the intuition that “mass/structure slows time” when μ is conserved. Evidence-strict extensions will carry the same trade-off across Python, extraction, and RTL once EMIT traces are instrumented. The point is not to claim a physical time dilation effect, but to show an internal conservation law that forces a trade-off between signaling and local computation under a fixed μ budget.
+That trade-off is implemented as an explicit ledger budget in the harness described in Chapter 6, so the “dilation” here is a measurable scheduling constraint rather than an untested metaphor.
 
 \section{Implications for Computational Complexity}
 
@@ -140,18 +144,18 @@ The relationship $\text{P} \subseteq \text{P}_\mu \subseteq \text{NP}_\mu$ is st
 \subsection{The Hallucination Problem}
 
 Large Language Models (LLMs) generate plausible but often factually incorrect outputs—"hallucinations." In the LLM paradigm:
-\begin{verbatim}
+\begin{lstlisting}
 output = model.generate(prompt)  # No structural verification
-\end{verbatim}
+\end{lstlisting}
 
 In a Thiele Machine-inspired AI:
-\begin{verbatim}
+\begin{lstlisting}
 hypothesis = model.predict_structure(input)
 verified, receipt = vm.certify(hypothesis)
 if not verified:
     cost += mu_hypothesis  # Economic penalty
 output = hypothesis if verified else None
-\end{verbatim}
+\end{lstlisting}
 
 False structural hypotheses incur $\mu$-cost without producing valid receipts. This creates Darwinian pressure for truth. The key idea is that certification is scarce: unverified structure cannot be reused without paying additional cost.
 
@@ -170,7 +174,7 @@ A neural network predicts partitions (structure hypotheses). The Thiele kernel v
 \subsection{The Receipt Chain}
 
 Every Thiele Machine execution produces a cryptographic receipt chain:
-\begin{verbatim}
+\begin{lstlisting}
 receipt = {
     "pre_state_hash": SHA256(state_before),
     "instruction": opcode,
@@ -178,7 +182,8 @@ receipt = {
     "mu_cost": cost,
     "chain_link": SHA256(previous_receipt)
 }
-\end{verbatim}
+\end{lstlisting}
+The Python implementation of this structure is in \texttt{thielecpu/receipts.py} and \texttt{thielecpu/crypto.py}, and the RTL contains a receipt controller in \texttt{thielecpu/hardware/crypto\_receipt\_controller.v}. The chain is therefore an engineered artifact with concrete hash formats, not an abstract promise.
 
 This enables:
 \begin{itemize}
@@ -210,10 +215,10 @@ I pay for the structure I \textit{find}, not necessarily the minimal structure t
 \subsection{Hardware Scalability}
 
 Current hardware parameters:
-\begin{verbatim}
+\begin{lstlisting}
 NUM_MODULES = 64
 REGION_SIZE = 1024
-\end{verbatim}
+\end{lstlisting}
 
 Scaling to millions of dynamic partitions requires:
 \begin{itemize}
@@ -225,10 +230,10 @@ Scaling to millions of dynamic partitions requires:
 \subsection{SAT Solver Integration}
 
 The current \texttt{LASSERT} instruction requires external certificates:
-\begin{verbatim}
+\begin{lstlisting}
 instr_lassert (module : ModuleID) (formula : string)
     (cert : lassert_certificate) (mu_delta : nat)
-\end{verbatim}
+\end{lstlisting}
 
 Generating LRAT proofs or SAT models is delegated to external solvers. Future work could integrate:
 \begin{itemize}

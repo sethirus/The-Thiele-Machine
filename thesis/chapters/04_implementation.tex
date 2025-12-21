@@ -5,6 +5,7 @@
 A formal specification proves properties but doesn't execute on real workloads. An executable implementation runs but might contain bugs or subtle semantic drift. How can I trust that the implementation matches the specification?
 
 \textbf{Answer}: I build three independent implementations and verify they produce \textit{identical results} for all inputs. This makes the thesis rebuildable: every layer can be re-implemented from the definitions here, and any mismatch is detectable.
+In practice, this means I can take a short instruction trace, run it through the Coq-extracted interpreter, the Python VM, and the RTL testbench, and compare the gate-appropriate observable projection. If any compared field diverges, I treat it as a semantic bug rather than a performance issue. That is the operational meaning of “trust” in this project.
 
 \subsection{The Three Layers}
 
@@ -15,6 +16,7 @@ A formal specification proves properties but doesn't execute on real workloads. 
     
     \item \textbf{Verilog (Hardware)}: A synthesizable RTL implementation targeting real FPGAs. Proves the model is physically realizable.
 \end{enumerate}
+Concretely, the formal layer lives in \texttt{coq/kernel/*.v}, the Python reference VM is implemented under \texttt{thielecpu/} (notably \texttt{thielecpu/state.py} and \texttt{thielecpu/vm.py}), and the RTL is under \texttt{thielecpu/hardware/}. Keeping the directory layout explicit matters because it tells a reader exactly where to validate each part of the story.
 
 \subsection{The Isomorphism Invariant}
 
@@ -24,6 +26,7 @@ S_{\text{Coq}}(\tau) = S_{\text{Python}}(\tau) = S_{\text{Verilog}}(\tau)
 \]
 
 This is not aspirational---it is enforced by automated tests. Any divergence is a critical bug, because it would mean at least one layer is not faithful to the formal semantics.
+The tests compare \textit{state projections} rather than every internal variable. The projections are suite-specific: the compute gate in \texttt{tests/test\_rtl\_compute\_isomorphism.py} compares registers and memory, while the partition gate in \texttt{tests/test\_partition\_isomorphism\_minimal.py} compares canonicalized module regions from the partition graph. The extracted runner emits a full JSON snapshot (pc, $\mu$, err, regs, mem, CSRs, graph), but the RTL testbench exposes only the fields required by each gate.
 
 \subsection{How to Read This Chapter}
 
@@ -52,7 +55,7 @@ The Thiele Machine is implemented across three layers that maintain strict seman
     \item \textbf{Physical Layer (Verilog)}: RTL implementation targeting FPGA/ASIC synthesis
 \end{enumerate}
 
-The central invariant is \textit{3-way isomorphism}: for any instruction sequence $\tau$, the final state projection (pc, $\mu$, err, registers, memory, control registers, partition graph) must be identical across all three layers. The projection is chosen to be observationally complete: it preserves exactly what the model claims is observable and discards only internal proof artifacts.
+The central invariant is \textit{3-way isomorphism}: for any instruction sequence $\tau$, the final state projections chosen by the verification gates must be identical across all three layers. Those projections are observationally motivated and suite-specific (e.g., registers/memory for compute traces; module regions for partition traces), while the extracted runner provides a superset of observables that can be compared when a gate requires it.
 
 \section{Layer 1: The Formal Kernel (Coq)}
 
@@ -66,13 +69,14 @@ The formal kernel is organized around a small set of interlocking definitions:
     \item \textbf{Conservation and locality}: theorems that enforce $\mu$-monotonicity and observational no-signaling.
     \item \textbf{Receipts and simulation}: trace formats and cross-layer correspondence lemmas.
 \end{itemize}
+These bullets correspond directly to files: \texttt{VMState.v} defines the state and partitions, \texttt{VMStep.v} defines the ISA and step relation, \texttt{CertCheck.v} defines certificate checkers, and conservation/locality theorems live in files such as \texttt{MuLedgerConservation.v} and \texttt{ObserverDerivation.v}. Receipts and simulation correspondences are defined in \texttt{ReceiptCore.v} and \texttt{SimulationProof.v}.
 
 The goal is not to “encode” the implementation, but to define a minimal semantics from which every implementation can be reconstructed.
 
 \subsection{The VMState Record}
 
 The state is defined as a record with seven components:
-\begin{verbatim}
+\begin{lstlisting}
 Record VMState := {
   vm_graph : PartitionGraph;
   vm_csrs : CSRState;
@@ -82,7 +86,7 @@ Record VMState := {
   vm_mu : nat;
   vm_err : bool
 }.
-\end{verbatim}
+\end{lstlisting}
 
 Each component has canonical width and representation:
 \begin{itemize}
@@ -92,10 +96,11 @@ Each component has canonical width and representation:
     \item \textbf{vm\_mu}: $\mu$-ledger accumulator (modeled as a natural; exported at fixed width in hardware)
     \item \textbf{vm\_err}: Boolean error latch
 \end{itemize}
+In Coq, the register file and memory are lists, with indices masked by \texttt{reg\_index} and \texttt{mem\_index} in \texttt{coq/kernel/VMState.v}. This makes “out-of-range” indices deterministic and matches the fixed-width semantics of the RTL, where bit widths enforce modular addressing.
 
 \subsection{The Partition Graph}
 
-\begin{verbatim}
+\begin{lstlisting}
 Record PartitionGraph := {
   pg_next_id : ModuleID;
   pg_modules : list (ModuleID * ModuleState)
@@ -105,7 +110,7 @@ Record ModuleState := {
   module_region : list nat;
   module_axioms : AxiomSet
 }.
-\end{verbatim}
+\end{lstlisting}
 
 Key operations:
 \begin{itemize}
@@ -115,11 +120,12 @@ Key operations:
     \item \texttt{graph\_lookup}: Retrieve module by ID
     \item \texttt{graph\_add\_axiom}: Add logical constraint to module
 \end{itemize}
+In the Python reference VM (\texttt{thielecpu/state.py}), these same operations are implemented on a \texttt{RegionGraph} plus a parallel bitmask representation (\texttt{partition\_masks}) to make the RTL mapping explicit. The graph methods enforce the same disjointness and ID discipline as the Coq definitions so that the projection used for cross-layer checks is identical.
 
 \subsection{The Step Relation}
 
 The step relation is an inductive predicate with 18 constructors, one per opcode. Each constructor states the exact preconditions and the resulting next state:
-\begin{verbatim}
+\begin{lstlisting}
 Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop := 
 | step_pnew : forall s region cost graph' mid,
     graph_pnew s.(vm_graph) region = (graph', mid) ->
@@ -130,10 +136,10 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     vm_step s (instr_psplit m left right cost)
       (advance_state s (instr_psplit m left right cost) g' s.(vm_csrs) s.(vm_err))
 ...
-\end{verbatim}
+\end{lstlisting}
 
 The \texttt{advance\_state} helper atomically updates PC and $\mu$:
-\begin{verbatim}
+\begin{lstlisting}
 Definition advance_state (s : VMState) (instr : vm_instruction)
   (graph' : PartitionGraph) (csrs' : CSRState) (err' : bool) : VMState :=
   {| vm_graph := graph';
@@ -143,21 +149,23 @@ Definition advance_state (s : VMState) (instr : vm_instruction)
      vm_pc := s.(vm_pc) + 1;
      vm_mu := apply_cost s instr;
      vm_err := err' |}.
-\end{verbatim}
+\end{lstlisting}
+The existence of \texttt{advance\_state\_rm} in \texttt{coq/kernel/VMStep.v} is equally important: register- and memory-modifying instructions (such as \texttt{XOR\_LOAD} and \texttt{XFER}) use a variant that updates \texttt{vm\_regs} and \texttt{vm\_mem} explicitly, so these updates are part of the inductive semantics rather than encoded as side effects.
 
 \subsection{Extraction}
 
 The formal definitions are extracted to a functional evaluator to create a reference semantics:
-\begin{verbatim}
+\begin{lstlisting}
 Require Extraction.
 Extraction Language OCaml.
 Extract Inductive bool => "bool" ["true" "false"].
 Extract Inductive nat => "int" ["0" "succ"].
 ...
 Extraction "extracted/vm_kernel.ml" vm_step run_vm.
-\end{verbatim}
+\end{lstlisting}
 
 The extracted code compiles to a small runner, which serves as an oracle for Python/Verilog comparison.
+The runner consumes traces and emits a JSON snapshot of the observable fields. This makes it possible to compare the extracted semantics to the Python VM and RTL without invoking Coq at runtime; the extraction step freezes the semantics into a standalone artifact.
 
 \section{Layer 2: The Reference VM (Python)}
 
@@ -177,19 +185,33 @@ The reference VM is structured around:
 
 \subsubsection{The VM Class}
 
-\begin{verbatim}
+\begin{lstlisting}
 class VM:
+    state: State
+    python_globals: Dict[str, Any] = None
+    virtual_fs: VirtualFilesystem = field(default_factory=VirtualFilesystem)
+    witness_state: WitnessState = field(default_factory=WitnessState)
+    step_receipts: List[StepReceipt] = field(default_factory=list)
+
     def __post_init__(self):
-        self.state = State()
-        self.step_receipts: List[StepReceipt] = []
-        self.virtual_fs = VirtualFilesystem()
+        ensure_kernel_keys()
+        if self.python_globals is None:
+            globals_scope = {...}  # builtins + vm_* helpers
+            self.python_globals = globals_scope
+        else:
+            self.python_globals.setdefault("vm_read_text", self.virtual_fs.read_text)
+            ...
         self.witness_state = WitnessState()
-\end{verbatim}
+        self.step_receipts = []
+        self.register_file = [0] * 32
+        self.data_memory = [0] * 256
+\end{lstlisting}
+The excerpt omits the full globals initialization for brevity, but it highlights the key fact: the VM owns a \texttt{State} object (mirroring the Coq record) and also keeps a minimal register file and scratch memory used by the XOR opcodes that map directly to RTL. This separation is intentional: the \texttt{State} captures the partition and $\mu$-ledger semantics, while the auxiliary arrays let the VM exercise hardware-style instructions without introducing a second, inconsistent notion of state.
 
 \subsection{State Representation}
 
 The reference state mirrors the formal definition, with explicit fields for the partition graph, axioms, control/status registers, and $\mu$-ledger:
-\begin{verbatim}
+\begin{lstlisting}
 @dataclass
 class State:
     mu_operational: float = 0.0
@@ -202,11 +224,12 @@ class State:
     mu_ledger: MuLedger = field(default_factory=MuLedger)
     partition_masks: Dict[ModuleId, PartitionMask] = field(default_factory=dict)
     program: List[Any] = field(default_factory=list)
-\end{verbatim}
+\end{lstlisting}
+The additional fields (\texttt{mu\_ledger}, \texttt{partition\_masks}, and \texttt{program}) are the bridge to the other layers. \texttt{mu\_ledger} makes the $\mu$-accounting explicit and provides a total used in cross-layer projections (the kernel’s \texttt{vm\_mu} in \texttt{coq/kernel/VMState.v} is a single accumulator). \texttt{partition\_masks} provides a compact, hardware-aligned encoding of regions. \texttt{program} aligns with \texttt{CoreSemantics.State.program} in \texttt{coq/thielemachine/coqproofs/CoreSemantics.v}, where the program is part of the executable state, even though the kernel’s \texttt{VMState} record itself does not carry a program field.
 
 \subsection{The $\mu$-Ledger}
 
-\begin{verbatim}
+\begin{lstlisting}
 @dataclass
 class MuLedger:
     mu_discovery: int = 0   # Cost of partition discovery operations
@@ -215,14 +238,14 @@ class MuLedger:
     @property
     def total(self) -> int:
         return self.mu_discovery + self.mu_execution
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Partition Operations}
 
 \subsubsection{Bitmask Representation}
 
 For hardware isomorphism, partitions use fixed-width bitmasks. This makes the partition representation stable, deterministic, and easy to compare across layers:
-\begin{verbatim}
+\begin{lstlisting}
 MASK_WIDTH = 64  # Fixed width for hardware compatibility
 MAX_MODULES = 8  # Maximum number of active modules
 
@@ -232,11 +255,12 @@ def mask_of_indices(indices: Set[int]) -> PartitionMask:
         if 0 <= idx < MASK_WIDTH:
             mask |= (1 << idx)
     return mask
-\end{verbatim}
+\end{lstlisting}
+The bitmask representation is the literal encoding used in the RTL, so the Python VM computes it alongside the higher-level \texttt{RegionGraph}. This dual representation is a safety check: if the set-based and bitmask-based views ever disagree, the VM can detect the mismatch before it propagates to hardware.
 
 \subsubsection{Module Creation (PNEW)}
 
-\begin{verbatim}
+\begin{lstlisting}
 def pnew(self, region: Set[int]) -> ModuleId:
     if self.num_modules >= MAX_MODULES:
         raise ValueError(f"Cannot create module: max modules reached")
@@ -247,13 +271,14 @@ def pnew(self, region: Set[int]) -> ModuleId:
     self.axioms[mid] = []
     self._enforce_invariant()
     return mid
-\end{verbatim}
+\end{lstlisting}
+The first branch of \texttt{pnew} demonstrates the “idempotent discovery” rule: creating a module for a region that already exists returns the existing ID instead of duplicating it. This ensures that module IDs are stable across layers and that any $\mu$-cost charged for discovery is not accidentally paid twice.
 
 \subsection{Sandboxed Python Execution}
 
 The \texttt{PYEXEC} instruction executes user-supplied code. When sandboxing is enabled, execution is restricted to a safe builtins set and an AST allowlist. When sandboxing is disabled, the instruction behaves like a trusted host callback. The semantics are defined so that any side effects are observable in the trace, and any structural information revealed is charged in $\mu$.
 
-\begin{verbatim}
+\begin{lstlisting}
 SAFE_IMPORTS = {"math", "json", "z3"}
 SAFE_FUNCTIONS = {
     "abs", "all", "any", "bool", "divmod", "enumerate", 
@@ -263,22 +288,22 @@ SAFE_FUNCTIONS = {
     "vm_read_text", "vm_write_text", "vm_read_bytes",
     "vm_write_bytes", "vm_exists", "vm_listdir",
 }
-\end{verbatim}
+\end{lstlisting}
 
 When sandboxing is enabled, the AST is validated before execution:
-\begin{verbatim}
+\begin{lstlisting}
 SAFE_NODE_TYPES = {
     ast.Module, ast.FunctionDef, ast.ClassDef, ast.arguments,
     ast.arg, ast.Expr, ast.Assign, ast.AugAssign, ast.Name,
     ast.Load, ast.Store, ast.Constant, ast.BinOp, ast.UnaryOp,
     ast.BoolOp, ast.Compare, ast.If, ast.For, ast.While, ...
 }
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Receipt Generation}
 
 Every step generates a cryptographic receipt that records the pre-state, instruction, post-state, and observable evidence:
-\begin{verbatim}
+\begin{lstlisting}
 def _record_receipt(self, step, pre_state, instruction):
     post_state, observation = self._simulate_witness_step(
         instruction, pre_state
@@ -288,7 +313,7 @@ def _record_receipt(self, step, pre_state, instruction):
     )
     self.step_receipts.append(receipt)
     self.witness_state = post_state
-\end{verbatim}
+\end{lstlisting}
 
 \section{Layer 3: The Physical Core (Verilog)}
 
@@ -298,7 +323,7 @@ The hardware implementation is organized into a CPU core, a $\mu$-accounting uni
 
 \subsection{The Main CPU}
 
-\begin{verbatim}
+\begin{lstlisting}
 module thiele_cpu (
     input wire clk,
     input wire rst_n,
@@ -316,7 +341,7 @@ module thiele_cpu (
     output wire mem_en,
     ...
 );
-\end{verbatim}
+\end{lstlisting}
 
 Key signals:
 \begin{itemize}
@@ -329,7 +354,7 @@ Key signals:
 \subsection{State Machine}
 
 The CPU uses a 10-state FSM:
-\begin{verbatim}
+\begin{lstlisting}
 localparam [3:0] STATE_FETCH = 4'h0;
 localparam [3:0] STATE_DECODE = 4'h1;
 localparam [3:0] STATE_EXECUTE = 4'h2;
@@ -340,22 +365,22 @@ localparam [3:0] STATE_COMPLETE = 4'h6;
 localparam [3:0] STATE_ALU_WAIT = 4'h7;
 localparam [3:0] STATE_ALU_WAIT2 = 4'h8;
 localparam [3:0] STATE_RECEIPT_HOLD = 4'h9;
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Instruction Encoding}
 
 Each 32-bit instruction is decoded into opcode and operands. The fixed-width encoding ensures that hardware and software agree on exact bit-level semantics:
-\begin{verbatim}
+\begin{lstlisting}
 wire [7:0] opcode = current_instr[31:24];
 wire [7:0] operand_a = current_instr[23:16];
 wire [7:0] operand_b = current_instr[15:8];
 wire [7:0] operand_cost = current_instr[7:0];
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{$\mu$-Accumulator Updates}
 
 Every instruction atomically updates the $\mu$-accumulator:
-\begin{verbatim}
+\begin{lstlisting}
 OPCODE_PNEW: begin
     execute_pnew(operand_a, operand_b);
     // Coq semantics: vm_mu := s.vm_mu + instruction_cost
@@ -363,12 +388,12 @@ OPCODE_PNEW: begin
     pc_reg <= pc_reg + 4;
     state <= STATE_FETCH;
 end
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{The $\mu$-ALU}
 
 The $\mu$-ALU (\texttt{mu\_alu.v}) implements Q16.16 fixed-point arithmetic:
-\begin{verbatim}
+\begin{lstlisting}
 module mu_alu (
     input wire clk,
     input wire rst_n,
@@ -382,10 +407,10 @@ module mu_alu (
 );
 
 localparam Q16_ONE = 32'h00010000;  // 1.0 in Q16.16
-\end{verbatim}
+\end{lstlisting}
 
 The log2 computation uses a 256-entry LUT for bit-exact results:
-\begin{verbatim}
+\begin{lstlisting}
 reg [31:0] log2_lut [0:255];
 initial begin
     log2_lut[0] = 32'h00000000;
@@ -393,12 +418,12 @@ initial begin
     log2_lut[2] = 32'h000002DF;
     ...
 end
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Logic Engine Interface}
 
 The LEI (\texttt{lei.v}) connects to external Z3:
-\begin{verbatim}
+\begin{lstlisting}
 module lei (
     input wire clk,
     input wire rst_n,
@@ -414,7 +439,7 @@ module lei (
     input wire [31:0] z3_cert_hash,
     ...
 );
-\end{verbatim}
+\end{lstlisting}
 
 \section{Isomorphism Verification}
 
@@ -431,9 +456,9 @@ The 3-way isomorphism is verified by a test that:
 
 \subsection{State Projection}
 
-For comparison, states are projected to a canonical 7-tuple. The projection discards internal certificates and preserves only the observable machine state:
-\begin{verbatim}
-def project_state(state):
+For comparison, states are projected to canonical summaries tailored to the gate being exercised. The extracted runner emits a full JSON snapshot (pc, $\mu$, err, regs, mem, CSRs, graph), which can be projected down to subsets. The compute gate uses only registers and memory, while the partition gate uses canonicalized module regions. A full projection helper is therefore a \emph{superset} view, not the only comparison performed:
+\begin{lstlisting}
+def project_state_full(state):
     return {
         "pc": state.pc,
         "mu": state.mu,
@@ -443,7 +468,7 @@ def project_state(state):
         "csrs": state.csrs.to_dict(),
         "graph": state.graph.to_canonical(),
     }
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{The Inquisitor}
 
@@ -462,9 +487,9 @@ The repository must have 0 HIGH findings to pass CI.
 \subsection{FPGA Targeting}
 
 The RTL can be synthesized for Xilinx 7-series FPGAs:
-\begin{verbatim}
+\begin{lstlisting}
 $ yosys -p "read_verilog thiele_cpu.v; synth_xilinx -top thiele_cpu"
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Resource Utilization}
 
@@ -497,13 +522,13 @@ Full configuration:
 
 \subsection{Build Commands}
 
-\begin{verbatim}
+\begin{lstlisting}
 # Example commands (paths may vary by environment):
 # - build the Coq kernel
 # - run the two isomorphism tests
 # - simulate the RTL testbench
 # - run full synthesis when toolchains are installed
-\end{verbatim}
+\end{lstlisting}
 
 \section{Summary}
 

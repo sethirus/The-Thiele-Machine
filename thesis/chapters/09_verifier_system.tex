@@ -13,6 +13,7 @@ From first principles, a verifier needs three ingredients:
     \item \textbf{Cost accounting}: a way to ensure that any strengthened claim paid the required $\mu$-cost.
 \end{enumerate}
 The verifier system is built to guarantee all three.
+In the codebase, these ingredients are implemented by receipt parsing and signature checks (\texttt{verifier/receipt\_protocol.py}), trace replays in the domain-specific checkers (for example \texttt{verifier/check\_randomness.py}), and explicit $\mu$-cost rules inside the C-modules themselves.
 
 This chapter documents the complete verification infrastructure. The system implements four certification modules (C-modules) that enforce the No Free Insight principle across different application domains:
 \begin{itemize}
@@ -21,6 +22,7 @@ This chapter documents the complete verification infrastructure. The system impl
     \item \textbf{C-ENTROPY}: Certified entropy---proving that disorder is quantified correctly
     \item \textbf{C-CAUSAL}: Certified causation---proving that causes actually produce effects
 \end{itemize}
+Each module corresponds to a concrete verifier implementation under \texttt{verifier/} (for example, \texttt{c\_randomness.py}, \texttt{c\_tomography.py}, \texttt{c\_entropy2.py}, and \texttt{c\_causal.py}). This makes the certification rules auditable and runnable, not just conceptual.
 
 The key insight is that \textit{stronger claims require more evidence}. If you claim high-quality randomness, you must demonstrate the source of that randomness. If you claim precise measurements, you must show enough trials to support that precision. The verifier system makes this relationship explicit and enforceable by turning every claim into a checkable predicate over receipts and by requiring explicit $\mu$-charged disclosures whenever the predicate is strengthened.
 
@@ -41,7 +43,7 @@ Each verification includes:
 \subsection{The TRS-1.0 Receipt Protocol}
 
 All verification is receipt-defined through the TRS-1.0 (Thiele Receipt Standard) protocol:
-\begin{verbatim}
+\begin{lstlisting}
 {
     "version": "TRS-1.0",
     "timestamp": "2025-12-17T00:00:00Z",
@@ -52,7 +54,7 @@ All verification is receipt-defined through the TRS-1.0 (Thiele Receipt Standard
     },
     "signature": "ed25519:..."
 }
-\end{verbatim}
+\end{lstlisting}
 
 Key properties:
 \begin{itemize}
@@ -62,6 +64,7 @@ Key properties:
 \end{itemize}
 
 This protocol supplies the trace integrity requirement: a verifier can recompute hashes and signatures to confirm that the claim is exactly the one produced by the recorded execution.
+The full TRS-1.0 specification is in \texttt{docs/specs/trs-spec-v1.md}, and the reference implementation for verification lives in \texttt{verifier/receipt\_protocol.py} and \texttt{tools/verify\_trs10.py}. This ensures that the protocol described here is backed by a concrete parser and validator.
 
 \subsection{Non-Negotiable Falsifier Pattern}
 
@@ -77,12 +80,12 @@ Every C-module ships three mandatory falsifier tests. Each test targets a distin
 \subsection{Claim Structure}
 
 A randomness claim specifies:
-\begin{verbatim}
+\begin{lstlisting}
 {
     "n_bits": 1024,
     "min_entropy_per_bit": 0.95
 }
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Verification Rules}
 
@@ -98,14 +101,14 @@ Why these rules? Because without a receipt-bound source, the verifier has no bas
 \subsection{The Randomness Bound}
 
 Formal bridge lemma (illustrative):
-\begin{verbatim}
+\begin{lstlisting}
 Definition RandChannel (r : Receipt) : bool :=
   Nat.eqb (r_op r) RAND_TRIAL_OP.
 
 Lemma decode_is_filter_payloads :
   forall tr,
     decode RandChannel tr = map r_payload (filter RandChannel tr).
-\end{verbatim}
+\end{lstlisting}
 
 This ensures that randomness claims are derived only from receipted trial data. In other words, the verifier can only compute a randomness predicate over the receipts it can check.
 
@@ -122,13 +125,13 @@ This ensures that randomness claims are derived only from receipted trial data. 
 \subsection{Claim Structure}
 
 A tomography claim specifies an estimate within tolerance:
-\begin{verbatim}
+\begin{lstlisting}
 {
     "estimate": 0.785,
     "epsilon": 0.01,
     "n_trials": 10000
 }
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Verification Rules}
 
@@ -159,7 +162,7 @@ Entropy is ill-defined without specifying a coarse-graining (partition). Two obs
 \subsection{Claim Structure}
 
 An entropy claim must declare its coarse-graining:
-\begin{verbatim}
+\begin{lstlisting}
 {
     "h_lower_bound_bits": 3.2,
     "n_samples": 5000,
@@ -168,7 +171,7 @@ An entropy claim must declare its coarse-graining:
         "bins": 32
     }
 }
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Verification Rules}
 
@@ -184,12 +187,12 @@ The rationale is direct: entropy is a function of a partition, and the partition
 \subsection{Coq Formalization}
 
 Formal impossibility lemma (illustrative):
-\begin{verbatim}
+\begin{lstlisting}
 Theorem region_equiv_class_infinite : forall s,
   exists f : nat -> VMState,
     (forall n, region_equiv s (f n)) /\
     (forall n1 n2, f n1 = f n2 -> n1 = n2).
-\end{verbatim}
+\end{lstlisting}
 
 This proves that observational equivalence classes are infinite, blocking entropy computation without explicit coarse-graining. In practice, the verifier uses this impossibility result to reject entropy claims that omit a receipted partition.
 
@@ -217,13 +220,13 @@ The causal verifier enforces:
 
 \subsection{Falsifier Tests}
 
-\begin{verbatim}
+\begin{lstlisting}
 def test_unique_dag_without_assumptions_rejected():
     # Claim unique DAG from pure observational data
     # Must be rejected: causal claims need extra structure
     result = verify_causal(run_dir, trust_manifest)
     assert result.status == "REJECTED"
-\end{verbatim}
+\end{lstlisting}
 
 \section{Bridge Modules: Kernel Integration}
 
@@ -256,13 +259,13 @@ The flagship prediction derived from the verifier system:
 \subsection{Implementation}
 
 Representative falsifier test (simplified):
-\begin{verbatim}
+\begin{lstlisting}
 def test_uncertified_improvement_detected():
     # Attempt to claim better predictions without structure certificate
     result = vm.verify_improvement(baseline, improved, certificate=None)
     assert result.status == "UNCERTIFIED"
     assert "missing revelation" in result.reason
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Quantitative Bound}
 

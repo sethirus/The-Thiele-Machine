@@ -18,6 +18,9 @@
 \usepackage{tocloft}
 \usepackage[bookmarks=true,colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 
+% Handle Unicode characters
+\DeclareUnicodeCharacter{03BC}{\ensuremath{\mu}}
+
 % ============================================================================
 % PAGE GEOMETRY
 % ============================================================================
@@ -27,6 +30,9 @@
   left=1.25in,
   right=1.25in
 }
+
+% Fix headheight warning
+\setlength{\headheight}{14.5pt}
 
 % Line spacing
 \onehalfspacing

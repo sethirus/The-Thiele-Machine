@@ -21,6 +21,7 @@ The Thiele Machine has five components:
     \item \textbf{Transition Rules $R$}: How the machine evolves---the 18-instruction ISA
     \item \textbf{Logic Engine $L$}: The oracle that verifies logical consistency
 \end{enumerate}
+Each component corresponds to a concrete artifact in the formal development. The state and partition graph are defined in \texttt{coq/kernel/VMState.v}; the instruction set and step relation are defined in \texttt{coq/kernel/VMStep.v}; and the logic engine is represented by certificate checkers in \texttt{coq/kernel/CertCheck.v}. The point of the 5-tuple is not cosmetic: it is a decomposition that forces every later proof to say which resource it uses (state, partitions, axioms, transitions, or certificates), so that any implementation layer can mirror the same structure without guessing.
 
 \subsection{The Central Innovation: $\mu$-bits}
 
@@ -30,6 +31,7 @@ The key innovation is the \textit{$\mu$-bit currency}---a unit of structural inf
     \item \textbf{Bounded}: The $\mu$-ledger lower-bounds irreversible operations
     \item \textbf{Observable}: The cost is visible in the execution trace
 \end{itemize}
+In the formal kernel, the ledger is the field \texttt{vm\_mu} in \texttt{VMState}, and every opcode carries an explicit \texttt{mu\_delta}. The step relation in \texttt{coq/kernel/VMStep.v} defines \texttt{apply\_cost} as \texttt{vm\_mu + instruction\_cost}, so the ledger increases exactly by the declared cost and never decreases. The extracted runner exports \texttt{vm\_mu} as part of its JSON snapshot, and the RTL testbench prints $\mu$ in its JSON output for partition-related traces; individual isomorphism gates then compare only the fields relevant to the trace type.
 
 \subsection{How to Read This Chapter}
 
@@ -48,6 +50,7 @@ This chapter is technical and formal. It defines:
     \item \texttt{vm\_step} (how the machine transitions)
     \item \texttt{vm\_mu} (the $\mu$-ledger)
 \end{itemize}
+These names are not placeholders: they are the exact identifiers used in \texttt{coq/kernel/VMState.v} and \texttt{coq/kernel/VMStep.v}. When later chapters mention a “state” or a “step,” they mean these concrete definitions and the proofs that refer to them.
 
 If the formalism becomes overwhelming, refer to Chapter 4 (Implementation) for concrete code examples.
 
@@ -63,7 +66,7 @@ The state space $S$ represents the complete instantaneous description of the mac
 
 In the formal development, the state is defined as:
 
-\begin{verbatim}
+\begin{lstlisting}
 Record VMState := {
   vm_graph : PartitionGraph;
   vm_csrs : CSRState;
@@ -73,7 +76,7 @@ Record VMState := {
   vm_mu : nat;
   vm_err : bool
 }.
-\end{verbatim}
+\end{lstlisting}
 
 Each component serves a specific purpose:
 \begin{itemize}
@@ -85,17 +88,19 @@ Each component serves a specific purpose:
     \item \textbf{vm\_mu}: The $\mu$-ledger accumulator
     \item \textbf{vm\_err}: Error flag (latching)
 \end{itemize}
+The sizes are not arbitrary: \texttt{REG\_COUNT} and \texttt{MEM\_SIZE} are defined in \texttt{coq/kernel/VMState.v} and are mirrored in the Python and RTL layers so that indexing and wrap-around are identical. Reads and writes use modular indexing (\texttt{reg\_index} and \texttt{mem\_index}) so that any out-of-range access deterministically folds back into the fixed-width state, matching the hardware behavior where wires have fixed width.
 
 \subsubsection{Word Representation}
 
 The machine uses 32-bit words with explicit masking:
-\begin{verbatim}
+\begin{lstlisting}
 Definition word32_mask : N := N.ones 32.
 Definition word32 (x : nat) : nat :=
   N.to_nat (N.land (N.of_nat x) word32_mask).
-\end{verbatim}
+\end{lstlisting}
 
 This ensures that all arithmetic operations properly wrap at $2^{32}$, so word-level behavior is explicit and deterministic.
+In the Coq kernel, write operations (\texttt{write\_reg} and \texttt{write\_mem}) mask values through \texttt{word32}, so every stored word is explicitly truncated rather than implicitly relying on the host language. This makes the arithmetic model match the RTL and avoids ambiguities where a high-level language might use unbounded integers.
 
 \subsection{Partition Graph $\Pi$}
 
@@ -103,7 +108,7 @@ The partition graph is the central innovation of the Thiele Machine. It represen
 
 \subsubsection{Formal Definition}
 
-\begin{verbatim}
+\begin{lstlisting}
 Record PartitionGraph := {
   pg_next_id : ModuleID;
   pg_modules : list (ModuleID * ModuleState)
@@ -113,7 +118,7 @@ Record ModuleState := {
   module_region : list nat;
   module_axioms : AxiomSet
 }.
-\end{verbatim}
+\end{lstlisting}
 
 Key properties and intended semantics:
 \begin{itemize}
@@ -121,14 +126,15 @@ Key properties and intended semantics:
     \item \textbf{Disjointness}: Module regions are intended to be disjoint. This is enforced by checks during operations such as \texttt{PMERGE} (which rejects overlapping regions) and \texttt{PSPLIT} (which validates disjoint partitions).
     \item \textbf{Coverage}: Partition operations ensure that a split covers the original region and that merges preserve region union. Global coverage of all machine state is not required; modules describe only the regions explicitly placed under partition structure.
 \end{itemize}
+The graph is therefore a compact, explicit record of \emph{what has been structurally separated so far}. Nothing in the kernel assumes a universal partition over memory; the model only tracks the modules that have been explicitly introduced by \texttt{PNEW}, \texttt{PSPLIT}, and \texttt{PMERGE}. This distinction is essential: if a region has never been partitioned, it remains “structurally opaque,” and the model refuses to grant any insight about its internal structure without paying $\mu$.
 
 \subsubsection{Well-Formedness Invariant}
 
 The partition graph must satisfy a well-formedness invariant focused on ID discipline:
-\begin{verbatim}
+\begin{lstlisting}
 Definition well_formed_graph (g : PartitionGraph) : Prop :=
   all_ids_below g.(pg_modules) g.(pg_next_id).
-\end{verbatim}
+\end{lstlisting}
 
 This invariant is proven to be preserved by all operations:
 \begin{itemize}
@@ -136,22 +142,24 @@ This invariant is proven to be preserved by all operations:
     \item \texttt{graph\_remove\_preserves\_wf}
     \item \texttt{wf\_graph\_lookup\_beyond\_next\_id}
 \end{itemize}
+The well-formedness invariant is deliberately minimal. It does \emph{not} require disjointness or coverage; those properties are enforced locally by the specific graph operations that need them. By keeping the invariant small (all IDs are below \texttt{pg\_next\_id}), the proofs about step semantics and extraction become simpler and do not assume extra structure that is not actually needed to execute the machine.
 
 \subsubsection{Canonical Normalization}
 
 Regions are stored in canonical form to ensure observational equivalence:
-\begin{verbatim}
+\begin{lstlisting}
 Definition normalize_region (region : list nat) : list nat :=
   nodup Nat.eq_dec region.
-\end{verbatim}
+\end{lstlisting}
 
 The key lemma ensures idempotence:
-\begin{verbatim}
+\begin{lstlisting}
 Lemma normalize_region_idempotent : forall region,
   normalize_region (normalize_region region) = normalize_region region.
-\end{verbatim}
+\end{lstlisting}
 
 This ensures that repeated normalization does not change the representation, which makes observables stable across equivalent encodings.
+The point is to remove duplicate indices while preserving the original order of first occurrence. This makes region equality depend only on set content (not on multiplicity), which is crucial for observational equality: two modules that mention the same indices in different orders should be treated as equivalent once normalized.
 
 \subsection{Axiom Set $A$}
 
@@ -160,20 +168,21 @@ Each module carries a set of axioms—logical constraints that the module satisf
 \subsubsection{Representation}
 
 Axioms are represented as strings in SMT-LIB 2.0 format:
-\begin{verbatim}
+\begin{lstlisting}
 Definition VMAxiom := string.
 Definition AxiomSet := list VMAxiom.
-\end{verbatim}
+\end{lstlisting}
+This choice keeps the kernel agnostic to the internal structure of logical formulas. The kernel does not parse or interpret these strings; it only passes them to certified checkers (see \texttt{coq/kernel/CertCheck.v}) and records them as part of a module's logical commitments.
 
 For example, an axiom asserting that a variable $x$ is non-negative might be:
-\begin{verbatim}
+\begin{lstlisting}
 "(assert (>= x 0))"
-\end{verbatim}
+\end{lstlisting}
 
 \subsubsection{Axiom Operations}
 
 Axioms can be added to modules:
-\begin{verbatim}
+\begin{lstlisting}
 Definition graph_add_axiom (g : PartitionGraph) (mid : ModuleID) 
   (ax : VMAxiom) : PartitionGraph :=
   match graph_lookup g mid with
@@ -183,17 +192,18 @@ Definition graph_add_axiom (g : PartitionGraph) (mid : ModuleID)
                         module_axioms := m.(module_axioms) ++ [ax] |} in
       graph_update g mid updated
   end.
-\end{verbatim}
+\end{lstlisting}
 
 When modules are split, axioms are copied to both children. When modules are merged, axiom sets are concatenated.
 
 \subsection{Transition Rules $R$}
 
 The transition rules define how the machine state evolves. The Thiele Machine has 18 instructions, defined in the formal step semantics.
+Each instruction constructor in \texttt{coq/kernel/VMStep.v} includes an explicit \texttt{mu\_delta} parameter so that the ledger change is part of the semantics, not an external annotation. This makes the cost model part of the operational meaning of each instruction rather than a separate accounting layer.
 
 \subsubsection{Instruction Set}
 
-\begin{verbatim}
+\begin{lstlisting}
 Inductive vm_instruction :=
 | instr_pnew (region : list nat) (mu_delta : nat)
 | instr_psplit (module : ModuleID) (left right : list nat) (mu_delta : nat)
@@ -214,7 +224,7 @@ Inductive vm_instruction :=
 | instr_reveal (module : ModuleID) (bits : nat) (cert : string) (mu_delta : nat)
 | instr_oracle_halts (payload : string) (mu_delta : nat)
 | instr_halt (mu_delta : nat).
-\end{verbatim}
+\end{lstlisting}
 
 \subsubsection{Instruction Categories}
 
@@ -256,17 +266,17 @@ The instructions fall into several categories:
 \subsubsection{The Step Relation}
 
 The step relation \texttt{vm\_step} defines valid transitions:
-\begin{verbatim}
+\begin{lstlisting}
 Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop := ...
-\end{verbatim}
+\end{lstlisting}
 
 Each instruction has one or more step rules. For example, \texttt{PNEW}:
-\begin{verbatim}
+\begin{lstlisting}
 | step_pnew : forall s region cost graph' mid,
     graph_pnew s.(vm_graph) region = (graph', mid) ->
     vm_step s (instr_pnew region cost)
       (advance_state s (instr_pnew region cost) graph' s.(vm_csrs) s.(vm_err))
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Logic Engine $L$}
 
@@ -275,14 +285,14 @@ The Logic Engine is an oracle that verifies logical consistency. In the formal m
 \subsubsection{Certificate-Based Verification}
 
 Rather than embedding an SMT solver, the Thiele Machine uses \textit{certificate-based verification}:
-\begin{verbatim}
+\begin{lstlisting}
 Inductive lassert_certificate :=
 | lassert_cert_unsat (proof : string)
 | lassert_cert_sat (model : string).
 
 Definition check_lrat : string -> string -> bool := CertCheck.check_lrat.
 Definition check_model : string -> string -> bool := CertCheck.check_model.
-\end{verbatim}
+\end{lstlisting}
 
 An \texttt{LASSERT} instruction carries either:
 \begin{itemize}
@@ -310,12 +320,12 @@ One $\mu$-bit is the cost of specifying one bit of structural constraint using t
 \subsection{The $\mu$-Ledger}
 
 The $\mu$-ledger is a monotonic counter tracking cumulative structural cost:
-\begin{verbatim}
+\begin{lstlisting}
 vm_mu : nat
-\end{verbatim}
+\end{lstlisting}
 
 Every instruction declares its $\mu$-cost, and the ledger is updated atomically:
-\begin{verbatim}
+\begin{lstlisting}
 Definition instruction_cost (instr : vm_instruction) : nat :=
   match instr with
   | instr_pnew _ cost => cost
@@ -325,7 +335,7 @@ Definition instruction_cost (instr : vm_instruction) : nat :=
 
 Definition apply_cost (s : VMState) (instr : vm_instruction) : nat :=
   s.(vm_mu) + instruction_cost instr.
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Conservation Laws}
 
@@ -341,11 +351,11 @@ s'.\mu \ge s.\mu
 \end{theorem}
 
 Proven as \texttt{mu\_conservation\_kernel}:
-\begin{verbatim}
+\begin{lstlisting}
 Theorem mu_conservation_kernel : forall s s' instr,
   vm_step s instr s' ->
   s'.(vm_mu) >= s.(vm_mu).
-\end{verbatim}
+\end{lstlisting}
 
 \subsubsection{Multi-Step Conservation}
 
@@ -357,22 +367,22 @@ For any bounded execution with fuel $k$:
 \end{theorem}
 
 Proven as \texttt{run\_vm\_mu\_conservation}:
-\begin{verbatim}
+\begin{lstlisting}
 Corollary run_vm_mu_conservation :
   forall fuel trace s,
     (run_vm fuel trace s).(vm_mu) =
     s.(vm_mu) + ledger_sum (ledger_entries fuel trace s).
-\end{verbatim}
+\end{lstlisting}
 
 \subsubsection{Irreversibility Bound}
 
 The $\mu$-ledger lower-bounds the count of irreversible bit events:
-\begin{verbatim}
+\begin{lstlisting}
 Theorem vm_irreversible_bits_lower_bound :
   forall fuel trace s,
     irreversible_count fuel trace s <=
       (run_vm fuel trace s).(vm_mu) - s.(vm_mu).
-\end{verbatim}
+\end{lstlisting}
 
 This connects the abstract $\mu$-cost to Landauer's principle: the ledger growth bounds the physical entropy production.
 
@@ -382,7 +392,7 @@ This connects the abstract $\mu$-cost to Landauer's principle: the ledger growth
 
 \subsubsection{PNEW: Module Creation}
 
-\begin{verbatim}
+\begin{lstlisting}
 Definition graph_pnew (g : PartitionGraph) (region : list nat)
   : PartitionGraph * ModuleID :=
   let normalized := normalize_region region in
@@ -390,17 +400,17 @@ Definition graph_pnew (g : PartitionGraph) (region : list nat)
   | Some existing => (g, existing)
   | None => graph_add_module g normalized []
   end.
-\end{verbatim}
+\end{lstlisting}
 
 \texttt{PNEW} either returns an existing module for the region (if one exists) or creates a new one. This ensures idempotence.
 
 \subsubsection{PSPLIT: Module Splitting}
 
-\begin{verbatim}
+\begin{lstlisting}
 Definition graph_psplit (g : PartitionGraph) (mid : ModuleID)
   (left right : list nat)
   : option (PartitionGraph * ModuleID * ModuleID) := ...
-\end{verbatim}
+\end{lstlisting}
 
 \texttt{PSPLIT} replaces a module with two sub-modules. Preconditions:
 \begin{itemize}
@@ -411,10 +421,10 @@ Definition graph_psplit (g : PartitionGraph) (mid : ModuleID)
 
 \subsubsection{PMERGE: Module Merging}
 
-\begin{verbatim}
+\begin{lstlisting}
 Definition graph_pmerge (g : PartitionGraph) (m1 m2 : ModuleID)
   : option (PartitionGraph * ModuleID) := ...
-\end{verbatim}
+\end{lstlisting}
 
 \texttt{PMERGE} combines two modules into one. Preconditions:
 \begin{itemize}
@@ -429,7 +439,7 @@ Axioms are concatenated in the merged module.
 \subsubsection{Observable Definition}
 
 An observable extracts what can be seen from outside a module:
-\begin{verbatim}
+\begin{lstlisting}
 Definition Observable (s : VMState) (mid : nat) : option (list nat * nat) :=
   match graph_lookup s.(vm_graph) mid with
   | Some modstate => Some (normalize_region modstate.(module_region), s.(vm_mu))
@@ -441,7 +451,7 @@ Definition ObservableRegion (s : VMState) (mid : nat) : option (list nat) :=
   | Some modstate => Some (normalize_region modstate.(module_region))
   | None => None
   end.
-\end{verbatim}
+\end{lstlisting}
 
 Note that \textbf{axioms are not observable}—they are internal implementation details.
 
@@ -457,14 +467,14 @@ If module $\text{mid}$ is not in the target set of instruction $\text{instr}$, t
 \end{theorem}
 
 Proven as \texttt{observational\_no\_signaling} in the formal development:
-\begin{verbatim}
+\begin{lstlisting}
 Theorem observational_no_signaling : forall s s' instr mid,
   well_formed_graph s.(vm_graph) ->
   mid < pg_next_id s.(vm_graph) ->
   vm_step s instr s' ->
   ~ In mid (instr_targets instr) ->
   ObservableRegion s mid = ObservableRegion s' mid.
-\end{verbatim}
+\end{lstlisting}
 
 This is a computational analog of Bell locality: you cannot signal to a remote module through local operations.
 
@@ -473,9 +483,9 @@ This is a computational analog of Bell locality: you cannot signal to a remote m
 \subsection{Receipt Predicates}
 
 A receipt predicate is a function that classifies execution traces:
-\begin{verbatim}
+\begin{lstlisting}
 Definition ReceiptPredicate (A : Type) := list A -> bool.
-\end{verbatim}
+\end{lstlisting}
 
 For example:
 \begin{itemize}
@@ -487,16 +497,16 @@ For example:
 \subsection{Strength Ordering}
 
 Predicate $P_1$ is stronger than $P_2$ if $P_1$ rules out more traces:
-\begin{verbatim}
+\begin{lstlisting}
 Definition stronger {A : Type} (P1 P2 : ReceiptPredicate A) : Prop :=
   forall obs, P1 obs = true -> P2 obs = true.
-\end{verbatim}
+\end{lstlisting}
 
 Strict strengthening:
-\begin{verbatim}
+\begin{lstlisting}
 Definition strictly_stronger {A : Type} (P1 P2 : ReceiptPredicate A) : Prop :=
   (P1 <= P2) /\ (exists obs, P1 obs = false /\ P2 obs = true).
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{The Main Theorem}
 
@@ -511,7 +521,7 @@ Then the trace contains a structure-addition event.
 \end{theorem}
 
 Proven as \texttt{strengthening\_requires\_structure\_addition}:
-\begin{verbatim}
+\begin{lstlisting}
 Theorem strengthening_requires_structure_addition :
   forall (A : Type)
          (decoder : receipt_decoder A)
@@ -523,13 +533,13 @@ Theorem strengthening_requires_structure_addition :
     s_init.(vm_csrs).(csr_cert_addr) = 0 ->
     Certified (run_vm fuel trace s_init) decoder P_strong trace ->
     has_structure_addition fuel trace s_init.
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Revelation Requirement}
 
 As a corollary, I prove that supra-quantum certification requires explicit revelation:
 
-\begin{verbatim}
+\begin{lstlisting}
 Theorem nonlocal_correlation_requires_revelation :
   forall (trace : Trace) (s_init s_final : VMState) (fuel : nat),
     trace_run fuel trace s_init = Some s_final ->
@@ -539,7 +549,7 @@ Theorem nonlocal_correlation_requires_revelation :
     (exists n m p mu, nth_error trace n = Some (instr_emit m p mu)) \/
     (exists n c1 c2 mu, nth_error trace n = Some (instr_ljoin c1 c2 mu)) \/
     (exists n m f c mu, nth_error trace n = Some (instr_lassert m f c mu)).
-\end{verbatim}
+\end{lstlisting}
 
 This proves that you cannot achieve "free" quantum advantage—the structural cost must be paid explicitly.
 
@@ -548,7 +558,7 @@ This proves that you cannot achieve "free" quantum advantage—the structural co
 \subsection{$\mu$-Gauge Transformation}
 
 A gauge transformation shifts the $\mu$-ledger by a constant:
-\begin{verbatim}
+\begin{lstlisting}
 Definition mu_gauge_shift (k : nat) (s : VMState) : VMState :=
   {| vm_regs := s.(vm_regs);
      vm_mem := s.(vm_mem);
@@ -557,15 +567,15 @@ Definition mu_gauge_shift (k : nat) (s : VMState) : VMState :=
      vm_graph := s.(vm_graph);
      vm_mu := s.(vm_mu) + k;
      vm_err := s.(vm_err) |}.
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Gauge Invariance}
 
 Partition structure is gauge-invariant:
-\begin{verbatim}
+\begin{lstlisting}
 Theorem kernel_noether_mu_gauge : forall s k,
   conserved_partition_structure s = 
   conserved_partition_structure (nat_action k s).
-\end{verbatim}
+\end{lstlisting}
 
 This is the computational analog of Noether's theorem: the gauge symmetry (ability to shift $\mu$ by a constant) corresponds to the conservation of partition structure.

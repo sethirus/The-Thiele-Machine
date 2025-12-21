@@ -12,6 +12,7 @@ The Thiele Machine development contains a large, fully verified Coq proof corpus
     \item \textbf{Zero axioms}: No unproven assumptions (beyond foundational logic)
     \item \textbf{Full extraction}: Proofs can be compiled to executable code
 \end{itemize}
+The corpus is split between the kernel (\texttt{coq/kernel/}) and the extended proofs (\texttt{coq/thielemachine/coqproofs/}). This division mirrors the conceptual separation between the core semantics and the larger ecosystem of applications and bridges.
 
 This chapter documents the complete formalization beyond the kernel layer, organized into specialized proof domains.
 
@@ -27,10 +28,10 @@ For readers unfamiliar with Coq, here is a brief guide:
 \end{itemize}
 
 For example:
-\begin{verbatim}
+\begin{lstlisting}
 Theorem example : forall n, n + 0 = n.
 Proof. intros n. induction n; simpl; auto. Qed.
-\end{verbatim}
+\end{lstlisting}
 
 This states ``for all natural numbers n, n + 0 = n'' and proves it by induction.
 
@@ -45,13 +46,14 @@ The proof corpus is organized by \emph{domain} rather than by implementation det
     \item \textbf{No Free Insight interface}: abstract axiomatization of the impossibility theorem.
     \item \textbf{Self-reference and meta-theory}: formal limits of self-description.
 \end{itemize}
+For readers navigating the code, the “kernel semantics” block corresponds to files such as \texttt{VMState.v} and \texttt{VMStep.v}, while many of the “extended machine proofs” live in \texttt{PartitionLogic.v}, \texttt{Subsumption.v}, and related files under \texttt{coq/thielemachine/coqproofs/}. The structure is intentionally layered so that higher-level proofs explicitly import the kernel rather than re-deriving it.
 
 \section{The ThieleMachine Proof Suite (106 Files)}
 
 \subsection{Partition Logic}
 
 Representative definitions:
-\begin{verbatim}
+\begin{lstlisting}
 Record Partition := {
   modules : list (list nat);
   interfaces : list (list nat)
@@ -67,7 +69,8 @@ Record GlobalWitness := {
   local_witnesses : list LocalWitness;
   composition_proof : bool
 }.
-\end{verbatim}
+\end{lstlisting}
+These records appear in \texttt{coq/thielemachine/coqproofs/PartitionLogic.v}, where they are used to formalize the notion of composable witnesses. The key point is that the “witness” objects are concrete data structures that can be reasoned about in Coq and then mirrored in executable checkers.
 
 Key theorems:
 \begin{itemize}
@@ -79,7 +82,7 @@ Key theorems:
 \subsection{Quantum Admissibility and Tsirelson Bound}
 
 Representative theorem:
-\begin{verbatim}
+\begin{lstlisting}
 Definition quantum_admissible_box (B : Box) : Prop :=
   local B \/ B = TsirelsonApprox.
 
@@ -87,7 +90,7 @@ Theorem quantum_admissible_implies_CHSH_le_tsirelson :
   forall B,
     quantum_admissible_box B ->
     Qabs (S B) <= kernel_tsirelson_bound_q.
-\end{verbatim}
+\end{lstlisting}
 
 The \textbf{literal quantitative bound}:
 \begin{equation}
@@ -95,6 +98,7 @@ The \textbf{literal quantitative bound}:
 \end{equation}
 
 This is a machine-checked rational inequality, not a floating-point approximation.
+The bound is developed in files such as \texttt{QuantumAdmissibilityTsirelson.v} and \texttt{QuantumAdmissibilityDeliverableB.v}, which prove the inequality using exact rationals so that it can be exported and tested without rounding ambiguity.
 
 \subsection{Bell Inequality Formalization}
 
@@ -108,14 +112,15 @@ Multiple Bell-related proofs:
 \subsection{Turing Machine Embedding}
 
 Representative theorem:
-\begin{verbatim}
+\begin{lstlisting}
 Theorem thiele_simulates_turing :
   forall fuel prog st,
     program_is_turing prog ->
     run_tm fuel prog st = run_thiele fuel prog st.
-\end{verbatim}
+\end{lstlisting}
 
 This proves that the Thiele Machine properly subsumes Turing computation.
+The kernel version of this theorem is in \texttt{coq/kernel/Subsumption.v}, and the extended proof layer re-exports it in \texttt{coq/thielemachine/coqproofs/Subsumption.v}. This ensures that the subsumption claim is grounded in the same semantics used for the rest of the model.
 
 \subsection{Oracle and Impossibility Theorems}
 
@@ -137,10 +142,10 @@ This branch of the development attempts to derive physics from kernel semantics 
 \subsection{The Final Outcome Theorem}
 
 Representative theorem:
-\begin{verbatim}
+\begin{lstlisting}
 Theorem KernelTOE_FinalOutcome :
   KernelMaximalClosureP /\ KernelNoGoForTOE_P.
-\end{verbatim}
+\end{lstlisting}
 
 This establishes both:
 \begin{itemize}
@@ -151,38 +156,38 @@ This establishes both:
 \subsection{The No-Go Theorem}
 
 Representative theorem:
-\begin{verbatim}
+\begin{lstlisting}
 Theorem CompositionalWeightFamily_Infinite :
   exists w : nat -> Weight,
     (forall k, weight_laws (w k)) /\
     (forall k1 k2, k1 <> k2 -> exists t, w k1 t <> w k2 t).
-\end{verbatim}
+\end{lstlisting}
 
 This proves that infinitely many weight functions satisfy all compositional laws---the kernel cannot uniquely determine a probability measure.
 
-\begin{verbatim}
+\begin{lstlisting}
 Theorem KernelNoGo_UniqueWeight_Fails : KernelNoGo_UniqueWeight_FailsP.
-\end{verbatim}
+\end{lstlisting}
 
 No unique weight is forced by compositionality alone.
 
 \subsection{Physics Requires Extra Structure}
 
 Representative theorem:
-\begin{verbatim}
+\begin{lstlisting}
 Theorem Physics_Requires_Extra_Structure :
   KernelNoGoForTOE_P.
-\end{verbatim}
+\end{lstlisting}
 
 This is the definitive statement: deriving a unique physical theory from the kernel alone is impossible. Additional structure (coarse-graining, finiteness axioms, etc.) is required.
 
 \subsection{Closure Theorems}
 
 Representative theorem:
-\begin{verbatim}
+\begin{lstlisting}
 Theorem KernelMaximalClosure :
   KernelMaximalClosureP.
-\end{verbatim}
+\end{lstlisting}
 
 The kernel does force:
 \begin{itemize}
@@ -196,24 +201,24 @@ The kernel does force:
 \subsection{Causal Structure from Steps}
 
 Representative definitions:
-\begin{verbatim}
+\begin{lstlisting}
 Definition step_rel (s s' : VMState) : Prop := exists instr, vm_step s instr s'.
 
 Inductive reaches : VMState -> VMState -> Prop :=
 | reaches_refl : forall s, reaches s s
 | reaches_cons : forall s1 s2 s3, step_rel s1 s2 -> reaches s2 s3 -> reaches s1 s3.
-\end{verbatim}
+\end{lstlisting}
 
 Spacetime emerges from the \texttt{reaches} relation: states are ``events,'' and reachability defines the causal order.
 
 \subsection{Cone Algebra}
 
 Representative theorem:
-\begin{verbatim}
+\begin{lstlisting}
 Theorem cone_composition : forall t1 t2,
   (forall x, In x (causal_cone (t1 ++ t2)) <->
              In x (causal_cone t1) \/ In x (causal_cone t2)).
-\end{verbatim}
+\end{lstlisting}
 
 Causal cones compose via set union when traces are concatenated. This gives cones monoidal structure.
 
@@ -226,12 +231,12 @@ The kernel does not force Lorentz invariance---that would require additional geo
 \subsection{Entropy Impossibility}
 
 Representative theorem:
-\begin{verbatim}
+\begin{lstlisting}
 Theorem region_equiv_class_infinite : forall s,
   exists f : nat -> VMState,
     (forall n, region_equiv s (f n)) /\
     (forall n1 n2, f n1 = f n2 -> n1 = n2).
-\end{verbatim}
+\end{lstlisting}
 
 Observational equivalence classes are infinite, blocking log-cardinality entropy without coarse-graining.
 
@@ -244,7 +249,7 @@ No unique probability measure over traces is forced by the kernel semantics.
 \subsection{Kernel-Level Guarantee}
 
 Representative theorem:
-\begin{verbatim}
+\begin{lstlisting}
 Definition quantum_admissible (trace : list vm_instruction) : Prop :=
   (* Contains no cert-setting instructions *)
   ...
@@ -254,19 +259,19 @@ Theorem quantum_admissible_cert_preservation :
     quantum_admissible trace ->
     vm_exec fuel trace s0 sF ->
     sF.(vm_csrs).(csr_cert_addr) = s0.(vm_csrs).(csr_cert_addr).
-\end{verbatim}
+\end{lstlisting}
 
 Quantum-admissible traces cannot set the certification CSR.
 
 \subsection{Quantitative $\mu$ Lower Bound}
 
 Representative lemma:
-\begin{verbatim}
+\begin{lstlisting}
 Lemma vm_exec_mu_monotone :
   forall fuel trace s0 sf,
     vm_exec fuel trace s0 sf ->
     s0.(vm_mu) <= sf.(vm_mu).
-\end{verbatim}
+\end{lstlisting}
 
 If supra-certification happens, then $\mu$ must increase by at least the cert-setter's declared cost.
 
@@ -275,7 +280,7 @@ If supra-certification happens, then $\mu$ must increase by at least the cert-se
 \subsection{Abstract Interface}
 
 Representative module type:
-\begin{verbatim}
+\begin{lstlisting}
 Module Type NO_FREE_INSIGHT_SYSTEM.
   Parameter S : Type.
   Parameter Trace : Type.
@@ -292,7 +297,7 @@ Module Type NO_FREE_INSIGHT_SYSTEM.
   Parameter clean_start : S -> Prop.
   Parameter Certified : Trace -> S -> Strength -> Prop.
 End NO_FREE_INSIGHT_SYSTEM.
-\end{verbatim}
+\end{lstlisting}
 
 This allows the No Free Insight theorem to be instantiated for any system satisfying this interface.
 
@@ -303,7 +308,7 @@ The kernel is proven to satisfy the NO\_FREE\_INSIGHT\_SYSTEM interface.
 \section{Self-Reference}
 
 Representative definitions:
-\begin{verbatim}
+\begin{lstlisting}
 Definition contains_self_reference (S : System) : Prop :=
   exists P : Prop, sentences S P /\ P.
 
@@ -313,7 +318,7 @@ Definition meta_system (S : System) : System :=
 
 Lemma meta_system_richer : forall S, 
   dimensionally_richer (meta_system S) S.
-\end{verbatim}
+\end{lstlisting}
 
 This formalizes why self-referential systems require meta-levels with additional ``dimensions.''
 
@@ -332,25 +337,25 @@ Representative list:
 \subsection{Subsumption Theorem}
 
 Representative theorem:
-\begin{verbatim}
+\begin{lstlisting}
 Theorem thiele_simulates_turing :
   forall fuel prog st,
     program_is_turing prog ->
     run_tm fuel prog st = run_thiele fuel prog st.
-\end{verbatim}
+\end{lstlisting}
 
 The Thiele Machine properly subsumes Turing Machine computation.
 
 \section{Falsifiable Predictions}
 
 Representative definitions:
-\begin{verbatim}
+\begin{lstlisting}
 Definition pnew_cost_bound (region : list nat) : nat :=
   region_size region.
 
 Definition psplit_cost_bound (left right : list nat) : nat :=
   region_size left + region_size right.
-\end{verbatim}
+\end{lstlisting}
 
 These predictions are falsifiable: if benchmarks show costs outside these bounds, the theory is wrong.
 

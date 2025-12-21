@@ -12,6 +12,7 @@ To validate this connection, I develop explicit physics models within the Coq fr
 \end{itemize}
 
 These models are not metaphors---they are formally verified Coq proofs showing that computational structures exhibit physical-like behavior.
+The wave model lives in \texttt{coq/physics/WaveModel.v}, and its embedding into the Thiele Machine is proven in \texttt{coq/thielemachine/coqproofs/WaveEmbedding.v}. The lattice and dissipative models follow the same pattern: define a state and step function, then prove conservation or monotonicity lemmas that can be linked back to kernel invariants.
 
 \subsection{From Theory to Algorithms}
 
@@ -31,7 +32,7 @@ The formal development contains verified physics models that demonstrate how phy
 \subsection{Wave Propagation Model}
 
 Representative model: a 1D wave dynamics model with left- and right-moving amplitudes:
-\begin{verbatim}
+\begin{lstlisting}
 Record WaveCell := {
   left_amp : nat;
   right_amp : nat
@@ -43,10 +44,10 @@ Definition wave_step (s : WaveState) : WaveState :=
   let lefts := rotate_left (map left_amp s) in
   let rights := rotate_right (map right_amp s) in
   map2 (fun l r => {| left_amp := l; right_amp := r |}) lefts rights.
-\end{verbatim}
+\end{lstlisting}
 
 \textbf{Conservation theorems:}
-\begin{verbatim}
+\begin{lstlisting}
 Theorem wave_energy_conserved : 
   forall s, wave_energy (wave_step s) = wave_energy s.
 
@@ -55,9 +56,10 @@ Theorem wave_momentum_conserved :
 
 Theorem wave_step_reversible : 
   forall s, wave_step_inv (wave_step s) = s.
-\end{verbatim}
+\end{lstlisting}
 
 These proofs demonstrate that even simple computational models exhibit physical-like conservation laws.
+The key point is that the proofs are about the concrete \texttt{wave\_step} definition in the Coq file, not about an informal physical analogy. This is why the conservation laws can later be transported into kernel semantics via embedding lemmas.
 
 \subsection{Dissipative Model}
 
@@ -74,7 +76,7 @@ The formalization includes the mathematical foundations of Shor's factoring algo
 \subsection{Period Finding}
 
 Representative definitions:
-\begin{verbatim}
+\begin{lstlisting}
 Definition is_period (r : nat) : Prop :=
   r > 0 /\ forall k, pow_mod (k + r) = pow_mod k.
 
@@ -85,10 +87,10 @@ Definition shor_candidate (r : nat) : nat :=
   let half := r / 2 in
   let term := Nat.pow a half in
   gcd_euclid (term - 1) N.
-\end{verbatim}
+\end{lstlisting}
 
 \textbf{The Shor Reduction Theorem:}
-\begin{verbatim}
+\begin{lstlisting}
 Theorem shor_reduction :
   forall r,
     minimal_period r ->
@@ -97,9 +99,10 @@ Theorem shor_reduction :
     1 < g < N ->
     Nat.divide g N /\ 
     Nat.divide g (Nat.pow a (r / 2) - 1).
-\end{verbatim}
+\end{lstlisting}
 
 This is the mathematical core of Shor's algorithm: given the period $r$ of $a^r \equiv 1 \pmod{N}$, I can extract non-trivial factors via GCD.
+These definitions and the theorem are formalized in \texttt{coq/shor\_primitives/PeriodFinding.v}, which provides the exact statements used in the proof scripts rather than an informal paraphrase.
 
 \subsection{Verified Examples}
 
@@ -118,7 +121,7 @@ This is the mathematical core of Shor's algorithm: given the period $r$ of $a^r 
 \subsection{Euclidean Algorithm}
 
 Representative Euclidean algorithm:
-\begin{verbatim}
+\begin{lstlisting}
 Fixpoint gcd_euclid (a b : nat) : nat :=
   match b with
   | 0 => a
@@ -130,17 +133,17 @@ Theorem gcd_euclid_divides_left :
 
 Theorem gcd_euclid_divides_right : 
   forall a b, Nat.divide (gcd_euclid a b) b.
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Modular Arithmetic}
 
 Representative modular arithmetic lemma:
-\begin{verbatim}
+\begin{lstlisting}
 Definition mod_pow (n base exp : nat) : nat := ...
 
 Theorem mod_pow_mult : 
   forall n a b c, mod_pow n a (b + c) = ...
-\end{verbatim}
+\end{lstlisting}
 
 \section{Bridge Modules}
 
@@ -149,7 +152,7 @@ Bridge lemmas connect domain-specific constructs to kernel semantics via receipt
 \subsection{Randomness Bridge}
 
 Representative bridge lemma:
-\begin{verbatim}
+\begin{lstlisting}
 Definition RAND_TRIAL_OP : nat := 1001.
 
 Definition RandChannel (r : Receipt) : bool :=
@@ -159,9 +162,10 @@ Lemma decode_is_filter_payloads :
   forall tr,
     decode RandChannel tr =
     map r_payload (filter RandChannel tr).
-\end{verbatim}
+\end{lstlisting}
 
 This bridge defines how randomness-relevant receipts are extracted from traces.
+The formal statement above appears in \texttt{coq/bridge/Randomness\_to\_Kernel.v}. It is the connective tissue between high-level randomness claims and the kernel trace semantics, ensuring that a “randomness proof” is literally a filtered view of receipted steps.
 
 Each bridge defines:
 \begin{enumerate}
@@ -186,12 +190,12 @@ The project's flagship demonstration is \textbf{device-independent randomness} c
 \subsection{The Quantitative Bound}
 
 Representative theorem:
-\begin{verbatim}
+\begin{lstlisting}
 Theorem admissible_randomness_bound :
   forall K transcript,
     Admissible K transcript ->
     rng_metric transcript <= f K.
-\end{verbatim}
+\end{lstlisting}
 
 The bound $f(K)$ is explicit and quantitative---certified randomness is bounded by structure-addition budget.
 
@@ -211,9 +215,9 @@ This creates an ``external confrontation artifact''---outsiders can disagree on 
 \subsection{What the Kernel Forces}
 
 Representative theorem:
-\begin{verbatim}
+\begin{lstlisting}
 Theorem KernelMaximalClosure : KernelMaximalClosureP.
-\end{verbatim}
+\end{lstlisting}
 
 The kernel forces:
 \begin{itemize}
@@ -225,18 +229,18 @@ The kernel forces:
 \subsection{What the Kernel Cannot Force}
 
 Representative theorem:
-\begin{verbatim}
+\begin{lstlisting}
 Theorem CompositionalWeightFamily_Infinite :
   exists w : nat -> Weight,
     (forall k, weight_laws (w k)) /\
     (forall k1 k2, k1 <> k2 -> exists t, w k1 t <> w k2 t).
-\end{verbatim}
+\end{lstlisting}
 
 Infinitely many weight families satisfy compositionality---no unique probability measure is forced.
 
-\begin{verbatim}
+\begin{lstlisting}
 Theorem Physics_Requires_Extra_Structure : KernelNoGoForTOE_P.
-\end{verbatim}
+\end{lstlisting}
 
 \textbf{Implication:} A unique physical theory cannot be derived from computational structure alone. Additional axioms (symmetry, coarse-graining, boundary conditions) are required.
 

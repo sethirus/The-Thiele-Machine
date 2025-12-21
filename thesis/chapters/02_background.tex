@@ -18,6 +18,7 @@ Classical computers (Turing Machines, RAM machines) are \textit{structurally bli
 This raises a profound question: \textit{What if structural knowledge were a first-class resource that must be discovered, paid for, and accounted for?}
 
 To understand why this question matters, I first need to understand what classical computers can and cannot do, and what I mean by "structure" and "information."
+The Thiele Machine answers this question by embedding structure into the machine state itself (as partitions and axioms) and by explicitly tracking the cost of adding that structure. That design choice is the bridge between the background material in this chapter and the formal model introduced in Chapter 3.
 
 \subsection{How to Read This Chapter}
 
@@ -125,6 +126,7 @@ I argue that the apparent gap between P and NP is often the gap between:
     \item Machines that have paid for structural insight ($\mu$-bits invested)
     \item Machines that have not (and must pay the Time Tax)
 \end{itemize}
+In the Thiele Machine, “paying for structural insight” means explicitly constructing partitions and attaching axioms that certify independence or other properties. Those operations are not free: they increase the $\mu$-ledger, which is then provably monotone under the step semantics.
 
 This does not trivialize P vs NP—the structural information may itself be expensive to discover. But it reframes intractability as an \textit{accounting issue} rather than a \textit{fundamental barrier}, emphasizing the cost of certifying structure rather than assuming it for free.
 
@@ -145,6 +147,7 @@ Shannon entropy measures the \textit{uncertainty} in a random variable, or equiv
 \end{itemize}
 
 The last property is crucial for the Thiele Machine: knowing that two variables are independent allows me to decompose the joint entropy into independent components, potentially enabling exponential speedups. Independence is itself a structural assertion that must be paid for in the Thiele Machine model.
+This is exactly why the formal model treats independence as a partition of state: the only way to claim $H(X, Y) = H(X) + H(Y)$ is to introduce a partition that separates the variables into different modules, which the model charges via $\mu$.
 
 \subsubsection{Entropy, Models, and What Is Actually Random}
 
@@ -170,6 +173,7 @@ Key theorems:
 \end{itemize}
 
 The uncomputability of Kolmogorov complexity is why the Thiele Machine uses \textit{Minimum Description Length} (MDL) instead—a computable approximation that captures description length without requiring the impossible oracle.
+In the implementation, the proxy is not a magical compressor; it is a canonical string encoding of axioms and partitions (SMT-LIB strings plus region encodings), so the cost is defined in a way that can be checked by the formal kernel and reproduced by the other layers.
 
 \subsection{Minimum Description Length (MDL)}
 
@@ -191,6 +195,7 @@ In the Thiele Machine, I adopt MDL as the basis for $\mu$-cost:
 \end{itemize}
 
 The total $\mu$-cost is thus analogous to the MDL of the computation, with the partition description and its axioms charged explicitly as a model of structure. This separates the cost of \emph{describing} structure from the cost of \emph{using} it.
+This is reflected directly in the Python and Coq implementations: the $\mu$-ledger is updated by explicit per-instruction costs, and structural operations (like partition creation or split) carry their own explicit charges.
 
 \section{The Physics of Computation}
 
