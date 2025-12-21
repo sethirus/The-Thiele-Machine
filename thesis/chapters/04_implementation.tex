@@ -16,7 +16,7 @@ In practice, this means I can take a short instruction trace, run it through the
     
     \item \textbf{Verilog (Hardware)}: A synthesizable RTL implementation targeting real FPGAs. Proves the model is physically realizable.
 \end{enumerate}
-Concretely, the formal layer lives in \texttt{coq/kernel/*.v}, the Python reference VM is implemented under \texttt{thielecpu/} (notably \texttt{thielecpu/state.py} and \texttt{thielecpu/vm.py}), and the RTL is under \texttt{thielecpu/hardware/}. Keeping the directory layout explicit matters because it tells a reader exactly where to validate each part of the story.
+Concretely, the formal layer lives in \texttt{coq/kernel/*.v}, the Python reference VM is implemented under \texttt{thielecpu/} (notably \path{thielecpu/state.py} and \path{thielecpu/vm.py}), and the RTL is under \texttt{thielecpu/hardware/}. Keeping the directory layout explicit matters because it tells a reader exactly where to validate each part of the story.
 
 \subsection{The Isomorphism Invariant}
 
@@ -26,7 +26,7 @@ S_{\text{Coq}}(\tau) = S_{\text{Python}}(\tau) = S_{\text{Verilog}}(\tau)
 \]
 
 This is not aspirational---it is enforced by automated tests. Any divergence is a critical bug, because it would mean at least one layer is not faithful to the formal semantics.
-The tests compare \textit{state projections} rather than every internal variable. The projections are suite-specific: the compute gate in \texttt{tests/test\_rtl\_compute\_isomorphism.py} compares registers and memory, while the partition gate in \texttt{tests/test\_partition\_isomorphism\_minimal.py} compares canonicalized module regions from the partition graph. The extracted runner emits a full JSON snapshot (pc, $\mu$, err, regs, mem, CSRs, graph), but the RTL testbench exposes only the fields required by each gate.
+The tests compare \textit{state projections} rather than every internal variable. The projections are suite-specific: the compute gate in \path{tests/test_rtl_compute_isomorphism.py} compares registers and memory, while the partition gate in \path{tests/test_partition_isomorphism_minimal.py} compares canonicalized module regions from the partition graph. The extracted runner emits a full JSON snapshot (pc, $\mu$, err, regs, mem, CSRs, graph), but the RTL testbench exposes only the fields required by each gate.
 
 \subsection{How to Read This Chapter}
 
@@ -69,7 +69,7 @@ The formal kernel is organized around a small set of interlocking definitions:
     \item \textbf{Conservation and locality}: theorems that enforce $\mu$-monotonicity and observational no-signaling.
     \item \textbf{Receipts and simulation}: trace formats and cross-layer correspondence lemmas.
 \end{itemize}
-These bullets correspond directly to files: \texttt{VMState.v} defines the state and partitions, \texttt{VMStep.v} defines the ISA and step relation, \texttt{CertCheck.v} defines certificate checkers, and conservation/locality theorems live in files such as \texttt{MuLedgerConservation.v} and \texttt{ObserverDerivation.v}. Receipts and simulation correspondences are defined in \texttt{ReceiptCore.v} and \texttt{SimulationProof.v}.
+These bullets correspond directly to files: \texttt{VMState.v} defines the state and partitions, \texttt{VMStep.v} defines the ISA and step relation, \texttt{CertCheck.v} defines certificate checkers, and conservation/locality theorems live in files such as \path{MuLedgerConservation.v} and \path{ObserverDerivation.v}. Receipts and simulation correspondences are defined in \path{ReceiptCore.v} and \path{SimulationProof.v}.
 
 The goal is not to “encode” the implementation, but to define a minimal semantics from which every implementation can be reconstructed.
 
@@ -120,7 +120,7 @@ Key operations:
     \item \texttt{graph\_lookup}: Retrieve module by ID
     \item \texttt{graph\_add\_axiom}: Add logical constraint to module
 \end{itemize}
-In the Python reference VM (\texttt{thielecpu/state.py}), these same operations are implemented on a \texttt{RegionGraph} plus a parallel bitmask representation (\texttt{partition\_masks}) to make the RTL mapping explicit. The graph methods enforce the same disjointness and ID discipline as the Coq definitions so that the projection used for cross-layer checks is identical.
+In the Python reference VM (\path{thielecpu/state.py}), these same operations are implemented on a \texttt{RegionGraph} plus a parallel bitmask representation (\texttt{partition\_masks}) to make the RTL mapping explicit. The graph methods enforce the same disjointness and ID discipline as the Coq definitions so that the projection used for cross-layer checks is identical.
 
 \subsection{The Step Relation}
 

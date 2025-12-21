@@ -70,7 +70,7 @@ Record GlobalWitness := {
   composition_proof : bool
 }.
 \end{lstlisting}
-These records appear in \texttt{coq/thielemachine/coqproofs/PartitionLogic.v}, where they are used to formalize the notion of composable witnesses. The key point is that the “witness” objects are concrete data structures that can be reasoned about in Coq and then mirrored in executable checkers.
+These records appear in \path{coq/thielemachine/coqproofs/PartitionLogic.v}, where they are used to formalize the notion of composable witnesses. The key point is that the “witness” objects are concrete data structures that can be reasoned about in Coq and then mirrored in executable checkers.
 
 Key theorems:
 \begin{itemize}
@@ -120,7 +120,7 @@ Theorem thiele_simulates_turing :
 \end{lstlisting}
 
 This proves that the Thiele Machine properly subsumes Turing computation.
-The kernel version of this theorem is in \texttt{coq/kernel/Subsumption.v}, and the extended proof layer re-exports it in \texttt{coq/thielemachine/coqproofs/Subsumption.v}. This ensures that the subsumption claim is grounded in the same semantics used for the rest of the model.
+The kernel version of this theorem is in \texttt{coq/kernel/Subsumption.v}, and the extended proof layer re-exports it in \path{coq/thielemachine/coqproofs/Subsumption.v}. This ensures that the subsumption claim is grounded in the same semantics used for the rest of the model.
 
 \subsection{Oracle and Impossibility Theorems}
 

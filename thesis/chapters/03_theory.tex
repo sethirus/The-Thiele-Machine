@@ -21,7 +21,7 @@ The Thiele Machine has five components:
     \item \textbf{Transition Rules $R$}: How the machine evolves---the 18-instruction ISA
     \item \textbf{Logic Engine $L$}: The oracle that verifies logical consistency
 \end{enumerate}
-Each component corresponds to a concrete artifact in the formal development. The state and partition graph are defined in \texttt{coq/kernel/VMState.v}; the instruction set and step relation are defined in \texttt{coq/kernel/VMStep.v}; and the logic engine is represented by certificate checkers in \texttt{coq/kernel/CertCheck.v}. The point of the 5-tuple is not cosmetic: it is a decomposition that forces every later proof to say which resource it uses (state, partitions, axioms, transitions, or certificates), so that any implementation layer can mirror the same structure without guessing.
+Each component corresponds to a concrete artifact in the formal development. The state and partition graph are defined in \path{coq/kernel/VMState.v}; the instruction set and step relation are defined in \path{coq/kernel/VMStep.v}; and the logic engine is represented by certificate checkers in \path{coq/kernel/CertCheck.v}. The point of the 5-tuple is not cosmetic: it is a decomposition that forces every later proof to say which resource it uses (state, partitions, axioms, transitions, or certificates), so that any implementation layer can mirror the same structure without guessing.
 
 \subsection{The Central Innovation: $\mu$-bits}
 
@@ -31,7 +31,7 @@ The key innovation is the \textit{$\mu$-bit currency}---a unit of structural inf
     \item \textbf{Bounded}: The $\mu$-ledger lower-bounds irreversible operations
     \item \textbf{Observable}: The cost is visible in the execution trace
 \end{itemize}
-In the formal kernel, the ledger is the field \texttt{vm\_mu} in \texttt{VMState}, and every opcode carries an explicit \texttt{mu\_delta}. The step relation in \texttt{coq/kernel/VMStep.v} defines \texttt{apply\_cost} as \texttt{vm\_mu + instruction\_cost}, so the ledger increases exactly by the declared cost and never decreases. The extracted runner exports \texttt{vm\_mu} as part of its JSON snapshot, and the RTL testbench prints $\mu$ in its JSON output for partition-related traces; individual isomorphism gates then compare only the fields relevant to the trace type.
+In the formal kernel, the ledger is the field \texttt{vm\_mu} in \texttt{VMState}, and every opcode carries an explicit \texttt{mu\_delta}. The step relation in \path{coq/kernel/VMStep.v} defines \texttt{apply\_cost} as \texttt{vm\_mu + instruction\_cost}, so the ledger increases exactly by the declared cost and never decreases. The extracted runner exports \texttt{vm\_mu} as part of its JSON snapshot, and the RTL testbench prints $\mu$ in its JSON output for partition-related traces; individual isomorphism gates then compare only the fields relevant to the trace type.
 
 \subsection{How to Read This Chapter}
 
@@ -50,7 +50,7 @@ This chapter is technical and formal. It defines:
     \item \texttt{vm\_step} (how the machine transitions)
     \item \texttt{vm\_mu} (the $\mu$-ledger)
 \end{itemize}
-These names are not placeholders: they are the exact identifiers used in \texttt{coq/kernel/VMState.v} and \texttt{coq/kernel/VMStep.v}. When later chapters mention a “state” or a “step,” they mean these concrete definitions and the proofs that refer to them.
+These names are not placeholders: they are the exact identifiers used in \path{coq/kernel/VMState.v} and \path{coq/kernel/VMStep.v}. When later chapters mention a “state” or a “step,” they mean these concrete definitions and the proofs that refer to them.
 
 If the formalism becomes overwhelming, refer to Chapter 4 (Implementation) for concrete code examples.
 
@@ -88,7 +88,7 @@ Each component serves a specific purpose:
     \item \textbf{vm\_mu}: The $\mu$-ledger accumulator
     \item \textbf{vm\_err}: Error flag (latching)
 \end{itemize}
-The sizes are not arbitrary: \texttt{REG\_COUNT} and \texttt{MEM\_SIZE} are defined in \texttt{coq/kernel/VMState.v} and are mirrored in the Python and RTL layers so that indexing and wrap-around are identical. Reads and writes use modular indexing (\texttt{reg\_index} and \texttt{mem\_index}) so that any out-of-range access deterministically folds back into the fixed-width state, matching the hardware behavior where wires have fixed width.
+The sizes are not arbitrary: \texttt{REG\_COUNT} and \texttt{MEM\_SIZE} are defined in \path{coq/kernel/VMState.v} and are mirrored in the Python and RTL layers so that indexing and wrap-around are identical. Reads and writes use modular indexing (\texttt{reg\_index} and \texttt{mem\_index}) so that any out-of-range access deterministically folds back into the fixed-width state, matching the hardware behavior where wires have fixed width.
 
 \subsubsection{Word Representation}
 
@@ -122,7 +122,7 @@ Record ModuleState := {
 
 Key properties and intended semantics:
 \begin{itemize}
-    \item \textbf{ID Monotonicity}: Module IDs are monotonically increasing ($\forall M \in \text{pg\_modules}, M.\text{id} < \text{pg\_next\_id}$). This is the invariant enforced globally.
+    \item \textbf{ID Monotonicity}: Module IDs are monotonically increasing (all existing IDs are strictly less than \texttt{pg\_next\_id}). This is the invariant enforced globally.
     \item \textbf{Disjointness}: Module regions are intended to be disjoint. This is enforced by checks during operations such as \texttt{PMERGE} (which rejects overlapping regions) and \texttt{PSPLIT} (which validates disjoint partitions).
     \item \textbf{Coverage}: Partition operations ensure that a split covers the original region and that merges preserve region union. Global coverage of all machine state is not required; modules describe only the regions explicitly placed under partition structure.
 \end{itemize}
@@ -172,7 +172,7 @@ Axioms are represented as strings in SMT-LIB 2.0 format:
 Definition VMAxiom := string.
 Definition AxiomSet := list VMAxiom.
 \end{lstlisting}
-This choice keeps the kernel agnostic to the internal structure of logical formulas. The kernel does not parse or interpret these strings; it only passes them to certified checkers (see \texttt{coq/kernel/CertCheck.v}) and records them as part of a module's logical commitments.
+This choice keeps the kernel agnostic to the internal structure of logical formulas. The kernel does not parse or interpret these strings; it only passes them to certified checkers (see \path{coq/kernel/CertCheck.v}) and records them as part of a module's logical commitments.
 
 For example, an axiom asserting that a variable $x$ is non-negative might be:
 \begin{lstlisting}
@@ -199,7 +199,7 @@ When modules are split, axioms are copied to both children. When modules are mer
 \subsection{Transition Rules $R$}
 
 The transition rules define how the machine state evolves. The Thiele Machine has 18 instructions, defined in the formal step semantics.
-Each instruction constructor in \texttt{coq/kernel/VMStep.v} includes an explicit \texttt{mu\_delta} parameter so that the ledger change is part of the semantics, not an external annotation. This makes the cost model part of the operational meaning of each instruction rather than a separate accounting layer.
+Each instruction constructor in \path{coq/kernel/VMStep.v} includes an explicit \texttt{mu\_delta} parameter so that the ledger change is part of the semantics, not an external annotation. This makes the cost model part of the operational meaning of each instruction rather than a separate accounting layer.
 
 \subsubsection{Instruction Set}
 
@@ -388,6 +388,21 @@ This connects the abstract $\mu$-cost to Landauer's principle: the ledger growth
 
 \section{Partition Logic}
 
+\begin{figure}[ht]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{State Space} & \textbf{Partition Graph} & \textbf{Axioms} \\
+        \hline
+        $S = \{r_0, r_1, \dots, m_0, \dots\}$ & $\Pi = \{M_1, M_2\}$ & $A(M_1) = \{x > 0\}$ \\
+        & $M_1 = \{r_0, r_1\}$ & $A(M_2) = \{y \text{ is prime}\}$ \\
+        & $M_2 = \{m_0, \dots, m_{10}\}$ & \\
+        \hline
+    \end{tabular}
+    \caption{Conceptual visualization of Partition Logic. The raw state space is decomposed into disjoint modules ($M_1, M_2$) by the partition graph. Each module carries a set of axioms that constrain the values within its region. Operations like \texttt{PSPLIT} and \texttt{PMERGE} modify this graph structure while updating the $\mu$-ledger.}
+    \label{fig:partition_logic}
+\end{figure}
+
 \subsection{Module Operations}
 
 \subsubsection{PNEW: Module Creation}
@@ -404,6 +419,8 @@ Definition graph_pnew (g : PartitionGraph) (region : list nat)
 
 \texttt{PNEW} either returns an existing module for the region (if one exists) or creates a new one. This ensures idempotence.
 
+\textit{Intuition:} Think of \texttt{PNEW} as drawing a circle around a set of memory addresses and saying ``this is now a distinct object.'' If you try to draw a circle around something that is already circled, \texttt{PNEW} simply points to the existing circle, ensuring that you don't pay for the same structure twice.
+
 \subsubsection{PSPLIT: Module Splitting}
 
 \begin{lstlisting}
@@ -418,6 +435,8 @@ Definition graph_psplit (g : PartitionGraph) (mid : ModuleID)
     \item Neither can be empty
     \item They must be disjoint
 \end{itemize}
+
+\textit{Intuition:} Think of \texttt{PSPLIT} as taking a module and slicing it in two. You must prove that the slice is clean (disjoint) and complete (covers the original). This operation allows you to refine your structural view, for example, by realizing that a large array is actually composed of two independent halves.
 
 \subsubsection{PMERGE: Module Merging}
 

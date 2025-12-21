@@ -249,6 +249,7 @@ Theorem Physics_Requires_Extra_Structure : KernelNoGoForTOE_P.
 The Thiele Machine provides an alternative complexity model. The table below should be read as a qualitative comparison: time decreases as $\mu$ increases, not as a claim of universal asymptotic dominance.
 
 \begin{center}
+\resizebox{\textwidth}{!}{
 \begin{tabular}{|l|l|l|}
 \hline
 \textbf{Algorithm} & \textbf{Classical} & \textbf{Thiele} \\
@@ -258,6 +259,7 @@ Period finding & $O(\sqrt{N})$ (classical) & Time traded for explicit $\mu$ cost
 CHSH optimization & Brute force & Structure-aware \\
 \hline
 \end{tabular}
+}
 \end{center}
 
 The key insight: Thiele Machine trades \textbf{blind search time} for \textbf{explicit structure cost} ($\mu$).

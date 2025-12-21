@@ -42,7 +42,7 @@ Theorem vm_irreversible_bits_lower_bound :
 \end{lstlisting}
 
 The $\mu$-ledger growth lower-bounds the number of irreversible bit operations. This is not merely an analogy—it is a provable property of the kernel. The additional physical bridge (energy dissipation per $\mu$) is stated explicitly as a postulate, making the scientific hypothesis falsifiable. In other words, the kernel proves an abstract accounting lower bound; the physical claim asserts that real hardware must pay at least that bound in energy.
-The theorem above is proven in \texttt{coq/kernel/MuLedgerConservation.v}. Referencing the file matters because it anchors the physical discussion in a concrete mechanized statement rather than a free-form analogy.
+The theorem above is proven in \path{coq/kernel/MuLedgerConservation.v}. Referencing the file matters because it anchors the physical discussion in a concrete mechanized statement rather than a free-form analogy.
 
 \subsection{No-Signaling and Bell Locality}
 
@@ -57,7 +57,7 @@ Theorem observational_no_signaling : forall s s' instr mid,
 \end{lstlisting}
 
 In physics, Bell locality states that operations on system A cannot instantaneously affect system B. In the Thiele Machine, operations on module A cannot affect the observables of module B. This is enforced by construction, not assumed as a physical postulate. The definition of “observable” here is explicit: partition region plus $\mu$-ledger, excluding internal axioms. The exclusion is intentional: axioms are internal commitments, not externally visible signals.
-The formal statement shown here corresponds to \texttt{observational\_no\_signaling} in \texttt{coq/kernel/KernelPhysics.v}, which is proved using the observable projections defined in \texttt{coq/kernel/VMState.v}. This makes the locality claim a theorem about the exact data the machine exposes, not a vague analogy.
+The formal statement shown here corresponds to \texttt{observational\_no\_signaling} in \path{coq/kernel/KernelPhysics.v}, which is proved using the observable projections defined in \path{coq/kernel/VMState.v}. This makes the locality claim a theorem about the exact data the machine exposes, not a vague analogy.
 
 \subsection{Noether's Theorem}
 
@@ -69,7 +69,7 @@ Theorem kernel_noether_mu_gauge : forall s k,
 \end{lstlisting}
 
 The symmetry (freedom to shift $\mu$ by a constant) corresponds to the conserved quantity (partition structure). This is not metaphorical—it is the same mathematical relationship that underlies energy conservation in classical mechanics: a symmetry of the dynamics induces a conserved observable.
-The proof lives in \texttt{coq/kernel/KernelNoether.v}, where the \texttt{z\_gauge\_shift} action and its invariants are developed explicitly. This is a genuine Noether-style argument: the conservation law is derived from a symmetry of the semantics rather than assumed.
+The proof lives in \path{coq/kernel/KernelNoether.v}, where the \texttt{z\_gauge\_shift} action and its invariants are developed explicitly. This is a genuine Noether-style argument: the conservation law is derived from a symmetry of the semantics rather than assumed.
 
 \subsection{Thermodynamic bridge and falsifiable prediction}
 
@@ -183,7 +183,7 @@ receipt = {
     "chain_link": SHA256(previous_receipt)
 }
 \end{lstlisting}
-The Python implementation of this structure is in \texttt{thielecpu/receipts.py} and \texttt{thielecpu/crypto.py}, and the RTL contains a receipt controller in \texttt{thielecpu/hardware/crypto\_receipt\_controller.v}. The chain is therefore an engineered artifact with concrete hash formats, not an abstract promise.
+The Python implementation of this structure is in \path{thielecpu/receipts.py} and \path{thielecpu/crypto.py}, and the RTL contains a receipt controller in \path{thielecpu/hardware/crypto_receipt_controller.v}. The chain is therefore an engineered artifact with concrete hash formats, not an abstract promise.
 
 This enables:
 \begin{itemize}
