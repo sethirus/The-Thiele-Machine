@@ -1,0 +1,2706 @@
+diff --git a/thesis/chapters/01_introduction.tex b/thesis/chapters/01_introduction.tex
+index e498a2b93ab121e48bb239790f2f0811207ab2e8..068e6964868d7e1b38ce2306a7ea4ef8a337c859 100644
+--- a/thesis/chapters/01_introduction.tex
++++ b/thesis/chapters/01_introduction.tex
+@@ -1,51 +1,53 @@
+ \section{What Is This Document?}
+ 
+ \subsection{For the Newcomer}
+ 
+ I, Devon Thiele, present the \textit{Thiele Machine}---a new model of computation that treats \textbf{structural information as a costly resource}.
+ 
+ For clarity, I will use the term \textbf{structure} to mean \textit{explicit, checkable constraints about how parts of a computational state relate}. Formally, a piece of structure is a predicate over a subset of state variables (or a partition of state) that can be verified by a logic engine or certificate checker. Examples include: a memory region forming a balanced search tree, a graph decomposing into disconnected components, or a set of variables being independent. In classical models, these relationships are present only as interpretations \emph{external} to the machine. Here, they become internal objects with a measured cost, so a program must explicitly \emph{pay} to assert or certify them.
++In the formal model, this “internal object” is realized by a partition graph whose modules carry axiom strings (SMT-LIB constraints). The partition graph and axiom sets are part of the machine state, and operations such as \texttt{PNEW}, \texttt{PSPLIT}, and \texttt{LASSERT} modify them. This makes structural knowledge something the machine can track, charge for, and expose in its observable projection rather than something the reader assumes from the outside.
+ 
+ If you are new to theoretical computer science, here is what you need to know:
+ \begin{itemize}
+     \item \textbf{Problem}: Computers can be incredibly slow on some problems (years to solve) and incredibly fast on others (milliseconds). Why?
+     \item \textbf{Answer}: Classical computers are "blind"---they do not have \emph{primitive access} to the structure of their input. If a problem has hidden structure (e.g., independent sub-problems), a blind computer can still compute with it, but only by paying the time to discover that structure through ordinary computation. The distinction is between \emph{access} and \emph{ability}: blindness means the structure is not given for free, not that it is unreachable.
+     \item \textbf{My Contribution}: I build a computer model where structural knowledge is explicit, measurable, and costly. This reveals \textit{why} some problems are hard and how that hardness can be transformed.
+ \end{itemize}
+ 
+ \subsection{What Makes This Work Different}
+ 
+ This is not a paper with informal arguments. Every major claim is:
+ \begin{enumerate}
+     \item \textbf{Formally proven}: Machine-checked proofs in the Coq proof assistant (over 200 theorems)
+     \item \textbf{Implemented}: Working code in Python and Verilog hardware description
+     \item \textbf{Tested}: Automated tests verify that theory and implementation match
+     \item \textbf{Falsifiable}: I specify exactly what would disprove my claims
+ \end{enumerate}
+ 
+ In practice, this means there is a concrete trace or counterexample that would refute each theorem, and there are executable checks that replay traces to confirm that the mathematical and physical layers agree. The thesis is therefore not only a set of definitions, but a reproducible experiment: every claim is tied to an explicit verification routine.
++Concretely, the Coq extraction produces a standalone runner, the Python VM emits step receipts, and the RTL testbench prints a JSON snapshot. These artifacts are compared in the automated tests so that the prose claims are bound to exact executable evidence.
+ 
+ \subsection{How to Read This Document}
+ 
+ \textbf{If you have limited time}, read:
+ \begin{itemize}
+     \item Chapter 1 (this chapter): The core idea and thesis statement
+     \item Chapter 3: The formal model (skim the details)
+     \item Chapter 8: Conclusions and what it all means
+ \end{itemize}
+ 
+ \textbf{If you want to understand the theory}:
+ \begin{itemize}
+     \item Chapter 2: Background concepts you'll need
+     \item Chapter 3: The complete formal model
+     \item Chapter 5: The Coq proofs and what they establish
+ \end{itemize}
+ 
+ \textbf{If you want to use the implementation}:
+ \begin{itemize}
+     \item Chapter 4: The three-layer architecture
+     \item Chapter 6: How to run tests and verify results
+     \item Chapter 13: Hardware and demonstrations
+ \end{itemize}
+ 
+ \textbf{If you are an expert} and want to verify my claims, start with Chapter 5 (Verification) and the formal proof development.
+@@ -76,192 +78,190 @@ The Random Access Machine (RAM) model improves on Turing by allowing $O(1)$ acce
+ \end{itemize}
+ 
+ The RAM can jump directly to address \texttt{0x1000}, but it still cannot \textit{perceive} that the data structures at addresses \texttt{0x1000}--\texttt{0x2000} form a balanced binary search tree unless a program explicitly checks the tree invariants. The machine provides memory addresses, not semantic structure. In other words, the RAM gives you location and access, not the logical relationships you would need to exploit structure without computation.
+ 
+ This is the fundamental limitation: both Turing Machines and RAM models treat the state space as a \textit{flat, unstructured landscape}. They measure cost in terms of:
+ \begin{itemize}
+     \item \textbf{Time Complexity:} The number of steps $T(n)$
+     \item \textbf{Space Complexity:} The number of cells/registers used $S(n)$
+ \end{itemize}
+ 
+ But they assign \textit{zero cost} to structural knowledge. The Dewey Decimal System of a library is "free." The invariants of a red-black tree are "free." The independence structure of a probabilistic graphical model is "free." In other words, these models do not track the informational cost of asserting or certifying structure.
+ 
+ \subsection{The Time Tax: The Exponential Price of Blindness}
+ 
+ When a blind machine encounters a problem with inherent structure, it pays an exponential penalty. Consider the Boolean Satisfiability Problem (SAT): given a formula $\phi$ over $n$ variables, determine if there exists an assignment $\sigma: \{x_1, \ldots, x_n\} \to \{0, 1\}$ such that $\phi(\sigma) = \texttt{true}$.
+ 
+ A blind machine, lacking knowledge of $\phi$'s structure, must search the space $\{0, 1\}^n$ of $2^n$ possible assignments in the worst case. If $\phi$ happens to be decomposable into independent sub-formulas $\phi = \phi_1 \land \phi_2$ where $\text{vars}(\phi_1) \cap \text{vars}(\phi_2) = \emptyset$, a sighted machine could solve each sub-problem independently, reducing the complexity from $O(2^n)$ to $O(2^{n_1} + 2^{n_2})$ where $n_1 + n_2 = n$. This reduction relies on \emph{provable independence}; without it, the factorization cannot be justified.
+ 
+ This is the \textbf{Time Tax}: because classical models refuse to account for structural information, they pay in exponential time. Specifically:
+ 
+ \begin{quote}
+     \textit{The Time Tax Principle:} A blind computation on a problem with $k$ independent components of size $n/k$ pays $O(2^{n/k})^k = O(2^n)$ in the worst case. A sighted computation that perceives the decomposition pays only $O(k \cdot 2^{n/k})$, an exponential improvement.
+ \end{quote}
+ 
+ The question this thesis addresses is: \textbf{What is the cost of sight?} Put differently, how many bits of certified structure are required to justify a given reduction in search effort?
++The model answers this by explicitly charging $\mu$ for operations that add or refine structure, and by proving that any reduction in the compatible state space requires a matching $\mu$-increase.
+ 
+ \section{The Thiele Machine: Computation with Explicit Structure}
+ 
+ \subsection{The Central Hypothesis}
+ 
+ This thesis proposes a radical extension of classical computation. I assert that \textit{structural information is not free}. Every assertion about the world—"this graph is bipartite," "these variables are independent," "this module satisfies invariant $\Phi$"—carries a cost measured in bits. That cost is the minimum number of bits required to encode the assertion in a fixed, unambiguous representation, plus any additional structure needed to justify that the assertion holds for the current state. The model therefore distinguishes between \emph{computing} a fact and \emph{certifying} it as a reusable piece of structure.
+ 
+ The \textbf{Thiele Machine Hypothesis} states:
+ 
+ \begin{quote}
+     \textit{Any computational advantage over blind search must be paid for by an equivalent investment of structural information. There is no free insight.}
+ \end{quote}
+ 
+ I formalize this through a new model of computation: the Thiele Machine $T = (S, \Pi, A, R, L)$, where:
+ \begin{itemize}
+     \item $S$: The state space (registers, memory, program counter)
+     \item $\Pi$: The space of partitions of $S$ into disjoint modules
+     \item $A$: The axiom set—logical constraints attached to each module
+     \item $R$: The transition rules, including structural operations (split, merge)
+     \item $L$: The Logic Engine—an SMT oracle that verifies consistency
+ \end{itemize}
++Chapter 3 spells these components out with exact data structures and step rules. The reason for the tuple is that each component becomes a separately verified artifact: the state and partitions are a record in Coq, the transition rules are inductive constructors, and the logic engine is represented by certified checkers that accept or reject axiom strings.
+ 
+ \subsection{The $\mu$-bit: A Currency for Structure}
+ 
+ The atomic unit of structural cost is the \textbf{$\mu$-bit}. Formally:
+ 
+ \begin{definition}[$\mu$-bit]
+ One $\mu$-bit is the information-theoretic cost of specifying one bit of structural constraint using a canonical prefix-free encoding. The prefix-free requirement ensures that each description has a unique parse, so its length is a well-defined and reproducible cost. This connects the model to Minimum Description Length: different assertions are charged by the size of their canonical descriptions, and canonicalization prevents hidden costs from representation choices.
+ \end{definition}
+ 
+ I adopt a canonical encoding based on SMT-LIB 2.0 syntax to ensure that $\mu$-costs are implementation-independent and reproducible. The total structural cost of a machine state is:
+ \[
+ \mu(S, \pi) = \sum_{M \in \pi} |\text{encode}(M.\Phi)| + |\text{encode}(\pi)|
+ \]
+ 
+ where $|\cdot|$ denotes bit-length, $\Phi$ are the module's axioms, and $\text{encode}(\pi)$ is a canonical description of the partition itself. This ensures that both \emph{what} is asserted and \emph{how the state is modularized} are charged.
++In the current implementation, axioms are stored as SMT-LIB strings, and the $\mu$-ledger is incremented by explicit per-instruction costs. The canonical encoding requirement forces these strings to be treated as data with a concrete length, rather than as informal annotations.
+ 
+ \subsection{The No Free Insight Theorem}
+ 
+ The central result of this thesis, proven mechanically in Coq, is:
+ 
+ \begin{theorem}[No Free Insight]
+ Let $T$ be a Thiele Machine. If an execution trace reduces the search space from $\Omega$ to $\Omega'$, then the $\mu$-ledger must increase by at least:
+ \[
+ \Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')
+ \]
+ \end{theorem}
+ 
+ In other words, you cannot narrow the search space without paying the information-theoretic cost of that narrowing. The proof is a formal consequence of three principles: (i) a $\mu$-ledger that never decreases under valid transitions, (ii) a revelation rule that charges any strengthening of accepted predicates, and (iii) a locality principle that prevents uncharged influence across unrelated modules. Here the ``search space'' $\Omega$ should be read as the count of states consistent with current axioms; shrinking that set necessarily consumes bits of structural commitment. This is the exact sense in which ``insight'' is paid for: reduced uncertainty is not free, it is ledgered.
++The mechanized proofs of these principles live in the Coq kernel (for example \texttt{MuLedgerConservation.v} and \texttt{NoFreeInsight.v}), so the theorem here is directly traceable to concrete proof artifacts rather than a purely informal argument.
+ 
+ \section{Methodology: The 3-Layer Isomorphism}
+ 
+ To ensure my theoretical claims are not merely abstract speculation, I have constructed a complete, verified implementation of the Thiele Machine across three layers:
+ 
+ \subsection{Layer 1: Coq (The Mathematical Ground Truth)}
+ 
+ The Coq development provides machine-checked proofs of all core properties. The kernel consists of:
+ 
+ \begin{itemize}
+     \item \textbf{State and partition definitions}: the formal state space, partition graphs, and region normalization, including a lemma ensuring canonical representations. These definitions make explicit which parts of state are observable and which are internal.
+     
+     \item \textbf{Step semantics}: the 18-instruction ISA including structural operations (partition creation, split, merge) and certification operations (logical assertions and revelation). Each step rule specifies exact preconditions and ledger updates.
+     
+     \item \textbf{Kernel physics theorems}:
+     \begin{itemize}
+         \item $\mu$-monotonicity under all transitions
+         \item Observational no-signaling: operations on module $A$ do not affect observables of unrelated module $B$
+         \item Gauge symmetry: $\mu$-shifts preserve partition structure
+     \end{itemize}
+     
+     \item \textbf{Ledger conservation}: explicit bounds on irreversible bit events. This connects the abstract accounting rule to a concrete notion of irreversibility.
+     
+     \item \textbf{Revelation requirement}: supra-quantum correlations (CHSH $S > 2\sqrt{2}$) require explicit revelation events.
+     
+     \item \textbf{No Free Insight}: the impossibility of strengthening accepted predicates without charged revelation.
+ \end{itemize}
++These items are implemented in specific Coq files: for example, \texttt{VMState.v} and \texttt{VMStep.v} define the kernel, \texttt{KernelPhysics.v} and \texttt{KernelNoether.v} develop the gauge and conservation theorems, and \texttt{RevelationRequirement.v} formalizes the CHSH revelation constraint. The prose summary is therefore anchored to the actual file structure.
+ 
+ \textbf{The Inquisitor Standard:} The Coq development adheres to a zero-tolerance policy:
+ \begin{itemize}
+     \item \textbf{No \texttt{Admitted}}: Every proof is complete.
+     \item \textbf{No \texttt{admit} tactics}: No tactical shortcuts.
+     \item \textbf{No \texttt{Axiom} declarations}: No unproven assumptions in the active tree.
+ \end{itemize}
+ 
+ An automated checker scans the codebase and blocks any commit with violations.
++That checker is the \texttt{scripts/inquisitor.py} tool, which enforces the zero-admit policy across the Coq tree so that the proof claims in this chapter remain mechanically valid.
+ 
+ \subsection{Layer 2: Python VM (The Executable Reference)}
+ 
+ The Python implementation provides an executable semantics that generates cryptographically signed receipts. Key components:
+ 
+ \begin{itemize}
+     \item \textbf{State representation}: a canonical state structure with bitmask-based partition storage for hardware isomorphism.
+     
+     \item \textbf{Execution engine}: the main loop implementing all 18 instructions, including:
+     \begin{itemize}
+         \item Partition operations: \texttt{PNEW}, \texttt{PSPLIT}, \texttt{PMERGE}
+         \item Logic operations: \texttt{LASSERT} (with Z3 integration), \texttt{LJOIN}
+         \item Discovery: \texttt{PDISCOVER} with geometric signature analysis
+         \item Certification: \texttt{REVEAL}, \texttt{EMIT}
+     \end{itemize}
+     
+     \item \textbf{Receipt generator}: produces Ed25519-signed execution receipts that allow third-party verification.
+     
+     \item \textbf{$\mu$-ledger}: canonical cost accounting for structural information.
+ \end{itemize}
++The concrete implementation lives in \texttt{thielecpu/state.py} (state, partitions, $\mu$ ledger), \texttt{thielecpu/vm.py} (execution engine), and \texttt{thielecpu/crypto.py} (receipt signing). These filenames matter because the implementation is intended to be audited against the formal definitions, not merely trusted as a black box.
+ 
+ \subsection{Layer 3: Verilog RTL (The Physical Realization)}
+ 
+ The hardware implementation shows that the abstract $\mu$-costs correspond to real physical resources:
+ 
+ \begin{itemize}
+     \item \textbf{CPU core}: the top-level module implementing the fetch-decode-execute pipeline.
+     
+     \item \textbf{$\mu$-ALU}: a dedicated arithmetic unit for $\mu$-cost calculation, running in parallel with main execution.
+     
+     \item \textbf{Logic engine interface}: offloads SMT queries to hardware or a host oracle.
+     
+     \item \textbf{Accounting unit}: computes $\mu$-costs with hardware-enforced monotonicity.
+ \end{itemize}
+ 
+-The RTL has been validated through Icarus Verilog simulation and Yosys synthesis targeting FPGA platforms.
++The RTL is exercised via Icarus Verilog simulation and has Yosys synthesis scripts that target FPGA platforms when the toolchain is available.
+ 
+ \subsection{The Isomorphism Guarantee}
+ 
+ These three layers are not independent implementations—they are \textit{isomorphic}. For any valid instruction trace $\tau$:
+ 
+ \begin{enumerate}
+     \item Running $\tau$ through the extracted Coq runner produces state $S_{\text{Coq}}$
+     \item Running $\tau$ through the Python VM produces state $S_{\text{Python}}$
+     \item Running $\tau$ through the RTL simulation produces state $S_{\text{RTL}}$
+ \end{enumerate}
+ 
+-The Inquisitor pipeline verifies equality of a common \emph{observable projection} of state:
+-\[
+-S_{\text{Coq}}.\text{registers} = S_{\text{Python}}.\text{registers} = S_{\text{RTL}}.\text{registers}
+-\]
+-\[
+-S_{\text{Coq}}.\mu = S_{\text{Python}}.\mu = S_{\text{RTL}}.\mu
+-\]
+-\[
+-\text{etc. for all observable state components}
+-\]
++The Inquisitor pipeline verifies equality of \emph{observable projections} of state, and those projections are suite-specific rather than one monolithic snapshot. For example, the compute isomorphism gate (\texttt{tests/test\_rtl\_compute\_isomorphism.py}) compares registers and memory, while the partition gate (\texttt{tests/test\_partition\_isomorphism\_minimal.py}) compares module regions extracted from the partition graph. The extracted runner emits a superset of observables (pc, $\mu$, err, regs, mem, CSRs, graph), and the RTL testbench emits a JSON subset tailored to the gate under test.
+ 
+ This 3-layer isomorphism ensures that my theoretical claims are physically realizable and my implementations are provably correct with respect to the shared projection.
+ 
+ \section{Thesis Statement}
+ 
+ This thesis advances the following central claim:
+ 
+ \begin{quote}
+     \textit{Computational intractability is primarily a failure of structural accounting, not a fundamental barrier. By making the cost of structural information explicit through the $\mu$-bit currency and enforcing it through the Thiele Machine architecture, I can transform problems from exponential-time blind search to polynomial-time guided inference—paying the honest cost of insight rather than the dishonest cost of ignorance.}
+ \end{quote}
+ 
+ I prove this claim through:
+ \begin{enumerate}
+     \item Mechanically verified theorems in the Coq proof assistant
+     \item Executable implementations that produce auditable receipts
+     \item Hardware realizations that enforce costs physically
+     \item Empirical demonstrations on hard benchmark problems
+ \end{enumerate}
+ 
+ \section{Summary of Contributions}
+ 
+ This thesis makes the following specific contributions:
+ 
+ \begin{enumerate}
+     \item \textbf{The Thiele Machine Model:} A formal computational model $T = (S, \Pi, A, R, L)$ that makes partition structure a first-class citizen of the state space, subsuming the Turing Machine and RAM model.
+diff --git a/thesis/chapters/02_background.tex b/thesis/chapters/02_background.tex
+index 00d72f85cb8d1cfcf57e7c339b1d7140d91f0bd2..17fb8da4f0e1e42d64d6e0ec144eb1f2f89f2c39 100644
+--- a/thesis/chapters/02_background.tex
++++ b/thesis/chapters/02_background.tex
+@@ -1,45 +1,46 @@
+ \section{Why This Background Matters}
+ 
+ \subsection{A Foundation for Understanding}
+ 
+ Before diving into the Thiele Machine, I need to understand \textit{what problem it solves}. This requires revisiting fundamental concepts from:
+ \begin{itemize}
+     \item \textbf{Computation theory}: What is a computer, really? (Turing Machines, RAM models)
+     \item \textbf{Information theory}: What is information, and how do I measure it? (Shannon entropy, Kolmogorov complexity)
+     \item \textbf{Physics of computation}: What are the physical limits on computing? (Landauer's principle, thermodynamics)
+     \item \textbf{Quantum computing}: What does "quantum advantage" mean? (Bell's theorem, CHSH inequality)
+     \item \textbf{Formal verification}: How can I \textit{prove} things about programs? (Coq, proof assistants)
+ \end{itemize}
+ 
+ \subsection{The Central Question}
+ 
+ Classical computers (Turing Machines, RAM machines) are \textit{structurally blind}---they lack primitive access to the structure of their input. If you give a computer a sorted list, it doesn't "know" the list is sorted unless it checks. This is a statement about the interface of the model, not about what is computable. The distinction is between \emph{access} and \emph{ability}: structure is discoverable, but only through explicit computation.
+ 
+ This raises a profound question: \textit{What if structural knowledge were a first-class resource that must be discovered, paid for, and accounted for?}
+ 
+ To understand why this question matters, I first need to understand what classical computers can and cannot do, and what I mean by "structure" and "information."
++The Thiele Machine answers this question by embedding structure into the machine state itself (as partitions and axioms) and by explicitly tracking the cost of adding that structure. That design choice is the bridge between the background material in this chapter and the formal model introduced in Chapter 3.
+ 
+ \subsection{How to Read This Chapter}
+ 
+ This chapter is organized from concrete to abstract:
+ \begin{enumerate}
+     \item Section 2.1: Classical computation models (Turing Machine, RAM)
+     \item Section 2.2: Information theory (Shannon, Kolmogorov, MDL)
+     \item Section 2.3: Physics of computation (Landauer, thermodynamics)
+     \item Section 2.4: Quantum computing and correlations (Bell, CHSH)
+     \item Section 2.5: Formal verification (Coq, proof-carrying code)
+ \end{enumerate}
+ 
+ If you are familiar with any section, feel free to skip it. The only prerequisite for later chapters is understanding:
+ \begin{itemize}
+     \item The "blindness problem" in classical computation (§2.1.1)
+     \item Kolmogorov complexity and MDL (§2.2.2--2.2.3)
+     \item The CHSH inequality and Tsirelson bound (§2.4.1)
+ \end{itemize}
+ 
+ \section{Classical Computational Models}
+ 
+ \subsection{The Turing Machine: Formal Definition}
+ 
+ The Turing Machine, introduced by Alan Turing in 1936 \cite{turing1936computable}, is formally defined as a 7-tuple:
+ \[
+@@ -103,116 +104,120 @@ The RAM model, introduced to better model real computers, extends the Turing Mac
+ 
+ The key improvement is \textit{random access}: accessing $M[i]$ takes $O(1)$ time regardless of $i$ (on the unit-cost RAM model). This eliminates the $O(n)$ seek time of the Turing Machine tape. In log-cost variants, addressing large indices has a cost proportional to the index length, but the model remains structurally blind either way.
+ 
+ However, the RAM model retains structural blindness. A RAM program can access $M[1000]$ directly, but it cannot know that $M[1000]$--$M[2000]$ encodes a sorted array without executing a verification algorithm. The structure is implicit in programmer knowledge, not explicit in machine architecture.
+ 
+ \subsection{Complexity Classes and the P vs NP Problem}
+ 
+ Classical complexity theory defines:
+ \begin{itemize}
+     \item \textbf{P}: Decision problems solvable by a deterministic Turing Machine in polynomial time
+     \item \textbf{NP}: Decision problems where a "yes" instance has a polynomial-length certificate that can be verified in polynomial time
+     \item \textbf{NP-Complete}: The hardest problems in NP—all NP problems reduce to them
+ \end{itemize}
+ 
+ The central open question is whether $\mathbf{P} = \mathbf{NP}$. If $\mathbf{P} \neq \mathbf{NP}$, then there exist problems whose solutions can be \textit{verified} efficiently but not \textit{found} efficiently.
+ 
+ The Thiele Machine perspective reframes this question. Consider an NP-complete problem like 3-SAT. A blind Turing Machine must search the exponential space $\{0,1\}^n$ in the worst case. But suppose the formula has hidden structure—say, it factors into independent sub-formulas. A machine that \textit{perceives} this structure can solve each sub-problem independently. The key point is that \emph{perceiving} the factorization is itself a form of information that must be justified, not an assumption that can be taken for free.
+ 
+ The question becomes: \textit{What is the cost of perceiving the structure?}
+ 
+ I argue that the apparent gap between P and NP is often the gap between:
+ \begin{itemize}
+     \item Machines that have paid for structural insight ($\mu$-bits invested)
+     \item Machines that have not (and must pay the Time Tax)
+ \end{itemize}
++In the Thiele Machine, “paying for structural insight” means explicitly constructing partitions and attaching axioms that certify independence or other properties. Those operations are not free: they increase the $\mu$-ledger, which is then provably monotone under the step semantics.
+ 
+ This does not trivialize P vs NP—the structural information may itself be expensive to discover. But it reframes intractability as an \textit{accounting issue} rather than a \textit{fundamental barrier}, emphasizing the cost of certifying structure rather than assuming it for free.
+ 
+ \section{Information Theory and Complexity}
+ 
+ \subsection{Shannon Entropy}
+ 
+ Claude Shannon's 1948 paper "A Mathematical Theory of Communication" established information as a quantifiable resource \cite{shannon1948mathematical}. The basic unit is \emph{self-information}: an event with probability $p$ carries surprise $I = -\log_2 p$ bits, because rare events convey more information than common ones. The \textit{entropy} of a discrete random variable $X$ with probability mass function $p$ is the expected surprise:
+ \[
+ H(X) = -\sum_{x \in \mathcal{X}} p(x) \log_2 p(x)
+ \]
+ 
+ Shannon entropy measures the \textit{uncertainty} in a random variable, or equivalently, the expected number of bits needed to encode an outcome under an optimal prefix-free code. The coding interpretation follows from Kraft's inequality: assigning code lengths $\ell(x)$ with $\sum 2^{-\ell(x)} \le 1$ yields an expected length minimized (up to 1 bit) by $\ell(x) \approx -\log_2 p(x)$. Key properties:
+ \begin{itemize}
+     \item $H(X) \ge 0$ with equality iff $X$ is deterministic
+     \item $H(X) \le \log_2 |\mathcal{X}|$ with equality iff $X$ is uniform
+     \item $H(X, Y) \le H(X) + H(Y)$ with equality iff $X \perp Y$ (independence)
+ \end{itemize}
+ 
+ The last property is crucial for the Thiele Machine: knowing that two variables are independent allows me to decompose the joint entropy into independent components, potentially enabling exponential speedups. Independence is itself a structural assertion that must be paid for in the Thiele Machine model.
++This is exactly why the formal model treats independence as a partition of state: the only way to claim $H(X, Y) = H(X) + H(Y)$ is to introduce a partition that separates the variables into different modules, which the model charges via $\mu$.
+ 
+ \subsubsection{Entropy, Models, and What Is Actually Random}
+ 
+ Shannon entropy is a property of a \emph{distribution}, not of the underlying world. When I model a system with a random variable, I am quantifying my uncertainty and compressibility, not asserting that nature is literally rolling dice. A weather simulator, for example, may use Monte Carlo sampling or stochastic parameterizations to represent unresolved turbulence. The atmosphere itself is not sampling random numbers; the randomness is in my \emph{model} of an overwhelmingly complex, chaotic system. In other words, stochasticity is often epistemic: it reflects limited knowledge and coarse-grained descriptions rather than intrinsic indeterminism.
+ 
+ This distinction matters for the Thiele Machine because it highlights where "structure" lives. A partition that lets me treat two subsystems as independent is not a free fact about reality; it is an explicit modeling choice that I must justify and pay for. The entropy ledger charges me for the compressed description I claim to possess, not for any metaphysical randomness in the world.
+ 
+ \subsection{Kolmogorov Complexity}
+ 
+ While Shannon entropy applies to random variables, \textit{Kolmogorov complexity} measures the structural content of individual strings. For a string $x$:
+ \[
+ K(x) = \min \{|p| : U(p) = x\}
+ \]
+ where $U$ is a universal Turing Machine and $|p|$ is the bit-length of program $p$.
+ 
+ Kolmogorov complexity captures the intuition that a string like "010101010101..." (alternating) has low complexity (a short program can generate it), while a random string has high complexity (no program substantially shorter than the string itself can produce it).
+ 
+ Key theorems:
+ \begin{itemize}
+     \item \textbf{Invariance Theorem}: $K_U(x) = K_{U'}(x) + O(1)$ for any two universal machines $U, U'$
+     \item \textbf{Incompressibility}: For any $n$, there exists a string $x$ of length $n$ with $K(x) \ge n$
+     \item \textbf{Uncomputability}: $K(x)$ is not computable (by reduction from the halting problem)
+ \end{itemize}
+ 
+ The uncomputability of Kolmogorov complexity is why the Thiele Machine uses \textit{Minimum Description Length} (MDL) instead—a computable approximation that captures description length without requiring the impossible oracle.
++In the implementation, the proxy is not a magical compressor; it is a canonical string encoding of axioms and partitions (SMT-LIB strings plus region encodings), so the cost is defined in a way that can be checked by the formal kernel and reproduced by the other layers.
+ 
+ \subsection{Minimum Description Length (MDL)}
+ 
+ The MDL principle, developed by Jorma Rissanen \cite{rissanen1978modeling}, provides a computable proxy for Kolmogorov complexity. Given a hypothesis class $\mathcal{H}$ and data $D$, the MDL cost is:
+ \[
+ L(D) = \min_{H \in \mathcal{H}} \{L(H) + L(D|H)\}
+ \]
+ where:
+ \begin{itemize}
+     \item $L(H)$ is the description length of hypothesis $H$
+     \item $L(D|H)$ is the description length of $D$ given $H$ (the "residual")
+ \end{itemize}
+ 
+ In the Thiele Machine, I adopt MDL as the basis for $\mu$-cost:
+ \begin{itemize}
+     \item The "hypothesis" is the partition structure $\pi$
+     \item $L(\pi)$ is the $\mu$-cost of specifying the partition
+     \item $L(\text{computation}|\pi)$ is the operational cost given the structure
+ \end{itemize}
+ 
+ The total $\mu$-cost is thus analogous to the MDL of the computation, with the partition description and its axioms charged explicitly as a model of structure. This separates the cost of \emph{describing} structure from the cost of \emph{using} it.
++This is reflected directly in the Python and Coq implementations: the $\mu$-ledger is updated by explicit per-instruction costs, and structural operations (like partition creation or split) carry their own explicit charges.
+ 
+ \section{The Physics of Computation}
+ 
+ \subsection{Landauer's Principle}
+ 
+ In 1961, Rolf Landauer proved a fundamental connection between information and thermodynamics \cite{landauer1961irreversibility}:
+ 
+ \begin{theorem}[Landauer's Principle]
+ The erasure of one bit of information in a computing device releases at least $k_B T \ln 2$ joules of heat into the environment.
+ \end{theorem}
+ 
+ Here $k_B$ is Boltzmann's constant and $T$ is the absolute temperature. At room temperature (300K), this is approximately $3 \times 10^{-21}$ joules per bit—a tiny amount, but fundamentally non-zero.
+ 
+ Landauer's principle establishes that:
+ \begin{enumerate}
+     \item \textbf{Information is physical}: It cannot be erased without physical consequences
+     \item \textbf{Irreversibility has a cost}: Logically irreversible operations (many-to-one maps such as AND, OR, erasure) dissipate heat
+     \item \textbf{Computation is thermodynamic}: The ultimate limits of computation are set by thermodynamics
+ \end{enumerate}
+ 
+ From a first-principles perspective, the key step is that erasure reduces the logical state space. Mapping two possible inputs to a single output decreases the system's entropy by $\Delta S = k_B \ln 2$. To satisfy the second law, that entropy must be exported to the environment as heat $Q \ge T \Delta S$, yielding the $k_B T \ln 2$ bound. Reversible gates avoid this penalty by preserving a one-to-one mapping between logical states, but they shift the cost to auxiliary memory and garbage bits that must eventually be erased.
+ 
+ \subsubsection{Reversible Computation}
+ 
+ Charles Bennett showed that computation can be made thermodynamically reversible by keeping a history of all operations \cite{bennett1982thermodynamics}. A reversible Turing Machine can simulate any irreversible computation with only polynomial overhead in space (and at most polynomial overhead in time, depending on the simulation strategy).
+diff --git a/thesis/chapters/03_theory.tex b/thesis/chapters/03_theory.tex
+index 16cd962b5e403e46f6fbaa24366d080cf5b151be..e3c0d726a7f10d4abaede133e967ed9761dc073b 100644
+--- a/thesis/chapters/03_theory.tex
++++ b/thesis/chapters/03_theory.tex
+@@ -1,217 +1,227 @@
+ \section{What This Chapter Defines}
+ 
+ \subsection{From Intuition to Formalism}
+ 
+ The previous chapter established the \textit{problem}: classical computers are structurally blind. This chapter presents the \textit{solution}: the Thiele Machine, a computational model where structure is a first-class resource.
+ 
+ The model is defined formally because informal descriptions are ambiguous. A formal definition:
+ \begin{itemize}
+     \item Eliminates ambiguity: Every term has a precise meaning
+     \item Enables proof: I can mathematically prove properties
+     \item Ensures implementation: The formal definition guides code
+ \end{itemize}
+ 
+ \subsection{The Five Components}
+ 
+ The Thiele Machine has five components:
+ \begin{enumerate}
+     \item \textbf{State Space $S$}: What the machine "remembers"---registers, memory, partition graph
+     \item \textbf{Partition Graph $\Pi$}: How the state is \textit{decomposed} into independent modules
+     \item \textbf{Axiom Set $A$}: What logical constraints each module satisfies
+     \item \textbf{Transition Rules $R$}: How the machine evolves---the 18-instruction ISA
+     \item \textbf{Logic Engine $L$}: The oracle that verifies logical consistency
+ \end{enumerate}
++Each component corresponds to a concrete artifact in the formal development. The state and partition graph are defined in \texttt{coq/kernel/VMState.v}; the instruction set and step relation are defined in \texttt{coq/kernel/VMStep.v}; and the logic engine is represented by certificate checkers in \texttt{coq/kernel/CertCheck.v}. The point of the 5-tuple is not cosmetic: it is a decomposition that forces every later proof to say which resource it uses (state, partitions, axioms, transitions, or certificates), so that any implementation layer can mirror the same structure without guessing.
+ 
+ \subsection{The Central Innovation: $\mu$-bits}
+ 
+ The key innovation is the \textit{$\mu$-bit currency}---a unit of structural information cost. Every operation that adds structural knowledge to the system charges a cost in $\mu$-bits. This cost is:
+ \begin{itemize}
+     \item \textbf{Monotonic}: Once paid, $\mu$-bits are never refunded
+     \item \textbf{Bounded}: The $\mu$-ledger lower-bounds irreversible operations
+     \item \textbf{Observable}: The cost is visible in the execution trace
+ \end{itemize}
++In the formal kernel, the ledger is the field \texttt{vm\_mu} in \texttt{VMState}, and every opcode carries an explicit \texttt{mu\_delta}. The step relation in \texttt{coq/kernel/VMStep.v} defines \texttt{apply\_cost} as \texttt{vm\_mu + instruction\_cost}, so the ledger increases exactly by the declared cost and never decreases. The extracted runner exports \texttt{vm\_mu} as part of its JSON snapshot, and the RTL testbench prints $\mu$ in its JSON output for partition-related traces; individual isomorphism gates then compare only the fields relevant to the trace type.
+ 
+ \subsection{How to Read This Chapter}
+ 
+ This chapter is technical and formal. It defines:
+ \begin{itemize}
+     \item The state space and partition graph (§3.1)
+     \item The instruction set (§3.4)
+     \item The $\mu$-bit currency and conservation laws (§3.5--3.6)
+     \item The No Free Insight theorem (§3.7)
+ \end{itemize}
+ 
+ \textbf{Key definitions to understand}:
+ \begin{itemize}
+     \item \texttt{VMState} (the state record)
+     \item \texttt{PartitionGraph} (how state is decomposed)
+     \item \texttt{vm\_step} (how the machine transitions)
+     \item \texttt{vm\_mu} (the $\mu$-ledger)
+ \end{itemize}
++These names are not placeholders: they are the exact identifiers used in \texttt{coq/kernel/VMState.v} and \texttt{coq/kernel/VMStep.v}. When later chapters mention a “state” or a “step,” they mean these concrete definitions and the proofs that refer to them.
+ 
+ If the formalism becomes overwhelming, refer to Chapter 4 (Implementation) for concrete code examples.
+ 
+ \section{The Formal Model: $T = (S, \Pi, A, R, L)$}
+ 
+ The Thiele Machine is formally defined as a 5-tuple $T = (S, \Pi, A, R, L)$, representing a computational system that is explicitly aware of its own structural decomposition.
+ 
+ \subsection{State Space $S$}
+ 
+ The state space $S$ represents the complete instantaneous description of the machine. Unlike the flat tape of a Turing Machine, $S$ is a structured record containing multiple components.
+ 
+ \subsubsection{Formal Definition}
+ 
+ In the formal development, the state is defined as:
+ 
+ \begin{verbatim}
+ Record VMState := {
+   vm_graph : PartitionGraph;
+   vm_csrs : CSRState;
+   vm_regs : list nat;
+   vm_mem : list nat;
+   vm_pc : nat;
+   vm_mu : nat;
+   vm_err : bool
+ }.
+ \end{verbatim}
+ 
+ Each component serves a specific purpose:
+ \begin{itemize}
+     \item \textbf{vm\_graph}: The partition graph $\Pi$, encoding the current decomposition of the state into modules
+     \item \textbf{vm\_csrs}: Control Status Registers including certification address, status flags, and error codes
+     \item \textbf{vm\_regs}: A register file of 32 registers (matching RISC-V conventions)
+     \item \textbf{vm\_mem}: Data memory of 256 words
+     \item \textbf{vm\_pc}: The program counter
+     \item \textbf{vm\_mu}: The $\mu$-ledger accumulator
+     \item \textbf{vm\_err}: Error flag (latching)
+ \end{itemize}
++The sizes are not arbitrary: \texttt{REG\_COUNT} and \texttt{MEM\_SIZE} are defined in \texttt{coq/kernel/VMState.v} and are mirrored in the Python and RTL layers so that indexing and wrap-around are identical. Reads and writes use modular indexing (\texttt{reg\_index} and \texttt{mem\_index}) so that any out-of-range access deterministically folds back into the fixed-width state, matching the hardware behavior where wires have fixed width.
+ 
+ \subsubsection{Word Representation}
+ 
+ The machine uses 32-bit words with explicit masking:
+ \begin{verbatim}
+ Definition word32_mask : N := N.ones 32.
+ Definition word32 (x : nat) : nat :=
+   N.to_nat (N.land (N.of_nat x) word32_mask).
+ \end{verbatim}
+ 
+ This ensures that all arithmetic operations properly wrap at $2^{32}$, so word-level behavior is explicit and deterministic.
++In the Coq kernel, write operations (\texttt{write\_reg} and \texttt{write\_mem}) mask values through \texttt{word32}, so every stored word is explicitly truncated rather than implicitly relying on the host language. This makes the arithmetic model match the RTL and avoids ambiguities where a high-level language might use unbounded integers.
+ 
+ \subsection{Partition Graph $\Pi$}
+ 
+ The partition graph is the central innovation of the Thiele Machine. It represents the decomposition of the state into modules, with disjointness enforced by the partition operations that construct and modify those modules.
+ 
+ \subsubsection{Formal Definition}
+ 
+ \begin{verbatim}
+ Record PartitionGraph := {
+   pg_next_id : ModuleID;
+   pg_modules : list (ModuleID * ModuleState)
+ }.
+ 
+ Record ModuleState := {
+   module_region : list nat;
+   module_axioms : AxiomSet
+ }.
+ \end{verbatim}
+ 
+ Key properties and intended semantics:
+ \begin{itemize}
+     \item \textbf{ID Monotonicity}: Module IDs are monotonically increasing ($\forall M \in \text{pg\_modules}, M.\text{id} < \text{pg\_next\_id}$). This is the invariant enforced globally.
+     \item \textbf{Disjointness}: Module regions are intended to be disjoint. This is enforced by checks during operations such as \texttt{PMERGE} (which rejects overlapping regions) and \texttt{PSPLIT} (which validates disjoint partitions).
+     \item \textbf{Coverage}: Partition operations ensure that a split covers the original region and that merges preserve region union. Global coverage of all machine state is not required; modules describe only the regions explicitly placed under partition structure.
+ \end{itemize}
++The graph is therefore a compact, explicit record of \emph{what has been structurally separated so far}. Nothing in the kernel assumes a universal partition over memory; the model only tracks the modules that have been explicitly introduced by \texttt{PNEW}, \texttt{PSPLIT}, and \texttt{PMERGE}. This distinction is essential: if a region has never been partitioned, it remains “structurally opaque,” and the model refuses to grant any insight about its internal structure without paying $\mu$.
+ 
+ \subsubsection{Well-Formedness Invariant}
+ 
+ The partition graph must satisfy a well-formedness invariant focused on ID discipline:
+ \begin{verbatim}
+ Definition well_formed_graph (g : PartitionGraph) : Prop :=
+   all_ids_below g.(pg_modules) g.(pg_next_id).
+ \end{verbatim}
+ 
+ This invariant is proven to be preserved by all operations:
+ \begin{itemize}
+     \item \texttt{graph\_add\_module\_preserves\_wf}
+     \item \texttt{graph\_remove\_preserves\_wf}
+     \item \texttt{wf\_graph\_lookup\_beyond\_next\_id}
+ \end{itemize}
++The well-formedness invariant is deliberately minimal. It does \emph{not} require disjointness or coverage; those properties are enforced locally by the specific graph operations that need them. By keeping the invariant small (all IDs are below \texttt{pg\_next\_id}), the proofs about step semantics and extraction become simpler and do not assume extra structure that is not actually needed to execute the machine.
+ 
+ \subsubsection{Canonical Normalization}
+ 
+ Regions are stored in canonical form to ensure observational equivalence:
+ \begin{verbatim}
+ Definition normalize_region (region : list nat) : list nat :=
+   nodup Nat.eq_dec region.
+ \end{verbatim}
+ 
+ The key lemma ensures idempotence:
+ \begin{verbatim}
+ Lemma normalize_region_idempotent : forall region,
+   normalize_region (normalize_region region) = normalize_region region.
+ \end{verbatim}
+ 
+ This ensures that repeated normalization does not change the representation, which makes observables stable across equivalent encodings.
++The point is to remove duplicate indices while preserving the original order of first occurrence. This makes region equality depend only on set content (not on multiplicity), which is crucial for observational equality: two modules that mention the same indices in different orders should be treated as equivalent once normalized.
+ 
+ \subsection{Axiom Set $A$}
+ 
+ Each module carries a set of axioms—logical constraints that the module satisfies.
+ 
+ \subsubsection{Representation}
+ 
+ Axioms are represented as strings in SMT-LIB 2.0 format:
+ \begin{verbatim}
+ Definition VMAxiom := string.
+ Definition AxiomSet := list VMAxiom.
+ \end{verbatim}
++This choice keeps the kernel agnostic to the internal structure of logical formulas. The kernel does not parse or interpret these strings; it only passes them to certified checkers (see \texttt{coq/kernel/CertCheck.v}) and records them as part of a module's logical commitments.
+ 
+ For example, an axiom asserting that a variable $x$ is non-negative might be:
+ \begin{verbatim}
+ "(assert (>= x 0))"
+ \end{verbatim}
+ 
+ \subsubsection{Axiom Operations}
+ 
+ Axioms can be added to modules:
+ \begin{verbatim}
+ Definition graph_add_axiom (g : PartitionGraph) (mid : ModuleID) 
+   (ax : VMAxiom) : PartitionGraph :=
+   match graph_lookup g mid with
+   | None => g
+   | Some m =>
+       let updated := {| module_region := m.(module_region);
+                         module_axioms := m.(module_axioms) ++ [ax] |} in
+       graph_update g mid updated
+   end.
+ \end{verbatim}
+ 
+ When modules are split, axioms are copied to both children. When modules are merged, axiom sets are concatenated.
+ 
+ \subsection{Transition Rules $R$}
+ 
+ The transition rules define how the machine state evolves. The Thiele Machine has 18 instructions, defined in the formal step semantics.
++Each instruction constructor in \texttt{coq/kernel/VMStep.v} includes an explicit \texttt{mu\_delta} parameter so that the ledger change is part of the semantics, not an external annotation. This makes the cost model part of the operational meaning of each instruction rather than a separate accounting layer.
+ 
+ \subsubsection{Instruction Set}
+ 
+ \begin{verbatim}
+ Inductive vm_instruction :=
+ | instr_pnew (region : list nat) (mu_delta : nat)
+ | instr_psplit (module : ModuleID) (left right : list nat) (mu_delta : nat)
+ | instr_pmerge (m1 m2 : ModuleID) (mu_delta : nat)
+ | instr_lassert (module : ModuleID) (formula : string)
+     (cert : lassert_certificate) (mu_delta : nat)
+ | instr_ljoin (cert1 cert2 : string) (mu_delta : nat)
+ | instr_mdlacc (module : ModuleID) (mu_delta : nat)
+ | instr_pdiscover (module : ModuleID) (evidence : list VMAxiom) (mu_delta : nat)
+ | instr_xfer (dst src : nat) (mu_delta : nat)
+ | instr_pyexec (payload : string) (mu_delta : nat)
+ | instr_chsh_trial (x y a b : nat) (mu_delta : nat)
+ | instr_xor_load (dst addr : nat) (mu_delta : nat)
+ | instr_xor_add (dst src : nat) (mu_delta : nat)
+ | instr_xor_swap (a b : nat) (mu_delta : nat)
+ | instr_xor_rank (dst src : nat) (mu_delta : nat)
+ | instr_emit (module : ModuleID) (payload : string) (mu_delta : nat)
+ | instr_reveal (module : ModuleID) (bits : nat) (cert : string) (mu_delta : nat)
+ | instr_oracle_halts (payload : string) (mu_delta : nat)
+ | instr_halt (mu_delta : nat).
+ \end{verbatim}
+diff --git a/thesis/chapters/04_implementation.tex b/thesis/chapters/04_implementation.tex
+index e0cbe859d6e94284f2773b8e87f9fd23a4c53ef2..9b09421f9345463e4917ec4a9fb6cae0407f865c 100644
+--- a/thesis/chapters/04_implementation.tex
++++ b/thesis/chapters/04_implementation.tex
+@@ -1,275 +1,300 @@
+ \section{Why Three Layers?}
+ 
+ \subsection{The Problem of Trust}
+ 
+ A formal specification proves properties but doesn't execute on real workloads. An executable implementation runs but might contain bugs or subtle semantic drift. How can I trust that the implementation matches the specification?
+ 
+ \textbf{Answer}: I build three independent implementations and verify they produce \textit{identical results} for all inputs. This makes the thesis rebuildable: every layer can be re-implemented from the definitions here, and any mismatch is detectable.
++In practice, this means I can take a short instruction trace, run it through the Coq-extracted interpreter, the Python VM, and the RTL testbench, and compare the gate-appropriate observable projection. If any compared field diverges, I treat it as a semantic bug rather than a performance issue. That is the operational meaning of “trust” in this project.
+ 
+ \subsection{The Three Layers}
+ 
+ \begin{enumerate}
+     \item \textbf{Coq (Formal)}: Defines ground-truth semantics. Every property is machine-checked. Extraction provides a reference evaluator.
+     
+     \item \textbf{Python (Reference)}: A human-readable implementation for debugging, tracing, and experimentation. Generates receipts and traces.
+     
+     \item \textbf{Verilog (Hardware)}: A synthesizable RTL implementation targeting real FPGAs. Proves the model is physically realizable.
+ \end{enumerate}
++Concretely, the formal layer lives in \texttt{coq/kernel/*.v}, the Python reference VM is implemented under \texttt{thielecpu/} (notably \texttt{thielecpu/state.py} and \texttt{thielecpu/vm.py}), and the RTL is under \texttt{thielecpu/hardware/}. Keeping the directory layout explicit matters because it tells a reader exactly where to validate each part of the story.
+ 
+ \subsection{The Isomorphism Invariant}
+ 
+ For \textit{any} instruction trace $\tau$:
+ \[
+ S_{\text{Coq}}(\tau) = S_{\text{Python}}(\tau) = S_{\text{Verilog}}(\tau)
+ \]
+ 
+ This is not aspirational---it is enforced by automated tests. Any divergence is a critical bug, because it would mean at least one layer is not faithful to the formal semantics.
++The tests compare \textit{state projections} rather than every internal variable. The projections are suite-specific: the compute gate in \texttt{tests/test\_rtl\_compute\_isomorphism.py} compares registers and memory, while the partition gate in \texttt{tests/test\_partition\_isomorphism\_minimal.py} compares canonicalized module regions from the partition graph. The extracted runner emits a full JSON snapshot (pc, $\mu$, err, regs, mem, CSRs, graph), but the RTL testbench exposes only the fields required by each gate.
+ 
+ \subsection{How to Read This Chapter}
+ 
+ This chapter is practical: it explains how the theory is instantiated in three concrete artifacts and how they are kept in lockstep.
+ \begin{itemize}
+     \item Section 4.2: Coq formalization (state definitions, step relation, extraction)
+     \item Section 4.3: Python VM (state class, partition operations, receipt generation)
+     \item Section 4.4: Verilog RTL (CPU module, $\mu$-ALU, logic engine interface)
+     \item Section 4.5: Isomorphism verification (how I test equality)
+ \end{itemize}
+ 
+ \textbf{Key concepts to understand}:
+ \begin{itemize}
+     \item The \textbf{state record} shared across layers
+     \item The \textbf{step relation} that advances state
+     \item The \textbf{state projection} used for isomorphism tests
+     \item The \textbf{receipt format} used for trace verification
+ \end{itemize}
+ 
+ \section{The 3-Layer Isomorphism Architecture}
+ 
+ The Thiele Machine is implemented across three layers that maintain strict semantic equivalence:
+ \begin{enumerate}
+     \item \textbf{Formal Layer (Coq)}: Defines ground-truth semantics with machine-checked proofs
+     \item \textbf{Reference Layer (Python)}: Executable specification with tracing and debugging
+     \item \textbf{Physical Layer (Verilog)}: RTL implementation targeting FPGA/ASIC synthesis
+ \end{enumerate}
+ 
+-The central invariant is \textit{3-way isomorphism}: for any instruction sequence $\tau$, the final state projection (pc, $\mu$, err, registers, memory, control registers, partition graph) must be identical across all three layers. The projection is chosen to be observationally complete: it preserves exactly what the model claims is observable and discards only internal proof artifacts.
++The central invariant is \textit{3-way isomorphism}: for any instruction sequence $\tau$, the final state projections chosen by the verification gates must be identical across all three layers. Those projections are observationally motivated and suite-specific (e.g., registers/memory for compute traces; module regions for partition traces), while the extracted runner provides a superset of observables that can be compared when a gate requires it.
+ 
+ \section{Layer 1: The Formal Kernel (Coq)}
+ 
+ \subsection{Structure of the Formal Kernel}
+ 
+ The formal kernel is organized around a small set of interlocking definitions:
+ \begin{itemize}
+     \item \textbf{State and partition structure}: the record that defines registers, memory, the partition graph, and the $\mu$-ledger.
+     \item \textbf{Step semantics}: the 18-instruction ISA and the inductive transition rules.
+     \item \textbf{Logical certificates}: checkers for proofs and models that allow deterministic verification.
+     \item \textbf{Conservation and locality}: theorems that enforce $\mu$-monotonicity and observational no-signaling.
+     \item \textbf{Receipts and simulation}: trace formats and cross-layer correspondence lemmas.
+ \end{itemize}
++These bullets correspond directly to files: \texttt{VMState.v} defines the state and partitions, \texttt{VMStep.v} defines the ISA and step relation, \texttt{CertCheck.v} defines certificate checkers, and conservation/locality theorems live in files such as \texttt{MuLedgerConservation.v} and \texttt{ObserverDerivation.v}. Receipts and simulation correspondences are defined in \texttt{ReceiptCore.v} and \texttt{SimulationProof.v}.
+ 
+ The goal is not to “encode” the implementation, but to define a minimal semantics from which every implementation can be reconstructed.
+ 
+ \subsection{The VMState Record}
+ 
+ The state is defined as a record with seven components:
+ \begin{verbatim}
+ Record VMState := {
+   vm_graph : PartitionGraph;
+   vm_csrs : CSRState;
+   vm_regs : list nat;
+   vm_mem : list nat;
+   vm_pc : nat;
+   vm_mu : nat;
+   vm_err : bool
+ }.
+ \end{verbatim}
+ 
+ Each component has canonical width and representation:
+ \begin{itemize}
+     \item \textbf{vm\_regs}: 32 registers (matching RISC-V convention)
+     \item \textbf{vm\_mem}: 256 words of data memory
+     \item \textbf{vm\_pc}: Program counter (modeled as a natural in proofs; masked to a fixed width in hardware)
+     \item \textbf{vm\_mu}: $\mu$-ledger accumulator (modeled as a natural; exported at fixed width in hardware)
+     \item \textbf{vm\_err}: Boolean error latch
+ \end{itemize}
++In Coq, the register file and memory are lists, with indices masked by \texttt{reg\_index} and \texttt{mem\_index} in \texttt{coq/kernel/VMState.v}. This makes “out-of-range” indices deterministic and matches the fixed-width semantics of the RTL, where bit widths enforce modular addressing.
+ 
+ \subsection{The Partition Graph}
+ 
+ \begin{verbatim}
+ Record PartitionGraph := {
+   pg_next_id : ModuleID;
+   pg_modules : list (ModuleID * ModuleState)
+ }.
+ 
+ Record ModuleState := {
+   module_region : list nat;
+   module_axioms : AxiomSet
+ }.
+ \end{verbatim}
+ 
+ Key operations:
+ \begin{itemize}
+     \item \texttt{graph\_pnew}: Create or find module for region
+     \item \texttt{graph\_psplit}: Split module by predicate
+     \item \texttt{graph\_pmerge}: Merge two disjoint modules
+     \item \texttt{graph\_lookup}: Retrieve module by ID
+     \item \texttt{graph\_add\_axiom}: Add logical constraint to module
+ \end{itemize}
++In the Python reference VM (\texttt{thielecpu/state.py}), these same operations are implemented on a \texttt{RegionGraph} plus a parallel bitmask representation (\texttt{partition\_masks}) to make the RTL mapping explicit. The graph methods enforce the same disjointness and ID discipline as the Coq definitions so that the projection used for cross-layer checks is identical.
+ 
+ \subsection{The Step Relation}
+ 
+ The step relation is an inductive predicate with 18 constructors, one per opcode. Each constructor states the exact preconditions and the resulting next state:
+ \begin{verbatim}
+ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop := 
+ | step_pnew : forall s region cost graph' mid,
+     graph_pnew s.(vm_graph) region = (graph', mid) ->
+     vm_step s (instr_pnew region cost)
+       (advance_state s (instr_pnew region cost) graph' s.(vm_csrs) s.(vm_err))
+ | step_psplit : forall s m left right cost g' l' r',
+     graph_psplit s.(vm_graph) m left right = Some (g', l', r') ->
+     vm_step s (instr_psplit m left right cost)
+       (advance_state s (instr_psplit m left right cost) g' s.(vm_csrs) s.(vm_err))
+ ...
+ \end{verbatim}
+ 
+ The \texttt{advance\_state} helper atomically updates PC and $\mu$:
+ \begin{verbatim}
+ Definition advance_state (s : VMState) (instr : vm_instruction)
+   (graph' : PartitionGraph) (csrs' : CSRState) (err' : bool) : VMState :=
+   {| vm_graph := graph';
+      vm_csrs := csrs';
+      vm_regs := s.(vm_regs);
+      vm_mem := s.(vm_mem);
+      vm_pc := s.(vm_pc) + 1;
+      vm_mu := apply_cost s instr;
+      vm_err := err' |}.
+ \end{verbatim}
++The existence of \texttt{advance\_state\_rm} in \texttt{coq/kernel/VMStep.v} is equally important: register- and memory-modifying instructions (such as \texttt{XOR\_LOAD} and \texttt{XFER}) use a variant that updates \texttt{vm\_regs} and \texttt{vm\_mem} explicitly, so these updates are part of the inductive semantics rather than encoded as side effects.
+ 
+ \subsection{Extraction}
+ 
+ The formal definitions are extracted to a functional evaluator to create a reference semantics:
+ \begin{verbatim}
+ Require Extraction.
+ Extraction Language OCaml.
+ Extract Inductive bool => "bool" ["true" "false"].
+ Extract Inductive nat => "int" ["0" "succ"].
+ ...
+ Extraction "extracted/vm_kernel.ml" vm_step run_vm.
+ \end{verbatim}
+ 
+ The extracted code compiles to a small runner, which serves as an oracle for Python/Verilog comparison.
++The runner consumes traces and emits a JSON snapshot of the observable fields. This makes it possible to compare the extracted semantics to the Python VM and RTL without invoking Coq at runtime; the extraction step freezes the semantics into a standalone artifact.
+ 
+ \section{Layer 2: The Reference VM (Python)}
+ 
+ \subsection{Architecture Overview}
+ 
+ The reference VM is optimized for correctness and observability rather than performance. Its purpose is to be readable and to expose every state transition for inspection and replay.
+ 
+ \subsubsection{Core Components}
+ 
+ The reference VM is structured around:
+ \begin{itemize}
+     \item \textbf{State}: a dataclass mirroring the formal record (registers, memory, CSRs, partition graph, $\mu$-ledger).
+     \item \textbf{ISA decoding}: a compact representation of the 18 opcodes.
+     \item \textbf{Partition operations}: creation, split, merge, and discovery.
+     \item \textbf{Receipt generation}: cryptographic receipts for each step.
+ \end{itemize}
+ 
+ \subsubsection{The VM Class}
+ 
+ \begin{verbatim}
+ class VM:
++    state: State
++    python_globals: Dict[str, Any] = None
++    virtual_fs: VirtualFilesystem = field(default_factory=VirtualFilesystem)
++    witness_state: WitnessState = field(default_factory=WitnessState)
++    step_receipts: List[StepReceipt] = field(default_factory=list)
++
+     def __post_init__(self):
+-        self.state = State()
+-        self.step_receipts: List[StepReceipt] = []
+-        self.virtual_fs = VirtualFilesystem()
++        ensure_kernel_keys()
++        if self.python_globals is None:
++            globals_scope = {...}  # builtins + vm_* helpers
++            self.python_globals = globals_scope
++        else:
++            self.python_globals.setdefault("vm_read_text", self.virtual_fs.read_text)
++            ...
+         self.witness_state = WitnessState()
++        self.step_receipts = []
++        self.register_file = [0] * 32
++        self.data_memory = [0] * 256
+ \end{verbatim}
++The excerpt omits the full globals initialization for brevity, but it highlights the key fact: the VM owns a \texttt{State} object (mirroring the Coq record) and also keeps a minimal register file and scratch memory used by the XOR opcodes that map directly to RTL. This separation is intentional: the \texttt{State} captures the partition and $\mu$-ledger semantics, while the auxiliary arrays let the VM exercise hardware-style instructions without introducing a second, inconsistent notion of state.
+ 
+ \subsection{State Representation}
+ 
+ The reference state mirrors the formal definition, with explicit fields for the partition graph, axioms, control/status registers, and $\mu$-ledger:
+ \begin{verbatim}
+ @dataclass
+ class State:
+     mu_operational: float = 0.0
+     mu_information: float = 0.0
+     _next_id: int = 1
+     regions: RegionGraph = field(default_factory=RegionGraph)
+     axioms: Dict[ModuleId, List[str]] = field(default_factory=dict)
+     csr: dict[CSR, int | str] = field(default_factory=...)
+     step_count: int = 0
+     mu_ledger: MuLedger = field(default_factory=MuLedger)
+     partition_masks: Dict[ModuleId, PartitionMask] = field(default_factory=dict)
+     program: List[Any] = field(default_factory=list)
+ \end{verbatim}
++The additional fields (\texttt{mu\_ledger}, \texttt{partition\_masks}, and \texttt{program}) are the bridge to the other layers. \texttt{mu\_ledger} makes the $\mu$-accounting explicit and provides a total used in cross-layer projections (the kernel’s \texttt{vm\_mu} in \texttt{coq/kernel/VMState.v} is a single accumulator). \texttt{partition\_masks} provides a compact, hardware-aligned encoding of regions. \texttt{program} aligns with \texttt{CoreSemantics.State.program} in \texttt{coq/thielemachine/coqproofs/CoreSemantics.v}, where the program is part of the executable state, even though the kernel’s \texttt{VMState} record itself does not carry a program field.
+ 
+ \subsection{The $\mu$-Ledger}
+ 
+ \begin{verbatim}
+ @dataclass
+ class MuLedger:
+     mu_discovery: int = 0   # Cost of partition discovery operations
+     mu_execution: int = 0   # Cost of instruction execution
+     
+     @property
+     def total(self) -> int:
+         return self.mu_discovery + self.mu_execution
+ \end{verbatim}
+ 
+ \subsection{Partition Operations}
+ 
+ \subsubsection{Bitmask Representation}
+ 
+ For hardware isomorphism, partitions use fixed-width bitmasks. This makes the partition representation stable, deterministic, and easy to compare across layers:
+ \begin{verbatim}
+ MASK_WIDTH = 64  # Fixed width for hardware compatibility
+ MAX_MODULES = 8  # Maximum number of active modules
+ 
+ def mask_of_indices(indices: Set[int]) -> PartitionMask:
+     mask = 0
+     for idx in indices:
+         if 0 <= idx < MASK_WIDTH:
+             mask |= (1 << idx)
+     return mask
+ \end{verbatim}
++The bitmask representation is the literal encoding used in the RTL, so the Python VM computes it alongside the higher-level \texttt{RegionGraph}. This dual representation is a safety check: if the set-based and bitmask-based views ever disagree, the VM can detect the mismatch before it propagates to hardware.
+ 
+ \subsubsection{Module Creation (PNEW)}
+ 
+ \begin{verbatim}
+ def pnew(self, region: Set[int]) -> ModuleId:
+     if self.num_modules >= MAX_MODULES:
+         raise ValueError(f"Cannot create module: max modules reached")
+     existing = self.regions.find(region)
+     if existing is not None:
+         return ModuleId(existing)
+     mid = self._alloc(region, charge_discovery=True)
+     self.axioms[mid] = []
+     self._enforce_invariant()
+     return mid
+ \end{verbatim}
++The first branch of \texttt{pnew} demonstrates the “idempotent discovery” rule: creating a module for a region that already exists returns the existing ID instead of duplicating it. This ensures that module IDs are stable across layers and that any $\mu$-cost charged for discovery is not accidentally paid twice.
+ 
+ \subsection{Sandboxed Python Execution}
+ 
+ The \texttt{PYEXEC} instruction executes user-supplied code. When sandboxing is enabled, execution is restricted to a safe builtins set and an AST allowlist. When sandboxing is disabled, the instruction behaves like a trusted host callback. The semantics are defined so that any side effects are observable in the trace, and any structural information revealed is charged in $\mu$.
+ 
+ \begin{verbatim}
+ SAFE_IMPORTS = {"math", "json", "z3"}
+ SAFE_FUNCTIONS = {
+     "abs", "all", "any", "bool", "divmod", "enumerate", 
+     "float", "int", "len", "list", "max", "min", "pow",
+     "print", "range", "round", "sorted", "sum", "tuple",
+     "zip", "str", "set", "dict", "map", "filter",
+     "vm_read_text", "vm_write_text", "vm_read_bytes",
+     "vm_write_bytes", "vm_exists", "vm_listdir",
+ }
+ \end{verbatim}
+ 
+ When sandboxing is enabled, the AST is validated before execution:
+ \begin{verbatim}
+ SAFE_NODE_TYPES = {
+     ast.Module, ast.FunctionDef, ast.ClassDef, ast.arguments,
+     ast.arg, ast.Expr, ast.Assign, ast.AugAssign, ast.Name,
+     ast.Load, ast.Store, ast.Constant, ast.BinOp, ast.UnaryOp,
+     ast.BoolOp, ast.Compare, ast.If, ast.For, ast.While, ...
+ }
+@@ -409,53 +434,53 @@ module lei (
+     output wire z3_req,
+     output wire [31:0] z3_formula_addr,
+     input wire z3_ack,
+     input wire [31:0] z3_result,
+     input wire z3_sat,
+     input wire [31:0] z3_cert_hash,
+     ...
+ );
+ \end{verbatim}
+ 
+ \section{Isomorphism Verification}
+ 
+ \subsection{The Isomorphism Gate}
+ 
+ The 3-way isomorphism is verified by a test that:
+ \begin{enumerate}
+     \item Generate instruction trace $\tau$
+     \item Execute $\tau$ on Python VM $\rightarrow$ state $S_{\text{py}}$
+     \item Execute $\tau$ on extracted runner $\rightarrow$ state $S_{\text{coq}}$
+     \item Execute $\tau$ on Verilog sim $\rightarrow$ state $S_{\text{rtl}}$
+     \item Assert $S_{\text{py}} = S_{\text{coq}} = S_{\text{rtl}}$
+ \end{enumerate}
+ 
+ \subsection{State Projection}
+ 
+-For comparison, states are projected to a canonical 7-tuple. The projection discards internal certificates and preserves only the observable machine state:
++For comparison, states are projected to canonical summaries tailored to the gate being exercised. The extracted runner emits a full JSON snapshot (pc, $\mu$, err, regs, mem, CSRs, graph), which can be projected down to subsets. The compute gate uses only registers and memory, while the partition gate uses canonicalized module regions. A full projection helper is therefore a \emph{superset} view, not the only comparison performed:
+ \begin{verbatim}
+-def project_state(state):
++def project_state_full(state):
+     return {
+         "pc": state.pc,
+         "mu": state.mu,
+         "err": state.err,
+         "regs": list(state.regs[:32]),
+         "mem": list(state.mem[:256]),
+         "csrs": state.csrs.to_dict(),
+         "graph": state.graph.to_canonical(),
+     }
+ \end{verbatim}
+ 
+ \subsection{The Inquisitor}
+ 
+ The Inquisitor enforces the verification rules:
+ \begin{itemize}
+     \item Scans the proof sources for \texttt{Admitted}, \texttt{admit.}, \texttt{Axiom}
+     \item Verifies that the proof build completes successfully
+     \item Runs isomorphism gates
+     \item Reports HIGH/MEDIUM/LOW findings
+ \end{itemize}
+ 
+ The repository must have 0 HIGH findings to pass CI.
+ 
+ \section{Synthesis Results}
+ 
+diff --git a/thesis/chapters/05_verification.tex b/thesis/chapters/05_verification.tex
+index 3f2f98fb4664c9b78689334871ac033367535eae..790f4ca523222cb01d7bf9603b3c06253eaac3cf 100644
+--- a/thesis/chapters/05_verification.tex
++++ b/thesis/chapters/05_verification.tex
+@@ -1,62 +1,66 @@
+ \section{Why Formal Verification?}
+ 
+ \subsection{The Limits of Testing}
+ 
+ Testing can find bugs, but it cannot prove their absence. If you test a sorting algorithm on 1000 inputs, you have evidence it works on those 1000 inputs---but there are infinitely many possible inputs. Formal verification replaces empirical sampling with universal quantification.
+ 
+ \textbf{Formal verification} proves properties hold for \textit{all} inputs. When I prove "$\mu$ is monotonically non-decreasing," I don't test it on examples---I prove it mathematically.
++In this project, “all inputs” means all possible states and instruction traces compatible with the formal semantics. The proofs quantify over arbitrary \texttt{VMState} values and instructions, not over a fixed test suite. This is why the proofs must be grounded in precise definitions: without the exact state and step definitions, a universal statement would be meaningless.
+ 
+ \subsection{The Coq Proof Assistant}
+ 
+ Coq is an interactive theorem prover based on dependent type theory. A Coq proof is:
+ \begin{itemize}
+     \item \textbf{Machine-checked}: The computer verifies every step
+     \item \textbf{Constructive}: Proofs can be extracted to executable code
+     \item \textbf{Permanent}: Once proven, the result is certain (assuming Coq's kernel is correct)
+ \end{itemize}
++The guarantees come from the small, trusted kernel of Coq. Every lemma in the thesis is checked against that kernel, and extraction produces executable code whose behavior is justified by the same proofs. This matters because the extracted runner is used as an oracle in isomorphism tests; the proof context and the executable context are tied to the same semantics.
+ 
+ \subsection{The Zero-Admit Standard}
+ 
+ The Thiele Machine uses an unusually strict standard:
+ \begin{itemize}
+     \item \textbf{No \texttt{Admitted}}: Every theorem must be fully proven
+     \item \textbf{No \texttt{admit.}}: No tactical shortcuts inside proofs
+     \item \textbf{No \texttt{Axiom}}: No unproven assumptions (except foundational logic)
+ \end{itemize}
+ 
+ This standard is enforced automatically. Any commit introducing an admit fails CI. This matters because it guarantees every theorem in the active proof tree is fully discharged.
++The enforcement mechanism is \texttt{scripts/inquisitor.py}, which scans the Coq tree and reports violations. The strictness is not ceremonial: it ensures that the theorem statements presented in this chapter are actually complete and therefore reusable as axioms in subsequent reasoning.
+ 
+ \subsection{What I Prove}
+ 
+ The key theorems proven in Coq are:
+ \begin{enumerate}
+     \item \textbf{Observational No-Signaling}: Operations on one module cannot affect observables of other modules
+     \item \textbf{$\mu$-Conservation}: The $\mu$-ledger never decreases
+     \item \textbf{No Free Insight}: Strengthening certification requires explicit structure addition
+     \item \textbf{Gauge Invariance}: Partition structure is invariant under $\mu$-shifts
+ \end{enumerate}
++Each of these theorems has a concrete home in the Coq tree: observational no-signaling is developed in files such as \texttt{ObserverDerivation.v}, $\mu$-conservation is proven in \texttt{MuLedgerConservation.v}, and No Free Insight appears in \texttt{NoFreeInsight.v} and \texttt{MuNoFreeInsightQuantitative.v}. The names matter because they pin the prose to specific proof artifacts a reader can inspect.
+ 
+ \subsection{How to Read This Chapter}
+ 
+ This chapter explains the proof structure and key statements. If you are unfamiliar with Coq:
+ \begin{itemize}
+     \item \texttt{Theorem}, \texttt{Lemma}: Statements to prove
+     \item \texttt{Proof. ... Qed.}: The proof itself
+     \item \texttt{forall}: For all values of this type
+     \item \texttt{->}: Implies
+     \item \texttt{/\textbackslash}: And (conjunction)
+     \item \texttt{\textbackslash/}: Or (disjunction)
+ \end{itemize}
+ 
+ Focus on understanding the \textit{statements} (what I prove), not the proof details. Every statement is written so it can be re-derived from the definitions given in Chapters 3 and 4.
+ 
+ \section{The Formal Verification Campaign}
+ 
+ The credibility of the Thiele Machine rests on machine-checked proofs. This chapter documents the verification campaign that culminated in a full removal of \texttt{Admitted}, \texttt{admit.}, and \texttt{Axiom} declarations from the active Coq tree. The practical consequence is rebuildability: a reader can re-implement the definitions and re-prove the same claims without relying on hidden assumptions.
+ 
+ All proofs are verified by Coq 8.18.x. The Inquisitor enforces this invariant: any commit introducing an admit or axiom fails CI.
+ 
+ \section{Proof Architecture}
+ 
+ \subsection{Conceptual Hierarchy}
+ 
+@@ -68,158 +72,163 @@ The proof corpus is organized by concept rather than by implementation detail:
+     \item \textbf{Conservation and locality}: theorems about $\mu$-monotonicity and no-signaling.
+     \item \textbf{Impossibility theorems}: No Free Insight and its corollaries.
+ \end{itemize}
+ 
+ The goal is not to “encode” the implementation, but to define a minimal semantics from which every implementation can be reconstructed. Each later proof depends only on earlier definitions and lemmas, so the dependency structure is acyclic and reproducible.
+ 
+ \subsection{Dependency Sketch}
+ 
+ The proofs build outward from the state and step definitions: first the operational semantics, then conservation/locality lemmas, and finally the impossibility results that rely on those invariants. The ordering is important: no theorem about $\mu$ or locality is used before the step relation is fixed.
+ 
+ \section{State Definitions: Foundation Layer}
+ 
+ \subsection{The State Record}
+ 
+ \begin{verbatim}
+ Record VMState := {
+   vm_graph : PartitionGraph;
+   vm_csrs : CSRState;
+   vm_regs : list nat;
+   vm_mem : list nat;
+   vm_pc : nat;
+   vm_mu : nat;
+   vm_err : bool
+ }.
+ \end{verbatim}
++The record is not just a convenient bundle. It encodes the exact pieces of state that the theorems quantify over, and it matches the projection used in cross-layer tests. The constants \texttt{REG\_COUNT} and \texttt{MEM\_SIZE} in \texttt{coq/kernel/VMState.v} fix the widths, and helper functions such as \texttt{read\_reg} and \texttt{write\_reg} define the operational meaning of register access.
+ 
+ \subsection{Canonical Region Normalization}
+ 
+ Regions are stored in canonical form to make observational equality well-defined:
+ \begin{verbatim}
+ Definition normalize_region (region : list nat) : list nat :=
+   nodup Nat.eq_dec region.
+ \end{verbatim}
+ 
+ \begin{theorem}[Idempotence]
+ \begin{verbatim}
+ Lemma normalize_region_idempotent : forall region,
+   normalize_region (normalize_region region) = normalize_region region.
+ \end{verbatim}
+ \end{theorem}
+ 
+ \begin{proof}
+ By \texttt{nodup\_fixed\_point}: applying \texttt{nodup} twice yields the same result, so normalization is idempotent and comparisons are stable.
+ \end{proof}
++This lemma is more than a tidying step. Observational equality depends on normalized regions; idempotence guarantees that repeated normalization does not change what an observer sees, which is vital when a proof chains multiple graph operations together.
+ 
+ \subsection{Graph Well-Formedness}
+ 
+ \begin{verbatim}
+ Definition well_formed_graph (g : PartitionGraph) : Prop :=
+   all_ids_below g.(pg_modules) g.(pg_next_id).
+ \end{verbatim}
+ 
+ \begin{theorem}[Preservation Under Add]
+ \begin{verbatim}
+ Lemma graph_add_module_preserves_wf : forall g region axioms g' mid,
+   well_formed_graph g ->
+   graph_add_module g region axioms = (g', mid) ->
+   well_formed_graph g'.
+ \end{verbatim}
+ \end{theorem}
++Well-formedness only enforces the ID discipline (no module has an ID greater than or equal to \texttt{pg\_next\_id}). The key point is that this property is strong enough to prevent stale references while weak enough to be preserved by every graph operation. Disjointness and coverage are handled by operation-specific lemmas so that the global invariant does not overfit any single instruction.
+ 
+ \begin{theorem}[Preservation Under Remove]
+ \begin{verbatim}
+ Lemma graph_remove_preserves_wf : forall g mid g' m,
+   well_formed_graph g ->
+   graph_remove g mid = Some (g', m) ->
+   well_formed_graph g'.
+ \end{verbatim}
+ \end{theorem}
+ 
+ \section{Operational Semantics}
+ 
+ \subsection{The Instruction Type}
+ 
+ \begin{verbatim}
+ Inductive vm_instruction :=
+ | instr_pnew (region : list nat) (mu_delta : nat)
+ | instr_psplit (module : ModuleID) (left right : list nat) (mu_delta : nat)
+ | instr_pmerge (m1 m2 : ModuleID) (mu_delta : nat)
+ | instr_lassert (module : ModuleID) (formula : string)
+     (cert : lassert_certificate) (mu_delta : nat)
+ | instr_ljoin (cert1 cert2 : string) (mu_delta : nat)
+ | instr_mdlacc (module : ModuleID) (mu_delta : nat)
+ | instr_pdiscover (module : ModuleID) (evidence : list VMAxiom) (mu_delta : nat)
+ | instr_xfer (dst src : nat) (mu_delta : nat)
+ | instr_pyexec (payload : string) (mu_delta : nat)
+ | instr_chsh_trial (x y a b : nat) (mu_delta : nat)
+ | instr_xor_load (dst addr : nat) (mu_delta : nat)
+ | instr_xor_add (dst src : nat) (mu_delta : nat)
+ | instr_xor_swap (a b : nat) (mu_delta : nat)
+ | instr_xor_rank (dst src : nat) (mu_delta : nat)
+ | instr_emit (module : ModuleID) (payload : string) (mu_delta : nat)
+ | instr_reveal (module : ModuleID) (bits : nat) (cert : string) (mu_delta : nat)
+ | instr_oracle_halts (payload : string) (mu_delta : nat)
+ | instr_halt (mu_delta : nat).
+ \end{verbatim}
+ 
+ \subsection{The Step Relation}
+ 
+ \begin{verbatim}
+ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop := ...
+ \end{verbatim}
+ 
+ Each instruction has one or more step rules. Key properties:
+ \begin{itemize}
+     \item \textbf{Deterministic}: Each (state, instruction) pair has at most one successor when its preconditions hold.
+     \item \textbf{Partial on invalid inputs}: Instructions with invalid certificates or failed structural checks can be undefined.
+     \item \textbf{Cost-charging}: Every rule updates \texttt{vm\_mu} by the declared instruction cost.
+ \end{itemize}
++The error latch is explicit in the step rules. For example, \texttt{PSPLIT} and \texttt{PMERGE} each have “failure” rules in \texttt{coq/kernel/VMStep.v} that leave the graph unchanged but set the error CSR and latch \texttt{vm\_err}. This design makes error propagation explicit and therefore available to proofs, rather than being implicit behavior of an implementation language.
+ 
+ This gives a complete operational semantics: given a well-formed state and a valid instruction, the next state is uniquely determined.
+ 
+ \section{Conservation and Locality}
+ 
+ This file establishes the physical laws of the Thiele Machine kernel—properties that hold for all executions without exception.
+ 
+ \subsection{Observables}
+ 
+ \begin{verbatim}
+ Definition Observable (s : VMState) (mid : nat) : option (list nat * nat) :=
+   match graph_lookup s.(vm_graph) mid with
+   | Some modstate => Some (normalize_region modstate.(module_region), s.(vm_mu))
+   | None => None
+   end.
+ 
+ Definition ObservableRegion (s : VMState) (mid : nat) : option (list nat) :=
+   match graph_lookup s.(vm_graph) mid with
+   | Some modstate => Some (normalize_region modstate.(module_region))
+   | None => None
+   end.
+ \end{verbatim}
+ 
+ Note: Axioms are \textbf{not} observable—they are internal implementation details. Observables contain only partition regions and the $\mu$-ledger, which is the cost-visible interface of the model.
++The distinction between \texttt{Observable} and \texttt{ObservableRegion} is deliberate. \texttt{Observable} includes the $\mu$-ledger to capture the paid structural cost, while \texttt{ObservableRegion} strips the $\mu$ field so that no-signaling can be stated purely in terms of partition structure. This avoids a loophole where a proof of locality could fail merely because the $\mu$-ledger changed, even though no region membership changed.
+ 
+ \subsection{Instruction Target Sets}
+ 
+ \begin{verbatim}
+ Definition instr_targets (instr : vm_instruction) : list nat :=
+   match instr with
+   | instr_pnew _ _ => []
+   | instr_psplit mid _ _ _ => [mid]
+   | instr_pmerge m1 m2 _ => [m1; m2]
+   | instr_lassert mid _ _ _ => [mid]
+   ...
+   end.
+ \end{verbatim}
+ 
+ \subsection{The No-Signaling Theorem}
+ 
+ \begin{theorem}[Observational No-Signaling]
+ \begin{verbatim}
+ Theorem observational_no_signaling : forall s s' instr mid,
+   well_formed_graph s.(vm_graph) ->
+   mid < pg_next_id s.(vm_graph) ->
+   vm_step s instr s' ->
+   ~ In mid (instr_targets instr) ->
+   ObservableRegion s mid = ObservableRegion s' mid.
+ \end{verbatim}
+diff --git a/thesis/chapters/06_evaluation.tex b/thesis/chapters/06_evaluation.tex
+index 2c319cfb25c5055cbd4f87711b897dab578b4787..d7f285d4c07837d572c54bdb6679e2e620478565 100644
+--- a/thesis/chapters/06_evaluation.tex
++++ b/thesis/chapters/06_evaluation.tex
+@@ -4,56 +4,57 @@
+ 
+ The previous chapters established the \textit{theoretical} foundations of the Thiele Machine: definitions, proofs, and implementations. But theoretical correctness is not sufficient---I must also demonstrate that the theory \textit{works in practice}. Evaluation has a different role than proof: it does not establish truth for all inputs, but it validates that implementations faithfully realize the formal semantics and that the predicted invariants hold under realistic workloads.
+ 
+ This chapter presents empirical evaluation addressing three fundamental questions:
+ \begin{enumerate}
+     \item \textbf{Does the 3-layer isomorphism actually hold?} \\
+     The theory claims that Coq, Python, and Verilog implementations produce identical results. I test this claim on thousands of instruction sequences, including randomized traces and structured micro-programs designed to stress the ISA.
+     
+     \item \textbf{Does the revelation requirement actually enforce costs?} \\
+     The theory claims that supra-quantum correlations require explicit revelation. I run CHSH experiments to verify this constraint is enforced and that the ledger charges match the structure disclosed.
+     
+     \item \textbf{Is the implementation practical?} \\
+     A beautiful theory that runs too slowly is useless. I benchmark performance and resource utilization to assess practicality, focusing on the overhead of receipts and the hardware cost of the accounting units.
+ \end{enumerate}
+ 
+ \subsection{Methodology}
+ 
+ All experiments follow scientific best practices:
+ \begin{itemize}
+     \item \textbf{Reproducibility}: Every experiment can be re-run from the published artifacts and trace descriptions
+     \item \textbf{Automation}: Tests are automated in a continuous validation pipeline
+     \item \textbf{Adversarial testing}: I actively try to break the system, not just confirm it works
+ \end{itemize}
+ 
+ All experiments use the reference VM with receipt generation enabled. Each run produces receipts and state snapshots so that results can be rechecked independently. The emphasis is on \textit{replayability}: anyone can take the same trace, replay it through each layer, and confirm equality of the observable projection.
++The concrete test harnesses live under \texttt{tests/} (for example, \texttt{tests/test\_partition\_isomorphism\_minimal.py} and \texttt{tests/test\_rtl\_compute\_isomorphism.py}), so the evaluation is tied to executable scripts rather than hand-run examples.
+ 
+ \section{3-Layer Isomorphism Verification}
+ 
+ \subsection{Test Architecture}
+ 
+-The isomorphism gate verifies that Python VM, extracted Coq semantics, and RTL simulation produce identical final states for the same instruction traces. The comparison uses a fixed projection that captures the observable machine state (pc, $\mu$, err, registers, memory, control registers, and partition graph) and ignores internal proof objects.
++The isomorphism gate verifies that Python VM, extracted Coq semantics, and RTL simulation produce identical final states for the same instruction traces. The comparison uses suite-specific projections rather than a single fixed snapshot: compute traces compare registers and memory, while partition traces compare canonicalized module regions. The extracted runner emits a superset JSON snapshot (pc, $\mu$, err, regs, mem, CSRs, graph), whereas the RTL testbench emits a smaller JSON object tailored to the gate under test. The purpose of each projection is to compare only the declared observables relevant to that trace type and ignore internal bookkeeping fields.
+ 
+ \subsubsection{Test Implementation}
+ 
+ Representative test (simplified):
+ \begin{verbatim}
+ def test_rtl_python_coq_compute_isomorphism():
+     # Small, deterministic compute program.
+     # Semantics must match across:
+     #   - Python reference VM
+     #   - extracted formal semantics runner
+     #   - RTL simulation
+     
+     init_mem[0] = 0x29
+     init_mem[1] = 0x12
+     init_mem[2] = 0x22
+     init_mem[3] = 0x03
+     
+     program_words = [
+         _encode_word(0x0A, 0, 0),  # XOR_LOAD r0 <= mem[0]
+         _encode_word(0x0A, 1, 1),  # XOR_LOAD r1 <= mem[1]
+         _encode_word(0x0A, 2, 2),  # XOR_LOAD r2 <= mem[2]
+         _encode_word(0x0A, 3, 3),  # XOR_LOAD r3 <= mem[3]
+         _encode_word(0x0B, 3, 0),  # XOR_ADD r3 ^= r0
+         _encode_word(0x0B, 3, 1),  # XOR_ADD r3 ^= r1
+         _encode_word(0x0C, 0, 3),  # XOR_SWAP r0 <-> r3
+@@ -79,50 +80,51 @@ Final states are projected to canonical form:
+   "mu": <int>,
+   "err": <bool>,
+   "regs": [<32 integers>],
+   "mem": [<256 integers>],
+   "csrs": {"cert_addr": ..., "status": ..., "error": ...},
+   "graph": {"modules": [...]}
+ }
+ \end{verbatim}
+ 
+ \subsection{Partition Operation Tests}
+ 
+ Representative test (simplified):
+ \begin{verbatim}
+ def test_pnew_dedup_singletons_isomorphic():
+     # Same singleton regions requested multiple times; canonical semantics dedup.
+     indices = [0, 1, 2, 0, 1]  # Duplicates
+     
+     py_regions = _python_regions_after_pnew(indices)
+     coq_regions = _coq_regions_after_pnew(indices)
+     rtl_regions = _rtl_regions_after_pnew(indices)
+     
+     assert py_regions == coq_regions == rtl_regions
+ \end{verbatim}
+ 
+ This verifies that canonical normalization produces identical results across all layers, which is essential because partitions are represented as lists but compared modulo ordering and duplicates.
++In the formal kernel, the normalization function is \texttt{normalize\_region} (based on \texttt{nodup}), so this test is checking that the Python and RTL representations match the Coq canonicalization rather than relying on a coincidental list order.
+ 
+ \subsection{Results Summary}
+ 
+ \begin{center}
+ \begin{tabular}{|l|c|c|c|}
+ \hline
+ \textbf{Test Suite} & \textbf{Python} & \textbf{Coq} & \textbf{RTL} \\
+ \hline
+ Compute Operations & PASS & PASS & PASS \\
+ Partition PNEW & PASS & PASS & PASS \\
+ Partition PSPLIT & PASS & PASS & PASS \\
+ Partition PMERGE & PASS & PASS & PASS \\
+ XOR Operations & PASS & PASS & PASS \\
+ $\mu$-Ledger Updates & PASS & PASS & PASS \\
+ \hline
+ \textbf{Total} & 100\% & 100\% & 100\% \\
+ \hline
+ \end{tabular}
+ \end{center}
+ 
+ \section{CHSH Correlation Experiments}
+ 
+ \subsection{Bell Test Protocol}
+ 
+ The CHSH inequality bounds correlations in local realistic theories. For measurement settings $x,y \in \{0,1\}$ and outcomes $a,b \in \{0,1\}$, define
+@@ -132,138 +134,145 @@ E(x,y) = \Pr[a=b \mid x,y] - \Pr[a \neq b \mid x,y].
+ Then:
+ \begin{equation}
+     S = |E(a,b) - E(a,b') + E(a',b) + E(a',b')| \le 2
+ \end{equation}
+ 
+ Quantum mechanics predicts $S_{\max} = 2\sqrt{2} \approx 2.828$ (Tsirelson's bound).
+ 
+ \subsection{Partition-Native CHSH}
+ 
+ The Thiele Machine implements CHSH trials through the \texttt{CHSH\_TRIAL} instruction:
+ \begin{verbatim}
+ instr_chsh_trial (x y a b : nat) (mu_delta : nat)
+ \end{verbatim}
+ 
+ Where:
+ \begin{itemize}
+     \item \texttt{x, y}: Input bits (setting choices)
+     \item \texttt{a, b}: Output bits (measurement outcomes)
+     \item \texttt{mu\_delta}: $\mu$-cost for the trial
+ \end{itemize}
+ 
+ \subsection{Correlation Bounds}
+ 
+ The implementation enforces a Tsirelson bound:
+ \begin{verbatim}
+-TSIRELSON_BOUND = 2 * math.sqrt(2)  # ~2.828
++from fractions import Fraction
+ 
+-def is_supra_quantum(S: float) -> bool:
+-    return S > TSIRELSON_BOUND
++TSIRELSON_BOUND: Fraction = Fraction(5657, 2000)  # ~2.8285
++
++def is_supra_quantum(*, chsh: Fraction, bound: Fraction = TSIRELSON_BOUND) -> bool:
++    return chsh > bound
+ 
+ DEFAULT_ENFORCEMENT_MIN_TRIALS_PER_SETTING = 100
+ \end{verbatim}
++The implementation uses a conservative rational bound (\texttt{5657/2000}) rather than a floating approximation to make proof and test comparisons exact across layers.
+ 
+ \subsection{Experimental Design}
+ 
+ The CHSH evaluation pipeline:
+ \begin{enumerate}
+     \item Generate CHSH trial sequences
+     \item Execute on Python VM with receipt generation
+     \item Compute $S$ value from outcome statistics
+     \item Verify $\mu$-cost matches declared cost
+     \item Verify receipt chain integrity
+ \end{enumerate}
++The pipeline is mirrored in test utilities such as \texttt{tools/finite\_quantum.py} and \texttt{tests/test\_supra\_revelation\_semantics.py}, which compute the same CHSH statistics and check the revelation rule against the formal kernel's expectations.
+ 
+ \subsection{Supra-Quantum Certification}
+ 
+ To certify $S > 2\sqrt{2}$, the trace must include a revelation event:
+ \begin{verbatim}
+ Theorem nonlocal_correlation_requires_revelation :
+   forall (trace : Trace) (s_init s_final : VMState) (fuel : nat),
+     trace_run fuel trace s_init = Some s_final ->
+     s_init.(vm_csrs).(csr_cert_addr) = 0 ->
+     has_supra_cert s_final ->
+     uses_revelation trace \/ ...
+ \end{verbatim}
++The theorem shown here is proven in \texttt{coq/kernel/RevelationRequirement.v}. The evaluation checks the operational side of that theorem by building traces that attempt to exceed the bound without \texttt{REVEAL} and confirming that the machine marks them invalid or charges the appropriate $\mu$.
+ 
+ Experimental verification confirms:
+ \begin{itemize}
+     \item Traces with $S \le 2$ do not require revelation
+     \item Traces with $2 < S \le 2\sqrt{2}$ may use revelation
+     \item Traces claiming $S > 2\sqrt{2}$ \textbf{must} use revelation
+ \end{itemize}
+ 
+ \subsection{Results}
+ 
+ \begin{center}
+ \begin{tabular}{|l|c|c|c|}
+ \hline
+ \textbf{Regime} & \textbf{$S$ Value} & \textbf{Revelation} & \textbf{$\mu$-Cost} \\
+ \hline
+ Local Realistic & $\le 2.0$ & Not required & 0 \\
+ Classical Shared & $\le 2.0$ & Not required & $\mu_{\text{seed}}$ \\
+ Quantum & $\le 2.828$ & Optional & $\mu_{\text{corr}}$ \\
+ Supra-Quantum & $> 2.828$ & \textbf{Required} & $\mu_{\text{reveal}}$ \\
+ \hline
+ \end{tabular}
+ \end{center}
+ 
+ \section{$\mu$-Ledger Verification}
+ 
+ \subsection{Monotonicity Tests}
+ 
+ Representative monotonicity check:
+ \begin{verbatim}
+ def test_mu_monotonic_under_any_trace():
+     for _ in range(100):
+         trace = generate_random_trace(length=50)
+         vm = VM(State())
+         vm.run(trace)
+         
+         mu_values = [s.mu for s in vm.trace]
+         for i in range(1, len(mu_values)):
+             assert mu_values[i] >= mu_values[i-1]
+ \end{verbatim}
++The monotonicity check mirrors the formal lemma that \texttt{vm\_mu} never decreases under \texttt{vm\_step}. In the Python VM, the ledger is split into \texttt{mu\_discovery} and \texttt{mu\_execution} (see \texttt{MuLedger} in \texttt{thielecpu/state.py}), so the test verifies that their total is non-decreasing step by step.
+ 
+ \subsection{Conservation Tests}
+ 
+ Representative conservation check:
+ \begin{verbatim}
+ def test_mu_conservation():
+     program = [
+         ("PNEW", "{0,1,2,3}"),
+         ("PSPLIT", "1 {0,1} {2,3}"),
+         ("PMERGE", "2 3"),
+         ("HALT", ""),
+     ]
+     
+     vm = VM(State())
+     vm.run(program)
+     
+     total_declared = sum(instr.cost for instr in program)
+     assert vm.state.mu_ledger.total == total_declared
+ \end{verbatim}
++The conservation test matches the formal definition of \texttt{apply\_cost} in \texttt{coq/kernel/VMStep.v}, which adds the per-instruction \texttt{mu\_delta} to the running ledger. The experiment is therefore a concrete replay of the same rule used in the proofs.
+ 
+ \subsection{Results}
+ 
+ \begin{itemize}
+     \item \textbf{Monotonicity}: 100\% of random traces maintain $\mu_{t+1} \ge \mu_t$
+     \item \textbf{Conservation}: Declared costs exactly match ledger increments
+     \item \textbf{Irreversibility}: Ledger growth bounds irreversible operations
+ \end{itemize}
+ 
+ \section{Thermodynamic bridge experiment (publishable plan)}
+ 
+ To connect the ledger to a physical observable, I design a narrowly scoped, falsifiable experiment focused on measurement/erasure thermodynamics.
+ 
+ \subsection{Workload construction}
+ Use the thermodynamic bridge harness to emit four traces that differ only in which singleton module is revealed from a fixed candidate pool: (1) choose 1 of 2 elements, (2) choose 1 of 4, (3) choose 1 of 16, (4) choose 1 of 64. Instruction count, data size, and clocking remain identical so that only the $\Omega \to \Omega'$ reduction changes. The bundle records per-step $\mu$ (raw and normalized), $|\Omega|$, $|\Omega'|$, normalization flags for the formal, reference, and hardware layers, and an `evidence\_strict` bit indicating whether normalization was allowed.
+ 
+ \subsection{Bridge prediction}
+ By construction $\mu \ge \log_2(|\Omega|/|\Omega'|)$ for each trace. Under the thermodynamic postulate $Q_{\min} = k_B T \ln 2 \cdot \mu$, measured energy/heat must scale with $\mu$ at slope $k_B T \ln 2$ (within an explicit inefficiency factor $\epsilon$). Genesis-only traces remain the lone legitimate zero-$\mu$ run; a zero $\mu$ on any nontrivial trace is treated as a test failure, not “alignment.”
+ 
+ \subsection{Instrumentation and analysis}
+ Run the three traces on instrumented hardware (or a calibrated switching-energy simulator) at fixed temperature $T$. Record per-run energy and environmental metadata. Fit measured energy against $k_B T \ln 2 \cdot \mu$ and report residuals. A sustained sub-linear slope falsifies the bridge; a super-linear slope quantifies overhead. Publish both ledger outputs and raw measurements so reviewers can recompute the bound.
+ 
+ \subsection{Executed thermodynamic bundle (Dec 2025)}
+ I executed the four Ω→Ω′ traces with the bridge harness, exporting a JSON artifact. The runs charge μ via partition discovery only (explicit \texttt{MDLACC} omitted to mirror the hardware harness) and capture normalization flags and \texttt{evidence\_strict} for μ propagation across layers. Each scenario fails fast if the requested region is not representable by the hardware encoding. These runs are intended to validate that the ledger and trace machinery produce consistent, reproducible μ values that a future physical experiment can bind to energy.
+ 
+@@ -338,50 +347,51 @@ REGION_SIZE = 1024
+ \begin{itemize}
+     \item LUTs: $\sim$45,000
+     \item Flip-Flops: $\sim$35,000
+     \item Target: Xilinx UltraScale+
+ \end{itemize}
+ 
+ \section{Validation Coverage}
+ 
+ \subsection{Test Categories}
+ 
+ The evaluation suite is organized by the kinds of claims it is meant to stress:
+ 
+ \begin{itemize}
+     \item \textbf{Isomorphism tests}: cross-layer equality of the observable state projection.
+     \item \textbf{Partition operations}: normalization, split/merge preconditions, and canonical region equality.
+     \item \textbf{$\mu$-ledger tests}: monotonicity, conservation, and irreversibility lower bounds.
+     \item \textbf{CHSH/Bell tests}: enforcement of correlation bounds and revelation requirements.
+     \item \textbf{Receipt verification}: signature integrity and step-by-step replay.
+     \item \textbf{Adversarial tests}: malformed traces and invalid certificates.
+     \item \textbf{Performance benchmarks}: throughput with and without receipts.
+ \end{itemize}
+ 
+ \subsection{Automation}
+ 
+ The evaluation pipeline is automated: each change is checked against proof compilation, isomorphism gates, and verification policy checks to prevent semantic drift.
++The fast local gates are the same ones described in the repository workflow: \texttt{make -C coq core} and the two isomorphism pytest suites. When the full hardware toolchain is present, the synthesis gate (\texttt{scripts/forge\_artifact.sh}) adds a hardware-level check.
+ 
+ \subsection{Execution Gates}
+ 
+ The fast local gates are proof compilation and the two isomorphism tests. The full foundry gate adds synthesis when the hardware toolchain is available.
+ 
+ \section{Reproducibility}
+ 
+ \subsection{Artifact Bundles}
+ 
+ Key artifacts include:
+ \begin{itemize}
+     \item 3-way comparison results
+     \item Cross-platform isomorphism summaries
+     \item Synthesis reports
+     \item Content hashes for artifact bundles
+ \end{itemize}
+ 
+ \subsection{Container Reproducibility}
+ 
+ Containerized builds are supported to ensure reproducibility across environments.
+ 
+ \section{Summary}
+ 
+ The evaluation demonstrates:
+ \begin{enumerate}
+diff --git a/thesis/chapters/07_discussion.tex b/thesis/chapters/07_discussion.tex
+index 844e16b1f094164ce7272673c9cd884a2eee471f..5381b4cdfb2c4bf62313c407c23afdf8be6c624b 100644
+--- a/thesis/chapters/07_discussion.tex
++++ b/thesis/chapters/07_discussion.tex
+@@ -1,122 +1,126 @@
+ \section{Why This Chapter Matters}
+ 
+ \subsection{From Proofs to Meaning}
+ 
+-The previous chapters established that the Thiele Machine \textit{works}---it is formally correct (Chapter 4), implemented across three layers (Chapter 5), and empirically validated (Chapter 6). But technical correctness does not answer deeper questions:
++The previous chapters established that the Thiele Machine \textit{works}---it is formally verified (Chapter 5), implemented across three layers (Chapter 4), and empirically validated (Chapter 6). But technical correctness does not answer deeper questions:
+ \begin{itemize}
+     \item What does this model \textit{mean} for computation?
+     \item How does it connect to physics?
+     \item What can I build with it?
+ \end{itemize}
+ 
+ This chapter steps back from technical details to explore the broader significance of treating structure as a conserved resource. The aim is not to introduce new formal claims, but to interpret the verified results in terms that guide future design and experimentation. Every statement below is either (i) a direct restatement of a proven invariant, or (ii) an explicit hypothesis about how those invariants might connect to physics, complexity, or systems practice.
+ 
+ \subsection{How to Read This Chapter}
+ 
+ This discussion covers several distinct areas:
+ \begin{enumerate}
+     \item \textbf{Physics Connections} (§7.2): How the Thiele Machine mirrors physical laws---not as metaphor, but as formal isomorphism
+     \item \textbf{Complexity Theory} (§7.3): A new lens for understanding computational difficulty
+     \item \textbf{AI and Trust} (§7.4--7.5): Applications to artificial intelligence and verifiable computation
+     \item \textbf{Limitations and Future Work} (§7.6--7.7): Honest assessment of what the model cannot do and what remains to be built
+ \end{enumerate}
+ 
+ You do not need to read all sections---focus on those most relevant to your interests.
+ 
+ \section{Broader Implications}
+ 
+ The Thiele Machine is more than a new computational model; it is a proposal for a new relationship between computation, information, and physical reality. This chapter explores the implications of treating structure as a conserved resource.
+ 
+ \section{Connections to Physics}
+ 
+ \subsection{Landauer's Principle}
+ 
+ Landauer's principle states that erasing one bit of information requires at least $kT \ln 2$ of energy dissipation, where $k$ is Boltzmann's constant and $T$ is temperature. This establishes a fundamental connection between logical irreversibility and thermodynamics: many-to-one mappings (like erasure) cannot be implemented without heat dissipation in a physical device.
+ 
+ The Thiele Machine's $\mu$-ledger formalizes a computational analog:
+ \begin{verbatim}
+ Theorem vm_irreversible_bits_lower_bound :
+   forall fuel trace s,
+     irreversible_count fuel trace s <=
+       (run_vm fuel trace s).(vm_mu) - s.(vm_mu).
+ \end{verbatim}
+ 
+ The $\mu$-ledger growth lower-bounds the number of irreversible bit operations. This is not merely an analogy—it is a provable property of the kernel. The additional physical bridge (energy dissipation per $\mu$) is stated explicitly as a postulate, making the scientific hypothesis falsifiable. In other words, the kernel proves an abstract accounting lower bound; the physical claim asserts that real hardware must pay at least that bound in energy.
++The theorem above is proven in \texttt{coq/kernel/MuLedgerConservation.v}. Referencing the file matters because it anchors the physical discussion in a concrete mechanized statement rather than a free-form analogy.
+ 
+ \subsection{No-Signaling and Bell Locality}
+ 
+ The \texttt{observational\_no\_signaling} theorem is the computational analog of Bell locality:
+ \begin{verbatim}
+ Theorem observational_no_signaling : forall s s' instr mid,
+   well_formed_graph s.(vm_graph) ->
+   mid < pg_next_id s.(vm_graph) ->
+   vm_step s instr s' ->
+   ~ In mid (instr_targets instr) ->
+   ObservableRegion s mid = ObservableRegion s' mid.
+ \end{verbatim}
+ 
+ In physics, Bell locality states that operations on system A cannot instantaneously affect system B. In the Thiele Machine, operations on module A cannot affect the observables of module B. This is enforced by construction, not assumed as a physical postulate. The definition of “observable” here is explicit: partition region plus $\mu$-ledger, excluding internal axioms. The exclusion is intentional: axioms are internal commitments, not externally visible signals.
++The formal statement shown here corresponds to \texttt{observational\_no\_signaling} in \texttt{coq/kernel/KernelPhysics.v}, which is proved using the observable projections defined in \texttt{coq/kernel/VMState.v}. This makes the locality claim a theorem about the exact data the machine exposes, not a vague analogy.
+ 
+ \subsection{Noether's Theorem}
+ 
+ The gauge invariance theorem mirrors Noether's theorem from physics:
+ \begin{verbatim}
+ Theorem kernel_noether_mu_gauge : forall s k,
+   conserved_partition_structure s = 
+   conserved_partition_structure (nat_action k s).
+ \end{verbatim}
+ 
+ The symmetry (freedom to shift $\mu$ by a constant) corresponds to the conserved quantity (partition structure). This is not metaphorical—it is the same mathematical relationship that underlies energy conservation in classical mechanics: a symmetry of the dynamics induces a conserved observable.
++The proof lives in \texttt{coq/kernel/KernelNoether.v}, where the \texttt{z\_gauge\_shift} action and its invariants are developed explicitly. This is a genuine Noether-style argument: the conservation law is derived from a symmetry of the semantics rather than assumed.
+ 
+ \subsection{Thermodynamic bridge and falsifiable prediction}
+ 
+ The bridge from a formally verified $\mu$-ledger to a physical claim requires an explicit translation dictionary and at least one measurement that could prove the bridge wrong.
+ 
+ \paragraph{Translation dictionary.} Let $|\Omega|$ be the admissible microstate count of an $n$-bit device ($|\Omega| = 2^n$ at fixed resolution). A revelation step $\Omega \to \Omega'$ (e.g., \texttt{PNEW}, \texttt{PSPLIT}, \texttt{MDLACC}, \texttt{REVEAL}) shrinks the space by $|\Omega|/|\Omega'|$. The normalized certificate bitlength charged by the kernel is the canonical $\mu$ debit, and by construction $\mu \ge \log_2(|\Omega|/|\Omega'|)$. I adopt the bridge postulate that charging $\mu$ bits lower-bounds dissipated heat/work: $Q_{\min} = k_B T \ln 2 \cdot \mu$, with an explicit inefficiency factor $\epsilon \ge 1$ for real devices. This postulate is external to the kernel and is presented as an empirical claim.
+ 
+ \paragraph{Bridge theorem (sanity anchor).} Combining No Free Insight (proved: $\mu$ is monotone non-decreasing) with the postulate above yields a Landauer-style inequality: any trace implementing $\Omega \to \Omega'$ must dissipate at least $k_B T \ln 2 \cdot \log_2(|\Omega|/|\Omega'|)$, because the ledger charges at least that many bits for the reduction. The thermodynamic term is an assumption; the $\mu$ inequality is proved in Coq.
+ \paragraph{Falsifiable prediction.} Consider four paired workloads that differ only in which singleton module is revealed from a fixed pool (sizes 2, 4, 16, 64). The measured energy/heat must scale with $\mu$ at slope $k_B T \ln 2$ (within the stated $\epsilon$). A sustained sub-linear slope falsifies the bridge; a super-linear slope quantifies implementation overhead. Genesis-only traces remain the lone zero-$\mu$ case.
+ \paragraph{Executed bridge runs.} The evaluation in Chapter 6 reports the four workloads (singleton pools of 2/4/16/64 elements). Python reports $\mu=\{2,3,5,7\}$; the extracted runner and RTL report the same $\mu_{\text{raw}}$ because the μ-delta is explicitly encoded in the trace and instruction word, and the reference VM consumes that same μ-delta (disabling implicit MDLACC) for these workloads. With this encoding in place, \texttt{EVIDENCE\_STRICT} succeeds without normalization. The ledger still enforces $\mu \ge \log_2(|\Omega|/|\Omega'|)$ for each run; the $\mu/\log_2$ ratios (2.0, 1.5, 1.25, 1.167) quantify the slack now surfaced to reviewers.
+ \subsection{The Physics-Computation Isomorphism}
+ 
+ \begin{center}
+ \begin{tabular}{|l|l|}
+ \hline
+ \textbf{Physics} & \textbf{Thiele Machine} \\
+ \hline
+ Energy & $\mu$-bits \\
+ Mass & Structural complexity \\
+ Entropy & Irreversible operations \\
+ Conservation laws & Ledger monotonicity \\
+ No-signaling & Observational locality \\
+ Gauge symmetry & $\mu$-gauge invariance \\
+ \hline
+ \end{tabular}
+ \end{center}
+ 
+ The new time-dilation harness (Section~\ref{sec:ledger_time_dilation}) makes the ledger-speed connection concrete: with a fixed μ budget per tick, diverting μ to communication throttles the observed compute rate, matching the intuition that “mass/structure slows time” when μ is conserved. Evidence-strict extensions will carry the same trade-off across Python, extraction, and RTL once EMIT traces are instrumented. The point is not to claim a physical time dilation effect, but to show an internal conservation law that forces a trade-off between signaling and local computation under a fixed μ budget.
++That trade-off is implemented as an explicit ledger budget in the harness described in Chapter 6, so the “dilation” here is a measurable scheduling constraint rather than an untested metaphor.
+ 
+ \section{Implications for Computational Complexity}
+ 
+ \subsection{The "Time Tax" Reformulated}
+ 
+ Classical complexity theory measures cost in steps. The Thiele Machine adds a second dimension: structural cost. For a problem with input $x$:
+ \begin{equation}
+     \text{Total Cost} = T(x) + \mu(x)
+ \end{equation}
+ where $T(x)$ is time complexity and $\mu(x)$ is structural discovery cost.
+ 
+ \subsection{The Conservation of Difficulty}
+ 
+ The No Free Insight theorem implies that difficulty is conserved but can be transmuted:
+ \begin{itemize}
+     \item \textbf{High $T$, Low $\mu$}: Blind search (classical exponential algorithms)
+     \item \textbf{Low $T$, High $\mu$}: Sighted execution (pay upfront for structure)
+ \end{itemize}
+ 
+ For problems like SAT:
+ \begin{equation}
+     T_{\text{blind}}(n) = O(2^n), \quad \mu_{\text{blind}} = O(1)
+ \end{equation}
+ \begin{equation}
+     T_{\text{sighted}}(n) = O(n^k), \quad \mu_{\text{sighted}} = O(2^n)
+@@ -157,50 +161,51 @@ False structural hypotheses incur $\mu$-cost without producing valid receipts. T
+ 
+ \subsection{Neuro-Symbolic Integration}
+ 
+ The Thiele Machine provides a bridge between:
+ \begin{itemize}
+     \item \textbf{Neural}: Fast, approximate pattern recognition
+     \item \textbf{Symbolic}: Exact, verifiable logical reasoning
+ \end{itemize}
+ 
+ A neural network predicts partitions (structure hypotheses). The Thiele kernel verifies them. Failed hypotheses are penalized. The model does not assume the neural component is trustworthy; it treats it as a proposer whose claims must be certified.
+ 
+ \section{Implications for Trust and Verification}
+ 
+ \subsection{The Receipt Chain}
+ 
+ Every Thiele Machine execution produces a cryptographic receipt chain:
+ \begin{verbatim}
+ receipt = {
+     "pre_state_hash": SHA256(state_before),
+     "instruction": opcode,
+     "post_state_hash": SHA256(state_after),
+     "mu_cost": cost,
+     "chain_link": SHA256(previous_receipt)
+ }
+ \end{verbatim}
++The Python implementation of this structure is in \texttt{thielecpu/receipts.py} and \texttt{thielecpu/crypto.py}, and the RTL contains a receipt controller in \texttt{thielecpu/hardware/crypto\_receipt\_controller.v}. The chain is therefore an engineered artifact with concrete hash formats, not an abstract promise.
+ 
+ This enables:
+ \begin{itemize}
+     \item \textbf{Post-hoc Verification}: Check the computation without re-running it
+     \item \textbf{Tamper Detection}: Any modification breaks the hash chain
+     \item \textbf{Selective Disclosure}: Reveal only the receipts relevant to a claim
+ \end{itemize}
+ 
+ \subsection{Applications}
+ 
+ \begin{itemize}
+     \item \textbf{Scientific Reproducibility}: A paper is not a PDF—it is a receipt chain. Verification is automated.
+     \item \textbf{Financial Auditing}: Trading algorithms produce verifiable receipts for every trade.
+     \item \textbf{Legal Evidence}: Digital evidence is cryptographically authenticated at creation.
+     \item \textbf{AI Safety}: AI decisions are logged with verifiable receipts.
+ \end{itemize}
+ 
+ \section{Limitations}
+ 
+ \subsection{The Uncomputability of True $\mu$}
+ 
+ The true Kolmogorov complexity $K(x)$ is uncomputable. Therefore, the $\mu$-cost charged by the Thiele Machine is always an \textit{upper bound} on the minimal structural description:
+ \begin{equation}
+     \mu_{\text{charged}}(x) \ge K(x)
+ \end{equation}
+diff --git a/thesis/chapters/08_conclusion.tex b/thesis/chapters/08_conclusion.tex
+index 524b99ab7d0af2ba15109e810b5ccfacb085e61c..d57730f38e36e46956585aaadcd263aad15571b4 100644
+--- a/thesis/chapters/08_conclusion.tex
++++ b/thesis/chapters/08_conclusion.tex
+@@ -15,97 +15,100 @@ I claimed that this perspective would yield a coherent computational model with:
+ \end{itemize}
+ 
+ This conclusion evaluates whether I achieved these goals and clarifies which claims are proved, which are implemented, and which remain empirical hypotheses. The guiding standard is rebuildability: a reader should be able to reconstruct the model and its evidence from the thesis text alone.
+ 
+ \subsection{How to Read This Chapter}
+ 
+ Section 8.2 summarizes my theoretical, implementation, and verification contributions. Section 8.3 assesses whether the central hypothesis is confirmed. Sections 8.4--8.6 discuss applications, open problems, and future directions.
+ 
+ \textbf{For readers short on time}: Section 8.3 ("The Thiele Machine Hypothesis: Confirmed") provides the essential verdict.
+ 
+ \section{Summary of Contributions}
+ 
+ This thesis has presented the Thiele Machine, a computational model that treats structural information as a conserved, costly resource. My contributions are:
+ 
+ \subsection{Theoretical Contributions}
+ 
+ \begin{enumerate}
+     \item \textbf{The 5-Tuple Formalization}: I defined the Thiele Machine as $T = (S, \Pi, A, R, L)$ with explicit state space, partition graph, axiom sets, transition rules, and logic engine. This formalization enables precise mathematical reasoning about structural computation.
+     
+     \item \textbf{The $\mu$-bit Currency}: I introduced the $\mu$-bit as the atomic unit of structural information cost. The ledger is proven monotone, and its growth lower-bounds irreversible bit events; this ties structural accounting to an operational notion of irreversibility.
+     
+     \item \textbf{The No Free Insight Theorem}: I proved that strengthening certification predicates requires explicit, charged revelation events. This establishes that "free" structural information is impossible within the model’s rules.
+     
+     \item \textbf{Observational No-Signaling}: I proved that operations on one module cannot affect the observables of unrelated modules—a computational analog of Bell locality.
+ \end{enumerate}
++These theoretical components map to concrete Coq artifacts: \texttt{VMState.v} and \texttt{VMStep.v} define the formal machine, \texttt{MuLedgerConservation.v} proves monotonicity and irreversibility bounds, and \texttt{NoFreeInsight.v} formalizes the impossibility claim. The contribution is therefore not just conceptual; it is encoded in machine-checked definitions.
+ 
+ \subsection{Implementation Contributions}
+ 
+ \begin{enumerate}
+     \item \textbf{3-Layer Isomorphism}: I implemented the model across three layers:
+     \begin{itemize}
+         \item Coq formal kernel (zero admits, zero axioms)
+         \item Python reference VM with receipts and trace replay
+         \item Verilog RTL suitable for synthesis
+     \end{itemize}
+-    All three layers produce identical state projections for any instruction trace. The projection is fixed in advance and contains only observable state: registers, memory, control/status registers, the partition graph, the program counter, and the $\mu$-ledger.
++    All three layers produce identical state projections for any instruction trace, with the projection chosen to match the gate being exercised. For compute traces the gate compares registers and memory; for partition traces it compares canonicalized module regions. The extracted runner provides a superset snapshot (pc, $\mu$, err, regs, mem, CSRs, graph) that can be used when a gate needs a broader view.
+     
+     \item \textbf{18-Instruction ISA}: I defined a minimal instruction set sufficient for partition-native computation. The ISA is intentionally small so that each opcode has a clear semantic role: structure creation, structure modification, certification, computation, and control.
+     \begin{itemize}
+         \item Structural: PNEW, PSPLIT, PMERGE, PDISCOVER
+         \item Logical: LASSERT, LJOIN
+         \item Certification: REVEAL, EMIT
+         \item Compute: XFER, XOR\_LOAD, XOR\_ADD, XOR\_SWAP, XOR\_RANK
+         \item Control: PYEXEC, ORACLE\_HALTS, HALT, CHSH\_TRIAL, MDLACC
+     \end{itemize}
+     
+     \item \textbf{The Inquisitor}: I built automated verification tooling that enforces zero-admit discipline and runs the isomorphism gates.
+ \end{enumerate}
++The implementations are organized so they can be audited against the formal kernel: the Coq layer is under \texttt{coq/kernel/}, the Python VM under \texttt{thielecpu/}, and the RTL under \texttt{thielecpu/hardware/}. The isomorphism tests consume traces that exercise all three and compare their observable projections.
+ 
+ \subsection{Verification Contributions}
+ 
+ \begin{enumerate}
+     \item \textbf{Zero-Admit Campaign}: The Coq formalization contains a complete proof tree with no admits and no axioms beyond foundational logic. This is enforced by the verification tooling and guarantees that every theorem is fully discharged within the formal system.
+     
+     \item \textbf{Key Proven Theorems}:
+     \begin{center}
+     \begin{tabular}{|l|l|}
+     \hline
+     \textbf{Theorem} & \textbf{Property} \\
+     \hline
+     \texttt{observational\_no\_signaling} & Locality \\
+     \texttt{mu\_conservation\_kernel} & Single-step monotonicity \\
+     \texttt{run\_vm\_mu\_conservation} & Multi-step conservation \\
+     \texttt{no\_free\_insight\_general} & Impossibility \\
+     \texttt{nonlocal\_correlation\_requires\_revelation} & Supra-quantum certification \\
+     \texttt{kernel\_noether\_mu\_gauge} & Gauge invariance \\
+     \hline
+     \end{tabular}
+     \end{center}
+     
+     \item \textbf{Falsifiability}: Every theorem includes an explicit falsifier specification. If a counterexample exists, it would refute the theorem and identify the precise assumption that failed.
+ \end{enumerate}
++The theorem names in the table correspond to statements in the Coq kernel (for example, \texttt{observational\_no\_signaling} in \texttt{KernelPhysics.v} and \texttt{nonlocal\_correlation\_requires\_revelation} in \texttt{RevelationRequirement.v}). This explicit mapping is what makes the verification story reproducible.
+ 
+ \section{The Thiele Machine Hypothesis: Confirmed}
+ 
+ I set out to test the hypothesis:
+ \begin{quote}
+ \textit{There is no free insight. Structure must be paid for.}
+ \end{quote}
+ 
+ My results confirm this hypothesis within the model:
+ 
+ \begin{enumerate}
+     \item \textbf{Proven}: The No Free Insight theorem establishes that certification of stronger predicates requires explicit structure addition.
+     
+     \item \textbf{Verified}: The 3-layer isomorphism ensures that the proven properties hold in the executable implementation.
+     
+     \item \textbf{Validated}: Empirical tests confirm that CHSH supra-quantum certification requires revelation, and that the $\mu$-ledger is monotonic.
+ \end{enumerate}
+ 
+ The Thiele Machine is not merely consistent with "no free insight"—it \textit{enforces} it as a law of its computational universe. Any further physical interpretation (e.g., thermodynamic dissipation) is stated explicitly as a bridge postulate and is testable rather than assumed.
+ 
+ \section{Impact and Applications}
+ 
+ \subsection{Verifiable Computation}
+ 
+ The receipt system enables:
+diff --git a/thesis/chapters/09_verifier_system.tex b/thesis/chapters/09_verifier_system.tex
+index a3d1902654cd12ff8a262068b3ff316efa6b3706..6ac3724a3fe0a2f1342ad9c4a9c6589c5364abe2 100644
+--- a/thesis/chapters/09_verifier_system.tex
++++ b/thesis/chapters/09_verifier_system.tex
+@@ -1,89 +1,92 @@
+ \section{The Verifier System: Receipt-Defined Certification}
+ 
+ \subsection{Why Verification Matters}
+ 
+ Scientific claims require evidence. When a researcher claims ``this algorithm produces truly random numbers'' or ``this drug causes improved outcomes,'' I need a way to verify these claims independently. Traditional verification relies on trust: I trust that the researcher ran the experiments correctly, recorded the data accurately, and analyzed it properly.
+ 
+ The Thiele Machine's verifier system replaces trust with \textit{cryptographic proof}. Every claim must be accompanied by a \textbf{receipt}---a tamper-proof record of the computation that produced the claim. Anyone can verify the receipt independently, without trusting the original claimant.
+ 
+ From first principles, a verifier needs three ingredients:
+ \begin{enumerate}
+     \item \textbf{Trace integrity}: a way to bind a claim to a specific execution history.
+     \item \textbf{Semantic checking}: a way to re-interpret that history under the model’s rules.
+     \item \textbf{Cost accounting}: a way to ensure that any strengthened claim paid the required $\mu$-cost.
+ \end{enumerate}
+ The verifier system is built to guarantee all three.
++In the codebase, these ingredients are implemented by receipt parsing and signature checks (\texttt{verifier/receipt\_protocol.py}), trace replays in the domain-specific checkers (for example \texttt{verifier/check\_randomness.py}), and explicit $\mu$-cost rules inside the C-modules themselves.
+ 
+ This chapter documents the complete verification infrastructure. The system implements four certification modules (C-modules) that enforce the No Free Insight principle across different application domains:
+ \begin{itemize}
+     \item \textbf{C-RAND}: Certified randomness---proving that bits are truly unpredictable
+     \item \textbf{C-TOMO}: Certified estimation---proving that measurements are accurate
+     \item \textbf{C-ENTROPY}: Certified entropy---proving that disorder is quantified correctly
+     \item \textbf{C-CAUSAL}: Certified causation---proving that causes actually produce effects
+ \end{itemize}
++Each module corresponds to a concrete verifier implementation under \texttt{verifier/} (for example, \texttt{c\_randomness.py}, \texttt{c\_tomography.py}, \texttt{c\_entropy2.py}, and \texttt{c\_causal.py}). This makes the certification rules auditable and runnable, not just conceptual.
+ 
+ The key insight is that \textit{stronger claims require more evidence}. If you claim high-quality randomness, you must demonstrate the source of that randomness. If you claim precise measurements, you must show enough trials to support that precision. The verifier system makes this relationship explicit and enforceable by turning every claim into a checkable predicate over receipts and by requiring explicit $\mu$-charged disclosures whenever the predicate is strengthened.
+ 
+ \section{Architecture Overview}
+ 
+ \subsection{The Closed Work System}
+ 
+ The verification system is orchestrated through a unified closed-work pipeline that produces verifiable artifacts for each certification module. A ``closed work'' run is one where the verifier only accepts inputs that appear in the receipt manifest; any out-of-band data is ignored.
+ 
+ Each verification includes:
+ \begin{itemize}
+     \item PASS/FAIL/UNCERTIFIED status
+     \item Explicit falsifier attempts and outcomes
+     \item Declared structure additions (if any)
+     \item Complete $\mu$-accounting summary
+ \end{itemize}
+ 
+ \subsection{The TRS-1.0 Receipt Protocol}
+ 
+ All verification is receipt-defined through the TRS-1.0 (Thiele Receipt Standard) protocol:
+ \begin{verbatim}
+ {
+     "version": "TRS-1.0",
+     "timestamp": "2025-12-17T00:00:00Z",
+     "manifest": {
+         "claim.json": "sha256:...",
+         "samples.csv": "sha256:...",
+         "disclosure.json": "sha256:..."
+     },
+     "signature": "ed25519:..."
+ }
+ \end{verbatim}
+ 
+ Key properties:
+ \begin{itemize}
+     \item \textbf{Content-addressed}: All artifacts are identified by SHA-256 hash
+     \item \textbf{Signed}: Ed25519 signatures prevent tampering
+     \item \textbf{Minimal}: Only receipted artifacts can influence verification
+ \end{itemize}
+ 
+ This protocol supplies the trace integrity requirement: a verifier can recompute hashes and signatures to confirm that the claim is exactly the one produced by the recorded execution.
++The full TRS-1.0 specification is in \texttt{docs/specs/trs-spec-v1.md}, and the reference implementation for verification lives in \texttt{verifier/receipt\_protocol.py} and \texttt{tools/verify\_trs10.py}. This ensures that the protocol described here is backed by a concrete parser and validator.
+ 
+ \subsection{Non-Negotiable Falsifier Pattern}
+ 
+ Every C-module ships three mandatory falsifier tests. Each test targets a distinct failure mode:
+ \begin{enumerate}
+     \item \textbf{Forge test}: Attempt to manufacture receipts without the canonical channel/opcode.
+     \item \textbf{Underpay test}: Attempt to obtain the claim while paying fewer $\mu$/info bits.
+     \item \textbf{Bypass test}: Route around the channel and confirm rejection.
+ \end{enumerate}
+ 
+ \section{C-RAND: Device-Independent Certified Randomness}
+ 
+ \subsection{Claim Structure}
+ 
+ A randomness claim specifies:
+ \begin{verbatim}
+ {
+     "n_bits": 1024,
+     "min_entropy_per_bit": 0.95
+ }
+ \end{verbatim}
+ 
+ \subsection{Verification Rules}
+ 
+ The randomness verifier enforces:
+diff --git a/thesis/chapters/10_extended_proofs.tex b/thesis/chapters/10_extended_proofs.tex
+index d52efb83aea78c76541a93df0958bc5b8ef7ddbb..4090e29f629990b8d7e4a759a94f03fb3cac3da1 100644
+--- a/thesis/chapters/10_extended_proofs.tex
++++ b/thesis/chapters/10_extended_proofs.tex
+@@ -1,143 +1,148 @@
+ \section{Extended Proof Architecture}
+ 
+ \subsection{Why Machine-Checked Proofs?}
+ 
+ Mathematical proofs have been the gold standard of certainty for millennia. When Euclid proved the infinitude of primes, his proof was ``checked'' by human readers. But human checking is fallible---history is littered with ``proofs'' that contained subtle errors discovered years later.
+ 
+ \textbf{Machine-checked proofs} eliminate this uncertainty. A proof assistant like Coq is a computer program that verifies every logical step. If Coq accepts a proof, the proof is correct relative to the system’s foundational logic---not because I trust the programmer, but because the kernel enforces the inference rules.
+ 
+ The Thiele Machine development contains a large, fully verified Coq proof corpus with:
+ \begin{itemize}
+     \item \textbf{Zero admits}: No proof is left incomplete
+     \item \textbf{Zero axioms}: No unproven assumptions (beyond foundational logic)
+     \item \textbf{Full extraction}: Proofs can be compiled to executable code
+ \end{itemize}
++The corpus is split between the kernel (\texttt{coq/kernel/}) and the extended proofs (\texttt{coq/thielemachine/coqproofs/}). This division mirrors the conceptual separation between the core semantics and the larger ecosystem of applications and bridges.
+ 
+ This chapter documents the complete formalization beyond the kernel layer, organized into specialized proof domains.
+ 
+ \subsection{Reading Coq Code}
+ 
+ For readers unfamiliar with Coq, here is a brief guide:
+ \begin{itemize}
+     \item \texttt{Definition} introduces a named value or function
+     \item \texttt{Record} defines a data structure with named fields
+     \item \texttt{Inductive} defines a type by listing its constructors
+     \item \texttt{Theorem}/\texttt{Lemma} states a property to be proven
+     \item \texttt{Proof. ... Qed.} contains the proof script
+ \end{itemize}
+ 
+ For example:
+ \begin{verbatim}
+ Theorem example : forall n, n + 0 = n.
+ Proof. intros n. induction n; simpl; auto. Qed.
+ \end{verbatim}
+ 
+ This states ``for all natural numbers n, n + 0 = n'' and proves it by induction.
+ 
+ \section{Proof Inventory}
+ 
+ The proof corpus is organized by \emph{domain} rather than by implementation detail. The major blocks are:
+ \begin{itemize}
+     \item \textbf{Kernel semantics}: state, step relation, $\mu$-accounting, observables.
+     \item \textbf{Extended machine proofs}: partition logic, discovery, simulation, and subsumption.
+     \item \textbf{Bridge lemmas}: connections from application domains to kernel obligations.
+     \item \textbf{Physics models}: locality, cone algebra, and symmetry results.
+     \item \textbf{No Free Insight interface}: abstract axiomatization of the impossibility theorem.
+     \item \textbf{Self-reference and meta-theory}: formal limits of self-description.
+ \end{itemize}
++For readers navigating the code, the “kernel semantics” block corresponds to files such as \texttt{VMState.v} and \texttt{VMStep.v}, while many of the “extended machine proofs” live in \texttt{PartitionLogic.v}, \texttt{Subsumption.v}, and related files under \texttt{coq/thielemachine/coqproofs/}. The structure is intentionally layered so that higher-level proofs explicitly import the kernel rather than re-deriving it.
+ 
+ \section{The ThieleMachine Proof Suite (106 Files)}
+ 
+ \subsection{Partition Logic}
+ 
+ Representative definitions:
+ \begin{verbatim}
+ Record Partition := {
+   modules : list (list nat);
+   interfaces : list (list nat)
+ }.
+ 
+ Record LocalWitness := {
+   module_id : nat;
+   witness_data : list nat;
+   interface_proofs : list bool
+ }.
+ 
+ Record GlobalWitness := {
+   local_witnesses : list LocalWitness;
+   composition_proof : bool
+ }.
+ \end{verbatim}
++These records appear in \texttt{coq/thielemachine/coqproofs/PartitionLogic.v}, where they are used to formalize the notion of composable witnesses. The key point is that the “witness” objects are concrete data structures that can be reasoned about in Coq and then mirrored in executable checkers.
+ 
+ Key theorems:
+ \begin{itemize}
+     \item Witness composition preserves validity
+     \item Local witnesses can be combined when interfaces match
+     \item Partition refinement is monotonic in cost
+ \end{itemize}
+ 
+ \subsection{Quantum Admissibility and Tsirelson Bound}
+ 
+ Representative theorem:
+ \begin{verbatim}
+ Definition quantum_admissible_box (B : Box) : Prop :=
+   local B \/ B = TsirelsonApprox.
+ 
+ Theorem quantum_admissible_implies_CHSH_le_tsirelson :
+   forall B,
+     quantum_admissible_box B ->
+     Qabs (S B) <= kernel_tsirelson_bound_q.
+ \end{verbatim}
+ 
+ The \textbf{literal quantitative bound}:
+ \begin{equation}
+     |S| \le \frac{5657}{2000} \approx 2.8285
+ \end{equation}
+ 
+ This is a machine-checked rational inequality, not a floating-point approximation.
++The bound is developed in files such as \texttt{QuantumAdmissibilityTsirelson.v} and \texttt{QuantumAdmissibilityDeliverableB.v}, which prove the inequality using exact rationals so that it can be exported and tested without rounding ambiguity.
+ 
+ \subsection{Bell Inequality Formalization}
+ 
+ Multiple Bell-related proofs:
+ \begin{itemize}
+     \item \texttt{BellInequality.v}: Core CHSH definitions and classical bound
+     \item \texttt{BellReceiptLocalGeneral.v}: Receipt-based locality
+     \item \texttt{TsirelsonBoundBridge.v}: Bridge to kernel semantics
+ \end{itemize}
+ 
+ \subsection{Turing Machine Embedding}
+ 
+ Representative theorem:
+ \begin{verbatim}
+ Theorem thiele_simulates_turing :
+   forall fuel prog st,
+     program_is_turing prog ->
+     run_tm fuel prog st = run_thiele fuel prog st.
+ \end{verbatim}
+ 
+ This proves that the Thiele Machine properly subsumes Turing computation.
++The kernel version of this theorem is in \texttt{coq/kernel/Subsumption.v}, and the extended proof layer re-exports it in \texttt{coq/thielemachine/coqproofs/Subsumption.v}. This ensures that the subsumption claim is grounded in the same semantics used for the rest of the model.
+ 
+ \subsection{Oracle and Impossibility Theorems}
+ 
+ \begin{itemize}
+     \item \texttt{Oracle.v}: Oracle machine definitions
+     \item \texttt{OracleImpossibility.v}: Limits of oracle computation
+     \item \texttt{HyperThiele\_Halting.v}: Halting problem connections
+     \item \texttt{HyperThiele\_Oracle.v}: Hypercomputation analysis
+ \end{itemize}
+ 
+ \subsection{Additional ThieleMachine Proofs}
+ 
+ Further results cover: blind vs sighted computation, confluence, simulation relations, separation theorems, and proof-carrying computation. These theorems are not isolated; they reuse the kernel invariants and the partition logic to show that the same structural accounting principles scale to richer settings.
+ 
+ \section{Theory of Everything (TOE) Proofs}
+ 
+ This branch of the development attempts to derive physics from kernel semantics alone.
+ 
+ \subsection{The Final Outcome Theorem}
+ 
+ Representative theorem:
+ \begin{verbatim}
+ Theorem KernelTOE_FinalOutcome :
+   KernelMaximalClosureP /\ KernelNoGoForTOE_P.
+ \end{verbatim}
+diff --git a/thesis/chapters/11_experiments.tex b/thesis/chapters/11_experiments.tex
+index 33515c37a2a8c37231f23060b32b680fa632babd..cd9ade3ed2678bb27dd510854cdeb71ed6820f87 100644
+--- a/thesis/chapters/11_experiments.tex
++++ b/thesis/chapters/11_experiments.tex
+@@ -1,142 +1,146 @@
+ \section{Experimental Validation Suite}
+ 
+ \subsection{The Role of Experiments in Theoretical Computer Science}
+ 
+ Theoretical computer science traditionally relies on mathematical proof rather than experiment. I prove that an algorithm is $O(n \log n)$; I don't run it 10,000 times to estimate its complexity empirically.
+ 
+ However, the Thiele Machine makes \textit{falsifiable predictions}---claims that could be wrong if the theory is incorrect. This invites experimental validation:
+ \begin{itemize}
+     \item If the theory predicts $\mu$-costs scale linearly, I can measure them
+     \item If the theory predicts locality constraints, I can test for violations
+     \item If the theory predicts impossibility results, I can attempt to break them
+ \end{itemize}
+ 
+ This chapter documents a comprehensive experimental campaign that treats the Thiele Machine as a \textit{scientific theory} subject to empirical testing. The emphasis is on reproducible protocols and adversarial attempts to falsify the claims, not on cherry-picked confirmations.
++Where possible, the experiments correspond to concrete harnesses in the repository (for example, CHSH and supra-quantum checks in \texttt{tests/test\_supra\_revelation\_semantics.py} and related utilities in \texttt{tools/finite\_quantum.py}). The “representative protocols” below are therefore summaries of executable workflows rather than purely hypothetical sketches.
+ 
+ \subsection{Falsification vs.\ Confirmation}
+ 
+ Following Karl Popper's philosophy of science, I prioritize \textbf{falsification} over confirmation. It is easy to find examples where the theory ``works''; it is much harder to construct adversarial tests that could break the theory.
+ 
+ The experimental suite includes:
+ \begin{itemize}
+     \item \textbf{Physics experiments}: Validate predictions about energy, locality, entropy
+     \item \textbf{Falsification tests}: Red-team attempts to break the theory
+     \item \textbf{Benchmarks}: Measure actual performance characteristics
+     \item \textbf{Demonstrations}: Showcase practical applications
+ \end{itemize}
+ 
+ Every experiment is reproducible: each protocol specifies inputs, outputs, and the acceptance criteria so that a third party can re-run the experiment and check the same invariants.
+ 
+ \section{Experiment Categories}
+ 
+ The experimental suite is organized by the kind of claim under test:
+ \begin{itemize}
+     \item \textbf{Physics experiments}: test locality, entropy, and measurement-cost predictions.
+     \item \textbf{Falsification tests}: adversarial attempts to violate No Free Insight.
+     \item \textbf{Benchmarks}: measure performance and overhead.
+     \item \textbf{Demonstrations}: make the model’s behavior visible to users.
+     \item \textbf{Integration tests}: end-to-end verification across layers.
+ \end{itemize}
+ 
+ \section{Physics Experiments}
+ 
+ \subsection{Landauer Principle Validation}
+ 
+ Representative protocol:
+ \begin{verbatim}
+ def run_landauer_experiment(
+     temperatures: List[float],
+     bit_counts: List[int],
+     erasure_type: str = "logical"
+ ) -> LandauerResults:
+     """
+     Validate that information erasure costs energy >= kT ln(2).
+     
+     The kernel enforces mu-increase on ERASE operations,
+     which should track physical energy at the Landauer bound.
+     """
+ \end{verbatim}
++The kernel-level lower bound used here is proven in \texttt{coq/kernel/MuLedgerConservation.v}, which ties $\mu$ increments to irreversible operations. The experiment is the empirical mirror: it checks that the measured runs obey the same monotone cost behavior observed in the proofs.
+ 
+ \textbf{Results:} Across 1,000 runs at temperatures from 1K to 1000K, all erasure operations showed $\mu$-increase consistent with Landauer's bound within measurement precision.
+ 
+ \subsection{Einstein Locality Test}
+ 
+ Representative protocol:
+ \begin{verbatim}
+ def test_einstein_locality():
+     """
+     Verify no-signaling: Alice's choice cannot affect Bob's
+     marginal distribution instantaneously.
+     """
+     # Run 10,000 trials across all measurement angle combinations
+     # Verify P(b|x,y) = P(b|y) for all x
+ \end{verbatim}
+ 
+ \textbf{Results:} No-signaling verified to $10^{-6}$ precision across all 16 input/output combinations.
+ 
+ \subsection{Entropy Coarse-Graining}
+ 
+ Representative protocol:
+ \begin{verbatim}
+ def measure_entropy_vs_coarseness(
+     state: VMState,
+     coarse_levels: List[int]
+ ) -> List[float]:
+     """
+     Demonstrate that entropy is only defined when
+     coarse-graining is applied per EntropyImpossibility.v.
+     """
+ \end{verbatim}
++This protocol is a direct operationalization of the impossibility result in \texttt{coq/kernel/EntropyImpossibility.v}, which shows that entropy claims require explicit coarse-graining. The experiment checks that the verifier enforces that requirement in practice.
+ 
+ \textbf{Results:} Raw state entropy diverges; entropy converges only with coarse-graining parameter $\epsilon > 0$.
+ 
+ \subsection{Observer Effect}
+ 
+ Representative protocol:
+ \begin{verbatim}
+ def measure_observation_cost():
+     """
+     Verify that observation itself has mu-cost,
+     consistent with physical measurement back-action.
+     """
+ \end{verbatim}
+ 
+ \textbf{Results:} Every observation increments $\mu$ by at least 1 unit, consistent with minimum measurement cost.
+ 
+ \subsection{CHSH Game Demonstration}
+ 
+ Representative protocol:
+ \begin{verbatim}
+ def run_chsh_game(n_rounds: int) -> CHSHResults:
+     """
+     Demonstrate CHSH winning probability bounds.
+     - Classical strategies: <= 75%
+     - Quantum strategies: <= 85.35% (Tsirelson)
+     - Kernel-certified: matches Tsirelson exactly
+     """
+ \end{verbatim}
++The CHSH computations use the same conservative rational Tsirelson bound employed by the kernel and Python libraries, so the reported percentages can be traced to exact arithmetic rather than floating-point thresholds.
+ 
+ \textbf{Results:} 100,000 rounds achieved 85.3\% $\pm$ 0.1\%, consistent with the Tsirelson bound $\frac{2+\sqrt{2}}{4}$.
+ 
+ \section{Complexity Gap Experiments}
+ 
+ \subsection{Partition Discovery Cost}
+ 
+ Representative protocol:
+ \begin{verbatim}
+ def measure_discovery_scaling(
+     problem_sizes: List[int]
+ ) -> ScalingResults:
+     """
+     Measure how partition discovery cost scales with problem size.
+     Theory predicts: O(n * log(n)) for structured problems.
+     """
+ \end{verbatim}
+ 
+ \textbf{Results:} Discovery costs matched $O(n \log n)$ prediction for sizes 100--10,000.
+ 
+ \subsection{Complexity Gap Demonstration}
+ 
+ Representative protocol:
+ \begin{verbatim}
+ def demonstrate_complexity_gap():
+@@ -254,55 +258,55 @@ $ python -m demos.chsh_game --rounds 10000
+ CHSH Game Results:
+ ==================
+ Rounds played: 10,000
+ Wins: 8,532
+ Win rate: 85.32%
+ Tsirelson bound: 85.35%
+ Gap: 0.03%
+ 
+ Receipt generated: chsh_game_receipt_2024.json
+ \end{verbatim}
+ 
+ \subsection{Research Demonstrations}
+ 
+ Representative topics:
+ \begin{itemize}
+     \item Bell inequality variations
+     \item Entanglement witnesses
+     \item Quantum state tomography
+     \item Causal inference examples
+ \end{itemize}
+ 
+ \section{Integration Tests}
+ 
+ \subsection{End-to-End Test Suite}
+ 
+-The end-to-end test suite runs representative traces through the full pipeline and verifies receipt integrity, $\mu$-monotonicity, and cross-layer equality of observable state projections.
++The end-to-end test suite runs representative traces through the full pipeline and verifies receipt integrity, $\mu$-monotonicity, and cross-layer equality of observable projections (with the exact projection determined by the gate: registers/memory for compute traces, module regions for partition traces).
+ 
+ \subsection{Isomorphism Tests}
+ 
+-Isomorphism tests enforce the 3-layer correspondence by comparing canonical projections of state after identical traces. Any mismatch is treated as a critical failure.
++Isomorphism tests enforce the 3-layer correspondence by comparing canonical projections of state after identical traces, using the projection that matches the trace type. Any mismatch is treated as a critical failure.
+ 
+ \subsection{Fuzz Testing}
+ 
+ Representative protocol:
+ \begin{verbatim}
+ def test_fuzz_vm_inputs():
+     """
+     Random input fuzzing to find edge cases.
+     10,000 random instruction sequences.
+     """
+ \end{verbatim}
+ 
+ \textbf{Results:} Zero crashes, zero undefined behaviors, all $\mu$-invariants preserved.
+ 
+ \section{Continuous Integration}
+ 
+ \subsection{CI Pipeline}
+ 
+ The project runs multiple continuous checks:
+ \begin{enumerate}
+     \item \textbf{Proof build}: compile the formal development
+     \item \textbf{Admit check}: enforce zero-admit discipline
+     \item \textbf{Unit tests}: execute representative correctness tests
+     \item \textbf{Isomorphism gates}: ensure Python/extracted/RTL match
+     \item \textbf{Benchmarks}: detect performance regressions
+diff --git a/thesis/chapters/12_physics_and_primitives.tex b/thesis/chapters/12_physics_and_primitives.tex
+index 6b64ba6b099757e8ceeedf531b777fcbde3d33cf..ff014a393a6fbdaa058814c17ed8613b33ffcdd6 100644
+--- a/thesis/chapters/12_physics_and_primitives.tex
++++ b/thesis/chapters/12_physics_and_primitives.tex
+@@ -1,127 +1,130 @@
+ \section{Physics Models and Algorithmic Primitives}
+ 
+ \subsection{Computation as Physics}
+ 
+ A central claim of this thesis is that computation is not merely an abstract mathematical process---it is a \textit{physical} process subject to physical laws. When a computer erases a bit, it dissipates heat. When it stores information, it consumes energy. The $\mu$-ledger tracks these physical costs.
+ 
+ To validate this connection, I develop explicit physics models within the Coq framework:
+ \begin{itemize}
+     \item \textbf{Wave propagation}: A model of reversible dynamics with conservation laws
+     \item \textbf{Dissipative systems}: A model of irreversible dynamics connecting to $\mu$-monotonicity
+     \item \textbf{Discrete lattices}: A model of emergent spacetime from computational steps
+ \end{itemize}
+ 
+ These models are not metaphors---they are formally verified Coq proofs showing that computational structures exhibit physical-like behavior.
++The wave model lives in \texttt{coq/physics/WaveModel.v}, and its embedding into the Thiele Machine is proven in \texttt{coq/thielemachine/coqproofs/WaveEmbedding.v}. The lattice and dissipative models follow the same pattern: define a state and step function, then prove conservation or monotonicity lemmas that can be linked back to kernel invariants.
+ 
+ \subsection{From Theory to Algorithms}
+ 
+ The second part of this chapter bridges the abstract theory to concrete algorithms. The Shor primitives demonstrate that the period-finding core of Shor's factoring algorithm can be formalized and verified in Coq, connecting:
+ \begin{itemize}
+     \item Number theory (modular arithmetic, GCD)
+     \item Computational complexity (polynomial vs.\ exponential)
+     \item The Thiele Machine's $\mu$-cost model
+ \end{itemize}
+ 
+ This chapter documents the physics models that demonstrate emergent conservation laws and the algorithmic primitives that bridge abstract mathematics to concrete factorization.
+ 
+ \section{Physics Models}
+ 
+ The formal development contains verified physics models that demonstrate how physical laws emerge from computational structure.
+ 
+ \subsection{Wave Propagation Model}
+ 
+ Representative model: a 1D wave dynamics model with left- and right-moving amplitudes:
+ \begin{verbatim}
+ Record WaveCell := {
+   left_amp : nat;
+   right_amp : nat
+ }.
+ 
+ Definition WaveState := list WaveCell.
+ 
+ Definition wave_step (s : WaveState) : WaveState :=
+   let lefts := rotate_left (map left_amp s) in
+   let rights := rotate_right (map right_amp s) in
+   map2 (fun l r => {| left_amp := l; right_amp := r |}) lefts rights.
+ \end{verbatim}
+ 
+ \textbf{Conservation theorems:}
+ \begin{verbatim}
+ Theorem wave_energy_conserved : 
+   forall s, wave_energy (wave_step s) = wave_energy s.
+ 
+ Theorem wave_momentum_conserved : 
+   forall s, wave_momentum (wave_step s) = wave_momentum s.
+ 
+ Theorem wave_step_reversible : 
+   forall s, wave_step_inv (wave_step s) = s.
+ \end{verbatim}
+ 
+ These proofs demonstrate that even simple computational models exhibit physical-like conservation laws.
++The key point is that the proofs are about the concrete \texttt{wave\_step} definition in the Coq file, not about an informal physical analogy. This is why the conservation laws can later be transported into kernel semantics via embedding lemmas.
+ 
+ \subsection{Dissipative Model}
+ 
+ The dissipative model captures irreversible dynamics, connecting to $\mu$-monotonicity of the kernel.
+ 
+ \subsection{Discrete Model}
+ 
+ The discrete model uses lattice-based dynamics for discrete spacetime emergence.
+ 
+ \section{Shor Primitives}
+ 
+ The formalization includes the mathematical foundations of Shor's factoring algorithm.
+ 
+ \subsection{Period Finding}
+ 
+ Representative definitions:
+ \begin{verbatim}
+ Definition is_period (r : nat) : Prop :=
+   r > 0 /\ forall k, pow_mod (k + r) = pow_mod k.
+ 
+ Definition minimal_period (r : nat) : Prop :=
+   is_period r /\ forall r', is_period r' -> r' >= r.
+ 
+ Definition shor_candidate (r : nat) : nat :=
+   let half := r / 2 in
+   let term := Nat.pow a half in
+   gcd_euclid (term - 1) N.
+ \end{verbatim}
+ 
+ \textbf{The Shor Reduction Theorem:}
+ \begin{verbatim}
+ Theorem shor_reduction :
+   forall r,
+     minimal_period r ->
+     Nat.Even r ->
+     let g := shor_candidate r in
+     1 < g < N ->
+     Nat.divide g N /\ 
+     Nat.divide g (Nat.pow a (r / 2) - 1).
+ \end{verbatim}
+ 
+ This is the mathematical core of Shor's algorithm: given the period $r$ of $a^r \equiv 1 \pmod{N}$, I can extract non-trivial factors via GCD.
++These definitions and the theorem are formalized in \texttt{coq/shor\_primitives/PeriodFinding.v}, which provides the exact statements used in the proof scripts rather than an informal paraphrase.
+ 
+ \subsection{Verified Examples}
+ 
+ \begin{center}
+ \begin{tabular}{|c|c|c|c|c|}
+ \hline
+ \textbf{N} & \textbf{a} & \textbf{Period r} & \textbf{Factors} & \textbf{Verification} \\
+ \hline
+ 21 & 2 & 6 & 3, 7 & $2^3 = 8$; $\gcd(7, 21) = 7$ \\
+ 15 & 2 & 4 & 3, 5 & $2^2 = 4$; $\gcd(3, 15) = 3$ \\
+ 35 & 2 & 12 & 5, 7 & $2^6 = 64 \equiv 29$; $\gcd(28, 35) = 7$ \\
+ \hline
+ \end{tabular}
+ \end{center}
+ 
+ \subsection{Euclidean Algorithm}
+ 
+ Representative Euclidean algorithm:
+ \begin{verbatim}
+ Fixpoint gcd_euclid (a b : nat) : nat :=
+   match b with
+   | 0 => a
+   | S b' => gcd_euclid b (a mod (S b'))
+   end.
+ 
+@@ -140,50 +143,51 @@ Definition mod_pow (n base exp : nat) : nat := ...
+ 
+ Theorem mod_pow_mult : 
+   forall n a b c, mod_pow n a (b + c) = ...
+ \end{verbatim}
+ 
+ \section{Bridge Modules}
+ 
+ Bridge lemmas connect domain-specific constructs to kernel semantics via receipt channels.
+ 
+ \subsection{Randomness Bridge}
+ 
+ Representative bridge lemma:
+ \begin{verbatim}
+ Definition RAND_TRIAL_OP : nat := 1001.
+ 
+ Definition RandChannel (r : Receipt) : bool :=
+   Nat.eqb (r_op r) RAND_TRIAL_OP.
+ 
+ Lemma decode_is_filter_payloads :
+   forall tr,
+     decode RandChannel tr =
+     map r_payload (filter RandChannel tr).
+ \end{verbatim}
+ 
+ This bridge defines how randomness-relevant receipts are extracted from traces.
++The formal statement above appears in \texttt{coq/bridge/Randomness\_to\_Kernel.v}. It is the connective tissue between high-level randomness claims and the kernel trace semantics, ensuring that a “randomness proof” is literally a filtered view of receipted steps.
+ 
+ Each bridge defines:
+ \begin{enumerate}
+     \item A channel selector (opcode-based filtering)
+     \item Payload extraction from matching receipts
+     \item Decode lemmas proving filter-map equivalence
+ \end{enumerate}
+ 
+ \section{Flagship DI Randomness Track}
+ 
+ The project's flagship demonstration is \textbf{device-independent randomness} certification.
+ 
+ \subsection{Protocol Flow}
+ 
+ \begin{enumerate}
+     \item \textbf{Transcript Generation}: decode receipts-only traces
+     \item \textbf{Metric Computation}: compute $H_{\min}$ lower bound
+     \item \textbf{Admissibility Check}: verify $K$-bounded structure addition
+     \item \textbf{Bound Theorem}: $\text{Admissible}(K) \Rightarrow H_{\min} \le f(K)$
+ \end{enumerate}
+ 
+ \subsection{The Quantitative Bound}
+ 
+ Representative theorem:
+ \begin{verbatim}
+diff --git a/thesis/chapters/13_hardware_and_demos.tex b/thesis/chapters/13_hardware_and_demos.tex
+index ece35ce06fe0f6d549676d6fd9dfb4a0db784f6d..1349c1bca74a2bb24a56ef10ff9eadcdd6c8b353 100644
+--- a/thesis/chapters/13_hardware_and_demos.tex
++++ b/thesis/chapters/13_hardware_and_demos.tex
+@@ -1,135 +1,147 @@
+ \section{Hardware Implementation and Demonstrations}
+ 
+ \subsection{Why Hardware Matters}
+ 
+ A computational model is only as credible as its implementation. The Turing Machine was a thought experiment---it was never built as a physical device (though it could be). The Church-Turing thesis claims that any ``mechanical'' computation can be performed by a Turing Machine, but this claim rests on an informal notion of ``mechanical.''
+ 
+ The Thiele Machine is different: I provide a \textbf{hardware implementation} in Verilog RTL that can be synthesized to real silicon. This serves three purposes:
+ \begin{enumerate}
+     \item \textbf{Realizability}: The abstract $\mu$-costs correspond to real physical resources (logic gates, flip-flops, clock cycles)
+     \item \textbf{Verification}: The 3-layer isomorphism (Coq $\leftrightarrow$ Python $\leftrightarrow$ RTL) ensures correctness across abstraction levels
+     \item \textbf{Enforcement}: Hardware can physically enforce invariants that software might violate
+ \end{enumerate}
+ 
+-The key insight is that the $\mu$-ledger's monotonicity is not just a theorem---it is \textit{physically enforced} by the hardware. The $\mu$-ALU has no subtract path for the cost register. It is architecturally impossible for $\mu$ to decrease.
++The key insight is that the $\mu$-ledger's monotonicity is not just a theorem---it is \textit{physically enforced} by the hardware. The $\mu$-core gates ledger updates and rejects any proposed cost update that would decrease the accumulated value (see \texttt{thielecpu/hardware/mu\_core.v}). This makes $\mu$-decreasing transitions architecturally invalid rather than merely discouraged by software.
+ 
+ \subsection{From Proofs to Silicon}
+ 
+ This chapter traces the complete path from Coq proofs to synthesizable hardware:
+ \begin{itemize}
+     \item Coq definitions are extracted to OCaml
+     \item OCaml semantics are mirrored in Python for testing
+     \item Python behavior is implemented in Verilog RTL
+     \item Verilog is synthesized to FPGA bitstreams
+ \end{itemize}
+ 
+ This chapter documents the complete hardware implementation (RTL layer) and the demonstration suite showcasing the Thiele Machine's capabilities. The goal is rebuildability: a reader should be able to reconstruct the hardware pipeline and the demo protocols from the descriptions here without relying on hidden repository details.
+ 
+ \section{Hardware Architecture}
+ 
+ The hardware implementation consists of a synthesizable Verilog core plus supporting modules for $\mu$-accounting, memory, and logic-engine interfacing.
+ 
+ \subsection{Core Modules}
+ 
+ \begin{center}
+ \begin{tabular}{|l|l|}
+ \hline
+ \textbf{Module} & \textbf{Purpose} \\
+ \hline
+ CPU core & Fetch/decode/execute pipeline for the ISA \\
+ $\mu$-ALU & $\mu$-cost arithmetic unit (addition only) \\
+ $\mu$-Core & Cost accounting engine and ledger storage \\
+ MMU & Memory management unit \\
+ LEI & Logic engine interface \\
+ State serializer & JSON state export for isomorphism checks \\
+ \hline
+ \end{tabular}
+ \end{center}
+ 
+ \subsection{Instruction Encoding}
+ 
+ Representative opcode encoding:
+ \begin{verbatim}
+-// Core opcodes
+-`define OP_NOP      8'h00
+-`define OP_HALT     8'h01
+-`define OP_LOAD     8'h10
+-`define OP_STORE    8'h11
+-`define OP_ADD      8'h20
+-`define OP_MUL      8'h21
+-// Partition opcodes
+-`define OP_PNEW     8'h40
+-`define OP_PSPLIT   8'h41
+-`define OP_PMERGE   8'h42
+-`define OP_REVEAL   8'h50
+-// Certification opcodes
+-`define OP_CERTIFY  8'h60
+-`define OP_LASSERT  8'h61
++// Opcodes (generated from Coq)
++localparam [7:0] OPCODE_PNEW = 8'h00;
++localparam [7:0] OPCODE_PSPLIT = 8'h01;
++localparam [7:0] OPCODE_PMERGE = 8'h02;
++localparam [7:0] OPCODE_LASSERT = 8'h03;
++localparam [7:0] OPCODE_LJOIN = 8'h04;
++localparam [7:0] OPCODE_MDLACC = 8'h05;
++localparam [7:0] OPCODE_PDISCOVER = 8'h06;
++localparam [7:0] OPCODE_XFER = 8'h07;
++localparam [7:0] OPCODE_PYEXEC = 8'h08;
++localparam [7:0] OPCODE_CHSH_TRIAL = 8'h09;
++localparam [7:0] OPCODE_XOR_LOAD = 8'h0A;
++localparam [7:0] OPCODE_XOR_ADD = 8'h0B;
++localparam [7:0] OPCODE_XOR_SWAP = 8'h0C;
++localparam [7:0] OPCODE_XOR_RANK = 8'h0D;
++localparam [7:0] OPCODE_EMIT = 8'h0E;
++localparam [7:0] OPCODE_ORACLE_HALTS = 8'h0F;
++localparam [7:0] OPCODE_HALT = 8'hFF;
+ \end{verbatim}
++These definitions are generated in \texttt{thielecpu/hardware/generated\_opcodes.vh} from the Coq instruction list, ensuring that the hardware and proofs share the same opcode mapping.
+ 
+ \subsection{$\mu$-ALU Design}
+ 
+ The $\mu$-ALU is a specialized arithmetic unit for cost accounting:
+ \begin{verbatim}
+ module mu_alu (
+     input wire clk,
+-    input wire rst,
+-    input wire [31:0] mu_in,
+-    input wire [31:0] cost,
+-    input wire op_add,
+-    output reg [31:0] mu_out,
+-    output wire overflow
++    input wire rst_n,
++    input wire [2:0] op,          // 0=add, 1=sub, 2=mul, 3=div, 4=log2, 5=info_gain
++    input wire [31:0] operand_a,  // Q16.16 operand A
++    input wire [31:0] operand_b,  // Q16.16 operand B
++    input wire valid,
++    output reg [31:0] result,
++    output reg ready,
++    output reg overflow
+ );
+-    always @(posedge clk) begin
+-        if (rst) mu_out <= 0;
+-        else if (op_add) mu_out <= mu_in + cost;
+-    end
+-    assign overflow = (mu_in + cost < mu_in);
++    ...
+ endmodule
+ \end{verbatim}
+ 
+-Key property: \textbf{$\mu$ only increases}---the ALU has no subtract path for the cost register.
++Key property: \textbf{$\mu$ only increases} at the ledger boundary. The $\mu$-ALU implements arithmetic in Q16.16 fixed-point (see \texttt{thielecpu/hardware/mu\_alu.v}), while the $\mu$-core enforces the monotonicity policy by gating ledger updates so that any decreasing update is rejected.
+ 
+ \subsection{State Serialization}
+ 
+-The state serializer outputs JSON for cross-layer verification:
++The state serializer outputs a canonical byte stream for cross-layer verification:
+ \begin{verbatim}
+ module state_serializer (
+     input wire clk,
+-    input wire trigger,
+-    input wire [31:0] pc, mu, err,
+-    input wire [31:0] regs [0:15],
+-    output reg [7:0] json_char,
+-    output reg json_valid
++    input wire rst,
++    input wire start,
++    output reg ready,
++    output reg valid,
++    input wire [31:0] num_modules,
++    input wire [31:0] module_0_id,
++    input wire [31:0] module_0_var_count,
++    input wire [31:0] module_1_id,
++    input wire [31:0] module_1_var_count,
++    input wire [31:0] module_1_var_0,
++    input wire [31:0] module_1_var_1,
++    input wire [31:0] mu,
++    input wire [31:0] pc,
++    input wire [31:0] halted,
++    input wire [31:0] result,
++    input wire [31:0] program_hash,
++    output reg [8:0] byte_count,
++    output reg [367:0] serialized
+ );
+ \end{verbatim}
+ 
+-Output format matches Python VM and extracted runner:
+-\begin{verbatim}
+-{"pc":123,"mu":456,"err":0,"regs":[...]}
+-\end{verbatim}
++The serializer implementation is in \texttt{thielecpu/hardware/state\_serializer.v}, and it emits the Canonical Serialization Format (CSF) defined in \texttt{docs/CANONICAL\_SERIALIZATION.md}. JSON snapshots used by the isomorphism harness come from the RTL testbench (\texttt{thielecpu/hardware/thiele\_cpu\_tb.v}), not from the serializer itself.
+ 
+ \subsection{Synthesis Results}
+ 
+ Target: Xilinx 7-series (Artix-7)
+ \begin{center}
+ \begin{tabular}{|l|r|}
+ \hline
+ \textbf{Resource} & \textbf{Usage} \\
+ \hline
+ LUTs & 2,847 \\
+ Flip-Flops & 1,234 \\
+ Block RAM & 4 \\
+ DSP Slices & 2 \\
+ \hline
+ Max Frequency & 125 MHz \\
+ \hline
+ \end{tabular}
+ \end{center}
+ 
+ \section{Testbench Infrastructure}
+ 
+ \subsection{Main Testbench}
+ 
+ Representative testbench snippet:
+ \begin{verbatim}

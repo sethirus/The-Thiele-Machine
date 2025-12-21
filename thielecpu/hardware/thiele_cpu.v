@@ -808,21 +808,18 @@ task execute_emit;
     input [7:0] value_b;
     begin
         // Emit value to output
-        if (value_a == 0) begin
-            info_gain_counter <= value_b;
-        end else begin
-            info_gain_counter <= info_gain_counter + 1;
-        end
+        // Match Python VM semantics: accumulate value_b into info_gain_counter
+        info_gain_counter <= info_gain_counter + value_b;
         csr_status <= {value_a, value_b, 16'h0};
     end
 endtask
 
 task execute_xfer;
-    input [7:0] src;
     input [7:0] dest;
+    input [7:0] src;
     begin
         // Register transfer (matches Python VM + Coq kernel semantics)
-        reg_file[dest[4:0]] = reg_file[src[4:0]];
+        reg_file[dest[4:0]] <= reg_file[src[4:0]];
         csr_status <= 32'h6; // Transfer successful
     end
 endtask
@@ -835,7 +832,7 @@ task execute_xor_load;
     input [7:0] dest;
     input [7:0] addr;
     begin
-        reg_file[dest[4:0]] = data_mem[addr];
+        reg_file[dest[4:0]] <= data_mem[addr];
         csr_status <= 32'h7; // XOR load successful
     end
 endtask
@@ -844,7 +841,7 @@ task execute_xor_add;
     input [7:0] dest;
     input [7:0] src;
     begin
-        reg_file[dest[4:0]] = reg_file[dest[4:0]] ^ reg_file[src[4:0]];
+        reg_file[dest[4:0]] <= reg_file[dest[4:0]] ^ reg_file[src[4:0]];
         csr_status <= 32'h8; // XOR add successful
     end
 endtask
@@ -853,9 +850,8 @@ task execute_xor_swap;
     input [7:0] a;
     input [7:0] b;
     begin
-        swap_temp = reg_file[a[4:0]];
-        reg_file[a[4:0]] = reg_file[b[4:0]];
-        reg_file[b[4:0]] = swap_temp;
+        reg_file[a[4:0]] <= reg_file[b[4:0]];
+        reg_file[b[4:0]] <= reg_file[a[4:0]];
         csr_status <= 32'h9; // XOR swap successful
     end
 endtask
@@ -872,7 +868,7 @@ task execute_xor_rank;
         for (k = 0; k < 32; k = k + 1) begin
             cnt = cnt + v[k];
         end
-        reg_file[dest[4:0]] = cnt;
+        reg_file[dest[4:0]] <= cnt;
         csr_status <= cnt;
     end
 endtask

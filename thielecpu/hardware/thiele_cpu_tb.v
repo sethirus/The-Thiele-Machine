@@ -14,6 +14,12 @@
 
 module thiele_cpu_tb;
 
+`ifdef YOSYS_LITE
+localparam NUM_MODULES = 4;
+`else
+localparam NUM_MODULES = 64;
+`endif
+
 // ============================================================================
 // SIGNALS
 // ============================================================================
@@ -264,6 +270,7 @@ initial begin
             $display("MDL Ops: %d", mdl_ops);
             $display("Info Gain: %d", info_gain);
             $display("{");
+            $display("  \"status\": %d,", status);
             $display("  \"partition_ops\": %d,", partition_ops);
             $display("  \"mdl_ops\": %d,", mdl_ops);
             $display("  \"info_gain\": %d,", info_gain);
@@ -281,7 +288,7 @@ initial begin
             end
             $display("  ],");
             $display("  \"modules\": [");
-            for (i = 0; i < 64; i = i + 1) begin
+            for (i = 0; i < NUM_MODULES; i = i + 1) begin
                 if (dut.module_table[i] != 0) begin
                     integer k;
                     $display("    {\"id\": %0d, \"region\": [", i);

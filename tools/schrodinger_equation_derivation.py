@@ -408,6 +408,10 @@ def compute_mu_execution(
     Compute μ-execution cost for a fitted model.
     
     Uses MDL principle: bits needed to encode coefficients + residuals.
+    
+    The residual cost is computed assuming a uniform quantization model where
+    residuals are encoded with precision QUANTIZATION_PRECISION.
+    Cost = N * log2(RMS_Error / Precision)
     """
     # Coefficient description cost
     coef_bits = 0.0
@@ -720,7 +724,7 @@ def generate_coq_formalization(
         if denominator <= 0:
             raise ValueError("Denominator must be positive")
         numer = int(round(x * denominator))
-        return f"(({numer})%Z # (Pos.of_nat {denominator}))"
+        return f"({numer} # {denominator}%positive)"
     
     # Get coefficients
     coef_a_a = result.coefficients_a.get("a", 0.0)
@@ -737,12 +741,10 @@ def generate_coq_formalization(
 (* Auto-generated formalization - standalone, compilable file *)
 
 Require Import Coq.QArith.QArith.
-Require Import Coq.ZArith.ZArith.
-Require Import Coq.Lists.List.
-Import ListNotations.
+Require Import Coq.QArith.Qfield.
+Require Import Setoid.
 
 Open Scope Q_scope.
-Open Scope Z_scope.
 
 (** * Discrete update rule coefficients discovered from data *)
 
@@ -761,11 +763,38 @@ Definition coef_b_Va : Q := {to_fraction_str(coef_b_Va)}.
 (** * Extracted PDE parameters *)
 Definition extracted_mass : Q := {to_fraction_str(pde.mass)}.
 Definition extracted_inv_2m : Q := {to_fraction_str(pde.inv_2m_extracted)}.
+Definition extracted_dt : Q := {to_fraction_str(pde.dt_extracted)}.
 
-(** * Discrete derivative approximations *)
+(** * Parameter Consistency Check *)
 
-Definition discrete_laplacian (u_xp u_x u_xm dx_sq : Q) : Q :=
-  (u_xp - 2 * u_x + u_xm) / dx_sq.
+Lemma inv_2m_consistent : extracted_inv_2m == (1#2) / extracted_mass.
+Proof.
+  unfold extracted_inv_2m, extracted_mass.
+  (* Verify that the independently extracted 1/(2m) matches 1/(2*mass) *)
+  field.
+Qed.
+
+(** * Coefficient Constraints *)
+
+(** 
+    We verify that the discovered coefficients match the theoretical 
+    constraints imposed by the extracted PDE parameters.
+*)
+Lemma coefficient_constraints :
+  coef_a_a == 1 /\\
+  coef_a_b == 0 /\\
+  coef_a_lap_b == -(extracted_dt * extracted_inv_2m) /\\
+  coef_a_Vb == extracted_dt /\\
+  coef_b_b == 1 /\\
+  coef_b_a == 0 /\\
+  coef_b_lap_a ==  (extracted_dt * extracted_inv_2m) /\\
+  coef_b_Va == -extracted_dt.
+Proof.
+  unfold coef_a_a, coef_a_b, coef_a_lap_b, coef_a_Vb.
+  unfold coef_b_b, coef_b_a, coef_b_lap_a, coef_b_Va.
+  unfold extracted_dt, extracted_inv_2m.
+  repeat split; ring.
+Qed.
 
 (** * The discovered update rules *)
 
@@ -775,43 +804,37 @@ Definition schrodinger_update_a (a b lap_b Vb : Q) : Q :=
 Definition schrodinger_update_b (b a lap_a Va : Q) : Q :=
   coef_b_b * b + coef_b_a * a + coef_b_lap_a * lap_a + coef_b_Va * Va.
 
-(** * Lemmas *)
+(** * Target finite-difference form *)
 
-(** Lemma: The update rules are local (depend only on nearby points) *)
-Lemma schrodinger_rule_locality :
-  forall (a b lap_a lap_b Va Vb a_next b_next : Q),
-    a_next == schrodinger_update_a a b lap_b Vb ->
-    b_next == schrodinger_update_b b a lap_a Va ->
-    True.
-Proof.
-  intros. trivial.
-Qed.
+Definition target_update_a (a lap_b Vb : Q) : Q :=
+  a + extracted_dt * (-(extracted_inv_2m) * lap_b + Vb).
 
-(** Lemma: Cross-field coupling structure *)
-Lemma schrodinger_coupling_structure :
+Definition target_update_b (b lap_a Va : Q) : Q :=
+  b + extracted_dt * (extracted_inv_2m * lap_a - Va).
+
+(** * Structural Form Theorem *)
+
+(** 
+    We prove that the discovered update rules are structurally equivalent 
+    to the finite-difference discretization of the Schrödinger equation.
+    
+    This confirms that the machine has "rediscovered" the correct physical law
+    from the data, rather than just fitting random coefficients.
+*)
+
+Theorem structural_equivalence :
   forall (a b lap_a lap_b Va Vb : Q),
-    (* The a-update depends on b and its Laplacian *)
-    (* The b-update depends on a and its Laplacian *)
-    (* This is the signature of the Schrödinger equation *)
-    True.
+    Qeq (schrodinger_update_a a b lap_b Vb) (target_update_a a lap_b Vb) /\\
+    Qeq (schrodinger_update_b b a lap_a Va) (target_update_b b lap_a Va).
 Proof.
-  intros. trivial.
+  intros.
+  unfold schrodinger_update_a, schrodinger_update_b.
+  unfold target_update_a, target_update_b.
+  (* Use the coefficient constraints to rewrite the discovered rule *)
+  destruct coefficient_constraints as [Haa [Hab [Halb [HaVb [Hbb [Hba [Hbla HbVa]]]]]]].
+  rewrite Haa, Hab, Halb, HaVb, Hbb, Hba, Hbla, HbVa.
+  split; ring.
 Qed.
-
-(** * Main theorem *)
-
-Theorem emergent_schrodinger_eq :
-  forall (a b lap_a lap_b Va Vb a_next b_next : Q),
-    a_next == schrodinger_update_a a b lap_b Vb ->
-    b_next == schrodinger_update_b b a lap_a Va ->
-    (* The discovered update rules encode the Schrödinger equation structure *)
-    True.
-Proof.
-  intros. trivial.
-Qed.
-
-Close Scope Z_scope.
-Close Scope Q_scope.
 
 (** * Verification metadata 
     - RMS error: {rms_error:.10e}
