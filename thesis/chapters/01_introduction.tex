@@ -152,7 +152,7 @@ Let $T$ be a Thiele Machine. If an execution trace reduces the search space from
 \end{theorem}
 
 In other words, you cannot narrow the search space without paying the information-theoretic cost of that narrowing. The proof is a formal consequence of three principles: (i) a $\mu$-ledger that never decreases under valid transitions, (ii) a revelation rule that charges any strengthening of accepted predicates, and (iii) a locality principle that prevents uncharged influence across unrelated modules. Here the ``search space'' $\Omega$ should be read as the count of states consistent with current axioms; shrinking that set necessarily consumes bits of structural commitment. This is the exact sense in which ``insight'' is paid for: reduced uncertainty is not free, it is ledgered.
-The mechanized proofs of these principles live in the Coq kernel (for example \texttt{MuLedgerConservation.v} and \texttt{NoFreeInsight.v}), so the theorem here is directly traceable to concrete proof artifacts rather than a purely informal argument.
+The mechanized proofs of these principles live in the Coq kernel (for example \path{MuLedgerConservation.v} and \path{NoFreeInsight.v}), so the theorem here is directly traceable to concrete proof artifacts rather than a purely informal argument.
 
 \section{Methodology: The 3-Layer Isomorphism}
 
@@ -180,7 +180,7 @@ The Coq development provides machine-checked proofs of all core properties. The 
     
     \item \textbf{No Free Insight}: the impossibility of strengthening accepted predicates without charged revelation.
 \end{itemize}
-These items are implemented in specific Coq files: for example, \texttt{VMState.v} and \texttt{VMStep.v} define the kernel, \texttt{KernelPhysics.v} and \texttt{KernelNoether.v} develop the gauge and conservation theorems, and \texttt{RevelationRequirement.v} formalizes the CHSH revelation constraint. The prose summary is therefore anchored to the actual file structure.
+These items are implemented in specific Coq files: for example, \path{VMState.v} and \path{VMStep.v} define the kernel, \path{KernelPhysics.v} and \path{KernelNoether.v} develop the gauge and conservation theorems, and \path{RevelationRequirement.v} formalizes the CHSH revelation constraint. The prose summary is therefore anchored to the actual file structure.
 
 \textbf{The Inquisitor Standard:} The Coq development adheres to a zero-tolerance policy:
 \begin{itemize}
@@ -190,7 +190,7 @@ These items are implemented in specific Coq files: for example, \texttt{VMState.
 \end{itemize}
 
 An automated checker scans the codebase and blocks any commit with violations.
-That checker is the \texttt{scripts/inquisitor.py} tool, which enforces the zero-admit policy across the Coq tree so that the proof claims in this chapter remain mechanically valid.
+That checker is the \path{scripts/inquisitor.py} tool, which enforces the zero-admit policy across the Coq tree so that the proof claims in this chapter remain mechanically valid.
 
 \subsection{Layer 2: Python VM (The Executable Reference)}
 
@@ -211,7 +211,7 @@ The Python implementation provides an executable semantics that generates crypto
     
     \item \textbf{$\mu$-ledger}: canonical cost accounting for structural information.
 \end{itemize}
-The concrete implementation lives in \texttt{thielecpu/state.py} (state, partitions, $\mu$ ledger), \texttt{thielecpu/vm.py} (execution engine), and \texttt{thielecpu/crypto.py} (receipt signing). These filenames matter because the implementation is intended to be audited against the formal definitions, not merely trusted as a black box.
+The concrete implementation lives in \path{thielecpu/state.py} (state, partitions, $\mu$ ledger), \path{thielecpu/vm.py} (execution engine), and \path{thielecpu/crypto.py} (receipt signing). These filenames matter because the implementation is intended to be audited against the formal definitions, not merely trusted as a black box.
 
 \subsection{Layer 3: Verilog RTL (The Physical Realization)}
 
@@ -239,7 +239,7 @@ These three layers are not independent implementations—they are \textit{isomor
     \item Running $\tau$ through the RTL simulation produces state $S_{\text{RTL}}$
 \end{enumerate}
 
-The Inquisitor pipeline verifies equality of \emph{observable projections} of state, and those projections are suite-specific rather than one monolithic snapshot. For example, the compute isomorphism gate (\texttt{tests/test\_rtl\_compute\_isomorphism.py}) compares registers and memory, while the partition gate (\texttt{tests/test\_partition\_isomorphism\_minimal.py}) compares module regions extracted from the partition graph. The extracted runner emits a superset of observables (pc, $\mu$, err, regs, mem, CSRs, graph), and the RTL testbench emits a JSON subset tailored to the gate under test.
+The Inquisitor pipeline verifies equality of \emph{observable projections} of state, and those projections are suite-specific rather than one monolithic snapshot. For example, the compute isomorphism gate (\texttt{tests/test\_rtl\_compute\_isomorphism.py}) compares registers and memory, while the partition gate (\path{tests/test_partition_isomorphism_minimal.py}) compares module regions extracted from the partition graph. The extracted runner emits a superset of observables (pc, $\mu$, err, regs, mem, CSRs, graph), and the RTL testbench emits a JSON subset tailored to the gate under test.
 
 This 3-layer isomorphism ensures that my theoretical claims are physically realizable and my implementations are provably correct with respect to the shared projection.
 
@@ -264,7 +264,8 @@ I prove this claim through:
 This thesis makes the following specific contributions:
 
 \begin{enumerate}
-    \item \textbf{The Thiele Machine Model:} A formal computational model $T = (S, \Pi, A, R, L)$ that makes partition structure a first-class citizen of the state space, subsuming the Turing Machine and RAM model.
+    \item \textbf{The Thiele Machine Model:} \\ A formal computational model
+    $T = (S, \Pi, A, R, L)$ that makes partition structure a first-class citizen of the state space, subsuming Turing and RAM models.
     
     \item \textbf{The $\mu$-bit Currency:} A canonical, implementation-independent measure of structural information cost based on Minimum Description Length principles.
     
@@ -276,7 +277,7 @@ This thesis makes the following specific contributions:
     
     \item \textbf{The Inquisitor Standard:} A methodology for zero-admit, zero-axiom formal development that ensures all claims are machine-checkable.
     
-    \item \textbf{Empirical Artifacts:} Reproducible demonstrations including device-independent randomness certification and polynomial-time solution of structured Tseitin formulas.
+    \item \textbf{Empirical Artifacts:} Reproducible demonstrations including certified randomness and polynomial-time solution of structured Tseitin formulas.
 \end{enumerate}
 
 \section{Thesis Outline}

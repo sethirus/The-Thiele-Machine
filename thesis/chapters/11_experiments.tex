@@ -57,7 +57,7 @@ def run_landauer_experiment(
     which should track physical energy at the Landauer bound.
     """
 \end{lstlisting}
-The kernel-level lower bound used here is proven in \texttt{coq/kernel/MuLedgerConservation.v}, which ties $\mu$ increments to irreversible operations. The experiment is the empirical mirror: it checks that the measured runs obey the same monotone cost behavior observed in the proofs.
+The kernel-level lower bound used here is proven in \path{coq/kernel/MuLedgerConservation.v}, which ties $\mu$ increments to irreversible operations. The experiment is the empirical mirror: it checks that the measured runs obey the same monotone cost behavior observed in the proofs.
 
 \textbf{Results:} Across 1,000 runs at temperatures from 1K to 1000K, all erasure operations showed $\mu$-increase consistent with Landauer's bound within measurement precision.
 
@@ -89,7 +89,7 @@ def measure_entropy_vs_coarseness(
     coarse-graining is applied per EntropyImpossibility.v.
     """
 \end{lstlisting}
-This protocol is a direct operationalization of the impossibility result in \texttt{coq/kernel/EntropyImpossibility.v}, which shows that entropy claims require explicit coarse-graining. The experiment checks that the verifier enforces that requirement in practice.
+This protocol is a direct operationalization of the impossibility result in \path{coq/kernel/EntropyImpossibility.v}, which shows that entropy claims require explicit coarse-graining. The experiment checks that the verifier enforces that requirement in practice.
 
 \textbf{Results:} Raw state entropy diverges; entropy converges only with coarse-graining parameter $\epsilon > 0$.
 

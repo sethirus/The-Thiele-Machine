@@ -17,6 +17,12 @@
 \usepackage{parskip}
 \usepackage{tocloft}
 \usepackage[bookmarks=true,colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{xurl}
+\usepackage{microtype}
+
+% Allow breaking in texttt
+\usepackage[htt]{hyphenat}
+\usepackage{xurl}
 
 % Handle Unicode characters
 \DeclareUnicodeCharacter{03BC}{\ensuremath{\mu}}
@@ -178,6 +184,8 @@ The Thiele Machine establishes that structural cost is not an accounting convent
 \chapter{Conclusion}
 \input{chapters/08_conclusion}
 
+\appendix
+
 \chapter{The Verifier System}
 \input{chapters/09_verifier_system}
 
@@ -193,7 +201,8 @@ The Thiele Machine establishes that structural cost is not an accounting convent
 \chapter{Hardware Implementation and Demonstrations}
 \input{chapters/13_hardware_and_demos}
 
-\appendix
+\chapter{Glossary of Terms}
+\input{appendix/glossary}
 
 \chapter{Complete Theorem Index}
 \input{appendix/theorem_index}

@@ -173,6 +173,16 @@ Key theorems:
 \end{itemize}
 
 The uncomputability of Kolmogorov complexity is why the Thiele Machine uses \textit{Minimum Description Length} (MDL) instead—a computable approximation that captures description length without requiring the impossible oracle.
+
+\subsubsection{Comparison with $\mu$-bits}
+
+It is important to distinguish the theoretical $K(x)$ from the operational $\mu$-bit cost. While Kolmogorov complexity represents the ultimate lower bound on description length using an optimal universal machine, the $\mu$-bit cost is a concrete, computable metric based on the specific structural assertions made by the Thiele Machine.
+\begin{itemize}
+    \item $K(x)$ is uncomputable and depends on the choice of universal machine (up to a constant).
+    \item $\mu$-cost is computable and depends on the specific partition logic operations and axioms used.
+\end{itemize}
+Thus, $\mu$ serves as a constructive upper bound on the structural complexity, representing the cost of the structure \textit{actually used} by the algorithm, rather than the theoretical minimum. This makes $\mu$ a practical resource for complexity analysis in a way that $K(x)$ cannot be.
+
 In the implementation, the proxy is not a magical compressor; it is a canonical string encoding of axioms and partitions (SMT-LIB strings plus region encodings), so the cost is defined in a way that can be checked by the formal kernel and reproduced by the other layers.
 
 \subsection{Minimum Description Length (MDL)}
