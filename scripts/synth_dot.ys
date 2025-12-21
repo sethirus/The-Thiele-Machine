@@ -1,0 +1,5 @@
+# Yosys script to generate Graphviz DOT file for mu_core
+read_verilog -sv -D YOSYS_LITE thielecpu/hardware/mu_core.v
+hierarchy -check -top mu_core
+proc; opt; memory; opt
+show -format dot -prefix artifacts/mu_core_viz mu_core

@@ -2290,6 +2290,12 @@ class VM:
                     prev_info = self.state.mu_information
                     prev_ledger = self.state.mu_ledger.copy()
                     info_charge(self.state, info_bits)
+                    
+                    # Update status to match RTL: {value_a, value_b, 16'h0}
+                    val_a = int(tokens[0])
+                    val_b = int(tokens[1])
+                    self.state.csr[CSR.STATUS] = ((val_a & 0xFF) << 24) | ((val_b & 0xFF) << 16)
+
                     ledger.append({
                         "step": step,
                         "delta_mu_discovery": self.state.mu_ledger.mu_discovery - prev_ledger.mu_discovery,
@@ -2378,6 +2384,7 @@ class VM:
             elif op == "XFER":
                 (dest, src), explicit_cost = _parse_operands_and_cost(arg, expected=2)
                 self.register_file[dest % len(self.register_file)] = self.register_file[src % len(self.register_file)]
+                self.state.csr[CSR.STATUS] = 6
                 if explicit_cost is not None:
                     self.state.mu_ledger.mu_execution += explicit_cost
                 trace_lines.append(f"{step}: XFER r{dest} <- r{src}")
@@ -2387,6 +2394,7 @@ class VM:
                 addr = addr % len(self.data_memory)
                 value = self.data_memory[addr]
                 self.register_file[dest % len(self.register_file)] = value
+                self.state.csr[CSR.STATUS] = 7
                 if explicit_cost is not None:
                     self.state.mu_ledger.mu_execution += explicit_cost
                 trace_lines.append(f"{step}: XOR_LOAD r{dest} <= mem[{addr}] (0x{value:08x})")
@@ -2396,6 +2404,7 @@ class VM:
                 dest_idx = dest % len(self.register_file)
                 src_idx = src % len(self.register_file)
                 self.register_file[dest_idx] ^= self.register_file[src_idx]
+                self.state.csr[CSR.STATUS] = 8
                 if explicit_cost is not None:
                     self.state.mu_ledger.mu_execution += explicit_cost
                 trace_lines.append(f"{step}: XOR_ADD r{dest} ^= r{src} -> 0x{self.register_file[dest_idx]:08x}")
@@ -2405,6 +2414,7 @@ class VM:
                 a_idx = a % len(self.register_file)
                 b_idx = b % len(self.register_file)
                 self.register_file[a_idx], self.register_file[b_idx] = self.register_file[b_idx], self.register_file[a_idx]
+                self.state.csr[CSR.STATUS] = 9
                 if explicit_cost is not None:
                     self.state.mu_ledger.mu_execution += explicit_cost
                 trace_lines.append(f"{step}: XOR_SWAP r{a} <-> r{b}")
@@ -2414,6 +2424,7 @@ class VM:
                 src_idx = src % len(self.register_file)
                 rank = bin(self.register_file[src_idx] & 0xFFFFFFFF).count("1")
                 self.register_file[dest % len(self.register_file)] = rank
+                self.state.csr[CSR.STATUS] = rank
                 if explicit_cost is not None:
                     self.state.mu_ledger.mu_execution += explicit_cost
                 trace_lines.append(f"{step}: XOR_RANK r{dest} := popcount(r{src}) = {rank}")
