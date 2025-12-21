@@ -27,7 +27,7 @@ The Thiele Machine uses an unusually strict standard:
 \end{itemize}
 
 This standard is enforced automatically. Any commit introducing an admit fails CI. This matters because it guarantees every theorem in the active proof tree is fully discharged.
-The enforcement mechanism is \texttt{scripts/inquisitor.py}, which scans the Coq tree and reports violations. The strictness is not ceremonial: it ensures that the theorem statements presented in this chapter are actually complete and therefore reusable as axioms in subsequent reasoning.
+The enforcement mechanism is \path{scripts/inquisitor.py}, which scans the Coq tree and reports violations. The strictness is not ceremonial: it ensures that the theorem statements presented in this chapter are actually complete and therefore reusable as axioms in subsequent reasoning.
 
 \subsection{What I Prove}
 
@@ -38,7 +38,7 @@ The key theorems proven in Coq are:
     \item \textbf{No Free Insight}: Strengthening certification requires explicit structure addition
     \item \textbf{Gauge Invariance}: Partition structure is invariant under $\mu$-shifts
 \end{enumerate}
-Each of these theorems has a concrete home in the Coq tree: observational no-signaling is developed in files such as \texttt{ObserverDerivation.v}, $\mu$-conservation is proven in \texttt{MuLedgerConservation.v}, and No Free Insight appears in \texttt{NoFreeInsight.v} and \texttt{MuNoFreeInsightQuantitative.v}. The names matter because they pin the prose to specific proof artifacts a reader can inspect.
+Each of these theorems has a concrete home in the Coq tree: observational no-signaling is developed in files such as \path{ObserverDerivation.v}, $\mu$-conservation is proven in \path{MuLedgerConservation.v}, and No Free Insight appears in \path{NoFreeInsight.v} and \path{MuNoFreeInsightQuantitative.v}. The names matter because they pin the prose to specific proof artifacts a reader can inspect.
 
 \subsection{How to Read This Chapter}
 
@@ -94,7 +94,7 @@ Record VMState := {
   vm_err : bool
 }.
 \end{lstlisting}
-The record is not just a convenient bundle. It encodes the exact pieces of state that the theorems quantify over, and it matches the projection used in cross-layer tests. The constants \texttt{REG\_COUNT} and \texttt{MEM\_SIZE} in \texttt{coq/kernel/VMState.v} fix the widths, and helper functions such as \texttt{read\_reg} and \texttt{write\_reg} define the operational meaning of register access.
+The record is not just a convenient bundle. It encodes the exact pieces of state that the theorems quantify over, and it matches the projection used in cross-layer tests. The constants \texttt{REG\_COUNT} and \texttt{MEM\_SIZE} in \path{coq/kernel/VMState.v} fix the widths, and helper functions such as \texttt{read\_reg} and \texttt{write\_reg} define the operational meaning of register access.
 
 \subsection{Canonical Region Normalization}
 
@@ -181,7 +181,7 @@ Each instruction has one or more step rules. Key properties:
     \item \textbf{Partial on invalid inputs}: Instructions with invalid certificates or failed structural checks can be undefined.
     \item \textbf{Cost-charging}: Every rule updates \texttt{vm\_mu} by the declared instruction cost.
 \end{itemize}
-The error latch is explicit in the step rules. For example, \texttt{PSPLIT} and \texttt{PMERGE} each have “failure” rules in \texttt{coq/kernel/VMStep.v} that leave the graph unchanged but set the error CSR and latch \texttt{vm\_err}. This design makes error propagation explicit and therefore available to proofs, rather than being implicit behavior of an implementation language.
+The error latch is explicit in the step rules. For example, \texttt{PSPLIT} and \texttt{PMERGE} each have “failure” rules in \path{coq/kernel/VMStep.v} that leave the graph unchanged but set the error CSR and latch \texttt{vm\_err}. This design makes error propagation explicit and therefore available to proofs, rather than being implicit behavior of an implementation language.
 
 This gives a complete operational semantics: given a well-formed state and a valid instruction, the next state is uniquely determined.
 
@@ -416,7 +416,8 @@ Theorem strengthening_requires_structure_addition :
 
 \begin{proof}
 \begin{enumerate}
-    \item Unfold \texttt{Certified} to get \texttt{has\_supra\_cert (run\_vm fuel trace s\_init)}
+    \item Unfold \texttt{Certified} to get \texttt{has\_supra\_cert}
+    \texttt{(run\_vm fuel trace s\_init)}
     \item Apply \texttt{supra\_cert\_implies\_structure\_addition\_in\_run}
     \item The key lemma: reaching \texttt{has\_supra\_cert} from \texttt{csr\_cert\_addr = 0} requires an explicit cert-setter instruction
 \end{enumerate}

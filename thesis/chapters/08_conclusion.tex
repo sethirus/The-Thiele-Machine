@@ -37,7 +37,7 @@ This thesis has presented the Thiele Machine, a computational model that treats 
     
     \item \textbf{Observational No-Signaling}: I proved that operations on one module cannot affect the observables of unrelated modules—a computational analog of Bell locality.
 \end{enumerate}
-These theoretical components map to concrete Coq artifacts: \texttt{VMState.v} and \texttt{VMStep.v} define the formal machine, \texttt{MuLedgerConservation.v} proves monotonicity and irreversibility bounds, and \texttt{NoFreeInsight.v} formalizes the impossibility claim. The contribution is therefore not just conceptual; it is encoded in machine-checked definitions.
+These theoretical components map to concrete Coq artifacts: \path{VMState.v} and \path{VMStep.v} define the formal machine, \path{MuLedgerConservation.v} proves monotonicity and irreversibility bounds, and \path{NoFreeInsight.v} formalizes the impossibility claim. The contribution is therefore not just conceptual; it is encoded in machine-checked definitions.
 
 \subsection{Implementation Contributions}
 
@@ -61,7 +61,7 @@ These theoretical components map to concrete Coq artifacts: \texttt{VMState.v} a
     
     \item \textbf{The Inquisitor}: I built automated verification tooling that enforces zero-admit discipline and runs the isomorphism gates.
 \end{enumerate}
-The implementations are organized so they can be audited against the formal kernel: the Coq layer is under \texttt{coq/kernel/}, the Python VM under \texttt{thielecpu/}, and the RTL under \texttt{thielecpu/hardware/}. The isomorphism tests consume traces that exercise all three and compare their observable projections.
+The implementations are organized so they can be audited against the formal kernel: the Coq layer is under \path{coq/kernel/}, the Python VM under \path{thielecpu/}, and the RTL under \path{thielecpu/hardware/}. The isomorphism tests consume traces that exercise all three and compare their observable projections.
 
 \subsection{Verification Contributions}
 
@@ -70,6 +70,7 @@ The implementations are organized so they can be audited against the formal kern
     
     \item \textbf{Key Proven Theorems}:
     \begin{center}
+    \resizebox{0.9\textwidth}{!}{
     \begin{tabular}{|l|l|}
     \hline
     \textbf{Theorem} & \textbf{Property} \\
@@ -78,15 +79,16 @@ The implementations are organized so they can be audited against the formal kern
     \texttt{mu\_conservation\_kernel} & Single-step monotonicity \\
     \texttt{run\_vm\_mu\_conservation} & Multi-step conservation \\
     \texttt{no\_free\_insight\_general} & Impossibility \\
-    \texttt{nonlocal\_correlation\_requires\_revelation} & Supra-quantum certification \\
+    \path{nonlocal_correlation_requires_revelation} & Supra-quantum certification \\
     \texttt{kernel\_noether\_mu\_gauge} & Gauge invariance \\
     \hline
     \end{tabular}
+    }
     \end{center}
     
     \item \textbf{Falsifiability}: Every theorem includes an explicit falsifier specification. If a counterexample exists, it would refute the theorem and identify the precise assumption that failed.
 \end{enumerate}
-The theorem names in the table correspond to statements in the Coq kernel (for example, \texttt{observational\_no\_signaling} in \texttt{KernelPhysics.v} and \texttt{nonlocal\_correlation\_requires\_revelation} in \texttt{RevelationRequirement.v}). This explicit mapping is what makes the verification story reproducible.
+The theorem names in the table correspond to statements in the Coq kernel (for example, \texttt{observational\_no\_signaling} in \path{KernelPhysics.v} and \path{nonlocal_correlation_requires_revelation} in \path{RevelationRequirement.v}). This explicit mapping is what makes the verification story reproducible.
 
 \section{The Thiele Machine Hypothesis: Confirmed}
 

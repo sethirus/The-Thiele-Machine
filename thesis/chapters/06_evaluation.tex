@@ -26,7 +26,7 @@ All experiments follow scientific best practices:
 \end{itemize}
 
 All experiments use the reference VM with receipt generation enabled. Each run produces receipts and state snapshots so that results can be rechecked independently. The emphasis is on \textit{replayability}: anyone can take the same trace, replay it through each layer, and confirm equality of the observable projection.
-The concrete test harnesses live under \texttt{tests/} (for example, \texttt{tests/test\_partition\_isomorphism\_minimal.py} and \texttt{tests/test\_rtl\_compute\_isomorphism.py}), so the evaluation is tied to executable scripts rather than hand-run examples.
+The concrete test harnesses live under \texttt{tests/} (for example, \path{tests/test_partition_isomorphism_minimal.py} and \path{tests/test_rtl_compute_isomorphism.py}), so the evaluation is tied to executable scripts rather than hand-run examples.
 
 \section{3-Layer Isomorphism Verification}
 
@@ -190,7 +190,7 @@ Theorem nonlocal_correlation_requires_revelation :
     has_supra_cert s_final ->
     uses_revelation trace \/ ...
 \end{lstlisting}
-The theorem shown here is proven in \texttt{coq/kernel/RevelationRequirement.v}. The evaluation checks the operational side of that theorem by building traces that attempt to exceed the bound without \texttt{REVEAL} and confirming that the machine marks them invalid or charges the appropriate $\mu$.
+The theorem shown here is proven in \path{coq/kernel/RevelationRequirement.v}. The evaluation checks the operational side of that theorem by building traces that attempt to exceed the bound without \texttt{REVEAL} and confirming that the machine marks them invalid or charges the appropriate $\mu$.
 
 Experimental verification confirms:
 \begin{itemize}
@@ -230,7 +230,7 @@ def test_mu_monotonic_under_any_trace():
         for i in range(1, len(mu_values)):
             assert mu_values[i] >= mu_values[i-1]
 \end{lstlisting}
-The monotonicity check mirrors the formal lemma that \texttt{vm\_mu} never decreases under \texttt{vm\_step}. In the Python VM, the ledger is split into \texttt{mu\_discovery} and \texttt{mu\_execution} (see \texttt{MuLedger} in \texttt{thielecpu/state.py}), so the test verifies that their total is non-decreasing step by step.
+The monotonicity check mirrors the formal lemma that \texttt{vm\_mu} never decreases under \texttt{vm\_step}. In the Python VM, the ledger is split into \texttt{mu\_discovery} and \texttt{mu\_execution} (see \texttt{MuLedger} in \path{thielecpu/state.py}), so the test verifies that their total is non-decreasing step by step.
 
 \subsection{Conservation Tests}
 
@@ -250,7 +250,7 @@ def test_mu_conservation():
     total_declared = sum(instr.cost for instr in program)
     assert vm.state.mu_ledger.total == total_declared
 \end{lstlisting}
-The conservation test matches the formal definition of \texttt{apply\_cost} in \texttt{coq/kernel/VMStep.v}, which adds the per-instruction \texttt{mu\_delta} to the running ledger. The experiment is therefore a concrete replay of the same rule used in the proofs.
+The conservation test matches the formal definition of \texttt{apply\_cost} in \path{coq/kernel/VMStep.v}, which adds the per-instruction \texttt{mu\_delta} to the running ledger. The experiment is therefore a concrete replay of the same rule used in the proofs.
 
 \subsection{Results}
 
@@ -277,6 +277,7 @@ Run the three traces on instrumented hardware (or a calibrated switching-energy 
 I executed the four $\Omega \to \Omega'$ traces with the bridge harness, exporting a JSON artifact. The runs charge $\mu$ via partition discovery only (explicit \texttt{MDLACC} omitted to mirror the hardware harness) and capture normalization flags and \texttt{evidence\_strict} for $\mu$ propagation across layers. Each scenario fails fast if the requested region is not representable by the hardware encoding. These runs are intended to validate that the ledger and trace machinery produce consistent, reproducible $\mu$ values that a future physical experiment can bind to energy.
 
 \begin{center}
+\resizebox{\textwidth}{!}{
 \begin{tabular}{|l|c|c|c|c|c|c|}
 \hline
 Scenario & $\mu_{\text{python}}$ & $\mu_{\text{raw,extracted}}$ / $\mu_{\text{raw,rtl}}$ & Normalized? & $\log_2(|\Omega|/|\Omega'|)$ & $k_B T \ln 2 \cdot \mu$ (J) & $\mu / \log_2(|\Omega|/|\Omega'|)$ \\
@@ -287,6 +288,7 @@ singleton\_from\_16 & 5 & 5 / 5 & no & 4 & $1.44 \times 10^{-20}$ & 1.25 \\
 singleton\_from\_64 & 7 & 7 / 7 & no & 6 & $2.02 \times 10^{-20}$ & 1.167 \\
 \hline
 \end{tabular}
+}
 \end{center}
 
 All four traces satisfy $\mu \ge \log_2(|\Omega|/|\Omega'|)$ and align on regs/mem/$\mu$ without normalization. The harness encodes an explicit $\mu$-delta into the formal trace and hardware instruction word, and the reference VM consumes the same $\mu$-delta (disabling implicit MDLACC) so that $\mu_{\text{raw}}$ matches across layers. With this encoding in place, \texttt{EVIDENCE\_STRICT} runs succeed for these workloads.

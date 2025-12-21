@@ -13,7 +13,7 @@ From first principles, a verifier needs three ingredients:
     \item \textbf{Cost accounting}: a way to ensure that any strengthened claim paid the required $\mu$-cost.
 \end{enumerate}
 The verifier system is built to guarantee all three.
-In the codebase, these ingredients are implemented by receipt parsing and signature checks (\texttt{verifier/receipt\_protocol.py}), trace replays in the domain-specific checkers (for example \texttt{verifier/check\_randomness.py}), and explicit $\mu$-cost rules inside the C-modules themselves.
+In the codebase, these ingredients are implemented by receipt parsing and signature checks (\path{verifier/receipt_protocol.py}), trace replays in the domain-specific checkers (for example \path{verifier/check_randomness.py}), and explicit $\mu$-cost rules inside the C-modules themselves.
 
 This chapter documents the complete verification infrastructure. The system implements four certification modules (C-modules) that enforce the No Free Insight principle across different application domains:
 \begin{itemize}
@@ -22,7 +22,7 @@ This chapter documents the complete verification infrastructure. The system impl
     \item \textbf{C-ENTROPY}: Certified entropy---proving that disorder is quantified correctly
     \item \textbf{C-CAUSAL}: Certified causation---proving that causes actually produce effects
 \end{itemize}
-Each module corresponds to a concrete verifier implementation under \texttt{verifier/} (for example, \texttt{c\_randomness.py}, \texttt{c\_tomography.py}, \texttt{c\_entropy2.py}, and \texttt{c\_causal.py}). This makes the certification rules auditable and runnable, not just conceptual.
+Each module corresponds to a concrete verifier implementation under \path{verifier/} (for example, \texttt{c\_randomness.py}, \texttt{c\_tomography.py}, \texttt{c\_entropy2.py}, and \texttt{c\_causal.py}). This makes the certification rules auditable and runnable, not just conceptual.
 
 The key insight is that \textit{stronger claims require more evidence}. If you claim high-quality randomness, you must demonstrate the source of that randomness. If you claim precise measurements, you must show enough trials to support that precision. The verifier system makes this relationship explicit and enforceable by turning every claim into a checkable predicate over receipts and by requiring explicit $\mu$-charged disclosures whenever the predicate is strengthened.
 
@@ -64,7 +64,7 @@ Key properties:
 \end{itemize}
 
 This protocol supplies the trace integrity requirement: a verifier can recompute hashes and signatures to confirm that the claim is exactly the one produced by the recorded execution.
-The full TRS-1.0 specification is in \texttt{docs/specs/trs-spec-v1.md}, and the reference implementation for verification lives in \texttt{verifier/receipt\_protocol.py} and \texttt{tools/verify\_trs10.py}. This ensures that the protocol described here is backed by a concrete parser and validator.
+The full TRS-1.0 specification is in \path{docs/specs/trs-spec-v1.md}, and the reference implementation for verification lives in \path{verifier/receipt_protocol.py} and \path{tools/verify_trs10.py}. This ensures that the protocol described here is backed by a concrete parser and validator.
 
 \subsection{Non-Negotiable Falsifier Pattern}
 
@@ -75,7 +75,7 @@ Every C-module ships three mandatory falsifier tests. Each test targets a distin
     \item \textbf{Bypass test}: Route around the channel and confirm rejection.
 \end{enumerate}
 
-\section{C-RAND: Device-Independent Certified Randomness}
+\section{C-RAND: Certified Randomness}
 
 \subsection{Claim Structure}
 
@@ -281,7 +281,7 @@ This bound is machine-checked in the formal development and enforced by the veri
 The verifier system transforms the theoretical No Free Insight principle into practical, falsifiable enforcement:
 
 \begin{enumerate}
-    \item \textbf{C-RAND}: You cannot claim certified random bits without paying $\mu$-revelation
+    \item \textbf{C-RAND}: Certified random bits require paying $\mu$-revelation
     \item \textbf{C-TOMO}: Tighter precision requires proportionally more trials
     \item \textbf{C-ENTROPY}: Entropy is undefined without declared coarse-graining
     \item \textbf{C-CAUSAL}: Unique causal claims require interventions or explicit assumptions
