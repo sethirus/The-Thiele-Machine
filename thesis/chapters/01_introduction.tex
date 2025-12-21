@@ -5,6 +5,7 @@
 I, Devon Thiele, present the \textit{Thiele Machine}---a new model of computation that treats \textbf{structural information as a costly resource}.
 
 For clarity, I will use the term \textbf{structure} to mean \textit{explicit, checkable constraints about how parts of a computational state relate}. Formally, a piece of structure is a predicate over a subset of state variables (or a partition of state) that can be verified by a logic engine or certificate checker. Examples include: a memory region forming a balanced search tree, a graph decomposing into disconnected components, or a set of variables being independent. In classical models, these relationships are present only as interpretations \emph{external} to the machine. Here, they become internal objects with a measured cost, so a program must explicitly \emph{pay} to assert or certify them.
+In the formal model, this “internal object” is realized by a partition graph whose modules carry axiom strings (SMT-LIB constraints). The partition graph and axiom sets are part of the machine state, and operations such as \texttt{PNEW}, \texttt{PSPLIT}, and \texttt{LASSERT} modify them. This makes structural knowledge something the machine can track, charge for, and expose in its observable projection rather than something the reader assumes from the outside.
 
 If you are new to theoretical computer science, here is what you need to know:
 \begin{itemize}
@@ -17,13 +18,14 @@ If you are new to theoretical computer science, here is what you need to know:
 
 This is not a paper with informal arguments. Every major claim is:
 \begin{enumerate}
-    \item \textbf{Formally proven}: Machine-checked proofs in the Coq proof assistant (over 200 theorems)
+    \item \textbf{Formally proven}: Machine-checked proofs in the Coq proof assistant (over 400 theorems)
     \item \textbf{Implemented}: Working code in Python and Verilog hardware description
     \item \textbf{Tested}: Automated tests verify that theory and implementation match
     \item \textbf{Falsifiable}: I specify exactly what would disprove my claims
 \end{enumerate}
 
 In practice, this means there is a concrete trace or counterexample that would refute each theorem, and there are executable checks that replay traces to confirm that the mathematical and physical layers agree. The thesis is therefore not only a set of definitions, but a reproducible experiment: every claim is tied to an explicit verification routine.
+Concretely, the Coq extraction produces a standalone runner, the Python VM emits step receipts, and the RTL testbench prints a JSON snapshot. These artifacts are compared in the automated tests so that the prose claims are bound to exact executable evidence.
 
 \subsection{How to Read This Document}
 
@@ -98,6 +100,7 @@ This is the \textbf{Time Tax}: because classical models refuse to account for st
 \end{quote}
 
 The question this thesis addresses is: \textbf{What is the cost of sight?} Put differently, how many bits of certified structure are required to justify a given reduction in search effort?
+The model answers this by explicitly charging $\mu$ for operations that add or refine structure, and by proving that any reduction in the compatible state space requires a matching $\mu$-increase.
 
 \section{The Thiele Machine: Computation with Explicit Structure}
 
@@ -119,6 +122,7 @@ I formalize this through a new model of computation: the Thiele Machine $T = (S,
     \item $R$: The transition rules, including structural operations (split, merge)
     \item $L$: The Logic Engine—an SMT oracle that verifies consistency
 \end{itemize}
+Chapter 3 spells these components out with exact data structures and step rules. The reason for the tuple is that each component becomes a separately verified artifact: the state and partitions are a record in Coq, the transition rules are inductive constructors, and the logic engine is represented by certified checkers that accept or reject axiom strings.
 
 \subsection{The $\mu$-bit: A Currency for Structure}
 
@@ -134,6 +138,7 @@ I adopt a canonical encoding based on SMT-LIB 2.0 syntax to ensure that $\mu$-co
 \]
 
 where $|\cdot|$ denotes bit-length, $\Phi$ are the module's axioms, and $\text{encode}(\pi)$ is a canonical description of the partition itself. This ensures that both \emph{what} is asserted and \emph{how the state is modularized} are charged.
+In the current implementation, axioms are stored as SMT-LIB strings, and the $\mu$-ledger is incremented by explicit per-instruction costs. The canonical encoding requirement forces these strings to be treated as data with a concrete length, rather than as informal annotations.
 
 \subsection{The No Free Insight Theorem}
 
@@ -147,6 +152,7 @@ Let $T$ be a Thiele Machine. If an execution trace reduces the search space from
 \end{theorem}
 
 In other words, you cannot narrow the search space without paying the information-theoretic cost of that narrowing. The proof is a formal consequence of three principles: (i) a $\mu$-ledger that never decreases under valid transitions, (ii) a revelation rule that charges any strengthening of accepted predicates, and (iii) a locality principle that prevents uncharged influence across unrelated modules. Here the ``search space'' $\Omega$ should be read as the count of states consistent with current axioms; shrinking that set necessarily consumes bits of structural commitment. This is the exact sense in which ``insight'' is paid for: reduced uncertainty is not free, it is ledgered.
+The mechanized proofs of these principles live in the Coq kernel (for example \texttt{MuLedgerConservation.v} and \texttt{NoFreeInsight.v}), so the theorem here is directly traceable to concrete proof artifacts rather than a purely informal argument.
 
 \section{Methodology: The 3-Layer Isomorphism}
 
@@ -174,6 +180,7 @@ The Coq development provides machine-checked proofs of all core properties. The 
     
     \item \textbf{No Free Insight}: the impossibility of strengthening accepted predicates without charged revelation.
 \end{itemize}
+These items are implemented in specific Coq files: for example, \texttt{VMState.v} and \texttt{VMStep.v} define the kernel, \texttt{KernelPhysics.v} and \texttt{KernelNoether.v} develop the gauge and conservation theorems, and \texttt{RevelationRequirement.v} formalizes the CHSH revelation constraint. The prose summary is therefore anchored to the actual file structure.
 
 \textbf{The Inquisitor Standard:} The Coq development adheres to a zero-tolerance policy:
 \begin{itemize}
@@ -183,6 +190,7 @@ The Coq development provides machine-checked proofs of all core properties. The 
 \end{itemize}
 
 An automated checker scans the codebase and blocks any commit with violations.
+That checker is the \texttt{scripts/inquisitor.py} tool, which enforces the zero-admit policy across the Coq tree so that the proof claims in this chapter remain mechanically valid.
 
 \subsection{Layer 2: Python VM (The Executable Reference)}
 
@@ -203,6 +211,7 @@ The Python implementation provides an executable semantics that generates crypto
     
     \item \textbf{$\mu$-ledger}: canonical cost accounting for structural information.
 \end{itemize}
+The concrete implementation lives in \texttt{thielecpu/state.py} (state, partitions, $\mu$ ledger), \texttt{thielecpu/vm.py} (execution engine), and \texttt{thielecpu/crypto.py} (receipt signing). These filenames matter because the implementation is intended to be audited against the formal definitions, not merely trusted as a black box.
 
 \subsection{Layer 3: Verilog RTL (The Physical Realization)}
 
@@ -218,7 +227,7 @@ The hardware implementation shows that the abstract $\mu$-costs correspond to re
     \item \textbf{Accounting unit}: computes $\mu$-costs with hardware-enforced monotonicity.
 \end{itemize}
 
-The RTL has been validated through Icarus Verilog simulation and Yosys synthesis targeting FPGA platforms.
+The RTL is exercised via Icarus Verilog simulation and has Yosys synthesis scripts that target FPGA platforms when the toolchain is available.
 
 \subsection{The Isomorphism Guarantee}
 
@@ -230,16 +239,7 @@ These three layers are not independent implementations—they are \textit{isomor
     \item Running $\tau$ through the RTL simulation produces state $S_{\text{RTL}}$
 \end{enumerate}
 
-The Inquisitor pipeline verifies equality of a common \emph{observable projection} of state:
-\[
-S_{\text{Coq}}.\text{registers} = S_{\text{Python}}.\text{registers} = S_{\text{RTL}}.\text{registers}
-\]
-\[
-S_{\text{Coq}}.\mu = S_{\text{Python}}.\mu = S_{\text{RTL}}.\mu
-\]
-\[
-\text{etc. for all observable state components}
-\]
+The Inquisitor pipeline verifies equality of \emph{observable projections} of state, and those projections are suite-specific rather than one monolithic snapshot. For example, the compute isomorphism gate (\texttt{tests/test\_rtl\_compute\_isomorphism.py}) compares registers and memory, while the partition gate (\texttt{tests/test\_partition\_isomorphism\_minimal.py}) compares module regions extracted from the partition graph. The extracted runner emits a superset of observables (pc, $\mu$, err, regs, mem, CSRs, graph), and the RTL testbench emits a JSON subset tailored to the gate under test.
 
 This 3-layer isomorphism ensures that my theoretical claims are physically realizable and my implementations are provably correct with respect to the shared projection.
 

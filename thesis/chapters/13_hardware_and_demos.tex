@@ -11,7 +11,7 @@ The Thiele Machine is different: I provide a \textbf{hardware implementation} in
     \item \textbf{Enforcement}: Hardware can physically enforce invariants that software might violate
 \end{enumerate}
 
-The key insight is that the $\mu$-ledger's monotonicity is not just a theorem---it is \textit{physically enforced} by the hardware. The $\mu$-ALU has no subtract path for the cost register. It is architecturally impossible for $\mu$ to decrease.
+The key insight is that the $\mu$-ledger's monotonicity is not just a theorem---it is \textit{physically enforced} by the hardware. The $\mu$-core gates ledger updates and rejects any proposed cost update that would decrease the accumulated value (see \texttt{thielecpu/hardware/mu\_core.v}). This makes $\mu$-decreasing transitions architecturally invalid rather than merely discouraged by software.
 
 \subsection{From Proofs to Silicon}
 
@@ -49,65 +49,77 @@ State serializer & JSON state export for isomorphism checks \\
 \subsection{Instruction Encoding}
 
 Representative opcode encoding:
-\begin{verbatim}
-// Core opcodes
-`define OP_NOP      8'h00
-`define OP_HALT     8'h01
-`define OP_LOAD     8'h10
-`define OP_STORE    8'h11
-`define OP_ADD      8'h20
-`define OP_MUL      8'h21
-// Partition opcodes
-`define OP_PNEW     8'h40
-`define OP_PSPLIT   8'h41
-`define OP_PMERGE   8'h42
-`define OP_REVEAL   8'h50
-// Certification opcodes
-`define OP_CERTIFY  8'h60
-`define OP_LASSERT  8'h61
-\end{verbatim}
+\begin{lstlisting}
+// Opcodes (generated from Coq)
+localparam [7:0] OPCODE_PNEW = 8'h00;
+localparam [7:0] OPCODE_PSPLIT = 8'h01;
+localparam [7:0] OPCODE_PMERGE = 8'h02;
+localparam [7:0] OPCODE_LASSERT = 8'h03;
+localparam [7:0] OPCODE_LJOIN = 8'h04;
+localparam [7:0] OPCODE_MDLACC = 8'h05;
+localparam [7:0] OPCODE_PDISCOVER = 8'h06;
+localparam [7:0] OPCODE_XFER = 8'h07;
+localparam [7:0] OPCODE_PYEXEC = 8'h08;
+localparam [7:0] OPCODE_CHSH_TRIAL = 8'h09;
+localparam [7:0] OPCODE_XOR_LOAD = 8'h0A;
+localparam [7:0] OPCODE_XOR_ADD = 8'h0B;
+localparam [7:0] OPCODE_XOR_SWAP = 8'h0C;
+localparam [7:0] OPCODE_XOR_RANK = 8'h0D;
+localparam [7:0] OPCODE_EMIT = 8'h0E;
+localparam [7:0] OPCODE_ORACLE_HALTS = 8'h0F;
+localparam [7:0] OPCODE_HALT = 8'hFF;
+\end{lstlisting}
+These definitions are generated in \texttt{thielecpu/hardware/generated\_opcodes.vh} from the Coq instruction list, ensuring that the hardware and proofs share the same opcode mapping.
 
 \subsection{$\mu$-ALU Design}
 
 The $\mu$-ALU is a specialized arithmetic unit for cost accounting:
-\begin{verbatim}
+\begin{lstlisting}
 module mu_alu (
     input wire clk,
-    input wire rst,
-    input wire [31:0] mu_in,
-    input wire [31:0] cost,
-    input wire op_add,
-    output reg [31:0] mu_out,
-    output wire overflow
+    input wire rst_n,
+    input wire [2:0] op,          // 0=add, 1=sub, 2=mul, 3=div, 4=log2, 5=info_gain
+    input wire [31:0] operand_a,  // Q16.16 operand A
+    input wire [31:0] operand_b,  // Q16.16 operand B
+    input wire valid,
+    output reg [31:0] result,
+    output reg ready,
+    output reg overflow
 );
-    always @(posedge clk) begin
-        if (rst) mu_out <= 0;
-        else if (op_add) mu_out <= mu_in + cost;
-    end
-    assign overflow = (mu_in + cost < mu_in);
+    ...
 endmodule
-\end{verbatim}
+\end{lstlisting}
 
-Key property: \textbf{$\mu$ only increases}---the ALU has no subtract path for the cost register.
+Key property: \textbf{$\mu$ only increases} at the ledger boundary. The $\mu$-ALU implements arithmetic in Q16.16 fixed-point (see \texttt{thielecpu/hardware/mu\_alu.v}), while the $\mu$-core enforces the monotonicity policy by gating ledger updates so that any decreasing update is rejected.
 
 \subsection{State Serialization}
 
-The state serializer outputs JSON for cross-layer verification:
-\begin{verbatim}
+The state serializer outputs a canonical byte stream for cross-layer verification:
+\begin{lstlisting}
 module state_serializer (
     input wire clk,
-    input wire trigger,
-    input wire [31:0] pc, mu, err,
-    input wire [31:0] regs [0:15],
-    output reg [7:0] json_char,
-    output reg json_valid
+    input wire rst,
+    input wire start,
+    output reg ready,
+    output reg valid,
+    input wire [31:0] num_modules,
+    input wire [31:0] module_0_id,
+    input wire [31:0] module_0_var_count,
+    input wire [31:0] module_1_id,
+    input wire [31:0] module_1_var_count,
+    input wire [31:0] module_1_var_0,
+    input wire [31:0] module_1_var_1,
+    input wire [31:0] mu,
+    input wire [31:0] pc,
+    input wire [31:0] halted,
+    input wire [31:0] result,
+    input wire [31:0] program_hash,
+    output reg [8:0] byte_count,
+    output reg [367:0] serialized
 );
-\end{verbatim}
+\end{lstlisting}
 
-Output format matches Python VM and extracted runner:
-\begin{verbatim}
-{"pc":123,"mu":456,"err":0,"regs":[...]}
-\end{verbatim}
+The serializer implementation is in \texttt{thielecpu/hardware/state\_serializer.v}, and it emits the Canonical Serialization Format (CSF) defined in \texttt{docs/CANONICAL\_SERIALIZATION.md}. JSON snapshots used by the isomorphism harness come from the RTL testbench (\texttt{thielecpu/hardware/thiele\_cpu\_tb.v}), not from the serializer itself.
 
 \subsection{Synthesis Results}
 
@@ -132,7 +144,7 @@ Max Frequency & 125 MHz \\
 \subsection{Main Testbench}
 
 Representative testbench snippet:
-\begin{verbatim}
+\begin{lstlisting}
 module thiele_cpu_tb;
     // Load test program
     initial begin
@@ -145,7 +157,7 @@ module thiele_cpu_tb;
         $finish;
     end
 endmodule
-\end{verbatim}
+\end{lstlisting}
 
 The testbench outputs JSON, parsed by the isomorphism harness for cross-layer verification.
 
@@ -168,7 +180,7 @@ The isomorphism tests verify identical behavior across:
 \end{enumerate}
 
 Representative isomorphism test:
-\begin{verbatim}
+\begin{lstlisting}
 def test_rtl_matches_python():
     # Run same program in both
     python_result = vm.execute(program)
@@ -178,7 +190,7 @@ def test_rtl_matches_python():
     assert python_result.pc == rtl_result["pc"]
     assert python_result.mu == rtl_result["mu"]
     assert python_result.regs == rtl_result["regs"]
-\end{verbatim}
+\end{lstlisting}
 
 \section{Demonstration Suite}
 
@@ -225,7 +237,7 @@ Practical demonstrations include:
 \subsection{CHSH Flagship Demo}
 
 Representative flagship output:
-\begin{verbatim}
+\begin{lstlisting}
 +--------------------------------------------+
 |         CHSH GAME DEMONSTRATION            |
 +--------------------------------------------+
@@ -236,7 +248,7 @@ Representative flagship output:
 | mu-cost expended:   12,847                 |
 | Receipt generated:  chsh_receipt.json      |
 +--------------------------------------------+
-\end{verbatim}
+\end{lstlisting}
 
 \section{Standard Programs}
 
@@ -273,7 +285,7 @@ Representative demo benchmarks:
 \subsection{Python VM Integration}
 
 The Python VM provides:
-\begin{verbatim}
+\begin{lstlisting}
 class ThieleVM:
     def __init__(self):
         self.state = VMState()
@@ -285,22 +297,22 @@ class ThieleVM:
     
     def step(self, instruction: Instruction) -> StepResult:
         ...
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Extracted Runner Integration}
 
 The extracted runner reads trace files:
-\begin{verbatim}
+\begin{lstlisting}
 $ ./extracted_vm_runner trace.txt
 {"pc":100,"mu":500,"err":0,"regs":[...],"mem":[...],"csrs":{...}}
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{RTL Integration}
 
 The RTL testbench reads hex programs and outputs JSON:
-\begin{verbatim}
+\begin{lstlisting}
 {"pc":100,"mu":500,"err":0,"regs":[...],"mem":[...],"csrs":{...}}
-\end{verbatim}
+\end{lstlisting}
 
 \section{Summary}
 

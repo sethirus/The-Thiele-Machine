@@ -5,6 +5,7 @@
 Testing can find bugs, but it cannot prove their absence. If you test a sorting algorithm on 1000 inputs, you have evidence it works on those 1000 inputs---but there are infinitely many possible inputs. Formal verification replaces empirical sampling with universal quantification.
 
 \textbf{Formal verification} proves properties hold for \textit{all} inputs. When I prove "$\mu$ is monotonically non-decreasing," I don't test it on examples---I prove it mathematically.
+In this project, “all inputs” means all possible states and instruction traces compatible with the formal semantics. The proofs quantify over arbitrary \texttt{VMState} values and instructions, not over a fixed test suite. This is why the proofs must be grounded in precise definitions: without the exact state and step definitions, a universal statement would be meaningless.
 
 \subsection{The Coq Proof Assistant}
 
@@ -14,6 +15,7 @@ Coq is an interactive theorem prover based on dependent type theory. A Coq proof
     \item \textbf{Constructive}: Proofs can be extracted to executable code
     \item \textbf{Permanent}: Once proven, the result is certain (assuming Coq's kernel is correct)
 \end{itemize}
+The guarantees come from the small, trusted kernel of Coq. Every lemma in the thesis is checked against that kernel, and extraction produces executable code whose behavior is justified by the same proofs. This matters because the extracted runner is used as an oracle in isomorphism tests; the proof context and the executable context are tied to the same semantics.
 
 \subsection{The Zero-Admit Standard}
 
@@ -25,6 +27,7 @@ The Thiele Machine uses an unusually strict standard:
 \end{itemize}
 
 This standard is enforced automatically. Any commit introducing an admit fails CI. This matters because it guarantees every theorem in the active proof tree is fully discharged.
+The enforcement mechanism is \texttt{scripts/inquisitor.py}, which scans the Coq tree and reports violations. The strictness is not ceremonial: it ensures that the theorem statements presented in this chapter are actually complete and therefore reusable as axioms in subsequent reasoning.
 
 \subsection{What I Prove}
 
@@ -35,6 +38,7 @@ The key theorems proven in Coq are:
     \item \textbf{No Free Insight}: Strengthening certification requires explicit structure addition
     \item \textbf{Gauge Invariance}: Partition structure is invariant under $\mu$-shifts
 \end{enumerate}
+Each of these theorems has a concrete home in the Coq tree: observational no-signaling is developed in files such as \texttt{ObserverDerivation.v}, $\mu$-conservation is proven in \texttt{MuLedgerConservation.v}, and No Free Insight appears in \texttt{NoFreeInsight.v} and \texttt{MuNoFreeInsightQuantitative.v}. The names matter because they pin the prose to specific proof artifacts a reader can inspect.
 
 \subsection{How to Read This Chapter}
 
@@ -79,7 +83,7 @@ The proofs build outward from the state and step definitions: first the operatio
 
 \subsection{The State Record}
 
-\begin{verbatim}
+\begin{lstlisting}
 Record VMState := {
   vm_graph : PartitionGraph;
   vm_csrs : CSRState;
@@ -89,57 +93,60 @@ Record VMState := {
   vm_mu : nat;
   vm_err : bool
 }.
-\end{verbatim}
+\end{lstlisting}
+The record is not just a convenient bundle. It encodes the exact pieces of state that the theorems quantify over, and it matches the projection used in cross-layer tests. The constants \texttt{REG\_COUNT} and \texttt{MEM\_SIZE} in \texttt{coq/kernel/VMState.v} fix the widths, and helper functions such as \texttt{read\_reg} and \texttt{write\_reg} define the operational meaning of register access.
 
 \subsection{Canonical Region Normalization}
 
 Regions are stored in canonical form to make observational equality well-defined:
-\begin{verbatim}
+\begin{lstlisting}
 Definition normalize_region (region : list nat) : list nat :=
   nodup Nat.eq_dec region.
-\end{verbatim}
+\end{lstlisting}
 
 \begin{theorem}[Idempotence]
-\begin{verbatim}
+\begin{lstlisting}
 Lemma normalize_region_idempotent : forall region,
   normalize_region (normalize_region region) = normalize_region region.
-\end{verbatim}
+\end{lstlisting}
 \end{theorem}
 
 \begin{proof}
 By \texttt{nodup\_fixed\_point}: applying \texttt{nodup} twice yields the same result, so normalization is idempotent and comparisons are stable.
 \end{proof}
+This lemma is more than a tidying step. Observational equality depends on normalized regions; idempotence guarantees that repeated normalization does not change what an observer sees, which is vital when a proof chains multiple graph operations together.
 
 \subsection{Graph Well-Formedness}
 
-\begin{verbatim}
+\begin{lstlisting}
 Definition well_formed_graph (g : PartitionGraph) : Prop :=
   all_ids_below g.(pg_modules) g.(pg_next_id).
-\end{verbatim}
+\end{lstlisting}
 
 \begin{theorem}[Preservation Under Add]
-\begin{verbatim}
+\begin{lstlisting}
 Lemma graph_add_module_preserves_wf : forall g region axioms g' mid,
   well_formed_graph g ->
   graph_add_module g region axioms = (g', mid) ->
   well_formed_graph g'.
-\end{verbatim}
+\end{lstlisting}
 \end{theorem}
+Well-formedness only enforces the ID discipline (no module has an ID greater than or equal to \texttt{pg\_next\_id}). The key point is that this property is strong enough to prevent stale references while weak enough to be preserved by every graph operation. Disjointness and coverage are handled by operation-specific lemmas so that the global invariant does not overfit any single instruction.
 
 \begin{theorem}[Preservation Under Remove]
-\begin{verbatim}
+\begin{lstlisting}
 Lemma graph_remove_preserves_wf : forall g mid g' m,
   well_formed_graph g ->
   graph_remove g mid = Some (g', m) ->
   well_formed_graph g'.
-\end{verbatim}
+\end{lstlisting}
 \end{theorem}
 
 \section{Operational Semantics}
 
 \subsection{The Instruction Type}
 
-\begin{verbatim}
+\begin{lstlisting}
 Inductive vm_instruction :=
 | instr_pnew (region : list nat) (mu_delta : nat)
 | instr_psplit (module : ModuleID) (left right : list nat) (mu_delta : nat)
@@ -160,13 +167,13 @@ Inductive vm_instruction :=
 | instr_reveal (module : ModuleID) (bits : nat) (cert : string) (mu_delta : nat)
 | instr_oracle_halts (payload : string) (mu_delta : nat)
 | instr_halt (mu_delta : nat).
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{The Step Relation}
 
-\begin{verbatim}
+\begin{lstlisting}
 Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop := ...
-\end{verbatim}
+\end{lstlisting}
 
 Each instruction has one or more step rules. Key properties:
 \begin{itemize}
@@ -174,6 +181,7 @@ Each instruction has one or more step rules. Key properties:
     \item \textbf{Partial on invalid inputs}: Instructions with invalid certificates or failed structural checks can be undefined.
     \item \textbf{Cost-charging}: Every rule updates \texttt{vm\_mu} by the declared instruction cost.
 \end{itemize}
+The error latch is explicit in the step rules. For example, \texttt{PSPLIT} and \texttt{PMERGE} each have “failure” rules in \texttt{coq/kernel/VMStep.v} that leave the graph unchanged but set the error CSR and latch \texttt{vm\_err}. This design makes error propagation explicit and therefore available to proofs, rather than being implicit behavior of an implementation language.
 
 This gives a complete operational semantics: given a well-formed state and a valid instruction, the next state is uniquely determined.
 
@@ -183,7 +191,7 @@ This file establishes the physical laws of the Thiele Machine kernel—propertie
 
 \subsection{Observables}
 
-\begin{verbatim}
+\begin{lstlisting}
 Definition Observable (s : VMState) (mid : nat) : option (list nat * nat) :=
   match graph_lookup s.(vm_graph) mid with
   | Some modstate => Some (normalize_region modstate.(module_region), s.(vm_mu))
@@ -195,13 +203,14 @@ Definition ObservableRegion (s : VMState) (mid : nat) : option (list nat) :=
   | Some modstate => Some (normalize_region modstate.(module_region))
   | None => None
   end.
-\end{verbatim}
+\end{lstlisting}
 
 Note: Axioms are \textbf{not} observable—they are internal implementation details. Observables contain only partition regions and the $\mu$-ledger, which is the cost-visible interface of the model.
+The distinction between \texttt{Observable} and \texttt{ObservableRegion} is deliberate. \texttt{Observable} includes the $\mu$-ledger to capture the paid structural cost, while \texttt{ObservableRegion} strips the $\mu$ field so that no-signaling can be stated purely in terms of partition structure. This avoids a loophole where a proof of locality could fail merely because the $\mu$-ledger changed, even though no region membership changed.
 
 \subsection{Instruction Target Sets}
 
-\begin{verbatim}
+\begin{lstlisting}
 Definition instr_targets (instr : vm_instruction) : list nat :=
   match instr with
   | instr_pnew _ _ => []
@@ -210,19 +219,19 @@ Definition instr_targets (instr : vm_instruction) : list nat :=
   | instr_lassert mid _ _ _ => [mid]
   ...
   end.
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{The No-Signaling Theorem}
 
 \begin{theorem}[Observational No-Signaling]
-\begin{verbatim}
+\begin{lstlisting}
 Theorem observational_no_signaling : forall s s' instr mid,
   well_formed_graph s.(vm_graph) ->
   mid < pg_next_id s.(vm_graph) ->
   vm_step s instr s' ->
   ~ In mid (instr_targets instr) ->
   ObservableRegion s mid = ObservableRegion s' mid.
-\end{verbatim}
+\end{lstlisting}
 \end{theorem}
 
 \begin{proof}
@@ -240,7 +249,7 @@ By case analysis on the instruction. For each instruction type:
 
 \subsection{Gauge Symmetry}
 
-\begin{verbatim}
+\begin{lstlisting}
 Definition mu_gauge_shift (k : nat) (s : VMState) : VMState :=
   {| vm_regs := s.(vm_regs);
      vm_mem := s.(vm_mem);
@@ -249,14 +258,14 @@ Definition mu_gauge_shift (k : nat) (s : VMState) : VMState :=
      vm_graph := s.(vm_graph);
      vm_mu := s.(vm_mu) + k;
      vm_err := s.(vm_err) |}.
-\end{verbatim}
+\end{lstlisting}
 
 \begin{theorem}[Gauge Invariance]
-\begin{verbatim}
+\begin{lstlisting}
 Theorem kernel_noether_mu_gauge : forall s k,
   conserved_partition_structure s = 
   conserved_partition_structure (nat_action k s).
-\end{verbatim}
+\end{lstlisting}
 \end{theorem}
 
 \textbf{Physical Interpretation}: Noether's theorem—gauge symmetry (freedom to shift $\mu$ by a constant) corresponds to conservation of partition structure.
@@ -264,11 +273,11 @@ Theorem kernel_noether_mu_gauge : forall s k,
 \subsection{$\mu$-Conservation}
 
 \begin{theorem}[$\mu$-Conservation]
-\begin{verbatim}
+\begin{lstlisting}
 Theorem mu_conservation_kernel : forall s s' instr,
   vm_step s instr s' ->
   s'.(vm_mu) >= s.(vm_mu).
-\end{verbatim}
+\end{lstlisting}
 \end{theorem}
 
 \begin{proof}
@@ -279,7 +288,7 @@ By definition of \texttt{vm\_step}: every step rule updates \texttt{vm\_mu} to \
 
 \subsection{Run Function}
 
-\begin{verbatim}
+\begin{lstlisting}
 Fixpoint run_vm (fuel : nat) (trace : Trace) (s : VMState) : VMState :=
   match fuel with
   | O => s
@@ -289,11 +298,11 @@ Fixpoint run_vm (fuel : nat) (trace : Trace) (s : VMState) : VMState :=
       | Some instr => run_vm fuel' trace (step_vm s instr)
       end
   end.
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Ledger Entries}
 
-\begin{verbatim}
+\begin{lstlisting}
 Fixpoint ledger_entries (fuel : nat) (trace : Trace) (s : VMState) : list nat :=
   match fuel with
   | O => []
@@ -306,17 +315,17 @@ Fixpoint ledger_entries (fuel : nat) (trace : Trace) (s : VMState) : list nat :=
   end.
 
 Definition ledger_sum (entries : list nat) : nat := fold_left Nat.add entries 0.
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Conservation Theorem}
 
 \begin{theorem}[Run Conservation]
-\begin{verbatim}
+\begin{lstlisting}
 Corollary run_vm_mu_conservation :
   forall fuel trace s,
     (run_vm fuel trace s).(vm_mu) =
     s.(vm_mu) + ledger_sum (ledger_entries fuel trace s).
-\end{verbatim}
+\end{lstlisting}
 \end{theorem}
 
 \begin{proof}
@@ -326,12 +335,12 @@ By induction on fuel. Base case: empty ledger, $\mu$ unchanged. Inductive case: 
 \subsection{Irreversibility Bound}
 
 \begin{theorem}[Irreversibility]
-\begin{verbatim}
+\begin{lstlisting}
 Theorem vm_irreversible_bits_lower_bound :
   forall fuel trace s,
     irreversible_count fuel trace s <=
       (run_vm fuel trace s).(vm_mu) - s.(vm_mu).
-\end{verbatim}
+\end{lstlisting}
 \end{theorem}
 
 \textbf{Physical Interpretation}: The $\mu$-ledger growth lower-bounds irreversible bit events—connecting to Landauer's principle.
@@ -340,23 +349,23 @@ Theorem vm_irreversible_bits_lower_bound :
 
 \subsection{Receipt Predicates}
 
-\begin{verbatim}
+\begin{lstlisting}
 Definition ReceiptPredicate (A : Type) := list A -> bool.
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Strength Ordering}
 
-\begin{verbatim}
+\begin{lstlisting}
 Definition stronger {A : Type} (P1 P2 : ReceiptPredicate A) : Prop :=
   forall obs, P1 obs = true -> P2 obs = true.
 
 Definition strictly_stronger {A : Type} (P1 P2 : ReceiptPredicate A) : Prop :=
   (P1 <= P2) /\ (exists obs, P1 obs = false /\ P2 obs = true).
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Certification}
 
-\begin{verbatim}
+\begin{lstlisting}
 Definition Certified {A : Type} 
                      (s_final : VMState)
                      (decoder : receipt_decoder A)
@@ -365,12 +374,12 @@ Definition Certified {A : Type}
   s_final.(vm_err) = false /\ 
   has_supra_cert s_final /\ 
   P (decoder receipts) = true.
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{The Main Theorem}
 
 \begin{theorem}[No Free Insight — General Form]
-\begin{verbatim}
+\begin{lstlisting}
 Theorem no_free_insight_general :
   forall (trace : Trace) (s_init s_final : VMState) (fuel : nat),
     trace_run fuel trace s_init = Some s_final ->
@@ -380,7 +389,7 @@ Theorem no_free_insight_general :
     (exists n m p mu, nth_error trace n = Some (instr_emit m p mu)) \/
     (exists n c1 c2 mu, nth_error trace n = Some (instr_ljoin c1 c2 mu)) \/
     (exists n m f c mu, nth_error trace n = Some (instr_lassert m f c mu)).
-\end{verbatim}
+\end{lstlisting}
 \end{theorem}
 
 \begin{proof}
@@ -390,7 +399,7 @@ By the revelation requirement. The structure-addition analysis shows that if \te
 \subsection{Strengthening Theorem}
 
 \begin{theorem}[Strengthening Requires Structure]
-\begin{verbatim}
+\begin{lstlisting}
 Theorem strengthening_requires_structure_addition :
   forall (A : Type)
          (decoder : receipt_decoder A)
@@ -402,7 +411,7 @@ Theorem strengthening_requires_structure_addition :
     s_init.(vm_csrs).(csr_cert_addr) = 0 ->
     Certified (run_vm fuel trace s_init) decoder P_strong trace ->
     has_structure_addition fuel trace s_init.
-\end{verbatim}
+\end{lstlisting}
 \end{theorem}
 
 \begin{proof}
@@ -416,7 +425,7 @@ Theorem strengthening_requires_structure_addition :
 \section{Revelation Requirement: Supra-Quantum Certification}
 
 \begin{theorem}[Nonlocal Correlation Requires Revelation]
-\begin{verbatim}
+\begin{lstlisting}
 Theorem nonlocal_correlation_requires_revelation :
   forall (trace : Trace) (s_init s_final : VMState) (fuel : nat),
     trace_run fuel trace s_init = Some s_final ->
@@ -426,7 +435,7 @@ Theorem nonlocal_correlation_requires_revelation :
     (exists n m p mu, nth_error trace n = Some (instr_emit m p mu)) \/
     (exists n c1 c2 mu, nth_error trace n = Some (instr_ljoin c1 c2 mu)) \/
     (exists n m f c mu, nth_error trace n = Some (instr_lassert m f c mu)).
-\end{verbatim}
+\end{lstlisting}
 \end{theorem}
 
 \textbf{Interpretation}: To achieve supra-quantum certification, you must explicitly pay for it through a revelation-type instruction. There is no backdoor.
@@ -439,13 +448,13 @@ At the end of the verification campaign, the active proof tree contains no admit
 
 Every theorem includes a falsifier specification:
 
-\begin{verbatim}
+\begin{lstlisting}
 (** FALSIFIER: Exhibit a system satisfying A1-A4 where:
     - Two predicates P_weak, P_strong with P_strong < P_weak
     - A trace tr certifies P_strong
     - tr contains NO revelation event
     *)
-\end{verbatim}
+\end{lstlisting}
 
 If anyone can produce such a counterexample, the theorem is false. The proofs establish that no such counterexample exists within the Thiele Machine model.
 
