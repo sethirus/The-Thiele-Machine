@@ -1,0 +1,22 @@
+# Yosys synthesis script for Thiele CPU Top Level
+
+# Read the Verilog source files
+read_verilog -sv -D YOSYS_LITE thielecpu/hardware/mu_alu.v
+read_verilog -sv -D YOSYS_LITE thielecpu/hardware/mu_core.v
+read_verilog -sv -D YOSYS_LITE thielecpu/hardware/thiele_cpu.v
+
+# Elaborate design hierarchy
+hierarchy -check -top thiele_cpu
+
+# Perform high-level synthesis
+proc; opt; memory; opt
+
+# Technology mapping
+techmap; opt
+
+# Generate statistics
+stat
+
+# Write output netlist
+write_json artifacts/thiele_cpu_synth.json
+write_verilog artifacts/thiele_cpu_synth.v
