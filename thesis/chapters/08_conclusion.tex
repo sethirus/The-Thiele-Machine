@@ -37,6 +37,7 @@ This thesis has presented the Thiele Machine, a computational model that treats 
     
     \item \textbf{Observational No-Signaling}: I proved that operations on one module cannot affect the observables of unrelated modules—a computational analog of Bell locality.
 \end{enumerate}
+These theoretical components map to concrete Coq artifacts: \texttt{VMState.v} and \texttt{VMStep.v} define the formal machine, \texttt{MuLedgerConservation.v} proves monotonicity and irreversibility bounds, and \texttt{NoFreeInsight.v} formalizes the impossibility claim. The contribution is therefore not just conceptual; it is encoded in machine-checked definitions.
 
 \subsection{Implementation Contributions}
 
@@ -47,7 +48,7 @@ This thesis has presented the Thiele Machine, a computational model that treats 
         \item Python reference VM with receipts and trace replay
         \item Verilog RTL suitable for synthesis
     \end{itemize}
-    All three layers produce identical state projections for any instruction trace. The projection is fixed in advance and contains only observable state: registers, memory, control/status registers, the partition graph, the program counter, and the $\mu$-ledger.
+    All three layers produce identical state projections for any instruction trace, with the projection chosen to match the gate being exercised. For compute traces the gate compares registers and memory; for partition traces it compares canonicalized module regions. The extracted runner provides a superset snapshot (pc, $\mu$, err, regs, mem, CSRs, graph) that can be used when a gate needs a broader view.
     
     \item \textbf{18-Instruction ISA}: I defined a minimal instruction set sufficient for partition-native computation. The ISA is intentionally small so that each opcode has a clear semantic role: structure creation, structure modification, certification, computation, and control.
     \begin{itemize}
@@ -60,6 +61,7 @@ This thesis has presented the Thiele Machine, a computational model that treats 
     
     \item \textbf{The Inquisitor}: I built automated verification tooling that enforces zero-admit discipline and runs the isomorphism gates.
 \end{enumerate}
+The implementations are organized so they can be audited against the formal kernel: the Coq layer is under \texttt{coq/kernel/}, the Python VM under \texttt{thielecpu/}, and the RTL under \texttt{thielecpu/hardware/}. The isomorphism tests consume traces that exercise all three and compare their observable projections.
 
 \subsection{Verification Contributions}
 
@@ -84,6 +86,7 @@ This thesis has presented the Thiele Machine, a computational model that treats 
     
     \item \textbf{Falsifiability}: Every theorem includes an explicit falsifier specification. If a counterexample exists, it would refute the theorem and identify the precise assumption that failed.
 \end{enumerate}
+The theorem names in the table correspond to statements in the Coq kernel (for example, \texttt{observational\_no\_signaling} in \texttt{KernelPhysics.v} and \texttt{nonlocal\_correlation\_requires\_revelation} in \texttt{RevelationRequirement.v}). This explicit mapping is what makes the verification story reproducible.
 
 \section{The Thiele Machine Hypothesis: Confirmed}
 

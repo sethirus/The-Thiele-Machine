@@ -12,6 +12,7 @@ However, the Thiele Machine makes \textit{falsifiable predictions}---claims that
 \end{itemize}
 
 This chapter documents a comprehensive experimental campaign that treats the Thiele Machine as a \textit{scientific theory} subject to empirical testing. The emphasis is on reproducible protocols and adversarial attempts to falsify the claims, not on cherry-picked confirmations.
+Where possible, the experiments correspond to concrete harnesses in the repository (for example, CHSH and supra-quantum checks in \texttt{tests/test\_supra\_revelation\_semantics.py} and related utilities in \texttt{tools/finite\_quantum.py}). The “representative protocols” below are therefore summaries of executable workflows rather than purely hypothetical sketches.
 
 \subsection{Falsification vs.\ Confirmation}
 
@@ -43,7 +44,7 @@ The experimental suite is organized by the kind of claim under test:
 \subsection{Landauer Principle Validation}
 
 Representative protocol:
-\begin{verbatim}
+\begin{lstlisting}
 def run_landauer_experiment(
     temperatures: List[float],
     bit_counts: List[int],
@@ -55,14 +56,15 @@ def run_landauer_experiment(
     The kernel enforces mu-increase on ERASE operations,
     which should track physical energy at the Landauer bound.
     """
-\end{verbatim}
+\end{lstlisting}
+The kernel-level lower bound used here is proven in \texttt{coq/kernel/MuLedgerConservation.v}, which ties $\mu$ increments to irreversible operations. The experiment is the empirical mirror: it checks that the measured runs obey the same monotone cost behavior observed in the proofs.
 
 \textbf{Results:} Across 1,000 runs at temperatures from 1K to 1000K, all erasure operations showed $\mu$-increase consistent with Landauer's bound within measurement precision.
 
 \subsection{Einstein Locality Test}
 
 Representative protocol:
-\begin{verbatim}
+\begin{lstlisting}
 def test_einstein_locality():
     """
     Verify no-signaling: Alice's choice cannot affect Bob's
@@ -70,14 +72,14 @@ def test_einstein_locality():
     """
     # Run 10,000 trials across all measurement angle combinations
     # Verify P(b|x,y) = P(b|y) for all x
-\end{verbatim}
+\end{lstlisting}
 
 \textbf{Results:} No-signaling verified to $10^{-6}$ precision across all 16 input/output combinations.
 
 \subsection{Entropy Coarse-Graining}
 
 Representative protocol:
-\begin{verbatim}
+\begin{lstlisting}
 def measure_entropy_vs_coarseness(
     state: VMState,
     coarse_levels: List[int]
@@ -86,27 +88,28 @@ def measure_entropy_vs_coarseness(
     Demonstrate that entropy is only defined when
     coarse-graining is applied per EntropyImpossibility.v.
     """
-\end{verbatim}
+\end{lstlisting}
+This protocol is a direct operationalization of the impossibility result in \texttt{coq/kernel/EntropyImpossibility.v}, which shows that entropy claims require explicit coarse-graining. The experiment checks that the verifier enforces that requirement in practice.
 
 \textbf{Results:} Raw state entropy diverges; entropy converges only with coarse-graining parameter $\epsilon > 0$.
 
 \subsection{Observer Effect}
 
 Representative protocol:
-\begin{verbatim}
+\begin{lstlisting}
 def measure_observation_cost():
     """
     Verify that observation itself has mu-cost,
     consistent with physical measurement back-action.
     """
-\end{verbatim}
+\end{lstlisting}
 
 \textbf{Results:} Every observation increments $\mu$ by at least 1 unit, consistent with minimum measurement cost.
 
 \subsection{CHSH Game Demonstration}
 
 Representative protocol:
-\begin{verbatim}
+\begin{lstlisting}
 def run_chsh_game(n_rounds: int) -> CHSHResults:
     """
     Demonstrate CHSH winning probability bounds.
@@ -114,7 +117,8 @@ def run_chsh_game(n_rounds: int) -> CHSHResults:
     - Quantum strategies: <= 85.35% (Tsirelson)
     - Kernel-certified: matches Tsirelson exactly
     """
-\end{verbatim}
+\end{lstlisting}
+The CHSH computations use the same conservative rational Tsirelson bound employed by the kernel and Python libraries, so the reported percentages can be traced to exact arithmetic rather than floating-point thresholds.
 
 \textbf{Results:} 100,000 rounds achieved 85.3\% $\pm$ 0.1\%, consistent with the Tsirelson bound $\frac{2+\sqrt{2}}{4}$.
 
@@ -123,7 +127,7 @@ def run_chsh_game(n_rounds: int) -> CHSHResults:
 \subsection{Partition Discovery Cost}
 
 Representative protocol:
-\begin{verbatim}
+\begin{lstlisting}
 def measure_discovery_scaling(
     problem_sizes: List[int]
 ) -> ScalingResults:
@@ -131,21 +135,21 @@ def measure_discovery_scaling(
     Measure how partition discovery cost scales with problem size.
     Theory predicts: O(n * log(n)) for structured problems.
     """
-\end{verbatim}
+\end{lstlisting}
 
 \textbf{Results:} Discovery costs matched $O(n \log n)$ prediction for sizes 100--10,000.
 
 \subsection{Complexity Gap Demonstration}
 
 Representative protocol:
-\begin{verbatim}
+\begin{lstlisting}
 def demonstrate_complexity_gap():
     """
     Show problems where partition-aware computation is
     exponentially faster than brute-force.
     """
     # Compare: brute force O(2^n) vs partition O(n^k)
-\end{verbatim}
+\end{lstlisting}
 
 \textbf{Results:} For SAT instances with hidden structure, partition discovery achieved 10,000x speedup on $n=50$ variables.
 
@@ -154,7 +158,7 @@ def demonstrate_complexity_gap():
 \subsection{Receipt Forgery Attempt}
 
 Representative protocol:
-\begin{verbatim}
+\begin{lstlisting}
 def attempt_receipt_forgery():
     """
     Red-team test: try to create valid-looking receipts
@@ -167,14 +171,14 @@ def attempt_receipt_forgery():
     # - Buffer overflow
     # - Time-of-check/time-of-use
     # - Replay attacks
-\end{verbatim}
+\end{lstlisting}
 
 \textbf{Results:} All forgery attempts detected. Zero false certificates issued.
 
 \subsection{Free Insight Attack}
 
 Representative protocol:
-\begin{verbatim}
+\begin{lstlisting}
 def attempt_free_insight():
     """
     Red-team test: try to gain certified knowledge
@@ -182,7 +186,7 @@ def attempt_free_insight():
     
     This directly tests the No Free Insight theorem.
     """
-\end{verbatim}
+\end{lstlisting}
 
 \textbf{Results:} All attempts either:
 \begin{itemize}
@@ -193,14 +197,14 @@ def attempt_free_insight():
 \subsection{Supra-Quantum Attack}
 
 Representative protocol:
-\begin{verbatim}
+\begin{lstlisting}
 def attempt_supra_quantum_box():
     """
     Red-team test: try to create a PR box with S > 2*sqrt(2).
     
     If successful -> quantum bound is wrong.
     """
-\end{verbatim}
+\end{lstlisting}
 
 \textbf{Results:} All attempts bounded by $S \le 2.828$, consistent with Tsirelson.
 
@@ -217,13 +221,13 @@ Macro-benchmarks measure throughput on full workflows (discovery, certification,
 \subsection{Isomorphism Benchmarks}
 
 Representative protocol:
-\begin{verbatim}
+\begin{lstlisting}
 def benchmark_layer_isomorphism():
     """
     Verify Python/Extracted/RTL produce identical traces.
     Measure overhead of cross-validation.
     """
-\end{verbatim}
+\end{lstlisting}
 
 \textbf{Results:} Cross-layer validation adds 15\% overhead; all 10,000 test traces matched exactly.
 
@@ -248,7 +252,7 @@ Complexity gap & Blind vs sighted computation showcase \\
 \subsection{CHSH Game Demo}
 
 Representative interaction:
-\begin{verbatim}
+\begin{lstlisting}
 $ python -m demos.chsh_game --rounds 10000
 
 CHSH Game Results:
@@ -260,7 +264,7 @@ Tsirelson bound: 85.35%
 Gap: 0.03%
 
 Receipt generated: chsh_game_receipt_2024.json
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Research Demonstrations}
 
@@ -276,22 +280,22 @@ Representative topics:
 
 \subsection{End-to-End Test Suite}
 
-The end-to-end test suite runs representative traces through the full pipeline and verifies receipt integrity, $\mu$-monotonicity, and cross-layer equality of observable state projections.
+The end-to-end test suite runs representative traces through the full pipeline and verifies receipt integrity, $\mu$-monotonicity, and cross-layer equality of observable projections (with the exact projection determined by the gate: registers/memory for compute traces, module regions for partition traces).
 
 \subsection{Isomorphism Tests}
 
-Isomorphism tests enforce the 3-layer correspondence by comparing canonical projections of state after identical traces. Any mismatch is treated as a critical failure.
+Isomorphism tests enforce the 3-layer correspondence by comparing canonical projections of state after identical traces, using the projection that matches the trace type. Any mismatch is treated as a critical failure.
 
 \subsection{Fuzz Testing}
 
 Representative protocol:
-\begin{verbatim}
+\begin{lstlisting}
 def test_fuzz_vm_inputs():
     """
     Random input fuzzing to find edge cases.
     10,000 random instruction sequences.
     """
-\end{verbatim}
+\end{lstlisting}
 
 \textbf{Results:} Zero crashes, zero undefined behaviors, all $\mu$-invariants preserved.
 
@@ -311,7 +315,7 @@ The project runs multiple continuous checks:
 \subsection{Inquisitor Enforcement}
 
 Representative policy:
-\begin{verbatim}
+\begin{lstlisting}
 # Checks for forbidden constructs:
 # - Admitted.
 # - admit.
@@ -319,7 +323,7 @@ Representative policy:
 # - give_up.
 
 # Must return: 0 HIGH findings
-\end{verbatim}
+\end{lstlisting}
 
 This enforces the ``no admits, no axioms'' policy.
 
