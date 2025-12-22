@@ -128,40 +128,29 @@ initial begin
         $display("Loading PROGRAM=%0s", program_hex_path);
         $readmemh(program_hex_path, instr_memory);
     end else begin
-        // Default compute program (Coq/Python/RTL shared semantics)
-        // Extended test program covering all compute instructions
+        // Default compute program using only VALID opcodes from generated_opcodes.vh
+        // Tests: XOR_LOAD, XOR_ADD, XOR_SWAP, XOR_RANK, XFER, EMIT, HALT
         
         // 1) Load 4 values from memory into r0..r3
-        instr_memory[0] = {8'h0A, 8'h00, 8'h00, 8'h00}; // XOR_LOAD r0 <= mem[0]
-        instr_memory[1] = {8'h0A, 8'h01, 8'h01, 8'h00}; // XOR_LOAD r1 <= mem[1]
-        instr_memory[2] = {8'h0A, 8'h02, 8'h02, 8'h00}; // XOR_LOAD r2 <= mem[2]
-        instr_memory[3] = {8'h0A, 8'h03, 8'h03, 8'h00}; // XOR_LOAD r3 <= mem[3]
+        instr_memory[0] = {8'h0A, 8'h00, 8'h00, 8'h00}; // XOR_LOAD r0 <= mem[0] = 0x29
+        instr_memory[1] = {8'h0A, 8'h01, 8'h01, 8'h00}; // XOR_LOAD r1 <= mem[1] = 0x12
+        instr_memory[2] = {8'h0A, 8'h02, 8'h02, 8'h00}; // XOR_LOAD r2 <= mem[2] = 0x22
+        instr_memory[3] = {8'h0A, 8'h03, 8'h03, 8'h00}; // XOR_LOAD r3 <= mem[3] = 0x03
 
         // 2) XOR algebra operations
-        instr_memory[4] = {8'h0B, 8'h03, 8'h00, 8'h00}; // XOR_ADD r3 ^= r0
-        instr_memory[5] = {8'h0B, 8'h03, 8'h01, 8'h00}; // XOR_ADD r3 ^= r1
-        instr_memory[6] = {8'h0C, 8'h00, 8'h03, 8'h00}; // XOR_SWAP r0 <-> r3
+        instr_memory[4] = {8'h0B, 8'h03, 8'h00, 8'h00}; // XOR_ADD r3 ^= r0 => 0x03 ^ 0x29 = 0x2A
+        instr_memory[5] = {8'h0B, 8'h03, 8'h01, 8'h00}; // XOR_ADD r3 ^= r1 => 0x2A ^ 0x12 = 0x38
+        instr_memory[6] = {8'h0C, 8'h00, 8'h03, 8'h00}; // XOR_SWAP r0 <-> r3 => r0=0x38, r3=0x29
         
-        // 3) Rank and reverse operations
-        instr_memory[7] = {8'h07, 8'h02, 8'h04, 8'h00}; // XFER r4 <- r2
-        instr_memory[8] = {8'h0D, 8'h05, 8'h04, 8'h00}; // XOR_RANK r5 := popcount(r4)
-        instr_memory[9] = {8'h0E, 8'h06, 8'h04, 8'h00}; // XOR_REV r6 := bitreverse(r4)
+        // 3) Rank and transfer operations
+        instr_memory[7] = {8'h07, 8'h04, 8'h02, 8'h00}; // XFER r4 <- r2 = 0x22 (dest, src operand order)
+        instr_memory[8] = {8'h0D, 8'h05, 8'h04, 8'h00}; // XOR_RANK r5 := popcount(r4) = popcount(0x22) = 2
         
-        // 4) Parity and AND operations
-        instr_memory[10] = {8'h0F, 8'h07, 8'h05, 8'h00}; // XOR_PARITY r7 := parity(r5)
-        instr_memory[11] = {8'h10, 8'h01, 8'h02, 8'h00}; // XOR_AND r1 &= r2
+        // 4) EMIT instruction (0x0E) - adds to info_gain counter
+        instr_memory[9] = {8'h0E, 8'h00, 8'h04, 8'h00}; // EMIT with info_gain = operand_b = 4
         
-        // 5) Store results to memory
-        instr_memory[12] = {8'h11, 8'h05, 8'h04, 8'h00}; // XOR_STORE mem[4] <= r5
-        instr_memory[13] = {8'h11, 8'h06, 8'h05, 8'h00}; // XOR_STORE mem[5] <= r6
-        instr_memory[14] = {8'h11, 8'h07, 8'h06, 8'h00}; // XOR_STORE mem[6] <= r7
-        
-        // 6) Oracle and Python execution
-        instr_memory[15] = {8'h13, 8'h00, 8'h08, 8'h00}; // ORACLE r8 <- oracle[r0]
-        instr_memory[16] = {8'h14, 8'h09, 8'h00, 8'h00}; // PYEXEC r9 <- python(addr=0)
-        
-        // 7) HALT
-        instr_memory[17] = {8'hFF, 8'h00, 8'h00, 8'h00}; // HALT
+        // 5) HALT
+        instr_memory[10] = {8'hFF, 8'h00, 8'h00, 8'h00}; // HALT
     end
 
     // Initialize external data memory (kept for legacy mem interface)

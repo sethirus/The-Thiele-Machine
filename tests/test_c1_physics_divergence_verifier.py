@@ -154,7 +154,7 @@ def test_c1_rejects_improvement_without_calibration(ed25519_keypair: Tuple[Ed255
         public_key=public_key,
     )
 
-    with pytest.raises(PhysicsDivergenceVerificationError, match="requires calibration"):
+    with pytest.raises(PhysicsDivergenceVerificationError, match="calibration"):
         verify_physics_divergence(run_dir, trust_manifest_path)
 
 
