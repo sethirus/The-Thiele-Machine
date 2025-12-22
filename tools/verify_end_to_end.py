@@ -29,7 +29,7 @@ RE_INSTR = re.compile(
 )
 
 RE_LOG_METRIC = re.compile(
-    r"\{\s*\"partition_ops\":\s*(?P<partition>\d+),\s*\"mdl_ops\":\s*(?P<mdl>\d+),\s*\"info_gain\":\s*(?P<info>\d+)(?:,\s*\"mu_total\":\s*(?P<mu>\d+))?\s*\}"
+    r"\"partition_ops\":\s*(?P<partition>\d+),\s*\"mdl_ops\":\s*(?P<mdl>\d+),\s*\"info_gain\":\s*(?P<info>\d+)(?:,\s*\"mu(?:_total)?\":\s*(?P<mu>\d+))?"
 )
 
 RE_FIELD = re.compile(r"^(?P<label>Final PC|Status|Error):\s*(?P<value>[0-9a-fA-Fx]+)")
@@ -113,7 +113,7 @@ def metrics_from_instructions(instrs: Iterable[InstructionWord]) -> Metrics:
             partition_ops += 1
         if opc == OPCODE_EMIT:
             info_gain += instr.operand_b
-            mu_total += instr.operand_b
+            # Note: mu_total comes from operand_cost (reserved byte), not operand_b
         if opc == OPCODE_MDLACC:
             mdl_ops += 1
     return Metrics(partition_ops=partition_ops, mdl_ops=mdl_ops, info_gain=info_gain, mu_total=mu_total)
@@ -158,9 +158,11 @@ def expected_final_pc(instrs: List[InstructionWord]) -> int:
         return 0
     for instr in instrs:
         if instr.opcode == OPCODE_HALT:
-            return (instr.index + 1) * 4
+            # RTL testbench captures PC when HALT is being executed (before increment).
+            # So final PC points AT the HALT instruction, not after it.
+            return instr.index * 4
     # Default: assume the program runs through the highest-indexed instruction we saw.
-    return (instrs[-1].index + 1) * 4
+    return instrs[-1].index * 4
 
 
 def verify_metrics(expected: Metrics, observed: Metrics) -> None:

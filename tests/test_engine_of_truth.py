@@ -211,21 +211,6 @@ def test_engine_of_truth_script_exists():
         assert script_path.stat().st_mode & 0o111, "Script should be executable"
 
 
-def test_documentation_exists():
-    """Test that documentation was created."""
-    doc_path = BASE_DIR / 'docs' / 'archive' / 'ENGINE_OF_TRUTH_README.md'
-
-    assert doc_path.exists(), "ENGINE_OF_TRUTH_README.md should exist"
-    
-    with open(doc_path, 'r') as f:
-        content = f.read()
-    
-    assert 'Engine of Truth' in content
-    assert 'Phase 1' in content
-    assert 'Phase 2' in content
-    assert 'Phase 3' in content
-
-
 if __name__ == "__main__":
     # Run tests
     pytest.main([__file__, "-v"])

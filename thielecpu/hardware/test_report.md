@@ -1,12 +1,12 @@
 # Thiele CPU Hardware Test Report
 
-Generated: 2025-12-06 19:09:47
+Generated: 2025-12-21 20:32:08
 
 ## Test Results
 
 ### Simulation Status
-- **Simulation**: Passed
-- **Validation**: Passed
+- **Simulation**: Failed
+- **Validation**: Failed
 - **Synthesis Files**: Complete
 
 ### Hardware Specifications
@@ -41,29 +41,50 @@ Generated: 2025-12-06 19:09:47
 
 ## Files Tested
 
+- `thiele_cpu_engines_tb.v`
+- `state_serializer.v`
 - `mau.v`
 - `thiele_cpu_tb.vvp`
 - `thiele_cpu_tb`
 - `holy_grail_demo.py`
 - `simulation_output.log`
+- `thiele_cpu_synth.v`
 - `README.md`
+- `thiele_cpu_tb.vcd`
+- `generated_control.v`
+- `test_serializer`
+- `generated_opcodes.vh`
 - `mu_alu_tb.v`
 - `pee.v`
+- `mu_alu_tb`
+- `crypto_receipt_controller.v`
 - `thiele_cpu_test`
 - `simulate.do`
 - `HARDWARE_INTEGRATION.md`
 - `mu_alu_test`
 - `simulate.tcl`
+- `test_serializer_debug`
+- `mu_alu_tb.vcd`
 - `test_report.md`
+- `fuzz_harness.v`
 - `lei.v`
 - `synthesis.tcl`
 - `constraints.xdc`
+- `fuzz_harness_full.v`
 - `mu_alu.v`
+- `run_synthesis.sh`
 - `mu_core.v`
 - `test_hardware.py`
+- `sha256_interface.v`
+- `test_compute_comprehensive.hex`
+- `test_serializer.v`
 - `thiele_cpu.v`
+- `clz8.v`
 - `mmu.v`
+- `test_alu`
 - `synthesis_report.md`
+- `fuzz_harness_simple.v`
+- `test_compute_data.hex`
 - `thiele_cpu_tb.v`
 - `thiele_cpu_tb_compiled`
 - `mu_core_test`

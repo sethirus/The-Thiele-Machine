@@ -261,29 +261,53 @@ always @(posedge clk or negedge rst_n) begin
                 case (opcode)
                     OPCODE_PNEW: begin
                         // Create new partition module
-                        execute_pnew(operand_a, operand_b);
-                        // Coq semantics: vm_mu := s.vm_mu + instruction_cost
-                        mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
-                        pc_reg <= pc_reg + 4;
-                        state <= STATE_FETCH;
+                        // μ-Core enforcement: check partition gate is open
+                        if (instr_allowed && partition_gate_open) begin
+                            execute_pnew(operand_a, operand_b);
+                            // Coq semantics: vm_mu := s.vm_mu + instruction_cost
+                            mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
+                            pc_reg <= pc_reg + 4;
+                            state <= STATE_FETCH;
+                        end else begin
+                            // μ-Core denied operation - signal error
+                            csr_error <= 32'hA; // MU_CORE_DENIED
+                            pc_reg <= pc_reg + 4;
+                            state <= STATE_FETCH;
+                        end
                     end
 
                     OPCODE_PSPLIT: begin
                         // Split existing module
-                        execute_psplit(operand_a, operand_b);
-                        // Coq semantics: vm_mu := s.vm_mu + instruction_cost
-                        mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
-                        pc_reg <= pc_reg + 4;
-                        state <= STATE_FETCH;
+                        // μ-Core enforcement: check partition gate is open
+                        if (instr_allowed && partition_gate_open) begin
+                            execute_psplit(operand_a, operand_b);
+                            // Coq semantics: vm_mu := s.vm_mu + instruction_cost
+                            mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
+                            pc_reg <= pc_reg + 4;
+                            state <= STATE_FETCH;
+                        end else begin
+                            // μ-Core denied operation - signal error
+                            csr_error <= 32'hA; // MU_CORE_DENIED
+                            pc_reg <= pc_reg + 4;
+                            state <= STATE_FETCH;
+                        end
                     end
 
                     OPCODE_PMERGE: begin
                         // Merge two modules
-                        execute_pmerge(operand_a, operand_b);
-                        // Coq semantics: vm_mu := s.vm_mu + instruction_cost
-                        mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
-                        pc_reg <= pc_reg + 4;
-                        state <= STATE_FETCH;
+                        // μ-Core enforcement: check partition gate is open
+                        if (instr_allowed && partition_gate_open) begin
+                            execute_pmerge(operand_a, operand_b);
+                            // Coq semantics: vm_mu := s.vm_mu + instruction_cost
+                            mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
+                            pc_reg <= pc_reg + 4;
+                            state <= STATE_FETCH;
+                        end else begin
+                            // μ-Core denied operation - signal error
+                            csr_error <= 32'hA; // MU_CORE_DENIED
+                            pc_reg <= pc_reg + 4;
+                            state <= STATE_FETCH;
+                        end
                     end
 
                     OPCODE_LASSERT: begin
@@ -533,9 +557,7 @@ task execute_pnew;
     input [7:0] region_spec_a;
     input [7:0] region_spec_b;
     begin
-        // TODO: Re-enable μ-Core enforcement after fixing timing issues
-        // For now, allow all operations to ensure 3-way isomorphism
-        //
+        // μ-Core enforcement is now checked in STATE_EXECUTE before calling this task.
         // Canonical PNEW encoding used by Python ISA: create/dedup singleton region {operand_a}.
             // operand_b is currently unused (reserved).
             integer found;
