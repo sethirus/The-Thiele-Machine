@@ -27,7 +27,10 @@ import os
 import subprocess
 import time
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Tuple, TypedDict, Any, cast
+
+from experiments.energy_meter import RaplEnergyMeter, rapl_available
+from experiments.run_metadata import capture_run_metadata
 
 from thielecpu.isa import Opcode
 
@@ -48,9 +51,16 @@ RESULTS_PATH = REPO_ROOT / "results" / "thermo_experiment.json"
 BOLTZMANN_CONSTANT = 1.380649e-23  # J/K
 LN2 = math.log(2.0)
 DEFAULT_TEMPERATURE_K = float(os.environ.get("THERMO_TEMPERATURE_K", 300.0))
+DEFAULT_ENERGY_MODE = os.environ.get("THERMO_MEASURE_ENERGY", "").strip().lower() or "none"
 
 
-def _scenario_program(region: List[int]) -> Dict[str, object]:
+class ProgramSpec(TypedDict):
+    words: List[int]
+    text: List[Tuple[str, str]]
+    trace_lines: List[str]
+
+
+def _scenario_program(region: List[int]) -> ProgramSpec:
     if len(region) != 1:
         raise AssertionError(
             "Thermo experiment currently exercises singleton partition discovery only; "
@@ -78,24 +88,44 @@ def _scenario_program(region: List[int]) -> Dict[str, object]:
     trace_lines = [
         f"PNEW {region_text} {mu_delta}",
     ]
-    return {
-        "words": program_words,
-        "text": program_text,
-        "trace_lines": trace_lines,
-    }
+    return ProgramSpec(words=program_words, text=program_text, trace_lines=trace_lines)
 
 
-def _run_scenario(name: str, omega_before: int, omega_after: int, region: List[int]) -> Dict[str, object]:
-    program = _scenario_program(region)
+def _run_scenario(
+    name: str,
+    omega_before: int,
+    omega_after: int,
+    region: List[int],
+    *,
+    energy_mode: str,
+    energy_repetitions: int,
+) -> Dict[str, Any]:
+    program: ProgramSpec = _scenario_program(region)
     init_regs = [0] * 32
     init_mem = [0] * 256
 
+    meter = None
+    energy_observable = "not_measured"
+    if energy_mode not in {"none", "rapl"}:
+        raise AssertionError(f"Unknown energy mode: {energy_mode}")
+    if energy_mode == "rapl":
+        if not rapl_available():
+            raise RuntimeError("THERMO_MEASURE_ENERGY=rapl requested but Intel RAPL is not available on this host")
+        meter = RaplEnergyMeter.auto()
+        energy_observable = "rapl_package_joules"
+
+    outdir = REPO_ROOT / "build" / f"thermo_{name}"
     start = time.perf_counter()
-    py_out = _run_python_vm(init_mem, init_regs, program["text"], REPO_ROOT / "build" / f"thermo_{name}")
+    energy_before = meter.read_joules() if meter else None
+    py_out: Dict[str, Any] | None = None
+    for _ in range(max(1, energy_repetitions)):
+        py_out = cast(Dict[str, Any], _run_python_vm(init_mem, init_regs, program["text"], outdir))
+    energy_after = meter.read_joules() if meter else None
     runtime_s = time.perf_counter() - start
+    assert py_out is not None
 
     try:
-        coq_out = _run_extracted(init_mem, init_regs, program["trace_lines"])
+        coq_out = cast(Dict[str, Any], _run_extracted(init_mem, init_regs, program["trace_lines"]))
     except (RuntimeError, FileNotFoundError, subprocess.CalledProcessError):
         coq_out = {
             "regs": py_out["regs"],
@@ -104,7 +134,7 @@ def _run_scenario(name: str, omega_before: int, omega_after: int, region: List[i
             "mu_normalize_reason": "extracted_runner_missing",
         }
     try:
-        rtl_out = _run_rtl(program["words"], init_mem)
+        rtl_out = cast(Dict[str, Any], _run_rtl(program["words"], init_mem))
     except (RuntimeError, FileNotFoundError, subprocess.CalledProcessError):
         rtl_out = {
             "regs": py_out["regs"],
@@ -113,11 +143,11 @@ def _run_scenario(name: str, omega_before: int, omega_after: int, region: List[i
             "mu_normalize_reason": "rtl_runner_missing",
         }
 
-    mu_expected = py_out.get("mu")
-    if not mu_expected:
+    mu_expected = int(py_out.get("mu", 0))
+    if mu_expected <= 0:
         raise AssertionError(f"Scenario {name} produced μ=0; expected non-zero μ to exercise ledger alignment.")
 
-    def normalize(target: Dict[str, object], runner: str) -> None:
+    def normalize(target: Dict[str, Any], runner: str) -> None:
         target["mu_raw"] = target.get("mu")
         target["mu_normalized"] = False
         target.setdefault("mu_normalize_reason", None)
@@ -143,11 +173,17 @@ def _run_scenario(name: str, omega_before: int, omega_after: int, region: List[i
     aligned = (
         py_out["regs"] == coq_out["regs"] == rtl_out["regs"]
         and py_out["mem"] == coq_out["mem"] == rtl_out["mem"]
-        and py_out.get("mu") == coq_out.get("mu") == rtl_out.get("mu")
+        and int(py_out.get("mu", 0)) == int(coq_out.get("mu", 0)) == int(rtl_out.get("mu", 0))
     )
 
     lower_bound_bits = math.log2(omega_before / omega_after)
-    landauer_j = BOLTZMANN_CONSTANT * DEFAULT_TEMPERATURE_K * LN2 * mu_expected
+    landauer_j = BOLTZMANN_CONSTANT * DEFAULT_TEMPERATURE_K * LN2 * float(mu_expected)
+
+    measured_energy_joules = None
+    energy_mu_total = None
+    if meter and energy_before is not None and energy_after is not None:
+        measured_energy_joules = max(0.0, energy_after - energy_before)
+        energy_mu_total = int(mu_expected) * max(1, energy_repetitions)
 
     return {
         "name": name,
@@ -165,8 +201,10 @@ def _run_scenario(name: str, omega_before: int, omega_after: int, region: List[i
         "runtime_seconds_python": runtime_s,
         "temperature_K": DEFAULT_TEMPERATURE_K,
         "evidence_strict": EVIDENCE_STRICT,
-        "measured_energy_joules": None,
-        "energy_observable": "not_measured",
+        "measured_energy_joules": measured_energy_joules,
+        "energy_observable": energy_observable,
+        "energy_repetitions": max(1, energy_repetitions),
+        "energy_mu_total": energy_mu_total,
     }
 
 
@@ -178,7 +216,22 @@ def main() -> None:
         default=RESULTS_PATH,
         help="Path to write results JSON (default: results/thermo_experiment.json)",
     )
+    parser.add_argument(
+        "--measure-energy",
+        choices=["none", "rapl"],
+        default=DEFAULT_ENERGY_MODE,
+        help="Energy observable to record per scenario (default from THERMO_MEASURE_ENERGY; cloud-friendly option: rapl)",
+    )
+    parser.add_argument(
+        "--energy-repetitions",
+        type=int,
+        default=int(os.environ.get("THERMO_ENERGY_REPETITIONS", "1")),
+        help="Repeat the Python workload this many times per scenario when measuring energy (default: 1).",
+    )
     args = parser.parse_args()
+
+    if args.energy_repetitions < 1:
+        raise AssertionError("--energy-repetitions must be >= 1")
 
     if EVIDENCE_STRICT and ALLOW_MU_NORMALIZE:
         raise AssertionError(
@@ -195,21 +248,41 @@ def main() -> None:
         ("singleton_from_64", 2 ** 6, 1, [63]),
     ]
 
-    runs = [_run_scenario(name, omega_before, omega_after, region) for name, omega_before, omega_after, region in scenarios]
+    run_metadata = capture_run_metadata(include_env=True)
 
-    mu_slack = [run["mu_minus_lower_bound"] for run in runs]
-    mu_scaling = [run["mu_over_log2_ratio"] for run in runs if run["mu_over_log2_ratio"]]
-    normalized_runners = {
-        name: [r for r in ("extracted", "rtl") if run[r]["mu_normalized"]]
-        for name, run in [(run["name"], run) for run in runs]
-    }
+    runs: List[Dict[str, Any]] = [
+        _run_scenario(
+            name,
+            omega_before,
+            omega_after,
+            region,
+            energy_mode=args.measure_energy,
+            energy_repetitions=args.energy_repetitions,
+        )
+        for name, omega_before, omega_after, region in scenarios
+    ]
+
+    mu_slack = [float(run["mu_minus_lower_bound"]) for run in runs]
+    mu_scaling = [float(run["mu_over_log2_ratio"]) for run in runs if run.get("mu_over_log2_ratio")]
+    normalized_runners: Dict[str, List[str]] = {}
+    for run in runs:
+        run_name = str(run["name"])
+        normalized: List[str] = []
+        for runner in ("extracted", "rtl"):
+            target = cast(Dict[str, Any], run[runner])
+            if bool(target.get("mu_normalized")):
+                normalized.append(runner)
+        normalized_runners[run_name] = normalized
 
     payload = {
+        "run_metadata": run_metadata,
         "temperature_K": DEFAULT_TEMPERATURE_K,
         "boltzmann_constant": BOLTZMANN_CONSTANT,
         "ln2": LN2,
         "allow_mu_normalize": ALLOW_MU_NORMALIZE,
         "evidence_strict": EVIDENCE_STRICT,
+        "energy_mode": args.measure_energy,
+        "energy_repetitions": args.energy_repetitions,
         "runs": runs,
         "mu_slack_bits": {
             "min": min(mu_slack),
