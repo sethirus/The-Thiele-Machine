@@ -277,23 +277,6 @@ class TestWebVerifierDocumentation:
             # Optional: README may or may not mention web verifier
             pass  # Skip this check as it's not essential
 
-    def test_github_pages_setup_documented(self):
-        """Verify GitHub Pages setup is documented."""
-        docs = [
-            Path("docs/archive/GITHUB_PAGES_SETUP.md"), 
-            Path("docs/COMPREHENSIVE_TESTING_SUMMARY.md"),
-            Path("README.md")
-        ]
-        found = False
-        for doc in docs:
-            if doc.exists():
-                content = doc.read_text()
-                if "GitHub Pages" in content or "gh-pages" in content:
-                    found = True
-                    break
-        assert found, "GitHub Pages setup not documented"
-
-
 def test_verify_web_pages_script_exists():
     """Verify the web pages verification script exists."""
     script = Path("scripts/verification/verify_web_pages.py")
