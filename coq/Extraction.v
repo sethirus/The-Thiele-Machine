@@ -12,9 +12,9 @@ From Coq Require Import ExtrOcamlBasic ExtrOcamlString.
 From Coq Require Import Strings.String.
 
 (* Kernel VM semantics *)
-Require Import VMState.
-Require Import VMStep.
-Require Import SimulationProof.
+From Kernel Require Import VMState.
+From Kernel Require Import VMStep.
+From Kernel Require Import SimulationProof.
 
 Extraction Language OCaml.
 

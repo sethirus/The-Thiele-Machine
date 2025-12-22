@@ -118,8 +118,8 @@
 From Coq Require Import Arith.
 From Coq Require Import Lia.
 
-Require Import ShorPrimitives.Modular.
-Require Import ShorPrimitives.Euclidean.
+From ShorPrimitives Require Import Modular.
+From ShorPrimitives Require Import Euclidean.
 
 Section Periods.
   Variable N a : nat.

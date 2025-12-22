@@ -182,9 +182,9 @@ class TestMixedOperations:
         vm = VM(state)
         
         program = [
-            ("PNEW", "{40,41}"),     # Partition
-            ("PNEW", "{42,43}"),     # Partition
-            ("PMERGE", "2 3"),       # Partition
+            ("PNEW", "{40,41}"),     # Module 1
+            ("PNEW", "{42,43}"),     # Module 2
+            ("PMERGE", "1 2"),       # Merge modules 1 and 2
             ("HALT", ""),
         ]
         
@@ -202,10 +202,10 @@ class TestMixedOperations:
         vm = VM(state)
         
         program = [
-            ("PNEW", "{50,51,52}"),  # Module 2
-            ("PNEW", "{53,54}"),     # Module 3
-            ("PSPLIT", "2 even"),    # Modules 4,5
-            ("PMERGE", "3 4"),       # Module 6
+            ("PNEW", "{50,51,52}"),  # Module 1
+            ("PNEW", "{53,54}"),     # Module 2
+            ("PSPLIT", "1 even"),    # Modules 3,4
+            ("PMERGE", "2 3"),       # Module 5
             ("HALT", ""),
         ]
         
@@ -226,12 +226,12 @@ class TestMixedOperations:
         vm = VM(state)
         
         program = [
-            ("PNEW", "{60,61}"),     # 2
-            ("PNEW", "{62,63}"),     # 3
-            ("PMERGE", "2 3"),       # 4
-            ("PSPLIT", "4 even"),    # 5,6
-            ("PNEW", "{10,11}"),     # 7
-            ("PMERGE", "5 7"),       # 8
+            ("PNEW", "{60,61}"),     # 1
+            ("PNEW", "{62,63}"),     # 2
+            ("PMERGE", "1 2"),       # 3
+            ("PSPLIT", "3 even"),    # 4,5
+            ("PNEW", "{10,11}"),     # 6
+            ("PMERGE", "4 6"),       # 7
             ("HALT", ""),
         ]
         
@@ -252,7 +252,7 @@ class TestIsomorphismProperties:
         program = [
             ("PNEW", "{1,2,3}"),
             ("PNEW", "{4,5}"),
-            ("PMERGE", "2 3"),
+            ("PMERGE", "1 2"),
             ("HALT", ""),
         ]
         
@@ -274,25 +274,25 @@ class TestIsomorphismProperties:
 
     def test_commutativity_merge_order_independent(self):
         """PMERGE is commutative: PMERGE(a,b) = PMERGE(b,a)."""
-        # Test PMERGE 2 3
+        # Test PMERGE 1 2
         state1 = State()
         vm1 = VM(state1)
         program1 = [
             ("PNEW", "{1,2}"),
             ("PNEW", "{3,4}"),
-            ("PMERGE", "2 3"),
+            ("PMERGE", "1 2"),
             ("HALT", ""),
         ]
         with tempfile.TemporaryDirectory() as td:
             vm1.run(program1, Path(td))
         
-        # Test PMERGE 3 2 (reversed)
+        # Test PMERGE 2 1 (reversed)
         state2 = State()
         vm2 = VM(state2)
         program2 = [
             ("PNEW", "{1,2}"),
             ("PNEW", "{3,4}"),
-            ("PMERGE", "3 2"),  # Reversed order
+            ("PMERGE", "2 1"),  # Reversed order
             ("HALT", ""),
         ]
         with tempfile.TemporaryDirectory() as td:
@@ -310,11 +310,11 @@ class TestIsomorphismProperties:
         state1 = State()
         vm1 = VM(state1)
         program1 = [
-            ("PNEW", "{1}"),      # 2
-            ("PNEW", "{2}"),      # 3
-            ("PNEW", "{3}"),      # 4
-            ("PMERGE", "2 3"),    # 5 = {1,2}
-            ("PMERGE", "5 4"),    # 6 = {1,2,3}
+            ("PNEW", "{1}"),      # 1
+            ("PNEW", "{2}"),      # 2
+            ("PNEW", "{3}"),      # 3
+            ("PMERGE", "1 2"),    # 4 = {1,2}
+            ("PMERGE", "4 3"),    # 5 = {1,2,3}
             ("HALT", ""),
         ]
         with tempfile.TemporaryDirectory() as td:
@@ -324,11 +324,11 @@ class TestIsomorphismProperties:
         state2 = State()
         vm2 = VM(state2)
         program2 = [
-            ("PNEW", "{1}"),      # 2
-            ("PNEW", "{2}"),      # 3
-            ("PNEW", "{3}"),      # 4
-            ("PMERGE", "3 4"),    # 5 = {2,3}
-            ("PMERGE", "2 5"),    # 6 = {1,2,3}
+            ("PNEW", "{1}"),      # 1
+            ("PNEW", "{2}"),      # 2
+            ("PNEW", "{3}"),      # 3
+            ("PMERGE", "2 3"),    # 4 = {2,3}
+            ("PMERGE", "1 4"),    # 5 = {1,2,3}
             ("HALT", ""),
         ]
         with tempfile.TemporaryDirectory() as td:

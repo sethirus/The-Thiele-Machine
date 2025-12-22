@@ -161,7 +161,14 @@ def _rtl_regions_after_words(program_words: list[int]) -> list[list[int]]:
         )
 
         out = run.stdout
-        start = out.find('{\n  "partition_ops":')
+        # Find JSON start - look for opening brace followed by "status" or "partition_ops"
+        start = out.find('{\n  "status":')
+        if start == -1:
+            start = out.find('{ "status":')
+        if start == -1:
+            start = out.find('{"status":')
+        if start == -1:
+            start = out.find('{\n  "partition_ops":')
         if start == -1:
             start = out.find('{ "partition_ops":')
         if start == -1:
@@ -286,10 +293,17 @@ def _rtl_regions_after_pnew(indices: list[int]) -> list[list[int]]:
 
         out = run.stdout
         # Find JSON object start (has newline and spaces after opening brace)
-        start = out.find('{\n  "partition_ops":')
+        # The RTL output may start with "status" or "partition_ops" field
+        start = out.find('{\n  "status":')
+        if start == -1:
+            start = out.find('{\n  "partition_ops":')
         if start == -1:
             # Try without newline
+            start = out.find('{ "status":')
+        if start == -1:
             start = out.find('{ "partition_ops":')
+        if start == -1:
+            start = out.find('{"status":')
         if start == -1:
             start = out.find('{"partition_ops":')
         decoder = json.JSONDecoder()

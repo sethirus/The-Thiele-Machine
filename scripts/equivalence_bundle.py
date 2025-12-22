@@ -157,7 +157,14 @@ def _run_rtl(program_words: List[int], data_words: List[int]) -> Dict[str, objec
         )
 
         out = run.stdout
-        start = out.find('{\n  "partition_ops":')
+        # Find JSON start - look for opening brace followed by "status" or "partition_ops"
+        start = out.find('{\n  "status":')
+        if start == -1:
+            start = out.find('{ "status":')
+        if start == -1:
+            start = out.find('{"status":')
+        if start == -1:
+            start = out.find('{\n  "partition_ops":')
         if start == -1:
             start = out.find('{ "partition_ops":')
         if start == -1:
@@ -281,8 +288,8 @@ def main() -> None:
             _encode_word(0x0B, 0, 1, op_cost),         # XOR_ADD  r0 ^= r1
             _encode_word(0x0C, 0, 1, op_cost),         # XOR_SWAP r0 <-> r1
             _encode_word(0x0D, 2, 0, op_cost),         # XOR_RANK r2 := popcount(r0)
-            # RTL operand order for XFER is (src, dest).
-            _encode_word(0x07, 2, 3, op_cost),         # XFER     r3 <- r2
+            # RTL operand order for XFER is (dest, src) - matches execute_xfer task signature.
+            _encode_word(0x07, 3, 2, op_cost),         # XFER     r3 <- r2
             _encode_word(0xFF, 0, 0, 0),               # HALT
         ]
 

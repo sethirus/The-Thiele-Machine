@@ -12,7 +12,7 @@ From Coq Require Import Wf_nat.
 From Coq Require Import Lia.
 
 (** We reuse the modular lemmas for later developments. *)
-Require Import ShorPrimitives.Modular.
+From ShorPrimitives Require Import Modular.
 
 Fixpoint gcd_euclid (a b : nat) : nat :=
   match a with

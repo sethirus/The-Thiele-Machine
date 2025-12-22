@@ -78,10 +78,14 @@ reg [31:0] last_instruction;
 reg [31:0] expected_cost;
 reg partition_independent;
 reg cost_decreasing;
+reg last_instr_valid;  // Track previous instr_valid for edge detection
 
 // ============================================================================
 // INSTRUCTION ANALYSIS AND ENFORCEMENT
 // ============================================================================
+
+// Rising edge detection for new instruction cycle
+wire new_instruction_cycle = instr_valid && !last_instr_valid;
 
 always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
@@ -92,13 +96,17 @@ always @(posedge clk or negedge rst_n) begin
         partition_gate_open <= 1'b0;
         core_status <= STATUS_IDLE;
         enforcement_active <= 1'b1;  // Always active - this is the law
-        last_instruction <= 32'h0;
+        last_instruction <= 32'hDEADBEEF;  // Invalid sentinel - ensures first instruction is processed
         expected_cost <= 32'h0;
         partition_independent <= 1'b1;
         cost_decreasing <= 1'b0;
+        last_instr_valid <= 1'b0;
     end else begin
-        if (instr_valid && instruction != last_instruction) begin
-            // New instruction - analyze it
+        // Track instr_valid for edge detection
+        last_instr_valid <= instr_valid;
+
+        if (new_instruction_cycle) begin
+            // New instruction cycle started - analyze the instruction
             last_instruction <= instruction;
             core_status <= STATUS_CHECKING;
 
@@ -108,18 +116,19 @@ always @(posedge clk or negedge rst_n) begin
                     receipt_required <= 1'b0;  // No receipt needed for basic operations
                     instr_allowed <= 1'b1;
 
-                    // Check partition independence
+                    // Check partition independence - use function result directly
+                    // to avoid one-cycle delay from register assignment
                     partition_independent <= check_partition_independence(instruction, partition_count, memory_isolation);
-                    partition_gate_open <= partition_independent;
+                    partition_gate_open <= check_partition_independence(instruction, partition_count, memory_isolation);
 
                     // μ-cost accumulates (never decreases) - verify monotonicity
                     cost_decreasing <= (proposed_cost >= current_mu_cost);
                     cost_gate_open <= (proposed_cost >= current_mu_cost);
 
-                    if (partition_independent && (proposed_cost >= current_mu_cost)) begin
+                    if (check_partition_independence(instruction, partition_count, memory_isolation) && (proposed_cost >= current_mu_cost)) begin
                         expected_cost <= proposed_cost;
                         core_status <= STATUS_ALLOWED;
-                    end else if (!partition_independent) begin
+                    end else if (!check_partition_independence(instruction, partition_count, memory_isolation)) begin
                         core_status <= STATUS_DENIED_ISO;
                     end else begin
                         core_status <= STATUS_DENIED_COST;

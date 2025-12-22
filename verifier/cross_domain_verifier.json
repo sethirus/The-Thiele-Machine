@@ -1,74 +1,142 @@
 {
-  "delta_aic_threshold": 1000.0,
+  "delta_aic_threshold": 10.0,
   "metadata_digest_matches": true,
   "status": false,
-  "trial_count": 2,
+  "trial_count": 4,
   "trials": [
     {
-      "blind_delta_aic_ok": false,
+      "blind_delta_aic_ok": true,
       "key": {
         "domain": "compression",
-        "protocol": "blind",
-        "seed": 5,
+        "protocol": "sighted",
+        "seed": 0,
         "trial_id": 0
       },
       "ledger": {
-        "domain_aic_exponential": 5.954922757012748,
-        "domain_aic_polynomial": -23.631021115928547,
-        "domain_delta_aic": -29.585943872941296,
-        "domain_slope": 0.0,
-        "domain_slope_ci_high": 0.0,
-        "domain_slope_ci_low": 0.0,
-        "mu_total_bits": 1.3780518617759159,
-        "runtime_total": 3.6577007744603103,
-        "structure_integrity": 0.5
+        "domain_aic_exponential": -52.64833659297699,
+        "domain_aic_polynomial": -52.64833659297699,
+        "domain_delta_aic": 0.0,
+        "domain_slope": 15.338954289263754,
+        "domain_slope_ci_high": 15.338954289263754,
+        "domain_slope_ci_low": 15.338954289263754,
+        "mu_total_bits": 0.924805339420742,
+        "runtime_total": 11.762640057716709,
+        "structure_integrity": 0.2
       },
-      "sighted_flatness": true,
-      "structure_ok": true,
+      "sighted_flatness": false,
+      "structure_ok": false,
       "summary": {
-        "domain_aic_exponential": 5.954922757,
-        "domain_aic_polynomial": -23.6310211159,
-        "domain_delta_aic": -29.5859438729,
-        "domain_slope": 0.0,
-        "domain_slope_ci_high": 0.0,
-        "domain_slope_ci_low": 0.0,
-        "mu_total_bits": 1.3780518618,
-        "runtime_total": 3.6577007745,
-        "structure_integrity": 0.5
+        "domain_aic_exponential": -52.648336593,
+        "domain_aic_polynomial": -52.648336593,
+        "domain_delta_aic": 0.0,
+        "domain_slope": 15.3389542893,
+        "domain_slope_ci_high": 15.3389542893,
+        "domain_slope_ci_low": 15.3389542893,
+        "mu_total_bits": 0.9248053394,
+        "runtime_total": 11.7626400577,
+        "structure_integrity": 0.2
       },
       "summary_matches_ledger": true
     },
     {
-      "blind_delta_aic_ok": false,
+      "blind_delta_aic_ok": true,
+      "key": {
+        "domain": "compression",
+        "protocol": "sighted",
+        "seed": 0,
+        "trial_id": 1
+      },
+      "ledger": {
+        "domain_aic_exponential": -52.64833659297699,
+        "domain_aic_polynomial": -52.64833659297699,
+        "domain_delta_aic": 0.0,
+        "domain_slope": 15.338954289263754,
+        "domain_slope_ci_high": 15.338954289263754,
+        "domain_slope_ci_low": 15.338954289263754,
+        "mu_total_bits": 0.8836133538322974,
+        "runtime_total": 11.130798073691548,
+        "structure_integrity": 0.2
+      },
+      "sighted_flatness": false,
+      "structure_ok": false,
+      "summary": {
+        "domain_aic_exponential": -52.648336593,
+        "domain_aic_polynomial": -52.648336593,
+        "domain_delta_aic": 0.0,
+        "domain_slope": 15.3389542893,
+        "domain_slope_ci_high": 15.3389542893,
+        "domain_slope_ci_low": 15.3389542893,
+        "mu_total_bits": 0.8836133538,
+        "runtime_total": 11.1307980737,
+        "structure_integrity": 0.2
+      },
+      "summary_matches_ledger": true
+    },
+    {
+      "blind_delta_aic_ok": true,
       "key": {
         "domain": "ldpc",
-        "protocol": "blind",
-        "seed": 5,
+        "protocol": "sighted",
+        "seed": 0,
         "trial_id": 0
       },
       "ledger": {
-        "domain_aic_exponential": 6.316333631048732,
-        "domain_aic_polynomial": -23.631021115928547,
-        "domain_delta_aic": -29.94735474697728,
-        "domain_slope": 0.0,
-        "domain_slope_ci_high": 0.0,
-        "domain_slope_ci_low": 0.0,
-        "mu_total_bits": 1.550856939066883,
-        "runtime_total": 4.184090896671891,
-        "structure_integrity": 0.5
+        "domain_aic_exponential": -52.64833659297699,
+        "domain_aic_polynomial": -52.64833659297699,
+        "domain_delta_aic": 0.0,
+        "domain_slope": 40.047403296894664,
+        "domain_slope_ci_high": 40.047403296894664,
+        "domain_slope_ci_low": 40.047403296894664,
+        "mu_total_bits": 1.0554170440350896,
+        "runtime_total": 12.898710377373053,
+        "structure_integrity": 0.2
       },
-      "sighted_flatness": true,
-      "structure_ok": true,
+      "sighted_flatness": false,
+      "structure_ok": false,
       "summary": {
-        "domain_aic_exponential": 6.316333631,
-        "domain_aic_polynomial": -23.6310211159,
-        "domain_delta_aic": -29.947354747,
-        "domain_slope": 0.0,
-        "domain_slope_ci_high": 0.0,
-        "domain_slope_ci_low": 0.0,
-        "mu_total_bits": 1.5508569391,
-        "runtime_total": 4.1840908967,
-        "structure_integrity": 0.5
+        "domain_aic_exponential": -52.648336593,
+        "domain_aic_polynomial": -52.648336593,
+        "domain_delta_aic": 0.0,
+        "domain_slope": 40.0474032969,
+        "domain_slope_ci_high": 40.0474032969,
+        "domain_slope_ci_low": 40.0474032969,
+        "mu_total_bits": 1.055417044,
+        "runtime_total": 12.8987103774,
+        "structure_integrity": 0.2
+      },
+      "summary_matches_ledger": true
+    },
+    {
+      "blind_delta_aic_ok": true,
+      "key": {
+        "domain": "ldpc",
+        "protocol": "sighted",
+        "seed": 0,
+        "trial_id": 1
+      },
+      "ledger": {
+        "domain_aic_exponential": -52.64833659297699,
+        "domain_aic_polynomial": -52.64833659297699,
+        "domain_delta_aic": 0.0,
+        "domain_slope": 40.047403296894664,
+        "domain_slope_ci_high": 40.047403296894664,
+        "domain_slope_ci_low": 40.047403296894664,
+        "mu_total_bits": 1.0643248666539442,
+        "runtime_total": 13.255445542287523,
+        "structure_integrity": 0.2
+      },
+      "sighted_flatness": false,
+      "structure_ok": false,
+      "summary": {
+        "domain_aic_exponential": -52.648336593,
+        "domain_aic_polynomial": -52.648336593,
+        "domain_delta_aic": 0.0,
+        "domain_slope": 40.0474032969,
+        "domain_slope_ci_high": 40.0474032969,
+        "domain_slope_ci_low": 40.0474032969,
+        "mu_total_bits": 1.0643248667,
+        "runtime_total": 13.2554455423,
+        "structure_integrity": 0.2
       },
       "summary_matches_ledger": true
     }
