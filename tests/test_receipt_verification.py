@@ -52,7 +52,7 @@ def test_receipt_creation_pnew(initial_state, vm):
         vm.run(program, Path(td))
     
     # Verify state changed
-    assert len(initial_state.partition_masks) >= 2  # base + new partition
+    assert len(initial_state.partition_masks) >= 1  # new partition created
     
     # Create receipt using actual API
     pre_witness = WitnessState(

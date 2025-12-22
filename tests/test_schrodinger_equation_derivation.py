@@ -215,7 +215,7 @@ class TestDerivation:
         
         assert "Definition coef_a_a" in coq_code
         assert "Definition schrodinger_update_a" in coq_code
-        assert "Theorem emergent_schrodinger_eq" in coq_code
+        assert "Theorem structural_equivalence" in coq_code
         assert "Coq.QArith.QArith" in coq_code
 
 
