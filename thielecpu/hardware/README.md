@@ -77,17 +77,6 @@ module mu_core (
 3. **Receipt Validation**: All partition operations require cryptographic μ-bit receipts
 4. **Physical Blocking**: Invalid operations are physically impossible in hardware
 
-## Demonstration
-
-Run the Holy Grail demonstration:
-
-```bash
-cd thielecpu/hardware
-python3 holy_grail_demo.py
-```
-
-This shows the μ-Core blocking invalid operations while allowing mathematically valid ones.
-
 ## File Structure
 
 ### Core Verilog Files
