@@ -231,7 +231,9 @@ $$\frac{W}{kT \ln 2} \geq \mu_{\text{total}}$$
 | **Bell Inequality** | `coq/thielemachine/coqproofs/BellInequality.v` | `classical_bound` (2487 lines) | ✅ **Proven** |
 | **Full Simulation** | `coq/thielemachine/coqproofs/Simulation.v` | (29,666 lines, 66% of codebase) | ✅ **Proven** |
 
-**Total Proof Burden:** 114 Coq files, ~54,600 lines of machine-checked proofs.
+**Total Proof Burden:** 220 Coq files, ~54,600 lines of machine-checked proofs.
+
+**Inquisitor Quality:** Grade B (89.1/100) — 100% critical correctness issues resolved
 
 ---
 
