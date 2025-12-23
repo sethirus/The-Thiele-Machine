@@ -1,0 +1,38 @@
+{
+  "coqproject": "coq/_CoqProject",
+  "allow_axioms": [
+    "functional_extensionality",
+    "propositional_extensionality"
+  ],
+  "targets": [
+    {
+      "require": "Kernel.NoFreeInsight",
+      "symbol": "strengthening_requires_structure_addition"
+    },
+    {
+      "require": "Kernel.NoFreeInsight",
+      "symbol": "nonlocal_correlation_requires_revelation"
+    },
+    {
+      "require": "Kernel.KernelNoether",
+      "symbol": "kernel_noether_mu_gauge"
+    }
+  ],
+  "symmetry_contracts": [
+    {
+      "tag": "noether",
+      "file_regex": "KernelNoether\\.v$",
+      "must_contain_regex": [
+        "vm_step.*equiv",
+        "trace_run.*equiv|run_vm.*equiv"
+      ]
+    }
+  ],
+  "paper_map": [
+    {
+      "paper": "Theorem 3.5 No Free Insight",
+      "require": "Kernel.NoFreeInsight",
+      "symbol": "strengthening_requires_structure_addition"
+    }
+  ]
+}

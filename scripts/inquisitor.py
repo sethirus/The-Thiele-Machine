@@ -19,8 +19,10 @@ from __future__ import annotations
 import argparse
 import dataclasses
 import datetime as _dt
+import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -48,6 +50,15 @@ ALLOWLIST_EXACT_FILES: set[Path] = set()
 
 SUSPICIOUS_NAME_RE = re.compile(
     r"(?i)(optimal|optimum|best|min|max|cost|objective|solve|solver|search|discover|oracle|result|proof)")
+CLAMP_PAT = re.compile(r"\b(Z\.to_nat|Nat\.min|Nat\.max|Z\.abs)\b")
+COMMENT_SMELL_RE = re.compile(r"(?i)\b(TODO|FIXME|XXX|HACK|WIP|TBD|PLACEHOLDER|STUB)\b")
+PHYSICS_ANALOGY_RE = re.compile(
+    r"(?i)\b(noether|gauge|symmetry|lorentz|covariant|invariant|conservation|entropy|thermo|quantum|relativity|gravity|wave|schrodinger|chsh|bell|physics)\b"
+)
+INVARIANCE_LEMMA_RE = re.compile(r"(?i)\b(step|vm_step|run_vm|trace_run|semantics).*(equiv|invariant)")
+DEFINITIONAL_LABEL_RE = re.compile(r"(?i)\bdefinitional lemma\b")
+Z_TO_NAT_RE = re.compile(r"\bZ\.to_nat\b")
+Z_TO_NAT_GUARD_RE = re.compile(r"(?i)\b(>=\s*0|0\s*<=|Z\.le|Z\.leb|Z\.geb|Z\.ge|Z\.lt|Z\.ltb|nonneg|nonnegative|if\s*\(.+<\?\s*0\))\b")
 
 
 @dataclasses.dataclass(frozen=True)
@@ -131,9 +142,58 @@ def strip_coq_comments(text: str) -> str:
     return "".join(out)
 
 
+def extract_coq_comments(text: str) -> str:
+    """Extract comment bodies while preserving whitespace/newlines."""
+    out: list[str] = []
+    i = 0
+    depth = 0
+    n = len(text)
+    while i < n:
+        if i + 1 < n and text[i] == "(" and text[i + 1] == "*":
+            depth += 1
+            i += 2
+            continue
+        if i + 1 < n and text[i] == "*" and text[i + 1] == ")" and depth > 0:
+            depth -= 1
+            i += 2
+            continue
+        ch = text[i]
+        if depth > 0:
+            out.append(ch)
+        else:
+            if ch == "\n":
+                out.append("\n")
+        i += 1
+    return "".join(out)
+
+
+def _looks_like_coq(text: str) -> bool:
+    markers = (
+        "Require Import",
+        "From ",
+        "Theorem ",
+        "Lemma ",
+        "Corollary ",
+        "Definition ",
+        "Proof.",
+        "Qed.",
+        "Admitted.",
+    )
+    return any(m in text for m in markers)
+
+
 def iter_v_files(coq_root: Path) -> Iterator[Path]:
     for p in coq_root.rglob("*.v"):
         if p.is_file():
+            yield p
+
+
+def iter_all_coq_files(repo_root: Path) -> Iterator[Path]:
+    for p in repo_root.rglob("*.v"):
+        if not p.is_file():
+            continue
+        raw = p.read_text(encoding="utf-8", errors="replace")
+        if _looks_like_coq(raw):
             yield p
 
 
@@ -155,6 +215,220 @@ def _classify_constant_severity(name: str, base_sev: str) -> str:
     if SUSPICIOUS_NAME_RE.search(name):
         return "HIGH"
     return base_sev
+
+
+def _severity_for_path(path: Path, default: str) -> str:
+    if default == "HIGH":
+        return "HIGH"
+    path_str = path.as_posix().lower()
+    if "/kernel/" in path_str or path.name in PROTECTED_BASENAMES:
+        return "HIGH"
+    return default
+
+
+def scan_clamps(path: Path) -> list[Finding]:
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    clean_lines = text.splitlines()
+    findings: list[Finding] = []
+    for i, ln in enumerate(clean_lines, start=1):
+        if CLAMP_PAT.search(ln):
+            findings.append(
+                Finding(
+                    rule_id="CLAMP_OR_TRUNCATION",
+                    severity=_severity_for_path(path, "MEDIUM"),
+                    file=path,
+                    line=i,
+                    snippet=ln.strip(),
+                    message="Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).",
+                )
+            )
+    return findings
+
+
+def scan_comment_smells(path: Path) -> list[Finding]:
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    comments = extract_coq_comments(raw)
+    line_of = _line_map(comments)
+    clean_lines = comments.splitlines()
+    findings: list[Finding] = []
+    for m in COMMENT_SMELL_RE.finditer(comments):
+        line = line_of[m.start()]
+        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else m.group(0)
+        findings.append(
+            Finding(
+                rule_id="COMMENT_SMELL",
+                severity=_severity_for_path(path, "MEDIUM"),
+                file=path,
+                line=line,
+                snippet=snippet.strip(),
+                message="Comment contains placeholder marker (TODO/FIXME/WIP/etc).",
+            )
+        )
+    return findings
+
+
+def scan_z_to_nat_boundaries(path: Path) -> list[Finding]:
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    clean_lines = text.splitlines()
+    findings: list[Finding] = []
+    for idx, ln in enumerate(clean_lines, start=1):
+        if not Z_TO_NAT_RE.search(ln):
+            continue
+        window = "\n".join(clean_lines[max(0, idx - 4): idx + 3])
+        if Z_TO_NAT_GUARD_RE.search(window):
+            continue
+        findings.append(
+            Finding(
+                rule_id="Z_TO_NAT_BOUNDARY",
+                severity=_severity_for_path(path, "MEDIUM"),
+                file=path,
+                line=idx,
+                snippet=ln.strip(),
+                message="Z.to_nat used without nearby nonnegativity guard (potential boundary clamp).",
+            )
+        )
+    return findings
+
+
+def scan_unused_hypotheses(path: Path) -> list[Finding]:
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    line_of = _line_map(text)
+    findings: list[Finding] = []
+    theorem_re = re.compile(r"(?m)^[ \t]*(Theorem|Lemma|Corollary)\s+([A-Za-z0-9_']+)\b")
+    proof_re = re.compile(r"(?m)^[ \t]*Proof\.")
+    end_re = re.compile(r"(?m)^[ \t]*(Qed|Admitted)\.")
+    for m in theorem_re.finditer(text):
+        start = m.end()
+        proof_match = proof_re.search(text, start)
+        if not proof_match:
+            continue
+        end_match = end_re.search(text, proof_match.end())
+        if not end_match:
+            continue
+        proof_block = text[proof_match.end(): end_match.start()]
+        proof_lines = [ln.strip() for ln in proof_block.splitlines() if ln.strip()]
+        if not proof_lines:
+            continue
+        intros_line = next((ln for ln in proof_lines if re.match(r"^intros\b", ln)), None)
+        if not intros_line or ";" in intros_line:
+            continue
+        intros_match = re.match(r"^intros\s+([A-Za-z0-9_'\s]+)\.\s*$", intros_line)
+        if not intros_match:
+            continue
+        names = re.split(r"[\s,]+", intros_match.group(1).strip())
+        names = [n for n in names if n and n != "_"]
+        if not names:
+            continue
+        body = " ".join(proof_lines[1:])
+        for name in names:
+            if name in {"*", "?", "!", "intro", "intros"}:
+                continue
+            if re.search(rf"\b{re.escape(name)}\b", body):
+                continue
+            findings.append(
+                Finding(
+                    rule_id="UNUSED_HYPOTHESIS",
+                    severity=_severity_for_path(path, "MEDIUM"),
+                    file=path,
+                    line=line_of[proof_match.start()],
+                    snippet=intros_line,
+                    message=f"Introduced hypothesis `{name}` not used in proof body (heuristic).",
+                )
+            )
+    return findings
+
+
+def scan_definitional_invariance(path: Path) -> list[Finding]:
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    line_of = _line_map(text)
+    clean_lines = text.splitlines()
+    findings: list[Finding] = []
+    lemma_re = re.compile(r"(?m)^[ \t]*(Theorem|Lemma)\s+([A-Za-z0-9_']+)\b")
+    for m in lemma_re.finditer(text):
+        name = m.group(2)
+        if not re.search(r"(?i)(invariant|equiv|equivariance|symmetry)", name):
+            continue
+        stmt_end = text.find(".", m.end())
+        if stmt_end == -1:
+            continue
+        stmt = re.sub(r"\s+", " ", text[m.start(): stmt_end + 1]).strip()
+        if re.search(r":\s*True\s*\.$", stmt) or re.search(r"->\s*True\s*\.$", stmt):
+            line = line_of[m.start()]
+            snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else stmt
+            findings.append(
+                Finding(
+                    rule_id="DEFINITIONAL_INVARIANCE",
+                    severity=_severity_for_path(path, "MEDIUM"),
+                    file=path,
+                    line=line,
+                    snippet=snippet.strip(),
+                    message="Invariance/equivariance lemma appears vacuous (ends in True).",
+                )
+            )
+            continue
+        proof_pos = text.find("Proof.", stmt_end)
+        if proof_pos == -1:
+            continue
+        proof_block = text[proof_pos: min(len(text), proof_pos + 400)]
+        if "reflexivity." in proof_block or "easy." in proof_block:
+            line = line_of[m.start()]
+            snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else stmt
+            findings.append(
+                Finding(
+                    rule_id="DEFINITIONAL_INVARIANCE",
+                    severity=_severity_for_path(path, "MEDIUM"),
+                    file=path,
+                    line=line,
+                    snippet=snippet.strip(),
+                    message="Invariance/equivariance lemma proved by reflexivity/easy (definitional).",
+                )
+            )
+    return findings
+
+
+def scan_physics_analogy_contract(path: Path) -> list[Finding]:
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    clean_lines = text.splitlines()
+    has_invariance = INVARIANCE_LEMMA_RE.search(text) is not None
+    findings: list[Finding] = []
+    start_re = re.compile(r"^[ \t]*(Theorem|Lemma|Corollary)\s+([A-Za-z0-9_']+)\b")
+    for idx, ln in enumerate(clean_lines, start=1):
+        m = start_re.match(ln)
+        if not m:
+            continue
+        stmt_lines = [ln.strip()]
+        j = idx + 1
+        while j <= len(clean_lines) and len(stmt_lines) < 200:
+            if re.search(r"\.[ \t]*$", stmt_lines[-1]):
+                break
+            nxt = clean_lines[j - 1].strip()
+            if nxt:
+                stmt_lines.append(nxt)
+            j += 1
+        stmt = " ".join(stmt_lines)
+        if not PHYSICS_ANALOGY_RE.search(stmt):
+            continue
+        label_context = "\n".join(clean_lines[max(0, idx - 4): idx])
+        if DEFINITIONAL_LABEL_RE.search(label_context):
+            continue
+        if has_invariance:
+            continue
+        findings.append(
+            Finding(
+                rule_id="PHYSICS_ANALOGY_CONTRACT",
+                severity=_severity_for_path(path, "HIGH"),
+                file=path,
+                line=idx,
+                snippet=ln.strip(),
+                message="Physics-analogy theorem lacks invariance lemma and is not labeled definitional.",
+            )
+        )
+    return findings
 
 
 def scan_file(path: Path) -> list[Finding]:
@@ -585,6 +859,222 @@ def _file_vacuity_summary(path: Path) -> tuple[int, tuple[str, ...]]:
     return scored.score, scored.tags
 
 
+def _run_coqtop_batch(coqproject: Path, commands: str, cwd: Path) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
+        ["coqtop", "-quiet", "-batch", "-f", str(coqproject)],
+        input=commands,
+        text=True,
+        capture_output=True,
+        cwd=str(cwd),
+    )
+
+
+def _parse_axioms(output: str) -> list[str]:
+    axioms: list[str] = []
+    in_axioms = False
+    for ln in output.splitlines():
+        stripped = ln.strip()
+        if stripped.startswith("Axioms:"):
+            in_axioms = True
+            continue
+        if not in_axioms:
+            continue
+        if not stripped or stripped.startswith("Coq <") or stripped.startswith("Toplevel"):
+            break
+        if stripped.startswith("Closed under the global context"):
+            break
+        m = re.search(r"([A-Za-z0-9_.']+)", stripped)
+        if m:
+            axioms.append(m.group(1))
+    return axioms
+
+
+def _assumption_audit(repo_root: Path, manifest_path: Path, manifest: dict) -> list[Finding]:
+    findings: list[Finding] = []
+    if shutil.which("coqtop") is None:
+        findings.append(
+            Finding(
+                rule_id="ASSUMPTION_AUDIT",
+                severity="HIGH",
+                file=manifest_path,
+                line=1,
+                snippet="coqtop",
+                message="coqtop not found; cannot run assumption audit.",
+            )
+        )
+        return findings
+
+    coqproject = (repo_root / manifest.get("coqproject", "coq/_CoqProject")).resolve()
+    if not coqproject.exists():
+        findings.append(
+            Finding(
+                rule_id="ASSUMPTION_AUDIT",
+                severity="HIGH",
+                file=manifest_path,
+                line=1,
+                snippet=str(coqproject),
+                message="coqproject path not found for assumption audit.",
+            )
+        )
+        return findings
+
+    allow = set(manifest.get("allow_axioms", []))
+    targets = manifest.get("targets", [])
+    for t in targets:
+        req = t.get("require")
+        sym = t.get("symbol")
+        if not req or not sym:
+            findings.append(
+                Finding(
+                    rule_id="ASSUMPTION_AUDIT",
+                    severity="HIGH",
+                    file=manifest_path,
+                    line=1,
+                    snippet=str(t),
+                    message="Invalid assumption audit target (missing require/symbol).",
+                )
+            )
+            continue
+        commands = f"Require Import {req}.\nPrint Assumptions {sym}.\nQuit.\n"
+        proc = _run_coqtop_batch(coqproject, commands, cwd=repo_root)
+        output = (proc.stdout or "") + "\n" + (proc.stderr or "")
+        if proc.returncode != 0:
+            findings.append(
+                Finding(
+                    rule_id="ASSUMPTION_AUDIT",
+                    severity="HIGH",
+                    file=manifest_path,
+                    line=1,
+                    snippet=f"{req}.{sym}",
+                    message=f"coqtop failed for Print Assumptions {sym}: {output.strip()[:200]}",
+                )
+            )
+            continue
+        axioms = _parse_axioms(output)
+        unexpected = [a for a in axioms if a not in allow]
+        if unexpected:
+            findings.append(
+                Finding(
+                    rule_id="ASSUMPTION_AUDIT",
+                    severity="HIGH",
+                    file=manifest_path,
+                    line=1,
+                    snippet=", ".join(unexpected[:6]),
+                    message=f"Unexpected axioms in Print Assumptions {sym}: {unexpected[:20]}",
+                )
+            )
+
+    return findings
+
+
+def _paper_symbol_map(repo_root: Path, manifest_path: Path, manifest: dict) -> list[Finding]:
+    findings: list[Finding] = []
+    if shutil.which("coqtop") is None:
+        findings.append(
+            Finding(
+                rule_id="PAPER_MAP_MISSING",
+                severity="HIGH",
+                file=manifest_path,
+                line=1,
+                snippet="coqtop",
+                message="coqtop not found; cannot verify paper symbol map.",
+            )
+        )
+        return findings
+
+    coqproject = (repo_root / manifest.get("coqproject", "coq/_CoqProject")).resolve()
+    if not coqproject.exists():
+        findings.append(
+            Finding(
+                rule_id="PAPER_MAP_MISSING",
+                severity="HIGH",
+                file=manifest_path,
+                line=1,
+                snippet=str(coqproject),
+                message="coqproject path not found for paper symbol map.",
+            )
+        )
+        return findings
+
+    for entry in manifest.get("paper_map", []):
+        req = entry.get("require")
+        sym = entry.get("symbol")
+        if not req or not sym:
+            findings.append(
+                Finding(
+                    rule_id="PAPER_MAP_MISSING",
+                    severity="HIGH",
+                    file=manifest_path,
+                    line=1,
+                    snippet=str(entry),
+                    message="Invalid paper map entry (missing require/symbol).",
+                )
+            )
+            continue
+        commands = f"Require Import {req}.\nCheck {sym}.\nQuit.\n"
+        proc = _run_coqtop_batch(coqproject, commands, cwd=repo_root)
+        output = (proc.stdout or "") + "\n" + (proc.stderr or "")
+        if proc.returncode != 0:
+            findings.append(
+                Finding(
+                    rule_id="PAPER_MAP_MISSING",
+                    severity="HIGH",
+                    file=manifest_path,
+                    line=1,
+                    snippet=f"{req}.{sym}",
+                    message=f"Missing or broken paper map symbol {sym}: {output.strip()[:200]}",
+                )
+            )
+
+    return findings
+
+
+def _scan_symmetry_contracts(coq_root: Path, manifest: dict, *, all_proofs: bool = False) -> list[Finding]:
+    contracts = manifest.get("symmetry_contracts", [])
+    if not contracts:
+        return []
+
+    compiled = []
+    for contract in contracts:
+        file_re = contract.get("file_regex")
+        must_res = contract.get("must_contain_regex", [])
+        tag = contract.get("tag")
+        if not file_re or not must_res:
+            continue
+        compiled.append(
+            {
+                "tag": tag,
+                "file_re": re.compile(file_re),
+                "must": [re.compile(expr) for expr in must_res],
+            }
+        )
+
+    findings: list[Finding] = []
+    v_files = iter_all_coq_files(coq_root) if all_proofs else iter_v_files(coq_root)
+    for vf in v_files:
+        raw = vf.read_text(encoding="utf-8", errors="replace")
+        stripped = strip_coq_comments(raw)
+        for contract in compiled:
+            matches_file = contract["file_re"].search(vf.as_posix()) is not None
+            tag = contract.get("tag")
+            matches_tag = bool(tag and re.search(re.escape(tag), raw, re.IGNORECASE))
+            if not matches_file and not matches_tag:
+                continue
+            if any(expr.search(stripped) for expr in contract["must"]):
+                continue
+            findings.append(
+                Finding(
+                    rule_id="SYMMETRY_CONTRACT",
+                    severity=_severity_for_path(vf, "MEDIUM"),
+                    file=vf,
+                    line=1,
+                    snippet="",
+                    message=f"Missing symmetry equivariance lemma matching: {', '.join(r.pattern for r in contract['must'])}",
+                )
+            )
+    return findings
+
+
 def _run_make_all(repo_root: Path) -> int:
     proc = subprocess.run(["make", "-C", str(repo_root / "coq")], cwd=str(repo_root))
     return proc.returncode
@@ -596,6 +1086,8 @@ def write_report(
     findings: list[Finding],
     scanned_files: int,
     vacuity_index: list[tuple[int, Path, tuple[str, ...]]],
+    *,
+    scanned_scope: str,
 ) -> None:
     now = _dt.datetime.now(_dt.UTC).strftime("%Y-%m-%d %H:%M:%SZ")
     by_sev = {"HIGH": [], "MEDIUM": [], "LOW": []}
@@ -608,7 +1100,10 @@ def write_report(
     lines: list[str] = []
     lines.append(f"# INQUISITOR REPORT\n")
     lines.append(f"Generated: {now} (UTC)\n")
-    lines.append(f"Scanned: {scanned_files} Coq files under `coq/`\n")
+    if scanned_scope == "repo":
+        lines.append(f"Scanned: {scanned_files} Coq files across the repo\n")
+    else:
+        lines.append(f"Scanned: {scanned_files} Coq files under {scanned_scope}\n")
     lines.append("## Summary\n")
     lines.append(f"- HIGH: {len(by_sev.get('HIGH', []))}\n")
     lines.append(f"- MEDIUM: {len(by_sev.get('MEDIUM', []))}\n")
@@ -635,6 +1130,16 @@ def write_report(
     lines.append("- `TRIVIAL_EQUALITY`: theorem of form `X = X` with reflexivity-ish proof\n")
     lines.append("- `CONST_Q_FUN`: `Definition ... := fun _ => 0%Q` / `1%Q`\n")
     lines.append("- `EXISTS_CONST_Q`: `exists (fun _ => 0%Q)` / `exists (fun _ => 1%Q)`\n")
+    lines.append("- `CLAMP_OR_TRUNCATION`: uses `Z.to_nat`, `Z.abs`, `Nat.min`, `Nat.max`\n")
+    lines.append("- `ASSUMPTION_AUDIT`: unexpected axioms from `Print Assumptions`\n")
+    lines.append("- `SYMMETRY_CONTRACT`: missing equivariance lemma for declared symmetry\n")
+    lines.append("- `PAPER_MAP_MISSING`: paper ↔ Coq symbol map entry missing/broken\n")
+    lines.append("- `MANIFEST_PARSE_ERROR`: failed to parse Inquisitor manifest JSON\n")
+    lines.append("- `COMMENT_SMELL`: TODO/FIXME/WIP markers in Coq comments\n")
+    lines.append("- `UNUSED_HYPOTHESIS`: introduced hypothesis not used (heuristic)\n")
+    lines.append("- `DEFINITIONAL_INVARIANCE`: invariance lemma appears definitional/vacuous\n")
+    lines.append("- `Z_TO_NAT_BOUNDARY`: Z.to_nat without nearby nonnegativity guard\n")
+    lines.append("- `PHYSICS_ANALOGY_CONTRACT`: physics-analogy theorem lacks invariance or definitional label\n")
     lines.append("\n")
 
     if not findings:
@@ -682,7 +1187,7 @@ def write_report(
 
 def main(argv: list[str]) -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--coq-root", default="coq", help="Root directory to scan (default: coq)")
+    ap.add_argument("--coq-root", action="append", default=["coq"], help="Root directory to scan")
     ap.add_argument("--report", default="INQUISITOR_REPORT.md", help="Markdown report path")
     ap.add_argument(
         "--build",
@@ -733,19 +1238,44 @@ def main(argv: list[str]) -> int:
         default=False,
         help="Include informational SECTION_BINDER and MODULE_SIGNATURE_DECL findings in the report.",
     )
+    ap.add_argument(
+        "--manifest",
+        default="coq/INQUISITOR_ASSUMPTIONS.json",
+        help="Manifest for assumption audits, symmetry contracts, and paper mapping.",
+    )
+    ap.add_argument(
+        "--all-proofs",
+        action="store_true",
+        default=True,
+        help="Scan every Coq proof file in the repo (default: enabled).",
+    )
+    ap.add_argument(
+        "--only-coq-roots",
+        dest="all_proofs",
+        action="store_false",
+        help="Restrict scanning to --coq-root entries only.",
+    )
     args = ap.parse_args(argv)
 
     repo_root = Path(__file__).resolve().parents[1]
-    coq_root = (repo_root / args.coq_root).resolve()
+    coq_roots = [(repo_root / root).resolve() for root in args.coq_root]
     report_path = (repo_root / args.report).resolve()
+    manifest_path = (repo_root / args.manifest).resolve()
+    manifest: dict | None = None
 
     global ALLOWLIST_EXACT_FILES
     ALLOWLIST_EXACT_FILES = set()
     if args.allowlist and args.allowlist_makefile_optional and not args.ignore_makefile_optional:
+        coq_root = coq_roots[0]
         ALLOWLIST_EXACT_FILES = _parse_optional_v_files(repo_root, coq_root)
 
-    if not coq_root.exists():
-        print(f"ERROR: coq root not found: {coq_root}", file=sys.stderr)
+    if args.all_proofs:
+        missing_roots = []
+    else:
+        missing_roots = [root for root in coq_roots if not root.exists()]
+    if missing_roots:
+        for root in missing_roots:
+            print(f"ERROR: coq root not found: {root}", file=sys.stderr)
         return 2
 
     if args.build:
@@ -757,12 +1287,25 @@ def main(argv: list[str]) -> int:
     all_findings: list[Finding] = []
     vacuity_index: list[tuple[int, Path, tuple[str, ...]]] = []
     scanned = 0
-    for vf in iter_v_files(coq_root):
+    if args.all_proofs:
+        v_files = iter_all_coq_files(repo_root)
+        scanned_scope = "repo"
+    else:
+        v_files = (vf for root in coq_roots for vf in iter_v_files(root))
+        scanned_scope = ", ".join(root.as_posix() for root in coq_roots)
+
+    for vf in v_files:
         scanned += 1
         try:
             all_findings.extend(scan_file(vf))
             all_findings.extend(scan_trivial_equalities(vf))
             all_findings.extend(scan_exists_const_q(vf))
+            all_findings.extend(scan_clamps(vf))
+            all_findings.extend(scan_comment_smells(vf))
+            all_findings.extend(scan_unused_hypotheses(vf))
+            all_findings.extend(scan_definitional_invariance(vf))
+            all_findings.extend(scan_z_to_nat_boundaries(vf))
+            all_findings.extend(scan_physics_analogy_contract(vf))
 
             score, tags = _file_vacuity_summary(vf)
             if score > 0:
@@ -779,6 +1322,31 @@ def main(argv: list[str]) -> int:
                 )
             )
 
+    if manifest_path.exists():
+        try:
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            all_findings.append(
+                Finding(
+                    rule_id="MANIFEST_PARSE_ERROR",
+                    severity="HIGH",
+                    file=manifest_path,
+                    line=1,
+                    snippet=str(exc),
+                    message="Failed to parse Inquisitor manifest JSON.",
+                )
+            )
+            manifest = None
+
+    if manifest:
+        all_findings.extend(_assumption_audit(repo_root, manifest_path, manifest))
+        all_findings.extend(_paper_symbol_map(repo_root, manifest_path, manifest))
+        if args.all_proofs:
+            all_findings.extend(_scan_symmetry_contracts(repo_root, manifest, all_proofs=True))
+        else:
+            for root in coq_roots:
+                all_findings.extend(_scan_symmetry_contracts(root, manifest))
+
     if not args.include_informational:
         all_findings = [
             f
@@ -786,7 +1354,14 @@ def main(argv: list[str]) -> int:
             if f.rule_id not in {"SECTION_BINDER", "MODULE_SIGNATURE_DECL"}
         ]
 
-    write_report(report_path, repo_root, all_findings, scanned, vacuity_index)
+    write_report(
+        report_path,
+        repo_root,
+        all_findings,
+        scanned,
+        vacuity_index,
+        scanned_scope=scanned_scope,
+    )
 
     # Fail-fast policy: HIGH sins in protected files, unless allowlisted.
     protected_high = [
