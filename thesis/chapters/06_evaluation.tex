@@ -14,6 +14,9 @@ This chapter presents empirical evaluation addressing three fundamental question
     
     \item \textbf{Is the implementation practical?} \\
     A beautiful theory that runs too slowly is useless. I benchmark performance and resource utilization to assess practicality, focusing on the overhead of receipts and the hardware cost of the accounting units.
+
+    \item \textbf{Do the ledger-level predictions behave as derived?} \\
+    Some of the most important claims in this thesis are not about any particular workload, but about unavoidable trade-offs induced by the $\mu$ rules themselves. I therefore include two ``physics-without-physics'' harnesses that run on any machine: (i) a structural-heat certificate benchmark derived from $\mu=\lceil\log_2(n!)\rceil$, and (ii) a fixed-budget time-dilation benchmark derived from $r=\lfloor(B-C)/c\rfloor$.
 \end{enumerate}
 
 \subsection{Methodology}
@@ -294,11 +297,59 @@ singleton\_from\_64 & 7 & 7 / 7 & no & 6 & $2.02 \times 10^{-20}$ & 1.167 \\
 All four traces satisfy $\mu \ge \log_2(|\Omega|/|\Omega'|)$ and align on regs/mem/$\mu$ without normalization. The harness encodes an explicit $\mu$-delta into the formal trace and hardware instruction word, and the reference VM consumes the same $\mu$-delta (disabling implicit MDLACC) so that $\mu_{\text{raw}}$ matches across layers. With this encoding in place, \texttt{EVIDENCE\_STRICT} runs succeed for these workloads.
 
 \subsection{Structural heat anomaly workload}
-To mirror the thesis claim that structured insight carries binding energy, the structural-heat harness executes two erase tasks over the same 1~GiB buffer: \texttt{erase\_random\_noise} (no certificate) and \texttt{erase\_structured\_sorted} (explicit $\log_2(n!)$ certificate for $n=2^{20}$ sorted records). The emitted artifact records $\mu$ totals, Landauer lower bounds, and slack for both workloads. The structured erase pays dramatically larger $\mu$---raising the Landauer floor accordingly---while keeping instruction count and data volume fixed, turning the ``structural heat'' prediction into a measurable differential once hardware power logging is connected.
+This workload is a purely ledger-level falsifier for a common loophole: claiming large structured insight while paying negligible $\mu$.
+
+\paragraph{From first principles.}
+Fix a buffer containing $n$ logical records. If the records are unconstrained, a ``random'' buffer can represent many microstates; in the toy model used here, we treat the erase as having no additional structural certificate beyond the erase itself.
+
+Now impose the structure claim: ``the records are sorted.'' Without changing the physical erase operation, this structure restricts the space of consistent microstates by a factor of $n!$ (all permutations collapse to one canonical ordering). In information terms, the reduction is
+\[
+\log_2\left(\frac{|\Omega|}{|\Omega'|}\right)=\log_2(n!).
+\]
+The implementation enforces the revelation rule by charging an explicit information cost via \texttt{info\_charge}, which rounds up to the next integer bit:
+\[
+\mu = \lceil \log_2(n!) \rceil.
+\]
+This implies an invariant that is easy to audit from the JSON artifact:
+\[
+0 \le \mu-\log_2(n!) < 1.
+\]
+
+\paragraph{Concrete run.}
+For $n=2^{20}$, the certificate size is $\log_2(n!)\approx 1.9459\times 10^7$ bits, so the harness charges $\mu=19{,}458{,}756$. The observed slack is $\approx 0.069$ bits and $\mu/\log_2(n!)\approx 1.0000000036$, showing that the accounting overhead is negligible at this scale.
+
+To push beyond a single datapoint, the harness can emit a scaling sweep over record counts ($n=2^{10}$ through $2^{20}$). Figure~\ref{fig:structural_heat_scaling} visualizes the ceiling law directly: plotted as $\mu$ versus $\log_2(n!)$, the points lie between the two lines $\mu=\log_2(n!)$ and $\mu=\log_2(n!)+1$, and the lower panel plots the slack to make the bound explicit.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/structural_heat_scaling.png}
+    \caption{Structural heat scaling sweep, derived from first principles. Top: charged $\mu$ versus certificate bits $\log_2(n!)$ with the lower bound and the ceiling envelope. Bottom: slack $\mu-\log_2(n!)$ staying in $[0,1)$, which is exactly what $\mu=\lceil\log_2(n!)\rceil$ predicts.}
+    \label{fig:structural_heat_scaling}
+\end{figure}
 
 \subsection{Ledger-constrained time dilation workload}
 \label{sec:ledger_time_dilation}
-To test the ``speed limit'' claim, the time-dilation harness fixes a $\mu$ budget per global tick (32 $\mu$-bits) and varies only the communication payload queued each tick before local computation is allowed. The emitted JSON artifact reports four scenarios: no communication (32 compute steps/tick), light (28 steps/tick), moderate (20 steps/tick), and heavy (8 steps/tick) while holding the per-tick $\mu$ spend constant at 2048 $\mu$ over 64 ticks. As communication $\mu$ increases, the compute rate monotonically falls, demonstrating that signal propagation consumes the same finite $\mu$ budget that would otherwise power local evolution---a ledger-level analogue of time dilation under a fixed speed-of-ledger constraint. Evidence-strict extensions can wire this harness to EMIT traces and RTL exports to enforce the same trade-off across layers.
+This workload is an educational demonstration of a ledger-level ``speed limit'': under a fixed per-tick $\mu$ budget, spending more on communication leaves less budget for local compute.
+
+\paragraph{From first principles.}
+Let the per-tick budget be $B$ (in $\mu$-bits). Each tick, a communication payload of size $C$ (bits) is queued. The policy is ``communication first'': spend up to $C$ from the budget on emission, then use whatever remains for local compute. If a compute step costs $c$ $\mu$-bits, then in the no-backlog regime (when $C\le B$ each tick so the queue drains), the compute rate per tick is
+\[
+r = \left\lfloor\frac{B-C}{c}\right\rfloor.
+\]
+The total spending is conserved by construction:
+\[
+\mu_{\text{total}} = \mu_{\text{comm}} + \mu_{\text{compute}}.
+\]
+If instead $C>B$, the communication queue cannot drain and the system enters a backlog regime where compute can collapse toward zero.
+
+\paragraph{Concrete run.}
+In the artifact, $B=32$, $c=1$, and the four scenarios set $C\in\{0,4,12,24\}$ bits/tick over 64 ticks. The measured rates are $r\in\{32,28,20,8\}$ steps/tick, exactly matching $r=B-C$ in this configuration. The plot overlays the derived no-backlog line $r=(B-\mu_{comm})/c$ and shades the backlog region $\mu_{comm}>B$.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/time_dilation_curve.png}
+    \caption{Ledger time dilation, derived from first principles. Points are the observed artifact values (per-tick communication spend versus compute rate). The dashed line is the no-backlog prediction $r=(B-\mu_{comm})/c$ under a fixed per-tick budget $B$ and per-step cost $c$.}
+\end{figure}
 
 \section{Performance Benchmarks}
 
@@ -379,6 +430,27 @@ The fast local gates are proof compilation and the two isomorphism tests. The fu
 
 \section{Reproducibility}
 
+\subsection{Reproducing the ledger-level physics artifacts}
+The structural heat and time dilation artifacts are designed to run on any environment (no energy counters required) and to be self-auditing via embedded invariant checks in the emitted JSON.
+
+\paragraph{Structural heat.} Generate the artifact JSON and the scaling sweep:
+\begin{lstlisting}
+python3 scripts/structural_heat_experiment.py
+python3 scripts/structural_heat_experiment.py --sweep-records --records-pow-min 10 --records-pow-max 20 --records-pow-step 2
+\end{lstlisting}
+This writes \path{results/structural_heat_experiment.json}. Regenerate the thesis figure:
+\begin{lstlisting}
+python3 scripts/plot_structural_heat_scaling.py
+\end{lstlisting}
+This writes \path{thesis/figures/structural_heat_scaling.png}.
+
+\paragraph{Time dilation.} Generate the artifact JSON and the thesis figure:
+\begin{lstlisting}
+python3 scripts/time_dilation_experiment.py
+python3 scripts/plot_time_dilation_curve.py
+\end{lstlisting}
+This writes \path{results/time_dilation_experiment.json} and \path{thesis/figures/time_dilation_curve.png}.
+
 \subsection{Artifact Bundles}
 
 Key artifacts include:
@@ -400,6 +472,7 @@ The evaluation demonstrates:
     \item \textbf{3-Layer Isomorphism}: Python, Coq extraction, and RTL produce identical state projections for all tested instruction sequences
     \item \textbf{CHSH Correctness}: Supra-quantum certification requires revelation as predicted by theory
     \item \textbf{$\mu$-Conservation}: The ledger is monotonic and exactly tracks declared costs
+    \item \textbf{Ledger-level falsifiers}: structural heat (certificate ceiling law) and time dilation (fixed-budget slowdown) match their first-principles derivations
     \item \textbf{Scalability}: Hardware synthesis targets modern FPGAs with reasonable resource utilization
     \item \textbf{Reproducibility}: All results can be reproduced from the published traces and artifact bundles
 \end{enumerate}
