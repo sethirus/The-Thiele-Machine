@@ -23,6 +23,10 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List
 
+from experiments.empirical_validation import (
+    check_monotonic_nonincreasing,
+)
+from experiments.run_metadata import capture_run_metadata
 from thielecpu.state import MuLedger
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -111,8 +115,22 @@ def run_experiment(write: bool = True) -> Dict[str, object]:
 
     results: List[ScenarioResult] = [_run_scenario(cfg) for cfg in scenarios]
 
+    checks = [
+        check_monotonic_nonincreasing(
+            results,
+            name="compute_rate_monotonic_nonincreasing",
+            key=lambda r: r.compute_rate,
+        ).as_dict(),
+        {
+            "name": "mu_conservation_comm_plus_compute",
+            "passed": all(r.mu_total == r.comm_mu + r.compute_mu for r in results),
+        },
+    ]
+
     payload = {
         "description": "Compute vs communication trade-off under fixed μ budget",
+        "run_metadata": capture_run_metadata(include_env=True),
+        "checks": checks,
         "scenarios": [
             {
                 "name": r.name,
@@ -125,6 +143,8 @@ def run_experiment(write: bool = True) -> Dict[str, object]:
                 "mu_total": r.mu_total,
                 "compute_steps": r.compute_steps,
                 "compute_rate": r.compute_rate,
+                "compute_fraction": (r.compute_mu / r.mu_total) if r.mu_total else None,
+                "comm_fraction": (r.comm_mu / r.mu_total) if r.mu_total else None,
             }
             for r in results
         ],

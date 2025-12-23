@@ -22,6 +22,8 @@ from dataclasses import dataclass, asdict
 from pathlib import Path
 from typing import Dict, List
 
+from experiments.empirical_validation import summarize_range
+from experiments.run_metadata import capture_run_metadata
 from thielecpu.mdl import info_charge
 from thielecpu.state import State
 
@@ -89,6 +91,31 @@ def main() -> None:
         default=RESULTS_PATH,
         help="Path to write results JSON (default: results/structural_heat_experiment.json)",
     )
+    parser.add_argument(
+        "--sweep-records",
+        action="store_true",
+        help=(
+            "Emit an additional scaling sweep over record counts (does not change the default two-run artifact)."
+        ),
+    )
+    parser.add_argument(
+        "--records-pow-min",
+        type=int,
+        default=10,
+        help="When --sweep-records is set, min power-of-two exponent for record counts (default: 10)",
+    )
+    parser.add_argument(
+        "--records-pow-max",
+        type=int,
+        default=20,
+        help="When --sweep-records is set, max power-of-two exponent for record counts (default: 20)",
+    )
+    parser.add_argument(
+        "--records-pow-step",
+        type=int,
+        default=2,
+        help="When --sweep-records is set, step for power-of-two exponents (default: 2)",
+    )
     args = parser.parse_args()
 
     bytes_erased = 1_073_741_824  # 1 GiB erase task
@@ -113,15 +140,48 @@ def main() -> None:
 
     runs: List[Dict[str, object]] = [asdict(workload_random), asdict(workload_structured)]
 
+    sweep_runs: List[Dict[str, object]] = []
+    if args.sweep_records:
+        for pow_ in range(args.records_pow_min, args.records_pow_max + 1, args.records_pow_step):
+            sweep_records = 2**pow_
+            sweep_bits = _log2_factorial(sweep_records)
+            sweep = _run_workload(
+                name=f"erase_structured_sorted_n2^{pow_}",
+                bytes_erased=bytes_erased,
+                records=sweep_records,
+                structural_bits=sweep_bits,
+            )
+            sweep_runs.append(asdict(sweep))
+
     payload: Dict[str, object] = {
+        "run_metadata": capture_run_metadata(include_env=True),
         "temperature_K": DEFAULT_TEMPERATURE_K,
         "boltzmann_constant": BOLTZMANN_CONSTANT,
         "ln2": LN2,
         "runs": runs,
+        "sweep_runs": sweep_runs,
+        "checks": [
+            {
+                "name": "mu_lower_bounds_log2_ratio",
+                "passed": all(float(run["mu_total"]) >= float(run["log2_ratio"]) for run in runs),
+            },
+            {
+                "name": "mu_slack_in_[0,1)",
+                "passed": all(
+                    (float(run["mu_minus_lower_bound"]) >= 0.0)
+                    and (float(run["mu_minus_lower_bound"]) < 1.0)
+                    for run in runs
+                    if float(run["log2_ratio"]) > 0.0
+                ),
+            },
+        ],
         "mu_slack_bits": {
             "min": min(run["mu_minus_lower_bound"] for run in runs),
             "max": max(run["mu_minus_lower_bound"] for run in runs),
         },
+        "mu_scaling": summarize_range(
+            [float(run["mu_over_log2_ratio"]) for run in runs if run.get("mu_over_log2_ratio") is not None]
+        ),
     }
 
     out_path: Path = args.out
