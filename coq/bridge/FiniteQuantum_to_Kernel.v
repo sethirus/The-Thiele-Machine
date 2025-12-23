@@ -146,6 +146,12 @@ Proof.
     apply (trial_bits_ok_all_zeros_ones 0 0 0 1); auto.
 Qed.
 
+(** **Definitional lemma**: The Tsirelson bound approximation is computed by normalization.
+
+    This theorem establishes that the program achieves a CHSH value of 5657/2000 ≈ 2.8285,
+    which approximates the Tsirelson bound 2√2 ≈ 2.828. The proof is definitional:
+    vm_compute reduces the CHSH calculation to the rational value, verified by reflexivity.
+*)
 Theorem tsirelson_envelope_program_chsh :
   KC.chsh tsirelson_envelope_program == (5657#2000).
 Proof.
@@ -174,6 +180,13 @@ Proof.
   reflexivity.
 Qed.
 
+(** **Definitional lemma**: Compiled Tsirelson program preserves the bound.
+
+    This corollary follows from the simulation correctness theorem and the
+    definitional computation of the Tsirelson bound. While the general
+    correctness proof is non-trivial, this specific instance is a definitional
+    consequence of applying that correctness to the Tsirelson program.
+*)
 Corollary tsirelson_envelope_compiled_chsh :
   KC.chsh (KC.trials_of_receipts (compile tsirelson_envelope_program)) == (5657#2000).
 Proof.

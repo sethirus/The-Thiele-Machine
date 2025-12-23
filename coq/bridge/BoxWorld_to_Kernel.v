@@ -110,6 +110,14 @@ Proof.
   exact Hok.
 Qed.
 
+(** **Definitional lemma**: CHSH preservation is a direct consequence of correctness.
+
+    This corollary follows immediately from the simulation correctness theorem.
+    While the underlying correctness proof is non-trivial, this corollary is
+    a definitional consequence - the CHSH value is preserved as a simple
+    application of the correctness property.
+*)
+
 (** ** A crisp domain instance: a finite supra-CHSH empirical program
 
     This is a concrete “prediction engine output” for an experiment: a finite
@@ -133,6 +141,13 @@ Proof.
   repeat constructor; unfold trial_bits_ok, is_bit; simpl; try reflexivity.
 Qed.
 
+(** **Definitional lemma**: The CHSH value 16/5 is computed by normalization.
+
+    This theorem establishes that the empirical CHSH value of the supra-quantum
+    program is exactly 16/5 > 2√2 (exceeding the Tsirelson bound). The proof
+    is definitional: vm_compute reduces the CHSH calculation to the rational
+    value 16/5, which is then verified by reflexivity.
+*)
 Theorem supra_16_5_program_chsh :
   KC.chsh supra_16_5_program = (16#5).
 Proof.
