@@ -1,9 +1,9 @@
 # INQUISITOR REPORT
-Generated: 2025-12-23 08:09:05Z (UTC)
+Generated: 2025-12-23 14:06:06Z (UTC)
 Scanned: 220 Coq files across the repo
 ## Summary
-- HIGH: 526
-- MEDIUM: 1353
+- HIGH: 522
+- MEDIUM: 1349
 - LOW: 0
 
 ## Rules
@@ -46,18 +46,6 @@ Higher score = more likely unfinished/vacuous.
 
 ## Findings
 ### HIGH
-
-#### `artifacts/EmergentWaveEquation.v`
-- L88: **ADMIT_TACTIC** — admit tactic found (proof shortcut - FORBIDDEN).
-  - `admit.`
-- L89: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-
-#### `artifacts/wave_receipts/EmergentWaveEquation.v`
-- L88: **ADMIT_TACTIC** — admit tactic found (proof shortcut - FORBIDDEN).
-  - `admit.`
-- L89: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
 
 #### `coq/INQUISITOR_ASSUMPTIONS.json`
 - L1: **ASSUMPTION_AUDIT** — coqtop not found; cannot run assumption audit.
@@ -1182,31 +1170,27 @@ Higher score = more likely unfinished/vacuous.
   - `intros u_t u_tm1 u_xp u_xm u_tp1 H.`
 - L59: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tp1\` not used in proof body (heuristic).
   - `intros u_t u_tm1 u_xp u_xm u_tp1 H.`
-- L80: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tp1\` not used in proof body (heuristic).
+- L93: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tp1\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
-- L80: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_t\` not used in proof body (heuristic).
+- L93: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_t\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
-- L80: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tm1\` not used in proof body (heuristic).
+- L93: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tm1\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
-- L80: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xp\` not used in proof body (heuristic).
+- L93: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xp\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
-- L80: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xm\` not used in proof body (heuristic).
+- L93: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xm\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
-- L80: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`H\` not used in proof body (heuristic).
-  - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
-- L86: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
-  - `Placeholder: full algebraic expansion would go here`
-- L92: **DEFINITIONAL_INVARIANCE** — Invariance/equivariance lemma proved by reflexivity/easy (definitional).
+- L101: **DEFINITIONAL_INVARIANCE** — Invariance/equivariance lemma proved by reflexivity/easy (definitional).
   - `Lemma spatial_symmetry : wave_coeff_u_xp == wave_coeff_u_xm.`
-- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tp1\` not used in proof body (heuristic).
+- L118: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tp1\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
-- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_t\` not used in proof body (heuristic).
+- L118: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_t\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
-- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tm1\` not used in proof body (heuristic).
+- L118: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tm1\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
-- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xp\` not used in proof body (heuristic).
+- L118: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xp\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
-- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xm\` not used in proof body (heuristic).
+- L118: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xm\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
 
 #### `artifacts/schrodinger_receipts/EmergentSchrodingerEquation.v`
@@ -1258,31 +1242,27 @@ Higher score = more likely unfinished/vacuous.
   - `intros u_t u_tm1 u_xp u_xm u_tp1 H.`
 - L59: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tp1\` not used in proof body (heuristic).
   - `intros u_t u_tm1 u_xp u_xm u_tp1 H.`
-- L80: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tp1\` not used in proof body (heuristic).
+- L93: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tp1\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
-- L80: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_t\` not used in proof body (heuristic).
+- L93: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_t\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
-- L80: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tm1\` not used in proof body (heuristic).
+- L93: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tm1\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
-- L80: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xp\` not used in proof body (heuristic).
+- L93: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xp\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
-- L80: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xm\` not used in proof body (heuristic).
+- L93: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xm\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
-- L80: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`H\` not used in proof body (heuristic).
-  - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
-- L86: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
-  - `Placeholder: full algebraic expansion would go here`
-- L92: **DEFINITIONAL_INVARIANCE** — Invariance/equivariance lemma proved by reflexivity/easy (definitional).
+- L101: **DEFINITIONAL_INVARIANCE** — Invariance/equivariance lemma proved by reflexivity/easy (definitional).
   - `Lemma spatial_symmetry : wave_coeff_u_xp == wave_coeff_u_xm.`
-- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tp1\` not used in proof body (heuristic).
+- L118: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tp1\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
-- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_t\` not used in proof body (heuristic).
+- L118: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_t\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
-- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tm1\` not used in proof body (heuristic).
+- L118: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tm1\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
-- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xp\` not used in proof body (heuristic).
+- L118: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xp\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
-- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xm\` not used in proof body (heuristic).
+- L118: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xm\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
 
 #### `coq/bridge/BoxWorld_to_Kernel.v`
