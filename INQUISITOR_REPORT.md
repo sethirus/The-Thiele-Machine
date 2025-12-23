@@ -1,9 +1,9 @@
 # INQUISITOR REPORT
-Generated: 2025-12-23 07:50:00Z (UTC)
+Generated: 2025-12-23 08:09:05Z (UTC)
 Scanned: 220 Coq files across the repo
 ## Summary
-- HIGH: 524
-- MEDIUM: 1307
+- HIGH: 526
+- MEDIUM: 1353
 - LOW: 0
 
 ## Rules
@@ -42,31 +42,22 @@ Higher score = more likely unfinished/vacuous.
 
 | score | tags | file |
 |---:|---|---|
-| 255 | ...->True, let-in-True | `artifacts/EmergentWaveEquation.v` |
-| 255 | ...->True, let-in-True | `artifacts/wave_receipts/EmergentWaveEquation.v` |
-| 130 | ...->True | `artifacts/schrodinger_receipts/EmergentSchrodingerEquation.v` |
 | 65 | const-fun | `coq/thielemachine/coqproofs/SpectralApproximation.v` |
 
 ## Findings
 ### HIGH
 
 #### `artifacts/EmergentWaveEquation.v`
-- L49: **IMPLIES_TRUE_STMT** — Statement ends in \`-> True.\` (likely vacuous).
-  - `Lemma wave_rule_locality :`
-- L59: **LET_IN_TRUE_STMT** — Statement ends in \`let ... in True.\` (hidden vacuity).
-  - `Lemma discrete_wave_equation_structure :`
-
-#### `artifacts/schrodinger_receipts/EmergentSchrodingerEquation.v`
-- L46: **IMPLIES_TRUE_STMT** — Statement ends in \`-> True.\` (likely vacuous).
-  - `Lemma schrodinger_rule_locality :`
-- L68: **IMPLIES_TRUE_STMT** — Statement ends in \`-> True.\` (likely vacuous).
-  - `Theorem emergent_schrodinger_eq :`
+- L88: **ADMIT_TACTIC** — admit tactic found (proof shortcut - FORBIDDEN).
+  - `admit.`
+- L89: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
 
 #### `artifacts/wave_receipts/EmergentWaveEquation.v`
-- L49: **IMPLIES_TRUE_STMT** — Statement ends in \`-> True.\` (likely vacuous).
-  - `Lemma wave_rule_locality :`
-- L59: **LET_IN_TRUE_STMT** — Statement ends in \`let ... in True.\` (hidden vacuity).
-  - `Lemma discrete_wave_equation_structure :`
+- L88: **ADMIT_TACTIC** — admit tactic found (proof shortcut - FORBIDDEN).
+  - `admit.`
+- L89: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
 
 #### `coq/INQUISITOR_ASSUMPTIONS.json`
 - L1: **ASSUMPTION_AUDIT** — coqtop not found; cannot run assumption audit.
@@ -77,14 +68,22 @@ Higher score = more likely unfinished/vacuous.
 #### `coq/bridge/BoxWorld_to_Kernel.v`
 - L78: **PHYSICS_ANALOGY_CONTRACT** — Physics-analogy theorem lacks invariance lemma and is not labeled definitional.
   - `Corollary simulation_correctness_chsh_value :`
-- L110: **PHYSICS_ANALOGY_CONTRACT** — Physics-analogy theorem lacks invariance lemma and is not labeled definitional.
+- L101: **PHYSICS_ANALOGY_CONTRACT** — Physics-analogy theorem lacks invariance lemma and is not labeled definitional.
+  - `Lemma simulation_chsh_invariance :`
+- L136: **PHYSICS_ANALOGY_CONTRACT** — Physics-analogy theorem lacks invariance lemma and is not labeled definitional.
   - `Theorem supra_16_5_program_chsh :`
+- L158: **PHYSICS_ANALOGY_CONTRACT** — Physics-analogy theorem lacks invariance lemma and is not labeled definitional.
+  - `Lemma supra_program_chsh_definitional_invariance :`
 
 #### `coq/bridge/FiniteQuantum_to_Kernel.v`
 - L149: **PHYSICS_ANALOGY_CONTRACT** — Physics-analogy theorem lacks invariance lemma and is not labeled definitional.
   - `Theorem tsirelson_envelope_program_chsh :`
-- L156: **PHYSICS_ANALOGY_CONTRACT** — Physics-analogy theorem lacks invariance lemma and is not labeled definitional.
+- L170: **PHYSICS_ANALOGY_CONTRACT** — Physics-analogy theorem lacks invariance lemma and is not labeled definitional.
+  - `Lemma tsirelson_envelope_chsh_invariance :`
+- L177: **PHYSICS_ANALOGY_CONTRACT** — Physics-analogy theorem lacks invariance lemma and is not labeled definitional.
   - `Corollary tsirelson_envelope_compiled_chsh :`
+- L201: **PHYSICS_ANALOGY_CONTRACT** — Physics-analogy theorem lacks invariance lemma and is not labeled definitional.
+  - `Lemma tsirelson_compiled_chsh_gauge_invariance :`
 
 #### `coq/kernel/CHSH.v`
 - L128: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
@@ -1157,54 +1156,144 @@ Higher score = more likely unfinished/vacuous.
   - `intros cpu instr Hpc_unch.`
 
 #### `docs/theory/GeometricSignature.v`
-- L56: **AXIOM_OR_PARAMETER** — Found Parameter louvain_partition.
+- L87: **AXIOM_OR_PARAMETER** — Found Parameter louvain_partition.
   - `Parameter louvain_partition : Strategy.`
-- L57: **AXIOM_OR_PARAMETER** — Found Parameter spectral_partition.
+- L88: **AXIOM_OR_PARAMETER** — Found Parameter spectral_partition.
   - `Parameter spectral_partition : Strategy.`
-- L58: **AXIOM_OR_PARAMETER** — Found Parameter degree_partition.
+- L89: **AXIOM_OR_PARAMETER** — Found Parameter degree_partition.
   - `Parameter degree_partition : Strategy.`
-- L59: **AXIOM_OR_PARAMETER** — Found Parameter balanced_partition.
+- L90: **AXIOM_OR_PARAMETER** — Found Parameter balanced_partition.
   - `Parameter balanced_partition : Strategy.`
-- L89: **AXIOM_OR_PARAMETER** — Found Parameter extract_edge_weights.
+- L145: **AXIOM_OR_PARAMETER** — Found Parameter extract_edge_weights.
   - `Parameter extract_edge_weights : list (list R) -> list R.`
-- L92: **AXIOM_OR_PARAMETER** — Found Parameter compute_geometric_signature.
+- L195: **AXIOM_OR_PARAMETER** — Found Parameter compute_geometric_signature.
   - `Parameter compute_geometric_signature : nat -> GeometricSignatureTy.`
 
 ### MEDIUM
 
 #### `artifacts/EmergentWaveEquation.v`
-- L72: **DEFINITIONAL_INVARIANCE** — Invariance/equivariance lemma proved by reflexivity/easy (definitional).
+- L59: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_t\` not used in proof body (heuristic).
+  - `intros u_t u_tm1 u_xp u_xm u_tp1 H.`
+- L59: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tm1\` not used in proof body (heuristic).
+  - `intros u_t u_tm1 u_xp u_xm u_tp1 H.`
+- L59: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xp\` not used in proof body (heuristic).
+  - `intros u_t u_tm1 u_xp u_xm u_tp1 H.`
+- L59: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xm\` not used in proof body (heuristic).
+  - `intros u_t u_tm1 u_xp u_xm u_tp1 H.`
+- L59: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tp1\` not used in proof body (heuristic).
+  - `intros u_t u_tm1 u_xp u_xm u_tp1 H.`
+- L80: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tp1\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
+- L80: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_t\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
+- L80: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tm1\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
+- L80: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xp\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
+- L80: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xm\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
+- L80: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`H\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
+- L86: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Placeholder: full algebraic expansion would go here`
+- L92: **DEFINITIONAL_INVARIANCE** — Invariance/equivariance lemma proved by reflexivity/easy (definitional).
   - `Lemma spatial_symmetry : wave_coeff_u_xp == wave_coeff_u_xm.`
-- L89: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tp1\` not used in proof body (heuristic).
+- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tp1\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
-- L89: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_t\` not used in proof body (heuristic).
+- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_t\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
-- L89: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tm1\` not used in proof body (heuristic).
+- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tm1\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
-- L89: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xp\` not used in proof body (heuristic).
+- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xp\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
-- L89: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xm\` not used in proof body (heuristic).
+- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xm\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
 
+#### `artifacts/schrodinger_receipts/EmergentSchrodingerEquation.v`
+- L57: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`a\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L57: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`b\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L57: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`lap_a\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L57: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`lap_b\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L57: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Va\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L57: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Vb\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L57: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`a_next\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L57: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`b_next\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L99: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`a\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L99: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`b\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L99: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`lap_a\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L99: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`lap_b\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L99: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Va\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L99: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Vb\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L99: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`a_next\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L99: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`b_next\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L99: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Ha\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L99: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hb\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+
 #### `artifacts/wave_receipts/EmergentWaveEquation.v`
-- L72: **DEFINITIONAL_INVARIANCE** — Invariance/equivariance lemma proved by reflexivity/easy (definitional).
+- L59: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_t\` not used in proof body (heuristic).
+  - `intros u_t u_tm1 u_xp u_xm u_tp1 H.`
+- L59: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tm1\` not used in proof body (heuristic).
+  - `intros u_t u_tm1 u_xp u_xm u_tp1 H.`
+- L59: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xp\` not used in proof body (heuristic).
+  - `intros u_t u_tm1 u_xp u_xm u_tp1 H.`
+- L59: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xm\` not used in proof body (heuristic).
+  - `intros u_t u_tm1 u_xp u_xm u_tp1 H.`
+- L59: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tp1\` not used in proof body (heuristic).
+  - `intros u_t u_tm1 u_xp u_xm u_tp1 H.`
+- L80: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tp1\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
+- L80: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_t\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
+- L80: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tm1\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
+- L80: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xp\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
+- L80: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xm\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
+- L80: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`H\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
+- L86: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Placeholder: full algebraic expansion would go here`
+- L92: **DEFINITIONAL_INVARIANCE** — Invariance/equivariance lemma proved by reflexivity/easy (definitional).
   - `Lemma spatial_symmetry : wave_coeff_u_xp == wave_coeff_u_xm.`
-- L89: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tp1\` not used in proof body (heuristic).
+- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tp1\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
-- L89: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_t\` not used in proof body (heuristic).
+- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_t\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
-- L89: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tm1\` not used in proof body (heuristic).
+- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tm1\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
-- L89: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xp\` not used in proof body (heuristic).
+- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xp\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
-- L89: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xm\` not used in proof body (heuristic).
+- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xm\` not used in proof body (heuristic).
   - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
 
 #### `coq/bridge/BoxWorld_to_Kernel.v`
 - L82: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hok\` not used in proof body (heuristic).
   - `intros p Hok.`
+- L106: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`p\` not used in proof body (heuristic).
+  - `intros p Hok.`
 
 #### `coq/bridge/FiniteQuantum_to_Kernel.v`
+- L1: **SYMMETRY_CONTRACT** — Missing symmetry equivariance lemma matching: vm_step.*equiv, trace_run.*equiv|run_vm.*equiv
+  - ``
 - L114: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
   - `intros x y a b Hx Hy Ha Hb.`
 - L114: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`y\` not used in proof body (heuristic).
@@ -1217,6 +1306,10 @@ Higher score = more likely unfinished/vacuous.
   - `intros t n Hok.`
 - L126: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hok\` not used in proof body (heuristic).
   - `intros t n Hok.`
+- L206: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`p\` not used in proof body (heuristic).
+  - `intros p Hp Hok.`
+- L206: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hok\` not used in proof body (heuristic).
+  - `intros p Hp Hok.`
 
 #### `coq/catnet/coqproofs/CatNet.v`
 - L97: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`st\` not used in proof body (heuristic).
@@ -3999,7 +4092,7 @@ Higher score = more likely unfinished/vacuous.
   - `intros s1 s2 cut H1 H2 Hcut1 Hcut2 offspring.`
 
 #### `docs/theory/GeometricSignature.v`
-- L181: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`sig\` not used in proof body (heuristic).
+- L284: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`sig\` not used in proof body (heuristic).
   - `intros sig Hstruct Hchaos.`
 
 #### `docs/theory/NoFreeLunch.v`
