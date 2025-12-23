@@ -42,14 +42,23 @@ Definition schrodinger_update_b (b a lap_a Va : Q) : Q :=
 
 (** * Lemmas *)
 
-(** Lemma: The update rules are local (depend only on nearby points) *)
+(** Lemma: The update rules are local (depend only on nearby points).
+
+    This states that the discovered update rules have the locality property
+    characteristic of the Schrödinger equation: each component's evolution
+    depends only on local field values and their spatial derivatives.
+*)
 Lemma schrodinger_rule_locality :
   forall (a b lap_a lap_b Va Vb a_next b_next : Q),
     a_next == schrodinger_update_a a b lap_b Vb ->
     b_next == schrodinger_update_b b a lap_a Va ->
-    True.
+    (a_next == coef_a_a * a + coef_a_b * b + coef_a_lap_b * lap_b + coef_a_Vb * Vb) /\
+    (b_next == coef_b_b * b + coef_b_a * a + coef_b_lap_a * lap_a + coef_b_Va * Va).
 Proof.
-  intros. trivial.
+  intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.
+  unfold schrodinger_update_a in Ha.
+  unfold schrodinger_update_b in Hb.
+  split; [exact Ha | exact Hb].
 Qed.
 
 (** Lemma: Cross-field coupling structure *)
@@ -65,14 +74,34 @@ Qed.
 
 (** * Main theorem *)
 
+(**Theorem: The discovered update rules encode the Schrödinger equation structure.
+
+    The key property of the Schrödinger equation is the anti-symmetric coupling:
+    - The real part (a) couples to the Laplacian of the imaginary part (lap_b) with opposite sign
+    - The imaginary part (b) couples to the Laplacian of the real part (lap_a)
+
+    This anti-symmetric coupling, discovered from data, is the signature of
+    the imaginary-time Schrödinger equation i·∂ψ/∂t = -ℏ²/(2m)·∇²ψ + V·ψ
+    when ψ = a + i·b.
+*)
 Theorem emergent_schrodinger_eq :
   forall (a b lap_a lap_b Va Vb a_next b_next : Q),
     a_next == schrodinger_update_a a b lap_b Vb ->
     b_next == schrodinger_update_b b a lap_a Va ->
-    (* The discovered update rules encode the Schrödinger equation structure *)
-    True.
+    (* The coupling structure is anti-symmetric: *)
+    (coef_a_lap_b == - coef_b_lap_a) /\
+    (* The potential coupling is also anti-symmetric: *)
+    (coef_a_Vb == - coef_b_Va) /\
+    (* The discovered coefficients satisfy these symmetries *)
+    exists (effective_hbar_2m : Q),
+      coef_a_lap_b == - effective_hbar_2m /\
+      coef_b_lap_a == effective_hbar_2m.
 Proof.
-  intros. trivial.
+  intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.
+  unfold coef_a_lap_b, coef_b_lap_a, coef_a_Vb, coef_b_Va.
+  split; [reflexivity | split; [reflexivity |]].
+  exists ((5000)%Z # (Pos.of_nat 1000000)).
+  split; reflexivity.
 Qed.
 
 Close Scope Z_scope.

@@ -45,28 +45,48 @@ Definition discrete_wave_equation_holds
 
 (** * Lemmas *)
 
-(** Lemma: Locality - the update rule depends only on local neighbors *)
+(** Lemma: Locality - the update rule depends only on local neighbors.
+
+    This lemma explicitly states the locality property: the next state u_tp1
+    is completely determined by the function wave_update applied to its
+    4 neighbors in spacetime. This is a fundamental property of wave propagation.
+*)
 Lemma wave_rule_locality :
   forall u_t u_tm1 u_xp u_xm u_tp1,
     u_tp1 == wave_update u_t u_tm1 u_xp u_xm ->
-    (* The update depends only on the 4 neighboring points *)
-    True.
+    u_tp1 == wave_coeff_u_t * u_t + wave_coeff_u_tm1 * u_tm1 +
+            wave_coeff_u_xp * u_xp + wave_coeff_u_xm * u_xm.
 Proof.
-  intros. trivial.
+  intros u_t u_tm1 u_xp u_xm u_tp1 H.
+  unfold wave_update in H.
+  exact H.
 Qed.
 
-(** Lemma: The discrete rule implies the wave equation structure *)
+(** Lemma: The discrete rule implies the wave equation structure.
+
+    This states that when the update rule is satisfied, we can express
+    the relationship between time and space derivatives, which is the
+    defining property of a wave equation. The coefficients discovered
+    from data encode this relationship.
+*)
 Lemma discrete_wave_equation_structure :
   forall u_tp1 u_t u_tm1 u_xp u_xm,
     u_tp1 == wave_update u_t u_tm1 u_xp u_xm ->
-    (* The temporal second derivative relates to spatial second derivative *)
     let d2t := discrete_d2_dt2 u_tp1 u_t u_tm1 in
     let d2x := discrete_d2_dx2 u_xp u_t u_xm in
-    (* We expect d2t ≈ c² * d2x *)
-    True.
+    (* The discovered coefficients satisfy a wave-like relation *)
+    exists (effective_c_sq : Q),
+      d2t == effective_c_sq * d2x.
 Proof.
-  intros. trivial.
-Qed.
+  intros u_tp1 u_t u_tm1 u_xp u_xm H.
+  exists wave_c_squared.
+  unfold discrete_d2_dt2, discrete_d2_dx2.
+  unfold wave_update, wave_coeff_u_t, wave_coeff_u_tm1,
+         wave_coeff_u_xp, wave_coeff_u_xm, wave_c_squared in *.
+  (* Placeholder: full algebraic expansion would go here *)
+  (* For now, admit this algebraic identity *)
+  admit.
+Admitted.
 
 (** Lemma: Coefficients are symmetric in space (physical symmetry) *)
 Lemma spatial_symmetry : wave_coeff_u_xp == wave_coeff_u_xm.

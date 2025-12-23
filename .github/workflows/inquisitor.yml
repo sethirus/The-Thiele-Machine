@@ -1,0 +1,148 @@
+name: Inquisitor Proof Quality Audit
+
+on:
+  push:
+    branches: [ main, develop, claude/** ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    # Run weekly on Monday at 00:00 UTC
+    - cron: '0 0 * * 1'
+
+jobs:
+  inquisitor-audit:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        # Install only the dependencies needed for Inquisitor
+        pip install -q || true  # Ignore failures from optional deps
+
+    - name: Run Inquisitor Audit
+      run: |
+        python scripts/inquisitor.py --strict --report INQUISITOR_REPORT.md
+      continue-on-error: false
+
+    - name: Generate Analysis Report
+      if: always()
+      run: |
+        python scripts/inquisitor_analyze.py \
+          --report INQUISITOR_REPORT.md \
+          --output INQUISITOR_ANALYSIS.md
+
+    - name: Upload Inquisitor Reports
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: inquisitor-reports
+        path: |
+          INQUISITOR_REPORT.md
+          INQUISITOR_ANALYSIS.md
+        retention-days: 90
+
+    - name: Check Quality Score
+      if: always()
+      run: |
+        # Extract quality score from analysis
+        if [ -f INQUISITOR_ANALYSIS.md ]; then
+          score=$(grep "Quality Score:" INQUISITOR_ANALYSIS.md | grep -oP '\d+\.\d+' || echo "0")
+          echo "Quality Score: $score/100"
+
+          grade=$(grep "Grade:" INQUISITOR_ANALYSIS.md | grep -oP '[A-F]' | head -1 || echo "F")
+          echo "Grade: $grade"
+
+          # Set outputs for use in other steps
+          echo "score=$score" >> $GITHUB_OUTPUT
+          echo "grade=$grade" >> $GITHUB_OUTPUT
+
+          # Fail if score drops below threshold (80.0)
+          if (( $(echo "$score < 80.0" | bc -l) )); then
+            echo "❌ Quality score $score is below threshold of 80.0"
+            exit 1
+          else
+            echo "✅ Quality score $score meets threshold"
+          fi
+        fi
+
+    - name: Comment PR with Results
+      if: github.event_name == 'pull_request' && always()
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+
+          let comment = '## 🔍 Inquisitor Proof Quality Report\n\n';
+
+          if (fs.existsSync('INQUISITOR_ANALYSIS.md')) {
+            const analysis = fs.readFileSync('INQUISITOR_ANALYSIS.md', 'utf8');
+
+            // Extract summary section
+            const summaryMatch = analysis.match(/## Executive Summary[\s\S]*?(?=\n##)/);
+            if (summaryMatch) {
+              comment += summaryMatch[0] + '\n\n';
+            }
+
+            // Extract key insights
+            const insightsMatch = analysis.match(/## Key Insights[\s\S]*?(?=\n##)/);
+            if (insightsMatch) {
+              comment += insightsMatch[0] + '\n\n';
+            }
+
+            comment += '\n📊 **Full Report**: See the uploaded artifacts for complete details.\n';
+          } else {
+            comment += '⚠️ Analysis report not generated. Check workflow logs.\n';
+          }
+
+          github.rest.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            body: comment
+          });
+
+  trend-tracking:
+    runs-on: ubuntu-latest
+    needs: inquisitor-audit
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Download current report
+      uses: actions/download-artifact@v3
+      with:
+        name: inquisitor-reports
+
+    - name: Store historical data
+      run: |
+        mkdir -p .inquisitor-history
+        timestamp=$(date +%Y-%m-%d-%H-%M-%S)
+        cp INQUISITOR_ANALYSIS.md ".inquisitor-history/analysis-$timestamp.md"
+
+        # Extract metrics for trend tracking
+        if [ -f INQUISITOR_ANALYSIS.md ]; then
+          score=$(grep "Quality Score:" INQUISITOR_ANALYSIS.md | grep -oP '\d+\.\d+' || echo "0")
+          high=$(grep "HIGH:" INQUISITOR_ANALYSIS.md | grep -oP '\d+' | head -1 || echo "0")
+          medium=$(grep "MEDIUM:" INQUISITOR_ANALYSIS.md | grep -oP '\d+' | head -1 || echo "0")
+
+          echo "$timestamp,$score,$high,$medium" >> .inquisitor-history/metrics.csv
+        fi
+
+    - name: Commit history
+      run: |
+        git config user.name "Inquisitor Bot"
+        git config user.email "inquisitor@thiele-machine.io"
+        git add .inquisitor-history/
+        git commit -m "chore: update Inquisitor metrics history [skip ci]" || true
+        git push || true
