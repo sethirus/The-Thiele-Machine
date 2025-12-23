@@ -1,0 +1,4097 @@
+# INQUISITOR REPORT
+Generated: 2025-12-23 14:25:25Z (UTC)
+Scanned: 220 Coq files across the repo
+## Summary
+- HIGH: 522
+- MEDIUM: 1349
+- LOW: 0
+
+## Rules
+- `ADMITTED`: `Admitted.` (incomplete proof - FORBIDDEN)
+- `ADMIT_TACTIC`: `admit.` (proof shortcut - FORBIDDEN)
+- `GIVE_UP_TACTIC`: `give_up` (proof shortcut - FORBIDDEN)
+- `AXIOM_OR_PARAMETER`: `Axiom` / `Parameter`
+- `HYPOTHESIS_ASSUME`: `Hypothesis` (escalates to HIGH for suspicious names)
+- `SECTION_BINDER`: `Context` / `Variable` / `Variables` (informational)
+- `MODULE_SIGNATURE_DECL`: `Axiom` / `Parameter` inside `Module Type` (informational)
+- `COST_IS_LENGTH`: `Definition *cost* := ... length ... .`
+- `EMPTY_LIST`: `Definition ... := [].`
+- `ZERO_CONST`: `Definition ... := 0.` / `0%Z` / `0%nat`
+- `TRUE_CONST`: `Definition ... := True.` or `:= true.`
+- `PROP_TAUTOLOGY`: `Theorem ... : True.`
+- `IMPLIES_TRUE_STMT`: statement ends with `-> True.`
+- `LET_IN_TRUE_STMT`: statement ends with `let ... in True.`
+- `EXISTS_TRUE_STMT`: statement ends with `exists ..., True.`
+- `CIRCULAR_INTROS_ASSUMPTION`: tautology + `intros; assumption.`
+- `TRIVIAL_EQUALITY`: theorem of form `X = X` with reflexivity-ish proof
+- `CONST_Q_FUN`: `Definition ... := fun _ => 0%Q` / `1%Q`
+- `EXISTS_CONST_Q`: `exists (fun _ => 0%Q)` / `exists (fun _ => 1%Q)`
+- `CLAMP_OR_TRUNCATION`: uses `Z.to_nat`, `Z.abs`, `Nat.min`, `Nat.max`
+- `ASSUMPTION_AUDIT`: unexpected axioms from `Print Assumptions`
+- `SYMMETRY_CONTRACT`: missing equivariance lemma for declared symmetry
+- `PAPER_MAP_MISSING`: paper ↔ Coq symbol map entry missing/broken
+- `MANIFEST_PARSE_ERROR`: failed to parse Inquisitor manifest JSON
+- `COMMENT_SMELL`: TODO/FIXME/WIP markers in Coq comments
+- `UNUSED_HYPOTHESIS`: introduced hypothesis not used (heuristic)
+- `DEFINITIONAL_INVARIANCE`: invariance lemma appears definitional/vacuous
+- `Z_TO_NAT_BOUNDARY`: Z.to_nat without nearby nonnegativity guard
+- `PHYSICS_ANALOGY_CONTRACT`: physics-analogy theorem lacks invariance or definitional label
+
+## Vacuity Ranking (file-level)
+Higher score = more likely unfinished/vacuous.
+
+| score | tags | file |
+|---:|---|---|
+| 65 | const-fun | `coq/thielemachine/coqproofs/SpectralApproximation.v` |
+
+## Findings
+### HIGH
+
+#### `coq/INQUISITOR_ASSUMPTIONS.json`
+- L1: **ASSUMPTION_AUDIT** — coqtop not found; cannot run assumption audit.
+  - `coqtop`
+- L1: **PAPER_MAP_MISSING** — coqtop not found; cannot verify paper symbol map.
+  - `coqtop`
+
+#### `coq/bridge/BoxWorld_to_Kernel.v`
+- L78: **PHYSICS_ANALOGY_CONTRACT** — Physics-analogy theorem lacks invariance lemma and is not labeled definitional.
+  - `Corollary simulation_correctness_chsh_value :`
+- L101: **PHYSICS_ANALOGY_CONTRACT** — Physics-analogy theorem lacks invariance lemma and is not labeled definitional.
+  - `Lemma simulation_chsh_invariance :`
+- L136: **PHYSICS_ANALOGY_CONTRACT** — Physics-analogy theorem lacks invariance lemma and is not labeled definitional.
+  - `Theorem supra_16_5_program_chsh :`
+- L158: **PHYSICS_ANALOGY_CONTRACT** — Physics-analogy theorem lacks invariance lemma and is not labeled definitional.
+  - `Lemma supra_program_chsh_definitional_invariance :`
+
+#### `coq/bridge/FiniteQuantum_to_Kernel.v`
+- L149: **PHYSICS_ANALOGY_CONTRACT** — Physics-analogy theorem lacks invariance lemma and is not labeled definitional.
+  - `Theorem tsirelson_envelope_program_chsh :`
+- L170: **PHYSICS_ANALOGY_CONTRACT** — Physics-analogy theorem lacks invariance lemma and is not labeled definitional.
+  - `Lemma tsirelson_envelope_chsh_invariance :`
+- L177: **PHYSICS_ANALOGY_CONTRACT** — Physics-analogy theorem lacks invariance lemma and is not labeled definitional.
+  - `Corollary tsirelson_envelope_compiled_chsh :`
+- L201: **PHYSICS_ANALOGY_CONTRACT** — Physics-analogy theorem lacks invariance lemma and is not labeled definitional.
+  - `Lemma tsirelson_compiled_chsh_gauge_invariance :`
+
+#### `coq/kernel/CHSH.v`
+- L128: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s x y Hx Hy.`
+- L128: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros s x y Hx Hy.`
+- L128: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`y\` not used in proof body (heuristic).
+  - `intros s x y Hx Hy.`
+- L183: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `(Z.abs (chsh_local_z s) <= 2)%Z.`
+
+#### `coq/kernel/CertCheck.v`
+- L133: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `if (z <? 0)%Z then None else Some (Z.to_nat z)`
+- L133: **Z_TO_NAT_BOUNDARY** — Z.to_nat used without nearby nonnegativity guard (potential boundary clamp).
+  - `if (z <? 0)%Z then None else Some (Z.to_nat z)`
+- L259: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `let var := Z.to_nat (Z.abs lit) in`
+- L259: **Z_TO_NAT_BOUNDARY** — Z.to_nat used without nearby nonnegativity guard (potential boundary clamp).
+  - `let var := Z.to_nat (Z.abs lit) in`
+- L283: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `let var := Z.to_nat (Z.abs lit) in`
+- L283: **Z_TO_NAT_BOUNDARY** — Z.to_nat used without nearby nonnegativity guard (potential boundary clamp).
+  - `let var := Z.to_nat (Z.abs lit) in`
+- L313: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `let var := Z.to_nat (Z.abs lit) in`
+- L313: **Z_TO_NAT_BOUNDARY** — Z.to_nat used without nearby nonnegativity guard (potential boundary clamp).
+  - `let var := Z.to_nat (Z.abs lit) in`
+- L335: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `let var := Z.to_nat (Z.abs lit) in`
+- L335: **Z_TO_NAT_BOUNDARY** — Z.to_nat used without nearby nonnegativity guard (potential boundary clamp).
+  - `let var := Z.to_nat (Z.abs lit) in`
+
+#### `coq/kernel/Certification.v`
+- L170: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `TODO: Complete formal proof when Coq tactics behave correctly with 18-constructor`
+- L259: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hrun\` not used in proof body (heuristic).
+  - `intros trace s_init s_final fuel Hrun Hinit Hcert.`
+- L259: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hinit\` not used in proof body (heuristic).
+  - `intros trace s_init s_final fuel Hrun Hinit Hcert.`
+- L282: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace\` not used in proof body (heuristic).
+  - `intros trace s_init s_final fuel Hrun Hinit Hcert.`
+- L282: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_init\` not used in proof body (heuristic).
+  - `intros trace s_init s_final fuel Hrun Hinit Hcert.`
+- L282: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_final\` not used in proof body (heuristic).
+  - `intros trace s_init s_final fuel Hrun Hinit Hcert.`
+- L282: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`fuel\` not used in proof body (heuristic).
+  - `intros trace s_init s_final fuel Hrun Hinit Hcert.`
+- L282: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hrun\` not used in proof body (heuristic).
+  - `intros trace s_init s_final fuel Hrun Hinit Hcert.`
+- L282: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hinit\` not used in proof body (heuristic).
+  - `intros trace s_init s_final fuel Hrun Hinit Hcert.`
+- L307: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace\` not used in proof body (heuristic).
+  - `intros trace s_init s_final fuel Hrun Hinit Hadm Hcert.`
+- L307: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_init\` not used in proof body (heuristic).
+  - `intros trace s_init s_final fuel Hrun Hinit Hadm Hcert.`
+- L307: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_final\` not used in proof body (heuristic).
+  - `intros trace s_init s_final fuel Hrun Hinit Hadm Hcert.`
+- L307: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`fuel\` not used in proof body (heuristic).
+  - `intros trace s_init s_final fuel Hrun Hinit Hadm Hcert.`
+- L307: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hrun\` not used in proof body (heuristic).
+  - `intros trace s_init s_final fuel Hrun Hinit Hadm Hcert.`
+- L307: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hinit\` not used in proof body (heuristic).
+  - `intros trace s_init s_final fuel Hrun Hinit Hadm Hcert.`
+- L307: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hadm\` not used in proof body (heuristic).
+  - `intros trace s_init s_final fuel Hrun Hinit Hadm Hcert.`
+- L329: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`q\` not used in proof body (heuristic).
+  - `intros q trace s_init s_final fuel Hrun Hinit Hadm Hcert.`
+- L329: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace\` not used in proof body (heuristic).
+  - `intros q trace s_init s_final fuel Hrun Hinit Hadm Hcert.`
+- L329: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_init\` not used in proof body (heuristic).
+  - `intros q trace s_init s_final fuel Hrun Hinit Hadm Hcert.`
+- L329: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_final\` not used in proof body (heuristic).
+  - `intros q trace s_init s_final fuel Hrun Hinit Hadm Hcert.`
+- L329: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`fuel\` not used in proof body (heuristic).
+  - `intros q trace s_init s_final fuel Hrun Hinit Hadm Hcert.`
+- L329: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hrun\` not used in proof body (heuristic).
+  - `intros q trace s_init s_final fuel Hrun Hinit Hadm Hcert.`
+- L329: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hinit\` not used in proof body (heuristic).
+  - `intros q trace s_init s_final fuel Hrun Hinit Hadm Hcert.`
+- L329: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hadm\` not used in proof body (heuristic).
+  - `intros q trace s_init s_final fuel Hrun Hinit Hadm Hcert.`
+- L352: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`q\` not used in proof body (heuristic).
+  - `intros q trace s_init s_final fuel Hrun Hinit Hcert.`
+- L352: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace\` not used in proof body (heuristic).
+  - `intros q trace s_init s_final fuel Hrun Hinit Hcert.`
+- L352: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_init\` not used in proof body (heuristic).
+  - `intros q trace s_init s_final fuel Hrun Hinit Hcert.`
+- L352: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_final\` not used in proof body (heuristic).
+  - `intros q trace s_init s_final fuel Hrun Hinit Hcert.`
+- L352: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`fuel\` not used in proof body (heuristic).
+  - `intros q trace s_init s_final fuel Hrun Hinit Hcert.`
+- L352: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hrun\` not used in proof body (heuristic).
+  - `intros q trace s_init s_final fuel Hrun Hinit Hcert.`
+- L352: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hinit\` not used in proof body (heuristic).
+  - `intros q trace s_init s_final fuel Hrun Hinit Hcert.`
+- L367: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace\` not used in proof body (heuristic).
+  - `intros trace s_init s_final fuel Hrun Hinit Hcert.`
+- L367: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_init\` not used in proof body (heuristic).
+  - `intros trace s_init s_final fuel Hrun Hinit Hcert.`
+- L367: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_final\` not used in proof body (heuristic).
+  - `intros trace s_init s_final fuel Hrun Hinit Hcert.`
+- L367: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`fuel\` not used in proof body (heuristic).
+  - `intros trace s_init s_final fuel Hrun Hinit Hcert.`
+- L367: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hrun\` not used in proof body (heuristic).
+  - `intros trace s_init s_final fuel Hrun Hinit Hcert.`
+- L367: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hinit\` not used in proof body (heuristic).
+  - `intros trace s_init s_final fuel Hrun Hinit Hcert.`
+- L367: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hcert\` not used in proof body (heuristic).
+  - `intros trace s_init s_final fuel Hrun Hinit Hcert.`
+
+#### `coq/kernel/ConeAlgebra.v`
+- L35: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`t2\` not used in proof body (heuristic).
+  - `intros t1 t2 x.`
+- L35: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros t1 t2 x.`
+- L62: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace1\` not used in proof body (heuristic).
+  - `intros trace1 trace2 x Hin.`
+- L62: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace2\` not used in proof body (heuristic).
+  - `intros trace1 trace2 x Hin.`
+- L62: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros trace1 trace2 x Hin.`
+- L92: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`i1\` not used in proof body (heuristic).
+  - `intros i1 i2 Hdisj x.`
+- L92: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`i2\` not used in proof body (heuristic).
+  - `intros i1 i2 Hdisj x.`
+- L92: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hdisj\` not used in proof body (heuristic).
+  - `intros i1 i2 Hdisj x.`
+- L92: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros i1 i2 Hdisj x.`
+
+#### `coq/kernel/ConeDerivation.v`
+- L26: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace1\` not used in proof body (heuristic).
+  - `intros trace1 trace2 x Hin.`
+- L26: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace2\` not used in proof body (heuristic).
+  - `intros trace1 trace2 x Hin.`
+- L26: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros trace1 trace2 x Hin.`
+- L26: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hin\` not used in proof body (heuristic).
+  - `intros trace1 trace2 x Hin.`
+
+#### `coq/kernel/DerivedTime.v`
+- L21: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s module cost s' Hstep mid.`
+- L21: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`module\` not used in proof body (heuristic).
+  - `intros s module cost s' Hstep mid.`
+- L21: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cost\` not used in proof body (heuristic).
+  - `intros s module cost s' Hstep mid.`
+- L21: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s module cost s' Hstep mid.`
+- L21: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid\` not used in proof body (heuristic).
+  - `intros s module cost s' Hstep mid.`
+- L54: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s module cost s1 s2 Hnil Hone mid.`
+- L54: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`module\` not used in proof body (heuristic).
+  - `intros s module cost s1 s2 Hnil Hone mid.`
+- L54: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cost\` not used in proof body (heuristic).
+  - `intros s module cost s1 s2 Hnil Hone mid.`
+- L54: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros s module cost s1 s2 Hnil Hone mid.`
+- L54: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s2\` not used in proof body (heuristic).
+  - `intros s module cost s1 s2 Hnil Hone mid.`
+- L54: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid\` not used in proof body (heuristic).
+  - `intros s module cost s1 s2 Hnil Hone mid.`
+
+#### `coq/kernel/EntropyImpossibility.v`
+- L20: **DEFINITIONAL_INVARIANCE** — Invariance/equivariance lemma proved by reflexivity/easy (definitional).
+  - `Lemma tweak_regs_region_equiv : forall s x,`
+- L22: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s x mid.`
+- L22: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros s x mid.`
+- L22: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid\` not used in proof body (heuristic).
+  - `intros s x mid.`
+- L32: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Heq\` not used in proof body (heuristic).
+  - `intros s a b Heq.`
+
+#### `coq/kernel/FalsifiablePrediction.v`
+- L67: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s i s' Hstep.`
+- L67: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`i\` not used in proof body (heuristic).
+  - `intros s i s' Hstep.`
+- L67: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s i s' Hstep.`
+- L83: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`i1\` not used in proof body (heuristic).
+  - `intros i1 i2 cost1 cost2 H1 H2.`
+- L83: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`i2\` not used in proof body (heuristic).
+  - `intros i1 i2 cost1 cost2 H1 H2.`
+- L83: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cost1\` not used in proof body (heuristic).
+  - `intros i1 i2 cost1 cost2 H1 H2.`
+- L83: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cost2\` not used in proof body (heuristic).
+  - `intros i1 i2 cost1 cost2 H1 H2.`
+
+#### `coq/kernel/KernelBenchmarks.v`
+- L41: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`region\` not used in proof body (heuristic).
+  - `intros region cost Heq.`
+- L41: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cost\` not used in proof body (heuristic).
+  - `intros region cost Heq.`
+- L51: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`left\` not used in proof body (heuristic).
+  - `intros left right cost Heq.`
+- L51: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`right\` not used in proof body (heuristic).
+  - `intros left right cost Heq.`
+- L51: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cost\` not used in proof body (heuristic).
+  - `intros left right cost Heq.`
+- L61: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`r1\` not used in proof body (heuristic).
+  - `intros r1 r2 cost Heq.`
+- L61: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`r2\` not used in proof body (heuristic).
+  - `intros r1 r2 cost Heq.`
+- L61: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cost\` not used in proof body (heuristic).
+  - `intros r1 r2 cost Heq.`
+- L80: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`modules\` not used in proof body (heuristic).
+  - `intros modules total_elements Heq.`
+- L80: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`total_elements\` not used in proof body (heuristic).
+  - `intros modules total_elements Heq.`
+- L121: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`N\` not used in proof body (heuristic).
+  - `intros N M total Heq.`
+- L121: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`M\` not used in proof body (heuristic).
+  - `intros N M total Heq.`
+- L121: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`total\` not used in proof body (heuristic).
+  - `intros N M total Heq.`
+
+#### `coq/kernel/KernelNoether.v`
+- L1: **SYMMETRY_CONTRACT** — Missing symmetry equivariance lemma matching: vm_step.*equiv, trace_run.*equiv|run_vm.*equiv
+  - ``
+- L29: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `vm_mu := Z.to_nat (Z.of_nat s.(vm_mu) + delta);`
+- L29: **Z_TO_NAT_BOUNDARY** — Z.to_nat used without nearby nonnegativity guard (potential boundary clamp).
+  - `vm_mu := Z.to_nat (Z.of_nat s.(vm_mu) + delta);`
+- L76: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hpos\` not used in proof body (heuristic).
+  - `intros n s Hpos.`
+- L93: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`delta\` not used in proof body (heuristic).
+  - `intros delta s.`
+- L93: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros delta s.`
+- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s i s' Hstep.`
+- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`i\` not used in proof body (heuristic).
+  - `intros s i s' Hstep.`
+- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s i s' Hstep.`
+- L135: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros s1 s2 delta Hpos Heq.`
+- L135: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s2\` not used in proof body (heuristic).
+  - `intros s1 s2 delta Hpos Heq.`
+- L135: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hpos\` not used in proof body (heuristic).
+  - `intros s1 s2 delta Hpos Heq.`
+- L148: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros s1 s2 s3 d1 d2 Hpos1 Hpos2 H1 H2.`
+- L148: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s2\` not used in proof body (heuristic).
+  - `intros s1 s2 s3 d1 d2 Hpos1 Hpos2 H1 H2.`
+- L148: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s3\` not used in proof body (heuristic).
+  - `intros s1 s2 s3 d1 d2 Hpos1 Hpos2 H1 H2.`
+- L148: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hpos1\` not used in proof body (heuristic).
+  - `intros s1 s2 s3 d1 d2 Hpos1 Hpos2 H1 H2.`
+- L148: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hpos2\` not used in proof body (heuristic).
+  - `intros s1 s2 s3 d1 d2 Hpos1 Hpos2 H1 H2.`
+- L170: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hobs\` not used in proof body (heuristic).
+  - `intros s1 s2 Hobs Hgraph Hregs Hmem Hcsrs Hpc Herr.`
+- L170: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hgraph\` not used in proof body (heuristic).
+  - `intros s1 s2 Hobs Hgraph Hregs Hmem Hcsrs Hpc Herr.`
+- L170: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hregs\` not used in proof body (heuristic).
+  - `intros s1 s2 Hobs Hgraph Hregs Hmem Hcsrs Hpc Herr.`
+- L170: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hmem\` not used in proof body (heuristic).
+  - `intros s1 s2 Hobs Hgraph Hregs Hmem Hcsrs Hpc Herr.`
+- L170: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hcsrs\` not used in proof body (heuristic).
+  - `intros s1 s2 Hobs Hgraph Hregs Hmem Hcsrs Hpc Herr.`
+- L170: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hpc\` not used in proof body (heuristic).
+  - `intros s1 s2 Hobs Hgraph Hregs Hmem Hcsrs Hpc Herr.`
+- L170: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Herr\` not used in proof body (heuristic).
+  - `intros s1 s2 Hobs Hgraph Hregs Hmem Hcsrs Hpc Herr.`
+- L183: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s Hcons delta.`
+- L183: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hcons\` not used in proof body (heuristic).
+  - `intros s Hcons delta.`
+- L183: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`delta\` not used in proof body (heuristic).
+  - `intros s Hcons delta.`
+
+#### `coq/kernel/KernelPhysics.v`
+- L1: **SYMMETRY_CONTRACT** — Missing symmetry equivariance lemma matching: vm_step.*equiv, trace_run.*equiv|run_vm.*equiv
+  - ``
+- L63: **DEFINITIONAL_INVARIANCE** — Invariance/equivariance lemma proved by reflexivity/easy (definitional).
+  - `Theorem obs_equiv_refl : forall s, obs_equiv s s.`
+- L77: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros s1 s2 s3 H12 H23 mid.`
+- L77: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s2\` not used in proof body (heuristic).
+  - `intros s1 s2 s3 H12 H23 mid.`
+- L77: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s3\` not used in proof body (heuristic).
+  - `intros s1 s2 s3 H12 H23 mid.`
+- L77: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid\` not used in proof body (heuristic).
+  - `intros s1 s2 s3 H12 H23 mid.`
+- L103: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k\` not used in proof body (heuristic).
+  - `intros s k mid.`
+- L138: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace2\` not used in proof body (heuristic).
+  - `intros trace1 trace2 x Hin.`
+- L138: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros trace1 trace2 x Hin.`
+- L156: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s s' instr Hstep.`
+- L156: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s s' instr Hstep.`
+- L156: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`instr\` not used in proof body (heuristic).
+  - `intros s s' instr Hstep.`
+- L187: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k1\` not used in proof body (heuristic).
+  - `intros k1 k2 s.`
+- L187: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k2\` not used in proof body (heuristic).
+  - `intros k1 k2 s.`
+- L200: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s k.`
+- L200: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k\` not used in proof body (heuristic).
+  - `intros s k.`
+- L258: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g\` not used in proof body (heuristic).
+  - `intros g mid m.`
+- L258: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid\` not used in proof body (heuristic).
+  - `intros g mid m.`
+- L258: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m\` not used in proof body (heuristic).
+  - `intros g mid m.`
+- L267: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g\` not used in proof body (heuristic).
+  - `intros g mid mid' m Hneq.`
+- L267: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid\` not used in proof body (heuristic).
+  - `intros g mid mid' m Hneq.`
+- L267: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid'\` not used in proof body (heuristic).
+  - `intros g mid mid' m Hneq.`
+- L267: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m\` not used in proof body (heuristic).
+  - `intros g mid mid' m Hneq.`
+- L267: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hneq\` not used in proof body (heuristic).
+  - `intros g mid mid' m Hneq.`
+- L276: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid'\` not used in proof body (heuristic).
+  - `intros g mid mid' ax Hneq.`
+- L276: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`ax\` not used in proof body (heuristic).
+  - `intros g mid mid' ax Hneq.`
+- L276: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hneq\` not used in proof body (heuristic).
+  - `intros g mid mid' ax Hneq.`
+- L289: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g\` not used in proof body (heuristic).
+  - `intros g mid mid' ev Hneq.`
+- L289: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid'\` not used in proof body (heuristic).
+  - `intros g mid mid' ev Hneq.`
+- L289: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`ev\` not used in proof body (heuristic).
+  - `intros g mid mid' ev Hneq.`
+- L289: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hneq\` not used in proof body (heuristic).
+  - `intros g mid mid' ev Hneq.`
+- L358: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`region\` not used in proof body (heuristic).
+  - `intros g region axioms mid Hlt.`
+- L358: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`axioms\` not used in proof body (heuristic).
+  - `intros g region axioms mid Hlt.`
+- L358: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlt\` not used in proof body (heuristic).
+  - `intros g region axioms mid Hlt.`
+- L380: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g'\` not used in proof body (heuristic).
+  - `intros g mid g' m Hremove.`
+- L380: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m\` not used in proof body (heuristic).
+  - `intros g mid g' m Hremove.`
+- L398: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid'\` not used in proof body (heuristic).
+  - `intros g mid mid' g' m' Hneq Hremove.`
+- L398: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g'\` not used in proof body (heuristic).
+  - `intros g mid mid' g' m' Hneq Hremove.`
+- L398: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m'\` not used in proof body (heuristic).
+  - `intros g mid mid' g' m' Hneq Hremove.`
+- L398: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hneq\` not used in proof body (heuristic).
+  - `intros g mid mid' g' m' Hneq Hremove.`
+- L448: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid\` not used in proof body (heuristic).
+  - `intros g region mid Hlt.`
+- L448: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlt\` not used in proof body (heuristic).
+  - `intros g region mid Hlt.`
+- L477: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g'\` not used in proof body (heuristic).
+  - `intros g mid_split left right g' l_id r_id mid Hneq Hlt Hpsplit.`
+- L477: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlt\` not used in proof body (heuristic).
+  - `intros g mid_split left right g' l_id r_id mid Hneq Hlt Hpsplit.`
+- L574: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g'\` not used in proof body (heuristic).
+  - `intros g m1 m2 g' merged_id mid mu Hneq1 Hneq2 Hlt Hpmerge.`
+- L574: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mu\` not used in proof body (heuristic).
+  - `intros g m1 m2 g' merged_id mid mu Hneq1 Hneq2 Hlt Hpmerge.`
+- L745: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s s' instr mid Hwf Hmid_lt Hstep Hnotin.`
+- L745: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`instr\` not used in proof body (heuristic).
+  - `intros s s' instr mid Hwf Hmid_lt Hstep Hnotin.`
+- L745: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hwf\` not used in proof body (heuristic).
+  - `intros s s' instr mid Hwf Hmid_lt Hstep Hnotin.`
+
+#### `coq/kernel/LorentzNotForced.v`
+- L43: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`region\` not used in proof body (heuristic).
+  - `intros region cost t.`
+- L43: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cost\` not used in proof body (heuristic).
+  - `intros region cost t.`
+- L43: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`t\` not used in proof body (heuristic).
+  - `intros region cost t.`
+- L50: **DEFINITIONAL_INVARIANCE** — Invariance/equivariance lemma proved by reflexivity/easy (definitional).
+  - `Theorem Cone_Symmetry_Underdetermined :`
+
+#### `coq/kernel/MuChaitin.v`
+- L67: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_init\` not used in proof body (heuristic).
+  - `intros s_init s_final k H.`
+- L67: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_final\` not used in proof body (heuristic).
+  - `intros s_init s_final k H.`
+- L67: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k\` not used in proof body (heuristic).
+  - `intros s_init s_final k H.`
+- L67: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`H\` not used in proof body (heuristic).
+  - `intros s_init s_final k H.`
+
+#### `coq/kernel/MuGeometry.v`
+- L22: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `Z.abs (mu_total_z s2 - mu_total_z s1).`
+
+#### `coq/kernel/MuInformation.v`
+- L39: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s instr.`
+- L39: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`instr\` not used in proof body (heuristic).
+  - `intros s instr.`
+- L53: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`fuel\` not used in proof body (heuristic).
+  - `intros fuel trace s.`
+- L53: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace\` not used in proof body (heuristic).
+  - `intros fuel trace s.`
+- L53: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros fuel trace s.`
+- L63: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`fuel\` not used in proof body (heuristic).
+  - `intros fuel trace s.`
+- L63: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace\` not used in proof body (heuristic).
+  - `intros fuel trace s.`
+- L63: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros fuel trace s.`
+- L74: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`fuel\` not used in proof body (heuristic).
+  - `intros fuel trace s.`
+- L74: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace\` not used in proof body (heuristic).
+  - `intros fuel trace s.`
+- L74: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros fuel trace s.`
+- L83: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`fuel\` not used in proof body (heuristic).
+  - `intros fuel trace s.`
+- L83: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace\` not used in proof body (heuristic).
+  - `intros fuel trace s.`
+- L83: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros fuel trace s.`
+
+#### `coq/kernel/MuLedgerConservation.v`
+- L1: **SYMMETRY_CONTRACT** — Missing symmetry equivariance lemma matching: vm_step.*equiv, trace_run.*equiv|run_vm.*equiv
+  - ``
+- L67: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s instr.`
+- L126: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s instr s' Hstep.`
+- L126: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`instr\` not used in proof body (heuristic).
+  - `intros s instr s' Hstep.`
+- L126: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s instr s' Hstep.`
+- L126: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hstep\` not used in proof body (heuristic).
+  - `intros s instr s' Hstep.`
+- L302: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`fuel\` not used in proof body (heuristic).
+  - `intros fuel trace s k Hle.`
+- L302: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace\` not used in proof body (heuristic).
+  - `intros fuel trace s k Hle.`
+- L302: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros fuel trace s k Hle.`
+- L302: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k\` not used in proof body (heuristic).
+  - `intros fuel trace s k Hle.`
+- L302: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hle\` not used in proof body (heuristic).
+  - `intros fuel trace s k Hle.`
+- L316: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s instr.`
+- L316: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`instr\` not used in proof body (heuristic).
+  - `intros s instr.`
+
+#### `coq/kernel/MuNoFreeInsightQuantitative.v`
+- L41: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`fuel\` not used in proof body (heuristic).
+  - `intros fuel trace s0 sf Hexec.`
+- L41: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace\` not used in proof body (heuristic).
+  - `intros fuel trace s0 sf Hexec.`
+- L41: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s0\` not used in proof body (heuristic).
+  - `intros fuel trace s0 sf Hexec.`
+- L41: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`sf\` not used in proof body (heuristic).
+  - `intros fuel trace s0 sf Hexec.`
+- L127: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s instr s' Hstep Hnot.`
+- L146: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_init\` not used in proof body (heuristic).
+  - `intros fuel trace s_init s_final Hexec.`
+- L146: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_final\` not used in proof body (heuristic).
+  - `intros fuel trace s_init s_final Hexec.`
+
+#### `coq/kernel/NoFreeInsight.v`
+- L265: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A decoder P_weak P_strong trace s_init fuel Hstrict Hinit Hcert.`
+- L265: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`decoder\` not used in proof body (heuristic).
+  - `intros A decoder P_weak P_strong trace s_init fuel Hstrict Hinit Hcert.`
+- L265: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`P_weak\` not used in proof body (heuristic).
+  - `intros A decoder P_weak P_strong trace s_init fuel Hstrict Hinit Hcert.`
+- L265: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`P_strong\` not used in proof body (heuristic).
+  - `intros A decoder P_weak P_strong trace s_init fuel Hstrict Hinit Hcert.`
+- L265: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace\` not used in proof body (heuristic).
+  - `intros A decoder P_weak P_strong trace s_init fuel Hstrict Hinit Hcert.`
+- L265: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_init\` not used in proof body (heuristic).
+  - `intros A decoder P_weak P_strong trace s_init fuel Hstrict Hinit Hcert.`
+- L265: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`fuel\` not used in proof body (heuristic).
+  - `intros A decoder P_weak P_strong trace s_init fuel Hstrict Hinit Hcert.`
+- L265: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hstrict\` not used in proof body (heuristic).
+  - `intros A decoder P_weak P_strong trace s_init fuel Hstrict Hinit Hcert.`
+- L265: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hinit\` not used in proof body (heuristic).
+  - `intros A decoder P_weak P_strong trace s_init fuel Hstrict Hinit Hcert.`
+
+#### `coq/kernel/ObserverDerivation.v`
+- L41: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A B C Oa Ob Oc Hab Hbc s1 s2 Hc.`
+- L41: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`B\` not used in proof body (heuristic).
+  - `intros A B C Oa Ob Oc Hab Hbc s1 s2 Hc.`
+- L41: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`C\` not used in proof body (heuristic).
+  - `intros A B C Oa Ob Oc Hab Hbc s1 s2 Hc.`
+- L41: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Oa\` not used in proof body (heuristic).
+  - `intros A B C Oa Ob Oc Hab Hbc s1 s2 Hc.`
+- L41: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Ob\` not used in proof body (heuristic).
+  - `intros A B C Oa Ob Oc Hab Hbc s1 s2 Hc.`
+- L41: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Oc\` not used in proof body (heuristic).
+  - `intros A B C Oa Ob Oc Hab Hbc s1 s2 Hc.`
+- L41: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros A B C Oa Ob Oc Hab Hbc s1 s2 Hc.`
+- L41: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s2\` not used in proof body (heuristic).
+  - `intros A B C Oa Ob Oc Hab Hbc s1 s2 Hc.`
+- L52: **DEFINITIONAL_INVARIANCE** — Invariance/equivariance lemma proved by reflexivity/easy (definitional).
+  - `Lemma obs_equiv_implies_region_equiv : forall s1 s2,`
+- L66: **DEFINITIONAL_INVARIANCE** — Invariance/equivariance lemma proved by reflexivity/easy (definitional).
+  - `Lemma observer_region_gauge_invariant : forall s k mid,`
+- L69: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s k mid.`
+- L69: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k\` not used in proof body (heuristic).
+  - `intros s k mid.`
+- L69: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid\` not used in proof body (heuristic).
+  - `intros s k mid.`
+- L82: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s s' instr mid Hwf Hmid Hstep Hneq.`
+- L117: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A O s1 s2 mid Heq Hneq.`
+- L117: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`O\` not used in proof body (heuristic).
+  - `intros A O s1 s2 mid Heq Hneq.`
+- L117: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Heq\` not used in proof body (heuristic).
+  - `intros A O s1 s2 mid Heq Hneq.`
+- L117: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hneq\` not used in proof body (heuristic).
+  - `intros A O s1 s2 mid Heq Hneq.`
+
+#### `coq/kernel/PDISCOVERIntegration.v`
+- L97: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `| x :: xs => Nat.max x (list_max xs)`
+
+#### `coq/kernel/PartitionSeparation.v`
+- L105: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g\` not used in proof body (heuristic).
+  - `intros g region axioms g' mid Heq.`
+- L105: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`region\` not used in proof body (heuristic).
+  - `intros g region axioms g' mid Heq.`
+- L105: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`axioms\` not used in proof body (heuristic).
+  - `intros g region axioms g' mid Heq.`
+- L105: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g'\` not used in proof body (heuristic).
+  - `intros g region axioms g' mid Heq.`
+- L105: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid\` not used in proof body (heuristic).
+  - `intros g region axioms g' mid Heq.`
+- L236: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`region\` not used in proof body (heuristic).
+  - `intros region g' Hcount tm_op.`
+- L236: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g'\` not used in proof body (heuristic).
+  - `intros region g' Hcount tm_op.`
+- L236: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hcount\` not used in proof body (heuristic).
+  - `intros region g' Hcount tm_op.`
+- L236: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm_op\` not used in proof body (heuristic).
+  - `intros region g' Hcount tm_op.`
+
+#### `coq/kernel/QuantumBound.v`
+- L61: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`i\` not used in proof body (heuristic).
+  - `intros i trace H.`
+- L61: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace\` not used in proof body (heuristic).
+  - `intros i trace H.`
+- L128: **DEFINITIONAL_INVARIANCE** — Invariance/equivariance lemma proved by reflexivity/easy (definitional).
+  - `Lemma cert_setter_forms_equiv : forall trace,`
+
+#### `coq/kernel/RevelationRequirement.v`
+- L148: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s i Hrev Hemit Hljoin Hlassert.`
+
+#### `coq/kernel/SimulationProof.v`
+- L32: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_vm\` not used in proof body (heuristic).
+  - `intros s_vm s_kernel H.`
+- L32: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_kernel\` not used in proof body (heuristic).
+  - `intros s_vm s_kernel H.`
+- L42: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_vm\` not used in proof body (heuristic).
+  - `intros s_vm s_kernel H.`
+- L42: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_kernel\` not used in proof body (heuristic).
+  - `intros s_vm s_kernel H.`
+- L52: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_vm\` not used in proof body (heuristic).
+  - `intros s_vm s_kernel H.`
+- L52: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_kernel\` not used in proof body (heuristic).
+  - `intros s_vm s_kernel H.`
+- L65: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_vm\` not used in proof body (heuristic).
+  - `intros s_vm s_kernel Hpc Hmu Htape.`
+- L65: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_kernel\` not used in proof body (heuristic).
+  - `intros s_vm s_kernel Hpc Hmu Htape.`
+- L65: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hpc\` not used in proof body (heuristic).
+  - `intros s_vm s_kernel Hpc Hmu Htape.`
+- L65: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hmu\` not used in proof body (heuristic).
+  - `intros s_vm s_kernel Hpc Hmu Htape.`
+- L65: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Htape\` not used in proof body (heuristic).
+  - `intros s_vm s_kernel Hpc Hmu Htape.`
+- L168: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`instr\` not used in proof body (heuristic).
+  - `intros instr.`
+- L352: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s instr s' Hstep.`
+- L352: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`instr\` not used in proof body (heuristic).
+  - `intros s instr s' Hstep.`
+- L352: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s instr s' Hstep.`
+- L370: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s instr s1 s2 Hstep1 Hstep2.`
+- L370: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`instr\` not used in proof body (heuristic).
+  - `intros s instr s1 s2 Hstep1 Hstep2.`
+- L370: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros s instr s1 s2 Hstep1 Hstep2.`
+- L370: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s2\` not used in proof body (heuristic).
+  - `intros s instr s1 s2 Hstep1 Hstep2.`
+- L381: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s instr s' Hstep.`
+- L381: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`instr\` not used in proof body (heuristic).
+  - `intros s instr s' Hstep.`
+- L381: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s instr s' Hstep.`
+- L390: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s instr s' Hstep.`
+- L390: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`instr\` not used in proof body (heuristic).
+  - `intros s instr s' Hstep.`
+- L390: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s instr s' Hstep.`
+- L399: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`fuel\` not used in proof body (heuristic).
+  - `intros fuel trace s s' Hexec.`
+- L399: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace\` not used in proof body (heuristic).
+  - `intros fuel trace s s' Hexec.`
+- L399: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros fuel trace s s' Hexec.`
+- L399: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros fuel trace s s' Hexec.`
+- L414: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`fuel\` not used in proof body (heuristic).
+  - `intros fuel trace s s1 s2 Hexec1 Hexec2.`
+- L414: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace\` not used in proof body (heuristic).
+  - `intros fuel trace s s1 s2 Hexec1 Hexec2.`
+- L414: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros fuel trace s s1 s2 Hexec1 Hexec2.`
+- L414: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros fuel trace s s1 s2 Hexec1 Hexec2.`
+- L414: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s2\` not used in proof body (heuristic).
+  - `intros fuel trace s s1 s2 Hexec1 Hexec2.`
+- L425: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`prog\` not used in proof body (heuristic).
+  - `intros prog st delta Hfetch.`
+- L425: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`st\` not used in proof body (heuristic).
+  - `intros prog st delta Hfetch.`
+- L425: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`delta\` not used in proof body (heuristic).
+  - `intros prog st delta Hfetch.`
+- L436: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`prog\` not used in proof body (heuristic).
+  - `intros prog st delta Hfetch.`
+- L436: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`st\` not used in proof body (heuristic).
+  - `intros prog st delta Hfetch.`
+- L436: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`delta\` not used in proof body (heuristic).
+  - `intros prog st delta Hfetch.`
+- L450: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_kernel\` not used in proof body (heuristic).
+  - `intros trace s_vm s_kernel instr Hrel Hnth.`
+- L450: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`instr\` not used in proof body (heuristic).
+  - `intros trace s_vm s_kernel instr Hrel Hnth.`
+- L491: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_kernel\` not used in proof body (heuristic).
+  - `intros s_kernel s_vm _.`
+- L532: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`delta\` not used in proof body (heuristic).
+  - `intros delta s_kernel s_vm _ s_vm'.`
+- L532: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_kernel\` not used in proof body (heuristic).
+  - `intros delta s_kernel s_vm _ s_vm'.`
+- L532: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_vm'\` not used in proof body (heuristic).
+  - `intros delta s_kernel s_vm _ s_vm'.`
+- L588: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`new_err\` not used in proof body (heuristic).
+  - `intros new_err s_kernel s_vm Hrel tape'.`
+- L588: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_kernel\` not used in proof body (heuristic).
+  - `intros new_err s_kernel s_vm Hrel tape'.`
+- L588: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_vm\` not used in proof body (heuristic).
+  - `intros new_err s_kernel s_vm Hrel tape'.`
+- L588: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tape'\` not used in proof body (heuristic).
+  - `intros new_err s_kernel s_vm Hrel tape'.`
+- L607: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace\` not used in proof body (heuristic).
+  - `intros trace s_vm s_kernel instr s_vm' _ _ _.`
+- L607: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_kernel\` not used in proof body (heuristic).
+  - `intros trace s_vm s_kernel instr s_vm' _ _ _.`
+- L607: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`instr\` not used in proof body (heuristic).
+  - `intros trace s_vm s_kernel instr s_vm' _ _ _.`
+- L607: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_vm'\` not used in proof body (heuristic).
+  - `intros trace s_vm s_kernel instr s_vm' _ _ _.`
+- L639: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`fuel\` not used in proof body (heuristic).
+  - `intros fuel trace s_vm s_kernel s_vm' _ _.`
+- L639: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace\` not used in proof body (heuristic).
+  - `intros fuel trace s_vm s_kernel s_vm' _ _.`
+- L639: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_kernel\` not used in proof body (heuristic).
+  - `intros fuel trace s_vm s_kernel s_vm' _ _.`
+- L639: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_vm'\` not used in proof body (heuristic).
+  - `intros fuel trace s_vm s_kernel s_vm' _ _.`
+- L660: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`fuel\` not used in proof body (heuristic).
+  - `intros fuel trace s_vm s_kernel s_vm' _ Hexec.`
+- L660: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace\` not used in proof body (heuristic).
+  - `intros fuel trace s_vm s_kernel s_vm' _ Hexec.`
+- L660: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_kernel\` not used in proof body (heuristic).
+  - `intros fuel trace s_vm s_kernel s_vm' _ Hexec.`
+- L660: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_vm'\` not used in proof body (heuristic).
+  - `intros fuel trace s_vm s_kernel s_vm' _ Hexec.`
+
+#### `coq/kernel/SpacetimeEmergence.v`
+- L26: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s s' H.`
+- L26: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s s' H.`
+- L34: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros s1 s2 s3 H12 H23.`
+- L34: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s2\` not used in proof body (heuristic).
+  - `intros s1 s2 s3 H12 H23.`
+- L34: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s3\` not used in proof body (heuristic).
+  - `intros s1 s2 s3 H12 H23.`
+- L48: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s instr s' mid Hwf Hmid Hstep Hnot.`
+- L48: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`instr\` not used in proof body (heuristic).
+  - `intros s instr s' mid Hwf Hmid Hstep Hnot.`
+- L48: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s instr s' mid Hwf Hmid Hstep Hnot.`
+- L48: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid\` not used in proof body (heuristic).
+  - `intros s instr s' mid Hwf Hmid Hstep Hnot.`
+- L48: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hwf\` not used in proof body (heuristic).
+  - `intros s instr s' mid Hwf Hmid Hstep Hnot.`
+- L48: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hmid\` not used in proof body (heuristic).
+  - `intros s instr s' mid Hwf Hmid Hstep Hnot.`
+- L48: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hstep\` not used in proof body (heuristic).
+  - `intros s instr s' mid Hwf Hmid Hstep Hnot.`
+- L48: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hnot\` not used in proof body (heuristic).
+  - `intros s instr s' mid Hwf Hmid Hstep Hnot.`
+- L73: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g\` not used in proof body (heuristic).
+  - `intros g mid m Hwf Hlt.`
+- L73: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid\` not used in proof body (heuristic).
+  - `intros g mid m Hwf Hlt.`
+- L73: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m\` not used in proof body (heuristic).
+  - `intros g mid m Hwf Hlt.`
+- L73: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hwf\` not used in proof body (heuristic).
+  - `intros g mid m Hwf Hlt.`
+- L73: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlt\` not used in proof body (heuristic).
+  - `intros g mid m Hwf Hlt.`
+- L82: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`ax\` not used in proof body (heuristic).
+  - `intros g mid ax Hwf.`
+- L110: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g\` not used in proof body (heuristic).
+  - `intros g mid ev Hwf.`
+- L110: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid\` not used in proof body (heuristic).
+  - `intros g mid ev Hwf.`
+- L110: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`ev\` not used in proof body (heuristic).
+  - `intros g mid ev Hwf.`
+- L132: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g'\` not used in proof body (heuristic).
+  - `intros g mid left right g' l_id r_id Hwf Hps.`
+- L132: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l_id\` not used in proof body (heuristic).
+  - `intros g mid left right g' l_id r_id Hwf Hps.`
+- L132: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`r_id\` not used in proof body (heuristic).
+  - `intros g mid left right g' l_id r_id Hwf Hps.`
+- L161: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g'\` not used in proof body (heuristic).
+  - `intros g m1 m2 g' merged_id Hwf Hp.`
+- L161: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`merged_id\` not used in proof body (heuristic).
+  - `intros g m1 m2 g' merged_id Hwf Hp.`
+- L196: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`instr\` not used in proof body (heuristic).
+  - `intros s instr s' Hwf Hstep.`
+- L196: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s instr s' Hwf Hstep.`
+- L224: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g\` not used in proof body (heuristic).
+  - `intros g mid m.`
+- L224: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid\` not used in proof body (heuristic).
+  - `intros g mid m.`
+- L224: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m\` not used in proof body (heuristic).
+  - `intros g mid m.`
+- L231: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`ax\` not used in proof body (heuristic).
+  - `intros g mid ax.`
+- L252: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g\` not used in proof body (heuristic).
+  - `intros g mid ev.`
+- L252: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid\` not used in proof body (heuristic).
+  - `intros g mid ev.`
+- L252: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`ev\` not used in proof body (heuristic).
+  - `intros g mid ev.`
+- L261: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g'\` not used in proof body (heuristic).
+  - `intros g mid left right g' l_id r_id Hps.`
+- L261: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l_id\` not used in proof body (heuristic).
+  - `intros g mid left right g' l_id r_id Hps.`
+- L261: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`r_id\` not used in proof body (heuristic).
+  - `intros g mid left right g' l_id r_id Hps.`
+- L288: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g'\` not used in proof body (heuristic).
+  - `intros g mid g' m Hrem.`
+- L288: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m\` not used in proof body (heuristic).
+  - `intros g mid g' m Hrem.`
+- L300: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g'\` not used in proof body (heuristic).
+  - `intros g m1 m2 g' merged_id Hp.`
+- L300: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`merged_id\` not used in proof body (heuristic).
+  - `intros g m1 m2 g' merged_id Hp.`
+- L329: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`instr\` not used in proof body (heuristic).
+  - `intros s instr s' Hstep.`
+- L329: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s instr s' Hstep.`
+- L351: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s instr s' mid Hlt Hstep.`
+- L351: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid\` not used in proof body (heuristic).
+  - `intros s instr s' mid Hlt Hstep.`
+- L351: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlt\` not used in proof body (heuristic).
+  - `intros s instr s' mid Hlt Hstep.`
+- L371: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s trace s' mid Hexec.`
+- L371: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace\` not used in proof body (heuristic).
+  - `intros s trace s' mid Hexec.`
+- L371: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s trace s' mid Hexec.`
+
+#### `coq/kernel/VMEncoding.v`
+- L58: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`b\` not used in proof body (heuristic).
+  - `intros b rest.`
+- L58: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`rest\` not used in proof body (heuristic).
+  - `intros b rest.`
+- L79: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`rest\` not used in proof body (heuristic).
+  - `intros a rest.`
+- L128: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A encode decode xs.`
+- L128: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`decode\` not used in proof body (heuristic).
+  - `intros A encode decode xs.`
+- L149: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A encode decode xs rest Hdecode.`
+- L149: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`encode\` not used in proof body (heuristic).
+  - `intros A encode decode xs rest Hdecode.`
+- L149: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`decode\` not used in proof body (heuristic).
+  - `intros A encode decode xs rest Hdecode.`
+- L149: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`xs\` not used in proof body (heuristic).
+  - `intros A encode decode xs rest Hdecode.`
+- L149: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`rest\` not used in proof body (heuristic).
+  - `intros A encode decode xs rest Hdecode.`
+- L149: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hdecode\` not used in proof body (heuristic).
+  - `intros A encode decode xs rest Hdecode.`
+- L172: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`rest\` not used in proof body (heuristic).
+  - `intros s rest.`
+- L198: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`xs\` not used in proof body (heuristic).
+  - `intros xs rest.`
+- L198: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`rest\` not used in proof body (heuristic).
+  - `intros xs rest.`
+- L208: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`xs\` not used in proof body (heuristic).
+  - `intros xs rest.`
+- L208: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`rest\` not used in proof body (heuristic).
+  - `intros xs rest.`
+- L235: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`rest\` not used in proof body (heuristic).
+  - `intros m rest.`
+- L295: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`rest\` not used in proof body (heuristic).
+  - `intros g rest.`
+- L642: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tape\` not used in proof body (heuristic).
+  - `intros tape pc s Hdecode.`
+- L706: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Placeholder - validated by Python VM`
+
+#### `coq/kernel/VMState.v`
+- L224: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g\` not used in proof body (heuristic).
+  - `intros g region axioms Hwf.`
+- L224: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`region\` not used in proof body (heuristic).
+  - `intros g region axioms Hwf.`
+- L224: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`axioms\` not used in proof body (heuristic).
+  - `intros g region axioms Hwf.`
+- L258: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g'\` not used in proof body (heuristic).
+  - `intros g mid g' m Hwf Hrem.`
+- L258: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m\` not used in proof body (heuristic).
+  - `intros g mid g' m Hwf Hrem.`
+- L294: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g\` not used in proof body (heuristic).
+  - `intros g mid Hwf Hge.`
+- L294: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid\` not used in proof body (heuristic).
+  - `intros g mid Hwf Hge.`
+
+#### `coq/thielemachine/coqproofs/CoreSemantics.v`
+- L367: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`p\` not used in proof body (heuristic).
+  - `intros p r mid Hlt.`
+- L367: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`r\` not used in proof body (heuristic).
+  - `intros p r mid Hlt.`
+- L367: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid\` not used in proof body (heuristic).
+  - `intros p r mid Hlt.`
+- L474: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros l delta Hdelta.`
+- L474: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`delta\` not used in proof body (heuristic).
+  - `intros l delta Hdelta.`
+- L474: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hdelta\` not used in proof body (heuristic).
+  - `intros l delta Hdelta.`
+- L484: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros l delta Hdelta.`
+- L484: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`delta\` not used in proof body (heuristic).
+  - `intros l delta Hdelta.`
+- L484: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hdelta\` not used in proof body (heuristic).
+  - `intros l delta Hdelta.`
+- L831: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s s' Hstep.`
+- L973: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s s' instr Hnth Hhalted Hstep Hnot_pnew Hnot_psplit Hnot_pmerge.`
+- L1024: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s s' Hstep Hvalid.`
+- L1133: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s s1 s2 H1 H2.`
+- L1133: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros s s1 s2 H1 H2.`
+- L1133: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s2\` not used in proof body (heuristic).
+  - `intros s s1 s2 H1 H2.`
+- L1145: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s Hhalted.`
+- L1158: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hpc\` not used in proof body (heuristic).
+  - `intros s Hhalted Hpc.`
+
+#### `coq/thielemachine/verification/BridgeDefinitions.v`
+- L150: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A l n v d Hn.`
+- L150: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros A l n v d Hn.`
+- L150: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`v\` not used in proof body (heuristic).
+  - `intros A l n v d Hn.`
+- L150: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`d\` not used in proof body (heuristic).
+  - `intros A l n v d Hn.`
+- L150: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hn\` not used in proof body (heuristic).
+  - `intros A l n v d Hn.`
+- L166: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A l n m v d Hneq Hn Hm.`
+- L166: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`v\` not used in proof body (heuristic).
+  - `intros A l n m v d Hneq Hn Hm.`
+- L166: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`d\` not used in proof body (heuristic).
+  - `intros A l n m v d Hneq Hn Hm.`
+- L204: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros l n Hle.`
+- L204: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros l n Hle.`
+- L204: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hle\` not used in proof body (heuristic).
+  - `intros l n Hle.`
+- L213: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros l n.`
+- L213: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros l n.`
+- L240: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A l1 l2 n d Hlt.`
+- L240: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l2\` not used in proof body (heuristic).
+  - `intros A l1 l2 n d Hlt.`
+- L240: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`d\` not used in proof body (heuristic).
+  - `intros A l1 l2 n d Hlt.`
+- L249: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros l n Hle.`
+- L249: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros l n Hle.`
+- L249: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hle\` not used in proof body (heuristic).
+  - `intros l n Hle.`
+- L262: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A n l1 l2 Hn.`
+- L262: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l2\` not used in proof body (heuristic).
+  - `intros A n l1 l2 Hn.`
+- L262: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hn\` not used in proof body (heuristic).
+  - `intros A n l1 l2 Hn.`
+- L273: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A n l1 l2 Hn.`
+- L273: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l2\` not used in proof body (heuristic).
+  - `intros A n l1 l2 Hn.`
+- L273: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hn\` not used in proof body (heuristic).
+  - `intros A n l1 l2 Hn.`
+- L283: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros l n k Hk.`
+- L283: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros l n k Hk.`
+- L283: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k\` not used in proof body (heuristic).
+  - `intros l n k Hk.`
+- L283: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hk\` not used in proof body (heuristic).
+  - `intros l n k Hk.`
+- L292: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros l n rest k Hk.`
+- L292: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros l n rest k Hk.`
+- L292: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`rest\` not used in proof body (heuristic).
+  - `intros l n rest k Hk.`
+- L292: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k\` not used in proof body (heuristic).
+  - `intros l n rest k Hk.`
+- L292: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hk\` not used in proof body (heuristic).
+  - `intros l n rest k Hk.`
+- L302: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`rest\` not used in proof body (heuristic).
+  - `intros l n rest Hle.`
+- L302: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hle\` not used in proof body (heuristic).
+  - `intros l n rest Hle.`
+- L349: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros l n rest Hle.`
+- L349: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros l n rest Hle.`
+- L349: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`rest\` not used in proof body (heuristic).
+  - `intros l n rest Hle.`
+- L349: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hle\` not used in proof body (heuristic).
+  - `intros l n rest Hle.`
+- L358: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros l n k Hk.`
+- L358: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros l n k Hk.`
+- L358: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k\` not used in proof body (heuristic).
+  - `intros l n k Hk.`
+- L358: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hk\` not used in proof body (heuristic).
+  - `intros l n k Hk.`
+- L373: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hfit\` not used in proof body (heuristic).
+  - `intros Hprog rules Hfit.`
+- L403: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A pref rest n Hlen.`
+- L403: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`pref\` not used in proof body (heuristic).
+  - `intros A pref rest n Hlen.`
+- L403: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`rest\` not used in proof body (heuristic).
+  - `intros A pref rest n Hlen.`
+- L403: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros A pref rest n Hlen.`
+- L418: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros l n d k Hlt.`
+- L418: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros l n d k Hlt.`
+- L418: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`d\` not used in proof body (heuristic).
+  - `intros l n d k Hlt.`
+- L418: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k\` not used in proof body (heuristic).
+  - `intros l n d k Hlt.`
+- L418: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlt\` not used in proof body (heuristic).
+  - `intros l n d k Hlt.`
+- L511: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm conf pc Hbound.`
+- L511: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`conf\` not used in proof body (heuristic).
+  - `intros tm conf pc Hbound.`
+- L511: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`pc\` not used in proof body (heuristic).
+  - `intros tm conf pc Hbound.`
+- L511: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hbound\` not used in proof body (heuristic).
+  - `intros tm conf pc Hbound.`
+- L525: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A l n v Hn.`
+- L525: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros A l n v Hn.`
+- L525: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros A l n v Hn.`
+- L525: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`v\` not used in proof body (heuristic).
+  - `intros A l n v Hn.`
+- L525: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hn\` not used in proof body (heuristic).
+  - `intros A l n v Hn.`
+- L537: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm conf.`
+- L879: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A n m l d.`
+- L879: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`d\` not used in proof body (heuristic).
+  - `intros A n m l d.`
+- L891: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A n m l d Hn.`
+- L891: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`d\` not used in proof body (heuristic).
+  - `intros A n m l d Hn.`
+- L900: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Placeholder transition lemmas - these would need full proofs`
+- L910: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros cpu m n.`
+- L920: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cpu\` not used in proof body (heuristic).
+  - `intros cpu n.`
+- L920: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros cpu n.`
+- L951: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cpu\` not used in proof body (heuristic).
+  - `intros cpu.`
+- L960: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hr\` not used in proof body (heuristic).
+  - `intros cpu r Hr.`
+- L970: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`v\` not used in proof body (heuristic).
+  - `intros r v st Hr.`
+- L970: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`st\` not used in proof body (heuristic).
+  - `intros r v st Hr.`
+- L970: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hr\` not used in proof body (heuristic).
+  - `intros r v st Hr.`
+- L1132: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A l r r' v d Hneq Hr Hr'.`
+- L1132: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`r'\` not used in proof body (heuristic).
+  - `intros A l r r' v d Hneq Hr Hr'.`
+- L1132: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`d\` not used in proof body (heuristic).
+  - `intros A l r r' v d Hneq Hr Hr'.`
+- L1132: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hr'\` not used in proof body (heuristic).
+  - `intros A l r r' v d Hneq Hr Hr'.`
+- L1184: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`r\` not used in proof body (heuristic).
+  - `intros l r r1 r2 v1 v2 Hneq1 Hneq2 Hr Hr1 Hr2.`
+- L1184: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`r2\` not used in proof body (heuristic).
+  - `intros l r r1 r2 v1 v2 Hneq1 Hneq2 Hr Hr1 Hr2.`
+- L1184: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`v2\` not used in proof body (heuristic).
+  - `intros l r r1 r2 v1 v2 Hneq1 Hneq2 Hr Hr1 Hr2.`
+- L1184: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hneq1\` not used in proof body (heuristic).
+  - `intros l r r1 r2 v1 v2 Hneq1 Hneq2 Hr Hr1 Hr2.`
+- L1184: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hr1\` not used in proof body (heuristic).
+  - `intros l r r1 r2 v1 v2 Hneq1 Hneq2 Hr Hr1 Hr2.`
+- L1215: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cpu\` not used in proof body (heuristic).
+  - `intros cpu instr Hpc_unch.`
+- L1215: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`instr\` not used in proof body (heuristic).
+  - `intros cpu instr Hpc_unch.`
+
+#### `docs/theory/GeometricSignature.v`
+- L87: **AXIOM_OR_PARAMETER** — Found Parameter louvain_partition.
+  - `Parameter louvain_partition : Strategy.`
+- L88: **AXIOM_OR_PARAMETER** — Found Parameter spectral_partition.
+  - `Parameter spectral_partition : Strategy.`
+- L89: **AXIOM_OR_PARAMETER** — Found Parameter degree_partition.
+  - `Parameter degree_partition : Strategy.`
+- L90: **AXIOM_OR_PARAMETER** — Found Parameter balanced_partition.
+  - `Parameter balanced_partition : Strategy.`
+- L145: **AXIOM_OR_PARAMETER** — Found Parameter extract_edge_weights.
+  - `Parameter extract_edge_weights : list (list R) -> list R.`
+- L195: **AXIOM_OR_PARAMETER** — Found Parameter compute_geometric_signature.
+  - `Parameter compute_geometric_signature : nat -> GeometricSignatureTy.`
+
+### MEDIUM
+
+#### `artifacts/EmergentWaveEquation.v`
+- L59: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_t\` not used in proof body (heuristic).
+  - `intros u_t u_tm1 u_xp u_xm u_tp1 H.`
+- L59: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tm1\` not used in proof body (heuristic).
+  - `intros u_t u_tm1 u_xp u_xm u_tp1 H.`
+- L59: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xp\` not used in proof body (heuristic).
+  - `intros u_t u_tm1 u_xp u_xm u_tp1 H.`
+- L59: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xm\` not used in proof body (heuristic).
+  - `intros u_t u_tm1 u_xp u_xm u_tp1 H.`
+- L59: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tp1\` not used in proof body (heuristic).
+  - `intros u_t u_tm1 u_xp u_xm u_tp1 H.`
+- L93: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tp1\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
+- L93: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_t\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
+- L93: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tm1\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
+- L93: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xp\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
+- L93: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xm\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
+- L101: **DEFINITIONAL_INVARIANCE** — Invariance/equivariance lemma proved by reflexivity/easy (definitional).
+  - `Lemma spatial_symmetry : wave_coeff_u_xp == wave_coeff_u_xm.`
+- L118: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tp1\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
+- L118: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_t\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
+- L118: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tm1\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
+- L118: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xp\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
+- L118: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xm\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
+
+#### `artifacts/schrodinger_receipts/EmergentSchrodingerEquation.v`
+- L57: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`a\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L57: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`b\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L57: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`lap_a\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L57: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`lap_b\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L57: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Va\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L57: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Vb\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L57: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`a_next\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L57: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`b_next\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L99: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`a\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L99: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`b\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L99: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`lap_a\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L99: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`lap_b\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L99: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Va\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L99: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Vb\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L99: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`a_next\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L99: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`b_next\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L99: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Ha\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+- L99: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hb\` not used in proof body (heuristic).
+  - `intros a b lap_a lap_b Va Vb a_next b_next Ha Hb.`
+
+#### `artifacts/wave_receipts/EmergentWaveEquation.v`
+- L59: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_t\` not used in proof body (heuristic).
+  - `intros u_t u_tm1 u_xp u_xm u_tp1 H.`
+- L59: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tm1\` not used in proof body (heuristic).
+  - `intros u_t u_tm1 u_xp u_xm u_tp1 H.`
+- L59: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xp\` not used in proof body (heuristic).
+  - `intros u_t u_tm1 u_xp u_xm u_tp1 H.`
+- L59: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xm\` not used in proof body (heuristic).
+  - `intros u_t u_tm1 u_xp u_xm u_tp1 H.`
+- L59: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tp1\` not used in proof body (heuristic).
+  - `intros u_t u_tm1 u_xp u_xm u_tp1 H.`
+- L93: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tp1\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
+- L93: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_t\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
+- L93: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tm1\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
+- L93: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xp\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
+- L93: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xm\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm H.`
+- L101: **DEFINITIONAL_INVARIANCE** — Invariance/equivariance lemma proved by reflexivity/easy (definitional).
+  - `Lemma spatial_symmetry : wave_coeff_u_xp == wave_coeff_u_xm.`
+- L118: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tp1\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
+- L118: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_t\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
+- L118: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tm1\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
+- L118: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xp\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
+- L118: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xm\` not used in proof body (heuristic).
+  - `intros u_tp1 u_t u_tm1 u_xp u_xm Hupdate.`
+
+#### `coq/bridge/BoxWorld_to_Kernel.v`
+- L82: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hok\` not used in proof body (heuristic).
+  - `intros p Hok.`
+- L106: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`p\` not used in proof body (heuristic).
+  - `intros p Hok.`
+
+#### `coq/bridge/FiniteQuantum_to_Kernel.v`
+- L1: **SYMMETRY_CONTRACT** — Missing symmetry equivariance lemma matching: vm_step.*equiv, trace_run.*equiv|run_vm.*equiv
+  - ``
+- L114: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros x y a b Hx Hy Ha Hb.`
+- L114: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`y\` not used in proof body (heuristic).
+  - `intros x y a b Hx Hy Ha Hb.`
+- L114: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`a\` not used in proof body (heuristic).
+  - `intros x y a b Hx Hy Ha Hb.`
+- L114: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`b\` not used in proof body (heuristic).
+  - `intros x y a b Hx Hy Ha Hb.`
+- L126: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`t\` not used in proof body (heuristic).
+  - `intros t n Hok.`
+- L126: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hok\` not used in proof body (heuristic).
+  - `intros t n Hok.`
+- L206: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`p\` not used in proof body (heuristic).
+  - `intros p Hp Hok.`
+- L206: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hok\` not used in proof body (heuristic).
+  - `intros p Hp Hok.`
+
+#### `coq/catnet/coqproofs/CatNet.v`
+- L97: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`st\` not used in proof body (heuristic).
+  - `intros st axioms data H.`
+- L97: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`axioms\` not used in proof body (heuristic).
+  - `intros st axioms data H.`
+- L97: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`data\` not used in proof body (heuristic).
+  - `intros st axioms data H.`
+
+#### `coq/isomorphism/coqproofs/Universe.v`
+- L56: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros s1 s2 Hpath.`
+- L79: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros s1 s2 p.`
+- L79: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s2\` not used in proof body (heuristic).
+  - `intros s1 s2 p.`
+
+#### `coq/kernel_toe/NoGo.v`
+- L132: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A B f l Hnodup.`
+- L132: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`B\` not used in proof body (heuristic).
+  - `intros A B f l Hnodup.`
+- L132: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`f\` not used in proof body (heuristic).
+  - `intros A B f l Hnodup.`
+- L132: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros A B f l Hnodup.`
+
+#### `coq/kernel_toe/NoGoSensitivity.v`
+- L32: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k\` not used in proof body (heuristic).
+  - `intros k t1 t2.`
+- L32: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`t1\` not used in proof body (heuristic).
+  - `intros k t1 t2.`
+- L32: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`t2\` not used in proof body (heuristic).
+  - `intros k t1 t2.`
+
+#### `coq/kernel_toe/Persistence.v`
+- L139: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros n Hn.`
+- L139: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hn\` not used in proof body (heuristic).
+  - `intros n Hn.`
+- L181: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`fuel0\` not used in proof body (heuristic).
+  - `intros s0 fuel0 Hfuel.`
+- L181: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hfuel\` not used in proof body (heuristic).
+  - `intros s0 fuel0 Hfuel.`
+
+#### `coq/modular_proofs/EncodingBounds.v`
+- L14: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`a\` not used in proof body (heuristic).
+  - `intros a n Ha.`
+- L14: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Ha\` not used in proof body (heuristic).
+  - `intros a n Ha.`
+- L57: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`len\` not used in proof body (heuristic).
+  - `intros len Hle.`
+- L94: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros x Hle.`
+- L94: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hle\` not used in proof body (heuristic).
+  - `intros x Hle.`
+- L103: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros x Hlt.`
+- L103: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlt\` not used in proof body (heuristic).
+  - `intros x Hlt.`
+- L123: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`c\` not used in proof body (heuristic).
+  - `intros k a c Hk Ha Hc.`
+- L123: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hk\` not used in proof body (heuristic).
+  - `intros k a c Hk Ha Hc.`
+- L123: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Ha\` not used in proof body (heuristic).
+  - `intros k a c Hk Ha Hc.`
+- L123: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hc\` not used in proof body (heuristic).
+  - `intros k a c Hk Ha Hc.`
+- L136: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`len\` not used in proof body (heuristic).
+  - `intros len code Hlen Hcode.`
+- L136: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`code\` not used in proof body (heuristic).
+  - `intros len code Hlen Hcode.`
+- L136: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlen\` not used in proof body (heuristic).
+  - `intros len code Hlen Hcode.`
+- L136: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hcode\` not used in proof body (heuristic).
+  - `intros len code Hlen Hcode.`
+- L152: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`xs\` not used in proof body (heuristic).
+  - `intros xs Hdig Hlen.`
+- L152: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hdig\` not used in proof body (heuristic).
+  - `intros xs Hdig Hlen.`
+- L152: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlen\` not used in proof body (heuristic).
+  - `intros xs Hdig Hlen.`
+- L164: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`xs\` not used in proof body (heuristic).
+  - `intros xs Hdig Hlen.`
+- L164: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hdig\` not used in proof body (heuristic).
+  - `intros xs Hdig Hlen.`
+- L164: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlen\` not used in proof body (heuristic).
+  - `intros xs Hdig Hlen.`
+- L193: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`xs\` not used in proof body (heuristic).
+  - `intros xs Hdig Hlen.`
+- L193: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hdig\` not used in proof body (heuristic).
+  - `intros xs Hdig Hlen.`
+- L193: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlen\` not used in proof body (heuristic).
+  - `intros xs Hdig Hlen.`
+
+#### `coq/modular_proofs/Simulation.v`
+- L27: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros n conf Hok.`
+- L27: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`conf\` not used in proof body (heuristic).
+  - `intros n conf Hok.`
+- L38: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm sem conf n Hok.`
+- L38: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hok\` not used in proof body (heuristic).
+  - `intros tm sem conf n Hok.`
+
+#### `coq/modular_proofs/TM_Basics.v`
+- L66: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`P\` not used in proof body (heuristic).
+  - `intros P l.`
+- L104: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`q\` not used in proof body (heuristic).
+  - `intros q tape head write Hok Hwrite.`
+- L104: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tape\` not used in proof body (heuristic).
+  - `intros q tape head write Hok Hwrite.`
+- L104: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`head\` not used in proof body (heuristic).
+  - `intros q tape head write Hok Hwrite.`
+- L104: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`write\` not used in proof body (heuristic).
+  - `intros q tape head write Hok Hwrite.`
+- L117: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`q\` not used in proof body (heuristic).
+  - `intros q tape head head' Hok Hhead'.`
+- L117: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tape\` not used in proof body (heuristic).
+  - `intros q tape head head' Hok Hhead'.`
+- L117: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`head\` not used in proof body (heuristic).
+  - `intros q tape head head' Hok Hhead'.`
+- L117: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`head'\` not used in proof body (heuristic).
+  - `intros q tape head head' Hok Hhead'.`
+- L117: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hhead'\` not used in proof body (heuristic).
+  - `intros q tape head head' Hok Hhead'.`
+- L131: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hhead\` not used in proof body (heuristic).
+  - `intros tm q tape head Hhead.`
+- L161: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hok\` not used in proof body (heuristic).
+  - `intros tm q tape head Hok.`
+
+#### `coq/modular_proofs/TM_to_Minsky.v`
+- L15: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `For now this module provides a placeholder [compile_tm_to_minsky]`
+- L27: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Placeholder compiler: returns the empty program.  Replace this with a`
+
+#### `coq/modular_proofs/Thiele_Basics.v`
+- L47: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s n.`
+- L47: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros s n.`
+
+#### `coq/nofi/Instance_Kernel.v`
+- L66: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s payload cost.`
+- L66: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`payload\` not used in proof body (heuristic).
+  - `intros s payload cost.`
+- L66: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cost\` not used in proof body (heuristic).
+  - `intros s payload cost.`
+
+#### `coq/nofi/MuChaitinTheory_Theorem.v`
+- L46: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`fuel\` not used in proof body (heuristic).
+  - `intros fuel trace s_final Hrun Hinit Hsupra.`
+- L46: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace\` not used in proof body (heuristic).
+  - `intros fuel trace s_final Hrun Hinit Hsupra.`
+- L46: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_final\` not used in proof body (heuristic).
+  - `intros fuel trace s_final Hrun Hinit Hsupra.`
+- L46: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hrun\` not used in proof body (heuristic).
+  - `intros fuel trace s_final Hrun Hinit Hsupra.`
+- L46: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hinit\` not used in proof body (heuristic).
+  - `intros fuel trace s_final Hrun Hinit Hsupra.`
+- L46: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hsupra\` not used in proof body (heuristic).
+  - `intros fuel trace s_final Hrun Hinit Hsupra.`
+- L56: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_init\` not used in proof body (heuristic).
+  - `intros s_init s_final k H.`
+- L56: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_final\` not used in proof body (heuristic).
+  - `intros s_init s_final k H.`
+- L56: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k\` not used in proof body (heuristic).
+  - `intros s_init s_final k H.`
+- L56: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`H\` not used in proof body (heuristic).
+  - `intros s_init s_final k H.`
+
+#### `coq/nofi/NoFreeInsight_Theorem.v`
+- L19: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tr\` not used in proof body (heuristic).
+  - `intros tr s0 s1 strength weak Hclean Hrun Hstrict Hcert.`
+- L19: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s0\` not used in proof body (heuristic).
+  - `intros tr s0 s1 strength weak Hclean Hrun Hstrict Hcert.`
+- L19: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros tr s0 s1 strength weak Hclean Hrun Hstrict Hcert.`
+- L19: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`strength\` not used in proof body (heuristic).
+  - `intros tr s0 s1 strength weak Hclean Hrun Hstrict Hcert.`
+- L19: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`weak\` not used in proof body (heuristic).
+  - `intros tr s0 s1 strength weak Hclean Hrun Hstrict Hcert.`
+- L19: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hclean\` not used in proof body (heuristic).
+  - `intros tr s0 s1 strength weak Hclean Hrun Hstrict Hcert.`
+- L19: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hrun\` not used in proof body (heuristic).
+  - `intros tr s0 s1 strength weak Hclean Hrun Hstrict Hcert.`
+- L19: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hstrict\` not used in proof body (heuristic).
+  - `intros tr s0 s1 strength weak Hclean Hrun Hstrict Hcert.`
+- L19: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hcert\` not used in proof body (heuristic).
+  - `intros tr s0 s1 strength weak Hclean Hrun Hstrict Hcert.`
+
+#### `coq/physics/DissipativeModel.v`
+- L36: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros l Hpos.`
+- L36: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hpos\` not used in proof body (heuristic).
+  - `intros l Hpos.`
+
+#### `coq/physics/WaveModel.v`
+- L11: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `length (map2 f l1 l2) = Nat.min (length l1) (length l2).`
+
+#### `coq/project_cerberus/coqproofs/Cerberus.v`
+- L82: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Encode safety properties of an instruction as a list of nat axioms (stub version)`
+- L96: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `This is a stub: in a real system, the encoding would be more sophisticated and would match the oracle's logic.`
+- L181: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`st\` not used in proof body (heuristic).
+  - `intros p st n Hpar.`
+- L224: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros p st n Hall k Hpc.`
+
+#### `coq/sandboxes/AbstractPartitionCHSH.v`
+- L52: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `forall strat, (Z.abs (chsh_local strat) <= 2)%Z.`
+- L344: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`ts\` not used in proof body (heuristic).
+  - `intros ts Hn.`
+- L344: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hn\` not used in proof body (heuristic).
+  - `intros ts Hn.`
+- L355: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlen\` not used in proof body (heuristic).
+  - `intros ts Hlen.`
+
+#### `coq/sandboxes/EncodingMini.v`
+- L20: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `checkbox in [docs/encoding/02-GOALS.todo.md].`
+- L67: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`c\` not used in proof body (heuristic).
+  - `intros k a c Hk Ha Hc.`
+- L67: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hk\` not used in proof body (heuristic).
+  - `intros k a c Hk Ha Hc.`
+- L67: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Ha\` not used in proof body (heuristic).
+  - `intros k a c Hk Ha Hc.`
+- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`xs\` not used in proof body (heuristic).
+  - `intros xs Hdig Hlen.`
+- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlen\` not used in proof body (heuristic).
+  - `intros xs Hdig Hlen.`
+- L121: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`len\` not used in proof body (heuristic).
+  - `intros len code Hlen Hcode.`
+- L121: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`code\` not used in proof body (heuristic).
+  - `intros len code Hlen Hcode.`
+- L121: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlen\` not used in proof body (heuristic).
+  - `intros len code Hlen Hcode.`
+- L121: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hcode\` not used in proof body (heuristic).
+  - `intros len code Hlen Hcode.`
+- L138: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`xs\` not used in proof body (heuristic).
+  - `intros xs Hdig Hlen.`
+- L138: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hdig\` not used in proof body (heuristic).
+  - `intros xs Hdig Hlen.`
+- L138: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlen\` not used in proof body (heuristic).
+  - `intros xs Hdig Hlen.`
+- L245: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`q\` not used in proof body (heuristic).
+  - `intros q head len code Hhead Hlen Hcode.`
+- L245: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`head\` not used in proof body (heuristic).
+  - `intros q head len code Hhead Hlen Hcode.`
+- L245: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`len\` not used in proof body (heuristic).
+  - `intros q head len code Hhead Hlen Hcode.`
+- L245: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`code\` not used in proof body (heuristic).
+  - `intros q head len code Hhead Hlen Hcode.`
+- L245: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hhead\` not used in proof body (heuristic).
+  - `intros q head len code Hhead Hlen Hcode.`
+- L245: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlen\` not used in proof body (heuristic).
+  - `intros q head len code Hhead Hlen Hcode.`
+- L245: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hcode\` not used in proof body (heuristic).
+  - `intros q head len code Hhead Hlen Hcode.`
+- L256: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`xs\` not used in proof body (heuristic).
+  - `intros xs Hdig Hlen.`
+- L256: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hdig\` not used in proof body (heuristic).
+  - `intros xs Hdig Hlen.`
+- L256: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlen\` not used in proof body (heuristic).
+  - `intros xs Hdig Hlen.`
+
+#### `coq/sandboxes/VerifiedGraphSolver.v`
+- L183: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `let after := Nat.max 1 (length options) in`
+
+#### `coq/self_reference/SelfReference.v`
+- L73: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`HS\` not used in proof body (heuristic).
+  - `intros S HS.`
+
+#### `coq/shor_primitives/PeriodFinding.v`
+- L169: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`r\` not used in proof body (heuristic).
+  - `intros r _ _ Hbounds.`
+- L169: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hbounds\` not used in proof body (heuristic).
+  - `intros r _ _ Hbounds.`
+
+#### `coq/thiele_manifold/PhysicalConstants.v`
+- L29: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Placeholder for a concrete decode check; supplied externally.`
+
+#### `coq/thiele_manifold/PhysicsIsomorphism.v`
+- L120: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s_vm\` not used in proof body (heuristic).
+  - `intros Hpos fuel s_vm instr Hfuel Hlookup.`
+- L120: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hfuel\` not used in proof body (heuristic).
+  - `intros Hpos fuel s_vm instr Hfuel Hlookup.`
+- L169: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hpos\` not used in proof body (heuristic).
+  - `intros Hpos Impl fuel s_hw instr Hfuel Htrace Hlookup.`
+- L169: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`instr\` not used in proof body (heuristic).
+  - `intros Hpos Impl fuel s_hw instr Hfuel Htrace Hlookup.`
+- L169: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hfuel\` not used in proof body (heuristic).
+  - `intros Hpos Impl fuel s_hw instr Hfuel Htrace Hlookup.`
+- L169: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlookup\` not used in proof body (heuristic).
+  - `intros Hpos Impl fuel s_hw instr Hfuel Htrace Hlookup.`
+
+#### `coq/thiele_manifold/ThieleManifold.v`
+- L79: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hself\` not used in proof body (heuristic).
+  - `intros M n Hself.`
+
+#### `coq/thiele_manifold/ThieleManifoldBridge.v`
+- L209: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A step decode trace s fuel Hfaith.`
+- L209: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`step\` not used in proof body (heuristic).
+  - `intros A step decode trace s fuel Hfaith.`
+- L209: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`decode\` not used in proof body (heuristic).
+  - `intros A step decode trace s fuel Hfaith.`
+- L209: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace\` not used in proof body (heuristic).
+  - `intros A step decode trace s fuel Hfaith.`
+- L268: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Impl\` not used in proof body (heuristic).
+  - `intros Impl fuel s.`
+- L268: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`fuel\` not used in proof body (heuristic).
+  - `intros Impl fuel s.`
+- L268: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros Impl fuel s.`
+
+#### `coq/thielemachine/coqproofs/AbstractLTS.v`
+- L74: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s.`
+- L173: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s l s1 s2 H1 H2.`
+- L190: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s s' i Hstep Hprog m' Hfootprint.`
+- L190: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s s' i Hstep Hprog m' Hfootprint.`
+- L190: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`i\` not used in proof body (heuristic).
+  - `intros s s' i Hstep Hprog m' Hfootprint.`
+- L190: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hprog\` not used in proof body (heuristic).
+  - `intros s s' i Hstep Hprog m' Hfootprint.`
+- L190: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m'\` not used in proof body (heuristic).
+  - `intros s s' i Hstep Hprog m' Hfootprint.`
+- L190: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hfootprint\` not used in proof body (heuristic).
+  - `intros s s' i Hstep Hprog m' Hfootprint.`
+- L211: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s l s' Hstep.`
+- L211: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s l s' Hstep.`
+- L349: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s s' Hstep Hsame.`
+- L349: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s s' Hstep Hsame.`
+- L349: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hsame\` not used in proof body (heuristic).
+  - `intros s s' Hstep Hsame.`
+- L361: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s m s' Hstep.`
+- L361: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m\` not used in proof body (heuristic).
+  - `intros s m s' Hstep.`
+- L361: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s m s' Hstep.`
+- L372: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s m s' Hstep.`
+- L372: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m\` not used in proof body (heuristic).
+  - `intros s m s' Hstep.`
+- L372: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s m s' Hstep.`
+- L383: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s m1 m2 s' Hstep.`
+- L383: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m1\` not used in proof body (heuristic).
+  - `intros s m1 m2 s' Hstep.`
+- L383: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m2\` not used in proof body (heuristic).
+  - `intros s m1 m2 s' Hstep.`
+- L383: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s m1 m2 s' Hstep.`
+- L534: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`init_p\` not used in proof body (heuristic).
+  - `intros init_p final_p tot_mu ls id Hne.`
+- L534: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`final_p\` not used in proof body (heuristic).
+  - `intros init_p final_p tot_mu ls id Hne.`
+- L534: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tot_mu\` not used in proof body (heuristic).
+  - `intros init_p final_p tot_mu ls id Hne.`
+- L534: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`id\` not used in proof body (heuristic).
+  - `intros init_p final_p tot_mu ls id Hne.`
+- L534: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hne\` not used in proof body (heuristic).
+  - `intros init_p final_p tot_mu ls id Hne.`
+- L629: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s l s' _.`
+- L639: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s s' _ Hmu.`
+- L639: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s s' _ Hmu.`
+
+#### `coq/thielemachine/coqproofs/AmortizedAnalysis.v`
+- L40: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`i\` not used in proof body (heuristic).
+  - `intros i instances' P H_structure.`
+- L40: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`instances'\` not used in proof body (heuristic).
+  - `intros i instances' P H_structure.`
+- L40: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`P\` not used in proof body (heuristic).
+  - `intros i instances' P H_structure.`
+- L40: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`H_structure\` not used in proof body (heuristic).
+  - `intros i instances' P H_structure.`
+- L124: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`small_inst\` not used in proof body (heuristic).
+  - `intros small_inst large_inst P H_size H_large_struct H_small_struct.`
+- L124: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`large_inst\` not used in proof body (heuristic).
+  - `intros small_inst large_inst P H_size H_large_struct H_small_struct.`
+- L124: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`P\` not used in proof body (heuristic).
+  - `intros small_inst large_inst P H_size H_large_struct H_small_struct.`
+- L124: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`H_size\` not used in proof body (heuristic).
+  - `intros small_inst large_inst P H_size H_large_struct H_small_struct.`
+- L124: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`H_large_struct\` not used in proof body (heuristic).
+  - `intros small_inst large_inst P H_size H_large_struct H_small_struct.`
+- L124: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`H_small_struct\` not used in proof body (heuristic).
+  - `intros small_inst large_inst P H_size H_large_struct H_small_struct.`
+- L144: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`problem_family\` not used in proof body (heuristic).
+  - `intros problem_family thiele_solver H_structure.`
+- L144: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`thiele_solver\` not used in proof body (heuristic).
+  - `intros problem_family thiele_solver H_structure.`
+- L144: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`H_structure\` not used in proof body (heuristic).
+  - `intros problem_family thiele_solver H_structure.`
+
+#### `coq/thielemachine/coqproofs/BellArtifacts.v`
+- L92: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`a\` not used in proof body (heuristic).
+  - `intros a b x y.`
+- L92: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`b\` not used in proof body (heuristic).
+  - `intros a b x y.`
+- L92: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros a b x y.`
+- L92: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`y\` not used in proof body (heuristic).
+  - `intros a b x y.`
+- L113: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros x y.`
+- L113: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`y\` not used in proof body (heuristic).
+  - `intros x y.`
+
+#### `coq/thielemachine/coqproofs/BellCheck.v`
+- L61: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`summary\` not used in proof body (heuristic).
+  - `intros summary Hwitness.`
+- L73: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`summary\` not used in proof body (heuristic).
+  - `intros summary Hwitness.`
+- L85: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`a\` not used in proof body (heuristic).
+  - `intros a b Hb.`
+- L85: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`b\` not used in proof body (heuristic).
+  - `intros a b Hb.`
+- L85: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hb\` not used in proof body (heuristic).
+  - `intros a b Hb.`
+- L94: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`a\` not used in proof body (heuristic).
+  - `intros a b Hb.`
+- L94: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`b\` not used in proof body (heuristic).
+  - `intros a b Hb.`
+- L94: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hb\` not used in proof body (heuristic).
+  - `intros a b Hb.`
+- L103: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`summary\` not used in proof body (heuristic).
+  - `intros summary H.`
+- L139: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`eps\` not used in proof body (heuristic).
+  - `intros eps B Heps Hlocal.`
+
+#### `coq/thielemachine/coqproofs/BellInequality.v`
+- L98: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`f\` not used in proof body (heuristic).
+  - `intros f g Hfg.`
+- L98: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g\` not used in proof body (heuristic).
+  - `intros f g Hfg.`
+- L195: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`f\` not used in proof body (heuristic).
+  - `intros f g Hfg.`
+- L195: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g\` not used in proof body (heuristic).
+  - `intros f g Hfg.`
+- L245: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Ha\` not used in proof body (heuristic).
+  - `intros a b c Ha Hbc.`
+- L245: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hbc\` not used in proof body (heuristic).
+  - `intros a b c Ha Hbc.`
+- L308: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`w\` not used in proof body (heuristic).
+  - `intros w F c Hwpos Hbound.`
+- L308: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`F\` not used in proof body (heuristic).
+  - `intros w F c Hwpos Hbound.`
+- L308: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`c\` not used in proof body (heuristic).
+  - `intros w F c Hwpos Hbound.`
+- L322: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`w\` not used in proof body (heuristic).
+  - `intros w F d Hwpos Hbound.`
+- L322: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`F\` not used in proof body (heuristic).
+  - `intros w F d Hwpos Hbound.`
+- L322: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`d\` not used in proof body (heuristic).
+  - `intros w F d Hwpos Hbound.`
+- L334: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`w\` not used in proof body (heuristic).
+  - `intros w F.`
+- L334: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`F\` not used in proof body (heuristic).
+  - `intros w F.`
+- L361: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros x y Heq.`
+- L361: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`y\` not used in proof body (heuristic).
+  - `intros x y Heq.`
+- L420: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`y\` not used in proof body (heuristic).
+  - `intros x y Hy Habs.`
+- L463: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`y\` not used in proof body (heuristic).
+  - `intros x y Hy Hlow Hhigh.`
+- L463: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hy\` not used in proof body (heuristic).
+  - `intros x y Hy Hlow Hhigh.`
+- L494: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`a\` not used in proof body (heuristic).
+  - `intros a b Ha Hb.`
+- L494: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`b\` not used in proof body (heuristic).
+  - `intros a b Ha Hb.`
+- L494: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Ha\` not used in proof body (heuristic).
+  - `intros a b Ha Hb.`
+- L494: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hb\` not used in proof body (heuristic).
+  - `intros a b Ha Hb.`
+- L525: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros x y.`
+- L525: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`y\` not used in proof body (heuristic).
+  - `intros x y.`
+- L561: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s.`
+- L569: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s.`
+- L588: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`B\` not used in proof body (heuristic).
+  - `intros B w Hwpos Hsum Hwitness x y.`
+- L588: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hwpos\` not used in proof body (heuristic).
+  - `intros B w Hwpos Hsum Hwitness x y.`
+- L588: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hsum\` not used in proof body (heuristic).
+  - `intros B w Hwpos Hsum Hwitness x y.`
+- L639: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hwpos\` not used in proof body (heuristic).
+  - `intros B w Hwpos Hsum Hwitness.`
+- L639: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hsum\` not used in proof body (heuristic).
+  - `intros B w Hwpos Hsum Hwitness.`
+- L639: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hwitness\` not used in proof body (heuristic).
+  - `intros B w Hwpos Hsum Hwitness.`
+- L888: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`gamma\` not used in proof body (heuristic).
+  - `intros gamma x y.`
+- L888: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros gamma x y.`
+- L888: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`y\` not used in proof body (heuristic).
+  - `intros gamma x y.`
+- L900: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`gamma\` not used in proof body (heuristic).
+  - `intros gamma x y a.`
+- L900: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros gamma x y a.`
+- L900: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`y\` not used in proof body (heuristic).
+  - `intros gamma x y a.`
+- L910: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`gamma\` not used in proof body (heuristic).
+  - `intros gamma x y b.`
+- L910: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros gamma x y b.`
+- L910: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`y\` not used in proof body (heuristic).
+  - `intros gamma x y b.`
+- L921: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`gamma\` not used in proof body (heuristic).
+  - `intros gamma x y.`
+- L921: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros gamma x y.`
+- L921: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`y\` not used in proof body (heuristic).
+  - `intros gamma x y.`
+- L934: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`gamma\` not used in proof body (heuristic).
+  - `intros gamma x y1 y2 a.`
+- L934: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros gamma x y1 y2 a.`
+- L934: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`y1\` not used in proof body (heuristic).
+  - `intros gamma x y1 y2 a.`
+- L934: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`y2\` not used in proof body (heuristic).
+  - `intros gamma x y1 y2 a.`
+- L934: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`a\` not used in proof body (heuristic).
+  - `intros gamma x y1 y2 a.`
+- L945: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`gamma\` not used in proof body (heuristic).
+  - `intros gamma y x1 x2 b.`
+- L945: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`y\` not used in proof body (heuristic).
+  - `intros gamma y x1 x2 b.`
+- L945: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x1\` not used in proof body (heuristic).
+  - `intros gamma y x1 x2 b.`
+- L945: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x2\` not used in proof body (heuristic).
+  - `intros gamma y x1 x2 b.`
+- L945: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`b\` not used in proof body (heuristic).
+  - `intros gamma y x1 x2 b.`
+- L963: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros x y.`
+- L963: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`y\` not used in proof body (heuristic).
+  - `intros x y.`
+- L1119: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros x y1 y2 a.`
+- L1119: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`y1\` not used in proof body (heuristic).
+  - `intros x y1 y2 a.`
+- L1119: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`y2\` not used in proof body (heuristic).
+  - `intros x y1 y2 a.`
+- L1119: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`a\` not used in proof body (heuristic).
+  - `intros x y1 y2 a.`
+- L1139: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`y\` not used in proof body (heuristic).
+  - `intros y x1 x2 b.`
+- L1139: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x1\` not used in proof body (heuristic).
+  - `intros y x1 x2 b.`
+- L1139: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x2\` not used in proof body (heuristic).
+  - `intros y x1 x2 b.`
+- L1139: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`b\` not used in proof body (heuristic).
+  - `intros y x1 x2 b.`
+- L1323: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s frame Hpre Hvalid.`
+- L1323: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`frame\` not used in proof body (heuristic).
+  - `intros s frame Hpre Hvalid.`
+- L1323: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hpre\` not used in proof body (heuristic).
+  - `intros s frame Hpre Hvalid.`
+- L1323: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hvalid\` not used in proof body (heuristic).
+  - `intros s frame Hpre Hvalid.`
+- L1358: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`b\` not used in proof body (heuristic).
+  - `intros b query reply metadata seq.`
+- L1358: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`query\` not used in proof body (heuristic).
+  - `intros b query reply metadata seq.`
+- L1358: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`reply\` not used in proof body (heuristic).
+  - `intros b query reply metadata seq.`
+- L1358: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`metadata\` not used in proof body (heuristic).
+  - `intros b query reply metadata seq.`
+- L1358: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`seq\` not used in proof body (heuristic).
+  - `intros b query reply metadata seq.`
+- L1372: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`b\` not used in proof body (heuristic).
+  - `intros b query reply metadata timestamp.`
+- L1372: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`query\` not used in proof body (heuristic).
+  - `intros b query reply metadata timestamp.`
+- L1372: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`reply\` not used in proof body (heuristic).
+  - `intros b query reply metadata timestamp.`
+- L1372: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`metadata\` not used in proof body (heuristic).
+  - `intros b query reply metadata timestamp.`
+- L1372: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`timestamp\` not used in proof body (heuristic).
+  - `intros b query reply metadata timestamp.`
+- L2132: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`B\` not used in proof body (heuristic).
+  - `intros B trial.`
+- L2132: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trial\` not used in proof body (heuristic).
+  - `intros B trial.`
+- L2148: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`B\` not used in proof body (heuristic).
+  - `intros B t1 t2.`
+- L2148: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`t2\` not used in proof body (heuristic).
+  - `intros B t1 t2.`
+- L2212: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`B\` not used in proof body (heuristic).
+  - `intros B t1 t2.`
+- L2212: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`t2\` not used in proof body (heuristic).
+  - `intros B t1 t2.`
+- L2224: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`B\` not used in proof body (heuristic).
+  - `intros B trial.`
+- L2224: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trial\` not used in proof body (heuristic).
+  - `intros B trial.`
+- L2381: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l1\` not used in proof body (heuristic).
+  - `intros l1 l2.`
+- L2381: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l2\` not used in proof body (heuristic).
+  - `intros l1 l2.`
+- L2423: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `firstn (Nat.min (Nat.sub m 2) 2) tsirelson_measurement_frames.`
+- L2460: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A x k q.`
+- L2460: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros A x k q.`
+- L2460: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`q\` not used in proof body (heuristic).
+  - `intros A x k q.`
+- L2471: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A l1 l2 n Hlen.`
+- L2471: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l1\` not used in proof body (heuristic).
+  - `intros A l1 l2 n Hlen.`
+- L2471: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l2\` not used in proof body (heuristic).
+  - `intros A l1 l2 n Hlen.`
+- L2471: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros A l1 l2 n Hlen.`
+- L2480: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `firstn k (List.repeat x n) = List.repeat x (Nat.min k n).`
+- L2481: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A x k.`
+- L2481: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros A x k.`
+- L2507: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A alice bob n.`
+- L2507: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`alice\` not used in proof body (heuristic).
+  - `intros A alice bob n.`
+- L2507: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`bob\` not used in proof body (heuristic).
+  - `intros A alice bob n.`
+- L2528: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `Nat.min (Nat.succ a) (Nat.succ b) = Nat.succ (Nat.min a b).`
+- L2529: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`a\` not used in proof body (heuristic).
+  - `intros a b.`
+- L2529: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`b\` not used in proof body (heuristic).
+  - `intros a b.`
+- L2539: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `List.repeat (alice, bob) (Nat.min (Nat.div2 m) n).`
+- L2540: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A alice bob n.`
+- L2553: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `:: List.repeat (alice, bob) (Nat.min (Nat.div2 m) n)) with`
+- L2555: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `(Nat.succ (Nat.min (Nat.div2 m) n))).`
+- L2565: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A alice bob n k.`
+- L2565: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`alice\` not used in proof body (heuristic).
+  - `intros A alice bob n k.`
+- L2565: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`bob\` not used in proof body (heuristic).
+  - `intros A alice bob n k.`
+- L2583: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros n.`
+- L2594: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `List.repeat tsirelson_measurement_pair (Nat.min k n).`
+- L2595: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros n k.`
+- L2595: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k\` not used in proof body (heuristic).
+  - `intros n k.`
+- L2607: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `List.repeat tsirelson_measurement_pair (Nat.min (Nat.div2 m) n).`
+- L2608: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros n m.`
+- L2608: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m\` not used in proof body (heuristic).
+  - `intros n m.`
+- L2629: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`interp\` not used in proof body (heuristic).
+  - `intros interp frames k.`
+- L2654: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`interp\` not used in proof body (heuristic).
+  - `intros interp.`
+- L2665: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`interp\` not used in proof body (heuristic).
+  - `intros interp.`
+- L2844: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros n.`
+- L2856: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros n.`
+- L2870: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `(List.repeat tsirelson_measurement_pair (Nat.min k n)).`
+- L2871: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros n k.`
+- L2871: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k\` not used in proof body (heuristic).
+  - `intros n k.`
+- L2884: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `(List.repeat tsirelson_measurement_pair (Nat.min (Nat.div2 m) n)).`
+- L2885: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros n m.`
+- L2885: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m\` not used in proof body (heuristic).
+  - `intros n m.`
+- L2901: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros n.`
+- L2922: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `set (m := Nat.min k n).`
+- L2947: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `set (r := Nat.min (Nat.div2 m) n).`
+- L2970: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `set (k := Nat.min (Nat.sub m 2) 2).`
+
+#### `coq/thielemachine/coqproofs/BellReceiptLocalGeneral.v`
+- L81: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros ts rA rB x y a b Hlocal Hneq.`
+- L81: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`y\` not used in proof body (heuristic).
+  - `intros ts rA rB x y a b Hlocal Hneq.`
+- L81: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`a\` not used in proof body (heuristic).
+  - `intros ts rA rB x y a b Hlocal Hneq.`
+- L81: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`b\` not used in proof body (heuristic).
+  - `intros ts rA rB x y a b Hlocal Hneq.`
+- L170: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hcov\` not used in proof body (heuristic).
+  - `intros ts rA rB x y Hlocal Hcov.`
+- L186: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlocal\` not used in proof body (heuristic).
+  - `intros ts rA rB x y a b Hlocal Hcov Hneq.`
+- L186: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hcov\` not used in proof body (heuristic).
+  - `intros ts rA rB x y a b Hlocal Hcov Hneq.`
+- L186: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hneq\` not used in proof body (heuristic).
+  - `intros ts rA rB x y a b Hlocal Hcov Hneq.`
+
+#### `coq/thielemachine/coqproofs/BellReceiptSoundness.v`
+- L83: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros instr s.`
+- L165: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros instr s t Ht.`
+- L165: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`t\` not used in proof body (heuristic).
+  - `intros instr s t Ht.`
+
+#### `coq/thielemachine/coqproofs/BlindSighted.v`
+- L63: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `Definition shor_n_bits (N : nat) : nat := Nat.log2 (Nat.max 1 N) + 1.`
+
+#### `coq/thielemachine/coqproofs/CompositionPrimitive.v`
+- L44: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`p\` not used in proof body (heuristic).
+  - `intros p.`
+- L84: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`new_m\` not used in proof body (heuristic).
+  - `intros p target_id old_m new_m HIn HId Hequiv HUnique.`
+
+#### `coq/thielemachine/coqproofs/Confluence.v`
+- L26: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros s c1 s1 c2 s2 Hstep1 Hstep2 Hindep Hok1 Hok2.`
+- L26: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s2\` not used in proof body (heuristic).
+  - `intros s c1 s1 c2 s2 Hstep1 Hstep2 Hindep Hok1 Hok2.`
+- L26: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hindep\` not used in proof body (heuristic).
+  - `intros s c1 s1 c2 s2 Hstep1 Hstep2 Hindep Hok1 Hok2.`
+- L26: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hok1\` not used in proof body (heuristic).
+  - `intros s c1 s1 c2 s2 Hstep1 Hstep2 Hindep Hok1 Hok2.`
+- L26: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hok2\` not used in proof body (heuristic).
+  - `intros s c1 s1 c2 s2 Hstep1 Hstep2 Hindep Hok1 Hok2.`
+
+#### `coq/thielemachine/coqproofs/DiscoveryProof.v`
+- L67: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `* Eigenvalue decomposition (executable placeholder).`
+- L75: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `* Provable complexity bound for the concrete placeholder.`
+- L81: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`M\` not used in proof body (heuristic).
+  - `intros n M.`
+- L175: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`a\` not used in proof body (heuristic).
+  - `intros a start len Hnin.`
+- L175: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`start\` not used in proof body (heuristic).
+  - `intros a start len Hnin.`
+- L175: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`len\` not used in proof body (heuristic).
+  - `intros a start len Hnin.`
+- L190: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros l start len.`
+- L216: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlen\` not used in proof body (heuristic).
+  - `intros l start len x Hlen Hrc Hin.`
+- L286: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros l s m.`
+- L341: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros n k max_iters.`
+- L341: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k\` not used in proof body (heuristic).
+  - `intros n k max_iters.`
+- L381: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros n e iterations.`
+- L381: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`e\` not used in proof body (heuristic).
+  - `intros n e iterations.`
+- L432: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hn\` not used in proof body (heuristic).
+  - `intros n Hn.`
+- L518: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros n labels k Hlen Hk Hlabels.`
+- L518: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`labels\` not used in proof body (heuristic).
+  - `intros n labels k Hlen Hk Hlabels.`
+- L518: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k\` not used in proof body (heuristic).
+  - `intros n labels k Hlen Hk Hlabels.`
+- L518: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlen\` not used in proof body (heuristic).
+  - `intros n labels k Hlen Hk Hlabels.`
+- L518: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hk\` not used in proof body (heuristic).
+  - `intros n labels k Hlen Hk Hlabels.`
+- L518: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlabels\` not used in proof body (heuristic).
+  - `intros n labels k Hlen Hk Hlabels.`
+- L541: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros n.`
+- L552: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hn\` not used in proof body (heuristic).
+  - `intros prob Hn.`
+- L572: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`prob\` not used in proof body (heuristic).
+  - `intros prob p.`
+- L572: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`p\` not used in proof body (heuristic).
+  - `intros prob p.`
+- L586: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`prob\` not used in proof body (heuristic).
+  - `intros prob.`
+- L616: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hkn\` not used in proof body (heuristic).
+  - `intros n k Hk Hn Hkn module_size sighted_cost blind_cost.`
+
+#### `coq/thielemachine/coqproofs/EfficientDiscovery.v`
+- L75: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `simple nonnegative placeholder`
+- L107: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`prob\` not used in proof body (heuristic).
+  - `intros prob.`
+- L128: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`prob\` not used in proof body (heuristic).
+  - `intros prob Hpos candidate.`
+- L128: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hpos\` not used in proof body (heuristic).
+  - `intros prob Hpos candidate.`
+- L146: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`prob\` not used in proof body (heuristic).
+  - `intros prob Hz.`
+- L167: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`prob\` not used in proof body (heuristic).
+  - `intros prob candidate.`
+- L167: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`candidate\` not used in proof body (heuristic).
+  - `intros prob candidate.`
+- L284: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`prob\` not used in proof body (heuristic).
+  - `intros prob m.`
+- L284: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m\` not used in proof body (heuristic).
+  - `intros prob m.`
+
+#### `coq/thielemachine/coqproofs/HardwareBridge.v`
+- L135: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s s' obs Hstep.`
+- L135: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`obs\` not used in proof body (heuristic).
+  - `intros s s' obs Hstep.`
+- L145: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`prog\` not used in proof body (heuristic).
+  - `intros prog idx word Hnth.`
+- L145: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`idx\` not used in proof body (heuristic).
+  - `intros prog idx word Hnth.`
+- L145: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`word\` not used in proof body (heuristic).
+  - `intros prog idx word Hnth.`
+
+#### `coq/thielemachine/coqproofs/HyperThiele.v`
+- L4: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `HyperThiele.v - placeholder & safe baseline`
+- L44: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Placeholder: no hyper/computational claims here. This module exists`
+
+#### `coq/thielemachine/coqproofs/HyperThiele_Halting.v`
+- L66: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`e\` not used in proof body (heuristic).
+  - `intros e partition.`
+- L66: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`partition\` not used in proof body (heuristic).
+  - `intros e partition.`
+
+#### `coq/thielemachine/coqproofs/Impossibility.v`
+- L41: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`arch\` not used in proof body (heuristic).
+  - `intros arch lam.`
+- L41: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`lam\` not used in proof body (heuristic).
+  - `intros arch lam.`
+- L55: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`arch\` not used in proof body (heuristic).
+  - `intros arch.`
+
+#### `coq/thielemachine/coqproofs/InfoTheory.v`
+- L264: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hn_pos\` not used in proof body (heuristic).
+  - `intros n query_bytes Hn_pos Hbytes_pos.`
+- L264: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hbytes_pos\` not used in proof body (heuristic).
+  - `intros n query_bytes Hn_pos Hbytes_pos.`
+
+#### `coq/thielemachine/coqproofs/ListHelpers.v`
+- L32: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `repeat (alice, bob) (Nat.min (Nat.div2 m) n).`
+- L46: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `:: repeat (alice, bob) (Nat.min (Nat.div2 m) n)) with`
+- L48: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `(Nat.succ (Nat.min (Nat.div2 m) n))).`
+- L69: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`alice\` not used in proof body (heuristic).
+  - `intros alice bob n k.`
+- L69: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`bob\` not used in proof body (heuristic).
+  - `intros alice bob n k.`
+- L87: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l1\` not used in proof body (heuristic).
+  - `intros l1 l2 n Hlen.`
+- L87: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l2\` not used in proof body (heuristic).
+  - `intros l1 l2 n Hlen.`
+- L87: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros l1 l2 n Hlen.`
+- L107: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`p\` not used in proof body (heuristic).
+  - `intros p l1 l2 n Hlen.`
+- L107: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l1\` not used in proof body (heuristic).
+  - `intros p l1 l2 n Hlen.`
+- L107: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l2\` not used in proof body (heuristic).
+  - `intros p l1 l2 n Hlen.`
+- L107: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros p l1 l2 n Hlen.`
+
+#### `coq/thielemachine/coqproofs/LogicIsomorphism.v`
+- L67: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`proof\` not used in proof body (heuristic).
+  - `intros proof prop fuel vars Hvalid.`
+- L67: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`prop\` not used in proof body (heuristic).
+  - `intros proof prop fuel vars Hvalid.`
+- L67: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`fuel\` not used in proof body (heuristic).
+  - `intros proof prop fuel vars Hvalid.`
+- L67: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`vars\` not used in proof body (heuristic).
+  - `intros proof prop fuel vars Hvalid.`
+- L104: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`p1\` not used in proof body (heuristic).
+  - `intros p1 p2 fuel vars.`
+- L104: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`p2\` not used in proof body (heuristic).
+  - `intros p1 p2 fuel vars.`
+- L104: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`fuel\` not used in proof body (heuristic).
+  - `intros p1 p2 fuel vars.`
+- L104: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`vars\` not used in proof body (heuristic).
+  - `intros p1 p2 fuel vars.`
+
+#### `coq/thielemachine/coqproofs/MuAlu.v`
+- L140: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `Z.to_nat ((frac_part / 256) mod 256).`
+- L140: **Z_TO_NAT_BOUNDARY** — Z.to_nat used without nearby nonnegativity guard (potential boundary clamp).
+  - `Z.to_nat ((frac_part / 256) mod 256).`
+
+#### `coq/thielemachine/coqproofs/NUSD.v`
+- L11: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A l x.`
+- L11: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros A l x.`
+- L21: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A l.`
+
+#### `coq/thielemachine/coqproofs/Oracle.v`
+- L190: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`prog\` not used in proof body (heuristic).
+  - `intros prog partition.`
+- L190: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`partition\` not used in proof body (heuristic).
+  - `intros prog partition.`
+- L237: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`st\` not used in proof body (heuristic).
+  - `intros st act.`
+- L251: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`st\` not used in proof body (heuristic).
+  - `intros st act.`
+- L262: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`st\` not used in proof body (heuristic).
+  - `intros st act.`
+- L314: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`st\` not used in proof body (heuristic).
+  - `intros st actions.`
+- L314: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`actions\` not used in proof body (heuristic).
+  - `intros st actions.`
+- L363: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`receipt\` not used in proof body (heuristic).
+  - `intros receipt s0 tr Hexec Hmu.`
+- L418: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`actions\` not used in proof body (heuristic).
+  - `intros st actions Hbound.`
+- L432: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`st\` not used in proof body (heuristic).
+  - `intros st actions Hmu.`
+- L432: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`actions\` not used in proof body (heuristic).
+  - `intros st actions Hmu.`
+- L491: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`st\` not used in proof body (heuristic).
+  - `intros st actions Hnat.`
+- L491: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`actions\` not used in proof body (heuristic).
+  - `intros st actions Hnat.`
+
+#### `coq/thielemachine/coqproofs/OracleImpossibility.v`
+- L208: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Placeholder`
+
+#### `coq/thielemachine/coqproofs/PartitionDiscoveryIsomorphism.v`
+- L205: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g\` not used in proof body (heuristic).
+  - `intros g.`
+- L225: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g\` not used in proof body (heuristic).
+  - `intros g result Heq.`
+- L225: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`result\` not used in proof body (heuristic).
+  - `intros g result Heq.`
+
+#### `coq/thielemachine/coqproofs/PartitionLogic.v`
+- L9: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A l1 l2 H.`
+- L9: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l1\` not used in proof body (heuristic).
+  - `intros A l1 l2 H.`
+- L9: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l2\` not used in proof body (heuristic).
+  - `intros A l1 l2 H.`
+- L45: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Placeholder for polynomial time`
+- L48: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Placeholder`
+- L49: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Placeholder`
+- L50: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Placeholder`
+- L51: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Placeholder`
+- L52: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Placeholder`
+- L54: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Placeholder`
+- L60: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Placeholder`
+- L127: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`P\` not used in proof body (heuristic).
+  - `intros P local_ws global_w _ _ H_composition.`
+- L127: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`local_ws\` not used in proof body (heuristic).
+  - `intros P local_ws global_w _ _ H_composition.`
+- L173: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`P\` not used in proof body (heuristic).
+  - `intros P module_idx submodules.`
+- L173: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`module_idx\` not used in proof body (heuristic).
+  - `intros P module_idx submodules.`
+- L173: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`submodules\` not used in proof body (heuristic).
+  - `intros P module_idx submodules.`
+- L234: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s certs1 certs2 s1 s2 H_perm H_run1 H_run2.`
+- L234: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`certs1\` not used in proof body (heuristic).
+  - `intros s certs1 certs2 s1 s2 H_perm H_run1 H_run2.`
+- L234: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`certs2\` not used in proof body (heuristic).
+  - `intros s certs1 certs2 s1 s2 H_perm H_run1 H_run2.`
+- L234: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros s certs1 certs2 s1 s2 H_perm H_run1 H_run2.`
+- L234: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s2\` not used in proof body (heuristic).
+  - `intros s certs1 certs2 s1 s2 H_perm H_run1 H_run2.`
+- L280: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Placeholder: assume the bound holds`
+- L300: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`P\` not used in proof body (heuristic).
+  - `intros I P H_same_partition.`
+- L300: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`H_same_partition\` not used in proof body (heuristic).
+  - `intros I P H_same_partition.`
+
+#### `coq/thielemachine/coqproofs/PhaseThree.v`
+- L26: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`a\` not used in proof body (heuristic).
+  - `intros a b Hb.`
+- L26: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`b\` not used in proof body (heuristic).
+  - `intros a b Hb.`
+- L26: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hb\` not used in proof body (heuristic).
+  - `intros a b Hb.`
+
+#### `coq/thielemachine/coqproofs/PhysicsEmbedding.v`
+- L165: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`fuel\` not used in proof body (heuristic).
+  - `intros fuel s.`
+- L165: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros fuel s.`
+- L178: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Impl\` not used in proof body (heuristic).
+  - `intros Impl fuel s Htrace.`
+- L178: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`fuel\` not used in proof body (heuristic).
+  - `intros Impl fuel s Htrace.`
+- L178: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros Impl fuel s Htrace.`
+- L178: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Htrace\` not used in proof body (heuristic).
+  - `intros Impl fuel s Htrace.`
+
+#### `coq/thielemachine/coqproofs/QHelpers.v`
+- L19: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`z\` not used in proof body (heuristic).
+  - `intros x y z Hxy Hxz.`
+- L28: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`z\` not used in proof body (heuristic).
+  - `intros x y z Hxy Hxz.`
+
+#### `coq/thielemachine/coqproofs/QuantumAdmissibilityDeliverableB.v`
+- L34: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`B\` not used in proof body (heuristic).
+  - `intros B Hadm.`
+- L87: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hgt\` not used in proof body (heuristic).
+  - `intros B Hgt Hadm.`
+
+#### `coq/thielemachine/coqproofs/QuantumTheorems.v`
+- L146: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`p\` not used in proof body (heuristic).
+  - `intros p m1 m2 r1 r2 H1 H2 _ Horder Heq.`
+- L146: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m1\` not used in proof body (heuristic).
+  - `intros p m1 m2 r1 r2 H1 H2 _ Horder Heq.`
+- L146: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m2\` not used in proof body (heuristic).
+  - `intros p m1 m2 r1 r2 H1 H2 _ Horder Heq.`
+- L146: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`r1\` not used in proof body (heuristic).
+  - `intros p m1 m2 r1 r2 H1 H2 _ Horder Heq.`
+- L146: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`r2\` not used in proof body (heuristic).
+  - `intros p m1 m2 r1 r2 H1 H2 _ Horder Heq.`
+- L206: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hother\` not used in proof body (heuristic).
+  - `intros p m_target m_other r_target r_other Htarget Hother Hneq.`
+- L286: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros s1 s2.`
+- L286: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s2\` not used in proof body (heuristic).
+  - `intros s1 s2.`
+
+#### `coq/thielemachine/coqproofs/RepresentationTheorem.v`
+- L38: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Placeholder for future development - requires figuring out how to`
+- L133: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s.`
+- L177: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s l s1 s2 H1 H2.`
+- L195: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s s' i Hstep Hnth m' Hfoot.`
+- L195: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`i\` not used in proof body (heuristic).
+  - `intros s s' i Hstep Hnth m' Hfoot.`
+- L195: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hstep\` not used in proof body (heuristic).
+  - `intros s s' i Hstep Hnth m' Hfoot.`
+- L195: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m'\` not used in proof body (heuristic).
+  - `intros s s' i Hstep Hnth m' Hfoot.`
+- L195: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hfoot\` not used in proof body (heuristic).
+  - `intros s s' i Hstep Hnth m' Hfoot.`
+- L208: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s l s' Hstep.`
+- L208: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s l s' Hstep.`
+- L301: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s s' Hstep Hsame.`
+- L301: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s s' Hstep Hsame.`
+- L301: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hsame\` not used in proof body (heuristic).
+  - `intros s s' Hstep Hsame.`
+- L308: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s m s' Hstep.`
+- L308: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m\` not used in proof body (heuristic).
+  - `intros s m s' Hstep.`
+- L308: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s m s' Hstep.`
+- L317: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s m s' Hstep.`
+- L317: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m\` not used in proof body (heuristic).
+  - `intros s m s' Hstep.`
+- L317: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s m s' Hstep.`
+- L326: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s m1 m2 s' Hstep.`
+- L326: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m1\` not used in proof body (heuristic).
+  - `intros s m1 m2 s' Hstep.`
+- L326: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m2\` not used in proof body (heuristic).
+  - `intros s m1 m2 s' Hstep.`
+- L326: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s m1 m2 s' Hstep.`
+- L450: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`init_p\` not used in proof body (heuristic).
+  - `intros init_p final_p tot_mu ls hc Hne.`
+- L450: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`final_p\` not used in proof body (heuristic).
+  - `intros init_p final_p tot_mu ls hc Hne.`
+- L450: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tot_mu\` not used in proof body (heuristic).
+  - `intros init_p final_p tot_mu ls hc Hne.`
+- L450: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`hc\` not used in proof body (heuristic).
+  - `intros init_p final_p tot_mu ls hc Hne.`
+- L450: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hne\` not used in proof body (heuristic).
+  - `intros init_p final_p tot_mu ls hc Hne.`
+- L526: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s l s' W Hstep _.`
+- L526: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`W\` not used in proof body (heuristic).
+  - `intros s l s' W Hstep _.`
+- L526: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hstep\` not used in proof body (heuristic).
+  - `intros s l s' W Hstep _.`
+- L535: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s s' _ Hmu.`
+- L535: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s s' _ Hmu.`
+- L640: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hpart\` not used in proof body (heuristic).
+  - `intros s1 s2 Hpart Hmu Hpc Hhalt Hres Hprog.`
+- L640: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hmu\` not used in proof body (heuristic).
+  - `intros s1 s2 Hpart Hmu Hpc Hhalt Hres Hprog.`
+- L640: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hpc\` not used in proof body (heuristic).
+  - `intros s1 s2 Hpart Hmu Hpc Hhalt Hres Hprog.`
+- L640: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hhalt\` not used in proof body (heuristic).
+  - `intros s1 s2 Hpart Hmu Hpc Hhalt Hres Hprog.`
+- L640: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hres\` not used in proof body (heuristic).
+  - `intros s1 s2 Hpart Hmu Hpc Hhalt Hres Hprog.`
+- L640: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hprog\` not used in proof body (heuristic).
+  - `intros s1 s2 Hpart Hmu Hpc Hhalt Hres Hprog.`
+- L656: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros s1 s2 Hneq.`
+- L656: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s2\` not used in proof body (heuristic).
+  - `intros s1 s2 Hneq.`
+- L656: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hneq\` not used in proof body (heuristic).
+  - `intros s1 s2 Hneq.`
+
+#### `coq/thielemachine/coqproofs/SemanticBridge.v`
+- L83: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s s' s''.`
+- L83: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s s' s''.`
+- L83: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s''\` not used in proof body (heuristic).
+  - `intros s s' s''.`
+- L106: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s.`
+
+#### `coq/thielemachine/coqproofs/Separation.v`
+- L35: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `{| exp_graph := {| vertex_count := Nat.max 3 n; degree := 3 |};`
+
+#### `coq/thielemachine/coqproofs/Simulation.v`
+- L43: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm conf Hconf.`
+- L43: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`conf\` not used in proof body (heuristic).
+  - `intros tm conf Hconf.`
+- L43: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hconf\` not used in proof body (heuristic).
+  - `intros tm conf Hconf.`
+- L65: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Universal program placeholder`
+- L92: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm conf n Hall k Hk.`
+- L92: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`conf\` not used in proof body (heuristic).
+  - `intros tm conf n Hall k Hk.`
+- L92: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hk\` not used in proof body (heuristic).
+  - `intros tm conf n Hall k Hk.`
+- L106: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`p\` not used in proof body (heuristic).
+  - `intros tm p conf n Hall.`
+- L132: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm conf n Hall _.`
+- L132: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`conf\` not used in proof body (heuristic).
+  - `intros tm conf n Hall _.`
+- L132: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros tm conf n Hall _.`
+- L132: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hall\` not used in proof body (heuristic).
+  - `intros tm conf n Hall _.`
+
+#### `coq/thielemachine/coqproofs/Simulation_legacy.v`
+- L93: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm conf Hconf.`
+- L93: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`conf\` not used in proof body (heuristic).
+  - `intros tm conf Hconf.`
+- L93: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hconf\` not used in proof body (heuristic).
+  - `intros tm conf Hconf.`
+- L2788: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `Nat.min (length ThieleUniversal.program)`
+- L3182: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `Nat.min (length ThieleUniversal.program)`
+- L7426: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`xs\` not used in proof body (heuristic).
+  - `intros xs n Hdigits.`
+- L8145: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`v\` not used in proof body (heuristic).
+  - `intros n v Hv.`
+- L8145: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hv\` not used in proof body (heuristic).
+  - `intros n v Hv.`
+- L8154: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A xs d n Hlen.`
+- L8154: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`d\` not used in proof body (heuristic).
+  - `intros A xs d n Hlen.`
+- L8166: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A xs ys n Hlen.`
+- L8181: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`xs\` not used in proof body (heuristic).
+  - `intros xs ys Hxs Hys.`
+- L8181: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`ys\` not used in proof body (heuristic).
+  - `intros xs ys Hxs Hys.`
+- L8181: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hxs\` not used in proof body (heuristic).
+  - `intros xs ys Hxs Hys.`
+- L8181: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hys\` not used in proof body (heuristic).
+  - `intros xs ys Hxs Hys.`
+- L8196: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`v\` not used in proof body (heuristic).
+  - `intros addr v st n Hle_addr Hle_len.`
+- L8292: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm cpu.`
+- L8292: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cpu\` not used in proof body (heuristic).
+  - `intros tm cpu.`
+- L8303: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `Nat.min 100`
+- L8305: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm cpu.`
+- L8305: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cpu\` not used in proof body (heuristic).
+  - `intros tm cpu.`
+- L8317: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm conf cpu Hstart.`
+- L8317: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`conf\` not used in proof body (heuristic).
+  - `intros tm conf cpu Hstart.`
+- L8317: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cpu\` not used in proof body (heuristic).
+  - `intros tm conf cpu Hstart.`
+- L8357: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm conf cpu Hstart.`
+- L8357: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`conf\` not used in proof body (heuristic).
+  - `intros tm conf cpu Hstart.`
+- L8357: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cpu\` not used in proof body (heuristic).
+  - `intros tm conf cpu Hstart.`
+- L8370: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm conf cpu Hpc Hmin.`
+- L8370: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`conf\` not used in proof body (heuristic).
+  - `intros tm conf cpu Hpc Hmin.`
+- L8370: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cpu\` not used in proof body (heuristic).
+  - `intros tm conf cpu Hpc Hmin.`
+- L8370: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hpc\` not used in proof body (heuristic).
+  - `intros tm conf cpu Hpc Hmin.`
+- L8370: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hmin\` not used in proof body (heuristic).
+  - `intros tm conf cpu Hpc Hmin.`
+- L8523: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `apply Nat.le_trans with (m := Nat.min (length tape_expected)`
+- L8844: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm cpu Hcfg.`
+- L8844: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cpu\` not used in proof body (heuristic).
+  - `intros tm cpu Hcfg.`
+- L8857: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm cpu conf Hcfg Heq.`
+- L8857: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cpu\` not used in proof body (heuristic).
+  - `intros tm cpu conf Hcfg Heq.`
+- L8857: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`conf\` not used in proof body (heuristic).
+  - `intros tm cpu conf Hcfg Heq.`
+- L8875: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `For the placeholder utm_program, we keep the identity version for now.`
+- L8886: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm conf.`
+- L8886: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`conf\` not used in proof body (heuristic).
+  - `intros tm conf.`
+- L8901: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm conf.`
+- L8901: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`conf\` not used in proof body (heuristic).
+  - `intros tm conf.`
+- L8910: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm conf.`
+- L8910: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`conf\` not used in proof body (heuristic).
+  - `intros tm conf.`
+- L8946: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`q\` not used in proof body (heuristic).
+  - `intros tm q tape head.`
+- L8946: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tape\` not used in proof body (heuristic).
+  - `intros tm q tape head.`
+- L8946: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`head\` not used in proof body (heuristic).
+  - `intros tm q tape head.`
+- L8981: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm conf Hfit.`
+- L8981: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`conf\` not used in proof body (heuristic).
+  - `intros tm conf Hfit.`
+- L8993: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm conf Hfit.`
+- L8993: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`conf\` not used in proof body (heuristic).
+  - `intros tm conf Hfit.`
+- L9003: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm conf.`
+- L9367: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm conf Hprog Hrules.`
+- L9367: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`conf\` not used in proof body (heuristic).
+  - `intros tm conf Hprog Hrules.`
+- L9367: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hprog\` not used in proof body (heuristic).
+  - `intros tm conf Hprog Hrules.`
+- L9367: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hrules\` not used in proof body (heuristic).
+  - `intros tm conf Hprog Hrules.`
+- L9378: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm conf Hrules.`
+- L9378: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`conf\` not used in proof body (heuristic).
+  - `intros tm conf Hrules.`
+- L9387: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm conf Hfit.`
+- L9387: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`conf\` not used in proof body (heuristic).
+  - `intros tm conf Hfit.`
+- L9722: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlt\` not used in proof body (heuristic).
+  - `intros tm q tape head conf Hfit Hlt.`
+- L20411: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm q tape head conf Hfit.`
+- L20411: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`q\` not used in proof body (heuristic).
+  - `intros tm q tape head conf Hfit.`
+- L20411: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tape\` not used in proof body (heuristic).
+  - `intros tm q tape head conf Hfit.`
+- L20411: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`head\` not used in proof body (heuristic).
+  - `intros tm q tape head conf Hfit.`
+- L20411: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hfit\` not used in proof body (heuristic).
+  - `intros tm q tape head conf Hfit.`
+- L20456: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`st\` not used in proof body (heuristic).
+  - `intros st n Hle j Hj.`
+- L20456: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros st n Hle j Hj.`
+- L20456: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`j\` not used in proof body (heuristic).
+  - `intros st n Hle j Hj.`
+- L20456: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hj\` not used in proof body (heuristic).
+  - `intros st n Hle j Hj.`
+- L20467: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`st\` not used in proof body (heuristic).
+  - `intros st k1 k2 Hlt Hle j Hj.`
+- L20467: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k1\` not used in proof body (heuristic).
+  - `intros st k1 k2 Hlt Hle j Hj.`
+- L20467: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k2\` not used in proof body (heuristic).
+  - `intros st k1 k2 Hlt Hle j Hj.`
+- L20467: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hle\` not used in proof body (heuristic).
+  - `intros st k1 k2 Hlt Hle j Hj.`
+- L20467: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`j\` not used in proof body (heuristic).
+  - `intros st k1 k2 Hlt Hle j Hj.`
+- L20467: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hj\` not used in proof body (heuristic).
+  - `intros st k1 k2 Hlt Hle j Hj.`
+- L20479: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`st\` not used in proof body (heuristic).
+  - `intros st k Hprefix Hpc j Hj.`
+- L20479: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k\` not used in proof body (heuristic).
+  - `intros st k Hprefix Hpc j Hj.`
+- L20493: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`st\` not used in proof body (heuristic).
+  - `intros st k1 k2 Hprefix1 Hprefix2 j Hj.`
+- L20514: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hprefix\` not used in proof body (heuristic).
+  - `intros tm conf k Hfit Hprefix.`
+- L20551: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm q tape head conf Hfit Hlt st.`
+- L20551: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`q\` not used in proof body (heuristic).
+  - `intros tm q tape head conf Hfit Hlt st.`
+- L20551: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tape\` not used in proof body (heuristic).
+  - `intros tm q tape head conf Hfit Hlt st.`
+- L20551: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`head\` not used in proof body (heuristic).
+  - `intros tm q tape head conf Hfit Hlt st.`
+- L20551: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hfit\` not used in proof body (heuristic).
+  - `intros tm q tape head conf Hfit Hlt st.`
+- L20551: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlt\` not used in proof body (heuristic).
+  - `intros tm q tape head conf Hfit Hlt st.`
+- L20699: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm conf st Hcore Hpc_lt.`
+- L20753: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hj\` not used in proof body (heuristic).
+  - `intros tm q tape head conf Hfit j Hj.`
+- L20837: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`conf\` not used in proof body (heuristic).
+  - `intros tm q tape head conf Hfit j Hj.`
+- L20837: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hj\` not used in proof body (heuristic).
+  - `intros tm q tape head conf Hfit j Hj.`
+- L20853: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm q tape head Hfit j Hj.`
+- L20853: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`q\` not used in proof body (heuristic).
+  - `intros tm q tape head Hfit j Hj.`
+- L20853: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tape\` not used in proof body (heuristic).
+  - `intros tm q tape head Hfit j Hj.`
+- L20853: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`head\` not used in proof body (heuristic).
+  - `intros tm q tape head Hfit j Hj.`
+- L20853: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hfit\` not used in proof body (heuristic).
+  - `intros tm q tape head Hfit j Hj.`
+- L20853: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`j\` not used in proof body (heuristic).
+  - `intros tm q tape head Hfit j Hj.`
+- L20853: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hj\` not used in proof body (heuristic).
+  - `intros tm q tape head Hfit j Hj.`
+- L21083: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`st\` not used in proof body (heuristic).
+  - `intros st n.`
+- L21083: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros st n.`
+- L21105: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`q'\` not used in proof body (heuristic).
+  - `intros tm conf st i q' write move Hinv Hloop Hi Hmono_q Hmono_sym Hlen Hfind.`
+- L21105: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`write\` not used in proof body (heuristic).
+  - `intros tm conf st i q' write move Hinv Hloop Hi Hmono_q Hmono_sym Hlen Hfind.`
+- L21105: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`move\` not used in proof body (heuristic).
+  - `intros tm conf st i q' write move Hinv Hloop Hi Hmono_q Hmono_sym Hlen Hfind.`
+- L21208: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hj\` not used in proof body (heuristic).
+  - `intros tm q tape head Hfit Hhead_lt j Hj.`
+- L21236: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cpu_find\` not used in proof body (heuristic).
+  - `intros cpu0 cpu_find k_apply Hrun_fetch Hfetch_prefix Hloop_prefix j Hj.`
+- L22011: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hhead_lt\` not used in proof body (heuristic).
+  - `intros tm q tape head Hfit Hhead_lt.`
+- L22332: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `This is a placeholder Prog in the ThieleMachine type system.`
+- L22350: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm p conf n Hok.`
+- L22350: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`p\` not used in proof body (heuristic).
+  - `intros tm p conf n Hok.`
+- L22373: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm conf n Hok Hfit.`
+- L22373: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`conf\` not used in proof body (heuristic).
+  - `intros tm conf n Hok Hfit.`
+- L22373: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros tm conf n Hok Hfit.`
+- L22373: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hok\` not used in proof body (heuristic).
+  - `intros tm conf n Hok Hfit.`
+- L22373: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hfit\` not used in proof body (heuristic).
+  - `intros tm conf n Hok Hfit.`
+- L22449: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm Hpres.`
+- L22467: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`q'\` not used in proof body (heuristic).
+  - `intros rules q sym q' write move Hfind.`
+- L22467: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`write\` not used in proof body (heuristic).
+  - `intros rules q sym q' write move Hfind.`
+- L22467: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`move\` not used in proof body (heuristic).
+  - `intros rules q sym q' write move Hfind.`
+- L22490: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`rules\` not used in proof body (heuristic).
+  - `intros rules P q sym q' write move Hforall Hfind.`
+- L22490: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`P\` not used in proof body (heuristic).
+  - `intros rules P q sym q' write move Hforall Hfind.`
+- L22490: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`q'\` not used in proof body (heuristic).
+  - `intros rules P q sym q' write move Hforall Hfind.`
+- L22490: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hfind\` not used in proof body (heuristic).
+  - `intros rules P q sym q' write move Hforall Hfind.`
+- L22595: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tape\` not used in proof body (heuristic).
+  - `intros tape head write Hlt.`
+- L22595: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`head\` not used in proof body (heuristic).
+  - `intros tape head write Hlt.`
+- L22595: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`write\` not used in proof body (heuristic).
+  - `intros tape head write Hlt.`
+- L22595: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlt\` not used in proof body (heuristic).
+  - `intros tape head write Hlt.`
+- L22610: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`write\` not used in proof body (heuristic).
+  - `intros tape head blank write Hle.`
+- L22610: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hle\` not used in proof body (heuristic).
+  - `intros tape head blank write Hle.`
+- L22666: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `Forall (fun rule => let '(_, _, _, _, move) := rule in (Z.abs move <= 1)%Z)`
+- L22677: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `(write < EncodingMod.BASE)%nat /\ (Z.abs move <= 1)%Z;`
+- L22689: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `let '(_, _, _, _, move) := rule in Z.leb (Z.abs move) 1%Z.`
+- L22699: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A f xs Hfor.`
+- L22699: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`f\` not used in proof body (heuristic).
+  - `intros A f xs Hfor.`
+- L22720: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `let '(_, _, _, _, move) := rule in (Z.abs move <= 1)%Z.`
+- L22757: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm Hcheck Hhead Hfit.`
+- L22757: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hcheck\` not used in proof body (heuristic).
+  - `intros tm Hcheck Hhead Hfit.`
+- L22757: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hhead\` not used in proof body (heuristic).
+  - `intros tm Hcheck Hhead Hfit.`
+- L22757: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hfit\` not used in proof body (heuristic).
+  - `intros tm Hcheck Hhead Hfit.`
+- L22811: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `(Z.abs move <= 1)%Z;`
+- L22835: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `(fun rule => let '(_, _, _, _, move0) := rule in (Z.abs move0 <= 1)%Z)`
+- L22843: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `(Z.abs move <= 1)%Z ->`
+- L22844: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `Z.to_nat (Z.max 0%Z (Z.of_nat head + move)%Z) <= S head.`
+- L22844: **Z_TO_NAT_BOUNDARY** — Z.to_nat used without nearby nonnegativity guard (potential boundary clamp).
+  - `Z.to_nat (Z.max 0%Z (Z.of_nat head + move)%Z) <= S head.`
+- L22845: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Habs\` not used in proof body (heuristic).
+  - `intros head move Habs.`
+- L22863: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `(Z.abs move <= 1)%Z) ->`
+- L22887: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `(Z.abs move <= 1)%Z) ->`
+- L22987: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`q'\` not used in proof body (heuristic).
+  - `intros q sym q' write move Hin.`
+- L24874: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hok\` not used in proof body (heuristic).
+  - `intros tm conf cpu_find Hok.`
+- L24927: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `TODO: establish that the interpreter halts immediately when the TM`
+- L25067: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `TODO: Strengthen [Hpc_loop_prefix_base] into a full`
+- L25084: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `TODO: show that the interpreter mirrors the TM’s immediate halt when`
+
+#### `coq/thielemachine/coqproofs/Spaceland.v`
+- L178: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `* Placeholder statement of a representation theorem.`
+
+#### `coq/thielemachine/coqproofs/SpacelandComplete.v`
+- L139: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`t'\` not used in proof body (heuristic).
+  - `intros s l t' Hv.`
+- L203: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`p\` not used in proof body (heuristic).
+  - `intros p mu1 mu2 t1 t2 s1 s2 Hv1 Hv2 Hi1 Hi2 Hlabels.`
+- L203: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mu1\` not used in proof body (heuristic).
+  - `intros p mu1 mu2 t1 t2 s1 s2 Hv1 Hv2 Hi1 Hi2 Hlabels.`
+- L203: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mu2\` not used in proof body (heuristic).
+  - `intros p mu1 mu2 t1 t2 s1 s2 Hv1 Hv2 Hi1 Hi2 Hlabels.`
+- L346: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k\` not used in proof body (heuristic).
+  - `intros t k Hv.`
+- L424: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros s1 s2 H.`
+- L424: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s2\` not used in proof body (heuristic).
+  - `intros s1 s2 H.`
+- L433: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros s1 s2 H.`
+- L433: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s2\` not used in proof body (heuristic).
+  - `intros s1 s2 H.`
+
+#### `coq/thielemachine/coqproofs/SpacelandCore.v`
+- L223: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s l s1 s2 H1 H2.`
+- L223: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros s l s1 s2 H1 H2.`
+- L223: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros s l s1 s2 H1 H2.`
+- L223: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s2\` not used in proof body (heuristic).
+  - `intros s l s1 s2 H1 H2.`
+- L236: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s l s' Hstep.`
+- L236: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros s l s' Hstep.`
+- L236: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s l s' Hstep.`
+- L247: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s s' Hstep Hpart.`
+- L247: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s s' Hstep Hpart.`
+- L247: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hpart\` not used in proof body (heuristic).
+  - `intros s s' Hstep Hpart.`
+
+#### `coq/thielemachine/coqproofs/SpacelandProved.v`
+- L76: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`p1\` not used in proof body (heuristic).
+  - `intros p1 p2 m1 m2 Hneq Heq.`
+- L76: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`p2\` not used in proof body (heuristic).
+  - `intros p1 p2 m1 m2 Hneq Heq.`
+- L76: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m1\` not used in proof body (heuristic).
+  - `intros p1 p2 m1 m2 Hneq Heq.`
+- L76: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m2\` not used in proof body (heuristic).
+  - `intros p1 p2 m1 m2 Hneq Heq.`
+- L76: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hneq\` not used in proof body (heuristic).
+  - `intros p1 p2 m1 m2 Hneq Heq.`
+
+#### `coq/thielemachine/coqproofs/SpecSound.v`
+- L156: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`expected_digest\` not used in proof body (heuristic).
+  - `intros s0 r expected_digest H.`
+- L164: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s0\` not used in proof body (heuristic).
+  - `intros s0 sN r Hrun.`
+- L164: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`sN\` not used in proof body (heuristic).
+  - `intros s0 sN r Hrun.`
+- L164: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`r\` not used in proof body (heuristic).
+  - `intros s0 sN r Hrun.`
+- L199: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`expected_result\` not used in proof body (heuristic).
+  - `intros c expected_result H_ok H_type.`
+- L199: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`H_type\` not used in proof body (heuristic).
+  - `intros c expected_result H_ok H_type.`
+
+#### `coq/thielemachine/coqproofs/SpectralApproximation.v`
+- L219: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros n x.`
+- L219: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros n x.`
+- L340: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros n x Hsum Hnz.`
+- L340: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros n x Hsum Hnz.`
+- L393: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `INR b / INR (Nat.min vS vT).`
+- L399: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hnonempty\` not used in proof body (heuristic).
+  - `intros n cut Hnonempty.`
+- L416: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hnonempty\` not used in proof body (heuristic).
+  - `intros n cut Hnonempty.`
+- L434: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hne\` not used in proof body (heuristic).
+  - `intros n cut Hne Hproper.`
+- L434: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hproper\` not used in proof body (heuristic).
+  - `intros n cut Hne Hproper.`
+- L447: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `assert (Hbmin : (b <= Nat.min vS vT)%nat) by (apply Nat.min_glb; assumption).`
+- L448: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `assert (Hminpos : (Nat.min vS vT > 0)%nat).`
+- L454: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `apply (Rle_trans _ (INR (Nat.min vS vT) / INR (Nat.min vS vT))).`
+- L470: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hn\` not used in proof body (heuristic).
+  - `intros n cut Hn Hne Hproper.`
+- L470: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hne\` not used in proof body (heuristic).
+  - `intros n cut Hn Hne Hproper.`
+- L470: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hproper\` not used in proof body (heuristic).
+  - `intros n cut Hn Hne Hproper.`
+- L481: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `set (m := Nat.min vS vT).`
+
+#### `coq/thielemachine/coqproofs/StructuredInstances.v`
+- L30: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros n _.`
+- L48: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros n _.`
+- L86: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros n _.`
+
+#### `coq/thielemachine/coqproofs/Subsumption.v`
+- L18: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `It intentionally avoids placeholder \`True\` definitions and does not`
+
+#### `coq/thielemachine/coqproofs/ThieleFoundations.v`
+- L162: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`f\` not used in proof body (heuristic).
+  - `intros f Hc.`
+
+#### `coq/thielemachine/coqproofs/ThieleKernelCausality.v`
+- L94: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace\` not used in proof body (heuristic).
+  - `intros s trace other Hall.`
+- L94: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`other\` not used in proof body (heuristic).
+  - `intros s trace other Hall.`
+- L116: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`region\` not used in proof body (heuristic).
+  - `intros g region axioms g' new_id other Hadd Hneq.`
+- L116: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`axioms\` not used in proof body (heuristic).
+  - `intros g region axioms g' new_id other Hadd Hneq.`
+- L116: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g'\` not used in proof body (heuristic).
+  - `intros g region axioms g' new_id other Hadd Hneq.`
+- L116: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`new_id\` not used in proof body (heuristic).
+  - `intros g region axioms g' new_id other Hadd Hneq.`
+- L116: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hneq\` not used in proof body (heuristic).
+  - `intros g region axioms g' new_id other Hadd Hneq.`
+- L157: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g'\` not used in proof body (heuristic).
+  - `intros g mid g' removed other Hrm Hneq.`
+- L157: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`other\` not used in proof body (heuristic).
+  - `intros g mid g' removed other Hrm Hneq.`
+- L157: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hneq\` not used in proof body (heuristic).
+  - `intros g mid g' removed other Hrm Hneq.`
+- L173: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g'\` not used in proof body (heuristic).
+  - `intros g region g' mid other Hpnew Hneq.`
+- L173: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid\` not used in proof body (heuristic).
+  - `intros g region g' mid other Hpnew Hneq.`
+- L173: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`other\` not used in proof body (heuristic).
+  - `intros g region g' mid other Hpnew Hneq.`
+- L173: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hneq\` not used in proof body (heuristic).
+  - `intros g region g' mid other Hpnew Hneq.`
+- L189: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g'\` not used in proof body (heuristic).
+  - `intros g mid left_region right_region g' left_id right_id other Hps Hmid Hleft Hright.`
+- L189: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hmid\` not used in proof body (heuristic).
+  - `intros g mid left_region right_region g' left_id right_id other Hps Hmid Hleft Hright.`
+- L233: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g'\` not used in proof body (heuristic).
+  - `intros g m1 m2 g' merged_id other Hpm Hm1 Hm2 Hm3.`
+
+#### `coq/thielemachine/coqproofs/ThieleMachine.v`
+- L169: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `We do not have a concrete enumeration of StepObs; this is a stub.`
+- L171: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `We do not have a concrete enumeration of State; this is a stub.`
+- L180: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Here, this is a stub to illustrate the interface.`
+- L256: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`P\` not used in proof body (heuristic).
+  - `intros P s s' obs Hstep.`
+- L256: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros P s s' obs Hstep.`
+- L256: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros P s s' obs Hstep.`
+- L256: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`obs\` not used in proof body (heuristic).
+  - `intros P s s' obs Hstep.`
+- L273: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`P\` not used in proof body (heuristic).
+  - `intros P s s' obs Hstep.`
+- L273: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros P s s' obs Hstep.`
+- L273: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros P s s' obs Hstep.`
+- L273: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`obs\` not used in proof body (heuristic).
+  - `intros P s s' obs Hstep.`
+- L284: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros P s s' oev c Hchk.`
+- L357: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tr\` not used in proof body (heuristic).
+  - `intros P s0 tr Hexec.`
+- L372: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`WF\` not used in proof body (heuristic).
+  - `intros P s0 tr WF HEX.`
+- L397: **DEFINITIONAL_INVARIANCE** — Invariance/equivariance lemma proved by reflexivity/easy (definitional).
+  - `Lemma chain_equiv :`
+- L412: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`P\` not used in proof body (heuristic).
+  - `intros P s0 tr Hexec.`
+- L412: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tr\` not used in proof body (heuristic).
+  - `intros P s0 tr Hexec.`
+
+#### `coq/thielemachine/coqproofs/ThieleMachineConcrete.v`
+- L216: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros instr s H.`
+- L231: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros instr s x y a b H.`
+- L231: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros instr s x y a b H.`
+- L231: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`y\` not used in proof body (heuristic).
+  - `intros instr s x y a b H.`
+- L231: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`a\` not used in proof body (heuristic).
+  - `intros instr s x y a b H.`
+- L231: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`b\` not used in proof body (heuristic).
+  - `intros instr s x y a b H.`
+- L249: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s.`
+- L355: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`query\` not used in proof body (heuristic).
+  - `intros query.`
+- L388: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros x y a b.`
+- L388: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`y\` not used in proof body (heuristic).
+  - `intros x y a b.`
+- L388: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`a\` not used in proof body (heuristic).
+  - `intros x y a b.`
+- L388: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`b\` not used in proof body (heuristic).
+  - `intros x y a b.`
+- L486: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`prog\` not used in proof body (heuristic).
+  - `intros prog s tr Hexec.`
+- L486: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros prog s tr Hexec.`
+- L486: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tr\` not used in proof body (heuristic).
+  - `intros prog s tr Hexec.`
+- L497: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`prog\` not used in proof body (heuristic).
+  - `intros prog s tr Hexec.`
+- L497: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tr\` not used in proof body (heuristic).
+  - `intros prog s tr Hexec.`
+- L552: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`prog\` not used in proof body (heuristic).
+  - `intros prog s tr Hexec.`
+- L552: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros prog s tr Hexec.`
+- L552: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tr\` not used in proof body (heuristic).
+  - `intros prog s tr Hexec.`
+
+#### `coq/thielemachine/coqproofs/ThieleMachineSig.v`
+- L58: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`P\` not used in proof body (heuristic).
+  - `intros P s s' obs Hstep.`
+- L58: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros P s s' obs Hstep.`
+- L58: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros P s s' obs Hstep.`
+- L72: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros P s s' obs Hstep.`
+- L84: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`P\` not used in proof body (heuristic).
+  - `intros P s s' oev c Hchk.`
+- L84: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros P s s' oev c Hchk.`
+- L84: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros P s s' oev c Hchk.`
+- L84: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`oev\` not used in proof body (heuristic).
+  - `intros P s s' oev c Hchk.`
+- L84: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`c\` not used in proof body (heuristic).
+  - `intros P s s' oev c Hchk.`
+
+#### `coq/thielemachine/coqproofs/ThieleProc.v`
+- L128: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A xs k a tl Hskip.`
+- L128: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k\` not used in proof body (heuristic).
+  - `intros A xs k a tl Hskip.`
+- L128: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tl\` not used in proof body (heuristic).
+  - `intros A xs k a tl Hskip.`
+- L128: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hskip\` not used in proof body (heuristic).
+  - `intros A xs k a tl Hskip.`
+- L158: **DEFINITIONAL_INVARIANCE** — Invariance/equivariance lemma proved by reflexivity/easy (definitional).
+  - `Lemma obs_equiv_refl : forall P, obs_equiv P P.`
+- L161: **DEFINITIONAL_INVARIANCE** — Invariance/equivariance lemma proved by reflexivity/easy (definitional).
+  - `Lemma obs_equiv_sym : forall P Q, obs_equiv P Q -> obs_equiv Q P.`
+- L164: **DEFINITIONAL_INVARIANCE** — Invariance/equivariance lemma proved by reflexivity/easy (definitional).
+  - `Lemma obs_equiv_trans : forall P Q R,`
+- L174: **DEFINITIONAL_INVARIANCE** — Invariance/equivariance lemma proved by reflexivity/easy (definitional).
+  - `Lemma obs_equiv_compose : forall P P' Q Q',`
+- L177: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`P\` not used in proof body (heuristic).
+  - `intros P P' Q Q' HP HQ.`
+- L177: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`P'\` not used in proof body (heuristic).
+  - `intros P P' Q Q' HP HQ.`
+- L177: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Q\` not used in proof body (heuristic).
+  - `intros P P' Q Q' HP HQ.`
+- L177: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Q'\` not used in proof body (heuristic).
+  - `intros P P' Q Q' HP HQ.`
+- L183: **DEFINITIONAL_INVARIANCE** — Invariance/equivariance lemma proved by reflexivity/easy (definitional).
+  - `Lemma obs_equiv_id_l : forall P,`
+- L190: **DEFINITIONAL_INVARIANCE** — Invariance/equivariance lemma proved by reflexivity/easy (definitional).
+  - `Lemma obs_equiv_id_r : forall P,`
+
+#### `coq/thielemachine/coqproofs/ThieleSpaceland.v`
+- L88: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s.`
+- L139: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s l s1 s2 H1 H2.`
+- L139: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros s l s1 s2 H1 H2.`
+- L139: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros s l s1 s2 H1 H2.`
+- L139: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s2\` not used in proof body (heuristic).
+  - `intros s l s1 s2 H1 H2.`
+- L160: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid\` not used in proof body (heuristic).
+  - `intros mods var mid new_mod new_region Hfind.`
+- L160: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`new_mod\` not used in proof body (heuristic).
+  - `intros mods var mid new_mod new_region Hfind.`
+- L160: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`new_region\` not used in proof body (heuristic).
+  - `intros mods var mid new_mod new_region Hfind.`
+- L179: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`new_mod\` not used in proof body (heuristic).
+  - `intros mods var new_mod new_region Hnone Hnot_in.`
+- L179: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`new_region\` not used in proof body (heuristic).
+  - `intros mods var new_mod new_region Hnone Hnot_in.`
+- L201: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s s' i Hstep Hnth m' Hfootprint.`
+- L201: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m'\` not used in proof body (heuristic).
+  - `intros s s' i Hstep Hnth m' Hfootprint.`
+- L379: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s s' r m' Hstep Hnth Hdup_false Hov_false Hpv_true Hin_r Hfind_none.`
+- L379: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`r\` not used in proof body (heuristic).
+  - `intros s s' r m' Hstep Hnth Hdup_false Hov_false Hpv_true Hin_r Hfind_none.`
+- L379: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m'\` not used in proof body (heuristic).
+  - `intros s s' r m' Hstep Hnth Hdup_false Hov_false Hpv_true Hin_r Hfind_none.`
+- L431: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros s l s' Hstep.`
+- L431: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s l s' Hstep.`
+- L555: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s s' Hstep Hsame.`
+- L555: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s s' Hstep Hsame.`
+- L555: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hsame\` not used in proof body (heuristic).
+  - `intros s s' Hstep Hsame.`
+- L576: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m\` not used in proof body (heuristic).
+  - `intros s m s' Hstep.`
+- L576: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s m s' Hstep.`
+- L612: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m\` not used in proof body (heuristic).
+  - `intros s m s' Hstep.`
+- L612: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s m s' Hstep.`
+- L651: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s m1 m2 s' Hstep.`
+- L651: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m1\` not used in proof body (heuristic).
+  - `intros s m1 m2 s' Hstep.`
+- L651: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m2\` not used in proof body (heuristic).
+  - `intros s m1 m2 s' Hstep.`
+- L651: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s m1 m2 s' Hstep.`
+- L651: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hstep\` not used in proof body (heuristic).
+  - `intros s m1 m2 s' Hstep.`
+- L798: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Placeholder: actual instruction not in trace`
+- L940: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`init_p\` not used in proof body (heuristic).
+  - `intros init_p final_p tot_mu ls Hne.`
+- L940: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`final_p\` not used in proof body (heuristic).
+  - `intros init_p final_p tot_mu ls Hne.`
+- L940: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tot_mu\` not used in proof body (heuristic).
+  - `intros init_p final_p tot_mu ls Hne.`
+- L940: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hne\` not used in proof body (heuristic).
+  - `intros init_p final_p tot_mu ls Hne.`
+- L1052: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `* Landauer's constant (placeholder - would be computed from physics)`
+- L1053: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Placeholder: 1 Joule per bit`
+- L1062: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s l s' _.`
+- L1073: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s s' _ Hmu.`
+- L1073: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s s' _ Hmu.`
+- L1235: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`witnesses\` not used in proof body (heuristic).
+  - `intros witnesses s1 s2 Hchain Hinit Hfinal t1 t2 Heq.`
+- L1235: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros witnesses s1 s2 Hchain Hinit Hfinal t1 t2 Heq.`
+- L1235: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s2\` not used in proof body (heuristic).
+  - `intros witnesses s1 s2 Hchain Hinit Hfinal t1 t2 Heq.`
+- L1235: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hchain\` not used in proof body (heuristic).
+  - `intros witnesses s1 s2 Hchain Hinit Hfinal t1 t2 Heq.`
+- L1235: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hinit\` not used in proof body (heuristic).
+  - `intros witnesses s1 s2 Hchain Hinit Hfinal t1 t2 Heq.`
+- L1235: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hfinal\` not used in proof body (heuristic).
+  - `intros witnesses s1 s2 Hchain Hinit Hfinal t1 t2 Heq.`
+- L1275: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`t2\` not used in proof body (heuristic).
+  - `intros r t1 t2 Hverify Ht1 Ht2.`
+
+#### `coq/thielemachine/coqproofs/ThieleUnificationIndex.v`
+- L1: **SYMMETRY_CONTRACT** — Missing symmetry equivariance lemma matching: vm_step.*equiv, trace_run.*equiv|run_vm.*equiv
+  - ``
+- L167: **DEFINITIONAL_INVARIANCE** — Invariance/equivariance lemma proved by reflexivity/easy (definitional).
+  - `Lemma obs_equiv_refl : forall s, obs_equiv s s.`
+- L171: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros s1 s2 H.`
+- L171: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s2\` not used in proof body (heuristic).
+  - `intros s1 s2 H.`
+- L178: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros s1 s2 s3 H12 H23.`
+- L178: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s2\` not used in proof body (heuristic).
+  - `intros s1 s2 s3 H12 H23.`
+- L178: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s3\` not used in proof body (heuristic).
+  - `intros s1 s2 s3 H12 H23.`
+
+#### `coq/thielemachine/coqproofs/ThieleUnificationProtocol.v`
+- L77: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`fuel\` not used in proof body (heuristic).
+  - `intros fuel trace s.`
+- L77: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace\` not used in proof body (heuristic).
+  - `intros fuel trace s.`
+- L77: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros fuel trace s.`
+- L105: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m\` not used in proof body (heuristic).
+  - `intros m n trace s.`
+- L105: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros m n trace s.`
+- L105: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`trace\` not used in proof body (heuristic).
+  - `intros m n trace s.`
+- L105: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros m n trace s.`
+- L157: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g\` not used in proof body (heuristic).
+  - `intros g mid mid' m' Hneq.`
+- L157: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid\` not used in proof body (heuristic).
+  - `intros g mid mid' m' Hneq.`
+- L157: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid'\` not used in proof body (heuristic).
+  - `intros g mid mid' m' Hneq.`
+- L157: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m'\` not used in proof body (heuristic).
+  - `intros g mid mid' m' Hneq.`
+- L169: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid'\` not used in proof body (heuristic).
+  - `intros g mid mid' ax Hneq.`
+- L169: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`ax\` not used in proof body (heuristic).
+  - `intros g mid mid' ax Hneq.`
+- L181: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid'\` not used in proof body (heuristic).
+  - `intros axs g mid mid' Hneq.`
+- L197: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s module evidence cost other Hneq.`
+- L197: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`module\` not used in proof body (heuristic).
+  - `intros s module evidence cost other Hneq.`
+- L197: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`evidence\` not used in proof body (heuristic).
+  - `intros s module evidence cost other Hneq.`
+- L197: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cost\` not used in proof body (heuristic).
+  - `intros s module evidence cost other Hneq.`
+- L197: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`other\` not used in proof body (heuristic).
+  - `intros s module evidence cost other Hneq.`
+
+#### `coq/thielemachine/coqproofs/ThieleUnificationTensor.v`
+- L22: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`ax\` not used in proof body (heuristic).
+  - `intros g mid ax.`
+- L49: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m\` not used in proof body (heuristic).
+  - `intros modules mid m.`
+- L68: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g\` not used in proof body (heuristic).
+  - `intros g mid m.`
+- L68: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid\` not used in proof body (heuristic).
+  - `intros g mid m.`
+- L68: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m\` not used in proof body (heuristic).
+  - `intros g mid m.`
+- L80: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g1\` not used in proof body (heuristic).
+  - `intros g1 g2 mid ax Hlk.`
+- L80: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`ax\` not used in proof body (heuristic).
+  - `intros g1 g2 mid ax Hlk.`
+- L100: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`mid\` not used in proof body (heuristic).
+  - `intros axs g1 g2 mid Hlk.`
+- L182: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`c1\` not used in proof body (heuristic).
+  - `intros s m1 ev1 c1 m2 ev2 c2 other Hneq.`
+- L182: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`c2\` not used in proof body (heuristic).
+  - `intros s m1 ev1 c1 m2 ev2 c2 other Hneq.`
+
+#### `coq/thielemachine/coqproofs/UTMStaticCheck.v`
+- L16: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `let '(_, _, _, _, move) := rule in Z.leb (Z.abs move) 1%Z.`
+
+#### `coq/thielemachine/coqproofs/WaveCheck.v`
+- L162: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tp1\` not used in proof body (heuristic).
+  - `intros ws u_tp1 u_t u_tm1 u_xp u_xm Hverified Hupdate.`
+- L162: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_t\` not used in proof body (heuristic).
+  - `intros ws u_tp1 u_t u_tm1 u_xp u_xm Hverified Hupdate.`
+- L162: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_tm1\` not used in proof body (heuristic).
+  - `intros ws u_tp1 u_t u_tm1 u_xp u_xm Hverified Hupdate.`
+- L162: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xp\` not used in proof body (heuristic).
+  - `intros ws u_tp1 u_t u_tm1 u_xp u_xm Hverified Hupdate.`
+- L162: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`u_xm\` not used in proof body (heuristic).
+  - `intros ws u_tp1 u_t u_tm1 u_xp u_xm Hverified Hupdate.`
+
+#### `coq/thielemachine/coqproofs/WaveEmbedding.v`
+- L155: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`fuel\` not used in proof body (heuristic).
+  - `intros fuel s.`
+- L155: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros fuel s.`
+- L168: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Impl\` not used in proof body (heuristic).
+  - `intros Impl fuel s Htrace.`
+- L168: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`fuel\` not used in proof body (heuristic).
+  - `intros Impl fuel s Htrace.`
+- L168: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros Impl fuel s Htrace.`
+- L168: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Htrace\` not used in proof body (heuristic).
+  - `intros Impl fuel s Htrace.`
+
+#### `coq/thielemachine/verification/Admissibility.v`
+- L95: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s prog Hloc Hblind.`
+- L95: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`prog\` not used in proof body (heuristic).
+  - `intros s prog Hloc Hblind.`
+- L111: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s prog Hadm.`
+- L111: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`prog\` not used in proof body (heuristic).
+  - `intros s prog Hadm.`
+- L133: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m\` not used in proof body (heuristic).
+  - `intros m cost.`
+- L133: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cost\` not used in proof body (heuristic).
+  - `intros m cost.`
+- L143: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `trace_admissible s [PDISCOVER (fst m) (Z.to_nat cost)].`
+- L143: **Z_TO_NAT_BOUNDARY** — Z.to_nat used without nearby nonnegativity guard (potential boundary clamp).
+  - `trace_admissible s [PDISCOVER (fst m) (Z.to_nat cost)].`
+- L144: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s m cost Hloc.`
+- L151: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `exists (fst m), (Z.to_nat cost).`
+- L151: **Z_TO_NAT_BOUNDARY** — Z.to_nat used without nearby nonnegativity guard (potential boundary clamp).
+  - `exists (fst m), (Z.to_nat cost).`
+
+#### `coq/thielemachine/verification/Deliverable_SignalingLowerBound.v`
+- L26: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s trace s' mid Hexec Hwf Hmid Hneq.`
+- L26: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hexec\` not used in proof body (heuristic).
+  - `intros s trace s' mid Hexec Hwf Hmid Hneq.`
+- L26: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hwf\` not used in proof body (heuristic).
+  - `intros s trace s' mid Hexec Hwf Hmid Hneq.`
+- L26: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hmid\` not used in proof body (heuristic).
+  - `intros s trace s' mid Hexec Hwf Hmid Hneq.`
+
+#### `coq/thielemachine/verification/FullIsomorphism.v`
+- L3: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `This file is intentionally a stub.`
+- L5: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `NOTE: Older draft/WIP variants previously lived under archive/ and contained`
+
+#### `coq/thielemachine/verification/ObservationInterface.v`
+- L80: **DEFINITIONAL_INVARIANCE** — Invariance/equivariance lemma proved by reflexivity/easy (definitional).
+  - `Lemma obs_equiv_refl : forall s,`
+- L96: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros s1 s2 s3 H12 H23.`
+- L96: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s2\` not used in proof body (heuristic).
+  - `intros s1 s2 s3 H12 H23.`
+- L96: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s3\` not used in proof body (heuristic).
+  - `intros s1 s2 s3 H12 H23.`
+- L110: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros s1 s2 H.`
+- L110: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s2\` not used in proof body (heuristic).
+  - `intros s1 s2 H.`
+- L127: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros s1 s2 k Hpart Hans Hmu.`
+- L127: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s2\` not used in proof body (heuristic).
+  - `intros s1 s2 k Hpart Hans Hmu.`
+- L127: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k\` not used in proof body (heuristic).
+  - `intros s1 s2 k Hpart Hans Hmu.`
+- L127: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hmu\` not used in proof body (heuristic).
+  - `intros s1 s2 k Hpart Hans Hmu.`
+- L166: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `EVENTS AND PROBABILITIES (Placeholder for Born rule)`
+- L172: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `* Probability of an event (placeholder: returns uniform measure)`
+
+#### `coq/thielemachine/verification/PhysicsPillars.v`
+- L1: **SYMMETRY_CONTRACT** — Missing symmetry equivariance lemma matching: vm_step.*equiv, trace_run.*equiv|run_vm.*equiv
+  - ``
+- L32: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s prog Hadm Hlocal.`
+- L32: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`prog\` not used in proof body (heuristic).
+  - `intros s prog Hadm Hlocal.`
+- L32: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hadm\` not used in proof body (heuristic).
+  - `intros s prog Hadm Hlocal.`
+- L54: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`e\` not used in proof body (heuristic).
+  - `intros e.`
+- L64: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `* Connection to quantum mechanics: Born rule structure (placeholder)`
+- L87: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s prog v Hadm.`
+- L87: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`prog\` not used in proof body (heuristic).
+  - `intros s prog v Hadm.`
+- L87: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`v\` not used in proof body (heuristic).
+  - `intros s prog v Hadm.`
+- L96: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s v.`
+- L96: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`v\` not used in proof body (heuristic).
+  - `intros s v.`
+- L114: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s prog n Hblind Hadm.`
+- L114: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`prog\` not used in proof body (heuristic).
+  - `intros s prog n Hblind Hadm.`
+- L114: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros s prog n Hblind Hadm.`
+- L114: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hblind\` not used in proof body (heuristic).
+  - `intros s prog n Hblind Hadm.`
+- L122: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s k.`
+- L122: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k\` not used in proof body (heuristic).
+  - `intros s k.`
+- L130: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s offset.`
+- L130: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`offset\` not used in proof body (heuristic).
+  - `intros s offset.`
+- L149: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Placeholder: needs probability measure over partition elements`
+- L155: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A f l.`
+- L168: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`obs\` not used in proof body (heuristic).
+  - `intros obs cutoff.`
+- L168: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cutoff\` not used in proof body (heuristic).
+  - `intros obs cutoff.`
+- L185: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hpart\` not used in proof body (heuristic).
+  - `intros s1 s2 Hpart Hans.`
+- L185: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hans\` not used in proof body (heuristic).
+  - `intros s1 s2 Hpart Hans.`
+- L200: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros s1 s2 Hprob Hpart Hans.`
+- L200: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s2\` not used in proof body (heuristic).
+  - `intros s1 s2 Hprob Hpart Hans.`
+- L200: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hprob\` not used in proof body (heuristic).
+  - `intros s1 s2 Hprob Hpart Hans.`
+
+#### `coq/thielemachine/verification/Prediction.v`
+- L93: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Placeholder: needs system model`
+- L95: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Placeholder: needs causal structure`
+- L188: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s m cost s' _ Hpos.`
+- L188: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m\` not used in proof body (heuristic).
+  - `intros s m cost s' _ Hpos.`
+- L188: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cost\` not used in proof body (heuristic).
+  - `intros s m cost s' _ Hpos.`
+- L188: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s'\` not used in proof body (heuristic).
+  - `intros s m cost s' _ Hpos.`
+- L188: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hpos\` not used in proof body (heuristic).
+  - `intros s m cost s' _ Hpos.`
+
+#### `coq/thielemachine/verification/PredictionNoFI.v`
+- L52: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tr\` not used in proof body (heuristic).
+  - `intros tr s0 s1 Hclean Hrun Hcert.`
+- L52: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s0\` not used in proof body (heuristic).
+  - `intros tr s0 s1 Hclean Hrun Hcert.`
+- L52: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros tr s0 s1 Hclean Hrun Hcert.`
+- L52: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hclean\` not used in proof body (heuristic).
+  - `intros tr s0 s1 Hclean Hrun Hcert.`
+- L52: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hrun\` not used in proof body (heuristic).
+  - `intros tr s0 s1 Hclean Hrun Hcert.`
+- L52: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hcert\` not used in proof body (heuristic).
+  - `intros tr s0 s1 Hclean Hrun Hcert.`
+
+#### `coq/thielemachine/verification/RandomnessNoFI.v`
+- L82: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`instr\` not used in proof body (heuristic).
+  - `intros instr Hb.`
+- L91: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s0\` not used in proof body (heuristic).
+  - `intros s0 s1 s2.`
+- L91: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s1\` not used in proof body (heuristic).
+  - `intros s0 s1 s2.`
+- L91: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s2\` not used in proof body (heuristic).
+  - `intros s0 s1 s2.`
+- L200: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`K\` not used in proof body (heuristic).
+  - `intros K trace s_init s_final fuel Hadm Hcert.`
+
+#### `coq/thielemachine/verification/Symmetry.v`
+- L1: **SYMMETRY_CONTRACT** — Missing symmetry equivariance lemma matching: vm_step.*equiv, trace_run.*equiv|run_vm.*equiv
+  - ``
+- L35: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s k.`
+- L35: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k\` not used in proof body (heuristic).
+  - `intros s k.`
+- L48: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s prog k Hadm.`
+- L48: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k\` not used in proof body (heuristic).
+  - `intros s prog k Hadm.`
+- L48: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hadm\` not used in proof body (heuristic).
+  - `intros s prog k Hadm.`
+- L69: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Placeholder: full implementation needs partition rewriting`
+- L75: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s perm.`
+- L75: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`perm\` not used in proof body (heuristic).
+  - `intros s perm.`
+- L88: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Placeholder: needs step semantics`
+- L94: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s prog n Hblind.`
+- L94: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`prog\` not used in proof body (heuristic).
+  - `intros s prog n Hblind.`
+- L94: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros s prog n Hblind.`
+- L94: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hblind\` not used in proof body (heuristic).
+  - `intros s prog n Hblind.`
+- L119: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`offset\` not used in proof body (heuristic).
+  - `intros s offset.`
+- L131: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `LORENTZ SYMMETRY (Placeholder - needs spacetime metric)`
+- L140: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Placeholder: boost is identity transformation.`
+- L148: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s prog v Hadm.`
+- L148: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`prog\` not used in proof body (heuristic).
+  - `intros s prog v Hadm.`
+- L148: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`v\` not used in proof body (heuristic).
+  - `intros s prog v Hadm.`
+- L162: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s k1 k2 H.`
+- L162: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k1\` not used in proof body (heuristic).
+  - `intros s k1 k2 H.`
+- L162: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k2\` not used in proof body (heuristic).
+  - `intros s k1 k2 H.`
+- L162: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`H\` not used in proof body (heuristic).
+  - `intros s k1 k2 H.`
+- L170: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s.`
+- L178: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s k.`
+- L178: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k\` not used in proof body (heuristic).
+  - `intros s k.`
+
+#### `coq/thielemachine/verification/ThieleUniversalBridge_Axiom_Tests.v`
+- L121: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `length (CPU.regs cpu) > Nat.max r CPU.REG_TEMP1 ->`
+- L171: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`addr_val\` not used in proof body (heuristic).
+  - `intros cpu addr_val Hlen.`
+- L171: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlen\` not used in proof body (heuristic).
+  - `intros cpu addr_val Hlen.`
+- L191: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`new_pc\` not used in proof body (heuristic).
+  - `intros cpu new_pc Hlen.`
+- L191: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlen\` not used in proof body (heuristic).
+  - `intros cpu new_pc Hlen.`
+- L203: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cpu\` not used in proof body (heuristic).
+  - `intros cpu new_pc Hlen.`
+- L203: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`new_pc\` not used in proof body (heuristic).
+  - `intros cpu new_pc Hlen.`
+- L203: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlen\` not used in proof body (heuristic).
+  - `intros cpu new_pc Hlen.`
+
+#### `coq/thielemachine/verification/modular/Bridge_BasicLemmas.v`
+- L24: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `Placeholder transition lemmas - these would need full proofs`
+- L34: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros cpu m n.`
+- L44: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cpu\` not used in proof body (heuristic).
+  - `intros cpu n.`
+- L44: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros cpu n.`
+- L76: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cpu\` not used in proof body (heuristic).
+  - `intros cpu.`
+- L85: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hr\` not used in proof body (heuristic).
+  - `intros cpu r Hr.`
+- L95: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`v\` not used in proof body (heuristic).
+  - `intros r v st Hr.`
+- L95: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`st\` not used in proof body (heuristic).
+  - `intros r v st Hr.`
+- L95: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hr\` not used in proof body (heuristic).
+  - `intros r v st Hr.`
+
+#### `coq/thielemachine/verification/modular/Bridge_BridgeCore.v`
+- L129: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros l n Hle.`
+- L129: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros l n Hle.`
+- L129: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hle\` not used in proof body (heuristic).
+  - `intros l n Hle.`
+- L138: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros l n.`
+- L138: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros l n.`
+- L147: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A l1 l2 n d Hlt.`
+- L147: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l2\` not used in proof body (heuristic).
+  - `intros A l1 l2 n d Hlt.`
+- L147: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`d\` not used in proof body (heuristic).
+  - `intros A l1 l2 n d Hlt.`
+- L156: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros l n Hle.`
+- L156: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hle\` not used in proof body (heuristic).
+  - `intros l n Hle.`
+
+#### `coq/thielemachine/verification/modular/Bridge_Invariants.v`
+- L173: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A n m l d.`
+- L173: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`d\` not used in proof body (heuristic).
+  - `intros A n m l d.`
+
+#### `coq/thielemachine/verification/modular/Bridge_LoopIterationNoMatch.v`
+- L26: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`w\` not used in proof body (heuristic).
+  - `intros rules q sym q' w m Hfind.`
+- L26: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`m\` not used in proof body (heuristic).
+  - `intros rules q sym q' w m Hfind.`
+- L107: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hpc\` not used in proof body (heuristic).
+  - `intros cpu Hpc Hlen Hdecode0 Hdecode1 Hdecode2 Hdecode3 Hdecode4 Hdecode5 cpu1 cpu2 cpu3 cpu4 cpu5 cpu6.`
+- L107: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlen\` not used in proof body (heuristic).
+  - `intros cpu Hpc Hlen Hdecode0 Hdecode1 Hdecode2 Hdecode3 Hdecode4 Hdecode5 cpu1 cpu2 cpu3 cpu4 cpu5 cpu6.`
+
+#### `coq/thielemachine/verification/modular/Bridge_ProgramEncoding.v`
+- L22: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A n l1 l2 Hn.`
+- L22: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l2\` not used in proof body (heuristic).
+  - `intros A n l1 l2 Hn.`
+- L22: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hn\` not used in proof body (heuristic).
+  - `intros A n l1 l2 Hn.`
+- L33: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A n l1 l2 Hn.`
+- L33: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l2\` not used in proof body (heuristic).
+  - `intros A n l1 l2 Hn.`
+- L33: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hn\` not used in proof body (heuristic).
+  - `intros A n l1 l2 Hn.`
+- L43: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros l n k Hk.`
+- L43: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros l n k Hk.`
+- L43: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k\` not used in proof body (heuristic).
+  - `intros l n k Hk.`
+- L43: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hk\` not used in proof body (heuristic).
+  - `intros l n k Hk.`
+- L52: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros l n rest k Hk.`
+- L52: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros l n rest k Hk.`
+- L52: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`rest\` not used in proof body (heuristic).
+  - `intros l n rest k Hk.`
+- L52: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k\` not used in proof body (heuristic).
+  - `intros l n rest k Hk.`
+- L52: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hk\` not used in proof body (heuristic).
+  - `intros l n rest k Hk.`
+- L62: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`rest\` not used in proof body (heuristic).
+  - `intros l n rest Hle.`
+- L62: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hle\` not used in proof body (heuristic).
+  - `intros l n rest Hle.`
+- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros l n rest Hle.`
+- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros l n rest Hle.`
+- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`rest\` not used in proof body (heuristic).
+  - `intros l n rest Hle.`
+- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hle\` not used in proof body (heuristic).
+  - `intros l n rest Hle.`
+- L118: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros l n k Hk.`
+- L118: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros l n k Hk.`
+- L118: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k\` not used in proof body (heuristic).
+  - `intros l n k Hk.`
+- L118: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hk\` not used in proof body (heuristic).
+  - `intros l n k Hk.`
+- L133: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hfit\` not used in proof body (heuristic).
+  - `intros Hprog rules Hfit.`
+
+#### `coq/thielemachine/verification/modular/Bridge_RegisterLemmas.v`
+- L73: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A l r r' v d Hneq Hr Hr'.`
+- L73: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`r'\` not used in proof body (heuristic).
+  - `intros A l r r' v d Hneq Hr Hr'.`
+- L73: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`d\` not used in proof body (heuristic).
+  - `intros A l r r' v d Hneq Hr Hr'.`
+- L73: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hr'\` not used in proof body (heuristic).
+  - `intros A l r r' v d Hneq Hr Hr'.`
+- L125: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`r\` not used in proof body (heuristic).
+  - `intros l r r1 r2 v1 v2 Hneq1 Hneq2 Hr Hr1 Hr2.`
+- L125: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`r2\` not used in proof body (heuristic).
+  - `intros l r r1 r2 v1 v2 Hneq1 Hneq2 Hr Hr1 Hr2.`
+- L125: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`v2\` not used in proof body (heuristic).
+  - `intros l r r1 r2 v1 v2 Hneq1 Hneq2 Hr Hr1 Hr2.`
+- L125: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hneq1\` not used in proof body (heuristic).
+  - `intros l r r1 r2 v1 v2 Hneq1 Hneq2 Hr Hr1 Hr2.`
+- L125: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hr1\` not used in proof body (heuristic).
+  - `intros l r r1 r2 v1 v2 Hneq1 Hneq2 Hr Hr1 Hr2.`
+- L156: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cpu\` not used in proof body (heuristic).
+  - `intros cpu instr Hpc_unch.`
+- L156: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`instr\` not used in proof body (heuristic).
+  - `intros cpu instr Hpc_unch.`
+- L215: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm conf cpu0 Hinv Hfetch.`
+- L215: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`conf\` not used in proof body (heuristic).
+  - `intros tm conf cpu0 Hinv Hfetch.`
+- L215: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hinv\` not used in proof body (heuristic).
+  - `intros tm conf cpu0 Hinv Hfetch.`
+- L215: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hfetch\` not used in proof body (heuristic).
+  - `intros tm conf cpu0 Hinv Hfetch.`
+- L233: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`v\` not used in proof body (heuristic).
+  - `intros cpu rd v Hneq Hrd_bound Hlen.`
+- L233: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hrd_bound\` not used in proof body (heuristic).
+  - `intros cpu rd v Hneq Hrd_bound Hlen.`
+- L264: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`rs1\` not used in proof body (heuristic).
+  - `intros cpu rd rs1 rs2 Hneq Hrd_bound Hlen.`
+- L264: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`rs2\` not used in proof body (heuristic).
+  - `intros cpu rd rs1 rs2 Hneq Hrd_bound Hlen.`
+- L264: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hrd_bound\` not used in proof body (heuristic).
+  - `intros cpu rd rs1 rs2 Hneq Hrd_bound Hlen.`
+- L319: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`ra\` not used in proof body (heuristic).
+  - `intros cpu rd ra Hneq Hrd_bound Hlen.`
+- L319: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hrd_bound\` not used in proof body (heuristic).
+  - `intros cpu rd ra Hneq Hrd_bound Hlen.`
+- L343: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`v\` not used in proof body (heuristic).
+  - `intros cpu rd v Hneq Hrd_bound Hlen.`
+- L343: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hrd_bound\` not used in proof body (heuristic).
+  - `intros cpu rd v Hneq Hrd_bound Hlen.`
+
+#### `coq/thielemachine/verification/modular/Bridge_SetupState.v`
+- L31: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros l n d k Hlt.`
+- L31: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros l n d k Hlt.`
+- L31: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`d\` not used in proof body (heuristic).
+  - `intros l n d k Hlt.`
+- L31: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`k\` not used in proof body (heuristic).
+  - `intros l n d k Hlt.`
+- L31: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlt\` not used in proof body (heuristic).
+  - `intros l n d k Hlt.`
+- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm conf pc Hbound.`
+- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`conf\` not used in proof body (heuristic).
+  - `intros tm conf pc Hbound.`
+- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`pc\` not used in proof body (heuristic).
+  - `intros tm conf pc Hbound.`
+- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hbound\` not used in proof body (heuristic).
+  - `intros tm conf pc Hbound.`
+- L123: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A l n v Hn.`
+- L123: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros A l n v Hn.`
+- L123: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros A l n v Hn.`
+- L123: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`v\` not used in proof body (heuristic).
+  - `intros A l n v Hn.`
+- L123: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hn\` not used in proof body (heuristic).
+  - `intros A l n v Hn.`
+- L135: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm conf.`
+- L172: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`q\` not used in proof body (heuristic).
+  - `intros tm q tape head Hprog Hrules.`
+- L172: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`head\` not used in proof body (heuristic).
+  - `intros tm q tape head Hprog Hrules.`
+- L172: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hrules\` not used in proof body (heuristic).
+  - `intros tm q tape head Hprog Hrules.`
+
+#### `coq/thielemachine/verification/modular/Bridge_StepLemmas.v`
+- L44: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`ra\` not used in proof body (heuristic).
+  - `intros cpu rd ra Hneq Hrd_bound Hlen.`
+- L44: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hrd_bound\` not used in proof body (heuristic).
+  - `intros cpu rd ra Hneq Hrd_bound Hlen.`
+- L69: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cpu\` not used in proof body (heuristic).
+  - `intros cpu ra rv Hlen.`
+- L69: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`ra\` not used in proof body (heuristic).
+  - `intros cpu ra rv Hlen.`
+- L69: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`rv\` not used in proof body (heuristic).
+  - `intros cpu ra rv Hlen.`
+- L69: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlen\` not used in proof body (heuristic).
+  - `intros cpu ra rv Hlen.`
+- L83: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`rs1\` not used in proof body (heuristic).
+  - `intros cpu rd rs1 rs2 Hneq Hrd_bound Hlen.`
+- L83: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`rs2\` not used in proof body (heuristic).
+  - `intros cpu rd rs1 rs2 Hneq Hrd_bound Hlen.`
+- L83: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hrd_bound\` not used in proof body (heuristic).
+  - `intros cpu rd rs1 rs2 Hneq Hrd_bound Hlen.`
+- L111: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`v\` not used in proof body (heuristic).
+  - `intros cpu rd v Hneq Hrd_bound Hlen.`
+- L111: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hrd_bound\` not used in proof body (heuristic).
+  - `intros cpu rd v Hneq Hrd_bound Hlen.`
+- L136: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cpu\` not used in proof body (heuristic).
+  - `intros cpu rs target Hzero Hlen.`
+- L136: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`rs\` not used in proof body (heuristic).
+  - `intros cpu rs target Hzero Hlen.`
+- L136: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`target\` not used in proof body (heuristic).
+  - `intros cpu rs target Hzero Hlen.`
+- L136: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlen\` not used in proof body (heuristic).
+  - `intros cpu rs target Hzero Hlen.`
+- L147: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cpu\` not used in proof body (heuristic).
+  - `intros cpu rs target Hnonzero Hlen.`
+- L147: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`rs\` not used in proof body (heuristic).
+  - `intros cpu rs target Hnonzero Hlen.`
+- L147: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`target\` not used in proof body (heuristic).
+  - `intros cpu rs target Hnonzero Hlen.`
+- L147: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlen\` not used in proof body (heuristic).
+  - `intros cpu rs target Hnonzero Hlen.`
+- L157: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cpu\` not used in proof body (heuristic).
+  - `intros cpu rs target Hnz _.`
+- L157: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`rs\` not used in proof body (heuristic).
+  - `intros cpu rs target Hnz _.`
+- L157: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`target\` not used in proof body (heuristic).
+  - `intros cpu rs target Hnz _.`
+
+#### `coq/thielemachine/verification/modular/Bridge_TransitionFetch.v`
+- L145: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cpu0\` not used in proof body (heuristic).
+  - `intros cpu0 Hlen0 cpu.`
+- L156: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cpu\` not used in proof body (heuristic).
+  - `intros cpu Hlen_cpu.`
+- L167: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlen3\` not used in proof body (heuristic).
+  - `intros cpu Hdec3 Htemp_nonzero Hlen3.`
+- L200: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlen4\` not used in proof body (heuristic).
+  - `intros cpu Hdec4 Htemp4 Hlen4.`
+
+#### `coq/thielemachine/verification/modular/Bridge_TransitionFindRuleNext.v`
+- L38: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cpu0\` not used in proof body (heuristic).
+  - `intros cpu0 Hlen0 cpu.`
+- L48: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cpu\` not used in proof body (heuristic).
+  - `intros cpu Hlen_cpu.`
+- L57: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cpu\` not used in proof body (heuristic).
+  - `intros cpu Hlen_cpu.`
+- L66: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cpu\` not used in proof body (heuristic).
+  - `intros cpu Hlen_cpu.`
+- L85: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hdec0\` not used in proof body (heuristic).
+  - `intros cpu0 Hlen0 cpu Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5 Htemp_nonzero.`
+- L85: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hdec1\` not used in proof body (heuristic).
+  - `intros cpu0 Hlen0 cpu Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5 Htemp_nonzero.`
+- L85: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hdec2\` not used in proof body (heuristic).
+  - `intros cpu0 Hlen0 cpu Hdec0 Hdec1 Hdec2 Hdec3 Hdec4 Hdec5 Htemp_nonzero.`
+- L218: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`cpu0\` not used in proof body (heuristic).
+  - `intros cpu0 cpu Hdec0 Hdec1 Hdec2 Hdec3 Htemp_zero.`
+- L218: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hdec0\` not used in proof body (heuristic).
+  - `intros cpu0 cpu Hdec0 Hdec1 Hdec2 Hdec3 Htemp_zero.`
+- L218: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hdec1\` not used in proof body (heuristic).
+  - `intros cpu0 cpu Hdec0 Hdec1 Hdec2 Hdec3 Htemp_zero.`
+- L218: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hdec2\` not used in proof body (heuristic).
+  - `intros cpu0 cpu Hdec0 Hdec1 Hdec2 Hdec3 Htemp_zero.`
+
+#### `coq/thieleuniversal/coqproofs/CPU.v`
+- L157: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`rc\` not used in proof body (heuristic).
+  - `intros rc target st Heq.`
+- L157: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`target\` not used in proof body (heuristic).
+  - `intros rc target st Heq.`
+- L157: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`st\` not used in proof body (heuristic).
+  - `intros rc target st Heq.`
+- L165: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`rc\` not used in proof body (heuristic).
+  - `intros rc target st Heq.`
+- L165: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`target\` not used in proof body (heuristic).
+  - `intros rc target st Heq.`
+- L165: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`st\` not used in proof body (heuristic).
+  - `intros rc target st Heq.`
+- L173: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`rc\` not used in proof body (heuristic).
+  - `intros rc target st Heq.`
+- L173: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`target\` not used in proof body (heuristic).
+  - `intros rc target st Heq.`
+- L173: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`st\` not used in proof body (heuristic).
+  - `intros rc target st Heq.`
+- L181: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`rc\` not used in proof body (heuristic).
+  - `intros rc target st Heq.`
+- L181: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`target\` not used in proof body (heuristic).
+  - `intros rc target st Heq.`
+- L181: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`st\` not used in proof body (heuristic).
+  - `intros rc target st Heq.`
+
+#### `coq/thieleuniversal/coqproofs/TM.v`
+- L13: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `firstn n (repeat x m) = repeat x (Init.Nat.min n m).`
+- L14: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A x n m.`
+- L14: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros A x n m.`
+- L27: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A x n m.`
+- L27: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`x\` not used in proof body (heuristic).
+  - `intros A x n m.`
+- L80: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `let h' := Z.to_nat (Z.max 0%Z (Z.of_nat head + move)) in`
+- L80: **Z_TO_NAT_BOUNDARY** — Z.to_nat used without nearby nonnegativity guard (potential boundary clamp).
+  - `let h' := Z.to_nat (Z.max 0%Z (Z.of_nat head + move)) in`
+- L93: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `let h' := Z.to_nat (Z.max 0%Z (Z.of_nat head + move)) in`
+- L93: **Z_TO_NAT_BOUNDARY** — Z.to_nat used without nearby nonnegativity guard (potential boundary clamp).
+  - `let h' := Z.to_nat (Z.max 0%Z (Z.of_nat head + move)) in`
+- L95: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm q tape head q' write move Hcontinue Hfind.`
+- L95: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`q\` not used in proof body (heuristic).
+  - `intros tm q tape head q' write move Hcontinue Hfind.`
+- L95: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tape\` not used in proof body (heuristic).
+  - `intros tm q tape head q' write move Hcontinue Hfind.`
+- L95: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`head\` not used in proof body (heuristic).
+  - `intros tm q tape head q' write move Hcontinue Hfind.`
+- L95: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`q'\` not used in proof body (heuristic).
+  - `intros tm q tape head q' write move Hcontinue Hfind.`
+- L95: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`write\` not used in proof body (heuristic).
+  - `intros tm q tape head q' write move Hcontinue Hfind.`
+- L95: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`move\` not used in proof body (heuristic).
+  - `intros tm q tape head q' write move Hcontinue Hfind.`
+- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm q tape head Hcontinue Hfind.`
+- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`q\` not used in proof body (heuristic).
+  - `intros tm q tape head Hcontinue Hfind.`
+- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tape\` not used in proof body (heuristic).
+  - `intros tm q tape head Hcontinue Hfind.`
+- L109: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`head\` not used in proof body (heuristic).
+  - `intros tm q tape head Hcontinue Hfind.`
+- L122: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm q tape head Hhalt.`
+- L122: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`q\` not used in proof body (heuristic).
+  - `intros tm q tape head Hhalt.`
+- L122: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tape\` not used in proof body (heuristic).
+  - `intros tm q tape head Hhalt.`
+- L122: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`head\` not used in proof body (heuristic).
+  - `intros tm q tape head Hhalt.`
+
+#### `coq/thieleuniversal/coqproofs/ThieleUniversal.v`
+- L78: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm conf n Hall Hfit.`
+- L78: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`conf\` not used in proof body (heuristic).
+  - `intros tm conf n Hall Hfit.`
+- L78: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros tm conf n Hall Hfit.`
+- L78: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hall\` not used in proof body (heuristic).
+  - `intros tm conf n Hall Hfit.`
+- L78: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hfit\` not used in proof body (heuristic).
+  - `intros tm conf n Hall Hfit.`
+- L114: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`tm\` not used in proof body (heuristic).
+  - `intros tm conf n Hall Hfit.`
+- L114: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`conf\` not used in proof body (heuristic).
+  - `intros tm conf n Hall Hfit.`
+- L114: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros tm conf n Hall Hfit.`
+- L114: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hall\` not used in proof body (heuristic).
+  - `intros tm conf n Hall Hfit.`
+- L114: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hfit\` not used in proof body (heuristic).
+  - `intros tm conf n Hall Hfit.`
+
+#### `coq/thieleuniversal/coqproofs/UTM_CoreLemmas.v`
+- L76: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A r.`
+- L92: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A l.`
+- L106: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A l.`
+- L185: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A l n d Hlt.`
+- L199: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`r2\` not used in proof body (heuristic).
+  - `intros l r1 r2 x d Hr1 Hr2 Hneq.`
+- L199: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`d\` not used in proof body (heuristic).
+  - `intros l r1 r2 x d Hr1 Hr2 Hneq.`
+- L199: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hr2\` not used in proof body (heuristic).
+  - `intros l r1 r2 x d Hr1 Hr2 Hneq.`
+- L199: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hneq\` not used in proof body (heuristic).
+  - `intros l r1 r2 x d Hr1 Hr2 Hneq.`
+- L215: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hneq12\` not used in proof body (heuristic).
+  - `intros l r1 r2 v1 v2 r d Hr1 Hr2 Hr Hneq12 Hr1r Hr2r.`
+- L278: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A l.`
+- L289: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A n l.`
+- L298: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A l1 l2 n.`
+- L298: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l2\` not used in proof body (heuristic).
+  - `intros A l1 l2 n.`
+- L363: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hi\` not used in proof body (heuristic).
+  - `intros rules st i offset Htable Hi Hoffset.`
+- L363: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hoffset\` not used in proof body (heuristic).
+  - `intros rules st i offset Htable Hi Hoffset.`
+- L386: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`a\` not used in proof body (heuristic).
+  - `intros a b Hlt.`
+- L386: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`b\` not used in proof body (heuristic).
+  - `intros a b Hlt.`
+- L386: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlt\` not used in proof body (heuristic).
+  - `intros a b Hlt.`
+- L396: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`st\` not used in proof body (heuristic).
+  - `intros st r v Hr.`
+- L396: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`r\` not used in proof body (heuristic).
+  - `intros st r v Hr.`
+- L396: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`v\` not used in proof body (heuristic).
+  - `intros st r v Hr.`
+- L406: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`st\` not used in proof body (heuristic).
+  - `intros st r v Hr.`
+- L406: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`r\` not used in proof body (heuristic).
+  - `intros st r v Hr.`
+- L406: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`v\` not used in proof body (heuristic).
+  - `intros st r v Hr.`
+- L418: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`st\` not used in proof body (heuristic).
+  - `intros st r1 r2 v Hr1 Hr2 Hneq.`
+- L418: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`r1\` not used in proof body (heuristic).
+  - `intros st r1 r2 v Hr1 Hr2 Hneq.`
+- L418: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`r2\` not used in proof body (heuristic).
+  - `intros st r1 r2 v Hr1 Hr2 Hneq.`
+- L418: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`v\` not used in proof body (heuristic).
+  - `intros st r1 r2 v Hr1 Hr2 Hneq.`
+- L431: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hab\` not used in proof body (heuristic).
+  - `intros st a b va vb r Hab Hra Hrb Ha Hb Hr.`
+- L467: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`st\` not used in proof body (heuristic).
+  - `intros st r Hge.`
+- L467: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`r\` not used in proof body (heuristic).
+  - `intros st r Hge.`
+- L476: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n\` not used in proof body (heuristic).
+  - `intros n l Hlen.`
+- L476: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`l\` not used in proof body (heuristic).
+  - `intros n l Hlen.`
+- L495: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A l n.`
+- L532: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`q'\` not used in proof body (heuristic).
+  - `intros rules i q sym q' w m Hfind.`
+- L567: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hi\` not used in proof body (heuristic).
+  - `intros rules i j Hi Hj.`
+
+#### `coq/thieleuniversal/coqproofs/UTM_Encode.v`
+- L31: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `Lemma decode_z_abs_le_one : forall n, (Z.abs (decode_z n) <= 1)%Z.`
+- L131: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hs\` not used in proof body (heuristic).
+  - `intros i Hs.`
+
+#### `coq/thieleuniversal/coqproofs/UTM_Program.v`
+- L76: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A n m l d Hlt.`
+- L76: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`d\` not used in proof body (heuristic).
+  - `intros A n m l d Hlt.`
+- L391: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hpc\` not used in proof body (heuristic).
+  - `intros pc Hpc.`
+
+#### `coq/thieleuniversal/coqproofs/UTM_Rules.v`
+- L44: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `Forall (fun rule => let '(_, _, _, _, move) := rule in (Z.abs move <= 1)%Z) utm_rules.`
+
+#### `docs/theory/ArchTheorem.v`
+- L119: **ZERO_CONST** — Definition is a constant zero.
+  - `Definition reliability_threshold : R := 0.90.`
+- L163: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`sig\` not used in proof body (heuristic).
+  - `intros sig H_structured.`
+- L183: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`sig\` not used in proof body (heuristic).
+  - `intros sig H_chaotic.`
+- L218: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`config\` not used in proof body (heuristic).
+  - `intros config _.`
+- L262: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`vm\` not used in proof body (heuristic).
+  - `intros vm problem sig verdict.`
+- L262: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`problem\` not used in proof body (heuristic).
+  - `intros vm problem sig verdict.`
+
+#### `docs/theory/CostIsComplexity.v`
+- L41: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`spec\` not used in proof body (heuristic).
+  - `intros p spec H.`
+- L56: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`p\` not used in proof body (heuristic).
+  - `intros p spec Hp.`
+- L56: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`spec\` not used in proof body (heuristic).
+  - `intros p spec Hp.`
+- L83: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`p\` not used in proof body (heuristic).
+  - `intros p spec Hp.`
+- L83: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`spec\` not used in proof body (heuristic).
+  - `intros p spec Hp.`
+
+#### `docs/theory/EvolutionaryForge.v`
+- L90: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s g n1 n2 H1 H2.`
+- L90: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g\` not used in proof body (heuristic).
+  - `intros s g n1 n2 H1 H2.`
+- L90: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n1\` not used in proof body (heuristic).
+  - `intros s g n1 n2 H1 H2.`
+- L90: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`n2\` not used in proof body (heuristic).
+  - `intros s g n1 n2 H1 H2.`
+- L90: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`H1\` not used in proof body (heuristic).
+  - `intros s g n1 n2 H1 H2.`
+- L90: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`H2\` not used in proof body (heuristic).
+  - `intros s g n1 n2 H1 H2.`
+- L114: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`s\` not used in proof body (heuristic).
+  - `intros s H.`
+- L132: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hcut1\` not used in proof body (heuristic).
+  - `intros s1 s2 cut H1 H2 Hcut1 Hcut2.`
+- L132: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hcut2\` not used in proof body (heuristic).
+  - `intros s1 s2 cut H1 H2 Hcut1 Hcut2.`
+- L165: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`new_prim\` not used in proof body (heuristic).
+  - `intros s pos new_prim H.`
+- L192: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`parent\` not used in proof body (heuristic).
+  - `intros parent child g _ _.`
+- L192: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`child\` not used in proof body (heuristic).
+  - `intros parent child g _ _.`
+- L192: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`g\` not used in proof body (heuristic).
+  - `intros parent child g _ _.`
+- L206: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`parent1\` not used in proof body (heuristic).
+  - `intros parent1 parent2 _ _.`
+- L206: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`parent2\` not used in proof body (heuristic).
+  - `intros parent1 parent2 _ _.`
+- L218: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`H1\` not used in proof body (heuristic).
+  - `intros s1 s2 H1 H2.`
+- L218: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`H2\` not used in proof body (heuristic).
+  - `intros s1 s2 H1 H2.`
+- L236: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`H1\` not used in proof body (heuristic).
+  - `intros s1 s2 cut H1 H2 Hcut1 Hcut2 offspring.`
+- L236: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`H2\` not used in proof body (heuristic).
+  - `intros s1 s2 cut H1 H2 Hcut1 Hcut2 offspring.`
+- L236: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hcut1\` not used in proof body (heuristic).
+  - `intros s1 s2 cut H1 H2 Hcut1 Hcut2 offspring.`
+- L236: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hcut2\` not used in proof body (heuristic).
+  - `intros s1 s2 cut H1 H2 Hcut1 Hcut2 offspring.`
+
+#### `docs/theory/GeometricSignature.v`
+- L284: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`sig\` not used in proof body (heuristic).
+  - `intros sig Hstruct Hchaos.`
+
+#### `docs/theory/NoFreeLunch.v`
+- L34: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`q\` not used in proof body (heuristic).
+  - `intros p q Hneq.`
+
+#### `docs/theory/PhysRel.v`
+- L50: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`A\` not used in proof body (heuristic).
+  - `intros A B C D T R S.`
+- L50: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`B\` not used in proof body (heuristic).
+  - `intros A B C D T R S.`
+- L50: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`C\` not used in proof body (heuristic).
+  - `intros A B C D T R S.`
+- L50: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`D\` not used in proof body (heuristic).
+  - `intros A B C D T R S.`
+- L50: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`T\` not used in proof body (heuristic).
+  - `intros A B C D T R S.`
+- L50: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`R\` not used in proof body (heuristic).
+  - `intros A B C D T R S.`
+- L50: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`S\` not used in proof body (heuristic).
+  - `intros A B C D T R S.`
+
