@@ -63,13 +63,13 @@ The formal statement shown here corresponds to \texttt{observational\_no\_signal
 
 The gauge invariance theorem mirrors Noether's theorem from physics:
 \begin{lstlisting}
-Theorem kernel_noether_mu_gauge : forall s k,
+Theorem kernel_conservation_mu_gauge : forall s k,
   conserved_partition_structure s = 
   conserved_partition_structure (nat_action k s).
 \end{lstlisting}
 
 The symmetry (freedom to shift $\mu$ by a constant) corresponds to the conserved quantity (partition structure). This is not metaphorical—it is the same mathematical relationship that underlies energy conservation in classical mechanics: a symmetry of the dynamics induces a conserved observable.
-The proof lives in \path{coq/kernel/KernelNoether.v}, where the \texttt{z\_gauge\_shift} action and its invariants are developed explicitly. This is a genuine Noether-style argument: the conservation law is derived from a symmetry of the semantics rather than assumed.
+The proof lives in \path{coq/kernel/KernelPhysics.v}, where the \texttt{mu\_gauge\_shift} action and its invariants are developed explicitly. This is a genuine Noether-style argument: the conservation law is derived from a symmetry of the semantics rather than assumed.
 
 \subsection{Thermodynamic bridge and falsifiable prediction}
 
