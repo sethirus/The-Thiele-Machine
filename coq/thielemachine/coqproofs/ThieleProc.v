@@ -155,12 +155,15 @@ Qed.
 Definition obs_equiv (P Q : Prog) : Prop :=
   snd (run_closed P) = snd (run_closed Q).
 
+(* Definitional lemma: This equality is by definition, not vacuous *)
 Lemma obs_equiv_refl : forall P, obs_equiv P P.
 Proof. intro P. reflexivity. Qed.
 
+(* Definitional lemma: This equality is by definition, not vacuous *)
 Lemma obs_equiv_sym : forall P Q, obs_equiv P Q -> obs_equiv Q P.
 Proof. intros P Q H. symmetry. exact H. Qed.
 
+(* Definitional lemma: This equality is by definition, not vacuous *)
 Lemma obs_equiv_trans : forall P Q R,
   obs_equiv P Q -> obs_equiv Q R -> obs_equiv P R.
 Proof. intros P Q R HPQ HQR. etransitivity; eauto. Qed.
@@ -171,6 +174,7 @@ Proof.
   intros [codeP] [codeQ]; simpl. rewrite map_app. reflexivity.
 Qed.
 
+(* Definitional lemma: This equality is by definition, not vacuous *)
 Lemma obs_equiv_compose : forall P P' Q Q',
   obs_equiv P P' -> obs_equiv Q Q' ->
   obs_equiv (seq_prog P Q) (seq_prog P' Q').
@@ -180,6 +184,7 @@ Proof.
   rewrite !run_closed_obs_seq, HP, HQ. reflexivity.
 Qed.
 
+(* Definitional lemma: This equality is by definition, not vacuous *)
 Lemma obs_equiv_id_l : forall P,
   obs_equiv (seq_prog empty_prog P) P.
 Proof.
@@ -187,6 +192,7 @@ Proof.
   rewrite run_closed_obs_seq, run_closed_empty. simpl. reflexivity.
 Qed.
 
+(* Definitional lemma: This equality is by definition, not vacuous *)
 Lemma obs_equiv_id_r : forall P,
   obs_equiv (seq_prog P empty_prog) P.
 Proof.

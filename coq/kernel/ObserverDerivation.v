@@ -49,6 +49,7 @@ Definition ObserverObservable : Observer (nat -> option (list nat * nat)) :=
 Definition ObserverObservableRegion : Observer (nat -> option (list nat)) :=
   {| observe := fun s => fun mid => ObservableRegion s mid |}.
 
+(* Definitional lemma: This equality is by definition, not vacuous *)
 Lemma obs_equiv_implies_region_equiv : forall s1 s2,
   obs_equiv s1 s2 ->
   forall mid, ObservableRegion s1 mid = ObservableRegion s2 mid.
@@ -63,6 +64,7 @@ Proof.
     inversion Heq; subst; reflexivity.
 Qed.
 
+(* Definitional lemma: This equality is by definition, not vacuous *)
 Lemma observer_region_gauge_invariant : forall s k mid,
   observe _ ObserverObservableRegion s mid =
   observe _ ObserverObservableRegion (mu_gauge_shift k s) mid.

@@ -3,7 +3,7 @@
     =========================================================================
     
     Defines explicit group actions on Thiele substrate and proves what
-    they preserve. This is where Noether's theorem lives: symmetries
+    they preserve. This is where conservation's theorem lives: symmetries
     correspond to conservation laws.
     
     ========================================================================= *)
@@ -17,7 +17,7 @@ Require Import ThieleMachineVerification.ObservationInterface.
 Require Import ThieleMachineVerification.Admissibility.
 
 (** =========================================================================
-    SYMMETRY 1: μ-GAUGE (Already proven - Noether example)
+    SYMMETRY 1: μ-GAUGE (Already proven - conservation example)
     ========================================================================= *)
 
 (** μ-gauge transformation: shift absolute μ by constant k *)
@@ -52,7 +52,7 @@ Proof.
   - trivial.
 Qed.
 
-(** NOETHER'S THEOREM (μ-gauge example):
+(** conservation'S THEOREM (μ-gauge example):
     Symmetry: μ ↦ μ + k
     Conserved Quantity: Δμ (observable differences)
     
@@ -196,7 +196,7 @@ Qed.
     Proven: All symmetries preserve observables and admissibility
     
     Connection to physics:
-    - μ-gauge → Δμ conservation (Noether)
+    - μ-gauge → Δμ conservation (conservation)
     - Time translation → energy conservation
     - Space translation → momentum conservation (implicit)
     - Lorentz → relativistic invariance

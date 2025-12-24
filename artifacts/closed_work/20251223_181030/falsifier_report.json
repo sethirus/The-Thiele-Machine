@@ -1,0 +1,68 @@
+{
+  "bound": {
+    "n_per_setting": 400,
+    "oracle_charge_bits": 0,
+    "seed": 1337,
+    "strategies": [
+      "tsirelson",
+      "supra_16_5",
+      "pr"
+    ]
+  },
+  "counterexamples": [],
+  "ok": true,
+  "runs_root": "artifacts/closed_work/20251223_181030/falsifier_runs/20251223_181102",
+  "samples": [
+    {
+      "chsh": "14/5",
+      "err": 0,
+      "mu_discovery": 2,
+      "mu_execution": 1604,
+      "mu_information": 0.0,
+      "mu_ledger_total": 1606,
+      "mu_legacy_total": 4.0,
+      "mu_total": 1606.0,
+      "n_per_setting": 400,
+      "oracle_charge_bits": 0,
+      "run_dir": "artifacts/closed_work/20251223_181030/falsifier_runs/20251223_181102/tsirelson",
+      "seed": 1337,
+      "steps": 1602,
+      "strategy": "tsirelson",
+      "vm_log": "artifacts/closed_work/20251223_181030/falsifier_runs/20251223_181102/tsirelson/vm_stdout.log"
+    },
+    {
+      "chsh": "16/5",
+      "err": 1,
+      "mu_discovery": 2,
+      "mu_execution": 18446744073709551615,
+      "mu_information": 0.0,
+      "mu_ledger_total": 18446744073709551617,
+      "mu_legacy_total": Infinity,
+      "mu_total": 1.8446744073709552e+19,
+      "n_per_setting": 400,
+      "oracle_charge_bits": 0,
+      "run_dir": "artifacts/closed_work/20251223_181030/falsifier_runs/20251223_181102/supra_16_5",
+      "seed": 1337,
+      "steps": 1601,
+      "strategy": "supra_16_5",
+      "vm_log": "artifacts/closed_work/20251223_181030/falsifier_runs/20251223_181102/supra_16_5/vm_stdout.log"
+    },
+    {
+      "chsh": "4",
+      "err": 1,
+      "mu_discovery": 2,
+      "mu_execution": 18446744073709551615,
+      "mu_information": 0.0,
+      "mu_ledger_total": 18446744073709551617,
+      "mu_legacy_total": Infinity,
+      "mu_total": 1.8446744073709552e+19,
+      "n_per_setting": 400,
+      "oracle_charge_bits": 0,
+      "run_dir": "artifacts/closed_work/20251223_181030/falsifier_runs/20251223_181102/pr",
+      "seed": 1337,
+      "steps": 1601,
+      "strategy": "pr",
+      "vm_log": "artifacts/closed_work/20251223_181030/falsifier_runs/20251223_181102/pr/vm_stdout.log"
+    }
+  ]
+}

@@ -15,6 +15,7 @@
 # -Q sandboxes Sandbox
 -Q shor_primitives ShorPrimitives
 -Q test_vscoq/coqproofs TestVSCoq
+-Q sandboxes Sandbox
 -R kernel Kernel
 
 # No-Free-Insight abstraction cone
@@ -74,6 +75,15 @@ kernel/LorentzNotForced.v
 kernel/TOEDecision.v
 kernel/SpacetimeEmergence.v
 kernel/ConeAlgebra.v
+kernel/KernelNoether.v
+kernel/FalsifiablePrediction.v
+kernel/PartitionSeparation.v
+kernel/KernelBenchmarks.v
+
+# Sandbox experiments (verified but exploratory)
+sandboxes/AbstractPartitionCHSH.v
+sandboxes/ToyThieleMachine.v
+sandboxes/VerifiedGraphSolver.v
 
 # Flagship confrontation theorem track (DI randomness)
 thielemachine/verification/RandomnessNoFI.v
@@ -212,6 +222,13 @@ thielemachine/coqproofs/ThieleUnificationTensor.v
 thielemachine/coqproofs/ThieleUnificationDemo.v
 thielemachine/coqproofs/ThieleProofCarryingReality.v
 thielemachine/coqproofs/ThieleKernelCausality.v
+thielemachine/coqproofs/MuAlu.v
+thielemachine/coqproofs/OracleImpossibility.v
+thielemachine/coqproofs/PartitionDiscoveryIsomorphism.v
+thielemachine/coqproofs/RepresentationTheorem.v
+thielemachine/coqproofs/SpacelandCore.v
+thielemachine/coqproofs/Spaceland_Simple.v
+thielemachine/coqproofs/WaveCheck.v
 thieleuniversal/coqproofs/ThieleUniversal.v
 
 # Reality Interface modules (observation functor, admissibility, physics)
@@ -223,6 +240,7 @@ thielemachine/verification/Prediction.v
 thielemachine/verification/PredictionNoFI.v
 thielemachine/verification/Deliverable_CHSHSeparation.v
 thielemachine/verification/Deliverable_MuEntropy.v
+thielemachine/verification/FullIsomorphism.v
 
 thiele_manifold/PhysicsIsomorphism.v
 

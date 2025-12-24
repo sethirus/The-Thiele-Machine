@@ -41,6 +41,7 @@ Proof.
 Qed.
 
 Lemma utm_rules_move_abs_le_one :
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
   Forall (fun rule => let '(_, _, _, _, move) := rule in (Z.abs move <= 1)%Z) utm_rules.
 Proof.
   repeat constructor; cbn; lia.

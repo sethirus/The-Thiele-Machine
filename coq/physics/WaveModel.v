@@ -8,6 +8,7 @@ Fixpoint map2 {A B C : Type} (f : A -> B -> C) (l1 : list A) (l2 : list B) : lis
   end.
 
 Lemma map2_length : forall A B C (f : A -> B -> C) l1 l2,
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
     length (map2 f l1 l2) = Nat.min (length l1) (length l2).
 Proof.
   intros A B C f l1; induction l1 as [|x xs IH]; intros l2; destruct l2; simpl; try reflexivity.

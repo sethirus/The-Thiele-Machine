@@ -161,7 +161,7 @@ Theorem arch_theorem_structured :
   exists (prob : R), prob > reliability_threshold /\
   classify_signature sig = STRUCTURED.
 Proof.
-  intros sig H_structured.
+  intros _ H_structured.
   exists (mean_accuracy optimal_quartet_performance).
   split.
   - rewrite reliability_threshold_value.
@@ -181,7 +181,7 @@ Theorem arch_theorem_chaotic :
   exists (prob : R), prob > reliability_threshold /\
   classify_signature sig = CHAOTIC.
 Proof.
-  intros sig H_chaotic.
+  intros _ H_chaotic.
   exists (mean_accuracy optimal_quartet_performance).
   split.
   - rewrite reliability_threshold_value.
@@ -216,7 +216,7 @@ Lemma alternative_performance_empirical :
     mean_accuracy (alternative_performance config) <=
     mean_accuracy optimal_quartet_performance.
 Proof.
-  intros config _.
+  intros _ _.
   unfold alternative_performance.
   apply Rle_refl.
 Qed.
@@ -260,7 +260,7 @@ Theorem vm_self_awareness_with_optimal_quartet :
   exists (prob : R), prob > reliability_threshold /\
   (verdict = STRUCTURED \/ verdict = CHAOTIC).
 Proof.
-  intros vm problem sig verdict.
+  intros _ _ sig verdict.
   exists (mean_accuracy optimal_quartet_performance).
   split.
   - rewrite reliability_threshold_value.

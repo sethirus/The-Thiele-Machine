@@ -48,7 +48,7 @@ Module RelCategory.
            (T : Rel C D) (R : Rel B C) (S : Rel A B),
       rel_comp T (rel_comp R S) = rel_comp (rel_comp T R) S.
   Proof.
-    intros A B C D T R S.
+    intros _ _ _ _ _ _ _.
     apply functional_extensionality_dep; intros a.
     apply functional_extensionality_dep; intros d. unfold rel_comp.
     apply iff_to_eq. split.
