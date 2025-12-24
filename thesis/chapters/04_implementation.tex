@@ -353,7 +353,7 @@ Key signals:
 
 \subsection{State Machine}
 
-The CPU uses a 10-state FSM:
+The CPU uses a 12-state FSM:
 \begin{lstlisting}
 localparam [3:0] STATE_FETCH = 4'h0;
 localparam [3:0] STATE_DECODE = 4'h1;
@@ -365,6 +365,8 @@ localparam [3:0] STATE_COMPLETE = 4'h6;
 localparam [3:0] STATE_ALU_WAIT = 4'h7;
 localparam [3:0] STATE_ALU_WAIT2 = 4'h8;
 localparam [3:0] STATE_RECEIPT_HOLD = 4'h9;
+localparam [3:0] STATE_PDISCOVER_LAUNCH2 = 4'hA;
+localparam [3:0] STATE_PDISCOVER_ARM2 = 4'hB;
 \end{lstlisting}
 
 \subsection{Instruction Encoding}
