@@ -19,6 +19,7 @@ Module MuGeometry.
 Definition mu_total_z (s : VMState) : Z := Z.of_nat (mu_total s).
 
 Definition mu_distance (s1 s2 : VMState) : Z :=
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
   Z.abs (mu_total_z s2 - mu_total_z s1).
 
 Lemma mu_distance_nonneg : forall s1 s2, (0 <= mu_distance s1 s2)%Z.

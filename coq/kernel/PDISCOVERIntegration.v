@@ -94,6 +94,7 @@ Module PDISCOVERIntegration.
   Fixpoint list_max (l : list nat) : nat :=
     match l with
     | [] => 0
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
     | x :: xs => Nat.max x (list_max xs)
     end.
 

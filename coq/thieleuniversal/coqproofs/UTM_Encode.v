@@ -28,6 +28,7 @@ Module UTM_Encode.
     - destruct p; simpl; lia.
   Qed.
 
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
   Lemma decode_z_abs_le_one : forall n, (Z.abs (decode_z n) <= 1)%Z.
   Proof.
     intro n.

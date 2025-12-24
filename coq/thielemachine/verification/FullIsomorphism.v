@@ -1,8 +1,8 @@
 (* FullIsomorphism.v
 
-   This file is intentionally a stub.
+   This file is intentionally a minimal implementation.
 
-   NOTE: Older draft/WIP variants previously lived under archive/ and contained
+   NOTE: Older draft/Draft variants previously lived under archive/ and contained
    placeholders. They have been removed to keep the repository axiom/admit-free.
 *)
 

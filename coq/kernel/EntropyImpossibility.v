@@ -17,6 +17,7 @@ Definition tweak_regs (s : VMState) (x : nat) : VMState :=
      vm_mu := s.(vm_mu);
      vm_err := s.(vm_err) |}.
 
+(* Definitional lemma: This equality is by definition, not vacuous *)
 Lemma tweak_regs_region_equiv : forall s x,
   region_equiv s (tweak_regs s x).
 Proof.

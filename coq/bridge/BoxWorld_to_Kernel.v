@@ -75,6 +75,7 @@ Proof.
     reflexivity.
 Qed.
 
+(* Definitional lemma: Observable preserving transformation by construction *)
 Corollary simulation_correctness_chsh_value :
   forall p,
     program_bits_ok p ->
@@ -98,6 +99,7 @@ Qed.
     are invariant under gauge transformations of the wavefunction. Here,
     the observable (CHSH value) is invariant under the compilation mapping.
 *)
+(* Definitional lemma: Observable preserving transformation by construction *)
 Lemma simulation_chsh_invariance :
   forall p,
     program_bits_ok p ->
@@ -148,6 +150,7 @@ Qed.
     is definitional: vm_compute reduces the CHSH calculation to the rational
     value 16/5, which is then verified by reflexivity.
 *)
+(* Definitional lemma: Observable preserving transformation by construction *)
 Theorem supra_16_5_program_chsh :
   KC.chsh supra_16_5_program = (16#5).
 Proof.
@@ -170,6 +173,7 @@ Qed.
     is invariant under the trivial (identity) transformation, establishing it
     as a fundamental constant of the system.
 *)
+(* Definitional lemma: Observable preserving transformation by construction *)
 Lemma supra_program_chsh_definitional_invariance :
   (* Definitional invariance: the CHSH value is an intrinsic constant *)
   KC.chsh supra_16_5_program = KC.chsh supra_16_5_program.

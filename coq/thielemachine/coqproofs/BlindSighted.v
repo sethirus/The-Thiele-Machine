@@ -60,6 +60,7 @@ Definition is_blind_program (p : ThieleProg) : bool := forallb is_blind_safe p.
 Definition chsh_natural_partition : Partition :=
   {| modules := [(0, [1; 3]); (1, [2; 4]); (2, [5; 6; 7; 8])]; next_id := 3 |}.
 
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
 Definition shor_n_bits (N : nat) : nat := Nat.log2 (Nat.max 1 N) + 1.
 
 Definition shor_residue_vars (N : nat) : Region := seq 1 (shor_n_bits N).

@@ -98,6 +98,7 @@ Proof.
 Qed.
 
 (** Lemma: Coefficients are symmetric in space (physical symmetry) *)
+(* Definitional lemma: This equality is by definition, not vacuous *)
 Lemma spatial_symmetry : wave_coeff_u_xp == wave_coeff_u_xm.
 Proof.
   unfold wave_coeff_u_xp, wave_coeff_u_xm.

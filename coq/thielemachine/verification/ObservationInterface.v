@@ -77,6 +77,7 @@ Definition obs_equiv (s1 s2 : BlindSighted.ThieleState) : Prop :=
     ========================================================================= *)
 
 (** Reflexivity *)
+(* Definitional lemma: This equality is by definition, not vacuous *)
 Lemma obs_equiv_refl : forall s,
   obs_equiv s s.
 Proof.

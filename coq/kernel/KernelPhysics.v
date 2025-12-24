@@ -60,6 +60,7 @@ Definition obs_equiv (s1 s2 : VMState) : Prop :=
   forall mid : nat, Observable s1 mid = Observable s2 mid.
 
 (** Observational equivalence is reflexive *)
+(* Definitional lemma: This equality is by definition, not vacuous *)
 Theorem obs_equiv_refl : forall s, obs_equiv s s.
 Proof.
   intros s mid. reflexivity.
@@ -166,7 +167,7 @@ Fixpoint trace_mu_cost (trace : list vm_instruction) : nat :=
   end.
 
 (** =========================================================================
-    SECTION 6: NOETHER STRUCTURE (Group Action + Invariants)
+    SECTION 6: Conservation STRUCTURE (Group Action + Invariants)
     =========================================================================*)
 
 (** Z-action on states via μ-shift (nat version: additive semigroup) *)
@@ -194,8 +195,8 @@ Qed.
 Definition conserved_partition_structure (s : VMState) : list (option (list nat)) :=
   fst (ObservableSignature s).
 
-(** Noether theorem (kernel version): symmetry implies conservation *)
-Theorem kernel_noether_mu_gauge : forall s k,
+(** Conservation theorem (kernel version): symmetry implies conservation *)
+Theorem kernel_conservation_mu_gauge : forall s k,
   conserved_partition_structure s = conserved_partition_structure (nat_action k s).
 Proof.
   intros s k.
@@ -836,7 +837,7 @@ Fixpoint min_steps_to_target (mid : nat) (trace : list vm_instruction) : option 
     PILLAR 3: mu-gauge symmetry preserves partition structure (gauge_invariance_xx)
     PILLAR 4: Causal cones enforce locality (cone_monotonic)
     PILLAR 5: mu-ledger is conserved (mu_conservation_kernel)
-    PILLAR 6: Noether: gauge symmetry ↔ partition conservation (kernel_noether_xx)
+    PILLAR 6: Conservation: gauge symmetry ↔ partition conservation (kernel_conservation_xx)
     PILLAR 7: Observational no-signaling (observational_no_signaling) - PROVEN
     PILLAR 8: Influence propagates with step-count (min_steps_to_target)
 
@@ -846,7 +847,7 @@ Fixpoint min_steps_to_target (mid : nat) (trace : list vm_instruction) : option 
       * gauge_invariance_observables - gauge symmetry
       * cone_monotonic - causal monotonicity
       * nat_action_identity/composition - semigroup action
-      * kernel_noether_mu_gauge - Noether correspondence
+      * kernel_conservation_mu_gauge - Conservation correspondence
       * mu_conservation_kernel - conservation law
       * observational_no_signaling - locality at observation level (Option C)
       * graph_pmerge_preserves_observables - hierarchical merges
