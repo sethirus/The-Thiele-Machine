@@ -4,7 +4,7 @@
 
 [![CI](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml/badge.svg)](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Tests](https://img.shields.io/badge/Tests-1296%20Passing-brightgreen)](tests/)
+[![Tests](https://img.shields.io/badge/Tests-1115%20Passing-brightgreen)](tests/)
 [![Coq](https://img.shields.io/badge/Coq-Inquisitor%20Verified-blue)](coq/)
 
 ---
@@ -75,7 +75,7 @@ The Thiele Machine is defined as a 5-tuple **T = (S, Π, A, R, L)**:
 | **S** | State space (registers, memory, program counter) |
 | **Π** | Partition graph—how state is decomposed into modules |
 | **A** | Axiom sets—logical constraints attached to each module |
-| **R** | Transition rules—the 17-instruction ISA |
+| **R** | Transition rules—the 18-instruction ISA |
 | **L** | Logic Engine—SMT oracle that verifies consistency |
 
 The partition graph is the key innovation. Unlike classical machines where structure is implicit (in the programmer's head), here structure is **explicit, measurable, and costly**.
@@ -88,8 +88,8 @@ This isn't just theory. The Thiele Machine is implemented at **three layers** th
 
 | Layer | Implementation | Purpose |
 |-------|----------------|---------|
-| **Coq** | 220 proof files, Inquisitor Grade B (89.1/100) | Mathematical ground truth |
-| **Python** | VM with receipts and traces (~2965 lines) | Executable reference |
+| **Coq** | 187 proof files, Inquisitor PASS (0 findings) | Mathematical ground truth |
+| **Python** | VM with receipts and traces (~3318 lines) | Executable reference |
 | **Verilog** | Synthesizable RTL (FPGA-targetable) | Physical realization |
 
 For any instruction trace τ:
@@ -98,21 +98,21 @@ For any instruction trace τ:
 S_Coq(τ) = S_Python(τ) = S_Verilog(τ)
 ```
 
-This is enforced by **1296 automated tests**. Any divergence is a critical bug.
+This is enforced by **1115 automated tests**. Any divergence is a critical bug.
 
 ---
 
-## The 17-Instruction ISA
+## The 18-Instruction ISA
 
 ```
 Structural:    PNEW, PSPLIT, PMERGE, PDISCOVER
 Logical:       LASSERT, LJOIN, MDLACC
 Compute:       XFER, XOR_LOAD, XOR_ADD, XOR_SWAP, XOR_RANK
-Certification: CHSH_TRIAL, EMIT
+Certification: CHSH_TRIAL, EMIT, REVEAL
 Control:       PYEXEC, ORACLE_HALTS, HALT
 ```
 
-The VM also supports high-level pseudo-ops (`REVEAL`, `PYTHON`) that expand to sequences of these primitives.
+The VM also supports high-level pseudo-ops (`PYTHON`) that expand to sequences of these primitives.
 
 Each instruction has a defined μ-cost. The ledger is updated atomically. μ-monotonicity is **proven as a theorem** and **enforced in hardware** (the μ-ALU has no subtract path for ledger updates).
 
@@ -187,7 +187,7 @@ The-Thiele-Machine/
 │   ├── state.py            # State, partitions, μ-ledger
 │   ├── isa.py              # 17-instruction ISA definitions
 │   └── hardware/           # Verilog RTL (synthesizable)
-├── tests/                  # 1296 tests (isomorphism enforcement)
+├── tests/                  # 1115 tests (isomorphism enforcement)
 ├── thesis/                 # Complete formal thesis (13 chapters)
 ├── scripts/                # Tooling (inquisitor.py, etc.)
 └── demo.py                 # Live demonstration

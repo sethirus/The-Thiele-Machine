@@ -592,7 +592,7 @@ Definition mu_gauge_shift (k : nat) (s : VMState) : VMState :=
 
 Partition structure is gauge-invariant:
 \begin{lstlisting}
-Theorem kernel_noether_mu_gauge : forall s k,
+Theorem kernel_conservation_mu_gauge : forall s k,
   conserved_partition_structure s = 
   conserved_partition_structure (nat_action k s).
 \end{lstlisting}
