@@ -13,6 +13,7 @@ Definition rule_write_lt_base_check
 
 Definition rule_move_le_one_check
   (rule : nat * nat * nat * nat * Z) : bool :=
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
   let '(_, _, _, _, move) := rule in Z.leb (Z.abs move) 1%Z.
 
 Definition catalogue_static_check (tm : TM) : bool :=

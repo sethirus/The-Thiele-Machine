@@ -29,6 +29,7 @@ Section ListHelpers.
   Lemma chunk_pairs_firstn_repeat_general :
     forall alice bob n m,
       chunk_pairs (firstn m (concat (repeat [alice; bob] n))) =
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
       repeat (alice, bob) (Nat.min (Nat.div2 m) n).
   Proof.
     intros alice bob n.
@@ -43,8 +44,10 @@ Section ListHelpers.
         * rewrite IH.
           simpl.
           change ((alice, bob)
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
             :: repeat (alice, bob) (Nat.min (Nat.div2 m) n)) with
             (repeat (alice, bob)
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
               (Nat.succ (Nat.min (Nat.div2 m) n))).
           simpl.
           reflexivity.

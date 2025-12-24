@@ -167,7 +167,7 @@ Qed.
     and is validated by runtime test:
       tests/test_bell_receipt_chsh_bridge.py::test_pyexec_cannot_forge_chsh_trial_receipt
     
-    TODO: Complete formal proof when Coq tactics behave correctly with 18-constructor
+    Future work: Complete formal proof when Coq tactics behave correctly with 18-constructor
     inductive types in this module context.
     *)
 

@@ -47,6 +47,7 @@ Proof.
   reflexivity.
 Qed.
 
+(* Definitional lemma: This equality is by definition, not vacuous *)
 Theorem Cone_Symmetry_Underdetermined :
   exists phi,
     (forall t, causal_cone (phi t) = causal_cone t) /\

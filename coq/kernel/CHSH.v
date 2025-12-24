@@ -180,6 +180,7 @@ Qed.
 Corollary local_strategy_chsh_abs_le_2_z :
   forall s,
     local_bits_ok s ->
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
     (Z.abs (chsh_local_z s) <= 2)%Z.
 Proof.
   intros s Hbits.

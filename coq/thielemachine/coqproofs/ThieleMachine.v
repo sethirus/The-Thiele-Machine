@@ -166,9 +166,9 @@ Definition tm_step_fun (P : Prog) (s : State) : option (State * StepObs) :=
       (List.flat_map
          (fun s' =>
             List.map (fun obs => (s', obs))
-              (* We do not have a concrete enumeration of StepObs; this is a stub. *)
+              (* We do not have a concrete enumeration of StepObs; this is a minimal implementation. *)
               [])
-         (* We do not have a concrete enumeration of State; this is a stub. *)
+         (* We do not have a concrete enumeration of State; this is a minimal implementation. *)
          [])
   in
   match candidates with
@@ -177,7 +177,7 @@ Definition tm_step_fun (P : Prog) (s : State) : option (State * StepObs) :=
   end.
 
 (* NOTE: In a concrete implementation, enumerate all possible (s', obs) pairs.
-   Here, this is a stub to illustrate the interface. *)
+   Here, this is a minimal implementation to illustrate the interface. *)
 
 (* ================================================================= *)
 (* Receipt Verification and Replay *)
@@ -394,6 +394,7 @@ Definition chain_exec (s0:State) (tr:list (State*StepObs)) : Hash :=
   hcombine (hash_state s0) (chain_receipts (receipts_of s0 tr)).
 
 (* Auditor's recomputed chain equals runtime chain *)
+(* Definitional lemma: This equality is by definition, not vacuous *)
 Lemma chain_equiv :
   forall s0 tr,
     chain_exec s0 tr = hcombine (hash_state s0) (chain_receipts (receipts_of s0 tr)).

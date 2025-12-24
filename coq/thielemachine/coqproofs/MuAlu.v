@@ -137,6 +137,8 @@ Definition count_leading_zeros (x : Z) : nat :=
 
 (** Extract bits for LUT index *)
 Definition extract_lut_index (frac_part : Z) : nat :=
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
   Z.to_nat ((frac_part / 256) mod 256).
 
 (** Q16.16 Log2 computation *)

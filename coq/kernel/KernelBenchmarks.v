@@ -34,34 +34,34 @@ Definition quadratic_time_op (input_size output_cost : nat) : Prop :=
     PROVEN COMPLEXITY BOUNDS
     =========================================================================*)
 
-(** PNEW is O(|region|) *)
+(** PNEW is O(|region_size|) - cost proportional to deduplicated region *)
 Theorem pnew_linear : forall region cost,
   cost = pnew_cost_bound region ->
-  linear_time_op (length region) cost.
+  linear_time_op (region_size region) cost.
 Proof.
   intros region cost Heq.
   exists 1. unfold pnew_cost_bound in Heq.
-  rewrite Heq. lia.
+  rewrite Heq. unfold region_size. lia.
 Qed.
 
-(** PSPLIT is O(|left| + |right|) *)
+(** PSPLIT is O(|left_size| + |right_size|) *)
 Theorem psplit_linear : forall left right cost,
   cost = psplit_cost_bound left right ->
-  linear_time_op (length left + length right) cost.
+  linear_time_op (region_size left + region_size right) cost.
 Proof.
   intros left right cost Heq.
   exists 1. unfold psplit_cost_bound in Heq.
-  rewrite Heq. lia.
+  rewrite Heq. unfold region_size. lia.
 Qed.
 
-(** PMERGE is O(|r1| + |r2|) without dedup optimization *)
+(** PMERGE is O(|r1_size| + |r2_size|) *)
 Theorem pmerge_linear_worst : forall r1 r2 cost,
   cost = pmerge_cost_bound r1 r2 ->
-  linear_time_op (length r1 + length r2) cost.
+  linear_time_op (region_size r1 + region_size r2) cost.
 Proof.
   intros r1 r2 cost Heq.
   exists 1. unfold pmerge_cost_bound in Heq.
-  rewrite Heq. lia.
+  rewrite Heq. unfold region_size. lia.
 Qed.
 
 (** =========================================================================

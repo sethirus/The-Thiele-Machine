@@ -19,7 +19,7 @@ Require Import SimulationProof.
     - consecutive_ledger_step: Each step changes μ by exactly its cost
     - mu_conservation_kernel: Complete conservation law
     
-    Used in KernelPhysics.Noether theorem (gauge symmetry ↔ conservation).
+    Used in KernelPhysics.Conservation theorem (gauge symmetry ↔ conservation).
     All proofs complete. No axioms, no admits.
     *)
 

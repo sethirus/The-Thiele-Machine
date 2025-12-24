@@ -39,7 +39,7 @@ Qed.
 Lemma produces_shape :
   forall p spec, produces p spec -> p = spec ++ [true].
 Proof.
-  intros p spec H.
+  intros p _ H.
   unfold produces, run in H.
   destruct (rev p) as [|b rest] eqn:Hr; try discriminate.
   destruct b; try discriminate.
@@ -54,7 +54,7 @@ Qed.
 Lemma produces_length :
   forall p spec, produces p spec -> length p = length spec + 1.
 Proof.
-  intros p spec Hp.
+  intros _ _ Hp.
   rewrite (produces_shape Hp).
   now rewrite app_length.
 Qed.
@@ -81,7 +81,7 @@ Lemma complexity_is_minimal :
   forall p spec,
     produces p spec -> prefix_free_complexity spec <= length p.
 Proof.
-  intros p spec Hp.
+  intros _ _ Hp.
   unfold prefix_free_complexity.
   rewrite (produces_length Hp).
   lia.

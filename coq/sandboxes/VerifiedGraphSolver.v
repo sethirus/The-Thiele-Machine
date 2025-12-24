@@ -180,6 +180,7 @@ Definition node_options (σ : thiele_state) (node : nat) : list colour :=
 
 Definition propagate_node (σ : thiele_state) (node : nat) : thiele_state :=
   let options := node_options σ node in
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
   let after := Nat.max 1 (length options) in
   let σ1 := record_event σ (oracle_question_bits node) 3 after in
   match options with

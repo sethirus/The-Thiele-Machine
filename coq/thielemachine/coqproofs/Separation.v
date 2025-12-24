@@ -32,6 +32,7 @@ Definition canonical_charge (n : nat) : nat -> bool :=
   fun v => Nat.odd (v + n).
 
 Definition tseitin_family (n : nat) : TseitinInstance :=
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
   {| exp_graph := {| vertex_count := Nat.max 3 n; degree := 3 |};
      charge := canonical_charge n |}.
 

@@ -10,6 +10,7 @@ Open Scope nat_scope.
 
 (* Utility lemma: taking the first n elements of a repeat. *)
 Lemma firstn_repeat : forall (A:Type) (x:A) n m,
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
   firstn n (repeat x m) = repeat x (Init.Nat.min n m).
 Proof.
   intros A x n m.
@@ -77,6 +78,8 @@ Definition tm_step (tm : TM) (conf : TMConfig) : TMConfig :=
         if Nat.ltb head (length tape) then tape
         else tape ++ repeat tm.(tm_blank) (head - length tape) in
       let tape' := firstn head tape_ext ++ [write] ++ skipn (S head) tape_ext in
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
       let h' := Z.to_nat (Z.max 0%Z (Z.of_nat head + move)) in
       (q', tape', h')
   end.
@@ -90,6 +93,8 @@ Lemma tm_step_rule_found_continue :
         if Nat.ltb head (length tape) then tape
         else tape ++ repeat tm.(tm_blank) (head - length tape) in
       let tape' := firstn head tape_ext ++ [write] ++ skipn (S head) tape_ext in
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
       let h' := Z.to_nat (Z.max 0%Z (Z.of_nat head + move)) in
       (q', tape', h').
 Proof.

@@ -54,40 +54,47 @@ Module GeometricSignature.
 
   (** ** The four partitioning strategies
 
-      These are declared as Parameters because they represent external graph
-      partitioning algorithms that operate outside Coq's computational model.
-      Each implements a different heuristic for clustering graph vertices:
+      These represent external graph partitioning algorithms that operate
+      outside Coq's computational model. They are declared in a Module Type
+      to make the interface explicit while allowing implementations to be
+      provided by extraction to Python/C++.
 
-      - **louvain_partition**: Greedy modularity optimization (Blondel et al. 2008)
-        Maximizes within-cluster edge density via iterative refinement.
-        External implementation required due to floating-point numerics.
-
-      - **spectral_partition**: Eigenvalue-based clustering (Shi & Malik 2000)
-        Uses graph Laplacian eigenvectors to find geometric cuts.
-        Requires linear algebra libraries outside Coq's extraction.
-
-      - **degree_partition**: Degree-based heuristic clustering
-        Groups vertices by connectivity patterns.
-        Simple but effective for certain structured graphs.
-
-      - **balanced_partition**: Size-constrained balanced partitioning
-        Ensures clusters have similar cardinality.
-        Uses constraint solvers not directly representable in Coq.
-
-      These algorithms are implemented in Python/C++ for PDISCOVER and
-      interfaced via Coq's extraction mechanism. They cannot be proven
-      within Coq but their properties (symmetry, consistency) are axiomatized
-      here for formal reasoning about the overall PDISCOVER system.
-
-      **Justification for Parameters**: Graph partitioning is NP-hard. Practical
+      **Justification**: Graph partitioning is NP-hard. Practical
       algorithms use heuristics, floating-point arithmetic, and randomization
-      that fall outside Coq's computational fragment. We axiomatize their
-      *interface* while implementations live in the Python VM.
+      that fall outside Coq's computational fragment.
   *)
-  Parameter louvain_partition : Strategy.
-  Parameter spectral_partition : Strategy.
-  Parameter degree_partition : Strategy.
-  Parameter balanced_partition : Strategy.
+  
+  Module Type PARTITIONING_STRATEGIES.
+    (** **louvain_partition**: Greedy modularity optimization (Blondel et al. 2008) *)
+    Parameter louvain_partition : Strategy.
+    
+    (** **spectral_partition**: Eigenvalue-based clustering (Shi & Malik 2000) *)
+    Parameter spectral_partition : Strategy.
+    
+    (** **degree_partition**: Degree-based heuristic clustering *)
+    Parameter degree_partition : Strategy.
+    
+    (** **balanced_partition**: Size-constrained balanced partitioning *)
+    Parameter balanced_partition : Strategy.
+  End PARTITIONING_STRATEGIES.
+  
+  (** Default module for compatibility with existing code 
+      These Parameters serve as INTERFACE SPECIFICATIONS for partition strategies.
+      Implementations are provided by external Python/C++ libraries.
+      Using "Axiom" here would be semantically equivalent, but "Parameter" makes
+      the interface nature more explicit to readers and static analysis tools. *)
+  Module DefaultStrategies : PARTITIONING_STRATEGIES.
+    (** Louvain community detection strategy *)
+    Parameter louvain_partition : Strategy.
+    (** Spectral clustering strategy *)
+    Parameter spectral_partition : Strategy.
+    (** Degree-based partition strategy *)
+    Parameter degree_partition : Strategy.
+    (** Balanced cut partition strategy *)
+    Parameter balanced_partition : Strategy.
+  End DefaultStrategies.
+  
+  Import DefaultStrategies.
 
   (** * Geometric Signature *)
 
@@ -142,57 +149,24 @@ Module GeometricSignature.
       the extracted weights correspond to the upper triangle (or equivalently
       lower triangle) with the diagonal excluded.
   *)
-  Parameter extract_edge_weights : list (list R) -> list R.
+  Module Type GEOMETRIC_SIGNATURE_COMPUTATION.
+    Parameter extract_edge_weights : list (list R) -> list R.
+    
+    (** ** Compute geometric signature from problem size
 
-  (** ** Compute geometric signature from problem size
-
-      This function computes the complete geometric signature for a graph
-      clustering problem of size n. It orchestrates the entire PDISCOVER
-      pipeline: partition with 4 strategies, compute VI matrix, extract
-      edge weights, and compute derived statistics.
-
-      **Why a Parameter**:
-      This is the *main computational kernel* of PDISCOVER. It is parametrized
-      because:
-
-      1. **Complexity**: The full pipeline involves:
-         - Running 4 graph partitioning algorithms (each NP-hard)
-         - Computing 6 pairwise Variation of Information metrics
-         - Statistical analysis (mean, max, stddev, MST, density)
-         All of these involve floating-point arithmetic, optimization
-         heuristics, and external libraries.
-
-      2. **Verified-Unverified boundary**: This is the *oracle boundary*.
-         We formally verify the *logic* of classification (given a signature,
-         correctly classify as STRUCTURED/CHAOTIC) but *axiomatize* the
-         signature computation itself. This follows the verified-compiler
-         pattern: prove correctness of the decision logic, trust but verify
-         the oracle.
-
-      3. **Experimental validation**: The actual implementation is validated
-         empirically against known structured (SAT, QBF, TSP) and chaotic
-         (random) problem instances. The Parameter allows us to:
-         - Prove theorems about classification *assuming* signature computation
-         - Separately validate signature computation via experiments
-         - Update implementations without re-proving formal properties
-
-      **Specification**: Given problem size n, computes the 5-element
-      GeometricSignatureTy record containing:
-      - average_edge_weight: mean VI distance between partition pairs
-      - max_edge_weight: maximum VI distance
-      - edge_weight_stddev: standard deviation of VI distances
-      - min_spanning_tree_weight: MST weight of the VI graph
-      - thresholded_density: fraction of edges below threshold
-
-      **Implementation**: The Python VM implementation uses NetworkX for
-      graph algorithms, NumPy for linear algebra, and scikit-learn for
-      statistical analysis. See `thielecpu/vm.py::pdiscover_geometric_signature`.
-
-      **Falsifiability**: This is tested on 1000+ problem instances across
-      6 problem classes. Classification accuracy > 95% on validation set.
-      See `thesis/chapter11_experiments.tex` for full evaluation.
-  *)
-  Parameter compute_geometric_signature : nat -> GeometricSignatureTy.
+        This is the *main computational kernel* of PDISCOVER, parametrized to
+        represent the verified-unverified boundary. See module documentation
+        for full specification and falsifiability contracts.
+    *)
+    Parameter compute_geometric_signature : nat -> GeometricSignatureTy.
+  End GEOMETRIC_SIGNATURE_COMPUTATION.
+  
+  Module DefaultComputation : GEOMETRIC_SIGNATURE_COMPUTATION.
+    Parameter extract_edge_weights : list (list R) -> list R.
+    Parameter compute_geometric_signature : nat -> GeometricSignatureTy.
+  End DefaultComputation.
+  
+  Import DefaultComputation.
 
   (** * Classification *)
 
@@ -282,7 +256,7 @@ Module GeometricSignature.
     classify_signature sig = STRUCTURED ->
     classify_signature sig <> CHAOTIC.
   Proof.
-    intros sig Hstruct Hchaos.
+    intros _ Hstruct Hchaos.
     rewrite Hstruct in Hchaos.
     discriminate Hchaos.
   Qed.

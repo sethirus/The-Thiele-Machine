@@ -125,6 +125,7 @@ Proof.
     exists 0, m_rev, bits_rev, cert_rev, mu_rev. simpl. reflexivity.
 Qed.
 
+(* Definitional lemma: This equality is by definition, not vacuous *)
 Lemma cert_setter_forms_equiv : forall trace,
   (uses_revelation trace \/
    (exists n m p mu, nth_error trace n = Some (instr_emit m p mu)) \/

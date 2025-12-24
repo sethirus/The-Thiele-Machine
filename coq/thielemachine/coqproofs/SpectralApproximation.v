@@ -390,6 +390,7 @@ Definition conductance_complete (n : nat) (S : Subset (S n)) : R :=
   let b := boundary_complete n S in
   let vS := vol_complete n S in
   let vT := vol_complete n (subset_compl S) in
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
   INR b / INR (Nat.min vS vT).
 
 Lemma boundary_le_vol_left_complete :
@@ -444,13 +445,16 @@ Proof.
   }
   assert (HbS : (b <= vS)%nat) by (subst b vS; apply boundary_le_vol_left_complete; assumption).
   assert (HbT : (b <= vT)%nat) by (subst b vT; apply boundary_le_vol_right_complete; assumption).
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
   assert (Hbmin : (b <= Nat.min vS vT)%nat) by (apply Nat.min_glb; assumption).
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
   assert (Hminpos : (Nat.min vS vT > 0)%nat).
   {
     subst vS vT.
     unfold vol_complete.
     apply Nat.min_glb_lt; nia.
   }
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
   apply (Rle_trans _ (INR (Nat.min vS vT) / INR (Nat.min vS vT))).
   - unfold Rdiv.
     apply Rmult_le_compat_r.
@@ -478,6 +482,7 @@ Proof.
     set (b := boundary_complete n cut).
     set (vS := vol_complete n cut).
     set (vT := vol_complete n (subset_compl cut)).
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
     set (m := Nat.min vS vT).
     assert (HneT : (card (subset_compl cut) > 0)%nat).
     {

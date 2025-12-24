@@ -32,7 +32,7 @@ Theorem NoFreeLunch :
       (Represents s p /\ ~ Represents s q) \/
       (~ Represents s p /\ Represents s q).
 Proof.
-  intros p q Hneq.
+  intros p _ Hneq.
   exists (state_of p).
   left.
   split.

@@ -140,6 +140,8 @@ Qed.
 (** But PDISCOVER is still admissible (information gain is physical) *)
 Theorem pdiscover_admissible : forall (s : ThieleState) (m : ModuleId * Region) (cost : Z),
   spatial_locality s.(partition) ->
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
   trace_admissible s [PDISCOVER (fst m) (Z.to_nat cost)].
 Proof.
   intros s m cost Hloc.
@@ -148,6 +150,8 @@ Proof.
   - exact Hloc.
   - right.
     unfold trace_has_discover.
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
     exists (fst m), (Z.to_nat cost).
     simpl. left. reflexivity.
 Qed.

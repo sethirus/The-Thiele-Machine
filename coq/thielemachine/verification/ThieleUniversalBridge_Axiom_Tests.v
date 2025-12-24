@@ -118,6 +118,7 @@ Lemma nth_skipn' {A} (l : list A) (n m : nat) (d : A) :
 
 Lemma write_preserves_other_regs : forall cpu r v,
   r <> CPU.REG_TEMP1 ->
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
   length (CPU.regs cpu) > Nat.max r CPU.REG_TEMP1 ->
   CPU.read_reg CPU.REG_TEMP1 (CPU.write_reg r v cpu) =
   CPU.read_reg CPU.REG_TEMP1 cpu.

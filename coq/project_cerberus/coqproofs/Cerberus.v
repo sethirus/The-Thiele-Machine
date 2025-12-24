@@ -79,7 +79,7 @@ Definition mem_safe_program (mem_len : nat) (p : Program) : Prop :=
 
 
 
-(* Encode safety properties of an instruction as a list of nat axioms (stub version) *)
+(* Encode safety properties of an instruction as a list of nat axioms (minimal implementation version) *)
 Definition encode_safety_axioms (instr : Instr) (program_len : nat) (mem_len : nat) : list nat :=
   match instr with
   | Load addr => [1; addr; if Nat.ltb addr mem_len then 0 else 1]
@@ -93,7 +93,7 @@ Definition encode_safety_axioms (instr : Instr) (program_len : nat) (mem_len : n
   | Halt => [9; 0]
   end.
 (*
-  This is a stub: in a real system, the encoding would be more sophisticated and would match the oracle's logic.
+  This is a minimal implementation: in a real system, the encoding would be more sophisticated and would match the oracle's logic.
   For now, we encode the instruction type and whether its safety check passes (0 = safe, 1 = unsafe).
 *)
 

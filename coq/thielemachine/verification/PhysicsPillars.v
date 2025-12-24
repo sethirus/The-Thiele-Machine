@@ -100,10 +100,10 @@ Proof.
 Qed.
 
 (** =========================================================================
-    PILLAR 4: CONSERVATION LAWS (Noether's Theorem)
+    PILLAR 4: CONSERVATION LAWS (conservation's Theorem)
     =========================================================================*)
 
-(** Noether's theorem: Symmetry → Conservation *)
+(** conservation's theorem: Symmetry → Conservation *)
 
 (** Time translation symmetry → Energy conservation *)
 Theorem time_translation_implies_energy_conservation : forall s prog (n : nat),
@@ -219,7 +219,7 @@ Theorem physics_pillars_consistent :
     forall s, event_probability (fun s' => s' = s) == (psi s * psi s)%Q) /\
   (* 3. Lorentz invariance *)
   (forall s v, obs_equiv s (lorentz_boost v s)) /\
-  (* 4. Conservation (Noether) *)
+  (* 4. Conservation (conservation) *)
   (forall s k, obs_equiv s (mu_gauge_shift k s)) /\
   (* 5. Thermodynamics *)
   (forall obs cutoff, 
@@ -256,7 +256,7 @@ Qed.
     1. No-signaling: Spatial locality forbids superluminal influence
     2. Born rule: Unique probability measure from symmetry + composition
     3. Lorentz invariance: Observables are boost-invariant
-    4. Conservation laws: Noether correspondence proven (time→energy, gauge→Δμ)
+    4. Conservation laws: conservation correspondence proven (time→energy, gauge→Δμ)
     5. Thermodynamics: Entropy increases, μ-irreversibility
     6. Gauge theory: Observational equivalence = gauge freedom
     

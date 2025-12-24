@@ -88,7 +88,7 @@ Definition performance (s : Strategy) (_g : Graph) (n : nat) : Prop :=
 Lemma performance_deterministic : forall s g n1 n2,
   performance s g n1 -> performance s g n2 -> n1 = n2.
 Proof.
-  intros s g n1 n2 H1 H2.
+  intros _ _ _ _ _ _.
   unfold performance in *. congruence.
 Qed.
 
@@ -112,7 +112,7 @@ Definition optimal_quartet : list Strategy :=
 Theorem optimal_quartet_viable : 
   forall s, In s optimal_quartet -> is_viable s.
 Proof.
-  intros s H.
+  intros _ H.
   unfold optimal_quartet in H.
   unfold is_viable.
   repeat (destruct H as [H | H]; [subst; simpl; omega | ]).
@@ -130,7 +130,7 @@ Theorem crossover_preserves_viability :
   cut <= length s1 -> cut <= length s2 ->
   is_viable (crossover s1 s2 cut).
 Proof.
-  intros s1 s2 cut H1 H2 Hcut1 Hcut2.
+  intros s1 s2 cut H1 H2 _ _.
   unfold is_viable in *.
   unfold crossover.
   destruct H1 as [H1a H1b].
@@ -163,7 +163,7 @@ Theorem mutation_preserves_viability :
   is_viable s ->
   is_viable (mutate_at s pos new_prim).
 Proof.
-  intros s pos new_prim H.
+  intros s pos _ H.
   unfold is_viable in *.
   destruct H as [Ha Hb].
   split.
@@ -190,7 +190,7 @@ Lemma evolution_can_improve : forall parent child g,
     performance child g n_child /\
     n_child >= n_parent.
 Proof.
-  intros parent child g _ _.
+  intros _ _ _ _ _.
   exists 100, 100.
   repeat split; unfold performance; auto; omega.
 Qed.
@@ -204,7 +204,7 @@ Lemma crossover_midpoint_empirical_success :
       performance (crossover parent1 parent2 (length parent1 / 2)) g n_evolved /\
       n_evolved >= 90.
 Proof.
-  intros parent1 parent2 _ _.
+  intros _ _ _ _.
   exists (Build_Graph 1 []), 100.
   split; [reflexivity| omega].
 Qed.
@@ -216,7 +216,7 @@ Theorem evolution_terminates :
   exists offspring,
     is_viable offspring.
 Proof.
-  intros s1 s2 H1 H2.
+  intros s1 s2 _ _.
   (* Crossover at midpoint produces viable offspring *)
   exists (crossover s1 s2 (length s1 / 2)).
   apply crossover_preserves_viability; auto; omega.
@@ -234,7 +234,7 @@ Theorem evolved_inherits_properties :
     parts_from_s1 = firstn cut s1 /\
     parts_from_s2 = skipn cut s2.
 Proof.
-  intros s1 s2 cut H1 H2 Hcut1 Hcut2 offspring.
+  intros s1 s2 cut _ _ _ _ offspring.
   split.
   - (* Viability *)
     unfold offspring.

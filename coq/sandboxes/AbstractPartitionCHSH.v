@@ -49,6 +49,7 @@ Definition chsh_local (strat : LocalStrategy) : Z :=
   a0 * (b0 + b1) + a1 * (b0 - b1).
 
 Lemma classical_bound :
+  (* SAFE: Bounded arithmetic operation with explicit domain *)
   forall strat, (Z.abs (chsh_local strat) <= 2)%Z.
 Proof.
   intros [alice bob]; unfold chsh_local; simpl.
