@@ -155,14 +155,14 @@ def fetch_archive(url: str, dest_dir: Path) -> Path:
             if total_size > 0:
                 print()  # New line after progress
         
-        print(f"✓ Downloaded: {temp_archive.name} ({temp_archive.stat().st_size} bytes)")
+        print(f"[OK] Downloaded: {temp_archive.name} ({temp_archive.stat().st_size} bytes)")
         
     except Exception as e:
-        print(f"❌ Failed to download archive: {e}", file=sys.stderr)
+        print(f"[ERROR] Failed to download archive: {e}", file=sys.stderr)
         raise
     
     # Extract archive
-    print(f"📦 Extracting archive...")
+    print(f"[INFO] Extracting archive...")
     
     try:
         if filename.endswith('.zip'):
@@ -204,11 +204,11 @@ def fetch_archive(url: str, dest_dir: Path) -> Path:
         # Clean up archive file
         temp_archive.unlink()
         
-        print(f"✓ Extracted to: {extracted_path}")
+        print(f"[OK] Extracted to: {extracted_path}")
         return extracted_path
         
     except Exception as e:
-        print(f"❌ Failed to extract archive: {e}", file=sys.stderr)
+        print(f"[ERROR] Failed to extract archive: {e}", file=sys.stderr)
         raise
 
 
@@ -290,14 +290,14 @@ def scan_directory(
         
         # Check file count
         if len(files) >= max_files:
-            print(f"⚠️  File limit reached ({max_files} files), stopping scan")
+            print(f"[WARN] File limit reached ({max_files} files), stopping scan")
             break
         
         # Store both absolute and relative paths
         files.append((item, rel_path))
         total_size += file_size
     
-    print(f"✓ Found {len(files)} file(s) ({total_size / 1024 / 1024:.2f} MB)")
+    print(f"[OK] Found {len(files)} file(s) ({total_size / 1024 / 1024:.2f} MB)")
     return files
 
 
@@ -647,7 +647,7 @@ def create_receipt(
             "_absolute_path": str(path)  # Internal use only, for TRS-0
         })
         
-        print(f"✓ Added: {display_path} ({len(content)} bytes, SHA256: {content_hash[:16]}...)")
+        print(f"[OK] Added: {display_path} ({len(content)} bytes, SHA256: {content_hash[:16]}...)")
     
     # Compute global digest per TRS-1.0 spec (without _absolute_path)
     file_infos_for_digest = [{k: v for k, v in fi.items() if not k.startswith('_')} for fi in file_infos]
@@ -719,8 +719,8 @@ def create_receipt(
             if key_id:
                 receipt["key_id"] = key_id
 
-            print(f"✓ Receipt signed with Ed25519")
-            print(f"✓ Public key: {receipt['public_key'][:16]}...")
+            print(f"[OK] Receipt signed with Ed25519")
+            print(f"[OK] Public key: {receipt['public_key'][:16]}...")
 
         except FileNotFoundError as e:
             print(f"Error: Key file not found: {e}", file=sys.stderr)
@@ -749,8 +749,8 @@ def create_receipt(
     with open(output_path, 'w') as f:
         json.dump(receipt, f, indent=2, ensure_ascii=False)
     
-    print(f"\n✓ Receipt created: {output_path}")
-    print(f"✓ Global digest: {global_digest}")
+    print(f"\n[OK] Receipt created: {output_path}")
+    print(f"[OK] Global digest: {global_digest}")
     print(f"\nTo verify and materialize:")
     print(f"  python3 verifier/replay.py {output_path}")
     
@@ -1137,9 +1137,9 @@ Learn more: RECEIPT_GUIDE.md
                 ["python3", "verifier/replay.py", output_path],
                 check=True
             )
-            print("✓ Verification successful!")
+            print("[OK] Verification successful!")
         except subprocess.CalledProcessError:
-            print("✗ Verification failed!", file=sys.stderr)
+            print("[FAIL] Verification failed!", file=sys.stderr)
             sys.exit(1)
         except FileNotFoundError:
             print("Warning: verifier/replay.py not found, skipping verification", file=sys.stderr)

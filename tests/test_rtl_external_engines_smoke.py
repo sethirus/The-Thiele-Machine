@@ -28,6 +28,7 @@ def test_rtl_external_engines_smoke():
         "pee.v",
         "mu_alu.v",
         "mu_core.v",
+        "receipt_integrity_checker.v",
     ]
 
     with tempfile.TemporaryDirectory() as td:

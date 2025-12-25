@@ -276,7 +276,8 @@ class TestBehavioralIsomorphism:
                  str(hw_dir / "thiele_cpu.v"),
                  str(hw_dir / "thiele_cpu_tb.v"),
                  str(hw_dir / "mu_alu.v"),
-                 str(hw_dir / "mu_core.v")],
+                 str(hw_dir / "mu_core.v"),
+                 str(hw_dir / "receipt_integrity_checker.v")],
                 capture_output=True,
                 timeout=60
             )
@@ -362,7 +363,8 @@ class TestVerilogPythonAlignment:
                  str(hw_dir / "thiele_cpu.v"),
                  str(hw_dir / "thiele_cpu_tb.v"),
                  str(hw_dir / "mu_alu.v"),
-                 str(hw_dir / "mu_core.v")],
+                 str(hw_dir / "mu_core.v"),
+                 str(hw_dir / "receipt_integrity_checker.v")],
                 check=True,
                 timeout=60
             )
@@ -533,7 +535,8 @@ class TestCompleteIsomorphism:
                  str(hw_dir / "thiele_cpu.v"),
                  str(hw_dir / "thiele_cpu_tb.v"),
                  str(hw_dir / "mu_alu.v"),
-                 str(hw_dir / "mu_core.v")],
+                 str(hw_dir / "mu_core.v"),
+                 str(hw_dir / "receipt_integrity_checker.v")],
                 capture_output=True,
                 timeout=60
             )

@@ -201,7 +201,7 @@ def verilog_execute_instructions(instructions: List[int], initial_regs: List[int
         tb_path.write_text(tb_code)
         
         # Copy required files
-        for fname in ["thiele_cpu.v", "mu_alu.v", "mu_core.v", "generated_opcodes.vh"]:
+        for fname in ["thiele_cpu.v", "mu_alu.v", "mu_core.v", "generated_opcodes.vh", "receipt_integrity_checker.v"]:
             src = HARDWARE_DIR / fname
             if src.exists():
                 (tmpdir / fname).write_text(src.read_text())
@@ -209,7 +209,7 @@ def verilog_execute_instructions(instructions: List[int], initial_regs: List[int
         # Compile
         compile_cmd = [
             "iverilog", "-g2012", "-I.", "-o", "bisim_tb",
-            "mu_alu.v", "mu_core.v", "thiele_cpu.v", "bisim_tb.v"
+            "mu_alu.v", "mu_core.v", "thiele_cpu.v", "receipt_integrity_checker.v", "bisim_tb.v"
         ]
         result = subprocess.run(compile_cmd, cwd=tmpdir, capture_output=True, text=True)
         if result.returncode != 0:
@@ -356,6 +356,11 @@ class TestOpcodeAlignment:
             assert instr in content, f"Missing instruction in Coq extraction: {instr}"
 
 
+# Skip Coq tests if extraction doesn't exist (requires Coq toolchain)
+_coq_extraction_exists = (BUILD_DIR / "thiele_core.ml").exists()
+
+
+@pytest.mark.skipif(not _coq_extraction_exists, reason="Coq extraction not built. Run: make -C coq Extraction.vo")
 class TestCoqExtraction:
     """Verify Coq extraction is complete and well-formed."""
     
@@ -366,28 +371,38 @@ class TestCoqExtraction:
     
     def test_extraction_has_vm_apply(self):
         """Extracted OCaml must have vm_apply function."""
-        content = (BUILD_DIR / "thiele_core.ml").read_text()
+        content = (BUILD_DIR / "thiele_core.ml").read_text(encoding='utf-8')
         assert "vm_apply" in content
     
     def test_extraction_has_run_vm(self):
         """Extracted OCaml must have run_vm function."""
-        content = (BUILD_DIR / "thiele_core.ml").read_text()
+        content = (BUILD_DIR / "thiele_core.ml").read_text(encoding='utf-8')
         assert "run_vm" in content
     
     def test_extraction_has_vmstate(self):
         """Extracted OCaml must define vMState type."""
-        content = (BUILD_DIR / "thiele_core.ml").read_text()
+        content = (BUILD_DIR / "thiele_core.ml").read_text(encoding='utf-8')
         assert "type vMState" in content
 
 
+# Check if iverilog is available
+def _has_iverilog():
+    import shutil
+    return shutil.which("iverilog") is not None
+
+
+@pytest.mark.skipif(not _has_iverilog(), reason="iverilog not installed")
 class TestVerilogCompilation:
     """Verify Verilog compiles successfully."""
     
     def test_thiele_cpu_compiles(self):
         """thiele_cpu.v must compile with iverilog."""
+        import tempfile
+        import os
+        null_output = "NUL" if os.name == 'nt' else "/dev/null"
         result = subprocess.run(
-            ["iverilog", "-g2012", "-I.", "-o", "/dev/null",
-             "mu_alu.v", "mu_core.v", "thiele_cpu.v"],
+            ["iverilog", "-g2012", "-I.", "-o", null_output,
+             "mu_alu.v", "mu_core.v", "thiele_cpu.v", "receipt_integrity_checker.v"],
             cwd=HARDWARE_DIR,
             capture_output=True,
             text=True,
@@ -396,10 +411,13 @@ class TestVerilogCompilation:
     
     def test_testbench_runs(self):
         """Verilog testbench must execute without errors."""
+        import tempfile
+        import os
+        tmp_out = os.path.join(tempfile.gettempdir(), "thiele_tb_test")
         # Compile
         result = subprocess.run(
-            ["iverilog", "-g2012", "-I.", "-o", "/tmp/thiele_tb_test",
-             "mu_alu.v", "mu_core.v", "thiele_cpu.v", "thiele_cpu_tb.v"],
+            ["iverilog", "-g2012", "-I.", "-o", tmp_out,
+             "mu_alu.v", "mu_core.v", "thiele_cpu.v", "receipt_integrity_checker.v", "thiele_cpu_tb.v"],
             cwd=HARDWARE_DIR,
             capture_output=True,
             text=True,
@@ -409,7 +427,7 @@ class TestVerilogCompilation:
         
         # Run
         sim_result = subprocess.run(
-            ["vvp", "/tmp/thiele_tb_test"],
+            ["vvp", tmp_out],
             capture_output=True,
             text=True,
             timeout=30,

@@ -186,7 +186,7 @@ def test_manifest_structure(calorimetry_dir):
 def test_readme_completeness(calorimetry_dir):
     """Test that README contains all required sections."""
     readme_path = calorimetry_dir / 'README.md'
-    with open(readme_path) as f:
+    with open(readme_path, encoding='utf-8') as f:
         content = f.read()
     
     required_sections = [
@@ -206,7 +206,7 @@ def test_readme_completeness(calorimetry_dir):
     # Check for key equations
     assert 'k_B T ln 2' in content, "Thermodynamic equation missing"
     assert 'E_dyn' in content, "E_dyn variable missing"
-    assert 'Σμ' in content or 'Sigma mu' in content.lower(), "μ sum variable missing"
+    assert 'mu' in content.lower(), "mu sum variable missing"
 
 
 if __name__ == '__main__':

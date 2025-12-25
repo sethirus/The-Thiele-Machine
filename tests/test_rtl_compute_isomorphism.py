@@ -80,6 +80,7 @@ def _run_rtl(program_words: list[int], data_words: list[int]) -> tuple[list[int]
                 "thiele_cpu_tb.v",
                 "mu_alu.v",
                 "mu_core.v",
+                "receipt_integrity_checker.v",
             ],
             cwd=str(HARDWARE_DIR),
             capture_output=True,

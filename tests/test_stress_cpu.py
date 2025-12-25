@@ -1,4 +1,5 @@
 import json
+import shutil
 import subprocess
 import tempfile
 import random
@@ -13,6 +14,7 @@ from thielecpu.isa import CSR
 
 REPO_ROOT = Path(__file__).parent.parent
 HARDWARE_DIR = REPO_ROOT / "thielecpu" / "hardware"
+HAS_IVERILOG = shutil.which("iverilog") is not None
 
 # Extended Opcodes to fuzz
 OPCODES = {
@@ -78,6 +80,7 @@ def _run_rtl(program_words: list[int], data_words: list[int]) -> dict:
                 str(HARDWARE_DIR / "thiele_cpu.v"),
                 str(HARDWARE_DIR / "mu_core.v"),
                 str(HARDWARE_DIR / "mu_alu.v"),
+                str(HARDWARE_DIR / "receipt_integrity_checker.v"),
             ],
             check=True,
             capture_output=True
@@ -189,6 +192,7 @@ def test_fuzz_cpu_rigorous():
         except Exception as e:
             pytest.fail(f"Exception at iteration {i} (seed {seed}): {e}")
 
+@pytest.mark.skipif(not HAS_IVERILOG, reason="iverilog not available")
 def test_falsifiability():
     """
     Prove that the test harness CAN fail if there is a bug.

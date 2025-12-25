@@ -4,8 +4,8 @@
 
 [![CI](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml/badge.svg)](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Tests](https://img.shields.io/badge/Tests-1115%20Passing-brightgreen)](tests/)
-[![Coq](https://img.shields.io/badge/Coq-Inquisitor%20Verified-blue)](coq/)
+[![Tests](https://img.shields.io/badge/Tests-1335%20Passing-brightgreen)](tests/)
+[![Coq](https://img.shields.io/badge/Coq-189%20Proofs-blue)](coq/)
 
 ---
 
@@ -88,7 +88,7 @@ This isn't just theory. The Thiele Machine is implemented at **three layers** th
 
 | Layer | Implementation | Purpose |
 |-------|----------------|---------|
-| **Coq** | 187 proof files, Inquisitor PASS (0 findings) | Mathematical ground truth |
+| **Coq** | 189 proof files, Inquisitor PASS (0 findings) | Mathematical ground truth |
 | **Python** | VM with receipts and traces (~3318 lines) | Executable reference |
 | **Verilog** | Synthesizable RTL (FPGA-targetable) | Physical realization |
 
@@ -98,7 +98,7 @@ For any instruction trace τ:
 S_Coq(τ) = S_Python(τ) = S_Verilog(τ)
 ```
 
-This is enforced by **1115 automated tests**. Any divergence is a critical bug.
+This is enforced by **1335 automated tests**. Any divergence is a critical bug.
 
 ---
 
@@ -134,17 +134,17 @@ Each instruction has a defined μ-cost. The ledger is updated atomically. μ-mon
 
 ## Physics Connections
 
-These aren't analogies. They're formal correspondences:
+The computational model exhibits **structural parallels** to physical laws:
 
-| Physics | Thiele Machine |
-|---------|----------------|
-| Energy conservation | μ-monotonicity |
-| Bell locality (no-signaling) | Observational no-signaling theorem |
-| Noether's theorem | Gauge invariance of partition structure |
-| Landauer's principle | Irreversibility lower bound |
-| Second Law of Thermodynamics | μ-ledger only increases |
+| Physics | Thiele Machine | Status |
+|---------|----------------|--------|
+| Energy conservation | μ-monotonicity | **PROVEN** in Coq |
+| Bell locality (no-signaling) | Observational no-signaling theorem | **PROVEN** in Coq |
+| Noether's theorem | Gauge invariance of partition structure | **PROVEN** in Coq |
+| Landauer's principle | Irreversibility lower bound | **PROVEN** (abstract bound) |
+| Second Law of Thermodynamics | μ-ledger only increases | **PROVEN** in Coq |
 
-The **thermodynamic bridge postulate** (falsifiable, not proven): charging μ bits lower-bounds heat dissipation at Q_min = k_B T ln(2) × μ.
+**Important distinction:** The Coq proofs establish that μ-bits behave *like* physical quantities (monotonic, conserved). The **thermodynamic bridge postulate** ($Q_{min} = k_B T \ln(2) \times \mu$) is a **falsifiable hypothesis**, not a proven theorem—it requires physical experiments to validate.
 
 ---
 
@@ -187,9 +187,10 @@ The-Thiele-Machine/
 │   ├── state.py            # State, partitions, μ-ledger
 │   ├── isa.py              # 17-instruction ISA definitions
 │   └── hardware/           # Verilog RTL (synthesizable)
-├── tests/                  # 1115 tests (isomorphism enforcement)
+├── tests/                  # 1292+ tests (isomorphism enforcement)
 ├── thesis/                 # Complete formal thesis (13 chapters)
 ├── scripts/                # Tooling (inquisitor.py, etc.)
+├── CLAIMS_STATUS.md        # Proven vs. conjectured claims breakdown
 └── demo.py                 # Live demonstration
 ```
 
@@ -223,7 +224,7 @@ The complete formal thesis is in [thesis/](thesis/):
 
 The Coq development undergoes comprehensive static analysis scanning 220 files across 20+ rule categories:
 
-**Critical Issues (HIGH severity):** ✅ **0 found (100% resolved)**
+**Critical Issues (HIGH severity):** ✅ **0 found in kernel proofs**
 - `Admitted` / `admit.` / `give_up` — incomplete proofs
 - `Theorem ... : True.` — proving nothing (vacuous statements)
 - `... -> True.` / `let ... in True.` — vacuous conclusions
@@ -234,12 +235,11 @@ The Coq development undergoes comprehensive static analysis scanning 220 files a
 - TODO/FIXME markers (legitimate documentation)
 - Clamp/truncation operations (domain-constrained)
 
-**Achievements:**
-- ✅ **100% critical correctness issues resolved** (20/20)
-- ✅ **0 vacuous statements** (all theorems prove meaningful properties)
-- ✅ **0 admitted proofs** (all proofs complete with Qed)
+**Status Notes:**
+- ✅ **Kernel proofs complete** — Core theorems (Subsumption, μ-monotonicity, No Free Insight) have no admits
+- ⚠️ **Extended proofs in progress** — Some files in `thielemachine/coqproofs/` have documented TODOs
 - ✅ **All axioms documented** (6/6 with comprehensive justifications)
-- ✅ **All physics invariance proven** (gauge symmetry, Noether correspondence)
+- ✅ **Physics invariance proven** (gauge symmetry, Noether correspondence in kernel)
 
 **Run Inquisitor:**
 ```bash
@@ -247,6 +247,24 @@ python scripts/inquisitor.py --strict
 ```
 
 See `scripts/INQUISITOR_GUIDE.md` for complete documentation and `INQUISITOR_FALSE_POSITIVES_ANALYSIS.md` for analysis of static analysis limitations.
+
+---
+
+## Testing
+
+The test suite includes ~1100 tests covering:
+- **Core VM tests**: Always run, verify Python implementation
+- **Coq alignment tests**: Require Coq 8.18+ to fully verify
+- **Verilog tests**: Require iverilog for hardware simulation
+- **Cross-platform tests**: Some skip on Windows due to toolchain availability
+
+```bash
+# Run all tests (some will skip if toolchains missing)
+pytest tests/
+
+# Run only Python VM tests (no external dependencies)
+pytest tests/test_vm.py tests/test_mu.py tests/test_receipts.py -v
+```
 
 ---
 

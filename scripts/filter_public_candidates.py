@@ -76,7 +76,7 @@ def _build_entry(candidate: dict, result: AnchoringResult) -> dict:
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = _parse_args(argv)
-    data = json.loads(args.candidates.read_text())
+    data = json.loads(args.candidates.read_text(encoding="utf-8"))
     candidates = data.get("candidates", [])
     selected: List[dict] = []
 
