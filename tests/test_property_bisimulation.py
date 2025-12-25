@@ -7,6 +7,7 @@ that Coq, Python, and Verilog all produce identical results.
 This is the machine-checked proof that all three implementations are equivalent.
 """
 
+import shutil
 import pytest
 from hypothesis import given, strategies as st, settings, assume
 import subprocess
@@ -18,6 +19,7 @@ from typing import List, Tuple, Dict, Any
 REPO_ROOT = Path(__file__).resolve().parents[1]
 HARDWARE_DIR = REPO_ROOT / "thielecpu" / "hardware"
 BUILD_DIR = REPO_ROOT / "build"
+HAS_IVERILOG = shutil.which("iverilog") is not None
 
 
 # =============================================================================
@@ -219,11 +221,14 @@ class TestCoqPythonBisimulation:
 class TestVerilogPythonBisimulation:
     """Property-based tests for Verilog ↔ Python equivalence."""
     
+    @pytest.mark.skipif(not HAS_IVERILOG, reason="iverilog not installed")
     def test_verilog_compiles(self):
         """Verilog must compile successfully."""
+        import os
+        null_output = "NUL" if os.name == 'nt' else "/dev/null"
         result = subprocess.run(
-            ["iverilog", "-g2012", "-I.", "-o", "/dev/null",
-             "mu_alu.v", "mu_core.v", "thiele_cpu.v"],
+            ["iverilog", "-g2012", "-I.", "-o", null_output,
+             "mu_alu.v", "mu_core.v", "thiele_cpu.v", "receipt_integrity_checker.v"],
             cwd=HARDWARE_DIR,
             capture_output=True,
             text=True,
@@ -233,7 +238,7 @@ class TestVerilogPythonBisimulation:
     def test_opcodes_aligned(self):
         """Opcode values must match between Python and Verilog."""
         vh_path = HARDWARE_DIR / "generated_opcodes.vh"
-        vh_content = vh_path.read_text()
+        vh_content = vh_path.read_text(encoding="utf-8")
         
         expected = {
             "PNEW": 0x00, "PSPLIT": 0x01, "PMERGE": 0x02, "LASSERT": 0x03,

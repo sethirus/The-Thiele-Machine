@@ -61,6 +61,9 @@ localparam [7:0] OPCODE_PSPLIT   = 8'h01;
 localparam [7:0] OPCODE_PMERGE   = 8'h02;
 localparam [7:0] OPCODE_PDISCOVER = 8'h06;
 localparam [7:0] OPCODE_MDLACC   = 8'h05;
+localparam [7:0] OPCODE_PMOD     = 8'h03;
+localparam [7:0] OPCODE_PQUERY   = 8'h04;
+localparam [7:0] OPCODE_HALT     = 8'hFF;
 
 // Status codes
 localparam [31:0] STATUS_IDLE         = 32'h0;
@@ -79,6 +82,32 @@ reg [31:0] expected_cost;
 reg partition_independent;
 reg cost_decreasing;
 reg last_instr_valid;  // Track previous instr_valid for edge detection
+
+// Receipt integrity checker instance signals
+wire [31:0] computed_instruction_cost;
+wire receipt_integrity_ok;
+wire chain_continuity_ok;
+reg [31:0] prev_post_mu;  // Previous receipt's post_mu for chain validation
+
+// ============================================================================
+// RECEIPT INTEGRITY CHECKER INSTANCE
+// ============================================================================
+
+receipt_integrity_checker integrity_checker (
+    .clk(clk),
+    .rst_n(rst_n),
+    .receipt_valid(instr_valid),
+    .receipt_pre_mu(current_mu_cost),
+    .receipt_post_mu(proposed_cost),
+    .receipt_opcode(instruction[31:24]),
+    .receipt_operand({8'b0, instruction[23:0]}),
+    .chain_mode(1'b1),
+    .prev_post_mu(prev_post_mu),
+    .receipt_integrity_ok(receipt_integrity_ok),
+    .chain_continuity_ok(chain_continuity_ok),
+    .computed_cost(computed_instruction_cost),
+    .error_code()  // Not used currently
+);
 
 // ============================================================================
 // INSTRUCTION ANALYSIS AND ENFORCEMENT
@@ -101,6 +130,7 @@ always @(posedge clk or negedge rst_n) begin
         partition_independent <= 1'b1;
         cost_decreasing <= 1'b0;
         last_instr_valid <= 1'b0;
+        prev_post_mu <= 32'h0;  // Chain starts at μ=0
     end else begin
         // Track instr_valid for edge detection
         last_instr_valid <= instr_valid;
@@ -166,18 +196,28 @@ always @(posedge clk or negedge rst_n) begin
             endcase
         end
 
-        // Check receipts
+        // Check receipts - now with integrity verification
         if (receipt_valid && receipt_required) begin
-            if (receipt_value == expected_cost) begin
+            // Receipt must match expected cost AND pass integrity check
+            if (receipt_value == expected_cost && receipt_integrity_ok && chain_continuity_ok) begin
                 receipt_accepted <= 1'b1;
                 instr_allowed <= 1'b1;
                 core_status <= STATUS_RECEIPT_OK;
+                prev_post_mu <= proposed_cost;  // Update chain for next receipt
                 $display("μ-Core: Receipt accepted for instruction %h, cost=%0d", instruction, receipt_value >> 16);
             end else begin
                 receipt_accepted <= 1'b0;
                 instr_allowed <= 1'b0;
-                core_status <= STATUS_DENIED_COST;
-                $display("μ-Core: Receipt DENIED for instruction %h, expected=%0d, got=%0d", instruction, expected_cost >> 16, receipt_value >> 16);
+                if (!receipt_integrity_ok) begin
+                    core_status <= STATUS_DENIED_COST;
+                    $display("μ-Core: Receipt DENIED - integrity check FAILED (forged cost?)");
+                end else if (!chain_continuity_ok) begin
+                    core_status <= STATUS_DENIED_COST;
+                    $display("μ-Core: Receipt DENIED - chain continuity FAILED");
+                end else begin
+                    core_status <= STATUS_DENIED_COST;
+                    $display("μ-Core: Receipt DENIED for instruction %h, expected=%0d, got=%0d", instruction, expected_cost >> 16, receipt_value >> 16);
+                end
             end
         end
 

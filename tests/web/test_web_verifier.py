@@ -1,4 +1,4 @@
-"""
+﻿"""
 Comprehensive tests for the web-based Thiele Receipt Verifier.
 
 This module tests the browser-based JavaScript verifier implementation
@@ -23,55 +23,55 @@ class TestWebVerifierJavaScript:
     def test_replay_js_has_verifier_class(self):
         """Verify ThieleVerifier class is defined."""
         replay_js = Path("web/replay.js")
-        content = replay_js.read_text()
+        content = replay_js.read_text(encoding="utf-8")
         assert "class ThieleVerifier" in content, "ThieleVerifier class not found"
 
     def test_replay_js_has_sha256_method(self):
         """Verify SHA-256 hashing method exists."""
         replay_js = Path("web/replay.js")
-        content = replay_js.read_text()
+        content = replay_js.read_text(encoding="utf-8")
         assert "async sha256" in content, "sha256 method not found"
         assert "crypto.subtle.digest" in content, "Web Crypto API not used"
 
     def test_replay_js_has_canonical_json(self):
         """Verify canonical JSON method exists."""
         replay_js = Path("web/replay.js")
-        content = replay_js.read_text()
+        content = replay_js.read_text(encoding="utf-8")
         assert "canonicalJSON" in content, "canonicalJSON method not found"
         assert "sort()" in content, "Key sorting not implemented"
 
     def test_replay_js_has_trs10_verification(self):
         """Verify TRS-1.0 verification method exists."""
         replay_js = Path("web/replay.js")
-        content = replay_js.read_text()
+        content = replay_js.read_text(encoding="utf-8")
         assert "verifyTRS10" in content, "TRS-1.0 verification not found"
         assert "global_digest" in content, "Global digest verification missing"
 
     def test_replay_js_has_trs0_verification(self):
         """Verify TRS-0 (legacy) verification method exists."""
         replay_js = Path("web/replay.js")
-        content = replay_js.read_text()
+        content = replay_js.read_text(encoding="utf-8")
         assert "verifyTRS0" in content, "TRS-0 verification not found"
         assert "steps" in content, "Steps verification missing"
 
     def test_replay_js_has_path_validation(self):
         """Verify path traversal and security checks exist."""
         replay_js = Path("web/replay.js")
-        content = replay_js.read_text()
+        content = replay_js.read_text(encoding="utf-8")
         assert ".includes('..')" in content, "Path traversal check missing"
         assert "Absolute paths not allowed" in content, "Absolute path check missing"
 
     def test_replay_js_has_signature_verification(self):
         """Verify signature verification support exists."""
         replay_js = Path("web/replay.js")
-        content = replay_js.read_text()
+        content = replay_js.read_text(encoding="utf-8")
         assert "sig_scheme" in content, "Signature scheme handling missing"
         assert "ed25519" in content, "Ed25519 support missing"
 
     def test_replay_js_has_ui_integration(self):
         """Verify UI event handling is present."""
         replay_js = Path("web/replay.js")
-        content = replay_js.read_text()
+        content = replay_js.read_text(encoding="utf-8")
         assert "DOMContentLoaded" in content, "DOM ready handler missing"
         assert "dragover" in content, "Drag-and-drop missing"
         assert "fileInput" in content, "File upload UI missing"
@@ -88,13 +88,13 @@ class TestWebPages:
     def test_verify_html_has_upload_area(self):
         """Verify upload area exists in HTML."""
         verify_html = Path("web/verify.html")
-        content = verify_html.read_text()
+        content = verify_html.read_text(encoding="utf-8")
         assert 'id="uploadArea"' in content or 'id="fileInput"' in content, "Upload area missing"
 
     def test_verify_html_loads_replay_js(self):
         """Verify replay.js is included."""
         verify_html = Path("web/verify.html")
-        content = verify_html.read_text()
+        content = verify_html.read_text(encoding="utf-8")
         assert 'replay.js' in content, "replay.js not loaded in verify.html"
 
     def test_index_html_exists(self):
@@ -105,7 +105,7 @@ class TestWebPages:
     def test_index_html_has_navigation(self):
         """Verify landing page has navigation to verifier."""
         index_html = Path("web/index.html")
-        content = index_html.read_text()
+        content = index_html.read_text(encoding="utf-8")
         assert 'verify.html' in content or 'Verify' in content, "Navigation to verifier missing"
 
     def test_create_html_exists(self):
@@ -124,7 +124,7 @@ class TestWebPages:
         for html_file in html_files:
             path = Path(html_file)
             if path.exists():
-                content = path.read_text()
+                content = path.read_text(encoding="utf-8")
                 assert 'charset="UTF-8"' in content or 'charset=UTF-8' in content, f"{html_file} missing UTF-8 charset"
 
     def test_all_html_pages_have_viewport(self):
@@ -133,7 +133,7 @@ class TestWebPages:
         for html_file in html_files:
             path = Path(html_file)
             if path.exists():
-                content = path.read_text()
+                content = path.read_text(encoding="utf-8")
                 assert 'viewport' in content, f"{html_file} missing viewport meta tag"
 
     def test_demos_directory_exists(self):
@@ -174,7 +174,7 @@ class TestWebVerifierFunctionality:
     def test_worker_has_message_handler(self):
         """Verify Web Worker has message handling."""
         worker_js = Path("web/receipt-worker.js")
-        content = worker_js.read_text()
+        content = worker_js.read_text(encoding="utf-8")
         assert "onmessage" in content or "addEventListener('message'" in content, "Worker message handler missing"
 
 
@@ -187,7 +187,7 @@ class TestWebVerifierSecurity:
         for js_file in js_files:
             path = Path(js_file)
             if path.exists():
-                content = path.read_text()
+                content = path.read_text(encoding="utf-8")
                 lines = content.split('\n')
                 for line in lines:
                     if 'eval(' in line and '//' not in line.split('eval(')[0]:
@@ -196,14 +196,14 @@ class TestWebVerifierSecurity:
     def test_path_traversal_checks(self):
         """Verify path traversal attack prevention."""
         replay_js = Path("web/replay.js")
-        content = replay_js.read_text()
+        content = replay_js.read_text(encoding="utf-8")
         assert ".." in content, "Path traversal checks missing"
         assert "startsWith('/')" in content or "Absolute path" in content, "Absolute path checks missing"
 
     def test_uses_web_crypto_api(self):
         """Verify use of secure Web Crypto API."""
         replay_js = Path("web/replay.js")
-        content = replay_js.read_text()
+        content = replay_js.read_text(encoding="utf-8")
         assert "crypto.subtle" in content, "Web Crypto API not used (insecure)"
         assert "crypto.subtle.digest" in content, "Web Crypto digest not used"
 
@@ -211,7 +211,7 @@ class TestWebVerifierSecurity:
         """Verify HTML pages use external scripts (CSP best practice)."""
         verify_html = Path("web/verify.html")
         if verify_html.exists():
-            content = verify_html.read_text()
+            content = verify_html.read_text(encoding="utf-8")
             assert '<script src="replay.js"' in content, "External script not loaded"
 
 
@@ -224,7 +224,7 @@ class TestWebVerifierAccessibility:
         for html_file in html_files:
             path = Path(html_file)
             if path.exists():
-                content = path.read_text()
+                content = path.read_text(encoding="utf-8")
                 has_skip = "skip-link" in content.lower() or "skip to" in content.lower()
                 assert has_skip or "main" in content, f"{html_file} missing accessibility features"
 
@@ -232,7 +232,7 @@ class TestWebVerifierAccessibility:
         """Verify form inputs have associated labels."""
         verify_html = Path("web/verify.html")
         if verify_html.exists():
-            content = verify_html.read_text()
+            content = verify_html.read_text(encoding="utf-8")
             if 'type="file"' in content:
                 assert 'for="fileInput"' in content or 'aria-label' in content, "File input missing label"
 
@@ -240,7 +240,7 @@ class TestWebVerifierAccessibility:
         """Verify use of semantic HTML elements."""
         verify_html = Path("web/verify.html")
         if verify_html.exists():
-            content = verify_html.read_text()
+            content = verify_html.read_text(encoding="utf-8")
             assert "<html" in content and "</html>" in content, "Missing html tags"
 
 
@@ -273,7 +273,7 @@ class TestWebVerifierDocumentation:
         """Verify README documents web verifier (optional)."""
         readme = Path("README.md")
         if readme.exists():
-            content = readme.read_text()
+            content = readme.read_text(encoding="utf-8")
             # Optional: README may or may not mention web verifier
             pass  # Skip this check as it's not essential
 
@@ -287,5 +287,6 @@ def test_verify_web_pages_script_runnable():
     """Verify the script has main function."""
     script = Path("scripts/verification/verify_web_pages.py")
     if script.exists():
-        content = script.read_text()
+        content = script.read_text(encoding="utf-8")
         assert "def main()" in content, "Script missing main function"
+

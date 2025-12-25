@@ -1,4 +1,4 @@
-# Licensed under the Apache License, Version 2.0 (the "License");
+﻿# Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # Copyright 2025 Devon Thiele
 # See the LICENSE file in the repository root for full terms.
@@ -61,7 +61,7 @@ class TestWebDemos:
     def test_sample_receipt_json_valid(self):
         """Verify sample-receipt.json is valid JSON."""
         filepath = WEB_DEMOS_DIR / "sample-receipt.json"
-        with open(filepath, 'r') as f:
+        with open(filepath, 'r', encoding="utf-8") as f:
             data = json.load(f)
         
         # Verify required fields
@@ -73,7 +73,7 @@ class TestWebDemos:
     def test_sample_zkproof_json_valid(self):
         """Verify sample-zkproof.json is valid JSON."""
         filepath = WEB_DEMOS_DIR / "sample-zkproof.json"
-        with open(filepath, 'r') as f:
+        with open(filepath, 'r', encoding="utf-8") as f:
             data = json.load(f)
         
         # Verify required ZK proof fields
@@ -88,7 +88,7 @@ class TestWebDemos:
         """Verify compiler receipt samples are valid JSON."""
         for compiler in ["gcc", "clang"]:
             filepath = WEB_DEMOS_DIR / f"sample-{compiler}-receipt.json"
-            with open(filepath, 'r') as f:
+            with open(filepath, 'r', encoding="utf-8") as f:
                 data = json.load(f)
             
             # Verify compiler-specific fields
@@ -102,9 +102,9 @@ class TestWebDemos:
         gcc_path = WEB_DEMOS_DIR / "sample-gcc-receipt.json"
         clang_path = WEB_DEMOS_DIR / "sample-clang-receipt.json"
         
-        with open(gcc_path, 'r') as f:
+        with open(gcc_path, 'r', encoding="utf-8") as f:
             gcc_data = json.load(f)
-        with open(clang_path, 'r') as f:
+        with open(clang_path, 'r', encoding="utf-8") as f:
             clang_data = json.load(f)
         
         # Find the toycc binary in both receipts
@@ -121,7 +121,7 @@ class TestWebDemos:
     def test_index_html_links_to_demos(self):
         """Verify index.html contains links to all demos."""
         index_path = WEB_DEMOS_DIR / "index.html"
-        with open(index_path, 'r') as f:
+        with open(index_path, 'r', encoding="utf-8") as f:
             content = f.read()
         
         # Check for links to each demo
@@ -139,7 +139,7 @@ class TestWebDemos:
         
         for filename in html_files:
             filepath = WEB_DEMOS_DIR / filename
-            with open(filepath, 'r') as f:
+            with open(filepath, 'r', encoding="utf-8") as f:
                 content = f.read()
             
             # Basic HTML structure checks
@@ -159,7 +159,7 @@ class TestWebDemos:
         
         for filename in html_files:
             filepath = WEB_DEMOS_DIR / filename
-            with open(filepath, 'r') as f:
+            with open(filepath, 'r', encoding="utf-8") as f:
                 content = f.read()
             
             assert 'github.com/sethirus/The-Thiele-Machine' in content, \
@@ -168,3 +168,4 @@ class TestWebDemos:
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])
+

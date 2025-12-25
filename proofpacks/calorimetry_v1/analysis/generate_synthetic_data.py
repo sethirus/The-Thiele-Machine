@@ -214,7 +214,7 @@ def main():
     
     # Summary statistics
     print("\n5. Summary statistics:")
-    print(f"   μ range: {df['mu_sum'].min():.0f} - {df['mu_sum'].max():.0f}")
+    print(f"   mu range: {df['mu_sum'].min():.0f} - {df['mu_sum'].max():.0f}")
     print(f"   E range: {df['E_joules'].min():.2e} - {df['E_joules'].max():.2e} J")
     print(f"   T range: {df['T_K'].min():.1f} - {df['T_K'].max():.1f} K")
     print(f"   Programs: {df['program_id'].nunique()}")

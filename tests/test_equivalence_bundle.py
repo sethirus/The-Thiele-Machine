@@ -8,6 +8,17 @@ import pytest
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+
+# Check if extraction runner is available
+_EXTRACTED_RUNNER = REPO_ROOT / "coq" / "extracted_runner.py"
+_HAS_EXTRACTION = _EXTRACTED_RUNNER.exists()
+
+# Skip all tests in this module if extraction is not available
+pytestmark = pytest.mark.skipif(
+    not _HAS_EXTRACTION,
+    reason="Coq extraction not built. Run: scripts/forge_artifact.sh"
+)
+
 def _run_bundle(
     env: dict,
     out_path: Path,

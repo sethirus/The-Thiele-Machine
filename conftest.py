@@ -9,8 +9,20 @@ from __future__ import annotations
 
 import importlib.util
 import sys
+import os
 from pathlib import Path
 
+# Fix Windows console encoding for Unicode characters (μ, ✓, etc.)
+if sys.platform == "win32":
+    # Force UTF-8 for stdout/stderr to handle Unicode in test output
+    if hasattr(sys.stdout, 'reconfigure'):
+        try:
+            sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+            sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+        except Exception:
+            pass
+    # Set environment variable for subprocesses
+    os.environ.setdefault('PYTHONIOENCODING', 'utf-8')
 
 ROOT = Path(__file__).resolve().parent
 

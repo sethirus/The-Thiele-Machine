@@ -1,4 +1,4 @@
-# Licensed under the Apache License, Version 2.0 (the "License");
+﻿# Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # Copyright 2025 Devon Thiele
 # See the LICENSE file in the repository root for full terms.
@@ -6,19 +6,19 @@
 """
 Comprehensive Isomorphism Test Suite for the Thiele Machine
 
-This test suite validates that VM ↔ Hardware ↔ Coq are isomorphic,
+This test suite validates that VM â†” Hardware â†” Coq are isomorphic,
 demonstrating Turing equivalence/subsumption through a variety of programs.
 
 Program Categories:
 1. MINIMAL: Basic operations that any Turing machine can do
-2. ADVANCED: Programs using partition logic and μ-accounting
+2. ADVANCED: Programs using partition logic and Î¼-accounting
 3. EXPERT: Complex programs demonstrating exponential speedup
 4. COMPLEX: Full-featured programs that combine all capabilities
 
 Key Properties Demonstrated:
 - Good partitions = Low MDL (proven via Coq theorems)
-- Low MDL → Exponential speedups (empirically demonstrated)
-- Finding low-MDL partitions costs μ-bits (explicitly measured)
+- Low MDL â†’ Exponential speedups (empirically demonstrated)
+- Finding low-MDL partitions costs Î¼-bits (explicitly measured)
 - Classical machines pay in time what Thiele machines pay in bits
 """
 
@@ -119,7 +119,7 @@ __result__ = total
 
 
 class TestAdvancedPrograms:
-    """ADVANCED: Programs using partition logic and μ-accounting."""
+    """ADVANCED: Programs using partition logic and Î¼-accounting."""
 
     def test_partition_creation(self):
         """Test that partitions can be created and used."""
@@ -138,23 +138,23 @@ class TestAdvancedPrograms:
         assert result['partitions_used'] >= 0
 
     def test_mu_accounting_basic(self):
-        """Test μ-bit accounting for a simple query."""
+        """Test Î¼-bit accounting for a simple query."""
         from thielecpu.mu import question_cost_bits, canonical_s_expression
         
         query = "x1 XOR x2"
         mu = question_cost_bits(query)
         
-        # μ-spec v2.0: 8 bits per character
+        # Î¼-spec v2.0: 8 bits per character
         expected = len(canonical_s_expression(query)) * 8
         assert mu == expected
 
     def test_mu_accounting_compound(self):
-        """Test μ-bit accounting for compound expressions."""
+        """Test Î¼-bit accounting for compound expressions."""
         from thielecpu.mu import calculate_mu_cost
         
         query = "(factor 21)"
         before_possibilities = 20  # Candidates 2-21
-        after_possibilities = 1    # Found: 3 × 7
+        after_possibilities = 1    # Found: 3 Ã— 7
         
         mu = calculate_mu_cost(query, before_possibilities, after_possibilities)
         
@@ -162,7 +162,7 @@ class TestAdvancedPrograms:
         assert mu > 0
 
     def test_factorization_mu_asymmetry(self):
-        """Test that factoring costs more μ than verification."""
+        """Test that factoring costs more Î¼ than verification."""
         from examples.showcase import verify_factorization, factor_with_mu_accounting
         
         n = 21
@@ -241,10 +241,10 @@ class TestExpertPrograms:
         assert good_mdl < bad_mdl
 
     def test_mu_bit_discovery_cost(self):
-        """Test that finding low-MDL partitions costs μ-bits."""
+        """Test that finding low-MDL partitions costs Î¼-bits."""
         from thielecpu.mu import question_cost_bits
         
-        # Discovery queries have μ-cost
+        # Discovery queries have Î¼-cost
         queries = [
             "partition?[0,1,2]",
             "partition?[3,4,5]",
@@ -263,7 +263,7 @@ class TestExpertPrograms:
     def test_time_vs_bits_tradeoff(self):
         """Test: Classical pays time, Thiele pays bits."""
         # Classical machine: O(2^n) time, O(n) space
-        # Thiele machine: O(n) time + μ-bits cost
+        # Thiele machine: O(n) time + Î¼-bits cost
         
         n = 10
         
@@ -316,7 +316,7 @@ class TestComplexPrograms:
             assert set(row) == {1, 2, 3, 4}
 
     def test_factorization_complete_workflow(self):
-        """Complete factorization workflow with μ-accounting."""
+        """Complete factorization workflow with Î¼-accounting."""
         from examples.showcase import factor_with_mu_accounting, verify_factorization
         
         test_numbers = [15, 21, 35, 77]
@@ -355,16 +355,16 @@ class TestCoqProofsCompile:
         assert subsumption_file.exists(), "Subsumption.v should exist"
         
         # Check that key theorem is defined
-        content = subsumption_file.read_text()
+        content = subsumption_file.read_text(encoding="utf-8")
         assert "thiele_subsumes_tm" in content or "Theorem" in content
 
     def test_muledger_conservation_compiles(self):
-        """Test that μ-ledger conservation theorem exists."""
+        """Test that Î¼-ledger conservation theorem exists."""
         mu_file = REPO_ROOT / "coq" / "kernel" / "MuLedgerConservation.v"
         assert mu_file.exists(), "MuLedgerConservation.v should exist"
         
         # Check that conservation theorem is defined
-        content = mu_file.read_text()
+        content = mu_file.read_text(encoding="utf-8")
         assert "conservation" in content.lower() or "Theorem" in content
 
     def test_separation_theorem_compiles(self):
@@ -373,7 +373,7 @@ class TestCoqProofsCompile:
         assert sep_file.exists(), "Separation.v should exist"
         
         # Check that separation theorem is defined
-        content = sep_file.read_text()
+        content = sep_file.read_text(encoding="utf-8")
         assert "separation" in content.lower() or "Theorem" in content
 
 
@@ -401,7 +401,7 @@ class TestVerilogCompiles:
         
         # Check that key Verilog files have proper structure
         main_file = hw_dir / "thiele_graph_solver.v"
-        content = main_file.read_text()
+        content = main_file.read_text(encoding="utf-8")
         
         # Check for basic Verilog structure
         assert "module" in content, "Should contain module definition"
@@ -409,7 +409,7 @@ class TestVerilogCompiles:
 
 
 class TestAlignmentComplete:
-    """Verify complete alignment across VM ↔ Hardware ↔ Coq."""
+    """Verify complete alignment across VM â†” Hardware â†” Coq."""
 
     def test_opcode_alignment(self):
         """Test that opcodes are aligned across all layers."""
@@ -417,11 +417,11 @@ class TestAlignmentComplete:
         
         # Read Verilog opcodes
         verilog_file = REPO_ROOT / "thielecpu" / "hardware" / "thiele_cpu.v"
-        verilog_content = verilog_file.read_text()
+        verilog_content = verilog_file.read_text(encoding="utf-8")
         
         # Read Coq opcodes
         coq_file = REPO_ROOT / "coq" / "thielemachine" / "coqproofs" / "HardwareBridge.v"
-        coq_content = coq_file.read_text()
+        coq_content = coq_file.read_text(encoding="utf-8")
         
         # Check key opcodes
         key_opcodes = ['LASSERT', 'LJOIN', 'MDLACC', 'PNEW', 'PSPLIT', 'PMERGE']
@@ -450,7 +450,7 @@ class TestAlignmentComplete:
                 assert py_value == c_value, f"Opcode {opcode} mismatch: Python={py_value}, Coq={c_value}"
 
     def test_mu_formula_alignment(self):
-        """Test that μ-formula is aligned across all layers."""
+        """Test that Î¼-formula is aligned across all layers."""
         from thielecpu.mu import question_cost_bits, canonical_s_expression
         
         # Test vectors
@@ -463,8 +463,9 @@ class TestAlignmentComplete:
             # Expected: 8 * len(canonical(query))
             expected = len(canonical_s_expression(query)) * 8
             
-            assert py_mu == expected, f"μ-formula mismatch for '{query}'"
+            assert py_mu == expected, f"Î¼-formula mismatch for '{query}'"
 
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])
+

@@ -337,7 +337,7 @@ def test_conservation_theorems() -> List[TestResult]:
             ))
             continue
         
-        content = file_path.read_text()
+        content = file_path.read_text(encoding='utf-8')
         if theorem_name not in content:
             results.append(TestResult(
                 name=f"Theorem: {description}",
