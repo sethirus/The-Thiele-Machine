@@ -1,5 +1,6 @@
 import json
 import os
+import shutil
 import subprocess
 from pathlib import Path
 import sys
@@ -9,7 +10,14 @@ import pytest
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SCRIPT = REPO_ROOT / "scripts" / "thermo_experiment.py"
 
+# Check for Coq extraction
+_EXTRACTED_RUNNER = REPO_ROOT / "coq" / "extracted_runner.py"
+_HAS_EXTRACTION = _EXTRACTED_RUNNER.exists()
+_HAS_IVERILOG = shutil.which("iverilog") is not None
 
+
+@pytest.mark.skipif(not _HAS_EXTRACTION or not _HAS_IVERILOG, 
+                    reason="Requires Coq extraction and iverilog")
 @pytest.mark.timeout(120)
 def test_thermo_experiment_outputs(tmp_path):
     out_path = tmp_path / "thermo_experiment.json"
@@ -61,6 +69,8 @@ def test_thermo_experiment_blocks_normalization_in_evidence_mode(tmp_path):
     assert "EVIDENCE_STRICT forbids" in result.stdout + result.stderr
 
 
+@pytest.mark.skipif(not _HAS_EXTRACTION or not _HAS_IVERILOG, 
+                    reason="Requires Coq extraction and iverilog")
 @pytest.mark.timeout(120)
 def test_thermo_experiment_passes_in_evidence_mode_when_mu_is_present(tmp_path):
     out_path = tmp_path / "thermo_experiment.json"

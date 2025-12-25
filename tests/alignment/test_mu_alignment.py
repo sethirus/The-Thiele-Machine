@@ -82,7 +82,7 @@ def test_coq_conservation_theorem_compiles():
     assert conservation_file.exists(), f"Missing: {conservation_file}"
     
     # Check for the key theorem
-    content = conservation_file.read_text()
+    content = conservation_file.read_text(encoding='utf-8')
     assert "bounded_model_mu_ledger_conservation" in content, \
         "Missing theorem: bounded_model_mu_ledger_conservation"
     assert "run_vm_mu_conservation" in content, \
@@ -99,7 +99,7 @@ def test_coq_concrete_lassert_definition():
     
     assert concrete_file.exists(), f"Missing: {concrete_file}"
     
-    content = concrete_file.read_text()
+    content = concrete_file.read_text(encoding='utf-8')
     
     # Check LASSERT definition
     assert "LASSERT" in content, "Missing LASSERT instruction type"
@@ -119,7 +119,7 @@ def test_hardware_bridge_opcode():
     
     assert bridge_file.exists(), f"Missing: {bridge_file}"
     
-    content = bridge_file.read_text()
+    content = bridge_file.read_text(encoding='utf-8')
     assert "opcode_LASSERT" in content, "Missing opcode_LASSERT definition"
     assert "3%N" in content or ":= 3" in content, "opcode_LASSERT should be 3"
     
