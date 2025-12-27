@@ -10,20 +10,20 @@ The previous chapter established the \textit{problem}: classical computers are s
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    box/.style={draw, rounded corners, minimum width=4.6cm, minimum height=1.7cm, align=center, font=\normalsize},
+    box/.style={draw, rounded corners, minimum width=5.5cm, minimum height=2.0cm, align=center, font=\normalsize},
     arrow/.style={->, >=stealth, thick},
     dasharrow/.style={->, >=stealth, very thick, dashed},
-    scale=0.65, transform shape
+    scale=1.05
 , node distance=3cm]
 % Main components
-\node[box, fill=blue!20, align=center, text width=3.5cm, font=\normalsize] (state) at (0,0) {State Space\\$S$};
-\node[box, fill=green!20, align=center, text width=3.5cm, font=\normalsize] (partition) at (4,0) {Partition Graph\\$\Pi$};
-\node[box, fill=orange!20, align=center, text width=3.5cm, font=\normalsize] (axioms) at (8,0) {Axiom Set\\$A$};
-\node[box, fill=red!20, align=center, text width=3.5cm, font=\normalsize] (rules) at (4,-2.5) {Transition Rules\\$R$};
-\node[box, fill=purple!20, align=center, text width=3.5cm, font=\normalsize] (logic) at (8,-2.5) {Logic Engine\\$L$};
+\node[box, fill=blue!20, align=center, text width=4.5cm, font=\normalsize] (state) at (0,0) {State Space\\$S$};
+\node[box, fill=green!20, align=center, text width=4.5cm, font=\normalsize] (partition) at (4,0) {Partition Graph\\$\Pi$};
+\node[box, fill=orange!20, align=center, text width=4.5cm, font=\normalsize] (axioms) at (8,0) {Axiom Set\\$A$};
+\node[box, fill=red!20, align=center, text width=4.5cm, font=\normalsize] (rules) at (4,-2.5) {Transition Rules\\$R$};
+\node[box, fill=purple!20, align=center, text width=4.5cm, font=\normalsize] (logic) at (8,-2.5) {Logic Engine\\$L$};
 
 % Central element
-\node[box, fill=yellow!30, minimum width=6.2cm, minimum height=2.2cm, align=center, text width=3.5cm, font=\normalsize] (mu) at (0,-2) {$\mu$-Ledger\\(Currency)};
+\node[box, fill=yellow!30, minimum width=6.2cm, minimum height=2.2cm, align=center, text width=4.5cm, font=\normalsize] (mu) at (0,-2) {$\mu$-Ledger\\(Currency)};
 
 % Arrows
 \draw[arrow, shorten >=2pt, shorten <=2pt] (state) -- (partition) node[pos=0.5, font=\small, above, yshift=6pt] {decomposition};
@@ -277,9 +277,9 @@ The partition graph is the central innovation of the Thiele Machine. It represen
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    module/.style={draw, rounded corners, minimum width=4.0cm, minimum height=2.4cm, align=center, font=\normalsize},
+    module/.style={draw, rounded corners, minimum width=5.0cm, minimum height=2.4cm, align=center, font=\normalsize},
     memory/.style={draw, minimum width=0.6cm, minimum height=0.6cm, font=\normalsize},
-    scale=0.65, transform shape
+    scale=1.05
 , node distance=3cm]
 % Memory addresses (background)
 \foreach \i in {0,...,15} {
@@ -287,7 +287,7 @@ The partition graph is the central innovation of the Thiele Machine. It represen
 }
 
 % Module M1
-\node[module, fill=blue!20, align=center, text width=3.5cm, font=\normalsize] (M1) at (-2.5, 0) {Module $M_1$\\ID: 0};
+\node[module, fill=blue!20, align=center, text width=4.5cm, font=\normalsize] (M1) at (-2.5, 0) {Module $M_1$\\ID: 0};
 \draw[blue, very thick, ->, shorten >=2pt, shorten <=2pt] (M1.south) -- (-3.25, -2.7);
 \draw[blue, very thick, ->, shorten >=2pt, shorten <=2pt] (M1.south) -- (-2.75, -2.7);
 \foreach \i in {0,1} {
@@ -295,7 +295,7 @@ The partition graph is the central innovation of the Thiele Machine. It represen
 }
 
 % Module M2
-\node[module, fill=green!20, align=center, text width=3.5cm, font=\normalsize] (M2) at (1, 0) {Module $M_2$\\ID: 1};
+\node[module, fill=green!20, align=center, text width=4.5cm, font=\normalsize] (M2) at (1, 0) {Module $M_2$\\ID: 1};
 \draw[green!60!black, very thick, ->, shorten >=2pt, shorten <=2pt] (M2.south) -- (0.25, -2.7);
 \draw[green!60!black, very thick, ->, shorten >=2pt, shorten <=2pt] (M2.south) -- (0.75, -2.7);
 \draw[green!60!black, very thick, ->, shorten >=2pt, shorten <=2pt] (M2.south) -- (1.25, -2.7);
@@ -304,7 +304,7 @@ The partition graph is the central innovation of the Thiele Machine. It represen
 }
 
 % Module M3
-\node[module, fill=orange!20, align=center, text width=3.5cm, font=\normalsize] (M3) at (4.5, 0) {Module $M_3$\\ID: 2};
+\node[module, fill=orange!20, align=center, text width=4.5cm, font=\normalsize] (M3) at (4.5, 0) {Module $M_3$\\ID: 2};
 \draw[orange, very thick, ->, shorten >=2pt, shorten <=2pt] (M3.south) -- (3.25, -2.7);
 \foreach \i in {14} {
     \node[memory, fill=orange!40] at (\i*0.5-4, -3) {\i};
@@ -325,7 +325,7 @@ The partition graph is the central innovation of the Thiele Machine. It represen
 \node[ below=0.3cm of M3, font=\small, yshift=-6pt] {$A = \{y \text{ prime}\}$};
 
 % Key properties
-\node[draw, fill=white, rounded corners, font=\normalsize, align=left, align=center, text width=3.5cm] at (-5.5, 0) {
+\node[draw, fill=white, rounded corners, font=\normalsize, align=left, align=center, text width=4.5cm] at (-5.5, 0) {
     \textbf{Properties:}\\
     $\bullet$ ID monotonic\\
     $\bullet$ Regions disjoint\\
@@ -650,10 +650,10 @@ The instructions fall into several categories:
 \begin{tikzpicture}[
     cat/.style={draw, rounded corners, minimum width=6.2cm, minimum height=3.6cm, align=center, font=\normalsize},
     instr/.style={font=\normalsize\ttfamily},
-    scale=0.65, transform shape
+    scale=1.05
 , node distance=2.5cm]
 % Structural Operations
-\node[cat, fill=blue!15, align=center, text width=3.5cm] (struct) at (-4, 2) {
+\node[cat, fill=blue!15, align=center, text width=4.5cm] (struct) at (-4, 2) {
     \textbf{Structural Ops}\\[0.2cm]
     \begin{tabular}{l}
     PNEW\\
@@ -664,7 +664,7 @@ The instructions fall into several categories:
 };
 
 % Logical Operations
-\node[cat, fill=green!15, align=center, text width=3.5cm] (logic) at (0, 2) {
+\node[cat, fill=green!15, align=center, text width=4.5cm] (logic) at (0, 2) {
     \textbf{Logical Ops}\\[0.2cm]
     \begin{tabular}{l}
     LASSERT\\
@@ -673,7 +673,7 @@ The instructions fall into several categories:
 };
 
 % Certification Operations
-\node[cat, fill=orange!15, align=center, text width=3.5cm] (cert) at (4, 2) {
+\node[cat, fill=orange!15, align=center, text width=4.5cm] (cert) at (4, 2) {
     \textbf{Certification Ops}\\[0.2cm]
     \begin{tabular}{l}
     REVEAL\\
@@ -682,7 +682,7 @@ The instructions fall into several categories:
 };
 
 % Register/Memory Operations
-\node[cat, fill=purple!15, align=center, text width=3.5cm] (regmem) at (-4, -1) {
+\node[cat, fill=purple!15, align=center, text width=4.5cm] (regmem) at (-4, -1) {
     \textbf{Register/Memory}\\[0.2cm]
     \begin{tabular}{l}
     XFER\\
@@ -694,7 +694,7 @@ The instructions fall into several categories:
 };
 
 % Control Operations
-\node[cat, fill=red!15, align=center, text width=3.5cm] (ctrl) at (0, -1) {
+\node[cat, fill=red!15, align=center, text width=4.5cm] (ctrl) at (0, -1) {
     \textbf{Control Ops}\\[0.2cm]
     \begin{tabular}{l}
     PYEXEC\\
@@ -704,7 +704,7 @@ The instructions fall into several categories:
 };
 
 % Measurement Operations
-\node[cat, fill=yellow!20, align=center, text width=3.5cm] (meas) at (4, -1) {
+\node[cat, fill=yellow!20, align=center, text width=4.5cm] (meas) at (4, -1) {
     \textbf{Measurement}\\[0.2cm]
     \begin{tabular}{l}
     CHSH\_TRIAL\\
@@ -918,7 +918,7 @@ The kernel verifies the certificate but does not search for solutions. This ensu
 \begin{tikzpicture}[
     state/.style={draw, circle, minimum size=1cm, font=\normalsize},
     arrow/.style={->, >=stealth, thick},
-    scale=0.65, transform shape
+    scale=1.05
 , node distance=3cm]
 % States
 \node[state, fill=blue!20, font=\normalsize] (s0) at (0,0) {$s_0$};
@@ -941,7 +941,7 @@ The kernel verifies the certificate but does not search for solutions. This ensu
 \node[below=0.5cm of sn,  above, font=\small, yshift=6pt] {$\mu_n$};
 
 % Conservation law
-\node[draw, fill=yellow!20, rounded corners, align=center, font=\normalsize, text width=3.5cm] at (6, -2) {
+\node[draw, fill=yellow!20, rounded corners, align=center, font=\normalsize, text width=4.5cm] at (6, -2) {
     \textbf{Conservation Law:} $\mu_n = \mu_0 + \sum_{i=1}^{n} \text{cost}(op_i)$
 };
 
@@ -1278,23 +1278,23 @@ Definition graph_pnew (g : PartitionGraph) (region : list nat)
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    module/.style={draw, rounded corners, minimum width=3.2cm, minimum height=1.7cm, align=center, font=\normalsize},
+    module/.style={draw, rounded corners, minimum width=4.2cm, minimum height=2.0cm, align=center, font=\normalsize},
     arrow/.style={->, >=stealth, thick},
-    scale=0.65, transform shape
+    scale=1.05
 , node distance=3cm]
 % PNEW
 \node[font=\bfseries] at (-5, 3.5) {PNEW};
-\node[draw, dashed, fill=gray!10, minimum width=3.6cm, minimum height=1.8cm] (pnew_before) at (-5, 2) {region};
+\node[draw, dashed, fill=gray!10, minimum width=4.5cm, minimum height=2.1cm] (pnew_before) at (-5, 2) {region};
 \draw[arrow, shorten >=2pt, shorten <=2pt] (-5, 1.2) -- (-5, 0.3);
-\node[module, fill=blue!20, align=center, text width=3.5cm, font=\normalsize] (pnew_after) at (-5, -0.5) {Module\\ID: $n$};
+\node[module, fill=blue!20, align=center, text width=4.5cm, font=\normalsize] (pnew_after) at (-5, -0.5) {Module\\ID: $n$};
 \node[font=\normalsize\itshape] at (-5, -1.5) {Creates new module};
 
 % PSPLIT
 \node[font=\bfseries] at (0, 3.5) {PSPLIT};
-\node[module, fill=green!30, minimum width=5.4cm, align=center, text width=3.5cm, font=\normalsize] (psplit_before) at (0, 2) {Module $M$\\$\{0,1,2,3\}$};
+\node[module, fill=green!30, minimum width=5.4cm, align=center, text width=4.5cm, font=\normalsize] (psplit_before) at (0, 2) {Module $M$\\$\{0,1,2,3\}$};
 \draw[arrow, shorten >=2pt, shorten <=2pt] (0, 1.2) -- (0, 0.3);
-\node[module, fill=green!20, minimum width=2.4cm, align=center, text width=3.5cm, font=\normalsize] (psplit_left) at (-1, -0.5) {$M_L$\\$\{0,1\}$};
-\node[module, fill=green!20, minimum width=2.4cm, align=center, text width=3.5cm, font=\normalsize] (psplit_right) at (1, -0.5) {$M_R$\\$\{2,3\}$};
+\node[module, fill=green!20, minimum width=2.4cm, align=center, text width=4.5cm, font=\normalsize] (psplit_left) at (-1, -0.5) {$M_L$\\$\{0,1\}$};
+\node[module, fill=green!20, minimum width=2.4cm, align=center, text width=4.5cm, font=\normalsize] (psplit_right) at (1, -0.5) {$M_R$\\$\{2,3\}$};
 \node[font=\normalsize\itshape] at (0, -1.5) {Splits into disjoint parts};
 
 % PMERGE
@@ -1302,7 +1302,7 @@ Definition graph_pnew (g : PartitionGraph) (region : list nat)
 \node[module, fill=orange!20, minimum width=2.2cm, font=\normalsize] (pmerge_left) at (4, 2) {$M_1$};
 \node[module, fill=orange!20, minimum width=2.2cm, font=\normalsize] (pmerge_right) at (6, 2) {$M_2$};
 \draw[arrow, shorten >=2pt, shorten <=2pt] (5, 1.2) -- (5, 0.3);
-\node[module, fill=orange!30, minimum width=4.6cm, align=center, text width=3.5cm, font=\normalsize] (pmerge_after) at (5, -0.5) {$M_{12}$\\(merged)};
+\node[module, fill=orange!30, minimum width=5.5cm, align=center, text width=4.5cm, font=\normalsize] (pmerge_after) at (5, -0.5) {$M_{12}$\\(merged)};
 \node[font=\normalsize\itshape] at (5, -1.5) {Combines disjoint modules};
 
 % Cost annotations
@@ -1568,16 +1568,16 @@ This is a computational analog of Bell locality: you cannot signal to a remote m
 \begin{tikzpicture}[
     box/.style={draw, rounded corners, minimum width=5.0cm, minimum height=3.2cm, align=center},
     arrow/.style={->, >=stealth, thick},
-    scale=0.65, transform shape
+    scale=1.05
 , node distance=2cm]
 % Before: Large search space
-\node[box, fill=red!20, minimum width=8.2cm, minimum height=5.0cm, align=center, text width=3.5cm, font=\normalsize] (omega) at (-5, 0) {
+\node[box, fill=red!20, minimum width=8.2cm, minimum height=5.0cm, align=center, text width=4.5cm, font=\normalsize] (omega) at (-5, 0) {
     \textbf{Search Space $\Omega$}\\[0.3cm]
     \large $2^n$ possibilities
 };
 
 % After: Reduced search space
-\node[box, fill=green!20, minimum width=5.0cm, minimum height=3.2cm, align=center, text width=3.5cm, font=\normalsize] (omega_prime) at (5, 0) {
+\node[box, fill=green!20, minimum width=5.0cm, minimum height=3.2cm, align=center, text width=4.5cm, font=\normalsize] (omega_prime) at (5, 0) {
     \textbf{Reduced $\Omega'$}\\[0.2cm]
     $2^{n-k}$ possibilities
 };
@@ -1588,18 +1588,18 @@ This is a computational analog of Bell locality: you cannot signal to a remote m
     node[pos=0.5, font=\small, above, yshift=6pt] {Cost: $\Delta\mu \ge k$ bits};
 
 % Conservation equation
-\node[draw, fill=yellow!30, rounded corners, font=\normalsize, align=center, text width=3.5cm] at (0, -2.5) {
+\node[draw, fill=yellow!30, rounded corners, font=\normalsize, align=center, text width=4.5cm] at (0, -2.5) {
     \textbf{No Free Insight:}\\[0.2cm]
     $\log|\Omega| - \log|\Omega'| \le \Delta\mu$\\[0.1cm]
     \textit{``Information gained $\le$ cost paid''}
 };
 
 % Stronger vs weaker predicates
-\node[draw, dashed, fill=blue!10, rounded corners, font=\normalsize, align=center, text width=3.5cm] at (-4, -2.5) {
+\node[draw, dashed, fill=blue!10, rounded corners, font=\normalsize, align=center, text width=4.5cm] at (-4, -2.5) {
     Predicate $P_{\text{weak}}$ \\
     \textit{accepts more traces}
 };
-\node[draw, dashed, fill=green!10, rounded corners, font=\normalsize, align=center, text width=3.5cm] at (4, -2.5) {
+\node[draw, dashed, fill=green!10, rounded corners, font=\normalsize, align=center, text width=4.5cm] at (4, -2.5) {
     Predicate $P_{\text{strong}}$ \\
     \textit{accepts fewer traces}
 };
@@ -1963,14 +1963,14 @@ This is the computational analog of Noether's theorem: the gauge symmetry (abili
     arrow/.style={->, >=stealth, thick}
 , node distance=2cm]
 % Original state
-\node[state, fill=blue!15, align=center, text width=3.5cm, font=\normalsize] (s) at (-3, 0) {
+\node[state, fill=blue!15, align=center, text width=4.5cm, font=\normalsize] (s) at (-3, 0) {
     \textbf{State $s$}\\[0.2cm]
     $\mu = \mu_0$\\
     $\Pi = \Pi_0$
 };
 
 % Shifted state
-\node[state, fill=blue!15, align=center, text width=3.5cm, font=\normalsize] (sk) at (3, 0) {
+\node[state, fill=blue!15, align=center, text width=4.5cm, font=\normalsize] (sk) at (3, 0) {
     \textbf{State $s + k$}\\[0.2cm]
     $\mu = \mu_0 + k$\\
     $\Pi = \Pi_0$
@@ -1981,14 +1981,14 @@ This is the computational analog of Noether's theorem: the gauge symmetry (abili
     node[pos=0.5, font=\small, above, yshift=6pt] {Gauge Shift $+k$};
 
 % Invariant annotation
-\node[draw, fill=yellow!20, rounded corners, font=\normalsize, align=center, text width=3.5cm] at (0, -2) {
+\node[draw, fill=yellow!20, rounded corners, font=\normalsize, align=center, text width=4.5cm] at (0, -2) {
     \textbf{Gauge Invariant:}\\
     Partition structure $\Pi$ unchanged\\[0.1cm]
     \textit{(Computational Noether's Theorem)}
 };
 
 % Physical analogy
-\node[draw, dashed, fill=green!10, rounded corners, font=\normalsize, align=center, text width=3.5cm] at (0, -3.5) {
+\node[draw, dashed, fill=green!10, rounded corners, font=\normalsize, align=center, text width=4.5cm] at (0, -3.5) {
     \textbf{Physical Analog:}\\
     Energy zero-point is arbitrary\\
     Only \textit{differences} matter
@@ -2020,22 +2020,22 @@ This is the computational analog of Noether's theorem: the gauge symmetry (abili
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    concept/.style={draw, rounded corners, minimum width=4.0cm, minimum height=2.4cm, align=center, font=\normalsize},
-    result/.style={draw, very thick, fill=yellow!20, rounded corners, minimum width=6.2cm, minimum height=1.7cm, align=center, font=\normalsize},
-    scale=0.65, transform shape
+    concept/.style={draw, rounded corners, minimum width=5.0cm, minimum height=2.4cm, align=center, font=\normalsize},
+    result/.style={draw, very thick, fill=yellow!20, rounded corners, minimum width=6.2cm, minimum height=2.0cm, align=center, font=\normalsize},
+    scale=1.05
 , node distance=2.5cm]
 % Core concepts
-\node[concept, fill=blue!20, align=center, text width=3.5cm] (state) at (-4, 3) {State Space\\$S$};
-\node[concept, fill=green!20, align=center, text width=3.5cm] (partition) at (-1.5, 3) {Partition Graph\\$\Pi$};
-\node[concept, fill=orange!20, align=center, text width=3.5cm] (mu) at (1.5, 3) {$\mu$-Ledger\\Currency};
-\node[concept, fill=red!20, align=center, text width=3.5cm] (rules) at (4, 3) {Transition\\Rules $R$};
+\node[concept, fill=blue!20, align=center, text width=4.5cm] (state) at (-4, 3) {State Space\\$S$};
+\node[concept, fill=green!20, align=center, text width=4.5cm] (partition) at (-1.5, 3) {Partition Graph\\$\Pi$};
+\node[concept, fill=orange!20, align=center, text width=4.5cm] (mu) at (1.5, 3) {$\mu$-Ledger\\Currency};
+\node[concept, fill=red!20, align=center, text width=4.5cm] (rules) at (4, 3) {Transition\\Rules $R$};
 
 % Key theorems
-\node[result, align=center, text width=3.5cm] (mono) at (-2.5, 0.5) {\textbf{$\mu$-Monotonicity}\\$s'.\mu \ge s.\mu$};
-\node[result, align=center, text width=3.5cm] (nosig) at (2.5, 0.5) {\textbf{No-Signaling}\\Local ops $\not\to$ remote observables};
+\node[result, align=center, text width=4.5cm] (mono) at (-2.5, 0.5) {\textbf{$\mu$-Monotonicity}\\$s'.\mu \ge s.\mu$};
+\node[result, align=center, text width=4.5cm] (nosig) at (2.5, 0.5) {\textbf{No-Signaling}\\Local ops $\not\to$ remote observables};
 
 % Master result
-\node[draw, ultra thick, fill=green!30, rounded corners, minimum width=14.4cm, minimum height=2.6cm, align=center, text width=3.5cm] (master) at (0, -2) {
+\node[draw, ultra thick, fill=green!30, rounded corners, minimum width=14.4cm, minimum height=2.6cm, align=center, text width=4.5cm] (master) at (0, -2) {
     \textbf{No Free Insight Theorem}\\
     $\log|\Omega| - \log|\Omega'| \le \Delta\mu$
 };

@@ -45,7 +45,7 @@ If you are familiar with any section, feel free to skip it. The only prerequisit
 % TikZ Figure: Turing Machine Architecture
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=0.65, transform shape, node distance=3cm]
+\begin{tikzpicture}[scale=1.05, node distance=3cm]
     % Tape
     \foreach \x in {0,1,2,3,4,5,6,7,8} {
         \draw (\x,0) rectangle (\x+1,1);
@@ -203,9 +203,9 @@ This does not trivialize P vs NP—the structural information may itself be expe
 % TikZ Figure: Information Theory Hierarchy
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=0.7, node distance=2cm]
+\begin{tikzpicture}[scale=1.0, node distance=2cm]
     % Three columns
-    \node[draw, rounded corners, fill=green!10, minimum width=5.4cm, minimum height=3.6cm, align=center, text width=3.5cm] (shannon) at (0,0) {
+    \node[draw, rounded corners, fill=green!10, minimum width=5.4cm, minimum height=3.6cm, align=center, text width=4.5cm] (shannon) at (0,0) {
         \begin{tabular}{c}
         \textbf{Shannon Entropy}\\
         $H(X) = -\sum p(x) \log p(x)$\\
@@ -214,7 +214,7 @@ This does not trivialize P vs NP—the structural information may itself be expe
         \end{tabular}
     };
     
-    \node[draw, rounded corners, fill=blue!10, minimum width=5.4cm, minimum height=3.6cm, align=center, text width=3.5cm] (kolmogorov) at (5,0) {
+    \node[draw, rounded corners, fill=blue!10, minimum width=5.4cm, minimum height=3.6cm, align=center, text width=4.5cm] (kolmogorov) at (5,0) {
         \begin{tabular}{c}
         \textbf{Kolmogorov}\\
         $K(x) = \min|p|$\\
@@ -223,7 +223,7 @@ This does not trivialize P vs NP—the structural information may itself be expe
         \end{tabular}
     };
     
-    \node[draw, rounded corners, fill=orange!10, minimum width=5.4cm, minimum height=3.6cm, align=center, text width=3.5cm] (mdl) at (10,0) {
+    \node[draw, rounded corners, fill=orange!10, minimum width=5.4cm, minimum height=3.6cm, align=center, text width=4.5cm] (mdl) at (10,0) {
         \begin{tabular}{c}
         \textbf{MDL / $\mu$-cost}\\
         $L(H) + L(D|H)$\\
@@ -237,7 +237,7 @@ This does not trivialize P vs NP—the structural information may itself be expe
     \draw[very thick, ->, >=stealth, shorten >=2pt, shorten <=2pt] (kolmogorov) -- (mdl) node[pos=0.5, font=\small, above, yshift=6pt] {\small approximates};
     
     % Annotation box
-    \node[draw, very thick, red, dashed, rounded corners, align=center, text width=3.5cm] at (10,-2.5) {
+    \node[draw, very thick, red, dashed, rounded corners, align=center, text width=4.5cm] at (10,-2.5) {
         \begin{tabular}{c}
         \textbf{Thiele Machine}\\
         uses MDL-based $\mu$\\
@@ -355,7 +355,7 @@ This is reflected directly in the Python and Coq implementations: the $\mu$-ledg
 % TikZ Figure: Landauer's Principle and Maxwell's Demon
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=0.65, node distance=3cm]
+\begin{tikzpicture}[scale=1.05, node distance=3cm]
     % Left: Landauer's Principle
     \begin{scope}[xshift=-5cm]
         % Two-to-one mapping
@@ -492,7 +492,7 @@ The total entropy balance is preserved: the demon's information processing exact
 % TikZ Figure: The μ-Thermodynamic Bridge
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=0.7, node distance=3cm]
+\begin{tikzpicture}[scale=1.0, node distance=3cm]
     % Three columns: Abstract, Bridge, Physical
     \node[draw, very thick, rounded corners, fill=blue!15, minimum width=5.4cm, minimum height=7.2cm] (abstract) at (0,0) {};
     \node[above] at (0,2.3) {\textbf{Abstract (Model)}};
@@ -520,7 +520,7 @@ The total entropy balance is preserved: the demon's information processing exact
     \draw[very thick, <->, >=stealth, shorten >=2pt, shorten <=2pt] (6.8,0) -- (8.2,0) node[pos=0.5, font=\small, above, yshift=6pt] {\small maps to};
     
     % Key insight
-    \node[draw, very thick, dashed, rounded corners, fill=yellow!20, align=center, text width=3.5cm] at (5,-3.5) {
+    \node[draw, very thick, dashed, rounded corners, fill=yellow!20, align=center, text width=4.5cm] at (5,-3.5) {
         \begin{tabular}{c}
         \textbf{Key Insight:} Asserting structure $\approx$ Erasing alternatives\\
         $\mu$-ledger monotonicity $\Leftrightarrow$ Second Law of Thermodynamics
@@ -576,9 +576,9 @@ The $\mu$-ledger is the computational analog of the thermodynamic entropy: a mon
 % TikZ Figure: CHSH Inequality and Correlation Bounds
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=0.7, node distance=2.5cm]
+\begin{tikzpicture}[scale=1.0, node distance=2.5cm]
     % Alice and Bob boxes
-    \node[draw, very thick, rounded corners, fill=blue!10, minimum width=3.6cm, minimum height=2.6cm, align=center, text width=3.5cm] (alice) at (-4,0) {
+    \node[draw, very thick, rounded corners, fill=blue!10, minimum width=4.5cm, minimum height=2.6cm, align=center, text width=4.5cm] (alice) at (-4,0) {
         \begin{tabular}{c}
         \textbf{Alice}\\
         $x \in \{0,1\}$\\
@@ -586,7 +586,7 @@ The $\mu$-ledger is the computational analog of the thermodynamic entropy: a mon
         \end{tabular}
     };
     
-    \node[draw, very thick, rounded corners, fill=green!10, minimum width=3.6cm, minimum height=2.6cm, align=center, text width=3.5cm] (bob) at (4,0) {
+    \node[draw, very thick, rounded corners, fill=green!10, minimum width=4.5cm, minimum height=2.6cm, align=center, text width=4.5cm] (bob) at (4,0) {
         \begin{tabular}{c}
         \textbf{Bob}\\
         $y \in \{0,1\}$\\
@@ -595,7 +595,7 @@ The $\mu$-ledger is the computational analog of the thermodynamic entropy: a mon
     };
     
     % Entangled source
-    \node[draw, very thick, rounded corners, fill=red!20, minimum width=2.6cm] (source) at (0,0) {Source};
+    \node[draw, very thick, rounded corners, fill=red!20, minimum width=3.5cm] (source) at (0,0) {Source};
     \draw[very thick, red, decorate, decoration={snake, amplitude=2pt}, shorten >=2pt, shorten <=2pt] (source) -- (alice);
     \draw[very thick, red, decorate, decoration={snake, amplitude=2pt}, shorten >=2pt, shorten <=2pt] (source) -- (bob);
     
@@ -704,30 +704,30 @@ In other words, you cannot certify non-local correlations without explicitly pay
 % TikZ Figure: Coq Verification Workflow
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=0.65, node distance=2.5cm]
+\begin{tikzpicture}[scale=1.05, node distance=2.5cm]
     % Coq workflow boxes
-    \node[draw, very thick, rounded corners, fill=blue!10, minimum width=4.6cm, minimum height=1.8cm, align=center, text width=3.5cm] (spec) at (0,0) {
+    \node[draw, very thick, rounded corners, fill=blue!10, minimum width=5.5cm, minimum height=2.1cm, align=center, text width=4.5cm] (spec) at (0,0) {
         \begin{tabular}{c}
         \textbf{Specification}\\
         \small Definitions
         \end{tabular}
     };
     
-    \node[draw, very thick, rounded corners, fill=green!10, minimum width=4.6cm, minimum height=1.8cm, align=center, text width=3.5cm] (theorem) at (4,0) {
+    \node[draw, very thick, rounded corners, fill=green!10, minimum width=5.5cm, minimum height=2.1cm, align=center, text width=4.5cm] (theorem) at (4,0) {
         \begin{tabular}{c}
         \textbf{Theorem}\\
         \small Statement
         \end{tabular}
     };
     
-    \node[draw, very thick, rounded corners, fill=orange!10, minimum width=4.6cm, minimum height=1.8cm, align=center, text width=3.5cm] (proof) at (8,0) {
+    \node[draw, very thick, rounded corners, fill=orange!10, minimum width=5.5cm, minimum height=2.1cm, align=center, text width=4.5cm] (proof) at (8,0) {
         \begin{tabular}{c}
         \textbf{Proof}\\
         \small Tactics
         \end{tabular}
     };
     
-    \node[draw, very thick, rounded corners, fill=red!10, minimum width=4.6cm, minimum height=1.8cm, align=center, text width=3.5cm] (qed) at (12,0) {
+    \node[draw, very thick, rounded corners, fill=red!10, minimum width=5.5cm, minimum height=2.1cm, align=center, text width=4.5cm] (qed) at (12,0) {
         \begin{tabular}{c}
         \textbf{Qed}\\
         \small Verified!
@@ -740,7 +740,7 @@ In other words, you cannot certify non-local correlations without explicitly pay
     \draw[very thick, ->, >=stealth, shorten >=2pt, shorten <=2pt] (proof) -- (qed);
     
     % Curry-Howard
-    \node[draw, dashed, very thick, purple, rounded corners, align=center, text width=3.5cm] at (6,-2) {
+    \node[draw, dashed, very thick, purple, rounded corners, align=center, text width=4.5cm] at (6,-2) {
         \begin{tabular}{c}
         \textbf{Curry-Howard Correspondence}\\
         Propositions $\equiv$ Types\\
@@ -751,7 +751,7 @@ In other words, you cannot certify non-local correlations without explicitly pay
     
     % Inquisitor Standard
     \begin{scope}[yshift=-4cm]
-        \node[draw, very thick, fill=red!20, rounded corners, minimum width=18.0cm, align=center, text width=3.5cm] at (6,0) {
+        \node[draw, very thick, fill=red!20, rounded corners, minimum width=18.0cm, align=center, text width=4.5cm] at (6,0) {
             \begin{tabular}{c}
             \textbf{Inquisitor Standard} (enforced automatically)\\
             \texttimes\ No \texttt{Admitted} \quad \texttimes\ No \texttt{admit} \quad \texttimes\ No \texttt{Axiom}
@@ -872,9 +872,9 @@ MDL has been used extensively in machine learning for model selection (Occam's r
 % TikZ Figure: Chapter 2 Summary - The Conceptual Foundation
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=0.75, node distance=2.5cm]
+\begin{tikzpicture}[scale=1.05, node distance=2.5cm]
     % Central node
-    \node[draw, very thick, rounded corners, fill=yellow!30, minimum width=5.4cm, minimum height=2.6cm, align=center, text width=3.5cm] (thiele) at (0,0) {
+    \node[draw, very thick, rounded corners, fill=yellow!30, minimum width=5.4cm, minimum height=2.6cm, align=center, text width=4.5cm] (thiele) at (0,0) {
         \begin{tabular}{c}
         \textbf{Thiele Machine}\\
         \small $\mu$-accounting
@@ -882,7 +882,7 @@ MDL has been used extensively in machine learning for model selection (Occam's r
     };
     
     % Four corners representing the four pillars
-    \node[draw, very thick, rounded corners, fill=blue!15, minimum width=4.6cm, minimum height=2.2cm, align=center, text width=3.5cm] (comp) at (-5,3) {
+    \node[draw, very thick, rounded corners, fill=blue!15, minimum width=5.5cm, minimum height=2.2cm, align=center, text width=4.5cm] (comp) at (-5,3) {
         \begin{tabular}{c}
         \textbf{Computation}\\
         \small TM, RAM\\
@@ -890,7 +890,7 @@ MDL has been used extensively in machine learning for model selection (Occam's r
         \end{tabular}
     };
     
-    \node[draw, very thick, rounded corners, fill=green!15, minimum width=4.6cm, minimum height=2.2cm, align=center, text width=3.5cm] (info) at (5,3) {
+    \node[draw, very thick, rounded corners, fill=green!15, minimum width=5.5cm, minimum height=2.2cm, align=center, text width=4.5cm] (info) at (5,3) {
         \begin{tabular}{c}
         \textbf{Information}\\
         \small Shannon, K(x)\\
@@ -898,7 +898,7 @@ MDL has been used extensively in machine learning for model selection (Occam's r
         \end{tabular}
     };
     
-    \node[draw, very thick, rounded corners, fill=red!15, minimum width=4.6cm, minimum height=2.2cm, align=center, text width=3.5cm] (phys) at (-5,-3) {
+    \node[draw, very thick, rounded corners, fill=red!15, minimum width=5.5cm, minimum height=2.2cm, align=center, text width=4.5cm] (phys) at (-5,-3) {
         \begin{tabular}{c}
         \textbf{Physics}\\
         \small Landauer\\
@@ -906,7 +906,7 @@ MDL has been used extensively in machine learning for model selection (Occam's r
         \end{tabular}
     };
     
-    \node[draw, very thick, rounded corners, fill=purple!15, minimum width=4.6cm, minimum height=2.2cm, align=center, text width=3.5cm] (quantum) at (5,-3) {
+    \node[draw, very thick, rounded corners, fill=purple!15, minimum width=5.5cm, minimum height=2.2cm, align=center, text width=4.5cm] (quantum) at (5,-3) {
         \begin{tabular}{c}
         \textbf{Quantum}\\
         \small Bell, CHSH\\
@@ -921,7 +921,7 @@ MDL has been used extensively in machine learning for model selection (Occam's r
     \draw[very thick, ->, >=stealth, shorten >=2pt, shorten <=2pt] (quantum) -- (thiele) node[midway, below, sloped] {\small $2\sqrt{2}$ derivation};
     
     % Verification layer
-    \node[draw, very thick, rounded corners, fill=orange!20, minimum width=14.4cm, align=center, text width=3.5cm] (verify) at (0,-5.5) {
+    \node[draw, very thick, rounded corners, fill=orange!20, minimum width=14.4cm, align=center, text width=4.5cm] (verify) at (0,-5.5) {
         \begin{tabular}{c}
         \textbf{Formal Verification} (Coq)\\
         \small 206 proofs $\cdot$ Inquisitor Standard $\cdot$ Zero axioms/admits
