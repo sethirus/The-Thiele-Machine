@@ -4,6 +4,54 @@
 
 I, Devon Thiele, present the \textit{Thiele Machine}---a new model of computation that treats \textbf{structural information as a costly resource}.
 
+% ============================================================================
+% CHAPTER 1 VISUAL OVERVIEW
+% ============================================================================
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    scale=0.9,
+    transform shape,
+    box/.style={rectangle, draw, rounded corners, minimum width=2.5cm, minimum height=1cm, align=center, fill=blue!10},
+    arrow/.style={->, thick, >=stealth},
+    label/.style={font=\small\itshape}
+]
+% Left side: Classical (Blind)
+\node[box, fill=gray!20] (turing) at (-4, 2) {Turing\\Machine};
+\node[box, fill=gray!20] (ram) at (-4, 0) {RAM\\Model};
+\node[box, fill=gray!20] (search) at (-4, -2) {Blind\\Search};
+
+% Right side: Thiele (Sighted)
+\node[box, fill=green!20] (thiele) at (4, 0) {Thiele\\Machine};
+
+% Center: The transformation
+\node[box, fill=yellow!30, minimum width=3cm] (mu) at (0, 0) {$\mu$-bit\\Accounting};
+
+% Arrows
+\draw[arrow] (turing) -- (mu) node[midway, above, label] {structure cost};
+\draw[arrow] (ram) -- (mu) node[midway, above, label] {};
+\draw[arrow] (search) -- (mu) node[midway, below, label] {insight tax};
+\draw[arrow] (mu) -- (thiele) node[midway, above, label] {explicit structure};
+
+% Labels
+\node[below=0.3cm of turing, label] {$O(2^n)$ worst case};
+\node[below=0.3cm of thiele, label] {$O(k \cdot 2^{n/k})$ with structure};
+
+% Title
+\node[above=0.8cm of mu, font=\bfseries] {The Paradigm Shift};
+
+% Annotations
+\draw[dashed, gray] (-6, -3.5) -- (-6, 3.5) -- (-2, 3.5) -- (-2, -3.5) -- cycle;
+\node[above] at (-4, 3.5) {\textbf{Classical Models}};
+
+\draw[dashed, gray] (2, -3.5) -- (2, 3.5) -- (6, 3.5) -- (6, -3.5) -- cycle;
+\node[above] at (4, 3.5) {\textbf{Thiele Machine}};
+
+\end{tikzpicture}
+\caption{The paradigm shift from blind computation to structure-aware computation. Classical models pay the ``time tax'' of exponential search; the Thiele Machine makes structural cost explicit through $\mu$-bit accounting.}
+\label{fig:paradigm-shift}
+\end{figure}
+
 For clarity, I will use the term \textbf{structure} to mean \textit{explicit, checkable constraints about how parts of a computational state relate}. Formally, a piece of structure is a predicate over a subset of state variables (or a partition of state) that can be verified by a logic engine or certificate checker. Examples include: a memory region forming a balanced search tree, a graph decomposing into disconnected components, or a set of variables being independent. In classical models, these relationships are present only as interpretations \emph{external} to the machine. Here, they become internal objects with a measured cost, so a program must explicitly \emph{pay} to assert or certify them.
 In the formal model, this “internal object” is realized by a partition graph whose modules carry axiom strings (SMT-LIB constraints). The partition graph and axiom sets are part of the machine state, and operations such as \texttt{PNEW}, \texttt{PSPLIT}, and \texttt{LASSERT} modify them. This makes structural knowledge something the machine can track, charge for, and expose in its observable projection rather than something the reader assumes from the outside.
 
@@ -18,7 +66,7 @@ If you are new to theoretical computer science, here is what you need to know:
 
 This is not a paper with informal arguments. Every major claim is:
 \begin{enumerate}
-    \item \textbf{Formally proven}: Machine-checked proofs in the Coq proof assistant (over 1,400 theorems and lemmas across 187 files)
+    \item \textbf{Formally proven}: Machine-checked proofs in the Coq proof assistant (over 1,400 theorems and lemmas across 206 files)
     \item \textbf{Implemented}: Working code in Python and Verilog hardware description
     \item \textbf{Tested}: Automated tests verify that theory and implementation match
     \item \textbf{Falsifiable}: I specify exactly what would disprove my claims
@@ -102,6 +150,56 @@ This is the \textbf{Time Tax}: because classical models refuse to account for st
 The question this thesis addresses is: \textbf{What is the cost of sight?} Put differently, how many bits of certified structure are required to justify a given reduction in search effort?
 The model answers this by explicitly charging $\mu$ for operations that add or refine structure, and by proving that any reduction in the compatible state space requires a matching $\mu$-increase.
 
+% ============================================================================
+% TIME TAX DIAGRAM
+% ============================================================================
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    scale=0.85,
+    transform shape
+]
+% Axes
+\draw[->, thick] (0,0) -- (10,0) node[right] {Problem Size $n$};
+\draw[->, thick] (0,0) -- (0,6) node[above] {Time};
+
+% Exponential curve (blind search)
+\draw[thick, red, domain=0:4.5, samples=100] 
+    plot (\x*2, {0.1*exp(\x)}) node[right] {$O(2^n)$ \textit{Blind}};
+
+% Linear/polynomial curve (structured search)  
+\draw[thick, green!60!black, domain=0:9, samples=100]
+    plot (\x, {0.3*\x + 0.1}) node[right] {$O(k \cdot 2^{n/k})$ \textit{Sighted}};
+
+% Annotation
+\draw[<->, dashed, blue, thick] (6, 0.9) -- (6, 4.5);
+\node[blue, right] at (6.2, 2.7) {\textbf{Time Tax}};
+
+% Grid lines
+\draw[gray, dashed, very thin] (0,1) -- (9,1);
+\draw[gray, dashed, very thin] (0,2) -- (9,2);
+\draw[gray, dashed, very thin] (0,3) -- (9,3);
+\draw[gray, dashed, very thin] (0,4) -- (9,4);
+\draw[gray, dashed, very thin] (0,5) -- (9,5);
+
+% X-axis labels
+\foreach \x in {2,4,6,8} {
+    \draw (\x, -0.1) -- (\x, 0.1);
+    \node[below] at (\x, -0.1) {$\x$};
+}
+
+% Y-axis labels  
+\node[left] at (0, 1) {$10^2$};
+\node[left] at (0, 2) {$10^4$};
+\node[left] at (0, 3) {$10^6$};
+\node[left] at (0, 4) {$10^8$};
+\node[left] at (0, 5) {$10^{10}$};
+
+\end{tikzpicture}
+\caption{The Time Tax: blind computation pays exponentially ($O(2^n)$), while structure-aware computation pays polynomially when structure is available ($O(k \cdot 2^{n/k})$ for $k$ independent components). The gap is the ``time tax'' of blindness.}
+\label{fig:time-tax}
+\end{figure}
+
 \section{The Thiele Machine: Computation with Explicit Structure}
 
 \subsection{The Central Hypothesis}
@@ -123,6 +221,61 @@ I formalize this through a new model of computation: the Thiele Machine $T = (S,
     \item $L$: The Logic Engine—an SMT oracle that verifies consistency
 \end{itemize}
 Chapter 3 spells these components out with exact data structures and step rules. The reason for the tuple is that each component becomes a separately verified artifact: the state and partitions are a record in Coq, the transition rules are inductive constructors, and the logic engine is represented by certified checkers that accept or reject axiom strings.
+
+% ============================================================================
+% THIELE MACHINE ARCHITECTURE DIAGRAM
+% ============================================================================
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    scale=0.85,
+    transform shape,
+    component/.style={rectangle, draw, rounded corners, minimum width=2.2cm, minimum height=1cm, align=center, thick},
+    arrow/.style={->, thick, >=stealth},
+    label/.style={font=\small}
+]
+
+% State space S
+\node[component, fill=blue!15] (S) at (-4, 2) {$S$\\State Space};
+
+% Partition space Π  
+\node[component, fill=green!15] (Pi) at (-4, 0) {$\Pi$\\Partitions};
+
+% Axiom set A
+\node[component, fill=yellow!15] (A) at (0, 2) {$A$\\Axioms};
+
+% Transition rules R
+\node[component, fill=orange!15] (R) at (4, 2) {$R$\\Transitions};
+
+% Logic Engine L
+\node[component, fill=purple!15] (L) at (4, 0) {$L$\\Logic Engine};
+
+% μ-Ledger (central)
+\node[component, fill=red!20, minimum width=2.5cm, minimum height=1.2cm] (mu) at (0, 0) {$\mu$-Ledger\\(monotonic)};
+
+% Arrows showing relationships
+\draw[arrow] (S) -- (Pi) node[midway, left, label] {decompose};
+\draw[arrow] (Pi) -- (mu) node[midway, above, label] {track};
+\draw[arrow] (A) -- (mu) node[midway, right, label] {charge};
+\draw[arrow] (R) -- (mu) node[midway, above, label] {update};
+\draw[arrow] (L) -- (A) node[midway, right, label] {verify};
+\draw[arrow, dashed] (S) -- (A) node[midway, above, label] {constrain};
+\draw[arrow, dashed] (R) -- (S) node[midway, above, label] {transform};
+
+% Bounding box
+\draw[thick, dashed, gray, rounded corners] (-5.5, -1.2) rectangle (5.5, 3.2);
+\node[above] at (0, 3.2) {\textbf{Thiele Machine} $T = (S, \Pi, A, R, L)$};
+
+% Key insight annotation
+\node[below=0.3cm of mu, label, align=center] {
+    \textit{Every structural operation}\\
+    \textit{increments $\mu$}
+};
+
+\end{tikzpicture}
+\caption{The Thiele Machine architecture. The five components work together to make structural cost explicit. The $\mu$-ledger at the center tracks all structural assertions, ensuring that insight is never free.}
+\label{fig:thiele-architecture}
+\end{figure}
 
 \subsection{The $\mu$-bit: A Currency for Structure}
 
@@ -150,6 +303,53 @@ Let $T$ be a Thiele Machine. If an execution trace reduces the search space from
 \Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')
 \]
 \end{theorem}
+
+% ============================================================================
+% NO FREE INSIGHT DIAGRAM
+% ============================================================================
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    scale=0.9,
+    transform shape
+]
+
+% Left: Large search space Ω
+\draw[thick, fill=blue!10] (0,0) circle (2.5cm);
+\node[font=\large] at (0, 0) {$\Omega$};
+\node[below] at (0, -2.8) {Original search space};
+\node[below] at (0, -3.3) {$2^n$ states};
+
+% Arrow with μ cost
+\draw[->, ultra thick, red!70!black] (3, 0) -- (5, 0);
+\node[above, font=\bfseries] at (4, 0.3) {$\Delta\mu$ bits};
+\node[below, font=\small\itshape] at (4, -0.3) {(structural cost)};
+
+% Right: Smaller search space Ω'
+\draw[thick, fill=green!20] (7.5, 0) circle (1.2cm);
+\node[font=\large] at (7.5, 0) {$\Omega'$};
+\node[below] at (7.5, -1.5) {Reduced space};
+\node[below] at (7.5, -2.0) {$2^{n-k}$ states};
+
+% Conservation law annotation
+\draw[decorate, decoration={brace, amplitude=10pt, mirror}] 
+    (-2.5, -4) -- (2.5, -4);
+\node[below] at (0, -4.5) {$\log_2(\Omega)$ bits of uncertainty};
+
+\draw[decorate, decoration={brace, amplitude=8pt, mirror}] 
+    (6.3, -4) -- (8.7, -4);
+\node[below] at (7.5, -4.5) {$\log_2(\Omega')$ bits};
+
+% The key equation
+\node[draw, thick, fill=yellow!20, rounded corners, align=center] at (4, -5.5) {
+    \textbf{Conservation Law:}\\[0.2cm]
+    $\Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')$
+};
+
+\end{tikzpicture}
+\caption{The No Free Insight theorem visualized. Reducing the search space from $\Omega$ to $\Omega'$ requires paying at least $\log_2(\Omega) - \log_2(\Omega')$ $\mu$-bits. This is a conservation law: insight costs information.}
+\label{fig:no-free-insight}
+\end{figure}
 
 In other words, you cannot narrow the search space without paying the information-theoretic cost of that narrowing. The proof is a formal consequence of three principles: (i) a $\mu$-ledger that never decreases under valid transitions, (ii) a revelation rule that charges any strengthening of accepted predicates, and (iii) a locality principle that prevents uncharged influence across unrelated modules. Here the ``search space'' $\Omega$ should be read as the count of states consistent with current axioms; shrinking that set necessarily consumes bits of structural commitment. This is the exact sense in which ``insight'' is paid for: reduced uncertainty is not free, it is ledgered.
 The mechanized proofs of these principles live in the Coq kernel (for example \path{MuLedgerConservation.v} and \path{NoFreeInsight.v}), so the theorem here is directly traceable to concrete proof artifacts rather than a purely informal argument.
@@ -239,6 +439,104 @@ These three layers are not independent implementations—they are \textit{isomor
     \item Running $\tau$ through the RTL simulation produces state $S_{\text{RTL}}$
 \end{enumerate}
 
+% ============================================================================
+% 3-LAYER ISOMORPHISM DIAGRAM
+% ============================================================================
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    scale=0.9,
+    transform shape,
+    layer/.style={rectangle, draw, rounded corners, minimum width=4cm, minimum height=1.5cm, align=center, thick},
+    arrow/.style={<->, thick, >=stealth, blue},
+    label/.style={font=\small\itshape}
+]
+
+% Layer 1: Coq
+\node[layer, fill=purple!20] (coq) at (0, 4) {
+    \textbf{Layer 1: Coq}\\
+    \small Machine-checked proofs\\
+    \small 206 files, 1400+ theorems
+};
+
+% Layer 2: Python
+\node[layer, fill=blue!20] (python) at (0, 2) {
+    \textbf{Layer 2: Python VM}\\
+    \small Executable reference\\
+    \small Ed25519-signed receipts
+};
+
+% Layer 3: Hardware
+\node[layer, fill=green!20] (rtl) at (0, 0) {
+    \textbf{Layer 3: Verilog RTL}\\
+    \small Physical realization\\
+    \small FPGA synthesizable
+};
+
+% Bidirectional arrows with labels
+\draw[arrow] (coq.south) -- (python.north) 
+    node[midway, right, label] {Bisimulation};
+\draw[arrow] (python.south) -- (rtl.north)
+    node[midway, right, label] {Bisimulation};
+
+% Properties on the left
+\node[left=2cm of coq, align=right] (p1) {
+    \textbf{Properties:}\\
+    $\mu$-monotonicity\\
+    No Free Insight\\
+    CHSH bounds
+};
+
+\node[left=2cm of python, align=right] (p2) {
+    \textbf{Properties:}\\
+    Same $\mu$-ledger\\
+    Same state projection\\
+    Auditable traces
+};
+
+\node[left=2cm of rtl, align=right] (p3) {
+    \textbf{Properties:}\\
+    Same gate-level $\mu$\\
+    Physical enforcement\\
+    Real-time execution
+};
+
+% Arrows from properties
+\draw[->, dashed, gray] (p1.east) -- (coq.west);
+\draw[->, dashed, gray] (p2.east) -- (python.west);
+\draw[->, dashed, gray] (p3.east) -- (rtl.west);
+
+% Title
+\node[above=0.5cm of coq, font=\bfseries\large] {3-Layer Isomorphism Architecture};
+
+% Right side: verification flow
+\node[right=2cm of coq, align=left] (v1) {
+    \textbf{Verification:}\\
+    Coq type-checker\\
+    Zero admits
+};
+
+\node[right=2cm of python, align=left] (v2) {
+    \textbf{Verification:}\\
+    pytest suite\\
+    1,115 tests
+};
+
+\node[right=2cm of rtl, align=left] (v3) {
+    \textbf{Verification:}\\
+    Icarus Verilog\\
+    Yosys synthesis
+};
+
+\draw[->, dashed, gray] (coq.east) -- (v1.west);
+\draw[->, dashed, gray] (python.east) -- (v2.west);
+\draw[->, dashed, gray] (rtl.east) -- (v3.west);
+
+\end{tikzpicture}
+\caption{The 3-layer isomorphism architecture. Each layer implements identical semantics with the same $\mu$-ledger accounting. Bisimulation proofs ensure that properties proven in Coq transfer to Python and hardware. The right side shows verification tooling at each level.}
+\label{fig:three-layer}
+\end{figure}
+
 The Inquisitor pipeline verifies equality of \emph{observable projections} of state, and those projections are suite-specific rather than one monolithic snapshot. For example, the compute isomorphism gate (\texttt{tests/test\_rtl\_compute\_isomorphism.py}) compares registers and memory, while the partition gate (\path{tests/test_partition_isomorphism_minimal.py}) compares module regions extracted from the partition graph. The extracted runner emits a superset of observables (pc, $\mu$, err, regs, mem, CSRs, graph), and the RTL testbench emits a JSON subset tailored to the gate under test.
 
 This 3-layer isomorphism ensures that my theoretical claims are physically realizable and my implementations are provably correct with respect to the shared projection.
@@ -308,7 +606,7 @@ The remainder of this thesis is organized as follows:
 \begin{itemize}
     \item \textbf{Chapter 9: The Verifier System} documents the complete TRS-1.0 receipt protocol and the four C-modules (C-RAND, C-TOMO, C-ENTROPY, C-CAUSAL) that provide domain-specific verification.
     
-    \item \textbf{Chapter 10: Extended Proof Architecture} covers the full 187-file Coq development including the ThieleMachine proofs, Theory of Everything results, and impossibility theorems.
+    \item \textbf{Chapter 10: Extended Proof Architecture} covers the full 206-file Coq development including the ThieleMachine proofs, Theory of Everything results, and impossibility theorems.
     
     \item \textbf{Chapter 11: Experimental Validation Suite} details all physics experiments, falsification tests, and the benchmark suite.
     
