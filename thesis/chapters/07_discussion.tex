@@ -436,12 +436,15 @@ That trade-off is implemented as an explicit ledger budget in the harness descri
 ]
 % Two strategies
 \node[box, fill=red!20, align=center, text width=3.5cm, font=\normalsize] (blind) {Blind Search\\$T = O(2^n)$\\$\mu = O(1)$};
-\node[box, fill=green!20, right=5.9cm of blind, align=center, text width=3.5cm,  font=\bfseries, font=\small, yshift=6pt] {Difficulty Conservation};
-\draw[arrow] (blind) -- node[above, yshift=6pt, font=\normalsize, pos=0.5,  draw, rounded corners, fill=yellow!20, minimum width=9.0cm, font=\small, yshift=-6pt] {$\text{Total Cost} = T(x) + \mu(x)$};
+\node[box, fill=green!20, right=5.9cm of blind, align=center, text width=3.5cm, font=\normalsize] (sighted) {Sighted Search\\$T = O(k \cdot 2^{n/k})$\\$\mu = O(k)$};
+\draw[arrow] (blind) -- (sighted) node[midway, above, font=\small] {Trade-off};
+
+% Total cost annotation
+\node[draw, rounded corners, fill=yellow!20, minimum width=9.0cm, font=\small, yshift=-6pt] at (2.9,-2) {$\text{Total Cost} = T(x) + \mu(x)$};
 
 % Annotations
-\node[below=0.4cm of blind,  red, font=\small, yshift=-6pt] {High time, low structure};
-\node[below=0.4cm of sighted,  green!50!black, font=\small, yshift=-6pt] {Low time, high structure};
+\node[below=0.4cm of blind, red, font=\small] {High time, low structure};
+\node[below=0.4cm of sighted, green!50!black, font=\small] {Low time, high structure};
 \end{tikzpicture}
 \caption{Conservation of difficulty: time and structure are interchangeable resources.}
 \label{fig:difficulty_conservation}
