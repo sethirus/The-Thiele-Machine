@@ -1,7 +1,7 @@
 From Coq Require Import List PeanoNat.
 Import ListNotations.
 
-From ThieleMachine.Modular_Proofs Require Import Encoding EncodingBounds TM_Basics.
+From ModularProofs Require Import Encoding EncodingBounds TM_Basics.
 
 Definition tm_encode_config (conf : TMConfig) : nat :=
   let '(q, tape, head) := conf in encode_config q tape head.
