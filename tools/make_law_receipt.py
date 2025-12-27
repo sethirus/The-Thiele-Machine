@@ -13,14 +13,24 @@ from fractions import Fraction
 from pathlib import Path
 from typing import Iterable, List, Mapping, MutableMapping, Sequence, Tuple
 
-from mu_calibration import (
-    BOLTZMANN_CONSTANT,
-    LN2,
-    CalibrationSummary,
-    calibrated_work,
-    compute_calibration_summary,
-    landauer_bound,
-)
+try:
+    from tools.mu_calibration import (
+        BOLTZMANN_CONSTANT,
+        LN2,
+        CalibrationSummary,
+        calibrated_work,
+        compute_calibration_summary,
+        landauer_bound,
+    )
+except ModuleNotFoundError:  # pragma: no cover
+    from mu_calibration import (  # type: ignore
+        BOLTZMANN_CONSTANT,
+        LN2,
+        CalibrationSummary,
+        calibrated_work,
+        compute_calibration_summary,
+        landauer_bound,
+    )
 
 CANONICAL_SEPARATORS = (",", ":")
 DEFAULT_OUTPUT = Path("artifacts/law_receipt.jsonl")

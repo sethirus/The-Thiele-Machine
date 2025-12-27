@@ -10,7 +10,13 @@ import math
 from pathlib import Path
 from typing import Iterable, List, Mapping, MutableMapping, Sequence
 
-from mu_calibration import CalibrationSummary, compute_calibration_summary
+try:
+    from tools.mu_calibration import CalibrationSummary, compute_calibration_summary
+except ModuleNotFoundError:  # pragma: no cover
+    from mu_calibration import (  # type: ignore
+        CalibrationSummary,
+        compute_calibration_summary,
+    )
 
 try:  # pragma: no cover - executed from within tools/
     from tools.make_law_receipt import append_entry, compute_entry_hash, nusd_payload, verify_chain

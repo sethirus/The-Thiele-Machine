@@ -14,12 +14,19 @@ try:
     from tools.make_law_receipt import append_entry, compute_entry_hash, nusd_payload, verify_chain
 except ModuleNotFoundError:  # script executed from within tools/
     from make_law_receipt import append_entry, compute_entry_hash, nusd_payload, verify_chain
-from mu_calibration import CalibrationSummary, compute_calibration_summary
+try:
+    from tools.mu_calibration import CalibrationSummary, compute_calibration_summary
+except ModuleNotFoundError:  # pragma: no cover
+    from mu_calibration import (  # type: ignore
+        CalibrationSummary,
+        compute_calibration_summary,
+    )
 from nusd_domains import (
     DOMAIN_REGISTRY,
     AutomatonDomain,
     DiscoveryDomain,
     DomainResult,
+    GenesisCompressionDomain,
     LatticeDomain,
     TseitinDomain,
     TurbulenceDomain,
@@ -63,6 +70,48 @@ def instantiate_domain(args: argparse.Namespace, *, record_entries: bool = True)
             seed=args.turbulence_seed,
             samples=args.turbulence_samples,
             grid=args.turbulence_grid,
+            record_entries=record_entries,
+        )
+    if args.domain == GenesisCompressionDomain.name:
+        return GenesisCompressionDomain(
+            width=args.genesis_width,
+            height=args.genesis_height,
+            steps=args.genesis_steps,
+            seed=args.genesis_seed,
+            rule=args.genesis_rule,
+            budget_bits=args.genesis_budget_bits,
+            dictionary_size=args.genesis_dictionary_size,
+            pressure_stride=args.genesis_pressure_stride,
+            sample_every=args.genesis_sample_every,
+            sample_steps=[int(v) for v in args.genesis_sample_steps],
+            include_control=args.genesis_include_control,
+            display_phase_invert=args.genesis_display_phase_invert,
+            init_density=args.genesis_init_density,
+            init_patch_frac=args.genesis_init_patch_frac,
+            render_hud=args.genesis_render_hud,
+            render_delta=args.genesis_render_delta,
+            render_motion=args.genesis_render_motion,
+            render_trail=args.genesis_render_trail,
+            trail_decay=args.genesis_trail_decay,
+            trail_threshold=args.genesis_trail_threshold,
+            gif_path=str(args.genesis_gif_path) if args.genesis_gif_path else None,
+            gif_scale=args.genesis_gif_scale,
+            gif_fps=args.genesis_gif_fps,
+            record_entries=record_entries,
+        )
+    if args.domain == "inverse_genesis":
+        # Imported via DOMAIN_REGISTRY, but instantiated explicitly for CLI flags.
+        from nusd_domains import InverseGenesisDomain  # type: ignore
+
+        return InverseGenesisDomain(
+            seed=args.inverse_seed,
+            steps=args.inverse_steps,
+            dt=args.inverse_dt,
+            noise_std=args.inverse_noise_std,
+            max_terms=args.inverse_max_terms,
+            min_gain_bits=args.inverse_min_gain_bits,
+            bits_per_sample=args.inverse_bits_per_sample,
+            trajectories=args.inverse_trajectories,
             record_entries=record_entries,
         )
     raise ValueError(f"unknown domain {args.domain}")
@@ -117,6 +166,150 @@ def parse_args(argv: Iterable[str] | None = None) -> argparse.Namespace:
     turbulence.add_argument("--turbulence-seed", type=int, default=314159)
     turbulence.add_argument("--turbulence-samples", type=int, default=96)
     turbulence.add_argument("--turbulence-grid", type=int, default=32)
+
+    genesis = parser.add_argument_group("genesis_compression")
+    genesis.add_argument("--genesis-width", type=int, default=128)
+    genesis.add_argument("--genesis-height", type=int, default=128)
+    genesis.add_argument("--genesis-steps", type=int, default=10000)
+    genesis.add_argument("--genesis-seed", type=int, default=20251226)
+    genesis.add_argument(
+        "--genesis-rule",
+        choices=["hpp", "critters"],
+        default="critters",
+        help="2x2 Margolus reversible rule (default: critters)",
+    )
+    genesis.add_argument("--genesis-budget-bits", type=int, default=30000)
+    genesis.add_argument("--genesis-dictionary-size", type=int, default=8)
+    genesis.add_argument("--genesis-pressure-stride", type=int, default=10)
+    genesis.add_argument(
+        "--genesis-include-control",
+        action="store_true",
+        default=True,
+        help="also simulate a no-pressure control timeline (default: enabled)",
+    )
+    genesis.add_argument(
+        "--genesis-no-control",
+        dest="genesis_include_control",
+        action="store_false",
+        help="disable the control timeline",
+    )
+    genesis.add_argument(
+        "--genesis-display-phase-invert",
+        action="store_true",
+        default=True,
+        help="invert display on odd phases for visual continuity (default: enabled)",
+    )
+    genesis.add_argument(
+        "--genesis-no-display-phase-invert",
+        dest="genesis_display_phase_invert",
+        action="store_false",
+        help="disable odd-phase display inversion",
+    )
+    genesis.add_argument(
+        "--genesis-sample-every",
+        type=int,
+        default=40,
+        help="render a frame every N steps in addition to --genesis-sample-steps",
+    )
+    genesis.add_argument(
+        "--genesis-sample-steps",
+        type=int,
+        nargs="+",
+        default=[0, 100, 1000, 10000],
+        help="steps to snapshot/render into the GIF",
+    )
+    genesis.add_argument(
+        "--genesis-gif-path",
+        type=Path,
+        default=Path("artifacts/genesis_compression.gif"),
+        help="animated GIF output path",
+    )
+    genesis.add_argument("--genesis-gif-scale", type=int, default=4)
+    genesis.add_argument("--genesis-gif-fps", type=int, default=30)
+    genesis.add_argument(
+        "--genesis-init-density",
+        type=float,
+        default=0.25,
+        help="initial live-cell density inside the seed patch (default: 0.25)",
+    )
+    genesis.add_argument(
+        "--genesis-init-patch-frac",
+        type=float,
+        default=0.40,
+        help="fraction of the grid used as the initial noise patch (default: 0.40)",
+    )
+    genesis.add_argument(
+        "--genesis-render-hud",
+        action="store_true",
+        default=True,
+        help="render a small HUD bar with metrics (default: enabled)",
+    )
+    genesis.add_argument(
+        "--genesis-no-render-hud",
+        dest="genesis_render_hud",
+        action="store_false",
+        help="disable HUD rendering",
+    )
+    genesis.add_argument(
+        "--genesis-render-delta",
+        action="store_true",
+        default=True,
+        help="render a delta panel when control is enabled (default: enabled)",
+    )
+    genesis.add_argument(
+        "--genesis-no-render-delta",
+        dest="genesis_render_delta",
+        action="store_false",
+        help="disable delta panel rendering",
+    )
+
+    genesis.add_argument(
+        "--genesis-render-motion",
+        action="store_true",
+        default=True,
+        help="render a motion panel (cells changed since previous frame) (default: enabled)",
+    )
+    genesis.add_argument(
+        "--genesis-no-render-motion",
+        dest="genesis_render_motion",
+        action="store_false",
+        help="disable motion panel rendering",
+    )
+
+    genesis.add_argument(
+        "--genesis-render-trail",
+        action="store_true",
+        default=True,
+        help="render a trail panel (motion heatmap with decay) (default: enabled)",
+    )
+    genesis.add_argument(
+        "--genesis-no-render-trail",
+        dest="genesis_render_trail",
+        action="store_false",
+        help="disable trail panel rendering",
+    )
+    genesis.add_argument(
+        "--genesis-trail-decay",
+        type=int,
+        default=240,
+        help="trail retention in [0..255] (higher=longer trails) (default: 240)",
+    )
+    genesis.add_argument(
+        "--genesis-trail-threshold",
+        type=int,
+        default=64,
+        help="trail intensity threshold in [0..255] for coherence metrics (default: 64)",
+    )
+
+    inverse = parser.add_argument_group("inverse_genesis")
+    inverse.add_argument("--inverse-seed", type=int, default=20251226)
+    inverse.add_argument("--inverse-steps", type=int, default=1024)
+    inverse.add_argument("--inverse-dt", type=float, default=0.01)
+    inverse.add_argument("--inverse-noise-std", type=float, default=0.002)
+    inverse.add_argument("--inverse-trajectories", type=int, default=4)
+    inverse.add_argument("--inverse-max-terms", type=int, default=6)
+    inverse.add_argument("--inverse-min-gain-bits", type=float, default=0.1)
+    inverse.add_argument("--inverse-bits-per-sample", type=float, default=64.0)
 
     return parser.parse_args(argv)
 

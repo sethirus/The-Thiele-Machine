@@ -10,24 +10,71 @@ This document addresses frequently raised objections to the Thiele Machine proje
 
 ### Response
 
-**What is claimed:**
-- **[PROVEN]**: A mathematical probability distribution exists that achieves CHSH = 16/5 > 2√2 while satisfying no-signaling constraints
-  - Theorem: `sighted_is_supra_quantum` in [coq/sandboxes/AbstractPartitionCHSH.v](../coq/sandboxes/AbstractPartitionCHSH.v)
+This objection conflates two separate claims. Let's separate them:
 
-**What is NOT claimed:**
-- ❌ That this has been experimentally demonstrated with CHSH = 16/5
-- ❌ That silicon hardware can violate quantum mechanics
-- ❌ That this invalidates established physics
+### What is PROVEN (Formal System)
 
-**Evidence:**
-1. Coq proof verifies the distribution mathematically: [AbstractPartitionCHSH.v:490-546](../coq/sandboxes/AbstractPartitionCHSH.v#L490-L546)
-2. The Tsirelson bound applies to *quantum mechanical systems*, not all no-signaling theories
-3. PR-box (CHSH = 4) is a known supra-quantum correlation that violates no physical laws
+**Theorem**: `nonlocal_correlation_requires_revelation` in [coq/kernel/RevelationRequirement.v](../coq/kernel/RevelationRequirement.v)
 
-**Clarification:**
-The Tsirelson bound is a *quantum mechanical* limit, not a *physical* limit. No-signaling theories can exceed it without faster-than-light communication. Whether such theories are physically realizable is an open question in quantum foundations.
+**Proven statement**:
+- In the Thiele Machine operational semantics, certified correlations with CHSH ≤ 2√2 require **zero μ-information cost**
+- Certified correlations with CHSH > 2√2 require **explicit μ-payment via REVEAL**
+- Tsirelson's bound (2√2) is the **exact boundary** between μ=0 and μ>0 operations
 
-**Status**: [PROVEN] mathematically, [CONJECTURED] for physical implementation
+**Why this is proven**:
+1. The theorem shows revelation (μ-charging) is necessary for supra-quantum certification
+2. Tested enforcement: VM accepts CHSH ≤ 2√2 with μ=0, rejects CHSH > 2√2 without REVEAL
+3. This boundary is NOT arbitrary—it emerges from the certification requirements
+4. Corollary: `sighted_is_supra_quantum` proves 16/5 > 2√2 as a mathematical distribution
+
+**Status**: ✅ **PROVEN** as a formal theorem about the machine
+
+---
+
+### What is CONJECTURED (Physical Interpretation)
+
+**Bridge Postulate**: μ-cost corresponds to thermodynamic dissipation
+```
+Q_min = k_B T ln(2) × μ
+```
+
+**Conjecture**: If this bridge holds AND physical systems minimize dissipation, THEN:
+- Nature would "prefer" correlations with μ=0 (no dissipation)
+- The μ=0 space is exactly CHSH ≤ 2√2
+- This explains why quantum mechanics exhibits Tsirelson's bound
+- Supra-quantum correlations are thermodynamically expensive, not forbidden
+
+**Why this is conjectured, not proven**:
+1. Requires experimental validation (calorimetry during partition operations)
+2. Must demonstrate μ-cost lower-bounds physical heat dissipation
+3. Needs to show nature actually minimizes such costs
+
+**Falsification**: Measure heat during REVEAL operations. If Heat < k_B T ln(2) × μ, bridge is falsified.
+
+**Status**: 🔬 **CONJECTURED** - requires experimental validation
+
+---
+
+### Addressing the Objection Directly
+
+**Claim**: "You can't violate the Tsirelson bound with classical hardware"
+
+**Response**:
+1. **Formally**: We PROVED that 2√2 is a cost boundary in our computational model ✅
+2. **Physically**: We CONJECTURE this explains nature's behavior IF the bridge postulate holds 🔬
+3. **Experimentally**: We acknowledge that demonstrating CHSH > 2√2 in nature requires validating the physical interpretation
+
+**What we do NOT claim**:
+- ❌ That silicon can violate quantum mechanics
+- ❌ That we've "solved" the origin of Tsirelson's bound (others have proposed principles too)
+- ❌ That this invalidates information causality or local orthogonality
+
+**What we DO claim**:
+- ✅ We proved 2√2 is the formal cost boundary in our system
+- ✅ This is ONE possible explanation for nature's bound (if bridge holds)
+- ✅ It's falsifiable via heat measurements
+
+**Status**: **PROVEN** formally, **CONJECTURED** physically
 
 ---
 

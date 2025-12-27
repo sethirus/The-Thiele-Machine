@@ -220,7 +220,7 @@ Proof.
     lia.
   - (* Erase n: entropy decreases by at most n *)
     destruct cfg as [data mu]. simpl.
-    rewrite length_skipn. lia.
+    rewrite skipn_length. lia.
   - (* Reveal: entropy unchanged *)
     lia.
   - (* Observe: entropy unchanged in state, but collapsed *)
@@ -235,7 +235,7 @@ Theorem erase_mu_equals_entropy_loss :
 Proof.
   intros cfg n Hle.
   unfold mu_cost, vm_entropy, vm_step. simpl.
-  rewrite length_skipn. lia.
+  rewrite skipn_length. lia.
 Qed.
 
 (** =========================================================================

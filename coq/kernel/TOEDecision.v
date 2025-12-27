@@ -9,8 +9,9 @@ From Kernel Require Import ProbabilityImpossibility.
 From Kernel Require Import EntropyImpossibility.
 From Kernel Require Import LorentzNotForced.
 
-From KernelTOE Require Import Closure.
+(* Import from kernel_toe for NoGo and Closure definitions *)
 From KernelTOE Require Import NoGo.
+From KernelTOE Require Import Closure.
 From KernelTOE Require Import TOE.
 
 (* This file provides the required single “final outcome” as a theorem:
