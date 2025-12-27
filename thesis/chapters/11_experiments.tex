@@ -6,9 +6,9 @@
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[scale=1.8, 
-    node distance=2.5cm,
-    category/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=blue!10},
-    central/.style={rectangle, draw, rounded corners, minimum width=6.2cm, minimum height=2.1cm, align=center, fill=yellow!20},
+    node distance=3.0cm,
+    category/.style={rectangle, draw, rounded corners=3pt, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=blue!10},
+    central/.style={rectangle, draw, rounded corners=3pt, minimum width=6.2cm, minimum height=2.1cm, align=center, fill=yellow!15},
     arrow/.style={->, >=Stealth, thick}
 ]
     % Categories
@@ -22,14 +22,15 @@
     \node[central, align=center, text width=4.5cm] (theory) at (0, 0) {\textbf{Thiele Machine}\\Scientific Theory};
     
     % Arrows
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (physics) -- (theory);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (falsify) -- (theory);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (bench) -- (theory);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (demo) -- (theory);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (integ) -- (theory);
+    \draw[arrow] (physics) -- (theory);
+    \draw[arrow] (falsify) -- (theory);
+    \draw[arrow] (bench) -- (theory);
+    \draw[arrow] (demo) -- (theory);
+    \draw[arrow] (integ) -- (theory);
     
     % Result
-    \node[draw, rounded corners, fill=green!20, font=\normalsize, align=center, text width=4.5cm] at (0, -3) {All experiments PASS\\Theory remains unfalsified};
+    \node[draw, rounded corners=3pt, fill=green!12, font=
+ormalsize, align=center, text width=4.5cm] at (0, -3) {All experiments PASS\\Theory remains unfalsified};
 \end{tikzpicture}
 \caption{Experimental validation suite treating the Thiele Machine as a scientific theory subject to empirical testing.}
 
@@ -867,9 +868,9 @@ The $\mu$-cost of revealing structure ($O(n \log n)$) is \textit{vastly} cheaper
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[scale=1.8, 
-    node distance=2.5cm,
-    attack/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=red!15},
-    defense/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=green!15},
+    node distance=3.0cm,
+    attack/.style={rectangle, draw, rounded corners=3pt, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=red!15},
+    defense/.style={rectangle, draw, rounded corners=3pt, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=green!15},
     arrow/.style={->, >=Stealth, thick}
 ]
     % Attacks
@@ -883,21 +884,24 @@ The $\mu$-cost of revealing structure ($O(n \log n)$) is \textit{vastly} cheaper
     \node[defense] (bounded) at (3, 0) {BOUNDED};
     
     % Theory
-    \node[rectangle, draw, rounded corners, fill=yellow!20, minimum width=10.8cm] (theory) at (0, -1.5) {\textbf{Theory Unfalsified}};
+    \node[rectangle, draw, rounded corners=3pt, fill=yellow!15, minimum width=10.8cm] (theory) at (0, -1.5) {\textbf{Theory Unfalsified}};
     
     % Arrows
-    \draw[arrow, red!60!black, shorten >=2pt, shorten <=2pt] (forge) -- (detected);
-    \draw[arrow, red!60!black, shorten >=2pt, shorten <=2pt] (insight) -- (blocked);
-    \draw[arrow, red!60!black, shorten >=2pt, shorten <=2pt] (supra) -- (bounded);
+    \draw[arrow, red!60!black] (forge) -- (detected);
+    \draw[arrow, red!60!black] (insight) -- (blocked);
+    \draw[arrow, red!60!black] (supra) -- (bounded);
     
-    \draw[arrow, green!60!black, shorten >=2pt, shorten <=2pt] (detected) -- (theory);
-    \draw[arrow, green!60!black, shorten >=2pt, shorten <=2pt] (blocked) -- (theory);
-    \draw[arrow, green!60!black, shorten >=2pt, shorten <=2pt] (bounded) -- (theory);
+    \draw[arrow, green!60!black] (detected) -- (theory);
+    \draw[arrow, green!60!black] (blocked) -- (theory);
+    \draw[arrow, green!60!black] (bounded) -- (theory);
     
     % Annotations
-    \node[font=\normalsize, text=gray] at (-3, 0.7) {Zero false certs};
-    \node[font=\normalsize, text=gray] at (0, 0.7) {$\mu$-cost required};
-    \node[font=\normalsize, text=gray] at (3, 0.7) {$S \le 2.828$};
+    \node[font=
+ormalsize, text=gray] at (-3, 0.7) {Zero false certs};
+    \node[font=
+ormalsize, text=gray] at (0, 0.7) {$\mu$-cost required};
+    \node[font=
+ormalsize, text=gray] at (3, 0.7) {$S \le 2.828$};
 \end{tikzpicture}
 \caption{Red-team falsification attempts: all attacks detected, blocked, or bounded, leaving the theory unfalsified.}
 
@@ -1253,8 +1257,9 @@ def test_fuzz_vm_inputs():
 \centering
 \begin{tikzpicture}[scale=1.8, 
     node distance=3cm,
-    stage/.style={rectangle, draw, rounded corners, minimum width=4.5cm, minimum height=2.0cm, align=center, fill=blue!10},
-    check/.style={rectangle, draw, rounded corners, minimum width=4.5cm, minimum height=2.0cm, align=center, fill=green!15, font=\normalsize},
+    stage/.style={rectangle, draw, rounded corners=3pt, minimum width=4.5cm, minimum height=2.0cm, align=center, fill=blue!10},
+    check/.style={rectangle, draw, rounded corners=3pt, minimum width=4.5cm, minimum height=2.0cm, align=center, fill=green!15, font=
+ormalsize},
     arrow/.style={->, >=Stealth, thick}
 ]
     % Stages
@@ -1272,13 +1277,13 @@ def test_fuzz_vm_inputs():
     \node[check] at (10, -1) {perf};
     
     % Arrows
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (build) -- (admit);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (admit) -- (test);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (test) -- (iso);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (iso) -- (bench);
+    \draw[arrow] (build) -- (admit);
+    \draw[arrow] (admit) -- (test);
+    \draw[arrow] (test) -- (iso);
+    \draw[arrow] (iso) -- (bench);
     
     % Result
-    \node[draw, rounded corners, fill=green!20] at (5, -2.5) {All checks PASS on every commit};
+    \node[draw, rounded corners=3pt, fill=green!12] at (5, -2.5) {All checks PASS on every commit};
 \end{tikzpicture}
 \caption{CI pipeline: five-stage verification from proof build to benchmarks, all enforced on every commit.}
 
@@ -1364,9 +1369,9 @@ Each proofpack includes Coq sources, compiled \texttt{.vo} files, and test trace
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[scale=1.8, 
-    node distance=2.5cm,
-    result/.style={rectangle, draw, rounded corners, minimum width=5.4cm, minimum height=2.0cm, align=center, fill=green!15},
-    central/.style={rectangle, draw, rounded corners, minimum width=7.2cm, minimum height=2.1cm, align=center, fill=yellow!20},
+    node distance=3.0cm,
+    result/.style={rectangle, draw, rounded corners=3pt, minimum width=5.4cm, minimum height=2.0cm, align=center, fill=green!15},
+    central/.style={rectangle, draw, rounded corners=3pt, minimum width=7.2cm, minimum height=2.1cm, align=center, fill=yellow!15},
     arrow/.style={->, >=Stealth, thick}
 ]
     % Results
@@ -1379,13 +1384,14 @@ Each proofpack includes Coq sources, compiled \texttt{.vo} files, and test trace
     \node[central, align=center, text width=4.5cm] (central) at (0, 0) {\textbf{All Experiments}\\PASSED};
     
     % Arrows
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (physics) -- (central);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (falsify) -- (central);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (bench) -- (central);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (ci) -- (central);
+    \draw[arrow] (physics) -- (central);
+    \draw[arrow] (falsify) -- (central);
+    \draw[arrow] (bench) -- (central);
+    \draw[arrow] (ci) -- (central);
     
     % Badge
-    \node[font=\normalsize, text=green!60!black] at (0, -3) {Theory remains unfalsified};
+    \node[font=
+ormalsize, text=green!60!black] at (0, -3) {Theory remains unfalsified};
 \end{tikzpicture}
 \caption{Experimental validation summary: physics validated, falsification attempted, benchmarks measured, CI enforced.}
 

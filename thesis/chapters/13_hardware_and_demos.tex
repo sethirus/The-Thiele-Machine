@@ -7,9 +7,9 @@
 \centering
 \begin{tikzpicture}[scale=1.8, 
     node distance=3cm,
-    layer/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=blue!10},
-    hw/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=green!15},
-    demo/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=yellow!20},
+    layer/.style={rectangle, draw, rounded corners=3pt, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=blue!10},
+    hw/.style={rectangle, draw, rounded corners=3pt, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=green!15},
+    demo/.style={rectangle, draw, rounded corners=3pt, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=yellow!15},
     arrow/.style={->, >=Stealth, thick}
 ]
     % 3 Layers
@@ -18,10 +18,12 @@
     \node[layer, align=center, text width=4.5cm] (verilog) at (3, 2) {Verilog\\RTL};
     
     % Isomorphism
-    \draw[<->, very thick, red, shorten >=2pt, shorten <=2pt] (coq) -- (python);
-    \draw[<->, very thick, red, shorten >=2pt, shorten <=2pt] (python) -- (verilog);
-    \node[font=\normalsize, text=red] at (-1.5, 2.4) {$\cong$};
-    \node[font=\normalsize, text=red] at (1.5, 2.4) {$\cong$};
+    \draw[<->, line width=1.2pt, red] (coq) -- (python);
+    \draw[<->, line width=1.2pt, red] (python) -- (verilog);
+    \node[font=
+ormalsize, text=red] at (-1.5, 2.4) {$\cong$};
+    \node[font=
+ormalsize, text=red] at (1.5, 2.4) {$\cong$};
     
     % Hardware modules
     \node[hw, align=center, text width=4.5cm] (cpu) at (-3, 0) {CPU\\Core};
@@ -33,15 +35,16 @@
     \node[demo, align=center, text width=4.5cm] (impossibility) at (1.5, -2) {Impossibility\\Demo};
     
     % Arrows
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (verilog) -- (cpu);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (verilog) -- (alu);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (verilog) -- (serial);
+    \draw[arrow] (verilog) -- (cpu);
+    \draw[arrow] (verilog) -- (alu);
+    \draw[arrow] (verilog) -- (serial);
     
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (cpu) -- (chsh);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (cpu) -- (impossibility);
+    \draw[arrow] (cpu) -- (chsh);
+    \draw[arrow] (cpu) -- (impossibility);
     
     % Synthesis target
-    \node[draw, rounded corners, fill=gray!10, font=\normalsize, align=center, text width=4.5cm] at (0, -3.5) {Target: Xilinx 7-series FPGA\\125 MHz, 2,847 LUTs};
+    \node[draw, rounded corners=3pt, fill=gray!10, font=
+ormalsize, align=center, text width=4.5cm] at (0, -3.5) {Target: Xilinx 7-series FPGA\\125 MHz, 2,847 LUTs};
 \end{tikzpicture}
 \caption{Chapter E roadmap: 3-layer isomorphism flows to hardware modules and demonstrations, targeting FPGA synthesis.}
 \label{fig:ch13-roadmap}
@@ -120,7 +123,7 @@ This chapter documents the complete hardware implementation (RTL layer) and the 
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[scale=1.8, 
-    node distance=2.5cm,
+    node distance=3.0cm,
     reg/.style={rectangle, draw, minimum width=4.5cm, minimum height=2.0cm, align=center, fill=blue!10},
     op/.style={rectangle, draw, minimum width=3.5cm, minimum height=2.0cm, align=center, fill=green!15},
     arrow/.style={->, >=Stealth, thick}
@@ -137,27 +140,29 @@ This chapter documents the complete hardware implementation (RTL layer) and the 
     \node[op] (log) at (3, 0) {LOG2};
     
     % Output
-    \node[reg, fill=yellow!20, align=center, text width=4.5cm] (result) at (0, -1.5) {Result\\Q16.16};
+    \node[reg, fill=yellow!15, align=center, text width=4.5cm] (result) at (0, -1.5) {Result\\Q16.16};
     
     % Arrows
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (a) -- (add);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (a) -- (sub);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (a) -- (mul);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (b) -- (mul);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (b) -- (div);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (a) -- (log);
+    \draw[arrow] (a) -- (add);
+    \draw[arrow] (a) -- (sub);
+    \draw[arrow] (a) -- (mul);
+    \draw[arrow] (b) -- (mul);
+    \draw[arrow] (b) -- (div);
+    \draw[arrow] (a) -- (log);
     
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (add) -- (result);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (sub) -- (result);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (mul) -- (result);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (div) -- (result);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (log) -- (result);
+    \draw[arrow] (add) -- (result);
+    \draw[arrow] (sub) -- (result);
+    \draw[arrow] (mul) -- (result);
+    \draw[arrow] (div) -- (result);
+    \draw[arrow] (log) -- (result);
     
     % Key property
-    \node[draw, rounded corners, fill=red!15, font=\normalsize] at (0, -3) {\textbf{Key}: $\mu$ only increases at ledger boundary};
+    \node[draw, rounded corners=3pt, fill=red!15, font=
+ormalsize] at (0, -3) {\textbf{Key}: $\mu$ only increases at ledger boundary};
     
     % LOG2 LUT
-    \node[draw, rounded corners, fill=gray!10, font=\normalsize, align=center, text width=4.5cm] at (4.5, 0) {256-entry\\LOG2 LUT};
+    \node[draw, rounded corners=3pt, fill=gray!10, font=
+ormalsize, align=center, text width=4.5cm] at (4.5, 0) {256-entry\\LOG2 LUT};
 \end{tikzpicture}
 \caption{$\mu$-ALU architecture: Q16.16 fixed-point arithmetic with LOG2 lookup table. Key property: $\mu$ only increases.}
 \label{fig:mu-alu-ch13}
@@ -525,13 +530,13 @@ Representative fuzzing harness: random instruction sequences test robustness:
 \centering
 \begin{tikzpicture}[scale=1.8, 
     node distance=3cm,
-    layer/.style={rectangle, draw, rounded corners, minimum width=4.5cm, minimum height=2.0cm, align=center, fill=blue!10},
-    compare/.style={diamond, draw, aspect=2, fill=yellow!20},
-    result/.style={rectangle, draw, rounded corners, minimum width=3.5cm, minimum height=2.0cm, align=center},
+    layer/.style={rectangle, draw, rounded corners=3pt, minimum width=4.5cm, minimum height=2.0cm, align=center, fill=blue!10},
+    compare/.style={diamond, draw, aspect=2, fill=yellow!15},
+    result/.style={rectangle, draw, rounded corners=3pt, minimum width=3.5cm, minimum height=2.0cm, align=center},
     arrow/.style={->, >=Stealth, thick}
 ]
     % Program
-    \node[rectangle, draw, rounded corners, fill=gray!10] (prog) at (0, 2.5) {Test Program};
+    \node[rectangle, draw, rounded corners=3pt, fill=gray!10] (prog) at (0, 2.5) {Test Program};
     
     % Layers
     \node[layer, align=center, text width=4.5cm] (python) at (-3, 1) {Python\\VM};
@@ -539,35 +544,39 @@ Representative fuzzing harness: random instruction sequences test robustness:
     \node[layer, align=center, text width=4.5cm] (rtl) at (3, 1) {RTL\\Simulation};
     
     % States
-    \node[rectangle, draw, fill=blue!5, font=\normalsize] (s1) at (-3, -0.3) {pc, $\mu$, regs};
-    \node[rectangle, draw, fill=blue!5, font=\normalsize] (s2) at (0, -0.3) {pc, $\mu$, regs};
-    \node[rectangle, draw, fill=blue!5, font=\normalsize] (s3) at (3, -0.3) {pc, $\mu$, regs};
+    \node[rectangle, draw, fill=blue!5, font=
+ormalsize] (s1) at (-3, -0.3) {pc, $\mu$, regs};
+    \node[rectangle, draw, fill=blue!5, font=
+ormalsize] (s2) at (0, -0.3) {pc, $\mu$, regs};
+    \node[rectangle, draw, fill=blue!5, font=
+ormalsize] (s3) at (3, -0.3) {pc, $\mu$, regs};
     
     % Compare
     \node[compare] (cmp) at (0, -1.5) {$=$?};
     
     % Results
-    \node[result, fill=green!20] (pass) at (-1.5, -3) {PASS};
-    \node[result, fill=red!20] (fail) at (1.5, -3) {FAIL};
+    \node[result, fill=green!12] (pass) at (-1.5, -3) {PASS};
+    \node[result, fill=red!12] (fail) at (1.5, -3) {FAIL};
     
     % Arrows
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (prog) -- (python);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (prog) -- (extracted);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (prog) -- (rtl);
+    \draw[arrow] (prog) -- (python);
+    \draw[arrow] (prog) -- (extracted);
+    \draw[arrow] (prog) -- (rtl);
     
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (python) -- (s1);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (extracted) -- (s2);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (rtl) -- (s3);
+    \draw[arrow] (python) -- (s1);
+    \draw[arrow] (extracted) -- (s2);
+    \draw[arrow] (rtl) -- (s3);
     
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (s1) -- (cmp);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (s2) -- (cmp);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (s3) -- (cmp);
+    \draw[arrow] (s1) -- (cmp);
+    \draw[arrow] (s2) -- (cmp);
+    \draw[arrow] (s3) -- (cmp);
     
     \draw[arrow] (cmp) -- node[left,  above, yshift=6pt, pos=0.5, font=\small] {Yes} (pass);
     \draw[arrow] (cmp) -- node[right,  above, yshift=6pt, pos=0.5, font=\small] {No} (fail);
     
     % Stats
-    \node[font=\normalsize, text=gray] at (0, -4) {10,000 test traces, 15\% overhead, all matched};
+    \node[font=
+ormalsize, text=gray] at (0, -4) {10,000 test traces, 15\% overhead, all matched};
 \end{tikzpicture}
 \caption{3-layer isomorphism test: same program runs in Python, extracted OCaml, and RTL simulation, comparing final states.}
 \label{fig:isomorphism-test}
@@ -908,9 +917,9 @@ end
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[scale=1.8, 
-    node distance=2.5cm,
-    result/.style={rectangle, draw, rounded corners, minimum width=5.4cm, minimum height=2.0cm, align=center, fill=green!15},
-    central/.style={rectangle, draw, rounded corners, minimum width=7.2cm, minimum height=2.1cm, align=center, fill=yellow!20},
+    node distance=3.0cm,
+    result/.style={rectangle, draw, rounded corners=3pt, minimum width=5.4cm, minimum height=2.0cm, align=center, fill=green!15},
+    central/.style={rectangle, draw, rounded corners=3pt, minimum width=7.2cm, minimum height=2.1cm, align=center, fill=yellow!15},
     arrow/.style={->, >=Stealth, thick}
 ]
     % Results
@@ -923,13 +932,14 @@ end
     \node[central, align=center, text width=4.5cm] (central) at (0, 0) {\textbf{Realizable}\\Architecture};
     
     % Arrows
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (rtl) -- (central);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (alu) -- (central);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (iso) -- (central);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (demos) -- (central);
+    \draw[arrow] (rtl) -- (central);
+    \draw[arrow] (alu) -- (central);
+    \draw[arrow] (iso) -- (central);
+    \draw[arrow] (demos) -- (central);
     
     % Badge
-    \node[draw, rounded corners, fill=gray!10, font=\normalsize] at (0, -3) {Xilinx 7-series: 125 MHz, 2,847 LUTs};
+    \node[draw, rounded corners=3pt, fill=gray!10, font=
+ormalsize] at (0, -3) {Xilinx 7-series: 125 MHz, 2,847 LUTs};
 \end{tikzpicture}
 \caption{Chapter E summary: synthesizable RTL, $\mu$-ALU, 3-layer isomorphism, and demonstrations prove realizability.}
 \label{fig:ch13-summary}
