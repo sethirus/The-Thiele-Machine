@@ -2,10 +2,10 @@
 
 ## Current Status
 
-✅ **ALL 200 COQ PROOFS COMPILE** (December 27, 2025)  
-✅ **ALL 48 KERNEL PROOFS COMPILE** (Verified individually)  
+✅ **ALL 54 KERNEL PROOFS COMPILE** (December 27, 2025)  
+✅ **SINGLE DIRECTORY**: All core proofs in `coq/kernel/`  
 ✅ **INQUISITOR PASSES**: Zero axioms, zero admits, zero parameters  
-✅ **BUILD SYSTEM WORKING**: `cd coq && make -f Makefile.coq` compiles everything  
+✅ **BUILD SYSTEM WORKING**: `./scripts/build_coq.sh` compiles everything  
 ✅ **PYTHON BISIMULATION**: Coq VM ↔ Python VM equivalence proven  
 ✅ **HARDWARE BISIMULATION**: Python VM ↔ Hardware equivalence proven  
 ✅ **NON-CIRCULARITY AUDIT**: Defense against reviewer attacks proven  
@@ -83,19 +83,24 @@ The key insight is established: μ=0 = no REVEAL/LASSERT/LJOIN = LOCC operations
 ## Building the Project
 
 ```bash
-# Clean build
-make -f Makefile.coq clean
-
-# Full build (parallel)
+# Build all kernel proofs (recommended)
 ./scripts/build_coq.sh
 
+# Clean and rebuild
+./scripts/build_coq.sh --clean
+
+# Manual build (from coq/kernel directory)
+cd coq/kernel
+coq_makefile -f _CoqProject -o Makefile.coq
+make -f Makefile.coq -j$(nproc)
+
 # Validation
-python scripts/inquisitor.py --strict --coq-root coq
+python scripts/inquisitor.py --strict --coq-root coq/kernel
 ```
 
 ## File Organization
 
-**Core Kernel** (`coq/kernel/`):
+**Core Kernel** (`coq/kernel/`) - **54 proof files, all compile**:
 - `VMState.v`, `VMStep.v` - Machine semantics
 - `MuCostModel.v` - μ-cost accounting (NO QUANTUM)
 - `CHSHExtraction.v` - CHSH from partitions (NO QUANTUM)
