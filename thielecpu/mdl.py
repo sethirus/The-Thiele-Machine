@@ -121,7 +121,7 @@ def mdlacc(state: State, module: ModuleId, *, consistent: bool) -> float:
 
     state.mu_operational += mdl_cost
     if state.mu_ledger.mu_execution != float("inf"):
-        state.mu_ledger.mu_execution += int(mdl_cost)
+        state.mu_ledger.mu_execution = (state.mu_ledger.mu_execution + int(mdl_cost)) & 0xFFFFFFFF
     return state.mu_operational
 
 
@@ -136,7 +136,7 @@ def info_charge(state: State, bits_revealed: float) -> float:
     if state.mu_ledger.mu_execution != float("inf"):
         # μ must lower-bound the information bits revealed; round up to avoid
         # fractional deficits (no free insight).
-        state.mu_ledger.mu_execution += int(math.ceil(bits_revealed))
+        state.mu_ledger.mu_execution = (state.mu_ledger.mu_execution + int(math.ceil(bits_revealed))) & 0xFFFFFFFF
     return state.mu_information
 
 

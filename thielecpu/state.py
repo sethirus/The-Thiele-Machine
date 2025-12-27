@@ -88,19 +88,30 @@ def mask_popcount(mask: PartitionMask) -> int:
 @dataclass
 class MuLedger:
     """Tracks μ-bit costs for discovery and execution.
-    
+
     This implements the canonical μ-ledger as defined in spec/thiele_machine_spec.md.
     All μ-values are monotonically non-decreasing.
     """
-    
+
     mu_discovery: int = 0   # Cost of partition discovery operations
     mu_execution: int = 0   # Cost of instruction execution
-    
+
+    # HARDWARE CONSTANT: 32-bit width matching thiele_cpu.v
+    MASK: int = 0xFFFFFFFF
+
     @property
     def total(self) -> int:
         """Total μ-cost (discovery + execution)."""
-        return self.mu_discovery + self.mu_execution
-    
+        return (self.mu_discovery + self.mu_execution) & self.MASK
+
+    def charge_execution(self, cost: int) -> None:
+        """Atomic charge with hardware overflow semantics."""
+        self.mu_execution = (self.mu_execution + cost) & self.MASK
+
+    def charge_discovery(self, cost: int) -> None:
+        """Atomic charge with hardware overflow semantics."""
+        self.mu_discovery = (self.mu_discovery + cost) & self.MASK
+
     def snapshot(self) -> Dict[str, int]:
         """Return a dictionary snapshot for tracing."""
         return {
@@ -108,7 +119,7 @@ class MuLedger:
             "mu_execution": self.mu_execution,
             "mu_total": self.total,
         }
-    
+
     def copy(self) -> "MuLedger":
         """Create a copy of this ledger."""
         return MuLedger(
@@ -178,7 +189,7 @@ class State:
         self.partition_masks[ModuleId(mid)] = region_mask
         
         if charge_discovery:
-            self.mu_ledger.mu_discovery += mask_popcount(region_mask)
+            self.mu_ledger.charge_discovery(mask_popcount(region_mask))
         
         return ModuleId(mid)
 
@@ -233,7 +244,7 @@ class State:
         self.axioms[m1] = axioms.copy()
         self.axioms[m2] = axioms.copy()
         if charge_execution:
-            self.mu_ledger.mu_execution += int(cost) if cost is not None else MASK_WIDTH
+            self.mu_ledger.charge_execution(int(cost) if cost is not None else MASK_WIDTH)
         
         self._enforce_invariant()
         return m1, m2
@@ -267,7 +278,7 @@ class State:
         self.axioms[m2] = axioms.copy()
 
         if charge_execution:
-            self.mu_ledger.mu_execution += int(cost) if cost is not None else MASK_WIDTH
+            self.mu_ledger.charge_execution(int(cost) if cost is not None else MASK_WIDTH)
 
         self._enforce_invariant()
         return m1, m2
@@ -312,7 +323,7 @@ class State:
         mid = self._alloc(union)
         self.axioms[mid] = axioms1 + axioms2  # Combine axioms
         if charge_execution:
-            self.mu_ledger.mu_execution += int(cost) if cost is not None else 4
+            self.mu_ledger.charge_execution(int(cost) if cost is not None else 4)
         
         self._enforce_invariant()
         return mid
