@@ -16,6 +16,30 @@
     {
       "require": "Kernel.KernelNoether",
       "symbol": "kernel_noether_mu_gauge"
+    },
+    {
+      "require": "Kernel.TsirelsonUpperBound",
+      "symbol": "mu_zero_chsh_bounded"
+    },
+    {
+      "require": "Kernel.TsirelsonUpperBound",
+      "symbol": "mu_zero_implies_locc"
+    },
+    {
+      "require": "Kernel.TsirelsonLowerBound",
+      "symbol": "tsirelson_lower_bound"
+    },
+    {
+      "require": "Kernel.TsirelsonUniqueness",
+      "symbol": "tsirelson_from_pure_accounting"
+    },
+    {
+      "require": "Kernel.MuCostModel",
+      "symbol": "mu_zero_no_reveal"
+    },
+    {
+      "require": "Kernel.CHSHExtraction",
+      "symbol": "chsh_algebraic_bound"
     }
   ],
   "symmetry_contracts": [
@@ -33,6 +57,16 @@
       "paper": "Theorem 3.5 No Free Insight",
       "require": "Kernel.NoFreeInsight",
       "symbol": "strengthening_requires_structure_addition"
+    },
+    {
+      "paper": "Theorem 4.1 Tsirelson Bound from Accounting",
+      "require": "Kernel.TsirelsonUniqueness",
+      "symbol": "tsirelson_from_pure_accounting"
+    },
+    {
+      "paper": "Theorem 4.2 μ=0 implies LOCC",
+      "require": "Kernel.TsirelsonUpperBound",
+      "symbol": "mu_zero_implies_locc"
     }
   ]
 }

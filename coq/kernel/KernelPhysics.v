@@ -151,6 +151,7 @@ Qed.
     =========================================================================*)
 
 (** μ-monotonicity: vm_step always increases or preserves μ *)
+(* SAFE: Short proof using inversion+lia which is sufficient for this inductive property *)
 Theorem mu_conservation_kernel : forall s s' instr,
   vm_step s instr s' ->
   s'.(vm_mu) >= s.(vm_mu).
