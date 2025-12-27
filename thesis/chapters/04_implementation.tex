@@ -1,3 +1,35 @@
+% Chapter 4 Roadmap Figure
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    layer/.style={rectangle, draw, rounded corners, minimum width=4cm, minimum height=1.2cm, font=\small\bfseries},
+    arrow/.style={->, thick, >=stealth},
+    note/.style={font=\scriptsize\itshape, text width=3cm, align=center}
+]
+% Three layers
+\node[layer, fill=blue!20] (coq) at (0,4) {Layer 1: Coq (Formal)};
+\node[layer, fill=green!20] (python) at (0,2) {Layer 2: Python (Reference)};
+\node[layer, fill=orange!20] (verilog) at (0,0) {Layer 3: Verilog (Hardware)};
+
+% Bidirectional arrows
+\draw[arrow, <->] (coq) -- (python) node[midway, right, note] {Bisimulation\\§4.5};
+\draw[arrow, <->] (python) -- (verilog) node[midway, right, note] {Isomorphism\\§4.5};
+
+% Side annotations
+\node[note, left=1.5cm of coq] {Machine-checked proofs\\206 verified theorems};
+\node[note, left=1.5cm of python] {Human-readable\\Tracing \& debugging};
+\node[note, left=1.5cm of verilog] {Synthesizable RTL\\FPGA-ready};
+
+% Central invariant
+\node[draw, dashed, fill=yellow!10, text width=5cm, align=center, font=\small] at (5,2) 
+    {\textbf{Central Invariant}\\[2pt]
+     $S_{\text{Coq}}(\tau) = S_{\text{Python}}(\tau) = S_{\text{Verilog}}(\tau)$\\[2pt]
+     For all instruction traces $\tau$};
+\end{tikzpicture}
+\caption{Chapter 4 roadmap: The 3-layer implementation architecture with semantic equivalence invariant.}
+\label{fig:ch4-roadmap}
+\end{figure}
+
 \section{Why Three Layers?}
 
 \subsection{The Problem of Trust}
@@ -72,6 +104,43 @@ The formal kernel is organized around a small set of interlocking definitions:
 These bullets correspond directly to files: \texttt{VMState.v} defines the state and partitions, \texttt{VMStep.v} defines the ISA and step relation, \texttt{CertCheck.v} defines certificate checkers, and conservation/locality theorems live in files such as \path{MuLedgerConservation.v} and \path{ObserverDerivation.v}. Receipts and simulation correspondences are defined in \path{ReceiptCore.v} and \path{SimulationProof.v}.
 
 The goal is not to “encode” the implementation, but to define a minimal semantics from which every implementation can be reconstructed.
+
+% VMState Record Structure Diagram
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    field/.style={rectangle, draw, minimum width=3.5cm, minimum height=0.7cm, font=\small},
+    mufield/.style={field, fill=red!15, draw=red!70, thick},
+    note/.style={font=\scriptsize, text width=4cm}
+]
+% Record box
+\node[draw, thick, minimum width=4cm, minimum height=6cm, label=above:{\textbf{VMState Record}}] (record) at (0,0) {};
+
+% Fields
+\node[field, fill=blue!10] (graph) at (0,2.3) {\texttt{vm\_graph}};
+\node[field, fill=blue!10] (csrs) at (0,1.5) {\texttt{vm\_csrs}};
+\node[field, fill=green!10] (regs) at (0,0.7) {\texttt{vm\_regs}};
+\node[field, fill=green!10] (mem) at (0,-0.1) {\texttt{vm\_mem}};
+\node[field, fill=purple!10] (pc) at (0,-0.9) {\texttt{vm\_pc}};
+\node[mufield] (mu) at (0,-1.7) {\texttt{vm\_mu}};
+\node[field, fill=gray!10] (err) at (0,-2.5) {\texttt{vm\_err}};
+
+% Annotations
+\node[note, right=0.5cm of graph] {PartitionGraph};
+\node[note, right=0.5cm of csrs] {CSRState};
+\node[note, right=0.5cm of regs] {32 registers};
+\node[note, right=0.5cm of mem] {256 words};
+\node[note, right=0.5cm of pc] {Program counter};
+\node[note, right=0.5cm of mu, text=red!70] {$\mu$-ledger accumulator};
+\node[note, right=0.5cm of err] {Error latch};
+
+% Brace for data section
+\draw[decorate, decoration={brace, amplitude=5pt, mirror}] 
+    (2.2,1.1) -- (2.2,-0.5) node[midway, right=8pt, font=\scriptsize] {Data};
+\end{tikzpicture}
+\caption{The VMState record with all seven fields. The $\mu$-ledger (\texttt{vm\_mu}) is highlighted as the key accounting field.}
+\label{fig:vmstate-record}
+\end{figure}
 
 \subsection{The VMState Record}
 
@@ -317,6 +386,48 @@ def _record_receipt(self, step, pre_state, instruction):
 
 \section{Layer 3: The Physical Core (Verilog)}
 
+% Module Hierarchy Diagram
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    module/.style={rectangle, draw, rounded corners, minimum width=2.5cm, minimum height=0.8cm, font=\small},
+    arrow/.style={->, thick, >=stealth},
+    scale=0.9, transform shape
+]
+% Top-level CPU
+\node[module, fill=blue!30, minimum width=5cm, minimum height=1cm] (cpu) at (0,3) {\textbf{thiele\_cpu}};
+
+% Sub-modules
+\node[module, fill=green!20] (decoder) at (-3,1) {Decoder};
+\node[module, fill=orange!20] (mualu) at (0,1) {$\mu$-ALU};
+\node[module, fill=purple!20] (lei) at (3,1) {LEI};
+
+% Lower components
+\node[module, fill=cyan!20] (regfile) at (-3,-1) {RegFile};
+\node[module, fill=yellow!20] (memory) at (0,-1) {Memory};
+\node[module, fill=red!20] (partgraph) at (3,-1) {PartGraph};
+
+% External interface
+\node[module, fill=gray!20, dashed] (z3) at (5,1) {Z3\\(External)};
+
+% Arrows
+\draw[arrow] (cpu) -- (decoder);
+\draw[arrow] (cpu) -- (mualu);
+\draw[arrow] (cpu) -- (lei);
+\draw[arrow] (decoder) -- (regfile);
+\draw[arrow] (mualu) -- (memory);
+\draw[arrow] (lei) -- (partgraph);
+\draw[arrow, dashed] (lei) -- (z3);
+
+% Signal annotations
+\node[font=\tiny, text=blue!70] at (-1.5,2) {\texttt{opcode}};
+\node[font=\tiny, text=orange!70] at (1.5,2) {\texttt{mu}};
+\node[font=\tiny, text=purple!70] at (4,2) {\texttt{cert}};
+\end{tikzpicture}
+\caption{Verilog module hierarchy showing CPU core, $\mu$-ALU, Logic Engine Interface (LEI), and external Z3 connection.}
+\label{fig:module-hierarchy}
+\end{figure}
+
 \subsection{Module Hierarchy}
 
 The hardware implementation is organized into a CPU core, a $\mu$-accounting unit, a logic-engine interface, and a testbench. The hierarchy mirrors the formal model: the core executes the ISA, the accounting unit enforces $\mu$-monotonicity, and the logic interface brokers certificate checks. This makes the physical design a direct embodiment of the formal step relation.
@@ -351,6 +462,54 @@ Key signals:
     \item \textbf{cert\_addr}: Certificate address CSR
 \end{itemize}
 
+% CPU State Machine Diagram
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    state/.style={circle, draw, minimum size=1.2cm, font=\tiny\bfseries},
+    arrow/.style={->, thick, >=stealth, font=\tiny},
+    scale=0.85, transform shape
+]
+% States in a flow
+\node[state, fill=blue!20] (fetch) at (0,0) {FETCH};
+\node[state, fill=green!20] (decode) at (2.5,0) {DECODE};
+\node[state, fill=orange!20] (execute) at (5,0) {EXECUTE};
+\node[state, fill=purple!20] (memory) at (7.5,0) {MEMORY};
+
+% Secondary states below
+\node[state, fill=yellow!20] (logic) at (2,-2) {LOGIC};
+\node[state, fill=cyan!20] (python) at (5,-2) {PYTHON};
+\node[state, fill=red!20] (complete) at (8,-2) {COMPLETE};
+
+% ALU wait states
+\node[state, fill=gray!20] (aluwait) at (0,-2) {ALU\\WAIT};
+
+% Main flow arrows
+\draw[arrow] (fetch) -- (decode);
+\draw[arrow] (decode) -- (execute);
+\draw[arrow] (execute) -- (memory);
+\draw[arrow] (memory) -- (complete);
+
+% Return arrow
+\draw[arrow] (complete) to[bend right=40] (fetch);
+
+% Branch arrows
+\draw[arrow] (decode) -- (logic) node[midway, left, font=\tiny] {logic op};
+\draw[arrow] (decode) -- (python) node[midway, right, font=\tiny] {PYEXEC};
+\draw[arrow] (execute) -- (aluwait) node[midway, left, font=\tiny] {ALU};
+
+% Return from branches
+\draw[arrow] (logic) -- (complete);
+\draw[arrow] (python) -- (complete);
+\draw[arrow] (aluwait) to[bend left=30] (execute);
+
+% Title
+\node[font=\small\bfseries, above=0.3cm of decode] {12-State FSM};
+\end{tikzpicture}
+\caption{The CPU finite state machine showing the main execution pipeline and branch states.}
+\label{fig:cpu-fsm}
+\end{figure}
+
 \subsection{State Machine}
 
 The CPU uses a 12-state FSM:
@@ -368,6 +527,44 @@ localparam [3:0] STATE_RECEIPT_HOLD = 4'h9;
 localparam [3:0] STATE_PDISCOVER_LAUNCH2 = 4'hA;
 localparam [3:0] STATE_PDISCOVER_ARM2 = 4'hB;
 \end{lstlisting}
+
+% Instruction Encoding Diagram
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    bit/.style={rectangle, draw, minimum width=0.4cm, minimum height=0.8cm, font=\tiny},
+    field/.style={rectangle, draw, thick, minimum height=0.8cm, font=\small\bfseries},
+    scale=0.9, transform shape
+]
+% 32-bit instruction word
+\node[font=\small\bfseries] at (-2,0) {32-bit:};
+
+% Bit fields
+\node[field, fill=blue!20, minimum width=2cm] (opcode) at (0,0) {opcode};
+\node[field, fill=green!20, minimum width=2cm] (opa) at (2.5,0) {operand\_a};
+\node[field, fill=orange!20, minimum width=2cm] (opb) at (5,0) {operand\_b};
+\node[field, fill=red!20, minimum width=2cm] (cost) at (7.5,0) {cost};
+
+% Bit positions
+\node[font=\tiny] at (0,0.7) {[31:24]};
+\node[font=\tiny] at (2.5,0.7) {[23:16]};
+\node[font=\tiny] at (5,0.7) {[15:8]};
+\node[font=\tiny] at (7.5,0.7) {[7:0]};
+
+% Bit widths below
+\node[font=\tiny] at (0,-0.7) {8 bits};
+\node[font=\tiny] at (2.5,-0.7) {8 bits};
+\node[font=\tiny] at (5,-0.7) {8 bits};
+\node[font=\tiny] at (7.5,-0.7) {8 bits};
+
+% Example instruction
+\node[font=\scriptsize, text width=8cm, align=left] at (3,-1.8) {
+    Example: \texttt{PNEW r5, cost=3} $\rightarrow$ \texttt{0x01050003}
+};
+\end{tikzpicture}
+\caption{Fixed 32-bit instruction encoding ensuring bit-level agreement between hardware and software.}
+\label{fig:instruction-encoding}
+\end{figure}
 
 \subsection{Instruction Encoding}
 
@@ -391,6 +588,63 @@ OPCODE_PNEW: begin
     state <= STATE_FETCH;
 end
 \end{lstlisting}
+
+% μ-ALU Architecture Diagram
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    block/.style={rectangle, draw, minimum width=2cm, minimum height=0.8cm, font=\small},
+    arrow/.style={->, thick, >=stealth},
+    scale=0.9, transform shape
+]
+% Input signals
+\node (opa) at (-3,1.5) {\texttt{operand\_a}};
+\node (opb) at (-3,0.5) {\texttt{operand\_b}};
+\node (op) at (-3,-0.5) {\texttt{op[2:0]}};
+\node (valid) at (-3,-1.5) {\texttt{valid}};
+
+% Main ALU block
+\node[block, fill=orange!20, minimum width=3cm, minimum height=3cm] (alu) at (1,0) {};
+\node[font=\bfseries] at (1,0.8) {$\mu$-ALU};
+\node[font=\scriptsize] at (1,0) {Q16.16};
+\node[font=\scriptsize] at (1,-0.5) {Fixed-Point};
+
+% Operations list
+\node[draw, rounded corners, fill=yellow!10, text width=2.5cm, align=left, font=\tiny] at (1,-2.5) {
+    0: ADD\\
+    1: SUB\\
+    2: MUL\\
+    3: DIV\\
+    4: LOG2\\
+    5: INFO\_GAIN
+};
+
+% Output signals
+\node (result) at (5,0.5) {\texttt{result}};
+\node (ready) at (5,-0.5) {\texttt{ready}};
+\node (overflow) at (5,-1.5) {\texttt{overflow}};
+
+% LUT block
+\node[block, fill=cyan!20, minimum width=1.5cm] (lut) at (1,2.5) {LOG2 LUT};
+\node[font=\tiny] at (1,3.2) {256 entries};
+
+% Arrows
+\draw[arrow] (opa) -- (-0.5,1.5) -- (-0.5,0.5) -- (alu);
+\draw[arrow] (opb) -- (alu);
+\draw[arrow] (op) -- (alu);
+\draw[arrow] (valid) -- (alu);
+\draw[arrow] (alu) -- (result);
+\draw[arrow] (alu) -- (ready);
+\draw[arrow] (alu) -- (overflow);
+\draw[arrow] (lut) -- (alu);
+
+% Q16.16 annotation
+\node[draw, dashed, fill=gray!10, font=\tiny, text width=2cm, align=center] at (5,2) 
+    {Q16.16 format:\\$1.0 = \mathtt{0x00010000}$};
+\end{tikzpicture}
+\caption{The $\mu$-ALU architecture implementing Q16.16 fixed-point arithmetic with LOG2 lookup table.}
+\label{fig:mu-alu}
+\end{figure}
 
 \subsection{The $\mu$-ALU}
 
@@ -445,6 +699,57 @@ module lei (
 
 \section{Isomorphism Verification}
 
+% Isomorphism Gate Diagram
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    layer/.style={rectangle, draw, rounded corners, minimum width=2.5cm, minimum height=1cm, font=\small},
+    arrow/.style={->, thick, >=stealth},
+    compare/.style={diamond, draw, fill=yellow!20, minimum size=1cm, font=\scriptsize},
+    scale=0.85, transform shape
+]
+% Input trace
+\node[draw, fill=gray!20, rounded corners] (trace) at (0,0) {Trace $\tau$};
+
+% Three execution paths
+\node[layer, fill=blue!20] (coq) at (-3,-2) {Coq\\Extracted};
+\node[layer, fill=green!20] (python) at (0,-2) {Python\\VM};
+\node[layer, fill=orange!20] (rtl) at (3,-2) {Verilog\\Sim};
+
+% States
+\node[draw, rounded corners, fill=blue!10] (scoq) at (-3,-4) {$S_{\text{Coq}}$};
+\node[draw, rounded corners, fill=green!10] (spy) at (0,-4) {$S_{\text{Python}}$};
+\node[draw, rounded corners, fill=orange!10] (srtl) at (3,-4) {$S_{\text{Verilog}}$};
+
+% Comparison
+\node[compare] (cmp) at (0,-5.5) {$=$?};
+
+% Result
+\node[draw, thick, fill=green!30, rounded corners] (pass) at (0,-7) {\textbf{PASS}};
+
+% Arrows
+\draw[arrow] (trace) -- (coq);
+\draw[arrow] (trace) -- (python);
+\draw[arrow] (trace) -- (rtl);
+
+\draw[arrow] (coq) -- (scoq);
+\draw[arrow] (python) -- (spy);
+\draw[arrow] (rtl) -- (srtl);
+
+\draw[arrow] (scoq) -- (cmp);
+\draw[arrow] (spy) -- (cmp);
+\draw[arrow] (srtl) -- (cmp);
+
+\draw[arrow] (cmp) -- (pass);
+
+% Annotations
+\node[font=\scriptsize, text width=2cm, align=center] at (-4.5,-2) {JSON\\snapshot};
+\node[font=\scriptsize, text width=2cm, align=center] at (4.5,-2) {VCD\\waveform};
+\end{tikzpicture}
+\caption{The 3-way isomorphism gate: instruction trace $\tau$ is executed on all three layers, and state projections must match exactly.}
+\label{fig:isomorphism-gate}
+\end{figure}
+
 \subsection{The Isomorphism Gate}
 
 The 3-way isomorphism is verified by a test that:
@@ -471,6 +776,52 @@ def project_state_full(state):
         "graph": state.graph.to_canonical(),
     }
 \end{lstlisting}
+
+% Inquisitor Workflow Diagram
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    stage/.style={rectangle, draw, rounded corners, minimum width=2.5cm, minimum height=1cm, font=\small},
+    check/.style={diamond, draw, fill=yellow!20, minimum size=0.8cm, font=\tiny},
+    arrow/.style={->, thick, >=stealth},
+    scale=0.85, transform shape
+]
+% Stages
+\node[stage, fill=blue!20] (scan) at (0,0) {Scan\\Sources};
+\node[stage, fill=green!20] (build) at (3,0) {Build\\Proofs};
+\node[stage, fill=orange!20] (iso) at (6,0) {Run\\Isomorphism};
+\node[stage, fill=purple!20] (report) at (9,0) {Generate\\Report};
+
+% Checks
+\node[check] (c1) at (1.5,0) {};
+\node[check] (c2) at (4.5,0) {};
+\node[check] (c3) at (7.5,0) {};
+
+% Arrows
+\draw[arrow] (scan) -- (c1);
+\draw[arrow] (c1) -- (build);
+\draw[arrow] (build) -- (c2);
+\draw[arrow] (c2) -- (iso);
+\draw[arrow] (iso) -- (c3);
+\draw[arrow] (c3) -- (report);
+
+% What each stage checks
+\node[font=\tiny, text width=2cm, align=center, below=0.3cm of scan] {No \texttt{Admitted}\\No \texttt{admit.}\\No \texttt{Axiom}};
+\node[font=\tiny, text width=2cm, align=center, below=0.3cm of build] {206 proofs\\compile\\successfully};
+\node[font=\tiny, text width=2cm, align=center, below=0.3cm of iso] {3-way\\state match};
+\node[font=\tiny, text width=2cm, align=center, below=0.3cm of report] {HIGH: 0\\MEDIUM: 2\\LOW: 4};
+
+% Pass/Fail output
+\node[draw, thick, fill=green!30, rounded corners] (pass) at (12,0) {\textbf{CI PASS}};
+\draw[arrow] (report) -- (pass);
+
+% Ultra-strict annotation
+\node[draw, dashed, fill=red!10, font=\tiny, text width=3cm, align=center] at (3,-2.5) 
+    {\texttt{--ultra-strict}:\\Fails on MEDIUM\\in kernel files};
+\end{tikzpicture}
+\caption{The Inquisitor verification workflow: source scanning, proof building, isomorphism testing, and report generation.}
+\label{fig:inquisitor-workflow}
+\end{figure}
 
 \subsection{The Inquisitor}
 
@@ -531,6 +882,38 @@ Full configuration:
 # - simulate the RTL testbench
 # - run full synthesis when toolchains are installed
 \end{lstlisting}
+
+% Chapter 4 Summary Diagram
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    box/.style={rectangle, draw, rounded corners, minimum width=3cm, minimum height=1.5cm, font=\small, text width=2.8cm, align=center},
+    arrow/.style={->, thick, >=stealth},
+    scale=0.85, transform shape
+]
+% Three layers as boxes
+\node[box, fill=blue!20] (coq) at (-4,0) {\textbf{Coq}\\206 theorems\\Machine-checked\\Extracted runner};
+\node[box, fill=green!20] (python) at (0,0) {\textbf{Python}\\Reference VM\\Tracing\\Receipts};
+\node[box, fill=orange!20] (verilog) at (4,0) {\textbf{Verilog}\\RTL Core\\$\mu$-ALU\\FPGA-ready};
+
+% Central invariant at bottom
+\node[draw, thick, fill=yellow!20, rounded corners, text width=10cm, align=center] (inv) at (0,-3) 
+    {\textbf{3-Way Isomorphism Invariant}\\[3pt]
+     $\forall \tau: S_{\text{Coq}}(\tau) = S_{\text{Python}}(\tau) = S_{\text{Verilog}}(\tau)$\\[3pt]
+     Enforced by Inquisitor gates $\bullet$ 0 HIGH findings required for CI};
+
+% Arrows to invariant
+\draw[arrow] (coq) -- (inv);
+\draw[arrow] (python) -- (inv);
+\draw[arrow] (verilog) -- (inv);
+
+% What flows between layers
+\node[font=\scriptsize, rotate=45] at (-2,0.8) {Extraction};
+\node[font=\scriptsize, rotate=-45] at (2,0.8) {Synthesis};
+\end{tikzpicture}
+\caption{Chapter 4 summary: Three implementation layers bound by the central isomorphism invariant, enforced through automated verification gates.}
+\label{fig:ch4-summary}
+\end{figure}
 
 \section{Summary}
 
