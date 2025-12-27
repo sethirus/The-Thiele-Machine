@@ -70,11 +70,11 @@ In this project, “all inputs” means all possible states and instruction trac
 % Figure 7: Coq Verification Pipeline
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture}[[scale=1.8, 
+\begin{tikzpicture}[scale=1.8, 
     stage/.style={rectangle, draw, fill=blue!20, minimum width=4.6cm, minimum height=1.8cm, align=center, rounded corners},
     check/.style={rectangle, draw, fill=green!20, minimum width=3.6cm, minimum height=1.1cm, align=center, font=\footnotesize},
     arrow/.style={->, >=stealth, thick}
-], node distance=2.5cm]
+, node distance=2.5cm]
     % Pipeline stages
     \node[stage, align=center, text width=3.5cm] (def) at (0, 0) {Definitions\\VMState, vm\_step};
     \node[stage, align=center, text width=3.5cm] (spec) at (4, 0) {Specification\\Theorem stmt};
@@ -612,11 +612,11 @@ Definition instr_targets (instr : vm_instruction) : list nat :=
 % Figure 2: No-Signaling Visualization
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture}[[scale=1.8, 
+\begin{tikzpicture}[scale=1.8, 
     module/.style={rectangle, draw, fill=blue!20, minimum width=3.2cm, minimum height=2.2cm, align=center},
     region/.style={rectangle, draw, dashed, fill=gray!10, minimum width=4.0cm, minimum height=2.9cm},
     arrow/.style={->, >=stealth, thick}
-], node distance=3cm]
+, node distance=3cm]
     % Left side: Before operation
     \node at (-4, 2.5) {\textbf{State $s$}};
     
@@ -731,11 +731,11 @@ By case analysis on the instruction. For each instruction type:
 % Figure 3: Gauge Symmetry Visualization
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture}[[scale=1.8, 
+\begin{tikzpicture}[scale=1.8, 
     state/.style={rectangle, draw, fill=blue!10, minimum width=5.4cm, minimum height=3.6cm, align=center},
     field/.style={rectangle, draw, fill=white, minimum width=4.7cm, minimum height=1.0cm, align=center},
     arrow/.style={->, >=stealth, thick}
-], node distance=3cm]
+, node distance=3cm]
     % Left state
     \node[state, font=\normalsize] (s1) at (-3.5, 0) {};
     \node at (-3.5, 1.4) {\textbf{State $s$}};
@@ -843,10 +843,10 @@ Theorem kernel_conservation_mu_gauge : forall s k,
 % Figure 4: μ-Conservation Visualization
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture}[[scale=1.8, 
+\begin{tikzpicture}[scale=1.8, 
     state/.style={circle, draw, fill=blue!20, minimum size=1cm},
     arrow/.style={->, >=stealth, thick}
-], node distance=3cm]
+, node distance=3cm]
     % States in sequence
     \node[state, font=\normalsize] (s0) at (0, 0) {$s_0$};
     \node[state, font=\normalsize] (s1) at (3, 0) {$s_1$};
@@ -855,9 +855,8 @@ Theorem kernel_conservation_mu_gauge : forall s k,
     \node at (11, 0) {$\cdots$};
     
     % Transitions with costs
-    \draw[arrow] (s0) -- node[above, yshift=6pt, sloped, pos=0.5, font=\small] {\footnotesize $+\mu_1$} (s1);
-    \draw[arrow] (s1) -- node[above, yshift=6pt, sloped, pos=0.5, font=\small] {\footnotesize $+\mu_2$} (s2);
-    \draw[arrow] (s2) -- node[above, yshift=6pt, sloped, pos=0.5, font=\small] {\footnotesize $+\mu_3$} (s3);
+    \draw[arrow] (s0) -- node[above, yshift=6pt, sloped, pos=0.5,  yshift=6pt, font=\small] {\footnotesize $+\mu_2$} (s2);
+    \draw[arrow] (s2) -- node[above, yshift=6pt, font=\small] {\footnotesize $+\mu_3$} (s3);
     \draw[arrow, shorten >=2pt, shorten <=2pt] (s3) -- (10.5, 0);
     
     % μ values below
@@ -1109,10 +1108,10 @@ Theorem vm_irreversible_bits_lower_bound :
 % Figure 5: No Free Insight Formal Structure
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture}[[scale=1.8, 
+\begin{tikzpicture}[scale=1.8, 
     set/.style={ellipse, draw, minimum width=6.2cm, minimum height=3.6cm},
     arrow/.style={->, >=stealth, thick}
-], node distance=2.5cm]
+, node distance=2.5cm]
     % Left: Weak predicate (larger set)
     \node[set, fill=blue!10] (weak) at (-3, 0) {};
     \node at (-3, 0) {$P_{\text{weak}}$};
@@ -1455,11 +1454,11 @@ If anyone can produce such a counterexample, the theorem is false. The proofs es
 % Figure 6: Chapter 5 Summary
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture}[[scale=1.8, 
+\begin{tikzpicture}[scale=1.8, 
     theorem/.style={rectangle, draw, fill=green!20, minimum width=7.2cm, minimum height=2.2cm, align=center, rounded corners},
     property/.style={rectangle, draw, fill=blue!10, minimum width=6.2cm, minimum height=1.4cm, align=center},
     arrow/.style={->, >=stealth, thick}
-], node distance=2.5cm]
+, node distance=2.5cm]
     % Central: Zero-Admit Standard
     \node[draw, fill=red!30, minimum width=9.0cm, minimum height=1.8cm, rounded corners, align=center, text width=3.5cm] (zero) at (0, 0) {\textbf{Zero-Admit Standard}\\206 Proofs, 0 Axioms};
     

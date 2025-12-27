@@ -1,12 +1,12 @@
 % Chapter 4 Roadmap Figure
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture}[[
+\begin{tikzpicture}[
     layer/.style={rectangle, draw, rounded corners, minimum width=6.2cm, minimum height=1.8cm, font=\normalsize\bfseries},
     arrow/.style={->, very thick, >=stealth},
     note/.style={font=\normalsize\itshape, text width=2.8cm, align=center},
     scale=0.65, transform shape
-], node distance=2.5cm]
+, node distance=2.5cm]
 % Three layers
 \node[layer, fill=blue!20] (coq) at (0,4) {Layer 1: Coq (Formal)};
 \node[layer, fill=green!20] (python) at (0,2) {Layer 2: Python (Reference)};
@@ -17,9 +17,9 @@
 \draw[arrow, <->, shorten >=2pt, shorten <=2pt] (python) -- (verilog) node[pos=0.5, font=\small, above, yshift=6pt] {Isomorphism\\§4.5};
 
 % Side annotations
-\node[note, left=2.9cm of coq, align=center, text width=3.5cm, sloped, pos=0.5, font=\small, xshift=-10pt] {Machine-checked proofs\\206 verified theorems};
-\node[note, left=2.9cm of python, align=center, text width=3.5cm, sloped, pos=0.5, font=\small, xshift=-10pt] {Human-readable\\Tracing \& debugging};
-\node[note, left=2.9cm of verilog, align=center, text width=3.5cm, sloped, pos=0.5, font=\small, xshift=-10pt] {Synthesizable RTL\\FPGA-ready};
+\node[note, left=2.9cm of coq, align=center, text width=3.5cm, font=\small, xshift=-10pt] {Machine-checked proofs\\206 verified theorems};
+\node[note, left=2.9cm of python, align=center, text width=3.5cm, font=\small, xshift=-10pt] {Human-readable\\Tracing \& debugging};
+\node[note, left=2.9cm of verilog, align=center, text width=3.5cm, font=\small, xshift=-10pt] {Synthesizable RTL\\FPGA-ready};
 
 % Central invariant
 \node[draw, dashed, fill=yellow!10, text width=5cm, align=center, font=\normalsize] at (5,2) 
@@ -151,12 +151,12 @@ The goal is not to “encode” the implementation, but to define a minimal sema
 % VMState Record Structure Diagram
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture}[[
+\begin{tikzpicture}[
     field/.style={rectangle, draw, minimum width=5.8cm, minimum height=1.1cm, font=\normalsize},
     mufield/.style={field, fill=red!15, draw=red!70, thick},
     note/.style={font=\normalsize, text width=3.5cm},
     scale=0.65, transform shape
-], node distance=3cm]
+, node distance=3cm]
 % Record box
 \node[draw, very thick, minimum width=7.2cm, minimum height=10.8cm=above:{\textbf{VMState Record}}] (record) at (0,0) {};
 
@@ -170,13 +170,13 @@ The goal is not to “encode” the implementation, but to define a minimal sema
 \node[field, fill=gray!10] (err) at (0,-2.5) {\texttt{vm\_err}};
 
 % Annotations
-\node[note, right=1.0cm of graph, above, pos=0.5, font=\small, xshift=10pt] {PartitionGraph};
-\node[note, right=1.0cm of csrs, above, pos=0.5, font=\small, xshift=10pt] {CSRState};
-\node[note, right=1.0cm of regs, above, pos=0.5, font=\small, xshift=10pt] {32 registers};
-\node[note, right=1.0cm of mem, above, pos=0.5, font=\small, xshift=10pt] {256 words};
-\node[note, right=1.0cm of pc, above, pos=0.5, font=\small, xshift=10pt] {Program counter};
-\node[note, right=1.0cm of mu, text=red!70, sloped, pos=0.5, font=\small, xshift=10pt] {$\mu$-ledger accumulator};
-\node[note, right=1.0cm of err, above, pos=0.5, font=\small, xshift=10pt] {Error latch};
+\node[note, right=1.0cm of graph, above, font=\small, xshift=10pt] {PartitionGraph};
+\node[note, right=1.0cm of csrs, above, font=\small, xshift=10pt] {CSRState};
+\node[note, right=1.0cm of regs, above, font=\small, xshift=10pt] {32 registers};
+\node[note, right=1.0cm of mem, above, font=\small, xshift=10pt] {256 words};
+\node[note, right=1.0cm of pc, above, font=\small, xshift=10pt] {Program counter};
+\node[note, right=1.0cm of mu, text=red!70, font=\small, xshift=10pt] {$\mu$-ledger accumulator};
+\node[note, right=1.0cm of err, above, font=\small, xshift=10pt] {Error latch};
 
 % Brace for data section
 \draw[decorate, decoration={brace, amplitude=5pt, mirror}, shorten >=2pt, shorten <=2pt] (2.2,1.1) -- (2.2,-0.5) node[pos=0.5, font=\small, above, yshift=6pt] {Data};
@@ -1115,11 +1115,11 @@ self.witness_state = post_state
 % Module Hierarchy Diagram
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture}[[
+\begin{tikzpicture}[
     module/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.4cm, font=\normalsize},
     arrow/.style={->, very thick, >=stealth},
     scale=0.7, transform shape
-], node distance=3cm]
+, node distance=3cm]
 % Top-level CPU
 \node[module, fill=blue!30, minimum width=9.0cm, minimum height=1.8cm, font=\normalsize] (cpu) at (0,3) {\textbf{thiele\_cpu}};
 
@@ -1251,11 +1251,11 @@ Key signals:
 % CPU State Machine Diagram
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture}[[
+\begin{tikzpicture}[
     state/.style={circle, draw, minimum size=1.2cm, font=\normalsize\bfseries},
     arrow/.style={->, very thick, >=stealth, font=\normalsize},
     scale=0.65, transform shape
-], node distance=2.5cm]
+, node distance=2.5cm]
 % States in a flow
 \node[state, fill=blue!20, font=\normalsize] (fetch) at (0,0) {FETCH};
 \node[state, fill=green!20, font=\normalsize] (decode) at (2.5,0) {DECODE};
@@ -1290,7 +1290,7 @@ Key signals:
 \draw[arrow] (aluwait) to[bend left=30] (execute);
 
 % Title
-\node[font=\normalsize\bfseries, above=0.5cm of decode, , pos=0.5, font=\small, yshift=6pt] {12-State FSM};
+\node[ above=0.5cm of decode, pos=0.5, font=\small, yshift=6pt] {12-State FSM};
 \end{tikzpicture}
 \caption{The CPU finite state machine showing the main execution pipeline and branch states.}
 \label{fig:cpu-fsm}
@@ -1383,11 +1383,11 @@ On each clock cycle, \texttt{state\_reg} updates based on the FSM transition log
 % Instruction Encoding Diagram
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture}[[
+\begin{tikzpicture}[
     bit/.style={rectangle, draw, minimum width=0.7cm, minimum height=1.4cm, font=\normalsize},
     field/.style={rectangle, draw, very thick, minimum height=1.4cm, font=\normalsize\bfseries},
     scale=0.7, transform shape
-], node distance=3cm]
+, node distance=3cm]
 % 32-bit instruction word
 \node[font=\normalsize\bfseries] at (-2,0) {32-bit:};
 
@@ -1548,11 +1548,11 @@ end
 % μ-ALU Architecture Diagram
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture}[[
+\begin{tikzpicture}[
     block/.style={rectangle, draw, minimum width=3.6cm, minimum height=1.4cm, font=\normalsize},
     arrow/.style={->, very thick, >=stealth},
     scale=0.7, transform shape
-], node distance=3cm]
+, node distance=3cm]
 % Input signals
 \node (opa) at (-3,1.5) {\texttt{operand\_a}};
 \node (opb) at (-3,0.5) {\texttt{operand\_b}};
@@ -1833,12 +1833,12 @@ module lei (
 % Isomorphism Gate Diagram
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture}[[
+\begin{tikzpicture}[
     layer/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.8cm, font=\normalsize},
     arrow/.style={->, very thick, >=stealth},
     compare/.style={diamond, draw, fill=yellow!20, minimum size=1cm, font=\normalsize},
     scale=0.65, transform shape
-], node distance=3cm]
+, node distance=3cm]
 % Input trace
 \node[draw, fill=gray!20, rounded corners] (trace) at (0,0) {Trace $\tau$};
 
@@ -1983,12 +1983,12 @@ If any field differs, isomorphism test fails.
 % Inquisitor Workflow Diagram
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture}[[
+\begin{tikzpicture}[
     stage/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.8cm, font=\normalsize},
     check/.style={diamond, draw, fill=yellow!20, minimum size=0.8cm, font=\normalsize},
     arrow/.style={->, very thick, >=stealth},
     scale=0.65, transform shape
-], node distance=3cm]
+, node distance=3cm]
 % Stages
 \node[stage, fill=blue!20, align=center, text width=3.5cm] (scan) at (0,0) {Scan\\Sources};
 \node[stage, fill=green!20, align=center, text width=3.5cm] (build) at (3,0) {Build\\Proofs};
@@ -2009,10 +2009,10 @@ If any field differs, isomorphism test fails.
 \draw[arrow, shorten >=2pt, shorten <=2pt] (c3) -- (report);
 
 % What each stage checks
-\node[font=\normalsize, text width=2cm, align=center, below=0.5cm of scan, sloped, pos=0.5, font=\small, yshift=-6pt] {No \texttt{Admitted}\\No \texttt{admit.}\\No \texttt{Axiom}};
-\node[font=\normalsize, text width=2cm, align=center, below=0.5cm of build, sloped, pos=0.5, font=\small, yshift=-6pt] {206 proofs\\compile\\successfully};
-\node[font=\normalsize, text width=2cm, align=center, below=0.5cm of iso, sloped, pos=0.5, font=\small, yshift=-6pt] {3-way\\state match};
-\node[font=\normalsize, text width=2cm, align=center, below=0.5cm of report, sloped, pos=0.5, font=\small, yshift=-6pt] {HIGH: 0\\MEDIUM: 2\\LOW: 4};
+\node[ text width=2cm, align=center, below=0.5cm of scan, font=\small, yshift=-6pt] {No \texttt{Admitted}\\No \texttt{admit.}\\No \texttt{Axiom}};
+\node[ text width=2cm, align=center, below=0.5cm of build, font=\small, yshift=-6pt] {206 proofs\\compile\\successfully};
+\node[ text width=2cm, align=center, below=0.5cm of iso, font=\small, yshift=-6pt] {3-way\\state match};
+\node[ text width=2cm, align=center, below=0.5cm of report, font=\small, yshift=-6pt] {HIGH: 0\\MEDIUM: 2\\LOW: 4};
 
 % Pass/Fail output
 \node[draw, very thick, fill=green!30, rounded corners] (pass) at (12,0) {\textbf{CI PASS}};
@@ -2223,11 +2223,11 @@ yosys -p "read_verilog thiele_cpu.v; synth_xilinx -top thiele_cpu; write_json ne
 % Chapter 4 Summary Diagram
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture}[[
+\begin{tikzpicture}[
     box/.style={rectangle, draw, rounded corners, minimum width=5.4cm, minimum height=2.6cm, font=\normalsize, text width=2.8cm, align=center},
     arrow/.style={->, very thick, >=stealth},
     scale=0.65, transform shape
-], node distance=2.5cm]
+, node distance=2.5cm]
 % Three layers as boxes
 \node[box, fill=blue!20, align=center, text width=3.5cm, font=\normalsize] (coq) at (-4,0) {\textbf{Coq}\\206 theorems\\Machine-checked\\Extracted runner};
 \node[box, fill=green!20, align=center, text width=3.5cm, font=\normalsize] (python) at (0,0) {\textbf{Python}\\Reference VM\\Tracing\\Receipts};

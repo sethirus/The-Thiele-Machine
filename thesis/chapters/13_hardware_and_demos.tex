@@ -563,8 +563,8 @@ Representative fuzzing harness: random instruction sequences test robustness:
     \draw[arrow, shorten >=2pt, shorten <=2pt] (s2) -- (cmp);
     \draw[arrow, shorten >=2pt, shorten <=2pt] (s3) -- (cmp);
     
-    \draw[arrow] (cmp) -- node[left, font=\normalsize, above, yshift=6pt, pos=0.5, font=\small] {Yes} (pass);
-    \draw[arrow] (cmp) -- node[right, font=\normalsize, above, yshift=6pt, pos=0.5, font=\small] {No} (fail);
+    \draw[arrow] (cmp) -- node[left,  above, yshift=6pt, pos=0.5, font=\small] {Yes} (pass);
+    \draw[arrow] (cmp) -- node[right,  above, yshift=6pt, pos=0.5, font=\small] {No} (fail);
     
     % Stats
     \node[font=\normalsize, text=gray] at (0, -4) {10,000 test traces, 15\% overhead, all matched};
