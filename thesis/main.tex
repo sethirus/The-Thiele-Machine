@@ -144,7 +144,7 @@ This thesis presents the \textbf{Thiele Machine}, a formal model of computation 
 
 We formalize the machine as a 5-tuple $T = (S, \Pi, A, R, L)$ comprising state space, partition graph, axiom sets, transition rules, and logic engine. The partition graph decomposes state into disjoint modules, each carrying logical constraints. A monotonically non-decreasing $\mu$-ledger tracks cumulative structural cost throughout execution.
 
-We prove over 1,400 theorems and lemmas in Coq 8.18 across 187 files with \textbf{zero admits and zero axioms}:
+We prove over 1,400 theorems and lemmas in Coq 8.18 across 206 files with \textbf{zero admits and zero axioms}:
 \begin{enumerate}
     \item \textbf{Observational No-Signaling}: Operations on one module cannot affect observables of unrelated modules.
     \item \textbf{$\mu$-Conservation}: The ledger grows monotonically and bounds irreversible bit operations.
