@@ -1,3 +1,48 @@
+%% ============================================================
+%% Chapter 5 TikZ Diagrams
+%% ============================================================
+
+% Figure 1: Chapter 5 Roadmap
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    node distance=1.2cm,
+    block/.style={rectangle, draw, fill=blue!10, minimum width=3cm, minimum height=0.8cm, align=center},
+    theorem/.style={rectangle, draw, fill=green!20, minimum width=2.8cm, minimum height=0.7cm, align=center, rounded corners},
+    arrow/.style={->, >=stealth, thick}
+]
+    % Central node
+    \node[block, fill=red!20, minimum width=4cm] (zero) at (0,0) {\textbf{Zero-Admit Standard}\\No Admitted, No admit., No Axiom};
+    
+    % Top layer: State definitions
+    \node[block] (state) at (-4, 2) {State Definitions\\VMState, PartitionGraph};
+    \node[block] (step) at (0, 2) {Step Semantics\\vm\_step relation};
+    \node[block] (obs) at (4, 2) {Observables\\Observable, ObservableRegion};
+    
+    % Bottom layer: Theorems
+    \node[theorem] (nosig) at (-4.5, -2) {No-Signaling\\(\S5.4)};
+    \node[theorem] (mucons) at (-1.5, -2) {$\mu$-Conservation\\(\S5.4)};
+    \node[theorem] (nofi) at (1.5, -2) {No Free Insight\\(\S5.6)};
+    \node[theorem] (gauge) at (4.5, -2) {Gauge Invariance\\(\S5.4)};
+    
+    % Arrows from definitions to zero-admit
+    \draw[arrow] (state) -- (zero);
+    \draw[arrow] (step) -- (zero);
+    \draw[arrow] (obs) -- (zero);
+    
+    % Arrows from zero-admit to theorems
+    \draw[arrow] (zero) -- (nosig);
+    \draw[arrow] (zero) -- (mucons);
+    \draw[arrow] (zero) -- (nofi);
+    \draw[arrow] (zero) -- (gauge);
+    
+    % Title
+    \node at (0, 3.2) {\textbf{Chapter 5: Verification Architecture}};
+\end{tikzpicture}
+\caption{Chapter 5 roadmap: from definitions through zero-admit standard to theorems.}
+\label{fig:ch5-roadmap}
+\end{figure}
+
 \section{Why Formal Verification?}
 
 \subsection{The Limits of Testing}
@@ -8,6 +53,42 @@ Testing can find bugs, but it cannot prove their absence. If you test a sorting 
 In this project, “all inputs” means all possible states and instruction traces compatible with the formal semantics. The proofs quantify over arbitrary \texttt{VMState} values and instructions, not over a fixed test suite. This is why the proofs must be grounded in precise definitions: without the exact state and step definitions, a universal statement would be meaningless.
 
 \subsection{The Coq Proof Assistant}
+
+% Figure 7: Coq Verification Pipeline
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    stage/.style={rectangle, draw, fill=blue!20, minimum width=2.5cm, minimum height=1cm, align=center, rounded corners},
+    check/.style={rectangle, draw, fill=green!20, minimum width=2cm, minimum height=0.6cm, align=center, font=\footnotesize},
+    arrow/.style={->, >=stealth, thick}
+]
+    % Pipeline stages
+    \node[stage] (def) at (0, 0) {Definitions\\VMState, vm\_step};
+    \node[stage] (spec) at (4, 0) {Specification\\Theorem stmt};
+    \node[stage] (proof) at (8, 0) {Proof\\Tactics};
+    \node[stage, fill=green!30] (qed) at (12, 0) {\textbf{Qed.}\\Verified};
+    
+    % Arrows
+    \draw[arrow] (def) -- (spec);
+    \draw[arrow] (spec) -- (proof);
+    \draw[arrow] (proof) -- (qed);
+    
+    % Checks below
+    \node[check] at (0, -1.5) {Type-checked};
+    \node[check] at (4, -1.5) {Well-formed};
+    \node[check] at (8, -1.5) {Complete};
+    \node[check] at (12, -1.5) {Machine-verified};
+    
+    % Curry-Howard note
+    \node[draw, fill=yellow!20, rounded corners, text width=10cm, align=center] at (6, -3) {
+        \textbf{Curry-Howard Correspondence:}\\
+        Types = Propositions, Programs = Proofs\\
+        A Coq proof is a verified program that inhabits the theorem's type.
+    };
+\end{tikzpicture}
+\caption{Coq verification pipeline: from definitions through proof to machine-verified Qed.}
+\label{fig:coq-pipeline}
+\end{figure}
 
 Coq is an interactive theorem prover based on dependent type theory. A Coq proof is:
 \begin{itemize}
@@ -233,6 +314,53 @@ Definition instr_targets (instr : vm_instruction) : list nat :=
 
 \subsection{The No-Signaling Theorem}
 
+% Figure 2: No-Signaling Visualization
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    module/.style={rectangle, draw, fill=blue!20, minimum width=1.8cm, minimum height=1.2cm, align=center},
+    region/.style={rectangle, draw, dashed, fill=gray!10, minimum width=2.2cm, minimum height=1.6cm},
+    arrow/.style={->, >=stealth, thick}
+]
+    % Left side: Before operation
+    \node at (-4, 2.5) {\textbf{State $s$}};
+    
+    \node[region] (r1) at (-5.5, 0.5) {};
+    \node[module] (m1) at (-5.5, 0.5) {Module\\$mid_1$};
+    \node at (-5.5, -0.8) {\footnotesize Region $R_1$};
+    
+    \node[region] (r2) at (-2.5, 0.5) {};
+    \node[module, fill=green!30] (m2) at (-2.5, 0.5) {Module\\$mid_2$};
+    \node at (-2.5, -0.8) {\footnotesize Region $R_2$};
+    \node at (-2.5, -1.3) {\color{red}\footnotesize (target)};
+    
+    % Arrow showing operation
+    \draw[->, >=stealth, very thick, red] (-0.8, 0.5) -- (0.8, 0.5);
+    \node at (0, 1) {\texttt{instr} targets $mid_2$};
+    
+    % Right side: After operation
+    \node at (4, 2.5) {\textbf{State $s'$}};
+    
+    \node[region] (r1p) at (2.5, 0.5) {};
+    \node[module] (m1p) at (2.5, 0.5) {Module\\$mid_1$};
+    \node at (2.5, -0.8) {\footnotesize Region $R_1$};
+    \node at (2.5, -1.3) {\color{blue}\footnotesize \textbf{unchanged}};
+    
+    \node[region] (r2p) at (5.5, 0.5) {};
+    \node[module, fill=orange!30] (m2p) at (5.5, 0.5) {Module\\$mid_2'$};
+    \node at (5.5, -0.8) {\footnotesize Region $R_2'$};
+    \node at (5.5, -1.3) {\color{red}\footnotesize (modified)};
+    
+    % Theorem statement box
+    \node[draw, fill=yellow!20, rounded corners, text width=10cm, align=center] at (0, -3) {
+        \textbf{No-Signaling Theorem:} If $mid \notin$ \texttt{instr\_targets(instr)}\\
+        then \texttt{ObservableRegion}$(s, mid) =$ \texttt{ObservableRegion}$(s', mid)$
+    };
+\end{tikzpicture}
+\caption{No-signaling: operations on one module cannot affect observables of other modules.}
+\label{fig:no-signaling}
+\end{figure}
+
 \begin{theorem}[Observational No-Signaling]
 \begin{lstlisting}
 Theorem observational_no_signaling : forall s s' instr mid,
@@ -259,6 +387,47 @@ By case analysis on the instruction. For each instruction type:
 
 \subsection{Gauge Symmetry}
 
+% Figure 3: Gauge Symmetry Visualization
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    state/.style={rectangle, draw, fill=blue!10, minimum width=3cm, minimum height=2cm, align=center},
+    field/.style={rectangle, draw, fill=white, minimum width=2.6cm, minimum height=0.5cm, align=center},
+    arrow/.style={->, >=stealth, thick}
+]
+    % Left state
+    \node[state] (s1) at (-3.5, 0) {};
+    \node at (-3.5, 1.4) {\textbf{State $s$}};
+    \node[field] at (-3.5, 0.5) {\texttt{vm\_graph} = $G$};
+    \node[field, fill=red!20] at (-3.5, -0.2) {\texttt{vm\_mu} = $\mu$};
+    \node[field] at (-3.5, -0.9) {\texttt{vm\_regs, ...}};
+    
+    % Arrow with shift
+    \draw[->, >=stealth, very thick, blue] (-1.5, 0) -- (1.5, 0);
+    \node at (0, 0.6) {\texttt{mu\_gauge\_shift}$(k)$};
+    \node at (0, -0.4) {$\mu \mapsto \mu + k$};
+    
+    % Right state
+    \node[state] (s2) at (3.5, 0) {};
+    \node at (3.5, 1.4) {\textbf{State $s'$}};
+    \node[field] at (3.5, 0.5) {\texttt{vm\_graph} = $G$};
+    \node[field, fill=green!20] at (3.5, -0.2) {\texttt{vm\_mu} = $\mu + k$};
+    \node[field] at (3.5, -0.9) {\texttt{vm\_regs, ...}};
+    
+    % Invariance annotation
+    \draw[<->, >=stealth, thick, dashed, red] (-3.5, -2) -- (3.5, -2);
+    \node at (0, -2.5) {\texttt{conserved\_partition\_structure}$(s) =$ \texttt{conserved\_partition\_structure}$(s')$};
+    
+    % Physical analog
+    \node[draw, fill=yellow!20, rounded corners, text width=8cm, align=center] at (0, -4) {
+        \textbf{Physical Analog (Noether):} Gauge symmetry ($\mu$-shift freedom)\\
+        $\Leftrightarrow$ Conservation of partition structure
+    };
+\end{tikzpicture}
+\caption{Gauge symmetry: shifting $\mu$ by a constant preserves partition structure (computational Noether's theorem).}
+\label{fig:gauge-symmetry}
+\end{figure}
+
 \begin{lstlisting}
 Definition mu_gauge_shift (k : nat) (s : VMState) : VMState :=
   {| vm_regs := s.(vm_regs);
@@ -281,6 +450,47 @@ Theorem kernel_conservation_mu_gauge : forall s k,
 \textbf{Physical Interpretation}: Noether's theorem—gauge symmetry (freedom to shift $\mu$ by a constant) corresponds to conservation of partition structure.
 
 \subsection{$\mu$-Conservation}
+
+% Figure 4: μ-Conservation Visualization
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    state/.style={circle, draw, fill=blue!20, minimum size=1cm},
+    arrow/.style={->, >=stealth, thick}
+]
+    % States in sequence
+    \node[state] (s0) at (0, 0) {$s_0$};
+    \node[state] (s1) at (3, 0) {$s_1$};
+    \node[state] (s2) at (6, 0) {$s_2$};
+    \node[state] (s3) at (9, 0) {$s_3$};
+    \node at (11, 0) {$\cdots$};
+    
+    % Transitions with costs
+    \draw[arrow] (s0) -- node[above] {\footnotesize $+\mu_1$} (s1);
+    \draw[arrow] (s1) -- node[above] {\footnotesize $+\mu_2$} (s2);
+    \draw[arrow] (s2) -- node[above] {\footnotesize $+\mu_3$} (s3);
+    \draw[arrow] (s3) -- (10.5, 0);
+    
+    % μ values below
+    \node at (0, -1) {$\mu = 0$};
+    \node at (3, -1) {$\mu = \mu_1$};
+    \node at (6, -1) {$\mu = \mu_1 + \mu_2$};
+    \node at (9, -1) {$\mu = \sum_{i=1}^{3} \mu_i$};
+    
+    % Monotonicity arrow
+    \draw[->, >=stealth, very thick, red, dashed] (0, -1.8) -- (11, -1.8);
+    \node at (5.5, -2.3) {\color{red}\textbf{Monotonically Non-Decreasing}};
+    
+    % Conservation equation
+    \node[draw, fill=green!20, rounded corners, text width=8cm, align=center] at (5, -3.8) {
+        \textbf{Conservation Law:}\\
+        $\mu(s') \geq \mu(s)$ for all valid transitions $s \to s'$\\
+        $\mu(\text{final}) = \mu(\text{init}) + \sum_{i} \text{cost}(\text{instr}_i)$
+    };
+\end{tikzpicture}
+\caption{$\mu$-conservation: the ledger only grows, never decreases.}
+\label{fig:mu-conservation}
+\end{figure}
 
 \begin{theorem}[$\mu$-Conservation]
 \begin{lstlisting}
@@ -356,6 +566,42 @@ Theorem vm_irreversible_bits_lower_bound :
 \textbf{Physical Interpretation}: The $\mu$-ledger growth lower-bounds irreversible bit events—connecting to Landauer's principle.
 
 \section{No Free Insight: The Impossibility Theorem}
+
+% Figure 5: No Free Insight Formal Structure
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    set/.style={ellipse, draw, minimum width=3.5cm, minimum height=2cm},
+    arrow/.style={->, >=stealth, thick}
+]
+    % Left: Weak predicate (larger set)
+    \node[set, fill=blue!10] (weak) at (-3, 0) {};
+    \node at (-3, 0) {$P_{\text{weak}}$};
+    \node at (-3, -1.5) {\footnotesize Accepts more traces};
+    
+    % Right: Strong predicate (smaller set)
+    \node[set, fill=green!20, minimum width=2.5cm, minimum height=1.4cm] (strong) at (3, 0) {};
+    \node at (3, 0) {$P_{\text{strong}}$};
+    \node at (3, -1.5) {\footnotesize Accepts fewer traces};
+    
+    % Arrow showing strengthening
+    \draw[->, >=stealth, very thick, red] (-0.8, 0) -- (0.8, 0);
+    \node at (0, 0.6) {\textbf{Strengthen}};
+    \node at (0, -0.5) {\footnotesize $P_{\text{strong}} < P_{\text{weak}}$};
+    
+    % Cost requirement
+    \node[draw, fill=red!20, rounded corners] at (0, -2.5) {\textbf{Requires: structure addition ($\mu > 0$)}};
+    
+    % Trace box
+    \node[draw, fill=yellow!20, rounded corners, text width=10cm, align=center] at (0, -4.2) {
+        \textbf{No Free Insight:} To certify a stronger predicate from a weaker one,\\
+        the trace \textbf{must} contain a revelation event (REVEAL, LASSERT, LJOIN, EMIT)\\
+        which charges $\mu$-cost. There is no backdoor.
+    };
+\end{tikzpicture}
+\caption{No Free Insight: strengthening certification requires explicit, charged structure addition.}
+\label{fig:no-free-insight}
+\end{figure}
 
 \subsection{Receipt Predicates}
 
@@ -470,6 +716,39 @@ Every theorem includes a falsifier specification:
 If anyone can produce such a counterexample, the theorem is false. The proofs establish that no such counterexample exists within the Thiele Machine model.
 
 \section{Summary}
+
+% Figure 6: Chapter 5 Summary
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    theorem/.style={rectangle, draw, fill=green!20, minimum width=4cm, minimum height=1.2cm, align=center, rounded corners},
+    property/.style={rectangle, draw, fill=blue!10, minimum width=3.5cm, minimum height=0.8cm, align=center},
+    arrow/.style={->, >=stealth, thick}
+]
+    % Central: Zero-Admit Standard
+    \node[draw, fill=red!30, minimum width=5cm, minimum height=1cm, rounded corners] (zero) at (0, 0) {\textbf{Zero-Admit Standard}\\206 Proofs, 0 Axioms};
+    
+    % Four theorem boxes around it
+    \node[theorem] (nosig) at (-4, 2.5) {\textbf{No-Signaling}\\Bell locality analog};
+    \node[theorem] (mucons) at (4, 2.5) {\textbf{$\mu$-Conservation}\\Monotonic ledger};
+    \node[theorem] (nofi) at (-4, -2.5) {\textbf{No Free Insight}\\Impossibility theorem};
+    \node[theorem] (gauge) at (4, -2.5) {\textbf{Gauge Invariance}\\Noether's theorem};
+    
+    % Arrows to center
+    \draw[arrow, dashed] (nosig) -- (zero);
+    \draw[arrow, dashed] (mucons) -- (zero);
+    \draw[arrow, dashed] (nofi) -- (zero);
+    \draw[arrow, dashed] (gauge) -- (zero);
+    
+    % Bottom: Inquisitor
+    \node[draw, fill=purple!20, minimum width=8cm, minimum height=0.8cm, rounded corners] at (0, -4.5) {\textbf{Inquisitor} enforces standard via CI (25+ rule categories)};
+    
+    % Title
+    \node at (0, 4) {\textbf{Chapter 5: Verification Results}};
+\end{tikzpicture}
+\caption{Chapter summary: four key theorems proven under zero-admit standard, enforced by Inquisitor.}
+\label{fig:ch5-summary}
+\end{figure}
 
 The formal verification campaign establishes:
 \begin{enumerate}
