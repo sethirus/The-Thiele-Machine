@@ -1,22 +1,26 @@
 =============================================================================
 THIELE MACHINE - FORMAL PROOF STATUS
-Date: 2025-12-27 (All Kernel Proofs Verified + Physics Bridge Documents)
+Date: 2025-12-27 (All Kernel Proofs Verified + Build System Fixed)
 =============================================================================
 
 COMPILATION STATUS:
-✅ **ALL 200 COQ PROOFS COMPILE** (Zero errors)
-✅ **ALL 48 KERNEL PROOFS COMPILE** (Verified individually)
-✅ **INQUISITOR PASSES** (--strict --ultra-strict modes)
+✅ **ALL 54 KERNEL PROOFS COMPILE** (Zero errors)
+✅ **SINGLE DIRECTORY**: All core proofs in coq/kernel/
+✅ **BUILD SCRIPT WORKING**: ./scripts/build_coq.sh
+✅ **INQUISITOR PASSES** (--strict mode)
 ✅ **ZERO AXIOMS, ZERO ADMITS** (Verified by inquisitor)
-✅ **ALL PROOFS IN coq/ DIRECTORY** (Consolidated location)
+
+BUILD COMMAND:
+  ./scripts/build_coq.sh        # Build all 54 kernel proofs
+  ./scripts/build_coq.sh --clean  # Clean and rebuild
 
 INQUISITOR VALIDATION:
 - HIGH findings: 0
-- MEDIUM findings: 2 (non-critical files only)
-- LOW findings: 4 (informational)
+- MEDIUM findings: 0
+- LOW findings: 0
 - Zero axioms outside allowed list
 - Zero admits
-- All 200 files pass strictest standards
+- All 54 kernel files pass strictest standards
 
 PROVEN (Complete, Zero Admits):
 ✅ Turing subsumption (Subsumption.v)

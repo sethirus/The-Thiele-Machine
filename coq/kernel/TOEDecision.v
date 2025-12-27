@@ -10,9 +10,9 @@ From Kernel Require Import EntropyImpossibility.
 From Kernel Require Import LorentzNotForced.
 
 (* Import from kernel_toe for NoGo and Closure definitions *)
-From KernelTOE Require Import NoGo.
-From KernelTOE Require Import Closure.
-From KernelTOE Require Import TOE.
+From Kernel Require Import NoGo.
+From Kernel Require Import Closure.
+From Kernel Require Import TOE.
 
 (* This file provides the required single “final outcome” as a theorem:
    The full TOE plan cannot be completed from the kernel layer as-is,
