@@ -295,6 +295,7 @@ Definition locally_deterministic_strategy (a_func b_func : nat -> nat -> nat) : 
 
 Open Scope Q_scope.
 
+(* SAFE: Delegates to chsh_algebraic_bound - the proof is short because it uses existing lemma *)
 Lemma chsh_local_bound :
   forall trials a_func b_func,
     locally_deterministic_strategy a_func b_func ->
