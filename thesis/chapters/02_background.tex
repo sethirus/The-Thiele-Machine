@@ -76,7 +76,8 @@ If you are familiar with any section, feel free to skip it. The only prerequisit
     
     % Labels
     \node[below] at (4.5,-0.3) {Infinite tape $\Gamma^*$};
-    \draw[<->, >=stealth, shorten >=2pt, shorten <=2pt] (-0.5,0.5) -- (-0.5,0.5) node[left, above, yshift=6pt, pos=0.5,  >=stealth, shorten >=2pt, shorten <=2pt] (9.5,0.5) -- (9.5,0.5) node[right, above, yshift=6pt, pos=0.5, font=\small] {$\cdots$};
+    \node[left, font=\small] at (-0.5,0.5) {$\cdots$};
+    \node[right, font=\small] at (9.5,0.5) {$\cdots$};
     
     % Blindness annotation
     \draw[very thick, red, dashed] (4,0) rectangle (5,1);
@@ -600,10 +601,13 @@ The $\mu$-ledger is the computational analog of the thermodynamic entropy: a mon
     
     % CHSH value scale
     \begin{scope}[yshift=-3cm]
-        \draw[very thick, ->, shorten >=2pt, shorten <=2pt] (-5,0) -- (5,0) node[right, above, yshift=6pt, pos=0.5,  shorten >=2pt, shorten <=2pt] (-4,0.1) -- (-4,-0.1) node[below, above, yshift=6pt, pos=0.5, font=\small] {$-4$};
-        \draw[very thick, shorten >=2pt, shorten <=2pt] (-2,0.1) -- (-2,-0.1) node[below, above, yshift=6pt, pos=0.5,  shorten >=2pt, shorten <=2pt] (0,0.1) -- (0,-0.1) node[below, above, yshift=6pt, pos=0.5, font=\small] {$0$};
-        \draw[very thick, shorten >=2pt, shorten <=2pt] (2,0.1) -- (2,-0.1) node[below, above, yshift=6pt, pos=0.5,  shorten >=2pt, shorten <=2pt] (2.83,0.1) -- (2.83,-0.1) node[below, above, yshift=6pt, pos=0.5, font=\small] {$2\sqrt{2}$};
-        \draw[very thick, shorten >=2pt, shorten <=2pt] (4,0.1) -- (4,-0.1) node[below, above, yshift=6pt, pos=0.5, font=\small] {$4$};
+        \draw[very thick, ->] (-5,0) -- (5,0) node[right, font=\small] {$S$};
+        \draw[very thick] (-4,0.1) -- (-4,-0.1) node[below, font=\small] {$-4$};
+        \draw[very thick] (-2,0.1) -- (-2,-0.1) node[below, font=\small] {$-2$};
+        \draw[very thick] (0,0.1) -- (0,-0.1) node[below, font=\small] {$0$};
+        \draw[very thick] (2,0.1) -- (2,-0.1) node[below, font=\small] {$2$};
+        \draw[very thick] (2.83,0.1) -- (2.83,-0.1) node[below, font=\small] {$2\sqrt{2}$};
+        \draw[very thick] (4,0.1) -- (4,-0.1) node[below, font=\small] {$4$};
         
         % Regions
         \fill[green!30, opacity=0.5] (-2,0.3) rectangle (2,0.8);
