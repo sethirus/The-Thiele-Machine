@@ -4,7 +4,7 @@
 \begin{tikzpicture}[
     layer/.style={rectangle, draw, rounded corners, minimum width=6.2cm, minimum height=1.8cm, font=\normalsize\bfseries},
     arrow/.style={->, very thick, >=stealth},
-    note/.style={font=\normalsize\itshape, text width=2.8cm, align=center},
+    note/.style={font=\normalsize\itshape, text width=3.3cm, align=center},
     scale=0.85, transform shape
 ], node distance=2.5cm]
 % Three layers
@@ -1566,7 +1566,7 @@ end
 \node[font=\normalsize] at (1,-0.5) {Fixed-Point};
 
 % Operations list
-\node[draw, rounded corners, fill=yellow!10, text width=2.5cm, align=left, font=\normalsize, align=center] at (1,-2.5) {
+\node[draw, rounded corners, fill=yellow!10, text width=3.0cm, align=left, font=\normalsize, align=center] at (1,-2.5) {
     0: ADD\\
     1: SUB\\
     2: MUL\\
@@ -2224,7 +2224,7 @@ yosys -p "read_verilog thiele_cpu.v; synth_xilinx -top thiele_cpu; write_json ne
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    box/.style={rectangle, draw, rounded corners, minimum width=5.4cm, minimum height=2.6cm, font=\normalsize, text width=2.8cm, align=center},
+    box/.style={rectangle, draw, rounded corners, minimum width=5.4cm, minimum height=2.6cm, font=\normalsize, text width=3.3cm, align=center},
     arrow/.style={->, very thick, >=stealth},
     scale=0.85, transform shape
 ], node distance=2.5cm]
