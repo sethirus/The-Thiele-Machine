@@ -4,42 +4,39 @@
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[
-    scale=1.05,
-    node distance=3.0cm,
-    block/.style={rectangle, draw, fill=blue!10, text width=4.2cm, text centered, minimum height=2.0cm, rounded corners=3pt, font=
-ormalsize},
-    testblock/.style={rectangle, draw, fill=green!10, text width=4.2cm, text centered, minimum height=2.0cm, rounded corners=3pt, font=
-ormalsize},
-    resultblock/.style={rectangle, draw, fill=orange!10, text width=4.2cm, text centered, minimum height=2.0cm, rounded corners=3pt, font=
-ormalsize}
+    scale=0.65, transform shape,
+    node distance=2.5cm,
+    block/.style={rectangle, draw, fill=blue!10, text width=2.2cm, text centered, minimum height=1.7cm, rounded corners, font=\normalsize},
+    testblock/.style={rectangle, draw, fill=green!10, text width=2.2cm, text centered, minimum height=1.7cm, rounded corners, font=\normalsize},
+    resultblock/.style={rectangle, draw, fill=orange!10, text width=2.2cm, text centered, minimum height=1.7cm, rounded corners, font=\normalsize}
 ]
 
 % Top: What we're testing
-\node[block, align=center, text width=4.5cm] (theory) at (0,3) {\textbf{Theory}\\(Ch. 3-5)};
-\node[block, align=center, text width=4.5cm] (impl) at (4,3) {\textbf{Implementation}\\(Ch. 4)};
-\node[block, align=center, text width=4.5cm] (proofs) at (8,3) {\textbf{Proofs}\\(206 files)};
+\node[block, align=center, text width=3.5cm] (theory) at (0,3) {\textbf{Theory}\\(Ch. 3-5)};
+\node[block, align=center, text width=3.5cm] (impl) at (4,3) {\textbf{Implementation}\\(Ch. 4)};
+\node[block, align=center, text width=3.5cm] (proofs) at (8,3) {\textbf{Proofs}\\(206 files)};
 
 % Middle: Test categories
-\node[testblock, align=center, text width=4.5cm] (iso) at (0,0) {\textbf{Isomorphism}\\3-layer match};
-\node[testblock, align=center, text width=4.5cm] (chsh) at (3,0) {\textbf{CHSH}\\Bell tests};
-\node[testblock, align=center, text width=4.5cm] (ledger) at (6,0) {\textbf{$\mu$-Ledger}\\Conservation};
-\node[testblock, align=center, text width=4.5cm] (thermo) at (9,0) {\textbf{Thermo}\\Bridge tests};
+\node[testblock, align=center, text width=3.5cm] (iso) at (0,0) {\textbf{Isomorphism}\\3-layer match};
+\node[testblock, align=center, text width=3.5cm] (chsh) at (3,0) {\textbf{CHSH}\\Bell tests};
+\node[testblock, align=center, text width=3.5cm] (ledger) at (6,0) {\textbf{$\mu$-Ledger}\\Conservation};
+\node[testblock, align=center, text width=3.5cm] (thermo) at (9,0) {\textbf{Thermo}\\Bridge tests};
 
 % Bottom: Results
-\node[resultblock, align=center, text width=4.5cm] (pass) at (4.5,-2.5) {\textbf{PASS}\\All tests};
+\node[resultblock, align=center, text width=3.5cm] (pass) at (4.5,-2.5) {\textbf{PASS}\\All tests};
 
 % Arrows
-\draw[->, line width=1.2pt] (theory) -- (iso);
-\draw[->, line width=1.2pt] (theory) -- (chsh);
-\draw[->, line width=1.2pt] (impl) -- (iso);
-\draw[->, line width=1.2pt] (impl) -- (ledger);
-\draw[->, line width=1.2pt] (proofs) -- (ledger);
-\draw[->, line width=1.2pt] (proofs) -- (thermo);
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (theory) -- (iso);
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (theory) -- (chsh);
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (impl) -- (iso);
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (impl) -- (ledger);
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (proofs) -- (ledger);
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (proofs) -- (thermo);
 
-\draw[->, line width=1.2pt] (iso) -- (pass);
-\draw[->, line width=1.2pt] (chsh) -- (pass);
-\draw[->, line width=1.2pt] (ledger) -- (pass);
-\draw[->, line width=1.2pt] (thermo) -- (pass);
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (iso) -- (pass);
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (chsh) -- (pass);
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (ledger) -- (pass);
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (thermo) -- (pass);
 
 % Label
 \node[draw, dashed, fill=yellow!10, text width=8cm, text centered] at (4.5,4.5) {\textbf{Evaluation Goal:} Validate that theory matches practice};
@@ -112,23 +109,20 @@ The concrete test harnesses live under \texttt{tests/} (for example, \path{tests
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[
-    scale=1.05,
-    node distance=3.0cm,
-    layer/.style={rectangle, draw, fill=blue!15, text width=3.7cm, text centered, minimum height=2.1cm, rounded corners=3pt, font=
-ormalsize},
-    trace/.style={rectangle, draw, fill=green!10, text width=4.2cm, text centered, minimum height=1.2cm, font=
-ormalsize},
-    compare/.style={diamond, draw, fill=orange!20, aspect=2, text width=1.3cm, text centered, font=
-ormalsize}
+    scale=0.65, transform shape,
+    node distance=2.5cm,
+    layer/.style={rectangle, draw, fill=blue!15, text width=2.7cm, text centered, minimum height=1.8cm, rounded corners, font=\normalsize},
+    trace/.style={rectangle, draw, fill=green!10, text width=2.2cm, text centered, minimum height=1.2cm, font=\normalsize},
+    compare/.style={diamond, draw, fill=orange!20, aspect=2, text width=1.3cm, text centered, font=\normalsize}
 ]
 
 % Input trace
-\node[trace, align=center, text width=4.5cm] (trace) at (0,0) {\textbf{Trace}\\Instructions};
+\node[trace, align=center, text width=3.5cm] (trace) at (0,0) {\textbf{Trace}\\Instructions};
 
 % Three layers
-\node[layer, align=center, text width=4.5cm] (coq) at (4,2) {\textbf{Coq}\\Extracted semantics};
-\node[layer, align=center, text width=4.5cm] (python) at (4,0) {\textbf{Python}\\Reference VM};
-\node[layer, align=center, text width=4.5cm] (rtl) at (4,-2) {\textbf{RTL}\\Verilog simulation};
+\node[layer, align=center, text width=3.5cm] (coq) at (4,2) {\textbf{Coq}\\Extracted semantics};
+\node[layer, align=center, text width=3.5cm] (python) at (4,0) {\textbf{Python}\\Reference VM};
+\node[layer, align=center, text width=3.5cm] (rtl) at (4,-2) {\textbf{RTL}\\Verilog simulation};
 
 % State outputs
 \node[trace] (s1) at (8,2) {$S_{\text{Coq}}$};
@@ -139,22 +133,22 @@ ormalsize}
 \node[compare] (cmp) at (11,0) {$=$?};
 
 % Result
-\node[draw, fill=green!30, rounded corners=3pt] (pass) at (14,0) {\textbf{PASS}};
+\node[draw, fill=green!30, rounded corners] (pass) at (14,0) {\textbf{PASS}};
 
 % Arrows
-\draw[->, line width=1.2pt] (trace) -- (coq);
-\draw[->, line width=1.2pt] (trace) -- (python);
-\draw[->, line width=1.2pt] (trace) -- (rtl);
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (trace) -- (coq);
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (trace) -- (python);
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (trace) -- (rtl);
 
-\draw[->, line width=1.2pt] (coq) -- (s1);
-\draw[->, line width=1.2pt] (python) -- (s2);
-\draw[->, line width=1.2pt] (rtl) -- (s3);
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (coq) -- (s1);
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (python) -- (s2);
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (rtl) -- (s3);
 
-\draw[->, line width=1.2pt] (s1) -- (cmp);
-\draw[->, line width=1.2pt] (s2) -- (cmp);
-\draw[->, line width=1.2pt] (s3) -- (cmp);
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (s1) -- (cmp);
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (s2) -- (cmp);
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (s3) -- (cmp);
 
-\draw[->, line width=1.2pt] (cmp) -- (pass);
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (cmp) -- (pass);
 
 % Annotation
 \node[draw, dashed, fill=yellow!10, text width=6cm, text centered, align=center] at (11,-3.5) {$S_{\text{Coq}}(\tau) = S_{\text{Python}}(\tau) = S_{\text{RTL}}(\tau)$\\for all traces $\tau$};
@@ -374,18 +368,15 @@ $\mu$-Ledger Updates & PASS & PASS & PASS \\
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[
-    scale=1.05,
+    scale=0.65, transform shape,
     node distance=3cm,
-    party/.style={circle, draw, fill=blue!12, minimum size=1.3cm, text centered, font=
-ormalsize},
-    source/.style={rectangle, draw, fill=red!12, minimum width=4.2cm, minimum height=2.0cm, text centered, font=
-ormalsize},
-    setting/.style={rectangle, draw, fill=green!10, minimum width=1.7cm, minimum height=1.3cm, text centered, font=
-ormalsize}
+    party/.style={circle, draw, fill=blue!20, minimum size=1.3cm, text centered, font=\normalsize},
+    source/.style={rectangle, draw, fill=red!20, minimum width=3.2cm, minimum height=1.7cm, text centered, font=\normalsize},
+    setting/.style={rectangle, draw, fill=green!10, minimum width=1.7cm, minimum height=1.0cm, text centered, font=\normalsize}
 ]
 
 % Source
-\node[source, align=center, text width=4.5cm] (src) at (5,0) {\textbf{Source}\\Correlated pairs};
+\node[source, align=center, text width=3.5cm] (src) at (5,0) {\textbf{Source}\\Correlated pairs};
 
 % Alice
 \node[party] (alice) at (0,0) {\textbf{Alice}};
@@ -398,22 +389,22 @@ ormalsize}
 \node[setting] (b) at (10,-1.5) {$b \in \{0,1\}$};
 
 % Arrows
-\draw[->, line width=1.2pt, dashed] (src) -- node[above, font=\small] {particle} (alice);
-\draw[->, line width=1.2pt, dashed] (src) -- node[above, font=\small] {particle} (bob);
-\draw[->, line width=1.2pt] (x) -- node[right, font=\small] {setting} (alice);
-\draw[->, line width=1.2pt] (alice) -- node[right, font=\small] {outcome} (a);
-\draw[->, line width=1.2pt] (y) -- node[left, font=\small] {setting} (bob);
-\draw[->, line width=1.2pt] (bob) -- node[left, font=\small] {outcome} (b);
+\draw[->, very thick, dashed] (src) -- node[above, yshift=6pt, pos=0.5, font=\small] {particle} (alice);
+\draw[->, very thick, dashed] (src) -- node[above, yshift=6pt, pos=0.5, font=\small] {particle} (bob);
+\draw[->, very thick] (x) -- node[right, above, yshift=6pt, pos=0.5, font=\small] {setting} (alice);
+\draw[->, very thick] (alice) -- node[right, above, yshift=6pt, pos=0.5, font=\small] {outcome} (a);
+\draw[->, very thick] (y) -- node[left, above, yshift=6pt, pos=0.5, font=\small] {setting} (bob);
+\draw[->, very thick] (bob) -- node[left, above, yshift=6pt, pos=0.5, font=\small] {outcome} (b);
 
 % CHSH scale below
 \node at (5,-3.5) {\textbf{CHSH Value Scale}};
-\draw[line width=1.2pt] (0,-4.5) -- (10,-4.5);
+\draw[very thick, shorten >=2pt, shorten <=2pt] (0,-4.5) -- (10,-4.5);
 
 % Markers
-\draw[line width=1.2pt] (0,-4.3) -- (0,-4.7) node[below, font=\small] {0};
-\draw[line width=1.2pt, blue] (5,-4.3) -- (5,-4.7) node[below, font=\small] {2};
-\draw[line width=1.2pt, red] (7.07,-4.3) -- (7.07,-4.7) node[below, font=\small] {$2\sqrt{2}$};
-\draw[line width=1.2pt] (10,-4.3) -- (10,-4.7) node[below, font=\small] {4};
+\draw[very thick, shorten >=2pt, shorten <=2pt] (0,-4.3) -- (0,-4.7) node[below, above, yshift=6pt, pos=0.5, font=\small] {0};
+\draw[very thick, blue, shorten >=2pt, shorten <=2pt] (5,-4.3) -- (5,-4.7) node[below, above, yshift=6pt, pos=0.5, font=\small] {2};
+\draw[very thick, red, shorten >=2pt, shorten <=2pt] (7.07,-4.3) -- (7.07,-4.7) node[below, above, yshift=6pt, pos=0.5, font=\small] {$2\sqrt{2}$};
+\draw[very thick, shorten >=2pt, shorten <=2pt] (10,-4.3) -- (10,-4.7) node[below, above, yshift=6pt, pos=0.5, font=\small] {4};
 
 % Regions
 \fill[green!20, opacity=0.5] (0,-4.5) rectangle (5,-4.2);
@@ -634,24 +625,17 @@ Supra-Quantum & $> 2.828$ & \textbf{Required} & $\mu_{\text{reveal}}$ \\
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[
-    scale=1.05,
-    state/.style={circle, draw, fill=blue!15, minimum size=0.9cm, text centered, font=
-ormalsize},
-    ledger/.style={rectangle, draw, fill=orange!20, minimum width=1.8cm, minimum height=1.3cm, text centered, font=
-ormalsize}
-, node distance=3cm]
+    scale=0.65, transform shape,
+    state/.style={circle, draw, fill=blue!15, minimum size=0.9cm, text centered, font=\normalsize},
+    ledger/.style={rectangle, draw, fill=orange!20, minimum width=1.8cm, minimum height=1.0cm, text centered, font=\normalsize}
+], node distance=3cm]
 
 % States
-\node[state, font=
-ormalsize] (s0) at (0,0) {$S_0$};
-\node[state, font=
-ormalsize] (s1) at (3,0) {$S_1$};
-\node[state, font=
-ormalsize] (s2) at (6,0) {$S_2$};
-\node[state, font=
-ormalsize] (s3) at (9,0) {$S_3$};
-\node[state, font=
-ormalsize] (s4) at (12,0) {$S_4$};
+\node[state, font=\normalsize] (s0) at (0,0) {$S_0$};
+\node[state, font=\normalsize] (s1) at (3,0) {$S_1$};
+\node[state, font=\normalsize] (s2) at (6,0) {$S_2$};
+\node[state, font=\normalsize] (s3) at (9,0) {$S_3$};
+\node[state, font=\normalsize] (s4) at (12,0) {$S_4$};
 
 % Ledger values
 \node[ledger] (m0) at (0,-1.5) {$\mu_0 = 0$};
@@ -661,23 +645,23 @@ ormalsize] (s4) at (12,0) {$S_4$};
 \node[ledger] (m4) at (12,-1.5) {$\mu_4 = 12$};
 
 % Transitions with costs
-\draw[->, line width=1.2pt] (s0) -- node[above, font=\small] {$+3$} (s1);
-\draw[->, line width=1.2pt] (s1) -- node[above, font=\small] {$+2$} (s2);
-\draw[->, line width=1.2pt] (s2) -- node[above, font=\small] {$+3$} (s3);
-\draw[->, line width=1.2pt] (s3) -- node[above, font=\small] {$+4$} (s4);
+\draw[->, very thick] (s0) -- node[above, yshift=6pt, pos=0.5, font=\small] {$+3$} (s1);
+\draw[->, very thick] (s1) -- node[above, yshift=6pt, pos=0.5, font=\small] {$+2$} (s2);
+\draw[->, very thick] (s2) -- node[above, yshift=6pt, pos=0.5, font=\small] {$+3$} (s3);
+\draw[->, very thick] (s3) -- node[above, yshift=6pt, pos=0.5, font=\small] {$+4$} (s4);
 
 % Connect states to ledgers
-\draw[dashed] (s0) -- (m0);
-\draw[dashed] (s1) -- (m1);
-\draw[dashed] (s2) -- (m2);
-\draw[dashed] (s3) -- (m3);
-\draw[dashed] (s4) -- (m4);
+\draw[dashed, shorten >=2pt, shorten <=2pt] (s0) -- (m0);
+\draw[dashed, shorten >=2pt, shorten <=2pt] (s1) -- (m1);
+\draw[dashed, shorten >=2pt, shorten <=2pt] (s2) -- (m2);
+\draw[dashed, shorten >=2pt, shorten <=2pt] (s3) -- (m3);
+\draw[dashed, shorten >=2pt, shorten <=2pt] (s4) -- (m4);
 
 % Monotonicity arrows
-\draw[->, line width=1.2pt, red] (m0.east) -- (m1.west);
-\draw[->, line width=1.2pt, red] (m1.east) -- (m2.west);
-\draw[->, line width=1.2pt, red] (m2.east) -- (m3.west);
-\draw[->, line width=1.2pt, red] (m3.east) -- (m4.west);
+\draw[->, very thick, red, shorten >=2pt, shorten <=2pt] (m0.east) -- (m1.west);
+\draw[->, very thick, red, shorten >=2pt, shorten <=2pt] (m1.east) -- (m2.west);
+\draw[->, very thick, red, shorten >=2pt, shorten <=2pt] (m2.east) -- (m3.west);
+\draw[->, very thick, red, shorten >=2pt, shorten <=2pt] (m3.east) -- (m4.west);
 
 % Properties box
 \node[draw, fill=yellow!10, text width=6cm, text centered, align=center] at (6,-3.5) {
@@ -843,32 +827,29 @@ The conservation test matches the formal definition of \texttt{apply\_cost} in \
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[
-    scale=1.05,
-    node distance=3.0cm,
-    abstract/.style={rectangle, draw, fill=blue!15, text width=3.7cm, text centered, minimum height=2.1cm, rounded corners=3pt, font=
-ormalsize},
-    bridge/.style={rectangle, draw, fill=orange!20, text width=3.7cm, text centered, minimum height=2.1cm, rounded corners=3pt, dashed, font=
-ormalsize},
-    physical/.style={rectangle, draw, fill=green!15, text width=3.7cm, text centered, minimum height=2.1cm, rounded corners=3pt, font=
-ormalsize}
+    scale=0.65, transform shape,
+    node distance=2.5cm,
+    abstract/.style={rectangle, draw, fill=blue!15, text width=2.7cm, text centered, minimum height=1.8cm, rounded corners, font=\normalsize},
+    bridge/.style={rectangle, draw, fill=orange!20, text width=2.7cm, text centered, minimum height=1.8cm, rounded corners, dashed, font=\normalsize},
+    physical/.style={rectangle, draw, fill=green!15, text width=2.7cm, text centered, minimum height=1.8cm, rounded corners, font=\normalsize}
 ]
 
 % Abstract layer
-\node[abstract, align=center, text width=4.5cm] (mu) at (0,2) {\textbf{$\mu$-Ledger}\\Abstract cost};
-\node[abstract, align=center, text width=4.5cm] (omega) at (4,2) {\textbf{$\Omega \to \Omega'$}\\State reduction};
+\node[abstract, align=center, text width=3.5cm] (mu) at (0,2) {\textbf{$\mu$-Ledger}\\Abstract cost};
+\node[abstract, align=center, text width=3.5cm] (omega) at (4,2) {\textbf{$\Omega \to \Omega'$}\\State reduction};
 
 % Bridge
-\node[bridge, align=center, text width=4.5cm] (landauer) at (2,0) {\textbf{Landauer}\\$Q \ge kT \ln 2 \cdot \mu$};
+\node[bridge, align=center, text width=3.5cm] (landauer) at (2,0) {\textbf{Landauer}\\$Q \ge kT \ln 2 \cdot \mu$};
 
 % Physical
-\node[physical, align=center, text width=4.5cm] (energy) at (0,-2) {\textbf{Energy}\\Joules};
-\node[physical, align=center, text width=4.5cm] (entropy) at (4,-2) {\textbf{Entropy}\\$\Delta S_{\text{env}}$};
+\node[physical, align=center, text width=3.5cm] (energy) at (0,-2) {\textbf{Energy}\\Joules};
+\node[physical, align=center, text width=3.5cm] (entropy) at (4,-2) {\textbf{Entropy}\\$\Delta S_{\text{env}}$};
 
 % Arrows
-\draw[->, line width=1.2pt] (mu) -- (landauer);
-\draw[->, line width=1.2pt] (omega) -- (landauer);
-\draw[->, line width=1.2pt] (landauer) -- (energy);
-\draw[->, line width=1.2pt] (landauer) -- (entropy);
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (mu) -- (landauer);
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (omega) -- (landauer);
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (landauer) -- (energy);
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (landauer) -- (entropy);
 
 % Labels
 \node at (-2.5,2) {\textbf{Abstract}};
@@ -1077,7 +1058,7 @@ This \textbf{ledger time dilation diagram} visualizes the \textit{ledger-constra
 % Figure 6: Performance Overview
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=1.05, node distance=2.5cm]
+\begin{tikzpicture}[scale=0.65, transform shape], node distance=2cm]
 % Bar chart for throughput
 \begin{axis}[
     ybar,
@@ -1092,8 +1073,7 @@ This \textbf{ledger time dilation diagram} visualizes the \textit{ledger-constra
     ymax=10000000,
     bar width=1.5cm,
     nodes near coords,
-    nodes near coords style={above, font=
-ormalsize},
+    nodes near coords style={above, font=\normalsize},
     every axis plot/.append style={fill=blue!40}
 ]
 \addplot coordinates {(Raw VM, 1000000) (Receipts, 10000) (Full Trace, 1000)};
@@ -1466,30 +1446,28 @@ Containerized builds are supported to ensure reproducibility across environments
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[
-    scale=1.05,
-    node distance=3.0cm,
-    result/.style={rectangle, draw, fill=green!12, text width=3.7cm, text centered, minimum height=2.0cm, rounded corners=3pt, font=
-ormalsize},
-    central/.style={rectangle, draw, fill=blue!12, text width=4.2cm, text centered, minimum height=2.4cm, rounded corners=3pt, line width=1.2pt, font=
-ormalsize}
+    scale=0.65, transform shape,
+    node distance=2.5cm,
+    result/.style={rectangle, draw, fill=green!20, text width=2.7cm, text centered, minimum height=1.7cm, rounded corners, font=\normalsize},
+    central/.style={rectangle, draw, fill=blue!20, text width=3.2cm, text centered, minimum height=2.4cm, rounded corners, very thick, font=\normalsize}
 ]
 
 % Central validation
-\node[central, align=center, text width=4.5cm] (val) at (6,0) {\textbf{Empirical}\\
+\node[central, align=center, text width=3.5cm] (val) at (6,0) {\textbf{Empirical}\\
 \textbf{Validation}\\
 Theory $=$ Practice};
 
 % Results around
-\node[result, align=center, text width=4.5cm] (iso) at (0,2) {\textbf{Isomorphism}\\3-layer match\\100\% pass};
-\node[result, align=center, text width=4.5cm] (chsh) at (0,-2) {\textbf{CHSH}\\Bounds enforced\\Revelation required};
-\node[result, align=center, text width=4.5cm] (ledger) at (12,2) {\textbf{$\mu$-Ledger}\\Monotonic\\Conservative};
-\node[result, align=center, text width=4.5cm] (thermo) at (12,-2) {\textbf{Thermodynamic}\\Bridge validated\\Falsifiable};
+\node[result, align=center, text width=3.5cm] (iso) at (0,2) {\textbf{Isomorphism}\\3-layer match\\100\% pass};
+\node[result, align=center, text width=3.5cm] (chsh) at (0,-2) {\textbf{CHSH}\\Bounds enforced\\Revelation required};
+\node[result, align=center, text width=3.5cm] (ledger) at (12,2) {\textbf{$\mu$-Ledger}\\Monotonic\\Conservative};
+\node[result, align=center, text width=3.5cm] (thermo) at (12,-2) {\textbf{Thermodynamic}\\Bridge validated\\Falsifiable};
 
 % Arrows
-\draw[->, line width=1.2pt] (iso) -- (val);
-\draw[->, line width=1.2pt] (chsh) -- (val);
-\draw[->, line width=1.2pt] (ledger) -- (val);
-\draw[->, line width=1.2pt] (thermo) -- (val);
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (iso) -- (val);
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (chsh) -- (val);
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (ledger) -- (val);
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (thermo) -- (val);
 
 % Bottom annotation
 \node[draw, dashed, fill=yellow!10, text width=10cm, text centered, align=center] at (6,-4) {
