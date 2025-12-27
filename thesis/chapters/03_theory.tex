@@ -13,7 +13,7 @@ The previous chapter established the \textit{problem}: classical computers are s
     box/.style={draw, rounded corners, minimum width=4.6cm, minimum height=1.7cm, align=center, font=\normalsize},
     arrow/.style={->, >=stealth, thick},
     dasharrow/.style={->, >=stealth, very thick, dashed},
-    scale=0.65, transform shape
+    scale=0.85, transform shape
 ], node distance=3cm]
 % Main components
 \node[box, fill=blue!20, align=center, text width=3.5cm, font=\normalsize] (state) at (0,0) {State Space\\$S$};
@@ -277,7 +277,7 @@ The partition graph is the central innovation of the Thiele Machine. It represen
 \begin{tikzpicture}[
     module/.style={draw, rounded corners, minimum width=4.0cm, minimum height=2.4cm, align=center, font=\normalsize},
     memory/.style={draw, minimum width=0.6cm, minimum height=0.6cm, font=\normalsize},
-    scale=0.65, transform shape
+    scale=0.85, transform shape
 ], node distance=3cm]
 % Memory addresses (background)
 \foreach \i in {0,...,15} {
@@ -648,7 +648,7 @@ The instructions fall into several categories:
 \begin{tikzpicture}[
     cat/.style={draw, rounded corners, minimum width=6.2cm, minimum height=3.6cm, align=center, font=\normalsize},
     instr/.style={font=\normalsize\ttfamily},
-    scale=0.65, transform shape
+    scale=0.85, transform shape
 ], node distance=2.5cm]
 % Structural Operations
 \node[cat, fill=blue!15, align=center, text width=3.5cm] (struct) at (-4, 2) {
@@ -916,7 +916,7 @@ The kernel verifies the certificate but does not search for solutions. This ensu
 \begin{tikzpicture}[
     state/.style={draw, circle, minimum size=1cm, font=\normalsize},
     arrow/.style={->, >=stealth, thick},
-    scale=0.65, transform shape
+    scale=0.85, transform shape
 ], node distance=3cm]
 % States
 \node[state, fill=blue!20, font=\normalsize] (s0) at (0,0) {$s_0$};
@@ -1278,7 +1278,7 @@ Definition graph_pnew (g : PartitionGraph) (region : list nat)
 \begin{tikzpicture}[
     module/.style={draw, rounded corners, minimum width=3.2cm, minimum height=1.7cm, align=center, font=\normalsize},
     arrow/.style={->, >=stealth, thick},
-    scale=0.65, transform shape
+    scale=0.85, transform shape
 ], node distance=3cm]
 % PNEW
 \node[font=\bfseries] at (-5, 3.5) {PNEW};
@@ -1566,7 +1566,7 @@ This is a computational analog of Bell locality: you cannot signal to a remote m
 \begin{tikzpicture}[
     box/.style={draw, rounded corners, minimum width=5.0cm, minimum height=3.2cm, align=center},
     arrow/.style={->, >=stealth, thick},
-    scale=0.65, transform shape
+    scale=0.85, transform shape
 ], node distance=2cm]
 % Before: Large search space
 \node[box, fill=red!20, minimum width=8.2cm, minimum height=5.0cm, align=center, text width=3.5cm, font=\normalsize] (omega) at (-5, 0) {
@@ -2020,7 +2020,7 @@ This is the computational analog of Noether's theorem: the gauge symmetry (abili
 \begin{tikzpicture}[
     concept/.style={draw, rounded corners, minimum width=4.0cm, minimum height=2.4cm, align=center, font=\normalsize},
     result/.style={draw, very thick, fill=yellow!20, rounded corners, minimum width=6.2cm, minimum height=1.7cm, align=center, font=\normalsize},
-    scale=0.65, transform shape
+    scale=0.85, transform shape
 ], node distance=2.5cm]
 % Core concepts
 \node[concept, fill=blue!20, align=center, text width=3.5cm] (state) at (-4, 3) {State Space\\$S$};
