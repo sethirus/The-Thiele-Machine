@@ -56,7 +56,7 @@ Extract Constant VMState.word32_popcount =>
 
   The Foundry pipeline treats the generated OCaml as the canonical IR.
 *)
-Extraction "../build/thiele_core.ml"
+Extraction "build/thiele_core.ml"
   (* Core types *)
   VMStep.vm_instruction
   VMStep.lassert_certificate
