@@ -1,11 +1,4 @@
 
-type ('a, 'b) prod =
-| Pair of 'a * 'b
-
-type 'a list =
-| Nil
-| Cons of 'a * 'a list
-
 type comparison =
 | Eq
 | Lt
@@ -96,9 +89,9 @@ module Z :
 
   val of_nat : int -> z
 
-  val pos_div_eucl : positive -> z -> (z, z) prod
+  val pos_div_eucl : positive -> z -> z*z
 
-  val div_eucl : z -> z -> (z, z) prod
+  val div_eucl : z -> z -> z*z
 
   val div : z -> z -> z
 

@@ -3,7 +3,7 @@ Import ListNotations.
 Open Scope Z_scope.
 Open Scope nat_scope.
 
-From ThieleMachine.Modular_Proofs Require Import Encoding.
+From ModularProofs Require Import Encoding.
 Require Import ThieleUniversal.TM.
 
 Definition utm_accept : nat := 4.

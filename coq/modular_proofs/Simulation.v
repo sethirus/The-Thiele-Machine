@@ -10,7 +10,7 @@
 From Coq Require Import List Arith.
 Import ListNotations.
 
-From ThieleMachine.Modular_Proofs Require Import TM_Basics Thiele_Basics.
+From ModularProofs Require Import TM_Basics Thiele_Basics.
 
 Section Simulation.
   Context {tm : TMTransition}.
