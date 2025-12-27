@@ -7,8 +7,8 @@
 \centering
 \begin{tikzpicture}[scale=1.8, 
     node distance=3cm,
-    domainstyle/.style={rectangle, draw, rounded corners, minimum width=5.0cm, minimum height=2.0cm, align=center, fill=blue!10},
-    core/.style={rectangle, draw, rounded corners, minimum width=6.2cm, minimum height=2.1cm, align=center, fill=yellow!20},
+    domainstyle/.style={rectangle, draw, rounded corners=3pt, minimum width=5.0cm, minimum height=2.0cm, align=center, fill=blue!10},
+    core/.style={rectangle, draw, rounded corners=3pt, minimum width=6.2cm, minimum height=2.1cm, align=center, fill=yellow!15},
     arrow/.style={->, >=Stealth, thick}
 ]
     % Core
@@ -26,23 +26,27 @@
     \node[domainstyle, align=center, text width=4.5cm] (modular) at (4, -2) {Modular\\Proofs};
     
     % Arrows
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (kernel) -- (partition);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (kernel) -- (quantum);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (kernel) -- (toe);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (kernel) -- (physics);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (kernel) -- (bridge);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (kernel) -- (nofi);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (kernel) -- (self);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (kernel) -- (modular);
+    \draw[arrow] (kernel) -- (partition);
+    \draw[arrow] (kernel) -- (quantum);
+    \draw[arrow] (kernel) -- (toe);
+    \draw[arrow] (kernel) -- (physics);
+    \draw[arrow] (kernel) -- (bridge);
+    \draw[arrow] (kernel) -- (nofi);
+    \draw[arrow] (kernel) -- (self);
+    \draw[arrow] (kernel) -- (modular);
     
     % Zero admit badge
     \node[draw, circle, fill=green!30, font=\normalsize\bfseries] at (0, -0.8) {0 admits};
     
     % File counts
-    \node[font=\normalsize, text=gray] at (-4, 1.2) {98 files};
-    \node[font=\normalsize, text=gray] at (4, 1.2) {5 files};
-    \node[font=\normalsize, text=gray] at (-4, -1.2) {6 files};
-    \node[font=\normalsize, text=gray] at (4, -1.2) {7 files};
+    \node[font=
+ormalsize, text=gray] at (-4, 1.2) {98 files};
+    \node[font=
+ormalsize, text=gray] at (4, 1.2) {5 files};
+    \node[font=
+ormalsize, text=gray] at (-4, -1.2) {6 files};
+    \node[font=
+ormalsize, text=gray] at (4, -1.2) {7 files};
 \end{tikzpicture}
 \caption{Extended proof architecture: eight proof domains building on the kernel semantics, all with zero admits.}
 \label{fig:ch10-roadmap}
@@ -412,14 +416,16 @@ Further results cover: blind vs sighted computation, confluence, simulation rela
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[
-    node distance=2.5cm,
-    forces/.style={rectangle, draw, rounded corners, minimum width=4.9cm, minimum height=1.2cm, align=center, fill=green!15, font=\normalsize},
-    nogo/.style={rectangle, draw, rounded corners, minimum width=4.9cm, minimum height=1.2cm, align=center, fill=red!15, font=\normalsize},
+    node distance=3.0cm,
+    forces/.style={rectangle, draw, rounded corners=3pt, minimum width=4.9cm, minimum height=1.2cm, align=center, fill=green!15, font=
+ormalsize},
+    nogo/.style={rectangle, draw, rounded corners=3pt, minimum width=4.9cm, minimum height=1.2cm, align=center, fill=red!15, font=
+ormalsize},
     arrow/.style={->, >=Stealth, thick},
     scale=1.05
 ]
     % Kernel
-    \node[rectangle, draw, rounded corners, fill=yellow!20, minimum width=7.2cm, minimum height=2.1cm, align=center, text width=4.5cm] (kernel) at (0, 0) {\textbf{Kernel Semantics}\\Compositionality};
+    \node[rectangle, draw, rounded corners=3pt, fill=yellow!15, minimum width=7.2cm, minimum height=2.1cm, align=center, text width=4.5cm] (kernel) at (0, 0) {\textbf{Kernel Semantics}\\Compositionality};
     
     % What kernel forces
     \node[font=\normalsize\bfseries] at (-3.5, 2) {Kernel Forces};
@@ -434,16 +440,17 @@ Further results cover: blind vs sighted computation, confluence, simulation rela
     \node[nogo] (lorentz) at (3.5, -1) {Lorentz Structure};
     
     % Arrows
-    \draw[arrow, green!60!black, shorten >=2pt, shorten <=2pt] (kernel) -- (locality);
-    \draw[arrow, green!60!black, shorten >=2pt, shorten <=2pt] (kernel) -- (monotone);
-    \draw[arrow, green!60!black, shorten >=2pt, shorten <=2pt] (kernel) -- (cone);
+    \draw[arrow, green!60!black] (kernel) -- (locality);
+    \draw[arrow, green!60!black] (kernel) -- (monotone);
+    \draw[arrow, green!60!black] (kernel) -- (cone);
     
-    \draw[arrow, red!60!black, dashed, shorten >=2pt, shorten <=2pt] (kernel) -- (weight);
-    \draw[arrow, red!60!black, dashed, shorten >=2pt, shorten <=2pt] (kernel) -- (prob);
-    \draw[arrow, red!60!black, dashed, shorten >=2pt, shorten <=2pt] (kernel) -- (lorentz);
+    \draw[arrow, red!60!black, dashed] (kernel) -- (weight);
+    \draw[arrow, red!60!black, dashed] (kernel) -- (prob);
+    \draw[arrow, red!60!black, dashed] (kernel) -- (lorentz);
     
     % Key theorem
-    \node[draw, rounded corners, fill=gray!10, font=\normalsize, text width=6cm, align=center] at (0, -2.5) {\texttt{Physics\_Requires\_Extra\_Structure}\\Additional axioms needed beyond compositionality};
+    \node[draw, rounded corners=3pt, fill=gray!10, font=
+ormalsize, text width=6cm, align=center] at (0, -2.5) {\texttt{Physics\_Requires\_Extra\_Structure}\\Additional axioms needed beyond compositionality};
 \end{tikzpicture}
 \caption{TOE results: the kernel forces locality and monotonicity but cannot force unique weights or Lorentz structure.}
 \label{fig:toe-results}
@@ -1084,11 +1091,11 @@ No unique probability measure over traces is forced by the kernel semantics.
 \centering
 \begin{tikzpicture}[
     scale=1.05
-, node distance=2.5cm]
+, node distance=3.0cm]
     % Scale
-    \draw[very thick, shorten >=2pt, shorten <=2pt] (0, 0) -- (10, 0);
+    \draw[line width=1.2pt] (0, 0) -- (10, 0);
     \foreach \x in {0, 2.5, 5, 7.07, 10} {
-        \draw[very thick, shorten >=2pt, shorten <=2pt] (\x, -0.2) -- (\x, 0.2);
+        \draw[line width=1.2pt] (\x, -0.2) -- (\x, 0.2);
     }
     
     % Labels
@@ -1108,11 +1115,13 @@ No unique probability measure over traces is forced by the kernel semantics.
     \node at (7.5, 1) {Supra-Q};
     
     % Machine-checked bound
-    \draw[very thick, red, ->, shorten >=2pt, shorten <=2pt] (7.07, 2) -- (7.07, 0.3);
-    \node[above, font=\normalsize, text=red] at (7.07, 2) {Machine-checked};
+    \draw[line width=1.2pt, red, ->] (7.07, 2) -- (7.07, 0.3);
+    \node[above, font=
+ormalsize, text=red] at (7.07, 2) {Machine-checked};
     
     % Key insight
-    \node[draw, rounded corners, fill=yellow!20, font=\normalsize] at (5, -1.5) {$|S| \le \frac{5657}{2000} \approx 2.8285$ (exact rational)};
+    \node[draw, rounded corners=3pt, fill=yellow!15, font=
+ormalsize] at (5, -1.5) {$|S| \le \frac{5657}{2000} \approx 2.8285$ (exact rational)};
 \end{tikzpicture}
 \caption{Tsirelson bound proven as exact rational inequality $\frac{5657}{2000}$, not floating-point approximation.}
 \label{fig:tsirelson-bound}
@@ -1600,9 +1609,9 @@ These predictions are falsifiable: if benchmarks show costs outside these bounds
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[scale=1.8, 
-    node distance=2.5cm,
-    result/.style={rectangle, draw, rounded corners, minimum width=6.2cm, minimum height=2.0cm, align=center, fill=green!15},
-    central/.style={rectangle, draw, rounded corners, minimum width=7.2cm, minimum height=2.1cm, align=center, fill=yellow!20},
+    node distance=3.0cm,
+    result/.style={rectangle, draw, rounded corners=3pt, minimum width=6.2cm, minimum height=2.0cm, align=center, fill=green!15},
+    central/.style={rectangle, draw, rounded corners=3pt, minimum width=7.2cm, minimum height=2.1cm, align=center, fill=yellow!15},
     arrow/.style={->, >=Stealth, thick}
 ]
     % Results
@@ -1615,10 +1624,10 @@ These predictions are falsifiable: if benchmarks show costs outside these bounds
     \node[central, align=center, text width=4.5cm] (central) at (0, 0) {\textbf{Machine-Verified}\\Computational Physics};
     
     % Arrows
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (corpus) -- (central);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (quantum) -- (central);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (toe) -- (central);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (subsume) -- (central);
+    \draw[arrow] (corpus) -- (central);
+    \draw[arrow] (quantum) -- (central);
+    \draw[arrow] (toe) -- (central);
+    \draw[arrow] (subsume) -- (central);
     
     % Badge
     \node[draw, circle, fill=green!30, font=\normalsize\bfseries] at (0, -0.7) {206 files};

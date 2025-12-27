@@ -7,9 +7,9 @@
 \centering
 \begin{tikzpicture}[scale=1.8, 
     node distance=3cm,
-    model/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=blue!10},
-    algo/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=green!15},
-    bridge/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=yellow!20},
+    model/.style={rectangle, draw, rounded corners=3pt, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=blue!10},
+    algo/.style={rectangle, draw, rounded corners=3pt, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=green!15},
+    bridge/.style={rectangle, draw, rounded corners=3pt, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=yellow!15},
     arrow/.style={->, >=Stealth, thick}
 ]
     % Physics models
@@ -28,18 +28,20 @@
     \node[bridge, minimum width=7.2cm, align=center, text width=4.5cm] (bridge) at (0, -1) {\textbf{Bridge Modules}\\Domain $\rightarrow$ Kernel};
     
     % Arrows
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (wave) -- (bridge);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (diss) -- (bridge);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (discrete) -- (bridge);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (period) -- (bridge);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (gcd) -- (bridge);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (mod) -- (bridge);
+    \draw[arrow] (wave) -- (bridge);
+    \draw[arrow] (diss) -- (bridge);
+    \draw[arrow] (discrete) -- (bridge);
+    \draw[arrow] (period) -- (bridge);
+    \draw[arrow] (gcd) -- (bridge);
+    \draw[arrow] (mod) -- (bridge);
     
     % Conservation laws
-    \node[draw, rounded corners, fill=gray!10, font=\normalsize, text width=3cm, align=center] at (-3, -0.5) {Conservation\\laws proven};
+    \node[draw, rounded corners=3pt, fill=gray!10, font=
+ormalsize, text width=3cm, align=center] at (-3, -0.5) {Conservation\\laws proven};
     
     % Shor reduction
-    \node[draw, rounded corners, fill=gray!10, font=\normalsize, text width=3cm, align=center] at (3, -0.5) {Shor reduction\\formalized};
+    \node[draw, rounded corners=3pt, fill=gray!10, font=
+ormalsize, text width=3cm, align=center] at (3, -0.5) {Shor reduction\\formalized};
 \end{tikzpicture}
 \caption{Chapter D roadmap: physics models with conservation laws and algorithmic primitives with Shor reduction, connected via bridge modules.}
 
@@ -101,7 +103,7 @@ This chapter documents the physics models that demonstrate emergent conservation
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[scale=1.8, 
-    node distance=2.5cm,
+    node distance=3.0cm,
     cell/.style={rectangle, draw, minimum width=1.4cm, minimum height=2.0cm, align=center}
 ]
     % Wave state
@@ -118,14 +120,15 @@ This chapter documents the physics models that demonstrate emergent conservation
     \node at (-0.8, 0) {\scriptsize R};
     
     % Conservation equations
-    \node[draw, rounded corners, fill=yellow!20, text width=5cm, align=center, font=\normalsize] at (2, -1.5) {
+    \node[draw, rounded corners=3pt, fill=yellow!15, text width=5cm, align=center, font=
+ormalsize] at (2, -1.5) {
         $E = \sum (L_i^2 + R_i^2)$ conserved\\
         $P = \sum (R_i - L_i)$ conserved\\
         Step is reversible
     };
     
     % Arrow
-    \draw[->, >=Stealth, very thick, shorten >=2pt, shorten <=2pt] (2, -0.3) -- (2, -0.8);
+    \draw[->, >=Stealth, line width=1.2pt] (2, -0.3) -- (2, -0.8);
 \end{tikzpicture}
 \caption{Wave propagation model: left/right amplitudes propagate with conserved energy and momentum.}
 
@@ -285,9 +288,9 @@ The discrete model uses lattice-based dynamics for discrete spacetime emergence.
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[scale=1.8, 
-    node distance=2.5cm,
-    stepstyle/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=blue!10},
-    result/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=green!15},
+    node distance=3.0cm,
+    stepstyle/.style={rectangle, draw, rounded corners=3pt, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=blue!10},
+    result/.style={rectangle, draw, rounded corners=3pt, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=green!15},
     arrow/.style={->, >=Stealth, thick}
 ]
     % Input
@@ -303,19 +306,21 @@ The discrete model uses lattice-based dynamics for discrete spacetime emergence.
     \node[result] (factors) at (0, -2.5) {Factors: $g, N/g$};
     
     % Arrows
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (input) -- (period);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (period) -- (candidate);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (candidate) -- (factors);
+    \draw[arrow] (input) -- (period);
+    \draw[arrow] (period) -- (candidate);
+    \draw[arrow] (candidate) -- (factors);
     
     % Examples
-    \node[draw, rounded corners, fill=gray!10, font=\normalsize, text width=4cm, align=left, align=center] at (5, 0) {
+    \node[draw, rounded corners=3pt, fill=gray!10, font=
+ormalsize, text width=4cm, align=left, align=center] at (5, 0) {
         $N=21, a=2, r=6$\\
         $g = \gcd(2^3-1, 21) = 7$\\
         Factors: 3, 7
     };
     
     % Theorem
-    \node[draw, rounded corners, fill=yellow!20, font=\normalsize] at (0, -4) {\texttt{shor\_reduction}: formalized in Coq};
+    \node[draw, rounded corners=3pt, fill=yellow!15, font=
+ormalsize] at (0, -4) {\texttt{shor\_reduction}: formalized in Coq};
 \end{tikzpicture}
 \caption{Shor's factoring algorithm core: period finding followed by GCD extraction. Formalized and verified in Coq.}
 
@@ -948,9 +953,9 @@ The key insight: Thiele Machine trades \textbf{blind search time} for \textbf{ex
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[scale=1.8, 
-    node distance=2cm,
-    result/.style={rectangle, draw, rounded corners, minimum width=5.4cm, minimum height=2.0cm, align=center, fill=green!15},
-    central/.style={rectangle, draw, rounded corners, minimum width=7.2cm, minimum height=2.1cm, align=center, fill=yellow!20},
+    node distance=2.5cm,
+    result/.style={rectangle, draw, rounded corners=3pt, minimum width=5.4cm, minimum height=2.0cm, align=center, fill=green!15},
+    central/.style={rectangle, draw, rounded corners=3pt, minimum width=7.2cm, minimum height=2.1cm, align=center, fill=yellow!15},
     arrow/.style={->, >=Stealth, thick}
 ]
     % Results
@@ -963,10 +968,10 @@ The key insight: Thiele Machine trades \textbf{blind search time} for \textbf{ex
     \node[central, align=center, text width=4.5cm] (central) at (0, 0) {\textbf{Theory $\leftrightarrow$ Algorithms}\\Infrastructure};
     
     % Arrows
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (physics) -- (central);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (shor) -- (central);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (bridge) -- (central);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (toe) -- (central);
+    \draw[arrow] (physics) -- (central);
+    \draw[arrow] (shor) -- (central);
+    \draw[arrow] (bridge) -- (central);
+    \draw[arrow] (toe) -- (central);
 \end{tikzpicture}
 \caption{Chapter D summary: physics models, Shor primitives, bridge modules, and TOE limits form the theory-algorithm infrastructure.}
 
