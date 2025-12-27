@@ -7,7 +7,10 @@ import json
 from pathlib import Path
 from typing import Iterable, List, Mapping, MutableMapping, Sequence
 
-from mu_calibration import landauer_bound
+try:
+    from tools.mu_calibration import landauer_bound
+except ModuleNotFoundError:  # pragma: no cover
+    from mu_calibration import landauer_bound  # type: ignore
 
 try:  # pragma: no cover - executed as a script under tools/
     from tools.turbulence_closure_v1 import (

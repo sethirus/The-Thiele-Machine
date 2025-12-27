@@ -11,10 +11,16 @@ import math
 from pathlib import Path
 from typing import Iterable, List, MutableMapping, Sequence
 
-from mu_calibration import (
-    CalibrationSummary,
-    compute_calibration_summary,
-)
+try:
+    from tools.mu_calibration import (
+        CalibrationSummary,
+        compute_calibration_summary,
+    )
+except ModuleNotFoundError:  # pragma: no cover
+    from mu_calibration import (  # type: ignore
+        CalibrationSummary,
+        compute_calibration_summary,
+    )
 from turbulence_law import (
     SeriesBundle,
     ar1_baseline,

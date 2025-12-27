@@ -14,31 +14,61 @@ from fractions import Fraction
 from pathlib import Path
 from typing import Iterable, List, Mapping, Sequence
 
-from make_law_receipt import (
-    COQ_LOAD_ARGS,
-    RecursionOperator,
-    Trace,
-    compute_entry_hash,
-    gather_samples,
-    lagrangian_coefficients,
-    lattice_energy,
-    lattice_flux,
-    lattice_momentum,
-    mdl_cost,
-    polynomial_terms,
-    scale_factor,
-    SIGNING_KEY,
-    trace_digest,
-    update_coefficients_from,
-    verify_chain,
-)
-from mu_calibration import (
-    BOLTZMANN_CONSTANT,
-    LN2,
-    calibrated_work,
-    compute_calibration_summary,
-    landauer_bound,
-)
+try:
+    from tools.make_law_receipt import (
+        COQ_LOAD_ARGS,
+        RecursionOperator,
+        Trace,
+        compute_entry_hash,
+        gather_samples,
+        lagrangian_coefficients,
+        lattice_energy,
+        lattice_flux,
+        lattice_momentum,
+        mdl_cost,
+        polynomial_terms,
+        scale_factor,
+        SIGNING_KEY,
+        trace_digest,
+        update_coefficients_from,
+        verify_chain,
+    )
+except ModuleNotFoundError:  # pragma: no cover
+    from make_law_receipt import (  # type: ignore
+        COQ_LOAD_ARGS,
+        RecursionOperator,
+        Trace,
+        compute_entry_hash,
+        gather_samples,
+        lagrangian_coefficients,
+        lattice_energy,
+        lattice_flux,
+        lattice_momentum,
+        mdl_cost,
+        polynomial_terms,
+        scale_factor,
+        SIGNING_KEY,
+        trace_digest,
+        update_coefficients_from,
+        verify_chain,
+    )
+
+try:
+    from tools.mu_calibration import (
+        BOLTZMANN_CONSTANT,
+        LN2,
+        calibrated_work,
+        compute_calibration_summary,
+        landauer_bound,
+    )
+except ModuleNotFoundError:  # pragma: no cover
+    from mu_calibration import (  # type: ignore
+        BOLTZMANN_CONSTANT,
+        LN2,
+        calibrated_work,
+        compute_calibration_summary,
+        landauer_bound,
+    )
 
 
 def load_entries(path: Path) -> List[Mapping[str, object]]:

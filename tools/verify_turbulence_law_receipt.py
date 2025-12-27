@@ -10,7 +10,10 @@ from fractions import Fraction
 from pathlib import Path
 from typing import Iterable, List, Mapping, MutableMapping, Sequence
 
-from mu_calibration import compute_calibration_summary
+try:
+    from tools.mu_calibration import compute_calibration_summary
+except ModuleNotFoundError:  # pragma: no cover
+    from mu_calibration import compute_calibration_summary  # type: ignore
 from turbulence_law import (
     SeriesBundle,
     ar1_baseline,

@@ -22,7 +22,13 @@ try:
 except ModuleNotFoundError:  # pragma: no cover - executed inside tools/
     from nusd_domains import ar1_fit, simulate_turbulence_series  # type: ignore
 
-from mu_calibration import CalibrationSummary, compute_calibration_summary
+try:
+    from tools.mu_calibration import CalibrationSummary, compute_calibration_summary
+except ModuleNotFoundError:  # pragma: no cover
+    from mu_calibration import (  # type: ignore
+        CalibrationSummary,
+        compute_calibration_summary,
+    )
 
 SIGNING_KEY = b"ThieleHeadToHeadKey"
 
