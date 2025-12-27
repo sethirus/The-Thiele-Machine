@@ -1,37 +1,73 @@
 \section{Why This Chapter Matters}
 
 % Figure 1: Chapter 7 Roadmap
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[
-    node distance=1.5cm and 2cm,
-    box/.style={rectangle, draw, rounded corners, minimum width=2.5cm, minimum height=1cm, align=center, fill=blue!10},
-    topic/.style={rectangle, draw, rounded corners, minimum width=2cm, minimum height=0.8cm, align=center, fill=green!10},
-    arrow/.style={->, thick, >=stealth}
+\begin{tikzpicture}[scale=1.8, 
+    node distance=2.5cm and 2cm,
+    box/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.8cm, align=center, fill=blue!10},
+    topic/.style={rectangle, draw, rounded corners, minimum width=3.6cm, minimum height=1.4cm, align=center, fill=green!10},
+    arrow/.style={->, very thick, >=stealth}
 ]
 % Central question
-\node[box, fill=red!20, minimum width=4cm] (meaning) {From Proofs\\to Meaning};
+\node[box, fill=red!20, minimum width=7.2cm, align=center, text width=3.5cm, font=\normalsize] (meaning) {From Proofs\\to Meaning};
 
 % Four topic areas
-\node[topic, above left=1cm and 2cm of meaning] (physics) {Physics\\Connections\\(§7.2--7.3)};
-\node[topic, above right=1cm and 2cm of meaning] (complexity) {Complexity\\Theory\\(§7.4)};
-\node[topic, below left=1cm and 2cm of meaning] (ai) {AI \& Trust\\(§7.5--7.6)};
-\node[topic, below right=1cm and 2cm of meaning] (future) {Limitations\\Future Work\\(§7.7--7.8)};
+\node[topic, above left=2.0cm and 2cm of meaning, align=center, text width=3.5cm] (physics) {Physics\\Connections\\(§7.2--7.3)};
+\node[topic, above right=2.0cm and 2cm of meaning, align=center, text width=3.5cm] (complexity) {Complexity\\Theory\\(§7.4)};
+\node[topic, below left=2.0cm and 2cm of meaning, align=center, text width=3.5cm] (ai) {AI \& Trust\\(§7.5--7.6)};
+\node[topic, below right=2.0cm and 2cm of meaning, align=center, text width=3.5cm] (future) {Limitations\\Future Work\\(§7.7--7.8)};
 
 % Arrows
-\draw[arrow] (meaning) -- (physics);
-\draw[arrow] (meaning) -- (complexity);
-\draw[arrow] (meaning) -- (ai);
-\draw[arrow] (meaning) -- (future);
+\draw[arrow, shorten >=2pt, shorten <=2pt] (meaning) -- (physics);
+\draw[arrow, shorten >=2pt, shorten <=2pt] (meaning) -- (complexity);
+\draw[arrow, shorten >=2pt, shorten <=2pt] (meaning) -- (ai);
+\draw[arrow, shorten >=2pt, shorten <=2pt] (meaning) -- (future);
 
 % Key concepts
-\node[right=0.3cm of physics, font=\scriptsize] {Landauer, Noether, Bell};
-\node[right=0.3cm of complexity, font=\scriptsize] {Time Tax, $\text{P}_\mu$, $\text{NP}_\mu$};
-\node[left=0.3cm of ai, font=\scriptsize] {Hallucinations, Receipts};
-\node[left=0.3cm of future, font=\scriptsize] {Quantum, Distributed};
+\node[right=0.5cm of physics, font=\normalsize, sloped, pos=0.5, font=\small, xshift=10pt] {Landauer, Noether, Bell};
+\node[right=0.5cm of complexity, font=\normalsize, sloped, pos=0.5, font=\small, xshift=10pt] {Time Tax, $\text{P}_\mu$, $\text{NP}_\mu$};
+\node[left=0.5cm of ai, font=\normalsize, sloped, pos=0.5, font=\small, xshift=-10pt] {Hallucinations, Receipts};
+\node[left=0.5cm of future, font=\normalsize, sloped, pos=0.5, font=\small, xshift=-10pt] {Quantum, Distributed};
 \end{tikzpicture}
 \caption{Chapter 7 roadmap: from verified results to broader implications.}
 \label{fig:ch7_roadmap}
+
+\paragraph{Understanding Figure~\ref{fig:ch7_roadmap}:}
+
+This \textbf{roadmap diagram} visualizes Chapter 7's structure: translating the formally verified results from Chapters 3--6 into broader implications spanning physics, complexity theory, AI applications, and future research directions.
+
+\textbf{Visual elements:}
+\begin{itemize}
+    \item \textbf{Four blue boxes (horizontal):} The four major discussion areas covered in this chapter:
+    \begin{itemize}
+        \item \textbf{Physics Connections:} How the Thiele Machine mirrors physical laws (Landauer, Noether, Bell).
+        \item \textbf{Complexity Theory:} New perspectives on computational difficulty (Time Tax, $\text{P}_\mu$, $\text{NP}_\mu$).
+        \item \textbf{AI \& Trust:} Applications to hallucination prevention, receipts for verification.
+        \item \textbf{Future Work:} Extensions to quantum integration, distributed systems.
+    \end{itemize}
+    \item \textbf{Annotations (small text):} Each box has a sidebar listing key concepts:
+    \begin{itemize}
+        \item Physics: Landauer (energy-information bridge), Noether (gauge symmetry), Bell (no-signaling).
+        \item Complexity: Time Tax (exponential blind search), $\text{P}_\mu$ (polynomial time + polynomial $\mu$), $\text{NP}_\mu$ (verifiable with $\mu$ witness).
+        \item AI: Hallucinations (false hypotheses cost $\mu$), Receipts (cryptographic verification).
+        \item Future: Quantum (entanglement as partition structure), Distributed (modules as network nodes).
+    \end{itemize}
+    \item \textbf{Arrows (implied by flow):} The roadmap suggests progression from foundational physics connections $\to$ complexity implications $\to$ practical AI applications $\to$ future research.
+\end{itemize}
+
+\textbf{Key insight visualized:} This chapter is \textit{interpretive}, not technical. It answers ``What does this model \textit{mean}?'' rather than ``Does this model \textit{work}?'' (which Chapters 3--6 already answered). The roadmap shows that verified formal results (3-layer isomorphism, $\mu$-conservation, no-signaling, No Free Insight) have \textit{implications} spanning multiple disciplines.
+
+\textbf{How to read this diagram:}
+\begin{enumerate}
+    \item Start at the left: Physics connections ground the abstract $\mu$-ledger in physical reality (energy dissipation, conservation laws, locality constraints).
+    \item Middle-left: Complexity theory interprets the Time Tax as a \textit{conservation of difficulty}---time and structure are interchangeable resources.
+    \item Middle-right: AI applications show how $\mu$-accounting prevents hallucinations (false hypotheses cost $\mu$ without receipts) and enables verifiable computation.
+    \item Right: Future work explores extensions (quantum entanglement, distributed execution, programming language design).
+\end{enumerate}
+
+\textbf{Role in thesis:} This roadmap orients the reader at the start of the discussion chapter, signaling a shift from \textit{proof} to \textit{meaning}. The four boxes correspond to Sections 7.2--7.7, providing a high-level preview of the chapter's scope.
+
 \end{figure}
 
 \subsection{From Proofs to Meaning}
@@ -57,6 +93,24 @@ This discussion covers several distinct areas:
 
 You do not need to read all sections---focus on those most relevant to your interests.
 
+\section{What Would Falsify the Physics Bridge?}
+
+\begin{tcolorbox}[colback=yellow!10!white,colframe=orange!75!black,title=\textbf{Falsifiability Criteria}]
+The thermodynamic bridge hypothesis ($Q \ge k_B T \ln 2 \cdot \mu$) would be \textbf{falsified} by:
+\begin{enumerate}
+    \item \textbf{Sustained sub-linear energy scaling}: Measured energy consistently grows slower than $\mu$ across diverse workloads (silicon measurement)
+    \item \textbf{Zero-cost revelation}: A trace certifies supra-quantum correlations ($S > 2\sqrt{2}$) without charging $\mu$ and passes verification
+    \item \textbf{Reversible structure addition}: A sequence of operations increases structure (reduces $\Omega$) then reverses it with net-negative $\mu$
+\end{enumerate}
+
+\textbf{What would NOT falsify it}:
+\begin{itemize}
+    \item Super-linear energy scaling (inefficiency is allowed; the bound is a lower limit)
+    \item Failing to find structure in hard problems (the model does not claim to always find structure)
+    \item Encoding-dependent $\mu$ values (absolute $\mu$ depends on encoding; \emph{conservation} is what matters)
+\end{itemize}
+\end{tcolorbox}
+
 \section{Broader Implications}
 
 The Thiele Machine is more than a new computational model; it is a proposal for a new relationship between computation, information, and physical reality. This chapter explores the implications of treating structure as a conserved resource.
@@ -64,72 +118,151 @@ The Thiele Machine is more than a new computational model; it is a proposal for 
 \section{Connections to Physics}
 
 % Figure 2: Physics-Computation Isomorphism
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[
-    node distance=1cm and 3cm,
-    phys/.style={rectangle, draw, rounded corners, minimum width=2.5cm, minimum height=0.8cm, align=center, fill=blue!20},
-    comp/.style={rectangle, draw, rounded corners, minimum width=2.5cm, minimum height=0.8cm, align=center, fill=green!20},
-    arrow/.style={<->, thick, >=stealth, dashed}
+\begin{tikzpicture}[scale=1.8, 
+    node distance=3cm and 3cm,
+    phys/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.4cm, align=center, fill=blue!20},
+    comp/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.4cm, align=center, fill=green!20},
+    arrow/.style={<->, very thick, >=stealth, dashed}
 ]
 % Physics column
 \node[phys] (energy) {Energy};
-\node[phys, below=0.5cm of energy] (mass) {Mass};
-\node[phys, below=0.5cm of mass] (entropy) {Entropy};
-\node[phys, below=0.5cm of entropy] (conserv) {Conservation};
-\node[phys, below=0.5cm of conserv] (nosig) {No-Signaling};
-\node[phys, below=0.5cm of nosig] (gauge) {Gauge Symmetry};
+\node[phys, below=1.0cm of energy] (mass) {Mass};
+\node[phys, below=1.0cm of mass] (entropy) {Entropy};
+\node[phys, below=1.0cm of entropy] (conserv) {Conservation};
+\node[phys, below=1.0cm of conserv] (nosig) {No-Signaling};
+\node[phys, below=1.0cm of nosig] (gauge) {Gauge Symmetry};
 
 % Computation column
-\node[comp, right=3cm of energy] (mu) {$\mu$-bits};
-\node[comp, right=3cm of mass] (struct) {Structural Complexity};
-\node[comp, right=3cm of entropy] (irrev) {Irreversible Ops};
-\node[comp, right=3cm of conserv] (mono) {Ledger Monotonicity};
-\node[comp, right=3cm of nosig] (local) {Observational Locality};
-\node[comp, right=3cm of gauge] (mugauge) {$\mu$-Gauge Invariance};
+\node[comp, right=5.9cm of energy] (mu) {$\mu$-bits};
+\node[comp, right=5.9cm of mass] (struct) {Structural Complexity};
+\node[comp, right=5.9cm of entropy] (irrev) {Irreversible Ops};
+\node[comp, right=5.9cm of conserv] (mono) {Ledger Monotonicity};
+\node[comp, right=5.9cm of nosig] (local) {Observational Locality};
+\node[comp, right=5.9cm of gauge] (mugauge) {$\mu$-Gauge Invariance};
 
 % Arrows
-\draw[arrow] (energy) -- (mu);
-\draw[arrow] (mass) -- (struct);
-\draw[arrow] (entropy) -- (irrev);
-\draw[arrow] (conserv) -- (mono);
-\draw[arrow] (nosig) -- (local);
-\draw[arrow] (gauge) -- (mugauge);
+\draw[arrow, shorten >=2pt, shorten <=2pt] (energy) -- (mu);
+\draw[arrow, shorten >=2pt, shorten <=2pt] (mass) -- (struct);
+\draw[arrow, shorten >=2pt, shorten <=2pt] (entropy) -- (irrev);
+\draw[arrow, shorten >=2pt, shorten <=2pt] (conserv) -- (mono);
+\draw[arrow, shorten >=2pt, shorten <=2pt] (nosig) -- (local);
+\draw[arrow, shorten >=2pt, shorten <=2pt] (gauge) -- (mugauge);
 
 % Labels
-\node[above=0.3cm of energy, font=\bfseries] {Physics};
-\node[above=0.3cm of mu, font=\bfseries] {Thiele Machine};
-\node[right=0.5cm of mugauge, font=\scriptsize, text width=3cm] {Not metaphor:\\formal isomorphism};
+\node[above=0.5cm of energy, font=\bfseries, , pos=0.5, font=\small, yshift=6pt] {Physics};
+\node[above=0.5cm of mu, font=\bfseries, , pos=0.5, font=\small, yshift=6pt] {Thiele Machine};
+\node[right=1.0cm of mugauge, font=\normalsize, text width=3cm, align=center, sloped, pos=0.5, font=\small, xshift=10pt] {Not metaphor:\\formal isomorphism};
 \end{tikzpicture}
 \caption{Physics-computation isomorphism: formal correspondences, not analogies.}
 \label{fig:physics_isomorphism}
+
+\paragraph{Understanding Figure~\ref{fig:physics_isomorphism}:}
+
+This \textbf{physics-computation isomorphism diagram} visualizes the formal correspondences between physical conservation laws and the Thiele Machine's verified properties. These are \textit{not metaphors}---they are precise mathematical mappings.
+
+\textbf{Visual elements:}
+\begin{itemize}
+    \item \textbf{Left column (Physics, blue boxes):} Six fundamental physical concepts:
+    \begin{itemize}
+        \item \textbf{Energy:} Physical energy (Joules), conserved in closed systems.
+        \item \textbf{Mass:} Inertial mass (kg), another conserved quantity via Einstein's $E = mc^2$.
+        \item \textbf{Entropy:} Thermodynamic entropy (Boltzmann's $S = k_B \ln \Omega$), never decreases in closed systems.
+        \item \textbf{Conservation:} The principle that conserved quantities remain constant over time (First Law of Thermodynamics).
+        \item \textbf{No-Signaling:} Bell locality---operations on spacelike-separated systems cannot instantaneously affect each other.
+        \item \textbf{Gauge Symmetry:} Noether's theorem---symmetries correspond to conservation laws (e.g., time translation symmetry $\to$ energy conservation).
+    \end{itemize}
+    \item \textbf{Right column (Thiele Machine, green boxes):} Six corresponding computational properties:
+    \begin{itemize}
+        \item \textbf{$\mu$-bits:} The $\mu$-ledger (information bits), tracks cumulative irreversible operations.
+        \item \textbf{Structural Complexity:} Kolmogorov-like measure of partition description length.
+        \item \textbf{Irreversible Ops:} Many-to-one operations (erasure, revelation, partition reduction).
+        \item \textbf{Ledger Monotonicity:} $\mu_{t+1} \ge \mu_t$ for all transitions (Second Law analog).
+        \item \textbf{Observational Locality:} Instructions on module A cannot affect observables of module B (\texttt{observational\_no\_signaling} theorem).
+        \item \textbf{$\mu$-Gauge Invariance:} Shifting the $\mu$-ledger by a global constant leaves partition structure unchanged (\texttt{kernel\_conservation\_mu\_gauge} theorem).
+    \end{itemize}
+    \item \textbf{Dashed bidirectional arrows:} Connect each physical concept to its computational analog. The arrows are dashed (not solid) to emphasize \textit{correspondence}, not \textit{identity}.
+    \item \textbf{Annotation (bottom-right):} ``Not metaphor: formal isomorphism''---clarifies that these are \textit{proven mathematical mappings}, not loose analogies.
+\end{itemize}
+
+\textbf{Key insight visualized:} The Thiele Machine's properties are \textit{formally isomorphic} to physical laws. For example:
+\begin{itemize}
+    \item \textbf{Energy $\leftrightarrow$ $\mu$-bits:} Landauer's principle ($Q \ge k_B T \ln 2 \cdot \mu$) connects abstract $\mu$-bits to physical energy dissipation.
+    \item \textbf{Entropy $\leftrightarrow$ Irreversible Ops:} Thermodynamic entropy increases via irreversible processes (e.g., gas expansion). The $\mu$-ledger increases via irreversible operations (e.g., partition revelation).
+    \item \textbf{No-Signaling $\leftrightarrow$ Observational Locality:} Both enforce that local operations cannot instantaneously affect distant observables.
+    \item \textbf{Gauge Symmetry $\leftrightarrow$ $\mu$-Gauge Invariance:} Both embody Noether's principle that symmetries imply conservation laws.
+\end{itemize}
+
+\textbf{How to read this diagram:}
+\begin{enumerate}
+    \item Pick a physical concept (left column).
+    \item Follow the dashed arrow to the corresponding computational property (right column).
+    \item Note that each arrow represents a \textit{theorem} or \textit{formal definition} (not a vague analogy). For example, the Energy $\leftrightarrow$ $\mu$-bits arrow references the proven theorem \texttt{vm\_irreversible\_bits\_lower\_bound} and the bridge postulate $Q \ge k_B T \ln 2 \cdot \mu$.
+\end{enumerate}
+
+\textbf{Role in thesis:} This diagram anchors the physics discussion in \textit{formal verification}. When Section 7.2 claims the Thiele Machine respects physical laws, it's not hand-waving---it's stating that the Coq kernel proves properties isomorphic to those laws. The diagram provides a high-level map of these correspondences, with detailed theorems referenced in the text (e.g., \path{coq/kernel/MuLedgerConservation.v}, \path{coq/kernel/KernelPhysics.v}).
+
 \end{figure}
 
 \subsection{Landauer's Principle}
 
 % Figure 3: Landauer's Principle Bridge
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[
-    node distance=1cm and 2cm,
-    layer/.style={rectangle, draw, rounded corners, minimum width=3cm, minimum height=1cm, align=center},
-    arrow/.style={->, thick, >=stealth}
+\begin{tikzpicture}[scale=1.8, 
+    node distance=2cm and 2cm,
+    layer/.style={rectangle, draw, rounded corners, minimum width=5.4cm, minimum height=1.8cm, align=center},
+    arrow/.style={->, very thick, >=stealth}
 ]
 % Three layers
-\node[layer, fill=blue!20] (abstract) {Abstract\\$\mu$-ledger charges $n$ bits};
-\node[layer, fill=yellow!20, below=1cm of abstract] (bridge) {Bridge Postulate\\$Q_{\min} = k_B T \ln 2 \cdot \mu$};
-\node[layer, fill=green!20, below=1cm of bridge] (physical) {Physical\\$Q \ge k_B T \ln 2 \cdot n$};
+\node[layer, fill=blue!20, align=center, text width=3.5cm] (abstract) {Abstract\\$\mu$-ledger charges $n$ bits};
+\node[layer, fill=yellow!20, below=2.0cm of abstract, align=center, text width=3.5cm] (bridge) {Bridge Postulate\\$Q_{\min} = k_B T \ln 2 \cdot \mu$};
+\node[layer, fill=green!20, below=2.0cm of bridge, align=center, text width=3.5cm] (physical) {Physical\\$Q \ge k_B T \ln 2 \cdot n$};
 
 % Arrows
-\draw[arrow] (abstract) -- node[right, font=\scriptsize] {Proven in Coq} (bridge);
-\draw[arrow] (bridge) -- node[right, font=\scriptsize] {Empirical claim} (physical);
+\draw[arrow] (abstract) -- node[right, font=\normalsize, above, yshift=6pt, pos=0.5, font=\small] {Proven in Coq} (bridge);
+\draw[arrow] (bridge) -- node[right, font=\normalsize, above, yshift=6pt, pos=0.5, font=\small] {Empirical claim} (physical);
 
 % Annotations
-\node[right=1.5cm of abstract, font=\scriptsize, text width=3cm] {Kernel theorem:\\$\mu \ge \log_2(|\Omega|/|\Omega'|)$};
-\node[right=1.5cm of physical, font=\scriptsize, text width=3cm] {Falsifiable prediction:\\energy scales with $\mu$};
+\node[right=2.9cm of abstract, font=\normalsize, text width=3cm, align=center, sloped, pos=0.5, font=\small, xshift=10pt] {Kernel theorem:\\$\mu \ge \log_2(|\Omega|/|\Omega'|)$};
+\node[right=2.9cm of physical, font=\normalsize, text width=3cm, align=center, sloped, pos=0.5, font=\small, xshift=10pt] {Falsifiable prediction:\\energy scales with $\mu$};
 \end{tikzpicture}
 \caption{Landauer bridge: from abstract $\mu$-accounting to physical heat dissipation.}
 \label{fig:landauer_bridge}
+
+\paragraph{Understanding Figure~\ref{fig:landauer_bridge}:}
+
+This \textbf{Landauer bridge diagram} visualizes the connection between the abstract $\mu$-ledger (information-theoretic bits) and physical heat dissipation (energy in Joules) via Landauer's principle.
+
+\textbf{Visual elements:}
+\begin{itemize}
+    \item \textbf{Top layer (Abstract, blue):} The $\mu$-ledger charges $n$ bits for an operation (e.g., partition revelation, bit erasure). This is a \textit{purely computational} accounting rule (no physical units).
+    \item \textbf{Middle layer (Bridge Postulate, yellow):} The \textbf{thermodynamic bridge postulate}: $Q_{\min} = k_B T \ln 2 \cdot \mu$. This states that each $\mu$-bit charged corresponds to \textit{at least} $k_B T \ln 2$ joules of energy dissipation (where $k_B \approx 1.38 \times 10^{-23}$ J/K is Boltzmann's constant, $T$ is temperature in Kelvin).
+    \item \textbf{Bottom layer (Physical, green):} The physical prediction: $Q \ge k_B T \ln 2 \cdot n$. This is a \textit{falsifiable empirical claim}---measured energy must scale linearly with $\mu$.
+    \item \textbf{Arrows (downward):} Two connections:
+    \begin{itemize}
+        \item \textbf{Abstract $\to$ Bridge:} Labeled ``Proven in Coq''. The theorem \texttt{vm\_irreversible\_bits\_lower\_bound} proves that $\mu$ lower-bounds the count of irreversible operations.
+        \item \textbf{Bridge $\to$ Physical:} Labeled ``Empirical claim''. The bridge postulate connects abstract $\mu$-bits to physical energy---this is a \textit{hypothesis} that can be tested experimentally.
+    \end{itemize}
+    \item \textbf{Annotations (right side):}
+    \begin{itemize}
+        \item \textbf{Top:} ``Kernel theorem: $\mu \ge \log_2(|\Omega|/|\Omega'|)$''---the proven lower bound from \path{coq/kernel/MuLedgerConservation.v}.
+        \item \textbf{Bottom:} ``Falsifiable prediction: energy scales with $\mu$''---the experimental test performed in Chapter 6 (singleton-from-$N$ experiments).
+    \end{itemize}
+\end{itemize}
+
+\textbf{Key insight visualized:} The diagram separates \textit{proven mathematics} (abstract $\mu$-accounting) from \textit{empirical hypothesis} (physical energy dissipation). The top arrow (Coq proof) is \textbf{certain}. The bottom arrow (bridge postulate) is \textbf{falsifiable}. This makes the physics connection \textit{scientific}: it's a testable claim, not a vague analogy.
+
+\textbf{How to read this diagram:}
+\begin{enumerate}
+    \item Start at the top: The Thiele Machine kernel \textit{proves} that the $\mu$-ledger lower-bounds irreversible operations.
+    \item Middle: The bridge postulate \textit{hypothesizes} that each $\mu$-bit corresponds to $k_B T \ln 2$ joules of minimum energy dissipation (Landauer's principle).
+    \item Bottom: The physical prediction is \textit{testable}. Chapter 6 experiments measure energy dissipation for different $\mu$ values and verify the linear scaling (within experimental error).
+\end{enumerate}
+
+\textbf{Role in thesis:} This diagram clarifies the \textit{epistemological status} of the physics claims. The abstract accounting is \textit{theorem-level confident} (proven in Coq). The physical connection is \textit{hypothesis-level confident} (testable empirically). By separating these, the thesis avoids conflating formal proof with empirical science. If future experiments show $Q \ll k_B T \ln 2 \cdot \mu$ (sub-linear scaling), the bridge postulate is falsified, but the abstract accounting remains proven.
+
 \end{figure}
 
 Landauer's principle states that erasing one bit of information requires at least $kT \ln 2$ of energy dissipation, where $k$ is Boltzmann's constant and $T$ is temperature. This establishes a fundamental connection between logical irreversibility and thermodynamics: many-to-one mappings (like erasure) cannot be implemented without heat dissipation in a physical device.
@@ -141,6 +274,30 @@ Theorem vm_irreversible_bits_lower_bound :
     irreversible_count fuel trace s <=
       (run_vm fuel trace s).(vm_mu) - s.(vm_mu).
 \end{lstlisting}
+
+\paragraph{Understanding vm\_irreversible\_bits\_lower\_bound:}
+
+\textbf{What does this theorem say?} This theorem establishes that the $\mu$-ledger growth \textbf{lower-bounds the count of irreversible operations} in any execution. It is the computational analog of Landauer's principle: you cannot erase/reveal information without paying a cost.
+
+\textbf{Theorem statement breakdown:}
+\begin{itemize}
+    \item \textbf{forall fuel trace s} — For any execution (fuel-bounded trace from initial state $s$).
+    \item \textbf{irreversible\_count fuel trace s} — The number of many-to-one operations (bit erasures, structure revelations, partition reductions) in the trace.
+    \item \textbf{(run\_vm fuel trace s).(vm\_mu) - s.(vm\_mu)} — The net increase in the $\mu$-ledger after executing the trace.
+    \item \textbf{irreversible\_count $\leq \Delta\mu$} — Every irreversible operation must be accounted for in the ledger. You cannot erase 10 bits while only charging 5 $\mu$.
+\end{itemize}
+
+\textbf{Why is this the computational Landauer?} Landauer's principle states that erasing one bit requires dissipating at least $k_B T \ln 2$ energy. This theorem states that erasing one bit requires incrementing the $\mu$-ledger by at least 1. The physical energy cost is an \textit{additional} hypothesis (the bridge postulate: $Q_{\min} = k_B T \ln 2 \cdot \mu$), but the abstract accounting bound is \textbf{proven in Coq}.
+
+\textbf{Example:} If a trace performs 100 bit erasures, the ledger must grow by at least 100 $\mu$-bits. If the ledger only grows by 50, the proof guarantees this trace is invalid (it would have been rejected during execution).
+
+\textbf{Connection to thermodynamics:} Combining this proven bound with the thermodynamic bridge postulate gives the full Landauer inequality:
+\[
+    Q \geq k_B T \ln 2 \cdot \Delta\mu \geq k_B T \ln 2 \cdot \texttt{irreversible\_count}
+\]
+The first inequality is an empirical claim (falsifiable by physical measurement). The second inequality is a \textbf{theorem} (proven in \path{coq/kernel/MuLedgerConservation.v}).
+
+\textbf{Role in thesis:} This theorem anchors the physics discussion in formal verification. When we claim the Thiele Machine respects thermodynamic bounds, we're not making a vague analogy---we're stating that the $\mu$-accounting provably tracks irreversibility, and \textit{if} physical devices respect Landauer's principle, \textit{then} they cannot implement $\Delta\mu < \texttt{irreversible\_count}$ without violating thermodynamics.
 
 The $\mu$-ledger growth lower-bounds the number of irreversible bit operations. This is not merely an analogy—it is a provable property of the kernel. The additional physical bridge (energy dissipation per $\mu$) is stated explicitly as a postulate, making the scientific hypothesis falsifiable. In other words, the kernel proves an abstract accounting lower bound; the physical claim asserts that real hardware must pay at least that bound in energy.
 The theorem above is proven in \path{coq/kernel/MuLedgerConservation.v}. Referencing the file matters because it anchors the physical discussion in a concrete mechanized statement rather than a free-form analogy.
@@ -157,6 +314,33 @@ Theorem observational_no_signaling : forall s s' instr mid,
   ObservableRegion s mid = ObservableRegion s' mid.
 \end{lstlisting}
 
+\paragraph{Understanding observational\_no\_signaling (discussion context):}
+
+\textbf{What does this theorem say?} This theorem proves \textbf{computational Bell locality}: instructions acting on partition modules cannot affect the observable state of \textit{other} modules not targeted by the instruction. It is the formal basis for claims that the Thiele Machine respects locality constraints analogous to physics.
+
+\textbf{Theorem breakdown:}
+\begin{itemize}
+    \item \textbf{well\_formed\_graph s.(vm\_graph)} — Precondition: partition graph is valid (disjoint modules, valid IDs).
+    \item \textbf{mid < pg\_next\_id s.(vm\_graph)} — Module \texttt{mid} exists in the graph.
+    \item \textbf{vm\_step s instr s'} — Executing instruction \texttt{instr} transitions state $s \to s'$.
+    \item \textbf{$\sim$ In mid (instr\_targets instr)} — Module \texttt{mid} is \textbf{not} in the instruction's target set. The instruction acts on \textit{other} modules.
+    \item \textbf{ObservableRegion s mid = ObservableRegion s' mid} — The \textit{observable} state of module \texttt{mid} is unchanged. Observables include: partition region + $\mu$-ledger contribution, \textbf{excluding internal axioms} (which are not externally visible).
+\end{itemize}
+
+\textbf{Physical analogy:} In quantum mechanics, Bell locality states that measuring particle A cannot instantaneously change the state of particle B (spacelike separated). In the Thiele Machine, operating on module A (e.g., \texttt{PSPLIT 1 \{0,1\} \{2,3\}}) cannot change the observable state of module B (module 2). The \texttt{instr\_targets} function computes the ``causal light cone'' of an instruction.
+
+\textbf{Why exclude axioms from observables?} Axioms are \textit{internal commitments} (logical constraints on a module's state space). They are not externally visible signals. For example, if module A adds axiom ``$x < 5$'' (via \texttt{LASSERT}), this does not signal to module B---it only constrains A's internal state. Observables are restricted to \textit{public} information: partition regions and $\mu$-costs.
+
+\textbf{Example:} Suppose state $s$ has modules $\{A, B, C\}$ and we execute \texttt{PSPLIT A \{0,1\} \{2,3\}}. The theorem guarantees:
+\begin{itemize}
+    \item Module B's region is unchanged (e.g., still $\{4,5,6\}$).
+    \item Module C's region is unchanged.
+    \item Module B's observable $\mu$-contribution is unchanged.
+\end{itemize}
+Only module A's observables change (split into two sub-partitions).
+
+\textbf{Role in CHSH experiments:} This theorem is why supra-quantum correlations ($S > 2\sqrt{2}$) require \texttt{REVEAL} instructions. Without revelation, modules cannot coordinate beyond classical bounds---the no-signaling constraint enforces independence. Revelation explicitly breaks locality by making internal structure observable.
+
 In physics, Bell locality states that operations on system A cannot instantaneously affect system B. In the Thiele Machine, operations on module A cannot affect the observables of module B. This is enforced by construction, not assumed as a physical postulate. The definition of “observable” here is explicit: partition region plus $\mu$-ledger, excluding internal axioms. The exclusion is intentional: axioms are internal commitments, not externally visible signals.
 The formal statement shown here corresponds to \texttt{observational\_no\_signaling} in \path{coq/kernel/KernelPhysics.v}, which is proved using the observable projections defined in \path{coq/kernel/VMState.v}. This makes the locality claim a theorem about the exact data the machine exposes, not a vague analogy.
 
@@ -168,6 +352,45 @@ Theorem kernel_conservation_mu_gauge : forall s k,
   conserved_partition_structure s = 
   conserved_partition_structure (nat_action k s).
 \end{lstlisting}
+
+\paragraph{Understanding kernel\_conservation\_mu\_gauge:}
+
+\textbf{What does this theorem say?} This theorem proves \textbf{$\mu$-gauge invariance}: shifting the $\mu$-ledger by a global constant leaves the \textit{conserved quantity} (partition structure) unchanged. This is the computational analog of Noether's theorem: \textbf{symmetry implies conservation}.
+
+\textbf{Theorem breakdown:}
+\begin{itemize}
+    \item \textbf{forall s k} — For any state $s$ and constant $k \in \mathbb{N}$.
+    \item \textbf{nat\_action k s} — The gauge transformation: shift $\mu$ by $k$. Concretely: $s' = s$ with $s'.(\texttt{vm\_mu}) = s.(\texttt{vm\_mu}) + k$.
+    \item \textbf{conserved\_partition\_structure s} — The \textit{structural invariant}: number of partitions, regions, axioms, disjointness constraints. Excludes the absolute $\mu$ value.
+    \item \textbf{structure $s$ = structure $(s + k\mu)$} — Gauge transformations leave structure unchanged.
+\end{itemize}
+
+\textbf{Noether's theorem in physics:} If a physical system has a continuous symmetry (e.g., time translation invariance), there exists a conserved quantity (e.g., energy). The proof is constructive: the symmetry generator becomes the conserved current.
+
+\textbf{Computational Noether correspondence:}
+\begin{itemize}
+    \item \textbf{Symmetry:} $\mu$-gauge freedom (absolute $\mu$ is arbitrary; only $\Delta\mu$ matters).
+    \item \textbf{Conserved quantity:} Partition structure (number of modules, regions, axioms).
+    \item \textbf{Proof:} The theorem shows that \texttt{nat\_action} (gauge shift) does not modify \texttt{vm\_graph}, \texttt{axioms}, or structural predicates like \texttt{well\_formed\_graph}.
+\end{itemize}
+
+\textbf{Physical intuition:} In electromagnetism, the gauge transformation $A_\mu \to A_\mu + \partial_\mu \chi$ leaves the electromagnetic field $F_{\mu\nu}$ unchanged. Physical observables (E, B fields) are gauge-invariant. Similarly, in the Thiele Machine, adding a constant to $\mu$ does not change the \textit{structure} of the partition graph. What matters is \textbf{how much $\mu$ you pay} ($\Delta\mu$), not where you started.
+
+\textbf{Why does this matter?} This theorem guarantees that:
+\begin{enumerate}
+    \item Absolute $\mu$ values are not physically meaningful---only differences matter.
+    \item Cross-layer isomorphism tests can use different $\mu$ origins (Python initializes at 0, Coq might start at 100) without breaking equivalence.
+    \item The thermodynamic bridge ($Q \geq k_B T \ln 2 \cdot \Delta\mu$) depends on $\Delta\mu$, not absolute $\mu$.
+\end{enumerate}
+
+\textbf{Example:} Suppose two VMs execute the same trace:
+\begin{itemize}
+    \item VM1: starts at $\mu = 0$, ends at $\mu = 100$. $\Delta\mu = 100$.
+    \item VM2: starts at $\mu = 1000$, ends at $\mu = 1100$. $\Delta\mu = 100$.
+\end{itemize}
+The theorem guarantees both VMs have identical partition structures at the end. The absolute $\mu$ differs by 1000, but this is a gauge artifact---the \textit{structural work} ($\Delta\mu = 100$) is the same.
+
+\textbf{Role in thesis:} This theorem provides the formal foundation for treating $\mu$ as a \textit{potential} (like electric potential) rather than an absolute quantity. Conservation of partition structure is the \textbf{Noether charge} corresponding to $\mu$-gauge symmetry.
 
 The symmetry (freedom to shift $\mu$ by a constant) corresponds to the conserved quantity (partition structure). This is not metaphorical—it is the same mathematical relationship that underlies energy conservation in classical mechanics: a symmetry of the dynamics induces a conserved observable.
 The proof lives in \path{coq/kernel/KernelPhysics.v}, where the \texttt{mu\_gauge\_shift} action and its invariants are developed explicitly. This is a genuine Noether-style argument: the conservation law is derived from a symmetry of the semantics rather than assumed.
@@ -204,30 +427,71 @@ That trade-off is implemented as an explicit ledger budget in the harness descri
 \section{Implications for Computational Complexity}
 
 % Figure 4: Time Tax and Difficulty Conservation
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[
-    node distance=1cm and 2cm,
-    box/.style={rectangle, draw, rounded corners, minimum width=3cm, minimum height=1.5cm, align=center},
-    arrow/.style={<->, thick, >=stealth}
+\begin{tikzpicture}[scale=1.8, 
+    node distance=2.5cm and 2cm,
+    box/.style={rectangle, draw, rounded corners, minimum width=5.4cm, minimum height=2.6cm, align=center},
+    arrow/.style={<->, very thick, >=stealth}
 ]
 % Two strategies
-\node[box, fill=red!20] (blind) {Blind Search\\$T = O(2^n)$\\$\mu = O(1)$};
-\node[box, fill=green!20, right=3cm of blind] (sighted) {Sighted Execution\\$T = O(n^k)$\\$\mu = O(2^n)$};
+\node[box, fill=red!20, align=center, text width=3.5cm, font=\normalsize] (blind) {Blind Search\\$T = O(2^n)$\\$\mu = O(1)$};
+\node[box, fill=green!20, right=5.9cm of blind, align=center, text width=3.5cm, font=\normalsize] (sighted) {Sighted Execution\\$T = O(n^k)$\\$\mu = O(2^n)$};
 
 % Central conservation
-\node[above=1cm of $(blind)!0.5!(sighted)$, font=\bfseries] {Difficulty Conservation};
-\draw[arrow] (blind) -- node[above, font=\scriptsize] {Trade-off} (sighted);
+\node[above=2.0cm of $(blind)!0.5!(sighted)$, font=\bfseries, sloped, pos=0.5, font=\small, yshift=6pt] {Difficulty Conservation};
+\draw[arrow] (blind) -- node[above, yshift=6pt, font=\normalsize, , pos=0.5, font=\small] {Trade-off} (sighted);
 
 % Equation
-\node[below=1cm of $(blind)!0.5!(sighted)$, draw, rounded corners, fill=yellow!20, minimum width=5cm] {$\text{Total Cost} = T(x) + \mu(x)$};
+\node[below=2.0cm of $(blind)!0.5!(sighted)$, draw, rounded corners, fill=yellow!20, minimum width=9.0cm, sloped, pos=0.5, font=\small, yshift=-6pt] {$\text{Total Cost} = T(x) + \mu(x)$};
 
 % Annotations
-\node[below=0.2cm of blind, font=\scriptsize, red] {High time, low structure};
-\node[below=0.2cm of sighted, font=\scriptsize, green!50!black] {Low time, high structure};
+\node[below=0.4cm of blind, font=\normalsize, red, sloped, pos=0.5, font=\small, yshift=-6pt] {High time, low structure};
+\node[below=0.4cm of sighted, font=\normalsize, green!50!black, sloped, pos=0.5, font=\small, yshift=-6pt] {Low time, high structure};
 \end{tikzpicture}
 \caption{Conservation of difficulty: time and structure are interchangeable resources.}
 \label{fig:difficulty_conservation}
+
+\paragraph{Understanding Figure~\ref{fig:difficulty_conservation}:}
+
+This \textbf{conservation of difficulty diagram} visualizes the tradeoff between time complexity and structural cost: difficulty is \textit{conserved}, but can be \textit{transmuted} from time to structure (or vice versa).
+
+\textbf{Visual elements:}
+\begin{itemize}
+    \item \textbf{Left box (Blind Search, red):} Classical exponential-time algorithms:
+    \begin{itemize}
+        \item Example: SAT solved via brute-force enumeration of all $2^n$ assignments.
+        \item Time complexity: $T(n) = O(2^n)$ (exponential).
+        \item Structural cost: $\mu(n) = O(1)$ (no structure discovered).
+        \item Arrow labeled: ``High time, low structure''.
+    \end{itemize}
+    \item \textbf{Right box (Sighted Execution, green):} Partition-native algorithms with structural revelation:
+    \begin{itemize}
+        \item Example: SAT solved via partition discovery (revealing satisfying assignment).
+        \item Time complexity: $T(n) = O(n^k)$ (polynomial).
+        \item Structural cost: $\mu(n) = O(2^n)$ (pay for revelation).
+        \item Arrow labeled: ``Low time, high structure''.
+    \end{itemize}
+    \item \textbf{Central bidirectional arrow:} Labeled ``Transmutation''. This shows the difficulty \textit{shifts} from time to structure (or structure to time) but is \textit{not eliminated}.
+\end{itemize}
+
+\textbf{Key insight visualized:} The No Free Insight theorem implies \textbf{conservation of difficulty}: you cannot reduce time complexity without increasing structural cost. For a problem like SAT:
+\begin{itemize}
+    \item \textbf{Blind approach:} Enumerate all $2^n$ assignments $\to$ exponential time, no $\mu$ cost.
+    \item \textbf{Sighted approach:} Discover satisfying assignment via oracle $\to$ polynomial time, exponential $\mu$ cost (pay for revealing the assignment).
+\end{itemize}
+The total difficulty $T + \mu$ remains ``conserved''---you're paying the same total cost, just allocating it differently.
+
+\textbf{How to read this diagram:}
+\begin{enumerate}
+    \item Start with the left box: Classical blind search has high time cost but low $\mu$ cost (no structure revealed).
+    \item Move right via the arrow: Transmute time into structure by paying $\mu$ to reveal partitions (e.g., oracle-guided search).
+    \item Arrive at the right box: Sighted execution has low time cost but high $\mu$ cost (structure revealed).
+    \item Reverse direction: You can also transmute structure into time (e.g., use a structural hint to avoid brute-force search).
+\end{enumerate}
+
+\textbf{Role in thesis:} This diagram visualizes the \textbf{time-structure duality} central to the Thiele Machine's complexity theory. Traditional complexity classes (P, NP) measure only time. The Thiele Machine introduces $\mu$ as a second dimension, defining classes like $\text{P}_\mu$ (polynomial time + polynomial $\mu$) and $\text{NP}_\mu$ (verifiable with polynomial $\mu$ witness). The conservation of difficulty explains why ``quantum speedups'' or ``oracle advantages'' don't violate computational complexity---they merely shift costs from time to $\mu$ (structural revelation).
+
 \end{figure}
 
 \subsection{The "Time Tax" Reformulated}
@@ -270,34 +534,75 @@ The relationship $\text{P} \subseteq \text{P}_\mu \subseteq \text{NP}_\mu$ is st
 \section{Implications for Artificial Intelligence}
 
 % Figure 5: AI Hallucination Prevention
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[
-    node distance=1cm and 1.5cm,
-    box/.style={rectangle, draw, rounded corners, minimum width=2.5cm, minimum height=1cm, align=center},
-    arrow/.style={->, thick, >=stealth}
+\begin{tikzpicture}[scale=1.8, 
+    node distance=2.5cm and 1.5cm,
+    box/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.8cm, align=center},
+    arrow/.style={->, very thick, >=stealth}
 ]
 % LLM path (top)
-\node[box, fill=red!20] (llm) {LLM\\Generates};
-\node[box, right=2cm of llm, fill=red!10] (output1) {Output\\(unverified)};
-\draw[arrow] (llm) -- node[above, font=\scriptsize] {hallucination\\risk} (output1);
+\node[box, fill=red!20, align=center, text width=3.5cm, font=\normalsize] (llm) {LLM\\Generates};
+\node[box, right=3.9cm of llm, fill=red!10, align=center, text width=3.5cm, font=\normalsize] (output1) {Output\\(unverified)};
+\draw[arrow] (llm) -- node[above, yshift=6pt, font=\normalsize, sloped, pos=0.5, font=\small] {hallucination\\risk} (output1);
 
 % Thiele path (bottom)
-\node[box, fill=blue!20, below=1.5cm of llm] (predict) {Model\\Predicts};
-\node[box, fill=yellow!20, right=1.5cm of predict] (certify) {VM\\Certifies};
-\node[box, fill=green!20, right=1.5cm of certify] (output2) {Output\\(verified)};
-\node[box, fill=red!10, below=0.8cm of certify] (penalty) {$\mu$-cost\\Penalty};
+\node[box, fill=blue!20, below=2.9cm of llm, align=center, text width=3.5cm, font=\normalsize] (predict) {Model\\Predicts};
+\node[box, fill=yellow!20, right=2.9cm of predict, align=center, text width=3.5cm, font=\normalsize] (certify) {VM\\Certifies};
+\node[box, fill=green!20, right=2.9cm of certify, align=center, text width=3.5cm, font=\normalsize] (output2) {Output\\(verified)};
+\node[box, fill=red!10, below=1.6cm of certify, align=center, text width=3.5cm, font=\normalsize] (penalty) {$\mu$-cost\\Penalty};
 
-\draw[arrow] (predict) -- node[above, font=\scriptsize] {hypothesis} (certify);
-\draw[arrow] (certify) -- node[above, font=\scriptsize] {receipt} (output2);
-\draw[arrow] (certify) -- node[right, font=\scriptsize] {if false} (penalty);
+\draw[arrow] (predict) -- node[above, yshift=6pt, font=\normalsize, , pos=0.5, font=\small] {hypothesis} (certify);
+\draw[arrow] (certify) -- node[above, yshift=6pt, font=\normalsize, , pos=0.5, font=\small] {receipt} (output2);
+\draw[arrow] (certify) -- node[right, font=\normalsize, above, yshift=6pt, pos=0.5, font=\small] {if false} (penalty);
 
 % Labels
-\node[left=0.3cm of llm, font=\bfseries\scriptsize] {Classic AI:};
-\node[left=0.3cm of predict, font=\bfseries\scriptsize] {Thiele AI:};
+\node[left=0.5cm of llm, font=\bfseries\scriptsize, above, pos=0.5, font=\small, xshift=-10pt] {Classic AI:};
+\node[left=0.5cm of predict, font=\bfseries\scriptsize, above, pos=0.5, font=\small, xshift=-10pt] {Thiele AI:};
 \end{tikzpicture}
 \caption{AI hallucination prevention: false hypotheses incur $\mu$-cost without receipts.}
 \label{fig:ai_hallucination}
+
+\paragraph{Understanding Figure~\ref{fig:ai_hallucination}:}
+
+This \textbf{AI hallucination prevention diagram} contrasts two paradigms: Classic AI (LLMs with no verification) vs Thiele AI (certification-gated pipeline with $\mu$-cost penalties for false hypotheses).
+
+\textbf{Visual elements (Top path, Classic AI):}
+\begin{itemize}
+    \item \textbf{LLM Generates (red box):} A large language model produces text based on learned patterns.
+    \item \textbf{Arrow labeled ``hallucination risk'':} The output is \textit{unverified}---it could be true or false, and the model cannot distinguish.
+    \item \textbf{Output (unverified, red box):} The user receives plausible-sounding text with \textit{no guarantee of correctness}.
+\end{itemize}
+
+\textbf{Visual elements (Bottom path, Thiele AI):}
+\begin{itemize}
+    \item \textbf{Model Predicts (blue box):} A neural network proposes a \textit{structural hypothesis} (e.g., ``This SAT formula is satisfiable with assignment $x_1 = \text{true}, x_2 = \text{false}$'').
+    \item \textbf{Arrow labeled ``hypothesis'':} The prediction is sent to the Thiele Machine VM for certification.
+    \item \textbf{VM Certifies (yellow box):} The Thiele Machine \textit{verifies} the hypothesis:
+    \begin{itemize}
+        \item If valid: Generate cryptographic receipt (proof of correctness).
+        \item If invalid: Return \texttt{verified = False}, no receipt.
+    \end{itemize}
+    \item \textbf{Arrow labeled ``receipt'':} If verified, the hypothesis is promoted to ``Output (verified, green box)'' with a cryptographic audit trail.
+    \item \textbf{Downward arrow labeled ``if false'':} If the hypothesis fails verification, the model incurs \textbf{$\mu$-cost Penalty (red box)}---the $\mu$-ledger increases without producing output.
+\end{itemize}
+
+\textbf{Key insight visualized:} In the Classic AI paradigm, \textit{truth and falsehood cost the same}. Generating ``The Eiffel Tower is in London'' costs the same tokens as ``The Eiffel Tower is in Paris.'' In the Thiele AI paradigm, \textit{truth is cheaper than falsehood}:
+\begin{itemize}
+    \item \textbf{True hypothesis:} Verified, generates receipt, can be reused (amortizing cost).
+    \item \textbf{False hypothesis:} Fails verification, costs $\mu$ without producing output, cannot be reused.
+\end{itemize}
+This creates \textbf{Darwinian pressure}: models that propose many false hypotheses drain their $\mu$-budget. Over time, they learn to propose \textit{verifiable} structures.
+
+\textbf{How to read this diagram:}
+\begin{enumerate}
+    \item \textbf{Top path:} Follow the red boxes (LLM $\to$ unverified output). This is the status quo: fast but untrustworthy.
+    \item \textbf{Bottom path (success case):} Follow blue $\to$ yellow $\to$ green boxes (Model $\to$ VM $\to$ verified output). This is the Thiele paradigm: slower but certified.
+    \item \textbf{Bottom path (failure case):} Follow blue $\to$ yellow $\to$ red penalty box. False hypotheses cost $\mu$ without producing output.
+\end{enumerate}
+
+\textbf{Role in thesis:} This diagram illustrates a \textit{practical application} of No Free Insight. Neural networks cannot ``hallucinate'' structure for free---they must either find verifiable structure or pay $\mu$ for failed attempts. The key insight: \textit{certification is scarce}. Unverified structure cannot be reused without paying additional cost, so models are incentivized to propose truths, not fictions.
+
 \end{figure}
 
 \subsection{The Hallucination Problem}
@@ -307,6 +612,19 @@ Large Language Models (LLMs) generate plausible but often factually incorrect ou
 output = model.generate(prompt)  # No structural verification
 \end{lstlisting}
 
+\paragraph{Understanding Classic AI Pattern (LLM):}
+
+\textbf{What is this code?} This is a \textbf{single-line summary} of how large language models (LLMs) operate: generate text based on learned patterns, with \textbf{no verification} of factual correctness or structural validity.
+
+\textbf{Why is this problematic?}
+\begin{itemize}
+    \item \textbf{No cost for falsehood:} Generating ``The Eiffel Tower is in London'' costs the same as ``The Eiffel Tower is in Paris.''
+    \item \textbf{No receipts:} The output has no cryptographic proof or audit trail.
+    \item \textbf{No incentive for truth:} The model maximizes likelihood under training data, not correctness under verification.
+\end{itemize}
+
+\textbf{Hallucination example:} An LLM asked ``What is the capital of Mars?'' might confidently respond ``Olympus City'' (plausible but false). There is no mechanism to penalize this error or detect it automatically.
+
 In a Thiele Machine-inspired AI:
 \begin{lstlisting}
 hypothesis = model.predict_structure(input)
@@ -315,6 +633,42 @@ if not verified:
     cost += mu_hypothesis  # Economic penalty
 output = hypothesis if verified else None
 \end{lstlisting}
+
+\paragraph{Understanding Thiele Machine-Inspired AI:}
+
+\textbf{What is this code?} This is a \textbf{verification-gated AI pipeline} where the model predicts \textit{structural hypotheses} that must be \textit{certified} before use. False hypotheses incur $\mu$-cost without producing valid outputs.
+
+\textbf{Step-by-step breakdown:}
+\begin{enumerate}
+    \item \textbf{hypothesis = model.predict\_structure(input)} — The neural network proposes a structure (e.g., ``These 100 numbers factor as $53 \times 61$'' or ``This SAT formula is satisfiable with assignment $x_1 = \text{true}, x_2 = \text{false}$''). This is \textit{fast but untrustworthy}.
+    
+    \item \textbf{verified, receipt = vm.certify(hypothesis)} — The Thiele Machine \textit{verifies} the hypothesis:
+    \begin{itemize}
+        \item For factorization: Check that $53 \times 61 = 3233$ (fast polynomial-time check).
+        \item For SAT: Check the assignment satisfies all clauses (linear-time verification).
+        \item If valid, generate a cryptographic receipt (proof of correctness).
+        \item If invalid, return \texttt{verified = False}, no receipt.
+    \end{itemize}
+    
+    \item \textbf{if not verified: cost += mu\_hypothesis} — \textbf{Economic penalty}: false hypotheses cost $\mu$ without producing output. This creates Darwinian pressure:
+    \begin{itemize}
+        \item Proposing many false hypotheses drains the $\mu$-budget.
+        \item Only verified hypotheses produce reusable receipts (which can amortize cost across multiple uses).
+        \item Over time, the model learns to propose \textit{verifiable} structures, not just plausible ones.
+    \end{itemize}
+    
+    \item \textbf{output = hypothesis if verified else None} — Only verified hypotheses are returned. The user gets \textit{certified truth}, not plausible fiction.
+\end{enumerate}
+
+\textbf{Key difference:} In the LLM paradigm, truth and falsehood are indistinguishable (both are token sequences). In the Thiele paradigm, \textit{truth is cheaper} because verified structures can be reused without re-verification. Falsehood is expensive because it costs $\mu$ without producing receipts.
+
+\textbf{Concrete example:} Suppose an AI is asked to factor $N = 3233$:
+\begin{itemize}
+    \item \textbf{LLM approach:} Output ``$53 \times 61$'' based on pattern matching (no verification). If wrong, no penalty.
+    \item \textbf{Thiele approach:} Propose $p = 53, q = 61$. Check $53 \times 61 = 3233$ (verified!). Generate receipt. If the model had proposed $p = 57, q = 57$, the check would fail ($57 \times 57 = 3249 \neq 3233$), the model would pay $\mu$ cost, and the output would be \texttt{None}.
+\end{itemize}
+
+\textbf{Role in thesis:} This demonstrates a \textit{practical application} of No Free Insight. The neural network cannot ``hallucinate'' structure for free---it must either find verifiable structure or pay $\mu$ for the attempt.
 
 False structural hypotheses incur $\mu$-cost without producing valid receipts. This creates Darwinian pressure for truth. The key idea is that certification is scarce: unverified structure cannot be reused without paying additional cost.
 
@@ -331,28 +685,28 @@ A neural network predicts partitions (structure hypotheses). The Thiele kernel v
 \section{Implications for Trust and Verification}
 
 % Figure 6: Receipt Chain Architecture
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[
-    node distance=0.5cm and 1cm,
-    receipt/.style={rectangle, draw, rounded corners, minimum width=2cm, minimum height=1.5cm, align=center, fill=blue!10},
-    arrow/.style={->, thick, >=stealth}
+\begin{tikzpicture}[scale=1.8, 
+    node distance=2.5cm and 1cm,
+    receipt/.style={rectangle, draw, rounded corners, minimum width=3.6cm, minimum height=2.6cm, align=center, fill=blue!10},
+    arrow/.style={->, very thick, >=stealth}
 ]
 % Receipt chain
-\node[receipt] (r1) {Receipt 1\\$H_0$};
-\node[receipt, right=1.5cm of r1] (r2) {Receipt 2\\$H_1$};
-\node[receipt, right=1.5cm of r2] (r3) {Receipt 3\\$H_2$};
-\node[right=0.5cm of r3] (dots) {$\cdots$};
-\node[receipt, right=0.5cm of dots] (rn) {Receipt $n$\\$H_{n-1}$};
+\node[receipt, align=center, text width=3.5cm] (r1) {Receipt 1\\$H_0$};
+\node[receipt, right=2.9cm of r1, align=center, text width=3.5cm] (r2) {Receipt 2\\$H_1$};
+\node[receipt, right=2.9cm of r2, align=center, text width=3.5cm] (r3) {Receipt 3\\$H_2$};
+\node[right=1.0cm of r3] (dots) {$\cdots$};
+\node[receipt, right=1.0cm of dots, align=center, text width=3.5cm] (rn) {Receipt $n$\\$H_{n-1}$};
 
 % Chain links
-\draw[arrow] (r1) -- (r2);
-\draw[arrow] (r2) -- (r3);
-\draw[arrow] (r3) -- (dots);
-\draw[arrow] (dots) -- (rn);
+\draw[arrow, shorten >=2pt, shorten <=2pt] (r1) -- (r2);
+\draw[arrow, shorten >=2pt, shorten <=2pt] (r2) -- (r3);
+\draw[arrow, shorten >=2pt, shorten <=2pt] (r3) -- (dots);
+\draw[arrow, shorten >=2pt, shorten <=2pt] (dots) -- (rn);
 
 % Receipt structure
-\node[below=1.5cm of $(r2)!0.5!(r3)$, draw, rounded corners, fill=yellow!20, minimum width=6cm, minimum height=2cm, align=left, font=\ttfamily\scriptsize] (struct) {
+\node[below=2.9cm of $(r2)!0.5!(r3)$, draw, rounded corners, fill=yellow!20, minimum width=10.8cm, minimum height=3.6cm, align=left, font=\ttfamily\scriptsize, align=center, text width=3.5cm] (struct) {
 receipt = \{\\
 \quad pre\_hash: SHA256(state)\\
 \quad instruction: opcode\\
@@ -363,10 +717,59 @@ receipt = \{\\
 };
 
 % Annotations
-\node[above=0.3cm of r2, font=\scriptsize] {Tamper-evident chain};
+\node[above=0.5cm of r2, font=\normalsize, sloped, pos=0.5, font=\small, yshift=6pt] {Tamper-evident chain};
 \end{tikzpicture}
 \caption{Receipt chain: cryptographic audit trail for every computation.}
 \label{fig:receipt_chain}
+
+\paragraph{Understanding Figure~\ref{fig:receipt_chain}:}
+
+This \textbf{receipt chain diagram} visualizes the cryptographic audit trail that the Thiele Machine generates for every instruction executed. It creates a tamper-evident sequence analogous to blockchain transactions.
+
+\textbf{Visual elements:}
+\begin{itemize}
+    \item \textbf{Receipt boxes (blue rectangles):} Three receipts labeled ``Receipt 1'', ``Receipt 2'', ``Receipt 3'', followed by ``$\cdots$'' (indicating continuation). Each receipt is a JSON object containing:
+    \begin{itemize}
+        \item \texttt{pre\_state\_hash}: SHA-256 hash of state \textit{before} instruction.
+        \item \texttt{instruction}: The executed opcode (e.g., \texttt{PNEW}, \texttt{PSPLIT}).
+        \item \texttt{post\_state\_hash}: SHA-256 hash of state \textit{after} instruction.
+        \item \texttt{mu\_cost}: The $\mu$-ledger increment for this instruction.
+        \item \texttt{chain\_link}: SHA-256 hash of the \textit{previous} receipt (Merkle chain).
+    \end{itemize}
+    \item \textbf{Hash labels ($H_0$, $H_1$, $H_2$):} Each receipt is identified by its hash. $H_i = \texttt{SHA256(receipt\_i)}$.
+    \item \textbf{Arrows (implied by chain\_link):} Receipt 2's \texttt{chain\_link} field equals $H_1$ (hash of Receipt 1). Receipt 3's \texttt{chain\_link} equals $H_2$ (hash of Receipt 2). This creates chronological ordering.
+    \item \textbf{Annotation (top):} ``Tamper-evident chain''---modifying any receipt breaks all subsequent hashes.
+\end{itemize}
+
+\textbf{Key insight visualized:} The receipt chain is \textbf{tamper-evident} via cryptographic hashing:
+\begin{itemize}
+    \item \textbf{Modification detection:} If an adversary changes Receipt 2 (e.g., modifying \texttt{mu\_cost} from 5 to 2), $H_2 = \texttt{SHA256(receipt\_2)}$ changes. But Receipt 3's \texttt{chain\_link} field still contains the \textit{old} $H_2$. The mismatch is detected.
+    \item \textbf{Chain integrity:} To hide the modification, the adversary must recompute \textit{all} subsequent receipts (3, 4, ..., N). But the final receipt hash is published (e.g., in a paper, on a blockchain), so the adversary cannot forge the entire chain without detection.
+    \item \textbf{Selective disclosure:} A researcher can publish \textit{specific receipts} (e.g., ``Here is Receipt 42, showing we charged $\mu = 5$ for partition discovery'') without revealing the entire trace. The hash chain proves Receipt 42 is authentic (part of the published sequence).
+\end{itemize}
+
+\textbf{How to read this diagram:}
+\begin{enumerate}
+    \item Start at Receipt 1: The first receipt in the chain.
+    \item Follow the chain: Receipt 2 links to Receipt 1 via \texttt{chain\_link = $H_1$}. Receipt 3 links to Receipt 2 via \texttt{chain\_link = $H_2$}.
+    \item Verification: An external verifier can check the chain without re-executing:
+    \begin{itemize}
+        \item Verify \texttt{chain\_link[i+1] == SHA256(receipt[i])} for all $i$.
+        \item Verify \texttt{pre\_state\_hash[i+1] == post\_state\_hash[i]} (state continuity).
+        \item Verify $\sum \texttt{mu\_cost} = \mu_{\text{final}} - \mu_{\text{initial}}$ (conservation).
+    \end{itemize}
+    If all checks pass, the computation is valid. This is \textit{much faster} than re-executing (e.g., verifying a 1-hour computation in 1 second).
+\end{enumerate}
+
+\textbf{Role in thesis:} Receipts transform the Thiele Machine from a \textit{computational model} into a \textit{trust architecture}. Applications include:
+\begin{itemize}
+    \item \textbf{Scientific reproducibility:} A paper is not a PDF---it's a receipt chain. Verification is automated.
+    \item \textbf{Financial auditing:} Trading algorithms produce verifiable receipts for every trade.
+    \item \textbf{Legal evidence:} Digital evidence is cryptographically authenticated at creation.
+    \item \textbf{AI safety:} AI decisions are logged with verifiable receipts.
+\end{itemize}
+The receipt format is implemented in \path{thielecpu/receipts.py} (Python) and \path{thielecpu/hardware/crypto\_receipt\_controller.v} (RTL), making this an \textit{engineered artifact}, not an abstract proposal.
+
 \end{figure}
 
 \subsection{The Receipt Chain}
@@ -381,6 +784,45 @@ receipt = {
     "chain_link": SHA256(previous_receipt)
 }
 \end{lstlisting}
+
+\paragraph{Understanding Receipt Structure:}
+
+\textbf{What is this?} This is the \textbf{cryptographic receipt format} that the Thiele Machine generates for every instruction executed. It creates a tamper-evident audit trail analogous to blockchain transactions.
+
+\textbf{Field-by-field breakdown:}
+\begin{itemize}
+    \item \textbf{"pre\_state\_hash": SHA256(state\_before)} — Hash of the VM state \textit{before} executing the instruction. Includes: $\mu$-ledger, partition graph, registers, memory. This is the cryptographic commitment to the starting state.
+    
+    \item \textbf{"instruction": opcode} — The executed instruction (e.g., \texttt{PNEW \{0,1,2\}}, \texttt{PSPLIT 1 \{0\} \{1,2\}}, \texttt{XOR\_ADD r3, r1, r2}). This records \textit{what was done}.
+    
+    \item \textbf{"post\_state\_hash": SHA256(state\_after)} — Hash of the VM state \textit{after} executing the instruction. This commits to the result.
+    
+    \item \textbf{"mu\_cost": cost} — The $\mu$-ledger increment for this instruction. Example: \texttt{PNEW} charges $\mu = \log_2(|\text{region}|)$, \texttt{PSPLIT} charges based on partition reduction.
+    
+    \item \textbf{"chain\_link": SHA256(previous\_receipt)} — \textbf{Merkle chain link}: this receipt's validity depends on the previous receipt. This creates chronological ordering and tamper-evidence. If any earlier receipt is modified, this hash breaks.
+\end{itemize}
+
+\textbf{Why is this tamper-evident?} Suppose an adversary tries to modify receipt 5 in a 100-receipt chain:
+\begin{enumerate}
+    \item Receipt 5's \texttt{post\_state\_hash} changes (because the adversary modified the instruction or cost).
+    \item Receipt 6's \texttt{pre\_state\_hash} must equal receipt 5's \texttt{post\_state\_hash}. Now they don't match---invalid!
+    \item Alternatively, receipt 6's \texttt{chain\_link} must equal \texttt{SHA256(receipt 5)}. The adversary would need to recompute this, breaking the hash chain.
+    \item To hide the modification, the adversary must recompute \textit{all} receipts 6--100. But the final receipt hash is published (e.g., in a paper or blockchain), so the adversary cannot forge the entire chain without detection.
+\end{enumerate}
+
+\textbf{Verification without re-execution:} A verifier can check a receipt chain \textit{without re-running the computation}:
+\begin{enumerate}
+    \item Check that \texttt{chain\_link[i+1] == SHA256(receipt[i])} for all $i$.
+    \item Check that \texttt{pre\_state\_hash[i+1] == post\_state\_hash[i]} (state continuity).
+    \item Check that the final \texttt{post\_state\_hash} matches the published hash.
+    \item Check that $\sum \texttt{mu\_cost} = \mu_{\text{final}} - \mu_{\text{initial}}$ (conservation).
+\end{enumerate}
+If all checks pass, the computation is valid. This is \textit{much faster} than re-executing (e.g., verifying a 1-hour computation might take 1 second).
+
+\textbf{Selective disclosure:} A researcher can publish receipts for \textit{specific steps} (e.g., ``Here is receipt 42, which shows we discovered partition $\{0,1,2\}$ and charged $\mu = 5$'') without revealing the entire trace. The hash chain ensures the disclosed receipt is part of the authentic sequence.
+
+\textbf{Role in thesis:} Receipts transform the Thiele Machine from a \textit{computational model} into a \textit{trust architecture}. Every claim is backed by a cryptographic audit trail. This is the foundation for applications in scientific reproducibility, AI safety, and financial auditing.
+
 The Python implementation of this structure is in \path{thielecpu/receipts.py} and \path{thielecpu/crypto.py}, and the RTL contains a receipt controller in \path{thielecpu/hardware/crypto_receipt_controller.v}. The chain is therefore an engineered artifact with concrete hash formats, not an abstract promise.
 
 This enables:
@@ -418,6 +860,45 @@ NUM_MODULES = 64
 REGION_SIZE = 1024
 \end{lstlisting}
 
+\paragraph{Understanding Current Hardware Limitations:}
+
+\textbf{What are these parameters?} These define the \textbf{capacity constraints} of the current Thiele Machine hardware implementation (Verilog RTL synthesized to FPGA).
+
+\textbf{Parameter meanings:}
+\begin{itemize}
+    \item \textbf{NUM\_MODULES = 64} — Maximum number of partition modules the hardware can track simultaneously. Each module has:
+    \begin{itemize}
+        \item A unique ID (0--63)
+        \item A region (set of element indices)
+        \item An axiom list (logical constraints)
+        \item A bitmask representation (64 bits)
+    \end{itemize}
+    \textbf{Implication:} Complex partition graphs requiring $>64$ modules cannot be represented. For example, a partition tree with 100 leaf nodes requires 100 module IDs.
+    
+    \item \textbf{REGION\_SIZE = 1024} — Maximum number of elements in a single partition region. Regions are sets like $\{0, 1, 2, \ldots, 1023\}$.
+    \begin{itemize}
+        \item Stored as arrays: \texttt{uint16 region[1024]} (each element is a 10-bit index).
+        \item Bitmask representation: 1024 bits = 128 bytes per region.
+    \end{itemize}
+    \textbf{Implication:} Partitioning datasets with $>1024$ elements requires hierarchical techniques (e.g., multi-level partition trees).
+\end{itemize}
+
+\textbf{Why these limits?} Hardware constraints:
+\begin{itemize}
+    \item \textbf{FPGA resources:} Current synthesis targets use $\sim$45,000 LUTs and $\sim$35,000 flip-flops (for full configuration). Increasing \texttt{NUM\_MODULES} or \texttt{REGION\_SIZE} requires more on-chip memory and logic.
+    \item \textbf{Timing closure:} Larger partition graphs increase critical path delays (longer wires, deeper logic cones). Current design achieves $\sim$100 MHz clock; scaling to 256 modules might drop to 50 MHz.
+    \item \textbf{Memory bandwidth:} Checking partition disjointness requires comparing all pairs of regions. 64 modules = $64 \times 63 / 2 = 2016$ comparisons per step. 256 modules = 32,640 comparisons.
+\end{itemize}
+
+\textbf{Comparison to software:} The Python reference VM has no hard limits---it uses dynamic data structures (\texttt{dict}, \texttt{set}) that grow as needed. The hardware must pre-allocate resources, leading to fixed capacity.
+
+\textbf{Real-world adequacy:} For many experiments (CHSH, Grover, Shor), 64 modules and 1024-element regions are sufficient. For example:
+\begin{itemize}
+    \item Grover search on $N = 1024$ elements: 1 module, region $\{0, \ldots, 1023\}$.
+    \item Shor factorization of $N = 3233$: $\sim$10 modules for intermediate partitions.
+\end{itemize}
+However, industrial applications (e.g., SAT solving on 10,000-variable formulas) would exceed these limits.
+
 Scaling to millions of dynamic partitions requires:
 \begin{itemize}
     \item Content-addressable memory (CAM) for fast partition lookup
@@ -433,6 +914,53 @@ instr_lassert (module : ModuleID) (formula : string)
     (cert : lassert_certificate) (mu_delta : nat)
 \end{lstlisting}
 
+\paragraph{Understanding LASSERT Limitations:}
+
+\textbf{What is this instruction?} \texttt{LASSERT} adds a logical axiom (constraint) to a partition module, verified by an external SAT solver certificate. This is the mechanism for encoding problem structure (e.g., ``this region satisfies formula $\phi$'').
+
+\textbf{Parameter breakdown:}
+\begin{itemize}
+    \item \textbf{module : ModuleID} — The partition module to which the axiom is added (e.g., module 3).
+    \item \textbf{formula : string} — The logical formula in SMT-LIB syntax. Example: \texttt{"(and (< x 10) (> y 0))"}
+    \item \textbf{cert : lassert\_certificate} — The \textbf{external certificate} proving the formula's validity:
+    \begin{itemize}
+        \item \textbf{SAT certificate:} A satisfying assignment (if the formula is SAT). Example: \texttt{\{x $\mapsto$ 5, y $\mapsto$ 3\}}. The VM checks that this assignment satisfies all clauses.
+        \item \textbf{LRAT proof:} A proof trace showing the formula is unsatisfiable (if the formula is UNSAT). The VM replays the proof steps (resolution, clause addition) to verify correctness.
+    \end{itemize}
+    \item \textbf{mu\_delta : nat} — The $\mu$-cost for adding this axiom. Encodes the information reduction: $\mu \geq \log_2(|\Omega| / |\Omega'|)$, where $\Omega$ is the space before the axiom and $\Omega'$ is the space after (constrained by the formula).
+\end{itemize}
+
+\textbf{Current limitation:} The Thiele Machine does \textbf{not} generate certificates internally. It relies on external SAT solvers (Z3, CaDiCaL, etc.) to:
+\begin{enumerate}
+    \item Solve the formula (find a SAT model or UNSAT proof).
+    \item Generate the certificate (LRAT proof trace or satisfying assignment).
+    \item Pass the certificate to the VM for verification.
+\end{enumerate}
+
+\textbf{Why is this a limitation?}
+\begin{itemize}
+    \item \textbf{External dependency:} The VM cannot autonomously discover structure---it needs an oracle (SAT solver).
+    \item \textbf{Certificate size:} LRAT proofs can be large (megabytes for hard formulas). Transmitting/storing certificates is expensive.
+    \item \textbf{Verification overhead:} Checking an LRAT proof is polynomial-time, but still slower than direct solving for small formulas.
+\end{itemize}
+
+\textbf{Example workflow:}
+\begin{enumerate}
+    \item User wants to assert ``region $\{0,1,2\}$ satisfies $(x_0 \lor x_1) \land (\neg x_0 \lor x_2)$''.
+    \item Call Z3 solver: \texttt{z3 -smt2 formula.smt2} $\to$ produces SAT model $\{x_0 = \text{true}, x_1 = \text{false}, x_2 = \text{true}\}$.
+    \item Encode model as certificate: \texttt{cert = \{\"x0\": true, \"x1\": false, \"x2\": true\}}.
+    \item Execute \texttt{LASSERT 1 \"(and (or x0 x1) (or (not x0) x2))\" cert 3}.
+    \item VM verifies: Substitute $x_0 = \text{true}, x_1 = \text{false}, x_2 = \text{true}$ into formula $\to$ $(\text{true} \lor \text{false}) \land (\neg\text{true} \lor \text{true}) = \text{true} \land \text{true} = \text{true}$. Certificate valid!
+\end{enumerate}
+
+\textbf{Future work:} Integrate SAT solving directly into the VM:
+\begin{itemize}
+    \item Hardware-accelerated SAT solver IP cores (FPGA-based CDCL).
+    \item Incremental solving: Reuse learned clauses across related formulas.
+    \item Proof compression: Compress LRAT proofs using structural hashing.
+\end{itemize}
+This would make the VM \textit{self-sufficient} for structure discovery, not dependent on external oracles.
+
 Generating LRAT proofs or SAT models is delegated to external solvers. Future work could integrate:
 \begin{itemize}
     \item Hardware-accelerated SAT solving
@@ -443,34 +971,71 @@ Generating LRAT proofs or SAT models is delegated to external solvers. Future wo
 \section{Future Directions}
 
 % Figure 7: Future Directions Roadmap
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[
-    node distance=1cm and 1.5cm,
-    current/.style={rectangle, draw, rounded corners, minimum width=3cm, minimum height=1cm, align=center, fill=green!20},
-    future/.style={rectangle, draw, rounded corners, minimum width=3cm, minimum height=1cm, align=center, fill=blue!10},
-    arrow/.style={->, thick, >=stealth, dashed}
+\begin{tikzpicture}[scale=1.8, 
+    node distance=2.5cm and 1.5cm,
+    current/.style={rectangle, draw, rounded corners, minimum width=5.4cm, minimum height=1.8cm, align=center, fill=green!20},
+    future/.style={rectangle, draw, rounded corners, minimum width=5.4cm, minimum height=1.8cm, align=center, fill=blue!10},
+    arrow/.style={->, very thick, >=stealth, dashed}
 ]
 % Current state
-\node[current] (now) {Current Thiele Machine\\206 proofs, 3 layers};
+\node[current, align=center, text width=3.5cm] (now) {Current Thiele Machine\\206 proofs, 3 layers};
 
 % Future directions
-\node[future, above right=1cm and 2cm of now] (quantum) {Quantum\\Integration};
-\node[future, right=2cm of now] (distributed) {Distributed\\Execution};
-\node[future, below right=1cm and 2cm of now] (language) {Programming\\Language};
+\node[future, above right=2.0cm and 2cm of now, align=center, text width=3.5cm] (quantum) {Quantum\\Integration};
+\node[future, right=3.9cm of now, align=center, text width=3.5cm] (distributed) {Distributed\\Execution};
+\node[future, below right=2.0cm and 2cm of now, align=center, text width=3.5cm] (language) {Programming\\Language};
 
 % Arrows
-\draw[arrow] (now) -- (quantum);
-\draw[arrow] (now) -- (distributed);
-\draw[arrow] (now) -- (language);
+\draw[arrow, shorten >=2pt, shorten <=2pt] (now) -- (quantum);
+\draw[arrow, shorten >=2pt, shorten <=2pt] (now) -- (distributed);
+\draw[arrow, shorten >=2pt, shorten <=2pt] (now) -- (language);
 
 % Annotations
-\node[right=0.3cm of quantum, font=\scriptsize, text width=3cm] {Entanglement as partition structure};
-\node[right=0.3cm of distributed, font=\scriptsize, text width=3cm] {Modules → network nodes};
-\node[right=0.3cm of language, font=\scriptsize, text width=3cm] {First-class partitions, $\mu$-tracking};
+\node[right=0.5cm of quantum, font=\normalsize, text width=3cm, sloped, pos=0.5, font=\small, xshift=10pt] {Entanglement as partition structure};
+\node[right=0.5cm of distributed, font=\normalsize, text width=3cm, sloped, pos=0.5, font=\small, xshift=10pt] {Modules $\rightarrow$ network nodes};
+\node[right=0.5cm of language, font=\normalsize, text width=3cm, sloped, pos=0.5, font=\small, xshift=10pt] {First-class partitions, $\mu$-tracking};
 \end{tikzpicture}
 \caption{Future research directions building on verified foundations.}
 \label{fig:future_directions}
+
+\paragraph{Understanding Figure~\ref{fig:future_directions}:}
+
+This \textbf{future research directions diagram} outlines three major extensions to the Thiele Machine architecture: quantum integration, distributed execution, and programming language design.
+
+\textbf{Visual elements:}
+\begin{itemize}
+    \item \textbf{Three boxes (horizontal):} Each represents a future research direction:
+    \begin{itemize}
+        \item \textbf{Quantum Integration (blue):} Extending the partition graph to represent true quantum states (not just partition-native CHSH simulations).
+        \item \textbf{Distributed Execution (green):} Mapping partition modules to network nodes for distributed systems.
+        \item \textbf{Programming Language (yellow):} Designing a high-level language with first-class partitions and automatic $\mu$-tracking.
+    \end{itemize}
+    \item \textbf{Annotations (right side):} Each box has a sidebar describing the key technical challenge:
+    \begin{itemize}
+        \item \textbf{Quantum:} ``Entanglement as partition structure''---representing quantum entanglement via the partition graph (modules as qubits, regions as entangled subspaces).
+        \item \textbf{Distributed:} ``Modules $\to$ network nodes''---each partition module executes on a separate machine, enforcing communication isolation via the partition graph.
+        \item \textbf{Language:} ``First-class partitions, $\mu$-tracking''---a type system where partition types are primitives (like \texttt{int} or \texttt{bool}), and the compiler automatically tracks $\mu$-costs.
+    \end{itemize}
+\end{itemize}
+
+\textbf{Key insight visualized:} These are \textit{natural extensions} of the verified foundations from Chapters 3--6:
+\begin{itemize}
+    \item \textbf{Quantum:} The Thiele Machine already achieves supra-quantum correlations ($S = 4$) via partition revelation. True quantum integration would represent quantum states \textit{directly} in the partition graph (e.g., superposition as overlapping regions, entanglement as correlated partitions).
+    \item \textbf{Distributed:} The partition graph enforces module isolation (no-signaling theorem). Mapping modules to network nodes is a natural interpretation: module boundaries $\to$ network boundaries, intra-module operations $\to$ local compute, inter-module operations $\to$ network messages.
+    \item \textbf{Language:} The current system requires explicit \texttt{PNEW}/\texttt{PSPLIT}/\texttt{PMERGE} instructions. A high-level language could abstract these: \texttt{let partition p = discover(\{0,1,2\})} compiles to \texttt{PNEW} with automatic $\mu$-cost tracking.
+\end{itemize}
+
+\textbf{How to read this diagram:}
+\begin{enumerate}
+    \item \textbf{Quantum Integration:} Extend the partition graph to support quantum state vectors. Measurement becomes partition revelation (collapsing superposition costs $\mu$). Entanglement becomes structural correlation between modules.
+    \item \textbf{Distributed Execution:} Each partition module runs on a separate node. The partition graph becomes a network topology. Receipt chains provide distributed consensus (analogous to blockchain, but with $\mu$-accounting).
+    \item \textbf{Programming Language:} Design a language where partition types are first-class (e.g., \texttt{type Partition = Set<ModuleID>}). The compiler tracks $\mu$-costs automatically via type-level annotations. Locality constraints are enforced by the type system (e.g., cannot access module B's data from module A without explicit revelation).
+\end{enumerate}
+
+\textbf{Role in thesis:} This diagram appears in Section 7.7, after acknowledging the system's current limitations. It shows that the verified foundations (zero-admit Coq proofs, 3-layer isomorphism, receipt generation) are \textit{extensible}---they provide a solid base for ambitious future work. The diagram is \textit{aspirational} (these extensions don't exist yet) but \textit{grounded} (they build on proven invariants, not speculative claims).
+
 \end{figure}
 
 \subsection{Quantum Integration}
@@ -503,34 +1068,72 @@ A high-level language for the Thiele Machine would include:
 \section{Summary}
 
 % Figure 8: Chapter 7 Summary
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[
-    node distance=1cm and 1.5cm,
-    box/.style={rectangle, draw, rounded corners, minimum width=2.5cm, minimum height=1cm, align=center, fill=blue!10},
-    result/.style={rectangle, draw, rounded corners, minimum width=3.5cm, minimum height=1.2cm, align=center, fill=green!20},
-    arrow/.style={->, thick, >=stealth}
+\begin{tikzpicture}[scale=1.8, 
+    node distance=2.5cm and 1.5cm,
+    box/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.8cm, align=center, fill=blue!10},
+    result/.style={rectangle, draw, rounded corners, minimum width=6.2cm, minimum height=2.2cm, align=center, fill=green!20},
+    arrow/.style={->, very thick, >=stealth}
 ]
 % Four areas
-\node[box] (physics) {Physics\\Connections};
-\node[box, right=1cm of physics] (complexity) {Complexity\\Theory};
-\node[box, right=1cm of complexity] (ai) {AI \&\\Trust};
-\node[box, right=1cm of ai] (future) {Future\\Work};
+\node[box, align=center, text width=3.5cm, font=\normalsize] (physics) {Physics\\Connections};
+\node[box, right=2.0cm of physics, align=center, text width=3.5cm, font=\normalsize] (complexity) {Complexity\\Theory};
+\node[box, right=2.0cm of complexity, align=center, text width=3.5cm, font=\normalsize] (ai) {AI \&\\Trust};
+\node[box, right=2.0cm of ai, align=center, text width=3.5cm, font=\normalsize] (future) {Future\\Work};
 
 % Central result
-\node[result, below=1.5cm of $(complexity)!0.5!(ai)$] (result) {Structure as\\Conserved Resource};
+\node[result, below=2.9cm of $(complexity)!0.5!(ai)$, align=center, text width=3.5cm] (result) {Structure as\\Conserved Resource};
 
 % Arrows
-\draw[arrow] (physics) -- (result);
-\draw[arrow] (complexity) -- (result);
-\draw[arrow] (ai) -- (result);
-\draw[arrow] (future) -- (result);
+\draw[arrow, shorten >=2pt, shorten <=2pt] (physics) -- (result);
+\draw[arrow, shorten >=2pt, shorten <=2pt] (complexity) -- (result);
+\draw[arrow, shorten >=2pt, shorten <=2pt] (ai) -- (result);
+\draw[arrow, shorten >=2pt, shorten <=2pt] (future) -- (result);
 
 % Key insight
-\node[below=0.5cm of result, draw, rounded corners, fill=yellow!20, minimum width=8cm, font=\small] {$\mu$-accounting unifies computation, physics, and verification};
+\node[below=1.0cm of result, draw, rounded corners, fill=yellow!20, minimum width=14.4cm, font=\normalsize, sloped, pos=0.5, font=\small, yshift=-6pt] {$\mu$-accounting unifies computation, physics, and verification};
 \end{tikzpicture}
 \caption{Chapter 7 summary: structure as the unifying concept.}
 \label{fig:ch7_summary}
+
+\paragraph{Understanding Figure~\ref{fig:ch7_summary}:}
+
+This \textbf{chapter summary diagram} visualizes the convergence of four discussion areas on a single unifying concept: \textit{structure as a conserved resource}.
+
+\textbf{Visual elements:}
+\begin{itemize}
+    \item \textbf{Four blue boxes (top layer):} The four major topics covered in Chapter 7:
+    \begin{itemize}
+        \item \textbf{Physics Connections:} Landauer's principle (energy-information bridge), Noether's theorem (gauge symmetry), Bell locality (no-signaling).
+        \item \textbf{Complexity Theory:} Conservation of difficulty (time vs structure tradeoff), new complexity classes ($\text{P}_\mu$, $\text{NP}_\mu$).
+        \item \textbf{AI \& Trust:} Hallucination prevention (false hypotheses cost $\mu$), receipts (cryptographic verification).
+        \item \textbf{Future Work:} Quantum integration, distributed systems, programming language design.
+    \end{itemize}
+    \item \textbf{Central green box (middle layer):} Labeled ``Structure as Conserved Resource''---the unifying concept. All four discussion areas interpret the Thiele Machine through this lens.
+    \item \textbf{Downward arrows:} Each of the four blue boxes has an arrow pointing to the central green box, showing convergence.
+    \item \textbf{Bottom yellow box (key insight):} ``$\mu$-accounting unifies computation, physics, and verification''---the central claim of the chapter.
+\end{itemize}
+
+\textbf{Key insight visualized:} Chapter 7 is \textit{interpretive}, not technical. It explores what it \textit{means} to treat structure as a conserved resource:
+\begin{itemize}
+    \item \textbf{Physics Connections:} Structure conservation mirrors energy/entropy conservation in thermodynamics.
+    \item \textbf{Complexity Theory:} Difficulty is conserved but can be transmuted from time to structure.
+    \item \textbf{AI \& Trust:} Structure certification prevents hallucinations (false structure costs $\mu$ without receipts).
+    \item \textbf{Future Work:} Quantum entanglement, distributed consensus, and type-safe languages all benefit from treating structure as a first-class resource.
+\end{itemize}
+The $\mu$-ledger is the \textit{accounting mechanism} that unifies these perspectives.
+
+\textbf{How to read this diagram:}
+\begin{enumerate}
+    \item Start with the four blue boxes: Each represents a distinct perspective on the Thiele Machine (physics, complexity, AI, future).
+    \item Follow the arrows: All four perspectives converge on the same concept---structure as a conserved resource.
+    \item Central green box: This is the \textit{unifying principle}. Physics conserves energy/entropy; the Thiele Machine conserves structure. Complexity theory measures time/space; the Thiele Machine adds structure as a third dimension.
+    \item Bottom yellow box: The key insight is that $\mu$-accounting \textit{unifies} computation (formal semantics), physics (energy dissipation), and verification (receipt chains). This is the thesis's central contribution.
+\end{enumerate}
+
+\textbf{Role in thesis:} This summary diagram appears at the end of Chapter 7, after exploring all four discussion areas. It provides a high-level synthesis, showing that the diverse implications (physics bridges, complexity classes, AI applications, future extensions) all stem from \textit{one foundational idea}: treating structure as a conserved resource tracked by the $\mu$-ledger. The diagram reinforces the thesis's conceptual coherence: the Thiele Machine is not a collection of unrelated features, but a unified architecture built on a single principle.
+
 \end{figure}
 
 The Thiele Machine offers:

@@ -45,7 +45,7 @@ If you are familiar with any section, feel free to skip it. The only prerequisit
 % TikZ Figure: Turing Machine Architecture
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=0.8]
+\begin{tikzpicture}[[scale=0.65, transform shape], node distance=3cm]
     % Tape
     \foreach \x in {0,1,2,3,4,5,6,7,8} {
         \draw (\x,0) rectangle (\x+1,1);
@@ -62,30 +62,51 @@ If you are familiar with any section, feel free to skip it. The only prerequisit
     \node at (8.5,0.5) {$\sqcup$};
     
     % Head
-    \draw[thick, blue, ->, >=stealth] (4.5,2) -- (4.5,1.1);
+    \draw[very thick, blue, ->, >=stealth, shorten >=2pt, shorten <=2pt] (4.5,2) -- (4.5,1.1);
     \node[blue] at (4.5,2.3) {Head};
     
     % Control unit
-    \draw[thick, rounded corners, fill=blue!10] (3,3) rectangle (6,4.5);
+    \draw[very thick, rounded corners, fill=blue!10] (3,3) rectangle (6,4.5);
     \node at (4.5,4) {Control};
     \node at (4.5,3.5) {$q \in Q$};
     
     % Transition function
-    \draw[thick, ->, >=stealth] (6,3.75) -- (7.5,3.75);
+    \draw[very thick, ->, >=stealth, shorten >=2pt, shorten <=2pt] (6,3.75) -- (7.5,3.75);
     \node[right] at (7.5,3.75) {$\delta(q,\gamma) \to (q',\gamma',d)$};
     
     % Labels
     \node[below] at (4.5,-0.3) {Infinite tape $\Gamma^*$};
-    \draw[<->, >=stealth] (-0.5,0.5) -- (-0.5,0.5) node[left] {$\cdots$};
-    \draw[<->, >=stealth] (9.5,0.5) -- (9.5,0.5) node[right] {$\cdots$};
+    \draw[<->, >=stealth, shorten >=2pt, shorten <=2pt] (-0.5,0.5) -- (-0.5,0.5) node[left, above, yshift=6pt, pos=0.5, font=\small] {$\cdots$};
+    \draw[<->, >=stealth, shorten >=2pt, shorten <=2pt] (9.5,0.5) -- (9.5,0.5) node[right, above, yshift=6pt, pos=0.5, font=\small] {$\cdots$};
     
     % Blindness annotation
-    \draw[thick, red, dashed] (4,0) rectangle (5,1);
+    \draw[very thick, red, dashed] (4,0) rectangle (5,1);
     \node[red, below] at (4.5,-0.8) {\small Only sees ONE symbol};
 \end{tikzpicture}
 \caption{The Turing Machine architecture. The transition function $\delta$ sees only the current state $q$ and the single symbol under the head---it is \textit{structurally blind} to the global tape contents.}
 \label{fig:turing_machine}
 \end{figure}
+
+\paragraph{Understanding Figure \ref{fig:turing_machine}:}
+
+\textbf{What does this diagram show?} The Turing Machine architecture, emphasizing its fundamental \textbf{blindness}---the machine can only see one symbol at a time.
+
+\textbf{Visual elements:}
+\begin{itemize}
+    \item \textbf{Infinite tape (bottom):} 9 visible cells containing symbols ($\sqcup$, 0, 1, 1, 0, 1, 0, $\sqcup$, $\sqcup$). Arrows on sides indicate infinite extension ($\cdots$). This is the memory.
+    
+    \item \textbf{Head (blue arrow):} Points to cell 5 (containing 0). The read/write head can only examine and modify ONE cell per step.
+    
+    \item \textbf{Control unit (blue box):} Contains the current state $q \in Q$. The finite-state controller decides what to do based on $(q, \gamma)$ where $\gamma$ is the symbol under the head.
+    
+    \item \textbf{Transition function:} $\delta(q,\gamma) \to (q',\gamma',d)$---maps (state, symbol) to (new state, new symbol, direction L/R).
+    
+    \item \textbf{Red dashed box (bottom):} Highlights the \textit{only} symbol the machine sees. Labeled "Only sees ONE symbol." This is the visualization of blindness.
+\end{itemize}
+
+\textbf{Key insight:} The transition function $\delta$ has no access to the global tape structure. It cannot ask "Is this tape sorted?" or "Does this represent a balanced tree?" without reading and processing the entire tape sequentially. This is \textit{architectural blindness}---a feature of the model's interface, not a weakness of any particular algorithm.
+
+\textbf{Role in thesis:} Motivates the need for the Thiele Machine. Classical computers are blind; the Thiele Machine adds explicit structural perception at a measured cost ($\mu$).
 
 The Turing Machine, introduced by Alan Turing in 1936 \cite{turing1936computable}, is formally defined as a 7-tuple:
 \[
@@ -182,9 +203,9 @@ This does not trivialize P vs NP—the structural information may itself be expe
 % TikZ Figure: Information Theory Hierarchy
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=0.9]
+\begin{tikzpicture}[[scale=0.7], node distance=2cm]
     % Three columns
-    \node[draw, rounded corners, fill=green!10, minimum width=3cm, minimum height=2cm] (shannon) at (0,0) {
+    \node[draw, rounded corners, fill=green!10, minimum width=5.4cm, minimum height=3.6cm, align=center, text width=3.5cm] (shannon) at (0,0) {
         \begin{tabular}{c}
         \textbf{Shannon Entropy}\\
         $H(X) = -\sum p(x) \log p(x)$\\
@@ -193,7 +214,7 @@ This does not trivialize P vs NP—the structural information may itself be expe
         \end{tabular}
     };
     
-    \node[draw, rounded corners, fill=blue!10, minimum width=3cm, minimum height=2cm] (kolmogorov) at (5,0) {
+    \node[draw, rounded corners, fill=blue!10, minimum width=5.4cm, minimum height=3.6cm, align=center, text width=3.5cm] (kolmogorov) at (5,0) {
         \begin{tabular}{c}
         \textbf{Kolmogorov}\\
         $K(x) = \min|p|$\\
@@ -202,7 +223,7 @@ This does not trivialize P vs NP—the structural information may itself be expe
         \end{tabular}
     };
     
-    \node[draw, rounded corners, fill=orange!10, minimum width=3cm, minimum height=2cm] (mdl) at (10,0) {
+    \node[draw, rounded corners, fill=orange!10, minimum width=5.4cm, minimum height=3.6cm, align=center, text width=3.5cm] (mdl) at (10,0) {
         \begin{tabular}{c}
         \textbf{MDL / $\mu$-cost}\\
         $L(H) + L(D|H)$\\
@@ -212,22 +233,47 @@ This does not trivialize P vs NP—the structural information may itself be expe
     };
     
     % Arrows
-    \draw[thick, ->, >=stealth] (shannon) -- (kolmogorov) node[midway, above] {\small generalizes};
-    \draw[thick, ->, >=stealth] (kolmogorov) -- (mdl) node[midway, above] {\small approximates};
+    \draw[very thick, ->, >=stealth, shorten >=2pt, shorten <=2pt] (shannon) -- (kolmogorov) node[pos=0.5, font=\small, above, yshift=6pt] {\small generalizes};
+    \draw[very thick, ->, >=stealth, shorten >=2pt, shorten <=2pt] (kolmogorov) -- (mdl) node[pos=0.5, font=\small, above, yshift=6pt] {\small approximates};
     
     % Annotation box
-    \node[draw, thick, red, dashed, rounded corners] at (10,-2.5) {
+    \node[draw, very thick, red, dashed, rounded corners, align=center, text width=3.5cm] at (10,-2.5) {
         \begin{tabular}{c}
         \textbf{Thiele Machine}\\
         uses MDL-based $\mu$\\
         as operational metric
         \end{tabular}
     };
-    \draw[thick, red, ->, >=stealth, dashed] (10,-1.2) -- (10,-1.8);
+    \draw[very thick, red, ->, >=stealth, dashed, shorten >=2pt, shorten <=2pt] (10,-1.2) -- (10,-1.8);
 \end{tikzpicture}
 \caption{The hierarchy of information measures. Shannon entropy applies to distributions, Kolmogorov complexity to individual strings (but is uncomputable), and MDL/$\mu$-cost provides a computable approximation used by the Thiele Machine.}
 \label{fig:information_hierarchy}
 \end{figure}
+
+\paragraph{Understanding Figure \ref{fig:information_hierarchy}:}
+
+\textbf{What does this diagram show?} The progression from Shannon entropy through Kolmogorov complexity to MDL/$\mu$-cost, showing how information theory evolved and how the Thiele Machine fits.
+
+\textbf{Three columns:}
+\begin{itemize}
+    \item \textbf{Shannon Entropy (green):} $H(X) = -\sum p(x) \log p(x)$. Applies to random variables (distributions). \textit{Computable}. Foundation of classical information theory (1948).
+    
+    \item \textbf{Kolmogorov (blue):} $K(x) = \min|p|$ where $p$ is a program generating $x$. Applies to individual strings. \textit{Uncomputable} (halting problem). Theoretical ideal for measuring structure (1960s).
+    
+    \item \textbf{MDL / $\mu$-cost (orange):} $L(H) + L(D|H)$---hypothesis length + residual. Computable approximation of Kolmogorov complexity. Used in model selection, machine learning.
+\end{itemize}
+
+\textbf{Arrows:}
+\begin{itemize}
+    \item \textbf{Shannon $\to$ Kolmogorov ("generalizes"):} K(x) extends H(X) from distributions to individual strings.
+    \item \textbf{Kolmogorov $\to$ MDL ("approximates"):} MDL provides a practical, computable proxy for K(x).
+\end{itemize}
+
+\textbf{Red dashed box (bottom):} "Thiele Machine uses MDL-based $\mu$ as operational metric." Arrow points from MDL column. This is where the thesis fits: $\mu$-cost is the Thiele Machine's implementation of MDL for computational structure.
+
+\textbf{Key insight:} We want to measure structure (K(x)), but it's uncomputable. MDL gives us a computable alternative. The Thiele Machine operationalizes MDL as $\mu$-cost, charging for partition structure and axioms based on their description length.
+
+\textbf{Role in thesis:} Establishes the information-theoretic foundation for $\mu$-cost. It's not arbitrary---it's grounded in 75 years of information theory.
 
 Claude Shannon's 1948 paper "A Mathematical Theory of Communication" established information as a quantifiable resource \cite{shannon1948mathematical}. The basic unit is \emph{self-information}: an event with probability $p$ carries surprise $I = -\log_2 p$ bits, because rare events convey more information than common ones. The \textit{entropy} of a discrete random variable $X$ with probability mass function $p$ is the expected surprise:
 \[
@@ -309,7 +355,7 @@ This is reflected directly in the Python and Coq implementations: the $\mu$-ledg
 % TikZ Figure: Landauer's Principle and Maxwell's Demon
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=0.85]
+\begin{tikzpicture}[[scale=0.65], node distance=3cm]
     % Left: Landauer's Principle
     \begin{scope}[xshift=-5cm]
         % Two-to-one mapping
@@ -317,11 +363,11 @@ This is reflected directly in the Python and Coq implementations: the $\mu$-ledg
         \node[draw, circle, fill=blue!20] (b) at (0,-1) {1};
         \node[draw, circle, fill=red!20] (c) at (3,0) {0};
         
-        \draw[thick, ->, >=stealth] (a) -- (c);
-        \draw[thick, ->, >=stealth] (b) -- (c);
+        \draw[very thick, ->, >=stealth, shorten >=2pt, shorten <=2pt] (a) -- (c);
+        \draw[very thick, ->, >=stealth, shorten >=2pt, shorten <=2pt] (b) -- (c);
         
         % Heat release
-        \draw[thick, red, wavy] (3.5,0) -- (5,0);
+        \draw[very thick, red, ->, shorten >=2pt, shorten <=2pt] (3.5,0) -- (5,0);
         \node[red] at (5.5,0) {$Q$};
         
         % Equation
@@ -334,16 +380,16 @@ This is reflected directly in the Python and Coq implementations: the $\mu$-ledg
     % Right: Maxwell's Demon
     \begin{scope}[xshift=5cm]
         % Container
-        \draw[thick] (-2,-1.5) rectangle (2,1.5);
-        \draw[thick] (0,-1.5) -- (0,-0.3);
-        \draw[thick] (0,0.3) -- (0,1.5);
+        \draw[very thick] (-2,-1.5) rectangle (2,1.5);
+        \draw[very thick, shorten >=2pt, shorten <=2pt] (0,-1.5) -- (0,-0.3);
+        \draw[very thick, shorten >=2pt, shorten <=2pt] (0,0.3) -- (0,1.5);
         
         % Door
-        \draw[thick, blue, fill=blue!30] (-0.1,-0.3) rectangle (0.1,0.3);
+        \draw[very thick, blue, fill=blue!30] (-0.1,-0.3) rectangle (0.1,0.3);
         
         % Demon
         \node[draw, circle, fill=green!30, minimum size=0.8cm] (demon) at (0,2) {D};
-        \draw[thick, ->, >=stealth] (demon) -- (0,0.5);
+        \draw[very thick, ->, >=stealth, shorten >=2pt, shorten <=2pt] (demon) -- (0,0.5);
         
         % Molecules (fast = red, slow = blue)
         \node[fill=red, circle, inner sep=2pt] at (-1.2,0.5) {};
@@ -364,6 +410,32 @@ This is reflected directly in the Python and Coq implementations: the $\mu$-ledg
 \caption{Left: Landauer's principle---erasing one bit releases at least $k_B T \ln 2$ joules of heat. Right: Maxwell's demon appears to violate the second law, but the demon must pay for information acquisition and storage.}
 \label{fig:landauer_demon}
 \end{figure}
+
+\paragraph{Understanding Figure \ref{fig:landauer_demon}:}
+
+\textbf{Left: Landauer's Principle}
+\begin{itemize}
+    \item \textbf{Two blue circles (top):} Initial states 0 and 1.
+    \item \textbf{One red circle (right):} Final state 0. This is a many-to-one mapping (erasure).
+    \item \textbf{Arrows:} Both 0 and 1 map to 0.
+    \item \textbf{Red arrow labeled $Q$:} Heat dissipation. Erasure releases energy.
+    \item \textbf{Equation below:} $Q \ge k_B T \ln 2$---minimum heat released per bit erased. At room temperature: $\sim 3 \times 10^{-21}$ joules.
+\end{itemize}
+
+\textbf{Right: Maxwell's Demon}
+\begin{itemize}
+    \item \textbf{Container with partition:} Left and right chambers separated by a door (blue rectangle in center).
+    \item \textbf{Demon (green circle, top):} Observes molecules, opens door selectively.
+    \item \textbf{Molecules:} Red = fast (hot), blue = slow (cold). Initially mixed.
+    \item \textbf{Strategy:} Demon opens door for fast molecules moving right, slow molecules moving left. Eventually: hot right, cold left---apparent entropy reduction without work.
+    \item \textbf{Resolution:} Demon must pay for information: measuring velocities requires physical interaction, storing decisions requires memory, erasing memory releases heat (Landauer). Total entropy increases.
+\end{itemize}
+
+\textbf{Key insight:} Information is physical. You cannot reduce entropy (knowledge) without paying a thermodynamic cost. The demon's "free insight" is paid for by Landauer erasure when memory fills.
+
+\textbf{Connection to Thiele Machine:} The $\mu$-ledger is the informational analog of thermodynamic entropy. Just as physical systems cannot decrease entropy without work, the Thiele Machine cannot decrease search space without paying $\mu$. The No Free Insight theorem is the computational version of the Second Law.
+
+\textbf{Role in thesis:} Establishes the physical grounding for $\mu$-accounting. It's not just an abstract cost---it has thermodynamic justification.
 
 In 1961, Rolf Landauer proved a fundamental connection between information and thermodynamics \cite{landauer1961irreversibility}:
 
@@ -420,23 +492,23 @@ The total entropy balance is preserved: the demon's information processing exact
 % TikZ Figure: The μ-Thermodynamic Bridge
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=0.9]
+\begin{tikzpicture}[[scale=0.7], node distance=3cm]
     % Three columns: Abstract, Bridge, Physical
-    \node[draw, thick, rounded corners, fill=blue!15, minimum width=3cm, minimum height=4cm] (abstract) at (0,0) {};
+    \node[draw, very thick, rounded corners, fill=blue!15, minimum width=5.4cm, minimum height=7.2cm] (abstract) at (0,0) {};
     \node[above] at (0,2.3) {\textbf{Abstract (Model)}};
     \node at (0,1.2) {$\mu$-ledger};
     \node at (0,0.4) {Partitions $\Pi$};
     \node at (0,-0.4) {Axioms $\mathcal{A}$};
     \node at (0,-1.2) {Revelation ops};
     
-    \node[draw, thick, rounded corners, fill=green!15, minimum width=3cm, minimum height=4cm] (bridge) at (5,0) {};
+    \node[draw, very thick, rounded corners, fill=green!15, minimum width=5.4cm, minimum height=7.2cm] (bridge) at (5,0) {};
     \node[above] at (5,2.3) {\textbf{Bridge}};
     \node at (5,1.2) {$\mu \propto$ entropy};
     \node at (5,0.4) {$= k_B T \ln 2$};
     \node at (5,-0.4) {per bit};
     \node at (5,-1.2) {(Landauer)};
     
-    \node[draw, thick, rounded corners, fill=red!15, minimum width=3cm, minimum height=4cm] (physical) at (10,0) {};
+    \node[draw, very thick, rounded corners, fill=red!15, minimum width=5.4cm, minimum height=7.2cm] (physical) at (10,0) {};
     \node[above] at (10,2.3) {\textbf{Physical}};
     \node at (10,1.2) {Heat dissipation};
     \node at (10,0.4) {Thermodynamics};
@@ -444,11 +516,11 @@ The total entropy balance is preserved: the demon's information processing exact
     \node at (10,-1.2) {Irreversibility};
     
     % Arrows
-    \draw[thick, <->, >=stealth] (1.8,0) -- (3.2,0) node[midway, above] {\small maps to};
-    \draw[thick, <->, >=stealth] (6.8,0) -- (8.2,0) node[midway, above] {\small maps to};
+    \draw[very thick, <->, >=stealth, shorten >=2pt, shorten <=2pt] (1.8,0) -- (3.2,0) node[pos=0.5, font=\small, above, yshift=6pt] {\small maps to};
+    \draw[very thick, <->, >=stealth, shorten >=2pt, shorten <=2pt] (6.8,0) -- (8.2,0) node[pos=0.5, font=\small, above, yshift=6pt] {\small maps to};
     
     % Key insight
-    \node[draw, thick, dashed, rounded corners, fill=yellow!20] at (5,-3.5) {
+    \node[draw, very thick, dashed, rounded corners, fill=yellow!20, align=center, text width=3.5cm] at (5,-3.5) {
         \begin{tabular}{c}
         \textbf{Key Insight:} Asserting structure $\approx$ Erasing alternatives\\
         $\mu$-ledger monotonicity $\Leftrightarrow$ Second Law of Thermodynamics
@@ -458,6 +530,36 @@ The total entropy balance is preserved: the demon's information processing exact
 \caption{The conceptual bridge between the Thiele Machine's abstract $\mu$-accounting and physical thermodynamics. The monotonicity of the $\mu$-ledger is the computational analog of the Second Law.}
 \label{fig:mu_thermodynamic_bridge}
 \end{figure}
+
+\paragraph{Understanding Figure \ref{fig:mu_thermodynamic_bridge}:}
+
+\textbf{What does this diagram show?} The conceptual mapping from abstract computational structure to physical thermodynamics, via Landauer's principle.
+
+\textbf{Three columns:}
+\begin{itemize}
+    \item \textbf{Abstract (Model, blue):} Left column. Contains: $\mu$-ledger, Partitions $\Pi$, Axioms $\mathcal{A}$, Revelation ops. This is the Thiele Machine's abstract computational model.
+    
+    \item \textbf{Bridge (green):} Center column. Shows the mapping: $\mu \propto$ entropy, $= k_B T \ln 2$ per bit (Landauer). This is the \textit{bridge} connecting abstract and physical.
+    
+    \item \textbf{Physical (red):} Right column. Contains: Heat dissipation, Thermodynamics, Second Law, Irreversibility. This is the physical reality.
+\end{itemize}
+
+\textbf{Arrows:}
+\begin{itemize}
+    \item \textbf{Abstract $\leftrightarrow$ Bridge:} "maps to"
+    \item \textbf{Bridge $\leftrightarrow$ Physical:} "maps to"
+\end{itemize}
+
+\textbf{Yellow box (bottom):} Key insight: "Asserting structure $\approx$ Erasing alternatives. $\mu$-ledger monotonicity $\Leftrightarrow$ Second Law of Thermodynamics."
+
+\textbf{Conceptual mapping:}
+\begin{itemize}
+    \item Asserting structure (e.g., "variables are independent") is like erasing alternatives ("they could be dependent").
+    \item The $\mu$-ledger's monotonicity (never decreases) is analogous to the Second Law (entropy never decreases in closed systems).
+    \item Just as thermodynamic entropy tracks irreversible processes, $\mu$ tracks irreversible structural commitments.
+\end{itemize}
+
+\textbf{Role in thesis:} Provides the deep justification for $\mu$-monotonicity. It's not an arbitrary design choice---it's the computational analog of a fundamental law of physics.
 
 The Thiele Machine generalizes Landauer's principle from \textit{erasure} to \textit{structure}. Just as erasing information has a thermodynamic cost, \textit{asserting structure} has an information-theoretic cost:
 
@@ -474,9 +576,9 @@ The $\mu$-ledger is the computational analog of the thermodynamic entropy: a mon
 % TikZ Figure: CHSH Inequality and Correlation Bounds
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=0.9]
+\begin{tikzpicture}[[scale=0.7], node distance=2.5cm]
     % Alice and Bob boxes
-    \node[draw, thick, rounded corners, fill=blue!10, minimum width=2cm, minimum height=1.5cm] (alice) at (-4,0) {
+    \node[draw, very thick, rounded corners, fill=blue!10, minimum width=3.6cm, minimum height=2.6cm, align=center, text width=3.5cm] (alice) at (-4,0) {
         \begin{tabular}{c}
         \textbf{Alice}\\
         $x \in \{0,1\}$\\
@@ -484,7 +586,7 @@ The $\mu$-ledger is the computational analog of the thermodynamic entropy: a mon
         \end{tabular}
     };
     
-    \node[draw, thick, rounded corners, fill=green!10, minimum width=2cm, minimum height=1.5cm] (bob) at (4,0) {
+    \node[draw, very thick, rounded corners, fill=green!10, minimum width=3.6cm, minimum height=2.6cm, align=center, text width=3.5cm] (bob) at (4,0) {
         \begin{tabular}{c}
         \textbf{Bob}\\
         $y \in \{0,1\}$\\
@@ -493,36 +595,36 @@ The $\mu$-ledger is the computational analog of the thermodynamic entropy: a mon
     };
     
     % Entangled source
-    \node[draw, thick, rounded corners, fill=red!20, minimum width=1.5cm] (source) at (0,0) {Source};
-    \draw[thick, red, decorate, decoration={snake, amplitude=2pt}] (source) -- (alice);
-    \draw[thick, red, decorate, decoration={snake, amplitude=2pt}] (source) -- (bob);
+    \node[draw, very thick, rounded corners, fill=red!20, minimum width=2.6cm] (source) at (0,0) {Source};
+    \draw[very thick, red, decorate, decoration={snake, amplitude=2pt}, shorten >=2pt, shorten <=2pt] (source) -- (alice);
+    \draw[very thick, red, decorate, decoration={snake, amplitude=2pt}, shorten >=2pt, shorten <=2pt] (source) -- (bob);
     
     % CHSH value scale
     \begin{scope}[yshift=-3cm]
-        \draw[thick, ->] (-5,0) -- (5,0) node[right] {$S$};
+        \draw[very thick, ->, shorten >=2pt, shorten <=2pt] (-5,0) -- (5,0) node[right, above, yshift=6pt, pos=0.5, font=\small] {$S$};
         
         % Tick marks
-        \draw[thick] (-4,0.1) -- (-4,-0.1) node[below] {$-4$};
-        \draw[thick] (-2,0.1) -- (-2,-0.1) node[below] {$-2$};
-        \draw[thick] (0,0.1) -- (0,-0.1) node[below] {$0$};
-        \draw[thick] (2,0.1) -- (2,-0.1) node[below] {$2$};
-        \draw[thick] (2.83,0.1) -- (2.83,-0.1) node[below] {$2\sqrt{2}$};
-        \draw[thick] (4,0.1) -- (4,-0.1) node[below] {$4$};
+        \draw[very thick, shorten >=2pt, shorten <=2pt] (-4,0.1) -- (-4,-0.1) node[below, above, yshift=6pt, pos=0.5, font=\small] {$-4$};
+        \draw[very thick, shorten >=2pt, shorten <=2pt] (-2,0.1) -- (-2,-0.1) node[below, above, yshift=6pt, pos=0.5, font=\small] {$-2$};
+        \draw[very thick, shorten >=2pt, shorten <=2pt] (0,0.1) -- (0,-0.1) node[below, above, yshift=6pt, pos=0.5, font=\small] {$0$};
+        \draw[very thick, shorten >=2pt, shorten <=2pt] (2,0.1) -- (2,-0.1) node[below, above, yshift=6pt, pos=0.5, font=\small] {$2$};
+        \draw[very thick, shorten >=2pt, shorten <=2pt] (2.83,0.1) -- (2.83,-0.1) node[below, above, yshift=6pt, pos=0.5, font=\small] {$2\sqrt{2}$};
+        \draw[very thick, shorten >=2pt, shorten <=2pt] (4,0.1) -- (4,-0.1) node[below, above, yshift=6pt, pos=0.5, font=\small] {$4$};
         
         % Regions
         \fill[green!30, opacity=0.5] (-2,0.3) rectangle (2,0.8);
         \node[green!50!black] at (0,0.55) {\small Classical};
         
         \fill[blue!30, opacity=0.5] (2,0.3) rectangle (2.83,0.8);
-        \node[blue] at (2.4,0.55) {\tiny Q};
+        \node[blue] at (2.4,0.55) {\scriptsize Q};
         
         \fill[red!30, opacity=0.5] (2.83,0.3) rectangle (4,0.8);
         \node[red!70!black] at (3.4,0.55) {\small Supra-Q};
         
         % Bounds
-        \draw[thick, green!50!black, dashed] (2,0) -- (2,1);
-        \draw[thick, blue, dashed] (2.83,0) -- (2.83,1);
-        \draw[thick, red, dashed] (4,0) -- (4,1);
+        \draw[very thick, green!50!black, dashed, shorten >=2pt, shorten <=2pt] (2,0) -- (2,1);
+        \draw[very thick, blue, dashed, shorten >=2pt, shorten <=2pt] (2.83,0) -- (2.83,1);
+        \draw[very thick, red, dashed, shorten >=2pt, shorten <=2pt] (4,0) -- (4,1);
     \end{scope}
     
     % CHSH formula
@@ -531,6 +633,34 @@ The $\mu$-ledger is the computational analog of the thermodynamic entropy: a mon
 \caption{The Bell-CHSH experiment. Alice and Bob share an entangled state from a source. The CHSH value $S$ is bounded by 2 for classical (local hidden variable) theories, $2\sqrt{2}$ for quantum mechanics, and 4 algebraically. The Thiele Machine derives $2\sqrt{2}$ from $\mu$-accounting.}
 \label{fig:chsh_bounds}
 \end{figure}
+
+\paragraph{Understanding Figure \ref{fig:chsh_bounds}:}
+
+\textbf{Top: Experimental setup}
+\begin{itemize}
+    \item \textbf{Alice (blue box, left):} Receives input $x \in \{0,1\}$, produces output $a \in \{0,1\}$.
+    \item \textbf{Bob (green box, right):} Receives input $y \in \{0,1\}$, produces output $b \in \{0,1\}$.
+    \item \textbf{Source (red box, center):} Produces entangled state, sends to Alice and Bob (wavy red lines). Spatially separated (no communication during measurement).
+\end{itemize}
+
+\textbf{Bottom: CHSH value scale}
+\begin{itemize}
+    \item \textbf{Horizontal axis:} CHSH value $S$ ranging from $-4$ to $4$.
+    
+    \item \textbf{Classical region (green, $|S| \le 2$):} Local hidden variable theories cannot exceed $S=2$. This is Bell's theorem: any classical (realistic, local) model is bounded by 2.
+    
+    \item \textbf{Quantum region (blue, $2 < |S| \le 2\sqrt{2}$):} Quantum mechanics allows $S$ up to $2\sqrt{2} \approx 2.828$ (Tsirelson's bound, 1980). Quantum entanglement enables correlations exceeding classical limits.
+    
+    \item \textbf{Supra-quantum region (red, $2\sqrt{2} < |S| \le 4$):} Algebraically possible but not realized by quantum mechanics. Why does nature stop at $2\sqrt{2}$? This is the mystery the thesis addresses.
+    
+    \item \textbf{Vertical dashed lines:} Mark boundaries at $S=2$ (classical), $S=2\sqrt{2}$ (Tsirelson), $S=4$ (algebraic).
+\end{itemize}
+
+\textbf{Formula (bottom):} $S = E(0,0) + E(0,1) + E(1,0) - E(1,1)$ where $E(x,y) = \mathbb{E}[(-1)^{a \oplus b} \mid x,y]$ is the correlation for input pair $(x,y)$.
+
+\textbf{Key insight:} Quantum mechanics permits correlations up to $2\sqrt{2}$ but no higher. The Thiele Machine \textit{derives} this bound from $\mu$-accounting: achieving $S > 2$ requires $\mu > 0$ (structural cost), but the $\mu=0$ class naturally caps at $2\sqrt{2}$. This provides an information-theoretic explanation for Tsirelson's bound.
+
+\textbf{Role in thesis:} Central experimental prediction. The CHSH game is used throughout to validate the Thiele Machine's correlation accounting. Experimental results (Chapter 11) show 85.3\% win rate, matching $2\sqrt{2}$ within error.
 
 In 1964, John Bell proved that no "local hidden variable" theory can reproduce all predictions of quantum mechanics \cite{bell1964einstein}. The key insight is the CHSH inequality:
 
@@ -576,30 +706,30 @@ In other words, you cannot certify non-local correlations without explicitly pay
 % TikZ Figure: Coq Verification Workflow
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=0.85]
+\begin{tikzpicture}[[scale=0.65], node distance=2.5cm]
     % Coq workflow boxes
-    \node[draw, thick, rounded corners, fill=blue!10, minimum width=2.5cm, minimum height=1cm] (spec) at (0,0) {
+    \node[draw, very thick, rounded corners, fill=blue!10, minimum width=4.6cm, minimum height=1.8cm, align=center, text width=3.5cm] (spec) at (0,0) {
         \begin{tabular}{c}
         \textbf{Specification}\\
         \small Definitions
         \end{tabular}
     };
     
-    \node[draw, thick, rounded corners, fill=green!10, minimum width=2.5cm, minimum height=1cm] (theorem) at (4,0) {
+    \node[draw, very thick, rounded corners, fill=green!10, minimum width=4.6cm, minimum height=1.8cm, align=center, text width=3.5cm] (theorem) at (4,0) {
         \begin{tabular}{c}
         \textbf{Theorem}\\
         \small Statement
         \end{tabular}
     };
     
-    \node[draw, thick, rounded corners, fill=orange!10, minimum width=2.5cm, minimum height=1cm] (proof) at (8,0) {
+    \node[draw, very thick, rounded corners, fill=orange!10, minimum width=4.6cm, minimum height=1.8cm, align=center, text width=3.5cm] (proof) at (8,0) {
         \begin{tabular}{c}
         \textbf{Proof}\\
         \small Tactics
         \end{tabular}
     };
     
-    \node[draw, thick, rounded corners, fill=red!10, minimum width=2.5cm, minimum height=1cm] (qed) at (12,0) {
+    \node[draw, very thick, rounded corners, fill=red!10, minimum width=4.6cm, minimum height=1.8cm, align=center, text width=3.5cm] (qed) at (12,0) {
         \begin{tabular}{c}
         \textbf{Qed}\\
         \small Verified!
@@ -607,23 +737,23 @@ In other words, you cannot certify non-local correlations without explicitly pay
     };
     
     % Arrows
-    \draw[thick, ->, >=stealth] (spec) -- (theorem);
-    \draw[thick, ->, >=stealth] (theorem) -- (proof);
-    \draw[thick, ->, >=stealth] (proof) -- (qed);
+    \draw[very thick, ->, >=stealth, shorten >=2pt, shorten <=2pt] (spec) -- (theorem);
+    \draw[very thick, ->, >=stealth, shorten >=2pt, shorten <=2pt] (theorem) -- (proof);
+    \draw[very thick, ->, >=stealth, shorten >=2pt, shorten <=2pt] (proof) -- (qed);
     
     % Curry-Howard
-    \node[draw, dashed, thick, purple, rounded corners] at (6,-2) {
+    \node[draw, dashed, very thick, purple, rounded corners, align=center, text width=3.5cm] at (6,-2) {
         \begin{tabular}{c}
         \textbf{Curry-Howard Correspondence}\\
         Propositions $\equiv$ Types\\
         Proofs $\equiv$ Programs
         \end{tabular}
     };
-    \draw[thick, purple, ->, >=stealth, dashed] (6,-0.8) -- (6,-1.3);
+    \draw[very thick, purple, ->, >=stealth, dashed, shorten >=2pt, shorten <=2pt] (6,-0.8) -- (6,-1.3);
     
     % Inquisitor Standard
     \begin{scope}[yshift=-4cm]
-        \node[draw, thick, fill=red!20, rounded corners, minimum width=10cm] at (6,0) {
+        \node[draw, very thick, fill=red!20, rounded corners, minimum width=18.0cm, align=center, text width=3.5cm] at (6,0) {
             \begin{tabular}{c}
             \textbf{Inquisitor Standard} (enforced automatically)\\
             \texttimes\ No \texttt{Admitted} \quad \texttimes\ No \texttt{admit} \quad \texttimes\ No \texttt{Axiom}
@@ -634,6 +764,38 @@ In other words, you cannot certify non-local correlations without explicitly pay
 \caption{The Coq verification workflow. Specifications lead to theorem statements, which are proven using tactics. The Curry-Howard correspondence ensures proofs are programs. The Thiele Machine enforces the Inquisitor Standard: no admitted lemmas, no axioms.}
 \label{fig:coq_workflow}
 \end{figure}
+
+\paragraph{Understanding Figure \ref{fig:coq_workflow}:}
+
+\textbf{Top: Coq workflow (4 stages):}
+\begin{itemize}
+    \item \textbf{Specification (blue):} Define data structures, functions, predicates. Example: \texttt{Inductive State}, \texttt{Fixpoint mu\_step}.
+    
+    \item \textbf{Theorem (green):} State the claim to prove. Example: \texttt{Theorem mu\_monotonic : forall s s', step s s' -> mu s <= mu s'}.
+    
+    \item \textbf{Proof (orange):} Construct proof using tactics. Example: \texttt{intros. induction s. simpl. omega.} Coq checks that tactics produce a valid proof term.
+    
+    \item \textbf{Qed (red):} Proof complete! Coq has verified the theorem. This is machine-checked---no possibility of hidden gaps.
+\end{itemize}
+
+\textbf{Middle: Curry-Howard Correspondence (purple dashed box):}
+\begin{itemize}
+    \item \textbf{Propositions $\equiv$ Types:} A theorem is a type. Example: \texttt{forall x, P x} is the type of functions from $x$ to proofs of $P(x)$.
+    \item \textbf{Proofs $\equiv$ Programs:} A proof is a program inhabiting that type. Coq's type checker verifies correctness.
+    \item This is the foundation of Coq: logic and computation are unified.
+\end{itemize}
+
+\textbf{Bottom: Inquisitor Standard (red box):}
+\begin{itemize}
+    \item \texttimes\ No \texttt{Admitted}: Every lemma must be fully proven. No "TODO" proofs.
+    \item \texttimes\ No \texttt{admit}: No tactical shortcuts inside proofs.
+    \item \texttimes\ No \texttt{Axiom}: No unproven assumptions (except foundational logic axioms from Coq's standard library).
+    \item This standard is \textbf{enforced automatically} by CI pipeline scanning all .v files.
+\end{itemize}
+
+\textbf{Key insight:} Coq ensures \textit{absolute certainty}. If a theorem is Qed'd under the Inquisitor Standard, it is \textit{provably true}---no informal gaps, no hidden assumptions.
+
+\textbf{Role in thesis:} Establishes the verification methodology. All 1400+ theorems in the thesis are Coq-verified under this standard. This is not a typical "informal proof" thesis---it's mechanically checked mathematics.
 
 Coq is an interactive theorem prover based on the Calculus of Inductive Constructions (CIC). It provides:
 \begin{itemize}
@@ -712,9 +874,9 @@ MDL has been used extensively in machine learning for model selection (Occam's r
 % TikZ Figure: Chapter 2 Summary - The Conceptual Foundation
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=0.75]
+\begin{tikzpicture}[[scale=0.75], node distance=2.5cm]
     % Central node
-    \node[draw, thick, rounded corners, fill=yellow!30, minimum width=3cm, minimum height=1.5cm] (thiele) at (0,0) {
+    \node[draw, very thick, rounded corners, fill=yellow!30, minimum width=5.4cm, minimum height=2.6cm, align=center, text width=3.5cm] (thiele) at (0,0) {
         \begin{tabular}{c}
         \textbf{Thiele Machine}\\
         \small $\mu$-accounting
@@ -722,7 +884,7 @@ MDL has been used extensively in machine learning for model selection (Occam's r
     };
     
     % Four corners representing the four pillars
-    \node[draw, thick, rounded corners, fill=blue!15, minimum width=2.5cm, minimum height=1.2cm] (comp) at (-5,3) {
+    \node[draw, very thick, rounded corners, fill=blue!15, minimum width=4.6cm, minimum height=2.2cm, align=center, text width=3.5cm] (comp) at (-5,3) {
         \begin{tabular}{c}
         \textbf{Computation}\\
         \small TM, RAM\\
@@ -730,7 +892,7 @@ MDL has been used extensively in machine learning for model selection (Occam's r
         \end{tabular}
     };
     
-    \node[draw, thick, rounded corners, fill=green!15, minimum width=2.5cm, minimum height=1.2cm] (info) at (5,3) {
+    \node[draw, very thick, rounded corners, fill=green!15, minimum width=4.6cm, minimum height=2.2cm, align=center, text width=3.5cm] (info) at (5,3) {
         \begin{tabular}{c}
         \textbf{Information}\\
         \small Shannon, K(x)\\
@@ -738,7 +900,7 @@ MDL has been used extensively in machine learning for model selection (Occam's r
         \end{tabular}
     };
     
-    \node[draw, thick, rounded corners, fill=red!15, minimum width=2.5cm, minimum height=1.2cm] (phys) at (-5,-3) {
+    \node[draw, very thick, rounded corners, fill=red!15, minimum width=4.6cm, minimum height=2.2cm, align=center, text width=3.5cm] (phys) at (-5,-3) {
         \begin{tabular}{c}
         \textbf{Physics}\\
         \small Landauer\\
@@ -746,7 +908,7 @@ MDL has been used extensively in machine learning for model selection (Occam's r
         \end{tabular}
     };
     
-    \node[draw, thick, rounded corners, fill=purple!15, minimum width=2.5cm, minimum height=1.2cm] (quantum) at (5,-3) {
+    \node[draw, very thick, rounded corners, fill=purple!15, minimum width=4.6cm, minimum height=2.2cm, align=center, text width=3.5cm] (quantum) at (5,-3) {
         \begin{tabular}{c}
         \textbf{Quantum}\\
         \small Bell, CHSH\\
@@ -755,23 +917,52 @@ MDL has been used extensively in machine learning for model selection (Occam's r
     };
     
     % Arrows to center
-    \draw[thick, ->, >=stealth] (comp) -- (thiele) node[midway, above, sloped] {\small structure-aware};
-    \draw[thick, ->, >=stealth] (info) -- (thiele) node[midway, above, sloped] {\small $\mu$-cost basis};
-    \draw[thick, ->, >=stealth] (phys) -- (thiele) node[midway, below, sloped] {\small cost justification};
-    \draw[thick, ->, >=stealth] (quantum) -- (thiele) node[midway, below, sloped] {\small $2\sqrt{2}$ derivation};
+    \draw[very thick, ->, >=stealth, shorten >=2pt, shorten <=2pt] (comp) -- (thiele) node[midway, above, sloped] {\small structure-aware};
+    \draw[very thick, ->, >=stealth, shorten >=2pt, shorten <=2pt] (info) -- (thiele) node[midway, above, sloped] {\small $\mu$-cost basis};
+    \draw[very thick, ->, >=stealth, shorten >=2pt, shorten <=2pt] (phys) -- (thiele) node[midway, below, sloped] {\small cost justification};
+    \draw[very thick, ->, >=stealth, shorten >=2pt, shorten <=2pt] (quantum) -- (thiele) node[midway, below, sloped] {\small $2\sqrt{2}$ derivation};
     
     % Verification layer
-    \node[draw, thick, rounded corners, fill=orange!20, minimum width=8cm] (verify) at (0,-5.5) {
+    \node[draw, very thick, rounded corners, fill=orange!20, minimum width=14.4cm, align=center, text width=3.5cm] (verify) at (0,-5.5) {
         \begin{tabular}{c}
         \textbf{Formal Verification} (Coq)\\
         \small 206 proofs $\cdot$ Inquisitor Standard $\cdot$ Zero axioms/admits
         \end{tabular}
     };
-    \draw[thick, ->, >=stealth] (thiele) -- (verify);
+    \draw[very thick, ->, >=stealth, shorten >=2pt, shorten <=2pt] (thiele) -- (verify);
 \end{tikzpicture}
 \caption{The conceptual foundation of the Thiele Machine. Four pillars (computation theory, information theory, physics, quantum mechanics) converge to motivate the $\mu$-accounting framework, which is then rigorously verified using Coq.}
 \label{fig:chapter2_summary}
 \end{figure}
+
+\paragraph{Understanding Figure \ref{fig:chapter2_summary}:}
+
+\textbf{What does this diagram show?} The four foundational pillars supporting the Thiele Machine, converging to the central $\mu$-accounting framework.
+
+\textbf{Center (yellow):} Thiele Machine with $\mu$-accounting. This is the thesis's contribution.
+
+\textbf{Four corners (four pillars):}
+\begin{itemize}
+    \item \textbf{Computation (blue, top-left):} TM, RAM, Blindness. Classical computers cannot see structure. Arrow labeled "structure-aware"---the Thiele Machine adds explicit structure perception.
+    
+    \item \textbf{Information (green, top-right):} Shannon, K(x), MDL. Quantifies information and structure. Arrow labeled "$\mu$-cost basis"---MDL provides the mathematical foundation for $\mu$.
+    
+    \item \textbf{Physics (red, bottom-left):} Landauer, Thermodynamics. Information has physical cost. Arrow labeled "cost justification"---Landauer's principle justifies why $\mu$ must be monotonic (Second Law analog).
+    
+    \item \textbf{Quantum (purple, bottom-right):} Bell, CHSH, Tsirelson. Quantum correlations bounded by $2\sqrt{2}$. Arrow labeled "$2\sqrt{2}$ derivation"---the Thiele Machine derives this bound from $\mu$-accounting.
+\end{itemize}
+
+\textbf{Bottom (orange):} Formal Verification (Coq). Arrow from center down: the Thiele Machine is not just a conceptual idea---it's fully formalized with 206 proofs under the Inquisitor Standard (zero axioms/admits).
+
+\textbf{Key insight:} The Thiele Machine is not built on a single idea---it synthesizes insights from four major areas of computer science, physics, and mathematics. Each pillar provides essential motivation:
+\begin{itemize}
+    \item Computation: the problem (blindness)
+    \item Information: the solution (MDL-based cost)
+    \item Physics: the justification (thermodynamic grounding)
+    \item Quantum: the validation (Tsirelson bound emerges)
+\end{itemize}
+
+\textbf{Role in thesis:} Chapter 2 summary. Shows that the Thiele Machine is a deeply interdisciplinary synthesis, not just an incremental improvement to one area.
 
 This chapter has established the conceptual foundation for the Thiele Machine by surveying four interconnected areas:
 
