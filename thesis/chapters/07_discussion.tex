@@ -1,5 +1,39 @@
 \section{Why This Chapter Matters}
 
+% Figure 1: Chapter 7 Roadmap
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    node distance=1.5cm and 2cm,
+    box/.style={rectangle, draw, rounded corners, minimum width=2.5cm, minimum height=1cm, align=center, fill=blue!10},
+    topic/.style={rectangle, draw, rounded corners, minimum width=2cm, minimum height=0.8cm, align=center, fill=green!10},
+    arrow/.style={->, thick, >=stealth}
+]
+% Central question
+\node[box, fill=red!20, minimum width=4cm] (meaning) {From Proofs\\to Meaning};
+
+% Four topic areas
+\node[topic, above left=1cm and 2cm of meaning] (physics) {Physics\\Connections\\(§7.2--7.3)};
+\node[topic, above right=1cm and 2cm of meaning] (complexity) {Complexity\\Theory\\(§7.4)};
+\node[topic, below left=1cm and 2cm of meaning] (ai) {AI \& Trust\\(§7.5--7.6)};
+\node[topic, below right=1cm and 2cm of meaning] (future) {Limitations\\Future Work\\(§7.7--7.8)};
+
+% Arrows
+\draw[arrow] (meaning) -- (physics);
+\draw[arrow] (meaning) -- (complexity);
+\draw[arrow] (meaning) -- (ai);
+\draw[arrow] (meaning) -- (future);
+
+% Key concepts
+\node[right=0.3cm of physics, font=\scriptsize] {Landauer, Noether, Bell};
+\node[right=0.3cm of complexity, font=\scriptsize] {Time Tax, $\text{P}_\mu$, $\text{NP}_\mu$};
+\node[left=0.3cm of ai, font=\scriptsize] {Hallucinations, Receipts};
+\node[left=0.3cm of future, font=\scriptsize] {Quantum, Distributed};
+\end{tikzpicture}
+\caption{Chapter 7 roadmap: from verified results to broader implications.}
+\label{fig:ch7_roadmap}
+\end{figure}
+
 \subsection{From Proofs to Meaning}
 
 The previous chapters established that the Thiele Machine \textit{works}---it is formally verified (Chapter 5), implemented across three layers (Chapter 4), and empirically validated (Chapter 6). But technical correctness does not answer deeper questions:
@@ -29,7 +63,74 @@ The Thiele Machine is more than a new computational model; it is a proposal for 
 
 \section{Connections to Physics}
 
+% Figure 2: Physics-Computation Isomorphism
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    node distance=1cm and 3cm,
+    phys/.style={rectangle, draw, rounded corners, minimum width=2.5cm, minimum height=0.8cm, align=center, fill=blue!20},
+    comp/.style={rectangle, draw, rounded corners, minimum width=2.5cm, minimum height=0.8cm, align=center, fill=green!20},
+    arrow/.style={<->, thick, >=stealth, dashed}
+]
+% Physics column
+\node[phys] (energy) {Energy};
+\node[phys, below=0.5cm of energy] (mass) {Mass};
+\node[phys, below=0.5cm of mass] (entropy) {Entropy};
+\node[phys, below=0.5cm of entropy] (conserv) {Conservation};
+\node[phys, below=0.5cm of conserv] (nosig) {No-Signaling};
+\node[phys, below=0.5cm of nosig] (gauge) {Gauge Symmetry};
+
+% Computation column
+\node[comp, right=3cm of energy] (mu) {$\mu$-bits};
+\node[comp, right=3cm of mass] (struct) {Structural Complexity};
+\node[comp, right=3cm of entropy] (irrev) {Irreversible Ops};
+\node[comp, right=3cm of conserv] (mono) {Ledger Monotonicity};
+\node[comp, right=3cm of nosig] (local) {Observational Locality};
+\node[comp, right=3cm of gauge] (mugauge) {$\mu$-Gauge Invariance};
+
+% Arrows
+\draw[arrow] (energy) -- (mu);
+\draw[arrow] (mass) -- (struct);
+\draw[arrow] (entropy) -- (irrev);
+\draw[arrow] (conserv) -- (mono);
+\draw[arrow] (nosig) -- (local);
+\draw[arrow] (gauge) -- (mugauge);
+
+% Labels
+\node[above=0.3cm of energy, font=\bfseries] {Physics};
+\node[above=0.3cm of mu, font=\bfseries] {Thiele Machine};
+\node[right=0.5cm of mugauge, font=\scriptsize, text width=3cm] {Not metaphor:\\formal isomorphism};
+\end{tikzpicture}
+\caption{Physics-computation isomorphism: formal correspondences, not analogies.}
+\label{fig:physics_isomorphism}
+\end{figure}
+
 \subsection{Landauer's Principle}
+
+% Figure 3: Landauer's Principle Bridge
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    node distance=1cm and 2cm,
+    layer/.style={rectangle, draw, rounded corners, minimum width=3cm, minimum height=1cm, align=center},
+    arrow/.style={->, thick, >=stealth}
+]
+% Three layers
+\node[layer, fill=blue!20] (abstract) {Abstract\\$\mu$-ledger charges $n$ bits};
+\node[layer, fill=yellow!20, below=1cm of abstract] (bridge) {Bridge Postulate\\$Q_{\min} = k_B T \ln 2 \cdot \mu$};
+\node[layer, fill=green!20, below=1cm of bridge] (physical) {Physical\\$Q \ge k_B T \ln 2 \cdot n$};
+
+% Arrows
+\draw[arrow] (abstract) -- node[right, font=\scriptsize] {Proven in Coq} (bridge);
+\draw[arrow] (bridge) -- node[right, font=\scriptsize] {Empirical claim} (physical);
+
+% Annotations
+\node[right=1.5cm of abstract, font=\scriptsize, text width=3cm] {Kernel theorem:\\$\mu \ge \log_2(|\Omega|/|\Omega'|)$};
+\node[right=1.5cm of physical, font=\scriptsize, text width=3cm] {Falsifiable prediction:\\energy scales with $\mu$};
+\end{tikzpicture}
+\caption{Landauer bridge: from abstract $\mu$-accounting to physical heat dissipation.}
+\label{fig:landauer_bridge}
+\end{figure}
 
 Landauer's principle states that erasing one bit of information requires at least $kT \ln 2$ of energy dissipation, where $k$ is Boltzmann's constant and $T$ is temperature. This establishes a fundamental connection between logical irreversibility and thermodynamics: many-to-one mappings (like erasure) cannot be implemented without heat dissipation in a physical device.
 
@@ -102,6 +203,33 @@ That trade-off is implemented as an explicit ledger budget in the harness descri
 
 \section{Implications for Computational Complexity}
 
+% Figure 4: Time Tax and Difficulty Conservation
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    node distance=1cm and 2cm,
+    box/.style={rectangle, draw, rounded corners, minimum width=3cm, minimum height=1.5cm, align=center},
+    arrow/.style={<->, thick, >=stealth}
+]
+% Two strategies
+\node[box, fill=red!20] (blind) {Blind Search\\$T = O(2^n)$\\$\mu = O(1)$};
+\node[box, fill=green!20, right=3cm of blind] (sighted) {Sighted Execution\\$T = O(n^k)$\\$\mu = O(2^n)$};
+
+% Central conservation
+\node[above=1cm of $(blind)!0.5!(sighted)$, font=\bfseries] {Difficulty Conservation};
+\draw[arrow] (blind) -- node[above, font=\scriptsize] {Trade-off} (sighted);
+
+% Equation
+\node[below=1cm of $(blind)!0.5!(sighted)$, draw, rounded corners, fill=yellow!20, minimum width=5cm] {$\text{Total Cost} = T(x) + \mu(x)$};
+
+% Annotations
+\node[below=0.2cm of blind, font=\scriptsize, red] {High time, low structure};
+\node[below=0.2cm of sighted, font=\scriptsize, green!50!black] {Low time, high structure};
+\end{tikzpicture}
+\caption{Conservation of difficulty: time and structure are interchangeable resources.}
+\label{fig:difficulty_conservation}
+\end{figure}
+
 \subsection{The "Time Tax" Reformulated}
 
 Classical complexity theory measures cost in steps. The Thiele Machine adds a second dimension: structural cost. For a problem with input $x$:
@@ -141,6 +269,37 @@ The relationship $\text{P} \subseteq \text{P}_\mu \subseteq \text{NP}_\mu$ is st
 
 \section{Implications for Artificial Intelligence}
 
+% Figure 5: AI Hallucination Prevention
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    node distance=1cm and 1.5cm,
+    box/.style={rectangle, draw, rounded corners, minimum width=2.5cm, minimum height=1cm, align=center},
+    arrow/.style={->, thick, >=stealth}
+]
+% LLM path (top)
+\node[box, fill=red!20] (llm) {LLM\\Generates};
+\node[box, right=2cm of llm, fill=red!10] (output1) {Output\\(unverified)};
+\draw[arrow] (llm) -- node[above, font=\scriptsize] {hallucination\\risk} (output1);
+
+% Thiele path (bottom)
+\node[box, fill=blue!20, below=1.5cm of llm] (predict) {Model\\Predicts};
+\node[box, fill=yellow!20, right=1.5cm of predict] (certify) {VM\\Certifies};
+\node[box, fill=green!20, right=1.5cm of certify] (output2) {Output\\(verified)};
+\node[box, fill=red!10, below=0.8cm of certify] (penalty) {$\mu$-cost\\Penalty};
+
+\draw[arrow] (predict) -- node[above, font=\scriptsize] {hypothesis} (certify);
+\draw[arrow] (certify) -- node[above, font=\scriptsize] {receipt} (output2);
+\draw[arrow] (certify) -- node[right, font=\scriptsize] {if false} (penalty);
+
+% Labels
+\node[left=0.3cm of llm, font=\bfseries\scriptsize] {Classic AI:};
+\node[left=0.3cm of predict, font=\bfseries\scriptsize] {Thiele AI:};
+\end{tikzpicture}
+\caption{AI hallucination prevention: false hypotheses incur $\mu$-cost without receipts.}
+\label{fig:ai_hallucination}
+\end{figure}
+
 \subsection{The Hallucination Problem}
 
 Large Language Models (LLMs) generate plausible but often factually incorrect outputs—"hallucinations." In the LLM paradigm:
@@ -170,6 +329,45 @@ The Thiele Machine provides a bridge between:
 A neural network predicts partitions (structure hypotheses). The Thiele kernel verifies them. Failed hypotheses are penalized. The model does not assume the neural component is trustworthy; it treats it as a proposer whose claims must be certified.
 
 \section{Implications for Trust and Verification}
+
+% Figure 6: Receipt Chain Architecture
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    node distance=0.5cm and 1cm,
+    receipt/.style={rectangle, draw, rounded corners, minimum width=2cm, minimum height=1.5cm, align=center, fill=blue!10},
+    arrow/.style={->, thick, >=stealth}
+]
+% Receipt chain
+\node[receipt] (r1) {Receipt 1\\$H_0$};
+\node[receipt, right=1.5cm of r1] (r2) {Receipt 2\\$H_1$};
+\node[receipt, right=1.5cm of r2] (r3) {Receipt 3\\$H_2$};
+\node[right=0.5cm of r3] (dots) {$\cdots$};
+\node[receipt, right=0.5cm of dots] (rn) {Receipt $n$\\$H_{n-1}$};
+
+% Chain links
+\draw[arrow] (r1) -- (r2);
+\draw[arrow] (r2) -- (r3);
+\draw[arrow] (r3) -- (dots);
+\draw[arrow] (dots) -- (rn);
+
+% Receipt structure
+\node[below=1.5cm of $(r2)!0.5!(r3)$, draw, rounded corners, fill=yellow!20, minimum width=6cm, minimum height=2cm, align=left, font=\ttfamily\scriptsize] (struct) {
+receipt = \{\\
+\quad pre\_hash: SHA256(state)\\
+\quad instruction: opcode\\
+\quad post\_hash: SHA256(state')\\
+\quad mu\_cost: cost\\
+\quad chain\_link: SHA256(prev)\\
+\}
+};
+
+% Annotations
+\node[above=0.3cm of r2, font=\scriptsize] {Tamper-evident chain};
+\end{tikzpicture}
+\caption{Receipt chain: cryptographic audit trail for every computation.}
+\label{fig:receipt_chain}
+\end{figure}
 
 \subsection{The Receipt Chain}
 
@@ -244,6 +442,37 @@ Generating LRAT proofs or SAT models is delegated to external solvers. Future wo
 
 \section{Future Directions}
 
+% Figure 7: Future Directions Roadmap
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    node distance=1cm and 1.5cm,
+    current/.style={rectangle, draw, rounded corners, minimum width=3cm, minimum height=1cm, align=center, fill=green!20},
+    future/.style={rectangle, draw, rounded corners, minimum width=3cm, minimum height=1cm, align=center, fill=blue!10},
+    arrow/.style={->, thick, >=stealth, dashed}
+]
+% Current state
+\node[current] (now) {Current Thiele Machine\\206 proofs, 3 layers};
+
+% Future directions
+\node[future, above right=1cm and 2cm of now] (quantum) {Quantum\\Integration};
+\node[future, right=2cm of now] (distributed) {Distributed\\Execution};
+\node[future, below right=1cm and 2cm of now] (language) {Programming\\Language};
+
+% Arrows
+\draw[arrow] (now) -- (quantum);
+\draw[arrow] (now) -- (distributed);
+\draw[arrow] (now) -- (language);
+
+% Annotations
+\node[right=0.3cm of quantum, font=\scriptsize, text width=3cm] {Entanglement as partition structure};
+\node[right=0.3cm of distributed, font=\scriptsize, text width=3cm] {Modules → network nodes};
+\node[right=0.3cm of language, font=\scriptsize, text width=3cm] {First-class partitions, $\mu$-tracking};
+\end{tikzpicture}
+\caption{Future research directions building on verified foundations.}
+\label{fig:future_directions}
+\end{figure}
+
 \subsection{Quantum Integration}
 
 The Thiele Machine currently models quantum-like correlations through partition structure. True quantum integration would require:
@@ -272,6 +501,37 @@ A high-level language for the Thiele Machine would include:
 \end{itemize}
 
 \section{Summary}
+
+% Figure 8: Chapter 7 Summary
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    node distance=1cm and 1.5cm,
+    box/.style={rectangle, draw, rounded corners, minimum width=2.5cm, minimum height=1cm, align=center, fill=blue!10},
+    result/.style={rectangle, draw, rounded corners, minimum width=3.5cm, minimum height=1.2cm, align=center, fill=green!20},
+    arrow/.style={->, thick, >=stealth}
+]
+% Four areas
+\node[box] (physics) {Physics\\Connections};
+\node[box, right=1cm of physics] (complexity) {Complexity\\Theory};
+\node[box, right=1cm of complexity] (ai) {AI \&\\Trust};
+\node[box, right=1cm of ai] (future) {Future\\Work};
+
+% Central result
+\node[result, below=1.5cm of $(complexity)!0.5!(ai)$] (result) {Structure as\\Conserved Resource};
+
+% Arrows
+\draw[arrow] (physics) -- (result);
+\draw[arrow] (complexity) -- (result);
+\draw[arrow] (ai) -- (result);
+\draw[arrow] (future) -- (result);
+
+% Key insight
+\node[below=0.5cm of result, draw, rounded corners, fill=yellow!20, minimum width=8cm, font=\small] {$\mu$-accounting unifies computation, physics, and verification};
+\end{tikzpicture}
+\caption{Chapter 7 summary: structure as the unifying concept.}
+\label{fig:ch7_summary}
+\end{figure}
 
 The Thiele Machine offers:
 \begin{enumerate}
