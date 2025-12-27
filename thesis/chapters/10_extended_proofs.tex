@@ -7,23 +7,23 @@
 \centering
 \begin{tikzpicture}[scale=1.8, 
     node distance=3cm,
-    domainstyle/.style={rectangle, draw, rounded corners, minimum width=5.0cm, minimum height=1.4cm, align=center, fill=blue!10},
-    core/.style={rectangle, draw, rounded corners, minimum width=6.2cm, minimum height=1.8cm, align=center, fill=yellow!20},
+    domainstyle/.style={rectangle, draw, rounded corners, minimum width=5.0cm, minimum height=2.0cm, align=center, fill=blue!10},
+    core/.style={rectangle, draw, rounded corners, minimum width=6.2cm, minimum height=2.1cm, align=center, fill=yellow!20},
     arrow/.style={->, >=Stealth, thick}
 ]
     % Core
-    \node[core, align=center, text width=3.5cm] (kernel) at (0, 0) {\textbf{Kernel Semantics}\\VMState, VMStep, $\mu$};
+    \node[core, align=center, text width=4.5cm] (kernel) at (0, 0) {\textbf{Kernel Semantics}\\VMState, VMStep, $\mu$};
     
     % Domains
-    \node[domainstyle, align=center, text width=3.5cm] (partition) at (-4, 2) {Partition\\Logic};
-    \node[domainstyle, align=center, text width=3.5cm] (quantum) at (-1.5, 2.5) {Quantum\\Bounds};
-    \node[domainstyle, align=center, text width=3.5cm] (toe) at (1.5, 2.5) {TOE\\Limits};
-    \node[domainstyle, align=center, text width=3.5cm] (physics) at (4, 2) {Physics\\Models};
+    \node[domainstyle, align=center, text width=4.5cm] (partition) at (-4, 2) {Partition\\Logic};
+    \node[domainstyle, align=center, text width=4.5cm] (quantum) at (-1.5, 2.5) {Quantum\\Bounds};
+    \node[domainstyle, align=center, text width=4.5cm] (toe) at (1.5, 2.5) {TOE\\Limits};
+    \node[domainstyle, align=center, text width=4.5cm] (physics) at (4, 2) {Physics\\Models};
     
-    \node[domainstyle, align=center, text width=3.5cm] (bridge) at (-4, -2) {Bridge\\Lemmas};
-    \node[domainstyle, align=center, text width=3.5cm] (nofi) at (-1.5, -2.5) {NoFI\\Interface};
-    \node[domainstyle, align=center, text width=3.5cm] (self) at (1.5, -2.5) {Self-\\Reference};
-    \node[domainstyle, align=center, text width=3.5cm] (modular) at (4, -2) {Modular\\Proofs};
+    \node[domainstyle, align=center, text width=4.5cm] (bridge) at (-4, -2) {Bridge\\Lemmas};
+    \node[domainstyle, align=center, text width=4.5cm] (nofi) at (-1.5, -2.5) {NoFI\\Interface};
+    \node[domainstyle, align=center, text width=4.5cm] (self) at (1.5, -2.5) {Self-\\Reference};
+    \node[domainstyle, align=center, text width=4.5cm] (modular) at (4, -2) {Modular\\Proofs};
     
     % Arrows
     \draw[arrow, shorten >=2pt, shorten <=2pt] (kernel) -- (partition);
@@ -416,10 +416,10 @@ Further results cover: blind vs sighted computation, confluence, simulation rela
     forces/.style={rectangle, draw, rounded corners, minimum width=4.9cm, minimum height=1.2cm, align=center, fill=green!15, font=\normalsize},
     nogo/.style={rectangle, draw, rounded corners, minimum width=4.9cm, minimum height=1.2cm, align=center, fill=red!15, font=\normalsize},
     arrow/.style={->, >=Stealth, thick},
-    scale=0.65, transform shape
+    scale=1.05
 ]
     % Kernel
-    \node[rectangle, draw, rounded corners, fill=yellow!20, minimum width=7.2cm, minimum height=1.8cm, align=center, text width=3.5cm] (kernel) at (0, 0) {\textbf{Kernel Semantics}\\Compositionality};
+    \node[rectangle, draw, rounded corners, fill=yellow!20, minimum width=7.2cm, minimum height=2.1cm, align=center, text width=4.5cm] (kernel) at (0, 0) {\textbf{Kernel Semantics}\\Compositionality};
     
     % What kernel forces
     \node[font=\normalsize\bfseries] at (-3.5, 2) {Kernel Forces};
@@ -1083,7 +1083,7 @@ No unique probability measure over traces is forced by the kernel semantics.
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[
-    scale=0.65
+    scale=1.05
 , node distance=2.5cm]
     % Scale
     \draw[very thick, shorten >=2pt, shorten <=2pt] (0, 0) -- (10, 0);
@@ -1601,18 +1601,18 @@ These predictions are falsifiable: if benchmarks show costs outside these bounds
 \centering
 \begin{tikzpicture}[scale=1.8, 
     node distance=2.5cm,
-    result/.style={rectangle, draw, rounded corners, minimum width=6.2cm, minimum height=1.4cm, align=center, fill=green!15},
-    central/.style={rectangle, draw, rounded corners, minimum width=7.2cm, minimum height=1.8cm, align=center, fill=yellow!20},
+    result/.style={rectangle, draw, rounded corners, minimum width=6.2cm, minimum height=2.0cm, align=center, fill=green!15},
+    central/.style={rectangle, draw, rounded corners, minimum width=7.2cm, minimum height=2.1cm, align=center, fill=yellow!20},
     arrow/.style={->, >=Stealth, thick}
 ]
     % Results
-    \node[result, align=center, text width=3.5cm] (corpus) at (-3, 1.5) {Zero-Admit\\Corpus};
+    \node[result, align=center, text width=4.5cm] (corpus) at (-3, 1.5) {Zero-Admit\\Corpus};
     \node[result] (quantum) at (3, 1.5) {CHSH $\le$ 5657/2000};
     \node[result] (toe) at (-3, -1.5) {TOE Limits};
     \node[result] (subsume) at (3, -1.5) {Thiele $\supset$ Turing};
     
     % Central
-    \node[central, align=center, text width=3.5cm] (central) at (0, 0) {\textbf{Machine-Verified}\\Computational Physics};
+    \node[central, align=center, text width=4.5cm] (central) at (0, 0) {\textbf{Machine-Verified}\\Computational Physics};
     
     % Arrows
     \draw[arrow, shorten >=2pt, shorten <=2pt] (corpus) -- (central);

@@ -5,18 +5,18 @@
 \centering
 \begin{tikzpicture}[scale=1.8, 
     node distance=2.5cm and 2cm,
-    box/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.8cm, align=center, fill=blue!10},
-    topic/.style={rectangle, draw, rounded corners, minimum width=3.6cm, minimum height=1.4cm, align=center, fill=green!10},
+    box/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.1cm, align=center, fill=blue!10},
+    topic/.style={rectangle, draw, rounded corners, minimum width=4.5cm, minimum height=2.0cm, align=center, fill=green!10},
     arrow/.style={->, very thick, >=stealth}
 ]
 % Central question
-\node[box, fill=red!20, minimum width=7.2cm, align=center, text width=3.5cm, font=\normalsize] (meaning) {From Proofs\\to Meaning};
+\node[box, fill=red!20, minimum width=7.2cm, align=center, text width=4.5cm, font=\normalsize] (meaning) {From Proofs\\to Meaning};
 
 % Four topic areas
-\node[topic, above left=2.0cm and 2cm of meaning, align=center, text width=3.5cm] (physics) {Physics\\Connections\\(§7.2--7.3)};
-\node[topic, above right=2.0cm and 2cm of meaning, align=center, text width=3.5cm] (complexity) {Complexity\\Theory\\(§7.4)};
-\node[topic, below left=2.0cm and 2cm of meaning, align=center, text width=3.5cm] (ai) {AI \& Trust\\(§7.5--7.6)};
-\node[topic, below right=2.0cm and 2cm of meaning, align=center, text width=3.5cm] (future) {Limitations\\Future Work\\(§7.7--7.8)};
+\node[topic, above left=2.0cm and 2cm of meaning, align=center, text width=4.5cm] (physics) {Physics\\Connections\\(§7.2--7.3)};
+\node[topic, above right=2.0cm and 2cm of meaning, align=center, text width=4.5cm] (complexity) {Complexity\\Theory\\(§7.4)};
+\node[topic, below left=2.0cm and 2cm of meaning, align=center, text width=4.5cm] (ai) {AI \& Trust\\(§7.5--7.6)};
+\node[topic, below right=2.0cm and 2cm of meaning, align=center, text width=4.5cm] (future) {Limitations\\Future Work\\(§7.7--7.8)};
 
 % Arrows
 \draw[arrow, shorten >=2pt, shorten <=2pt] (meaning) -- (physics);
@@ -122,8 +122,8 @@ The Thiele Machine is more than a new computational model; it is a proposal for 
 \centering
 \begin{tikzpicture}[scale=1.8, 
     node distance=3cm and 3cm,
-    phys/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.4cm, align=center, fill=blue!20},
-    comp/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.4cm, align=center, fill=green!20},
+    phys/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=blue!20},
+    comp/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=green!20},
     arrow/.style={<->, very thick, >=stealth, dashed}
 ]
 % Physics column
@@ -212,13 +212,13 @@ This \textbf{physics-computation isomorphism diagram} visualizes the formal corr
 \centering
 \begin{tikzpicture}[scale=1.8, 
     node distance=2cm and 2cm,
-    layer/.style={rectangle, draw, rounded corners, minimum width=5.4cm, minimum height=1.8cm, align=center},
+    layer/.style={rectangle, draw, rounded corners, minimum width=5.4cm, minimum height=2.1cm, align=center},
     arrow/.style={->, very thick, >=stealth}
 ]
 % Three layers
-\node[layer, fill=blue!20, align=center, text width=3.5cm] (abstract) {Abstract\\$\mu$-ledger charges $n$ bits};
-\node[layer, fill=yellow!20, below=2.0cm of abstract, align=center, text width=3.5cm] (bridge) {Bridge Postulate\\$Q_{\min} = k_B T \ln 2 \cdot \mu$};
-\node[layer, fill=green!20, below=2.0cm of bridge, align=center, text width=3.5cm] (physical) {Physical\\$Q \ge k_B T \ln 2 \cdot n$};
+\node[layer, fill=blue!20, align=center, text width=4.5cm] (abstract) {Abstract\\$\mu$-ledger charges $n$ bits};
+\node[layer, fill=yellow!20, below=2.0cm of abstract, align=center, text width=4.5cm] (bridge) {Bridge Postulate\\$Q_{\min} = k_B T \ln 2 \cdot \mu$};
+\node[layer, fill=green!20, below=2.0cm of bridge, align=center, text width=4.5cm] (physical) {Physical\\$Q \ge k_B T \ln 2 \cdot n$};
 
 % Arrows
 \draw[arrow] (abstract) -- node[right,  above, yshift=6pt, pos=0.5, font=\small] {Proven in Coq} (bridge);
@@ -435,8 +435,8 @@ That trade-off is implemented as an explicit ledger budget in the harness descri
     arrow/.style={<->, very thick, >=stealth}
 ]
 % Two strategies
-\node[box, fill=red!20, align=center, text width=3.5cm, font=\normalsize] (blind) {Blind Search\\$T = O(2^n)$\\$\mu = O(1)$};
-\node[box, fill=green!20, right=5.9cm of blind, align=center, text width=3.5cm, font=\normalsize] (sighted) {Sighted Search\\$T = O(k \cdot 2^{n/k})$\\$\mu = O(k)$};
+\node[box, fill=red!20, align=center, text width=4.5cm, font=\normalsize] (blind) {Blind Search\\$T = O(2^n)$\\$\mu = O(1)$};
+\node[box, fill=green!20, right=5.9cm of blind, align=center, text width=4.5cm, font=\normalsize] (sighted) {Sighted Search\\$T = O(k \cdot 2^{n/k})$\\$\mu = O(k)$};
 \draw[arrow] (blind) -- (sighted) node[midway, above, font=\small] {Trade-off};
 
 % Total cost annotation
@@ -535,18 +535,18 @@ The relationship $\text{P} \subseteq \text{P}_\mu \subseteq \text{NP}_\mu$ is st
 \centering
 \begin{tikzpicture}[scale=1.8, 
     node distance=2.5cm and 1.5cm,
-    box/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.8cm, align=center},
+    box/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.1cm, align=center},
     arrow/.style={->, very thick, >=stealth}
 ]
 % LLM path (top)
-\node[box, fill=red!20, align=center, text width=3.5cm, font=\normalsize] (llm) {LLM\\Generates};
-\node[box, right=3.9cm of llm, fill=red!10, align=center, text width=3.5cm, font=\normalsize] (output1) {Output\\(hallucination risk)};
+\node[box, fill=red!20, align=center, text width=4.5cm, font=\normalsize] (llm) {LLM\\Generates};
+\node[box, right=3.9cm of llm, fill=red!10, align=center, text width=4.5cm, font=\normalsize] (output1) {Output\\(hallucination risk)};
 
 % Thiele path (bottom)
-\node[box, fill=blue!20, below=2.9cm of llm, align=center, text width=3.5cm, font=\normalsize] (predict) {Model\\Predicts};
-\node[box, fill=yellow!20, right=2.9cm of predict, align=center, text width=3.5cm, font=\normalsize] (certify) {VM\\Certifies};
-\node[box, fill=green!20, right=2.9cm of certify, align=center, text width=3.5cm, font=\normalsize] (output2) {Output\\(verified)};
-\node[box, fill=red!10, below=1.6cm of certify, align=center, text width=3.5cm, font=\normalsize] (penalty) {$\mu$-penalty\\if false};
+\node[box, fill=blue!20, below=2.9cm of llm, align=center, text width=4.5cm, font=\normalsize] (predict) {Model\\Predicts};
+\node[box, fill=yellow!20, right=2.9cm of predict, align=center, text width=4.5cm, font=\normalsize] (certify) {VM\\Certifies};
+\node[box, fill=green!20, right=2.9cm of certify, align=center, text width=4.5cm, font=\normalsize] (output2) {Output\\(verified)};
+\node[box, fill=red!10, below=1.6cm of certify, align=center, text width=4.5cm, font=\normalsize] (penalty) {$\mu$-penalty\\if false};
 
 % Arrows
 \draw[arrow] (predict) -- node[above, font=\small] {hypothesis} (certify);
@@ -686,15 +686,15 @@ A neural network predicts partitions (structure hypotheses). The Thiele kernel v
 \centering
 \begin{tikzpicture}[scale=1.8, 
     node distance=2.5cm and 1cm,
-    receipt/.style={rectangle, draw, rounded corners, minimum width=3.6cm, minimum height=2.6cm, align=center, fill=blue!10},
+    receipt/.style={rectangle, draw, rounded corners, minimum width=4.5cm, minimum height=2.6cm, align=center, fill=blue!10},
     arrow/.style={->, very thick, >=stealth}
 ]
 % Receipt chain
-\node[receipt, align=center, text width=3.5cm] (r1) {Receipt 1\\$H_0$};
-\node[receipt, right=2.9cm of r1, align=center, text width=3.5cm] (r2) {Receipt 2\\$H_1$};
-\node[receipt, right=2.9cm of r2, align=center, text width=3.5cm] (r3) {Receipt 3\\$H_2$};
+\node[receipt, align=center, text width=4.5cm] (r1) {Receipt 1\\$H_0$};
+\node[receipt, right=2.9cm of r1, align=center, text width=4.5cm] (r2) {Receipt 2\\$H_1$};
+\node[receipt, right=2.9cm of r2, align=center, text width=4.5cm] (r3) {Receipt 3\\$H_2$};
 \node[right=1.0cm of r3] (dots) {$\cdots$};
-\node[receipt, right=1.0cm of dots, align=center, text width=3.5cm] (rn) {Receipt $n$\\$H_{n-1}$};
+\node[receipt, right=1.0cm of dots, align=center, text width=4.5cm] (rn) {Receipt $n$\\$H_{n-1}$};
 
 % Chain links
 \draw[arrow, shorten >=2pt, shorten <=2pt] (r1) -- (r2);
@@ -703,7 +703,7 @@ A neural network predicts partitions (structure hypotheses). The Thiele kernel v
 \draw[arrow, shorten >=2pt, shorten <=2pt] (dots) -- (rn);
 
 % Receipt structure
-\node[below=2.9cm of $(r2)!0.5!(r3)$, draw, rounded corners, fill=yellow!20, minimum width=10.8cm, minimum height=3.6cm, align=left, font=\ttfamily\scriptsize, align=center, text width=3.5cm] (struct) {
+\node[below=2.9cm of $(r2)!0.5!(r3)$, draw, rounded corners, fill=yellow!20, minimum width=10.8cm, minimum height=3.6cm, align=left, font=\ttfamily\scriptsize, align=center, text width=4.5cm] (struct) {
 receipt = \{\\
 \quad pre\_hash: SHA256(state)\\
 \quad instruction: opcode\\
@@ -972,17 +972,17 @@ Generating LRAT proofs or SAT models is delegated to external solvers. Future wo
 \centering
 \begin{tikzpicture}[scale=1.8, 
     node distance=2.5cm and 1.5cm,
-    current/.style={rectangle, draw, rounded corners, minimum width=5.4cm, minimum height=1.8cm, align=center, fill=green!20},
-    future/.style={rectangle, draw, rounded corners, minimum width=5.4cm, minimum height=1.8cm, align=center, fill=blue!10},
+    current/.style={rectangle, draw, rounded corners, minimum width=5.4cm, minimum height=2.1cm, align=center, fill=green!20},
+    future/.style={rectangle, draw, rounded corners, minimum width=5.4cm, minimum height=2.1cm, align=center, fill=blue!10},
     arrow/.style={->, very thick, >=stealth, dashed}
 ]
 % Current state
-\node[current, align=center, text width=3.5cm] (now) {Current Thiele Machine\\206 proofs, 3 layers};
+\node[current, align=center, text width=4.5cm] (now) {Current Thiele Machine\\206 proofs, 3 layers};
 
 % Future directions
-\node[future, above right=2.0cm and 2cm of now, align=center, text width=3.5cm] (quantum) {Quantum\\Integration};
-\node[future, right=3.9cm of now, align=center, text width=3.5cm] (distributed) {Distributed\\Execution};
-\node[future, below right=2.0cm and 2cm of now, align=center, text width=3.5cm] (language) {Programming\\Language};
+\node[future, above right=2.0cm and 2cm of now, align=center, text width=4.5cm] (quantum) {Quantum\\Integration};
+\node[future, right=3.9cm of now, align=center, text width=4.5cm] (distributed) {Distributed\\Execution};
+\node[future, below right=2.0cm and 2cm of now, align=center, text width=4.5cm] (language) {Programming\\Language};
 
 % Arrows
 \draw[arrow, shorten >=2pt, shorten <=2pt] (now) -- (quantum);
@@ -1069,18 +1069,18 @@ A high-level language for the Thiele Machine would include:
 \centering
 \begin{tikzpicture}[scale=1.8, 
     node distance=2.5cm and 1.5cm,
-    box/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.8cm, align=center, fill=blue!10},
+    box/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.1cm, align=center, fill=blue!10},
     result/.style={rectangle, draw, rounded corners, minimum width=6.2cm, minimum height=2.2cm, align=center, fill=green!20},
     arrow/.style={->, very thick, >=stealth}
 ]
 % Four areas
-\node[box, align=center, text width=3.5cm, font=\normalsize] (physics) {Physics\\Connections};
-\node[box, right=2.0cm of physics, align=center, text width=3.5cm, font=\normalsize] (complexity) {Complexity\\Theory};
-\node[box, right=2.0cm of complexity, align=center, text width=3.5cm, font=\normalsize] (ai) {AI \&\\Trust};
-\node[box, right=2.0cm of ai, align=center, text width=3.5cm, font=\normalsize] (future) {Future\\Work};
+\node[box, align=center, text width=4.5cm, font=\normalsize] (physics) {Physics\\Connections};
+\node[box, right=2.0cm of physics, align=center, text width=4.5cm, font=\normalsize] (complexity) {Complexity\\Theory};
+\node[box, right=2.0cm of complexity, align=center, text width=4.5cm, font=\normalsize] (ai) {AI \&\\Trust};
+\node[box, right=2.0cm of ai, align=center, text width=4.5cm, font=\normalsize] (future) {Future\\Work};
 
 % Central result
-\node[result, below=2.9cm of $(complexity)!0.5!(ai)$, align=center, text width=3.5cm] (result) {Structure as\\Conserved Resource};
+\node[result, below=2.9cm of $(complexity)!0.5!(ai)$, align=center, text width=4.5cm] (result) {Structure as\\Conserved Resource};
 
 % Arrows
 \draw[arrow, shorten >=2pt, shorten <=2pt] (physics) -- (result);

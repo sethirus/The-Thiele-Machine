@@ -20,23 +20,22 @@ I, Devon Thiele, present the \textit{Thiele Machine}---a new model of computatio
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[
-    scale=0.7,
-    transform shape,
+    scale=1.0,
     node distance=2.5cm,
-    box/.style={rectangle, draw, rounded corners, minimum width=4.0cm, minimum height=1.7cm, align=center, fill=blue!10},
+    box/.style={rectangle, draw, rounded corners, minimum width=5.0cm, minimum height=2.0cm, align=center, fill=blue!10},
     arrow/.style={->, very thick, >=stealth},
     every node/.style={font=\normalsize}
 ]
 % Left side: Classical (Blind)
-\node[box, fill=gray!20, align=center, text width=3.5cm, font=\normalsize] (turing) at (-5, 2.5) {Turing\\Machine};
-\node[box, fill=gray!20, align=center, text width=3.5cm, font=\normalsize] (ram) at (-5, 0) {RAM\\Model};
-\node[box, fill=gray!20, align=center, text width=3.5cm, font=\normalsize] (search) at (-5, -2.5) {Blind\\Search};
+\node[box, fill=gray!20, align=center, text width=4.5cm, font=\normalsize] (turing) at (-5, 2.5) {Turing\\Machine};
+\node[box, fill=gray!20, align=center, text width=4.5cm, font=\normalsize] (ram) at (-5, 0) {RAM\\Model};
+\node[box, fill=gray!20, align=center, text width=4.5cm, font=\normalsize] (search) at (-5, -2.5) {Blind\\Search};
 
 % Right side: Thiele (Sighted)
-\node[box, fill=green!20, align=center, text width=3.5cm, font=\normalsize] (thiele) at (5, 0) {Thiele\\Machine};
+\node[box, fill=green!20, align=center, text width=4.5cm, font=\normalsize] (thiele) at (5, 0) {Thiele\\Machine};
 
 % Center: The transformation
-\node[box, fill=yellow!30, minimum width=5.0cm, align=center, text width=3.5cm, font=\normalsize] (mu) at (0, 0) {$\mu$-bit\\Accounting};
+\node[box, fill=yellow!30, minimum width=5.0cm, align=center, text width=4.5cm, font=\normalsize] (mu) at (0, 0) {$\mu$-bit\\Accounting};
 
 % Arrows
 \draw[arrow, shorten >=2pt, shorten <=2pt] (turing) -- (mu) node[pos=0.5, above, yshift=8pt, font=\small] {structure cost};
@@ -194,8 +193,7 @@ The model answers this by explicitly charging $\mu$ for operations that add or r
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[
-    scale=0.65,
-    transform shape,
+    scale=1.05,
     node distance=2.5cm
 ]
 % Axes
@@ -297,31 +295,30 @@ Chapter 3 spells these components out with exact data structures and step rules.
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[
-    scale=0.65,
-    transform shape,
+    scale=1.05,
     node distance=2.5cm,
-    component/.style={rectangle, draw, rounded corners, minimum width=3.6cm, minimum height=1.7cm, align=center, very thick, font=\normalsize},
+    component/.style={rectangle, draw, rounded corners, minimum width=4.5cm, minimum height=2.0cm, align=center, very thick, font=\normalsize},
     arrow/.style={->, very thick, >=stealth},
     every node/.style={font=\normalsize}
 ]
 
 % State space S
-\node[component, fill=blue!15, align=center, text width=3.5cm, font=\normalsize] (S) at (-4, 2) {$S$\\State Space};
+\node[component, fill=blue!15, align=center, text width=4.5cm, font=\normalsize] (S) at (-4, 2) {$S$\\State Space};
 
 % Partition space Π  
-\node[component, fill=green!15, align=center, text width=3.5cm, font=\normalsize] (Pi) at (-4, 0) {$\Pi$\\Partitions};
+\node[component, fill=green!15, align=center, text width=4.5cm, font=\normalsize] (Pi) at (-4, 0) {$\Pi$\\Partitions};
 
 % Axiom set A
-\node[component, fill=yellow!15, align=center, text width=3.5cm, font=\normalsize] (A) at (0, 2) {$A$\\Axioms};
+\node[component, fill=yellow!15, align=center, text width=4.5cm, font=\normalsize] (A) at (0, 2) {$A$\\Axioms};
 
 % Transition rules R
-\node[component, fill=orange!15, align=center, text width=3.5cm, font=\normalsize] (R) at (4, 2) {$R$\\Transitions};
+\node[component, fill=orange!15, align=center, text width=4.5cm, font=\normalsize] (R) at (4, 2) {$R$\\Transitions};
 
 % Logic Engine L
-\node[component, fill=purple!15, align=center, text width=3.5cm, font=\normalsize] (L) at (4, 0) {$L$\\Logic Engine};
+\node[component, fill=purple!15, align=center, text width=4.5cm, font=\normalsize] (L) at (4, 0) {$L$\\Logic Engine};
 
 % μ-Ledger (central)
-\node[component, fill=red!20, minimum width=4.6cm, minimum height=2.2cm, align=center, text width=3.5cm, font=\normalsize] (mu) at (0, 0) {$\mu$-Ledger\\(monotonic)};
+\node[component, fill=red!20, minimum width=5.5cm, minimum height=2.2cm, align=center, text width=4.5cm, font=\normalsize] (mu) at (0, 0) {$\mu$-Ledger\\(monotonic)};
 
 % Arrows showing relationships
 \draw[arrow, shorten >=2pt, shorten <=2pt] (S) -- (Pi) node[pos=0.5, left, xshift=-3pt, font=\small] {decompose};
@@ -414,8 +411,7 @@ Let $T$ be a Thiele Machine. If an execution trace reduces the search space from
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[
-    scale=0.7,
-    transform shape,
+    scale=1.0,
     node distance=3cm
 ]
 
@@ -444,7 +440,7 @@ Let $T$ be a Thiele Machine. If an execution trace reduces the search space from
 \node[below] at (7.5, -4.5) {$\log_2(\Omega')$ bits};
 
 % The key equation
-\node[draw, very thick, fill=yellow!20, rounded corners, align=center, text width=3.5cm] at (4, -5.5) {
+\node[draw, very thick, fill=yellow!20, rounded corners, align=center, text width=4.5cm] at (4, -5.5) {
     \textbf{Conservation Law:}\\[0.2cm]
     $\Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')$
 };
@@ -577,8 +573,7 @@ These three layers are not independent implementations—they are \textit{isomor
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[
-    scale=0.7,
-    transform shape,
+    scale=1.0,
     node distance=2.5cm,
     layer/.style={rectangle, draw, rounded corners, minimum width=7.2cm, minimum height=2.6cm, align=center, thick},
     arrow/.style={<->, very thick, >=stealth, blue},
@@ -586,21 +581,21 @@ These three layers are not independent implementations—they are \textit{isomor
 ]
 
 % Layer 1: Coq
-\node[layer, fill=purple!20, align=center, text width=3.5cm] (coq) at (0, 4) {
+\node[layer, fill=purple!20, align=center, text width=4.5cm] (coq) at (0, 4) {
     \textbf{Layer 1: Coq}\\
     \small Machine-checked proofs\\
     \small 206 files, 1400+ theorems
 };
 
 % Layer 2: Python
-\node[layer, fill=blue!20, align=center, text width=3.5cm] (python) at (0, 2) {
+\node[layer, fill=blue!20, align=center, text width=4.5cm] (python) at (0, 2) {
     \textbf{Layer 2: Python VM}\\
     \small Executable reference\\
     \small Ed25519-signed receipts
 };
 
 % Layer 3: Hardware
-\node[layer, fill=green!20, align=center, text width=3.5cm] (rtl) at (0, 0) {
+\node[layer, fill=green!20, align=center, text width=4.5cm] (rtl) at (0, 0) {
     \textbf{Layer 3: Verilog RTL}\\
     \small Physical realization\\
     \small FPGA synthesizable
@@ -613,21 +608,21 @@ These three layers are not independent implementations—they are \textit{isomor
     node[pos=0.5, right, xshift=10pt, font=\small] {Bisimulation};
 
 % Properties on the left
-\node[left=3.9cm of coq, align=right, align=center, text width=3.5cm] (p1) {
+\node[left=3.9cm of coq, align=right, align=center, text width=4.5cm] (p1) {
     \textbf{Properties:}\\
     $\mu$-monotonicity\\
     No Free Insight\\
     CHSH bounds
 };
 
-\node[left=3.9cm of python, align=right, align=center, text width=3.5cm] (p2) {
+\node[left=3.9cm of python, align=right, align=center, text width=4.5cm] (p2) {
     \textbf{Properties:}\\
     Same $\mu$-ledger\\
     Same state projection\\
     Auditable traces
 };
 
-\node[left=3.9cm of rtl, align=right, align=center, text width=3.5cm] (p3) {
+\node[left=3.9cm of rtl, align=right, align=center, text width=4.5cm] (p3) {
     \textbf{Properties:}\\
     Same gate-level $\mu$\\
     Physical enforcement\\
@@ -640,7 +635,7 @@ These three layers are not independent implementations—they are \textit{isomor
 \draw[->, dashed, gray, shorten >=2pt, shorten <=2pt] (p3.east) -- (rtl.west);
 
 % Bottom annotation
-\node[below=2.9cm of rtl, align=center,  text width=3.5cm, font=\small, yshift=-6pt] {
+\node[below=2.9cm of rtl, align=center,  text width=4.5cm, font=\small, yshift=-6pt] {
     For any instruction trace $\tau$:\\[0.1cm]
     $S_{\text{Coq}}(\tau) = S_{\text{Python}}(\tau) = S_{\text{RTL}}(\tau)$
 };

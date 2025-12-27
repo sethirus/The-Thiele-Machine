@@ -7,25 +7,25 @@
 \centering
 \begin{tikzpicture}[scale=1.8, 
     node distance=3cm,
-    model/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.4cm, align=center, fill=blue!10},
-    algo/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.4cm, align=center, fill=green!15},
-    bridge/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.4cm, align=center, fill=yellow!20},
+    model/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=blue!10},
+    algo/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=green!15},
+    bridge/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=yellow!20},
     arrow/.style={->, >=Stealth, thick}
 ]
     % Physics models
     \node[font=\normalsize\bfseries] at (-3, 2.5) {Physics Models};
-    \node[model, align=center, text width=3.5cm] (wave) at (-4, 1.5) {Wave\\Propagation};
-    \node[model, align=center, text width=3.5cm] (diss) at (-2, 1.5) {Dissipative\\Systems};
-    \node[model, align=center, text width=3.5cm] (discrete) at (-3, 0.5) {Discrete\\Lattices};
+    \node[model, align=center, text width=4.5cm] (wave) at (-4, 1.5) {Wave\\Propagation};
+    \node[model, align=center, text width=4.5cm] (diss) at (-2, 1.5) {Dissipative\\Systems};
+    \node[model, align=center, text width=4.5cm] (discrete) at (-3, 0.5) {Discrete\\Lattices};
     
     % Algorithmic primitives
     \node[font=\normalsize\bfseries] at (3, 2.5) {Algorithmic Primitives};
-    \node[algo, align=center, text width=3.5cm] (period) at (2, 1.5) {Period\\Finding};
-    \node[algo, align=center, text width=3.5cm] (gcd) at (4, 1.5) {Euclidean\\GCD};
-    \node[algo, align=center, text width=3.5cm] (mod) at (3, 0.5) {Modular\\Arithmetic};
+    \node[algo, align=center, text width=4.5cm] (period) at (2, 1.5) {Period\\Finding};
+    \node[algo, align=center, text width=4.5cm] (gcd) at (4, 1.5) {Euclidean\\GCD};
+    \node[algo, align=center, text width=4.5cm] (mod) at (3, 0.5) {Modular\\Arithmetic};
     
     % Bridge
-    \node[bridge, minimum width=7.2cm, align=center, text width=3.5cm] (bridge) at (0, -1) {\textbf{Bridge Modules}\\Domain $\rightarrow$ Kernel};
+    \node[bridge, minimum width=7.2cm, align=center, text width=4.5cm] (bridge) at (0, -1) {\textbf{Bridge Modules}\\Domain $\rightarrow$ Kernel};
     
     % Arrows
     \draw[arrow, shorten >=2pt, shorten <=2pt] (wave) -- (bridge);
@@ -102,7 +102,7 @@ This chapter documents the physics models that demonstrate emergent conservation
 \centering
 \begin{tikzpicture}[scale=1.8, 
     node distance=2.5cm,
-    cell/.style={rectangle, draw, minimum width=1.4cm, minimum height=1.4cm, align=center}
+    cell/.style={rectangle, draw, minimum width=1.4cm, minimum height=2.0cm, align=center}
 ]
     % Wave state
     \node[font=\normalsize\bfseries] at (-2, 2) {Wave State (1D)};
@@ -286,18 +286,18 @@ The discrete model uses lattice-based dynamics for discrete spacetime emergence.
 \centering
 \begin{tikzpicture}[scale=1.8, 
     node distance=2.5cm,
-    stepstyle/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.4cm, align=center, fill=blue!10},
-    result/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.4cm, align=center, fill=green!15},
+    stepstyle/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=blue!10},
+    result/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=green!15},
     arrow/.style={->, >=Stealth, thick}
 ]
     % Input
-    \node[stepstyle, align=center, text width=3.5cm] (input) at (0, 2) {$N$ to factor\\$a$ coprime to $N$};
+    \node[stepstyle, align=center, text width=4.5cm] (input) at (0, 2) {$N$ to factor\\$a$ coprime to $N$};
     
     % Period finding
-    \node[stepstyle, align=center, text width=3.5cm] (period) at (0, 0.5) {Find period $r$\\$a^r \equiv 1 \pmod{N}$};
+    \node[stepstyle, align=center, text width=4.5cm] (period) at (0, 0.5) {Find period $r$\\$a^r \equiv 1 \pmod{N}$};
     
     % Candidate
-    \node[stepstyle, align=center, text width=3.5cm] (candidate) at (0, -1) {Compute $g$\\$g = \gcd(a^{r/2} - 1, N)$};
+    \node[stepstyle, align=center, text width=4.5cm] (candidate) at (0, -1) {Compute $g$\\$g = \gcd(a^{r/2} - 1, N)$};
     
     % Result
     \node[result] (factors) at (0, -2.5) {Factors: $g, N/g$};
@@ -949,18 +949,18 @@ The key insight: Thiele Machine trades \textbf{blind search time} for \textbf{ex
 \centering
 \begin{tikzpicture}[scale=1.8, 
     node distance=2cm,
-    result/.style={rectangle, draw, rounded corners, minimum width=5.4cm, minimum height=1.4cm, align=center, fill=green!15},
-    central/.style={rectangle, draw, rounded corners, minimum width=7.2cm, minimum height=1.8cm, align=center, fill=yellow!20},
+    result/.style={rectangle, draw, rounded corners, minimum width=5.4cm, minimum height=2.0cm, align=center, fill=green!15},
+    central/.style={rectangle, draw, rounded corners, minimum width=7.2cm, minimum height=2.1cm, align=center, fill=yellow!20},
     arrow/.style={->, >=Stealth, thick}
 ]
     % Results
-    \node[result, align=center, text width=3.5cm] (physics) at (-3, 1.5) {Physics Models\\Conservation Laws};
-    \node[result, align=center, text width=3.5cm] (shor) at (3, 1.5) {Shor Primitives\\Verified};
-    \node[result, align=center, text width=3.5cm] (bridge) at (-3, -1.5) {Bridge Modules\\6 files};
-    \node[result, align=center, text width=3.5cm] (toe) at (3, -1.5) {TOE Limits\\No unique physics};
+    \node[result, align=center, text width=4.5cm] (physics) at (-3, 1.5) {Physics Models\\Conservation Laws};
+    \node[result, align=center, text width=4.5cm] (shor) at (3, 1.5) {Shor Primitives\\Verified};
+    \node[result, align=center, text width=4.5cm] (bridge) at (-3, -1.5) {Bridge Modules\\6 files};
+    \node[result, align=center, text width=4.5cm] (toe) at (3, -1.5) {TOE Limits\\No unique physics};
     
     % Central
-    \node[central, align=center, text width=3.5cm] (central) at (0, 0) {\textbf{Theory $\leftrightarrow$ Algorithms}\\Infrastructure};
+    \node[central, align=center, text width=4.5cm] (central) at (0, 0) {\textbf{Theory $\leftrightarrow$ Algorithms}\\Infrastructure};
     
     % Arrows
     \draw[arrow, shorten >=2pt, shorten <=2pt] (physics) -- (central);
