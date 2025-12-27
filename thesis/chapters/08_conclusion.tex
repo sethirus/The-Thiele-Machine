@@ -144,10 +144,10 @@ These theoretical components map to concrete Coq artifacts: \path{VMState.v} and
     \draw[arrow, shorten >=2pt, shorten <=2pt] (nosig) -- (center);
     
     % File annotations
-    \node[font=\normalsize, gray, below=0.3cm of tuple, sloped, pos=0.5, font=\small, yshift=-6pt] {VMState.v, VMStep.v};
-    \node[font=\normalsize, gray, below=0.3cm of mu, sloped, pos=0.5, font=\small, yshift=-6pt] {MuLedgerConservation.v};
-    \node[font=\normalsize, gray, below=0.3cm of nfi, above, pos=0.5, font=\small, yshift=6pt] {NoFreeInsight.v};
-    \node[font=\normalsize, gray, below=0.3cm of nosig, above, pos=0.5, font=\small, yshift=6pt] {KernelPhysics.v};
+    \node[ gray, below=0.3cm of tuple, font=\small, yshift=-6pt] {VMState.v, VMStep.v};
+    \node[ gray, below=0.3cm of mu, font=\small, yshift=-6pt] {MuLedgerConservation.v};
+    \node[ gray, below=0.3cm of nfi, above, font=\small, yshift=6pt] {NoFreeInsight.v};
+    \node[ gray, below=0.3cm of nosig, above, font=\small, yshift=6pt] {KernelPhysics.v};
 \end{tikzpicture}
 \caption{Theoretical contributions: Four core results, all machine-verified in Coq.}
 \label{fig:theoretical_contributions}
@@ -226,8 +226,8 @@ The implementations are organized so they can be audited against the formal kern
     \node[layer, fill=orange!15, align=center, text width=3.5cm] (rtl) at (0,-2) {\textbf{Verilog RTL}\\Synthesis-ready\\{\scriptsize thielecpu/hardware/}};
     
     % Isomorphism arrows
-    \draw[arrow, red!60] (coq) -- node[right, font=\normalsize, above, yshift=6pt, pos=0.5, font=\small] {Isomorphism} (py);
-    \draw[arrow, red!60] (py) -- node[right, font=\normalsize, above, yshift=6pt, pos=0.5, font=\small] {Isomorphism} (rtl);
+    \draw[arrow, red!60] (coq) -- node[right,  above, yshift=6pt, pos=0.5, font=\small] {Isomorphism} (py);
+    \draw[arrow, red!60] (py) -- node[right,  above, yshift=6pt, pos=0.5, font=\small] {Isomorphism} (rtl);
     
     % Invariant box
     \node[draw, dashed, fill=yellow!10, minimum width=10.8cm, align=center, text width=3.5cm] at (0,-4) {
@@ -513,15 +513,15 @@ The proven connections:
     % Three isomorphisms
     \node[box, fill=blue!15, font=\normalsize] (mu) at (-3,1.5) {$\mu$-monotonicity};
     \node[box, fill=green!15, font=\normalsize] (second) at (3,1.5) {Second Law};
-    \draw[<->, very thick, red] (mu) -- node[above, yshift=6pt, font=\normalsize, , pos=0.5, font=\small] {$\cong$} (second);
+    \draw[<->, very thick, red] (mu) -- node[above, yshift=6pt, font=\normalsize, pos=0.5, font=\small] {$\cong$} (second);
     
     \node[box, fill=blue!15, font=\normalsize] (nosig) at (-3,0) {No-signaling};
     \node[box, fill=green!15, font=\normalsize] (bell) at (3,0) {Bell locality};
-    \draw[<->, very thick, red] (nosig) -- node[above, yshift=6pt, font=\normalsize, , pos=0.5, font=\small] {$\cong$} (bell);
+    \draw[<->, very thick, red] (nosig) -- node[above, yshift=6pt, font=\normalsize, pos=0.5, font=\small] {$\cong$} (bell);
     
     \node[box, fill=blue!15, font=\normalsize] (gauge) at (-3,-1.5) {Gauge invariance};
     \node[box, fill=green!15, font=\normalsize] (noether) at (3,-1.5) {Noether's theorem};
-    \draw[<->, very thick, red] (gauge) -- node[above, yshift=6pt, font=\normalsize, , pos=0.5, font=\small] {$\cong$} (noether);
+    \draw[<->, very thick, red] (gauge) -- node[above, yshift=6pt, font=\normalsize, pos=0.5, font=\small] {$\cong$} (noether);
     
     % Labels
     \node[font=\normalsize, gray] at (-3,2.3) {Thiele Machine};
@@ -707,7 +707,7 @@ This \textbf{path forward diagram} visualizes the thesis's legacy: a solid found
     \node[box, fill=green!20, align=center, text width=3.5cm, font=\normalsize] (thiele) at (3,0) {\textbf{Thiele Machine}\\Accountability};
     
     % Arrow
-    \draw[->, ultra very thick, blue] (turing) -- node[above, yshift=6pt, sloped, pos=0.5, font=\small] {$+\mu$-accounting} (thiele);
+    \draw[->, ultra very thick, blue] (turing) -- node[above, yshift=6pt, font=\small] {$+\mu$-accounting} (thiele);
     
     % Properties
     \node[font=\normalsize, align=center, text width=3.5cm] at (-3,-1.5) {Structure invisible\\Hidden variable\\Success/fail unknown};

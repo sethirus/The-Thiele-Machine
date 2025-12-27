@@ -9,12 +9,12 @@ The previous chapter established the \textit{problem}: classical computers are s
 % =====================================================
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture}[[
+\begin{tikzpicture}[
     box/.style={draw, rounded corners, minimum width=4.6cm, minimum height=1.7cm, align=center, font=\normalsize},
     arrow/.style={->, >=stealth, thick},
     dasharrow/.style={->, >=stealth, very thick, dashed},
     scale=0.65, transform shape
-], node distance=3cm]
+, node distance=3cm]
 % Main components
 \node[box, fill=blue!20, align=center, text width=3.5cm, font=\normalsize] (state) at (0,0) {State Space\\$S$};
 \node[box, fill=green!20, align=center, text width=3.5cm, font=\normalsize] (partition) at (4,0) {Partition Graph\\$\Pi$};
@@ -34,15 +34,15 @@ The previous chapter established the \textit{problem}: classical computers are s
 \draw[dasharrow, shorten >=2pt, shorten <=2pt] (mu) -- (state) node[pos=0.5, font=\small, above, yshift=6pt] {bounds};
 
 % Title
-\node[above=1.0cm of partition, font=\bfseries, sloped, pos=0.5, font=\small, yshift=6pt] {The Thiele Machine: $T = (S, \Pi, A, R, L)$};
+\node[above=1.0cm of partition,  font=\small, yshift=6pt] {The Thiele Machine: $T = (S, \Pi, A, R, L)$};
 
 % Sections
-\node[font=\normalsize\itshape, below=0.3cm of state, above, pos=0.5, font=\small, yshift=6pt] {§3.2.1};
-\node[font=\normalsize\itshape, below=0.3cm of partition, above, pos=0.5, font=\small, yshift=6pt] {§3.2.2};
-\node[font=\normalsize\itshape, below=0.3cm of axioms, above, pos=0.5, font=\small, yshift=6pt] {§3.2.3};
-\node[font=\normalsize\itshape, below=0.3cm of rules, above, pos=0.5, font=\small, yshift=6pt] {§3.2.4};
-\node[font=\normalsize\itshape, below=0.3cm of logic, above, pos=0.5, font=\small, yshift=6pt] {§3.2.5};
-\node[font=\normalsize\itshape, below=0.3cm of mu, above, pos=0.5, font=\small, yshift=6pt] {§3.3};
+\node[ below=0.3cm of state, above, font=\small, yshift=6pt] {§3.2.1};
+\node[ below=0.3cm of partition, above, font=\small, yshift=6pt] {§3.2.2};
+\node[ below=0.3cm of axioms, above, font=\small, yshift=6pt] {§3.2.3};
+\node[ below=0.3cm of rules, above, font=\small, yshift=6pt] {§3.2.4};
+\node[ below=0.3cm of logic, above, font=\small, yshift=6pt] {§3.2.5};
+\node[ below=0.3cm of mu, above, font=\small, yshift=6pt] {§3.3};
 \end{tikzpicture}
 \caption{Chapter 3 roadmap: The five components of the Thiele Machine and their relationships. The $\mu$-ledger (center-left) is the central innovation that ``charges'' operations and ``bounds'' the state evolution.}
 \label{fig:ch3_roadmap}
@@ -152,12 +152,14 @@ The state space $S$ represents the complete instantaneous description of the mac
 % =====================================================
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture}[[scale=1.8, 
-    field/.style={draw, minimum width=10.8cm, minimum height=1.2cm, font=\ttfamily\small}/.style={font=\normalsize, align=left}
-], node distance=3cm]
+\begin{tikzpicture}[scale=1.8, 
+    node distance=3cm,
+    field/.style={draw, minimum width=10.8cm, minimum height=1.2cm, font=\ttfamily\small, align=left},
+    every node/.style={font=\normalsize}
+]
 % VMState box
 \node[draw, very thick, minimum width=12.6cm, minimum height=10.8cm, fill=gray!5] (vmstate) at (0,0) {};
-\node[above=0.3cm of vmstate.north, font=\bfseries\ttfamily, , pos=0.5, font=\small, yshift=6pt] {VMState};
+\node[above=0.3cm of vmstate.north, font=\bfseries\ttfamily, pos=0.5, font=\small, yshift=6pt] {VMState};
 
 % Fields
 \node[field, fill=green!15] (graph) at (0, 2.2) {vm\_graph : PartitionGraph};
@@ -169,13 +171,13 @@ The state space $S$ represents the complete instantaneous description of the mac
 \node[field, fill=red!15] (err) at (0, -2.6) {vm\_err : bool};
 
 % Annotations
-\node[label, right=1.0cm of graph, sloped, pos=0.5, font=\small, xshift=10pt] {$\leftarrow$ \textit{Partition structure}};
-\node[label, right=1.0cm of csrs, sloped, pos=0.5, font=\small, xshift=10pt] {$\leftarrow$ \textit{Control registers}};
-\node[label, right=1.0cm of regs, sloped, pos=0.5, font=\small, xshift=10pt] {$\leftarrow$ \textit{Register file}};
-\node[label, right=1.0cm of mem, sloped, pos=0.5, font=\small, xshift=10pt] {$\leftarrow$ \textit{Data memory}};
-\node[label, right=1.0cm of pc, sloped, pos=0.5, font=\small, xshift=10pt] {$\leftarrow$ \textit{Program counter}};
-\node[label, right=1.0cm of mu, sloped, pos=0.5, font=\small, xshift=10pt] {$\leftarrow$ \textbf{$\mu$-ledger (key!)}};
-\node[label, right=1.0cm of err, sloped, pos=0.5, font=\small, xshift=10pt] {$\leftarrow$ \textit{Error flag}};
+\node[label, right=1.0cm of graph, font=\small, xshift=10pt] {$\leftarrow$ \textit{Partition structure}};
+\node[label, right=1.0cm of csrs, font=\small, xshift=10pt] {$\leftarrow$ \textit{Control registers}};
+\node[label, right=1.0cm of regs, font=\small, xshift=10pt] {$\leftarrow$ \textit{Register file}};
+\node[label, right=1.0cm of mem, font=\small, xshift=10pt] {$\leftarrow$ \textit{Data memory}};
+\node[label, right=1.0cm of pc, font=\small, xshift=10pt] {$\leftarrow$ \textit{Program counter}};
+\node[label, right=1.0cm of mu, font=\small, xshift=10pt] {$\leftarrow$ \textbf{$\mu$-ledger (key!)}};
+\node[label, right=1.0cm of err, font=\small, xshift=10pt] {$\leftarrow$ \textit{Error flag}};
 
 % Highlight mu
 \draw[ultra very thick, red!70!black] ($(mu.north west)+(-0.1,0.1)$) rectangle ($(mu.south east)+(0.1,-0.1)$);
@@ -274,11 +276,11 @@ The partition graph is the central innovation of the Thiele Machine. It represen
 % =====================================================
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture}[[
+\begin{tikzpicture}[
     module/.style={draw, rounded corners, minimum width=4.0cm, minimum height=2.4cm, align=center, font=\normalsize},
     memory/.style={draw, minimum width=0.6cm, minimum height=0.6cm, font=\normalsize},
     scale=0.65, transform shape
-], node distance=3cm]
+, node distance=3cm]
 % Memory addresses (background)
 \foreach \i in {0,...,15} {
     \node[memory, fill=gray!20] (m\i) at (\i*0.5-4, -3) {\i};
@@ -315,12 +317,12 @@ The partition graph is the central innovation of the Thiele Machine. It represen
 \node[draw, fill=purple!20, rounded corners] (nextid) at (4.5, 1.5) {\texttt{pg\_next\_id = 3}};
 
 % Memory label
-\node[below=0.5cm of m8, font=\normalsize\itshape, sloped, pos=0.5, font=\small, yshift=-6pt] {Memory addresses (0--15)};
+\node[below=0.5cm of m8,  font=\small, yshift=-6pt] {Memory addresses (0--15)};
 
 % Axioms
-\node[font=\normalsize, below=0.3cm of M1, above, pos=0.5, font=\small, yshift=6pt] {$A = \{x > 0\}$};
-\node[font=\normalsize, below=0.3cm of M2, above, pos=0.5, font=\small, yshift=6pt] {$A = \{\}$};
-\node[font=\normalsize, below=0.3cm of M3, sloped, pos=0.5, font=\small, yshift=-6pt] {$A = \{y \text{ prime}\}$};
+\node[ below=0.3cm of M1, above, font=\small, yshift=6pt] {$A = \{x > 0\}$};
+\node[ below=0.3cm of M2, above, font=\small, yshift=6pt] {$A = \{\}$};
+\node[ below=0.3cm of M3, font=\small, yshift=-6pt] {$A = \{y \text{ prime}\}$};
 
 % Key properties
 \node[draw, fill=white, rounded corners, font=\normalsize, align=left, align=center, text width=3.5cm] at (-5.5, 0) {
@@ -645,11 +647,11 @@ The instructions fall into several categories:
 % =====================================================
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture}[[
+\begin{tikzpicture}[
     cat/.style={draw, rounded corners, minimum width=6.2cm, minimum height=3.6cm, align=center, font=\normalsize},
     instr/.style={font=\normalsize\ttfamily},
     scale=0.65, transform shape
-], node distance=2.5cm]
+, node distance=2.5cm]
 % Structural Operations
 \node[cat, fill=blue!15, align=center, text width=3.5cm] (struct) at (-4, 2) {
     \textbf{Structural Ops}\\[0.2cm]
@@ -719,11 +721,11 @@ The instructions fall into several categories:
 \draw[->, very thick, gray, shorten >=2pt, shorten <=2pt] (logic.south) -- (mu);
 
 % Title
-\node[above=1.0cm of logic, font=\bfseries, sloped, pos=0.5, font=\small, yshift=6pt] {18-Instruction Set Architecture};
+\node[above=1.0cm of logic,  font=\small, yshift=6pt] {18-Instruction Set Architecture};
 
 % Annotation
-\node[below=0.5cm of regmem, font=\normalsize\itshape, above, pos=0.5, font=\small, yshift=6pt] {Low $\mu$-cost};
-\node[below=0.5cm of cert, font=\normalsize\itshape, above, pos=0.5, font=\small, yshift=6pt] {High $\mu$-cost};
+\node[below=0.5cm of regmem,  above, font=\small, yshift=6pt] {Low $\mu$-cost};
+\node[below=0.5cm of cert,  above, font=\small, yshift=6pt] {High $\mu$-cost};
 \end{tikzpicture}
 \caption{The 18-instruction set architecture grouped by category. Structural and certification operations typically have high $\mu$-cost (they add structural knowledge), while register operations have low or zero cost. All costs flow to the central $\mu$-ledger.}
 \label{fig:isa_categories}
@@ -913,11 +915,11 @@ The kernel verifies the certificate but does not search for solutions. This ensu
 % =====================================================
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture}[[
+\begin{tikzpicture}[
     state/.style={draw, circle, minimum size=1cm, font=\normalsize},
     arrow/.style={->, >=stealth, thick},
     scale=0.65, transform shape
-], node distance=3cm]
+, node distance=3cm]
 % States
 \node[state, fill=blue!20, font=\normalsize] (s0) at (0,0) {$s_0$};
 \node[state, fill=blue!25, font=\normalsize] (s1) at (3.2,0) {$s_1$};
@@ -932,11 +934,11 @@ The kernel verifies the certificate but does not search for solutions. This ensu
 \draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (s3) -- (sn);
 
 % Mu values
-\node[below=0.5cm of s0, font=\normalsize, above, pos=0.5, font=\small, yshift=6pt] {$\mu_0$};
-\node[below=0.5cm of s1, font=\normalsize, above, pos=0.5, font=\small, yshift=6pt] {$\mu_1$};
-\node[below=0.5cm of s2, font=\normalsize, above, pos=0.5, font=\small, yshift=6pt] {$\mu_2$};
-\node[below=0.5cm of s3, font=\normalsize, above, pos=0.5, font=\small, yshift=6pt] {$\mu_3$};
-\node[below=0.5cm of sn, font=\normalsize, above, pos=0.5, font=\small, yshift=6pt] {$\mu_n$};
+\node[below=0.5cm of s0,  above, font=\small, yshift=6pt] {$\mu_0$};
+\node[below=0.5cm of s1,  above, font=\small, yshift=6pt] {$\mu_1$};
+\node[below=0.5cm of s2,  above, font=\small, yshift=6pt] {$\mu_2$};
+\node[below=0.5cm of s3,  above, font=\small, yshift=6pt] {$\mu_3$};
+\node[below=0.5cm of sn,  above, font=\small, yshift=6pt] {$\mu_n$};
 
 % Conservation law
 \node[draw, fill=yellow!20, rounded corners, align=center, font=\normalsize, text width=3.5cm] at (6, -2) {
@@ -949,7 +951,7 @@ The kernel verifies the certificate but does not search for solutions. This ensu
 };
 
 % Title
-\node[above=1.6cm of s2, font=\bfseries, sloped, pos=0.5, font=\small, yshift=6pt] {$\mu$-Ledger: Monotonic Cost Accumulation};
+\node[above=1.6cm of s2,  font=\small, yshift=6pt] {$\mu$-Ledger: Monotonic Cost Accumulation};
 \end{tikzpicture}
 \caption{The $\mu$-ledger tracks cumulative structural cost across execution. Each operation adds its declared cost, and the ledger never decreases (monotonicity). This is proven in \texttt{mu\_conservation\_kernel}.}
 \label{fig:mu_ledger_conservation}
@@ -1275,11 +1277,11 @@ Definition graph_pnew (g : PartitionGraph) (region : list nat)
 % =====================================================
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture}[[
+\begin{tikzpicture}[
     module/.style={draw, rounded corners, minimum width=3.2cm, minimum height=1.7cm, align=center, font=\normalsize},
     arrow/.style={->, >=stealth, thick},
     scale=0.65, transform shape
-], node distance=3cm]
+, node distance=3cm]
 % PNEW
 \node[font=\bfseries] at (-5, 3.5) {PNEW};
 \node[draw, dashed, fill=gray!10, minimum width=3.6cm, minimum height=1.8cm] (pnew_before) at (-5, 2) {region};
@@ -1563,11 +1565,11 @@ This is a computational analog of Bell locality: you cannot signal to a remote m
 % =====================================================
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture}[[
+\begin{tikzpicture}[
     box/.style={draw, rounded corners, minimum width=5.0cm, minimum height=3.2cm, align=center},
     arrow/.style={->, >=stealth, thick},
     scale=0.65, transform shape
-], node distance=2cm]
+, node distance=2cm]
 % Before: Large search space
 \node[box, fill=red!20, minimum width=8.2cm, minimum height=5.0cm, align=center, text width=3.5cm, font=\normalsize] (omega) at (-5, 0) {
     \textbf{Search Space $\Omega$}\\[0.3cm]
@@ -1956,10 +1958,10 @@ This is the computational analog of Noether's theorem: the gauge symmetry (abili
 % =====================================================
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture}[[scale=1.8, 
+\begin{tikzpicture}[scale=1.8, 
     state/.style={draw, rounded corners, minimum width=5.4cm, minimum height=4.6cm, align=center},
     arrow/.style={->, >=stealth, thick}
-], node distance=2cm]
+, node distance=2cm]
 % Original state
 \node[state, fill=blue!15, align=center, text width=3.5cm, font=\normalsize] (s) at (-3, 0) {
     \textbf{State $s$}\\[0.2cm]
@@ -2017,11 +2019,11 @@ This is the computational analog of Noether's theorem: the gauge symmetry (abili
 % =====================================================
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture}[[
+\begin{tikzpicture}[
     concept/.style={draw, rounded corners, minimum width=4.0cm, minimum height=2.4cm, align=center, font=\normalsize},
     result/.style={draw, very thick, fill=yellow!20, rounded corners, minimum width=6.2cm, minimum height=1.7cm, align=center, font=\normalsize},
     scale=0.65, transform shape
-], node distance=2.5cm]
+, node distance=2.5cm]
 % Core concepts
 \node[concept, fill=blue!20, align=center, text width=3.5cm] (state) at (-4, 3) {State Space\\$S$};
 \node[concept, fill=green!20, align=center, text width=3.5cm] (partition) at (-1.5, 3) {Partition Graph\\$\Pi$};
@@ -2048,7 +2050,7 @@ This is the computational analog of Noether's theorem: the gauge symmetry (abili
 \draw[->, very thick, shorten >=2pt, shorten <=2pt] (nosig) -- (master);
 
 % Chapter reference
-\node[font=\normalsize\itshape, below=0.5cm of master, sloped, pos=0.5, font=\small, yshift=-6pt] {Foundation for Chapters 4 (Implementation), 5 (Verification), and 6 (Tsirelson)};
+\node[ below=0.5cm of master, font=\small, yshift=-6pt] {Foundation for Chapters 4 (Implementation), 5 (Verification), and 6 (Tsirelson)};
 \end{tikzpicture}
 \caption{Chapter 3 summary: The formal model $(S, \Pi, A, R, L)$ leads to two key properties ($\mu$-monotonicity and no-signaling), which together establish the No Free Insight theorem---the theoretical foundation for the Tsirelson bound derivation.}
 \label{fig:ch3_summary}

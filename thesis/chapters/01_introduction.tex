@@ -19,12 +19,14 @@ I, Devon Thiele, present the \textit{Thiele Machine}---a new model of computatio
 % ============================================================================
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[[
+\begin{tikzpicture}[
     scale=0.7,
     transform shape,
+    node distance=2.5cm,
     box/.style={rectangle, draw, rounded corners, minimum width=4.0cm, minimum height=1.7cm, align=center, fill=blue!10},
-    arrow/.style={->, very thick, >=stealth}/.style={font=\normalsize\itshape}
-], node distance=2.5cm]
+    arrow/.style={->, very thick, >=stealth},
+    every node/.style={font=\normalsize}
+]
 % Left side: Classical (Blind)
 \node[box, fill=gray!20, align=center, text width=3.5cm, font=\normalsize] (turing) at (-5, 2.5) {Turing\\Machine};
 \node[box, fill=gray!20, align=center, text width=3.5cm, font=\normalsize] (ram) at (-5, 0) {RAM\\Model};
@@ -191,21 +193,22 @@ The model answers this by explicitly charging $\mu$ for operations that add or r
 % ============================================================================
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[[
+\begin{tikzpicture}[
     scale=0.65,
-    transform shape
-], node distance=2.5cm]
+    transform shape,
+    node distance=2.5cm
+]
 % Axes
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (0,0) -- (10,0) node[right, sloped, pos=0.5, font=\small, xshift=10pt] {Problem Size $n$};
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (0,0) -- (0,6) node[above, yshift=6pt, , pos=0.5, font=\small] {Time};
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (0,0) -- (10,0) node[right, font=\small, xshift=10pt] {Problem Size $n$};
+\draw[->, very thick, shorten >=2pt, shorten <=2pt] (0,0) -- (0,6) node[above, yshift=6pt, pos=0.5, font=\small] {Time};
 
 % Exponential curve (blind search)
 \draw[very thick, red, domain=0:4.5, samples=100] 
-    plot (\x*2, {0.1*exp(\x)}) node[right, sloped, pos=0.5, font=\small, xshift=10pt] {$O(2^n)$ \textit{Blind}};
+    plot (\x*2, {0.1*exp(\x)}) node[right, font=\small, xshift=10pt] {$O(2^n)$ \textit{Blind}};
 
 % Linear/polynomial curve (structured search)  
 \draw[very thick, green!60!black, domain=0:9, samples=100]
-    plot (\x, {0.3*\x + 0.1}) node[right, sloped, pos=0.5, font=\small, xshift=10pt] {$O(k \cdot 2^{n/k})$ \textit{Sighted}};
+    plot (\x, {0.3*\x + 0.1}) node[right, font=\small, xshift=10pt] {$O(k \cdot 2^{n/k})$ \textit{Sighted}};
 
 % Annotation
 \draw[<->, dashed, blue, very thick, shorten >=2pt, shorten <=2pt] (6, 0.9) -- (6, 4.5);
@@ -293,12 +296,14 @@ Chapter 3 spells these components out with exact data structures and step rules.
 % ============================================================================
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[[
+\begin{tikzpicture}[
     scale=0.65,
     transform shape,
+    node distance=2.5cm,
     component/.style={rectangle, draw, rounded corners, minimum width=3.6cm, minimum height=1.7cm, align=center, very thick, font=\normalsize},
-    arrow/.style={->, very thick, >=stealth}/.style={font=\normalsize}
-], node distance=2.5cm]
+    arrow/.style={->, very thick, >=stealth},
+    every node/.style={font=\normalsize}
+]
 
 % State space S
 \node[component, fill=blue!15, align=center, text width=3.5cm, font=\normalsize] (S) at (-4, 2) {$S$\\State Space};
@@ -408,10 +413,11 @@ Let $T$ be a Thiele Machine. If an execution trace reduces the search space from
 % ============================================================================
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[[
+\begin{tikzpicture}[
     scale=0.7,
-    transform shape
-], node distance=3cm]
+    transform shape,
+    node distance=3cm
+]
 
 % Left: Large search space Ω
 \draw[very thick, fill=blue!10] (0,0) circle (2.5cm);
@@ -570,12 +576,14 @@ These three layers are not independent implementations—they are \textit{isomor
 % ============================================================================
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[[
+\begin{tikzpicture}[
     scale=0.7,
     transform shape,
+    node distance=2.5cm,
     layer/.style={rectangle, draw, rounded corners, minimum width=7.2cm, minimum height=2.6cm, align=center, thick},
-    arrow/.style={<->, very thick, >=stealth, blue}/.style={font=\normalsize\itshape}
-], node distance=2.5cm]
+    arrow/.style={<->, very thick, >=stealth, blue},
+    every node/.style={font=\normalsize}
+]
 
 % Layer 1: Coq
 \node[layer, fill=purple!20, align=center, text width=3.5cm] (coq) at (0, 4) {
@@ -632,7 +640,7 @@ These three layers are not independent implementations—they are \textit{isomor
 \draw[->, dashed, gray, shorten >=2pt, shorten <=2pt] (p3.east) -- (rtl.west);
 
 % Bottom annotation
-\node[below=2.9cm of rtl, align=center, font=\normalsize\itshape, text width=3.5cm, sloped, pos=0.5, font=\small, yshift=-6pt] {
+\node[below=2.9cm of rtl, align=center,  text width=3.5cm, font=\small, yshift=-6pt] {
     For any instruction trace $\tau$:\\[0.1cm]
     $S_{\text{Coq}}(\tau) = S_{\text{Python}}(\tau) = S_{\text{RTL}}(\tau)$
 };
