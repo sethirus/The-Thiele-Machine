@@ -216,3 +216,23 @@ thielecpu/hardware/*.vvp
 artifacts/thiele_cpu_synth.json
 artifacts/thiele_cpu_synth.v
 artifacts/thiele_cpu_synth.v
+
+# ---------------------------------------------------------------------------
+# Thiele Machine demos (runtime outputs; do not commit)
+# ---------------------------------------------------------------------------
+# NUSD receipts emitted by demos
+artifacts/*_nusd_receipt.jsonl
+
+# Genesis compression demo animation
+artifacts/*.gif
+
+# Batch runners (timestamped output directories)
+artifacts/landauer_batch_*/
+artifacts/genesis_ablation_*/
+
+# ---------------------------------------------------------------------------
+# Icarus build artifacts / VPI modules (runtime/build outputs)
+# ---------------------------------------------------------------------------
+thielecpu/hardware/*.vpi
+thielecpu/hardware/*.o
+thielecpu/hardware/*_tb

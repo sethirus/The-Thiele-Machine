@@ -15,7 +15,13 @@ try:
     from tools.make_law_receipt import compute_entry_hash, nusd_payload, verify_chain
 except ModuleNotFoundError:  # script executed from within tools/
     from make_law_receipt import compute_entry_hash, nusd_payload, verify_chain
-from mu_calibration import CalibrationSummary, compute_calibration_summary
+try:
+    from tools.mu_calibration import CalibrationSummary, compute_calibration_summary
+except ModuleNotFoundError:  # pragma: no cover
+    from mu_calibration import (  # type: ignore
+        CalibrationSummary,
+        compute_calibration_summary,
+    )
 from nusd_domains import DOMAIN_REGISTRY, DiscoveryDomain
 
 SIGNING_KEY = b"ThieleNUSDKey"

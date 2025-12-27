@@ -9,7 +9,10 @@ import math
 from pathlib import Path
 from typing import Iterable, List, Mapping, MutableMapping, Sequence
 
-from mu_calibration import landauer_bound
+try:
+    from tools.mu_calibration import landauer_bound
+except ModuleNotFoundError:  # pragma: no cover
+    from mu_calibration import landauer_bound  # type: ignore
 
 try:  # pylint: disable=ungrouped-imports
     from tools.turbulence_law import prepare_bundles_from_seeds
