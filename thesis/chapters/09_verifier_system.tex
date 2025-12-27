@@ -7,26 +7,26 @@
 \centering
 \begin{tikzpicture}[scale=1.8, 
     node distance=3cm,
-    box/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.4cm, align=center, fill=blue!10},
-    cmodule/.style={rectangle, draw, rounded corners, minimum width=3.6cm, minimum height=1.4cm, align=center, fill=green!15},
+    box/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=blue!10},
+    cmodule/.style={rectangle, draw, rounded corners, minimum width=4.5cm, minimum height=2.0cm, align=center, fill=green!15},
     arrow/.style={->, >=Stealth, thick}
 ]
     % Central node
-    \node[box, fill=yellow!20, minimum width=7.2cm, align=center, text width=3.5cm, font=\normalsize] (verifier) at (0,0) {\textbf{Verifier System}\\Receipt-Defined};
+    \node[box, fill=yellow!20, minimum width=7.2cm, align=center, text width=4.5cm, font=\normalsize] (verifier) at (0,0) {\textbf{Verifier System}\\Receipt-Defined};
     
     % C-modules
-    \node[cmodule, align=center, text width=3.5cm, font=\normalsize] (crand) at (-4, 2) {C-RAND\\Randomness};
-    \node[cmodule, align=center, text width=3.5cm, font=\normalsize] (ctomo) at (-1.5, 2.5) {C-TOMO\\Tomography};
-    \node[cmodule, align=center, text width=3.5cm, font=\normalsize] (centropy) at (1.5, 2.5) {C-ENTROPY\\Entropy};
-    \node[cmodule, align=center, text width=3.5cm, font=\normalsize] (ccausal) at (4, 2) {C-CAUSAL\\Causation};
+    \node[cmodule, align=center, text width=4.5cm, font=\normalsize] (crand) at (-4, 2) {C-RAND\\Randomness};
+    \node[cmodule, align=center, text width=4.5cm, font=\normalsize] (ctomo) at (-1.5, 2.5) {C-TOMO\\Tomography};
+    \node[cmodule, align=center, text width=4.5cm, font=\normalsize] (centropy) at (1.5, 2.5) {C-ENTROPY\\Entropy};
+    \node[cmodule, align=center, text width=4.5cm, font=\normalsize] (ccausal) at (4, 2) {C-CAUSAL\\Causation};
     
     % Ingredients
-    \node[box, align=center, text width=3.5cm, font=\normalsize] (trace) at (-4, -1.5) {Trace\\Integrity};
-    \node[box, align=center, text width=3.5cm, font=\normalsize] (semantic) at (0, -1.5) {Semantic\\Checking};
-    \node[box, align=center, text width=3.5cm, font=\normalsize] (cost) at (4, -1.5) {$\mu$-Cost\\Accounting};
+    \node[box, align=center, text width=4.5cm, font=\normalsize] (trace) at (-4, -1.5) {Trace\\Integrity};
+    \node[box, align=center, text width=4.5cm, font=\normalsize] (semantic) at (0, -1.5) {Semantic\\Checking};
+    \node[box, align=center, text width=4.5cm, font=\normalsize] (cost) at (4, -1.5) {$\mu$-Cost\\Accounting};
     
     % TRS Protocol
-    \node[box, fill=red!15, align=center, text width=3.5cm, font=\normalsize] (trs) at (0, -3) {TRS-1.0\\Receipt Protocol};
+    \node[box, fill=red!15, align=center, text width=4.5cm, font=\normalsize] (trs) at (0, -3) {TRS-1.0\\Receipt Protocol};
     
     % Arrows
     \draw[arrow, shorten >=2pt, shorten <=2pt] (crand) -- (verifier);
@@ -236,14 +236,14 @@ Every C-module ships three mandatory falsifier tests. Each test targets a distin
 \centering
 \begin{tikzpicture}[scale=1.8, 
     node distance=2.5cm,
-    box/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.4cm, align=center, fill=blue!10},
+    box/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=blue!10},
     check/.style={diamond, draw, aspect=2, fill=yellow!20, align=center},
     arrow/.style={->, >=Stealth, thick}
 ]
     % Flow
-    \node[box, align=center, text width=3.5cm, font=\normalsize] (input) at (0, 0) {Randomness\\Claim};
+    \node[box, align=center, text width=4.5cm, font=\normalsize] (input) at (0, 0) {Randomness\\Claim};
     \node[check] (receipt) at (3, 0) {In TRS?};
-    \node[check, align=center, text width=3.5cm] (entropy) at (6, 0) {$H_{min}$\\evidence?};
+    \node[check, align=center, text width=4.5cm] (entropy) at (6, 0) {$H_{min}$\\evidence?};
     \node[box, fill=green!20, font=\normalsize] (pass) at (9, 0.8) {PASS};
     \node[box, fill=red!20, font=\normalsize] (fail) at (9, -0.8) {REJECT};
     
@@ -506,7 +506,7 @@ where $c$ is a domain-specific constant.
 \begin{tikzpicture}[scale=1.8, 
     node distance=3cm,
     state/.style={circle, draw, minimum size=0.3cm, fill=blue!20},
-    partition/.style={rectangle, draw, dashed, rounded corners, minimum width=2.6cm, minimum height=1.8cm}
+    partition/.style={rectangle, draw, dashed, rounded corners, minimum width=3.5cm, minimum height=2.1cm}
 ]
     % Raw states (infinite equivalence class)
     \node[font=\normalsize\bfseries] at (-3, 2) {Raw State Space};
@@ -999,18 +999,18 @@ This bound is machine-checked in the formal development and enforced by the veri
 \centering
 \begin{tikzpicture}[scale=1.8, 
     node distance=2.5cm,
-    cmodule/.style={rectangle, draw, rounded corners, minimum width=5.4cm, minimum height=1.8cm, align=center, fill=green!15},
-    principle/.style={rectangle, draw, rounded corners, minimum width=9.0cm, minimum height=1.8cm, align=center, fill=yellow!20},
+    cmodule/.style={rectangle, draw, rounded corners, minimum width=5.4cm, minimum height=2.1cm, align=center, fill=green!15},
+    principle/.style={rectangle, draw, rounded corners, minimum width=9.0cm, minimum height=2.1cm, align=center, fill=yellow!20},
     arrow/.style={->, >=Stealth, thick}
 ]
     % C-modules
-    \node[cmodule, align=center, text width=3.5cm, font=\normalsize] (crand) at (-3, 2) {C-RAND\\$\mu$-revelation for bits};
-    \node[cmodule, align=center, text width=3.5cm, font=\normalsize] (ctomo) at (3, 2) {C-TOMO\\$n \propto \epsilon^{-2}$};
-    \node[cmodule, align=center, text width=3.5cm, font=\normalsize] (centropy) at (-3, 0) {C-ENTROPY\\Coarse-graining required};
-    \node[cmodule, align=center, text width=3.5cm, font=\normalsize] (ccausal) at (3, 0) {C-CAUSAL\\Interventions for DAGs};
+    \node[cmodule, align=center, text width=4.5cm, font=\normalsize] (crand) at (-3, 2) {C-RAND\\$\mu$-revelation for bits};
+    \node[cmodule, align=center, text width=4.5cm, font=\normalsize] (ctomo) at (3, 2) {C-TOMO\\$n \propto \epsilon^{-2}$};
+    \node[cmodule, align=center, text width=4.5cm, font=\normalsize] (centropy) at (-3, 0) {C-ENTROPY\\Coarse-graining required};
+    \node[cmodule, align=center, text width=4.5cm, font=\normalsize] (ccausal) at (3, 0) {C-CAUSAL\\Interventions for DAGs};
     
     % Central principle
-    \node[principle, align=center, text width=3.5cm] (nfi) at (0, -2) {\textbf{No Free Insight}\\Stronger claims require more evidence};
+    \node[principle, align=center, text width=4.5cm] (nfi) at (0, -2) {\textbf{No Free Insight}\\Stronger claims require more evidence};
     
     % Arrows
     \draw[arrow, shorten >=2pt, shorten <=2pt] (crand) -- (nfi);
