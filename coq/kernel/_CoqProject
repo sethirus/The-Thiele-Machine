@@ -1,0 +1,83 @@
+-R . Kernel
+
+# === LAYER 0: Core VM (no dependencies) ===
+VMState.v
+VMStep.v
+VMEncoding.v
+
+# === LAYER 1: Basic kernel definitions ===
+Kernel.v
+KernelTM.v
+KernelThiele.v
+CertCheck.v
+
+# === LAYER 2: Cost model and physics ===
+MuCostModel.v
+KernelPhysics.v
+SimulationProof.v
+
+# === LAYER 3: Conservation and requirements ===
+MuLedgerConservation.v
+RevelationRequirement.v
+
+# === LAYER 4: CHSH and quantum ===
+CHSHExtraction.v
+CHSH.v
+QuantumBound.v
+MuInformation.v
+MuNoFreeInsightQuantitative.v
+
+# === LAYER 5: Tsirelson proofs ===
+TsirelsonLowerBound.v
+TsirelsonUpperBound.v
+TsirelsonUniqueness.v
+QuantumEquivalence.v
+
+# === LAYER 6: Impossibility theorems ===
+NoFreeInsight.v
+ProbabilityImpossibility.v
+EntropyImpossibility.v
+
+# === LAYER 7: Certification and cones ===
+Certification.v
+ConeAlgebra.v
+ConeDerivation.v
+
+# === LAYER 8: Spacetime and physics ===
+SpacetimeEmergence.v
+DerivedTime.v
+PhysicsClosure.v
+LorentzNotForced.v
+KernelNoether.v
+ObserverDerivation.v
+
+# === LAYER 9: Advanced proofs ===
+InformationCausality.v
+MuChaitin.v
+MuGeometry.v
+FalsifiablePrediction.v
+KernelBenchmarks.v
+PartitionSeparation.v
+Subsumption.v
+
+# === LAYER 10: Receipts and integration ===
+ReceiptCore.v
+ReceiptIntegrity.v
+PDISCOVERIntegration.v
+
+# === LAYER 11: TOE (Theory of Everything) ===
+Definitions.v
+Closure.v
+NoGo.v
+NoGoSensitivity.v
+Persistence.v
+TOE.v
+TOEDecision.v
+
+# === LAYER 12: Bisimulation and verification ===
+PythonBisimulation.v
+HardwareBisimulation.v
+NonCircularityAudit.v
+
+# === LAYER 13: Master summary (depends on everything) ===
+MasterSummary.v
