@@ -7,7 +7,7 @@
 \centering
 \begin{tikzpicture}[scale=1.8, 
     node distance=2.5cm,
-    block/.style={rectangle, draw, fill=blue!10, minimum width=5.4cm, minimum height=1.4cm, align=center},
+    block/.style={rectangle, draw, fill=blue!10, minimum width=5.4cm, minimum height=1.6cm, align=center},
     theorem/.style={rectangle, draw, fill=green!20, minimum width=5.0cm, minimum height=1.2cm, align=center, rounded corners},
     arrow/.style={->, >=stealth, thick}
 ]
@@ -72,7 +72,7 @@ In this project, “all inputs” means all possible states and instruction trac
 \centering
 \begin{tikzpicture}[scale=1.8, 
     stage/.style={rectangle, draw, fill=blue!20, minimum width=4.6cm, minimum height=1.8cm, align=center, rounded corners},
-    check/.style={rectangle, draw, fill=green!20, minimum width=3.6cm, minimum height=1.1cm, align=center, font=\footnotesize},
+    check/.style={rectangle, draw, fill=green!20, minimum width=4.0cm, minimum height=1.3cm, align=center, font=\footnotesize},
     arrow/.style={->, >=stealth, thick}
 ], node distance=2.5cm]
     % Pipeline stages
@@ -613,7 +613,7 @@ Definition instr_targets (instr : vm_instruction) : list nat :=
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[scale=1.8, 
-    module/.style={rectangle, draw, fill=blue!20, minimum width=3.2cm, minimum height=2.2cm, align=center},
+    module/.style={rectangle, draw, fill=blue!20, minimum width=4.0cm, minimum height=2.2cm, align=center},
     region/.style={rectangle, draw, dashed, fill=gray!10, minimum width=4.0cm, minimum height=2.9cm},
     arrow/.style={->, >=stealth, thick}
 ], node distance=3cm]
@@ -1457,7 +1457,7 @@ If anyone can produce such a counterexample, the theorem is false. The proofs es
 \centering
 \begin{tikzpicture}[scale=1.8, 
     theorem/.style={rectangle, draw, fill=green!20, minimum width=7.2cm, minimum height=2.2cm, align=center, rounded corners},
-    property/.style={rectangle, draw, fill=blue!10, minimum width=6.2cm, minimum height=1.4cm, align=center},
+    property/.style={rectangle, draw, fill=blue!10, minimum width=6.2cm, minimum height=1.6cm, align=center},
     arrow/.style={->, >=stealth, thick}
 ], node distance=2.5cm]
     % Central: Zero-Admit Standard
@@ -1476,7 +1476,7 @@ If anyone can produce such a counterexample, the theorem is false. The proofs es
     \draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (gauge) -- (zero);
     
     % Bottom: Inquisitor
-    \node[draw, fill=purple!20, minimum width=14.4cm, minimum height=1.4cm, rounded corners] at (0, -4.5) {\textbf{Inquisitor} enforces standard via CI (25+ rule categories)};
+    \node[draw, fill=purple!20, minimum width=14.4cm, minimum height=1.6cm, rounded corners] at (0, -4.5) {\textbf{Inquisitor} enforces standard via CI (25+ rule categories)};
     
     % Title
     \node at (0, 4) {\textbf{Chapter 5: Verification Results}};

@@ -152,7 +152,7 @@ The goal is not to “encode” the implementation, but to define a minimal sema
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    field/.style={rectangle, draw, minimum width=5.8cm, minimum height=1.1cm, font=\normalsize},
+    field/.style={rectangle, draw, minimum width=5.8cm, minimum height=1.3cm, font=\normalsize},
     mufield/.style={field, fill=red!15, draw=red!70, thick},
     note/.style={font=\normalsize, text width=3.5cm},
     scale=0.85, transform shape
@@ -1116,7 +1116,7 @@ self.witness_state = post_state
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    module/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.4cm, font=\normalsize},
+    module/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.6cm, font=\normalsize},
     arrow/.style={->, very thick, >=stealth},
     scale=0.85, transform shape
 ], node distance=3cm]
@@ -1384,18 +1384,18 @@ On each clock cycle, \texttt{state\_reg} updates based on the FSM transition log
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    bit/.style={rectangle, draw, minimum width=0.7cm, minimum height=1.4cm, font=\normalsize},
-    field/.style={rectangle, draw, very thick, minimum height=1.4cm, font=\normalsize\bfseries},
+    bit/.style={rectangle, draw, minimum width=0.7cm, minimum height=1.6cm, font=\normalsize},
+    field/.style={rectangle, draw, very thick, minimum height=1.6cm, font=\normalsize\bfseries},
     scale=0.85, transform shape
 ], node distance=3cm]
 % 32-bit instruction word
 \node[font=\normalsize\bfseries] at (-2,0) {32-bit:};
 
 % Bit fields
-\node[field, fill=blue!20, minimum width=3.6cm] (opcode) at (0,0) {opcode};
-\node[field, fill=green!20, minimum width=3.6cm] (opa) at (2.5,0) {operand\_a};
-\node[field, fill=orange!20, minimum width=3.6cm] (opb) at (5,0) {operand\_b};
-\node[field, fill=red!20, minimum width=3.6cm] (cost) at (7.5,0) {cost};
+\node[field, fill=blue!20, minimum width=4.0cm] (opcode) at (0,0) {opcode};
+\node[field, fill=green!20, minimum width=4.0cm] (opa) at (2.5,0) {operand\_a};
+\node[field, fill=orange!20, minimum width=4.0cm] (opb) at (5,0) {operand\_b};
+\node[field, fill=red!20, minimum width=4.0cm] (cost) at (7.5,0) {cost};
 
 % Bit positions
 \node[font=\normalsize] at (0,0.7) {[31:24]};
@@ -1549,7 +1549,7 @@ end
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    block/.style={rectangle, draw, minimum width=3.6cm, minimum height=1.4cm, font=\normalsize},
+    block/.style={rectangle, draw, minimum width=4.0cm, minimum height=1.6cm, font=\normalsize},
     arrow/.style={->, very thick, >=stealth},
     scale=0.85, transform shape
 ], node distance=3cm]

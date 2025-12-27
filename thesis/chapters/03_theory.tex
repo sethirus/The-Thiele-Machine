@@ -10,7 +10,7 @@ The previous chapter established the \textit{problem}: classical computers are s
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    box/.style={draw, rounded corners, minimum width=4.6cm, minimum height=1.7cm, align=center, font=\normalsize},
+    box/.style={draw, rounded corners, minimum width=4.6cm, minimum height=1.9cm, align=center, font=\normalsize},
     arrow/.style={->, >=stealth, thick},
     dasharrow/.style={->, >=stealth, very thick, dashed},
     scale=0.85, transform shape
@@ -1276,13 +1276,13 @@ Definition graph_pnew (g : PartitionGraph) (region : list nat)
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    module/.style={draw, rounded corners, minimum width=3.2cm, minimum height=1.7cm, align=center, font=\normalsize},
+    module/.style={draw, rounded corners, minimum width=4.0cm, minimum height=1.9cm, align=center, font=\normalsize},
     arrow/.style={->, >=stealth, thick},
     scale=0.85, transform shape
 ], node distance=3cm]
 % PNEW
 \node[font=\bfseries] at (-5, 3.5) {PNEW};
-\node[draw, dashed, fill=gray!10, minimum width=3.6cm, minimum height=1.8cm] (pnew_before) at (-5, 2) {region};
+\node[draw, dashed, fill=gray!10, minimum width=4.0cm, minimum height=1.8cm] (pnew_before) at (-5, 2) {region};
 \draw[arrow, shorten >=2pt, shorten <=2pt] (-5, 1.2) -- (-5, 0.3);
 \node[module, fill=blue!20, align=center, text width=3.5cm, font=\normalsize] (pnew_after) at (-5, -0.5) {Module\\ID: $n$};
 \node[font=\normalsize\itshape] at (-5, -1.5) {Creates new module};
@@ -2019,7 +2019,7 @@ This is the computational analog of Noether's theorem: the gauge symmetry (abili
 \centering
 \begin{tikzpicture}[
     concept/.style={draw, rounded corners, minimum width=4.0cm, minimum height=2.4cm, align=center, font=\normalsize},
-    result/.style={draw, very thick, fill=yellow!20, rounded corners, minimum width=6.2cm, minimum height=1.7cm, align=center, font=\normalsize},
+    result/.style={draw, very thick, fill=yellow!20, rounded corners, minimum width=6.2cm, minimum height=1.9cm, align=center, font=\normalsize},
     scale=0.85, transform shape
 ], node distance=2.5cm]
 % Core concepts
