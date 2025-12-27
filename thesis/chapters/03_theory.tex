@@ -180,7 +180,7 @@ The state space $S$ represents the complete instantaneous description of the mac
 \node[label, right=1.0cm of err, font=\small, xshift=10pt] {$\leftarrow$ \textit{Error flag}};
 
 % Highlight mu
-\draw[ultra very thick, red!70!black] ($(mu.north west)+(-0.1,0.1)$) rectangle ($(mu.south east)+(0.1,-0.1)$);
+\draw[ultra thick, red!70!black] ($(mu.north west)+(-0.1,0.1)$) rectangle ($(mu.south east)+(0.1,-0.1)$);
 \end{tikzpicture}
 \caption{The \texttt{VMState} record structure. The $\mu$-ledger (\texttt{vm\_mu}) is highlighted as the central innovation---a monotonic counter tracking cumulative structural cost.}
 \label{fig:vmstate_record}
@@ -1583,7 +1583,7 @@ This is a computational analog of Bell locality: you cannot signal to a remote m
 };
 
 % Arrow with cost
-\draw[arrow, ultra very thick, blue, shorten >=2pt, shorten <=2pt] (omega) -- (omega_prime) 
+\draw[arrow, ultra thick, blue, shorten >=2pt, shorten <=2pt] (omega) -- (omega_prime) 
     node[pos=0.5, font=\small, above, yshift=6pt] {\textbf{Insight}}
     node[pos=0.5, font=\small, above, yshift=6pt] {Cost: $\Delta\mu \ge k$ bits};
 
@@ -1977,7 +1977,7 @@ This is the computational analog of Noether's theorem: the gauge symmetry (abili
 };
 
 % Gauge transformation arrow
-\draw[arrow, ultra very thick, purple, shorten >=2pt, shorten <=2pt] (s) -- (sk) 
+\draw[arrow, ultra thick, purple, shorten >=2pt, shorten <=2pt] (s) -- (sk) 
     node[pos=0.5, font=\small, above, yshift=6pt] {Gauge Shift $+k$};
 
 % Invariant annotation
@@ -2035,7 +2035,7 @@ This is the computational analog of Noether's theorem: the gauge symmetry (abili
 \node[result, align=center, text width=3.5cm] (nosig) at (2.5, 0.5) {\textbf{No-Signaling}\\Local ops $\not\to$ remote observables};
 
 % Master result
-\node[draw, ultra very thick, fill=green!30, rounded corners, minimum width=14.4cm, minimum height=2.6cm, align=center, text width=3.5cm] (master) at (0, -2) {
+\node[draw, ultra thick, fill=green!30, rounded corners, minimum width=14.4cm, minimum height=2.6cm, align=center, text width=3.5cm] (master) at (0, -2) {
     \textbf{No Free Insight Theorem}\\
     $\log|\Omega| - \log|\Omega'| \le \Delta\mu$
 };

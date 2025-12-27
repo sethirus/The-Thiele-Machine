@@ -630,7 +630,7 @@ Definition instr_targets (instr : vm_instruction) : list nat :=
     \node at (-2.5, -1.3) {\color{red}\footnotesize (target)};
     
     % Arrow showing operation
-    \draw[->, >=stealth, very very thick, red, shorten >=2pt, shorten <=2pt] (-0.8, 0.5) -- (0.8, 0.5);
+    \draw[->, >=stealth, ultra thick, red, shorten >=2pt, shorten <=2pt] (-0.8, 0.5) -- (0.8, 0.5);
     \node at (0, 1) {\texttt{instr} targets $mid_2$};
     
     % Right side: After operation
@@ -744,7 +744,7 @@ By case analysis on the instruction. For each instruction type:
     \node[field] at (-3.5, -0.9) {\texttt{vm\_regs, ...}};
     
     % Arrow with shift
-    \draw[->, >=stealth, very very thick, blue, shorten >=2pt, shorten <=2pt] (-1.5, 0) -- (1.5, 0);
+    \draw[->, >=stealth, ultra thick, blue, shorten >=2pt, shorten <=2pt] (-1.5, 0) -- (1.5, 0);
     \node at (0, 0.6) {\texttt{mu\_gauge\_shift}$(k)$};
     \node at (0, -0.4) {$\mu \mapsto \mu + k$};
     
@@ -866,7 +866,7 @@ Theorem kernel_conservation_mu_gauge : forall s k,
     \node at (9, -1) {$\mu = \sum_{i=1}^{3} \mu_i$};
     
     % Monotonicity arrow
-    \draw[->, >=stealth, very very thick, red, dashed, shorten >=2pt, shorten <=2pt] (0, -1.8) -- (11, -1.8);
+    \draw[->, >=stealth, ultra thick, red, dashed, shorten >=2pt, shorten <=2pt] (0, -1.8) -- (11, -1.8);
     \node at (5.5, -2.3) {\color{red}\textbf{Monotonically Non-Decreasing}};
     
     % Conservation equation
@@ -1123,7 +1123,7 @@ Theorem vm_irreversible_bits_lower_bound :
     \node at (3, -1.5) {\footnotesize Accepts fewer traces};
     
     % Arrow showing strengthening
-    \draw[->, >=stealth, very very thick, red, shorten >=2pt, shorten <=2pt] (-0.8, 0) -- (0.8, 0);
+    \draw[->, >=stealth, ultra thick, red, shorten >=2pt, shorten <=2pt] (-0.8, 0) -- (0.8, 0);
     \node at (0, 0.6) {\textbf{Strengthen}};
     \node at (0, -0.5) {\footnotesize $P_{\text{strong}} < P_{\text{weak}}$};
     
