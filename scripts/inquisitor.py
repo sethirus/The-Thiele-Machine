@@ -1010,18 +1010,24 @@ def scan_mu_cost_consistency(path: Path) -> list[Finding]:
     """
     raw = path.read_text(encoding="utf-8", errors="replace")
     text = strip_coq_comments(raw)
+    raw_lines = raw.splitlines()  # Keep original for SAFE checking
     line_of = _line_map(text)
     clean_lines = text.splitlines()
     findings: list[Finding] = []
     
     # Check for μ-related definitions that might be trivially zero
-    mu_def_re = re.compile(r"(?m)^[ \t]*Definition\s+([A-Za-z0-9_']*(?:mu|μ|cost)[A-Za-z0-9_']*)\b.*:=\s*0")
+    # Note: Uses both 'mu' and Unicode μ (\u03bc) for compatibility
+    mu_def_re = re.compile(r"(?m)^[ \t]*Definition\s+([A-Za-z0-9_']*(?:mu|\u03bc|cost)[A-Za-z0-9_']*)\b.*:=\s*0")
     for m in mu_def_re.finditer(text):
         name = m.group(1)
         # Skip if in test files or explicitly documented as intentional
         if "test" in path.name.lower() or "spec" in path.name.lower():
             continue
         line = line_of[m.start()]
+        # Check for SAFE comment in original text
+        context = "\n".join(raw_lines[max(0, line - 3): line + 1])
+        if re.search(r"\(\*\s*SAFE:", context):
+            continue
         snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else m.group(0)
         findings.append(
             Finding(
@@ -1030,7 +1036,7 @@ def scan_mu_cost_consistency(path: Path) -> list[Finding]:
                 file=path,
                 line=line,
                 snippet=snippet.strip(),
-                message=f"μ-cost definition `{name}` is trivially zero - ensure this is intentional.",
+                message=f"\u03bc-cost definition `{name}` is trivially zero - ensure this is intentional.",
             )
         )
     
