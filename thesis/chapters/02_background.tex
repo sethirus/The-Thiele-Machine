@@ -45,7 +45,7 @@ If you are familiar with any section, feel free to skip it. The only prerequisit
 % TikZ Figure: Turing Machine Architecture
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[[scale=0.65, transform shape], node distance=3cm]
+\begin{tikzpicture}[scale=0.65, transform shape, node distance=3cm]
     % Tape
     \foreach \x in {0,1,2,3,4,5,6,7,8} {
         \draw (\x,0) rectangle (\x+1,1);
@@ -76,8 +76,7 @@ If you are familiar with any section, feel free to skip it. The only prerequisit
     
     % Labels
     \node[below] at (4.5,-0.3) {Infinite tape $\Gamma^*$};
-    \draw[<->, >=stealth, shorten >=2pt, shorten <=2pt] (-0.5,0.5) -- (-0.5,0.5) node[left, above, yshift=6pt, pos=0.5, font=\small] {$\cdots$};
-    \draw[<->, >=stealth, shorten >=2pt, shorten <=2pt] (9.5,0.5) -- (9.5,0.5) node[right, above, yshift=6pt, pos=0.5, font=\small] {$\cdots$};
+    \draw[<->, >=stealth, shorten >=2pt, shorten <=2pt] (-0.5,0.5) -- (-0.5,0.5) node[left, above, yshift=6pt, pos=0.5,  >=stealth, shorten >=2pt, shorten <=2pt] (9.5,0.5) -- (9.5,0.5) node[right, above, yshift=6pt, pos=0.5, font=\small] {$\cdots$};
     
     % Blindness annotation
     \draw[very thick, red, dashed] (4,0) rectangle (5,1);
@@ -203,7 +202,7 @@ This does not trivialize P vs NP—the structural information may itself be expe
 % TikZ Figure: Information Theory Hierarchy
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[[scale=0.7], node distance=2cm]
+\begin{tikzpicture}[scale=0.7, node distance=2cm]
     % Three columns
     \node[draw, rounded corners, fill=green!10, minimum width=5.4cm, minimum height=3.6cm, align=center, text width=3.5cm] (shannon) at (0,0) {
         \begin{tabular}{c}
@@ -355,7 +354,7 @@ This is reflected directly in the Python and Coq implementations: the $\mu$-ledg
 % TikZ Figure: Landauer's Principle and Maxwell's Demon
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[[scale=0.65], node distance=3cm]
+\begin{tikzpicture}[scale=0.65, node distance=3cm]
     % Left: Landauer's Principle
     \begin{scope}[xshift=-5cm]
         % Two-to-one mapping
@@ -492,7 +491,7 @@ The total entropy balance is preserved: the demon's information processing exact
 % TikZ Figure: The μ-Thermodynamic Bridge
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[[scale=0.7], node distance=3cm]
+\begin{tikzpicture}[scale=0.7, node distance=3cm]
     % Three columns: Abstract, Bridge, Physical
     \node[draw, very thick, rounded corners, fill=blue!15, minimum width=5.4cm, minimum height=7.2cm] (abstract) at (0,0) {};
     \node[above] at (0,2.3) {\textbf{Abstract (Model)}};
@@ -576,7 +575,7 @@ The $\mu$-ledger is the computational analog of the thermodynamic entropy: a mon
 % TikZ Figure: CHSH Inequality and Correlation Bounds
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[[scale=0.7], node distance=2.5cm]
+\begin{tikzpicture}[scale=0.7, node distance=2.5cm]
     % Alice and Bob boxes
     \node[draw, very thick, rounded corners, fill=blue!10, minimum width=3.6cm, minimum height=2.6cm, align=center, text width=3.5cm] (alice) at (-4,0) {
         \begin{tabular}{c}
@@ -601,14 +600,9 @@ The $\mu$-ledger is the computational analog of the thermodynamic entropy: a mon
     
     % CHSH value scale
     \begin{scope}[yshift=-3cm]
-        \draw[very thick, ->, shorten >=2pt, shorten <=2pt] (-5,0) -- (5,0) node[right, above, yshift=6pt, pos=0.5, font=\small] {$S$};
-        
-        % Tick marks
-        \draw[very thick, shorten >=2pt, shorten <=2pt] (-4,0.1) -- (-4,-0.1) node[below, above, yshift=6pt, pos=0.5, font=\small] {$-4$};
-        \draw[very thick, shorten >=2pt, shorten <=2pt] (-2,0.1) -- (-2,-0.1) node[below, above, yshift=6pt, pos=0.5, font=\small] {$-2$};
-        \draw[very thick, shorten >=2pt, shorten <=2pt] (0,0.1) -- (0,-0.1) node[below, above, yshift=6pt, pos=0.5, font=\small] {$0$};
-        \draw[very thick, shorten >=2pt, shorten <=2pt] (2,0.1) -- (2,-0.1) node[below, above, yshift=6pt, pos=0.5, font=\small] {$2$};
-        \draw[very thick, shorten >=2pt, shorten <=2pt] (2.83,0.1) -- (2.83,-0.1) node[below, above, yshift=6pt, pos=0.5, font=\small] {$2\sqrt{2}$};
+        \draw[very thick, ->, shorten >=2pt, shorten <=2pt] (-5,0) -- (5,0) node[right, above, yshift=6pt, pos=0.5,  shorten >=2pt, shorten <=2pt] (-4,0.1) -- (-4,-0.1) node[below, above, yshift=6pt, pos=0.5, font=\small] {$-4$};
+        \draw[very thick, shorten >=2pt, shorten <=2pt] (-2,0.1) -- (-2,-0.1) node[below, above, yshift=6pt, pos=0.5,  shorten >=2pt, shorten <=2pt] (0,0.1) -- (0,-0.1) node[below, above, yshift=6pt, pos=0.5, font=\small] {$0$};
+        \draw[very thick, shorten >=2pt, shorten <=2pt] (2,0.1) -- (2,-0.1) node[below, above, yshift=6pt, pos=0.5,  shorten >=2pt, shorten <=2pt] (2.83,0.1) -- (2.83,-0.1) node[below, above, yshift=6pt, pos=0.5, font=\small] {$2\sqrt{2}$};
         \draw[very thick, shorten >=2pt, shorten <=2pt] (4,0.1) -- (4,-0.1) node[below, above, yshift=6pt, pos=0.5, font=\small] {$4$};
         
         % Regions
@@ -706,7 +700,7 @@ In other words, you cannot certify non-local correlations without explicitly pay
 % TikZ Figure: Coq Verification Workflow
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[[scale=0.65], node distance=2.5cm]
+\begin{tikzpicture}[scale=0.65, node distance=2.5cm]
     % Coq workflow boxes
     \node[draw, very thick, rounded corners, fill=blue!10, minimum width=4.6cm, minimum height=1.8cm, align=center, text width=3.5cm] (spec) at (0,0) {
         \begin{tabular}{c}
@@ -874,7 +868,7 @@ MDL has been used extensively in machine learning for model selection (Occam's r
 % TikZ Figure: Chapter 2 Summary - The Conceptual Foundation
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[[scale=0.75], node distance=2.5cm]
+\begin{tikzpicture}[scale=0.75, node distance=2.5cm]
     % Central node
     \node[draw, very thick, rounded corners, fill=yellow!30, minimum width=5.4cm, minimum height=2.6cm, align=center, text width=3.5cm] (thiele) at (0,0) {
         \begin{tabular}{c}

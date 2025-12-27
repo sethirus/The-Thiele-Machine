@@ -25,10 +25,10 @@
 \draw[arrow, shorten >=2pt, shorten <=2pt] (meaning) -- (future);
 
 % Key concepts
-\node[right=0.5cm of physics, font=\normalsize, sloped, pos=0.5, font=\small, xshift=10pt] {Landauer, Noether, Bell};
-\node[right=0.5cm of complexity, font=\normalsize, sloped, pos=0.5, font=\small, xshift=10pt] {Time Tax, $\text{P}_\mu$, $\text{NP}_\mu$};
-\node[left=0.5cm of ai, font=\normalsize, sloped, pos=0.5, font=\small, xshift=-10pt] {Hallucinations, Receipts};
-\node[left=0.5cm of future, font=\normalsize, sloped, pos=0.5, font=\small, xshift=-10pt] {Quantum, Distributed};
+\node[right=0.5cm of physics,  font=\small, xshift=10pt] {Landauer, Noether, Bell};
+\node[right=0.5cm of complexity,  font=\small, xshift=10pt] {Time Tax, $\text{P}_\mu$, $\text{NP}_\mu$};
+\node[left=0.5cm of ai,  font=\small, xshift=-10pt] {Hallucinations, Receipts};
+\node[left=0.5cm of future,  font=\small, xshift=-10pt] {Quantum, Distributed};
 \end{tikzpicture}
 \caption{Chapter 7 roadmap: from verified results to broader implications.}
 \label{fig:ch7_roadmap}
@@ -151,9 +151,9 @@ The Thiele Machine is more than a new computational model; it is a proposal for 
 \draw[arrow, shorten >=2pt, shorten <=2pt] (gauge) -- (mugauge);
 
 % Labels
-\node[above=0.5cm of energy, font=\bfseries, , pos=0.5, font=\small, yshift=6pt] {Physics};
-\node[above=0.5cm of mu, font=\bfseries, , pos=0.5, font=\small, yshift=6pt] {Thiele Machine};
-\node[right=1.0cm of mugauge, font=\normalsize, text width=3cm, align=center, sloped, pos=0.5, font=\small, xshift=10pt] {Not metaphor:\\formal isomorphism};
+\node[above=0.5cm of energy, font=\bfseries, pos=0.5, font=\small, yshift=6pt] {Physics};
+\node[above=0.5cm of mu, font=\bfseries, pos=0.5, font=\small, yshift=6pt] {Thiele Machine};
+\node[right=1.0cm of mugauge,  text width=3cm, align=center, font=\small, xshift=10pt] {Not metaphor:\\formal isomorphism};
 \end{tikzpicture}
 \caption{Physics-computation isomorphism: formal correspondences, not analogies.}
 \label{fig:physics_isomorphism}
@@ -221,12 +221,12 @@ This \textbf{physics-computation isomorphism diagram} visualizes the formal corr
 \node[layer, fill=green!20, below=2.0cm of bridge, align=center, text width=3.5cm] (physical) {Physical\\$Q \ge k_B T \ln 2 \cdot n$};
 
 % Arrows
-\draw[arrow] (abstract) -- node[right, font=\normalsize, above, yshift=6pt, pos=0.5, font=\small] {Proven in Coq} (bridge);
-\draw[arrow] (bridge) -- node[right, font=\normalsize, above, yshift=6pt, pos=0.5, font=\small] {Empirical claim} (physical);
+\draw[arrow] (abstract) -- node[right,  above, yshift=6pt, pos=0.5, font=\small] {Proven in Coq} (bridge);
+\draw[arrow] (bridge) -- node[right,  above, yshift=6pt, pos=0.5, font=\small] {Empirical claim} (physical);
 
 % Annotations
-\node[right=2.9cm of abstract, font=\normalsize, text width=3cm, align=center, sloped, pos=0.5, font=\small, xshift=10pt] {Kernel theorem:\\$\mu \ge \log_2(|\Omega|/|\Omega'|)$};
-\node[right=2.9cm of physical, font=\normalsize, text width=3cm, align=center, sloped, pos=0.5, font=\small, xshift=10pt] {Falsifiable prediction:\\energy scales with $\mu$};
+\node[right=2.9cm of abstract,  text width=3cm, align=center, font=\small, xshift=10pt] {Kernel theorem:\\$\mu \ge \log_2(|\Omega|/|\Omega'|)$};
+\node[right=2.9cm of physical,  text width=3cm, align=center, font=\small, xshift=10pt] {Falsifiable prediction:\\energy scales with $\mu$};
 \end{tikzpicture}
 \caption{Landauer bridge: from abstract $\mu$-accounting to physical heat dissipation.}
 \label{fig:landauer_bridge}
@@ -436,18 +436,12 @@ That trade-off is implemented as an explicit ledger budget in the harness descri
 ]
 % Two strategies
 \node[box, fill=red!20, align=center, text width=3.5cm, font=\normalsize] (blind) {Blind Search\\$T = O(2^n)$\\$\mu = O(1)$};
-\node[box, fill=green!20, right=5.9cm of blind, align=center, text width=3.5cm, font=\normalsize] (sighted) {Sighted Execution\\$T = O(n^k)$\\$\mu = O(2^n)$};
-
-% Central conservation
-\node[above=2.0cm of $(blind)!0.5!(sighted)$, font=\bfseries, sloped, pos=0.5, font=\small, yshift=6pt] {Difficulty Conservation};
-\draw[arrow] (blind) -- node[above, yshift=6pt, font=\normalsize, , pos=0.5, font=\small] {Trade-off} (sighted);
-
-% Equation
-\node[below=2.0cm of $(blind)!0.5!(sighted)$, draw, rounded corners, fill=yellow!20, minimum width=9.0cm, sloped, pos=0.5, font=\small, yshift=-6pt] {$\text{Total Cost} = T(x) + \mu(x)$};
+\node[box, fill=green!20, right=5.9cm of blind, align=center, text width=3.5cm,  font=\bfseries, font=\small, yshift=6pt] {Difficulty Conservation};
+\draw[arrow] (blind) -- node[above, yshift=6pt, font=\normalsize, pos=0.5,  draw, rounded corners, fill=yellow!20, minimum width=9.0cm, font=\small, yshift=-6pt] {$\text{Total Cost} = T(x) + \mu(x)$};
 
 % Annotations
-\node[below=0.4cm of blind, font=\normalsize, red, sloped, pos=0.5, font=\small, yshift=-6pt] {High time, low structure};
-\node[below=0.4cm of sighted, font=\normalsize, green!50!black, sloped, pos=0.5, font=\small, yshift=-6pt] {Low time, high structure};
+\node[below=0.4cm of blind,  red, font=\small, yshift=-6pt] {High time, low structure};
+\node[below=0.4cm of sighted,  green!50!black, font=\small, yshift=-6pt] {Low time, high structure};
 \end{tikzpicture}
 \caption{Conservation of difficulty: time and structure are interchangeable resources.}
 \label{fig:difficulty_conservation}
@@ -543,22 +537,18 @@ The relationship $\text{P} \subseteq \text{P}_\mu \subseteq \text{NP}_\mu$ is st
 ]
 % LLM path (top)
 \node[box, fill=red!20, align=center, text width=3.5cm, font=\normalsize] (llm) {LLM\\Generates};
-\node[box, right=3.9cm of llm, fill=red!10, align=center, text width=3.5cm, font=\normalsize] (output1) {Output\\(unverified)};
-\draw[arrow] (llm) -- node[above, yshift=6pt, font=\normalsize, sloped, pos=0.5, font=\small] {hallucination\\risk} (output1);
+\node[box, right=3.9cm of llm, fill=red!10, align=center, text width=3.5cm,  yshift=6pt, font=\normalsize, font=\small] {hallucination\\risk} (output1);
 
 % Thiele path (bottom)
 \node[box, fill=blue!20, below=2.9cm of llm, align=center, text width=3.5cm, font=\normalsize] (predict) {Model\\Predicts};
 \node[box, fill=yellow!20, right=2.9cm of predict, align=center, text width=3.5cm, font=\normalsize] (certify) {VM\\Certifies};
 \node[box, fill=green!20, right=2.9cm of certify, align=center, text width=3.5cm, font=\normalsize] (output2) {Output\\(verified)};
-\node[box, fill=red!10, below=1.6cm of certify, align=center, text width=3.5cm, font=\normalsize] (penalty) {$\mu$-cost\\Penalty};
-
-\draw[arrow] (predict) -- node[above, yshift=6pt, font=\normalsize, , pos=0.5, font=\small] {hypothesis} (certify);
-\draw[arrow] (certify) -- node[above, yshift=6pt, font=\normalsize, , pos=0.5, font=\small] {receipt} (output2);
-\draw[arrow] (certify) -- node[right, font=\normalsize, above, yshift=6pt, pos=0.5, font=\small] {if false} (penalty);
+\node[box, fill=red!10, below=1.6cm of certify, align=center, text width=3.5cm,  yshift=6pt, font=\normalsize, pos=0.5, font=\small] {hypothesis} (certify);
+\draw[arrow] (certify) -- node[above, yshift=6pt, font=\normalsize, pos=0.5,  font=\normalsize, above, yshift=6pt, pos=0.5, font=\small] {if false} (penalty);
 
 % Labels
-\node[left=0.5cm of llm, font=\bfseries\scriptsize, above, pos=0.5, font=\small, xshift=-10pt] {Classic AI:};
-\node[left=0.5cm of predict, font=\bfseries\scriptsize, above, pos=0.5, font=\small, xshift=-10pt] {Thiele AI:};
+\node[left=0.5cm of llm,  above, font=\small, xshift=-10pt] {Classic AI:};
+\node[left=0.5cm of predict,  above, font=\small, xshift=-10pt] {Thiele AI:};
 \end{tikzpicture}
 \caption{AI hallucination prevention: false hypotheses incur $\mu$-cost without receipts.}
 \label{fig:ai_hallucination}
@@ -717,7 +707,7 @@ receipt = \{\\
 };
 
 % Annotations
-\node[above=0.5cm of r2, font=\normalsize, sloped, pos=0.5, font=\small, yshift=6pt] {Tamper-evident chain};
+\node[above=0.5cm of r2,  font=\small, yshift=6pt] {Tamper-evident chain};
 \end{tikzpicture}
 \caption{Receipt chain: cryptographic audit trail for every computation.}
 \label{fig:receipt_chain}
@@ -993,9 +983,9 @@ Generating LRAT proofs or SAT models is delegated to external solvers. Future wo
 \draw[arrow, shorten >=2pt, shorten <=2pt] (now) -- (language);
 
 % Annotations
-\node[right=0.5cm of quantum, font=\normalsize, text width=3cm, sloped, pos=0.5, font=\small, xshift=10pt] {Entanglement as partition structure};
-\node[right=0.5cm of distributed, font=\normalsize, text width=3cm, sloped, pos=0.5, font=\small, xshift=10pt] {Modules $\rightarrow$ network nodes};
-\node[right=0.5cm of language, font=\normalsize, text width=3cm, sloped, pos=0.5, font=\small, xshift=10pt] {First-class partitions, $\mu$-tracking};
+\node[right=0.5cm of quantum,  text width=3cm, font=\small, xshift=10pt] {Entanglement as partition structure};
+\node[right=0.5cm of distributed,  text width=3cm, font=\small, xshift=10pt] {Modules $\rightarrow$ network nodes};
+\node[right=0.5cm of language,  text width=3cm, font=\small, xshift=10pt] {First-class partitions, $\mu$-tracking};
 \end{tikzpicture}
 \caption{Future research directions building on verified foundations.}
 \label{fig:future_directions}
@@ -1092,7 +1082,7 @@ A high-level language for the Thiele Machine would include:
 \draw[arrow, shorten >=2pt, shorten <=2pt] (future) -- (result);
 
 % Key insight
-\node[below=1.0cm of result, draw, rounded corners, fill=yellow!20, minimum width=14.4cm, font=\normalsize, sloped, pos=0.5, font=\small, yshift=-6pt] {$\mu$-accounting unifies computation, physics, and verification};
+\node[below=1.0cm of result, draw, rounded corners, fill=yellow!20, minimum width=14.4cm,  font=\small, yshift=-6pt] {$\mu$-accounting unifies computation, physics, and verification};
 \end{tikzpicture}
 \caption{Chapter 7 summary: structure as the unifying concept.}
 \label{fig:ch7_summary}
