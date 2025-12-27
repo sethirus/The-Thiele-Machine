@@ -2,9 +2,11 @@
 
 ## Current Status
 
-✅ **ALL 196 COQ PROOFS COMPILE** (December 27, 2025)  
+✅ **ALL 198 COQ PROOFS COMPILE** (December 27, 2025)  
 ✅ **INQUISITOR PASSES**: Zero axioms, zero admits, zero parameters  
 ✅ **BUILD SYSTEM WORKING**: `./scripts/build_coq.sh` compiles everything  
+✅ **PYTHON BISIMULATION**: Coq VM ↔ Python VM equivalence proven  
+✅ **HARDWARE BISIMULATION**: Python VM ↔ Hardware equivalence proven  
 
 ## What's Done
 
