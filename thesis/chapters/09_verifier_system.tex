@@ -7,59 +7,46 @@
 \centering
 \begin{tikzpicture}[scale=1.8, 
     node distance=3cm,
-    box/.style={rectangle, draw=black, line width=0.8pt, rounded corners=3pt, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=blue!10, inner sep=0.4cm},
-    cmodule/.style={rectangle, draw, rounded corners=3pt, minimum width=4.5cm, minimum height=2.0cm, align=center, fill=green!15},
+    box/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.4cm, align=center, fill=blue!10},
+    cmodule/.style={rectangle, draw, rounded corners, minimum width=3.6cm, minimum height=1.4cm, align=center, fill=green!15},
     arrow/.style={->, >=Stealth, thick}
 ]
     % Central node
-    \node[box, fill=yellow!15, minimum width=7.2cm, align=center, text width=4.5cm, font=
-ormalsize] (verifier) at (0,0) {\textbf{Verifier System}\\Receipt-Defined};
+    \node[box, fill=yellow!20, minimum width=7.2cm, align=center, text width=3.5cm, font=\normalsize] (verifier) at (0,0) {\textbf{Verifier System}\\Receipt-Defined};
     
     % C-modules
-    \node[cmodule, align=center, text width=4.5cm, font=
-ormalsize] (crand) at (-4, 2) {C-RAND\\Randomness};
-    \node[cmodule, align=center, text width=4.5cm, font=
-ormalsize] (ctomo) at (-1.5, 2.5) {C-TOMO\\Tomography};
-    \node[cmodule, align=center, text width=4.5cm, font=
-ormalsize] (centropy) at (1.5, 2.5) {C-ENTROPY\\Entropy};
-    \node[cmodule, align=center, text width=4.5cm, font=
-ormalsize] (ccausal) at (4, 2) {C-CAUSAL\\Causation};
+    \node[cmodule, align=center, text width=3.5cm, font=\normalsize] (crand) at (-4, 2) {C-RAND\\Randomness};
+    \node[cmodule, align=center, text width=3.5cm, font=\normalsize] (ctomo) at (-1.5, 2.5) {C-TOMO\\Tomography};
+    \node[cmodule, align=center, text width=3.5cm, font=\normalsize] (centropy) at (1.5, 2.5) {C-ENTROPY\\Entropy};
+    \node[cmodule, align=center, text width=3.5cm, font=\normalsize] (ccausal) at (4, 2) {C-CAUSAL\\Causation};
     
     % Ingredients
-    \node[box, align=center, text width=4.5cm, font=
-ormalsize] (trace) at (-4, -1.5) {Trace\\Integrity};
-    \node[box, align=center, text width=4.5cm, font=
-ormalsize] (semantic) at (0, -1.5) {Semantic\\Checking};
-    \node[box, align=center, text width=4.5cm, font=
-ormalsize] (cost) at (4, -1.5) {$\mu$-Cost\\Accounting};
+    \node[box, align=center, text width=3.5cm, font=\normalsize] (trace) at (-4, -1.5) {Trace\\Integrity};
+    \node[box, align=center, text width=3.5cm, font=\normalsize] (semantic) at (0, -1.5) {Semantic\\Checking};
+    \node[box, align=center, text width=3.5cm, font=\normalsize] (cost) at (4, -1.5) {$\mu$-Cost\\Accounting};
     
     % TRS Protocol
-    \node[box, fill=red!15, align=center, text width=4.5cm, font=
-ormalsize] (trs) at (0, -3) {TRS-1.0\\Receipt Protocol};
+    \node[box, fill=red!15, align=center, text width=3.5cm, font=\normalsize] (trs) at (0, -3) {TRS-1.0\\Receipt Protocol};
     
     % Arrows
-    \draw[arrow] (crand) -- (verifier);
-    \draw[arrow] (ctomo) -- (verifier);
-    \draw[arrow] (centropy) -- (verifier);
-    \draw[arrow] (ccausal) -- (verifier);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (crand) -- (verifier);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (ctomo) -- (verifier);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (centropy) -- (verifier);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (ccausal) -- (verifier);
     
-    \draw[arrow] (trace) -- (verifier);
-    \draw[arrow] (semantic) -- (verifier);
-    \draw[arrow] (cost) -- (verifier);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (trace) -- (verifier);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (semantic) -- (verifier);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (cost) -- (verifier);
     
-    \draw[arrow] (trs) -- (trace);
-    \draw[arrow] (trs) -- (semantic);
-    \draw[arrow] (trs) -- (cost);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (trs) -- (trace);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (trs) -- (semantic);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (trs) -- (cost);
     
     % Annotations
-    \node[font=
-ormalsize, text=gray] at (-4, 1.2) {§A.3};
-    \node[font=
-ormalsize, text=gray] at (-1.5, 1.7) {§A.4};
-    \node[font=
-ormalsize, text=gray] at (1.5, 1.7) {§A.5};
-    \node[font=
-ormalsize, text=gray] at (4, 1.2) {§A.6};
+    \node[font=\normalsize, text=gray] at (-4, 1.2) {§A.3};
+    \node[font=\normalsize, text=gray] at (-1.5, 1.7) {§A.4};
+    \node[font=\normalsize, text=gray] at (1.5, 1.7) {§A.5};
+    \node[font=\normalsize, text=gray] at (4, 1.2) {§A.6};
 \end{tikzpicture}
 \caption{Chapter A (Verifier System) roadmap showing the four C-modules and three verification ingredients, all built on the TRS-1.0 receipt protocol.}
 \label{fig:ch9-roadmap}
@@ -109,7 +96,7 @@ The key insight is that \textit{stronger claims require more evidence}. If you c
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[scale=1.8, 
-    node distance=3.0cm,
+    node distance=2.5cm,
     field/.style={rectangle, draw, minimum width=10.8cm, minimum height=1.2cm, align=center},
     arrow/.style={->, >=Stealth, thick}
 ]
@@ -120,20 +107,17 @@ The key insight is that \textit{stronger claims require more evidence}. If you c
     \node[field, fill=red!15] (signature) at (0, -0.2) {\texttt{signature}: Ed25519};
     
     % Brace
-    \draw[decorate, decoration={brace, amplitude=10pt, mirror}] (3.5, 3.4) -- (3.5, -0.6) node[pos=0.5, font=\small, above, yshift=6pt] {Content-addressed\\Signed\\Minimal};
+    \draw[decorate, decoration={brace, amplitude=10pt, mirror}, shorten >=2pt, shorten <=2pt] (3.5, 3.4) -- (3.5, -0.6) node[pos=0.5, font=\small, above, yshift=6pt] {Content-addressed\\Signed\\Minimal};
     
     % Properties
-    \node[font=
-ormalsize] at (-4, 2.5) {Immutable};
-    \node[font=
-ormalsize] at (-4, 1) {SHA-256};
-    \node[font=
-ormalsize] at (-4, -0.2) {Tamper-proof};
+    \node[font=\normalsize] at (-4, 2.5) {Immutable};
+    \node[font=\normalsize] at (-4, 1) {SHA-256};
+    \node[font=\normalsize] at (-4, -0.2) {Tamper-proof};
     
     % Arrows
-    \draw[arrow, dashed] (-3.2, 2.5) -- (-3.1, 2.5);
-    \draw[arrow, dashed] (-3.2, 1) -- (-3.1, 1);
-    \draw[arrow, dashed] (-3.2, -0.2) -- (-3.1, -0.2);
+    \draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (-3.2, 2.5) -- (-3.1, 2.5);
+    \draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (-3.2, 1) -- (-3.1, 1);
+    \draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (-3.2, -0.2) -- (-3.1, -0.2);
 \end{tikzpicture}
 \caption{TRS-1.0 Receipt Protocol structure. All artifacts are content-addressed via SHA-256 and signed with Ed25519 for tamper-proof verification.}
 \label{fig:trs-receipt}
@@ -251,30 +235,27 @@ Every C-module ships three mandatory falsifier tests. Each test targets a distin
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[scale=1.8, 
-    node distance=3.0cm,
-    box/.style={rectangle, draw=black, line width=0.8pt, rounded corners=3pt, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=blue!10, inner sep=0.4cm},
-    check/.style={diamond, draw, aspect=2, fill=yellow!15, align=center},
+    node distance=2.5cm,
+    box/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.4cm, align=center, fill=blue!10},
+    check/.style={diamond, draw, aspect=2, fill=yellow!20, align=center},
     arrow/.style={->, >=Stealth, thick}
 ]
     % Flow
-    \node[box, align=center, text width=4.5cm, font=
-ormalsize] (input) at (0, 0) {Randomness\\Claim};
+    \node[box, align=center, text width=3.5cm, font=\normalsize] (input) at (0, 0) {Randomness\\Claim};
     \node[check] (receipt) at (3, 0) {In TRS?};
-    \node[check, align=center, text width=4.5cm] (entropy) at (6, 0) {$H_{min}$\\evidence?};
-    \node[box, fill=green!12, font=
-ormalsize] (pass) at (9, 0.8) {PASS};
-    \node[box, fill=red!12, font=
-ormalsize] (fail) at (9, -0.8) {REJECT};
+    \node[check, align=center, text width=3.5cm] (entropy) at (6, 0) {$H_{min}$\\evidence?};
+    \node[box, fill=green!20, font=\normalsize] (pass) at (9, 0.8) {PASS};
+    \node[box, fill=red!20, font=\normalsize] (fail) at (9, -0.8) {REJECT};
     
     % Arrows
-    \draw[arrow] (input) -- (receipt);
-    \draw[arrow] (receipt.south) -- ++(0, -0.5) -| node[near start, below, font=\small] {No} (fail);
-    \draw[arrow] (entropy) -- node[above, font=\small] {Yes} (pass);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (input) -- (receipt);
+    \draw[arrow] (receipt) -- node[above, yshift=6pt, font=\normalsize, pos=0.5, font=\small] {Yes} (entropy);
+    \draw[arrow] (receipt.south) -- ++(0, -0.5) -| node[near start, below, font=\normalsize, above, yshift=6pt, pos=0.5, font=\small] {No} (fail);
+    \draw[arrow] (entropy) -- node[above, yshift=6pt, font=\normalsize, pos=0.5, font=\small] {Yes} (pass);
     \draw[arrow] (entropy.south) -- ++(0, -0.3) -| (fail);
     
     % Cost equation
-    \node[draw, rounded corners=3pt, fill=gray!10, font=
-ormalsize] at (4.5, -2) {Required disclosure: $\lceil 1024 \cdot H_{min} \rceil$ bits};
+    \node[draw, rounded corners, fill=gray!10, font=\normalsize] at (4.5, -2) {Required disclosure: $\lceil 1024 \cdot H_{min} \rceil$ bits};
 \end{tikzpicture}
 \caption{C-RAND verification flow. Claims must be receipt-bound and provide min-entropy evidence proportional to claimed quality.}
 \label{fig:crand-flow}
@@ -525,20 +506,18 @@ where $c$ is a domain-specific constant.
 \centering
 \begin{tikzpicture}[scale=1.8, 
     node distance=3cm,
-    state/.style={circle, draw, minimum size=0.3cm, fill=blue!12},
-    partition/.style={rectangle, draw, dashed, rounded corners=3pt, minimum width=3.5cm, minimum height=2.1cm}
+    state/.style={circle, draw, minimum size=0.3cm, fill=blue!20},
+    partition/.style={rectangle, draw, dashed, rounded corners, minimum width=2.6cm, minimum height=1.8cm}
 ]
     % Raw states (infinite equivalence class)
     \node[font=\normalsize\bfseries] at (-3, 2) {Raw State Space};
     \foreach \i in {1,...,12} {
-        \node[state, fill=blue!\the\numexpr20+\i*5\relax, font=
-ormalsize] at ({-4+mod(\i-1,4)*0.6}, {1.5-floor((\i-1)/4)*0.5}) {};
+        \node[state, fill=blue!\the\numexpr20+\i*5\relax, font=\normalsize] at ({-4+mod(\i-1,4)*0.6}, {1.5-floor((\i-1)/4)*0.5}) {};
     }
-    \node[font=
-ormalsize] at (-3, 0) {$|\Omega| = \infty$};
+    \node[font=\normalsize] at (-3, 0) {$|\Omega| = \infty$};
     
     % Arrow
-    \draw[->, >=Stealth, line width=1.2pt, decorate, decoration={snake, amplitude=2pt, segment length=10pt}] (-1, 1) -- (1, 1) node[pos=0.5, font=\small, above, yshift=6pt] {Coarse-grain};
+    \draw[->, >=Stealth, very thick, decorate, decoration={snake, amplitude=2pt, segment length=10pt}, shorten >=2pt, shorten <=2pt] (-1, 1) -- (1, 1) node[pos=0.5, font=\small, above, yshift=6pt] {Coarse-grain};
     
     % Partitioned states
     \node[font=\normalsize\bfseries] at (3, 2) {With Partition};
@@ -547,24 +526,19 @@ ormalsize] at (-3, 0) {$|\Omega| = \infty$};
     \node[partition, fill=blue!10] (p3) at (2.75, 0) {};
     
     \foreach \i in {1,...,3} {
-        \node[state, fill=red!40, font=
-ormalsize] at ({1.7+(\i-1)*0.3}, 1) {};
+        \node[state, fill=red!40, font=\normalsize] at ({1.7+(\i-1)*0.3}, 1) {};
     }
     \foreach \i in {1,...,3} {
-        \node[state, fill=green!40, font=
-ormalsize] at ({3.2+(\i-1)*0.3}, 1) {};
+        \node[state, fill=green!40, font=\normalsize] at ({3.2+(\i-1)*0.3}, 1) {};
     }
     \foreach \i in {1,...,4} {
-        \node[state, fill=blue!40, font=
-ormalsize] at ({2.3+(\i-1)*0.3}, 0) {};
+        \node[state, fill=blue!40, font=\normalsize] at ({2.3+(\i-1)*0.3}, 0) {};
     }
     
-    \node[font=
-ormalsize] at (3, -0.8) {$H = \log_2(|\text{bins}|)$};
+    \node[font=\normalsize] at (3, -0.8) {$H = \log_2(|\text{bins}|)$};
     
     % Key insight
-    \node[draw, rounded corners=3pt, fill=yellow!15, font=
-ormalsize, text width=5cm, align=center] at (0, -1.8) {Entropy is \textbf{undefined} without declared coarse-graining};
+    \node[draw, rounded corners, fill=yellow!20, font=\normalsize, text width=5cm, align=center] at (0, -1.8) {Entropy is \textbf{undefined} without declared coarse-graining};
 \end{tikzpicture}
 \caption{Entropy requires explicit coarse-graining. The infinite raw state space has undefined entropy; only partitioned views have computable entropy.}
 \label{fig:entropy-coarse}
@@ -757,7 +731,7 @@ This proves that observational equivalence classes are infinite, blocking entrop
 \centering
 \begin{tikzpicture}[scale=1.8, 
     node distance=3cm,
-    var/.style={circle, draw, minimum size=0.8cm, fill=blue!12},
+    var/.style={circle, draw, minimum size=0.8cm, fill=blue!20},
     arrow/.style={->, >=Stealth, thick}
 ]
     % Equivalence class
@@ -767,33 +741,32 @@ This proves that observational equivalence classes are infinite, blocking entrop
     \node[var] (a1) at (-4.5, 0.5) {A};
     \node[var] (b1) at (-3, 0.5) {B};
     \node[var] (c1) at (-3.75, -0.5) {C};
-    \draw[arrow] (a1) -- (b1);
-    \draw[arrow] (a1) -- (c1);
-    \draw[arrow] (b1) -- (c1);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (a1) -- (b1);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (a1) -- (c1);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (b1) -- (c1);
     
     % DAG 2
     \node[var] (a2) at (-1.5, 0.5) {A};
     \node[var] (b2) at (0, 0.5) {B};
     \node[var] (c2) at (-0.75, -0.5) {C};
-    \draw[arrow] (b2) -- (a2);
-    \draw[arrow] (a2) -- (c2);
-    \draw[arrow] (b2) -- (c2);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (b2) -- (a2);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (a2) -- (c2);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (b2) -- (c2);
     
     % DAG 3
     \node[var] (a3) at (1.5, 0.5) {A};
     \node[var] (b3) at (3, 0.5) {B};
     \node[var] (c3) at (2.25, -0.5) {C};
-    \draw[arrow] (a3) -- (b3);
-    \draw[arrow] (c3) -- (a3);
-    \draw[arrow] (c3) -- (b3);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (a3) -- (b3);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (c3) -- (a3);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (c3) -- (b3);
     
     % Equals signs
     \node at (-2.25, 0) {$\equiv$};
     \node at (0.75, 0) {$\equiv$};
     
     % Annotation
-    \node[draw, rounded corners=3pt, fill=red!15, font=
-ormalsize, text width=6cm, align=center] at (-0.75, -2) {Observational data \textbf{cannot} distinguish these DAGs\\Unique DAG claim requires 8192 disclosure bits};
+    \node[draw, rounded corners, fill=red!15, font=\normalsize, text width=6cm, align=center] at (-0.75, -2) {Observational data \textbf{cannot} distinguish these DAGs\\Unique DAG claim requires 8192 disclosure bits};
 \end{tikzpicture}
 \caption{Markov equivalence: multiple DAGs produce identical observational distributions. Unique causal claims require interventional evidence or explicit assumptions.}
 \label{fig:markov-equiv}
@@ -1026,33 +999,28 @@ This bound is machine-checked in the formal development and enforced by the veri
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[scale=1.8, 
-    node distance=3.0cm,
-    cmodule/.style={rectangle, draw, rounded corners=3pt, minimum width=5.4cm, minimum height=2.1cm, align=center, fill=green!15},
-    principle/.style={rectangle, draw, rounded corners=3pt, minimum width=9.0cm, minimum height=2.1cm, align=center, fill=yellow!15},
+    node distance=2.5cm,
+    cmodule/.style={rectangle, draw, rounded corners, minimum width=5.4cm, minimum height=1.8cm, align=center, fill=green!15},
+    principle/.style={rectangle, draw, rounded corners, minimum width=9.0cm, minimum height=1.8cm, align=center, fill=yellow!20},
     arrow/.style={->, >=Stealth, thick}
 ]
     % C-modules
-    \node[cmodule, align=center, text width=4.5cm, font=
-ormalsize] (crand) at (-3, 2) {C-RAND\\$\mu$-revelation for bits};
-    \node[cmodule, align=center, text width=4.5cm, font=
-ormalsize] (ctomo) at (3, 2) {C-TOMO\\$n \propto \epsilon^{-2}$};
-    \node[cmodule, align=center, text width=4.5cm, font=
-ormalsize] (centropy) at (-3, 0) {C-ENTROPY\\Coarse-graining required};
-    \node[cmodule, align=center, text width=4.5cm, font=
-ormalsize] (ccausal) at (3, 0) {C-CAUSAL\\Interventions for DAGs};
+    \node[cmodule, align=center, text width=3.5cm, font=\normalsize] (crand) at (-3, 2) {C-RAND\\$\mu$-revelation for bits};
+    \node[cmodule, align=center, text width=3.5cm, font=\normalsize] (ctomo) at (3, 2) {C-TOMO\\$n \propto \epsilon^{-2}$};
+    \node[cmodule, align=center, text width=3.5cm, font=\normalsize] (centropy) at (-3, 0) {C-ENTROPY\\Coarse-graining required};
+    \node[cmodule, align=center, text width=3.5cm, font=\normalsize] (ccausal) at (3, 0) {C-CAUSAL\\Interventions for DAGs};
     
     % Central principle
-    \node[principle, align=center, text width=4.5cm] (nfi) at (0, -2) {\textbf{No Free Insight}\\Stronger claims require more evidence};
+    \node[principle, align=center, text width=3.5cm] (nfi) at (0, -2) {\textbf{No Free Insight}\\Stronger claims require more evidence};
     
     % Arrows
-    \draw[arrow] (crand) -- (nfi);
-    \draw[arrow] (ctomo) -- (nfi);
-    \draw[arrow] (centropy) -- (nfi);
-    \draw[arrow] (ccausal) -- (nfi);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (crand) -- (nfi);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (ctomo) -- (nfi);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (centropy) -- (nfi);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (ccausal) -- (nfi);
     
     % Falsifier pattern
-    \node[draw, rounded corners=3pt, fill=gray!10, font=
-ormalsize, text width=4cm, align=center] at (0, -4) {Each module includes\\Forge / Underpay / Bypass\\falsifier tests};
+    \node[draw, rounded corners, fill=gray!10, font=\normalsize, text width=4cm, align=center] at (0, -4) {Each module includes\\Forge / Underpay / Bypass\\falsifier tests};
 \end{tikzpicture}
 \caption{Chapter A summary: Four C-modules transform No Free Insight into practical, falsifiable enforcement.}
 \label{fig:ch9-summary}

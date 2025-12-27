@@ -3,54 +3,41 @@
 \centering
 \begin{tikzpicture}[scale=1.8, 
     node distance=3cm,
-    box/.style={draw, rounded corners=3pt, minimum width=5.5cm, minimum height=2.1cm, align=center, fill=blue!10, inner sep=0.4cm},
-    arrow/.style={->, line width=1.2pt, >=Stealth}
+    box/.style={draw, rounded corners, minimum width=4.6cm, minimum height=1.8cm, align=center, fill=blue!10},
+    arrow/.style={->, very thick, >=stealth}
 ]
     % Central question
-    \node[box, fill=yellow!15, minimum width=7.2cm, align=center, text width=4.5cm, font=
-ormalsize] (q) at (0,0) {\textbf{Central Question}\\What I Set Out to Do};
+    \node[box, fill=yellow!20, minimum width=7.2cm, align=center, text width=3.5cm, font=\normalsize] (q) at (0,0) {\textbf{Central Question}\\What I Set Out to Do};
     
     % Three goals
-    \node[box, fill=green!15, align=center, text width=4.5cm, font=
-ormalsize] (t) at (-4,-2) {\textbf{Theoretical}\\Formal Proofs};
-    \node[box, fill=green!15, align=center, text width=4.5cm, font=
-ormalsize] (i) at (0,-2) {\textbf{Implementation}\\3-Layer System};
-    \node[box, fill=green!15, align=center, text width=4.5cm, font=
-ormalsize] (v) at (4,-2) {\textbf{Verification}\\Zero-Admit};
+    \node[box, fill=green!15, align=center, text width=3.5cm, font=\normalsize] (t) at (-4,-2) {\textbf{Theoretical}\\Formal Proofs};
+    \node[box, fill=green!15, align=center, text width=3.5cm, font=\normalsize] (i) at (0,-2) {\textbf{Implementation}\\3-Layer System};
+    \node[box, fill=green!15, align=center, text width=3.5cm, font=\normalsize] (v) at (4,-2) {\textbf{Verification}\\Zero-Admit};
     
     % Hypothesis confirmation
-    \node[box, fill=orange!20, minimum width=7.2cm, align=center, text width=4.5cm, font=
-ormalsize] (h) at (0,-4) {\textbf{Hypothesis Confirmed}\\No Free Insight};
+    \node[box, fill=orange!20, minimum width=7.2cm, align=center, text width=3.5cm, font=\normalsize] (h) at (0,-4) {\textbf{Hypothesis Confirmed}\\No Free Insight};
     
     % Applications and Future
-    \node[box, fill=purple!15, align=center, text width=4.5cm, font=
-ormalsize] (a) at (-3,-6) {\textbf{Applications}\\Verifiable AI, Complexity};
-    \node[box, fill=purple!15, align=center, text width=4.5cm, font=
-ormalsize] (f) at (3,-6) {\textbf{Future Work}\\Quantum, Hardware};
+    \node[box, fill=purple!15, align=center, text width=3.5cm, font=\normalsize] (a) at (-3,-6) {\textbf{Applications}\\Verifiable AI, Complexity};
+    \node[box, fill=purple!15, align=center, text width=3.5cm, font=\normalsize] (f) at (3,-6) {\textbf{Future Work}\\Quantum, Hardware};
     
     % Arrows
-    \draw[arrow] (q) -- (t);
-    \draw[arrow] (q) -- (i);
-    \draw[arrow] (q) -- (v);
-    \draw[arrow] (t) -- (h);
-    \draw[arrow] (i) -- (h);
-    \draw[arrow] (v) -- (h);
-    \draw[arrow] (h) -- (a);
-    \draw[arrow] (h) -- (f);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (q) -- (t);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (q) -- (i);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (q) -- (v);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (t) -- (h);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (i) -- (h);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (v) -- (h);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (h) -- (a);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (h) -- (f);
     
     % Section annotations
-    \node[font=
-ormalsize, gray] at (-4,-2.8) {§8.2.1};
-    \node[font=
-ormalsize, gray] at (0,-2.8) {§8.2.2};
-    \node[font=
-ormalsize, gray] at (4,-2.8) {§8.2.3};
-    \node[font=
-ormalsize, gray] at (0,-4.8) {§8.3};
-    \node[font=
-ormalsize, gray] at (-3,-6.8) {§8.4};
-    \node[font=
-ormalsize, gray] at (3,-6.8) {§8.5--8.6};
+    \node[font=\normalsize, gray] at (-4,-2.8) {§8.2.1};
+    \node[font=\normalsize, gray] at (0,-2.8) {§8.2.2};
+    \node[font=\normalsize, gray] at (4,-2.8) {§8.2.3};
+    \node[font=\normalsize, gray] at (0,-4.8) {§8.3};
+    \node[font=\normalsize, gray] at (-3,-6.8) {§8.4};
+    \node[font=\normalsize, gray] at (3,-6.8) {§8.5--8.6};
 \end{tikzpicture}
 \caption{Chapter 8 roadmap: From central question through contributions to confirmed hypothesis and future directions.}
 \label{fig:ch8_roadmap}
@@ -137,34 +124,30 @@ These theoretical components map to concrete Coq artifacts: \path{VMState.v} and
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[scale=1.8, 
-    node distance=3.0cm,
-    box/.style={draw, rounded corners=3pt, minimum width=5.4cm, minimum height=2.0cm, align=center, fill=blue!10, inner sep=0.4cm},
-    arrow/.style={->, line width=1.2pt, >=Stealth}
+    node distance=2.5cm,
+    box/.style={draw, rounded corners, minimum width=5.4cm, minimum height=1.4cm, align=center, fill=blue!10},
+    arrow/.style={->, very thick, >=stealth}
 ]
     % Four main contributions
-    \node[box, fill=yellow!15, align=center, text width=4.5cm, font=
-ormalsize] (tuple) at (0,0) {\textbf{5-Tuple Formalization}\\$T = (S, \Pi, A, R, L)$};
-    \node[box, fill=green!15, align=center, text width=4.5cm, font=
-ormalsize] (mu) at (5,0) {\textbf{$\mu$-bit Currency}\\Monotone Ledger};
-    \node[box, fill=orange!15, align=center, text width=4.5cm, font=
-ormalsize] (nfi) at (0,-2.5) {\textbf{No Free Insight}\\Impossibility Theorem};
-    \node[box, fill=purple!15, align=center, text width=4.5cm, font=
-ormalsize] (nosig) at (5,-2.5) {\textbf{No-Signaling}\\Bell Locality};
+    \node[box, fill=yellow!20, align=center, text width=3.5cm, font=\normalsize] (tuple) at (0,0) {\textbf{5-Tuple Formalization}\\$T = (S, \Pi, A, R, L)$};
+    \node[box, fill=green!15, align=center, text width=3.5cm, font=\normalsize] (mu) at (5,0) {\textbf{$\mu$-bit Currency}\\Monotone Ledger};
+    \node[box, fill=orange!15, align=center, text width=3.5cm, font=\normalsize] (nfi) at (0,-2.5) {\textbf{No Free Insight}\\Impossibility Theorem};
+    \node[box, fill=purple!15, align=center, text width=3.5cm, font=\normalsize] (nosig) at (5,-2.5) {\textbf{No-Signaling}\\Bell Locality};
     
     % Central node
-    \node[draw, circle, fill=red!12, minimum size=1.5cm, align=center, text width=4.5cm] (center) at (2.5,-1.25) {\textbf{Coq}\\Verified};
+    \node[draw, circle, fill=red!20, minimum size=1.5cm, align=center, text width=3.5cm] (center) at (2.5,-1.25) {\textbf{Coq}\\Verified};
     
     % Arrows to center
-    \draw[arrow] (tuple) -- (center);
-    \draw[arrow] (mu) -- (center);
-    \draw[arrow] (nfi) -- (center);
-    \draw[arrow] (nosig) -- (center);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (tuple) -- (center);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (mu) -- (center);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (nfi) -- (center);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (nosig) -- (center);
     
     % File annotations
-    \node[ gray, below=0.3cm of tuple, font=\small, yshift=-6pt] {VMState.v, VMStep.v};
-    \node[ gray, below=0.3cm of mu, font=\small, yshift=-6pt] {MuLedgerConservation.v};
-    \node[ gray, below=0.3cm of nfi, above, font=\small, yshift=6pt] {NoFreeInsight.v};
-    \node[ gray, below=0.3cm of nosig, above, font=\small, yshift=6pt] {KernelPhysics.v};
+    \node[font=\normalsize, gray, below=0.3cm of tuple, sloped, pos=0.5, font=\small, yshift=-6pt] {VMState.v, VMStep.v};
+    \node[font=\normalsize, gray, below=0.3cm of mu, sloped, pos=0.5, font=\small, yshift=-6pt] {MuLedgerConservation.v};
+    \node[font=\normalsize, gray, below=0.3cm of nfi, above, pos=0.5, font=\small, yshift=6pt] {NoFreeInsight.v};
+    \node[font=\normalsize, gray, below=0.3cm of nosig, above, pos=0.5, font=\small, yshift=6pt] {KernelPhysics.v};
 \end{tikzpicture}
 \caption{Theoretical contributions: Four core results, all machine-verified in Coq.}
 \label{fig:theoretical_contributions}
@@ -233,32 +216,29 @@ The implementations are organized so they can be audited against the formal kern
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[scale=1.8, 
-    node distance=3.0cm,
-    layer/.style={draw, rounded corners=3pt, minimum width=9.0cm, minimum height=2.2cm, align=center},
-    arrow/.style={<->, line width=1.2pt, >=Stealth}
+    node distance=2.5cm,
+    layer/.style={draw, rounded corners, minimum width=9.0cm, minimum height=2.2cm, align=center},
+    arrow/.style={<->, very thick, >=stealth}
 ]
     % Three layers
-    \node[layer, fill=blue!15, align=center, text width=4.5cm] (coq) at (0,2) {\textbf{Coq Formal Kernel}\\Zero admits, zero axioms\\{\scriptsize coq/kernel/}};
-    \node[layer, fill=green!15, align=center, text width=4.5cm] (py) at (0,0) {\textbf{Python Reference VM}\\Receipts, trace replay\\{\scriptsize thielecpu/}};
-    \node[layer, fill=orange!15, align=center, text width=4.5cm] (rtl) at (0,-2) {\textbf{Verilog RTL}\\Synthesis-ready\\{\scriptsize thielecpu/hardware/}};
+    \node[layer, fill=blue!15, align=center, text width=3.5cm] (coq) at (0,2) {\textbf{Coq Formal Kernel}\\Zero admits, zero axioms\\{\scriptsize coq/kernel/}};
+    \node[layer, fill=green!15, align=center, text width=3.5cm] (py) at (0,0) {\textbf{Python Reference VM}\\Receipts, trace replay\\{\scriptsize thielecpu/}};
+    \node[layer, fill=orange!15, align=center, text width=3.5cm] (rtl) at (0,-2) {\textbf{Verilog RTL}\\Synthesis-ready\\{\scriptsize thielecpu/hardware/}};
     
     % Isomorphism arrows
-    \draw[arrow, red!60] (coq) -- node[right,  above, yshift=6pt, pos=0.5, font=\small] {Isomorphism} (py);
-    \draw[arrow, red!60] (py) -- node[right,  above, yshift=6pt, pos=0.5, font=\small] {Isomorphism} (rtl);
+    \draw[arrow, red!60] (coq) -- node[right, font=\normalsize, above, yshift=6pt, pos=0.5, font=\small] {Isomorphism} (py);
+    \draw[arrow, red!60] (py) -- node[right, font=\normalsize, above, yshift=6pt, pos=0.5, font=\small] {Isomorphism} (rtl);
     
     % Invariant box
-    \node[draw, dashed, fill=yellow!10, minimum width=10.8cm, align=center, text width=4.5cm] at (0,-4) {
+    \node[draw, dashed, fill=yellow!10, minimum width=10.8cm, align=center, text width=3.5cm] at (0,-4) {
         \textbf{Invariant}: $S_{\text{Coq}}(\tau) = S_{\text{Python}}(\tau) = S_{\text{RTL}}(\tau)$\\
         For all traces $\tau$
     };
     
     % Left annotations
-    \node[font=
-ormalsize, align=right, align=center, text width=4.5cm] at (-4,2) {Proven\\properties};
-    \node[font=
-ormalsize, align=right, align=center, text width=4.5cm] at (-4,0) {Executable\\reference};
-    \node[font=
-ormalsize, align=right, align=center, text width=4.5cm] at (-4,-2) {Hardware\\synthesis};
+    \node[font=\normalsize, align=right, align=center, text width=3.5cm] at (-4,2) {Proven\\properties};
+    \node[font=\normalsize, align=right, align=center, text width=3.5cm] at (-4,0) {Executable\\reference};
+    \node[font=\normalsize, align=right, align=center, text width=3.5cm] at (-4,-2) {Hardware\\synthesis};
 \end{tikzpicture}
 \caption{3-layer implementation architecture with isomorphism invariant preserved across all levels.}
 \label{fig:three_layer_impl}
@@ -335,34 +315,30 @@ The theorem names in the table correspond to statements in the Coq kernel (for e
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[scale=1.8, 
-    node distance=3.0cm,
-    box/.style={draw, rounded corners=3pt, minimum width=5.0cm, minimum height=2.0cm, align=center, fill=blue!10, inner sep=0.4cm},
-    arrow/.style={->, line width=1.2pt, >=Stealth}
+    node distance=2.5cm,
+    box/.style={draw, rounded corners, minimum width=5.0cm, minimum height=1.4cm, align=center, fill=blue!10},
+    arrow/.style={->, very thick, >=stealth}
 ]
     % Zero-admit standard at center
-    \node[draw, circle, fill=red!12, minimum size=2cm, align=center, text width=4.5cm] (zero) at (0,0) {\textbf{Zero-Admit}\\Standard};
+    \node[draw, circle, fill=red!20, minimum size=2cm, align=center, text width=3.5cm] (zero) at (0,0) {\textbf{Zero-Admit}\\Standard};
     
     % Theorems around
-    \node[box, fill=green!15, align=center, text width=4.5cm, font=
-ormalsize] (nosig) at (-3,2) {No-Signaling\\Locality};
-    \node[box, fill=green!15, align=center, text width=4.5cm, font=
-ormalsize] (mucons) at (3,2) {$\mu$-Conservation\\Monotonicity};
-    \node[box, fill=green!15, align=center, text width=4.5cm, font=
-ormalsize] (nfi) at (-3,-2) {No Free Insight\\Impossibility};
-    \node[box, fill=green!15, align=center, text width=4.5cm, font=
-ormalsize] (gauge) at (3,-2) {Gauge Invariance\\Noether};
+    \node[box, fill=green!15, align=center, text width=3.5cm, font=\normalsize] (nosig) at (-3,2) {No-Signaling\\Locality};
+    \node[box, fill=green!15, align=center, text width=3.5cm, font=\normalsize] (mucons) at (3,2) {$\mu$-Conservation\\Monotonicity};
+    \node[box, fill=green!15, align=center, text width=3.5cm, font=\normalsize] (nfi) at (-3,-2) {No Free Insight\\Impossibility};
+    \node[box, fill=green!15, align=center, text width=3.5cm, font=\normalsize] (gauge) at (3,-2) {Gauge Invariance\\Noether};
     
     % Arrows
-    \draw[arrow] (nosig) -- (zero);
-    \draw[arrow] (mucons) -- (zero);
-    \draw[arrow] (nfi) -- (zero);
-    \draw[arrow] (gauge) -- (zero);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (nosig) -- (zero);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (mucons) -- (zero);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (nfi) -- (zero);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (gauge) -- (zero);
     
     % Inquisitor
-    \node[draw, dashed, fill=yellow!10, minimum width=14.4cm, minimum height=2.0cm, align=center, text width=4.5cm] at (0,-4) {\textbf{Inquisitor}: Enforces zero-admit discipline on all 206 proofs};
+    \node[draw, dashed, fill=yellow!10, minimum width=14.4cm, minimum height=1.4cm, align=center, text width=3.5cm] at (0,-4) {\textbf{Inquisitor}: Enforces zero-admit discipline on all 206 proofs};
     
     % Arrow from zero to inquisitor
-    \draw[arrow, dashed] (zero) -- (0,-3.5);
+    \draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (zero) -- (0,-3.5);
 \end{tikzpicture}
 \caption{Verification architecture: All theorems held to zero-admit standard, enforced by Inquisitor.}
 \label{fig:verification_arch}
@@ -423,31 +399,28 @@ The Thiele Machine is not merely consistent with "no free insight"—it \textit{
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[scale=1.8, 
-    node distance=3.0cm,
-    box/.style={draw, rounded corners=3pt, minimum width=6.2cm, minimum height=2.1cm, align=center, inner sep=0.4cm},
-    arrow/.style={->, line width=1.2pt, >=Stealth}
+    node distance=2.5cm,
+    box/.style={draw, rounded corners, minimum width=6.2cm, minimum height=1.8cm, align=center},
+    arrow/.style={->, very thick, >=stealth}
 ]
     % Hypothesis at top
-    \node[draw, fill=yellow!15, minimum width=10.8cm, minimum height=2.1cm, align=center, text width=4.5cm] (hyp) at (0,2) {\textbf{Hypothesis}: There is no free insight.\\Structure must be paid for.};
+    \node[draw, fill=yellow!20, minimum width=10.8cm, minimum height=1.8cm, align=center, text width=3.5cm] (hyp) at (0,2) {\textbf{Hypothesis}: There is no free insight.\\Structure must be paid for.};
     
     % Three confirmations
-    \node[box, fill=green!12, align=center, text width=4.5cm, font=
-ormalsize] (proven) at (-4,0) {\textbf{PROVEN}\\No Free Insight\\Theorem};
-    \node[box, fill=blue!12, align=center, text width=4.5cm, font=
-ormalsize] (verified) at (0,0) {\textbf{VERIFIED}\\3-Layer\\Isomorphism};
-    \node[box, fill=purple!20, align=center, text width=4.5cm, font=
-ormalsize] (validated) at (4,0) {\textbf{VALIDATED}\\CHSH Tests\\Pass};
+    \node[box, fill=green!20, align=center, text width=3.5cm, font=\normalsize] (proven) at (-4,0) {\textbf{PROVEN}\\No Free Insight\\Theorem};
+    \node[box, fill=blue!20, align=center, text width=3.5cm, font=\normalsize] (verified) at (0,0) {\textbf{VERIFIED}\\3-Layer\\Isomorphism};
+    \node[box, fill=purple!20, align=center, text width=3.5cm, font=\normalsize] (validated) at (4,0) {\textbf{VALIDATED}\\CHSH Tests\\Pass};
     
     % Result
-    \node[draw, fill=green!30, minimum width=10.8cm, minimum height=2.1cm, align=center, text width=4.5cm] (result) at (0,-2) {\textbf{HYPOTHESIS CONFIRMED}\\within the model};
+    \node[draw, fill=green!30, minimum width=10.8cm, minimum height=1.8cm, align=center, text width=3.5cm] (result) at (0,-2) {\textbf{HYPOTHESIS CONFIRMED}\\within the model};
     
     % Arrows
-    \draw[arrow] (hyp) -- (proven);
-    \draw[arrow] (hyp) -- (verified);
-    \draw[arrow] (hyp) -- (validated);
-    \draw[arrow] (proven) -- (result);
-    \draw[arrow] (verified) -- (result);
-    \draw[arrow] (validated) -- (result);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (hyp) -- (proven);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (hyp) -- (verified);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (hyp) -- (validated);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (proven) -- (result);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (verified) -- (result);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (validated) -- (result);
     
     % Check marks
     \node[font=\large, green!50!black] at (-4,-0.7) {\checkmark};
@@ -534,36 +507,25 @@ The proven connections:
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[scale=1.8, 
-    node distance=3.0cm,
-    box/.style={draw, rounded corners=3pt, minimum width=5.4cm, minimum height=1.2cm, align=center, inner sep=0.4cm}
+    node distance=2.5cm,
+    box/.style={draw, rounded corners, minimum width=5.4cm, minimum height=1.2cm, align=center}
 ]
     % Three isomorphisms
-    \node[box, fill=blue!15, font=
-ormalsize] (mu) at (-3,1.5) {$\mu$-monotonicity};
-    \node[box, fill=green!15, font=
-ormalsize] (second) at (3,1.5) {Second Law};
-    \draw[<->, line width=1.2pt, red] (mu) -- node[above, yshift=6pt, font=
-ormalsize, pos=0.5, font=\small] {$\cong$} (second);
+    \node[box, fill=blue!15, font=\normalsize] (mu) at (-3,1.5) {$\mu$-monotonicity};
+    \node[box, fill=green!15, font=\normalsize] (second) at (3,1.5) {Second Law};
+    \draw[<->, very thick, red] (mu) -- node[above, yshift=6pt, font=\normalsize, pos=0.5, font=\small] {$\cong$} (second);
     
-    \node[box, fill=blue!15, font=
-ormalsize] (nosig) at (-3,0) {No-signaling};
-    \node[box, fill=green!15, font=
-ormalsize] (bell) at (3,0) {Bell locality};
-    \draw[<->, line width=1.2pt, red] (nosig) -- node[above, yshift=6pt, font=
-ormalsize, pos=0.5, font=\small] {$\cong$} (bell);
+    \node[box, fill=blue!15, font=\normalsize] (nosig) at (-3,0) {No-signaling};
+    \node[box, fill=green!15, font=\normalsize] (bell) at (3,0) {Bell locality};
+    \draw[<->, very thick, red] (nosig) -- node[above, yshift=6pt, font=\normalsize, pos=0.5, font=\small] {$\cong$} (bell);
     
-    \node[box, fill=blue!15, font=
-ormalsize] (gauge) at (-3,-1.5) {Gauge invariance};
-    \node[box, fill=green!15, font=
-ormalsize] (noether) at (3,-1.5) {Noether's theorem};
-    \draw[<->, line width=1.2pt, red] (gauge) -- node[above, yshift=6pt, font=
-ormalsize, pos=0.5, font=\small] {$\cong$} (noether);
+    \node[box, fill=blue!15, font=\normalsize] (gauge) at (-3,-1.5) {Gauge invariance};
+    \node[box, fill=green!15, font=\normalsize] (noether) at (3,-1.5) {Noether's theorem};
+    \draw[<->, very thick, red] (gauge) -- node[above, yshift=6pt, font=\normalsize, pos=0.5, font=\small] {$\cong$} (noether);
     
     % Labels
-    \node[font=
-ormalsize, gray] at (-3,2.3) {Thiele Machine};
-    \node[font=
-ormalsize, gray] at (3,2.3) {Physics};
+    \node[font=\normalsize, gray] at (-3,2.3) {Thiele Machine};
+    \node[font=\normalsize, gray] at (3,2.3) {Physics};
 \end{tikzpicture}
 \caption{Physics-computation isomorphisms: Formal correspondences, not mere analogies.}
 \label{fig:physics_bridge}
@@ -653,43 +615,35 @@ The Thiele Machine is not a finished monument but a foundation. The tools built 
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[scale=1.8, 
-    node distance=3.0cm,
-    box/.style={draw, rounded corners=3pt, minimum width=5.5cm, minimum height=2.0cm, align=center, fill=blue!10, inner sep=0.4cm},
-    arrow/.style={->, line width=1.2pt, >=Stealth}
+    node distance=2.5cm,
+    box/.style={draw, rounded corners, minimum width=4.6cm, minimum height=1.4cm, align=center, fill=blue!10},
+    arrow/.style={->, very thick, >=stealth}
 ]
     % Current foundation
-    \node[draw, fill=green!12, minimum width=7.2cm, minimum height=2.1cm, align=center, text width=4.5cm] (now) at (0,0) {\textbf{Foundation Built}\\206 proofs, 3 layers};
+    \node[draw, fill=green!20, minimum width=7.2cm, minimum height=1.8cm, align=center, text width=3.5cm] (now) at (0,0) {\textbf{Foundation Built}\\206 proofs, 3 layers};
     
     % Five tools
-    \node[box, font=
-ormalsize] (coq) at (-4,-2) {Coq Kernel};
-    \node[box, font=
-ormalsize] (py) at (-2,-2) {Python VM};
-    \node[box, font=
-ormalsize] (rtl) at (0,-2) {Verilog RTL};
-    \node[box, font=
-ormalsize] (inq) at (2,-2) {Inquisitor};
-    \node[box, font=
-ormalsize] (rec) at (4,-2) {Receipts};
+    \node[box, font=\normalsize] (coq) at (-4,-2) {Coq Kernel};
+    \node[box, font=\normalsize] (py) at (-2,-2) {Python VM};
+    \node[box, font=\normalsize] (rtl) at (0,-2) {Verilog RTL};
+    \node[box, font=\normalsize] (inq) at (2,-2) {Inquisitor};
+    \node[box, font=\normalsize] (rec) at (4,-2) {Receipts};
     
     % Future directions
-    \node[box, fill=purple!15, align=center, text width=4.5cm, font=
-ormalsize] (q) at (-3,-4) {Quantum\\Extension};
-    \node[box, fill=purple!15, align=center, text width=4.5cm, font=
-ormalsize] (h) at (0,-4) {Hardware\\Realization};
-    \node[box, fill=purple!15, align=center, text width=4.5cm, font=
-ormalsize] (d) at (3,-4) {Distributed\\Execution};
+    \node[box, fill=purple!15, align=center, text width=3.5cm, font=\normalsize] (q) at (-3,-4) {Quantum\\Extension};
+    \node[box, fill=purple!15, align=center, text width=3.5cm, font=\normalsize] (h) at (0,-4) {Hardware\\Realization};
+    \node[box, fill=purple!15, align=center, text width=3.5cm, font=\normalsize] (d) at (3,-4) {Distributed\\Execution};
     
     % Arrows
-    \draw[arrow] (now) -- (coq);
-    \draw[arrow] (now) -- (py);
-    \draw[arrow] (now) -- (rtl);
-    \draw[arrow] (now) -- (inq);
-    \draw[arrow] (now) -- (rec);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (now) -- (coq);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (now) -- (py);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (now) -- (rtl);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (now) -- (inq);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (now) -- (rec);
     
-    \draw[arrow, dashed] (coq) -- (q);
-    \draw[arrow, dashed] (rtl) -- (h);
-    \draw[arrow, dashed] (rec) -- (d);
+    \draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (coq) -- (q);
+    \draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (rtl) -- (h);
+    \draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (rec) -- (d);
 \end{tikzpicture}
 \caption{The path forward: Current foundation enabling future extensions.}
 \label{fig:path_forward}
@@ -745,26 +699,22 @@ This \textbf{path forward diagram} visualizes the thesis's legacy: a solid found
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[scale=1.8, 
-    node distance=2.5cm,
-    box/.style={draw, rounded corners=3pt, minimum width=5.5cm, minimum height=2.0cm, align=center, inner sep=0.4cm}
+    node distance=2cm,
+    box/.style={draw, rounded corners, minimum width=4.6cm, minimum height=1.4cm, align=center}
 ]
     % Turing vs Thiele comparison
-    \node[box, fill=gray!12, align=center, text width=4.5cm, font=
-ormalsize] (turing) at (-3,0) {\textbf{Turing Machine}\\Universality};
-    \node[box, fill=green!12, align=center, text width=4.5cm, font=
-ormalsize] (thiele) at (3,0) {\textbf{Thiele Machine}\\Accountability};
+    \node[box, fill=gray!20, align=center, text width=3.5cm, font=\normalsize] (turing) at (-3,0) {\textbf{Turing Machine}\\Universality};
+    \node[box, fill=green!20, align=center, text width=3.5cm, font=\normalsize] (thiele) at (3,0) {\textbf{Thiele Machine}\\Accountability};
     
     % Arrow
-    \draw[->, line width=1.5pt, blue] (turing) -- node[above, yshift=6pt, font=\small] {$+\mu$-accounting} (thiele);
+    \draw[->, ultra thick, blue] (turing) -- node[above, yshift=6pt, sloped, pos=0.5, font=\small] {$+\mu$-accounting} (thiele);
     
     % Properties
-    \node[font=
-ormalsize, align=center, text width=4.5cm] at (-3,-1.5) {Structure invisible\\Hidden variable\\Success/fail unknown};
-    \node[font=
-ormalsize, align=center, text width=4.5cm] at (3,-1.5) {Structure explicit\\Paid resource\\Verifiable};
+    \node[font=\normalsize, align=center, text width=3.5cm] at (-3,-1.5) {Structure invisible\\Hidden variable\\Success/fail unknown};
+    \node[font=\normalsize, align=center, text width=3.5cm] at (3,-1.5) {Structure explicit\\Paid resource\\Verifiable};
     
     % Central insight
-    \node[draw, dashed, fill=yellow!10, minimum width=14.4cm, align=center, text width=4.5cm] at (0,-3) {
+    \node[draw, dashed, fill=yellow!10, minimum width=14.4cm, align=center, text width=3.5cm] at (0,-3) {
         \textbf{Central Insight}: No free insight.\\
         Structure must be paid for---and can be verified.
     };

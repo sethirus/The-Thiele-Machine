@@ -6,35 +6,35 @@
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[scale=1.8, 
-    node distance=3.0cm,
-    block/.style={rectangle, draw, fill=blue!10, minimum width=5.4cm, minimum height=2.0cm, align=center},
-    theorem/.style={rectangle, draw, fill=green!12, minimum width=5.0cm, minimum height=1.2cm, align=center, rounded corners=3pt},
-    arrow/.style={->, >=Stealth, thick}
+    node distance=2.5cm,
+    block/.style={rectangle, draw, fill=blue!10, minimum width=5.4cm, minimum height=1.4cm, align=center},
+    theorem/.style={rectangle, draw, fill=green!20, minimum width=5.0cm, minimum height=1.2cm, align=center, rounded corners},
+    arrow/.style={->, >=stealth, thick}
 ]
     % Central node
-    \node[block, fill=red!12, minimum width=7.2cm, align=center, text width=4.5cm] (zero) at (0,0) {\textbf{Zero-Admit Standard}\\No Admitted, No admit., No Axiom};
+    \node[block, fill=red!20, minimum width=7.2cm, align=center, text width=3.5cm] (zero) at (0,0) {\textbf{Zero-Admit Standard}\\No Admitted, No admit., No Axiom};
     
     % Top layer: State definitions
-    \node[block, align=center, text width=4.5cm] (state) at (-4, 2) {State Definitions\\VMState, PartitionGraph};
-    \node[block, align=center, text width=4.5cm] (step) at (0, 2) {Step Semantics\\vm\_step relation};
-    \node[block, align=center, text width=4.5cm] (obs) at (4, 2) {Observables\\Observable, ObservableRegion};
+    \node[block, align=center, text width=3.5cm] (state) at (-4, 2) {State Definitions\\VMState, PartitionGraph};
+    \node[block, align=center, text width=3.5cm] (step) at (0, 2) {Step Semantics\\vm\_step relation};
+    \node[block, align=center, text width=3.5cm] (obs) at (4, 2) {Observables\\Observable, ObservableRegion};
     
     % Bottom layer: Theorems
-    \node[theorem, align=center, text width=4.5cm] (nosig) at (-4.5, -2) {No-Signaling\\(\S5.4)};
-    \node[theorem, align=center, text width=4.5cm] (mucons) at (-1.5, -2) {$\mu$-Conservation\\(\S5.4)};
-    \node[theorem, align=center, text width=4.5cm] (nofi) at (1.5, -2) {No Free Insight\\(\S5.6)};
-    \node[theorem, align=center, text width=4.5cm] (gauge) at (4.5, -2) {Gauge Invariance\\(\S5.4)};
+    \node[theorem, align=center, text width=3.5cm] (nosig) at (-4.5, -2) {No-Signaling\\(\S5.4)};
+    \node[theorem, align=center, text width=3.5cm] (mucons) at (-1.5, -2) {$\mu$-Conservation\\(\S5.4)};
+    \node[theorem, align=center, text width=3.5cm] (nofi) at (1.5, -2) {No Free Insight\\(\S5.6)};
+    \node[theorem, align=center, text width=3.5cm] (gauge) at (4.5, -2) {Gauge Invariance\\(\S5.4)};
     
     % Arrows from definitions to zero-admit
-    \draw[arrow] (state) -- (zero);
-    \draw[arrow] (step) -- (zero);
-    \draw[arrow] (obs) -- (zero);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (state) -- (zero);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (step) -- (zero);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (obs) -- (zero);
     
     % Arrows from zero-admit to theorems
-    \draw[arrow] (zero) -- (nosig);
-    \draw[arrow] (zero) -- (mucons);
-    \draw[arrow] (zero) -- (nofi);
-    \draw[arrow] (zero) -- (gauge);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (zero) -- (nosig);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (zero) -- (mucons);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (zero) -- (nofi);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (zero) -- (gauge);
     
     % Title
     \node at (0, 3.2) {\textbf{Chapter 5: Verification Architecture}};
@@ -71,20 +71,20 @@ In this project, “all inputs” means all possible states and instruction trac
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[scale=1.8, 
-    stage/.style={rectangle, draw, fill=blue!12, minimum width=5.5cm, minimum height=2.1cm, align=center, rounded corners=3pt},
-    check/.style={rectangle, draw, fill=green!12, minimum width=4.5cm, minimum height=2.0cm, align=center, font=\footnotesize},
-    arrow/.style={->, >=Stealth, thick}
-, node distance=3.0cm]
+    stage/.style={rectangle, draw, fill=blue!20, minimum width=4.6cm, minimum height=1.8cm, align=center, rounded corners},
+    check/.style={rectangle, draw, fill=green!20, minimum width=3.6cm, minimum height=1.1cm, align=center, font=\footnotesize},
+    arrow/.style={->, >=stealth, thick}
+], node distance=2.5cm]
     % Pipeline stages
-    \node[stage, align=center, text width=4.5cm] (def) at (0, 0) {Definitions\\VMState, vm\_step};
-    \node[stage, align=center, text width=4.5cm] (spec) at (4, 0) {Specification\\Theorem stmt};
-    \node[stage, align=center, text width=4.5cm] (proof) at (8, 0) {Proof\\Tactics};
-    \node[stage, fill=green!30, align=center, text width=4.5cm] (qed) at (12, 0) {\textbf{Qed.}\\Verified};
+    \node[stage, align=center, text width=3.5cm] (def) at (0, 0) {Definitions\\VMState, vm\_step};
+    \node[stage, align=center, text width=3.5cm] (spec) at (4, 0) {Specification\\Theorem stmt};
+    \node[stage, align=center, text width=3.5cm] (proof) at (8, 0) {Proof\\Tactics};
+    \node[stage, fill=green!30, align=center, text width=3.5cm] (qed) at (12, 0) {\textbf{Qed.}\\Verified};
     
     % Arrows
-    \draw[arrow] (def) -- (spec);
-    \draw[arrow] (spec) -- (proof);
-    \draw[arrow] (proof) -- (qed);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (def) -- (spec);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (spec) -- (proof);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (proof) -- (qed);
     
     % Checks below
     \node[check] at (0, -1.5) {Type-checked};
@@ -93,7 +93,7 @@ In this project, “all inputs” means all possible states and instruction trac
     \node[check] at (12, -1.5) {Machine-verified};
     
     % Curry-Howard note
-    \node[draw, fill=yellow!15, rounded corners=3pt, text width=10cm, align=center] at (6, -3) {
+    \node[draw, fill=yellow!20, rounded corners, text width=10cm, align=center] at (6, -3) {
         \textbf{Curry-Howard Correspondence:}\\
         Types = Propositions, Programs = Proofs\\
         A Coq proof is a verified program that inhabits the theorem's type.
@@ -613,45 +613,41 @@ Definition instr_targets (instr : vm_instruction) : list nat :=
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[scale=1.8, 
-    module/.style={rectangle, draw, fill=blue!12, minimum width=4.2cm, minimum height=2.2cm, align=center},
-    region/.style={rectangle, draw, dashed, fill=gray!10, minimum width=5.0cm, minimum height=2.9cm},
-    arrow/.style={->, >=Stealth, thick}
-, node distance=3cm]
+    module/.style={rectangle, draw, fill=blue!20, minimum width=3.2cm, minimum height=2.2cm, align=center},
+    region/.style={rectangle, draw, dashed, fill=gray!10, minimum width=4.0cm, minimum height=2.9cm},
+    arrow/.style={->, >=stealth, thick}
+], node distance=3cm]
     % Left side: Before operation
     \node at (-4, 2.5) {\textbf{State $s$}};
     
     \node[region] (r1) at (-5.5, 0.5) {};
-    \node[module, align=center, text width=4.5cm, font=
-ormalsize] (m1) at (-5.5, 0.5) {Module\\$mid_1$};
+    \node[module, align=center, text width=3.5cm, font=\normalsize] (m1) at (-5.5, 0.5) {Module\\$mid_1$};
     \node at (-5.5, -0.8) {\footnotesize Region $R_1$};
     
     \node[region] (r2) at (-2.5, 0.5) {};
-    \node[module, fill=green!30, align=center, text width=4.5cm, font=
-ormalsize] (m2) at (-2.5, 0.5) {Module\\$mid_2$};
+    \node[module, fill=green!30, align=center, text width=3.5cm, font=\normalsize] (m2) at (-2.5, 0.5) {Module\\$mid_2$};
     \node at (-2.5, -0.8) {\footnotesize Region $R_2$};
     \node at (-2.5, -1.3) {\color{red}\footnotesize (target)};
     
     % Arrow showing operation
-    \draw[->, >=Stealth, line width=1.5pt, red] (-0.8, 0.5) -- (0.8, 0.5);
+    \draw[->, >=stealth, ultra thick, red, shorten >=2pt, shorten <=2pt] (-0.8, 0.5) -- (0.8, 0.5);
     \node at (0, 1) {\texttt{instr} targets $mid_2$};
     
     % Right side: After operation
     \node at (4, 2.5) {\textbf{State $s'$}};
     
     \node[region] (r1p) at (2.5, 0.5) {};
-    \node[module, align=center, text width=4.5cm, font=
-ormalsize] (m1p) at (2.5, 0.5) {Module\\$mid_1$};
+    \node[module, align=center, text width=3.5cm, font=\normalsize] (m1p) at (2.5, 0.5) {Module\\$mid_1$};
     \node at (2.5, -0.8) {\footnotesize Region $R_1$};
     \node at (2.5, -1.3) {\color{blue}\footnotesize \textbf{unchanged}};
     
     \node[region] (r2p) at (5.5, 0.5) {};
-    \node[module, fill=orange!30, align=center, text width=4.5cm, font=
-ormalsize] (m2p) at (5.5, 0.5) {Module\\$mid_2'$};
+    \node[module, fill=orange!30, align=center, text width=3.5cm, font=\normalsize] (m2p) at (5.5, 0.5) {Module\\$mid_2'$};
     \node at (5.5, -0.8) {\footnotesize Region $R_2'$};
     \node at (5.5, -1.3) {\color{red}\footnotesize (modified)};
     
     % Theorem statement box
-    \node[draw, fill=yellow!15, rounded corners=3pt, text width=10cm, align=center] at (0, -3) {
+    \node[draw, fill=yellow!20, rounded corners, text width=10cm, align=center] at (0, -3) {
         \textbf{No-Signaling Theorem:} If $mid \notin$ \texttt{instr\_targets(instr)}\\
         then \texttt{ObservableRegion}$(s, mid) =$ \texttt{ObservableRegion}$(s', mid)$
     };
@@ -737,36 +733,34 @@ By case analysis on the instruction. For each instruction type:
 \centering
 \begin{tikzpicture}[scale=1.8, 
     state/.style={rectangle, draw, fill=blue!10, minimum width=5.4cm, minimum height=3.6cm, align=center},
-    field/.style={rectangle, draw, fill=white, minimum width=4.7cm, minimum height=1.3cm, align=center},
-    arrow/.style={->, >=Stealth, thick}
-, node distance=3cm]
+    field/.style={rectangle, draw, fill=white, minimum width=4.7cm, minimum height=1.0cm, align=center},
+    arrow/.style={->, >=stealth, thick}
+], node distance=3cm]
     % Left state
-    \node[state, font=
-ormalsize] (s1) at (-3.5, 0) {};
+    \node[state, font=\normalsize] (s1) at (-3.5, 0) {};
     \node at (-3.5, 1.4) {\textbf{State $s$}};
     \node[field] at (-3.5, 0.5) {\texttt{vm\_graph} = $G$};
-    \node[field, fill=red!12] at (-3.5, -0.2) {\texttt{vm\_mu} = $\mu$};
+    \node[field, fill=red!20] at (-3.5, -0.2) {\texttt{vm\_mu} = $\mu$};
     \node[field] at (-3.5, -0.9) {\texttt{vm\_regs, ...}};
     
     % Arrow with shift
-    \draw[->, >=Stealth, line width=1.5pt, blue] (-1.5, 0) -- (1.5, 0);
+    \draw[->, >=stealth, ultra thick, blue, shorten >=2pt, shorten <=2pt] (-1.5, 0) -- (1.5, 0);
     \node at (0, 0.6) {\texttt{mu\_gauge\_shift}$(k)$};
     \node at (0, -0.4) {$\mu \mapsto \mu + k$};
     
     % Right state
-    \node[state, font=
-ormalsize] (s2) at (3.5, 0) {};
+    \node[state, font=\normalsize] (s2) at (3.5, 0) {};
     \node at (3.5, 1.4) {\textbf{State $s'$}};
     \node[field] at (3.5, 0.5) {\texttt{vm\_graph} = $G$};
-    \node[field, fill=green!12] at (3.5, -0.2) {\texttt{vm\_mu} = $\mu + k$};
+    \node[field, fill=green!20] at (3.5, -0.2) {\texttt{vm\_mu} = $\mu + k$};
     \node[field] at (3.5, -0.9) {\texttt{vm\_regs, ...}};
     
     % Invariance annotation
-    \draw[<->, >=Stealth, line width=1.2pt, dashed, red] (-3.5, -2) -- (3.5, -2);
+    \draw[<->, >=stealth, very thick, dashed, red, shorten >=2pt, shorten <=2pt] (-3.5, -2) -- (3.5, -2);
     \node at (0, -2.5) {\texttt{conserved\_partition\_structure}$(s) =$ \texttt{conserved\_partition\_structure}$(s')$};
     
     % Physical analog
-    \node[draw, fill=yellow!15, rounded corners=3pt, text width=8cm, align=center] at (0, -4) {
+    \node[draw, fill=yellow!20, rounded corners, text width=8cm, align=center] at (0, -4) {
         \textbf{Physical Analog (Noether):} Gauge symmetry ($\mu$-shift freedom)\\
         $\Leftrightarrow$ Conservation of partition structure
     };
@@ -850,24 +844,21 @@ Theorem kernel_conservation_mu_gauge : forall s k,
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[scale=1.8, 
-    state/.style={circle, draw, fill=blue!12, minimum size=1cm},
-    arrow/.style={->, >=Stealth, thick}
-, node distance=3cm]
+    state/.style={circle, draw, fill=blue!20, minimum size=1cm},
+    arrow/.style={->, >=stealth, thick}
+], node distance=3cm]
     % States in sequence
-    \node[state, font=
-ormalsize] (s0) at (0, 0) {$s_0$};
-    \node[state, font=
-ormalsize] (s1) at (3, 0) {$s_1$};
-    \node[state, font=
-ormalsize] (s2) at (6, 0) {$s_2$};
-    \node[state, font=
-ormalsize] (s3) at (9, 0) {$s_3$};
+    \node[state, font=\normalsize] (s0) at (0, 0) {$s_0$};
+    \node[state, font=\normalsize] (s1) at (3, 0) {$s_1$};
+    \node[state, font=\normalsize] (s2) at (6, 0) {$s_2$};
+    \node[state, font=\normalsize] (s3) at (9, 0) {$s_3$};
     \node at (11, 0) {$\cdots$};
     
     % Transitions with costs
-    \draw[arrow] (s0) -- node[above, font=\small] {\footnotesize $+\mu_2$} (s2);
-    \draw[arrow] (s2) -- node[above, font=\small] {\footnotesize $+\mu_3$} (s3);
-    \draw[arrow] (s3) -- (10.5, 0);
+    \draw[arrow] (s0) -- node[above, yshift=6pt, sloped, pos=0.5, font=\small] {\footnotesize $+\mu_1$} (s1);
+    \draw[arrow] (s1) -- node[above, yshift=6pt, sloped, pos=0.5, font=\small] {\footnotesize $+\mu_2$} (s2);
+    \draw[arrow] (s2) -- node[above, yshift=6pt, sloped, pos=0.5, font=\small] {\footnotesize $+\mu_3$} (s3);
+    \draw[arrow, shorten >=2pt, shorten <=2pt] (s3) -- (10.5, 0);
     
     % μ values below
     \node at (0, -1) {$\mu = 0$};
@@ -876,11 +867,11 @@ ormalsize] (s3) at (9, 0) {$s_3$};
     \node at (9, -1) {$\mu = \sum_{i=1}^{3} \mu_i$};
     
     % Monotonicity arrow
-    \draw[->, >=Stealth, line width=1.5pt, red, dashed] (0, -1.8) -- (11, -1.8);
+    \draw[->, >=stealth, ultra thick, red, dashed, shorten >=2pt, shorten <=2pt] (0, -1.8) -- (11, -1.8);
     \node at (5.5, -2.3) {\color{red}\textbf{Monotonically Non-Decreasing}};
     
     % Conservation equation
-    \node[draw, fill=green!12, rounded corners=3pt, text width=8cm, align=center] at (5, -3.8) {
+    \node[draw, fill=green!20, rounded corners, text width=8cm, align=center] at (5, -3.8) {
         \textbf{Conservation Law:}\\
         $\mu(s') \geq \mu(s)$ for all valid transitions $s \to s'$\\
         $\mu(\text{final}) = \mu(\text{init}) + \sum_{i} \text{cost}(\text{instr}_i)$
@@ -1120,28 +1111,28 @@ Theorem vm_irreversible_bits_lower_bound :
 \centering
 \begin{tikzpicture}[scale=1.8, 
     set/.style={ellipse, draw, minimum width=6.2cm, minimum height=3.6cm},
-    arrow/.style={->, >=Stealth, thick}
-, node distance=3.0cm]
+    arrow/.style={->, >=stealth, thick}
+], node distance=2.5cm]
     % Left: Weak predicate (larger set)
     \node[set, fill=blue!10] (weak) at (-3, 0) {};
     \node at (-3, 0) {$P_{\text{weak}}$};
     \node at (-3, -1.5) {\footnotesize Accepts more traces};
     
     % Right: Strong predicate (smaller set)
-    \node[set, fill=green!12, minimum width=5.5cm, minimum height=2.5cm] (strong) at (3, 0) {};
+    \node[set, fill=green!20, minimum width=4.6cm, minimum height=2.5cm] (strong) at (3, 0) {};
     \node at (3, 0) {$P_{\text{strong}}$};
     \node at (3, -1.5) {\footnotesize Accepts fewer traces};
     
     % Arrow showing strengthening
-    \draw[->, >=Stealth, line width=1.5pt, red] (-0.8, 0) -- (0.8, 0);
+    \draw[->, >=stealth, ultra thick, red, shorten >=2pt, shorten <=2pt] (-0.8, 0) -- (0.8, 0);
     \node at (0, 0.6) {\textbf{Strengthen}};
     \node at (0, -0.5) {\footnotesize $P_{\text{strong}} < P_{\text{weak}}$};
     
     % Cost requirement
-    \node[draw, fill=red!12, rounded corners=3pt] at (0, -2.5) {\textbf{Requires: structure addition ($\mu > 0$)}};
+    \node[draw, fill=red!20, rounded corners] at (0, -2.5) {\textbf{Requires: structure addition ($\mu > 0$)}};
     
     % Trace box
-    \node[draw, fill=yellow!15, rounded corners=3pt, text width=10cm, align=center] at (0, -4.2) {
+    \node[draw, fill=yellow!20, rounded corners, text width=10cm, align=center] at (0, -4.2) {
         \textbf{No Free Insight:} To certify a stronger predicate from a weaker one,\\
         the trace \textbf{must} contain a revelation event (REVEAL, LASSERT, LJOIN, EMIT)\\
         which charges $\mu$-cost. There is no backdoor.
@@ -1465,27 +1456,27 @@ If anyone can produce such a counterexample, the theorem is false. The proofs es
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[scale=1.8, 
-    theorem/.style={rectangle, draw, fill=green!12, minimum width=7.2cm, minimum height=2.2cm, align=center, rounded corners=3pt},
-    property/.style={rectangle, draw, fill=blue!10, minimum width=6.2cm, minimum height=2.0cm, align=center},
-    arrow/.style={->, >=Stealth, thick}
-, node distance=3.0cm]
+    theorem/.style={rectangle, draw, fill=green!20, minimum width=7.2cm, minimum height=2.2cm, align=center, rounded corners},
+    property/.style={rectangle, draw, fill=blue!10, minimum width=6.2cm, minimum height=1.4cm, align=center},
+    arrow/.style={->, >=stealth, thick}
+], node distance=2.5cm]
     % Central: Zero-Admit Standard
-    \node[draw, fill=red!30, minimum width=9.0cm, minimum height=2.1cm, rounded corners=3pt, align=center, text width=4.5cm] (zero) at (0, 0) {\textbf{Zero-Admit Standard}\\206 Proofs, 0 Axioms};
+    \node[draw, fill=red!30, minimum width=9.0cm, minimum height=1.8cm, rounded corners, align=center, text width=3.5cm] (zero) at (0, 0) {\textbf{Zero-Admit Standard}\\206 Proofs, 0 Axioms};
     
     % Four theorem boxes around it
-    \node[theorem, align=center, text width=4.5cm] (nosig) at (-4, 2.5) {\textbf{No-Signaling}\\Bell locality analog};
-    \node[theorem, align=center, text width=4.5cm] (mucons) at (4, 2.5) {\textbf{$\mu$-Conservation}\\Monotonic ledger};
-    \node[theorem, align=center, text width=4.5cm] (nofi) at (-4, -2.5) {\textbf{No Free Insight}\\Impossibility theorem};
-    \node[theorem, align=center, text width=4.5cm] (gauge) at (4, -2.5) {\textbf{Gauge Invariance}\\Noether's theorem};
+    \node[theorem, align=center, text width=3.5cm] (nosig) at (-4, 2.5) {\textbf{No-Signaling}\\Bell locality analog};
+    \node[theorem, align=center, text width=3.5cm] (mucons) at (4, 2.5) {\textbf{$\mu$-Conservation}\\Monotonic ledger};
+    \node[theorem, align=center, text width=3.5cm] (nofi) at (-4, -2.5) {\textbf{No Free Insight}\\Impossibility theorem};
+    \node[theorem, align=center, text width=3.5cm] (gauge) at (4, -2.5) {\textbf{Gauge Invariance}\\Noether's theorem};
     
     % Arrows to center
-    \draw[arrow, dashed] (nosig) -- (zero);
-    \draw[arrow, dashed] (mucons) -- (zero);
-    \draw[arrow, dashed] (nofi) -- (zero);
-    \draw[arrow, dashed] (gauge) -- (zero);
+    \draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (nosig) -- (zero);
+    \draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (mucons) -- (zero);
+    \draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (nofi) -- (zero);
+    \draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (gauge) -- (zero);
     
     % Bottom: Inquisitor
-    \node[draw, fill=purple!20, minimum width=14.4cm, minimum height=2.0cm, rounded corners=3pt] at (0, -4.5) {\textbf{Inquisitor} enforces standard via CI (25+ rule categories)};
+    \node[draw, fill=purple!20, minimum width=14.4cm, minimum height=1.4cm, rounded corners] at (0, -4.5) {\textbf{Inquisitor} enforces standard via CI (25+ rule categories)};
     
     % Title
     \node at (0, 4) {\textbf{Chapter 5: Verification Results}};
