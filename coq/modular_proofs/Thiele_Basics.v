@@ -10,7 +10,7 @@
 
 From Coq Require Import Arith.
 
-From ThieleMachine.Modular_Proofs Require Import TM_Basics.
+From ModularProofs Require Import TM_Basics.
 
 Record ModularThieleSemantics (tm : TMTransition) := {
   mts_state : Type;

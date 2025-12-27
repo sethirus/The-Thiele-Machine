@@ -1,16 +1,25 @@
 #!/bin/bash
-# Comprehensive Coq build script with dependency resolution
-# Compiles all kernel Coq files in proper dependency order
+# Comprehensive Coq build script for ALL proofs
+# Compiles all 206 Coq proof files across all directories
 #
-# The kernel directory (coq/kernel/) contains all 54 core proofs.
-# This script uses coq/kernel/_CoqProject which specifies the correct
-# dependency order for compilation.
+# Directory structure:
+#   coq/kernel/           - 54 core kernel proofs
+#   coq/kernel_toe/       - 6 TOE cone proofs
+#   coq/thieleuniversal/  - 7 UTM proofs
+#   coq/thielemachine/    - 98 main machine proofs
+#   coq/modular_proofs/   - 7 modular proofs
+#   coq/physics/          - 5 physics proofs
+#   coq/bridge/           - 6 bridge proofs
+#   coq/nofi/             - 5 NoFI proofs
+#   + other directories
+#
+# Each directory has a README.md explaining its contents.
 
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-cd "$REPO_ROOT"
+cd "$REPO_ROOT/coq"
 
 # Colors
 RED='\033[0;31m'
@@ -36,52 +45,55 @@ echo ""
 # Option to clean
 if [ "$1" == "--clean" ] || [ "$1" == "-c" ]; then
     echo "🧹 Cleaning old build artifacts..."
-    cd coq/kernel
-    rm -f *.vo *.vok *.vos *.glob .*.aux Makefile.coq Makefile.coq.conf .Makefile.coq.d 2>/dev/null || true
-    cd "$REPO_ROOT"
+    find . -name "*.vo" -o -name "*.vok" -o -name "*.vos" -o -name "*.glob" -o -name ".*.aux" | xargs rm -f 2>/dev/null || true
+    rm -f Makefile.coq Makefile.coq.conf .Makefile.coq.d 2>/dev/null || true
     echo "   Done."
     echo ""
 fi
 
-# Build kernel proofs (the core 54 files)
-echo "🔨 Building kernel proofs (coq/kernel/)..."
-echo "   All 54 core proof files in dependency order"
-echo ""
-
-cd coq/kernel
-
 # Generate Makefile if needed
 if [ ! -f "Makefile.coq" ] || [ "_CoqProject" -nt "Makefile.coq" ]; then
     echo "📝 Generating Makefile.coq from _CoqProject..."
-    coq_makefile -f _CoqProject -o Makefile.coq
+    coq_makefile -f _CoqProject -o Makefile.coq 2>/dev/null || true
 fi
 
-# Build with make
-echo ""
-echo "   Compiling with $(nproc) cores..."
+echo "🔨 Building ALL Coq proofs..."
+echo "   (Using parallel compilation with $(nproc) cores)"
 echo ""
 
-if make -f Makefile.coq -j$(nproc) 2>&1 | tee /tmp/coq_kernel_build.log; then
+# Build with make
+if make -f Makefile.coq -j$(nproc) 2>&1 | tee /tmp/coq_build.log; then
     echo ""
     
     # Count compiled files
-    vo_count=$(ls -1 *.vo 2>/dev/null | wc -l)
-    v_count=$(ls -1 *.v 2>/dev/null | wc -l)
+    vo_count=$(find . -name "*.vo" | wc -l)
+    v_count=$(find . -name "*.v" | wc -l)
     
-    echo -e "${GREEN}✅ SUCCESS: All kernel proofs compiled${NC}"
+    echo -e "${GREEN}✅ SUCCESS: All Coq proofs compiled${NC}"
     echo "   Compiled: $vo_count/$v_count files"
+    echo ""
+    
+    # Show per-directory counts
+    echo "📊 Per-directory breakdown:"
+    for dir in kernel kernel_toe thieleuniversal thielemachine modular_proofs physics bridge nofi catnet isomorphism sandboxes self_reference spacetime spacetime_projection thiele_manifold shor_primitives project_cerberus test_vscoq; do
+        if [ -d "$dir" ]; then
+            count=$(find "$dir" -name "*.vo" 2>/dev/null | wc -l)
+            total=$(find "$dir" -name "*.v" 2>/dev/null | wc -l)
+            if [ "$count" -gt 0 ]; then
+                echo "   $dir: $count/$total"
+            fi
+        fi
+    done
     
     cd "$REPO_ROOT"
     
-    # Run inquisitor check on kernel
+    # Run inquisitor check
     echo ""
     echo "🔍 Running inquisitor validation..."
-    if python scripts/inquisitor.py --strict --coq-root coq/kernel 2>/dev/null; then
+    if python scripts/inquisitor.py --strict --coq-root coq 2>/dev/null; then
         echo -e "${GREEN}✅ INQUISITOR: PASS${NC}"
-        echo "   Zero axioms, zero admits in kernel"
     else
-        # Inquisitor may fail if coqtop not available, but proofs compiled
-        echo -e "${YELLOW}⚠️  INQUISITOR: Check manually (coqtop may not be available)${NC}"
+        echo -e "${YELLOW}⚠️  INQUISITOR: Check manually${NC}"
     fi
     
 else
@@ -89,9 +101,9 @@ else
     echo -e "${RED}❌ COMPILATION FAILED${NC}"
     echo ""
     echo "Errors found:"
-    grep -E "Error:|error:" /tmp/coq_kernel_build.log | head -20
+    grep -E "Error:|error:" /tmp/coq_build.log | head -20
     echo ""
-    echo "Full log: /tmp/coq_kernel_build.log"
+    echo "Full log: /tmp/coq_build.log"
     exit 1
 fi
 
@@ -99,8 +111,8 @@ echo ""
 echo "=== Build Complete ==="
 echo ""
 echo "Key theorems proven:"
-echo "  • tsirelson_from_pure_accounting (TsirelsonUniqueness.v)"
-echo "  • quantum_foundations_complete (QuantumEquivalence.v)"
-echo "  • thiele_machine_is_complete (MasterSummary.v)"
-echo "  • non_circularity_verified (NonCircularityAudit.v)"
+echo "  • tsirelson_from_pure_accounting (kernel/TsirelsonUniqueness.v)"
+echo "  • quantum_foundations_complete (kernel/QuantumEquivalence.v)"
+echo "  • thiele_machine_is_complete (kernel/MasterSummary.v)"
+echo "  • non_circularity_verified (kernel/NonCircularityAudit.v)"
 echo ""

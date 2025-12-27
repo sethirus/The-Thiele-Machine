@@ -1,122 +1,86 @@
--Q thielemachine/coqproofs ThieleMachine
--Q thielemachine/verification ThieleMachineVerification
--Q thieleuniversal/coqproofs ThieleUniversal
--Q modular_proofs ThieleMachine.Modular_Proofs
--Q catnet/coqproofs CatNet
--Q isomorphism/coqproofs Isomorphism
--Q project_cerberus/coqproofs ProjectCerberus
-# Physics-inspired optional studies
--Q physics Physics
-# Self-reference exploration
--Q self_reference SelfReference
--Q spacetime Spacetime
--Q thiele_manifold ThieleManifold
--Q spacetime_projection SpacetimeProjection
-# -Q sandboxes Sandbox
--Q shor_primitives ShorPrimitives
--Q test_vscoq/coqproofs TestVSCoq
--Q sandboxes Sandbox
+# Thiele Machine - Unified Coq Project
+# All 200+ proofs with consistent logical path mappings
 
-# Core Kernel proofs (use -R for recursive binding)
+# === Logical Path Mappings ===
+# Each directory gets a -R mapping for proper module resolution
+
 -R kernel Kernel
-
-# No-Free-Insight abstraction cone
--Q nofi NoFI
-
-# Sealed kernel TOE cone (maximal closure + minimal no-go)
 -R kernel_toe KernelTOE
+-R thieleuniversal/coqproofs ThieleUniversal
+-R thielemachine/coqproofs ThieleMachine
+-R thielemachine/verification ThieleMachineVerification
+-R modular_proofs ModularProofs
+-R physics Physics
+-R bridge Bridge
+-R nofi NoFI
+-R catnet/coqproofs CatNet
+-R isomorphism/coqproofs Isomorphism
+-R sandboxes Sandbox
+-R self_reference SelfReference
+-R spacetime Spacetime
+-R spacetime_projection SpacetimeProjection
+-R thiele_manifold ThieleManifold
+-R shor_primitives ShorPrimitives
+-R project_cerberus/coqproofs ProjectCerberus
+-R test_vscoq/coqproofs TestVSCoq
 
-# ThieleUniversal core files (Turing Machine and CPU definitions)
-thieleuniversal/coqproofs/TM.v
-thieleuniversal/coqproofs/CPU.v
-thieleuniversal/coqproofs/UTM_Encode.v
-thieleuniversal/coqproofs/UTM_Rules.v
-thieleuniversal/coqproofs/UTM_Program.v
-thieleuniversal/coqproofs/UTM_CoreLemmas.v
-
-catnet/coqproofs/CatNet.v
-
-physics/DiscreteModel.v
-physics/DissipativeModel.v
-physics/WaveModel.v
-physics/PreregSplit.v
-physics/LandauerBridge.v
-
-isomorphism/coqproofs/Universe.v
-
+# === KERNEL (55 files) - Core theorems ===
+kernel/VMState.v
+kernel/VMStep.v
+kernel/VMEncoding.v
 kernel/Kernel.v
 kernel/KernelTM.v
 kernel/KernelThiele.v
-kernel/Subsumption.v
 kernel/CertCheck.v
-kernel/VMState.v
-kernel/VMEncoding.v
-kernel/ReceiptCore.v
-kernel/VMStep.v
-kernel/ReceiptIntegrity.v
-kernel/SimulationProof.v
-kernel/CHSHExtraction.v
 kernel/MuCostModel.v
+kernel/KernelPhysics.v
+kernel/SimulationProof.v
+kernel/MuLedgerConservation.v
+kernel/RevelationRequirement.v
+kernel/CHSHExtraction.v
+kernel/CHSH.v
+kernel/QuantumBound.v
+kernel/MuInformation.v
+kernel/MuNoFreeInsightQuantitative.v
 kernel/TsirelsonLowerBound.v
 kernel/TsirelsonUpperBound.v
-kernel/MuLedgerConservation.v
-kernel/MuInformation.v
-kernel/MuGeometry.v
-kernel/CHSH.v
-kernel/MuNoFreeInsightQuantitative.v
-kernel/RevelationRequirement.v
-kernel/QuantumEquivalence.v
-kernel/InformationCausality.v
 kernel/TsirelsonUniqueness.v
-kernel/MuChaitin.v
-kernel/Certification.v
+kernel/QuantumEquivalence.v
 kernel/NoFreeInsight.v
-kernel/QuantumBound.v
-kernel/PDISCOVERIntegration.v
-kernel/KernelPhysics.v
-kernel/ObserverDerivation.v
-kernel/DerivedTime.v
-kernel/ConeDerivation.v
-kernel/PhysicsClosure.v
 kernel/ProbabilityImpossibility.v
 kernel/EntropyImpossibility.v
-kernel/LorentzNotForced.v
-kernel/TOEDecision.v
-kernel/SpacetimeEmergence.v
+kernel/Certification.v
 kernel/ConeAlgebra.v
+kernel/ConeDerivation.v
+kernel/SpacetimeEmergence.v
+kernel/DerivedTime.v
+kernel/PhysicsClosure.v
+kernel/LorentzNotForced.v
 kernel/KernelNoether.v
+kernel/ObserverDerivation.v
+kernel/InformationCausality.v
+kernel/MuChaitin.v
+kernel/MuGeometry.v
 kernel/FalsifiablePrediction.v
-kernel/PartitionSeparation.v
 kernel/KernelBenchmarks.v
+kernel/PartitionSeparation.v
+kernel/Subsumption.v
+kernel/ReceiptCore.v
+kernel/ReceiptIntegrity.v
+kernel/PDISCOVERIntegration.v
+kernel/Definitions.v
+kernel/Closure.v
+kernel/NoGo.v
+kernel/NoGoSensitivity.v
+kernel/Persistence.v
+kernel/TOE.v
+kernel/TOEDecision.v
+kernel/PythonBisimulation.v
+kernel/HardwareBisimulation.v
+kernel/NonCircularityAudit.v
+kernel/MasterSummary.v
 
-# Sandbox experiments (verified but exploratory)
-sandboxes/AbstractPartitionCHSH.v
-sandboxes/ToyThieleMachine.v
-sandboxes/VerifiedGraphSolver.v
-
-# Flagship confrontation theorem track (DI randomness)
-thielemachine/verification/RandomnessNoFI.v
-
-# Deliverables (stable entrypoints)
-thielemachine/verification/Deliverable_NoSignaling.v
-thielemachine/verification/Deliverable_SignalingLowerBound.v
-thielemachine/verification/Deliverable_MuEntropyOneBit.v
-thielemachine/verification/Deliverable_MuEntropyNBits.v
-
-# Bridge modules (operational physics embeddings)
-bridge/BoxWorld_to_Kernel.v
-bridge/FiniteQuantum_to_Kernel.v
-bridge/Randomness_to_Kernel.v
-bridge/Tomography_to_Kernel.v
-bridge/Entropy_to_Kernel.v
-bridge/Causal_to_Kernel.v
-
-nofi/NoFreeInsight_Interface.v
-nofi/NoFreeInsight_Theorem.v
-nofi/Instance_Kernel.v
-nofi/MuChaitinTheory_Interface.v
-nofi/MuChaitinTheory_Theorem.v
-
+# === KERNEL_TOE (6 files) - TOE cone ===
 kernel_toe/Definitions.v
 kernel_toe/Closure.v
 kernel_toe/NoGo.v
@@ -124,40 +88,90 @@ kernel_toe/NoGoSensitivity.v
 kernel_toe/Persistence.v
 kernel_toe/TOE.v
 
-modular_proofs/CornerstoneThiele.v
-modular_proofs/Encoding.v
-modular_proofs/EncodingBounds.v
-modular_proofs/Minsky.v
-modular_proofs/Simulation.v
+# === THIELEUNIVERSAL (7 files) - UTM ===
+thieleuniversal/coqproofs/TM.v
+thieleuniversal/coqproofs/CPU.v
+thieleuniversal/coqproofs/UTM_Encode.v
+thieleuniversal/coqproofs/UTM_Rules.v
+thieleuniversal/coqproofs/UTM_Program.v
+thieleuniversal/coqproofs/UTM_CoreLemmas.v
+thieleuniversal/coqproofs/ThieleUniversal.v
+
+# === MODULAR_PROOFS (7 files) ===
 modular_proofs/TM_Basics.v
 modular_proofs/Thiele_Basics.v
+modular_proofs/EncodingBounds.v
+modular_proofs/Encoding.v
+modular_proofs/Minsky.v
+modular_proofs/Simulation.v
+modular_proofs/CornerstoneThiele.v
 
-project_cerberus/coqproofs/Cerberus.v
+# === PHYSICS (5 files) ===
+physics/DiscreteModel.v
+physics/DissipativeModel.v
+physics/WaveModel.v
+physics/PreregSplit.v
+physics/LandauerBridge.v
 
-# Self-reference exploration
+# === BRIDGE (6 files) ===
+bridge/BoxWorld_to_Kernel.v
+bridge/FiniteQuantum_to_Kernel.v
+bridge/Randomness_to_Kernel.v
+bridge/Tomography_to_Kernel.v
+bridge/Entropy_to_Kernel.v
+bridge/Causal_to_Kernel.v
+
+# === NOFI (5 files) ===
+nofi/NoFreeInsight_Interface.v
+nofi/NoFreeInsight_Theorem.v
+nofi/Instance_Kernel.v
+nofi/MuChaitinTheory_Interface.v
+nofi/MuChaitinTheory_Theorem.v
+
+# === CATNET (1 file) ===
+catnet/coqproofs/CatNet.v
+
+# === ISOMORPHISM (1 file) ===
+isomorphism/coqproofs/Universe.v
+
+# === SANDBOXES (3 files) ===
+sandboxes/AbstractPartitionCHSH.v
+sandboxes/ToyThieleMachine.v
+sandboxes/VerifiedGraphSolver.v
+
+# === SELF_REFERENCE (1 file) ===
 self_reference/SelfReference.v
+
+# === SPACETIME (1 file) ===
 spacetime/Spacetime.v
-thiele_manifold/ThieleManifold.v
-thiele_manifold/ThieleManifoldBridge.v
-thiele_manifold/PhysicalConstants.v
+
+# === SPACETIME_PROJECTION (1 file) ===
 spacetime_projection/SpacetimeProjection.v
 
-# sandboxes/AbstractPartitionCHSH.v
-# sandboxes/EncodingMini.v
-# sandboxes/GeneratedProof.v
-# sandboxes/ToyThieleMachine.v
-# sandboxes/VerifiedGraphSolver.v
+# === THIELE_MANIFOLD (4 files) ===
+thiele_manifold/PhysicalConstants.v
+thiele_manifold/ThieleManifold.v
+thiele_manifold/ThieleManifoldBridge.v
+thiele_manifold/PhysicsIsomorphism.v
 
+# === SHOR_PRIMITIVES (3 files) ===
 shor_primitives/Euclidean.v
 shor_primitives/Modular.v
 shor_primitives/PeriodFinding.v
 
+# === PROJECT_CERBERUS (1 file) ===
+project_cerberus/coqproofs/Cerberus.v
+
+# === TEST_VSCOQ (1 file) ===
 test_vscoq/coqproofs/test_vscoq.v
 
-thielemachine/coqproofs/AmortizedAnalysis.v
-thielemachine/coqproofs/Axioms.v
+# === THIELEMACHINE (98 files) ===
+thielemachine/coqproofs/ListHelpers.v
+thielemachine/coqproofs/QHelpers.v
 thielemachine/coqproofs/Hash256.v
+thielemachine/coqproofs/Axioms.v
 thielemachine/coqproofs/CoreSemantics.v
+thielemachine/coqproofs/ThieleFoundations.v
 thielemachine/coqproofs/AlgebraicLaws.v
 thielemachine/coqproofs/LogicIsomorphism.v
 thielemachine/coqproofs/CompositionPrimitive.v
@@ -166,7 +180,6 @@ thielemachine/coqproofs/GoldenVectors.v
 thielemachine/coqproofs/BlindSighted.v
 thielemachine/coqproofs/SemanticBridge.v
 thielemachine/coqproofs/Embedding_TM.v
-thielemachine/coqproofs/ThieleFoundations.v
 thielemachine/coqproofs/InfoTheory.v
 thielemachine/coqproofs/DiscoveryProof.v
 thielemachine/coqproofs/EfficientDiscovery.v
@@ -186,19 +199,11 @@ thielemachine/coqproofs/QuantumTheorems.v
 thielemachine/coqproofs/Bisimulation.v
 thielemachine/coqproofs/Confluence.v
 thielemachine/coqproofs/EncodingBridge.v
-thielemachine/coqproofs/ListHelpers.v
 thielemachine/coqproofs/NUSD.v
 thielemachine/coqproofs/PartitionLogic.v
 thielemachine/coqproofs/Oracle.v
-thielemachine/coqproofs/QHelpers.v
 thielemachine/coqproofs/SpectralApproximation.v
 thielemachine/coqproofs/Separation.v
-thielemachine/verification/modular/Bridge_BridgeCore.v
-thielemachine/verification/BridgeCheckpoints.v
-thielemachine/verification/BridgeDefinitions.v
-thielemachine/verification/BridgeProof.v
-thielemachine/verification/ThieleUniversalBridge.v
-thielemachine/verification/ThieleUniversalBridge_Axiom_Tests.v
 thielemachine/coqproofs/Simulation.v
 thielemachine/coqproofs/SpecSound.v
 thielemachine/coqproofs/StructuredInstances.v
@@ -238,24 +243,29 @@ thielemachine/coqproofs/RepresentationTheorem.v
 thielemachine/coqproofs/SpacelandCore.v
 thielemachine/coqproofs/Spaceland_Simple.v
 thielemachine/coqproofs/WaveCheck.v
-thieleuniversal/coqproofs/ThieleUniversal.v
+thielemachine/coqproofs/AmortizedAnalysis.v
 
-# Reality Interface modules (observation functor, admissibility, physics)
+# === THIELEMACHINE VERIFICATION (20+ files) ===
 thielemachine/verification/ObservationInterface.v
 thielemachine/verification/Admissibility.v
 thielemachine/verification/Symmetry.v
 thielemachine/verification/PhysicsPillars.v
 thielemachine/verification/Prediction.v
 thielemachine/verification/PredictionNoFI.v
+thielemachine/verification/RandomnessNoFI.v
+thielemachine/verification/Deliverable_NoSignaling.v
+thielemachine/verification/Deliverable_SignalingLowerBound.v
+thielemachine/verification/Deliverable_MuEntropyOneBit.v
+thielemachine/verification/Deliverable_MuEntropyNBits.v
 thielemachine/verification/Deliverable_CHSHSeparation.v
 thielemachine/verification/Deliverable_MuEntropy.v
 thielemachine/verification/FullIsomorphism.v
+thielemachine/verification/BridgeDefinitions.v
+thielemachine/verification/BridgeCheckpoints.v
+thielemachine/verification/BridgeProof.v
+thielemachine/verification/ThieleUniversalBridge.v
+thielemachine/verification/ThieleUniversalBridge_Axiom_Tests.v
+thielemachine/verification/modular/Bridge_BridgeCore.v
 
-thiele_manifold/PhysicsIsomorphism.v
-
-# Foundry / codegen entrypoint (kept optional; invoked by scripts/forge_artifact.sh)
+# === EXTRACTION ===
 Extraction.v
-kernel/PythonBisimulation.v
-kernel/HardwareBisimulation.v
-kernel/NonCircularityAudit.v
-kernel/MasterSummary.v

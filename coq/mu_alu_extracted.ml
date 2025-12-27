@@ -1,11 +1,4 @@
 
-type ('a, 'b) prod =
-| Pair of 'a * 'b
-
-type 'a list =
-| Nil
-| Cons of 'a * 'a list
-
 type comparison =
 | Eq
 | Lt
@@ -22,21 +15,24 @@ module Coq__1 = struct
  (** val add : int -> int -> int **)
 
  let rec add n m =
-   match n with
-   | 0 -> m
-   | (fun x -> x + 1) p -> (fun x -> x + 1) (add p m)
+   (fun zero succ n -> if n=0 then zero () else succ (n-1))
+     (fun _ -> m)
+     (fun p -> (fun x -> x + 1) (add p m))
+     n
 end
 include Coq__1
 
 (** val sub : int -> int -> int **)
 
 let rec sub n m =
-  match n with
-  | 0 -> n
-  | (fun x -> x + 1) k ->
-    (match m with
-     | 0 -> n
-     | (fun x -> x + 1) l -> sub k l)
+  (fun zero succ n -> if n=0 then zero () else succ (n-1))
+    (fun _ -> n)
+    (fun k ->
+    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+      (fun _ -> n)
+      (fun l -> sub k l)
+      m)
+    n
 
 type positive =
 | XI of positive
@@ -184,9 +180,11 @@ module Pos =
 
   (** val of_succ_nat : int -> positive **)
 
-  let rec of_succ_nat = function
-  | 0 -> XH
-  | (fun x -> x + 1) x -> succ (of_succ_nat x)
+  let rec of_succ_nat n =
+    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+      (fun _ -> XH)
+      (fun x -> succ (of_succ_nat x))
+      n
  end
 
 module Z =
@@ -354,65 +352,63 @@ module Z =
 
   (** val of_nat : int -> z **)
 
-  let of_nat = function
-  | 0 -> Z0
-  | (fun x -> x + 1) n0 -> Zpos (Pos.of_succ_nat n0)
+  let of_nat n =
+    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+      (fun _ -> Z0)
+      (fun n0 -> Zpos (Pos.of_succ_nat n0))
+      n
 
-  (** val pos_div_eucl : positive -> z -> (z, z) prod **)
+  (** val pos_div_eucl : positive -> z -> z*z **)
 
   let rec pos_div_eucl a b =
     match a with
     | XI a' ->
-      let Pair (q, r) = pos_div_eucl a' b in
+      let q,r = pos_div_eucl a' b in
       let r' = add (mul (Zpos (XO XH)) r) (Zpos XH) in
       if ltb r' b
-      then Pair ((mul (Zpos (XO XH)) q), r')
-      else Pair ((add (mul (Zpos (XO XH)) q) (Zpos XH)), (sub r' b))
+      then (mul (Zpos (XO XH)) q),r'
+      else (add (mul (Zpos (XO XH)) q) (Zpos XH)),(sub r' b)
     | XO a' ->
-      let Pair (q, r) = pos_div_eucl a' b in
+      let q,r = pos_div_eucl a' b in
       let r' = mul (Zpos (XO XH)) r in
       if ltb r' b
-      then Pair ((mul (Zpos (XO XH)) q), r')
-      else Pair ((add (mul (Zpos (XO XH)) q) (Zpos XH)), (sub r' b))
-    | XH ->
-      if leb (Zpos (XO XH)) b
-      then Pair (Z0, (Zpos XH))
-      else Pair ((Zpos XH), Z0)
+      then (mul (Zpos (XO XH)) q),r'
+      else (add (mul (Zpos (XO XH)) q) (Zpos XH)),(sub r' b)
+    | XH -> if leb (Zpos (XO XH)) b then Z0,(Zpos XH) else (Zpos XH),Z0
 
-  (** val div_eucl : z -> z -> (z, z) prod **)
+  (** val div_eucl : z -> z -> z*z **)
 
   let div_eucl a b =
     match a with
-    | Z0 -> Pair (Z0, Z0)
+    | Z0 -> Z0,Z0
     | Zpos a' ->
       (match b with
-       | Z0 -> Pair (Z0, a)
+       | Z0 -> Z0,a
        | Zpos _ -> pos_div_eucl a' b
        | Zneg b' ->
-         let Pair (q, r) = pos_div_eucl a' (Zpos b') in
+         let q,r = pos_div_eucl a' (Zpos b') in
          (match r with
-          | Z0 -> Pair ((opp q), Z0)
-          | _ -> Pair ((opp (add q (Zpos XH))), (add b r))))
+          | Z0 -> (opp q),Z0
+          | _ -> (opp (add q (Zpos XH))),(add b r)))
     | Zneg a' ->
       (match b with
-       | Z0 -> Pair (Z0, a)
+       | Z0 -> Z0,a
        | Zpos _ ->
-         let Pair (q, r) = pos_div_eucl a' b in
+         let q,r = pos_div_eucl a' b in
          (match r with
-          | Z0 -> Pair ((opp q), Z0)
-          | _ -> Pair ((opp (add q (Zpos XH))), (sub b r)))
-       | Zneg b' ->
-         let Pair (q, r) = pos_div_eucl a' (Zpos b') in Pair (q, (opp r)))
+          | Z0 -> (opp q),Z0
+          | _ -> (opp (add q (Zpos XH))),(sub b r))
+       | Zneg b' -> let q,r = pos_div_eucl a' (Zpos b') in q,(opp r))
 
   (** val div : z -> z -> z **)
 
   let div a b =
-    let Pair (q, _) = div_eucl a b in q
+    let q,_ = div_eucl a b in q
 
   (** val modulo : z -> z -> z **)
 
   let modulo a b =
-    let Pair (_, r) = div_eucl a b in r
+    let _,r = div_eucl a b in r
 
   (** val div2 : z -> z **)
 
@@ -481,351 +477,343 @@ let q16_div a b =
 (** val log2_lut : q16 list **)
 
 let log2_lut =
-  Cons (Z0, (Cons ((Zpos (XO (XO (XO (XO (XI (XI (XI (XO XH))))))))), (Cons
-    ((Zpos (XI (XI (XI (XI (XI (XO (XI (XI (XO XH)))))))))), (Cons ((Zpos (XI
-    (XO (XI (XI (XO (XO (XI (XO (XO (XO XH))))))))))), (Cons ((Zpos (XI (XO
-    (XO (XI (XI (XI (XO (XI (XI (XO XH))))))))))), (Cons ((Zpos (XO (XO (XI
-    (XO (XO (XI (XO (XO (XI (XI XH))))))))))), (Cons ((Zpos (XO (XI (XI (XI
-    (XO (XO (XO (XI (XO (XO (XO XH)))))))))))), (Cons ((Zpos (XO (XI (XI (XO
-    (XI (XI (XI (XI (XI (XO (XO XH)))))))))))), (Cons ((Zpos (XI (XO (XI (XI
-    (XI (XO (XI (XO (XI (XI (XO XH)))))))))))), (Cons ((Zpos (XO (XI (XO (XO
-    (XO (XO (XI (XI (XO (XO (XI XH)))))))))))), (Cons ((Zpos (XO (XI (XI (XO
-    (XO (XI (XO (XO (XO (XI (XI XH)))))))))))), (Cons ((Zpos (XI (XO (XO (XI
-    (XO (XO (XO (XI (XI (XI (XI XH)))))))))))), (Cons ((Zpos (XI (XI (XO (XI
-    (XO (XI (XI (XI (XO (XO (XO (XO XH))))))))))))), (Cons ((Zpos (XI (XI (XO
-    (XI (XO (XO (XI (XO (XO (XI (XO (XO XH))))))))))))), (Cons ((Zpos (XO (XI
-    (XO (XI (XO (XI (XO (XI (XI (XI (XO (XO XH))))))))))))), (Cons ((Zpos (XI
-    (XI (XI (XO (XO (XO (XO (XO (XI (XO (XI (XO XH))))))))))))), (Cons ((Zpos
-    (XI (XI (XO (XO (XO (XI (XI (XO (XO (XI (XI (XO XH))))))))))))), (Cons
-    ((Zpos (XO (XI (XI (XI (XI (XI (XO (XI (XI (XI (XI (XO XH))))))))))))),
-    (Cons ((Zpos (XO (XO (XO (XI (XI (XO (XO (XO (XI (XO (XO (XI
-    XH))))))))))))), (Cons ((Zpos (XI (XO (XO (XO (XI (XI (XI (XO (XO (XI (XO
-    (XI XH))))))))))))), (Cons ((Zpos (XO (XO (XO (XI (XO (XO (XI (XI (XI (XI
-    (XO (XI XH))))))))))))), (Cons ((Zpos (XO (XI (XI (XI (XI (XO (XO (XO (XI
-    (XO (XI (XI XH))))))))))))), (Cons ((Zpos (XO (XI (XO (XO (XI (XI (XI (XO
-    (XO (XI (XI (XI XH))))))))))))), (Cons ((Zpos (XO (XI (XI (XO (XO (XO (XI
-    (XI (XI (XI (XI (XI XH))))))))))))), (Cons ((Zpos (XO (XO (XO (XI (XI (XO
-    (XO (XO (XI (XO (XO (XO (XO XH)))))))))))))), (Cons ((Zpos (XI (XO (XO
-    (XI (XO (XI (XI (XO (XO (XI (XO (XO (XO XH)))))))))))))), (Cons ((Zpos
-    (XI (XO (XO (XI (XI (XI (XO (XI (XI (XI (XO (XO (XO XH)))))))))))))),
-    (Cons ((Zpos (XO (XO (XO (XI (XO (XO (XO (XO (XI (XO (XI (XO (XO
-    XH)))))))))))))), (Cons ((Zpos (XI (XO (XI (XO (XI (XO (XI (XO (XO (XI
-    (XI (XO (XO XH)))))))))))))), (Cons ((Zpos (XO (XI (XO (XO (XO (XI (XO
-    (XI (XI (XI (XI (XO (XO XH)))))))))))))), (Cons ((Zpos (XI (XO (XI (XI
-    (XO (XI (XI (XI (XO (XO (XO (XI (XO XH)))))))))))))), (Cons ((Zpos (XI
-    (XI (XI (XO (XI (XI (XO (XO (XO (XI (XO (XI (XO XH)))))))))))))), (Cons
-    ((Zpos (XO (XO (XO (XO (XO (XO (XO (XI (XI (XI (XO (XI (XO
-    XH)))))))))))))), (Cons ((Zpos (XI (XI (XI (XO (XO (XO (XI (XI (XO (XO
-    (XI (XI (XO XH)))))))))))))), (Cons ((Zpos (XO (XI (XI (XI (XO (XO (XO
-    (XO (XO (XI (XI (XI (XO XH)))))))))))))), (Cons ((Zpos (XI (XI (XO (XO
-    (XI (XO (XI (XO (XI (XI (XI (XI (XO XH)))))))))))))), (Cons ((Zpos (XO
-    (XO (XO (XI (XI (XO (XO (XI (XO (XO (XO (XO (XI XH)))))))))))))), (Cons
-    ((Zpos (XI (XI (XO (XI (XI (XO (XI (XI (XI (XO (XO (XO (XI
-    XH)))))))))))))), (Cons ((Zpos (XI (XO (XI (XI (XI (XO (XO (XO (XI (XI
-    (XO (XO (XI XH)))))))))))))), (Cons ((Zpos (XO (XI (XI (XI (XI (XO (XI
-    (XO (XO (XO (XI (XO (XI XH)))))))))))))), (Cons ((Zpos (XO (XI (XI (XI
-    (XI (XO (XO (XI (XI (XO (XI (XO (XI XH)))))))))))))), (Cons ((Zpos (XI
-    (XO (XI (XI (XI (XO (XI (XI (XO (XI (XI (XO (XI XH)))))))))))))), (Cons
-    ((Zpos (XI (XI (XO (XI (XI (XO (XO (XO (XO (XO (XO (XI (XI
-    XH)))))))))))))), (Cons ((Zpos (XO (XO (XO (XI (XI (XO (XI (XO (XI (XO
-    (XO (XI (XI XH)))))))))))))), (Cons ((Zpos (XI (XI (XO (XO (XI (XO (XO
-    (XI (XO (XI (XO (XI (XI XH)))))))))))))), (Cons ((Zpos (XO (XI (XI (XI
-    (XO (XO (XI (XI (XI (XI (XO (XI (XI XH)))))))))))))), (Cons ((Zpos (XO
-    (XO (XO (XI (XO (XO (XO (XO (XI (XO (XI (XI (XI XH)))))))))))))), (Cons
-    ((Zpos (XO (XO (XO (XO (XO (XO (XI (XO (XO (XI (XI (XI (XI
-    XH)))))))))))))), (Cons ((Zpos (XO (XO (XO (XI (XI (XI (XI (XO (XI (XI
-    (XI (XI (XI XH)))))))))))))), (Cons ((Zpos (XO (XI (XI (XI (XO (XI (XO
-    (XI (XO (XO (XO (XO (XO (XO XH))))))))))))))), (Cons ((Zpos (XO (XO (XI
-    (XO (XO (XI (XI (XI (XI (XO (XO (XO (XO (XO XH))))))))))))))), (Cons
-    ((Zpos (XO (XO (XO (XI (XI (XO (XO (XO (XI (XI (XO (XO (XO (XO
-    XH))))))))))))))), (Cons ((Zpos (XO (XO (XI (XI (XO (XO (XI (XO (XO (XO
-    (XI (XO (XO (XO XH))))))))))))))), (Cons ((Zpos (XO (XI (XI (XI (XI (XI
-    (XI (XO (XI (XO (XI (XO (XO (XO XH))))))))))))))), (Cons ((Zpos (XO (XO
-    (XO (XO (XI (XI (XO (XI (XO (XI (XI (XO (XO (XO XH))))))))))))))), (Cons
-    ((Zpos (XO (XO (XO (XO (XO (XI (XI (XI (XI (XI (XI (XO (XO (XO
-    XH))))))))))))))), (Cons ((Zpos (XO (XO (XO (XO (XI (XO (XO (XO (XI (XO
-    (XO (XI (XO (XO XH))))))))))))))), (Cons ((Zpos (XO (XI (XI (XI (XI (XI
-    (XO (XO (XO (XI (XO (XI (XO (XO XH))))))))))))))), (Cons ((Zpos (XO (XO
-    (XI (XI (XO (XI (XI (XO (XI (XI (XO (XI (XO (XO XH))))))))))))))), (Cons
-    ((Zpos (XO (XO (XO (XI (XI (XO (XO (XI (XO (XO (XI (XI (XO (XO
-    XH))))))))))))))), (Cons ((Zpos (XO (XO (XI (XO (XO (XO (XI (XI (XI (XO
-    (XI (XI (XO (XO XH))))))))))))))), (Cons ((Zpos (XI (XI (XI (XI (XO (XI
-    (XI (XI (XO (XI (XI (XI (XO (XO XH))))))))))))))), (Cons ((Zpos (XI (XO
-    (XO (XI (XI (XO (XO (XO (XO (XO (XO (XO (XI (XO XH))))))))))))))), (Cons
-    ((Zpos (XI (XO (XO (XO (XO (XO (XI (XO (XI (XO (XO (XO (XI (XO
-    XH))))))))))))))), (Cons ((Zpos (XI (XO (XO (XI (XO (XI (XI (XO (XO (XI
-    (XO (XO (XI (XO XH))))))))))))))), (Cons ((Zpos (XO (XO (XO (XO (XI (XO
-    (XO (XI (XI (XI (XO (XO (XI (XO XH))))))))))))))), (Cons ((Zpos (XO (XI
-    (XI (XO (XI (XI (XO (XI (XO (XO (XI (XO (XI (XO XH))))))))))))))), (Cons
-    ((Zpos (XO (XO (XI (XI (XI (XO (XI (XI (XI (XO (XI (XO (XI (XO
-    XH))))))))))))))), (Cons ((Zpos (XO (XO (XO (XO (XO (XO (XO (XO (XI (XI
-    (XI (XO (XI (XO XH))))))))))))))), (Cons ((Zpos (XI (XI (XO (XO (XO (XI
-    (XO (XO (XO (XO (XO (XI (XI (XO XH))))))))))))))), (Cons ((Zpos (XO (XI
-    (XI (XO (XO (XO (XI (XO (XI (XO (XO (XI (XI (XO XH))))))))))))))), (Cons
-    ((Zpos (XI (XI (XI (XO (XO (XI (XI (XO (XO (XI (XO (XI (XI (XO
-    XH))))))))))))))), (Cons ((Zpos (XO (XO (XO (XI (XO (XO (XO (XI (XI (XI
-    (XO (XI (XI (XO XH))))))))))))))), (Cons ((Zpos (XO (XO (XO (XI (XO (XI
-    (XO (XI (XO (XO (XI (XI (XI (XO XH))))))))))))))), (Cons ((Zpos (XI (XI
-    (XI (XO (XO (XO (XI (XI (XI (XO (XI (XI (XI (XO XH))))))))))))))), (Cons
-    ((Zpos (XI (XO (XI (XO (XO (XI (XI (XI (XO (XI (XI (XI (XI (XO
-    XH))))))))))))))), (Cons ((Zpos (XO (XI (XO (XO (XO (XO (XO (XO (XO (XO
-    (XO (XO (XO (XI XH))))))))))))))), (Cons ((Zpos (XI (XI (XI (XI (XI (XO
-    (XO (XO (XI (XO (XO (XO (XO (XI XH))))))))))))))), (Cons ((Zpos (XO (XI
-    (XO (XI (XI (XI (XO (XO (XO (XI (XO (XO (XO (XI XH))))))))))))))), (Cons
-    ((Zpos (XI (XO (XI (XO (XI (XO (XI (XO (XI (XI (XO (XO (XO (XI
-    XH))))))))))))))), (Cons ((Zpos (XO (XI (XI (XI (XO (XI (XI (XO (XO (XO
-    (XI (XO (XO (XI XH))))))))))))))), (Cons ((Zpos (XI (XI (XI (XO (XO (XO
-    (XO (XI (XI (XO (XI (XO (XO (XI XH))))))))))))))), (Cons ((Zpos (XO (XO
-    (XO (XO (XO (XI (XO (XI (XO (XI (XI (XO (XO (XI XH))))))))))))))), (Cons
-    ((Zpos (XI (XI (XI (XO (XI (XI (XO (XI (XI (XI (XI (XO (XO (XI
-    XH))))))))))))))), (Cons ((Zpos (XI (XO (XI (XI (XO (XO (XI (XI (XO (XO
-    (XO (XI (XO (XI XH))))))))))))))), (Cons ((Zpos (XI (XI (XO (XO (XO (XI
-    (XI (XI (XI (XO (XO (XI (XO (XI XH))))))))))))))), (Cons ((Zpos (XO (XO
-    (XO (XI (XI (XI (XI (XI (XO (XI (XO (XI (XO (XI XH))))))))))))))), (Cons
-    ((Zpos (XO (XO (XI (XI (XO (XO (XO (XO (XO (XO (XI (XI (XO (XI
-    XH))))))))))))))), (Cons ((Zpos (XI (XI (XI (XI (XI (XO (XO (XO (XI (XO
-    (XI (XI (XO (XI XH))))))))))))))), (Cons ((Zpos (XO (XI (XO (XO (XI (XI
-    (XO (XO (XO (XI (XI (XI (XO (XI XH))))))))))))))), (Cons ((Zpos (XI (XI
-    (XO (XO (XO (XO (XI (XO (XI (XI (XI (XI (XO (XI XH))))))))))))))), (Cons
-    ((Zpos (XO (XO (XI (XO (XI (XO (XI (XO (XO (XO (XO (XO (XI (XI
-    XH))))))))))))))), (Cons ((Zpos (XO (XO (XI (XO (XO (XI (XI (XO (XI (XO
-    (XO (XO (XI (XI XH))))))))))))))), (Cons ((Zpos (XO (XO (XI (XO (XI (XI
-    (XI (XO (XO (XI (XO (XO (XI (XI XH))))))))))))))), (Cons ((Zpos (XO (XI
-    (XO (XO (XO (XO (XO (XI (XI (XI (XO (XO (XI (XI XH))))))))))))))), (Cons
-    ((Zpos (XI (XO (XO (XO (XI (XO (XO (XI (XO (XO (XI (XO (XI (XI
-    XH))))))))))))))), (Cons ((Zpos (XO (XI (XI (XI (XI (XO (XO (XI (XI (XO
-    (XI (XO (XI (XI XH))))))))))))))), (Cons ((Zpos (XO (XI (XO (XI (XO (XI
-    (XO (XI (XO (XI (XI (XO (XI (XI XH))))))))))))))), (Cons ((Zpos (XO (XI
-    (XI (XO (XI (XI (XO (XI (XI (XI (XI (XO (XI (XI XH))))))))))))))), (Cons
-    ((Zpos (XI (XO (XO (XO (XO (XO (XI (XI (XO (XO (XO (XI (XI (XI
-    XH))))))))))))))), (Cons ((Zpos (XI (XI (XO (XI (XO (XO (XI (XI (XI (XO
-    (XO (XI (XI (XI XH))))))))))))))), (Cons ((Zpos (XI (XO (XI (XO (XI (XO
-    (XI (XI (XO (XI (XO (XI (XI (XI XH))))))))))))))), (Cons ((Zpos (XO (XI
-    (XI (XI (XI (XO (XI (XI (XI (XI (XO (XI (XI (XI XH))))))))))))))), (Cons
-    ((Zpos (XO (XI (XI (XO (XO (XI (XI (XI (XO (XO (XI (XI (XI (XI
-    XH))))))))))))))), (Cons ((Zpos (XI (XO (XI (XI (XO (XI (XI (XI (XI (XO
-    (XI (XI (XI (XI XH))))))))))))))), (Cons ((Zpos (XO (XO (XI (XO (XI (XI
-    (XI (XI (XO (XI (XI (XI (XI (XI XH))))))))))))))), (Cons ((Zpos (XO (XI
-    (XO (XI (XI (XI (XI (XI (XI (XI (XI (XI (XI (XI XH))))))))))))))), (Cons
-    ((Zpos (XI (XI (XI (XI (XI (XI (XI (XI (XO (XO (XO (XO (XO (XO (XO
-    XH)))))))))))))))), (Cons ((Zpos (XI (XI (XO (XO (XO (XO (XO (XO (XO (XI
-    (XO (XO (XO (XO (XO XH)))))))))))))))), (Cons ((Zpos (XI (XI (XI (XO (XO
-    (XO (XO (XO (XI (XI (XO (XO (XO (XO (XO XH)))))))))))))))), (Cons ((Zpos
-    (XO (XI (XO (XI (XO (XO (XO (XO (XO (XO (XI (XO (XO (XO (XO
-    XH)))))))))))))))), (Cons ((Zpos (XI (XO (XI (XI (XO (XO (XO (XO (XI (XO
-    (XI (XO (XO (XO (XO XH)))))))))))))))), (Cons ((Zpos (XO (XI (XI (XI (XO
-    (XO (XO (XO (XO (XI (XI (XO (XO (XO (XO XH)))))))))))))))), (Cons ((Zpos
-    (XI (XI (XI (XI (XO (XO (XO (XO (XI (XI (XI (XO (XO (XO (XO
-    XH)))))))))))))))), (Cons ((Zpos (XO (XO (XO (XO (XI (XO (XO (XO (XO (XO
-    (XO (XI (XO (XO (XO XH)))))))))))))))), (Cons ((Zpos (XI (XI (XI (XI (XO
-    (XO (XO (XO (XI (XO (XO (XI (XO (XO (XO XH)))))))))))))))), (Cons ((Zpos
-    (XO (XI (XI (XI (XO (XO (XO (XO (XO (XI (XO (XI (XO (XO (XO
-    XH)))))))))))))))), (Cons ((Zpos (XO (XO (XI (XI (XO (XO (XO (XO (XI (XI
-    (XO (XI (XO (XO (XO XH)))))))))))))))), (Cons ((Zpos (XO (XI (XO (XI (XO
-    (XO (XO (XO (XO (XO (XI (XI (XO (XO (XO XH)))))))))))))))), (Cons ((Zpos
-    (XI (XI (XI (XO (XO (XO (XO (XO (XI (XO (XI (XI (XO (XO (XO
-    XH)))))))))))))))), (Cons ((Zpos (XI (XI (XO (XO (XO (XO (XO (XO (XO (XI
-    (XI (XI (XO (XO (XO XH)))))))))))))))), (Cons ((Zpos (XI (XI (XI (XI (XI
-    (XI (XI (XI (XO (XI (XI (XI (XO (XO (XO XH)))))))))))))))), (Cons ((Zpos
-    (XO (XI (XO (XI (XI (XI (XI (XI (XI (XI (XI (XI (XO (XO (XO
-    XH)))))))))))))))), (Cons ((Zpos (XO (XO (XI (XO (XI (XI (XI (XI (XO (XO
-    (XO (XO (XI (XO (XO XH)))))))))))))))), (Cons ((Zpos (XO (XI (XI (XI (XO
-    (XI (XI (XI (XI (XO (XO (XO (XI (XO (XO XH)))))))))))))))), (Cons ((Zpos
-    (XI (XI (XI (XO (XO (XI (XI (XI (XO (XI (XO (XO (XI (XO (XO
-    XH)))))))))))))))), (Cons ((Zpos (XI (XI (XI (XI (XI (XO (XI (XI (XI (XI
-    (XO (XO (XI (XO (XO XH)))))))))))))))), (Cons ((Zpos (XI (XI (XI (XO (XI
-    (XO (XI (XI (XO (XO (XI (XO (XI (XO (XO XH)))))))))))))))), (Cons ((Zpos
-    (XO (XI (XI (XI (XO (XO (XI (XI (XI (XO (XI (XO (XI (XO (XO
-    XH)))))))))))))))), (Cons ((Zpos (XI (XO (XI (XO (XO (XO (XI (XI (XO (XI
-    (XI (XO (XI (XO (XO XH)))))))))))))))), (Cons ((Zpos (XI (XI (XO (XI (XI
-    (XI (XO (XI (XI (XI (XI (XO (XI (XO (XO XH)))))))))))))))), (Cons ((Zpos
-    (XO (XO (XO (XO (XI (XI (XO (XI (XO (XO (XO (XI (XI (XO (XO
-    XH)))))))))))))))), (Cons ((Zpos (XI (XO (XI (XO (XO (XI (XO (XI (XI (XO
-    (XO (XI (XI (XO (XO XH)))))))))))))))), (Cons ((Zpos (XI (XO (XO (XI (XI
-    (XO (XO (XI (XO (XI (XO (XI (XI (XO (XO XH)))))))))))))))), (Cons ((Zpos
-    (XO (XO (XI (XI (XO (XO (XO (XI (XI (XI (XO (XI (XI (XO (XO
-    XH)))))))))))))))), (Cons ((Zpos (XI (XI (XI (XI (XI (XI (XI (XO (XO (XO
-    (XI (XI (XI (XO (XO XH)))))))))))))))), (Cons ((Zpos (XI (XO (XO (XO (XI
-    (XI (XI (XO (XI (XO (XI (XI (XI (XO (XO XH)))))))))))))))), (Cons ((Zpos
-    (XI (XI (XO (XO (XO (XI (XI (XO (XO (XI (XI (XI (XI (XO (XO
-    XH)))))))))))))))), (Cons ((Zpos (XO (XO (XI (XO (XI (XO (XI (XO (XI (XI
-    (XI (XI (XI (XO (XO XH)))))))))))))))), (Cons ((Zpos (XI (XO (XI (XO (XO
-    (XO (XI (XO (XO (XO (XO (XO (XO (XI (XO XH)))))))))))))))), (Cons ((Zpos
-    (XI (XO (XI (XO (XI (XI (XO (XO (XI (XO (XO (XO (XO (XI (XO
-    XH)))))))))))))))), (Cons ((Zpos (XO (XO (XI (XO (XO (XI (XO (XO (XO (XI
-    (XO (XO (XO (XI (XO XH)))))))))))))))), (Cons ((Zpos (XI (XI (XO (XO (XI
-    (XO (XO (XO (XI (XI (XO (XO (XO (XI (XO XH)))))))))))))))), (Cons ((Zpos
-    (XI (XO (XO (XO (XO (XO (XO (XO (XO (XO (XI (XO (XO (XI (XO
-    XH)))))))))))))))), (Cons ((Zpos (XI (XI (XI (XI (XO (XI (XI (XI (XO (XO
-    (XI (XO (XO (XI (XO XH)))))))))))))))), (Cons ((Zpos (XO (XO (XI (XI (XI
-    (XO (XI (XI (XI (XO (XI (XO (XO (XI (XO XH)))))))))))))))), (Cons ((Zpos
-    (XO (XO (XO (XI (XO (XO (XI (XI (XO (XI (XI (XO (XO (XI (XO
-    XH)))))))))))))))), (Cons ((Zpos (XO (XO (XI (XO (XI (XI (XO (XI (XI (XI
-    (XI (XO (XO (XI (XO XH)))))))))))))))), (Cons ((Zpos (XO (XO (XO (XO (XO
-    (XI (XO (XI (XO (XO (XO (XI (XO (XI (XO XH)))))))))))))))), (Cons ((Zpos
-    (XI (XI (XO (XI (XO (XO (XO (XI (XI (XO (XO (XI (XO (XI (XO
-    XH)))))))))))))))), (Cons ((Zpos (XI (XO (XI (XO (XI (XI (XI (XO (XO (XI
-    (XO (XI (XO (XI (XO XH)))))))))))))))), (Cons ((Zpos (XI (XI (XI (XI (XI
-    (XO (XI (XO (XI (XI (XO (XI (XO (XI (XO XH)))))))))))))))), (Cons ((Zpos
-    (XO (XO (XO (XI (XO (XO (XI (XO (XO (XO (XI (XI (XO (XI (XO
-    XH)))))))))))))))), (Cons ((Zpos (XI (XO (XO (XO (XI (XI (XO (XO (XI (XO
-    (XI (XI (XO (XI (XO XH)))))))))))))))), (Cons ((Zpos (XI (XO (XO (XI (XI
-    (XO (XO (XO (XO (XI (XI (XI (XO (XI (XO XH)))))))))))))))), (Cons ((Zpos
-    (XI (XO (XO (XO (XO (XO (XO (XO (XI (XI (XI (XI (XO (XI (XO
-    XH)))))))))))))))), (Cons ((Zpos (XO (XO (XO (XI (XO (XI (XI (XI (XI (XI
-    (XI (XI (XO (XI (XO XH)))))))))))))))), (Cons ((Zpos (XI (XI (XI (XI (XO
-    (XO (XI (XI (XO (XO (XO (XO (XI (XI (XO XH)))))))))))))))), (Cons ((Zpos
-    (XI (XO (XI (XO (XI (XI (XO (XI (XI (XO (XO (XO (XI (XI (XO
-    XH)))))))))))))))), (Cons ((Zpos (XI (XI (XO (XI (XI (XO (XO (XI (XO (XI
-    (XO (XO (XI (XI (XO XH)))))))))))))))), (Cons ((Zpos (XO (XO (XO (XO (XO
-    (XO (XO (XI (XI (XI (XO (XO (XI (XI (XO XH)))))))))))))))), (Cons ((Zpos
-    (XI (XO (XI (XO (XO (XI (XI (XO (XO (XO (XI (XO (XI (XI (XO
-    XH)))))))))))))))), (Cons ((Zpos (XI (XO (XO (XI (XO (XO (XI (XO (XI (XO
-    (XI (XO (XI (XI (XO XH)))))))))))))))), (Cons ((Zpos (XI (XO (XI (XI (XO
-    (XI (XO (XO (XO (XI (XI (XO (XI (XI (XO XH)))))))))))))))), (Cons ((Zpos
-    (XO (XO (XO (XO (XI (XO (XO (XO (XI (XI (XI (XO (XI (XI (XO
-    XH)))))))))))))))), (Cons ((Zpos (XI (XI (XO (XO (XI (XI (XI (XI (XI (XI
-    (XI (XO (XI (XI (XO XH)))))))))))))))), (Cons ((Zpos (XI (XO (XI (XO (XI
-    (XO (XI (XI (XO (XO (XO (XI (XI (XI (XO XH)))))))))))))))), (Cons ((Zpos
-    (XI (XI (XI (XO (XI (XI (XO (XI (XI (XO (XO (XI (XI (XI (XO
-    XH)))))))))))))))), (Cons ((Zpos (XO (XO (XO (XI (XI (XO (XO (XI (XO (XI
-    (XO (XI (XI (XI (XO XH)))))))))))))))), (Cons ((Zpos (XI (XO (XO (XI (XI
-    (XI (XI (XO (XI (XI (XO (XI (XI (XI (XO XH)))))))))))))))), (Cons ((Zpos
-    (XI (XO (XO (XI (XI (XO (XI (XO (XO (XO (XI (XI (XI (XI (XO
-    XH)))))))))))))))), (Cons ((Zpos (XI (XO (XO (XI (XI (XI (XO (XO (XI (XO
-    (XI (XI (XI (XI (XO XH)))))))))))))))), (Cons ((Zpos (XI (XO (XO (XI (XI
-    (XO (XO (XO (XO (XI (XI (XI (XI (XI (XO XH)))))))))))))))), (Cons ((Zpos
-    (XO (XO (XO (XI (XI (XI (XI (XI (XO (XI (XI (XI (XI (XI (XO
-    XH)))))))))))))))), (Cons ((Zpos (XO (XI (XI (XO (XI (XO (XI (XI (XI (XI
-    (XI (XI (XI (XI (XO XH)))))))))))))))), (Cons ((Zpos (XO (XO (XI (XO (XI
-    (XI (XO (XI (XO (XO (XO (XO (XO (XO (XI XH)))))))))))))))), (Cons ((Zpos
-    (XO (XI (XO (XO (XI (XO (XO (XI (XI (XO (XO (XO (XO (XO (XI
-    XH)))))))))))))))), (Cons ((Zpos (XI (XI (XI (XI (XO (XI (XI (XO (XO (XI
-    (XO (XO (XO (XO (XI XH)))))))))))))))), (Cons ((Zpos (XI (XI (XO (XI (XO
-    (XO (XI (XO (XI (XI (XO (XO (XO (XO (XI XH)))))))))))))))), (Cons ((Zpos
-    (XO (XO (XO (XI (XO (XI (XO (XO (XO (XO (XI (XO (XO (XO (XI
-    XH)))))))))))))))), (Cons ((Zpos (XI (XI (XO (XO (XO (XO (XO (XO (XI (XO
-    (XI (XO (XO (XO (XI XH)))))))))))))))), (Cons ((Zpos (XI (XI (XI (XI (XI
-    (XO (XI (XI (XI (XO (XI (XO (XO (XO (XI XH)))))))))))))))), (Cons ((Zpos
-    (XI (XO (XO (XI (XI (XI (XO (XI (XO (XI (XI (XO (XO (XO (XI
-    XH)))))))))))))))), (Cons ((Zpos (XO (XO (XI (XO (XI (XO (XO (XI (XI (XI
-    (XI (XO (XO (XO (XI XH)))))))))))))))), (Cons ((Zpos (XO (XI (XI (XI (XO
-    (XI (XI (XO (XO (XO (XO (XI (XO (XO (XI XH)))))))))))))))), (Cons ((Zpos
-    (XI (XI (XI (XO (XO (XO (XI (XO (XI (XO (XO (XI (XO (XO (XI
-    XH)))))))))))))))), (Cons ((Zpos (XO (XO (XO (XO (XO (XI (XO (XO (XO (XI
-    (XO (XI (XO (XO (XI XH)))))))))))))))), (Cons ((Zpos (XI (XO (XO (XI (XI
-    (XI (XI (XI (XO (XI (XO (XI (XO (XO (XI XH)))))))))))))))), (Cons ((Zpos
-    (XI (XO (XO (XO (XI (XO (XI (XI (XI (XI (XO (XI (XO (XO (XI
-    XH)))))))))))))))), (Cons ((Zpos (XO (XO (XO (XI (XO (XI (XO (XI (XO (XO
-    (XI (XI (XO (XO (XI XH)))))))))))))))), (Cons ((Zpos (XO (XO (XO (XO (XO
-    (XO (XO (XI (XI (XO (XI (XI (XO (XO (XI XH)))))))))))))))), (Cons ((Zpos
-    (XO (XI (XI (XO (XI (XO (XI (XO (XO (XI (XI (XI (XO (XO (XI
-    XH)))))))))))))))), (Cons ((Zpos (XI (XO (XI (XI (XO (XI (XO (XO (XI (XI
-    (XI (XI (XO (XO (XI XH)))))))))))))))), (Cons ((Zpos (XO (XI (XO (XO (XO
-    (XO (XO (XO (XO (XO (XO (XO (XI (XO (XI XH)))))))))))))))), (Cons ((Zpos
-    (XO (XO (XO (XI (XI (XO (XI (XI (XO (XO (XO (XO (XI (XO (XI
-    XH)))))))))))))))), (Cons ((Zpos (XI (XO (XI (XI (XO (XI (XO (XI (XI (XO
-    (XO (XO (XI (XO (XI XH)))))))))))))))), (Cons ((Zpos (XI (XO (XO (XO (XO
-    (XO (XO (XI (XO (XI (XO (XO (XI (XO (XI XH)))))))))))))))), (Cons ((Zpos
-    (XI (XO (XI (XO (XI (XO (XI (XO (XI (XI (XO (XO (XI (XO (XI
-    XH)))))))))))))))), (Cons ((Zpos (XI (XO (XO (XI (XO (XI (XO (XO (XO (XO
-    (XI (XO (XI (XO (XI XH)))))))))))))))), (Cons ((Zpos (XO (XO (XI (XI (XI
-    (XI (XI (XI (XO (XO (XI (XO (XI (XO (XI XH)))))))))))))))), (Cons ((Zpos
-    (XI (XI (XI (XI (XO (XO (XI (XI (XI (XO (XI (XO (XI (XO (XI
-    XH)))))))))))))))), (Cons ((Zpos (XI (XO (XO (XO (XO (XI (XO (XI (XO (XI
-    (XI (XO (XI (XO (XI XH)))))))))))))))), (Cons ((Zpos (XI (XI (XO (XO (XI
-    (XI (XI (XO (XI (XI (XI (XO (XI (XO (XI XH)))))))))))))))), (Cons ((Zpos
-    (XI (XO (XI (XO (XO (XO (XI (XO (XO (XO (XO (XI (XI (XO (XI
-    XH)))))))))))))))), (Cons ((Zpos (XO (XI (XI (XO (XI (XO (XO (XO (XI (XO
-    (XO (XI (XI (XO (XI XH)))))))))))))))), (Cons ((Zpos (XI (XI (XI (XO (XO
-    (XI (XI (XI (XI (XO (XO (XI (XI (XO (XI XH)))))))))))))))), (Cons ((Zpos
-    (XI (XI (XI (XO (XI (XI (XO (XI (XO (XI (XO (XI (XI (XO (XI
-    XH)))))))))))))))), (Cons ((Zpos (XI (XI (XI (XO (XO (XO (XO (XI (XI (XI
-    (XO (XI (XI (XO (XI XH)))))))))))))))), (Cons ((Zpos (XI (XI (XI (XO (XI
-    (XO (XI (XO (XO (XO (XI (XI (XI (XO (XI XH)))))))))))))))), (Cons ((Zpos
-    (XO (XI (XI (XO (XO (XI (XO (XO (XI (XO (XI (XI (XI (XO (XI
-    XH)))))))))))))))), (Cons ((Zpos (XO (XO (XI (XO (XI (XI (XI (XI (XI (XO
-    (XI (XI (XI (XO (XI XH)))))))))))))))), (Cons ((Zpos (XI (XI (XO (XO (XO
-    (XO (XI (XI (XO (XI (XI (XI (XI (XO (XI XH)))))))))))))))), (Cons ((Zpos
-    (XI (XO (XO (XO (XI (XO (XO (XI (XI (XI (XI (XI (XI (XO (XI
-    XH)))))))))))))))), (Cons ((Zpos (XO (XI (XI (XI (XI (XO (XI (XO (XO (XO
-    (XO (XO (XO (XI (XI XH)))))))))))))))), (Cons ((Zpos (XI (XI (XO (XI (XO
-    (XI (XO (XO (XI (XO (XO (XO (XO (XI (XI XH)))))))))))))))), (Cons ((Zpos
-    (XO (XO (XO (XI (XI (XI (XI (XI (XI (XO (XO (XO (XO (XI (XI
-    XH)))))))))))))))), (Cons ((Zpos (XO (XO (XI (XO (XO (XO (XI (XI (XO (XI
-    (XO (XO (XO (XI (XI XH)))))))))))))))), (Cons ((Zpos (XO (XO (XO (XO (XI
-    (XO (XO (XI (XI (XI (XO (XO (XO (XI (XI XH)))))))))))))))), (Cons ((Zpos
-    (XO (XO (XI (XI (XI (XO (XI (XO (XO (XO (XI (XO (XO (XI (XI
-    XH)))))))))))))))), (Cons ((Zpos (XI (XI (XI (XO (XO (XI (XO (XO (XI (XO
-    (XI (XO (XO (XI (XI XH)))))))))))))))), (Cons ((Zpos (XO (XI (XO (XO (XI
-    (XI (XI (XI (XI (XO (XI (XO (XO (XI (XI XH)))))))))))))))), (Cons ((Zpos
-    (XO (XO (XI (XI (XI (XI (XO (XI (XO (XI (XI (XO (XO (XI (XI
-    XH)))))))))))))))), (Cons ((Zpos (XO (XI (XI (XO (XO (XO (XO (XI (XI (XI
-    (XI (XO (XO (XI (XI XH)))))))))))))))), (Cons ((Zpos (XO (XO (XO (XO (XI
-    (XO (XI (XO (XO (XO (XO (XI (XO (XI (XI XH)))))))))))))))), (Cons ((Zpos
-    (XI (XO (XO (XI (XI (XO (XO (XO (XI (XO (XO (XI (XO (XI (XI
-    XH)))))))))))))))), (Cons ((Zpos (XO (XI (XO (XO (XO (XI (XI (XI (XI (XO
-    (XO (XI (XO (XI (XI XH)))))))))))))))), (Cons ((Zpos (XO (XI (XO (XI (XO
-    (XI (XO (XI (XO (XI (XO (XI (XO (XI (XI XH)))))))))))))))), (Cons ((Zpos
-    (XO (XI (XO (XO (XI (XI (XI (XO (XI (XI (XO (XI (XO (XI (XI
-    XH)))))))))))))))), (Cons ((Zpos (XO (XI (XO (XI (XI (XI (XO (XO (XO (XO
-    (XI (XI (XO (XI (XI XH)))))))))))))))), (Cons ((Zpos (XI (XO (XO (XO (XO
-    (XO (XO (XO (XI (XO (XI (XI (XO (XI (XI XH)))))))))))))))), (Cons ((Zpos
-    (XO (XO (XO (XI (XO (XO (XI (XI (XI (XO (XI (XI (XO (XI (XI
-    XH)))))))))))))))), (Cons ((Zpos (XI (XI (XI (XI (XO (XO (XO (XI (XO (XI
-    (XI (XI (XO (XI (XI XH)))))))))))))))), (Cons ((Zpos (XI (XO (XI (XO (XI
-    (XO (XI (XO (XI (XI (XI (XI (XO (XI (XI XH)))))))))))))))), (Cons ((Zpos
-    (XI (XI (XO (XI (XI (XO (XO (XO (XO (XO (XO (XO (XI (XI (XI
-    XH)))))))))))))))), (Cons ((Zpos (XO (XO (XO (XO (XO (XI (XI (XI (XO (XO
-    (XO (XO (XI (XI (XI XH)))))))))))))))), (Cons ((Zpos (XO (XI (XI (XO (XO
-    (XI (XO (XI (XI (XO (XO (XO (XI (XI (XI XH)))))))))))))))), (Cons ((Zpos
-    (XO (XI (XO (XI (XO (XI (XI (XO (XO (XI (XO (XO (XI (XI (XI
-    XH)))))))))))))))), (Cons ((Zpos (XI (XI (XI (XI (XO (XI (XO (XO (XI (XI
-    (XO (XO (XI (XI (XI XH)))))))))))))))), (Cons ((Zpos (XI (XI (XO (XO (XI
-    (XI (XI (XI (XI (XI (XO (XO (XI (XI (XI XH)))))))))))))))), (Cons ((Zpos
-    (XI (XI (XI (XO (XI (XI (XO (XI (XO (XO (XI (XO (XI (XI (XI
-    XH)))))))))))))))), (Cons ((Zpos (XO (XI (XO (XI (XI (XI (XI (XO (XI (XO
-    (XI (XO (XI (XI (XI XH)))))))))))))))), (Cons ((Zpos (XI (XO (XI (XO (XI
-    (XO (XI (XO (XO (XI (XO (XO (XI (XI (XI XH)))))))))))))))), (Cons ((Zpos
-    (XO (XO (XO (XO (XO (XO (XO (XO (XI (XI (XI (XO (XI (XI (XI
-    XH)))))))))))))))), (Cons ((Zpos (XO (XI (XO (XO (XO (XO (XI (XI (XI (XI
-    (XI (XO (XI (XI (XI XH)))))))))))))))), (Cons ((Zpos (XO (XO (XI (XO (XO
-    (XO (XO (XI (XO (XO (XO (XI (XI (XI (XI XH)))))))))))))))), (Cons ((Zpos
-    (XO (XI (XI (XO (XO (XO (XI (XO (XI (XO (XO (XI (XI (XI (XI
-    XH)))))))))))))))), (Cons ((Zpos (XI (XI (XI (XO (XO (XO (XO (XO (XO (XI
-    (XO (XI (XI (XI (XI XH)))))))))))))))), (Cons ((Zpos (XO (XO (XO (XI (XO
-    (XO (XI (XI (XO (XI (XO (XI (XI (XI (XI XH)))))))))))))))), (Cons ((Zpos
-    (XI (XO (XO (XI (XO (XO (XO (XI (XI (XI (XO (XI (XI (XI (XI
-    XH)))))))))))))))), (Cons ((Zpos (XI (XO (XO (XI (XO (XO (XI (XO (XO (XO
-    (XI (XI (XI (XI (XI XH)))))))))))))))), (Cons ((Zpos (XI (XO (XO (XI (XO
-    (XO (XO (XO (XI (XO (XI (XI (XI (XI (XI XH)))))))))))))))), (Cons ((Zpos
-    (XI (XO (XO (XI (XO (XO (XI (XI (XI (XO (XI (XI (XI (XI (XI
-    XH)))))))))))))))), (Cons ((Zpos (XO (XO (XO (XI (XO (XO (XO (XI (XO (XI
-    (XI (XI (XI (XI (XI XH)))))))))))))))), (Cons ((Zpos (XI (XI (XI (XO (XO
-    (XO (XI (XO (XI (XI (XI (XI (XI (XI (XI XH)))))))))))))))), (Cons ((Zpos
-    (XO (XI (XI (XO (XO (XO (XO (XO (XO (XO (XO (XO (XO (XO (XO (XO
-    XH))))))))))))))))), (Cons ((Zpos (XO (XO (XI (XO (XO (XO (XI (XI (XO (XO
-    (XO (XO (XO (XO (XO (XO XH))))))))))))))))),
-    Nil)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+  Z0::((Zpos (XO (XO (XO (XO (XI (XI (XI (XO XH)))))))))::((Zpos (XI (XI (XI
+    (XI (XI (XO (XI (XI (XO XH))))))))))::((Zpos (XI (XO (XI (XI (XO (XO (XI
+    (XO (XO (XO XH)))))))))))::((Zpos (XI (XO (XO (XI (XI (XI (XO (XI (XI (XO
+    XH)))))))))))::((Zpos (XO (XO (XI (XO (XO (XI (XO (XO (XI (XI
+    XH)))))))))))::((Zpos (XO (XI (XI (XI (XO (XO (XO (XI (XO (XO (XO
+    XH))))))))))))::((Zpos (XO (XI (XI (XO (XI (XI (XI (XI (XI (XO (XO
+    XH))))))))))))::((Zpos (XI (XO (XI (XI (XI (XO (XI (XO (XI (XI (XO
+    XH))))))))))))::((Zpos (XO (XI (XO (XO (XO (XO (XI (XI (XO (XO (XI
+    XH))))))))))))::((Zpos (XO (XI (XI (XO (XO (XI (XO (XO (XO (XI (XI
+    XH))))))))))))::((Zpos (XI (XO (XO (XI (XO (XO (XO (XI (XI (XI (XI
+    XH))))))))))))::((Zpos (XI (XI (XO (XI (XO (XI (XI (XI (XO (XO (XO (XO
+    XH)))))))))))))::((Zpos (XI (XI (XO (XI (XO (XO (XI (XO (XO (XI (XO (XO
+    XH)))))))))))))::((Zpos (XO (XI (XO (XI (XO (XI (XO (XI (XI (XI (XO (XO
+    XH)))))))))))))::((Zpos (XI (XI (XI (XO (XO (XO (XO (XO (XI (XO (XI (XO
+    XH)))))))))))))::((Zpos (XI (XI (XO (XO (XO (XI (XI (XO (XO (XI (XI (XO
+    XH)))))))))))))::((Zpos (XO (XI (XI (XI (XI (XI (XO (XI (XI (XI (XI (XO
+    XH)))))))))))))::((Zpos (XO (XO (XO (XI (XI (XO (XO (XO (XI (XO (XO (XI
+    XH)))))))))))))::((Zpos (XI (XO (XO (XO (XI (XI (XI (XO (XO (XI (XO (XI
+    XH)))))))))))))::((Zpos (XO (XO (XO (XI (XO (XO (XI (XI (XI (XI (XO (XI
+    XH)))))))))))))::((Zpos (XO (XI (XI (XI (XI (XO (XO (XO (XI (XO (XI (XI
+    XH)))))))))))))::((Zpos (XO (XI (XO (XO (XI (XI (XI (XO (XO (XI (XI (XI
+    XH)))))))))))))::((Zpos (XO (XI (XI (XO (XO (XO (XI (XI (XI (XI (XI (XI
+    XH)))))))))))))::((Zpos (XO (XO (XO (XI (XI (XO (XO (XO (XI (XO (XO (XO
+    (XO XH))))))))))))))::((Zpos (XI (XO (XO (XI (XO (XI (XI (XO (XO (XI (XO
+    (XO (XO XH))))))))))))))::((Zpos (XI (XO (XO (XI (XI (XI (XO (XI (XI (XI
+    (XO (XO (XO XH))))))))))))))::((Zpos (XO (XO (XO (XI (XO (XO (XO (XO (XI
+    (XO (XI (XO (XO XH))))))))))))))::((Zpos (XI (XO (XI (XO (XI (XO (XI (XO
+    (XO (XI (XI (XO (XO XH))))))))))))))::((Zpos (XO (XI (XO (XO (XO (XI (XO
+    (XI (XI (XI (XI (XO (XO XH))))))))))))))::((Zpos (XI (XO (XI (XI (XO (XI
+    (XI (XI (XO (XO (XO (XI (XO XH))))))))))))))::((Zpos (XI (XI (XI (XO (XI
+    (XI (XO (XO (XO (XI (XO (XI (XO XH))))))))))))))::((Zpos (XO (XO (XO (XO
+    (XO (XO (XO (XI (XI (XI (XO (XI (XO XH))))))))))))))::((Zpos (XI (XI (XI
+    (XO (XO (XO (XI (XI (XO (XO (XI (XI (XO XH))))))))))))))::((Zpos (XO (XI
+    (XI (XI (XO (XO (XO (XO (XO (XI (XI (XI (XO XH))))))))))))))::((Zpos (XI
+    (XI (XO (XO (XI (XO (XI (XO (XI (XI (XI (XI (XO XH))))))))))))))::((Zpos
+    (XO (XO (XO (XI (XI (XO (XO (XI (XO (XO (XO (XO (XI
+    XH))))))))))))))::((Zpos (XI (XI (XO (XI (XI (XO (XI (XI (XI (XO (XO (XO
+    (XI XH))))))))))))))::((Zpos (XI (XO (XI (XI (XI (XO (XO (XO (XI (XI (XO
+    (XO (XI XH))))))))))))))::((Zpos (XO (XI (XI (XI (XI (XO (XI (XO (XO (XO
+    (XI (XO (XI XH))))))))))))))::((Zpos (XO (XI (XI (XI (XI (XO (XO (XI (XI
+    (XO (XI (XO (XI XH))))))))))))))::((Zpos (XI (XO (XI (XI (XI (XO (XI (XI
+    (XO (XI (XI (XO (XI XH))))))))))))))::((Zpos (XI (XI (XO (XI (XI (XO (XO
+    (XO (XO (XO (XO (XI (XI XH))))))))))))))::((Zpos (XO (XO (XO (XI (XI (XO
+    (XI (XO (XI (XO (XO (XI (XI XH))))))))))))))::((Zpos (XI (XI (XO (XO (XI
+    (XO (XO (XI (XO (XI (XO (XI (XI XH))))))))))))))::((Zpos (XO (XI (XI (XI
+    (XO (XO (XI (XI (XI (XI (XO (XI (XI XH))))))))))))))::((Zpos (XO (XO (XO
+    (XI (XO (XO (XO (XO (XI (XO (XI (XI (XI XH))))))))))))))::((Zpos (XO (XO
+    (XO (XO (XO (XO (XI (XO (XO (XI (XI (XI (XI XH))))))))))))))::((Zpos (XO
+    (XO (XO (XI (XI (XI (XI (XO (XI (XI (XI (XI (XI XH))))))))))))))::((Zpos
+    (XO (XI (XI (XI (XO (XI (XO (XI (XO (XO (XO (XO (XO (XO
+    XH)))))))))))))))::((Zpos (XO (XO (XI (XO (XO (XI (XI (XI (XI (XO (XO (XO
+    (XO (XO XH)))))))))))))))::((Zpos (XO (XO (XO (XI (XI (XO (XO (XO (XI (XI
+    (XO (XO (XO (XO XH)))))))))))))))::((Zpos (XO (XO (XI (XI (XO (XO (XI (XO
+    (XO (XO (XI (XO (XO (XO XH)))))))))))))))::((Zpos (XO (XI (XI (XI (XI (XI
+    (XI (XO (XI (XO (XI (XO (XO (XO XH)))))))))))))))::((Zpos (XO (XO (XO (XO
+    (XI (XI (XO (XI (XO (XI (XI (XO (XO (XO XH)))))))))))))))::((Zpos (XO (XO
+    (XO (XO (XO (XI (XI (XI (XI (XI (XI (XO (XO (XO XH)))))))))))))))::((Zpos
+    (XO (XO (XO (XO (XI (XO (XO (XO (XI (XO (XO (XI (XO (XO
+    XH)))))))))))))))::((Zpos (XO (XI (XI (XI (XI (XI (XO (XO (XO (XI (XO (XI
+    (XO (XO XH)))))))))))))))::((Zpos (XO (XO (XI (XI (XO (XI (XI (XO (XI (XI
+    (XO (XI (XO (XO XH)))))))))))))))::((Zpos (XO (XO (XO (XI (XI (XO (XO (XI
+    (XO (XO (XI (XI (XO (XO XH)))))))))))))))::((Zpos (XO (XO (XI (XO (XO (XO
+    (XI (XI (XI (XO (XI (XI (XO (XO XH)))))))))))))))::((Zpos (XI (XI (XI (XI
+    (XO (XI (XI (XI (XO (XI (XI (XI (XO (XO XH)))))))))))))))::((Zpos (XI (XO
+    (XO (XI (XI (XO (XO (XO (XO (XO (XO (XO (XI (XO XH)))))))))))))))::((Zpos
+    (XI (XO (XO (XO (XO (XO (XI (XO (XI (XO (XO (XO (XI (XO
+    XH)))))))))))))))::((Zpos (XI (XO (XO (XI (XO (XI (XI (XO (XO (XI (XO (XO
+    (XI (XO XH)))))))))))))))::((Zpos (XO (XO (XO (XO (XI (XO (XO (XI (XI (XI
+    (XO (XO (XI (XO XH)))))))))))))))::((Zpos (XO (XI (XI (XO (XI (XI (XO (XI
+    (XO (XO (XI (XO (XI (XO XH)))))))))))))))::((Zpos (XO (XO (XI (XI (XI (XO
+    (XI (XI (XI (XO (XI (XO (XI (XO XH)))))))))))))))::((Zpos (XO (XO (XO (XO
+    (XO (XO (XO (XO (XI (XI (XI (XO (XI (XO XH)))))))))))))))::((Zpos (XI (XI
+    (XO (XO (XO (XI (XO (XO (XO (XO (XO (XI (XI (XO XH)))))))))))))))::((Zpos
+    (XO (XI (XI (XO (XO (XO (XI (XO (XI (XO (XO (XI (XI (XO
+    XH)))))))))))))))::((Zpos (XI (XI (XI (XO (XO (XI (XI (XO (XO (XI (XO (XI
+    (XI (XO XH)))))))))))))))::((Zpos (XO (XO (XO (XI (XO (XO (XO (XI (XI (XI
+    (XO (XI (XI (XO XH)))))))))))))))::((Zpos (XO (XO (XO (XI (XO (XI (XO (XI
+    (XO (XO (XI (XI (XI (XO XH)))))))))))))))::((Zpos (XI (XI (XI (XO (XO (XO
+    (XI (XI (XI (XO (XI (XI (XI (XO XH)))))))))))))))::((Zpos (XI (XO (XI (XO
+    (XO (XI (XI (XI (XO (XI (XI (XI (XI (XO XH)))))))))))))))::((Zpos (XO (XI
+    (XO (XO (XO (XO (XO (XO (XO (XO (XO (XO (XO (XI XH)))))))))))))))::((Zpos
+    (XI (XI (XI (XI (XI (XO (XO (XO (XI (XO (XO (XO (XO (XI
+    XH)))))))))))))))::((Zpos (XO (XI (XO (XI (XI (XI (XO (XO (XO (XI (XO (XO
+    (XO (XI XH)))))))))))))))::((Zpos (XI (XO (XI (XO (XI (XO (XI (XO (XI (XI
+    (XO (XO (XO (XI XH)))))))))))))))::((Zpos (XO (XI (XI (XI (XO (XI (XI (XO
+    (XO (XO (XI (XO (XO (XI XH)))))))))))))))::((Zpos (XI (XI (XI (XO (XO (XO
+    (XO (XI (XI (XO (XI (XO (XO (XI XH)))))))))))))))::((Zpos (XO (XO (XO (XO
+    (XO (XI (XO (XI (XO (XI (XI (XO (XO (XI XH)))))))))))))))::((Zpos (XI (XI
+    (XI (XO (XI (XI (XO (XI (XI (XI (XI (XO (XO (XI XH)))))))))))))))::((Zpos
+    (XI (XO (XI (XI (XO (XO (XI (XI (XO (XO (XO (XI (XO (XI
+    XH)))))))))))))))::((Zpos (XI (XI (XO (XO (XO (XI (XI (XI (XI (XO (XO (XI
+    (XO (XI XH)))))))))))))))::((Zpos (XO (XO (XO (XI (XI (XI (XI (XI (XO (XI
+    (XO (XI (XO (XI XH)))))))))))))))::((Zpos (XO (XO (XI (XI (XO (XO (XO (XO
+    (XO (XO (XI (XI (XO (XI XH)))))))))))))))::((Zpos (XI (XI (XI (XI (XI (XO
+    (XO (XO (XI (XO (XI (XI (XO (XI XH)))))))))))))))::((Zpos (XO (XI (XO (XO
+    (XI (XI (XO (XO (XO (XI (XI (XI (XO (XI XH)))))))))))))))::((Zpos (XI (XI
+    (XO (XO (XO (XO (XI (XO (XI (XI (XI (XI (XO (XI XH)))))))))))))))::((Zpos
+    (XO (XO (XI (XO (XI (XO (XI (XO (XO (XO (XO (XO (XI (XI
+    XH)))))))))))))))::((Zpos (XO (XO (XI (XO (XO (XI (XI (XO (XI (XO (XO (XO
+    (XI (XI XH)))))))))))))))::((Zpos (XO (XO (XI (XO (XI (XI (XI (XO (XO (XI
+    (XO (XO (XI (XI XH)))))))))))))))::((Zpos (XO (XI (XO (XO (XO (XO (XO (XI
+    (XI (XI (XO (XO (XI (XI XH)))))))))))))))::((Zpos (XI (XO (XO (XO (XI (XO
+    (XO (XI (XO (XO (XI (XO (XI (XI XH)))))))))))))))::((Zpos (XO (XI (XI (XI
+    (XI (XO (XO (XI (XI (XO (XI (XO (XI (XI XH)))))))))))))))::((Zpos (XO (XI
+    (XO (XI (XO (XI (XO (XI (XO (XI (XI (XO (XI (XI XH)))))))))))))))::((Zpos
+    (XO (XI (XI (XO (XI (XI (XO (XI (XI (XI (XI (XO (XI (XI
+    XH)))))))))))))))::((Zpos (XI (XO (XO (XO (XO (XO (XI (XI (XO (XO (XO (XI
+    (XI (XI XH)))))))))))))))::((Zpos (XI (XI (XO (XI (XO (XO (XI (XI (XI (XO
+    (XO (XI (XI (XI XH)))))))))))))))::((Zpos (XI (XO (XI (XO (XI (XO (XI (XI
+    (XO (XI (XO (XI (XI (XI XH)))))))))))))))::((Zpos (XO (XI (XI (XI (XI (XO
+    (XI (XI (XI (XI (XO (XI (XI (XI XH)))))))))))))))::((Zpos (XO (XI (XI (XO
+    (XO (XI (XI (XI (XO (XO (XI (XI (XI (XI XH)))))))))))))))::((Zpos (XI (XO
+    (XI (XI (XO (XI (XI (XI (XI (XO (XI (XI (XI (XI XH)))))))))))))))::((Zpos
+    (XO (XO (XI (XO (XI (XI (XI (XI (XO (XI (XI (XI (XI (XI
+    XH)))))))))))))))::((Zpos (XO (XI (XO (XI (XI (XI (XI (XI (XI (XI (XI (XI
+    (XI (XI XH)))))))))))))))::((Zpos (XI (XI (XI (XI (XI (XI (XI (XI (XO (XO
+    (XO (XO (XO (XO (XO XH))))))))))))))))::((Zpos (XI (XI (XO (XO (XO (XO
+    (XO (XO (XO (XI (XO (XO (XO (XO (XO XH))))))))))))))))::((Zpos (XI (XI
+    (XI (XO (XO (XO (XO (XO (XI (XI (XO (XO (XO (XO (XO
+    XH))))))))))))))))::((Zpos (XO (XI (XO (XI (XO (XO (XO (XO (XO (XO (XI
+    (XO (XO (XO (XO XH))))))))))))))))::((Zpos (XI (XO (XI (XI (XO (XO (XO
+    (XO (XI (XO (XI (XO (XO (XO (XO XH))))))))))))))))::((Zpos (XO (XI (XI
+    (XI (XO (XO (XO (XO (XO (XI (XI (XO (XO (XO (XO
+    XH))))))))))))))))::((Zpos (XI (XI (XI (XI (XO (XO (XO (XO (XI (XI (XI
+    (XO (XO (XO (XO XH))))))))))))))))::((Zpos (XO (XO (XO (XO (XI (XO (XO
+    (XO (XO (XO (XO (XI (XO (XO (XO XH))))))))))))))))::((Zpos (XI (XI (XI
+    (XI (XO (XO (XO (XO (XI (XO (XO (XI (XO (XO (XO
+    XH))))))))))))))))::((Zpos (XO (XI (XI (XI (XO (XO (XO (XO (XO (XI (XO
+    (XI (XO (XO (XO XH))))))))))))))))::((Zpos (XO (XO (XI (XI (XO (XO (XO
+    (XO (XI (XI (XO (XI (XO (XO (XO XH))))))))))))))))::((Zpos (XO (XI (XO
+    (XI (XO (XO (XO (XO (XO (XO (XI (XI (XO (XO (XO
+    XH))))))))))))))))::((Zpos (XI (XI (XI (XO (XO (XO (XO (XO (XI (XO (XI
+    (XI (XO (XO (XO XH))))))))))))))))::((Zpos (XI (XI (XO (XO (XO (XO (XO
+    (XO (XO (XI (XI (XI (XO (XO (XO XH))))))))))))))))::((Zpos (XI (XI (XI
+    (XI (XI (XI (XI (XI (XO (XI (XI (XI (XO (XO (XO
+    XH))))))))))))))))::((Zpos (XO (XI (XO (XI (XI (XI (XI (XI (XI (XI (XI
+    (XI (XO (XO (XO XH))))))))))))))))::((Zpos (XO (XO (XI (XO (XI (XI (XI
+    (XI (XO (XO (XO (XO (XI (XO (XO XH))))))))))))))))::((Zpos (XO (XI (XI
+    (XI (XO (XI (XI (XI (XI (XO (XO (XO (XI (XO (XO
+    XH))))))))))))))))::((Zpos (XI (XI (XI (XO (XO (XI (XI (XI (XO (XI (XO
+    (XO (XI (XO (XO XH))))))))))))))))::((Zpos (XI (XI (XI (XI (XI (XO (XI
+    (XI (XI (XI (XO (XO (XI (XO (XO XH))))))))))))))))::((Zpos (XI (XI (XI
+    (XO (XI (XO (XI (XI (XO (XO (XI (XO (XI (XO (XO
+    XH))))))))))))))))::((Zpos (XO (XI (XI (XI (XO (XO (XI (XI (XI (XO (XI
+    (XO (XI (XO (XO XH))))))))))))))))::((Zpos (XI (XO (XI (XO (XO (XO (XI
+    (XI (XO (XI (XI (XO (XI (XO (XO XH))))))))))))))))::((Zpos (XI (XI (XO
+    (XI (XI (XI (XO (XI (XI (XI (XI (XO (XI (XO (XO
+    XH))))))))))))))))::((Zpos (XO (XO (XO (XO (XI (XI (XO (XI (XO (XO (XO
+    (XI (XI (XO (XO XH))))))))))))))))::((Zpos (XI (XO (XI (XO (XO (XI (XO
+    (XI (XI (XO (XO (XI (XI (XO (XO XH))))))))))))))))::((Zpos (XI (XO (XO
+    (XI (XI (XO (XO (XI (XO (XI (XO (XI (XI (XO (XO
+    XH))))))))))))))))::((Zpos (XO (XO (XI (XI (XO (XO (XO (XI (XI (XI (XO
+    (XI (XI (XO (XO XH))))))))))))))))::((Zpos (XI (XI (XI (XI (XI (XI (XI
+    (XO (XO (XO (XI (XI (XI (XO (XO XH))))))))))))))))::((Zpos (XI (XO (XO
+    (XO (XI (XI (XI (XO (XI (XO (XI (XI (XI (XO (XO
+    XH))))))))))))))))::((Zpos (XI (XI (XO (XO (XO (XI (XI (XO (XO (XI (XI
+    (XI (XI (XO (XO XH))))))))))))))))::((Zpos (XO (XO (XI (XO (XI (XO (XI
+    (XO (XI (XI (XI (XI (XI (XO (XO XH))))))))))))))))::((Zpos (XI (XO (XI
+    (XO (XO (XO (XI (XO (XO (XO (XO (XO (XO (XI (XO
+    XH))))))))))))))))::((Zpos (XI (XO (XI (XO (XI (XI (XO (XO (XI (XO (XO
+    (XO (XO (XI (XO XH))))))))))))))))::((Zpos (XO (XO (XI (XO (XO (XI (XO
+    (XO (XO (XI (XO (XO (XO (XI (XO XH))))))))))))))))::((Zpos (XI (XI (XO
+    (XO (XI (XO (XO (XO (XI (XI (XO (XO (XO (XI (XO
+    XH))))))))))))))))::((Zpos (XI (XO (XO (XO (XO (XO (XO (XO (XO (XO (XI
+    (XO (XO (XI (XO XH))))))))))))))))::((Zpos (XI (XI (XI (XI (XO (XI (XI
+    (XI (XO (XO (XI (XO (XO (XI (XO XH))))))))))))))))::((Zpos (XO (XO (XI
+    (XI (XI (XO (XI (XI (XI (XO (XI (XO (XO (XI (XO
+    XH))))))))))))))))::((Zpos (XO (XO (XO (XI (XO (XO (XI (XI (XO (XI (XI
+    (XO (XO (XI (XO XH))))))))))))))))::((Zpos (XO (XO (XI (XO (XI (XI (XO
+    (XI (XI (XI (XI (XO (XO (XI (XO XH))))))))))))))))::((Zpos (XO (XO (XO
+    (XO (XO (XI (XO (XI (XO (XO (XO (XI (XO (XI (XO
+    XH))))))))))))))))::((Zpos (XI (XI (XO (XI (XO (XO (XO (XI (XI (XO (XO
+    (XI (XO (XI (XO XH))))))))))))))))::((Zpos (XI (XO (XI (XO (XI (XI (XI
+    (XO (XO (XI (XO (XI (XO (XI (XO XH))))))))))))))))::((Zpos (XI (XI (XI
+    (XI (XI (XO (XI (XO (XI (XI (XO (XI (XO (XI (XO
+    XH))))))))))))))))::((Zpos (XO (XO (XO (XI (XO (XO (XI (XO (XO (XO (XI
+    (XI (XO (XI (XO XH))))))))))))))))::((Zpos (XI (XO (XO (XO (XI (XI (XO
+    (XO (XI (XO (XI (XI (XO (XI (XO XH))))))))))))))))::((Zpos (XI (XO (XO
+    (XI (XI (XO (XO (XO (XO (XI (XI (XI (XO (XI (XO
+    XH))))))))))))))))::((Zpos (XI (XO (XO (XO (XO (XO (XO (XO (XI (XI (XI
+    (XI (XO (XI (XO XH))))))))))))))))::((Zpos (XO (XO (XO (XI (XO (XI (XI
+    (XI (XI (XI (XI (XI (XO (XI (XO XH))))))))))))))))::((Zpos (XI (XI (XI
+    (XI (XO (XO (XI (XI (XO (XO (XO (XO (XI (XI (XO
+    XH))))))))))))))))::((Zpos (XI (XO (XI (XO (XI (XI (XO (XI (XI (XO (XO
+    (XO (XI (XI (XO XH))))))))))))))))::((Zpos (XI (XI (XO (XI (XI (XO (XO
+    (XI (XO (XI (XO (XO (XI (XI (XO XH))))))))))))))))::((Zpos (XO (XO (XO
+    (XO (XO (XO (XO (XI (XI (XI (XO (XO (XI (XI (XO
+    XH))))))))))))))))::((Zpos (XI (XO (XI (XO (XO (XI (XI (XO (XO (XO (XI
+    (XO (XI (XI (XO XH))))))))))))))))::((Zpos (XI (XO (XO (XI (XO (XO (XI
+    (XO (XI (XO (XI (XO (XI (XI (XO XH))))))))))))))))::((Zpos (XI (XO (XI
+    (XI (XO (XI (XO (XO (XO (XI (XI (XO (XI (XI (XO
+    XH))))))))))))))))::((Zpos (XO (XO (XO (XO (XI (XO (XO (XO (XI (XI (XI
+    (XO (XI (XI (XO XH))))))))))))))))::((Zpos (XI (XI (XO (XO (XI (XI (XI
+    (XI (XI (XI (XI (XO (XI (XI (XO XH))))))))))))))))::((Zpos (XI (XO (XI
+    (XO (XI (XO (XI (XI (XO (XO (XO (XI (XI (XI (XO
+    XH))))))))))))))))::((Zpos (XI (XI (XI (XO (XI (XI (XO (XI (XI (XO (XO
+    (XI (XI (XI (XO XH))))))))))))))))::((Zpos (XO (XO (XO (XI (XI (XO (XO
+    (XI (XO (XI (XO (XI (XI (XI (XO XH))))))))))))))))::((Zpos (XI (XO (XO
+    (XI (XI (XI (XI (XO (XI (XI (XO (XI (XI (XI (XO
+    XH))))))))))))))))::((Zpos (XI (XO (XO (XI (XI (XO (XI (XO (XO (XO (XI
+    (XI (XI (XI (XO XH))))))))))))))))::((Zpos (XI (XO (XO (XI (XI (XI (XO
+    (XO (XI (XO (XI (XI (XI (XI (XO XH))))))))))))))))::((Zpos (XI (XO (XO
+    (XI (XI (XO (XO (XO (XO (XI (XI (XI (XI (XI (XO
+    XH))))))))))))))))::((Zpos (XO (XO (XO (XI (XI (XI (XI (XI (XO (XI (XI
+    (XI (XI (XI (XO XH))))))))))))))))::((Zpos (XO (XI (XI (XO (XI (XO (XI
+    (XI (XI (XI (XI (XI (XI (XI (XO XH))))))))))))))))::((Zpos (XO (XO (XI
+    (XO (XI (XI (XO (XI (XO (XO (XO (XO (XO (XO (XI
+    XH))))))))))))))))::((Zpos (XO (XI (XO (XO (XI (XO (XO (XI (XI (XO (XO
+    (XO (XO (XO (XI XH))))))))))))))))::((Zpos (XI (XI (XI (XI (XO (XI (XI
+    (XO (XO (XI (XO (XO (XO (XO (XI XH))))))))))))))))::((Zpos (XI (XI (XO
+    (XI (XO (XO (XI (XO (XI (XI (XO (XO (XO (XO (XI
+    XH))))))))))))))))::((Zpos (XO (XO (XO (XI (XO (XI (XO (XO (XO (XO (XI
+    (XO (XO (XO (XI XH))))))))))))))))::((Zpos (XI (XI (XO (XO (XO (XO (XO
+    (XO (XI (XO (XI (XO (XO (XO (XI XH))))))))))))))))::((Zpos (XI (XI (XI
+    (XI (XI (XO (XI (XI (XI (XO (XI (XO (XO (XO (XI
+    XH))))))))))))))))::((Zpos (XI (XO (XO (XI (XI (XI (XO (XI (XO (XI (XI
+    (XO (XO (XO (XI XH))))))))))))))))::((Zpos (XO (XO (XI (XO (XI (XO (XO
+    (XI (XI (XI (XI (XO (XO (XO (XI XH))))))))))))))))::((Zpos (XO (XI (XI
+    (XI (XO (XI (XI (XO (XO (XO (XO (XI (XO (XO (XI
+    XH))))))))))))))))::((Zpos (XI (XI (XI (XO (XO (XO (XI (XO (XI (XO (XO
+    (XI (XO (XO (XI XH))))))))))))))))::((Zpos (XO (XO (XO (XO (XO (XI (XO
+    (XO (XO (XI (XO (XI (XO (XO (XI XH))))))))))))))))::((Zpos (XI (XO (XO
+    (XI (XI (XI (XI (XI (XO (XI (XO (XI (XO (XO (XI
+    XH))))))))))))))))::((Zpos (XI (XO (XO (XO (XI (XO (XI (XI (XI (XI (XO
+    (XI (XO (XO (XI XH))))))))))))))))::((Zpos (XO (XO (XO (XI (XO (XI (XO
+    (XI (XO (XO (XI (XI (XO (XO (XI XH))))))))))))))))::((Zpos (XO (XO (XO
+    (XO (XO (XO (XO (XI (XI (XO (XI (XI (XO (XO (XI
+    XH))))))))))))))))::((Zpos (XO (XI (XI (XO (XI (XO (XI (XO (XO (XI (XI
+    (XI (XO (XO (XI XH))))))))))))))))::((Zpos (XI (XO (XI (XI (XO (XI (XO
+    (XO (XI (XI (XI (XI (XO (XO (XI XH))))))))))))))))::((Zpos (XO (XI (XO
+    (XO (XO (XO (XO (XO (XO (XO (XO (XO (XI (XO (XI
+    XH))))))))))))))))::((Zpos (XO (XO (XO (XI (XI (XO (XI (XI (XO (XO (XO
+    (XO (XI (XO (XI XH))))))))))))))))::((Zpos (XI (XO (XI (XI (XO (XI (XO
+    (XI (XI (XO (XO (XO (XI (XO (XI XH))))))))))))))))::((Zpos (XI (XO (XO
+    (XO (XO (XO (XO (XI (XO (XI (XO (XO (XI (XO (XI
+    XH))))))))))))))))::((Zpos (XI (XO (XI (XO (XI (XO (XI (XO (XI (XI (XO
+    (XO (XI (XO (XI XH))))))))))))))))::((Zpos (XI (XO (XO (XI (XO (XI (XO
+    (XO (XO (XO (XI (XO (XI (XO (XI XH))))))))))))))))::((Zpos (XO (XO (XI
+    (XI (XI (XI (XI (XI (XO (XO (XI (XO (XI (XO (XI
+    XH))))))))))))))))::((Zpos (XI (XI (XI (XI (XO (XO (XI (XI (XI (XO (XI
+    (XO (XI (XO (XI XH))))))))))))))))::((Zpos (XI (XO (XO (XO (XO (XI (XO
+    (XI (XO (XI (XI (XO (XI (XO (XI XH))))))))))))))))::((Zpos (XI (XI (XO
+    (XO (XI (XI (XI (XO (XI (XI (XI (XO (XI (XO (XI
+    XH))))))))))))))))::((Zpos (XI (XO (XI (XO (XO (XO (XI (XO (XO (XO (XO
+    (XI (XI (XO (XI XH))))))))))))))))::((Zpos (XO (XI (XI (XO (XI (XO (XO
+    (XO (XI (XO (XO (XI (XI (XO (XI XH))))))))))))))))::((Zpos (XI (XI (XI
+    (XO (XO (XI (XI (XI (XI (XO (XO (XI (XI (XO (XI
+    XH))))))))))))))))::((Zpos (XI (XI (XI (XO (XI (XI (XO (XI (XO (XI (XO
+    (XI (XI (XO (XI XH))))))))))))))))::((Zpos (XI (XI (XI (XO (XO (XO (XO
+    (XI (XI (XI (XO (XI (XI (XO (XI XH))))))))))))))))::((Zpos (XI (XI (XI
+    (XO (XI (XO (XI (XO (XO (XO (XI (XI (XI (XO (XI
+    XH))))))))))))))))::((Zpos (XO (XI (XI (XO (XO (XI (XO (XO (XI (XO (XI
+    (XI (XI (XO (XI XH))))))))))))))))::((Zpos (XO (XO (XI (XO (XI (XI (XI
+    (XI (XI (XO (XI (XI (XI (XO (XI XH))))))))))))))))::((Zpos (XI (XI (XO
+    (XO (XO (XO (XI (XI (XO (XI (XI (XI (XI (XO (XI
+    XH))))))))))))))))::((Zpos (XI (XO (XO (XO (XI (XO (XO (XI (XI (XI (XI
+    (XI (XI (XO (XI XH))))))))))))))))::((Zpos (XO (XI (XI (XI (XI (XO (XI
+    (XO (XO (XO (XO (XO (XO (XI (XI XH))))))))))))))))::((Zpos (XI (XI (XO
+    (XI (XO (XI (XO (XO (XI (XO (XO (XO (XO (XI (XI
+    XH))))))))))))))))::((Zpos (XO (XO (XO (XI (XI (XI (XI (XI (XI (XO (XO
+    (XO (XO (XI (XI XH))))))))))))))))::((Zpos (XO (XO (XI (XO (XO (XO (XI
+    (XI (XO (XI (XO (XO (XO (XI (XI XH))))))))))))))))::((Zpos (XO (XO (XO
+    (XO (XI (XO (XO (XI (XI (XI (XO (XO (XO (XI (XI
+    XH))))))))))))))))::((Zpos (XO (XO (XI (XI (XI (XO (XI (XO (XO (XO (XI
+    (XO (XO (XI (XI XH))))))))))))))))::((Zpos (XI (XI (XI (XO (XO (XI (XO
+    (XO (XI (XO (XI (XO (XO (XI (XI XH))))))))))))))))::((Zpos (XO (XI (XO
+    (XO (XI (XI (XI (XI (XI (XO (XI (XO (XO (XI (XI
+    XH))))))))))))))))::((Zpos (XO (XO (XI (XI (XI (XI (XO (XI (XO (XI (XI
+    (XO (XO (XI (XI XH))))))))))))))))::((Zpos (XO (XI (XI (XO (XO (XO (XO
+    (XI (XI (XI (XI (XO (XO (XI (XI XH))))))))))))))))::((Zpos (XO (XO (XO
+    (XO (XI (XO (XI (XO (XO (XO (XO (XI (XO (XI (XI
+    XH))))))))))))))))::((Zpos (XI (XO (XO (XI (XI (XO (XO (XO (XI (XO (XO
+    (XI (XO (XI (XI XH))))))))))))))))::((Zpos (XO (XI (XO (XO (XO (XI (XI
+    (XI (XI (XO (XO (XI (XO (XI (XI XH))))))))))))))))::((Zpos (XO (XI (XO
+    (XI (XO (XI (XO (XI (XO (XI (XO (XI (XO (XI (XI
+    XH))))))))))))))))::((Zpos (XO (XI (XO (XO (XI (XI (XI (XO (XI (XI (XO
+    (XI (XO (XI (XI XH))))))))))))))))::((Zpos (XO (XI (XO (XI (XI (XI (XO
+    (XO (XO (XO (XI (XI (XO (XI (XI XH))))))))))))))))::((Zpos (XI (XO (XO
+    (XO (XO (XO (XO (XO (XI (XO (XI (XI (XO (XI (XI
+    XH))))))))))))))))::((Zpos (XO (XO (XO (XI (XO (XO (XI (XI (XI (XO (XI
+    (XI (XO (XI (XI XH))))))))))))))))::((Zpos (XI (XI (XI (XI (XO (XO (XO
+    (XI (XO (XI (XI (XI (XO (XI (XI XH))))))))))))))))::((Zpos (XI (XO (XI
+    (XO (XI (XO (XI (XO (XI (XI (XI (XI (XO (XI (XI
+    XH))))))))))))))))::((Zpos (XI (XI (XO (XI (XI (XO (XO (XO (XO (XO (XO
+    (XO (XI (XI (XI XH))))))))))))))))::((Zpos (XO (XO (XO (XO (XO (XI (XI
+    (XI (XO (XO (XO (XO (XI (XI (XI XH))))))))))))))))::((Zpos (XO (XI (XI
+    (XO (XO (XI (XO (XI (XI (XO (XO (XO (XI (XI (XI
+    XH))))))))))))))))::((Zpos (XO (XI (XO (XI (XO (XI (XI (XO (XO (XI (XO
+    (XO (XI (XI (XI XH))))))))))))))))::((Zpos (XI (XI (XI (XI (XO (XI (XO
+    (XO (XI (XI (XO (XO (XI (XI (XI XH))))))))))))))))::((Zpos (XI (XI (XO
+    (XO (XI (XI (XI (XI (XI (XI (XO (XO (XI (XI (XI
+    XH))))))))))))))))::((Zpos (XI (XI (XI (XO (XI (XI (XO (XI (XO (XO (XI
+    (XO (XI (XI (XI XH))))))))))))))))::((Zpos (XO (XI (XO (XI (XI (XI (XI
+    (XO (XI (XO (XI (XO (XI (XI (XI XH))))))))))))))))::((Zpos (XI (XO (XI
+    (XO (XI (XO (XI (XO (XO (XI (XO (XO (XI (XI (XI
+    XH))))))))))))))))::((Zpos (XO (XO (XO (XO (XO (XO (XO (XO (XI (XI (XI
+    (XO (XI (XI (XI XH))))))))))))))))::((Zpos (XO (XI (XO (XO (XO (XO (XI
+    (XI (XI (XI (XI (XO (XI (XI (XI XH))))))))))))))))::((Zpos (XO (XO (XI
+    (XO (XO (XO (XO (XI (XO (XO (XO (XI (XI (XI (XI
+    XH))))))))))))))))::((Zpos (XO (XI (XI (XO (XO (XO (XI (XO (XI (XO (XO
+    (XI (XI (XI (XI XH))))))))))))))))::((Zpos (XI (XI (XI (XO (XO (XO (XO
+    (XO (XO (XI (XO (XI (XI (XI (XI XH))))))))))))))))::((Zpos (XO (XO (XO
+    (XI (XO (XO (XI (XI (XO (XI (XO (XI (XI (XI (XI
+    XH))))))))))))))))::((Zpos (XI (XO (XO (XI (XO (XO (XO (XI (XI (XI (XO
+    (XI (XI (XI (XI XH))))))))))))))))::((Zpos (XI (XO (XO (XI (XO (XO (XI
+    (XO (XO (XO (XI (XI (XI (XI (XI XH))))))))))))))))::((Zpos (XI (XO (XO
+    (XI (XO (XO (XO (XO (XI (XO (XI (XI (XI (XI (XI
+    XH))))))))))))))))::((Zpos (XI (XO (XO (XI (XO (XO (XI (XI (XI (XO (XI
+    (XI (XI (XI (XI XH))))))))))))))))::((Zpos (XO (XO (XO (XI (XO (XO (XO
+    (XI (XO (XI (XI (XI (XI (XI (XI XH))))))))))))))))::((Zpos (XI (XI (XI
+    (XO (XO (XO (XI (XO (XI (XI (XI (XI (XI (XI (XI
+    XH))))))))))))))))::((Zpos (XO (XI (XI (XO (XO (XO (XO (XO (XO (XO (XO
+    (XO (XO (XO (XO (XO XH)))))))))))))))))::((Zpos (XO (XO (XI (XO (XO (XO
+    (XI (XI (XO (XO (XO (XO (XO (XO (XO (XO
+    XH)))))))))))))))))::[])))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
 
 (** val lut_lookup : int -> q16 list -> q16 **)
 
 let rec lut_lookup index = function
-| Nil -> Z0
-| Cons (h, t) ->
-  (match index with
-   | 0 -> h
-   | (fun x -> x + 1) n -> lut_lookup n t)
+| [] -> Z0
+| h::t ->
+  ((fun zero succ n -> if n=0 then zero () else succ (n-1))
+     (fun _ -> h)
+     (fun n -> lut_lookup n t)
+     index)
 
 (** val count_leading_zeros_helper : z -> int -> int -> int **)
 
-let rec count_leading_zeros_helper x count = function
-| 0 -> count
-| (fun x -> x + 1) fuel' ->
-  if Z.eqb (Z.div x (Z.pow (Zpos (XO XH)) (Zpos (XI (XI (XI (XI XH))))))) Z0
-  then count_leading_zeros_helper (Z.mul x (Zpos (XO XH))) ((fun x -> x + 1)
-         count) fuel'
-  else count
+let rec count_leading_zeros_helper x count fuel =
+  (fun zero succ n -> if n=0 then zero () else succ (n-1))
+    (fun _ -> count)
+    (fun fuel' ->
+    if Z.eqb (Z.div x (Z.pow (Zpos (XO XH)) (Zpos (XI (XI (XI (XI XH))))))) Z0
+    then count_leading_zeros_helper (Z.mul x (Zpos (XO XH)))
+           ((fun x -> x + 1) count) fuel'
+    else count)
+    fuel
 
 (** val count_leading_zeros : z -> int **)
 
