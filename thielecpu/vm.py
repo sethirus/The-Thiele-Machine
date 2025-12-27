@@ -21,6 +21,8 @@ import hashlib
 import string
 import math
 import builtins
+import pickle
+import zlib
 import z3
 import numpy as np
 import networkx as nx
@@ -866,34 +868,32 @@ class SafeNodeVisitor(ast.NodeVisitor):
 
 def safe_eval(code: str, scope: Dict[str, Any]) -> Any:
     """Evaluate a Python expression in a sandboxed environment.
-    
+
     Note: Sandbox validation is disabled to enable full Python execution.
     This allows function definitions, recursion, and all standard library
     functions. Use with trusted code only.
-    
+
     For security-sensitive deployments, re-enable SafeNodeVisitor validation.
     """
     tree = ast.parse(code, mode="eval")
-    # Sandbox validation disabled - full Python execution enabled
-    # To re-enable security restrictions, uncomment:
-    # SafeNodeVisitor().visit(tree)
+    # Sandbox validation re-enabled for security
+    SafeNodeVisitor().visit(tree)
     compiled = compile(tree, "<pyexec>", "eval")
     return eval(compiled, scope)
 
 
 def safe_execute(code: str, scope: Dict[str, Any]) -> Any:
     """Execute Python code in a sandboxed environment.
-    
+
     Note: Sandbox validation is disabled to enable full Python execution.
     This allows function definitions, recursion, and all standard library
     functions. Use with trusted code only.
-    
+
     For security-sensitive deployments, re-enable SafeNodeVisitor validation.
     """
     tree = ast.parse(code, mode="exec")
-    # Sandbox validation disabled - full Python execution enabled
-    # To re-enable security restrictions, uncomment:
-    # SafeNodeVisitor().visit(tree)
+    # Sandbox validation re-enabled for security
+    SafeNodeVisitor().visit(tree)
     compiled = compile(tree, "<pyexec>", "exec")
     exec(compiled, scope)
     return scope.get("__result__")
@@ -1097,7 +1097,7 @@ class VM:
             # deployments, replace with SAFE_BUILTINS and re-enable SafeNodeVisitor.
             
             globals_scope: Dict[str, Any] = {
-                "__builtins__": builtins.__dict__.copy(),
+                "__builtins__": SAFE_BUILTINS.copy(),
                 "placeholder": placeholder,
                 "hashlib": hashlib,
                 "math": math,
@@ -1839,7 +1839,7 @@ class VM:
             self.last_exit_code = 1
             return None, output + f"\nError: {exc}"
         finally:
-            self.state.mu_ledger.mu_execution += 1
+            self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + 1) & 0xFFFFFFFF
             sys.stdout = old_stdout
             if old_argv is not None:
                 try:
@@ -2109,7 +2109,7 @@ class VM:
             if mu_delta < discovery:
                 raise ValueError(f"PNEW mu_delta={mu_delta} < popcount(region)={discovery}")
             self.state.mu_ledger.mu_discovery += discovery
-            self.state.mu_ledger.mu_execution += (mu_delta - discovery)
+            self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + (mu_delta - discovery)) & 0xFFFFFFFF
 
         for pc_index, (op, arg) in enumerate(program):
             logical_step += 1
@@ -2158,7 +2158,7 @@ class VM:
                         explicit_cost = int(tokens[3])
                     m1, m2 = self.state.psplit_explicit(mid, left, right, charge_execution=explicit_cost is None)
                     if explicit_cost is not None:
-                        self.state.mu_ledger.mu_execution += explicit_cost
+                        self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
                     current_module = m1
                     trace_lines.append(f"{step}: PSPLIT {mid} -> {m1}, {m2}")
                     receipt_instruction = InstructionWitness("PYEXEC", f"PSPLIT {arg}")
@@ -2201,7 +2201,7 @@ class VM:
 
                     m1, m2 = self.state.psplit(module_id, pred, charge_execution=explicit_cost is None)
                     if explicit_cost is not None:
-                        self.state.mu_ledger.mu_execution += explicit_cost
+                        self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
                     current_module = m1  # Update current_module to first split result
                     trace_lines.append(f"{step}: PSPLIT {module_id} ({pred_expr}) -> {m1}, {m2}")
                     receipt_instruction = InstructionWitness("PYEXEC", f"PSPLIT {arg}")
@@ -2212,7 +2212,7 @@ class VM:
                 m2 = ModuleId(int(parts[1]))
                 merged = self.state.pmerge(m1, m2, charge_execution=explicit_cost is None)
                 if explicit_cost is not None:
-                    self.state.mu_ledger.mu_execution += explicit_cost
+                    self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
                 trace_lines.append(f"{step}: PMERGE {m1}, {m2} -> {merged}")
                 current_module = merged
                 receipt_instruction = InstructionWitness("PYEXEC", f"PMERGE {arg}")
@@ -2250,7 +2250,7 @@ class VM:
 
                 if explicit_cost is not None:
                     # Explicit-cost mode: suppress dynamic MDL calculation.
-                    self.state.mu_ledger.mu_execution += explicit_cost
+                    self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
                     mu = self.state.mu_ledger.total
                 else:
                     consistent = self.state.csr[CSR.ERR] == 0
@@ -2386,7 +2386,7 @@ class VM:
                 self.register_file[dest % len(self.register_file)] = self.register_file[src % len(self.register_file)]
                 self.state.csr[CSR.STATUS] = 6
                 if explicit_cost is not None:
-                    self.state.mu_ledger.mu_execution += explicit_cost
+                    self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
                 trace_lines.append(f"{step}: XFER r{dest} <- r{src}")
                 receipt_instruction = InstructionWitness("XFER", {"dest": dest, "src": src})
             elif op == "XOR_LOAD":
@@ -2396,7 +2396,7 @@ class VM:
                 self.register_file[dest % len(self.register_file)] = value
                 self.state.csr[CSR.STATUS] = 7
                 if explicit_cost is not None:
-                    self.state.mu_ledger.mu_execution += explicit_cost
+                    self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
                 trace_lines.append(f"{step}: XOR_LOAD r{dest} <= mem[{addr}] (0x{value:08x})")
                 receipt_instruction = InstructionWitness("XOR_LOAD", {"dest": dest, "addr": addr, "value": int(value)})
             elif op == "XOR_ADD":
@@ -2406,7 +2406,7 @@ class VM:
                 self.register_file[dest_idx] ^= self.register_file[src_idx]
                 self.state.csr[CSR.STATUS] = 8
                 if explicit_cost is not None:
-                    self.state.mu_ledger.mu_execution += explicit_cost
+                    self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
                 trace_lines.append(f"{step}: XOR_ADD r{dest} ^= r{src} -> 0x{self.register_file[dest_idx]:08x}")
                 receipt_instruction = InstructionWitness("XOR_ADD", {"dest": dest, "src": src, "value": int(self.register_file[dest_idx])})
             elif op == "XOR_SWAP":
@@ -2416,7 +2416,7 @@ class VM:
                 self.register_file[a_idx], self.register_file[b_idx] = self.register_file[b_idx], self.register_file[a_idx]
                 self.state.csr[CSR.STATUS] = 9
                 if explicit_cost is not None:
-                    self.state.mu_ledger.mu_execution += explicit_cost
+                    self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
                 trace_lines.append(f"{step}: XOR_SWAP r{a} <-> r{b}")
                 receipt_instruction = InstructionWitness("XOR_SWAP", {"a": a, "b": b})
             elif op == "XOR_RANK":
@@ -2426,7 +2426,7 @@ class VM:
                 self.register_file[dest % len(self.register_file)] = rank
                 self.state.csr[CSR.STATUS] = rank
                 if explicit_cost is not None:
-                    self.state.mu_ledger.mu_execution += explicit_cost
+                    self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
                 trace_lines.append(f"{step}: XOR_RANK r{dest} := popcount(r{src}) = {rank}")
                 receipt_instruction = InstructionWitness("XOR_RANK", {"dest": dest, "src": src, "rank": rank})
             elif op == "PDISCOVER":
@@ -2441,7 +2441,7 @@ class VM:
                     after_count = int(parts[2])
                     explicit_cost = int(parts[3])
                     _ = (before_count, after_count)  # kept for trace readability
-                    self.state.mu_ledger.mu_execution += explicit_cost
+                    self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
                     trace_lines.append(
                         f"{step}: PDISCOVER mid={int(module_id)} before={before_count} after={after_count} cost={explicit_cost}"
                     )
@@ -2532,44 +2532,19 @@ class VM:
                     # Store result in python globals for later use
                     self.python_globals['_last_result'] = actual_result
 
-                    # Charge for information revealed by PYEXEC
-                    # Check if this looks like factoring output (p, q tuple)
-                    if isinstance(actual_result, tuple) and len(actual_result) == 2:
-                        p, q = actual_result
-                        if isinstance(p, int) and isinstance(q, int):
-                            # Try to extract the target modulus from the code
-                            code_to_parse = python_code
-                            if python_code.endswith('.py') or Path(python_code).exists():
-                                try:
-                                    code_to_parse = Path(python_code).read_text(encoding='utf-8')
-                                except:
-                                    pass
-                            n_target = extract_target_modulus(code_to_parse)
-                            if n_target is not None and p * q == n_target:
-                                # Validate proper factorization
-                                if 1 < p < n_target and 1 < q < n_target:
-                                    witness_repr = f"{p}:{q}"
-                                    bits_revealed = calculate_mu_cost(
-                                        f"(factor {n_target})",
-                                        max(n_target - 3, 1),
-                                        1,
-                                    )
-                                    prev_info = self.state.mu_information
-                                    info_charge(self.state, bits_revealed)
-                                    ledger.append({
-                                        "step": step,
-                                        "delta_mu_operational": 0,
-                                        "delta_mu_information": bits_revealed,
-                                        "total_mu_operational": self.state.mu_operational,
-                                        "total_mu_information": self.state.mu_information,
-                                        "total_mu": self.state.mu,
-                                        "reason": f"factoring_revelation_p{p}_q{q}",
-                                    })
-                                    trace_lines.append(
-                                        f"{step}: PYEXEC charged {bits_revealed} μ-bits for factoring revelation"
-                                    )
-                                else:
-                                    trace_lines.append(f"{step}: PYEXEC invalid factors detected (p={p}, q={q} for n={n_target})")
+                    # Charge for information revealed by PYEXEC using Kolmogorov complexity approximation
+                    # Serialize any output data with pickle and compress to estimate information content
+                    if actual_result is not None:
+                        try:
+                            serialized = pickle.dumps(actual_result, protocol=4)
+                            compressed = zlib.compress(serialized, level=9)
+                            insight_cost = len(compressed) * 8
+                            self.state.mu_ledger.charge_execution(insight_cost)
+                            trace_lines.append(f"{step}: INSIGHT_CHARGE value_size={len(serialized)} compressed={len(compressed)} cost={insight_cost}")
+                        except Exception as e:
+                            self.state.csr[CSR.ERR] = 1
+                            trace_lines.append(f"{step}: UNMEASURABLE_INSIGHT halting VM. Error: {e}")
+                            halt_after_receipt = True
 
                 # Show what was executed (truncated for readability)
                 if len(python_code) > 50:
@@ -2638,7 +2613,7 @@ class VM:
                 trace_lines.append(f"{step}: CHSH_TRIAL {meta}")
 
                 # Canonical μ-ledger: drive cost from instruction stream when provided.
-                self.state.mu_ledger.mu_execution += 1 if explicit_cost is None else explicit_cost
+                self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + (1 if explicit_cost is None else explicit_cost)) & 0xFFFFFFFF
 
                 bell_counts.update_trial(x=x, y=y, a=a, b=b)
                 if bell_counts.is_balanced(
@@ -2660,7 +2635,7 @@ class VM:
                 if (arg or "").strip().lstrip("-").isdigit():
                     explicit_cost = int((arg or "").strip())
                 if explicit_cost:
-                    self.state.mu_ledger.mu_execution += explicit_cost
+                    self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
                 trace_lines.append(f"{step}: HALT")
                 receipt_instruction = InstructionWitness("HALT", None)
                 halt_after_receipt = True
@@ -2715,7 +2690,7 @@ class VM:
                     self.python_globals['_oracle_result'] = verdict
 
                 self.state.mu_operational += oracle_cost
-                self.state.mu_ledger.mu_execution += oracle_cost
+                self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + oracle_cost) & 0xFFFFFFFF
 
                 receipt_instruction = InstructionWitness("ORACLE_HALTS", f"{desc} -> {verdict}")
 

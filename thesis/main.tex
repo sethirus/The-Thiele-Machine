@@ -11,6 +11,7 @@
 \usepackage{geometry}
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage{mdframed}
 \usepackage{booktabs}
 \usepackage{fancyhdr}
 \usepackage{setspace}
@@ -24,12 +25,39 @@
 \usepackage{tikz}
 \usetikzlibrary{shapes, arrows.meta, positioning, calc, fit, backgrounds, decorations.pathreplacing, decorations.pathmorphing}
 
+% PGFPlots for plots
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% Tcolorbox for colored boxes
+\usepackage{tcolorbox}
+
+% Float placement controls
+\usepackage{float}
+\usepackage{placeins}
+
+% Better float placement parameters
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.7}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{3}
+\setcounter{totalnumber}{4}
+
+% Ensure figures don't exceed text width
+\setkeys{Gin}{width=\linewidth,keepaspectratio}
+
 % Allow breaking in texttt
 \usepackage[htt]{hyphenat}
 \usepackage{xurl}
 
 % Handle Unicode characters
 \DeclareUnicodeCharacter{03BC}{\ensuremath{\mu}}
+
+% Table of contents depth (show up to subsections)
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{3}
 
 % ============================================================================
 % PAGE GEOMETRY
@@ -86,20 +114,33 @@
     keywordstyle=\color{blue},
     numberstyle=\tiny\color{codegray},
     stringstyle=\color{codepurple},
-    basicstyle=\ttfamily\footnotesize,
+    basicstyle=\ttfamily\small,
     breakatwhitespace=false,         
     breaklines=true,                 
     captionpos=b,                    
     keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
+    numbers=none,
     showspaces=false,                
     showstringspaces=false,
     showtabs=false,                  
     tabsize=2,
-    frame=single
+    frame=single,
+    framesep=10pt,
+    framerule=0.5pt,
+    rulecolor=\color{codegray},
+    aboveskip=1.5em,
+    belowskip=1.5em,
+    xleftmargin=2em,
+    xrightmargin=2em
 }
 \lstset{style=mystyle}
+
+% Prevent page breaks in short listings
+\lstset{
+    postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+    escapeinside={(*@}{@*)},
+    float=h
+}
 
 % ============================================================================
 % TABLE OF CONTENTS FORMATTING
