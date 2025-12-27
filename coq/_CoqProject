@@ -16,15 +16,15 @@
 -Q shor_primitives ShorPrimitives
 -Q test_vscoq/coqproofs TestVSCoq
 -Q sandboxes Sandbox
+
+# Core Kernel proofs (use -R for recursive binding)
 -R kernel Kernel
 
 # No-Free-Insight abstraction cone
 -Q nofi NoFI
 
--R kernel Kernel
-
 # Sealed kernel TOE cone (maximal closure + minimal no-go)
--Q kernel_toe KernelTOE
+-R kernel_toe KernelTOE
 
 # ThieleUniversal core files (Turing Machine and CPU definitions)
 thieleuniversal/coqproofs/TM.v
