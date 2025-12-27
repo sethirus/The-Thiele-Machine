@@ -10,28 +10,35 @@ The previous chapter established the \textit{problem}: classical computers are s
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    box/.style={draw, rounded corners, minimum width=5.5cm, minimum height=2.0cm, align=center, font=\normalsize},
-    arrow/.style={->, >=stealth, thick},
-    dasharrow/.style={->, >=stealth, very thick, dashed},
+    box/.style={draw, rounded corners=3pt, minimum width=5.5cm, minimum height=2.0cm, align=center, font=
+ormalsize, inner sep=0.4cm},
+    arrow/.style={->, >=Stealth, thick},
+    dasharrow/.style={->, >=Stealth, line width=1.2pt, dashed},
     scale=1.05
 , node distance=3cm]
 % Main components
-\node[box, fill=blue!20, align=center, text width=4.5cm, font=\normalsize] (state) at (0,0) {State Space\\$S$};
-\node[box, fill=green!20, align=center, text width=4.5cm, font=\normalsize] (partition) at (4,0) {Partition Graph\\$\Pi$};
-\node[box, fill=orange!20, align=center, text width=4.5cm, font=\normalsize] (axioms) at (8,0) {Axiom Set\\$A$};
-\node[box, fill=red!20, align=center, text width=4.5cm, font=\normalsize] (rules) at (4,-2.5) {Transition Rules\\$R$};
-\node[box, fill=purple!20, align=center, text width=4.5cm, font=\normalsize] (logic) at (8,-2.5) {Logic Engine\\$L$};
+\node[box, fill=blue!12, align=center, text width=4.5cm, font=
+ormalsize] (state) at (0,0) {State Space\\$S$};
+\node[box, fill=green!12, align=center, text width=4.5cm, font=
+ormalsize] (partition) at (4,0) {Partition Graph\\$\Pi$};
+\node[box, fill=orange!20, align=center, text width=4.5cm, font=
+ormalsize] (axioms) at (8,0) {Axiom Set\\$A$};
+\node[box, fill=red!12, align=center, text width=4.5cm, font=
+ormalsize] (rules) at (4,-2.5) {Transition Rules\\$R$};
+\node[box, fill=purple!20, align=center, text width=4.5cm, font=
+ormalsize] (logic) at (8,-2.5) {Logic Engine\\$L$};
 
 % Central element
-\node[box, fill=yellow!30, minimum width=6.2cm, minimum height=2.2cm, align=center, text width=4.5cm, font=\normalsize] (mu) at (0,-2) {$\mu$-Ledger\\(Currency)};
+\node[box, fill=yellow!30, minimum width=6.2cm, minimum height=2.2cm, align=center, text width=4.5cm, font=
+ormalsize] (mu) at (0,-2) {$\mu$-Ledger\\(Currency)};
 
 % Arrows
-\draw[arrow, shorten >=2pt, shorten <=2pt] (state) -- (partition) node[pos=0.5, font=\small, above, yshift=6pt] {decomposition};
-\draw[arrow, shorten >=2pt, shorten <=2pt] (partition) -- (axioms) node[pos=0.5, font=\small, above, yshift=6pt] {constraints};
-\draw[arrow, shorten >=2pt, shorten <=2pt] (rules) -- (state) node[pos=0.5, font=\small, above, yshift=6pt] {evolves};
-\draw[arrow, shorten >=2pt, shorten <=2pt] (logic) -- (axioms) node[pos=0.5, font=\small, above, yshift=6pt] {verifies};
-\draw[arrow, shorten >=2pt, shorten <=2pt] (rules) -- (mu) node[pos=0.5, font=\small, above, yshift=6pt] {charges};
-\draw[dasharrow, shorten >=2pt, shorten <=2pt] (mu) -- (state) node[pos=0.5, font=\small, above, yshift=6pt] {bounds};
+\draw[arrow] (state) -- (partition) node[pos=0.5, font=\small, above, yshift=6pt] {decomposition};
+\draw[arrow] (partition) -- (axioms) node[pos=0.5, font=\small, above, yshift=6pt] {constraints};
+\draw[arrow] (rules) -- (state) node[pos=0.5, font=\small, above, yshift=6pt] {evolves};
+\draw[arrow] (logic) -- (axioms) node[pos=0.5, font=\small, above, yshift=6pt] {verifies};
+\draw[arrow] (rules) -- (mu) node[pos=0.5, font=\small, above, yshift=6pt] {charges};
+\draw[dasharrow] (mu) -- (state) node[pos=0.5, font=\small, above, yshift=6pt] {bounds};
 
 % Title
 \node[above=1.0cm of partition,  font=\small, yshift=6pt] {The Thiele Machine: $T = (S, \Pi, A, R, L)$};
@@ -155,10 +162,11 @@ The state space $S$ represents the complete instantaneous description of the mac
 \begin{tikzpicture}[scale=1.8, 
     node distance=3cm,
     field/.style={draw, minimum width=10.8cm, minimum height=1.2cm, font=\ttfamily\small, align=left},
-    every node/.style={font=\normalsize}
+    every node/.style={font=
+ormalsize}
 ]
 % VMState box
-\node[draw, very thick, minimum width=12.6cm, minimum height=10.8cm, fill=gray!5] (vmstate) at (0,0) {};
+\node[draw, line width=1.2pt, minimum width=12.6cm, minimum height=10.8cm, fill=gray!5] (vmstate) at (0,0) {};
 \node[above=0.3cm of vmstate.north, font=\bfseries\ttfamily, pos=0.5, font=\small, yshift=6pt] {VMState};
 
 % Fields
@@ -180,7 +188,7 @@ The state space $S$ represents the complete instantaneous description of the mac
 \node[label, right=1.0cm of err, font=\small, xshift=10pt] {$\leftarrow$ \textit{Error flag}};
 
 % Highlight mu
-\draw[ultra thick, red!70!black] ($(mu.north west)+(-0.1,0.1)$) rectangle ($(mu.south east)+(0.1,-0.1)$);
+\draw[line width=1.5pt, red!70!black] ($(mu.north west)+(-0.1,0.1)$) rectangle ($(mu.south east)+(0.1,-0.1)$);
 \end{tikzpicture}
 \caption{The \texttt{VMState} record structure. The $\mu$-ledger (\texttt{vm\_mu}) is highlighted as the central innovation---a monotonic counter tracking cumulative structural cost.}
 \label{fig:vmstate_record}
@@ -195,7 +203,7 @@ The state space $S$ represents the complete instantaneous description of the mac
     \item \textbf{vm\_regs (blue):} list nat (32) - register file
     \item \textbf{vm\_mem (blue):} list nat (256) - data memory
     \item \textbf{vm\_pc (orange):} nat - program counter
-    \item \textbf{vm\_mu (yellow, very thick red border):} nat - \textbf{$\mu$-ledger (KEY!)}
+    \item \textbf{vm\_mu (yellow, line width=1.2pt red border):} nat - \textbf{$\mu$-ledger (KEY!)}
     \item \textbf{vm\_err (red):} bool - error flag
 \end{itemize}
 
@@ -277,44 +285,49 @@ The partition graph is the central innovation of the Thiele Machine. It represen
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    module/.style={draw, rounded corners, minimum width=5.0cm, minimum height=2.4cm, align=center, font=\normalsize},
-    memory/.style={draw, minimum width=0.6cm, minimum height=0.6cm, font=\normalsize},
+    module/.style={draw, rounded corners=3pt, minimum width=5.0cm, minimum height=2.4cm, align=center, font=
+ormalsize},
+    memory/.style={draw, minimum width=0.6cm, minimum height=0.6cm, font=
+ormalsize},
     scale=1.05
 , node distance=3cm]
 % Memory addresses (background)
 \foreach \i in {0,...,15} {
-    \node[memory, fill=gray!20] (m\i) at (\i*0.5-4, -3) {\i};
+    \node[memory, fill=gray!12] (m\i) at (\i*0.5-4, -3) {\i};
 }
 
 % Module M1
-\node[module, fill=blue!20, align=center, text width=4.5cm, font=\normalsize] (M1) at (-2.5, 0) {Module $M_1$\\ID: 0};
-\draw[blue, very thick, ->, shorten >=2pt, shorten <=2pt] (M1.south) -- (-3.25, -2.7);
-\draw[blue, very thick, ->, shorten >=2pt, shorten <=2pt] (M1.south) -- (-2.75, -2.7);
+\node[module, fill=blue!12, align=center, text width=4.5cm, font=
+ormalsize] (M1) at (-2.5, 0) {Module $M_1$\\ID: 0};
+\draw[blue, line width=1.2pt, ->] (M1.south) -- (-3.25, -2.7);
+\draw[blue, line width=1.2pt, ->] (M1.south) -- (-2.75, -2.7);
 \foreach \i in {0,1} {
     \node[memory, fill=blue!40] at (\i*0.5-4, -3) {\i};
 }
 
 % Module M2
-\node[module, fill=green!20, align=center, text width=4.5cm, font=\normalsize] (M2) at (1, 0) {Module $M_2$\\ID: 1};
-\draw[green!60!black, very thick, ->, shorten >=2pt, shorten <=2pt] (M2.south) -- (0.25, -2.7);
-\draw[green!60!black, very thick, ->, shorten >=2pt, shorten <=2pt] (M2.south) -- (0.75, -2.7);
-\draw[green!60!black, very thick, ->, shorten >=2pt, shorten <=2pt] (M2.south) -- (1.25, -2.7);
+\node[module, fill=green!12, align=center, text width=4.5cm, font=
+ormalsize] (M2) at (1, 0) {Module $M_2$\\ID: 1};
+\draw[green!60!black, line width=1.2pt, ->] (M2.south) -- (0.25, -2.7);
+\draw[green!60!black, line width=1.2pt, ->] (M2.south) -- (0.75, -2.7);
+\draw[green!60!black, line width=1.2pt, ->] (M2.south) -- (1.25, -2.7);
 \foreach \i in {8,9,10} {
     \node[memory, fill=green!40] at (\i*0.5-4, -3) {\i};
 }
 
 % Module M3
-\node[module, fill=orange!20, align=center, text width=4.5cm, font=\normalsize] (M3) at (4.5, 0) {Module $M_3$\\ID: 2};
-\draw[orange, very thick, ->, shorten >=2pt, shorten <=2pt] (M3.south) -- (3.25, -2.7);
+\node[module, fill=orange!20, align=center, text width=4.5cm, font=
+ormalsize] (M3) at (4.5, 0) {Module $M_3$\\ID: 2};
+\draw[orange, line width=1.2pt, ->] (M3.south) -- (3.25, -2.7);
 \foreach \i in {14} {
     \node[memory, fill=orange!40] at (\i*0.5-4, -3) {\i};
 }
 
 % Partition Graph box
-\node[draw, dashed, very thick, minimum width=21.6cm, minimum height=4.6cm={above:\textbf{PartitionGraph}}] at (1, 0) {};
+\node[draw, dashed, line width=1.2pt, minimum width=21.6cm, minimum height=4.6cm={above:\textbf{PartitionGraph}}] at (1, 0) {};
 
 % Next ID indicator
-\node[draw, fill=purple!20, rounded corners] (nextid) at (4.5, 1.5) {\texttt{pg\_next\_id = 3}};
+\node[draw, fill=purple!20, rounded corners=3pt] (nextid) at (4.5, 1.5) {\texttt{pg\_next\_id = 3}};
 
 % Memory label
 \node[below=0.5cm of m8,  font=\small, yshift=-6pt] {Memory addresses (0--15)};
@@ -325,7 +338,8 @@ The partition graph is the central innovation of the Thiele Machine. It represen
 \node[ below=0.3cm of M3, font=\small, yshift=-6pt] {$A = \{y \text{ prime}\}$};
 
 % Key properties
-\node[draw, fill=white, rounded corners, font=\normalsize, align=left, align=center, text width=4.5cm] at (-5.5, 0) {
+\node[draw, fill=white, rounded corners=3pt, font=
+ormalsize, align=left, align=center, text width=4.5cm] at (-5.5, 0) {
     \textbf{Properties:}\\
     $\bullet$ ID monotonic\\
     $\bullet$ Regions disjoint\\
@@ -648,10 +662,12 @@ The instructions fall into several categories:
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    cat/.style={draw, rounded corners, minimum width=6.2cm, minimum height=3.6cm, align=center, font=\normalsize},
-    instr/.style={font=\normalsize\ttfamily},
+    cat/.style={draw, rounded corners=3pt, minimum width=6.2cm, minimum height=3.6cm, align=center, font=
+ormalsize},
+    instr/.style={font=
+ormalsize\ttfamily},
     scale=1.05
-, node distance=2.5cm]
+, node distance=3.0cm]
 % Structural Operations
 \node[cat, fill=blue!15, align=center, text width=4.5cm] (struct) at (-4, 2) {
     \textbf{Structural Ops}\\[0.2cm]
@@ -704,7 +720,7 @@ The instructions fall into several categories:
 };
 
 % Measurement Operations
-\node[cat, fill=yellow!20, align=center, text width=4.5cm] (meas) at (4, -1) {
+\node[cat, fill=yellow!15, align=center, text width=4.5cm] (meas) at (4, -1) {
     \textbf{Measurement}\\[0.2cm]
     \begin{tabular}{l}
     CHSH\_TRIAL\\
@@ -713,12 +729,12 @@ The instructions fall into several categories:
 };
 
 % Central: mu-cost
-\node[draw, very thick, fill=yellow!40, circle, minimum size=1.5cm, font=\normalsize\bfseries] (mu) at (0, 0.5) {$\mu$};
+\node[draw, line width=1.2pt, fill=yellow!40, circle, minimum size=1.5cm, font=\normalsize\bfseries] (mu) at (0, 0.5) {$\mu$};
 
 % Arrows showing cost
-\draw[->, very thick, gray, shorten >=2pt, shorten <=2pt] (struct.east) -- (mu);
-\draw[->, very thick, gray, shorten >=2pt, shorten <=2pt] (cert.west) -- (mu);
-\draw[->, very thick, gray, shorten >=2pt, shorten <=2pt] (logic.south) -- (mu);
+\draw[->, line width=1.2pt, gray] (struct.east) -- (mu);
+\draw[->, line width=1.2pt, gray] (cert.west) -- (mu);
+\draw[->, line width=1.2pt, gray] (logic.south) -- (mu);
 
 % Title
 \node[above=1.0cm of logic,  font=\small, yshift=6pt] {18-Instruction Set Architecture};
@@ -916,22 +932,28 @@ The kernel verifies the certificate but does not search for solutions. This ensu
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    state/.style={draw, circle, minimum size=1cm, font=\normalsize},
-    arrow/.style={->, >=stealth, thick},
+    state/.style={draw, circle, minimum size=1cm, font=
+ormalsize},
+    arrow/.style={->, >=Stealth, thick},
     scale=1.05
 , node distance=3cm]
 % States
-\node[state, fill=blue!20, font=\normalsize] (s0) at (0,0) {$s_0$};
-\node[state, fill=blue!25, font=\normalsize] (s1) at (3.2,0) {$s_1$};
-\node[state, fill=blue!30, font=\normalsize] (s2) at (6.4,0) {$s_2$};
-\node[state, fill=blue!35, font=\normalsize] (s3) at (9.6,0) {$s_3$};
-\node[state, fill=blue!40, font=\normalsize] (sn) at (12.8,0) {$s_n$};
+\node[state, fill=blue!12, font=
+ormalsize] (s0) at (0,0) {$s_0$};
+\node[state, fill=blue!25, font=
+ormalsize] (s1) at (3.2,0) {$s_1$};
+\node[state, fill=blue!30, font=
+ormalsize] (s2) at (6.4,0) {$s_2$};
+\node[state, fill=blue!35, font=
+ormalsize] (s3) at (9.6,0) {$s_3$};
+\node[state, fill=blue!40, font=
+ormalsize] (sn) at (12.8,0) {$s_n$};
 
 % Transitions
-\draw[arrow, shorten >=2pt, shorten <=2pt] (s0) -- (s1) node[pos=0.5, font=\small, above, yshift=6pt] {$op_1$};
-\draw[arrow, shorten >=2pt, shorten <=2pt] (s1) -- (s2) node[pos=0.5, font=\small, above, yshift=6pt] {$op_2$};
-\draw[arrow, shorten >=2pt, shorten <=2pt] (s2) -- (s3) node[pos=0.5, font=\small, above, yshift=6pt] {$op_3$};
-\draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (s3) -- (sn);
+\draw[arrow] (s0) -- (s1) node[pos=0.5, font=\small, above, yshift=6pt] {$op_1$};
+\draw[arrow] (s1) -- (s2) node[pos=0.5, font=\small, above, yshift=6pt] {$op_2$};
+\draw[arrow] (s2) -- (s3) node[pos=0.5, font=\small, above, yshift=6pt] {$op_3$};
+\draw[arrow, dashed] (s3) -- (sn);
 
 % Mu values
 \node[below=0.5cm of s0,  above, font=\small, yshift=6pt] {$\mu_0$};
@@ -941,12 +963,13 @@ The kernel verifies the certificate but does not search for solutions. This ensu
 \node[below=0.5cm of sn,  above, font=\small, yshift=6pt] {$\mu_n$};
 
 % Conservation law
-\node[draw, fill=yellow!20, rounded corners, align=center, font=\normalsize, text width=4.5cm] at (6, -2) {
+\node[draw, fill=yellow!15, rounded corners=3pt, align=center, font=
+ormalsize, text width=4.5cm] at (6, -2) {
     \textbf{Conservation Law:} $\mu_n = \mu_0 + \sum_{i=1}^{n} \text{cost}(op_i)$
 };
 
 % Monotonicity
-\draw[decorate, decoration={brace, amplitude=10pt, mirror}, shorten >=2pt, shorten <=2pt] (0, -0.8) -- (12, -0.8) node[pos=0.5, font=\small, above, yshift=6pt] {
+\draw[decorate, decoration={brace, amplitude=10pt, mirror}] (0, -0.8) -- (12, -0.8) node[pos=0.5, font=\small, above, yshift=6pt] {
     $\mu_0 \le \mu_1 \le \mu_2 \le \cdots \le \mu_n$ (monotonic)
 };
 
@@ -1278,37 +1301,51 @@ Definition graph_pnew (g : PartitionGraph) (region : list nat)
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    module/.style={draw, rounded corners, minimum width=4.2cm, minimum height=2.0cm, align=center, font=\normalsize},
-    arrow/.style={->, >=stealth, thick},
+    module/.style={draw, rounded corners=3pt, minimum width=4.2cm, minimum height=2.0cm, align=center, font=
+ormalsize},
+    arrow/.style={->, >=Stealth, thick},
     scale=1.05
 , node distance=3cm]
 % PNEW
 \node[font=\bfseries] at (-5, 3.5) {PNEW};
 \node[draw, dashed, fill=gray!10, minimum width=4.5cm, minimum height=2.1cm] (pnew_before) at (-5, 2) {region};
-\draw[arrow, shorten >=2pt, shorten <=2pt] (-5, 1.2) -- (-5, 0.3);
-\node[module, fill=blue!20, align=center, text width=4.5cm, font=\normalsize] (pnew_after) at (-5, -0.5) {Module\\ID: $n$};
-\node[font=\normalsize\itshape] at (-5, -1.5) {Creates new module};
+\draw[arrow] (-5, 1.2) -- (-5, 0.3);
+\node[module, fill=blue!12, align=center, text width=4.5cm, font=
+ormalsize] (pnew_after) at (-5, -0.5) {Module\\ID: $n$};
+\node[font=
+ormalsize\itshape] at (-5, -1.5) {Creates new module};
 
 % PSPLIT
 \node[font=\bfseries] at (0, 3.5) {PSPLIT};
-\node[module, fill=green!30, minimum width=5.4cm, align=center, text width=4.5cm, font=\normalsize] (psplit_before) at (0, 2) {Module $M$\\$\{0,1,2,3\}$};
-\draw[arrow, shorten >=2pt, shorten <=2pt] (0, 1.2) -- (0, 0.3);
-\node[module, fill=green!20, minimum width=2.4cm, align=center, text width=4.5cm, font=\normalsize] (psplit_left) at (-1, -0.5) {$M_L$\\$\{0,1\}$};
-\node[module, fill=green!20, minimum width=2.4cm, align=center, text width=4.5cm, font=\normalsize] (psplit_right) at (1, -0.5) {$M_R$\\$\{2,3\}$};
-\node[font=\normalsize\itshape] at (0, -1.5) {Splits into disjoint parts};
+\node[module, fill=green!30, minimum width=5.4cm, align=center, text width=4.5cm, font=
+ormalsize] (psplit_before) at (0, 2) {Module $M$\\$\{0,1,2,3\}$};
+\draw[arrow] (0, 1.2) -- (0, 0.3);
+\node[module, fill=green!12, minimum width=2.4cm, align=center, text width=4.5cm, font=
+ormalsize] (psplit_left) at (-1, -0.5) {$M_L$\\$\{0,1\}$};
+\node[module, fill=green!12, minimum width=2.4cm, align=center, text width=4.5cm, font=
+ormalsize] (psplit_right) at (1, -0.5) {$M_R$\\$\{2,3\}$};
+\node[font=
+ormalsize\itshape] at (0, -1.5) {Splits into disjoint parts};
 
 % PMERGE
 \node[font=\bfseries] at (5, 3.5) {PMERGE};
-\node[module, fill=orange!20, minimum width=2.2cm, font=\normalsize] (pmerge_left) at (4, 2) {$M_1$};
-\node[module, fill=orange!20, minimum width=2.2cm, font=\normalsize] (pmerge_right) at (6, 2) {$M_2$};
-\draw[arrow, shorten >=2pt, shorten <=2pt] (5, 1.2) -- (5, 0.3);
-\node[module, fill=orange!30, minimum width=5.5cm, align=center, text width=4.5cm, font=\normalsize] (pmerge_after) at (5, -0.5) {$M_{12}$\\(merged)};
-\node[font=\normalsize\itshape] at (5, -1.5) {Combines disjoint modules};
+\node[module, fill=orange!20, minimum width=2.2cm, font=
+ormalsize] (pmerge_left) at (4, 2) {$M_1$};
+\node[module, fill=orange!20, minimum width=2.2cm, font=
+ormalsize] (pmerge_right) at (6, 2) {$M_2$};
+\draw[arrow] (5, 1.2) -- (5, 0.3);
+\node[module, fill=orange!30, minimum width=5.5cm, align=center, text width=4.5cm, font=
+ormalsize] (pmerge_after) at (5, -0.5) {$M_{12}$\\(merged)};
+\node[font=
+ormalsize\itshape] at (5, -1.5) {Combines disjoint modules};
 
 % Cost annotations
-\node[draw, fill=yellow!20, rounded corners, font=\normalsize] at (-5, -2.3) {$\mu$-cost: low};
-\node[draw, fill=yellow!20, rounded corners, font=\normalsize] at (0, -2.3) {$\mu$-cost: medium};
-\node[draw, fill=yellow!20, rounded corners, font=\normalsize] at (5, -2.3) {$\mu$-cost: low};
+\node[draw, fill=yellow!15, rounded corners=3pt, font=
+ormalsize] at (-5, -2.3) {$\mu$-cost: low};
+\node[draw, fill=yellow!15, rounded corners=3pt, font=
+ormalsize] at (0, -2.3) {$\mu$-cost: medium};
+\node[draw, fill=yellow!15, rounded corners=3pt, font=
+ormalsize] at (5, -2.3) {$\mu$-cost: low};
 \end{tikzpicture}
 \caption{The three main partition operations: \texttt{PNEW} creates modules from regions, \texttt{PSPLIT} divides modules into disjoint parts (must cover original), and \texttt{PMERGE} combines disjoint modules. Each operation has an associated $\mu$-cost.}
 \label{fig:partition_ops}
@@ -1566,44 +1603,49 @@ This is a computational analog of Bell locality: you cannot signal to a remote m
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    box/.style={draw, rounded corners, minimum width=5.0cm, minimum height=3.2cm, align=center},
-    arrow/.style={->, >=stealth, thick},
+    box/.style={draw, rounded corners=3pt, minimum width=5.0cm, minimum height=3.2cm, align=center, inner sep=0.4cm},
+    arrow/.style={->, >=Stealth, thick},
     scale=1.05
-, node distance=2cm]
+, node distance=2.5cm]
 % Before: Large search space
-\node[box, fill=red!20, minimum width=8.2cm, minimum height=5.0cm, align=center, text width=4.5cm, font=\normalsize] (omega) at (-5, 0) {
+\node[box, fill=red!12, minimum width=8.2cm, minimum height=5.0cm, align=center, text width=4.5cm, font=
+ormalsize] (omega) at (-5, 0) {
     \textbf{Search Space $\Omega$}\\[0.3cm]
     \large $2^n$ possibilities
 };
 
 % After: Reduced search space
-\node[box, fill=green!20, minimum width=5.0cm, minimum height=3.2cm, align=center, text width=4.5cm, font=\normalsize] (omega_prime) at (5, 0) {
+\node[box, fill=green!12, minimum width=5.0cm, minimum height=3.2cm, align=center, text width=4.5cm, font=
+ormalsize] (omega_prime) at (5, 0) {
     \textbf{Reduced $\Omega'$}\\[0.2cm]
     $2^{n-k}$ possibilities
 };
 
 % Arrow with cost
-\draw[arrow, ultra thick, blue, shorten >=2pt, shorten <=2pt] (omega) -- (omega_prime) 
+\draw[arrow, line width=1.5pt, blue] (omega) -- (omega_prime) 
     node[pos=0.5, font=\small, above, yshift=6pt] {\textbf{Insight}}
     node[pos=0.5, font=\small, above, yshift=6pt] {Cost: $\Delta\mu \ge k$ bits};
 
 % Conservation equation
-\node[draw, fill=yellow!30, rounded corners, font=\normalsize, align=center, text width=4.5cm] at (0, -2.5) {
+\node[draw, fill=yellow!30, rounded corners=3pt, font=
+ormalsize, align=center, text width=4.5cm] at (0, -2.5) {
     \textbf{No Free Insight:}\\[0.2cm]
     $\log|\Omega| - \log|\Omega'| \le \Delta\mu$\\[0.1cm]
     \textit{``Information gained $\le$ cost paid''}
 };
 
 % Stronger vs weaker predicates
-\node[draw, dashed, fill=blue!10, rounded corners, font=\normalsize, align=center, text width=4.5cm] at (-4, -2.5) {
+\node[draw, dashed, fill=blue!10, rounded corners=3pt, font=
+ormalsize, align=center, text width=4.5cm] at (-4, -2.5) {
     Predicate $P_{\text{weak}}$ \\
     \textit{accepts more traces}
 };
-\node[draw, dashed, fill=green!10, rounded corners, font=\normalsize, align=center, text width=4.5cm] at (4, -2.5) {
+\node[draw, dashed, fill=green!10, rounded corners=3pt, font=
+ormalsize, align=center, text width=4.5cm] at (4, -2.5) {
     Predicate $P_{\text{strong}}$ \\
     \textit{accepts fewer traces}
 };
-\draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (-2, -2.5) -- (2, -2.5) node[pos=0.5, font=\small, above, yshift=6pt] {strengthening};
+\draw[arrow, dashed] (-2, -2.5) -- (2, -2.5) node[pos=0.5, font=\small, above, yshift=6pt] {strengthening};
 \end{tikzpicture}
 \caption{The No Free Insight theorem: reducing the search space (gaining structural insight) requires paying $\mu$-cost. The information-theoretic bound ensures you cannot ``narrow down'' possibilities without expenditure.}
 \label{fig:no_free_insight}
@@ -1959,36 +2001,40 @@ This is the computational analog of Noether's theorem: the gauge symmetry (abili
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[scale=1.8, 
-    state/.style={draw, rounded corners, minimum width=5.4cm, minimum height=4.6cm, align=center},
-    arrow/.style={->, >=stealth, thick}
-, node distance=2cm]
+    state/.style={draw, rounded corners=3pt, minimum width=5.4cm, minimum height=4.6cm, align=center},
+    arrow/.style={->, >=Stealth, thick}
+, node distance=2.5cm]
 % Original state
-\node[state, fill=blue!15, align=center, text width=4.5cm, font=\normalsize] (s) at (-3, 0) {
+\node[state, fill=blue!15, align=center, text width=4.5cm, font=
+ormalsize] (s) at (-3, 0) {
     \textbf{State $s$}\\[0.2cm]
     $\mu = \mu_0$\\
     $\Pi = \Pi_0$
 };
 
 % Shifted state
-\node[state, fill=blue!15, align=center, text width=4.5cm, font=\normalsize] (sk) at (3, 0) {
+\node[state, fill=blue!15, align=center, text width=4.5cm, font=
+ormalsize] (sk) at (3, 0) {
     \textbf{State $s + k$}\\[0.2cm]
     $\mu = \mu_0 + k$\\
     $\Pi = \Pi_0$
 };
 
 % Gauge transformation arrow
-\draw[arrow, ultra thick, purple, shorten >=2pt, shorten <=2pt] (s) -- (sk) 
+\draw[arrow, line width=1.5pt, purple] (s) -- (sk) 
     node[pos=0.5, font=\small, above, yshift=6pt] {Gauge Shift $+k$};
 
 % Invariant annotation
-\node[draw, fill=yellow!20, rounded corners, font=\normalsize, align=center, text width=4.5cm] at (0, -2) {
+\node[draw, fill=yellow!15, rounded corners=3pt, font=
+ormalsize, align=center, text width=4.5cm] at (0, -2) {
     \textbf{Gauge Invariant:}\\
     Partition structure $\Pi$ unchanged\\[0.1cm]
     \textit{(Computational Noether's Theorem)}
 };
 
 % Physical analogy
-\node[draw, dashed, fill=green!10, rounded corners, font=\normalsize, align=center, text width=4.5cm] at (0, -3.5) {
+\node[draw, dashed, fill=green!10, rounded corners=3pt, font=
+ormalsize, align=center, text width=4.5cm] at (0, -3.5) {
     \textbf{Physical Analog:}\\
     Energy zero-point is arbitrary\\
     Only \textit{differences} matter
@@ -2020,34 +2066,36 @@ This is the computational analog of Noether's theorem: the gauge symmetry (abili
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    concept/.style={draw, rounded corners, minimum width=5.0cm, minimum height=2.4cm, align=center, font=\normalsize},
-    result/.style={draw, very thick, fill=yellow!20, rounded corners, minimum width=6.2cm, minimum height=2.0cm, align=center, font=\normalsize},
+    concept/.style={draw, rounded corners=3pt, minimum width=5.0cm, minimum height=2.4cm, align=center, font=
+ormalsize},
+    result/.style={draw, line width=1.2pt, fill=yellow!15, rounded corners=3pt, minimum width=6.2cm, minimum height=2.0cm, align=center, font=
+ormalsize},
     scale=1.05
-, node distance=2.5cm]
+, node distance=3.0cm]
 % Core concepts
-\node[concept, fill=blue!20, align=center, text width=4.5cm] (state) at (-4, 3) {State Space\\$S$};
-\node[concept, fill=green!20, align=center, text width=4.5cm] (partition) at (-1.5, 3) {Partition Graph\\$\Pi$};
+\node[concept, fill=blue!12, align=center, text width=4.5cm] (state) at (-4, 3) {State Space\\$S$};
+\node[concept, fill=green!12, align=center, text width=4.5cm] (partition) at (-1.5, 3) {Partition Graph\\$\Pi$};
 \node[concept, fill=orange!20, align=center, text width=4.5cm] (mu) at (1.5, 3) {$\mu$-Ledger\\Currency};
-\node[concept, fill=red!20, align=center, text width=4.5cm] (rules) at (4, 3) {Transition\\Rules $R$};
+\node[concept, fill=red!12, align=center, text width=4.5cm] (rules) at (4, 3) {Transition\\Rules $R$};
 
 % Key theorems
 \node[result, align=center, text width=4.5cm] (mono) at (-2.5, 0.5) {\textbf{$\mu$-Monotonicity}\\$s'.\mu \ge s.\mu$};
 \node[result, align=center, text width=4.5cm] (nosig) at (2.5, 0.5) {\textbf{No-Signaling}\\Local ops $\not\to$ remote observables};
 
 % Master result
-\node[draw, ultra thick, fill=green!30, rounded corners, minimum width=14.4cm, minimum height=2.6cm, align=center, text width=4.5cm] (master) at (0, -2) {
+\node[draw, line width=1.5pt, fill=green!30, rounded corners=3pt, minimum width=14.4cm, minimum height=2.6cm, align=center, text width=4.5cm] (master) at (0, -2) {
     \textbf{No Free Insight Theorem}\\
     $\log|\Omega| - \log|\Omega'| \le \Delta\mu$
 };
 
 % Arrows
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (state) -- (mono);
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (partition) -- (mono);
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (partition) -- (nosig);
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (rules) -- (nosig);
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (mu) -- (mono);
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (mono) -- (master);
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (nosig) -- (master);
+\draw[->, line width=1.2pt] (state) -- (mono);
+\draw[->, line width=1.2pt] (partition) -- (mono);
+\draw[->, line width=1.2pt] (partition) -- (nosig);
+\draw[->, line width=1.2pt] (rules) -- (nosig);
+\draw[->, line width=1.2pt] (mu) -- (mono);
+\draw[->, line width=1.2pt] (mono) -- (master);
+\draw[->, line width=1.2pt] (nosig) -- (master);
 
 % Chapter reference
 \node[ below=0.5cm of master, font=\small, yshift=-6pt] {Foundation for Chapters 4 (Implementation), 5 (Verification), and 6 (Tsirelson)};

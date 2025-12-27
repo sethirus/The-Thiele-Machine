@@ -2,19 +2,20 @@
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    layer/.style={rectangle, draw, rounded corners, minimum width=6.2cm, minimum height=2.1cm, font=\normalsize\bfseries},
-    arrow/.style={->, very thick, >=stealth},
-    note/.style={font=\normalsize\itshape, text width=3.8cm, align=center},
+    layer/.style={rectangle, draw, rounded corners=3pt, minimum width=6.2cm, minimum height=2.1cm, font=\normalsize\bfseries},
+    arrow/.style={->, line width=1.2pt, >=Stealth},
+    note/.style={font=
+ormalsize\itshape, text width=3.8cm, align=center},
     scale=1.05
-, node distance=2.5cm]
+, node distance=3.0cm]
 % Three layers
-\node[layer, fill=blue!20] (coq) at (0,4) {Layer 1: Coq (Formal)};
-\node[layer, fill=green!20] (python) at (0,2) {Layer 2: Python (Reference)};
+\node[layer, fill=blue!12] (coq) at (0,4) {Layer 1: Coq (Formal)};
+\node[layer, fill=green!12] (python) at (0,2) {Layer 2: Python (Reference)};
 \node[layer, fill=orange!20] (verilog) at (0,0) {Layer 3: Verilog (Hardware)};
 
 % Bidirectional arrows
-\draw[arrow, <->, shorten >=2pt, shorten <=2pt] (coq) -- (python) node[pos=0.5, font=\small, above, yshift=6pt] {Bisimulation\\§4.5};
-\draw[arrow, <->, shorten >=2pt, shorten <=2pt] (python) -- (verilog) node[pos=0.5, font=\small, above, yshift=6pt] {Isomorphism\\§4.5};
+\draw[arrow, <->] (coq) -- (python) node[pos=0.5, font=\small, above, yshift=6pt] {Bisimulation\\§4.5};
+\draw[arrow, <->] (python) -- (verilog) node[pos=0.5, font=\small, above, yshift=6pt] {Isomorphism\\§4.5};
 
 % Side annotations
 \node[note, left=2.9cm of coq, align=center, text width=4.5cm, font=\small, xshift=-10pt] {Machine-checked proofs\\206 verified theorems};
@@ -22,7 +23,8 @@
 \node[note, left=2.9cm of verilog, align=center, text width=4.5cm, font=\small, xshift=-10pt] {Synthesizable RTL\\FPGA-ready};
 
 % Central invariant
-\node[draw, dashed, fill=yellow!10, text width=5cm, align=center, font=\normalsize] at (5,2) 
+\node[draw, dashed, fill=yellow!10, text width=5cm, align=center, font=
+ormalsize] at (5,2) 
     {\textbf{Central Invariant}\\[2pt]
      $S_{\text{Coq}}(\tau) = S_{\text{Python}}(\tau) = S_{\text{Verilog}}(\tau)$\\[2pt]
      For all instruction traces $\tau$};
@@ -152,13 +154,15 @@ The goal is not to “encode” the implementation, but to define a minimal sema
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    field/.style={rectangle, draw, minimum width=5.8cm, minimum height=2.0cm, font=\normalsize},
+    field/.style={rectangle, draw, minimum width=5.8cm, minimum height=2.0cm, font=
+ormalsize},
     mufield/.style={field, fill=red!15, draw=red!70, thick},
-    note/.style={font=\normalsize, text width=4.5cm},
+    note/.style={font=
+ormalsize, text width=4.5cm},
     scale=1.05
 , node distance=3cm]
 % Record box
-\node[draw, very thick, minimum width=7.2cm, minimum height=10.8cm=above:{\textbf{VMState Record}}] (record) at (0,0) {};
+\node[draw, line width=1.2pt, minimum width=7.2cm, minimum height=10.8cm=above:{\textbf{VMState Record}}] (record) at (0,0) {};
 
 % Fields
 \node[field, fill=blue!10] (graph) at (0,2.3) {\texttt{vm\_graph}};
@@ -179,7 +183,7 @@ The goal is not to “encode” the implementation, but to define a minimal sema
 \node[note, right=1.0cm of err, above, font=\small, xshift=10pt] {Error latch};
 
 % Brace for data section
-\draw[decorate, decoration={brace, amplitude=5pt, mirror}, shorten >=2pt, shorten <=2pt] (2.2,1.1) -- (2.2,-0.5) node[pos=0.5, font=\small, above, yshift=6pt] {Data};
+\draw[decorate, decoration={brace, amplitude=5pt, mirror}] (2.2,1.1) -- (2.2,-0.5) node[pos=0.5, font=\small, above, yshift=6pt] {Data};
 \end{tikzpicture}
 \caption{The VMState record with all seven fields. The $\mu$-ledger (\texttt{vm\_mu}) is highlighted as the key accounting field.}
 \label{fig:vmstate-record}
@@ -196,7 +200,7 @@ The goal is not to “encode” the implementation, but to define a minimal sema
     \item \textbf{vm\_regs (green):} 32 registers (general-purpose)
     \item \textbf{vm\_mem (green):} 256 words data memory
     \item \textbf{vm\_pc (purple):} Program counter (current instruction)
-    \item \textbf{vm\_mu (red, very thick border):} $\mu$-ledger accumulator (HIGHLIGHTED)
+    \item \textbf{vm\_mu (red, line width=1.2pt border):} $\mu$-ledger accumulator (HIGHLIGHTED)
     \item \textbf{vm\_err (gray):} Error latch (halt flag)
 \end{itemize}
 
@@ -1116,39 +1120,51 @@ self.witness_state = post_state
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    module/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.0cm, font=\normalsize},
-    arrow/.style={->, very thick, >=stealth},
+    module/.style={rectangle, draw, rounded corners=3pt, minimum width=5.5cm, minimum height=2.0cm, font=
+ormalsize},
+    arrow/.style={->, line width=1.2pt, >=Stealth},
     scale=1.0
 , node distance=3cm]
 % Top-level CPU
-\node[module, fill=blue!30, minimum width=9.0cm, minimum height=2.1cm, font=\normalsize] (cpu) at (0,3) {\textbf{thiele\_cpu}};
+\node[module, fill=blue!30, minimum width=9.0cm, minimum height=2.1cm, font=
+ormalsize] (cpu) at (0,3) {\textbf{thiele\_cpu}};
 
 % Sub-modules
-\node[module, fill=green!20, font=\normalsize] (decoder) at (-3,1) {Decoder};
-\node[module, fill=orange!20, font=\normalsize] (mualu) at (0,1) {$\mu$-ALU};
-\node[module, fill=purple!20, font=\normalsize] (lei) at (3,1) {LEI};
+\node[module, fill=green!12, font=
+ormalsize] (decoder) at (-3,1) {Decoder};
+\node[module, fill=orange!20, font=
+ormalsize] (mualu) at (0,1) {$\mu$-ALU};
+\node[module, fill=purple!20, font=
+ormalsize] (lei) at (3,1) {LEI};
 
 % Lower components
-\node[module, fill=cyan!20, font=\normalsize] (regfile) at (-3,-1) {RegFile};
-\node[module, fill=yellow!20, font=\normalsize] (memory) at (0,-1) {Memory};
-\node[module, fill=red!20, font=\normalsize] (partgraph) at (3,-1) {PartGraph};
+\node[module, fill=cyan!20, font=
+ormalsize] (regfile) at (-3,-1) {RegFile};
+\node[module, fill=yellow!15, font=
+ormalsize] (memory) at (0,-1) {Memory};
+\node[module, fill=red!12, font=
+ormalsize] (partgraph) at (3,-1) {PartGraph};
 
 % External interface
-\node[module, fill=gray!20, align=center, text width=4.5cm, font=\normalsize] (z3) at (5,1) {Z3 \\ External};
+\node[module, fill=gray!12, align=center, text width=4.5cm, font=
+ormalsize] (z3) at (5,1) {Z3 \\ External};
 
 % Arrows
-\draw[arrow, shorten >=2pt, shorten <=2pt] (cpu) -- (decoder);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (cpu) -- (mualu);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (cpu) -- (lei);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (decoder) -- (regfile);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (mualu) -- (memory);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (lei) -- (partgraph);
-\draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (lei) -- (z3);
+\draw[arrow] (cpu) -- (decoder);
+\draw[arrow] (cpu) -- (mualu);
+\draw[arrow] (cpu) -- (lei);
+\draw[arrow] (decoder) -- (regfile);
+\draw[arrow] (mualu) -- (memory);
+\draw[arrow] (lei) -- (partgraph);
+\draw[arrow, dashed] (lei) -- (z3);
 
 % Signal annotations
-\node[font=\normalsize, text=blue!70] at (-1.5,2) {\texttt{opcode}};
-\node[font=\normalsize, text=orange!70] at (1.5,2) {\texttt{mu}};
-\node[font=\normalsize, text=purple!70] at (4,2) {\texttt{cert}};
+\node[font=
+ormalsize, text=blue!70] at (-1.5,2) {\texttt{opcode}};
+\node[font=
+ormalsize, text=orange!70] at (1.5,2) {\texttt{mu}};
+\node[font=
+ormalsize, text=purple!70] at (4,2) {\texttt{cert}};
 \end{tikzpicture}
 \caption{Verilog module hierarchy showing CPU core, $\mu$-ALU, Logic Engine Interface (LEI), and external Z3 connection.}
 \label{fig:module-hierarchy}
@@ -1253,40 +1269,49 @@ Key signals:
 \centering
 \begin{tikzpicture}[
     state/.style={circle, draw, minimum size=1.2cm, font=\normalsize\bfseries},
-    arrow/.style={->, very thick, >=stealth, font=\normalsize},
+    arrow/.style={->, line width=1.2pt, >=Stealth, font=
+ormalsize},
     scale=1.05
-, node distance=2.5cm]
+, node distance=3.0cm]
 % States in a flow
-\node[state, fill=blue!20, font=\normalsize] (fetch) at (0,0) {FETCH};
-\node[state, fill=green!20, font=\normalsize] (decode) at (2.5,0) {DECODE};
-\node[state, fill=orange!20, font=\normalsize] (execute) at (5,0) {EXECUTE};
-\node[state, fill=purple!20, font=\normalsize] (memory) at (7.5,0) {MEMORY};
+\node[state, fill=blue!12, font=
+ormalsize] (fetch) at (0,0) {FETCH};
+\node[state, fill=green!12, font=
+ormalsize] (decode) at (2.5,0) {DECODE};
+\node[state, fill=orange!20, font=
+ormalsize] (execute) at (5,0) {EXECUTE};
+\node[state, fill=purple!20, font=
+ormalsize] (memory) at (7.5,0) {MEMORY};
 
 % Secondary states below
-\node[state, fill=yellow!20, font=\normalsize] (logic) at (2,-2) {LOGIC};
-\node[state, fill=cyan!20, font=\normalsize] (python) at (5,-2) {PYTHON};
-\node[state, fill=red!20, font=\normalsize] (complete) at (8,-2) {COMPLETE};
+\node[state, fill=yellow!15, font=
+ormalsize] (logic) at (2,-2) {LOGIC};
+\node[state, fill=cyan!20, font=
+ormalsize] (python) at (5,-2) {PYTHON};
+\node[state, fill=red!12, font=
+ormalsize] (complete) at (8,-2) {COMPLETE};
 
 % ALU wait states
-\node[state, fill=gray!20, align=center, text width=4.5cm, font=\normalsize] (aluwait) at (0,-2) {ALU\\WAIT};
+\node[state, fill=gray!12, align=center, text width=4.5cm, font=
+ormalsize] (aluwait) at (0,-2) {ALU\\WAIT};
 
 % Main flow arrows
-\draw[arrow, shorten >=2pt, shorten <=2pt] (fetch) -- (decode);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (decode) -- (execute);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (execute) -- (memory);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (memory) -- (complete);
+\draw[arrow] (fetch) -- (decode);
+\draw[arrow] (decode) -- (execute);
+\draw[arrow] (execute) -- (memory);
+\draw[arrow] (memory) -- (complete);
 
 % Return arrow
 \draw[arrow] (complete) to[bend right=40] (fetch);
 
 % Branch arrows
-\draw[arrow, shorten >=2pt, shorten <=2pt] (decode) -- (logic) node[pos=0.5, font=\small, above, yshift=6pt] {logic op};
-\draw[arrow, shorten >=2pt, shorten <=2pt] (decode) -- (python) node[pos=0.5, font=\small, above, yshift=6pt] {PYEXEC};
-\draw[arrow, shorten >=2pt, shorten <=2pt] (execute) -- (aluwait) node[pos=0.5, font=\small, above, yshift=6pt] {ALU};
+\draw[arrow] (decode) -- (logic) node[pos=0.5, font=\small, above, yshift=6pt] {logic op};
+\draw[arrow] (decode) -- (python) node[pos=0.5, font=\small, above, yshift=6pt] {PYEXEC};
+\draw[arrow] (execute) -- (aluwait) node[pos=0.5, font=\small, above, yshift=6pt] {ALU};
 
 % Return from branches
-\draw[arrow, shorten >=2pt, shorten <=2pt] (logic) -- (complete);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (python) -- (complete);
+\draw[arrow] (logic) -- (complete);
+\draw[arrow] (python) -- (complete);
 \draw[arrow] (aluwait) to[bend left=30] (execute);
 
 % Title
@@ -1384,33 +1409,43 @@ On each clock cycle, \texttt{state\_reg} updates based on the FSM transition log
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    bit/.style={rectangle, draw, minimum width=0.7cm, minimum height=2.0cm, font=\normalsize},
-    field/.style={rectangle, draw, very thick, minimum height=2.0cm, font=\normalsize\bfseries},
+    bit/.style={rectangle, draw, minimum width=0.7cm, minimum height=2.0cm, font=
+ormalsize},
+    field/.style={rectangle, draw, line width=1.2pt, minimum height=2.0cm, font=\normalsize\bfseries},
     scale=1.0
 , node distance=3cm]
 % 32-bit instruction word
 \node[font=\normalsize\bfseries] at (-2,0) {32-bit:};
 
 % Bit fields
-\node[field, fill=blue!20, minimum width=4.5cm] (opcode) at (0,0) {opcode};
-\node[field, fill=green!20, minimum width=4.5cm] (opa) at (2.5,0) {operand\_a};
+\node[field, fill=blue!12, minimum width=4.5cm] (opcode) at (0,0) {opcode};
+\node[field, fill=green!12, minimum width=4.5cm] (opa) at (2.5,0) {operand\_a};
 \node[field, fill=orange!20, minimum width=4.5cm] (opb) at (5,0) {operand\_b};
-\node[field, fill=red!20, minimum width=4.5cm] (cost) at (7.5,0) {cost};
+\node[field, fill=red!12, minimum width=4.5cm] (cost) at (7.5,0) {cost};
 
 % Bit positions
-\node[font=\normalsize] at (0,0.7) {[31:24]};
-\node[font=\normalsize] at (2.5,0.7) {[23:16]};
-\node[font=\normalsize] at (5,0.7) {[15:8]};
-\node[font=\normalsize] at (7.5,0.7) {[7:0]};
+\node[font=
+ormalsize] at (0,0.7) {[31:24]};
+\node[font=
+ormalsize] at (2.5,0.7) {[23:16]};
+\node[font=
+ormalsize] at (5,0.7) {[15:8]};
+\node[font=
+ormalsize] at (7.5,0.7) {[7:0]};
 
 % Bit widths below
-\node[font=\normalsize] at (0,-0.7) {8 bits};
-\node[font=\normalsize] at (2.5,-0.7) {8 bits};
-\node[font=\normalsize] at (5,-0.7) {8 bits};
-\node[font=\normalsize] at (7.5,-0.7) {8 bits};
+\node[font=
+ormalsize] at (0,-0.7) {8 bits};
+\node[font=
+ormalsize] at (2.5,-0.7) {8 bits};
+\node[font=
+ormalsize] at (5,-0.7) {8 bits};
+\node[font=
+ormalsize] at (7.5,-0.7) {8 bits};
 
 % Example instruction
-\node[font=\normalsize, text width=8cm, align=left] at (3,-1.8) {
+\node[font=
+ormalsize, text width=8cm, align=left] at (3,-1.8) {
     Example: \texttt{PNEW r5, cost=3} $\rightarrow$ \texttt{0x01050003}
 };
 \end{tikzpicture}
@@ -1549,8 +1584,9 @@ end
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    block/.style={rectangle, draw, minimum width=4.5cm, minimum height=2.0cm, font=\normalsize},
-    arrow/.style={->, very thick, >=stealth},
+    block/.style={rectangle, draw, minimum width=4.5cm, minimum height=2.0cm, font=
+ormalsize},
+    arrow/.style={->, line width=1.2pt, >=Stealth},
     scale=1.0
 , node distance=3cm]
 % Input signals
@@ -1562,11 +1598,14 @@ end
 % Main ALU block
 \node[block, fill=orange!20, minimum width=5.4cm, minimum height=5.4cm] (alu) at (1,0) {};
 \node[font=\bfseries] at (1,0.8) {$\mu$-ALU};
-\node[font=\normalsize] at (1,0) {Q16.16};
-\node[font=\normalsize] at (1,-0.5) {Fixed-Point};
+\node[font=
+ormalsize] at (1,0) {Q16.16};
+\node[font=
+ormalsize] at (1,-0.5) {Fixed-Point};
 
 % Operations list
-\node[draw, rounded corners, fill=yellow!10, text width=4.5cm, align=left, font=\normalsize, align=center] at (1,-2.5) {
+\node[draw, rounded corners=3pt, fill=yellow!10, text width=4.5cm, align=left, font=
+ormalsize, align=center] at (1,-2.5) {
     0: ADD\\
     1: SUB\\
     2: MUL\\
@@ -1582,20 +1621,22 @@ end
 
 % LUT block
 \node[block, fill=cyan!20, minimum width=3.5cm] (lut) at (1,2.5) {LOG2 LUT};
-\node[font=\normalsize] at (1,3.2) {256 entries};
+\node[font=
+ormalsize] at (1,3.2) {256 entries};
 
 % Arrows
-\draw[arrow, shorten >=2pt, shorten <=2pt] (opa) -- (-0.5,1.5) -- (-0.5,0.5) -- (alu);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (opb) -- (alu);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (op) -- (alu);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (valid) -- (alu);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (alu) -- (result);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (alu) -- (ready);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (alu) -- (overflow);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (lut) -- (alu);
+\draw[arrow] (opa) -- (-0.5,1.5) -- (-0.5,0.5) -- (alu);
+\draw[arrow] (opb) -- (alu);
+\draw[arrow] (op) -- (alu);
+\draw[arrow] (valid) -- (alu);
+\draw[arrow] (alu) -- (result);
+\draw[arrow] (alu) -- (ready);
+\draw[arrow] (alu) -- (overflow);
+\draw[arrow] (lut) -- (alu);
 
 % Q16.16 annotation
-\node[draw, dashed, fill=gray!10, font=\normalsize, text width=2cm, align=center] at (5,2) 
+\node[draw, dashed, fill=gray!10, font=
+ormalsize, text width=2cm, align=center] at (5,2) 
     {Q16.16 format:\\$1.0 = \mathtt{0x00010000}$};
 \end{tikzpicture}
 \caption{The $\mu$-ALU architecture implementing Q16.16 fixed-point arithmetic with LOG2 lookup table.}
@@ -1834,48 +1875,52 @@ module lei (
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    layer/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.1cm, font=\normalsize},
-    arrow/.style={->, very thick, >=stealth},
-    compare/.style={diamond, draw, fill=yellow!20, minimum size=1cm, font=\normalsize},
+    layer/.style={rectangle, draw, rounded corners=3pt, minimum width=5.5cm, minimum height=2.1cm, font=
+ormalsize},
+    arrow/.style={->, line width=1.2pt, >=Stealth},
+    compare/.style={diamond, draw, fill=yellow!15, minimum size=1cm, font=
+ormalsize},
     scale=1.05
 , node distance=3cm]
 % Input trace
-\node[draw, fill=gray!20, rounded corners] (trace) at (0,0) {Trace $\tau$};
+\node[draw, fill=gray!12, rounded corners=3pt] (trace) at (0,0) {Trace $\tau$};
 
 % Three execution paths
-\node[layer, fill=blue!20, align=center, text width=4.5cm] (coq) at (-3,-2) {Coq\\Extracted};
-\node[layer, fill=green!20, align=center, text width=4.5cm] (python) at (0,-2) {Python\\VM};
+\node[layer, fill=blue!12, align=center, text width=4.5cm] (coq) at (-3,-2) {Coq\\Extracted};
+\node[layer, fill=green!12, align=center, text width=4.5cm] (python) at (0,-2) {Python\\VM};
 \node[layer, fill=orange!20, align=center, text width=4.5cm] (rtl) at (3,-2) {Verilog\\Sim};
 
 % States
-\node[draw, rounded corners, fill=blue!10] (scoq) at (-3,-4) {$S_{\text{Coq}}$};
-\node[draw, rounded corners, fill=green!10] (spy) at (0,-4) {$S_{\text{Python}}$};
-\node[draw, rounded corners, fill=orange!10] (srtl) at (3,-4) {$S_{\text{Verilog}}$};
+\node[draw, rounded corners=3pt, fill=blue!10] (scoq) at (-3,-4) {$S_{\text{Coq}}$};
+\node[draw, rounded corners=3pt, fill=green!10] (spy) at (0,-4) {$S_{\text{Python}}$};
+\node[draw, rounded corners=3pt, fill=orange!10] (srtl) at (3,-4) {$S_{\text{Verilog}}$};
 
 % Comparison
 \node[compare] (cmp) at (0,-5.5) {$=$?};
 
 % Result
-\node[draw, very thick, fill=green!30, rounded corners] (pass) at (0,-7) {\textbf{PASS}};
+\node[draw, line width=1.2pt, fill=green!30, rounded corners=3pt] (pass) at (0,-7) {\textbf{PASS}};
 
 % Arrows
-\draw[arrow, shorten >=2pt, shorten <=2pt] (trace) -- (coq);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (trace) -- (python);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (trace) -- (rtl);
+\draw[arrow] (trace) -- (coq);
+\draw[arrow] (trace) -- (python);
+\draw[arrow] (trace) -- (rtl);
 
-\draw[arrow, shorten >=2pt, shorten <=2pt] (coq) -- (scoq);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (python) -- (spy);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (rtl) -- (srtl);
+\draw[arrow] (coq) -- (scoq);
+\draw[arrow] (python) -- (spy);
+\draw[arrow] (rtl) -- (srtl);
 
-\draw[arrow, shorten >=2pt, shorten <=2pt] (scoq) -- (cmp);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (spy) -- (cmp);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (srtl) -- (cmp);
+\draw[arrow] (scoq) -- (cmp);
+\draw[arrow] (spy) -- (cmp);
+\draw[arrow] (srtl) -- (cmp);
 
-\draw[arrow, shorten >=2pt, shorten <=2pt] (cmp) -- (pass);
+\draw[arrow] (cmp) -- (pass);
 
 % Annotations
-\node[font=\normalsize, text width=2cm, align=center] at (-4.5,-2) {JSON\\snapshot};
-\node[font=\normalsize, text width=2cm, align=center] at (4.5,-2) {VCD\\waveform};
+\node[font=
+ormalsize, text width=2cm, align=center] at (-4.5,-2) {JSON\\snapshot};
+\node[font=
+ormalsize, text width=2cm, align=center] at (4.5,-2) {VCD\\waveform};
 \end{tikzpicture}
 \caption{The 3-way isomorphism gate: instruction trace $\tau$ is executed on all three layers, and state projections must match exactly.}
 \label{fig:isomorphism-gate}
@@ -1984,14 +2029,16 @@ If any field differs, isomorphism test fails.
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    stage/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.1cm, font=\normalsize},
-    check/.style={diamond, draw, fill=yellow!20, minimum size=0.8cm, font=\normalsize},
-    arrow/.style={->, very thick, >=stealth},
+    stage/.style={rectangle, draw, rounded corners=3pt, minimum width=5.5cm, minimum height=2.1cm, font=
+ormalsize},
+    check/.style={diamond, draw, fill=yellow!15, minimum size=0.8cm, font=
+ormalsize},
+    arrow/.style={->, line width=1.2pt, >=Stealth},
     scale=1.05
 , node distance=3cm]
 % Stages
-\node[stage, fill=blue!20, align=center, text width=4.5cm] (scan) at (0,0) {Scan\\Sources};
-\node[stage, fill=green!20, align=center, text width=4.5cm] (build) at (3,0) {Build\\Proofs};
+\node[stage, fill=blue!12, align=center, text width=4.5cm] (scan) at (0,0) {Scan\\Sources};
+\node[stage, fill=green!12, align=center, text width=4.5cm] (build) at (3,0) {Build\\Proofs};
 \node[stage, fill=orange!20, align=center, text width=4.5cm] (iso) at (6,0) {Run\\Isomorphism};
 \node[stage, fill=purple!20, align=center, text width=4.5cm] (report) at (9,0) {Generate\\Report};
 
@@ -2001,12 +2048,12 @@ If any field differs, isomorphism test fails.
 \node[check] (c3) at (7.5,0) {};
 
 % Arrows
-\draw[arrow, shorten >=2pt, shorten <=2pt] (scan) -- (c1);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (c1) -- (build);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (build) -- (c2);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (c2) -- (iso);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (iso) -- (c3);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (c3) -- (report);
+\draw[arrow] (scan) -- (c1);
+\draw[arrow] (c1) -- (build);
+\draw[arrow] (build) -- (c2);
+\draw[arrow] (c2) -- (iso);
+\draw[arrow] (iso) -- (c3);
+\draw[arrow] (c3) -- (report);
 
 % What each stage checks
 \node[ text width=2cm, align=center, below=0.5cm of scan, font=\small, yshift=-6pt] {No \texttt{Admitted}\\No \texttt{admit.}\\No \texttt{Axiom}};
@@ -2015,11 +2062,12 @@ If any field differs, isomorphism test fails.
 \node[ text width=2cm, align=center, below=0.5cm of report, font=\small, yshift=-6pt] {HIGH: 0\\MEDIUM: 2\\LOW: 4};
 
 % Pass/Fail output
-\node[draw, very thick, fill=green!30, rounded corners] (pass) at (12,0) {\textbf{CI PASS}};
-\draw[arrow, shorten >=2pt, shorten <=2pt] (report) -- (pass);
+\node[draw, line width=1.2pt, fill=green!30, rounded corners=3pt] (pass) at (12,0) {\textbf{CI PASS}};
+\draw[arrow] (report) -- (pass);
 
 % Ultra-strict annotation
-\node[draw, dashed, fill=red!10, font=\normalsize, text width=3cm, align=center] at (3,-2.5) 
+\node[draw, dashed, fill=red!10, font=
+ormalsize, text width=3cm, align=center] at (3,-2.5) 
     {\texttt{--ultra-strict}:\\Fails on MEDIUM\\in kernel files};
 \end{tikzpicture}
 \caption{The Inquisitor verification workflow: source scanning, proof building, isomorphism testing, and report generation.}
@@ -2224,29 +2272,35 @@ yosys -p "read_verilog thiele_cpu.v; synth_xilinx -top thiele_cpu; write_json ne
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    box/.style={rectangle, draw, rounded corners, minimum width=5.4cm, minimum height=2.6cm, font=\normalsize, text width=3.8cm, align=center},
-    arrow/.style={->, very thick, >=stealth},
+    box/.style={rectangle, draw=black, line width=0.8pt, rounded corners=3pt, minimum width=5.4cm, minimum height=2.6cm, font=
+ormalsize, text width=3.8cm, align=center, inner sep=0.4cm},
+    arrow/.style={->, line width=1.2pt, >=Stealth},
     scale=1.05
-, node distance=2.5cm]
+, node distance=3.0cm]
 % Three layers as boxes
-\node[box, fill=blue!20, align=center, text width=4.5cm, font=\normalsize] (coq) at (-4,0) {\textbf{Coq}\\206 theorems\\Machine-checked\\Extracted runner};
-\node[box, fill=green!20, align=center, text width=4.5cm, font=\normalsize] (python) at (0,0) {\textbf{Python}\\Reference VM\\Tracing\\Receipts};
-\node[box, fill=orange!20, align=center, text width=4.5cm, font=\normalsize] (verilog) at (4,0) {\textbf{Verilog}\\RTL Core\\$\mu$-ALU\\FPGA-ready};
+\node[box, fill=blue!12, align=center, text width=4.5cm, font=
+ormalsize] (coq) at (-4,0) {\textbf{Coq}\\206 theorems\\Machine-checked\\Extracted runner};
+\node[box, fill=green!12, align=center, text width=4.5cm, font=
+ormalsize] (python) at (0,0) {\textbf{Python}\\Reference VM\\Tracing\\Receipts};
+\node[box, fill=orange!20, align=center, text width=4.5cm, font=
+ormalsize] (verilog) at (4,0) {\textbf{Verilog}\\RTL Core\\$\mu$-ALU\\FPGA-ready};
 
 % Central invariant at bottom
-\node[draw, very thick, fill=yellow!20, rounded corners, text width=10cm, align=center] (inv) at (0,-3) 
+\node[draw, line width=1.2pt, fill=yellow!15, rounded corners=3pt, text width=10cm, align=center] (inv) at (0,-3) 
     {\textbf{3-Way Isomorphism Invariant}\\[3pt]
      $\forall \tau: S_{\text{Coq}}(\tau) = S_{\text{Python}}(\tau) = S_{\text{Verilog}}(\tau)$\\[3pt]
      Enforced by Inquisitor gates $\bullet$ 0 HIGH findings required for CI};
 
 % Arrows to invariant
-\draw[arrow, shorten >=2pt, shorten <=2pt] (coq) -- (inv);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (python) -- (inv);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (verilog) -- (inv);
+\draw[arrow] (coq) -- (inv);
+\draw[arrow] (python) -- (inv);
+\draw[arrow] (verilog) -- (inv);
 
 % What flows between layers
-\node[font=\normalsize, rotate=45] at (-2,0.8) {Extraction};
-\node[font=\normalsize, rotate=-45] at (2,0.8) {Synthesis};
+\node[font=
+ormalsize, rotate=45] at (-2,0.8) {Extraction};
+\node[font=
+ormalsize, rotate=-45] at (2,0.8) {Synthesis};
 \end{tikzpicture}
 \caption{Chapter 4 summary: Three implementation layers bound by the central isomorphism invariant, enforced through automated verification gates.}
 \label{fig:ch4-summary}

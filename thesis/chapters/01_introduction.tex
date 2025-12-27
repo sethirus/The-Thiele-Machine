@@ -21,41 +21,63 @@ I, Devon Thiele, present the \textit{Thiele Machine}---a new model of computatio
 \centering
 \begin{tikzpicture}[
     scale=1.0,
-    node distance=2.5cm,
-    box/.style={rectangle, draw, rounded corners, minimum width=5.0cm, minimum height=2.0cm, align=center, fill=blue!10},
-    arrow/.style={->, very thick, >=stealth},
-    every node/.style={font=\normalsize}
+    node distance=3.0cm,
+    box/.style={rectangle, draw=black, line width=0.8pt=black, line width=0.8pt, rounded corners=3pt, 
+                minimum width=5.5cm, minimum height=2.2cm, align=center, 
+                inner sep=0.4cm, inner sep=0.4cm},
+    arrow/.style={->, line width=1.2pt, >=Stealth},
+    label/.style={font=\small, text=black!70}
 ]
-% Left side: Classical (Blind)
-\node[box, fill=gray!20, align=center, text width=4.5cm, font=\normalsize] (turing) at (-5, 2.5) {Turing\\Machine};
-\node[box, fill=gray!20, align=center, text width=4.5cm, font=\normalsize] (ram) at (-5, 0) {RAM\\Model};
-\node[box, fill=gray!20, align=center, text width=4.5cm, font=\normalsize] (search) at (-5, -2.5) {Blind\\Search};
 
-% Right side: Thiele (Sighted)
-\node[box, fill=green!20, align=center, text width=4.5cm, font=\normalsize] (thiele) at (5, 0) {Thiele\\Machine};
+% Left side: Classical (Blind) - vertically aligned
+\node[box, fill=gray!15] (turing) at (-6, 3) {
+    \textbf{Turing Machine}
+};
+\node[box, fill=gray!15] (ram) at (-6, 0) {
+    \textbf{RAM Model}
+};
+\node[box, fill=gray!15] (search) at (-6, -3) {
+    \textbf{Blind Search}
+};
 
 % Center: The transformation
-\node[box, fill=yellow!30, minimum width=5.0cm, align=center, text width=4.5cm, font=\normalsize] (mu) at (0, 0) {$\mu$-bit\\Accounting};
+\node[box, fill=yellow!15, minimum width=6.0cm] (mu) at (0, 0) {
+    \textbf{$\mu$-bit Accounting}\\[0.2cm]
+    \small Information Cost Tracking
+};
 
-% Arrows
-\draw[arrow, shorten >=2pt, shorten <=2pt] (turing) -- (mu) node[pos=0.5, above, yshift=8pt, font=\small] {structure cost};
-\draw[arrow, shorten >=2pt, shorten <=2pt] (ram) -- (mu);
-\draw[arrow, shorten >=2pt, shorten <=2pt] (search) -- (mu) node[pos=0.5, below, yshift=-8pt, font=\small] {insight tax};
-\draw[arrow, shorten >=2pt, shorten <=2pt] (mu) -- (thiele) node[pos=0.5, above, yshift=8pt, font=\small] {explicit structure};
+% Right side: Thiele (Sighted)
+\node[box, fill=green!15, minimum height=3.0cm] (thiele) at (6, 0) {
+    \textbf{Thiele Machine}\\[0.2cm]
+    \small Structure-Aware\\Computing
+};
 
-% Labels - positioned away from boxes
-\node[below=1.5cm of turing, font=\small\itshape] {$O(2^n)$ worst case};
-\node[below=1.5cm of thiele, font=\small\itshape] {$O(k \cdot 2^{n/k})$ with structure};
+% Arrows with labels
+\draw[arrow] (turing.east) -- (mu.west |- turing.east) 
+    node[midway, above, label] {structure cost};
+\draw[arrow] (ram.east) -- (mu.west);
+\draw[arrow] (search.east) -- (mu.west |- search.east) 
+    node[midway, below, label] {insight tax};
+\draw[arrow] (mu.east) -- (thiele.west) 
+    node[midway, above, label] {explicit structure};
+
+% Complexity annotations
+\node[below=0.8cm of turing, font=\small\itshape, text=black!60] 
+    {$O(2^n)$ worst case};
+\node[below=0.8cm of thiele, font=\small\itshape, text=black!60] 
+    {$O(k \cdot 2^{n/k})$ with structure};
 
 % Title
-\node[above=1.8cm of mu, font=\bfseries] {The Paradigm Shift};
+\node[above=1.2cm of mu, font=\Large\bfseries] {The Paradigm Shift};
 
-% Annotations
-\draw[dashed, gray, shorten >=2pt, shorten <=2pt] (-7, -4) -- (-7, 4) -- (-2.5, 4) -- (-2.5, -4) -- cycle;
-\node[above] at (-4.75, 4) {\textbf{Classical Models}};
+% Group annotations with proper boundaries
+\draw[dashed, line width=0.6pt, gray!60, rounded corners=5pt] 
+    (-8.5, -4.5) rectangle (-3.5, 4.5);
+\node[above=0.1cm] at (-6, 4.5) {\textbf{Classical Models}};
 
-\draw[dashed, gray, shorten >=2pt, shorten <=2pt] (2.5, -4) -- (2.5, 4) -- (7, 4) -- (7, -4) -- cycle;
-\node[above] at (4.75, 4) {\textbf{Thiele Machine}};
+\draw[dashed, line width=0.6pt, gray!60, rounded corners=5pt] 
+    (3.5, -4.5) rectangle (8.5, 4.5);
+\node[above=0.1cm] at (6, 4.5) {\textbf{Thiele Machine}};
 
 \end{tikzpicture}
 \caption{The paradigm shift from blind computation to structure-aware computation. Classical models pay the ``time tax'' of exponential search; the Thiele Machine makes structural cost explicit through $\mu$-bit accounting.}
@@ -193,44 +215,48 @@ The model answers this by explicitly charging $\mu$ for operations that add or r
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[
-    scale=1.05,
-    node distance=2.5cm
+    scale=1.1,
+    axis/.style={->, line width=1.2pt},
+    curve/.style={line width=1.5pt, smooth},
+    grid/.style={gray!40, dashed, line width=0.3pt}
 ]
-% Axes
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (0,0) -- (10,0) node[right, font=\small, xshift=10pt] {Problem Size $n$};
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (0,0) -- (0,6) node[above, yshift=6pt, pos=0.5, font=\small] {Time};
 
-% Exponential curve (blind search)
-\draw[very thick, red, domain=0:4.5, samples=100] 
-    plot (\x*2, {0.1*exp(\x)}) node[right, font=\small, xshift=10pt] {$O(2^n)$ \textit{Blind}};
-
-% Linear/polynomial curve (structured search)  
-\draw[very thick, green!60!black, domain=0:9, samples=100]
-    plot (\x, {0.3*\x + 0.1}) node[right, font=\small, xshift=10pt] {$O(k \cdot 2^{n/k})$ \textit{Sighted}};
-
-% Annotation
-\draw[<->, dashed, blue, very thick, shorten >=2pt, shorten <=2pt] (6, 0.9) -- (6, 4.5);
-\node[blue, right] at (6.2, 2.7) {\textbf{Time Tax}};
-
-% Grid lines
-\draw[gray, dashed, very thin, shorten >=2pt, shorten <=2pt] (0,1) -- (9,1);
-\draw[gray, dashed, very thin, shorten >=2pt, shorten <=2pt] (0,2) -- (9,2);
-\draw[gray, dashed, very thin, shorten >=2pt, shorten <=2pt] (0,3) -- (9,3);
-\draw[gray, dashed, very thin, shorten >=2pt, shorten <=2pt] (0,4) -- (9,4);
-\draw[gray, dashed, very thin, shorten >=2pt, shorten <=2pt] (0,5) -- (9,5);
-
-% X-axis labels
-\foreach \x in {2,4,6,8} {
-    \draw (\x, -0.1) -- (\x, 0.1);
-    \node[below] at (\x, -0.1) {$\x$};
+% Grid lines (background)
+\foreach \y in {1,2,3,4,5} {
+    \draw[grid] (0,\y) -- (10,\y);
 }
 
-% Y-axis labels  
-\node[left] at (0, 1) {$10^2$};
-\node[left] at (0, 2) {$10^4$};
-\node[left] at (0, 3) {$10^6$};
-\node[left] at (0, 4) {$10^8$};
-\node[left] at (0, 5) {$10^{10}$};
+% Axes with labels
+\draw[axis] (-0.3,0) -- (10.5,0) node[right, font=\small\bfseries] {Problem Size $n$};
+\draw[axis] (0,-0.3) -- (0,6.2) node[above, font=\small\bfseries] {Time (log scale)};
+
+% Exponential curve (blind search) - RED
+\draw[curve, red!70!black, domain=0:4.5, samples=100] 
+    plot (\x*2, {0.1*exp(\x)});
+\node[red!70!black, font=\small\bfseries, right] at (9.2, 5.2) {$O(2^n)$ Blind};
+
+% Linear curve (structured search) - GREEN
+\draw[curve, green!50!black, domain=0:9.5, samples=100]
+    plot (\x, {0.3*\x + 0.1});
+\node[green!50!black, font=\small\bfseries, right] at (9.2, 3.1) {$O(k \cdot 2^{n/k})$ Sighted};
+
+% Time Tax annotation - BLUE
+\draw[<->, blue!70, line width=1.5pt] (6.1, 0.9) -- (6.1, 4.5);
+\node[blue!70, font=\small\bfseries, fill=white, inner sep=2pt, rounded corners=3pt] 
+    at (7.5, 2.7) {Time Tax};
+
+% X-axis tick marks and labels
+\foreach \x in {0,2,4,6,8,10} {
+    \draw[line width=0.8pt] (\x, -0.15) -- (\x, 0.15);
+    \node[below, font=\footnotesize] at (\x, -0.2) {$\x$};
+}
+
+% Y-axis labels (log scale)
+\node[left, font=\footnotesize] at (-0.2, 1) {$10^2$};
+\node[left, font=\footnotesize] at (-0.2, 2) {$10^4$};
+\node[left, font=\footnotesize] at (-0.2, 3) {$10^6$};
+\node[left, font=\footnotesize] at (-0.2, 4) {$10^8$};
+\node[left, font=\footnotesize] at (-0.2, 5) {$10^{10}$};
 
 \end{tikzpicture}
 \caption{The Time Tax: blind computation pays exponentially ($O(2^n)$), while structure-aware computation pays polynomially when structure is available ($O(k \cdot 2^{n/k})$ for $k$ independent components). The gap is the ``time tax'' of blindness.}
@@ -296,41 +322,49 @@ Chapter 3 spells these components out with exact data structures and step rules.
 \centering
 \begin{tikzpicture}[
     scale=1.05,
-    node distance=2.5cm,
-    component/.style={rectangle, draw, rounded corners, minimum width=4.5cm, minimum height=2.0cm, align=center, very thick, font=\normalsize},
-    arrow/.style={->, very thick, >=stealth},
-    every node/.style={font=\normalsize}
+    node distance=3.0cm,
+    component/.style={rectangle, draw, rounded corners=3pt, minimum width=4.5cm, minimum height=2.0cm, align=center, line width=1.2pt, font=
+ormalsize},
+    arrow/.style={->, line width=1.2pt, >=Stealth},
+    every node/.style={font=
+ormalsize}
 ]
 
 % State space S
-\node[component, fill=blue!15, align=center, text width=4.5cm, font=\normalsize] (S) at (-4, 2) {$S$\\State Space};
+\node[component, fill=blue!15, align=center, text width=4.5cm, font=
+ormalsize] (S) at (-4, 2) {$S$\\State Space};
 
 % Partition space Π  
-\node[component, fill=green!15, align=center, text width=4.5cm, font=\normalsize] (Pi) at (-4, 0) {$\Pi$\\Partitions};
+\node[component, fill=green!15, align=center, text width=4.5cm, font=
+ormalsize] (Pi) at (-4, 0) {$\Pi$\\Partitions};
 
 % Axiom set A
-\node[component, fill=yellow!15, align=center, text width=4.5cm, font=\normalsize] (A) at (0, 2) {$A$\\Axioms};
+\node[component, fill=yellow!15, align=center, text width=4.5cm, font=
+ormalsize] (A) at (0, 2) {$A$\\Axioms};
 
 % Transition rules R
-\node[component, fill=orange!15, align=center, text width=4.5cm, font=\normalsize] (R) at (4, 2) {$R$\\Transitions};
+\node[component, fill=orange!15, align=center, text width=4.5cm, font=
+ormalsize] (R) at (4, 2) {$R$\\Transitions};
 
 % Logic Engine L
-\node[component, fill=purple!15, align=center, text width=4.5cm, font=\normalsize] (L) at (4, 0) {$L$\\Logic Engine};
+\node[component, fill=purple!15, align=center, text width=4.5cm, font=
+ormalsize] (L) at (4, 0) {$L$\\Logic Engine};
 
 % μ-Ledger (central)
-\node[component, fill=red!20, minimum width=5.5cm, minimum height=2.2cm, align=center, text width=4.5cm, font=\normalsize] (mu) at (0, 0) {$\mu$-Ledger\\(monotonic)};
+\node[component, fill=red!12, minimum width=5.5cm, minimum height=2.2cm, align=center, text width=4.5cm, font=
+ormalsize] (mu) at (0, 0) {$\mu$-Ledger\\(monotonic)};
 
 % Arrows showing relationships
-\draw[arrow, shorten >=2pt, shorten <=2pt] (S) -- (Pi) node[pos=0.5, left, xshift=-3pt, font=\small] {decompose};
-\draw[arrow, shorten >=2pt, shorten <=2pt] (Pi) -- (mu) node[pos=0.5, above, yshift=3pt, font=\small] {track};
-\draw[arrow, shorten >=2pt, shorten <=2pt] (A) -- (mu) node[pos=0.5, right, xshift=3pt, font=\small] {charge};
-\draw[arrow, shorten >=2pt, shorten <=2pt] (R) -- (mu) node[pos=0.5, above, yshift=3pt, font=\small] {update};
-\draw[arrow, shorten >=2pt, shorten <=2pt] (L) -- (A) node[pos=0.5, right, xshift=3pt, font=\small] {verify};
-\draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (S) -- (A) node[pos=0.5, above, yshift=3pt, font=\small] {constrain};
-\draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (R) -- (S) node[pos=0.5, above, yshift=3pt, font=\small] {transform};
+\draw[arrow] (S) -- (Pi) node[pos=0.5, left, xshift=-3pt, font=\small] {decompose};
+\draw[arrow] (Pi) -- (mu) node[pos=0.5, above, yshift=3pt, font=\small] {track};
+\draw[arrow] (A) -- (mu) node[pos=0.5, right, xshift=3pt, font=\small] {charge};
+\draw[arrow] (R) -- (mu) node[pos=0.5, above, yshift=3pt, font=\small] {update};
+\draw[arrow] (L) -- (A) node[pos=0.5, right, xshift=3pt, font=\small] {verify};
+\draw[arrow, dashed] (S) -- (A) node[pos=0.5, above, yshift=3pt, font=\small] {constrain};
+\draw[arrow, dashed] (R) -- (S) node[pos=0.5, above, yshift=3pt, font=\small] {transform};
 
 % Bounding box
-\draw[very thick, dashed, gray, rounded corners] (-5.5, -1.2) rectangle (5.5, 3.2);
+\draw[line width=1.2pt, dashed, gray, rounded corners=3pt] (-5.5, -1.2) rectangle (5.5, 3.2);
 \node[above] at (0, 3.2) {\textbf{Thiele Machine} $T = (S, \Pi, A, R, L)$};
 
 % Key insight annotation
@@ -416,31 +450,32 @@ Let $T$ be a Thiele Machine. If an execution trace reduces the search space from
 ]
 
 % Left: Large search space Ω
-\draw[very thick, fill=blue!10] (0,0) circle (2.5cm);
+\draw[line width=1.2pt, fill=blue!10] (0,0) circle (2.5cm);
 \node[font=\large] at (0, 0) {$\Omega$};
 \node[below] at (0, -2.8) {Original search space};
 \node[below] at (0, -3.3) {$2^n$ states};
 
 % Arrow with μ cost
-\draw[->, ultra thick, red!70!black, shorten >=2pt, shorten <=2pt] (3, 0) -- (5, 0);
+\draw[->, line width=1.5pt, red!70!black] (3, 0) -- (5, 0);
 \node[above, font=\bfseries] at (4, 0.3) {$\Delta\mu$ bits};
-\node[below, font=\normalsize\itshape] at (4, -0.3) {(structural cost)};
+\node[below, font=
+ormalsize\itshape] at (4, -0.3) {(structural cost)};
 
 % Right: Smaller search space Ω'
-\draw[very thick, fill=green!20] (7.5, 0) circle (1.2cm);
+\draw[line width=1.2pt, fill=green!12] (7.5, 0) circle (1.2cm);
 \node[font=\large] at (7.5, 0) {$\Omega'$};
 \node[below] at (7.5, -1.5) {Reduced space};
 \node[below] at (7.5, -2.0) {$2^{n-k}$ states};
 
 % Conservation law annotation
-\draw[decorate, decoration={brace, amplitude=10pt, mirror}, shorten >=2pt, shorten <=2pt] (-2.5, -4) -- (2.5, -4);
+\draw[decorate, decoration={brace, amplitude=10pt, mirror}] (-2.5, -4) -- (2.5, -4);
 \node[below] at (0, -4.5) {$\log_2(\Omega)$ bits of uncertainty};
 
-\draw[decorate, decoration={brace, amplitude=8pt, mirror}, shorten >=2pt, shorten <=2pt] (6.3, -4) -- (8.7, -4);
+\draw[decorate, decoration={brace, amplitude=8pt, mirror}] (6.3, -4) -- (8.7, -4);
 \node[below] at (7.5, -4.5) {$\log_2(\Omega')$ bits};
 
 % The key equation
-\node[draw, very thick, fill=yellow!20, rounded corners, align=center, text width=4.5cm] at (4, -5.5) {
+\node[draw, line width=1.2pt, fill=yellow!15, rounded corners=3pt, align=center, text width=4.5cm] at (4, -5.5) {
     \textbf{Conservation Law:}\\[0.2cm]
     $\Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')$
 };
@@ -574,10 +609,11 @@ These three layers are not independent implementations—they are \textit{isomor
 \centering
 \begin{tikzpicture}[
     scale=1.0,
-    node distance=2.5cm,
-    layer/.style={rectangle, draw, rounded corners, minimum width=7.2cm, minimum height=2.6cm, align=center, thick},
-    arrow/.style={<->, very thick, >=stealth, blue},
-    every node/.style={font=\normalsize}
+    node distance=3.0cm,
+    layer/.style={rectangle, draw, rounded corners=3pt, minimum width=7.2cm, minimum height=2.6cm, align=center, thick},
+    arrow/.style={<->, line width=1.2pt, >=Stealth, blue},
+    every node/.style={font=
+ormalsize}
 ]
 
 % Layer 1: Coq
@@ -588,23 +624,23 @@ These three layers are not independent implementations—they are \textit{isomor
 };
 
 % Layer 2: Python
-\node[layer, fill=blue!20, align=center, text width=4.5cm] (python) at (0, 2) {
+\node[layer, fill=blue!12, align=center, text width=4.5cm] (python) at (0, 2) {
     \textbf{Layer 2: Python VM}\\
     \small Executable reference\\
     \small Ed25519-signed receipts
 };
 
 % Layer 3: Hardware
-\node[layer, fill=green!20, align=center, text width=4.5cm] (rtl) at (0, 0) {
+\node[layer, fill=green!12, align=center, text width=4.5cm] (rtl) at (0, 0) {
     \textbf{Layer 3: Verilog RTL}\\
     \small Physical realization\\
     \small FPGA synthesizable
 };
 
 % Bidirectional arrows with labels
-\draw[arrow, shorten >=2pt, shorten <=2pt] (coq.south) -- (python.north) 
+\draw[arrow] (coq.south) -- (python.north) 
     node[pos=0.5, right, xshift=10pt, font=\small] {Bisimulation};
-\draw[arrow, shorten >=2pt, shorten <=2pt] (python.south) -- (rtl.north)
+\draw[arrow] (python.south) -- (rtl.north)
     node[pos=0.5, right, xshift=10pt, font=\small] {Bisimulation};
 
 % Properties on the left
@@ -630,9 +666,9 @@ These three layers are not independent implementations—they are \textit{isomor
 };
 
 % Arrows from properties
-\draw[->, dashed, gray, shorten >=2pt, shorten <=2pt] (p1.east) -- (coq.west);
-\draw[->, dashed, gray, shorten >=2pt, shorten <=2pt] (p2.east) -- (python.west);
-\draw[->, dashed, gray, shorten >=2pt, shorten <=2pt] (p3.east) -- (rtl.west);
+\draw[->, dashed, gray] (p1.east) -- (coq.west);
+\draw[->, dashed, gray] (p2.east) -- (python.west);
+\draw[->, dashed, gray] (p3.east) -- (rtl.west);
 
 % Bottom annotation
 \node[below=2.9cm of rtl, align=center,  text width=4.5cm, font=\small, yshift=-6pt] {
