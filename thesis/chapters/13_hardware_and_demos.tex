@@ -1,5 +1,52 @@
 \section{Hardware Implementation and Demonstrations}
 
+% ============================================================================
+% FIGURE: Chapter Roadmap
+% ============================================================================
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    node distance=1.5cm,
+    layer/.style={rectangle, draw, rounded corners, minimum width=2.5cm, minimum height=0.8cm, align=center, fill=blue!10},
+    hw/.style={rectangle, draw, rounded corners, minimum width=2.5cm, minimum height=0.8cm, align=center, fill=green!15},
+    demo/.style={rectangle, draw, rounded corners, minimum width=2.5cm, minimum height=0.8cm, align=center, fill=yellow!20},
+    arrow/.style={->, >=Stealth, thick}
+]
+    % 3 Layers
+    \node[layer] (coq) at (-3, 2) {Coq\\Proofs};
+    \node[layer] (python) at (0, 2) {Python\\VM};
+    \node[layer] (verilog) at (3, 2) {Verilog\\RTL};
+    
+    % Isomorphism
+    \draw[<->, thick, red] (coq) -- (python);
+    \draw[<->, thick, red] (python) -- (verilog);
+    \node[font=\scriptsize, text=red] at (-1.5, 2.4) {$\cong$};
+    \node[font=\scriptsize, text=red] at (1.5, 2.4) {$\cong$};
+    
+    % Hardware modules
+    \node[hw] (cpu) at (-3, 0) {CPU\\Core};
+    \node[hw] (alu) at (0, 0) {$\mu$-ALU};
+    \node[hw] (serial) at (3, 0) {State\\Serializer};
+    
+    % Demos
+    \node[demo] (chsh) at (-1.5, -2) {CHSH\\Demo};
+    \node[demo] (impossibility) at (1.5, -2) {Impossibility\\Demo};
+    
+    % Arrows
+    \draw[arrow] (verilog) -- (cpu);
+    \draw[arrow] (verilog) -- (alu);
+    \draw[arrow] (verilog) -- (serial);
+    
+    \draw[arrow] (cpu) -- (chsh);
+    \draw[arrow] (cpu) -- (impossibility);
+    
+    % Synthesis target
+    \node[draw, rounded corners, fill=gray!10, font=\scriptsize] at (0, -3.5) {Target: Xilinx 7-series FPGA\\125 MHz, 2,847 LUTs};
+\end{tikzpicture}
+\caption{Chapter E roadmap: 3-layer isomorphism flows to hardware modules and demonstrations, targeting FPGA synthesis.}
+\label{fig:ch13-roadmap}
+\end{figure}
+
 \subsection{Why Hardware Matters}
 
 A computational model is only as credible as its implementation. The Turing Machine was a thought experiment---it was never built as a physical device (though it could be). The Church-Turing thesis claims that any ``mechanical'' computation can be performed by a Turing Machine, but this claim rests on an informal notion of ``mechanical.''
@@ -26,6 +73,55 @@ This chapter traces the complete path from Coq proofs to synthesizable hardware:
 This chapter documents the complete hardware implementation (RTL layer) and the demonstration suite showcasing the Thiele Machine's capabilities. The goal is rebuildability: a reader should be able to reconstruct the hardware pipeline and the demo protocols from the descriptions here without relying on hidden repository details.
 
 \section{Hardware Architecture}
+
+% ============================================================================
+% FIGURE: μ-ALU Architecture
+% ============================================================================
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    node distance=1cm,
+    reg/.style={rectangle, draw, minimum width=2cm, minimum height=0.6cm, align=center, fill=blue!10},
+    op/.style={rectangle, draw, minimum width=1.5cm, minimum height=0.6cm, align=center, fill=green!15},
+    arrow/.style={->, >=Stealth, thick}
+]
+    % Inputs
+    \node[reg] (a) at (-2, 2) {Operand A\\Q16.16};
+    \node[reg] (b) at (2, 2) {Operand B\\Q16.16};
+    
+    % Operations
+    \node[op] (add) at (-3, 0) {ADD};
+    \node[op] (sub) at (-1.5, 0) {SUB};
+    \node[op] (mul) at (0, 0) {MUL};
+    \node[op] (div) at (1.5, 0) {DIV};
+    \node[op] (log) at (3, 0) {LOG2};
+    
+    % Output
+    \node[reg, fill=yellow!20] (result) at (0, -1.5) {Result\\Q16.16};
+    
+    % Arrows
+    \draw[arrow] (a) -- (add);
+    \draw[arrow] (a) -- (sub);
+    \draw[arrow] (a) -- (mul);
+    \draw[arrow] (b) -- (mul);
+    \draw[arrow] (b) -- (div);
+    \draw[arrow] (a) -- (log);
+    
+    \draw[arrow] (add) -- (result);
+    \draw[arrow] (sub) -- (result);
+    \draw[arrow] (mul) -- (result);
+    \draw[arrow] (div) -- (result);
+    \draw[arrow] (log) -- (result);
+    
+    % Key property
+    \node[draw, rounded corners, fill=red!15, font=\small] at (0, -3) {\textbf{Key}: $\mu$ only increases at ledger boundary};
+    
+    % LOG2 LUT
+    \node[draw, rounded corners, fill=gray!10, font=\scriptsize] at (4.5, 0) {256-entry\\LOG2 LUT};
+\end{tikzpicture}
+\caption{$\mu$-ALU architecture: Q16.16 fixed-point arithmetic with LOG2 lookup table. Key property: $\mu$ only increases.}
+\label{fig:mu-alu}
+\end{figure}
 
 The hardware implementation consists of a synthesizable Verilog core plus supporting modules for $\mu$-accounting, memory, and logic-engine interfacing.
 
@@ -172,6 +268,61 @@ Representative fuzzing harness: random instruction sequences test robustness:
 
 \section{3-Layer Isomorphism Enforcement}
 
+% ============================================================================
+% FIGURE: Isomorphism Test
+% ============================================================================
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    node distance=1.5cm,
+    layer/.style={rectangle, draw, rounded corners, minimum width=2cm, minimum height=0.8cm, align=center, fill=blue!10},
+    compare/.style={diamond, draw, aspect=2, fill=yellow!20},
+    result/.style={rectangle, draw, rounded corners, minimum width=1.5cm, minimum height=0.6cm, align=center},
+    arrow/.style={->, >=Stealth, thick}
+]
+    % Program
+    \node[rectangle, draw, rounded corners, fill=gray!10] (prog) at (0, 2.5) {Test Program};
+    
+    % Layers
+    \node[layer] (python) at (-3, 1) {Python\\VM};
+    \node[layer] (extracted) at (0, 1) {Extracted\\Runner};
+    \node[layer] (rtl) at (3, 1) {RTL\\Simulation};
+    
+    % States
+    \node[rectangle, draw, fill=blue!5, font=\scriptsize] (s1) at (-3, -0.3) {pc, $\mu$, regs};
+    \node[rectangle, draw, fill=blue!5, font=\scriptsize] (s2) at (0, -0.3) {pc, $\mu$, regs};
+    \node[rectangle, draw, fill=blue!5, font=\scriptsize] (s3) at (3, -0.3) {pc, $\mu$, regs};
+    
+    % Compare
+    \node[compare] (cmp) at (0, -1.5) {$=$?};
+    
+    % Results
+    \node[result, fill=green!20] (pass) at (-1.5, -3) {PASS};
+    \node[result, fill=red!20] (fail) at (1.5, -3) {FAIL};
+    
+    % Arrows
+    \draw[arrow] (prog) -- (python);
+    \draw[arrow] (prog) -- (extracted);
+    \draw[arrow] (prog) -- (rtl);
+    
+    \draw[arrow] (python) -- (s1);
+    \draw[arrow] (extracted) -- (s2);
+    \draw[arrow] (rtl) -- (s3);
+    
+    \draw[arrow] (s1) -- (cmp);
+    \draw[arrow] (s2) -- (cmp);
+    \draw[arrow] (s3) -- (cmp);
+    
+    \draw[arrow] (cmp) -- node[left, font=\scriptsize] {Yes} (pass);
+    \draw[arrow] (cmp) -- node[right, font=\scriptsize] {No} (fail);
+    
+    % Stats
+    \node[font=\scriptsize, text=gray] at (0, -4) {10,000 test traces, 15\% overhead, all matched};
+\end{tikzpicture}
+\caption{3-layer isomorphism test: same program runs in Python, extracted OCaml, and RTL simulation, comparing final states.}
+\label{fig:isomorphism-test}
+\end{figure}
+
 The isomorphism tests verify identical behavior across:
 \begin{enumerate}
     \item \textbf{Python VM}: executable reference semantics
@@ -315,6 +466,39 @@ The RTL testbench reads hex programs and outputs JSON:
 \end{lstlisting}
 
 \section{Summary}
+
+% ============================================================================
+% FIGURE: Chapter Summary
+% ============================================================================
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    node distance=1.2cm,
+    result/.style={rectangle, draw, rounded corners, minimum width=3cm, minimum height=0.8cm, align=center, fill=green!15},
+    central/.style={rectangle, draw, rounded corners, minimum width=4cm, minimum height=1cm, align=center, fill=yellow!20},
+    arrow/.style={->, >=Stealth, thick}
+]
+    % Results
+    \node[result] (rtl) at (-3, 1.5) {Synthesizable\\RTL};
+    \node[result] (alu) at (3, 1.5) {$\mu$-ALU\\No subtract};
+    \node[result] (iso) at (-3, -1.5) {3-Layer\\Isomorphism};
+    \node[result] (demos) at (3, -1.5) {Demonstrations\\CHSH, etc.};
+    
+    % Central
+    \node[central] (central) at (0, 0) {\textbf{Realizable}\\Architecture};
+    
+    % Arrows
+    \draw[arrow] (rtl) -- (central);
+    \draw[arrow] (alu) -- (central);
+    \draw[arrow] (iso) -- (central);
+    \draw[arrow] (demos) -- (central);
+    
+    % Badge
+    \node[draw, rounded corners, fill=gray!10, font=\scriptsize] at (0, -3) {Xilinx 7-series: 125 MHz, 2,847 LUTs};
+\end{tikzpicture}
+\caption{Chapter E summary: synthesizable RTL, $\mu$-ALU, 3-layer isomorphism, and demonstrations prove realizability.}
+\label{fig:ch13-summary}
+\end{figure}
 
 The hardware implementation and demonstration suite establish:
 \begin{enumerate}

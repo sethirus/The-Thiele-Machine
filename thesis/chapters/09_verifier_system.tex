@@ -1,5 +1,57 @@
 \section{The Verifier System: Receipt-Defined Certification}
 
+% ============================================================================
+% FIGURE: Chapter Roadmap
+% ============================================================================
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    node distance=1.5cm,
+    box/.style={rectangle, draw, rounded corners, minimum width=2.5cm, minimum height=0.8cm, align=center, fill=blue!10},
+    cmodule/.style={rectangle, draw, rounded corners, minimum width=2cm, minimum height=0.8cm, align=center, fill=green!15},
+    arrow/.style={->, >=Stealth, thick}
+]
+    % Central node
+    \node[box, fill=yellow!20, minimum width=4cm] (verifier) at (0,0) {\textbf{Verifier System}\\Receipt-Defined};
+    
+    % C-modules
+    \node[cmodule] (crand) at (-4, 2) {C-RAND\\Randomness};
+    \node[cmodule] (ctomo) at (-1.5, 2.5) {C-TOMO\\Tomography};
+    \node[cmodule] (centropy) at (1.5, 2.5) {C-ENTROPY\\Entropy};
+    \node[cmodule] (ccausal) at (4, 2) {C-CAUSAL\\Causation};
+    
+    % Ingredients
+    \node[box] (trace) at (-4, -1.5) {Trace\\Integrity};
+    \node[box] (semantic) at (0, -1.5) {Semantic\\Checking};
+    \node[box] (cost) at (4, -1.5) {$\mu$-Cost\\Accounting};
+    
+    % TRS Protocol
+    \node[box, fill=red!15] (trs) at (0, -3) {TRS-1.0\\Receipt Protocol};
+    
+    % Arrows
+    \draw[arrow] (crand) -- (verifier);
+    \draw[arrow] (ctomo) -- (verifier);
+    \draw[arrow] (centropy) -- (verifier);
+    \draw[arrow] (ccausal) -- (verifier);
+    
+    \draw[arrow] (trace) -- (verifier);
+    \draw[arrow] (semantic) -- (verifier);
+    \draw[arrow] (cost) -- (verifier);
+    
+    \draw[arrow] (trs) -- (trace);
+    \draw[arrow] (trs) -- (semantic);
+    \draw[arrow] (trs) -- (cost);
+    
+    % Annotations
+    \node[font=\scriptsize, text=gray] at (-4, 1.2) {§A.3};
+    \node[font=\scriptsize, text=gray] at (-1.5, 1.7) {§A.4};
+    \node[font=\scriptsize, text=gray] at (1.5, 1.7) {§A.5};
+    \node[font=\scriptsize, text=gray] at (4, 1.2) {§A.6};
+\end{tikzpicture}
+\caption{Chapter A (Verifier System) roadmap showing the four C-modules and three verification ingredients, all built on the TRS-1.0 receipt protocol.}
+\label{fig:ch9-roadmap}
+\end{figure}
+
 \subsection{Why Verification Matters}
 
 Scientific claims require evidence. When a researcher claims ``this algorithm produces truly random numbers'' or ``this drug causes improved outcomes,'' I need a way to verify these claims independently. Traditional verification relies on trust: I trust that the researcher ran the experiments correctly, recorded the data accurately, and analyzed it properly.
@@ -27,6 +79,39 @@ Each module corresponds to a concrete verifier implementation under \path{verifi
 The key insight is that \textit{stronger claims require more evidence}. If you claim high-quality randomness, you must demonstrate the source of that randomness. If you claim precise measurements, you must show enough trials to support that precision. The verifier system makes this relationship explicit and enforceable by turning every claim into a checkable predicate over receipts and by requiring explicit $\mu$-charged disclosures whenever the predicate is strengthened.
 
 \section{Architecture Overview}
+
+% ============================================================================
+% FIGURE: TRS-1.0 Receipt Structure
+% ============================================================================
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    node distance=0.5cm,
+    field/.style={rectangle, draw, minimum width=6cm, minimum height=0.7cm, align=center},
+    arrow/.style={->, >=Stealth, thick}
+]
+    % Receipt structure
+    \node[field, fill=blue!10] (version) at (0, 3) {\texttt{version}: "TRS-1.0"};
+    \node[field, fill=blue!10] (timestamp) at (0, 2.2) {\texttt{timestamp}: ISO-8601};
+    \node[field, fill=green!15, minimum height=1.5cm] (manifest) at (0, 1) {\texttt{manifest}: \{hash → artifact\}};
+    \node[field, fill=red!15] (signature) at (0, -0.2) {\texttt{signature}: Ed25519};
+    
+    % Brace
+    \draw[decorate, decoration={brace, amplitude=10pt, mirror}] (3.5, 3.4) -- (3.5, -0.6) node[midway, right=0.5cm, align=left] {Content-addressed\\Signed\\Minimal};
+    
+    % Properties
+    \node[font=\scriptsize] at (-4, 2.5) {Immutable};
+    \node[font=\scriptsize] at (-4, 1) {SHA-256};
+    \node[font=\scriptsize] at (-4, -0.2) {Tamper-proof};
+    
+    % Arrows
+    \draw[arrow, dashed] (-3.2, 2.5) -- (-3.1, 2.5);
+    \draw[arrow, dashed] (-3.2, 1) -- (-3.1, 1);
+    \draw[arrow, dashed] (-3.2, -0.2) -- (-3.1, -0.2);
+\end{tikzpicture}
+\caption{TRS-1.0 Receipt Protocol structure. All artifacts are content-addressed via SHA-256 and signed with Ed25519 for tamper-proof verification.}
+\label{fig:trs-receipt}
+\end{figure}
 
 \subsection{The Closed Work System}
 
@@ -76,6 +161,38 @@ Every C-module ships three mandatory falsifier tests. Each test targets a distin
 \end{enumerate}
 
 \section{C-RAND: Certified Randomness}
+
+% ============================================================================
+% FIGURE: C-RAND Verification Flow
+% ============================================================================
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    node distance=1.5cm,
+    box/.style={rectangle, draw, rounded corners, minimum width=2.5cm, minimum height=0.8cm, align=center, fill=blue!10},
+    check/.style={diamond, draw, aspect=2, fill=yellow!20, align=center},
+    arrow/.style={->, >=Stealth, thick}
+]
+    % Flow
+    \node[box] (input) at (0, 0) {Randomness\\Claim};
+    \node[check] (receipt) at (3, 0) {In TRS?};
+    \node[check] (entropy) at (6, 0) {$H_{min}$\\evidence?};
+    \node[box, fill=green!20] (pass) at (9, 0.8) {PASS};
+    \node[box, fill=red!20] (fail) at (9, -0.8) {REJECT};
+    
+    % Arrows
+    \draw[arrow] (input) -- (receipt);
+    \draw[arrow] (receipt) -- node[above, font=\scriptsize] {Yes} (entropy);
+    \draw[arrow] (receipt.south) -- ++(0, -0.5) -| node[near start, below, font=\scriptsize] {No} (fail);
+    \draw[arrow] (entropy) -- node[above, font=\scriptsize] {Yes} (pass);
+    \draw[arrow] (entropy.south) -- ++(0, -0.3) -| (fail);
+    
+    % Cost equation
+    \node[draw, rounded corners, fill=gray!10, font=\small] at (4.5, -2) {Required disclosure: $\lceil 1024 \cdot H_{min} \rceil$ bits};
+\end{tikzpicture}
+\caption{C-RAND verification flow. Claims must be receipt-bound and provide min-entropy evidence proportional to claimed quality.}
+\label{fig:crand-flow}
+\end{figure}
 
 \subsection{Claim Structure}
 
@@ -155,6 +272,51 @@ where $c$ is a domain-specific constant.
 
 \section{C-ENTROPY: Coarse-Graining Made Explicit}
 
+% ============================================================================
+% FIGURE: Entropy Coarse-Graining
+% ============================================================================
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    node distance=1cm,
+    state/.style={circle, draw, minimum size=0.3cm, fill=blue!20},
+    partition/.style={rectangle, draw, dashed, rounded corners, minimum width=1.5cm, minimum height=1cm}
+]
+    % Raw states (infinite equivalence class)
+    \node[font=\small\bfseries] at (-3, 2) {Raw State Space};
+    \foreach \i in {1,...,12} {
+        \node[state, fill=blue!\the\numexpr20+\i*5\relax] at ({-4+mod(\i-1,4)*0.6}, {1.5-floor((\i-1)/4)*0.5}) {};
+    }
+    \node[font=\scriptsize] at (-3, 0) {$|\Omega| = \infty$};
+    
+    % Arrow
+    \draw[->, >=Stealth, thick, decorate, decoration={snake, amplitude=2pt, segment length=10pt}] (-1, 1) -- (1, 1) node[midway, above, font=\scriptsize] {Coarse-grain};
+    
+    % Partitioned states
+    \node[font=\small\bfseries] at (3, 2) {With Partition};
+    \node[partition, fill=red!10] (p1) at (2, 1) {};
+    \node[partition, fill=green!10] (p2) at (3.5, 1) {};
+    \node[partition, fill=blue!10] (p3) at (2.75, 0) {};
+    
+    \foreach \i in {1,...,3} {
+        \node[state, fill=red!40] at ({1.7+(\i-1)*0.3}, 1) {};
+    }
+    \foreach \i in {1,...,3} {
+        \node[state, fill=green!40] at ({3.2+(\i-1)*0.3}, 1) {};
+    }
+    \foreach \i in {1,...,4} {
+        \node[state, fill=blue!40] at ({2.3+(\i-1)*0.3}, 0) {};
+    }
+    
+    \node[font=\scriptsize] at (3, -0.8) {$H = \log_2(|\text{bins}|)$};
+    
+    % Key insight
+    \node[draw, rounded corners, fill=yellow!20, font=\small, text width=5cm, align=center] at (0, -1.8) {Entropy is \textbf{undefined} without declared coarse-graining};
+\end{tikzpicture}
+\caption{Entropy requires explicit coarse-graining. The infinite raw state space has undefined entropy; only partitioned views have computable entropy.}
+\label{fig:entropy-coarse}
+\end{figure}
+
 \subsection{The Entropy Underdetermination Problem}
 
 Entropy is ill-defined without specifying a coarse-graining (partition). Two observers with different partitions will compute different entropies for the same physical state. A verifier therefore treats the coarse-graining itself as part of the claim and requires it to be receipted.
@@ -197,6 +359,54 @@ Theorem region_equiv_class_infinite : forall s,
 This proves that observational equivalence classes are infinite, blocking entropy computation without explicit coarse-graining. In practice, the verifier uses this impossibility result to reject entropy claims that omit a receipted partition.
 
 \section{C-CAUSAL: No Free Causal Explanation}
+
+% ============================================================================
+% FIGURE: Causal DAG Markov Equivalence
+% ============================================================================
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    node distance=1.5cm,
+    var/.style={circle, draw, minimum size=0.8cm, fill=blue!20},
+    arrow/.style={->, >=Stealth, thick}
+]
+    % Equivalence class
+    \node[font=\small\bfseries] at (-3, 2) {Markov Equivalence Class};
+    
+    % DAG 1
+    \node[var] (a1) at (-4.5, 0.5) {A};
+    \node[var] (b1) at (-3, 0.5) {B};
+    \node[var] (c1) at (-3.75, -0.5) {C};
+    \draw[arrow] (a1) -- (b1);
+    \draw[arrow] (a1) -- (c1);
+    \draw[arrow] (b1) -- (c1);
+    
+    % DAG 2
+    \node[var] (a2) at (-1.5, 0.5) {A};
+    \node[var] (b2) at (0, 0.5) {B};
+    \node[var] (c2) at (-0.75, -0.5) {C};
+    \draw[arrow] (b2) -- (a2);
+    \draw[arrow] (a2) -- (c2);
+    \draw[arrow] (b2) -- (c2);
+    
+    % DAG 3
+    \node[var] (a3) at (1.5, 0.5) {A};
+    \node[var] (b3) at (3, 0.5) {B};
+    \node[var] (c3) at (2.25, -0.5) {C};
+    \draw[arrow] (a3) -- (b3);
+    \draw[arrow] (c3) -- (a3);
+    \draw[arrow] (c3) -- (b3);
+    
+    % Equals signs
+    \node at (-2.25, 0) {$\equiv$};
+    \node at (0.75, 0) {$\equiv$};
+    
+    % Annotation
+    \node[draw, rounded corners, fill=red!15, font=\small, text width=6cm, align=center] at (-0.75, -2) {Observational data \textbf{cannot} distinguish these DAGs\\Unique DAG claim requires 8192 disclosure bits};
+\end{tikzpicture}
+\caption{Markov equivalence: multiple DAGs produce identical observational distributions. Unique causal claims require interventional evidence or explicit assumptions.}
+\label{fig:markov-equiv}
+\end{figure}
 
 \subsection{The Causal Inference Problem}
 
@@ -277,6 +487,39 @@ Under admissibility constraint $K$ (bounded $\mu$-information):
 This bound is machine-checked in the formal development and enforced by the verifier. The exact form of $f$ depends on the domain-specific bridge, but the dependency on $K$ is universal: stronger improvements require larger disclosed structure.
 
 \section{Summary}
+
+% ============================================================================
+% FIGURE: Chapter Summary
+% ============================================================================
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    node distance=1.5cm,
+    cmodule/.style={rectangle, draw, rounded corners, minimum width=3cm, minimum height=1cm, align=center, fill=green!15},
+    principle/.style={rectangle, draw, rounded corners, minimum width=5cm, minimum height=1cm, align=center, fill=yellow!20},
+    arrow/.style={->, >=Stealth, thick}
+]
+    % C-modules
+    \node[cmodule] (crand) at (-3, 2) {C-RAND\\$\mu$-revelation for bits};
+    \node[cmodule] (ctomo) at (3, 2) {C-TOMO\\$n \propto \epsilon^{-2}$};
+    \node[cmodule] (centropy) at (-3, 0) {C-ENTROPY\\Coarse-graining required};
+    \node[cmodule] (ccausal) at (3, 0) {C-CAUSAL\\Interventions for DAGs};
+    
+    % Central principle
+    \node[principle] (nfi) at (0, -2) {\textbf{No Free Insight}\\Stronger claims require more evidence};
+    
+    % Arrows
+    \draw[arrow] (crand) -- (nfi);
+    \draw[arrow] (ctomo) -- (nfi);
+    \draw[arrow] (centropy) -- (nfi);
+    \draw[arrow] (ccausal) -- (nfi);
+    
+    % Falsifier pattern
+    \node[draw, rounded corners, fill=gray!10, font=\scriptsize, text width=4cm, align=center] at (0, -4) {Each module includes\\Forge / Underpay / Bypass\\falsifier tests};
+\end{tikzpicture}
+\caption{Chapter A summary: Four C-modules transform No Free Insight into practical, falsifiable enforcement.}
+\label{fig:ch9-summary}
+\end{figure}
 
 The verifier system transforms the theoretical No Free Insight principle into practical, falsifiable enforcement:
 

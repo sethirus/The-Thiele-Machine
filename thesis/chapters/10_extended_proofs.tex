@@ -1,5 +1,53 @@
 \section{Extended Proof Architecture}
 
+% ============================================================================
+% FIGURE: Chapter Roadmap
+% ============================================================================
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    node distance=1.2cm,
+    domain/.style={rectangle, draw, rounded corners, minimum width=2.8cm, minimum height=0.8cm, align=center, fill=blue!10},
+    core/.style={rectangle, draw, rounded corners, minimum width=3.5cm, minimum height=1cm, align=center, fill=yellow!20},
+    arrow/.style={->, >=Stealth, thick}
+]
+    % Core
+    \node[core] (kernel) at (0, 0) {\textbf{Kernel Semantics}\\VMState, VMStep, $\mu$};
+    
+    % Domains
+    \node[domain] (partition) at (-4, 2) {Partition\\Logic};
+    \node[domain] (quantum) at (-1.5, 2.5) {Quantum\\Bounds};
+    \node[domain] (toe) at (1.5, 2.5) {TOE\\Limits};
+    \node[domain] (physics) at (4, 2) {Physics\\Models};
+    
+    \node[domain] (bridge) at (-4, -2) {Bridge\\Lemmas};
+    \node[domain] (nofi) at (-1.5, -2.5) {NoFI\\Interface};
+    \node[domain] (self) at (1.5, -2.5) {Self-\\Reference};
+    \node[domain] (modular) at (4, -2) {Modular\\Proofs};
+    
+    % Arrows
+    \draw[arrow] (kernel) -- (partition);
+    \draw[arrow] (kernel) -- (quantum);
+    \draw[arrow] (kernel) -- (toe);
+    \draw[arrow] (kernel) -- (physics);
+    \draw[arrow] (kernel) -- (bridge);
+    \draw[arrow] (kernel) -- (nofi);
+    \draw[arrow] (kernel) -- (self);
+    \draw[arrow] (kernel) -- (modular);
+    
+    % Zero admit badge
+    \node[draw, circle, fill=green!30, font=\scriptsize\bfseries] at (0, -0.8) {0 admits};
+    
+    % File counts
+    \node[font=\scriptsize, text=gray] at (-4, 1.2) {98 files};
+    \node[font=\scriptsize, text=gray] at (4, 1.2) {5 files};
+    \node[font=\scriptsize, text=gray] at (-4, -1.2) {6 files};
+    \node[font=\scriptsize, text=gray] at (4, -1.2) {7 files};
+\end{tikzpicture}
+\caption{Extended proof architecture: eight proof domains building on the kernel semantics, all with zero admits.}
+\label{fig:ch10-roadmap}
+\end{figure}
+
 \subsection{Why Machine-Checked Proofs?}
 
 Mathematical proofs have been the gold standard of certainty for millennia. When Euclid proved the infinitude of primes, his proof was ``checked'' by human readers. But human checking is fallible---history is littered with ``proofs'' that contained subtle errors discovered years later.
@@ -137,6 +185,48 @@ Further results cover: blind vs sighted computation, confluence, simulation rela
 
 \section{Theory of Everything (TOE) Proofs}
 
+% ============================================================================
+% FIGURE: TOE Results
+% ============================================================================
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    node distance=1.5cm,
+    forces/.style={rectangle, draw, rounded corners, minimum width=3cm, minimum height=0.8cm, align=center, fill=green!15},
+    nogo/.style={rectangle, draw, rounded corners, minimum width=3cm, minimum height=0.8cm, align=center, fill=red!15},
+    arrow/.style={->, >=Stealth, thick}
+]
+    % Kernel
+    \node[rectangle, draw, rounded corners, fill=yellow!20, minimum width=4cm, minimum height=1cm] (kernel) at (0, 0) {\textbf{Kernel Semantics}\\Compositionality};
+    
+    % What kernel forces
+    \node[font=\small\bfseries] at (-3.5, 2) {Kernel Forces};
+    \node[forces] (locality) at (-3.5, 1) {Locality};
+    \node[forces] (monotone) at (-3.5, 0) {$\mu$-Monotonicity};
+    \node[forces] (cone) at (-3.5, -1) {Cone Locality};
+    
+    % What kernel cannot force
+    \node[font=\small\bfseries] at (3.5, 2) {Kernel Cannot Force};
+    \node[nogo] (weight) at (3.5, 1) {Unique Weight};
+    \node[nogo] (prob) at (3.5, 0) {Probability Measure};
+    \node[nogo] (lorentz) at (3.5, -1) {Lorentz Structure};
+    
+    % Arrows
+    \draw[arrow, green!60!black] (kernel) -- (locality);
+    \draw[arrow, green!60!black] (kernel) -- (monotone);
+    \draw[arrow, green!60!black] (kernel) -- (cone);
+    
+    \draw[arrow, red!60!black, dashed] (kernel) -- (weight);
+    \draw[arrow, red!60!black, dashed] (kernel) -- (prob);
+    \draw[arrow, red!60!black, dashed] (kernel) -- (lorentz);
+    
+    % Key theorem
+    \node[draw, rounded corners, fill=gray!10, font=\small, text width=6cm, align=center] at (0, -2.5) {\texttt{Physics\_Requires\_Extra\_Structure}\\Additional axioms needed beyond compositionality};
+\end{tikzpicture}
+\caption{TOE results: the kernel forces locality and monotonicity but cannot force unique weights or Lorentz structure.}
+\label{fig:toe-results}
+\end{figure}
+
 This branch of the development attempts to derive physics from kernel semantics alone.
 
 \subsection{The Final Outcome Theorem}
@@ -245,6 +335,47 @@ Observational equivalence classes are infinite, blocking log-cardinality entropy
 No unique probability measure over traces is forced by the kernel semantics.
 
 \section{Quantum Bound Proofs}
+
+% ============================================================================
+% FIGURE: Tsirelson Bound
+% ============================================================================
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    scale=0.8
+]
+    % Scale
+    \draw[thick] (0, 0) -- (10, 0);
+    \foreach \x in {0, 2.5, 5, 7.07, 10} {
+        \draw[thick] (\x, -0.2) -- (\x, 0.2);
+    }
+    
+    % Labels
+    \node[below] at (0, -0.3) {0};
+    \node[below] at (2.5, -0.3) {2};
+    \node[below] at (5, -0.3) {$2\sqrt{2}$};
+    \node[below] at (7.07, -0.3) {$\frac{5657}{2000}$};
+    \node[below] at (10, -0.3) {4};
+    
+    % Regions
+    \fill[blue!20] (0, 0.5) rectangle (2.5, 1.5);
+    \fill[green!20] (2.5, 0.5) rectangle (5, 1.5);
+    \fill[red!20] (5, 0.5) rectangle (10, 1.5);
+    
+    \node at (1.25, 1) {Classical};
+    \node at (3.75, 1) {Quantum};
+    \node at (7.5, 1) {Supra-Q};
+    
+    % Machine-checked bound
+    \draw[thick, red, ->] (7.07, 2) -- (7.07, 0.3);
+    \node[above, font=\small, text=red] at (7.07, 2) {Machine-checked};
+    
+    % Key insight
+    \node[draw, rounded corners, fill=yellow!20, font=\small] at (5, -1.5) {$|S| \le \frac{5657}{2000} \approx 2.8285$ (exact rational)};
+\end{tikzpicture}
+\caption{Tsirelson bound proven as exact rational inequality $\frac{5657}{2000}$, not floating-point approximation.}
+\label{fig:tsirelson-bound}
+\end{figure}
 
 \subsection{Kernel-Level Guarantee}
 
@@ -360,6 +491,39 @@ Definition psplit_cost_bound (left right : list nat) : nat :=
 These predictions are falsifiable: if benchmarks show costs outside these bounds, the theory is wrong.
 
 \section{Summary}
+
+% ============================================================================
+% FIGURE: Chapter Summary
+% ============================================================================
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    node distance=1.2cm,
+    result/.style={rectangle, draw, rounded corners, minimum width=3.5cm, minimum height=0.8cm, align=center, fill=green!15},
+    central/.style={rectangle, draw, rounded corners, minimum width=4cm, minimum height=1cm, align=center, fill=yellow!20},
+    arrow/.style={->, >=Stealth, thick}
+]
+    % Results
+    \node[result] (corpus) at (-3, 1.5) {Zero-Admit\\Corpus};
+    \node[result] (quantum) at (3, 1.5) {CHSH $\le$ 5657/2000};
+    \node[result] (toe) at (-3, -1.5) {TOE Limits};
+    \node[result] (subsume) at (3, -1.5) {Thiele $\supset$ Turing};
+    
+    % Central
+    \node[central] (central) at (0, 0) {\textbf{Machine-Verified}\\Computational Physics};
+    
+    % Arrows
+    \draw[arrow] (corpus) -- (central);
+    \draw[arrow] (quantum) -- (central);
+    \draw[arrow] (toe) -- (central);
+    \draw[arrow] (subsume) -- (central);
+    
+    % Badge
+    \node[draw, circle, fill=green!30, font=\scriptsize\bfseries] at (0, -0.7) {206 files};
+\end{tikzpicture}
+\caption{Extended proof architecture establishes machine-verified computational physics with zero admits across 206 files.}
+\label{fig:ch10-summary}
+\end{figure}
 
 The extended proof architecture establishes:
 \begin{enumerate}

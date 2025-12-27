@@ -1,5 +1,50 @@
 \section{Physics Models and Algorithmic Primitives}
 
+% ============================================================================
+% FIGURE: Chapter Roadmap
+% ============================================================================
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    node distance=1.5cm,
+    model/.style={rectangle, draw, rounded corners, minimum width=2.5cm, minimum height=0.8cm, align=center, fill=blue!10},
+    algo/.style={rectangle, draw, rounded corners, minimum width=2.5cm, minimum height=0.8cm, align=center, fill=green!15},
+    bridge/.style={rectangle, draw, rounded corners, minimum width=2.5cm, minimum height=0.8cm, align=center, fill=yellow!20},
+    arrow/.style={->, >=Stealth, thick}
+]
+    % Physics models
+    \node[font=\small\bfseries] at (-3, 2.5) {Physics Models};
+    \node[model] (wave) at (-4, 1.5) {Wave\\Propagation};
+    \node[model] (diss) at (-2, 1.5) {Dissipative\\Systems};
+    \node[model] (discrete) at (-3, 0.5) {Discrete\\Lattices};
+    
+    % Algorithmic primitives
+    \node[font=\small\bfseries] at (3, 2.5) {Algorithmic Primitives};
+    \node[algo] (period) at (2, 1.5) {Period\\Finding};
+    \node[algo] (gcd) at (4, 1.5) {Euclidean\\GCD};
+    \node[algo] (mod) at (3, 0.5) {Modular\\Arithmetic};
+    
+    % Bridge
+    \node[bridge, minimum width=4cm] (bridge) at (0, -1) {\textbf{Bridge Modules}\\Domain → Kernel};
+    
+    % Arrows
+    \draw[arrow] (wave) -- (bridge);
+    \draw[arrow] (diss) -- (bridge);
+    \draw[arrow] (discrete) -- (bridge);
+    \draw[arrow] (period) -- (bridge);
+    \draw[arrow] (gcd) -- (bridge);
+    \draw[arrow] (mod) -- (bridge);
+    
+    % Conservation laws
+    \node[draw, rounded corners, fill=gray!10, font=\scriptsize, text width=3cm, align=center] at (-3, -0.5) {Conservation\\laws proven};
+    
+    % Shor reduction
+    \node[draw, rounded corners, fill=gray!10, font=\scriptsize, text width=3cm, align=center] at (3, -0.5) {Shor reduction\\formalized};
+\end{tikzpicture}
+\caption{Chapter D roadmap: physics models with conservation laws and algorithmic primitives with Shor reduction, connected via bridge modules.}
+\label{fig:ch12-roadmap}
+\end{figure}
+
 \subsection{Computation as Physics}
 
 A central claim of this thesis is that computation is not merely an abstract mathematical process---it is a \textit{physical} process subject to physical laws. When a computer erases a bit, it dissipates heat. When it stores information, it consumes energy. The $\mu$-ledger tracks these physical costs.
@@ -26,6 +71,42 @@ The second part of this chapter bridges the abstract theory to concrete algorith
 This chapter documents the physics models that demonstrate emergent conservation laws and the algorithmic primitives that bridge abstract mathematics to concrete factorization.
 
 \section{Physics Models}
+
+% ============================================================================
+% FIGURE: Wave Conservation
+% ============================================================================
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    node distance=1cm,
+    cell/.style={rectangle, draw, minimum width=0.8cm, minimum height=0.8cm, align=center}
+]
+    % Wave state
+    \node[font=\small\bfseries] at (-2, 2) {Wave State (1D)};
+    
+    % Cells
+    \foreach \i/\l/\r in {0/3/1, 1/2/2, 2/1/3, 3/2/2, 4/3/1} {
+        \node[cell, fill=blue!\the\numexpr\l*15\relax] at (\i, 1) {\scriptsize $\leftarrow$\l};
+        \node[cell, fill=red!\the\numexpr\r*15\relax] at (\i, 0) {\scriptsize \r$\rightarrow$};
+    }
+    
+    % Labels
+    \node at (-0.8, 1) {\scriptsize L};
+    \node at (-0.8, 0) {\scriptsize R};
+    
+    % Conservation equations
+    \node[draw, rounded corners, fill=yellow!20, text width=5cm, align=center, font=\small] at (2, -1.5) {
+        $E = \sum (L_i^2 + R_i^2)$ conserved\\
+        $P = \sum (R_i - L_i)$ conserved\\
+        Step is reversible
+    };
+    
+    % Arrow
+    \draw[->, >=Stealth, thick] (2, -0.3) -- (2, -0.8);
+\end{tikzpicture}
+\caption{Wave propagation model: left/right amplitudes propagate with conserved energy and momentum.}
+\label{fig:wave-model}
+\end{figure}
 
 The formal development contains verified physics models that demonstrate how physical laws emerge from computational structure.
 
@@ -70,6 +151,48 @@ The dissipative model captures irreversible dynamics, connecting to $\mu$-monoto
 The discrete model uses lattice-based dynamics for discrete spacetime emergence.
 
 \section{Shor Primitives}
+
+% ============================================================================
+% FIGURE: Shor Reduction
+% ============================================================================
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    node distance=1.5cm,
+    step/.style={rectangle, draw, rounded corners, minimum width=2.5cm, minimum height=0.8cm, align=center, fill=blue!10},
+    result/.style={rectangle, draw, rounded corners, minimum width=2.5cm, minimum height=0.8cm, align=center, fill=green!15},
+    arrow/.style={->, >=Stealth, thick}
+]
+    % Input
+    \node[step] (input) at (0, 2) {$N$ to factor\\$a$ coprime to $N$};
+    
+    % Period finding
+    \node[step] (period) at (0, 0.5) {Find period $r$\\$a^r \equiv 1 \pmod{N}$};
+    
+    % Candidate
+    \node[step] (candidate) at (0, -1) {Compute $g$\\$g = \gcd(a^{r/2} - 1, N)$};
+    
+    % Result
+    \node[result] (factors) at (0, -2.5) {Factors: $g, N/g$};
+    
+    % Arrows
+    \draw[arrow] (input) -- (period);
+    \draw[arrow] (period) -- (candidate);
+    \draw[arrow] (candidate) -- (factors);
+    
+    % Examples
+    \node[draw, rounded corners, fill=gray!10, font=\scriptsize, text width=4cm, align=left] at (5, 0) {
+        $N=21, a=2, r=6$\\
+        $g = \gcd(2^3-1, 21) = 7$\\
+        Factors: 3, 7
+    };
+    
+    % Theorem
+    \node[draw, rounded corners, fill=yellow!20, font=\small] at (0, -4) {\texttt{shor\_reduction}: formalized in Coq};
+\end{tikzpicture}
+\caption{Shor's factoring algorithm core: period finding followed by GCD extraction. Formalized and verified in Coq.}
+\label{fig:shor-reduction}
+\end{figure}
 
 The formalization includes the mathematical foundations of Shor's factoring algorithm.
 
@@ -265,6 +388,36 @@ CHSH optimization & Brute force & Structure-aware \\
 The key insight: Thiele Machine trades \textbf{blind search time} for \textbf{explicit structure cost} ($\mu$).
 
 \section{Summary}
+
+% ============================================================================
+% FIGURE: Chapter Summary
+% ============================================================================
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    node distance=1.2cm,
+    result/.style={rectangle, draw, rounded corners, minimum width=3cm, minimum height=0.8cm, align=center, fill=green!15},
+    central/.style={rectangle, draw, rounded corners, minimum width=4cm, minimum height=1cm, align=center, fill=yellow!20},
+    arrow/.style={->, >=Stealth, thick}
+]
+    % Results
+    \node[result] (physics) at (-3, 1.5) {Physics Models\\Conservation Laws};
+    \node[result] (shor) at (3, 1.5) {Shor Primitives\\Verified};
+    \node[result] (bridge) at (-3, -1.5) {Bridge Modules\\6 files};
+    \node[result] (toe) at (3, -1.5) {TOE Limits\\No unique physics};
+    
+    % Central
+    \node[central] (central) at (0, 0) {\textbf{Theory ↔ Algorithms}\\Infrastructure};
+    
+    % Arrows
+    \draw[arrow] (physics) -- (central);
+    \draw[arrow] (shor) -- (central);
+    \draw[arrow] (bridge) -- (central);
+    \draw[arrow] (toe) -- (central);
+\end{tikzpicture}
+\caption{Chapter D summary: physics models, Shor primitives, bridge modules, and TOE limits form the theory-algorithm infrastructure.}
+\label{fig:ch12-summary}
+\end{figure}
 
 This chapter establishes:
 \begin{enumerate}
