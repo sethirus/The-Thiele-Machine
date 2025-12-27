@@ -4,6 +4,49 @@
 
 The previous chapter established the \textit{problem}: classical computers are structurally blind. This chapter presents the \textit{solution}: the Thiele Machine, a computational model where structure is a first-class resource.
 
+% =====================================================
+% FIGURE: Chapter 3 Roadmap
+% =====================================================
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    box/.style={draw, rounded corners, minimum width=2.8cm, minimum height=1cm, align=center, font=\small},
+    arrow/.style={->, >=stealth, thick},
+    dasharrow/.style={->, >=stealth, thick, dashed}
+]
+% Main components
+\node[box, fill=blue!20] (state) at (0,0) {State Space\\$S$};
+\node[box, fill=green!20] (partition) at (3.5,0) {Partition Graph\\$\Pi$};
+\node[box, fill=orange!20] (axioms) at (7,0) {Axiom Set\\$A$};
+\node[box, fill=red!20] (rules) at (3.5,-2) {Transition Rules\\$R$};
+\node[box, fill=purple!20] (logic) at (7,-2) {Logic Engine\\$L$};
+
+% Central element
+\node[box, fill=yellow!30, minimum width=3.5cm, minimum height=1.2cm] (mu) at (0,-2) {$\mu$-Ledger\\(Currency)};
+
+% Arrows
+\draw[arrow] (state) -- (partition) node[midway, above, font=\scriptsize] {decomposition};
+\draw[arrow] (partition) -- (axioms) node[midway, above, font=\scriptsize] {constraints};
+\draw[arrow] (rules) -- (state) node[midway, left, font=\scriptsize] {evolves};
+\draw[arrow] (logic) -- (axioms) node[midway, right, font=\scriptsize] {verifies};
+\draw[arrow] (rules) -- (mu) node[midway, above, font=\scriptsize] {charges};
+\draw[dasharrow] (mu) -- (state) node[midway, left, font=\scriptsize] {bounds};
+
+% Title
+\node[above=0.5cm of partition, font=\bfseries] {The Thiele Machine: $T = (S, \Pi, A, R, L)$};
+
+% Sections
+\node[font=\scriptsize\itshape, below=0.1cm of state] {§3.2.1};
+\node[font=\scriptsize\itshape, below=0.1cm of partition] {§3.2.2};
+\node[font=\scriptsize\itshape, below=0.1cm of axioms] {§3.2.3};
+\node[font=\scriptsize\itshape, below=0.1cm of rules] {§3.2.4};
+\node[font=\scriptsize\itshape, below=0.1cm of logic] {§3.2.5};
+\node[font=\scriptsize\itshape, below=0.1cm of mu] {§3.3};
+\end{tikzpicture}
+\caption{Chapter 3 roadmap: The five components of the Thiele Machine and their relationships. The $\mu$-ledger (center-left) is the central innovation that ``charges'' operations and ``bounds'' the state evolution.}
+\label{fig:ch3_roadmap}
+\end{figure}
+
 The model is defined formally because informal descriptions are ambiguous. A formal definition:
 \begin{itemize}
     \item Eliminates ambiguity: Every term has a precise meaning
@@ -62,6 +105,44 @@ The Thiele Machine is formally defined as a 5-tuple $T = (S, \Pi, A, R, L)$, rep
 
 The state space $S$ represents the complete instantaneous description of the machine. Unlike the flat tape of a Turing Machine, $S$ is a structured record containing multiple components.
 
+% =====================================================
+% FIGURE: VMState Record Structure
+% =====================================================
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    field/.style={draw, minimum width=6cm, minimum height=0.7cm, font=\ttfamily\small},
+    label/.style={font=\small, align=left}
+]
+% VMState box
+\node[draw, thick, minimum width=7cm, minimum height=6cm, fill=gray!5] (vmstate) at (0,0) {};
+\node[above=0.1cm of vmstate.north, font=\bfseries\ttfamily] {VMState};
+
+% Fields
+\node[field, fill=green!15] (graph) at (0, 2.2) {vm\_graph : PartitionGraph};
+\node[field, fill=blue!15] (csrs) at (0, 1.4) {vm\_csrs : CSRState};
+\node[field, fill=blue!10] (regs) at (0, 0.6) {vm\_regs : list nat (32)};
+\node[field, fill=blue!10] (mem) at (0, -0.2) {vm\_mem : list nat (256)};
+\node[field, fill=orange!15] (pc) at (0, -1.0) {vm\_pc : nat};
+\node[field, fill=yellow!30] (mu) at (0, -1.8) {vm\_mu : nat};
+\node[field, fill=red!15] (err) at (0, -2.6) {vm\_err : bool};
+
+% Annotations
+\node[label, right=0.5cm of graph] {$\leftarrow$ \textit{Partition structure}};
+\node[label, right=0.5cm of csrs] {$\leftarrow$ \textit{Control registers}};
+\node[label, right=0.5cm of regs] {$\leftarrow$ \textit{Register file}};
+\node[label, right=0.5cm of mem] {$\leftarrow$ \textit{Data memory}};
+\node[label, right=0.5cm of pc] {$\leftarrow$ \textit{Program counter}};
+\node[label, right=0.5cm of mu] {$\leftarrow$ \textbf{$\mu$-ledger (key!)}};
+\node[label, right=0.5cm of err] {$\leftarrow$ \textit{Error flag}};
+
+% Highlight mu
+\draw[ultra thick, red!70!black] ($(mu.north west)+(-0.1,0.1)$) rectangle ($(mu.south east)+(0.1,-0.1)$);
+\end{tikzpicture}
+\caption{The \texttt{VMState} record structure. The $\mu$-ledger (\texttt{vm\_mu}) is highlighted as the central innovation---a monotonic counter tracking cumulative structural cost.}
+\label{fig:vmstate_record}
+\end{figure}
+
 \subsubsection{Formal Definition}
 
 In the formal development, the state is defined as:
@@ -105,6 +186,70 @@ In the Coq kernel, write operations (\texttt{write\_reg} and \texttt{write\_mem}
 \subsection{Partition Graph $\Pi$}
 
 The partition graph is the central innovation of the Thiele Machine. It represents the decomposition of the state into modules, with disjointness enforced by the partition operations that construct and modify those modules.
+
+% =====================================================
+% FIGURE: Partition Graph Visualization
+% =====================================================
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    module/.style={draw, rounded corners, minimum width=2.5cm, minimum height=1.5cm, align=center},
+    memory/.style={draw, minimum width=0.4cm, minimum height=0.4cm, font=\tiny}
+]
+% Memory addresses (background)
+\foreach \i in {0,...,15} {
+    \node[memory, fill=gray!20] (m\i) at (\i*0.5-4, -3) {\i};
+}
+
+% Module M1
+\node[module, fill=blue!20] (M1) at (-2.5, 0) {Module $M_1$\\ID: 0};
+\draw[blue, thick, ->] (M1.south) -- (-3.25, -2.7);
+\draw[blue, thick, ->] (M1.south) -- (-2.75, -2.7);
+\foreach \i in {0,1} {
+    \node[memory, fill=blue!40] at (\i*0.5-4, -3) {\i};
+}
+
+% Module M2
+\node[module, fill=green!20] (M2) at (1, 0) {Module $M_2$\\ID: 1};
+\draw[green!60!black, thick, ->] (M2.south) -- (0.25, -2.7);
+\draw[green!60!black, thick, ->] (M2.south) -- (0.75, -2.7);
+\draw[green!60!black, thick, ->] (M2.south) -- (1.25, -2.7);
+\foreach \i in {8,9,10} {
+    \node[memory, fill=green!40] at (\i*0.5-4, -3) {\i};
+}
+
+% Module M3
+\node[module, fill=orange!20] (M3) at (4.5, 0) {Module $M_3$\\ID: 2};
+\draw[orange, thick, ->] (M3.south) -- (3.25, -2.7);
+\foreach \i in {14} {
+    \node[memory, fill=orange!40] at (\i*0.5-4, -3) {\i};
+}
+
+% Partition Graph box
+\node[draw, dashed, thick, minimum width=12cm, minimum height=2.5cm, label={above:\textbf{PartitionGraph}}] at (1, 0) {};
+
+% Next ID indicator
+\node[draw, fill=purple!20, rounded corners] (nextid) at (4.5, 1.5) {\texttt{pg\_next\_id = 3}};
+
+% Memory label
+\node[below=0.3cm of m8, font=\small\itshape] {Memory addresses (0--15)};
+
+% Axioms
+\node[font=\scriptsize, below=0.1cm of M1] {$A = \{x > 0\}$};
+\node[font=\scriptsize, below=0.1cm of M2] {$A = \{\}$};
+\node[font=\scriptsize, below=0.1cm of M3] {$A = \{y \text{ prime}\}$};
+
+% Key properties
+\node[draw, fill=white, rounded corners, font=\scriptsize, align=left] at (-5.5, 0) {
+    \textbf{Properties:}\\
+    $\bullet$ ID monotonic\\
+    $\bullet$ Regions disjoint\\
+    $\bullet$ Ops preserve WF
+};
+\end{tikzpicture}
+\caption{A partition graph with three modules. Each module ``owns'' a disjoint region of memory addresses. Module IDs are monotonically increasing (\texttt{pg\_next\_id} tracks the next available ID). Axioms are attached to each module but are not externally observable.}
+\label{fig:partition_graph_viz}
+\end{figure}
 
 \subsubsection{Formal Definition}
 
@@ -230,6 +375,94 @@ Inductive vm_instruction :=
 
 The instructions fall into several categories:
 
+% =====================================================
+% FIGURE: Instruction Set Architecture
+% =====================================================
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    cat/.style={draw, rounded corners, minimum width=3.8cm, minimum height=2.2cm, align=center, font=\small},
+    instr/.style={font=\scriptsize\ttfamily}
+]
+% Structural Operations
+\node[cat, fill=blue!15] (struct) at (-4, 2) {
+    \textbf{Structural Ops}\\[0.2cm]
+    \begin{tabular}{l}
+    PNEW\\
+    PSPLIT\\
+    PMERGE\\
+    PDISCOVER
+    \end{tabular}
+};
+
+% Logical Operations
+\node[cat, fill=green!15] (logic) at (0, 2) {
+    \textbf{Logical Ops}\\[0.2cm]
+    \begin{tabular}{l}
+    LASSERT\\
+    LJOIN
+    \end{tabular}
+};
+
+% Certification Operations
+\node[cat, fill=orange!15] (cert) at (4, 2) {
+    \textbf{Certification Ops}\\[0.2cm]
+    \begin{tabular}{l}
+    REVEAL\\
+    EMIT
+    \end{tabular}
+};
+
+% Register/Memory Operations
+\node[cat, fill=purple!15] (regmem) at (-4, -1) {
+    \textbf{Register/Memory}\\[0.2cm]
+    \begin{tabular}{l}
+    XFER\\
+    XOR\_LOAD\\
+    XOR\_ADD\\
+    XOR\_SWAP\\
+    XOR\_RANK
+    \end{tabular}
+};
+
+% Control Operations
+\node[cat, fill=red!15] (ctrl) at (0, -1) {
+    \textbf{Control Ops}\\[0.2cm]
+    \begin{tabular}{l}
+    PYEXEC\\
+    ORACLE\_HALTS\\
+    HALT
+    \end{tabular}
+};
+
+% Measurement Operations
+\node[cat, fill=yellow!20] (meas) at (4, -1) {
+    \textbf{Measurement}\\[0.2cm]
+    \begin{tabular}{l}
+    CHSH\_TRIAL\\
+    MDLACC
+    \end{tabular}
+};
+
+% Central: mu-cost
+\node[draw, thick, fill=yellow!40, circle, minimum size=1.5cm, font=\small\bfseries] (mu) at (0, 0.5) {$\mu$};
+
+% Arrows showing cost
+\draw[->, thick, gray] (struct.east) -- (mu);
+\draw[->, thick, gray] (cert.west) -- (mu);
+\draw[->, thick, gray] (logic.south) -- (mu);
+
+% Title
+\node[above=0.5cm of logic, font=\bfseries] {18-Instruction Set Architecture};
+
+% Annotation
+\node[below=0.3cm of regmem, font=\scriptsize\itshape] {Low $\mu$-cost};
+\node[below=0.3cm of cert, font=\scriptsize\itshape] {High $\mu$-cost};
+\end{tikzpicture}
+\caption{The 18-instruction set architecture grouped by category. Structural and certification operations typically have high $\mu$-cost (they add structural knowledge), while register operations have low or zero cost. All costs flow to the central $\mu$-ledger.}
+\label{fig:isa_categories}
+\end{figure}
+
 \textbf{Structural Operations:}
 \begin{itemize}
     \item \texttt{PNEW}: Create a new module for a region
@@ -308,6 +541,53 @@ The kernel verifies the certificate but does not search for solutions. This ensu
 \end{itemize}
 
 \section{The $\mu$-bit Currency}
+
+% =====================================================
+% FIGURE: μ-Ledger Conservation
+% =====================================================
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    state/.style={draw, circle, minimum size=1.2cm, font=\small},
+    arrow/.style={->, >=stealth, thick}
+]
+% States
+\node[state, fill=blue!20] (s0) at (0,0) {$s_0$};
+\node[state, fill=blue!25] (s1) at (3,0) {$s_1$};
+\node[state, fill=blue!30] (s2) at (6,0) {$s_2$};
+\node[state, fill=blue!35] (s3) at (9,0) {$s_3$};
+\node[state, fill=blue!40] (sn) at (12,0) {$s_n$};
+
+% Transitions
+\draw[arrow] (s0) -- (s1) node[midway, above, font=\scriptsize] {$op_1$};
+\draw[arrow] (s1) -- (s2) node[midway, above, font=\scriptsize] {$op_2$};
+\draw[arrow] (s2) -- (s3) node[midway, above, font=\scriptsize] {$op_3$};
+\draw[arrow, dashed] (s3) -- (sn);
+
+% Mu values
+\node[below=0.3cm of s0, font=\small] {$\mu_0$};
+\node[below=0.3cm of s1, font=\small] {$\mu_1$};
+\node[below=0.3cm of s2, font=\small] {$\mu_2$};
+\node[below=0.3cm of s3, font=\small] {$\mu_3$};
+\node[below=0.3cm of sn, font=\small] {$\mu_n$};
+
+% Conservation law
+\node[draw, fill=yellow!20, rounded corners, align=center, font=\small] at (6, -2) {
+    \textbf{Conservation Law:} $\mu_n = \mu_0 + \sum_{i=1}^{n} \text{cost}(op_i)$
+};
+
+% Monotonicity
+\draw[decorate, decoration={brace, amplitude=10pt, mirror}] 
+    (0, -0.8) -- (12, -0.8) node[midway, below=0.4cm, font=\small\itshape] {
+    $\mu_0 \le \mu_1 \le \mu_2 \le \cdots \le \mu_n$ (monotonic)
+};
+
+% Title
+\node[above=0.8cm of s2, font=\bfseries] {$\mu$-Ledger: Monotonic Cost Accumulation};
+\end{tikzpicture}
+\caption{The $\mu$-ledger tracks cumulative structural cost across execution. Each operation adds its declared cost, and the ledger never decreases (monotonicity). This is proven in \texttt{mu\_conservation\_kernel}.}
+\label{fig:mu_ledger_conservation}
+\end{figure}
 
 \subsection{Definition}
 
@@ -419,6 +699,47 @@ Definition graph_pnew (g : PartitionGraph) (region : list nat)
 
 \texttt{PNEW} either returns an existing module for the region (if one exists) or creates a new one. This ensures idempotence.
 
+% =====================================================
+% FIGURE: Partition Operations
+% =====================================================
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    module/.style={draw, rounded corners, minimum width=2cm, minimum height=1cm, align=center, font=\small},
+    arrow/.style={->, >=stealth, thick}
+]
+% PNEW
+\node[font=\bfseries] at (-5, 3.5) {PNEW};
+\node[draw, dashed, fill=gray!10, minimum width=2cm, minimum height=1cm] (pnew_before) at (-5, 2) {region};
+\draw[arrow] (-5, 1.2) -- (-5, 0.3);
+\node[module, fill=blue!20] (pnew_after) at (-5, -0.5) {Module\\ID: $n$};
+\node[font=\scriptsize\itshape] at (-5, -1.5) {Creates new module};
+
+% PSPLIT
+\node[font=\bfseries] at (0, 3.5) {PSPLIT};
+\node[module, fill=green!30, minimum width=3cm] (psplit_before) at (0, 2) {Module $M$\\$\{0,1,2,3\}$};
+\draw[arrow] (0, 1.2) -- (0, 0.3);
+\node[module, fill=green!20, minimum width=1.3cm] (psplit_left) at (-1, -0.5) {$M_L$\\$\{0,1\}$};
+\node[module, fill=green!20, minimum width=1.3cm] (psplit_right) at (1, -0.5) {$M_R$\\$\{2,3\}$};
+\node[font=\scriptsize\itshape] at (0, -1.5) {Splits into disjoint parts};
+
+% PMERGE
+\node[font=\bfseries] at (5, 3.5) {PMERGE};
+\node[module, fill=orange!20, minimum width=1.2cm] (pmerge_left) at (4, 2) {$M_1$};
+\node[module, fill=orange!20, minimum width=1.2cm] (pmerge_right) at (6, 2) {$M_2$};
+\draw[arrow] (5, 1.2) -- (5, 0.3);
+\node[module, fill=orange!30, minimum width=2.5cm] (pmerge_after) at (5, -0.5) {$M_{12}$\\(merged)};
+\node[font=\scriptsize\itshape] at (5, -1.5) {Combines disjoint modules};
+
+% Cost annotations
+\node[draw, fill=yellow!20, rounded corners, font=\scriptsize] at (-5, -2.3) {$\mu$-cost: low};
+\node[draw, fill=yellow!20, rounded corners, font=\scriptsize] at (0, -2.3) {$\mu$-cost: medium};
+\node[draw, fill=yellow!20, rounded corners, font=\scriptsize] at (5, -2.3) {$\mu$-cost: low};
+\end{tikzpicture}
+\caption{The three main partition operations: \texttt{PNEW} creates modules from regions, \texttt{PSPLIT} divides modules into disjoint parts (must cover original), and \texttt{PMERGE} combines disjoint modules. Each operation has an associated $\mu$-cost.}
+\label{fig:partition_ops}
+\end{figure}
+
 \textit{Intuition:} Think of \texttt{PNEW} as drawing a circle around a set of memory addresses and saying ``this is now a distinct object.'' If you try to draw a circle around something that is already circled, \texttt{PNEW} simply points to the existing circle, ensuring that you don't pay for the same structure twice.
 
 \subsubsection{PSPLIT: Module Splitting}
@@ -498,6 +819,54 @@ Theorem observational_no_signaling : forall s s' instr mid,
 This is a computational analog of Bell locality: you cannot signal to a remote module through local operations.
 
 \section{The No Free Insight Theorem}
+
+% =====================================================
+% FIGURE: No Free Insight Visualization
+% =====================================================
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    box/.style={draw, rounded corners, minimum width=3cm, minimum height=2cm, align=center},
+    arrow/.style={->, >=stealth, thick}
+]
+% Before: Large search space
+\node[box, fill=red!20, minimum width=5cm, minimum height=3cm] (omega) at (-4, 0) {
+    \textbf{Search Space $\Omega$}\\[0.3cm]
+    \Large $2^n$ possibilities
+};
+
+% After: Reduced search space
+\node[box, fill=green!20, minimum width=3cm, minimum height=2cm] (omega_prime) at (4, 0) {
+    \textbf{Reduced $\Omega'$}\\[0.2cm]
+    $2^{n-k}$ possibilities
+};
+
+% Arrow with cost
+\draw[arrow, ultra thick, blue] (omega) -- (omega_prime) 
+    node[midway, above, font=\small] {\textbf{Insight}}
+    node[midway, below, font=\small, red] {Cost: $\Delta\mu \ge k$ bits};
+
+% Conservation equation
+\node[draw, fill=yellow!30, rounded corners, font=\small, align=center] at (0, -2.5) {
+    \textbf{No Free Insight:}\\[0.2cm]
+    $\log|\Omega| - \log|\Omega'| \le \Delta\mu$\\[0.1cm]
+    \textit{``Information gained $\le$ cost paid''}
+};
+
+% Stronger vs weaker predicates
+\node[draw, dashed, fill=blue!10, rounded corners, font=\scriptsize] at (-4, -2.5) {
+    Predicate $P_{\text{weak}}$\\
+    \textit{accepts more traces}
+};
+\node[draw, dashed, fill=green!10, rounded corners, font=\scriptsize] at (4, -2.5) {
+    Predicate $P_{\text{strong}}$\\
+    \textit{accepts fewer traces}
+};
+\draw[arrow, dashed] (-2, -2.5) -- (2, -2.5) node[midway, above, font=\tiny] {strengthening};
+\end{tikzpicture}
+\caption{The No Free Insight theorem: reducing the search space (gaining structural insight) requires paying $\mu$-cost. The information-theoretic bound ensures you cannot ``narrow down'' possibilities without expenditure.}
+\label{fig:no_free_insight}
+\end{figure}
 
 \subsection{Receipt Predicates}
 
@@ -598,3 +967,114 @@ Theorem kernel_conservation_mu_gauge : forall s k,
 \end{lstlisting}
 
 This is the computational analog of Noether's theorem: the gauge symmetry (ability to shift $\mu$ by a constant) corresponds to the conservation of partition structure.
+
+% =====================================================
+% FIGURE: Gauge Symmetry
+% =====================================================
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    state/.style={draw, rounded corners, minimum width=3cm, minimum height=2.5cm, align=center},
+    arrow/.style={->, >=stealth, thick}
+]
+% Original state
+\node[state, fill=blue!15] (s) at (-3, 0) {
+    \textbf{State $s$}\\[0.2cm]
+    $\mu = \mu_0$\\
+    $\Pi = \Pi_0$
+};
+
+% Shifted state
+\node[state, fill=blue!15] (sk) at (3, 0) {
+    \textbf{State $s + k$}\\[0.2cm]
+    $\mu = \mu_0 + k$\\
+    $\Pi = \Pi_0$
+};
+
+% Gauge transformation arrow
+\draw[arrow, ultra thick, purple] (s) -- (sk) 
+    node[midway, above, font=\small\bfseries] {Gauge Shift $+k$};
+
+% Invariant annotation
+\node[draw, fill=yellow!20, rounded corners, font=\small, align=center] at (0, -2) {
+    \textbf{Gauge Invariant:}\\
+    Partition structure $\Pi$ unchanged\\[0.1cm]
+    \textit{(Computational Noether's Theorem)}
+};
+
+% Physical analogy
+\node[draw, dashed, fill=green!10, rounded corners, font=\scriptsize, align=center] at (0, -3.5) {
+    \textbf{Physical Analog:}\\
+    Energy zero-point is arbitrary\\
+    Only \textit{differences} matter
+};
+\end{tikzpicture}
+\caption{Gauge symmetry: shifting the $\mu$-ledger by a constant $k$ leaves the partition structure invariant. This is the computational analog of Noether's theorem---the gauge symmetry corresponds to conservation of structural decomposition.}
+\label{fig:gauge_symmetry}
+\end{figure}
+
+\section{Chapter Summary}
+
+% =====================================================
+% FIGURE: Chapter 3 Summary
+% =====================================================
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+    concept/.style={draw, rounded corners, minimum width=2.5cm, minimum height=1.5cm, align=center, font=\small},
+    result/.style={draw, thick, fill=yellow!20, rounded corners, minimum width=4cm, minimum height=1cm, align=center}
+]
+% Core concepts
+\node[concept, fill=blue!20] (state) at (-4, 3) {State Space\\$S$};
+\node[concept, fill=green!20] (partition) at (-1.5, 3) {Partition Graph\\$\Pi$};
+\node[concept, fill=orange!20] (mu) at (1.5, 3) {$\mu$-Ledger\\Currency};
+\node[concept, fill=red!20] (rules) at (4, 3) {Transition\\Rules $R$};
+
+% Key theorems
+\node[result] (mono) at (-2.5, 0.5) {\textbf{$\mu$-Monotonicity}\\$s'.\mu \ge s.\mu$};
+\node[result] (nosig) at (2.5, 0.5) {\textbf{No-Signaling}\\Local ops $\not\to$ remote observables};
+
+% Master result
+\node[draw, ultra thick, fill=green!30, rounded corners, minimum width=8cm, minimum height=1.5cm, align=center] (master) at (0, -2) {
+    \textbf{No Free Insight Theorem}\\
+    $\log|\Omega| - \log|\Omega'| \le \Delta\mu$
+};
+
+% Arrows
+\draw[->, thick] (state) -- (mono);
+\draw[->, thick] (partition) -- (mono);
+\draw[->, thick] (partition) -- (nosig);
+\draw[->, thick] (rules) -- (nosig);
+\draw[->, thick] (mu) -- (mono);
+\draw[->, thick] (mono) -- (master);
+\draw[->, thick] (nosig) -- (master);
+
+% Chapter reference
+\node[font=\scriptsize\itshape, below=0.3cm of master] {Foundation for Chapters 4 (Implementation), 5 (Verification), and 6 (Tsirelson)};
+\end{tikzpicture}
+\caption{Chapter 3 summary: The formal model $(S, \Pi, A, R, L)$ leads to two key properties ($\mu$-monotonicity and no-signaling), which together establish the No Free Insight theorem---the theoretical foundation for the Tsirelson bound derivation.}
+\label{fig:ch3_summary}
+\end{figure}
+
+This chapter has defined the Thiele Machine as a formal 5-tuple $T = (S, \Pi, A, R, L)$ with the following key results:
+
+\begin{enumerate}
+    \item \textbf{State Space} ($S$): A structured record with explicit partition graph, registers, memory, and the $\mu$-ledger.
+    
+    \item \textbf{Partition Graph} ($\Pi$): Modules decompose state into disjoint regions with monotonic ID assignment and well-formedness invariants.
+    
+    \item \textbf{$\mu$-bit Currency}: A monotonic counter that bounds structural information cost. The ledger satisfies:
+    \begin{itemize}
+        \item Single-step monotonicity: $s'.\mu \ge s.\mu$
+        \item Multi-step conservation: $\mu_n = \mu_0 + \sum \text{cost}(op_i)$
+        \item Irreversibility bound: connects to Landauer's principle
+    \end{itemize}
+    
+    \item \textbf{No-Signaling}: Local operations cannot affect observables of non-target modules.
+    
+    \item \textbf{No Free Insight}: Any strengthening of receipt predicates requires structure-addition events (and thus $\mu$-cost).
+    
+    \item \textbf{Gauge Symmetry}: The partition structure is invariant under $\mu$-shifts (computational Noether's theorem).
+\end{enumerate}
+
+These formal foundations enable the implementation (Chapter 4), verification (Chapter 5), and the derivation of the Tsirelson bound from pure $\mu$-accounting (Chapter 6).
