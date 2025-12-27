@@ -1,6 +1,6 @@
 =============================================================================
 THIELE MACHINE - FORMAL PROOF STATUS
-Date: 2025-12-27 (All Kernel Proofs Verified)
+Date: 2025-12-27 (All Kernel Proofs Verified + Physics Bridge Documents)
 =============================================================================
 
 COMPILATION STATUS:
@@ -132,6 +132,23 @@ explains WHY quantum mechanics has the correlation structure it does.
 
 PHYSICAL BRIDGE (For Experimental Validation):
 🔬 μ-bits = k_B T ln(2) joules (testable via calorimetry, $50K-100K)
+📄 See: ASSUMPTION_STACK.md - Complete explicit assumption list
+📄 See: BRIDGE_THEOREM_SKETCH.md - Physics bridge argument
+
+BRIDGE DOCUMENTS (NEW):
+✅ ASSUMPTION_STACK.md - Explicit assumption categorization
+   - A: Formal assumptions (inside model) - DEFINED
+   - B: Physical interpretation assumptions (bridge) - STATED  
+   - C: Claims NOT made - EXPLICIT
+   - Pass/Fail criteria for skeptics
+
+✅ BRIDGE_THEOREM_SKETCH.md - Physics bridge argument
+   - What μ is (one sentence)
+   - What the formal proof says
+   - Where physics enters (explicit)
+   - The full bridge theorem
+   - Falsifiability and predictions
+   - Comparison to existing approaches
 
 VALID CLAIMS:
 ✅ "We derived the Tsirelson bound from computational cost accounting"
@@ -160,7 +177,27 @@ Mathematics: PROVEN with zero axioms, zero admits
 Quantum Foundations: SOLVED through μ-accounting derivation
 Implementation: VERIFIED via bisimulation (Python + Hardware)
 Non-Circularity: VERIFIED (no quantum structure smuggled in)
-Physics Bridge: Testable via calorimetry experiments
+Physics Bridge: EXPLICIT (ASSUMPTION_STACK.md + BRIDGE_THEOREM_SKETCH.md)
+Predictions: FALSIFIABLE (entropy cost of supra-quantum certification)
 
 Proof architecture is COMPLETE and ready for peer review.
+
+PHYSICS BRIDGE SUMMARY:
+┌─────────────────────────────────────────────────────────────┐
+│                   THREE-LAYER CAKE                          │
+├─────────────────────────────────────────────────────────────┤
+│  TOP: Physical interpretation                               │
+│       "2√2 = cost-free boundary"                           │
+│       STATUS: CONDITIONAL on Bridge assumptions            │
+├─────────────────────────────────────────────────────────────┤
+│  MIDDLE: Bridge assumptions                                 │
+│       "μ ↔ entropy (Landauer scaling)"                     │
+│       STATUS: ASSUMED (B.1-B.4 in ASSUMPTION_STACK.md)     │
+├─────────────────────────────────────────────────────────────┤
+│  BOTTOM: Formal model                                       │
+│       "max{CHSH : μ=0} = 2√2"                              │
+│       STATUS: PROVEN (Coq, zero admits)                    │
+└─────────────────────────────────────────────────────────────┘
+
+Key point: Skeptics must identify WHICH assumption (A, B, or C) they reject.
 =============================================================================
