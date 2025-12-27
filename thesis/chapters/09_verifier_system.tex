@@ -249,8 +249,8 @@ Every C-module ships three mandatory falsifier tests. Each test targets a distin
     
     % Arrows
     \draw[arrow, shorten >=2pt, shorten <=2pt] (input) -- (receipt);
-    \draw[arrow] (receipt) -- node[above, yshift=6pt, font=\normalsize, pos=0.5,  -0.5) -| node[near start, below, font=\normalsize, above, yshift=6pt, pos=0.5, font=\small] {No} (fail);
-    \draw[arrow] (entropy) -- node[above, yshift=6pt, font=\normalsize, pos=0.5, font=\small] {Yes} (pass);
+    \draw[arrow] (receipt.south) -- ++(0, -0.5) -| node[near start, below, font=\small] {No} (fail);
+    \draw[arrow] (entropy) -- node[above, font=\small] {Yes} (pass);
     \draw[arrow] (entropy.south) -- ++(0, -0.3) -| (fail);
     
     % Cost equation

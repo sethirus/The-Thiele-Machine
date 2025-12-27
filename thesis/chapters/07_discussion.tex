@@ -540,14 +540,18 @@ The relationship $\text{P} \subseteq \text{P}_\mu \subseteq \text{NP}_\mu$ is st
 ]
 % LLM path (top)
 \node[box, fill=red!20, align=center, text width=3.5cm, font=\normalsize] (llm) {LLM\\Generates};
-\node[box, right=3.9cm of llm, fill=red!10, align=center, text width=3.5cm,  yshift=6pt, font=\normalsize, font=\small] {hallucination\\risk} (output1);
+\node[box, right=3.9cm of llm, fill=red!10, align=center, text width=3.5cm, font=\normalsize] (output1) {Output\\(hallucination risk)};
 
 % Thiele path (bottom)
 \node[box, fill=blue!20, below=2.9cm of llm, align=center, text width=3.5cm, font=\normalsize] (predict) {Model\\Predicts};
 \node[box, fill=yellow!20, right=2.9cm of predict, align=center, text width=3.5cm, font=\normalsize] (certify) {VM\\Certifies};
 \node[box, fill=green!20, right=2.9cm of certify, align=center, text width=3.5cm, font=\normalsize] (output2) {Output\\(verified)};
-\node[box, fill=red!10, below=1.6cm of certify, align=center, text width=3.5cm,  yshift=6pt, font=\normalsize, pos=0.5, font=\small] {hypothesis} (certify);
-\draw[arrow] (certify) -- node[above, yshift=6pt, font=\normalsize, pos=0.5,  font=\normalsize, above, yshift=6pt, pos=0.5, font=\small] {if false} (penalty);
+\node[box, fill=red!10, below=1.6cm of certify, align=center, text width=3.5cm, font=\normalsize] (penalty) {$\mu$-penalty\\if false};
+
+% Arrows
+\draw[arrow] (predict) -- node[above, font=\small] {hypothesis} (certify);
+\draw[arrow] (certify) -- node[above, font=\small] {receipt} (output2);
+\draw[arrow] (certify) -- node[right, font=\small] {if false} (penalty);
 
 % Labels
 \node[left=0.5cm of llm,  above, font=\small, xshift=-10pt] {Classic AI:};
