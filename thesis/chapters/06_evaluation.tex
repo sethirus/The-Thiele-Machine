@@ -389,17 +389,22 @@ $\mu$-Ledger Updates & PASS & PASS & PASS \\
 \node[setting] (b) at (10,-1.5) {$b \in \{0,1\}$};
 
 % Arrows
-\draw[->, very thick, dashed] (src) -- node[above, yshift=6pt, pos=0.5,  very thick, dashed] (src) -- node[above, yshift=6pt, pos=0.5, font=\small] {particle} (bob);
-\draw[->, very thick] (x) -- node[right, above, yshift=6pt, pos=0.5,  very thick] (alice) -- node[right, above, yshift=6pt, pos=0.5, font=\small] {outcome} (a);
-\draw[->, very thick] (y) -- node[left, above, yshift=6pt, pos=0.5,  very thick] (bob) -- node[left, above, yshift=6pt, pos=0.5, font=\small] {outcome} (b);
+\draw[->, very thick, dashed] (src) -- node[above, font=\small] {particle} (alice);
+\draw[->, very thick, dashed] (src) -- node[above, font=\small] {particle} (bob);
+\draw[->, very thick] (x) -- node[right, font=\small] {setting} (alice);
+\draw[->, very thick] (alice) -- node[right, font=\small] {outcome} (a);
+\draw[->, very thick] (y) -- node[left, font=\small] {setting} (bob);
+\draw[->, very thick] (bob) -- node[left, font=\small] {outcome} (b);
 
 % CHSH scale below
 \node at (5,-3.5) {\textbf{CHSH Value Scale}};
 \draw[very thick, shorten >=2pt, shorten <=2pt] (0,-4.5) -- (10,-4.5);
 
 % Markers
-\draw[very thick, shorten >=2pt, shorten <=2pt] (0,-4.3) -- (0,-4.7) node[below, above, yshift=6pt, pos=0.5,  blue, shorten >=2pt, shorten <=2pt] (5,-4.3) -- (5,-4.7) node[below, above, yshift=6pt, pos=0.5, font=\small] {2};
-\draw[very thick, red, shorten >=2pt, shorten <=2pt] (7.07,-4.3) -- (7.07,-4.7) node[below, above, yshift=6pt, pos=0.5,  shorten >=2pt, shorten <=2pt] (10,-4.3) -- (10,-4.7) node[below, above, yshift=6pt, pos=0.5, font=\small] {4};
+\draw[very thick] (0,-4.3) -- (0,-4.7) node[below, font=\small] {0};
+\draw[very thick, blue] (5,-4.3) -- (5,-4.7) node[below, font=\small] {2};
+\draw[very thick, red] (7.07,-4.3) -- (7.07,-4.7) node[below, font=\small] {$2\sqrt{2}$};
+\draw[very thick] (10,-4.3) -- (10,-4.7) node[below, font=\small] {4};
 
 % Regions
 \fill[green!20, opacity=0.5] (0,-4.5) rectangle (5,-4.2);
@@ -640,8 +645,10 @@ Supra-Quantum & $> 2.828$ & \textbf{Required} & $\mu_{\text{reveal}}$ \\
 \node[ledger] (m4) at (12,-1.5) {$\mu_4 = 12$};
 
 % Transitions with costs
-\draw[->, very thick] (s0) -- node[above, yshift=6pt, pos=0.5,  very thick] (s1) -- node[above, yshift=6pt, pos=0.5, font=\small] {$+2$} (s2);
-\draw[->, very thick] (s2) -- node[above, yshift=6pt, pos=0.5,  very thick] (s3) -- node[above, yshift=6pt, pos=0.5, font=\small] {$+4$} (s4);
+\draw[->, very thick] (s0) -- node[above, font=\small] {$+3$} (s1);
+\draw[->, very thick] (s1) -- node[above, font=\small] {$+2$} (s2);
+\draw[->, very thick] (s2) -- node[above, font=\small] {$+3$} (s3);
+\draw[->, very thick] (s3) -- node[above, font=\small] {$+4$} (s4);
 
 % Connect states to ledgers
 \draw[dashed, shorten >=2pt, shorten <=2pt] (s0) -- (m0);
