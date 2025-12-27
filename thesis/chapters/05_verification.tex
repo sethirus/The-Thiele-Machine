@@ -7,23 +7,23 @@
 \centering
 \begin{tikzpicture}[scale=1.8, 
     node distance=2.5cm,
-    block/.style={rectangle, draw, fill=blue!10, minimum width=5.4cm, minimum height=1.4cm, align=center},
+    block/.style={rectangle, draw, fill=blue!10, minimum width=5.4cm, minimum height=2.0cm, align=center},
     theorem/.style={rectangle, draw, fill=green!20, minimum width=5.0cm, minimum height=1.2cm, align=center, rounded corners},
     arrow/.style={->, >=stealth, thick}
 ]
     % Central node
-    \node[block, fill=red!20, minimum width=7.2cm, align=center, text width=3.5cm] (zero) at (0,0) {\textbf{Zero-Admit Standard}\\No Admitted, No admit., No Axiom};
+    \node[block, fill=red!20, minimum width=7.2cm, align=center, text width=4.5cm] (zero) at (0,0) {\textbf{Zero-Admit Standard}\\No Admitted, No admit., No Axiom};
     
     % Top layer: State definitions
-    \node[block, align=center, text width=3.5cm] (state) at (-4, 2) {State Definitions\\VMState, PartitionGraph};
-    \node[block, align=center, text width=3.5cm] (step) at (0, 2) {Step Semantics\\vm\_step relation};
-    \node[block, align=center, text width=3.5cm] (obs) at (4, 2) {Observables\\Observable, ObservableRegion};
+    \node[block, align=center, text width=4.5cm] (state) at (-4, 2) {State Definitions\\VMState, PartitionGraph};
+    \node[block, align=center, text width=4.5cm] (step) at (0, 2) {Step Semantics\\vm\_step relation};
+    \node[block, align=center, text width=4.5cm] (obs) at (4, 2) {Observables\\Observable, ObservableRegion};
     
     % Bottom layer: Theorems
-    \node[theorem, align=center, text width=3.5cm] (nosig) at (-4.5, -2) {No-Signaling\\(\S5.4)};
-    \node[theorem, align=center, text width=3.5cm] (mucons) at (-1.5, -2) {$\mu$-Conservation\\(\S5.4)};
-    \node[theorem, align=center, text width=3.5cm] (nofi) at (1.5, -2) {No Free Insight\\(\S5.6)};
-    \node[theorem, align=center, text width=3.5cm] (gauge) at (4.5, -2) {Gauge Invariance\\(\S5.4)};
+    \node[theorem, align=center, text width=4.5cm] (nosig) at (-4.5, -2) {No-Signaling\\(\S5.4)};
+    \node[theorem, align=center, text width=4.5cm] (mucons) at (-1.5, -2) {$\mu$-Conservation\\(\S5.4)};
+    \node[theorem, align=center, text width=4.5cm] (nofi) at (1.5, -2) {No Free Insight\\(\S5.6)};
+    \node[theorem, align=center, text width=4.5cm] (gauge) at (4.5, -2) {Gauge Invariance\\(\S5.4)};
     
     % Arrows from definitions to zero-admit
     \draw[arrow, shorten >=2pt, shorten <=2pt] (state) -- (zero);
@@ -71,15 +71,15 @@ In this project, “all inputs” means all possible states and instruction trac
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[scale=1.8, 
-    stage/.style={rectangle, draw, fill=blue!20, minimum width=4.6cm, minimum height=1.8cm, align=center, rounded corners},
-    check/.style={rectangle, draw, fill=green!20, minimum width=3.6cm, minimum height=1.1cm, align=center, font=\footnotesize},
+    stage/.style={rectangle, draw, fill=blue!20, minimum width=5.5cm, minimum height=2.1cm, align=center, rounded corners},
+    check/.style={rectangle, draw, fill=green!20, minimum width=4.5cm, minimum height=2.0cm, align=center, font=\footnotesize},
     arrow/.style={->, >=stealth, thick}
 , node distance=2.5cm]
     % Pipeline stages
-    \node[stage, align=center, text width=3.5cm] (def) at (0, 0) {Definitions\\VMState, vm\_step};
-    \node[stage, align=center, text width=3.5cm] (spec) at (4, 0) {Specification\\Theorem stmt};
-    \node[stage, align=center, text width=3.5cm] (proof) at (8, 0) {Proof\\Tactics};
-    \node[stage, fill=green!30, align=center, text width=3.5cm] (qed) at (12, 0) {\textbf{Qed.}\\Verified};
+    \node[stage, align=center, text width=4.5cm] (def) at (0, 0) {Definitions\\VMState, vm\_step};
+    \node[stage, align=center, text width=4.5cm] (spec) at (4, 0) {Specification\\Theorem stmt};
+    \node[stage, align=center, text width=4.5cm] (proof) at (8, 0) {Proof\\Tactics};
+    \node[stage, fill=green!30, align=center, text width=4.5cm] (qed) at (12, 0) {\textbf{Qed.}\\Verified};
     
     % Arrows
     \draw[arrow, shorten >=2pt, shorten <=2pt] (def) -- (spec);
@@ -613,19 +613,19 @@ Definition instr_targets (instr : vm_instruction) : list nat :=
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[scale=1.8, 
-    module/.style={rectangle, draw, fill=blue!20, minimum width=3.2cm, minimum height=2.2cm, align=center},
-    region/.style={rectangle, draw, dashed, fill=gray!10, minimum width=4.0cm, minimum height=2.9cm},
+    module/.style={rectangle, draw, fill=blue!20, minimum width=4.2cm, minimum height=2.2cm, align=center},
+    region/.style={rectangle, draw, dashed, fill=gray!10, minimum width=5.0cm, minimum height=2.9cm},
     arrow/.style={->, >=stealth, thick}
 , node distance=3cm]
     % Left side: Before operation
     \node at (-4, 2.5) {\textbf{State $s$}};
     
     \node[region] (r1) at (-5.5, 0.5) {};
-    \node[module, align=center, text width=3.5cm, font=\normalsize] (m1) at (-5.5, 0.5) {Module\\$mid_1$};
+    \node[module, align=center, text width=4.5cm, font=\normalsize] (m1) at (-5.5, 0.5) {Module\\$mid_1$};
     \node at (-5.5, -0.8) {\footnotesize Region $R_1$};
     
     \node[region] (r2) at (-2.5, 0.5) {};
-    \node[module, fill=green!30, align=center, text width=3.5cm, font=\normalsize] (m2) at (-2.5, 0.5) {Module\\$mid_2$};
+    \node[module, fill=green!30, align=center, text width=4.5cm, font=\normalsize] (m2) at (-2.5, 0.5) {Module\\$mid_2$};
     \node at (-2.5, -0.8) {\footnotesize Region $R_2$};
     \node at (-2.5, -1.3) {\color{red}\footnotesize (target)};
     
@@ -637,12 +637,12 @@ Definition instr_targets (instr : vm_instruction) : list nat :=
     \node at (4, 2.5) {\textbf{State $s'$}};
     
     \node[region] (r1p) at (2.5, 0.5) {};
-    \node[module, align=center, text width=3.5cm, font=\normalsize] (m1p) at (2.5, 0.5) {Module\\$mid_1$};
+    \node[module, align=center, text width=4.5cm, font=\normalsize] (m1p) at (2.5, 0.5) {Module\\$mid_1$};
     \node at (2.5, -0.8) {\footnotesize Region $R_1$};
     \node at (2.5, -1.3) {\color{blue}\footnotesize \textbf{unchanged}};
     
     \node[region] (r2p) at (5.5, 0.5) {};
-    \node[module, fill=orange!30, align=center, text width=3.5cm, font=\normalsize] (m2p) at (5.5, 0.5) {Module\\$mid_2'$};
+    \node[module, fill=orange!30, align=center, text width=4.5cm, font=\normalsize] (m2p) at (5.5, 0.5) {Module\\$mid_2'$};
     \node at (5.5, -0.8) {\footnotesize Region $R_2'$};
     \node at (5.5, -1.3) {\color{red}\footnotesize (modified)};
     
@@ -733,7 +733,7 @@ By case analysis on the instruction. For each instruction type:
 \centering
 \begin{tikzpicture}[scale=1.8, 
     state/.style={rectangle, draw, fill=blue!10, minimum width=5.4cm, minimum height=3.6cm, align=center},
-    field/.style={rectangle, draw, fill=white, minimum width=4.7cm, minimum height=1.0cm, align=center},
+    field/.style={rectangle, draw, fill=white, minimum width=4.7cm, minimum height=1.3cm, align=center},
     arrow/.style={->, >=stealth, thick}
 , node distance=3cm]
     % Left state
@@ -1118,7 +1118,7 @@ Theorem vm_irreversible_bits_lower_bound :
     \node at (-3, -1.5) {\footnotesize Accepts more traces};
     
     % Right: Strong predicate (smaller set)
-    \node[set, fill=green!20, minimum width=4.6cm, minimum height=2.5cm] (strong) at (3, 0) {};
+    \node[set, fill=green!20, minimum width=5.5cm, minimum height=2.5cm] (strong) at (3, 0) {};
     \node at (3, 0) {$P_{\text{strong}}$};
     \node at (3, -1.5) {\footnotesize Accepts fewer traces};
     
@@ -1456,17 +1456,17 @@ If anyone can produce such a counterexample, the theorem is false. The proofs es
 \centering
 \begin{tikzpicture}[scale=1.8, 
     theorem/.style={rectangle, draw, fill=green!20, minimum width=7.2cm, minimum height=2.2cm, align=center, rounded corners},
-    property/.style={rectangle, draw, fill=blue!10, minimum width=6.2cm, minimum height=1.4cm, align=center},
+    property/.style={rectangle, draw, fill=blue!10, minimum width=6.2cm, minimum height=2.0cm, align=center},
     arrow/.style={->, >=stealth, thick}
 , node distance=2.5cm]
     % Central: Zero-Admit Standard
-    \node[draw, fill=red!30, minimum width=9.0cm, minimum height=1.8cm, rounded corners, align=center, text width=3.5cm] (zero) at (0, 0) {\textbf{Zero-Admit Standard}\\206 Proofs, 0 Axioms};
+    \node[draw, fill=red!30, minimum width=9.0cm, minimum height=2.1cm, rounded corners, align=center, text width=4.5cm] (zero) at (0, 0) {\textbf{Zero-Admit Standard}\\206 Proofs, 0 Axioms};
     
     % Four theorem boxes around it
-    \node[theorem, align=center, text width=3.5cm] (nosig) at (-4, 2.5) {\textbf{No-Signaling}\\Bell locality analog};
-    \node[theorem, align=center, text width=3.5cm] (mucons) at (4, 2.5) {\textbf{$\mu$-Conservation}\\Monotonic ledger};
-    \node[theorem, align=center, text width=3.5cm] (nofi) at (-4, -2.5) {\textbf{No Free Insight}\\Impossibility theorem};
-    \node[theorem, align=center, text width=3.5cm] (gauge) at (4, -2.5) {\textbf{Gauge Invariance}\\Noether's theorem};
+    \node[theorem, align=center, text width=4.5cm] (nosig) at (-4, 2.5) {\textbf{No-Signaling}\\Bell locality analog};
+    \node[theorem, align=center, text width=4.5cm] (mucons) at (4, 2.5) {\textbf{$\mu$-Conservation}\\Monotonic ledger};
+    \node[theorem, align=center, text width=4.5cm] (nofi) at (-4, -2.5) {\textbf{No Free Insight}\\Impossibility theorem};
+    \node[theorem, align=center, text width=4.5cm] (gauge) at (4, -2.5) {\textbf{Gauge Invariance}\\Noether's theorem};
     
     % Arrows to center
     \draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (nosig) -- (zero);
@@ -1475,7 +1475,7 @@ If anyone can produce such a counterexample, the theorem is false. The proofs es
     \draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (gauge) -- (zero);
     
     % Bottom: Inquisitor
-    \node[draw, fill=purple!20, minimum width=14.4cm, minimum height=1.4cm, rounded corners] at (0, -4.5) {\textbf{Inquisitor} enforces standard via CI (25+ rule categories)};
+    \node[draw, fill=purple!20, minimum width=14.4cm, minimum height=2.0cm, rounded corners] at (0, -4.5) {\textbf{Inquisitor} enforces standard via CI (25+ rule categories)};
     
     % Title
     \node at (0, 4) {\textbf{Chapter 5: Verification Results}};

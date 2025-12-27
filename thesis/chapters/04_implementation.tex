@@ -2,10 +2,10 @@
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    layer/.style={rectangle, draw, rounded corners, minimum width=6.2cm, minimum height=1.8cm, font=\normalsize\bfseries},
+    layer/.style={rectangle, draw, rounded corners, minimum width=6.2cm, minimum height=2.1cm, font=\normalsize\bfseries},
     arrow/.style={->, very thick, >=stealth},
-    note/.style={font=\normalsize\itshape, text width=2.8cm, align=center},
-    scale=0.65, transform shape
+    note/.style={font=\normalsize\itshape, text width=3.8cm, align=center},
+    scale=1.05
 , node distance=2.5cm]
 % Three layers
 \node[layer, fill=blue!20] (coq) at (0,4) {Layer 1: Coq (Formal)};
@@ -17,9 +17,9 @@
 \draw[arrow, <->, shorten >=2pt, shorten <=2pt] (python) -- (verilog) node[pos=0.5, font=\small, above, yshift=6pt] {Isomorphism\\§4.5};
 
 % Side annotations
-\node[note, left=2.9cm of coq, align=center, text width=3.5cm, font=\small, xshift=-10pt] {Machine-checked proofs\\206 verified theorems};
-\node[note, left=2.9cm of python, align=center, text width=3.5cm, font=\small, xshift=-10pt] {Human-readable\\Tracing \& debugging};
-\node[note, left=2.9cm of verilog, align=center, text width=3.5cm, font=\small, xshift=-10pt] {Synthesizable RTL\\FPGA-ready};
+\node[note, left=2.9cm of coq, align=center, text width=4.5cm, font=\small, xshift=-10pt] {Machine-checked proofs\\206 verified theorems};
+\node[note, left=2.9cm of python, align=center, text width=4.5cm, font=\small, xshift=-10pt] {Human-readable\\Tracing \& debugging};
+\node[note, left=2.9cm of verilog, align=center, text width=4.5cm, font=\small, xshift=-10pt] {Synthesizable RTL\\FPGA-ready};
 
 % Central invariant
 \node[draw, dashed, fill=yellow!10, text width=5cm, align=center, font=\normalsize] at (5,2) 
@@ -152,10 +152,10 @@ The goal is not to “encode” the implementation, but to define a minimal sema
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    field/.style={rectangle, draw, minimum width=5.8cm, minimum height=1.1cm, font=\normalsize},
+    field/.style={rectangle, draw, minimum width=5.8cm, minimum height=2.0cm, font=\normalsize},
     mufield/.style={field, fill=red!15, draw=red!70, thick},
-    note/.style={font=\normalsize, text width=3.5cm},
-    scale=0.65, transform shape
+    note/.style={font=\normalsize, text width=4.5cm},
+    scale=1.05
 , node distance=3cm]
 % Record box
 \node[draw, very thick, minimum width=7.2cm, minimum height=10.8cm=above:{\textbf{VMState Record}}] (record) at (0,0) {};
@@ -1116,12 +1116,12 @@ self.witness_state = post_state
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    module/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.4cm, font=\normalsize},
+    module/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.0cm, font=\normalsize},
     arrow/.style={->, very thick, >=stealth},
-    scale=0.7, transform shape
+    scale=1.0
 , node distance=3cm]
 % Top-level CPU
-\node[module, fill=blue!30, minimum width=9.0cm, minimum height=1.8cm, font=\normalsize] (cpu) at (0,3) {\textbf{thiele\_cpu}};
+\node[module, fill=blue!30, minimum width=9.0cm, minimum height=2.1cm, font=\normalsize] (cpu) at (0,3) {\textbf{thiele\_cpu}};
 
 % Sub-modules
 \node[module, fill=green!20, font=\normalsize] (decoder) at (-3,1) {Decoder};
@@ -1134,7 +1134,7 @@ self.witness_state = post_state
 \node[module, fill=red!20, font=\normalsize] (partgraph) at (3,-1) {PartGraph};
 
 % External interface
-\node[module, fill=gray!20, align=center, text width=3.5cm, font=\normalsize] (z3) at (5,1) {Z3 \\ External};
+\node[module, fill=gray!20, align=center, text width=4.5cm, font=\normalsize] (z3) at (5,1) {Z3 \\ External};
 
 % Arrows
 \draw[arrow, shorten >=2pt, shorten <=2pt] (cpu) -- (decoder);
@@ -1254,7 +1254,7 @@ Key signals:
 \begin{tikzpicture}[
     state/.style={circle, draw, minimum size=1.2cm, font=\normalsize\bfseries},
     arrow/.style={->, very thick, >=stealth, font=\normalsize},
-    scale=0.65, transform shape
+    scale=1.05
 , node distance=2.5cm]
 % States in a flow
 \node[state, fill=blue!20, font=\normalsize] (fetch) at (0,0) {FETCH};
@@ -1268,7 +1268,7 @@ Key signals:
 \node[state, fill=red!20, font=\normalsize] (complete) at (8,-2) {COMPLETE};
 
 % ALU wait states
-\node[state, fill=gray!20, align=center, text width=3.5cm, font=\normalsize] (aluwait) at (0,-2) {ALU\\WAIT};
+\node[state, fill=gray!20, align=center, text width=4.5cm, font=\normalsize] (aluwait) at (0,-2) {ALU\\WAIT};
 
 % Main flow arrows
 \draw[arrow, shorten >=2pt, shorten <=2pt] (fetch) -- (decode);
@@ -1384,18 +1384,18 @@ On each clock cycle, \texttt{state\_reg} updates based on the FSM transition log
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    bit/.style={rectangle, draw, minimum width=0.7cm, minimum height=1.4cm, font=\normalsize},
-    field/.style={rectangle, draw, very thick, minimum height=1.4cm, font=\normalsize\bfseries},
-    scale=0.7, transform shape
+    bit/.style={rectangle, draw, minimum width=0.7cm, minimum height=2.0cm, font=\normalsize},
+    field/.style={rectangle, draw, very thick, minimum height=2.0cm, font=\normalsize\bfseries},
+    scale=1.0
 , node distance=3cm]
 % 32-bit instruction word
 \node[font=\normalsize\bfseries] at (-2,0) {32-bit:};
 
 % Bit fields
-\node[field, fill=blue!20, minimum width=3.6cm] (opcode) at (0,0) {opcode};
-\node[field, fill=green!20, minimum width=3.6cm] (opa) at (2.5,0) {operand\_a};
-\node[field, fill=orange!20, minimum width=3.6cm] (opb) at (5,0) {operand\_b};
-\node[field, fill=red!20, minimum width=3.6cm] (cost) at (7.5,0) {cost};
+\node[field, fill=blue!20, minimum width=4.5cm] (opcode) at (0,0) {opcode};
+\node[field, fill=green!20, minimum width=4.5cm] (opa) at (2.5,0) {operand\_a};
+\node[field, fill=orange!20, minimum width=4.5cm] (opb) at (5,0) {operand\_b};
+\node[field, fill=red!20, minimum width=4.5cm] (cost) at (7.5,0) {cost};
 
 % Bit positions
 \node[font=\normalsize] at (0,0.7) {[31:24]};
@@ -1549,9 +1549,9 @@ end
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    block/.style={rectangle, draw, minimum width=3.6cm, minimum height=1.4cm, font=\normalsize},
+    block/.style={rectangle, draw, minimum width=4.5cm, minimum height=2.0cm, font=\normalsize},
     arrow/.style={->, very thick, >=stealth},
-    scale=0.7, transform shape
+    scale=1.0
 , node distance=3cm]
 % Input signals
 \node (opa) at (-3,1.5) {\texttt{operand\_a}};
@@ -1566,7 +1566,7 @@ end
 \node[font=\normalsize] at (1,-0.5) {Fixed-Point};
 
 % Operations list
-\node[draw, rounded corners, fill=yellow!10, text width=2.5cm, align=left, font=\normalsize, align=center] at (1,-2.5) {
+\node[draw, rounded corners, fill=yellow!10, text width=4.5cm, align=left, font=\normalsize, align=center] at (1,-2.5) {
     0: ADD\\
     1: SUB\\
     2: MUL\\
@@ -1581,7 +1581,7 @@ end
 \node (overflow) at (5,-1.5) {\texttt{overflow}};
 
 % LUT block
-\node[block, fill=cyan!20, minimum width=2.6cm] (lut) at (1,2.5) {LOG2 LUT};
+\node[block, fill=cyan!20, minimum width=3.5cm] (lut) at (1,2.5) {LOG2 LUT};
 \node[font=\normalsize] at (1,3.2) {256 entries};
 
 % Arrows
@@ -1834,18 +1834,18 @@ module lei (
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    layer/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.8cm, font=\normalsize},
+    layer/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.1cm, font=\normalsize},
     arrow/.style={->, very thick, >=stealth},
     compare/.style={diamond, draw, fill=yellow!20, minimum size=1cm, font=\normalsize},
-    scale=0.65, transform shape
+    scale=1.05
 , node distance=3cm]
 % Input trace
 \node[draw, fill=gray!20, rounded corners] (trace) at (0,0) {Trace $\tau$};
 
 % Three execution paths
-\node[layer, fill=blue!20, align=center, text width=3.5cm] (coq) at (-3,-2) {Coq\\Extracted};
-\node[layer, fill=green!20, align=center, text width=3.5cm] (python) at (0,-2) {Python\\VM};
-\node[layer, fill=orange!20, align=center, text width=3.5cm] (rtl) at (3,-2) {Verilog\\Sim};
+\node[layer, fill=blue!20, align=center, text width=4.5cm] (coq) at (-3,-2) {Coq\\Extracted};
+\node[layer, fill=green!20, align=center, text width=4.5cm] (python) at (0,-2) {Python\\VM};
+\node[layer, fill=orange!20, align=center, text width=4.5cm] (rtl) at (3,-2) {Verilog\\Sim};
 
 % States
 \node[draw, rounded corners, fill=blue!10] (scoq) at (-3,-4) {$S_{\text{Coq}}$};
@@ -1984,16 +1984,16 @@ If any field differs, isomorphism test fails.
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    stage/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.8cm, font=\normalsize},
+    stage/.style={rectangle, draw, rounded corners, minimum width=5.5cm, minimum height=2.1cm, font=\normalsize},
     check/.style={diamond, draw, fill=yellow!20, minimum size=0.8cm, font=\normalsize},
     arrow/.style={->, very thick, >=stealth},
-    scale=0.65, transform shape
+    scale=1.05
 , node distance=3cm]
 % Stages
-\node[stage, fill=blue!20, align=center, text width=3.5cm] (scan) at (0,0) {Scan\\Sources};
-\node[stage, fill=green!20, align=center, text width=3.5cm] (build) at (3,0) {Build\\Proofs};
-\node[stage, fill=orange!20, align=center, text width=3.5cm] (iso) at (6,0) {Run\\Isomorphism};
-\node[stage, fill=purple!20, align=center, text width=3.5cm] (report) at (9,0) {Generate\\Report};
+\node[stage, fill=blue!20, align=center, text width=4.5cm] (scan) at (0,0) {Scan\\Sources};
+\node[stage, fill=green!20, align=center, text width=4.5cm] (build) at (3,0) {Build\\Proofs};
+\node[stage, fill=orange!20, align=center, text width=4.5cm] (iso) at (6,0) {Run\\Isomorphism};
+\node[stage, fill=purple!20, align=center, text width=4.5cm] (report) at (9,0) {Generate\\Report};
 
 % Checks
 \node[check] (c1) at (1.5,0) {};
@@ -2224,14 +2224,14 @@ yosys -p "read_verilog thiele_cpu.v; synth_xilinx -top thiele_cpu; write_json ne
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-    box/.style={rectangle, draw, rounded corners, minimum width=5.4cm, minimum height=2.6cm, font=\normalsize, text width=2.8cm, align=center},
+    box/.style={rectangle, draw, rounded corners, minimum width=5.4cm, minimum height=2.6cm, font=\normalsize, text width=3.8cm, align=center},
     arrow/.style={->, very thick, >=stealth},
-    scale=0.65, transform shape
+    scale=1.05
 , node distance=2.5cm]
 % Three layers as boxes
-\node[box, fill=blue!20, align=center, text width=3.5cm, font=\normalsize] (coq) at (-4,0) {\textbf{Coq}\\206 theorems\\Machine-checked\\Extracted runner};
-\node[box, fill=green!20, align=center, text width=3.5cm, font=\normalsize] (python) at (0,0) {\textbf{Python}\\Reference VM\\Tracing\\Receipts};
-\node[box, fill=orange!20, align=center, text width=3.5cm, font=\normalsize] (verilog) at (4,0) {\textbf{Verilog}\\RTL Core\\$\mu$-ALU\\FPGA-ready};
+\node[box, fill=blue!20, align=center, text width=4.5cm, font=\normalsize] (coq) at (-4,0) {\textbf{Coq}\\206 theorems\\Machine-checked\\Extracted runner};
+\node[box, fill=green!20, align=center, text width=4.5cm, font=\normalsize] (python) at (0,0) {\textbf{Python}\\Reference VM\\Tracing\\Receipts};
+\node[box, fill=orange!20, align=center, text width=4.5cm, font=\normalsize] (verilog) at (4,0) {\textbf{Verilog}\\RTL Core\\$\mu$-ALU\\FPGA-ready};
 
 % Central invariant at bottom
 \node[draw, very thick, fill=yellow!20, rounded corners, text width=10cm, align=center] (inv) at (0,-3) 
