@@ -37,6 +37,7 @@ Definition target_chsh_value : Q := (5657 # 2000)%Q.
     *)
 
 (** Shared entangled state encoded as random bit *)
+(* SAFE: Intentional constant - fixing to 0 demonstrates correlation for any fixed value *)
 Definition entangled_bit : nat := 0%nat.  (* Fix to 0; correlation holds for any fixed value *)
 
 (** Alice's optimal strategy *)

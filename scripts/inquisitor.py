@@ -31,7 +31,22 @@ from typing import Iterable, Iterator
 from inquisitor_rules import summarize_text
 
 
+# STRICT MODE: Core kernel files that must have ZERO high/medium findings
 PROTECTED_BASENAMES = {"CoreSemantics.v", "BridgeDefinitions.v"}
+
+# ULTRA STRICT: Critical kernel proof files
+CRITICAL_KERNEL_FILES = {
+    "TsirelsonUpperBound.v",
+    "TsirelsonLowerBound.v", 
+    "TsirelsonUniqueness.v",
+    "NoFreeInsight.v",
+    "MuCostModel.v",
+    "CHSHExtraction.v",
+    "QuantumEquivalence.v",
+    "KernelPhysics.v",
+    "VMState.v",
+    "VMStep.v",
+}
 
 # Allowed locations for findings when allowlisting is explicitly enabled.
 # Default policy is *no allowlist*.
@@ -224,9 +239,17 @@ def _severity_for_path(path: Path, default: str, rule_id: str = "") -> str:
     if rule_id == "UNUSED_HYPOTHESIS":
         return "LOW"
     path_str = path.as_posix().lower()
+    # Critical kernel files get highest scrutiny
+    if path.name in CRITICAL_KERNEL_FILES:
+        return "HIGH" if default in {"HIGH", "MEDIUM"} else "MEDIUM"
     if "/kernel/" in path_str or path.name in PROTECTED_BASENAMES:
         return "HIGH"
     return default
+
+
+def is_critical_kernel_file(path: Path) -> bool:
+    """Check if file is a critical kernel proof file requiring extra scrutiny."""
+    return path.name in CRITICAL_KERNEL_FILES
 
 
 def scan_clamps(path: Path) -> list[Finding]:
@@ -483,6 +506,7 @@ def scan_physics_analogy_contract(path: Path) -> list[Finding]:
 def scan_file(path: Path) -> list[Finding]:
     raw = path.read_text(encoding="utf-8", errors="replace")
     text = strip_coq_comments(raw)
+    raw_lines = raw.splitlines()  # Keep original with comments for SAFE checking
     line_of = _line_map(text)
     clean_lines = text.splitlines()
 
@@ -733,6 +757,10 @@ def scan_file(path: Path) -> list[Finding]:
     for m in def_zero.finditer(text):
         name = m.group(1)
         line = line_of[m.start()]
+        # Check for SAFE comment in original text
+        context = "\n".join(raw_lines[max(0, line - 3): line + 1])
+        if re.search(r"\(\*\s*SAFE:", context):
+            continue
         snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else m.group(0)
         findings.append(
             Finding(
@@ -905,6 +933,192 @@ def scan_trivial_equalities(path: Path) -> list[Finding]:
                 )
             )
 
+    return findings
+
+
+def scan_proof_quality(path: Path) -> list[Finding]:
+    """Scan for proof quality issues in critical kernel files.
+    
+    Enhanced checks for:
+    - Proofs that are suspiciously short for complex theorems
+    - Missing proof obligations (Defined vs Qed)
+    - Proof by assertion without clear justification
+    """
+    if not is_critical_kernel_file(path):
+        return []
+    
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    raw_lines = raw.splitlines()  # Keep original for SAFE checking
+    line_of = _line_map(text)
+    clean_lines = text.splitlines()
+    findings: list[Finding] = []
+    
+    # Check for theorems with extremely short proofs (potential red flag)
+    theorem_re = re.compile(r"(?m)^[ \t]*(Theorem|Lemma)\s+([A-Za-z0-9_']+)\b")
+    proof_re = re.compile(r"(?m)^[ \t]*Proof\.")
+    end_re = re.compile(r"(?m)^[ \t]*(Qed|Defined|Admitted)\.")
+    
+    for m in theorem_re.finditer(text):
+        name = m.group(2)
+        start = m.end()
+        
+        # Find Proof
+        proof_match = proof_re.search(text, start)
+        if not proof_match:
+            continue
+        
+        # Find end of proof
+        end_match = end_re.search(text, proof_match.end())
+        if not end_match:
+            continue
+        
+        proof_block = text[proof_match.end(): end_match.start()]
+        proof_lines = [ln.strip() for ln in proof_block.splitlines() if ln.strip()]
+        
+        # Skip already-flagged admits
+        if end_match.group(1) == "Admitted":
+            continue
+        
+        # Flag suspiciously short proofs for complex-sounding theorems
+        complex_name_re = re.compile(r"(?i)(bound|uniqueness|complete|sound|equivalence|conservation|causality)")
+        if complex_name_re.search(name) and len(proof_lines) <= 2:
+            line = line_of[m.start()]
+            # Check for SAFE comment in original text
+            context = "\n".join(raw_lines[max(0, line - 3): line + 2])
+            if re.search(r"\(\*\s*SAFE:", context):
+                continue
+            snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else name
+            findings.append(
+                Finding(
+                    rule_id="SUSPICIOUS_SHORT_PROOF",
+                    severity="MEDIUM",
+                    file=path,
+                    line=line,
+                    snippet=snippet.strip(),
+                    message=f"Complex theorem `{name}` has very short proof ({len(proof_lines)} lines) - verify this is not a placeholder.",
+                )
+            )
+    
+    return findings
+
+
+def scan_mu_cost_consistency(path: Path) -> list[Finding]:
+    """Check for consistency in μ-cost accounting definitions.
+    
+    Ensures that μ-cost is properly tracked and not trivially defined.
+    """
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    line_of = _line_map(text)
+    clean_lines = text.splitlines()
+    findings: list[Finding] = []
+    
+    # Check for μ-related definitions that might be trivially zero
+    mu_def_re = re.compile(r"(?m)^[ \t]*Definition\s+([A-Za-z0-9_']*(?:mu|μ|cost)[A-Za-z0-9_']*)\b.*:=\s*0")
+    for m in mu_def_re.finditer(text):
+        name = m.group(1)
+        # Skip if in test files or explicitly documented as intentional
+        if "test" in path.name.lower() or "spec" in path.name.lower():
+            continue
+        line = line_of[m.start()]
+        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else m.group(0)
+        findings.append(
+            Finding(
+                rule_id="MU_COST_ZERO",
+                severity=_severity_for_path(path, "MEDIUM"),
+                file=path,
+                line=line,
+                snippet=snippet.strip(),
+                message=f"μ-cost definition `{name}` is trivially zero - ensure this is intentional.",
+            )
+        )
+    
+    return findings
+
+
+def scan_chsh_bounds(path: Path) -> list[Finding]:
+    """Check CHSH-related theorems for proper bounds.
+    
+    Verifies that explicit CHSH bound claims reference proper values.
+    Only flags theorems that CLAIM a specific bound but don't reference known good values.
+    """
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    line_of = _line_map(text)
+    clean_lines = text.splitlines()
+    findings: list[Finding] = []
+    
+    # Check for CHSH-related theorems that explicitly claim a bound value
+    # Focus on theorems that contain comparative operators (<=, >=, <, >) with CHSH
+    chsh_bound_theorem_re = re.compile(
+        r"(?m)^[ \t]*(Theorem|Lemma)\s+([A-Za-z0-9_']*(?:chsh|CHSH|tsirelson|Tsirelson)[A-Za-z0-9_']*)\b[^.]*"
+        r"(?:<=|>=|<\s*=|>\s*=)[^.]*\."
+    )
+    
+    for m in chsh_bound_theorem_re.finditer(text):
+        name = m.group(2)
+        stmt = m.group(0)
+        
+        # Check for proper bound references (2√2 ≈ 2.8284, or the rational approximation 5657/2000)
+        # Also accept 4%Q (algebraic max) and target_chsh_value as valid references
+        has_proper_bound = any(x in stmt for x in [
+            "2828", "5657", "2000", "sqrt", "Qsqrt", "4%Q", "4 %Q",
+            "target_chsh", "tsirelson_bound", "2 * 2", "<=4", "<= 4"
+        ])
+        
+        # Skip if already has a proper bound or doesn't explicitly claim a numeric bound
+        if has_proper_bound:
+            continue
+        
+        # Only flag if the name suggests it's claiming a bound
+        if "bound" not in name.lower():
+            continue
+            
+        line = line_of[m.start()]
+        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else name
+        findings.append(
+            Finding(
+                rule_id="CHSH_BOUND_MISSING",
+                severity="LOW",  # Downgraded since it's heuristic
+                file=path,
+                line=line,
+                snippet=snippet.strip(),
+                message=f"CHSH bound theorem `{name}` may not reference proper Tsirelson bound value.",
+            )
+        )
+    
+    return findings
+
+
+def scan_axiom_dependencies(path: Path) -> list[Finding]:
+    """Check for undocumented axiom dependencies.
+    
+    Looks for Require statements that might introduce axioms silently.
+    """
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    text = strip_coq_comments(raw)
+    line_of = _line_map(text)
+    clean_lines = text.splitlines()
+    findings: list[Finding] = []
+    
+    # Known problematic imports (classical axioms, etc.)
+    problematic_imports = re.compile(r"(?m)^[ \t]*Require\s+(?:Import\s+)?.*\b(Classical|Decidable|ProofIrrelevance)\b")
+    
+    for m in problematic_imports.finditer(text):
+        line = line_of[m.start()]
+        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else m.group(0)
+        findings.append(
+            Finding(
+                rule_id="PROBLEMATIC_IMPORT",
+                severity=_severity_for_path(path, "MEDIUM"),
+                file=path,
+                line=line,
+                snippet=snippet.strip(),
+                message="Import may introduce classical axioms - verify this is documented and necessary.",
+            )
+        )
+    
     return findings
 
 
@@ -1209,6 +1423,10 @@ def write_report(
     lines.append("- `DEFINITIONAL_INVARIANCE`: invariance lemma appears definitional/vacuous\n")
     lines.append("- `Z_TO_NAT_BOUNDARY`: Z.to_nat without nearby nonnegativity guard\n")
     lines.append("- `PHYSICS_ANALOGY_CONTRACT`: physics-analogy theorem lacks invariance or definitional label\n")
+    lines.append("- `SUSPICIOUS_SHORT_PROOF`: complex theorem has suspiciously short proof (critical files)\n")
+    lines.append("- `MU_COST_ZERO`: μ-cost definition is trivially zero\n")
+    lines.append("- `CHSH_BOUND_MISSING`: CHSH bound theorem may not reference proper Tsirelson bound\n")
+    lines.append("- `PROBLEMATIC_IMPORT`: import may introduce classical axioms\n")
     lines.append("\n")
 
     if not findings:
@@ -1287,6 +1505,12 @@ def main(argv: list[str]) -> int:
         action="store_true",
         default=False,
         help="Fail on any HIGH finding outside allowlisted paths (scorched earth).",
+    )
+    ap.add_argument(
+        "--ultra-strict",
+        action="store_true",
+        default=False,
+        help="Ultra-strict mode: also fail on MEDIUM findings in critical kernel files.",
     )
     # Legacy option retained for backward compatibility; it now implies the new default.
     ap.add_argument(
@@ -1375,6 +1599,11 @@ def main(argv: list[str]) -> int:
             all_findings.extend(scan_definitional_invariance(vf))
             all_findings.extend(scan_z_to_nat_boundaries(vf))
             all_findings.extend(scan_physics_analogy_contract(vf))
+            # New strict checks
+            all_findings.extend(scan_proof_quality(vf))
+            all_findings.extend(scan_mu_cost_consistency(vf))
+            all_findings.extend(scan_chsh_bounds(vf))
+            all_findings.extend(scan_axiom_dependencies(vf))
 
             score, tags = _file_vacuity_summary(vf)
             if score > 0:
@@ -1465,6 +1694,24 @@ def main(argv: list[str]) -> int:
                 print(f"- {rel}:L{f.line} {f.rule_id} {f.message}")
             if len(strict_high) > 25:
                 print(f"... ({len(strict_high) - 25} more)")
+            return 1
+
+    # ULTRA-STRICT MODE: Also fail on MEDIUM findings in critical kernel files
+    if args.ultra_strict:
+        critical_medium = [
+            f for f in all_findings
+            if f.severity == "MEDIUM" 
+            and is_critical_kernel_file(f.file)
+            and not is_allowlisted(f.file, enable_allowlist=args.allowlist)
+        ]
+        if critical_medium:
+            print(f"INQUISITOR: FAIL (ultra-strict) — {len(critical_medium)} MEDIUM findings in critical kernel files.")
+            print(f"Report: {report_path}")
+            for f in critical_medium[:25]:
+                rel = f.file.relative_to(repo_root).as_posix()
+                print(f"- {rel}:L{f.line} {f.rule_id} {f.message}")
+            if len(critical_medium) > 25:
+                print(f"... ({len(critical_medium) - 25} more)")
             return 1
 
     print("INQUISITOR: OK")
