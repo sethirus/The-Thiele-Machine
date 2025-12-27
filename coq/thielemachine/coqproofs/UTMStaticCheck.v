@@ -3,7 +3,7 @@
 
 From Coq Require Import List ZArith Bool.
 From ThieleUniversal Require Import TM UTM_Rules UTM_Encode UTM_Program.
-From ThieleMachine.Modular_Proofs Require Import Encoding.
+From ModularProofs Require Import Encoding.
 
 Import ListNotations.
 

@@ -3,7 +3,7 @@
 (* ================================================================= *)
 
 From Coq Require Import List Arith Lia PeanoNat Bool.
-From ThieleMachine.Modular_Proofs Require Import EncodingBounds.
+From ModularProofs Require Import EncodingBounds.
 Import ListNotations.
 
 Local Opaque Nat.div Nat.modulo.

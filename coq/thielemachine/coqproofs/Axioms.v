@@ -3,7 +3,7 @@
 
 From Coq Require Import Lia Nat PeanoNat ZArith.
 From ThieleMachine Require Import EncodingBridge ThieleMachine UTMStaticCheck.
-From ThieleMachine.Modular_Proofs Require TM_Basics.
+From ModularProofs Require TM_Basics.
 From ThieleUniversal Require Import UTM_Rules.
 
 Module TM := ThieleMachine.ThieleMachine.

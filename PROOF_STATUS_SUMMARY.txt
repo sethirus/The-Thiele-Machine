@@ -1,18 +1,29 @@
 =============================================================================
 THIELE MACHINE - FORMAL PROOF STATUS
-Date: 2025-12-27 (All Kernel Proofs Verified + Build System Fixed)
+Date: 2025-12-27 (All 206 Proofs Compile)
 =============================================================================
 
 COMPILATION STATUS:
-✅ **ALL 54 KERNEL PROOFS COMPILE** (Zero errors)
-✅ **SINGLE DIRECTORY**: All core proofs in coq/kernel/
+✅ **ALL 206 COQ PROOFS COMPILE** (Zero errors)
+✅ **ORGANIZED BY DIRECTORY**: Each module in its own subdirectory with README
 ✅ **BUILD SCRIPT WORKING**: ./scripts/build_coq.sh
 ✅ **INQUISITOR PASSES** (--strict mode)
 ✅ **ZERO AXIOMS, ZERO ADMITS** (Verified by inquisitor)
 
 BUILD COMMAND:
-  ./scripts/build_coq.sh        # Build all 54 kernel proofs
+  ./scripts/build_coq.sh        # Build all 206 proofs
   ./scripts/build_coq.sh --clean  # Clean and rebuild
+
+DIRECTORY STRUCTURE:
+  coq/kernel/           - 54 core kernel proofs (Tsirelson, QM, etc.)
+  coq/kernel_toe/       - 6 TOE cone proofs
+  coq/thieleuniversal/  - 7 UTM proofs
+  coq/thielemachine/    - 98 main machine proofs (Bell, verification)
+  coq/modular_proofs/   - 7 modular proofs
+  coq/physics/          - 5 physics proofs (Landauer bridge)
+  coq/bridge/           - 6 physics bridge proofs
+  coq/nofi/             - 5 NoFI abstraction proofs
+  + other directories (catnet, isomorphism, sandboxes, etc.)
 
 INQUISITOR VALIDATION:
 - HIGH findings: 0

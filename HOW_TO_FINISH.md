@@ -2,8 +2,8 @@
 
 ## Current Status
 
-✅ **ALL 54 KERNEL PROOFS COMPILE** (December 27, 2025)  
-✅ **SINGLE DIRECTORY**: All core proofs in `coq/kernel/`  
+✅ **ALL 206 COQ PROOFS COMPILE** (December 27, 2025)  
+✅ **ORGANIZED BY DIRECTORY**: Each module in its own subdirectory with README  
 ✅ **INQUISITOR PASSES**: Zero axioms, zero admits, zero parameters  
 ✅ **BUILD SYSTEM WORKING**: `./scripts/build_coq.sh` compiles everything  
 ✅ **PYTHON BISIMULATION**: Coq VM ↔ Python VM equivalence proven  
