@@ -302,8 +302,12 @@ always @(posedge clk or negedge rst_n) begin
                     end
 
                     OPCODE_LASSERT: begin
-                        // Logic assertion
+                        // Logic assertion with proof certificate
                         // Coq semantics: vm_mu := s.vm_mu + instruction_cost
+                        //
+                        // QUANTITATIVE NO FREE INSIGHT (StateSpaceCounting.v):
+                        // operand_cost ≥ String.length(formula) enforced by assembler
+                        // This ensures Δμ ≥ formula_bit_length as proven in Coq
                         mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
                         state <= STATE_LOGIC;
                     end

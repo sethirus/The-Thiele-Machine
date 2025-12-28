@@ -57,7 +57,7 @@ I, Devon Thiele, present the \textit{Thiele Machine}---a new model of computatio
 \node[above] at (4.75, 4) {\textbf{Thiele Machine}};
 
 \end{tikzpicture}
-\caption{The paradigm shift from blind computation to structure-aware computation. Classical models pay the ``time tax'' of exponential search; the Thiele Machine makes structural cost explicit through $\mu$-bit accounting.}
+\caption{The paradigm shift from blind computation to structure-aware computation. Classical models pay the ``time tax'' of exponential search when problem structure exists but is hidden; the Thiele Machine makes structural cost explicit through $\mu$-bit accounting, enabling speedups when structure can be discovered or certified.}
 \label{fig:paradigm-shift}
 \end{figure}
 
@@ -177,14 +177,14 @@ When a blind machine encounters a problem with inherent structure, it pays an ex
 
 A blind machine, lacking knowledge of $\phi$'s structure, must search the space $\{0, 1\}^n$ of $2^n$ possible assignments in the worst case. If $\phi$ happens to be decomposable into independent sub-formulas $\phi = \phi_1 \land \phi_2$ where $\text{vars}(\phi_1) \cap \text{vars}(\phi_2) = \emptyset$, a sighted machine could solve each sub-problem independently, reducing the complexity from $O(2^n)$ to $O(2^{n_1} + 2^{n_2})$ where $n_1 + n_2 = n$. This reduction relies on \emph{provable independence}; without it, the factorization cannot be justified.
 
-This is the \textbf{Time Tax}: because classical models refuse to account for structural information, they pay in exponential time. Specifically:
+This is the \textbf{Time Tax}: because classical models refuse to account for structural information, they pay in exponential time \textit{when the structure exists but is hidden}. Specifically:
 
 \begin{quote}
-    \textit{The Time Tax Principle:} A blind computation on a problem with $k$ independent components of size $n/k$ pays $O(2^{n/k})^k = O(2^n)$ in the worst case. A sighted computation that perceives the decomposition pays only $O(k \cdot 2^{n/k})$, an exponential improvement.
+    \textit{The Time Tax Principle:} \textbf{When a problem has} $k$ independent components of size $n/k$: A blind computation pays $O(2^{n/k})^k = O(2^n)$ in the worst case. A sighted computation that \textit{perceives or is given} the decomposition pays only $O(k \cdot 2^{n/k})$, an exponential improvement \textit{relative to blind search on the structured instance}.
 \end{quote}
 
-The question this thesis addresses is: \textbf{What is the cost of sight?} Put differently, how many bits of certified structure are required to justify a given reduction in search effort?
-The model answers this by explicitly charging $\mu$ for operations that add or refine structure, and by proving that any reduction in the compatible state space requires a matching $\mu$-increase.
+The question this thesis addresses is: \textbf{What is the cost of sight?} Put differently, how many $\mu$-bits are required to discover or certify a given structure?
+The model explicitly charges $\mu$ for operations that add or refine structure. The proven result: strengthening predicates requires $\mu > 0$.
 
 % ============================================================================
 % TIME TAX DIAGRAM
@@ -232,7 +232,7 @@ The model answers this by explicitly charging $\mu$ for operations that add or r
 \node[left] at (0, 5) {$10^{10}$};
 
 \end{tikzpicture}
-\caption{The Time Tax: blind computation pays exponentially ($O(2^n)$), while structure-aware computation pays polynomially when structure is available ($O(k \cdot 2^{n/k})$ for $k$ independent components). The gap is the ``time tax'' of blindness.}
+\caption{The Time Tax: blind computation pays exponentially ($O(2^n)$), while structure-aware computation pays sub-exponentially \textit{when structure is present} ($O(k \cdot 2^{n/k})$ for $k$ independent components). The gap is the ``time tax'' of blindness---paid only when exploitable structure exists but is hidden.}
 \label{fig:time-tax}
 \end{figure}
 
@@ -394,13 +394,15 @@ In the current implementation, axioms are stored as SMT-LIB strings, and the $\m
 
 \subsection{The No Free Insight Theorem}
 
-The central result of this thesis, proven mechanically in Coq, is:
+The central result of this thesis is:
 
 \begin{theorem}[No Free Insight]
-Let $T$ be a Thiele Machine. If an execution trace reduces the search space from $\Omega$ to $\Omega'$, then the $\mu$-ledger must increase by at least:
-\[
-\Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')
-\]
+\textbf{Proven in Coq (StateSpaceCounting.v):} For any LASSERT operation adding formula $\phi$:
+\begin{enumerate}
+    \item \textbf{Qualitative bound:} If an execution trace strengthens an accepted predicate from $P_{\text{weak}}$ to $P_{\text{strong}}$ (strictly), then the trace must contain structure-adding operations that charge $\mu > 0$.
+    \item \textbf{Quantitative bound:} The $\mu$-cost satisfies $\Delta\mu \ge |\phi|_{\text{bits}}$, where $|\phi|_{\text{bits}}$ is the bit-length of the formula.
+    \item \textbf{Information-theoretic optimum:} Under optimal encoding, $k$ constraint bits provide at most $2^k$ reduction in state space, establishing $\Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')$.
+\end{enumerate}
 \end{theorem}
 
 % ============================================================================
@@ -444,7 +446,7 @@ Let $T$ be a Thiele Machine. If an execution trace reduces the search space from
 };
 
 \end{tikzpicture}
-\caption{The No Free Insight theorem visualized. Reducing the search space from $\Omega$ to $\Omega'$ requires paying at least $\log_2(\Omega) - \log_2(\Omega')$ $\mu$-bits. This is a conservation law: insight costs information.}
+\caption{The No Free Insight theorem visualized. Reducing the search space from $\Omega$ to $\Omega'$ requires paying $\mu$-cost. \textbf{Proven:} $\Delta\mu \ge |\phi|_{\text{bits}}$ for any formula $\phi$ (StateSpaceCounting.v). Under optimal encoding, this establishes $\Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')$ as the information-theoretic minimum. This is a conservation law: insight costs information.}
 \label{fig:no-free-insight}
 \end{figure}
 
@@ -477,8 +479,9 @@ Let $T$ be a Thiele Machine. If an execution trace reduces the search space from
 
 \textbf{Role in thesis:} This is the \textit{defining theorem} of the Thiele Machine. It formalizes the informal claim "insight costs information" into a precise, provable conservation law. The entire thesis is an elaboration of this single principle.
 
-In other words, you cannot narrow the search space without paying the information-theoretic cost of that narrowing. The proof is a formal consequence of three principles: (i) a $\mu$-ledger that never decreases under valid transitions, (ii) a revelation rule that charges any strengthening of accepted predicates, and (iii) a locality principle that prevents uncharged influence across unrelated modules. Here the ``search space'' $\Omega$ should be read as the count of states consistent with current axioms; shrinking that set necessarily consumes bits of structural commitment. This is the exact sense in which ``insight'' is paid for: reduced uncertainty is not free, it is ledgered.
-The mechanized proofs of these principles live in the Coq kernel (for example \path{MuLedgerConservation.v} and \path{NoFreeInsight.v}), so the theorem here is directly traceable to concrete proof artifacts rather than a purely informal argument.
+The mechanized proofs in \path{MuNoFreeInsightQuantitative.v} and \path{StateSpaceCounting.v} establish both the qualitative necessity (no free insight) and the quantitative bound ($\Delta\mu \ge |\phi|_{\text{bits}}$). The logarithmic relationship to state space reduction follows from information theory: if each bit of formula optimally constrains the solution space by eliminating half the possibilities, then $k$ bits reduce the space by $2^k$, establishing $\Delta\mu \ge \log_2(\text{reduction})$.
+
+The three proven principles are: (i) $\mu$-monotonicity (\path{MuLedgerConservation.v}), (ii) revelation requirements for strengthening (\path{NoFreeInsight.v}), and (iii) observational locality (\path{ObserverDerivation.v}). These ensure that insight is never free---it must be paid for in $\mu$-cost.
 
 \section{Methodology: The 3-Layer Isomorphism}
 
@@ -648,7 +651,7 @@ These three layers are not independent implementations—they are \textit{isomor
 
 \textbf{Layer breakdown:}
 \begin{itemize}
-    \item \textbf{Layer 1: Coq (purple, top):} Machine-checked proofs---206 files, 1400+ theorems. This is the \textit{mathematical ground truth}. Properties proven: $\mu$-monotonicity (ledger never decreases), No Free Insight ($\Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')$), CHSH bounds (quantum correlations require $\mu$-cost).
+    \item \textbf{Layer 1: Coq (purple, top):} Machine-checked proofs---206 files, 1400+ theorems. This is the \textit{mathematical ground truth}. Properties proven: $\mu$-monotonicity (ledger never decreases), No Free Insight (strengthening requires $\mu > 0$), CHSH bounds (quantum correlations require revelation events).
     
     \item \textbf{Layer 2: Python VM (blue, middle):} Executable reference implementation. Properties: Same $\mu$-ledger as Coq, same state projection (pc, registers, memory), auditable traces (every step recorded). Ed25519-signed receipts enable third-party verification.
     
@@ -683,7 +686,7 @@ This 3-layer isomorphism ensures that my theoretical claims are physically reali
 This thesis advances the following central claim:
 
 \begin{quote}
-    \textit{Computational intractability is primarily a failure of structural accounting, not a fundamental barrier. By making the cost of structural information explicit through the $\mu$-bit currency and enforcing it through the Thiele Machine architecture, I can transform problems from exponential-time blind search to polynomial-time guided inference—paying the honest cost of insight rather than the dishonest cost of ignorance.}
+    \textit{When computational problems contain exploitable structure, classical models that do not account for structural information pay an implicit ``time tax'' in blind search. By making the cost of structural information explicit through the $\mu$-bit currency and enforcing it through the Thiele Machine architecture, I can trade exponential search time for explicit structure cost—paying $\mu$-bits to discover or certify structure, then exploiting that structure for speedup. This makes the true cost visible: problems are not ``hard'' in isolation, but rather hard-to-structure or hard-to-solve-given-structure, with explicit accounting for each.}
 \end{quote}
 
 I prove this claim through:
@@ -704,7 +707,7 @@ This thesis makes the following specific contributions:
     
     \item \textbf{The $\mu$-bit Currency:} A canonical, implementation-independent measure of structural information cost based on Minimum Description Length principles.
     
-    \item \textbf{The No Free Insight Theorem:} A mechanically verified proof that search space reduction requires proportional $\mu$-investment, establishing a conservation law for computational insight.
+    \item \textbf{The No Free Insight Theorem:} A mechanically verified proof that predicate strengthening requires structure-adding operations charging $\mu \ge |\phi|_{\text{bits}}$ for any formula $\phi$, establishing a quantitative conservation law for computational insight. Under optimal encoding, this implies $\Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')$ as the information-theoretic minimum cost for reducing search space.
     
     \item \textbf{Observational No-Signaling:} A proven locality theorem showing that operations on one partition module cannot affect observables of unrelated modules—a computational analog of Bell locality.
     

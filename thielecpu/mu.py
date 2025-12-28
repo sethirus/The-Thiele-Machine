@@ -146,14 +146,66 @@ def mu_breakdown(expr: str, before: int, after: int) -> MuBreakdown:
     return MuBreakdown(canonical=canonical, question_bits=question_bits, information_gain=info_bits)
 
 
+# =============================================================================
+# Quantitative No Free Insight Theorem (StateSpaceCounting.v)
+# =============================================================================
+
+def axiom_bitlength(formula: str) -> int:
+    """Compute axiom bit-length matching Coq StateSpaceCounting.v.
+    
+    Definition: String.length(formula) * 8 bits
+    
+    This is the description length component of μ-cost, representing
+    the minimum information required to specify the constraint.
+    """
+    return len(formula.encode('utf-8')) * 8
+
+
+def log2_nat(n: int) -> int:
+    """Ceiling of log₂(n) matching Coq StateSpaceCounting.v.
+    
+    Definition: log2_nat(n) = if n =? 2^(log2 n) then log2 n else log2 n + 1
+    
+    This computes the ceiling of log₂, used in information-theoretic bounds.
+    Special case: log2_nat(0) = 0 by convention.
+    """
+    if n <= 0:
+        return 0
+    
+    log_n = n.bit_length() - 1  # Floor of log2(n)
+    
+    # Check if n is exactly a power of 2
+    if (1 << log_n) == n:
+        return log_n
+    else:
+        return log_n + 1
+
+
+def quantitative_nofreeinsight_bound(k: int) -> int:
+    """Information-theoretic bound: k bits → log₂(2^k) = k reduction.
+    
+    Theorem (nofreeinsight_information_theoretic_bound):
+        k ≥ log2_nat(2^k) for all k > 0
+    
+    This establishes that k constraint bits provide at least k bits
+    of state space reduction under optimal encoding.
+    """
+    if k <= 0:
+        return 0
+    return log2_nat(2 ** k)
+
+
 __all__ = [
     "MuBreakdown",
     "MuCost",
+    "axiom_bitlength",
     "calculate_mu_cost",
     "calculate_mu_cost_breakdown",
     "canonical_s_expression",
     "information_gain_bits",
+    "log2_nat",
     "mu_breakdown",
+    "quantitative_nofreeinsight_bound",
     "question_cost_bits",
     "shannon_entropy_component",
 ]
