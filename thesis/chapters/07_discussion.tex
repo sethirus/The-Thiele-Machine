@@ -267,6 +267,8 @@ This \textbf{Landauer bridge diagram} visualizes the connection between the abst
 
 Landauer's principle states that erasing one bit of information requires at least $kT \ln 2$ of energy dissipation, where $k$ is Boltzmann's constant and $T$ is temperature. This establishes a fundamental connection between logical irreversibility and thermodynamics: many-to-one mappings (like erasure) cannot be implemented without heat dissipation in a physical device.
 
+The Thiele Machine generalizes this idea: \textit{ignoring structure releases heat}. A blind trace repeatedly performs redundant operations that erase their own history, driving up $\mu_{\text{exec}}$ (kinetic dissipation). A sighted trace captures that history in the partition graph and axiom store, shifting cost into $\mu_{\text{disc}}$ (potential structure). The ledger therefore tracks the same physical obligation either way—heat or stored constraint.
+
 The Thiele Machine's $\mu$-ledger formalizes a computational analog:
 \begin{lstlisting}
 Theorem vm_irreversible_bits_lower_bound :
@@ -506,8 +508,8 @@ where $T(x)$ is time complexity and $\mu(x)$ is structural discovery cost.
 
 The No Free Insight theorem implies that difficulty is conserved but can be transmuted:
 \begin{itemize}
-    \item \textbf{High $T$, Low $\mu$}: Blind search (classical exponential algorithms)
-    \item \textbf{Low $T$, High $\mu$}: Sighted execution (pay upfront for structure)
+    \item \textbf{High $T$, Low $\mu_{\text{disc}}$ (Blind)}: High energy dissipation ($\mu_{\text{exec}}$)
+    \item \textbf{Low $T$, High $\mu_{\text{disc}}$ (Sighted)}: High structural storage
 \end{itemize}
 
 For problems like SAT:
