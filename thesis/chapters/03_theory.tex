@@ -59,7 +59,7 @@ The previous chapter established the \textit{problem}: classical computers are s
     \item \textbf{Logic Engine $L$ (purple):} SMT oracle for verification. §3.2.5
 \end{itemize}
 
-\textbf{Central element:} $\mu$-Ledger (yellow) - the currency tracking structural cost. §3.3
+\textbf{Central element:} $\mu$-Ledger (yellow) - the currency tracking total computational cost. §3.3
 
 \textbf{Relationships:} State $\to$ Partition (decomposition), Partition $\to$ Axioms (constraints), Rules $\to$ State (evolves), Logic $\to$ Axioms (verifies), Rules $\to$ $\mu$ (charges), $\mu$ $\dashrightarrow$ State (bounds). The $\mu$-ledger is fed by transition rules and bounds state evolution.
 
@@ -86,12 +86,17 @@ Each component corresponds to a concrete artifact in the formal development. The
 
 \subsection{The Central Innovation: $\mu$-bits}
 
-The key innovation is the \textit{$\mu$-bit currency}---a unit of structural information cost. Every operation that adds structural knowledge to the system charges a cost in $\mu$-bits. This cost is:
+The key innovation is the \textit{$\mu$-bit currency}---a unit of computational action (thermodynamic cost). Every operation that either performs irreversible work or adds structural knowledge to the system charges a cost in $\mu$-bits. This cost is:
 \begin{itemize}
     \item \textbf{Monotonic}: Once paid, $\mu$-bits are never refunded
     \item \textbf{Bounded}: The $\mu$-ledger lower-bounds irreversible operations
     \item \textbf{Observable}: The cost is visible in the execution trace
 \end{itemize}
+In physical terms, the ledger is interpreted as a conserved total:
+\[
+    \mu_{\text{total}} = \mu_{\text{kinetic}} + \mu_{\text{potential}}.
+\]
+$\mu_{\text{kinetic}}$ (a.k.a. \texttt{mu\_execution}) accounts for irreversible bit operations that dissipate heat, while $\mu_{\text{potential}}$ (a.k.a. \texttt{mu\_discovery}) accounts for stored structure such as partitions and axioms. The formal kernel still records a single counter \texttt{vm\_mu}; the decomposition is interpretive, based on which instruction classes contribute to each component.
 In the formal kernel, the ledger is the field \texttt{vm\_mu} in \texttt{VMState}, and every opcode carries an explicit \texttt{mu\_delta}. The step relation in \path{coq/kernel/VMStep.v} defines \texttt{apply\_cost} as \texttt{vm\_mu + instruction\_cost}, so the ledger increases exactly by the declared cost and never decreases. The extracted runner exports \texttt{vm\_mu} as part of its JSON snapshot, and the RTL testbench prints $\mu$ in its JSON output for partition-related traces; individual isomorphism gates then compare only the fields relevant to the trace type.
 
 \subsection{How to Read This Chapter}
@@ -180,7 +185,7 @@ The state space $S$ represents the complete instantaneous description of the mac
 % Highlight mu
 \draw[ultra thick, red!70!black] ($(mu.north west)+(-0.1,0.1)$) rectangle ($(mu.south east)+(0.1,-0.1)$);
 \end{tikzpicture}
-\caption{The \texttt{VMState} record structure. The $\mu$-ledger (\texttt{vm\_mu}) is highlighted as the central innovation---a monotonic counter tracking cumulative structural cost.}
+\caption{The \texttt{VMState} record structure. The $\mu$-ledger (\texttt{vm\_mu}) is highlighted as the central innovation---a monotonic counter tracking cumulative computational action.}
 \label{fig:vmstate_record}
 \end{figure}
 
@@ -197,7 +202,7 @@ The state space $S$ represents the complete instantaneous description of the mac
     \item \textbf{vm\_err (red):} bool - error flag
 \end{itemize}
 
-\textbf{Highlighted field:} vm\_mu with ultra-very thick red border - the central innovation. This monotonic counter tracks cumulative structural cost.
+\textbf{Highlighted field:} vm\_mu with ultra-very thick red border - the central innovation. This monotonic counter tracks cumulative computational action.
 
 \textbf{Key insight:} Complete state snapshot in one record. Immutable in Coq (transitions create new states). vm\_mu never decreases.
 
@@ -951,7 +956,7 @@ The kernel verifies the certificate but does not search for solutions. This ensu
 % Title
 \node[above=1.6cm of s2, font=\bfseries, sloped, pos=0.5, font=\small, yshift=6pt] {$\mu$-Ledger: Monotonic Cost Accumulation};
 \end{tikzpicture}
-\caption{The $\mu$-ledger tracks cumulative structural cost across execution. Each operation adds its declared cost, and the ledger never decreases (monotonicity). This is proven in \texttt{mu\_conservation\_kernel}.}
+\caption{The $\mu$-ledger tracks cumulative computational action across execution. Each operation adds its declared cost, and the ledger never decreases (monotonicity). This is proven in \texttt{mu\_conservation\_kernel}.}
 \label{fig:mu_ledger_conservation}
 \end{figure}
 
@@ -971,10 +976,10 @@ The kernel verifies the certificate but does not search for solutions. This ensu
 
 \subsection{Definition}
 
-The $\mu$-bit is the atomic unit of structural information cost.
+The $\mu$-bit is the atomic unit of computational action (thermodynamic cost).
 
 \begin{definition}[$\mu$-bit]
-One $\mu$-bit is the cost of specifying one bit of structural constraint using the canonical SMT-LIB 2.0 prefix-free encoding. The prefix-free requirement makes the encoding length a well-defined, reproducible cost.
+One $\mu$-bit is the cost of specifying one bit of irreversibility or structural constraint using the canonical SMT-LIB 2.0 prefix-free encoding. The prefix-free requirement makes the encoding length a well-defined, reproducible cost.
 \end{definition}
 
 \subsubsection{The $\mu$-Measure Contract: Encoding Invariance}
@@ -997,7 +1002,7 @@ One $\mu$-bit is the cost of specifying one bit of structural constraint using t
 
 \subsection{The $\mu$-Ledger}
 
-The $\mu$-ledger is a monotonic counter tracking cumulative structural cost:
+The $\mu$-ledger is a monotonic counter tracking cumulative computational action ($\mu_{\text{total}}$), with $\mu_{\text{total}} = \mu_{\text{kinetic}} + \mu_{\text{potential}}$ as its physical interpretation:
 \begin{lstlisting}
 vm_mu : nat
 \end{lstlisting}
@@ -1459,7 +1464,7 @@ Definition ObservableRegion (s : VMState) (mid : nat) : option (list nat) :=
 \textbf{Observable Function (Full Version):}
 \begin{itemize}
     \item \textbf{Returns Tuple}: (normalized region, global $\mu$-ledger value)
-    \item \textbf{Why Include $\mu$?}: Because the $\mu$-ledger is globally observable—all computations can see how much structural cost has been paid.
+    \item \textbf{Why Include $\mu$?}: Because the $\mu$-ledger is globally observable—all computations can see how much total $\mu$ cost has been paid (structural vs kinetic).
     \item \textbf{Product Type (*)}: Pairs two values together. Think of it as a struct with two fields.
 \end{itemize}
 
@@ -1613,7 +1618,7 @@ This is a computational analog of Bell locality: you cannot signal to a remote m
 
 \textbf{Left:} Large search space $\Omega$ with $2^n$ states
 
-\textbf{Arrow:} Transformation requiring $\Delta\mu$ bits of structural cost
+\textbf{Arrow:} Transformation requiring $\Delta\mu$ bits of total $\mu$ cost
 
 \textbf{Right:} Reduced space $\Omega'$ with $2^{n-k}$ states
 
@@ -1858,7 +1863,7 @@ Theorem nonlocal_correlation_requires_revelation :
 
 \textbf{Falsification Criterion:} If someone claims: "I achieved supra-quantum correlations without paying computational cost," inspect their trace. This theorem guarantees you'll find at least one high-cost instruction. If not, the claim is provably false.
 
-This proves that you cannot achieve "free" quantum advantage—the structural cost must be paid explicitly.
+This proves that you cannot achieve "free" quantum advantage—the total $\mu$ cost must be paid explicitly, whether as heat or stored structure.
 
 \section{Gauge Symmetry and Conservation}
 
@@ -2077,7 +2082,7 @@ This chapter has defined the Thiele Machine as a formal 5-tuple $T = (S, \Pi, A,
     
     \item \textbf{Partition Graph} ($\Pi$): Modules decompose state into disjoint regions with monotonic ID assignment and well-formedness invariants.
     
-    \item \textbf{$\mu$-bit Currency}: A monotonic counter that bounds structural information cost. The ledger satisfies:
+    \item \textbf{$\mu$-bit Currency}: A monotonic counter that bounds total computational cost (structural and kinetic). The ledger satisfies:
     \begin{itemize}
         \item Single-step monotonicity: $s'.\mu \ge s.\mu$
         \item Multi-step conservation: $\mu_n = \mu_0 + \sum \text{cost}(op_i)$

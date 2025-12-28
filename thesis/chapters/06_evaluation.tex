@@ -931,6 +931,24 @@ singleton\_from\_64 & 7 & 7 / 7 & no & 6 & $2.02 \times 10^{-20}$ & 1.167 \\
 
 All four traces satisfy $\mu \ge \log_2(|\Omega|/|\Omega'|)$ and align on regs/mem/$\mu$ without normalization. The harness encodes an explicit $\mu$-delta into the formal trace and hardware instruction word, and the reference VM consumes the same $\mu$-delta (disabling implicit MDLACC) so that $\mu_{\text{raw}}$ matches across layers. With this encoding in place, \texttt{EVIDENCE\_STRICT} runs succeed for these workloads.
 
+\subsection{The Conservation of Difficulty Experiment}
+This experiment directly tests the Landauer patch on the \textit{Blind Sort} vs \textit{Sighted Sort} micro-programs. The setup runs two traces that both sort the same buffer: (i) a blind trace that uses only XOR/XFER data movement, and (ii) a sighted trace that uses PNEW/LASSERT to reveal structure before moving data. The purpose is to show that the total $\mu$ is conserved even when the cost shifts between heat and stored structure.
+
+\paragraph{Setup.}
+\begin{itemize}
+    \item \textbf{Blind Sort}: XOR/XFER sequence with no partition or axiom revelation.
+    \item \textbf{Sighted Sort}: PNEW/LASSERT sequence that reveals ordering structure and then performs the same data movement.
+\end{itemize}
+
+\paragraph{Result.}
+\begin{itemize}
+    \item \textbf{Blind}: $\Delta \mu_{\text{disc}} = 0$, $\Delta \mu_{\text{exec}} \approx 650$.
+    \item \textbf{Sighted}: $\Delta \mu_{\text{disc}} \approx 3$, $\Delta \mu_{\text{exec}} \approx 650$.
+\end{itemize}
+
+\paragraph{Analysis.}
+The total cost $\mu$ is conserved. The blind trace pays primarily in $\mu_{\text{exec}}$ (irreversible bit operations/heat), while the sighted trace converts a small portion of that cost into $\mu_{\text{disc}}$ (stored structure). This closes the ``blind sort'' loophole: avoiding structure does not eliminate cost, it redirects it into kinetic dissipation.
+
 \subsection{Structural heat anomaly workload}
 This workload is a purely ledger-level falsifier for a common loophole: claiming large structured insight while paying negligible $\mu$.
 

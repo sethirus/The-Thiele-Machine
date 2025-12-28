@@ -181,7 +181,7 @@
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
 
-This thesis presents the \textbf{Thiele Machine}, a formal model of computation that makes structural information an explicit, costly resource. Classical models (Turing Machine, RAM) treat memory as a flat, undifferentiated tape, incurring an implicit ``time tax'' when structure must be recovered through blind search. The Thiele Machine resolves this by introducing the \textbf{$\mu$-bit} as the atomic unit of structural cost.
+This thesis presents the \textbf{Thiele Machine}, a formal model of computation that unifies computational work and structural information into a single conserved resource, $\mu$. Classical models (Turing Machine, RAM) treat memory as a flat, undifferentiated tape, incurring an implicit ``time tax'' when structure must be recovered through blind search. The Thiele Machine resolves this by introducing the \textbf{$\mu$-bit} as the atomic unit of conserved cost.
 
 We formalize the machine as a 5-tuple $T = (S, \Pi, A, R, L)$ comprising state space, partition graph, axiom sets, transition rules, and logic engine. The partition graph decomposes state into disjoint modules, each carrying logical constraints. A monotonically non-decreasing $\mu$-ledger tracks cumulative structural cost throughout execution.
 
