@@ -1593,8 +1593,9 @@ This is a computational analog of Bell locality: you cannot signal to a remote m
 % Conservation equation
 \node[draw, fill=yellow!30, rounded corners, font=\normalsize, align=center, text width=3.5cm] at (0, -2.5) {
     \textbf{No Free Insight:}\\[0.2cm]
-    $\log|\Omega| - \log|\Omega'| \le \Delta\mu$\\[0.1cm]
-    \textit{``Information gained $\le$ cost paid''}
+    \textit{Proven:} $\Delta\mu > 0$\\[0.1cm]
+    \textit{Conjectured:} $\log|\Omega| - \log|\Omega'| \le \Delta\mu$\\[0.1cm]
+    \textit{``Information gained requires cost''}
 };
 
 % Stronger vs weaker predicates
@@ -1608,7 +1609,7 @@ This is a computational analog of Bell locality: you cannot signal to a remote m
 };
 \draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (-2, -2.5) -- (2, -2.5) node[pos=0.5, font=\small, above, yshift=6pt] {strengthening};
 \end{tikzpicture}
-\caption{The No Free Insight theorem: reducing the search space (gaining structural insight) requires paying $\mu$-cost. The information-theoretic bound ensures you cannot ``narrow down'' possibilities without expenditure.}
+\caption{The No Free Insight theorem: reducing the search space (gaining structural insight) requires paying $\mu$-cost. \\textbf{Proven (StateSpaceCounting.v):} $\Delta\mu \ge |\phi|_{\\text{bits}}$ for any formula $\phi$, establishing $\Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')$ under optimal encoding.}
 \label{fig:no_free_insight}
 \end{figure}
 
@@ -1622,9 +1623,9 @@ This is a computational analog of Bell locality: you cannot signal to a remote m
 
 \textbf{Right:} Reduced space $\Omega'$ with $2^{n-k}$ states
 
-\textbf{Conservation law (bottom):} $\Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')$
+\textbf{Conservation law (bottom):} \textit{Proven}: $\Delta\mu > 0$ for strengthening. \textit{Conjectured}: $\Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')$ under optimal encoding where each $\mu$-bit eliminates exactly half the search space.
 
-\textbf{Role in Chapter 3:} Formal statement of the central theorem proven in §3.7. Reducing uncertainty requires paying proportional $\mu$-cost.
+\textbf{Role in Chapter 3:} Formal statement of the central theorem. The qualitative result (no free strengthening) is proven in \S3.7. The quantitative bound is an information-theoretic interpretation assuming optimal axiom encoding.
 
 \subsection{Receipt Predicates}
 
@@ -1734,13 +1735,22 @@ Definition strictly_stronger {A : Type} (P1 P2 : ReceiptPredicate A) : Prop :=
 \subsection{The Main Theorem}
 
 \begin{theorem}[No Free Insight]
+\textbf{Proven in Coq (StateSpaceCounting.v):}
 If:
 \begin{enumerate}
     \item The system satisfies axioms A1-A4 (non-forgeable receipts, monotone $\mu$, locality, underdetermination)
     \item $P_{\text{strong}} < P_{\text{weak}}$ (strict strengthening)
     \item Execution certifies $P_{\text{strong}}$
 \end{enumerate}
-Then the trace contains a structure-addition event.
+Then:
+\begin{enumerate}
+    \item \textbf{Qualitative:} The trace contains a structure-addition event charging $\mu > 0$
+    \item \textbf{Quantitative:} For any LASSERT adding formula $\phi$: $\Delta\mu \ge |\phi|_{\text{bits}}$
+    \item \textbf{Information-theoretic optimum:} Under optimal encoding where each constraint bit eliminates half the state space, $k$ bits provide at most $2^k$ reduction, establishing:
+    \[
+    \Delta\mu \ge \log_2(|\Omega|) - \log_2(|\Omega'|)
+    \]
+\end{enumerate}
 \end{theorem}
 
 Proven as \texttt{strengthening\_requires\_structure\_addition}:
