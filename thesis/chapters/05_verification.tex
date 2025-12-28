@@ -1443,10 +1443,6 @@ Every theorem includes a falsifier specification:
     \item A Thiele Machine trace that starts with \texttt{csr\_cert\_addr = 0}, ends with \texttt{Certified(..., P\_strong, ...)}, but contains \textit{no} REVEAL, EMIT, LJOIN, or LASSERT instructions.
 \end{enumerate}
 The theorem proves this is impossible: you cannot certify $[42]$ without explicitly producing it via a revelation event.
-    - Two predicates P_weak, P_strong with P_strong < P_weak
-    - A trace tr certifies P_strong
-    - tr contains NO revelation event
-    *)
 
 If anyone can produce such a counterexample, the theorem is false. The proofs establish that no such counterexample exists within the Thiele Machine model.
 
