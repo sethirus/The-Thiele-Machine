@@ -95,9 +95,11 @@ class MuLedger:
 
     mu_discovery: int = 0   # Cost of partition discovery operations
     mu_execution: int = 0   # Cost of instruction execution
+    landauer_entropy: int = 0  # Physical erasure accounting (side-channel)
 
     # HARDWARE CONSTANT: 32-bit width matching thiele_cpu.v
     MASK: int = 0xFFFFFFFF
+    MAX_ENTROPY: int = 2**63 - 1
 
     @property
     def total(self) -> int:
@@ -112,12 +114,22 @@ class MuLedger:
         """Atomic charge with hardware overflow semantics."""
         self.mu_discovery = (self.mu_discovery + cost) & self.MASK
 
+    def track_entropy(self, bits: int) -> None:
+        """Accumulate Landauer entropy without rollover."""
+        if bits <= 0:
+            return
+        new_total = self.landauer_entropy + bits
+        if new_total > self.MAX_ENTROPY:
+            raise RuntimeError("Landauer entropy overflow")
+        self.landauer_entropy = new_total
+
     def snapshot(self) -> Dict[str, int]:
         """Return a dictionary snapshot for tracing."""
         return {
             "mu_discovery": self.mu_discovery,
             "mu_execution": self.mu_execution,
             "mu_total": self.total,
+            "landauer_entropy": self.landauer_entropy,
         }
 
     def copy(self) -> "MuLedger":
@@ -125,6 +137,7 @@ class MuLedger:
         return MuLedger(
             mu_discovery=self.mu_discovery,
             mu_execution=self.mu_execution,
+            landauer_entropy=self.landauer_entropy,
         )
 
 
