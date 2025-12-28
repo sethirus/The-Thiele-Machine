@@ -1157,6 +1157,18 @@ class VM:
             "digest": digest,
         }
 
+    def _write_register(self, reg_index: int, new_value: int) -> int:
+        """Write a register and track Landauer erasure cost."""
+        idx = reg_index % len(self.register_file)
+        masked_value = new_value & 0xFFFFFFFF
+        old_value = self.register_file[idx] & 0xFFFFFFFF
+        diff = old_value ^ masked_value
+        erasure_cost = diff.bit_count()
+        if erasure_cost:
+            self.state.mu_ledger.track_entropy(erasure_cost)
+        self.register_file[idx] = masked_value
+        return masked_value
+
     def export_virtual_files(self) -> Dict[str, bytes]:
         """Return a copy of the virtual filesystem contents."""
 
@@ -2383,7 +2395,8 @@ class VM:
                 )
             elif op == "XFER":
                 (dest, src), explicit_cost = _parse_operands_and_cost(arg, expected=2)
-                self.register_file[dest % len(self.register_file)] = self.register_file[src % len(self.register_file)]
+                value = self.register_file[src % len(self.register_file)]
+                self._write_register(dest, value)
                 self.state.csr[CSR.STATUS] = 6
                 if explicit_cost is not None:
                     self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
@@ -2393,7 +2406,7 @@ class VM:
                 (dest, addr), explicit_cost = _parse_operands_and_cost(arg, expected=2)
                 addr = addr % len(self.data_memory)
                 value = self.data_memory[addr]
-                self.register_file[dest % len(self.register_file)] = value
+                self._write_register(dest, value)
                 self.state.csr[CSR.STATUS] = 7
                 if explicit_cost is not None:
                     self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
@@ -2403,7 +2416,8 @@ class VM:
                 (dest, src), explicit_cost = _parse_operands_and_cost(arg, expected=2)
                 dest_idx = dest % len(self.register_file)
                 src_idx = src % len(self.register_file)
-                self.register_file[dest_idx] ^= self.register_file[src_idx]
+                new_value = self.register_file[dest_idx] ^ self.register_file[src_idx]
+                self._write_register(dest_idx, new_value)
                 self.state.csr[CSR.STATUS] = 8
                 if explicit_cost is not None:
                     self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
@@ -2413,7 +2427,10 @@ class VM:
                 (a, b), explicit_cost = _parse_operands_and_cost(arg, expected=2)
                 a_idx = a % len(self.register_file)
                 b_idx = b % len(self.register_file)
-                self.register_file[a_idx], self.register_file[b_idx] = self.register_file[b_idx], self.register_file[a_idx]
+                a_value = self.register_file[a_idx]
+                b_value = self.register_file[b_idx]
+                self._write_register(a_idx, b_value)
+                self._write_register(b_idx, a_value)
                 self.state.csr[CSR.STATUS] = 9
                 if explicit_cost is not None:
                     self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
@@ -2423,7 +2440,7 @@ class VM:
                 (dest, src), explicit_cost = _parse_operands_and_cost(arg, expected=2)
                 src_idx = src % len(self.register_file)
                 rank = bin(self.register_file[src_idx] & 0xFFFFFFFF).count("1")
-                self.register_file[dest % len(self.register_file)] = rank
+                self._write_register(dest, rank)
                 self.state.csr[CSR.STATUS] = rank
                 if explicit_cost is not None:
                     self.state.mu_ledger.mu_execution = (self.state.mu_ledger.mu_execution + explicit_cost) & 0xFFFFFFFF
