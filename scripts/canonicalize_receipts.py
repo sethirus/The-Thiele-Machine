@@ -129,10 +129,16 @@ def canonicalize_step(step: dict, receipt_dir: Path) -> bool:
                     p = receipt_dir / cnf_uri
                 if p.exists():
                     cnf_path = p
-            # run analyzer with --normalize to attempt drat-trim when available
+            # run analyzer; only attempt normalization when proof is DRAT.
+            # LRAT proofs with explicit 'rat' hints should be conservatively
+            # rejected (requires_normalization) even if drat-trim exists.
             import subprocess
 
-            res = subprocess.run([sys.executable, str(analyzer), str(proof_uri), "--cnf", str(cnf_path) if cnf_path else "", "--normalize"], check=False)
+            args = [sys.executable, str(analyzer), str(proof_uri), "--cnf", str(cnf_path) if cnf_path else ""]
+            if pf == "DRAT":
+                args.append("--normalize")
+
+            res = subprocess.run(args, check=False)
             if res.returncode == 0:
                 step["status"] = "ok"
             else:

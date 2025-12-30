@@ -19,6 +19,7 @@ def _collect_sources() -> List[Path]:
         "mu_alu.v",
         "mu_core.v",
         "thiele_cpu.v",
+        "receipt_integrity_checker.v",
         "thiele_cpu_tb.v",
     ]
     missing = [name for name in core_sources if not (HW_DIR / name).exists()]

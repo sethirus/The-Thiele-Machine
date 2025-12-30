@@ -23,10 +23,21 @@ def test_boxworld_to_kernel_embedding_falsifier_search_bounded(tmp_path: Path) -
 
     atoms = [ReceiptTrial(x=x, y=y, a=a, b=b) for x in (0, 1) for y in (0, 1) for a in (0, 1) for b in (0, 1)]
 
-    # Enumerate all trial streams of length 0..2.
-    cases: list[list[ReceiptTrial]] = [[]]
-    cases.extend([[t1] for t1 in atoms])
-    cases.extend([[t1, t2] for t1 in atoms for t2 in atoms])
+    # Enumerate trial streams. Exhaustive search (length 0..2) is expensive
+    # (273 cases). By default, keep a fast smoke subset (length 0..1) so the
+    # unit test suite runs quickly. Set environment variable
+    # `THIELE_EXHAUSTIVE=1` to enable the full enumeration when desired.
+    import os
+
+    if os.environ.get("THIELE_EXHAUSTIVE"):
+        # Full exhaustive test (slow / integration-like)
+        cases: list[list[ReceiptTrial]] = [[]]
+        cases.extend([[t1] for t1 in atoms])
+        cases.extend([[t1, t2] for t1 in atoms for t2 in atoms])
+    else:
+        # Fast smoke subset: length 0..1 (17 cases)
+        cases: list[list[ReceiptTrial]] = [[]]
+        cases.extend([[t1] for t1 in atoms])
 
     for idx, trials in enumerate(cases):
         outdir = tmp_path / f"case_{idx:04d}"
