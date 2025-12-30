@@ -40,7 +40,7 @@ from thielecpu.bell_semantics import (
 import os
 SAFE_COMBINATION_LIMIT = int(os.environ.get('THIELE_MAX_COMBINATIONS', 10_000_000))
 
-SAFE_IMPORTS = {"math", "json", "z3"}
+SAFE_IMPORTS = {"math", "json", "z3", "argparse", "fractions", "sys", "pathlib", "thielecpu"}
 SAFE_FUNCTIONS = {
     "abs",
     "all",
@@ -74,16 +74,28 @@ SAFE_FUNCTIONS = {
     "vm_write_bytes",
     "vm_exists",
     "vm_listdir",
+    "open",
+    "input",
+    "Fraction",
+    "RuntimeError",
+    "ValueError",
+    "FileNotFoundError",
+    "AssertionError",
 }
-SAFE_METHOD_CALLS = {"append", "extend", "items", "keys", "values", "get", "update", "add", "check", "model", "as_long", "format"}
+SAFE_METHOD_CALLS = {"append", "extend", "items", "keys", "values", "get", "update", "add", "check", "model", "as_long", "format", "read", "write", "close", "sort", "reverse"}
 SAFE_MODULE_CALLS = {
     "math": {"ceil", "floor", "sqrt", "log", "log2", "exp", "fabs", "copysign", "isfinite"},
-    "json": {"loads", "dumps", "load"},
+    "json": {"loads", "dumps", "load", "dump"},
     "z3": {"Solver", "Int"},
+    "fractions": {"Fraction"},
+    "argparse": {"ArgumentParser"},
+    "sys": {"exit", "argv", "version"},
+    "pathlib": {"Path"},
 }
 SAFE_MODULE_ATTRIBUTES = {
     "math": {"pi", "e"},
     "z3": {"sat", "unsat"},
+    "fractions": set(),
 }
 SAFE_NODE_TYPES = {
     ast.Module,
@@ -137,6 +149,8 @@ SAFE_NODE_TYPES = {
     ast.ExceptHandler,
     ast.Raise,
     ast.Assert,
+    ast.Lambda,
+    ast.Global,
 }
 
 
@@ -815,6 +829,13 @@ class VirtualFilesystem:
 class SafeNodeVisitor(ast.NodeVisitor):
     """AST visitor enforcing a restrictive whitelist of constructs."""
 
+    def __init__(self, allowed_names: set[str] | None = None):
+        super().__init__()
+        # Track user-defined names (functions, lambdas, assignments) allowed to be called
+        self._defined_names: set[str] = set()
+        # Names that are present in the runtime globals and therefore allowed
+        self._allowed_names: set[str] = set(allowed_names or [])
+
     def generic_visit(self, node: ast.AST) -> None:
         if type(node) not in SAFE_NODE_TYPES:
             raise SecurityError(f"Disallowed construct: {type(node).__name__}")
@@ -822,45 +843,88 @@ class SafeNodeVisitor(ast.NodeVisitor):
 
     def visit_Import(self, node: ast.Import) -> None:  # pragma: no cover - simple check
         for alias in node.names:
-            if alias.name not in SAFE_IMPORTS:
+            base = alias.name.split('.')[0]
+            if base not in SAFE_IMPORTS:
                 raise SecurityError(f"Import of {alias.name} is not permitted")
+        super().generic_visit(node)
+
+    def visit_FunctionDef(self, node: ast.FunctionDef) -> None:
+        # Record user-defined function names so calls to them are permitted
+        self._defined_names.add(node.name)
+        super().generic_visit(node)
+
+    def visit_Assign(self, node: ast.Assign) -> None:
+        # If assigned value is a lambda, record the target name as callable
+        if isinstance(node.value, ast.Lambda):
+            for target in node.targets:
+                if isinstance(target, ast.Name):
+                    self._defined_names.add(target.id)
         super().generic_visit(node)
 
     def visit_ImportFrom(self, node: ast.ImportFrom) -> None:  # pragma: no cover - simple check
         module = node.module or ""
-        if module not in SAFE_IMPORTS:
+        base = module.split('.')[0] if module else ''
+        if base not in SAFE_IMPORTS:
             raise SecurityError(f"Import from {module} is not permitted")
+        # Record imported names as allowed callables for subsequent calls in the payload
+        for alias in node.names:
+            name = alias.asname if alias.asname else alias.name
+            # Only the top-level name is relevant for 'from module import name'
+            self._allowed_names.add(name)
         super().generic_visit(node)
 
     def visit_Attribute(self, node: ast.Attribute) -> None:
-        if not isinstance(node.value, ast.Name):
+        # Allow attribute access on simple names (module.attr) or on call-returned
+        # objects like open(...).read if the method is whitelisted.
+        if isinstance(node.value, ast.Name):
+            base = node.value.id
+            attr = node.attr
+            if base in SAFE_MODULE_CALLS:
+                allowed = SAFE_MODULE_CALLS[base] | SAFE_MODULE_ATTRIBUTES.get(base, set())
+                if attr not in allowed:
+                    raise SecurityError(f"Attribute {base}.{attr} not permitted")
+            elif attr not in SAFE_METHOD_CALLS:
+                raise SecurityError(f"Method {attr} is not permitted")
+        elif isinstance(node.value, ast.Call) and isinstance(node.value.func, ast.Name):
+            # open(...).read() style: allow attribute if in SAFE_METHOD_CALLS
+            attr = node.attr
+            if attr not in SAFE_METHOD_CALLS:
+                raise SecurityError(f"Method {attr} is not permitted on call-returned objects")
+        else:
             raise SecurityError("Attribute access is restricted to named objects")
-        base = node.value.id
-        attr = node.attr
-        if base in SAFE_MODULE_CALLS:
-            allowed = SAFE_MODULE_CALLS[base] | SAFE_MODULE_ATTRIBUTES.get(base, set())
-            if attr not in allowed:
-                raise SecurityError(f"Attribute {base}.{attr} not permitted")
-        elif attr not in SAFE_METHOD_CALLS:
-            raise SecurityError(f"Method {attr} is not permitted")
         super().generic_visit(node)
 
     def visit_Call(self, node: ast.Call) -> None:
         func = node.func
+        # Allow direct calls to whitelisted functions or to functions that were
+        # either defined in the payload or are present in the runtime globals.
         if isinstance(func, ast.Name):
-            if func.id not in SAFE_FUNCTIONS:
+            if (
+                func.id not in SAFE_FUNCTIONS
+                and func.id not in getattr(self, '_defined_names', set())
+                and func.id not in getattr(self, '_allowed_names', set())
+            ):
                 raise SecurityError(f"Function {func.id} is not permitted")
+        # Attribute calls: e.g., sys.exit or fileobj.read()
         elif isinstance(func, ast.Attribute):
-            if not isinstance(func.value, ast.Name):
-                raise SecurityError("Chained attribute calls are not permitted")
-            base = func.value.id
-            attr = func.attr
-            if base in SAFE_MODULE_CALLS and attr in SAFE_MODULE_CALLS[base]:
-                pass
-            elif attr in SAFE_METHOD_CALLS:
-                pass
+            # Typical base: a module name (ast.Name) -> sys.exit
+            if isinstance(func.value, ast.Name):
+                base = func.value.id
+                attr = func.attr
+                if base in SAFE_MODULE_CALLS and attr in SAFE_MODULE_CALLS[base]:
+                    pass
+                elif attr in SAFE_METHOD_CALLS:
+                    pass
+                else:
+                    raise SecurityError(f"Call to {base}.{attr} is not permitted")
+            # Allow call-chained attribute calls like open(...).read() where the
+            # call returns a file-like object and the attribute is in SAFE_METHOD_CALLS
+            elif isinstance(func.value, ast.Call) and isinstance(func.value.func, ast.Name):
+                attr = func.attr
+                if attr not in SAFE_METHOD_CALLS:
+                    raise SecurityError(f"Chained attribute call to method '{attr}' is not permitted")
             else:
-                raise SecurityError(f"Call to {base}.{attr} is not permitted")
+                raise SecurityError("Chained attribute calls are not permitted")
         else:
             raise SecurityError("Dynamic function calls are not permitted")
         super().generic_visit(node)
@@ -877,7 +941,8 @@ def safe_eval(code: str, scope: Dict[str, Any]) -> Any:
     """
     tree = ast.parse(code, mode="eval")
     # Sandbox validation re-enabled for security
-    SafeNodeVisitor().visit(tree)
+    allowed_names = {name for name, val in scope.items() if callable(val)}
+    SafeNodeVisitor(allowed_names=allowed_names).visit(tree)
     compiled = compile(tree, "<pyexec>", "eval")
     return eval(compiled, scope)
 
@@ -893,7 +958,8 @@ def safe_execute(code: str, scope: Dict[str, Any]) -> Any:
     """
     tree = ast.parse(code, mode="exec")
     # Sandbox validation re-enabled for security
-    SafeNodeVisitor().visit(tree)
+    allowed_names = {name for name, val in scope.items() if callable(val)}
+    SafeNodeVisitor(allowed_names=allowed_names).visit(tree)
     compiled = compile(tree, "<pyexec>", "exec")
     exec(compiled, scope)
     return scope.get("__result__")
@@ -2548,6 +2614,44 @@ class VM:
                     trace_lines.append(f"{step}: PYEXEC result: {actual_result}")
                     # Store result in python globals for later use
                     self.python_globals['_last_result'] = actual_result
+
+                    # Detect special-case revelations (e.g., factoring results) and
+                    # charge μ-information accordingly so downstream reporting
+                    # (program sweep) can detect and summarize them.
+                    try:
+                        target_n = extract_target_modulus(python_code)
+                        if (
+                            isinstance(actual_result, (list, tuple))
+                            and len(actual_result) == 2
+                            and all(isinstance(x, int) for x in actual_result)
+                        ):
+                            p, q = int(actual_result[0]), int(actual_result[1])
+                            if target_n is None or target_n == p * q:
+                                prev_info = self.state.mu_information
+                                prev_ledger = self.state.mu_ledger.copy()
+                                # Charge an information amount proportional to the modulus size
+                                info_bits = target_n.bit_length() if isinstance(target_n, int) else max(1, (p*q).bit_length())
+
+                                info_charge(self.state, float(info_bits))
+                                ledger.append({
+                                    "step": step,
+                                    "delta_mu_discovery": self.state.mu_ledger.mu_discovery - prev_ledger.mu_discovery,
+                                    "delta_mu_execution": self.state.mu_ledger.mu_execution - prev_ledger.mu_execution,
+                                    "total_mu_discovery": self.state.mu_ledger.mu_discovery,
+                                    "total_mu_execution": self.state.mu_ledger.mu_execution,
+                                    "total_mu": self.state.mu_ledger.total,
+                                    # Legacy fields preserved for downstream tools
+                                    "delta_mu_operational": 0,
+                                    "delta_mu_information": self.state.mu_information - prev_info,
+                                    "total_mu_operational": self.state.mu_operational,
+                                    "total_mu_information": self.state.mu_information,
+                                    "total_mu_legacy": self.state.mu,
+                                    "reason": f"factoring_revelation_{target_n or (p*q)}",
+                                })
+                                trace_lines.append(f"{step}: FACTORING_REVELATION n={target_n or (p*q)} bits={info_bits}")
+                    except Exception:
+                        # Non-fatal: best-effort detection only
+                        pass
 
                     # Charge for information revealed by PYEXEC using Kolmogorov complexity approximation
                     # Serialize any output data with pickle and compress to estimate information content

@@ -116,11 +116,12 @@ class TestMuLedger:
         """Snapshot returns dictionary."""
         ledger = MuLedger(mu_discovery=5, mu_execution=15)
         snap = ledger.snapshot()
-        assert snap == {
-            "mu_discovery": 5,
-            "mu_execution": 15,
-            "mu_total": 20,
-        }
+        # Allow for additional snapshot fields (e.g., landauer entropy) while
+        # asserting the essential μ-values match expected results.
+        assert snap["mu_discovery"] == 5
+        assert snap["mu_execution"] == 15
+        assert snap["mu_total"] == 20
+        assert snap.get("landauer_entropy", 0) == 0
     
     def test_copy(self):
         """Copy creates independent instance."""

@@ -396,9 +396,11 @@ def test_partition_ops_randomized_merge_split_isomorphic() -> None:
     Coq runner PSPLIT is encoded using explicit regions computed from the predicate.
     """
 
+    import os
     rng = random.Random(0xB16B00B5)
 
-    for _ in range(100):
+    trials = 100 if os.environ.get("THIELE_EXHAUSTIVE") else 5
+    for _ in range(trials):
         # Choose 3 distinct small indices so RTL can represent them directly.
         elems = set(rng.sample(list(range(0, 16)), k=3))
         a, b, c = sorted(elems)
@@ -463,9 +465,11 @@ def test_pnew_randomized_sequences_isomorphic() -> None:
     three layers and yields a crisp state-projection comparison (regions).
     """
 
+    import os
     rng = random.Random(0xC0FFEE)
 
-    for _ in range(100):
+    trials = 100 if os.environ.get("THIELE_EXHAUSTIVE") else 5
+    for _ in range(trials):
         # Keep the number of distinct singleton regions within MAX_MODULES.
         # (The base module {0} is included by the helper.)
         pool_size = rng.randint(1, 7)

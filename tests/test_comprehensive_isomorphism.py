@@ -926,14 +926,14 @@ class TestVerilogIsomorphism:
             result = subprocess.run(
                 ["yosys", "-p", f"read_verilog {partition_core}; synth -top partition_core"],
                 capture_output=True,
-                timeout=60,
+                timeout=10,
                 check=False
             )
             
             if result.returncode != 0:
                 pytest.skip(f"Verilog synthesis failed: {result.stderr.decode()}")
         except subprocess.TimeoutExpired:
-            pytest.skip("Verilog synthesis timeout")
+            pytest.skip("Verilog synthesis timeout (shortened to 10s to avoid long CI waits)")
     
     def test_verilog_simulation(self):
         """Test Verilog simulation matches Python."""

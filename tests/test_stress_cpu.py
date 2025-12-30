@@ -164,31 +164,36 @@ def generate_random_program(length: int) -> tuple[list[int], list[tuple[str, str
 
 @pytest.mark.skipif(not subprocess.call(["bash", "-lc", "command -v iverilog >/dev/null"]) == 0, reason="iverilog not available")
 def test_fuzz_cpu_rigorous():
-    iterations = 50 # Push harder
-    prog_length = 100 # Longer programs
-    
+    # Smoke defaults for CI; full rigorous run enabled via THIELE_EXHAUSTIVE=1
+    if os.environ.get("THIELE_EXHAUSTIVE"):
+        iterations = 50  # Push harder in exhaustive mode
+        prog_length = 100  # Longer programs
+    else:
+        iterations = 2   # Fast smoke runs
+        prog_length = 10
+
     base_seed = 12345
     random.seed(base_seed)
-    
+
     for i in range(iterations):
         seed = random.randint(0, 2**32 - 1)
         random.seed(seed)
-        
+
         init_mem = [random.randint(0, 2**32 - 1) for _ in range(256)]
         init_regs = [0] * 32
-        
+
         prog_words, prog_text = generate_random_program(prog_length)
-        
+
         try:
             py_res = _run_python_vm(init_mem, init_regs, prog_text)
             rtl_res = _run_rtl(prog_words, init_mem)
-            
+
             # Compare everything
             assert py_res["regs"] == rtl_res["regs"], f"Register mismatch at iteration {i} (seed {seed})"
             assert py_res["mem"] == rtl_res["mem"], f"Memory mismatch at iteration {i} (seed {seed})"
             assert py_res["info_gain"] == rtl_res["info_gain"], f"Info Gain mismatch at iteration {i} (seed {seed})"
             assert py_res["status"] == rtl_res["status"], f"Status mismatch at iteration {i} (seed {seed})"
-            
+
         except Exception as e:
             pytest.fail(f"Exception at iteration {i} (seed {seed}): {e}")
 

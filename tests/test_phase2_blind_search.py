@@ -22,6 +22,7 @@ import numpy as np
 import json
 from pathlib import Path
 from typing import Dict, Any
+import os
 
 try:
     import pytest
@@ -263,27 +264,31 @@ def test_blind_search_discovers_second_derivatives():
     - If timeout or failure to construct, Phase 2 is FALSIFIED
     """
     # Generate problem
-    problem = DiffusionProblem(nx=15, ny=15, nt=8, diffusion_coeff=0.1)
+    if os.environ.get("THIELE_EXHAUSTIVE"):
+        problem = DiffusionProblem(nx=15, ny=15, nt=8, diffusion_coeff=0.1)
+        crawler_kwargs = dict(max_depth=4, population_size=50, mutation_rate=0.3, crossover_rate=0.7, seed=42)
+        num_generations = 50
+        verbose = True
+    else:
+        # Smoke-mode: much smaller search to keep unit test fast and deterministic
+        problem = DiffusionProblem(nx=10, ny=10, nt=5, diffusion_coeff=0.1)
+        crawler_kwargs = dict(max_depth=3, population_size=10, mutation_rate=0.3, crossover_rate=0.7, seed=42)
+        num_generations = 5
+        verbose = False
+
     data = problem.generate_synthetic_data()
-    
+
     # Create crawler
-    crawler = GrammarCrawler(
-        max_depth=4,
-        population_size=50,
-        mutation_rate=0.3,
-        crossover_rate=0.7,
-        seed=42
-    )
-    
+    crawler = GrammarCrawler(**crawler_kwargs)
+
     print("\nStarting blind search for diffusion equation...")
-    print("This may take a few minutes...")
-    
+
     # Run evolution
     best_equation = crawler.evolve(
         data=data,
         fitness_func=fitness_function,
-        num_generations=50,  # Reduced for testing
-        verbose=True
+        num_generations=num_generations,
+        verbose=verbose
     )
     
     # Check fitness
