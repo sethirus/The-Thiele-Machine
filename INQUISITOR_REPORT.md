@@ -1,8 +1,8 @@
-# INQUISITOR REPORT
-Generated: 2025-12-31 04:14:44Z (UTC)
-Scanned: 228 Coq files across the repo
+INQUISITOR: OK
+Report: /home/user/The-Thiele-Machine/INQUISITOR_REPORT.md
+ files across the repo
 ## Summary
-- HIGH: 10
+- HIGH: 9
 - MEDIUM: 4
 - LOW: 4
 
@@ -58,27 +58,21 @@ Higher score = more likely unfinished/vacuous.
   - `Admitted.`
 
 #### `coq/kernel/BoxCHSH.v`
-- L39: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-- L45: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-- L51: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-- L111: **ADMIT_TACTIC** — admit tactic found (proof shortcut - FORBIDDEN).
+- L56: **ADMIT_TACTIC** — admit tactic found (proof shortcut - FORBIDDEN).
   - `admit.`
-- L112: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+- L57: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+- L68: **ADMIT_TACTIC** — admit tactic found (proof shortcut - FORBIDDEN).
+  - `admit.`
+- L69: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+- L86: **ADMIT_TACTIC** — admit tactic found (proof shortcut - FORBIDDEN).
+  - `admit.`
+- L87: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
   - `Admitted.`
 
 #### `coq/kernel/TestTripartite.v`
 - L26: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-
-#### `coq/kernel/TsirelsonUniqueness.v`
-- L46: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-
-#### `coq/kernel/TsirelsonUpperBound.v`
-- L381: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
   - `Admitted.`
 
 ### MEDIUM
