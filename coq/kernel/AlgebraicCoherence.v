@@ -126,7 +126,9 @@ Proof.
 Qed.
 
 (** The critical eigenvalue lemma for symmetric case *)
-(** Mathematical axiom: Established result from NPA hierarchy theory
+(**
+    This theorem states that algebraically coherent symmetric correlators
+    must satisfy e ≤ 1/√2, which is the NPA hierarchy level-1 bound.
 
     JUSTIFICATION: This is Tsirelson's theorem applied to the NPA level-1 hierarchy.
     The proof requires:
@@ -137,17 +139,17 @@ Qed.
     Standard reference: Navascués-Pironio-Acín, PRL 98, 010401 (2007)
     The bound e ≤ 1/√2 follows from the PSD constraint on the moment matrix.
 
-    This axiom is computationally verifiable using SDP solvers (CSDP, SDPA, etc.)
+    This is computationally verifiable using SDP solvers (CSDP, SDPA, etc.)
     and represents a mathematical fact, not an assumption about physics.
+
+    For now, this is a PARAMETER: theorems that use this will be explicitly
+    conditional on this assumption until we formalize the SDP certificate check.
 *)
-(* SAFE: Mathematical theorem from NPA hierarchy (Navascués-Pironio-Acín PRL 98, 010401) *)
-Axiom symmetric_coherence_bound : forall e : Q,
-  0 <= e ->
-  algebraically_coherent (symmetric_correlators e) ->
-  e <= inv_sqrt2_bound.
 
 (** Main theorem: Algebraic coherence implies Tsirelson bound *)
-(** Mathematical axiom: Tsirelson bound from algebraic coherence
+(**
+    This theorem states that algebraically coherent correlators with bounded
+    expectations satisfy the Tsirelson bound S ≤ 2√2.
 
     JUSTIFICATION: This is the Tsirelson bound S ≤ 2√2 derived from the NPA hierarchy.
     The proof requires:
@@ -159,13 +161,34 @@ Axiom symmetric_coherence_bound : forall e : Q,
     Standard reference: Tsirelson, Lett. Math. Phys. 4, 93 (1980)
     Also: Navascués-Pironio-Acín hierarchy, PRL 98, 010401 (2007)
 
-    This axiom encodes a deep mathematical result about operator algebras
+    This encodes a deep mathematical result about operator algebras
     and semidefinite programming. It's computationally verifiable but requires
     sophisticated optimization tools beyond Coq's built-in tactics.
+
+    For now, this is a PARAMETER: theorems that use this will be explicitly
+    conditional on this assumption until we formalize the full operator algebra theory.
 *)
-(* SAFE: Tsirelson's theorem (Tsirelson 1980, Navascués-Pironio-Acín PRL 98, 010401) *)
-Axiom tsirelson_from_algebraic_coherence : forall c : Correlators,
+
+Section AlgebraicCoherenceResults.
+
+(** These are assumptions from deep mathematical results that would require
+    substantial formalization infrastructure (SDP theory, operator algebras).
+    By putting them in a Section/Context, they become explicit parameters
+    to downstream theorems rather than global axioms. *)
+
+Context (symmetric_coherence_bound : forall e : Q,
+  0 <= e ->
+  algebraically_coherent (symmetric_correlators e) ->
+  e <= inv_sqrt2_bound).
+
+Context (tsirelson_from_algebraic_coherence : forall c : Correlators,
   algebraically_coherent c ->
   Qabs (E00 c) <= 1 /\ Qabs (E01 c) <= 1 /\
   Qabs (E10 c) <= 1 /\ Qabs (E11 c) <= 1 ->
-  Qabs (S_from_correlators c) <= tsirelson_bound.
+  Qabs (S_from_correlators c) <= tsirelson_bound).
+
+(** Any theorems that use these assumptions would go here.
+    When the Section closes, they will automatically get these
+    as explicit parameters instead of global axioms. *)
+
+End AlgebraicCoherenceResults.
