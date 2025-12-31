@@ -9,6 +9,7 @@ Require Import Coq.QArith.Qabs.
 Require Import Coq.Arith.PeanoNat.
 Require Import Coq.Lists.List.
 Require Import Coq.Init.Nat.
+Require Import Coq.Classes.RelationClasses.
 Require Import Lia.
 Require Import Psatz.
 Require Import Coq.Reals.RIneq.
@@ -48,11 +49,41 @@ Definition S (B : Box) : Q :=
     Writing p₀₁+p₁₀ = 1-p₀₀-p₁₁, we get E = 2(p₀₀+p₁₁)-1.
     Since 0 <= p₀₀+p₁₁ <= 1, we have -1 <= E <= 1.
 
-    This axiom encodes elementary probability theory.
+    This theorem encodes elementary probability theory.
 *)
-(* SAFE: Elementary probability theory - correlation bounds for normalized distributions *)
-Axiom normalized_E_bound : forall B x y,
+Theorem normalized_E_bound : forall B x y,
   non_negative B -> normalized B -> Qabs (E B x y) <= 1.
+Proof.
+  intros B x y Hnn Hnorm.
+  unfold E, bit_sign.
+  (* Simplify: E = 1*1*B00 + 1*(-1)*B01 + (-1)*1*B10 + (-1)*(-1)*B11
+              = B00 - B01 - B10 + B11 *)
+  remember (B x y 0%nat 0%nat) as p00.
+  remember (B x y 0%nat 1%nat) as p01.
+  remember (B x y 1%nat 0%nat) as p10.
+  remember (B x y 1%nat 1%nat) as p11.
+  assert (H00: 0 <= p00) by (subst; apply Hnn).
+  assert (H01: 0 <= p01) by (subst; apply Hnn).
+  assert (H10: 0 <= p10) by (subst; apply Hnn).
+  assert (H11: 0 <= p11) by (subst; apply Hnn).
+  assert (Hsum: p00 + p01 + p10 + p11 == 1) by (subst; apply Hnorm).
+  (* Convert Qeq to Qle for psatz *)
+  assert (Hsum_le: p00 + p01 + p10 + p11 <= 1) by (rewrite Hsum; apply Qle_refl).
+  assert (Hsum_ge: 1 <= p00 + p01 + p10 + p11) by (rewrite Hsum; apply Qle_refl).
+  (* E = p00 - p01 - p10 + p11 *)
+  (* Need to show: Qabs E <= 1 *)
+  unfold Qabs.
+  destruct (Qle_bool ((1 # 1) * (1 # 1) * p00 + (1 # 1) * (- (1 # 1)) * p01 +
+       (- (1 # 1)) * (1 # 1) * p10 + (- (1 # 1)) * (- (1 # 1)) * p11) 0).
+  - (* E <= 0 case *)
+    ring_simplify.
+    (* Need: - (p00 - p01 - p10 + p11) <= 1 *)
+    psatz Q 4.
+  - (* E > 0 case *)
+    ring_simplify.
+    (* Need: p00 - p01 - p10 + p11 <= 1 *)
+    psatz Q 4.
+Qed.
 
 (** Mathematical axiom: Algebraic maximum for CHSH
 
