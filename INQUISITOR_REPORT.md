@@ -2,7 +2,7 @@ INQUISITOR: OK
 Report: /home/user/The-Thiele-Machine/INQUISITOR_REPORT.md
  files across the repo
 ## Summary
-- HIGH: 9
+- HIGH: 0
 - MEDIUM: 4
 - LOW: 4
 
@@ -49,32 +49,6 @@ Higher score = more likely unfinished/vacuous.
 | 65 | const-fun | `coq/thielemachine/coqproofs/SpectralApproximation.v` |
 
 ## Findings
-### HIGH
-
-#### `coq/kernel/AlgebraicCoherence.v`
-- L138: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-- L153: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-
-#### `coq/kernel/BoxCHSH.v`
-- L56: **ADMIT_TACTIC** — admit tactic found (proof shortcut - FORBIDDEN).
-  - `admit.`
-- L57: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-- L68: **ADMIT_TACTIC** — admit tactic found (proof shortcut - FORBIDDEN).
-  - `admit.`
-- L69: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-- L86: **ADMIT_TACTIC** — admit tactic found (proof shortcut - FORBIDDEN).
-  - `admit.`
-- L87: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-
-#### `coq/kernel/TestTripartite.v`
-- L26: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-
 ### MEDIUM
 
 #### `coq/kernel/TsirelsonUniqueness.v`
