@@ -2,7 +2,7 @@ INQUISITOR: OK
 Report: /home/user/The-Thiele-Machine/INQUISITOR_REPORT.md
  files across the repo
 ## Summary
-- HIGH: 0
+- HIGH: 3
 - MEDIUM: 4
 - LOW: 4
 
@@ -49,6 +49,16 @@ Higher score = more likely unfinished/vacuous.
 | 65 | const-fun | `coq/thielemachine/coqproofs/SpectralApproximation.v` |
 
 ## Findings
+### HIGH
+
+#### `coq/kernel/Tier1Proofs.v`
+- L239: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+- L281: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+- L352: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+
 ### MEDIUM
 
 #### `coq/kernel/TsirelsonUniqueness.v`
