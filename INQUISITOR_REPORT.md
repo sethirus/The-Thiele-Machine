@@ -2,7 +2,7 @@ INQUISITOR: OK
 Report: /home/user/The-Thiele-Machine/INQUISITOR_REPORT.md
  files across the repo
 ## Summary
-- HIGH: 3
+- HIGH: 2
 - MEDIUM: 4
 - LOW: 4
 
@@ -52,11 +52,9 @@ Higher score = more likely unfinished/vacuous.
 ### HIGH
 
 #### `coq/kernel/Tier1Proofs.v`
-- L239: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+- L306: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
   - `Admitted.`
-- L281: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-- L352: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+- L454: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
   - `Admitted.`
 
 ### MEDIUM
