@@ -6,7 +6,7 @@
 -R coq/thielemachine/coqproofs ThieleMachine
 -R coq/thielemachine/verification ThieleMachineVerification  
 -R coq/kernel_toe KernelTOE
--R coq/modular_proofs ThieleMachine.Modular_Proofs
+-R coq/modular_proofs ModularProofs
 -R coq/physics Physics
 -R coq/self_reference SelfReference
 -R coq/shor_primitives ShorPrimitives
@@ -30,10 +30,14 @@ coq/catnet/coqproofs/CatNet.v
 coq/isomorphism/coqproofs/Universe.v
 coq/kernel/CHSH.v
 coq/kernel/CHSHExtraction.v
+coq/kernel/ValidCorrelation.v
+coq/kernel/BoxCHSH.v
 coq/kernel/CertCheck.v
 coq/kernel/Certification.v
+coq/kernel/Closure.v
 coq/kernel/ConeAlgebra.v
 coq/kernel/ConeDerivation.v
+coq/kernel/Definitions.v
 coq/kernel/DerivedTime.v
 coq/kernel/EntropyImpossibility.v
 coq/kernel/FalsifiablePrediction.v
@@ -52,9 +56,12 @@ coq/kernel/MuInformation.v
 coq/kernel/MuLedgerConservation.v
 coq/kernel/MuNoFreeInsightQuantitative.v
 coq/kernel/NoFreeInsight.v
+coq/kernel/NoGo.v
+coq/kernel/NoGoSensitivity.v
 coq/kernel/ObserverDerivation.v
 coq/kernel/PDISCOVERIntegration.v
 coq/kernel/PartitionSeparation.v
+coq/kernel/Persistence.v
 coq/kernel/PhysicsClosure.v
 coq/kernel/ProbabilityImpossibility.v
 coq/kernel/QuantumBound.v
@@ -66,6 +73,7 @@ coq/kernel/SimulationProof.v
 coq/kernel/SpacetimeEmergence.v
 coq/kernel/StateSpaceCounting.v
 coq/kernel/Subsumption.v
+coq/kernel/TOE.v
 coq/kernel/TOEDecision.v
 coq/kernel/TsirelsonLowerBound.v
 coq/kernel/TsirelsonUniqueness.v
@@ -219,3 +227,6 @@ coq/thieleuniversal/coqproofs/UTM_Rules.v
 coq/kernel/PythonBisimulation.v
 coq/kernel/HardwareBisimulation.v
 coq/kernel/NonCircularityAudit.v
+coq/kernel/TestTripartite.v
+coq/kernel/AlgebraicCoherence.v
+coq/kernel/TsirelsonComputation.v
