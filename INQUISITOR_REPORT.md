@@ -1,10 +1,10 @@
-# INQUISITOR REPORT
-Generated: 2025-12-31 07:22:47Z (UTC)
-Scanned: 228 Coq files across the repo
+INQUISITOR: OK
+Report: /home/user/The-Thiele-Machine/INQUISITOR_REPORT.md
+ files across the repo
 ## Summary
-- HIGH: 6
+- HIGH: 0
 - MEDIUM: 4
-- LOW: 9
+- LOW: 4
 
 ## Rules
 - `ADMITTED`: `Admitted.` (incomplete proof - FORBIDDEN)
@@ -49,24 +49,6 @@ Higher score = more likely unfinished/vacuous.
 | 65 | const-fun | `coq/thielemachine/coqproofs/SpectralApproximation.v` |
 
 ## Findings
-### HIGH
-
-#### `coq/kernel/BoxCHSH.v`
-- L68: **ADMIT_TACTIC** — admit tactic found (proof shortcut - FORBIDDEN).
-  - `admit.`
-- L75: **ADMIT_TACTIC** — admit tactic found (proof shortcut - FORBIDDEN).
-  - `admit.`
-- L76: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-- L122: **AXIOM_OR_PARAMETER** — Found Axiom valid_box_S_le_4.
-  - `Axiom valid_box_S_le_4 : forall B,`
-- L146: **AXIOM_OR_PARAMETER** — Found Axiom local_box_S_le_2.
-  - `Axiom local_box_S_le_2 : forall B,`
-
-#### `coq/kernel/TestTripartite.v`
-- L53: **AXIOM_OR_PARAMETER** — Found Axiom pr_box_no_extension.
-  - `Axiom pr_box_no_extension : ~ has_valid_extension pr_box.`
-
 ### MEDIUM
 
 #### `coq/kernel/TsirelsonUniqueness.v`
@@ -86,18 +68,6 @@ Higher score = more likely unfinished/vacuous.
   - `Require Import Classical.`
 
 ### LOW
-
-#### `coq/kernel/BoxCHSH.v`
-- L59: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`H00\` not used in proof body or conclusion (heuristic).
-  - `intros p00 p01 p10 p11 H00 H01 H10 H11 Hsum.`
-- L59: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`H01\` not used in proof body or conclusion (heuristic).
-  - `intros p00 p01 p10 p11 H00 H01 H10 H11 Hsum.`
-- L59: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`H10\` not used in proof body or conclusion (heuristic).
-  - `intros p00 p01 p10 p11 H00 H01 H10 H11 Hsum.`
-- L59: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`H11\` not used in proof body or conclusion (heuristic).
-  - `intros p00 p01 p10 p11 H00 H01 H10 H11 Hsum.`
-- L59: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hsum\` not used in proof body or conclusion (heuristic).
-  - `intros p00 p01 p10 p11 H00 H01 H10 H11 Hsum.`
 
 #### `coq/thielemachine/coqproofs/BellCheck.v`
 - L134: **CHSH_BOUND_MISSING** — CHSH bound theorem \`CHSH_classical_bound\` may not reference proper Tsirelson bound value.
