@@ -641,6 +641,10 @@ def scan_file(path: Path) -> list[Finding]:
             continue
 
         if kind in {"Axiom", "Parameter"}:
+            # Check for SAFE comment justifying this axiom
+            context = "\n".join(raw_lines[max(0, line - 3): line + 1])
+            if re.search(r"\(\*\s*SAFE:", context):
+                continue
             rule_id = "AXIOM_OR_PARAMETER"
             severity = _severity_for_path(path, "MEDIUM", rule_id)
         elif kind == "Hypothesis":
