@@ -26,7 +26,7 @@
     
     ========================================================================= *)
 
-From Coq Require Import List QArith Qabs Lia Arith.PeanoNat.
+From Coq Require Import List QArith Qabs Lia Arith.PeanoNat Psatz.
 Import ListNotations.
 Local Open Scope Q_scope.
 
@@ -375,10 +375,11 @@ Theorem algebraic_max_not_coherent :
 Proof.
   unfold algebraically_coherent, symmetric_correlators. simpl.
   intros [t [s [[Ht1 Ht2] [[Hs1 Hs2] Hpsd]]]].
-  (* At e=1, the PSD constraint fails for all t,s in [-1,1] *)
-  (* The constraint becomes: 1 - 4 + stuff ≥ 0, which requires stuff ≥ 3 *)
-  (* But |stuff| ≤ 2 for t,s in [-1,1] *)
-Admitted.
+  (* At e=1, the PSD constraint simplifies to: -4 - t*s ≥ 0
+     This requires t*s ≤ -4. But for t,s in [-1,1], we have t*s >= -1.
+     Contradiction. Use psatz for nonlinear rational arithmetic. *)
+  psatz Q 2.
+Qed.
 
 (** Extract correlators from VM trace *)
 Definition correlators_from_trace 
