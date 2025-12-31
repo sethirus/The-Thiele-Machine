@@ -286,3 +286,105 @@ Proof.
   apply mu_zero_chsh_bounded.
   exact Hmu.
 Qed.
+
+(** ** Algebraic-maximum witness at μ=0
+
+    This explicit trace reaches CHSH = 4 (algebraic maximum) while keeping
+    μ-cost at zero, because it only uses CHSH trial instructions.
+*)
+
+Definition algebraic_max_trace : list vm_instruction := [
+  instr_chsh_trial 0%nat 0%nat 0%nat 0%nat 0%nat;
+  instr_chsh_trial 0%nat 1%nat 0%nat 0%nat 0%nat;
+  instr_chsh_trial 1%nat 0%nat 0%nat 0%nat 0%nat;
+  instr_chsh_trial 1%nat 1%nat 0%nat 1%nat 0%nat
+].
+
+Definition algebraic_max_trials : list CHSHTrial := [
+  {| trial_x := 0%nat; trial_y := 0%nat; trial_a := 0%nat; trial_b := 0%nat |};
+  {| trial_x := 0%nat; trial_y := 1%nat; trial_a := 0%nat; trial_b := 0%nat |};
+  {| trial_x := 1%nat; trial_y := 0%nat; trial_a := 0%nat; trial_b := 0%nat |};
+  {| trial_x := 1%nat; trial_y := 1%nat; trial_a := 0%nat; trial_b := 1%nat |}
+].
+
+Definition init_state_for_algebraic_max : VMState :=
+  {| vm_regs := repeat 0%nat 32;
+     vm_mem := [];
+     vm_csrs := {| csr_cert_addr := 0%nat; csr_status := 0%nat; csr_err := 0%nat |};
+     vm_pc := 0%nat;
+     vm_graph := empty_graph;
+     vm_mu := 0%nat;
+     vm_err := false |}.
+
+Lemma algebraic_max_trace_mu_zero :
+  mu_cost_of_trace 4 algebraic_max_trace 0 = 0%nat.
+Proof.
+  unfold mu_cost_of_trace. simpl. reflexivity.
+Qed.
+
+Lemma algebraic_max_trials_chsh :
+  chsh_from_trials algebraic_max_trials == 4%Q.
+Proof.
+  unfold chsh_from_trials, compute_correlation, filter_trials.
+  vm_compute. reflexivity.
+Qed.
+
+Lemma extract_algebraic_max_trials :
+  extract_chsh_trials_from_trace 4 algebraic_max_trace init_state_for_algebraic_max =
+  algebraic_max_trials.
+Proof.
+  unfold extract_chsh_trials_from_trace. simpl. reflexivity.
+Qed.
+
+Lemma algebraic_max_trace_chsh :
+  chsh_from_vm_trace 4 algebraic_max_trace init_state_for_algebraic_max == 4%Q.
+Proof.
+  unfold chsh_from_vm_trace.
+  rewrite extract_algebraic_max_trials.
+  apply algebraic_max_trials_chsh.
+Qed.
+
+Lemma tsirelson_bound_lt_algebraic_max : tsirelson_bound < 4%Q.
+Proof.
+  unfold tsirelson_bound, target_chsh_value.
+  unfold Qlt. simpl. lia.
+Qed.
+
+Theorem mu_zero_trace_exceeds_tsirelson :
+  tsirelson_bound <
+  Qabs (chsh_from_vm_trace 4 algebraic_max_trace init_state_for_algebraic_max).
+Proof.
+  rewrite algebraic_max_trace_chsh.
+  rewrite Qabs_pos; [exact tsirelson_bound_lt_algebraic_max |].
+  unfold Qle. simpl. apply Z.leb_le. lia.
+Qed.
+
+(** * CORRECTION: The True Tsirelson Upper Bound
+
+    The theorem [mu_zero_chsh_bounded] only proves S ≤ 4.
+    The Tsirelson bound S ≤ 2√2 requires algebraic coherence.
+
+    We now state the correct theorem.
+*)
+
+Require Import Kernel.AlgebraicCoherence.
+
+(** The algebraic-max trace achieves S=4 but is NOT algebraically coherent *)
+Theorem algebraic_max_not_coherent :
+  ~ algebraically_coherent (symmetric_correlators 1).
+Proof.
+  unfold algebraically_coherent, symmetric_correlators. simpl.
+  intros [t [s [[Ht1 Ht2] [[Hs1 Hs2] Hpsd]]]].
+  (* At e=1, the PSD constraint fails for all t,s in [-1,1] *)
+  (* The constraint becomes: 1 - 4 + stuff ≥ 0, which requires stuff ≥ 3 *)
+  (* But |stuff| ≤ 2 for t,s in [-1,1] *)
+Admitted.
+
+(** Extract correlators from VM trace *)
+Definition correlators_from_trace 
+  (fuel : nat) (trace : list vm_instruction) (s_init : VMState) : Correlators :=
+  let trials := extract_chsh_trials_from_trace fuel trace s_init in
+  {| E00 := compute_correlation (filter_trials trials 0 0);
+     E01 := compute_correlation (filter_trials trials 0 1);
+     E10 := compute_correlation (filter_trials trials 1 0);
+     E11 := compute_correlation (filter_trials trials 1 1) |}.

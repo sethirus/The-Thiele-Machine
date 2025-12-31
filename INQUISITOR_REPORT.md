@@ -1,9 +1,9 @@
 # INQUISITOR REPORT
-Generated: 2025-12-28 02:32:00Z (UTC)
-Scanned: 221 Coq files across the repo
+Generated: 2025-12-31 04:14:44Z (UTC)
+Scanned: 228 Coq files across the repo
 ## Summary
-- HIGH: 0
-- MEDIUM: 2
+- HIGH: 10
+- MEDIUM: 4
 - LOW: 4
 
 ## Rules
@@ -49,7 +49,47 @@ Higher score = more likely unfinished/vacuous.
 | 65 | const-fun | `coq/thielemachine/coqproofs/SpectralApproximation.v` |
 
 ## Findings
+### HIGH
+
+#### `coq/kernel/AlgebraicCoherence.v`
+- L138: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+- L153: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+
+#### `coq/kernel/BoxCHSH.v`
+- L39: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+- L45: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+- L51: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+- L111: **ADMIT_TACTIC** — admit tactic found (proof shortcut - FORBIDDEN).
+  - `admit.`
+- L112: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+
+#### `coq/kernel/TestTripartite.v`
+- L26: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+
+#### `coq/kernel/TsirelsonUniqueness.v`
+- L46: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+
+#### `coq/kernel/TsirelsonUpperBound.v`
+- L381: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+
 ### MEDIUM
+
+#### `coq/kernel/TsirelsonUniqueness.v`
+- L25: **SUSPICIOUS_SHORT_PROOF** — Complex theorem \`mu_zero_algebraic_bound\` has very short proof (1 lines) - verify this is not a placeholder.
+  - `Theorem mu_zero_algebraic_bound :`
+
+#### `coq/kernel/TsirelsonUpperBound.v`
+- L347: **SUSPICIOUS_SHORT_PROOF** — Complex theorem \`tsirelson_bound_lt_algebraic_max\` has very short proof (2 lines) - verify this is not a placeholder.
+  - `Lemma tsirelson_bound_lt_algebraic_max : tsirelson_bound < 4%Q.`
 
 #### `coq/thielemachine/coqproofs/MuAlu.v`
 - L189: **MU_COST_ZERO** — μ-cost definition \`mu_zero\` is trivially zero - ensure this is intentional.
