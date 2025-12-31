@@ -1,6 +1,6 @@
-INQUISITOR: OK
-Report: /home/user/The-Thiele-Machine/INQUISITOR_REPORT.md
- files across the repo
+# INQUISITOR REPORT
+Generated: 2025-12-31 16:45:40Z (UTC)
+Scanned: 231 Coq files across the repo
 ## Summary
 - HIGH: 0
 - MEDIUM: 4
