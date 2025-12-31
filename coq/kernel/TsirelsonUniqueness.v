@@ -41,9 +41,9 @@ Theorem tsirelson_requires_coherence :
 Proof.
   exists 4%nat, algebraic_max_trace, init_state_for_algebraic_max.
   split.
-  - (* μ=0 *) unfold mu_zero_program. admit.
+  - (* μ=0 *) exact algebraic_max_trace_mu_zero.
   - (* S > 2√2 *) exact mu_zero_trace_exceeds_tsirelson.
-Admitted.
+Qed.
 
 (** ** The Correct Theorem: Coherence is What Bounds Correlations *)
 
