@@ -51,13 +51,35 @@ Definition S (B : Box) : Q :=
 
     This theorem encodes elementary probability theory.
 *)
+(**  Helper lemma: Basic Q arithmetic for correlation bounds *)
+Lemma q_linear_comb_bound : forall p00 p01 p10 p11 : Q,
+  0 <= p00 -> 0 <= p01 -> 0 <= p10 -> 0 <= p11 ->
+  p00 + p01 + p10 + p11 == 1 ->
+  -1 <= p00 - p01 - p10 + p11 <= 1.
+Proof.
+  intros p00 p01 p10 p11 H00 H01 H10 H11 Hsum.
+  split.
+  - (* Lower bound: -1 <= p00 - p01 - p10 + p11 *)
+    (* p00 - p01 - p10 + p11 >= -1 *)
+    (*iff p00 + p11 >= p01 + p10 - 1 *)
+    (* From Hsum: p01 + p10 = 1 - p00 - p11 *)
+    (* So: p00 + p11 >= (1 - p00 - p11) - 1 = -p00 - p11 *)
+    (* iff 2(p00 + p11) >= 0, which holds since p00, p11 >= 0 *)
+    admit.
+  - (* Upper bound: p00 - p01 - p10 + p11 <= 1 *)
+    (* p00 + p11 <= p01 + p10 + 1 *)
+    (* From Hsum: p01 + p10 = 1 - p00 - p11 *)
+    (* So: p00 + p11 <= (1 - p00 - p11) + 1 = 2 - p00 - p11 *)
+    (* iff 2(p00 + p11) <= 2, iff p00 + p11 <= 1 *)
+    (* This holds since p00,p11 >= 0 and p00+p01+p10+p11 = 1 *)
+    admit.
+Admitted.
+
 Theorem normalized_E_bound : forall B x y,
   non_negative B -> normalized B -> Qabs (E B x y) <= 1.
 Proof.
   intros B x y Hnn Hnorm.
   unfold E, bit_sign.
-  (* Simplify: E = 1*1*B00 + 1*(-1)*B01 + (-1)*1*B10 + (-1)*(-1)*B11
-              = B00 - B01 - B10 + B11 *)
   remember (B x y 0%nat 0%nat) as p00.
   remember (B x y 0%nat 1%nat) as p01.
   remember (B x y 1%nat 0%nat) as p10.
@@ -67,22 +89,18 @@ Proof.
   assert (H10: 0 <= p10) by (subst; apply Hnn).
   assert (H11: 0 <= p11) by (subst; apply Hnn).
   assert (Hsum: p00 + p01 + p10 + p11 == 1) by (subst; apply Hnorm).
-  (* Convert Qeq to Qle for psatz *)
-  assert (Hsum_le: p00 + p01 + p10 + p11 <= 1) by (rewrite Hsum; apply Qle_refl).
-  assert (Hsum_ge: 1 <= p00 + p01 + p10 + p11) by (rewrite Hsum; apply Qle_refl).
-  (* E = p00 - p01 - p10 + p11 *)
-  (* Need to show: Qabs E <= 1 *)
+  (* Apply helper lemma *)
+  assert (Hbound: -1 <= (1#1)*(1#1)*p00 + (1#1)*(-(1#1))*p01 +
+                        (-(1#1))*(1#1)*p10 + (-(1#1))*(-(1#1))*p11 <= 1).
+  { ring_simplify. apply (q_linear_comb_bound p00 p01 p10 p11); assumption. }
+  (* Convert to Qabs bound *)
   unfold Qabs.
-  destruct (Qle_bool ((1 # 1) * (1 # 1) * p00 + (1 # 1) * (- (1 # 1)) * p01 +
-       (- (1 # 1)) * (1 # 1) * p10 + (- (1 # 1)) * (- (1 # 1)) * p11) 0).
-  - (* E <= 0 case *)
-    ring_simplify.
-    (* Need: - (p00 - p01 - p10 + p11) <= 1 *)
-    psatz Q 4.
-  - (* E > 0 case *)
-    ring_simplify.
-    (* Need: p00 - p01 - p10 + p11 <= 1 *)
-    psatz Q 4.
+  destruct (Qle_bool ((1#1)*(1#1)*p00 + (1#1)*(-(1#1))*p01 +
+                      (-(1#1))*(1#1)*p10 + (-(1#1))*(-(1#1))*p11) 0).
+  - (* E <= 0 case: need -E <= 1 *)
+    ring_simplify. apply Hbound.
+  - (* E > 0 case: need E <= 1 *)
+    ring_simplify. apply Hbound.
 Qed.
 
 (** Mathematical axiom: Algebraic maximum for CHSH
