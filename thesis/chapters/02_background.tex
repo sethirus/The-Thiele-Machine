@@ -630,7 +630,7 @@ The $\mu$-ledger is the computational analog of the thermodynamic entropy: a mon
     % CHSH formula
     \node at (0,-5.5) {$S = E(0,0) + E(0,1) + E(1,0) - E(1,1)$};
 \end{tikzpicture}
-\caption{The Bell-CHSH experiment. Alice and Bob share an entangled state from a source. The CHSH value $S$ is bounded by 2 for classical (local hidden variable) theories, $2\sqrt{2}$ for quantum mechanics, and 4 algebraically. The Thiele Machine derives $2\sqrt{2}$ from $\mu$-accounting.}
+\caption{The Bell-CHSH experiment. Alice and Bob share an entangled state from a source. The CHSH value $S$ is bounded by 2 for classical (local hidden variable) theories, $2\sqrt{2}$ for quantum mechanics, and 4 algebraically (proven from first principles in \texttt{coq/kernel/Tier1Proofs.v} with zero axioms). The Thiele Machine derives $2\sqrt{2}$ from $\mu$-accounting.}
 \label{fig:chsh_bounds}
 \end{figure}
 
@@ -651,14 +651,14 @@ The $\mu$-ledger is the computational analog of the thermodynamic entropy: a mon
     
     \item \textbf{Quantum region (blue, $2 < |S| \le 2\sqrt{2}$):} Quantum mechanics allows $S$ up to $2\sqrt{2} \approx 2.828$ (Tsirelson's bound, 1980). Quantum entanglement enables correlations exceeding classical limits.
     
-    \item \textbf{Supra-quantum region (red, $2\sqrt{2} < |S| \le 4$):} Algebraically possible but not realized by quantum mechanics. Why does nature stop at $2\sqrt{2}$? This is the mystery the thesis addresses.
-    
-    \item \textbf{Vertical dashed lines:} Mark boundaries at $S=2$ (classical), $S=2\sqrt{2}$ (Tsirelson), $S=4$ (algebraic).
+    \item \textbf{Supra-quantum region (red, $2\sqrt{2} < |S| \le 4$):} Algebraically possible but not realized by quantum mechanics. The bound $|S| \le 4$ is \textit{proven} from pure probability theory (Theorem T1-2: \texttt{valid\_box\_S\_le\_4}, verified with zero axioms). Why does nature stop at $2\sqrt{2}$? This is the mystery the thesis addresses.
+
+    \item \textbf{Vertical dashed lines:} Mark boundaries at $S=2$ (classical), $S=2\sqrt{2}$ (Tsirelson), $S=4$ (algebraic maximum, proven).
 \end{itemize}
 
 \textbf{Formula (bottom):} $S = E(0,0) + E(0,1) + E(1,0) - E(1,1)$ where $E(x,y) = \mathbb{E}[(-1)^{a \oplus b} \mid x,y]$ is the correlation for input pair $(x,y)$.
 
-\textbf{Key insight:} Quantum mechanics permits correlations up to $2\sqrt{2}$ but no higher. The Thiele Machine \textit{derives} this bound from $\mu$-accounting: achieving $S > 2$ requires $\mu > 0$ (structural cost), but the $\mu=0$ class naturally caps at $2\sqrt{2}$. This provides an information-theoretic explanation for Tsirelson's bound.
+\textbf{Key insight:} Quantum mechanics permits correlations up to $2\sqrt{2}$ but no higher. The algebraic maximum of 4 is proven from first principles (Theorem T1-2, correlation bound Theorem T1-1), establishing the absolute ceiling for any theory. The Thiele Machine \textit{derives} the quantum bound $2\sqrt{2}$ from $\mu$-accounting: achieving $S > 2$ requires $\mu > 0$ (structural cost), but the $\mu=0$ class naturally caps at $2\sqrt{2}$. This provides an information-theoretic explanation for Tsirelson's bound.
 
 \textbf{Role in thesis:} Central experimental prediction. The CHSH game is used throughout to validate the Thiele Machine's correlation accounting. Experimental results (Chapter 11) show 85.3\% win rate, matching $2\sqrt{2}$ within error.
 

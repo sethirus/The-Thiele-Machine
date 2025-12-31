@@ -53,7 +53,7 @@ This \textbf{roadmap diagram} visualizes Chapter 8's structure: starting with th
     \begin{itemize}
         \item \textbf{Theoretical (left):} Formal proofs (5-tuple formalization, $\mu$-bit currency, No Free Insight theorem, no-signaling theorem).
         \item \textbf{Implementation (center):} 3-layer system (Coq kernel, Python VM, Verilog RTL with isomorphism invariant).
-        \item \textbf{Verification (right):} Zero-admit standard (206 proofs, 0 admits, 0 axioms, Inquisitor enforcement).
+        \item \textbf{Verification (right):} Zero-admit standard (206 proofs, 0 admits, 0 global axioms, Bell inequality foundation proven, Inquisitor enforcement).
     \end{itemize}
     \item \textbf{Orange box (center-bottom):} ``Hypothesis Confirmed: No Free Insight''---the thesis's central claim, validated by all three contribution categories.
     \item \textbf{Two purple boxes (bottom):} Future directions:
@@ -178,7 +178,7 @@ This \textbf{theoretical contributions diagram} visualizes the four foundational
     \item \textbf{Central circle:} All four contributions are \textit{verified} in Coq. This means:
     \begin{itemize}
         \item No informal gaps in the proofs.
-        \item No hidden assumptions (zero axioms beyond foundational logic).
+        \item No hidden assumptions (zero global axioms; documented assumptions use Section/Context pattern).
         \item No unfinished proof obligations (zero admits).
     \end{itemize}
     \item \textbf{File annotations:} These provide \textit{traceability}. Readers can navigate to \path{coq/kernel/VMState.v} and see the exact definition of $T = (S, \Pi, A, R, L)$.
