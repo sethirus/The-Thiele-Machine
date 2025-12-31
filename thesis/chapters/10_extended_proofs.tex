@@ -311,12 +311,32 @@ The bound is developed in files such as \texttt{QuantumAdmissibilityTsirelson.v}
 
 \subsection{Bell Inequality Formalization}
 
-Multiple Bell-related proofs:
+The Bell inequality framework is formalized across multiple files, with foundational theorems proven from first principles:
+
+\textbf{Foundational Proofs (Zero Axioms):}
+\begin{itemize}
+    \item \texttt{coq/kernel/Tier1Proofs.v}: Contains two fundamental theorems proven from pure probability theory:
+    \begin{itemize}
+        \item \textbf{T1-1 (normalized\_E\_bound)}: For any normalized probability distribution $B$, correlations satisfy $|E(x,y)| \leq 1$. Proven using polynomial arithmetic (psatz) over rationals in 40 lines.
+        \item \textbf{T1-2 (valid\_box\_S\_le\_4)}: For any valid box (non-negative, normalized, no-signaling), the CHSH statistic satisfies $|S| \leq 4$. Proven using triangle inequality and T1-1 in 30 lines.
+    \end{itemize}
+    Both verified with \texttt{Print Assumptions} returning ``Closed under the global context'' (zero axioms beyond Coq stdlib).
+\end{itemize}
+
+\textbf{Application-Level Proofs:}
 \begin{itemize}
     \item \texttt{BellInequality.v}: Core CHSH definitions and classical bound
     \item \texttt{BellReceiptLocalGeneral.v}: Receipt-based locality
     \item \texttt{TsirelsonBoundBridge.v}: Bridge to kernel semantics
 \end{itemize}
+
+\textbf{Documented Assumptions (Section/Context Pattern):}
+\begin{itemize}
+    \item \textbf{local\_box\_S\_le\_2}: Bell-CHSH inequality ($|S| \leq 2$ for local hidden variable models). Handled as Context parameter in \texttt{BoxCHSH.v}. Well-established result (Bell 1964, CHSH 1969).
+    \item \textbf{Tsirelson bound ($|S| \leq 2\sqrt{2}$)}: Quantum mechanical maximum. Parameterized via \texttt{HardMathFacts} record.
+\end{itemize}
+
+The architecture uses Coq's \texttt{Section}/\texttt{Context} mechanism to explicitly parameterize theorems by their assumptions, avoiding global axioms while maintaining clean dependency tracking. See \texttt{PROOF\_DEBT.md} for detailed breakdown of proven vs. documented results.
 
 \subsection{Turing Machine Embedding}
 
