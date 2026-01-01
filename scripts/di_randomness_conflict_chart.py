@@ -24,7 +24,13 @@ reproducible, and auditable from receipts.
 
 import argparse
 import json
+import sys
 from pathlib import Path
+
+# Allow running as a script (subprocess) without requiring PYTHONPATH.
+REPO_ROOT = Path(__file__).resolve().parent.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 from thielecpu.receipts import load_receipts
 

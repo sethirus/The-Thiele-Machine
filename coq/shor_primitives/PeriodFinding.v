@@ -27,12 +27,23 @@
     Classical trial division:    O(√N) arithmetic operations
     Classical number field sieve: O(exp((ln N)^(1/3))) — best known classical
     Quantum Shor's algorithm:    O((log N)³) quantum operations
-    Thiele Machine:              O(μ-cost × log N) reasoning operations
+    Thiele Machine (current):    O(r) residue computation + O(log r) μ-queries
+    Thiele Machine (conjecture): O((log N)^k) via partition discovery (OPEN PROBLEM)
 
-    The key insight is that period finding reduces to order-finding in Z/NZ,
-    which quantum computers solve efficiently via quantum Fourier transform.
-    The Thiele Machine replaces quantum speedup with geometric reasoning
-    paid for via μ-cost.
+    SCIENTIFIC HONESTY: The polylog complexity claim is a CONJECTURE, not
+    an established fact. Current implementation (shor_oracle.py) computes
+    O(r) residues classically. The conjecture that partition discovery can
+    achieve polylog complexity is formalized in PolylogConjecture.v as an
+    AXIOM to separate proven facts from open questions.
+    
+    What IS proven:
+    - Reduction from period to factors (this file)
+    - μ-cost accounting correctness
+    - Formal verification of algorithm structure
+    
+    What is NOT proven:
+    - Polylog classical period finding
+    - Quantum-competitive performance without quantum hardware
 
     =========================================================================
     MATHEMATICAL FOUNDATION

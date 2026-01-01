@@ -102,10 +102,11 @@ Module Type HARD_ASSUMPTIONS.
     (exists a b : nat -> nat,
       (forall x, a x = 0%nat \/ a x = 1%nat) ->
       (forall y, b y = 0%nat \/ b y = 1%nat) ->
-      S = (if Nat.eqb (a 0) (b 0) then 1 else -1) +
-          (if Nat.eqb (a 0) (b 1) then 1 else -1) +
-          (if Nat.eqb (a 1) (b 0) then 1 else -1) -
-          (if Nat.eqb (a 1) (b 1) then 1 else -1)) ->
+      let sign (n : nat) := if Nat.eqb n 0%nat then 1 else if Nat.eqb n 1%nat then -1 else 0 in
+      S = sign (if Nat.eqb (a 0%nat) (b 0%nat) then 0%nat else 1%nat) +
+          sign (if Nat.eqb (a 0%nat) (b 1%nat) then 0%nat else 1%nat) +
+          sign (if Nat.eqb (a 1%nat) (b 0%nat) then 0%nat else 1%nat) -
+          sign (if Nat.eqb (a 1%nat) (b 1%nat) then 0%nat else 1%nat)) ->
     Qabs S <= 2.
 
   (** Assumption 4: PR box has no tripartite extension
