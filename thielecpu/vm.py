@@ -12,7 +12,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from pathlib import Path
 import json
-from typing import List, Dict, Any, Optional, Tuple, Mapping
+from typing import List, Dict, Any, Optional, Tuple, Mapping, Sequence
 import ast
 import sys
 from io import StringIO
@@ -27,6 +27,13 @@ import z3
 import numpy as np
 import networkx as nx
 from sklearn.cluster import SpectralClustering
+
+# Ensure the repo root is on sys.path when this file is executed directly
+# (e.g., `python thielecpu/vm.py`). Without this, `import thielecpu.*` fails
+# because sys.path contains the package directory itself, not its parent.
+_REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(_REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(_REPO_ROOT))
 
 from thielecpu.bell_semantics import (
     BellCounts,
@@ -1222,6 +1229,89 @@ class VM:
             "region_sizes": sizes,
             "digest": digest,
         }
+    
+    def _detect_supra_quantum_generation(self, outdir) -> bool:
+        """Detect if PYEXEC generated supra-quantum correlations.
+        
+        Checks output directory for JSON files with CHSH data and verifies
+        if S > 2√2 (Tsirelson bound).
+        
+        Returns:
+            True if supra-quantum correlations detected, False otherwise
+        """
+        from pathlib import Path
+        from fractions import Fraction
+        from .logger import get_thiele_logger
+        
+        logger = get_thiele_logger()
+        
+        try:
+            TSIRELSON_BOUND = 2.828427  # 2√2
+            
+            outdir_path = Path(outdir) if outdir else None
+            if not outdir_path or not outdir_path.exists():
+                return False
+            
+            # Check all JSON files in output directory
+            for json_file in outdir_path.glob("*.json"):
+                try:
+                    with open(json_file) as f:
+                        data = json.load(f)
+                    
+                    # Check if this is a CHSH dataset
+                    if "counts" in data and "strategy" in data:
+                        # Use the same formula as tools/compute_chsh_from_table.py
+                        # S = E(1,1) + E(1,0) + E(0,1) - E(0,0)
+                        
+                        # First compute correlation table from counts
+                        counts = data["counts"]
+                        
+                        # Parse counts into probability table
+                        table = {}  # (x, y) -> {(a, b): probability}
+                        for key, count in counts.items():
+                            parts = key.split(",")
+                            if len(parts) == 4:
+                                x, y, a, b = map(int, parts)
+                                setting = (x, y)
+                                if setting not in table:
+                                    table[setting] = {}
+                                table[setting][(a, b)] = count
+                        
+                        # Normalize to probabilities and compute correlators
+                        def correlator(x, y):
+                            if (x, y) not in table:
+                                return 0.0
+                            outcomes = table[(x, y)]
+                            total = sum(outcomes.values())
+                            if total == 0:
+                                return 0.0
+                            # E(x,y) = Σ_{a,b} (-1)^{a+b} * P(a,b|x,y)
+                            expectation = 0.0
+                            for (a, b), count in outcomes.items():
+                                prob = count / total
+                                expectation += ((-1) ** (a + b)) * prob
+                            return expectation
+                        
+                        E_11 = correlator(1, 1)
+                        E_10 = correlator(1, 0)
+                        E_01 = correlator(0, 1)
+                        E_00 = correlator(0, 0)
+                        
+                        S = E_11 + E_10 + E_01 - E_00
+                        
+                        if S > TSIRELSON_BOUND:
+                            return True
+                        
+                except (json.JSONDecodeError, KeyError, ValueError):
+                    continue
+            
+            return False
+        except Exception as e:
+            # If detection fails, log it and assume no supra-quantum
+            logger.error(f"Supra-quantum detection exception: {e}")
+            import traceback
+            traceback.print_exc()
+            return False
 
     def _write_register(self, reg_index: int, new_value: int) -> int:
         """Write a register and track Landauer erasure cost."""
@@ -2587,6 +2677,9 @@ class VM:
                 else:
                     python_code = arg
 
+                # Track state before execution for supra-quantum detection
+                pre_mu_info = self.state.mu_information
+                
                 result, output = self.execute_python(python_code)
                 if output:
                     # Split output into lines for better readability
@@ -2891,6 +2984,44 @@ class VM:
         # Write outputs
         (outdir / "trace.log").write_text("\n".join(trace_lines), encoding='utf-8')
         (outdir / "mu_ledger.json").write_text(json.dumps(ledger), encoding='utf-8')
+
+        # Final enforcement check: detect supra-quantum correlations generated without REVEAL
+        # This enforces No Free Insight theorem at program completion
+        try:
+            detected = self._detect_supra_quantum_generation(outdir)
+            logger.info(f"Supra-quantum detection: reveal_seen={reveal_seen}, detected={detected}")
+        except Exception as detection_err:
+            logger.error(f"Supra-quantum detection failed: {detection_err}")
+            detected = False
+            
+        if not reveal_seen and detected:
+            # Supra-quantum detected without explicit REVEAL
+            # Charge μ-cost retroactively
+            try:
+                logger.warning(
+                    f"Supra-quantum correlations detected at program completion without REVEAL. "
+                    "Charging revelation cost (μ_info += 1.0)."
+                )
+            except Exception:
+                pass
+            info_charge(self.state, 1.0)
+            # Update ledger with final charge
+            ledger.append({
+                "step": step + 2,
+                "delta_mu_discovery": 0,
+                "delta_mu_execution": 1,  # Charged to execution
+                "total_mu_discovery": self.state.mu_ledger.mu_discovery,
+                "total_mu_execution": self.state.mu_ledger.mu_execution,
+                "total_mu": self.state.mu_ledger.total,
+                "delta_mu_operational": 0,
+                "delta_mu_information": 1.0,
+                "total_mu_operational": self.state.mu_operational,
+                "total_mu_information": self.state.mu_information,
+                "total_mu_legacy": self.state.mu,
+                "reason": "supra_quantum_revelation_enforcement",
+            })
+            # Rewrite ledger with enforcement charge
+            (outdir / "mu_ledger.json").write_text(json.dumps(ledger), encoding='utf-8')
 
         summary = {
             "mu_discovery": self.state.mu_ledger.mu_discovery,

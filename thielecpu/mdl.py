@@ -130,13 +130,27 @@ def info_charge(state: State, bits_revealed: float) -> float:
 
     This implements the "no unpaid sight debt" principle - any information
     revealed by oracles or discovery processes must be paid for.
+    
+    Raises:
+        ValueError: If bits_revealed is negative
     """
+    if bits_revealed < 0:
+        raise ValueError(f"Cannot charge negative information: {bits_revealed} bits")
+    
+    if bits_revealed == 0:
+        return state.mu_information
+    
+    # Charge to legacy mu_information (enforces monotonicity via property setter)
     if state.mu_information != float("inf"):
-        state.mu_information += bits_revealed
+        state.mu_information = state.mu_information + bits_revealed
+    
+    # Charge to canonical μ-ledger
     if state.mu_ledger.mu_execution != float("inf"):
         # μ must lower-bound the information bits revealed; round up to avoid
         # fractional deficits (no free insight).
-        state.mu_ledger.mu_execution = (state.mu_ledger.mu_execution + int(math.ceil(bits_revealed))) & 0xFFFFFFFF
+        charge_amount = int(math.ceil(bits_revealed))
+        state.mu_ledger.charge_execution(charge_amount)
+    
     return state.mu_information
 
 

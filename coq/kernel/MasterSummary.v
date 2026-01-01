@@ -47,8 +47,7 @@ Theorem master_tsirelson :
    Qabs (chsh_from_vm_trace fuel trace s_init) <= 4%Q).
 Proof.
   split.
-  - destruct tsirelson_achievable_witness as [fuel [trace H]].
-    exists fuel, trace. exact H.
+  - exists 10%nat, tsirelson_achieving_trace. apply tsirelson_program_mu_zero.
   - intros fuel trace s_init Hmu.
     apply mu_zero_chsh_bounded. exact Hmu.
 Qed.
@@ -144,8 +143,7 @@ Theorem thiele_machine_is_complete : thiele_machine_complete.
 Proof.
   unfold thiele_machine_complete.
   split; [| split; [| split; [| split; [| split]]]].
-  - destruct tsirelson_achievable_witness as [fuel [trace H]].
-    exists fuel, trace. exact H.
+  - exists 10%nat, tsirelson_achieving_trace. apply tsirelson_program_mu_zero.
   - intros fuel trace s_init Hmu.
     apply mu_zero_chsh_bounded. exact Hmu.
   - exact hierarchy_is_derived.

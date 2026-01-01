@@ -15,11 +15,11 @@
 #
 # Each directory has a README.md explaining its contents.
 
-set -e
+set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-cd "$REPO_ROOT/coq"
+cd "$REPO_ROOT"
 
 # Colors
 RED='\033[0;31m'
@@ -43,9 +43,10 @@ echo -e "${BLUE}Coq version: $(coqc --version | head -1)${NC}"
 echo ""
 
 # Option to clean
-if [ "$1" == "--clean" ] || [ "$1" == "-c" ]; then
+arg1="${1:-}"
+if [ "$arg1" == "--clean" ] || [ "$arg1" == "-c" ] || [ "$arg1" == "clean" ]; then
     echo "🧹 Cleaning old build artifacts..."
-    find . -name "*.vo" -o -name "*.vok" -o -name "*.vos" -o -name "*.glob" -o -name ".*.aux" | xargs rm -f 2>/dev/null || true
+    find coq -name "*.vo" -o -name "*.vok" -o -name "*.vos" -o -name "*.glob" -o -name ".*.aux" | xargs rm -f 2>/dev/null || true
     rm -f Makefile.coq Makefile.coq.conf .Makefile.coq.d 2>/dev/null || true
     echo "   Done."
     echo ""
@@ -54,38 +55,69 @@ fi
 # Generate Makefile if needed
 if [ ! -f "Makefile.coq" ] || [ "_CoqProject" -nt "Makefile.coq" ]; then
     echo "📝 Generating Makefile.coq from _CoqProject..."
-    coq_makefile -f _CoqProject -o Makefile.coq 2>/dev/null || true
+    coq_makefile -f _CoqProject -o Makefile.coq
 fi
 
 echo "🔨 Building ALL Coq proofs..."
 echo "   (Using parallel compilation with $(nproc) cores)"
 echo ""
 
-# Build with make
-if make -f Makefile.coq -j$(nproc) 2>&1 | tee /tmp/coq_build.log; then
+# Build with make (pipefail ensures make failures are not masked by tee)
+if make -f Makefile.coq -j"$(nproc)" 2>&1 | tee /tmp/coq_build.log; then
     echo ""
     
     # Count compiled files
-    vo_count=$(find . -name "*.vo" | wc -l)
-    v_count=$(find . -name "*.v" | wc -l)
+    vo_count=$(find coq -name "*.vo" | wc -l)
+    project_v_count=$(grep -E '^[[:space:]]*coq/.*\.v$' _CoqProject | wc -l)
     
     echo -e "${GREEN}✅ SUCCESS: All Coq proofs compiled${NC}"
-    echo "   Compiled: $vo_count/$v_count files"
+    echo "   Compiled: $vo_count/$project_v_count project files"
+
+    # Explain any .v files present under coq/ but not listed in _CoqProject
+    unlisted_count=$(python - <<'PY'
+from pathlib import Path
+root = Path('coq')
+all_v = sorted(p.as_posix() for p in root.rglob('*.v'))
+listed = set(
+    line.strip()
+    for line in Path('_CoqProject').read_text(encoding='utf-8', errors='ignore').splitlines()
+    if line.strip().startswith('coq/') and line.strip().endswith('.v')
+)
+unlisted = [p for p in all_v if p not in listed]
+print(len(unlisted))
+PY
+)
+
+    if [ "$unlisted_count" != "0" ]; then
+        echo -e "${YELLOW}⚠️  Note: $unlisted_count .v files exist under coq/ but are not listed in _CoqProject (not built).${NC}"
+        python - <<'PY'
+from pathlib import Path
+root = Path('coq')
+all_v = sorted(p.as_posix() for p in root.rglob('*.v'))
+listed = set(
+    line.strip()
+    for line in Path('_CoqProject').read_text(encoding='utf-8', errors='ignore').splitlines()
+    if line.strip().startswith('coq/') and line.strip().endswith('.v')
+)
+unlisted = [p for p in all_v if p not in listed]
+for p in unlisted:
+    print(f"   - {p}")
+PY
+    fi
     echo ""
     
     # Show per-directory counts
     echo "📊 Per-directory breakdown:"
     for dir in kernel kernel_toe thieleuniversal thielemachine modular_proofs physics bridge nofi catnet isomorphism sandboxes self_reference spacetime spacetime_projection thiele_manifold shor_primitives project_cerberus test_vscoq; do
-        if [ -d "$dir" ]; then
-            count=$(find "$dir" -name "*.vo" 2>/dev/null | wc -l)
-            total=$(find "$dir" -name "*.v" 2>/dev/null | wc -l)
+        if [ -d "coq/$dir" ]; then
+            count=$(find "coq/$dir" -name "*.vo" 2>/dev/null | wc -l)
+            total=$(find "coq/$dir" -name "*.v" 2>/dev/null | wc -l)
             if [ "$count" -gt 0 ]; then
                 echo "   $dir: $count/$total"
             fi
         fi
     done
-    
-    cd "$REPO_ROOT"
+
     
     # Run inquisitor check
     echo ""

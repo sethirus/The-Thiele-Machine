@@ -25,9 +25,14 @@ import json
 import math
 import os
 import subprocess
+import sys
 import time
 from pathlib import Path
 from typing import Dict, List, Tuple, TypedDict, Any, cast
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 from experiments.energy_meter import RaplEnergyMeter, rapl_available
 from experiments.run_metadata import capture_run_metadata
@@ -44,7 +49,6 @@ from scripts.equivalence_bundle import (  # type: ignore
     _run_rtl,
 )
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
 RESULTS_PATH = REPO_ROOT / "results" / "thermo_experiment.json"
 
 # Physical constants for the Landauer bound.

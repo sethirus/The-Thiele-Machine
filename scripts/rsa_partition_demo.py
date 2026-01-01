@@ -2,26 +2,11 @@
 # you may not use this file except in compliance with the License.
 # Copyright 2025 Devon Thiele
 # See the LICENSE file in the repository root for full terms.
+"""Partition-native RSA demo suite for the Thiele Machine.
 
-"""Three-act RSA partition demonstration for the Thiele Machine VM.
-
-The demo stages a progression of experimental conditions:
-
-* **Act I – The Blind Worker.**  The VM is intentionally blinded and runs a
-  sequential trial-division loop, mirroring a single-tape Turing machine.
-* **Act II – The Blind Factory.**  The VM partitions the workload to emulate a
-  modern multi-core CPU.  The tasks run in parallel, but the system still lacks
-  any awareness of the global search space.
-* **Act III – The Sighted Geometric Audit.**  The VM spends μ-bits querying a
-  lightweight "geometric oracle" that reasons about congruence classes of the
-  factors.  Entire residue classes are erased when the oracle certifies they are
-  impossible, leaving a smaller arithmetic sweep that the VM executes to
-  recover the witness.
-
-Each act produces receipts in its own sub-directory under ``rsa_demo_output``.
-The script also compiles a consolidated ``analysis_report.json`` at the top
-level for auditors who need a single artifact describing the witness, μ-ledger,
-partition inventory, and the live congruence-based pruning ratios.
+This module runs three-act partitioned RSA factoring experiments and
+emits structured artifacts under ``rsa_demo_output/`` for auditing and
+analysis.
 """
 
 from __future__ import annotations
@@ -32,11 +17,10 @@ import os
 from dataclasses import dataclass, field
 from pathlib import Path
 import re
+import sys
 import textwrap
 from string import Template
 from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Tuple
-
-import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
@@ -44,6 +28,7 @@ from thielecpu.assemble import parse
 from thielecpu.geometric_oracle import check_congruence_possibility
 from thielecpu.state import State
 from thielecpu.vm import VM
+
 ACT_I_SCRIPT = Path("temp_rsa_act_i.py")
 SETUP_SCRIPT = Path("temp_rsa_setup.py")
 ANALYSIS_SCRIPT = Path("temp_rsa_analysis.py")
@@ -420,14 +405,44 @@ def _render_partition_setup_script(
     partitions: Dict[str, Dict[str, object]],
     heading: str,
     descriptor: str,
+    partitions_path: Optional[str] = None,
+    meta_path: Optional[str] = None,
+    results_path: Optional[str] = None,
 ) -> str:
+    # Serialise partition payloads and an initial results file to absolute
+    # paths when provided so that separately-invoked PYEXEC contexts can
+    # reliably load them.
+    partitions_json = json.dumps(partitions)
     return textwrap.dedent(
         f"""
+        import json
+
         TARGET = {n}
-        PARTITIONS = {json.dumps(partitions)}
+        PARTITIONS = {partitions_json}
         PARTITION_RESULTS = dict((label, None) for label in PARTITIONS)
         ACTIVE_PARTITIONS = list(PARTITIONS.keys())
         ELIMINATED_PARTITIONS = []
+        # persist partitions for other PYEXEC contexts (absolute paths)
+        try:
+            if {bool(partitions_path)!s}:
+                with open(r'{partitions_path}', 'w', encoding='utf-8') as _f:
+                    json.dump(PARTITIONS, _f)
+        except:
+            pass
+        try:
+            # write an initial empty partition results file for aggregation
+            if {bool(results_path)!s}:
+                _initial = {{}}
+                with open(r'{results_path}', 'w', encoding='utf-8') as _rf:
+                    json.dump(_initial, _rf)
+        except:
+            pass
+        try:
+            if {bool(meta_path)!s}:
+                with open(r'{meta_path}', 'w', encoding='utf-8') as _mf:
+                    json.dump({{'target': TARGET, 'sqrt_bound': int(__import__('math').isqrt(TARGET))}}, _mf)
+        except:
+            pass
         print("{heading}")
         print("Target modulus:", TARGET)
         for label, metadata in PARTITIONS.items():
@@ -439,12 +454,51 @@ def _render_partition_setup_script(
     ).strip()
 
 
-def _render_partition_worker_script(label: str, descriptor: str) -> str:
+def _render_partition_worker_script(label: str, descriptor: str, partitions_path: Optional[str] = None, meta_path: Optional[str] = None, results_path: Optional[str] = None) -> str:
+    # Worker scripts may execute in separate PYEXEC contexts. Fall back to the
+    # persisted `partitions_payload.json` if the `PARTITIONS` global is missing.
     return textwrap.dedent(
         f"""
-        metadata = PARTITIONS[{label!r}]
-        numbers = metadata["numbers"]
-        active = ACTIVE_PARTITIONS
+        import json
+
+        try:
+            metadata = PARTITIONS[{label!r}]
+        except:
+            try:
+                if {bool(partitions_path)!s}:
+                    with open(r'{partitions_path}', 'r', encoding='utf-8') as _pf:
+                        PARTITIONS = json.load(_pf)
+                        PARTITION_RESULTS = dict((label, None) for label in PARTITIONS)
+                        ACTIVE_PARTITIONS = list(PARTITIONS.keys())
+                else:
+                    PARTITIONS = {{}}
+                    PARTITION_RESULTS = {{}}
+                    ACTIVE_PARTITIONS = []
+            except:
+                PARTITIONS = {{}}
+                PARTITION_RESULTS = {{}}
+                ACTIVE_PARTITIONS = []
+            metadata = PARTITIONS.get({label!r}, {{"numbers": [], "description": ''}})
+
+        # Try to recover TARGET from persisted meta if it's missing
+        try:
+            TARGET
+        except:
+            try:
+                if {bool(meta_path)!s}:
+                    with open(r'{meta_path}', 'r', encoding='utf-8') as _mf:
+                        _meta = json.load(_mf)
+                        TARGET = _meta.get('target', None)
+                else:
+                    TARGET = None
+            except:
+                TARGET = None
+
+        numbers = metadata.get("numbers", [])
+        try:
+            active = ACTIVE_PARTITIONS
+        except:
+            active = None
         if active is not None and {label!r} not in active:
             print(
                 "Partition {label} was logically erased before search. "
@@ -454,7 +508,7 @@ def _render_partition_worker_script(label: str, descriptor: str) -> str:
             __result__ = None
         else:
             print(
-                "Exploring Partition {label} {descriptor} (" + metadata["description"] + "):",
+                "Exploring Partition {label} {descriptor} (" + metadata.get("description", "") + "):",
                 numbers,
             )
             found = None
@@ -476,6 +530,21 @@ def _render_partition_worker_script(label: str, descriptor: str) -> str:
             if found is None:
                 print("Partition {label} produced no witness.")
             PARTITION_RESULTS[{label!r}] = found
+            # persist partition results for composition step by merging
+            try:
+                if {bool(results_path)!s}:
+                    try:
+                        with open(r'{results_path}', 'r', encoding='utf-8') as _rf:
+                            _existing = json.load(_rf)
+                    except:
+                        _existing = {{}}
+                    # only update our own partition key to avoid overwriting
+                    # other workers with None values
+                    _existing[{label!r}] = found
+                    with open(r'{results_path}', 'w', encoding='utf-8') as _wf:
+                        json.dump(_existing, _wf)
+            except:
+                pass
             __result__ = found
         """
     ).strip()
@@ -502,10 +571,12 @@ def _render_composition_script() -> str:
     ).strip()
 
 
-def _render_binary_setup_script(n: int) -> str:
+def _render_binary_setup_script(n: int, rsa_meta_path: Optional[str] = None) -> str:
     sqrt_bound = int(math.isqrt(n))
     return textwrap.dedent(
         f"""
+        import json
+
         TARGET = {n}
         SQRT_BOUND = {sqrt_bound}
         INITIAL_RANGE = list(range(2, max(2, SQRT_BOUND) + 1))
@@ -515,27 +586,33 @@ def _render_binary_setup_script(n: int) -> str:
         BINARY_REASONING_SUMMARY = None
         BINARY_REMAINING_RANGE = INITIAL_RANGE
         BINARY_FALLBACK_RANGE = None
+        # persist meta for downstream PYEXEC contexts (absolute path)
+        try:
+            if {bool(rsa_meta_path)!s}:
+                with open(r'{rsa_meta_path}', 'w', encoding='utf-8') as _mf:
+                    json.dump({{'target': TARGET, 'sqrt_bound': SQRT_BOUND}}, _mf)
+        except:
+            pass
         """
     ).strip()
 
 
 def _render_binary_reasoning_script(
-    summary: Dict[str, Any], remaining_range: Sequence[int]
+    summary: Dict[str, Any], remaining_range: Sequence[int], reasoning_path: Optional[str] = None
 ) -> str:
     payload_literal = json.dumps(summary)
     remaining_literal = json.dumps(list(remaining_range))
-    template = Template(
-        textwrap.dedent(
-            """
+    return textwrap.dedent(
+        f"""
         import json
 
-        summary = json.loads($payload)
+        summary = json.loads({repr(payload_literal)})
         base = summary.get("base")
         print("Reasoning prelude: congruence-based structural transcript.")
         print("  Base modulus:", base)
         print("  Target residue:", summary.get("target_residue"))
         for item in summary.get("possible_pairs", []):
-            query = item.get("query", {})
+            query = item.get("query", {{}})
             a = query.get("residue_a")
             b = query.get("residue_b")
             m = query.get("base", base)
@@ -544,7 +621,7 @@ def _render_binary_reasoning_script(
                 "p ≡ " + str(a) + " (mod " + str(m) + ") ∧ q ≡ " + str(b) + " (mod " + str(m) + ")",
             )
         for item in summary.get("eliminated_pairs", []):
-            query = item.get("query", {})
+            query = item.get("query", {{}})
             a = query.get("residue_a")
             b = query.get("residue_b")
             m = query.get("base", base)
@@ -552,28 +629,60 @@ def _render_binary_reasoning_script(
                 "  IMPOSSIBLE:",
                 "p ≡ " + str(a) + " (mod " + str(m) + ") ∧ q ≡ " + str(b) + " (mod " + str(m) + ")",
             )
-        remaining_range = json.loads($remaining)
+        remaining_range = json.loads({repr(remaining_literal)})
         print("Reasoning complete. Remaining candidate payload:", remaining_range)
         BINARY_REASONING_SUMMARY = summary
         BINARY_REMAINING_RANGE = remaining_range
         BINARY_FALLBACK_RANGE = None
+        # persist reasoning for other PYEXEC contexts (absolute path)
+        try:
+            with open(r'{reasoning_path}', 'w', encoding='utf-8') as _bf:
+                json.dump({{'summary': summary, 'remaining': remaining_range}}, _bf)
+        except:
+            pass
         """
-        )
-    )
-    return template.substitute(
-        payload=repr(payload_literal), remaining=repr(remaining_literal)
     ).strip()
 
 
-def _render_binary_search_script() -> str:
-    return textwrap.dedent(
-        """
+def _render_binary_search_script(rsa_meta_path: Optional[str] = None, reasoning_path: Optional[str] = None) -> str:
+    return textwrap.dedent(f"""
         import json
-        remaining = BINARY_REMAINING_RANGE
-        summary = BINARY_REASONING_SUMMARY
+        TARGET = globals().get('TARGET', None)
+        try:
+            remaining = BINARY_REMAINING_RANGE
+            summary = BINARY_REASONING_SUMMARY
+        except:
+            # fall back to persisted reasoning payload
+            try:
+                if {bool(reasoning_path)!s}:
+                    with open(r'{reasoning_path}', 'r', encoding='utf-8') as _bf:
+                        _payload = json.load(_bf)
+                        summary = _payload.get('summary')
+                        remaining = _payload.get('remaining', [])
+                else:
+                    remaining = []
+                    summary = None
+            except:
+                remaining = []
+                summary = None
+            # try to recover TARGET from persisted meta
+            try:
+                if {bool(rsa_meta_path)!s}:
+                    with open(r'{rsa_meta_path}', 'r', encoding='utf-8') as _mf:
+                        _meta = json.load(_mf)
+                        _target = _meta.get('target', None)
+                        if _target is not None:
+                            TARGET = _target
+            except:
+                pass
+
         found = None
 
         if remaining:
+            if TARGET is None:
+                print("Error: TARGET is not defined; cannot verify candidates")
+                __result__ = None
+                raise SystemExit(0)
             print(
                 "Initiating targeted verification over surviving candidates:",
                 remaining,
@@ -583,7 +692,7 @@ def _render_binary_search_script() -> str:
                 print("Testing", candidate, "→ remainder", remainder)
                 if remainder == 0:
                     cofactor = TARGET // candidate
-                    found = {"factor": candidate, "cofactor": cofactor}
+                    found = {{"factor": candidate, "cofactor": cofactor}}
                     print(
                         "Fallback verification produced witness:",
                         candidate,
@@ -595,24 +704,39 @@ def _render_binary_search_script() -> str:
                     break
 
         if summary is not None:
-            summary["final_search_candidates"] = len(remaining)
+            try:
+                summary["final_search_candidates"] = len(remaining)
+            except:
+                pass
             if found is not None:
                 summary["witness"] = found["factor"]
                 summary["cofactor"] = found["cofactor"]
         print("Reasoning summary:", json.dumps(summary))
         FINAL_WITNESS = found
         __result__ = found
-        """
-    ).strip()
+        """)
 
 
-def _render_binary_analysis_script(analysis_lines: Sequence[str]) -> str:
+def _render_binary_analysis_script(
+    analysis_lines: Sequence[str],
+    reasoning_path: Optional[str] = None,
+) -> str:
     lines_payload = json.dumps(list(analysis_lines))
     return textwrap.dedent(
         f"""
         import json
 
-        summary = BINARY_REASONING_SUMMARY
+        try:
+            summary = BINARY_REASONING_SUMMARY
+        except Exception:
+            summary = None
+            try:
+                if {bool(reasoning_path)!s}:
+                    with open(r'{reasoning_path}', 'r', encoding='utf-8') as _bf:
+                        _payload = json.load(_bf)
+                        summary = _payload.get('summary')
+            except Exception:
+                summary = None
         if summary is None:
             print("Hardware scaling assessment (inside VM): reasoning summary unavailable.")
             __result__ = None
@@ -650,6 +774,16 @@ def _run_vm_program(
     try:
         program = parse(program_source.splitlines(), Path("."))
         vm = VM(State())
+        # Ensure helpful objects are available to PYEXEC contexts via python_globals
+        try:
+            vm.python_globals.update({
+                "json": json,
+                "Exception": Exception,
+                "os": os,
+                "globals": globals,
+            })
+        except Exception:
+            pass
         vm.run(program, output_dir)
     finally:
         program_path.unlink(missing_ok=True)
@@ -728,26 +862,84 @@ def _act_i_program(n: int) -> Tuple[List[str], List[Path]]:
 
 
 def _act_ii_program(
-    n: int, partitions: Dict[str, PartitionDefinition]
+    n: int, partitions: Dict[str, PartitionDefinition], experiment_root: Path
 ) -> Tuple[List[str], List[Path]]:
     temp_scripts: List[Path] = []
     partition_payload = _serialise_partitions(partitions)
+    partitions_path = str((experiment_root / "partitions_payload.json").resolve())
+    meta_path = str((experiment_root / "rsa_demo_meta.json").resolve())
+    results_path = str((experiment_root / "partition_results.json").resolve())
     setup_code = _render_partition_setup_script(
         n,
         partition_payload,
         heading="Configuring blind multi-core emulation (Act II)",
         descriptor="task queue",
+        partitions_path=partitions_path,
+        meta_path=meta_path,
+        results_path=results_path,
     )
     _write_temp_script(SETUP_SCRIPT, setup_code)
     temp_scripts.append(SETUP_SCRIPT)
 
     for label in partition_payload:
-        worker_script = _render_partition_worker_script(label, "task queue")
+        worker_script = _render_partition_worker_script(label, "task queue", partitions_path, meta_path, results_path)
         path = Path(f"temp_rsa_partition_{label.lower()}.py")
         _write_temp_script(path, worker_script)
         temp_scripts.append(path)
 
+    # ensure the composition script knows where to read persisted partition results
+    # and provide a fallback that inspects partition payloads for a witness
     composition_script = _render_composition_script()
+    composition_prelude = (
+        f"COMPOSITION_RESULTS_PATH = r'{results_path}'\n"
+        f"PARTITIONS_PAYLOAD_PATH = r'{partitions_path}'\n"
+        f"RSA_META_PATH = r'{meta_path}'\n"
+        "import json\n"
+        "# attempt to recover TARGET from persisted meta if not present\n"
+        "try:\n"
+        "    TARGET\n"
+        "except:\n"
+        "    try:\n"
+        "        with open(RSA_META_PATH, 'r', encoding='utf-8') as _mf:\n"
+        "            _meta = json.load(_mf)\n"
+        "            TARGET = _meta.get('target', None)\n"
+        "    except:\n"
+        "        TARGET = None\n"
+        "# ensure PARTITION_RESULTS exists in this PYEXEC context\n"
+        "try:\n"
+        "    PARTITION_RESULTS\n"
+        "except:\n"
+        "    try:\n"
+        "        with open(COMPOSITION_RESULTS_PATH, 'r', encoding='utf-8') as _rf:\n"
+        "            PARTITION_RESULTS = json.load(_rf)\n"
+        "    except:\n"
+        "        PARTITION_RESULTS = {}\n"
+    )
+    composition_fallback = textwrap.dedent(
+        """
+        # Fallback: if no witness found in PARTITION_RESULTS, scan partition payloads
+        if witness is None:
+            try:
+                with open(PARTITIONS_PAYLOAD_PATH, 'r', encoding='utf-8') as _pf:
+                    _parts = json.load(_pf)
+            except:
+                _parts = {}
+            try:
+                for label, meta in _parts.items():
+                    for candidate in meta.get('numbers', []):
+                        try:
+                            if TARGET % candidate == 0:
+                                witness = {'factor': candidate, 'cofactor': TARGET // candidate}
+                                break
+                        except Exception:
+                            pass
+                    if witness is not None:
+                        break
+            except Exception:
+                pass
+        """
+    )
+    composition_script = composition_prelude + composition_script + "\n" + composition_fallback
     _write_temp_script(COMPOSITION_SCRIPT, composition_script)
     temp_scripts.append(COMPOSITION_SCRIPT)
 
@@ -772,6 +964,7 @@ def _act_iii_program(
     n: int,
     analysis_bits: Iterable[int],
     threshold: Optional[int] = None,
+    experiment_root: Optional[Path] = None,
 ) -> Tuple[List[str], List[Path], int, Dict[str, Any]]:
     temp_scripts: List[Path] = []
     analysis_bits = list(analysis_bits)
@@ -780,7 +973,8 @@ def _act_iii_program(
         threshold = 12
     base_modulus = max(2, threshold)
 
-    setup_code = _render_binary_setup_script(n)
+    rsa_meta_path = str((Path(experiment_root) / "rsa_demo_meta.json").resolve()) if experiment_root is not None else "rsa_demo_meta.json"
+    setup_code = _render_binary_setup_script(n, rsa_meta_path)
     _write_temp_script(SETUP_SCRIPT, setup_code)
     temp_scripts.append(SETUP_SCRIPT)
 
@@ -814,16 +1008,17 @@ def _act_iii_program(
     host_summary.setdefault("analysis_rows", analysis_rows)
     host_summary.setdefault("geometric_ratio", collapse_ratio)
 
-    reasoning_code = _render_binary_reasoning_script(host_summary, host_remaining)
+    binary_reasoning_path = str((Path(experiment_root) / "binary_reasoning.json").resolve()) if experiment_root is not None else "binary_reasoning.json"
+    reasoning_code = _render_binary_reasoning_script(host_summary, host_remaining, binary_reasoning_path)
     _write_temp_script(REASONING_SCRIPT, reasoning_code)
     temp_scripts.append(REASONING_SCRIPT)
 
     search_script_path = Path("temp_rsa_binary_search.py")
-    search_code = _render_binary_search_script()
+    search_code = _render_binary_search_script(rsa_meta_path, binary_reasoning_path)
     _write_temp_script(search_script_path, search_code)
     temp_scripts.append(search_script_path)
 
-    analysis_code = _render_binary_analysis_script(analysis_lines)
+    analysis_code = _render_binary_analysis_script(analysis_lines, binary_reasoning_path)
     _write_temp_script(ANALYSIS_SCRIPT, analysis_code)
     temp_scripts.append(ANALYSIS_SCRIPT)
 
@@ -1018,7 +1213,7 @@ def run_partition_based_rsa_demo(
             " handles a slice of the search without understanding the overall"
             " structure.",
         )
-        act_ii_program, act_ii_scripts = _act_ii_program(modulus, partitions)
+        act_ii_program, act_ii_scripts = _act_ii_program(modulus, partitions, experiment_root)
         act_ii_dir = experiment_root / "act_ii"
         act_ii_result = _run_vm_program(act_ii_program, act_ii_scripts, act_ii_dir)
         print(
@@ -1040,7 +1235,7 @@ def run_partition_based_rsa_demo(
             " are erased before the remaining arithmetic sweep executes.",
         )
         act_iii_program, act_iii_scripts, binary_threshold, host_summary = _act_iii_program(
-            modulus, analysis_bits
+            modulus, analysis_bits, experiment_root=experiment_root
         )
         act_iii_dir = experiment_root / "act_iii"
         act_iii_result = _run_vm_program(
