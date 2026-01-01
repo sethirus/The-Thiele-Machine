@@ -14,20 +14,19 @@ This objection conflates two separate claims. Let's separate them:
 
 ### What is PROVEN (Formal System)
 
-**Theorem**: `nonlocal_correlation_requires_revelation` in [coq/kernel/RevelationRequirement.v](../coq/kernel/RevelationRequirement.v)
+**CORRECTION** (December 2025): See [coq/kernel/TsirelsonUniqueness.v](../coq/kernel/TsirelsonUniqueness.v)
 
-**Proven statement**:
-- In the Thiele Machine operational semantics, certified correlations with CHSH ≤ 2√2 require **zero μ-information cost**
-- Certified correlations with CHSH > 2√2 require **explicit μ-payment via REVEAL**
-- Tsirelson's bound (2√2) is the **exact boundary** between μ=0 and μ>0 operations
+**WRONG CLAIM**: μ=0 implies CHSH ≤ 2√2
+**TRUTH**: μ=0 only implies CHSH ≤ 4 (algebraic maximum)
 
-**Why this is proven**:
-1. The theorem shows revelation (μ-charging) is necessary for supra-quantum certification
-2. Tested enforcement: VM accepts CHSH ≤ 2√2 with μ=0, rejects CHSH > 2√2 without REVEAL
-3. This boundary is NOT arbitrary—it emerges from the certification requirements
-4. Corollary: `sighted_is_supra_quantum` proves 16/5 > 2√2 as a mathematical distribution
+**Proven statements**:
+1. `mu_zero_algebraic_bound`: μ=0 programs satisfy CHSH ≤ 4 ✅
+2. `tsirelson_requires_coherence`: There EXIST μ=0 traces with CHSH > 2√2 ✅
+3. Tsirelson bound (2√2) requires **algebraic coherence** (NPA level 1 constraint)
 
-**Status**: ✅ **PROVEN** as a formal theorem about the machine
+**The key insight**: The Tsirelson bound is NOT derivable from μ-accounting alone. It requires an additional constraint on correlations (algebraic coherence). What IS proven is the algebraic maximum of 4.
+
+**Status**: ✅ **PROVEN** - but the bound is 4, not 2√2
 
 ---
 
@@ -38,16 +37,15 @@ This objection conflates two separate claims. Let's separate them:
 Q_min = k_B T ln(2) × μ
 ```
 
-**Conjecture**: If this bridge holds AND physical systems minimize dissipation, THEN:
-- Nature would "prefer" correlations with μ=0 (no dissipation)
-- The μ=0 space is exactly CHSH ≤ 2√2
-- This explains why quantum mechanics exhibits Tsirelson's bound
-- Supra-quantum correlations are thermodynamically expensive, not forbidden
+**Updated Conjecture**: If this bridge holds AND physical systems exhibit algebraic coherence, THEN:
+- Nature's quantum correlations would correspond to μ=0 + coherence
+- The algebraic coherence constraint (NPA level 1) gives Tsirelson
+- Supra-quantum correlations require either μ>0 or coherence violation
 
 **Why this is conjectured, not proven**:
 1. Requires experimental validation (calorimetry during partition operations)
 2. Must demonstrate μ-cost lower-bounds physical heat dissipation
-3. Needs to show nature actually minimizes such costs
+3. Needs to show physical systems satisfy algebraic coherence
 
 **Falsification**: Measure heat during REVEAL operations. If Heat < k_B T ln(2) × μ, bridge is falsified.
 
@@ -60,21 +58,21 @@ Q_min = k_B T ln(2) × μ
 **Claim**: "You can't violate the Tsirelson bound with classical hardware"
 
 **Response**:
-1. **Formally**: We PROVED that 2√2 is a cost boundary in our computational model ✅
-2. **Physically**: We CONJECTURE this explains nature's behavior IF the bridge postulate holds 🔬
-3. **Experimentally**: We acknowledge that demonstrating CHSH > 2√2 in nature requires validating the physical interpretation
+1. **Formally**: We PROVED that μ=0 implies CHSH ≤ 4 (algebraic bound) ✅
+2. **Tsirelson**: Requires algebraic coherence BEYOND μ-accounting
+3. **Physically**: Bridge postulate remains conjectural 🔬
 
 **What we do NOT claim**:
+- ❌ That μ=0 alone implies the Tsirelson bound (CORRECTED - it doesn't)
 - ❌ That silicon can violate quantum mechanics
-- ❌ That we've "solved" the origin of Tsirelson's bound (others have proposed principles too)
-- ❌ That this invalidates information causality or local orthogonality
+- ❌ That we've "solved" the origin of Tsirelson's bound
 
 **What we DO claim**:
-- ✅ We proved 2√2 is the formal cost boundary in our system
-- ✅ This is ONE possible explanation for nature's bound (if bridge holds)
-- ✅ It's falsifiable via heat measurements
+- ✅ We proved μ=0 → CHSH ≤ 4 (algebraic bound)
+- ✅ Tsirelson requires coherence constraints on correlations
+- ✅ Lower bound: μ=0 programs CAN achieve 2√2 (constructive witness)
 
-**Status**: **PROVEN** formally, **CONJECTURED** physically
+**Status**: **PROVEN** (algebraic bound), **REQUIRES COHERENCE** (Tsirelson)
 
 ---
 
@@ -299,31 +297,38 @@ state.pmerge(module_a, module_b)
 
 ---
 
-## Objection 10: "You claim to break RSA-2048, but that's impossible"
+## Objection 10: "Can you factor RSA-2048?"
 
 ### Response
 
-**What was demonstrated:**
-- **[IMPLEMENTED]**: Partition-native factoring algorithm recovers RSA-2048 prime factors
-  - Demo: [experiments/rsa_breaking_demo.py](../experiments/rsa_breaking_demo.py)
-  - Receipt: [artifacts/rsa_2048_factoring_proof.json](../artifacts/rsa_2048_factoring_proof.json)
+**The honest answer: No, not in polynomial time classically.**
+
+**What is actually demonstrated:**
+- **[PROVEN]**: Shor's reduction theorem—given the period r, factors can be extracted in polynomial time
+  - Coq proof: `coq/shor_primitives/PeriodFinding.v`
+  - Theorem: `shor_reduction` (zero admits, machine-verified)
+- **[IMPLEMENTED]**: Classical factorization algorithms (Pollard's rho, Fermat, p-1) that work for small semiprimes
+  - Demo: `thielecpu/rsa_factor.py`
+  - Practical limit: ~96-bit semiprimes in reasonable time
 
 **What is NOT claimed:**
-- ❌ That this is a *fast* factoring algorithm (complexity analysis incomplete)
-- ❌ That this threatens real-world cryptography (experimental only)
-- ❌ That partition-native computing solves all NP problems in P
+- ❌ Classical polynomial-time factoring of RSA-2048
+- ❌ Breaking real-world cryptography
+- ❌ Achieving quantum speedups without quantum hardware
+- ❌ Solving NP-complete problems in P
 
-**Clarifications:**
-1. Classical factoring (GNFS) requires astronomical resources for RSA-2048
-2. Quantum algorithms (Shor's) can factor in polynomial time *with quantum hardware*
-3. Partition-native approach *might* offer polynomial-time factoring (conjectured, not proven)
+**The mathematical reality:**
+1. Classical period-finding is exponential: O(√r) at best
+2. Quantum period-finding achieves polynomial time via QFT
+3. The Thiele Machine formalizes the *reduction* (period → factors) but does not solve the *hard step*
+4. RSA-2048 requires factoring a 617-digit number—exponential classically
 
-**Evidence:**
-- Cryptography library guarantees primality of generated keys
-- Partition-native algorithm recovers correct prime factors
-- Full trace available for verification
+**What we DO prove:**
+- μ-cost accounting correctly tracks structural information
+- The reduction from period-finding to factorization is formally verified
+- Small semiprimes can be factored with demonstrated μ-cost tracking
 
-**Status**: [IMPLEMENTED] demonstration, [CONJECTURED] complexity class
+**Status**: [PROVEN] reduction theorem, [NOT CLAIMED] classical polynomial-time factoring
 
 ---
 
@@ -340,7 +345,7 @@ state.pmerge(module_a, module_b)
 | Extraction not trusted | [STANDARD] | CompCert precedent | Industry practice |
 | Blind mode trivial | [INTENTIONAL] | Turing equiv test | Backwards compatible |
 | Quantum hype | [REFUTED] | Different model | No qubits |
-| RSA-2048 breaking | [DEMO] | Receipt available | Complexity conjectured |
+| RSA-2048 factoring | [NOT CLAIMED] | Shor reduction proven | Period-finding still exponential classically |
 
 ---
 

@@ -630,7 +630,7 @@ The $\mu$-ledger is the computational analog of the thermodynamic entropy: a mon
     % CHSH formula
     \node at (0,-5.5) {$S = E(0,0) + E(0,1) + E(1,0) - E(1,1)$};
 \end{tikzpicture}
-\caption{The Bell-CHSH experiment. Alice and Bob share an entangled state from a source. The CHSH value $S$ is bounded by 2 for classical (local hidden variable) theories, $2\sqrt{2}$ for quantum mechanics, and 4 algebraically (proven from first principles in \texttt{coq/kernel/Tier1Proofs.v} with zero axioms). The Thiele Machine derives $2\sqrt{2}$ from $\mu$-accounting.}
+\caption{The Bell-CHSH experiment. Alice and Bob share an entangled state from a source. The CHSH value $S$ is bounded by 2 for classical (local hidden variable) theories, $2\sqrt{2}$ for quantum mechanics, and 4 algebraically (proven from first principles in \texttt{coq/kernel/Tier1Proofs.v} with zero axioms). The Thiele Machine proves $\mu=0 \Rightarrow S \le 4$ (algebraic bound); Tsirelson requires algebraic coherence.}
 \label{fig:chsh_bounds}
 \end{figure}
 
@@ -658,7 +658,9 @@ The $\mu$-ledger is the computational analog of the thermodynamic entropy: a mon
 
 \textbf{Formula (bottom):} $S = E(0,0) + E(0,1) + E(1,0) - E(1,1)$ where $E(x,y) = \mathbb{E}[(-1)^{a \oplus b} \mid x,y]$ is the correlation for input pair $(x,y)$.
 
-\textbf{Key insight:} Quantum mechanics permits correlations up to $2\sqrt{2}$ but no higher. The algebraic maximum of 4 is proven from first principles (Theorem T1-2, correlation bound Theorem T1-1), establishing the absolute ceiling for any theory. The Thiele Machine \textit{derives} the quantum bound $2\sqrt{2}$ from $\mu$-accounting: achieving $S > 2$ requires $\mu > 0$ (structural cost), but the $\mu=0$ class naturally caps at $2\sqrt{2}$. This provides an information-theoretic explanation for Tsirelson's bound.
+\textbf{Key insight:} Quantum mechanics permits correlations up to $2\sqrt{2}$ but no higher. The algebraic maximum of 4 is proven from first principles (Theorem T1-2, correlation bound Theorem T1-1), establishing the absolute ceiling for any theory.
+
+\textbf{CORRECTION} (December 2025, per \texttt{TsirelsonUniqueness.v}): The Thiele Machine proves that $\mu=0$ implies $S \le 4$ (algebraic bound), \textbf{not} $S \le 2\sqrt{2}$. The Tsirelson bound requires \textit{algebraic coherence} (NPA level 1 constraint on correlations), which is a property of the correlations themselves, not just the instructions. There exist $\mu=0$ traces with $S > 2\sqrt{2}$. Thus, $\mu$-accounting alone does not explain Tsirelson's bound---it requires additional structure on the correlation space.
 
 \textbf{Role in thesis:} Central experimental prediction. The CHSH game is used throughout to validate the Thiele Machine's correlation accounting. Experimental results (Chapter 11) show 85.3\% win rate, matching $2\sqrt{2}$ within error.
 
