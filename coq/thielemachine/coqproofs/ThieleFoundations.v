@@ -3,7 +3,7 @@ Require Import Coq.Lists.List.
 Require Import Coq.Init.Nat.
 Import ListNotations.
 
-From ThieleMachine Require Import CoreSemantics.
+Require Import ThieleMachine.CoreSemantics.
 
 (* =============================================================================
    LAYER 1: CORE THIELE MACHINE (Conservative Semantic Extension)

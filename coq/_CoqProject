@@ -79,6 +79,9 @@ kernel/PythonBisimulation.v
 kernel/HardwareBisimulation.v
 kernel/NonCircularityAudit.v
 kernel/MasterSummary.v
+kernel/TestTripartite.v
+kernel/AlgebraicCoherence.v
+kernel/TsirelsonComputation.v
 
 # === KERNEL_TOE (6 files) - TOE cone ===
 kernel_toe/Definitions.v
@@ -88,14 +91,85 @@ kernel_toe/NoGoSensitivity.v
 kernel_toe/Persistence.v
 kernel_toe/TOE.v
 
-# === THIELEUNIVERSAL (7 files) - UTM ===
-thieleuniversal/coqproofs/TM.v
-thieleuniversal/coqproofs/CPU.v
-thieleuniversal/coqproofs/UTM_Encode.v
-thieleuniversal/coqproofs/UTM_Rules.v
-thieleuniversal/coqproofs/UTM_Program.v
-thieleuniversal/coqproofs/UTM_CoreLemmas.v
-thieleuniversal/coqproofs/ThieleUniversal.v
+# === THIELEMACHINE (98 files) ===
+thielemachine/coqproofs/ListHelpers.v
+thielemachine/coqproofs/QHelpers.v
+thielemachine/coqproofs/Hash256.v
+thielemachine/coqproofs/Axioms.v
+thielemachine/coqproofs/CoreSemantics.v
+thielemachine/coqproofs/ThieleFoundations.v
+thielemachine/coqproofs/AlgebraicLaws.v
+thielemachine/coqproofs/LogicIsomorphism.v
+thielemachine/coqproofs/AmortizedAnalysis.v
+thielemachine/coqproofs/CompositionPrimitive.v
+thielemachine/coqproofs/ComputationIsomorphism.v
+thielemachine/coqproofs/GoldenVectors.v
+thielemachine/coqproofs/BlindSighted.v
+thielemachine/coqproofs/SemanticBridge.v
+thielemachine/coqproofs/Embedding_TM.v
+thielemachine/coqproofs/InfoTheory.v
+thielemachine/coqproofs/DiscoveryProof.v
+thielemachine/coqproofs/EfficientDiscovery.v
+thielemachine/coqproofs/BellInequality.v
+thielemachine/coqproofs/BellCheck.v
+thielemachine/coqproofs/BellArtifacts.v
+thielemachine/coqproofs/BellReceiptSemantics.v
+thielemachine/coqproofs/BellReceiptSoundness.v
+thielemachine/coqproofs/BellReceiptLocalGeneral.v
+thielemachine/coqproofs/BellReceiptLocalBound.v
+thielemachine/coqproofs/TsirelsonBoundBridge.v
+thielemachine/coqproofs/QuantumAdmissibilityTsirelson.v
+thielemachine/coqproofs/QuantumAdmissibilityDeliverableB.v
+thielemachine/coqproofs/LawCheck.v
+thielemachine/coqproofs/PhaseThree.v
+thielemachine/coqproofs/QuantumTheorems.v
+thielemachine/coqproofs/Bisimulation.v
+thielemachine/coqproofs/Confluence.v
+thielemachine/coqproofs/EncodingBridge.v
+thielemachine/coqproofs/NUSD.v
+thielemachine/coqproofs/PartitionDiscoveryIsomorphism.v
+thielemachine/coqproofs/PartitionLogic.v
+thielemachine/coqproofs/Oracle.v
+thielemachine/coqproofs/SpectralApproximation.v
+thielemachine/coqproofs/Separation.v
+thielemachine/coqproofs/Simulation.v
+thielemachine/coqproofs/SpecSound.v
+thielemachine/coqproofs/StructuredInstances.v
+thielemachine/coqproofs/Subsumption.v
+thielemachine/coqproofs/HyperThiele_Oracle.v
+thielemachine/coqproofs/HyperThiele_Halting.v
+thielemachine/coqproofs/HyperThiele.v
+thielemachine/coqproofs/Impossibility.v
+thielemachine/coqproofs/RepresentationTheorem.v
+thielemachine/coqproofs/ThieleMachine.v
+thielemachine/coqproofs/HardwareBridge.v
+thielemachine/coqproofs/ThieleProc.v
+thielemachine/coqproofs/ThieleMachineConcrete.v
+thielemachine/coqproofs/ThieleMachineConcretePack.v
+thielemachine/coqproofs/ThieleMachineModular.v
+thielemachine/coqproofs/ThieleMachineSig.v
+thielemachine/coqproofs/ThieleMachineUniv.v
+thielemachine/coqproofs/UTMStaticCheck.v
+thielemachine/coqproofs/PhysicsEmbedding.v
+thielemachine/coqproofs/DissipativeEmbedding.v
+thielemachine/coqproofs/WaveCheck.v
+thielemachine/coqproofs/WaveEmbedding.v
+thielemachine/coqproofs/HardwareVMHarness.v
+thielemachine/coqproofs/MuAlignmentExample.v
+thielemachine/coqproofs/Spaceland.v
+thielemachine/coqproofs/SpacelandCore.v
+thielemachine/coqproofs/SpacelandProved.v
+thielemachine/coqproofs/Spaceland_Simple.v
+thielemachine/coqproofs/SpacelandComplete.v
+thielemachine/coqproofs/AbstractLTS.v
+thielemachine/coqproofs/ThieleSpaceland.v
+thielemachine/coqproofs/ThieleUnificationProtocol.v
+thielemachine/coqproofs/ThieleUnificationTensor.v
+thielemachine/coqproofs/ThieleUnificationDemo.v
+thielemachine/coqproofs/ThieleProofCarryingReality.v
+thielemachine/coqproofs/ThieleKernelCausality.v
+thielemachine/coqproofs/MuAlu.v
+thielemachine/coqproofs/OracleImpossibility.v
 
 # === MODULAR_PROOFS (7 files) ===
 modular_proofs/TM_Basics.v
@@ -105,6 +179,15 @@ modular_proofs/Encoding.v
 modular_proofs/Minsky.v
 modular_proofs/Simulation.v
 modular_proofs/CornerstoneThiele.v
+
+# === THIELEUNIVERSAL (7 files) - UTM ===
+thieleuniversal/coqproofs/TM.v
+thieleuniversal/coqproofs/CPU.v
+thieleuniversal/coqproofs/UTM_Encode.v
+thieleuniversal/coqproofs/UTM_Rules.v
+thieleuniversal/coqproofs/UTM_Program.v
+thieleuniversal/coqproofs/UTM_CoreLemmas.v
+thieleuniversal/coqproofs/ThieleUniversal.v
 
 # === PHYSICS (5 files) ===
 physics/DiscreteModel.v
@@ -165,86 +248,6 @@ project_cerberus/coqproofs/Cerberus.v
 # === TEST_VSCOQ (1 file) ===
 test_vscoq/coqproofs/test_vscoq.v
 
-# === THIELEMACHINE (98 files) ===
-thielemachine/coqproofs/ListHelpers.v
-thielemachine/coqproofs/QHelpers.v
-thielemachine/coqproofs/Hash256.v
-thielemachine/coqproofs/Axioms.v
-thielemachine/coqproofs/CoreSemantics.v
-thielemachine/coqproofs/ThieleFoundations.v
-thielemachine/coqproofs/AlgebraicLaws.v
-thielemachine/coqproofs/LogicIsomorphism.v
-thielemachine/coqproofs/CompositionPrimitive.v
-thielemachine/coqproofs/ComputationIsomorphism.v
-thielemachine/coqproofs/GoldenVectors.v
-thielemachine/coqproofs/BlindSighted.v
-thielemachine/coqproofs/SemanticBridge.v
-thielemachine/coqproofs/Embedding_TM.v
-thielemachine/coqproofs/InfoTheory.v
-thielemachine/coqproofs/DiscoveryProof.v
-thielemachine/coqproofs/EfficientDiscovery.v
-thielemachine/coqproofs/BellInequality.v
-thielemachine/coqproofs/BellCheck.v
-thielemachine/coqproofs/BellArtifacts.v
-thielemachine/coqproofs/BellReceiptSemantics.v
-thielemachine/coqproofs/BellReceiptSoundness.v
-thielemachine/coqproofs/BellReceiptLocalGeneral.v
-thielemachine/coqproofs/BellReceiptLocalBound.v
-thielemachine/coqproofs/TsirelsonBoundBridge.v
-thielemachine/coqproofs/QuantumAdmissibilityTsirelson.v
-thielemachine/coqproofs/QuantumAdmissibilityDeliverableB.v
-thielemachine/coqproofs/LawCheck.v
-thielemachine/coqproofs/PhaseThree.v
-thielemachine/coqproofs/QuantumTheorems.v
-thielemachine/coqproofs/Bisimulation.v
-thielemachine/coqproofs/Confluence.v
-thielemachine/coqproofs/EncodingBridge.v
-thielemachine/coqproofs/NUSD.v
-thielemachine/coqproofs/PartitionLogic.v
-thielemachine/coqproofs/Oracle.v
-thielemachine/coqproofs/SpectralApproximation.v
-thielemachine/coqproofs/Separation.v
-thielemachine/coqproofs/Simulation.v
-thielemachine/coqproofs/SpecSound.v
-thielemachine/coqproofs/StructuredInstances.v
-thielemachine/coqproofs/Subsumption.v
-thielemachine/coqproofs/HyperThiele_Oracle.v
-thielemachine/coqproofs/HyperThiele_Halting.v
-thielemachine/coqproofs/HyperThiele.v
-thielemachine/coqproofs/Impossibility.v
-thielemachine/coqproofs/ThieleMachine.v
-thielemachine/coqproofs/HardwareBridge.v
-thielemachine/coqproofs/ThieleProc.v
-thielemachine/coqproofs/ThieleMachineConcrete.v
-thielemachine/coqproofs/ThieleMachineConcretePack.v
-thielemachine/coqproofs/ThieleMachineModular.v
-thielemachine/coqproofs/ThieleMachineSig.v
-thielemachine/coqproofs/ThieleMachineUniv.v
-thielemachine/coqproofs/UTMStaticCheck.v
-thielemachine/coqproofs/PhysicsEmbedding.v
-thielemachine/coqproofs/DissipativeEmbedding.v
-thielemachine/coqproofs/WaveEmbedding.v
-thielemachine/coqproofs/HardwareVMHarness.v
-thielemachine/coqproofs/MuAlignmentExample.v
-thielemachine/coqproofs/Spaceland.v
-thielemachine/coqproofs/SpacelandProved.v
-thielemachine/coqproofs/SpacelandComplete.v
-thielemachine/coqproofs/AbstractLTS.v
-thielemachine/coqproofs/ThieleSpaceland.v
-thielemachine/coqproofs/ThieleUnificationProtocol.v
-thielemachine/coqproofs/ThieleUnificationTensor.v
-thielemachine/coqproofs/ThieleUnificationDemo.v
-thielemachine/coqproofs/ThieleProofCarryingReality.v
-thielemachine/coqproofs/ThieleKernelCausality.v
-thielemachine/coqproofs/MuAlu.v
-thielemachine/coqproofs/OracleImpossibility.v
-thielemachine/coqproofs/PartitionDiscoveryIsomorphism.v
-thielemachine/coqproofs/RepresentationTheorem.v
-thielemachine/coqproofs/SpacelandCore.v
-thielemachine/coqproofs/Spaceland_Simple.v
-thielemachine/coqproofs/WaveCheck.v
-thielemachine/coqproofs/AmortizedAnalysis.v
-
 # === THIELEMACHINE VERIFICATION (20+ files) ===
 thielemachine/verification/ObservationInterface.v
 thielemachine/verification/Admissibility.v
@@ -269,3 +272,4 @@ thielemachine/verification/modular/Bridge_BridgeCore.v
 
 # === EXTRACTION ===
 Extraction.v
+

@@ -18,16 +18,19 @@ import argparse
 import json
 import math
 import os
+import sys
 from dataclasses import dataclass, asdict
 from pathlib import Path
 from typing import Dict, List
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 from experiments.empirical_validation import summarize_range
 from experiments.run_metadata import capture_run_metadata
 from thielecpu.mdl import info_charge
 from thielecpu.state import State
-
-REPO_ROOT = Path(__file__).resolve().parent.parent
 RESULTS_PATH = REPO_ROOT / "results" / "structural_heat_experiment.json"
 
 BOLTZMANN_CONSTANT = 1.380649e-23  # J/K

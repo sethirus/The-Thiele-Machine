@@ -26,7 +26,7 @@ Definition Box := nat -> nat -> nat -> nat -> Q.
 *)
 Record HardMathFacts := {
   (** Assumption 1: Probability theory - correlations are bounded *)
-  norm_E_bound : forall (B : Box) (x y : nat),
+  norm_E_bound : forall (B : nat -> nat -> nat -> nat -> Q) (x y : nat),
     (forall x y a b, 0 <= B x y a b) ->
     (forall x y, B x y 0%nat 0%nat + B x y 0%nat 1%nat +
                  B x y 1%nat 0%nat + B x y 1%nat 1%nat == 1) ->
@@ -84,7 +84,7 @@ Section ExampleUsage.
   Context (facts : HardMathFacts).
 
   (** Any theorem can now explicitly depend on 'facts' *)
-  Example correlation_bounded : forall B x y,
+  Example correlation_bounded : forall (B : nat -> nat -> nat -> nat -> Q) x y,
     (forall x y a b, 0 <= B x y a b) ->
     (forall x y, B x y 0%nat 0%nat + B x y 0%nat 1%nat +
                  B x y 1%nat 0%nat + B x y 1%nat 1%nat == 1) ->
@@ -95,13 +95,20 @@ Section ExampleUsage.
               (-1) * (-1) * B x y 1%nat 1%nat /\
       Qabs (E x y) <= 1.
   Proof.
-    intros Hnn Hnorm.
-    exists (fun x y => 1 * 1 * B x y 0%nat 0%nat +
-                       1 * (-1) * B x y 0%nat 1%nat +
-                       (-1) * 1 * B x y 1%nat 0%nat +
-                       (-1) * (-1) * B x y 1%nat 1%nat).
-    split; [reflexivity |].
-    apply (norm_E_bound facts); assumption.
+    intros B x y Hnonneg Hnorm.
+    (* Define E as the correlation function *)
+    set (E := fun x y => 1 * 1 * B x y 0%nat 0%nat +
+                         1 * (-1) * B x y 0%nat 1%nat +
+                         (-1) * 1 * B x y 1%nat 0%nat +
+                         (-1) * (-1) * B x y 1%nat 1%nat).
+    exists E.
+    split.
+    - (* E x y has the correct form *)
+      unfold E. reflexivity.
+    - (* Apply norm_E_bound from facts *)
+      unfold E.
+      apply (norm_E_bound facts B x y Hnonneg Hnorm E).
+      reflexivity.
   Qed.
 
 End ExampleUsage.

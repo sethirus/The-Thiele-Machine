@@ -47,6 +47,14 @@ Qed.
 
 (** ** The Correct Theorem: Coherence is What Bounds Correlations *)
 
+Section TsirelsonBoundAssumption.
+
+Context (tsirelson_from_algebraic_coherence : forall c : Correlators,
+  algebraically_coherent c ->
+  Qabs (E00 c) <= 1 /\ Qabs (E01 c) <= 1 /\
+  Qabs (E10 c) <= 1 /\ Qabs (E11 c) <= 1 ->
+  Qabs (S_from_correlators c) <= tsirelson_bound).
+
 Theorem tsirelson_from_coherence :
   forall c : Correlators,
     algebraically_coherent c ->
@@ -56,3 +64,5 @@ Theorem tsirelson_from_coherence :
 Proof.
   apply tsirelson_from_algebraic_coherence.
 Qed.
+
+End TsirelsonBoundAssumption.

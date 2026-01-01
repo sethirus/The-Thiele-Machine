@@ -156,7 +156,7 @@ class State:
     """
 
     mu_operational: float = 0.0  # Cost of operations (current mu) - legacy
-    mu_information: float = 0.0  # Cost of information revealed - legacy
+    _mu_information: float = 0.0  # Cost of information revealed - legacy (internal)
     _next_id: int = 1
     regions: RegionGraph = field(default_factory=RegionGraph)
     axioms: Dict[ModuleId, List[str]] = field(default_factory=dict)  # Axioms per module
@@ -178,9 +178,32 @@ class State:
     last_pdiscover_result: Dict[str, Any] | None = None
 
     @property
+    def mu_information(self) -> float:
+        """Get information revelation cost (read-only, monotonic)."""
+        return self._mu_information
+    
+    @mu_information.setter
+    def mu_information(self, value: float) -> None:
+        """Set information cost with monotonicity enforcement.
+        
+        Raises:
+            ValueError: If attempting to decrease μ_information
+        """
+        if value < self._mu_information:
+            raise ValueError(
+                f"μ-monotonicity violation: Cannot decrease mu_information from "
+                f"{self._mu_information} to {value}. μ-ledger is monotonically non-decreasing."
+            )
+        if value < 0:
+            raise ValueError(
+                f"Invalid mu_information: {value}. μ-cost cannot be negative."
+            )
+        self._mu_information = value
+    
+    @property
     def mu(self) -> float:
         """Total mu cost (operational + information)."""
-        return self.mu_operational + self.mu_information
+        return self.mu_operational + self._mu_information
     
     @property
     def num_modules(self) -> int:
