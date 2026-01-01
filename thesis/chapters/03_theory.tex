@@ -2065,7 +2065,7 @@ This is the computational analog of Noether's theorem: the gauge symmetry (abili
 % Chapter reference
 \node[font=\normalsize\itshape, below=0.5cm of master, sloped, pos=0.5, font=\small, yshift=-6pt] {Foundation for Chapters 4 (Implementation), 5 (Verification), and 6 (Tsirelson)};
 \end{tikzpicture}
-\caption{Chapter 3 summary: The formal model $(S, \Pi, A, R, L)$ leads to two key properties ($\mu$-monotonicity and no-signaling), which together establish the No Free Insight theorem---the theoretical foundation for the Tsirelson bound derivation.}
+\caption{Chapter 3 summary: The formal model $(S, \Pi, A, R, L)$ leads to two key properties ($\mu$-monotonicity and no-signaling), which together establish the No Free Insight theorem. Note: $\mu=0$ gives the algebraic bound ($S \le 4$); Tsirelson requires algebraic coherence.}
 \label{fig:ch3_summary}
 \end{figure}
 
@@ -2083,7 +2083,7 @@ This is the computational analog of Noether's theorem: the gauge symmetry (abili
 
 \textbf{Final arrow:} Points to Tsirelson bound derivation (next chapter)
 
-\textbf{Key insight:} This chapter builds the formal foundation. The model's two key properties ($\mu$-monotonicity + locality) combine to prove No Free Insight, which leads to the Tsirelson bound $2\sqrt{2}$ in Chapter 4.
+\textbf{Key insight:} This chapter builds the formal foundation. The model's two key properties ($\mu$-monotonicity + locality) combine to prove No Free Insight. Note: the algebraic bound ($S \le 4$) is proven from $\mu=0$; the Tsirelson bound ($2\sqrt{2}$) requires additional algebraic coherence constraints (see \texttt{TsirelsonUniqueness.v}).
 
 This chapter has defined the Thiele Machine as a formal 5-tuple $T = (S, \Pi, A, R, L)$ with the following key results:
 
@@ -2106,4 +2106,4 @@ This chapter has defined the Thiele Machine as a formal 5-tuple $T = (S, \Pi, A,
     \item \textbf{Gauge Symmetry}: The partition structure is invariant under $\mu$-shifts (computational Noether's theorem).
 \end{enumerate}
 
-These formal foundations enable the implementation (Chapter 4), verification (Chapter 5), and the derivation of the Tsirelson bound from pure $\mu$-accounting (Chapter 6).
+These formal foundations enable the implementation (Chapter 4), verification (Chapter 5), and evaluation (Chapter 6). Note: per \texttt{TsirelsonUniqueness.v}, $\mu=0$ implies only the algebraic bound $S \le 4$; the Tsirelson bound $2\sqrt{2}$ requires additional algebraic coherence constraints.

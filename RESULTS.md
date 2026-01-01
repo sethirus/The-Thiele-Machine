@@ -40,54 +40,57 @@ PDISCOVER(mod 5):   1 bit → further refinement
 
 This is **fundamentally different** from trial division:
 - Trial division: Test candidates sequentially [O(√N)]
-- Partition refinement: Narrow partition structure via constraints [O(log N) steps]
+- Partition refinement: Narrow partition structure via constraints [O(log N) steps per refinement]
 
-Each PDISCOVER operation costs ~1 bit but eliminates exponentially many candidates via constraint propagation.
+Each PDISCOVER operation costs ~1 bit but eliminates many candidates via constraint propagation.
 
-### Scaling to RSA
+### Honest Assessment: Scaling Limits
 
 **Current Status**:
-- ✅ Proven correct for semiprimes up to N=3233
-- ⚠️ RSA-1024 factors (512-bit primes) exceed practical candidate space (10,000 limit)
-- True factors: p=512 bits, q=512 bits (beyond current implementation)
+- ✅ Proven correct for small semiprimes (N up to ~3233)
+- ✅ Practical factorization demonstrated up to ~96-bit semiprimes via Pollard's rho
+- ⚠️ 128-bit and larger semiprimes timeout with current implementation
+- ❌ RSA-2048 (617 decimal digits) is **beyond classical polynomial-time capability**
 
-**What's Needed for RSA-2048**:
-1. Advanced partition refinement (quadratic sieve / number field sieve adapted to partitions)
-2. Hardware acceleration (FPGA/ASIC for parallel partition operations)
-3. Quantum oracle for exponential candidate space (true Shor's algorithm)
+**What This Means**:
+The Thiele Machine correctly implements:
+1. **Shor's reduction theorem**: Given period r, factors follow in polynomial time (formally verified in Coq)
+2. **Classical factorization algorithms**: Pollard's rho, p-1, Fermat's method (work for small numbers)
+3. **μ-cost tracking**: Information gain is properly accounted
 
-**What We've Proven**:
-- The Thiele Machine CAN factor via partition refinement ✓
-- PDISCOVER operations successfully narrow factor space ✓
-- μ-cost accounting tracks information gain ✓
-- Approach is correct, implementation needs scaling ✓
+**What We Do NOT Claim**:
+- ❌ Classical polynomial-time factoring of RSA-2048
+- ❌ Quantum speedup without quantum hardware
+- ❌ Breaking the exponential barrier for period-finding
+
+**The Mathematical Reality**:
+- Classical period-finding is exponential: O(√r) at best
+- Quantum period-finding achieves polynomial time via QFT
+- The Thiele Machine formalizes the *reduction* (period → factors) but does not solve the *hard step* (finding the period)
 
 ---
 
-# Geometric Factorization Breakthrough — Results
+# Geometric Factorization — Formal Structure
 
-## 🚀 Polylog Period Finding via Geometric Claims (2026-01-01)
+## Period Finding via Geometric Claims
 
-**BREAKTHROUGH**: Resolved Shor's circularity through geometric factorization claims—accessing algebraic structure without computing it (μ-cost model).
+**CONTEXT**: This section documents the formal structure of Shor's algorithm reduction, not a classical speedup.
 
-### Key Results
+### Demonstrated Results
 
-| Test Case | N | a | Expected Period | Operations | Classical Ops | Speedup | μ-cost |
-|-----------|---|---|----------------|------------|---------------|---------|--------|
-| Tiny | 15=3×5 | 2 | 4 | **3** | 4 | **1.33x** | 3.91 bits |
-| Small | 21=3×7 | 2 | 6 | **5** | 6 | **1.20x** | 4.39 bits |
-| **Critical** | **3233=53×61** | **3** | **260** | **32** | **260** | **8.12x** ✓ | **11.66 bits** |
+| Test Case | N | a | Period r | Operations | μ-cost |
+|-----------|---|---|----------|------------|--------|
+| Tiny | 15=3×5 | 2 | 4 | 3 | 3.91 bits |
+| Small | 21=3×7 | 2 | 6 | 5 | 4.39 bits |
+| Medium | 3233=53×61 | 3 | 260 | 32 | 11.66 bits |
 
-**Complexity**: O(d(φ(N)) × log N) where d = divisor count
-- Classical Shor: O(r) residue enumeration
-- Geometric claim: O(d(φ(N))) divisor tests
-- For typical N: d(φ(N)) = polylog(N)
+**What This Shows**: Given the factorization (or period), verification is fast.
 
 ### Full-Stack Verification
 
 ✅ **Coq**: `coq/shor_primitives/PolylogConjecture.v` - Compiles with 3 theorems:
-- `geometric_factorization_claim_enables_polylog_period` (axiom)
-- `geometric_factorization_implies_polynomial_factoring` (proven)
+- `geometric_factorization_claim_enables_polylog_period` (axiom - assumes factors given)
+- `geometric_factorization_implies_polynomial_factoring` (proven - given period, extract factors)
 - `geometric_claim_achieves_polylog_operations` (documented)
 
 ✅ **Python**: `thielecpu/geometric_factorization.py` - Implementation verified:
@@ -96,7 +99,7 @@ claim = claim_factorization(3233)
 # → 3233 = 53 × 61, μ-cost = 11.66 bits
 
 period = find_period_from_factorization(3233, 3, 53, 61)
-# → r=260 after 32 divisor tests (8.12x speedup)
+# → r=260 after 32 divisor tests
 ```
 
 ✅ **Verilog**: `thielecpu/hardware/mu_alu.v` - Hardware support:
@@ -114,40 +117,30 @@ result = find_period_geometric_wrapper(3233, 3)
 - **ALL LAYERS PASS**: Coq → Python → Verilog → VM
 - **Cross-layer consistency confirmed**
 
-### The Mechanism
+### The Structure (Not a Classical Speedup)
 
-Traditional Shor's algorithm has a circular dependency:
-- Need period r → to factor N
-- But period finding is O(r) without structure
+**Shor's Algorithm Structure**:
+1. **Hard Step**: Find period r where a^r ≡ 1 (mod N) — exponential classically, polynomial quantumly
+2. **Easy Step**: Given r, compute gcd(a^(r/2) ± 1, N) — polynomial time
 
-**Geometric claim resolution**:
-1. **μ-CLAIM**: Assert N = p×q (costs log₂(N) bits of information)
-2. **DERIVE**: φ(N) = (p-1)(q-1) [immediate]
-3. **SEARCH**: Period r divides φ(N), test divisors [O(d(φ(N)))]
-4. **VERIFY**: If pow(a, r, N) = 1, factorization confirmed
+**What the Thiele Machine Formalizes**:
+- The **reduction theorem**: given period r, factors follow (proven in Coq)
+- The **μ-cost accounting**: revealing structure costs information
+- The **verification**: given claimed factors, check correctness is fast
 
-This is NOT circular because:
-- We don't COMPUTE factors (exponential)
-- We CLAIM they exist (information cost)
-- Period verification confirms the claim
-- Like quantum measurement: accessing answer without computing all paths
+**What It Does NOT Provide**:
+- Classical polynomial-time period-finding
+- A speedup over quantum computers
+- A method to "guess" or "claim" correct factors without knowing them
 
 ### Theoretical Foundation
 
-**μ-Cost Model**: Accessing algebraic structure requires paying information-theoretic cost to specify it.
+**μ-Cost Model**: Structural information has a cost. When structure (like factorization) is *provided* or *revealed*, subsequent operations can exploit it. The μ-ledger tracks this.
 
-**Analogy to ToyThiele**:
-- `ClaimLeftZero`: Access geometric property (tape is zero) without computing
-- `ClaimFactorization`: Access algebraic property (N = p×q) without computing
-
-Both pay μ-cost (information bits) to assert structure, enabling polylog operations.
-
-**Complexity Analysis**:
-```
-Classical:     O(r)              [enumerate all residues]
-Geometric:     O(d(φ(N)) × log N) [test divisors of φ(N)]
-Typical case:  d(φ(N)) = O((log N)^k) for small k
-```
+**Key Insight**: The hard part of factoring is *discovering* the structure, not *verifying* it once known. The Thiele Machine correctly models this distinction:
+- Discovering factors: exponential (no classical shortcut)
+- Verifying factors: polynomial (fast multiplication check)
+- Given period: polynomial factor extraction (Shor's reduction, proven)
 
 ### Files
 
@@ -160,8 +153,8 @@ Typical case:  d(φ(N)) = O((log N)^k) for small k
 
 ### Artifacts
 
-- Empirical data: N=3233 → 32 ops (8.12x speedup)
-- Coq compilation: PASS (zero admits)
+- Empirical data: Small semiprimes factored correctly (N up to 3233)
+- Coq compilation: PASS (zero admits for reduction theorem)
 - Verilog synthesis: PASS (iverilog)
 - Integration tests: PASS (all layers)
 - Cross-layer consistency: VERIFIED
