@@ -170,31 +170,27 @@ The computational model exhibits **structural parallels** to physical laws:
 | Energy conservation | μ-monotonicity | **✅ PROVEN** |
 | Bell locality (no-signaling) | Observational no-signaling | **✅ PROVEN** |
 | Noether's theorem | Gauge invariance of partitions | **✅ PROVEN** |
-| **Tsirelson's bound (2√2)** | **μ=0 achieves CHSH = 2√2 (constructive); upper bound follows from partition constraints** | **✅ LOWER BOUND PROVEN** |
+| **Algebraic CHSH bound** | **μ=0 implies CHSH ≤ 4 (algebraic maximum)** | **✅ PROVEN** |
+| **Tsirelson bound (2√2)** | **Requires algebraic coherence (NPA level 1)** | **✅ CORRECTION DOCUMENTED** |
 | Irreversibility | μ-ledger monotonicity | **✅ PROVEN** |
 
-### The Tsirelson Bound from Pure Accounting
+### CHSH Bounds: What's Actually Proven (TsirelsonUniqueness.v)
+
+**CORRECTION** (December 2025): The original claim was wrong.
+
+- **WRONG CLAIM**: μ=0 implies CHSH ≤ 2√2
+- **TRUTH**: μ=0 only implies CHSH ≤ 4 (algebraic maximum)
 
 **What's proven**:
-1. **Lower bound** (`TsirelsonLowerBound.v`): A μ=0 program achieves CHSH ≈ 2√2 (constructive witness)
-2. **Partition structure** (`MuCostModel.v`): μ=0 means no partition discovery, only free operations (PNEW, PSPLIT)
-3. **CHSH extraction** (`CHSHExtraction.v`): CHSH value derived from partition structure alone
+1. **Algebraic bound** (`TsirelsonUniqueness.v`): μ=0 programs are bounded by CHSH ≤ 4 ✅
+2. **Lower bound** (`TsirelsonLowerBound.v`): A μ=0 program achieves CHSH ≈ 2√2 (constructive witness) ✅
+3. **Counter-example** (`TsirelsonUniqueness.v`): There EXIST μ=0 traces with CHSH > 2√2 ✅
 
-**What remains**: Prove upper bound (CHSH ≤ 2√2 for all μ=0 programs) directly from partition constraints, without quantum assumptions.
+**The Tsirelson bound (2√2) requires ADDITIONAL structure**: algebraic coherence (NPA level 1 constraint on correlations). This is a constraint on the CORRELATIONS, not the INSTRUCTIONS.
 
-**Physical conjecture**: IF the bridge postulate holds:
-```
-Q_min = k_B T ln(2) × μ    [thermodynamic cost bound]
-```
-THEN Tsirelson's bound emerges as a thermodynamic optimization boundary in nature.
+**Physical interpretation**: If physical systems are algebraically coherent (which quantum mechanics is), then μ=0 corresponds to quantum correlations. But the instruction-level constraint alone gives only the algebraic bound of 4.
 
-**Why this matters**:
-- **Proven**: μ=0 programs can achieve 2√2 (constructive)
-- **Proven**: μ-cost accounting captures partition structure
-- **To prove**: Upper bound from partition constraints alone
-- **Conjectured**: If Q_min = k_B T ln(2) × μ, then physical thermodynamics enforces this bound
-
-**Important**: We derive the Tsirelson bound from computational accounting, not quantum mechanics. The μ-cost model has zero quantum assumptions.
+**Important**: The μ-cost model does NOT derive Tsirelson from pure accounting. It derives the algebraic bound of 4. The tighter Tsirelson bound requires coherence assumptions about correlations.
 
 ---
 
