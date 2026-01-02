@@ -322,19 +322,38 @@ I attempted to falsify the following claims. **All attempts failed** - the claim
 
 ---
 
+## Corrections Made During This Audit
+
+During the audit process, the following corrections were made to ensure complete honesty:
+
+### 1. INQUISITOR_REPORT.md ✅ FIXED
+- Added note that PolylogConjecture.v axioms have been removed
+- Updated summary counts to reflect corrections
+
+### 2. Thesis Chapter 12 (Physics and Primitives) ✅ FIXED
+- **Line 333:** Removed false claim "Thiele Machine achieves similar speedup via partition structure revelation"
+- **Line 410:** Removed false claim about polynomial-time period finding
+- **Line 62:** Clarified that Shor's exponential speedup requires quantum hardware
+- All three instances now honestly state: "The Thiele Machine's current classical implementation remains O(√N)"
+
+### 3. _CoqProject ✅ VERIFIED
+- Confirmed `kernel/BoxCHSH.v` is already present (line 34)
+- Initial audit report was incorrect - no fix needed
+
 ## Recommendations
 
 ### For Users/Reviewers:
 1. ✅ Trust the Coq kernel proofs - they are sound
 2. ✅ Recognize the corrections as good-faith science
-3. ⚠️ Don't expect computational speedups - explicitly not claimed
-4. ⚠️ Test in clean Python venv for full verification
+3. ⚠️ Don't expect computational speedups for factorization - explicitly not claimed
+4. ⚠️ Speedups apply only to structured SAT problems where structure is explicitly provided
+5. ⚠️ Test in clean Python venv for full verification
 
 ### For Maintainers:
-1. 🔧 Add `kernel/BoxCHSH.v` to `_CoqProject`
-2. 🔧 Fix Python dependencies (create working `requirements-lock.txt`)
-3. 🔧 Update `INQUISITOR_REPORT.md` to reflect corrections
-4. 🔧 Consider CI/CD that runs in clean environment
+1. ✅ DONE: Updated `INQUISITOR_REPORT.md` to reflect corrections
+2. ✅ DONE: Fixed false claims in thesis Chapter 12
+3. 🔧 TODO: Fix Python dependencies (create working `requirements-lock.txt`)
+4. 🔧 TODO: Consider CI/CD that runs in clean environment
 
 ---
 
