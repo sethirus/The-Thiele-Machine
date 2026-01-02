@@ -1,0 +1,37 @@
+{
+  "timestamp": "2026-01-01T21:43:54.953974Z",
+  "experiment": "thiele_mu_ledger_physical_meaning",
+  "claims": {
+    "information_energy_equivalence": "W \u2264 k_B T ln(2) \u00d7 \u03bc_information",
+    "mu_ledger_physical_meaning": "mu_discovery bounds thermodynamic work"
+  },
+  "single_trial": {
+    "work_bits": 0.1941079222066876,
+    "mu_information_bits": 500,
+    "efficiency": 0.0003882158444133752,
+    "bound_satisfied": true,
+    "vm_mu_delta": 500
+  },
+  "statistics": {
+    "n_trials": 30,
+    "work_mean_bits": 0.05981046737066076,
+    "mu_mean_bits": 300.0,
+    "efficiency_mean": 0.00019936822456886923,
+    "bound_satisfied": true
+  },
+  "comparison": {
+    "blind_work_bits": 0.011578013316578683,
+    "demon_work_bits": 0.06072240853335842,
+    "information_enables_work": true
+  },
+  "physical_constants": {
+    "temperature_K": 300,
+    "boltzmann_J_per_K": 1.38e-23,
+    "landauer_J_per_bit": 2.8696293275181737e-21
+  },
+  "methodology": {
+    "work_definition": "F_load \u00d7 displacement (from Langevin dynamics)",
+    "information_definition": "\u03bc-ledger charge (1 bit per measurement)",
+    "not_circular": "Work computed from dynamics, \u03bc from ledger charges"
+  }
+}

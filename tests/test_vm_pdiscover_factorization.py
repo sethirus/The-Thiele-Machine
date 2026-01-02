@@ -12,6 +12,7 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
+import math
 from thielecpu.vm import VM, State
 from thielecpu.pdiscover_factorization import vm_factorization_pdiscover_sequence
 from cryptography.hazmat.primitives.asymmetric import rsa
