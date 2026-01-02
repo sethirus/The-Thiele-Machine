@@ -336,9 +336,16 @@ During the audit process, the following corrections were made to ensure complete
 - **Line 62:** Clarified that Shor's exponential speedup requires quantum hardware
 - All three instances now honestly state: "The Thiele Machine's current classical implementation remains O(√N)"
 
-### 3. _CoqProject ✅ VERIFIED
-- Confirmed `kernel/BoxCHSH.v` is already present (line 34)
-- Initial audit report was incorrect - no fix needed
+### 3. coq/_CoqProject ✅ FIXED
+- **CRITICAL BUG FOUND**: `kernel/BoxCHSH.v` was MISSING from `coq/_CoqProject`
+- Added: `kernel/ValidCorrelation.v`, `kernel/AlgebraicCoherence.v`, `kernel/BoxCHSH.v`
+- Fixed dependency ordering to prevent build failures
+- TestTripartite.v now compiles successfully
+
+### 4. Adversarial Falsification Audit ✅ COMPLETED
+- Performed 10 systematic falsification attacks
+- All attacks failed - repository withstands adversarial scrutiny
+- See `ADVERSARIAL_FALSIFICATION_REPORT.md` for complete attack documentation
 
 ## Recommendations
 
