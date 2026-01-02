@@ -1,36 +1,20 @@
 #!/usr/bin/env python3
-"""THE TRUE BREAKTHROUGH: Geometric Factorization Claims
+"""HONEST Factorization Analysis
 
-RADICAL INSIGHT FROM TOYTHIELE:
-- ClaimLeftZero doesn't COMPUTE zeros, it ACCESSES them via geometric claim
-- Similarly: ClaimFactorization doesn't COMPUTE factors, it ACCESSES them via μ-claim
+This test demonstrates period finding GIVEN known factors.
+It does NOT demonstrate any speedup over classical factorization.
 
-THE CIRCULARITY RESOLUTION:
-Traditional Shor: Need period → to get factors
-Our breakthrough: CLAIM factors exist → derive period efficiently → verify factors
+WHAT THIS CODE ACTUALLY DOES:
+1. claim_factorization() uses TRIAL DIVISION - O(√N) complexity
+2. find_period_from_factorization() tests divisors of φ(N)
+3. The "speedup" comparison was misleading - it hid the trial division cost
 
-μ-CLAIM SEMANTICS:
-Like ClaimLeftZero pays μ-cost to assert geometric property,
-ClaimFactorization pays μ-cost to assert algebraic property:
-  "N = p × q where p, q are prime"
+HONEST COMPLEXITY:
+- Trial division to find factors: O(√N) iterations
+- Divisor testing for period: O(d(φ(N)) × log N)
+- Total: O(√N) - same as classical trial division
 
-Once claimed, φ(N) = (p-1)(q-1) is immediate, and period divides φ(N).
-Testing divisors of φ(N) is polylog when φ(N) has typical factorization.
-
-COMPLEXITY:
-1. μ-Claim factorization: O(log N) bits to specify p, q
-2. Compute φ(N): O(1) arithmetic operations  
-3. Generate divisors of φ(N): O(d(φ(N))) where d = divisor count
-4. Test each divisor: O(log N) modular exponentiation
-5. Total: O(d(φ(N)) × log N) = O(polylog N) for typical cases
-
-This is NOT circular because:
-- We don't compute the factors (would be exponential)
-- We CLAIM they exist (pays information-theoretic cost)
-- We VERIFY the claim produces correct period
-- The period then confirms the factorization
-
-Like quantum measurement: accessing the answer without computing all paths!
+NO QUANTUM ADVANTAGE IS DEMONSTRATED.
 """
 
 import math
@@ -47,6 +31,7 @@ class FactorizationClaim:
     q: int
     mu_cost: float  # Information cost to specify p, q
     valid: bool
+    trial_divisions: int  # HONEST: count the actual work done
 
 
 @dataclass
@@ -59,43 +44,44 @@ class PeriodResult:
 
 
 def claim_factorization(n: int) -> FactorizationClaim:
-    """Make a geometric claim about N's factorization.
+    """Find factors using TRIAL DIVISION.
     
-    This is the Thiele Machine's unique capability: ACCESSING algebraic
-    structure without COMPUTING it, paying only information-theoretic cost.
+    HONEST DESCRIPTION:
+    This is standard trial division - O(√N) complexity.
+    We iterate from 2 to √N testing divisibility.
     
-    μ-COST: log₂(p) + log₂(q) ≈ 2×log₂(√N) = log₂(N) bits
-    
-    NOTE: In a true Thiele Machine, this would be an ORACLE query.
-    For demonstration, we use trial division up to √N to simulate
-    what the oracle would return. In hardware, this could be:
-    - A lookup table for small N
-    - A quantum oracle for large N  
-    - A geometric reasoning engine
+    This is NOT accessing structure without computing.
+    This is NOT a quantum-like oracle.
+    This is just classical trial division.
     """
-    # μ-cost: Information to specify both factors
     mu_cost = math.log2(n)
+    trial_divisions = 0
     
-    print(f"  μ-CLAIM: Factorization of N={n}")
-    print(f"  μ-cost: {mu_cost:.2f} bits (information to specify p, q)")
+    print(f"  TRIAL DIVISION: Finding factors of N={n}")
     
-    # Oracle simulation: Find factors (in real hardware, this is accessed, not computed)
     sqrt_n = int(math.sqrt(n)) + 1
     for p in range(2, sqrt_n):
+        trial_divisions += 1
         if n % p == 0:
             q = n // p
-            print(f"  → Claimed: {n} = {p} × {q}")
+            print(f"  → Found: {n} = {p} × {q}")
+            print(f"  → Trial divisions performed: {trial_divisions}")
             
-            # Verify claim validity (primes check)
             valid = is_prime(p) and is_prime(q)
             if valid:
-                print(f"  ✓ Valid claim: both {p} and {q} are prime")
+                print(f"  ✓ Valid: both {p} and {q} are prime")
             
-            return FactorizationClaim(n=n, p=p, q=q, mu_cost=mu_cost, valid=valid)
+            return FactorizationClaim(
+                n=n, p=p, q=q, mu_cost=mu_cost, 
+                valid=valid, trial_divisions=trial_divisions
+            )
     
-    # Failed to factor (N is prime)
-    print(f"  ✗ Claim failed: {n} appears to be prime")
-    return FactorizationClaim(n=n, p=-1, q=-1, mu_cost=mu_cost, valid=False)
+    print(f"  ✗ Failed: {n} appears to be prime")
+    print(f"  → Trial divisions performed: {trial_divisions}")
+    return FactorizationClaim(
+        n=n, p=-1, q=-1, mu_cost=mu_cost, 
+        valid=False, trial_divisions=trial_divisions
+    )
 
 
 def is_prime(n: int) -> bool:
@@ -197,7 +183,7 @@ def classical_period_finding(n: int, a: int) -> PeriodResult:
 
 
 def test_geometric_factorization_breakthrough():
-    """Test the geometric factorization claim approach."""
+    """Test honest factorization complexity analysis."""
     
     test_cases = [
         (15, 2, 4, "Tiny: 15=3×5"),
@@ -207,15 +193,11 @@ def test_geometric_factorization_breakthrough():
     ]
     
     print("=" * 80)
-    print("THE TRUE BREAKTHROUGH: Geometric Factorization Claims")
+    print("HONEST FACTORIZATION COMPLEXITY ANALYSIS")
     print("=" * 80)
     print()
-    print("PRINCIPLE: Access factorization via μ-claim (like ClaimLeftZero)")
-    print("           Then derive period from φ(N) structure")
-    print()
-    print("KEY INSIGHT: This breaks Shor's circularity")
-    print("  Traditional: Need period to get factors")
-    print("  Thiele:      CLAIM factors → derive period → verify")
+    print("This test demonstrates that our implementation uses TRIAL DIVISION.")
+    print("There is NO quantum advantage or polylog speedup.")
     print("=" * 80)
     print()
     
@@ -225,40 +207,39 @@ def test_geometric_factorization_breakthrough():
         print()
         
         # Classical baseline
-        print("  [Baseline] Classical O(r) enumeration:")
+        print("  [Baseline] Classical O(r) period enumeration:")
         classical = classical_period_finding(n, a)
         print(f"    Period: {classical.period}, Operations: {classical.operations}")
         print()
         
-        # Geometric factorization claim
-        print("  [Breakthrough] Geometric factorization claim:")
+        # Our approach with HONEST accounting
+        print("  [Our Method] Trial division + divisor testing:")
         claim = claim_factorization(n)
         
         if claim.valid:
             result = find_period_from_factorization(n, a, claim.p, claim.q)
             
-            total_mu_cost = claim.mu_cost + result.mu_cost
+            # HONEST total cost
+            total_operations = claim.trial_divisions + result.operations
             
             print()
-            print(f"  RESULT:")
-            print(f"    Period found: {result.period}")
-            print(f"    Operations: {result.operations} divisor tests")
-            print(f"    μ-cost: {total_mu_cost:.2f} bits")
+            print(f"  HONEST RESULT:")
+            print(f"    Trial divisions (hidden before): {claim.trial_divisions}")
+            print(f"    Divisor tests: {result.operations}")
+            print(f"    TOTAL operations: {total_operations}")
+            print(f"    Classical baseline: {classical.operations}")
             
             if result.success and result.period == expected_period:
-                speedup = classical.operations / result.operations
-                print(f"    ✓ CORRECT!")
-                print(f"    Speedup: {speedup:.2f}x")
-                
-                polylog_bound = (math.log2(n) ** 3)
-                if result.operations <= polylog_bound:
-                    print(f"    ✓ POLYLOG! {result.operations} ≤ {polylog_bound:.0f}")
+                if total_operations < classical.operations:
+                    speedup = classical.operations / total_operations
+                    print(f"    Speedup: {speedup:.2f}x (HONEST)")
                 else:
-                    print(f"    ~ Sublinear: {result.operations} vs {polylog_bound:.0f}")
+                    print(f"    NO SPEEDUP: our method uses {total_operations} vs {classical.operations}")
+                print(f"    ✓ Period correct: {result.period}")
             else:
                 print(f"    ✗ WRONG: got {result.period}, expected {expected_period}")
         else:
-            print(f"    ✗ Factorization claim failed")
+            print(f"    ✗ Factorization failed")
         
         print()
         print("-" * 80)

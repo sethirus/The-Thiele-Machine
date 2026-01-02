@@ -300,7 +300,7 @@ initial begin
             // Update hash accumulator with state changes (simplified)
             // In full implementation, this would serialize state and compute SHA-256
             state_hash_accumulator = state_hash_accumulator ^ 
-                                    {pc, num_modules, 32'(mu_discovery), 32'(mu_execution),
+                                    {pc, num_modules, mu_discovery[31:0], mu_execution[31:0],
                                      partition_masks[0], partition_masks[1], 
                                      data_memory[operand_a], data_memory[operand_b]};
         end else begin
