@@ -68,7 +68,8 @@ iverilog -g2012 -o "$ROOT/build/thiele_cpu_tb.out" \
   thiele_cpu.v \
   thiele_cpu_tb.v \
   mu_alu.v \
-  mu_core.v
+  mu_core.v \
+  receipt_integrity_checker.v
 
 iverilog -g2012 -o "$ROOT/build/thiele_cpu_engines_tb.out" \
   thiele_cpu.v \
@@ -76,7 +77,8 @@ iverilog -g2012 -o "$ROOT/build/thiele_cpu_engines_tb.out" \
   lei.v \
   pee.v \
   mu_alu.v \
-  mu_core.v
+  mu_core.v \
+  receipt_integrity_checker.v
 popd >/dev/null
 
 phase VERIFY "generating synthesizable RTL (thiele_cpu_synth.v)"
@@ -89,7 +91,8 @@ command -v yosys >/dev/null || die "yosys not found on PATH"
 yosys -q -p "read_verilog -sv -nomem2reg -DYOSYS_LITE -I$ROOT/thielecpu/hardware \
   $ROOT/thielecpu/hardware/thiele_cpu_synth.v \
   $ROOT/thielecpu/hardware/mu_alu.v \
-  $ROOT/thielecpu/hardware/mu_core.v; \
+  $ROOT/thielecpu/hardware/mu_core.v \
+  $ROOT/thielecpu/hardware/receipt_integrity_checker.v; \
   synth -noabc -top thiele_cpu; check; stat" \
   >/dev/null
 

@@ -1,9 +1,9 @@
 # INQUISITOR REPORT
-Generated: 2026-01-01 05:55:05Z (UTC)
-Scanned: 231 Coq files across the repo
+Generated: 2026-01-02 02:39:56Z (UTC)
+Scanned: 232 Coq files across the repo
 ## Summary
 - HIGH: 0
-- MEDIUM: 4
+- MEDIUM: 7
 - LOW: 4
 
 ## Rules
@@ -58,6 +58,14 @@ Higher score = more likely unfinished/vacuous.
 #### `coq/kernel/TsirelsonUpperBound.v`
 - L347: **SUSPICIOUS_SHORT_PROOF** — Complex theorem \`tsirelson_bound_lt_algebraic_max\` has very short proof (2 lines) - verify this is not a placeholder.
   - `Lemma tsirelson_bound_lt_algebraic_max : tsirelson_bound < 4%Q.`
+
+#### `coq/shor_primitives/PolylogConjecture.v`
+- L70: **AXIOM_OR_PARAMETER** — Found Axiom geometric_factorization_claim_enables_polylog_period.
+  - `Axiom geometric_factorization_claim_enables_polylog_period :`
+- L98: **AXIOM_OR_PARAMETER** — Found Axiom geometric_factorization_implies_polynomial_factoring.
+  - `Axiom geometric_factorization_implies_polynomial_factoring :`
+- L121: **AXIOM_OR_PARAMETER** — Found Axiom geometric_claim_achieves_polylog_operations.
+  - `Axiom geometric_claim_achieves_polylog_operations :`
 
 #### `coq/thielemachine/coqproofs/MuAlu.v`
 - L189: **MU_COST_ZERO** — μ-cost definition \`mu_zero\` is trivially zero - ensure this is intentional.
