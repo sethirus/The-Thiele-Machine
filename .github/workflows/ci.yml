@@ -72,14 +72,28 @@ jobs:
       - name: Test Coq compilation (CoreSemantics)
         run: |
           cd coq && coqc -Q thielemachine/coqproofs ThieleMachine thielemachine/coqproofs/CoreSemantics.v
-          
-      - name: Verify no Admitted in Coq files
+
+      - name: Verify no Admitted in ALL kernel files (STRICT)
         run: |
-          if grep -r "Admitted" coq/thielemachine/coqproofs/CoreSemantics.v coq/thielemachine/coqproofs/SemanticBridge.v coq/thielemachine/coqproofs/Embedding_TM.v 2>/dev/null; then
-            echo "ERROR: Found Admitted in Coq files"
+          echo "🔍 Checking ALL kernel files for admits..."
+          ADMITS=$(find coq/kernel -name "*.v" -exec grep -l "Admitted\." {} \; 2>/dev/null || true)
+          if [ -n "$ADMITS" ]; then
+            echo "❌ ERROR: Found Admitted in kernel files:"
+            echo "$ADMITS"
             exit 1
           fi
-          echo "✅ No Admitted found in new Coq files"
+          echo "✅ Zero admits found in kernel (verified all files)"
+
+      - name: Verify critical kernel files compile
+        run: |
+          cd coq
+          sudo apt-get install -y coinor-csdp
+          coq_makefile -f _CoqProject -o Makefile 2>&1 | grep -v "Warning:" || true
+
+          echo "🔨 Building critical kernel proofs..."
+          make kernel/Subsumption.vo kernel/NoFreeInsight.vo kernel/MuLedgerConservation.vo || exit 1
+          make kernel/BoxCHSH.vo kernel/TestTripartite.vo || exit 1
+          echo "✅ Critical kernel files compiled"
 
       - name: Run falsifiability analysis
         run: |

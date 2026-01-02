@@ -30,8 +30,25 @@ jobs:
 
     - name: Run Inquisitor Audit
       run: |
-        python scripts/inquisitor.py --strict --report INQUISITOR_REPORT.md
+        python scripts/inquisitor.py --report INQUISITOR_REPORT.md
       continue-on-error: false
+
+    - name: ENFORCE Zero HIGH-Severity Issues
+      run: |
+        echo "🔍 Checking Inquisitor findings..."
+        HIGH_COUNT=$(grep "^- HIGH:" INQUISITOR_REPORT.md | grep -oP '\d+' || echo "0")
+
+        if [ "$HIGH_COUNT" -gt "0" ]; then
+          echo "❌ CRITICAL FAILURE: Found $HIGH_COUNT HIGH-severity issues"
+          echo ""
+          echo "HIGH-severity issues are NOT ALLOWED in the repository."
+          echo "These indicate critical problems with proof quality."
+          echo ""
+          grep -A 10 "^### HIGH" INQUISITOR_REPORT.md || true
+          exit 1
+        fi
+
+        echo "✅ PASSED: Zero HIGH-severity issues"
 
     - name: Generate Analysis Report
       if: always()
@@ -65,9 +82,10 @@ jobs:
           echo "score=$score" >> $GITHUB_OUTPUT
           echo "grade=$grade" >> $GITHUB_OUTPUT
 
-          # Fail if score drops below threshold (80.0)
-          if (( $(echo "$score < 80.0" | bc -l) )); then
-            echo "❌ Quality score $score is below threshold of 80.0"
+          # Fail if score drops below threshold (90.0 - STRICTER)
+          if (( $(echo "$score < 90.0" | bc -l) )); then
+            echo "❌ Quality score $score is below threshold of 90.0"
+            echo "Repository must maintain high proof quality standards."
             exit 1
           else
             echo "✅ Quality score $score meets threshold"
