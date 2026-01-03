@@ -1593,8 +1593,8 @@ This is a computational analog of Bell locality: you cannot signal to a remote m
 % Conservation equation
 \node[draw, fill=yellow!30, rounded corners, font=\normalsize, align=center, text width=3.5cm] at (0, -2.5) {
     \textbf{No Free Insight:}\\[0.2cm]
-    \textit{Proven:} $\Delta\mu > 0$\\[0.1cm]
-    \textit{Conjectured:} $\log|\Omega| - \log|\Omega'| \le \Delta\mu$\\[0.1cm]
+    \textit{Proven:} $\Delta\mu \ge |\phi|$\\[0.1cm]
+    \textit{VM enforces:} $\log|\Omega| - \log|\Omega'| \le \Delta\mu$\\[0.1cm]
     \textit{``Information gained requires cost''}
 };
 
@@ -1609,7 +1609,7 @@ This is a computational analog of Bell locality: you cannot signal to a remote m
 };
 \draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (-2, -2.5) -- (2, -2.5) node[pos=0.5, font=\small, above, yshift=6pt] {strengthening};
 \end{tikzpicture}
-\caption{The No Free Insight theorem: reducing the search space (gaining structural insight) requires paying $\mu$-cost. \\textbf{Proven (StateSpaceCounting.v):} $\Delta\mu \ge |\phi|_{\\text{bits}}$ for any formula $\phi$, establishing $\Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')$ under optimal encoding.}
+\caption{The No Free Insight theorem: reducing the search space (gaining structural insight) requires paying $\mu$-cost. \textbf{Proven (StateSpaceCounting.v):} $\Delta\mu \ge |\phi|_{\text{bits}}$ for any formula $\phi$. \textbf{Enforced by VM:} The Python VM uses a conservative bound, charging $\mu = |\phi| + n$ (assuming one solution). This \emph{guarantees} $\Delta\mu \ge \log_2(|\Omega|) - \log_2(|\Omega'|)$ without computing the \#P-complete model count; may overcharge when multiple solutions exist.}
 \label{fig:no_free_insight}
 \end{figure}
 
@@ -1623,7 +1623,7 @@ This is a computational analog of Bell locality: you cannot signal to a remote m
 
 \textbf{Right:} Reduced space $\Omega'$ with $2^{n-k}$ states
 
-\textbf{Conservation law (bottom):} \textit{Proven}: $\Delta\mu > 0$ for strengthening. \textit{Conjectured}: $\Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')$ under optimal encoding where each $\mu$-bit eliminates exactly half the search space.
+\textbf{Conservation law (bottom):} \textit{Proven in Coq}: $\Delta\mu \ge |\phi|_{\text{bits}}$ for strengthening. \textit{Enforced by VM}: $\Delta\mu \ge \log_2(|\Omega|) - \log_2(|\Omega'|)$ guaranteed by conservative bound (uses $\text{after} = 1$ rather than \#P-complete model counting).
 
 \textbf{Role in Chapter 3:} Formal statement of the central theorem. The qualitative result (no free strengthening) is proven in \S3.7. The quantitative bound is an information-theoretic interpretation assuming optimal axiom encoding.
 
@@ -1746,10 +1746,11 @@ Then:
 \begin{enumerate}
     \item \textbf{Qualitative:} The trace contains a structure-addition event charging $\mu > 0$
     \item \textbf{Quantitative:} For any LASSERT adding formula $\phi$: $\Delta\mu \ge |\phi|_{\text{bits}}$
-    \item \textbf{Information-theoretic optimum:} Under optimal encoding where each constraint bit eliminates half the state space, $k$ bits provide at most $2^k$ reduction, establishing:
+    \item \textbf{Semantic enforcement (VM):} The Python VM computes $\text{before} = 2^{n}$ (all assignments) and uses conservative $\text{after} = 1$ (avoids \#P-complete model counting), then charges:
     \[
-    \Delta\mu \ge \log_2(|\Omega|) - \log_2(|\Omega'|)
+    \Delta\mu = |\phi|_{\text{bits}} + n = |\phi|_{\text{bits}} + \log_2(2^n)
     \]
+    Since $|\Omega'| \ge 1$ for satisfiable formulas, this \emph{guarantees} $\Delta\mu \ge \log_2(|\Omega|) - \log_2(|\Omega'|)$ (may overcharge when multiple solutions exist).
 \end{enumerate}
 \end{theorem}
 
@@ -2050,7 +2051,7 @@ This is the computational analog of Noether's theorem: the gauge symmetry (abili
 % Master result
 \node[draw, ultra thick, fill=green!30, rounded corners, minimum width=14.4cm, minimum height=2.6cm, align=center, text width=3.5cm] (master) at (0, -2) {
     \textbf{No Free Insight Theorem}\\
-    $\log|\Omega| - \log|\Omega'| \le \Delta\mu$
+    Proven: $\Delta\mu \ge |\phi|$; VM enforces: $\log|\Omega| - \log|\Omega'| \le \Delta\mu$
 };
 
 % Arrows

@@ -17,8 +17,18 @@ Require Import SimulationProof.
     
     STRATEGY:
     1. μ-cost ≥ axiom bit length (proven from instruction costs)
-    2. Each axiom bit eliminates at least half the compatible states (worst case)
-    3. Therefore: Δμ ≥ log₂(Ω) - log₂(Ω') follows by induction
+    2. For n-variable formulas, before = 2^n, after ∈ [0, 2^n]
+    3. SAT/UNSAT certificate determines semantic reduction
+    4. Therefore: Δμ ≥ log₂(before/after) when after > 0
+    
+    KEY INSIGHT: The Python VM uses a CONSERVATIVE BOUND:
+      - before = 2^num_vars (all possible assignments)
+      - after = 1 (assumes single solution—avoids #P-complete model counting)
+      - mu_delta = description_bits + num_vars
+    
+    This GUARANTEES Δμ ≥ log₂(|Ω|/|Ω'|) at runtime since actual |Ω'| ≥ 1
+    for SAT, so our bound is an upper bound on true semantic cost.
+    May overcharge when multiple solutions exist.
 *)
 
 Module StateSpaceCounting.
@@ -122,18 +132,29 @@ Proof.
     reflexivity.
 Qed.
 
-(** Corollary: μ-cost >= log₂ of state space reduction (under optimal encoding)
+(** Corollary: μ-cost >= log₂ of state space reduction (enforced by VM)
     
-    If each formula bit encodes an optimal binary constraint that halves the
-    compatible state space, then k bits reduce the space by a factor of 2^k.
+    The Python VM enforces a CONSERVATIVE BOUND on semantic μ-cost:
     
-    Given: Δμ ≥ k (formula bits)
-    Fact: k optimal bits reduce space by 2^k
-    Therefore: If Ω' = Ω / 2^k, then k = log₂(Ω/Ω') = log₂(Ω) - log₂(Ω')
-    Conclusion: Δμ ≥ log₂(Ω) - log₂(Ω')
+    For a CNF formula with n variables:
+      - before_count = 2^n (all possible truth assignments)
+      - after_count = 1 (CONSERVATIVE: assumes single solution)
+      - mu_delta = description_bits + log₂(before_count/after_count)
     
-    This is the information-theoretic optimum. Suboptimal encodings may require
-    more μ-bits for the same reduction, so the bound is Δμ ≥ log₂(reduction).
+    Why after_count = 1?
+      - Computing exact model count is #P-complete (intractable)
+      - Using after = 1 GUARANTEES μ ≥ log₂(|Ω|/|Ω'|) since:
+        * Actual |Ω'| ≥ 1 for SAT (at least one satisfying assignment)
+        * Our bound log₂(2^n/1) = n ≥ log₂(2^n/|Ω'|) for any |Ω'| ≥ 1
+      - May OVERCHARGE when multiple solutions exist (conservative)
+    
+    Given: VM charges Δμ = |formula| + log₂(2^n / 1) = |formula| + n
+    This is an UPPER BOUND on the true semantic cost.
+    The bound GUARANTEES Δμ ≥ log₂(|Ω|/|Ω'|) without computing #P-complete model count.
+    
+    The Coq kernel proves the structural property (certification requires
+    cert-setter instruction with declared μ-cost). The Python VM ensures
+    the conservative bound guarantees the semantic property.
 *)
 Theorem nofreeinsight_information_theoretic_bound :
   forall k : nat,
@@ -154,7 +175,23 @@ Proof.
   - simpl. rewrite Nat.add_0_r. apply Nat.le_refl.
 Qed.
 
-(** Main theorem: Combining the pieces *)
+(** Main theorem: Combining the pieces
+    
+    STRUCTURAL THEOREM (Coq-proven):
+    - μ-cost is at least k bits where k = formula string length
+    
+    SEMANTIC ENFORCEMENT (Python VM):
+    - VM computes before = 2^num_vars
+    - VM uses conservative after = 1 (avoids #P-complete model counting)
+    - VM charges description_bits + log₂(before/1) = description_bits + n
+    - This GUARANTEES Δμ ≥ log₂(|Ω|/|Ω'|) since after ≤ |Ω'| implies
+      log₂(before/after) ≥ log₂(before/|Ω'|) = log₂(|Ω|/|Ω'|)
+    - Conservative: may overcharge if multiple solutions exist
+    
+    The split is intentional: Coq proves the structural property within
+    the kernel semantics. The Python VM enforces the semantic property
+    via conservative upper bound on cost. Both are verifiable.
+*)
 Theorem no_free_insight_quantitative :
   forall s s' mid formula cert cost,
     vm_step s (instr_lassert mid formula cert cost) s' ->
