@@ -906,7 +906,7 @@ To connect the ledger to a physical observable, I design a narrowly scoped, fals
 Use the thermodynamic bridge harness to emit four traces that differ only in which singleton module is revealed from a fixed candidate pool: (1) choose 1 of 2 elements, (2) choose 1 of 4, (3) choose 1 of 16, (4) choose 1 of 64. Instruction count, data size, and clocking remain identical so that only the $\Omega \to \Omega'$ reduction changes. The bundle records per-step $\mu$ (raw and normalized), $|\Omega|$, $|\Omega'|$, normalization flags for the formal, reference, and hardware layers, and an `evidence\_strict` bit indicating whether normalization was allowed.
 
 \subsection{Bridge prediction}
-By construction $\mu \ge \log_2(|\Omega|/|\Omega'|)$ for each trace. Under the thermodynamic postulate $Q_{\min} = k_B T \ln 2 \cdot \mu$, measured energy/heat must scale with $\mu$ at slope $k_B T \ln 2$ (within an explicit inefficiency factor $\epsilon$). Genesis-only traces remain the lone legitimate zero-$\mu$ run; a zero $\mu$ on any nontrivial trace is treated as a test failure, not “alignment.”
+The VM \emph{guarantees} $\mu \ge \log_2(|\Omega|/|\Omega'|)$ for each trace using a conservative bound (assumes single solution, avoids \#P-complete model counting). Under the thermodynamic postulate $Q_{\min} = k_B T \ln 2 \cdot \mu$, measured energy/heat must scale with $\mu$ at slope $k_B T \ln 2$ (within an explicit inefficiency factor $\epsilon$). Genesis-only traces remain the lone legitimate zero-$\mu$ run; a zero $\mu$ on any nontrivial trace is treated as a test failure, not “alignment.”
 
 \subsection{Instrumentation and analysis}
 Run the three traces on instrumented hardware (or a calibrated switching-energy simulator) at fixed temperature $T$. Record per-run energy and environmental metadata. Fit measured energy against $k_B T \ln 2 \cdot \mu$ and report residuals. A sustained sub-linear slope falsifies the bridge; a super-linear slope quantifies overhead. Publish both ledger outputs and raw measurements so reviewers can recompute the bound.
@@ -929,7 +929,7 @@ singleton\_from\_64 & 7 & 7 / 7 & no & 6 & $2.02 \times 10^{-20}$ & 1.167 \\
 }
 \end{center}
 
-All four traces satisfy $\mu \ge \log_2(|\Omega|/|\Omega'|)$ and align on regs/mem/$\mu$ without normalization. The harness encodes an explicit $\mu$-delta into the formal trace and hardware instruction word, and the reference VM consumes the same $\mu$-delta (disabling implicit MDLACC) so that $\mu_{\text{raw}}$ matches across layers. With this encoding in place, \texttt{EVIDENCE\_STRICT} runs succeed for these workloads.
+All four traces satisfy $\mu \ge \log_2(|\Omega|/|\Omega'|)$ (guaranteed by VM conservative bound) and align on regs/mem/$\mu$ without normalization. The harness encodes an explicit $\mu$-delta into the formal trace and hardware instruction word, and the reference VM consumes the same $\mu$-delta (disabling implicit MDLACC) so that $\mu_{\text{raw}}$ matches across layers. With this encoding in place, \texttt{EVIDENCE\_STRICT} runs succeed for these workloads.
 
 \subsection{The Conservation of Difficulty Experiment}
 This experiment directly tests the Landauer patch on the \textit{Blind Sort} vs \textit{Sighted Sort} micro-programs. The setup runs two traces that both sort the same buffer: (i) a blind trace that uses only XOR/XFER data movement, and (ii) a sighted trace that uses PNEW/LASSERT to reveal structure before moving data. The purpose is to show that the total $\mu$ is conserved even when the cost shifts between heat and stored structure.

@@ -225,7 +225,7 @@ This \textbf{physics-computation isomorphism diagram} visualizes the formal corr
 \draw[arrow] (bridge) -- node[right, font=\normalsize, above, yshift=6pt, pos=0.5, font=\small] {Empirical claim} (physical);
 
 % Annotations
-\node[right=2.9cm of abstract, font=\normalsize, text width=3cm, align=center, sloped, pos=0.5, font=\small, xshift=10pt] {Kernel theorem:\\$\mu \ge \log_2(|\Omega|/|\Omega'|)$};
+\node[right=2.9cm of abstract, font=\normalsize, text width=3cm, align=center, sloped, pos=0.5, font=\small, xshift=10pt] {Kernel theorem:\\$\mu \ge |\phi|_{\text{bits}}$\\VM enforces semantic bound};
 \node[right=2.9cm of physical, font=\normalsize, text width=3cm, align=center, sloped, pos=0.5, font=\small, xshift=10pt] {Falsifiable prediction:\\energy scales with $\mu$};
 \end{tikzpicture}
 \caption{Landauer bridge: from abstract $\mu$-accounting to physical heat dissipation.}
@@ -247,7 +247,7 @@ This \textbf{Landauer bridge diagram} visualizes the connection between the abst
     \end{itemize}
     \item \textbf{Annotations (right side):}
     \begin{itemize}
-        \item \textbf{Top:} ``Kernel theorem: $\mu \ge \log_2(|\Omega|/|\Omega'|)$''---the proven lower bound from \path{coq/kernel/MuLedgerConservation.v}.
+        \item \textbf{Top:} ``Kernel theorem: $\mu \ge |\phi|_{\text{bits}}$; VM enforces semantic bound''---the Coq proof establishes description-length bound (\path{coq/kernel/StateSpaceCounting.v}), while the Python VM enforces $\mu \ge \log_2(|\Omega|/|\Omega'|)$ by computing actual state space reduction.
         \item \textbf{Bottom:} ``Falsifiable prediction: energy scales with $\mu$''---the experimental test performed in Chapter 6 (singleton-from-$N$ experiments).
     \end{itemize}
 \end{itemize}
@@ -401,7 +401,7 @@ The proof lives in \path{coq/kernel/KernelPhysics.v}, where the \texttt{mu\_gaug
 
 The bridge from a formally verified $\mu$-ledger to a physical claim requires an explicit translation dictionary and at least one measurement that could prove the bridge wrong.
 
-\paragraph{Translation dictionary.} Let $|\Omega|$ be the admissible microstate count of an $n$-bit device ($|\Omega| = 2^n$ at fixed resolution). A revelation step $\Omega \to \Omega'$ (e.g., \texttt{PNEW}, \texttt{PSPLIT}, \texttt{MDLACC}, \texttt{REVEAL}) shrinks the space by $|\Omega|/|\Omega'|$. The normalized certificate bitlength charged by the kernel is the canonical $\mu$ debit, and by construction $\mu \ge \log_2(|\Omega|/|\Omega'|)$. I adopt the bridge postulate that charging $\mu$ bits lower-bounds dissipated heat/work: $Q_{\min} = k_B T \ln 2 \cdot \mu$, with an explicit inefficiency factor $\epsilon \ge 1$ for real devices. This postulate is external to the kernel and is presented as an empirical claim.
+\paragraph{Translation dictionary.} Let $|\Omega|$ be the admissible microstate count of an $n$-bit device ($|\Omega| = 2^n$ at fixed resolution). A revelation step $\Omega \to \Omega'$ (e.g., \texttt{PNEW}, \texttt{PSPLIT}, \texttt{MDLACC}, \texttt{REVEAL}) shrinks the space by $|\Omega|/|\Omega'|$. The Coq kernel proves $\mu \ge |\phi|_{\text{bits}}$ (description length). The Python VM \emph{guarantees} $\mu \ge \log_2(|\Omega|/|\Omega'|)$ using a conservative bound ($\text{before} = 2^{n}$, $\text{after} = 1$); may overcharge when multiple solutions exist, avoiding \#P-complete model counting. I adopt the bridge postulate that charging $\mu$ bits lower-bounds dissipated heat/work: $Q_{\min} = k_B T \ln 2 \cdot \mu$, with an explicit inefficiency factor $\epsilon \ge 1$ for real devices. This postulate is external to the kernel and is presented as an empirical claim.
 
 \paragraph{Bridge theorem (sanity anchor).} Combining No Free Insight (proved: $\mu$ is monotone non-decreasing) with the postulate above yields a Landauer-style inequality: any trace implementing $\Omega \to \Omega'$ must dissipate at least $k_B T \ln 2 \cdot \log_2(|\Omega|/|\Omega'|)$, because the ledger charges at least that many bits for the reduction. The thermodynamic term is an assumption; the $\mu$ inequality is proved in Coq.
 \paragraph{Falsifiable prediction.} Consider four paired workloads that differ only in which singleton module is revealed from a fixed pool (sizes 2, 4, 16, 64). The measured energy/heat must scale with $\mu$ at slope $k_B T \ln 2$ (within the stated $\epsilon$). A sustained sub-linear slope falsifies the bridge; a super-linear slope quantifies implementation overhead. Genesis-only traces remain the lone zero-$\mu$ case.
