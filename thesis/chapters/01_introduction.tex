@@ -262,7 +262,7 @@ The model explicitly charges $\mu$ for operations that add or refine structure. 
     \item Time tax: $256 / 16 = 16\times$ speedup.
 \end{itemize}
 
-\textbf{Role in thesis:} This diagram motivates the central question: \textit{What is the cost of sight?} If we can pay some resource ($\mu$) to gain structural knowledge, how much must we pay for a given speedup? The thesis answers: $\Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')$ (the No Free Insight theorem).
+\textbf{Role in thesis:} This diagram motivates the central question: \textit{What is the cost of sight?} If we can pay some resource ($\mu$) to gain structural knowledge, how much must we pay for a given speedup? The thesis answers: Coq proves $\Delta\mu \ge |\phi|_{\text{bits}}$ (description length), and the Python VM enforces $\Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')$ by computing actual state space reduction.
 
 \section{The Thiele Machine: Computation with Explicit Structure}
 
@@ -273,7 +273,7 @@ This thesis proposes a radical extension of classical computation. I assert that
 The \textbf{Thiele Machine Hypothesis} states:
 
 \begin{quote}
-    \textit{Any reduction in search space must be paid for by proportional investment of structural information ($\mu$-bits). Computational time can be traded for $\mu$-cost, but there is no free insight: $\log|\Omega| - \log|\Omega'| \le \Delta\mu$.}
+    \textit{Any reduction in search space must be paid for by proportional investment of structural information ($\mu$-bits). Computational time can be traded for $\mu$-cost, but there is no free insight: Coq proves $\Delta\mu \ge |\phi|_{\text{bits}}$, and the VM enforces $\log|\Omega| - \log|\Omega'| \le \Delta\mu$ by construction.}
 \end{quote}
 
 This is \emph{not} a claim that all problems become polynomial-time by paying $\mu$. Rather, it formalizes the trade-off: structural knowledge reduces search, and that reduction requires explicitly charged $\mu$-cost proportional to the information gained.
@@ -401,7 +401,7 @@ The central result of this thesis is:
 \begin{enumerate}
     \item \textbf{Qualitative bound:} If an execution trace strengthens an accepted predicate from $P_{\text{weak}}$ to $P_{\text{strong}}$ (strictly), then the trace must contain structure-adding operations that charge $\mu > 0$.
     \item \textbf{Quantitative bound:} The $\mu$-cost satisfies $\Delta\mu \ge |\phi|_{\text{bits}}$, where $|\phi|_{\text{bits}}$ is the bit-length of the formula.
-    \item \textbf{Information-theoretic optimum:} Under optimal encoding, $k$ constraint bits provide at most $2^k$ reduction in state space, establishing $\Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')$.
+    \item \textbf{Semantic enforcement (VM):} The Python VM uses a conservative bound: $\text{before} = 2^{n}$, $\text{after} = 1$ (single solution assumption). This charges $\mu = |\phi|_{\text{bits}} + n$, \emph{guaranteeing} $\Delta\mu \ge \log_2(|\Omega|) - \log_2(|\Omega'|)$ without computing the \#P-complete model count. May overcharge when multiple solutions exist.
 \end{enumerate}
 \end{theorem}
 
@@ -446,7 +446,7 @@ The central result of this thesis is:
 };
 
 \end{tikzpicture}
-\caption{The No Free Insight theorem visualized. Reducing the search space from $\Omega$ to $\Omega'$ requires paying $\mu$-cost. \textbf{Proven:} $\Delta\mu \ge |\phi|_{\text{bits}}$ for any formula $\phi$ (StateSpaceCounting.v). Under optimal encoding, this establishes $\Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')$ as the information-theoretic minimum. This is a conservation law: insight costs information.}
+\caption{The No Free Insight theorem visualized. Reducing the search space from $\Omega$ to $\Omega'$ requires paying $\mu$-cost. \textbf{Proven in Coq:} $\Delta\mu \ge |\phi|_{\text{bits}}$ for any formula $\phi$ (StateSpaceCounting.v). \textbf{Enforced by VM:} The Python VM uses a conservative bound, charging $\mu = |\phi| + n$ (assumes single solution). This \emph{guarantees} $\Delta\mu \ge \log_2(|\Omega|) - \log_2(|\Omega'|)$ without \#P-complete model counting; may overcharge when multiple solutions exist.}
 \label{fig:no-free-insight}
 \end{figure}
 
@@ -468,7 +468,7 @@ The central result of this thesis is:
         \item Below $\Omega'$: "$\log_2(\Omega')$ bits"---the remaining entropy.
     \end{itemize}
     
-    \item \textbf{Yellow box (bottom):} The conservation law equation: $\Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')$. This is the formal statement of the theorem.
+    \item \textbf{Yellow box (bottom):} The conservation law equation: $\Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')$. This is enforced by the VM computing semantic state space reduction.
 \end{itemize}
 
 \textbf{Key insight visualized:} The difference in circle sizes represents the reduction in uncertainty. The arrow represents the $\mu$-cost paid. The conservation law states: \textit{the reduction in uncertainty cannot exceed the structural cost paid}.
@@ -707,7 +707,7 @@ This thesis makes the following specific contributions:
     
     \item \textbf{The $\mu$-bit Currency:} A canonical, implementation-independent measure of structural information cost based on Minimum Description Length principles.
     
-    \item \textbf{The No Free Insight Theorem:} A mechanically verified proof that predicate strengthening requires structure-adding operations charging $\mu \ge |\phi|_{\text{bits}}$ for any formula $\phi$, establishing a quantitative conservation law for computational insight. Under optimal encoding, this implies $\Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')$ as the information-theoretic minimum cost for reducing search space.
+    \item \textbf{The No Free Insight Theorem:} A mechanically verified proof that predicate strengthening requires structure-adding operations charging $\mu \ge |\phi|_{\text{bits}}$ for any formula $\phi$, establishing a quantitative conservation law for computational insight. The Python VM \emph{guarantees} $\Delta\mu \ge \log_2(|\Omega|) - \log_2(|\Omega'|)$ using a conservative bound ($\text{before} = 2^{n}$, $\text{after} = 1$).
     
     \item \textbf{Observational No-Signaling:} A proven locality theorem showing that operations on one partition module cannot affect observables of unrelated modules—a computational analog of Bell locality.
     

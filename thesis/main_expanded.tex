@@ -655,7 +655,7 @@ The central result of this thesis is:
 };
 
 \end{tikzpicture}
-\caption{The No Free Insight theorem visualized. Reducing the search space from $\Omega$ to $\Omega'$ requires paying $\mu$-cost. \textbf{Proven:} $\Delta\mu \ge |\phi|_{\text{bits}}$ for any formula $\phi$ (StateSpaceCounting.v). Under optimal encoding, this establishes $\Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')$ as the information-theoretic minimum. This is a conservation law: insight costs information.}
+\caption{The No Free Insight theorem visualized. Reducing the search space from $\Omega$ to $\Omega'$ requires paying $\mu$-cost. \textbf{Proven:} $\Delta\mu \ge |\phi|_{\text{bits}}$ for any formula $\phi$ (StateSpaceCounting.v). \textbf{Enforced by VM construction:} The Python VM charges $\mu = |\phi|_{\text{bits}} + n$ where $n$ is the number of variables. This uses a conservative bound (assuming one solution) that \emph{guarantees} $\Delta\mu \ge \log_2(|\Omega|) - \log_2(|\Omega'|)$ without computing the \#P-complete model count. May overcharge when multiple solutions exist. This is a conservation law: insight costs information.}
 \label{fig:no-free-insight}
 \end{figure}
 

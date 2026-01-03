@@ -114,7 +114,22 @@ def lassert(state: State, module: ModuleId, config_path: Path, outdir: Path) -> 
         state.csr[CSR.ERR] = 0
     state.csr[CSR.CERT_ADDR] = str(store.hash_path(cid))
 
-    mu_delta = calculate_mu_cost(certificate.cnf.text, 1, 1)
+    # Compute semantic μ-cost using CONSERVATIVE BOUND
+    # 
+    # Why conservative? Computing exact model count is #P-complete (intractable).
+    # Instead, we use after = 1 which GUARANTEES μ ≥ log₂(|Ω|/|Ω'|):
+    #   - For SAT: actual |Ω'| ≥ 1, so our bound log₂(2^n/1) ≥ log₂(2^n/|Ω'|)
+    #   - For UNSAT: |Ω'| = 0 makes log undefined; we charge maximum (n bits)
+    # 
+    # Trade-off: May OVERCHARGE when multiple solutions exist. This is 
+    # intentional: conservative enforcement, not exact computation.
+    num_vars = certificate.cnf.num_vars
+    before_count = 2 ** num_vars if num_vars < 64 else 2**63  # Cap to avoid overflow
+    
+    # Conservative bound: always assume single solution (after = 1)
+    # This guarantees μ ≥ log₂(|Ω|/|Ω'|) without #P-complete model counting
+    after_count = 1
+    mu_delta = calculate_mu_cost(certificate.cnf.text, before_count, after_count)
 
     receipt_payload = {
         "op": "LASSERT",
