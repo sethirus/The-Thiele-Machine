@@ -1152,6 +1152,102 @@ The theorem guarantees you can't skip steps 2-4 and still certify the correlatio
 
 \textbf{Interpretation}: To achieve supra-quantum certification, you must explicitly pay for it through a revelation-type instruction. There is no backdoor.
 
+
+\section{No Free Insight Functor Architecture}
+
+The No Free Insight theorem is proven using a \textbf{functor-based architecture} that separates the abstract interface from the concrete kernel instantiation. This design pattern, implemented in \texttt{coq/nofi/}, allows the theorem to be proven once generically, then instantiated for any system satisfying the interface.
+
+\subsection{Module Type Interface}
+
+The abstract interface is defined in \path{coq/nofi/NoFreeInsight_Interface.v}:
+\begin{lstlisting}
+Module Type NO_FREE_INSIGHT_SYSTEM.
+  Parameter S : Type.           (* State type *)
+  Parameter Trace : Type.       (* Trace type *)
+  Parameter Strength : Type.    (* Certification strength *)
+  
+  Parameter run : Trace -> S -> option S.
+  Parameter clean_start : S -> Prop.
+  Parameter certifies : S -> Strength -> Prop.
+  Parameter strictly_stronger : Strength -> Strength -> Prop.
+  Parameter structure_event : Trace -> S -> Prop.
+  
+  Axiom no_free_insight_contract :
+    forall tr s0 s1 strong weak,
+      clean_start s0 ->
+      run tr s0 = Some s1 ->
+      strictly_stronger strong weak ->
+      certifies s1 strong ->
+      structure_event tr s0.
+End NO_FREE_INSIGHT_SYSTEM.
+\end{lstlisting}
+
+\textbf{What this defines:} Any system with a state type, trace type, and strength ordering can implement this interface. The \texttt{no\_free\_insight\_contract} axiom states that moving from a clean start to a stronger certification requires a structure event.
+
+\subsection{Functor Theorem}
+
+The generic theorem is proven in \path{coq/nofi/NoFreeInsight_Theorem.v}:
+\begin{lstlisting}
+Module NoFreeInsight (X : NO_FREE_INSIGHT_SYSTEM).
+  Theorem no_free_insight :
+    forall tr s0 s1 strength weak,
+      X.clean_start s0 ->
+      X.run tr s0 = Some s1 ->
+      X.strictly_stronger strength weak ->
+      X.certifies s1 strength ->
+      X.structure_event tr s0.
+  Proof.
+    intros. eapply X.no_free_insight_contract; eauto.
+  Qed.
+End NoFreeInsight.
+\end{lstlisting}
+
+This functor \textbf{proves NoFI for any system} satisfying the interface---the proof contains no axioms or admits beyond the interface contract itself.
+
+\subsection{Kernel Instantiation}
+
+The kernel is proven to satisfy the interface in \path{coq/nofi/Instance_Kernel.v}:
+\begin{lstlisting}
+Module KernelNoFI <: NO_FREE_INSIGHT_SYSTEM.
+  Definition S := VMState.
+  Definition Trace := list vm_instruction.
+  Definition Strength := nat.  (* cert_addr threshold *)
+  
+  Definition run (tr : Trace) (s0 : S) : option S :=
+    RevelationProof.trace_run (Nat.succ (length tr)) tr s0.
+    
+  Definition certifies (s : S) (strength : Strength) : Prop :=
+    strength <> 0 /\ strength <= observe s /\ 
+    RevelationProof.has_supra_cert s.
+    
+  (* ... remaining definitions ... *)
+End KernelNoFI.
+\end{lstlisting}
+
+\textbf{Why this architecture matters:}
+\begin{enumerate}
+    \item \textbf{Separation of concerns:} The abstract theorem is independent of kernel details
+    \item \textbf{Reusability:} Other systems can prove NoFI by implementing the interface
+    \item \textbf{Modular verification:} Kernel changes only affect the instantiation, not the generic proof
+\end{enumerate}
+
+\subsection{Mu-Chaitin Theory}
+
+The \path{coq/nofi/MuChaitinTheory_Theorem.v} file extends this pattern to quantitative incompleteness:
+\begin{lstlisting}
+Lemma supra_cert_run_implies_paid_payload :
+  forall fuel trace s_final,
+    RevelationProof.trace_run fuel trace X.s_init = Some s_final ->
+    X.s_init.(vm_csrs).(csr_cert_addr) = 0 ->
+    RevelationProof.has_supra_cert s_final ->
+    exists instr,
+      MuNoFreeInsightQuantitative.is_cert_setter instr /\
+      mu_info_nat X.s_init s_final >= 
+        MuChaitin.cert_payload_size instr.
+\end{lstlisting}
+
+This proves that the mu-cost paid lower-bounds the certification payload size---a quantitative version of ``no free lunch.''
+
 \section{Proof Summary}
 
 At the end of the verification campaign, the active proof tree contains no admits and no axioms beyond foundational logic. The result is a closed, machine-checked account of the model’s physics, accounting rules, and impossibility results. Every theorem in this chapter can be reconstructed from the definitions and lemmas above.
