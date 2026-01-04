@@ -1,66 +1,5 @@
 \section{The Verifier System: Receipt-Defined Certification}
 
-% ============================================================================
-% FIGURE: Chapter Roadmap
-% ============================================================================
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=1.8, 
-    node distance=3cm,
-    box/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.6cm, align=center, fill=blue!10},
-    cmodule/.style={rectangle, draw, rounded corners, minimum width=4.0cm, minimum height=1.6cm, align=center, fill=green!15},
-    arrow/.style={->, >=Stealth, thick}
-]
-    % Central node
-    \node[box, fill=yellow!20, minimum width=7.2cm, align=center, text width=3.5cm, font=\normalsize] (verifier) at (0,0) {\textbf{Verifier System}\\Receipt-Defined};
-    
-    % C-modules
-    \node[cmodule, align=center, text width=3.5cm, font=\normalsize] (crand) at (-4, 2) {C-RAND\\Randomness};
-    \node[cmodule, align=center, text width=3.5cm, font=\normalsize] (ctomo) at (-1.5, 2.5) {C-TOMO\\Tomography};
-    \node[cmodule, align=center, text width=3.5cm, font=\normalsize] (centropy) at (1.5, 2.5) {C-ENTROPY\\Entropy};
-    \node[cmodule, align=center, text width=3.5cm, font=\normalsize] (ccausal) at (4, 2) {C-CAUSAL\\Causation};
-    
-    % Ingredients
-    \node[box, align=center, text width=3.5cm, font=\normalsize] (trace) at (-4, -1.5) {Trace\\Integrity};
-    \node[box, align=center, text width=3.5cm, font=\normalsize] (semantic) at (0, -1.5) {Semantic\\Checking};
-    \node[box, align=center, text width=3.5cm, font=\normalsize] (cost) at (4, -1.5) {$\mu$-Cost\\Accounting};
-    
-    % TRS Protocol
-    \node[box, fill=red!15, align=center, text width=3.5cm, font=\normalsize] (trs) at (0, -3) {TRS-1.0\\Receipt Protocol};
-    
-    % Arrows
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (crand) -- (verifier);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (ctomo) -- (verifier);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (centropy) -- (verifier);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (ccausal) -- (verifier);
-    
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (trace) -- (verifier);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (semantic) -- (verifier);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (cost) -- (verifier);
-    
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (trs) -- (trace);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (trs) -- (semantic);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (trs) -- (cost);
-    
-    % Annotations
-    \node[font=\normalsize, text=gray] at (-4, 1.2) {§A.3};
-    \node[font=\normalsize, text=gray] at (-1.5, 1.7) {§A.4};
-    \node[font=\normalsize, text=gray] at (1.5, 1.7) {§A.5};
-    \node[font=\normalsize, text=gray] at (4, 1.2) {§A.6};
-\end{tikzpicture}
-\caption{Chapter A (Verifier System) roadmap showing the four C-modules and three verification ingredients, all built on the TRS-1.0 receipt protocol.}
-\label{fig:ch9-roadmap}
-\end{figure}
-
-\paragraph{Understanding Figure~\ref{fig:ch9-roadmap}: Verifier System Architecture}
-
-\textbf{Visual Elements:} The diagram shows a central yellow box labeled ``Verifier System (Receipt-Defined)'' with arrows pointing to it from two layers. The upper layer contains four green rounded rectangles (C-modules): C-RAND (Randomness) on the left, C-TOMO (Tomography) center-left, C-ENTROPY (Entropy) center-right, and C-CAUSAL (Causation) on the right, each labeled with section references (§A.3 through §A.6). The lower layer contains three blue boxes: Trace Integrity (left), Semantic Checking (center), and $\mu$-Cost Accounting (right). At the bottom, a red box labeled ``TRS-1.0 Receipt Protocol'' has arrows pointing up to all three lower-layer boxes.
-
-\textbf{Key Insight Visualized:} This diagram reveals the \textit{three-layer architecture} of the verifier system: (1) the foundational \textbf{TRS-1.0 receipt protocol} provides cryptographic proof primitives (SHA-256 content addressing, Ed25519 signatures), (2) three \textbf{verification ingredients} (trace integrity, semantic checking, $\mu$-cost accounting) build on this protocol to enable reproducible verification, and (3) four \textbf{C-modules} (certification modules) use these ingredients to enforce No Free Insight across different application domains (randomness, estimation, entropy, causation). The architecture demonstrates how abstract principles (No Free Insight) are transformed into concrete, falsifiable enforcement through layered cryptographic and semantic mechanisms.
-
-\textbf{How to Read This Diagram:} Start at the bottom with the red TRS-1.0 box (the trust foundation). Follow the arrows upward to see how the receipt protocol enables the three verification ingredients: \textit{trace integrity} ensures claims are bound to specific execution histories, \textit{semantic checking} re-interprets histories under domain-specific rules, and \textit{$\mu$-cost accounting} ensures stronger claims paid required structural revelation costs. Then follow the upper arrows from the four C-modules down to the central Verifier System---each module specializes the general verification ingredients for its domain (e.g., C-RAND applies trace integrity to randomness trials, C-ENTROPY applies semantic checking to coarse-graining declarations). The gray section references (§A.3--§A.6) indicate where each module is detailed in the appendix.
-
-\textbf{Role in Thesis:} This roadmap previews Chapter 9's (Appendix A's) contribution: transforming No Free Insight from a \textit{theoretical principle} (``you can't cheat thermodynamics'') into \textit{practical software} (four runnable verifiers under \path{verifier/} that reject forge/underpay/bypass attempts). The diagram shows that verification is not monolithic---it's factored into reusable ingredients (TRS-1.0, trace checking, $\mu$-accounting) that enable domain-specific certification. This architecture is the basis for the ``Science Can't Cheat'' theorem (\S9.6): any improved prediction must carry a checkable structure certificate, enforced by these modules.
 
 \subsection{Why Verification Matters}
 
@@ -90,48 +29,6 @@ The key insight is that \textit{stronger claims require more evidence}. If you c
 
 \section{Architecture Overview}
 
-% ============================================================================
-% FIGURE: TRS-1.0 Receipt Structure
-% ============================================================================
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=1.8, 
-    node distance=2.5cm,
-    field/.style={rectangle, draw, minimum width=10.8cm, minimum height=1.2cm, align=center},
-    arrow/.style={->, >=Stealth, thick}
-]
-    % Receipt structure
-    \node[field, fill=blue!10] (version) at (0, 3) {\texttt{version}: "TRS-1.0"};
-    \node[field, fill=blue!10] (timestamp) at (0, 2.2) {\texttt{timestamp}: ISO-8601};
-    \node[field, fill=green!15, minimum height=2.6cm] (manifest) at (0, 1) {\texttt{manifest}: \{hash $\rightarrow$ artifact\}};
-    \node[field, fill=red!15] (signature) at (0, -0.2) {\texttt{signature}: Ed25519};
-    
-    % Brace
-    \draw[decorate, decoration={brace, amplitude=10pt, mirror}, shorten >=2pt, shorten <=2pt] (3.5, 3.4) -- (3.5, -0.6) node[pos=0.5, font=\small, above, yshift=6pt] {Content-addressed\\Signed\\Minimal};
-    
-    % Properties
-    \node[font=\normalsize] at (-4, 2.5) {Immutable};
-    \node[font=\normalsize] at (-4, 1) {SHA-256};
-    \node[font=\normalsize] at (-4, -0.2) {Tamper-proof};
-    
-    % Arrows
-    \draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (-3.2, 2.5) -- (-3.1, 2.5);
-    \draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (-3.2, 1) -- (-3.1, 1);
-    \draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (-3.2, -0.2) -- (-3.1, -0.2);
-\end{tikzpicture}
-\caption{TRS-1.0 Receipt Protocol structure. All artifacts are content-addressed via SHA-256 and signed with Ed25519 for tamper-proof verification.}
-\label{fig:trs-receipt}
-\end{figure}
-
-\paragraph{Understanding Figure~\ref{fig:trs-receipt}: TRS-1.0 Receipt Protocol}
-
-\textbf{Visual Elements:} The diagram shows a vertical stack of four fields representing a TRS-1.0 receipt structure. From top to bottom: a blue box labeled \texttt{version: "TRS-1.0"}, another blue box with \texttt{timestamp: ISO-8601}, a larger green box containing \texttt{manifest: \{hash $\rightarrow$ artifact\}}, and a red box at the bottom labeled \texttt{signature: Ed25519}. On the left, three labels point to these fields with dashed arrows: ``Immutable'' (pointing to version), ``SHA-256'' (pointing to manifest), and ``Tamper-proof'' (pointing to signature). On the right, a brace spans all four fields with annotations ``Content-addressed, Signed, Minimal''.
-
-\textbf{Key Insight Visualized:} This diagram shows how TRS-1.0 (Thiele Receipt Standard version 1.0) provides the \textit{cryptographic trust foundation} for the entire verifier system. The protocol binds scientific claims to tamper-proof artifacts through three mechanisms: (1) \textbf{content addressing} via SHA-256 hashes ensures that modifying even one byte of an artifact (e.g., \texttt{claim.json}, \texttt{samples.csv}) invalidates its hash and breaks the receipt, making retroactive tampering cryptographically detectable; (2) \textbf{Ed25519 signatures} prevent forgery by requiring the claimant's private key to sign the receipt, so adversaries cannot manufacture fake receipts; (3) the \textbf{minimal closed-work design} means verifiers only accept inputs in the receipted manifest, ignoring out-of-band data (``trust me, I ran more trials'') and ensuring deterministic, reproducible verification. The \texttt{timestamp} prevents replay attacks (reusing old receipts to fake new results).
-
-\textbf{How to Read This Diagram:} Read from top to bottom to see the receipt structure: \texttt{version} identifies the protocol schema (future TRS-2.0 can add fields without breaking old verifiers), \texttt{timestamp} provides chronological ordering (ISO-8601 format like ``2025-12-17T00:00:00Z''), \texttt{manifest} is the core content-addressed artifact map (each key is a filename like \texttt{claim.json}, each value is the SHA-256 hash of that file's contents), and \texttt{signature} is the Ed25519 signature over the entire receipt (proving authenticity). The left-side labels explain the security properties: immutability (fixed protocol version), SHA-256 (collision-resistant hashing), tamper-proof (signature verification fails if modified). The right-side brace summarizes the design philosophy: content-addressed (artifacts identified by hash, not trust), signed (cryptographic authenticity), minimal (only receipted data matters).
-
-\textbf{Role in Thesis:} TRS-1.0 is the \textit{implementation} of the trace integrity verification ingredient (Figure~\ref{fig:ch9-roadmap}). It answers the question: ``How do we bind a claim to a specific execution history?'' Without this protocol, researchers could claim ``I found structure'' with no proof, or modify results retroactively. TRS-1.0 makes \textit{lies cryptographically detectable}. This is critical for No Free Insight enforcement: when C-RAND requires $\lceil 1024 \cdot H_{\min} \rceil$ disclosure bits for a randomness claim, the verifier checks that \texttt{disclosure.json} appears in the manifest with the correct hash---if the claimant tries to fake the disclosure, the hash won't match, and the signature breaks. The protocol is specified in \path{docs/specs/trs-spec-v1.md} and implemented in \path{verifier/receipt_protocol.py}, ensuring the diagram describes real, auditable code.
 
 \subsection{The Closed Work System}
 
@@ -206,7 +103,6 @@ All verification is receipt-defined through the TRS-1.0 (Thiele Receipt Standard
     \item Resistance to timing attacks
 \end{itemize}
 
-\textbf{Role in thesis:} TRS-1.0 is the \textit{trust infrastructure} that makes No Free Insight \textit{enforceable}. Without receipts, a researcher could claim ``I found structure'' with no proof. With TRS-1.0, every claim is bound to hashed artifacts and signed commitments---lies are cryptographically detectable.
 
 Key properties:
 \begin{itemize}
@@ -229,47 +125,6 @@ Every C-module ships three mandatory falsifier tests. Each test targets a distin
 
 \section{C-RAND: Certified Randomness}
 
-% ============================================================================
-% FIGURE: C-RAND Verification Flow
-% ============================================================================
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=1.8, 
-    node distance=2.5cm,
-    box/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.6cm, align=center, fill=blue!10},
-    check/.style={diamond, draw, aspect=2, fill=yellow!20, align=center},
-    arrow/.style={->, >=Stealth, thick}
-]
-    % Flow
-    \node[box, align=center, text width=3.5cm, font=\normalsize] (input) at (0, 0) {Randomness\\Claim};
-    \node[check] (receipt) at (3, 0) {In TRS?};
-    \node[check, align=center, text width=3.5cm] (entropy) at (6, 0) {$H_{min}$\\evidence?};
-    \node[box, fill=green!20, font=\normalsize] (pass) at (9, 0.8) {PASS};
-    \node[box, fill=red!20, font=\normalsize] (fail) at (9, -0.8) {REJECT};
-    
-    % Arrows
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (input) -- (receipt);
-    \draw[arrow] (receipt) -- node[above, yshift=6pt, font=\normalsize, pos=0.5, font=\small] {Yes} (entropy);
-    \draw[arrow] (receipt.south) -- ++(0, -0.5) -| node[near start, below, font=\normalsize, above, yshift=6pt, pos=0.5, font=\small] {No} (fail);
-    \draw[arrow] (entropy) -- node[above, yshift=6pt, font=\normalsize, pos=0.5, font=\small] {Yes} (pass);
-    \draw[arrow] (entropy.south) -- ++(0, -0.3) -| (fail);
-    
-    % Cost equation
-    \node[draw, rounded corners, fill=gray!10, font=\normalsize] at (4.5, -2) {Required disclosure: $\lceil 1024 \cdot H_{min} \rceil$ bits};
-\end{tikzpicture}
-\caption{C-RAND verification flow. Claims must be receipt-bound and provide min-entropy evidence proportional to claimed quality.}
-\label{fig:crand-flow}
-\end{figure}
-
-\paragraph{Understanding Figure~\ref{fig:crand-flow}: C-RAND Verification Workflow}
-
-\textbf{Visual Elements:} The diagram shows a left-to-right flow starting with a blue box labeled ``Randomness Claim'', followed by two yellow diamond-shaped decision nodes: ``In TRS?'' and ``$H_{\min}$ evidence?''. Arrows flow from the claim through both decision points, with ``Yes'' paths leading right and ``No'' paths leading down to a red box labeled ``REJECT'' at the bottom right. If both decision points pass (Yes $\rightarrow$ Yes), the flow reaches a green box labeled ``PASS'' at the top right. Below the entire flow, a gray box contains the equation: ``Required disclosure: $\lceil 1024 \cdot H_{\min} \rceil$ bits''.
-
-\textbf{Key Insight Visualized:} This diagram encapsulates the C-RAND module's enforcement of \textit{randomness as paid structure}. The two decision points represent the core verification steps: (1) \textbf{Is the claim receipt-bound?} (``In TRS?'')---verifies that the random bits come from TRS-1.0 receipted trials, not out-of-band sources like user-supplied files or unverified PRNGs; (2) \textbf{Is min-entropy evidence provided?} ($H_{\min}$ evidence?)---checks that the claimant disclosed structural information about the randomness source (e.g., ``quantum vacuum fluctuation detector calibrated 2025-12-01'') proportional to the claimed entropy. The disclosure requirement $\lceil 1024 \cdot H_{\min} \rceil$ bits is the \textit{$\mu$-cost} of the claim: asserting high-quality randomness ($H_{\min} = 0.95$ bits/bit) requires revealing $\approx 973$ bits of structure. This enforces No Free Insight---you cannot claim ``my bits are truly unpredictable'' without proving the source's structural properties and paying the information cost.
-
-\textbf{How to Read This Diagram:} Start at the left ``Randomness Claim'' box (the input: a JSON file claiming \texttt{n\_bits: 1024, min\_entropy\_per\_bit: 0.95}). Follow the arrow right to the first decision diamond ``In TRS?''. If \textit{No} (the bits are not in the TRS-1.0 manifest), the flow immediately goes down to ``REJECT''---out-of-band randomness is untrusted. If \textit{Yes}, continue right to the second decision diamond ``$H_{\min}$ evidence?''. This checks: does \texttt{disclosure.json} contain $\lceil 1024 \times 0.95 \rceil = 973$ bits of structural revelation about the source? If \textit{No}, flow goes down to ``REJECT''---the claim is underpaid (attempting to claim high entropy without proving the source). If \textit{Yes}, flow reaches the green ``PASS'' box---the randomness is certified. The gray box at the bottom shows the $\mu$-cost formula: the disclosure requirement scales linearly with claimed entropy (higher quality = more structural revelation required).
-
-\textbf{Role in Thesis:} This flow diagram operationalizes the randomness verification rules described in \S9.3. It shows that C-RAND is \textit{falsifiable}: the forge falsifier test attempts to manufacture receipts without \texttt{RAND\_TRIAL\_OP} opcodes (fails at ``In TRS?''), the underpay test claims $H_{\min} = 0.99$ but provides only $H_{\min} = 0.5$ disclosure (fails at ``$H_{\min}$ evidence?''), and the bypass test submits raw bits without receipts (fails at ``In TRS?''). The diagram demonstrates that randomness certification is \textit{not a rubber stamp}---it enforces quantitative requirements (min-entropy evidence) and cryptographic binding (TRS receipts). This is the foundation for the ``Science Can't Cheat'' theorem: you cannot claim better randomness without proving you found structure (e.g., quantum source, not PRNG), and that proof costs $\mu$. The bridge lemma \texttt{decode\_is\_filter\_payloads} (shown in \S9.3.3) formally proves that the verifier only processes \texttt{RAND\_TRIAL\_OP} receipts, ensuring channel isolation.
 
 \subsection{Claim Structure}
 
@@ -320,7 +175,6 @@ The C-RAND verifier enforces: \textbf{you must prove your randomness source}. Th
     \mu \geq \lceil n \times H_{\min} \rceil
 \]
 
-\textbf{Role in thesis:} This demonstrates that \textit{randomness is not free}. You cannot claim high-quality randomness without proving (and paying for) the source's structural properties.
 
 \subsection{Verification Rules}
 
@@ -399,7 +253,6 @@ The lemma guarantees this result equals \texttt{map r\_payload (filter RandChann
 
 \textbf{Connection to No Free Insight:} This lemma enforces that randomness claims are \textit{derived from receipted trials}. You cannot inject extra bits (e.g., from an external file) without those bits appearing in receipts. The verifier only trusts \texttt{RAND\_TRIAL\_OP} receipts, so any out-of-band randomness is ignored.
 
-\textbf{Role in thesis:} This is an example of \textbf{semantic checking}---the verifier interprets traces according to the kernel's rules. The formal proof ensures the interpretation is correct.
 
 This ensures that randomness claims are derived only from receipted trial data. In other words, the verifier can only compute a randomness predicate over the receipts it can check.
 
@@ -499,60 +352,9 @@ where $c$ is a domain-specific constant.
 
 \section{C-ENTROPY: Coarse-Graining Made Explicit}
 
-% ============================================================================
-% FIGURE: Entropy Coarse-Graining
-% ============================================================================
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=1.8, 
-    node distance=3cm,
-    state/.style={circle, draw, minimum size=0.3cm, fill=blue!20},
-    partition/.style={rectangle, draw, dashed, rounded corners, minimum width=2.6cm, minimum height=1.8cm}
-]
-    % Raw states (infinite equivalence class)
-    \node[font=\normalsize\bfseries] at (-3, 2) {Raw State Space};
-    \foreach \i in {1,...,12} {
-        \node[state, fill=blue!\the\numexpr20+\i*5\relax, font=\normalsize] at ({-4+mod(\i-1,4)*0.6}, {1.5-floor((\i-1)/4)*0.5}) {};
-    }
-    \node[font=\normalsize] at (-3, 0) {$|\Omega| = \infty$};
-    
-    % Arrow
-    \draw[->, >=Stealth, very thick, decorate, decoration={snake, amplitude=2pt, segment length=10pt}, shorten >=2pt, shorten <=2pt] (-1, 1) -- (1, 1) node[pos=0.5, font=\small, above, yshift=6pt] {Coarse-grain};
-    
-    % Partitioned states
-    \node[font=\normalsize\bfseries] at (3, 2) {With Partition};
-    \node[partition, fill=red!10] (p1) at (2, 1) {};
-    \node[partition, fill=green!10] (p2) at (3.5, 1) {};
-    \node[partition, fill=blue!10] (p3) at (2.75, 0) {};
-    
-    \foreach \i in {1,...,3} {
-        \node[state, fill=red!40, font=\normalsize] at ({1.7+(\i-1)*0.3}, 1) {};
-    }
-    \foreach \i in {1,...,3} {
-        \node[state, fill=green!40, font=\normalsize] at ({3.2+(\i-1)*0.3}, 1) {};
-    }
-    \foreach \i in {1,...,4} {
-        \node[state, fill=blue!40, font=\normalsize] at ({2.3+(\i-1)*0.3}, 0) {};
-    }
-    
-    \node[font=\normalsize] at (3, -0.8) {$H = \log_2(|\text{bins}|)$};
-    
-    % Key insight
-    \node[draw, rounded corners, fill=yellow!20, font=\normalsize, text width=5cm, align=center] at (0, -1.8) {Entropy is \textbf{undefined} without declared coarse-graining};
-\end{tikzpicture}
-\caption{Entropy requires explicit coarse-graining. The infinite raw state space has undefined entropy; only partitioned views have computable entropy.}
-\label{fig:entropy-coarse}
-\end{figure}
 
-\paragraph{Understanding Figure~\ref{fig:entropy-coarse}: The Entropy Underdetermination Problem}
+The Entropy Underdetermination Problem}
 
-\textbf{Visual Elements:} The diagram is divided into left and right halves connected by a wavy arrow labeled ``Coarse-grain''. The left side, titled ``Raw State Space'', shows 12 small blue circles (representing microstates) arranged in a 4$\times$3 grid, with varying shades of blue, and a label below: ``$|\Omega| = \infty$'' (infinite state space). The right side, titled ``With Partition'', shows three dashed rounded rectangles (bins): red (containing 3 darker circles), green (containing 3 circles), and blue (containing 4 circles). Below is the formula ``$H = \log_2(|\text{bins}|)$''. At the bottom center, a yellow box contains the key message: ``Entropy is \textbf{undefined} without declared coarse-graining''.
-
-\textbf{Key Insight Visualized:} This diagram illustrates the \textit{entropy underdetermination problem}: entropy $H$ is \textbf{not an absolute property} of a system---it depends on the chosen \textit{coarse-graining} (partition). On the left, the raw state space has infinitely many microstates (e.g., VM states differing in arbitrary axiom bit strings or register values but with the same partition regions and $\mu$-ledger). Since $|\Omega| = \infty$, the entropy $H = \log_2(\infty) = \infty$ (undefined). On the right, after applying a coarse-graining (grouping states into discrete bins---e.g., by $\mu$-value ranges), the state space becomes finite (3 bins), and entropy becomes computable: $H = \log_2(3) \approx 1.58$ bits. Critically, \textit{different partitions give different entropies for the same raw data}. This is why C-ENTROPY \textit{rejects} entropy claims without declared \texttt{coarse\_graining}---without specifying the partition, the entropy value is meaningless.
-
-\textbf{How to Read This Diagram:} Start on the left with the ``Raw State Space''---imagine a physical system with continuous variables (e.g., particle positions in $\mathbb{R}^3$) or a VM with arbitrary internal state (axioms, solver states). The 12 blue circles represent a tiny sample of an infinite equivalence class (theorem \texttt{region\_equiv\_class\_infinite} proves there exist infinitely many observationally equivalent states). The label ``$|\Omega| = \infty$'' indicates the microstate count is infinite, so $H = \log_2(|\Omega|) = \infty$ (undefined). Now follow the wavy ``Coarse-grain'' arrow to the right: this is the act of \textit{declaring a partition}---e.g., ``bin states by their $\mu$-value: $[0, 99), [100, 199), [200, \infty)$'' or ``use 32 histogram bins for a dataset''. The right side shows the result: states are grouped into 3 bins (red, green, blue), and entropy is now \textit{finite and computable}: $H = \log_2(3)$. The yellow box at the bottom delivers the key lesson: \textit{you cannot compute entropy without declaring your partition}. Two researchers with different partitions will compute different entropies for the same data and disagree on whether a claim is valid.
-
-\textbf{Role in Thesis:} This diagram justifies the C-ENTROPY verification rule: ``Entropy claims without declared coarse-graining $\to$ REJECTED'' (\S9.4.2). The impossibility theorem \texttt{region\_equiv\_class\_infinite} (\S9.4.4) formally proves that observational equivalence classes are infinite, making entropy undefined without coarse-graining. In practice, this means the verifier requires \texttt{coarse\_graining: \{type: "histogram", bins: 32\}} in the claim's \texttt{disclosure.json}. Why does this matter? Because \textit{the choice of partition is itself structural information}---choosing a fine-grained partition (1024 bins) reveals more structure than a coarse partition (32 bins), so it costs more $\mu$: $\mu \geq \lceil 1024 \cdot H \rceil$ (\S9.4.2). This enforces No Free Insight: you cannot claim ``my system has entropy $H = 5$ bits'' without declaring your partition and paying the $\mu$-cost (5120 bits). The diagram shows that entropy is \textit{observer-dependent}, not intrinsic, and the verifier makes this dependence explicit and auditable.
 
 \subsection{The Entropy Underdetermination Problem}
 
@@ -631,7 +433,6 @@ This prevents the loophole: ``I computed entropy... but I won't tell you which p
 \]
 For $H = 3.2$, this is $\mu \geq 3277$ bits.
 
-\textbf{Role in thesis:} This demonstrates that \textit{entropy is not a free measurement}. You must declare your partition, and that declaration costs $\mu$.
 
 \subsection{Verification Rules}
 
@@ -718,69 +519,14 @@ The theorem proves this claim is \textbf{mathematically nonsense}. The verifier 
 
 \textbf{Connection to No Free Insight:} Choosing a coarse-graining is \textit{structural commitment}. You're declaring ``I partition the state space into these bins.'' This is information that must be disclosed and costs $\mu$. The theorem ensures this cost cannot be avoided.
 
-\textbf{Role in thesis:} This is a \textbf{negative result}---proving what \textit{cannot} be done. It justifies the C-ENTROPY requirement that every entropy claim must include \texttt{coarse\_graining} in the manifest.
 
 This proves that observational equivalence classes are infinite, blocking entropy computation without explicit coarse-graining. In practice, the verifier uses this impossibility result to reject entropy claims that omit a receipted partition.
 
 \section{C-CAUSAL: No Free Causal Explanation}
 
-% ============================================================================
-% FIGURE: Causal DAG Markov Equivalence
-% ============================================================================
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=1.8, 
-    node distance=3cm,
-    var/.style={circle, draw, minimum size=0.8cm, fill=blue!20},
-    arrow/.style={->, >=Stealth, thick}
-]
-    % Equivalence class
-    \node[font=\normalsize\bfseries] at (-3, 2) {Markov Equivalence Class};
-    
-    % DAG 1
-    \node[var] (a1) at (-4.5, 0.5) {A};
-    \node[var] (b1) at (-3, 0.5) {B};
-    \node[var] (c1) at (-3.75, -0.5) {C};
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (a1) -- (b1);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (a1) -- (c1);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (b1) -- (c1);
-    
-    % DAG 2
-    \node[var] (a2) at (-1.5, 0.5) {A};
-    \node[var] (b2) at (0, 0.5) {B};
-    \node[var] (c2) at (-0.75, -0.5) {C};
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (b2) -- (a2);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (a2) -- (c2);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (b2) -- (c2);
-    
-    % DAG 3
-    \node[var] (a3) at (1.5, 0.5) {A};
-    \node[var] (b3) at (3, 0.5) {B};
-    \node[var] (c3) at (2.25, -0.5) {C};
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (a3) -- (b3);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (c3) -- (a3);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (c3) -- (b3);
-    
-    % Equals signs
-    \node at (-2.25, 0) {$\equiv$};
-    \node at (0.75, 0) {$\equiv$};
-    
-    % Annotation
-    \node[draw, rounded corners, fill=red!15, font=\normalsize, text width=6cm, align=center] at (-0.75, -2) {Observational data \textbf{cannot} distinguish these DAGs\\Unique DAG claim requires 8192 disclosure bits};
-\end{tikzpicture}
-\caption{Markov equivalence: multiple DAGs produce identical observational distributions. Unique causal claims require interventional evidence or explicit assumptions.}
-\label{fig:markov-equiv}
-\end{figure}
 
-\paragraph{Understanding Figure~\ref{fig:markov-equiv}: The Markov Equivalence Problem}
+The Markov Equivalence Problem}
 
-\textbf{Visual Elements:} The diagram shows three Directed Acyclic Graphs (DAGs) arranged horizontally, separated by ``$\equiv$'' symbols indicating equivalence. Each DAG has three circular nodes labeled A, B, and C, with very thick arrows showing causal relationships. DAG 1 (left): $A \to B$, $A \to C$, $B \to C$ (A causes B, A causes C, B causes C). DAG 2 (center): $B \to A$, $A \to C$, $B \to C$ (B causes A, A causes C, B causes C). DAG 3 (right): $A \to B$, $C \to A$, $C \to B$ (A causes B, C causes both A and B). Above, a label reads ``Markov Equivalence Class''. Below, a red box contains the warning: ``Observational data \textbf{cannot} distinguish these DAGs. Unique DAG claim requires 8192 disclosure bits''.
-
-\textbf{Key Insight Visualized:} This diagram illustrates the \textit{Markov equivalence problem} in causal inference: multiple \textbf{different causal structures} (DAGs with different arrow directions) can produce the \textbf{same joint probability distribution} $P(A, B, C)$ when observed passively. All three DAGs shown are in the same Markov equivalence class---they make identical statistical predictions for observational data (no interventions). For example, they all satisfy the same conditional independence: $A \perp B | C$ (A is independent of B given C). This means: if you only measure $(A, B, C)$ values without manipulating the system, you \textit{cannot determine} which DAG is the true causal structure. Claiming a unique DAG from observational data alone is \textit{free insight}---pretending to know causal arrows when the data is consistent with multiple possibilities. C-CAUSAL enforces: to claim a unique DAG, you must provide \textit{interventional evidence} (e.g., ``We set $A=1$ and measured $B$, confirming $A \to B$'') or \textit{explicit assumptions} (e.g., ``We assume temporal ordering: A precedes B precedes C''). Either way, this structural knowledge costs $\mu = 8192$ bits (the disclosure requirement for \texttt{unique\_dag} claims).
-
-\textbf{How to Read This Diagram:} Start with DAG 1 (left): arrows show A causes B, A causes C, and B causes C (a causal chain with a common cause A). This is \textit{one possible causal explanation} for the observed correlations between A, B, C. Now look at DAG 2 (center): arrows show B causes A, and both A and B independently cause C. This is a \textit{different causal structure} (B is now the root cause), but the $\equiv$ symbol indicates it produces the \textit{same observational distribution} $P(A, B, C)$---you cannot distinguish DAG 1 from DAG 2 by passive measurement. Look at DAG 3 (right): C is now the common cause of both A and B (a ``fork'' structure). Again, $\equiv$ indicates this DAG is observationally equivalent to the others. The red box below delivers the critical message: observational data \textit{cannot} distinguish these three DAGs. To claim ``the true DAG is DAG 1'', you need \textit{extra structure}---interventions or assumptions---and that structure must be disclosed at cost $\mu = 8192$ bits.
-
-\textbf{Role in Thesis:} This diagram justifies the C-CAUSAL verification rule: ``\texttt{unique\_dag} claims require \texttt{assumptions.json} or \texttt{interventions.csv}'' (\S9.5.2). The falsifier test \texttt{test\_unique\_dag\_without\_assumptions\_rejected} (\S9.5.3) verifies that claiming a unique DAG from pure observational data is \textbf{rejected} by the verifier. Why? Because Markov equivalence means the claim is \textit{underdetermined}---multiple DAGs fit the data equally well. To break the equivalence, you need one of two things: (1) \textbf{Interventions}---experimental manipulations that change the system (e.g., ``do($A=1$)'' breaks incoming arrows to A, allowing you to test $A \to B$). This is the gold standard in causal inference. (2) \textbf{Assumptions}---explicit structural constraints (e.g., ``A cannot cause B because A occurs after B temporally''). Assumptions are \textit{structural information} that must be disclosed in \texttt{disclosure.json} and cost $\mu = 8192$ bits. Without interventions or assumptions, claiming a unique DAG is \textit{free insight}---claiming to know causal arrows without evidence. The diagram shows this is impossible: the $\equiv$ symbols prove observational equivalence, and the verifier enforces the disclosure requirement to prevent causal overfitting.
 
 \subsection{The Causal Inference Problem}
 
@@ -876,7 +622,6 @@ If Alice wants her claim accepted, she must:
 
 \textbf{Connection to No Free Insight:} Causal knowledge is \textit{structural}. Knowing the unique DAG is \textit{more information} than just knowing $P(A,B,C)$. Claiming this extra knowledge without providing evidence (interventions or assumptions) is \textbf{free insight}---forbidden.
 
-\textbf{Role in thesis:} This test ensures the C-CAUSAL module is \textit{falsifiable}. If it accepted unique DAG claims from observational data, it would violate No Free Insight. The test confirms the verifier rejects such claims, as required.
 
 \section{Bridge Modules: Kernel Integration}
 
@@ -980,7 +725,6 @@ With this certificate, the verifier can:
 \]
 This is the \textbf{information-theoretic minimum} $\mu$ required to justify the improvement. Claiming improvement while paying less $\mu$ $\to$ REJECTED.
 
-\textbf{Role in thesis:} This test validates the ``Science Can't Cheat'' theorem (\S9.6). If you claim better predictions, you must prove you found structure. No proof $\to$ no certification.
 
 \subsection{Quantitative Bound}
 
@@ -993,48 +737,6 @@ This bound is machine-checked in the formal development and enforced by the veri
 
 \section{Summary}
 
-% ============================================================================
-% FIGURE: Chapter Summary
-% ============================================================================
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=1.8, 
-    node distance=2.5cm,
-    cmodule/.style={rectangle, draw, rounded corners, minimum width=5.4cm, minimum height=1.8cm, align=center, fill=green!15},
-    principle/.style={rectangle, draw, rounded corners, minimum width=9.0cm, minimum height=1.8cm, align=center, fill=yellow!20},
-    arrow/.style={->, >=Stealth, thick}
-]
-    % C-modules
-    \node[cmodule, align=center, text width=3.5cm, font=\normalsize] (crand) at (-3, 2) {C-RAND\\$\mu$-revelation for bits};
-    \node[cmodule, align=center, text width=3.5cm, font=\normalsize] (ctomo) at (3, 2) {C-TOMO\\$n \propto \epsilon^{-2}$};
-    \node[cmodule, align=center, text width=3.5cm, font=\normalsize] (centropy) at (-3, 0) {C-ENTROPY\\Coarse-graining required};
-    \node[cmodule, align=center, text width=3.5cm, font=\normalsize] (ccausal) at (3, 0) {C-CAUSAL\\Interventions for DAGs};
-    
-    % Central principle
-    \node[principle, align=center, text width=3.5cm] (nfi) at (0, -2) {\textbf{No Free Insight}\\Stronger claims require more evidence};
-    
-    % Arrows
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (crand) -- (nfi);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (ctomo) -- (nfi);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (centropy) -- (nfi);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (ccausal) -- (nfi);
-    
-    % Falsifier pattern
-    \node[draw, rounded corners, fill=gray!10, font=\normalsize, text width=4cm, align=center] at (0, -4) {Each module includes\\Forge / Underpay / Bypass\\falsifier tests};
-\end{tikzpicture}
-\caption{Chapter A summary: Four C-modules transform No Free Insight into practical, falsifiable enforcement.}
-\label{fig:ch9-summary}
-\end{figure}
-
-\paragraph{Understanding Figure~\ref{fig:ch9-summary}: Verifier System Summary}
-
-\textbf{Visual Elements:} The diagram shows four green rounded rectangles (C-modules) arranged in a 2$\times$2 grid at the top: C-RAND (``$\mu$-revelation for bits'', top left), C-TOMO (``$n \propto \epsilon^{-2}$'', top right), C-ENTROPY (``Coarse-graining required'', bottom left), and C-CAUSAL (``Interventions for DAGs'', bottom right). All four have arrows pointing down to a central yellow box labeled ``\textbf{No Free Insight}: Stronger claims require more evidence''. Below that, a gray box contains: ``Each module includes Forge / Underpay / Bypass falsifier tests''.
-
-\textbf{Key Insight Visualized:} This summary diagram encapsulates the chapter's central contribution: transforming the \textit{abstract thermodynamic principle} ``No Free Insight'' (you can't cheat the Second Law) into \textit{concrete, falsifiable software modules} that enforce structural revelation requirements across four application domains. Each C-module implements the \texttt{No Free Insight} principle for a specific knowledge type: \textbf{C-RAND} enforces that high-quality randomness requires disclosing the source's structural properties ($\mu$-cost: $\lceil 1024 \cdot H_{\min} \rceil$ bits), \textbf{C-TOMO} enforces that tighter precision estimates require proportionally more trials ($n \geq c \epsilon^{-2}$), \textbf{C-ENTROPY} enforces that entropy claims must declare their coarse-graining (partition), and \textbf{C-CAUSAL} enforces that unique causal DAG claims require interventions or assumptions. Critically, all four modules include \textit{three mandatory falsifier tests} (forge/underpay/bypass) that demonstrate the verifier correctly rejects attempts to circumvent the No Free Insight principle---this makes the system \textit{red-teamable} and \textit{falsifiable}, not just theoretical.
-
-\textbf{How to Read This Diagram:} Start at the top with the four C-modules (green boxes). Read each module's one-line summary to understand its enforcement mechanism: C-RAND charges $\mu$ for randomness quality, C-TOMO charges trials for precision, C-ENTROPY requires partition disclosure, C-CAUSAL requires interventional evidence. These are four \textit{instantiations} of the same underlying principle. Follow the arrows down to the central yellow box (``No Free Insight: Stronger claims require more evidence'')---this is the \textit{unifying theorem}. All four modules are implementations of this one idea: \textit{structural knowledge is not free; it must be paid for with evidence (trials, disclosures, interventions)}. Finally, look at the gray box at the bottom: this is the \textit{falsifiability guarantee}. Each module includes three adversarial tests: (1) \textbf{Forge}---attempt to manufacture receipts without the canonical channel/opcode (should be rejected), (2) \textbf{Underpay}---attempt to obtain the claim while paying fewer $\mu$/info bits (should be rejected), (3) \textbf{Bypass}---route around the channel and confirm rejection (should return UNCERTIFIED). If any test fails (verifier accepts the forge/underpay/bypass), the module is broken. This testing pattern is the reason we can trust the verifier.
-
-\textbf{Role in Thesis:} This summary diagram connects the verifier system (Chapter 9 / Appendix A) to the broader thesis arc. It shows that No Free Insight (introduced in Chapter 1, formalized in Chapter 3, proven in Chapter 5) is not just a \textit{mathematical curiosity}---it has \textit{practical enforcement mechanisms}. The four C-modules are the bridge between theory and practice: they turn abstract constraints (``$\mu$-monotonicity'', ``gauge invariance'') into concrete rejection rules (``C-RAND rejects randomness claims without $\lceil 1024 \cdot H_{\min} \rceil$ disclosure bits''). The falsifier tests (forge/underpay/bypass) ensure the enforcement is \textit{verifiable}---we can \textit{prove} the verifier rejects cheating attempts, not just claim it. This is critical for the ``Science Can't Cheat'' theorem (\S9.6): the flagship prediction that any pipeline claiming improved predictive power must carry a checkable structure certificate. Without the four C-modules and their falsifier tests, this would be an untestable philosophical claim. With them, it becomes an \textit{empirically testable hypothesis}---you can attempt to bypass the verifier and observe it reject your attempt. The diagram also previews the experimental validation (Chapter 11 / Appendix C): the red-team falsification campaign (\S11.2) is \textit{exactly} the forge/underpay/bypass testing pattern applied to all four C-modules.
 
 The verifier system transforms the theoretical No Free Insight principle into practical, falsifiable enforcement:
 

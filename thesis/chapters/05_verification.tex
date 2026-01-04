@@ -3,47 +3,7 @@
 %% ============================================================
 
 % Figure 1: Chapter 5 Roadmap
-\begin{figure}[ht]
-\centering
-\begin{tikzpicture}[scale=1.8, 
-    node distance=2.5cm,
-    block/.style={rectangle, draw, fill=blue!10, minimum width=5.4cm, minimum height=1.6cm, align=center},
-    theorem/.style={rectangle, draw, fill=green!20, minimum width=5.0cm, minimum height=1.2cm, align=center, rounded corners},
-    arrow/.style={->, >=stealth, thick}
-]
-    % Central node
-    \node[block, fill=red!20, minimum width=7.2cm, align=center, text width=3.5cm] (zero) at (0,0) {\textbf{Zero-Admit Standard}\\No Admitted, No admit., No Axiom};
-    
-    % Top layer: State definitions
-    \node[block, align=center, text width=3.5cm] (state) at (-4, 2) {State Definitions\\VMState, PartitionGraph};
-    \node[block, align=center, text width=3.5cm] (step) at (0, 2) {Step Semantics\\vm\_step relation};
-    \node[block, align=center, text width=3.5cm] (obs) at (4, 2) {Observables\\Observable, ObservableRegion};
-    
-    % Bottom layer: Theorems
-    \node[theorem, align=center, text width=3.5cm] (nosig) at (-4.5, -2) {No-Signaling\\(\S5.4)};
-    \node[theorem, align=center, text width=3.5cm] (mucons) at (-1.5, -2) {$\mu$-Conservation\\(\S5.4)};
-    \node[theorem, align=center, text width=3.5cm] (nofi) at (1.5, -2) {No Free Insight\\(\S5.6)};
-    \node[theorem, align=center, text width=3.5cm] (gauge) at (4.5, -2) {Gauge Invariance\\(\S5.4)};
-    
-    % Arrows from definitions to zero-admit
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (state) -- (zero);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (step) -- (zero);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (obs) -- (zero);
-    
-    % Arrows from zero-admit to theorems
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (zero) -- (nosig);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (zero) -- (mucons);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (zero) -- (nofi);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (zero) -- (gauge);
-    
-    % Title
-    \node at (0, 3.2) {\textbf{Chapter 5: Verification Architecture}};
-\end{tikzpicture}
-\caption{Chapter 5 roadmap: from definitions through zero-admit standard to theorems.}
-\label{fig:ch5-roadmap}
-\end{figure}
 
-\paragraph{Understanding Figure \ref{fig:ch5-roadmap}:}
 
 \textbf{Three layers (boxes):}
 \begin{itemize}
@@ -68,42 +28,7 @@ In this project, “all inputs” means all possible states and instruction trac
 \subsection{The Coq Proof Assistant}
 
 % Figure 7: Coq Verification Pipeline
-\begin{figure}[ht]
-\centering
-\begin{tikzpicture}[scale=1.8, 
-    stage/.style={rectangle, draw, fill=blue!20, minimum width=4.6cm, minimum height=1.8cm, align=center, rounded corners},
-    check/.style={rectangle, draw, fill=green!20, minimum width=4.0cm, minimum height=1.3cm, align=center, font=\footnotesize},
-    arrow/.style={->, >=stealth, thick}
-], node distance=2.5cm]
-    % Pipeline stages
-    \node[stage, align=center, text width=3.5cm] (def) at (0, 0) {Definitions\\VMState, vm\_step};
-    \node[stage, align=center, text width=3.5cm] (spec) at (4, 0) {Specification\\Theorem stmt};
-    \node[stage, align=center, text width=3.5cm] (proof) at (8, 0) {Proof\\Tactics};
-    \node[stage, fill=green!30, align=center, text width=3.5cm] (qed) at (12, 0) {\textbf{Qed.}\\Verified};
-    
-    % Arrows
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (def) -- (spec);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (spec) -- (proof);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (proof) -- (qed);
-    
-    % Checks below
-    \node[check] at (0, -1.5) {Type-checked};
-    \node[check] at (4, -1.5) {Well-formed};
-    \node[check] at (8, -1.5) {Complete};
-    \node[check] at (12, -1.5) {Machine-verified};
-    
-    % Curry-Howard note
-    \node[draw, fill=yellow!20, rounded corners, text width=10cm, align=center] at (6, -3) {
-        \textbf{Curry-Howard Correspondence:}\\
-        Types = Propositions, Programs = Proofs\\
-        A Coq proof is a verified program that inhabits the theorem's type.
-    };
-\end{tikzpicture}
-\caption{Coq verification pipeline: from definitions through proof to machine-verified Qed.}
-\label{fig:coq-pipeline}
-\end{figure}
 
-\paragraph{Understanding Figure \ref{fig:coq-pipeline}:}
 
 \textbf{Four pipeline stages (boxes):}
 \begin{enumerate}
@@ -161,7 +86,7 @@ The Thiele Machine uses an unusually strict standard:
 
 This standard is enforced automatically. Any commit introducing an admit fails CI. This matters because it guarantees every theorem in the active proof tree is fully discharged.
 
-\textbf{Inquisitor Quality Assessment:} The enforcement mechanism is \path{scripts/inquisitor.py}, which scans all Coq files across 25+ rule categories. The current status is \textbf{HIGH: 0, MEDIUM: 4, LOW: 4} with:
+\textbf{Inquisitor Quality Assessment:} The enforcement mechanism is \path{scripts/inquisitor.py}, which scans all Coq files across 25+ rule categories. The current status is \textbf{HIGH: 0, MEDIUM: 5, LOW: 4} with:
 \begin{itemize}
     \item \textbf{0 HIGH priority issues}: No global \texttt{Axiom}/\texttt{Parameter} declarations, no \texttt{Admitted} proofs
     \item \textbf{0 global axioms}: All assumptions are explicit \texttt{Context} parameters within \texttt{Section} blocks
@@ -288,7 +213,6 @@ Definition normalize_region (region : list nat) : list nat :=
 
 \textbf{Why is normalization necessary?} Two different lists can represent the same partition region: $[3, 7, 3]$ and $[7, 3]$ both mean ``bits 3 and 7 belong to this module.'' Without normalization, observational equality comparisons would fail spuriously. Normalization ensures a unique canonical representation.
 
-\textbf{Role in proofs:} The no-signaling theorem compares \texttt{ObservableRegion} values before and after an instruction. If regions were not normalized, the proof would have to consider all possible orderings and duplications. Normalization collapses this complexity.
 
 \textbf{Idempotence:} Applying \texttt{normalize\_region} twice yields the same result as applying it once (proven in the next lemma). This is crucial for chaining graph operations without region drift.
 
@@ -322,7 +246,6 @@ The lemma proves this behavior holds for \textit{all} region lists.
 
 \textbf{Proof strategy:} The proof invokes \texttt{nodup\_fixed\_point}, a standard library lemma stating that \texttt{nodup} is idempotent. Since \texttt{normalize\_region} is defined as \texttt{nodup Nat.eq\_dec}, the idempotence follows directly.
 
-\textbf{Role in larger proofs:} No-signaling and observational equality proofs chain multiple graph operations. Idempotence allows the proof to normalize regions once at the beginning and once at the end, knowing intermediate normalizations won't change the canonical form.
 
 \begin{proof}
 By \texttt{nodup\_fixed\_point}: applying \texttt{nodup} twice yields the same result, so normalization is idempotent and comparisons are stable.
@@ -354,7 +277,6 @@ Definition well_formed_graph (g : PartitionGraph) : Prop :=
 
 \textbf{Preservation under operations:} The next two lemmas prove that \texttt{graph\_add\_module} and \texttt{graph\_remove} preserve well-formedness. This means that once you start with a well-formed graph (e.g., the empty graph), \textit{all} reachable graphs remain well-formed.
 
-\textbf{Role in proofs:} Locality and conservation theorems assume well-formed graphs. The assumption \texttt{well\_formed\_graph g} appears as a precondition in nearly every major theorem. This is analogous to a type-system invariant: proofs assume the data structure satisfies its own integrity constraints.
 
 \textbf{Physical interpretation:} Well-formedness is the ``identity discipline'' of the kernel. Just as physical systems require distinct particle labels, the kernel requires distinct module IDs. The invariant enforces this labeling scheme at the mathematical level.
 
@@ -393,7 +315,6 @@ Lemma graph_add_module_preserves_wf : forall g region axioms g' mid,
 \end{itemize}
 Thus \texttt{g'} remains well-formed.
 
-\textbf{Role in larger proofs:} This lemma is invoked by proofs about PNEW. For example, the $\mu$-conservation proof for PNEW begins by assuming \texttt{well\_formed\_graph s.vm\_graph}, then invokes this lemma to conclude \texttt{well\_formed\_graph s'.vm\_graph} after the PNEW step.
 
 Well-formedness only enforces the ID discipline (no module has an ID greater than or equal to \texttt{pg\_next\_id}). The key point is that this property is strong enough to prevent stale references while weak enough to be preserved by every graph operation. Disjointness and coverage are handled by operation-specific lemmas so that the global invariant does not overfit any single instruction.
 
@@ -427,7 +348,6 @@ Lemma graph_remove_preserves_wf : forall g mid g' m,
 
 \textbf{Why doesn't pg\_next\_id decrement?} Module IDs are never reused. Even if module 2 is removed, future modules still get IDs $4, 5, 6, \dots$. This simplifies proofs: you never have to worry about ID collisions after removal.
 
-\textbf{Role in larger proofs:} This lemma is invoked by proofs about PMERGE. The PMERGE proof removes two modules, then adds a merged module. The removal step uses this lemma to preserve well-formedness, and the addition step uses \texttt{graph\_add\_module\_preserves\_wf} to maintain it.
 
 \section{Operational Semantics}
 
@@ -475,7 +395,6 @@ Inductive vm_instruction :=
     \item \textbf{Control:} \texttt{instr\_halt} — Stop execution.
 \end{itemize}
 
-\textbf{Role in verification:} Theorems state properties for \textit{all} instructions. For example, ``$\mu$-conservation holds for all instructions'' means the proof must handle all 18 constructors. Coq enforces exhaustiveness: if you forget a constructor, the proof doesn't compile.
 
 \textbf{Physical interpretation:} Each instruction is a \textbf{thermodynamic action}. The \texttt{mu\_delta} field is the declared ``energy cost.'' The step semantics enforces that this cost is always paid (added to \texttt{vm\_mu}), guaranteeing monotonicity.
 
@@ -506,7 +425,6 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop := ...
 
 \textbf{Error handling:} Invalid operations (e.g., PSPLIT with overlapping regions) set the error CSR and latch \texttt{vm\_err := true}. Once \texttt{vm\_err} is true, no further state changes occur (the VM halts). This explicit error latch makes error propagation provable.
 
-\textbf{Role in proofs:} Every theorem in this chapter begins with an assumption like ``\texttt{vm\_step s instr s'}.'' The proof then reasons about properties of \texttt{s'} based on the semantics encoded in the step rules. For example, the $\mu$-conservation proof cases on the instruction type and applies the corresponding step rule to show \texttt{s'.vm\_mu $\geq$ s.vm\_mu}.
 
 \textbf{Physical interpretation:} The step relation is the \textbf{discrete-time dynamics} of the system. Each instruction is an atomic "tick," and the relation defines the state update law. This is analogous to a Hamiltonian in physics: given the current state and action, the next state is determined.
 
@@ -561,7 +479,6 @@ Definition ObservableRegion (s : VMState) (mid : nat) : option (list nat) :=
 
 \textbf{What is NOT observable?} The module's \texttt{module\_axioms} field is \textit{not} included. Axioms are internal implementation details---two modules with the same region but different axioms are observationally equivalent. This design choice makes the observable interface minimal.
 
-\textbf{Role in theorems:} The no-signaling theorem states that \texttt{ObservableRegion s mid = ObservableRegion s' mid} when an instruction doesn't target \texttt{mid}. This pins observational equality to a precise mathematical definition.
 
 \textbf{Physical interpretation:} Observables are the ``measurement outcomes'' of the system. Just as quantum mechanics distinguishes observable operators from internal state vectors, the Thiele Machine distinguishes observable regions from internal axiom structures. The $\mu$ ledger is observable because it represents paid thermodynamic cost.
 
@@ -609,60 +526,13 @@ Definition instr_targets (instr : vm_instruction) : list nat :=
     \item \texttt{instr\_targets(PNEW [...]) = []} — No existing modules targeted.
 \end{itemize}
 
-\textbf{Role in proofs:} The no-signaling proof begins with the assumption \texttt{$\sim$ In mid (instr\_targets instr)}, meaning \texttt{mid} is not in the target list. The proof then shows this guarantees \texttt{ObservableRegion s mid = ObservableRegion s' mid}.
 
 \textbf{Physical interpretation:} \texttt{instr\_targets} defines the \textbf{causal light cone} of an instruction: the set of modules that can be directly affected. Modules outside this set are causally isolated---they cannot receive signals from the instruction.
 
 \subsection{The No-Signaling Theorem}
 
 % Figure 2: No-Signaling Visualization
-\begin{figure}[ht]
-\centering
-\begin{tikzpicture}[scale=1.8, 
-    module/.style={rectangle, draw, fill=blue!20, minimum width=4.0cm, minimum height=2.2cm, align=center},
-    region/.style={rectangle, draw, dashed, fill=gray!10, minimum width=4.0cm, minimum height=2.9cm},
-    arrow/.style={->, >=stealth, thick}
-], node distance=3cm]
-    % Left side: Before operation
-    \node at (-4, 2.5) {\textbf{State $s$}};
-    
-    \node[region] (r1) at (-5.5, 0.5) {};
-    \node[module, align=center, text width=3.5cm, font=\normalsize] (m1) at (-5.5, 0.5) {Module\\$mid_1$};
-    \node at (-5.5, -0.8) {\footnotesize Region $R_1$};
-    
-    \node[region] (r2) at (-2.5, 0.5) {};
-    \node[module, fill=green!30, align=center, text width=3.5cm, font=\normalsize] (m2) at (-2.5, 0.5) {Module\\$mid_2$};
-    \node at (-2.5, -0.8) {\footnotesize Region $R_2$};
-    \node at (-2.5, -1.3) {\color{red}\footnotesize (target)};
-    
-    % Arrow showing operation
-    \draw[->, >=stealth, ultra thick, red, shorten >=2pt, shorten <=2pt] (-0.8, 0.5) -- (0.8, 0.5);
-    \node at (0, 1) {\texttt{instr} targets $mid_2$};
-    
-    % Right side: After operation
-    \node at (4, 2.5) {\textbf{State $s'$}};
-    
-    \node[region] (r1p) at (2.5, 0.5) {};
-    \node[module, align=center, text width=3.5cm, font=\normalsize] (m1p) at (2.5, 0.5) {Module\\$mid_1$};
-    \node at (2.5, -0.8) {\footnotesize Region $R_1$};
-    \node at (2.5, -1.3) {\color{blue}\footnotesize \textbf{unchanged}};
-    
-    \node[region] (r2p) at (5.5, 0.5) {};
-    \node[module, fill=orange!30, align=center, text width=3.5cm, font=\normalsize] (m2p) at (5.5, 0.5) {Module\\$mid_2'$};
-    \node at (5.5, -0.8) {\footnotesize Region $R_2'$};
-    \node at (5.5, -1.3) {\color{red}\footnotesize (modified)};
-    
-    % Theorem statement box
-    \node[draw, fill=yellow!20, rounded corners, text width=10cm, align=center] at (0, -3) {
-        \textbf{No-Signaling Theorem:} If $mid \notin$ \texttt{instr\_targets(instr)}\\
-        then \texttt{ObservableRegion}$(s, mid) =$ \texttt{ObservableRegion}$(s', mid)$
-    };
-\end{tikzpicture}
-\caption{No-signaling: operations on one module cannot affect observables of other modules.}
-\label{fig:no-signaling}
-\end{figure}
 
-\paragraph{Understanding Figure \ref{fig:no-signaling}:}
 
 \textbf{Two modules (boxes):}
 \begin{itemize}
@@ -717,7 +587,6 @@ Theorem observational_no_signaling : forall s s' instr mid,
 
 \textbf{Physical interpretation:} This theorem enforces \textbf{causal structure}. Just as special relativity forbids faster-than-light signaling, the Thiele Machine forbids action-at-a-distance in the partition graph. The partition structure defines a ``space,'' and this theorem guarantees spatial locality.
 
-\textbf{Role in larger proofs:} This theorem is invoked by cryptographic security proofs and CHSH violation analyses. It guarantees that partition modules are truly independent: you cannot leak information from one partition to another without explicit operations (like PMERGE or REVEAL).
 
 \begin{proof}
 By case analysis on the instruction. For each instruction type:
@@ -735,47 +604,7 @@ By case analysis on the instruction. For each instruction type:
 \subsection{Gauge Symmetry}
 
 % Figure 3: Gauge Symmetry Visualization
-\begin{figure}[ht]
-\centering
-\begin{tikzpicture}[scale=1.8, 
-    state/.style={rectangle, draw, fill=blue!10, minimum width=5.4cm, minimum height=3.6cm, align=center},
-    field/.style={rectangle, draw, fill=white, minimum width=4.7cm, minimum height=1.0cm, align=center},
-    arrow/.style={->, >=stealth, thick}
-], node distance=3cm]
-    % Left state
-    \node[state, font=\normalsize] (s1) at (-3.5, 0) {};
-    \node at (-3.5, 1.4) {\textbf{State $s$}};
-    \node[field] at (-3.5, 0.5) {\texttt{vm\_graph} = $G$};
-    \node[field, fill=red!20] at (-3.5, -0.2) {\texttt{vm\_mu} = $\mu$};
-    \node[field] at (-3.5, -0.9) {\texttt{vm\_regs, ...}};
-    
-    % Arrow with shift
-    \draw[->, >=stealth, ultra thick, blue, shorten >=2pt, shorten <=2pt] (-1.5, 0) -- (1.5, 0);
-    \node at (0, 0.6) {\texttt{mu\_gauge\_shift}$(k)$};
-    \node at (0, -0.4) {$\mu \mapsto \mu + k$};
-    
-    % Right state
-    \node[state, font=\normalsize] (s2) at (3.5, 0) {};
-    \node at (3.5, 1.4) {\textbf{State $s'$}};
-    \node[field] at (3.5, 0.5) {\texttt{vm\_graph} = $G$};
-    \node[field, fill=green!20] at (3.5, -0.2) {\texttt{vm\_mu} = $\mu + k$};
-    \node[field] at (3.5, -0.9) {\texttt{vm\_regs, ...}};
-    
-    % Invariance annotation
-    \draw[<->, >=stealth, very thick, dashed, red, shorten >=2pt, shorten <=2pt] (-3.5, -2) -- (3.5, -2);
-    \node at (0, -2.5) {\texttt{conserved\_partition\_structure}$(s) =$ \texttt{conserved\_partition\_structure}$(s')$};
-    
-    % Physical analog
-    \node[draw, fill=yellow!20, rounded corners, text width=8cm, align=center] at (0, -4) {
-        \textbf{Physical Analog (Noether):} Gauge symmetry ($\mu$-shift freedom)\\
-        $\Leftrightarrow$ Conservation of partition structure
-    };
-\end{tikzpicture}
-\caption{Gauge symmetry: shifting $\mu$ by a constant preserves partition structure (computational Noether's theorem).}
-\label{fig:gauge-symmetry}
-\end{figure}
 
-\paragraph{Understanding Figure \ref{fig:gauge-symmetry}:}
 
 \textbf{Two states (boxes):}
 \begin{itemize}
@@ -828,7 +657,6 @@ The next theorem proves this correspondence: gauge-shifted states have identical
 
 \textbf{Concrete example:} If \texttt{s.vm\_mu = 100} and you apply \texttt{mu\_gauge\_shift(50, s)}, the result has \texttt{vm\_mu = 150} but the same graph, registers, etc. If you then execute an instruction costing $\mu = 10$, both the original and shifted states reach $\mu = 110$ and $\mu = 160$ respectively---the difference (50) is preserved.
 
-\textbf{Role in theorems:} The gauge invariance theorem states that \texttt{conserved\_partition\_structure s = conserved\_partition\_structure (mu\_gauge\_shift k s)}, meaning the partition structure is invariant under $\mu$-shifts. This is the computational analog of energy conservation via time-translation symmetry.
 
 \begin{theorem}[Gauge Invariance]
 \begin{lstlisting}
@@ -847,47 +675,7 @@ Theorem kernel_conservation_mu_gauge : forall s k,
 \subsection{$\mu$-Conservation}
 
 % Figure 4: μ-Conservation Visualization
-\begin{figure}[ht]
-\centering
-\begin{tikzpicture}[scale=1.8, 
-    state/.style={circle, draw, fill=blue!20, minimum size=1cm},
-    arrow/.style={->, >=stealth, thick}
-], node distance=3cm]
-    % States in sequence
-    \node[state, font=\normalsize] (s0) at (0, 0) {$s_0$};
-    \node[state, font=\normalsize] (s1) at (3, 0) {$s_1$};
-    \node[state, font=\normalsize] (s2) at (6, 0) {$s_2$};
-    \node[state, font=\normalsize] (s3) at (9, 0) {$s_3$};
-    \node at (11, 0) {$\cdots$};
-    
-    % Transitions with costs
-    \draw[arrow] (s0) -- node[above, yshift=6pt, sloped, pos=0.5, font=\small] {\footnotesize $+\mu_1$} (s1);
-    \draw[arrow] (s1) -- node[above, yshift=6pt, sloped, pos=0.5, font=\small] {\footnotesize $+\mu_2$} (s2);
-    \draw[arrow] (s2) -- node[above, yshift=6pt, sloped, pos=0.5, font=\small] {\footnotesize $+\mu_3$} (s3);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (s3) -- (10.5, 0);
-    
-    % μ values below
-    \node at (0, -1) {$\mu = 0$};
-    \node at (3, -1) {$\mu = \mu_1$};
-    \node at (6, -1) {$\mu = \mu_1 + \mu_2$};
-    \node at (9, -1) {$\mu = \sum_{i=1}^{3} \mu_i$};
-    
-    % Monotonicity arrow
-    \draw[->, >=stealth, ultra thick, red, dashed, shorten >=2pt, shorten <=2pt] (0, -1.8) -- (11, -1.8);
-    \node at (5.5, -2.3) {\color{red}\textbf{Monotonically Non-Decreasing}};
-    
-    % Conservation equation
-    \node[draw, fill=green!20, rounded corners, text width=8cm, align=center] at (5, -3.8) {
-        \textbf{Conservation Law:}\\
-        $\mu(s') \geq \mu(s)$ for all valid transitions $s \to s'$\\
-        $\mu(\text{final}) = \mu(\text{init}) + \sum_{i} \text{cost}(\text{instr}_i)$
-    };
-\end{tikzpicture}
-\caption{$\mu$-conservation: the ledger only grows, never decreases.}
-\label{fig:mu-conservation}
-\end{figure}
 
-\paragraph{Understanding Figure \ref{fig:mu-conservation}:}
 
 \textbf{Horizontal sequence:} States $s_0 \to s_1 \to s_2 \to s_3 \cdots$ (blue circles)
 
@@ -936,7 +724,6 @@ Theorem mu_conservation_kernel : forall s s' instr,
 
 \textbf{Concrete example:} If \texttt{s.vm\_mu = 50} and you execute PNEW with \texttt{mu\_delta = 10}, then \texttt{s'.vm\_mu = 60}. The theorem guarantees $60 \geq 50$. If you execute 5 instructions with costs $[10, 15, 20, 5, 8]$, the final $\mu$ is $50 + 10 + 15 + 20 + 5 + 8 = 108$, and the theorem guarantees $108 \geq 50$ after each step.
 
-\textbf{Role in larger proofs:} This single-step theorem is the base case for multi-step conservation (\texttt{run\_vm\_mu\_conservation}). It also supports the No Free Insight theorem: strengthening a predicate requires $\mu > 0$, proven by invoking $\mu$-conservation on the trace.
 
 \begin{proof}
 By definition of \texttt{vm\_step}: every step rule updates \texttt{vm\_mu} to \texttt{apply\_cost s instr}, which adds a non-negative cost.
@@ -987,7 +774,6 @@ Fixpoint run_vm (fuel : nat) (trace : Trace) (s : VMState) : VMState :=
     \item Implicit: If an instruction sets \texttt{vm\_err = true}, subsequent steps likely become no-ops (depends on \texttt{step\_vm} implementation).
 \end{itemize}
 
-\textbf{Role in theorems:} Multi-step theorems (like \texttt{run\_vm\_mu\_conservation}) quantify over \texttt{run\_vm} rather than single \texttt{vm\_step}. This function bridges single-step semantics and multi-step behavior.
 
 \textbf{Physical interpretation:} \texttt{run\_vm} is the \textbf{discrete-time evolution operator}. Given an initial state and a trace (the "Hamiltonian"), it computes the state after \texttt{fuel} time steps. This is analogous to solving the equations of motion in physics.
 
@@ -1043,7 +829,6 @@ Definition ledger_sum (entries : list nat) : nat := fold_left Nat.add entries 0.
     \item \texttt{ledger\_sum([10, 15, 20]) = 10 + 15 + 20 = 45}
 \end{itemize}
 
-\textbf{Role in theorems:} The conservation corollary (\texttt{run\_vm\_mu\_conservation}) states that the final $\mu$ equals initial $\mu$ plus \texttt{ledger\_sum}. This makes the thermodynamic accounting explicit: every $\mu$ unit in the ledger corresponds to a paid cost.
 
 \subsection{Conservation Theorem}
 
@@ -1087,7 +872,6 @@ The corollary guarantees this exact accounting.
 
 \textbf{Physical interpretation:} This is the \textbf{path integral formulation} of thermodynamics. The final entropy (here, $\mu$) is the initial entropy plus the integral (sum) of all irreversible events along the path. Unlike physical systems where heat dissipation can be path-dependent, the Thiele Machine's $\mu$ accounting is exact and path-independent (given a fixed trace).
 
-\textbf{Role in larger proofs:} This corollary is invoked by the No Free Insight theorem. To prove that strengthening a predicate requires $\mu > 0$, the proof shows that the trace must contain revelation events (which cost $\mu$), and invokes this corollary to show the ledger sum is positive.
 
 \begin{proof}
 By induction on fuel. Base case: empty ledger, $\mu$ unchanged. Inductive case: by \texttt{mu\_conservation\_kernel}, $\mu$ increases by exactly the instruction cost, which is the head of \texttt{ledger\_entries}.
@@ -1113,42 +897,7 @@ Theorem vm_irreversible_bits_lower_bound :
 \section{No Free Insight: The Impossibility Theorem}
 
 % Figure 5: No Free Insight Formal Structure
-\begin{figure}[ht]
-\centering
-\begin{tikzpicture}[scale=1.8, 
-    set/.style={ellipse, draw, minimum width=6.2cm, minimum height=3.6cm},
-    arrow/.style={->, >=stealth, thick}
-], node distance=2.5cm]
-    % Left: Weak predicate (larger set)
-    \node[set, fill=blue!10] (weak) at (-3, 0) {};
-    \node at (-3, 0) {$P_{\text{weak}}$};
-    \node at (-3, -1.5) {\footnotesize Accepts more traces};
-    
-    % Right: Strong predicate (smaller set)
-    \node[set, fill=green!20, minimum width=4.6cm, minimum height=2.5cm] (strong) at (3, 0) {};
-    \node at (3, 0) {$P_{\text{strong}}$};
-    \node at (3, -1.5) {\footnotesize Accepts fewer traces};
-    
-    % Arrow showing strengthening
-    \draw[->, >=stealth, ultra thick, red, shorten >=2pt, shorten <=2pt] (-0.8, 0) -- (0.8, 0);
-    \node at (0, 0.6) {\textbf{Strengthen}};
-    \node at (0, -0.5) {\footnotesize $P_{\text{strong}} < P_{\text{weak}}$};
-    
-    % Cost requirement
-    \node[draw, fill=red!20, rounded corners] at (0, -2.5) {\textbf{Requires: structure addition ($\mu > 0$)}};
-    
-    % Trace box
-    \node[draw, fill=yellow!20, rounded corners, text width=10cm, align=center] at (0, -4.2) {
-        \textbf{No Free Insight:} To certify a stronger predicate from a weaker one,\\
-        the trace \textbf{must} contain a revelation event (REVEAL, LASSERT, LJOIN, EMIT)\\
-        which charges $\mu$-cost. There is no backdoor.
-    };
-\end{tikzpicture}
-\caption{No Free Insight: strengthening certification requires explicit, charged structure addition.}
-\label{fig:no-free-insight-ch5}
-\end{figure}
 
-\paragraph{Understanding Figure \ref{fig:no-free-insight-ch5}:}
 
 \textbf{Similar to Chapter 3 version but in verification context:}
 
@@ -1188,7 +937,6 @@ The No Free Insight theorem proves that moving from a weak to a strong predicate
 
 \textbf{Concrete example:} Define \texttt{P\_any : ReceiptPredicate nat := fun obs => match obs with [] => false | \_ => true end}. This accepts any non-empty list. Define \texttt{P\_specific : ReceiptPredicate nat := fun obs => obs =? [42]}. This accepts only $[42]$. \texttt{P\_specific} is strictly stronger than \texttt{P\_any}.
 
-\textbf{Role in theorems:} The No Free Insight theorem quantifies over arbitrary \texttt{ReceiptPredicate} types. It states that for \textit{any two predicates} \texttt{P1} and \texttt{P2} with \texttt{P1} strictly stronger than \texttt{P2}, certifying \texttt{P1} from a trace that certifies \texttt{P2} requires $\mu > 0$.
 
 \textbf{Physical interpretation:} Predicates represent \textbf{information content}. A stronger predicate encodes more information (finer-grained constraints). The theorem proves that gaining information costs $\mu$---a computational version of the thermodynamic cost of measurement.
 
@@ -1238,7 +986,6 @@ Definition strictly_stronger {A : Type} (P1 P2 : ReceiptPredicate A) : Prop :=
     \item \texttt{P\_any} accepts $[1, 2, 3]$, but \texttt{P\_specific} rejects it.
 \end{itemize}
 
-\textbf{Role in theorems:} The No Free Insight theorem states that if \texttt{P\_strong} is strictly stronger than \texttt{P\_weak}, then certifying \texttt{P\_strong} from a trace that certifies \texttt{P\_weak} requires $\mu > 0$. The strict ordering ensures genuine information gain.
 
 \subsection{Certification}
 
@@ -1282,7 +1029,6 @@ Definition Certified {A : Type}
     \item Without \texttt{P(...) = true}, the receipts might not match the predicate's requirements.
 \end{itemize}
 
-\textbf{Role in theorems:} The No Free Insight theorem assumes \texttt{Certified(s\_final, decoder, P\_strong, receipts)} and proves that reaching this state from \texttt{Certified(..., P\_weak, ...)} requires $\mu > 0$ if \texttt{P\_strong} is strictly stronger than \texttt{P\_weak}.
 
 \subsection{The Main Theorem}
 
@@ -1440,7 +1186,6 @@ Every theorem includes a falsifier specification:
 
 \textbf{Can this falsifier be satisfied?} No---that's the point. The No Free Insight theorem \textit{proves} that no such system exists. If someone exhibited a system satisfying these conditions, they would have found a bug in the Coq proof, invalidated the theorem, or discovered a flaw in the Thiele Machine's axioms.
 
-\textbf{Role in scientific rigor:} Every major theorem in the thesis includes such a falsifier specification. This follows the principle that \textit{proof} and \textit{falsifiability} are dual: a proof shows no counterexample exists, and a falsifier specification defines what a counterexample would look like.
 
 \textbf{Concrete example:} To falsify the theorem, you'd need to show:
 \begin{enumerate}
@@ -1455,39 +1200,7 @@ If anyone can produce such a counterexample, the theorem is false. The proofs es
 \section{Summary}
 
 % Figure 6: Chapter 5 Summary
-\begin{figure}[ht]
-\centering
-\begin{tikzpicture}[scale=1.8, 
-    theorem/.style={rectangle, draw, fill=green!20, minimum width=7.2cm, minimum height=2.2cm, align=center, rounded corners},
-    property/.style={rectangle, draw, fill=blue!10, minimum width=6.2cm, minimum height=1.6cm, align=center},
-    arrow/.style={->, >=stealth, thick}
-], node distance=2.5cm]
-    % Central: Zero-Admit Standard
-    \node[draw, fill=red!30, minimum width=9.0cm, minimum height=1.8cm, rounded corners, align=center, text width=3.5cm] (zero) at (0, 0) {\textbf{Zero-Admit Standard}\\206 Proofs, 0 Axioms};
-    
-    % Four theorem boxes around it
-    \node[theorem, align=center, text width=3.5cm] (nosig) at (-4, 2.5) {\textbf{No-Signaling}\\Bell locality analog};
-    \node[theorem, align=center, text width=3.5cm] (mucons) at (4, 2.5) {\textbf{$\mu$-Conservation}\\Monotonic ledger};
-    \node[theorem, align=center, text width=3.5cm] (nofi) at (-4, -2.5) {\textbf{No Free Insight}\\Impossibility theorem};
-    \node[theorem, align=center, text width=3.5cm] (gauge) at (4, -2.5) {\textbf{Gauge Invariance}\\Noether's theorem};
-    
-    % Arrows to center
-    \draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (nosig) -- (zero);
-    \draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (mucons) -- (zero);
-    \draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (nofi) -- (zero);
-    \draw[arrow, dashed, shorten >=2pt, shorten <=2pt] (gauge) -- (zero);
-    
-    % Bottom: Inquisitor
-    \node[draw, fill=purple!20, minimum width=14.4cm, minimum height=1.6cm, rounded corners] at (0, -4.5) {\textbf{Inquisitor} enforces standard via CI (25+ rule categories)};
-    
-    % Title
-    \node at (0, 4) {\textbf{Chapter 5: Verification Results}};
-\end{tikzpicture}
-\caption{Chapter summary: four key theorems proven under zero-admit standard, enforced by Inquisitor.}
-\label{fig:ch5-summary}
-\end{figure}
 
-\paragraph{Understanding Figure \ref{fig:ch5-summary}:}
 
 \textbf{Four theorem boxes (top):}
 \begin{enumerate}

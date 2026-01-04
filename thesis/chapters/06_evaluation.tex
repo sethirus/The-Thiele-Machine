@@ -1,76 +1,7 @@
 \section{Evaluation Overview}
 
 % Figure 1: Chapter 6 Roadmap
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[
-    scale=0.85, transform shape,
-    node distance=2.5cm,
-    block/.style={rectangle, draw, fill=blue!10, text width=3.2cm, text centered, minimum height=1.9cm, rounded corners, font=\normalsize},
-    testblock/.style={rectangle, draw, fill=green!10, text width=3.2cm, text centered, minimum height=1.9cm, rounded corners, font=\normalsize},
-    resultblock/.style={rectangle, draw, fill=orange!10, text width=3.2cm, text centered, minimum height=1.9cm, rounded corners, font=\normalsize}
-]
 
-% Top: What we're testing
-\node[block, align=center, text width=3.5cm] (theory) at (0,3) {\textbf{Theory}\\(Ch. 3-5)};
-\node[block, align=center, text width=3.5cm] (impl) at (4,3) {\textbf{Implementation}\\(Ch. 4)};
-\node[block, align=center, text width=3.5cm] (proofs) at (8,3) {\textbf{Proofs}\\(206 files)};
-
-% Middle: Test categories
-\node[testblock, align=center, text width=3.5cm] (iso) at (0,0) {\textbf{Isomorphism}\\3-layer match};
-\node[testblock, align=center, text width=3.5cm] (chsh) at (3,0) {\textbf{CHSH}\\Bell tests};
-\node[testblock, align=center, text width=3.5cm] (ledger) at (6,0) {\textbf{$\mu$-Ledger}\\Conservation};
-\node[testblock, align=center, text width=3.5cm] (thermo) at (9,0) {\textbf{Thermo}\\Bridge tests};
-
-% Bottom: Results
-\node[resultblock, align=center, text width=3.5cm] (pass) at (4.5,-2.5) {\textbf{PASS}\\All tests};
-
-% Arrows
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (theory) -- (iso);
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (theory) -- (chsh);
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (impl) -- (iso);
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (impl) -- (ledger);
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (proofs) -- (ledger);
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (proofs) -- (thermo);
-
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (iso) -- (pass);
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (chsh) -- (pass);
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (ledger) -- (pass);
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (thermo) -- (pass);
-
-% Label
-\node[draw, dashed, fill=yellow!10, text width=8cm, text centered] at (4.5,4.5) {\textbf{Evaluation Goal:} Validate that theory matches practice};
-
-\end{tikzpicture}
-\caption{Chapter 6 roadmap: From theoretical claims through test categories to validation results.}
-\label{fig:ch6_roadmap}
-
-\paragraph{Understanding Figure~\ref{fig:ch6_roadmap}:}
-
-This \textbf{roadmap diagram} visualizes Chapter 6's evaluation structure: translating theoretical claims from Chapters 3--5 into empirical tests, executing those tests, and validating that predictions match observations.
-
-\textbf{Visual elements:}
-\begin{itemize}
-    \item \textbf{Top box (Theoretical Claims):} Four boxes representing the core claims: 3-layer isomorphism (Coq/Python/RTL produce identical results), revelation requirement (supra-quantum correlations cost $\mu$), $\mu$-conservation (ledger monotonically increases and exactly tracks costs), ledger-level predictions (structural heat, time dilation).
-    \item \textbf{Middle layer (Test Categories):} Four blue boxes representing the corresponding test suites: isomorphism gates (execute same trace on all layers and compare state), CHSH experiments (measure Bell correlations and verify $\mu$ costs), monotonicity/conservation tests (check ledger never decreases and sum matches declared costs), physics-without-physics harnesses (structural certificate benchmark, fixed-budget slowdown).
-    \item \textbf{Bottom box (Validation Results):} Single green box labeled ``Empirical Validation'' with checkmarks indicating pass/fail status for each category.
-    \item \textbf{Arrows:} Connect theoretical claims $\to$ test categories $\to$ validation results, showing the evaluation pipeline.
-    \item \textbf{Yellow dashed label:} ``Evaluation Goal: Validate that theory matches practice''---the chapter's central mission.
-\end{itemize}
-
-\textbf{Key insight visualized:} Evaluation is not about proving theorems (that's Chapter 5's role), but about confirming that \textit{implementations faithfully realize the formal semantics} and \textit{predicted invariants hold under realistic workloads}. The roadmap shows the systematic translation from abstract claims to concrete tests.
-
-\textbf{How to read this diagram:}
-\begin{enumerate}
-    \item Start at the top: Identify the four theoretical claims requiring empirical validation.
-    \item Middle layer: See how each claim maps to a specific test category (one-to-one correspondence).
-    \item Bottom: Convergence on a single validation verdict (either all tests pass, confirming the theory, or one fails, falsifying the claim).
-    \item Yellow label: Reminds the reader that evaluation bridges the gap between formal proof (certainty for all inputs) and empirical testing (confidence for representative workloads).
-\end{enumerate}
-
-\textbf{Role in thesis:} This roadmap orients the reader at the start of the evaluation chapter, clearly delineating what will be tested and why. Each subsequent section addresses one of the four test categories in depth, with this roadmap serving as the conceptual anchor.
-
-\end{figure}
 
 \subsection{From Theory to Evidence}
 
@@ -106,91 +37,7 @@ The concrete test harnesses live under \texttt{tests/} (for example, \path{tests
 \section{3-Layer Isomorphism Verification}
 
 % Figure 2: 3-Layer Isomorphism Test Architecture
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[
-    scale=0.85, transform shape,
-    node distance=2.5cm,
-    layer/.style={rectangle, draw, fill=blue!15, text width=3.2cm, text centered, minimum height=1.8cm, rounded corners, font=\normalsize},
-    trace/.style={rectangle, draw, fill=green!10, text width=3.2cm, text centered, minimum height=1.2cm, font=\normalsize},
-    compare/.style={diamond, draw, fill=orange!20, aspect=2, text width=1.3cm, text centered, font=\normalsize}
-]
 
-% Input trace
-\node[trace, align=center, text width=3.5cm] (trace) at (0,0) {\textbf{Trace}\\Instructions};
-
-% Three layers
-\node[layer, align=center, text width=3.5cm] (coq) at (4,2) {\textbf{Coq}\\Extracted semantics};
-\node[layer, align=center, text width=3.5cm] (python) at (4,0) {\textbf{Python}\\Reference VM};
-\node[layer, align=center, text width=3.5cm] (rtl) at (4,-2) {\textbf{RTL}\\Verilog simulation};
-
-% State outputs
-\node[trace] (s1) at (8,2) {$S_{\text{Coq}}$};
-\node[trace] (s2) at (8,0) {$S_{\text{Python}}$};
-\node[trace] (s3) at (8,-2) {$S_{\text{RTL}}$};
-
-% Comparison
-\node[compare] (cmp) at (11,0) {$=$?};
-
-% Result
-\node[draw, fill=green!30, rounded corners] (pass) at (14,0) {\textbf{PASS}};
-
-% Arrows
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (trace) -- (coq);
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (trace) -- (python);
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (trace) -- (rtl);
-
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (coq) -- (s1);
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (python) -- (s2);
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (rtl) -- (s3);
-
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (s1) -- (cmp);
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (s2) -- (cmp);
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (s3) -- (cmp);
-
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (cmp) -- (pass);
-
-% Annotation
-\node[draw, dashed, fill=yellow!10, text width=6cm, text centered, align=center] at (11,-3.5) {$S_{\text{Coq}}(\tau) = S_{\text{Python}}(\tau) = S_{\text{RTL}}(\tau)$\\for all traces $\tau$};
-
-\end{tikzpicture}
-\caption{The isomorphism gate verifies that all three implementation layers produce identical final states for the same instruction trace.}
-\label{fig:isomorphism_gate}
-
-\paragraph{Understanding Figure~\ref{fig:isomorphism_gate}:}
-
-This \textbf{isomorphism gate diagram} visualizes the 3-layer verification architecture that tests the central claim of Chapter 4: Coq, Python, and Verilog implementations produce \textit{identical} observable results for the same instruction traces.
-
-\textbf{Visual elements:}
-\begin{itemize}
-    \item \textbf{Input trace (green box, left):} A single instruction sequence $\tau$ (the same trace is fed to all three layers). Contains instructions like \texttt{XOR\_LOAD}, \texttt{XOR\_ADD}, \texttt{XFER}, \texttt{HALT}.
-    \item \textbf{Three layer boxes (blue, middle):} Each box represents one implementation layer:
-    \begin{itemize}
-        \item \textbf{Coq:} Extracted semantics from the formal specification (\texttt{vm\_step} interpreter compiled to OCaml).
-        \item \textbf{Python:} Reference VM (\texttt{thielecpu/vm.py}) running the same trace.
-        \item \textbf{RTL:} Verilog simulation (\texttt{rtl/thiele\_cpu.v}) executing the same trace in hardware semantics.
-    \end{itemize}
-    \item \textbf{State outputs (green boxes, middle-right):} Each layer produces a final state snapshot: $S_{\text{Coq}}$, $S_{\text{Python}}$, $S_{\text{RTL}}$. These are JSON serializations containing \texttt{pc}, \texttt{mu}, \texttt{err}, \texttt{regs}, \texttt{mem}, \texttt{csrs}, \texttt{graph}.
-    \item \textbf{Comparison diamond (orange):} A decision gate labeled ``$=$?'' that performs element-wise comparison of the three state snapshots.
-    \item \textbf{Result box (green, right):} Labeled ``PASS'' (green background). If all three states match, the test passes; otherwise, it fails (indicating a bug in one layer).
-    \item \textbf{Arrows:} Show the data flow: trace $\to$ layers $\to$ states $\to$ comparison $\to$ result.
-    \item \textbf{Yellow dashed annotation (bottom):} Mathematical formula $S_{\text{Coq}}(\tau) = S_{\text{Python}}(\tau) = S_{\text{RTL}}(\tau)$ for all traces $\tau$---the isomorphism claim.
-\end{itemize}
-
-\textbf{Key insight visualized:} The isomorphism is not an assumption or a proof obligation---it's an \textit{empirically testable claim}. By executing the same trace on all three layers and comparing the observable projections, the test either confirms the isomorphism (PASS) or falsifies it (FAIL). The Coq extraction serves as the \textbf{ground truth} (proven correct by Coq's type-checker), so any mismatch indicates a bug in Python or RTL.
-
-\textbf{How to read this diagram:}
-\begin{enumerate}
-    \item Start at the left: One trace enters the gate.
-    \item Middle: The trace is replicated (conceptually) and executed on three independent implementations.
-    \item States: Each layer emits its final state as a structured JSON object.
-    \item Comparison: The three states are compared field-by-field (registers, memory, $\mu$, PC, error flags, partition graph).
-    \item Result: If all fields match, the test passes (green). If any field differs, the test fails and the discrepancy is logged for debugging.
-\end{enumerate}
-
-\textbf{Role in thesis:} This diagram appears in every CI run (see \path{tests/test\_rtl\_compute\_isomorphism.py} and \path{tests/test\_partition\_isomorphism\_minimal.py}). The 100\% pass rate reported in the results table proves the isomorphism holds for all tested workloads (compute traces, partition traces, randomized sequences). If this gate ever fails, the thesis claims are invalidated.
-
-\end{figure}
 
 \subsection{Test Architecture}
 
@@ -258,7 +105,6 @@ All three implementations must compute the \textit{same} final register values.
 
 \textbf{Test oracle:} The Coq extracted semantics is the \textbf{ground truth} (proven correct by Coq verification). The test checks that Python and RTL match this ground truth.
 
-\textbf{Role in thesis:} This test appears in every CI run. If it fails, the thesis claims are invalidated. The 100\% pass rate (shown in the results table) proves the isomorphism holds for compute operations.
 
 \subsubsection{State Projection}
 
@@ -338,7 +184,6 @@ def test_pnew_dedup_singletons_isomorphic():
 
 \textbf{Coq definition:} The formal kernel defines \texttt{normalize\_region := nodup Nat.eq\_dec}, which removes duplicates using natural number equality. Python and RTL must match this behavior exactly.
 
-\textbf{Role in thesis:} This test validates the \textbf{observational no-signaling theorem}, which depends on normalized regions for observational equality. If normalization differed across implementations, the isomorphism would fail.
 
 This verifies that canonical normalization produces identical results across all layers, which is essential because partitions are represented as lists but compared modulo ordering and duplicates.
 In the formal kernel, the normalization function is \texttt{normalize\_region} (based on \texttt{nodup}), so this test is checking that the Python and RTL representations match the Coq canonicalization rather than relying on a coincidental list order.
@@ -365,95 +210,7 @@ $\mu$-Ledger Updates & PASS & PASS & PASS \\
 \section{CHSH Correlation Experiments}
 
 % Figure 3: CHSH Bell Test Setup
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[
-    scale=0.85, transform shape,
-    node distance=3cm,
-    party/.style={circle, draw, fill=blue!20, minimum size=1.3cm, text centered, font=\normalsize},
-    source/.style={rectangle, draw, fill=red!20, minimum width=4.0cm, minimum height=1.9cm, text centered, font=\normalsize},
-    setting/.style={rectangle, draw, fill=green!10, minimum width=1.7cm, minimum height=1.0cm, text centered, font=\normalsize}
-]
 
-% Source
-\node[source, align=center, text width=3.5cm] (src) at (5,0) {\textbf{Source}\\Correlated pairs};
-
-% Alice
-\node[party] (alice) at (0,0) {\textbf{Alice}};
-\node[setting] (x) at (0,1.5) {$x \in \{0,1\}$};
-\node[setting] (a) at (0,-1.5) {$a \in \{0,1\}$};
-
-% Bob
-\node[party] (bob) at (10,0) {\textbf{Bob}};
-\node[setting] (y) at (10,1.5) {$y \in \{0,1\}$};
-\node[setting] (b) at (10,-1.5) {$b \in \{0,1\}$};
-
-% Arrows
-\draw[->, very thick, dashed] (src) -- node[above, yshift=6pt, pos=0.5, font=\small] {particle} (alice);
-\draw[->, very thick, dashed] (src) -- node[above, yshift=6pt, pos=0.5, font=\small] {particle} (bob);
-\draw[->, very thick] (x) -- node[right, above, yshift=6pt, pos=0.5, font=\small] {setting} (alice);
-\draw[->, very thick] (alice) -- node[right, above, yshift=6pt, pos=0.5, font=\small] {outcome} (a);
-\draw[->, very thick] (y) -- node[left, above, yshift=6pt, pos=0.5, font=\small] {setting} (bob);
-\draw[->, very thick] (bob) -- node[left, above, yshift=6pt, pos=0.5, font=\small] {outcome} (b);
-
-% CHSH scale below
-\node at (5,-3.5) {\textbf{CHSH Value Scale}};
-\draw[very thick, shorten >=2pt, shorten <=2pt] (0,-4.5) -- (10,-4.5);
-
-% Markers
-\draw[very thick, shorten >=2pt, shorten <=2pt] (0,-4.3) -- (0,-4.7) node[below, above, yshift=6pt, pos=0.5, font=\small] {0};
-\draw[very thick, blue, shorten >=2pt, shorten <=2pt] (5,-4.3) -- (5,-4.7) node[below, above, yshift=6pt, pos=0.5, font=\small] {2};
-\draw[very thick, red, shorten >=2pt, shorten <=2pt] (7.07,-4.3) -- (7.07,-4.7) node[below, above, yshift=6pt, pos=0.5, font=\small] {$2\sqrt{2}$};
-\draw[very thick, shorten >=2pt, shorten <=2pt] (10,-4.3) -- (10,-4.7) node[below, above, yshift=6pt, pos=0.5, font=\small] {4};
-
-% Regions
-\fill[green!20, opacity=0.5] (0,-4.5) rectangle (5,-4.2);
-\fill[blue!20, opacity=0.5] (5,-4.5) rectangle (7.07,-4.2);
-\fill[red!20, opacity=0.5] (7.07,-4.5) rectangle (10,-4.2);
-
-\node at (2.5,-4) {\small Classical};
-\node at (6,-4) {\small QM};
-\node at (8.5,-4) {\small Supra-Q};
-
-\end{tikzpicture}
-\caption{CHSH Bell test setup showing Alice-Bob measurement with correlation bounds: Classical ($\le 2$), Quantum ($\le 2\sqrt{2}$), Supra-quantum ($> 2\sqrt{2}$).}
-\label{fig:chsh_setup}
-
-\paragraph{Understanding Figure~\ref{fig:chsh_setup}:}
-
-This \textbf{CHSH Bell test diagram} visualizes the experimental setup for measuring nonlocal correlations and verifying that supra-quantum correlations require explicit revelation (costing $\mu$).
-
-\textbf{Visual elements:}
-\begin{itemize}
-    \item \textbf{Alice and Bob (blue circles, left):} Two spatially separated observers performing measurements. Alice chooses setting $x \in \{0,1\}$ and observes outcome $a \in \{0,1\}$. Bob chooses setting $y \in \{0,1\}$ and observes outcome $b \in \{0,1\}$.
-    \item \textbf{Source (center):} A shared resource (e.g., entangled pair, shared partition) that produces correlated outcomes for Alice and Bob.
-    \item \textbf{Measurement boxes (small rectangles):} Alice measures observable $M_x$ (either $M_0$ or $M_1$), Bob measures $M_y$ (either $M_0$ or $M_1$). The outcomes $a,b$ depend on the settings and the shared state.
-    \item \textbf{Correlation function:} $E(x,y) = \Pr[a=b \mid x,y] - \Pr[a \neq b \mid x,y]$. This quantifies how strongly Alice and Bob's outcomes are correlated for given settings.
-    \item \textbf{CHSH value:} $S = |E(0,0) - E(0,1) + E(1,0) + E(1,1)|$. This is the CHSH observable, computed from the four correlation functions.
-    \item \textbf{Horizontal axis (bottom):} Three regions showing the correlation bounds:
-    \begin{itemize}
-        \item \textbf{Classical ($S \le 2$):} Achievable by local realistic theories (no shared entanglement, no revelation).
-        \item \textbf{QM ($S \le 2\sqrt{2} \approx 2.828$):} Maximum achievable in quantum mechanics (Tsirelson's bound). Quantum entanglement allows stronger correlations than classical physics.
-        \item \textbf{Supra-Q ($S > 2\sqrt{2}$):} Correlations exceeding the quantum bound. Partition-native computing can achieve $S = 4$ (algebraic maximum) by revealing partition structure.
-    \end{itemize}
-    \item \textbf{Yellow dashed annotation:} ``Supra-quantum requires revelation (costs $\mu$)''---the key theoretical claim being tested.
-\end{itemize}
-
-\textbf{Key insight visualized:} The CHSH experiment is a \textit{falsifiable test} of the revelation requirement. If the Thiele Machine achieves $S > 2\sqrt{2}$ without charging $\mu$, the theory is falsified. If $S \le 2\sqrt{2}$ when no revelation occurs, the theory is confirmed. The experiments (Section 6.2) execute thousands of trials with varying revelation budgets and verify that the measured CHSH values match the $\mu$ costs paid.
-
-\textbf{How to read this diagram:}
-\begin{enumerate}
-    \item Start at the center: A shared source (partition or entangled pair) connects Alice and Bob.
-    \item Measurements: Alice and Bob each choose a setting ($x$, $y$) and obtain an outcome ($a$, $b$).
-    \item Correlations: For each setting pair, compute $E(x,y)$ from the trial outcomes.
-    \item CHSH value: Compute $S$ from the four $E(x,y)$ values.
-    \item Classification: Compare $S$ to the bounds (Classical $\le 2$, Quantum $\le 2\sqrt{2}$, Supra-quantum $> 2\sqrt{2}$).
-    \item Verification: Check that $\mu$ charged matches the correlation strength (stronger correlations require more revelation).
-\end{enumerate}
-
-\textbf{Role in thesis:} This diagram introduces the CHSH protocol before presenting the experimental results. The evaluation (Section 6.2) shows that the Thiele Machine can achieve $S = 4$ when partition structure is revealed, confirming that partition-native computing transcends quantum limits. The $\mu$ ledger ensures this advantage is not ``free''---it requires explicit structural disclosure.
-
-\end{figure}
 
 \subsection{Bell Test Protocol}
 
@@ -499,7 +256,6 @@ instr_chsh_trial (x y a b : nat) (mu_delta : nat)
 
 \textbf{Why does this cost $\mu$?} Achieving supra-quantum correlations ($S > 2\sqrt{2}$) requires explicit structural revelation (making partition states observable). The $\mu$ cost tracks this revelation---stronger correlations require more revelation, thus more $\mu$.
 
-\textbf{Role in evaluation:} The CHSH experiments (Section 6.2) execute thousands of \texttt{CHSH\_TRIAL} instructions and compute the CHSH value from the outcomes. The evaluation verifies that claimed correlations match the $\mu$ costs paid.
 
 Where:
 \begin{itemize}
@@ -545,7 +301,6 @@ DEFAULT_ENFORCEMENT_MIN_TRIALS_PER_SETTING = 100
 
 \textbf{Why conservative bound (5657/2000)?} The true Tsirelson bound is $2\sqrt{2}$, an irrational number. The implementation uses $2.8285 > 2\sqrt{2}$ to avoid false positives: if \texttt{chsh > 5657/2000}, it's \textit{definitely} supra-quantum. If the bound were too tight (e.g., $2.8284$), numerical errors could cause false positives.
 
-\textbf{Role in experiments:} Every CHSH experiment computes a rational CHSH value and calls \texttt{is\_supra\_quantum(...)} to classify the result. Supra-quantum results trigger verification that the trace contains revelation events (as required by the formal theorem).
 
 The implementation uses a conservative rational bound (\texttt{5657/2000}) rather than a floating approximation to make proof and test comparisons exact across layers.
 
@@ -622,84 +377,7 @@ Supra-Quantum & $> 2.828$ & \textbf{Required} & $\mu_{\text{reveal}}$ \\
 \section{$\mu$-Ledger Verification}
 
 % Figure 4: μ-Ledger Monotonicity and Conservation
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[
-    scale=0.85, transform shape,
-    state/.style={circle, draw, fill=blue!15, minimum size=0.9cm, text centered, font=\normalsize},
-    ledger/.style={rectangle, draw, fill=orange!20, minimum width=1.8cm, minimum height=1.0cm, text centered, font=\normalsize}
-], node distance=3cm]
 
-% States
-\node[state, font=\normalsize] (s0) at (0,0) {$S_0$};
-\node[state, font=\normalsize] (s1) at (3,0) {$S_1$};
-\node[state, font=\normalsize] (s2) at (6,0) {$S_2$};
-\node[state, font=\normalsize] (s3) at (9,0) {$S_3$};
-\node[state, font=\normalsize] (s4) at (12,0) {$S_4$};
-
-% Ledger values
-\node[ledger] (m0) at (0,-1.5) {$\mu_0 = 0$};
-\node[ledger] (m1) at (3,-1.5) {$\mu_1 = 3$};
-\node[ledger] (m2) at (6,-1.5) {$\mu_2 = 5$};
-\node[ledger] (m3) at (9,-1.5) {$\mu_3 = 8$};
-\node[ledger] (m4) at (12,-1.5) {$\mu_4 = 12$};
-
-% Transitions with costs
-\draw[->, very thick] (s0) -- node[above, yshift=6pt, pos=0.5, font=\small] {$+3$} (s1);
-\draw[->, very thick] (s1) -- node[above, yshift=6pt, pos=0.5, font=\small] {$+2$} (s2);
-\draw[->, very thick] (s2) -- node[above, yshift=6pt, pos=0.5, font=\small] {$+3$} (s3);
-\draw[->, very thick] (s3) -- node[above, yshift=6pt, pos=0.5, font=\small] {$+4$} (s4);
-
-% Connect states to ledgers
-\draw[dashed, shorten >=2pt, shorten <=2pt] (s0) -- (m0);
-\draw[dashed, shorten >=2pt, shorten <=2pt] (s1) -- (m1);
-\draw[dashed, shorten >=2pt, shorten <=2pt] (s2) -- (m2);
-\draw[dashed, shorten >=2pt, shorten <=2pt] (s3) -- (m3);
-\draw[dashed, shorten >=2pt, shorten <=2pt] (s4) -- (m4);
-
-% Monotonicity arrows
-\draw[->, very thick, red, shorten >=2pt, shorten <=2pt] (m0.east) -- (m1.west);
-\draw[->, very thick, red, shorten >=2pt, shorten <=2pt] (m1.east) -- (m2.west);
-\draw[->, very thick, red, shorten >=2pt, shorten <=2pt] (m2.east) -- (m3.west);
-\draw[->, very thick, red, shorten >=2pt, shorten <=2pt] (m3.east) -- (m4.west);
-
-% Properties box
-\node[draw, fill=yellow!10, text width=6cm, text centered, align=center] at (6,-3.5) {
-\textbf{Monotonicity:} $\mu_{t+1} \ge \mu_t$\\
-\textbf{Conservation:} $\sum \Delta\mu = \mu_{\text{final}}$
-};
-
-\end{tikzpicture}
-\caption{$\mu$-ledger verification showing monotonic growth through state transitions. The ledger never decreases and exactly tracks declared costs.}
-\label{fig:mu_ledger_verification}
-
-\paragraph{Understanding Figure~\ref{fig:mu_ledger_verification}:}
-
-This \textbf{$\mu$-ledger verification diagram} visualizes the two core ledger properties: \textbf{monotonicity} (the ledger never decreases) and \textbf{conservation} (the ledger exactly tracks declared costs).
-
-\textbf{Visual elements:}
-\begin{itemize}
-    \item \textbf{State sequence (circles):} Five VM states labeled $s_0, s_1, s_2, s_3, s_4$. Each state has an associated $\mu$ value shown inside the circle: $\mu_0 = 0$, $\mu_1 = 2$, $\mu_2 = 5$, $\mu_3 = 8$, $\mu_4 = 11$.
-    \item \textbf{Transition arrows (horizontal):} Labeled with instruction costs: $s_0 \xrightarrow{+2} s_1$ (instruction costing 2 $\mu$-bits), $s_1 \xrightarrow{+3} s_2$ (cost 3), $s_2 \xrightarrow{+3} s_3$ (cost 3), $s_3 \xrightarrow{+3} s_4$ (cost 3).
-    \item \textbf{Monotonicity arrow (top):} A blue upward arrow labeled ``Monotonicity: $\mu_{t+1} \ge \mu_t$''. This visualizes the theorem that $\mu$ never decreases.
-    \item \textbf{Conservation equation (bottom):} A green box labeled ``Conservation: $\sum \Delta\mu = \mu_{\text{final}}$''. This states that the sum of declared costs equals the final ledger value.
-    \item \textbf{Yellow dashed annotation:} Shows the explicit calculation: $\mu_4 = 0 + 2 + 3 + 3 + 3 = 11$. The ledger value at $s_4$ equals the sum of all transition costs.
-\end{itemize}
-
-\textbf{Key insight visualized:} The $\mu$-ledger is a \textit{cumulative irreversible cost counter}, analogous to entropy in thermodynamics. Monotonicity ensures the ledger cannot ``un-erase'' information (no physical process can decrease entropy spontaneously). Conservation ensures all costs are accounted for (no hidden charges, no free operations). Together, these properties make the ledger \textit{auditable} and \textit{falsifiable}.
-
-\textbf{How to read this diagram:}
-\begin{enumerate}
-    \item Start at $s_0$: Initial state with $\mu_0 = 0$ (no operations yet).
-    \item Follow the arrows: Each transition applies an instruction with declared cost $\Delta\mu$.
-    \item Check monotonicity: $\mu_1 = 2 \ge 0$, $\mu_2 = 5 \ge 2$, $\mu_3 = 8 \ge 5$, $\mu_4 = 11 \ge 8$. The ledger never decreases.
-    \item Check conservation: $\mu_4 = 0 + (2 + 3 + 3 + 3) = 11$. The final value equals the sum of declared costs.
-    \item Annotations: Top (monotonicity) and bottom (conservation) boxes state the properties being verified.
-\end{enumerate}
-
-\textbf{Role in thesis:} This diagram illustrates the \textit{operational semantics} of $\mu$-conservation tested in Section 6.2. The tests \texttt{test\_mu\_monotonic\_under\_any\_trace} and \texttt{test\_mu\_conservation} execute randomized instruction sequences and verify these properties hold. The 100\% pass rate confirms that the Python VM, Coq extraction, and RTL all implement the ledger correctly. If monotonicity fails ($\mu$ decreases), the implementation violates the Second Law analog. If conservation fails ($\mu_{\text{final}} \neq \sum \Delta\mu$), the accounting is broken.
-
-\end{figure}
 
 \subsection{Monotonicity Tests}
 
@@ -746,7 +424,6 @@ def test_mu_monotonic_under_any_trace():
 \end{itemize}
 The total $\mu = \texttt{mu\_discovery} + \texttt{mu\_execution}$ must be non-decreasing. The test verifies this sum over all transitions.
 
-\textbf{Role in thesis:} This test validates the Second Law analog: partition structure never spontaneously increases (§5.3). Combined with \texttt{test\_mu\_conservation}, it confirms that the Python implementation faithfully models the formal cost semantics.
 
 The monotonicity check mirrors the formal lemma that \texttt{vm\_mu} never decreases under \texttt{vm\_step}. In the Python VM, the ledger is split into \texttt{mu\_discovery} and \texttt{mu\_execution} (see \texttt{MuLedger} in \path{thielecpu/state.py}), so the test verifies that their total is non-decreasing step by step.
 
@@ -809,7 +486,6 @@ def total(self) -> int:
 \end{lstlisting}
 The test asserts that this sum equals the declared costs.
 
-\textbf{Role in thesis:} Combined with \texttt{test\_mu\_monotonic\_under\_any\_trace}, this test validates the complete ledger semantics: monotonicity (never decreases) + conservation (exact accounting). Together, they operationalize the formal proof of \texttt{run\_vm\_mu\_conservation} (§5.3).
 
 The conservation test matches the formal definition of \texttt{apply\_cost} in \path{coq/kernel/VMStep.v}, which adds the per-instruction \texttt{mu\_delta} to the running ledger. The experiment is therefore a concrete replay of the same rule used in the proofs.
 
@@ -824,81 +500,7 @@ The conservation test matches the formal definition of \texttt{apply\_cost} in \
 \section{Thermodynamic bridge experiment (publishable plan)}
 
 % Figure 5: Thermodynamic Bridge Architecture
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[
-    scale=0.85, transform shape,
-    node distance=2.5cm,
-    abstract/.style={rectangle, draw, fill=blue!15, text width=3.2cm, text centered, minimum height=1.8cm, rounded corners, font=\normalsize},
-    bridge/.style={rectangle, draw, fill=orange!20, text width=3.2cm, text centered, minimum height=1.8cm, rounded corners, dashed, font=\normalsize},
-    physical/.style={rectangle, draw, fill=green!15, text width=3.2cm, text centered, minimum height=1.8cm, rounded corners, font=\normalsize}
-]
 
-% Abstract layer
-\node[abstract, align=center, text width=3.5cm] (mu) at (0,2) {\textbf{$\mu$-Ledger}\\Abstract cost};
-\node[abstract, align=center, text width=3.5cm] (omega) at (4,2) {\textbf{$\Omega \to \Omega'$}\\State reduction};
-
-% Bridge
-\node[bridge, align=center, text width=3.5cm] (landauer) at (2,0) {\textbf{Landauer}\\$Q \ge kT \ln 2 \cdot \mu$};
-
-% Physical
-\node[physical, align=center, text width=3.5cm] (energy) at (0,-2) {\textbf{Energy}\\Joules};
-\node[physical, align=center, text width=3.5cm] (entropy) at (4,-2) {\textbf{Entropy}\\$\Delta S_{\text{env}}$};
-
-% Arrows
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (mu) -- (landauer);
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (omega) -- (landauer);
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (landauer) -- (energy);
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (landauer) -- (entropy);
-
-% Labels
-\node at (-2.5,2) {\textbf{Abstract}};
-\node at (-2.5,0) {\textbf{Bridge}};
-\node at (-2.5,-2) {\textbf{Physical}};
-
-% Prediction box
-\node[draw, fill=yellow!10, text width=5cm, text centered, align=center] at (8,0) {
-\textbf{Prediction:}\\
-Measured energy scales with $\mu$\\
-Slope: $k_B T \ln 2$
-};
-
-\end{tikzpicture}
-\caption{Thermodynamic bridge: connecting abstract $\mu$-cost to physical energy via Landauer's principle.}
-\label{fig:thermo_bridge}
-
-\paragraph{Understanding Figure~\ref{fig:thermo_bridge}:}
-
-This \textbf{thermodynamic bridge diagram} visualizes the connection between the abstract $\mu$-ledger (information-theoretic bits) and physical energy dissipation via \textbf{Landauer's principle}: erasing one bit of information dissipates at least $k_B T \ln 2$ joules of energy.
-
-\textbf{Visual elements:}
-\begin{itemize}
-    \item \textbf{Horizontal axis (x-axis):} Labeled ``$\mu$ (abstract bits)''. This represents the $\mu$-ledger value (e.g., $\mu \in \{0, 2, 5, 10\}$).
-    \item \textbf{Vertical axis (y-axis):} Labeled ``Energy (Joules)''. This represents the measured physical energy dissipation (e.g., $E \in \{0, 5.74 \times 10^{-21}, 1.44 \times 10^{-20}, \ldots\}$ joules).
-    \item \textbf{Data points (blue circles):} Four points representing the singleton-from-$N$ experiments:
-    \begin{itemize}
-        \item $(\mu=2, E \approx 5.74 \times 10^{-21}$ J$)$ — Choosing 1 of 2 elements (cost $\mu = 2$).
-        \item $(\mu=3, E \approx 8.61 \times 10^{-21}$ J$)$ — Choosing 1 of 4 elements (cost $\mu = 3$).
-        \item $(\mu=5, E \approx 1.44 \times 10^{-20}$ J$)$ — Choosing 1 of 16 elements (cost $\mu = 5$).
-        \item $(\mu=7, E \approx 2.02 \times 10^{-20}$ J$)$ — Choosing 1 of 64 elements (cost $\mu = 7$).
-    \end{itemize}
-    \item \textbf{Trend line (dashed red):} A linear fit with slope $k_B T \ln 2 \approx 2.87 \times 10^{-21}$ J/bit (at room temperature $T = 300$ K). This line represents Landauer's prediction.
-    \item \textbf{Yellow dashed annotation:} ``Measured energy scales with $\mu$, Slope: $k_B T \ln 2$''. This confirms the empirical data matches the theoretical prediction.
-\end{itemize}
-
-\textbf{Key insight visualized:} The $\mu$-ledger is not merely an abstract accounting device---it corresponds to \textit{physical energy dissipation}. Every $\mu$-bit charged represents \textit{at least} $k_B T \ln 2$ joules of irreversible work (thermodynamic entropy production). This makes the ledger \textit{physically meaningful}, not just mathematically convenient.
-
-\textbf{How to read this diagram:}
-\begin{enumerate}
-    \item Start at the origin: $\mu = 0$ corresponds to $E = 0$ (no operations, no dissipation).
-    \item Data points: Each point represents one experiment (singleton-from-$N$) with measured $\mu$ (from the VM ledger) and measured energy (from hardware or simulator).
-    \item Trend line: The dashed red line shows Landauer's prediction $E_{\min} = k_B T \ln 2 \cdot \mu$. If points lie \textit{above} the line, the implementation is inefficient (dissipating more than the minimum). If points lie \textit{on} the line, the implementation is thermodynamically optimal.
-    \item Slope verification: The slope $k_B T \ln 2$ is a universal physical constant (independent of the implementation). Measuring this slope empirically validates the bridge.
-\end{enumerate}
-
-\textbf{Role in thesis:} This diagram presents the \textit{thermodynamic bridge} connecting abstract $\mu$-bits to physical Joules. The experiments (Section 6.2) execute four traces differing only in partition revelation ($\Omega \to \Omega'$) and verify that measured energy scales linearly with $\mu$ at slope $k_B T \ln 2$ (within experimental error). If the slope is sub-linear, the bridge is falsified. If super-linear, the implementation has inefficiency overhead (quantified by the residuals). The table (p.~TBD) shows all four traces satisfy $\mu \ge \log_2(|\Omega|/|\Omega'|)$ and produce energy values consistent with Landauer's bound.
-
-\end{figure}
 
 To connect the ledger to a physical observable, I design a narrowly scoped, falsifiable experiment focused on measurement/erasure thermodynamics.
 
@@ -971,49 +573,8 @@ This implies an invariant that is easy to audit from the JSON artifact:
 \paragraph{Concrete run.}
 For $n=2^{20}$, the certificate size is $\log_2(n!)\approx 1.9459\times 10^7$ bits, so the harness charges $\mu=19{,}458{,}756$. The observed slack is $\approx 0.069$ bits and $\mu/\log_2(n!)\approx 1.0000000036$, showing that the accounting overhead is negligible at this scale.
 
-To push beyond a single datapoint, the harness can emit a scaling sweep over record counts ($n=2^{10}$ through $2^{20}$). Figure~\ref{fig:structural_heat_scaling} visualizes the ceiling law directly: plotted as $\mu$ versus $\log_2(n!)$, the points lie between the two lines $\mu=\log_2(n!)$ and $\mu=\log_2(n!)+1$, and the lower panel plots the slack to make the bound explicit.
+To push beyond a single datapoint, the harness can emit a scaling sweep over record counts ($n=2^{10}$ through $2^{20}$).  visualizes the ceiling law directly: plotted as $\mu$ versus $\log_2(n!)$, the points lie between the two lines $\mu=\log_2(n!)$ and $\mu=\log_2(n!)+1$, and the lower panel plots the slack to make the bound explicit.
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.85\textwidth]{figures/structural_heat_scaling.png}
-    \caption{Structural heat scaling sweep, derived from first principles. Top: charged $\mu$ versus certificate bits $\log_2(n!)$ with the lower bound and the ceiling envelope. Bottom: slack $\mu-\log_2(n!)$ staying in $[0,1)$, which is exactly what $\mu=\lceil\log_2(n!)\rceil$ predicts.}
-    \label{fig:structural_heat_scaling}
-
-\paragraph{Understanding Figure~\ref{fig:structural_heat_scaling}:}
-
-This \textbf{structural heat scaling diagram} visualizes the \textit{certificate ceiling law}: claiming structured insight (e.g., ``this buffer is sorted'') without revealing the structure requires paying $\mu = \lceil \log_2(n!) \rceil$ bits, where $n!$ counts the microstates consistent with the claim.
-
-\textbf{Visual elements (Top panel):}
-\begin{itemize}
-    \item \textbf{Horizontal axis:} $\log_2(n!)$ (certificate bits). For $n$ records, a ``sorted'' claim collapses $n!$ permutations to one canonical ordering, requiring $\log_2(n!)$ bits to specify.
-    \item \textbf{Vertical axis:} $\mu$ (charged $\mu$-bits). The ledger value after the structure claim.
-    \item \textbf{Blue data points:} Experiments for $n \in \{2^{10}, 2^{11}, \ldots, 2^{20}\}$ (11 points). Each point shows $(\log_2(n!), \mu)$ for that $n$.
-    \item \textbf{Red dashed line (lower bound):} $\mu = \log_2(n!)$. This is the \textit{information-theoretic minimum}---you cannot claim structural knowledge without paying at least this much.
-    \item \textbf{Green dashed line (upper envelope):} $\mu = \log_2(n!) + 1$. This is the \textit{ceiling bound}---the implementation rounds up to the next integer bit.
-    \item \textbf{Observation:} All blue points lie \textit{between} the two dashed lines, confirming the ceiling law $\log_2(n!) \le \mu < \log_2(n!) + 1$.
-\end{itemize}
-
-\textbf{Visual elements (Bottom panel):}
-\begin{itemize}
-    \item \textbf{Horizontal axis:} $\log_2(n!)$ (same as top panel).
-    \item \textbf{Vertical axis:} $\mu - \log_2(n!)$ (slack). This is the ``wasted'' bits due to integer rounding.
-    \item \textbf{Blue data points:} Same experiments, now showing the slack for each $n$.
-    \item \textbf{Red dashed lines (bounds):} $\mu - \log_2(n!) \in [0, 1)$. The slack is always non-negative (no free information) and strictly less than 1 bit (ceiling rounding).
-    \item \textbf{Observation:} All blue points lie \textit{within} the $[0,1)$ interval, with typical slack $\approx 0.07$ bits for large $n$ (e.g., $n=2^{20}$ has slack $\approx 0.069$ bits).
-\end{itemize}
-
-\textbf{Key insight visualized:} This is a \textit{falsifiable test} of the revelation requirement. If the Thiele Machine allowed claiming ``sorted'' structure without charging $\mu \ge \log_2(n!)$, it would violate information conservation (getting structural knowledge for free). The ceiling law $\mu = \lceil \log_2(n!) \rceil$ is \textit{derived from first principles} (not an ad-hoc choice), and the experiments confirm it holds across 11 orders of magnitude ($n$ from 1024 to 1,048,576).
-
-\textbf{How to read this diagram:}
-\begin{enumerate}
-    \item \textbf{Top panel:} Check that all blue points lie between the red (lower) and green (upper) dashed lines. If any point is \textit{below} the red line, the ledger is broken (charging less than the information minimum). If any point is \textit{above} the green line, the implementation is inefficient (rounding error exceeds 1 bit).
-    \item \textbf{Bottom panel:} Verify that all slack values lie in $[0,1)$. The slack quantifies the ``waste'' from integer rounding---it should be uniformly distributed in $[0,1)$ for a correct implementation.
-    \item \textbf{Scaling:} The x-axis spans $\log_2(n!) \approx 10^4$ to $10^7$ bits, showing the law holds across large scales.
-\end{enumerate}
-
-\textbf{Role in thesis:} This diagram presents the \textit{structural heat anomaly workload}, a purely ledger-level falsifier for claiming structured insight without paying its cost. The experiments (Section 6.2) execute the sorted-buffer claim for $n$ from $2^{10}$ to $2^{20}$ and verify that $\mu = \lceil \log_2(n!) \rceil$ with slack $< 1$ bit. The ratio $\mu / \log_2(n!) \approx 1.0000000036$ for $n=2^{20}$ shows the accounting overhead is negligible even at large scales. This confirms the ledger enforces \textit{physical information conservation}, not just bookkeeping.
-
-\end{figure}
 
 \subsection{Ledger-constrained time dilation workload}
 \label{sec:ledger_time_dilation}
@@ -1033,132 +594,11 @@ If instead $C>B$, the communication queue cannot drain and the system enters a b
 \paragraph{Concrete run.}
 In the artifact, $B=32$, $c=1$, and the four scenarios set $C\in\{0,4,12,24\}$ bits/tick over 64 ticks. The measured rates are $r\in\{32,28,20,8\}$ steps/tick, exactly matching $r=B-C$ in this configuration. The plot overlays the derived no-backlog line $r=(B-\mu_{comm})/c$ and shades the backlog region $\mu_{comm}>B$.
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{figures/time_dilation_curve.png}
-    \caption{Ledger time dilation, derived from first principles. Points are the observed artifact values (per-tick communication spend versus compute rate). The dashed line is the no-backlog prediction $r=(B-\mu_{comm})/c$ under a fixed per-tick budget $B$ and per-step cost $c$.}
-
-\paragraph{Understanding Figure~\ref{fig:ledger_time_dilation}:}
-
-This \textbf{ledger time dilation diagram} visualizes the \textit{ledger-constrained speed limit}: under a fixed per-tick $\mu$ budget $B$, spending more on communication leaves less budget for local compute, causing the compute rate to slow down (``time dilation'').
-
-\textbf{Visual elements:}
-\begin{itemize}
-    \item \textbf{Horizontal axis:} $\mu_{\text{comm}}$ (per-tick communication spend, in $\mu$-bits). This represents the cost of emitting messages each tick (e.g., $\mu_{\text{comm}} \in \{0, 4, 12, 24\}$ bits/tick).
-    \item \textbf{Vertical axis:} $r$ (compute rate, steps/tick). This is the number of local compute operations executed per tick after paying communication costs.
-    \item \textbf{Blue data points:} Four experiments with $B=32$ (fixed per-tick budget), $c=1$ ($\mu$-cost per compute step), $C \in \{0, 4, 12, 24\}$ (per-tick communication payload):
-    \begin{itemize}
-        \item $(\mu_{\text{comm}}=0, r=32)$ — No communication, all 32 $\mu$-bits available for compute.
-        \item $(\mu_{\text{comm}}=4, r=28)$ — 4 bits spent on communication, 28 bits for compute.
-        \item $(\mu_{\text{comm}}=12, r=20)$ — 12 bits for communication, 20 bits for compute.
-        \item $(\mu_{\text{comm}}=24, r=8)$ — 24 bits for communication, 8 bits for compute.
-    \end{itemize}
-    \item \textbf{Red dashed line:} The no-backlog prediction $r = (B - \mu_{\text{comm}})/c = 32 - \mu_{\text{comm}}$. This is derived from first principles assuming $\mu_{\text{comm}} \le B$ each tick (queue drains).
-    \item \textbf{Shaded red region (right):} The backlog region $\mu_{\text{comm}} > B$. If communication costs exceed the budget, the queue cannot drain and compute collapses toward zero.
-\end{itemize}
-
-\textbf{Key insight visualized:} The $\mu$-ledger enforces a \textit{conservation law}: $\mu_{\text{total}} = \mu_{\text{comm}} + \mu_{\text{compute}}$. Under a fixed per-tick budget $B$, increasing communication ($\mu_{\text{comm}}$) \textit{necessarily} decreases compute ($\mu_{\text{compute}}$). This is analogous to time dilation in relativity: spending energy on one degree of freedom slows progress in another. The diagram shows this tradeoff is \textit{empirically measurable} and \textit{matches the first-principles derivation}.
-
-\textbf{How to read this diagram:}
-\begin{enumerate}
-    \item Start at the left: $\mu_{\text{comm}} = 0$ (no communication) gives maximum compute rate $r = B/c = 32$ steps/tick.
-    \item Move right: As $\mu_{\text{comm}}$ increases, the compute rate $r$ decreases linearly (slope $-1$ because $c=1$).
-    \item Check data points: All four blue points lie \textit{exactly} on the red dashed line, confirming the no-backlog prediction.
-    \item Backlog region: If $\mu_{\text{comm}} > 32$, the system cannot drain the communication queue and compute stalls. This is shown by the shaded red region.
-\end{enumerate}
-
-\textbf{Role in thesis:} This diagram presents the \textit{ledger-constrained time dilation workload}, an educational demonstration of the ledger's role as a \textit{physical constraint}. The experiments (Section 6.2) execute four scenarios with varying communication loads and verify that the measured compute rates match the prediction $r = (B - \mu_{\text{comm}})/c$ exactly (within experimental error). The artifact runs 64 ticks per scenario, confirming the conservation law $\mu_{\text{total}} = \mu_{\text{comm}} + \mu_{\text{compute}}$ holds tick-by-tick. This validates that the ledger is not merely an abstract counter---it enforces \textit{resource allocation tradeoffs} like a physical budget.
-
-\end{figure}
 
 \section{Performance Benchmarks}
 
 % Figure 6: Performance Overview
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=0.85, transform shape], node distance=2cm]
-% Bar chart for throughput
-\begin{axis}[
-    ybar,
-    width=10cm,
-    height=6cm,
-    ylabel={Operations/second (log scale)},
-    symbolic x coords={Raw VM, Receipts, Full Trace},
-    xtick=data,
-    ymode=log,
-    log basis y=10,
-    ymin=100,
-    ymax=10000000,
-    bar width=1.5cm,
-    nodes near coords,
-    nodes near coords style={above, font=\normalsize},
-    every axis plot/.append style={fill=blue!40}
-]
-\addplot coordinates {(Raw VM, 1000000) (Receipts, 10000) (Full Trace, 1000)};
-\end{axis}
 
-% Overhead annotation
-\node[draw, fill=yellow!10, text width=4cm, text centered, align=center] at (10,3) {
-\textbf{Overhead}\\
-Receipts: $100\times$\\
-Full Trace: $1000\times$
-};
-
-\end{tikzpicture}
-\caption{Performance comparison across VM modes: raw execution, receipt generation, and full tracing.}
-\label{fig:performance}
-
-\paragraph{Understanding Figure~\ref{fig:performance}:}
-
-This \textbf{performance comparison diagram} visualizes the overhead of receipt generation and full tracing relative to raw VM execution.
-
-\textbf{Visual elements:}
-\begin{itemize}
-    \item \textbf{Horizontal axis:} Three VM modes:
-    \begin{itemize}
-        \item \textbf{Raw VM:} Minimal execution without receipts or tracing (just state updates).
-        \item \textbf{Receipts:} Receipt generation enabled (SHA-256 hashing, chain linking, signature generation).
-        \item \textbf{Full Trace:} Complete tracing with snapshots, logs, and full state serialization.
-    \end{itemize}
-    \item \textbf{Vertical axis (log scale):} Operations per second (ops/sec). The y-axis is logarithmic (base 10) spanning $10^2$ to $10^7$.
-    \item \textbf{Blue bars:} Three bars showing throughput for each mode:
-    \begin{itemize}
-        \item \textbf{Raw VM:} $\sim 10^6$ ops/sec (1,000,000 instructions/second).
-        \item \textbf{Receipts:} $\sim 10^4$ ops/sec (10,000 instructions/second).
-        \item \textbf{Full Trace:} $\sim 10^3$ ops/sec (1,000 instructions/second).
-    \end{itemize}
-    \item \textbf{Yellow annotation box:} Shows the overhead factors:
-    \begin{itemize}
-        \item \textbf{Receipts: $100\times$} — Receipt generation is $100\times$ slower than raw execution.
-        \item \textbf{Full Trace: $1000\times$} — Full tracing is $1000\times$ slower than raw execution.
-    \end{itemize}
-\end{itemize}
-
-\textbf{Key insight visualized:} Verifiability costs performance. Raw execution is fast (1 million ops/sec) but produces no audit trail. Receipt generation enables verification but incurs $100\times$ overhead (mostly SHA-256 hashing per step). Full tracing captures complete execution history but incurs $1000\times$ overhead (state serialization, JSON writes, snapshot copies). The diagram quantifies this tradeoff: \textit{you can have speed or auditability, but not both simultaneously}.
-
-\textbf{How to read this diagram:}
-\begin{enumerate}
-    \item Start with Raw VM (leftmost bar): Baseline throughput $\sim 10^6$ ops/sec. This is the upper bound for speed.
-    \item Receipts (middle bar): Throughput drops to $\sim 10^4$ ops/sec. The $100\times$ slowdown comes from:
-    \begin{itemize}
-        \item Pre-state SHA-256 hash (32 bytes).
-        \item Post-state SHA-256 hash (32 bytes).
-        \item Instruction encoding ($\sim$50 bytes).
-        \item Chain link (32 bytes).
-        \item Total per-step overhead: $\sim$150 bytes of cryptographic computation.
-    \end{itemize}
-    \item Full Trace (rightmost bar): Throughput drops to $\sim 10^3$ ops/sec. The additional $10\times$ slowdown (beyond receipts) comes from:
-    \begin{itemize}
-        \item Full state snapshots (registers, memory, partition graph, $\mu$-ledger).
-        \item JSON serialization and file I/O.
-        \item Logging and debug metadata.
-    \end{itemize}
-    \item Yellow annotation: Summarizes the overhead factors relative to raw execution.
-\end{enumerate}
-
-\textbf{Role in thesis:} This diagram quantifies the \textit{practicality} of the Thiele Machine. While raw execution is fast enough for production use ($\sim 10^6$ ops/sec is comparable to interpreted Python), receipt generation incurs significant overhead. The evaluation (Section 6.3) shows that receipts can be generated asynchronously (off the critical path) or selectively (only for verification-critical steps) to mitigate the slowdown. The $1000\times$ overhead for full tracing is acceptable for debugging and test suites but not for production deployment. The key takeaway: \textit{verifiability is expensive, but the cost is predictable and manageable}.
-
-\end{figure}
 
 \subsection{Instruction Throughput}
 
@@ -1316,7 +756,7 @@ python3 scripts/structural_heat_experiment.py --sweep-records --records-pow-min 
     \item \textbf{--records-pow-min 10} — Minimum: $n = 2^{10} = 1024$ records.
     \item \textbf{--records-pow-max 20} — Maximum: $n = 2^{20} = 1{,}048{,}576$ records.
     \item \textbf{--records-pow-step 2} — Step: test $n \in \{2^{10}, 2^{12}, 2^{14}, 2^{16}, 2^{18}, 2^{20}\}$.
-    \item Output: Extended JSON with arrays for all $n$ values tested. Used to generate Figure~\ref{fig:structural_heat_scaling}.
+    \item Output: Extended JSON with arrays for all $n$ values tested. Used to generate .
 \end{itemize}
 
 \textbf{What is the experiment testing?} The test verifies that claiming ``structure'' (sortedness) costs $\mu$ proportional to the information reduction:
@@ -1334,13 +774,13 @@ python3 scripts/plot_structural_heat_scaling.py
 
 \paragraph{Understanding plot\_structural\_heat\_scaling.py:}
 
-\textbf{What does this script do?} Reads \path{results/structural_heat_experiment.json} and generates Figure~\ref{fig:structural_heat_scaling} showing:
+\textbf{What does this script do?} Reads \path{results/structural_heat_experiment.json} and generates  showing:
 \begin{itemize}
     \item \textbf{Top panel:} Charged $\mu$ versus certificate bits $\log_2(n!)$. Shows two lines: $\mu = \log_2(n!)$ (lower bound) and $\mu = \log_2(n!) + 1$ (ceiling envelope). Data points lie between these lines.
     \item \textbf{Bottom panel:} Slack $\mu - \log_2(n!)$ versus $n$. Shows all points satisfy $0 \leq \text{slack} < 1$, confirming $\mu = \lceil \log_2(n!) \rceil$.
 \end{itemize}
 
-\textbf{Output:} \path{thesis/figures/structural_heat_scaling.png} (embedded in thesis as Figure~\ref{fig:structural_heat_scaling}).
+\textbf{Output:} \path{thesis/figures/structural_heat_scaling.png} (embedded in thesis as ).
 
 This writes \path{results/structural_heat_experiment.json}. Regenerate the thesis figure:
 \begin{lstlisting}
@@ -1461,73 +901,7 @@ Containerized builds are supported to ensure reproducibility across environments
 \section{Summary}
 
 % Figure 7: Chapter 6 Summary
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[
-    scale=0.85, transform shape,
-    node distance=2.5cm,
-    result/.style={rectangle, draw, fill=green!20, text width=3.2cm, text centered, minimum height=1.9cm, rounded corners, font=\normalsize},
-    central/.style={rectangle, draw, fill=blue!20, text width=3.2cm, text centered, minimum height=2.4cm, rounded corners, very thick, font=\normalsize}
-]
 
-% Central validation
-\node[central, align=center, text width=3.5cm] (val) at (6,0) {\textbf{Empirical}\\
-\textbf{Validation}\\
-Theory $=$ Practice};
-
-% Results around
-\node[result, align=center, text width=3.5cm] (iso) at (0,2) {\textbf{Isomorphism}\\3-layer match\\100\% pass};
-\node[result, align=center, text width=3.5cm] (chsh) at (0,-2) {\textbf{CHSH}\\Bounds enforced\\Revelation required};
-\node[result, align=center, text width=3.5cm] (ledger) at (12,2) {\textbf{$\mu$-Ledger}\\Monotonic\\Conservative};
-\node[result, align=center, text width=3.5cm] (thermo) at (12,-2) {\textbf{Thermodynamic}\\Bridge validated\\Falsifiable};
-
-% Arrows
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (iso) -- (val);
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (chsh) -- (val);
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (ledger) -- (val);
-\draw[->, very thick, shorten >=2pt, shorten <=2pt] (thermo) -- (val);
-
-% Bottom annotation
-\node[draw, dashed, fill=yellow!10, text width=10cm, text centered, align=center] at (6,-4) {
-\textbf{Key Result:} All theoretical predictions confirmed empirically.\\
-The Thiele Machine enforces structural accounting as physical law.
-};
-
-\end{tikzpicture}
-\caption{Chapter 6 summary: Four evaluation categories converging on empirical validation of theoretical claims.}
-\label{fig:ch6_summary}
-
-\paragraph{Understanding Figure~\ref{fig:ch6_summary}:}
-
-This \textbf{chapter summary diagram} visualizes the convergence of four evaluation categories on a single verdict: \textit{all theoretical predictions confirmed empirically}.
-
-\textbf{Visual elements:}
-\begin{itemize}
-    \item \textbf{Four blue boxes (outer layer):} The four evaluation categories tested in this chapter:
-    \begin{itemize}
-        \item \textbf{3-Layer Isomorphism:} Coq, Python, RTL produce identical states for all traces.
-        \item \textbf{CHSH Experiments:} Supra-quantum correlations require revelation (cost $\mu$).
-        \item \textbf{$\mu$-Conservation:} Ledger is monotonic and exactly tracks declared costs.
-        \item \textbf{Ledger-Level Falsifiers:} Structural heat (certificate ceiling law $\mu = \lceil \log_2(n!) \rceil$) and time dilation (fixed-budget slowdown $r = (B - \mu_{\text{comm}})/c$).
-    \end{itemize}
-    \item \textbf{Green checkmarks:} Each box has a checkmark indicating PASS status (all tests passed).
-    \item \textbf{Central green circle:} Labeled ``Empirical Validation'' with arrows converging from all four boxes. This represents the unified verdict: \textit{theory matches practice}.
-    \item \textbf{Yellow dashed annotation (bottom):} ``Key Result: All theoretical predictions confirmed empirically. The Thiele Machine enforces structural accounting as physical law.'' This is the chapter's central claim.
-\end{itemize}
-
-\textbf{Key insight visualized:} Evaluation is not about proving new theorems---it's about \textit{validating that implementations faithfully realize the formal semantics}. The four test categories cover orthogonal aspects of the system: layer consistency (isomorphism), quantum constraints (CHSH), cost accounting ($\mu$-conservation), and derived predictions (structural heat, time dilation). All four categories \textit{pass}, providing empirical confidence that the formal model is correct and the implementations are faithful.
-
-\textbf{How to read this diagram:}
-\begin{enumerate}
-    \item Start at the outer boxes: Four independent evaluation categories, each addressing a different aspect of the thesis claims.
-    \item Check the checkmarks: All four boxes have green checkmarks (PASS). If any test failed, the checkmark would be red (FAIL) and the central circle would indicate a falsified claim.
-    \item Convergence: Arrows from all four boxes point to the central green circle (``Empirical Validation''), showing that passing all tests provides unified confirmation.
-    \item Bottom annotation: States the key result---the Thiele Machine enforces structural accounting as a \textit{physical law} (not merely a software convention).
-\end{enumerate}
-
-\textbf{Role in thesis:} This summary diagram appears at the end of Chapter 6, after presenting all experimental results. It provides a high-level recap of what was tested and what was confirmed. The six enumerated results (listed after the diagram) detail the specific findings: isomorphism holds for all tested traces, CHSH correctness verified, $\mu$-conservation confirmed, structural heat and time dilation match first-principles derivations, hardware synthesis feasible, all results reproducible. Together, these results validate the theoretical claims from Chapters 3--5 and establish that the Thiele Machine is not just formally correct but also practically implementable.
-
-\end{figure}
 
 The evaluation demonstrates:
 \begin{enumerate}

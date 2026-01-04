@@ -1,62 +1,5 @@
 \section{Extended Proof Architecture}
 
-% ============================================================================
-% FIGURE: Chapter Roadmap
-% ============================================================================
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=1.8, 
-    node distance=3cm,
-    domainstyle/.style={rectangle, draw, rounded corners, minimum width=5.0cm, minimum height=1.6cm, align=center, fill=blue!10},
-    core/.style={rectangle, draw, rounded corners, minimum width=6.2cm, minimum height=1.8cm, align=center, fill=yellow!20},
-    arrow/.style={->, >=Stealth, thick}
-]
-    % Core
-    \node[core, align=center, text width=3.5cm] (kernel) at (0, 0) {\textbf{Kernel Semantics}\\VMState, VMStep, $\mu$};
-    
-    % Domains
-    \node[domainstyle, align=center, text width=3.5cm] (partition) at (-4, 2) {Partition\\Logic};
-    \node[domainstyle, align=center, text width=3.5cm] (quantum) at (-1.5, 2.5) {Quantum\\Bounds};
-    \node[domainstyle, align=center, text width=3.5cm] (toe) at (1.5, 2.5) {TOE\\Limits};
-    \node[domainstyle, align=center, text width=3.5cm] (physics) at (4, 2) {Physics\\Models};
-    
-    \node[domainstyle, align=center, text width=3.5cm] (bridge) at (-4, -2) {Bridge\\Lemmas};
-    \node[domainstyle, align=center, text width=3.5cm] (nofi) at (-1.5, -2.5) {NoFI\\Interface};
-    \node[domainstyle, align=center, text width=3.5cm] (self) at (1.5, -2.5) {Self-\\Reference};
-    \node[domainstyle, align=center, text width=3.5cm] (modular) at (4, -2) {Modular\\Proofs};
-    
-    % Arrows
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (kernel) -- (partition);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (kernel) -- (quantum);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (kernel) -- (toe);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (kernel) -- (physics);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (kernel) -- (bridge);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (kernel) -- (nofi);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (kernel) -- (self);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (kernel) -- (modular);
-    
-    % Zero admit badge
-    \node[draw, circle, fill=green!30, font=\normalsize\bfseries] at (0, -0.8) {0 admits};
-    
-    % File counts
-    \node[font=\normalsize, text=gray] at (-4, 1.2) {98 files};
-    \node[font=\normalsize, text=gray] at (4, 1.2) {5 files};
-    \node[font=\normalsize, text=gray] at (-4, -1.2) {6 files};
-    \node[font=\normalsize, text=gray] at (4, -1.2) {7 files};
-\end{tikzpicture}
-\caption{Extended proof architecture: eight proof domains building on the kernel semantics, all with zero admits.}
-\label{fig:ch10-roadmap}
-\end{figure}
-
-\paragraph{Understanding Figure~\ref{fig:ch10-roadmap}: Extended Proof Architecture}
-
-\textbf{Visual Elements:} The diagram shows a central yellow box labeled ``Kernel Semantics (VMState, VMStep, $\mu$)'' with a green badge containing ``0 admits''. Eight blue rounded rectangles surround the kernel in two layers: the upper layer contains ``Partition Logic'' (left), ``Quantum Bounds'' (center-left), ``TOE Limits'' (center-right), and ``Physics Models'' (right), labeled with file counts (98, unspecified, unspecified, 5). The lower layer contains ``Bridge Lemmas'' (6 files), ``NoFI Interface'', ``Self-Reference'', and ``Modular Proofs'' (7 files). Thick arrows point from the kernel to all eight domains.
-
-\textbf{Key Insight Visualized:} This diagram reveals the \textit{layered proof architecture} of the extended Coq development: (1) the \textbf{kernel semantics} (VMState, VMStep, $\mu$-accounting) provide the foundational definitions and invariants (proven in Chapter 3), (2) eight \textbf{proof domains} build on the kernel to establish specialized results---partition logic (98 files, witness composition, refinement monotonicity), quantum bounds (Tsirelson bound $S \leq 5657/2000$, CHSH formalization), TOE limits (what the kernel forces vs. cannot force, weight family infinitude), physics models (spacetime emergence, causal cones), bridge lemmas (6 files, connecting application domains to kernel obligations), NoFI interface (abstract axiomatization of No Free Insight), self-reference (Gödelian incompleteness for partition systems), and modular proofs (Turing subsumption, Minsky machines). Critically, the \textit{zero-admit badge} guarantees every proof is complete---no \texttt{admit} tactics, no unproven assumptions, no gaps. This is the standard enforced by the Inquisitor CI check.
-
-\textbf{How to Read This Diagram:} Start at the center with the yellow ``Kernel Semantics'' box. This is the \textit{foundation}---all other proofs import the kernel definitions (VMState record, vm\_step function, $\mu$-conservation theorem). The green ``0 admits'' badge confirms that \textit{every} proof in the kernel is complete. Now follow the arrows outward to see how the kernel enables eight specialized proof domains. \textit{Upper layer} (extensions): Partition Logic (98 files under \path{coq/thielemachine/coqproofs/}) proves witness composability and refinement properties; Quantum Bounds prove the Tsirelson bound as exact rational $5657/2000$ (not float approximation); TOE Limits prove what the kernel \textit{can} force (locality, $\mu$-monotonicity, cone locality) and what it \textit{cannot} force (unique weight, probability, Lorentz structure); Physics Models formalize spacetime emergence from the \texttt{reaches} relation and causal cone algebra. \textit{Lower layer} (infrastructure): Bridge Lemmas (6 files) connect domain-specific claims (randomness, entropy, causation) to kernel-level $\mu$-accounting; NoFI Interface abstracts No Free Insight into a module type that any system can implement; Self-Reference formalizes Gödelian limits (meta-systems require additional dimensions); Modular Proofs establish Turing subsumption and simulation relations. The file counts indicate scale: Partition Logic is the largest domain (98 files), demonstrating the complexity of formalizing composable witnesses.
-
-\textbf{Role in Thesis:} This roadmap previews Chapter 10's (Appendix B's) contribution: a \textit{complete, machine-verified proof corpus} with zero admits across 206 files (kernel + extensions). This is the foundation for the claim that ``the Thiele Machine is not a hand-waving analogy---it is a formally verified computational model.'' Each domain supports specific thesis claims: Partition Logic enables modular verification (Chapter 6), Quantum Bounds justify CHSH experiments (Chapter 6), TOE Limits explain why the Thiele Machine is \textit{not} a Theory of Everything (Chapter 7), Physics Models show spacetime emergence (Chapter 7), Bridge Lemmas enable C-module verification (Chapter 9), NoFI Interface enables future implementations beyond the Thiele Machine, Self-Reference formalizes the limits of self-knowledge, Modular Proofs guarantee Turing-completeness. The zero-admit standard ensures every claim is \textit{checkable}---if Coq accepts the proof, it is correct. This is the difference between the Thiele Machine (machine-verified) and traditional theoretical physics (peer-reviewed but not machine-checked).
 
 \subsection{Why Machine-Checked Proofs?}
 
@@ -124,7 +67,6 @@ Proof. intros n. induction n; simpl; auto. Qed.
 
 \textbf{Comparison to paper proofs:} In a math paper, you might write ``It is easy to see that $n + 0 = n$ by induction.'' Coq requires the full proof script. This verbosity is the price of absolute certainty.
 
-\textbf{Role in this chapter:} This example demonstrates Coq syntax for readers unfamiliar with proof assistants. The extended proofs in this chapter follow the same pattern but prove much more complex theorems about the Thiele Machine.
 
 This states ``for all natural numbers n, n + 0 = n'' and proves it by induction.
 
@@ -220,7 +162,6 @@ Record GlobalWitness := {
 
 \textbf{Connection to No Free Insight:} Composing witnesses \textit{costs} $\mu$ proportional to the interface complexity. You cannot merge modules ``for free''---the composition\_proof itself requires checking interfaces, which is structural work.
 
-\textbf{Role in thesis:} These structures formalize the claim that partition-native computing supports \textit{modular verification}. You can prove properties module-by-module and compose the proofs, without global re-checking. This is the foundation of scalable verification.
 
 These records appear in \path{coq/thielemachine/coqproofs/PartitionLogic.v}, where they are used to formalize the notion of composable witnesses. The key point is that the “witness” objects are concrete data structures that can be reasoned about in Coq and then mirrored in executable checkers.
 
@@ -299,7 +240,6 @@ The correlations yield $S = 2\sqrt{2} \approx 2.82842712$. The theorem confirms 
 
 \textbf{Connection to No Free Insight:} Claiming $S > 2.8285$ requires \textit{revelation}---making internal partition structure observable. This costs $\mu$. The theorem ensures that quantum correlations \textit{without} revelation cannot exceed the Tsirelson bound.
 
-\textbf{Role in thesis:} This is the formal foundation for CHSH experiments (Chapter 6). When we claim supra-quantum correlations require revelation, this theorem proves that \textit{standard quantum mechanics cannot achieve $S > 2.8285$}. Any trace claiming $S > 2.8285$ must include \texttt{REVEAL} instructions.
 
 The \textbf{literal quantitative bound}:
 \begin{equation}
@@ -406,7 +346,6 @@ Theorem thiele_simulates_turing :
 
 \textbf{Connection to No Free Insight:} Turing machines are \textit{ignorant} of partition structure---they cannot query ``Is element $x$ in module $A$?'' The Thiele Machine extends Turing machines with \texttt{REVEAL} instructions, which cost $\mu$. But when \texttt{REVEAL} is not used, the Thiele Machine behaves \textit{exactly} like a Turing machine. This theorem formalizes that equivalence.
 
-\textbf{Role in thesis:} This theorem justifies the claim that ``partition-native computing generalizes classical computing.'' Any classical algorithm (sorting, matrix multiplication, SAT solving) can run on the Thiele Machine with identical results. The Thiele Machine is \textit{not} a restriction of computation---it is an \textit{extension} that adds partition-aware instructions.
 
 This proves that the Thiele Machine properly subsumes Turing computation.
 The kernel version of this theorem is in \texttt{coq/kernel/Subsumption.v}, and the extended proof layer re-exports it in \path{coq/thielemachine/coqproofs/Subsumption.v}. This ensures that the subsumption claim is grounded in the same semantics used for the rest of the model.
@@ -426,58 +365,6 @@ Further results cover: blind vs sighted computation, confluence, simulation rela
 
 \section{Theory of Everything (TOE) Proofs}
 
-% ============================================================================
-% FIGURE: TOE Results
-% ============================================================================
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[
-    node distance=2.5cm,
-    forces/.style={rectangle, draw, rounded corners, minimum width=4.9cm, minimum height=1.2cm, align=center, fill=green!15, font=\normalsize},
-    nogo/.style={rectangle, draw, rounded corners, minimum width=4.9cm, minimum height=1.2cm, align=center, fill=red!15, font=\normalsize},
-    arrow/.style={->, >=Stealth, thick},
-    scale=0.85, transform shape
-]
-    % Kernel
-    \node[rectangle, draw, rounded corners, fill=yellow!20, minimum width=7.2cm, minimum height=1.8cm, align=center, text width=3.5cm] (kernel) at (0, 0) {\textbf{Kernel Semantics}\\Compositionality};
-    
-    % What kernel forces
-    \node[font=\normalsize\bfseries] at (-3.5, 2) {Kernel Forces};
-    \node[forces] (locality) at (-3.5, 1) {Locality};
-    \node[forces] (monotone) at (-3.5, 0) {$\mu$-Monotonicity};
-    \node[forces] (cone) at (-3.5, -1) {Cone Locality};
-    
-    % What kernel cannot force
-    \node[font=\normalsize\bfseries] at (3.5, 2) {Kernel Cannot Force};
-    \node[nogo] (weight) at (3.5, 1) {Unique Weight};
-    \node[nogo] (prob) at (3.5, 0) {Probability Measure};
-    \node[nogo] (lorentz) at (3.5, -1) {Lorentz Structure};
-    
-    % Arrows
-    \draw[arrow, green!60!black, shorten >=2pt, shorten <=2pt] (kernel) -- (locality);
-    \draw[arrow, green!60!black, shorten >=2pt, shorten <=2pt] (kernel) -- (monotone);
-    \draw[arrow, green!60!black, shorten >=2pt, shorten <=2pt] (kernel) -- (cone);
-    
-    \draw[arrow, red!60!black, dashed, shorten >=2pt, shorten <=2pt] (kernel) -- (weight);
-    \draw[arrow, red!60!black, dashed, shorten >=2pt, shorten <=2pt] (kernel) -- (prob);
-    \draw[arrow, red!60!black, dashed, shorten >=2pt, shorten <=2pt] (kernel) -- (lorentz);
-    
-    % Key theorem
-    \node[draw, rounded corners, fill=gray!10, font=\normalsize, text width=6cm, align=center] at (0, -2.5) {\texttt{Physics\_Requires\_Extra\_Structure}\\Additional axioms needed beyond compositionality};
-\end{tikzpicture}
-\caption{TOE results: the kernel forces locality and monotonicity but cannot force unique weights or Lorentz structure.}
-\label{fig:toe-results}
-\end{figure}
-
-\paragraph{Understanding Figure~\ref{fig:toe-results}: Theory of Everything Limits}
-
-\textbf{Visual Elements:} The diagram is divided into left and right halves connected to a central yellow box labeled ``Kernel Semantics (Compositionality)''. The left side, titled ``Kernel Forces'', contains three small green boxes: ``Locality'', ``$\mu$-Monotonicity'', and ``Cone Locality'', with solid green arrows pointing from the kernel to these boxes. The right side, titled ``Kernel Cannot Force'', contains three small red boxes: ``Unique Weight'', ``Probability Measure'', and ``Lorentz Structure'', with dashed red arrows pointing from the kernel to these boxes. Below the diagram, a gray box contains: ``\texttt{Physics\_Requires\_Extra\_Structure}: Additional axioms needed beyond compositionality''.
-
-\textbf{Key Insight Visualized:} This diagram encapsulates the \textit{Theory of Everything (TOE) no-go results}: the kernel semantics (compositional laws for VMState and vm\_step) \textbf{force} exactly three structural properties---\textit{locality} (no faster-than-light signaling, observational no-signaling theorem 5.1), \textit{$\mu$-monotonicity} (ignorance conserved or increases, No Free Insight theorem 3.2), and \textit{cone locality} (events affect only their future causal cone via \texttt{reaches} relation). These are the ``positive results''---guaranteed by kernel laws. But the kernel \textbf{cannot force} three critical physical structures: \textit{unique weight function} (infinitely many weight functions satisfy compositional laws, Theorem CompositionalWeightFamily\_Infinite), \textit{probability measure} (observational equivalence classes are infinite without coarse-graining, Theorem region\_equiv\_class\_infinite), and \textit{Lorentz structure} (causal order does not determine spacetime metric, multiple geometries consistent with \texttt{step\_rel}). These are the ``no-go results''---require additional axioms beyond kernel semantics. The gray box delivers the key theorem: \texttt{Physics\_Requires\_Extra\_Structure} proves that deriving unique physics from kernel alone is impossible.
-
-\textbf{How to Read This Diagram:} Start at the center with the yellow ``Kernel Semantics'' box. The kernel provides \textit{compositional laws}---how VM states combine, how steps compose, how $\mu$ accumulates. Now look left at the green ``Kernel Forces'' region. Follow the solid green arrows to see what the kernel \textit{guarantees}: (1) \textbf{Locality}---if Alice and Bob's modules have disjoint boundaries, Alice's operations cannot signal to Bob (proven in Chapter 5, observational\_no\_signaling theorem). This is analogous to Bell locality in quantum mechanics. (2) \textbf{$\mu$-Monotonicity}---every computation step preserves or increases $\mu$, never decreases it (proven in Chapter 3, mu\_conservation theorem). This is the operational version of No Free Insight. (3) \textbf{Cone Locality}---an event at state $s$ can only affect events in its future causal cone $\{s' \mid \text{reaches}\ s\ s'\}$ (proven in Section~\ref{sec:spacetime}, cone\_composition theorem). This is the computational analogue of lightcone structure in relativity. These three properties are \textit{maximal closure} (Theorem KernelMaximalClosure)---the kernel forces these and \textit{only} these. Now look right at the red ``Kernel Cannot Force'' region. Follow the dashed red arrows to see what the kernel \textit{does not guarantee}: (1) \textbf{Unique Weight}---infinitely many distinct weight functions $w_0, w_1, w_2, \ldots$ satisfy the compositional laws (Theorem CompositionalWeightFamily\_Infinite). No canonical choice. (2) \textbf{Probability Measure}---without coarse-graining, observational equivalence classes are infinite, so entropy $H = \log |\Omega| = \infty$ (Theorem region\_equiv\_class\_infinite). Probability requires additional structure. (3) \textbf{Lorentz Structure}---the kernel defines causal order (via \texttt{step\_rel}), but not spacetime geometry (Minkowski, de Sitter, Schwarzschild all consistent with kernel laws). Metric requires additional postulates. The gray box at the bottom summarizes: Theorem \texttt{Physics\_Requires\_Extra\_Structure} (proven as KernelNoGoForTOE\_P) establishes that deriving unique physical theories requires \textit{extra axioms} beyond kernel compositionality.
-
-\textbf{Role in Thesis:} This diagram answers the central TOE question: \textit{``Can the Thiele Machine derive all of physics from first principles?''} The answer is \textbf{no}---and this diagram proves it rigorously. The kernel provides a \textit{framework} (locality, causality, monotonicity) consistent with many physical theories, but it does not \textit{uniquely determine} physics. Why is this important? (1) \textbf{Intellectual honesty:} The thesis does not overclaim. The Thiele Machine is \textit{not} a TOE, and we can prove exactly why. (2) \textbf{Generality:} The Thiele Machine is \textit{not} tied to specific physical models. It can represent quantum mechanics, classical mechanics, or hypothetical alternative physics. (3) \textbf{Falsifiability:} The kernel laws (green boxes) are \textit{falsifiable}---experiments can test whether locality, $\mu$-monotonicity, and cone locality hold. But the kernel does not make \textit{unfalsifiable} predictions like ``the probability of outcome X is exactly 0.5'' (which would require choosing a weight function). (4) \textbf{Modular design:} You can swap extra structure (e.g., change weight function, choose different coarse-graining) without breaking kernel semantics. This supports ``what-if'' analysis. The diagram connects to Chapter 7 (Discussion) by showing that physics-computation isomorphisms (Figure~\ref{fig:physics-isomorphism}) are \textit{not} derivations---they require additional postulates. It also justifies the C-ENTROPY requirement (Chapter 9, Figure~\ref{fig:entropy-coarse}): entropy is undefined without declared coarse-graining because observational equivalence classes are infinite (right side, red ``Probability Measure'' box). The TOE limits are \textit{proven theorems}, not philosophical claims---Coq has verified every step.
 
 This branch of the development attempts to derive physics from kernel semantics alone.
 
@@ -547,7 +434,6 @@ Both models satisfy the kernel laws (locality, $\mu$-monotonicity), but Model 2 
     \item \textbf{Falsifiability is preserved:} Even though physics is not unique, \textit{violations} of kernel laws (e.g., signaling, $\mu$-decreasing) are \textit{impossible}. The kernel provides \textit{constraints}, not predictions.
 \end{itemize}
 
-\textbf{Role in thesis:} This theorem justifies the claim that the Thiele Machine is \textit{not} a TOE. It provides a \textit{computational framework} consistent with many physical theories, but it does not uniquely determine physics. This is a feature, not a bug---it means the Thiele Machine is \textit{general-purpose}, not tied to a specific physical model.
 
 This establishes both:
 \begin{itemize}
@@ -616,7 +502,6 @@ All three functions satisfy compositionality (e.g., $w_1(A \cup B) = w_1(A) + w_
 
 \textbf{Connection to No Free Insight:} No Free Insight says ``revelation costs $\mu$,'' but it doesn't say \textit{how much} $\mu$ a specific revelation costs. That depends on the weight function, which is not unique. This is why $\mu$ is a \textit{qualitative} measure (``this costs insight'') rather than a \textit{quantitative} one (``this costs exactly 3.7 bits'').
 
-\textbf{Role in thesis:} This theorem justifies the claim that the Thiele Machine is \textit{falsifiable but not predictive}. We can verify that $\mu$ never decreases (falsifiable), but we cannot predict exact probabilities of outcomes (requires choosing a weight function). The thesis focuses on verification, not prediction, precisely because prediction would require an arbitrary choice of weight function.
 
 This proves that infinitely many weight functions satisfy all compositional laws---the kernel cannot uniquely determine a probability measure.
 
@@ -664,7 +549,6 @@ All three measures satisfy the axioms of a metric (triangle inequality, symmetry
 
 \textbf{Connection to No Free Insight:} No Free Insight says ``revelation of structure costs $\mu$,'' but it doesn't specify \textit{how much} $\mu$ in absolute terms. The cost depends on the weight function, which is not unique. This is why the thesis emphasizes \textit{relative} costs (``revealing $A$ costs more than revealing $B$'') rather than \textit{absolute} costs (``revealing $A$ costs exactly 5 units'').
 
-\textbf{Role in thesis:} This theorem is part of the TOE no-go results. It proves that the Thiele Machine cannot \textit{predict} exact probabilities (because that requires choosing a weight function). But it \textit{can} verify constraints like ``$\mu$ never decreases'' (which hold for \textit{all} weight functions).
 
 No unique weight is forced by compositionality alone.
 
@@ -750,7 +634,6 @@ Without these, Newton's laws don't make predictions. Similarly, the kernel seman
     \item \textbf{Separation of concerns:} The Thiele Machine separates \textit{computational substrate} (the kernel) from \textit{physical interpretation} (the extra structure). This is analogous to how computer science separates \textit{algorithms} from \textit{hardware}.
 \end{itemize}
 
-\textbf{Role in thesis:} This theorem is the capstone of the extended proofs chapter. It proves that the Thiele Machine is \textit{not} a TOE, and explains \textit{why}: the kernel provides constraints, but physics requires additional postulates. The thesis then focuses on what \textit{can} be verified (kernel constraints) rather than what \textit{cannot} be predicted (physical theories).
 
 This is the definitive statement: deriving a unique physical theory from the kernel alone is impossible. Additional structure (coarse-graining, finiteness axioms, etc.) is required.
 
@@ -828,7 +711,6 @@ Euclidean geometry is characterized by five postulates (e.g., ``parallel lines n
 
 \textbf{Connection to No Free Insight:} $\mu$-monotonicity \textit{is} No Free Insight. The theorem proves that No Free Insight is a \textit{forced} property---it holds for \textit{all} valid traces, not just some. This justifies the claim that No Free Insight is a \textit{law} of partition-native computing.
 
-\textbf{Role in thesis:} This theorem, combined with the no-go theorems, gives a complete characterization of the Thiele Machine's structural power. It answers: \textit{``What can the kernel guarantee?''} Answer: Locality, causality, monotonicity. \textit{``What can't it guarantee?''} Answer: Probability, geometry, constants. This separates \textit{verifiable constraints} (maximal closure) from \textit{theoretical predictions} (require extra structure).
 
 The kernel does force:
 \begin{itemize}
@@ -917,7 +799,6 @@ The causal cone of \texttt{s0} is $\{\texttt{s0}, \texttt{s1}, \texttt{s2}, \tex
 
 \textbf{What's missing: Metric structure:} The \texttt{reaches} relation defines \textit{causal order} but not \textit{distances} or \textit{geometry}. It tells you ``event $A$ can influence event $B$,'' but not ``how far apart are $A$ and $B$?'' or ``what is the proper time between $A$ and $B$?'' To add metric structure, you would need additional axioms (e.g., a distance function on states). This is part of the TOE no-go result: the kernel does not force a unique spacetime geometry.
 
-\textbf{Role in thesis:} These definitions formalize the claim that ``spacetime emerges from computation.'' The Thiele Machine does not assume spacetime exists; it generates causal structure through \texttt{step\_rel} and \texttt{reaches}. This supports the view that computation is \textit{more fundamental} than spacetime---spacetime is a derived concept, not a primitive one.
 
 Spacetime emerges from the \texttt{reaches} relation: states are ``events,'' and reachability defines the causal order.
 
@@ -987,7 +868,6 @@ Monoidal structure is powerful because it enables \textit{parallel composition}:
 
 \textbf{Connection to cone locality:} Cone locality (from KernelMaximalClosure) says: events outside the causal cone of state $s$ are independent of $s$. This theorem says: the cone of a combined trace is the union of individual cones. Together, they imply: \textit{disjoint cones mean independent computations}. If $\text{causal\_cone}(t_1) \cap \text{causal\_cone}(t_2) = \emptyset$, then $t_1$ and $t_2$ can run in parallel without interference.
 
-\textbf{Role in thesis:} This theorem formalizes \textit{compositional reasoning} about causality. You can verify that two modules have disjoint causal cones, guaranteeing they don't interfere. This is the mathematical foundation for claims like ``modules with disjoint boundaries cannot signal to each other'' (locality). It also supports the view that the Thiele Machine is \textit{modular}---you can reason about parts independently.
 
 Causal cones compose via set union when traces are concatenated. This gives cones monoidal structure.
 
@@ -1087,7 +967,6 @@ But coarse-graining is \textit{arbitrary}---there are infinitely many coarse-gra
 
 \textbf{Philosophical implications:} Entropy is not a \textit{fundamental} property---it depends on your choice of coarse-graining. This is consistent with the view that ``entropy is subjective'' (depends on the observer's knowledge or resolution). The kernel formalizes this: entropy is not forced by the computational substrate; it requires additional axioms.
 
-\textbf{Role in thesis:} This theorem justifies the claim that the Thiele Machine does not provide a \textit{unique} thermodynamic theory. Different coarse-graining rules yield different entropies. The thesis focuses on \textit{verifiable} properties (like $\mu$-monotonicity) rather than \textit{predicted} quantities (like entropy) because the latter are not uniquely determined.
 
 Observational equivalence classes are infinite, blocking log-cardinality entropy without coarse-graining.
 
@@ -1097,56 +976,9 @@ No unique probability measure over traces is forced by the kernel semantics.
 
 \section{Quantum Bound Proofs}
 
-% ============================================================================
-% FIGURE: Tsirelson Bound
-% ============================================================================
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[
-    scale=0.85
-], node distance=2.5cm]
-    % Scale
-    \draw[very thick, shorten >=2pt, shorten <=2pt] (0, 0) -- (10, 0);
-    \foreach \x in {0, 2.5, 5, 7.07, 10} {
-        \draw[very thick, shorten >=2pt, shorten <=2pt] (\x, -0.2) -- (\x, 0.2);
-    }
-    
-    % Labels
-    \node[below] at (0, -0.3) {0};
-    \node[below] at (2.5, -0.3) {2};
-    \node[below] at (5, -0.3) {$2\sqrt{2}$};
-    \node[below] at (7.07, -0.3) {$\frac{5657}{2000}$};
-    \node[below] at (10, -0.3) {4};
-    
-    % Regions
-    \fill[blue!20] (0, 0.5) rectangle (2.5, 1.5);
-    \fill[green!20] (2.5, 0.5) rectangle (5, 1.5);
-    \fill[red!20] (5, 0.5) rectangle (10, 1.5);
-    
-    \node at (1.25, 1) {Classical};
-    \node at (3.75, 1) {Quantum};
-    \node at (7.5, 1) {Supra-Q};
-    
-    % Machine-checked bound
-    \draw[very thick, red, ->, shorten >=2pt, shorten <=2pt] (7.07, 2) -- (7.07, 0.3);
-    \node[above, font=\normalsize, text=red] at (7.07, 2) {Machine-checked};
-    
-    % Key insight
-    \node[draw, rounded corners, fill=yellow!20, font=\normalsize] at (5, -1.5) {$|S| \le \frac{5657}{2000} \approx 2.8285$ (exact rational)};
-\end{tikzpicture}
-\caption{Tsirelson bound proven as exact rational inequality $\frac{5657}{2000}$, not floating-point approximation.}
-\label{fig:tsirelson-bound}
-\end{figure}
 
-\paragraph{Understanding Figure~\ref{fig:tsirelson-bound}: The Machine-Checked Tsirelson Bound}
+The Machine-Checked Tsirelson Bound}
 
-\textbf{Visual Elements:} The diagram shows a horizontal number line from 0 to 4, with tick marks at 0, 2, $2\sqrt{2} \approx 2.828$, $5657/2000 = 2.8285$, and 4. Above the line, three colored rectangular regions span different ranges: blue (``Classical'') from 0 to 2, green (``Quantum'') from 2 to $2\sqrt{2}$, and red (``Supra-Q'') from $2\sqrt{2}$ to 4. A very thick red arrow labeled ``Machine-checked'' points downward from above to the tick mark at $5657/2000$. Below the entire diagram, a yellow box contains the formula: ``$|S| \le \frac{5657}{2000} \approx 2.8285$ (exact rational)''.
-
-\textbf{Key Insight Visualized:} This diagram illustrates the \textit{machine-checked Tsirelson bound} for CHSH correlations, proven in Coq as an \textbf{exact rational inequality} (not a floating-point approximation). The CHSH value $S$ quantifies correlation strength in Bell experiments: $S = |E(0,0) - E(0,1) + E(1,0) + E(1,1)|$. The diagram separates three regimes: (1) \textbf{Classical} ($S \leq 2$, blue region)---correlations achievable with local hidden variables, no quantum entanglement. (2) \textbf{Quantum} ($2 < S \leq 2\sqrt{2} \approx 2.828$, green region)---correlations achievable with quantum entanglement (maximally entangled qubits measured in optimal bases yield $S = 2\sqrt{2}$). This is the \textit{Tsirelson bound} for standard quantum mechanics. (3) \textbf{Supra-quantum} ($S > 2\sqrt{2}$, red region)---correlations \textit{forbidden} by quantum mechanics, requiring partition structure revelation (costs $\mu$). The key innovation: the bound is proven as the \textit{exact rational} $5657/2000 = 2.8285$ (Coq's \texttt{Q} type, no rounding errors). This is a \textit{conservative} approximation of $2\sqrt{2} \approx 2.82842712$, ensuring that any $S > 2.8285$ is \textit{definitively} supra-quantum (no ambiguity from float imprecision). The red arrow labeled ``Machine-checked'' emphasizes this is \textit{not} a hand-waving bound---Coq has verified every arithmetic step using exact rationals.
-
-\textbf{How to Read This Diagram:} Start at the left with the classical regime (blue, $S \leq 2$). Suppose Alice and Bob share random coins but no entanglement. They measure particles and compute correlations. Classical physics (local hidden variables) guarantees $S \leq 2$ (proven by CHSH inequality). Now move right to the quantum regime (green, $2 < S \leq 2\sqrt{2}$). Alice and Bob now share a maximally entangled state $|\Phi^+\rangle = \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)$ and measure in optimal bases. Quantum mechanics predicts $S = 2\sqrt{2} \approx 2.82842712$ (Tsirelson's result from 1980). This \textit{violates} the classical bound ($S > 2$), demonstrating quantum entanglement. The Tsirelson bound $2\sqrt{2}$ is the \textit{maximum} CHSH value achievable in quantum mechanics (proven by semidefinite programming or operator algebra). Now move right to the supra-quantum regime (red, $S > 2\sqrt{2}$). This region is \textit{forbidden} by standard quantum mechanics. If you observe $S > 2.8285$, you have either: (1) violated quantum mechanics (extremely unlikely, Nobel-worthy), or (2) accessed \textit{partition structure} (e.g., via \texttt{REVEAL} instruction), which costs $\mu$. The Thiele Machine formalizes option (2): supra-quantum correlations require revelation, tracked cryptographically via TRS-1.0 receipts. The tick mark at $5657/2000 = 2.8285$ (slightly above $2\sqrt{2}$) is the \textit{machine-checked bound}: Theorem \texttt{quantum\_admissible\_implies\_CHSH\_le\_tsirelson} proves $|S| \leq \frac{5657}{2000}$ using Coq's rational arithmetic. Why $5657/2000$ instead of $2\sqrt{2}$ exactly? Because $\sqrt{2}$ is irrational (cannot be represented exactly as a ratio of integers), so we use a rational \textit{upper bound} that is conservative (slightly larger than $2\sqrt{2}$). If $S > 2.8285$, it is \textit{definitely} supra-quantum. The yellow box at the bottom restates the bound as a formula, emphasizing ``exact rational'' (not float approximation like $2.8284271247$, which could have rounding errors).
-
-\textbf{Role in Thesis:} This diagram is the formal foundation for the CHSH experiments in Chapter 6. When we claim ``supra-quantum correlations require revelation,'' this diagram proves the boundary: $S \leq 2.8285$ without revelation (Theorem \texttt{quantum\_admissible\_cert\_preservation}), $S > 2.8285$ requires revelation (and costs $\mu$). The machine-checked bound ensures this is \textit{not a loophole}---you cannot argue ``maybe float rounding made $S$ appear supra-quantum.'' The exact rational $5657/2000$ is \textit{provably correct} relative to Coq's foundational logic (Calculus of Constructions). This is the difference between the Thiele Machine (machine-verified bounds) and traditional quantum information theory (peer-reviewed but not machine-checked). The diagram also connects to Chapter 9 (Verifier System): the C-RAND module (Figure~\ref{fig:crand-flow}) enforces min-entropy evidence requirements, and the Tsirelson bound is an example of a \textit{quantitative bound} enforced by the verifier. If a trace claims CHSH $S = 3.0$ (supra-quantum), the verifier checks: (1) Is the cert CSR set? (Yes, required for supra-quantum.) (2) Does the certificate prove $\mu$ increased? (Yes, by the declared cost.) (3) Is $S > 2.8285$? (Yes, definitively supra-quantum by machine-checked bound.) Only if all three checks pass does the verifier return \texttt{PASS}. The diagram also previews the experimental results (Chapter 11): red-team falsification attempts (\S11.2) include trying to forge CHSH $S > 2.8285$ without revelation---the verifier rejects these attempts, confirming the bound is enforceable.
 
 \subsection{Kernel-Level Guarantee}
 
@@ -1228,7 +1060,6 @@ The theorem guarantees: if the trace is quantum-admissible, the cert CSR is pres
 \]
 Contrapositive: if cert CSR is preserved, then $S \leq 2.8285$ (quantum bound).
 
-\textbf{Role in thesis:} This theorem is the \textit{computational} version of the quantum bound. It translates the abstract mathematical bound (Tsirelson bound for correlation boxes) into a concrete operational property (cert CSR preservation for VM traces). This enables \textit{runtime verification}: you can check during execution whether the cert CSR is modified, and if not, the computation is quantum-admissible. This is used in Chapter 6 (evaluation) to verify that CHSH experiments respect quantum bounds unless \texttt{REVEAL} is explicitly called.
 
 Quantum-admissible traces cannot set the certification CSR.
 
@@ -1320,7 +1151,6 @@ The lemma guarantees this inequality holds for \textit{any} trace.
 \end{itemize}
 Thus, valid supra-quantum traces \textit{must} have $\mu$ increases matching their certs.
 
-\textbf{Role in thesis:} This lemma is the formal foundation for the claim that ``supra-quantum correlations require revelation, which costs $\mu$.'' It proves that $\mu$ is a \textit{verifiable} quantity: you can check at runtime that $\mu$ never decreases. Any trace claiming $\mu$ decreased (or stayed constant while revealing structure) is \textit{falsifiable}---it violates this lemma and can be rejected by the verifier.
 
 If supra-certification happens, then $\mu$ must increase by at least the cert-setter's declared cost.
 
@@ -1452,7 +1282,6 @@ The kernel is \textit{proven} to satisfy the interface axioms (next section).
     \item \textbf{No Free Insight:} Theorems about NO\_FREE\_INSIGHT\_SYSTEM apply to any computational model tracking ignorance.
 \end{itemize}
 
-\textbf{Role in thesis:} This interface is the \textit{abstract formalization} of No Free Insight. It separates the \textit{principle} (interface axioms) from the \textit{implementation} (Thiele Machine kernel). This enables future work: other systems (quantum computers, analog devices, biological brains) could implement this interface, inheriting all proven theorems. The Thiele Machine is one implementation, but the principle is more general.
 
 This allows the No Free Insight theorem to be instantiated for any system satisfying this interface.
 
@@ -1571,7 +1400,6 @@ Consider the statement $L = $ ``This statement is false.''
 \end{itemize}
 The paradox arises because $L$ is \textit{self-referential}. To resolve it, logicians use \textit{type theory} or \textit{meta-levels}: $L$ is a statement at level $n$, and truth is a predicate at level $n+1$. The definitions formalize this: \texttt{contains\_self\_reference S} detects self-reference, and \texttt{meta\_system S} provides the meta-level needed to reason about it.
 
-\textbf{Role in thesis:} These definitions prove that \textit{complete self-knowledge is impossible}. Any system satisfying No Free Insight has unbounded $\mu$ when reasoning about itself. This justifies the claim that the Thiele Machine is \textit{not} a TOE: it cannot fully explain itself without invoking meta-systems with additional structure. Self-reference is the ultimate form of ``structure that costs insight to access.''
 
 This formalizes why self-referential systems require meta-levels with additional ``dimensions.''
 
@@ -1614,48 +1442,6 @@ These predictions are falsifiable: if benchmarks show costs outside these bounds
 
 \section{Summary}
 
-% ============================================================================
-% FIGURE: Chapter Summary
-% ============================================================================
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=1.8, 
-    node distance=2.5cm,
-    result/.style={rectangle, draw, rounded corners, minimum width=6.2cm, minimum height=1.6cm, align=center, fill=green!15},
-    central/.style={rectangle, draw, rounded corners, minimum width=7.2cm, minimum height=1.8cm, align=center, fill=yellow!20},
-    arrow/.style={->, >=Stealth, thick}
-]
-    % Results
-    \node[result, align=center, text width=3.5cm] (corpus) at (-3, 1.5) {Zero-Admit\\Corpus};
-    \node[result] (quantum) at (3, 1.5) {CHSH $\le$ 5657/2000};
-    \node[result] (toe) at (-3, -1.5) {TOE Limits};
-    \node[result] (subsume) at (3, -1.5) {Thiele $\supset$ Turing};
-    
-    % Central
-    \node[central, align=center, text width=3.5cm] (central) at (0, 0) {\textbf{Machine-Verified}\\Computational Physics};
-    
-    % Arrows
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (corpus) -- (central);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (quantum) -- (central);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (toe) -- (central);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (subsume) -- (central);
-    
-    % Badge
-    \node[draw, circle, fill=green!30, font=\normalsize\bfseries] at (0, -0.7) {206 files};
-\end{tikzpicture}
-\caption{Extended proof architecture establishes machine-verified computational physics with zero admits across 206 files.}
-\label{fig:ch10-summary}
-\end{figure}
-
-\paragraph{Understanding Figure~\ref{fig:ch10-summary}: Extended Proofs Summary}
-
-\textbf{Visual Elements:} The diagram shows a central yellow box labeled ``\textbf{Machine-Verified} Computational Physics'' with a green circular badge containing ``206 files''. Four green rounded rectangles surround the central box: ``Zero-Admit Corpus'' (top left), ``CHSH $\leq$ 5657/2000'' (top right), ``TOE Limits'' (bottom left), and ``Thiele $\supset$ Turing'' (bottom right). Thick arrows point from all four boxes toward the central box.
-
-\textbf{Key Insight Visualized:} This summary diagram encapsulates Chapter 10's (Appendix B's) contribution: a \textit{complete, machine-verified formalization} of computational physics spanning 206 Coq files (kernel 98 + extended proofs 108) with \textbf{zero admits} (no incomplete proofs, no \texttt{admit} tactics, no unproven assumptions). Four major results converge to establish the Thiele Machine as a rigorous computational framework: (1) \textbf{Zero-Admit Corpus}---every proof is complete and checked by Coq's type-checker, enforced by the Inquisitor CI check (\S4.8) that rejects any commit containing \texttt{admit}. This is the gold standard: if Coq accepts the proof, it is correct relative to Coq's foundational logic (Calculus of Constructions with inductive types). (2) \textbf{CHSH $\leq$ 5657/2000}---the Tsirelson bound is proven as an exact rational inequality (Theorem \texttt{quantum\_admissible\_implies\_CHSH\_le\_tsirelson}), establishing the boundary between quantum ($S \leq 2.8285$) and supra-quantum ($S > 2.8285$) regimes. This is not a floating-point approximation---it is a machine-checked rational bound. (3) \textbf{TOE Limits}---the Theory of Everything no-go theorems (KernelMaximalClosure and KernelNoGoForTOE\_P) prove what the kernel \textit{forces} (locality, $\mu$-monotonicity, cone locality) and what it \textit{cannot force} (unique weight, probability, Lorentz structure), establishing that additional axioms are required to derive unique physical theories. (4) \textbf{Thiele $\supset$ Turing}---Turing subsumption (Theorem \texttt{thiele\_simulates\_turing}) proves the Thiele Machine is Turing-complete, guaranteeing it can simulate any classical algorithm with perfect fidelity. Together, these four pillars establish \textit{machine-verified computational physics}---a computational framework for reasoning about physics where every claim is formally proven, not just peer-reviewed.
-
-\textbf{How to Read This Diagram:} Start at the center with the yellow ``Machine-Verified Computational Physics'' box. This is the \textit{thesis claim}: the Thiele Machine is a formal system where physical reasoning is \textit{provably correct}. The green badge ``206 files'' quantifies the scale: this is not a toy model---it is a large-scale formalization comparable to established proof corpora (CompCert compiler: 100k lines, seL4 kernel: 200k lines, Thiele Machine: $\approx$50k lines across 206 files). Now look at the four surrounding boxes, each representing a major proof result. \textit{Top left: Zero-Admit Corpus}---every proof in all 206 files is complete. No \texttt{admit}, no \texttt{Admitted}, no \texttt{Sorry}. This is enforced by the Inquisitor tool (\path{verifier/check_no_admits.py}), which scans all \texttt{.v} files and fails CI if any admits are found. The Inquisitor is itself Coq-verified (\path{coq/thielemachine/coqproofs/Inquisitor.v}), creating a self-verifying proof system. \textit{Top right: CHSH $\leq$ 5657/2000}---the Tsirelson bound (Theorem \texttt{quantum\_admissible\_implies\_CHSH\_le\_tsirelson} in \path{coq/thielemachine/coqproofs/QuantumAdmissibilityTsirelson.v}) is machine-checked as $|S| \leq \frac{5657}{2000}$, not a float approximation. This proves that quantum-admissible systems (no partition revelation) cannot exceed $S \approx 2.8285$. Any higher correlations require \texttt{REVEAL}, which costs $\mu$. \textit{Bottom left: TOE Limits}---the no-go theorems (Theorems \texttt{KernelMaximalClosure} and \texttt{KernelNoGoForTOE\_P} in \path{coq/thielemachine/coqproofs/TOE\_Limits.v}) prove that the kernel forces locality/causality/monotonicity but \textit{cannot} force unique probability measures or spacetime geometry. Deriving unique physics requires extra axioms (coarse-graining, weight functions, metric postulates). This is why the Thiele Machine is \textit{not} a TOE---and we can prove exactly why. \textit{Bottom right: Thiele $\supset$ Turing}---the subsumption theorem (Theorem \texttt{thiele\_simulates\_turing} in \path{coq/kernel/Subsumption.v}) proves that any Turing machine computation can be simulated perfectly on the Thiele Machine (for Turing-compatible programs, \texttt{run\_tm fuel prog st = run\_thiele fuel prog st}). This guarantees Turing-completeness: the Thiele Machine is \textit{at least as powerful} as a Turing machine. Combined with the additional instructions (\texttt{REVEAL}, \texttt{PNEW}), it is \textit{strictly more powerful}. The arrows from all four boxes to the center show that these results \textit{jointly establish} machine-verified computational physics: zero admits ensure correctness, quantum bounds enable Bell experiments, TOE limits define scope, Turing subsumption ensures generality.
-
-\textbf{Role in Thesis:} This summary connects Chapter 10 to the broader thesis arc. The extended proofs (Appendix B) are not an afterthought---they are the \textit{foundation} for all empirical claims. When Chapter 6 reports CHSH experiments with $S = 3.0$ (supra-quantum), the claim is \textit{backed} by Theorem \texttt{quantum\_admissible\_implies\_CHSH\_le\_tsirelson} (CHSH $\leq$ 5657/2000 box). When Chapter 7 discusses physics-computation isomorphisms, the TOE limits box proves these are \textit{not} derivations---they require extra structure. When Chapter 9 describes the verifier system, the zero-admit corpus ensures the verifier's correctness is \textit{provable}, not assumed. When Chapter 11 reports experimental validation, the Turing subsumption box guarantees any classical test can be run on the Thiele Machine. The 206-file badge emphasizes scale: this is a \textit{production-grade} proof corpus, not a prototype. The diagram also previews the meta-theorem (\S10.6): the entire corpus is \textit{self-verifying}---the Inquisitor that enforces zero admits is itself proven correct in Coq, and the Coq kernel that checks proofs is itself verified (CompCert-based extraction). This creates a virtuous cycle: machine-checked proofs verify the machine checker. The diagram's central message: computational physics is now \textit{provably correct}, not just peer-reviewed. If you doubt a claim, you can \texttt{coqc} the file and verify it yourself. This is the ultimate falsifiability.
 
 The extended proof architecture establishes:
 \begin{enumerate}
