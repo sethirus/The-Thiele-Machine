@@ -1,65 +1,5 @@
 \section{Experimental Validation Suite}
 
-% ============================================================================
-% FIGURE: Chapter Roadmap
-% ============================================================================
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=1.8, 
-    node distance=2.5cm,
-    category/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.6cm, align=center, fill=blue!10},
-    central/.style={rectangle, draw, rounded corners, minimum width=6.2cm, minimum height=1.8cm, align=center, fill=yellow!20},
-    arrow/.style={->, >=Stealth, thick}
-]
-    % Categories
-    \node[category, align=center, text width=3.5cm] (physics) at (-4, 1.5) {Physics\\Simulations};
-    \node[category, align=center, text width=3.5cm] (falsify) at (-1.5, 2) {Falsification\\Tests};
-    \node[category] (bench) at (1.5, 2) {Benchmarks};
-    \node[category] (demo) at (4, 1.5) {Demonstrations};
-    \node[category, align=center, text width=3.5cm] (integ) at (0, -1.5) {Integration\\Tests};
-    
-    % Central
-    \node[central, align=center, text width=3.5cm] (theory) at (0, 0) {\textbf{Thiele Machine}\\Scientific Theory};
-    
-    % Arrows
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (physics) -- (theory);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (falsify) -- (theory);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (bench) -- (theory);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (demo) -- (theory);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (integ) -- (theory);
-    
-    % Result
-    \node[draw, rounded corners, fill=green!20, font=\normalsize, align=center, text width=3.5cm] at (0, -3) {All experiments PASS\\Theory remains unfalsified};
-\end{tikzpicture}
-\caption{Experimental validation suite treating the Thiele Machine as a scientific theory subject to empirical testing.}
-
-\paragraph{Understanding Figure~\ref{fig:ch11-roadmap}:}
-
-This roadmap diagram visualizes the comprehensive experimental validation suite that treats the Thiele Machine not as a purely mathematical abstraction, but as a \textbf{scientific theory subject to empirical testing}. Following Karl Popper's philosophy of science, the emphasis is on \textbf{falsification} over confirmation: actively constructing adversarial tests that could break the theory rather than cherry-picking supportive examples.
-
-\textbf{Visual elements:} The diagram shows five \textbf{blue test category boxes} arranged around a central \textbf{yellow box labeled ``Thiele Machine Scientific Theory''}: (1) ``Physics Simulations'' (upper left), (2) ``Falsification Tests'' (upper left-center), (3) ``Benchmarks'' (upper right-center), (4) ``Demonstrations'' (upper right), (5) ``Integration Tests'' (lower center). Black arrows point from each category toward the central theory box, indicating these five experimental approaches all target the same theory. Below the central box is a green result box stating ``All experiments PASS \ Theory remains unfalsified'' showing the outcome: every experimental category passed its tests without falsifying the theory.
-
-\textbf{The five experimental categories:}
-
-\begin{itemize}
-    \item \textbf{Physics Simulations (upper left):} Tests validating physical predictions made by the theory. Examples include: (1) Landauer principle validation (information erasure costs energy $\geq k_B T \ln(2)$, verified via $\mu$-increase measurements across temperatures 1K--1000K with $<1\%$ error), (2) Einstein locality test (no-signaling verified to $10^{-6}$ precision: Alice's measurement choice cannot affect Bob's marginal distribution), (3) entropy coarse-graining (raw entropy diverges without discretization, confirming region\_equiv\_class\_infinite theorem from Chapter~10), (4) observer effect (observation costs $\Delta\mu \geq 1$, mirroring quantum measurement back-action), (5) CHSH game (100,000 rounds achieved $85.3\% \pm 0.1\%$ win rate, matching Tsirelson bound $\cos^2(\pi/8) \approx 85.35\%$), (6) structural heat anomaly (certificate ceiling law validated: $\mu \in [\log_2(n!), \log_2(n!)+1)$ across $n \in [1024, 1048576]$ records), (7) ledger-constrained time dilation (compute rate $r = \lfloor(B-C)/c\rfloor$ verified with monotonic non-increasing rate as communication cost $C$ increases).
-    
-    \item \textbf{Falsification Tests (upper left-center):} Red-team adversarial attempts to break the theory. These are \textit{not} confirmatory tests but active attacks trying to falsify No Free Insight theorem and related claims. Examples: (1) receipt forgery attempts (CSR manipulation, buffer overflow, TOCTOU, replay attacks---all detected, zero false certificates issued), (2) free insight attacks (guessing, caching, oracle access, zero-cost observations---all blocked or required commensurate $\mu$-cost), (3) supra-quantum attacks (attempted PR boxes with $S > 2\sqrt{2}$---all bounded by conservative rational $5657/2000 \approx 2.8285$, consistent with Tsirelson).
-    
-    \item \textbf{Benchmarks (upper right-center):} Performance measurements to characterize computational costs and overhead. Examples: (1) partition discovery scaling (measured $\mu$-cost fits $O(n \log n)$ with $R^2 = 0.998$ across sizes 100--10,000), (2) complexity gap demonstration (partition-aware solving achieves $10^7\times$ speedup over brute-force on $n=50$ SAT with hidden modules: 37 days blind $\to$ 0.32 seconds sighted), (3) micro-benchmarks (individual primitive costs: VM step, partition lookup, $\mu$-increment), (4) macro-benchmarks (end-to-end workflows: discovery, certification, receipt verification, CHSH trials), (5) isomorphism benchmarks (three-layer validation adds 15\% overhead, all 10,000 test traces matched exactly across Python/OCaml/RTL).
-    
-    \item \textbf{Demonstrations (upper right):} Interactive showcases making abstract theory tangible. Examples: (1) CHSH game demo (command-line interface with real-time win rate, receipt generation, educational output comparing measured $85.32\%$ to Tsirelson $85.35\%$), (2) partition discovery visualization (refinement animation), (3) receipt verification demo (cryptographic validation), (4) $\mu$ tracking demo (ledger growth visualization), (5) complexity gap demo (blind vs sighted computation side-by-side), (6) research demos (Bell inequality variations, entanglement witnesses, quantum state tomography, causal inference examples for advanced users).
-    
-    \item \textbf{Integration Tests (lower center):} End-to-end verification across the full system pipeline. Examples: (1) end-to-end test suite (full pipeline from inputs through receipt generation, verifying $\mu$-monotonicity and cross-layer equality), (2) isomorphism tests (enforcing 3-layer correspondence: Python/extracted OCaml/RTL must produce bit-identical canonical projections for identical traces, any mismatch treated as critical failure), (3) fuzz testing (10,000 random instruction sequences with malformed/adversarial inputs: zero crashes, zero undefined behaviors, all $\mu$-invariants preserved).
-\end{itemize}
-
-\textbf{Key insight visualized:} Unlike traditional theoretical computer science (which relies solely on mathematical proof), the Thiele Machine \textit{makes falsifiable predictions} that can be empirically tested. This invites validation through experiments: if theory predicts $\mu$-costs scale linearly, measure them; if theory predicts locality constraints, test for violations; if theory predicts impossibility results, attempt to break them. The experimental suite is \textit{adversarial} (red-team falsification, fuzzing) rather than confirmatory, following Popper's principle that theories gain credibility by surviving falsification attempts, not by accumulating confirmations.
-
-\textbf{How to read this diagram:} Start with the five blue category boxes surrounding the central yellow theory box. Each category represents a different experimental approach: physics simulations validate physical predictions (Landauer, locality, entropy), falsification tests attack the theory adversarially (forgery, free insight, supra-quantum), benchmarks measure performance (scaling, speedups, overhead), demonstrations showcase capabilities interactively (CHSH game, visualization), integration tests verify end-to-end correctness (isomorphism, fuzzing). All five arrows converge on the central ``Thiele Machine Scientific Theory'' box, indicating these diverse experimental approaches all target the same unified theory. The green result box at bottom confirms the outcome: all experiments passed without falsifying the theory, demonstrating empirical validation complements formal proofs from Chapters~3--10.
-
-\textbf{Role in thesis:} This diagram establishes Chapter~11's organizing principle: treat the Thiele Machine as an \textit{empirical science} with testable predictions, not just a formal mathematical theory. The five experimental categories (physics/falsification/benchmarks/demonstrations/integration) provide comprehensive validation across theoretical predictions (does physics match?), security guarantees (can we break it?), performance characteristics (is it efficient?), usability (can users interact with it?), and implementation correctness (do all layers agree?). By surviving all falsification attempts and matching all predictions, the theory gains \textit{empirical credibility} beyond formal proofs. This experimental validation is \textit{essential} because: (1) proofs guarantee correctness of the \textit{model}, experiments verify correctness of the \textit{implementation}, (2) proofs establish existence, experiments demonstrate \textit{practicality}, (3) proofs convince mathematicians, experiments convince engineers and physicists. The diagram connects to Chapter~9's verifier system (which provides the infrastructure for receipt generation and verification used throughout experiments), Chapter~10's proof corpus (which establishes theoretical bounds validated experimentally, e.g., CHSH $\leq 5657/2000$, entropy requires coarse-graining), and Chapter~13's hardware implementation (which must pass the isomorphism tests ensuring Python/OCaml/RTL equivalence).
-\label{fig:ch11-roadmap}
-\end{figure}
 
 \subsection{The Role of Experiments in Theoretical Computer Science}
 
@@ -188,8 +128,6 @@ The Thiele Machine enforces this via $\mu$-conservation: erasing bits (destroyin
 
 \textbf{Falsification attempt:} A red-team test attempted to erase bits \textit{without} increasing $\mu$ by exploiting a hypothetical bug in the \texttt{ERASE} instruction. The verifier rejected all such attempts (execution failed with error code \texttt{MU\_VIOLATION}). The theory remains unfalsified.
 
-\textbf{Role in thesis:} This experiment demonstrates that the Thiele Machine is \textit{not} just a mathematical abstraction---it respects physical laws (Landauer's principle). The $\mu$ ledger is a \textit{faithful model} of thermodynamic cost, validated empirically.
-The kernel-level lower bound used here is proven in \path{coq/kernel/MuLedgerConservation.v}, which ties $\mu$ increments to irreversible operations. The experiment is the empirical mirror: it checks that the measured runs obey the same monotone cost behavior observed in the proofs.
 
 \textbf{Results:} Across 1,000 runs at temperatures from 1K to 1000K, all erasure operations showed $\mu$-increase consistent with Landauer's bound within measurement precision.
 
@@ -271,7 +209,6 @@ No-signaling holds: Bob's statistics are independent of Alice's choice. The expe
 
 \textbf{Connection to kernel proofs:} This experiment is the empirical verification of Theorem 5.1 (observational\_no\_signaling) from Chapter 5. The theorem \textit{proves} no-signaling must hold for all valid traces; the experiment \textit{checks} it holds in the implementation.
 
-\textbf{Role in thesis:} This experiment demonstrates that the Thiele Machine respects relativistic causality. Partition boundaries enforce locality at the computational level, mirroring spacetime locality in physics.
 
 \textbf{Results:} No-signaling verified to $10^{-6}$ precision across all 16 input/output combinations.
 
@@ -362,7 +299,6 @@ Entropy scales logarithmically with coarse-graining level: $S \approx \log_2(\ep
     \item \textbf{Second law:} Entropy increase is relative to a chosen coarse-graining, not absolute.
 \end{itemize}
 
-\textbf{Role in thesis:} This experiment proves that the Thiele Machine does \textit{not} uniquely determine thermodynamics. Entropy requires additional structure (coarse-graining), which is \textit{not} forced by the kernel. This supports the TOE no-go results (Chapter 10): the kernel provides constraints, but not predictions.
 
 \textbf{Results:} Raw state entropy diverges; entropy converges only with coarse-graining parameter $\epsilon > 0$.
 
@@ -427,7 +363,6 @@ This validates that $\mu$-cost tracks \textit{information gain}, not just the ac
 
 \textbf{Connection to kernel proofs:} This experiment validates the $\mu$-conservation theorem (Theorem 3.2), which proves that observations increase $\mu$ monotonically. The proof \textit{guarantees} $\Delta\mu \geq 1$; the experiment \textit{checks} it holds in practice.
 
-\textbf{Role in thesis:} This experiment demonstrates that the Thiele Machine respects quantum measurement back-action. The $\mu$ ledger correctly tracks the cost of observation, consistent with the observer effect in physics.
 
 \textbf{Results:} Every observation increments $\mu$ by at least 1 unit, consistent with minimum measurement cost.
 
@@ -532,7 +467,6 @@ The experiment uses the same rational bound, ensuring consistency between proofs
 
 \textbf{Connection to kernel proofs:} This experiment validates Theorem quantum\_admissible\_implies\_CHSH\_le\_tsirelson (Chapter 10), which proves quantum-admissible boxes satisfy $S \leq 2.8285$. The proof \textit{guarantees} this bound; the experiment \textit{demonstrates} it across 100,000 trials.
 
-\textbf{Role in thesis:} This experiment showcases the Thiele Machine's ability to certify quantum vs. supra-quantum correlations. The exact match to Tsirelson bound (within statistical error) confirms the kernel's quantum admissibility tracking is accurate.
 
 \textbf{Results:} 100,000 rounds achieved 85.3\% $\pm$ 0.1\%, consistent with the Tsirelson bound $\frac{2+\sqrt{2}}{4}$.
 
@@ -612,7 +546,6 @@ Both outcomes would indicate a bug or theoretical flaw. The experiment verifies 
 
 \textbf{Connection to kernel proofs:} This experiment validates the No Free Insight theorem (Theorem 3.3, Chapter 3), which proves that revealing structure costs $\mu$ proportional to the information gained. The proof \textit{guarantees} $\Delta\mu \geq \log_2(\text{reduction})$; the experiment \textit{demonstrates} tightness.
 
-\textbf{Role in thesis:} This experiment proves the Thiele Machine \textit{faithfully implements} the certificate ceiling law. The $\mu$ ledger tracks structural revelation with bit-level precision, making cheating (free insight) impossible.
 
 \textbf{Results:} All sweep points remain within the envelope $\mu \in [\log_2(n!), \log_2(n!)+1)$ across $n \in [1024, 1,048,576]$. Checks \texttt{mu\_lower\_bounds\_log2\_ratio} and \texttt{mu\_slack\_in\_[0,1)} pass.
 
@@ -699,7 +632,6 @@ The curve is \textit{piecewise linear} (due to the floor function) and \textit{m
 
 \textbf{Connection to kernel proofs:} This experiment validates the $\mu$-conservation theorem (Theorem 3.2), which proves $\mu$ increases monotonically and is conserved across operations. The proof \textit{guarantees} $\mu_{\text{total}} = \mu_{\text{comm}} + \mu_{\text{compute}}$; the experiment \textit{verifies} it holds for every tick.
 
-\textbf{Role in thesis:} This experiment demonstrates that the Thiele Machine enforces \textit{resource accounting} at the ledger level. The $\mu$ budget acts as a ``speed of light'' constraint: you cannot exceed it, and communication costs compete with computation.
 
 \textbf{Results:} All invariants hold: (i) $r$ is monotonically non-increasing as $C$ increases, (ii) budget conservation $\mu_{\text{total}} = \mu_{\text{comm}} + \mu_{\text{compute}}$ verified across all sweeps. Time dilation curve matches prediction.
 
@@ -773,7 +705,6 @@ Fitted curve: $\mu \approx 1.002 \cdot n \log_2 n - 3.1$ (coefficient $a \approx
 
 \textbf{Connection to kernel proofs:} This experiment validates the partition discovery algorithm's correctness (it finds the \textit{correct} partition) and efficiency (it does so in $O(n \log n)$ time). The kernel proofs (e.g., partition\_well\_formed in PartitionLogic.v) guarantee correctness; this experiment measures efficiency.
 
-\textbf{Role in thesis:} This experiment demonstrates that the Thiele Machine's partition discovery is \textit{practical}. The $O(n \log n)$ scaling enables discovery on problems with tens of thousands of variables, making the theory applicable to real-world computation.
 
 \textbf{Results:} Discovery costs matched $O(n \log n)$ prediction for sizes 100--10,000. Fitted curve: $\mu \approx 1.002 \cdot n \log_2 n - 3.1$, $R^2 = 0.998$.
 
@@ -855,75 +786,11 @@ The $\mu$-cost of revealing structure ($O(n \log n)$) is \textit{vastly} cheaper
 
 \textbf{Connection to kernel proofs:} This experiment validates the complexity gap theorem (implicit in Chapter 3): partition discovery enables exponential speedups on structured problems. The kernel proofs guarantee correctness (partition-aware solutions are valid); this experiment demonstrates efficiency (exponential speedup).
 
-\textbf{Role in thesis:} This experiment proves the Thiele Machine is \textit{not just theoretically correct}---it's \textit{practically superior} to blind computation. The ability to discover and exploit structure makes previously intractable problems (e.g., $n = 50$ SAT) instantly solvable.
 
 \textbf{Results:} For SAT instances with hidden structure, partition discovery achieved 10,000x speedup on $n = 50$ variables. Brute-force: 37 days. Partition-aware: 0.32 seconds.
 
 \section{Falsification Experiments}
 
-% ============================================================================
-% FIGURE: Falsification Red-Team
-% ============================================================================
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=1.8, 
-    node distance=2.5cm,
-    attack/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.6cm, align=center, fill=red!15},
-    defense/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.6cm, align=center, fill=green!15},
-    arrow/.style={->, >=Stealth, thick}
-]
-    % Attacks
-    \node[attack, align=center, text width=3.5cm] (forge) at (-3, 1.5) {Receipt\\Forgery};
-    \node[attack, align=center, text width=3.5cm] (insight) at (0, 1.5) {Free Insight\\Attack};
-    \node[attack, align=center, text width=3.5cm] (supra) at (3, 1.5) {Supra-Quantum\\Attack};
-    
-    % Defense
-    \node[defense] (detected) at (-3, 0) {DETECTED};
-    \node[defense] (blocked) at (0, 0) {BLOCKED};
-    \node[defense] (bounded) at (3, 0) {BOUNDED};
-    
-    % Theory
-    \node[rectangle, draw, rounded corners, fill=yellow!20, minimum width=10.8cm] (theory) at (0, -1.5) {\textbf{Theory Unfalsified}};
-    
-    % Arrows
-    \draw[arrow, red!60!black, shorten >=2pt, shorten <=2pt] (forge) -- (detected);
-    \draw[arrow, red!60!black, shorten >=2pt, shorten <=2pt] (insight) -- (blocked);
-    \draw[arrow, red!60!black, shorten >=2pt, shorten <=2pt] (supra) -- (bounded);
-    
-    \draw[arrow, green!60!black, shorten >=2pt, shorten <=2pt] (detected) -- (theory);
-    \draw[arrow, green!60!black, shorten >=2pt, shorten <=2pt] (blocked) -- (theory);
-    \draw[arrow, green!60!black, shorten >=2pt, shorten <=2pt] (bounded) -- (theory);
-    
-    % Annotations
-    \node[font=\normalsize, text=gray] at (-3, 0.7) {Zero false certs};
-    \node[font=\normalsize, text=gray] at (0, 0.7) {$\mu$-cost required};
-    \node[font=\normalsize, text=gray] at (3, 0.7) {$S \le 2.828$};
-\end{tikzpicture}
-\caption{Red-team falsification attempts: all attacks detected, blocked, or bounded, leaving the theory unfalsified.}
-
-\paragraph{Understanding Figure~\ref{fig:falsification}:}
-
-This diagram visualizes the outcomes of \textbf{red-team falsification testing}: adversarial security researchers attempted to break the Thiele Machine theory by forging receipts, obtaining free certified knowledge, or violating quantum bounds. All attacks were \textbf{detected, blocked, or bounded}, demonstrating the theory's resilience against falsification attempts. Following Popper's philosophy of science, this experimental approach prioritizes \textit{falsification} over confirmation: it is much harder (and more valuable) to survive adversarial attacks than to find supportive examples.
-
-\textbf{Visual elements:} The diagram shows three \textbf{red attack boxes} at the top labeled ``Receipt Forgery,'' ``Free Insight Attack,'' and ``Supra-Quantum Attack,'' representing different categories of adversarial attempts. Red arrows point downward from each attack to corresponding \textbf{green defense boxes} labeled ``DETECTED,'' ``BLOCKED,'' and ``BOUNDED,'' showing how each attack category was neutralized. Small gray annotations appear above each defense box: ``Zero false certs'' (forgery), ``$\mu$-cost required'' (free insight), ``$S \leq 2.828$'' (supra-quantum). Green arrows point from all three defense boxes to a single \textbf{yellow box at bottom} labeled ``Theory Unfalsified,'' indicating that despite all adversarial attempts, the theory remains valid.
-
-\textbf{The three attack categories and their defenses:}
-
-\begin{itemize}
-    \item \textbf{Receipt Forgery $\to$ DETECTED (left column):} Adversaries attempted to forge valid-looking receipts without paying the required $\mu$-cost, directly attacking the integrity of the TRS-1.0 receipt protocol (Chapter~9). Attack vectors tested: (1) \textbf{CSR manipulation:} directly write to Certificate Storage Register bypassing $\mu$-charging logic (defense: CSR is write-protected, modifications trigger \texttt{PERMISSION\_VIOLATION}), (2) \textbf{buffer overflow:} overflow stack buffer to overwrite receipt data structures in memory (defense: stack canaries, bounds checking, memory isolation detect overflow, execution aborted with \texttt{STACK\_CORRUPTION}), (3) \textbf{time-of-check/time-of-use (TOCTOU):} check receipt validity then modify before use (defense: cryptographic SHA-256 hashing ensures any modification invalidates receipt, verifier rejects with \texttt{INVALID\_RECEIPT}), (4) \textbf{replay attacks:} reuse valid receipt from previous computation (defense: receipts include nonces, timestamps, and state hashes; verifier rejects replays with \texttt{REPLAY\_DETECTED}). \textbf{Results:} All forgery attempts detected, zero false certificates issued. Gray annotation ``Zero false certs'' confirms no successful forgeries. This validates the TRS-1.0 protocol is \textit{tamper-resistant} and the $\mu$ ledger maintains cryptographic integrity (Chapter~9 verifier system design).
-    
-    \item \textbf{Free Insight Attack $\to$ BLOCKED (center column):} Adversaries attempted to obtain certified knowledge without paying computational cost, directly testing the No Free Insight theorem (Theorem~3.3 from Chapter~3). Attack strategies: (1) \textbf{guessing:} guess answer and request certificate without checking (defense: verifier requires proof-of-work with actual computation trace, rejects guesses), (2) \textbf{caching:} reuse knowledge from previous computation (defense: certificates are state-dependent with state hashes, cannot be reused across different states), (3) \textbf{oracle access:} query external oracle for answer bypassing computation (defense: all external interactions logged and charged $\mu$-cost), (4) \textbf{zero-cost observations:} observe system state without triggering $\mu$-increase (defense: all observations tracked and charged minimum $\mu = 1$). \textbf{Results:} All attempts either failed to obtain certification (no receipt generated) or required commensurate $\mu$-cost satisfying $\Delta\mu \geq \log_2(\text{information bits})$. Gray annotation ``$\mu$-cost required'' confirms No Free Insight theorem is \textit{enforced} by the implementation, not just proven mathematically. Example: attempting to certify $n=1000$ sorted records without paying $\Delta\mu \geq \log_2(1000!) \approx 8529$ bits fails with \texttt{UNDERPAID\_CERTIFICATE}. This validates the certificate ceiling law (structural heat experiment): $\mu \in [\log_2(n!), \log_2(n!)+1)$ is \textit{non-negotiable}.
-    
-    \item \textbf{Supra-Quantum Attack $\to$ BOUNDED (right column):} Adversaries attempted to create Popescu-Rohrlich (PR) boxes achieving CHSH value $S > 2\sqrt{2} \approx 2.828$, which would violate quantum mechanics. Attack strategy: construct PR box (hypothetical device achieving algebraic maximum $S = 4$, logically consistent with no-signaling but inconsistent with quantum mechanics), claim quantum-admissibility without certificate, request certification without $\mu$-cost. \textbf{Defense:} The verifier computes CHSH value from correlation statistics and checks $S \leq \frac{5657}{2000} = 2.8285$ (conservative rational approximation to Tsirelson bound $2\sqrt{2} \approx 2.828427$, using exact rational arithmetic in Coq to avoid float rounding errors). If $S > 2.8285$, verifier classifies box as \textit{supra-quantum} requiring certificate and $\mu$-cost revelation. Without certificate, verifier rejects with \texttt{CHSH\_VIOLATION}. \textbf{Results:} All attempts bounded by $S \leq 2.828$, consistent with Tsirelson. Gray annotation ``$S \leq 2.828$'' shows the enforced bound. Example: red-team test claimed $S = 3.2$ (supra-quantum) without certificate; verifier rejected as \texttt{CHSH\_VIOLATION}. This validates the quantum admissibility theorem (\texttt{quantum\_admissible\_implies\_CHSH\_le\_tsirelson} from Chapter~10): quantum-admissible boxes \textit{must} satisfy the bound, and the verifier \textit{enforces} it.
-\end{itemize}
-
-\textbf{Key insight visualized:} Red-team falsification testing provides \textit{stronger validation} than confirmatory experiments. Finding 100 examples where the theory works is less convincing than surviving 100 adversarial attempts to break it. The three attack categories target different aspects of the theory: (1) receipt forgery attacks \textit{integrity} (can we bypass cryptographic verification?), (2) free insight attacks \textit{conservation} (can we cheat the $\mu$ ledger?), (3) supra-quantum attacks \textit{physical bounds} (can we exceed quantum limits?). All three categories failed: forgery detected (zero false certificates), free insight blocked ($\mu$-cost required), supra-quantum bounded ($S \leq 2.828$). This demonstrates the theory is \textit{robust} against adversarial manipulation.
-
-\textbf{How to read this diagram:} Start with the three red attack boxes at top representing adversarial attempts: ``Receipt Forgery'' (forge certificates bypassing $\mu$-cost), ``Free Insight Attack'' (obtain certified knowledge without computation), ``Supra-Quantum Attack'' (violate Tsirelson bound). Red arrows point to green defense boxes showing outcomes: ``DETECTED'' (forgery attempts caught by cryptographic verification, CSR write-protection, TOCTOU defenses), ``BLOCKED'' (free insight attempts rejected by verifier requiring proof-of-work and state-dependent certificates), ``BOUNDED'' (supra-quantum attempts constrained by CHSH value check $S \leq 5657/2000$). Gray annotations quantify defenses: zero false certificates issued despite forgery attempts, $\mu$-cost required for all certified knowledge, CHSH bound $S \leq 2.828$ enforced. Green arrows converge from all three defense boxes to yellow ``Theory Unfalsified'' box at bottom, indicating the theory survived all falsification attempts. The flow is adversarial (red attacks) $\to$ defensive (green countermeasures) $\to$ validation (yellow unfalsified theory).
-
-\textbf{Role in thesis:} This diagram demonstrates the Thiele Machine is \textit{not just theoretically sound}---it is \textit{practically unfalsifiable} under adversarial testing. The three attack categories correspond to three core claims: (1) TRS-1.0 receipts are cryptographically secure (Chapter~9 verifier system), (2) No Free Insight theorem is enforced (Chapter~3 kernel semantics), (3) quantum bounds are respected (Chapter~10 extended proofs). By surviving red-team attacks on all three fronts, the implementation validates the formal proofs: cryptographic integrity holds (zero forgeries), $\mu$ conservation holds (no free insight), physical bounds hold (Tsirelson bound enforced). This experimental falsification campaign complements the proof-based approach: proofs establish correctness of the \textit{model}, red-team testing validates security of the \textit{implementation}. The diagram connects to: Chapter~9's verifier architecture (which provides the cryptographic receipt protocol under attack), Chapter~3's No Free Insight theorem (which the free insight attacks attempt to violate), Chapter~10's quantum admissibility theorem (which the supra-quantum attacks test), and the experimental suite's philosophy (falsification over confirmation following Popper).
-\label{fig:falsification}
-\end{figure}
 
 \subsection{Receipt Forgery Attempt}
 
@@ -979,7 +846,6 @@ def attempt_receipt_forgery():
 
 \textbf{Theoretical implications:} This experiment validates the \textit{integrity} of the $\mu$ ledger. If receipts could be forged, the No Free Insight theorem would be \textit{meaningless}. The successful defense against forgery proves the ledger is \textit{tamper-resistant}.
 
-\textbf{Role in thesis:} This experiment demonstrates the Thiele Machine is \textit{secure} against adversarial attacks. The receipt system is not just theoretically sound---it's \textit{practically unforgeable}.
 
 \subsection{Free Insight Attack}
 
@@ -1020,7 +886,6 @@ def attempt_free_insight():
 
 \textbf{Theoretical implications:} This experiment validates the No Free Insight theorem (Theorem 3.3): \textit{every} bit of certified knowledge costs $\geq 1$ bit of $\mu$. The theorem is \textit{enforced} by the implementation.
 
-\textbf{Role in thesis:} This experiment proves the Thiele Machine \textit{closes the loopholes}. There is no way to gain certified knowledge without paying the cost.
 
 \textbf{Results:} All attempts either:
 \begin{itemize}
@@ -1052,7 +917,6 @@ def attempt_supra_quantum_box():
 
 \textbf{Theoretical implications:} This experiment validates the quantum admissibility theorem (Chapter 10): quantum-admissible boxes \textit{must} satisfy $S \leq 2.8285$. The theorem is \textit{enforced} by the verifier.
 
-\textbf{Role in thesis:} This experiment proves the Thiele Machine \textit{correctly distinguishes} quantum from supra-quantum correlations.
 
 \textbf{Results:} All attempts bounded by $S \le 2.828$, consistent with Tsirelson.
 
@@ -1101,7 +965,6 @@ def benchmark_layer_isomorphism():
 
 \textbf{Theoretical implications:} The three-layer isomorphism is the \textit{foundation} of the thesis's correctness claim: if Python, extracted OCaml, and RTL all agree, and extraction is correct, then the hardware faithfully implements the formal theory.
 
-\textbf{Role in thesis:} This benchmark proves the isomorphism is \textit{not just theoretical}---it holds in practice for all tested traces with measurable overhead.
 
 \textbf{Results:} Cross-layer validation adds 15\% overhead; all 10,000 test traces matched exactly.
 
@@ -1162,7 +1025,6 @@ Receipt generated: chsh_game_receipt_2024.json
     \item \textbf{Receipt:} Cryptographic proof of the results, verifiable independently.
 \end{itemize}
 
-\textbf{Role in thesis:} This demo makes the abstract theory \textit{tangible}. Users can interact with the system, see quantum bounds enforced in real-time, and verify results independently.
 
 \subsection{Research Demonstrations}
 
@@ -1189,7 +1051,6 @@ Representative topics:
     \item \textbf{Causal inference examples:} Demonstrations of causal structure discovery using do-calculus and counterfactual reasoning.
 \end{itemize}
 
-\textbf{Role in thesis:} These demos prove the Thiele Machine is \textit{research-grade}: it supports cutting-edge experiments in quantum information and causal inference, not just toy examples.
 
 \section{Integration Tests}
 
@@ -1240,75 +1101,11 @@ def test_fuzz_vm_inputs():
 
 \textbf{Theoretical implications:} Fuzzing validates the implementation's \textit{defensive programming}: it handles malformed inputs gracefully (no crashes) while maintaining invariants (no corruption).
 
-\textbf{Role in thesis:} This test proves the Thiele Machine is \textit{production-ready}: it survives adversarial inputs without compromising correctness.
 
 \textbf{Results:} Zero crashes, zero undefined behaviors, all $\mu$-invariants preserved.
 
 \section{Continuous Integration}
 
-% ============================================================================
-% FIGURE: CI Pipeline
-% ============================================================================
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=1.8, 
-    node distance=3cm,
-    stage/.style={rectangle, draw, rounded corners, minimum width=4.0cm, minimum height=1.6cm, align=center, fill=blue!10},
-    check/.style={rectangle, draw, rounded corners, minimum width=4.0cm, minimum height=1.3cm, align=center, fill=green!15, font=\normalsize},
-    arrow/.style={->, >=Stealth, thick}
-]
-    % Stages
-    \node[stage, align=center, text width=3.5cm] (build) at (0, 0) {Proof\\Build};
-    \node[stage, align=center, text width=3.5cm] (admit) at (2.5, 0) {Admit\\Check};
-    \node[stage, align=center, text width=3.5cm] (test) at (5, 0) {Unit\\Tests};
-    \node[stage, align=center, text width=3.5cm] (iso) at (7.5, 0) {Isomorphism\\Gate};
-    \node[stage, align=center, text width=3.5cm] (bench) at (10, 0) {Bench-\\marks};
-    
-    % Checks
-    \node[check] at (0, -1) {coqc};
-    \node[check] at (2.5, -1) {0 admits};
-    \node[check] at (5, -1) {pytest};
-    \node[check] at (7.5, -1) {3-layer};
-    \node[check] at (10, -1) {perf};
-    
-    % Arrows
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (build) -- (admit);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (admit) -- (test);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (test) -- (iso);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (iso) -- (bench);
-    
-    % Result
-    \node[draw, rounded corners, fill=green!20] at (5, -2.5) {All checks PASS on every commit};
-\end{tikzpicture}
-\caption{CI pipeline: five-stage verification from proof build to benchmarks, all enforced on every commit.}
-
-\paragraph{Understanding Figure~\ref{fig:ci-pipeline}:}
-
-This diagram visualizes the \textbf{continuous integration (CI) pipeline} that enforces quality gates on every commit to the repository. Unlike traditional software projects where testing is optional or sporadic, the Thiele Machine uses \textit{mandatory} automated verification: every code change must pass all five stages (proof build, admit check, unit tests, isomorphism gate, benchmarks) before merging. This ensures the codebase remains in a \textit{continuously verified} state where formal correctness, implementation fidelity, and performance characteristics are maintained throughout development.
-
-\textbf{Visual elements:} The diagram shows five \textbf{blue stage boxes} arranged horizontally left-to-right labeled: ``Proof Build,'' ``Admit Check,'' ``Unit Tests,'' ``Isomorphism Gate,'' ``Benchmarks.'' Below each blue box is a smaller \textbf{green check box} with tool/criterion labels: ``coqc'' (build), ``0 admits'' (admit check), ``pytest'' (unit tests), ``3-layer'' (isomorphism), ``perf'' (benchmarks). Black arrows connect the blue boxes left-to-right showing the sequential pipeline flow: build $\to$ admit $\to$ test $\to$ iso $\to$ bench. At the bottom center is a green result box stating ``All checks PASS on every commit,'' indicating the enforcement policy: commits failing any stage are rejected.
-
-\textbf{The five pipeline stages:}
-
-\begin{itemize}
-    \item \textbf{Stage 1: Proof Build (\texttt{coqc}):} Compiles the entire formal Coq development (206 files: 98 kernel + 108 extended) using the Coq compiler \texttt{coqc}. This stage verifies: (1) syntax correctness (all Coq files parse without errors), (2) type checking (all definitions type-check, all proof obligations discharged), (3) dependency resolution (all imports resolve, no circular dependencies), (4) completeness (all theorems have complete proofs, no dangling obligations). \textbf{Failure modes:} compilation errors (syntax/type errors), unresolved proof obligations (incomplete proofs), missing files (broken imports). \textbf{Enforcement:} CI fails if \texttt{coqc} exits with non-zero status. \textbf{Purpose:} Ensures the formal foundation remains valid---no broken proofs, no incomplete theorems. Without this, the entire theory collapses (formal guarantees depend on proof correctness). Green check box ``coqc'' confirms the compiler is the verification tool.
-    
-    \item \textbf{Stage 2: Admit Check (``0 admits''):} Runs the \texttt{Inquisitor} tool to scan all Coq files for forbidden proof-escape constructs: (1) \texttt{Admitted.} (incomplete proofs marked admitted), (2) \texttt{admit.} (tactical to skip proof obligations), (3) \texttt{Axiom} (unproven assumptions in active proof tree), (4) \texttt{give\_up.} (deprecated proof escape). \textbf{Policy:} Must return \texttt{0 HIGH findings}---any detected forbidden construct causes CI failure. \textbf{Rationale:} The thesis claims \textit{zero admits/axioms} (Chapter~10 badge: ``0 admits''), making this a core integrity check. Admitted proofs are \textit{IOUs}---promises to prove later that may never be fulfilled. By enforcing zero admits, the CI ensures every theorem is \textit{actually proven}, not merely claimed. \textbf{Enforcement:} \texttt{Inquisitor} tool (Chapter~9 verifier system) runs as separate check after compilation, fails build if any forbidden constructs detected. Green check box ``0 admits'' shows the criterion: not even a single admitted proof is tolerated.
-    
-    \item \textbf{Stage 3: Unit Tests (\texttt{pytest}):} Executes the Python test suite using \texttt{pytest} framework covering: (1) kernel semantics tests (partition operations, $\mu$-conservation, witness composition), (2) VM execution tests (instruction semantics, register operations, memory access), (3) verifier tests (receipt generation, certificate validation, C-RAND/C-TOMO/C-ENTROPY/C-CAUSAL modules from Chapter~9), (4) physics simulation tests (Landauer principle, locality, entropy, CHSH game), (5) red-team falsification tests (forgery, free insight, supra-quantum attacks). \textbf{Coverage target:} $>90\%$ code coverage on core modules. \textbf{Failure modes:} test failures (assertions violated, invariants broken), exceptions (unhandled errors, crashes), timeouts (infinite loops, performance regressions). \textbf{Enforcement:} CI fails if any test fails or coverage drops below threshold. \textbf{Purpose:} Ensures implementation correctness---formal proofs guarantee the \textit{model} is correct, unit tests verify the \textit{code} is correct. Green check box ``pytest'' identifies the test framework.
-    
-    \item \textbf{Stage 4: Isomorphism Gate (``3-layer''):} Validates the three-layer isomorphism: Python reference implementation, extracted OCaml (mechanically extracted from Coq proofs via \texttt{coq extraction}), and RTL hardware (Verilog synthesizable to FPGA) must produce \textit{bit-identical} canonical projections for identical input traces. \textbf{Test protocol:} (1) generate 1,000 random instruction sequences with varying lengths/opcodes/operands, (2) execute each trace on all three layers (Python interpreter, extracted OCaml executable, RTL simulator), (3) compare final states ($\mu$ values, register contents, memory snapshots, certificate addresses) using canonical projection (exact projection determined by trace type: registers/memory for compute traces, module regions for partition traces), (4) assert bit-exact equality across all layers. \textbf{Failure criterion:} Any mismatch (even single-bit difference) is treated as \textit{critical failure} causing immediate CI abort. \textbf{Rationale:} The isomorphism is the \textit{trust anchor} connecting formal proofs (Coq) to executable code (Python/OCaml) to hardware (RTL). If layers disagree, either (1) extraction is broken (OCaml doesn't match Coq), (2) Python implementation is wrong (doesn't match formal semantics), or (3) RTL is incorrect (doesn't match high-level semantics). Any of these invalidates correctness claims. \textbf{Enforcement:} Dedicated isomorphism test harness runs after unit tests, compares outputs across all three layers, fails build on any discrepancy. Chapter~13 provides RTL implementation details. Green check box ``3-layer'' emphasizes the three-way validation.
-    
-    \item \textbf{Stage 5: Benchmarks (``perf''):} Measures performance characteristics and detects regressions: (1) partition discovery scaling ($O(n \log n)$ complexity verification), (2) complexity gap benchmarks (blind vs sighted computation speedups), (3) micro-benchmarks (individual primitive costs: VM step, partition lookup, $\mu$-increment), (4) macro-benchmarks (end-to-end workflows: discovery, certification, receipt verification), (5) isomorphism overhead (cross-layer validation cost: target $<20\%$ overhead). \textbf{Regression detection:} Compare current performance against baseline (stored in \path{benchmarks/baselines/}); fail if performance degrades $>10\%$ without justification. \textbf{Failure modes:} performance regressions (slower than baseline), scaling violations (measured complexity doesn't match $O(n \log n)$ prediction), overhead explosions (cross-layer validation adds $>20\%$ cost). \textbf{Enforcement:} CI fails if benchmarks detect regressions, requiring developers to either fix performance or update baselines with justification. \textbf{Purpose:} Ensures the system remains \textit{practical}---formal correctness is useless if performance is abysmal. Continuous performance monitoring prevents accidental regressions. Green check box ``perf'' indicates performance focus.
-\end{itemize}
-
-\textbf{Key insight visualized:} The CI pipeline enforces \textit{continuous verification} across all aspects of the system: formal correctness (proof build + admit check), implementation correctness (unit tests), cross-layer fidelity (isomorphism gate), and practical performance (benchmarks). This is \textit{stronger} than traditional testing: most software projects test implementation correctness only, but the Thiele Machine also tests \textit{formal correctness} (proofs compile, zero admits) and \textit{semantic equivalence} (three layers agree exactly). The sequential pipeline structure ensures problems are caught early: if proofs don't compile (stage 1), there's no point running tests (stage 3) or checking isomorphism (stage 4). The ``All checks PASS on every commit'' enforcement prevents broken code from entering the repository: developers cannot bypass CI by committing directly to main branch (protected branch rules), cannot merge pull requests with failing CI, cannot ship releases without passing pipeline.
-
-\textbf{How to read this diagram:} Follow the five blue stage boxes left-to-right showing pipeline progression: ``Proof Build'' $\to$ ``Admit Check'' $\to$ ``Unit Tests'' $\to$ ``Isomorphism Gate'' $\to$ ``Benchmarks.'' Black arrows between boxes indicate sequential dependencies: each stage must pass before proceeding to next (no parallelization to ensure dependencies respected). Below each blue stage box is a green check box naming the verification tool/criterion: \texttt{coqc} compiler (build), 0 admits policy (Inquisitor), \texttt{pytest} framework (unit tests), 3-layer comparison (isomorphism), \texttt{perf} monitoring (benchmarks). The green result box at bottom confirms enforcement policy: all five stages must pass on every commit (no exceptions, no bypasses). Read the pipeline as a series of increasingly stringent gates: first verify proofs are correct (build + admit), then verify implementation is correct (tests), then verify layers agree (isomorphism), finally verify performance is acceptable (benchmarks).
-
-\textbf{Role in thesis:} This diagram demonstrates the Thiele Machine maintains \textit{continuous verification} throughout development, not just at release time. Traditional projects often defer testing until late in development ("we'll test it later''), but the Thiele Machine enforces testing \textit{on every commit}. This prevents technical debt accumulation: broken proofs are caught immediately (can't compile), admitted proofs are rejected (Inquisitor fails), implementation bugs are detected quickly (unit tests fail), layer mismatches are blocked (isomorphism gate fails), performance regressions are flagged (benchmarks alert). The five-stage pipeline corresponds to five correctness dimensions: (1) formal correctness (proof compilation), (2) proof integrity (zero admits), (3) implementation correctness (unit tests), (4) semantic equivalence (isomorphism), (5) practical efficiency (performance). The CI enforcement ensures the repository is \textit{always} in a verified state: any commit in the main branch has passed all five gates, making the development process \textit{continuously correct}. This connects to: Chapter~9's verifier system (which provides the Inquisitor tool for admit checking and receipt validation tested in unit tests), Chapter~10's proof corpus (which must compile in stage 1 and satisfy zero-admit policy in stage 2), Chapter~13's RTL implementation (which must pass isomorphism gate in stage 4), and the experimental validation philosophy (CI is the automation of falsification testing---every commit is an experiment attempting to falsify correctness, and failures are caught automatically).
-\label{fig:ci-pipeline}
-\end{figure}
 
 \subsection{CI Pipeline}
 
@@ -1358,62 +1155,6 @@ Each proofpack includes Coq sources, compiled \texttt{.vo} files, and test trace
 
 \section{Summary}
 
-% ============================================================================
-% FIGURE: Chapter Summary
-% ============================================================================
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=1.8, 
-    node distance=2.5cm,
-    result/.style={rectangle, draw, rounded corners, minimum width=5.4cm, minimum height=1.6cm, align=center, fill=green!15},
-    central/.style={rectangle, draw, rounded corners, minimum width=7.2cm, minimum height=1.8cm, align=center, fill=yellow!20},
-    arrow/.style={->, >=Stealth, thick}
-]
-    % Results
-    \node[result, align=center, text width=3.5cm] (physics) at (-3, 1.5) {Physics\\Simulated};
-    \node[result, align=center, text width=3.5cm] (falsify) at (3, 1.5) {Falsification\\Attempted};
-    \node[result, align=center, text width=3.5cm] (bench) at (-3, -1.5) {Benchmarks\\Measured};
-    \node[result, align=center, text width=3.5cm] (ci) at (3, -1.5) {CI\\Enforced};
-    
-    % Central
-    \node[central, align=center, text width=3.5cm] (central) at (0, 0) {\textbf{All Experiments}\\PASSED};
-    
-    % Arrows
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (physics) -- (central);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (falsify) -- (central);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (bench) -- (central);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (ci) -- (central);
-    
-    % Badge
-    \node[font=\normalsize, text=green!60!black] at (0, -3) {Theory remains unfalsified};
-\end{tikzpicture}
-\caption{Experimental validation summary: physics validated, falsification attempted, benchmarks measured, CI enforced.}
-
-\paragraph{Understanding Figure~\ref{fig:ch11-summary}:}
-
-This summary diagram synthesizes the outcomes of Chapter~11's comprehensive experimental validation campaign. The central result is unambiguous: \textbf{all experiments passed}, and the theory \textbf{remains unfalsified}. By treating the Thiele Machine as a scientific theory subject to empirical testing (following Popper's philosophy of falsification over confirmation), this chapter demonstrated the theory survives rigorous validation across four critical dimensions: physical predictions, adversarial attacks, performance characteristics, and continuous enforcement.
-
-\textbf{Visual elements:} The diagram shows four \textbf{green result boxes} positioned at the four corners around a central \textbf{yellow box}: ``Physics Simulated'' (upper left), ``Falsification Attempted'' (upper right), ``Benchmarks Measured'' (lower left), ``CI Enforced'' (lower right). Black arrows point from each green box toward the central yellow box labeled ``\textbf{All Experiments} PASSED,'' indicating these four validation dimensions all contribute to the overall success. Below the central box is a green text badge stating ``Theory remains unfalsified,'' emphasizing the Popperian interpretation: surviving falsification attempts validates the theory more strongly than accumulating confirmations.
-
-\textbf{The four validation dimensions:}
-
-\begin{itemize}
-    \item \textbf{Physics Simulated (upper left):} Validated theoretical predictions about physical phenomena through seven experimental protocols: (1) \textbf{Landauer principle} (information erasure costs energy $\geq k_B T \ln(2)$: measured $\mu$-increase across temperatures 1K--1000K matched predictions within $<1\%$ error), (2) \textbf{Einstein locality} (no-signaling verified to $10^{-6}$ precision: Alice's measurement choice cannot affect Bob's marginal distribution instantaneously across 10,000 trials), (3) \textbf{entropy coarse-graining} (raw state entropy diverges confirming region\_equiv\_class\_infinite theorem; entropy converges only with coarse-graining parameter $\epsilon > 0$), (4) \textbf{observer effect} (observation costs $\Delta\mu \geq 1$: every measurement incremented $\mu$ by at least 1 unit, consistent with quantum measurement back-action), (5) \textbf{CHSH game} (100,000 rounds achieved $85.3\% \pm 0.1\%$ win rate matching Tsirelson bound $\cos^2(\pi/8) \approx 85.35\%$ exactly), (6) \textbf{structural heat anomaly} (certificate ceiling law $\mu \in [\log_2(n!), \log_2(n!)+1)$ validated across $n \in [1024, 1048576]$ records with all sweep points within envelope), (7) \textbf{ledger-constrained time dilation} (compute rate $r = \lfloor(B-C)/c\rfloor$ verified with monotonic non-increasing rate as communication cost $C$ increases, budget conservation $\mu_{\text{total}} = \mu_{\text{comm}} + \mu_{\text{compute}}$ holds). \textbf{Summary:} All physics experiments matched predictions, validating the $\mu$ ledger correctly models thermodynamic costs, locality constraints, entropy underdetermination, measurement back-action, and quantum bounds. No violations detected across thousands of trials.
-    
-    \item \textbf{Falsification Attempted (upper right):} Red-team adversarial testing attempted to break the theory through three attack categories: (1) \textbf{receipt forgery} (attack vectors: CSR manipulation, buffer overflow, TOCTOU, replay attacks; defense outcome: all detected, zero false certificates issued via write-protection/stack canaries/cryptographic hashing/nonce-timestamp checking), (2) \textbf{free insight attacks} (strategies: guessing, caching, oracle access, zero-cost observations; defense outcome: all blocked or required commensurate $\mu$-cost, No Free Insight theorem enforced: attempts without $\Delta\mu \geq \log_2(\text{information bits})$ failed with \texttt{UNDERPAID\_CERTIFICATE}), (3) \textbf{supra-quantum attacks} (strategy: construct PR box claiming $S > 2\sqrt{2}$; defense outcome: all bounded by conservative rational $5657/2000 \approx 2.8285$, verifier rejected supra-quantum claims without certificates as \texttt{CHSH\_VIOLATION}). \textbf{Summary:} All falsification attempts failed to break the theory: receipts remain tamper-resistant (TRS-1.0 cryptographic integrity holds), $\mu$ ledger remains conservation-enforcing (No Free Insight theorem cannot be bypassed), quantum bounds remain enforced (Tsirelson bound is mandatory). The theory survived adversarial attacks on integrity, conservation, and physical bounds.
-    
-    \item \textbf{Benchmarks Measured (lower left):} Performance characteristics quantified across five categories: (1) \textbf{partition discovery scaling} ($O(n \log n)$ complexity verified: measured $\mu$-costs fit $\mu \approx 1.002 \cdot n \log_2 n - 3.1$ with $R^2 = 0.998$ across sizes 100--10,000), (2) \textbf{complexity gap} (exponential speedup demonstrated: partition-aware solving achieved $10^7\times$ speedup over brute-force on $n=50$ SAT with hidden modules, reducing 37 days blind computation to 0.32 seconds sighted), (3) \textbf{micro-benchmarks} (individual primitive costs measured: VM step, partition lookup, $\mu$-increment overhead characterized), (4) \textbf{macro-benchmarks} (end-to-end workflows measured: discovery, certification, receipt verification, CHSH trials throughput), (5) \textbf{isomorphism overhead} (three-layer cross-validation adds 15\% overhead: acceptable cost for bit-exact Python/OCaml/RTL verification across 10,000 test traces). \textbf{Summary:} Performance benchmarks confirm the system is \textit{practical}: discovery scales efficiently ($O(n \log n)$), partition-awareness enables exponential speedups (10 million times faster on structured problems), overhead is acceptable (15\% for cross-layer validation), throughput is sufficient for real-world experiments (100,000 CHSH rounds complete quickly).
-    
-    \item \textbf{CI Enforced (lower right):} Continuous integration pipeline enforces quality gates on every commit through five stages: (1) \textbf{proof build} (\texttt{coqc} compiles all 206 Coq files verifying syntax, type-checking, dependency resolution, completeness), (2) \textbf{admit check} (Inquisitor enforces zero-admit policy: scans for \texttt{Admitted.}/\texttt{admit.}/\texttt{Axiom}/\texttt{give\_up.}, fails build if any detected ensuring ``0 admits'' badge validity), (3) \textbf{unit tests} (\texttt{pytest} executes test suite covering kernel semantics, VM execution, verifier modules, physics simulations, red-team falsification with $>90\%$ code coverage), (4) \textbf{isomorphism gate} (validates three-layer correspondence: 1,000 random traces executed on Python/OCaml/RTL, bit-exact state matching required, any mismatch treated as critical failure), (5) \textbf{benchmarks} (performance regression detection: compares current performance against baselines, fails if degrades $>10\%$ without justification). \textbf{Enforcement:} All checks PASS on every commit---no bypasses, no exceptions. Protected branch rules prevent direct commits to main; pull requests cannot merge with failing CI. \textbf{Summary:} The repository remains in continuously verified state: formal correctness (proofs compile with zero admits), implementation correctness (unit tests pass), cross-layer fidelity (isomorphism holds), practical performance (no regressions). CI automation ensures quality is \textit{maintained}, not just achieved at release.
-\end{itemize}
-
-\textbf{Key insight visualized:} This chapter establishes that the Thiele Machine is \textit{not just formally correct} (proven in Chapters~3--10)---it is also \textit{empirically validated} (tested in Chapter~11). The four validation dimensions are complementary: (1) \textit{physics simulations} test whether predictions match reality (does the theory describe the world?), (2) \textit{falsification attempts} test whether the theory can be broken (is it robust?), (3) \textit{benchmarks} test whether the system is practical (is it usable?), (4) \textit{CI enforcement} tests whether quality is maintained (does it stay correct?). Together, these four dimensions provide \textit{comprehensive validation}: formal proofs establish correctness of the model, physics experiments validate predictions, falsification attempts test security, benchmarks measure efficiency, CI ensures continuous quality. The central ``All Experiments PASSED'' result is unambiguous: no violations, no falsifications, no regressions. The theory survived every test.
-
-\textbf{How to read this diagram:} Start with the four green result boxes at corners representing validation dimensions: ``Physics Simulated'' (upper left: Landauer/locality/entropy/observer/CHSH/structural heat/time dilation experiments all matched predictions), ``Falsification Attempted'' (upper right: receipt forgery/free insight/supra-quantum attacks all detected/blocked/bounded), ``Benchmarks Measured'' (lower left: discovery scaling $O(n \log n)$ verified, complexity gap $10^7\times$ speedup demonstrated, isomorphism overhead 15\% acceptable), ``CI Enforced'' (lower right: five-stage pipeline proof build $\to$ admit check $\to$ unit tests $\to$ isomorphism gate $\to$ benchmarks all pass on every commit). Black arrows point from all four corners to central yellow box ``All Experiments PASSED,'' showing these diverse validation approaches all converge on the same conclusion: success. Green badge below ``Theory remains unfalsified'' emphasizes Popperian interpretation: the theory's validity is demonstrated by \textit{surviving} falsification attempts, not merely accumulating confirmations. The diagram synthesizes Chapter~11's experimental campaign into a single comprehensive result.
-
-\textbf{Role in thesis:} This summary diagram demonstrates the Thiele Machine has achieved \textit{both} formal and empirical validation. Formal proofs (Chapters~3--10: 206 files with zero admits) establish correctness of the \textit{mathematical model}, while experimental validation (Chapter~11: physics/falsification/benchmarks/CI) establishes correctness of the \textit{implementation} and validates theoretical \textit{predictions}. This two-pronged approach is essential: proofs without experiments risk being mathematically correct but physically wrong (model doesn't match reality) or practically useless (implementation doesn't match model or performs poorly), while experiments without proofs risk missing corner cases (tests pass but edge cases fail) or lacking theoretical grounding (empirical results not understood). The Thiele Machine achieves \textit{both}: formal correctness proven (zero admits/axioms) \textit{and} empirical validation passed (all experiments succeeded). The diagram connects to: Chapter~9's verifier system (which provides receipt generation and verification infrastructure tested throughout Chapter~11 experiments), Chapter~10's proof corpus (which establishes theoretical bounds validated experimentally: CHSH $\leq 5657/2000$, entropy requires coarse-graining, $\mu$ monotonicity), Chapter~13's hardware implementation (which must pass isomorphism gate ensuring Python/OCaml/RTL equivalence), and the thesis's overall claim (partition-native computing is \textit{both} theoretically sound \textit{and} practically realizable). The green ``Theory remains unfalsified'' badge is the thesis's empirical stamp of approval: the theory has been attacked adversarially and tested rigorously across physics/security/performance dimensions, and it survived without a single falsification.
-\label{fig:ch11-summary}
-\end{figure}
 
 The experimental validation suite establishes:
 \begin{enumerate}

@@ -1,91 +1,5 @@
 \section{Hardware Implementation and Demonstrations}
 
-% ============================================================================
-% FIGURE: Chapter Roadmap
-% ============================================================================
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=1.8, 
-    node distance=3cm,
-    layer/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.6cm, align=center, fill=blue!10},
-    hw/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.6cm, align=center, fill=green!15},
-    demo/.style={rectangle, draw, rounded corners, minimum width=4.6cm, minimum height=1.6cm, align=center, fill=yellow!20},
-    arrow/.style={->, >=Stealth, thick}
-]
-    % 3 Layers
-    \node[layer, align=center, text width=3.5cm] (coq) at (-3, 2) {Coq\\Proofs};
-    \node[layer, align=center, text width=3.5cm] (python) at (0, 2) {Python\\VM};
-    \node[layer, align=center, text width=3.5cm] (verilog) at (3, 2) {Verilog\\RTL};
-    
-    % Isomorphism
-    \draw[<->, very thick, red, shorten >=2pt, shorten <=2pt] (coq) -- (python);
-    \draw[<->, very thick, red, shorten >=2pt, shorten <=2pt] (python) -- (verilog);
-    \node[font=\normalsize, text=red] at (-1.5, 2.4) {$\cong$};
-    \node[font=\normalsize, text=red] at (1.5, 2.4) {$\cong$};
-    
-    % Hardware modules
-    \node[hw, align=center, text width=3.5cm] (cpu) at (-3, 0) {CPU\\Core};
-    \node[hw] (alu) at (0, 0) {$\mu$-ALU};
-    \node[hw, align=center, text width=3.5cm] (serial) at (3, 0) {State\\Serializer};
-    
-    % Demos
-    \node[demo, align=center, text width=3.5cm] (chsh) at (-1.5, -2) {CHSH\\Demo};
-    \node[demo, align=center, text width=3.5cm] (impossibility) at (1.5, -2) {Impossibility\\Demo};
-    
-    % Arrows
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (verilog) -- (cpu);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (verilog) -- (alu);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (verilog) -- (serial);
-    
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (cpu) -- (chsh);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (cpu) -- (impossibility);
-    
-    % Synthesis target
-    \node[draw, rounded corners, fill=gray!10, font=\normalsize, align=center, text width=3.5cm] at (0, -3.5) {Target: Xilinx 7-series FPGA\\125 MHz, 2,847 LUTs};
-\end{tikzpicture}
-\caption{Chapter E roadmap: 3-layer isomorphism flows to hardware modules and demonstrations, targeting FPGA synthesis.}
-\label{fig:ch13-roadmap}
-
-% ====================================================================================
-% COMPREHENSIVE FIRST-PRINCIPLES EXPLANATION: Figure 13.1 (ch13-roadmap)
-% ====================================================================================
-
-\textbf{Understanding Figure~\ref{fig:ch13-roadmap}:}
-
-This diagram presents the \textbf{hardware implementation roadmap} for the Thiele Machine, showing how formal proofs flow through three isomorphic layers (Coq, Python, Verilog RTL) to hardware modules (CPU core, $\mu$-ALU, state serializer) and ultimately to interactive demonstrations (CHSH game, impossibility proofs). The roadmap establishes that the Thiele Machine is not merely a theoretical construct but a \textit{realizable computational architecture} with silicon-enforced guarantees, synthesizable to real FPGAs.
-
-\textbf{Visual Elements Breakdown:}
-
-\textit{Top Row (3 Layers):} Three blue boxes arranged horizontally represent the three implementation layers of the Thiele Machine: (1) \textbf{Coq Proofs} (left, -3,2): the formal specification layer containing all theorems ($\mu$-monotonicity, locality enforcement, kernel maximal closure, certificate ceiling laws) in \texttt{coq/} directory with ~15,000 lines of verified definitions and proofs, (2) \textbf{Python VM} (center, 0,2): the executable reference semantics implementing \texttt{ThieleVM} class with \texttt{execute()} and \texttt{step()} methods, serving as ground truth for behavior (used by isomorphism tests and benchmarks), (3) \textbf{Verilog RTL} (right, 3,2): the hardware description layer synthesizable to FPGA bitstreams, implementing the complete ISA with fetch/decode/execute pipeline in \texttt{thielecpu/hardware/thiele\_cpu.v}. These three layers form the verification chain: proofs establish correctness, Python provides executable specification, RTL realizes hardware.
-
-\textit{Isomorphism Arrows:} Two very thick red bidirectional arrows connect the three layers with red $\cong$ (congruence) symbols: (1) Arrow between Coq and Python (at -1.5, 2.4): represents Coq extraction to OCaml followed by manual mirroring in Python, verified by comparing extracted OCaml runner output to Python VM output on thousands of test programs, (2) Arrow between Python and Verilog (at 1.5, 2.4): represents isomorphism testing comparing Python VM final states to RTL simulation JSON outputs, ensuring bit-exact agreement on program counter, $\mu$-ledger, registers, memory. The bidirectional nature emphasizes that isomorphism is symmetric: each layer can be used to validate the others.
-
-\textit{Middle Row (Hardware Modules):} Three green boxes represent synthesizable Verilog modules implementing the core architecture: (1) \textbf{CPU Core} (left, -3,0): fetch/decode/execute pipeline with program counter, instruction decoder (generated from Coq opcode list), register file (32 general-purpose registers), memory management unit (MMU), logic engine interface (LEI) for external SAT/SMT solvers, (2) \textbf{$\mu$-ALU} (center, 0,0): specialized arithmetic unit for $\mu$-ledger updates using Q16.16 fixed-point format (16 integer bits, 16 fractional bits), supporting ADD/MUL/DIV/LOG2 operations, enforces monotonicity by rejecting subtractions via overflow detection, (3) \textbf{State Serializer} (right, 3,0): canonical serialization module converting internal state (partition graph, $\mu$-ledger, registers, memory) to deterministic byte stream (Canonical Serialization Format, CSF) for cross-layer comparison. Arrows flow from Verilog RTL box to all three hardware modules, indicating RTL code synthesizes to these physical components.
-
-\textit{Bottom Row (Demonstrations):} Two yellow boxes represent interactive demonstrations showcasing Thiele Machine capabilities: (1) \textbf{CHSH Demo} (left, -1.5,-2): flagship demonstration executing CHSH game with quantum bounds (85.35\% Tsirelson bound vs 75\% classical), generates verifiable receipts with program hash, trace hash, final state, and cryptographic signature, (2) \textbf{Impossibility Demo} (right, 1.5,-2): demonstrates No Free Insight constraints by attempting to extract information without paying $\mu$-cost, showing ledger enforcement blocks attempts. Arrows flow from CPU Core to both demonstrations, indicating demos run on the synthesized CPU.
-
-\textit{Synthesis Target (Bottom):} Gray box at (0,-3.5) specifies FPGA target: \textbf{Xilinx 7-series FPGA, 125 MHz, 2,847 LUTs}. This shows concrete hardware resources: Artix-7 FPGA family (low-cost development boards like Basys3, Arty A7), 125 MHz maximum frequency (8 ns clock period, sufficient for single-cycle ALU operations), 2,847 lookup tables (LUTs, the basic logic building block in FPGAs, modest resource usage leaving 90\%+ FPGA capacity for application logic). The synthesis results validate that the Thiele Machine is implementable on commodity hardware, not requiring exotic or expensive resources.
-
-\textbf{Key Insights:}
-
-\textit{3-Layer Isomorphism as Foundation:} The roadmap's structure emphasizes that hardware correctness rests on the 3-layer isomorphism: Coq proofs establish mathematical correctness (e.g., $\mu$-monotonicity theorem proves ledger never decreases), Python VM provides executable reference (ground truth for expected behavior on any program), RTL simulation outputs JSON states for comparison to Python. The isomorphism property (all three layers produce bit-identical outputs for same program) means theorems proven in Coq automatically apply to synthesized hardware. This eliminates the \textit{trusted verification gap} where hardware implementations might deviate from specifications. The 10,000 test traces mentioned in the chapter (all matched) provide statistical evidence that isomorphism holds across diverse programs.
-
-\textit{Hardware Enforcement of Invariants:} The $\mu$-ALU's placement highlights a critical architectural insight: invariants can be physically enforced by hardware design. The $\mu$-ALU has \textit{no subtract path}---it architecturally cannot perform $\mu - \Delta\mu$ operations without triggering overflow detection. Software implementations (Python, OCaml) rely on programmatic checks (\texttt{if new\_mu < old\_mu: raise MonotonicityViolation}), which can be bypassed by bugs or malicious code. Hardware enforcement means monotonicity violations are impossible even if buggy software attempts them. The CPU core gates all ledger updates through the $\mu$-ALU, and any overflow signal halts execution with \texttt{MU\_VIOLATION} error. This architectural guarantee is unique to hardware realizations.
-
-\textit{From Proofs to Silicon Pipeline:} The diagram traces the complete verification pipeline: (1) Coq proofs (mathematical correctness), (2) Extraction to OCaml (executable proof artifacts), (3) Mirroring in Python (human-readable reference), (4) Implementation in Verilog RTL (hardware description), (5) Synthesis to FPGA bitstreams (physical silicon). Each stage is validated: extraction correctness guaranteed by Coq's meta-theory, Python-OCaml agreement verified by comparing 10,000 traces, RTL-Python agreement verified by isomorphism tests, synthesis correctness guaranteed by FPGA vendor tools (Vivado for Xilinx). This end-to-end pipeline means the synthesized hardware provably implements the formal specification.
-
-\textit{Demonstrations as Validation:} The CHSH and impossibility demonstrations serve dual purposes: (1) \textit{Functional validation}: running complex multi-step programs exercises the entire ISA (partition operations, logic engine queries, $\mu$ accounting, receipt generation), exposing bugs that unit tests might miss, (2) \textit{Capability showcase}: demonstrates that the Thiele Machine can perform quantum-inspired computation (CHSH achieving 85.32\% matches quantum bound) and enforce constraints (impossibility demo shows ledger blocks free insight). The demonstrations produce cryptographic receipts, providing \textit{falsifiable evidence}: anyone can verify the receipt's signature and replay the trace to confirm results.
-
-\textit{Synthesis Target Realism:} The Xilinx 7-series target (125 MHz, 2,847 LUTs) proves the Thiele Machine is implementable on commodity hardware. Xilinx Artix-7 FPGAs are available on development boards costing \$100-\$300 (Basys3, Arty A7, Nexys A7), making the architecture accessible for replication. The modest LUT count (2,847 out of 33,280 for XC7A35T, ~8.5\% utilization) leaves ample capacity for application logic. The 125 MHz frequency is conservative (Artix-7 can exceed 200 MHz for optimized designs), ensuring timing closure without hand-tuning. These specifications demonstrate that the Thiele Machine's theoretical power (quantum bounds, partition revelation) does not require exotic hardware---standard FPGA logic suffices.
-
-\textbf{Reading Guide:}
-
-Start at the \textit{top row} (3 layers) to understand the three implementation levels: Coq proofs establish correctness, Python VM provides executable specification, Verilog RTL realizes hardware. Follow the \textit{red isomorphism arrows} to see how layers validate each other: Coq $\leftrightarrow$ Python via extraction and mirroring, Python $\leftrightarrow$ RTL via isomorphism testing. Move to the \textit{middle row} (hardware modules) to see how RTL synthesizes to concrete components: CPU core implements ISA, $\mu$-ALU enforces monotonicity, state serializer enables cross-layer verification. Follow \textit{arrows downward} to demonstrations: CHSH demo showcases quantum bounds, impossibility demo validates constraint enforcement. Conclude at the \textit{synthesis target} to see concrete FPGA specifications (125 MHz, 2,847 LUTs on Xilinx 7-series), proving realizability on commodity hardware. The flow establishes: Proofs $\rightarrow$ Semantics $\rightarrow$ Hardware $\rightarrow$ Demonstrations $\rightarrow$ Silicon, with isomorphism guarantees at each stage.
-
-\textbf{Role in Thesis:}
-
-Figure~\ref{fig:ch13-roadmap} establishes the \textit{realizability claim} for the Thiele Machine: it is not merely a theoretical model (like Turing Machines, which were never built as practical devices) but a \textit{synthesizable architecture} with end-to-end verification. The roadmap connects abstract theory (Chapters 3--10 formal proofs) to concrete practice (Chapter 13 hardware and demos), resolving the gap between ``mathematical possibility'' and ``physical implementation.'' The 3-layer isomorphism ensures hardware correctness: theorems proven in Coq (e.g., $\mu$-monotonicity, locality enforcement, No Free Insight) automatically apply to synthesized FPGAs, eliminating the trusted verification gap. The demonstrations (CHSH achieving 85.32\%, impossibility showing constraint enforcement) provide falsifiable evidence that the architecture delivers promised capabilities. The synthesis target (125 MHz, 2,847 LUTs on Xilinx 7-series) proves accessibility: any reader with a \$100--\$300 development board can replicate the results, test the claims, and verify the receipts. This moves the Thiele Machine from ``interesting idea'' to ``operational technology,'' enabling future work building partition-aware algorithms, designing hardware accelerators for $\mu$-optimal computation, and deploying verifiable computing systems. The roadmap is the thesis's final bridge from theory to silicon.
-\end{figure}
 
 \subsection{Why Hardware Matters}
 
@@ -114,94 +28,6 @@ This chapter documents the complete hardware implementation (RTL layer) and the 
 
 \section{Hardware Architecture}
 
-% ============================================================================
-% FIGURE: μ-ALU Architecture
-% ============================================================================
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=1.8, 
-    node distance=2.5cm,
-    reg/.style={rectangle, draw, minimum width=4.0cm, minimum height=1.3cm, align=center, fill=blue!10},
-    op/.style={rectangle, draw, minimum width=2.6cm, minimum height=1.3cm, align=center, fill=green!15},
-    arrow/.style={->, >=Stealth, thick}
-]
-    % Inputs
-    \node[reg, align=center, text width=3.5cm] (a) at (-2, 2) {Operand A\\Q16.16};
-    \node[reg, align=center, text width=3.5cm] (b) at (2, 2) {Operand B\\Q16.16};
-    
-    % Operations
-    \node[op] (add) at (-3, 0) {ADD};
-    \node[op] (sub) at (-1.5, 0) {SUB};
-    \node[op] (mul) at (0, 0) {MUL};
-    \node[op] (div) at (1.5, 0) {DIV};
-    \node[op] (log) at (3, 0) {LOG2};
-    
-    % Output
-    \node[reg, fill=yellow!20, align=center, text width=3.5cm] (result) at (0, -1.5) {Result\\Q16.16};
-    
-    % Arrows
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (a) -- (add);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (a) -- (sub);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (a) -- (mul);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (b) -- (mul);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (b) -- (div);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (a) -- (log);
-    
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (add) -- (result);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (sub) -- (result);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (mul) -- (result);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (div) -- (result);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (log) -- (result);
-    
-    % Key property
-    \node[draw, rounded corners, fill=red!15, font=\normalsize] at (0, -3) {\textbf{Key}: $\mu$ only increases at ledger boundary};
-    
-    % LOG2 LUT
-    \node[draw, rounded corners, fill=gray!10, font=\normalsize, align=center, text width=3.5cm] at (4.5, 0) {256-entry\\LOG2 LUT};
-\end{tikzpicture}
-\caption{$\mu$-ALU architecture: Q16.16 fixed-point arithmetic with LOG2 lookup table. Key property: $\mu$ only increases.}
-\label{fig:mu-alu-ch13}
-
-% ====================================================================================
-% COMPREHENSIVE FIRST-PRINCIPLES EXPLANATION: Figure 13.2 (mu-alu-ch13)
-% ====================================================================================
-
-\textbf{Understanding Figure~\ref{fig:mu-alu-ch13}:}
-
-This diagram presents the \textbf{$\mu$-ALU (Arithmetic Logic Unit) architecture}, the specialized hardware module responsible for $\mu$-ledger accounting in the Thiele Machine. The $\mu$-ALU implements fixed-point arithmetic (Q16.16 format: 16 integer bits, 16 fractional bits) to precisely track sub-bit costs (e.g., $\mu = 3.14159$ bits). The key architectural insight is \textbf{monotonicity enforcement by design}: the ALU supports ADD/MUL/DIV/LOG2 operations but treats SUB specially---subtraction results that would decrease $\mu$ trigger overflow detection, causing the CPU core to reject the operation and halt with \texttt{MU\_VIOLATION} error. This makes $\mu$-decreasing transitions architecturally invalid rather than merely discouraged by software checks.
-
-\textbf{Visual Elements Breakdown:}
-
-\textit{Top Row (Inputs):} Two blue boxes represent the ALU's operands: (1) \textbf{Operand A, Q16.16} (left, -2,2): 32-bit fixed-point value with 16 integer bits (range $-32768$ to $+32767$) and 16 fractional bits (precision $2^{-16} \approx 0.000015$), typically holds current $\mu$ ledger value (e.g., $10.25 = 10 \times 2^{16} + 0.25 \times 2^{16} = 671,744$ in binary), (2) \textbf{Operand B, Q16.16} (right, 2,2): 32-bit fixed-point value in same format, typically holds $\Delta\mu$ (cost increment, e.g., $1.5 = 98,304$ in binary) or scaling factor (for MUL/DIV). The Q16.16 format is chosen for deterministic cross-platform arithmetic: unlike IEEE 754 floating-point (which has rounding mode ambiguities, denormals, and platform-specific behaviors), fixed-point arithmetic is bit-exact and easier to formalize in Coq.
-
-\textit{Middle Row (Operations):} Five green boxes represent supported ALU operations arranged horizontally: (1) \textbf{ADD} (leftmost, -3,0): computes $\text{result} = \text{operand\_a} + \text{operand\_b}$, used for ledger updates $\mu_{\text{new}} = \mu_{\text{old}} + \Delta\mu$ (e.g., $10.25 + 1.5 = 11.75$), primary operation for $\mu$ accounting (every instruction that consumes $\mu$ invokes ADD), (2) \textbf{SUB} (second, -1.5,0): computes $\text{result} = \text{operand\_a} - \text{operand\_b}$, used for hypothetical rollback $\mu_{\text{new}} = \mu_{\text{old}} - \Delta\mu$ (illegal for ledger), triggers \textit{overflow flag} if result negative (operand\_a $<$ operand\_b), CPU core checks overflow and halts with \texttt{MU\_VIOLATION}, (3) \textbf{MUL} (center, 0,0): computes $\text{result} = \text{operand\_a} \times \text{operand\_b} / 2^{16}$ (divide by $2^{16}$ to maintain Q16.16 scaling), used for scaling $\mu$ by constant factor (e.g., $\mu \times 2$ for doubling costs), requires both operands (arrow from A and arrow from B converging on MUL box), (4) \textbf{DIV} (fourth, 1.5,0): computes $\text{result} = (\text{operand\_a} \times 2^{16}) / \text{operand\_b}$ (multiply by $2^{16}$ before division to maintain Q16.16 scaling), used for normalization (e.g., $\mu / n$ for amortizing costs), receives operand\_b only (operand\_a is implicit dividend), (5) \textbf{LOG2} (rightmost, 3,0): computes $\text{result} = \lceil \log_2(\text{operand\_a}) \rceil$ via 256-entry lookup table (LUT, gray box at 4.5,0), used for information content calculations (e.g., $\mu = \log_2(n!)$ for certificate ceiling law), receives operand\_a only.
-
-\textit{Bottom Row (Output):} Yellow box labeled \textbf{Result, Q16.16} (center, 0,-1.5) holds the ALU's computed output in Q16.16 fixed-point format. Five arrows converge from all operation boxes (ADD, SUB, MUL, DIV, LOG2) to the result box, indicating that the ALU's multiplexer selects which operation's output to forward based on the \texttt{op[2:0]} control signal (3 bits = 8 possible operations). The result is written to the $\mu$-ledger register or a CPU register depending on the instruction context.
-
-\textit{Key Property (Red Box):} Red box at (0,-3) states \textbf{Key: $\mu$ only increases at ledger boundary}. This is the $\mu$-ALU's critical invariant: while the ALU \textit{can} compute subtractions (SUB operation exists for general arithmetic), the CPU core's ledger update logic \textit{gates} all ledger modifications through overflow checks. If SUB result has overflow flag set (indicating negative result, i.e., $\mu_{\text{new}} < \mu_{\text{old}}$), the CPU halts execution with \texttt{MU\_VIOLATION} error. This architectural separation---ALU performs computation, CPU enforces policy---enables hardware monotonicity guarantee: even buggy or malicious software cannot decrease $\mu$ because the CPU physically blocks such updates.
-
-\textit{LOG2 LUT (Gray Box):} Gray box at (4.5,0) labeled \textbf{256-entry LOG2 LUT} is a lookup table storing precomputed $\lceil \log_2(x) \rceil$ values for $x \in [0, 255]$. The LOG2 operation uses the upper 8 bits of operand\_a as LUT index, retrieving the corresponding logarithm in Q16.16 format. Example: operand\_a = $128.0$ (binary index 128) $\rightarrow$ LUT[128] = $7.0$ (since $\log_2(128) = 7$). Logarithms for larger values are computed by shifting and adding: $\log_2(1024) = \log_2(2^{10}) = 10 = \log_2(1024 / 256) + 8$. The LUT approach avoids iterative logarithm algorithms (which are slow and non-deterministic in hardware), ensuring single-cycle LOG2 operations.
-
-\textbf{Key Insights:}
-
-\textit{Q16.16 Fixed-Point Format Rationale:} The choice of Q16.16 (16 integer bits, 16 fractional bits) balances range, precision, and simplicity. Range: $[-32768, +32767.99998]$ suffices for $\mu$ values (typical costs are 0--10,000 bits for realistic computations). Precision: $2^{-16} \approx 0.000015$ allows sub-bit granularity (e.g., $\mu = 3.14159$ for fractional information costs). Simplicity: addition/subtraction are identical to integer operations (no scaling needed), multiplication/division require single shift (multiply by $2^{16}$ or divide by $2^{16}$), no exponent logic (unlike floating-point). This format is formally verifiable in Coq: Q16.16 arithmetic can be modeled as integer arithmetic with implicit $2^{16}$ scaling factor, enabling mechanized proofs of overflow bounds and monotonicity properties.
-
-\textit{Hardware Monotonicity Enforcement:} The $\mu$-ALU's design embodies the principle of \textit{enforcement by architecture}. Software implementations (Python VM, extracted OCaml runner) rely on programmatic monotonicity checks: \texttt{if new\_mu < self.mu: raise MonotonicityViolation}. These checks are correct but bypassable---a bug in the comparison logic or malicious code modification can circumvent them. Hardware enforcement is fundamentally different: the CPU core's ledger update logic physically checks the ALU's overflow flag and halts execution if set. The monotonicity guarantee is not a \textit{software policy} (which can be violated) but an \textit{architectural invariant} (which cannot be bypassed without modifying the silicon). This makes the Thiele Machine's monotonicity property falsifiable: any claimed $\mu$-decreasing transition can be tested by running the program on synthesized hardware and observing the \texttt{MU\_VIOLATION} halt.
-
-\textit{LOG2 LUT for Deterministic Logarithms:} Computing $\log_2(x)$ in hardware is challenging: iterative algorithms (Newton-Raphson, CORDIC) are slow (10--20 cycles) and non-deterministic (convergence depends on input). The 256-entry LUT approach trades memory for speed: 256 entries $\times$ 32 bits = 1 KB RAM (negligible on modern FPGAs), single-cycle lookup (deterministic timing), bit-exact results (no rounding ambiguities). Logarithms are essential for $\mu$ accounting: the certificate ceiling law (Theorem 4.3.1) states $\mu \geq \log_2(|\text{certs}|!)$, requiring efficient logarithm computation for proof verification. The LUT's 8-bit granularity (256 entries) provides $2^8 = 256$ distinct logarithm values, interpolating for larger inputs by shifting (e.g., $\log_2(1024) = \log_2(1024/256) + \log_2(256) = \log_2(4) + 8 = 2 + 8 = 10$).
-
-\textit{Operation Selection via Control Signal:} The $\mu$-ALU's \texttt{op[2:0]} control signal (3 bits) selects which operation's result to forward: \texttt{op=000} (ADD), \texttt{op=001} (SUB), \texttt{op=010} (MUL), \texttt{op=011} (DIV), \texttt{op=100} (LOG2). This multiplexer-based design enables single-cycle operation switching: the CPU's instruction decoder extracts the desired operation from the instruction's opcode field and drives the $\mu$-ALU's \texttt{op} signal. Example: the \texttt{MDLACC} (Mu-DeLta-ACCumulate) instruction sets \texttt{op=000} (ADD) to increment $\mu$ by $\Delta\mu$. The ALU computes all operations in parallel (ADD, SUB, MUL, DIV, LOG2 are independent datapaths), and the multiplexer selects the active result at the final stage. This parallel architecture enables single-cycle throughput despite multiple operations.
-
-\textit{Overflow Detection for Subtraction:} The SUB operation's overflow flag is the enforcement mechanism for monotonicity. Subtraction in Q16.16 format is standard two's complement arithmetic: $\text{operand\_a} - \text{operand\_b} = \text{operand\_a} + (\sim\text{operand\_b} + 1)$. The overflow flag is set if the result's sign bit differs from expected (e.g., subtracting positive from positive yields negative). Example: $\mu = 10.25$ (operand\_a = 671,744), $\Delta\mu = 15.5$ (operand\_b = 1,015,808), subtraction yields $-5.25$ (result = $-344,064$, negative), overflow flag = 1 (indicates invalid result). The CPU core checks \texttt{alu.overflow == 1} after every ledger update, halting with \texttt{MU\_VIOLATION} error if set. This check is implemented as combinational logic (no cycles consumed), making overflow detection transparent to execution timing.
-
-\textbf{Reading Guide:}
-
-Start at the \textit{top row} (inputs) to understand operand encoding: Operand A (current $\mu$ ledger value) and Operand B ($\Delta\mu$ or scaling factor), both in Q16.16 fixed-point format (16 integer bits, 16 fractional bits, deterministic cross-platform arithmetic). Follow the \textit{arrows downward} to operations: Operand A connects to ADD/SUB/MUL/LOG2, Operand B connects to MUL/DIV, indicating data flow paths for each operation. Examine the \textit{middle row} (operations) to see supported computations: ADD ($\mu + \Delta\mu$), SUB ($\mu - \Delta\mu$, triggers overflow if negative), MUL ($\mu \times k$), DIV ($\mu / k$), LOG2 ($\lceil \log_2(\mu) \rceil$ via LUT). Follow \textit{arrows downward} to the result box: all operation outputs converge via multiplexer, selected by \texttt{op[2:0]} control signal. Read the \textit{red key property box}: "$\mu$ only increases at ledger boundary" establishes the monotonicity invariant (SUB overflow flag checked by CPU, $\mu$-decreasing updates rejected). Note the \textit{gray LOG2 LUT box}: 256-entry lookup table enables single-cycle logarithm computation (essential for certificate ceiling law verification). The flow establishes: Inputs (Q16.16 operands) $\rightarrow$ Operations (ADD/SUB/MUL/DIV/LOG2) $\rightarrow$ Result (Q16.16 output) $\rightarrow$ Overflow Check (monotonicity enforcement) $\rightarrow$ Ledger Update (if valid) or Halt (if overflow).
-
-\textbf{Role in Thesis:}
-
-Figure~\ref{fig:mu-alu-ch13} establishes the \textit{enforcement mechanism} for the Thiele Machine's $\mu$-monotonicity theorem (Theorem 3.2.1): the property is not merely proven abstractly (as a Coq lemma) but physically enforced by hardware architecture. The $\mu$-ALU's design embodies the principle that \textit{correctness can be architectural}: by providing no valid datapath for $\mu$-decreasing updates (SUB overflow flag checked by CPU, violating updates halted), the hardware makes monotonicity violations impossible. This resolves the gap between ``mathematically proven'' and ``practically guaranteed''---the Coq proof establishes that monotonicity holds under defined semantics, while the hardware ensures those semantics cannot be violated by implementation bugs or malicious code. The Q16.16 fixed-point format provides deterministic, cross-platform arithmetic (enabling isomorphism testing across Python/OCaml/RTL layers), while the LOG2 LUT enables efficient information-theoretic cost calculations (supporting certificate ceiling law verification in Theorem 4.3.1). The $\mu$-ALU is the thesis's answer to the question ``how do you enforce information accounting in silicon?''---by making violations architecturally invalid rather than software-detectable. This positions the Thiele Machine as a \textit{trustworthy computing platform}: users can rely on monotonicity guarantees without auditing software, because the hardware physically cannot violate them.
-\end{figure}
 
 The hardware implementation consists of a synthesizable Verilog core plus supporting modules for $\mu$-accounting, memory, and logic-engine interfacing.
 
@@ -275,7 +101,6 @@ localparam [7:0] OPCODE_HALT = 8'hFF;
     \item \textbf{Verifiability:} The mapping is part of the formal model.
 \end{itemize}
 
-\textbf{Role in thesis:} Demonstrates that the hardware is \textit{faithful to the formal specification}. The opcodes are not manually chosen---they are \textit{derived} from the Coq model.
 
 These definitions are generated in \texttt{thielecpu/hardware/generated\_opcodes.vh} from the Coq instruction list, ensuring that the hardware and proofs share the same opcode mapping.
 
@@ -347,7 +172,6 @@ endmodule
     \item The $\mu$-core checks \\texttt{overflow} and halts execution with error \\texttt{MU\_VIOLATION}.
 \end{itemize}
 
-\textbf{Role in thesis:} The $\mu$-ALU is the \textit{enforcement mechanism} for the $\mu$-ledger. Hardware ensures monotonicity cannot be bypassed.
 
 Key property: \textbf{$\mu$ only increases} at the ledger boundary. The $\mu$-ALU implements arithmetic in Q16.16 fixed-point (see \texttt{thielecpu/hardware/mu\_alu.v}), while the $\mu$-core enforces the monotonicity policy by gating ledger updates so that any decreasing update is rejected.
 
@@ -428,7 +252,6 @@ module state_serializer (
     \item \textbf{...and so on for all fields.}
 \end{itemize}
 
-\textbf{Role in thesis:} The serializer is the \textit{interface} for isomorphism testing. Python, OCaml, and RTL all output CSF, which the harness compares byte-by-byte. Any mismatch indicates a bug in one layer.
 
 The serializer implementation is in \texttt{thielecpu/hardware/state\_serializer.v}, and it emits the Canonical Serialization Format (CSF) defined in \path{docs/CANONICAL_SERIALIZATION.md}. JSON snapshots used by the isomorphism harness come from the RTL testbench (\texttt{thielecpu/hardware/thiele\_cpu\_tb.v}), not from the serializer itself.
 
@@ -503,7 +326,6 @@ endmodule
     \item Parse output: Python harness reads \\texttt{rtl\_output.json}, compares to Python/OCaml results.
 \end{enumerate}
 
-\textbf{Role in thesis:} The testbench is the \textit{execution environment} for hardware verification. It runs the same programs as Python/OCaml, enabling isomorphism testing.
 
 The testbench outputs JSON, parsed by the isomorphism harness for cross-layer verification.
 
@@ -518,102 +340,6 @@ Representative fuzzing harness: random instruction sequences test robustness:
 
 \section{3-Layer Isomorphism Enforcement}
 
-% ============================================================================
-% FIGURE: Isomorphism Test
-% ============================================================================
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=1.8, 
-    node distance=3cm,
-    layer/.style={rectangle, draw, rounded corners, minimum width=4.0cm, minimum height=1.6cm, align=center, fill=blue!10},
-    compare/.style={diamond, draw, aspect=2, fill=yellow!20},
-    result/.style={rectangle, draw, rounded corners, minimum width=2.6cm, minimum height=1.3cm, align=center},
-    arrow/.style={->, >=Stealth, thick}
-]
-    % Program
-    \node[rectangle, draw, rounded corners, fill=gray!10] (prog) at (0, 2.5) {Test Program};
-    
-    % Layers
-    \node[layer, align=center, text width=3.5cm] (python) at (-3, 1) {Python\\VM};
-    \node[layer, align=center, text width=3.5cm] (extracted) at (0, 1) {Extracted\\Runner};
-    \node[layer, align=center, text width=3.5cm] (rtl) at (3, 1) {RTL\\Simulation};
-    
-    % States
-    \node[rectangle, draw, fill=blue!5, font=\normalsize] (s1) at (-3, -0.3) {pc, $\mu$, regs};
-    \node[rectangle, draw, fill=blue!5, font=\normalsize] (s2) at (0, -0.3) {pc, $\mu$, regs};
-    \node[rectangle, draw, fill=blue!5, font=\normalsize] (s3) at (3, -0.3) {pc, $\mu$, regs};
-    
-    % Compare
-    \node[compare] (cmp) at (0, -1.5) {$=$?};
-    
-    % Results
-    \node[result, fill=green!20] (pass) at (-1.5, -3) {PASS};
-    \node[result, fill=red!20] (fail) at (1.5, -3) {FAIL};
-    
-    % Arrows
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (prog) -- (python);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (prog) -- (extracted);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (prog) -- (rtl);
-    
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (python) -- (s1);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (extracted) -- (s2);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (rtl) -- (s3);
-    
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (s1) -- (cmp);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (s2) -- (cmp);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (s3) -- (cmp);
-    
-    \draw[arrow] (cmp) -- node[left, font=\normalsize, above, yshift=6pt, pos=0.5, font=\small] {Yes} (pass);
-    \draw[arrow] (cmp) -- node[right, font=\normalsize, above, yshift=6pt, pos=0.5, font=\small] {No} (fail);
-    
-    % Stats
-    \node[font=\normalsize, text=gray] at (0, -4) {10,000 test traces, 15\% overhead, all matched};
-\end{tikzpicture}
-\caption{3-layer isomorphism test: same program runs in Python, extracted OCaml, and RTL simulation, comparing final states.}
-\label{fig:isomorphism-test}
-
-% ====================================================================================
-% COMPREHENSIVE FIRST-PRINCIPLES EXPLANATION: Figure 13.3 (isomorphism-test)
-% ====================================================================================
-
-\textbf{Understanding Figure~\ref{fig:isomorphism-test}:}
-
-This diagram presents the \textbf{3-layer isomorphism testing protocol}, the verification methodology ensuring that the Thiele Machine's formal specification (Coq proofs), executable semantics (Python VM), proof artifact (extracted OCaml runner), and hardware implementation (Verilog RTL) all produce \textit{bit-identical behavior} for the same programs. The isomorphism property is the thesis's central correctness claim: theorems proven in Coq (e.g., $\mu$-monotonicity, locality enforcement, No Free Insight) automatically apply to synthesized hardware because all layers are proven equivalent. The test runs 10,000 diverse programs across all three layers, comparing final states (program counter, $\mu$-ledger, registers) field-by-field. A single mismatch would falsify the isomorphism claim, but all 10,000 traces matched, providing strong statistical evidence of cross-layer correctness.
-
-\textbf{Visual Elements Breakdown:}
-
-\textit{Top (Test Program):} Gray box at (0, 2.5) labeled \textbf{Test Program} represents the input: a sequence of Thiele Machine instructions (e.g., \texttt{PNEW 2; PSPLIT 0; MDLACC 0 1; HALT}). The same program is fed to all three layers to ensure identical starting conditions. Test programs are generated via fuzzing (random instruction sequences respecting ISA constraints), handcrafted edge cases (e.g., $\mu$ exhaustion, invalid opcodes, maximum partition depth), and regression tests (previously failing programs saved as permanent checks). Three arrows emanate from the test program box downward to the three layer boxes, indicating identical program distribution.
-
-\textit{Middle Row (Three Layers):} Three blue boxes represent the execution environments: (1) \textbf{Python VM} (left, -3,1): executable reference implementation of the Thiele Machine, \texttt{ThieleVM} class with \texttt{execute()} method, written in Python for readability and debuggability, serves as ground truth for expected behavior (any divergence from Python is considered a bug in extracted runner or RTL), implementation in \texttt{thielecpu/vm.py} (~2,000 lines), (2) \textbf{Extracted Runner} (center, 0,1): OCaml executable generated by Coq's extraction mechanism from \texttt{ThieleMachine.v}, contains all formal definitions (mu\_step, mu\_exec, partition graph operations, locality checks), guaranteed correct by Coq's meta-theory (if proofs type-check, extracted code implements proven semantics), eliminates trusted verification gap between specification and implementation, compiled to native executable \texttt{extracted\_vm\_runner}, (3) \textbf{RTL Simulation} (right, 3,1): Verilog testbench (\texttt{thiele\_cpu\_tb.v}) simulating the synthesizable hardware, compiled with Icarus Verilog (\texttt{iverilog}) or Verilator, executes instruction-by-instruction on cycle-accurate model, outputs JSON state snapshots on halt. Arrows from test program to all three layers establish that the same program is executed in all environments (no manual translation, no semantic drift).
-
-\textit{States Row:} Three small blue boxes below each layer represent captured final states: (1) State from Python (left, -3,-0.3): tuple containing \texttt{pc} (program counter, final instruction index), \texttt{$\mu$} (ledger value, total cost expended), \texttt{regs} (register array, 32 general-purpose registers), example: \texttt{State(pc=100, mu=500, regs=[0,42,123,...])}. (2) State from Extracted Runner (center, 0,-0.3): JSON object parsed from extracted runner's output, identical fields: \texttt{\{"pc":100, "mu":500, "regs":[0,42,123,...]\}}, (3) State from RTL Simulation (right, 3,-0.3): JSON object parsed from Verilog testbench \texttt{\$display} output, identical format: \texttt{\{"pc":100, "mu":500, "regs":[0,42,123,...]\}}. Arrows flow from layers to states, indicating extraction of final execution snapshots.
-
-\textit{Compare Diamond:} Yellow diamond at (0,-1.5) labeled \textbf{$=$?} represents the comparison operation: the isomorphism harness (Python script \texttt{scripts/test\_isomorphism.py}) loads all three state objects and compares them field-by-field: \texttt{assert python\_state.pc == extracted\_state["pc"] == rtl\_state["pc"]}, \texttt{assert python\_state.mu == extracted\_state["mu"] == rtl\_state["mu"]}, \texttt{assert python\_state.regs == extracted\_state["regs"] == rtl\_state["regs"]}. Any inequality triggers test failure. Three arrows converge from the three state boxes to the comparison diamond, indicating all states are inputs to the comparison.
-
-\textit{Results:} Two boxes at the bottom represent test outcomes: (1) \textbf{PASS} (green, left, -1.5,-3): all fields match across all three layers (pc identical, $\mu$ identical, regs identical), isomorphism property validated for this test program, (2) \textbf{FAIL} (red, right, 1.5,-3): at least one field differs (e.g., Python $\mu=500$ but RTL $\mu=499$), indicates bug in one of the layers (Python logic error, extraction bug, or RTL implementation flaw), triggers investigation and debugging. Two arrows emanate from comparison diamond: left arrow labeled "Yes" (all equal) to PASS, right arrow labeled "No" (any differ) to FAIL.
-
-\textit{Statistics (Bottom):} Gray text at (0,-4) states \textbf{10,000 test traces, 15\% overhead, all matched}. This provides quantitative evidence: (1) \textit{10,000 test traces}: diverse corpus covering arithmetic operations, partition manipulations, logic queries, $\mu$ exhaustion, edge cases (empty partitions, maximum depth, wraparound), (2) \textit{15\% overhead}: computational cost of isomorphism testing (running three implementations plus comparison) is modest (1.15$\times$ baseline time, dominated by RTL simulation which is 10--100$\times$ slower than Python due to cycle-accurate modeling), (3) \textit{all matched}: zero failures, 100\% agreement across all test programs, provides strong statistical confidence that isomorphism holds (binomial probability of false negative $< 10^{-4000}$ for 10,000 independent tests).
-
-\textbf{Key Insights:}
-
-\textit{Isomorphism as Correctness Criterion:} The 3-layer isomorphism property is the thesis's operational definition of correctness: the hardware is correct \textit{if and only if} it produces identical outputs to the Python VM (reference implementation) and extracted runner (proof artifact) for all valid programs. This criterion is stronger than traditional testing (which checks outputs against expected values, but expected values might be wrong) because it leverages multiple independent implementations: if Python, OCaml, and RTL all agree, the probability of a common-mode bug (all three making the same mistake) is vanishingly small. The isomorphism property also enables regression testing: any code change to Python, extraction, or RTL must preserve 100\% agreement on the test corpus, preventing subtle semantic drift over time.
-
-\textit{Extracted Runner as Proof Bridge:} The extracted OCaml runner is the critical link between formal proofs and hardware. Coq extraction is a \textit{certified transformation}: if Coq definitions type-check and proofs are accepted, the extracted OCaml code provably implements the same semantics (modulo axioms like functional extensionality, which are standard and widely trusted). This eliminates the \textit{trusted verification gap}---the risk that formal specifications diverge from implementations due to manual translation errors. By comparing Python (human-written reference) to OCaml (machine-generated proof artifact), we verify that the reference semantics match the proven semantics. By comparing OCaml to RTL (synthesizable hardware), we verify that the hardware implements the proven semantics. The triangle (Python $\leftrightarrow$ OCaml $\leftrightarrow$ RTL) closes the verification loop.
-
-\textit{Field-by-Field Comparison Strategy:} The comparison checks three critical state components: (1) \textbf{Program counter (pc)}: ensures control flow is identical (all three layers executed the same sequence of instructions, terminated at the same point), divergence indicates branching bug or decode error, (2) \textbf{$\mu$-ledger}: ensures information accounting is identical (all three layers charged the same costs for the same operations), divergence indicates ALU bug or monotonicity violation, (3) \textbf{Registers}: ensures data flow is identical (all three layers computed the same results and stored them in the same locations), divergence indicates arithmetic bug, memory bug, or datapath error. Additional fields (memory, partition graph, locality constraints) are also checked but omitted from the diagram for simplicity. The field-by-field strategy enables precise bug localization: if only $\mu$ differs, the bug is likely in the $\mu$-ALU or ledger update logic, not in the instruction decoder or register file.
-
-\textit{Statistical Confidence from 10,000 Traces:} The 10,000 test corpus provides high confidence in isomorphism: assuming each test is independent (programs generated randomly without correlation) and each test has 50\% probability of exposing a hypothetical bug (reasonable for randomly sampled inputs), the probability that a bug exists but all 10,000 tests pass is $(1 - 0.5)^{10,000} = 2^{-10,000} \approx 10^{-3010}$ (essentially zero). In practice, bugs are not uniformly distributed (some instructions/edge cases are more error-prone), but the large corpus still provides strong evidence. The 15\% overhead indicates that isomorphism testing is practical for continuous integration: running the test suite takes 1.15$\times$ the time of running Python alone, acceptable for nightly builds or pre-commit checks.
-
-\textit{Failure Investigation Workflow:} When a test fails (FAIL outcome), the harness outputs a detailed diff: \texttt{FAIL: test\_program\_42.txt\\nPython: pc=100, mu=500, regs=[0,42,123]\\nExtracted: pc=100, mu=500, regs=[0,42,123]\\nRTL: pc=100, mu=499, regs=[0,42,123]\\nMismatch: mu (expected 500, got 499)}. This identifies the divergence ($\mu$ value in RTL is off by 1), enabling root-cause analysis: (1) Check RTL $\mu$-ALU logic for off-by-one errors, (2) Verify testbench JSON output format (potential parsing bug), (3) Compare instruction traces (RTL might be executing different instruction sequence). Failed tests are added to the regression suite, ensuring the bug never reoccurs. Zero failures in 10,000 traces means the development process has reached a stable state with no known isomorphism violations.
-
-\textbf{Reading Guide:}
-
-Start at the \textit{top} (test program) to understand the input: identical instruction sequence fed to all three layers, ensuring fair comparison. Follow \textit{arrows downward} to the three layers: Python VM (reference semantics), Extracted Runner (proof artifact from Coq), RTL Simulation (hardware model). Observe that all three receive the same program (no manual translation, no semantic drift). Move to the \textit{states row} to see captured outputs: pc ($\text{program counter}$), $\mu$ (ledger value), regs (register array) extracted from each layer after execution completes. Follow \textit{arrows to comparison diamond} ($=$?): harness compares all three states field-by-field, checking for bit-exact agreement. Branch left to \textit{PASS} (green) if all fields match: isomorphism validated for this program, test succeeds. Branch right to \textit{FAIL} (red) if any field differs: bug detected, requires investigation. Read \textit{bottom statistics} (10,000 traces, 15\% overhead, all matched) to understand corpus size and test outcome: zero failures across diverse test programs provides strong evidence that isomorphism holds universally. The flow establishes: Program $\rightarrow$ Three Layers $\rightarrow$ Three States $\rightarrow$ Comparison $\rightarrow$ PASS/FAIL $\rightarrow$ Confidence in Cross-Layer Correctness.
-
-\textbf{Role in Thesis:}
-
-Figure~\ref{fig:isomorphism-test} establishes the \textit{verification methodology} connecting the Thiele Machine's formal theory (Coq proofs in Chapters 3--10) to its practical realization (synthesizable hardware in Chapter 13). The isomorphism property is the thesis's answer to the question ``how do you know the hardware implements the proofs?''---by running thousands of test programs across three independent implementations (Python reference, OCaml proof artifact, RTL hardware simulation) and verifying bit-exact agreement. The 10,000 matched traces provide falsifiable evidence: anyone can run the isomorphism test suite (\texttt{scripts/test\_isomorphism.py}), observe identical outputs, and confirm the claim. The zero-failure result demonstrates maturity: the Thiele Machine implementation has been refined to eliminate cross-layer divergences, achieving the verification standard required for trustworthy computing. The 3-layer triangle (Python $\leftrightarrow$ OCaml $\leftrightarrow$ RTL) closes the verification loop: Python validates OCaml (does extracted code match reference semantics?), OCaml validates RTL (does hardware match proven semantics?), RTL validates Python (does reference match synthesizable implementation?). This mutual validation eliminates single points of failure in the verification chain. The isomorphism test positions the Thiele Machine as a \textit{verified computational architecture}: its correctness is not assumed (as in most hardware projects) but systematically tested and continuously enforced via automated testing infrastructure.
-\end{figure}
 
 The isomorphism tests verify identical behavior across:
 \begin{enumerate}
@@ -654,7 +380,6 @@ def test_rtl_matches_python():
 
 \textbf{Why is this test critical?} The isomorphism property is the thesis's central claim: the Python VM, extracted runner, and RTL simulation are three implementations of the same abstract machine. This test falsifies the claim if any field differs. With 10,000 test traces passing, we have strong evidence that all three layers implement identical semantics.
 
-\textbf{Role in thesis:} This test validates the entire toolchain: Coq proofs (extracted to OCaml), Python reference semantics (vm.execute), and hardware RTL (Verilog testbench). If all three match, the proofs apply to the hardware.
 
 \section{Demonstration Suite}
 
@@ -745,7 +470,6 @@ Representative flagship output:
     \item \textbf{Reproducibility:} Anyone can run the demo and verify results.
 \end{itemize}
 
-\textbf{Role in thesis:} This demo is the \textit{proof of concept}: the Thiele Machine can perform quantum-inspired computation with classical hardware, achieve quantum bounds, and produce verifiable certificates. It's the tangible realization of the theory.
 
 \section{Standard Programs}
 
@@ -826,7 +550,6 @@ class ThieleVM:
 
 \textbf{Why is this the reference implementation?} Python is human-readable, easily debuggable, and matches the Coq semantics (\texttt{ThieleMachine.v}) line-by-line. The RTL and extracted runner are tested against this implementation.
 
-\textbf{Role in thesis:} This class is the \textit{executable specification}. When the isomorphism test compares Python vs. RTL, it's testing whether the hardware faithfully implements these methods.
 
 \subsection{Extracted Runner Integration}
 
@@ -865,7 +588,6 @@ OPCODE_HALT
 
 \textbf{Why is this the proof artifact?} The extracted runner is \textit{guaranteed correct by Coq}: if the proofs type-check, the extracted code implements the proven semantics. This eliminates the \textit{trusted verification gap} (gap between specification and implementation).
 
-\textbf{Role in thesis:} This runner is the \textit{middle layer} in isomorphism testing: Python (reference) $\leftrightarrow$ OCaml (proven) $\leftrightarrow$ RTL (hardware). Matching all three proves the hardware implements the proven semantics.
 
 \subsection{RTL Integration}
 
@@ -898,84 +620,9 @@ end
 
 \textbf{Why is this critical?} The RTL is the \textit{hardware implementation}. If its JSON output matches Python and OCaml, the hardware implements the proven semantics. This is the final link in the verification chain: proofs (Coq) $\rightarrow$ executable (OCaml) $\rightarrow$ hardware (RTL).
 
-\textbf{Role in thesis:} This JSON output is the \textit{observable evidence} for isomorphism. The test harness parses it, compares to Python/OCaml, and fails if any field differs. With 10,000 test traces passing, we have high confidence in hardware correctness.
 
 \section{Summary}
 
-% ============================================================================
-% FIGURE: Chapter Summary
-% ============================================================================
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=1.8, 
-    node distance=2.5cm,
-    result/.style={rectangle, draw, rounded corners, minimum width=5.4cm, minimum height=1.6cm, align=center, fill=green!15},
-    central/.style={rectangle, draw, rounded corners, minimum width=7.2cm, minimum height=1.8cm, align=center, fill=yellow!20},
-    arrow/.style={->, >=Stealth, thick}
-]
-    % Results
-    \node[result, align=center, text width=3.5cm] (rtl) at (-3, 1.5) {Synthesizable\\RTL};
-    \node[result, align=center, text width=3.5cm] (alu) at (3, 1.5) {$\mu$-ALU\\No subtract};
-    \node[result, align=center, text width=3.5cm] (iso) at (-3, -1.5) {3-Layer\\Isomorphism};
-    \node[result, align=center, text width=3.5cm] (demos) at (3, -1.5) {Demonstrations\\CHSH, etc.};
-    
-    % Central
-    \node[central, align=center, text width=3.5cm] (central) at (0, 0) {\textbf{Realizable}\\Architecture};
-    
-    % Arrows
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (rtl) -- (central);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (alu) -- (central);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (iso) -- (central);
-    \draw[arrow, shorten >=2pt, shorten <=2pt] (demos) -- (central);
-    
-    % Badge
-    \node[draw, rounded corners, fill=gray!10, font=\normalsize] at (0, -3) {Xilinx 7-series: 125 MHz, 2,847 LUTs};
-\end{tikzpicture}
-\caption{Chapter E summary: synthesizable RTL, $\mu$-ALU, 3-layer isomorphism, and demonstrations prove realizability.}
-\label{fig:ch13-summary}
-
-% ====================================================================================
-% COMPREHENSIVE FIRST-PRINCIPLES EXPLANATION: Figure 13.4 (ch13-summary)
-% ====================================================================================
-
-\textbf{Understanding Figure~\ref{fig:ch13-summary}:}
-
-This diagram presents the \textbf{Chapter 13 summary}, consolidating the hardware implementation and demonstration suite's four key contributions that establish the Thiele Machine as a \textit{realizable computational architecture} rather than merely a theoretical construct. The four green result boxes at the corners (Synthesizable RTL, $\mu$-ALU with monotonicity enforcement, 3-layer isomorphism validation, interactive demonstrations) converge via arrows on the central yellow conclusion (\textbf{Realizable Architecture}), emphasizing that silicon-level implementation with verifiable correctness has been achieved. The bottom badge specifying synthesis target (Xilinx 7-series FPGA: 125 MHz, 2,847 LUTs) provides concrete evidence of implementability on commodity hardware, moving the Thiele Machine from academic theory to operational technology.
-
-\textbf{Visual Elements Breakdown:}
-
-\textit{Upper-Left Result (Synthesizable RTL):} Green box at (-3, 1.5) labeled \textbf{Synthesizable RTL} represents the Verilog hardware description: complete implementation of the Thiele Machine ISA (instruction set architecture) in \texttt{thielecpu/hardware/} directory, including CPU core (fetch/decode/execute pipeline with program counter, instruction decoder, register file, memory management unit), $\mu$-core (cost accounting engine with ledger storage and monotonicity enforcement), logic engine interface (LEI for external SAT/SMT solver queries), state serializer (Canonical Serialization Format output for cross-layer verification). The RTL is \textit{synthesizable}: it compiles to FPGA bitstreams via Xilinx Vivado toolchain without manual intervention, targeting real silicon (Artix-7 FPGAs) rather than simulation-only constructs. Synthesis produces gate-level netlists (2,847 LUTs, 1,234 flip-flops, 4 block RAMs, 2 DSP slices) that can be programmed onto development boards (Basys3, Arty A7, Nexys A7, all costing \$100--\$300). The synthesizable RTL validates that the Thiele Machine's architectural features ($\mu$ ledger, partition graph, locality constraints, receipt generation) are implementable in standard FPGA logic without exotic resources.
-
-\textit{Upper-Right Result ($\mu$-ALU with Monotonicity Enforcement):} Green box at (3, 1.5) labeled \textbf{$\mu$-ALU No subtract} represents the specialized arithmetic unit enforcing $\mu$-monotonicity by architectural design: Q16.16 fixed-point format (16 integer bits, 16 fractional bits, deterministic cross-platform arithmetic), supports ADD/MUL/DIV/LOG2 operations for ledger updates and information-theoretic calculations, architecturally blocks $\mu$-decreasing transitions via overflow detection (SUB operation exists but CPU core checks overflow flag, halting with \texttt{MU\_VIOLATION} if subtraction would yield negative result). The "No subtract" label emphasizes the enforcement mechanism: while the ALU \textit{can} compute subtractions (needed for general arithmetic), the CPU's ledger update policy \textit{rejects} any subtraction that would decrease $\mu$, making monotonicity violations impossible even if buggy or malicious software attempts them. This hardware enforcement transcends software checks (which can be bypassed by implementation bugs) by physically gating ledger updates through the overflow detector. The $\mu$-ALU embodies the principle that correctness can be architectural rather than merely programmatic.
-
-\textit{Lower-Left Result (3-Layer Isomorphism):} Green box at (-3, -1.5) labeled \textbf{3-Layer Isomorphism} represents the verification methodology: identical test programs run in Python VM (executable reference semantics, ground truth), extracted OCaml runner (proof artifact from Coq extraction, guaranteed correct by Coq's meta-theory), RTL simulation (hardware model, synthesizable Verilog compiled with Icarus Verilog or Verilator). Final states (program counter, $\mu$ ledger, registers, memory) compared field-by-field across all three layers, with any mismatch indicating bug (Python logic error, extraction flaw, or RTL implementation bug). The test corpus consists of 10,000 diverse programs (random fuzzing, handcrafted edge cases, regression tests), all of which matched (zero failures), providing strong statistical evidence that isomorphism holds (binomial probability of false negative $< 10^{-3000}$). The 3-layer isomorphism ensures that theorems proven in Coq (e.g., $\mu$-monotonicity Theorem 3.2.1, No Free Insight Theorem 4.2.1, locality enforcement Theorem 5.1.3) automatically apply to synthesized hardware, eliminating the trusted verification gap between specifications and implementations.
-
-\textit{Lower-Right Result (Demonstrations):} Green box at (3, -1.5) labeled \textbf{Demonstrations CHSH, etc.} represents the interactive showcase programs: CHSH flagship demo (executes CHSH game with 100,000 rounds, achieves 85.32\% $\pm$ 0.1\% winning probability matching Tsirelson's quantum bound of 85.35\%, generates cryptographic receipt with program hash, trace hash, final state, and signature for independent verification), impossibility demo (demonstrates No Free Insight constraints by attempting to extract information without paying $\mu$-cost, showing ledger enforcement blocks attempts). Additional demonstrations include partition discovery visualizations (showing how XOR-Gaussian elimination reveals hidden structure), problem-solving examples (factoring, satisfiability, graph coloring via partition methods), receipt verification workflows (showing that anyone can validate results by checking signatures and replaying traces). The demonstrations serve dual purposes: (1) functional validation (running complex multi-step programs exercises entire ISA, exposing bugs unit tests might miss), (2) capability showcase (providing falsifiable evidence that Thiele Machine delivers promised quantum-inspired computation with classical hardware).
-
-\textit{Central Conclusion (Realizable Architecture):} Yellow box at (0, 0) labeled \textbf{Realizable Architecture} (boldface) represents the chapter's central claim: the Thiele Machine is not merely a mathematical abstraction (like Turing Machines, which were thought experiments never built as practical devices) but a \textit{synthesizable computational architecture} with end-to-end verification and silicon-level implementation. Four arrows converge from the four result boxes (synthesizable RTL, $\mu$-ALU enforcement, 3-layer isomorphism, demonstrations) to the central conclusion, indicating that all four contributions are necessary: RTL provides implementation, $\mu$-ALU ensures invariants, isomorphism validates correctness, demonstrations prove capabilities. The "Realizable" label emphasizes practical implementability: the architecture can be built on commodity FPGAs without requiring exotic hardware, custom fabrication, or research-grade resources. This moves the Thiele Machine from theoretical possibility to operational technology.
-
-\textit{Bottom Badge (Synthesis Target):} Gray box at (0, -3) specifies concrete FPGA target: \textbf{Xilinx 7-series: 125 MHz, 2,847 LUTs}. This provides quantitative evidence of realizability: (1) \textit{Xilinx 7-series}: industry-standard FPGA family (Artix-7, Kintex-7, Virtex-7) available on development boards costing \$100--\$300 (Basys3 with XC7A35T, Arty A7 with XC7A35T or XC7A100T, Nexys A7 with XC7A50T or XC7A100T), (2) \textit{125 MHz clock frequency}: 8 ns clock period, sufficient for single-cycle ALU operations and instruction fetch/decode, conservative target leaving margin for timing closure (Artix-7 can exceed 200 MHz for optimized designs), (3) \textit{2,847 LUTs (lookup tables)}: basic logic building blocks in FPGAs, modest resource usage (XC7A35T has 33,280 LUTs, so 2,847 is ~8.5\% utilization, leaving 90\%+ for application logic). These specifications demonstrate that the Thiele Machine's theoretical power (quantum bounds, partition revelation, verifiable receipts) does not require exotic hardware---standard FPGA logic suffices.
-
-\textbf{Key Insights:}
-
-\textit{Realizability vs Theoretical Possibility:} The chapter summary emphasizes a critical distinction: \textit{theoretical possibility} (showing that a model is mathematically consistent) vs \textit{practical realizability} (demonstrating that the model can be implemented with real hardware and achieve promised performance). Most theoretical computational models (Turing Machines, lambda calculus, quantum circuits) are proven consistent but rarely implemented end-to-end with formal verification. The Thiele Machine bridges this gap: synthesizable RTL shows implementation is possible, $\mu$-ALU shows invariants are enforceable, 3-layer isomorphism shows correctness is verifiable, demonstrations show capabilities are achievable. The convergence on "Realizable Architecture" establishes that the Thiele Machine is not a thought experiment but a buildable system.
-
-\textit{Hardware Enforcement as Verification Strategy:} The $\mu$-ALU contribution highlights a verification insight: some properties can be enforced architecturally rather than proven programmatically. Software-level monotonicity checks (\texttt{if new\_mu < old\_mu: raise Error}) are correct but bypassable (implementation bugs, malicious modifications). Hardware-level enforcement (overflow detection gating ledger updates, CPU halting on violations) is fundamentally different: violations are architecturally invalid, not just software-detected. This strategy applies beyond the Thiele Machine: security properties (memory isolation, privilege levels), safety properties (divide-by-zero protection, stack overflow detection), accounting properties (resource limits, quotas) can all be hardware-enforced. The Thiele Machine demonstrates that information-theoretic accounting ($\mu$ ledger) is amenable to this approach.
-
-\textit{3-Layer Isomorphism as Gold Standard:} The isomorphism contribution establishes a verification methodology applicable to any formally-specified system: (1) prove properties in proof assistant (Coq/Isabelle/Lean), (2) extract executable artifact (OCaml/Haskell/ML), (3) write reference implementation (Python/JavaScript/Rust), (4) implement hardware (Verilog/VHDL/Chisel), (5) test all four layers for bit-exact agreement on diverse inputs. The Thiele Machine's 10,000 matched traces provide a replicable standard: future verified systems can claim similar confidence by achieving comparable test coverage. The 3-layer triangle (proof $\leftrightarrow$ reference $\leftrightarrow$ hardware) eliminates single points of failure in the verification chain, providing mutual validation.
-
-\textit{Demonstrations as Falsifiable Evidence:} The demonstrations contribution moves the thesis from ``claims supported by proofs'' to ``claims supported by executable evidence.'' The CHSH demo is particularly powerful: it produces a cryptographic receipt that anyone can verify (check signature, replay trace, confirm 85.32\% $\pm$ 0.1\% matches Tsirelson bound). This makes the thesis's quantum-inspired computation claim \textit{falsifiable}: skeptics can run the demo, analyze the receipt, and either confirm the result (validating the claim) or find discrepancies (falsifying the claim). The receipt-based verification workflow positions the Thiele Machine as a \textit{science-grade computational tool}: results are not just published (and trusted), they are independently verifiable.
-
-\textit{Synthesis Target as Accessibility Proof:} The Xilinx 7-series target (125 MHz, 2,847 LUTs) demonstrates that the Thiele Machine is accessible for replication: development boards cost \$100--\$300 (Basys3, Arty A7, Nexys A7), Vivado toolchain is free for academic use (WebPACK edition supports Artix-7), simulation tools (Icarus Verilog, Verilator) are open-source. The modest resource usage (8.5\% LUT utilization on XC7A35T) means the architecture fits comfortably on entry-level FPGAs, not requiring high-end parts (Virtex UltraScale+ with millions of LUTs). This accessibility is critical for scientific reproducibility: readers can purchase a development board, synthesize the RTL, run the demonstrations, and verify the claims without specialized infrastructure or funding. The Thiele Machine's realizability is not gated by economic barriers.
-
-\textbf{Reading Guide:}
-
-Start at the \textit{four corner boxes} (results) to understand the chapter's contributions: Upper-left (Synthesizable RTL shows implementation is possible on real FPGAs), Upper-right ($\mu$-ALU enforces monotonicity architecturally via overflow detection), Lower-left (3-Layer Isomorphism validates correctness via 10,000 matched test traces across Python/OCaml/RTL), Lower-right (Demonstrations prove capabilities via CHSH achieving 85.32\% quantum bound with verifiable receipts). Follow the \textit{four arrows} converging on the central yellow box: all contributions are necessary for realizability claim (any missing piece would leave doubts about implementation feasibility, correctness, or capability). Read the \textit{central conclusion} (\textbf{Realizable Architecture}): the Thiele Machine transcends theoretical possibility, achieving practical implementability with formal verification and falsifiable evidence. Conclude at the \textit{bottom badge} (Xilinx 7-series: 125 MHz, 2,847 LUTs): concrete FPGA specifications prove accessibility (commodity hardware, modest resources, reproducible by readers). The flow establishes: Four Contributions (Implementation + Enforcement + Verification + Demonstration) $\rightarrow$ Central Claim (Realizable Architecture) $\rightarrow$ Accessibility (Commodity FPGA Target).
-
-\textbf{Role in Thesis:}
-
-Figure~\ref{fig:ch13-summary} concludes the thesis's arc from theory to practice: Chapters 3--10 established formal foundations (kernel semantics, $\mu$ ledger, locality enforcement, certificate ceiling laws, compositionality, verification, proofs), Chapter 11 validated theory through experiments (physics models, falsification attempts, benchmarks, CI pipeline), Chapter 12 bridged theory and algorithms (physics models, Shor primitives, bridge modules, TOE limits), Chapter 13 realizes theory in silicon (synthesizable RTL, hardware monotonicity enforcement, cross-layer verification, interactive demonstrations). The summary diagram unifies these contributions: the Thiele Machine is not merely an interesting idea (provable in Coq) but an \textit{operational computational architecture} (implementable on FPGAs, verifiable via isomorphism testing, demonstrable via quantum-inspired applications). The four results (RTL, $\mu$-ALU, isomorphism, demos) answer the four critical questions: (1) Can it be built? (Yes: synthesizable RTL targeting Xilinx 7-series), (2) Are invariants enforced? (Yes: hardware $\mu$-ALU gates ledger updates), (3) Is it correct? (Yes: 10,000 isomorphism tests passed), (4) Does it work? (Yes: CHSH demo achieves 85.32\% with verifiable receipts). This positions the Thiele Machine as a \textit{verified computational platform} ready for future work: building partition-aware algorithms, designing $\mu$-optimal compilers, deploying verifiable computing systems. The thesis's final message is that the gap between mathematical proofs and physical silicon has been closed---the Thiele Machine exists as both formal theory and tangible hardware.
-\end{figure}
 
 The hardware implementation and demonstration suite establish:
 \begin{enumerate}
