@@ -490,6 +490,54 @@ Each bridge defines:
     \item Decode lemmas proving filter-map equivalence
 \end{enumerate}
 
+\subsection{BoxWorld Bridge}
+
+The file \path{coq/bridge/BoxWorld_to_Kernel.v} (7KB, 9 theorems) embeds finite box-world predictions into kernel receipts:
+
+\begin{lstlisting}
+(** Box-world trial embedding *)
+Definition TheoryTrial : Type := KC.Trial.
+Definition TheoryProgram : Type := list TheoryTrial.
+
+(** Translation to kernel instructions *)
+Definition translate_trial (t : TheoryTrial) : vm_instruction :=
+  instr_chsh_trial (trial_x t) (trial_y t) (trial_a t) (trial_b t) 1.
+
+(** Simulation theorem: receipts recover theory trials *)
+Theorem trials_preserved :
+  forall prog s0 receipts,
+    run_program (translate_program prog) s0 = (s', receipts) ->
+    decode_trials receipts = prog.
+\end{lstlisting}
+
+\textbf{What this proves:} Any finite box-world experiment (a list of CHSH trials with inputs $x,y$ and outputs $a,b$) can be embedded into kernel instructions, and the receipts exactly recover the original trials. This is a \textit{semantics-preserving embedding} of physical observables.
+
+\subsection{FiniteQuantum Bridge}
+
+The file \path{coq/bridge/FiniteQuantum_to_Kernel.v} (8KB, 10 theorems) extends the box-world bridge to quantum-admissible correlations:
+
+\begin{lstlisting}
+(** Tsirelson-envelope admissibility *)
+Definition quantum_admissible (trials : list Trial) : Prop :=
+  chsh_statistic trials <= kernel_tsirelson_bound_q.
+
+(** Concrete finite dataset matching policy threshold *)
+Definition policy_threshold_dataset : list Trial := [...].
+
+Lemma dataset_matches_threshold :
+  chsh_statistic policy_threshold_dataset = 5657 / 2000.
+
+(** Simulation theorem for quantum-admissible predictions *)
+Theorem quantum_trials_preserved :
+  forall prog,
+    quantum_admissible prog ->
+    decode_trials (run_quantum_program prog) = prog.
+\end{lstlisting}
+
+\textbf{What this proves:} Quantum-admissible correlations (those satisfying the Tsirelson bound) embed into the kernel with exact receipt recovery. The file also provides a concrete finite dataset achieving the policy threshold $5657/2000 \approx 2.8285 \approx 2\sqrt{2}$, making the quantum bound computationally verifiable.
+
+\textbf{Why two bridge files?} \texttt{BoxWorld\_to\_Kernel.v} handles arbitrary correlations (up to the algebraic maximum of 4). \texttt{FiniteQuantum\_to\_Kernel.v} specializes to quantum-admissible correlations (up to $2\sqrt{2}$) and provides the concrete dataset used by the runtime policy.
+
 \section{Flagship DI Randomness Track}
 
 The project's flagship demonstration is \textbf{device-independent randomness} certification.
