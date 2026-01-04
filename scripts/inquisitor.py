@@ -642,10 +642,12 @@ def scan_file(path: Path) -> list[Finding]:
 
         if kind in {"Axiom", "Parameter"}:
             rule_id = "AXIOM_OR_PARAMETER"
-            severity = _severity_for_path(path, "MEDIUM", rule_id)
+            severity = "HIGH"  # Axioms are always HIGH - they're unproven assumptions
         elif kind == "Hypothesis":
             rule_id = "HYPOTHESIS_ASSUME"
-            severity = "HIGH" if (name and SUSPICIOUS_NAME_RE.search(name)) else "MEDIUM"
+            # Hypothesis is functionally equivalent to Axiom - always HIGH
+            # It assumes what should be proven, hiding the real work
+            severity = "HIGH"
         else:
             rule_id = "SECTION_BINDER"
             severity = "LOW"
@@ -1403,8 +1405,8 @@ def write_report(
     lines.append("- `ADMITTED`: `Admitted.` (incomplete proof - FORBIDDEN)\n")
     lines.append("- `ADMIT_TACTIC`: `admit.` (proof shortcut - FORBIDDEN)\n")
     lines.append("- `GIVE_UP_TACTIC`: `give_up` (proof shortcut - FORBIDDEN)\n")
-    lines.append("- `AXIOM_OR_PARAMETER`: `Axiom` / `Parameter`\n")
-    lines.append("- `HYPOTHESIS_ASSUME`: `Hypothesis` (escalates to HIGH for suspicious names)\n")
+    lines.append("- `AXIOM_OR_PARAMETER`: `Axiom` / `Parameter` (HIGH - unproven assumptions FORBIDDEN)\n")
+    lines.append("- `HYPOTHESIS_ASSUME`: `Hypothesis` (HIGH - functionally equivalent to Axiom, FORBIDDEN)\n")
     lines.append("- `SECTION_BINDER`: `Context` / `Variable` / `Variables` (informational)\n")
     lines.append("- `MODULE_SIGNATURE_DECL`: `Axiom` / `Parameter` inside `Module Type` (informational)\n")
     lines.append("- `COST_IS_LENGTH`: `Definition *cost* := ... length ... .`\n")

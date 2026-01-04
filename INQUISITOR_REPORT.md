@@ -1,22 +1,17 @@
 # INQUISITOR REPORT
-Generated: 2026-01-02 02:39:56Z (UTC)
-**UPDATED: 2026-01-02 (Post-Correction Audit)**
-Scanned: 232 Coq files across the repo
-
-**NOTE:** Issues in `shor_primitives/PolylogConjecture.v` have been FIXED.
-The 3 false axioms have been removed and replaced with honest complexity analysis.
-
+Generated: 2026-01-04 02:36:50Z (UTC)
+Scanned: 238 Coq files across the repo
 ## Summary
-- HIGH: 0 ✅
-- MEDIUM: 4 (down from 7 - PolylogConjecture axioms removed)
+- HIGH: 0
+- MEDIUM: 5
 - LOW: 4
 
 ## Rules
 - `ADMITTED`: `Admitted.` (incomplete proof - FORBIDDEN)
 - `ADMIT_TACTIC`: `admit.` (proof shortcut - FORBIDDEN)
 - `GIVE_UP_TACTIC`: `give_up` (proof shortcut - FORBIDDEN)
-- `AXIOM_OR_PARAMETER`: `Axiom` / `Parameter`
-- `HYPOTHESIS_ASSUME`: `Hypothesis` (escalates to HIGH for suspicious names)
+- `AXIOM_OR_PARAMETER`: `Axiom` / `Parameter` (HIGH - unproven assumptions FORBIDDEN)
+- `HYPOTHESIS_ASSUME`: `Hypothesis` (HIGH - functionally equivalent to Axiom, FORBIDDEN)
 - `SECTION_BINDER`: `Context` / `Variable` / `Variables` (informational)
 - `MODULE_SIGNATURE_DECL`: `Axiom` / `Parameter` inside `Module Type` (informational)
 - `COST_IS_LENGTH`: `Definition *cost* := ... length ... .`
@@ -56,6 +51,10 @@ Higher score = more likely unfinished/vacuous.
 ## Findings
 ### MEDIUM
 
+#### `coq/kernel/ProperSubsumption.v`
+- L33: **ZERO_CONST** — Definition is a constant zero.
+  - `Definition blank : Symbol := 0.`
+
 #### `coq/kernel/TsirelsonUniqueness.v`
 - L25: **SUSPICIOUS_SHORT_PROOF** — Complex theorem \`mu_zero_algebraic_bound\` has very short proof (1 lines) - verify this is not a placeholder.
   - `Theorem mu_zero_algebraic_bound :`
@@ -63,12 +62,6 @@ Higher score = more likely unfinished/vacuous.
 #### `coq/kernel/TsirelsonUpperBound.v`
 - L347: **SUSPICIOUS_SHORT_PROOF** — Complex theorem \`tsirelson_bound_lt_algebraic_max\` has very short proof (2 lines) - verify this is not a placeholder.
   - `Lemma tsirelson_bound_lt_algebraic_max : tsirelson_bound < 4%Q.`
-
-#### `coq/shor_primitives/PolylogConjecture.v`
-- **FIXED (2026-01-02):** ✅ All 3 axioms removed, replaced with honest O(√N) complexity analysis
-  - ~~L70: Axiom geometric_factorization_claim_enables_polylog_period~~ REMOVED
-  - ~~L98: Axiom geometric_factorization_implies_polynomial_factoring~~ REMOVED
-  - ~~L121: Axiom geometric_claim_achieves_polylog_operations~~ REMOVED
 
 #### `coq/thielemachine/coqproofs/MuAlu.v`
 - L189: **MU_COST_ZERO** — μ-cost definition \`mu_zero\` is trivially zero - ensure this is intentional.
