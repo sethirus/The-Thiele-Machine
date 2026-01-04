@@ -190,6 +190,18 @@ coq/kernel/VMState.vos coq/kernel/VMState.vok coq/kernel/VMState.required_vos: c
 coq/kernel/VMStep.vo coq/kernel/VMStep.glob coq/kernel/VMStep.v.beautified coq/kernel/VMStep.required_vo: coq/kernel/VMStep.v coq/kernel/CertCheck.vo coq/kernel/VMState.vo
 coq/kernel/VMStep.vio: coq/kernel/VMStep.v coq/kernel/CertCheck.vio coq/kernel/VMState.vio
 coq/kernel/VMStep.vos coq/kernel/VMStep.vok coq/kernel/VMStep.required_vos: coq/kernel/VMStep.v coq/kernel/CertCheck.vos coq/kernel/VMState.vos
+coq/kernel/ModularObservation.vo coq/kernel/ModularObservation.glob coq/kernel/ModularObservation.v.beautified coq/kernel/ModularObservation.required_vo: coq/kernel/ModularObservation.v coq/kernel/VMState.vo coq/kernel/VMStep.vo
+coq/kernel/ModularObservation.vio: coq/kernel/ModularObservation.v coq/kernel/VMState.vio coq/kernel/VMStep.vio
+coq/kernel/ModularObservation.vos coq/kernel/ModularObservation.vok coq/kernel/ModularObservation.required_vos: coq/kernel/ModularObservation.v coq/kernel/VMState.vos coq/kernel/VMStep.vos
+coq/kernel/Locality.vo coq/kernel/Locality.glob coq/kernel/Locality.v.beautified coq/kernel/Locality.required_vo: coq/kernel/Locality.v coq/kernel/VMState.vo coq/kernel/VMStep.vo coq/kernel/KernelPhysics.vo
+coq/kernel/Locality.vio: coq/kernel/Locality.v coq/kernel/VMState.vio coq/kernel/VMStep.vio coq/kernel/KernelPhysics.vio
+coq/kernel/Locality.vos coq/kernel/Locality.vok coq/kernel/Locality.required_vos: coq/kernel/Locality.v coq/kernel/VMState.vos coq/kernel/VMStep.vos coq/kernel/KernelPhysics.vos
+coq/kernel/FiniteInformation.vo coq/kernel/FiniteInformation.glob coq/kernel/FiniteInformation.v.beautified coq/kernel/FiniteInformation.required_vo: coq/kernel/FiniteInformation.v coq/kernel/VMState.vo coq/kernel/VMStep.vo
+coq/kernel/FiniteInformation.vio: coq/kernel/FiniteInformation.v coq/kernel/VMState.vio coq/kernel/VMStep.vio
+coq/kernel/FiniteInformation.vos coq/kernel/FiniteInformation.vok coq/kernel/FiniteInformation.required_vos: coq/kernel/FiniteInformation.v coq/kernel/VMState.vos coq/kernel/VMStep.vos
+coq/kernel/LocalInfoLoss.vo coq/kernel/LocalInfoLoss.glob coq/kernel/LocalInfoLoss.v.beautified coq/kernel/LocalInfoLoss.required_vo: coq/kernel/LocalInfoLoss.v coq/kernel/VMState.vo coq/kernel/VMStep.vo coq/kernel/FiniteInformation.vo coq/kernel/Locality.vo
+coq/kernel/LocalInfoLoss.vio: coq/kernel/LocalInfoLoss.v coq/kernel/VMState.vio coq/kernel/VMStep.vio coq/kernel/FiniteInformation.vio coq/kernel/Locality.vio
+coq/kernel/LocalInfoLoss.vos coq/kernel/LocalInfoLoss.vok coq/kernel/LocalInfoLoss.required_vos: coq/kernel/LocalInfoLoss.v coq/kernel/VMState.vos coq/kernel/VMStep.vos coq/kernel/FiniteInformation.vos coq/kernel/Locality.vos
 coq/kernel_toe/Closure.vo coq/kernel_toe/Closure.glob coq/kernel_toe/Closure.v.beautified coq/kernel_toe/Closure.required_vo: coq/kernel_toe/Closure.v coq/kernel/VMState.vo coq/kernel/VMStep.vo coq/kernel/KernelPhysics.vo coq/kernel/PhysicsClosure.vo coq/kernel/SpacetimeEmergence.vo
 coq/kernel_toe/Closure.vio: coq/kernel_toe/Closure.v coq/kernel/VMState.vio coq/kernel/VMStep.vio coq/kernel/KernelPhysics.vio coq/kernel/PhysicsClosure.vio coq/kernel/SpacetimeEmergence.vio
 coq/kernel_toe/Closure.vos coq/kernel_toe/Closure.vok coq/kernel_toe/Closure.required_vos: coq/kernel_toe/Closure.v coq/kernel/VMState.vos coq/kernel/VMStep.vos coq/kernel/KernelPhysics.vos coq/kernel/PhysicsClosure.vos coq/kernel/SpacetimeEmergence.vos

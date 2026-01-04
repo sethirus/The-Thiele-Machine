@@ -169,6 +169,20 @@ Definition graph_add_module (g : PartitionGraph)
   ({| pg_next_id := S mid;
       pg_modules := (mid, module) :: g.(pg_modules) |}, mid).
 
+(** graph_add_module preserves lookup for IDs below pg_next_id *)
+Lemma graph_add_module_lookup_other : forall g region axioms mid,
+  mid < g.(pg_next_id) ->
+  graph_lookup (fst (graph_add_module g region axioms)) mid = graph_lookup g mid.
+Proof.
+  intros g region axioms mid Hlt.
+  unfold graph_add_module, graph_lookup. simpl.
+  destruct (Nat.eqb (pg_next_id g) mid) eqn:Heq.
+  - (* pg_next_id g = mid, contradiction with mid < pg_next_id g *)
+    apply Nat.eqb_eq in Heq. lia.
+  - (* pg_next_id g <> mid, lookup continues in old modules *)
+    reflexivity.
+Qed.
+
 Fixpoint graph_find_region_modules
   (modules : list (ModuleID * ModuleState)) (region : list nat)
   : option ModuleID :=
@@ -265,6 +279,233 @@ Proof.
   - discriminate.
 Qed.
 
+(** ** Module Count (Length) Lemmas *)
+
+(** graph_add_module increases length by 1 *)
+Lemma graph_add_module_length : forall g region axioms,
+  List.length (pg_modules (fst (graph_add_module g region axioms))) =
+  S (List.length (pg_modules g)).
+Proof.
+  intros g region axioms.
+  unfold graph_add_module. simpl. reflexivity.
+Qed.
+
+(** Helper: graph_remove_modules decreases length by 1 when successful *)
+Lemma graph_remove_modules_length : forall modules mid modules' m,
+  graph_remove_modules modules mid = Some (modules', m) ->
+  List.length modules = S (List.length modules').
+Proof.
+  induction modules as [|[id ms] rest IH]; intros mid modules' m Hrem.
+  - simpl in Hrem. discriminate.
+  - simpl in Hrem.
+    destruct (Nat.eqb id mid) eqn:Heq.
+    + injection Hrem as Heq' _. subst modules'. simpl. reflexivity.
+    + destruct (graph_remove_modules rest mid) eqn:Hrest.
+      * destruct p as [rest' removed'].
+        injection Hrem as Heq' _. subst modules'. simpl.
+        f_equal. apply (IH _ _ _ Hrest).
+      * discriminate.
+Qed.
+
+(** graph_remove decreases length by 1 when successful *)
+Lemma graph_remove_length : forall g mid g' m,
+  graph_remove g mid = Some (g', m) ->
+  List.length (pg_modules g) = S (List.length (pg_modules g')).
+Proof.
+  intros g mid g' m Hrem.
+  unfold graph_remove in Hrem.
+  destruct (graph_remove_modules (pg_modules g) mid) eqn:Hrem_mod.
+  - destruct p as [modules' removed]. injection Hrem as Heq' _. subst g'.
+    simpl. apply (graph_remove_modules_length _ _ _ _ Hrem_mod).
+  - discriminate.
+Qed.
+
+(** graph_insert_modules preserves or increases length *)
+Lemma graph_insert_modules_length : forall modules mid m,
+  List.length (graph_insert_modules modules mid m) >= List.length modules.
+Proof.
+  induction modules as [|[id ms] rest IH]; intros mid m; simpl.
+  - lia.
+  - destruct (Nat.eqb id mid); simpl.
+    + lia.
+    + specialize (IH mid m). lia.
+Qed.
+
+(** graph_insert_modules on existing id preserves length exactly *)
+Lemma graph_insert_modules_existing_length : forall modules mid m,
+  In mid (List.map fst modules) ->
+  List.length (graph_insert_modules modules mid m) = List.length modules.
+Proof.
+  induction modules as [|[id ms] rest IH]; intros mid m Hin; simpl.
+  - simpl in Hin. destruct Hin.
+  - simpl in Hin. destruct Hin as [Heq | Hin'].
+    + subst mid. destruct (Nat.eqb id id) eqn:Heq.
+      * simpl. reflexivity.
+      * apply Nat.eqb_neq in Heq. lia.
+    + destruct (Nat.eqb id mid) eqn:Heq.
+      * simpl. reflexivity.
+      * simpl. f_equal. apply IH. exact Hin'.
+Qed.
+
+(** graph_update preserves or increases length *)
+Lemma graph_update_length : forall g mid m,
+  List.length (pg_modules (graph_update g mid m)) >= List.length (pg_modules g).
+Proof.
+  intros g mid m.
+  unfold graph_update. simpl.
+  apply graph_insert_modules_length.
+Qed.
+
+(** graph_add_axiom preserves or increases length *)
+Lemma graph_add_axiom_length : forall g mid ax,
+  List.length (pg_modules (graph_add_axiom g mid ax)) >= List.length (pg_modules g).
+Proof.
+  intros g mid ax.
+  unfold graph_add_axiom.
+  destruct (graph_lookup g mid) as [m|].
+  - apply graph_update_length.
+  - lia.
+Qed.
+
+(** Helper: graph_lookup_modules succeeds iff mid is in the module list *)
+Lemma graph_lookup_modules_in : forall modules mid m,
+  graph_lookup_modules modules mid = Some m ->
+  In mid (List.map fst modules).
+Proof.
+  induction modules as [|[id ms] rest IH]; intros mid m Hlu; simpl.
+  - simpl in Hlu. discriminate.
+  - simpl in Hlu. destruct (Nat.eqb id mid) eqn:Heq.
+    + left. apply Nat.eqb_eq in Heq. exact Heq.
+    + right. apply (IH _ m). exact Hlu.
+Qed.
+
+(** graph_add_axiom preserves length exactly *)
+Lemma graph_add_axiom_preserves_length : forall g mid ax,
+  List.length (pg_modules (graph_add_axiom g mid ax)) = List.length (pg_modules g).
+Proof.
+  intros g mid ax.
+  unfold graph_add_axiom.
+  destruct (graph_lookup g mid) as [m|] eqn:Hlu.
+  - (* Lookup succeeded, so update replaces existing entry *)
+    unfold graph_update. simpl.
+    apply graph_insert_modules_existing_length.
+    unfold graph_lookup in Hlu.
+    apply (graph_lookup_modules_in _ _ m Hlu).
+  - (* Lookup failed, graph unchanged *)
+    reflexivity.
+Qed.
+
+(** graph_add_axioms preserves length exactly *)
+Lemma graph_add_axioms_preserves_length : forall g mid axs,
+  List.length (pg_modules (graph_add_axioms g mid axs)) = List.length (pg_modules g).
+Proof.
+  intros g mid axs.
+  unfold graph_add_axioms.
+  revert g. induction axs as [|ax rest IH]; intros g; simpl.
+  - reflexivity.
+  - rewrite IH. apply graph_add_axiom_preserves_length.
+Qed.
+
+(** graph_record_discovery preserves length exactly *)
+Lemma graph_record_discovery_preserves_length : forall g mid evidence,
+  List.length (pg_modules (graph_record_discovery g mid evidence)) = List.length (pg_modules g).
+Proof.
+  intros g mid evidence.
+  unfold graph_record_discovery.
+  apply graph_add_axioms_preserves_length.
+Qed.
+
+(** graph_update on existing id preserves length exactly *)
+Lemma graph_update_existing_length : forall g mid m,
+  graph_lookup g mid <> None ->
+  List.length (pg_modules (graph_update g mid m)) = List.length (pg_modules g).
+Proof.
+  intros g mid m Hlu.
+  unfold graph_update. simpl.
+  apply graph_insert_modules_existing_length.
+  unfold graph_lookup in Hlu.
+  destruct (graph_lookup_modules (pg_modules g) mid) as [ms|] eqn:Hlu'.
+  - apply (graph_lookup_modules_in _ _ ms Hlu').
+  - contradiction.
+Qed.
+
+(** graph_insert_modules lookup for the same id *)
+Lemma graph_insert_modules_lookup_same : forall modules mid m,
+  In mid (List.map fst modules) ->
+  graph_lookup_modules (graph_insert_modules modules mid m) mid = Some m.
+Proof.
+  induction modules as [|[id existing] rest IH]; intros mid m Hin.
+  - (* empty - contradiction with In *)
+    simpl in Hin. contradiction.
+  - simpl in Hin. destruct Hin as [Heq_id | Hin_rest].
+    + (* id = mid *)
+      subst id. simpl.
+      rewrite Nat.eqb_refl. simpl. rewrite Nat.eqb_refl. reflexivity.
+    + (* mid in rest *)
+      simpl. destruct (Nat.eqb id mid) eqn:Heq.
+      * (* id = mid - this case is also fine *)
+        simpl. rewrite Nat.eqb_refl. reflexivity.
+      * (* id <> mid - recurse *)
+        simpl. rewrite Heq. apply IH. exact Hin_rest.
+Qed.
+
+(** graph_update lookup for the same id *)
+Lemma graph_update_lookup_same : forall g mid m,
+  graph_lookup g mid <> None ->
+  graph_lookup (graph_update g mid m) mid = Some (normalize_module m).
+Proof.
+  intros g mid m Hlu.
+  unfold graph_update, graph_lookup. simpl.
+  apply graph_insert_modules_lookup_same.
+  unfold graph_lookup in Hlu.
+  destruct (graph_lookup_modules (pg_modules g) mid) as [ms|] eqn:Hlu'.
+  - apply (graph_lookup_modules_in _ _ ms Hlu').
+  - contradiction.
+Qed.
+
+(** graph_insert_modules preserves lookup for different id *)
+Lemma graph_insert_modules_preserves_unrelated : forall modules mid_update mid_other m,
+  mid_other <> mid_update ->
+  graph_lookup_modules (graph_insert_modules modules mid_update m) mid_other =
+  graph_lookup_modules modules mid_other.
+Proof.
+  induction modules as [|[id existing] rest IH]; intros mid_update mid_other m Hneq.
+  - (* empty: graph_insert_modules [] mid_update m = [(mid_update, m)] *)
+    simpl.
+    (* Need to show lookup mid_other in [(mid_update, m)] = None *)
+    destruct (Nat.eqb mid_update mid_other) eqn:Heq.
+    + (* mid_update = mid_other - contradiction with Hneq *)
+      apply Nat.eqb_eq in Heq. symmetry in Heq. contradiction.
+    + (* mid_update <> mid_other - lookup returns None *)
+      reflexivity.
+  - (* cons *)
+    simpl. destruct (Nat.eqb id mid_update) eqn:Heq_update.
+    + (* id = mid_update, so insert replaces here, result is (mid_update, m) :: rest *)
+      apply Nat.eqb_eq in Heq_update. subst id.
+      simpl.
+      destruct (Nat.eqb mid_update mid_other) eqn:Heq.
+      * (* mid_update = mid_other - contradiction *)
+        apply Nat.eqb_eq in Heq. subst. contradiction.
+      * (* mid_update <> mid_other *)
+        reflexivity.
+    + (* id <> mid_update, insert goes deeper *)
+      simpl. destruct (Nat.eqb id mid_other) eqn:Heq_other.
+      * (* id = mid_other, found *)
+        reflexivity.
+      * (* id <> mid_other, recurse *)
+        apply IH. exact Hneq.
+Qed.
+
+(** graph_update preserves lookup for different id *)
+Lemma graph_update_preserves_unrelated : forall g mid_update mid_other m,
+  mid_other <> mid_update ->
+  graph_lookup (graph_update g mid_update m) mid_other = graph_lookup g mid_other.
+Proof.
+  intros g mid_update mid_other m Hneq.
+  unfold graph_update, graph_lookup. simpl.
+  apply graph_insert_modules_preserves_unrelated. exact Hneq.
+Qed.
+
 (** ** Key Structural Theorem: Lookups Beyond pg_next_id Return None *)
 
 (** Helper: If all IDs in a module list are < bound, then lookup of mid >= bound returns None *)
@@ -281,6 +522,60 @@ Proof.
       apply Nat.eqb_eq in Heq. subst id. lia.
     + (* id ≠ mid, recurse *)
       apply (IH mid bound Hrest Hge).
+Qed.
+
+(** graph_remove preserves pg_next_id *)
+Lemma graph_remove_preserves_next_id : forall g mid g' m,
+  graph_remove g mid = Some (g', m) ->
+  g'.(pg_next_id) = g.(pg_next_id).
+Proof.
+  intros g mid g' m Hremove.
+  unfold graph_remove in Hremove.
+  destruct (graph_remove_modules (pg_modules g) mid).
+  - destruct p. injection Hremove as Heq _. rewrite <- Heq. simpl. reflexivity.
+  - discriminate.
+Qed.
+
+(** graph_remove preserves lookup for unrelated modules *)
+Lemma graph_remove_preserves_unrelated : forall g mid mid' g' m',
+  mid <> mid' ->
+  graph_remove g mid' = Some (g', m') ->
+  graph_lookup g' mid = graph_lookup g mid.
+Proof.
+  intros g mid mid' g' m' Hneq Hremove.
+  unfold graph_remove in Hremove.
+  destruct (graph_remove_modules (pg_modules g) mid') eqn:Hremove_modules.
+  - destruct p as [modules' removed].
+    injection Hremove as Heq_g' Heq_m'. subst g' m'.
+    unfold graph_lookup. simpl.
+    generalize dependent modules'.
+    generalize dependent removed.
+    induction (pg_modules g) as [|[id ms] rest IH].
+    + (* Base case: pg_modules g = [] *)
+      intros. simpl in Hremove_modules. discriminate.
+    + (* Inductive case *)
+      intros removed modules' Hremove_modules.
+      simpl in Hremove_modules.
+      destruct (Nat.eqb id mid') eqn:Heq_id.
+      * (* id = mid', so this module is removed *)
+        injection Hremove_modules as Heq_modules' Heq_removed.
+        subst modules' removed.
+        apply Nat.eqb_eq in Heq_id. subst id.
+        simpl.
+        assert (Hneq_sym: mid' <> mid) by (intro; subst; contradiction).
+        apply Nat.eqb_neq in Hneq_sym.
+        rewrite Hneq_sym. reflexivity.
+      * (* id ≠ mid', module kept *)
+        destruct (graph_remove_modules rest mid') eqn:Hrest.
+        -- destruct p as [rest' removed'].
+           injection Hremove_modules as Heq_modules' Heq_removed.
+           subst modules' removed.
+           simpl.
+           destruct (Nat.eqb id mid) eqn:Heq_mid.
+           ++ reflexivity.
+           ++ apply (IH removed' rest' eq_refl).
+        -- discriminate.
+  - discriminate.
 Qed.
 
 (** THEOREM: Well-formed graphs have None for lookups beyond pg_next_id.
@@ -467,3 +762,158 @@ Definition update_state
      vm_pc := advance_pc s;
      vm_mu := mu;
      vm_err := err |}.
+
+(** ** graph_psplit and graph_pmerge Length Lemmas *)
+
+(** graph_psplit increases length on success *)
+Lemma graph_psplit_increases_length : forall g mid left right g' lid rid,
+  graph_psplit g mid left right = Some (g', lid, rid) ->
+  List.length (pg_modules g') >= List.length (pg_modules g).
+Proof.
+  intros g mid left right g' lid rid Hsplit.
+  unfold graph_psplit in Hsplit.
+  destruct (graph_lookup g mid) as [m|] eqn:Hlu; [|discriminate].
+  destruct (orb _ _) eqn:Hempty.
+  - (* Empty partition case: graph_add_module adds 1 *)
+    unfold graph_add_module in Hsplit. simpl in Hsplit.
+    injection Hsplit as Heq _ _. subst g'.
+    simpl. lia.
+  - (* Non-empty partition case *)
+    destruct (partition_valid _ _ _) eqn:Hvalid; [|discriminate].
+    destruct (graph_remove g mid) as [[g_removed removed]|] eqn:Hrem; [|discriminate].
+    unfold graph_add_module in Hsplit. simpl in Hsplit.
+    injection Hsplit as Heq _ _. subst g'.
+    simpl.
+    pose proof (graph_remove_length g mid g_removed removed Hrem) as Hrem_len.
+    lia.
+Qed.
+
+(** graph_pmerge decreases length on success *)
+Lemma graph_pmerge_decreases_length : forall g m1 m2 g' merged,
+  graph_pmerge g m1 m2 = Some (g', merged) ->
+  List.length (pg_modules g') <= List.length (pg_modules g).
+Proof.
+  intros g m1 m2 g' merged Hmerge.
+  unfold graph_pmerge in Hmerge.
+  destruct (Nat.eqb m1 m2); [discriminate|].
+  destruct (graph_remove g m1) as [[g1 mod1]|] eqn:Hrem1; [|discriminate].
+  destruct (graph_remove g1 m2) as [[g2 mod2]|] eqn:Hrem2; [|discriminate].
+  destruct (negb _) eqn:Hoverlap; [discriminate|].
+  destruct (graph_find_region g2 _) as [existing|] eqn:Hfind.
+  - (* Existing region found: graph_update preserves length *)
+    destruct (graph_lookup g2 existing) as [existing_mod|] eqn:Hlu; [|discriminate].
+    injection Hmerge as Heq _. subst g'.
+    (* The actual module state doesn't matter for length preservation *)
+    assert (Hlu_ne : graph_lookup g2 existing <> None).
+    { rewrite Hlu. discriminate. }
+    pose proof (graph_update_existing_length g2 existing 
+                  {| module_region := module_region existing_mod;
+                     module_axioms := module_axioms existing_mod ++ module_axioms mod1 ++ module_axioms mod2 |}
+                  Hlu_ne) as Hupd.
+    pose proof (graph_remove_length g m1 g1 mod1 Hrem1) as Hrem1_len.
+    pose proof (graph_remove_length g1 m2 g2 mod2 Hrem2) as Hrem2_len.
+    lia.
+  - (* No existing region: graph_add_module adds 1 *)
+    unfold graph_add_module in Hmerge. simpl in Hmerge.
+    injection Hmerge as Heq _. subst g'.
+    simpl.
+    pose proof (graph_remove_length g m1 g1 mod1 Hrem1) as Hrem1_len.
+    pose proof (graph_remove_length g1 m2 g2 mod2 Hrem2) as Hrem2_len.
+    lia.
+Qed.
+
+(** graph_pmerge decreases length by at most 2 *)
+Lemma graph_pmerge_length_bound : forall g m1 m2 g' merged,
+  graph_pmerge g m1 m2 = Some (g', merged) ->
+  List.length (pg_modules g) <= List.length (pg_modules g') + 2.
+Proof.
+  intros g m1 m2 g' merged Hmerge.
+  unfold graph_pmerge in Hmerge.
+  destruct (Nat.eqb m1 m2); [discriminate|].
+  destruct (graph_remove g m1) as [[g1 mod1]|] eqn:Hrem1; [|discriminate].
+  destruct (graph_remove g1 m2) as [[g2 mod2]|] eqn:Hrem2; [|discriminate].
+  destruct (negb _) eqn:Hoverlap; [discriminate|].
+  destruct (graph_find_region g2 _) as [existing|] eqn:Hfind.
+  - (* Existing region found: removes 2, adds 0 via update = net -2 *)
+    destruct (graph_lookup g2 existing) as [existing_mod|] eqn:Hlu; [|discriminate].
+    injection Hmerge as Heq _. subst g'.
+    assert (Hlu_ne : graph_lookup g2 existing <> None).
+    { rewrite Hlu. discriminate. }
+    pose proof (graph_update_existing_length g2 existing 
+                  {| module_region := module_region existing_mod;
+                     module_axioms := module_axioms existing_mod ++ module_axioms mod1 ++ module_axioms mod2 |}
+                  Hlu_ne) as Hupd.
+    pose proof (graph_remove_length g m1 g1 mod1 Hrem1) as Hrem1_len.
+    pose proof (graph_remove_length g1 m2 g2 mod2 Hrem2) as Hrem2_len.
+    lia.
+  - (* No existing region: removes 2, adds 1 = net -1 *)
+    unfold graph_add_module in Hmerge. simpl in Hmerge.
+    injection Hmerge as Heq _. subst g'.
+    simpl.
+    pose proof (graph_remove_length g m1 g1 mod1 Hrem1) as Hrem1_len.
+    pose proof (graph_remove_length g1 m2 g2 mod2 Hrem2) as Hrem2_len.
+    lia.
+Qed.
+
+(** graph_pmerge preserves region observation for unrelated modules.
+    IMPORTANT: This preserves the NORMALIZED REGION for modules not in {m1, m2}.
+    We compare normalized regions because graph operations may normalize. *)
+Lemma graph_pmerge_preserves_region_obs : forall g m1 m2 g' merged_id mid,
+  mid <> m1 ->
+  mid <> m2 ->
+  mid < g.(pg_next_id) ->
+  graph_pmerge g m1 m2 = Some (g', merged_id) ->
+  match graph_lookup g' mid with
+  | Some m' => Some (normalize_region (m'.(module_region)))
+  | None => None
+  end =
+  match graph_lookup g mid with
+  | Some m => Some (normalize_region (m.(module_region)))
+  | None => None
+  end.
+Proof.
+  intros g m1 m2 g' merged_id mid Hneq1 Hneq2 Hlt Hpmerge.
+  unfold graph_pmerge in Hpmerge.
+  destruct (Nat.eqb m1 m2) eqn:Heq_m1_m2; [discriminate|].
+  destruct (graph_remove g m1) as [[g1 mod1]|] eqn:Hrem1; [|discriminate].
+  destruct (graph_remove g1 m2) as [[g2 mod2]|] eqn:Hrem2; [|discriminate].
+  destruct (negb _) eqn:Hdisjoint; [discriminate|].
+  destruct (graph_find_region g2 _) as [existing|] eqn:Hfind.
+  - (* Existing region found *)
+    destruct (graph_lookup g2 existing) as [ex_mod|] eqn:Hlook_ex; [|discriminate].
+    injection Hpmerge as Hg' _. subst g'.
+    destruct (Nat.eq_dec mid existing) as [Heq|Hneq].
+    + (* mid = existing: region preserved via normalization idempotence *)
+      subst mid.
+      assert (Hlook_ne : graph_lookup g2 existing <> None) by (rewrite Hlook_ex; discriminate).
+      rewrite graph_update_lookup_same by assumption. simpl.
+      rewrite <- (graph_remove_preserves_unrelated g existing m1 g1 mod1 Hneq1 Hrem1).
+      rewrite <- (graph_remove_preserves_unrelated g1 existing m2 g2 mod2 Hneq2 Hrem2).
+      rewrite Hlook_ex. simpl.
+      (* normalize_region is idempotent on the same region *)
+      rewrite normalize_region_idempotent. reflexivity.
+    + (* mid <> existing: update doesn't affect *)
+      rewrite graph_update_preserves_unrelated by assumption.
+      rewrite (graph_remove_preserves_unrelated g1 mid m2 g2 mod2) by assumption.
+      rewrite (graph_remove_preserves_unrelated g mid m1 g1 mod1) by assumption.
+      reflexivity.
+  - (* No existing region: add new module *)
+    unfold graph_add_module in Hpmerge. simpl in Hpmerge.
+    injection Hpmerge as Hg' _. subst g'. simpl.
+    (* The new module is at g2.(pg_next_id), and mid < g2.(pg_next_id) *)
+    pose proof (graph_remove_preserves_next_id g m1 g1 mod1 Hrem1) as Hnext1.
+    pose proof (graph_remove_preserves_next_id g1 m2 g2 mod2 Hrem2) as Hnext2.
+    assert (Hmid_lt : mid < g2.(pg_next_id)) by lia.
+    (* First, chain the remove preservations *)
+    assert (Hlu_chain : graph_lookup g2 mid = graph_lookup g mid).
+    { rewrite (graph_remove_preserves_unrelated g1 mid m2 g2 mod2) by assumption.
+      rewrite (graph_remove_preserves_unrelated g mid m1 g1 mod1) by assumption.
+      reflexivity. }
+    (* The goal is about lookups with normalize_region *)
+    unfold graph_lookup in Hlu_chain. unfold graph_lookup. simpl.
+    destruct (Nat.eqb (pg_next_id g2) mid) eqn:Heq.
+    + (* pg_next_id g2 = mid, contradiction *)
+      apply Nat.eqb_eq in Heq. lia.
+    + (* pg_next_id g2 <> mid, g2's modules match *)
+      rewrite Hlu_chain. reflexivity.
+Qed.
