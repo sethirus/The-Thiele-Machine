@@ -2,22 +2,24 @@
 
 \subsection{A Foundation for Understanding}
 
-Before diving into the Thiele Machine, I need to understand \textit{what problem it solves}. This requires revisiting fundamental concepts from:
+Before I dive into the Thiele Machine, I need to explain \textit{what problem it solves}. I didn't start with a formal education in any of this---I started with questions I couldn't answer. This chapter covers the concepts I had to learn:
 \begin{itemize}
     \item \textbf{Computation theory}: What is a computer, really? (Turing Machines, RAM models)
-    \item \textbf{Information theory}: What is information, and how do I measure it? (Shannon entropy, Kolmogorov complexity)
+    \item \textbf{Information theory}: What is information, and how do you measure it? (Shannon entropy, Kolmogorov complexity)
     \item \textbf{Physics of computation}: What are the physical limits on computing? (Landauer's principle, thermodynamics)
     \item \textbf{Quantum computing}: What does "quantum advantage" mean? (Bell's theorem, CHSH inequality)
-    \item \textbf{Formal verification}: How can I \textit{prove} things about programs? (Coq, proof assistants)
+    \item \textbf{Formal verification}: How can you \textit{prove} things about programs? (Coq, proof assistants)
 \end{itemize}
+
+I learned all of this by pulling on threads. If you already know it, skip ahead. If you don't, this chapter is for you---written by someone who also didn't know it a year ago.
 
 \subsection{The Central Question}
 
 Classical computers (Turing Machines, RAM machines) are \textit{structurally blind}---they lack primitive access to the structure of their input. If you give a computer a sorted list, it doesn't "know" the list is sorted unless it checks. This is a statement about the interface of the model, not about what is computable. The distinction is between \emph{access} and \emph{ability}: structure is discoverable, but only through explicit computation.
 
-This raises a profound question: \textit{What if structural knowledge were a first-class resource that must be discovered, paid for, and accounted for?}
+This raises a question that kept nagging at me: \textit{What if structural knowledge were a first-class resource that must be discovered, paid for, and accounted for?}
 
-To understand why this question matters, I first need to understand what classical computers can and cannot do, and what I mean by "structure" and "information."
+That question is what this thesis tries to answer.
 The Thiele Machine answers this question by embedding structure into the machine state itself (as partitions and axioms) and by explicitly tracking the cost of adding that structure. That design choice is the bridge between the background material in this chapter and the formal model introduced in Chapter 3.
 
 \subsection{How to Read This Chapter}

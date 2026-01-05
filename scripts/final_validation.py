@@ -76,12 +76,12 @@ def main():
     )
     
     results['mu_alu_syntax'] = run_command(
-        "iverilog -t null thielecpu/hardware/mu_alu.v",
+        "iverilog -t null thielecpu/hardware/rtl/mu_alu.v",
         "μ-ALU Verilog syntax check"
     )
     
     results['mu_core_syntax'] = run_command(
-        "iverilog -t null thielecpu/hardware/mu_core.v",
+        "iverilog -t null thielecpu/hardware/rtl/mu_core.v",
         "μ-Core Verilog syntax check"
     )
     

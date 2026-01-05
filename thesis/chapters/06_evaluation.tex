@@ -2,6 +2,9 @@
 
 % Figure 1: Chapter 6 Roadmap
 
+\begin{quote}
+\textit{Author's Note (Devon): This is where the rubber meets the road. All the theory, all the proofs, all the fancy mathematics---none of it means anything if the thing doesn't actually work. This chapter is me putting my money where my mouth is. Every claim I made? I tried to break it. Every invariant I promised? I threw random chaos at it. Because in my world---the car sales world---a car either drives or it doesn't. You can't BS your way past an engine that won't start. Same principle here.}
+\end{quote}
 
 \subsection{From Theory to Evidence}
 
@@ -28,7 +31,7 @@ All experiments follow scientific best practices:
 \begin{itemize}
     \item \textbf{Reproducibility}: Every experiment can be re-run from the published artifacts and trace descriptions
     \item \textbf{Automation}: Tests are automated in a continuous validation pipeline
-    \item \textbf{Adversarial testing}: I actively try to break the system, not just confirm it works
+    \item \textbf{Adversarial testing}: I actively try to break the system, not just confirm it works. (Honestly, I \textit{wanted} to find holes---finding them yourself is better than someone else finding them later)
 \end{itemize}
 
 All experiments use the reference VM with receipt generation enabled. Each run produces receipts and state snapshots so that results can be rechecked independently. The emphasis is on \textit{replayability}: anyone can take the same trace, replay it through each layer, and confirm equality of the observable projection.
@@ -206,6 +209,10 @@ $\mu$-Ledger Updates & PASS & PASS & PASS \\
 \hline
 \end{tabular}
 \end{center}
+
+\begin{quote}
+\textit{Author's Note (Devon): See that? 100\% across the board. All three layers. Every test. I'm not going to pretend I didn't freak out a little when I first saw this. Actually, I freaked out a lot. Because it meant the isomorphism wasn't just a hope---it was real. The Coq proofs agreed with the Python VM agreed with the hardware simulation. That's not luck. That's not coincidence. That's the system working exactly as designed.}
+\end{quote}
 
 \section{CHSH Correlation Experiments}
 

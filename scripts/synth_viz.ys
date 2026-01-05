@@ -1,7 +1,7 @@
 # Yosys synthesis script for Visualization (mu_core)
 
 # Read the Verilog source files
-read_verilog -sv -D YOSYS_LITE thielecpu/hardware/mu_core.v
+read_verilog -sv -D YOSYS_LITE thielecpu/hardware/rtl/mu_core.v
 
 # Elaborate design hierarchy
 hierarchy -check -top mu_core

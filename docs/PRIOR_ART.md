@@ -3,6 +3,7 @@
 Structured search for related work to position the Thiele Machine in the research landscape.
 
 **Search Date**: 2025-12-19  
+**Last Reviewed**: January 4, 2026  
 **Scope**: $0 budget (free online resources only)  
 **Note**: Solo project, informal literature review
 
@@ -287,6 +288,8 @@ No prior art for partition-as-computation (PNEW/PSPLIT/PMERGE) found.
 3. **μ-ledger**: Thermodynamic-like accounting for computation
 4. **Silicon-enforced isomorphism**: Hardware realization of supra-quantum correlations (conjectured)
 5. **16/5 distribution**: Specific supra-quantum correlation between PR-box and Tsirelson bound
+6. **Initiality Theorem** (January 2026): μ is the unique canonical monotone cost functional
+7. **Necessity Theorem** (January 2026): μ is minimal among Landauer-valid cost models
 
 ### Open Questions from Literature
 1. Does the 16/5 distribution violate information causality?
@@ -324,4 +327,4 @@ No prior art for partition-as-computation (PNEW/PSPLIT/PMERGE) found.
 ---
 
 **Last updated**: 2025-12-19  
-**Next review**: 2026-01-15 (incorporate community feedback)
+**Last reviewed**: January 4, 2026

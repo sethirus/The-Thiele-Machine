@@ -113,7 +113,7 @@ def test_verilog_compilation():
     print("=" * 80)
     print()
     
-    verilog_file = Path(__file__).parent.parent / "thielecpu/hardware/mu_alu.v"
+    verilog_file = Path(__file__).parent.parent / "thielecpu/hardware/rtl/mu_alu.v"
     
     if not verilog_file.exists():
         print(f"✗ Verilog file not found: {verilog_file}")

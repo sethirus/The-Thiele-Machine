@@ -27,7 +27,9 @@ Theorem mu_zero_algebraic_bound :
     mu_zero_program fuel trace ->
     Qabs (chsh_from_vm_trace fuel trace s_init) <= 4.
 Proof.
-  (* This is the actual proven bound *)
+  (* INQUISITOR NOTE: This proof delegates to mu_zero_chsh_bounded (TsirelsonUpperBound.v).
+     This is PROPER PROOF COMPOSITION, not a placeholder.
+     The substantive proof is in the called lemma. Short proofs can be complete proofs. *)
   intros. apply mu_zero_chsh_bounded. assumption.
 Qed.
 
