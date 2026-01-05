@@ -237,18 +237,28 @@ Qed.
     
     The μ-accounting framework provides:
     
-    1. DERIVATION: The Tsirelson bound emerges from μ-cost accounting
-       (TsirelsonUniqueness.tsirelson_from_pure_accounting)
+    1. DERIVATION: The Tsirelson bound emerges from total μ-cost = 0
+       (TsirelsonDerivation.tsirelson_from_pure_accounting)
+       - Instruction μ = 0: no revelation operations
+       - Correlation μ = 0: algebraically coherent strategy
+       Together: Total μ = 0 → CHSH ≤ 2√2
        
     2. EXPLANATION: Why 2√2 and not some other value?
-       Because it's the exact μ=0/μ>0 boundary.
+       Because it's the exact total μ=0 boundary.
+       Instruction μ=0 alone gives CHSH ≤ 4 (algebraic max).
+       Adding correlation μ=0 (coherence) gives CHSH ≤ 2√2.
        
     3. MECHANISM: How does nature "know" to stop at 2√2?
-       Through the revelation requirement - supra-quantum correlations
-       require revealing hidden structure, which has computational cost.
+       Supra-quantum correlations require explicit coordination - 
+       specifying P(a,b|x,y) as a lookup table. This coordination
+       IS the correlation μ-cost. Coherent correlations (achievable
+       from shared state) have zero specification cost.
        
     4. UNIFICATION: Classical ⊂ Quantum ⊂ Supra-quantum hierarchy
-       follows from μ-cost tiers (0, bounded, unbounded).
+       follows from μ-cost tiers:
+       - Total μ = 0: Quantum (CHSH ≤ 2√2)
+       - Instruction μ = 0, Correlation μ > 0: Supra-quantum (CHSH ≤ 4)
+       - Instruction μ > 0: Beyond no-signaling
        
     This is not "merely formal equivalence" - it's a complete explanation
     of why quantum mechanics has the correlation structure it does,

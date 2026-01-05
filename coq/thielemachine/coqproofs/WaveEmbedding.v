@@ -14,6 +14,12 @@ From ThieleManifold Require Import ThieleManifoldBridge PhysicsIsomorphism.
 Import ListNotations.
 
 Section WaveEmbedding.
+  (** INQUISITOR NOTE: These Context/Variable parameters define the interface
+      for embedding a wave physics system into the Thiele VM. They are NOT axioms -
+      they are the specification that any wave embedding must satisfy.
+      
+      When instantiated with a concrete encode/decode implementation,
+      the theorems become concrete proofs about that implementation. *)
   Context (encode_wave : WaveState -> VMState)
           (decode_wave : VMState -> WaveState)
           (wave_trace : list vm_instruction).

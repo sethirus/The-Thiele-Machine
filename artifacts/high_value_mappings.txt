@@ -82,11 +82,6 @@ docs/UNDERSTANDING_COQ_PROOFS.md:374:2. **cost**: The pricing function (how μ-b
 docs/UNDERSTANDING_COQ_PROOFS.md:398:**What this proves**: μ-bits can **never** be refunded. Once information is revealed (costing μ), it stays revealed.
 docs/UNDERSTANDING_COQ_PROOFS.md:611:    (* Sub-case 3: μ-cost increases correctly *)
 docs/UNDERSTANDING_COQ_PROOFS.md:744:| μ-cost ≥ Kolmogorov | `CostIsComplexity.v` | **Theorem** (information-theoretic) |
-docs/HONEST_TRUTH.md:207:2. **"RSA-2048 is broken"**
-docs/HONEST_TRUTH.md:227:"The mathematics is solid: Coq proofs with zero admits show CHSH = 16/5 > 2√2 is achievable in no-signaling theories. The software implementation is consistent across Python, OCaml, and Verilog on all tested programs. Physical claims remain conjectures requiring experimental validation with costs ranging from $10K to $10M."
-docs/HONEST_TRUTH.md:231:"This project proves mathematically that a no-signaling probability distribution can achieve CHSH = 16/5, exceeding the quantum Tsirelson bound of 2√2, using mechanically verified Coq proofs with zero admits or axioms. A three-layer implementation (Coq → OCaml → Python → Verilog) maintains consistent state across all tested programs, verified by 15 passing isomorphism tests. However, all physical claims—including experimental demonstration of CHSH = 16/5, silicon-based computational advantages, or complexity class improvements—remain conjectures without experimental validation. This is a solo research project with $0 budget, no institutional backing, and no peer review (yet). Community scrutiny is welcomed."
-docs/HONEST_TRUTH.md:262:- Manufacture partition-native ASIC
-docs/HONEST_TRUTH.md:308:   - Design partition-native ASIC ($100K-$1M)
 docs/FALSIFIABILITY.md:126:3. Counterexample showing μ-costs don't match physical energy costs
 docs/FALSIFIABILITY.md:188:The supra-quantum correlations cannot be explained by local hidden variable theories.
 docs/theory/ArchTheorem.v:257:  forall (vm : VMState) (problem : list Axiom),
@@ -138,18 +133,6 @@ docs/VERIFICATION_GUIDE_QUICK_START.md:58:- μ-cost calculation inconsistencies
 docs/VERIFICATION_GUIDE_QUICK_START.md:70:- [μ-Specification](spec/mu_spec_v2.md) - μ-cost calculation rules
 docs/VERIFICATION_GUIDE_QUICK_START.md:95:- Instructions with different semantics (e.g., different μ-costs)
 docs/VERIFICATION_GUIDE_QUICK_START.md:104:- **Strong:** μ-cost formulas match in specification
-docs/SKEPTIC_FAQ.md:25:1. The theorem shows revelation (μ-charging) is necessary for supra-quantum certification
-docs/SKEPTIC_FAQ.md:36:**Bridge Postulate**: μ-cost corresponds to thermodynamic dissipation
-docs/SKEPTIC_FAQ.md:49:2. Must demonstrate μ-cost lower-bounds physical heat dissipation
-docs/SKEPTIC_FAQ.md:146:1. **μ-ledger accounting**: Partition ops charge μ-costs independent of Python execution
-docs/SKEPTIC_FAQ.md:223:1. μ-costs are well-defined and reproducible: [test_mu_costs.py](../tests/test_mu_costs.py)
-docs/SKEPTIC_FAQ.md:298:**Status**: Different computational model (partition-native vs. quantum)
-docs/SKEPTIC_FAQ.md:302:## Objection 10: "You claim to break RSA-2048, but that's impossible"
-docs/SKEPTIC_FAQ.md:307:- **[IMPLEMENTED]**: Partition-native factoring algorithm recovers RSA-2048 prime factors
-docs/SKEPTIC_FAQ.md:314:- ❌ That partition-native computing solves all NP problems in P
-docs/SKEPTIC_FAQ.md:317:1. Classical factoring (GNFS) requires astronomical resources for RSA-2048
-docs/SKEPTIC_FAQ.md:318:2. Quantum algorithms (Shor's) can factor in polynomial time *with quantum hardware*
-docs/SKEPTIC_FAQ.md:343:| RSA-2048 breaking | [DEMO] | Receipt available | Complexity conjectured |
 docs/THE_THIELE_ISOMORPHISM_VERIFICATION_PLAN.md:80:     vm_mu: nat;                    (* μ-cost accumulator *)
 docs/THE_THIELE_ISOMORPHISM_VERIFICATION_PLAN.md:94:       mu_ledger: MuLedger           # μ-cost tracking
 docs/THE_THIELE_ISOMORPHISM_VERIFICATION_PLAN.md:111:     reg [31:0] mu_accumulator;      // μ-cost (Q16.16 format)

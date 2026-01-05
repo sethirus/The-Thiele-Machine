@@ -1,10 +1,10 @@
 # INQUISITOR REPORT
-Generated: 2026-01-05 01:57:25Z (UTC)
-Scanned: 238 Coq files across the repo
+Generated: 2026-01-05 06:38:23Z (UTC)
+Scanned: 239 Coq files across the repo
 ## Summary
 - HIGH: 0
 - MEDIUM: 5
-- LOW: 4
+- LOW: 20
 
 ## Rules
 - `ADMITTED`: `Admitted.` (incomplete proof - FORBIDDEN)
@@ -12,7 +12,9 @@ Scanned: 238 Coq files across the repo
 - `GIVE_UP_TACTIC`: `give_up` (proof shortcut - FORBIDDEN)
 - `AXIOM_OR_PARAMETER`: `Axiom` / `Parameter` (HIGH - unproven assumptions FORBIDDEN)
 - `HYPOTHESIS_ASSUME`: `Hypothesis` (HIGH - functionally equivalent to Axiom, FORBIDDEN)
-- `SECTION_BINDER`: `Context` / `Variable` / `Variables` (informational)
+- `CONTEXT_ASSUMPTION`: `Context` with forall/arrow (HIGH - undocumented section-local axiom)
+- `CONTEXT_ASSUMPTION_DOCUMENTED`: `Context` with INQUISITOR NOTE (LOW - documented dependency)
+- `SECTION_BINDER`: `Context` / `Variable` / `Variables` (MEDIUM - verify instantiation)
 - `MODULE_SIGNATURE_DECL`: `Axiom` / `Parameter` inside `Module Type` (informational)
 - `COST_IS_LENGTH`: `Definition *cost* := ... length ... .`
 - `EMPTY_LIST`: `Definition ... := [].`
@@ -73,6 +75,36 @@ Higher score = more likely unfinished/vacuous.
 
 ### LOW
 
+#### `coq/kernel/AlgebraicCoherence.v`
+- L188: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`symmetric_coherence_bound\` is documented with INQUISITOR NOTE.
+  - `Context (symmetric_coherence_bound : forall e : Q,`
+- L195: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`tsirelson_from_algebraic_coherence\` is documented with INQUISITOR NOTE.
+  - `Context (tsirelson_from_algebraic_coherence : forall c : Correlators,`
+
+#### `coq/kernel/BoxCHSH.v`
+- L77: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`normalized_E_bound\` is documented with INQUISITOR NOTE.
+  - `Context (normalized_E_bound : forall B x y,`
+- L95: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`valid_box_S_le_4\` is documented with INQUISITOR NOTE.
+  - `Context (valid_box_S_le_4 : forall B,`
+- L119: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`local_box_S_le_2\` is documented with INQUISITOR NOTE.
+  - `Context (local_box_S_le_2 : forall B,`
+- L182: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`normalized_E_bound\` is documented with INQUISITOR NOTE.
+  - `Context (normalized_E_bound : forall B x y,`
+- L187: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`tsirelson_from_algebraic_coherence\` is documented with INQUISITOR NOTE.
+  - `Context (tsirelson_from_algebraic_coherence : forall c : Correlators,`
+
+#### `coq/kernel/TsirelsonUniqueness.v`
+- L59: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`tsirelson_from_algebraic_coherence\` is documented with INQUISITOR NOTE.
+  - `Context (tsirelson_from_algebraic_coherence : forall c : Correlators,`
+
+#### `coq/modular_proofs/EncodingBounds.v`
+- L147: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`encode_list\` is documented with INQUISITOR NOTE.
+  - `Context (encode_list : list nat -> nat).`
+- L148: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`digits_ok\` is documented with INQUISITOR NOTE.
+  - `Context (digits_ok : list nat -> Prop).`
+- L149: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`encode_list_upper\` is documented with INQUISITOR NOTE.
+  - `Context (encode_list_upper : forall xs, digits_ok xs -> encode_list xs < Nat.pow BASE (length xs)).`
+
 #### `coq/thielemachine/coqproofs/BellCheck.v`
 - L134: **CHSH_BOUND_MISSING** — CHSH bound theorem \`CHSH_classical_bound\` may not reference proper Tsirelson bound value.
   - `Lemma CHSH_classical_bound :`
@@ -82,8 +114,26 @@ Higher score = more likely unfinished/vacuous.
   - `Lemma local_CHSH_bound : forall (B : Box), local B -> Qabs (S B) <= 2#1.`
 - L839: **CHSH_BOUND_MISSING** — CHSH bound theorem \`tsirelson_gamma_bound\` may not reference proper Tsirelson bound value.
   - `Lemma tsirelson_gamma_bound : -1#1 <= tsirelson_gamma <= 1#1.`
+- L1301: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`\` is documented with INQUISITOR NOTE.
+  - `Context {Instr State Observation : Type}.`
 
 #### `coq/thielemachine/coqproofs/BellReceiptLocalGeneral.v`
 - L291: **CHSH_BOUND_MISSING** — CHSH bound theorem \`local_trials_CHSH_bound\` may not reference proper Tsirelson bound value.
   - `Theorem local_trials_CHSH_bound :`
+
+#### `coq/thielemachine/coqproofs/HyperThiele_Halting.v`
+- L32: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`H\` is documented with INQUISITOR NOTE.
+  - `Context (H : Oracle) (Halts : nat -> Prop).`
+
+#### `coq/thielemachine/coqproofs/ListHelpers.v`
+- L16: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`\` is documented with INQUISITOR NOTE.
+  - `Context {A : Type}.`
+
+#### `coq/thielemachine/coqproofs/PhysicsEmbedding.v`
+- L22: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`encode_lattice\` is documented with INQUISITOR NOTE.
+  - `Context (encode_lattice : Lattice -> VMState)`
+
+#### `coq/thielemachine/coqproofs/WaveEmbedding.v`
+- L23: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`encode_wave\` is documented with INQUISITOR NOTE.
+  - `Context (encode_wave : WaveState -> VMState)`
 
