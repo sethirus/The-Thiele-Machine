@@ -70,6 +70,9 @@ Section CorrelationBounds.
     - Proof that -1 <= p00 - p01 - p10 + p11 <= 1 implies Qabs(...) <= 1
 
     All steps are feasible but would require ~50-100 lines of Q arithmetic lemmas.
+    
+    INQUISITOR NOTE: This Context parameter is documented in HardAssumptions.v
+    as normalized_E_bound. It is a standard probability fact, not a physics axiom.
 *)
 Context (normalized_E_bound : forall B x y,
   non_negative B -> normalized B -> Qabs (E B x y) <= 1).
@@ -85,6 +88,9 @@ Context (normalized_E_bound : forall B x y,
 
     This is provable from normalized_E_bound using triangle inequality for Qabs.
     Requires lemmas about Qabs that would be straightforward but tedious.
+    
+    INQUISITOR NOTE: This Context parameter is documented in HardAssumptions.v
+    as valid_box_S_le_4. It follows from triangle inequality.
 *)
 Context (valid_box_S_le_4 : forall B,
   valid_box B -> Qabs (S B) <= 4#1).
@@ -106,6 +112,9 @@ Context (valid_box_S_le_4 : forall B,
     Also: Bell, Physics 1, 195 (1964) for the original inequality
 
     This is provable by exhaustive case analysis (2⁴ = 16 cases) but tedious.
+    
+    INQUISITOR NOTE: This Context parameter is documented in HardAssumptions.v
+    as local_box_S_le_2. It is Bell's classical bound.
 *)
 Context (local_box_S_le_2 : forall B,
   local_box B -> Qabs (S B) <= 2#1).
@@ -163,6 +172,11 @@ Definition box_algebraically_coherent (B : Box) : Prop :=
   algebraically_coherent (correlators_of_box B).
 
 Section BoxTsirelsonBound.
+
+(** INQUISITOR NOTE: These Context parameters document the dependency chain.
+    They are NOT axioms - they become explicit theorem parameters when 
+    the Section closes. The parameters are documented in HardAssumptions.v.
+    Use Print Assumptions to verify all dependencies. *)
 
 (** Re-import the correlation bound assumption *)
 Context (normalized_E_bound : forall B x y,

@@ -30,14 +30,11 @@ If all three shops give me the same answer, I know the car is real. If they disa
 
 \subsection{The Problem of Trust (The Academic Version)}
 
-A formal specification proves properties but doesn't execute on real workloads. An executable implementation runs but might contain bugs or subtle semantic drift. How can I trust that the implementation matches the specification?
+A formal specification proves properties but doesn't run on real workloads. An executable implementation runs but might contain bugs or semantic drift. How do you trust that implementation matches specification?
 
-\textbf{Answer}: I build three independent implementations and verify they produce \textit{identical results} for all inputs. This makes the thesis rebuildable: every layer can be re-implemented from the definitions here, and any mismatch is detectable.
-In practice, this means I can take a short instruction trace, run it through the Coq-extracted interpreter, the Python VM, and the RTL testbench, and compare the gate-appropriate observable projection. If any compared field diverges, I treat it as a semantic bug rather than a performance issue. That is the operational meaning of ``trust'' in this project.
+\textbf{Answer}: Build three independent implementations and verify they produce \textit{identical results} for all inputs. This makes the thesis rebuildable: every layer can be re-implemented from definitions here, and any mismatch is detectable.
 
-\begin{quote}
-\textit{Author's Note (Devon): I'm going to be real with you---when I first got all three layers to agree on a non-trivial computation, I cried. Like, actually cried. For probably fifteen minutes. Because it meant the thing I built in my head wasn't just a fever dream. It was \textbf{real}. The math shop agreed with the Python shop agreed with the hardware shop. That's when I knew I had something.}
-\end{quote}
+In practice: take a short instruction trace, run it through the Coq-extracted interpreter, the Python VM, and the RTL testbench, compare the gate-appropriate observable projection. If any field diverges, treat it as a semantic bug.
 
 \subsection{The Three Layers}
 
@@ -57,7 +54,7 @@ For \textit{any} instruction trace $\tau$:
 S_{\text{Coq}}(\tau) = S_{\text{Python}}(\tau) = S_{\text{Verilog}}(\tau)
 \]
 
-This is not aspirational---it is enforced by automated tests. Any divergence is a critical bug, because it would mean at least one layer is not faithful to the formal semantics.
+This is not aspirational---it's enforced by automated tests. Any divergence is a critical bug.
 The tests compare \textit{state projections} rather than every internal variable. The projections are suite-specific: the compute gate in \path{tests/test_rtl_compute_isomorphism.py} compares registers and memory, while the partition gate in \path{tests/test_partition_isomorphism_minimal.py} compares canonicalized module regions from the partition graph. The extracted runner emits a full JSON snapshot (pc, $\mu$, err, regs, mem, CSRs, graph), but the RTL testbench exposes only the fields required by each gate.
 
 \subsubsection{The Isomorphism Contract (Specification)}
@@ -89,7 +86,7 @@ The tests compare \textit{state projections} rather than every internal variable
 
 \subsection{How to Read This Chapter}
 
-This chapter is practical: it explains how the theory is instantiated in three concrete artifacts and how they are kept in lockstep.
+This chapter is practical: it explains how theory becomes three concrete artifacts and how they stay in lockstep.
 \begin{itemize}
     \item Section 4.2: Coq formalization (state definitions, step relation, extraction)
     \item Section 4.3: Python VM (state class, partition operations, receipt generation)
@@ -107,14 +104,14 @@ This chapter is practical: it explains how the theory is instantiated in three c
 
 \section{The 3-Layer Isomorphism Architecture}
 
-The Thiele Machine is implemented across three layers that maintain strict semantic equivalence:
+Three independent implementations, one invariant:
 \begin{enumerate}
-    \item \textbf{Formal Layer (Coq)}: Defines ground-truth semantics with machine-checked proofs
+    \item \textbf{Formal Layer (Coq)}: Ground-truth semantics with machine-checked proofs
     \item \textbf{Reference Layer (Python)}: Executable specification with tracing and debugging
     \item \textbf{Physical Layer (Verilog)}: RTL implementation targeting FPGA/ASIC synthesis
 \end{enumerate}
 
-The central invariant is \textit{3-way isomorphism}: for any instruction sequence $\tau$, the final state projections chosen by the verification gates must be identical across all three layers. Those projections are observationally motivated and suite-specific (e.g., registers/memory for compute traces; module regions for partition traces), while the extracted runner provides a superset of observables that can be compared when a gate requires it.
+The binding constraint: for any instruction sequence $\tau$, the state projections must be identical across all three layers. The projections are suite-specific (registers/memory for compute traces; module regions for partition traces), while the extracted runner provides a superset of observables that can be compared when a gate requires it.
 
 \section{Layer 1: The Formal Kernel (Coq)}
 
@@ -475,8 +472,8 @@ Extraction "extracted/vm_kernel.ml" vm_step run_vm.
 
 \textbf{Performance vs. Correctness:}
 \begin{itemize}
-    \item \textbf{Slow}: Extracted code is \emph{not} optimized (e.g., nat as int wrapper)
-    \item \textbf{Correct}: But it's \emph{provably correct}—matches the formal model exactly
+    \item \textbf{Slow}: Extracted code isn't optimized (e.g., nat as int wrapper)
+    \item \textbf{Correct}: But it's \emph{provably correct}---matches the formal model exactly
     \item \textbf{Use Case}: Validation, not production
 \end{itemize}
 
@@ -490,6 +487,10 @@ The extracted code compiles to a small runner, which serves as an oracle for Pyt
 The runner consumes traces and emits a JSON snapshot of the observable fields. This makes it possible to compare the extracted semantics to the Python VM and RTL without invoking Coq at runtime; the extraction step freezes the semantics into a standalone artifact.
 
 \section{Layer 2: The Reference VM (Python)}
+
+\begin{quote}
+\textit{Author's Note (Devon): This is the layer where I actually do my thinking. Coq tells me what's true. Verilog tells me what's physical. But Python? Python is where I debug at 2 AM, print statements everywhere, figuring out why the partition merge isn't doing what I thought it should.}
+\end{quote}
 
 \subsection{Architecture Overview}
 
@@ -583,7 +584,7 @@ class VM:
         \item Both projections must agree at synchronization points
     \end{itemize}
 \end{itemize}
-The excerpt omits the full globals initialization for brevity, but it highlights the key fact: the VM owns a \texttt{State} object (mirroring the Coq record) and also keeps a minimal register file and scratch memory used by the XOR opcodes that map directly to RTL. This separation is intentional: the \texttt{State} captures the partition and $\mu$-ledger semantics, while the auxiliary arrays let the VM exercise hardware-style instructions without introducing a second, inconsistent notion of state.
+The key fact: the VM owns a \texttt{State} object (mirroring the Coq record) and also keeps a minimal register file and scratch memory used by the XOR opcodes that map directly to RTL. This separation is intentional---\texttt{State} captures partition and $\mu$-ledger semantics, while the auxiliary arrays let the VM exercise hardware-style instructions without introducing a second notion of state.
 
 \subsection{State Representation}
 
@@ -677,7 +678,7 @@ class State:
 \texttt{vm\_csrs} & \longleftrightarrow & \texttt{csr} \\
 \end{array}
 \]
-The additional fields (\texttt{mu\_ledger}, \texttt{partition\_masks}, and \texttt{program}) are the bridge to the other layers. \texttt{mu\_ledger} makes the $\mu$-accounting explicit and provides a total used in cross-layer projections (the kernel’s \texttt{vm\_mu} in \texttt{coq/kernel/VMState.v} is a single accumulator). \texttt{partition\_masks} provides a compact, hardware-aligned encoding of regions. \texttt{program} aligns with \texttt{CoreSemantics.State.program} in \texttt{coq/thielemachine/coqproofs/CoreSemantics.v}, where the program is part of the executable state, even though the kernel’s \texttt{VMState} record itself does not carry a program field.
+The additional fields (\texttt{mu\_ledger}, \texttt{partition\_masks}, \texttt{program}) bridge to the other layers. \texttt{mu\_ledger} makes $\mu$-accounting explicit. \texttt{partition\_masks} provides hardware-aligned region encoding. \texttt{program} aligns with \texttt{CoreSemantics.State.program}---the kernels \texttt{VMState} does not carry a program field, but the executable state does.
 
 \subsection{The $\mu$-Ledger}
 
@@ -860,11 +861,11 @@ Calling \texttt{pnew} twice with the same region returns the same ModuleID both 
     \item \textbf{Stable IDs}: Cross-layer isomorphism checks won't fail due to renumbering
     \item \textbf{No Double Charging}: $\mu$-cost paid only once
 \end{itemize}
-The first branch of \texttt{pnew} demonstrates the “idempotent discovery” rule: creating a module for a region that already exists returns the existing ID instead of duplicating it. This ensures that module IDs are stable across layers and that any $\mu$-cost charged for discovery is not accidentally paid twice.
+The first branch of \texttt{pnew} demonstrates idempotent discovery: creating a module for a region that already exists returns the existing ID. Module IDs stay stable across layers, and $\mu$-cost is never paid twice.
 
 \subsection{Sandboxed Python Execution}
 
-The \texttt{PYEXEC} instruction executes user-supplied code. When sandboxing is enabled, execution is restricted to a safe builtins set and an AST allowlist. When sandboxing is disabled, the instruction behaves like a trusted host callback. The semantics are defined so that any side effects are observable in the trace, and any structural information revealed is charged in $\mu$.
+The \texttt{PYEXEC} instruction executes user-supplied code. With sandboxing enabled: restricted to safe builtins and an AST allowlist. With sandboxing disabled: trusted host callback. Either way, side effects are observable in the trace, and structural information revealed is charged in $\mu$.
 
 \begin{lstlisting}
 SAFE_IMPORTS = {"math", "json", "z3"}
@@ -1067,6 +1068,9 @@ self.witness_state = post_state
 
 % Module Hierarchy Diagram
 
+\begin{quote}
+\textit{Author's Note (Devon): Now we get to the part where math hits silicon. I'm not going to lie---learning Verilog after Python felt like learning to think backwards. Everything happens at once. There's no ``next line.'' But once it clicks, you realize: this is what computers actually ARE. Not the abstractions we program with---the actual wires and flip-flops.}
+\end{quote}
 
 \textbf{Top:} thiele\_cpu (main CPU core, blue)
 
@@ -1085,7 +1089,7 @@ self.witness_state = post_state
 
 \subsection{Module Hierarchy}
 
-The hardware implementation is organized into a CPU core, a $\mu$-accounting unit, a logic-engine interface, and a testbench. The hierarchy mirrors the formal model: the core executes the ISA, the accounting unit enforces $\mu$-monotonicity, and the logic interface brokers certificate checks. This makes the physical design a direct embodiment of the formal step relation.
+The hardware mirrors the formal model: the core executes the ISA, the accounting unit enforces $\mu$-monotonicity, and the logic interface brokers certificate checks. This makes the physical design a direct embodiment of the formal step relation.
 
 \subsection{The Main CPU}
 
@@ -1518,13 +1522,13 @@ wire [31:0] log2_result = log2_lut[input_value[7:0]];
     \item For inputs $>$ 255, use bit-shifting tricks: $\log_2(256x) = 8 + \log_2(x)$
 \end{itemize}
 
-\textbf{Isomorphism Requirement:} The exact same 256 values must exist in:
+\textbf{Isomorphism Requirement:} The exact same 256 values exist in all three layers:
 \begin{itemize}
     \item Python: \texttt{LOG2\_LUT = [to\_q16(math.log2(i)) for i in range(256)]}
     \item Coq: \texttt{Definition log2\_lut := [0x00000000; 0x00000170; ...]}
     \item Verilog: This code
 \end{itemize}
-Cross-layer tests verify all three agree byte-for-byte.
+Cross-layer tests verify all three agree byte-for-byte. If they don't, CI fails.
 
 \subsection{Logic Engine Interface}
 
@@ -1727,6 +1731,10 @@ If any field differs, isomorphism test fails.
 
 \subsection{The Inquisitor}
 
+\begin{quote}
+\textit{Author's Note (Devon): The Inquisitor is my paranoia made code. Every time I push changes, it checks for admits I might have snuck in, proofs that don't compile, layers that disagree. It's the automated version of me at 3 AM going ``wait, did I actually prove that or just claim it?''}
+\end{quote}
+
 The Inquisitor enforces the verification rules:
 \begin{itemize}
     \item Scans the proof sources for \texttt{Admitted}, \texttt{admit.}, \texttt{Axiom}
@@ -1738,6 +1746,10 @@ The Inquisitor enforces the verification rules:
 The repository must have 0 HIGH findings to pass CI.
 
 \section{Synthesis Results}
+
+\begin{quote}
+\textit{Author's Note (Devon): Running synthesis for the first time was terrifying. You write all this Verilog, and then Yosys tells you whether it's actually implementable or just word salad pretending to be hardware. When it worked, when I saw real LUT counts and timing reports---that's when the machine stopped being an idea and started being a thing.}
+\end{quote}
 
 \subsection{FPGA Targeting}
 
@@ -1919,11 +1931,11 @@ yosys -p "read_verilog thiele_cpu.v; synth_xilinx -top thiele_cpu; write_json ne
 
 \section{Summary}
 
-The 3-layer implementation ensures:
+The 3-layer implementation delivers:
 \begin{itemize}
     \item \textbf{Logical Certainty}: Coq proofs guarantee properties hold for all inputs
     \item \textbf{Operational Visibility}: Python traces expose every state transition
     \item \textbf{Physical Realizability}: Verilog synthesizes to real hardware
 \end{itemize}
 
-The binding across layers is not aspirational—it is enforced through automated isomorphism gates. The Inquisitor ensures that no admits, no axioms, and no semantic divergences are ever committed to the main branch.
+The binding across layers is not aspirational---it's enforced through automated isomorphism gates. The Inquisitor ensures no admits, no axioms, and no semantic divergences ever hit the main branch.

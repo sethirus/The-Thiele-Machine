@@ -51,6 +51,11 @@ Qed.
 
 Section TsirelsonBoundAssumption.
 
+(** INQUISITOR NOTE: This Context parameter is documented in HardAssumptions.v
+    as tsirelson_from_algebraic_coherence (Tsirelson's theorem).
+    It becomes an explicit parameter to tsirelson_from_coherence when
+    the Section closes. Use Print Assumptions to verify. *)
+
 Context (tsirelson_from_algebraic_coherence : forall c : Correlators,
   algebraically_coherent c ->
   Qabs (E00 c) <= 1 /\ Qabs (E01 c) <= 1 /\

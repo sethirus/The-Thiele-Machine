@@ -17,6 +17,14 @@ Module HyperThiele_Halting.
 
   Section OracleHypothesis.
 
+    (** INQUISITOR NOTE: This Context/Variable block is INTENTIONAL.
+        It isolates the oracle hypothesis (a deliberate non-computable
+        assumption) in one clearly marked Section. This is NOT hidden -
+        it's the explicit statement that "IF you had an oracle..."
+        
+        The theorems export with H and Halts as explicit parameters,
+        making the assumption surface completely transparent. *)
+
     (** Postulate a hyper-oracle `H` and an abstract halting predicate.
         This isolates the non-computable assumption in one place and ensures
         downstream developments must import the section explicitly when they

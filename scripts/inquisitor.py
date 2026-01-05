@@ -610,12 +610,12 @@ def scan_file(path: Path) -> list[Finding]:
 
     # Assumption surfaces.
     #
-    # Important distinction:
-    # - `Axiom`/`Parameter` introduce global, unproven constants: treat as HIGH.
-    # - `Hypothesis` introduces an assumption; often acceptable in generic lemmas but can also
-    #   hide an oracle. Treat as MEDIUM, escalated to HIGH if the name looks suspicious.
-    # - `Context`/`Variable(s)` are typically just binders for polymorphism inside a section.
-    #   They are not "lies" by themselves, but we still report them for visibility.
+    # STRICT POLICY: All assumption mechanisms are scrutinized.
+    # - `Axiom`/`Parameter` introduce global, unproven constants: HIGH.
+    # - `Hypothesis` is functionally equivalent to Axiom: HIGH.
+    # - `Context` with forall/arrow types are section-local axioms: HIGH.
+    #   (These are assumptions that must be instantiated - uninstantiated = axiom)
+    # - `Context`/`Variable(s)` with simple types: MEDIUM (need verification).
     assumption_decl = re.compile(
         r"(?m)^[ \t]*(Axiom|Parameter|Hypothesis|Variable|Variables|Context)\b\s*"  # kind
         r"(?:\(?\s*([A-Za-z0-9_']+)\b)?"  # optional name (may be absent for Context (...))
@@ -625,6 +625,12 @@ def scan_file(path: Path) -> list[Finding]:
         name = (m.group(2) or "").strip()
         line = line_of[m.start()]
         snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else kind
+        
+        # Get extended context to detect complex Context types
+        context_end = text.find(").", m.start())
+        if context_end == -1:
+            context_end = text.find(".", m.start())
+        full_decl = text[m.start():context_end + 1] if context_end != -1 else snippet
 
         # Inside a Module Type, treat declarations as signature fields.
         if 1 <= line < len(in_module_type) and in_module_type[line] and kind in {"Axiom", "Parameter"}:
@@ -646,11 +652,39 @@ def scan_file(path: Path) -> list[Finding]:
         elif kind == "Hypothesis":
             rule_id = "HYPOTHESIS_ASSUME"
             # Hypothesis is functionally equivalent to Axiom - always HIGH
-            # It assumes what should be proven, hiding the real work
             severity = "HIGH"
+        elif kind == "Context":
+            # Context with forall/arrow types are section-local axioms
+            # These MUST be instantiated or they're hidden assumptions
+            has_forall = "forall" in full_decl
+            has_arrow = "->" in full_decl
+            has_implication = "=>" in full_decl and "fun" not in full_decl
+            is_complex_assumption = has_forall or has_arrow or has_implication
+            
+            # Check for INQUISITOR NOTE in the original text (with comments)
+            # Look within 15 lines before the Context declaration
+            note_context = "\n".join(raw_lines[max(0, line - 15): line + 1])
+            has_inquisitor_note = "INQUISITOR NOTE" in note_context
+            
+            if is_complex_assumption:
+                if has_inquisitor_note:
+                    # Documented Context - downgrade to LOW (informational)
+                    rule_id = "CONTEXT_ASSUMPTION_DOCUMENTED"
+                    severity = "LOW"
+                    msg = f"Context parameter `{name}` is documented with INQUISITOR NOTE."
+                else:
+                    rule_id = "CONTEXT_ASSUMPTION"
+                    severity = "HIGH"  # Undocumented section-local axiom!
+                    msg = f"Context parameter `{name}` with forall/arrow type is a SECTION-LOCAL AXIOM. Must be instantiated or documented."
+            else:
+                rule_id = "SECTION_BINDER"
+                severity = "MEDIUM"  # Still needs verification
+                msg = f"Found {kind}{(' ' + name) if name else ''}."
         else:
+            # Variable/Variables
             rule_id = "SECTION_BINDER"
-            severity = "LOW"
+            severity = "MEDIUM"  # Need to verify these are properly instantiated
+            msg = f"Found {kind}{(' ' + name) if name else ''}."
 
         findings.append(
             Finding(
@@ -659,7 +693,7 @@ def scan_file(path: Path) -> list[Finding]:
                 file=path,
                 line=line,
                 snippet=snippet.strip(),
-                message=f"Found {kind}{(' ' + name) if name else ''}.",
+                message=msg if kind == "Context" else f"Found {kind}{(' ' + name) if name else ''}.",
             )
         )
 
@@ -1483,7 +1517,9 @@ def write_report(
     lines.append("- `GIVE_UP_TACTIC`: `give_up` (proof shortcut - FORBIDDEN)\n")
     lines.append("- `AXIOM_OR_PARAMETER`: `Axiom` / `Parameter` (HIGH - unproven assumptions FORBIDDEN)\n")
     lines.append("- `HYPOTHESIS_ASSUME`: `Hypothesis` (HIGH - functionally equivalent to Axiom, FORBIDDEN)\n")
-    lines.append("- `SECTION_BINDER`: `Context` / `Variable` / `Variables` (informational)\n")
+    lines.append("- `CONTEXT_ASSUMPTION`: `Context` with forall/arrow (HIGH - undocumented section-local axiom)\n")
+    lines.append("- `CONTEXT_ASSUMPTION_DOCUMENTED`: `Context` with INQUISITOR NOTE (LOW - documented dependency)\n")
+    lines.append("- `SECTION_BINDER`: `Context` / `Variable` / `Variables` (MEDIUM - verify instantiation)\n")
     lines.append("- `MODULE_SIGNATURE_DECL`: `Axiom` / `Parameter` inside `Module Type` (informational)\n")
     lines.append("- `COST_IS_LENGTH`: `Definition *cost* := ... length ... .`\n")
     lines.append("- `EMPTY_LIST`: `Definition ... := [].`\n")

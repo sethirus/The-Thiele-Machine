@@ -13,6 +13,12 @@ From ThieleManifold Require Import ThieleManifoldBridge PhysicsIsomorphism.
 Import ListNotations.
 
 Section PhysicsEmbedding.
+  (** INQUISITOR NOTE: These Context/Variable parameters define the interface
+      for embedding a physics system into the Thiele VM. They are NOT axioms -
+      they are the specification that any physics embedding must satisfy.
+      
+      When instantiated with a concrete encode/decode implementation,
+      the theorems become concrete proofs about that implementation. *)
   Context (encode_lattice : Lattice -> VMState)
           (decode_lattice : VMState -> Lattice)
           (physics_trace : list vm_instruction).

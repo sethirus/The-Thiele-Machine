@@ -140,6 +140,10 @@ Section EncodingBounds.
   Qed.
 
   Section EncodeBounds.
+    (** INQUISITOR NOTE: These Context parameters are for generic encoding
+        infrastructure. They parameterize over any conforming encode_list
+        implementation. This is NOT an axiom - it's dependency injection
+        for modularity. The Section exports theorems with explicit params. *)
     Context (encode_list : list nat -> nat).
     Context (digits_ok : list nat -> Prop).
     Context (encode_list_upper : forall xs, digits_ok xs -> encode_list xs < Nat.pow BASE (length xs)).

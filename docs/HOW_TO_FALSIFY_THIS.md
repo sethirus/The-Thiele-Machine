@@ -100,7 +100,6 @@ H1 is weakened or falsified.
 **Current Status**: 7/14 core isomorphism tests passing (7 require Coq extraction rebuild)
 - These tests verify Python VM ≡ Coq semantics ≡ Verilog RTL bit-for-bit
 - Full pytest suite has ~1400 tests total (includes tooling, data pipeline, experiments)
-- See [docs/HONEST_TRUTH.md](HONEST_TRUTH.md) for detailed test breakdown
 
 **Vulnerability**: Floating-point rounding in Python vs integer arithmetic in Coq/Verilog
 
