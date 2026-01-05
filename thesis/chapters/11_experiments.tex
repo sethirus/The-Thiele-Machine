@@ -6,13 +6,13 @@
 
 \subsection{The Role of Experiments in Theoretical Computer Science}
 
-Theoretical computer science traditionally relies on mathematical proof rather than experiment. I prove that an algorithm is $O(n \log n)$; I don't run it 10,000 times to estimate its complexity empirically.
+Theoretical computer science traditionally relies on mathematical proof rather than experiment. One proves that an algorithm is $O(n \log n)$; one doesn't run it 10,000 times to estimate its complexity empirically.
 
 However, the Thiele Machine makes \textit{falsifiable predictions}---claims that could be wrong if the theory is incorrect. This invites experimental validation:
 \begin{itemize}
-    \item If the theory predicts $\mu$-costs scale linearly, I can measure them
-    \item If the theory predicts locality constraints, I can test for violations
-    \item If the theory predicts impossibility results, I can attempt to break them
+    \item If the theory predicts $\mu$-costs scale linearly, they can be measured
+    \item If the theory predicts locality constraints, tests can check for violations
+    \item If the theory predicts impossibility results, attempts can be made to break them
 \end{itemize}
 
 This chapter documents a comprehensive experimental campaign that treats the Thiele Machine as a \textit{scientific theory} subject to empirical testing. The emphasis is on reproducible protocols and adversarial attempts to falsify the claims, not on cherry-picked confirmations.
@@ -20,7 +20,7 @@ Where possible, the experiments correspond to concrete harnesses in the reposito
 
 \subsection{Falsification vs.\ Confirmation}
 
-Following Karl Popper's philosophy of science, I prioritize \textbf{falsification} over confirmation. It is easy to find examples where the theory ``works''; it is much harder to construct adversarial tests that could break the theory.
+Following Karl Popper's philosophy of science, the experimental suite prioritizes \textbf{falsification} over confirmation. It is easy to find examples where the theory ``works''; it is much harder to construct adversarial tests that could break the theory.
 
 The experimental suite includes:
 \begin{itemize}

@@ -197,7 +197,7 @@ The proof lives in \path{coq/kernel/KernelPhysics.v}, where the \texttt{mu\_gaug
 
 The bridge from a formally verified $\mu$-ledger to a physical claim requires an explicit translation dictionary and at least one measurement that could prove the bridge wrong.
 
-\paragraph{Translation dictionary.} Let $|\Omega|$ be the admissible microstate count of an $n$-bit device ($|\Omega| = 2^n$ at fixed resolution). A revelation step $\Omega \to \Omega'$ (e.g., \texttt{PNEW}, \texttt{PSPLIT}, \texttt{MDLACC}, \texttt{REVEAL}) shrinks the space by $|\Omega|/|\Omega'|$. The Coq kernel proves $\mu \ge |\phi|_{\text{bits}}$ (description length). The Python VM \emph{guarantees} $\mu \ge \log_2(|\Omega|/|\Omega'|)$ using a conservative bound ($\text{before} = 2^{n}$, $\text{after} = 1$); may overcharge when multiple solutions exist, avoiding \#P-complete model counting. I adopt the bridge postulate that charging $\mu$ bits lower-bounds dissipated heat/work: $Q_{\min} = k_B T \ln 2 \cdot \mu$, with an explicit inefficiency factor $\epsilon \ge 1$ for real devices. This postulate is external to the kernel and is presented as an empirical claim.
+\paragraph{Translation dictionary.} Let $|\Omega|$ be the admissible microstate count of an $n$-bit device ($|\Omega| = 2^n$ at fixed resolution). A revelation step $\Omega \to \Omega'$ (e.g., \texttt{PNEW}, \texttt{PSPLIT}, \texttt{MDLACC}, \texttt{REVEAL}) shrinks the space by $|\Omega|/|\Omega'|$. The Coq kernel proves $\mu \ge |\phi|_{\text{bits}}$ (description length). The Python VM \emph{guarantees} $\mu \ge \log_2(|\Omega|/|\Omega'|)$ using a conservative bound ($\text{before} = 2^{n}$, $\text{after} = 1$); may overcharge when multiple solutions exist, avoiding \#P-complete model counting. The system adopts the bridge postulate that charging $\mu$ bits lower-bounds dissipated heat/work: $Q_{\min} = k_B T \ln 2 \cdot \mu$, with an explicit inefficiency factor $\epsilon \ge 1$ for real devices. This postulate is external to the kernel and is presented as an empirical claim.
 
 \paragraph{Bridge theorem (sanity anchor).} Combining No Free Insight (proved: $\mu$ is monotone non-decreasing) with the postulate above yields a Landauer-style inequality: any trace implementing $\Omega \to \Omega'$ must dissipate at least $k_B T \ln 2 \cdot \log_2(|\Omega|/|\Omega'|)$, because the ledger charges at least that many bits for the reduction. The thermodynamic term is an assumption; the $\mu$ inequality is proved in Coq.
 \paragraph{Falsifiable prediction.} Consider four paired workloads that differ only in which singleton module is revealed from a fixed pool (sizes 2, 4, 16, 64). The measured energy/heat must scale with $\mu$ at slope $k_B T \ln 2$ (within the stated $\epsilon$). A sustained sub-linear slope falsifies the bridge; a super-linear slope quantifies implementation overhead. Genesis-only traces remain the lone zero-$\mu$ case.
@@ -255,7 +255,7 @@ The difficulty is conserved—it shifts between time and structure. The formal t
 
 \subsection{Structure-Aware Complexity Classes}
 
-I can define new complexity classes:
+Structure-aware complexity classes can be defined:
 \begin{itemize}
     \item $\text{P}_\mu$: Problems solvable in polynomial time with polynomial $\mu$-cost
     \item $\text{NP}_\mu$: Problems verifiable in polynomial time; witness provides $\mu$-cost
@@ -427,7 +427,7 @@ The true Kolmogorov complexity $K(x)$ is uncomputable. Therefore, the $\mu$-cost
     \mu_{\text{charged}}(x) \ge K(x)
 \end{equation}
 
-I pay for the structure I \textit{find}, not necessarily the minimal structure that \textit{exists}. Better compression heuristics could reduce $\mu$-overhead.
+The ledger charges for the structure that is \textit{found}, not necessarily the minimal structure that \textit{exists}. Better compression heuristics could reduce $\mu$-overhead.
 
 \subsection{Hardware Scalability}
 
