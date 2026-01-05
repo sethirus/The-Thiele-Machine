@@ -1,7 +1,8 @@
 # The Thiele Machine: Canonical Model Specification
 
 **Version**: 2.0
-**Date**: 2025-12-05
+**Date**: December 5, 2025  
+**Last Reviewed**: January 4, 2026
 **Status**: CANONICAL REFERENCE
 
 ---
@@ -396,6 +397,70 @@ All three implementations maintain identical μ-accumulation:
 py.mu == coq.vm_mu == rtl.mu_accumulator
 ```
 for identical instruction sequences.
+
+### 3.7 Initiality Theorem — μ as Canonical Cost
+
+**Theorem** (Coq `MuInitiality.v:195`):
+μ is the **initial object** among monotone cost functionals. Any other cost function $M : \text{VMState} \to \mathbb{N}$ satisfying:
+
+1. **Monotonicity**: $\forall s, i, s'. \text{step}(s, i, s') \Rightarrow M(s') \geq M(s) + \text{cost}(i)$
+2. **Instruction-locality**: Cost increments depend only on instruction, not state
+3. **Zero initialization**: $M(\text{init\_state}) = 0$
+
+must equal μ on all reachable states:
+```coq
+Theorem mu_is_initial_monotone : forall s : VMState,
+  reachable s ->
+  forall M : VMState -> nat,
+    monotone M ->
+    instruction_local M ->
+    M init_state = 0 ->
+    M s = s.(vm_mu).
+```
+
+**Significance**: This eliminates arbitrariness in the μ-cost model. It's not a design choice—it's the **unique canonical** monotone cost with natural properties. Any other such cost is provably equivalent to μ.
+
+**Categorical Interpretation**: In the category of monotone cost functionals, μ is initial—all other valid functionals factor uniquely through μ. This is why μ is "the free monotone compatible with trace composition."
+
+**Proof Location**: [`coq/kernel/MuInitiality.v`](coq/kernel/MuInitiality.v)
+
+**Status**: ✅ Proven (0 admits, 0 axioms) — January 4, 2026
+
+### 3.8 Necessity Theorem — Physical Justification
+
+**Theorem** (Coq `MuNecessity.v:244`):
+Among all cost models $C$ that:
+
+1. **Satisfy Landauer's bound**: $C(i) \geq \max(0, \text{info\_loss}(s, s'))$ for any step $s \xrightarrow{i} s'$
+2. **Are additive**: $C([i_1, \ldots, i_n]) = \sum_j C(i_j)$
+
+μ is the **minimal** such model: $\forall C \text{ Landauer-valid}, \forall i. C(i) \geq \mu(i)$
+
+```coq
+Theorem mu_is_minimal_landauer_valid : forall C : CostModel,
+  landauer_valid_step C ->
+  additive C ->
+  forall i : vm_instruction,
+    Z.ge (Z.of_nat (C i)) (Z.of_nat (mu_cost i)).
+```
+
+**Physical Interpretation**: 
+Landauer's principle establishes that erasing information has thermodynamic cost:
+$$\frac{W}{kT \ln 2} \geq \Delta S$$
+
+The μ-cost model is the **tightest possible** information-theoretic accounting that respects this bound. Any cost model that violates $C \geq \mu$ cannot be physically realized without violating thermodynamics.
+
+**Significance**: μ isn't arbitrary—it's **physically necessary**. It's the initial object in the category of thermodynamically valid cost models. This bridges pure computation theory with physical realizability.
+
+**Proof Location**: [`coq/kernel/MuNecessity.v`](coq/kernel/MuNecessity.v)
+
+**Status**: ✅ Proven (0 admits, 0 axioms) — January 4, 2026
+
+**Combined Impact**: Theorems 3.7 and 3.8 together establish that μ is:
+- Mathematically canonical (unique among valid monotone costs)
+- Physically necessary (minimal among thermodynamically valid costs)
+
+This dual characterization shows μ is inevitable—not a modeling choice, but a consequence of requiring both mathematical consistency and physical validity.
 
 ---
 

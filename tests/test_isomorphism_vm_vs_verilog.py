@@ -17,7 +17,9 @@ import subprocess
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).parent.parent
-HARDWARE_DIR = REPO_ROOT / "thielecpu" / "hardware" / "partition_discovery"
+RTL_DIR = REPO_ROOT / "thielecpu" / "hardware" / "rtl"
+TB_DIR = REPO_ROOT / "thielecpu" / "hardware" / "testbench"
+HARDWARE_DIR = REPO_ROOT / "thielecpu" / "hardware"
 BUILD_DIR = REPO_ROOT / "build"
 PROGRAMS_DIR = REPO_ROOT / "programs"
 
@@ -55,8 +57,8 @@ def run_verilog_trace():
             "-g2012",
             "-o",
             str(BUILD_DIR / "partition_core_tb"),
-            str(HARDWARE_DIR / "partition_core.v"),
-            str(HARDWARE_DIR / "partition_core_tb.v"),
+            str(RTL_DIR / "partition_core.v"),
+            str(TB_DIR / "partition_core_tb.v"),
         ],
         check=True,
     )
@@ -219,8 +221,8 @@ class TestVerilogTraceAlignment:
 
         result = subprocess.run(
             ["iverilog", "-g2012", "-o", str(BUILD_DIR / "partition_core_tb"),
-             str(HARDWARE_DIR / "partition_core.v"),
-             str(HARDWARE_DIR / "partition_core_tb.v")],
+             str(RTL_DIR / "partition_core.v"),
+             str(TB_DIR / "partition_core_tb.v")],
             capture_output=True,
             text=True
         )
@@ -278,7 +280,7 @@ class TestOpcodeEncodingAlignment:
     
     def test_verilog_opcodes_match_spec(self):
         """Verilog opcodes should match spec."""
-        verilog_file = HARDWARE_DIR / "partition_core.v"
+        verilog_file = RTL_DIR / "partition_core.v"
         content = verilog_file.read_text()
         
         import re

@@ -2,42 +2,42 @@
 # Synthesizes and validates all hardware components
 
 # μ-Core - Main execution core
-read_verilog thielecpu/hardware/mu_core.v
+read_verilog thielecpu/hardware/rtl/mu_core.v
 hierarchy -check -top mu_core
 proc; opt; techmap; opt
 stat -top mu_core
 write_json /tmp/mu_core_synth.json
 
 # MAU - Memory Access Unit
-read_verilog thielecpu/hardware/mau.v
+read_verilog thielecpu/hardware/rtl/mau.v
 hierarchy -check -top mau
 proc; opt; techmap; opt
 stat -top mau
 write_json /tmp/mau_synth.json
 
 # LEI - Logic Execution Interface
-read_verilog thielecpu/hardware/lei.v
+read_verilog thielecpu/hardware/rtl/lei.v
 hierarchy -check -top lei
 proc; opt; techmap; opt
 stat -top lei
 write_json /tmp/lei_synth.json
 
 # PEE - Python Execution Engine
-read_verilog thielecpu/hardware/pee.v
+read_verilog thielecpu/hardware/rtl/pee.v
 hierarchy -check -top pee
 proc; opt; techmap; opt
 stat -top pee
 write_json /tmp/pee_synth.json
 
 # MMU - Memory Management Unit
-read_verilog thielecpu/hardware/mmu.v
+read_verilog thielecpu/hardware/rtl/mmu.v
 hierarchy -check -top mmu
 proc; opt; techmap; opt
 stat -top mmu
 write_json /tmp/mmu_synth.json
 
 # State Serializer
-read_verilog thielecpu/hardware/state_serializer.v
+read_verilog thielecpu/hardware/rtl/state_serializer.v
 hierarchy -check -top state_serializer
 proc; opt; techmap; opt
 stat -top state_serializer

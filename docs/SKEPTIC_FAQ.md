@@ -2,7 +2,8 @@
 
 This document addresses frequently raised objections to the Thiele Machine project with evidence-based responses.
 
-**Last updated**: 2025-12-19
+**Last updated**: 2025-12-19  
+**Last reviewed**: January 4, 2026
 
 ---
 
@@ -76,7 +77,29 @@ Q_min = k_B T ln(2) × μ
 
 ---
 
-## Objection 2: "Admitted proofs undermine your verification claims"
+## Objection 2: "μ-cost seems arbitrary—you just made it up"
+
+### Response
+
+**January 2026 Update**: This objection has been mathematically resolved with two new theorems:
+
+**Initiality Theorem** (`coq/kernel/MuInitiality.v:195`):
+μ is the **unique canonical** monotone cost functional. Any other cost function satisfying natural properties (monotonicity, instruction-locality, zero initialization) must equal μ on all reachable states.
+
+**Necessity Theorem** (`coq/kernel/MuNecessity.v:244`):
+μ is the **minimal** cost model among all that respect Landauer's thermodynamic bound. Any physically valid cost function must charge at least as much as μ.
+
+**Conclusion**: μ is not arbitrary—it's simultaneously:
+- Mathematically inevitable (the only valid monotone cost)
+- Physically necessary (the minimal thermodynamically valid cost)
+
+See [docs/THEOREMS.md](THEOREMS.md) Theorems 6 & 7 for full statements and proofs.
+
+**Status**: ✅ **PROVEN** (0 admits, 0 axioms) — January 4, 2026
+
+---
+
+## Objection 3: "Admitted proofs undermine your verification claims"
 
 ### Response
 

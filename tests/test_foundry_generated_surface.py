@@ -28,7 +28,7 @@ def _parse_generated_verilog_opcodes(path: pathlib.Path) -> dict[str, int]:
 
 def test_foundry_generated_surface_matches():
     root = pathlib.Path(__file__).resolve().parents[1]
-    verilog_path = root / "thielecpu" / "hardware" / "generated_opcodes.vh"
+    verilog_path = root / "thielecpu" / "hardware" / "rtl" / "generated_opcodes.vh"
     verilog_opcodes = _parse_generated_verilog_opcodes(verilog_path)
 
     # generated_core now provides a tag->mnemonic->opcode byte mapping.

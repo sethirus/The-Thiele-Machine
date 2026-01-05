@@ -56,7 +56,7 @@ phase EXECUTE "generating Python + Verilog from extracted IR"
 python3 scripts/forge.py \
   --input "$IR" \
   --out-python "$ROOT/thielecpu/generated/generated_core.py" \
-  --out-verilog "$ROOT/thielecpu/hardware/generated_opcodes.vh"
+  --out-verilog "$ROOT/thielecpu/hardware/rtl/generated_opcodes.vh"
 
 phase MERGE "sanity importing generated Python"
 python3 -c "from thielecpu.generated import generated_core as g; g.sanity_check(); print(len(g.COQ_INSTRUCTION_TAGS))" \
@@ -64,21 +64,21 @@ python3 -c "from thielecpu.generated import generated_core as g; g.sanity_check(
 
 phase VERIFY "compiling real RTL (thiele_cpu + testbench)"
 pushd "$ROOT/thielecpu/hardware" >/dev/null
-iverilog -g2012 -o "$ROOT/build/thiele_cpu_tb.out" \
-  thiele_cpu.v \
-  thiele_cpu_tb.v \
-  mu_alu.v \
-  mu_core.v \
-  receipt_integrity_checker.v
+iverilog -g2012 -I./rtl -o "$ROOT/build/thiele_cpu_tb.out" \
+  rtl/thiele_cpu.v \
+  testbench/thiele_cpu_tb.v \
+  rtl/mu_alu.v \
+  rtl/mu_core.v \
+  rtl/receipt_integrity_checker.v
 
-iverilog -g2012 -o "$ROOT/build/thiele_cpu_engines_tb.out" \
-  thiele_cpu.v \
-  thiele_cpu_engines_tb.v \
-  lei.v \
-  pee.v \
-  mu_alu.v \
-  mu_core.v \
-  receipt_integrity_checker.v
+iverilog -g2012 -I./rtl -o "$ROOT/build/thiele_cpu_engines_tb.out" \
+  rtl/thiele_cpu.v \
+  testbench/thiele_cpu_engines_tb.v \
+  rtl/lei.v \
+  rtl/pee.v \
+  rtl/mu_alu.v \
+  rtl/mu_core.v \
+  rtl/receipt_integrity_checker.v
 popd >/dev/null
 
 phase VERIFY "generating synthesizable RTL (thiele_cpu_synth.v)"
@@ -88,20 +88,20 @@ phase VERIFY "synthesizability check (yosys)"
 command -v yosys >/dev/null || die "yosys not found on PATH"
 
 # Primary synth gate (CPU)
-yosys -q -p "read_verilog -sv -nomem2reg -DYOSYS_LITE -I$ROOT/thielecpu/hardware \
-  $ROOT/thielecpu/hardware/thiele_cpu_synth.v \
-  $ROOT/thielecpu/hardware/mu_alu.v \
-  $ROOT/thielecpu/hardware/mu_core.v \
-  $ROOT/thielecpu/hardware/receipt_integrity_checker.v; \
+yosys -q -p "read_verilog -sv -nomem2reg -DYOSYS_LITE -I$ROOT/thielecpu/hardware/rtl \
+  $ROOT/thielecpu/hardware/rtl/thiele_cpu_synth.v \
+  $ROOT/thielecpu/hardware/rtl/mu_alu.v \
+  $ROOT/thielecpu/hardware/rtl/mu_core.v \
+  $ROOT/thielecpu/hardware/rtl/receipt_integrity_checker.v; \
   synth -noabc -top thiele_cpu; check; stat" \
   >/dev/null
 
 # Extra module synth gates (ensures interfaces don't rot)
-yosys -q -p "read_verilog -sv -nomem2reg -DYOSYS_LITE -I$ROOT/thielecpu/hardware $ROOT/thielecpu/hardware/lei.v; synth -noabc -top lei; check; stat" \
+yosys -q -p "read_verilog -sv -nomem2reg -DYOSYS_LITE -I$ROOT/thielecpu/hardware/rtl $ROOT/thielecpu/hardware/rtl/lei.v; synth -noabc -top lei; check; stat" \
   >/dev/null
-yosys -q -p "read_verilog -sv -nomem2reg -DYOSYS_LITE -I$ROOT/thielecpu/hardware $ROOT/thielecpu/hardware/pee.v; synth -noabc -top pee; check; stat" \
+yosys -q -p "read_verilog -sv -nomem2reg -DYOSYS_LITE -I$ROOT/thielecpu/hardware/rtl $ROOT/thielecpu/hardware/rtl/pee.v; synth -noabc -top pee; check; stat" \
   >/dev/null
-yosys -q -p "read_verilog -sv -nomem2reg -DYOSYS_LITE -I$ROOT/thielecpu/hardware $ROOT/thielecpu/hardware/mau.v; synth -noabc -top mau; check; stat" \
+yosys -q -p "read_verilog -sv -nomem2reg -DYOSYS_LITE -I$ROOT/thielecpu/hardware/rtl $ROOT/thielecpu/hardware/rtl/mau.v; synth -noabc -top mau; check; stat" \
   >/dev/null
 
 phase VERIFY "running real RTL simulation (thiele_cpu_tb)"

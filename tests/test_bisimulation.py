@@ -22,6 +22,7 @@ from typing import Dict, List, Tuple, Any
 # Test infrastructure
 REPO_ROOT = Path(__file__).resolve().parents[1]
 HARDWARE_DIR = REPO_ROOT / "thielecpu" / "hardware"
+RTL_DIR = HARDWARE_DIR / "rtl"
 BUILD_DIR = REPO_ROOT / "build"
 
 
@@ -310,7 +311,7 @@ class TestOpcodeAlignment:
         from thielecpu.isa import Opcode
         
         # Read Verilog opcodes
-        vh_path = HARDWARE_DIR / "generated_opcodes.vh"
+        vh_path = RTL_DIR / "generated_opcodes.vh"
         vh_content = vh_path.read_text()
         
         verilog_opcodes = {}
@@ -403,7 +404,7 @@ class TestVerilogCompilation:
         result = subprocess.run(
             ["iverilog", "-g2012", "-I.", "-o", null_output,
              "mu_alu.v", "mu_core.v", "thiele_cpu.v", "receipt_integrity_checker.v"],
-            cwd=HARDWARE_DIR,
+            cwd=RTL_DIR,
             capture_output=True,
             text=True,
         )
@@ -414,11 +415,13 @@ class TestVerilogCompilation:
         import tempfile
         import os
         tmp_out = os.path.join(tempfile.gettempdir(), "thiele_tb_test")
+        tb_dir = HARDWARE_DIR / "testbench"
         # Compile
         result = subprocess.run(
-            ["iverilog", "-g2012", "-I.", "-o", tmp_out,
-             "mu_alu.v", "mu_core.v", "thiele_cpu.v", "receipt_integrity_checker.v", "thiele_cpu_tb.v"],
-            cwd=HARDWARE_DIR,
+            ["iverilog", "-g2012", "-I.", "-I../rtl", "-o", tmp_out,
+             "../rtl/mu_alu.v", "../rtl/mu_core.v", "../rtl/thiele_cpu.v", 
+             "../rtl/receipt_integrity_checker.v", "thiele_cpu_tb.v"],
+            cwd=tb_dir,
             capture_output=True,
             text=True,
         )

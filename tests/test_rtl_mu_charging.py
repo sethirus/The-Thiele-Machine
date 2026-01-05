@@ -18,8 +18,8 @@ import re
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-RTL_PATH = ROOT / "thielecpu" / "hardware" / "thiele_cpu.v"
-OPCODES_HDR = ROOT / "thielecpu" / "hardware" / "generated_opcodes.vh"
+RTL_PATH = ROOT / "thielecpu" / "hardware" / "rtl" / "thiele_cpu.v"
+OPCODES_HDR = ROOT / "thielecpu" / "hardware" / "rtl" / "generated_opcodes.vh"
 
 
 def _strip_line_comment(line: str) -> str:

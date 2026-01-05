@@ -4,7 +4,9 @@
 
 **The claim:** Insight is not free. Every time a computer "figures something out" — factors a number, finds a pattern, solves a puzzle — it pays a cost. Not time. Not memory. *Information*. I call this cost the **μ-bit**.
 
-**The proof:** 1,974 theorems in Coq. Zero admits in kernel. Zero axioms. Zero hand-waving. Machine-verified. The proofs compile. The tests pass. The hardware synthesizes.
+**The proof:** 238 Coq proof files. Zero admits. Zero forbidden axioms. Machine-verified by Inquisitor (maximum strictness). The proofs compile. The 660+ tests pass. The hardware synthesizes.
+
+**Who I am:** I'm not an academic. I'm a car salesman who taught himself to code. No CS degree, no formal math training. I just kept asking "why?" and pulling on threads until I ended up here—proving theorems in a proof assistant I'd never heard of a year ago. The proofs don't care about credentials. They compile or they don't.
 
 **The breakthrough:** We proved two foundational theorems:
 - **Initiality Theorem**: μ is not just *a* cost measure, it's *the* unique instruction-consistent one
@@ -36,10 +38,10 @@ This is as fundamental as thermodynamics. You can't get something for nothing �
 
 | What | Status |
 |------|--------|
-| Coq proofs | **226 files, 1,974 theorems, 0 kernel admits** |
+| Coq proofs | **238 files, 0 admits, 0 forbidden axioms (Inquisitor PASS)** |
 | Python VM | **Working, tested, receipt-verified** |
 | Verilog RTL | **Synthesizable, FPGA-ready** |
-| Test suite | **1,400+ tests passing** |
+| Test suite | **660+ tests passing (including 54 permanent proof tests)** |
 | 3-layer isomorphism | **Coq = Python = Verilog** |
 | Initiality theorem | **μ is THE unique cost (proven)** |
 | Landauer validity | **μ satisfies erasure bound (proven)** |
@@ -52,28 +54,29 @@ Every claim has a proof. Every proof compiles. Every implementation matches.
 
 [![CI](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml/badge.svg)](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Tests](https://img.shields.io/badge/Tests-1400%2B%20Passing-brightgreen)](tests/)
-[![Coq](https://img.shields.io/badge/Coq-1466%20Theorems-blue)](coq/)
-[![Breakthrough](https://img.shields.io/badge/Breakthrough-8.12x%20Speedup-gold)](tests/test_geometric_factorization_claim.py)
+[![Tests](https://img.shields.io/badge/Tests-660%2B%20Passing-brightgreen)](tests/)
+[![Coq](https://img.shields.io/badge/Coq-2096%20Theorems-blue)](coq/)
 
 ---
 
-## 🚀 BREAKTHROUGH: Polylog Period Finding via Geometric Claims
+## � Geometric Period Finding via Structural Claims
 
-**THE INSIGHT**: Like `ClaimLeftZero` in ToyThiele accesses geometry without computing, we can **CLAIM factorization** (paying μ-cost) rather than computing it (exponential).
+**THE INSIGHT**: Like `ClaimLeftZero` in ToyThiele accesses geometry without computing, structural claims (paying μ-cost) can express factorization assertions explicitly rather than discovering them through search.
 
-**VERIFIED RESULTS** ([tests/test_geometric_factorization_claim.py](tests/test_geometric_factorization_claim.py)):
-- **N=3233 (53×61)**: 32 operations vs 260 classical = **8.12x speedup** ✓
-- **Complexity**: O(d(φ(N)) × log N) vs O(r) classical
+**EXPERIMENTAL RESULTS** ([tests/test_geometric_factorization_claim.py](tests/test_geometric_factorization_claim.py)):
+- **N=3233 (53×61)**: 32 operations vs 260 classical baseline
+- **Complexity**: O(d(φ(N)) × log N) vs O(r) classical period finding
 - **μ-cost**: log₂(N) bits (information-theoretic minimum to specify factors)
+
+**IMPORTANT**: This is **not** a practical speedup over classical factoring algorithms. Both approaches remain classical O(√N) complexity for general factorization. The geometric approach demonstrates the μ-cost accounting framework, not cryptographic implications.
 
 **HOW IT WORKS**:
 1. **μ-CLAIM**: Assert factorization N = p×q (costs log₂(N) bits)
-2. **COMPUTE**: φ(N) = (p-1)(q-1) [immediate]
+2. **COMPUTE**: φ(N) = (p-1)(q-1) [immediate given factors]
 3. **SEARCH**: Test divisors of φ(N) for period [O(d(φ(N)))]
 4. **VERIFY**: Period confirms factorization
 
-This resolves Shor's circularity: Traditional Shor needs period → to get factors. Thiele Machine: **CLAIM factors → derive period → verify**.
+This demonstrates the μ-ledger accounting: Traditional Shor needs period → factors. Thiele Machine: **CLAIM factors (pay μ-cost) → derive period → verify**.
 
 **FULL-STACK VERIFICATION**:
 - ✅ **Coq**: [coq/shor_primitives/PolylogConjecture.v](coq/shor_primitives/PolylogConjecture.v) - Formalized and proven
@@ -163,7 +166,7 @@ This isn't just theory. The Thiele Machine is implemented at **three layers** th
 
 | Layer | Implementation | Purpose |
 |-------|----------------|---------|
-| **Coq** | 224 proof files, Inquisitor PASS (0 kernel admits) | Mathematical ground truth |
+| **Coq** | 240 proof files, Inquisitor PASS (0 admits, 0 forbidden axioms) | Mathematical ground truth |
 | **Python** | VM with receipts and traces | Executable reference |
 | **Verilog** | Synthesizable RTL (FPGA-targetable) | Physical realization |
 
@@ -173,7 +176,7 @@ For any instruction trace τ:
 S_Coq(τ) = S_Python(τ) = S_Verilog(τ)
 ```
 
-This is enforced by **1,400+ automated tests**. Any divergence is a critical bug.
+This is enforced by **660+ automated tests**. Any divergence is a critical bug.
 
 ---
 
@@ -289,19 +292,24 @@ iverilog thielecpu/hardware/*.v -o thiele_cpu
 
 ```
 The-Thiele-Machine/
-├── coq/                    # 224 Coq proof files (Zero kernel admits)
+├── coq/                    # 238 Coq proof files (0 admits, 0 forbidden axioms)
 │   ├── kernel/             # Core theorems (MuInitiality, NoFreeInsight, etc.)
 │   ├── nofi/               # No Free Insight functor architecture
 │   ├── bridge/             # Physics-to-Kernel embeddings
-│   └── physics/            # Discrete physics models (wave, dissipative)
+│   ├── physics/            # Discrete physics models (wave, dissipative)
+│   ├── artifacts/          # Generated/archived proofs
+│   ├── theory/             # Theoretical foundations
+│   └── thermodynamic/      # Thermodynamic bridge proofs
 ├── thielecpu/              # Python VM implementation
 │   ├── vm.py               # Core VM
 │   ├── state.py            # State, partitions, μ-ledger
 │   ├── isa.py              # 18-instruction ISA definitions
 │   └── hardware/           # Verilog RTL (synthesizable)
-├── tests/                  # 1,400+ tests (isomorphism enforcement)
-├── thesis/                 # Complete formal thesis (395 pages, 13 chapters)
-├── scripts/                # Tooling (inquisitor.py, etc.)
+├── tests/                  # 660+ tests (including 54 permanent proof tests)
+│   ├── proof_*.py          # Permanent locked-down proof tests
+│   └── test_*.py           # Standard test modules
+├── thesis/                 # Complete formal thesis (396 pages, 13 chapters)
+├── scripts/                # Tooling (inquisitor.py for Coq audit)
 └── demo.py                 # Live demonstration
 ```
 
@@ -333,16 +341,33 @@ The complete formal thesis (395 pages) is in [thesis/](thesis/):
 
 **Status: PASS** ✅
 
-The Coq development undergoes comprehensive static analysis scanning 224 files:
+The Coq development undergoes maximum strictness static analysis:
 
-**Critical Issues (HIGH severity):** ✅ **0 found in kernel proofs**
+```
+$ python scripts/inquisitor.py
+INQUISITOR: OK
+Report: INQUISITOR_REPORT.md
+
+Summary (238 Coq files):
+- HIGH: 0    (no admits, no forbidden axioms)
+- MEDIUM: 5  (all documented with INQUISITOR NOTEs)
+- LOW: 4     (informational only)
+```
+
+**What Inquisitor Checks (HIGH severity - FORBIDDEN):**
 - `Admitted` / `admit.` / `give_up` — incomplete proofs
-- `Theorem ... : True.` — proving nothing (vacuous statements)
-- Undocumented `Axiom` / `Parameter` declarations
+- `Axiom` / `Parameter` — unproven assumptions
+- `Hypothesis` / `Assume` — hidden axioms
+- `Theorem ... : True.` — vacuous statements
+
+**MEDIUM findings** are documented edge cases with INQUISITOR NOTEs:
+- Short proofs that delegate to proven lemmas (proper composition)
+- Intentional zero values for Turing machine encodings
+- Classical import for impossibility proofs
 
 **Run Inquisitor:**
 ```bash
-python scripts/inquisitor.py --strict
+python scripts/inquisitor.py
 ```
 
 All kernel theorems (including `mu_is_initial_monotone`, `mu_initiality`, `no_free_insight_general`) are verified closed under the global context—zero axioms, zero admits.
@@ -351,7 +376,7 @@ All kernel theorems (including `mu_is_initial_monotone`, `mu_initiality`, `no_fr
 
 ## Testing
 
-The test suite includes 1,400+ tests covering:
+The test suite includes 660+ tests covering:
 - **Core VM tests**: Always run, verify Python implementation
 - **Coq alignment tests**: Require Coq 8.18+ to fully verify
 - **Verilog tests**: Require iverilog for hardware simulation

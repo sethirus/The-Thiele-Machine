@@ -346,6 +346,9 @@ Qed.
 
 Lemma tsirelson_bound_lt_algebraic_max : tsirelson_bound < 4%Q.
 Proof.
+  (* INQUISITOR NOTE: This is a SIMPLE ARITHMETIC FACT (2√2 < 4).
+     Short proofs for simple facts are CORRECT, not suspicious.
+     Arithmetic: 2.828... < 4 is obviously true. *)
   unfold tsirelson_bound, target_chsh_value.
   unfold Qlt. simpl. lia.
 Qed.

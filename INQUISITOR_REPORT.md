@@ -1,6 +1,6 @@
 # INQUISITOR REPORT
-Generated: 2026-01-04 08:19:32Z (UTC)
-Scanned: 240 Coq files across the repo
+Generated: 2026-01-05 01:57:25Z (UTC)
+Scanned: 238 Coq files across the repo
 ## Summary
 - HIGH: 0
 - MEDIUM: 5
@@ -52,7 +52,7 @@ Higher score = more likely unfinished/vacuous.
 ### MEDIUM
 
 #### `coq/kernel/ProperSubsumption.v`
-- L33: **ZERO_CONST** — Definition is a constant zero.
+- L38: **ZERO_CONST** — Definition is a constant zero.
   - `Definition blank : Symbol := 0.`
 
 #### `coq/kernel/TsirelsonUniqueness.v`
@@ -64,11 +64,11 @@ Higher score = more likely unfinished/vacuous.
   - `Lemma tsirelson_bound_lt_algebraic_max : tsirelson_bound < 4%Q.`
 
 #### `coq/thielemachine/coqproofs/MuAlu.v`
-- L189: **MU_COST_ZERO** — μ-cost definition \`mu_zero\` is trivially zero - ensure this is intentional.
+- L194: **MU_COST_ZERO** — μ-cost definition \`mu_zero\` is trivially zero - ensure this is intentional.
   - `Definition mu_zero : MuAccumulator := {| mu_value := 0 |}.`
 
 #### `coq/thielemachine/coqproofs/OracleImpossibility.v`
-- L88: **PROBLEMATIC_IMPORT** — Import may introduce classical axioms - verify this is documented and necessary.
+- L92: **PROBLEMATIC_IMPORT** — Import may introduce classical axioms - verify this is documented and necessary.
   - `Require Import Classical.`
 
 ### LOW

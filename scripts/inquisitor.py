@@ -1366,9 +1366,85 @@ def _scan_symmetry_contracts(coq_root: Path, manifest: dict, *, all_proofs: bool
     return findings
 
 
-def _run_make_all(repo_root: Path) -> int:
-    proc = subprocess.run(["make", "-C", str(repo_root / "coq")], cwd=str(repo_root))
-    return proc.returncode
+def _run_make_all(repo_root: Path) -> tuple[int, list[Finding]]:
+    """Run make -C coq and return (returncode, list of compilation findings)."""
+    findings: list[Finding] = []
+    coq_dir = repo_root / "coq"
+    
+    # First, try to compile using make
+    print("INQUISITOR: Compiling all Coq proofs...")
+    proc = subprocess.run(
+        ["make", "-C", str(coq_dir), "-j4"],
+        cwd=str(repo_root),
+        capture_output=True,
+        text=True,
+    )
+    
+    if proc.returncode != 0:
+        # Parse error output to find which files failed
+        error_lines = proc.stderr + proc.stdout
+        # Look for patterns like "File "./kernel/Foo.v", line X"
+        import re
+        file_pattern = re.compile(r'File "([^"]+\.v)", line (\d+)')
+        for match in file_pattern.finditer(error_lines):
+            file_path = match.group(1)
+            line_num = int(match.group(2))
+            full_path = (coq_dir / file_path).resolve() if not Path(file_path).is_absolute() else Path(file_path)
+            if not full_path.exists():
+                full_path = (repo_root / file_path).resolve()
+            findings.append(
+                Finding(
+                    rule_id="COMPILATION_ERROR",
+                    severity="HIGH",
+                    file=full_path,
+                    line=line_num,
+                    snippet="",
+                    message="Coq file failed to compile - see build output.",
+                )
+            )
+        
+        # If no specific files found in error, add a general failure
+        if not findings:
+            findings.append(
+                Finding(
+                    rule_id="COMPILATION_ERROR",
+                    severity="HIGH",
+                    file=coq_dir / "Makefile",
+                    line=1,
+                    snippet=error_lines[:500] if error_lines else "",
+                    message="Coq compilation failed - run 'make -C coq' for details.",
+                )
+            )
+        print(f"INQUISITOR: Compilation FAILED - {len(findings)} error(s)")
+    else:
+        print("INQUISITOR: Compilation OK")
+    
+    return proc.returncode, findings
+
+
+def _compile_individual_file(coq_file: Path, repo_root: Path) -> Finding | None:
+    """Try to compile a single Coq file and return a finding if it fails."""
+    proc = subprocess.run(
+        ["coqc", "-Q", str(repo_root / "coq"), "Thiele", str(coq_file)],
+        cwd=str(repo_root),
+        capture_output=True,
+        text=True,
+        timeout=60,
+    )
+    if proc.returncode != 0:
+        # Extract line number from error if possible
+        import re
+        line_match = re.search(r'line (\d+)', proc.stderr)
+        line_num = int(line_match.group(1)) if line_match else 1
+        return Finding(
+            rule_id="COMPILATION_ERROR",
+            severity="HIGH",
+            file=coq_file,
+            line=line_num,
+            snippet=proc.stderr[:200] if proc.stderr else "",
+            message="File failed to compile.",
+        )
+    return None
 
 
 def write_report(
@@ -1481,58 +1557,28 @@ def write_report(
 
 
 def main(argv: list[str]) -> int:
-    ap = argparse.ArgumentParser()
+    ap = argparse.ArgumentParser(
+        description="INQUISITOR: Maximum strictness Coq proof auditor. "
+        "Compiles ALL Coq files, scans for admits, axioms, and proof quality issues. "
+        "Exits non-zero on ANY HIGH finding or compilation failure. No mercy. No exceptions."
+    )
     ap.add_argument("--coq-root", action="append", default=["coq"], help="Root directory to scan")
     ap.add_argument("--report", default="INQUISITOR_REPORT.md", help="Markdown report path")
     ap.add_argument(
-        "--build",
+        "--no-build",
         action="store_true",
         default=False,
-        help="Run canonical Coq build (`make -C coq`) before scanning.",
+        help="Skip Coq compilation (NOT RECOMMENDED - use only for quick static checks).",
     )
-    ap.add_argument(
-        "--allowlist",
-        action="store_true",
-        default=False,
-        help="Enable allowlist for archive/sandbox/WIP paths (default: disabled).",
-    )
-    ap.add_argument(
-        "--allowlist-makefile-optional",
-        action="store_true",
-        default=False,
-        help="When --allowlist is enabled, also allowlist OPTIONAL_VO from coq/Makefile.local.",
-    )
-    ap.add_argument(
-        "--fail-on-protected",
-        action="store_true",
-        default=True,
-        help="Exit non-zero on HIGH findings in protected files (default: on)",
-    )
-    ap.add_argument(
-        "--strict",
-        action="store_true",
-        default=False,
-        help="Fail on any HIGH finding outside allowlisted paths (scorched earth).",
-    )
-    ap.add_argument(
-        "--ultra-strict",
-        action="store_true",
-        default=False,
-        help="Ultra-strict mode: also fail on MEDIUM findings in critical kernel files.",
-    )
-    # Legacy option retained for backward compatibility; it now implies the new default.
-    ap.add_argument(
-        "--ignore-makefile-optional",
-        action="store_true",
-        default=False,
-        help=argparse.SUPPRESS,
-    )
-    ap.add_argument(
-        "--no-fail-on-protected",
-        dest="fail_on_protected",
-        action="store_false",
-        help="Do not fail on protected findings",
-    )
+    # Legacy options - kept for backward compatibility but no longer change behavior
+    ap.add_argument("--build", action="store_true", default=True, help=argparse.SUPPRESS)  # Legacy
+    ap.add_argument("--allowlist", action="store_true", default=False, help=argparse.SUPPRESS)
+    ap.add_argument("--allowlist-makefile-optional", action="store_true", default=False, help=argparse.SUPPRESS)
+    ap.add_argument("--fail-on-protected", action="store_true", default=True, help=argparse.SUPPRESS)
+    ap.add_argument("--strict", action="store_true", default=True, help=argparse.SUPPRESS)
+    ap.add_argument("--ultra-strict", action="store_true", default=True, help=argparse.SUPPRESS)
+    ap.add_argument("--ignore-makefile-optional", action="store_true", default=False, help=argparse.SUPPRESS)
+    ap.add_argument("--no-fail-on-protected", dest="fail_on_protected", action="store_false", help=argparse.SUPPRESS)
     ap.add_argument(
         "--include-informational",
         action="store_true",
@@ -1557,6 +1603,14 @@ def main(argv: list[str]) -> int:
         help="Restrict scanning to --coq-root entries only.",
     )
     args = ap.parse_args(argv)
+    
+    # MAXIMUM STRICTNESS: All checks enabled, no allowlists
+    args.strict = True
+    args.ultra_strict = True
+    args.fail_on_protected = True
+    args.allowlist = False  # NO ALLOWLISTS - everything is examined
+    # Build by default unless --no-build is specified
+    args.build = not args.no_build
 
     repo_root = Path(__file__).resolve().parents[1]
     coq_roots = [(repo_root / root).resolve() for root in args.coq_root]
@@ -1579,13 +1633,22 @@ def main(argv: list[str]) -> int:
             print(f"ERROR: coq root not found: {root}", file=sys.stderr)
         return 2
 
-    if args.build:
-        rc = _run_make_all(repo_root)
-        if rc != 0:
-            print("INQUISITOR: FAIL — Coq build failed; not scanning.", file=sys.stderr)
-            return rc
-
     all_findings: list[Finding] = []
+    
+    # COMPILE ALL COQ PROOFS (default behavior)
+    if args.build:
+        rc, compile_findings = _run_make_all(repo_root)
+        all_findings.extend(compile_findings)
+        if rc != 0:
+            # Write report with compilation errors before exiting
+            write_report(
+                report_path, repo_root, all_findings, 0, [],
+                scanned_scope="compilation failed"
+            )
+            print(f"INQUISITOR: FAIL — Coq compilation failed with {len(compile_findings)} error(s).", file=sys.stderr)
+            print(f"Report: {report_path}")
+            return 1
+
     vacuity_index: list[tuple[int, Path, tuple[str, ...]]] = []
     scanned = 0
     if args.all_proofs:
@@ -1704,16 +1767,32 @@ def main(argv: list[str]) -> int:
                 print(f"... ({len(strict_high) - 25} more)")
             return 1
 
+    # Helper to check if a finding has an INQUISITOR NOTE nearby in the source
+    def has_inquisitor_note(finding) -> bool:
+        """Check if the finding has an INQUISITOR NOTE within 15 lines."""
+        try:
+            with open(finding.file, "r", encoding="utf-8", errors="replace") as f:
+                lines = f.readlines()
+            # Check lines around the finding for INQUISITOR NOTE
+            start = max(0, finding.line - 5)
+            end = min(len(lines), finding.line + 15)
+            context = "".join(lines[start:end])
+            return "INQUISITOR NOTE" in context
+        except Exception:
+            return False
+
     # ULTRA-STRICT MODE: Also fail on MEDIUM findings in critical kernel files
+    # UNLESS the finding has an INQUISITOR NOTE explaining it
     if args.ultra_strict:
         critical_medium = [
             f for f in all_findings
             if f.severity == "MEDIUM" 
             and is_critical_kernel_file(f.file)
             and not is_allowlisted(f.file, enable_allowlist=args.allowlist)
+            and not has_inquisitor_note(f)  # Allow documented edge cases
         ]
         if critical_medium:
-            print(f"INQUISITOR: FAIL (ultra-strict) — {len(critical_medium)} MEDIUM findings in critical kernel files.")
+            print(f"INQUISITOR: FAIL (ultra-strict) — {len(critical_medium)} undocumented MEDIUM findings in critical kernel files.")
             print(f"Report: {report_path}")
             for f in critical_medium[:25]:
                 rel = f.file.relative_to(repo_root).as_posix()

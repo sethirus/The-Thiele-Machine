@@ -55,7 +55,7 @@ print("-"*70)
 
 # Test μ-ALU Verilog
 verilog_test = subprocess.run(
-    ["iverilog", "-t", "null", "thielecpu/hardware/mu_alu.v"],
+    ["iverilog", "-t", "null", "thielecpu/hardware/rtl/mu_alu.v"],
     capture_output=True,
     text=True
 )
@@ -68,7 +68,7 @@ else:
 
 # Check μ-cost tracking in RTL  
 mu_cost_check = subprocess.run(
-    ["grep", "-rq", "mu_.*cost\\|mu_delta\\|mu_bit", "thielecpu/hardware/"],
+    ["grep", "-rq", "mu_.*cost\\|mu_delta\\|mu_bit", "thielecpu/hardware/rtl/"],
     capture_output=True,
     shell=True
 )

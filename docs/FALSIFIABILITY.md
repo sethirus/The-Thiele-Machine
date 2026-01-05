@@ -1,5 +1,7 @@
 # Falsifiability Criteria for Physical Claims
 
+**Last Reviewed**: January 4, 2026
+
 This document defines **explicit falsification criteria** for major physical claims in the Thiele Machine project.
 
 ## Claim Classification
@@ -8,6 +10,8 @@ This document defines **explicit falsification criteria** for major physical cla
 - **[IMPLEMENTED]**: Verified by testing across implementation layers
 - **[CONJECTURED]**: Proposed but not experimentally validated
 - **[SPECULATION]**: Theoretical extension with no validation
+
+**January 2026 Update**: Two new proven theorems establish μ as both mathematically canonical (Initiality) and physically necessary (Necessity). See [docs/THEOREMS.md](THEOREMS.md) for details.
 
 ---
 

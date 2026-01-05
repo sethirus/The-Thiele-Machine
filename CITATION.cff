@@ -10,11 +10,14 @@ license: Apache-2.0
 version: "v1.0.3"
 date-released: "2025-10-11"
 abstract: >-
-  The Thiele Machine is a project that develops a formally verified computational model
-  (the Thiele Machine), associated formal proofs (Coq), hardware descriptions (Verilog),
-  and reproducible demonstrations (Python scripts and verified receipts). The
-  repository contains the research artifacts, reproducible build scripts, and
-  release archives for citation and archival, with complete VM↔kernel simulation proofs.
+  The Thiele Machine is a formally verified computational model that treats structural
+  information as a costly resource. It includes machine-checked proofs in Coq (238 files,
+  zero admits), a Python reference VM, and synthesizable Verilog hardware. The model
+  introduces the μ-bit as an atomic unit of structural cost and proves the No Free
+  Insight theorem: you cannot narrow the search space without paying the information-
+  theoretic cost of that narrowing. Built by a self-taught developer with no formal
+  CS background, demonstrating that modern tools make formal methods accessible to
+  anyone willing to learn.
 
 maintainers:
   - family-names: "Thiele"

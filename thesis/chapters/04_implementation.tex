@@ -3,7 +3,7 @@
 
 \textbf{Three layers (boxes):}
 \begin{itemize}
-    \item \textbf{Layer 1: Coq (blue):} Formal specification with machine-checked proofs (nearly 1,500 verified theorems)
+    \item \textbf{Layer 1: Coq (blue):} Formal specification with machine-checked proofs (over 2,000 verified theorems)
     \item \textbf{Layer 2: Python (green):} Human-readable reference implementation with tracing \& debugging
     \item \textbf{Layer 3: Verilog (orange):} Synthesizable RTL for FPGA/ASIC physical hardware
 \end{itemize}
@@ -16,12 +16,28 @@
 
 \section{Why Three Layers?}
 
-\subsection{The Problem of Trust}
+\subsection{A Car Salesman's Take on Building Trust}
+
+\begin{quote}
+\textit{``Okay, so here's the thing. I'm a car salesman. Not a computer scientist. Not a mathematician. A guy who sold Hondas and Toyotas for years. And in that world, you learn something real fast: talk is cheap. A customer can tell you their car runs great, but until I see it drive, hear the engine, and check the VIN myself, I don't know anything.''}
+\end{quote}
+
+Same thing here. I could write a beautiful mathematical definition of how this machine \textit{should} work, but that's just talk. That's just the brochure. What matters is: does it actually work? Does the engine turn over? Does the thing \textit{do what I said it does}?
+
+That's why I built three independent implementations. Not because I'm a masochist (though I question that sometimes), but because I needed to \textit{know}. I needed to see the same answer come out of three completely different ``workshops''---one that speaks pure math (Coq), one that speaks Python like a normal person, and one that speaks to actual hardware in Verilog.
+
+If all three shops give me the same answer, I know the car is real. If they disagree? Someone's lying, and I need to find out who.
+
+\subsection{The Problem of Trust (The Academic Version)}
 
 A formal specification proves properties but doesn't execute on real workloads. An executable implementation runs but might contain bugs or subtle semantic drift. How can I trust that the implementation matches the specification?
 
 \textbf{Answer}: I build three independent implementations and verify they produce \textit{identical results} for all inputs. This makes the thesis rebuildable: every layer can be re-implemented from the definitions here, and any mismatch is detectable.
-In practice, this means I can take a short instruction trace, run it through the Coq-extracted interpreter, the Python VM, and the RTL testbench, and compare the gate-appropriate observable projection. If any compared field diverges, I treat it as a semantic bug rather than a performance issue. That is the operational meaning of “trust” in this project.
+In practice, this means I can take a short instruction trace, run it through the Coq-extracted interpreter, the Python VM, and the RTL testbench, and compare the gate-appropriate observable projection. If any compared field diverges, I treat it as a semantic bug rather than a performance issue. That is the operational meaning of ``trust'' in this project.
+
+\begin{quote}
+\textit{Author's Note (Devon): I'm going to be real with you---when I first got all three layers to agree on a non-trivial computation, I cried. Like, actually cried. For probably fifteen minutes. Because it meant the thing I built in my head wasn't just a fever dream. It was \textbf{real}. The math shop agreed with the Python shop agreed with the hardware shop. That's when I knew I had something.}
+\end{quote}
 
 \subsection{The Three Layers}
 
@@ -154,6 +170,11 @@ Record VMState := {
 \end{lstlisting}
 
 \paragraph{Understanding VMState Record:}
+
+\begin{quote}
+\textit{Author's Note (Devon): Look, I know what you're thinking. ``Seven fields? That's it?'' Yeah. That's it. Every computation this machine does boils down to shuffling values between these seven buckets. It's like a car---looks complicated under the hood, but at the end of the day it's just ``make explosions, turn wheels.'' Here it's ``move bits, track cost.''}
+\end{quote}
+
 \textbf{This is the complete VM state} — everything needed to simulate one step.
 
 \textbf{Field-by-Field Breakdown:}
@@ -1368,6 +1389,10 @@ end
 \textbf{Key insight:} Hardware implements information-theoretic operations (entropy, log2) in fixed-point. LUT provides bit-exact LOG2 matching Coq/Python.
 
 \subsection{The $\mu$-ALU}
+
+\begin{quote}
+\textit{Author's Note (Devon): This is where the magic happens, folks. The $\mu$-ALU is like the odometer on your car---except instead of miles, it tracks information. Every time you ``look'' at something, every time you reveal structure, every time you make a decision---the odometer ticks up. And just like your car's odometer, it only goes one direction. No rolling back. That's the whole game.}
+\end{quote}
 
 The $\mu$-ALU (\texttt{mu\_alu.v}) implements Q16.16 fixed-point arithmetic:
 \begin{lstlisting}

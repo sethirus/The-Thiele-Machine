@@ -87,7 +87,7 @@ def python_opcodes() -> Dict[str, int]:
 @pytest.fixture
 def verilog_opcodes() -> Dict[str, int]:
     """Extract opcodes from Verilog RTL."""
-    verilog_path = REPO_ROOT / "thielecpu" / "hardware" / "generated_opcodes.vh"
+    verilog_path = REPO_ROOT / "thielecpu" / "hardware" / "rtl" / "generated_opcodes.vh"
     content = verilog_path.read_text()
     opcodes = {}
     for match in re.finditer(r"localparam\s+\[7:0\]\s+OPCODE_(\w+)\s*=\s*8'h([0-9A-Fa-f]+)", content):
@@ -159,7 +159,7 @@ class TestStructuralIsomorphism:
         assert hasattr(py_state, 'mu_information'), "State should have mu_information"
         
         # Verilog state fields (from RTL)
-        verilog_path = REPO_ROOT / "thielecpu" / "hardware" / "thiele_cpu.v"
+        verilog_path = REPO_ROOT / "thielecpu" / "hardware" / "rtl" / "thiele_cpu.v"
         verilog_content = verilog_path.read_text()
         
         # Check for key registers
@@ -265,6 +265,8 @@ class TestBehavioralIsomorphism:
             pytest.skip("iverilog not available")
             
         hw_dir = REPO_ROOT / "thielecpu" / "hardware"
+        rtl_dir = hw_dir / "rtl"
+        tb_dir = hw_dir / "testbench"
         
         with tempfile.NamedTemporaryFile(suffix='_test', delete=False) as tmp:
             tmp_path = tmp.name
@@ -272,12 +274,12 @@ class TestBehavioralIsomorphism:
         try:
             # Compile
             result = subprocess.run(
-                ["iverilog", "-g2012", "-I", str(hw_dir), "-o", tmp_path,
-                 str(hw_dir / "thiele_cpu.v"),
-                 str(hw_dir / "thiele_cpu_tb.v"),
-                 str(hw_dir / "mu_alu.v"),
-                 str(hw_dir / "mu_core.v"),
-                 str(hw_dir / "receipt_integrity_checker.v")],
+                ["iverilog", "-g2012", "-I", str(rtl_dir), "-o", tmp_path,
+                 str(rtl_dir / "thiele_cpu.v"),
+                 str(tb_dir / "thiele_cpu_tb.v"),
+                 str(rtl_dir / "mu_alu.v"),
+                 str(rtl_dir / "mu_core.v"),
+                 str(rtl_dir / "receipt_integrity_checker.v")],
                 capture_output=True,
                 timeout=60
             )
@@ -353,18 +355,20 @@ class TestVerilogPythonAlignment:
             pytest.skip("iverilog not available")
             
         hw_dir = REPO_ROOT / "thielecpu" / "hardware"
+        rtl_dir = hw_dir / "rtl"
+        tb_dir = hw_dir / "testbench"
         
         with tempfile.NamedTemporaryFile(suffix='_test', delete=False) as tmp:
             tmp_path = tmp.name
         
         try:
             subprocess.run(
-                ["iverilog", "-g2012", "-I", str(hw_dir), "-o", tmp_path,
-                 str(hw_dir / "thiele_cpu.v"),
-                 str(hw_dir / "thiele_cpu_tb.v"),
-                 str(hw_dir / "mu_alu.v"),
-                 str(hw_dir / "mu_core.v"),
-                 str(hw_dir / "receipt_integrity_checker.v")],
+                ["iverilog", "-g2012", "-I", str(rtl_dir), "-o", tmp_path,
+                 str(rtl_dir / "thiele_cpu.v"),
+                 str(tb_dir / "thiele_cpu_tb.v"),
+                 str(rtl_dir / "mu_alu.v"),
+                 str(rtl_dir / "mu_core.v"),
+                 str(rtl_dir / "receipt_integrity_checker.v")],
                 check=True,
                 timeout=60
             )
@@ -408,7 +412,7 @@ class TestVerilogPythonAlignment:
         from thielecpu.isa import Opcode, encode
         
         # Verilog extracts opcode from instruction word
-        verilog_path = REPO_ROOT / "thielecpu" / "hardware" / "thiele_cpu.v"
+        verilog_path = REPO_ROOT / "thielecpu" / "hardware" / "rtl" / "thiele_cpu.v"
         content = verilog_path.read_text()
         
         # Check that Verilog defines opcode extraction from instruction word
@@ -526,17 +530,19 @@ class TestCompleteIsomorphism:
         
         # Verilog compiles
         hw_dir = REPO_ROOT / "thielecpu" / "hardware"
+        rtl_dir = hw_dir / "rtl"
+        tb_dir = hw_dir / "testbench"
         with tempfile.NamedTemporaryFile(suffix='_test', delete=False) as tmp:
             tmp_path = tmp.name
         
         try:
             result = subprocess.run(
-                ["iverilog", "-g2012", "-I", str(hw_dir), "-o", tmp_path,
-                 str(hw_dir / "thiele_cpu.v"),
-                 str(hw_dir / "thiele_cpu_tb.v"),
-                 str(hw_dir / "mu_alu.v"),
-                 str(hw_dir / "mu_core.v"),
-                 str(hw_dir / "receipt_integrity_checker.v")],
+                ["iverilog", "-g2012", "-I", str(rtl_dir), "-o", tmp_path,
+                 str(rtl_dir / "thiele_cpu.v"),
+                 str(tb_dir / "thiele_cpu_tb.v"),
+                 str(rtl_dir / "mu_alu.v"),
+                 str(rtl_dir / "mu_core.v"),
+                 str(rtl_dir / "receipt_integrity_checker.v")],
                 capture_output=True,
                 timeout=60
             )

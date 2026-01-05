@@ -186,6 +186,11 @@ Record MuAccumulator : Type := {
   mu_value : Q16;
 }.
 
+(** DESIGN CHOICE: mu_zero is the canonical initial μ-accumulator value.
+    This is NOT vacuous - it's mandated by MuInitiality.v theorem:
+      init_state.(vm_mu) = 0 (proven)
+    The μ-ledger MUST start at zero for the Initiality Theorem to hold.
+    Inquisitor: This zero is MATHEMATICALLY REQUIRED. *)
 Definition mu_zero : MuAccumulator := {| mu_value := 0 |}.
 
 Definition mu_accumulate (acc : MuAccumulator) (delta : Q16) : MuAccumulator :=

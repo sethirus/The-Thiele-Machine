@@ -18,6 +18,7 @@ from typing import List, Tuple, Dict, Any
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 HARDWARE_DIR = REPO_ROOT / "thielecpu" / "hardware"
+RTL_DIR = HARDWARE_DIR / "rtl"
 BUILD_DIR = REPO_ROOT / "build"
 HAS_IVERILOG = shutil.which("iverilog") is not None
 
@@ -229,7 +230,7 @@ class TestVerilogPythonBisimulation:
         result = subprocess.run(
             ["iverilog", "-g2012", "-I.", "-o", null_output,
              "mu_alu.v", "mu_core.v", "thiele_cpu.v", "receipt_integrity_checker.v"],
-            cwd=HARDWARE_DIR,
+            cwd=RTL_DIR,
             capture_output=True,
             text=True,
         )
@@ -237,7 +238,7 @@ class TestVerilogPythonBisimulation:
     
     def test_opcodes_aligned(self):
         """Opcode values must match between Python and Verilog."""
-        vh_path = HARDWARE_DIR / "generated_opcodes.vh"
+        vh_path = RTL_DIR / "generated_opcodes.vh"
         vh_content = vh_path.read_text(encoding="utf-8")
         
         expected = {

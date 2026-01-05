@@ -1,5 +1,7 @@
 # Quick Start for Users: Verify Receipts in 2 Ways
 
+**Last Reviewed**: January 4, 2026
+
 This guide shows you how to verify software receipts in under 2 minutes.
 
 ## What Are Receipts?

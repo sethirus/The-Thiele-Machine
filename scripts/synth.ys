@@ -3,12 +3,12 @@
 
 # Read the Verilog source files
 log === Reading Thiele CPU Verilog Sources ===
-read_verilog -sv thielecpu/hardware/mu_alu.v
-read_verilog -sv thielecpu/hardware/mau.v
-read_verilog -sv thielecpu/hardware/lei.v
-read_verilog -sv thielecpu/hardware/pee.v
-read_verilog -sv thielecpu/hardware/mmu.v
-read_verilog -sv thielecpu/hardware/mu_core.v
+read_verilog -sv thielecpu/hardware/rtl/mu_alu.v
+read_verilog -sv thielecpu/hardware/rtl/mau.v
+read_verilog -sv thielecpu/hardware/rtl/lei.v
+read_verilog -sv thielecpu/hardware/rtl/pee.v
+read_verilog -sv thielecpu/hardware/rtl/mmu.v
+read_verilog -sv thielecpu/hardware/rtl/mu_core.v
 
 # Elaborate design hierarchy
 log === Elaborating Design Hierarchy ===

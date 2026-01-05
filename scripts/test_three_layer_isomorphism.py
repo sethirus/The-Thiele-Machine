@@ -63,13 +63,13 @@ def test_verilog_syntax():
     print("TEST 2: Verilog CPU Syntax Validation")
     print("=" * 60)
     
-    cpu_file = Path("thielecpu/hardware/thiele_cpu.v")
+    cpu_file = Path("thielecpu/hardware/rtl/thiele_cpu.v")
     if not cpu_file.exists():
         print("❌ Verilog CPU file not found")
         return False
     
     # Include all required dependencies
-    hw_dir = Path("thielecpu/hardware")
+    hw_dir = Path("thielecpu/hardware/rtl")
     required_files = [
         hw_dir / "thiele_cpu.v",
         hw_dir / "mu_alu.v",
@@ -79,7 +79,7 @@ def test_verilog_syntax():
     
     try:
         result = subprocess.run(
-            ["iverilog", "-g2012", "-tnull"] + [str(f) for f in required_files],
+            ["iverilog", "-g2012", "-tnull", "-I", str(hw_dir)] + [str(f) for f in required_files],
             capture_output=True,
             text=True,
             timeout=10

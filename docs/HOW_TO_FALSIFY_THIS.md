@@ -1,5 +1,8 @@
 # How to Falsify The Thiele Machine
 
+**Last Updated**: December 24, 2025  
+**Last Reviewed**: January 4, 2026
+
 **Purpose**: This document explicitly states how to **disprove** the core claims of The Thiele Machine.
 
 **Philosophy**: Honest science requires clear falsifiability criteria. If you're a skeptical researcher, this tells you exactly what experiments would invalidate our hypotheses.
@@ -94,7 +97,10 @@ H1 is weakened or falsified.
 
 **Test Script**: `tools/red_team.py --test isomorphism`
 
-**Current Status**: 33/33 isomorphism tests passing
+**Current Status**: 7/14 core isomorphism tests passing (7 require Coq extraction rebuild)
+- These tests verify Python VM ≡ Coq semantics ≡ Verilog RTL bit-for-bit
+- Full pytest suite has ~1400 tests total (includes tooling, data pipeline, experiments)
+- See [docs/HONEST_TRUTH.md](HONEST_TRUTH.md) for detailed test breakdown
 
 **Vulnerability**: Floating-point rounding in Python vs integer arithmetic in Coq/Verilog
 

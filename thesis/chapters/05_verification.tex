@@ -18,6 +18,10 @@
 
 \section{Why Formal Verification?}
 
+\begin{quote}
+\textit{Author's Note (Devon): Okay, confession time. When I first heard about ``formal verification'' I thought it was some academic flex---people writing math to prove their code works instead of, you know, actually running it. Sounds backwards, right? Like hiring a lawyer to prove your car can drive instead of just... driving it. But here's the thing I learned: testing can lie to you. Your tests pass, you feel great, then some edge case appears and your whole house of cards collapses. Formal verification is different. It's not about ``this worked 1000 times.'' It's about ``this works. Period. Forever. Math says so.'' And let me tell you---when Coq told me my proofs were complete, it hit different than any green test suite ever did.}
+\end{quote}
+
 \subsection{The Limits of Testing}
 
 Testing can find bugs, but it cannot prove their absence. If you test a sorting algorithm on 1000 inputs, you have evidence it works on those 1000 inputs---but there are infinitely many possible inputs. Formal verification replaces empirical sampling with universal quantification.
@@ -84,7 +88,11 @@ The Thiele Machine uses an unusually strict standard:
     \item \textbf{No vacuous statements}: All theorems prove meaningful properties, not trivial tautologies
 \end{itemize}
 
-This standard is enforced automatically. Any commit introducing an admit fails CI. This matters because it guarantees every theorem in the active proof tree is fully discharged.
+This standard is enforced automatically. Any commit introducing an admit fails CI.
+
+\begin{quote}
+\textit{Author's Note (Devon): The zero-admit thing---I'm not going to lie, it nearly broke me. There were nights I wanted to just slap an ``Admitted'' on some stubborn lemma and move on. But that would have defeated the whole point. Every time I was tempted, I reminded myself: if I admit something, I'm basically saying ``trust me, this is true.'' And we just established that ``trust me'' is worthless. The machine either checks it or it doesn't. No shortcuts. No compromises. When the Inquisitor finally reported zero HIGH findings, I think I just stared at my screen for like ten minutes.}
+\end{quote} This matters because it guarantees every theorem in the active proof tree is fully discharged.
 
 \textbf{Inquisitor Quality Assessment:} The enforcement mechanism is \path{scripts/inquisitor.py}, which scans all Coq files across 25+ rule categories. The current status is \textbf{HIGH: 0, MEDIUM: 5, LOW: 4} with:
 \begin{itemize}
@@ -104,7 +112,7 @@ The key theorems proven in Coq are:
     \item \textbf{Correlation Bound (T1-1)}: For any normalized probability distribution, correlations satisfy $|E(x,y)| \leq 1$ (\path{coq/kernel/Tier1Proofs.v})
     \item \textbf{Algebraic CHSH Bound (T1-2)}: For any valid box (non-negative, normalized, no-signaling), the CHSH statistic satisfies $|S| \leq 4$ (\path{coq/kernel/Tier1Proofs.v})
     \item \textbf{Observational No-Signaling}: Operations on one module cannot affect observables of other modules
-    \item \textbf{$\mu$-Conservation}: The $\mu$-ledger never decreases
+    \item \textbf{$\mu$-Conservation}: The $\mu$-ledger never decreases (and this one was \textit{hard} to prove)
     \item \textbf{No Free Insight}: Strengthening certification requires explicit structure addition
     \item \textbf{Gauge Invariance}: Partition structure is invariant under $\mu$-shifts
 \end{enumerate}

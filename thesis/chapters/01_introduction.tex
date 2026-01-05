@@ -14,6 +14,8 @@
 
 I, Devon Thiele, present the \textit{Thiele Machine}---a new model of computation that treats \textbf{structural information as a costly resource}.
 
+\textbf{A note about the author}: I am not an academic. I have no formal training in computer science, mathematics, or physics. I am a car salesman who taught himself to program by asking questions and pulling on threads. Everything in this thesis---the Coq proofs, the Python VM, the Verilog hardware, the formal theorems---was built through persistence, curiosity, and modern tools that let outsiders participate in technical work. I mention this not as false modesty, but because it matters: if I can build this, the barriers to formal methods are lower than people think. The proofs stand or fall on their own merits, not on credentials.
+
 
 For clarity, I will use the term \textbf{structure} to mean \textit{explicit, checkable constraints about how parts of a computational state relate}. Formally, a piece of structure is a predicate over a subset of state variables (or a partition of state) that can be verified by a logic engine or certificate checker. Examples include: a memory region forming a balanced search tree, a graph decomposing into disconnected components, or a set of variables being independent. In classical models, these relationships are present only as interpretations \emph{external} to the machine. Here, they become internal objects with a measured cost, so a program must explicitly \emph{pay} to assert or certify them.
 In the formal model, this “internal object” is realized by a partition graph whose modules carry axiom strings (SMT-LIB constraints). The partition graph and axiom sets are part of the machine state, and operations such as \texttt{PNEW}, \texttt{PSPLIT}, and \texttt{LASSERT} modify them. This makes structural knowledge something the machine can track, charge for, and expose in its observable projection rather than something the reader assumes from the outside.
@@ -29,7 +31,7 @@ If you are new to theoretical computer science, here is what you need to know:
 
 This is not a paper with informal arguments. Every major claim is:
 \begin{enumerate}
-    \item \textbf{Formally proven}: Machine-checked proofs in the Coq proof assistant (nearly 1,500 theorems and lemmas across 224 files)
+    \item \textbf{Formally proven}: Machine-checked proofs in the Coq proof assistant (over 2,000 theorems and lemmas across 238 files)
     \item \textbf{Implemented}: Working code in Python and Verilog hardware description
     \item \textbf{Tested}: Automated tests verify that theory and implementation match
     \item \textbf{Falsifiable}: I specify exactly what would disprove my claims
@@ -76,6 +78,10 @@ In 1936, Alan Turing published "On Computable Numbers," introducing a mathematic
 \end{itemize}
 
 This elegance comes at a profound cost: the Turing Machine is \textit{architecturally blind}. The transition function $\delta$ depends only on the current state $q$ and the symbol under the head. The machine cannot see the global structure of the tape as a primitive. It cannot ask "Is this tape sorted?" or "Does this graph have a Hamiltonian path?" without computing those properties by reading and processing the tape. This is not a weakness of the algorithm; it is a feature of the model’s interface. The model exposes only a local view, so any global property must be inferred from a sequence of local observations.
+
+\begin{quote}
+\textit{Author's Note (Devon): I spent months staring at this problem before it clicked. The Turing Machine isn't broken---it's \textbf{blind by design}. It can only see one cell at a time. It's like trying to find your way through a maze by only ever looking at the floor tile you're standing on. You \textit{can} do it. But you're going to walk a lot more than someone who has a map.}
+\end{quote}
 
 Consider the concrete implications. Given a tape encoding a graph $G = (V, E)$ with $|V| = n$ vertices, the Turing Machine cannot directly perceive that the graph has two disconnected components. It must execute a traversal algorithm that, in the worst case, visits all $n$ vertices and $m$ edges. The \textit{structure} of the graph—its partition into components—is not part of the machine's primitive state.
 
@@ -328,7 +334,7 @@ The remainder of this thesis is organized as follows:
 \begin{itemize}
     \item \textbf{Chapter 9: The Verifier System} documents the complete TRS-1.0 receipt protocol and the four C-modules (C-RAND, C-TOMO, C-ENTROPY, C-CAUSAL) that provide domain-specific verification.
     
-    \item \textbf{Chapter 10: Extended Proof Architecture} covers the full 224-file Coq development including the ThieleMachine proofs, Theory of Everything results, and impossibility theorems.
+    \item \textbf{Chapter 10: Extended Proof Architecture} covers the full 238-file Coq development including the ThieleMachine proofs, Theory of Everything results, and impossibility theorems.
     
     \item \textbf{Chapter 11: Experimental Validation Suite} details all physics experiments, falsification tests, and the benchmark suite.
     
