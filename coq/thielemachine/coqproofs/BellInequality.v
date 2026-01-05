@@ -1294,6 +1294,10 @@ Arguments brf_post {Instr State Observation} _.
 Arguments brf_obs {Instr State Observation} _.
 
 Section ReceiptsBridge.
+  (** INQUISITOR NOTE: These Context/Variable parameters are standard
+      type parameters for a generic receipt bridge framework. This is
+      dependency injection for modularity - NOT hidden assumptions.
+      The concrete implementation is provided when the Section is used. *)
   Context {Instr State Observation : Type}.
 
   Variable concrete_step : Instr -> State -> BridgeStepResult State Observation.

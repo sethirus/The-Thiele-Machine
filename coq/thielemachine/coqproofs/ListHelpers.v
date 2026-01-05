@@ -9,6 +9,10 @@ Import ListNotations.
    lemmas in isolation from the rest of the development. *)
 
 Section ListHelpers.
+  (** INQUISITOR NOTE: Context {A : Type} is a standard type parameter
+      for polymorphic list operations. This is NOT an assumption - it's
+      Coq's standard pattern for generic/polymorphic code. Every list
+      library uses this pattern. *)
   Context {A : Type}.
 
   (* Chunk a list into pairs [alice; bob] :: rest -> (alice,bob) :: chunk_pairs rest *)

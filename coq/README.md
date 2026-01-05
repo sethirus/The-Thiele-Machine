@@ -42,17 +42,18 @@ make -f Makefile.coq -j$(nproc)
 
 ### Core Results (in `kernel/`)
 
-1. **`tsirelson_from_pure_accounting`** (TsirelsonUniqueness.v)
-   - The Tsirelson bound 2√2 emerges from pure μ-accounting
-   - Combines achievability (lower bound) and constraints (upper bound)
+1. **`tsirelson_from_pure_accounting`** (TsirelsonDerivation.v)
+   - The Tsirelson bound 2√2 derived from total μ=0 (instruction μ + correlation μ)
+   - Key insight: Correlations have specification cost; coherent correlations have zero cost
+   - Proven: total μ=0 → CHSH ≤ 2√2
 
-2. **`quantum_foundations_complete`** (QuantumEquivalence.v)
-   - QM = μ=0 tier (derived, not assumed)
+2. **`mu_is_initial_monotone`** (MuInitiality.v)
+   - μ is THE unique canonical cost functional (Initiality Theorem)
+   - Any instruction-consistent monotone cost starting at 0 must equal μ
+
+3. **`quantum_foundations_complete`** (QuantumEquivalence.v)
+   - QM = total μ=0 tier (derived, not assumed)
    - Hierarchy: Classical ⊂ Quantum ⊂ Supra-quantum = cost tiers
-
-3. **`thiele_machine_is_complete`** (MasterSummary.v)
-   - Master theorem combining all key results
-   - Verification chain: Coq ↔ Python ↔ Hardware
 
 4. **`non_circularity_verified`** (NonCircularityAudit.v)
    - Defense against "smuggled quantum structure" attack

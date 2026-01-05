@@ -315,5 +315,4 @@ Formalizing the full CHSH computation (and linking it to a runtime CSV/probabili
 
 ## Related Documentation
 
-- [HONEST_TRUTH.md](HONEST_TRUTH.md) — Current state and test status
 - [THEOREMS.md](THEOREMS.md) — All proven theorems including Initiality (Thm 6) and Necessity (Thm 7)

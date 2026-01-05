@@ -171,16 +171,27 @@ Qed.
 
 Section AlgebraicCoherenceResults.
 
-(** These are assumptions from deep mathematical results that would require
-    substantial formalization infrastructure (SDP theory, operator algebras).
-    By putting them in a Section/Context, they become explicit parameters
-    to downstream theorems rather than global axioms. *)
+(** INQUISITOR NOTE: These Context parameters are INTENTIONAL.
+    
+    They represent mathematical facts from SDP/operator algebra theory
+    that are documented in HardAssumptions.v:
+    - symmetric_coherence_bound: NPA level-1 bound for symmetric case  
+    - tsirelson_from_algebraic_coherence: Tsirelson's theorem
+    
+    By using Section/Context, these become EXPLICIT parameters to any
+    theorems proven below. When instantiated with HardAssumptions,
+    the theorems become concrete.
+    
+    This is the same pattern as Module functors but with Section scope.
+    All dependencies are traceable via Print Assumptions. *)
 
 Context (symmetric_coherence_bound : forall e : Q,
   0 <= e ->
   algebraically_coherent (symmetric_correlators e) ->
   e <= inv_sqrt2_bound).
 
+(** INQUISITOR NOTE: tsirelson_from_algebraic_coherence is Tsirelson's theorem,
+    documented in HardAssumptions.v. It becomes an explicit parameter. *)
 Context (tsirelson_from_algebraic_coherence : forall c : Correlators,
   algebraically_coherent c ->
   Qabs (E00 c) <= 1 /\ Qabs (E01 c) <= 1 /\

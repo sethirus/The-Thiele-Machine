@@ -2,9 +2,9 @@
 
 \subsection{From Intuition to Formalism}
 
-The previous chapter established the \textit{problem}: classical computers are structurally blind. This chapter presents the \textit{solution}: the Thiele Machine, a computational model where structure is a first-class resource.
+The previous chapter established the problem: classical computers are structurally blind. This chapter presents the solution: the Thiele Machine.
 
-This is where it gets formal. I'm not going to pretend I understood all of this when I started---I learned it by building it. The formalism exists because informal descriptions are ambiguous, and I needed to know whether my ideas actually worked or whether I was fooling myself. The proofs answer that question: they compile or they don't.
+This is where it gets formal. I learned this by building it. Informal descriptions are ambiguous, and I needed to know whether my ideas actually worked or whether I was fooling myself. The proofs answer that question: they compile or they don't.
 
 
 \textbf{Five components (boxes):}
@@ -22,9 +22,9 @@ This is where it gets formal. I'm not going to pretend I understood all of this 
 
 \textbf{Role:} Chapter roadmap showing how formal components relate.
 
-The model is defined formally because informal descriptions are ambiguous. A formal definition:
+The model is defined formally because hand-waving kills ideas:
 \begin{itemize}
-    \item Eliminates ambiguity: Every term has a precise meaning
+    \item Eliminates ambiguity: Every term has precise meaning
     \item Enables proof: I can mathematically prove properties
     \item Ensures implementation: The formal definition guides code
 \end{itemize}
@@ -43,7 +43,7 @@ Each component corresponds to a concrete artifact in the formal development. The
 
 \subsection{The Central Innovation: $\mu$-bits}
 
-The key innovation is the \textit{$\mu$-bit currency}---a unit of computational action (thermodynamic cost). Every operation that either performs irreversible work or adds structural knowledge to the system charges a cost in $\mu$-bits. This cost is:
+Here's the key: the \textit{$\mu$-bit currency}---a unit of computational action (thermodynamic cost). Every operation that either performs irreversible work or adds structural knowledge charges a cost in $\mu$-bits. This cost is:
 \begin{itemize}
     \item \textbf{Monotonic}: Once paid, $\mu$-bits are never refunded
     \item \textbf{Bounded}: The $\mu$-ledger lower-bounds irreversible operations
@@ -58,7 +58,7 @@ In the formal kernel, the ledger is the field \texttt{vm\_mu} in \texttt{VMState
 
 \subsection{How to Read This Chapter}
 
-This chapter is technical and formal. It defines:
+This chapter is technical. It defines:
 \begin{itemize}
     \item The state space and partition graph (§3.1)
     \item The instruction set (§3.4)
@@ -75,7 +75,7 @@ This chapter is technical and formal. It defines:
 \end{itemize}
 These names are not placeholders: they are the exact identifiers used in \path{coq/kernel/VMState.v} and \path{coq/kernel/VMStep.v}. When later chapters mention a “state” or a “step,” they mean these concrete definitions and the proofs that refer to them.
 
-If the formalism becomes overwhelming, refer to Chapter 4 (Implementation) for concrete code examples.
+If the formalism becomes overwhelming, flip to Chapter 4 (Implementation) for concrete code.
 
 \subsection{Key Concepts: Observables and Projections}
 
@@ -107,7 +107,7 @@ The Thiele Machine is formally defined as a 5-tuple $T = (S, \Pi, A, R, L)$, rep
 
 \subsection{State Space $S$}
 
-The state space $S$ represents the complete instantaneous description of the machine. Unlike the flat tape of a Turing Machine, $S$ is a structured record containing multiple components.
+The state space $S$ is the complete instantaneous description of the machine. Unlike the flat tape of a Turing Machine, $S$ is a structured record containing multiple components.
 
 
 \textbf{Seven fields:}
@@ -143,7 +143,7 @@ Record VMState := {
 
 \paragraph{Understanding the VMState Record:} This Coq \texttt{Record} defines a product type—a structure where all fields coexist simultaneously. Think of it as a snapshot of the entire machine state at a given moment. In Coq, a \texttt{Record} is syntactic sugar for an inductive type with a single constructor, making it convenient to define and access structured data.
 
-\textbf{From First Principles:} A state machine requires complete information to determine its next state. This record provides exactly that information—nothing more, nothing less. Each field represents a distinct aspect of the computational state:
+\textbf{From First Principles:} A state machine needs complete information to determine its next state. This record provides exactly that---nothing more, nothing less:
 \begin{itemize}
     \item \textbf{Type Safety:} Each field has an explicit type (e.g., \texttt{nat} for natural numbers, \texttt{bool} for booleans). Coq's type system prevents misuse at compile time.
     \item \textbf{Immutability:} In Coq, values are immutable. State transitions create new \texttt{VMState} values rather than mutating existing ones, enabling equational reasoning.
@@ -191,7 +191,7 @@ In the Coq kernel, write operations (\texttt{write\_reg} and \texttt{write\_mem}
 
 \subsection{Partition Graph $\Pi$}
 
-The partition graph is the central innovation of the Thiele Machine. It represents the decomposition of the state into modules, with disjointness enforced by the partition operations that construct and modify those modules.
+The partition graph is the central innovation. It represents how state is decomposed into modules, with disjointness enforced by the operations that construct and modify those modules.
 
 
 \textbf{Bottom:} Memory addresses 0-15 (gray squares)
@@ -242,7 +242,7 @@ Record ModuleState := {
     \item \textbf{module\_axioms}: Logical constraints about the data in this region. For example, "all values are positive" or "this region stores a sorted array." These are verified by external SMT solvers.
 \end{itemize}
 
-\textbf{Design Rationale:} Why use lists instead of sets or arrays? Because Coq's list type has extensive proven libraries (\texttt{List.v}), making verification easier. The performance cost (O(n) lookup) is acceptable because the number of modules is typically small ($<$100), and this is a \emph{specification}, not an optimized implementation.
+\textbf{Design Rationale:} Why lists instead of sets or arrays? Because Coq's list type has extensive proven libraries (\texttt{List.v}), making verification easier. The O(n) lookup cost is acceptable---the number of modules is typically small ($<$100), and this is a \emph{specification}, not an optimized implementation.
 
 Key properties and intended semantics:
 \begin{itemize}
@@ -317,7 +317,7 @@ The point is to remove duplicate indices while preserving the original order of 
 
 \subsection{Axiom Set $A$}
 
-Each module carries a set of axioms—logical constraints that the module satisfies.
+Each module carries axioms---logical constraints that the module satisfies.
 
 \subsubsection{Representation}
 
@@ -328,7 +328,7 @@ Definition AxiomSet := list VMAxiom.
 \end{lstlisting}
 
 \paragraph{Understanding the String-Based Axiom System:}
-\textbf{Type Alias Pattern:} These are type aliases (like typedef in C). \texttt{VMAxiom} is just another name for \texttt{string}, and \texttt{AxiomSet} is a list of strings. This provides semantic clarity in type signatures without changing runtime behavior.
+\textbf{Type Alias Pattern:} These are type aliases (like typedef in C). \texttt{VMAxiom} is just another name for \texttt{string}, and \texttt{AxiomSet} is a list of strings.
 
 \textbf{Why Strings Instead of Parsed ASTs?}
 \begin{enumerate}
@@ -429,7 +429,7 @@ When modules are split, axioms are copied to both children. When modules are mer
 
 \subsection{Transition Rules $R$}
 
-The transition rules define how the machine state evolves. The Thiele Machine has 18 instructions, defined in the formal step semantics.
+The transition rules define how state evolves. The Thiele Machine has 18 instructions, defined in the formal step semantics.
 Each instruction constructor in \path{coq/kernel/VMStep.v} includes an explicit \texttt{mu\_delta} parameter so that the ledger change is part of the semantics, not an external annotation. This makes the cost model part of the operational meaning of each instruction rather than a separate accounting layer.
 
 \subsubsection{Instruction Set}
@@ -459,8 +459,6 @@ Inductive vm_instruction :=
 
 \paragraph{Understanding Inductive Types as Instruction Sets:}
 \textbf{Inductive Type Basics:} In Coq, \texttt{Inductive} defines a type by listing all possible constructors (like enum in C++ or algebraic data types in Haskell). Each constructor is a distinct way to create a value of type \texttt{vm\_instruction}.
-
-\textbf{The Pipe Symbol (|):} Separates different constructor alternatives. This instruction can be \emph{one of} these 18 forms, never more than one simultaneously.
 
 \textbf{Constructor Parameters:} Each instruction constructor carries data:
 \begin{itemize}
@@ -800,10 +798,10 @@ Theorem mu_conservation_kernel : forall s s' instr,
 
 \textbf{What This Guarantees:}
 \begin{enumerate}
-    \item \textbf{No Negative Costs}: Instructions cannot have negative $\mu$-cost (would violate $\geq$)
+    \item \textbf{No Negative Costs}: Instructions can't have negative $\mu$-cost
     \item \textbf{No Accounting Bugs}: Even with complex state updates, the ledger never decreases
     \item \textbf{Temporal Ordering}: If state $s_2$ was reached from $s_1$, then $\mu_2 \geq \mu_1$
-    \item \textbf{No Rewinds}: Cannot "undo" structural knowledge by stepping backward
+    \item \textbf{No Rewinds}: Can't "undo" structural knowledge by stepping backward
 \end{enumerate}
 
 \textbf{How It's Proven:} By structural induction on the \texttt{vm\_step} relation:
@@ -814,7 +812,7 @@ Theorem mu_conservation_kernel : forall s s' instr,
     \item \textbf{Arithmetic}: Since $\mu' = \mu + c$ and $c \geq 0$, we have $\mu' \geq \mu$ by properties of natural number addition
 \end{enumerate}
 
-\textbf{Why Coq Verification Matters:} This isn't "probably true" or "true in tests"—it's \emph{mathematically certain} for all possible executions, including edge cases humans would miss.
+\textbf{Why Coq Verification Matters:} This isn't "probably true" or "true in tests"---it's \emph{mathematically certain} for all possible executions. The machine checked every case.
 
 \subsubsection{Multi-Step Conservation}
 
@@ -853,10 +851,10 @@ Corollary run_vm_mu_conservation :
 
 \textbf{What This Proves:}
 \begin{enumerate}
-    \item \textbf{Exact Accounting}: The ledger change equals the sum of declared costs—no hidden costs, no rounding errors
+    \item \textbf{Exact Accounting}: Ledger change equals sum of declared costs---no hidden costs, no rounding
     \item \textbf{Compositionality}: Multi-step conservation is just repeated single-step conservation
-    \item \textbf{Auditability}: Given initial state and trace, the final $\mu$ is deterministically computable
-    \item \textbf{No Leakage}: Costs cannot disappear or be created outside instruction declarations
+    \item \textbf{Auditability}: Given initial state and trace, final $\mu$ is deterministically computable
+    \item \textbf{No Leakage}: Costs can't disappear or be created outside instruction declarations
 \end{enumerate}
 
 \textbf{Proof Strategy:} Induction on fuel:
@@ -867,7 +865,7 @@ Corollary run_vm_mu_conservation :
 
 \subsubsection{Irreversibility Bound}
 
-The $\mu$-ledger lower-bounds the count of irreversible bit events:
+The $\mu$-ledger lower-bounds irreversible bit events:
 \begin{lstlisting}
 Theorem vm_irreversible_bits_lower_bound :
   forall fuel trace s,
@@ -883,18 +881,18 @@ Theorem vm_irreversible_bits_lower_bound :
     \item Bit erasure (OR, AND, NAND gate outputs)
 \end{itemize}
 
-\textbf{Theorem Statement Analysis:}
+\textbf{Theorem Statement:}
 \begin{itemize}
     \item \textbf{Left Side}: Count of irreversible operations during execution
     \item \textbf{Right Side}: Total $\mu$ accumulated (final minus initial)
-    \item \textbf{Inequality ($\leq$)}: Irreversible count is \emph{at most} the $\mu$ growth—possibly less if some operations are reversible
+    \item \textbf{Inequality ($\leq$)}: Irreversible count is \emph{at most} the $\mu$ growth
 \end{itemize}
 
 \textbf{Physical Interpretation (Landauer's Principle):}
 \begin{enumerate}
-    \item \textbf{Information Erasure = Heat}: Each erased bit must dissipate $k_B T \ln 2$ of heat (minimum)
-    \item \textbf{$\mu$-Ledger Bounds Entropy}: If $\Delta\mu$ bits were revealed/erased, then at least $\Delta\mu \cdot k_B T \ln 2$ Joules were dissipated
-    \item \textbf{Thermodynamic Lower Bound}: The machine cannot violate the second law—$\mu$ growth corresponds to physical entropy production
+    \item \textbf{Information Erasure = Heat}: Each erased bit dissipates at least $k_B T \ln 2$ Joules
+    \item \textbf{$\mu$-Ledger Bounds Entropy}: If $\Delta\mu$ bits were revealed/erased, at least $\Delta\mu \cdot k_B T \ln 2$ Joules dissipated
+    \item \textbf{Thermodynamic Lower Bound}: The machine can't violate the second law
 \end{enumerate}
 
 \textbf{Why ``Lower Bound'' Not ``Equality''?}
@@ -906,9 +904,9 @@ Theorem vm_irreversible_bits_lower_bound :
 
 \textbf{Implications:}
 \begin{itemize}
-    \item \textbf{No Free Computation}: Cannot perform unlimited irreversible operations without accumulating $\mu$-cost
+    \item \textbf{No Free Computation}: Can't perform unlimited irreversible operations without accumulating $\mu$-cost
     \item \textbf{Bridge to Physics}: Abstract information theory (bits) connects to physical thermodynamics (Joules)
-    \item \textbf{Verification of Energy Claims}: If a program claims to solve NP-complete problems "for free," the $\mu$-ledger will expose the hidden cost
+    \item \textbf{Verification of Energy Claims}: If a program claims to solve NP-complete problems "for free," the $\mu$-ledger exposes the lie
 \end{itemize}
 
 This connects the abstract $\mu$-cost to Landauer's principle: the ledger growth bounds the physical entropy production.
@@ -988,7 +986,7 @@ Definition graph_pnew (g : PartitionGraph) (region : list nat)
 
 \textbf{Key insight:} Three ways to modify partition structure. PSPLIT has highest cost (reveals internal structure). PNEW/PMERGE have lower cost (structural bookkeeping).
 
-\textit{Intuition:} Think of \texttt{PNEW} as drawing a circle around a set of memory addresses and saying ``this is now a distinct object.'' If you try to draw a circle around something that is already circled, \texttt{PNEW} simply points to the existing circle, ensuring that you don't pay for the same structure twice.
+\textit{Intuition:} \texttt{PNEW} draws a circle around a set of memory addresses and says ``this is now a distinct object.'' If you circle something already circled, \texttt{PNEW} just points to the existing circle---you don't pay for the same structure twice.
 
 \subsubsection{PSPLIT: Module Splitting}
 
@@ -1028,9 +1026,9 @@ Definition graph_psplit (g : PartitionGraph) (mid : ModuleID)
 
 \textbf{Information-Theoretic Interpretation:}
 \begin{itemize}
-    \item \textbf{$\mu$-Cost}: Proportional to $\log_2(\text{number of ways to partition})$. If the original region has $n$ addresses, there are $2^n - 2$ ways to split it (excluding empty partitions).
-    \item \textbf{Knowledge Gain}: PSPLIT reveals that the module has internal structure—it's not monolithic but composite.
-    \item \textbf{Reversibility}: PSPLIT followed by PMERGE on the two children can recover the original structure, but the $\mu$-cost is not refunded.
+    \item \textbf{$\mu$-Cost}: Proportional to $\log_2(\text{ways to partition})$. If the original region has $n$ addresses, there are $2^n - 2$ valid splits.
+    \item \textbf{Knowledge Gain}: PSPLIT reveals internal structure---the module isn't monolithic, it's composite.
+    \item \textbf{Reversibility}: PSPLIT then PMERGE recovers the original structure, but the $\mu$-cost isn't refunded.
 \end{itemize}
 
 \texttt{PSPLIT} replaces a module with two sub-modules. Preconditions:
@@ -1040,7 +1038,7 @@ Definition graph_psplit (g : PartitionGraph) (mid : ModuleID)
     \item They must be disjoint
 \end{itemize}
 
-\textit{Intuition:} Think of \texttt{PSPLIT} as taking a module and slicing it in two. You must prove that the slice is clean (disjoint) and complete (covers the original). This operation allows you to refine your structural view, for example, by realizing that a large array is actually composed of two independent halves.
+\textit{Intuition:} \texttt{PSPLIT} takes a module and slices it in two. You must prove the slice is clean (disjoint) and complete (covers the original). This lets you refine your structural view---realizing that a large array is actually two independent halves.
 
 \subsubsection{PMERGE: Module Merging}
 
@@ -1336,7 +1334,7 @@ Definition strictly_stronger {A : Type} (P1 P2 : ReceiptPredicate A) : Prop :=
 
 \textbf{Information-Theoretic Meaning:} Strictly stronger predicates provide more information. Going from \texttt{P2} to \texttt{P1} narrows the possibility space, which costs $\mu$-bits proportional to $\log_2(|P2|/|P1|)$.
 
-\subsection{The Main Theorem}
+This is the heart of the work.
 
 \begin{theorem}[No Free Insight]
 \textbf{Proven in Coq (StateSpaceCounting.v):}
@@ -1408,7 +1406,7 @@ Theorem strengthening_requires_structure_addition :
 \textbf{Why This Matters:}
 \begin{enumerate}
     \item \textbf{Falsifiability}: If someone claims to solve NP-complete problems efficiently, check their $\mu$-ledger. It must grow.
-    \item \textbf{Quantum Advantage Bound}: Achieving quantum correlations costs structural $\mu$-bits. Can't be "free."
+    \item \textbf{Quantum Advantage Bound}: Achieving quantum correlations costs structural $\mu$-bits. Can't be free.
     \item \textbf{Machine Learning}: Training a model (strengthening predictions) requires data, which costs information-theoretically.
 \end{enumerate}
 
@@ -1422,7 +1420,7 @@ Theorem strengthening_requires_structure_addition :
 
 \subsection{Revelation Requirement}
 
-As a corollary, I prove that supra-quantum certification requires explicit revelation:
+As a corollary, supra-quantum certification requires explicit revelation:
 
 \begin{lstlisting}
 Theorem nonlocal_correlation_requires_revelation :
@@ -1476,9 +1474,9 @@ Theorem nonlocal_correlation_requires_revelation :
     \item \textbf{LASSERT}: Assert logical constraints (adds axiom structure)
 \end{itemize}
 
-\textbf{Falsification Criterion:} If someone claims: "I achieved supra-quantum correlations without paying computational cost," inspect their trace. This theorem guarantees you'll find at least one high-cost instruction. If not, the claim is provably false.
+\textbf{Falsification Criterion:} If someone claims "I achieved supra-quantum correlations without paying computational cost," inspect their trace. This theorem guarantees you'll find at least one high-cost instruction. If not, the claim is provably false.
 
-This proves that you cannot achieve "free" quantum advantage—the total $\mu$ cost must be paid explicitly, whether as heat or stored structure.
+You can't get "free" quantum advantage---the total $\mu$ cost must be paid explicitly, whether as heat or stored structure.
 
 \section{Gauge Symmetry and Conservation}
 
@@ -1497,7 +1495,7 @@ Definition mu_gauge_shift (k : nat) (s : VMState) : VMState :=
 \end{lstlisting}
 
 \paragraph{Understanding Gauge Transformations:}
-\textbf{What is a Gauge Transformation?} In physics, a gauge transformation is a change in description that doesn't affect physical observables. Like changing coordinates: the physics stays the same.
+\textbf{What is a Gauge Transformation?} In physics, a gauge transformation changes description without affecting observables. Like changing coordinates: the physics stays the same.
 
 \textbf{Record Construction Syntax:}
 \begin{itemize}
@@ -1595,13 +1593,13 @@ This is the computational analog of Noether's theorem: the gauge symmetry (abili
     \item Right: No-signaling - locality enforcement
 \end{itemize}
 
-\textbf{Bottom:} No Free Insight theorem - the convergence of both properties
+\textbf{Bottom:} No Free Insight theorem - where both properties converge
 
 \textbf{Final arrow:} Points to Tsirelson bound derivation (next chapter)
 
 \textbf{Key insight:} This chapter builds the formal foundation. The model's two key properties ($\mu$-monotonicity + locality) combine to prove No Free Insight. Note: the algebraic bound ($S \le 4$) is proven from $\mu=0$; the Tsirelson bound ($2\sqrt{2}$) requires additional algebraic coherence constraints (see \texttt{TsirelsonUniqueness.v}).
 
-This chapter has defined the Thiele Machine as a formal 5-tuple $T = (S, \Pi, A, R, L)$ with the following key results:
+This chapter defined the Thiele Machine as a formal 5-tuple $T = (S, \Pi, A, R, L)$ with these key results:
 
 \begin{enumerate}
     \item \textbf{State Space} ($S$): A structured record with explicit partition graph, registers, memory, and the $\mu$-ledger.
