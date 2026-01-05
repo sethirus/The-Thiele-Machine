@@ -8,7 +8,7 @@
 
 A central claim of this thesis is that computation is not merely an abstract mathematical process---it is a \textit{physical} process subject to physical laws. When a computer erases a bit, it dissipates heat. When it stores information, it consumes energy. The $\mu$-ledger tracks these physical costs.
 
-To validate this connection, I develop explicit physics models within the Coq framework:
+To validate this connection, the Coq framework includes explicit physics models:
 \begin{itemize}
     \item \textbf{Wave propagation}: A model of reversible dynamics with conservation laws
     \item \textbf{Dissipative systems}: A model of irreversible dynamics connecting to $\mu$-monotonicity
@@ -253,7 +253,7 @@ So $N | (a^{r/2} - 1)(a^{r/2} + 1)$. If neither factor is divisible by $N$ indiv
     \item $7$ divides $21$, so $21 = 3 \times 7$. Factorization complete!
 \end{itemize}
 
-This is the mathematical core of Shor's algorithm: given the period $r$ of $a^r \equiv 1 \pmod{N}$, I can extract non-trivial factors via GCD.
+This is the mathematical core of Shor's algorithm: given the period $r$ of $a^r \equiv 1 \pmod{N}$, non-trivial factors can be extracted via GCD.
 
 
 \subsection{Verified Examples}

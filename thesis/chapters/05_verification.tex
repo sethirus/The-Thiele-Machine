@@ -26,7 +26,7 @@
 
 Testing can find bugs, but it cannot prove their absence. If you test a sorting algorithm on 1000 inputs, you have evidence it works on those 1000 inputs---but there are infinitely many possible inputs. Formal verification replaces empirical sampling with universal quantification.
 
-\textbf{Formal verification} proves properties hold for \textit{all} inputs. When I prove "$\mu$ is monotonically non-decreasing," I don't test it on examples---I prove it mathematically.
+\textbf{Formal verification} proves properties hold for \textit{all} inputs. When proving "$\mu$ is monotonically non-decreasing," one doesn't test it on examples---one proves it mathematically.
 In this project, “all inputs” means all possible states and instruction traces compatible with the formal semantics. The proofs quantify over arbitrary \texttt{VMState} values and instructions, not over a fixed test suite. This is why the proofs must be grounded in precise definitions: without the exact state and step definitions, a universal statement would be meaningless.
 
 \subsection{The Coq Proof Assistant}
@@ -105,14 +105,14 @@ This standard is enforced automatically. Any commit introducing an admit fails C
 
 The strictness is not ceremonial: it ensures that the theorem statements presented in this chapter are actually complete and therefore reusable as building blocks in subsequent reasoning. The MEDIUM and LOW findings are documented assumptions (e.g., Tsirelson's theorem, NPA hierarchy results) that are well-established in the literature and explicitly parameterized using Coq's \texttt{Section}/\texttt{Context} mechanism rather than global axioms. This architecture maintains proof hygiene while acknowledging the scope boundaries of the formalization.
 
-\subsection{What I Prove}
+\subsection{What The System Proves}
 
 The key theorems proven in Coq are:
 \begin{enumerate}
     \item \textbf{Correlation Bound (T1-1)}: For any normalized probability distribution, correlations satisfy $|E(x,y)| \leq 1$ (\path{coq/kernel/Tier1Proofs.v})
     \item \textbf{Algebraic CHSH Bound (T1-2)}: For any valid box (non-negative, normalized, no-signaling), the CHSH statistic satisfies $|S| \leq 4$ (\path{coq/kernel/Tier1Proofs.v})
     \item \textbf{Observational No-Signaling}: Operations on one module cannot affect observables of other modules
-    \item \textbf{$\mu$-Conservation}: The $\mu$-ledger never decreases (and this one was \textit{hard} to prove)
+    \item \textbf{$\mu$-Conservation}: The $\mu$-ledger never decreases (and this one was \textit{hard} to get working)
     \item \textbf{No Free Insight}: Strengthening certification requires explicit structure addition
     \item \textbf{Gauge Invariance}: Partition structure is invariant under $\mu$-shifts
 \end{enumerate}
@@ -133,7 +133,7 @@ This chapter explains the proof structure and key statements. If you are unfamil
     \item \texttt{\textbackslash/}: Or (disjunction)
 \end{itemize}
 
-Focus on understanding the \textit{statements} (what I prove), not the proof details. Every statement is written so it can be re-derived from the definitions given in Chapters 3 and 4.
+Focus on understanding the \textit{statements} (what the proofs establish), not the proof details. Every statement is written so it can be re-derived from the definitions given in Chapters 3 and 4.
 
 \section{The Formal Verification Campaign}
 

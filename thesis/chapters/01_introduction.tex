@@ -24,7 +24,7 @@ Classical computers are blind. A Turing machine can only see one tape cell at a 
 
 The Thiele Machine can see structure. But it has to pay for what it sees. That's the whole idea.
 
-\textbf{About me}: I'm not an academic. I have no CS degree, no math degree, no physics degree. I'm a 40-year-old car salesman who taught himself to program a year ago. Everything here—the Coq proofs, the Python VM, the Verilog hardware—I built by asking questions and pulling on threads. The proofs stand or fall on their own merits, not on credentials. If I can build formally verified systems, the barriers are lower than people think.
+\textbf{About me}: I'm not an academic. I have no CS degree, no math degree, no physics degree. I'm a 40-year-old car salesman who taught himself to program a year ago. I don't know Coq, Python, or Verilog—not really. I used AI tools (Claude, Copilot) to help build everything, then verified obsessively that it actually works. The proofs compile. The tests pass. The hardware synthesizes. I checked all of it multiple ways because I don't trust myself. The proofs stand or fall on their own merits, not on credentials. If someone like me can direct the creation of formally verified systems, the barriers are lower than people think.
 
 
 For clarity, I will use the term \textbf{structure} to mean \textit{explicit, checkable constraints about how parts of a computational state relate}. Formally, a piece of structure is a predicate over a subset of state variables (or a partition of state) that can be verified by a logic engine or certificate checker. Examples include: a memory region forming a balanced search tree, a graph decomposing into disconnected components, or a set of variables being independent. In classical models, these relationships are present only as interpretations \emph{external} to the machine. Here, they become internal objects with a measured cost, so a program must explicitly \emph{pay} to assert or certify them.
@@ -34,7 +34,7 @@ If you are new to theoretical computer science, here is what you need to know:
 \begin{itemize}
     \item \textbf{Problem}: Computers can be incredibly slow on some problems (years to solve) and incredibly fast on others (milliseconds). Why?
     \item \textbf{Answer}: Classical computers are "blind"---they do not have \emph{primitive access} to the structure of their input. If a problem has hidden structure (e.g., independent sub-problems), a blind computer can still compute with it, but only by paying the time to discover that structure through ordinary computation. The distinction is between \emph{access} and \emph{ability}: blindness means the structure is not given for free, not that it is unreachable.
-    \item \textbf{My Contribution}: I build a computer model where structural knowledge is explicit, measurable, and costly. This reveals \textit{why} some problems are hard and how that hardness can be transformed.
+    \item \textbf{The Contribution}: This thesis presents a computer model where structural knowledge is explicit, measurable, and costly. This reveals \textit{why} some problems are hard and how that hardness can be transformed.
 \end{itemize}
 
 \subsection{What Makes This Work Different}
@@ -44,7 +44,7 @@ This is not a paper with informal arguments. Every major claim is:
     \item \textbf{Formally proven}: Machine-checked proofs in the Coq proof assistant (over 2,000 theorems and lemmas across 238 files)
     \item \textbf{Implemented}: Working code in Python and Verilog hardware description
     \item \textbf{Tested}: Automated tests verify that theory and implementation match
-    \item \textbf{Falsifiable}: I specify exactly what would disprove my claims
+    \item \textbf{Falsifiable}: The thesis specifies exactly what would disprove each claim
 \end{enumerate}
 
 Every claim has a concrete falsification condition. If you find a counterexample, the Coq proof won't compile. The Python VM emits signed receipts. The RTL testbench produces JSON snapshots. All three are compared automatically. This isn't a paper about ideas—it's a reproducible experiment. The claims are bound to executable evidence.
@@ -72,7 +72,7 @@ Every claim has a concrete falsification condition. If you find a counterexample
     \item Chapter 13: Hardware and demonstrations
 \end{itemize}
 
-\textbf{If you are an expert} and want to verify my claims, start with Chapter 5 (Verification) and the formal proof development.
+\textbf{If you are an expert} and want to verify the claims, start with Chapter 5 (Verification) and the formal proof development.
 
 \section{The Crisis of Blind Computation}
 
@@ -161,7 +161,7 @@ The atomic unit of structural cost is the \textbf{$\mu$-bit}:
 One $\mu$-bit is the information-theoretic cost of specifying one bit of structural constraint using a canonical prefix-free encoding. Prefix-free encoding ensures unique parsing, so length is well-defined and reproducible. This connects to Minimum Description Length: assertions are charged by their canonical description size, and canonicalization prevents hidden representation costs.
 \end{definition}
 
-I use SMT-LIB 2.0 syntax for canonical encoding, making $\mu$-costs implementation-independent. The total structural cost:
+SMT-LIB 2.0 syntax is used for canonical encoding, making $\mu$-costs implementation-independent. The total structural cost:
 \[
 \mu(S, \pi) = \sum_{M \in \pi} |\text{encode}(M.\Phi)| + |\text{encode}(\pi)|
 \]
@@ -188,7 +188,7 @@ The three proven principles are: (i) $\mu$-monotonicity (\path{MuLedgerConservat
 
 \section{Methodology: The 3-Layer Isomorphism}
 
-I didn't just describe a model. I built it three times—in three different languages—and proved they're the same.
+The model isn't just described—it's built three times, in three different languages, and the outputs are proven identical.
 
 \subsection{Layer 1: Coq (The Proofs)}
 
@@ -210,7 +210,7 @@ The mathematical ground truth. Machine-checked proofs that the compiler verifies
 
 Implementation: [VMState.v](coq/VMState.v) and [VMStep.v](coq/VMStep.v) (kernel), [KernelPhysics.v](coq/KernelPhysics.v) and [KernelNoether.v](coq/KernelNoether.v) (physics), [RevelationRequirement.v](coq/RevelationRequirement.v) (CHSH).
 
-\textbf{The Inquisitor Standard:} I enforce a zero-tolerance policy. No \texttt{Admitted}. No \texttt{admit} tactics. No \texttt{Axiom} declarations. The \path{scripts/inquisitor.py} tool scans every Coq file and blocks commits that violate this. If a theorem says ``Proven,'' it's actually proven.
+\textbf{The Inquisitor Standard:} The project enforces a zero-tolerance policy. No \texttt{Admitted}. No \texttt{admit} tactics. No \texttt{Axiom} declarations. The \path{scripts/inquisitor.py} tool scans every Coq file and blocks commits that violate this. If a theorem says ``Proven,'' it's actually proven.
 
 \subsection{Layer 2: Python VM (The Implementation)}
 
@@ -260,13 +260,13 @@ This ensures theoretical claims are physically realizable and implementations ar
 
 \section{Thesis Statement}
 
-Here's what I'm claiming:
+Here is the central claim:
 
 \begin{quote}
-    Classical computers pay an implicit ``time tax'' when problems have hidden structure. They search blindly because they can't see. By making structural information cost explicit through $\mu$-bits, you can trade search time for structure cost. Problems aren't ``hard'' in isolation—they're hard-to-structure or hard-to-solve-given-structure. This thesis makes both costs visible.
+    Classical computers pay an implicit ``time tax'' when problems have hidden structure. They search blindly because they can't see. By making structural information cost explicit through $\mu$-bits, you can trade search time for structure cost. Problems aren't ``hard'' in isolation---they're hard-to-structure or hard-to-solve-given-structure. This thesis makes both costs visible.
 \end{quote}
 
-I prove this with:
+This is proven with:
 \begin{enumerate}
     \item Machine-verified theorems in Coq
     \item Executable implementations with signed receipts

@@ -8,7 +8,7 @@
 
 A computational model is only as credible as its implementation. The Turing Machine was a thought experiment---it was never built as a physical device (though it could be). The Church-Turing thesis claims that any ``mechanical'' computation can be performed by a Turing Machine, but this claim rests on an informal notion of ``mechanical.''
 
-The Thiele Machine is different: I provide a \textbf{hardware implementation} in Verilog RTL that can be synthesized to real silicon. This serves three purposes:
+The Thiele Machine is different: there is a \textbf{hardware implementation} in Verilog RTL that can be synthesized to real silicon. This serves three purposes:
 \begin{enumerate}
     \item \textbf{Realizability}: The abstract $\mu$-costs correspond to real physical resources (logic gates, flip-flops, clock cycles)
     \item \textbf{Verification}: The 3-layer isomorphism (Coq $\leftrightarrow$ Python $\leftrightarrow$ RTL) ensures correctness across abstraction levels

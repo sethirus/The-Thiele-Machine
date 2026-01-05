@@ -8,21 +8,21 @@
 
 \subsection{From Theory to Evidence}
 
-The previous chapters established the \textit{theoretical} foundations of the Thiele Machine: definitions, proofs, and implementations. But theoretical correctness is not sufficient---I must also demonstrate that the theory \textit{works in practice}. Evaluation has a different role than proof: it does not establish truth for all inputs, but it validates that implementations faithfully realize the formal semantics and that the predicted invariants hold under realistic workloads.
+The previous chapters established the \textit{theoretical} foundations of the Thiele Machine: definitions, proofs, and implementations. But theoretical correctness is not sufficient---the theory must also be demonstrated to \textit{work in practice}. Evaluation has a different role than proof: it does not establish truth for all inputs, but it validates that implementations faithfully realize the formal semantics and that the predicted invariants hold under realistic workloads.
 
 This chapter presents empirical evaluation addressing three fundamental questions:
 \begin{enumerate}
     \item \textbf{Does the 3-layer isomorphism actually hold?} \\
-    The theory claims that Coq, Python, and Verilog implementations produce identical results. I test this claim on thousands of instruction sequences, including randomized traces and structured micro-programs designed to stress the ISA.
+    The theory claims that Coq, Python, and Verilog implementations produce identical results. This claim is tested on thousands of instruction sequences, including randomized traces and structured micro-programs designed to stress the ISA.
     
     \item \textbf{Does the revelation requirement actually enforce costs?} \\
-    The theory claims that supra-quantum correlations require explicit revelation. I run CHSH experiments to verify this constraint is enforced and that the ledger charges match the structure disclosed.
+    The theory claims that supra-quantum correlations require explicit revelation. CHSH experiments verify this constraint is enforced and that the ledger charges match the structure disclosed.
     
     \item \textbf{Is the implementation practical?} \\
-    A beautiful theory that runs too slowly is useless. I benchmark performance and resource utilization to assess practicality, focusing on the overhead of receipts and the hardware cost of the accounting units.
+    A beautiful theory that runs too slowly is useless. Performance and resource utilization are benchmarked to assess practicality, focusing on the overhead of receipts and the hardware cost of the accounting units.
 
     \item \textbf{Do the ledger-level predictions behave as derived?} \\
-    Some of the most important claims in this thesis are not about any particular workload, but about unavoidable trade-offs induced by the $\mu$ rules themselves. I therefore include two ``physics-without-physics'' harnesses that run on any machine: (i) a structural-heat certificate benchmark derived from $\mu=\lceil\log_2(n!)\rceil$, and (ii) a fixed-budget time-dilation benchmark derived from $r=\lfloor(B-C)/c\rfloor$.
+    Some of the most important claims in this thesis are not about any particular workload, but about unavoidable trade-offs induced by the $\mu$ rules themselves. The evaluation therefore includes two ``physics-without-physics'' harnesses that run on any machine: (i) a structural-heat certificate benchmark derived from $\mu=\lceil\log_2(n!)\rceil$, and (ii) a fixed-budget time-dilation benchmark derived from $r=\lfloor(B-C)/c\rfloor$.
 \end{enumerate}
 
 \subsection{Methodology}
@@ -31,7 +31,7 @@ All experiments follow scientific best practices:
 \begin{itemize}
     \item \textbf{Reproducibility}: Every experiment can be re-run from the published artifacts and trace descriptions
     \item \textbf{Automation}: Tests are automated in a continuous validation pipeline
-    \item \textbf{Adversarial testing}: I actively try to break the system, not just confirm it works. (Honestly, I \textit{wanted} to find holes---finding them yourself is better than someone else finding them later)
+    \item \textbf{Adversarial testing}: The testing suite actively tries to break the system, not just confirm it works. (Honestly, finding holes yourself is better than someone else finding them later)
 \end{itemize}
 
 All experiments use the reference VM with receipt generation enabled. Each run produces receipts and state snapshots so that results can be rechecked independently. The emphasis is on \textit{replayability}: anyone can take the same trace, replay it through each layer, and confirm equality of the observable projection.
@@ -509,7 +509,7 @@ The conservation test matches the formal definition of \texttt{apply\_cost} in \
 % Figure 5: Thermodynamic Bridge Architecture
 
 
-To connect the ledger to a physical observable, I design a narrowly scoped, falsifiable experiment focused on measurement/erasure thermodynamics.
+To connect the ledger to a physical observable, a narrowly scoped, falsifiable experiment is designed focused on measurement/erasure thermodynamics.
 
 \subsection{Workload construction}
 Use the thermodynamic bridge harness to emit four traces that differ only in which singleton module is revealed from a fixed candidate pool: (1) choose 1 of 2 elements, (2) choose 1 of 4, (3) choose 1 of 16, (4) choose 1 of 64. Instruction count, data size, and clocking remain identical so that only the $\Omega \to \Omega'$ reduction changes. The bundle records per-step $\mu$ (raw and normalized), $|\Omega|$, $|\Omega'|$, normalization flags for the formal, reference, and hardware layers, and an `evidence\_strict` bit indicating whether normalization was allowed.
@@ -521,7 +521,7 @@ The VM \emph{guarantees} $\mu \ge \log_2(|\Omega|/|\Omega'|)$ for each trace usi
 Run the three traces on instrumented hardware (or a calibrated switching-energy simulator) at fixed temperature $T$. Record per-run energy and environmental metadata. Fit measured energy against $k_B T \ln 2 \cdot \mu$ and report residuals. A sustained sub-linear slope falsifies the bridge; a super-linear slope quantifies overhead. Publish both ledger outputs and raw measurements so reviewers can recompute the bound.
 
 \subsection{Executed thermodynamic bundle (Dec 2025)}
-I executed the four $\Omega \to \Omega'$ traces with the bridge harness, exporting a JSON artifact. The runs charge $\mu$ via partition discovery only (explicit \texttt{MDLACC} omitted to mirror the hardware harness) and capture normalization flags and \texttt{evidence\_strict} for $\mu$ propagation across layers. Each scenario fails fast if the requested region is not representable by the hardware encoding. These runs are intended to validate that the ledger and trace machinery produce consistent, reproducible $\mu$ values that a future physical experiment can bind to energy.
+The four $\Omega \to \Omega'$ traces were executed with the bridge harness, exporting a JSON artifact. The runs charge $\mu$ via partition discovery only (explicit \texttt{MDLACC} omitted to mirror the hardware harness) and capture normalization flags and \texttt{evidence\_strict} for $\mu$ propagation across layers. Each scenario fails fast if the requested region is not representable by the hardware encoding. These runs are intended to validate that the ledger and trace machinery produce consistent, reproducible $\mu$ values that a future physical experiment can bind to energy.
 
 \begin{center}
 \resizebox{\textwidth}{!}{

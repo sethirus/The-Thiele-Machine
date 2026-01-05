@@ -24,7 +24,7 @@
 
 Same thing here. I could write a beautiful mathematical definition of how this machine \textit{should} work, but that's just talk. That's just the brochure. What matters is: does it actually work? Does the engine turn over? Does the thing \textit{do what I said it does}?
 
-That's why I built three independent implementations. Not because I'm a masochist (though I question that sometimes), but because I needed to \textit{know}. I needed to see the same answer come out of three completely different ``workshops''---one that speaks pure math (Coq), one that speaks Python like a normal person, and one that speaks to actual hardware in Verilog.
+That's why the system was built three times. Not out of masochism (though I question that sometimes), but because I needed to \textit{know}. I needed to see the same answer come out of three completely different ``workshops''---one that speaks pure math (Coq), one that speaks Python like a normal person, and one that speaks to actual hardware in Verilog.
 
 If all three shops give me the same answer, I know the car is real. If they disagree? Someone's lying, and I need to find out who.
 
@@ -91,7 +91,7 @@ This chapter is practical: it explains how theory becomes three concrete artifac
     \item Section 4.2: Coq formalization (state definitions, step relation, extraction)
     \item Section 4.3: Python VM (state class, partition operations, receipt generation)
     \item Section 4.4: Verilog RTL (CPU module, $\mu$-ALU, logic engine interface)
-    \item Section 4.5: Isomorphism verification (how I test equality)
+    \item Section 4.5: Isomorphism verification (how equality is tested)
 \end{itemize}
 
 \textbf{Key concepts to understand}:
