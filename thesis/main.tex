@@ -156,11 +156,13 @@
     \vspace{-1cm}
     \textbf{\Huge The Thiele Machine}\\[0.5cm]
     \Large Computational Isomorphism and the Inevitability of Structure\\[1cm]
-    \large A Thesis in Theoretical Computer Science
+    \large A Formal Model Built by Asking Questions
 }
 \author{
-    \textbf{Devon Thiele}\\[0.5cm]
-    \normalsize December 2025
+    \textbf{Devon Thiele}\\[0.3cm]
+    \normalsize Self-taught developer\\[0.1cm]
+    \small No formal training. Just persistence.\\[0.5cm]
+    \normalsize January 2026
 }
 \date{}
 
@@ -181,22 +183,29 @@
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
 
-This thesis presents the \textbf{Thiele Machine}, a formal model of computation that unifies computational work and structural information into a single conserved resource, $\mu$. Classical models (Turing Machine, RAM) treat memory as a flat, undifferentiated tape, incurring an implicit ``time tax'' when structure must be recovered through blind search. The Thiele Machine resolves this by introducing the \textbf{$\mu$-bit} as the atomic unit of conserved cost.
+This thesis presents the \textbf{Thiele Machine}, a formal model of computation that treats structural information as a costly resource. I built it by asking questions I couldn't answer and pulling on threads until they led somewhere real.
 
-We formalize the machine as a 5-tuple $T = (S, \Pi, A, R, L)$ comprising state space, partition graph, axiom sets, transition rules, and logic engine. The partition graph decomposes state into disjoint modules, each carrying logical constraints. A monotonically non-decreasing $\mu$-ledger tracks cumulative structural cost throughout execution.
+I am not a computer scientist. I have no formal training in mathematics, physics, or programming. I'm a car salesman who taught himself to code with modern tools and stubborn curiosity. Everything here---238 Coq proof files, 2,000+ machine-checked theorems, a working VM, synthesizable hardware---was built through persistence, not credentials. I mention this because it matters: the proofs compile or they don't. They don't care who wrote them.
 
-We prove over 1,400 theorems and lemmas in Coq 8.18 across 206 files with \textbf{zero admits and zero axioms}:
-\begin{enumerate}
-    \item \textbf{Observational No-Signaling}: Operations on one module cannot affect observables of unrelated modules.
+The core idea: classical computers are ``blind'' to structure. When you give a computer a sorted list, it doesn't \textit{know} it's sorted---it has to check. This blindness costs time. The Thiele Machine makes that cost explicit through the \textbf{$\mu$-bit}, an atomic unit of structural information cost.
+
+\textbf{What I proved} (in Coq, with zero admits and zero axioms):
+\begin{itemize}
+    \item \textbf{No Free Insight}: You cannot narrow the search space without paying for it. $\Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')$.
     \item \textbf{$\mu$-Conservation}: The ledger grows monotonically and bounds irreversible bit operations.
-    \item \textbf{No Free Insight}: Strengthening certification predicates requires explicit, charged structure addition.
-\end{enumerate}
+    \item \textbf{Observational No-Signaling}: Operations on one module cannot affect observables of unrelated modules.
+    \item \textbf{Initiality}: $\mu$ is \textit{the} unique instruction-consistent cost measure, not just one of many.
+\end{itemize}
 
-We demonstrate \textbf{3-layer isomorphism}: identical state projections from Coq-extracted semantics, Python reference VM (2,965 lines core), and Verilog RTL (1,017 lines core, 10,520 lines total). The Inquisitor tool enforces zero-admit discipline in continuous integration.
+\textbf{What I built}:
+\begin{itemize}
+    \item Coq formal kernel (238 files, zero admits)
+    \item Python reference VM with cryptographic receipts
+    \item Synthesizable Verilog RTL (FPGA-ready)
+    \item 660+ automated tests enforcing 3-layer isomorphism
+\end{itemize}
 
-Empirical evaluation validates CHSH correlation bounds (supra-quantum certification requires revelation) and $\mu$-ledger monotonicity across 1,115 test functions. Hardware synthesis targets Xilinx 7-series FPGAs.
-
-The Thiele Machine establishes that structural cost is not an accounting convention but a provable physical law of the computational universe.
+If you can find an error, find it. Everything is open source, documented, and testable. The proofs stand or fall on their own merits.
 
 \vspace{1cm}
 \noindent\textbf{Keywords:} Formal Verification, Coq, Computational Complexity, Information Theory, Hardware Synthesis, Partition Logic

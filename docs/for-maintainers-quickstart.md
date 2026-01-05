@@ -1,5 +1,7 @@
 # Quick Start for Maintainers: Add Receipts in 5 Minutes
 
+**Last Reviewed**: January 4, 2026
+
 This guide gets receipts into your project with minimal effort.
 
 ## Why Add Receipts?

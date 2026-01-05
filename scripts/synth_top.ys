@@ -1,9 +1,9 @@
 # Yosys synthesis script for Thiele CPU Top Level
 
 # Read the Verilog source files
-read_verilog -sv -D YOSYS_LITE thielecpu/hardware/mu_alu.v
-read_verilog -sv -D YOSYS_LITE thielecpu/hardware/mu_core.v
-read_verilog -sv -D YOSYS_LITE thielecpu/hardware/thiele_cpu.v
+read_verilog -sv -D YOSYS_LITE thielecpu/hardware/rtl/mu_alu.v
+read_verilog -sv -D YOSYS_LITE thielecpu/hardware/rtl/mu_core.v
+read_verilog -sv -D YOSYS_LITE thielecpu/hardware/rtl/thiele_cpu.v
 
 # Elaborate design hierarchy
 hierarchy -check -top thiele_cpu

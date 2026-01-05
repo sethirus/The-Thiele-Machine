@@ -4,7 +4,7 @@
 
 The Thiele CPU is a specialized hardware processor designed for partition-native computation, implementing the theoretical foundations of the Thiele Machine. This hardware enables efficient execution of partition-based algorithms with integrated cryptographic proof generation and validation.
 
-**The Holy Grail**: This hardware implements "Non-Quantum Quantum" computing where **optimization is the physics**. The silicon enforces mathematical isomorphism - invalid operations are physically impossible.
+**Design Goal**: This hardware implements partition-native computing where structural constraints are enforced in silicon. The hardware design aims to make mathematically invalid operations fail at the circuit level.
 
 ## Architecture
 
@@ -60,7 +60,7 @@ Notes:
 
 ## The μ-Core: Mathematical Enforcement
 
-The μ-Core is the revolutionary component that makes this "Non-Quantum Quantum" computing:
+The μ-Core is the central enforcement component that implements partition-native constraints:
 
 ```verilog
 module mu_core (
@@ -79,14 +79,47 @@ module mu_core (
 
 ## File Structure
 
-### Core Verilog Files
+```
+hardware/
+├── rtl/                    # Core RTL modules (synthesizable)
+│   ├── thiele_cpu.v        # Main CPU with partition logic and state machine
+│   ├── thiele_cpu_synth.v  # Synthesis-friendly variant
+│   ├── mu_alu.v            # Q16.16 fixed-point μ-ALU
+│   ├── mu_core.v           # Partition isomorphism enforcement (μ-core)
+│   ├── receipt_integrity_checker.v  # Anti-tampering module
+│   ├── partition_core.v    # Partition discovery engine
+│   ├── chsh_partition.v    # CHSH Bell inequality partition
+│   ├── shor_partition.v    # Shor's algorithm partition
+│   ├── mmu.v               # Memory Management Unit
+│   ├── mau.v               # Memory Access Unit
+│   ├── lei.v               # Logic Engine Interface
+│   ├── pee.v               # Python Execution Engine
+│   ├── generated_opcodes.vh # Opcode definitions (Coq-extracted)
+│   └── ...                 # Additional RTL modules
+│
+├── testbench/              # Simulation testbenches
+│   ├── thiele_cpu_tb.v     # Main CPU testbench
+│   ├── mu_alu_tb.v         # μ-ALU unit tests
+│   ├── partition_core_tb.v # Partition engine tests
+│   └── ...                 # Additional testbenches
+│
+├── constraints.xdc         # FPGA timing/placement constraints
+├── synthesis.tcl           # Vivado synthesis script
+├── simulate.do             # ModelSim simulation script
+├── simulate.tcl            # Vivado simulation script
+├── test_hardware.py        # Automated test suite
+└── README.md               # This file
+```
 
-- `thiele_cpu.v` - Main CPU implementation with partition logic and state machine
-- `thiele_cpu_tb.v` - Testbench with comprehensive instruction sequence testing
-- `lei.v` - Logic Engine Interface module
-- `mau.v` - Memory Access Unit
-- `mmu.v` - Memory Management Unit
-- `pee.v` - Python Execution Engine
+### RTL Core Modules
+
+| File | Purpose |
+|------|---------|
+| `rtl/thiele_cpu.v` | Main CPU with partition logic and FSM |
+| `rtl/mu_alu.v` | Q16.16 fixed-point arithmetic (Coq isomorphic) |
+| `rtl/mu_core.v` | Partition enforcement "cost gate" |
+| `rtl/partition_core.v` | PDISCOVER hardware implementation |
+| `rtl/receipt_integrity_checker.v` | Cryptographic anti-tampering |
 
 ### Configuration Files
 
@@ -98,7 +131,7 @@ module mu_core (
 ### Test Infrastructure
 
 - `test_hardware.py` - Automated test suite supporting multiple simulators
-- `test_report.md` - Generated test results and hardware specifications
+- `testbench/*.v` - Verilog testbenches for all modules
 
 ## Instruction Set
 
@@ -152,10 +185,13 @@ pytest -q tests/test_rtl_compute_isomorphism.py \
 Direct RTL simulation (Icarus):
 
 ```bash
-pushd thielecpu/hardware
-iverilog -g2012 -o ../../build/thiele_cpu_tb.out thiele_cpu.v thiele_cpu_tb.v mu_alu.v mu_core.v
-vvp ../../build/thiele_cpu_tb.out
-popd
+cd thielecpu/hardware
+iverilog -g2012 -o tb_test -I./rtl rtl/thiele_cpu.v rtl/mu_alu.v rtl/mu_core.v rtl/receipt_integrity_checker.v testbench/thiele_cpu_tb.v
+./tb_test
+
+# μ-ALU unit tests:
+iverilog -g2012 -o alu_test -I./rtl testbench/mu_alu_tb.v rtl/mu_alu.v
+./alu_test
 ```
 
 ```bash

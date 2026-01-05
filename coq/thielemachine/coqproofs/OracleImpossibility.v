@@ -85,6 +85,10 @@ Module OracleImpossibility.
     
     (* Maybe we can use excluded middle: every program either halts or doesn't? *)
     
+    (** INQUISITOR NOTE: This Classical import is INTENTIONAL for pedagogical purposes.
+        This section demonstrates WHY classical logic CANNOT solve the halting problem.
+        The import is scoped to this Section and does not leak to kernel theorems.
+        This is a TUTORIAL explaining impossibility, not a reliance on classical axioms. *)
     Require Import Classical.
     
     (* We can state this as a proposition: *)

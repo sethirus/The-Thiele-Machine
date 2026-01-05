@@ -1,5 +1,7 @@
 # Core Mathematical Theorems
 
+**Last Updated**: January 4, 2026
+
 **The Thiele Machine: Formal Definitions and Strict Containment of the Turing Model**
 
 This document provides mathematically precise definitions and theorem statements establishing **TURING ⊊ THIELE** (strict containment). All theorems are machine-verified in Coq 8.18+ or empirically validated with falsifiable test suites. Line numbers reference exact proof locations.
@@ -191,6 +193,78 @@ $$\frac{\text{blind\_cost}(n)}{\text{sighted\_cost}(n)} = \frac{2^n}{O(n^3)} = \
 
 ---
 
+### Theorem 6 (Initiality — μ as the Canonical Cost)
+
+**Statement:**
+Let $M : \text{VMState} \to \mathbb{N}$ be any function satisfying:
+
+1. **Monotonicity**: $M$ is monotone under instruction application:
+   $$\forall s, i, s'. \text{step}(s, i, s') \Rightarrow M(s') \geq M(s) + \text{cost}(i)$$
+
+2. **Instruction-local cost**: $M$ assigns the same cost increment to an instruction regardless of state:
+   $$\forall s_1, s_2, i, s_1', s_2'. \text{step}(s_1, i, s_1') \land \text{step}(s_2, i, s_2') \Rightarrow M(s_1') - M(s_1) = M(s_2') - M(s_2)$$
+
+3. **Zero initialization**: $M(\text{init\_state}) = 0$
+
+Then $M = \mu$ on all states reachable from init_state.
+
+**Categorical Interpretation:**
+In the category of monotone cost functionals on VM traces, $\mu$ is the **initial object**. Any other such functional factors uniquely through $\mu$ via the identity. This is the precise sense in which "$\mu$ is the free monotone compatible with trace composition and locality."
+
+**Proof Technique:** 
+1. Prove by induction on reachability that $M(s) = \mu(s)$ for all reachable states
+2. Base case: $M(\text{init\_state}) = 0 = \mu(\text{init\_state})$ by assumption 3
+3. Inductive case: If $s$ is reachable with $M(s) = \mu(s)$, and $\text{step}(s, i, s')$, then:
+   - By assumption 2, $M(s') - M(s) = \text{cost}(i)$
+   - By μ-conservation (Theorem 3), $\mu(s') - \mu(s) = \text{cost}(i)$
+   - Therefore $M(s') = M(s) + \text{cost}(i) = \mu(s) + \text{cost}(i) = \mu(s')$
+
+**Coq Proof:** [`coq/kernel/MuInitiality.v:195`](coq/kernel/MuInitiality.v#L195) — theorem `mu_is_initial_monotone`
+
+**Plain English:** μ is not just **a** cost function, but **the unique canonical** one. Any other monotone cost satisfying natural properties must equal μ. This eliminates arbitrariness: μ is mathematically forced.
+
+**Status:** ✅ Proven (0 admits, 0 axioms)
+
+---
+
+### Theorem 7 (Necessity — Physical Justification of μ)
+
+**Statement:**
+Among all cost models $C : \text{Instruction} \to \mathbb{N}$ that:
+
+1. **Satisfy Landauer's bound**: For any step $s \xrightarrow{i} s'$, the cost satisfies:
+   $$C(i) \geq \max(0, \text{info\_loss}(s, s'))$$
+   where $\text{info\_loss}(s, s') = \text{state\_info}(s) - \text{state\_info}(s')$ measures information destroyed.
+
+2. **Are additive over traces**: For any trace $\tau = [i_1, i_2, \ldots, i_n]$:
+   $$C(\tau) = \sum_{j=1}^{n} C(i_j)$$
+
+μ is the **minimal** such model:
+$$\forall C \text{ Landauer-valid}, \forall i. C(i) \geq \mu(i)$$
+
+**Physical Interpretation:**
+Landauer's principle states you cannot erase distinguishability (entropy) for free. The μ-cost model is the **tightest possible** cost accounting that respects this physical bound. Any looser model wastes cost; any tighter model violates thermodynamics.
+
+**Proof Technique:**
+1. Prove μ satisfies the Landauer bound (μ is valid)
+2. Show μ is additive (by construction)
+3. Prove that any other valid $C$ must satisfy $C(i) \geq \mu(i)$ for all instructions
+4. This establishes μ as the initial object in the category of Landauer-valid additive cost models
+
+**Coq Proof:** [`coq/kernel/MuNecessity.v:244`](coq/kernel/MuNecessity.v#L244) — theorem `mu_is_minimal_landauer_valid`
+
+**Plain English:** μ isn't arbitrary or chosen for convenience — it's **physically necessary**. It's the minimal cost model that respects the laws of thermodynamics (Landauer's erasure bound). Any other thermodynamically valid cost function must charge at least as much as μ.
+
+**Status:** ✅ Proven (0 admits, 0 axioms)
+
+**Historical Note:** These two theorems (Initiality and Necessity) were proven in January 2026 and establish that μ is simultaneously:
+- Mathematically canonical (Theorem 6): The unique monotone cost with natural properties
+- Physically necessary (Theorem 7): The minimal cost respecting thermodynamic bounds
+
+Together, they show μ is **not a modeling choice** but an inevitable consequence of requiring both mathematical consistency and physical validity.
+
+---
+
 ## 4. The μ-Spec (v2.0)
 
 ### Definition 5 (μ-Cost Formula)
@@ -227,6 +301,8 @@ $$\frac{W}{kT \ln 2} \geq \mu_{\text{total}}$$
 | **μ-Conservation** (Thm 3) | `coq/kernel/MuLedgerConservation.v:73` | `ledger_conserved` | ✅ **Proven** |
 | **Polynomial Discovery** (Thm 4) | `coq/thielemachine/coqproofs/EfficientDiscovery.v:76` | `discovery_polynomial_time` | ✅ **Proven** |
 | **Exponential Separation** (Thm 5) | `coq/thielemachine/coqproofs/Separation.v:77` | `thiele_sighted_steps_polynomial_forall_Z` | ✅ **Proven** |
+| **Initiality** (Thm 6) | `coq/kernel/MuInitiality.v:195` | `mu_is_initial_monotone` | ✅ **Proven** |
+| **Necessity** (Thm 7) | `coq/kernel/MuNecessity.v:244` | `mu_is_minimal_landauer_valid` | ✅ **Proven** |
 | **Partition Validity** | `coq/thielemachine/coqproofs/PartitionLogic.v` | `partition_refines`, `psplit_preserves_independence` | ✅ **Proven** |
 | **Bell Inequality** | `coq/thielemachine/coqproofs/BellInequality.v` | `classical_bound` (2487 lines) | ✅ **Proven** |
 | **Full Simulation** | `coq/thielemachine/coqproofs/Simulation.v` | (29,666 lines, 66% of codebase) | ✅ **Proven** |

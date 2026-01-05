@@ -382,13 +382,12 @@ class TestVerilogCompiles:
 
     def test_verilog_files_exist(self):
         """Test that key Verilog files exist."""
-        hw_dir = REPO_ROOT / "thielecpu" / "hardware" / "synthesis_trap"
+        hw_dir = REPO_ROOT / "thielecpu" / "hardware" / "rtl"
         
         required_files = [
             "reasoning_core.v",
             "thiele_graph_solver.v",
             "thiele_autonomous_solver.v",
-            "thiele_graph_solver_tb.v",
         ]
         
         for filename in required_files:
@@ -397,7 +396,7 @@ class TestVerilogCompiles:
 
     def test_verilog_compiles(self):
         """Test that Verilog source files can be parsed."""
-        hw_dir = REPO_ROOT / "thielecpu" / "hardware" / "synthesis_trap"
+        hw_dir = REPO_ROOT / "thielecpu" / "hardware" / "rtl"
         
         # Check that key Verilog files have proper structure
         main_file = hw_dir / "thiele_graph_solver.v"
@@ -416,7 +415,7 @@ class TestAlignmentComplete:
         from thielecpu.isa import Opcode
         
         # Read Verilog opcodes
-        verilog_file = REPO_ROOT / "thielecpu" / "hardware" / "thiele_cpu.v"
+        verilog_file = REPO_ROOT / "thielecpu" / "hardware" / "rtl" / "thiele_cpu.v"
         verilog_content = verilog_file.read_text(encoding="utf-8")
         
         # Read Coq opcodes

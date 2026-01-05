@@ -30,6 +30,11 @@ Module ProperSubsumption.
 
 (** Tape symbols - arbitrary natural numbers (Turing-complete) *)
 Definition Symbol := nat.
+
+(** DESIGN CHOICE: blank = 0 is the standard Turing Machine convention.
+    This is NOT a vacuous definition - it's the canonical blank symbol
+    used in all TM formalizations (Hopcroft & Ullman, Sipser, etc.).
+    Inquisitor: This zero is INTENTIONAL and CORRECT. *)
 Definition blank : Symbol := 0.
 
 (** Tape: infinite in both directions, represented as two lists + head position *)

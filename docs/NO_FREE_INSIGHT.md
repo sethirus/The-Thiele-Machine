@@ -1,5 +1,7 @@
 # No Free Insight (Kernel Semantics)
 
+**Last Reviewed**: January 4, 2026
+
 This is the **single canonical document** for the No Free Insight result.
 
 It contains:
@@ -309,3 +311,9 @@ If the project wants “supra-CHSH certification must use REVEAL specifically”
 The CHSH instance in Coq currently uses a simplified “supra certified” predicate rather than a full formalization of the $S$ statistic over a probability distribution of trials.
 
 Formalizing the full CHSH computation (and linking it to a runtime CSV/probability table) would strengthen the end-to-end story, but it is not necessary for the structural “no free certification” theorem.
+---
+
+## Related Documentation
+
+- [HONEST_TRUTH.md](HONEST_TRUTH.md) — Current state and test status
+- [THEOREMS.md](THEOREMS.md) — All proven theorems including Initiality (Thm 6) and Necessity (Thm 7)
