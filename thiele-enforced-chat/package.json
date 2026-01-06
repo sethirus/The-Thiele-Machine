@@ -1,0 +1,167 @@
+{
+    "name": "thiele-enforced-chat",
+    "displayName": "Thiele Enforced Chat",
+    "description": "Agentic verified code generation - LLM uses MCP tools to analyze workspace and intelligently place files where they belong",
+    "version": "3.0.0",
+    "publisher": "thiele-machine",
+    "engines": {
+        "vscode": "^1.93.0"
+    },
+    "categories": [
+        "Chat",
+        "Programming Languages",
+        "Linters"
+    ],
+    "activationEvents": [
+        "onStartupFinished"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "chatParticipants": [
+            {
+                "id": "thiele.enforced",
+                "fullName": "Thiele Verifier",
+                "name": "thiele",
+                "description": "Agentic code generation with intelligent file placement",
+                "isSticky": true,
+                "commands": [
+                    {
+                        "name": "stats",
+                        "description": "Show verification statistics"
+                    },
+                    {
+                        "name": "verify",
+                        "description": "Verify code syntax"
+                    },
+                    {
+                        "name": "synthesize",
+                        "description": "🚀 Self-correcting verified code synthesis"
+                    }
+                ]
+            }
+        ],
+        "languageModelTools": [
+            {
+                "name": "thiele_workspace_structure",
+                "displayName": "Get Workspace Structure",
+                "description": "Analyze workspace directory structure to determine appropriate file locations",
+                "canBeReferencedInPrompt": true,
+                "icon": "$(folder)",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "path": {
+                            "type": "string",
+                            "description": "Optional relative path to start from"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "thiele_find_similar",
+                "displayName": "Find Similar Files",
+                "description": "Find similar files by pattern to determine where this type of file belongs",
+                "canBeReferencedInPrompt": true,
+                "icon": "$(search)",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "pattern": {
+                            "type": "string",
+                            "description": "Text pattern to search for"
+                        },
+                        "extension": {
+                            "type": "string",
+                            "description": "File extension including dot"
+                        }
+                    },
+                    "required": ["pattern", "extension"]
+                }
+            },
+            {
+                "name": "thiele_create_file",
+                "displayName": "Create File",
+                "description": "Create a file at the specified workspace path",
+                "canBeReferencedInPrompt": true,
+                "icon": "$(new-file)",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "filePath": {
+                            "type": "string",
+                            "description": "Relative path from workspace root"
+                        },
+                        "content": {
+                            "type": "string",
+                            "description": "File content"
+                        }
+                    },
+                    "required": ["filePath", "content"]
+                }
+            }
+        ],
+        "commands": [
+            {
+                "command": "thiele.verifySelection",
+                "title": "🔬 Thiele: Verify Selection"
+            },
+            {
+                "command": "thiele.fixSelection",
+                "title": "🔧 Thiele: Fix Code Issues"
+            },
+            {
+                "command": "thiele.verifyFile",
+                "title": "🔬 Thiele: Verify Entire File"
+            },
+            {
+                "command": "thiele.showStats",
+                "title": "📊 Thiele: Show Verification Stats"
+            }
+        ],
+        "menus": {
+            "editor/context": [
+                {
+                    "command": "thiele.verifySelection",
+                    "when": "editorHasSelection",
+                    "group": "thiele@1"
+                },
+                {
+                    "command": "thiele.fixSelection",
+                    "when": "editorHasSelection",
+                    "group": "thiele@2"
+                },
+                {
+                    "command": "thiele.verifyFile",
+                    "group": "thiele@3"
+                }
+            ]
+        },
+        "submenus": [
+            {
+                "id": "thiele.submenu",
+                "label": "🛡️ Thiele Verifier"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "test": "npm run test:unit && npm run test:integration",
+        "test:unit": "npm run compile && mocha ./out/test/verifier.test.js",
+        "test:integration": "npm run compile && mocha ./out/test/integration.test.js",
+        "test:all": "npm run compile && mocha './out/test/**/*.test.js'",
+        "test:e2e": "npm run compile && node ./out/test/runTests.js",
+        "test:e2e:server": "npm run compile && mocha ./out/test/suite/verification.e2e.js --timeout 10000",
+        "lint": "tsc --noEmit"
+    },
+    "devDependencies": {
+        "@types/mocha": "^10.0.10",
+        "@types/node": "^20.0.0",
+        "@types/vscode": "^1.93.0",
+        "@vscode/test-electron": "^2.5.2",
+        "glob": "^13.0.0",
+        "mocha": "^11.7.5",
+        "typescript": "^5.4.0"
+    }
+}
