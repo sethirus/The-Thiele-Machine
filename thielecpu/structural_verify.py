@@ -193,41 +193,100 @@ class StructuralClaimExtractor:
         (r'will\s+(?:be|become|have)', 'future_prediction'),
     ]
     
+    def _remove_code_blocks(self, text: str) -> str:
+        """Remove code blocks from text, handling nested backticks correctly."""
+        result = []
+        i = 0
+        in_code_block = False
+        
+        while i < len(text):
+            # Check for code block start
+            if not in_code_block and text[i:i+3] == '```':
+                in_code_block = True
+                # Skip to end of opening line
+                newline_pos = text.find('\n', i)
+                if newline_pos == -1:
+                    break
+                i = newline_pos + 1
+            elif in_code_block:
+                # Look for closing ``` at start of line
+                if text[i:i+3] == '```' and (i == 0 or text[i-1] == '\n'):
+                    in_code_block = False
+                    i += 3
+                    # Skip any trailing newline
+                    if i < len(text) and text[i] == '\n':
+                        i += 1
+                else:
+                    i += 1
+            else:
+                result.append(text[i])
+                i += 1
+        
+        return ''.join(result)
+    
     def extract_all(self, text: str) -> List[Tuple[str, VerificationCategory, Dict[str, Any]]]:
         """Extract all claims with honest categorization."""
         claims = []
         
-        # Mathematical (VERIFIABLE)
+        # FIRST: Check if entire input is a single code block (common from pre-commit hooks)
+        # This handles files that contain ``` in their content (like this one!)
+        stripped = text.strip()
+        if stripped.startswith('```') and stripped.endswith('```'):
+            # Find the opening ``` and closing ``` positions
+            first_newline = stripped.find('\n')
+            if first_newline > 0:
+                lang = stripped[3:first_newline].strip()
+                # Extract code content (everything between first newline and final ```)
+                code_content = stripped[first_newline+1:-3].strip()
+                
+                # Only syntax-check the code, don't extract claims from it
+                claims.append((
+                    stripped[:100],
+                    VerificationCategory.CODE_SYNTAX,
+                    {"subtype": "code_block", "groups": (lang, code_content), "verifiable": True},
+                ))
+                return claims  # Early return - no claim extraction from pure code
+        
+        # NORMAL CASE: Mixed prose and code blocks
+        # Extract code blocks for syntax checking (store separately)
+        code_blocks = []
+        for pattern, subtype in self.CODE_PATTERNS:
+            for match in re.finditer(pattern, text, re.DOTALL):
+                code_blocks.append((
+                    match.group(0)[:100],
+                    VerificationCategory.CODE_SYNTAX,
+                    {"subtype": subtype, "groups": match.groups(), "verifiable": True},
+                ))
+        
+        # Remove code blocks from text BEFORE extracting other claims
+        # Use a custom approach: find paired ``` markers properly
+        text_without_code = self._remove_code_blocks(text)
+        
+        # Mathematical (VERIFIABLE) - only from prose, not code
         for pattern, subtype in self.MATH_PATTERNS:
-            for match in re.finditer(pattern, text, re.IGNORECASE):
+            for match in re.finditer(pattern, text_without_code, re.IGNORECASE):
                 claims.append((
                     match.group(0),
                     VerificationCategory.MATHEMATICAL,
                     {"subtype": subtype, "groups": match.groups(), "verifiable": True},
                 ))
         
-        # File system (VERIFIABLE)
+        # File system (VERIFIABLE) - only from prose, not code
         for pattern, subtype in self.FILE_PATTERNS:
-            for match in re.finditer(pattern, text, re.IGNORECASE):
+            for match in re.finditer(pattern, text_without_code, re.IGNORECASE):
                 claims.append((
                     match.group(0),
                     VerificationCategory.FILE_SYSTEM,
                     {"subtype": subtype, "path": match.group(1), "verifiable": True},
                 ))
         
-        # Code (SYNTAX VERIFIABLE)
-        for pattern, subtype in self.CODE_PATTERNS:
-            for match in re.finditer(pattern, text, re.DOTALL):
-                claims.append((
-                    match.group(0)[:100],
-                    VerificationCategory.CODE_SYNTAX,
-                    {"subtype": subtype, "groups": match.groups(), "verifiable": True},
-                ))
+        # Add code blocks (already extracted above)
+        claims.extend(code_blocks)
         
-        # Imports (VERIFIABLE) - track to avoid duplicates from nested patterns
+        # Imports (VERIFIABLE) - only from prose, not code
         import_matches: Dict[int, Tuple[str, str, str]] = {}  # start_pos -> (match_text, module, subtype)
         for pattern, subtype in self.IMPORT_PATTERNS:
-            for match in re.finditer(pattern, text):
+            for match in re.finditer(pattern, text_without_code):
                 start = match.start()
                 # For 'from X import', prefer that over 'import Y' if they overlap
                 if start not in import_matches or subtype == 'from_import':
@@ -255,9 +314,9 @@ class StructuralClaimExtractor:
                 {"subtype": subtype, "module": module, "verifiable": True},
             ))
         
-        # Factual claims (NOT VERIFIABLE WITHOUT ORACLE)
+        # Factual claims (NOT VERIFIABLE WITHOUT ORACLE) - only from prose
         for pattern, subtype in self.FACTUAL_PATTERNS:
-            for match in re.finditer(pattern, text, re.IGNORECASE):
+            for match in re.finditer(pattern, text_without_code, re.IGNORECASE):
                 claims.append((
                     match.group(0),
                     VerificationCategory.FACTUAL_WORLD,
@@ -265,9 +324,9 @@ class StructuralClaimExtractor:
                      "requires_oracle": "web_search"},
                 ))
         
-        # Future claims (INHERENTLY UNVERIFIABLE)
+        # Future claims (INHERENTLY UNVERIFIABLE) - only from prose
         for pattern, subtype in self.FUTURE_PATTERNS:
-            for match in re.finditer(pattern, text, re.IGNORECASE):
+            for match in re.finditer(pattern, text_without_code, re.IGNORECASE):
                 claims.append((
                     match.group(0),
                     VerificationCategory.FUTURE,
@@ -275,16 +334,16 @@ class StructuralClaimExtractor:
                 ))
         
         # If no claims found, check if it's conversational
-        if not claims and len(text.strip()) > 3:
-            if text.strip().endswith('?'):
+        if not claims and len(text_without_code.strip()) > 3:
+            if text_without_code.strip().endswith('?'):
                 claims.append((
-                    text.strip(),
+                    text_without_code.strip(),
                     VerificationCategory.CONVERSATIONAL,
                     {"subtype": "question", "verifiable": False},
                 ))
             else:
                 claims.append((
-                    text.strip(),
+                    text_without_code.strip(),
                     VerificationCategory.OPINION,
                     {"subtype": "statement", "verifiable": False},
                 ))
