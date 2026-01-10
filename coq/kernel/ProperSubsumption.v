@@ -19,7 +19,7 @@
     
     ========================================================================= *)
 
-From Coq Require Import List Arith.PeanoNat Lia Bool.
+From Coq Require Import List Arith.PeanoNat Lia Bool Psatz.
 Import ListNotations.
 
 Module ProperSubsumption.
@@ -222,37 +222,37 @@ Definition thiele_cost_certificate (fuel : nat) (delta : TM_Delta) (c : Thiele_C
      cc_bound := fuel * (step_cost + 1);  (** Upper bound *)
      cc_witness := final.(th_mu) - c.(th_mu) |}.
 
+(** Helper: mu increases by at most (step_cost + 1) per step *)
+Lemma thiele_run_mu_bound :
+  forall fuel delta c,
+    (thiele_run fuel delta c).(th_mu) <= c.(th_mu) + fuel * (step_cost + 1).
+Proof.
+  induction fuel as [|fuel IH]; intros delta c.
+  - simpl. lia.
+  - simpl. unfold thiele_step.
+    destruct (tm_step delta (th_tm_config c)) as [c'|] eqn:Hstep; [|simpl; lia].
+    remember (match delta (tm_state (th_tm_config c)) (tape_head (tm_tape (th_tm_config c))) with
+              | Some trans => tm_write trans
+              | None => blank
+              end) as written eqn:Hwritten.
+    simpl.
+    specialize (IH delta {| th_tm_config := c'; th_mu := th_mu c + (step_cost + write_cost written) |}).
+    simpl in IH.
+    unfold step_cost, write_cost in *.
+    destruct (Nat.eqb written blank); simpl in *; lia.
+Qed.
+
 (** The certificate is valid: witness ≤ bound *)
 Lemma cost_certificate_valid :
   forall fuel delta c,
     (thiele_cost_certificate fuel delta c).(cc_witness) <=
     (thiele_cost_certificate fuel delta c).(cc_bound).
 Proof.
-  (* The proof is by induction on fuel, showing that each step adds at most
-     step_cost + 1 to the mu ledger, while the bound grows by step_cost + 1.
-     This is tedious but straightforward arithmetic. *)
-  induction fuel as [|fuel IH]; intros delta c.
-  - simpl. lia.
-  - unfold thiele_cost_certificate. simpl.
-    destruct (thiele_step delta c) as [c'|] eqn:Hstep.
-    + (* Step succeeded - apply IH and arithmetic *)
-      specialize (IH delta c').
-      unfold thiele_cost_certificate in IH. simpl in IH.
-      (* Cost per step is at most step_cost + 1 (write_cost ≤ 1) *)
-      unfold thiele_step in Hstep.
-      destruct (tm_step delta (th_tm_config c)) as [tm_c'|] eqn:Htm.
-      * injection Hstep as Hc'.
-        (* th_mu c' = th_mu c + step_cost + write_cost(...) ≤ th_mu c + step_cost + 1 *)
-        assert (Hmu_bound : th_mu c' <= th_mu c + step_cost + 1).
-        { rewrite <- Hc'. simpl. unfold write_cost.
-          destruct (delta _ _); simpl; try lia.
-          destruct (Nat.eqb _ _); simpl; lia. }
-        (* Now apply IH: (th_mu final - th_mu c') ≤ fuel * (step_cost + 1) *)
-        (* And add the step cost: th_mu final - th_mu c ≤ (S fuel) * (step_cost + 1) *)
-        lia.
-      * discriminate.
-    + (* Halted - cost is 0 *)
-      simpl. lia.
+  intros fuel delta c.
+  unfold thiele_cost_certificate. simpl.
+  pose proof (thiele_run_mu_bound fuel delta c) as H.
+  unfold step_cost in *. simpl in *.
+  nia.
 Qed.
 
 (** =========================================================================

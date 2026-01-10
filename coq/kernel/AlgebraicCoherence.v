@@ -16,6 +16,7 @@ Require Import Coq.micromega.Lia.
 Require Import Coq.Reals.Reals.
 Require Import Psatz.
 Require Import Lra.
+Import ListNotations.
 
 (** Correlators for CHSH scenario *)
 Record Correlators := {
@@ -46,9 +47,21 @@ Definition S_from_correlators (c : Correlators) : Q :=
     the first row/column trivially satisfied, leaving a 4x4 constraint.
 *)
 
-(** The 4x4 submatrix for zero marginals - simplified for now *)
+(** The 4x4 submatrix for zero marginals.
+
+    Basis: [A0; A1; B0; B1], with
+    t = ⟨A0 A1⟩, s = ⟨B0 B1⟩ and correlators E_xy = ⟨Ax By⟩. *)
 Definition moment_4x4 (c : Correlators) (t s : Q) : list (list Q) :=
-  nil.  (* Placeholder - full matrix definition complex *)
+  let e00 := E00 c in
+  let e01 := E01 c in
+  let e10 := E10 c in
+  let e11 := E11 c in
+  [
+    [1;   t;   e00; e01];
+    [t;   1;   e10; e11];
+    [e00; e10; 1;   s  ];
+    [e01; e11; s;   1  ]
+  ].
 
 (** Positive semidefiniteness (simplified: all principal minors ≥ 0)
 
@@ -73,21 +86,25 @@ Definition moment_4x4 (c : Correlators) (t s : Q) : list (list Q) :=
     We prove this by showing: if e > 1/√2, no choice of t,s makes Γ PSD.
 *)
 
-(** Algebraic coherence: correlators admit a PSD moment matrix *)
+(** Simplified PSD condition for CHSH-type correlators.
+
+    This encodes the principal-minor constraint used in the algebraic
+    coherence definition without requiring a full matrix PSD library. *)
+Definition moment_4x4_psd (c : Correlators) (t s : Q) : Prop :=
+  let e00 := E00 c in
+  let e01 := E01 c in
+  let e10 := E10 c in
+  let e11 := E11 c in
+  (1 - e00*e00 - e01*e01 - e10*e10 - e11*e11
+   + e00*e11*t + e01*e10*t + e00*e10*s + e01*e11*s
+   - t*s + e00*e01*e10*e11 >= 0).
+
+(** Algebraic coherence: correlators admit a PSD moment matrix. *)
 Definition algebraically_coherent (c : Correlators) : Prop :=
   exists t s : Q,
     -1 <= t <= 1 /\
     -1 <= s <= 1 /\
-    (* The moment matrix with these parameters is PSD *)
-    (* We encode the key eigenvalue constraint *)
-    let e00 := E00 c in
-    let e01 := E01 c in
-    let e10 := E10 c in
-    let e11 := E11 c in
-    (* Simplified PSD condition for CHSH-type correlators *)
-    (1 - e00*e00 - e01*e01 - e10*e10 - e11*e11
-     + e00*e11*t + e01*e10*t + e00*e10*s + e01*e11*s
-     - t*s + e00*e01*e10*e11 >= 0).
+    moment_4x4_psd c t s.
 
 (** Tsirelson bound as rational approximation: 5657/2000 ≈ 2.8285 *)
 Definition tsirelson_bound : Q := 5657 # 2000.

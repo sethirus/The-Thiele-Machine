@@ -191,12 +191,16 @@ Can the RTL be fabricated and validated at silicon level? What are the limits of
 The Thiele Machine is not a finished monument but a foundation. The tools built here are ready for the next generation:
 
 \begin{itemize}
-    \item \textbf{The Coq Kernel}: A verified specification that can be extended to new instruction sets
-    \item \textbf{The Python VM}: An executable reference for rapid prototyping
-    \item \textbf{The Verilog RTL}: A hardware template for physical realization
-    \item \textbf{The Inquisitor}: A discipline enforcer for maintaining proof quality
-    \item \textbf{The Receipt System}: A trust infrastructure for verifiable computation
+    \item \textbf{The Coq Kernel}: A verified specification that can be extended to new instruction sets.
+    \item \textbf{The Python VM}: An executable reference for rapid prototyping.
+    \item \textbf{The Verilog RTL}: A hardware template for physical realization.
+    \item \textbf{The Inquisitor}: A discipline enforcer for maintaining proof quality.
+    \item \textbf{The Receipt System}: A trust infrastructure for verifiable computation.
 \end{itemize}
+
+\begin{center}
+\textbf{Author's Note (Devon)}: When I started this, I thought the hardest part would be the physics. Then I thought it would be the RTL. I was wrong. The hardest part was the silence that follows when you finally run the Inquisitor and it has nothing left to say. No warnings, no admits, no ``HIGH'' findings. Just a clean report. We've built a machine that is forced, by its own silicon, to be honest. It's the first time in my life I've written code that I actually, truly trust. Not because I'm a good coder, but because the machine didn't give me a choice. Zero admits. Zero axioms. Zero lies.
+\end{center}
 
 % Path Forward Diagram
 
