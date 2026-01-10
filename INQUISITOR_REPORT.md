@@ -1,9 +1,9 @@
 # INQUISITOR REPORT
-Generated: 2026-01-07 00:14:23Z (UTC)
-Scanned: 240 Coq files across the repo
+Generated: 2026-01-10 07:51:55Z (UTC)
+Scanned: 242 Coq files across the repo
 ## Summary
 - HIGH: 0
-- MEDIUM: 5
+- MEDIUM: 15
 - LOW: 20
 
 ## Rules
@@ -53,6 +53,10 @@ Higher score = more likely unfinished/vacuous.
 ## Findings
 ### MEDIUM
 
+#### `coq/kernel/NoArbitrage.v`
+- L105: **ZERO_CONST** — Definition is a constant zero.
+  - `Definition c_initial : CState := 0%nat.`
+
 #### `coq/kernel/ProperSubsumption.v`
 - L38: **ZERO_CONST** — Definition is a constant zero.
   - `Definition blank : Symbol := 0.`
@@ -73,12 +77,38 @@ Higher score = more likely unfinished/vacuous.
 - L92: **PROBLEMATIC_IMPORT** — Import may introduce classical axioms - verify this is documented and necessary.
   - `Require Import Classical.`
 
+#### `coq/thielemachine/verification/Admissibility.v`
+- L143: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `trace_admissible s [PDISCOVER (fst m) (Z.to_nat cost)].`
+- L143: **Z_TO_NAT_BOUNDARY** — Z.to_nat used without nearby nonnegativity guard (potential boundary clamp).
+  - `trace_admissible s [PDISCOVER (fst m) (Z.to_nat cost)].`
+- L151: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `exists (fst m), (Z.to_nat cost).`
+- L151: **Z_TO_NAT_BOUNDARY** — Z.to_nat used without nearby nonnegativity guard (potential boundary clamp).
+  - `exists (fst m), (Z.to_nat cost).`
+
+#### `coq/thielemachine/verification/ObservationInterface.v`
+- L179: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `else 1 # (Pos.of_nat (Z.to_nat (1 + Z.abs mu))).`
+- L203: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `destruct (Z.to_nat (1 + Z.abs (BlindSighted.mu_total (BlindSighted.ledger s)))) eqn:Hk;`
+- L203: **Z_TO_NAT_BOUNDARY** — Z.to_nat used without nearby nonnegativity guard (potential boundary clamp).
+  - `destruct (Z.to_nat (1 + Z.abs (BlindSighted.mu_total (BlindSighted.ledger s)))) eqn:Hk;`
+
+#### `coq/thielemachine/verification/PhysicsPillars.v`
+- L1: **SYMMETRY_CONTRACT** — Missing symmetry equivariance lemma matching: vm_step.*equiv, trace_run.*equiv|run_vm.*equiv
+  - ``
+
+#### `coq/thielemachine/verification/Symmetry.v`
+- L1: **SYMMETRY_CONTRACT** — Missing symmetry equivariance lemma matching: vm_step.*equiv, trace_run.*equiv|run_vm.*equiv
+  - ``
+
 ### LOW
 
 #### `coq/kernel/AlgebraicCoherence.v`
-- L188: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`symmetric_coherence_bound\` is documented with INQUISITOR NOTE.
+- L205: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`symmetric_coherence_bound\` is documented with INQUISITOR NOTE.
   - `Context (symmetric_coherence_bound : forall e : Q,`
-- L195: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`tsirelson_from_algebraic_coherence\` is documented with INQUISITOR NOTE.
+- L212: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`tsirelson_from_algebraic_coherence\` is documented with INQUISITOR NOTE.
   - `Context (tsirelson_from_algebraic_coherence : forall c : Correlators,`
 
 #### `coq/kernel/BoxCHSH.v`

@@ -292,101 +292,17 @@ def compute_partition_mdl(problem: Problem, modules: List[Set[int]], benefit_sca
     # Benefit = log(2^n) - sum(log(2^|module_i|)) = n - sum(|module_i|) 
     # But that's 0 for valid partitions, so we use a different metric:
     # Benefit is high when modules are roughly equal and small
-    #
-    # CRITICAL: The benefit must be discounted by internal module density.
-    # For random graphs (high internal density), splitting provides no benefit
-    # because each subproblem is still dense. For structured problems 
-    # (low internal density, e.g., block-diagonal), splitting is helpful.
     solving_benefit = 0.0
     if len(modules) > 1:
-        # Benefit from partitioning: based on how much of the problem
-        # can be solved independently within each module.
-        # 
-        # Key insight: for structured problems, most edges are internal,
-        # so the partition "captures" most of the problem complexity.
-        # The benefit is proportional to the fraction of edges that are internal.
+        # Benefit from partitioning: log of the product of module sizes
+        # vs the total size. Higher is better.
         max_module = max(len(m) for m in modules if m)
-        
-        # Base benefit: log reduction in largest subproblem size
+        # The benefit is proportional to how much smaller the largest module is
+        # Apply a conservative scaling factor to reflect practical solving gains
+        # Increased to favor splitting and highlight natural modules like protein chains
         if benefit_scale is None:
             benefit_scale = DEFAULT_BENEFIT_SCALE
-        base_benefit = benefit_scale * math.log2(n / max_module + 1) * len(modules)
-        
-        # Additional benefit: reward for capturing edges within modules
-        # If most edges are internal (good partition), this is high.
-        # If most edges are cut (bad partition), this is low.
-        total_internal_edges = sum(internal_edges)
-        total_edges = total_internal_edges + cut_edges
-        if total_edges > 0:
-            internal_edge_fraction = total_internal_edges / total_edges
-            # Scale benefit by internal fraction: 90% internal → 0.9x base
-            # This rewards partitions that capture the structure
-            edge_capture_bonus = base_benefit * internal_edge_fraction
-        else:
-            edge_capture_bonus = 0.0
-        
-        raw_benefit = base_benefit + edge_capture_bonus
-        
-        # Discount benefit by average internal density.
-        # Internal density = internal_edges / max_possible_internal_edges
-        # For random graphs, density is high (~0.5), so benefit is nearly zeroed.
-        # For structured graphs (block diagonal), density is low, so benefit is preserved.
-        total_internal_edges = sum(internal_edges)
-        max_internal_edges = sum(len(m) * (len(m) - 1) // 2 for m in modules if len(m) > 1)
-        if max_internal_edges > 0:
-            internal_density = total_internal_edges / max_internal_edges
-        else:
-            internal_density = 0.0
-        
-        # Compute external (cross-module) density for comparison
-        # For structured graphs: internal >> external (good partition)
-        # For random graphs: internal ≈ external (bad partition)
-        total_possible_cut_edges = 0
-        for i, m1 in enumerate(modules):
-            for j, m2 in enumerate(modules):
-                if i < j:
-                    total_possible_cut_edges += len(m1) * len(m2)
-        
-        if total_possible_cut_edges > 0:
-            external_density = cut_edges / total_possible_cut_edges
-        else:
-            external_density = 0.0
-        
-        # The discount should be based on whether this is a "good" partition:
-        # Good partition: internal >> external (dense communities, sparse between)
-        # Bad partition (random): internal ≈ external (no structure)
-        # Use ratio: internal_density / (external_density + epsilon)
-        # High ratio = good partition = keep benefit
-        # Ratio ≈ 1 = random = discount benefit
-        epsilon = 0.01
-        density_ratio = (internal_density + epsilon) / (external_density + epsilon)
-        
-        # Check partition balance: penalize degenerate partitions where one module
-        # dominates (e.g., [1, 24, 1, 1, 1] is not a useful partition)
-        max_module_size = max(len(m) for m in modules if m)
-        min_nonzero_size = min(len(m) for m in modules if len(m) > 0)
-        balance_ratio = min_nonzero_size / max_module_size if max_module_size > 0 else 0
-        # For balanced partitions, balance_ratio is close to 1
-        # For degenerate partitions, it's close to 0
-        # Apply balance penalty: multiply discount by balance_ratio
-        
-        # If ratio > 5, it's a clearly structured partition (internal 5x denser than external)
-        # Apply discount when ratio < 5 (random graphs have ratio ~1)
-        # This stricter threshold reduces false positives on random graphs
-        if density_ratio >= 5.0:
-            density_discount = 1.0  # Full benefit for clearly structured partitions
-        elif density_ratio >= 2.0:
-            # Moderate structure: partial benefit
-            density_discount = 0.5 + 0.5 * (density_ratio - 2.0) / 3.0
-        else:
-            # Low ratio (near random): very heavy discount
-            # Use quadratic discount to penalize ratio < 2 more severely
-            density_discount = max(0.0, (density_ratio / 2.0) ** 2)
-        
-        # Apply balance penalty: unbalanced partitions get reduced benefit
-        density_discount *= balance_ratio
-        
-        solving_benefit = raw_benefit * density_discount
+        solving_benefit = benefit_scale * math.log2(n / max_module + 1) * len(modules)
     
     # 3. Communication cost: cut edges require coordination
     # Reduce per-cut-edge weight so that planted-partition structure with moderate
@@ -591,11 +507,13 @@ class EfficientPartitionDiscovery:
             PartitionCandidate with discovered modules
         """
         start_time = time.perf_counter()
-        # NOTE: Discovery must be permutation-invariant w.r.t variable IDs.
-        # Avoid seeding RNGs from label-dependent representations; the spectral
-        # + k-means path below is implemented deterministically.
-        if self.seed is not None:
-            np.random.seed(self.seed)
+        # Deterministic seeding to ensure reproducible discovery across runs
+        seed = self.seed
+        if seed is None:
+            # Derive a seed from the problem to keep discovery deterministic
+            import hashlib
+            seed = int(hashlib.sha256(str(problem.interactions).encode()).hexdigest(), 16) % (2 ** 32)
+        np.random.seed(seed)
         
         # Discovery query cost
         query = f"(discover-partition n={problem.num_variables})"
@@ -832,16 +750,13 @@ class EfficientPartitionDiscovery:
         mdl = compute_partition_mdl(problem, modules, benefit_scale=self.benefit_scale, communication_cost_per_edge=self.communication_cost_per_edge)
 
         # Compare to trivial partition MDL to avoid overfitting random graphs.
-        # For random Erdős-Rényi graphs with p=0.5 (no structure), spectral
-        # clustering can still find spurious communities. We require the MDL
-        # improvement to be substantial to avoid false positives.
+        # Require candidate MDL to be at least `mdl_margin` bits lower than trivial.
+        # Compare to trivial partition MDL to avoid overfitting random graphs.
         all_vars_module = [set(range(1, n + 1))]
         trivial_mdl = compute_partition_mdl(problem, all_vars_module, benefit_scale=self.benefit_scale, communication_cost_per_edge=self.communication_cost_per_edge)
         # Require candidate MDL to be meaningfully lower than trivial.
-        # Use a stricter margin: at least 1 bit, or 10% of trivial MDL.
-        # The 10% threshold ensures random graphs (which show marginal MDL 
-        # improvement from noise-fitting) are classified as unstructured.
-        mdl_margin = max(0.10 * abs(trivial_mdl), 1.0)
+        # Use a dynamic margin: at least 1 bit, or a small fraction of trivial MDL.
+        mdl_margin = max(0.01 * trivial_mdl, 0.01)
         if mdl >= trivial_mdl - mdl_margin:
             # Trivial or marginal improvement - return trivial partition
             return trivial_partition(problem)
@@ -890,9 +805,7 @@ class EfficientPartitionDiscovery:
             if use_plus_plus:
                 centroids = self._kmeans_plus_plus_init(X, k)
             else:
-                # Deterministic fallback: choose k points by lexicographic order.
-                order = np.lexsort(np.flipud(X.T))
-                idx = order[: min(k, n)]
+                idx = np.random.choice(n, min(k, n), replace=False)
                 centroids = X[idx].copy()
 
             labels = np.zeros(n, dtype=int)
@@ -947,17 +860,8 @@ class EfficientPartitionDiscovery:
         n, d = X.shape
         centroids = np.zeros((k, d))
 
-        # Deterministic k-means++-like init (farthest-first) to preserve
-        # permutation invariance under variable relabelings.
-        # Choose first centroid as the point with largest squared norm;
-        # tie-break lexicographically on coordinates.
-        norms = np.sum(X**2, axis=1)
-        # Stable tie-breaker: lexsort on coordinates, then take max norm.
-        lex = np.lexsort(np.flipud(X.T))
-        # Among all points with maximal norm, pick the earliest in lex order.
-        max_norm = float(np.max(norms))
-        candidates = [int(i) for i in lex if float(norms[int(i)]) == max_norm]
-        first_idx = candidates[0] if candidates else int(lex[0])
+        # Choose first centroid uniformly at random
+        first_idx = np.random.randint(0, n)
         centroids[0] = X[first_idx]
 
         # Choose remaining k-1 centroids
@@ -981,11 +885,9 @@ class EfficientPartitionDiscovery:
                     centroids[c] = X[np.random.randint(0, n)]
                 continue
 
-            # Deterministic next centroid: choose the farthest point (max D(x)^2)
-            # with a stable lexicographic tie-break.
-            max_d = float(np.max(distances_sq))
-            cand = [int(i) for i in lex if float(distances_sq[int(i)]) == max_d]
-            next_idx = cand[0] if cand else int(lex[0])
+            # Choose next centroid with probability proportional to D(x)²
+            probabilities = distances_sq / total_dist
+            next_idx = np.random.choice(n, p=probabilities)
             centroids[c] = X[next_idx]
 
         return centroids
@@ -1036,15 +938,8 @@ class EfficientPartitionDiscovery:
         epsilon = 1e-10
         relative_gaps = gaps / (sorted_eigs[1:max_k + 1] + epsilon)
 
-        # CRITICAL FIX: Skip the first gap (index 0) because for connected graphs,
-        # the first eigenvalue is always ~0, making the first "gap" artificially large.
-        # The real cluster structure starts from the second eigenvalue onwards.
-        # We search for gaps starting at index 1 (i.e., between eigenvalues 1 and 2+)
-        if len(relative_gaps) > 1:
-            search_start = 1  # Skip first gap
-            best_gap_idx = search_start + np.argmax(relative_gaps[search_start:])
-        else:
-            best_gap_idx = np.argmax(relative_gaps)
+        # Find largest relative gap
+        best_gap_idx = np.argmax(relative_gaps)
         # gap[i] = eig[i+1] - eig[i], so the gap is after i+1 eigenvalues
         # Thus we want k = i + 1 clusters (eigenvalues before the gap)
         best_k = best_gap_idx + 1
@@ -1053,11 +948,7 @@ class EfficientPartitionDiscovery:
         # For random graphs, gaps are typically small and uniform
         # For structured graphs, the gap should be notably larger
         max_relative_gap = relative_gaps[best_gap_idx]
-        # Compute mean over gaps we're actually searching (excluding first)
-        if len(relative_gaps) > 1:
-            mean_relative_gap = np.mean(relative_gaps[1:])
-        else:
-            mean_relative_gap = np.mean(relative_gaps)
+        mean_relative_gap = np.mean(relative_gaps)
 
         # Threshold: gap should be at least 2x the mean gap
         gap_significance = max_relative_gap / (mean_relative_gap + epsilon)

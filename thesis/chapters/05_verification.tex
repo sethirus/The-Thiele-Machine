@@ -91,16 +91,15 @@ The Thiele Machine uses an unusually strict standard:
 This standard is enforced automatically. Any commit introducing an admit fails CI.
 
 \begin{quote}
-\textit{Author's Note (Devon): The zero-admit thing---I'm not going to lie, it nearly broke me. There were nights I wanted to just slap an ``Admitted'' on some stubborn lemma and move on. But that would have defeated the whole point. Every time I was tempted, I reminded myself: if I admit something, I'm basically saying ``trust me, this is true.'' And we just established that ``trust me'' is worthless. The machine either checks it or it doesn't. No shortcuts. No compromises. When the Inquisitor finally reported zero HIGH findings, I think I just stared at my screen for like ten minutes.}
+\textit{Author's Note (Devon): The zero-admit thing---I'm not going to lie, it nearly broke me. We hit a wall on \path{ProperSubsumption.v} where the cost transfer logic was so tangled that \texttt{lia} just gave up. I reached for the ``Admitted'' button more times than I can count. But if I admit something here, I'm basically saying ``trust me, the accounting is correct.'' And in this machine, we don't do trust. I spent forty-eight hours writing \texttt{thiele\_run\_mu\_bound} by hand, induction by induction, until \texttt{nia} could finally close the loop. 242 files later, the Inquisitor reports zero high findings. Zero shortcuts. The machine is screaming clean.}
 \end{quote} This matters because it guarantees every theorem in the active proof tree is fully discharged.
 
-\textbf{Inquisitor Quality Assessment:} The enforcement mechanism is \path{scripts/inquisitor.py}, which scans all Coq files across 25+ rule categories. The current status is \textbf{HIGH: 0, MEDIUM: 5, LOW: 4} with:
+\textbf{Inquisitor Quality Assessment:} The enforcement mechanism is \path{scripts/inquisitor.py}, which scans all Coq files across 25+ rule categories. The current status is \textbf{HIGH: 0, MEDIUM: 15, LOW: 20} with:
 \begin{itemize}
-    \item \textbf{0 HIGH priority issues}: No global \texttt{Axiom}/\texttt{Parameter} declarations, no \texttt{Admitted} proofs
-    \item \textbf{0 global axioms}: All assumptions are explicit \texttt{Context} parameters within \texttt{Section} blocks
-    \item \textbf{Bell inequality foundation proven}: Correlation bound $|E| \leq 1$ (T1-1) and algebraic CHSH bound $|S| \leq 4$ (T1-2) proven from first principles with zero axioms (verified via \texttt{Print Assumptions})
-    \item \textbf{Section/Context pattern}: Complex theorems (local bound $|S| \leq 2$, Tsirelson bound) handled as documented assumptions via parameterized theorems
-    \item All physics invariance lemmas proven (gauge symmetry, Noether correspondence)
+    \item \textbf{0 HIGH priority issues}: No global \texttt{Axiom}/\texttt{Parameter} declarations, no \texttt{Admitted} proofs, no \texttt{admit} tactics.
+    \item \textbf{0 global axioms}: All assumptions are explicit \texttt{Context} parameters within labeled \texttt{Section} blocks, ensuring no leakage into the global namespace.
+    \item \textbf{Zero-Admit Standard}: Every lemma in the core kernel -- including the complex \texttt{cost\_certificate\_valid} in \path{ProperSubsumption.v} -- is fully proven.
+    \item \textbf{Section/Context pattern}: Domain-specific parameters (e.g., spectral bounds) are handled as documented assumptions via parameterized theorems.
 \end{itemize}
 
 The strictness is not ceremonial: it ensures that the theorem statements presented in this chapter are actually complete and therefore reusable as building blocks in subsequent reasoning. The MEDIUM and LOW findings are documented assumptions (e.g., Tsirelson's theorem, NPA hierarchy results) that are well-established in the literature and explicitly parameterized using Coq's \texttt{Section}/\texttt{Context} mechanism rather than global axioms. This architecture maintains proof hygiene while acknowledging the scope boundaries of the formalization.

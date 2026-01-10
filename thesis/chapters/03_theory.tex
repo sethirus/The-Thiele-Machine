@@ -1597,7 +1597,7 @@ This is the computational analog of Noether's theorem: the gauge symmetry (abili
 
 \textbf{Final arrow:} Points to Tsirelson bound derivation (next chapter)
 
-\textbf{Key insight:} This chapter builds the formal foundation. The model's two key properties ($\mu$-monotonicity + locality) combine to prove No Free Insight. Note: the algebraic bound ($S \le 4$) is proven from $\mu=0$; the Tsirelson bound ($2\sqrt{2}$) requires additional algebraic coherence constraints (see \texttt{TsirelsonUniqueness.v}).
+\textbf{Key insight:} This chapter builds the formal foundation. The model's two key properties ($\mu$-monotonicity + locality) combine to prove No Free Insight. Note: the algebraic bound ($S \le 4$) is proven if computational cost $\mu_{\text{inst}} = 0$; reaching the Tsirelson bound ($2.8284...$) requires \emph{Total $\mu$-Accounting} ($\mu_{\text{inst}} + \mu_{\text{corr}} = 0$), where the correlation cost $\mu_{\text{corr}}$ enforces algebraic coherence (see \texttt{TsirelsonUniqueness.v}).
 
 This chapter defined the Thiele Machine as a formal 5-tuple $T = (S, \Pi, A, R, L)$ with these key results:
 
@@ -1620,4 +1620,4 @@ This chapter defined the Thiele Machine as a formal 5-tuple $T = (S, \Pi, A, R, 
     \item \textbf{Gauge Symmetry}: The partition structure is invariant under $\mu$-shifts (computational Noether's theorem).
 \end{enumerate}
 
-These formal foundations enable the implementation (Chapter 4), verification (Chapter 5), and evaluation (Chapter 6). Note: per \texttt{TsirelsonUniqueness.v}, $\mu=0$ implies only the algebraic bound $S \le 4$; the Tsirelson bound $2\sqrt{2}$ requires additional algebraic coherence constraints.
+These formal foundations enable the implementation (Chapter 4), verification (Chapter 5), and evaluation (Chapter 6). Importantly, under \emph{Total $\mu$-Accounting}, setting $\mu_{\text{total}} = 0$ requires all components ($\mu_{\text{inst}}$ and $\mu_{\text{corr}}$) to be zero, where $\mu_{\text{corr}} = 0$ is exactly the condition of \emph{Algebraic Coherence} required to recover the Tsirelson bound $S \le 2.8284...$. Without enforcing $\mu_{\text{corr}} = 0$, the system is only bounded by the algebraic limit $S \le 4$.
