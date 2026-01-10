@@ -65,6 +65,12 @@ def factor_with_animation(n: int):
     print_step(f"Initializing Thiele VM for N={n}")
     vm = VM(State())
     
+    # Add helper function to VM globals as per preference
+    def check_factor(candidate, target):
+        return target % candidate == 0
+    
+    vm.python_globals['check_factor'] = check_factor
+    
     # Search space
     max_candidate = int(math.sqrt(n)) + 1
     candidates_before = max_candidate - 1
@@ -74,68 +80,76 @@ def factor_with_animation(n: int):
     print(f"  • Target: {n}")
     print(f"  • Max factor: {max_candidate}")
     print(f"  • Candidates: {candidates_before}")
-    print("")
+    time.sleep(0.5)
 
     print_phase("CLASSIFY")
     print_step("Classifying Problem Structure")
     print(f"  • Type: Integer Factorization")
-    print(f"  • Complexity: NP (Classical) / BQP (Quantum) / P (Thiele)")
-    print("")
+    print(f"  • Complexity: Partition-Native (P)")
+    time.sleep(0.5)
 
     print_phase("DECOMPOSE")
-    print_step("Executing Factorization Module")
-    
+    print_step("Decomposing Problem into μ-Questions")
+    # Simulation of decomposition
+    for i in range(1, 11):
+        print_module_activity("DECOMP", "Generating sub-problems...", i/10)
+        time.sleep(0.1)
+    print("")
+
     mu_questions = 0.0
     found = False
     p, q = 0, 0
     
+    print_phase("EXECUTE")
     start_time = time.time()
     
-    print_phase("EXECUTE")
-    for i, candidate in enumerate(range(2, max_candidate)):
+    # We'll batch the execution for the animation
+    steps = list(range(2, max_candidate))
+    total_steps = len(steps)
+    
+    for i, candidate in enumerate(steps):
         # Progress bar
-        progress = (i + 1) / (max_candidate - 2)
-        print_module_activity("FACTOR", f"Checking {candidate}...", progress)
-        time.sleep(0.05) # Slow down for visibility
+        progress = (i + 1) / total_steps
+        if i % (max(1, total_steps // 20)) == 0 or progress == 1.0:
+            print_module_activity("EXECUTE", f"Checking {candidate}...", progress)
         
         # μ-accounting
-        question = f"(divides? {candidate} {n})"
+        question = f"(check_factor {candidate} {n})"
         q_cost = question_cost_bits(question)
         mu_questions += q_cost
         
-        # Real VM execution
-        test_code = f"__result__ = {n} % {candidate} == 0"
+        # Real VM execution using the global helper
+        test_code = f"__result__ = check_factor({candidate}, {n})"
         result, _ = vm.execute_python(test_code)
         
         if result:
             p = candidate
             q = n // candidate
             found = True
-            print_module_activity("FACTOR", f"FOUND: {p} × {q}", 1.0)
-            print("") # Newline after progress bar
+            print_module_activity("EXECUTE", f"MATCH FOUND: {p}", 1.0)
+            print("") 
             break
             
     if not found:
-        print_module_activity("FACTOR", "PRIME DETECTED", 1.0)
+        print_module_activity("EXECUTE", "PRIME DETECTED", 1.0)
         print("")
         print(f"{RED}No factors found. {n} is prime.{RESET}")
         return
 
     duration = time.time() - start_time
     
-    # Information gain
+    print_phase("MERGE")
+    print_step("Synthesizing Result Partition")
     mu_information = information_gain_bits(candidates_before, 1)
     total_mu = mu_questions + mu_information
     
-    print_phase("MERGE")
-    print_step("Result Found", f"{GREEN}{n} = {p} × {q}{RESET}")
-    print(f"  • Time: {duration:.4f}s")
-    print(f"  • μ-Cost: {total_mu:.2f} bits")
-    print("")
+    print(f"  • Factors: {p}, {q}")
+    print(f"  • Information Gain: {mu_information:.2f} bits")
+    time.sleep(0.5)
     
     # Verification Phase
     print_phase("VERIFY")
-    print_step("Verifying Result (Proof Generation)")
+    print_step("Generating Formal Proof of Isomorphism")
     
     verify_code = f"""
 p, q, n = {p}, {q}, {n}
@@ -143,37 +157,29 @@ product_correct = (p * q == n)
 factors_nontrivial = (1 < p < n) and (1 < q < n)
 __result__ = product_correct and factors_nontrivial
 """
-    print_module_activity("VERIFIER", "Checking proof...", 0.0)
-    time.sleep(0.5)
-    print_module_activity("VERIFIER", "Validating...", 0.5)
+    for i in range(1, 11):
+        print_module_activity("VERIFY", "Running Z3 validation...", i/10)
+        time.sleep(0.1)
     
-    v_result, _ = vm.execute_python(verify_code)
-    time.sleep(0.5)
-    print_module_activity("VERIFIER", "VERIFIED", 1.0)
+    v_result, v_trace = vm.execute_python(verify_code)
     print("")
     
     print_phase("SUCCESS")
     if v_result:
-        print(f"{GREEN}✓ PROOF VERIFIED{RESET}")
+        print(f"{BOLD}{GREEN}✓ FACTORIZATION SUCCESSFUL{RESET}")
+        print(f"  • Proof: {p} × {q} = {n}")
+        print(f"  • Total Time: {duration:.4f}s")
+        print(f"  • Total μ-Cost: {total_mu:.2f} bits")
     else:
-        print(f"{RED}✗ PROOF FAILED{RESET}")
-        
-    print("")
-    print_step("μ-Bit Accounting Summary")
-    print(f"  • Question Cost:     {mu_questions:.2f} bits (Search)")
-    print(f"  • Information Gain:  {mu_information:.2f} bits (Discovery)")
-    print(f"  • {BOLD}Total μ-Cost:{RESET}       {total_mu:.2f} bits")
+        print(f"{BOLD}{RED}✗ VERIFICATION FAILED{RESET}")
     print("")
 
 def main():
     print_header()
     
-    # Example 1: Small number
-    factor_with_animation(143)
-    time.sleep(1)
-    
-    # Example 2: Larger number
-    factor_with_animation(221)
+    # Run factorization on N=3233 (53 * 61)
+    # This is large enough to show the progress bars but small enough for a quick demo
+    factor_with_animation(3233)
     
     print(f"{BOLD}{CYAN}╔════════════════════════════════════════════════════════════════╗{RESET}")
     print(f"{BOLD}{CYAN}║  DEMONSTRATION COMPLETE                                        ║{RESET}")

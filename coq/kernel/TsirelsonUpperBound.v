@@ -376,12 +376,12 @@ Require Import Kernel.AlgebraicCoherence.
 Theorem algebraic_max_not_coherent :
   ~ algebraically_coherent (symmetric_correlators 1).
 Proof.
-  unfold algebraically_coherent, symmetric_correlators. simpl.
+  unfold algebraically_coherent, symmetric_correlators, moment_4x4_psd. simpl.
   intros [t [s [[Ht1 Ht2] [[Hs1 Hs2] Hpsd]]]].
-  (* At e=1, the PSD constraint simplifies to: -4 - t*s ≥ 0
-     This requires t*s ≤ -4. But for t,s in [-1,1], we have t*s >= -1.
-     Contradiction. Use psatz for nonlinear rational arithmetic. *)
-  psatz Q 2.
+  (* Hpsd unfolds to: 0 <= -4 - t*s, which means t*s <= -4.
+     But -1 <= t <= 1 and -1 <= s <= 1 imply -1 <= t*s.
+     psatz solves polynomial inequality systems over Q. *)
+  nra.
 Qed.
 
 (** Extract correlators from VM trace *)
