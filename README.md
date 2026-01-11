@@ -196,7 +196,7 @@ Each instruction has a defined μ-cost. The ledger is updated atomically. μ-mon
 |---------|---------------------|------|
 | `mu_is_initial_monotone` | **μ is THE unique canonical cost functional (Initiality)** | `MuInitiality.v` |
 | `mu_is_landauer_valid` | **μ satisfies Landauer's erasure bound** | `MuNecessity.v` |
-| `tsirelson_from_pure_accounting` | **Tsirelson bound 2√2 derived from total μ=0** | `TsirelsonDerivation.v` |
+| `local_box_CHSH_bound` | **Classical bound 2 proven for μ=0 (factorizable correlations)** | `MinorConstraints.v` |
 | `main_subsumption` | Thiele Machine strictly subsumes Turing Machine | `Subsumption.v` |
 | `mu_conservation_kernel` | μ-ledger never decreases under any transition | `MuLedgerConservation.v` |
 | `no_free_insight_general` | Search space reduction requires proportional μ-investment | `NoFreeInsight.v` |
@@ -232,27 +232,37 @@ The computational model exhibits **structural parallels** to physical laws:
 | Energy conservation | μ-monotonicity | **✅ PROVEN** |
 | Bell locality (no-signaling) | Observational no-signaling | **✅ PROVEN** |
 | Noether's theorem | Gauge invariance of partitions | **✅ PROVEN** |
-| **Algebraic CHSH bound** | **Instruction μ=0 implies CHSH ≤ 4** | **✅ PROVEN** |
-| **Tsirelson bound (2√2)** | **Total μ=0 implies CHSH ≤ 2√2** | **✅ PROVEN** |
+| **Classical CHSH bound** | **μ=0 (factorizable) implies CHSH ≤ 2** | **✅ PROVEN** |
+| **Quantum Tsirelson bound** | **μ>0 (non-factorizable) allows CHSH ≤ 2√2** | **⚠️ CONJECTURED** |
 | Irreversibility | μ-ledger monotonicity | **✅ PROVEN** |
 
-### CHSH Bounds: What's Actually Proven
+### CHSH Bounds: Classical vs Quantum Distinction
 
-**The Complete Derivation** (TsirelsonDerivation.v, January 2026):
+**CRITICAL REVISION** (January 2026, MU_COST_REVISION.md):
 
-The Tsirelson bound 2√2 is derived from pure μ-accounting:
+The μ-cost framework distinguishes **classical** from **quantum** correlations:
 
-1. **Instruction μ = 0**: No REVEAL or LASSERT operations used
-2. **Correlation μ = 0**: The correlation strategy is algebraically coherent
+**1. Classical Correlations (μ=0)** — **PROVEN** ✅
+- **Operations**: PNEW, PSPLIT, PMERGE, CHSH_TRIAL (all cost μ=0)
+- **Characterization**: Factorizable E(a,b|x,y) = EA(a|x) · EB(b|y)
+- **Mathematical constraint**: Satisfies 3×3 minor constraints
+- **CHSH bound**: |S| ≤ 2 (classical/local bound)
+- **Proof**: `local_box_CHSH_bound` in MinorConstraints.v (line 188, ends in Qed)
+- **Theorem**: Minor constraints → Fine's theorem → CHSH ≤ 2
 
-**Key Insight**: Correlations themselves have specification cost. Supra-quantum correlations (CHSH > 2√2) require explicit coordination between parties - a lookup table specifying P(a,b|x,y). This coordination IS the correlation μ-cost.
+**2. Quantum Correlations (μ>0 required)** — **CONJECTURED** ⚠️
+- **Operations**: LJOIN, REVEAL, LASSERT (all cost μ=1)
+- **Characterization**: Non-factorizable E(a,b|x,y) ≠ EA(a|x) · EB(b|y)
+- **Mathematical constraint**: Violates 3×3 minors, satisfies NPA-1 hierarchy
+- **CHSH bound**: |S| ≤ 2√2 (Tsirelson/quantum bound)
+- **Status**: Requires different proof technique (SDP or full NPA hierarchy)
 
-**What's proven**:
-1. **Algebraic bound** (`TsirelsonUniqueness.v`): Instruction μ=0 implies CHSH ≤ 4 ✅
-2. **Coherence = Zero correlation μ** (`TsirelsonDerivation.v`): Algebraically coherent correlations have zero specification cost ✅
-3. **Tsirelson from total μ=0** (`TsirelsonDerivation.v`): Instruction μ=0 + Correlation μ=0 implies CHSH ≤ 2√2 ✅
+**Key Insight**:
+- μ = 0 ⟺ Factorizable operations ⟺ Classical correlations ⟺ CHSH ≤ 2
+- μ > 0 ⟺ Non-factorizable operations ⟺ Quantum entanglement ⟺ CHSH ≤ 2√2
+- **μ-cost measures departure from factorizability** (entanglement cost)
 
-**The derivation**: Quantum correlations are exactly those achievable with zero total μ-cost. The Tsirelson bound is not assumed - it **emerges** from requiring both operational and correlation μ to be zero.
+See `coq/MU_COST_REVISION.md` for complete analysis.
 
 ---
 
