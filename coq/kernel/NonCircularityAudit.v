@@ -22,7 +22,7 @@ Import ListNotations.
 Local Open Scope Q_scope.
 
 From Kernel Require Import VMState VMStep CHSHExtraction MuCostModel.
-From Kernel Require Import TsirelsonLowerBound TsirelsonUpperBound.
+From Kernel Require Import ClassicalBound TsirelsonUpperBound.
 
 (** =========================================================================
     SECTION 1: PRIMITIVE RULES AUDIT
@@ -57,10 +57,12 @@ From Kernel Require Import TsirelsonLowerBound TsirelsonUpperBound.
     - NO REFERENCE to 2√2, Tsirelson, or quantum mechanics
     
     CONCLUSION: The primitives contain ZERO quantum structure.
-    The value 2√2 appears ONLY in:
-    - TsirelsonLowerBound.v: as target_chsh_value (rational approximation)
-    - This is ACHIEVABLE by a μ=0 program (constructive witness)
-    - It is NOT encoded as a constraint
+
+    CRITICAL REVISION (January 2026):
+    - μ=0 programs achieve CHSH = 2 (CLASSICAL bound, not 2√2!)
+    - ClassicalBound.v: demonstrates classical_achieving_trace achieves S=2
+    - Quantum bound (2√2) requires μ>0 operations (LJOIN, REVEAL, LASSERT)
+    - See MU_COST_REVISION.md for complete analysis
     ========================================================================= *)
 
 (** ** Audit 1: μ-Cost Is Physics-Free *)
@@ -101,10 +103,12 @@ Proof. unfold chsh_formula_is_algebraic. intros. reflexivity. Qed.
 
 (** ** Audit 3: Where Does 2√2 Appear? *)
 
-(** The value 5657/2000 ≈ 2.8285 ≈ 2√2 appears in ONE place:
-    TsirelsonLowerBound.target_chsh_value
-    
-    This is NOT a constraint - it is the ACHIEVED value of a constructive program.
+(** CORRECTED (January 2026):
+    The value 2 (classical bound) is achieved by μ=0 programs:
+    ClassicalBound.classical_achieving_trace
+
+    The quantum Tsirelson bound 5657/2000 ≈ 2√2 requires μ>0 operations.
+    This is NOT a constraint - bounds emerge from μ-accounting.
     The derivation shows this value is OPTIMAL, not assumed. *)
 
 Definition target_appears_as_achievable_value : Prop :=
@@ -317,9 +321,9 @@ Qed.
             Output: μ=0-LOCC class (operational characterization)
             Physics content: NONE
     
-    STEP 4: Construct optimal μ=0 program (TsirelsonLowerBound.v)
-            Input: μ=0-LOCC class
-            Output: Constructive witness achieving ≈2√2
+    STEP 4: Construct optimal μ=0 program (ClassicalBound.v)
+            Input: μ=0-LOCC class (factorizable correlations)
+            Output: Constructive witness achieving S=2 (classical bound)
             Physics content: Strategy encoding (but NOT as constraint)
     
     STEP 5: Prove upper bound (TsirelsonUpperBound.v)

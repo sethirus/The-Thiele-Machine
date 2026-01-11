@@ -14,7 +14,7 @@ Local Open Scope Q_scope.
 
 From Kernel Require Import VMState VMStep.
 From Kernel Require Import CHSHExtraction MuCostModel.
-From Kernel Require Import TsirelsonLowerBound TsirelsonUpperBound.
+From Kernel Require Import ClassicalBound TsirelsonUpperBound.
 
 (** ** Abstract Correlation Definition *)
 
