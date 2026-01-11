@@ -183,6 +183,13 @@ Module GeometricSignature.
     else
       CHAOTIC.
 
+  (** Boolean version: returns true if signature is classified as STRUCTURED *)
+  Definition is_structured_signature (sig : GeometricSignatureTy) : bool :=
+    match classify_signature sig with
+    | STRUCTURED => true
+    | CHAOTIC => false
+    end.
+
   (** * Key Theorems *)
 
   (** VI matrix is symmetric - follows from vi_symmetric axiom *)
