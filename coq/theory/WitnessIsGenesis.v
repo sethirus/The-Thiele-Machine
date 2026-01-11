@@ -5,7 +5,7 @@ Set Implicit Arguments.
 From Coq Require Import Bool.Bool.
 From Coq Require Import Arith.PeanoNat.
 
-Require Import theory.Genesis.
+Require Import Theory.Genesis.
 
 Record CreatorState := {
   creator_hash : nat;

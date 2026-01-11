@@ -51,6 +51,19 @@ Definition pr_box (x y a b : nat) : Q :=
     by explicit case analysis but requires checking many constraints.
 *)
 
+(* Definition of tripartite extension *)
+Definition has_valid_extension (box : nat -> nat -> nat -> nat -> Q) : Prop :=
+  exists (P : nat -> nat -> nat -> nat -> nat -> nat -> Q),
+    (forall x y z a b c, P x y z a b c >= 0) /\
+    (forall x y z, 
+      (P x y z 0%nat 0%nat 0%nat + P x y z 0%nat 0%nat 1%nat + 
+       P x y z 0%nat 1%nat 0%nat + P x y z 0%nat 1%nat 1%nat +
+       P x y z 1%nat 0%nat 0%nat + P x y z 1%nat 0%nat 1%nat + 
+       P x y z 1%nat 1%nat 0%nat + P x y z 1%nat 1%nat 1%nat) == 1) /\
+    (forall x y a b,
+      box x y a b == (P x y 0%nat a b 0%nat + P x y 0%nat a b 1%nat + 
+                       P x y 1%nat a b 0%nat + P x y 1%nat a b 1%nat)).
+
 Section TripartiteExtensions.
 
 (** Assumption: PR box cannot be extended to a tripartite distribution.

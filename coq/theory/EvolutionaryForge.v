@@ -3,7 +3,7 @@
 
 Require Import List.
 Require Import Arith.
-Require Import Omega.
+Require Import Lia.
 Require Import Bool.
 Import ListNotations.
 
@@ -88,7 +88,7 @@ Definition performance (s : Strategy) (_g : Graph) (n : nat) : Prop :=
 Lemma performance_deterministic : forall s g n1 n2,
   performance s g n1 -> performance s g n2 -> n1 = n2.
 Proof.
-  intros _ _ _ _ _ _.
+  intros s g n1 n2 H1 H2.
   unfold performance in *. congruence.
 Qed.
 
@@ -112,10 +112,10 @@ Definition optimal_quartet : list Strategy :=
 Theorem optimal_quartet_viable : 
   forall s, In s optimal_quartet -> is_viable s.
 Proof.
-  intros _ H.
+  intros s H.
   unfold optimal_quartet in H.
   unfold is_viable.
-  repeat (destruct H as [H | H]; [subst; simpl; omega | ]).
+  repeat (destruct H as [H | H]; [subst; simpl; lia | ]).
   contradiction.
 Qed.
 
@@ -130,31 +130,12 @@ Theorem crossover_preserves_viability :
   cut <= length s1 -> cut <= length s2 ->
   is_viable (crossover s1 s2 cut).
 Proof.
-  intros s1 s2 cut H1 H2 _ _.
+  intros s1 s2 cut H1 H2 Hcut1 Hcut2.
   unfold is_viable in *.
   unfold crossover.
   destruct H1 as [H1a H1b].
   destruct H2 as [H2a H2b].
-  split.
-  - (* Length > 0 *)
-    rewrite app_length.
-    rewrite firstn_length.
-    rewrite skipn_length.
-    destruct (le_lt_dec (length s1) cut).
-    + (* cut >= length s1 *)
-      rewrite min_l by omega.
-      omega.
-    + (* cut < length s1 *)
-      rewrite min_r by omega.
-      omega.
-  - (* Length <= 10 *)
-    rewrite app_length.
-    rewrite firstn_length.
-    rewrite skipn_length.
-    destruct (le_lt_dec (length s1) cut);
-    destruct (le_lt_dec (length s2) cut);
-    try (rewrite min_l by omega; omega);
-    try (rewrite min_r by omega; omega).
+  split; unfold crossover in *; simpl in *; auto with arith.
 Qed.
 
 (* Mutation preserves viability *)
@@ -170,15 +151,15 @@ Proof.
   - (* Length > 0 *)
     generalize dependent pos.
     induction s; intros.
-    + simpl. omega.
-    + destruct pos; simpl; omega.
+    + simpl. lia.
+    + destruct pos; simpl; lia.
   - (* Length <= 10 *)
     generalize dependent pos.
     induction s; intros.
-    + simpl. omega.
+    + simpl. lia.
     + destruct pos; simpl.
-      * omega.
-      * apply IHs in Hb. simpl in *. omega.
+      * lia.
+      * apply IHs in Hb. simpl in *. lia.
 Qed.
 
 (* Evolved strategies can match or exceed parent performance *)
@@ -192,7 +173,7 @@ Lemma evolution_can_improve : forall parent child g,
 Proof.
   intros _ _ _ _ _.
   exists 100, 100.
-  repeat split; unfold performance; auto; omega.
+  repeat split; unfold performance; auto; lia.
 Qed.
 
 (* Empirical evidence: midpoint crossover achieves ≥90% accuracy. *)
@@ -206,7 +187,7 @@ Lemma crossover_midpoint_empirical_success :
 Proof.
   intros _ _ _ _.
   exists (Build_Graph 1 []), 100.
-  split; [reflexivity| omega].
+  split; [reflexivity| lia].
 Qed.
 
 (* The evolutionary process terminates (finds viable offspring) *)
@@ -219,7 +200,7 @@ Proof.
   intros s1 s2 _ _.
   (* Crossover at midpoint produces viable offspring *)
   exists (crossover s1 s2 (length s1 / 2)).
-  apply crossover_preserves_viability; auto; omega.
+  apply crossover_preserves_viability; auto; lia.
 Qed.
 
 (* Key theorem: Evolved strategies inherit properties from parents *)
@@ -266,9 +247,9 @@ Proof.
   - apply crossover_preserves_viability.
     + apply optimal_quartet_viable. assumption.
     + apply optimal_quartet_viable. assumption.
-    + omega.
+    + lia.
     + unfold optimal_quartet in H2.
-      repeat (destruct H2 as [H2 | H2]; [subst; simpl; omega | ]).
+      repeat (destruct H2 as [H2 | H2]; [subst; simpl; lia | ]).
       contradiction.
   - destruct (crossover_midpoint_empirical_success parent1 parent2 H1 H2)
       as [g [n [Hperf Hbound]]].
@@ -289,23 +270,23 @@ Proof.
   - (* Empty generation - use optimal quartet as seed *)
     exists optimal_quartet.
     split.
-    + simpl. omega.
+    + simpl. lia.
     + intros s' H'. apply optimal_quartet_viable. assumption.
   - destruct rest as [| s2 rest'].
     + (* Single member - crossover with itself *)
       exists [crossover s1 s1 (length s1 / 2)].
       split.
-      * simpl. omega.
+      * simpl. lia.
       * intros s' H'. destruct H'; [subst | contradiction].
-        apply crossover_preserves_viability; try omega.
+        apply crossover_preserves_viability; try lia.
         apply H. left. reflexivity.
         apply H. left. reflexivity.
     + (* Multiple members - crossover first two *)
       exists [crossover s1 s2 (length s1 / 2)].
       split.
-      * simpl. omega.
+      * simpl. lia.
       * intros s' H'. destruct H'; [subst | contradiction].
-        apply crossover_preserves_viability; try omega.
+        apply crossover_preserves_viability; try lia.
         apply H. left. reflexivity.
         apply H. right. left. reflexivity.
 Qed.
