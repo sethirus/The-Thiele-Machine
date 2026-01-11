@@ -24,7 +24,7 @@ Import ListNotations.
 Local Open Scope Q_scope.
 
 From Kernel Require Import VMState VMStep MuCostModel CHSHExtraction.
-From Kernel Require Import TsirelsonLowerBound TsirelsonUpperBound TsirelsonUniqueness.
+From Kernel Require Import ClassicalBound TsirelsonUpperBound TsirelsonUniqueness.
 From Kernel Require Import QuantumEquivalence NoFreeInsight.
 From Kernel Require Import PythonBisimulation HardwareBisimulation.
 From Kernel Require Import NonCircularityAudit.
