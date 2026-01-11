@@ -42,10 +42,11 @@ make -f Makefile.coq -j$(nproc)
 
 ### Core Results (in `kernel/`)
 
-1. **`tsirelson_from_pure_accounting`** (TsirelsonDerivation.v)
-   - The Tsirelson bound 2√2 derived from total μ=0 (instruction μ + correlation μ)
-   - Key insight: Correlations have specification cost; coherent correlations have zero cost
-   - Proven: total μ=0 → CHSH ≤ 2√2
+1. **`local_box_CHSH_bound`** (MinorConstraints.v)
+   - The classical bound 2 proven for factorizable correlations (μ=0)
+   - Key insight: Minor constraints ⟺ Factorizable ⟺ Classical bound
+   - Proven: μ=0 (factorizable operations only) → CHSH ≤ 2 (classical bound)
+   - Note: Quantum bound (2√2) requires μ>0 operations (LJOIN, REVEAL, LASSERT)
 
 2. **`mu_is_initial_monotone`** (MuInitiality.v)
    - μ is THE unique canonical cost functional (Initiality Theorem)
