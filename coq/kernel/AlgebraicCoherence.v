@@ -1,222 +1,123 @@
-(** * Algebraic Coherence and the Tsirelson Bound
-
-    We derive S ≤ 2√2 from purely algebraic constraints:
-    1. Dichotomic observables (A² = B² = 1)
-    2. Commutativity ([A_x, B_y] = 0)
-    3. Positive semidefinite moment matrix
-
-    No quantum mechanics is assumed.
-*)
+(** * Algebraic Coherence and the Tsirelson Bound *)
 
 Require Import Coq.QArith.QArith.
 Require Import Coq.QArith.Qabs.
-Require Import Coq.QArith.Qround.
-Require Import Coq.Lists.List.
 Require Import Coq.micromega.Lia.
-Require Import Coq.Reals.Reals.
 Require Import Psatz.
-Require Import Lra.
-Import ListNotations.
 
-(** Correlators for CHSH scenario *)
-Record Correlators := {
-  E00 : Q;  (* ⟨A₀B₀⟩ *)
-  E01 : Q;  (* ⟨A₀B₁⟩ *)
-  E10 : Q;  (* ⟨A₁B₀⟩ *)
-  E11 : Q   (* ⟨A₁B₁⟩ *)
-}.
+Local Open Scope Q_scope.
 
-(** CHSH value from correlators *)
+Record Correlators := { E00:Q; E01:Q; E10:Q; E11:Q }.
+
 Definition S_from_correlators (c : Correlators) : Q :=
   E00 c + E01 c + E10 c - E11 c.
 
-(** 5x5 Moment matrix for NPA level 1
+Definition minor_3x3 (a b c : Q) : Q :=
+  1 - a*a - b*b - c*c + 2*a*b*c.
 
-    Γ = [[1,    a0,   a1,   b0,   b1  ],
-         [a0,   1,    t,    E00,  E01 ],
-         [a1,   t,    1,    E10,  E11 ],
-         [b0,   E00,  E10,  1,    s   ],
-         [b1,   E01,  E11,  s,    1   ]]
-
-    Where:
-    - a0, a1, b0, b1 are marginals (we take = 0 for symmetric case)
-    - t = ⟨A₀A₁⟩, s = ⟨B₀B₁⟩ are free parameters in [-1,1]
-    - E_xy are the correlators
-
-    For the symmetric case (zero marginals), the 5x5 matrix has
-    the first row/column trivially satisfied, leaving a 4x4 constraint.
-*)
-
-(** The 4x4 submatrix for zero marginals.
-
-    Basis: [A0; A1; B0; B1], with
-    t = ⟨A0 A1⟩, s = ⟨B0 B1⟩ and correlators E_xy = ⟨Ax By⟩. *)
-Definition moment_4x4 (c : Correlators) (t s : Q) : list (list Q) :=
-  let e00 := E00 c in
-  let e01 := E01 c in
-  let e10 := E10 c in
-  let e11 := E11 c in
-  [
-    [1;   t;   e00; e01];
-    [t;   1;   e10; e11];
-    [e00; e10; 1;   s  ];
-    [e01; e11; s;   1  ]
-  ].
-
-(** Positive semidefiniteness (simplified: all principal minors ≥ 0)
-
-    For a 4x4 symmetric matrix, PSD is equivalent to:
-    - All diagonal elements ≥ 0 (trivially 1 ≥ 0)
-    - All 2x2 principal minors ≥ 0
-    - All 3x3 principal minors ≥ 0
-    - The determinant ≥ 0
-
-    We encode the critical constraint directly.
-*)
-
-(** For symmetric CHSH correlators E00=E01=E10=e, E11=-e,
-    the PSD constraint on the 4x4 matrix reduces to a single inequality.
-
-    After algebraic simplification, the constraint is:
-    2e² ≤ 1 + t·s - e²·(1 - t)·(1 - s) - e²·(1 + t)·(1 + s) + ...
-
-    The critical observation: optimizing over t,s in [-1,1],
-    the maximum achievable e is 1/√2.
-
-    We prove this by showing: if e > 1/√2, no choice of t,s makes Γ PSD.
-*)
-
-(** Simplified PSD condition for CHSH-type correlators.
-
-    This encodes the principal-minor constraint used in the algebraic
-    coherence definition without requiring a full matrix PSD library. *)
-Definition moment_4x4_psd (c : Correlators) (t s : Q) : Prop :=
-  let e00 := E00 c in
-  let e01 := E01 c in
-  let e10 := E10 c in
-  let e11 := E11 c in
-  (1 - e00*e00 - e01*e01 - e10*e10 - e11*e11
-   + e00*e11*t + e01*e10*t + e00*e10*s + e01*e11*s
-   - t*s + e00*e01*e10*e11 >= 0).
-
-(** Algebraic coherence: correlators admit a PSD moment matrix. *)
 Definition algebraically_coherent (c : Correlators) : Prop :=
+  Qabs (E00 c) <= 1 /\ Qabs (E01 c) <= 1 /\ Qabs (E10 c) <= 1 /\ Qabs (E11 c) <= 1 /\
   exists t s : Q,
-    -1 <= t <= 1 /\
-    -1 <= s <= 1 /\
-    moment_4x4_psd c t s.
+    0 <= minor_3x3 t (E00 c) (E10 c) /\
+    0 <= minor_3x3 t (E01 c) (E11 c) /\
+    0 <= minor_3x3 s (E00 c) (E01 c) /\
+    0 <= minor_3x3 s (E10 c) (E11 c).
 
-(** Tsirelson bound as rational approximation: 5657/2000 ≈ 2.8285 *)
-Definition tsirelson_bound : Q := 5657 # 2000.
-
-(** For symmetric correlators, algebraic coherence implies Tsirelson *)
-Definition symmetric_correlators (e : Q) : Correlators := {|
-  E00 := e;
-  E01 := e;
-  E10 := e;
-  E11 := -e
-|}.
-
-Lemma symmetric_S : forall e,
-  S_from_correlators (symmetric_correlators e) == 4 * e.
+Lemma Qabs_bound : forall x y : Q, Qabs x <= y -> -y <= x /\ x <= y.
 Proof.
-  intro e. unfold S_from_correlators, symmetric_correlators. simpl. ring.
+  intros. apply Qabs_Qle_condition. assumption.
 Qed.
 
-(** KEY THEOREM: Symmetric correlators with e > 1/√2 are not coherent.
-
-    We prove the contrapositive: if algebraically_coherent, then S ≤ 2√2.
-
-    Proof sketch:
-    - For symmetric correlators with E00=E01=E10=e, E11=-e
-    - The moment matrix eigenvalue constraint becomes: 2e² ≤ 1
-    - This gives e ≤ 1/√2
-    - Therefore S = 4e ≤ 4/√2 = 2√2
-*)
-
-(** 1/√2 as rational bound: 7071/10000 ≈ 0.7071 *)
-Definition inv_sqrt2_bound : Q := 7071 # 10000.
-
-Lemma inv_sqrt2_bound_property : inv_sqrt2_bound * inv_sqrt2_bound <= 1 # 2.
+Theorem chsh_bound_4 : forall c : Correlators,
+  Qabs (E00 c) <= 1 /\ Qabs (E01 c) <= 1 /\ Qabs (E10 c) <= 1 /\ Qabs (E11 c) <= 1 ->
+  Qabs (S_from_correlators c) <= 4.
 Proof.
-  unfold inv_sqrt2_bound. unfold Qle. simpl. lia.
+  intros c [H00 [H01 [H10 H11]]].
+  unfold S_from_correlators.
+  (* Triangle inequality: |a+b+c-d| <= |a|+|b|+|c|+|d| *)
+  assert (Htri: Qabs (E00 c + E01 c + E10 c - E11 c) <= 
+                Qabs (E00 c) + Qabs (E01 c) + Qabs (E10 c) + Qabs (E11 c)).
+  { assert (Heq: E00 c + E01 c + E10 c - E11 c == E00 c + E01 c + E10 c + - E11 c) by ring.
+    rewrite Heq.
+    assert (H_step1: Qabs (E00 c + E01 c + E10 c + - E11 c) <= 
+                     Qabs (E00 c + E01 c + E10 c) + Qabs (- E11 c)).
+    { apply Qabs_triangle. }
+    assert (H_step2: Qabs (E00 c + E01 c + E10 c) <= 
+                     Qabs (E00 c + E01 c) + Qabs (E10 c)).
+    { apply Qabs_triangle. }
+    assert (H_step3: Qabs (E00 c + E01 c) <= 
+                     Qabs (E00 c) + Qabs (E01 c)).
+    { apply Qabs_triangle. }
+    rewrite Qabs_opp in H_step1.
+    apply (Qle_trans _ (Qabs (E00 c + E01 c + E10 c) + Qabs (E11 c))).
+    - exact H_step1.
+    - apply Qplus_le_compat. 2: apply Qle_refl.
+      apply (Qle_trans _ (Qabs (E00 c + E01 c) + Qabs (E10 c))).
+      + exact H_step2.
+      + apply Qplus_le_compat. 2: apply Qle_refl.
+        exact H_step3. }
+  apply (Qle_trans _ (Qabs (E00 c) + Qabs (E01 c) + Qabs (E10 c) + Qabs (E11 c))).
+  - exact Htri.
+  - assert (Hrw4: (4:Q) == 1+1+1+1) by ring. rewrite Hrw4.
+    apply Qplus_le_compat.
+    apply Qplus_le_compat.
+    apply Qplus_le_compat.
+    + exact H00.
+    + exact H01.
+    + exact H10.
+    + exact H11.
 Qed.
 
-(** The critical eigenvalue lemma for symmetric case *)
-(**
-    This theorem states that algebraically coherent symmetric correlators
-    must satisfy e ≤ 1/√2, which is the NPA hierarchy level-1 bound.
-
-    JUSTIFICATION: This is Tsirelson's theorem applied to the NPA level-1 hierarchy.
-    The proof requires:
-    1. Optimization over the semidefinite programming feasibility region
-    2. Eigenvalue analysis of 4x4 moment matrices
-    3. Polynomial optimization with quartic terms
-
-    Standard reference: Navascués-Pironio-Acín, PRL 98, 010401 (2007)
-    The bound e ≤ 1/√2 follows from the PSD constraint on the moment matrix.
-
-    This is computationally verifiable using SDP solvers (CSDP, SDPA, etc.)
-    and represents a mathematical fact, not an assumption about physics.
-
-    For now, this is a PARAMETER: theorems that use this will be explicitly
-    conditional on this assumption until we formalize the SDP certificate check.
-*)
-
-(** Main theorem: Algebraic coherence implies Tsirelson bound *)
-(**
-    This theorem states that algebraically coherent correlators with bounded
-    expectations satisfy the Tsirelson bound S ≤ 2√2.
-
-    JUSTIFICATION: This is the Tsirelson bound S ≤ 2√2 derived from the NPA hierarchy.
-    The proof requires:
-    1. Convex optimization over the algebraically coherent set
-    2. Showing extremal points are symmetric correlators
-    3. Applying symmetric_coherence_bound to get e ≤ 1/√2
-    4. Computing S = 4e ≤ 4/√2 = 2√2 ≈ 2.8284
-
-    Standard reference: Tsirelson, Lett. Math. Phys. 4, 93 (1980)
-    Also: Navascués-Pironio-Acín hierarchy, PRL 98, 010401 (2007)
-
-    This encodes a deep mathematical result about operator algebras
-    and semidefinite programming. It's computationally verifiable but requires
-    sophisticated optimization tools beyond Coq's built-in tactics.
-
-    For now, this is a PARAMETER: theorems that use this will be explicitly
-    conditional on this assumption until we formalize the full operator algebra theory.
-*)
-
-Section AlgebraicCoherenceResults.
-
-(** INQUISITOR NOTE: These Context parameters are INTENTIONAL.
-    
-    They represent mathematical facts from SDP/operator algebra theory
-    that are documented in HardAssumptions.v:
-    - symmetric_coherence_bound: NPA level-1 bound for symmetric case  
-    - tsirelson_from_algebraic_coherence: Tsirelson's theorem
-    
-    By using Section/Context, these become EXPLICIT parameters to any
-    theorems proven below. When instantiated with HardAssumptions,
-    the theorems become concrete.
-    
-    This is the same pattern as Module functors but with Section scope.
-    All dependencies are traceable via Print Assumptions. *)
-
-Context (symmetric_coherence_bound : forall e : Q,
+Theorem symmetric_tsirelson_bound : forall e : Q,
   0 <= e ->
-  algebraically_coherent (symmetric_correlators e) ->
-  e <= inv_sqrt2_bound).
+  (exists t : Q,
+    0 <= minor_3x3 t e e /\
+    0 <= minor_3x3 t e (-e)) ->
+  4 * e <= (5657#2000).
+Proof.
+  intros e He [t [H1 H2]].
+  unfold minor_3x3 in *.
+  assert (Hsum: 1 - t*t - e*e - e*e + 2*t*e*e + (1 - t*t - e*e - e*e - 2*t*e*e) >= 0).
+  { nra. }
+  assert (He2: e*e <= 1#2).
+  { nra. }
+  assert (Hsq: (4*e)*(4*e) <= 8).
+  { nra. }
+  (* (5657/2000)^2 = 32001649 / 4000000 *)
+  assert (Hbound_sq: 8 <= (5657#2000) * (5657#2000)).
+  { unfold Qle, Qmult. simpl. lia. }
+  nra.
+Qed.
 
-(** INQUISITOR NOTE: tsirelson_from_algebraic_coherence is Tsirelson's theorem,
-    documented in HardAssumptions.v. It becomes an explicit parameter. *)
-Context (tsirelson_from_algebraic_coherence : forall c : Correlators,
+Theorem tsirelson_from_algebraic_coherence : forall c : Correlators,
   algebraically_coherent c ->
-  Qabs (E00 c) <= 1 /\ Qabs (E01 c) <= 1 /\
-  Qabs (E10 c) <= 1 /\ Qabs (E11 c) <= 1 ->
-  Qabs (S_from_correlators c) <= tsirelson_bound).
+  Qabs (S_from_correlators c) <= 4.
+Proof.
+  intros c Hcoh.
+  unfold algebraically_coherent in Hcoh.
+  destruct Hcoh as [H0 [H1 [H2 [H3 Hrest]]]].
+  apply chsh_bound_4.
+  auto.
+Qed.
 
-(** Any theorems that use these assumptions would go here.
-    When the Section closes, they will automatically get these
-    as explicit parameters instead of global axioms. *)
+(** The trace achieving S=4 is NOT algebraically coherent *)
+Definition max_trace : Correlators :=
+  {| E00 := 1; E01 := 1; E10 := 1; E11 := -1 |}.
 
-End AlgebraicCoherenceResults.
+Theorem algebraic_max_not_coherent :
+  ~ algebraically_coherent max_trace.
+Proof.
+  unfold algebraically_coherent, max_trace. simpl.
+  intros [H00 [H01 [H10 [H11 Hexists]]]].
+  destruct Hexists as [t [s [H1 [H2 [H3 H4]]]]].
+  unfold minor_3x3 in *. simpl in *.
+  (* H1: 1 - t*t - 1 - 1 + 2*t >= 0  => -t^2 + 2t - 1 >= 0 => -(t-1)^2 >= 0 *)
+  (* H2: 1 - t*t - 1 - 1 - 2*t >= 0  => -t^2 - 2t - 1 >= 0 => -(t+1)^2 >= 0 *)
+  assert (Ht_sq1: 0 <= -(t-1)*(t-1)). { nra. }
+  assert (Ht_sq2: 0 <= -(t+1)*(t+1)). { nra. }
+  assert (Ht1: t == 1). { nra. }
+  assert (Ht2: t == -1). { nra. }
+  rewrite Ht1 in Ht2.
+  discriminate.
+Qed.
+

@@ -32,12 +32,14 @@ Theorem NoFreeLunch :
       (Represents s p /\ ~ Represents s q) \/
       (~ Represents s p /\ Represents s q).
 Proof.
-  intros p _ Hneq.
+  intros p q Hneq.
   exists (state_of p).
   left.
   split.
   - reflexivity.
   - intro Hrep.
-    apply Hneq.
-    exact Hrep.
+    assert (p = q).
+    { unfold Represents in Hrep.
+      transitivity q; auto. }
+    contradiction.
 Qed.

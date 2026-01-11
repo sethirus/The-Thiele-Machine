@@ -1,10 +1,10 @@
 # INQUISITOR REPORT
-Generated: 2026-01-10 07:51:55Z (UTC)
-Scanned: 242 Coq files across the repo
+Generated: 2026-01-11 01:01:46Z (UTC)
+Scanned: 238 Coq files across the repo
 ## Summary
-- HIGH: 0
+- HIGH: 2
 - MEDIUM: 15
-- LOW: 20
+- LOW: 15
 
 ## Rules
 - `ADMITTED`: `Admitted.` (incomplete proof - FORBIDDEN)
@@ -51,6 +51,14 @@ Higher score = more likely unfinished/vacuous.
 | 65 | const-fun | `coq/thielemachine/coqproofs/SpectralApproximation.v` |
 
 ## Findings
+### HIGH
+
+#### `coq/kernel/BoxCHSH.v`
+- L81: **AXIOM_OR_PARAMETER** — Found Axiom normalized_E_bound.
+  - `Axiom normalized_E_bound : forall B x y,`
+- L99: **AXIOM_OR_PARAMETER** — Found Axiom valid_box_S_le_4.
+  - `Axiom valid_box_S_le_4 : forall B,`
+
 ### MEDIUM
 
 #### `coq/kernel/NoArbitrage.v`
@@ -105,22 +113,10 @@ Higher score = more likely unfinished/vacuous.
 
 ### LOW
 
-#### `coq/kernel/AlgebraicCoherence.v`
-- L205: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`symmetric_coherence_bound\` is documented with INQUISITOR NOTE.
-  - `Context (symmetric_coherence_bound : forall e : Q,`
-- L212: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`tsirelson_from_algebraic_coherence\` is documented with INQUISITOR NOTE.
-  - `Context (tsirelson_from_algebraic_coherence : forall c : Correlators,`
-
 #### `coq/kernel/BoxCHSH.v`
-- L77: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`normalized_E_bound\` is documented with INQUISITOR NOTE.
-  - `Context (normalized_E_bound : forall B x y,`
-- L95: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`valid_box_S_le_4\` is documented with INQUISITOR NOTE.
-  - `Context (valid_box_S_le_4 : forall B,`
-- L119: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`local_box_S_le_2\` is documented with INQUISITOR NOTE.
+- L123: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`local_box_S_le_2\` is documented with INQUISITOR NOTE.
   - `Context (local_box_S_le_2 : forall B,`
-- L182: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`normalized_E_bound\` is documented with INQUISITOR NOTE.
-  - `Context (normalized_E_bound : forall B x y,`
-- L187: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`tsirelson_from_algebraic_coherence\` is documented with INQUISITOR NOTE.
+- L188: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`tsirelson_from_algebraic_coherence\` is documented with INQUISITOR NOTE.
   - `Context (tsirelson_from_algebraic_coherence : forall c : Correlators,`
 
 #### `coq/kernel/TsirelsonUniqueness.v`

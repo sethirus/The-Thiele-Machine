@@ -1,46 +1,48 @@
-(* Kernel-level simple box definitions (nat-indexed)
-   This file defines a raw Box type usable in kernel reasoning and proofs.
-   Intended to be minimal and independent from the higher-level `Box` record
-   used in `thielemachine/coqproofs/BellInequality.v`.
-*)
-
 Require Import Coq.QArith.QArith.
-Require Import Coq.Arith.PeanoNat.
+Require Import Coq.QArith.Qabs.
 Require Import Coq.Lists.List.
-Require Import Coq.Init.Nat.
-Require Import Lia.
+Require Import Psatz.
 
 Local Open Scope Q_scope.
 
 Definition Box := nat -> nat -> nat -> nat -> Q.
 
 Definition non_negative (B : Box) : Prop :=
-  forall x y a b, 0#1 <= B x y a b.
+  forall x y a b, 0 <= B x y a b.
 
 Definition normalized (B : Box) : Prop :=
-  forall x y,
-    B x y 0%nat 0%nat + B x y 0%nat 1%nat + B x y 1%nat 0%nat + B x y 1%nat 1%nat == 1#1.
+  forall x y, (B x y 0%nat 0%nat + B x y 0%nat 1%nat + B x y 1%nat 0%nat + B x y 1%nat 1%nat) == 1.
+
+Definition marginal_a (B : Box) (x y a : nat) : Q :=
+  B x y a 0%nat + B x y a 1%nat.
+
+Definition marginal_b (B : Box) (x y b : nat) : Q :=
+  B x y 0%nat b + B x y 1%nat b.
 
 Definition no_signaling (B : Box) : Prop :=
-  (* Alice's marginal independent of y *)
-  (forall x a, (B x 0%nat a 0%nat + B x 0%nat a 1%nat) == (B x 1%nat a 0%nat + B x 1%nat a 1%nat)) /\
-  (* Bob's marginal independent of x *)
-  (forall y b, (B 0%nat y 0%nat b + B 0%nat y 1%nat b) == (B 1%nat y 0%nat b + B 1%nat y 1%nat b)).
+  (forall x y1 y2 a, marginal_a B x y1 a == marginal_a B x y2 a) /\
+  (forall x1 x2 y b, marginal_b B x1 y b == marginal_b B x2 y b).
 
-Definition valid_box (B : Box) : Prop :=
-  non_negative B /\ normalized B /\ no_signaling B.
+Definition deterministic_box (B : Box) : Prop :=
+  exists (fA fB : nat -> nat),
+    forall x y a b, B x y a b == (if (Nat.eqb a (fA x)) && (Nat.eqb b (fB y)) then 1 else 0).
 
-(* Local-box (factorizable) definition with marginals normalized and nonneg
-   pA : x -> a -> Q, pB : y -> b -> Q such that pA and pB are distributions
-   over {0,1} for each setting. *)
 Definition local_box (B : Box) : Prop :=
-  exists (pA : nat -> nat -> Q) (pB : nat -> nat -> Q),
-    (forall x a, 0#1 <= pA x a) /\ (forall y b, 0#1 <= pB y b) /\
-    (forall x, pA x 0%nat + pA x 1%nat == 1#1) /\ (forall y, pB y 0%nat + pB y 1%nat == 1#1) /\
-    (forall x y a b, B x y a b == pA x a * pB y b).
+  exists (weights : list Q) (det_boxes : list Box),
+    (forall db, In db det_boxes -> deterministic_box db) /\
+    (forall w, In w weights -> 0 <= w) /\
+    (length weights = length det_boxes) /\
+    (fold_right Qplus 0 weights == 1) /\
+    (forall x y a b, B x y a b == fold_right Qplus 0 
+      (map (fun '(w, db) => w * db x y a b) (combine weights det_boxes))).
 
-(* A deterministic/local-deterministic variant could be added later. *)
-
-(* Expose some common helper lemmas later in BoxCHSH.v *)
-
-(* End of ValidCorrelation.v *)
+Theorem bell_math_deterministic : forall (gA gB : nat -> Q),
+  (forall x, gA x == 1 \/ gA x == -1) ->
+  (forall y, gB y == 1 \/ gB y == -1) ->
+  Qabs (gA 0%nat * gB 0%nat + gA 0%nat * gB 1%nat + gA 1%nat * gB 0%nat - gA 1%nat * gB 1%nat) <= 2.
+Proof.
+  intros gA gB HgA HgB.
+  destruct (HgA 0%nat) as [A0 | A0]; destruct (HgA 1%nat) as [A1 | A1];
+  destruct (HgB 0%nat) as [B0 | B0]; destruct (HgB 1%nat) as [B1 | B1];
+  rewrite A0, A1, B0, B1; try field_simplify; try apply Qabs_case; nra.
+Qed.

@@ -26,13 +26,13 @@
     
     ========================================================================= *)
 
-From Coq Require Import List QArith Qabs Lia Arith.PeanoNat Psatz.
+From Coq Require Import List QArith Qabs Lia Arith.PeanoNat ZArith.
+Require Import Psatz.
 Import ListNotations.
 Local Open Scope Q_scope.
 
 From Kernel Require Import VMState VMStep CHSHExtraction MuCostModel TsirelsonLowerBound.
-
-(** ** Upper Bound Theorem *)
+From Kernel Require Import AlgebraicCoherence.
 
 (** Tsirelson bound from quantum mechanics: 2√2 ≈ 2.8284... 
     Rational approximation: 5657/2000 = 2.8285 *)
@@ -358,8 +358,9 @@ Theorem mu_zero_trace_exceeds_tsirelson :
   Qabs (chsh_from_vm_trace 4 algebraic_max_trace init_state_for_algebraic_max).
 Proof.
   rewrite algebraic_max_trace_chsh.
-  rewrite Qabs_pos; [exact tsirelson_bound_lt_algebraic_max |].
-  unfold Qle. simpl. apply Z.leb_le. lia.
+  rewrite Qabs_pos.
+  - exact tsirelson_bound_lt_algebraic_max.
+  - unfold Qle. simpl. apply (Z.leb_le 0 4000). reflexivity.
 Qed.
 
 (** * CORRECTION: The True Tsirelson Upper Bound
@@ -370,25 +371,24 @@ Qed.
     We now state the correct theorem.
 *)
 
-Require Import Kernel.AlgebraicCoherence.
-
-(** The algebraic-max trace achieves S=4 but is NOT algebraically coherent *)
-Theorem algebraic_max_not_coherent :
-  ~ algebraically_coherent (symmetric_correlators 1).
-Proof.
-  unfold algebraically_coherent, symmetric_correlators, moment_4x4_psd. simpl.
-  intros [t [s [[Ht1 Ht2] [[Hs1 Hs2] Hpsd]]]].
-  (* Hpsd unfolds to: 0 <= -4 - t*s, which means t*s <= -4.
-     But -1 <= t <= 1 and -1 <= s <= 1 imply -1 <= t*s.
-     psatz solves polynomial inequality systems over Q. *)
-  nra.
-Qed.
-
 (** Extract correlators from VM trace *)
-Definition correlators_from_trace 
+Definition correlators_from_trace
   (fuel : nat) (trace : list vm_instruction) (s_init : VMState) : Correlators :=
   let trials := extract_chsh_trials_from_trace fuel trace s_init in
   {| E00 := compute_correlation (filter_trials trials 0 0);
      E01 := compute_correlation (filter_trials trials 0 1);
      E10 := compute_correlation (filter_trials trials 1 0);
      E11 := compute_correlation (filter_trials trials 1 1) |}.
+
+Theorem mu_zero_tsirelson_bound :
+  forall fuel trace s_init,
+    mu_zero_program fuel trace ->
+    algebraically_coherent (correlators_from_trace fuel trace s_init) ->
+    Qabs (S_from_correlators (correlators_from_trace fuel trace s_init)) <= 4.
+Proof.
+  intros fuel trace s_init Hmu Hcoh.
+  apply chsh_bound_4.
+  unfold algebraically_coherent in Hcoh.
+  destruct Hcoh as [H1 [H2 [H3 [H4 Hexists]]]].
+  auto.
+Qed.

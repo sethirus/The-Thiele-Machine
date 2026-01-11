@@ -256,7 +256,7 @@ Module GeometricSignature.
     classify_signature sig = STRUCTURED ->
     classify_signature sig <> CHAOTIC.
   Proof.
-    intros _ Hstruct Hchaos.
+    intros sig Hstruct Hchaos.
     rewrite Hstruct in Hchaos.
     discriminate Hchaos.
   Qed.
