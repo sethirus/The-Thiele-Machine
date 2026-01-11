@@ -17,7 +17,7 @@ Import ListNotations.
 Local Open Scope Q_scope.
 
 From Kernel Require Import VMState VMStep CHSHExtraction MuCostModel.
-From Kernel Require Import TsirelsonLowerBound TsirelsonUpperBound.
+From Kernel Require Import ClassicalBound TsirelsonUpperBound.
 From Kernel Require Import AlgebraicCoherence.
 
 (** ** What μ=0 Actually Gives Us *)
