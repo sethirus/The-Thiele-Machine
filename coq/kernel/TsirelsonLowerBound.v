@@ -1,19 +1,36 @@
 (** =========================================================================
-    TSIRELSON LOWER BOUND - Constructive Achievement
+    ⚠️  DEPRECATED - DO NOT USE THIS FILE ⚠️
     =========================================================================
-    
-    GOAL: Construct a μ=0 program that achieves CHSH ≈ 2√2
-    
-    This establishes the LOWER BOUND:
-      max{CHSH : μ=0} >= 2√2
-    
+
+    **THIS FILE CONTAINS INCORRECT CLAIMS**
+
+    This file was deprecated in January 2026 after discovering that:
+    - μ=0 operations achieve CHSH = 2 (CLASSICAL bound), not 2√2!
+    - The construction in this file actually achieves S=2 (deterministic strategy)
+    - Quantum Tsirelson bound (2√2) requires μ>0 operations
+
+    **USE ClassicalBound.v INSTEAD**
+
+    See MU_COST_REVISION.md for complete analysis of the error.
+
+    =========================================================================
+    ORIGINAL (INCORRECT) DOCUMENTATION PRESERVED BELOW
+    =========================================================================
+
+    TSIRELSON LOWER BOUND - Constructive Achievement (INCORRECT CLAIM)
+
+    GOAL (WRONG): Construct a μ=0 program that achieves CHSH ≈ 2√2
+
+    This was claimed to establish the LOWER BOUND:
+      max{CHSH : μ=0} >= 2√2  (INCORRECT - actual bound is 2)
+
     Strategy:
-    1. Define optimal quantum measurement strategy
+    1. Define optimal quantum measurement strategy (WRONG - this is classical)
     2. Encode as μ=0 VM program (PNEW, PSPLIT, CHSH_TRIAL)
-    3. Prove this program achieves CHSH ≈ 2√2 with μ=0
-    
-    STATUS: CONSTRUCTIVE PROOF
-    
+    3. Prove this program achieves CHSH ≈ 2√2 with μ=0 (WRONG - achieves 2)
+
+    STATUS: DEPRECATED - Use ClassicalBound.v
+
     ========================================================================= *)
 
 From Coq Require Import List QArith Qabs Lia.
