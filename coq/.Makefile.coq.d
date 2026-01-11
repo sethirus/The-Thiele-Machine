@@ -40,9 +40,12 @@ kernel/CHSHExtraction.vos kernel/CHSHExtraction.vok kernel/CHSHExtraction.requir
 kernel/CHSH.vo kernel/CHSH.glob kernel/CHSH.v.beautified kernel/CHSH.required_vo: kernel/CHSH.v kernel/VMStep.vo
 kernel/CHSH.vio: kernel/CHSH.v kernel/VMStep.vio
 kernel/CHSH.vos kernel/CHSH.vok kernel/CHSH.required_vos: kernel/CHSH.v kernel/VMStep.vos
-kernel/QuantumBound.vo kernel/QuantumBound.glob kernel/QuantumBound.v.beautified kernel/QuantumBound.required_vo: kernel/QuantumBound.v kernel/VMState.vo kernel/VMStep.vo kernel/SimulationProof.vo kernel/RevelationRequirement.vo
-kernel/QuantumBound.vio: kernel/QuantumBound.v kernel/VMState.vio kernel/VMStep.vio kernel/SimulationProof.vio kernel/RevelationRequirement.vio
-kernel/QuantumBound.vos kernel/QuantumBound.vok kernel/QuantumBound.required_vos: kernel/QuantumBound.v kernel/VMState.vos kernel/VMStep.vos kernel/SimulationProof.vos kernel/RevelationRequirement.vos
+kernel/QuantumBound.vo kernel/QuantumBound.glob kernel/QuantumBound.v.beautified kernel/QuantumBound.required_vo: kernel/QuantumBound.v 
+kernel/QuantumBound.vio: kernel/QuantumBound.v 
+kernel/QuantumBound.vos kernel/QuantumBound.vok kernel/QuantumBound.required_vos: kernel/QuantumBound.v 
+kernel/ClassicalBound.vo kernel/ClassicalBound.glob kernel/ClassicalBound.v.beautified kernel/ClassicalBound.required_vo: kernel/ClassicalBound.v kernel/VMState.vo kernel/VMStep.vo kernel/CHSHExtraction.vo kernel/MuCostModel.vo
+kernel/ClassicalBound.vio: kernel/ClassicalBound.v kernel/VMState.vio kernel/VMStep.vio kernel/CHSHExtraction.vio kernel/MuCostModel.vio
+kernel/ClassicalBound.vos kernel/ClassicalBound.vok kernel/ClassicalBound.required_vos: kernel/ClassicalBound.v kernel/VMState.vos kernel/VMStep.vos kernel/CHSHExtraction.vos kernel/MuCostModel.vos
 kernel/MuInformation.vo kernel/MuInformation.glob kernel/MuInformation.v.beautified kernel/MuInformation.required_vo: kernel/MuInformation.v kernel/VMState.vo kernel/VMStep.vo kernel/SimulationProof.vo kernel/MuLedgerConservation.vo
 kernel/MuInformation.vio: kernel/MuInformation.v kernel/VMState.vio kernel/VMStep.vio kernel/SimulationProof.vio kernel/MuLedgerConservation.vio
 kernel/MuInformation.vos kernel/MuInformation.vok kernel/MuInformation.required_vos: kernel/MuInformation.v kernel/VMState.vos kernel/VMStep.vos kernel/SimulationProof.vos kernel/MuLedgerConservation.vos
@@ -52,18 +55,18 @@ kernel/MuNoFreeInsightQuantitative.vos kernel/MuNoFreeInsightQuantitative.vok ke
 kernel/TsirelsonLowerBound.vo kernel/TsirelsonLowerBound.glob kernel/TsirelsonLowerBound.v.beautified kernel/TsirelsonLowerBound.required_vo: kernel/TsirelsonLowerBound.v kernel/VMState.vo kernel/VMStep.vo kernel/CHSHExtraction.vo kernel/MuCostModel.vo
 kernel/TsirelsonLowerBound.vio: kernel/TsirelsonLowerBound.v kernel/VMState.vio kernel/VMStep.vio kernel/CHSHExtraction.vio kernel/MuCostModel.vio
 kernel/TsirelsonLowerBound.vos kernel/TsirelsonLowerBound.vok kernel/TsirelsonLowerBound.required_vos: kernel/TsirelsonLowerBound.v kernel/VMState.vos kernel/VMStep.vos kernel/CHSHExtraction.vos kernel/MuCostModel.vos
-kernel/TsirelsonUpperBound.vo kernel/TsirelsonUpperBound.glob kernel/TsirelsonUpperBound.v.beautified kernel/TsirelsonUpperBound.required_vo: kernel/TsirelsonUpperBound.v kernel/VMState.vo kernel/VMStep.vo kernel/CHSHExtraction.vo kernel/MuCostModel.vo kernel/TsirelsonLowerBound.vo kernel/BoxCHSH.vo kernel/AlgebraicCoherence.vo
-kernel/TsirelsonUpperBound.vio: kernel/TsirelsonUpperBound.v kernel/VMState.vio kernel/VMStep.vio kernel/CHSHExtraction.vio kernel/MuCostModel.vio kernel/TsirelsonLowerBound.vio kernel/BoxCHSH.vio kernel/AlgebraicCoherence.vio
-kernel/TsirelsonUpperBound.vos kernel/TsirelsonUpperBound.vok kernel/TsirelsonUpperBound.required_vos: kernel/TsirelsonUpperBound.v kernel/VMState.vos kernel/VMStep.vos kernel/CHSHExtraction.vos kernel/MuCostModel.vos kernel/TsirelsonLowerBound.vos kernel/BoxCHSH.vos kernel/AlgebraicCoherence.vos
-kernel/TsirelsonUniqueness.vo kernel/TsirelsonUniqueness.glob kernel/TsirelsonUniqueness.v.beautified kernel/TsirelsonUniqueness.required_vo: kernel/TsirelsonUniqueness.v kernel/VMState.vo kernel/VMStep.vo kernel/CHSHExtraction.vo kernel/MuCostModel.vo kernel/TsirelsonLowerBound.vo kernel/TsirelsonUpperBound.vo kernel/AlgebraicCoherence.vo
-kernel/TsirelsonUniqueness.vio: kernel/TsirelsonUniqueness.v kernel/VMState.vio kernel/VMStep.vio kernel/CHSHExtraction.vio kernel/MuCostModel.vio kernel/TsirelsonLowerBound.vio kernel/TsirelsonUpperBound.vio kernel/AlgebraicCoherence.vio
-kernel/TsirelsonUniqueness.vos kernel/TsirelsonUniqueness.vok kernel/TsirelsonUniqueness.required_vos: kernel/TsirelsonUniqueness.v kernel/VMState.vos kernel/VMStep.vos kernel/CHSHExtraction.vos kernel/MuCostModel.vos kernel/TsirelsonLowerBound.vos kernel/TsirelsonUpperBound.vos kernel/AlgebraicCoherence.vos
+kernel/TsirelsonUpperBound.vo kernel/TsirelsonUpperBound.glob kernel/TsirelsonUpperBound.v.beautified kernel/TsirelsonUpperBound.required_vo: kernel/TsirelsonUpperBound.v kernel/VMState.vo kernel/VMStep.vo kernel/CHSHExtraction.vo kernel/MuCostModel.vo kernel/ClassicalBound.vo kernel/AlgebraicCoherence.vo
+kernel/TsirelsonUpperBound.vio: kernel/TsirelsonUpperBound.v kernel/VMState.vio kernel/VMStep.vio kernel/CHSHExtraction.vio kernel/MuCostModel.vio kernel/ClassicalBound.vio kernel/AlgebraicCoherence.vio
+kernel/TsirelsonUpperBound.vos kernel/TsirelsonUpperBound.vok kernel/TsirelsonUpperBound.required_vos: kernel/TsirelsonUpperBound.v kernel/VMState.vos kernel/VMStep.vos kernel/CHSHExtraction.vos kernel/MuCostModel.vos kernel/ClassicalBound.vos kernel/AlgebraicCoherence.vos
+kernel/TsirelsonUniqueness.vo kernel/TsirelsonUniqueness.glob kernel/TsirelsonUniqueness.v.beautified kernel/TsirelsonUniqueness.required_vo: kernel/TsirelsonUniqueness.v kernel/VMState.vo kernel/VMStep.vo kernel/CHSHExtraction.vo kernel/MuCostModel.vo kernel/ClassicalBound.vo kernel/TsirelsonUpperBound.vo kernel/AlgebraicCoherence.vo
+kernel/TsirelsonUniqueness.vio: kernel/TsirelsonUniqueness.v kernel/VMState.vio kernel/VMStep.vio kernel/CHSHExtraction.vio kernel/MuCostModel.vio kernel/ClassicalBound.vio kernel/TsirelsonUpperBound.vio kernel/AlgebraicCoherence.vio
+kernel/TsirelsonUniqueness.vos kernel/TsirelsonUniqueness.vok kernel/TsirelsonUniqueness.required_vos: kernel/TsirelsonUniqueness.v kernel/VMState.vos kernel/VMStep.vos kernel/CHSHExtraction.vos kernel/MuCostModel.vos kernel/ClassicalBound.vos kernel/TsirelsonUpperBound.vos kernel/AlgebraicCoherence.vos
 kernel/TsirelsonDerivation.vo kernel/TsirelsonDerivation.glob kernel/TsirelsonDerivation.v.beautified kernel/TsirelsonDerivation.required_vo: kernel/TsirelsonDerivation.v kernel/VMState.vo kernel/VMStep.vo kernel/CHSHExtraction.vo kernel/MuCostModel.vo kernel/AlgebraicCoherence.vo kernel/HardAssumptions.vo
 kernel/TsirelsonDerivation.vio: kernel/TsirelsonDerivation.v kernel/VMState.vio kernel/VMStep.vio kernel/CHSHExtraction.vio kernel/MuCostModel.vio kernel/AlgebraicCoherence.vio kernel/HardAssumptions.vio
 kernel/TsirelsonDerivation.vos kernel/TsirelsonDerivation.vok kernel/TsirelsonDerivation.required_vos: kernel/TsirelsonDerivation.v kernel/VMState.vos kernel/VMStep.vos kernel/CHSHExtraction.vos kernel/MuCostModel.vos kernel/AlgebraicCoherence.vos kernel/HardAssumptions.vos
-kernel/QuantumEquivalence.vo kernel/QuantumEquivalence.glob kernel/QuantumEquivalence.v.beautified kernel/QuantumEquivalence.required_vo: kernel/QuantumEquivalence.v kernel/VMState.vo kernel/VMStep.vo kernel/CHSHExtraction.vo kernel/MuCostModel.vo kernel/TsirelsonLowerBound.vo kernel/TsirelsonUpperBound.vo
-kernel/QuantumEquivalence.vio: kernel/QuantumEquivalence.v kernel/VMState.vio kernel/VMStep.vio kernel/CHSHExtraction.vio kernel/MuCostModel.vio kernel/TsirelsonLowerBound.vio kernel/TsirelsonUpperBound.vio
-kernel/QuantumEquivalence.vos kernel/QuantumEquivalence.vok kernel/QuantumEquivalence.required_vos: kernel/QuantumEquivalence.v kernel/VMState.vos kernel/VMStep.vos kernel/CHSHExtraction.vos kernel/MuCostModel.vos kernel/TsirelsonLowerBound.vos kernel/TsirelsonUpperBound.vos
+kernel/QuantumEquivalence.vo kernel/QuantumEquivalence.glob kernel/QuantumEquivalence.v.beautified kernel/QuantumEquivalence.required_vo: kernel/QuantumEquivalence.v kernel/VMState.vo kernel/VMStep.vo kernel/CHSHExtraction.vo kernel/MuCostModel.vo kernel/ClassicalBound.vo kernel/TsirelsonUpperBound.vo
+kernel/QuantumEquivalence.vio: kernel/QuantumEquivalence.v kernel/VMState.vio kernel/VMStep.vio kernel/CHSHExtraction.vio kernel/MuCostModel.vio kernel/ClassicalBound.vio kernel/TsirelsonUpperBound.vio
+kernel/QuantumEquivalence.vos kernel/QuantumEquivalence.vok kernel/QuantumEquivalence.required_vos: kernel/QuantumEquivalence.v kernel/VMState.vos kernel/VMStep.vos kernel/CHSHExtraction.vos kernel/MuCostModel.vos kernel/ClassicalBound.vos kernel/TsirelsonUpperBound.vos
 kernel/NoFreeInsight.vo kernel/NoFreeInsight.glob kernel/NoFreeInsight.v.beautified kernel/NoFreeInsight.required_vo: kernel/NoFreeInsight.v kernel/VMState.vo kernel/VMStep.vo kernel/KernelPhysics.vo kernel/MuLedgerConservation.vo kernel/RevelationRequirement.vo kernel/SimulationProof.vo
 kernel/NoFreeInsight.vio: kernel/NoFreeInsight.v kernel/VMState.vio kernel/VMStep.vio kernel/KernelPhysics.vio kernel/MuLedgerConservation.vio kernel/RevelationRequirement.vio kernel/SimulationProof.vio
 kernel/NoFreeInsight.vos kernel/NoFreeInsight.vok kernel/NoFreeInsight.required_vos: kernel/NoFreeInsight.v kernel/VMState.vos kernel/VMStep.vos kernel/KernelPhysics.vos kernel/MuLedgerConservation.vos kernel/RevelationRequirement.vos kernel/SimulationProof.vos
@@ -160,12 +163,12 @@ kernel/PythonBisimulation.vos kernel/PythonBisimulation.vok kernel/PythonBisimul
 kernel/HardwareBisimulation.vo kernel/HardwareBisimulation.glob kernel/HardwareBisimulation.v.beautified kernel/HardwareBisimulation.required_vo: kernel/HardwareBisimulation.v kernel/VMState.vo kernel/VMStep.vo
 kernel/HardwareBisimulation.vio: kernel/HardwareBisimulation.v kernel/VMState.vio kernel/VMStep.vio
 kernel/HardwareBisimulation.vos kernel/HardwareBisimulation.vok kernel/HardwareBisimulation.required_vos: kernel/HardwareBisimulation.v kernel/VMState.vos kernel/VMStep.vos
-kernel/NonCircularityAudit.vo kernel/NonCircularityAudit.glob kernel/NonCircularityAudit.v.beautified kernel/NonCircularityAudit.required_vo: kernel/NonCircularityAudit.v kernel/VMState.vo kernel/VMStep.vo kernel/CHSHExtraction.vo kernel/MuCostModel.vo kernel/TsirelsonLowerBound.vo kernel/TsirelsonUpperBound.vo
-kernel/NonCircularityAudit.vio: kernel/NonCircularityAudit.v kernel/VMState.vio kernel/VMStep.vio kernel/CHSHExtraction.vio kernel/MuCostModel.vio kernel/TsirelsonLowerBound.vio kernel/TsirelsonUpperBound.vio
-kernel/NonCircularityAudit.vos kernel/NonCircularityAudit.vok kernel/NonCircularityAudit.required_vos: kernel/NonCircularityAudit.v kernel/VMState.vos kernel/VMStep.vos kernel/CHSHExtraction.vos kernel/MuCostModel.vos kernel/TsirelsonLowerBound.vos kernel/TsirelsonUpperBound.vos
-kernel/MasterSummary.vo kernel/MasterSummary.glob kernel/MasterSummary.v.beautified kernel/MasterSummary.required_vo: kernel/MasterSummary.v kernel/VMState.vo kernel/VMStep.vo kernel/MuCostModel.vo kernel/CHSHExtraction.vo kernel/TsirelsonLowerBound.vo kernel/TsirelsonUpperBound.vo kernel/TsirelsonUniqueness.vo kernel/QuantumEquivalence.vo kernel/NoFreeInsight.vo kernel/PythonBisimulation.vo kernel/HardwareBisimulation.vo kernel/NonCircularityAudit.vo
-kernel/MasterSummary.vio: kernel/MasterSummary.v kernel/VMState.vio kernel/VMStep.vio kernel/MuCostModel.vio kernel/CHSHExtraction.vio kernel/TsirelsonLowerBound.vio kernel/TsirelsonUpperBound.vio kernel/TsirelsonUniqueness.vio kernel/QuantumEquivalence.vio kernel/NoFreeInsight.vio kernel/PythonBisimulation.vio kernel/HardwareBisimulation.vio kernel/NonCircularityAudit.vio
-kernel/MasterSummary.vos kernel/MasterSummary.vok kernel/MasterSummary.required_vos: kernel/MasterSummary.v kernel/VMState.vos kernel/VMStep.vos kernel/MuCostModel.vos kernel/CHSHExtraction.vos kernel/TsirelsonLowerBound.vos kernel/TsirelsonUpperBound.vos kernel/TsirelsonUniqueness.vos kernel/QuantumEquivalence.vos kernel/NoFreeInsight.vos kernel/PythonBisimulation.vos kernel/HardwareBisimulation.vos kernel/NonCircularityAudit.vos
+kernel/NonCircularityAudit.vo kernel/NonCircularityAudit.glob kernel/NonCircularityAudit.v.beautified kernel/NonCircularityAudit.required_vo: kernel/NonCircularityAudit.v kernel/VMState.vo kernel/VMStep.vo kernel/CHSHExtraction.vo kernel/MuCostModel.vo kernel/ClassicalBound.vo kernel/TsirelsonUpperBound.vo
+kernel/NonCircularityAudit.vio: kernel/NonCircularityAudit.v kernel/VMState.vio kernel/VMStep.vio kernel/CHSHExtraction.vio kernel/MuCostModel.vio kernel/ClassicalBound.vio kernel/TsirelsonUpperBound.vio
+kernel/NonCircularityAudit.vos kernel/NonCircularityAudit.vok kernel/NonCircularityAudit.required_vos: kernel/NonCircularityAudit.v kernel/VMState.vos kernel/VMStep.vos kernel/CHSHExtraction.vos kernel/MuCostModel.vos kernel/ClassicalBound.vos kernel/TsirelsonUpperBound.vos
+kernel/MasterSummary.vo kernel/MasterSummary.glob kernel/MasterSummary.v.beautified kernel/MasterSummary.required_vo: kernel/MasterSummary.v kernel/VMState.vo kernel/VMStep.vo kernel/MuCostModel.vo kernel/CHSHExtraction.vo kernel/ClassicalBound.vo kernel/TsirelsonUpperBound.vo kernel/TsirelsonUniqueness.vo kernel/QuantumEquivalence.vo kernel/NoFreeInsight.vo kernel/PythonBisimulation.vo kernel/HardwareBisimulation.vo kernel/NonCircularityAudit.vo
+kernel/MasterSummary.vio: kernel/MasterSummary.v kernel/VMState.vio kernel/VMStep.vio kernel/MuCostModel.vio kernel/CHSHExtraction.vio kernel/ClassicalBound.vio kernel/TsirelsonUpperBound.vio kernel/TsirelsonUniqueness.vio kernel/QuantumEquivalence.vio kernel/NoFreeInsight.vio kernel/PythonBisimulation.vio kernel/HardwareBisimulation.vio kernel/NonCircularityAudit.vio
+kernel/MasterSummary.vos kernel/MasterSummary.vok kernel/MasterSummary.required_vos: kernel/MasterSummary.v kernel/VMState.vos kernel/VMStep.vos kernel/MuCostModel.vos kernel/CHSHExtraction.vos kernel/ClassicalBound.vos kernel/TsirelsonUpperBound.vos kernel/TsirelsonUniqueness.vos kernel/QuantumEquivalence.vos kernel/NoFreeInsight.vos kernel/PythonBisimulation.vos kernel/HardwareBisimulation.vos kernel/NonCircularityAudit.vos
 kernel/ValidCorrelation.vo kernel/ValidCorrelation.glob kernel/ValidCorrelation.v.beautified kernel/ValidCorrelation.required_vo: kernel/ValidCorrelation.v 
 kernel/ValidCorrelation.vio: kernel/ValidCorrelation.v 
 kernel/ValidCorrelation.vos kernel/ValidCorrelation.vok kernel/ValidCorrelation.required_vos: kernel/ValidCorrelation.v 
@@ -175,9 +178,9 @@ kernel/AlgebraicCoherence.vos kernel/AlgebraicCoherence.vok kernel/AlgebraicCohe
 kernel/HardAssumptions.vo kernel/HardAssumptions.glob kernel/HardAssumptions.v.beautified kernel/HardAssumptions.required_vo: kernel/HardAssumptions.v kernel/ValidCorrelation.vo kernel/AlgebraicCoherence.vo kernel/BoxCHSH.vo
 kernel/HardAssumptions.vio: kernel/HardAssumptions.v kernel/ValidCorrelation.vio kernel/AlgebraicCoherence.vio kernel/BoxCHSH.vio
 kernel/HardAssumptions.vos kernel/HardAssumptions.vok kernel/HardAssumptions.required_vos: kernel/HardAssumptions.v kernel/ValidCorrelation.vos kernel/AlgebraicCoherence.vos kernel/BoxCHSH.vos
-kernel/BoxCHSH.vo kernel/BoxCHSH.glob kernel/BoxCHSH.v.beautified kernel/BoxCHSH.required_vo: kernel/BoxCHSH.v kernel/ValidCorrelation.vo
-kernel/BoxCHSH.vio: kernel/BoxCHSH.v kernel/ValidCorrelation.vio
-kernel/BoxCHSH.vos kernel/BoxCHSH.vok kernel/BoxCHSH.required_vos: kernel/BoxCHSH.v kernel/ValidCorrelation.vos
+kernel/BoxCHSH.vo kernel/BoxCHSH.glob kernel/BoxCHSH.v.beautified kernel/BoxCHSH.required_vo: kernel/BoxCHSH.v kernel/ValidCorrelation.vo kernel/AlgebraicCoherence.vo
+kernel/BoxCHSH.vio: kernel/BoxCHSH.v kernel/ValidCorrelation.vio kernel/AlgebraicCoherence.vio
+kernel/BoxCHSH.vos kernel/BoxCHSH.vok kernel/BoxCHSH.required_vos: kernel/BoxCHSH.v kernel/ValidCorrelation.vos kernel/AlgebraicCoherence.vos
 kernel/TestTripartite.vo kernel/TestTripartite.glob kernel/TestTripartite.v.beautified kernel/TestTripartite.required_vo: kernel/TestTripartite.v kernel/BoxCHSH.vo
 kernel/TestTripartite.vio: kernel/TestTripartite.v kernel/BoxCHSH.vio
 kernel/TestTripartite.vos kernel/TestTripartite.vok kernel/TestTripartite.required_vos: kernel/TestTripartite.v kernel/BoxCHSH.vos
@@ -631,3 +634,87 @@ thielemachine/verification/modular/Bridge_BridgeCore.vos thielemachine/verificat
 Extraction.vo Extraction.glob Extraction.v.beautified Extraction.required_vo: Extraction.v kernel/VMState.vo kernel/VMStep.vo kernel/SimulationProof.vo
 Extraction.vio: Extraction.v kernel/VMState.vio kernel/VMStep.vio kernel/SimulationProof.vio
 Extraction.vos Extraction.vok Extraction.required_vos: Extraction.v kernel/VMState.vos kernel/VMStep.vos kernel/SimulationProof.vos
+theory/PhysRel.vo theory/PhysRel.glob theory/PhysRel.v.beautified theory/PhysRel.required_vo: theory/PhysRel.v theory/Core.vo
+theory/PhysRel.vio: theory/PhysRel.v theory/Core.vio
+theory/PhysRel.vos theory/PhysRel.vok theory/PhysRel.required_vos: theory/PhysRel.v theory/Core.vos
+theory/Separation.vo theory/Separation.glob theory/Separation.v.beautified theory/Separation.required_vo: theory/Separation.v 
+theory/Separation.vio: theory/Separation.v 
+theory/Separation.vos theory/Separation.vok theory/Separation.required_vos: theory/Separation.v 
+theory/ArchTheorem.vo theory/ArchTheorem.glob theory/ArchTheorem.v.beautified theory/ArchTheorem.required_vo: theory/ArchTheorem.v theory/GeometricSignature.vo kernel/PDISCOVERIntegration.vo kernel/VMState.vo
+theory/ArchTheorem.vio: theory/ArchTheorem.v theory/GeometricSignature.vio kernel/PDISCOVERIntegration.vio kernel/VMState.vio
+theory/ArchTheorem.vos theory/ArchTheorem.vok theory/ArchTheorem.required_vos: theory/ArchTheorem.v theory/GeometricSignature.vos kernel/PDISCOVERIntegration.vos kernel/VMState.vos
+theory/LogicToPhysics.vo theory/LogicToPhysics.glob theory/LogicToPhysics.v.beautified theory/LogicToPhysics.required_vo: theory/LogicToPhysics.v theory/Core.vo theory/PhysRel.vo
+theory/LogicToPhysics.vio: theory/LogicToPhysics.v theory/Core.vio theory/PhysRel.vio
+theory/LogicToPhysics.vos theory/LogicToPhysics.vok theory/LogicToPhysics.required_vos: theory/LogicToPhysics.v theory/Core.vos theory/PhysRel.vos
+theory/Core.vo theory/Core.glob theory/Core.v.beautified theory/Core.required_vo: theory/Core.v 
+theory/Core.vio: theory/Core.v 
+theory/Core.vos theory/Core.vok theory/Core.required_vos: theory/Core.v 
+theory/CostIsComplexity.vo theory/CostIsComplexity.glob theory/CostIsComplexity.v.beautified theory/CostIsComplexity.required_vo: theory/CostIsComplexity.v 
+theory/CostIsComplexity.vio: theory/CostIsComplexity.v 
+theory/CostIsComplexity.vos theory/CostIsComplexity.vok theory/CostIsComplexity.required_vos: theory/CostIsComplexity.v 
+theory/EvolutionaryForge.vo theory/EvolutionaryForge.glob theory/EvolutionaryForge.v.beautified theory/EvolutionaryForge.required_vo: theory/EvolutionaryForge.v 
+theory/EvolutionaryForge.vio: theory/EvolutionaryForge.v 
+theory/EvolutionaryForge.vos theory/EvolutionaryForge.vok theory/EvolutionaryForge.required_vos: theory/EvolutionaryForge.v 
+theory/WitnessIsGenesis.vo theory/WitnessIsGenesis.glob theory/WitnessIsGenesis.v.beautified theory/WitnessIsGenesis.required_vo: theory/WitnessIsGenesis.v theory/Genesis.vo
+theory/WitnessIsGenesis.vio: theory/WitnessIsGenesis.v theory/Genesis.vio
+theory/WitnessIsGenesis.vos theory/WitnessIsGenesis.vok theory/WitnessIsGenesis.required_vos: theory/WitnessIsGenesis.v theory/Genesis.vos
+theory/GeometricSignature.vo theory/GeometricSignature.glob theory/GeometricSignature.v.beautified theory/GeometricSignature.required_vo: theory/GeometricSignature.v 
+theory/GeometricSignature.vio: theory/GeometricSignature.v 
+theory/GeometricSignature.vos theory/GeometricSignature.vok theory/GeometricSignature.required_vos: theory/GeometricSignature.v 
+theory/NoFreeLunch.vo theory/NoFreeLunch.glob theory/NoFreeLunch.v.beautified theory/NoFreeLunch.required_vo: theory/NoFreeLunch.v 
+theory/NoFreeLunch.vio: theory/NoFreeLunch.v 
+theory/NoFreeLunch.vos theory/NoFreeLunch.vok theory/NoFreeLunch.required_vos: theory/NoFreeLunch.v 
+theory/Genesis.vo theory/Genesis.glob theory/Genesis.v.beautified theory/Genesis.required_vo: theory/Genesis.v 
+theory/Genesis.vio: theory/Genesis.v 
+theory/Genesis.vos theory/Genesis.vok theory/Genesis.required_vos: theory/Genesis.v 
+thermodynamic/LandauerDerived.vo thermodynamic/LandauerDerived.glob thermodynamic/LandauerDerived.v.beautified thermodynamic/LandauerDerived.required_vo: thermodynamic/LandauerDerived.v 
+thermodynamic/LandauerDerived.vio: thermodynamic/LandauerDerived.v 
+thermodynamic/LandauerDerived.vos thermodynamic/LandauerDerived.vok thermodynamic/LandauerDerived.required_vos: thermodynamic/LandauerDerived.v 
+thermodynamic/ThermodynamicBridge.vo thermodynamic/ThermodynamicBridge.glob thermodynamic/ThermodynamicBridge.v.beautified thermodynamic/ThermodynamicBridge.required_vo: thermodynamic/ThermodynamicBridge.v 
+thermodynamic/ThermodynamicBridge.vio: thermodynamic/ThermodynamicBridge.v 
+thermodynamic/ThermodynamicBridge.vos thermodynamic/ThermodynamicBridge.vok thermodynamic/ThermodynamicBridge.required_vos: thermodynamic/ThermodynamicBridge.v 
+kernel/AssumptionBundle.vo kernel/AssumptionBundle.glob kernel/AssumptionBundle.v.beautified kernel/AssumptionBundle.required_vo: kernel/AssumptionBundle.v kernel/ValidCorrelation.vo kernel/AlgebraicCoherence.vo
+kernel/AssumptionBundle.vio: kernel/AssumptionBundle.v kernel/ValidCorrelation.vio kernel/AlgebraicCoherence.vio
+kernel/AssumptionBundle.vos kernel/AssumptionBundle.vok kernel/AssumptionBundle.required_vos: kernel/AssumptionBundle.v kernel/ValidCorrelation.vos kernel/AlgebraicCoherence.vos
+kernel/FiniteInformation.vo kernel/FiniteInformation.glob kernel/FiniteInformation.v.beautified kernel/FiniteInformation.required_vo: kernel/FiniteInformation.v kernel/VMState.vo kernel/VMStep.vo
+kernel/FiniteInformation.vio: kernel/FiniteInformation.v kernel/VMState.vio kernel/VMStep.vio
+kernel/FiniteInformation.vos kernel/FiniteInformation.vok kernel/FiniteInformation.required_vos: kernel/FiniteInformation.v kernel/VMState.vos kernel/VMStep.vos
+kernel/StateSpaceCounting.vo kernel/StateSpaceCounting.glob kernel/StateSpaceCounting.v.beautified kernel/StateSpaceCounting.required_vo: kernel/StateSpaceCounting.v kernel/VMState.vo kernel/VMStep.vo kernel/MuLedgerConservation.vo kernel/MuNoFreeInsightQuantitative.vo kernel/SimulationProof.vo
+kernel/StateSpaceCounting.vio: kernel/StateSpaceCounting.v kernel/VMState.vio kernel/VMStep.vio kernel/MuLedgerConservation.vio kernel/MuNoFreeInsightQuantitative.vio kernel/SimulationProof.vio
+kernel/StateSpaceCounting.vos kernel/StateSpaceCounting.vok kernel/StateSpaceCounting.required_vos: kernel/StateSpaceCounting.v kernel/VMState.vos kernel/VMStep.vos kernel/MuLedgerConservation.vos kernel/MuNoFreeInsightQuantitative.vos kernel/SimulationProof.vos
+kernel/Tier1Proofs.vo kernel/Tier1Proofs.glob kernel/Tier1Proofs.v.beautified kernel/Tier1Proofs.required_vo: kernel/Tier1Proofs.v kernel/ValidCorrelation.vo kernel/BoxCHSH.vo
+kernel/Tier1Proofs.vio: kernel/Tier1Proofs.v kernel/ValidCorrelation.vio kernel/BoxCHSH.vio
+kernel/Tier1Proofs.vos kernel/Tier1Proofs.vok kernel/Tier1Proofs.required_vos: kernel/Tier1Proofs.v kernel/ValidCorrelation.vos kernel/BoxCHSH.vos
+kernel/MinorConstraints.vo kernel/MinorConstraints.glob kernel/MinorConstraints.v.beautified kernel/MinorConstraints.required_vo: kernel/MinorConstraints.v kernel/ValidCorrelation.vo kernel/BoxCHSH.vo kernel/Tier1Proofs.vo
+kernel/MinorConstraints.vio: kernel/MinorConstraints.v kernel/ValidCorrelation.vio kernel/BoxCHSH.vio kernel/Tier1Proofs.vio
+kernel/MinorConstraints.vos kernel/MinorConstraints.vok kernel/MinorConstraints.required_vos: kernel/MinorConstraints.v kernel/ValidCorrelation.vos kernel/BoxCHSH.vos kernel/Tier1Proofs.vos
+kernel/LocalInfoLoss.vo kernel/LocalInfoLoss.glob kernel/LocalInfoLoss.v.beautified kernel/LocalInfoLoss.required_vo: kernel/LocalInfoLoss.v kernel/VMState.vo kernel/VMStep.vo kernel/FiniteInformation.vo kernel/Locality.vo
+kernel/LocalInfoLoss.vio: kernel/LocalInfoLoss.v kernel/VMState.vio kernel/VMStep.vio kernel/FiniteInformation.vio kernel/Locality.vio
+kernel/LocalInfoLoss.vos kernel/LocalInfoLoss.vok kernel/LocalInfoLoss.required_vos: kernel/LocalInfoLoss.v kernel/VMState.vos kernel/VMStep.vos kernel/FiniteInformation.vos kernel/Locality.vos
+kernel/Composition.vo kernel/Composition.glob kernel/Composition.v.beautified kernel/Composition.required_vo: kernel/Composition.v kernel/ValidCorrelation.vo kernel/BoxCHSH.vo
+kernel/Composition.vio: kernel/Composition.v kernel/ValidCorrelation.vio kernel/BoxCHSH.vio
+kernel/Composition.vos kernel/Composition.vok kernel/Composition.required_vos: kernel/Composition.v kernel/ValidCorrelation.vos kernel/BoxCHSH.vos
+kernel/MuNecessity.vo kernel/MuNecessity.glob kernel/MuNecessity.v.beautified kernel/MuNecessity.required_vo: kernel/MuNecessity.v kernel/VMState.vo kernel/VMStep.vo kernel/SimulationProof.vo kernel/MuLedgerConservation.vo kernel/LocalInfoLoss.vo
+kernel/MuNecessity.vio: kernel/MuNecessity.v kernel/VMState.vio kernel/VMStep.vio kernel/SimulationProof.vio kernel/MuLedgerConservation.vio kernel/LocalInfoLoss.vio
+kernel/MuNecessity.vos kernel/MuNecessity.vok kernel/MuNecessity.required_vos: kernel/MuNecessity.v kernel/VMState.vos kernel/VMStep.vos kernel/SimulationProof.vos kernel/MuLedgerConservation.vos kernel/LocalInfoLoss.vos
+kernel/NoArbitrage.vo kernel/NoArbitrage.glob kernel/NoArbitrage.v.beautified kernel/NoArbitrage.required_vo: kernel/NoArbitrage.v kernel/VMStep.vo kernel/VMState.vo
+kernel/NoArbitrage.vio: kernel/NoArbitrage.v kernel/VMStep.vio kernel/VMState.vio
+kernel/NoArbitrage.vos kernel/NoArbitrage.vok kernel/NoArbitrage.required_vos: kernel/NoArbitrage.v kernel/VMStep.vos kernel/VMState.vos
+kernel/MuInitiality.vo kernel/MuInitiality.glob kernel/MuInitiality.v.beautified kernel/MuInitiality.required_vo: kernel/MuInitiality.v kernel/VMState.vo kernel/VMStep.vo kernel/SimulationProof.vo kernel/MuLedgerConservation.vo
+kernel/MuInitiality.vio: kernel/MuInitiality.v kernel/VMState.vio kernel/VMStep.vio kernel/SimulationProof.vio kernel/MuLedgerConservation.vio
+kernel/MuInitiality.vos kernel/MuInitiality.vok kernel/MuInitiality.required_vos: kernel/MuInitiality.v kernel/VMState.vos kernel/VMStep.vos kernel/SimulationProof.vos kernel/MuLedgerConservation.vos
+kernel/Locality.vo kernel/Locality.glob kernel/Locality.v.beautified kernel/Locality.required_vo: kernel/Locality.v kernel/VMState.vo kernel/VMStep.vo kernel/KernelPhysics.vo
+kernel/Locality.vio: kernel/Locality.v kernel/VMState.vio kernel/VMStep.vio kernel/KernelPhysics.vio
+kernel/Locality.vos kernel/Locality.vok kernel/Locality.required_vos: kernel/Locality.v kernel/VMState.vos kernel/VMStep.vos kernel/KernelPhysics.vos
+kernel/MinimalE.vo kernel/MinimalE.glob kernel/MinimalE.v.beautified kernel/MinimalE.required_vo: kernel/MinimalE.v 
+kernel/MinimalE.vio: kernel/MinimalE.v 
+kernel/MinimalE.vos kernel/MinimalE.vok kernel/MinimalE.required_vos: kernel/MinimalE.v 
+kernel/ModularObservation.vo kernel/ModularObservation.glob kernel/ModularObservation.v.beautified kernel/ModularObservation.required_vo: kernel/ModularObservation.v kernel/VMState.vo kernel/VMStep.vo
+kernel/ModularObservation.vio: kernel/ModularObservation.v kernel/VMState.vio kernel/VMStep.vio
+kernel/ModularObservation.vos kernel/ModularObservation.vok kernel/ModularObservation.required_vos: kernel/ModularObservation.v kernel/VMState.vos kernel/VMStep.vos
+shor_primitives/PolylogConjecture.vo shor_primitives/PolylogConjecture.glob shor_primitives/PolylogConjecture.v.beautified shor_primitives/PolylogConjecture.required_vo: shor_primitives/PolylogConjecture.v 
+shor_primitives/PolylogConjecture.vio: shor_primitives/PolylogConjecture.v 
+shor_primitives/PolylogConjecture.vos shor_primitives/PolylogConjecture.vok shor_primitives/PolylogConjecture.required_vos: shor_primitives/PolylogConjecture.v 
+tests/TestNecessity.vo tests/TestNecessity.glob tests/TestNecessity.v.beautified tests/TestNecessity.required_vo: tests/TestNecessity.v kernel/VMStep.vo kernel/VMState.vo kernel/Definitions.vo
+tests/TestNecessity.vio: tests/TestNecessity.v kernel/VMStep.vio kernel/VMState.vio kernel/Definitions.vio
+tests/TestNecessity.vos tests/TestNecessity.vok tests/TestNecessity.required_vos: tests/TestNecessity.v kernel/VMStep.vos kernel/VMState.vos kernel/Definitions.vos
