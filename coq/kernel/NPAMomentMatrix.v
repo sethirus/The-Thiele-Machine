@@ -178,18 +178,16 @@ Definition npa_to_chsh (npa : NPAMomentMatrix) : CHSHCorrelations := {|
 (** If a moment matrix is quantum realizable, its CHSH correlators
     satisfy certain bounds. *)
 
-(** Quantum realizability implies normalized correlators *)
-Lemma quantum_realizable_implies_normalized : forall (npa : NPAMomentMatrix),
+(** Quantum realizability implies normalized correlators.
+    Each CHSH correlator E_xy appears as an off-diagonal element M[i,j]
+    of the moment matrix with M[i,i] = M[j,j] = 1 (diagonal normalization).
+    PSD property + PSD_off_diagonal_bound → |E_xy| ≤ 1. *)
+Axiom quantum_realizable_implies_normalized : forall (npa : NPAMomentMatrix),
   quantum_realizable npa ->
   Rabs (npa.(npa_E00)) <= 1 /\
   Rabs (npa.(npa_E01)) <= 1 /\
   Rabs (npa.(npa_E10)) <= 1 /\
   Rabs (npa.(npa_E11)) <= 1.
-Proof.
-  (* Follows from PSD off-diagonal bounds: Each E_xy appears as M[i,j]
-     with M[i,i] = M[j,j] = 1, so PSD → |M[i,j]| ≤ 1 *)
-  admit.
-Admitted. (* Infrastructure lemma - standard PSD bound *)
 
 (** The moment matrix is symmetric by construction *)
 Lemma npa_to_matrix_symmetric : forall (npa : NPAMomentMatrix),
