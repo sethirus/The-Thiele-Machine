@@ -291,7 +291,7 @@ Proof.
   intros trace s_init s_final fuel Hrun Hinit Hadm0 Hcert.
   destruct Hcert as [Herr Hsup].
   destruct Hsup as [_ Hhascert].
-  pose proof (QuantumBound.quantum_admissible_implies_no_supra_cert trace s_init s_final fuel Hrun Hinit Hadm0)
+  pose proof (QuantumBound.quantum_admissible_implies_no_supra_cert trace s_init s_final fuel Hinit Hadm0 Hrun)
     as Hno.
   exact (Hno Hhascert).
 Qed.

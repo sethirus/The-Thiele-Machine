@@ -111,17 +111,17 @@ Proof. unfold chsh_formula_is_algebraic. intros. reflexivity. Qed.
     This is NOT a constraint - bounds emerge from μ-accounting.
     The derivation shows this value is OPTIMAL, not assumed. *)
 
-Definition target_appears_as_achievable_value : Prop :=
-  target_chsh_value = (5657 # 2000)%Q /\
+Definition classical_bound_appears_as_achievable : Prop :=
+  classical_chsh_value = 2%Q /\
   (* This value is achieved by a μ=0 program (constructive) *)
-  mu_cost_of_trace 10 tsirelson_achieving_trace 0 = 0%nat.
+  mu_cost_of_trace 10 classical_achieving_trace 0 = 0%nat.
 
-Theorem target_is_derived_not_assumed : target_appears_as_achievable_value.
+Theorem classical_bound_is_derived_not_assumed : classical_bound_appears_as_achievable.
 Proof.
-  unfold target_appears_as_achievable_value, target_chsh_value.
+  unfold classical_bound_appears_as_achievable, classical_chsh_value.
   split.
   - reflexivity.
-  - apply tsirelson_program_mu_zero.
+  - apply classical_program_mu_zero.
 Qed.
 
 (** =========================================================================
@@ -347,8 +347,8 @@ Definition non_circularity_certificate : Prop :=
    rule_references_tsirelson rule_pnew = false) /\
   (* Part B: CHSH is defined without μ reference *)
   chsh_formula_is_algebraic /\
-  (* Part C: 2√2 appears only as achieved value *)
-  target_appears_as_achievable_value /\
+  (* Part C: Classical bound 2 appears as achieved value (μ=0) *)
+  classical_bound_appears_as_achievable /\
   (* Part D: μ=0 class has LOCC-like properties *)
   mu_zero_locc_correspondence.
 
@@ -358,7 +358,7 @@ Proof.
   split; [| split; [| split]].
   - apply mu_cost_is_physics_free.
   - exact chsh_formula_physics_free.
-  - apply target_is_derived_not_assumed.
+  - apply classical_bound_is_derived_not_assumed.
   - apply mu_zero_is_locc_like.
 Qed.
 

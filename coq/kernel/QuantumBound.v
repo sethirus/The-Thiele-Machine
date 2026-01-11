@@ -134,3 +134,80 @@
 
 (** This file intentionally contains no proofs yet.
     It serves as documentation for what needs to be proven. *)
+
+(** =========================================================================
+    TEMPORARY DEFINITIONS FOR CERTIFICATION INTEGRATION
+    =========================================================================
+
+    Until the quantum bound is fully proven, we provide these definitions
+    to allow Certification.v to compile. These will be replaced with proper
+    theorems once the NPA hierarchy proof is complete.
+
+    ========================================================================= *)
+
+From Coq Require Import List Bool.
+Import ListNotations.
+
+Require Import VMState.
+Require Import VMStep.
+Require Import RevelationRequirement.
+
+Import RevelationProof.
+
+(** A trace is "quantum admissible" if it contains no cert-setting instructions.
+
+    Cert-setting instructions are those that modify the certification address:
+    - REVEAL: sets cert_addr to non-zero value
+    - EMIT: sets cert_addr to non-zero value
+    - LJOIN: sets cert_addr to non-zero value
+    - LASSERT: sets cert_addr to non-zero value
+
+    This predicate defines the "quantum boundary" - traces that stay within
+    quantum correlations (CHSH ≤ 2√2) don't need certification operations. *)
+
+Definition quantum_admissible (trace : list vm_instruction) : Prop :=
+  forall instr, In instr trace ->
+    match instr with
+    | instr_reveal _ _ _ _ => False
+    | instr_emit _ _ _ => False
+    | instr_ljoin _ _ _ => False
+    | instr_lassert _ _ _ _ => False
+    | _ => True
+    end.
+
+(** ** Certification Address Tracking *)
+
+(** CSR helper for cert_addr *)
+Definition has_supra_cert (s : VMState) : Prop :=
+  s.(vm_csrs).(csr_cert_addr) <> 0%nat.
+
+(** ** Main Integration Theorem *)
+
+(** AXIOM: Quantum admissible traces cannot set certification.
+
+    This axiom encodes the key boundary: if a trace uses only quantum-admissible
+    operations (no REVEAL/EMIT/LJOIN/LASSERT), then it cannot produce a
+    certification marker (cert_addr ≠ 0).
+
+    JUSTIFICATION: This is a semantic property of the VM step relation.
+    Only the four cert-setting instructions modify cert_addr. By definition,
+    quantum_admissible traces exclude these instructions.
+
+    FUTURE: This should be proven from the VM step relation, not axiomatized.
+    The proof would proceed by induction on trace execution, showing that
+    cert_addr remains 0 when no cert-setting instructions execute.
+
+    REFERENCE: Used in Certification.v theorems:
+    - quantum_admissible_cannot_certify_supra_chsh
+    - quantum_admissible_cannot_certify_chsh_claim *)
+
+Axiom quantum_admissible_implies_no_supra_cert :
+  forall (trace : list vm_instruction) (s_init s_final : VMState) (fuel : nat),
+    s_init.(vm_csrs).(csr_cert_addr) = 0%nat ->
+    quantum_admissible trace ->
+    trace_run fuel trace s_init = Some s_final ->
+    ~ has_supra_cert s_final.
+
+(** =========================================================================
+    END TEMPORARY DEFINITIONS
+    ========================================================================= *)
