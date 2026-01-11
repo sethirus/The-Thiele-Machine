@@ -147,7 +147,7 @@ Qed.
 
 Lemma asymmetric_cost_pos : forall t, 0 <= asymmetric_cost t.
 Proof.
-  induction t; simpl.
+  induction t as [|a t' IH]; simpl.
   - reflexivity.
   - destruct a; simpl; lia.
 Qed.

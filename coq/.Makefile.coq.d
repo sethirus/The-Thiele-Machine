@@ -52,12 +52,15 @@ kernel/MuNoFreeInsightQuantitative.vos kernel/MuNoFreeInsightQuantitative.vok ke
 kernel/TsirelsonLowerBound.vo kernel/TsirelsonLowerBound.glob kernel/TsirelsonLowerBound.v.beautified kernel/TsirelsonLowerBound.required_vo: kernel/TsirelsonLowerBound.v kernel/VMState.vo kernel/VMStep.vo kernel/CHSHExtraction.vo kernel/MuCostModel.vo
 kernel/TsirelsonLowerBound.vio: kernel/TsirelsonLowerBound.v kernel/VMState.vio kernel/VMStep.vio kernel/CHSHExtraction.vio kernel/MuCostModel.vio
 kernel/TsirelsonLowerBound.vos kernel/TsirelsonLowerBound.vok kernel/TsirelsonLowerBound.required_vos: kernel/TsirelsonLowerBound.v kernel/VMState.vos kernel/VMStep.vos kernel/CHSHExtraction.vos kernel/MuCostModel.vos
-kernel/TsirelsonUpperBound.vo kernel/TsirelsonUpperBound.glob kernel/TsirelsonUpperBound.v.beautified kernel/TsirelsonUpperBound.required_vo: kernel/TsirelsonUpperBound.v kernel/VMState.vo kernel/VMStep.vo kernel/CHSHExtraction.vo kernel/MuCostModel.vo kernel/TsirelsonLowerBound.vo kernel/AlgebraicCoherence.vo
-kernel/TsirelsonUpperBound.vio: kernel/TsirelsonUpperBound.v kernel/VMState.vio kernel/VMStep.vio kernel/CHSHExtraction.vio kernel/MuCostModel.vio kernel/TsirelsonLowerBound.vio kernel/AlgebraicCoherence.vio
-kernel/TsirelsonUpperBound.vos kernel/TsirelsonUpperBound.vok kernel/TsirelsonUpperBound.required_vos: kernel/TsirelsonUpperBound.v kernel/VMState.vos kernel/VMStep.vos kernel/CHSHExtraction.vos kernel/MuCostModel.vos kernel/TsirelsonLowerBound.vos kernel/AlgebraicCoherence.vos
+kernel/TsirelsonUpperBound.vo kernel/TsirelsonUpperBound.glob kernel/TsirelsonUpperBound.v.beautified kernel/TsirelsonUpperBound.required_vo: kernel/TsirelsonUpperBound.v kernel/VMState.vo kernel/VMStep.vo kernel/CHSHExtraction.vo kernel/MuCostModel.vo kernel/TsirelsonLowerBound.vo kernel/BoxCHSH.vo kernel/AlgebraicCoherence.vo
+kernel/TsirelsonUpperBound.vio: kernel/TsirelsonUpperBound.v kernel/VMState.vio kernel/VMStep.vio kernel/CHSHExtraction.vio kernel/MuCostModel.vio kernel/TsirelsonLowerBound.vio kernel/BoxCHSH.vio kernel/AlgebraicCoherence.vio
+kernel/TsirelsonUpperBound.vos kernel/TsirelsonUpperBound.vok kernel/TsirelsonUpperBound.required_vos: kernel/TsirelsonUpperBound.v kernel/VMState.vos kernel/VMStep.vos kernel/CHSHExtraction.vos kernel/MuCostModel.vos kernel/TsirelsonLowerBound.vos kernel/BoxCHSH.vos kernel/AlgebraicCoherence.vos
 kernel/TsirelsonUniqueness.vo kernel/TsirelsonUniqueness.glob kernel/TsirelsonUniqueness.v.beautified kernel/TsirelsonUniqueness.required_vo: kernel/TsirelsonUniqueness.v kernel/VMState.vo kernel/VMStep.vo kernel/CHSHExtraction.vo kernel/MuCostModel.vo kernel/TsirelsonLowerBound.vo kernel/TsirelsonUpperBound.vo kernel/AlgebraicCoherence.vo
 kernel/TsirelsonUniqueness.vio: kernel/TsirelsonUniqueness.v kernel/VMState.vio kernel/VMStep.vio kernel/CHSHExtraction.vio kernel/MuCostModel.vio kernel/TsirelsonLowerBound.vio kernel/TsirelsonUpperBound.vio kernel/AlgebraicCoherence.vio
 kernel/TsirelsonUniqueness.vos kernel/TsirelsonUniqueness.vok kernel/TsirelsonUniqueness.required_vos: kernel/TsirelsonUniqueness.v kernel/VMState.vos kernel/VMStep.vos kernel/CHSHExtraction.vos kernel/MuCostModel.vos kernel/TsirelsonLowerBound.vos kernel/TsirelsonUpperBound.vos kernel/AlgebraicCoherence.vos
+kernel/TsirelsonDerivation.vo kernel/TsirelsonDerivation.glob kernel/TsirelsonDerivation.v.beautified kernel/TsirelsonDerivation.required_vo: kernel/TsirelsonDerivation.v kernel/VMState.vo kernel/VMStep.vo kernel/CHSHExtraction.vo kernel/MuCostModel.vo kernel/AlgebraicCoherence.vo kernel/HardAssumptions.vo
+kernel/TsirelsonDerivation.vio: kernel/TsirelsonDerivation.v kernel/VMState.vio kernel/VMStep.vio kernel/CHSHExtraction.vio kernel/MuCostModel.vio kernel/AlgebraicCoherence.vio kernel/HardAssumptions.vio
+kernel/TsirelsonDerivation.vos kernel/TsirelsonDerivation.vok kernel/TsirelsonDerivation.required_vos: kernel/TsirelsonDerivation.v kernel/VMState.vos kernel/VMStep.vos kernel/CHSHExtraction.vos kernel/MuCostModel.vos kernel/AlgebraicCoherence.vos kernel/HardAssumptions.vos
 kernel/QuantumEquivalence.vo kernel/QuantumEquivalence.glob kernel/QuantumEquivalence.v.beautified kernel/QuantumEquivalence.required_vo: kernel/QuantumEquivalence.v kernel/VMState.vo kernel/VMStep.vo kernel/CHSHExtraction.vo kernel/MuCostModel.vo kernel/TsirelsonLowerBound.vo kernel/TsirelsonUpperBound.vo
 kernel/QuantumEquivalence.vio: kernel/QuantumEquivalence.v kernel/VMState.vio kernel/VMStep.vio kernel/CHSHExtraction.vio kernel/MuCostModel.vio kernel/TsirelsonLowerBound.vio kernel/TsirelsonUpperBound.vio
 kernel/QuantumEquivalence.vos kernel/QuantumEquivalence.vok kernel/QuantumEquivalence.required_vos: kernel/QuantumEquivalence.v kernel/VMState.vos kernel/VMStep.vos kernel/CHSHExtraction.vos kernel/MuCostModel.vos kernel/TsirelsonLowerBound.vos kernel/TsirelsonUpperBound.vos
@@ -118,6 +121,9 @@ kernel/PartitionSeparation.vos kernel/PartitionSeparation.vok kernel/PartitionSe
 kernel/Subsumption.vo kernel/Subsumption.glob kernel/Subsumption.v.beautified kernel/Subsumption.required_vo: kernel/Subsumption.v kernel/Kernel.vo kernel/KernelTM.vo kernel/KernelThiele.vo
 kernel/Subsumption.vio: kernel/Subsumption.v kernel/Kernel.vio kernel/KernelTM.vio kernel/KernelThiele.vio
 kernel/Subsumption.vos kernel/Subsumption.vok kernel/Subsumption.required_vos: kernel/Subsumption.v kernel/Kernel.vos kernel/KernelTM.vos kernel/KernelThiele.vos
+kernel/ProperSubsumption.vo kernel/ProperSubsumption.glob kernel/ProperSubsumption.v.beautified kernel/ProperSubsumption.required_vo: kernel/ProperSubsumption.v 
+kernel/ProperSubsumption.vio: kernel/ProperSubsumption.v 
+kernel/ProperSubsumption.vos kernel/ProperSubsumption.vok kernel/ProperSubsumption.required_vos: kernel/ProperSubsumption.v 
 kernel/ReceiptCore.vo kernel/ReceiptCore.glob kernel/ReceiptCore.v.beautified kernel/ReceiptCore.required_vo: kernel/ReceiptCore.v 
 kernel/ReceiptCore.vio: kernel/ReceiptCore.v 
 kernel/ReceiptCore.vos kernel/ReceiptCore.vok kernel/ReceiptCore.required_vos: kernel/ReceiptCore.v 
@@ -160,12 +166,21 @@ kernel/NonCircularityAudit.vos kernel/NonCircularityAudit.vok kernel/NonCircular
 kernel/MasterSummary.vo kernel/MasterSummary.glob kernel/MasterSummary.v.beautified kernel/MasterSummary.required_vo: kernel/MasterSummary.v kernel/VMState.vo kernel/VMStep.vo kernel/MuCostModel.vo kernel/CHSHExtraction.vo kernel/TsirelsonLowerBound.vo kernel/TsirelsonUpperBound.vo kernel/TsirelsonUniqueness.vo kernel/QuantumEquivalence.vo kernel/NoFreeInsight.vo kernel/PythonBisimulation.vo kernel/HardwareBisimulation.vo kernel/NonCircularityAudit.vo
 kernel/MasterSummary.vio: kernel/MasterSummary.v kernel/VMState.vio kernel/VMStep.vio kernel/MuCostModel.vio kernel/CHSHExtraction.vio kernel/TsirelsonLowerBound.vio kernel/TsirelsonUpperBound.vio kernel/TsirelsonUniqueness.vio kernel/QuantumEquivalence.vio kernel/NoFreeInsight.vio kernel/PythonBisimulation.vio kernel/HardwareBisimulation.vio kernel/NonCircularityAudit.vio
 kernel/MasterSummary.vos kernel/MasterSummary.vok kernel/MasterSummary.required_vos: kernel/MasterSummary.v kernel/VMState.vos kernel/VMStep.vos kernel/MuCostModel.vos kernel/CHSHExtraction.vos kernel/TsirelsonLowerBound.vos kernel/TsirelsonUpperBound.vos kernel/TsirelsonUniqueness.vos kernel/QuantumEquivalence.vos kernel/NoFreeInsight.vos kernel/PythonBisimulation.vos kernel/HardwareBisimulation.vos kernel/NonCircularityAudit.vos
-kernel/TestTripartite.vo kernel/TestTripartite.glob kernel/TestTripartite.v.beautified kernel/TestTripartite.required_vo: kernel/TestTripartite.v kernel/BoxCHSH.vo
-kernel/TestTripartite.vio: kernel/TestTripartite.v kernel/BoxCHSH.vio
-kernel/TestTripartite.vos kernel/TestTripartite.vok kernel/TestTripartite.required_vos: kernel/TestTripartite.v kernel/BoxCHSH.vos
+kernel/ValidCorrelation.vo kernel/ValidCorrelation.glob kernel/ValidCorrelation.v.beautified kernel/ValidCorrelation.required_vo: kernel/ValidCorrelation.v 
+kernel/ValidCorrelation.vio: kernel/ValidCorrelation.v 
+kernel/ValidCorrelation.vos kernel/ValidCorrelation.vok kernel/ValidCorrelation.required_vos: kernel/ValidCorrelation.v 
 kernel/AlgebraicCoherence.vo kernel/AlgebraicCoherence.glob kernel/AlgebraicCoherence.v.beautified kernel/AlgebraicCoherence.required_vo: kernel/AlgebraicCoherence.v 
 kernel/AlgebraicCoherence.vio: kernel/AlgebraicCoherence.v 
 kernel/AlgebraicCoherence.vos kernel/AlgebraicCoherence.vok kernel/AlgebraicCoherence.required_vos: kernel/AlgebraicCoherence.v 
+kernel/HardAssumptions.vo kernel/HardAssumptions.glob kernel/HardAssumptions.v.beautified kernel/HardAssumptions.required_vo: kernel/HardAssumptions.v kernel/ValidCorrelation.vo kernel/AlgebraicCoherence.vo kernel/BoxCHSH.vo
+kernel/HardAssumptions.vio: kernel/HardAssumptions.v kernel/ValidCorrelation.vio kernel/AlgebraicCoherence.vio kernel/BoxCHSH.vio
+kernel/HardAssumptions.vos kernel/HardAssumptions.vok kernel/HardAssumptions.required_vos: kernel/HardAssumptions.v kernel/ValidCorrelation.vos kernel/AlgebraicCoherence.vos kernel/BoxCHSH.vos
+kernel/BoxCHSH.vo kernel/BoxCHSH.glob kernel/BoxCHSH.v.beautified kernel/BoxCHSH.required_vo: kernel/BoxCHSH.v kernel/ValidCorrelation.vo
+kernel/BoxCHSH.vio: kernel/BoxCHSH.v kernel/ValidCorrelation.vio
+kernel/BoxCHSH.vos kernel/BoxCHSH.vok kernel/BoxCHSH.required_vos: kernel/BoxCHSH.v kernel/ValidCorrelation.vos
+kernel/TestTripartite.vo kernel/TestTripartite.glob kernel/TestTripartite.v.beautified kernel/TestTripartite.required_vo: kernel/TestTripartite.v kernel/BoxCHSH.vo
+kernel/TestTripartite.vio: kernel/TestTripartite.v kernel/BoxCHSH.vio
+kernel/TestTripartite.vos kernel/TestTripartite.vok kernel/TestTripartite.required_vos: kernel/TestTripartite.v kernel/BoxCHSH.vos
 kernel/TsirelsonComputation.vo kernel/TsirelsonComputation.glob kernel/TsirelsonComputation.v.beautified kernel/TsirelsonComputation.required_vo: kernel/TsirelsonComputation.v 
 kernel/TsirelsonComputation.vio: kernel/TsirelsonComputation.v 
 kernel/TsirelsonComputation.vos kernel/TsirelsonComputation.vok kernel/TsirelsonComputation.required_vos: kernel/TsirelsonComputation.v 
@@ -517,15 +532,6 @@ catnet/coqproofs/CatNet.vos catnet/coqproofs/CatNet.vok catnet/coqproofs/CatNet.
 isomorphism/coqproofs/Universe.vo isomorphism/coqproofs/Universe.glob isomorphism/coqproofs/Universe.v.beautified isomorphism/coqproofs/Universe.required_vo: isomorphism/coqproofs/Universe.v 
 isomorphism/coqproofs/Universe.vio: isomorphism/coqproofs/Universe.v 
 isomorphism/coqproofs/Universe.vos isomorphism/coqproofs/Universe.vok isomorphism/coqproofs/Universe.required_vos: isomorphism/coqproofs/Universe.v 
-sandboxes/AbstractPartitionCHSH.vo sandboxes/AbstractPartitionCHSH.glob sandboxes/AbstractPartitionCHSH.v.beautified sandboxes/AbstractPartitionCHSH.required_vo: sandboxes/AbstractPartitionCHSH.v 
-sandboxes/AbstractPartitionCHSH.vio: sandboxes/AbstractPartitionCHSH.v 
-sandboxes/AbstractPartitionCHSH.vos sandboxes/AbstractPartitionCHSH.vok sandboxes/AbstractPartitionCHSH.required_vos: sandboxes/AbstractPartitionCHSH.v 
-sandboxes/ToyThieleMachine.vo sandboxes/ToyThieleMachine.glob sandboxes/ToyThieleMachine.v.beautified sandboxes/ToyThieleMachine.required_vo: sandboxes/ToyThieleMachine.v 
-sandboxes/ToyThieleMachine.vio: sandboxes/ToyThieleMachine.v 
-sandboxes/ToyThieleMachine.vos sandboxes/ToyThieleMachine.vok sandboxes/ToyThieleMachine.required_vos: sandboxes/ToyThieleMachine.v 
-sandboxes/VerifiedGraphSolver.vo sandboxes/VerifiedGraphSolver.glob sandboxes/VerifiedGraphSolver.v.beautified sandboxes/VerifiedGraphSolver.required_vo: sandboxes/VerifiedGraphSolver.v 
-sandboxes/VerifiedGraphSolver.vio: sandboxes/VerifiedGraphSolver.v 
-sandboxes/VerifiedGraphSolver.vos sandboxes/VerifiedGraphSolver.vok sandboxes/VerifiedGraphSolver.required_vos: sandboxes/VerifiedGraphSolver.v 
 self_reference/SelfReference.vo self_reference/SelfReference.glob self_reference/SelfReference.v.beautified self_reference/SelfReference.required_vo: self_reference/SelfReference.v 
 self_reference/SelfReference.vio: self_reference/SelfReference.v 
 self_reference/SelfReference.vos self_reference/SelfReference.vok self_reference/SelfReference.required_vos: self_reference/SelfReference.v 

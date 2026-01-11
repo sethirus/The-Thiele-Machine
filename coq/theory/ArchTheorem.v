@@ -13,11 +13,14 @@
  *)
 
 Require Import Coq.Reals.Reals.
+Require Import Coq.micromega.Lra.
 Require Import Coq.Lists.List.
 Require Import Coq.Lists.ListDec.
-Require Import GeometricSignature.
-Require Import PDISCOVERIntegration.
+Require Import Theory.GeometricSignature.
+From Kernel Require Import PDISCOVERIntegration.
 Import ListNotations.
+Import GeometricSignature.
+Open Scope R_scope.
 
 (*
  * The Optimal Quartet
@@ -37,7 +40,7 @@ Definition optimal_quartet : list OptimalStrategy :=
   [Louvain; Spectral; Degree; Balanced].
 
 (* The quartet is complete (contains exactly 4 strategies) *)
-Lemma optimal_quartet_complete : length optimal_quartet = 4.
+Lemma optimal_quartet_complete : length optimal_quartet = 4%nat.
 Proof.
   unfold optimal_quartet. simpl. reflexivity.
 Qed.
@@ -65,19 +68,17 @@ Record PerformanceMetric := {
 
 (* Empirically measured performance of the optimal quartet *)
 Definition optimal_quartet_performance : PerformanceMetric := {|
-  mean_accuracy := 0.9051;
-  std_deviation := 0.0570;
+  mean_accuracy := 9051/10000;
+  std_deviation := 570/10000;
   sample_size := 63
 |}.
 
 (* The quartet achieves greater than 90% accuracy *)
 Theorem optimal_quartet_high_accuracy :
-  mean_accuracy optimal_quartet_performance > 0.90.
+  mean_accuracy optimal_quartet_performance > 90 / 100.
 Proof.
   unfold optimal_quartet_performance. simpl.
-  apply Rlt_trans with (r2 := 0.905).
-  - apply Rlt_R0_R1.  (* 0.90 < 0.905 *)
-  - unfold Rlt. apply Rle_refl.
+  lra.
 Qed.
 
 (*
@@ -94,7 +95,7 @@ Inductive ProblemClass : Type :=
   | Chaotic : ProblemClass.      (* Random 3-SAT at phase transition *)
 
 (* Expected verdict for each problem class *)
-Definition expected_verdict (pc : ProblemClass) : Verdict :=
+Definition expected_verdict (pc : ProblemClass) : ProblemStructure :=
   match pc with
   | Structured => STRUCTURED
   | Chaotic => CHAOTIC
@@ -104,7 +105,7 @@ Definition expected_verdict (pc : ProblemClass) : Verdict :=
  * Classification correctness:
  * The machine's verdict matches the expected verdict
  *)
-Definition classification_correct (pc : ProblemClass) (v : Verdict) : Prop :=
+Definition classification_correct (pc : ProblemClass) (v : ProblemStructure) : Prop :=
   v = expected_verdict pc.
 
 (*
@@ -116,11 +117,11 @@ Definition probability_correct_classification
   (_pf : strategies = optimal_quartet) : R :=
   mean_accuracy optimal_quartet_performance.
 
-Definition reliability_threshold : R := 0.90.
+Definition reliability_threshold : R := 90/100.
 
-(* The reliability threshold is 0.90 (90% accuracy) *)
+(* The reliability threshold is 90/100 (90% accuracy) *)
 Lemma reliability_threshold_value :
-  reliability_threshold = 0.90.
+  reliability_threshold = 90/100.
 Proof. reflexivity. Qed.
 
 (* Empirical alignment between the observed accuracy and the abstract model. *)
@@ -143,11 +144,9 @@ Proof.
   intro pc.
   rewrite probability_alignment_empirical.
   rewrite reliability_threshold_value.
-  (* 0.9051 > 0.90 *)
+  (* 9051/10000 > 90/100 *)
   unfold optimal_quartet_performance. simpl.
-  apply Rlt_trans with (r2 := 0.905).
-  - apply Rlt_R0_R1.
-  - unfold Rlt. apply Rle_refl.
+  lra.
 Qed.
 
 (*
@@ -156,7 +155,7 @@ Qed.
 
 (* For structured problems, the machine returns STRUCTURED *)
 Theorem arch_theorem_structured :
-  forall (sig : GeometricSignature),
+  forall (sig : GeometricSignatureTy),
   is_structured_signature sig = true ->
   exists (prob : R), prob > reliability_threshold /\
   classify_signature sig = STRUCTURED.
@@ -166,7 +165,7 @@ Proof.
   split.
   - rewrite reliability_threshold_value.
     unfold optimal_quartet_performance. simpl.
-    apply Rlt_trans with (r2 := 0.905).
+    apply Rlt_trans with (r2 := 905/1000).
     + apply Rlt_R0_R1.
     + unfold Rlt. apply Rle_refl.
   - unfold classify_signature.
@@ -176,7 +175,7 @@ Qed.
 
 (* For chaotic problems, the machine returns CHAOTIC *)
 Theorem arch_theorem_chaotic :
-  forall (sig : GeometricSignature),
+  forall (sig : GeometricSignatureTy),
   is_structured_signature sig = false ->
   exists (prob : R), prob > reliability_threshold /\
   classify_signature sig = CHAOTIC.
@@ -186,7 +185,7 @@ Proof.
   split.
   - rewrite reliability_threshold_value.
     unfold optimal_quartet_performance. simpl.
-    apply Rlt_trans with (r2 := 0.905).
+    apply Rlt_trans with (r2 := 905/1000).
     + apply Rlt_R0_R1.
     + unfold Rlt. apply Rle_refl.
   - unfold classify_signature.
@@ -265,7 +264,7 @@ Proof.
   split.
   - rewrite reliability_threshold_value.
     unfold optimal_quartet_performance. simpl.
-    apply Rlt_trans with (r2 := 0.905).
+    apply Rlt_trans with (r2 := 905/1000).
     + apply Rlt_R0_R1.
     + unfold Rlt. apply Rle_refl.
   - unfold verdict, classify_signature.

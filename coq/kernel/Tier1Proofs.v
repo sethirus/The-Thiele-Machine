@@ -21,6 +21,7 @@ Require Import Coq.Lists.List.
 Require Import Coq.Bool.Bool.
 
 From Kernel Require Import ValidCorrelation.
+From Kernel Require Import BoxCHSH.
 
 Local Open Scope Q_scope.
 Import ListNotations.

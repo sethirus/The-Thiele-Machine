@@ -4,7 +4,7 @@ Set Implicit Arguments.
 
 Require Import Coq.Logic.FunctionalExtensionality.
 Require Import Coq.Logic.PropExtensionality.
-Require Import theory.Core.
+Require Import Theory.Core.
 
 Module RelCategory.
   (* Objects are types; morphisms are binary relations as predicates. *)
@@ -48,7 +48,7 @@ Module RelCategory.
            (T : Rel C D) (R : Rel B C) (S : Rel A B),
       rel_comp T (rel_comp R S) = rel_comp (rel_comp T R) S.
   Proof.
-    intros _ _ _ _ _ _ _.
+    intros A B C D T R S.
     apply functional_extensionality_dep; intros a.
     apply functional_extensionality_dep; intros d. unfold rel_comp.
     apply iff_to_eq. split.

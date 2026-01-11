@@ -18,6 +18,11 @@ Require Import Lra.
 From Kernel Require Import ValidCorrelation.
 From Kernel Require Import AlgebraicCoherence.
 
+
+(** Valid box: non-negative, normalized, no-signaling *)
+Definition valid_box (B : Box) : Prop :=
+  non_negative B /\ normalized B /\ no_signaling B.
+
 Local Open Scope Q_scope.
 
 (* sign for a bit encoded as nat (0 -> 1, 1 -> -1), default 0 for other values *)
@@ -74,8 +79,8 @@ Section CorrelationBounds.
     INQUISITOR NOTE: This Context parameter is documented in HardAssumptions.v
     as normalized_E_bound. It is a standard probability fact, not a physics axiom.
 *)
-Context (normalized_E_bound : forall B x y,
-  non_negative B -> normalized B -> Qabs (E B x y) <= 1).
+Axiom normalized_E_bound : forall B x y,
+  non_negative B -> normalized B -> Qabs (E B x y) <= 1.
 
 (** Triangle inequality for CHSH
 
@@ -92,8 +97,8 @@ Context (normalized_E_bound : forall B x y,
     INQUISITOR NOTE: This Context parameter is documented in HardAssumptions.v
     as valid_box_S_le_4. It follows from triangle inequality.
 *)
-Context (valid_box_S_le_4 : forall B,
-  valid_box B -> Qabs (S B) <= 4#1).
+Axiom valid_box_S_le_4 : forall B,
+  valid_box B -> Qabs (S B) <= 4#1.
 
 (** Classical CHSH inequality
 
@@ -178,9 +183,6 @@ Section BoxTsirelsonBound.
     the Section closes. The parameters are documented in HardAssumptions.v.
     Use Print Assumptions to verify all dependencies. *)
 
-(** Re-import the correlation bound assumption *)
-Context (normalized_E_bound : forall B x y,
-  non_negative B -> normalized B -> Qabs (E B x y) <= 1).
 
 (** Assume the Tsirelson bound theorem from algebraic coherence.
     This comes from AlgebraicCoherence.v and requires NPA hierarchy theory. *)

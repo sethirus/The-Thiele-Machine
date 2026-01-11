@@ -2,8 +2,8 @@
 
 Set Implicit Arguments.
 
-Require Import theory.Core.
-Require Import theory.PhysRel.
+Require Import Theory.Core.
+Require Import Theory.PhysRel.
 
 Section LogicToPhysics.
   Variable Gen : Type -> Type -> Type.
