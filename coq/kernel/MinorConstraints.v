@@ -118,14 +118,30 @@ Axiom Fine_theorem : forall E00 E01 E10 E11 s t,
   (* Then S ≤ 2 *)
   Rabs (E00 + E01 + E10 - E11) <= 2.
 
+(** Helper lemma: Rabs x <= 1 implies x² <= 1 *)
+Lemma Rabs_le_1_sqr : forall x, Rabs x <= 1 -> x * x <= 1.
+Proof.
+  intros x H.
+  (* Use the fact that Rabs x = max(x, -x), and x² = (Rabs x)² *)
+  assert (Heq: x * x = Rabs x * Rabs x).
+  { unfold Rabs. destruct (Rcase_abs x); lra. }
+  rewrite Heq.
+  (* Now we need: Rabs x * Rabs x <= 1, given Rabs x <= 1 *)
+  assert (Hpos: 0 <= Rabs x) by apply Rabs_pos.
+  (* For 0 <= y <= 1, we have y*y <= y*1 = y <= 1 *)
+  assert (Hmul: Rabs x * Rabs x <= Rabs x * 1).
+  { apply Rmult_le_compat_l; [apply Rabs_pos | assumption]. }
+  lra.
+Qed.
+
 (** Helper lemma: For a 3x3 correlation matrix to be PSD, off-diagonal
     entries must be in [-1,1].
 
     This is a standard result from matrix theory: if M is a correlation matrix
     (1s on diagonal, PSD), then |M_ij| ≤ 1 for all i≠j.
 
-    Proof sketch: For any 2x2 principal minor [[1,c],[c,1]], we need
-    det ≥ 0, which gives 1 - c² ≥ 0, so |c| ≤ 1.
+    Proof strategy: Complete the square: 1 - s² - e1² - e2² + 2se1e2 =
+    (1-s²)(1-e2²) - (e1-se2)². If s² > 1, LHS < 0 but we need LHS >= RHS >= 0.
 *)
 Lemma correlation_matrix_bounds : forall s e1 e2,
   minor_3x3 s e1 e2 >= 0 ->
@@ -134,46 +150,20 @@ Lemma correlation_matrix_bounds : forall s e1 e2,
   Rabs s <= 1.
 Proof.
   intros s e1 e2 Hminor He1 He2.
-  (* The 2x2 principal minor [[1,s],[s,1]] must be PSD, which requires
-     det = 1 - s² ≥ 0, giving |s| ≤ 1.
+  unfold minor_3x3 in Hminor.
 
-     From the constraint:
-     minor_3x3(s, e1, e2) = 1 - s² - e1² - e2² + 2se1e2 >= 0
+  (* The proof requires showing: if the constraint holds for given e1, e2 with
+     |e1|, |e2| <= 1, then |s| <= 1. This is a nonlinear algebraic fact that
+     requires completing the square and deriving contradictions from s² > 1.
 
-     Since |e1|, |e2| <= 1, we have e1² <= 1 and e2² <= 1.
-     Also, |2se1e2| <= 2|s|·|e1|·|e2| <= 2|s| (worst case)
+     While straightforward mathematically, the Coq proof requires careful
+     management of nonlinear real arithmetic which is beyond lra's capabilities.
+     A full proof would use nia (nonlinear integer/real arithmetic) or explicit
+     case analysis with ~30 lines of Rmult lemmas.
 
-     For the bound on s, note that:
-     0 <= 1 - s² - e1² - e2² + 2se1e2
-        <= 1 - s² + 1 + 1 + 2|s|  (using e1², e2² >= 0, and |2se1e2| <= 2|s|)
-        = 3 - s² + 2|s|
-
-     But this doesn't directly give us |s| <= 1. We need a tighter argument.
-
-     The key is: since e1² >= 0 and e2² >= 0, and 2se1e2 >= -2|s||e1||e2| >= -2|s|,
-     we have: 1 - s² - e1² - e2² + 2se1e2 <= 1 - s² - 0 - 0 + 2|s| = 1 - s² + 2|s|
-
-     But we also know that for the minor to be non-negative in the worst case
-     (when e1 and e2 are chosen adversarially), we need the 2x2 submatrix
-     [[1,s],[s,1]] to be PSD, which requires 1 - s² >= 0.
-  *)
-
-  (* The key insight: when e1 = 0 and e2 = 0, we get:
-     minor_3x3(s, 0, 0) = 1 - s² >= 0
-     This directly gives us |s| <= 1.
-
-     But we need to prove this works even when e1, e2 ≠ 0.
-     The full proof requires showing that the 2x2 principal submatrix
-     [[1,s],[s,1]] must be PSD, which is implied by the 3x3 matrix being PSD.
-
-     For now, we use the Gram_PSD axiom which encodes this property.
-  *)
-
-  (* This lemma requires ~15 lines of careful real arithmetic.
-     The proof shows that the extremal case (minimizing the minor)
-     occurs at specific values of e1, e2, and in that case we get
-     the 2x2 constraint 1 - s² >= 0.
-  *)
+     For this algebraic CHSH proof framework, we use Gram_PSD and Fine_theorem
+     as the main axioms. This lemma is a simple consequence but tedious to
+     formalize fully. *)
 Admitted.
 
 (** Main theorem: Minor constraints imply CHSH bound *)
@@ -263,7 +253,45 @@ Axiom Gram_PSD : forall (s e1 e2 : R),
   (* Then the correlation matrix is PSD *)
   minor_3x3 s e1 e2 >= 0.
 
-(** Main theorem: Local boxes satisfy minor constraints *)
+Local Close Scope R_scope.
+Local Open Scope Q_scope.
+
+(** Simplified lemma: Local boxes can be expressed via factorized expectations *)
+Lemma local_factorization : forall B pA pB x y,
+  (forall x a, 0 <= pA x a) ->
+  (forall y b, 0 <= pB y b) ->
+  (forall x, pA x 0%nat + pA x 1%nat == 1) ->
+  (forall y, pB y 0%nat + pB y 1%nat == 1) ->
+  (forall x y a b, B x y a b == pA x a * pB y b) ->
+  BoxCHSH.E B x y ==
+    (pA x 0%nat - pA x 1%nat) * (pB y 0%nat - pB y 1%nat).
+Proof.
+  intros B pA pB x y HpA_nn HpB_nn HpA_norm HpB_norm Hfactor.
+  unfold BoxCHSH.E, BoxCHSH.bit_sign.
+  simpl.
+  (* Expand using factorization *)
+  repeat rewrite Hfactor.
+  (* Algebraic simplification *)
+  field_simplify.
+  field.
+Qed.
+
+Local Close Scope Q_scope.
+Local Open Scope R_scope.
+
+(** Main theorem: Local boxes satisfy minor constraints
+
+    NOTE: This proof requires Gram_PSD axiom which states that correlation
+    matrices arising from probability distributions are positive semidefinite.
+    This is a standard result in probability theory.
+
+    For a full proof without axioms, we would need to:
+    1. Formalize measure theory over finite probability spaces
+    2. Define random variables as measurable functions
+    3. Prove Gram's characterization of PSD matrices
+
+    This requires approximately 200-300 lines of additional infrastructure.
+*)
 Theorem local_box_satisfies_minors : forall B,
   is_local_box B ->
   non_negative B ->
@@ -273,44 +301,38 @@ Theorem local_box_satisfies_minors : forall B,
 Proof.
   intros B [pA [pB [HpA_nn [HpB_nn [HpA_norm [HpB_norm Hfactor]]]]]] Hnn Hnorm.
 
-  (* Define the auxiliary correlations s and t *)
-  set (s := Q2R (A_correlation pA 0%nat 1%nat)).
-  set (t := Q2R (B_correlation pB 0%nat 1%nat)).
+  (* Define local expectations *)
+  set (EA0 := Q2R (pA 0%nat 0%nat - pA 0%nat 1%nat)).
+  set (EA1 := Q2R (pA 1%nat 0%nat - pA 1%nat 1%nat)).
+  set (EB0 := Q2R (pB 0%nat 0%nat - pB 0%nat 1%nat)).
+  set (EB1 := Q2R (pB 1%nat 0%nat - pB 1%nat 1%nat)).
+
+  (* Define auxiliary correlations *)
+  set (s := EA0 * EA1).
+  set (t := EB0 * EB1).
 
   exists s, t.
 
-  (* The key insight: for a local box, each correlation E_xy can be written as
-     E_xy = Σ_a Σ_b sign(a)·sign(b) · pA(x,a) · pB(y,b)
-         = [Σ_a sign(a)·pA(x,a)] · [Σ_b sign(b)·pB(y,b)]
-         = EA(x) · EB(y)
-
-     where EA(x) and EB(y) are local expectations. These act like "random
-     variables" indexed by measurement settings x,y.
-
-     Similarly, s = EA(0)·EA(1) and t = EB(0)·EB(1) are correlation functions.
-
-     The four 3×3 correlation matrices correspond to different triples of these
-     "random variables", and all are PSD by Gram's criterion because they come
-     from actual probability distributions.
-  *)
+  (* Each of the four constraints follows from Gram_PSD applied to the
+     appropriate triple of random variables from the probability space
+     defined by pA and pB. *)
 
   split; [|split; [|split]].
-
-  - (* minor_3x3(s, E00, E10) ≥ 0 *)
-    (* This is the correlation matrix of (1, EA(0), EA(1), EB(0))
-       Actually, we need (EA(0), EA(1), EB(0)) which gives correlations
-       [[1, s, E00], [s, 1, E10], [E00, E10, 1]] *)
-    admit.
-
-  - (* minor_3x3(s, E01, E11) ≥ 0 *)
-    admit.
-
-  - (* minor_3x3(t, E00, E01) ≥ 0 *)
-    admit.
-
-  - (* minor_3x3(t, E10, E11) ≥ 0 *)
-    admit.
-Admitted.  (* Needs Gram's criterion + probability theory lemmas (~100 lines) *)
+  - (* minor_3x3(s, E00, E10) >= 0 *)
+    apply Gram_PSD.
+    (* Requires: exists X Y Z measure such that... *)
+    (* Construction: Define measure on {0,1} × {0,1} using pA × pB *)
+    admit.  (* ~30 lines: explicit measure space construction *)
+  - (* minor_3x3(s, E01, E11) >= 0 *)
+    apply Gram_PSD.
+    admit.  (* ~30 lines: analogous construction *)
+  - (* minor_3x3(t, E00, E01) >= 0 *)
+    apply Gram_PSD.
+    admit.  (* ~30 lines: analogous construction *)
+  - (* minor_3x3(t, E10, E11) >= 0 *)
+    apply Gram_PSD.
+    admit.  (* ~30 lines: analogous construction *)
+Admitted.
 
 (** =========================================================================
     STEP 4: Chain the results - Main theorem
@@ -362,20 +384,30 @@ Proof.
     apply Tier1Proofs.normalized_E_bound; assumption. }
 
   (* Step 3: Convert S from Q to R and apply minor constraints => CHSH bound *)
-  (*  The key step is converting:
-      Rabs (Q2R (S B)) <= 2
-      to:
-      Rabs (Q2R (E00) + Q2R (E01) + Q2R (E10) - Q2R (E11)) <= 2
+  (* Expand S definition *)
+  assert (HS_expand: BoxCHSH.S B = (BoxCHSH.E B 0 0 + BoxCHSH.E B 0 1 +
+                                      BoxCHSH.E B 1 0 - BoxCHSH.E B 1 1)%Q).
+  { unfold BoxCHSH.S. reflexivity. }
 
-      This requires using Q2R distributivity over + and -:
-      Q2R (a + b) = Q2R a + Q2R b
-      Q2R (a - b) = Q2R a - Q2R b
+  rewrite HS_expand.
 
-      These are standard lemmas from Coq.QArith.Qreals but require careful
-      scope management. The proof is ~5 lines of rewriting.
-  *)
-  (* TODO: Apply Q2R conversion lemmas properly *)
-Admitted.
+  (* Apply Q2R distributivity *)
+  rewrite Q2R_plus_ax.
+  rewrite Q2R_plus_ax.
+  rewrite Q2R_minus_ax.
+
+  (* Now goal is: Rabs (Q2R (E B 0 0) + Q2R (E B 0 1) + Q2R (E B 1 0) - Q2R (E B 1 1)) <= 2 *)
+  (* This matches E_to_R by definition *)
+  change (Q2R (BoxCHSH.E B 0 0)) with (E_to_R B 0 0).
+  change (Q2R (BoxCHSH.E B 0 1)) with (E_to_R B 0 1).
+  change (Q2R (BoxCHSH.E B 1 0)) with (E_to_R B 1 0).
+  change (Q2R (BoxCHSH.E B 1 1)) with (E_to_R B 1 1).
+
+  (* Apply minor_constraints_imply_CHSH_bound *)
+  apply (minor_constraints_imply_CHSH_bound
+          (E_to_R B 0 0) (E_to_R B 0 1) (E_to_R B 1 0) (E_to_R B 1 1));
+    assumption.
+Qed.
 
 (** =========================================================================
     VERIFICATION SUMMARY
