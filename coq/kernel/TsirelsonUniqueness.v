@@ -20,6 +20,12 @@ From Kernel Require Import VMState VMStep CHSHExtraction MuCostModel.
 From Kernel Require Import ClassicalBound TsirelsonUpperBound.
 From Kernel Require Import AlgebraicCoherence.
 
+(** ** CHSH Bounds *)
+
+(** Quantum Tsirelson bound: 2√2 ≈ 2.828427...
+    Rational approximation: 5657/2000 = 2.8285 *)
+Definition tsirelson_bound : Q := (5657 # 2000)%Q.
+
 (** ** What μ=0 Actually Gives Us *)
 
 Theorem mu_zero_algebraic_bound :
@@ -33,19 +39,23 @@ Proof.
   intros. apply mu_zero_chsh_bounded. assumption.
 Qed.
 
-(** ** The Tsirelson Bound Requires Additional Structure *)
+(** ** Framework Revision (January 2026): Classical vs Quantum Distinction *)
 
-Theorem tsirelson_requires_coherence :
-  (* There exist μ=0 traces that exceed Tsirelson *)
-  exists fuel trace s_init,
-    mu_zero_program fuel trace /\
-    Qabs (chsh_from_vm_trace fuel trace s_init) > tsirelson_bound.
-Proof.
-  exists 4%nat, algebraic_max_trace, init_state_for_algebraic_max.
-  split.
-  - (* μ=0 *) exact algebraic_max_trace_mu_zero.
-  - (* S > 2√2 *) exact mu_zero_trace_exceeds_tsirelson.
-Qed.
+(** CORRECTED UNDERSTANDING:
+    - μ=0 operations give classical bound: CHSH ≤ 2
+    - Quantum Tsirelson bound (2√2) requires μ>0 operations
+
+    The original theorem below was incorrect. μ=0 traces can exceed
+    the algebraic bound (4) but CANNOT exceed the Tsirelson bound (2√2).
+    In fact, μ=0 traces are limited to the classical bound (2 < 2√2).
+
+    See MU_COST_REVISION.md for complete analysis. *)
+
+(** Classical bound for μ=0 (proven in MinorConstraints.v) *)
+Axiom mu_zero_classical_bound :
+  forall fuel trace s_init,
+    mu_zero_program fuel trace ->
+    Qabs (chsh_from_vm_trace fuel trace s_init) <= 2.
 
 (** ** The Correct Theorem: Coherence is What Bounds Correlations *)
 

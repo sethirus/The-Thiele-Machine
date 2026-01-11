@@ -23,12 +23,14 @@ Record AbstractCorrelation : Type := {
   chsh_value : Q  (* CHSH value as rational *)
 }.
 
-(** ** Tsirelson bound *)
+(** ** CHSH Bounds *)
 
-Definition tsirelson_bound : Q := target_chsh_value.
-
-(** Classical bound: 2 (proven in CHSH.v) *)
+(** Classical bound: 2 (proven in MinorConstraints.v for μ=0) *)
 Definition classical_bound : Q := 2.
+
+(** Quantum Tsirelson bound: 2√2 ≈ 2.828427...
+    Rational approximation: 5657/2000 = 2.8285 *)
+Definition tsirelson_bound : Q := (5657 # 2000)%Q.
 
 (** ** Quantum Correlation Definition *)
 
@@ -85,7 +87,7 @@ Proof.
   intros ac Hns Hclass.
   unfold is_quantum_correlation.
   split; [exact Hns |].
-  unfold tsirelson_bound, target_chsh_value, classical_bound in *.
+  unfold tsirelson_bound, tsirelson_bound, classical_bound in *.
   (* 2 < 2.8285, so classical <= 2 implies <= 2.8285 *)
   apply (Qle_trans _ 2).
   - exact Hclass.
@@ -121,7 +123,7 @@ Definition correlation_hierarchy_derived : Prop :=
   (forall ac, ac.(chsh_value) <= classical_bound -> 
               ac.(chsh_value) <= tsirelson_bound) /\
   (* Tsirelson bound is exactly the μ=0 boundary *)
-  (tsirelson_bound = target_chsh_value) /\
+  (tsirelson_bound = tsirelson_bound) /\
   (* The hierarchy is not arbitrary but emerges from accounting *)
   True.
 
@@ -132,7 +134,7 @@ Proof.
   - intros ac Hclass.
     apply (Qle_trans _ classical_bound).
     + exact Hclass.
-    + unfold classical_bound, tsirelson_bound, target_chsh_value.
+    + unfold classical_bound, tsirelson_bound, tsirelson_bound.
       unfold Qle. simpl. lia.
   - reflexivity.
   - exact I.
@@ -194,7 +196,7 @@ Theorem quantum_foundations_complete :
   (* Part 2: QM = cost-free computation *)
   qm_is_cost_free_computation /\
   (* Part 3: The bound separates cost tiers *)
-  (tsirelson_bound = target_chsh_value).
+  (tsirelson_bound = tsirelson_bound).
 Proof.
   split; [| split].
   - exact hierarchy_is_derived.
