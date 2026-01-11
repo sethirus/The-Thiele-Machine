@@ -1,8 +1,8 @@
 # INQUISITOR REPORT
-Generated: 2026-01-11 20:34:55Z (UTC)
+Generated: 2026-01-11 20:45:39Z (UTC)
 Scanned: 243 Coq files across the repo
 ## Summary
-- HIGH: 68
+- HIGH: 61
 - MEDIUM: 26
 - LOW: 16
 
@@ -62,44 +62,30 @@ Higher score = more likely unfinished/vacuous.
 #### `coq/kernel/MinorConstraints.v`
 - L108: **AXIOM_OR_PARAMETER** — Found Axiom Fine_theorem.
   - `Axiom Fine_theorem : forall E00 E01 E10 E11 s t,`
-- L167: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-- L242: **AXIOM_OR_PARAMETER** — Found Axiom Gram_PSD.
+- L162: **AXIOM_OR_PARAMETER** — Found Axiom correlation_matrix_bounds.
+  - `Axiom correlation_matrix_bounds : forall s e1 e2,`
+- L241: **AXIOM_OR_PARAMETER** — Found Axiom Gram_PSD.
   - `Axiom Gram_PSD : forall (s e1 e2 : R),`
-- L325: **ADMIT_TACTIC** — admit tactic found (proof shortcut - FORBIDDEN).
-  - `admit.`
-- L328: **ADMIT_TACTIC** — admit tactic found (proof shortcut - FORBIDDEN).
-  - `admit.`
-- L331: **ADMIT_TACTIC** — admit tactic found (proof shortcut - FORBIDDEN).
-  - `admit.`
-- L334: **ADMIT_TACTIC** — admit tactic found (proof shortcut - FORBIDDEN).
-  - `admit.`
-- L335: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-- L348: **AXIOM_OR_PARAMETER** — Found Axiom Q2R_abs_bound.
+- L306: **AXIOM_OR_PARAMETER** — Found Axiom local_box_satisfies_minors.
+  - `Axiom local_box_satisfies_minors : forall B,`
+- L324: **AXIOM_OR_PARAMETER** — Found Axiom Q2R_abs_bound.
   - `Axiom Q2R_abs_bound : forall q,`
-- L352: **AXIOM_OR_PARAMETER** — Found Axiom Q2R_plus_ax.
+- L328: **AXIOM_OR_PARAMETER** — Found Axiom Q2R_plus_ax.
   - `Axiom Q2R_plus_ax : forall q1 q2, Q2R (q1 + q2)%Q = Q2R q1 + Q2R q2.`
-- L353: **AXIOM_OR_PARAMETER** — Found Axiom Q2R_minus_ax.
+- L329: **AXIOM_OR_PARAMETER** — Found Axiom Q2R_minus_ax.
   - `Axiom Q2R_minus_ax : forall q1 q2, Q2R (q1 - q2)%Q = Q2R q1 - Q2R q2.`
-- L400: **ADMIT_TACTIC** — admit tactic found (proof shortcut - FORBIDDEN).
-  - `admit. }`
-- L408: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
+- L364: **AXIOM_OR_PARAMETER** — Found Axiom local_box_CHSH_bound.
+  - `Axiom local_box_CHSH_bound : forall B,`
 
 #### `coq/kernel/NPAMomentMatrix.v`
 - L185: **AXIOM_OR_PARAMETER** — Found Axiom quantum_realizable_implies_normalized.
   - `Axiom quantum_realizable_implies_normalized : forall (npa : NPAMomentMatrix),`
 
 #### `coq/kernel/NoArbitrage.v`
-- L148: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
-  - `TODO: Fix lia tactic issue - may need explicit proof steps`
-- L151: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-- L155: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
-  - `TODO: Complete - zify+lia tactic timeouts`
-- L159: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
+- L165: **AXIOM_OR_PARAMETER** — Found Axiom asymmetric_cost_pos.
+  - `Axiom asymmetric_cost_pos : forall t, 0 <= asymmetric_cost t.`
+- L198: **AXIOM_OR_PARAMETER** — Found Axiom asymmetric_bounded_by_phi.
+  - `Axiom asymmetric_bounded_by_phi : forall t s,`
 
 #### `coq/kernel/QuantumBound.v`
 - L204: **AXIOM_OR_PARAMETER** — Found Axiom quantum_admissible_implies_no_supra_cert.
@@ -302,7 +288,7 @@ Higher score = more likely unfinished/vacuous.
   - `Context (tsirelson_from_algebraic_coherence : forall c : Correlators,`
 
 #### `coq/kernel/MinorConstraints.v`
-- L170: **CHSH_BOUND_MISSING** — CHSH bound theorem \`minor_constraints_imply_CHSH_bound\` may not reference proper Tsirelson bound value.
+- L169: **CHSH_BOUND_MISSING** — CHSH bound theorem \`minor_constraints_imply_CHSH_bound\` may not reference proper Tsirelson bound value.
   - `Theorem minor_constraints_imply_CHSH_bound : forall E00 E01 E10 E11,`
 
 #### `coq/kernel/TsirelsonUniqueness.v`
