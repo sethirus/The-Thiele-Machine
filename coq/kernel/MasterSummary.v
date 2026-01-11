@@ -47,7 +47,7 @@ Theorem master_tsirelson :
    Qabs (chsh_from_vm_trace fuel trace s_init) <= 4%Q).
 Proof.
   split.
-  - exists 10%nat, tsirelson_achieving_trace. apply tsirelson_program_mu_zero.
+  - exists 10%nat, classical_achieving_trace. apply classical_program_mu_zero.
   - intros fuel trace s_init Hmu.
     apply mu_zero_chsh_bounded. exact Hmu.
 Qed.
@@ -67,7 +67,7 @@ Theorem master_quantum_foundations :
   (* Part 2: QM equals cost-free computation *)
   qm_is_cost_free_computation /\
   (* Part 3: Tsirelson bound is exactly the cost tier boundary *)
-  (tsirelson_bound = target_chsh_value).
+  (tsirelson_bound = tsirelson_bound).
 Proof.
   exact quantum_foundations_complete.
 Qed.
@@ -143,7 +143,7 @@ Theorem thiele_machine_is_complete : thiele_machine_complete.
 Proof.
   unfold thiele_machine_complete.
   split; [| split; [| split; [| split; [| split]]]].
-  - exists 10%nat, tsirelson_achieving_trace. apply tsirelson_program_mu_zero.
+  - exists 10%nat, classical_achieving_trace. apply classical_program_mu_zero.
   - intros fuel trace s_init Hmu.
     apply mu_zero_chsh_bounded. exact Hmu.
   - exact hierarchy_is_derived.

@@ -1,10 +1,10 @@
 # INQUISITOR REPORT
-Generated: 2026-01-11 01:01:46Z (UTC)
-Scanned: 238 Coq files across the repo
+Generated: 2026-01-11 20:34:55Z (UTC)
+Scanned: 243 Coq files across the repo
 ## Summary
-- HIGH: 2
-- MEDIUM: 15
-- LOW: 15
+- HIGH: 68
+- MEDIUM: 26
+- LOW: 16
 
 ## Rules
 - `ADMITTED`: `Admitted.` (incomplete proof - FORBIDDEN)
@@ -54,10 +54,164 @@ Higher score = more likely unfinished/vacuous.
 ### HIGH
 
 #### `coq/kernel/BoxCHSH.v`
-- L81: **AXIOM_OR_PARAMETER** — Found Axiom normalized_E_bound.
+- L82: **AXIOM_OR_PARAMETER** — Found Axiom normalized_E_bound.
   - `Axiom normalized_E_bound : forall B x y,`
-- L99: **AXIOM_OR_PARAMETER** — Found Axiom valid_box_S_le_4.
+- L100: **AXIOM_OR_PARAMETER** — Found Axiom valid_box_S_le_4.
   - `Axiom valid_box_S_le_4 : forall B,`
+
+#### `coq/kernel/MinorConstraints.v`
+- L108: **AXIOM_OR_PARAMETER** — Found Axiom Fine_theorem.
+  - `Axiom Fine_theorem : forall E00 E01 E10 E11 s t,`
+- L167: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+- L242: **AXIOM_OR_PARAMETER** — Found Axiom Gram_PSD.
+  - `Axiom Gram_PSD : forall (s e1 e2 : R),`
+- L325: **ADMIT_TACTIC** — admit tactic found (proof shortcut - FORBIDDEN).
+  - `admit.`
+- L328: **ADMIT_TACTIC** — admit tactic found (proof shortcut - FORBIDDEN).
+  - `admit.`
+- L331: **ADMIT_TACTIC** — admit tactic found (proof shortcut - FORBIDDEN).
+  - `admit.`
+- L334: **ADMIT_TACTIC** — admit tactic found (proof shortcut - FORBIDDEN).
+  - `admit.`
+- L335: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+- L348: **AXIOM_OR_PARAMETER** — Found Axiom Q2R_abs_bound.
+  - `Axiom Q2R_abs_bound : forall q,`
+- L352: **AXIOM_OR_PARAMETER** — Found Axiom Q2R_plus_ax.
+  - `Axiom Q2R_plus_ax : forall q1 q2, Q2R (q1 + q2)%Q = Q2R q1 + Q2R q2.`
+- L353: **AXIOM_OR_PARAMETER** — Found Axiom Q2R_minus_ax.
+  - `Axiom Q2R_minus_ax : forall q1 q2, Q2R (q1 - q2)%Q = Q2R q1 - Q2R q2.`
+- L400: **ADMIT_TACTIC** — admit tactic found (proof shortcut - FORBIDDEN).
+  - `admit. }`
+- L408: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+
+#### `coq/kernel/NPAMomentMatrix.v`
+- L185: **AXIOM_OR_PARAMETER** — Found Axiom quantum_realizable_implies_normalized.
+  - `Axiom quantum_realizable_implies_normalized : forall (npa : NPAMomentMatrix),`
+
+#### `coq/kernel/NoArbitrage.v`
+- L148: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `TODO: Fix lia tactic issue - may need explicit proof steps`
+- L151: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+- L155: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `TODO: Complete - zify+lia tactic timeouts`
+- L159: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+
+#### `coq/kernel/QuantumBound.v`
+- L204: **AXIOM_OR_PARAMETER** — Found Axiom quantum_admissible_implies_no_supra_cert.
+  - `Axiom quantum_admissible_implies_no_supra_cert :`
+
+#### `coq/kernel/QuantumBoundComplete.v`
+- L30: **AXIOM_OR_PARAMETER** — Found Axiom VMState.
+  - `Axiom VMState : Type.`
+- L31: **AXIOM_OR_PARAMETER** — Found Axiom vm_instruction.
+  - `Axiom vm_instruction : Type.`
+- L35: **AXIOM_OR_PARAMETER** — Found Axiom Box.
+  - `Axiom Box : Type.`
+- L36: **AXIOM_OR_PARAMETER** — Found Axiom box_apply.
+  - `Axiom box_apply : Box -> nat -> nat -> nat -> nat -> Q.`
+- L38: **AXIOM_OR_PARAMETER** — Found Axiom non_negative.
+  - `Axiom non_negative : Box -> Prop.`
+- L39: **AXIOM_OR_PARAMETER** — Found Axiom normalized.
+  - `Axiom normalized : Box -> Prop.`
+- L40: **AXIOM_OR_PARAMETER** — Found Axiom box_from_trace.
+  - `Axiom box_from_trace : nat -> list vm_instruction -> VMState -> Box.`
+- L41: **AXIOM_OR_PARAMETER** — Found Axiom mu_cost_of_instr.
+  - `Axiom mu_cost_of_instr : vm_instruction -> VMState -> nat.`
+- L44: **AXIOM_OR_PARAMETER** — Found Axiom BoxCHSH_S.
+  - `Axiom BoxCHSH_S : Box -> Q.`
+- L45: **AXIOM_OR_PARAMETER** — Found Axiom BoxCHSH_E.
+  - `Axiom BoxCHSH_E : Box -> nat -> nat -> Q.`
+- L48: **AXIOM_OR_PARAMETER** — Found Axiom is_ljoin.
+  - `Axiom is_ljoin : vm_instruction -> Prop.`
+- L49: **AXIOM_OR_PARAMETER** — Found Axiom is_reveal.
+  - `Axiom is_reveal : vm_instruction -> Prop.`
+- L50: **AXIOM_OR_PARAMETER** — Found Axiom is_lassert.
+  - `Axiom is_lassert : vm_instruction -> Prop.`
+- L73: **AXIOM_OR_PARAMETER** — Found Axiom mu_zero_preserves_factorizable.
+  - `Axiom mu_zero_preserves_factorizable : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),`
+- L86: **AXIOM_OR_PARAMETER** — Found Axiom mu_positive_enables_nonfactorizable.
+  - `Axiom mu_positive_enables_nonfactorizable : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),`
+- L119: **AXIOM_OR_PARAMETER** — Found Axiom nonfactorizable_is_quantum_realizable.
+  - `Axiom nonfactorizable_is_quantum_realizable : forall (B : Box),`
+- L137: **AXIOM_OR_PARAMETER** — Found Axiom mu_positive_enables_tsirelson.
+  - `Axiom mu_positive_enables_tsirelson : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),`
+- L149: **AXIOM_OR_PARAMETER** — Found Axiom mu_zero_classical_bound.
+  - `Axiom mu_zero_classical_bound : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),`
+- L160: **AXIOM_OR_PARAMETER** — Found Axiom mu_positive_exceeds_classical.
+  - `Axiom mu_positive_exceeds_classical : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),`
+
+#### `coq/kernel/SemidefiniteProgramming.v`
+- L116: **AXIOM_OR_PARAMETER** — Found Axiom PSD_diagonal_nonneg.
+  - `Axiom PSD_diagonal_nonneg : forall (n : nat) (M : Matrix n) (i : nat),`
+- L153: **AXIOM_OR_PARAMETER** — Found Axiom schur_2x2_criterion.
+  - `Axiom schur_2x2_criterion : forall (M : Matrix 2),`
+- L164: **AXIOM_OR_PARAMETER** — Found Axiom PSD_cauchy_schwarz.
+  - `Axiom PSD_cauchy_schwarz : forall (n : nat) (M : Matrix n) (i j : nat),`
+- L176: **AXIOM_OR_PARAMETER** — Found Axiom PSD_off_diagonal_bound.
+  - `Axiom PSD_off_diagonal_bound : forall (n : nat) (M : Matrix n) (i j : nat),`
+
+#### `coq/kernel/TsirelsonBoundProof.v`
+- L34: **AXIOM_OR_PARAMETER** — Found Axiom sqrt2.
+  - `Axiom sqrt2 : R.`
+- L35: **AXIOM_OR_PARAMETER** — Found Axiom sqrt2_squared.
+  - `Axiom sqrt2_squared : sqrt2 * sqrt2 = 2.`
+- L36: **AXIOM_OR_PARAMETER** — Found Axiom sqrt2_positive.
+  - `Axiom sqrt2_positive : sqrt2 > 0.`
+- L37: **AXIOM_OR_PARAMETER** — Found Axiom sqrt2_bounds.
+  - `Axiom sqrt2_bounds : 1.4 < sqrt2 < 1.5.`
+- L56: **AXIOM_OR_PARAMETER** — Found Axiom quantum_CHSH_bound.
+  - `Axiom quantum_CHSH_bound : forall (npa : NPAMomentMatrix),`
+- L90: **AXIOM_OR_PARAMETER** — Found Axiom optimal_is_quantum_realizable.
+  - `Axiom optimal_is_quantum_realizable :`
+- L95: **AXIOM_OR_PARAMETER** — Found Axiom optimal_achieves_tsirelson.
+  - `Axiom optimal_achieves_tsirelson :`
+- L115: **AXIOM_OR_PARAMETER** — Found Axiom classical_CHSH_bound.
+  - `Axiom classical_CHSH_bound : forall (npa : NPAMomentMatrix),`
+- L121: **AXIOM_OR_PARAMETER** — Found Axiom tsirelson_exceeds_classical.
+  - `Axiom tsirelson_exceeds_classical :`
+- L138: **AXIOM_OR_PARAMETER** — Found Axiom grothendieck_constant.
+  - `Axiom grothendieck_constant : R.`
+- L139: **AXIOM_OR_PARAMETER** — Found Axiom grothendieck_value.
+  - `Axiom grothendieck_value : 1.7 < grothendieck_constant < 1.8.`
+- L140: **AXIOM_OR_PARAMETER** — Found Axiom grothendieck_inequality.
+  - `Axiom grothendieck_inequality : forall (npa : NPAMomentMatrix),`
+- L146: **AXIOM_OR_PARAMETER** — Found Axiom tsirelson_consistent_with_grothendieck.
+  - `Axiom tsirelson_consistent_with_grothendieck :`
+
+#### `coq/kernel/TsirelsonUniqueness.v`
+- L55: **AXIOM_OR_PARAMETER** — Found Axiom mu_zero_classical_bound.
+  - `Axiom mu_zero_classical_bound :`
+
+#### `coq/shor_primitives/PolylogConjecture.v`
+- L77: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+
+#### `coq/theory/ArchTheorem.v`
+- L164: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+- L174: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+
+#### `coq/theory/EvolutionaryForge.v`
+- L137: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+- L146: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+- L184: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+- L199: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+- L217: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+- L228: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+- L243: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
 
 ### MEDIUM
 
@@ -70,12 +224,40 @@ Higher score = more likely unfinished/vacuous.
   - `Definition blank : Symbol := 0.`
 
 #### `coq/kernel/TsirelsonUniqueness.v`
-- L25: **SUSPICIOUS_SHORT_PROOF** — Complex theorem \`mu_zero_algebraic_bound\` has very short proof (1 lines) - verify this is not a placeholder.
+- L31: **SUSPICIOUS_SHORT_PROOF** — Complex theorem \`mu_zero_algebraic_bound\` has very short proof (1 lines) - verify this is not a placeholder.
   - `Theorem mu_zero_algebraic_bound :`
 
 #### `coq/kernel/TsirelsonUpperBound.v`
-- L347: **SUSPICIOUS_SHORT_PROOF** — Complex theorem \`tsirelson_bound_lt_algebraic_max\` has very short proof (2 lines) - verify this is not a placeholder.
-  - `Lemma tsirelson_bound_lt_algebraic_max : tsirelson_bound < 4%Q.`
+- L401: **SUSPICIOUS_SHORT_PROOF** — Complex theorem \`classical_bound_lt_algebraic_max\` has very short proof (2 lines) - verify this is not a placeholder.
+  - `Lemma classical_bound_lt_algebraic_max : classical_bound_value < 4%Q.`
+
+#### `coq/shor_primitives/PolylogConjecture.v`
+- L70: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `TODO: Complete this proof - lia timeout`
+
+#### `coq/theory/ArchTheorem.v`
+- L157: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `TODO: Complete this proof - need to prove 90.51% > reliability_threshold`
+- L167: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `TODO: Complete this proof - need correct Real library lemmas`
+- L242: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `TODO: Complete this proof - pdiscover_computes_signature needs proper type definition`
+
+#### `coq/theory/EvolutionaryForge.v`
+- L128: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `TODO: Complete this proof - requires reasoning about list length preservation`
+- L139: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `TODO: Complete this proof - lia tactics having difficulty with witness`
+- L177: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `TODO: Complete this proof - depends on admitted crossover_preserves_viability`
+- L186: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `TODO: Complete this proof - depends on admitted crossover_preserves_viability`
+- L206: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `TODO: Complete - lia tactic timeouts`
+- L220: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `TODO: Complete this proof - lia tactics having timeout issues`
+- L236: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `TODO: Complete this proof - incomplete goals`
 
 #### `coq/thielemachine/coqproofs/MuAlu.v`
 - L194: **MU_COST_ZERO** — μ-cost definition \`mu_zero\` is trivially zero - ensure this is intentional.
@@ -114,13 +296,17 @@ Higher score = more likely unfinished/vacuous.
 ### LOW
 
 #### `coq/kernel/BoxCHSH.v`
-- L123: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`local_box_S_le_2\` is documented with INQUISITOR NOTE.
+- L124: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`local_box_S_le_2\` is documented with INQUISITOR NOTE.
   - `Context (local_box_S_le_2 : forall B,`
-- L188: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`tsirelson_from_algebraic_coherence\` is documented with INQUISITOR NOTE.
+- L189: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`tsirelson_from_algebraic_coherence\` is documented with INQUISITOR NOTE.
   - `Context (tsirelson_from_algebraic_coherence : forall c : Correlators,`
 
+#### `coq/kernel/MinorConstraints.v`
+- L170: **CHSH_BOUND_MISSING** — CHSH bound theorem \`minor_constraints_imply_CHSH_bound\` may not reference proper Tsirelson bound value.
+  - `Theorem minor_constraints_imply_CHSH_bound : forall E00 E01 E10 E11,`
+
 #### `coq/kernel/TsirelsonUniqueness.v`
-- L59: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`tsirelson_from_algebraic_coherence\` is documented with INQUISITOR NOTE.
+- L69: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`tsirelson_from_algebraic_coherence\` is documented with INQUISITOR NOTE.
   - `Context (tsirelson_from_algebraic_coherence : forall c : Correlators,`
 
 #### `coq/modular_proofs/EncodingBounds.v`
