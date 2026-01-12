@@ -359,8 +359,10 @@ Proof.
   (* This translates to Rabs (IZR qnum / IZR (Zpos qden)) <= 1 *)
   unfold Rdiv. rewrite Rabs_mult. rewrite Rabs_inv; try (apply IZR_neq; intro H; discriminate).
   apply Rle_div_r.
-  - (* Prove 0 < IZR (Z.pos qden) *)
-    rewrite <- (IZR_0). apply IZR_lt. reflexivity.
+  - (* Prove 0 < Rabs (IZR (Z.pos qden)) *)
+    (* Since qden is positive, IZR (Z.pos qden) > 0 *)
+    rewrite Rabs_right; [|apply Rlt_le; apply (IZR_lt 0); reflexivity].
+    apply (IZR_lt 0). reflexivity.
   - (* Need to show: Rabs (IZR qnum) <= IZR (Zpos qden) *)
     (* From Qabs (qnum # qden) <= 1, we have Z.abs qnum * 1 <= Zpos qden * 1 *)
     destruct (Z_le_gt_dec 0 qnum) as [Hpos | Hneg].
