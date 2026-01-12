@@ -198,10 +198,8 @@ Proof.
       (* We need: 1 + asymmetric_cost rest >= phi (c_apply_trace rest (S s)) - phi s *)
       (* From IH: asymmetric_cost rest >= phi (c_apply_trace rest (S s)) - (phi s + 1) *)
       (* Therefore: 1 + asymmetric_cost rest >= phi (c_apply_trace rest (S s)) - phi s *)
-      apply Z.ge_le in IH. apply Z.le_ge.
-      ring_simplify. ring_simplify in IH.
-      apply Z.add_le_mono_l with (p:=1) in IH.
-      ring_simplify in IH. exact IH.
+      (* lia fails in Coq 8.18, try psatz Z *)
+      psatz Z 2.
     + (* c_dec case: cost 2, state decreases by 1 (or stays at 0) *)
       unfold op_cost.
       (* c_apply_op c_dec s = pred s *)
@@ -215,10 +213,8 @@ Proof.
         simpl in *. unfold phi in *. simpl in *.
         (* asymmetric_cost rest >= 0 - 0 = 0 by asymmetric_cost_pos *)
         assert (H: 0 <= asymmetric_cost rest) by apply asymmetric_cost_pos.
-        apply Z.ge_le in IH. apply Z.le_ge.
-        ring_simplify. ring_simplify in IH.
-        apply Z.add_le_mono_l with (p:=2) in IH.
-        simpl in IH. exact IH.
+        (* lia fails in Coq 8.18, try psatz Z *)
+        psatz Z 2.
       * (* s = S s': pred (S s') = s' *)
         simpl in *.
         rewrite Nat2Z.inj_succ.
@@ -227,13 +223,8 @@ Proof.
         (* This simplifies to: 2 + asymmetric_cost rest >= phi (c_apply_trace rest s') - phi s' - 1 *)
         (* From IH: asymmetric_cost rest >= phi (c_apply_trace rest s') - phi s' *)
         (* Therefore: 2 + asymmetric_cost rest >= phi (c_apply_trace rest s') - phi s' + 1 *)
-        apply Z.ge_le in IH. apply Z.le_ge.
-        ring_simplify. ring_simplify in IH.
-        apply Z.add_le_mono_l with (p:=2) in IH.
-        ring_simplify in IH.
-        apply Z.le_trans with (m:=Z.of_nat (c_apply_trace rest s') - Z.of_nat s' + 2).
-        + ring_simplify. apply Z.le_refl.
-        + ring_simplify. ring_simplify in IH. exact IH.
+        (* lia fails in Coq 8.18, try psatz Z *)
+        psatz Z 2.
 Qed.
 
 End ConcreteModel.
