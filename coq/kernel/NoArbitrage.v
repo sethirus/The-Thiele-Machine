@@ -145,24 +145,24 @@ Proof.
   - rewrite IHt1. rewrite Z.add_assoc. reflexivity.
 Qed.
 
-(** AXIOM: Asymmetric cost is non-negative.
+(** Asymmetric cost is non-negative.
 
-    This axiom states that the asymmetric cost function (where c_inc costs 1
+    This lemma states that the asymmetric cost function (where c_inc costs 1
     and c_dec costs 2) always produces non-negative values.
 
-    JUSTIFICATION: This follows from the definition of asymmetric_cost as a
-    sum of positive terms (op_cost returns 1 or 2, both ≥ 0). The proof
-    requires induction on the trace structure.
-
-    PROOF SKETCH: By induction on t:
-    - Base case: asymmetric_cost [] = 0 ≥ 0 ✓
-    - Inductive case: asymmetric_cost (op :: rest) = op_cost op + asymmetric_cost rest
-      ≥ 1 + 0 (by IH) ≥ 0 ✓
-
-    NOTE: The lia tactic has timeouts on this proof, but the result is
-    straightforward from the definition. A manual proof would be ~5 lines.
+    This follows directly from the definition of asymmetric_cost as a
+    sum of positive terms (op_cost returns 1 or 2, both ≥ 0).
 *)
-Axiom asymmetric_cost_pos : forall t, 0 <= asymmetric_cost t.
+Lemma asymmetric_cost_pos : forall t, 0 <= asymmetric_cost t.
+Proof.
+  intro t.
+  induction t as [| op rest IH].
+  - (* Base case: empty trace *)
+    simpl. lia.
+  - (* Inductive case: op :: rest *)
+    simpl.
+    destruct op; unfold op_cost; lia.
+Qed.
 
 Definition phi (s : CState) : Z := Z.of_nat s.
 

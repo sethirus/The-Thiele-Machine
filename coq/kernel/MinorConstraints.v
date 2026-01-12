@@ -317,16 +317,62 @@ Axiom local_box_satisfies_minors : forall B,
 
     ========================================================================= *)
 
-(** Helper axioms for Q to R conversion *)
+(** Helper lemmas for Q to R conversion *)
 Local Open Scope R_scope.
 
 (** Q to R conversion preserves Qabs bounds *)
-Axiom Q2R_abs_bound : forall q,
+Lemma Q2R_abs_bound : forall q,
   (Qabs q <= 1#1)%Q -> Rabs (Q2R q) <= 1.
+Proof.
+  intros q Hq.
+  (* Qabs q <= 1 means -1 <= q <= 1 in Q *)
+  (* This should imply -1 <= Q2R q <= 1 in R *)
+  (* And therefore Rabs (Q2R q) <= 1 *)
+  unfold Qabs in Hq.
+  destruct q as [qnum qden].
+  simpl in *.
+  unfold Q2R. simpl.
+  unfold Qle in Hq.
+  simpl in Hq.
+  (* The bound Qabs q <= 1 means |qnum / qden| <= 1 *)
+  (* This translates to Rabs (IZR qnum / IZR (Zpos qden)) <= 1 *)
+  rewrite Rabs_div; try (apply IZR_neq; intro H; discriminate).
+  apply Rcomplements.Rle_div_r.
+  - apply (IZR_lt 0). reflexivity.
+  - (* Need to show: Rabs (IZR qnum) <= IZR (Zpos qden) *)
+    (* From Qabs (qnum # qden) <= 1, we have Z.abs qnum * 1 <= Zpos qden * 1 *)
+    destruct (Z_le_gt_dec 0 qnum) as [Hpos | Hneg].
+    + (* qnum >= 0 case *)
+      rewrite Rabs_right by (apply IZR_le; assumption).
+      apply IZR_le.
+      assert (H: (Z.abs qnum * 1 <= Z.pos qden * 1)%Z) by assumption.
+      rewrite Z.abs_eq in H by assumption.
+      lia.
+    + (* qnum < 0 case *)
+      rewrite Rabs_left by (apply IZR_lt; lia).
+      apply IZR_le.
+      assert (H: (Z.abs qnum * 1 <= Z.pos qden * 1)%Z) by assumption.
+      rewrite Z.abs_neq in H by lia.
+      lia.
+Qed.
 
 (** Q to R conversion preserves addition/subtraction *)
-Axiom Q2R_plus_ax : forall q1 q2, Q2R (q1 + q2)%Q = Q2R q1 + Q2R q2.
-Axiom Q2R_minus_ax : forall q1 q2, Q2R (q1 - q2)%Q = Q2R q1 - Q2R q2.
+Lemma Q2R_plus_ax : forall q1 q2, Q2R (q1 + q2)%Q = Q2R q1 + Q2R q2.
+Proof.
+  intros q1 q2.
+  (* This is actually a standard library theorem: Q2R_plus *)
+  apply Q2R_plus.
+Qed.
+
+Lemma Q2R_minus_ax : forall q1 q2, Q2R (q1 - q2)%Q = Q2R q1 - Q2R q2.
+Proof.
+  intros q1 q2.
+  (* This follows from Q2R_plus and Q2R_opp *)
+  unfold Qminus.
+  rewrite Q2R_plus.
+  rewrite Q2R_opp.
+  reflexivity.
+Qed.
 
 Local Close Scope R_scope.
 
