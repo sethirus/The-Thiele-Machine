@@ -198,8 +198,9 @@ Proof.
       (* We need: 1 + asymmetric_cost rest >= phi (c_apply_trace rest (S s)) - phi s *)
       (* From IH: asymmetric_cost rest >= phi (c_apply_trace rest (S s)) - (phi s + 1) *)
       (* Therefore: 1 + asymmetric_cost rest >= phi (c_apply_trace rest (S s)) - phi s *)
-      (* lia fails in Coq 8.18, try psatz Z *)
-      psatz Z 2.
+      (* Manual proof: expand the algebra step by step *)
+      assert (H1: asymmetric_cost rest >= phi (c_apply_trace rest (S s)) - phi s - 1) by lia.
+      lia.
     + (* c_dec case: cost 2, state decreases by 1 (or stays at 0) *)
       unfold op_cost.
       (* c_apply_op c_dec s = pred s *)
@@ -213,8 +214,10 @@ Proof.
         simpl in *. unfold phi in *. simpl in *.
         (* asymmetric_cost rest >= 0 - 0 = 0 by asymmetric_cost_pos *)
         assert (H: 0 <= asymmetric_cost rest) by apply asymmetric_cost_pos.
-        (* lia fails in Coq 8.18, try psatz Z *)
-        psatz Z 2.
+        (* Manual proof: 2 + (something >= 0) >= (something >= 0) *)
+        assert (H2: phi (c_apply_trace rest 0) >= 0).
+        { unfold phi. apply Zle_0_nat. }
+        lia.
       * (* s = S s': pred (S s') = s' *)
         simpl in *.
         rewrite Nat2Z.inj_succ.
@@ -223,8 +226,9 @@ Proof.
         (* This simplifies to: 2 + asymmetric_cost rest >= phi (c_apply_trace rest s') - phi s' - 1 *)
         (* From IH: asymmetric_cost rest >= phi (c_apply_trace rest s') - phi s' *)
         (* Therefore: 2 + asymmetric_cost rest >= phi (c_apply_trace rest s') - phi s' + 1 *)
-        (* lia fails in Coq 8.18, try psatz Z *)
-        psatz Z 2.
+        (* Manual proof: break down the algebra *)
+        assert (H1: asymmetric_cost rest >= phi (c_apply_trace rest s') - phi s') by exact IH.
+        lia.
 Qed.
 
 End ConcreteModel.
