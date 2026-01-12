@@ -197,10 +197,12 @@ Proof.
       rewrite Nat2Z.inj_succ in IH.
       (* We need: 1 + asymmetric_cost rest >= phi (c_apply_trace rest (S s)) - phi s *)
       (* From IH: asymmetric_cost rest >= phi (c_apply_trace rest (S s)) - (phi s + 1) *)
-      (* Therefore: 1 + asymmetric_cost rest >= phi (c_apply_trace rest (S s)) - phi s *)
-      (* Manual proof: expand the algebra step by step *)
-      assert (H1: asymmetric_cost rest >= phi (c_apply_trace rest (S s)) - phi s - 1) by lia.
-      lia.
+      unfold op_cost.
+      (* Use ring_simplify to normalize arithmetic *)
+      apply Z.ge_le in IH. apply Z.le_ge.
+      ring_simplify. ring_simplify in IH.
+      apply Z.add_le_mono_l with (p:=1) in IH.
+      ring_simplify in IH. exact IH.
     + (* c_dec case: cost 2, state decreases by 1 (or stays at 0) *)
       unfold op_cost.
       (* c_apply_op c_dec s = pred s *)
@@ -214,21 +216,26 @@ Proof.
         simpl in *. unfold phi in *. simpl in *.
         (* asymmetric_cost rest >= 0 - 0 = 0 by asymmetric_cost_pos *)
         assert (H: 0 <= asymmetric_cost rest) by apply asymmetric_cost_pos.
-        (* Manual proof: 2 + (something >= 0) >= (something >= 0) *)
-        assert (H2: phi (c_apply_trace rest 0) >= 0).
-        { unfold phi. apply Zle_0_nat. }
-        lia.
+        apply Z.ge_le in IH. apply Z.le_ge.
+        ring_simplify. ring_simplify in IH.
+        apply Z.add_le_mono_l with (p:=2) in IH.
+        (* Use Z.le_trans with explicit intermediate step to avoid over-simplification *)
+        apply Z.le_trans with (m:=Z.of_nat (c_apply_trace rest 0%nat) + 2).
+        -- ring_simplify. apply Z.le_refl.
+        -- ring_simplify. ring_simplify in IH. exact IH.
       * (* s = S s': pred (S s') = s' *)
         simpl in *.
         rewrite Nat2Z.inj_succ.
         (* From IH: asymmetric_cost rest >= phi (c_apply_trace rest s') - phi s' *)
         (* We need: 2 + asymmetric_cost rest >= phi (c_apply_trace rest s') - (phi s' + 1) *)
-        (* This simplifies to: 2 + asymmetric_cost rest >= phi (c_apply_trace rest s') - phi s' - 1 *)
         (* From IH: asymmetric_cost rest >= phi (c_apply_trace rest s') - phi s' *)
-        (* Therefore: 2 + asymmetric_cost rest >= phi (c_apply_trace rest s') - phi s' + 1 *)
-        (* Manual proof: break down the algebra *)
-        assert (H1: asymmetric_cost rest >= phi (c_apply_trace rest s') - phi s') by exact IH.
-        lia.
+        apply Z.ge_le in IH. apply Z.le_ge.
+        ring_simplify. ring_simplify in IH.
+        apply Z.add_le_mono_l with (p:=2) in IH.
+        ring_simplify in IH.
+        apply Z.le_trans with (m:=Z.of_nat (c_apply_trace rest s') - Z.of_nat s' + 2).
+        -- ring_simplify. apply Z.le_refl.
+        -- ring_simplify. ring_simplify in IH. exact IH.
 Qed.
 
 End ConcreteModel.
