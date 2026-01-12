@@ -1,9 +1,9 @@
 # INQUISITOR REPORT
-Generated: 2026-01-12 05:43:09Z (UTC)
+Generated: 2026-01-12 07:56:41Z (UTC)
 Scanned: 243 Coq files across the repo
 ## Summary
-- HIGH: 53
-- MEDIUM: 23
+- HIGH: 44
+- MEDIUM: 17
 - LOW: 16
 
 ## Rules
@@ -159,28 +159,6 @@ Higher score = more likely unfinished/vacuous.
 - L55: **AXIOM_OR_PARAMETER** — Found Axiom mu_zero_classical_bound.
   - `Axiom mu_zero_classical_bound :`
 
-#### `coq/theory/ArchTheorem.v`
-- L165: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-- L176: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-
-#### `coq/theory/EvolutionaryForge.v`
-- L137: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-- L146: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-- L184: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-- L199: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-- L217: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-- L228: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-- L243: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-
 ### MEDIUM
 
 #### `coq/kernel/NoArbitrage.v`
@@ -200,24 +178,12 @@ Higher score = more likely unfinished/vacuous.
   - `Lemma classical_bound_lt_algebraic_max : classical_bound_value < 4%Q.`
 
 #### `coq/theory/ArchTheorem.v`
-- L244: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+- L272: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
   - `TODO: Complete this proof - pdiscover_computes_signature needs proper type definition`
 
 #### `coq/theory/EvolutionaryForge.v`
-- L128: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
-  - `TODO: Complete this proof - requires reasoning about list length preservation`
-- L139: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
-  - `TODO: Complete this proof - lia tactics having difficulty with witness`
-- L177: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
-  - `TODO: Complete this proof - depends on admitted crossover_preserves_viability`
-- L186: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
-  - `TODO: Complete this proof - depends on admitted crossover_preserves_viability`
-- L206: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
-  - `TODO: Complete - lia tactic timeouts`
-- L220: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
-  - `TODO: Complete this proof - lia tactics having timeout issues`
-- L236: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
-  - `TODO: Complete this proof - incomplete goals`
+- L145: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `assert (Hmin: Nat.min cut (length s1) = cut) by (apply Nat.min_l; auto).`
 
 #### `coq/thielemachine/coqproofs/MuAlu.v`
 - L194: **MU_COST_ZERO** — μ-cost definition \`mu_zero\` is trivially zero - ensure this is intentional.
