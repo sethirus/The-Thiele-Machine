@@ -80,7 +80,7 @@ Section ProvenFacts.
     - (* Since p > 1 and q > 1, we have p >= 2 and q >= 2 *)
       (* Therefore (p - 1) >= 1 and (q - 1) >= 1 *)
       (* So (p - 1) * (q - 1) >= 1 * 1 = 1 > 0 *)
-      lia.
+      apply Nat.lt_0_mul; lia.
   Qed.
 
 End ProvenFacts.
