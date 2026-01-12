@@ -1,8 +1,8 @@
 # INQUISITOR REPORT
-Generated: 2026-01-12 07:56:41Z (UTC)
-Scanned: 243 Coq files across the repo
+Generated: 2026-01-12 08:17:08Z (UTC)
+Scanned: 244 Coq files across the repo
 ## Summary
-- HIGH: 44
+- HIGH: 46
 - MEDIUM: 17
 - LOW: 16
 
@@ -53,12 +53,6 @@ Higher score = more likely unfinished/vacuous.
 ## Findings
 ### HIGH
 
-#### `coq/INQUISITOR_ASSUMPTIONS.json`
-- L1: **ASSUMPTION_AUDIT** — coqtop not found; cannot run assumption audit.
-  - `coqtop`
-- L1: **PAPER_MAP_MISSING** — coqtop not found; cannot verify paper symbol map.
-  - `coqtop`
-
 #### `coq/kernel/BoxCHSH.v`
 - L82: **AXIOM_OR_PARAMETER** — Found Axiom normalized_E_bound.
   - `Axiom normalized_E_bound : forall B x y,`
@@ -72,6 +66,16 @@ Higher score = more likely unfinished/vacuous.
   - `Axiom Gram_PSD : forall (s e1 e2 : R),`
 - L306: **AXIOM_OR_PARAMETER** — Found Axiom local_box_satisfies_minors.
   - `Axiom local_box_satisfies_minors : forall B,`
+
+#### `coq/kernel/MuInformationTheoreticBounds.v`
+- L32: **AXIOM_OR_PARAMETER** — Found Axiom partition_claim_information_bound.
+  - `Axiom partition_claim_information_bound : forall (n num_partitions : nat),`
+- L49: **AXIOM_OR_PARAMETER** — Found Axiom state_space_reduction_bound.
+  - `Axiom state_space_reduction_bound : forall (omega omega_prime : nat),`
+- L67: **AXIOM_OR_PARAMETER** — Found Axiom mu_zero_classical_characterization.
+  - `Axiom mu_zero_classical_characterization :`
+- L80: **AXIOM_OR_PARAMETER** — Found Axiom mu_positive_quantum_characterization.
+  - `Axiom mu_positive_quantum_characterization :`
 
 #### `coq/kernel/NPAMomentMatrix.v`
 - L185: **AXIOM_OR_PARAMETER** — Found Axiom quantum_realizable_implies_normalized.
