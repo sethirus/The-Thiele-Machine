@@ -1,9 +1,9 @@
 # INQUISITOR REPORT
-Generated: 2026-01-12 02:10:20Z (UTC)
+Generated: 2026-01-12 02:16:02Z (UTC)
 Scanned: 243 Coq files across the repo
 ## Summary
-- HIGH: 63
-- MEDIUM: 26
+- HIGH: 51
+- MEDIUM: 16
 - LOW: 16
 
 ## Rules
@@ -74,13 +74,11 @@ Higher score = more likely unfinished/vacuous.
   - `Axiom Gram_PSD : forall (s e1 e2 : R),`
 - L306: **AXIOM_OR_PARAMETER** — Found Axiom local_box_satisfies_minors.
   - `Axiom local_box_satisfies_minors : forall B,`
-- L324: **AXIOM_OR_PARAMETER** — Found Axiom Q2R_abs_bound.
-  - `Axiom Q2R_abs_bound : forall q,`
-- L328: **AXIOM_OR_PARAMETER** — Found Axiom Q2R_plus_ax.
-  - `Axiom Q2R_plus_ax : forall q1 q2, Q2R (q1 + q2)%Q = Q2R q1 + Q2R q2.`
-- L329: **AXIOM_OR_PARAMETER** — Found Axiom Q2R_minus_ax.
-  - `Axiom Q2R_minus_ax : forall q1 q2, Q2R (q1 - q2)%Q = Q2R q1 - Q2R q2.`
-- L364: **AXIOM_OR_PARAMETER** — Found Axiom local_box_CHSH_bound.
+- L348: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `assert (H: (Z.abs qnum * 1 <= Z.pos qden * 1)%Z) by assumption.`
+- L354: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `assert (H: (Z.abs qnum * 1 <= Z.pos qden * 1)%Z) by assumption.`
+- L410: **AXIOM_OR_PARAMETER** — Found Axiom local_box_CHSH_bound.
   - `Axiom local_box_CHSH_bound : forall B,`
 
 #### `coq/kernel/NPAMomentMatrix.v`
@@ -88,8 +86,6 @@ Higher score = more likely unfinished/vacuous.
   - `Axiom quantum_realizable_implies_normalized : forall (npa : NPAMomentMatrix),`
 
 #### `coq/kernel/NoArbitrage.v`
-- L165: **AXIOM_OR_PARAMETER** — Found Axiom asymmetric_cost_pos.
-  - `Axiom asymmetric_cost_pos : forall t, 0 <= asymmetric_cost t.`
 - L198: **AXIOM_OR_PARAMETER** — Found Axiom asymmetric_bounded_by_phi.
   - `Axiom asymmetric_bounded_by_phi : forall t s,`
 
@@ -138,13 +134,13 @@ Higher score = more likely unfinished/vacuous.
   - `Axiom mu_positive_exceeds_classical : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),`
 
 #### `coq/kernel/SemidefiniteProgramming.v`
-- L116: **AXIOM_OR_PARAMETER** — Found Axiom PSD_diagonal_nonneg.
+- L121: **AXIOM_OR_PARAMETER** — Found Axiom PSD_diagonal_nonneg.
   - `Axiom PSD_diagonal_nonneg : forall (n : nat) (M : Matrix n) (i : nat),`
-- L153: **AXIOM_OR_PARAMETER** — Found Axiom schur_2x2_criterion.
+- L158: **AXIOM_OR_PARAMETER** — Found Axiom schur_2x2_criterion.
   - `Axiom schur_2x2_criterion : forall (M : Matrix 2),`
-- L164: **AXIOM_OR_PARAMETER** — Found Axiom PSD_cauchy_schwarz.
+- L169: **AXIOM_OR_PARAMETER** — Found Axiom PSD_cauchy_schwarz.
   - `Axiom PSD_cauchy_schwarz : forall (n : nat) (M : Matrix n) (i j : nat),`
-- L176: **AXIOM_OR_PARAMETER** — Found Axiom PSD_off_diagonal_bound.
+- L181: **AXIOM_OR_PARAMETER** — Found Axiom PSD_off_diagonal_bound.
   - `Axiom PSD_off_diagonal_bound : forall (n : nat) (M : Matrix n) (i j : nat),`
 
 #### `coq/kernel/TsirelsonBoundProof.v`
@@ -179,32 +175,6 @@ Higher score = more likely unfinished/vacuous.
 - L55: **AXIOM_OR_PARAMETER** — Found Axiom mu_zero_classical_bound.
   - `Axiom mu_zero_classical_bound :`
 
-#### `coq/shor_primitives/PolylogConjecture.v`
-- L77: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-
-#### `coq/theory/ArchTheorem.v`
-- L164: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-- L174: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-
-#### `coq/theory/EvolutionaryForge.v`
-- L137: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-- L146: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-- L184: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-- L199: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-- L217: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-- L228: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-- L243: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
-  - `Admitted.`
-
 ### MEDIUM
 
 #### `coq/kernel/NoArbitrage.v`
@@ -223,33 +193,9 @@ Higher score = more likely unfinished/vacuous.
 - L401: **SUSPICIOUS_SHORT_PROOF** — Complex theorem \`classical_bound_lt_algebraic_max\` has very short proof (2 lines) - verify this is not a placeholder.
   - `Lemma classical_bound_lt_algebraic_max : classical_bound_value < 4%Q.`
 
-#### `coq/shor_primitives/PolylogConjecture.v`
-- L70: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
-  - `TODO: Complete this proof - lia timeout`
-
 #### `coq/theory/ArchTheorem.v`
-- L157: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
-  - `TODO: Complete this proof - need to prove 90.51% > reliability_threshold`
-- L167: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
-  - `TODO: Complete this proof - need correct Real library lemmas`
-- L242: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+- L261: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
   - `TODO: Complete this proof - pdiscover_computes_signature needs proper type definition`
-
-#### `coq/theory/EvolutionaryForge.v`
-- L128: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
-  - `TODO: Complete this proof - requires reasoning about list length preservation`
-- L139: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
-  - `TODO: Complete this proof - lia tactics having difficulty with witness`
-- L177: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
-  - `TODO: Complete this proof - depends on admitted crossover_preserves_viability`
-- L186: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
-  - `TODO: Complete this proof - depends on admitted crossover_preserves_viability`
-- L206: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
-  - `TODO: Complete - lia tactic timeouts`
-- L220: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
-  - `TODO: Complete this proof - lia tactics having timeout issues`
-- L236: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
-  - `TODO: Complete this proof - incomplete goals`
 
 #### `coq/thielemachine/coqproofs/MuAlu.v`
 - L194: **MU_COST_ZERO** — μ-cost definition \`mu_zero\` is trivially zero - ensure this is intentional.
