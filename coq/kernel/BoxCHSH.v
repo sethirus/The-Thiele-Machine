@@ -91,14 +91,42 @@ Axiom normalized_E_bound : forall B x y,
     the maximum value achievable by any probability distribution, without
     additional constraints like locality or quantum mechanics.
 
-    This is provable from normalized_E_bound using triangle inequality for Qabs.
-    Requires lemmas about Qabs that would be straightforward but tedious.
-    
-    INQUISITOR NOTE: This Context parameter is documented in HardAssumptions.v
-    as valid_box_S_le_4. It follows from triangle inequality.
+    This follows from normalized_E_bound using triangle inequality for Qabs.
 *)
-Axiom valid_box_S_le_4 : forall B,
+Lemma valid_box_S_le_4 : forall B,
   valid_box B -> Qabs (S B) <= 4#1.
+Proof.
+  intros B [Hnonneg [Hnorm Hnosig]].
+  unfold S.
+  (* Use the fact that |a + b + c - d| <= |a| + |b| + |c| + |-d| = |a| + |b| + |c| + |d| *)
+  (* First rewrite S B = E00 + E01 + E10 + (-E11) *)
+  replace (E B 0 0 + E B 0 1 + E B 1 0 - E B 1 1) 
+    with (E B 0 0 + E B 0 1 + E B 1 0 + (- E B 1 1)) by ring.
+  (* Apply triangle inequality: |a + b + c + d| <= |a| + |b| + |c| + |d| *)
+  assert (H: Qabs (E B 0 0 + E B 0 1 + E B 1 0 + (- E B 1 1)) <=
+             Qabs (E B 0 0) + Qabs (E B 0 1) + Qabs (E B 1 0) + Qabs (- E B 1 1)).
+  { (* This requires multiple applications of Qabs_triangle *)
+    repeat (apply Qle_trans with (y := Qabs _ + Qabs _); 
+            [apply Qabs_triangle | apply Qplus_le_compat; [apply Qle_refl | ]]).
+    apply Qle_refl.
+  }
+  apply Qle_trans with (y := Qabs (E B 0 0) + Qabs (E B 0 1) + Qabs (E B 1 0) + Qabs (- E B 1 1)).
+  - assumption.
+  - (* Now use normalized_E_bound: each |E_xy| <= 1 *)
+    (* And Qabs (- x) = Qabs x *)
+    rewrite Qabs_opp.
+    (* Apply normalized_E_bound 4 times *)
+    assert (H00: Qabs (E B 0 0) <= 1#1) by (apply normalized_E_bound; assumption).
+    assert (H01: Qabs (E B 0 1) <= 1#1) by (apply normalized_E_bound; assumption).
+    assert (H10: Qabs (E B 1 0) <= 1#1) by (apply normalized_E_bound; assumption).
+    assert (H11: Qabs (E B 1 1) <= 1#1) by (apply normalized_E_bound; assumption).
+    (* Sum the bounds: 1 + 1 + 1 + 1 = 4 *)
+    apply Qle_trans with (y := 1#1 + 1#1 + 1#1 + 1#1).
+    + repeat (apply Qplus_le_compat; [assumption | ]).
+      assumption.
+    + (* Compute 1 + 1 + 1 + 1 = 4 *)
+      vm_compute. apply Qle_refl.
+Qed.
 
 (** Classical CHSH inequality
 

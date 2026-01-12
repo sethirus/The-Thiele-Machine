@@ -166,37 +166,63 @@ Qed.
 
 Definition phi (s : CState) : Z := Z.of_nat s.
 
-(** AXIOM: Asymmetric cost bounds the potential function difference.
+(** Asymmetric cost bounds the potential function difference.
 
-    This axiom establishes that the asymmetric cost function provides an upper
+    This lemma establishes that the asymmetric cost function provides an upper
     bound on the potential function difference phi(s') - phi(s).
 
-    JUSTIFICATION: This is the key property for proving no-arbitrage: the cost
+    This is the key property for proving no-arbitrage: the cost
     of any trace must be at least the change in the potential function. For the
     asymmetric model where inc costs 1 and dec costs 2, this bound holds because:
     - inc increases state by 1, costs 1: cost ≥ Δphi (equality)
     - dec decreases state by 1, costs 2: cost > Δphi (strict inequality)
-
-    PROOF SKETCH: By induction on t:
-    - Base case: asymmetric_cost [] = 0 ≥ phi(s) - phi(s) = 0 ✓
-    - Inductive case for c_inc:
-      asymmetric_cost (c_inc :: rest) = 1 + asymmetric_cost rest
-      ≥ 1 + (phi(s') - phi(s+1))  (by IH)
-      = phi(s') - phi(s)  ✓
-    - Inductive case for c_dec:
-      asymmetric_cost (c_dec :: rest) = 2 + asymmetric_cost rest
-      ≥ 2 + (phi(s') - phi(pred s))  (by IH)
-      ≥ phi(s') - phi(s) + 1 ≥ phi(s') - phi(s)  ✓
-
-    NOTE: The proof requires zify+lia but encounters timeouts. A manual proof
-    with explicit case analysis would be ~30 lines.
-
-    REFERENCE: This is the "accounting lower bound" from no-arbitrage theory.
-    See Landauer's principle and Bennett's reversibility arguments in
-    "The Thermodynamics of Computation" (1982).
 *)
-Axiom asymmetric_bounded_by_phi : forall t s,
+Lemma asymmetric_bounded_by_phi : forall t s,
   asymmetric_cost t >= phi (c_apply_trace t s) - phi s.
+Proof.
+  intro t.
+  induction t as [| op rest IH]; intro s.
+  - (* Base case: empty trace *)
+    simpl. unfold phi. lia.
+  - (* Inductive case: op :: rest *)
+    simpl.
+    destruct op.
+    + (* c_inc case: cost 1, state increases by 1 *)
+      unfold op_cost.
+      (* asymmetric_cost (c_inc :: rest) = 1 + asymmetric_cost rest *)
+      (* By IH: asymmetric_cost rest >= phi (c_apply_trace rest (S s)) - phi (S s) *)
+      specialize (IH (S s)).
+      unfold phi in *.
+      (* phi (S s) = Z.of_nat (S s) = Z.of_nat s + 1 *)
+      rewrite Nat2Z.inj_succ in IH.
+      (* We need: 1 + asymmetric_cost rest >= phi (c_apply_trace rest (S s)) - phi s *)
+      (* From IH: asymmetric_cost rest >= phi (c_apply_trace rest (S s)) - (phi s + 1) *)
+      (* Therefore: 1 + asymmetric_cost rest >= phi (c_apply_trace rest (S s)) - phi s *)
+      lia.
+    + (* c_dec case: cost 2, state decreases by 1 (or stays at 0) *)
+      unfold op_cost.
+      (* c_apply_op c_dec s = pred s *)
+      specialize (IH (pred s)).
+      unfold phi in *.
+      (* phi (pred s) = Z.of_nat (pred s) *)
+      (* For s > 0: pred s = s - 1, so phi (pred s) = phi s - 1 *)
+      (* For s = 0: pred s = 0, so phi (pred s) = phi s = 0 *)
+      destruct s as [| s'].
+      * (* s = 0: pred 0 = 0 *)
+        simpl in *. unfold phi in *. simpl in *.
+        (* asymmetric_cost rest >= 0 - 0 = 0 by asymmetric_cost_pos *)
+        assert (H: 0 <= asymmetric_cost rest) by apply asymmetric_cost_pos.
+        lia.
+      * (* s = S s': pred (S s') = s' *)
+        simpl in *.
+        rewrite Nat2Z.inj_succ.
+        (* From IH: asymmetric_cost rest >= phi (c_apply_trace rest s') - phi s' *)
+        (* We need: 2 + asymmetric_cost rest >= phi (c_apply_trace rest s') - (phi s' + 1) *)
+        (* This simplifies to: 2 + asymmetric_cost rest >= phi (c_apply_trace rest s') - phi s' - 1 *)
+        (* From IH: asymmetric_cost rest >= phi (c_apply_trace rest s') - phi s' *)
+        (* Therefore: 2 + asymmetric_cost rest >= phi (c_apply_trace rest s') - phi s' + 1 *)
+        lia.
+Qed.
 
 End ConcreteModel.
 
