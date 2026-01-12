@@ -1,8 +1,8 @@
 # INQUISITOR REPORT
-Generated: 2026-01-12 05:31:27Z (UTC)
+Generated: 2026-01-12 05:36:52Z (UTC)
 Scanned: 243 Coq files across the repo
 ## Summary
-- HIGH: 53
+- HIGH: 51
 - MEDIUM: 23
 - LOW: 16
 
@@ -52,12 +52,6 @@ Higher score = more likely unfinished/vacuous.
 
 ## Findings
 ### HIGH
-
-#### `coq/INQUISITOR_ASSUMPTIONS.json`
-- L1: **ASSUMPTION_AUDIT** — coqtop not found; cannot run assumption audit.
-  - `coqtop`
-- L1: **PAPER_MAP_MISSING** — coqtop not found; cannot verify paper symbol map.
-  - `coqtop`
 
 #### `coq/kernel/BoxCHSH.v`
 - L82: **AXIOM_OR_PARAMETER** — Found Axiom normalized_E_bound.
