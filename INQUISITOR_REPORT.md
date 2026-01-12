@@ -1,8 +1,8 @@
 # INQUISITOR REPORT
-Generated: 2026-01-12 03:15:02Z (UTC)
+Generated: 2026-01-12 03:16:59Z (UTC)
 Scanned: 243 Coq files across the repo
 ## Summary
-- HIGH: 46
+- HIGH: 44
 - MEDIUM: 16
 - LOW: 16
 
@@ -148,16 +148,12 @@ Higher score = more likely unfinished/vacuous.
   - `Axiom optimal_achieves_tsirelson :`
 - L115: **AXIOM_OR_PARAMETER** — Found Axiom classical_CHSH_bound.
   - `Axiom classical_CHSH_bound : forall (npa : NPAMomentMatrix),`
-- L121: **AXIOM_OR_PARAMETER** — Found Axiom tsirelson_exceeds_classical.
-  - `Axiom tsirelson_exceeds_classical :`
-- L138: **AXIOM_OR_PARAMETER** — Found Axiom grothendieck_constant.
+- L149: **AXIOM_OR_PARAMETER** — Found Axiom grothendieck_constant.
   - `Axiom grothendieck_constant : R.`
-- L139: **AXIOM_OR_PARAMETER** — Found Axiom grothendieck_value.
+- L150: **AXIOM_OR_PARAMETER** — Found Axiom grothendieck_value.
   - `Axiom grothendieck_value : 1.7 < grothendieck_constant < 1.8.`
-- L140: **AXIOM_OR_PARAMETER** — Found Axiom grothendieck_inequality.
+- L151: **AXIOM_OR_PARAMETER** — Found Axiom grothendieck_inequality.
   - `Axiom grothendieck_inequality : forall (npa : NPAMomentMatrix),`
-- L146: **AXIOM_OR_PARAMETER** — Found Axiom tsirelson_consistent_with_grothendieck.
-  - `Axiom tsirelson_consistent_with_grothendieck :`
 
 #### `coq/kernel/TsirelsonUniqueness.v`
 - L55: **AXIOM_OR_PARAMETER** — Found Axiom mu_zero_classical_bound.
