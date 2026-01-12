@@ -1,5 +1,5 @@
 # INQUISITOR REPORT
-Generated: 2026-01-12 04:11:32Z (UTC)
+Generated: 2026-01-12 04:42:18Z (UTC)
 Scanned: 243 Coq files across the repo
 ## Summary
 - HIGH: 44
@@ -52,12 +52,6 @@ Higher score = more likely unfinished/vacuous.
 
 ## Findings
 ### HIGH
-
-#### `coq/INQUISITOR_ASSUMPTIONS.json`
-- L1: **ASSUMPTION_AUDIT** — coqtop not found; cannot run assumption audit.
-  - `coqtop`
-- L1: **PAPER_MAP_MISSING** — coqtop not found; cannot verify paper symbol map.
-  - `coqtop`
 
 #### `coq/kernel/BoxCHSH.v`
 - L82: **AXIOM_OR_PARAMETER** — Found Axiom normalized_E_bound.
@@ -159,6 +153,12 @@ Higher score = more likely unfinished/vacuous.
 - L55: **AXIOM_OR_PARAMETER** — Found Axiom mu_zero_classical_bound.
   - `Axiom mu_zero_classical_bound :`
 
+#### `coq/theory/ArchTheorem.v`
+- L165: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+- L176: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+
 ### MEDIUM
 
 #### `coq/kernel/NoArbitrage.v`
@@ -178,7 +178,7 @@ Higher score = more likely unfinished/vacuous.
   - `Lemma classical_bound_lt_algebraic_max : classical_bound_value < 4%Q.`
 
 #### `coq/theory/ArchTheorem.v`
-- L261: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+- L244: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
   - `TODO: Complete this proof - pdiscover_computes_signature needs proper type definition`
 
 #### `coq/thielemachine/coqproofs/MuAlu.v`
