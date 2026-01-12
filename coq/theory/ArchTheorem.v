@@ -154,24 +154,43 @@ Qed.
  *)
 
 (* For structured problems, the machine returns STRUCTURED *)
-(* TODO: Complete this proof - need to prove 90.51% > reliability_threshold *)
 Theorem arch_theorem_structured :
   forall (sig : GeometricSignatureTy),
   is_structured_signature sig = true ->
   exists (prob : R), prob > reliability_threshold /\
   classify_signature sig = STRUCTURED.
 Proof.
-Admitted.
+  intros sig Hstructured.
+  exists (mean_accuracy optimal_quartet_performance).
+  split.
+  - (* prob > reliability_threshold *)
+    (* We already proved this in arch_theorem *)
+    unfold reliability_threshold, optimal_quartet_performance. simpl.
+    lra.
+  - (* classify_signature sig = STRUCTURED *)
+    unfold classify_signature.
+    rewrite Hstructured.
+    reflexivity.
+Qed.
 
 (* For chaotic problems, the machine returns CHAOTIC *)
-(* TODO: Complete this proof - need correct Real library lemmas *)
 Theorem arch_theorem_chaotic :
   forall (sig : GeometricSignatureTy),
   is_structured_signature sig = false ->
   exists (prob : R), prob > reliability_threshold /\
   classify_signature sig = CHAOTIC.
 Proof.
-Admitted.
+  intros sig Hchaotic.
+  exists (mean_accuracy optimal_quartet_performance).
+  split.
+  - (* prob > reliability_threshold *)
+    unfold reliability_threshold, optimal_quartet_performance. simpl.
+    lra.
+  - (* classify_signature sig = CHAOTIC *)
+    unfold classify_signature.
+    rewrite Hchaotic.
+    reflexivity.
+Qed.
 
 (*
  * Optimality Theorem
