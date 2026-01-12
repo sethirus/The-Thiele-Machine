@@ -118,8 +118,19 @@ Axiom classical_CHSH_bound : forall (npa : NPAMomentMatrix),
 
 (** Quantum bound strictly larger than classical.
     Since √2 > 1.4, we have 2√2 > 2.8 > 2. *)
-Axiom tsirelson_exceeds_classical :
+Lemma tsirelson_exceeds_classical :
   2 < tsirelson_bound.
+Proof.
+  unfold tsirelson_bound.
+  (* We have sqrt2_bounds: 1.4 < sqrt2 < 1.5 *)
+  (* Therefore: 2 * 1.4 < 2 * sqrt2 < 2 * 1.5 *)
+  (* That is: 2.8 < 2 * sqrt2 < 3.0 *)
+  (* Hence: 2 < 2.8 < 2 * sqrt2 *)
+  destruct sqrt2_bounds as [Hlower Hupper].
+  assert (H: 2 * 1.4 < 2 * sqrt2).
+  { apply Rmult_lt_compat_l; lra. }
+  lra.
+Qed.
 
 (** * Connection to Grothendieck's Inequality *)
 
@@ -143,8 +154,19 @@ Axiom grothendieck_inequality : forall (npa : NPAMomentMatrix),
 
 (** Consistency check: 2√2 / 2 = √2 ≈ 1.414 < K_G ≈ 1.78.
     This confirms the Tsirelson bound is consistent with Grothendieck's inequality. *)
-Axiom tsirelson_consistent_with_grothendieck :
+Lemma tsirelson_consistent_with_grothendieck :
   tsirelson_bound / 2 < grothendieck_constant.
+Proof.
+  unfold tsirelson_bound.
+  (* 2 * sqrt2 / 2 = sqrt2 *)
+  replace (2 * sqrt2 / 2) with sqrt2 by lra.
+  (* From sqrt2_bounds: sqrt2 < 1.5 *)
+  (* From grothendieck_value: 1.7 < grothendieck_constant *)
+  (* Therefore: sqrt2 < 1.5 < 1.7 < grothendieck_constant *)
+  destruct sqrt2_bounds as [_ Hupper].
+  destruct grothendieck_value as [Glower _].
+  lra.
+Qed.
 
 (** =========================================================================
     VERIFICATION SUMMARY - STEP 3 COMPLETE
