@@ -193,21 +193,15 @@ Proof.
       (* By IH: asymmetric_cost rest >= phi (c_apply_trace rest (S s)) - phi (S s) *)
       specialize (IH (S s)).
       unfold phi in *.
-      (* phi (S s) = Z.of_nat (S s) = Z.succ (Z.of_nat s) *)
+      (* phi (S s) = Z.of_nat (S s) = Z.of_nat s + 1 *)
       rewrite Nat2Z.inj_succ in IH.
-      unfold Z.succ in IH.
-      (* Now IH: asymmetric_cost rest >= Z.of_nat (c_apply_trace rest (S s)) - (Z.of_nat s + 1) *)
-      (* Goal: 1 + asymmetric_cost rest >= Z.of_nat (c_apply_trace rest (S s)) - Z.of_nat s *)
-      (* Convert to <=, add 1, simplify, convert back *)
-      apply Z.ge_le in IH.
-      assert (H: Z.of_nat (c_apply_trace rest (S s)) - Z.of_nat s <= 1 + asymmetric_cost rest).
-      { replace (Z.of_nat (c_apply_trace rest (S s)) - Z.of_nat s) 
-           with (1 + (Z.of_nat (c_apply_trace rest (S s)) - (Z.of_nat s + 1))) by ring.
-        apply Z.add_le_mono_l.
-        exact IH. }
-      simpl. (* Simplify c_apply_op c_inc s to S s *)
-      apply Z.le_ge.
-      exact H.
+      (* We need: 1 + asymmetric_cost rest >= phi (c_apply_trace rest (S s)) - phi s *)
+      (* From IH: asymmetric_cost rest >= phi (c_apply_trace rest (S s)) - (phi s + 1) *)
+      (* Therefore: 1 + asymmetric_cost rest >= phi (c_apply_trace rest (S s)) - phi s *)
+      apply Z.ge_le in IH. apply Z.le_ge.
+      ring_simplify. ring_simplify in IH.
+      apply Z.add_le_mono_l with (p:=1) in IH.
+      ring_simplify in IH. exact IH.
     + (* c_dec case: cost 2, state decreases by 1 (or stays at 0) *)
       unfold op_cost.
       (* c_apply_op c_dec s = pred s *)
@@ -219,45 +213,27 @@ Proof.
       destruct s as [| s'].
       * (* s = 0: pred 0 = 0 *)
         simpl in *. unfold phi in *. simpl in *.
-        (* Goal: 2 + asymmetric_cost rest >= 0 *)
-        (* IH: asymmetric_cost rest >= 0 *)
-        apply Z.ge_le in IH.
-        apply Z.le_ge.
-        (* Need to show: 0 <= 2 + asymmetric_cost rest *)
-        (* We have: 0 <= asymmetric_cost rest *)
-        (* So: 0 <= asymmetric_cost rest <= asymmetric_cost rest + 2 = 2 + asymmetric_cost rest *)
-        replace (2 + asymmetric_cost rest) with (asymmetric_cost rest + 2) by ring.
+        (* asymmetric_cost rest >= 0 - 0 = 0 by asymmetric_cost_pos *)
+        assert (H: 0 <= asymmetric_cost rest) by apply asymmetric_cost_pos.
+        apply Z.ge_le in IH. apply Z.le_ge.
+        ring_simplify. ring_simplify in IH.
         apply Z.add_le_mono_l with (p:=2) in IH.
-        ring_simplify in IH.
-        exact IH.
+        simpl in IH. exact IH.
       * (* s = S s': pred (S s') = s' *)
         simpl in *.
         rewrite Nat2Z.inj_succ.
-        unfold Z.succ.
-        (* From IH: asymmetric_cost rest >= Z.of_nat (c_apply_trace rest s') - Z.of_nat s' *)
-        (* Goal: 2 + asymmetric_cost rest >= Z.of_nat (c_apply_trace rest s') - (Z.of_nat s' + 1) *)
-        (* Which is: 2 + asymmetric_cost rest >= Z.of_nat (c_apply_trace rest s') - Z.of_nat s' - 1 *)
-        apply Z.ge_le in IH.
+        (* From IH: asymmetric_cost rest >= phi (c_apply_trace rest s') - phi s' *)
+        (* We need: 2 + asymmetric_cost rest >= phi (c_apply_trace rest s') - (phi s' + 1) *)
+        (* This simplifies to: 2 + asymmetric_cost rest >= phi (c_apply_trace rest s') - phi s' - 1 *)
+        (* From IH: asymmetric_cost rest >= phi (c_apply_trace rest s') - phi s' *)
+        (* Therefore: 2 + asymmetric_cost rest >= phi (c_apply_trace rest s') - phi s' + 1 *)
+        apply Z.ge_le in IH. apply Z.le_ge.
+        ring_simplify. ring_simplify in IH.
         apply Z.add_le_mono_l with (p:=2) in IH.
-        apply Z.le_ge.
-        simpl. (* Simplify pred (S s') to s' *)
-        replace (Z.of_nat (c_apply_trace rest s') - (Z.of_nat s' + 1))
-           with (Z.of_nat (c_apply_trace rest s') - Z.of_nat s' - 1) by ring.
-        replace (2 + (Z.of_nat (c_apply_trace rest s') - Z.of_nat s'))
-           with (Z.of_nat (c_apply_trace rest s') - Z.of_nat s' + 2) in IH by ring.
-        replace (2 + asymmetric_cost rest) with (asymmetric_cost rest + 2) by ring.
-        (* IH: X - Y + 2 <= cost + 2 *)
-        (* Goal: cost + 2 >= X - Y - 1 *)
-        (* Since X - Y + 2 <= cost + 2, we have X - Y <= cost *)
-        (* So X - Y - 1 <= cost - 1 < cost < cost + 2 *)
-        apply Z.add_le_mono_r with (p:=-3) in IH.
         ring_simplify in IH.
-        apply Z.le_trans with (m:=asymmetric_cost rest - 1).
-        + exact IH.
-        + replace (asymmetric_cost rest - 1) with ((asymmetric_cost rest + 2) - 3) by ring.
-          apply Z.sub_le_mono_r.
-          replace (asymmetric_cost rest + 2) with (asymmetric_cost rest + 2) by ring.
-          apply Z.le_refl.
+        apply Z.le_trans with (m:=Z.of_nat (c_apply_trace rest s') - Z.of_nat s' + 2).
+        + ring_simplify. apply Z.le_refl.
+        + ring_simplify. ring_simplify in IH. exact IH.
 Qed.
 
 End ConcreteModel.
