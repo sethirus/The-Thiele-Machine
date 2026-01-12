@@ -14,6 +14,20 @@ Check firstn_length.
 Check skipn_length.
 Check app_length.
 
+(* Helper lemma: crossover result has same length as second parent when cut <= both lengths *)
+Lemma crossover_length : forall {A : Type} (l1 l2 : list A) (n : nat),
+  n <= length l1 ->
+  n <= length l2 ->
+  length (firstn n l1 ++ skipn n l2) = length l2.
+Proof.
+  intros A l1 l2 n Hn1 Hn2.
+  rewrite app_length.
+  rewrite firstn_length.
+  rewrite skipn_length.
+  rewrite Nat.min_l by assumption.
+  lia.
+Qed.
+
 (* ============================================================================
    PRIMITIVE DEFINITIONS
    ============================================================================ *)
@@ -137,19 +151,28 @@ Theorem crossover_preserves_viability :
   cut <= length s1 -> cut <= length s2 ->
   is_viable (crossover s1 s2 cut).
 Proof.
-  (* TODO: This proof requires showing that crossover preserves length bounds.
-     Technical difficulty: lia tactic cannot automatically handle the arithmetic
-     involving Nat.min and list length subtraction in the presence of inequalities.
-     
-     Proof strategy that should work:
-     1. Show length (firstn cut s1 ++ skipn cut s2) = 
-        Nat.min cut (length s1) + (length s2 - cut)
-     2. Since cut <= length s1, Nat.min cut (length s1) = cut
-     3. Therefore total length = cut + (length s2 - cut) = length s2
-     4. Since is_viable s2 holds, we have 0 < length s2 <= 10
-     
-     Requires manual arithmetic lemmas about natural subtraction. *)
-Admitted.
+  intros s1 s2 cut [Hv1_lo Hv1_hi] [Hv2_lo Hv2_hi] Hcut1 Hcut2.
+  unfold is_viable.
+  (* Show that crossover produces same length as s2 *)
+  assert (Hlen: length (crossover s1 s2 cut) = length s2).
+  { (* Unfold crossover and apply helper lemma *)
+    destruct s1; simpl; apply crossover_length; assumption. }
+  rewrite Hlen.
+  split; assumption.
+Qed.
+
+(* Helper lemma: mutation preserves length *)
+Lemma mutate_at_length : forall (l : Strategy) (pos : nat) (x : Primitive),
+  length (mutate_at l pos x) = length l.
+Proof.
+  intros l pos x.
+  revert pos.
+  induction l as [| h t IH]; intros pos.
+  - (* l = [] *) simpl. reflexivity.
+  - (* l = h :: t *) destruct pos as [| pos'].
+    + (* pos = 0 *) simpl. reflexivity.
+    + (* pos = S pos' *) simpl. f_equal. apply IH.
+Qed.
 
 (* Mutation preserves viability *)
 Theorem mutation_preserves_viability :
@@ -157,15 +180,11 @@ Theorem mutation_preserves_viability :
   is_viable s ->
   is_viable (mutate_at s pos new_prim).
 Proof.
-  (* TODO: This proof requires induction on position and list structure.
-     Technical difficulty: lia tactic cannot handle the inductive cases automatically.
-     
-     Proof strategy: Show that mutate_at preserves length:
-     - Base case: mutate_at [] pos p = [] has length 0 (handled by is_viable precondition)
-     - Inductive case: mutate_at (x::xs) preserves length
-     
-     Requires manual handling of the induction and arithmetic. *)
-Admitted.
+  intros s pos new_prim [Hlo Hhi].
+  unfold is_viable.
+  rewrite mutate_at_length.
+  split; assumption.
+Qed.
 
 (* Evolved strategies can match or exceed parent performance *)
 Lemma evolution_can_improve : forall parent child g,
@@ -203,18 +222,21 @@ Theorem evolution_terminates :
     is_viable offspring.
 Proof.
   intros s1 s2 Hv1 Hv2.
-  (* Construct offspring using midpoint crossover *)
-  exists (crossover s1 s2 (length s1 / 2)).
-  apply crossover_preserves_viability; auto.
+  destruct Hv1 as [Hv1_lo Hv1_hi].
+  destruct Hv2 as [Hv2_lo Hv2_hi].
+  (* Construct offspring using midpoint crossover with min length *)
+  exists (crossover s1 s2 (Nat.min (length s1) (length s2) / 2)).
+  apply crossover_preserves_viability.
+  - split; assumption.
+  - split; assumption.
   - (* cut <= length s1 *)
-    apply Nat.div_le_upper_bound; lia.
+    assert (H: Nat.min (length s1) (length s2) / 2 <= Nat.min (length s1) (length s2)).
+    { apply Nat.div_le_upper_bound; lia. }
+    eapply Nat.le_trans; [exact H | apply Nat.le_min_l].
   - (* cut <= length s2 *)
-    destruct Hv1 as [Hv1_lo Hv1_hi].
-    destruct Hv2 as [Hv2_lo Hv2_hi].
-    transitivity (length s1 / 2).
-    + reflexivity.
-    + assert (length s1 / 2 <= length s1) by (apply Nat.div_le_upper_bound; lia).
-      lia.
+    assert (H: Nat.min (length s1) (length s2) / 2 <= Nat.min (length s1) (length s2)).
+    { apply Nat.div_le_upper_bound; lia. }
+    eapply Nat.le_trans; [exact H | apply Nat.le_min_r].
 Qed.
 
 (* Key theorem: Evolved strategies inherit properties from parents *)
@@ -235,7 +257,10 @@ Proof.
     apply crossover_preserves_viability; auto.
   - (* exists parts_from_s1 parts_from_s2 ... *)
     exists (firstn cut s1), (skipn cut s2).
-    repeat split; unfold crossover; reflexivity.
+    split; [| split].
+    + unfold crossover. destruct s1; simpl; reflexivity.
+    + reflexivity.
+    + reflexivity.
 Qed.
 
 (* ============================================================================
@@ -254,24 +279,14 @@ Theorem empyrean_theorem :
       n_evolved >= 90).  (* Can achieve >= 90% accuracy *)
 Proof.
   intros parent1 parent2 Hin1 Hin2.
-  (* Construct evolved strategy using midpoint crossover *)
-  exists (crossover parent1 parent2 (length parent1 / 2)).
+  pose proof (optimal_quartet_viable parent1 Hin1) as Hv1.
+  pose proof (optimal_quartet_viable parent2 Hin2) as Hv2.
+  (* Use the evolution_terminates theorem with proper min cut point *)
+  pose proof (evolution_terminates parent1 parent2 Hv1 Hv2) as [offspring Hvoff].
+  exists offspring.
   split.
-  - (* is_viable evolved *)
-    apply crossover_preserves_viability.
-    + apply optimal_quartet_viable; auto.
-    + apply optimal_quartet_viable; auto.
-    + apply Nat.div_le_upper_bound; 
-      pose proof (optimal_quartet_viable parent1 Hin1) as [Hlo Hhi]; lia.
-    + assert (Hv1: is_viable parent1) by (apply optimal_quartet_viable; auto).
-      assert (Hv2: is_viable parent2) by (apply optimal_quartet_viable; auto).
-      destruct Hv1 as [Hv1_lo Hv1_hi].
-      destruct Hv2 as [Hv2_lo Hv2_hi].
-      transitivity (length parent1 / 2).
-      * reflexivity.
-      * assert (length parent1 / 2 <= length parent1) 
-          by (apply Nat.div_le_upper_bound; lia).
-        lia.
+  - (* is_viable offspring *)
+    assumption.
   - (* exists g n_evolved ... *)
     exists (Build_Graph 1 []), 100.
     split; [ reflexivity | lia ].
