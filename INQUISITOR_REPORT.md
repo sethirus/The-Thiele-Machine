@@ -1,9 +1,9 @@
 # INQUISITOR REPORT
-Generated: 2026-01-12 08:17:08Z (UTC)
+Generated: 2026-01-12 08:28:40Z (UTC)
 Scanned: 244 Coq files across the repo
 ## Summary
-- HIGH: 46
-- MEDIUM: 17
+- HIGH: 52
+- MEDIUM: 20
 - LOW: 16
 
 ## Rules
@@ -163,6 +163,22 @@ Higher score = more likely unfinished/vacuous.
 - L55: **AXIOM_OR_PARAMETER** — Found Axiom mu_zero_classical_bound.
   - `Axiom mu_zero_classical_bound :`
 
+#### `coq/theory/ArchTheorem.v`
+- L171: **ADMIT_TACTIC** — admit tactic found (proof shortcut - FORBIDDEN).
+  - `admit.`
+- L179: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+- L196: **ADMIT_TACTIC** — admit tactic found (proof shortcut - FORBIDDEN).
+  - `admit.`
+- L204: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+
+#### `coq/theory/EvolutionaryForge.v`
+- L152: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+- L168: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+
 ### MEDIUM
 
 #### `coq/kernel/NoArbitrage.v`
@@ -182,12 +198,18 @@ Higher score = more likely unfinished/vacuous.
   - `Lemma classical_bound_lt_algebraic_max : classical_bound_value < 4%Q.`
 
 #### `coq/theory/ArchTheorem.v`
+- L168: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `TODO: lra tactic cannot automatically prove this real arithmetic.`
+- L193: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `TODO: lra tactic cannot automatically prove this real arithmetic.`
 - L272: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
   - `TODO: Complete this proof - pdiscover_computes_signature needs proper type definition`
 
 #### `coq/theory/EvolutionaryForge.v`
-- L145: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
-  - `assert (Hmin: Nat.min cut (length s1) = cut) by (apply Nat.min_l; auto).`
+- L140: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `TODO: This proof requires showing that crossover preserves length bounds.`
+- L160: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `TODO: This proof requires induction on position and list structure.`
 
 #### `coq/thielemachine/coqproofs/MuAlu.v`
 - L194: **MU_COST_ZERO** — μ-cost definition \`mu_zero\` is trivially zero - ensure this is intentional.
