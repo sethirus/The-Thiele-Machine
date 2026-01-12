@@ -1,9 +1,9 @@
 # INQUISITOR REPORT
-Generated: 2026-01-12 04:42:18Z (UTC)
+Generated: 2026-01-12 04:49:09Z (UTC)
 Scanned: 243 Coq files across the repo
 ## Summary
-- HIGH: 44
-- MEDIUM: 16
+- HIGH: 51
+- MEDIUM: 23
 - LOW: 16
 
 ## Rules
@@ -159,6 +159,22 @@ Higher score = more likely unfinished/vacuous.
 - L176: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
   - `Admitted.`
 
+#### `coq/theory/EvolutionaryForge.v`
+- L137: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+- L146: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+- L184: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+- L199: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+- L217: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+- L228: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+- L243: **ADMITTED** — Admitted found (incomplete proof - FORBIDDEN).
+  - `Admitted.`
+
 ### MEDIUM
 
 #### `coq/kernel/NoArbitrage.v`
@@ -180,6 +196,22 @@ Higher score = more likely unfinished/vacuous.
 #### `coq/theory/ArchTheorem.v`
 - L244: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
   - `TODO: Complete this proof - pdiscover_computes_signature needs proper type definition`
+
+#### `coq/theory/EvolutionaryForge.v`
+- L128: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `TODO: Complete this proof - requires reasoning about list length preservation`
+- L139: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `TODO: Complete this proof - lia tactics having difficulty with witness`
+- L177: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `TODO: Complete this proof - depends on admitted crossover_preserves_viability`
+- L186: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `TODO: Complete this proof - depends on admitted crossover_preserves_viability`
+- L206: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `TODO: Complete - lia tactic timeouts`
+- L220: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `TODO: Complete this proof - lia tactics having timeout issues`
+- L236: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
+  - `TODO: Complete this proof - incomplete goals`
 
 #### `coq/thielemachine/coqproofs/MuAlu.v`
 - L194: **MU_COST_ZERO** — μ-cost definition \`mu_zero\` is trivially zero - ensure this is intentional.
