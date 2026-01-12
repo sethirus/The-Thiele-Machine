@@ -1,8 +1,8 @@
 # INQUISITOR REPORT
-Generated: 2026-01-12 02:47:20Z (UTC)
+Generated: 2026-01-12 03:15:02Z (UTC)
 Scanned: 243 Coq files across the repo
 ## Summary
-- HIGH: 47
+- HIGH: 46
 - MEDIUM: 16
 - LOW: 16
 
@@ -72,8 +72,6 @@ Higher score = more likely unfinished/vacuous.
   - `Axiom Gram_PSD : forall (s e1 e2 : R),`
 - L306: **AXIOM_OR_PARAMETER** — Found Axiom local_box_satisfies_minors.
   - `Axiom local_box_satisfies_minors : forall B,`
-- L412: **AXIOM_OR_PARAMETER** — Found Axiom local_box_CHSH_bound.
-  - `Axiom local_box_CHSH_bound : forall B,`
 
 #### `coq/kernel/NPAMomentMatrix.v`
 - L185: **AXIOM_OR_PARAMETER** — Found Axiom quantum_realizable_implies_normalized.
