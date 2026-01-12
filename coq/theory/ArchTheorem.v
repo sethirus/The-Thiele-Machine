@@ -161,14 +161,12 @@ Theorem arch_theorem_structured :
   classify_signature sig = STRUCTURED.
 Proof.
   intros sig Hstruct.
-  (* Extract existence of probability from arch_theorem *)
-  exists (optimal_quartet_performance.(mean_accuracy) / 100)%R.
+  (* Use the existing high accuracy result *)
+  exists (optimal_quartet_performance.(mean_accuracy))%R.
   split.
   - (* prob > reliability_threshold *)
-    (* TODO: lra tactic cannot automatically prove this real arithmetic.
-       Need to show: 9051/10000 / 100 > 90/100, i.e., 9051/1000000 > 900000/1000000
-       This is true but requires more careful real arithmetic setup. *)
-    admit.
+    unfold reliability_threshold.
+    apply optimal_quartet_high_accuracy.
   - (* classify_signature sig = STRUCTURED *)
     unfold is_structured_signature in Hstruct.
     destruct (classify_signature sig) eqn:Hclass.
@@ -176,7 +174,7 @@ Proof.
       reflexivity.
     + (* CHAOTIC case - contradicts Hstruct *)
       discriminate Hstruct.
-Admitted.
+Qed.
 
 (* For chaotic problems, the machine returns CHAOTIC *)
 Theorem arch_theorem_chaotic :
@@ -186,14 +184,12 @@ Theorem arch_theorem_chaotic :
   classify_signature sig = CHAOTIC.
 Proof.
   intros sig Hchaotic.
-  (* Extract existence of probability from arch_theorem *)
-  exists (optimal_quartet_performance.(mean_accuracy) / 100)%R.
+  (* Use the existing high accuracy result *)
+  exists (optimal_quartet_performance.(mean_accuracy))%R.
   split.
   - (* prob > reliability_threshold *)
-    (* TODO: lra tactic cannot automatically prove this real arithmetic.
-       Need to show: 9051/10000 / 100 > 90/100
-       This is true but requires more careful real arithmetic setup. *)
-    admit.
+    unfold reliability_threshold.
+    apply optimal_quartet_high_accuracy.
   - (* classify_signature sig = CHAOTIC *)
     unfold is_structured_signature in Hchaotic.
     destruct (classify_signature sig) eqn:Hclass.
@@ -201,7 +197,7 @@ Proof.
       discriminate Hchaotic.
     + (* CHAOTIC case *)
       reflexivity.
-Admitted.
+Qed.
 
 (*
  * Optimality Theorem
