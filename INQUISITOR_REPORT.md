@@ -1,8 +1,8 @@
 # INQUISITOR REPORT
-Generated: 2026-01-12 02:43:31Z (UTC)
+Generated: 2026-01-12 02:45:50Z (UTC)
 Scanned: 243 Coq files across the repo
 ## Summary
-- HIGH: 49
+- HIGH: 47
 - MEDIUM: 16
 - LOW: 16
 
@@ -72,11 +72,7 @@ Higher score = more likely unfinished/vacuous.
   - `Axiom Gram_PSD : forall (s e1 e2 : R),`
 - L306: **AXIOM_OR_PARAMETER** — Found Axiom local_box_satisfies_minors.
   - `Axiom local_box_satisfies_minors : forall B,`
-- L348: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
-  - `assert (H: (Z.abs qnum * 1 <= Z.pos qden * 1)%Z) by assumption.`
-- L354: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
-  - `assert (H: (Z.abs qnum * 1 <= Z.pos qden * 1)%Z) by assumption.`
-- L410: **AXIOM_OR_PARAMETER** — Found Axiom local_box_CHSH_bound.
+- L412: **AXIOM_OR_PARAMETER** — Found Axiom local_box_CHSH_bound.
   - `Axiom local_box_CHSH_bound : forall B,`
 
 #### `coq/kernel/NPAMomentMatrix.v`
