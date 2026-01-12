@@ -323,8 +323,12 @@ Proof.
            pose proof (Hviable s1 (or_introl eq_refl)) as [Hlo Hhi]; lia.
         -- apply Nat.div_le_upper_bound; 
            pose proof (Hviable s1 (or_introl eq_refl)) as [Hlo Hhi]; lia.
-    + (* Two or more parents: use crossover of first two *)
-      exists [crossover s1 s2 (length s1 / 2)].
+    + (* Two or more parents: use crossover of first two with safe cut point *)
+      assert (Hv1: is_viable s1) by (apply Hviable; left; reflexivity).
+      assert (Hv2: is_viable s2) by (apply Hviable; right; left; reflexivity).
+      destruct Hv1 as [Hv1_lo Hv1_hi].
+      destruct Hv2 as [Hv2_lo Hv2_hi].
+      exists [crossover s1 s2 (Nat.min (length s1) (length s2) / 2)].
       split.
       * simpl. lia.
       * intros s' [H | H]; [ | contradiction ].
@@ -332,17 +336,14 @@ Proof.
         apply crossover_preserves_viability.
         -- apply Hviable. left. reflexivity.
         -- apply Hviable. right. left. reflexivity.
-        -- apply Nat.div_le_upper_bound; 
-           pose proof (Hviable s1 (or_introl eq_refl)) as [Hlo Hhi]; lia.
-        -- assert (Hv2: is_viable s2) by (apply Hviable; right; left; reflexivity).
-           destruct Hv2 as [Hv2_lo Hv2_hi].
-           assert (Hv1: is_viable s1) by (apply Hviable; left; reflexivity).
-           destruct Hv1 as [Hv1_lo Hv1_hi].
-           transitivity (length s1 / 2).
-           ++ reflexivity.
-           ++ assert (length s1 / 2 <= length s1) 
-                by (apply Nat.div_le_upper_bound; lia).
-              lia.
+        -- (* cut <= length s1 *)
+           assert (H: Nat.min (length s1) (length s2) / 2 <= Nat.min (length s1) (length s2)).
+           { apply Nat.div_le_upper_bound; lia. }
+           eapply Nat.le_trans; [exact H | apply Nat.le_min_l].
+        -- (* cut <= length s2 *)
+           assert (H: Nat.min (length s1) (length s2) / 2 <= Nat.min (length s1) (length s2)).
+           { apply Nat.div_le_upper_bound; lia. }
+           eapply Nat.le_trans; [exact H | apply Nat.le_min_r].
 Qed.
 
 (* ============================================================================

@@ -1,9 +1,9 @@
 # INQUISITOR REPORT
-Generated: 2026-01-12 08:55:24Z (UTC)
+Generated: 2026-01-12 09:04:55Z (UTC)
 Scanned: 244 Coq files across the repo
 ## Summary
 - HIGH: 46
-- MEDIUM: 19
+- MEDIUM: 22
 - LOW: 16
 
 ## Rules
@@ -191,6 +191,12 @@ Higher score = more likely unfinished/vacuous.
 - L233: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
   - `assert (H: Nat.min (length s1) (length s2) / 2 <= Nat.min (length s1) (length s2)).`
 - L237: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `assert (H: Nat.min (length s1) (length s2) / 2 <= Nat.min (length s1) (length s2)).`
+- L331: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `exists [crossover s1 s2 (Nat.min (length s1) (length s2) / 2)].`
+- L340: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+  - `assert (H: Nat.min (length s1) (length s2) / 2 <= Nat.min (length s1) (length s2)).`
+- L344: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
   - `assert (H: Nat.min (length s1) (length s2) / 2 <= Nat.min (length s1) (length s2)).`
 
 #### `coq/thielemachine/coqproofs/MuAlu.v`
