@@ -33,6 +33,27 @@ From Kernel Require Import Tier1Proofs.
 Local Open Scope R_scope.
 Import ListNotations.
 
+(** Helper lemma: Rabs_div was removed in Coq 8.18, we redefine it here *)
+Lemma Rabs_div : forall x y, y <> 0 -> Rabs (x / y) = Rabs x / Rabs y.
+Proof.
+  intros x y Hy.
+  unfold Rdiv.
+  rewrite Rabs_mult.
+  rewrite Rabs_inv; auto.
+Qed.
+
+(** Helper lemma: Rle_div_r from Rcomplements *)
+Lemma Rle_div_r : forall a b c, 0 < c -> a <= b * c -> a / c <= b.
+Proof.
+  intros a b c Hc Hab.
+  unfold Rdiv.
+  apply Rmult_le_reg_r with (r:=c).
+  - exact Hc.
+  - rewrite Rmult_assoc. rewrite Rinv_l.
+    + rewrite Rmult_1_r. exact Hab.
+    + apply Rgt_not_eq. exact Hc.
+Qed.
+
 (** =========================================================================
     STEP 1: Define the 3×3 minor constraint
     ========================================================================= *)
@@ -336,8 +357,8 @@ Proof.
   simpl in Hq.
   (* The bound Qabs q <= 1 means |qnum / qden| <= 1 *)
   (* This translates to Rabs (IZR qnum / IZR (Zpos qden)) <= 1 *)
-  rewrite Rabs_div; try (apply IZR_neq; intro H; discriminate).
-  apply Rcomplements.Rle_div_r.
+  unfold Rdiv. rewrite Rabs_mult. rewrite Rabs_inv; try (apply IZR_neq; intro H; discriminate).
+  apply Rle_div_r.
   - apply (IZR_lt 0). reflexivity.
   - (* Need to show: Rabs (IZR qnum) <= IZR (Zpos qden) *)
     (* From Qabs (qnum # qden) <= 1, we have Z.abs qnum * 1 <= Zpos qden * 1 *)
