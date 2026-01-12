@@ -1,8 +1,8 @@
 # INQUISITOR REPORT
-Generated: 2026-01-12 02:33:35Z (UTC)
+Generated: 2026-01-12 02:36:17Z (UTC)
 Scanned: 243 Coq files across the repo
 ## Summary
-- HIGH: 51
+- HIGH: 49
 - MEDIUM: 16
 - LOW: 16
 
@@ -62,8 +62,6 @@ Higher score = more likely unfinished/vacuous.
 #### `coq/kernel/BoxCHSH.v`
 - L82: **AXIOM_OR_PARAMETER** — Found Axiom normalized_E_bound.
   - `Axiom normalized_E_bound : forall B x y,`
-- L100: **AXIOM_OR_PARAMETER** — Found Axiom valid_box_S_le_4.
-  - `Axiom valid_box_S_le_4 : forall B,`
 
 #### `coq/kernel/MinorConstraints.v`
 - L108: **AXIOM_OR_PARAMETER** — Found Axiom Fine_theorem.
@@ -84,10 +82,6 @@ Higher score = more likely unfinished/vacuous.
 #### `coq/kernel/NPAMomentMatrix.v`
 - L185: **AXIOM_OR_PARAMETER** — Found Axiom quantum_realizable_implies_normalized.
   - `Axiom quantum_realizable_implies_normalized : forall (npa : NPAMomentMatrix),`
-
-#### `coq/kernel/NoArbitrage.v`
-- L198: **AXIOM_OR_PARAMETER** — Found Axiom asymmetric_bounded_by_phi.
-  - `Axiom asymmetric_bounded_by_phi : forall t s,`
 
 #### `coq/kernel/QuantumBound.v`
 - L204: **AXIOM_OR_PARAMETER** — Found Axiom quantum_admissible_implies_no_supra_cert.
@@ -234,9 +228,9 @@ Higher score = more likely unfinished/vacuous.
 ### LOW
 
 #### `coq/kernel/BoxCHSH.v`
-- L124: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`local_box_S_le_2\` is documented with INQUISITOR NOTE.
+- L152: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`local_box_S_le_2\` is documented with INQUISITOR NOTE.
   - `Context (local_box_S_le_2 : forall B,`
-- L189: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`tsirelson_from_algebraic_coherence\` is documented with INQUISITOR NOTE.
+- L217: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`tsirelson_from_algebraic_coherence\` is documented with INQUISITOR NOTE.
   - `Context (tsirelson_from_algebraic_coherence : forall c : Correlators,`
 
 #### `coq/kernel/MinorConstraints.v`
