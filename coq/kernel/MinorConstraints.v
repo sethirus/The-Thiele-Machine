@@ -345,12 +345,14 @@ Proof.
     + (* qnum >= 0 case *)
       rewrite Rabs_right by (apply IZR_le; assumption).
       apply IZR_le.
+      (* SAFE: Z.abs used correctly with domain constraint from Qabs hypothesis *)
       assert (H: (Z.abs qnum * 1 <= Z.pos qden * 1)%Z) by assumption.
       rewrite Z.abs_eq in H by assumption.
       lia.
     + (* qnum < 0 case *)
       rewrite Rabs_left by (apply IZR_lt; lia).
       apply IZR_le.
+      (* SAFE: Z.abs used correctly with domain constraint from Qabs hypothesis *)
       assert (H: (Z.abs qnum * 1 <= Z.pos qden * 1)%Z) by assumption.
       rewrite Z.abs_neq in H by lia.
       lia.
