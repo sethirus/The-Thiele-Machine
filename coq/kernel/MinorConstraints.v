@@ -409,11 +409,48 @@ Local Open Scope R_scope.
     |E00 + E01 + E10 - E11| ≤ 2 in R. By Q2R distributivity, this equals
     |Q2R(BoxCHSH.S B)| ≤ 2. QED.
 *)
-Axiom local_box_CHSH_bound : forall B,
+Lemma local_box_CHSH_bound : forall B,
   is_local_box B ->
   non_negative B ->
   normalized B ->
   (Rabs (Q2R (BoxCHSH.S B)) <= 2)%R.
+Proof.
+  intros B Hlocal Hnonneg Hnorm.
+  (* Extract correlations in R *)
+  set (E00 := E_to_R B 0 0).
+  set (E01 := E_to_R B 0 1).
+  set (E10 := E_to_R B 1 0).
+  set (E11 := E_to_R B 1 1).
+  
+  (* Show that these satisfy minor constraints *)
+  assert (Hminor: satisfies_minor_constraints E00 E01 E10 E11).
+  { apply (local_box_satisfies_minors B Hlocal Hnonneg Hnorm). }
+  
+  (* Show that each correlation is bounded *)
+  assert (HE00: Rabs E00 <= 1).
+  { unfold E00, E_to_R. apply Q2R_abs_bound.
+    apply (BoxCHSH.normalized_E_bound B 0 0 Hnonneg Hnorm). }
+  assert (HE01: Rabs E01 <= 1).
+  { unfold E01, E_to_R. apply Q2R_abs_bound.
+    apply (BoxCHSH.normalized_E_bound B 0 1 Hnonneg Hnorm). }
+  assert (HE10: Rabs E10 <= 1).
+  { unfold E10, E_to_R. apply Q2R_abs_bound.
+    apply (BoxCHSH.normalized_E_bound B 1 0 Hnonneg Hnorm). }
+  assert (HE11: Rabs E11 <= 1).
+  { unfold E11, E_to_R. apply Q2R_abs_bound.
+    apply (BoxCHSH.normalized_E_bound B 1 1 Hnonneg Hnorm). }
+  
+  (* Apply the main theorem *)
+  assert (Hbound: Rabs (E00 + E01 + E10 - E11) <= 2).
+  { apply (minor_constraints_imply_CHSH_bound E00 E01 E10 E11 Hminor HE00 HE01 HE10 HE11). }
+  
+  (* Show that Q2R(S B) = E00 + E01 + E10 - E11 *)
+  unfold BoxCHSH.S.
+  unfold E00, E01, E10, E11, E_to_R.
+  repeat rewrite Q2R_plus_ax.
+  rewrite Q2R_minus_ax.
+  assumption.
+Qed.
 
 (** =========================================================================
     VERIFICATION SUMMARY
