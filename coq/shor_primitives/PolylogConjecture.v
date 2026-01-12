@@ -67,14 +67,21 @@ Section ProvenFacts.
       where d(φ(N)) is the divisor count of φ(N).
       
       This does NOT help with factoring since it ASSUMES factors are known. *)
-  (* TODO: Complete this proof - lia timeout *)
   Lemma period_from_known_factors_complexity :
     forall n p q,
       n = p * q -> p > 1 -> q > 1 ->
       (* If factors are known, divisors of φ(N) = (p-1)(q-1) are enumerable *)
       exists phi, phi = (p - 1) * (q - 1) /\ phi > 0.
   Proof.
-  Admitted.
+    intros n p q Hn Hp Hq.
+    exists ((p - 1) * (q - 1)).
+    split.
+    - reflexivity.
+    - (* Since p > 1 and q > 1, we have p >= 2 and q >= 2 *)
+      (* Therefore (p - 1) >= 1 and (q - 1) >= 1 *)
+      (* So (p - 1) * (q - 1) >= 1 * 1 = 1 > 0 *)
+      lia.
+  Qed.
 
 End ProvenFacts.
 
