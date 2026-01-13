@@ -89,6 +89,11 @@ kernel/HardAssumptions.v
 kernel/BoxCHSH.v
 kernel/TestTripartite.v
 kernel/TsirelsonComputation.v
+kernel/TsirelsonGeneral.v
+kernel/Purification.v
+kernel/NoCloning.v
+kernel/Unitarity.v
+kernel/BornRule.v
 
 # === KERNEL_TOE (6 files) - TOE cone ===
 kernel_toe/Definitions.v
@@ -305,3 +310,19 @@ kernel/MinimalE.v
 kernel/ModularObservation.v
 shor_primitives/PolylogConjecture.v
 tests/TestNecessity.v
+
+# === MISSING FILES (newly added) ===
+MuComplexity.v
+kernel/NPAMomentMatrix.v
+kernel/QuantumBoundComplete.v
+kernel/SemidefiniteProgramming.v
+kernel/TsirelsonBoundProof.v
+
+# === SANDBOX/TEST FILES (excluded - may have obsolete syntax) ===
+# search_z.v  - uses obsolete Z.le_add_r
+# search_z2.v
+# search_z3.v
+# search_z4.v
+# test.v - tactic test file
+# test_lia.v
+# verify_zero_admits.v - utility script

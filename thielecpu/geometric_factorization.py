@@ -7,7 +7,7 @@ Like ClaimLeftZero in ToyThiele, this accesses algebraic structure without
 computing it, enabling polylog period finding.
 
 BREAKTHROUGH RESULTS (tests/test_geometric_factorization_claim.py):
-- N=3233 (53×61): 32 operations vs 260 classical = 8.12x speedup
+- N=3233 (53×61): Demonstrates μ-cost tracking for factorization claims
 - Complexity: O(d(φ(N)) × log N) where d = divisor count
 """
 

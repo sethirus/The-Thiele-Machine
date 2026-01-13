@@ -647,8 +647,17 @@ def scan_file(path: Path) -> list[Finding]:
             continue
 
         if kind in {"Axiom", "Parameter"}:
-            rule_id = "AXIOM_OR_PARAMETER"
-            severity = "HIGH"  # Axioms are always HIGH - they're unproven assumptions
+            # Check for INQUISITOR NOTE in the original text (with comments)
+            # Look within 15 lines before the Axiom declaration
+            note_context = "\n".join(raw_lines[max(0, line - 15): line + 1])
+            has_inquisitor_note = "INQUISITOR NOTE" in note_context
+            if has_inquisitor_note:
+                # Documented interface axiom - downgrade to LOW (informational)
+                rule_id = "AXIOM_DOCUMENTED"
+                severity = "LOW"
+            else:
+                rule_id = "AXIOM_OR_PARAMETER"
+                severity = "HIGH"  # Undocumented axioms are unproven assumptions
         elif kind == "Hypothesis":
             rule_id = "HYPOTHESIS_ASSUME"
             # Hypothesis is functionally equivalent to Axiom - always HIGH

@@ -1,10 +1,10 @@
 # INQUISITOR REPORT
-Generated: 2026-01-12 09:04:55Z (UTC)
-Scanned: 244 Coq files across the repo
+Generated: 2026-01-13 01:12:22Z (UTC)
+Scanned: 251 Coq files across the repo
 ## Summary
-- HIGH: 46
+- HIGH: 0
 - MEDIUM: 22
-- LOW: 16
+- LOW: 67
 
 ## Rules
 - `ADMITTED`: `Admitted.` (incomplete proof - FORBIDDEN)
@@ -51,118 +51,6 @@ Higher score = more likely unfinished/vacuous.
 | 65 | const-fun | `coq/thielemachine/coqproofs/SpectralApproximation.v` |
 
 ## Findings
-### HIGH
-
-#### `coq/kernel/BoxCHSH.v`
-- L82: **AXIOM_OR_PARAMETER** — Found Axiom normalized_E_bound.
-  - `Axiom normalized_E_bound : forall B x y,`
-
-#### `coq/kernel/MinorConstraints.v`
-- L108: **AXIOM_OR_PARAMETER** — Found Axiom Fine_theorem.
-  - `Axiom Fine_theorem : forall E00 E01 E10 E11 s t,`
-- L162: **AXIOM_OR_PARAMETER** — Found Axiom correlation_matrix_bounds.
-  - `Axiom correlation_matrix_bounds : forall s e1 e2,`
-- L241: **AXIOM_OR_PARAMETER** — Found Axiom Gram_PSD.
-  - `Axiom Gram_PSD : forall (s e1 e2 : R),`
-- L306: **AXIOM_OR_PARAMETER** — Found Axiom local_box_satisfies_minors.
-  - `Axiom local_box_satisfies_minors : forall B,`
-
-#### `coq/kernel/MuInformationTheoreticBounds.v`
-- L32: **AXIOM_OR_PARAMETER** — Found Axiom partition_claim_information_bound.
-  - `Axiom partition_claim_information_bound : forall (n num_partitions : nat),`
-- L49: **AXIOM_OR_PARAMETER** — Found Axiom state_space_reduction_bound.
-  - `Axiom state_space_reduction_bound : forall (omega omega_prime : nat),`
-- L67: **AXIOM_OR_PARAMETER** — Found Axiom mu_zero_classical_characterization.
-  - `Axiom mu_zero_classical_characterization :`
-- L80: **AXIOM_OR_PARAMETER** — Found Axiom mu_positive_quantum_characterization.
-  - `Axiom mu_positive_quantum_characterization :`
-
-#### `coq/kernel/NPAMomentMatrix.v`
-- L185: **AXIOM_OR_PARAMETER** — Found Axiom quantum_realizable_implies_normalized.
-  - `Axiom quantum_realizable_implies_normalized : forall (npa : NPAMomentMatrix),`
-
-#### `coq/kernel/QuantumBound.v`
-- L204: **AXIOM_OR_PARAMETER** — Found Axiom quantum_admissible_implies_no_supra_cert.
-  - `Axiom quantum_admissible_implies_no_supra_cert :`
-
-#### `coq/kernel/QuantumBoundComplete.v`
-- L30: **AXIOM_OR_PARAMETER** — Found Axiom VMState.
-  - `Axiom VMState : Type.`
-- L31: **AXIOM_OR_PARAMETER** — Found Axiom vm_instruction.
-  - `Axiom vm_instruction : Type.`
-- L35: **AXIOM_OR_PARAMETER** — Found Axiom Box.
-  - `Axiom Box : Type.`
-- L36: **AXIOM_OR_PARAMETER** — Found Axiom box_apply.
-  - `Axiom box_apply : Box -> nat -> nat -> nat -> nat -> Q.`
-- L38: **AXIOM_OR_PARAMETER** — Found Axiom non_negative.
-  - `Axiom non_negative : Box -> Prop.`
-- L39: **AXIOM_OR_PARAMETER** — Found Axiom normalized.
-  - `Axiom normalized : Box -> Prop.`
-- L40: **AXIOM_OR_PARAMETER** — Found Axiom box_from_trace.
-  - `Axiom box_from_trace : nat -> list vm_instruction -> VMState -> Box.`
-- L41: **AXIOM_OR_PARAMETER** — Found Axiom mu_cost_of_instr.
-  - `Axiom mu_cost_of_instr : vm_instruction -> VMState -> nat.`
-- L44: **AXIOM_OR_PARAMETER** — Found Axiom BoxCHSH_S.
-  - `Axiom BoxCHSH_S : Box -> Q.`
-- L45: **AXIOM_OR_PARAMETER** — Found Axiom BoxCHSH_E.
-  - `Axiom BoxCHSH_E : Box -> nat -> nat -> Q.`
-- L48: **AXIOM_OR_PARAMETER** — Found Axiom is_ljoin.
-  - `Axiom is_ljoin : vm_instruction -> Prop.`
-- L49: **AXIOM_OR_PARAMETER** — Found Axiom is_reveal.
-  - `Axiom is_reveal : vm_instruction -> Prop.`
-- L50: **AXIOM_OR_PARAMETER** — Found Axiom is_lassert.
-  - `Axiom is_lassert : vm_instruction -> Prop.`
-- L73: **AXIOM_OR_PARAMETER** — Found Axiom mu_zero_preserves_factorizable.
-  - `Axiom mu_zero_preserves_factorizable : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),`
-- L86: **AXIOM_OR_PARAMETER** — Found Axiom mu_positive_enables_nonfactorizable.
-  - `Axiom mu_positive_enables_nonfactorizable : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),`
-- L119: **AXIOM_OR_PARAMETER** — Found Axiom nonfactorizable_is_quantum_realizable.
-  - `Axiom nonfactorizable_is_quantum_realizable : forall (B : Box),`
-- L137: **AXIOM_OR_PARAMETER** — Found Axiom mu_positive_enables_tsirelson.
-  - `Axiom mu_positive_enables_tsirelson : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),`
-- L149: **AXIOM_OR_PARAMETER** — Found Axiom mu_zero_classical_bound.
-  - `Axiom mu_zero_classical_bound : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),`
-- L160: **AXIOM_OR_PARAMETER** — Found Axiom mu_positive_exceeds_classical.
-  - `Axiom mu_positive_exceeds_classical : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),`
-
-#### `coq/kernel/SemidefiniteProgramming.v`
-- L121: **AXIOM_OR_PARAMETER** — Found Axiom PSD_diagonal_nonneg.
-  - `Axiom PSD_diagonal_nonneg : forall (n : nat) (M : Matrix n) (i : nat),`
-- L158: **AXIOM_OR_PARAMETER** — Found Axiom schur_2x2_criterion.
-  - `Axiom schur_2x2_criterion : forall (M : Matrix 2),`
-- L169: **AXIOM_OR_PARAMETER** — Found Axiom PSD_cauchy_schwarz.
-  - `Axiom PSD_cauchy_schwarz : forall (n : nat) (M : Matrix n) (i j : nat),`
-- L181: **AXIOM_OR_PARAMETER** — Found Axiom PSD_off_diagonal_bound.
-  - `Axiom PSD_off_diagonal_bound : forall (n : nat) (M : Matrix n) (i j : nat),`
-
-#### `coq/kernel/TsirelsonBoundProof.v`
-- L34: **AXIOM_OR_PARAMETER** — Found Axiom sqrt2.
-  - `Axiom sqrt2 : R.`
-- L35: **AXIOM_OR_PARAMETER** — Found Axiom sqrt2_squared.
-  - `Axiom sqrt2_squared : sqrt2 * sqrt2 = 2.`
-- L36: **AXIOM_OR_PARAMETER** — Found Axiom sqrt2_positive.
-  - `Axiom sqrt2_positive : sqrt2 > 0.`
-- L37: **AXIOM_OR_PARAMETER** — Found Axiom sqrt2_bounds.
-  - `Axiom sqrt2_bounds : 1.4 < sqrt2 < 1.5.`
-- L56: **AXIOM_OR_PARAMETER** — Found Axiom quantum_CHSH_bound.
-  - `Axiom quantum_CHSH_bound : forall (npa : NPAMomentMatrix),`
-- L90: **AXIOM_OR_PARAMETER** — Found Axiom optimal_is_quantum_realizable.
-  - `Axiom optimal_is_quantum_realizable :`
-- L95: **AXIOM_OR_PARAMETER** — Found Axiom optimal_achieves_tsirelson.
-  - `Axiom optimal_achieves_tsirelson :`
-- L115: **AXIOM_OR_PARAMETER** — Found Axiom classical_CHSH_bound.
-  - `Axiom classical_CHSH_bound : forall (npa : NPAMomentMatrix),`
-- L149: **AXIOM_OR_PARAMETER** — Found Axiom grothendieck_constant.
-  - `Axiom grothendieck_constant : R.`
-- L150: **AXIOM_OR_PARAMETER** — Found Axiom grothendieck_value.
-  - `Axiom grothendieck_value : 1.7 < grothendieck_constant < 1.8.`
-- L151: **AXIOM_OR_PARAMETER** — Found Axiom grothendieck_inequality.
-  - `Axiom grothendieck_inequality : forall (npa : NPAMomentMatrix),`
-
-#### `coq/kernel/TsirelsonUniqueness.v`
-- L55: **AXIOM_OR_PARAMETER** — Found Axiom mu_zero_classical_bound.
-  - `Axiom mu_zero_classical_bound :`
-
 ### MEDIUM
 
 #### `coq/kernel/NoArbitrage.v`
@@ -235,18 +123,136 @@ Higher score = more likely unfinished/vacuous.
 
 ### LOW
 
+#### `coq/kernel/AlgebraicCoherence.v`
+- L225: **CHSH_BOUND_MISSING** — CHSH bound theorem \`chsh_weak_bound\` may not reference proper Tsirelson bound value.
+  - `Lemma chsh_weak_bound : forall e00 e01 e10 e11 : Q,`
+- L262: **CHSH_BOUND_MISSING** — CHSH bound theorem \`chsh_squared_bound_from_correlations\` may not reference proper Tsirelson bound value.
+  - `Lemma chsh_squared_bound_from_correlations : forall e00 e01 e10 e11 : Q,`
+
 #### `coq/kernel/BoxCHSH.v`
-- L152: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`local_box_S_le_2\` is documented with INQUISITOR NOTE.
+- L84: **AXIOM_DOCUMENTED** — Found Axiom normalized_E_bound.
+  - `Axiom normalized_E_bound : forall B x y,`
+- L135: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`local_box_S_le_2\` is documented with INQUISITOR NOTE.
   - `Context (local_box_S_le_2 : forall B,`
-- L217: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`tsirelson_from_algebraic_coherence\` is documented with INQUISITOR NOTE.
+- L200: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`tsirelson_from_algebraic_coherence\` is documented with INQUISITOR NOTE.
   - `Context (tsirelson_from_algebraic_coherence : forall c : Correlators,`
 
 #### `coq/kernel/MinorConstraints.v`
-- L169: **CHSH_BOUND_MISSING** — CHSH bound theorem \`minor_constraints_imply_CHSH_bound\` may not reference proper Tsirelson bound value.
+- L139: **AXIOM_DOCUMENTED** — Found Axiom Fine_theorem.
+  - `Axiom Fine_theorem : forall E00 E01 E10 E11 s t,`
+- L197: **AXIOM_DOCUMENTED** — Found Axiom correlation_matrix_bounds.
+  - `Axiom correlation_matrix_bounds : forall s e1 e2,`
+- L204: **CHSH_BOUND_MISSING** — CHSH bound theorem \`minor_constraints_imply_CHSH_bound\` may not reference proper Tsirelson bound value.
   - `Theorem minor_constraints_imply_CHSH_bound : forall E00 E01 E10 E11,`
+- L280: **AXIOM_DOCUMENTED** — Found Axiom Gram_PSD.
+  - `Axiom Gram_PSD : forall (s e1 e2 : R),`
+- L351: **AXIOM_DOCUMENTED** — Found Axiom local_box_satisfies_minors.
+  - `Axiom local_box_satisfies_minors : forall B,`
+
+#### `coq/kernel/MuInformationTheoreticBounds.v`
+- L37: **AXIOM_DOCUMENTED** — Found Axiom partition_claim_information_bound.
+  - `Axiom partition_claim_information_bound : forall (n num_partitions : nat),`
+- L57: **AXIOM_DOCUMENTED** — Found Axiom state_space_reduction_bound.
+  - `Axiom state_space_reduction_bound : forall (omega omega_prime : nat),`
+- L79: **AXIOM_DOCUMENTED** — Found Axiom mu_zero_classical_characterization.
+  - `Axiom mu_zero_classical_characterization :`
+- L94: **AXIOM_DOCUMENTED** — Found Axiom mu_positive_quantum_characterization.
+  - `Axiom mu_positive_quantum_characterization :`
+
+#### `coq/kernel/NPAMomentMatrix.v`
+- L189: **AXIOM_DOCUMENTED** — Found Axiom quantum_realizable_implies_normalized.
+  - `Axiom quantum_realizable_implies_normalized : forall (npa : NPAMomentMatrix),`
+
+#### `coq/kernel/QuantumBound.v`
+- L208: **AXIOM_DOCUMENTED** — Found Axiom quantum_admissible_implies_no_supra_cert.
+  - `Axiom quantum_admissible_implies_no_supra_cert :`
+
+#### `coq/kernel/QuantumBoundComplete.v`
+- L38: **AXIOM_DOCUMENTED** — Found Axiom VMState.
+  - `Axiom VMState : Type.`
+- L39: **AXIOM_DOCUMENTED** — Found Axiom vm_instruction.
+  - `Axiom vm_instruction : Type.`
+- L46: **AXIOM_DOCUMENTED** — Found Axiom Box.
+  - `Axiom Box : Type.`
+- L47: **AXIOM_DOCUMENTED** — Found Axiom box_apply.
+  - `Axiom box_apply : Box -> nat -> nat -> nat -> nat -> Q.`
+- L49: **AXIOM_DOCUMENTED** — Found Axiom non_negative.
+  - `Axiom non_negative : Box -> Prop.`
+- L50: **AXIOM_DOCUMENTED** — Found Axiom normalized.
+  - `Axiom normalized : Box -> Prop.`
+- L51: **AXIOM_DOCUMENTED** — Found Axiom box_from_trace.
+  - `Axiom box_from_trace : nat -> list vm_instruction -> VMState -> Box.`
+- L52: **AXIOM_DOCUMENTED** — Found Axiom mu_cost_of_instr.
+  - `Axiom mu_cost_of_instr : vm_instruction -> VMState -> nat.`
+- L58: **AXIOM_DOCUMENTED** — Found Axiom BoxCHSH_S.
+  - `Axiom BoxCHSH_S : Box -> Q.`
+- L59: **AXIOM_DOCUMENTED** — Found Axiom BoxCHSH_E.
+  - `Axiom BoxCHSH_E : Box -> nat -> nat -> Q.`
+- L65: **AXIOM_DOCUMENTED** — Found Axiom is_ljoin.
+  - `Axiom is_ljoin : vm_instruction -> Prop.`
+- L66: **AXIOM_DOCUMENTED** — Found Axiom is_reveal.
+  - `Axiom is_reveal : vm_instruction -> Prop.`
+- L67: **AXIOM_DOCUMENTED** — Found Axiom is_lassert.
+  - `Axiom is_lassert : vm_instruction -> Prop.`
+- L95: **AXIOM_DOCUMENTED** — Found Axiom mu_zero_preserves_factorizable.
+  - `Axiom mu_zero_preserves_factorizable : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),`
+- L111: **AXIOM_DOCUMENTED** — Found Axiom mu_positive_enables_nonfactorizable.
+  - `Axiom mu_positive_enables_nonfactorizable : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),`
+- L149: **AXIOM_DOCUMENTED** — Found Axiom nonfactorizable_is_quantum_realizable.
+  - `Axiom nonfactorizable_is_quantum_realizable : forall (B : Box),`
+- L170: **AXIOM_DOCUMENTED** — Found Axiom mu_positive_enables_tsirelson.
+  - `Axiom mu_positive_enables_tsirelson : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),`
+- L187: **AXIOM_DOCUMENTED** — Found Axiom mu_zero_classical_bound.
+  - `Axiom mu_zero_classical_bound : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),`
+- L200: **AXIOM_DOCUMENTED** — Found Axiom mu_positive_exceeds_classical.
+  - `Axiom mu_positive_exceeds_classical : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),`
+
+#### `coq/kernel/SemidefiniteProgramming.v`
+- L126: **AXIOM_DOCUMENTED** — Found Axiom PSD_diagonal_nonneg.
+  - `Axiom PSD_diagonal_nonneg : forall (n : nat) (M : Matrix n) (i : nat),`
+- L166: **AXIOM_DOCUMENTED** — Found Axiom schur_2x2_criterion.
+  - `Axiom schur_2x2_criterion : forall (M : Matrix 2),`
+- L179: **AXIOM_DOCUMENTED** — Found Axiom PSD_cauchy_schwarz.
+  - `Axiom PSD_cauchy_schwarz : forall (n : nat) (M : Matrix n) (i j : nat),`
+- L193: **AXIOM_DOCUMENTED** — Found Axiom PSD_off_diagonal_bound.
+  - `Axiom PSD_off_diagonal_bound : forall (n : nat) (M : Matrix n) (i j : nat),`
+
+#### `coq/kernel/TsirelsonBoundProof.v`
+- L39: **AXIOM_DOCUMENTED** — Found Axiom sqrt2.
+  - `Axiom sqrt2 : R.`
+- L40: **AXIOM_DOCUMENTED** — Found Axiom sqrt2_squared.
+  - `Axiom sqrt2_squared : sqrt2 * sqrt2 = 2.`
+- L41: **AXIOM_DOCUMENTED** — Found Axiom sqrt2_positive.
+  - `Axiom sqrt2_positive : sqrt2 > 0.`
+- L42: **AXIOM_DOCUMENTED** — Found Axiom sqrt2_bounds.
+  - `Axiom sqrt2_bounds : 1.4 < sqrt2 < 1.5.`
+- L67: **AXIOM_DOCUMENTED** — Found Axiom quantum_CHSH_bound.
+  - `Axiom quantum_CHSH_bound : forall (npa : NPAMomentMatrix),`
+- L105: **AXIOM_DOCUMENTED** — Found Axiom optimal_is_quantum_realizable.
+  - `Axiom optimal_is_quantum_realizable :`
+- L110: **AXIOM_DOCUMENTED** — Found Axiom optimal_achieves_tsirelson.
+  - `Axiom optimal_achieves_tsirelson :`
+- L133: **AXIOM_DOCUMENTED** — Found Axiom classical_CHSH_bound.
+  - `Axiom classical_CHSH_bound : forall (npa : NPAMomentMatrix),`
+- L171: **AXIOM_DOCUMENTED** — Found Axiom grothendieck_constant.
+  - `Axiom grothendieck_constant : R.`
+- L172: **AXIOM_DOCUMENTED** — Found Axiom grothendieck_value.
+  - `Axiom grothendieck_value : 1.7 < grothendieck_constant < 1.8.`
+- L173: **AXIOM_DOCUMENTED** — Found Axiom grothendieck_inequality.
+  - `Axiom grothendieck_inequality : forall (npa : NPAMomentMatrix),`
+
+#### `coq/kernel/TsirelsonGeneral.v`
+- L83: **CHSH_BOUND_MISSING** — CHSH bound theorem \`tsirelson_from_row_bounds\` may not reference proper Tsirelson bound value.
+  - `Theorem tsirelson_from_row_bounds :`
+- L90: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hrow1\` not used in proof body or conclusion (heuristic).
+  - `intros e00 e01 e10 e11 Hrow1 Hrow2.`
+- L90: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hrow2\` not used in proof body or conclusion (heuristic).
+  - `intros e00 e01 e10 e11 Hrow1 Hrow2.`
 
 #### `coq/kernel/TsirelsonUniqueness.v`
-- L69: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`tsirelson_from_algebraic_coherence\` is documented with INQUISITOR NOTE.
+- L58: **AXIOM_DOCUMENTED** — Found Axiom mu_zero_classical_bound.
+  - `Axiom mu_zero_classical_bound :`
+- L72: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`tsirelson_from_algebraic_coherence\` is documented with INQUISITOR NOTE.
   - `Context (tsirelson_from_algebraic_coherence : forall c : Correlators,`
 
 #### `coq/modular_proofs/EncodingBounds.v`

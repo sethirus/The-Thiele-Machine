@@ -40,9 +40,9 @@ CHSHExtraction.vos CHSHExtraction.vok CHSHExtraction.required_vos: CHSHExtractio
 CHSH.vo CHSH.glob CHSH.v.beautified CHSH.required_vo: CHSH.v VMStep.vo
 CHSH.vio: CHSH.v VMStep.vio
 CHSH.vos CHSH.vok CHSH.required_vos: CHSH.v VMStep.vos
-QuantumBound.vo QuantumBound.glob QuantumBound.v.beautified QuantumBound.required_vo: QuantumBound.v VMState.vo VMStep.vo SimulationProof.vo RevelationRequirement.vo
-QuantumBound.vio: QuantumBound.v VMState.vio VMStep.vio SimulationProof.vio RevelationRequirement.vio
-QuantumBound.vos QuantumBound.vok QuantumBound.required_vos: QuantumBound.v VMState.vos VMStep.vos SimulationProof.vos RevelationRequirement.vos
+QuantumBound.vo QuantumBound.glob QuantumBound.v.beautified QuantumBound.required_vo: QuantumBound.v VMState.vo VMStep.vo RevelationRequirement.vo
+QuantumBound.vio: QuantumBound.v VMState.vio VMStep.vio RevelationRequirement.vio
+QuantumBound.vos QuantumBound.vok QuantumBound.required_vos: QuantumBound.v VMState.vos VMStep.vos RevelationRequirement.vos
 MuInformation.vo MuInformation.glob MuInformation.v.beautified MuInformation.required_vo: MuInformation.v VMState.vo VMStep.vo SimulationProof.vo MuLedgerConservation.vo
 MuInformation.vio: MuInformation.v VMState.vio VMStep.vio SimulationProof.vio MuLedgerConservation.vio
 MuInformation.vos MuInformation.vok MuInformation.required_vos: MuInformation.v VMState.vos VMStep.vos SimulationProof.vos MuLedgerConservation.vos
@@ -52,15 +52,15 @@ MuNoFreeInsightQuantitative.vos MuNoFreeInsightQuantitative.vok MuNoFreeInsightQ
 TsirelsonLowerBound.vo TsirelsonLowerBound.glob TsirelsonLowerBound.v.beautified TsirelsonLowerBound.required_vo: TsirelsonLowerBound.v VMState.vo VMStep.vo CHSHExtraction.vo MuCostModel.vo
 TsirelsonLowerBound.vio: TsirelsonLowerBound.v VMState.vio VMStep.vio CHSHExtraction.vio MuCostModel.vio
 TsirelsonLowerBound.vos TsirelsonLowerBound.vok TsirelsonLowerBound.required_vos: TsirelsonLowerBound.v VMState.vos VMStep.vos CHSHExtraction.vos MuCostModel.vos
-TsirelsonUpperBound.vo TsirelsonUpperBound.glob TsirelsonUpperBound.v.beautified TsirelsonUpperBound.required_vo: TsirelsonUpperBound.v VMState.vo VMStep.vo CHSHExtraction.vo MuCostModel.vo TsirelsonLowerBound.vo ./AlgebraicCoherence.vo
-TsirelsonUpperBound.vio: TsirelsonUpperBound.v VMState.vio VMStep.vio CHSHExtraction.vio MuCostModel.vio TsirelsonLowerBound.vio ./AlgebraicCoherence.vio
-TsirelsonUpperBound.vos TsirelsonUpperBound.vok TsirelsonUpperBound.required_vos: TsirelsonUpperBound.v VMState.vos VMStep.vos CHSHExtraction.vos MuCostModel.vos TsirelsonLowerBound.vos ./AlgebraicCoherence.vos
-TsirelsonUniqueness.vo TsirelsonUniqueness.glob TsirelsonUniqueness.v.beautified TsirelsonUniqueness.required_vo: TsirelsonUniqueness.v VMState.vo VMStep.vo CHSHExtraction.vo MuCostModel.vo TsirelsonLowerBound.vo TsirelsonUpperBound.vo ./AlgebraicCoherence.vo
-TsirelsonUniqueness.vio: TsirelsonUniqueness.v VMState.vio VMStep.vio CHSHExtraction.vio MuCostModel.vio TsirelsonLowerBound.vio TsirelsonUpperBound.vio ./AlgebraicCoherence.vio
-TsirelsonUniqueness.vos TsirelsonUniqueness.vok TsirelsonUniqueness.required_vos: TsirelsonUniqueness.v VMState.vos VMStep.vos CHSHExtraction.vos MuCostModel.vos TsirelsonLowerBound.vos TsirelsonUpperBound.vos ./AlgebraicCoherence.vos
-QuantumEquivalence.vo QuantumEquivalence.glob QuantumEquivalence.v.beautified QuantumEquivalence.required_vo: QuantumEquivalence.v VMState.vo VMStep.vo CHSHExtraction.vo MuCostModel.vo TsirelsonLowerBound.vo TsirelsonUpperBound.vo
-QuantumEquivalence.vio: QuantumEquivalence.v VMState.vio VMStep.vio CHSHExtraction.vio MuCostModel.vio TsirelsonLowerBound.vio TsirelsonUpperBound.vio
-QuantumEquivalence.vos QuantumEquivalence.vok QuantumEquivalence.required_vos: QuantumEquivalence.v VMState.vos VMStep.vos CHSHExtraction.vos MuCostModel.vos TsirelsonLowerBound.vos TsirelsonUpperBound.vos
+TsirelsonUpperBound.vo TsirelsonUpperBound.glob TsirelsonUpperBound.v.beautified TsirelsonUpperBound.required_vo: TsirelsonUpperBound.v VMState.vo VMStep.vo CHSHExtraction.vo MuCostModel.vo ./ClassicalBound.vo ./AlgebraicCoherence.vo
+TsirelsonUpperBound.vio: TsirelsonUpperBound.v VMState.vio VMStep.vio CHSHExtraction.vio MuCostModel.vio ./ClassicalBound.vio ./AlgebraicCoherence.vio
+TsirelsonUpperBound.vos TsirelsonUpperBound.vok TsirelsonUpperBound.required_vos: TsirelsonUpperBound.v VMState.vos VMStep.vos CHSHExtraction.vos MuCostModel.vos ./ClassicalBound.vos ./AlgebraicCoherence.vos
+TsirelsonUniqueness.vo TsirelsonUniqueness.glob TsirelsonUniqueness.v.beautified TsirelsonUniqueness.required_vo: TsirelsonUniqueness.v VMState.vo VMStep.vo CHSHExtraction.vo MuCostModel.vo ./ClassicalBound.vo TsirelsonUpperBound.vo ./AlgebraicCoherence.vo
+TsirelsonUniqueness.vio: TsirelsonUniqueness.v VMState.vio VMStep.vio CHSHExtraction.vio MuCostModel.vio ./ClassicalBound.vio TsirelsonUpperBound.vio ./AlgebraicCoherence.vio
+TsirelsonUniqueness.vos TsirelsonUniqueness.vok TsirelsonUniqueness.required_vos: TsirelsonUniqueness.v VMState.vos VMStep.vos CHSHExtraction.vos MuCostModel.vos ./ClassicalBound.vos TsirelsonUpperBound.vos ./AlgebraicCoherence.vos
+QuantumEquivalence.vo QuantumEquivalence.glob QuantumEquivalence.v.beautified QuantumEquivalence.required_vo: QuantumEquivalence.v VMState.vo VMStep.vo CHSHExtraction.vo MuCostModel.vo ./ClassicalBound.vo TsirelsonUpperBound.vo
+QuantumEquivalence.vio: QuantumEquivalence.v VMState.vio VMStep.vio CHSHExtraction.vio MuCostModel.vio ./ClassicalBound.vio TsirelsonUpperBound.vio
+QuantumEquivalence.vos QuantumEquivalence.vok QuantumEquivalence.required_vos: QuantumEquivalence.v VMState.vos VMStep.vos CHSHExtraction.vos MuCostModel.vos ./ClassicalBound.vos TsirelsonUpperBound.vos
 NoFreeInsight.vo NoFreeInsight.glob NoFreeInsight.v.beautified NoFreeInsight.required_vo: NoFreeInsight.v VMState.vo VMStep.vo KernelPhysics.vo MuLedgerConservation.vo RevelationRequirement.vo SimulationProof.vo
 NoFreeInsight.vio: NoFreeInsight.v VMState.vio VMStep.vio KernelPhysics.vio MuLedgerConservation.vio RevelationRequirement.vio SimulationProof.vio
 NoFreeInsight.vos NoFreeInsight.vok NoFreeInsight.required_vos: NoFreeInsight.v VMState.vos VMStep.vos KernelPhysics.vos MuLedgerConservation.vos RevelationRequirement.vos SimulationProof.vos
@@ -154,9 +154,24 @@ PythonBisimulation.vos PythonBisimulation.vok PythonBisimulation.required_vos: P
 HardwareBisimulation.vo HardwareBisimulation.glob HardwareBisimulation.v.beautified HardwareBisimulation.required_vo: HardwareBisimulation.v VMState.vo VMStep.vo
 HardwareBisimulation.vio: HardwareBisimulation.v VMState.vio VMStep.vio
 HardwareBisimulation.vos HardwareBisimulation.vok HardwareBisimulation.required_vos: HardwareBisimulation.v VMState.vos VMStep.vos
-NonCircularityAudit.vo NonCircularityAudit.glob NonCircularityAudit.v.beautified NonCircularityAudit.required_vo: NonCircularityAudit.v VMState.vo VMStep.vo CHSHExtraction.vo MuCostModel.vo TsirelsonLowerBound.vo TsirelsonUpperBound.vo
-NonCircularityAudit.vio: NonCircularityAudit.v VMState.vio VMStep.vio CHSHExtraction.vio MuCostModel.vio TsirelsonLowerBound.vio TsirelsonUpperBound.vio
-NonCircularityAudit.vos NonCircularityAudit.vok NonCircularityAudit.required_vos: NonCircularityAudit.v VMState.vos VMStep.vos CHSHExtraction.vos MuCostModel.vos TsirelsonLowerBound.vos TsirelsonUpperBound.vos
-MasterSummary.vo MasterSummary.glob MasterSummary.v.beautified MasterSummary.required_vo: MasterSummary.v VMState.vo VMStep.vo MuCostModel.vo CHSHExtraction.vo TsirelsonLowerBound.vo TsirelsonUpperBound.vo TsirelsonUniqueness.vo QuantumEquivalence.vo NoFreeInsight.vo PythonBisimulation.vo HardwareBisimulation.vo NonCircularityAudit.vo
-MasterSummary.vio: MasterSummary.v VMState.vio VMStep.vio MuCostModel.vio CHSHExtraction.vio TsirelsonLowerBound.vio TsirelsonUpperBound.vio TsirelsonUniqueness.vio QuantumEquivalence.vio NoFreeInsight.vio PythonBisimulation.vio HardwareBisimulation.vio NonCircularityAudit.vio
-MasterSummary.vos MasterSummary.vok MasterSummary.required_vos: MasterSummary.v VMState.vos VMStep.vos MuCostModel.vos CHSHExtraction.vos TsirelsonLowerBound.vos TsirelsonUpperBound.vos TsirelsonUniqueness.vos QuantumEquivalence.vos NoFreeInsight.vos PythonBisimulation.vos HardwareBisimulation.vos NonCircularityAudit.vos
+NonCircularityAudit.vo NonCircularityAudit.glob NonCircularityAudit.v.beautified NonCircularityAudit.required_vo: NonCircularityAudit.v VMState.vo VMStep.vo CHSHExtraction.vo MuCostModel.vo ./ClassicalBound.vo TsirelsonUpperBound.vo
+NonCircularityAudit.vio: NonCircularityAudit.v VMState.vio VMStep.vio CHSHExtraction.vio MuCostModel.vio ./ClassicalBound.vio TsirelsonUpperBound.vio
+NonCircularityAudit.vos NonCircularityAudit.vok NonCircularityAudit.required_vos: NonCircularityAudit.v VMState.vos VMStep.vos CHSHExtraction.vos MuCostModel.vos ./ClassicalBound.vos TsirelsonUpperBound.vos
+TsirelsonGeneral.vo TsirelsonGeneral.glob TsirelsonGeneral.v.beautified TsirelsonGeneral.required_vo: TsirelsonGeneral.v 
+TsirelsonGeneral.vio: TsirelsonGeneral.v 
+TsirelsonGeneral.vos TsirelsonGeneral.vok TsirelsonGeneral.required_vos: TsirelsonGeneral.v 
+Purification.vo Purification.glob Purification.v.beautified Purification.required_vo: Purification.v 
+Purification.vio: Purification.v 
+Purification.vos Purification.vok Purification.required_vos: Purification.v 
+NoCloning.vo NoCloning.glob NoCloning.v.beautified NoCloning.required_vo: NoCloning.v 
+NoCloning.vio: NoCloning.v 
+NoCloning.vos NoCloning.vok NoCloning.required_vos: NoCloning.v 
+Unitarity.vo Unitarity.glob Unitarity.v.beautified Unitarity.required_vo: Unitarity.v 
+Unitarity.vio: Unitarity.v 
+Unitarity.vos Unitarity.vok Unitarity.required_vos: Unitarity.v 
+BornRule.vo BornRule.glob BornRule.v.beautified BornRule.required_vo: BornRule.v 
+BornRule.vio: BornRule.v 
+BornRule.vos BornRule.vok BornRule.required_vos: BornRule.v 
+MasterSummary.vo MasterSummary.glob MasterSummary.v.beautified MasterSummary.required_vo: MasterSummary.v VMState.vo VMStep.vo MuCostModel.vo CHSHExtraction.vo ./ClassicalBound.vo TsirelsonUpperBound.vo TsirelsonUniqueness.vo QuantumEquivalence.vo NoFreeInsight.vo PythonBisimulation.vo HardwareBisimulation.vo NonCircularityAudit.vo
+MasterSummary.vio: MasterSummary.v VMState.vio VMStep.vio MuCostModel.vio CHSHExtraction.vio ./ClassicalBound.vio TsirelsonUpperBound.vio TsirelsonUniqueness.vio QuantumEquivalence.vio NoFreeInsight.vio PythonBisimulation.vio HardwareBisimulation.vio NonCircularityAudit.vio
+MasterSummary.vos MasterSummary.vok MasterSummary.required_vos: MasterSummary.v VMState.vos VMStep.vos MuCostModel.vos CHSHExtraction.vos ./ClassicalBound.vos TsirelsonUpperBound.vos TsirelsonUniqueness.vos QuantumEquivalence.vos NoFreeInsight.vos PythonBisimulation.vos HardwareBisimulation.vos NonCircularityAudit.vos
