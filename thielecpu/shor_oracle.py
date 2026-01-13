@@ -1,7 +1,7 @@
 """Reasoning oracle that derives modular periods via solver-backed claims.
 
 BREAKTHROUGH UPDATE: Now supports geometric factorization claims for polylog
-period finding (8.12x speedup demonstrated on N=3233).
+period finding with μ-cost tracking.
 """
 
 from __future__ import annotations
@@ -319,7 +319,7 @@ def find_period_geometric_wrapper(
     from φ(N) divisors in polylog time.
     
     DEMONSTRATED PERFORMANCE:
-    - N=3233: 32 operations (8.12x speedup over classical 260)
+    - N=3233: 32 divisor tests (given factors, not a speedup over trial division)
     - Complexity: O(d(φ(N)) × log N) 
     """
     period, mu_cost, operations = find_period_geometric(n, a, verbose=verbose)

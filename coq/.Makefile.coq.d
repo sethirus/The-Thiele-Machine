@@ -40,15 +40,18 @@ kernel/CHSHExtraction.vos kernel/CHSHExtraction.vok kernel/CHSHExtraction.requir
 kernel/CHSH.vo kernel/CHSH.glob kernel/CHSH.v.beautified kernel/CHSH.required_vo: kernel/CHSH.v kernel/VMStep.vo
 kernel/CHSH.vio: kernel/CHSH.v kernel/VMStep.vio
 kernel/CHSH.vos kernel/CHSH.vok kernel/CHSH.required_vos: kernel/CHSH.v kernel/VMStep.vos
-kernel/QuantumBound.vo kernel/QuantumBound.glob kernel/QuantumBound.v.beautified kernel/QuantumBound.required_vo: kernel/QuantumBound.v 
-kernel/QuantumBound.vio: kernel/QuantumBound.v 
-kernel/QuantumBound.vos kernel/QuantumBound.vok kernel/QuantumBound.required_vos: kernel/QuantumBound.v 
+kernel/QuantumBound.vo kernel/QuantumBound.glob kernel/QuantumBound.v.beautified kernel/QuantumBound.required_vo: kernel/QuantumBound.v kernel/VMState.vo kernel/VMStep.vo kernel/RevelationRequirement.vo
+kernel/QuantumBound.vio: kernel/QuantumBound.v kernel/VMState.vio kernel/VMStep.vio kernel/RevelationRequirement.vio
+kernel/QuantumBound.vos kernel/QuantumBound.vok kernel/QuantumBound.required_vos: kernel/QuantumBound.v kernel/VMState.vos kernel/VMStep.vos kernel/RevelationRequirement.vos
 kernel/ClassicalBound.vo kernel/ClassicalBound.glob kernel/ClassicalBound.v.beautified kernel/ClassicalBound.required_vo: kernel/ClassicalBound.v kernel/VMState.vo kernel/VMStep.vo kernel/CHSHExtraction.vo kernel/MuCostModel.vo
 kernel/ClassicalBound.vio: kernel/ClassicalBound.v kernel/VMState.vio kernel/VMStep.vio kernel/CHSHExtraction.vio kernel/MuCostModel.vio
 kernel/ClassicalBound.vos kernel/ClassicalBound.vok kernel/ClassicalBound.required_vos: kernel/ClassicalBound.v kernel/VMState.vos kernel/VMStep.vos kernel/CHSHExtraction.vos kernel/MuCostModel.vos
 kernel/MuInformation.vo kernel/MuInformation.glob kernel/MuInformation.v.beautified kernel/MuInformation.required_vo: kernel/MuInformation.v kernel/VMState.vo kernel/VMStep.vo kernel/SimulationProof.vo kernel/MuLedgerConservation.vo
 kernel/MuInformation.vio: kernel/MuInformation.v kernel/VMState.vio kernel/VMStep.vio kernel/SimulationProof.vio kernel/MuLedgerConservation.vio
 kernel/MuInformation.vos kernel/MuInformation.vok kernel/MuInformation.required_vos: kernel/MuInformation.v kernel/VMState.vos kernel/VMStep.vos kernel/SimulationProof.vos kernel/MuLedgerConservation.vos
+kernel/MuInformationTheoreticBounds.vo kernel/MuInformationTheoreticBounds.glob kernel/MuInformationTheoreticBounds.v.beautified kernel/MuInformationTheoreticBounds.required_vo: kernel/MuInformationTheoreticBounds.v kernel/VMState.vo kernel/VMStep.vo kernel/MuCostModel.vo
+kernel/MuInformationTheoreticBounds.vio: kernel/MuInformationTheoreticBounds.v kernel/VMState.vio kernel/VMStep.vio kernel/MuCostModel.vio
+kernel/MuInformationTheoreticBounds.vos kernel/MuInformationTheoreticBounds.vok kernel/MuInformationTheoreticBounds.required_vos: kernel/MuInformationTheoreticBounds.v kernel/VMState.vos kernel/VMStep.vos kernel/MuCostModel.vos
 kernel/MuNoFreeInsightQuantitative.vo kernel/MuNoFreeInsightQuantitative.glob kernel/MuNoFreeInsightQuantitative.v.beautified kernel/MuNoFreeInsightQuantitative.required_vo: kernel/MuNoFreeInsightQuantitative.v kernel/VMState.vo kernel/VMStep.vo kernel/SimulationProof.vo kernel/MuLedgerConservation.vo kernel/RevelationRequirement.vo
 kernel/MuNoFreeInsightQuantitative.vio: kernel/MuNoFreeInsightQuantitative.v kernel/VMState.vio kernel/VMStep.vio kernel/SimulationProof.vio kernel/MuLedgerConservation.vio kernel/RevelationRequirement.vio
 kernel/MuNoFreeInsightQuantitative.vos kernel/MuNoFreeInsightQuantitative.vok kernel/MuNoFreeInsightQuantitative.required_vos: kernel/MuNoFreeInsightQuantitative.v kernel/VMState.vos kernel/VMStep.vos kernel/SimulationProof.vos kernel/MuLedgerConservation.vos kernel/RevelationRequirement.vos
@@ -187,6 +190,21 @@ kernel/TestTripartite.vos kernel/TestTripartite.vok kernel/TestTripartite.requir
 kernel/TsirelsonComputation.vo kernel/TsirelsonComputation.glob kernel/TsirelsonComputation.v.beautified kernel/TsirelsonComputation.required_vo: kernel/TsirelsonComputation.v 
 kernel/TsirelsonComputation.vio: kernel/TsirelsonComputation.v 
 kernel/TsirelsonComputation.vos kernel/TsirelsonComputation.vok kernel/TsirelsonComputation.required_vos: kernel/TsirelsonComputation.v 
+kernel/TsirelsonGeneral.vo kernel/TsirelsonGeneral.glob kernel/TsirelsonGeneral.v.beautified kernel/TsirelsonGeneral.required_vo: kernel/TsirelsonGeneral.v 
+kernel/TsirelsonGeneral.vio: kernel/TsirelsonGeneral.v 
+kernel/TsirelsonGeneral.vos kernel/TsirelsonGeneral.vok kernel/TsirelsonGeneral.required_vos: kernel/TsirelsonGeneral.v 
+kernel/Purification.vo kernel/Purification.glob kernel/Purification.v.beautified kernel/Purification.required_vo: kernel/Purification.v 
+kernel/Purification.vio: kernel/Purification.v 
+kernel/Purification.vos kernel/Purification.vok kernel/Purification.required_vos: kernel/Purification.v 
+kernel/NoCloning.vo kernel/NoCloning.glob kernel/NoCloning.v.beautified kernel/NoCloning.required_vo: kernel/NoCloning.v 
+kernel/NoCloning.vio: kernel/NoCloning.v 
+kernel/NoCloning.vos kernel/NoCloning.vok kernel/NoCloning.required_vos: kernel/NoCloning.v 
+kernel/Unitarity.vo kernel/Unitarity.glob kernel/Unitarity.v.beautified kernel/Unitarity.required_vo: kernel/Unitarity.v 
+kernel/Unitarity.vio: kernel/Unitarity.v 
+kernel/Unitarity.vos kernel/Unitarity.vok kernel/Unitarity.required_vos: kernel/Unitarity.v 
+kernel/BornRule.vo kernel/BornRule.glob kernel/BornRule.v.beautified kernel/BornRule.required_vo: kernel/BornRule.v 
+kernel/BornRule.vio: kernel/BornRule.v 
+kernel/BornRule.vos kernel/BornRule.vok kernel/BornRule.required_vos: kernel/BornRule.v 
 kernel_toe/Definitions.vo kernel_toe/Definitions.glob kernel_toe/Definitions.v.beautified kernel_toe/Definitions.required_vo: kernel_toe/Definitions.v kernel/VMState.vo kernel/VMStep.vo kernel/KernelPhysics.vo
 kernel_toe/Definitions.vio: kernel_toe/Definitions.v kernel/VMState.vio kernel/VMStep.vio kernel/KernelPhysics.vio
 kernel_toe/Definitions.vos kernel_toe/Definitions.vok kernel_toe/Definitions.required_vos: kernel_toe/Definitions.v kernel/VMState.vos kernel/VMStep.vos kernel/KernelPhysics.vos
@@ -718,3 +736,18 @@ shor_primitives/PolylogConjecture.vos shor_primitives/PolylogConjecture.vok shor
 tests/TestNecessity.vo tests/TestNecessity.glob tests/TestNecessity.v.beautified tests/TestNecessity.required_vo: tests/TestNecessity.v kernel/VMStep.vo kernel/VMState.vo kernel/Definitions.vo
 tests/TestNecessity.vio: tests/TestNecessity.v kernel/VMStep.vio kernel/VMState.vio kernel/Definitions.vio
 tests/TestNecessity.vos tests/TestNecessity.vok tests/TestNecessity.required_vos: tests/TestNecessity.v kernel/VMStep.vos kernel/VMState.vos kernel/Definitions.vos
+MuComplexity.vo MuComplexity.glob MuComplexity.v.beautified MuComplexity.required_vo: MuComplexity.v 
+MuComplexity.vio: MuComplexity.v 
+MuComplexity.vos MuComplexity.vok MuComplexity.required_vos: MuComplexity.v 
+kernel/NPAMomentMatrix.vo kernel/NPAMomentMatrix.glob kernel/NPAMomentMatrix.v.beautified kernel/NPAMomentMatrix.required_vo: kernel/NPAMomentMatrix.v kernel/SemidefiniteProgramming.vo
+kernel/NPAMomentMatrix.vio: kernel/NPAMomentMatrix.v kernel/SemidefiniteProgramming.vio
+kernel/NPAMomentMatrix.vos kernel/NPAMomentMatrix.vok kernel/NPAMomentMatrix.required_vos: kernel/NPAMomentMatrix.v kernel/SemidefiniteProgramming.vos
+kernel/QuantumBoundComplete.vo kernel/QuantumBoundComplete.glob kernel/QuantumBoundComplete.v.beautified kernel/QuantumBoundComplete.required_vo: kernel/QuantumBoundComplete.v kernel/SemidefiniteProgramming.vo kernel/NPAMomentMatrix.vo kernel/TsirelsonBoundProof.vo
+kernel/QuantumBoundComplete.vio: kernel/QuantumBoundComplete.v kernel/SemidefiniteProgramming.vio kernel/NPAMomentMatrix.vio kernel/TsirelsonBoundProof.vio
+kernel/QuantumBoundComplete.vos kernel/QuantumBoundComplete.vok kernel/QuantumBoundComplete.required_vos: kernel/QuantumBoundComplete.v kernel/SemidefiniteProgramming.vos kernel/NPAMomentMatrix.vos kernel/TsirelsonBoundProof.vos
+kernel/SemidefiniteProgramming.vo kernel/SemidefiniteProgramming.glob kernel/SemidefiniteProgramming.v.beautified kernel/SemidefiniteProgramming.required_vo: kernel/SemidefiniteProgramming.v 
+kernel/SemidefiniteProgramming.vio: kernel/SemidefiniteProgramming.v 
+kernel/SemidefiniteProgramming.vos kernel/SemidefiniteProgramming.vok kernel/SemidefiniteProgramming.required_vos: kernel/SemidefiniteProgramming.v 
+kernel/TsirelsonBoundProof.vo kernel/TsirelsonBoundProof.glob kernel/TsirelsonBoundProof.v.beautified kernel/TsirelsonBoundProof.required_vo: kernel/TsirelsonBoundProof.v kernel/SemidefiniteProgramming.vo kernel/NPAMomentMatrix.vo
+kernel/TsirelsonBoundProof.vio: kernel/TsirelsonBoundProof.v kernel/SemidefiniteProgramming.vio kernel/NPAMomentMatrix.vio
+kernel/TsirelsonBoundProof.vos kernel/TsirelsonBoundProof.vok kernel/TsirelsonBoundProof.required_vos: kernel/TsirelsonBoundProof.v kernel/SemidefiniteProgramming.vos kernel/NPAMomentMatrix.vos

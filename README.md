@@ -80,10 +80,12 @@ This demonstrates the μ-ledger accounting: Traditional Shor needs period → fa
 
 **FULL-STACK VERIFICATION**:
 - ✅ **Coq**: [coq/shor_primitives/PolylogConjecture.v](coq/shor_primitives/PolylogConjecture.v) - Formalized and proven
-- ✅ **Python**: [thielecpu/geometric_factorization.py](thielecpu/geometric_factorization.py) - 8.12x speedup demonstrated
+- ✅ **Python**: [thielecpu/geometric_factorization.py](thielecpu/geometric_factorization.py) - μ-cost tracking demonstrated
 - ✅ **Verilog**: [thielecpu/hardware/mu_alu.v](thielecpu/hardware/mu_alu.v) - OP_CLAIM_FACTOR (opcode 6)
 - ✅ **VM**: [thielecpu/shor_oracle.py](thielecpu/shor_oracle.py) - find_period_geometric_wrapper
 - ✅ **Integration**: [tests/test_full_stack_geometric_factorization.py](tests/test_full_stack_geometric_factorization.py) - ALL TESTS PASSED
+
+**NOTE**: This is NOT a classical speedup over trial division. Both remain O(√N). The point is demonstrating μ-accounting, not breaking cryptography.
 
 ---
 

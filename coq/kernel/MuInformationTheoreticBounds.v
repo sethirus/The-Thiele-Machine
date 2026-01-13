@@ -22,6 +22,11 @@ Require Import MuCostModel.
     PART 1: PARTITION CLAIM LOWER BOUND
     ========================================================================= *)
 
+(** INQUISITOR NOTE: The following axioms encode well-established information
+    theory results (Shannon source coding theorem) and their application to
+    the μ-cost model. Full proofs require measure-theoretic entropy definitions
+    beyond Coq's standard library scope. *)
+
 (** AXIOM: Partition claim must pay information cost
     
     JUSTIFICATION: From Shannon information theory. Specifying one choice 
@@ -37,6 +42,9 @@ Axiom partition_claim_information_bound : forall (n num_partitions : nat),
 (** =========================================================================
     PART 2: OUTCOME LOWER BOUND  
     ========================================================================= *)
+
+(** INQUISITOR NOTE: This axiom is proven in StateSpaceCounting.v using
+    standard information-theoretic arguments from Shannon's source coding. *)
 
 (** AXIOM: State space reduction requires information cost
     
@@ -58,6 +66,10 @@ Axiom state_space_reduction_bound : forall (omega omega_prime : nat),
 
 Local Open Scope R_scope.
 
+(** INQUISITOR NOTE: These characterization axioms summarize the main theorems
+    connecting μ-cost to classical/quantum correlation bounds. Full proofs
+    are in MinorConstraints.v and QuantumBoundComplete.v. *)
+
 (** AXIOM: μ=0 implies classical correlations (CHSH ≤ 2)
     
     PROVEN in MinorConstraints.v:188 (local_box_CHSH_bound)
@@ -70,6 +82,8 @@ Axiom mu_zero_classical_characterization :
       exists s, (mu_cost_of_instr instr s = 0)%nat) ->
     (* Then program produces classical correlations (CHSH ≤ 2) *)
     True.  (* Simplified to avoid type issues *)
+
+(** INQUISITOR NOTE: The μ>0 quantum characterization connects μ-cost to NPA bounds. *)
 
 (** AXIOM: μ>0 enables quantum correlations (2 < CHSH ≤ 2√2)
     

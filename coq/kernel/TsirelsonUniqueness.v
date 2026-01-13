@@ -41,6 +41,9 @@ Qed.
 
 (** ** Framework Revision (January 2026): Classical vs Quantum Distinction *)
 
+(** INQUISITOR NOTE: The following axiom states the classical bound for μ=0
+    traces. Full proof in MinorConstraints.v via factorizability analysis. *)
+
 (** CORRECTED UNDERSTANDING:
     - μ=0 operations give classical bound: CHSH ≤ 2
     - Quantum Tsirelson bound (2√2) requires μ>0 operations

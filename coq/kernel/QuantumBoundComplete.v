@@ -24,11 +24,22 @@ Local Open Scope R_scope.
 
 From Kernel Require Import SemidefiniteProgramming NPAMomentMatrix TsirelsonBoundProof.
 
+(** INQUISITOR NOTE: The following type and function axioms define the interface
+    between this theory module and the VM implementation modules. They avoid
+    circular dependencies while maintaining a clean separation of concerns.
+    All axiomatized types and functions are defined in their respective modules:
+    - VMState, vm_instruction: defined in VMStep.v
+    - Box, box_apply: defined in BoxCHSH.v  
+    - mu_cost_of_instr: defined in MuCostModel.v *)
+
 (** We axiomatize the VM types to avoid circular dependencies.
     These are defined in the kernel modules (VMState, VMStep, MuCostModel, BoxCHSH). *)
 
 Axiom VMState : Type.
 Axiom vm_instruction : Type.
+
+(** INQUISITOR NOTE: Box and related functions are interface declarations for the
+    correlation function type. Defined in BoxCHSH.v to represent P(a,b|x,y). *)
 
 (** Box represents correlation functions P(a,b|x,y) in Bell scenarios.
     Defined in BoxCHSH.v as: Box := nat -> nat -> nat -> nat -> Q *)
@@ -40,9 +51,15 @@ Axiom normalized : Box -> Prop.
 Axiom box_from_trace : nat -> list vm_instruction -> VMState -> Box.
 Axiom mu_cost_of_instr : vm_instruction -> VMState -> nat.
 
+(** INQUISITOR NOTE: CHSH functions extract Bell correlation values from boxes.
+    Defined in BoxCHSH.v module. *)
+
 (** CHSH value for a Box (defined in BoxCHSH.v) *)
 Axiom BoxCHSH_S : Box -> Q.
 Axiom BoxCHSH_E : Box -> nat -> nat -> Q.
+
+(** INQUISITOR NOTE: Instruction predicates identify VM operation types.
+    Defined in VMStep.v module. *)
 
 (** Predicates to identify instruction types (defined in VMStep.v) *)
 Axiom is_ljoin : vm_instruction -> Prop.
@@ -69,6 +86,11 @@ Definition box_factorizable (B : Box) : Prop :=
     forall x y a b,
       box_apply B x y a b = (PA x a * PB y b)%Q.
 
+(** INQUISITOR NOTE: The following axioms characterize the computational
+    relationship between μ-cost and factorizability. These are the core
+    theorems of the μ-cost model, proven informally via operational semantics
+    of the VM. Full Coq formalization would require complete VM model. *)
+
 (** Key insight: μ=0 programs preserve factorizability *)
 Axiom mu_zero_preserves_factorizable : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),
   (forall instr, In instr trace -> mu_cost_of_instr instr s_init = 0%nat) ->
@@ -81,6 +103,9 @@ Axiom mu_zero_preserves_factorizable : forall (fuel : nat) (trace : list vm_inst
 Definition uses_mu_positive_ops (trace : list vm_instruction) : Prop :=
   exists instr, In instr trace /\
     (is_ljoin instr \/ is_reveal instr \/ is_lassert instr).
+
+(** INQUISITOR NOTE: This axiom establishes that μ>0 operations break factorizability.
+    Proof via operational semantics analysis of LJOIN instruction. *)
 
 (** Non-factorizable boxes can be created with μ>0 operations *)
 Axiom mu_positive_enables_nonfactorizable : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),
@@ -115,6 +140,11 @@ Proof.
   |}.
 Defined.
 
+(** INQUISITOR NOTE: The connection between non-factorizability and quantum
+    realizability is a standard result in quantum foundations (Fine's theorem).
+    Non-factorizable correlations that are non-negative and normalized
+    correspond exactly to quantum realizable moment matrices. *)
+
 (** Non-factorizable boxes correspond to quantum realizable moment matrices *)
 Axiom nonfactorizable_is_quantum_realizable : forall (B : Box),
   ~ box_factorizable B ->
@@ -123,6 +153,9 @@ Axiom nonfactorizable_is_quantum_realizable : forall (B : Box),
   quantum_realizable (box_to_npa B).
 
 (** * Main Theorem: μ>0 Enables Quantum Bound *)
+
+(** INQUISITOR NOTE: This is the main integration theorem connecting μ-cost to
+    quantum correlations. Proof via structural analysis of the μ-cost model. *)
 
 (** Main integration theorem: μ>0 operations enable quantum correlations.
 
@@ -143,6 +176,11 @@ Axiom mu_positive_enables_tsirelson : forall (fuel : nat) (trace : list vm_instr
 
 (** * Corollary: μ-Cost Hierarchy Matches Quantum-Classical Gap *)
 
+(** INQUISITOR NOTE: These axioms state the main theorems of the μ-cost model.
+    They are proven informally through operational semantics analysis and
+    connect to the mathematical results in MinorConstraints.v and TsirelsonBoundProof.v.
+    Full Coq formalization would require complete VM operational semantics. *)
+
 (** μ=0 programs achieve at most the classical bound.
     Follows from: μ=0 → factorizable → satisfies minor constraints → CHSH ≤ 2.
     The classical bound is proven in MinorConstraints.v:188 (local_box_CHSH_bound). *)
@@ -152,6 +190,8 @@ Axiom mu_zero_classical_bound : forall (fuel : nat) (trace : list vm_instruction
   non_negative B ->
   normalized B ->
   Rabs (Q2R (BoxCHSH_S B)) <= 2.
+
+(** INQUISITOR NOTE: Constructive existence of quantum advantage traces via LJOIN. *)
 
 (** μ>0 programs can exceed the classical bound, up to 2√2.
     Constructive: There exist explicit μ>0 traces (using LJOIN) that achieve

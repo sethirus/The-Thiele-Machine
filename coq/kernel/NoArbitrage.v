@@ -166,6 +166,16 @@ Qed.
 
 Definition phi (s : CState) : Z := Z.of_nat s.
 
+(** Helper lemma: step cost bounds step delta *)
+Lemma step_cost_bounds_delta : forall op s,
+  op_cost op >= phi (c_apply_op op s) - phi s.
+Proof.
+  intros op s. unfold op_cost, phi, c_apply_op.
+  destruct op.
+  - (* c_inc: cost = 1, delta = 1 *) lia.
+  - (* c_dec: cost = 2, delta <= 0 *) destruct s; simpl; lia.
+Qed.
+
 (** Asymmetric cost bounds the potential function difference.
 
     This lemma establishes that the asymmetric cost function provides an upper
@@ -180,63 +190,14 @@ Definition phi (s : CState) : Z := Z.of_nat s.
 Lemma asymmetric_bounded_by_phi : forall t s,
   asymmetric_cost t >= phi (c_apply_trace t s) - phi s.
 Proof.
-  intro t.
-  induction t as [| op rest IH]; intro s.
-  - (* Base case: empty trace *)
-    simpl. unfold phi. lia.
-  - (* Inductive case: op :: rest *)
-    simpl.
-    destruct op.
-    + (* c_inc case: cost 1, state increases by 1 *)
-      unfold op_cost.
-      (* asymmetric_cost (c_inc :: rest) = 1 + asymmetric_cost rest *)
-      (* By IH: asymmetric_cost rest >= phi (c_apply_trace rest (S s)) - phi (S s) *)
-      specialize (IH (S s)).
-      unfold phi in *.
-      (* phi (S s) = Z.of_nat (S s) = Z.of_nat s + 1 *)
-      rewrite Nat2Z.inj_succ in IH.
-      (* We need: 1 + asymmetric_cost rest >= phi (c_apply_trace rest (S s)) - phi s *)
-      (* From IH: asymmetric_cost rest >= phi (c_apply_trace rest (S s)) - (phi s + 1) *)
-      unfold op_cost.
-      (* Use ring_simplify to normalize arithmetic *)
-      apply Z.ge_le in IH. apply Z.le_ge.
-      ring_simplify. ring_simplify in IH.
-      apply Z.add_le_mono_l with (p:=1) in IH.
-      ring_simplify in IH. exact IH.
-    + (* c_dec case: cost 2, state decreases by 1 (or stays at 0) *)
-      unfold op_cost.
-      (* c_apply_op c_dec s = pred s *)
-      specialize (IH (pred s)).
-      unfold phi in *.
-      (* phi (pred s) = Z.of_nat (pred s) *)
-      (* For s > 0: pred s = s - 1, so phi (pred s) = phi s - 1 *)
-      (* For s = 0: pred s = 0, so phi (pred s) = phi s = 0 *)
-      destruct s as [| s'].
-      * (* s = 0: pred 0 = 0 *)
-        simpl in *. unfold phi in *. simpl in *.
-        (* asymmetric_cost rest >= 0 - 0 = 0 by asymmetric_cost_pos *)
-        assert (H: 0 <= asymmetric_cost rest) by apply asymmetric_cost_pos.
-        apply Z.ge_le in IH. apply Z.le_ge.
-        ring_simplify. ring_simplify in IH.
-        apply Z.add_le_mono_l with (p:=2) in IH.
-        (* Use Z.le_trans with explicit intermediate step to avoid over-simplification *)
-        apply Z.le_trans with (m:=Z.of_nat (c_apply_trace rest 0%nat) + 2).
-        -- ring_simplify. apply Z.le_refl.
-        -- ring_simplify. ring_simplify in IH. exact IH.
-      * (* s = S s': pred (S s') = s' *)
-        simpl in *.
-        rewrite Nat2Z.inj_succ.
-        (* From IH: asymmetric_cost rest >= phi (c_apply_trace rest s') - phi s' *)
-        (* We need: 2 + asymmetric_cost rest >= phi (c_apply_trace rest s') - (phi s' + 1) *)
-        (* From IH: asymmetric_cost rest >= phi (c_apply_trace rest s') - phi s' *)
-        apply Z.ge_le in IH. apply Z.le_ge.
-        ring_simplify. ring_simplify in IH.
-        apply Z.add_le_mono_l with (p:=2) in IH.
-        ring_simplify in IH.
-        apply Z.le_trans with (m:=Z.of_nat (c_apply_trace rest s') - Z.of_nat s' + 2).
-        -- ring_simplify. apply Z.le_refl.
-        -- ring_simplify. ring_simplify in IH. exact IH.
+  induction t as [| op rest IH]; intros s; simpl.
+  - unfold phi. lia.
+  - specialize (IH (c_apply_op op s)).
+    pose proof (step_cost_bounds_delta op s) as Hstep.
+    lia.
 Qed.
+
+Transparent asymmetric_cost.
 
 End ConcreteModel.
 

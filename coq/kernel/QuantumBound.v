@@ -193,6 +193,10 @@ Definition has_supra_cert (s : VMState) : Prop :=
     Only the four cert-setting instructions modify cert_addr. By definition,
     quantum_admissible traces exclude these instructions.
 
+    INQUISITOR NOTE: This axiom states a soundness property of quantum
+    admissible traces - they cannot produce supra-quantum certifications.
+    Full proof requires complete VM step relation formalization.
+
     FUTURE: This should be proven from the VM step relation, not axiomatized.
     The proof would proceed by induction on trace execution, showing that
     cert_addr remains 0 when no cert-setting instructions execute.

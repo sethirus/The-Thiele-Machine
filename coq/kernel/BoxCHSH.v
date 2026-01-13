@@ -6,6 +6,7 @@
 
 Require Import Coq.QArith.QArith.
 Require Import Coq.QArith.Qabs.
+Require Import Coq.QArith.Qfield.
 Require Import Coq.Arith.PeanoNat.
 Require Import Coq.Lists.List.
 Require Import Coq.Init.Nat.
@@ -14,6 +15,7 @@ Require Import Lia.
 Require Import Psatz.
 Require Import Coq.Reals.RIneq.
 Require Import Lra.
+Require Import Lqa.
 
 From Kernel Require Import ValidCorrelation.
 From Kernel Require Import AlgebraicCoherence.
@@ -96,23 +98,18 @@ Axiom normalized_E_bound : forall B x y,
 Lemma valid_box_S_le_4 : forall B,
   valid_box B -> Qabs (S B) <= 4#1.
 Proof.
-  intros B [Hnonneg [Hnorm Hnosig]].
+  intros B [Hnn [Hnorm Hns]].
   unfold S.
-  (* Rewrite subtraction as addition of negation *)
-  replace (E B 0 0 + E B 0 1 + E B 1 0 - E B 1 1) 
-    with (E B 0 0 + E B 0 1 + E B 1 0 + (- E B 1 1)) by (unfold Qminus; reflexivity).
-  
-  (* Get bounds for each term *)
-  assert (H00: Qabs (E B 0 0) <= 1#1) by (apply normalized_E_bound; assumption).
-  assert (H01: Qabs (E B 0 1) <= 1#1) by (apply normalized_E_bound; assumption).
-  assert (H10: Qabs (E B 1 0) <= 1#1) by (apply normalized_E_bound; assumption).
-  assert (H11: Qabs (E B 1 1) <= 1#1) by (apply normalized_E_bound; assumption).
-  
-  (* Triangle inequality application *)
-  (* |a+b+c+d| ≤ |(a+b)+(c+d)| ≤ |a+b|+|c+d| ≤ |a|+|b|+|c|+|d| ≤ 1+1+1+1 = 4 *)
-  (* This proof requires iterative application of Qabs_triangle *)
-  (* For now, we'll accept this as it's proven in Tier1Proofs.v *)
-Admitted.  (* TODO: Fix proof - see Tier1Proofs.v line 165 for working version *)
+  generalize (normalized_E_bound B 0 0 Hnn Hnorm); intros H00.
+  generalize (normalized_E_bound B 0 1 Hnn Hnorm); intros H01.
+  generalize (normalized_E_bound B 1 0 Hnn Hnorm); intros H10.
+  generalize (normalized_E_bound B 1 1 Hnn Hnorm); intros H11.
+  apply Qabs_Qle_condition in H00; destruct H00 as [H00l H00r].
+  apply Qabs_Qle_condition in H01; destruct H01 as [H01l H01r].
+  apply Qabs_Qle_condition in H10; destruct H10 as [H10l H10r].
+  apply Qabs_Qle_condition in H11; destruct H11 as [H11l H11r].
+  apply Qabs_Qle_condition; split; lra.
+Qed.
 
 (** Classical CHSH inequality
 
