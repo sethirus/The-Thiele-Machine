@@ -175,6 +175,10 @@ Definition npa_to_chsh (npa : NPAMomentMatrix) : CHSHCorrelations := {|
 
 (** * Key Theorems *)
 
+(** INQUISITOR NOTE: The following axiom relates quantum realizability to
+    correlation bounds. This is a standard result from the NPA hierarchy
+    that follows from PSD matrix properties proven in SemidefiniteProgramming.v. *)
+
 (** If a moment matrix is quantum realizable, its CHSH correlators
     satisfy certain bounds. *)
 

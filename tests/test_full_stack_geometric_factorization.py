@@ -11,7 +11,7 @@ VERIFIED LAYERS:
 4. VM: thielecpu/vm.py (claim_factorization in python_globals)
 
 BREAKTHROUGH RESULTS:
-- N=3233 (53×61): 32 operations, 8.12x speedup
+- N=3233 (53×61): 32 divisor tests (demonstrates μ-accounting, NOT a speedup)
 - Complexity: O(d(φ(N)) × log N)
 """
 
@@ -280,7 +280,7 @@ def main():
         print()
         print("Geometric factorization breakthrough verified across all layers!")
         print("- Coq formalization compiles")
-        print("- Python achieves 8.12x speedup on N=3233")
+        print("- Python demonstrates μ-cost tracking on N=3233")
         print("- Verilog μ-ALU includes OP_CLAIM_FACTOR")
         print("- VM integrates geometric_factorization module")
         print("- Cross-layer consistency confirmed")
