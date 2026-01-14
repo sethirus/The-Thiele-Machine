@@ -136,17 +136,17 @@ The kernel also includes machine-verified proofs that fundamental quantum axioms
     \item \textbf{Tsirelson Bound} (\path{coq/kernel/TsirelsonGeneral.v}, 301 lines): The bound $S \le 2\sqrt{2}$ follows from algebraic coherence. The theorem \texttt{tsirelson\_from\_minors} proves that any correlations satisfying a sum-of-squares constraint are bounded by $2\sqrt{2}$.
 \end{enumerate}
 
-\textbf{Total: 1,192 lines of Coq with zero Admitted statements.} These proofs establish that quantum mechanics isn't a collection of independent postulates---it's the unique physics consistent with information conservation.
+\textbf{Total: 1,174 lines of Coq with zero Admitted statements.} These proofs establish that quantum mechanics isn't a collection of independent postulates---it's the unique physics consistent with information conservation.
 
 \begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=\textbf{Quantum Axiom Verification Summary}]
 \begin{tabular}{llll}
 \textbf{File} & \textbf{Lines} & \textbf{Key Theorem} & \textbf{Status} \\
 \hline
-NoCloning.v & 244 & \texttt{no\_cloning\_from\_conservation} & ✓ Zero Admitted \\
-Unitarity.v & 257 & \texttt{nonunitary\_requires\_mu} & ✓ Zero Admitted \\
-BornRule.v & 288 & \texttt{born\_rule\_from\_accounting} & ✓ Zero Admitted \\
-Purification.v & 102 & \texttt{purification\_principle} & ✓ Zero Admitted \\
-TsirelsonGeneral.v & 301 & \texttt{tsirelson\_from\_minors} & ✓ Zero Admitted \\
+NoCloning.v & 244 & \texttt{no\_cloning\_from\_conservation} & $\checkmark$ Zero Admitted \\
+Unitarity.v & 257 & \texttt{nonunitary\_requires\_mu} & $\checkmark$ Zero Admitted \\
+BornRule.v & 288 & \texttt{born\_rule\_from\_accounting} & $\checkmark$ Zero Admitted \\
+Purification.v & 102 & \texttt{purification\_principle} & $\checkmark$ Zero Admitted \\
+TsirelsonGeneral.v & 301 & \texttt{tsirelson\_from\_minors} & $\checkmark$ Zero Admitted \\
 \end{tabular}
 \end{tcolorbox}
 
@@ -1356,7 +1356,7 @@ The formal verification campaign establishes:
     \item \textbf{Locality}: Operations on one module cannot affect observables of unrelated modules
     \item \textbf{Conservation}: The $\mu$-ledger is monotonic and bounds irreversible operations
     \item \textbf{Impossibility}: Strengthening certification requires explicit, charged structure addition
-    \item \textbf{Quantum Axioms}: No-cloning, unitarity, Born rule, purification, and Tsirelson bounds emerge from $\mu$-conservation (1,192 lines, zero Admitted)
+    \item \textbf{Quantum Axioms}: No-cloning, unitarity, Born rule, purification, and Tsirelson bounds emerge from $\mu$-conservation (1,174 lines, zero Admitted)
     \item \textbf{Completeness}: Zero admits, zero axioms—all proofs are machine-checked
 \end{enumerate}
 

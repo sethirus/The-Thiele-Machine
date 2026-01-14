@@ -33,7 +33,7 @@ observables of unrelated modules.
 • Initiality: µ is the unique instruction-consistent cost measure, not just one
 of many.
 What is built:
-• Coq formal kernel (238 files, zero admits)
+• Coq formal kernel (262 files, zero admits)
 • Python reference VM with cryptographic receipts
 
 2
@@ -50,7 +50,678 @@ Theory, Hardware Synthesis, Partition Logic
 
 Contents
 
+Abstract
+
+2
+
+1 Introduction
+1.1 What Is This Document? . . . . . . . . . . . . . . . . . . . . . . . .
+1.1.1 Scope and Claims Boundary . . . . . . . . . . . . . . . . . .
+1.1.2 For the Newcomer . . . . . . . . . . . . . . . . . . . . . . .
+1.1.3 What Makes This Work Different . . . . . . . . . . . . . . .
+1.1.4 How to Read This Document . . . . . . . . . . . . . . . . .
+1.2 The Crisis of Blind Computation . . . . . . . . . . . . . . . . . . .
+1.2.1 The Turing Machine: A Model of Blindness . . . . . . . . .
+1.2.2 The RAM Model: Random Access, Same Blindness . . . . .
+1.2.3 The Time Tax: The Exponential Price of Blindness . . . . .
+1.3 The Thiele Machine: Computation with Explicit Structure . . . . .
+1.3.1 The Central Hypothesis . . . . . . . . . . . . . . . . . . . .
+1.3.2 The µ-bit: A Currency for Structure . . . . . . . . . . . . .
+1.3.3 The No Free Insight Theorem . . . . . . . . . . . . . . . . .
+1.4 Methodology: The 3-Layer Isomorphism . . . . . . . . . . . . . . .
+1.4.1 Layer 1: Coq (The Proofs) . . . . . . . . . . . . . . . . . . .
+1.4.2 Layer 2: Python VM (The Implementation) . . . . . . . . .
+1.4.3 Layer 3: Verilog RTL (The Hardware) . . . . . . . . . . . .
+1.4.4 The Isomorphism Guarantee . . . . . . . . . . . . . . . . . .
+1.5 Thesis Statement . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.6 Summary of Contributions . . . . . . . . . . . . . . . . . . . . . . .
+1.7 Thesis Outline . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+17
+17
+17
+17
+19
+19
+20
+20
+21
+21
+22
+22
+22
+23
+24
+24
+24
+25
+25
+25
+26
+27
+
+2 Background and Related Work
+29
+2.1 Why This Background Matters . . . . . . . . . . . . . . . . . . . . 29
+2.1.1 What You Need to Know . . . . . . . . . . . . . . . . . . . . 29
+2.1.2 The Central Question . . . . . . . . . . . . . . . . . . . . . . 29
+2.1.3 How to Read This Chapter . . . . . . . . . . . . . . . . . . . 30
+2.2 Classical Computational Models . . . . . . . . . . . . . . . . . . . . 30
+2.2.1 The Turing Machine: Formal Definition . . . . . . . . . . . . 30
 4
+
+CONTENTS
+
+2.3
+
+2.4
+
+2.5
+
+2.6
+
+2.7
+
+2.8
+
+2.2.2 The Random Access Machine (RAM) . . . . . . . . . . . . .
+2.2.3 Complexity Classes and the P vs NP Problem . . . . . . . .
+Information Theory and Complexity . . . . . . . . . . . . . . . . .
+2.3.1 Shannon Entropy . . . . . . . . . . . . . . . . . . . . . . . .
+2.3.2 Kolmogorov Complexity . . . . . . . . . . . . . . . . . . . .
+2.3.3 Minimum Description Length (MDL) . . . . . . . . . . . . .
+The Physics of Computation . . . . . . . . . . . . . . . . . . . . . .
+2.4.1 Landauer’s Principle . . . . . . . . . . . . . . . . . . . . . .
+2.4.2 Maxwell’s Demon and Szilard’s Engine . . . . . . . . . . . .
+2.4.3 Connection to the Thiele Machine . . . . . . . . . . . . . . .
+Quantum Computing and Correlations . . . . . . . . . . . . . . . .
+2.5.1 Bell’s Theorem and Non-Locality . . . . . . . . . . . . . . .
+2.5.2 Decoherence, Measurement, and Informational Cost . . . . .
+2.5.3 The Revelation Requirement . . . . . . . . . . . . . . . . . .
+Formal Verification . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.6.1 The Coq Proof Assistant . . . . . . . . . . . . . . . . . . . .
+2.6.2 The Inquisitor Standard . . . . . . . . . . . . . . . . . . . .
+2.6.3 Proof-Carrying Code . . . . . . . . . . . . . . . . . . . . . .
+Related Work . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.7.1 Algorithmic Information Theory . . . . . . . . . . . . . . . .
+2.7.2 Interactive Proof Systems . . . . . . . . . . . . . . . . . . .
+2.7.3 Partition Refinement Algorithms . . . . . . . . . . . . . . .
+2.7.4 Minimum Description Length in Machine Learning . . . . .
+Chapter Summary . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+5
+
+31
+32
+33
+33
+34
+35
+36
+36
+38
+38
+38
+38
+39
+39
+39
+39
+39
+40
+40
+40
+40
+40
+41
+41
+
+3 Theory: The Thiele Machine Model
+42
+3.1 What This Chapter Defines . . . . . . . . . . . . . . . . . . . . . . 42
+3.1.1 From Intuition to Formalism . . . . . . . . . . . . . . . . . . 42
+3.1.2 The Five Components . . . . . . . . . . . . . . . . . . . . . 43
+3.1.3 The Central Innovation: µ-bits . . . . . . . . . . . . . . . . 43
+3.1.4 How to Read This Chapter . . . . . . . . . . . . . . . . . . . 44
+3.1.5 Key Concepts: Observables and Projections . . . . . . . . . 45
+3.2 The Formal Model: T = (S, Π, A, R, L) . . . . . . . . . . . . . . . . 45
+3.2.1 State Space S . . . . . . . . . . . . . . . . . . . . . . . . . . 45
+3.2.2 Partition Graph Π . . . . . . . . . . . . . . . . . . . . . . . 48
+3.2.3 Axiom Set A . . . . . . . . . . . . . . . . . . . . . . . . . . 52
+3.2.4 Transition Rules R . . . . . . . . . . . . . . . . . . . . . . . 55
+3.2.5 Logic Engine L . . . . . . . . . . . . . . . . . . . . . . . . . 60
+3.3 The µ-bit Currency . . . . . . . . . . . . . . . . . . . . . . . . . . . 63
+
+CONTENTS
+
+3.4
+
+3.5
+
+3.6
+
+3.7
+
+3.8
+
+3.3.1 Definition . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.3.2 The µ-Ledger . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.3.3 Conservation Laws . . . . . . . . . . . . . . . . . . . . . . .
+Partition Logic . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.4.1 Module Operations . . . . . . . . . . . . . . . . . . . . . . .
+3.4.2 Observables and Locality . . . . . . . . . . . . . . . . . . . .
+The No Free Insight Theorem . . . . . . . . . . . . . . . . . . . . .
+3.5.1 Receipt Predicates . . . . . . . . . . . . . . . . . . . . . . .
+3.5.2 Strength Ordering . . . . . . . . . . . . . . . . . . . . . . .
+3.5.3 Revelation Requirement . . . . . . . . . . . . . . . . . . . .
+Gauge Symmetry and Conservation . . . . . . . . . . . . . . . . . .
+3.6.1 µ-Gauge Transformation . . . . . . . . . . . . . . . . . . . .
+3.6.2 Gauge Invariance . . . . . . . . . . . . . . . . . . . . . . . .
+Quantum Axioms from µ-Accounting . . . . . . . . . . . . . . . . .
+3.7.1 No-Cloning from µ-Conservation . . . . . . . . . . . . . . .
+3.7.2 Unitarity from Conservation . . . . . . . . . . . . . . . . . .
+3.7.3 Born Rule from Accounting Constraints . . . . . . . . . . .
+3.7.4 Purification from Reference Systems . . . . . . . . . . . . .
+3.7.5 Tsirelson Bound from Total µ-Accounting . . . . . . . . . . .
+3.7.6 Why This Matters . . . . . . . . . . . . . . . . . . . . . . .
+Chapter Summary . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+6
+
+63
+64
+65
+69
+70
+74
+78
+78
+79
+83
+85
+85
+86
+87
+88
+89
+90
+91
+91
+92
+93
+
+4 Implementation: The 3-Layer Isomorphism
+95
+4.1 Why Three Layers? . . . . . . . . . . . . . . . . . . . . . . . . . . . 95
+4.1.1 A Car Salesman’s Take on Building Trust . . . . . . . . . . 95
+4.1.2 The Problem of Trust (The Academic Version) . . . . . . . . 96
+4.1.3 The Three Layers . . . . . . . . . . . . . . . . . . . . . . . . 96
+4.1.4 The Isomorphism Invariant . . . . . . . . . . . . . . . . . . . 97
+4.1.5 How to Read This Chapter . . . . . . . . . . . . . . . . . . . 98
+4.2 The 3-Layer Isomorphism Architecture . . . . . . . . . . . . . . . . 98
+4.3 Layer 1: The Formal Kernel (Coq) . . . . . . . . . . . . . . . . . . 98
+4.3.1 Structure of the Formal Kernel . . . . . . . . . . . . . . . . 98
+4.3.2 The VMState Record . . . . . . . . . . . . . . . . . . . . . . 99
+4.3.3 The Partition Graph . . . . . . . . . . . . . . . . . . . . . . 102
+4.3.4 The Step Relation . . . . . . . . . . . . . . . . . . . . . . . . 103
+4.3.5 Extraction . . . . . . . . . . . . . . . . . . . . . . . . . . . . 106
+4.4 Layer 2: The Reference VM (Python) . . . . . . . . . . . . . . . . . 108
+4.4.1 Architecture Overview . . . . . . . . . . . . . . . . . . . . . 108
+4.4.2 State Representation . . . . . . . . . . . . . . . . . . . . . . 111
+
+CONTENTS
+
+4.5
+
+4.6
+
+4.7
+
+4.8
+
+4.9
+
+7
+
+4.4.3 The µ-Ledger . . . . . . . . . . . . . . . . . . . . . . . . . . 113
+4.4.4 Partition Operations . . . . . . . . . . . . . . . . . . . . . . 114
+4.4.5 Sandboxed Python Execution . . . . . . . . . . . . . . . . . 117
+4.4.6 Receipt Generation . . . . . . . . . . . . . . . . . . . . . . . 120
+Layer 3: The Physical Core (Verilog) . . . . . . . . . . . . . . . . . 122
+4.5.1 Module Hierarchy . . . . . . . . . . . . . . . . . . . . . . . . 123
+4.5.2 The Main CPU . . . . . . . . . . . . . . . . . . . . . . . . . 123
+4.5.3 State Machine . . . . . . . . . . . . . . . . . . . . . . . . . . 125
+4.5.4 Instruction Encoding . . . . . . . . . . . . . . . . . . . . . . 128
+4.5.5 µ-Accumulator Updates . . . . . . . . . . . . . . . . . . . . 129
+4.5.6 The µ-ALU . . . . . . . . . . . . . . . . . . . . . . . . . . . 131
+4.5.7 Logic Engine Interface . . . . . . . . . . . . . . . . . . . . . 135
+Isomorphism Verification . . . . . . . . . . . . . . . . . . . . . . . . 136
+4.6.1 The Isomorphism Gate . . . . . . . . . . . . . . . . . . . . . 137
+4.6.2 State Projection . . . . . . . . . . . . . . . . . . . . . . . . . 137
+4.6.3 The Inquisitor . . . . . . . . . . . . . . . . . . . . . . . . . . 139
+Synthesis Results . . . . . . . . . . . . . . . . . . . . . . . . . . . . 140
+4.7.1 FPGA Targeting . . . . . . . . . . . . . . . . . . . . . . . . 140
+4.7.2 Resource Utilization . . . . . . . . . . . . . . . . . . . . . . 141
+Toolchain . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 142
+4.8.1 Verified Versions . . . . . . . . . . . . . . . . . . . . . . . . 142
+4.8.2 Build Commands . . . . . . . . . . . . . . . . . . . . . . . . 142
+Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 144
+
+5 Verification: The Coq Proofs
+145
+5.1 Why Formal Verification? . . . . . . . . . . . . . . . . . . . . . . . 145
+5.1.1 The Limits of Testing . . . . . . . . . . . . . . . . . . . . . . 146
+5.1.2 The Coq Proof Assistant . . . . . . . . . . . . . . . . . . . . 146
+5.1.3 Trusted Computing Base (TCB) . . . . . . . . . . . . . . . . 147
+5.1.4 The Zero-Admit Standard . . . . . . . . . . . . . . . . . . . 147
+5.1.5 What The System Proves . . . . . . . . . . . . . . . . . . . 149
+5.1.6 Quantum Axioms from µ-Accounting . . . . . . . . . . . . . 149
+5.1.7 How to Read This Chapter . . . . . . . . . . . . . . . . . . . 150
+5.2 The Formal Verification Campaign . . . . . . . . . . . . . . . . . . 151
+5.3 Proof Architecture . . . . . . . . . . . . . . . . . . . . . . . . . . . 151
+5.3.1 Conceptual Hierarchy . . . . . . . . . . . . . . . . . . . . . . 151
+5.3.2 Dependency Sketch . . . . . . . . . . . . . . . . . . . . . . . 152
+5.4 State Definitions: Foundation Layer . . . . . . . . . . . . . . . . . . 152
+5.4.1 The State Record . . . . . . . . . . . . . . . . . . . . . . . . 152
+
+CONTENTS
+
+8
+
+5.4.2 Canonical Region Normalization . . . . . . . . . . . . . . . . 153
+5.4.3 Graph Well-Formedness . . . . . . . . . . . . . . . . . . . . 155
+5.5 Operational Semantics . . . . . . . . . . . . . . . . . . . . . . . . . 159
+5.5.1 The Instruction Type . . . . . . . . . . . . . . . . . . . . . . 159
+5.5.2 The Step Relation . . . . . . . . . . . . . . . . . . . . . . . . 160
+5.6 Conservation and Locality . . . . . . . . . . . . . . . . . . . . . . . 162
+5.6.1 Observables . . . . . . . . . . . . . . . . . . . . . . . . . . . 162
+5.6.2 Instruction Target Sets . . . . . . . . . . . . . . . . . . . . . 164
+5.6.3 The No-Signaling Theorem . . . . . . . . . . . . . . . . . . . 165
+5.6.4 Gauge Symmetry . . . . . . . . . . . . . . . . . . . . . . . . 168
+5.6.5 µ-Conservation . . . . . . . . . . . . . . . . . . . . . . . . . 170
+5.7 Multi-Step Conservation . . . . . . . . . . . . . . . . . . . . . . . . 171
+5.7.1 Run Function . . . . . . . . . . . . . . . . . . . . . . . . . . 171
+5.7.2 Ledger Entries . . . . . . . . . . . . . . . . . . . . . . . . . . 173
+5.7.3 Conservation Theorem . . . . . . . . . . . . . . . . . . . . . 174
+5.7.4 Irreversibility Bound . . . . . . . . . . . . . . . . . . . . . . 176
+5.8 No Free Insight: The Impossibility Theorem . . . . . . . . . . . . . 176
+5.8.1 Receipt Predicates . . . . . . . . . . . . . . . . . . . . . . . 177
+5.8.2 Strength Ordering . . . . . . . . . . . . . . . . . . . . . . . 178
+5.8.3 Certification . . . . . . . . . . . . . . . . . . . . . . . . . . . 179
+5.8.4 The Main Theorem . . . . . . . . . . . . . . . . . . . . . . . 180
+5.8.5 Strengthening Theorem . . . . . . . . . . . . . . . . . . . . . 181
+5.9 Revelation Requirement: Supra-Quantum Certification . . . . . . . 183
+5.10 No Free Insight Functor Architecture . . . . . . . . . . . . . . . . . 185
+5.10.1 Module Type Interface . . . . . . . . . . . . . . . . . . . . . 185
+5.10.2 Functor Theorem . . . . . . . . . . . . . . . . . . . . . . . . 186
+5.10.3 Kernel Instantiation . . . . . . . . . . . . . . . . . . . . . . 186
+5.10.4 Mu-Chaitin Theory . . . . . . . . . . . . . . . . . . . . . . . 187
+5.11 Proof Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 187
+5.12 Falsifiability . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 188
+5.13 Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 189
+6 Evaluation: Empirical Evidence
+191
+6.1 Evaluation Overview . . . . . . . . . . . . . . . . . . . . . . . . . . 191
+6.1.1 From Theory to Evidence . . . . . . . . . . . . . . . . . . . 191
+6.1.2 Methodology . . . . . . . . . . . . . . . . . . . . . . . . . . 192
+6.2 3-Layer Isomorphism Verification . . . . . . . . . . . . . . . . . . . 193
+6.2.1 Test Architecture . . . . . . . . . . . . . . . . . . . . . . . . 193
+6.2.2 Partition Operation Tests . . . . . . . . . . . . . . . . . . . 196
+
+CONTENTS
+
+9
+
+6.2.3 Results Summary . . . . . . . . . . . . . . . . . . . . . . . . 198
+6.3 CHSH Correlation Experiments . . . . . . . . . . . . . . . . . . . . 198
+6.3.1 Bell Test Protocol . . . . . . . . . . . . . . . . . . . . . . . . 198
+6.3.2 Partition-Native CHSH . . . . . . . . . . . . . . . . . . . . . 198
+6.3.3 Correlation Bounds . . . . . . . . . . . . . . . . . . . . . . . 200
+6.3.4 Experimental Design . . . . . . . . . . . . . . . . . . . . . . 201
+6.3.5 Supra-Quantum Certification . . . . . . . . . . . . . . . . . 201
+6.3.6 Results . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 203
+6.4 µ-Ledger Verification . . . . . . . . . . . . . . . . . . . . . . . . . . 203
+6.4.1 Monotonicity Tests . . . . . . . . . . . . . . . . . . . . . . . 203
+6.4.2 Conservation Tests . . . . . . . . . . . . . . . . . . . . . . . 205
+6.4.3 Results . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 206
+6.5 Thermodynamic bridge experiment (publishable plan) . . . . . . . . 207
+6.5.1 Workload construction . . . . . . . . . . . . . . . . . . . . . 207
+6.5.2 Bridge prediction . . . . . . . . . . . . . . . . . . . . . . . . 207
+6.5.3 Instrumentation and analysis . . . . . . . . . . . . . . . . . 207
+6.5.4 Executed thermodynamic bundle (Dec 2025) . . . . . . . . . 207
+6.5.5 The Conservation of Difficulty Experiment . . . . . . . . . . 208
+6.5.6 Structural heat anomaly workload . . . . . . . . . . . . . . . 209
+6.5.7 Ledger-constrained time dilation workload . . . . . . . . . . 210
+6.6 Performance Benchmarks . . . . . . . . . . . . . . . . . . . . . . . . 210
+6.6.1 Instruction Throughput . . . . . . . . . . . . . . . . . . . . 210
+6.6.2 Receipt Chain Overhead . . . . . . . . . . . . . . . . . . . . 210
+6.6.3 Hardware Synthesis Results . . . . . . . . . . . . . . . . . . 211
+6.7 Validation Coverage . . . . . . . . . . . . . . . . . . . . . . . . . . . 213
+6.7.1 Test Categories . . . . . . . . . . . . . . . . . . . . . . . . . 213
+6.7.2 Automation . . . . . . . . . . . . . . . . . . . . . . . . . . . 213
+6.7.3 Execution Gates . . . . . . . . . . . . . . . . . . . . . . . . 214
+6.8 Reproducibility . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 214
+6.8.1 Reproducing the ledger-level physics artifacts . . . . . . . . 214
+6.8.2 Artifact Bundles . . . . . . . . . . . . . . . . . . . . . . . . 217
+6.8.3 Container Reproducibility . . . . . . . . . . . . . . . . . . . 217
+6.9 Adversarial Evaluation and Threat Model . . . . . . . . . . . . . . 218
+6.9.1 Evaluation Threat Model . . . . . . . . . . . . . . . . . . . . 218
+6.9.2 Negative Controls . . . . . . . . . . . . . . . . . . . . . . . . 218
+6.10 Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 219
+7 Discussion: Implications and Future Work
+220
+7.1 Why This Chapter Matters . . . . . . . . . . . . . . . . . . . . . . . 220
+
+CONTENTS
+
+10
+
+7.1.1 From Proofs to Meaning . . . . . . . . . . . . . . . . . . . . 220
+7.1.2 How to Read This Chapter . . . . . . . . . . . . . . . . . . . 221
+7.2 What Would Falsify the Physics Bridge? . . . . . . . . . . . . . . . 221
+7.3 Broader Implications . . . . . . . . . . . . . . . . . . . . . . . . . . 222
+7.4 Connections to Physics . . . . . . . . . . . . . . . . . . . . . . . . . 222
+7.4.1 Landauer’s Principle . . . . . . . . . . . . . . . . . . . . . . 222
+7.4.2 No-Signaling and Bell Locality . . . . . . . . . . . . . . . . . 224
+7.4.3 Noether’s Theorem . . . . . . . . . . . . . . . . . . . . . . . 225
+7.4.4 Thermodynamic bridge and falsifiable prediction . . . . . . . 227
+7.4.5 The Physics-Computation Isomorphism . . . . . . . . . . . . 228
+7.5 Implications for Computational Complexity . . . . . . . . . . . . . 229
+7.5.1 The "Time Tax" Reformulated . . . . . . . . . . . . . . . . . 229
+7.5.2 The Conservation of Difficulty . . . . . . . . . . . . . . . . . 229
+7.5.3 Structure-Aware Complexity Classes . . . . . . . . . . . . . 229
+7.6 Implications for Artificial Intelligence . . . . . . . . . . . . . . . . . 230
+7.6.1 The Hallucination Problem . . . . . . . . . . . . . . . . . . . 230
+7.6.2 Neuro-Symbolic Integration . . . . . . . . . . . . . . . . . . 232
+7.7 Implications for Trust and Verification . . . . . . . . . . . . . . . . 232
+7.7.1 The Receipt Chain . . . . . . . . . . . . . . . . . . . . . . . 232
+7.7.2 Applications . . . . . . . . . . . . . . . . . . . . . . . . . . . 234
+7.8 Limitations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 234
+7.8.1 The Uncomputability of True µ . . . . . . . . . . . . . . . . 234
+7.8.2 Hardware Scalability . . . . . . . . . . . . . . . . . . . . . . 235
+7.8.3 SAT Solver Integration . . . . . . . . . . . . . . . . . . . . . 236
+7.9 Future Directions . . . . . . . . . . . . . . . . . . . . . . . . . . . . 238
+7.9.1 Quantum Integration . . . . . . . . . . . . . . . . . . . . . . 238
+7.9.2 Distributed Execution . . . . . . . . . . . . . . . . . . . . . 238
+7.9.3 Programming Language Design . . . . . . . . . . . . . . . . 239
+7.10 Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 239
+8 Conclusion
+240
+8.1 The Central Claim . . . . . . . . . . . . . . . . . . . . . . . . . . . 240
+8.1.1 The Question . . . . . . . . . . . . . . . . . . . . . . . . . . 240
+8.1.2 How to Read This Chapter . . . . . . . . . . . . . . . . . . . 240
+8.2 Summary of Contributions . . . . . . . . . . . . . . . . . . . . . . . 241
+8.2.1 Theoretical Contributions . . . . . . . . . . . . . . . . . . . 241
+8.2.2 Implementation Contributions . . . . . . . . . . . . . . . . . 241
+8.2.3 Verification Contributions . . . . . . . . . . . . . . . . . . . 242
+8.3 The Thiele Machine Hypothesis: Confirmed . . . . . . . . . . . . . 243
+
+CONTENTS
+
+11
+
+8.4
+
+Impact and Applications . . . . . . . . . . . . . . . . . . . . . . . . 243
+8.4.1 Verifiable Computation . . . . . . . . . . . . . . . . . . . . . 243
+8.4.2 Complexity Theory . . . . . . . . . . . . . . . . . . . . . . . 244
+8.4.3 Physics-Computation Bridge . . . . . . . . . . . . . . . . . . 244
+8.5 Open Problems . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 244
+8.5.1 Optimality . . . . . . . . . . . . . . . . . . . . . . . . . . . . 244
+8.5.2 Completeness . . . . . . . . . . . . . . . . . . . . . . . . . . 244
+8.5.3 Quantum Extension . . . . . . . . . . . . . . . . . . . . . . 244
+8.5.4 Hardware Realization . . . . . . . . . . . . . . . . . . . . . . 245
+8.6 The Path Forward . . . . . . . . . . . . . . . . . . . . . . . . . . . 245
+8.7 Final Word . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 245
+A The Verifier System
+247
+A.1 The Verifier System: Receipt-Defined Certification . . . . . . . . . . 247
+A.1.1 Why Verification Matters . . . . . . . . . . . . . . . . . . . . 247
+A.2 Architecture Overview . . . . . . . . . . . . . . . . . . . . . . . . . 248
+A.2.1 The Closed Work System . . . . . . . . . . . . . . . . . . . . 248
+A.2.2 The TRS-1.0 Receipt Protocol . . . . . . . . . . . . . . . . . 249
+A.2.3 Non-Negotiable Falsifier Pattern . . . . . . . . . . . . . . . . 251
+A.3 C-RAND: Certified Randomness . . . . . . . . . . . . . . . . . . . . 251
+A.3.1 Claim Structure . . . . . . . . . . . . . . . . . . . . . . . . . 251
+A.3.2 Verification Rules . . . . . . . . . . . . . . . . . . . . . . . . 253
+A.3.3 The Randomness Bound . . . . . . . . . . . . . . . . . . . . 253
+A.3.4 Falsifier Tests . . . . . . . . . . . . . . . . . . . . . . . . . . 255
+A.4 C-TOMO: Tomography as Priced Knowledge . . . . . . . . . . . . . 256
+A.4.1 Claim Structure . . . . . . . . . . . . . . . . . . . . . . . . . 256
+A.4.2 Verification Rules . . . . . . . . . . . . . . . . . . . . . . . . 258
+A.4.3 The Precision-Cost Relationship . . . . . . . . . . . . . . . . 258
+A.5 C-ENTROPY: Coarse-Graining Made Explicit . . . . . . . . . . . . 258
+A.5.1 The Entropy Underdetermination Problem . . . . . . . . . . 258
+A.5.2 Claim Structure . . . . . . . . . . . . . . . . . . . . . . . . . 258
+A.5.3 Verification Rules . . . . . . . . . . . . . . . . . . . . . . . . 260
+A.5.4 Coq Formalization . . . . . . . . . . . . . . . . . . . . . . . 261
+A.6 C-CAUSAL: No Free Causal Explanation . . . . . . . . . . . . . . . 263
+A.6.1 The Markov Equivalence Problem . . . . . . . . . . . . . . . 263
+A.6.2 The Causal Inference Problem . . . . . . . . . . . . . . . . . 263
+A.6.3 Claim Types . . . . . . . . . . . . . . . . . . . . . . . . . . . 263
+A.6.4 Verification Rules . . . . . . . . . . . . . . . . . . . . . . . . 263
+A.6.5 Falsifier Tests . . . . . . . . . . . . . . . . . . . . . . . . . . 263
+
+CONTENTS
+
+12
+
+A.7 Bridge Modules: Kernel Integration . . . . . . . . . . . . . . . . . . 266
+A.8 The Flagship Divergence Prediction . . . . . . . . . . . . . . . . . . 266
+A.8.1 The "Science Can’t Cheat" Theorem . . . . . . . . . . . . . . 266
+A.8.2 Implementation . . . . . . . . . . . . . . . . . . . . . . . . . 266
+A.8.3 Quantitative Bound . . . . . . . . . . . . . . . . . . . . . . . 269
+A.9 Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 269
+B Extended Proof Architecture
+270
+B.1 Extended Proof Architecture . . . . . . . . . . . . . . . . . . . . . . 270
+B.1.1 Why Machine-Checked Proofs? . . . . . . . . . . . . . . . . 270
+B.1.2 Reading Coq Code . . . . . . . . . . . . . . . . . . . . . . . 271
+B.2 Proof Inventory . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 272
+B.3 The ThieleMachine Proof Suite . . . . . . . . . . . . . . . . . . . . 273
+B.3.1 Partition Logic . . . . . . . . . . . . . . . . . . . . . . . . . 273
+B.3.2 Quantum Admissibility and Tsirelson Bound . . . . . . . . . 276
+B.3.3 Bell Inequality Formalization . . . . . . . . . . . . . . . . . 278
+B.3.4 Turing Machine Embedding . . . . . . . . . . . . . . . . . . 279
+B.3.5 Oracle and Impossibility Theorems . . . . . . . . . . . . . . 281
+B.3.6 Additional ThieleMachine Proofs . . . . . . . . . . . . . . . 281
+B.4 Recent Kernel Extensions . . . . . . . . . . . . . . . . . . . . . . . 282
+B.4.1 Finite Information Theory . . . . . . . . . . . . . . . . . . . 282
+B.4.2 Locality Proofs for All Instructions . . . . . . . . . . . . . . 282
+B.4.3 Proper Subsumption (Non-Circular) . . . . . . . . . . . . . . 283
+B.4.4 Local Information Loss . . . . . . . . . . . . . . . . . . . . . 284
+B.4.5 Assumption Documentation . . . . . . . . . . . . . . . . . . 284
+B.4.6 The µ-Initiality Theorem . . . . . . . . . . . . . . . . . . . . 285
+B.4.7 The µ-Landauer Validity Theorem . . . . . . . . . . . . . . 286
+B.5 Quantum Axioms from µ-Accounting . . . . . . . . . . . . . . . . . 287
+B.5.1 Proof Architecture Overview . . . . . . . . . . . . . . . . . . 287
+B.5.2 No-Cloning Theorem . . . . . . . . . . . . . . . . . . . . . . 287
+B.5.3 Unitarity and CPTP Maps . . . . . . . . . . . . . . . . . . . 288
+B.5.4 Born Rule . . . . . . . . . . . . . . . . . . . . . . . . . . . . 289
+B.5.5 Purification Principle . . . . . . . . . . . . . . . . . . . . . . 290
+B.5.6 Tsirelson Bound . . . . . . . . . . . . . . . . . . . . . . . . . 290
+B.5.7 What This Means . . . . . . . . . . . . . . . . . . . . . . . . 291
+B.6 Theory of Everything (TOE) Proofs . . . . . . . . . . . . . . . . . . 291
+B.6.1 The Final Outcome Theorem . . . . . . . . . . . . . . . . . 291
+B.6.2 The No-Go Theorem . . . . . . . . . . . . . . . . . . . . . . 294
+B.6.3 Physics Requires Extra Structure . . . . . . . . . . . . . . . 298
+
+CONTENTS
+
+13
+
+B.6.4 Closure Theorems . . . . . . . . . . . . . . . . . . . . . . . . 300
+B.7 Spacetime Emergence . . . . . . . . . . . . . . . . . . . . . . . . . . 303
+B.7.1 Causal Structure from Steps . . . . . . . . . . . . . . . . . . 303
+B.7.2 Cone Algebra . . . . . . . . . . . . . . . . . . . . . . . . . . 306
+B.7.3 Lorentz Structure Not Forced . . . . . . . . . . . . . . . . . 308
+B.8 Impossibility Theorems . . . . . . . . . . . . . . . . . . . . . . . . . 308
+B.8.1 Entropy Impossibility . . . . . . . . . . . . . . . . . . . . . . 308
+B.8.2 Probability Impossibility . . . . . . . . . . . . . . . . . . . . 312
+B.9 Quantum Bound Proofs . . . . . . . . . . . . . . . . . . . . . . . . 312
+B.9.1 The Machine-Checked Tsirelson Bound . . . . . . . . . . . . 312
+B.9.2 Kernel-Level Guarantee . . . . . . . . . . . . . . . . . . . . 312
+B.9.3 Quantitative µ Lower Bound . . . . . . . . . . . . . . . . . . 315
+B.10 No Free Insight Interface . . . . . . . . . . . . . . . . . . . . . . . . 317
+B.10.1 Abstract Interface . . . . . . . . . . . . . . . . . . . . . . . . 317
+B.10.2 Kernel Instance . . . . . . . . . . . . . . . . . . . . . . . . . 321
+B.11 Self-Reference . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 321
+B.12 Modular Simulation Proofs . . . . . . . . . . . . . . . . . . . . . . . 324
+B.12.1 Subsumption Theorem . . . . . . . . . . . . . . . . . . . . . 325
+B.13 Falsifiable Predictions . . . . . . . . . . . . . . . . . . . . . . . . . . 325
+B.14 Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 325
+C Experimental Validation Suite
+327
+C.1 Experimental Validation Suite . . . . . . . . . . . . . . . . . . . . . 327
+C.1.1 The Role of Experiments in Theoretical Computer Science . 327
+C.1.2 Falsification vs. Confirmation . . . . . . . . . . . . . . . . . 328
+C.2 Experiment Categories . . . . . . . . . . . . . . . . . . . . . . . . . 328
+C.3 Physics Simulations . . . . . . . . . . . . . . . . . . . . . . . . . . . 329
+C.3.1 Landauer Principle Validation . . . . . . . . . . . . . . . . . 329
+C.3.2 Einstein Locality Test . . . . . . . . . . . . . . . . . . . . . 331
+C.3.3 Entropy Coarse-Graining . . . . . . . . . . . . . . . . . . . . 334
+C.3.4 Observer Effect . . . . . . . . . . . . . . . . . . . . . . . . . 336
+C.3.5 CHSH Game Demonstration . . . . . . . . . . . . . . . . . . 338
+C.3.6 Structural heat anomaly (certificate ceiling law) . . . . . . . 341
+C.3.7 Ledger-constrained time dilation (fixed-budget slowdown) . . 343
+C.4 Complexity Gap Experiments . . . . . . . . . . . . . . . . . . . . . 346
+C.4.1 Partition Discovery Cost . . . . . . . . . . . . . . . . . . . . 346
+C.4.2 Complexity Gap Demonstration . . . . . . . . . . . . . . . . 348
+C.5 Falsification Experiments . . . . . . . . . . . . . . . . . . . . . . . . 351
+C.5.1 Receipt Forgery Attempt . . . . . . . . . . . . . . . . . . . . 351
+
+CONTENTS
+
+14
+
+C.5.2 Free Insight Attack . . . . . . . . . . . . . . . . . . . . . . . 352
+C.5.3 Supra-Quantum Attack . . . . . . . . . . . . . . . . . . . . . 354
+C.6 Benchmark Suite . . . . . . . . . . . . . . . . . . . . . . . . . . . . 354
+C.6.1 Micro-Benchmarks . . . . . . . . . . . . . . . . . . . . . . . 354
+C.6.2 Macro-Benchmarks . . . . . . . . . . . . . . . . . . . . . . . 355
+C.6.3 Isomorphism Benchmarks . . . . . . . . . . . . . . . . . . . 355
+C.7 Demonstrations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 356
+C.7.1 Core Demonstrations . . . . . . . . . . . . . . . . . . . . . . 356
+C.7.2 CHSH Game Demo . . . . . . . . . . . . . . . . . . . . . . . 356
+C.7.3 Research Demonstrations . . . . . . . . . . . . . . . . . . . . 357
+C.7.4 Factorization and Shor’s Algorithm . . . . . . . . . . . . . . 358
+C.8 Integration Tests . . . . . . . . . . . . . . . . . . . . . . . . . . . . 359
+C.8.1 End-to-End Test Suite . . . . . . . . . . . . . . . . . . . . . 359
+C.8.2 Isomorphism Tests . . . . . . . . . . . . . . . . . . . . . . . 359
+C.8.3 Fuzz Testing . . . . . . . . . . . . . . . . . . . . . . . . . . . 359
+C.9 Continuous Integration . . . . . . . . . . . . . . . . . . . . . . . . . 360
+C.9.1 CI Pipeline . . . . . . . . . . . . . . . . . . . . . . . . . . . 360
+C.9.2 Inquisitor Enforcement . . . . . . . . . . . . . . . . . . . . . 361
+C.10 Artifact Generation . . . . . . . . . . . . . . . . . . . . . . . . . . . 361
+C.10.1 Receipts Directory . . . . . . . . . . . . . . . . . . . . . . . 361
+C.10.2 Proofpacks . . . . . . . . . . . . . . . . . . . . . . . . . . . . 361
+C.11 Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 362
+D Physics Models and Algorithmic Primitives
+363
+D.1 Physics Models and Algorithmic Primitives . . . . . . . . . . . . . . 363
+D.1.1 Computation as Physics . . . . . . . . . . . . . . . . . . . . 363
+D.1.2 From Theory to Algorithms . . . . . . . . . . . . . . . . . . 364
+D.2 Physics Models . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 364
+D.2.1 Wave Propagation Model . . . . . . . . . . . . . . . . . . . . 364
+D.2.2 Dissipative Model . . . . . . . . . . . . . . . . . . . . . . . . 367
+D.2.3 Discrete Model . . . . . . . . . . . . . . . . . . . . . . . . . 367
+D.3 Physical Constant Derivation . . . . . . . . . . . . . . . . . . . . . 367
+D.3.1 The Planck Constant: A Successful Derivation . . . . . . . . 368
+D.3.2 Speed of Light: Structure Without Value . . . . . . . . . . . 369
+D.3.3 Gravitational Constant: Highly Speculative . . . . . . . . . 371
+D.3.4 Particle Masses: Free Parameters . . . . . . . . . . . . . . . 372
+D.3.5 Axiom Accounting and Scientific Honesty . . . . . . . . . . . 373
+D.3.6 Lessons Learned: The Boundary Between Computation and
+Physics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 373
+
+CONTENTS
+
+15
+
+D.4 Shor Primitives . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 374
+D.4.1 Period Finding . . . . . . . . . . . . . . . . . . . . . . . . . 374
+D.4.2 Verified Examples . . . . . . . . . . . . . . . . . . . . . . . . 377
+D.4.3 Euclidean Algorithm . . . . . . . . . . . . . . . . . . . . . . 377
+D.4.4 Modular Arithmetic . . . . . . . . . . . . . . . . . . . . . . 379
+D.5 Bridge Modules . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 381
+D.5.1 Randomness Bridge . . . . . . . . . . . . . . . . . . . . . . . 381
+D.5.2 BoxWorld Bridge . . . . . . . . . . . . . . . . . . . . . . . . 382
+D.5.3 FiniteQuantum Bridge . . . . . . . . . . . . . . . . . . . . . 383
+D.6 Flagship DI Randomness Track . . . . . . . . . . . . . . . . . . . . 384
+D.6.1 Protocol Flow . . . . . . . . . . . . . . . . . . . . . . . . . . 384
+D.6.2 The Quantitative Bound . . . . . . . . . . . . . . . . . . . . 384
+D.6.3 Conflict Chart . . . . . . . . . . . . . . . . . . . . . . . . . . 386
+D.7 Theory of Everything Limits . . . . . . . . . . . . . . . . . . . . . . 386
+D.7.1 What the Kernel Forces . . . . . . . . . . . . . . . . . . . . 386
+D.7.2 What the Kernel Cannot Force . . . . . . . . . . . . . . . . 387
+D.8 Complexity Comparison . . . . . . . . . . . . . . . . . . . . . . . . 390
+D.9 Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 390
+E Hardware Implementation and Demonstrations
+391
+E.1 Hardware Implementation and Demonstrations . . . . . . . . . . . . 391
+E.1.1 Why Hardware Matters . . . . . . . . . . . . . . . . . . . . . 391
+E.1.2 From Proofs to Silicon . . . . . . . . . . . . . . . . . . . . . 392
+E.2 Hardware Architecture . . . . . . . . . . . . . . . . . . . . . . . . . 392
+E.2.1 Core Modules . . . . . . . . . . . . . . . . . . . . . . . . . . 392
+E.2.2 Instruction Encoding . . . . . . . . . . . . . . . . . . . . . . 393
+E.2.3 µ-ALU Design . . . . . . . . . . . . . . . . . . . . . . . . . . 394
+E.2.4 State Serialization . . . . . . . . . . . . . . . . . . . . . . . 396
+E.2.5 Synthesis Results . . . . . . . . . . . . . . . . . . . . . . . . 398
+E.3 Testbench Infrastructure . . . . . . . . . . . . . . . . . . . . . . . . 398
+E.3.1 Main Testbench . . . . . . . . . . . . . . . . . . . . . . . . . 398
+E.3.2 Fuzzing Harness . . . . . . . . . . . . . . . . . . . . . . . . . 400
+E.4 3-Layer Isomorphism Enforcement . . . . . . . . . . . . . . . . . . . 400
+E.5 Demonstration Suite . . . . . . . . . . . . . . . . . . . . . . . . . . 402
+E.5.1 Core Demonstrations . . . . . . . . . . . . . . . . . . . . . . 402
+E.5.2 Research Demonstrations . . . . . . . . . . . . . . . . . . . . 402
+E.5.3 Verification Demonstrations . . . . . . . . . . . . . . . . . . 402
+E.5.4 Practical Examples . . . . . . . . . . . . . . . . . . . . . . . 402
+E.5.5 CHSH Flagship Demo . . . . . . . . . . . . . . . . . . . . . 402
+
+CONTENTS
+
+16
+
+E.6 Standard Programs . . . . . . . . . . . . . . . . . . . . . . . . . . . 404
+E.7 Benchmarks . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 404
+E.7.1 Hardware Benchmarks . . . . . . . . . . . . . . . . . . . . . 404
+E.7.2 Demo Benchmarks . . . . . . . . . . . . . . . . . . . . . . . 404
+E.8 Integration Points . . . . . . . . . . . . . . . . . . . . . . . . . . . . 404
+E.8.1 Python VM Integration . . . . . . . . . . . . . . . . . . . . 404
+E.8.2 Extracted Runner Integration . . . . . . . . . . . . . . . . . 406
+E.8.3 RTL Integration . . . . . . . . . . . . . . . . . . . . . . . . . 407
+E.9 Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 408
+F Glossary of Terms
+
+409
+
+G Complete Theorem Index
+411
+G.1 Complete Theorem Index . . . . . . . . . . . . . . . . . . . . . . . . 411
+G.1.1 How to Read This Index . . . . . . . . . . . . . . . . . . . . 411
+G.1.2 Theorem Naming Conventions . . . . . . . . . . . . . . . . . 411
+G.2 Kernel Theorems . . . . . . . . . . . . . . . . . . . . . . . . . . . . 412
+G.2.1 Core Semantics . . . . . . . . . . . . . . . . . . . . . . . . . 412
+G.2.2 Conservation Laws . . . . . . . . . . . . . . . . . . . . . . . 412
+G.2.3 Impossibility Results . . . . . . . . . . . . . . . . . . . . . . 412
+G.2.4 TOE Results . . . . . . . . . . . . . . . . . . . . . . . . . . 412
+G.2.5 Subsumption . . . . . . . . . . . . . . . . . . . . . . . . . . 413
+G.3 Kernel TOE Theorems . . . . . . . . . . . . . . . . . . . . . . . . . 413
+G.4 ThieleMachine Theorems . . . . . . . . . . . . . . . . . . . . . . . . 413
+G.4.1 Quantum Bounds . . . . . . . . . . . . . . . . . . . . . . . . 413
+G.4.2 Partition Logic . . . . . . . . . . . . . . . . . . . . . . . . . 413
+G.4.3 Oracle and Hypercomputation . . . . . . . . . . . . . . . . . 414
+G.4.4 Verification . . . . . . . . . . . . . . . . . . . . . . . . . . . 414
+G.5 Bridge Theorems . . . . . . . . . . . . . . . . . . . . . . . . . . . . 414
+G.6 Physics Model Theorems . . . . . . . . . . . . . . . . . . . . . . . . 414
+G.7 Shor Primitives Theorems . . . . . . . . . . . . . . . . . . . . . . . 415
+G.8 NoFI Theorems . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 415
+G.9 Self-Reference Theorems . . . . . . . . . . . . . . . . . . . . . . . . 415
+G.10 Modular Proofs Theorems . . . . . . . . . . . . . . . . . . . . . . . 415
+G.11 Theorem Count Summary . . . . . . . . . . . . . . . . . . . . . . . 416
+G.12 Zero-Admit Verification . . . . . . . . . . . . . . . . . . . . . . . . . 416
+G.13 Compilation Status . . . . . . . . . . . . . . . . . . . . . . . . . . . 416
+G.14 Cross-Reference with Tests . . . . . . . . . . . . . . . . . . . . . . . 416
 
 Chapter 1
 Introduction
@@ -86,11 +757,11 @@ For the Newcomer
 The Thiele Machine is a new model of computation where structural information
 costs something.
 
-5
+17
 
 CHAPTER 1. INTRODUCTION
 
-6
+18
 
 Classical computers are blind. A Turing machine can only see one tape cell at a
 time. It can compute anything—but to know that a graph has two disconnected
@@ -131,7 +802,7 @@ but only by paying the time to discover that structure through ordinary
 
 CHAPTER 1. INTRODUCTION
 
-7
+19
 
 computation. The distinction is between access and ability: blindness means
 the structure is not given for free, not that it is unreachable.
@@ -144,9 +815,10 @@ are hard and how that hardness can be transformed.
 What Makes This Work Different
 
 This is not a paper with informal arguments. Every major claim is:
-1. Formally proven: Machine-checked proofs in the Coq proof assistant (over
-2,000 theorems and lemmas across 238 files)
-2. Implemented: Working code in Python and Verilog hardware description
+1. Formally proven: Machine-checked proofs in the Coq proof assistant (1,637
+theorems and lemmas across 262 files, totaling 55,097 lines)
+2. Implemented: Working code in Python (19,516 lines) and Verilog hardware
+description (43 files)
 3. Tested: Automated tests verify that theory and implementation match
 4. Falsifiable: The thesis specifies exactly what would disprove each claim
 Every claim has a concrete falsification condition. If you find a counterexample,
@@ -169,12 +841,12 @@ If you want to understand the theory:
 • Chapter 5: The Coq proofs and what they establish
 If you want to use the implementation:
 • Chapter 4: The three-layer architecture
-• Chapter 6: How to run tests and verify results
 
 CHAPTER 1. INTRODUCTION
 
-8
+20
 
+• Chapter 6: How to run tests and verify results
 • Chapter 13: Hardware and demonstrations
 If you are an expert and want to verify the claims, start with Chapter 5
 (Verification) and the formal proof development.
@@ -187,7 +859,7 @@ The Crisis of Blind Computation
 
 The Turing Machine: A Model of Blindness
 
-Turing’s 1936 machine [?] is one of the most elegant ideas in mathematics. It’s
+Turing’s 1936 machine [7] is one of the most elegant ideas in mathematics. It’s
 also fundamentally broken—not in what it can compute, but in what it can see. It
 consists of:
 • A finite set of states Q = {q0 , q1 , . . . , qn }
@@ -211,17 +883,16 @@ has two disconnected components. It must execute a traversal algorithm that, in
 the worst case, visits all n vertices and m edges. The structure of the graph—its
 partition into components—is not part of the machine’s primitive state.
 
+CHAPTER 1. INTRODUCTION
+
 1.2.2
+
+21
 
 The RAM Model: Random Access, Same Blindness
 
 The RAM model fixes the tape problem—you can jump to any memory address in
 O(1) time. A RAM program has:
-
-CHAPTER 1. INTRODUCTION
-
-9
-
 • An infinite array of registers M [0], M [1], M [2], . . .
 • An instruction pointer and accumulator register
 • Instructions: LOAD, STORE, ADD, SUB, JUMP, etc.
@@ -253,14 +924,15 @@ that perceives the decomposition pays O(k · 2n/k )—exponentially better.
 Here’s the question this thesis answers: What is the cost of sight?
 If you want to see structure, what do you pay? That’s what µ-bits measure. The
 model charges explicitly for operations that add or refine structure. The proven
-result: you can’t strengthen predicates for free. µ > 0, always. The Coq proofs
-verify this. I dare you to find a counterexample.
 
 CHAPTER 1. INTRODUCTION
 
-1.3
+22
 
-10
+result: you can’t strengthen predicates for free. µ > 0, always. The Coq proofs
+verify this. I dare you to find a counterexample.
+
+1.3
 
 The Thiele Machine: Computation with Explicit Structure
 
@@ -297,14 +969,14 @@ The µ-bit: A Currency for Structure
 The atomic unit of structural cost is the µ-bit:
 Definition 1.1 (µ-bit). One µ-bit is the information-theoretic cost of specifying
 one bit of structural constraint using a canonical prefix-free encoding. Prefix-free
-encoding ensures unique parsing, so length is well-defined and reproducible. This
-connects to Minimum Description Length: assertions are charged by their canonical
-description size, and canonicalization prevents hidden representation costs.
 
 CHAPTER 1. INTRODUCTION
 
-11
+23
 
+encoding ensures unique parsing, so length is well-defined and reproducible. This
+connects to Minimum Description Length: assertions are charged by their canonical
+description size, and canonicalization prevents hidden representation costs.
 SMT-LIB 2.0 syntax is used for canonical encoding, making µ-costs implementationindependent. The total structural cost:
 µ(S, π) =
 
@@ -343,18 +1015,18 @@ The three proven principles are: (i) µ-monotonicity (MuLedgerConservation
 observational locality (ObserverDerivation.v). These ensure that insight is
 never free—it must be paid for in µ-cost.
 
+CHAPTER 1. INTRODUCTION
+
 1.4
+
+24
 
 Methodology: The 3-Layer Isomorphism
 
 The model isn’t just described—it’s built three times, in three different languages,
 and the outputs are proven identical.
 
-CHAPTER 1. INTRODUCTION
-
 1.4.1
-
-12
 
 Layer 1: Coq (The Proofs)
 
@@ -387,6 +1059,11 @@ Executable semantics. Code you can run. Receipts you can verify:
 (LASSERT, LJOIN), discovery (PDISCOVER), certification (REVEAL, EMIT)
 • Receipts: Ed25519-signed execution traces for third-party verification
 • µ-ledger: canonical cost accounting
+
+CHAPTER 1. INTRODUCTION
+
+25
+
 Implementation: [state.py](thielecpu/state.py) (state), [vm.py](thielecpu/vm.py)
 (engine), [crypto.py](thielecpu/crypto.py) (signing).
 
@@ -395,11 +1072,6 @@ Implementation: [state.py](thielecpu/state.py) (state), [vm.py](thielecpu/vm.py)
 Layer 3: Verilog RTL (The Hardware)
 
 This isn’t theoretical. The abstract µ-costs map to real physical resources:
-
-CHAPTER 1. INTRODUCTION
-
-13
-
 • CPU core: the top-level module implementing the fetch-decode-execute
 pipeline.
 • µ-ALU: a dedicated arithmetic unit for µ-cost calculation, running in parallel
@@ -432,16 +1104,16 @@ Thesis Statement
 Here is the central claim:
 Classical computers pay an implicit “time tax” when problems have hidden structure. They search blindly because they can’t see. By making
 structural information cost explicit through µ-bits, you can trade search
+
+CHAPTER 1. INTRODUCTION
+
+26
+
 time for structure cost. Problems aren’t “hard” in isolation—they’re
 hard-to-structure or hard-to-solve-given-structure. This thesis makes
 both costs visible.
 This is proven with:
 1. Machine-verified theorems in Coq
-
-CHAPTER 1. INTRODUCTION
-
-14
-
 2. Executable implementations with signed receipts
 3. Hardware that enforces costs physically
 4. Empirical demonstrations on hard benchmarks
@@ -463,10 +1135,17 @@ observables of unrelated modules—computational Bell locality.
 5. 3-Layer Isomorphism: Complete verified implementation: Coq proofs,
 Python semantics, Verilog RTL.
 6. The Inquisitor Standard: Zero-admit, zero-axiom methodology for machinecheckable claims.
-7. Empirical Artifacts: Reproducible demos including certified randomness
+7. Physical Constant Exploration: Formal investigation of deriving constants from information theory: Planck constant relationship proven (h =
+4kB T ln 2 · τµ ), speed of light structure established (c = dµ /τµ ), gravitational
+constant and particle masses identified as free parameters. (Chapter 12)
+8. Empirical Artifacts: Reproducible demos including certified randomness
 and polynomial-time structured Tseitin solutions.
 
+CHAPTER 1. INTRODUCTION
+
 1.7
+
+27
 
 Thesis Outline
 
@@ -477,11 +1156,6 @@ verification techniques.
 • Chapter 3: Theory presents the complete formal definition of the Thiele
 Machine, Partition Logic, the µ-bit currency, and the No Free Insight theorem
 with full proof sketches.
-
-CHAPTER 1. INTRODUCTION
-
-15
-
 • Chapter 4: Implementation details the 3-layer architecture, the 18instruction ISA, the receipt system, and the hardware synthesis.
 Part II: Verification and Evaluation
 • Chapter 5: Verification presents the Coq formalization, the key theorems
@@ -493,12 +1167,17 @@ directions.
 Part III: Extended Development
 • Chapter 9: The Verifier System documents the complete TRS-1.0 receipt
 protocol and the four C-modules (C-RAND, C-TOMO, C-ENTROPY, CCAUSAL) that provide domain-specific verification.
-• Chapter 10: Extended Proof Architecture covers the full 238-file
-Coq development including the ThieleMachine proofs, Theory of Everything
-results, and impossibility theorems.
+• Chapter 10: Extended Proof Architecture covers the full 262-file Coq
+development (1,637 theorems, 55,097 lines) including the ThieleMachine
+proofs, Theory of Everything results, and impossibility theorems.
 • Chapter 11: Experimental Validation Suite details all physics experiments, falsification tests, and the benchmark suite.
 • Chapter 12: Physics Models and Algorithmic Primitives presents the
 wave dynamics model, Shor factoring primitives, and domain bridge modules.
+
+CHAPTER 1. INTRODUCTION
+
+28
+
 • Chapter 13: Hardware Implementation and Demonstrations provides
 complete RTL documentation and the demonstration suite.
 Appendix A: Complete Theorem Index provides a comprehensive catalog of
@@ -537,11 +1216,11 @@ The Central Question
 Classical computers (Turing Machines, RAM machines) are structurally blind—they
 lack primitive access to the structure of their input. If you give a computer a
 
-16
+29
 
 CHAPTER 2. BACKGROUND AND RELATED WORK
 
-17
+30
 
 sorted list, it doesn’t "know" the list is sorted unless it checks. This is a statement
 about the interface of the model, not about what is computable. The distinction
@@ -579,13 +1258,13 @@ Classical Computational Models
 
 The Turing Machine: Formal Definition
 
-Turing’s 1936 machine [?] is elegant. It’s also the source of everything wrong with
+Turing’s 1936 machine [7] is elegant. It’s also the source of everything wrong with
 how we think about computation. Here’s the formal definition—a 7-tuple:
 M = (Q, Σ, Γ, δ, q0 , qaccept , qreject )
 
 CHAPTER 2. BACKGROUND AND RELATED WORK
 
-18
+31
 
 • Q: finite set of states
 • Σ: input alphabet (no blank ⊔)
@@ -629,7 +1308,7 @@ The RAM model is the upgrade everyone thinks solves the problem:
 
 CHAPTER 2. BACKGROUND AND RELATED WORK
 
-19
+32
 
 • Accumulator A and program counter P C
 • Instructions: LOAD, STORE, ADD, SUB, JMP, JZ, etc.
@@ -667,7 +1346,7 @@ partitions and attaching axioms that certify independence or other properties.
 
 CHAPTER 2. BACKGROUND AND RELATED WORK
 
-20
+33
 
 Those operations are not free: they increase the µ-ledger, which is then provably
 monotone under the step semantics.
@@ -683,7 +1362,7 @@ Information Theory and Complexity
 
 Shannon Entropy
 
-Shannon’s 1948 paper [?] made information into something you can measure. The
+Shannon’s 1948 paper [5] made information into something you can measure. The
 core idea: an event with probability p carries surprise I = − log2 p bits. The
 entropy of random variable X:
 H(X) = −
@@ -717,7 +1396,7 @@ knowledge and coarse-grained descriptions rather than intrinsic indeterminism.
 
 CHAPTER 2. BACKGROUND AND RELATED WORK
 
-21
+34
 
 This distinction matters for the Thiele Machine because it highlights where "structure" lives. A partition that lets me treat two subsystems as independent is not
 a free fact about reality; it is an explicit modeling choice that I must justify and
@@ -759,7 +1438,7 @@ to a constant).
 
 CHAPTER 2. BACKGROUND AND RELATED WORK
 
-22
+35
 
 • µ-cost is computable and depends on the specific partition logic operations
 and axioms used.
@@ -775,7 +1454,7 @@ reproduced by the other layers.
 
 Minimum Description Length (MDL)
 
-MDL, developed by Jorma Rissanen [?], gives us what Kolmogorov can’t: a
+MDL, developed by Jorma Rissanen [4], gives us what Kolmogorov can’t: a
 computable proxy. Given a hypothesis class H and data D:
 L(D) = min {L(H) + L(D|H)}
 H∈H
@@ -804,9 +1483,9 @@ The Physics of Computation
 
 Landauer’s Principle
 
-23
+36
 
-In 1961, Rolf Landauer proved something that changes everything [?]:
+In 1961, Rolf Landauer proved something that changes everything [2]:
 Theorem 2.1 (Landauer’s Principle). The erasure of one bit of information in a
 computing device releases at least kB T ln 2 joules of heat into the environment.
 At room temperature (300K), this is approximately 3 × 10−21 joules per bit—tiny,
@@ -826,26 +1505,50 @@ but they shift the cost to auxiliary memory and garbage bits that must eventuall
 be erased.
 2.4.1.1
 
+From Landauer to Planck
+
+Landauer’s principle provides more than a thermodynamic bound—it may connect
+information theory to quantum mechanics. Define the Landauer energy as:
+Elandauer = kB T ln 2
+If computational operations occur at a fundamental time scale τµ , then Planck’s
+constant can be expressed as:
+h = 4Elandauer · τµ = 4kB T ln 2 · τµ
+This relationship is formally proven in coq/physics_exploration/PlanckDeriva
+tion.v (Chapter 12). While this establishes a structural relationship between infor-
+
+CHAPTER 2. BACKGROUND AND RELATED WORK
+
+37
+
+mation theory and quantum mechanics, it does not provide a numerical prediction
+for h without an independent derivation of τµ . The result demonstrates that fundamental physical constants may emerge from information-theoretic principles—or
+that they share deep mathematical structure.
+At room temperature (T = 300K) with known h, the implied time scale is:
+τµ =
+
+h
+≈ 1.15 × 10−13 seconds
+4kB T ln 2
+
+This femtosecond scale is consistent with fundamental quantum time scales, suggesting that µ-operations occur at the boundary between classical information
+processing and quantum dynamics.
+2.4.1.2
+
 Reversible Computation
 
 Charles Bennett showed you can make computation thermodynamically reversible
-by keeping a history of all operations [?]. A reversible Turing Machine can simulate
+by keeping a history of all operations [1]. A reversible Turing Machine can simulate
 any irreversible computation with only polynomial overhead in space.
 But there’s a catch: the space required to store the history. This is another form
 of "structural debt"—you can avoid the heat cost by paying a space cost. The
 universe doesn’t give free lunches.
-2.4.1.2
+2.4.1.3
 
 Simulation Versus Physical Reality
 
 "If I can simulate it, I have reproduced it." That’s wrong, and physics tells us
 exactly why.
 A simulation manipulates symbols that represent a system. The system itself evolves
-
-CHAPTER 2. BACKGROUND AND RELATED WORK
-
-24
-
 under physical laws. A climate model produces temperature fields, hurricanes,
 droughts on a screen—but it doesn’t warm the room or generate real rainfall. The
 computation is physical (it dissipates heat, uses energy), but the simulated climate
@@ -858,7 +1561,12 @@ by chaos. When I trade the real dynamics for a stochastic approximation, I am
 asserting a structural model that saves compute at the price of fidelity. The Thiele
 Machine makes that trade explicit: the cost of declaring independence, randomness,
 or coarse-grained behavior must be booked in µ-bits.
-2.4.1.3
+
+CHAPTER 2. BACKGROUND AND RELATED WORK
+
+2.4.1.4
+
+38
 
 Renormalization and Coarse-Grained Structure
 
@@ -882,15 +1590,10 @@ Imagine a container divided by a partition with a door. A "demon" observes
 molecules and opens the door only when a fast molecule approaches from the
 left. Over time, fast molecules accumulate on the right, creating a temperature
 differential without apparent work.
-Leo Szilard’s 1929 analysis [?] and Bennett’s later work showed the demon must
+Leo Szilard’s 1929 analysis [6] and Bennett’s later work showed the demon must
 pay:
 1. Acquiring information: Measuring molecular velocities requires physical
 interaction
-
-CHAPTER 2. BACKGROUND AND RELATED WORK
-
-25
-
 2. Storing information: The demon’s memory has finite capacity
 3. Erasing information: When memory fills, erasure releases heat (Landauer)
 The entropy balance is preserved. The demon’s information processing exactly
@@ -911,7 +1614,11 @@ Bell’s Theorem and Non-Locality
 This is where physics gets strange—and where the Thiele Machine makes a testable
 prediction.
 
+CHAPTER 2. BACKGROUND AND RELATED WORK
+
 2.5.2
+
+39
 
 Decoherence, Measurement, and Informational Cost
 
@@ -936,8 +1643,6 @@ explicit revelation-class instruction (REVEAL, EMIT, LJOIN, or LASSERT).
 Translation: you can’t certify non-local correlations without paying the structural
 cost. No free insight.
 
-CHAPTER 2. BACKGROUND AND RELATED WORK
-
 2.6
 
 Formal Verification
@@ -945,8 +1650,6 @@ Formal Verification
 2.6.1
 
 The Coq Proof Assistant
-
-26
 
 How do you know a proof is correct? You could check it by hand. You could have
 reviewers check it. Or you could have a machine verify every single step.
@@ -959,6 +1662,11 @@ The Inquisitor Standard
 For the Thiele Machine, the project enforces a strict methodology. No wiggle room:
 1. No Admitted: Every lemma must be fully proven
 2. No admit tactics: No shortcuts inside proofs
+
+CHAPTER 2. BACKGROUND AND RELATED WORK
+
+40
+
 3. No Axiom: No unproven assumptions except foundational logic
 This is enforced by an automated checker that scans all proof files and blocks
 violations. If a theorem says “Proven,” it’s actually proven.
@@ -967,7 +1675,7 @@ violations. If a theorem says “Proven,” it’s actually proven.
 
 Proof-Carrying Code
 
-Necula and Lee’s Proof-Carrying Code (PCC) [?] lets code producers attach proofs
+Necula and Lee’s Proof-Carrying Code (PCC) [3] lets code producers attach proofs
 that the code satisfies certain properties. A consumer can verify the proofs without
 re-analyzing the code.
 The Thiele Machine generalizes this: every execution step carries a “receipt” proving
@@ -985,11 +1693,7 @@ Related Work
 This thesis does not claim to have invented these ideas. It claims to have connected
 them in a new way.
 
-CHAPTER 2. BACKGROUND AND RELATED WORK
-
 2.7.1
-
-27
 
 Algorithmic Information Theory
 
@@ -1011,6 +1715,11 @@ Partition Refinement Algorithms
 
 Algorithms like Tarjan’s partition refinement and the Paige-Tarjan algorithm
 efficiently maintain partitions under operations. The Thiele Machine’s PSPLIT and
+
+CHAPTER 2. BACKGROUND AND RELATED WORK
+
+41
+
 PMERGE operations are inspired by these techniques.
 
 2.7.4
@@ -1039,11 +1748,6 @@ tracking irreversible commitments.
 4. Quantum Correlations (§2.4): Bell’s theorem and the CHSH inequality
 √
 reveal that quantum mechanics permits correlations up to 2 2 but no higher.
-
-CHAPTER 2. BACKGROUND AND RELATED WORK
-
-28
-
 The Thiele Machine derives this bound from µ-accounting—an informationtheoretic explanation for why nature is “quantum but not more.”
 The formal verification infrastructure (§2.5) ensures all claims are machine-checkable
 using Coq under the Inquisitor Standard.
@@ -1080,11 +1784,11 @@ Central element: µ-Ledger (yellow) - the currency tracking total computational
 cost. §3.3
 Relationships: State → Partition (decomposition), Partition → Axioms (constraints), Rules → State (evolves), Logic → Axioms (verifies), Rules → µ (charges),
 
-29
+42
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-30
+43
 
 µ 99K State (bounds). The µ-ledger is fed by transition rules and bounds state
 evolution.
@@ -1125,7 +1829,7 @@ knowledge charges a cost in µ-bits. This cost is:
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-31
+44
 
 In physical terms, the ledger is interpreted as a conserved total:
 µtotal = µkinetic + µpotential .
@@ -1165,7 +1869,7 @@ concrete code.
 
 3.1.5
 
-32
+45
 
 Key Concepts: Observables and Projections
 
@@ -1219,7 +1923,7 @@ Seven fields:
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-33
+46
 
 Highlighted field: vm_mu with ultra-very thick red border - the central innovation. This monotonic counter tracks cumulative computational action.
 Key insight: Complete state snapshot in one record. Immutable in Coq (transitions create new states). vm_mu never decreases.
@@ -1259,7 +1963,7 @@ the state into modules
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-34
+47
 
 • vm_csrs: Control Status Registers including certification address, status
 flags, and error codes
@@ -1298,7 +2002,7 @@ we keep only the lower 32 bits and discard everything above. Example:
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-35
+48
 
 4. N.to_nat: Converts back to nat for use in the rest of the formal model.
 Why This Matters: Coq’s nat type represents unbounded natural numbers (0,
@@ -1339,7 +2043,7 @@ pg_next_id : ModuleID ;
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-36
+49
 
 pg_modules : list ( ModuleID * ModuleState )
 }.
@@ -1377,7 +2081,7 @@ and PSPLIT (which validates disjoint partitions).
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-37
+50
 
 • Coverage: Partition operations ensure that a split covers the original region
 and that merges preserve region union. Global coverage of all machine state
@@ -1414,7 +2118,7 @@ Logical Implication: If this invariant holds, then the partition graph is intern
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-38
+51
 
 consistent—no module has an ID greater than or equal to the next available ID.
 This prevents temporal paradoxes where a module appears to be created "in the
@@ -1454,7 +2158,7 @@ Lemma n o r m a l i z e _ r e g i o n _ i d e m p o t e n t : forall region ,
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-39
+52
 
 normalize_region ( normalize_region region ) =
 ,→ normalize_region region .
@@ -1496,7 +2200,7 @@ and AxiomSet is a list of strings.
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-40
+53
 
 Why Strings Instead of Parsed ASTs?
 1. Separation of Concerns: The Thiele Machine kernel doesn’t need to
@@ -1531,7 +2235,7 @@ Why String-Based? Axioms are opaque to the kernel:
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-41
+54
 
 • No Evaluation: Kernel doesn’t check validity
 • Delegation: Passed verbatim to certified checkers (Z3, CVC5)
@@ -1571,7 +2275,7 @@ Step-by-Step Execution:
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-42
+55
 
 1. Lookup: graph_lookup g mid searches for module with ID mid in the
 graph
@@ -1611,7 +2315,7 @@ Inductive vm_instruction :=
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-43
+56
 
 | instr_psplit ( module : ModuleID ) ( left right : list
 ,→
@@ -1659,7 +2363,7 @@ The Uniform mu_delta Parameter:
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-44
+57
 
 • First Principles: Every instruction must account for its informationtheoretic cost
 • Embedded in Semantics: The cost isn’t metadata or a side annotation—it’s
@@ -1696,7 +2400,7 @@ Six categories (boxes):
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-45
+58
 
 • Register/Memory (purple): XFER, XOR_LOAD, XOR_ADD, XOR_SWAP, XOR_RANK
 • Control Ops (red): PYEXEC, ORACLE_HALTS, HALT
@@ -1729,7 +2433,7 @@ Control Operations:
 
 3.2.4.3
 
-46
+59
 
 The Step Relation
 
@@ -1766,7 +2470,7 @@ vm_step s ( instr_pnew region cost )
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-47
+60
 
 Understanding the step_pnew Rule: Forall Quantification: This rule
 applies for any values of s, region, cost, graph’, mid that satisfy the premises.
@@ -1795,7 +2499,7 @@ it is represented through certificate checking.
 
 3.2.5.1
 
-48
+61
 
 Trust Model for Logic Engine
 
@@ -1838,7 +2542,7 @@ never both
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-49
+62
 
 tion with Assumption Tracing) proof—a checkable witness that a formula
 has no satisfying assignment
@@ -1875,7 +2579,7 @@ The kernel verifies the certificate but does not search for solutions. This ensu
 
 3.3
 
-50
+63
 
 The µ-bit Currency
 
@@ -1923,7 +2627,7 @@ conservation laws are invariant.
 
 3.3.2
 
-51
+64
 
 The µ-Ledger
 
@@ -1961,7 +2665,7 @@ s .( vm_mu ) + instruction_cost instr .
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-52
+65
 
 Understanding Cost Application: instruction_cost Function:
 • Pattern Matching: Examines which constructor was used to create the
@@ -2001,7 +2705,7 @@ s ’.( vm_mu ) >= s .( vm_mu ) .
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-53
+66
 
 Understanding the Monotonicity Theorem: Theorem Statement Anatomy:
 • Theorem: Declares this is a proven mathematical statement (not an axiom)
@@ -2043,7 +2747,7 @@ cost(τ [i])
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-54
+67
 
 Proven as run_vm_mu_conservation:
 
@@ -2085,7 +2789,7 @@ computable
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-55
+68
 
 Proof Strategy: Induction on fuel:
 • Base Case (fuel = 0): No instructions execute, so µ unchanged and sum
@@ -2124,8 +2828,15 @@ law
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-56
+69
 
+4. Emergent Constants: The Landauer energy Elandauer = kB T ln 2 may
+connect to Planck’s constant via h = 4Elandauer τµ (explored in Chapter 12)
+Note on Physical Constants: The formal development includes coq/physics_
+exploration/, which explores whether fundamental constants can be derived from
+µ-theory. Results: Planck constant relationship proven, speed of light structure
+established, gravitational constant and particle masses remain free parameters.
+These explorations are isolated from the zero-axiom kernel.
 Why “Lower Bound” Not “Equality”?
 • Some operations (XOR, reversible gates) have zero irreversibility but may
 have implementation µ-cost for tracking
@@ -2155,6 +2866,8 @@ module
 Key insight: Raw state is partitioned into disjoint modules, each carrying axioms.
 PSPLIT/PMERGE modify this structure while charging µ.
 
+CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
+
 3.4.1
 
 Module Operations
@@ -2163,14 +2876,11 @@ Module Operations
 
 PNEW: Module Creation
 
+70
+
 Definition graph_pnew ( g : PartitionGraph ) ( region :
 ,→ list nat )
 : PartitionGraph * ModuleID :=
-
-CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
-
-57
-
 let normalized := normalize_region region in
 match graph _find_ regio n g normalized with
 | Some existing = > (g , existing )
@@ -2197,16 +2907,16 @@ empty axiom list []. Increments pg_next_id to generate a fresh ID.
 Why This Design?
 • Idempotence: Multiple PNEW calls with same region are safe—no duplicate
 modules
+
+CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
+
+71
+
 • Determinism: Given the same graph and region, always returns the same
 result
 • Efficiency: Reusing existing modules avoids redundant structures
 • Correctness: Normalization ensures semantic equality (same addresses =
 same module)
-
-CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
-
-58
-
 µ-Cost Consideration: If a module already exists (Some existing), should
 PNEW cost µ? The formal model says yes—the instruction still provides structural
 information to the program, even if the kernel doesn’t create new data. The cost
@@ -2237,16 +2947,15 @@ Definition graph_psplit ( g : PartitionGraph ) ( mid :
 : option ( PartitionGraph * ModuleID * ModuleID ) :=
 ,→ ...
 
+CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
+
+72
+
 Understanding graph_psplit (Module Splitting): Function Signature
 Analysis:
 • Inputs: Graph g, module ID to split mid, two sub-regions left and right
 • Output: option type wrapping a 3-tuple (new graph, left module ID, right
 module ID)
-
-CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
-
-59
-
 • Why option?: The operation can fail if preconditions aren’t met. None =
 failure, Some (...) = success.
 Precondition Checks (implicit in implementation):
@@ -2273,14 +2982,14 @@ monolithic, it’s composite.
 • Reversibility: PSPLIT then PMERGE recovers the original structure, but
 the µ-cost isn’t refunded.
 PSPLIT replaces a module with two sub-modules. Preconditions:
-• left and right must partition the original region
-• Neither can be empty
-• They must be disjoint
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-60
+73
 
+• left and right must partition the original region
+• Neither can be empty
+• They must be disjoint
 Intuition: PSPLIT takes a module and slices it in two. You must prove the slice
 is clean (disjoint) and complete (covers the original). This lets you refine your
 structural view—realizing that a large array is actually two independent halves.
@@ -2311,14 +3020,14 @@ Merge Operation Steps:
 lists)
 3. Remove Both Modules: Delete m1 and m2 from the graph
 4. Create Merged Module: Add a new module with new_region and new_axioms
-5. Generate Fresh ID: Use (and increment) pg_next_id
-Why Concatenate Axioms? Because both sets of constraints must hold for the
-merged module. If module 1 asserts x > 0 and module 2 asserts y is prime, the
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-61
+74
 
+5. Generate Fresh ID: Use (and increment) pg_next_id
+Why Concatenate Axioms? Because both sets of constraints must hold for the
+merged module. If module 1 asserts x > 0 and module 2 asserts y is prime, the
 merged module must satisfy both constraints.
 µ-Cost Interpretation:
 • Lower Cost Than Split: Merging typically costs less than splitting because
@@ -2355,17 +3064,17 @@ match graph_lookup s .( vm_graph ) mid with
 ,→ .( module_region ) , s .( vm_mu ) )
 | None = > None
 end .
+
+CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
+
+75
+
 Definition ObservableRegion ( s : VMState ) ( mid : nat )
 ,→
 
 : option ( list nat ) :=
 
 match graph_lookup s .( vm_graph ) mid with
-
-CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
-
-62
-
 | Some modstate = > Some ( normalize_region modstate
 ,→ .( module_region ) )
 | None = > None
@@ -2393,13 +3102,13 @@ observationally equivalent. Normalization ensures a canonical form.
 Option Type Handling:
 • None: Module doesn’t exist (invalid ID or already removed)
 • Some (...): Module exists, return its observable state
-Information Hiding Principle: Observables define an abstraction barrier. Two
-states with the same observables are indistinguishable to external code, even if
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-63
+76
 
+Information Hiding Principle: Observables define an abstraction barrier. Two
+states with the same observables are indistinguishable to external code, even if
 their internal axioms differ. This is crucial for locality proofs.
 Note that axioms are not observable—they are internal implementation details.
 3.4.2.2
@@ -2434,7 +3143,7 @@ instruction’s target set
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-64
+77
 
 • instr_targets: Extracts which modules an instruction modifies (e.g.,
 PSPLIT targets one module, PMERGE targets two)
@@ -2469,7 +3178,7 @@ allows correlations that seem like signaling but actually aren’t (no informati
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-65
+78
 
 transfer). Here, we prove stronger isolation—not just no signaling, but complete
 independence of observables.
@@ -2510,7 +3219,7 @@ The Function Type (->):
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-66
+79
 
 • Input: list A — a trace of receipts (chronological sequence of measurements/operations)
 • Output: bool — true = trace is physically realizable, false = violates
@@ -2548,7 +3257,7 @@ P2 might accept traces that P1 rejects.
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-67
+80
 
 Mathematical Notation:
 • {A : Type}: Implicit type parameter—Coq infers A from context
@@ -2588,7 +3297,7 @@ exactly the same traces). We need genuine strengthening—not just a renaming.
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-68
+81
 
 Witness Requirement: The exists obs clause requires a constructive witness—an actual trace demonstrating the difference. This isn’t abstract—you must
 exhibit a concrete example.
@@ -2625,7 +3334,7 @@ s_init .( vm_csrs ) .( csr_cert_addr ) = 0 ->
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-69
+82
 
 Certified ( run_vm fuel trace s_init ) decoder
 ,→ P_strong trace ->
@@ -2660,7 +3369,7 @@ erasure/commitment, which has minimum energy cost kB T ln 2
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-70
+83
 
 Why This Matters:
 1. Falsifiability: If someone claims to solve NP-complete problems efficiently,
@@ -2702,7 +3411,7 @@ Understanding the Revelation Requirement: Theorem Structure:
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-71
+84
 
 2. csr_cert_addr = 0: Started with no certificate
 3. has_supra_cert s_final: Final state contains supra-quantum certifi√
@@ -2745,7 +3454,7 @@ Why Disjunction? Different paths to supra-quantum certification:
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-72
+85
 
 Falsification Criterion: If someone claims "I achieved supra-quantum correlations
 without paying computational cost," inspect their trace. This theorem guarantees
@@ -2787,7 +3496,7 @@ origin on a number line)
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-73
+86
 
 • Analogy: Like setting a timer—whether it shows 0:00 or 1:00 at start doesn’t
 matter, only elapsed time counts
@@ -2826,7 +3535,7 @@ semantics
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-74
+87
 
 Noether’s Theorem Connection: In physics, Noether’s theorem states:
 Symmetry ↔ Conservation Law
@@ -2862,7 +3571,7 @@ it’s bookkeeping. Every quantum axiom—no-cloning, unitarity, the Born rule,
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-75
+88
 
 purification—these all fall out of the same conservation law we’ve been building.
 You set µ = 0 and suddenly you can’t clone, can’t be non-unitary, can’t have any
@@ -2903,7 +3612,7 @@ Same result, cleaner foundation.
 
 3.7.2
 
-76
+89
 
 Unitarity from Conservation
 
@@ -2942,7 +3651,7 @@ E .( info_loss ) E .( evolution_map ) 1 0 0 = gamma ->
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-77
+90
 
 gamma > 0 ->
 E .( mu_cost ) >= gamma .
@@ -2986,7 +3695,7 @@ it’s forced.
 
 3.7.4
 
-78
+91
 
 Purification from Reference Systems
 
@@ -3031,7 +3740,7 @@ forall ( c00 c01 c10 c11 : R ) ,
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-79
+92
 
 ( c00 + c01 + c10 - c11 <= 2 * sqrt 2) /\
 ( c00 + c01 - c10 + c11 <= 2 * sqrt 2) /\
@@ -3064,14 +3773,14 @@ Admitted statements:
 • coq/kernel/BornRule.v: 288 lines, 19 definitions/theorems
 • coq/kernel/Purification.v: 102 lines, 8 definitions/theorems
 • coq/kernel/TsirelsonGeneral.v: 301 lines, 9 definitions/theorems
-Total: 1,192 lines of machine-verified proofs establishing that quantum
+Total: 1,174 lines of machine-verified proofs establishing that quantum
 axioms emerge from µ-conservation.
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
 3.8
 
-80
+93
 
 Chapter Summary
 
@@ -3112,7 +3821,7 @@ quantum mechanics—no-cloning, unitarity, the Born rule, purification, and
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
-81
+94
 
 the Tsirelson bound—are not independent postulates but mathematical
 consequences of µ-conservation:
@@ -3125,7 +3834,7 @@ costs)
 √
 • Tsirelson Bound: S ≤ 2 2 follows from algebraic coherence at µ = 0
 These formal foundations enable the implementation (Chapter 4), verification
-(Chapter 5), and evaluation (Chapter 6). The quantum axiom derivations (1,192
+(Chapter 5), and evaluation (Chapter 6). The quantum axiom derivations (1,174
 lines of Coq with zero Admitted statements) establish that quantum mechanics
 isn’t a fundamental theory with mysterious postulates—it’s the unique physics
 consistent with information conservation. Importantly, under Total µ-Accounting,
@@ -3139,7 +3848,7 @@ Implementation: The 3-Layer
 Isomorphism
 Three layers (boxes):
 • Layer 1: Coq (blue): Formal specification with machine-checked proofs
-(over 2,000 verified theorems)
+(1,637 verified theorems)
 • Layer 2: Python (green): Human-readable reference implementation with
 tracing & debugging
 • Layer 3: Verilog (orange): Synthesizable RTL for FPGA/ASIC physical
@@ -3163,11 +3872,11 @@ A Car Salesman’s Take on Building Trust
 Not a mathematician. A guy who sold Hondas and Toyotas for years.
 And in that world, you learn something real fast: talk is cheap. A
 
-82
+95
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-83
+96
 
 customer can tell you their car runs great, but until I see it drive, hear
 the engine, and check the VIN myself, I don’t know anything.”
@@ -3210,7 +3919,7 @@ is implemented under thielecpu/ (notably thielecpu/state.py and thielecp
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-84
+97
 
 u/vm.py), and the RTL is under thielecpu/hardware/. Keeping the directory
 layout explicit matters because it tells a reader exactly where to validate each part
@@ -3255,7 +3964,7 @@ Equivalence definition: Two states are equivalent under projection π iff
 
 4.1.5
 
-85
+98
 
 How to Read This Chapter
 
@@ -3300,7 +4009,7 @@ the partition graph, and the µ-ledger.
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-86
+99
 
 • Step semantics: the 18-instruction ISA and the inductive transition rules.
 • Logical certificates: checkers for proofs and models that allow deterministic
@@ -3337,7 +4046,7 @@ The state is defined as a record with seven components:
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-87
+100
 
 Record VMState := {
 vm_graph : PartitionGraph ;
@@ -3374,7 +4083,7 @@ pg_modules}
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-88
+101
 
 – 256 words (configurable)
 – Separate from instruction memory (Harvard architecture)
@@ -3411,7 +4120,7 @@ enforce modular addressing.
 
 4.3.3
 
-89
+102
 
 The Partition Graph
 
@@ -3446,7 +4155,7 @@ ModuleState Record:
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-90
+103
 
 Physical Interpretation: The partition graph is the structural currency:
 • Modules: Independent "banks" that own state
@@ -3483,7 +4192,7 @@ vm_step s ( instr_pnew region cost )
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-91
+104
 
 ( advance_state s ( instr_pnew region cost ) graph
 ,→ ’ s .( vm_csrs ) s .( vm_err ) )
@@ -3521,7 +4230,7 @@ Constructor Anatomy (step_psplit):
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-92
+105
 
 – l’, r’: IDs of left and right modules created
 • Failure Case: If graph_psplit returns None, no rule fires (stuck state)
@@ -3558,7 +4267,7 @@ Parameters:
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-93
+106
 
 • csrs’: New CSR state (may be modified by LASSERT, etc.)
 • err’: New error flag (true if instruction failed)
@@ -3596,7 +4305,7 @@ Require Extraction .
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-94
+107
 
 Extraction Language OCaml .
 Extract Inductive bool = > " bool " [" true " " false "].
@@ -3631,7 +4340,7 @@ Performance vs. Correctness:
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-95
+108
 
 • Slow: Extracted code isn’t optimized (e.g., nat as int wrapper)
 • Correct: But it’s provably correct—matches the formal model exactly
@@ -3717,11 +4426,11 @@ Understanding the Python VM Class: Dataclass Fields:
 – Adds VM-specific helpers: vm_read_text, vm_write_text
 – Security: Isolates executed code from host environment
 
-96
+109
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-97
+110
 
 • virtual_fs: VirtualFilesystem: In-memory file system
 – Simulates disk I/O without touching real filesystem
@@ -3754,7 +4463,7 @@ map directly to RTL. This separation is intentional—State captures partition a
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-98
+111
 
 µ-ledger semantics, while the auxiliary arrays let the VM exercise hardware-style
 instructions without introducing a second notion of state.
@@ -3796,7 +4505,7 @@ Partition Graph Components:
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-99
+112
 
 • regions: RegionGraph: Graph of modules and their owned addresses
 – Type: RegionGraph (custom graph ADT)
@@ -3833,7 +4542,7 @@ Bridge Fields (Python-specific):
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-100
+113
 
 Isomorphism Mapping:
 Coq VMState
@@ -3889,7 +4598,7 @@ Fields:
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-101
+114
 
 – Example: XORing a register costs 1 bit per Landauer’s principle
 The @property Decorator:
@@ -3971,11 +4680,11 @@ mask |= (1 << 2) # 0b000101
 mask |= (1 << 5) # 0b100101 = 37
 return 37
 
-102
+115
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-103
+116
 
 The bitmask representation is the literal encoding used in the RTL, so the Python
 VM computes it alongside the higher-level RegionGraph. This dual representation
@@ -4014,7 +4723,7 @@ ID
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-104
+117
 
 • New modules start with empty axiom set
 • Axioms added later via LASSERT
@@ -4055,7 +4764,7 @@ SAFE_FUNCTIONS = {
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-105
+118
 
 " vm_write_bytes " , " vm_exists " , " vm_listdir " ,
 }
@@ -4088,7 +4797,7 @@ When sandboxing is enabled, the AST is validated before execution:
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-106
+119
 
 SAFE_NODE_TYPES = {
 ast . Module , ast . FunctionDef , ast . ClassDef , ast .
@@ -4123,7 +4832,7 @@ Excluded (Dangerous) Node Types:
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-107
+120
 
 • Attribute: Access object attributes (could reach internals)
 • Subscript: Access __dict__ or other special attributes
@@ -4194,11 +4903,11 @@ Assembled Receipt Contains:
 
 self . step_receipts . append ( receipt )
 
-108
+121
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-109
+122
 
 • Adds receipt to chronological list
 • Creates Merkle chain: each receipt depends on previous
@@ -4233,7 +4942,7 @@ calculations
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-110
+123
 
 • LEI (purple): Logic Engine Interface - bridges to external SMT solver
 • Partition Graph (green): Module ownership tracking
@@ -4280,7 +4989,7 @@ Understanding Verilog Module Declaration: What is a Module? In Verilog/SystemVer
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-111
+124
 
 to a class in OOP or a function in C, but describing physical circuitry not sequential
 code.
@@ -4314,7 +5023,7 @@ Hardware vs. Software Mindset:
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-112
+125
 
 • No "Calling" the Module: Modules don’t execute like functions. They
 exist as circuits, continuously responding to input signal changes.
@@ -4352,7 +5061,7 @@ The CPU uses a 12-state FSM:
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-113
+126
 
 localparam [3:0] STATE_FETCH = 4 ’ h0 ;
 localparam [3:0] STATE_DECODE = 4 ’ h1 ;
@@ -4390,7 +5099,7 @@ compactness.
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-114
+127
 
 State Meanings:
 1. FETCH: Read next instruction from memory at address PC (program
@@ -4424,7 +5133,7 @@ Four 8-bit fields (colored boxes):
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-115
+128
 
 Below boxes: Bit widths (8 bits each)
 Example: PNEW r5, cost=3 → 0x01050003 - decodes to opcode=0x01, operand_a=0x05, operand_b=0x00, cost=0x03
@@ -4462,7 +5171,7 @@ opcode[7], current_instr[30] to opcode[6], etc.
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-116
+129
 
 Field Layout Rationale:
 • Opcode at Top [31:24]: Decoded first in the pipeline—putting it in most
@@ -4501,7 +5210,7 @@ end
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-117
+130
 
 Understanding Sequential Logic and Non-Blocking Assignment: Context: This is inside an always @(posedge clk) block—code that executes on
 every rising clock edge.
@@ -4533,7 +5242,7 @@ value
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-118
+131
 
 4. pc_reg <= pc_reg + 4: Increment program counter by 4 bytes (next
 instruction)
@@ -4574,7 +5283,7 @@ The µ-ALU (mu_alu.v) implements Q16.16 fixed-point arithmetic:
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-119
+132
 
 module mu_alu (
 input wire clk ,
@@ -4616,7 +5325,7 @@ Port Declarations:
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-120
+133
 
 • overflow: High if result exceeds 32-bit range
 Q16.16 Fixed-Point Format:
@@ -4658,7 +5367,7 @@ end
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-121
+134
 
 Understanding the LOG2 Lookup Table: Declaration: reg [31:0] log2_lut [0:255];
 • reg: Register array (holds state, synthesizes to ROM/BRAM)
@@ -4690,7 +5399,7 @@ Isomorphism Requirement: The exact same 256 values exist in all three layers:
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-122
+135
 
 Cross-layer tests verify all three agree byte-for-byte. If they don’t, CI fails.
 
@@ -4731,7 +5440,7 @@ External Interface (LEI ↔ Z3):
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-123
+136
 
 • z3_sat: Boolean: true if satisfiable
 • z3_cert_hash[31:0]: Hash of UNSAT proof certificate
@@ -4767,7 +5476,7 @@ Top: Instruction trace τ (input) - same sequence fed to all three layers
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-124
+137
 
 Three execution paths (boxes):
 • Coq Runner (blue): Extracted OCaml interpreter from formal proofs →
@@ -4811,7 +5520,7 @@ return {
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-125
+138
 
 " err ": state . err ,
 " regs ": list ( state . regs [:32]) ,
@@ -4846,7 +5555,7 @@ Canonicalization: The to_canonical() call is critical:
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-126
+139
 
 Projection Strategy:
 1. Full Projection: This function — includes all fields
@@ -4885,7 +5594,7 @@ claim it?”
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-127
+140
 
 The Inquisitor enforces the verification rules:
 • Scans the proof sources for Admitted, admit., Axiom
@@ -4955,11 +5664,11 @@ Resource Utilization
 
 Under a reduced configuration (fewer modules, smaller regions):
 
-128
+141
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-129
+142
 
 • NUM_MODULES = 4
 • REGION_SIZE = 16
@@ -5000,7 +5709,7 @@ Command Categories:
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-130
+143
 
 cd coq && make -j8
 
@@ -5034,9 +5743,9 @@ Three boxes (top):
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
-131
+144
 
-• Coq (blue): 1,466 theorems, machine-checked, extracted runner
+• Coq (blue): 1,637 theorems, machine-checked, extracted runner
 • Python (green): Reference VM, tracing, receipts
 • Verilog (orange): RTL Core, µ-ALU, FPGA-ready
 Center bottom (yellow box): Central isomorphism invariant - SCoq (τ ) =
@@ -5086,13 +5795,13 @@ about “this works. Period. Forever. Math says so.” And let me tell
 you—when Coq told me my proofs were complete, it hit different than
 any green test suite ever did.
 
-132
+145
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
 5.1.1
 
-133
+146
 
 The Limits of Testing
 
@@ -5133,7 +5842,7 @@ correct)
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-134
+147
 
 The guarantees come from the small, trusted kernel of Coq. Every lemma in the
 thesis is checked against that kernel, and extraction produces executable code whose
@@ -5176,7 +5885,7 @@ trivial tautologies
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-135
+148
 
 This standard is enforced automatically. Any commit introducing an admit fails
 CI.
@@ -5214,7 +5923,7 @@ acknowledging the scope boundaries of the formalization.
 
 5.1.5
 
-136
+149
 
 What The System Proves
 
@@ -5256,7 +5965,7 @@ mathematical consequences of the cost accounting framework:
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-137
+150
 
 quires µ > 0. The theorem no_cloning_from_conservation proves that
 if a cloning operation has fidelity 1 and zero cost, that’s a contradiction.
@@ -5278,7 +5987,7 @@ system such that the combined state is pure. The purification deficit equals
 √
 bound S ≤ 2 2 follows from algebraic coherence. The theorem tsirelson_from_minors proves that any correlations satisfying a sum-of-squares con√
 straint are bounded by 2 2.
-Total: 1,192 lines of Coq with zero Admitted statements. These proofs
+Total: 1,174 lines of Coq with zero Admitted statements. These proofs
 establish that quantum mechanics isn’t a collection of independent postulates—it’s
 the unique physics consistent with information conservation.
 Quantum Axiom Verification Summary
@@ -5308,11 +6017,11 @@ born_rule_from_accounting
 purification_principle
 tsirelson_from_minors
 
-Zero Admitted
-Zero Admitted
-Zero Admitted
-Zero Admitted
-Zero Admitted
+✓ Zero Admitted
+✓ Zero Admitted
+✓ Zero Admitted
+✓ Zero Admitted
+✓ Zero Admitted
 
 How to Read This Chapter
 
@@ -5321,7 +6030,7 @@ with Coq:
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-138
+151
 
 • Theorem, Lemma: Statements to prove
 • Proof.
@@ -5370,7 +6079,7 @@ and normalization.
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-139
+152
 
 • Impossibility theorems: No Free Insight and its corollaries.
 The goal is not to “encode” the implementation, but to define a minimal semantics
@@ -5416,7 +6125,7 @@ Seven immutable fields:
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-140
+153
 
 propagation read the error CSR from this field.
 • vm_regs : list nat — General-purpose registers. Proofs about register
@@ -5456,7 +6165,7 @@ nodup Nat . eq_dec region .
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-141
+154
 
 Understanding normalize_region: What does this do? This function
 removes duplicate bit indices from a region list and returns the canonical (deduplicated) form. If a region is [3, 7, 3, 5], normalization yields [3, 7, 5] (exact order may
@@ -5490,7 +6199,7 @@ examples.
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-142
+155
 
 • normalize_region (normalize_region region) — Apply normalization
 twice.
@@ -5529,7 +6238,7 @@ the well-formedness invariant for partition graphs: every module ID must be
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-143
+156
 
 strictly less than the graph’s pg_next_id counter. This prevents stale or out-ofbounds module references.
 Syntax breakdown:
@@ -5569,7 +6278,7 @@ well _form ed_gra ph g ’.
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-144
+157
 
 Understanding Preservation Under graph_add_module: What does
 this prove? This lemma states that adding a new module to a well-formed
@@ -5603,7 +6312,7 @@ Thus g’ remains well-formed.
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-145
+158
 
 Well-formedness only enforces the ID discipline (no module has an ID greater than
 or equal to pg_next_id). The key point is that this property is strong enough
@@ -5640,7 +6349,7 @@ remain below pg_next_id.
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-146
+159
 
 Concrete example: If g has modules with IDs {0, 1, 2, 3} and pg_next_id = 4,
 removing module 2 leaves modules {0, 1, 3}. All remaining IDs are still < 4, so g’
@@ -5692,7 +6401,7 @@ nat ) ( mu_delta : nat )
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-147
+160
 
 Understanding the vm_instruction Inductive Type (Verification Context): What is this? This is the same instruction type from Chapter 3,
 repeated in Chapter 5 to establish the verification context. Every theorem about
@@ -5727,7 +6436,7 @@ The Step Relation
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-148
+161
 
 Inductive vm_step : VMState -> vm_instruction ->
 ,→ VMState -> Prop := ...
@@ -5766,7 +6475,7 @@ and action, the next state is determined.
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-149
+162
 
 Comparison to Chapter 3: Chapter 3 presented the step relation as a formal
 definition. Chapter 5 emphasizes how proofs use the relation: case analysis on
@@ -5813,7 +6522,7 @@ match graph_lookup s .( vm_graph ) mid with
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-150
+163
 
 | Some modstate = > Some ( normalize_region modstate
 ,→ .( module_region ) )
@@ -5850,7 +6559,7 @@ internal state vectors, the Thiele Machine distinguishes observable regions from
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-151
+164
 
 internal axiom structures. The µ ledger is observable because it represents paid
 thermodynamic cost.
@@ -5891,7 +6600,7 @@ Syntax breakdown:
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-152
+165
 
 • instr_pnew _ _ => [] — PNEW creates a new module, doesn’t target
 existing modules, so returns empty list.
@@ -5937,7 +6646,7 @@ signaling allowed.
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-153
+166
 
 Bottom yellow box: Theorem statement - If mid ∈
 / instr_targets(instr), then
@@ -5975,7 +6684,7 @@ the observable region of mid is unchanged.
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-154
+167
 
 Why is this theorem fundamental? This is the computational analog of Bell
 locality in physics: operations on one subsystem cannot instantaneously affect
@@ -6013,7 +6722,7 @@ operating on local state. This is the computational analog of Bell locality.
 
 5.6.4
 
-155
+168
 
 Gauge Symmetry
 
@@ -6050,7 +6759,7 @@ Syntax breakdown:
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-156
+169
 
 • {| vm_regs := s.(vm_regs); ... |} — Coq record update syntax. Copies
 all fields from s except vm_mu.
@@ -6090,7 +6799,7 @@ Physical Interpretation: Noether’s theorem—gauge symmetry (freedom to shift
 
 5.6.5
 
-157
+170
 
 µ-Conservation
 
@@ -6130,7 +6839,7 @@ s.vm_mu) if an instruction has zero cost. In practice, every real instruction ha
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-158
+171
 
 positive cost, but the theorem is stated with ≥ to cover the degenerate case.
 What does the proof show? The proof examines the vm_step relation: every step rule calls apply_cost s instr, which updates vm_mu to s.vm_mu +
@@ -6173,7 +6882,7 @@ match fuel with
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-159
+172
 
 match nth_error trace s .( vm_pc ) with
 | None = > s
@@ -6211,7 +6920,7 @@ instr), it returns the unique s’ such that vm_step s instr s’, or returns s
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-160
+173
 
 unchanged if the step is undefined.
 Halting conditions:
@@ -6250,7 +6959,7 @@ recursive on fuel).
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-161
+174
 
 • (fuel : nat) (trace : Trace) (s : VMState) — Same parameters as
 run_vm.
@@ -6288,7 +6997,7 @@ Theorem 5.7 (Run Conservation).
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-162
+175
 
 Corollary r u n _ v m _ m u _ c o n s e r v a t i o n :
 forall fuel trace s ,
@@ -6327,7 +7036,7 @@ ledger_sum(remaining_ledger) = ledger_sum(full_ledger).
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-163
+176
 
 Concrete example: If s.vm_mu = 50 and you execute 3 instructions with costs
 [10, 15, 20]:
@@ -6369,7 +7078,7 @@ Similar to Chapter 3 version but in verification context:
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-164
+177
 
 Left: Weak predicate Pweak - accepts many observation sequences (large green
 circle)
@@ -6408,7 +7117,7 @@ sequence.)
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-165
+178
 
 The No Free Insight theorem proves that moving from a weak to a strong predicate
 (strengthening) requires paying µ cost.
@@ -6450,7 +7159,7 @@ sequences obs, if P1 accepts obs, then P2 also accepts obs.
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-166
+179
 
 Intuition: P1 is stronger than P2 if P1 is “at least as restrictive” as P2. Stronger
 predicates accept fewer sequences. If P1 says “yes,” then P2 must also say “yes.”
@@ -6493,7 +7202,7 @@ P ( decoder receipts ) = true .
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-167
+180
 
 Understanding Certified: What does this define? This defines when a
 final VM state s_final has successfully certified a predicate P over receipts.
@@ -6532,7 +7241,7 @@ The Main Theorem
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-168
+181
 
 Theorem 5.9 (No Free Insight — General Form).
 Theorem n o _ f r e e _ i n s i g h t _ g e n e r a l :
@@ -6578,7 +7287,7 @@ h a s _ s t r u c t u r e _ a d d i t i o n fuel trace s_init .
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-169
+182
 
 Understanding strengthening_requires_structure_addition: What does
 this prove? This proves that strengthening a predicate requires structural
@@ -6611,7 +7320,7 @@ holds.
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-170
+183
 
 Physical interpretation: This is the precise formalization of “no free insight.”
 Moving from a weak predicate (less information) to a strong predicate (more
@@ -6648,7 +7357,7 @@ uses_revelation trace \/
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-171
+184
 
 Understanding nonlocal_correlation_requires_revelation: What does
 this prove? This proves that supra-quantum correlations (correlations
@@ -6687,7 +7396,7 @@ The theorem guarantees you can’t skip steps 2-4 and still certify the correlat
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-172
+185
 
 Interpretation: To achieve supra-quantum certification, you must explicitly pay
 for it through a revelation-type instruction. There is no backdoor.
@@ -6742,7 +7451,7 @@ states that moving from a clean start to a stronger certification requires a str
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-173
+186
 
 event.
 
@@ -6794,7 +7503,7 @@ RevelationProof . has_supra_cert s .
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-174
+187
 
 (* ... remaining definitions ... *)
 End KernelNoFI .
@@ -6837,7 +7546,7 @@ account of the model’s physics, accounting rules, and impossibility results. E
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-175
+188
 
 theorem in this chapter can be reconstructed from the definitions and lemmas
 above.
@@ -6876,7 +7585,7 @@ Why include this? This makes the theorem falsifiable in Popper’s sense. If
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-176
+189
 
 someone claims to have a counterexample, this specification defines exactly what
 they must provide. Without such a specification, the theorem would be unfalsifiable
@@ -6915,7 +7624,7 @@ foundation
 
 CHAPTER 5. VERIFICATION: THE COQ PROOFS
 
-177
+190
 
 Bottom (purple box): Inquisitor enforces standard via CI (25+ rule categories)
 - automated verification
@@ -6927,7 +7636,7 @@ modules
 2. Conservation: The µ-ledger is monotonic and bounds irreversible operations
 3. Impossibility: Strengthening certification requires explicit, charged structure addition
 4. Quantum Axioms: No-cloning, unitarity, Born rule, purification, and
-Tsirelson bounds emerge from µ-conservation (1,192 lines, zero Admitted)
+Tsirelson bounds emerge from µ-conservation (1,174 lines, zero Admitted)
 5. Completeness: Zero admits, zero axioms—all proofs are machine-checked
 These are not aspirational properties but proven invariants of the system.
 
@@ -6961,11 +7670,11 @@ including randomized traces and structured micro-programs designed to stress
 the ISA.
 2. Does the revelation requirement actually enforce costs?
 
-178
+191
 
 CHAPTER 6. EVALUATION: EMPIRICAL EVIDENCE
 
-179
+192
 
 The theory claims that supra-quantum correlations require explicit revelation.
 CHSH experiments verify this constraint is enforced and that the ledger
@@ -7011,7 +7720,7 @@ is tied to executable scripts rather than hand-run examples.
 
 Test Architecture
 
-180
+193
 
 The isomorphism gate verifies that Python VM, extracted Coq semantics, and
 RTL simulation produce identical final states for the same instruction traces. The
@@ -7090,7 +7799,7 @@ _encode_word (0 x0D , 5 , 4) ,
 
 # XOR_RANK r5 :=
 
-181
+194
 
 ,→ r3
 
@@ -7128,7 +7837,7 @@ Concrete example: After executing the program:
 
 CHAPTER 6. EVALUATION: EMPIRICAL EVIDENCE
 
-182
+195
 
 • r0 initially loads 0x29 from mem[0].
 • r3 loads 0x03, then XORs with r0 and r1, producing 0x03 ⊕ 0x29 ⊕
@@ -7168,7 +7877,7 @@ are part of the formal semantics.
 
 CHAPTER 6. EVALUATION: EMPIRICAL EVIDENCE
 
-183
+196
 
 • "err": <bool> — Error latch (true if VM encountered an error). Should
 match for valid traces.
@@ -7206,7 +7915,7 @@ def t e s t _ p n e w _ d e d u p _ s i n g l e t o n s _ i s o m o r p h i c ()
 
 CHAPTER 6. EVALUATION: EMPIRICAL EVIDENCE
 
-184
+197
 
 # Same singleton regions requested multiple times
 ,→ ; canonical semantics dedup .
@@ -7245,7 +7954,7 @@ is normalize_region (based on nodup), so this test is checking that the Python
 
 CHAPTER 6. EVALUATION: EMPIRICAL EVIDENCE
 
-185
+198
 
 and RTL representations match the Coq canonicalization rather than relying on a
 coincidental list order.
@@ -7333,7 +8042,7 @@ instr_chsh_trial ( x y a b : nat ) ( mu_delta : nat )
 
 CHAPTER 6. EVALUATION: EMPIRICAL EVIDENCE
 
-186
+199
 
 Understanding instr_chsh_trial: What is this instruction? This is the
 CHSH trial instruction that records one measurement in a Bell test experiment.
@@ -7369,7 +8078,7 @@ Where:
 
 CHAPTER 6. EVALUATION: EMPIRICAL EVIDENCE
 
-187
+200
 
 • a, b: Output bits (measurement outcomes)
 • mu_delta: µ-cost for the trial
@@ -7412,7 +8121,7 @@ defaults to the Tsirelson bound.
 
 CHAPTER 6. EVALUATION: EMPIRICAL EVIDENCE
 
-188
+201
 
 = 100 — Minimum number of trials per setting pair (x, y) required for statistical validity.
 Why Fraction instead of float? Floating-point arithmetic introduces rounding
@@ -7458,7 +8167,7 @@ trace_run fuel trace s_init = Some s_final ->
 
 CHAPTER 6. EVALUATION: EMPIRICAL EVIDENCE
 
-189
+202
 
 s_init .( vm_csrs ) .( csr_cert_addr ) = 0 ->
 has_supra_cert s_final ->
@@ -7495,7 +8204,7 @@ The evaluation checks the operational side of that theorem by building traces th
 
 CHAPTER 6. EVALUATION: EMPIRICAL EVIDENCE
 
-190
+203
 
 attempt to exceed the bound without REVEAL and confirming that the machine
 marks them invalid or charges the appropriate µ.
@@ -7565,7 +8274,7 @@ Test structure:
 
 CHAPTER 6. EVALUATION: EMPIRICAL EVIDENCE
 
-191
+204
 
 • for _ in range(100): — Runs 100 independent trials with different random
 traces.
@@ -7603,7 +8312,7 @@ their total is non-decreasing step by step.
 
 6.4.2
 
-192
+205
 
 Conservation Tests
 
@@ -7641,7 +8350,7 @@ declared costs from the program specification.
 
 CHAPTER 6. EVALUATION: EMPIRICAL EVIDENCE
 
-193
+206
 
 • assert vm.state.mu_ledger.total == total_declared — Verify that
 the ledger’s final value equals the sum of declared costs.
@@ -7682,7 +8391,7 @@ Results
 
 CHAPTER 6. EVALUATION: EMPIRICAL EVIDENCE
 
-194
+207
 
 • Irreversibility: Ledger growth bounds irreversible operations
 
@@ -7734,7 +8443,7 @@ artifact. The runs charge µ via partition discovery only (explicit MDLACC omitt
 
 CHAPTER 6. EVALUATION: EMPIRICAL EVIDENCE
 
-195
+208
 
 to mirror the hardware harness) and capture normalization flags and evidence_strict for µ propagation across layers. Each scenario fails fast if the requested
 region is not representable by the hardware encoding. These runs are intended to
@@ -7811,7 +8520,7 @@ Analysis. The total cost µ is conserved. The blind trace pays primarily in µex
 
 CHAPTER 6. EVALUATION: EMPIRICAL EVIDENCE
 
-196
+209
 
 of that cost into µdisc (stored structure). This closes the “blind sort” loophole:
 avoiding structure does not eliminate cost, it redirects it into kinetic dissipation.
@@ -7856,7 +8565,7 @@ and the lower panel plots the slack to make the bound explicit.
 
 6.5.7
 
-197
+210
 
 Ledger-constrained time dilation workload
 
@@ -7919,7 +8628,7 @@ Each step generates:
 
 CHAPTER 6. EVALUATION: EMPIRICAL EVIDENCE
 
-198
+211
 
 • Post-state SHA-256 hash: 32 bytes
 • Instruction encoding: ∼50 bytes
@@ -7957,7 +8666,7 @@ Use case: This configuration is ideal for:
 
 CHAPTER 6. EVALUATION: EMPIRICAL EVIDENCE
 
-199
+212
 
 • Educational demonstrations of partition-native computing.
 Limitations: With only 4 modules and 16-element regions, the hardware cannot
@@ -7992,7 +8701,7 @@ Use case: This configuration supports:
 
 CHAPTER 6. EVALUATION: EMPIRICAL EVIDENCE
 
-200
+213
 
 • Hardware acceleration of partition-native algorithms at scale.
 • Thermodynamic bridge experiments requiring precise µ-accounting over thousands of modules.
@@ -8034,7 +8743,7 @@ hardware-level check.
 
 6.7.3
 
-201
+214
 
 Execution Gates
 
@@ -8076,7 +8785,7 @@ records).
 
 CHAPTER 6. EVALUATION: EMPIRICAL EVIDENCE
 
-202
+215
 
 • –records-pow-step 2 — Step: test n ∈ {210 , 212 , 214 , 216 , 218 , 220 }.
 • Output: Extended JSON with arrays for all n values tested. Used to generate
@@ -8112,7 +8821,7 @@ This writes thesis/figures/structural_heat_scaling.png.
 
 CHAPTER 6. EVALUATION: EMPIRICAL EVIDENCE
 
-203
+216
 
 Time dilation. Generate the artifact JSON and the thesis figure:
 
@@ -8149,7 +8858,7 @@ relativistic time dilation: increased “motion” (communication) slows local �
 
 CHAPTER 6. EVALUATION: EMPIRICAL EVIDENCE
 
-204
+217
 
 Conservation check: The experiment verifies:
 µtotal = µcomm + µcompute = B × num_ticks
@@ -8186,7 +8895,7 @@ Containerized builds are supported to ensure reproducibility across environments
 
 CHAPTER 6. EVALUATION: EMPIRICAL EVIDENCE
 
-205
+218
 
 6.9
 
@@ -8234,7 +8943,7 @@ pay time.
 
 6.10
 
-206
+219
 
 Summary
 
@@ -8282,11 +8991,11 @@ validated (Chapter 6). But technical correctness does not answer deeper question
 This chapter steps back from technical details to explore the broader significance
 of treating structure as a conserved resource. The aim is not to introduce new
 formal claims, but to interpret the verified results in terms that guide future design
-207
+220
 
 CHAPTER 7. DISCUSSION: IMPLICATIONS AND FUTURE WORK
 
-208
+221
 
 and experimentation. Every statement below is either (i) a direct restatement of a
 proven invariant, or (ii) an explicit hypothesis about how those invariants might
@@ -8332,7 +9041,7 @@ to always find structure)
 
 7.3
 
-209
+222
 
 Broader Implications
 
@@ -8376,7 +9085,7 @@ i rre ve rs ib le _c ou nt fuel trace s <=
 
 CHAPTER 7. DISCUSSION: IMPLICATIONS AND FUTURE WORK
 
-210
+223
 
 Understanding vm_irreversible_bits_lower_bound: What does this
 theorem say? This theorem establishes that the µ-ledger growth lower-bounds
@@ -8414,7 +9123,7 @@ accounting lower bound; the physical claim asserts that real hardware must pay a
 
 CHAPTER 7. DISCUSSION: IMPLICATIONS AND FUTURE WORK
 
-211
+224
 
 least that bound in energy. The theorem above is proven in coq/kernel/MuLedge
 rConservation.v. Referencing the file matters because it anchors the physical
@@ -8455,7 +9164,7 @@ Physical analogy: In quantum mechanics, Bell locality states that measuring part
 
 CHAPTER 7. DISCUSSION: IMPLICATIONS AND FUTURE WORK
 
-212
+225
 
 In the Thiele Machine, operating on module A (e.g., PSPLIT 1 {0,1} {2,3})
 cannot change the observable state of module B (module 2). The instr_targets
@@ -8495,7 +9204,7 @@ Understanding kernel_conservation_mu_gauge: What does this theorem say? This the
 
 CHAPTER 7. DISCUSSION: IMPLICATIONS AND FUTURE WORK
 
-213
+226
 
 a global constant leaves the conserved quantity (partition structure) unchanged.
 This is the computational analog of Noether’s theorem: symmetry implies
@@ -8532,7 +9241,7 @@ at 0, Coq might start at 100) without breaking equivalence.
 
 CHAPTER 7. DISCUSSION: IMPLICATIONS AND FUTURE WORK
 
-214
+227
 
 Example: Suppose two VMs execute the same trace:
 • VM1: starts at µ = 0, ends at µ = 100. ∆µ = 100.
@@ -8572,7 +9281,7 @@ singleton module is revealed from a fixed pool (sizes 2, 4, 16, 64). The measure
 
 CHAPTER 7. DISCUSSION: IMPLICATIONS AND FUTURE WORK
 
-215
+228
 
 energy/heat must scale with µ at slope kB T ln 2 (within the stated ϵ). A sustained
 sub-linear slope falsifies the bridge; a super-linear slope quantifies implementation
@@ -8606,7 +9315,7 @@ Ledger monotonicity
 Observational locality
 µ-gauge invariance
 
-The new time-dilation harness (Section ??) makes the ledger-speed connection
+The new time-dilation harness (Section 6.5.7) makes the ledger-speed connection
 concrete: with a fixed µ budget per tick, diverting µ to communication throttles
 the observed compute rate, matching the intuition that “mass/structure slows
 time” when µ is conserved. Evidence-strict extensions will carry the same trade-off
@@ -8619,7 +9328,7 @@ rather than an untested metaphor.
 
 CHAPTER 7. DISCUSSION: IMPLICATIONS AND FUTURE WORK
 
-216
+229
 
 7.5
 
@@ -8685,7 +9394,7 @@ Implications for Artificial Intelligence
 
 The Hallucination Problem
 
-217
+230
 
 Large Language Models (LLMs) generate plausible but often factually incorrect
 outputs—"hallucinations." In the LLM paradigm:
@@ -8726,7 +9435,7 @@ that must be certified before use. False hypotheses incur µ-cost without produc
 
 CHAPTER 7. DISCUSSION: IMPLICATIONS AND FUTURE WORK
 
-218
+231
 
 valid outputs.
 Step-by-step breakdown:
@@ -8761,7 +9470,7 @@ Generate receipt. If the model had proposed p = 57, q = 57, the check would
 
 CHAPTER 7. DISCUSSION: IMPLICATIONS AND FUTURE WORK
 
-219
+232
 
 fail (57 × 57 = 3249 ̸= 3233), the model would pay µ cost, and the output
 would be None.
@@ -8805,7 +9514,7 @@ Field-by-field breakdown:
 
 CHAPTER 7. DISCUSSION: IMPLICATIONS AND FUTURE WORK
 
-220
+233
 
 • "pre_state_hash": SHA256(state_before) — Hash of the VM state
 before executing the instruction. Includes: µ-ledger, partition graph, registers,
@@ -8847,7 +9556,7 @@ If all checks pass, the computation is valid. This is much faster than re-execut
 
 CHAPTER 7. DISCUSSION: IMPLICATIONS AND FUTURE WORK
 
-221
+234
 
 Selective disclosure: A researcher can publish receipts for specific steps (e.g.,
 “Here is receipt 42, which shows we discovered partition {0, 1, 2} and charged
@@ -8894,7 +9603,7 @@ structure that exists. Better compression heuristics could reduce µ-overhead.
 
 7.8.2
 
-222
+235
 
 Hardware Scalability
 
@@ -8927,7 +9636,7 @@ requires more on-chip memory and logic.
 
 CHAPTER 7. DISCUSSION: IMPLICATIONS AND FUTURE WORK
 
-223
+236
 
 • Timing closure: Larger partition graphs increase critical path delays (longer
 wires, deeper logic cones). Current design achieves ∼100 MHz clock; scaling
@@ -8966,7 +9675,7 @@ Parameter breakdown:
 
 CHAPTER 7. DISCUSSION: IMPLICATIONS AND FUTURE WORK
 
-224
+237
 
 • module : ModuleID — The partition module to which the axiom is added
 (e.g., module 3).
@@ -9007,7 +9716,7 @@ true}.
 
 CHAPTER 7. DISCUSSION: IMPLICATIONS AND FUTURE WORK
 
-225
+238
 
 4. Execute LASSERT 1 ¨
 (and (or x0 x1) (or (not x0) x2))c̈ert 3.
@@ -9052,7 +9761,7 @@ The partition graph naturally maps to distributed systems:
 
 7.9.3
 
-226
+239
 
 Programming Language Design
 
@@ -9105,13 +9814,13 @@ Section 8.2 summarizes the theoretical, implementation, and verification contrib
 8.4–8.6 discuss applications, open problems, and future directions.
 For readers short on time: Section 8.3 ("The Thiele Machine Hypothesis:
 Confirmed") provides the essential verdict.
-227
+240
 
 CHAPTER 8. CONCLUSION
 
 8.2
 
-228
+241
 
 Summary of Contributions
 
@@ -9156,7 +9865,7 @@ with the projection chosen to match the gate being exercised. For compute
 
 CHAPTER 8. CONCLUSION
 
-229
+242
 
 traces the gate compares registers and memory; for partition traces it compares canonicalized module regions. The extracted runner provides a superset
 snapshot (pc, µ, err, regs, mem, CSRs, graph) that can be used when a gate
@@ -9205,7 +9914,7 @@ Gauge invariance
 
 CHAPTER 8. CONCLUSION
 
-230
+243
 
 3. Falsifiability: Every theorem includes an explicit falsifier specification. If a
 counterexample exists, it would refute the theorem and identify the precise
@@ -9250,7 +9959,7 @@ The receipt system enables:
 
 8.4.2
 
-231
+244
 
 Complexity Theory
 
@@ -9304,7 +10013,7 @@ Can the model be extended to true quantum computation while preserving:
 
 CHAPTER 8. CONCLUSION
 
-232
+245
 
 • Verifiable receipts for quantum operations
 
@@ -9348,7 +10057,7 @@ explicit—a resource to be discovered, paid for, and verified.
 
 CHAPTER 8. CONCLUSION
 
-233
+246
 
 This work started with no formal training in computer science, mathematics, or
 proof assistants. Just a car salesman who kept asking questions. When answers
@@ -9394,11 +10103,11 @@ trusting the original claimant.
 From first principles, a verifier needs three ingredients:
 1. Trace integrity: a way to bind a claim to a specific execution history.
 
-234
+247
 
 APPENDIX A. THE VERIFIER SYSTEM
 
-235
+248
 
 2. Semantic checking: a way to re-interpret that history under the model’s
 rules.
@@ -9439,7 +10148,7 @@ one where the verifier only accepts inputs that appear in the receipt manifest; 
 
 APPENDIX A. THE VERIFIER SYSTEM
 
-236
+249
 
 out-of-band data is ignored.
 Each verification includes:
@@ -9480,7 +10189,7 @@ replay attacks (using old receipts to fake new results).
 
 APPENDIX A. THE VERIFIER SYSTEM
 
-237
+250
 
 • "manifest": {...} — The content-addressed manifest. Each artifact
 (claim file, dataset, disclosure certificate) is identified by its SHA-256 hash:
@@ -9515,7 +10224,7 @@ supports the entropy claim).
 
 APPENDIX A. THE VERIFIER SYSTEM
 
-238
+251
 
 Closed work system: The verifier only accepts inputs in the manifest. Outof-band data (e.g., “trust me, I ran 100,000 trials”) is ignored. This makes
 verification deterministic and reproducible—anyone with the receipt gets the
@@ -9558,7 +10267,7 @@ A randomness claim specifies:
 
 APPENDIX A. THE VERIFIER SYSTEM
 
-239
+252
 
 {
 " n_bits ": 1024 ,
@@ -9592,7 +10301,7 @@ This requires:
 
 APPENDIX A. THE VERIFIER SYSTEM
 
-240
+253
 
 • Disclosure bits: To claim Hmin = 0.95, you must disclose ⌈1024 × 0.95⌉ =
 973 bits of structural information about the source. This is the µ-cost of the
@@ -9636,7 +10345,7 @@ forall tr ,
 
 APPENDIX A. THE VERIFIER SYSTEM
 
-241
+254
 
 decode RandChannel tr = map r_payload ( filter
 ,→ RandChannel tr ) .
@@ -9670,7 +10379,7 @@ Why is this a "bridge lemma"? It bridges two levels:
 
 APPENDIX A. THE VERIFIER SYSTEM
 
-242
+255
 
 1. Kernel level: The VM generates receipts with opcodes (RAND_TRIAL_OP).
 2. Verifier level: The C-RAND module needs to extract randomness samples
@@ -9710,7 +10419,7 @@ REJECTED
 
 APPENDIX A. THE VERIFIER SYSTEM
 
-243
+256
 
 • Underpay: Claim Hmin = 0.99 but provide only Hmin = 0.5 disclosure →
 REJECTED
@@ -9750,7 +10459,7 @@ confidence (e.g., 95%).
 
 APPENDIX A. THE VERIFIER SYSTEM
 
-244
+257
 
 • "n_trials": 10000 — The number of experimental trials used to produce
 the estimate. More trials → smaller statistical error → smaller achievable ϵ.
@@ -9790,7 +10499,7 @@ process with no correlations”). The latter is structure, which must be disclos
 
 APPENDIX A. THE VERIFIER SYSTEM
 
-245
+258
 
 costs µ. Claiming ϵ = 0.001 with 10,000 trials (statistically impossible) without
 disclosing extra assumptions → rejected.
@@ -9842,7 +10551,7 @@ An entropy claim must declare its coarse-graining:
 
 APPENDIX A. THE VERIFIER SYSTEM
 
-246
+259
 
 " coarse_graining ": {
 " type ": " histogram " ,
@@ -9877,7 +10586,7 @@ Example: Suppose the 5000 samples are uniformly distributed across the 32 bins:
 
 APPENDIX A. THE VERIFIER SYSTEM
 
-247
+260
 
 • Each bin has ≈ 5000/32 ≈ 156 samples.
 • Empirical probabilities: pi = 156/5000 = 0.03125 for all bins.
@@ -9920,7 +10629,7 @@ The entropy verifier enforces:
 
 APPENDIX A. THE VERIFIER SYSTEM
 
-248
+261
 
 The rationale is direct: entropy is a function of a partition, and the partition itself
 is structural information that must be paid for.
@@ -9958,7 +10667,7 @@ equivalent to s.
 
 APPENDIX A. THE VERIFIER SYSTEM
 
-249
+262
 
 Why is this an impossibility result? Entropy is defined as:
 H = log2 (|Ω|)
@@ -9992,7 +10701,7 @@ The theorem proves this claim is mathematically nonsense. The verifier responds:
 
 APPENDIX A. THE VERIFIER SYSTEM
 
-250
+263
 
 “Theorem region_equiv_class_infinite proves observational equivalence classes are infinite. You must specify a coarse-graining, or your
 entropy is undefined. Claim REJECTED.”
@@ -10044,7 +10753,7 @@ def t e s t _ u n i q u e _ d a g _ w i t h o u t _ a s s u m p t i o n s _ r e 
 
 APPENDIX A. THE VERIFIER SYSTEM
 
-251
+264
 
 # Claim unique DAG from pure observational data
 # Must be rejected : causal claims need extra
@@ -10080,7 +10789,7 @@ with multiple DAGs in the Markov equivalence class.
 
 APPENDIX A. THE VERIFIER SYSTEM
 
-252
+265
 
 3. Assert: assert result.status == "REJECTED"
 • The test expects rejection.
@@ -10116,7 +10825,7 @@ unique DAG is more information than just knowing P (A, B, C). Claiming this
 
 APPENDIX A. THE VERIFIER SYSTEM
 
-253
+266
 
 extra knowledge without providing evidence (interventions or assumptions) is free
 insight—forbidden.
@@ -10163,7 +10872,7 @@ def t e s t _ u n c e r t i f i e d _ i m p r o v e m e n t _ d e t e c t e d ()
 
 APPENDIX A. THE VERIFIER SYSTEM
 
-254
+267
 
 result = vm . ve rif y_ im pr ov em en t ( baseline , improved
 ,→ , certificate = None )
@@ -10200,7 +10909,7 @@ If the verifier accepts improvement claims without certificates, the entire No F
 
 APPENDIX A. THE VERIFIER SYSTEM
 
-255
+268
 
 Insight framework collapses. This test ensures the verifier enforces the revelation
 requirement.
@@ -10238,7 +10947,7 @@ P (baseline)
 
 APPENDIX A. THE VERIFIER SYSTEM
 
-256
+269
 
 This is the information-theoretic minimum µ required to justify the improvement. Claiming improvement while paying less µ → REJECTED.
 
@@ -10298,19 +11007,24 @@ proof is correct relative to the system’s foundational logic—not because I t
 programmer, but because the kernel enforces the inference rules.
 The Thiele Machine development contains a large, fully verified Coq proof corpus
 with:
-• Zero admits: No proof is left incomplete
-• Zero axioms: No unproven assumptions (beyond foundational logic)
-• Full extraction: Proofs can be compiled to executable code
-
-257
+• 262 proof files: 55,097 lines of Coq across kernel, proofs, and bridges
+• 1,637 theorems: Including theorems, lemmas, propositions, and corollaries
+• Zero admits: No proof is left incomplete (kernel only; physics_exploration
+has documented axioms)
+270
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-258
+271
 
-The corpus is split between the kernel (coq/kernel/) and the extended proofs
-(coq/thielemachine/coqproofs/). This division mirrors the conceptual separation between the core semantics and the larger ecosystem of applications and
-bridges.
+• Zero axioms: No unproven assumptions in kernel (beyond foundational
+logic)
+• Full extraction: Proofs can be compiled to executable code
+The corpus is split between the kernel (coq/kernel/, zero axioms), extended proofs
+(coq/thielemachine/coqproofs/), and physics exploration (coq/physics_exploration/,
+4 files with 11 physical axioms). This division mirrors the conceptual separation
+between the core semantics, the larger ecosystem of applications, and speculative
+physical derivations.
 This chapter documents the complete formalization beyond the kernel layer, organized into specialized proof domains.
 
 B.1.2
@@ -10342,14 +11056,14 @@ Line-by-line breakdown:
 proposition to be proven.
 • forall n — Universal quantification: the statement holds for all natural
 numbers n. In Coq, nat is the type of natural numbers {0, 1, 2, . . .}.
-• n + 0 = n — The property: adding zero to n gives n. This is the rightidentity law of addition.
-• Proof. — Begins the proof script. Everything between Proof. and Qed. is
-the proof.
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-259
+272
 
+• n + 0 = n — The property: adding zero to n gives n. This is the rightidentity law of addition.
+• Proof. — Begins the proof script. Everything between Proof. and Qed. is
+the proof.
 • intros n — Introduces the universally quantified variable n into the proof
 context. Now we have a fixed (but arbitrary) n and must prove n + 0 = n.
 • induction n — Proof by induction on n:
@@ -10381,15 +11095,15 @@ Proof Inventory
 The proof corpus is organized by domain rather than by implementation detail.
 The major blocks are:
 • Kernel semantics: state, step relation, µ-accounting, observables.
+
+APPENDIX B. EXTENDED PROOF ARCHITECTURE
+
+273
+
 • Extended machine proofs: partition logic, discovery, simulation, and
 subsumption.
 • Bridge lemmas: connections from application domains to kernel obligations.
 • Physics models: locality, cone algebra, and symmetry results.
-
-APPENDIX B. EXTENDED PROOF ARCHITECTURE
-
-260
-
 • No Free Insight interface: abstract axiomatization of the impossibility
 theorem.
 • Self-reference and meta-theory: formal limits of self-description.
@@ -10401,7 +11115,7 @@ the kernel rather than re-deriving it.
 
 B.3
 
-The ThieleMachine Proof Suite (98 Files)
+The ThieleMachine Proof Suite
 
 B.3.1
 
@@ -10423,15 +11137,14 @@ local_witnesses : list LocalWitness ;
 comp ositi on_pro of : bool
 }.
 
+APPENDIX B. EXTENDED PROOF ARCHITECTURE
+
+274
+
 Understanding Partition Logic Data Structures: What are these structures? These Coq records formalize composable witness proofs—the mechanism by which partition modules can combine their local proofs into a global proof
 without revealing internal structure.
 Record-by-record breakdown:
 1. Partition record:
-
-APPENDIX B. EXTENDED PROOF ARCHITECTURE
-
-261
-
 • modules : list (list nat) — A list of modules, where each module is represented as a list of natural numbers (element indices). Example: [[0,1,2],
 [3,4], [5,6,7]] represents 3 modules with regions {0, 1, 2}, {3, 4}, and
 {5, 6, 7}.
@@ -10456,16 +11169,16 @@ fails.
 3. GlobalWitness record:
 • local_witnesses : list LocalWitness — A collection of local witnesses,
 one per module. Example: [w1, w2, w3] where each wi is a LocalWitness
+
+APPENDIX B. EXTENDED PROOF ARCHITECTURE
+
+275
+
 for module i.
 • composition_proof : bool — A proof that the local witnesses compose
 correctly. This checks:
 – All interface proofs are true (interfaces match).
 – Local axioms do not contradict each other.
-
-APPENDIX B. EXTENDED PROOF ARCHITECTURE
-
-262
-
 – The global constraint (spanning all modules) is satisfied.
 If composition_proof = true, the global witness is valid—the entire partition satisfies its constraints.
 Why composability matters: Suppose you have 3 modules proving properties
@@ -10489,16 +11202,17 @@ These records appear in coq/thielemachine/coqproofs/PartitionLogic.v,
 where they are used to formalize the notion of composable witnesses. The key point
 is that the “witness” objects are concrete data structures that can be reasoned
 about in Coq and then mirrored in executable checkers.
+
+APPENDIX B. EXTENDED PROOF ARCHITECTURE
+
+276
+
 Key theorems:
 • Witness composition preserves validity
 • Local witnesses can be combined when interfaces match
 • Partition refinement is monotonic in cost
 
-APPENDIX B. EXTENDED PROOF ARCHITECTURE
-
 B.3.2
-
-263
 
 Quantum Admissibility and Tsirelson Bound
 
@@ -10529,15 +11243,15 @@ quantum entanglement. Local boxes satisfy S ≤ 2 (classical CHSH bound).
 maximally entangled qubits and optimal measurement bases. This is the
 maximum CHSH value achievable in quantum mechanics.
 • quantum_admissible_box B — Box B is quantum-admissible if:
+
+APPENDIX B. EXTENDED PROOF ARCHITECTURE
+
+277
+
 – It is local (classical), OR
 – It equals the Tsirelson approximation (maximal quantum).
 Any box between these extremes is also quantum-admissible (by convex
 combinations).
-
-APPENDIX B. EXTENDED PROOF ARCHITECTURE
-
-264
-
 • S B — The CHSH value of box B: S = |E(0, 0) − E(0, 1) + E(1, 0) + E(1, 1)|,
 where E(x, y) = P (a = b|x, y) − P (a ̸= b|x, y) is the correlation coefficient.
 • Qabs — Absolute value over rationals (Q is Coq’s type for rational numbers).
@@ -10545,7 +11259,16 @@ Using rationals avoids floating-point rounding errors.
 • kernel_tsirelson_bound_q — The Tsirelson bound stored as an exact
 √
 rational: 5657
-= 2.8285. This is a conservative approximation of 2 2 ≈
+=
+2.8285.
+This
+is
+a
+conservative
+approximation
+of
+2
+2 ≈
 2000
 2.82842712. Conservative means: if S > 2.8285, it’s definitely supra-quantum.
 Theorem statement (plain English):
@@ -10571,19 +11294,20 @@ Example: Suppose Alice and Bob share a maximally entangled state |Φ+ ⟩ =
 √1 (|00⟩ + |11⟩) and measure in optimal bases:
 2
 • Alice’s measurements: A0 = σZ , A1 = σX
+
+APPENDIX B. EXTENDED PROOF ARCHITECTURE
+
+278
+
 X
 X
-, B1 = σZ√−σ
 • Bob’s measurements: B0 = σZ√+σ
+, B1 = σZ√−σ
 2
 2
 √
 The correlations yield S = 2 2 ≈ 2.82842712. The theorem confirms this is
 maximal for quantum systems.
-
-APPENDIX B. EXTENDED PROOF ARCHITECTURE
-
-265
 
 Connection to No Free Insight: Claiming S > 2.8285 requires revelation—
 making internal partition structure observable. This costs µ. The theorem ensures
@@ -10621,13 +11345,13 @@ Application-Level Proofs:
 • BellInequality.v: Core CHSH definitions and classical bound
 • BellReceiptLocalGeneral.v: Receipt-based locality
 • TsirelsonBoundBridge.v: Bridge to kernel semantics
-Documented Assumptions (Section/Context Pattern):
-• local_box_S_le_2: Bell-CHSH inequality (|S| ≤ 2 for local hidden variable models). Handled as Context parameter in BoxCHSH.v. Well-established
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-266
+279
 
+Documented Assumptions (Section/Context Pattern):
+• local_box_S_le_2: Bell-CHSH inequality (|S| ≤ 2 for local hidden variable models). Handled as Context parameter in BoxCHSH.v. Well-established
 result (Bell 1964, CHSH 1969).
 √
 • Tsirelson bound (|S| ≤ 2 2): Quantum mechanical maximum. Parameterized via HardMathFacts record.
@@ -10659,14 +11383,14 @@ is a list of instructions like [PUSH 5; ADD; HALT].
 etc.).
 • program_is_turing prog — A predicate asserting that prog represents a
 valid Turing machine program. This means:
-– The program uses only Turing-compatible instructions (no REVEAL or
-quantum gates).
-– The program terminates (or runs forever deterministically).
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-267
+280
 
+– The program uses only Turing-compatible instructions (no REVEAL or
+quantum gates).
+– The program terminates (or runs forever deterministically).
 Not all Thiele programs are Turing programs (the Thiele Machine has additional instructions like REVEAL), but every Turing program can be embedded.
 Functions:
 • run_tm fuel prog st — Simulates a Turing machine for fuel steps starting
@@ -10693,15 +11417,15 @@ Machine’s vm_step emulates the Turing machine’s step_tm instructionby-instru
 4. By the induction hypothesis, running both machines for the remaining
 k steps from st’ produces the same result.
 Example: Adding two numbers:
+
+APPENDIX B. EXTENDED PROOF ARCHITECTURE
+
+281
+
 • Turing machine program: Move tape head right, read symbol, add to
 accumulator, halt.
 • Thiele Machine program: [PUSH 3; PUSH 5; ADD; HALT].
 • Result: Both machines output 8. The theorem guarantees this equality.
-
-APPENDIX B. EXTENDED PROOF ARCHITECTURE
-
-268
-
 What about non-Turing instructions? The Thiele Machine has instructions
 like REVEAL that cannot be simulated by a Turing machine (they inspect partition
 structure). The theorem only applies when program_is_turing prog holds—
@@ -10736,23 +11460,23 @@ separation theorems, and proof-carrying computation. These theorems are not
 isolated; they reuse the kernel invariants and the partition logic to show that the
 same structural accounting principles scale to richer settings.
 
+APPENDIX B. EXTENDED PROOF ARCHITECTURE
+
 B.4
+
+282
 
 Recent Kernel Extensions
 
 The kernel development has been extended with new proof files establishing
 fundamental properties from first principles.
 
-APPENDIX B. EXTENDED PROOF ARCHITECTURE
-
 B.4.1
-
-269
 
 Finite Information Theory
 
-The file coq/kernel/FiniteInformation.v (20KB, 18 theorems) proves
-information-theoretic properties without axioms:
+The file coq/kernel/FiniteInformation.v (21KB) proves information-theoretic
+properties without axioms:
 
 (** Information cannot be created in deterministic
 ,→ systems *)
@@ -10785,13 +11509,14 @@ region_obs s mid = region_obs s ’ mid .
 Lemma psplit_locality : forall s s ’ mid l r mu ,
 vm_step s ( instr_psplit mid l r mu ) s ’ ->
 well _form ed_gra ph ( vm_graph s ) ->
-forall other , other <> mid ->
-region_obs s other = region_obs s ’ other .
-(* ... similar lemmas for all 18 instructions ... *)
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-270
+283
+
+forall other , other <> mid ->
+region_obs s other = region_obs s ’ other .
+(* ... similar lemmas for all 18 instructions ... *)
 
 Why this matters: These instruction-level locality lemmas are the building
 blocks for the global no-signaling theorem. Each lemma proves that a specific
@@ -10801,8 +11526,8 @@ B.4.3
 
 Proper Subsumption (Non-Circular)
 
-The file coq/kernel/ProperSubsumption.v (12KB, 5 theorems) proves Turing ⊊
-Thiele with a non-circular definition of Turing machines:
+The file coq/kernel/ProperSubsumption.v (13KB) proves Turing ⊊ Thiele with
+a non-circular definition of Turing machines:
 
 (** Full Turing machine ( NOT artificially limited ) *)
 Record TuringMachine := {
@@ -10839,19 +11564,20 @@ thiele_certifies computation /\
 
 Key insight: The Turing machine is NOT artificially limited. It has full read/write
 tape access, arbitrary transitions, and unlimited computation. The strict extension
-comes from Thiele’s µ-cost accounting and certification—capabilities that standard
-Turing machines lack.
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-B.4.4
+284
 
-271
+comes from Thiele’s µ-cost accounting and certification—capabilities that standard
+Turing machines lack.
+
+B.4.4
 
 Local Information Loss
 
-The file coq/kernel/LocalInfoLoss.v (17KB, 8 theorems) connects information
-theory to µ-cost:
+The file coq/kernel/LocalInfoLoss.v (17KB) connects information theory to
+µ-cost:
 
 (** Information loss bounded by mu - cost *)
 Theorem i n f o _ l o s s _ b o u n d e d _ b y _ m u :
@@ -10892,12 +11618,11 @@ Parameter npa_convergence : n p a _ h i e r a r c h y _ c o n v e r g e s
 ,→ .
 End HardAssumptions .
 
-Why this matters: Rather than hiding assumptions as global axioms, this file
-
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-272
+285
 
+Why this matters: Rather than hiding assumptions as global axioms, this file
 makes every non-trivial assumption explicit and documented. The Inquisitor can
 verify that no undocumented assumptions exist.
 
@@ -10905,10 +11630,10 @@ B.4.6
 
 The µ-Initiality Theorem
 
-The file coq/kernel/MuInitiality.v (14KB, 13 theorems) proves the strongest
-possible statement about the µ-ledger: it is not merely a monotone cost accumulator,
-but the canonical one—the initial object in the category of instruction-consistent
-cost functionals.
+The file coq/kernel/MuInitiality.v (15KB) proves the strongest possible
+statement about the µ-ledger: it is not merely a monotone cost accumulator, but
+the canonical one—the initial object in the category of instruction-consistent cost
+functionals.
 
 (** Instruction - consistency : M increases by exactly c
 ,→ ( instr ) each step *)
@@ -10938,12 +11663,11 @@ forall cf1 cf2 : CostFunctional ,
 forall s , reachable s -> cf_measure cf1 s =
 ,→ cf_measure cf2 s .
 
-Categorical interpretation: In the category where objects are instructionconsistent cost functionals and morphisms are equalities on reachable states, µ is
-
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-273
+286
 
+Categorical interpretation: In the category where objects are instructionconsistent cost functionals and morphisms are equalities on reachable states, µ is
 the initial object. This is the formal sense in which “µ is the free/least monotone.”
 Physical interpretation: This theorem elevates µ from “a sound lower bound” to
 “the canonical physical cost.” Any instruction-consistent accounting of irreversibility
@@ -10982,12 +11706,12 @@ step that destroys structural information (reduces module count), the cost charg
 is at least the information destroyed.
 Combined with Initiality: Together, these theorems establish:
 1. mu_is_initial_monotone: µ is the unique instruction-consistent cost functional
-2. mu_is_landauer_valid: µ satisfies the Landauer erasure bound
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-274
+287
 
+2. mu_is_landauer_valid: µ satisfies the Landauer erasure bound
 Therefore µ is the canonical cost model: the unique instruction-consistent accounting that respects irreversibility.
 Epistemic honesty: We do NOT prove “any Landauer-valid cost ≥ µ” because
 Landauer only constrains information-destroying operations. For non-erasing
@@ -11009,7 +11733,7 @@ B.5.1
 
 Proof Architecture Overview
 
-The quantum axiom proofs live in five files totaling 1,192 lines of Coq with zero
+The quantum axiom proofs live in five files totaling 1,174 lines of Coq with zero
 Admitted statements:
 File
 
@@ -11051,7 +11775,7 @@ Theorem n o _ c l o n i n g _ f r o m _ c o n s e r v a t i o n :
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-275
+288
 
 forall ( cloner : BlochVector -> BlochVector *
 ,→ BlochVector ) ,
@@ -11093,7 +11817,7 @@ to mixed states). This is decoherence—the system becomes more entangled with
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-276
+289
 
 its environment. Entanglement creates new structural relationships that cost µ to
 establish.
@@ -11138,7 +11862,7 @@ state
 
 B.5.5
 
-277
+290
 
 Purification Principle
 
@@ -11182,7 +11906,7 @@ algebraic constraints on correlation matrices.
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-278
+291
 
 Why it works: Quantum correlations must come from tensor products of Pauli
 matrices, which constrains the eigenvalues of the correlation matrix. The 2 × 2
@@ -11230,7 +11954,7 @@ theorem. It establishes exactly which physical structures are forced by the kern
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-279
+292
 
 semantics and which are not forced. It answers the question: “Can we derive all of
 physics from the kernel alone?” The answer is: No. The kernel forces locality and
@@ -11269,7 +11993,7 @@ postulates).
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-280
+293
 
 Proof strategy: The theorem combines two separate results:
 1. Maximal closure (KernelMaximalClosureP): Proven by showing that
@@ -11303,7 +12027,7 @@ weights”).
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-281
+294
 
 • Falsifiability is preserved: Even though physics is not unique, violations of
 kernel laws (e.g., signaling, µ-decreasing) are impossible. The kernel provides
@@ -11343,7 +12067,7 @@ laws:
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-282
+295
 
 – Compositionality: If partition P is the union of disjoint sub-partitions
 P1 and P2 , then w(P ) = w(P1 ) + w(P2 ) (additivity).
@@ -11379,7 +12103,7 @@ Concrete example: Consider a partition with 3 modules {A, B, C}:
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-283
+296
 
 • Weight function w0 : Assign equal weight to all modules: w0 (A) = w0 (B) =
 w0 (C) = 1. Total weight = 3.
@@ -11416,7 +12140,7 @@ Definitions:
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-284
+297
 
 In plain English: “There does not exist a unique weight function wunique such
 that every weight function satisfying the laws equals wunique .”
@@ -11451,7 +12175,7 @@ on the weight function, which is not unique. This is why the thesis emphasizes
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-285
+298
 
 relative costs (“revealing A costs more than revealing B”) rather than absolute
 costs (“revealing A costs exactly 5 units”).
@@ -11488,7 +12212,7 @@ define probability), finiteness axioms (to avoid infinite weights), geometric po
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-286
+299
 
 Why is this important? This theorem is the central result of the TOE chapter.
 It answers the question: “Is the Thiele Machine a Theory of Everything?” The
@@ -11523,7 +12247,7 @@ must specify:
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-287
+300
 
 Without these, Newton’s laws don’t make predictions. Similarly, the kernel semantics are a framework. To make predictions, you must specify coarse-graining,
 weight functions, geometry, constants.
@@ -11561,7 +12285,7 @@ Representative theorem:
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-288
+301
 
 Theorem K e r n e l M a x i m a l C l o s u r e :
 KernelMaximalClosureP .
@@ -11598,7 +12322,7 @@ characterization of the kernel’s structural power.
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-289
+302
 
 Detailed breakdown of forced properties:
 1. Locality/no-signaling:
@@ -11633,7 +12357,7 @@ multiple metrics (Minkowski, de Sitter, etc.).
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-290
+303
 
 • Cannot force physical constants: The kernel is scale-invariant (no preferred units).
 The three properties (locality, µ-monotonicity, cone locality) are the most the
@@ -11672,7 +12396,7 @@ Representative definitions:
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-291
+304
 
 Definition step_rel ( s s ’ : VMState ) : Prop := exists
 ,→
@@ -11710,7 +12434,7 @@ s3 -> reaches s1 s3. If s1 steps to s2 in one step, and s2 eventually
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-292
+305
 
 reaches s3, then s1 eventually reaches s3 (transitivity). This is the
 inductive case: one step + induction.
@@ -11743,7 +12467,7 @@ The causal cone of s0 is {s0, s1, s2, s3}. The causal cone of s2 is {s2, s3}.
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-293
+306
 
 Why emergent, not fundamental? Spacetime is not an input to the Thiele
 Machine. There is no “space coordinate” or “time coordinate” in VMState. Instead,
@@ -11785,7 +12509,7 @@ t1 = [s0, s1, s2] (3 states), t2 = [s3, s4] (2 states).
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-294
+307
 
 • t1 ++ t2 — Trace concatenation (append t2 after t1). Example: [s0,
 s1, s2] ++ [s3, s4] = [s0, s1, s2, s3, s4]. This represents running
@@ -11823,7 +12547,7 @@ Concrete example: Suppose:
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-295
+308
 
 • Trace t2 : [LOAD r1, ADD] (loads from r1, adds to stack).
 • Causal cone of t1 : {r0} (r0 is modified).
@@ -11866,7 +12590,7 @@ Representative theorem:
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-296
+309
 
 Theorem r e g i o n _ e q u i v _ c l a s s _ i n f i n i t e : forall s ,
 exists f : nat -> VMState ,
@@ -11903,7 +12627,7 @@ Theorem statement (plain English):
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-297
+310
 
 “For any VM state s, there exists an infinite sequence of distinct
 states (f (0), f (1), f (2), . . .), all observationally equivalent to s. The
@@ -11940,7 +12664,7 @@ Concrete example: Suppose s has a single module A containing elements
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-298
+311
 
 • f (1): Partition {{0, 1}, {2, 3}} (two modules with interface at boundary).
 • f (2): Partition {{0}, {1}, {2, 3}} (three modules).
@@ -11982,7 +12706,7 @@ without coarse-graining.
 
 B.8.2
 
-299
+312
 
 Probability Impossibility
 
@@ -12028,7 +12752,7 @@ perform supra-quantum operations. Specifically:
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-300
+313
 
 – No CSR_WRITE instructions targeting csr_cert_addr.
 – No REVEAL instructions (which would expose partition structure and
@@ -12066,7 +12790,7 @@ steps):
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-301
+314
 
 1. Base case: fuel = 0. No steps are executed, so sF = s0. Trivially,
 sF.csr_cert_addr = s0.csr_cert_addr.
@@ -12099,7 +12823,7 @@ Quantum-admissible traces cannot set the certification CSR.
 
 B.9.3
 
-302
+315
 
 Quantitative µ Lower Bound
 
@@ -12137,7 +12861,7 @@ Insight. It proves that:
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-303
+316
 
 • Ignorance is a conserved quantity—it only increases (or stays constant), never
 decreases.
@@ -12173,7 +12897,7 @@ happens, then µ must increase by at least the cert-setter’s declared cost.”
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-304
+317
 
 corollary of the lemma:
 • By this lemma, µ is monotone.
@@ -12218,7 +12942,7 @@ is this? This is a Coq module type—an abstract interface specifying the
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-305
+318
 
 signature of any system satisfying No Free Insight. It declares 11 parameters (types
 and functions) that any implementation must provide. The Thiele Machine kernel
@@ -12257,7 +12981,7 @@ semantics.
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-306
+319
 
 • ok : S → Prop — A predicate asserting that a state is valid (satisfies
 invariants). Example: stack is well-formed, µ ≥ 0, partition is consistent.
@@ -12293,7 +13017,7 @@ str. This is the end-to-end certification property.
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-307
+320
 
 – Example: Certified [REVEAL, CHSH_EXP] s (CHSH 3.0) is true if
 executing the trace from s yields a state certifying CHSH = 3.0.
@@ -12327,7 +13051,7 @@ theorems that apply to any implementation. This is analogous to:
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-308
+321
 
 • Monoids: Theorems about monoids apply to integers (under addition), lists
 (under concatenation), functions (under composition), etc.
@@ -12370,7 +13094,7 @@ Definition-by-definition breakdown:
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-309
+322
 
 1. contains_self_reference (detecting self-reference):
 • Syntax: contains_self_reference S is a proposition asserting that system S contains a self-referential statement.
@@ -12403,7 +13127,7 @@ with 3 spatial dimensions), the meta-system is 4-dimensional (adding a
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-310
+323
 
 ∗ New meta-statement: P = contains_self_reference S (the
 meta-system can explicitly state "S contains self-reference”).
@@ -12439,7 +13163,7 @@ own consistency).
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-311
+324
 
 • But the meta-system has its own unprovable truths, requiring a meta-metasystem, and so on.
 This creates an infinite hierarchy of systems: S, meta_system S, meta_system (meta_system S), . . .
@@ -12479,7 +13203,7 @@ Representative list:
 
 B.12.1
 
-312
+325
 
 Subsumption Theorem
 
@@ -12517,13 +13241,13 @@ The extended proof architecture establishes:
 unproven axioms beyond foundational logic.
 2. Quantum axioms from µ-accounting: No-cloning, unitarity, Born rule,
 purification, and Tsirelson bound all derived from conservation of structural
-information (1,192 lines, 74 theorems).
+information (1,174 lines, 19 theorems).
 3. Quantum bounds: Literal CHSH ≤ 5657/2000.
 4. TOE limits: Physics requires extra structure beyond compositionality.
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
-313
+326
 
 5. Impossibility theorems: Entropy, probability, and unique weights are not
 forced by the kernel alone.
@@ -12563,11 +13287,11 @@ them
 This chapter documents a comprehensive experimental campaign that treats the
 Thiele Machine as a scientific theory subject to empirical testing. The emphasis
 
-314
+327
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-315
+328
 
 is on reproducible protocols and adversarial attempts to falsify the claims, not
 on cherry-picked confirmations. Where possible, the experiments correspond to
@@ -12614,7 +13338,7 @@ C.3.1
 
 Landauer Principle Validation
 
-316
+329
 
 Representative protocol:
 
@@ -12653,7 +13377,7 @@ current value).
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-317
+330
 
 – "physical": Physical erasure (dissipate energy to environment, irreversible).
 Landauer’s principle applies to irreversible erasure, so "logical" erasure (which
@@ -12687,7 +13411,7 @@ of formal proof MuLedgerConservation.v, which proves that ERASE instructions
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-318
+331
 
 increase µ monotonically. The proof guarantees this must happen; the experiment
 checks it does happen in the implementation.
@@ -12731,7 +13455,7 @@ marginal distribution instantaneously .
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-319
+332
 
 # Verify P ( b |x , y ) = P ( b | y ) for all x
 
@@ -12768,7 +13492,7 @@ obtaining outcomes a, b ∈ {0, 1}.
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-320
+333
 
 5. Compute marginals: For each fixed y, compute:
 • P (b = 0|x = 0, y) and P (b = 0|x = 1, y) (Bob’s probability of outcome
@@ -12805,7 +13529,7 @@ implementation.
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-321
+334
 
 Results: No-signaling verified to 10−6 precision across all 16 input/output combinations.
 
@@ -12842,7 +13566,7 @@ to partition the state space.
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-322
+335
 
 Entropy should converge to finite values as coarse-graining level increases.
 Experimental protocol:
@@ -12881,7 +13605,7 @@ Without coarse-graining, Ω = ∞ and entropy is undefined.
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-323
+336
 
 Connection to kernel proofs: This experiment validates Theorem region_equiv_class_infinite (Chapter 10, Section on Impossibility Theorems), which proves
 that observational equivalence classes are infinite. The proof guarantees entropy
@@ -12918,7 +13642,7 @@ consistent with physical measurement back - action .
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-324
+337
 
 Understanding the Observer Effect Measurement: What does this
 experiment test? This experiment validates the observer effect: the act of
@@ -12955,7 +13679,7 @@ Example run:
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-325
+338
 
 • Measure: Collapse to |0⟩ (outcome: 0).
 • Final state: |0⟩, µf = 101.
@@ -12995,7 +13719,7 @@ Understanding the CHSH Game Demonstration: What does this experiment test? This 
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-326
+339
 
 probabilities across different computational paradigms: classical (≤ 75%), quantum (≤ 85.35% Tsirelson bound), and kernel-certified (exact match to Tsirelson).
 This validates the quantum admissibility theorem from Chapter 10.
@@ -13028,7 +13752,7 @@ bases).
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-327
+340
 
 • Supra-quantum: Winning probabilities > 85.35% require revelation of
 partition structure (costs µ).
@@ -13067,7 +13791,7 @@ theory remains unfalsified.
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-328
+341
 
 √
 Why use exact rational arithmetic? The Tsirelson bound 2 2 is irrational.
@@ -13113,7 +13837,7 @@ invariant checks)
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-329
+342
 
 Acceptance criteria: the emitted JSON must report the checks mu_lower_bounds_log2_ratio and mu_slack_in_[0,1) as passed, and the sweep points
 must remain within the envelope µ ∈ [log2 (n!), log2 (n!) + 1).
@@ -13149,7 +13873,7 @@ n log2 (n) − n log2 (e).
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-330
+343
 
 5. Check invariants:
 • Lower bound: ∆µ ≥ log2 (n!) (No Free Insight).
@@ -13186,7 +13910,7 @@ budget B (in µ-bits), a per-step compute cost c, and a communication payload C
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-331
+344
 
 (bits per tick). With communication prioritized, the no-backlog prediction is
 B−C
@@ -13228,7 +13952,7 @@ tick (e.g., C = 200 bits for synchronization).
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-332
+345
 
 • Compute cost c: µ per computation step (e.g., c = 10 bits/step for a simple
 arithmetic operation).
@@ -13262,7 +13986,7 @@ Near-complete slowdown.
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-333
+346
 
 • C = 1000 (100% budget for communication): r = ⌊0/10⌋ = 0 steps/tick.
 Computational freeze (all resources consumed by communication).
@@ -13304,7 +14028,7 @@ Theory predicts : O ( n * log ( n ) ) for structured
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-334
+347
 
 Understanding the Partition Discovery Scaling Experiment: What does
 this experiment test? This experiment measures the computational cost of
@@ -13340,7 +14064,7 @@ structure.
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-335
+348
 
 2. Run discovery: Execute the partition discovery algorithm (e.g., DISCOVER_PARTITION instruction).
 3. Measure µ-cost: Record µ0 before discovery, µf after. Compute ∆µ =
@@ -13380,7 +14104,7 @@ exponentially faster than brute - force .
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-336
+349
 
 # Compare : brute force O (2^ n ) vs partition O ( n ^ k )
 
@@ -13416,7 +14140,7 @@ hidden modular structure (e.g., 10 modules of 5 variables each).
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-337
+350
 
 • Combine solutions (cost: O(k), negligible).
 Measure total time Tsighted .
@@ -13450,7 +14174,7 @@ solutions are valid); this experiment demonstrates efficiency (exponential speed
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-338
+351
 
 Results: For SAT instances with hidden structure, partition discovery achieved
 10,000x speedup on n = 50 variables. Brute-force: 37 days. Partition-aware: 0.32
@@ -13495,7 +14219,7 @@ modify receipt before use. Expected defense: Cryptographic hashing ensures
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-339
+352
 
 any modification invalidates the receipt.
 4. Replay attacks: Reuse a valid receipt from a previous computation. Expected defense: Receipts include nonces, timestamps, and state hashes;
@@ -13531,7 +14255,7 @@ without paying computational cost .
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-340
+353
 
 This directly tests the No Free Insight theorem .
 """
@@ -13567,7 +14291,7 @@ Results: All attempts either:
 
 C.5.3
 
-341
+354
 
 Supra-Quantum Attack
 
@@ -13615,7 +14339,7 @@ partition lookup, µ-increment). These measurements are used to identify perfor-
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-342
+355
 
 mance bottlenecks and to validate that receipt generation dominates overhead in
 expected ways.
@@ -13659,7 +14383,7 @@ RTL simulators.
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-343
+356
 
 3. Compare outputs: For each trace, compare final states (µ, registers,
 memory, certificates) across all three layers. Check for bit-exact equality.
@@ -13712,7 +14436,7 @@ Receipt generated : c h s h _ g a m e _ r e c e i p t _ 2 0 2 4 . json
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-344
+357
 
 Understanding the CHSH Game Demo: What is this demo? This is
 an interactive demonstration of the CHSH game showing quantum bounds in
@@ -13750,7 +14474,7 @@ These are advanced demonstrations targeting researchers in quantum founda-
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-345
+358
 
 tions, causal inference, and information theory. They showcase the Thiele Machine’s
 capabilities beyond the core CHSH game.
@@ -13796,7 +14520,7 @@ the structural complexity.
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-346
+359
 
 • Congruence Pruning: On larger instances like N = 31313, we demonstrated that partition-native pruning reduces the search space for factors by
 nearly half an order of magnitude (0.48 dex) before any compute-heavy steps
@@ -13844,7 +14568,7 @@ Random input fuzzing to find edge cases .
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-347
+360
 
 Understanding the Fuzz Testing: What is fuzz testing? Fuzzing is
 an automated testing technique that generates random inputs to find crashes,
@@ -13885,7 +14609,7 @@ The project runs multiple continuous checks:
 
 APPENDIX C. EXPERIMENTAL VALIDATION SUITE
 
-348
+361
 
 4. Isomorphism gates: ensure Python/extracted/RTL match
 5. Benchmarks: detect performance regressions
@@ -13943,7 +14667,7 @@ The experimental validation suite establishes:
 6. Continuous validation enforcing quality gates
 All experiments passed. The theory remains unfalsified.
 
-349
+362
 
 Appendix D
 Physics Models and Algorithmic
@@ -13975,9 +14699,9 @@ To validate this connection, the Coq framework includes explicit physics models:
 • Discrete lattices: A model of emergent spacetime from computational steps
 These models are not metaphors—they are formally verified Coq proofs showing
 
-350
+363
 
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 351
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 364
 
 that computational structures exhibit physical-like behavior. The wave model
 lives in coq/physics/WaveModel.v, and its embedding into the Thiele Machine
@@ -14022,7 +14746,7 @@ Definition WaveState := list WaveCell .
 Definition wave_step ( s : WaveState ) : WaveState :=
 let lefts := rotate_left ( map left_amp s ) in
 
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 352
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 365
 
 let rights := rotate_right ( map right_amp s ) in
 map2 ( fun l r = > {| left_amp := l ; right_amp := r
@@ -14055,7 +14779,7 @@ Example: 5-cell lattice with one right-moving pulse:
 • After 1 step: [(0, 0), (0, 0), (0, 1), (0, 0), (0, 0)] (pulse moves right to position
 2).
 
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 353
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 366
 
 • After 2 steps: [(0, 0), (0, 0), (0, 0), (0, 1), (0, 0)] (pulse at position 3).
 Connection to kernel: This wave model can be embedded into kernel semantics
@@ -14092,7 +14816,7 @@ Why are these laws important? In physics, conservation laws are fundamental:
 theorem).
 • Momentum conservation follows from space-translation symmetry.
 
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 354
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 367
 
 • Reversibility is the hallmark of fundamental dynamics (Hamiltonian systems).
 These proofs demonstrate that even simple computational models exhibit physicallike conservation laws.
@@ -14121,11 +14845,338 @@ The discrete model uses lattice-based dynamics for discrete spacetime emergence.
 
 D.3
 
+Physical Constant Derivation
+
+Author’s Note (Devon): This section documents one of the most
+exciting—and humbling—parts of this project. I tried to derive fundamental constants from information theory. I succeeded partially
+(Planck’s constant h), found structure but not values (speed of light
+c), and hit walls (gravitational constant G, particle masses). The
+results are honest: some things work, most don’t. But the attempt
+revealed something important: the boundary between what computation
+can derive and what physics must axiomatize.
+The formal development includes an exploration of whether fundamental physical
+constants can be derived from the µ-theory. These proofs live in coq/physics_
+exploration/ and are maintained separately from the zero-axiom kernel. This
+section documents the successes, failures, and lessons learned.
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 368
+
+D.3.1
+
+The Planck Constant: A Successful Derivation
+
+Result: [SUCCESS] RELATIONSHIP DERIVED
+The derivation of Planck’s constant h from Landauer’s principle represents the
+clearest success. The formal proof is in coq/physics_exploration/PlanckDeri
+vation.v (54 lines, compiles).
+The Core Relationship: Starting from Landauer’s principle Elandauer = kB T ln 2,
+we can express the fundamental µ-time scale as:
+τµ =
+
+ℏ
+4Elandauer
+
+=
+
+ℏ
+4kB T ln 2
+
+Inverting this relationship gives:
+h = 4 × Elandauer × τµ = 4kB T ln 2 · τµ
+What this means: Planck’s constant emerges as the product of:
+• The minimum energy cost of irreversible information operations (Landauer)
+• The fundamental time scale of µ-operations (τµ )
+Numerical Validation: The Python experiment experiments/derive\_c\_n
+umerical.py validates this relationship. Using the known value h = 6.62607015 ×
+10−34 J·s and standard values for kB and T , the implied τµ is:
+τµ =
+
+h
+≈ 1.15 × 10−13 seconds
+4kB T ln 2
+
+This is an extraordinarily short time scale—about 115 femtoseconds—consistent
+with the interpretation that individual µ-operations occur at fundamental quantum
+time scales.
+Coq Formalization: The formal proof establishes:
+
+(* Physical axioms required *)
+Parameter k_B : R .
+
+(* Boltzmann constant *)
+
+Parameter T : R .
+
+(* Temperature *)
+
+Parameter tau_mu : R .
+
+(* Fundamental mu - time *)
+
+(* Derived constants *)
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 369
+
+Definition E_landauer := k_B * T * ln 2.
+Definition planck_from_info := 4 * E_landauer *
+,→ tau_mu .
+(* Key theorem : positivity preservation *)
+Lemma ln2_positive : 0 < ln 2.
+Proof .
+apply ln_increasing .
+lra .
+Qed .
+(* Main result : h relationship *)
+Theorem p l a n c k _ f r o m _ i n f o _ t h e o r y :
+0 < k_B -> 0 < T -> 0 < tau_mu ->
+0 < planck_from_info .
+
+Key achievement: The lemma ln2_positive is proven using Coq’s standard
+library (not axiomatized!), reducing the axiom count by one.
+Scientific Assessment: What was derived: The relationship between h,
+Landauer’s principle, and τµ .
+What remains free: The value of τµ itself. To predict h numerically, we need an
+independent derivation of τµ from first principles.
+Status: [SUCCESS] Partial success—relationship established, value requires τµ
+derivation.
+
+D.3.2
+
+Speed of Light: Structure Without Value
+
+Result: [PARTIAL] STRUCTURE PROVEN, VALUE REQUIRES
+EMERGENCE THEORY
+The speed of light derivation establishes structural relationships but cannot predict
+the numerical value. The formal proof is in coq/physics_exploration/Emerge
+ntSpacetime.v (25 lines).
+The Structural Result: The speed of light can be expressed as:
+c=
+
+dµ
+τµ
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 370
+
+where:
+• dµ = fundamental length scale (distance per µ-operation)
+• τµ = fundamental time scale (time per µ-operation)
+What this means: Light speed is the ratio of spatial to temporal scales in
+the computational substrate. It’s not a fundamental constant—it’s an emergent
+property of how space and time discretize.
+Numerical Analysis: Using the known value c = 299,792,458 m/s and the
+derived τµ ≈ 1.15 × 10−13 s, the implied fundamental length scale is:
+dµ = c · τµ ≈ 3.45 × 10−5 meters = 34.5 micrometers
+The Python experiment tests seven different approaches to deriving dµ :
+1. Graph connectivity (Planck-scale discretization)
+2. Holographic bounds (A/4G)
+3. Causal set theory (discrete spacetime)
+4. Emergent gravity (entropy-area relation)
+5. AdS/CFT correspondence
+6. Loop quantum gravity (spin networks)
+7. Asymptotic safety (fixed-point scaling)
+Result: All approaches either require unknowns or predict values inconsistent
+with dµ ∼ 10−5 m.
+Coq Formalization:
+Parameter d_mu : R .
+
+(* Fundamental length scale *)
+
+Parameter tau_mu : R .
+
+(* Fundamental time scale *)
+
+Definition c_structure := d_mu / tau_mu .
+Theorem c _struc ture_p roof :
+0 < tau_mu -> 0 < d_mu -> 0 < c_structure .
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 371
+
+Scientific Assessment: What was proven: The structure c = dµ /τµ is formally
+established.
+What failed: No derivation of dµ from first principles. All tested theories either:
+• Require dµ as input (circular)
+• Predict Planck length ∼ 10−35 m (34 orders of magnitude too small)
+• Depend on unknown coupling constants
+Status: [PARTIAL] Structure proven, value requires emergence theory.
+
+D.3.3
+
+Gravitational Constant: Highly Speculative
+
+Result: [SPECULATIVE] NEEDS QUANTUM GRAVITY
+The gravitational constant G resists derivation. The formal analysis is in coq/ph
+ysics_exploration/HolographicGravity.v (18 lines).
+Attempted Approaches:
+3
+
+Ac
+1. Holographic principle: S = 4Gℏ
+(Bekenstein-Hawking entropy)
+
+• Requires independent determination of S and A
+• Circular: G appears in the formula we’re trying to derive
+2. Newton’s law: F = Gmr12m2
+• Requires mass origin (see next subsection—masses are free parameters)
+• Cannot derive coupling constant from force law
+3. Einstein equations: Gµν = 8πG
+Tµν
+c4
+≈ 2.08 × 10−43 N−1
+• Tested numerical relationship: 8πG
+c4
+• Factor mismatch of ∼ 1036 with Planck units
+• No clear emergence pathway
+Coq Formalization:
+Parameter G : R .
+
+(* Gravitational constant *)
+
+(* All approaches require G as input or unknown
+,→ masses *)
+Theorem G _r e q u ir e s _u n k no w n s :
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 372
+
+(* No derivation possible without quantum gravity
+,→ *)
+True .
+
+Scientific Assessment: What failed: All tested approaches are either:
+• Circular (require G as input)
+• Dependent on particle masses (which are also free parameters)
+• Missing quantum gravity theory
+Status: [SPECULATIVE] Highly speculative, no clear pathway to derivation.
+
+D.3.4
+
+Particle Masses: Free Parameters
+
+Result: [FAILED] NO PATTERNS FOUND, APPEAR ARBITRARY
+The attempt to derive particle masses failed completely. The formal analysis is in
+coq/physics_exploration/ParticleMasses.v (23 lines).
+Tested Patterns: The Python experiment experiments/derive\_masses\_co
+uplings.py tested for:
+1. Mass ratios as powers of fundamental constants (e.g., α, π, e)
+2. Relationships to number-theoretic sequences (Fibonacci, primes, factorials)
+3. Geometric progressions or logarithmic spacing
+4. Coupling to µ-cost via information content
+Observed Ratios:
+Ratio
+
+Value
+
+mµ /me
+mp /me
+mp /mµ
+
+206.77 × No clear pattern
+1836.15 × No clear pattern
+8.88
+× No clear pattern
+
+Coq Formalization:
+Parameter m_electron : R .
+Parameter m_muon : R .
+Parameter m_proton : R .
+(* No patterns found *)
+
+Pattern Found?
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 373
+
+Theorem m a s s e s _ a r e _ f r e e _ p a r a m e t e r s :
+(* Masses appear arbitrary from information theory
+,→ *)
+True .
+
+Scientific Assessment: What failed: No mathematical patterns found. Masses
+appear to be free parameters of the Standard Model that cannot be derived from
+first principles.
+Note on fine structure constant: The fine structure constant α ≈ 1/137 also
+remains unexplained. No relationship to µ-theory found.
+Status: [FAILED] Masses are free parameters—no derivation possible.
+
+D.3.5
+
+Axiom Accounting and Scientific Honesty
+
+The physics_exploration module requires 11 physical axioms:
+Axiom
+
+Type
+
+Status
+
+kB
+T
+τµ
+dµ
+G
+me
+mµ
+mp
+h
+c
+
+Boltzmann constant
+Temperature
+Fundamental time
+Fundamental length
+Gravitational constant
+Electron mass
+Muon mass
+Proton mass
+Planck constant
+Speed of light
+
+Required for Landauer
+Required for Landauer
+Required for h derivation
+Required for c structure
+Cannot derive
+Free parameter
+Free parameter
+Free parameter
+Derived (not axiom!)
+Structure proven
+
+Key point: The physics_exploration directory is isolated from the zero-axiom
+kernel. The kernel proofs (coq/kernel/) remain completely axiom-free.
+
+D.3.6
+
+Lessons Learned: The Boundary Between Computation and Physics
+
+What Computation Can Do:
+1. Establish relationships: h = 4Elandauer τµ is a mathematical fact about
+information theory.
+2. Prove structure: c = dµ /τµ is a structural relationship.
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 374
+
+3. Identify free parameters: Masses and G cannot be derived from µ-theory
+alone.
+What Computation Cannot Do:
+1. Predict numerical values: Without independent derivation of τµ and dµ ,
+constants remain free.
+2. Derive coupling constants: G, α, and mass ratios appear arbitrary.
+3. Replace empirical measurement: Physical constants must ultimately be
+measured, not computed.
+The Honest Conclusion: µ-theory is not a Theory of Everything. It
+provides:
+• A framework for understanding information costs
+• Structural relationships between constants
+• Formal boundaries on what can be derived
+But it cannot uniquely determine physics. That boundary is now formally proven
+(Chapter 10: TOE impossibility theorems).
+
+D.4
+
 Shor Primitives
 
 The formalization includes the mathematical foundations of Shor’s factoring algorithm.
 
-D.3.1
+D.4.1
 
 Period Finding
 
@@ -14135,13 +15186,12 @@ Definition is_period ( r : nat ) : Prop :=
 r > 0 /\ forall k , pow_mod ( k + r ) = pow_mod k .
 Definition minimal_period ( r : nat ) : Prop :=
 is_period r /\ forall r ’ , is_period r ’ -> r ’ >= r .
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 355
-
 Definition shor_candidate ( r : nat ) : nat :=
 let half := r / 2 in
 let term := Nat . pow a half in
 gcd_euclid ( term - 1) N .
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 375
 
 Understanding the Period Finding Definitions: What is period finding?
 Period finding is the core subroutine of Shor’s algorithm: given a and N , find
@@ -14169,12 +15219,11 @@ ar − 1 = (ar/2 − 1)(ar/2 + 1) ≡ 0
 
 So N divides (ar/2 − 1)(ar/2 + 1). With high probability, gcd(ar/2 − 1, N ) is a
 non-trivial factor.
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 356
-
 Connection to quantum computing: Quantum computers find periods in
 √
 O((log N )3 ) time (exponentially faster than classical O( N ) algorithms). IMPORTANT: The Thiele Machine does not achieve similar speedups for factorization. The formal development proves the correctness of the mathematical reduction
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 376
 √
 (given period r, extract factors) but uses classical O( N ) trial division for period
 finding. Previous claims of polylog speedup were incorrect and have been retracted
@@ -14218,15 +15267,13 @@ Quantum
 O(log3 N )
 
 The Thiele Machine achieves similar reductions via partition discovery (revealing
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 357
-
 period structure).
 Proof intuition: Since ar ≡ 1 (mod N ):
 ar − 1 = (ar/2 )2 − 1 = (ar/2 − 1)(ar/2 + 1) ≡ 0
 
 (mod N )
 
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 377
 So N |(ar/2 − 1)(ar/2 + 1). If neither factor is divisible by N individually (with high
 probability), then gcd(ar/2 − 1, N ) gives a non-trivial factor.
 Example verification: N = 21, a = 2, r = 6:
@@ -14236,9 +15283,9 @@ Example verification: N = 21, a = 2, r = 6:
 This is the mathematical core of Shor’s algorithm: given the period r of ar ≡ 1
 (mod N ), non-trivial factors can be extracted via GCD.
 
-D.3.2
+D.4.2
 
-D.3.3
+D.4.3
 
 Verified Examples
 N
@@ -14285,13 +15332,14 @@ forall a b , Nat . divide ( gcd_euclid a b ) a .
 Theorem g c d _ e u c l i d _ d i v i d e s _ r i g h t :
 forall a b , Nat . divide ( gcd_euclid a b ) b .
 
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 358
-
 Understanding the Euclidean Algorithm: What is this algorithm? The
 Euclidean algorithm computes the greatest common divisor (GCD) of two
 natural numbers a and b. It’s one of the oldest algorithms (300 BCE) and is
 fundamental to number theory.
 Algorithm breakdown:
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 378
+
 • Base case (b = 0): If b = 0, then gcd(a, 0) = a.
 • Recursive case (b > 0): Compute gcd(b, a mod b). This reduces the
 problem size: a mod b < b.
@@ -14316,13 +15364,13 @@ Algorithm breakdown:
 • Recursive case: b > 0 — Replace (a, b) with (b, a mod b) and recurse.
 Why does this work? Key insight: gcd(a, b) = gcd(b, a mod b).
 • Any divisor of a and b also divides a mod b (since a = qb + (a mod b)).
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 359
-
 • The algorithm terminates when b = 0 (guaranteed after O(log b) steps).
 Example: gcd(48, 18):
 • gcd(48, 18) = gcd(18, 48 mod 18) = gcd(18, 12)
 • gcd(18, 12) = gcd(12, 18 mod 12) = gcd(12, 6)
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 379
+
 • gcd(12, 6) = gcd(6, 12 mod 6) = gcd(6, 0)
 • gcd(6, 0) = 6 (base case).
 Result: gcd(48, 18) = 6.
@@ -14335,7 +15383,7 @@ Connection to Shor’s algorithm: The Euclidean algorithm is used to compute
 gcd(ar/2 − 1, N ) in the Shor reduction. The Coq formalization ensures this step is
 correct.
 
-D.3.4
+D.4.4
 
 Modular Arithmetic
 
@@ -14351,13 +15399,13 @@ full exponential ab (which would overflow for large b).
 Definition breakdown:
 • mod_pow(n, base, exp): Computes baseexp mod n using repeated squaring.
 • Algorithm: Binary exponentiation:
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 360
-
 – If exp = 0: return 1.
 – If exp is even: a2k = (ak )2 , compute recursively.
 – If exp is odd: a2k+1 = a · (ak )2 .
 All intermediate results taken modn to prevent overflow.
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 380
+
 Theorem breakdown:
 • mod_pow_mult: Exponent addition property: ab+c mod n = (ab · ac ) mod
 n.
@@ -14382,21 +15430,21 @@ Theorem: mod_pow_mult — Exponents add: ab+c ≡ ab · ac (mod n).
 • Used extensively in period finding: ak+r ≡ ak · ar (mod N ).
 Example: Compute 210 mod 13:
 • 210 = (25 )2 . Compute 25 = 32 ≡ 6 (mod 13).
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 361
 • 210 ≡ 62 = 36 ≡ 10 (mod 13).
 Fast: only 2 multiplications instead of 10.
 Connection to Shor’s algorithm: Period finding requires computing ak mod N
 for many k. Modular exponentiation makes this feasible.
 
-D.4
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 381
+
+D.5
 
 Bridge Modules
 
 Bridge lemmas connect domain-specific constructs to kernel semantics via receipt
 channels.
 
-D.4.1
+D.5.1
 
 Randomness Bridge
 
@@ -14421,14 +15469,14 @@ Receipts with this opcode represent randomness events.
 equals 1001.
 • decode RandChannel tr — Extracts randomness data from trace tr:
 – filter RandChannel tr — Keep only randomness receipts.
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 362
-
 – map r_payload — Extract payload (random bits) from each receipt.
 Lemma: decode_is_filter_payloads — Proves that decoding is equivalent
 to filtering then mapping payloads. This is the formal guarantee that the bridge
 correctly extracts randomness data.
 Why is this important? Without bridges, there’s no connection between:
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 382
+
 • High-level claims: "This algorithm generated 1000 random bits."
 • Low-level reality: A trace of 50,000 receipts with mixed opcodes.
 The bridge makes randomness claims verifiable: you can inspect the trace and
@@ -14450,22 +15498,22 @@ Each bridge defines:
 2. Payload extraction from matching receipts
 3. Decode lemmas proving filter-map equivalence
 
-D.4.2
+D.5.2
 
 BoxWorld Bridge
 
-The file coq/bridge/BoxWorld_to_Kernel.v (7KB, 9 theorems) embeds finite
-box-world predictions into kernel receipts:
+The file coq/bridge/BoxWorld_to_Kernel.v (6.8KB) embeds finite box-world
+predictions into kernel receipts:
 
 (** Box - world trial embedding *)
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 363
-
 Definition TheoryTrial : Type := KC . Trial .
 Definition TheoryProgram : Type := list TheoryTrial .
 (** Translation to kernel instructions *)
 Definition translate_trial ( t : TheoryTrial ) :
 ,→ vm_instruction :=
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 383
+
 instr_chsh_trial ( trial_x t ) ( trial_y t ) ( trial_a t
 ,→ ) ( trial_b t ) 1.
 (** Simulation theorem : receipts recover theory
@@ -14481,12 +15529,11 @@ inputs x, y and outputs a, b) can be embedded into kernel instructions, and the
 receipts exactly recover the original trials. This is a semantics-preserving embedding
 of physical observables.
 
-D.4.3
+D.5.3
 
 FiniteQuantum Bridge
 
-The file coq/bridge/FiniteQuantum_to_Kernel.v (8KB, 10 theorems) extends
-the box-world bridge to quantum-admissible correlations:
+The file coq/bridge/FiniteQuantum_to_Kernel.v (8.3KB) extends the boxworld bridge to quantum-admissible correlations:
 
 (** Tsirelson - envelope admissibility *)
 Definition q ua nt um _ad mi ss ib le ( trials : list Trial ) :
@@ -14505,14 +15552,14 @@ Definition p o l i c y _ t h r e s h o l d _ d a t a s e t : list Trial :=
 Lemma d a t a s e t _ m a t c h e s _ t h r e s h o l d :
 chsh_statistic p o l i c y _ t h r e s h o l d _ d a t a s e t = 5657 /
 ,→ 2000.
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 364
-
 (** Simulation theorem for quantum - admissible
 ,→ predictions *)
 Theorem q u a n t u m _ t r i a l s _ p r e s e r v e d :
 forall prog ,
 q uan tu m_ ad mi ss ib le prog ->
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 384
+
 decode_trials ( r u n _q u a nt u m _p r o gr a m prog ) = prog .
 
 What this proves: Quantum-admissible correlations (those satisfying the Tsirelson
@@ -14526,13 +15573,13 @@ Why two bridge files? BoxWorld_to_Kernel.v handles arbitrary correlations
 quantum-admissible correlations (up to 2 2) and provides the concrete dataset
 used by the runtime policy.
 
-D.5
+D.6
 
 Flagship DI Randomness Track
 
 The project’s flagship demonstration is device-independent randomness certification.
 
-D.5.1
+D.6.1
 
 Protocol Flow
 
@@ -14541,7 +15588,7 @@ Protocol Flow
 3. Admissibility Check: verify K-bounded structure addition
 4. Bound Theorem: Admissible(K) ⇒ Hmin ≤ f (K)
 
-D.5.2
+D.6.2
 
 The Quantitative Bound
 
@@ -14552,11 +15599,12 @@ forall K transcript ,
 Admissible K transcript ->
 rng_metric transcript <= f K .
 
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 365
-
 Understanding the Admissible Randomness Bound: What does this
 theorem prove? This theorem provides a quantitative bound on deviceindependent (DI) randomness: the amount of certifiable randomness is limited by
 the structure-addition budget K.
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 385
+
 Theorem statement breakdown:
 • Hypothesis: Admissible K transcript — The transcript (sequence of
 measurement results) is K-admissible: it can be generated with at most K
@@ -14584,13 +15632,12 @@ mechanics holds, devices isolated, etc.). This theorem makes assumptions explici
 via K: if you pay more µ (higher K), you can extract more randomness, but there’s
 a computable bound.
 Connection to kernel: The µ ledger tracks structure revelation. If a randomness
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 366
-
 generator claims to extract R bits from K µ-cost, this theorem checks if R ≤ f (K).
 If not, the claim is rejected.
 
-D.5.3
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 386
+
+D.6.3
 
 Conflict Chart
 
@@ -14600,11 +15647,11 @@ The closed-work pipeline generates a comparison artifact:
 • Explicit assumption documentation
 This creates an “external confrontation artifact”—outsiders can disagree on assumptions but must engage with the explicit numbers.
 
-D.6
+D.7
 
 Theory of Everything Limits
 
-D.6.1
+D.7.1
 
 What the Kernel Forces
 
@@ -14624,12 +15671,12 @@ observation, computation, or structural revelation costs µ ≥ 1.
 through causal cones. Module M at time t can only depend on modules
 within its past light cone.
 What is maximal closure? The kernel constraints are complete:
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 367
-
 • Necessary: All constraints follow from compositionality (partition boundaries + µ-conservation).
 • Sufficient: No additional constraints can be derived without adding extra
 axioms (e.g., symmetry, dynamics).
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 387
+
 Proof strategy: Show that:
 1. All listed constraints (no-signaling, µ-monotonicity, cone locality) are provable
 from kernel axioms.
@@ -14642,7 +15689,7 @@ The kernel captures exactly what compositionality demands, no more, no less.
 Connection to TOE limits: Maximal closure implies the kernel cannot uniquely
 determine physics. It forces locality and irreversibility, but not dynamics, probabilities, or field equations. Those require extra structure.
 
-D.6.2
+D.7.2
 
 What the Kernel Cannot Force
 
@@ -14660,11 +15707,11 @@ uniquely determine probabilities.
 Theorem statement breakdown:
 • exists w : nat -> Weight — There exists an indexed family of weight
 functions w0 , w1 , w2 , . . .
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 368
-
 • forall k, weight_laws (w k) — Each weight function wk satisfies compositional laws:
 – Additivity: w(A ∪ B) = w(A) + w(B) for disjoint A, B.
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 388
+
 – Normalization: w(Ω) = 1 (total probability = 1).
 – Non-negativity: w(A) ≥ 0 for all events A.
 • forall k1 k2, k1 <> k2 -> exists t, w k1 t <> w k2 t — All weight
@@ -14694,10 +15741,12 @@ axiom.
 Theorem P h y s i c s _ R e q u i r e s _ E x t r a _ S t r u c t u r e :
 ,→ Ke rn el No Go Fo rT OE _P .
 
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 369
-
 Understanding the Physics Requires Extra Structure Theorem: What
-does this theorem prove? This is the definitive TOE no-go result: computational structure (the kernel) cannot uniquely determine a physical theory. Extra
+does this theorem prove? This is the definitive TOE no-go result: compu-
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 389
+
+tational structure (the kernel) cannot uniquely determine a physical theory. Extra
 axioms are required.
 What the kernel provides:
 • Constraints: Locality, µ-monotonicity, causal structure.
@@ -14722,13 +15771,13 @@ for theories.
 • Guides future work: Shows where to add axioms to recover physics.
 Implication: A unique physical theory cannot be derived from computational
 structure alone. Additional axioms (symmetry, coarse-graining, boundary conditions) are required.
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 370
-
 Philosophical interpretation: Physics is not purely computational. Computation provides constraints and structure, but physics requires contingent choices
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 390
+
 (symmetries, initial conditions) that are not forced by logic.
 
-D.7
+D.8
 
 Complexity Comparison
 
@@ -14757,7 +15806,7 @@ Structure-aware
 The key insight: Thiele Machine trades blind search time for explicit structure
 cost (µ).
 
-D.8
+D.9
 
 Summary
 
@@ -14801,10 +15850,10 @@ RTL that can be synthesized to real silicon. This serves three purposes:
 1. Realizability: The abstract µ-costs correspond to real physical resources
 (logic gates, flip-flops, clock cycles)
 2. Verification: The 3-layer isomorphism (Coq ↔ Python ↔ RTL) ensures
-371
+391
 
 APPENDIX E. HARDWARE IMPLEMENTATION AND DEMONSTRATIONS
-372
+392
 
 correctness across abstraction levels
 3. Enforcement: Hardware can physically enforce invariants that software
@@ -14856,7 +15905,7 @@ Logic engine interface
 JSON state export for isomorphism checks
 
 APPENDIX E. HARDWARE IMPLEMENTATION AND DEMONSTRATIONS
-373
+393
 
 E.2.2
 
@@ -14896,7 +15945,7 @@ Opcode breakdown:
 • OPCODE_PDISCOVER (0x06): Discover partition structure.
 
 APPENDIX E. HARDWARE IMPLEMENTATION AND DEMONSTRATIONS
-374
+394
 
 • OPCODE_XFER (0x07): Transfer data between modules.
 • OPCODE_PYEXEC (0x08): Execute Python sandboxed code.
@@ -14946,7 +15995,7 @@ output reg overflow
 );
 
 APPENDIX E. HARDWARE IMPLEMENTATION AND DEMONSTRATIONS
-375
+395
 
 ...
 endmodule
@@ -14978,7 +16027,7 @@ rounding mode ambiguities).
 754 semantics).
 
 APPENDIX E. HARDWARE IMPLEMENTATION AND DEMONSTRATIONS
-376
+396
 
 • Efficient: Simpler hardware (no exponent logic, no denormals).
 Example operation: Add ∆µ = 1.5 to µ = 10.25:
@@ -15021,7 +16070,7 @@ input wire [31:0] pc ,
 input wire [31:0] halted ,
 
 APPENDIX E. HARDWARE IMPLEMENTATION AND DEMONSTRATIONS
-377
+397
 
 input wire [31:0] result ,
 input wire [31:0] program_hash ,
@@ -15055,7 +16104,7 @@ bytes).
 – serialized [367:0]: Serialized byte stream (46 bytes = 368 bits).
 
 APPENDIX E. HARDWARE IMPLEMENTATION AND DEMONSTRATIONS
-378
+398
 
 Canonical Serialization Format (CSF): Why canonical?
 • Deterministic: Same state always produces same byte stream (no ambiguity
@@ -15107,7 +16156,7 @@ Main Testbench
 Representative testbench snippet:
 
 APPENDIX E. HARDWARE IMPLEMENTATION AND DEMONSTRATIONS
-379
+399
 
 module thiele_cpu_tb ;
 // Load test program
@@ -15144,7 +16193,7 @@ p̈c:̈100,m̈u:̈500,r̈egs:̈[...],...
 Why JSON output? The testbench outputs JSON so the isomorphism harness
 
 APPENDIX E. HARDWARE IMPLEMENTATION AND DEMONSTRATIONS
-380
+400
 
 can parse and compare states across Python, OCaml, and RTL:
 • Structured: JSON is machine-parsable (no regex needed).
@@ -15185,7 +16234,7 @@ def t e s t _ r t l _ m a t c h e s _ p y t h o n () :
 # Run same program in both
 
 APPENDIX E. HARDWARE IMPLEMENTATION AND DEMONSTRATIONS
-381
+401
 
 python_result = vm . execute ( program )
 rtl_result = r un _rt l_ si mu la ti on ( program )
@@ -15219,7 +16268,7 @@ of the same abstract machine. This test falsifies the claim if any field differs
 identical semantics.
 
 APPENDIX E. HARDWARE IMPLEMENTATION AND DEMONSTRATIONS
-382
+402
 
 E.5
 
@@ -15293,7 +16342,7 @@ CHSH GAME DEMONSTRATION
 |
 
 APPENDIX E. HARDWARE IMPLEMENTATION AND DEMONSTRATIONS
-383
+403
 
 | Achieved :
 
@@ -15343,7 +16392,7 @@ Why is this the flagship? This demo showcases:
 • Verifiability: Receipt proves result is genuine (no forgery possible).
 
 APPENDIX E. HARDWARE IMPLEMENTATION AND DEMONSTRATIONS
-384
+404
 
 • Traceability: µ-cost shows computational effort (no free insight).
 • Reproducibility: Anyone can run the demo and verify results.
@@ -15394,7 +16443,7 @@ class ThieleVM :
 def __init__ ( self ) :
 
 APPENDIX E. HARDWARE IMPLEMENTATION AND DEMONSTRATIONS
-385
+405
 
 self . state = VMState ()
 self . mu = 0
@@ -15429,7 +16478,7 @@ instruction:
 args=[2])).
 
 APPENDIX E. HARDWARE IMPLEMENTATION AND DEMONSTRATIONS
-386
+406
 
 – Returns: StepResult with new pc, µ delta, and state changes.
 – Implementation: Dispatches on opcode, updates state, increments µ.
@@ -15469,7 +16518,7 @@ OPCODE_HALT
 APPENDIX E. HARDWARE IMPLEMENTATION AND
 DEMONSTRATIONS
 
-387
+407
 
 – mem: Memory contents (e.g., [1, 2, 3, ...]).
 – csrs: Control/status registers (e.g., {"mode": 1, "status": 0}).
@@ -15508,7 +16557,7 @@ always @(posedge done) begin
 $display("{\"pc\":%d,\"mu\":%d,...}", cpu.pc, cpu.mu_ledger);
 
 APPENDIX E. HARDWARE IMPLEMENTATION AND DEMONSTRATIONS
-388
+408
 
 $finish;
 end
@@ -15555,11 +16604,11 @@ model counting while ensuring the bound holds; may overcharge when multiple solu
 Partition Logic The formal logic system governing the creation, manipulation,
 and destruction of state partitions. It defines operations like PNEW, PSPLIT,
 
-389
+409
 
 APPENDIX F. GLOSSARY OF TERMS
 
-390
+410
 
 and PMERGE, ensuring that all structural changes are logically consistent and
 accounted for in the ledger.
@@ -15607,11 +16656,11 @@ Theorems follow systematic naming:
 • *_monotone: Quantity only increases (or stays same)
 • *_conservation: Quantity is conserved exactly
 
-391
+411
 
 APPENDIX G. COMPLETE THEOREM INDEX
 
-392
+412
 
 • *_impossible: Something cannot happen
 • no_*: Negative result (something is forbidden)
@@ -15660,7 +16709,7 @@ Key theorems include:
 
 APPENDIX G. COMPLETE THEOREM INDEX
 
-393
+413
 
 • reaches_transitive, causal_order_partial
 • cone_composition, cone_monotone
@@ -15751,7 +16800,7 @@ Key theorems include:
 • wave_energy_conserved, wave_momentum_conserved,
 • wave_step_reversible
 
-394
+414
 
 APPENDIX G. COMPLETE THEOREM INDEX
 
@@ -15796,11 +16845,11 @@ Key theorems include:
 • simulation_correct
 • cornerstone_properties
 
-395
+415
 
 APPENDIX G. COMPLETE THEOREM INDEX
 
-396
+416
 
 • minsky_reduces_to_thiele
 • thiele_universal
@@ -15852,6 +16901,6 @@ system bei eingriffen intelligenter wesen. Zeitschrift für Physik, 53(11-12):84
 the entscheidungsproblem. Proceedings of the London mathematical society,
 2(42):230–265, 1936.
 
-397
+417
 
 
