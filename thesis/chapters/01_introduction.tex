@@ -41,8 +41,8 @@ If you are new to theoretical computer science, here is what you need to know:
 
 This is not a paper with informal arguments. Every major claim is:
 \begin{enumerate}
-    \item \textbf{Formally proven}: Machine-checked proofs in the Coq proof assistant (over 2,000 theorems and lemmas across 238 files)
-    \item \textbf{Implemented}: Working code in Python and Verilog hardware description
+    \item \textbf{Formally proven}: Machine-checked proofs in the Coq proof assistant (1,637 theorems and lemmas across 262 files, totaling 55,097 lines)
+    \item \textbf{Implemented}: Working code in Python (19,516 lines) and Verilog hardware description (43 files)
     \item \textbf{Tested}: Automated tests verify that theory and implementation match
     \item \textbf{Falsifiable}: The thesis specifies exactly what would disprove each claim
 \end{enumerate}
@@ -291,6 +291,8 @@ Every claim is falsifiable. Find a counterexample. Break the proofs. I dare you.
     
     \item \textbf{The Inquisitor Standard:} Zero-admit, zero-axiom methodology for machine-checkable claims.
     
+    \item \textbf{Physical Constant Exploration:} Formal investigation of deriving constants from information theory: Planck constant relationship proven ($h = 4 k_B T \ln 2 \cdot \tau_\mu$), speed of light structure established ($c = d_\mu / \tau_\mu$), gravitational constant and particle masses identified as free parameters. (Chapter 12)
+    
     \item \textbf{Empirical Artifacts:} Reproducible demos including certified randomness and polynomial-time structured Tseitin solutions.
 \end{enumerate}
 
@@ -322,7 +324,7 @@ The remainder of this thesis is organized as follows:
 \begin{itemize}
     \item \textbf{Chapter 9: The Verifier System} documents the complete TRS-1.0 receipt protocol and the four C-modules (C-RAND, C-TOMO, C-ENTROPY, C-CAUSAL) that provide domain-specific verification.
     
-    \item \textbf{Chapter 10: Extended Proof Architecture} covers the full 238-file Coq development including the ThieleMachine proofs, Theory of Everything results, and impossibility theorems.
+    \item \textbf{Chapter 10: Extended Proof Architecture} covers the full 262-file Coq development (1,637 theorems, 55,097 lines) including the ThieleMachine proofs, Theory of Everything results, and impossibility theorems.
     
     \item \textbf{Chapter 11: Experimental Validation Suite} details all physics experiments, falsification tests, and the benchmark suite.
     

@@ -31,6 +31,8 @@ class TinyVM:
         self.pc = 0
         self.mu = 0.0
         self.halted = False
+        self.cert_value = 0  # Certificate value injected externally
+        self.registers = [0] * 256  # Minimal register file
 
     def step(self) -> Tuple[bool, bool]:
         """Execute a single instruction.
@@ -49,12 +51,19 @@ class TinyVM:
         self.mu += INSTRUCTION_COSTS.get(op, 0.0)
 
         saw_cert = False
-        if op is Opcode.MDLACC and (
-            a == CSR.CERT_ADDR.value or b == CSR.CERT_ADDR.value
-        ):
-            saw_cert = True
-
-        if op is Opcode.HALT:
+        if op is Opcode.MDLACC:
+            if a == CSR.CERT_ADDR.value:
+                # Load certificate into register b
+                self.registers[b] = self.cert_value & 0xFF
+                saw_cert = True
+            elif b == CSR.CERT_ADDR.value:
+                # Load certificate into register a
+                self.registers[a] = self.cert_value & 0xFF
+                saw_cert = True
+        elif op is Opcode.EMIT:
+            # Emit from register a - this is our output
+            pass
+        elif op is Opcode.HALT:
             self.halted = True
 
         return saw_cert, self.halted
@@ -75,6 +84,10 @@ def _decode_program(data: bytes) -> list[Tuple[Opcode, int, int]] | None:
 def sample_certificate_density(
     n_bits: int, samples: int = 4000, step_budget: int = 50, seed: int = 20251202
 ) -> tuple[int, int, float]:
+    """WRONG METRIC: Just measures programs that read certificate.
+    
+    For α-convergence, use sample_self_referential_density() instead.
+    """
     rng = random.Random(seed + n_bits)
     valid = 0
     readers = 0
@@ -114,6 +127,76 @@ def sample_certificate_density(
 
     ratio = readers / valid if valid else 0.0
     return valid, readers, ratio
+
+
+def sample_self_referential_density(
+    n_bits: int, samples: int = 4000, step_budget: int = 50, seed: int = 20251202
+) -> tuple[int, int, float]:
+    """CORRECT METRIC: Programs where output depends on their own hash.
+    
+    Self-referential = program reads certificate AND emits different output
+    when certificate changes.
+    """
+    import hashlib
+    
+    rng = random.Random(seed + n_bits)
+    valid = 0
+    self_referential = 0
+    byte_len = n_bits // 8
+
+    if byte_len == 0 or byte_len % 4 != 0:
+        return 0, 0, 0.0
+
+    opcode_values = [op.value for op in Opcode]
+    instr_count = byte_len // 4
+
+    for _ in range(samples):
+        payload = bytearray()
+        for _ in range(instr_count):
+            op_byte = rng.choice(opcode_values)
+            a = rng.randrange(256)
+            b = rng.randrange(256)
+            payload.extend(bytes([op_byte, a, b, 0]))
+
+        decoded = _decode_program(payload)
+        if decoded is None:
+            continue
+
+        valid += 1
+        
+        # Run with two different certificate values
+        cert_hash = hashlib.sha256(bytes(payload)).digest()
+        cert_value = int.from_bytes(cert_hash[:8], 'little')
+        
+        outputs = []
+        for fake_cert in [cert_value, cert_value ^ 0xFFFFFFFFFFFFFFFF]:
+            vm = TinyVM(decoded)
+            vm.cert_value = fake_cert
+            emitted = []
+            saw_cert = False
+            
+            for _ in range(step_budget):
+                if vm.halted:
+                    break
+                
+                # Check if about to emit
+                op, a, b = vm.program[vm.pc % len(vm.program)]
+                if op is Opcode.EMIT:
+                    emitted.append(vm.registers[a])
+                
+                executed_cert, halted = vm.step()
+                if executed_cert:
+                    saw_cert = True
+            
+            if saw_cert:
+                outputs.append(tuple(emitted))
+        
+        # Self-referential = read certificate AND outputs differ
+        if len(outputs) == 2 and len(outputs[0]) > 0 and outputs[0] != outputs[1]:
+            self_referential += 1
+
+    ratio = self_referential / valid if valid else 0.0
+    return valid, self_referential, ratio
 
 
 @pytest.mark.parametrize("n_bits", [32, 64, 128])

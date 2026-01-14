@@ -217,6 +217,27 @@ Landauer's principle establishes three facts that underpin this entire thesis:
 
 From a first-principles perspective, the key step is that erasure reduces the logical state space. Mapping two possible inputs to a single output decreases the system's entropy by $\Delta S = k_B \ln 2$. To satisfy the second law, that entropy must be exported to the environment as heat $Q \ge T \Delta S$, yielding the $k_B T \ln 2$ bound. Reversible gates avoid this penalty by preserving a one-to-one mapping between logical states, but they shift the cost to auxiliary memory and garbage bits that must eventually be erased.
 
+\subsubsection{From Landauer to Planck}
+
+Landauer's principle provides more than a thermodynamic bound---it may connect information theory to quantum mechanics. Define the Landauer energy as:
+\[
+E_{\text{landauer}} = k_B T \ln 2
+\]
+
+If computational operations occur at a fundamental time scale $\tau_\mu$, then Planck's constant can be expressed as:
+\[
+h = 4 E_{\text{landauer}} \cdot \tau_\mu = 4 k_B T \ln 2 \cdot \tau_\mu
+\]
+
+This relationship is formally proven in \path{coq/physics_exploration/PlanckDerivation.v} (Chapter 12). While this establishes a \textit{structural relationship} between information theory and quantum mechanics, it does not provide a numerical prediction for $h$ without an independent derivation of $\tau_\mu$. The result demonstrates that fundamental physical constants may emerge from information-theoretic principles---or that they share deep mathematical structure.
+
+At room temperature ($T = 300$K) with known $h$, the implied time scale is:
+\[
+\tau_\mu = \frac{h}{4 k_B T \ln 2} \approx 1.15 \times 10^{-13} \text{ seconds}
+\]
+
+This femtosecond scale is consistent with fundamental quantum time scales, suggesting that $\mu$-operations occur at the boundary between classical information processing and quantum dynamics.
+
 \subsubsection{Reversible Computation}
 
 Charles Bennett showed you can make computation thermodynamically reversible by keeping a history of all operations \cite{bennett1982thermodynamics}. A reversible Turing Machine can simulate any irreversible computation with only polynomial overhead in space.

@@ -3,7 +3,7 @@
 
 \textbf{Three layers (boxes):}
 \begin{itemize}
-    \item \textbf{Layer 1: Coq (blue):} Formal specification with machine-checked proofs (over 2,000 verified theorems)
+    \item \textbf{Layer 1: Coq (blue):} Formal specification with machine-checked proofs (1,637 verified theorems)
     \item \textbf{Layer 2: Python (green):} Human-readable reference implementation with tracing \& debugging
     \item \textbf{Layer 3: Verilog (orange):} Synthesizable RTL for FPGA/ASIC physical hardware
 \end{itemize}
@@ -1916,7 +1916,7 @@ yosys -p "read_verilog thiele_cpu.v; synth_xilinx -top thiele_cpu; write_json ne
 
 \textbf{Three boxes (top):}
 \begin{itemize}
-    \item \textbf{Coq (blue):} 1,466 theorems, machine-checked, extracted runner
+    \item \textbf{Coq (blue):} 1,637 theorems, machine-checked, extracted runner
     \item \textbf{Python (green):} Reference VM, tracing, receipts
     \item \textbf{Verilog (orange):} RTL Core, $\mu$-ALU, FPGA-ready
 \end{itemize}

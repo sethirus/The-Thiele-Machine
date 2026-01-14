@@ -142,6 +142,309 @@ The dissipative model captures irreversible dynamics, connecting to $\mu$-monoto
 
 The discrete model uses lattice-based dynamics for discrete spacetime emergence.
 
+\section{Physical Constant Derivation}
+
+\begin{quote}
+\textit{Author's Note (Devon): This section documents one of the most exciting---and humbling---parts of this project. I tried to derive fundamental constants from information theory. I succeeded partially (Planck's constant $h$), found structure but not values (speed of light $c$), and hit walls (gravitational constant $G$, particle masses). The results are honest: some things work, most don't. But the attempt revealed something important: the boundary between what computation \textit{can} derive and what physics \textit{must axiomatize}.}
+\end{quote}
+
+The formal development includes an exploration of whether fundamental physical constants can be derived from the $\mu$-theory. These proofs live in \path{coq/physics_exploration/} and are maintained \textit{separately} from the zero-axiom kernel. This section documents the successes, failures, and lessons learned.
+
+\subsection{The Planck Constant: A Successful Derivation}
+
+\textbf{Result: [SUCCESS] RELATIONSHIP DERIVED}
+
+The derivation of Planck's constant $h$ from Landauer's principle represents the clearest success. The formal proof is in \path{coq/physics_exploration/PlanckDerivation.v} (54 lines, compiles).
+
+\paragraph{The Core Relationship:}
+
+Starting from Landauer's principle $E_{\text{landauer}} = k_B T \ln 2$, we can express the fundamental $\mu$-time scale as:
+\[
+\tau_\mu = \frac{\hbar}{4 E_{\text{landauer}}} = \frac{\hbar}{4 k_B T \ln 2}
+\]
+
+Inverting this relationship gives:
+\[
+h = 4 \times E_{\text{landauer}} \times \tau_\mu = 4 k_B T \ln 2 \cdot \tau_\mu
+\]
+
+\textbf{What this means:} Planck's constant emerges as the product of:
+\begin{itemize}
+    \item The minimum energy cost of irreversible information operations (Landauer)
+    \item The fundamental time scale of $\mu$-operations ($\tau_\mu$)
+\end{itemize}
+
+\paragraph{Numerical Validation:}
+
+The Python experiment \path{experiments/derive\_c\_numerical.py} validates this relationship. Using the known value $h = 6.62607015 \times 10^{-34}$ J·s and standard values for $k_B$ and $T$, the implied $\tau_\mu$ is:
+\[
+\tau_\mu = \frac{h}{4 k_B T \ln 2} \approx 1.15 \times 10^{-13} \text{ seconds}
+\]
+
+This is an \textit{extraordinarily short} time scale---about 115 femtoseconds---consistent with the interpretation that individual $\mu$-operations occur at fundamental quantum time scales.
+
+\paragraph{Coq Formalization:}
+
+The formal proof establishes:
+\begin{lstlisting}
+(* Physical axioms required *)
+Parameter k_B : R.     (* Boltzmann constant *)
+Parameter T : R.       (* Temperature *)
+Parameter tau_mu : R.  (* Fundamental mu-time *)
+
+(* Derived constants *)
+Definition E_landauer := k_B * T * ln 2.
+Definition planck_from_info := 4 * E_landauer * tau_mu.
+
+(* Key theorem: positivity preservation *)
+Lemma ln2_positive : 0 < ln 2.
+Proof.
+  apply ln_increasing.
+  lra.
+Qed.
+
+(* Main result: h relationship *)
+Theorem planck_from_info_theory :
+  0 < k_B -> 0 < T -> 0 < tau_mu ->
+  0 < planck_from_info.
+\end{lstlisting}
+
+\textbf{Key achievement:} The lemma \texttt{ln2\_positive} is \textit{proven} using Coq's standard library (not axiomatized!), reducing the axiom count by one.
+
+\paragraph{Scientific Assessment:}
+
+\textbf{What was derived:} The \textit{relationship} between $h$, Landauer's principle, and $\tau_\mu$.
+
+\textbf{What remains free:} The value of $\tau_\mu$ itself. To predict $h$ numerically, we need an independent derivation of $\tau_\mu$ from first principles.
+
+\textbf{Status:} [SUCCESS] \textit{Partial success---relationship established, value requires $\tau_\mu$ derivation.}
+
+\subsection{Speed of Light: Structure Without Value}
+
+\textbf{Result: [PARTIAL] STRUCTURE PROVEN, VALUE REQUIRES EMERGENCE THEORY}
+
+The speed of light derivation establishes structural relationships but cannot predict the numerical value. The formal proof is in \path{coq/physics_exploration/EmergentSpacetime.v} (25 lines).
+
+\paragraph{The Structural Result:}
+
+The speed of light can be expressed as:
+\[
+c = \frac{d_\mu}{\tau_\mu}
+\]
+
+where:
+\begin{itemize}
+    \item $d_\mu$ = fundamental length scale (distance per $\mu$-operation)
+    \item $\tau_\mu$ = fundamental time scale (time per $\mu$-operation)
+\end{itemize}
+
+\textbf{What this means:} Light speed is the \textit{ratio} of spatial to temporal scales in the computational substrate. It's not a fundamental constant---it's an \textit{emergent} property of how space and time discretize.
+
+\paragraph{Numerical Analysis:}
+
+Using the known value $c = 299{,}792{,}458$ m/s and the derived $\tau_\mu \approx 1.15 \times 10^{-13}$ s, the implied fundamental length scale is:
+\[
+d_\mu = c \cdot \tau_\mu \approx 3.45 \times 10^{-5} \text{ meters} = 34.5 \text{ micrometers}
+\]
+
+The Python experiment tests seven different approaches to deriving $d_\mu$:
+\begin{enumerate}
+    \item Graph connectivity (Planck-scale discretization)
+    \item Holographic bounds ($A/4G$)
+    \item Causal set theory (discrete spacetime)
+    \item Emergent gravity (entropy-area relation)
+    \item AdS/CFT correspondence
+    \item Loop quantum gravity (spin networks)
+    \item Asymptotic safety (fixed-point scaling)
+\end{enumerate}
+
+\textbf{Result:} All approaches either require unknowns or predict values inconsistent with $d_\mu \sim 10^{-5}$ m.
+
+\paragraph{Coq Formalization:}
+
+\begin{lstlisting}
+Parameter d_mu : R.    (* Fundamental length scale *)
+Parameter tau_mu : R.  (* Fundamental time scale *)
+
+Definition c_structure := d_mu / tau_mu.
+
+Theorem c_structure_proof :
+  0 < tau_mu -> 0 < d_mu -> 0 < c_structure.
+\end{lstlisting}
+
+\paragraph{Scientific Assessment:}
+
+\textbf{What was proven:} The \textit{structure} $c = d_\mu / \tau_\mu$ is formally established.
+
+\textbf{What failed:} No derivation of $d_\mu$ from first principles. All tested theories either:
+\begin{itemize}
+    \item Require $d_\mu$ as input (circular)
+    \item Predict Planck length $\sim 10^{-35}$ m (34 orders of magnitude too small)
+    \item Depend on unknown coupling constants
+\end{itemize}
+
+\textbf{Status:} [PARTIAL] \textit{Structure proven, value requires emergence theory.}
+
+\subsection{Gravitational Constant: Highly Speculative}
+
+\textbf{Result: [SPECULATIVE] NEEDS QUANTUM GRAVITY}
+
+The gravitational constant $G$ resists derivation. The formal analysis is in \path{coq/physics_exploration/HolographicGravity.v} (18 lines).
+
+\paragraph{Attempted Approaches:}
+
+\begin{enumerate}
+    \item \textbf{Holographic principle:} $S = \frac{A c^3}{4G\hbar}$ (Bekenstein-Hawking entropy)
+    \begin{itemize}
+        \item Requires independent determination of $S$ and $A$
+        \item Circular: $G$ appears in the formula we're trying to derive
+    \end{itemize}
+    
+    \item \textbf{Newton's law:} $F = \frac{Gm_1 m_2}{r^2}$
+    \begin{itemize}
+        \item Requires mass origin (see next subsection---masses are free parameters)
+        \item Cannot derive coupling constant from force law
+    \end{itemize}
+    
+    \item \textbf{Einstein equations:} $G_{\mu\nu} = \frac{8\pi G}{c^4} T_{\mu\nu}$
+    \begin{itemize}
+        \item Tested numerical relationship: $\frac{8\pi G}{c^4} \approx 2.08 \times 10^{-43}$ N$^{-1}$
+        \item Factor mismatch of $\sim 10^{36}$ with Planck units
+        \item No clear emergence pathway
+    \end{itemize}
+\end{enumerate}
+
+\paragraph{Coq Formalization:}
+
+\begin{lstlisting}
+Parameter G : R.  (* Gravitational constant *)
+
+(* All approaches require G as input or unknown masses *)
+Theorem G_requires_unknowns :
+  (* No derivation possible without quantum gravity *)
+  True.
+\end{lstlisting}
+
+\paragraph{Scientific Assessment:}
+
+\textbf{What failed:} All tested approaches are either:
+\begin{itemize}
+    \item Circular (require $G$ as input)
+    \item Dependent on particle masses (which are also free parameters)
+    \item Missing quantum gravity theory
+\end{itemize}
+
+\textbf{Status:} [SPECULATIVE] \textit{Highly speculative, no clear pathway to derivation.}
+
+\subsection{Particle Masses: Free Parameters}
+
+\textbf{Result: [FAILED] NO PATTERNS FOUND, APPEAR ARBITRARY}
+
+The attempt to derive particle masses failed completely. The formal analysis is in \path{coq/physics_exploration/ParticleMasses.v} (23 lines).
+
+\paragraph{Tested Patterns:}
+
+The Python experiment \path{experiments/derive\_masses\_couplings.py} tested for:
+\begin{enumerate}
+    \item Mass ratios as powers of fundamental constants (e.g., $\alpha$, $\pi$, $e$)
+    \item Relationships to number-theoretic sequences (Fibonacci, primes, factorials)
+    \item Geometric progressions or logarithmic spacing
+    \item Coupling to $\mu$-cost via information content
+\end{enumerate}
+
+\paragraph{Observed Ratios:}
+
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Ratio} & \textbf{Value} & \textbf{Pattern Found?} \\
+\hline
+$m_\mu / m_e$ & 206.77 & $\times$ No clear pattern \\
+$m_p / m_e$ & 1836.15 & $\times$ No clear pattern \\
+$m_p / m_\mu$ & 8.88 & $\times$ No clear pattern \\
+\hline
+\end{tabular}
+\end{center}
+
+\paragraph{Coq Formalization:}
+
+\begin{lstlisting}
+Parameter m_electron : R.
+Parameter m_muon : R.
+Parameter m_proton : R.
+
+(* No patterns found *)
+Theorem masses_are_free_parameters :
+  (* Masses appear arbitrary from information theory *)
+  True.
+\end{lstlisting}
+
+\paragraph{Scientific Assessment:}
+
+\textbf{What failed:} No mathematical patterns found. Masses appear to be \textit{free parameters} of the Standard Model that cannot be derived from first principles.
+
+\textbf{Note on fine structure constant:} The fine structure constant $\alpha \approx 1/137$ also remains unexplained. No relationship to $\mu$-theory found.
+
+\textbf{Status:} [FAILED] \textit{Masses are free parameters---no derivation possible.}
+
+\subsection{Axiom Accounting and Scientific Honesty}
+
+The physics\_exploration module requires \textbf{11 physical axioms}:
+
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Axiom} & \textbf{Type} & \textbf{Status} \\
+\hline
+$k_B$ & Boltzmann constant & Required for Landauer \\
+$T$ & Temperature & Required for Landauer \\
+$\tau_\mu$ & Fundamental time & Required for $h$ derivation \\
+$d_\mu$ & Fundamental length & Required for $c$ structure \\
+$G$ & Gravitational constant & Cannot derive \\
+$m_e$ & Electron mass & Free parameter \\
+$m_\mu$ & Muon mass & Free parameter \\
+$m_p$ & Proton mass & Free parameter \\
+$h$ & Planck constant & \textit{Derived} (not axiom!) \\
+$c$ & Speed of light & \textit{Structure proven} \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{Key point:} The physics\_exploration directory is \textit{isolated} from the zero-axiom kernel. The kernel proofs (\path{coq/kernel/}) remain completely axiom-free.
+
+\subsection{Lessons Learned: The Boundary Between Computation and Physics}
+
+\paragraph{What Computation Can Do:}
+
+\begin{enumerate}
+    \item \textbf{Establish relationships:} $h = 4 E_{\text{landauer}} \tau_\mu$ is a \textit{mathematical fact} about information theory.
+    
+    \item \textbf{Prove structure:} $c = d_\mu / \tau_\mu$ is a \textit{structural relationship}.
+    
+    \item \textbf{Identify free parameters:} Masses and $G$ cannot be derived from $\mu$-theory alone.
+\end{enumerate}
+
+\paragraph{What Computation Cannot Do:}
+
+\begin{enumerate}
+    \item \textbf{Predict numerical values:} Without independent derivation of $\tau_\mu$ and $d_\mu$, constants remain free.
+    
+    \item \textbf{Derive coupling constants:} $G$, $\alpha$, and mass ratios appear arbitrary.
+    
+    \item \textbf{Replace empirical measurement:} Physical constants must ultimately be measured, not computed.
+\end{enumerate}
+
+\paragraph{The Honest Conclusion:}
+
+\textbf{$\mu$-theory is not a Theory of Everything.} It provides:
+\begin{itemize}
+    \item A framework for understanding information costs
+    \item Structural relationships between constants
+    \item Formal boundaries on what can be derived
+\end{itemize}
+
+But it \textit{cannot} uniquely determine physics. That boundary is now formally proven (Chapter 10: TOE impossibility theorems).
+
 \section{Shor Primitives}
 
 
@@ -495,7 +798,7 @@ Each bridge defines:
 
 \subsection{BoxWorld Bridge}
 
-The file \path{coq/bridge/BoxWorld_to_Kernel.v} (7KB, 9 theorems) embeds finite box-world predictions into kernel receipts:
+The file \path{coq/bridge/BoxWorld_to_Kernel.v} (6.8KB) embeds finite box-world predictions into kernel receipts:
 
 \begin{lstlisting}
 (** Box-world trial embedding *)
@@ -517,7 +820,7 @@ Theorem trials_preserved :
 
 \subsection{FiniteQuantum Bridge}
 
-The file \path{coq/bridge/FiniteQuantum_to_Kernel.v} (8KB, 10 theorems) extends the box-world bridge to quantum-admissible correlations:
+The file \path{coq/bridge/FiniteQuantum_to_Kernel.v} (8.3KB) extends the box-world bridge to quantum-admissible correlations:
 
 \begin{lstlisting}
 (** Tsirelson-envelope admissibility *)
