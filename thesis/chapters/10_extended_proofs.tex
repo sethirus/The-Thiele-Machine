@@ -12,11 +12,13 @@ Mathematical proofs have been the gold standard of certainty for millennia. When
 
 The Thiele Machine development contains a large, fully verified Coq proof corpus with:
 \begin{itemize}
-    \item \textbf{Zero admits}: No proof is left incomplete
-    \item \textbf{Zero axioms}: No unproven assumptions (beyond foundational logic)
+    \item \textbf{262 proof files}: 55,097 lines of Coq across kernel, proofs, and bridges
+    \item \textbf{1,637 theorems}: Including theorems, lemmas, propositions, and corollaries
+    \item \textbf{Zero admits}: No proof is left incomplete (kernel only; physics\_exploration has documented axioms)
+    \item \textbf{Zero axioms}: No unproven assumptions in kernel (beyond foundational logic)
     \item \textbf{Full extraction}: Proofs can be compiled to executable code
 \end{itemize}
-The corpus is split between the kernel (\texttt{coq/kernel/}) and the extended proofs (\texttt{coq/thielemachine/coqproofs/}). This division mirrors the conceptual separation between the core semantics and the larger ecosystem of applications and bridges.
+The corpus is split between the kernel (\texttt{coq/kernel/}, zero axioms), extended proofs (\texttt{coq/thielemachine/coqproofs/}), and physics exploration (\texttt{coq/physics\_exploration/}, 4 files with 11 physical axioms). This division mirrors the conceptual separation between the core semantics, the larger ecosystem of applications, and speculative physical derivations.
 
 This chapter documents the complete formalization beyond the kernel layer, organized into specialized proof domains.
 
@@ -86,7 +88,7 @@ The proof corpus is organized by \emph{domain} rather than by implementation det
 \end{itemize}
 For readers navigating the code, the “kernel semantics” block corresponds to files such as \texttt{VMState.v} and \texttt{VMStep.v}, while many of the “extended machine proofs” live in \texttt{PartitionLogic.v}, \texttt{Subsumption.v}, and related files under \texttt{coq/thielemachine/coqproofs/}. The structure is intentionally layered so that higher-level proofs explicitly import the kernel rather than re-deriving it.
 
-\section{The ThieleMachine Proof Suite (98 Files)}
+\section{The ThieleMachine Proof Suite}
 
 \subsection{Partition Logic}
 
@@ -372,7 +374,7 @@ The kernel development has been extended with new proof files establishing funda
 
 \subsection{Finite Information Theory}
 
-The file \path{coq/kernel/FiniteInformation.v} (20KB, 18 theorems) proves information-theoretic properties without axioms:
+The file \path{coq/kernel/FiniteInformation.v} (21KB) proves information-theoretic properties without axioms:
 
 \begin{lstlisting}
 (** Information cannot be created in deterministic systems *)
@@ -409,7 +411,7 @@ Lemma psplit_locality : forall s s' mid l r mu,
 
 \subsection{Proper Subsumption (Non-Circular)}
 
-The file \path{coq/kernel/ProperSubsumption.v} (12KB, 5 theorems) proves Turing $\subsetneq$ Thiele with a \textbf{non-circular} definition of Turing machines:
+The file \path{coq/kernel/ProperSubsumption.v} (13KB) proves Turing $\subsetneq$ Thiele with a \textbf{non-circular} definition of Turing machines:
 
 \begin{lstlisting}
 (** Full Turing machine (NOT artificially limited) *)
@@ -437,7 +439,7 @@ Theorem thiele_strictly_extends_turing :
 
 \subsection{Local Information Loss}
 
-The file \path{coq/kernel/LocalInfoLoss.v} (17KB, 8 theorems) connects information theory to $\mu$-cost:
+The file \path{coq/kernel/LocalInfoLoss.v} (17KB) connects information theory to $\mu$-cost:
 
 \begin{lstlisting}
 (** Information loss bounded by mu-cost *)
@@ -471,7 +473,7 @@ End HardAssumptions.
 
 \subsection{The $\mu$-Initiality Theorem}
 
-The file \path{coq/kernel/MuInitiality.v} (14KB, 13 theorems) proves the strongest possible statement about the $\mu$-ledger: it is not merely \textit{a} monotone cost accumulator, but \textit{the} canonical one—the initial object in the category of instruction-consistent cost functionals.
+The file \path{coq/kernel/MuInitiality.v} (15KB) proves the strongest possible statement about the $\mu$-ledger: it is not merely \textit{a} monotone cost accumulator, but \textit{the} canonical one—the initial object in the category of instruction-consistent cost functionals.
 
 \begin{lstlisting}
 (** Instruction-consistency: M increases by exactly c(instr) each step *)
@@ -538,7 +540,7 @@ The most recent kernel extension proves that the ``axioms'' of quantum mechanics
 
 \subsection{Proof Architecture Overview}
 
-The quantum axiom proofs live in five files totaling 1,192 lines of Coq with zero \texttt{Admitted} statements:
+The quantum axiom proofs live in five files totaling 1,174 lines of Coq with zero \texttt{Admitted} statements:
 
 \begin{center}
 \begin{tabular}{lrrl}
@@ -1761,7 +1763,7 @@ These predictions are falsifiable: if benchmarks show costs outside these bounds
 The extended proof architecture establishes:
 \begin{enumerate}
     \item \textbf{Zero-admit corpus}: A fully discharged proof tree with no admits or unproven axioms beyond foundational logic.
-    \item \textbf{Quantum axioms from $\mu$-accounting}: No-cloning, unitarity, Born rule, purification, and Tsirelson bound all derived from conservation of structural information (1,192 lines, 74 theorems).
+    \item \textbf{Quantum axioms from $\mu$-accounting}: No-cloning, unitarity, Born rule, purification, and Tsirelson bound all derived from conservation of structural information (1,174 lines, 19 theorems).
     \item \textbf{Quantum bounds}: Literal CHSH $\le$ 5657/2000.
     \item \textbf{TOE limits}: Physics requires extra structure beyond compositionality.
     \item \textbf{Impossibility theorems}: Entropy, probability, and unique weights are not forced by the kernel alone.

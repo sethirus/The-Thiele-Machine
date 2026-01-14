@@ -185,14 +185,14 @@ This thesis presents the \textbf{Thiele Machine}, a formal model of computation 
 
 We formalize the machine as a 5-tuple $T = (S, \Pi, A, R, L)$ comprising state space, partition graph, axiom sets, transition rules, and logic engine. The partition graph decomposes state into disjoint modules, each carrying logical constraints. A monotonically non-decreasing $\mu$-ledger tracks cumulative structural cost throughout execution.
 
-We prove over 1,400 theorems and lemmas in Coq 8.18 across 206 files with \textbf{zero admits and zero axioms}:
+We prove 1,637 theorems and lemmas in Coq 8.18 across 262 files with \textbf{zero admits and zero axioms in the kernel}:
 \begin{enumerate}
     \item \textbf{Observational No-Signaling}: Operations on one module cannot affect observables of unrelated modules.
     \item \textbf{$\mu$-Conservation}: The ledger grows monotonically and bounds irreversible bit operations.
     \item \textbf{No Free Insight}: Strengthening certification predicates requires explicit, charged structure addition.
 \end{enumerate}
 
-We demonstrate \textbf{3-layer isomorphism}: identical state projections from Coq-extracted semantics, Python reference VM (2,965 lines core), and Verilog RTL (1,017 lines core, 10,520 lines total). The Inquisitor tool enforces zero-admit discipline in continuous integration.
+We demonstrate \textbf{3-layer isomorphism}: identical state projections from Coq-extracted semantics, Python reference VM (4,018 lines core, 19,516 total), and Verilog RTL (43 files). The Inquisitor tool enforces zero-admit discipline in continuous integration.
 
 Empirical evaluation validates CHSH correlation bounds (supra-quantum certification requires revelation) and $\mu$-ledger monotonicity across 1,115 test functions. Hardware synthesis targets Xilinx 7-series FPGAs.
 
@@ -311,7 +311,7 @@ If you are new to theoretical computer science, here is what you need to know:
 
 This is not a paper with informal arguments. Every major claim is:
 \begin{enumerate}
-    \item \textbf{Formally proven}: Machine-checked proofs in the Coq proof assistant (over 1,400 theorems and lemmas across 206 files)
+    \item \textbf{Formally proven}: Machine-checked proofs in the Coq proof assistant (1,637 theorems and lemmas across 262 files, 55,097 lines)
     \item \textbf{Implemented}: Working code in Python and Verilog hardware description
     \item \textbf{Tested}: Automated tests verify that theory and implementation match
     \item \textbf{Falsifiable}: I specify exactly what would disprove my claims
