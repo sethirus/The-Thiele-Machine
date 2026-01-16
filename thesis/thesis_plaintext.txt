@@ -33,7 +33,7 @@ observables of unrelated modules.
 • Initiality: µ is the unique instruction-consistent cost measure, not just one
 of many.
 What is built:
-• Coq formal kernel (262 files, zero admits)
+• Coq formal kernel (260 files, zero admits)
 • Python reference VM with cryptographic receipts
 
 2
@@ -41,7 +41,7 @@ What is built:
 3
 
 • Synthesizable Verilog RTL (FPGA-ready)
-• 660+ automated tests enforcing 3-layer isomorphism
+• 698 automated tests enforcing 3-layer isomorphism
 If you can find an error, find it. Everything is open source, documented, and
 testable. The proofs stand or fall on their own merits.
 
@@ -232,7 +232,7 @@ Chapter Summary . . . . . . . . . . . . . . . . . . . . . . . . . . .
 64
 65
 69
-70
+69
 74
 78
 78
@@ -518,14 +518,14 @@ B.1 Extended Proof Architecture . . . . . . . . . . . . . . . . . . . . . . 270
 B.1.1 Why Machine-Checked Proofs? . . . . . . . . . . . . . . . . 270
 B.1.2 Reading Coq Code . . . . . . . . . . . . . . . . . . . . . . . 271
 B.2 Proof Inventory . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 272
-B.3 The ThieleMachine Proof Suite . . . . . . . . . . . . . . . . . . . . 273
+B.3 The ThieleMachine Proof Suite (98 Files) . . . . . . . . . . . . . . . 273
 B.3.1 Partition Logic . . . . . . . . . . . . . . . . . . . . . . . . . 273
 B.3.2 Quantum Admissibility and Tsirelson Bound . . . . . . . . . 276
 B.3.3 Bell Inequality Formalization . . . . . . . . . . . . . . . . . 278
 B.3.4 Turing Machine Embedding . . . . . . . . . . . . . . . . . . 279
 B.3.5 Oracle and Impossibility Theorems . . . . . . . . . . . . . . 281
 B.3.6 Additional ThieleMachine Proofs . . . . . . . . . . . . . . . 281
-B.4 Recent Kernel Extensions . . . . . . . . . . . . . . . . . . . . . . . 282
+B.4 Recent Kernel Extensions . . . . . . . . . . . . . . . . . . . . . . . 281
 B.4.1 Finite Information Theory . . . . . . . . . . . . . . . . . . . 282
 B.4.2 Locality Proofs for All Instructions . . . . . . . . . . . . . . 282
 B.4.3 Proper Subsumption (Non-Circular) . . . . . . . . . . . . . . 283
@@ -815,8 +815,8 @@ are hard and how that hardness can be transformed.
 What Makes This Work Different
 
 This is not a paper with informal arguments. Every major claim is:
-1. Formally proven: Machine-checked proofs in the Coq proof assistant (1,637
-theorems and lemmas across 262 files, totaling 55,097 lines)
+1. Formally proven: Machine-checked proofs in the Coq proof assistant (1,636
+theorems and lemmas across 260 files, totaling 55,098 lines)
 2. Implemented: Working code in Python (19,516 lines) and Verilog hardware
 description (43 files)
 3. Tested: Automated tests verify that theory and implementation match
@@ -1167,8 +1167,8 @@ directions.
 Part III: Extended Development
 • Chapter 9: The Verifier System documents the complete TRS-1.0 receipt
 protocol and the four C-modules (C-RAND, C-TOMO, C-ENTROPY, CCAUSAL) that provide domain-specific verification.
-• Chapter 10: Extended Proof Architecture covers the full 262-file Coq
-development (1,637 theorems, 55,097 lines) including the ThieleMachine
+• Chapter 10: Extended Proof Architecture covers the full 260-file Coq
+development (1,636 theorems, 55,098 lines) including the ThieleMachine
 proofs, Theory of Everything results, and impossibility theorems.
 • Chapter 11: Experimental Validation Suite details all physics experiments, falsification tests, and the benchmark suite.
 • Chapter 12: Physics Models and Algorithmic Primitives presents the
@@ -2830,13 +2830,6 @@ law
 
 69
 
-4. Emergent Constants: The Landauer energy Elandauer = kB T ln 2 may
-connect to Planck’s constant via h = 4Elandauer τµ (explored in Chapter 12)
-Note on Physical Constants: The formal development includes coq/physics_
-exploration/, which explores whether fundamental constants can be derived from
-µ-theory. Results: Planck constant relationship proven, speed of light structure
-established, gravitational constant and particle masses remain free parameters.
-These explorations are isolated from the zero-axiom kernel.
 Why “Lower Bound” Not “Equality”?
 • Some operations (XOR, reversible gates) have zero irreversibility but may
 have implementation µ-cost for tracking
@@ -2866,8 +2859,6 @@ module
 Key insight: Raw state is partitioned into disjoint modules, each carrying axioms.
 PSPLIT/PMERGE modify this structure while charging µ.
 
-CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
-
 3.4.1
 
 Module Operations
@@ -2876,11 +2867,14 @@ Module Operations
 
 PNEW: Module Creation
 
-70
-
 Definition graph_pnew ( g : PartitionGraph ) ( region :
 ,→ list nat )
 : PartitionGraph * ModuleID :=
+
+CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
+
+70
+
 let normalized := normalize_region region in
 match graph _find_ regio n g normalized with
 | Some existing = > (g , existing )
@@ -2907,16 +2901,16 @@ empty axiom list []. Increments pg_next_id to generate a fresh ID.
 Why This Design?
 • Idempotence: Multiple PNEW calls with same region are safe—no duplicate
 modules
-
-CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
-
-71
-
 • Determinism: Given the same graph and region, always returns the same
 result
 • Efficiency: Reusing existing modules avoids redundant structures
 • Correctness: Normalization ensures semantic equality (same addresses =
 same module)
+
+CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
+
+71
+
 µ-Cost Consideration: If a module already exists (Some existing), should
 PNEW cost µ? The formal model says yes—the instruction still provides structural
 information to the program, even if the kernel doesn’t create new data. The cost
@@ -2947,15 +2941,16 @@ Definition graph_psplit ( g : PartitionGraph ) ( mid :
 : option ( PartitionGraph * ModuleID * ModuleID ) :=
 ,→ ...
 
-CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
-
-72
-
 Understanding graph_psplit (Module Splitting): Function Signature
 Analysis:
 • Inputs: Graph g, module ID to split mid, two sub-regions left and right
 • Output: option type wrapping a 3-tuple (new graph, left module ID, right
 module ID)
+
+CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
+
+72
+
 • Why option?: The operation can fail if preconditions aren’t met. None =
 failure, Some (...) = success.
 Precondition Checks (implicit in implementation):
@@ -2982,14 +2977,14 @@ monolithic, it’s composite.
 • Reversibility: PSPLIT then PMERGE recovers the original structure, but
 the µ-cost isn’t refunded.
 PSPLIT replaces a module with two sub-modules. Preconditions:
+• left and right must partition the original region
+• Neither can be empty
+• They must be disjoint
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
 73
 
-• left and right must partition the original region
-• Neither can be empty
-• They must be disjoint
 Intuition: PSPLIT takes a module and slices it in two. You must prove the slice
 is clean (disjoint) and complete (covers the original). This lets you refine your
 structural view—realizing that a large array is actually two independent halves.
@@ -3020,14 +3015,14 @@ Merge Operation Steps:
 lists)
 3. Remove Both Modules: Delete m1 and m2 from the graph
 4. Create Merged Module: Add a new module with new_region and new_axioms
+5. Generate Fresh ID: Use (and increment) pg_next_id
+Why Concatenate Axioms? Because both sets of constraints must hold for the
+merged module. If module 1 asserts x > 0 and module 2 asserts y is prime, the
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
 74
 
-5. Generate Fresh ID: Use (and increment) pg_next_id
-Why Concatenate Axioms? Because both sets of constraints must hold for the
-merged module. If module 1 asserts x > 0 and module 2 asserts y is prime, the
 merged module must satisfy both constraints.
 µ-Cost Interpretation:
 • Lower Cost Than Split: Merging typically costs less than splitting because
@@ -3064,17 +3059,17 @@ match graph_lookup s .( vm_graph ) mid with
 ,→ .( module_region ) , s .( vm_mu ) )
 | None = > None
 end .
-
-CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
-
-75
-
 Definition ObservableRegion ( s : VMState ) ( mid : nat )
 ,→
 
 : option ( list nat ) :=
 
 match graph_lookup s .( vm_graph ) mid with
+
+CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
+
+75
+
 | Some modstate = > Some ( normalize_region modstate
 ,→ .( module_region ) )
 | None = > None
@@ -3102,13 +3097,13 @@ observationally equivalent. Normalization ensures a canonical form.
 Option Type Handling:
 • None: Module doesn’t exist (invalid ID or already removed)
 • Some (...): Module exists, return its observable state
+Information Hiding Principle: Observables define an abstraction barrier. Two
+states with the same observables are indistinguishable to external code, even if
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
 76
 
-Information Hiding Principle: Observables define an abstraction barrier. Two
-states with the same observables are indistinguishable to external code, even if
 their internal axioms differ. This is crucial for locality proofs.
 Note that axioms are not observable—they are internal implementation details.
 3.4.2.2
@@ -3773,7 +3768,7 @@ Admitted statements:
 • coq/kernel/BornRule.v: 288 lines, 19 definitions/theorems
 • coq/kernel/Purification.v: 102 lines, 8 definitions/theorems
 • coq/kernel/TsirelsonGeneral.v: 301 lines, 9 definitions/theorems
-Total: 1,174 lines of machine-verified proofs establishing that quantum
+Total: 1,192 lines of machine-verified proofs establishing that quantum
 axioms emerge from µ-conservation.
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
@@ -3834,7 +3829,7 @@ costs)
 √
 • Tsirelson Bound: S ≤ 2 2 follows from algebraic coherence at µ = 0
 These formal foundations enable the implementation (Chapter 4), verification
-(Chapter 5), and evaluation (Chapter 6). The quantum axiom derivations (1,174
+(Chapter 5), and evaluation (Chapter 6). The quantum axiom derivations (1,192
 lines of Coq with zero Admitted statements) establish that quantum mechanics
 isn’t a fundamental theory with mysterious postulates—it’s the unique physics
 consistent with information conservation. Importantly, under Total µ-Accounting,
@@ -3848,7 +3843,7 @@ Implementation: The 3-Layer
 Isomorphism
 Three layers (boxes):
 • Layer 1: Coq (blue): Formal specification with machine-checked proofs
-(1,637 verified theorems)
+(1,636 verified theorems)
 • Layer 2: Python (green): Human-readable reference implementation with
 tracing & debugging
 • Layer 3: Verilog (orange): Synthesizable RTL for FPGA/ASIC physical
@@ -5570,12 +5565,12 @@ assert coq_state_json == python_state_json
 If any field differs, isomorphism test fails.
 Four stages (boxes):
 1. Scan Sources (blue): Check for Admitted/admit./Axiom in Coq files
-2. Build Proofs (green): Compile all 238 kernel proofs successfully
+2. Build Proofs (green): Compile all 260 kernel proofs successfully
 3. Run Isomorphism (orange): Execute 3-way state matching tests
 4. Generate Report (purple): Summarize findings (HIGH:0, MEDIUM:5,
 LOW:4)
 Diamond checks: Between stages - validation gates
-Below each stage: What is checked (e.g., "No Admitted", "238 proofs compile",
+Below each stage: What is checked (e.g., "No Admitted", "260 proofs compile",
 "3-way state match")
 Right: CI PASS (green) - final outcome if all checks succeed
 Bottom annotation: –ultra-strict mode fails on MEDIUM findings in kernel files
@@ -5745,7 +5740,7 @@ Three boxes (top):
 
 144
 
-• Coq (blue): 1,637 theorems, machine-checked, extracted runner
+• Coq (blue): 1,636 theorems, machine-checked, extracted runner
 • Python (green): Reference VM, tracing, receipts
 • Verilog (orange): RTL Core, µ-ALU, FPGA-ready
 Center bottom (yellow box): Central isomorphism invariant - SCoq (τ ) =
@@ -5987,7 +5982,7 @@ system such that the combined state is pure. The purification deficit equals
 √
 bound S ≤ 2 2 follows from algebraic coherence. The theorem tsirelson_from_minors proves that any correlations satisfying a sum-of-squares con√
 straint are bounded by 2 2.
-Total: 1,174 lines of Coq with zero Admitted statements. These proofs
+Total: 1,192 lines of Coq with zero Admitted statements. These proofs
 establish that quantum mechanics isn’t a collection of independent postulates—it’s
 the unique physics consistent with information conservation.
 Quantum Axiom Verification Summary
@@ -7636,7 +7631,7 @@ modules
 2. Conservation: The µ-ledger is monotonic and bounds irreversible operations
 3. Impossibility: Strengthening certification requires explicit, charged structure addition
 4. Quantum Axioms: No-cloning, unitarity, Born rule, purification, and
-Tsirelson bounds emerge from µ-conservation (1,174 lines, zero Admitted)
+Tsirelson bounds emerge from µ-conservation (1,192 lines, zero Admitted)
 5. Completeness: Zero admits, zero axioms—all proofs are machine-checked
 These are not aspirational properties but proven invariants of the system.
 
@@ -11007,24 +11002,19 @@ proof is correct relative to the system’s foundational logic—not because I t
 programmer, but because the kernel enforces the inference rules.
 The Thiele Machine development contains a large, fully verified Coq proof corpus
 with:
-• 262 proof files: 55,097 lines of Coq across kernel, proofs, and bridges
-• 1,637 theorems: Including theorems, lemmas, propositions, and corollaries
-• Zero admits: No proof is left incomplete (kernel only; physics_exploration
-has documented axioms)
+• Zero admits: No proof is left incomplete
+• Zero axioms: No unproven assumptions (beyond foundational logic)
+• Full extraction: Proofs can be compiled to executable code
+
 270
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
 271
 
-• Zero axioms: No unproven assumptions in kernel (beyond foundational
-logic)
-• Full extraction: Proofs can be compiled to executable code
-The corpus is split between the kernel (coq/kernel/, zero axioms), extended proofs
-(coq/thielemachine/coqproofs/), and physics exploration (coq/physics_exploration/,
-4 files with 11 physical axioms). This division mirrors the conceptual separation
-between the core semantics, the larger ecosystem of applications, and speculative
-physical derivations.
+The corpus is split between the kernel (coq/kernel/) and the extended proofs
+(coq/thielemachine/coqproofs/). This division mirrors the conceptual separation between the core semantics and the larger ecosystem of applications and
+bridges.
 This chapter documents the complete formalization beyond the kernel layer, organized into specialized proof domains.
 
 B.1.2
@@ -11056,14 +11046,14 @@ Line-by-line breakdown:
 proposition to be proven.
 • forall n — Universal quantification: the statement holds for all natural
 numbers n. In Coq, nat is the type of natural numbers {0, 1, 2, . . .}.
+• n + 0 = n — The property: adding zero to n gives n. This is the rightidentity law of addition.
+• Proof. — Begins the proof script. Everything between Proof. and Qed. is
+the proof.
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
 272
 
-• n + 0 = n — The property: adding zero to n gives n. This is the rightidentity law of addition.
-• Proof. — Begins the proof script. Everything between Proof. and Qed. is
-the proof.
 • intros n — Introduces the universally quantified variable n into the proof
 context. Now we have a fixed (but arbitrary) n and must prove n + 0 = n.
 • induction n — Proof by induction on n:
@@ -11095,15 +11085,15 @@ Proof Inventory
 The proof corpus is organized by domain rather than by implementation detail.
 The major blocks are:
 • Kernel semantics: state, step relation, µ-accounting, observables.
+• Extended machine proofs: partition logic, discovery, simulation, and
+subsumption.
+• Bridge lemmas: connections from application domains to kernel obligations.
+• Physics models: locality, cone algebra, and symmetry results.
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
 273
 
-• Extended machine proofs: partition logic, discovery, simulation, and
-subsumption.
-• Bridge lemmas: connections from application domains to kernel obligations.
-• Physics models: locality, cone algebra, and symmetry results.
 • No Free Insight interface: abstract axiomatization of the impossibility
 theorem.
 • Self-reference and meta-theory: formal limits of self-description.
@@ -11115,7 +11105,7 @@ the kernel rather than re-deriving it.
 
 B.3
 
-The ThieleMachine Proof Suite
+The ThieleMachine Proof Suite (98 Files)
 
 B.3.1
 
@@ -11137,14 +11127,15 @@ local_witnesses : list LocalWitness ;
 comp ositi on_pro of : bool
 }.
 
-APPENDIX B. EXTENDED PROOF ARCHITECTURE
-
-274
-
 Understanding Partition Logic Data Structures: What are these structures? These Coq records formalize composable witness proofs—the mechanism by which partition modules can combine their local proofs into a global proof
 without revealing internal structure.
 Record-by-record breakdown:
 1. Partition record:
+
+APPENDIX B. EXTENDED PROOF ARCHITECTURE
+
+274
+
 • modules : list (list nat) — A list of modules, where each module is represented as a list of natural numbers (element indices). Example: [[0,1,2],
 [3,4], [5,6,7]] represents 3 modules with regions {0, 1, 2}, {3, 4}, and
 {5, 6, 7}.
@@ -11169,16 +11160,16 @@ fails.
 3. GlobalWitness record:
 • local_witnesses : list LocalWitness — A collection of local witnesses,
 one per module. Example: [w1, w2, w3] where each wi is a LocalWitness
-
-APPENDIX B. EXTENDED PROOF ARCHITECTURE
-
-275
-
 for module i.
 • composition_proof : bool — A proof that the local witnesses compose
 correctly. This checks:
 – All interface proofs are true (interfaces match).
 – Local axioms do not contradict each other.
+
+APPENDIX B. EXTENDED PROOF ARCHITECTURE
+
+275
+
 – The global constraint (spanning all modules) is satisfied.
 If composition_proof = true, the global witness is valid—the entire partition satisfies its constraints.
 Why composability matters: Suppose you have 3 modules proving properties
@@ -11202,17 +11193,16 @@ These records appear in coq/thielemachine/coqproofs/PartitionLogic.v,
 where they are used to formalize the notion of composable witnesses. The key point
 is that the “witness” objects are concrete data structures that can be reasoned
 about in Coq and then mirrored in executable checkers.
-
-APPENDIX B. EXTENDED PROOF ARCHITECTURE
-
-276
-
 Key theorems:
 • Witness composition preserves validity
 • Local witnesses can be combined when interfaces match
 • Partition refinement is monotonic in cost
 
+APPENDIX B. EXTENDED PROOF ARCHITECTURE
+
 B.3.2
+
+276
 
 Quantum Admissibility and Tsirelson Bound
 
@@ -11243,15 +11233,15 @@ quantum entanglement. Local boxes satisfy S ≤ 2 (classical CHSH bound).
 maximally entangled qubits and optimal measurement bases. This is the
 maximum CHSH value achievable in quantum mechanics.
 • quantum_admissible_box B — Box B is quantum-admissible if:
+– It is local (classical), OR
+– It equals the Tsirelson approximation (maximal quantum).
+Any box between these extremes is also quantum-admissible (by convex
+combinations).
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
 277
 
-– It is local (classical), OR
-– It equals the Tsirelson approximation (maximal quantum).
-Any box between these extremes is also quantum-admissible (by convex
-combinations).
 • S B — The CHSH value of box B: S = |E(0, 0) − E(0, 1) + E(1, 0) + E(1, 1)|,
 where E(x, y) = P (a = b|x, y) − P (a ̸= b|x, y) is the correlation coefficient.
 • Qabs — Absolute value over rationals (Q is Coq’s type for rational numbers).
@@ -11259,16 +11249,7 @@ Using rationals avoids floating-point rounding errors.
 • kernel_tsirelson_bound_q — The Tsirelson bound stored as an exact
 √
 rational: 5657
-=
-2.8285.
-This
-is
-a
-conservative
-approximation
-of
-2
-2 ≈
+= 2.8285. This is a conservative approximation of 2 2 ≈
 2000
 2.82842712. Conservative means: if S > 2.8285, it’s definitely supra-quantum.
 Theorem statement (plain English):
@@ -11294,20 +11275,19 @@ Example: Suppose Alice and Bob share a maximally entangled state |Φ+ ⟩ =
 √1 (|00⟩ + |11⟩) and measure in optimal bases:
 2
 • Alice’s measurements: A0 = σZ , A1 = σX
-
-APPENDIX B. EXTENDED PROOF ARCHITECTURE
-
-278
-
 X
 X
-• Bob’s measurements: B0 = σZ√+σ
 , B1 = σZ√−σ
+• Bob’s measurements: B0 = σZ√+σ
 2
 2
 √
 The correlations yield S = 2 2 ≈ 2.82842712. The theorem confirms this is
 maximal for quantum systems.
+
+APPENDIX B. EXTENDED PROOF ARCHITECTURE
+
+278
 
 Connection to No Free Insight: Claiming S > 2.8285 requires revelation—
 making internal partition structure observable. This costs µ. The theorem ensures
@@ -11345,13 +11325,13 @@ Application-Level Proofs:
 • BellInequality.v: Core CHSH definitions and classical bound
 • BellReceiptLocalGeneral.v: Receipt-based locality
 • TsirelsonBoundBridge.v: Bridge to kernel semantics
+Documented Assumptions (Section/Context Pattern):
+• local_box_S_le_2: Bell-CHSH inequality (|S| ≤ 2 for local hidden variable models). Handled as Context parameter in BoxCHSH.v. Well-established
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
 279
 
-Documented Assumptions (Section/Context Pattern):
-• local_box_S_le_2: Bell-CHSH inequality (|S| ≤ 2 for local hidden variable models). Handled as Context parameter in BoxCHSH.v. Well-established
 result (Bell 1964, CHSH 1969).
 √
 • Tsirelson bound (|S| ≤ 2 2): Quantum mechanical maximum. Parameterized via HardMathFacts record.
@@ -11383,14 +11363,14 @@ is a list of instructions like [PUSH 5; ADD; HALT].
 etc.).
 • program_is_turing prog — A predicate asserting that prog represents a
 valid Turing machine program. This means:
+– The program uses only Turing-compatible instructions (no REVEAL or
+quantum gates).
+– The program terminates (or runs forever deterministically).
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
 280
 
-– The program uses only Turing-compatible instructions (no REVEAL or
-quantum gates).
-– The program terminates (or runs forever deterministically).
 Not all Thiele programs are Turing programs (the Thiele Machine has additional instructions like REVEAL), but every Turing program can be embedded.
 Functions:
 • run_tm fuel prog st — Simulates a Turing machine for fuel steps starting
@@ -11417,15 +11397,15 @@ Machine’s vm_step emulates the Turing machine’s step_tm instructionby-instru
 4. By the induction hypothesis, running both machines for the remaining
 k steps from st’ produces the same result.
 Example: Adding two numbers:
+• Turing machine program: Move tape head right, read symbol, add to
+accumulator, halt.
+• Thiele Machine program: [PUSH 3; PUSH 5; ADD; HALT].
+• Result: Both machines output 8. The theorem guarantees this equality.
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
 281
 
-• Turing machine program: Move tape head right, read symbol, add to
-accumulator, halt.
-• Thiele Machine program: [PUSH 3; PUSH 5; ADD; HALT].
-• Result: Both machines output 8. The theorem guarantees this equality.
 What about non-Turing instructions? The Thiele Machine has instructions
 like REVEAL that cannot be simulated by a Turing machine (they inspect partition
 structure). The theorem only applies when program_is_turing prog holds—
@@ -11460,23 +11440,23 @@ separation theorems, and proof-carrying computation. These theorems are not
 isolated; they reuse the kernel invariants and the partition logic to show that the
 same structural accounting principles scale to richer settings.
 
-APPENDIX B. EXTENDED PROOF ARCHITECTURE
-
 B.4
-
-282
 
 Recent Kernel Extensions
 
 The kernel development has been extended with new proof files establishing
 fundamental properties from first principles.
 
+APPENDIX B. EXTENDED PROOF ARCHITECTURE
+
 B.4.1
+
+282
 
 Finite Information Theory
 
-The file coq/kernel/FiniteInformation.v (21KB) proves information-theoretic
-properties without axioms:
+The file coq/kernel/FiniteInformation.v (20KB, 18 theorems) proves
+information-theoretic properties without axioms:
 
 (** Information cannot be created in deterministic
 ,→ systems *)
@@ -11509,14 +11489,13 @@ region_obs s mid = region_obs s ’ mid .
 Lemma psplit_locality : forall s s ’ mid l r mu ,
 vm_step s ( instr_psplit mid l r mu ) s ’ ->
 well _form ed_gra ph ( vm_graph s ) ->
+forall other , other <> mid ->
+region_obs s other = region_obs s ’ other .
+(* ... similar lemmas for all 18 instructions ... *)
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
 283
-
-forall other , other <> mid ->
-region_obs s other = region_obs s ’ other .
-(* ... similar lemmas for all 18 instructions ... *)
 
 Why this matters: These instruction-level locality lemmas are the building
 blocks for the global no-signaling theorem. Each lemma proves that a specific
@@ -11526,8 +11505,8 @@ B.4.3
 
 Proper Subsumption (Non-Circular)
 
-The file coq/kernel/ProperSubsumption.v (13KB) proves Turing ⊊ Thiele with
-a non-circular definition of Turing machines:
+The file coq/kernel/ProperSubsumption.v (12KB, 5 theorems) proves Turing ⊊
+Thiele with a non-circular definition of Turing machines:
 
 (** Full Turing machine ( NOT artificially limited ) *)
 Record TuringMachine := {
@@ -11564,20 +11543,19 @@ thiele_certifies computation /\
 
 Key insight: The Turing machine is NOT artificially limited. It has full read/write
 tape access, arbitrary transitions, and unlimited computation. The strict extension
-
-APPENDIX B. EXTENDED PROOF ARCHITECTURE
-
-284
-
 comes from Thiele’s µ-cost accounting and certification—capabilities that standard
 Turing machines lack.
 
+APPENDIX B. EXTENDED PROOF ARCHITECTURE
+
 B.4.4
+
+284
 
 Local Information Loss
 
-The file coq/kernel/LocalInfoLoss.v (17KB) connects information theory to
-µ-cost:
+The file coq/kernel/LocalInfoLoss.v (17KB, 8 theorems) connects information
+theory to µ-cost:
 
 (** Information loss bounded by mu - cost *)
 Theorem i n f o _ l o s s _ b o u n d e d _ b y _ m u :
@@ -11618,11 +11596,12 @@ Parameter npa_convergence : n p a _ h i e r a r c h y _ c o n v e r g e s
 ,→ .
 End HardAssumptions .
 
+Why this matters: Rather than hiding assumptions as global axioms, this file
+
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
 285
 
-Why this matters: Rather than hiding assumptions as global axioms, this file
 makes every non-trivial assumption explicit and documented. The Inquisitor can
 verify that no undocumented assumptions exist.
 
@@ -11630,10 +11609,10 @@ B.4.6
 
 The µ-Initiality Theorem
 
-The file coq/kernel/MuInitiality.v (15KB) proves the strongest possible
-statement about the µ-ledger: it is not merely a monotone cost accumulator, but
-the canonical one—the initial object in the category of instruction-consistent cost
-functionals.
+The file coq/kernel/MuInitiality.v (14KB, 13 theorems) proves the strongest
+possible statement about the µ-ledger: it is not merely a monotone cost accumulator,
+but the canonical one—the initial object in the category of instruction-consistent
+cost functionals.
 
 (** Instruction - consistency : M increases by exactly c
 ,→ ( instr ) each step *)
@@ -11663,11 +11642,12 @@ forall cf1 cf2 : CostFunctional ,
 forall s , reachable s -> cf_measure cf1 s =
 ,→ cf_measure cf2 s .
 
+Categorical interpretation: In the category where objects are instructionconsistent cost functionals and morphisms are equalities on reachable states, µ is
+
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
 286
 
-Categorical interpretation: In the category where objects are instructionconsistent cost functionals and morphisms are equalities on reachable states, µ is
 the initial object. This is the formal sense in which “µ is the free/least monotone.”
 Physical interpretation: This theorem elevates µ from “a sound lower bound” to
 “the canonical physical cost.” Any instruction-consistent accounting of irreversibility
@@ -11706,12 +11686,12 @@ step that destroys structural information (reduces module count), the cost charg
 is at least the information destroyed.
 Combined with Initiality: Together, these theorems establish:
 1. mu_is_initial_monotone: µ is the unique instruction-consistent cost functional
+2. mu_is_landauer_valid: µ satisfies the Landauer erasure bound
 
 APPENDIX B. EXTENDED PROOF ARCHITECTURE
 
 287
 
-2. mu_is_landauer_valid: µ satisfies the Landauer erasure bound
 Therefore µ is the canonical cost model: the unique instruction-consistent accounting that respects irreversibility.
 Epistemic honesty: We do NOT prove “any Landauer-valid cost ≥ µ” because
 Landauer only constrains information-destroying operations. For non-erasing
@@ -11733,7 +11713,7 @@ B.5.1
 
 Proof Architecture Overview
 
-The quantum axiom proofs live in five files totaling 1,174 lines of Coq with zero
+The quantum axiom proofs live in five files totaling 1,192 lines of Coq with zero
 Admitted statements:
 File
 
@@ -13241,7 +13221,7 @@ The extended proof architecture establishes:
 unproven axioms beyond foundational logic.
 2. Quantum axioms from µ-accounting: No-cloning, unitarity, Born rule,
 purification, and Tsirelson bound all derived from conservation of structural
-information (1,174 lines, 19 theorems).
+information (1,192 lines, 74 theorems).
 3. Quantum bounds: Literal CHSH ≤ 5657/2000.
 4. TOE limits: Physics requires extra structure beyond compositionality.
 
