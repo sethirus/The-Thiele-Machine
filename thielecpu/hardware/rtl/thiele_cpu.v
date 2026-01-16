@@ -330,6 +330,16 @@ always @(posedge clk or negedge rst_n) begin
                         state <= STATE_FETCH;
                     end
 
+                    OPCODE_REVEAL: begin
+                        // Reveal hidden information (increases mu by specified bits)
+                        // operand_a contains the number of bits revealed
+                        // Coq semantics: vm_mu := s.vm_mu + instruction_cost + revelation_cost
+                        mu_accumulator <= mu_accumulator + {24'h0, operand_cost} + {16'h0, operand_a, 8'h0};
+                        csr_cert_addr <= {24'h0, operand_b}; // Store cert reference
+                        pc_reg <= pc_reg + 4;
+                        state <= STATE_FETCH;
+                    end
+
                     OPCODE_XFER: begin
                         // Transfer data
                         execute_xfer(operand_a, operand_b);

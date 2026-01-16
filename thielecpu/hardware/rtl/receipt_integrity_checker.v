@@ -60,7 +60,7 @@ localparam [7:0] OPCODE_XOR_RANK  = 8'h0D;
 localparam [7:0] OPCODE_EMIT      = 8'h0E;
 localparam [7:0] OPCODE_REVEAL    = 8'h0F;
 localparam [7:0] OPCODE_ORACLE_HALTS = 8'h10;
-localparam [7:0] OPCODE_HALT      = 8'h11;
+localparam [7:0] OPCODE_HALT      = 8'hFF;
 
 // Error codes
 localparam [31:0] ERR_NONE           = 32'h00000000;
