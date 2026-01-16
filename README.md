@@ -4,7 +4,7 @@
 
 **The claim:** Insight is not free. Every time a computer "figures something out" — factors a number, finds a pattern, solves a puzzle — it pays a cost. Not time. Not memory. *Information*. I call this cost the **μ-bit**.
 
-**The proof:** 243 Coq proof files. Zero admits in kernel. 61 documented axioms (external mathematical results). Machine-verified by Inquisitor (maximum strictness). The proofs compile. The 660+ tests pass. The hardware synthesizes.
+**The proof:** 262 Coq proof files (~55K lines). Zero admits in kernel (zero Admitted statements anywhere). 52 axioms (external mathematical results: quantum mechanics, linear algebra, numerical analysis). Machine-verified by Inquisitor. The proofs compile. The 660+ tests pass. The hardware synthesizes.
 
 **Who I am:** I'm not an academic. I'm a car salesman who taught himself to code. No CS degree, no formal math training. I just kept asking "why?" and pulling on threads until I ended up here—proving theorems in a proof assistant I'd never heard of a year ago. The proofs don't care about credentials. They compile or they don't.
 
@@ -38,7 +38,7 @@ This is as fundamental as thermodynamics. You can't get something for nothing �
 
 | What | Status |
 |------|--------|
-| Coq proofs | **243 files, 0 admits in kernel, 61 documented axioms (Inquisitor PASS)** |
+| Coq proofs | **262 files (~55K lines), 0 Admitted anywhere, 52 axioms (Inquisitor PASS)** |
 | Python VM | **Working, tested, receipt-verified** |
 | Verilog RTL | **Synthesizable, FPGA-ready** |
 | Test suite | **660+ tests passing (including 54 permanent proof tests)** |
@@ -300,16 +300,17 @@ iverilog thielecpu/hardware/*.v -o thiele_cpu
 
 ```
 The-Thiele-Machine/
-├── coq/                    # 243 Coq proof files (0 admits in kernel, 61 documented axioms)
-│   ├── kernel/             # Core theorems (54 files: MuInitiality, NoFreeInsight, CHSH bounds, etc.)
+├── coq/                    # 262 Coq proof files (~55K lines, 0 Admitted, 52 axioms)
+│   ├── kernel/             # Core theorems (86 files: MuInitiality, NoFreeInsight, CHSH bounds, etc.)
 │   ├── thielemachine/      # Main VM proofs (98 files: Bell, verification, deliverables)
 │   ├── nofi/               # No Free Insight functor architecture (5 files)
 │   ├── bridge/             # Physics-to-Kernel embeddings (6 files)
 │   ├── physics/            # Discrete physics models (5 files: wave, dissipative, Landauer)
 │   ├── modular_proofs/     # Modular encoding and simulation (7 files)
-│   ├── theory/             # Theoretical foundations (various modules)
+│   ├── kernel_toe/         # Theory of Everything kernel (6 files)
 │   ├── shor_primitives/    # Shor algorithm primitives (3 files)
-│   └── thermodynamic/      # Thermodynamic bridge proofs
+│   ├── catnet/             # Category-theoretic networking (1 file)
+│   └── physics_exploration/ # Speculative physics explorations (4 files with axioms)
 ├── thielecpu/              # Python VM implementation (~5,000 lines)
 │   ├── vm.py               # Core VM execution engine
 │   ├── state.py            # State machine, partitions, μ-ledger
@@ -322,7 +323,7 @@ The-Thiele-Machine/
 │   ├── proof_*.py          # Permanent locked-down proof tests
 │   ├── test_isomorphism_*.py  # Three-layer verification tests
 │   └── test_*.py           # Standard test modules
-├── scripts/                # Tooling (inquisitor.py for Coq audit)
+├── scripts/                # Tooling (inquisitor.py for Coq audit, analyze_axioms.sh)
 ├── docs/                   # Documentation and design notes
 ├── COMPREHENSIVE_STATUS.md # Full status report and three-layer analysis
 └── demo.py                 # Live demonstration
@@ -362,8 +363,8 @@ $ python scripts/inquisitor.py
 INQUISITOR: Compilation OK
 Report: INQUISITOR_REPORT.md
 
-Summary (243 Coq files scanned):
-- HIGH: 61   (documented axioms - external mathematical results)
+Summary (262 Coq files scanned):
+- HIGH: 52   (documented axioms - external mathematical results)
 - MEDIUM: 26 (documented edge cases with INQUISITOR NOTEs)
 - LOW: 16    (informational only)
 
@@ -377,7 +378,7 @@ Kernel Status:
 - `Admitted` / `admit.` / `give_up` — **incomplete proofs** (ZERO in kernel ✅)
 - Undocumented `Axiom` / `Parameter` — **unproven assumptions without justification**
 
-**HIGH findings (61 axioms)** are properly documented external results:
+**HIGH findings (52 axioms)** are properly documented external results:
 - **MinorConstraints.v**: Algebraic results from linear algebra (Fine 1982, Clauser 1969)
 - **TsirelsonBoundProof.v**: Quantum bound from Tsirelson (1980), NPA hierarchy
 - **QuantumBoundComplete.v**: Bridge axioms connecting VM to quantum mechanics
