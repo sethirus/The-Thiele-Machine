@@ -1,14 +1,14 @@
 # Coq Proofs for the Thiele Machine
 
-This directory contains **243 Coq proof files** organized into logical modules.
+This directory contains **262 Coq proof files (~55,097 lines)** organized into logical modules.
 
-**Status:** ✅ All files compile | ✅ Zero admits in kernel | ✅ 61 documented axioms
+**Status:** ✅ All files compile (261/262 .vo generated) | ✅ Zero Admitted anywhere | ✅ 52 axioms (see AXIOMS.md for full justification)
 
 ## Build
 
 ```bash
 # From repository root:
-make              # Build all 243 Coq proofs
+make              # Build all 262 Coq proofs
 
 # Or from coq/ directory:
 cd coq
@@ -18,9 +18,8 @@ make -j4          # Build with 4 parallel jobs
 make clean
 make -j4
 
-# Verify with Inquisitor:
-cd ..
-python scripts/inquisitor.py
+# Analyze axioms:
+../scripts/analyze_axioms.sh
 ```
 
 ## Directory Structure
