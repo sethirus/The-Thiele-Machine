@@ -332,8 +332,20 @@ always @(posedge clk or negedge rst_n) begin
 
                     OPCODE_REVEAL: begin
                         // Reveal hidden information (increases mu by specified bits)
-                        // operand_a contains the number of bits revealed
-                        // Coq semantics: vm_mu := s.vm_mu + instruction_cost + revelation_cost
+                        // This instruction charges μ-cost for revealing previously hidden structural info
+                        // 
+                        // μ-cost calculation:
+                        //   total_cost = instruction_cost + revelation_cost
+                        //   instruction_cost = operand_cost (from instruction encoding)
+                        //   revelation_cost = operand_a << 8 (Q16.16 fixed point: operand_a * 256)
+                        //
+                        // operand_a: number of bits being revealed (integer)
+                        // operand_b: certificate reference (stored in cert_addr CSR)
+                        //
+                        // Example: Revealing 5 bits costs 5.0 μ-bits in Q16.16 = 5 << 16 = 0x50000
+                        //          But operand_a holds 5, so we shift: {16'h0, 5, 8'h0} = 0x00050000
+                        //
+                        // Coq semantics: vm_mu := s.vm_mu + instruction_cost + (bits * mu_bit_scale)
                         mu_accumulator <= mu_accumulator + {24'h0, operand_cost} + {16'h0, operand_a, 8'h0};
                         csr_cert_addr <= {24'h0, operand_b}; // Store cert reference
                         pc_reg <= pc_reg + 4;

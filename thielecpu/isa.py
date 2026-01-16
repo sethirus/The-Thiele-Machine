@@ -26,24 +26,24 @@ class Opcode(Enum):
     operands and are interpreted by each instruction individually.
     """
 
-    PNEW = 0x00
-    PSPLIT = 0x01
-    PMERGE = 0x02
-    LASSERT = 0x03
-    LJOIN = 0x04
-    MDLACC = 0x05
-    PDISCOVER = 0x06
-    XFER = 0x07
-    PYEXEC = 0x08
-    CHSH_TRIAL = 0x09
-    XOR_LOAD = 0x0A
-    XOR_ADD = 0x0B
-    XOR_SWAP = 0x0C
-    XOR_RANK = 0x0D
-    EMIT = 0x0E
-    REVEAL = 0x0F
-    ORACLE_HALTS = 0x10
-    HALT = 0xFF
+    PNEW = 0x00        # Partition: create new module
+    PSPLIT = 0x01      # Partition: split module into regions
+    PMERGE = 0x02      # Partition: merge modules
+    LASSERT = 0x03     # Logic: assert constraint on module
+    LJOIN = 0x04       # Logic: join constraints
+    MDLACC = 0x05      # MDL: accumulate description length cost
+    PDISCOVER = 0x06   # Partition: discover structure
+    XFER = 0x07        # ALU: transfer data between registers
+    PYEXEC = 0x08      # Execute Python code
+    CHSH_TRIAL = 0x09  # Quantum: CHSH experiment trial
+    XOR_LOAD = 0x0A    # XOR matrix: load value
+    XOR_ADD = 0x0B     # XOR matrix: add rows
+    XOR_SWAP = 0x0C    # XOR matrix: swap rows
+    XOR_RANK = 0x0D    # XOR matrix: compute rank
+    EMIT = 0x0E        # Emit output event
+    REVEAL = 0x0F      # Reveal hidden info (costs μ-bits) - ADDED to fix isomorphism
+    ORACLE_HALTS = 0x10  # Oracle: query halting - MOVED from 0x0F to fix isomorphism
+    HALT = 0xFF        # Halt execution
 
 
 def encode(op: Opcode, a: int = 0, b: int = 0) -> bytes:
