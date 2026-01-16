@@ -893,10 +893,7 @@ Theorem vm_irreversible_bits_lower_bound :
     \item \textbf{Information Erasure = Heat}: Each erased bit dissipates at least $k_B T \ln 2$ Joules
     \item \textbf{$\mu$-Ledger Bounds Entropy}: If $\Delta\mu$ bits were revealed/erased, at least $\Delta\mu \cdot k_B T \ln 2$ Joules dissipated
     \item \textbf{Thermodynamic Lower Bound}: The machine can't violate the second law
-    \item \textbf{Emergent Constants}: The Landauer energy $E_{\text{landauer}} = k_B T \ln 2$ may connect to Planck's constant via $h = 4 E_{\text{landauer}} \tau_\mu$ (explored in Chapter 12)
 \end{enumerate}
-
-\textbf{Note on Physical Constants:} The formal development includes \path{coq/physics_exploration/}, which explores whether fundamental constants can be derived from $\mu$-theory. Results: Planck constant relationship proven, speed of light structure established, gravitational constant and particle masses remain free parameters. These explorations are isolated from the zero-axiom kernel.
 
 \textbf{Why ``Lower Bound'' Not ``Equality''?}
 \begin{itemize}
@@ -1757,7 +1754,7 @@ All theorems in this section are machine-checked in Coq 8.18 with zero Admitted 
     \item \path{coq/kernel/Purification.v}: 102 lines, 8 definitions/theorems
     \item \path{coq/kernel/TsirelsonGeneral.v}: 301 lines, 9 definitions/theorems
 \end{itemize}
-Total: 1,174 lines of machine-verified proofs establishing that quantum axioms emerge from $\mu$-conservation.
+Total: 1,192 lines of machine-verified proofs establishing that quantum axioms emerge from $\mu$-conservation.
 \end{tcolorbox}
 
 \section{Chapter Summary}
@@ -1807,4 +1804,4 @@ This chapter defined the Thiele Machine as a formal 5-tuple $T = (S, \Pi, A, R, 
     \end{itemize}
 \end{enumerate}
 
-These formal foundations enable the implementation (Chapter 4), verification (Chapter 5), and evaluation (Chapter 6). The quantum axiom derivations (1,174 lines of Coq with zero Admitted statements) establish that quantum mechanics isn't a fundamental theory with mysterious postulates---it's the unique physics consistent with information conservation. Importantly, under \emph{Total $\mu$-Accounting}, setting $\mu_{\text{total}} = 0$ requires all components ($\mu_{\text{inst}}$ and $\mu_{\text{corr}}$) to be zero, where $\mu_{\text{corr}} = 0$ is exactly the condition of \emph{Algebraic Coherence} required to recover the Tsirelson bound $S \le 2.8284...$. Without enforcing $\mu_{\text{corr}} = 0$, the system is only bounded by the algebraic limit $S \le 4$.
+These formal foundations enable the implementation (Chapter 4), verification (Chapter 5), and evaluation (Chapter 6). The quantum axiom derivations (1,192 lines of Coq with zero Admitted statements) establish that quantum mechanics isn't a fundamental theory with mysterious postulates---it's the unique physics consistent with information conservation. Importantly, under \emph{Total $\mu$-Accounting}, setting $\mu_{\text{total}} = 0$ requires all components ($\mu_{\text{inst}}$ and $\mu_{\text{corr}}$) to be zero, where $\mu_{\text{corr}} = 0$ is exactly the condition of \emph{Algebraic Coherence} required to recover the Tsirelson bound $S \le 2.8284...$. Without enforcing $\mu_{\text{corr}} = 0$, the system is only bounded by the algebraic limit $S \le 4$.
