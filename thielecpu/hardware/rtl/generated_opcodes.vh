@@ -21,5 +21,6 @@ localparam [7:0] OPCODE_XOR_ADD = 8'h0B;
 localparam [7:0] OPCODE_XOR_SWAP = 8'h0C;
 localparam [7:0] OPCODE_XOR_RANK = 8'h0D;
 localparam [7:0] OPCODE_EMIT = 8'h0E;
-localparam [7:0] OPCODE_ORACLE_HALTS = 8'h0F;
+localparam [7:0] OPCODE_REVEAL = 8'h0F;
+localparam [7:0] OPCODE_ORACLE_HALTS = 8'h10;
 localparam [7:0] OPCODE_HALT = 8'hFF;
