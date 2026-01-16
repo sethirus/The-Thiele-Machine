@@ -3,6 +3,13 @@ Test that verifies bit-for-bit isomorphism of opcodes across Coq, Python, and Ve
 
 This test ensures that all three layers of the Thiele Machine have identical
 instruction sets with matching opcode values.
+
+NOTE: EXPECTED_ISA is the canonical reference. If opcodes need to change:
+1. Update EXPECTED_ISA first
+2. Update Python thielecpu/isa.py
+3. Update Verilog generated_opcodes.vh
+4. Update Coq kernel/VMStep.v
+5. Run this test to verify all layers match
 """
 
 import re
@@ -10,26 +17,29 @@ from pathlib import Path
 import pytest
 
 
-# Expected complete ISA based on Coq kernel
+# CANONICAL ISA REFERENCE
+# This is the single source of truth for the 18-instruction Thiele Machine ISA.
+# All three layers (Coq, Python, Verilog) must match these exact values.
+# Based on: coq/kernel/VMStep.v instruction enumeration order
 EXPECTED_ISA = {
-    "PNEW": 0x00,
-    "PSPLIT": 0x01,
-    "PMERGE": 0x02,
-    "LASSERT": 0x03,
-    "LJOIN": 0x04,
-    "MDLACC": 0x05,
-    "PDISCOVER": 0x06,
-    "XFER": 0x07,
-    "PYEXEC": 0x08,
-    "CHSH_TRIAL": 0x09,
-    "XOR_LOAD": 0x0A,
-    "XOR_ADD": 0x0B,
-    "XOR_SWAP": 0x0C,
-    "XOR_RANK": 0x0D,
-    "EMIT": 0x0E,
-    "REVEAL": 0x0F,
-    "ORACLE_HALTS": 0x10,
-    "HALT": 0xFF,
+    "PNEW": 0x00,          # Partition: create new module
+    "PSPLIT": 0x01,        # Partition: split module
+    "PMERGE": 0x02,        # Partition: merge modules
+    "LASSERT": 0x03,       # Logic: assert constraint
+    "LJOIN": 0x04,         # Logic: join constraints
+    "MDLACC": 0x05,        # MDL: accumulate description cost
+    "PDISCOVER": 0x06,     # Partition: discover structure
+    "XFER": 0x07,          # ALU: transfer data
+    "PYEXEC": 0x08,        # Execute Python code
+    "CHSH_TRIAL": 0x09,    # Quantum: CHSH trial
+    "XOR_LOAD": 0x0A,      # XOR: load value
+    "XOR_ADD": 0x0B,       # XOR: add rows
+    "XOR_SWAP": 0x0C,      # XOR: swap rows
+    "XOR_RANK": 0x0D,      # XOR: compute rank
+    "EMIT": 0x0E,          # Emit output
+    "REVEAL": 0x0F,        # Reveal hidden info (FIXED: was missing)
+    "ORACLE_HALTS": 0x10,  # Oracle: query halting (FIXED: was 0x0F)
+    "HALT": 0xFF,          # Halt execution
 }
 
 
