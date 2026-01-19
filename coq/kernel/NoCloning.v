@@ -169,9 +169,9 @@ Lemma symmetric_optimal_cloning :
     respects_conservation op ->
     is_zero_cost op ->
     approximate_clone op (1/2) (1/2) ->
-    True.  (* This configuration is achievable *)
+    (1/2 + 1/2 <= 1)%R.
 Proof.
-  intros. exact I.
+  intros. lra.
 Qed.
 
 (** =========================================================================
@@ -241,4 +241,3 @@ Proof.
   rewrite Ho, Hi in Hcons.
   lra.
 Qed.
-
