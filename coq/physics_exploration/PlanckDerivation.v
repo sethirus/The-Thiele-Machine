@@ -5,11 +5,11 @@ Open Scope R_scope.
 
 (** INQUISITOR NOTE: Physical axioms k_B, T, h are fundamental constants *)
 
-Variable k_B : R.
-Variable k_B_positive : k_B > 0.
+Axiom k_B : R.
+Axiom k_B_positive : k_B > 0.
 
-Variable T : R.
-Variable T_positive : T > 0.
+Axiom T : R.
+Axiom T_positive : T > 0.
 
 Definition ln2 : R := ln 2.
 
