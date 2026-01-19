@@ -1602,11 +1602,17 @@ Proof.
       injection Hstep1 as Eq1; injection Hstep2 as Eq2.
       rewrite <- Eq1, <- Eq2; simpl; ring.
     + (* s1 duplicate, s2 not - impossible due to Hpart *)
-      exfalso; assert (Hmod: modules (partition s1) = modules (partition s2)) by (rewrite Hpart; reflexivity).
-      rewrite Hmod in Hexact1; congruence.
+      exfalso.
+      assert (Hexact :
+        existsb (fun r' => region_eqb r r') (map snd (modules (partition s1))) =
+        existsb (fun r' => region_eqb r r') (map snd (modules (partition s2)))) by (rewrite Hpart; reflexivity).
+      rewrite Hexact1 in Hexact; rewrite Hexact2 in Hexact; discriminate.
     + (* s1 not duplicate, s2 is - impossible due to Hpart *)
-      exfalso; assert (Hmod: modules (partition s1) = modules (partition s2)) by (rewrite Hpart; reflexivity).
-      rewrite <- Hmod in Hexact2; congruence.
+      exfalso.
+      assert (Hexact :
+        existsb (fun r' => region_eqb r r') (map snd (modules (partition s1))) =
+        existsb (fun r' => region_eqb r r') (map snd (modules (partition s2)))) by (rewrite Hpart; reflexivity).
+      rewrite Hexact1 in Hexact; rewrite Hexact2 in Hexact; discriminate.
     + (* Neither is exact duplicate, check partial overlap *)
       destruct (existsb (fun r' => negb (disjoint_b r r')) (map snd (modules (partition s1)))) eqn:Hoverlap1;
       destruct (existsb (fun r' => negb (disjoint_b r r')) (map snd (modules (partition s2)))) eqn:Hoverlap2.
@@ -1614,11 +1620,17 @@ Proof.
         injection Hstep1 as Eq1; injection Hstep2 as Eq2.
         rewrite <- Eq1, <- Eq2; simpl; ring.
       * (* s1 overlaps, s2 doesn't - impossible *)
-        exfalso; assert (Hmod: modules (partition s1) = modules (partition s2)) by (rewrite Hpart; reflexivity).
-        rewrite Hmod in Hoverlap1; congruence.
+        exfalso.
+        assert (Hoverlap :
+          existsb (fun r' => negb (disjoint_b r r')) (map snd (modules (partition s1))) =
+          existsb (fun r' => negb (disjoint_b r r')) (map snd (modules (partition s2)))) by (rewrite Hpart; reflexivity).
+        rewrite Hoverlap1 in Hoverlap; rewrite Hoverlap2 in Hoverlap; discriminate.
       * (* s1 doesn't overlap, s2 does - impossible *)
-        exfalso; assert (Hmod: modules (partition s1) = modules (partition s2)) by (rewrite Hpart; reflexivity).
-        rewrite <- Hmod in Hoverlap2; congruence.
+        exfalso.
+        assert (Hoverlap :
+          existsb (fun r' => negb (disjoint_b r r')) (map snd (modules (partition s1))) =
+          existsb (fun r' => negb (disjoint_b r r')) (map snd (modules (partition s2)))) by (rewrite Hpart; reflexivity).
+        rewrite Hoverlap1 in Hoverlap; rewrite Hoverlap2 in Hoverlap; discriminate.
       * (* No overlap for either, check partition_valid_b *)
         destruct (partition_valid_b (add_module (partition s1) r)) eqn:Hvalid1;
         destruct (partition_valid_b (add_module (partition s2) r)) eqn:Hvalid2.
