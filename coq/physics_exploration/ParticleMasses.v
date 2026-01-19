@@ -6,11 +6,11 @@ Open Scope R_scope.
 
 (** INQUISITOR NOTE: Masses appear as free parameters *)
 
-Variable m_electron : R.
-Variable m_muon : R.
-Variable m_proton : R.
+Axiom m_electron : R.
+Axiom m_muon : R.
+Axiom m_proton : R.
 
-Variable masses_positive : m_electron > 0 /\ m_muon > 0 /\ m_proton > 0.
+Axiom masses_positive : m_electron > 0 /\ m_muon > 0 /\ m_proton > 0.
 
 Definition muon_electron_ratio : R := m_muon / m_electron.
 Definition proton_electron_ratio : R := m_proton / m_electron.

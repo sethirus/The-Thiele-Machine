@@ -230,10 +230,12 @@ Proof.
   - split; assumption.
   - split; assumption.
   - (* cut <= length s1 *)
+    assert (Hmin_pos: Nat.min (length s1) (length s2) > 0) by lia.
     assert (H: Nat.min (length s1) (length s2) / 2 <= Nat.min (length s1) (length s2)).
     { apply Nat.div_le_upper_bound; lia. }
     eapply Nat.le_trans; [exact H | apply Nat.le_min_l].
   - (* cut <= length s2 *)
+    assert (Hmin_pos: Nat.min (length s1) (length s2) > 0) by lia.
     assert (H: Nat.min (length s1) (length s2) / 2 <= Nat.min (length s1) (length s2)).
     { apply Nat.div_le_upper_bound; lia. }
     eapply Nat.le_trans; [exact H | apply Nat.le_min_r].
@@ -319,10 +321,12 @@ Proof.
         apply crossover_preserves_viability.
         -- apply Hviable. left. reflexivity.
         -- apply Hviable. left. reflexivity.
-        -- apply Nat.div_le_upper_bound; 
-           pose proof (Hviable s1 (or_introl eq_refl)) as [Hlo Hhi]; lia.
-        -- apply Nat.div_le_upper_bound; 
-           pose proof (Hviable s1 (or_introl eq_refl)) as [Hlo Hhi]; lia.
+        -- (* cut <= length s1: n/2 <= n *)
+           pose proof (Hviable s1 (or_introl eq_refl)) as [Hlo Hhi].
+           apply Nat.div_le_upper_bound; lia.
+        -- (* cut <= length s1: n/2 <= n *)
+           pose proof (Hviable s1 (or_introl eq_refl)) as [Hlo Hhi].
+           apply Nat.div_le_upper_bound; lia.
     + (* Two or more parents: use crossover of first two with safe cut point *)
       assert (Hv1: is_viable s1) by (apply Hviable; left; reflexivity).
       assert (Hv2: is_viable s2) by (apply Hviable; right; left; reflexivity).
@@ -337,10 +341,12 @@ Proof.
         -- apply Hviable. left. reflexivity.
         -- apply Hviable. right. left. reflexivity.
         -- (* cut <= length s1 *)
+           assert (Hmin_pos: Nat.min (length s1) (length s2) > 0) by lia.
            assert (H: Nat.min (length s1) (length s2) / 2 <= Nat.min (length s1) (length s2)).
            { apply Nat.div_le_upper_bound; lia. }
            eapply Nat.le_trans; [exact H | apply Nat.le_min_l].
         -- (* cut <= length s2 *)
+           assert (Hmin_pos: Nat.min (length s1) (length s2) > 0) by lia.
            assert (H: Nat.min (length s1) (length s2) / 2 <= Nat.min (length s1) (length s2)).
            { apply Nat.div_le_upper_bound; lia. }
            eapply Nat.le_trans; [exact H | apply Nat.le_min_r].

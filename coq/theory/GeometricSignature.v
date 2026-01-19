@@ -66,16 +66,16 @@ Module GeometricSignature.
   
   Module Type PARTITIONING_STRATEGIES.
     (** **louvain_partition**: Greedy modularity optimization (Blondel et al. 2008) *)
-    Definition louvain_partition : Strategy := fun _ => [].
-    
+    Parameter louvain_partition : Strategy.
+
     (** **spectral_partition**: Eigenvalue-based clustering (Shi & Malik 2000) *)
-    Definition spectral_partition : Strategy := fun _ => [].
-    
+    Parameter spectral_partition : Strategy.
+
     (** **degree_partition**: Degree-based heuristic clustering *)
-    Definition degree_partition : Strategy := fun _ => [].
-    
+    Parameter degree_partition : Strategy.
+
     (** **balanced_partition**: Size-constrained balanced partitioning *)
-    Definition balanced_partition : Strategy := fun _ => [].
+    Parameter balanced_partition : Strategy.
   End PARTITIONING_STRATEGIES.
   
   (** Default module for compatibility with existing code 
@@ -150,20 +150,15 @@ Module GeometricSignature.
       lower triangle) with the diagonal excluded.
   *)
   Module Type GEOMETRIC_SIGNATURE_COMPUTATION.
-    Definition extract_edge_weights : list (list R) -> list R := fun _ => [].
-    
+    Parameter extract_edge_weights : list (list R) -> list R.
+
     (** ** Compute geometric signature from problem size
-    
+
         This is the *main computational kernel* of PDISCOVER, parametrized to
         represent the verified-unverified boundary. See module documentation
         for full specification and falsifiability contracts.
     *)
-    Definition compute_geometric_signature (_ : nat) : GeometricSignatureTy :=
-      {| average_edge_weight := 0%R;
-         max_edge_weight := 0%R;
-         edge_weight_stddev := 0%R;
-         min_spanning_tree_weight := 0%R;
-         thresholded_density := 0%R |}.
+    Parameter compute_geometric_signature : nat -> GeometricSignatureTy.
   End GEOMETRIC_SIGNATURE_COMPUTATION.
   
   Module DefaultComputation : GEOMETRIC_SIGNATURE_COMPUTATION.

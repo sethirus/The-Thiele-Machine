@@ -21,15 +21,15 @@ Local Open Scope R_scope.
 
 (** 1. The Physical Substrate Parameters **)
 
-Variable tau_mu : R.
-Variable d_mu : R.
-Variable k_B : R.
-Variable T : R.
+Axiom tau_mu : R.
+Axiom d_mu : R.
+Axiom k_B : R.
+Axiom T : R.
 
-Variable tau_mu_pos : tau_mu > 0.
-Variable d_mu_pos : d_mu > 0.
-Variable k_B_pos : k_B > 0.
-Variable T_pos : T > 0.
+Axiom tau_mu_pos : tau_mu > 0.
+Axiom d_mu_pos : d_mu > 0.
+Axiom k_B_pos : k_B > 0.
+Axiom T_pos : T > 0.
 
 (** 2. Relational Identities **)
 
