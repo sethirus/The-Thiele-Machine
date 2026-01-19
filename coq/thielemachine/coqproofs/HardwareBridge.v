@@ -59,7 +59,7 @@ Definition opcode_XOR_LOAD  : N := 10%N.
 Definition opcode_XOR_ADD   : N := 11%N.
 Definition opcode_XOR_SWAP  : N := 12%N.
 Definition opcode_XOR_RANK  : N := 13%N.
-Definition opcode_ORACLE_HALTS : N := 15%N.
+Definition opcode_ORACLE_HALTS : N := 16%N.
 Definition opcode_HALT      : N := 255%N.
 
 Definition decode_kind (opc : N) : TM.InstrKind :=
@@ -151,4 +151,3 @@ Qed.
 (* ------------------------------------------------------------------------- *)
 (* The helper definitions above are sufficient for lightweight refinement      *)
 (* arguments and for tooling that decodes RTL traces inside Python.            *)
-

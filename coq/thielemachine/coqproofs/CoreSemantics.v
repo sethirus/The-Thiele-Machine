@@ -111,7 +111,7 @@ Inductive Instruction : Type :=
   | XOR_SWAP : Instruction                    (* 0x0C: XOR swap *)
   | XOR_RANK : Instruction                    (* 0x0D: XOR rank *)
   | EMIT : nat -> Instruction                 (* 0x0E: Emit result *)
-  | ORACLE_HALTS : Instruction                (* 0x0F: Oracle halting *)
+| ORACLE_HALTS : Instruction                (* 0x10: Oracle halting *)
   | HALT : Instruction.                       (* 0xFF: Halt *)
 
 (** Program: List of instructions *)
@@ -213,7 +213,7 @@ Definition instr_tag (i : Instruction) : Z :=
   | XOR_SWAP => 12
   | XOR_RANK => 13
   | EMIT _ => 14
-  | ORACLE_HALTS => 15
+  | ORACLE_HALTS => 16
   | HALT => 255
   end.
 
