@@ -31,6 +31,7 @@ From Coq Require Import Zify.
 Require Import Coq.Arith.PeanoNat.
 Require Import Coq.Lists.List.
 Require Import Lra.
+Require Import Coq.setoid_ring.Ring.
 
 From Kernel Require Import ValidCorrelation.
 From Kernel Require Import BoxCHSH.
@@ -196,7 +197,7 @@ Proof.
   unfold minor_3x3 in Hminor.
   (* Key identity: 1 - s² - e1² - e2² + 2se1e2 = (1-e1²)(1-e2²) - (e1-se2)² *)
   assert (Heq: 1 - s*s - e1*e1 - e2*e2 + 2*s*e1*e2 = 
-               (1 - e1*e1)*(1 - e2*e2) - (e1 - s*e2)*(e1 - s*e2)) by (field; lra).
+               (1 - e1*e1)*(1 - e2*e2) - (e1 - s*e2)*(e1 - s*e2)) by ring.
   rewrite Heq in Hminor; clear Heq.
   (* Now bound each term *)
   assert (H1: (e1 - s*e2)*(e1 - s*e2) >= 0) by (apply Rle_ge; apply pow2_ge_0).
