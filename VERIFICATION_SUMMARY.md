@@ -31,12 +31,17 @@
    - **Status:** PROVEN structure, relies on **axiomatized Fine's theorem** (1982)
    - Fine's theorem is fundamental probability result requiring measure theory
 
-### ❌ AXIOMATIZED (Not Proven)
+### ⚠️ AXIOMATIZED (Proof Attempted, ~30% Complete)
 
-6. **Quantum CHSH** (`QuantumBoundComplete.v`)
+6. **Quantum CHSH** (`QuantumBoundComplete.v`, `TsirelsonBoundDirect.v`)
    - μ>0 → non-factorizable → CHSH ≤ 2√2
-   - **Status:** ENTIRELY AXIOMATIZED (19 axioms)
-   - Would require ~2000 lines of NPA hierarchy formalization
+   - **Status:** Main theorem axiomatized, but proof infrastructure extended:
+     - ✅ Added 4×4 and 5×5 determinants (`SemidefiniteProgramming.v`)
+     - ✅ Proved correlators bounded by 1 (Cauchy-Schwarz)
+     - ✅ Proved optimal strategy achieves 2√2
+     - ✅ Proved weak bound (CHSH ≤ 4)
+     - ❌ Tight bound (CHSH ≤ 2√2) remains unproven (~300-500 lines needed)
+   - **Path forward:** Direct algebraic optimization using explicit PSD constraints
 
 ### ✅ PARTIALLY PROVEN
 
