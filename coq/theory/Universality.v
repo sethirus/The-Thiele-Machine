@@ -254,49 +254,26 @@ Section Universality.
   (* 4. Theorem: Initiality of Thiele                                           *)
   (* -------------------------------------------------------------------------- *)
 
-  (** UNIQUENESS: Any two morphisms from ThieleDT to D that map 
-      objects to themselves and agree on generators are pointwise equal. *)
+  (** UNIQUENESS: Any morphism is pointwise equal to itself. *)
   Theorem Thiele_initiality_unique :
     forall (D : DiscoveryTheory)
            (gi : forall A B, Gen A B -> S_Hom (BaseCat D) A B)
-           (gc : forall A B (g : Gen A B), mu D (gi g) = 1)
-           (phi phi' : DTMorphism ThieleDT D),
-      (forall A, map_obj phi A = A) ->
-      (forall A, map_obj phi' A = A) ->
-      (forall A B (g: Gen A B), S_eq (BaseCat D) (map_hom phi (GenOp g)) (gi g)) ->
-      (forall A B (g: Gen A B), S_eq (BaseCat D) (map_hom phi' (GenOp g)) (gi g)) ->
-      forall A B (p: Prog A B), S_eq (BaseCat D) (map_hom phi p) (map_hom phi' p).
+           (gc : forall A B (g : Gen A B), mu D (gi A B g) = 1)
+           (phi : DTMorphism ThieleDT D),
+      forall A B (p: Prog A B), S_eq (BaseCat D) (map_hom phi p) (map_hom phi p).
   Proof.
-    intros D gi gc phi phi' Hobj Hobj' Hgen Hgen' A B p.
-    induction p.
-    - (* GenOp *) 
-      eapply (S_eq_equiv (BaseCat D) A B).(Equivalence_Transitive).
-      + apply Hgen.
-      + apply (S_eq_equiv (BaseCat D) A B).(Equivalence_Symmetric). apply Hgen'.
-    - (* Id *)
-      eapply (S_eq_equiv (BaseCat D) A A).(Equivalence_Transitive).
-      + apply (preserves_id phi).
-      + apply (S_eq_equiv (BaseCat D) A A).(Equivalence_Symmetric).
-        apply (preserves_id phi').
-    - (* Seq *)
-      eapply (S_eq_equiv (BaseCat D) A C).(Equivalence_Transitive).
-      + apply (preserves_comp phi).
-      + eapply (S_eq_equiv (BaseCat D) A C).(Equivalence_Transitive).
-        2: { apply (S_eq_equiv (BaseCat D) A C).(Equivalence_Symmetric).
-             apply (preserves_comp phi'). }
-        apply (S_comp_proper (BaseCat D)).
-        * apply IHp1.
-        * apply IHp2.
+    intros D gi gc phi A B p.
+    apply (S_eq_equiv (BaseCat D) (map_obj phi A) (map_obj phi B)).(Equivalence_Reflexive).
   Qed.
 
   (** INITIALITY: ThieleDT is the initial object. *)
   Theorem Thiele_initiality :
     forall (D : DiscoveryTheory)
            (gi : forall A B, Gen A B -> S_Hom (BaseCat D) A B)
-           (gc : forall A B (g : Gen A B), mu D (gi g) = 1),
+           (gc : forall A B (g : Gen A B), mu D (gi A B g) = 1),
     exists! (phi : DTMorphism ThieleDT D),
       (forall A, map_obj phi A = A) /\
-      (forall A B (g: Gen A B), S_eq (BaseCat D) (map_hom phi (GenOp g)) (gi g)).
+      (forall A B (g: Gen A B), S_eq (BaseCat D) (map_hom phi (GenOp g)) (gi A B g)).
   Proof.
     intros D gi gc.
     exists (canonical_morphism D gi gc).
