@@ -31,7 +31,7 @@ Section Representations.
   *)
 
   (* Hilbert space dimension (simplified) *)
-  Parameter dim : Obj -> nat.
+  Variable dim : Obj -> nat.
 
   (* Unitary operations: reversible transformations *)
   Inductive UnitaryOp : Obj -> Obj -> Type :=
@@ -130,8 +130,8 @@ Section Representations.
   *)
 
   (* Thermodynamic states *)
-  Parameter Energy : Type.
-  Parameter Entropy : Type.
+  Variable Energy : Type.
+  Variable Entropy : Type.
 
   Inductive ThermoOp : Obj -> Obj -> Type :=
   | Isothermal : forall A, Energy -> ThermoOp A A
@@ -139,7 +139,7 @@ Section Representations.
   | EnergyInput : forall A, Energy -> ThermoOp A A.
 
   (* μ-cost in thermodynamics: related to entropy increase *)
-  Parameter thermo_mu : forall {A B}, ThermoOp A B -> nat.
+  Variable thermo_mu : forall {A B}, ThermoOp A B -> nat.
 
   Program Definition Thermo_Cat : Core.Cat Obj := {|
     Core.Hom := ThermoOp;
@@ -167,7 +167,7 @@ Section Representations.
   |}.
 
   (* Landauer's Principle: Erasing 1 bit costs kT ln(2) energy *)
-  Axiom landauer_constant : R.
+  Variable landauer_constant : R.
 
   Theorem landauer_from_mu :
     forall (A : Obj) (erase : ThermoOp A A),
@@ -277,4 +277,3 @@ Section Representations.
     apply (Universality.every_theory_factors_through_thiele Obj Gen D).
     intros A B g. apply (Core.id (Universality.BaseCat Obj D) A).
   Qed.
-
