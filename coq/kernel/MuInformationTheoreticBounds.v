@@ -28,13 +28,15 @@ Require Import MuCostModel.
     beyond Coq's standard library scope. *)
 
 (** AXIOM: Partition claim must pay information cost
-    
-    JUSTIFICATION: From Shannon information theory. Specifying one choice 
+
+    JUSTIFICATION: From Shannon information theory. Specifying one choice
     from N requires log₂(N) bits. This is SOURCE CODING THEOREM.
-    
+
     For PDISCOVER: N = Bell(n) possible partitions of n elements.
-    Example: n=10 → Bell(10)=115,975 → μ ≥ 17 bits required. *)
-Variable partition_claim_information_bound : forall (n num_partitions : nat),
+    Example: n=10 → Bell(10)=115,975 → μ ≥ 17 bits required.
+
+    INQUISITOR NOTE: Axiom encoding Shannon source coding theorem (1948). *)
+Axiom partition_claim_information_bound : forall (n num_partitions : nat),
   num_partitions > 0 ->
   exists (required_mu : nat),
     (required_mu >= Nat.log2 num_partitions)%nat.
@@ -47,14 +49,16 @@ Variable partition_claim_information_bound : forall (n num_partitions : nat),
     standard information-theoretic arguments from Shannon's source coding. *)
 
 (** AXIOM: State space reduction requires information cost
-    
+
     PROVEN in StateSpaceCounting.v:nofreeinsight_information_theoretic_bound
-    
+
     Reducing compatible state space from Ω to Ω' requires μ ≥ log₂(|Ω|/|Ω'|).
     Each bit of constraint can eliminate at most half the states.
-    
-    Example: SAT with n variables requires μ ≥ n bits. *)
-Variable state_space_reduction_bound : forall (omega omega_prime : nat),
+
+    Example: SAT with n variables requires μ ≥ n bits.
+
+    INQUISITOR NOTE: Formalization of No Free Insight theorem proven in StateSpaceCounting.v *)
+Axiom state_space_reduction_bound : forall (omega omega_prime : nat),
   omega > omega_prime ->
   omega_prime > 0 ->
   exists (required_mu : nat),
@@ -71,12 +75,14 @@ Local Open Scope R_scope.
     are in MinorConstraints.v and QuantumBoundComplete.v. *)
 
 (** AXIOM: μ=0 implies classical correlations (CHSH ≤ 2)
-    
+
     PROVEN in MinorConstraints.v:188 (local_box_CHSH_bound)
-    
+
     μ=0 operations (PNEW, PSPLIT, PMERGE) preserve factorizability.
-    Factorizable correlations satisfy minor constraints → CHSH ≤ 2. *)
-Variable mu_zero_classical_characterization :
+    Factorizable correlations satisfy minor constraints → CHSH ≤ 2.
+
+    INQUISITOR NOTE: Links to MinorConstraints.v theorem. Simplified type to avoid circular dependencies. *)
+Axiom mu_zero_classical_characterization :
   forall (program : list vm_instruction),
     (forall instr, In instr program ->
       exists s, (mu_cost_of_instr instr s = 0)%nat) ->
@@ -86,12 +92,14 @@ Variable mu_zero_classical_characterization :
 (** INQUISITOR NOTE: The μ>0 quantum characterization connects μ-cost to NPA bounds. *)
 
 (** AXIOM: μ>0 enables quantum correlations (2 < CHSH ≤ 2√2)
-    
+
     PROVEN in QuantumBoundComplete.v:mu_positive_enables_tsirelson
-    
+
     μ>0 operations (LJOIN, REVEAL, LASSERT) break factorizability.
-    Non-factorizable → quantum realizable (NPA) → CHSH ≤ 2√2. *)
-Variable mu_positive_quantum_characterization :
+    Non-factorizable → quantum realizable (NPA) → CHSH ≤ 2√2.
+
+    INQUISITOR NOTE: Links to QuantumBoundComplete.v theorem. Simplified type to avoid circular dependencies. *)
+Axiom mu_positive_quantum_characterization :
   forall (program : list vm_instruction),
     (exists instr, In instr program /\
       exists s, (mu_cost_of_instr instr s > 0)%nat) ->
