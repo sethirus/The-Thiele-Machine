@@ -198,12 +198,112 @@ Axiom PSD_off_diagonal_bound : forall (n : nat) (M : Matrix n) (i j : nat),
   M j j <= 1 ->
   Rabs (M i j) <= 1.
 
+(** * Extended Determinants for Larger Matrices *)
+
+(** 4×4 determinant using cofactor expansion along first row *)
+Definition det4_matrix (M : Matrix 4) : R :=
+  let minor_0 :=
+    M 1%nat 1%nat * (M 2%nat 2%nat * M 3%nat 3%nat - M 2%nat 3%nat * M 3%nat 2%nat) -
+    M 1%nat 2%nat * (M 2%nat 1%nat * M 3%nat 3%nat - M 2%nat 3%nat * M 3%nat 1%nat) +
+    M 1%nat 3%nat * (M 2%nat 1%nat * M 3%nat 2%nat - M 2%nat 2%nat * M 3%nat 1%nat) in
+  let minor_1 :=
+    M 1%nat 0%nat * (M 2%nat 2%nat * M 3%nat 3%nat - M 2%nat 3%nat * M 3%nat 2%nat) -
+    M 1%nat 2%nat * (M 2%nat 0%nat * M 3%nat 3%nat - M 2%nat 3%nat * M 3%nat 0%nat) +
+    M 1%nat 3%nat * (M 2%nat 0%nat * M 3%nat 2%nat - M 2%nat 2%nat * M 3%nat 0%nat) in
+  let minor_2 :=
+    M 1%nat 0%nat * (M 2%nat 1%nat * M 3%nat 3%nat - M 2%nat 3%nat * M 3%nat 1%nat) -
+    M 1%nat 1%nat * (M 2%nat 0%nat * M 3%nat 3%nat - M 2%nat 3%nat * M 3%nat 0%nat) +
+    M 1%nat 3%nat * (M 2%nat 0%nat * M 3%nat 1%nat - M 2%nat 1%nat * M 3%nat 0%nat) in
+  let minor_3 :=
+    M 1%nat 0%nat * (M 2%nat 1%nat * M 3%nat 2%nat - M 2%nat 2%nat * M 3%nat 1%nat) -
+    M 1%nat 1%nat * (M 2%nat 0%nat * M 3%nat 2%nat - M 2%nat 2%nat * M 3%nat 0%nat) +
+    M 1%nat 2%nat * (M 2%nat 0%nat * M 3%nat 1%nat - M 2%nat 1%nat * M 3%nat 0%nat) in
+  M 0%nat 0%nat * minor_0 - M 0%nat 1%nat * minor_1 +
+  M 0%nat 2%nat * minor_2 - M 0%nat 3%nat * minor_3.
+
+(** 5×5 determinant using cofactor expansion (for CHSH NPA-1 moment matrix) *)
+(** This is large but explicit - needed for the quantum CHSH bound proof *)
+Definition det5_matrix (M : Matrix 5) : R :=
+  (* Expand along first row using 4×4 cofactors *)
+  let cofactor_00 := det4_matrix (fun i j =>
+    match i, j with
+    | 0, 0 => M 1%nat 1%nat | 0, 1 => M 1%nat 2%nat | 0, 2 => M 1%nat 3%nat | 0, 3 => M 1%nat 4%nat
+    | 1, 0 => M 2%nat 1%nat | 1, 1 => M 2%nat 2%nat | 1, 2 => M 2%nat 3%nat | 1, 3 => M 2%nat 4%nat
+    | 2, 0 => M 3%nat 1%nat | 2, 1 => M 3%nat 2%nat | 2, 2 => M 3%nat 3%nat | 2, 3 => M 3%nat 4%nat
+    | 3, 0 => M 4%nat 1%nat | 3, 1 => M 4%nat 2%nat | 3, 2 => M 4%nat 3%nat | 3, 3 => M 4%nat 4%nat
+    | _, _ => 0
+    end) in
+  let cofactor_01 := det4_matrix (fun i j =>
+    match i, j with
+    | 0, 0 => M 1%nat 0%nat | 0, 1 => M 1%nat 2%nat | 0, 2 => M 1%nat 3%nat | 0, 3 => M 1%nat 4%nat
+    | 1, 0 => M 2%nat 0%nat | 1, 1 => M 2%nat 2%nat | 1, 2 => M 2%nat 3%nat | 1, 3 => M 2%nat 4%nat
+    | 2, 0 => M 3%nat 0%nat | 2, 1 => M 3%nat 2%nat | 2, 2 => M 3%nat 3%nat | 2, 3 => M 3%nat 4%nat
+    | 3, 0 => M 4%nat 0%nat | 3, 1 => M 4%nat 2%nat | 3, 2 => M 4%nat 3%nat | 3, 3 => M 4%nat 4%nat
+    | _, _ => 0
+    end) in
+  let cofactor_02 := det4_matrix (fun i j =>
+    match i, j with
+    | 0, 0 => M 1%nat 0%nat | 0, 1 => M 1%nat 1%nat | 0, 2 => M 1%nat 3%nat | 0, 3 => M 1%nat 4%nat
+    | 1, 0 => M 2%nat 0%nat | 1, 1 => M 2%nat 1%nat | 1, 2 => M 2%nat 3%nat | 1, 3 => M 2%nat 4%nat
+    | 2, 0 => M 3%nat 0%nat | 2, 1 => M 3%nat 1%nat | 2, 2 => M 3%nat 3%nat | 2, 3 => M 3%nat 4%nat
+    | 3, 0 => M 4%nat 0%nat | 3, 1 => M 4%nat 1%nat | 3, 2 => M 4%nat 3%nat | 3, 3 => M 4%nat 4%nat
+    | _, _ => 0
+    end) in
+  let cofactor_03 := det4_matrix (fun i j =>
+    match i, j with
+    | 0, 0 => M 1%nat 0%nat | 0, 1 => M 1%nat 1%nat | 0, 2 => M 1%nat 2%nat | 0, 3 => M 1%nat 4%nat
+    | 1, 0 => M 2%nat 0%nat | 1, 1 => M 2%nat 1%nat | 1, 2 => M 2%nat 2%nat | 1, 3 => M 2%nat 4%nat
+    | 2, 0 => M 3%nat 0%nat | 2, 1 => M 3%nat 1%nat | 2, 2 => M 3%nat 2%nat | 2, 3 => M 3%nat 4%nat
+    | 3, 0 => M 4%nat 0%nat | 3, 1 => M 4%nat 1%nat | 3, 2 => M 4%nat 2%nat | 3, 3 => M 4%nat 4%nat
+    | _, _ => 0
+    end) in
+  let cofactor_04 := det4_matrix (fun i j =>
+    match i, j with
+    | 0, 0 => M 1%nat 0%nat | 0, 1 => M 1%nat 1%nat | 0, 2 => M 1%nat 2%nat | 0, 3 => M 1%nat 3%nat
+    | 1, 0 => M 2%nat 0%nat | 1, 1 => M 2%nat 1%nat | 1, 2 => M 2%nat 2%nat | 1, 3 => M 2%nat 3%nat
+    | 2, 0 => M 3%nat 0%nat | 2, 1 => M 3%nat 1%nat | 2, 2 => M 3%nat 2%nat | 2, 3 => M 3%nat 3%nat
+    | 3, 0 => M 4%nat 0%nat | 3, 1 => M 4%nat 1%nat | 3, 2 => M 4%nat 2%nat | 3, 3 => M 4%nat 3%nat
+    | _, _ => 0
+    end) in
+  M 0%nat 0%nat * cofactor_00 - M 0%nat 1%nat * cofactor_01 +
+  M 0%nat 2%nat * cofactor_02 - M 0%nat 3%nat * cofactor_03 +
+  M 0%nat 4%nat * cofactor_04.
+
+(** PSD for 4×4 matrix using Sylvester's criterion *)
+Definition PSD_4 (M : Matrix 4) : Prop :=
+  M 0%nat 0%nat >= 0 /\
+  minor2_topleft M >= 0 /\
+  minor3_topleft M >= 0 /\
+  det4_matrix M >= 0.
+
+(** PSD for 5×5 matrix using Sylvester's criterion *)
+Definition PSD_5 (M : Matrix 5) : Prop :=
+  M 0%nat 0%nat >= 0 /\
+  minor2_topleft M >= 0 /\
+  minor3_topleft M >= 0 /\
+  det4_matrix (fun i j => M i j) >= 0 /\
+  det5_matrix M >= 0.
+
+(** Update general PSD definition to include 4 and 5 *)
+Definition PSD_general {n : nat} (M : Matrix n) : Prop :=
+  match n with
+  | 0 => True
+  | 1 => PSD_1 M
+  | 2 => PSD_2 M
+  | 3 => PSD_3 M
+  | 4 => PSD_4 M
+  | 5 => PSD_5 M
+  | S (S (S (S (S (S _))))) =>
+      (* For larger matrices, require all diagonal elements non-negative *)
+      (forall i : nat, (i < n)%nat -> M i i >= 0)
+  end.
+
 (** =========================================================================
-    VERIFICATION SUMMARY - STEP 1 COMPLETE
+    VERIFICATION SUMMARY - STEP 1 EXTENDED
 
     ✓ Matrix representation defined (function-based)
-    ✓ Determinants and minors for 2×2 and 3×3 matrices
-    ✓ PSD definition via Sylvester's criterion
+    ✓ Determinants and minors for 2×2, 3×3, 4×4, and 5×5 matrices
+    ✓ PSD definition via Sylvester's criterion (up to 5×5)
     ✓ Basic PSD properties:
       - Diagonal elements non-negative
       - Identity matrix is PSD
@@ -212,5 +312,6 @@ Axiom PSD_off_diagonal_bound : forall (n : nat) (M : Matrix n) (i j : nat),
       - Off-diagonal bound lemma
 
     NEXT STEP:
-    Use these foundations to construct the NPA-1 moment matrix for CHSH.
+    Use these foundations to construct the NPA-1 moment matrix for CHSH
+    and prove the Tsirelson bound.
     ========================================================================= *)
