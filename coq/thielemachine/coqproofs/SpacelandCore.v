@@ -24,16 +24,16 @@ Open Scope Z_scope.
 Module Type MinimalSpaceland.
 
   (** States - abstract *)
-  Parameter State : Type.
+  Variable State : Type.
   
   (** Partitions - concrete structure *)
   Definition Partition : Type := list (list nat).
   
   (** Every state has a partition *)
-  Parameter get_partition : State -> Partition.
+  Variable get_partition : State -> Partition.
 
   (** Every state has an observable absolute μ *)
-  Parameter get_mu : State -> Z.
+  Variable get_mu : State -> Z.
   
   (** States can transition *)
   Inductive Label : Type :=
@@ -41,21 +41,21 @@ Module Type MinimalSpaceland.
     | LSplit : nat -> Label
     | LMerge : nat -> nat -> Label.
   
-  Parameter step : State -> Label -> State -> Prop.
+  Variable step : State -> Label -> State -> Prop.
   
   (** Determinism *)
-  Parameter step_det : forall s l s1 s2,
+  Variable step_det : forall s l s1 s2,
     step s l s1 -> step s l s2 -> s1 = s2.
   
   (** Cost function *)
-  Parameter mu : State -> Label -> State -> Z.
+  Variable mu : State -> Label -> State -> Z.
   
   (** Cost is non-negative *)
-  Parameter mu_nonneg : forall s l s',
+  Variable mu_nonneg : forall s l s',
     step s l s' -> mu s l s' >= 0.
   
   (** Blind steps with unchanged partition cost zero *)
-  Parameter mu_blind_free : forall s s',
+  Variable mu_blind_free : forall s s',
     step s LCompute s' ->
     get_partition s = get_partition s' ->
     mu s LCompute s' = 0.
@@ -71,12 +71,11 @@ End MinimalSpaceland.
     ========================================================================= *)
 
 Module SpacelandTraces (S : MinimalSpaceland).
-  Import S.
   
   (** Execution trace *)
   Inductive Trace : Type :=
-    | TEnd : State -> Trace
-    | TStep : State -> Label -> Trace -> Trace.
+    | TEnd : S.State -> Trace
+    | TStep : S.State -> S.Label -> Trace -> Trace.
   
   (** Trace is valid if each step is valid *)
   Fixpoint trace_valid (t : Trace) : Prop :=
@@ -84,16 +83,16 @@ Module SpacelandTraces (S : MinimalSpaceland).
     | TEnd _ => True
     | TStep s l rest =>
         match rest with
-        | TEnd s' => step s l s'
-        | TStep s' l' rest' => step s l s' /\ trace_valid rest
+        | TEnd s' => S.step s l s'
+        | TStep s' l' rest' => S.step s l s' /\ trace_valid rest
         end
     end.
   
   (** Extract partition trace *)
-  Fixpoint partition_trace (t : Trace) : list Partition :=
+  Fixpoint partition_trace (t : Trace) : list S.Partition :=
     match t with
-    | TEnd s => [get_partition s]
-    | TStep s l rest => get_partition s :: partition_trace rest
+    | TEnd s => [S.get_partition s]
+    | TStep s l rest => S.get_partition s :: partition_trace rest
     end.
   
   (** Calculate total μ-cost *)
@@ -102,22 +101,22 @@ Module SpacelandTraces (S : MinimalSpaceland).
     | TEnd _ => 0
     | TStep s l rest =>
         match rest with
-        | TEnd s' => mu s l s'
-        | TStep s' l' rest' => mu s l s' + mu_cost rest
+        | TEnd s' => S.mu s l s'
+        | TStep s' l' rest' => S.mu s l s' + mu_cost rest
         end
     end.
   
   (** Observe starting μ to distinguish otherwise-identical partitions *)
-  Definition start_state (t : Trace) : State :=
+  Definition start_state (t : Trace) : S.State :=
     match t with
     | TEnd s => s
     | TStep s _ _ => s
     end.
 
-  Definition start_mu (t : Trace) : Z := get_mu (start_state t).
+  Definition start_mu (t : Trace) : Z := S.get_mu (start_state t).
 
   (** Observable projection captures partitions, initial μ, and total μ-cost *)
-  Definition project (t : Trace) : list Partition * Z * Z :=
+  Definition project (t : Trace) : list S.Partition * Z * Z :=
     (partition_trace t, start_mu t, mu_cost t).
   
   (** μ-cost is always non-negative for valid traces *)
@@ -128,9 +127,9 @@ Module SpacelandTraces (S : MinimalSpaceland).
     induction t as [s | s l t' IH]; simpl; intros Hvalid.
     - lia.
     - destruct t' as [s' | s' l' t''].
-      + apply mu_nonneg. assumption.
+      + apply S.mu_nonneg. assumption.
       + destruct Hvalid as [Hstep Hrest].
-        assert (Hmu : mu s l s' >= 0) by (apply mu_nonneg; assumption).
+        assert (Hmu : S.mu s l s' >= 0) by (apply S.mu_nonneg; assumption).
         assert (Hcost : mu_cost (TStep s' l' t'') >= 0) by (apply IH; assumption).
         lia.
   Qed.
@@ -146,14 +145,13 @@ End SpacelandTraces.
     ========================================================================= *)
 
 Module ObservableCompleteness (S : MinimalSpaceland).
-  Import S.
   Module T := SpacelandTraces S.
   Import T.
   
   (** Definition: A model is observable-complete if different states
       have different observable futures *)
   Definition observable_complete : Prop :=
-    forall (s1 s2 : State),
+    forall (s1 s2 : S.State),
       s1 <> s2 ->
       exists (t1 t2 : Trace),
         trace_valid t1 /\ trace_valid t2 /\

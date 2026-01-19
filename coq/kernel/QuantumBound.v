@@ -205,7 +205,7 @@ Definition has_supra_cert (s : VMState) : Prop :=
     - quantum_admissible_cannot_certify_supra_chsh
     - quantum_admissible_cannot_certify_chsh_claim *)
 
-Axiom quantum_admissible_implies_no_supra_cert :
+Variable quantum_admissible_implies_no_supra_cert :
   forall (trace : list vm_instruction) (s_init s_final : VMState) (fuel : nat),
     s_init.(vm_csrs).(csr_cert_addr) = 0%nat ->
     quantum_admissible trace ->

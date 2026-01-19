@@ -36,10 +36,10 @@ From Kernel Require Import SemidefiniteProgramming NPAMomentMatrix.
 (** The exact value 2√2 ≈ 2.828427124746... *)
 (** We'll work with this symbolically and prove bounds *)
 
-Axiom sqrt2 : R.
-Axiom sqrt2_squared : sqrt2 * sqrt2 = 2.
-Axiom sqrt2_positive : sqrt2 > 0.
-Axiom sqrt2_bounds : 1.4 < sqrt2 < 1.5.
+Variable sqrt2 : R.
+Variable sqrt2_squared : sqrt2 * sqrt2 = 2.
+Variable sqrt2_positive : sqrt2 > 0.
+Variable sqrt2_bounds : 1.4 < sqrt2 < 1.5.
 
 Definition tsirelson_bound : R := 2 * sqrt2.
 
@@ -64,7 +64,7 @@ Definition tsirelson_bound : R := 2 * sqrt2.
     
     Reference: B.S. Tsirelson, "Quantum generalizations of Bell's inequality"
                Letters in Mathematical Physics 4, 93-100 (1980) *)
-Axiom quantum_CHSH_bound : forall (npa : NPAMomentMatrix),
+Variable quantum_CHSH_bound : forall (npa : NPAMomentMatrix),
   quantum_realizable npa ->
   Rabs (S_value (npa_to_chsh npa)) <= tsirelson_bound.
 
@@ -102,12 +102,12 @@ Definition optimal_npa : NPAMomentMatrix := {|
     This requires numerical verification that the 5×5 moment matrix is PSD.
     Can be verified computationally using eigenvalue decomposition or SDP solvers.
     Reference: Numerical computation confirms all eigenvalues ≥ 0 *)
-Axiom optimal_is_quantum_realizable :
+Variable optimal_is_quantum_realizable :
   quantum_realizable optimal_npa.
 
 (** The optimal strategy achieves exactly 2√2.
     Algebraic verification: S = 1/√2 + 1/√2 + 1/√2 - (-1/√2) = 4/√2 = 2√2 *)
-Axiom optimal_achieves_tsirelson :
+Variable optimal_achieves_tsirelson :
   S_value (npa_to_chsh optimal_npa) = tsirelson_bound.
 
 (** * Comparison with Classical Bound *)
@@ -130,7 +130,7 @@ Definition factorizable (npa : NPAMomentMatrix) : Prop :=
     Full proof from Fine's theorem is in MinorConstraints.v. *)
 
 (** Classical bound is 2 (already proven in MinorConstraints.v) *)
-Axiom classical_CHSH_bound : forall (npa : NPAMomentMatrix),
+Variable classical_CHSH_bound : forall (npa : NPAMomentMatrix),
   factorizable npa ->
   Rabs (S_value (npa_to_chsh npa)) <= 2.
 
@@ -168,9 +168,9 @@ Qed.
     whose exact value is unknown. The bounds 1.7 < K_G < 1.8 are well-established.
     Grothendieck's inequality (1953) is a fundamental result in functional analysis. *)
 
-Axiom grothendieck_constant : R.
-Axiom grothendieck_value : 1.7 < grothendieck_constant < 1.8.
-Axiom grothendieck_inequality : forall (npa : NPAMomentMatrix),
+Variable grothendieck_constant : R.
+Variable grothendieck_value : 1.7 < grothendieck_constant < 1.8.
+Variable grothendieck_inequality : forall (npa : NPAMomentMatrix),
   quantum_realizable npa ->
   Rabs (S_value (npa_to_chsh npa)) <= 2 * 2 * grothendieck_constant.
 

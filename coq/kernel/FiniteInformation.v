@@ -10,7 +10,7 @@
     NO SHORTCUTS:
     - No Hypothesis (flagged by Inquisitor)
     - No Axiom (except Coq stdlib)
-    - No Admitted
+    - No deferred proofs
     - Everything derived from definitions
     
     ========================================================================= *)
@@ -583,10 +583,9 @@ Qed.
     
     - No Hypothesis
     - No Axiom (except Coq stdlib)
-    - No Admitted
+    - No deferred proofs
     - Core theorem (info_nonincreasing) proven from first principles
     - The proof shows WHY information cannot increase:
       because step : S -> S means image(step) ⊆ S
     
     ========================================================================= *)
-

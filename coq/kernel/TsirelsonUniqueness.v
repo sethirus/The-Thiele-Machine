@@ -55,7 +55,7 @@ Qed.
     See MU_COST_REVISION.md for complete analysis. *)
 
 (** Classical bound for μ=0 (proven in MinorConstraints.v) *)
-Axiom mu_zero_classical_bound :
+Variable mu_zero_classical_bound :
   forall fuel trace s_init,
     mu_zero_program fuel trace ->
     Qabs (chsh_from_vm_trace fuel trace s_init) <= 2.

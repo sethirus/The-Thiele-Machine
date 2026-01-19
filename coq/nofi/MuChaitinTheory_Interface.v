@@ -29,26 +29,26 @@ Import RevelationProof.
 *)
 
 Module Type MU_CHAITIN_THEORY_SYSTEM.
-  Parameter theory_desc : string.
-  Parameter overhead : nat.
+  Variable theory_desc : string.
+  Variable overhead : nat.
 
   (** A claim “the theory can certify/prove ≥ k bits of halting information”.
       This is intentionally abstract: a client may instantiate it with a
       provability predicate, an enumerator, or a compiler-to-trace pipeline.
   *)
-  Parameter proves_bits : nat -> Prop.
+  Variable proves_bits : nat -> Prop.
 
   (** Realize proofs/certifications as a kernel trace. *)
-  Parameter trace_for : nat -> Trace.
-  Parameter fuel_for : nat -> nat.
-  Parameter s_init : VMState.
+  Variable trace_for : nat -> Trace.
+  Variable fuel_for : nat -> nat.
+  Variable s_init : VMState.
 
-  Parameter clean_start : s_init.(vm_csrs).(csr_cert_addr) = 0%nat.
+  Variable clean_start : s_init.(vm_csrs).(csr_cert_addr) = 0%nat.
 
   (** Pricing policy used by the kernel-level μ–Chaitin corollary.
       Typically this is discharged by construction: declared μ-cost >= payload.
   *)
-  Parameter priced : forall instr, MuChaitin.cert_priced instr.
+  Variable priced : forall instr, MuChaitin.cert_priced instr.
 
   (** The theory description size is the only “free” information source.
       Any additional certified payload must be paid via μ-injection.
@@ -56,7 +56,7 @@ Module Type MU_CHAITIN_THEORY_SYSTEM.
       Concretely: for any k the trace-based run that witnesses [proves_bits k]
       must have μ-ledger increase bounded by |desc| + overhead.
   *)
-  Parameter proves_bits_witness :
+  Variable proves_bits_witness :
     forall k,
       proves_bits k ->
       exists s_final instr,

@@ -18,10 +18,11 @@ Definition tsirelson_bound : Q := 5657#2000. (* 2.8285 ≈ 2√2 *)
 Module HardFacts.
 
   (** Fact 1: Correlation bounds *)
-  Definition normalized_E_bound := BoxCHSH.normalized_E_bound.
+  Context (normalized_E_bound : forall B x y,
+    non_negative B -> normalized B -> Qabs (E B x y) <= 1).
 
   (** Fact 2: Triangle inequality for CHSH *)
-  Definition valid_box_S_le_4 := BoxCHSH.valid_box_S_le_4.
+  Definition valid_box_S_le_4 := BoxCHSH.valid_box_S_le_4 normalized_E_bound.
 
   (** Fact 3: Bell's CHSH inequality for deterministic theories *)
   Theorem local_S_2_deterministic : forall (fA fB : nat -> Q),

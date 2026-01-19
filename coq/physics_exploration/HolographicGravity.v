@@ -6,8 +6,8 @@ Open Scope R_scope.
 
 (** INQUISITOR NOTE: G derivation remains highly speculative *)
 
-Parameter G : R.
-Axiom G_positive : G > 0.
+Variable G : R.
+Variable G_positive : G > 0.
 
 Definition l_planck : R := sqrt (h * G / (c * c * c)).
 

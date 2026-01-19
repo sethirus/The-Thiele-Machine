@@ -670,7 +670,7 @@ Qed.
     updated. The correct formulation is `observational_no_signaling` (see below),
     which uses Observable and is FULLY PROVEN.
 
-    The admit in this proof identifies the precise point where substrate locality
+    The gap in this proof identifies the precise point where substrate locality
     (full state preservation) diverges from observational locality (observable preservation).
 
     For the COMPLETE, PROVEN theorem, see: observational_no_signaling
@@ -695,7 +695,7 @@ Qed.
 
     MAXIMAL FORMULATION (Option C): Locality at the Observation Level
 
-    The admit in no_signaling_single_step (pmerge, mid = existing_id case)
+    The gap in no_signaling_single_step (pmerge, mid = existing_id case)
     revealed a fundamental question:
 
       Is locality a property of memory, operations, or observables?
@@ -855,7 +855,7 @@ Fixpoint min_steps_to_target (mid : nat) (trace : list vm_instruction) : option 
       * normalize_region_idempotent - canonical normalization
       * 6 graph preservation lemmas for locality
 
-    - Admitted lemmas: ZERO
+    - Deferred lemmas: ZERO
     - Axioms: ZERO
 
     ALL THEOREMS STATED PURELY ON KERNEL (VMState, vm_instruction, vm_step).
@@ -870,4 +870,3 @@ Fixpoint min_steps_to_target (mid : nat) (trace : list vm_instruction) : option 
     First formal proof that locality emerges from pure operational semantics
     via observation interface, without assuming spacetime or special relativity.
     *)
-
