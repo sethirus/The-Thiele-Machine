@@ -688,6 +688,12 @@ theory/NoFreeLunch.vos theory/NoFreeLunch.vok theory/NoFreeLunch.required_vos: t
 theory/Genesis.vo theory/Genesis.glob theory/Genesis.v.beautified theory/Genesis.required_vo: theory/Genesis.v 
 theory/Genesis.vio: theory/Genesis.v 
 theory/Genesis.vos theory/Genesis.vok theory/Genesis.required_vos: theory/Genesis.v 
+theory/Universality.vo theory/Universality.glob theory/Universality.v.beautified theory/Universality.required_vo: theory/Universality.v 
+theory/Universality.vio: theory/Universality.v 
+theory/Universality.vos theory/Universality.vok theory/Universality.required_vos: theory/Universality.v 
+theory/Representations.vo theory/Representations.glob theory/Representations.v.beautified theory/Representations.required_vo: theory/Representations.v theory/Core.vo theory/Universality.vo theory/NoFreeLunch.vo
+theory/Representations.vio: theory/Representations.v theory/Core.vio theory/Universality.vio theory/NoFreeLunch.vio
+theory/Representations.vos theory/Representations.vok theory/Representations.required_vos: theory/Representations.v theory/Core.vos theory/Universality.vos theory/NoFreeLunch.vos
 thermodynamic/LandauerDerived.vo thermodynamic/LandauerDerived.glob thermodynamic/LandauerDerived.v.beautified thermodynamic/LandauerDerived.required_vo: thermodynamic/LandauerDerived.v 
 thermodynamic/LandauerDerived.vio: thermodynamic/LandauerDerived.v 
 thermodynamic/LandauerDerived.vos thermodynamic/LandauerDerived.vok thermodynamic/LandauerDerived.required_vos: thermodynamic/LandauerDerived.v 
