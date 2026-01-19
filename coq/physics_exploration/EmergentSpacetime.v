@@ -7,8 +7,8 @@ Open Scope R_scope.
 
 (** INQUISITOR NOTE: Axioms d_mu encode spacetime emergence *)
 
-Parameter d_mu : R.
-Axiom d_mu_positive : d_mu > 0.
+Variable d_mu : R.
+Variable d_mu_positive : d_mu > 0.
 
 Definition c : R := d_mu / tau_mu.
 

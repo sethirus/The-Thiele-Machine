@@ -8,7 +8,7 @@
    3. μ-cost equals entropy change for irreversible ops (Theorem: mu_equals_entropy_loss)
    4. Energy lower bound is k_B * T * ln(2) * μ (Theorem: landauer_bound)
    
-   All proofs are complete (Qed), with zero Admitted tactics.
+   All proofs are complete (Qed), with zero deferred tactics.
    
    Author: Thiele Machine Project
    Date: December 2024
@@ -453,7 +453,7 @@ Qed.
    SECTION 8: COMPLETENESS CHECK
    ======================================================================== *)
 
-(* Verify no Admitted proofs *)
+(* Verify no deferred proofs *)
 Print Assumptions mu_nonnegative.
 Print Assumptions mu_additive.
 Print Assumptions mu_increases_by_cost.

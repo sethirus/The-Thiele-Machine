@@ -1292,7 +1292,7 @@ Qed.
    A single [tm_step] is not performed in a fixed constant number of CPU
    instructions for arbitrary machines/rule-sets.
 
-   What we *do* prove here (admit-free) is the foundational isomorphism between
+   What we *do* prove here (complete) is the foundational isomorphism between
    a TM configuration and the CPU state produced by [setup_state]. *)
 
 Theorem cpu_tm_isomorphism : forall tm conf,

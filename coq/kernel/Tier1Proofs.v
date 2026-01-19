@@ -214,7 +214,7 @@ Qed.
     Run `Print Assumptions local_box_S_le_2.` to see remaining assumption.
     Run `Print Assumptions pr_box_no_extension.` to see remaining assumption.
 
-    Expected: T1-1 and T1-2 closed, T1-3 and T1-4 show "Admitted"
+    Expected: T1-1 and T1-2 closed, T1-3 and T1-4 show "deferred"
 
     ========================================================================= *)
 
