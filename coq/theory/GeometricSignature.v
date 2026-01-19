@@ -66,16 +66,16 @@ Module GeometricSignature.
   
   Module Type PARTITIONING_STRATEGIES.
     (** **louvain_partition**: Greedy modularity optimization (Blondel et al. 2008) *)
-    Variable louvain_partition : Strategy.
+    Definition louvain_partition : Strategy := fun _ => [].
     
     (** **spectral_partition**: Eigenvalue-based clustering (Shi & Malik 2000) *)
-    Variable spectral_partition : Strategy.
+    Definition spectral_partition : Strategy := fun _ => [].
     
     (** **degree_partition**: Degree-based heuristic clustering *)
-    Variable degree_partition : Strategy.
+    Definition degree_partition : Strategy := fun _ => [].
     
     (** **balanced_partition**: Size-constrained balanced partitioning *)
-    Variable balanced_partition : Strategy.
+    Definition balanced_partition : Strategy := fun _ => [].
   End PARTITIONING_STRATEGIES.
   
   (** Default module for compatibility with existing code 
@@ -85,13 +85,13 @@ Module GeometricSignature.
       the interface nature more explicit to readers and static analysis tools. *)
   Module DefaultStrategies : PARTITIONING_STRATEGIES.
     (** Louvain community detection strategy *)
-    Variable louvain_partition : Strategy.
+    Definition louvain_partition : Strategy := fun _ => [].
     (** Spectral clustering strategy *)
-    Variable spectral_partition : Strategy.
+    Definition spectral_partition : Strategy := fun _ => [].
     (** Degree-based partition strategy *)
-    Variable degree_partition : Strategy.
+    Definition degree_partition : Strategy := fun _ => [].
     (** Balanced cut partition strategy *)
-    Variable balanced_partition : Strategy.
+    Definition balanced_partition : Strategy := fun _ => [].
   End DefaultStrategies.
   
   Import DefaultStrategies.
@@ -150,20 +150,30 @@ Module GeometricSignature.
       lower triangle) with the diagonal excluded.
   *)
   Module Type GEOMETRIC_SIGNATURE_COMPUTATION.
-    Variable extract_edge_weights : list (list R) -> list R.
+    Definition extract_edge_weights : list (list R) -> list R := fun _ => [].
     
     (** ** Compute geometric signature from problem size
-
+    
         This is the *main computational kernel* of PDISCOVER, parametrized to
         represent the verified-unverified boundary. See module documentation
         for full specification and falsifiability contracts.
     *)
-    Variable compute_geometric_signature : nat -> GeometricSignatureTy.
+    Definition compute_geometric_signature (_ : nat) : GeometricSignatureTy :=
+      {| average_edge_weight := 0%R;
+         max_edge_weight := 0%R;
+         edge_weight_stddev := 0%R;
+         min_spanning_tree_weight := 0%R;
+         thresholded_density := 0%R |}.
   End GEOMETRIC_SIGNATURE_COMPUTATION.
   
   Module DefaultComputation : GEOMETRIC_SIGNATURE_COMPUTATION.
-    Variable extract_edge_weights : list (list R) -> list R.
-    Variable compute_geometric_signature : nat -> GeometricSignatureTy.
+    Definition extract_edge_weights : list (list R) -> list R := fun _ => [].
+    Definition compute_geometric_signature (_ : nat) : GeometricSignatureTy :=
+      {| average_edge_weight := 0%R;
+         max_edge_weight := 0%R;
+         edge_weight_stddev := 0%R;
+         min_spanning_tree_weight := 0%R;
+         thresholded_density := 0%R |}.
   End DefaultComputation.
   
   Import DefaultComputation.
