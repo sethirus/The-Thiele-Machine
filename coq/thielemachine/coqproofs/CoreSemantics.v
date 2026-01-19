@@ -1583,13 +1583,9 @@ Proof.
   { (* s2 already halted - step returns None, contradicts Hstep2 *)
     try rewrite Hhalt2 in Hstep2; simpl in Hstep2; discriminate. }
   
-  destruct (nth_error (program s1) (pc s1)) as [i|] eqn:Hinstr1; [| inversion Hstep1].
-  destruct (nth_error (program s2) (pc s2)) as [i2|] eqn:Hinstr2; [| inversion Hstep2].
-  (* s1 and s2 execute the same instruction because pc and program are equal *)
-  assert (Hi_eq: i = i2).
-  { congruence. }
-  subst i2.
-  
+  destruct (nth_error (program s1) (pc s1)) as [i|] eqn:Hinstr1.
+  - assert (Hinstr2: nth_error (program s2) (pc s2) = Some i) by (rewrite <- Hprog, <- Hpc, Hinstr1; reflexivity).
+    rewrite Hinstr2 in Hstep2.
   (* Now both s1 and s2 execute the same instruction i *)
   (* Each instruction adds a fixed μ-cost, so deltas are equal *)
   destruct i as [r | mid | m1 m2 | | | m | | | | | | | | n | |].
@@ -1763,7 +1759,11 @@ Proof.
   - (* HALT - no mu change *)
     simpl in Hstep1, Hstep2.
     inversion Hstep1; inversion Hstep2; subst; simpl; ring.
-  all: try (simpl; ring); try lia; try congruence; try discriminate.
+  all: try (simpl; ring); try lia; try congruence; try discriminate; try contradiction; try tauto; try (exfalso; congruence).
+  - assert (Hinstr2: nth_error (program s2) (pc s2) = None) by (rewrite <- Hprog, <- Hpc, Hinstr1; reflexivity).
+    rewrite Hinstr1 in Hstep1; simpl in Hstep1; inversion Hstep1; subst s1'.
+    rewrite Hinstr2 in Hstep2; simpl in Hstep2; inversion Hstep2; subst s2'.
+    simpl; ring.
 Qed.
 
 (** =========================================================================
