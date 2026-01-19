@@ -1247,13 +1247,514 @@ Qed.
     2. Prove polynomial time bounds (or refine axiom)
     3. Add additional helper lemmas for complex proofs
     
-    COMPILATION:
-    To compile this file:
-    ```
-    cd coq/thielemachine/coqproofs
-    coqc -R . ThieleMachine CoreSemantics.v
-    ```
+    ========================================================================= *)
+
+(** =========================================================================
+    SECTION 10: μ-LEDGER INDEPENDENCE
+    =========================================================================
     
-    Expected result: All theorems proven with Qed
+    Key property for gauge symmetry: step function's observable behavior
+    (partition, pc, halted, result, program) depends only on observable
+    components of input state, not on μ-ledger.
     
+    ========================================================================= *)
+
+Lemma step_mu_independent : forall s1 s2 s1',
+  s1.(partition) = s2.(partition) ->
+  s1.(pc) = s2.(pc) ->
+  s1.(halted) = s2.(halted) ->
+  s1.(result) = s2.(result) ->
+  s1.(program) = s2.(program) ->
+  step s1 = Some s1' ->
+  exists s2',
+    step s2 = Some s2' /\
+    s1'.(partition) = s2'.(partition) /\
+    s1'.(pc) = s2'.(pc) /\
+    s1'.(halted) = s2'.(halted) /\
+    s1'.(result) = s2'.(result) /\
+    s1'.(program) = s2'.(program).
+Proof.
+  intros s1 s2 s1' Hpart Hpc Hhalt Hres Hprog Hstep1.
+  unfold step in *.
+  
+  (* Rewrite s2 fields to match s1 *)
+  unfold step in Hstep1.
+  destruct (halted s1) eqn:Hhalt1; [inversion Hstep1 |].
+  destruct (nth_error (program s1) (pc s1)) as [i|] eqn:Hinstr1.
+  2: { (* nth_error = None → halts *) 
+    inversion Hstep1; subst.
+    (* Need to show step s2 = Some (halt state) *)
+    exists {| partition := partition s2;
+              mu_ledger := mu_ledger s2;
+              pc := pc s2;
+              halted := true;
+              result := result s2;
+              program := program s2 |}.
+    split.
+    { unfold step. rewrite <- Hhalt, <- Hpc, <- Hprog, Hinstr1. reflexivity. }
+    { repeat split; try (rewrite <- Hpart); try (rewrite <- Hpc); try (rewrite <- Hres); try (rewrite <- Hprog); reflexivity. }
+  }
+  
+  (* Case on instruction - construct witness using s1 observables, s2 mu *)
+  destruct i as [r | mid | m1 m2 | | | m | | | | | | | | n | | ].
+  
+  (* PNEW r: branches depend on partition *)
+  - (* Case split on the conditions in step s1 *)
+    destruct (existsb (fun r' => region_eqb r r') (map snd (modules (partition s1)))) eqn:Hex.
+    + (* Exact duplicate: no-op. Return state preserves all observables *)
+      (* Construct s2' witness using s1 observable fields (which equal s2's by hypotheses) *)
+      exists {| partition := partition s1; mu_ledger := mu_ledger s2; 
+                pc := S (pc s1); halted := false; result := result s1; program := program s1 |}.
+      split.
+      { (* Prove step s2 = Some s2' *)
+        unfold step. rewrite <- Hhalt, <- Hpc, <- Hprog, <- Hres. simpl. rewrite Hinstr1. simpl.
+        rewrite <- Hpart. simpl. rewrite Hex. simpl. reflexivity.
+      }
+      { (* Prove observables equal to s1' *)
+        injection Hstep1 as Hs1'_eq. subst s1'.
+        simpl. split; [reflexivity | split; [reflexivity | split; [reflexivity | 
+        split; [reflexivity | reflexivity]]]].
+      }
+    + (* Exact duplicate false branch - partial overlap check *)
+      destruct (existsb (fun r' => negb (disjoint_b r r')) (map snd (modules (partition s1)))) eqn:Hover.
+      * (* Partial overlap: halt *)
+        exists {| partition := partition s1; mu_ledger := mu_ledger s2; 
+                  pc := pc s1; halted := true; result := None; program := program s1 |}.
+        split.
+        { unfold step. rewrite <- Hhalt, <- Hpc, <- Hprog. simpl. rewrite Hinstr1. simpl.
+          rewrite <- Hpart. simpl. rewrite Hex, Hover. simpl. reflexivity. }
+        { injection Hstep1 as Hs1'_eq. subst s1'.
+          simpl. repeat split; reflexivity. }
+      * (* No overlap - attempt to add module *)
+        destruct (partition_valid_b (add_module (partition s1) r)) eqn:Hvalid.
+        -- (* Valid: add module with μ cost *)
+           exists {| partition := add_module (partition s1) r; 
+                     mu_ledger := add_mu_operational (mu_ledger s2) mu_pnew_cost; 
+                     pc := S (pc s1); halted := false; result := result s1; program := program s1 |}.
+           split.
+           { unfold step. rewrite <- Hhalt, <- Hpc, <- Hprog, <- Hres. simpl. rewrite Hinstr1. simpl.
+             rewrite <- Hpart. simpl. rewrite Hex, Hover, Hvalid. simpl. reflexivity. }
+           { injection Hstep1 as Hs1'_eq. subst s1'.
+             simpl. split; [reflexivity | split; [reflexivity | split; [reflexivity | 
+             split; [reflexivity | reflexivity]]]]. }
+        -- (* Invalid: halt without μ cost *)
+           exists {| partition := partition s1; mu_ledger := mu_ledger s2; 
+                     pc := pc s1; halted := true; result := None; program := program s1 |}.
+           split.
+           { unfold step. rewrite <- Hhalt, <- Hpc, <- Hprog. simpl. rewrite Hinstr1. simpl.
+             rewrite <- Hpart. simpl. rewrite Hex, Hover, Hvalid. simpl. reflexivity. }
+           { injection Hstep1 as Hs1'_eq. subst s1'.
+             simpl. repeat split; reflexivity. }
+  
+  (* PSPLIT mid: split module instruction *)
+  - destruct (partition_valid_b (update_partition_split (partition s1) mid)) eqn:Hvalid.
+    + (* Valid split *)
+      exists {| partition := update_partition_split (partition s1) mid;
+                mu_ledger := add_mu_operational (mu_ledger s2) mu_psplit_cost;
+                pc := S (pc s1); halted := false; result := result s1; program := program s1 |}.
+      split.
+      { unfold step. rewrite <- Hhalt, <- Hpc, <- Hprog, <- Hres. simpl. rewrite Hinstr1. simpl.
+        rewrite <- Hpart. simpl. rewrite Hvalid. simpl. reflexivity. }
+      { injection Hstep1 as Hs1'_eq. subst s1'.
+        simpl. split; [reflexivity | split; [reflexivity | split; [reflexivity | 
+        split; [reflexivity | reflexivity]]]]. }
+    + (* Invalid split: halt *)
+      exists {| partition := partition s1;
+                mu_ledger := add_mu_operational (mu_ledger s2) mu_psplit_cost;
+                pc := pc s1; halted := true; result := None; program := program s1 |}.
+      split.
+      { unfold step. rewrite <- Hhalt, <- Hpc, <- Hprog. simpl. rewrite Hinstr1. simpl.
+        rewrite <- Hpart. simpl. rewrite Hvalid. simpl. reflexivity. }
+      { injection Hstep1 as Hs1'_eq. subst s1'.
+        simpl. repeat split; reflexivity. }
+  
+  (* PMERGE m1 m2: merge modules instruction *)
+  - destruct (partition_valid_b (update_partition_merge (partition s1) m1 m2)) eqn:Hvalid.
+    + (* Valid merge *)
+      exists {| partition := update_partition_merge (partition s1) m1 m2;
+                mu_ledger := add_mu_operational (mu_ledger s2) mu_pmerge_cost;
+                pc := S (pc s1); halted := false; result := result s1; program := program s1 |}.
+      split.
+      { unfold step. rewrite <- Hhalt, <- Hpc, <- Hprog, <- Hres. simpl. rewrite Hinstr1. simpl.
+        rewrite <- Hpart. simpl. rewrite Hvalid. simpl. reflexivity. }
+      { injection Hstep1 as Hs1'_eq. subst s1'.
+        simpl. split; [reflexivity | split; [reflexivity | split; [reflexivity | 
+        split; [reflexivity | reflexivity]]]]. }
+    + (* Invalid merge: halt *)
+      exists {| partition := partition s1; mu_ledger := mu_ledger s2;
+                pc := pc s1; halted := true; result := None; program := program s1 |}.
+      split.
+      { unfold step. rewrite <- Hhalt, <- Hpc, <- Hprog. simpl. rewrite Hinstr1. simpl.
+        rewrite <- Hpart. simpl. rewrite Hvalid. simpl. reflexivity. }
+      { injection Hstep1 as Hs1'_eq. subst s1'.
+        simpl. repeat split; reflexivity. }
+  
+  (* LASSERT: logical assertion instruction *)
+  - destruct (partition_valid_b (partition s1)) eqn:Hvalid.
+    + (* Assertion passes *)
+      exists {| partition := partition s1;
+                mu_ledger := add_mu_operational (mu_ledger s2) mu_lassert_cost;
+                pc := S (pc s1); halted := false; result := result s1; program := program s1 |}.
+      split.
+      { unfold step. rewrite <- Hhalt, <- Hpc, <- Hprog, <- Hres. simpl. rewrite Hinstr1. simpl.
+        rewrite <- Hpart. rewrite Hvalid. simpl. reflexivity. }
+      { injection Hstep1 as Hs1'_eq. subst s1'.
+        simpl. split; [reflexivity | split; [reflexivity | split; [reflexivity | 
+        split; [reflexivity | reflexivity]]]]. }
+    + (* Assertion fails: halt *)
+      exists {| partition := partition s1; mu_ledger := mu_ledger s2;
+                pc := pc s1; halted := true; result := None; program := program s1 |}.
+      split.
+      { unfold step. rewrite <- Hhalt, <- Hpc, <- Hprog. simpl. rewrite Hinstr1. simpl.
+        rewrite <- Hpart. rewrite Hvalid. simpl. reflexivity. }
+      { injection Hstep1 as Hs1'_eq. subst s1'.
+        simpl. repeat split; reflexivity. }
+  
+  (* LJOIN: logical join instruction *)
+  - exists {| partition := partition s1;
+              mu_ledger := add_mu_operational (mu_ledger s2) mu_lassert_cost;
+              pc := S (pc s1); halted := false; result := result s1; program := program s1 |}.
+    split.
+    { unfold step. rewrite <- Hhalt, <- Hpc, <- Hprog, <- Hres. simpl. rewrite Hinstr1. simpl.
+      rewrite <- Hpart. simpl. reflexivity. }
+    { injection Hstep1 as Hs1'_eq. subst s1'.
+      simpl. split; [reflexivity | split; [reflexivity | split; [reflexivity | 
+      split; [reflexivity | reflexivity]]]]. }
+  
+  (* MDLACC mid: MDL accumulation instruction *)
+  - exists {| partition := partition s1;
+              mu_ledger := add_mu_operational (mu_ledger s2) mu_mdlacc_cost;
+              pc := S (pc s1); halted := false; result := result s1; program := program s1 |}.
+    split.
+    { unfold step. rewrite <- Hhalt, <- Hpc, <- Hprog, <- Hres. simpl. rewrite Hinstr1. simpl.
+      rewrite <- Hpart. simpl. reflexivity. }
+    { injection Hstep1 as Hs1'_eq. subst s1'.
+      simpl. split; [reflexivity | split; [reflexivity | split; [reflexivity | 
+      split; [reflexivity | reflexivity]]]]. }
+  
+  (* PDISCOVER: partition discovery instruction *)
+  - exists {| partition := partition s1;
+              mu_ledger := add_mu_information (mu_ledger s2) mu_pdiscover_cost;
+              pc := S (pc s1); halted := false; result := result s1; program := program s1 |}.
+    split.
+    { unfold step. rewrite <- Hhalt, <- Hpc, <- Hprog, <- Hres. simpl. rewrite Hinstr1. simpl.
+      rewrite <- Hpart. simpl. reflexivity. }
+    { injection Hstep1 as Hs1'_eq. subst s1'.
+      simpl. split; [reflexivity | split; [reflexivity | split; [reflexivity | 
+      split; [reflexivity | reflexivity]]]]. }
+  
+  (* XFER: transfer instruction *)
+  - exists {| partition := partition s1;
+              mu_ledger := add_mu_operational (mu_ledger s2) mu_emit_cost;
+              pc := S (pc s1); halted := false; result := result s1; program := program s1 |}.
+    split.
+    { unfold step. rewrite <- Hhalt, <- Hpc, <- Hprog, <- Hres. simpl. rewrite Hinstr1. simpl.
+      rewrite <- Hpart. simpl. reflexivity. }
+    { injection Hstep1 as Hs1'_eq. subst s1'.
+      simpl. split; [reflexivity | split; [reflexivity | split; [reflexivity | 
+      split; [reflexivity | reflexivity]]]]. }
+  
+  (* PYEXEC: Python execution instruction *)
+  - exists {| partition := partition s1;
+              mu_ledger := add_mu_operational (mu_ledger s2) mu_lassert_cost;
+              pc := S (pc s1); halted := false; result := result s1; program := program s1 |}.
+    split.
+    { unfold step. rewrite <- Hhalt, <- Hpc, <- Hprog, <- Hres. simpl. rewrite Hinstr1. simpl.
+      rewrite <- Hpart. simpl. reflexivity. }
+    { injection Hstep1 as Hs1'_eq. subst s1'.
+      simpl. split; [reflexivity | split; [reflexivity | split; [reflexivity | 
+      split; [reflexivity | reflexivity]]]]. }
+  
+  (* XOR_LOAD: XOR load instruction *)
+  - exists {| partition := partition s1;
+              mu_ledger := add_mu_operational (mu_ledger s2) mu_emit_cost;
+              pc := S (pc s1); halted := false; result := result s1; program := program s1 |}.
+    split.
+    { unfold step. rewrite <- Hhalt, <- Hpc, <- Hprog, <- Hres. simpl. rewrite Hinstr1. simpl.
+      rewrite <- Hpart. simpl. reflexivity. }
+    { injection Hstep1 as Hs1'_eq. subst s1'.
+      simpl. split; [reflexivity | split; [reflexivity | split; [reflexivity | 
+      split; [reflexivity | reflexivity]]]]. }
+  
+  (* XOR_ADD: XOR add instruction *)
+  - exists {| partition := partition s1;
+              mu_ledger := add_mu_operational (mu_ledger s2) mu_emit_cost;
+              pc := S (pc s1); halted := false; result := result s1; program := program s1 |}.
+    split.
+    { unfold step. rewrite <- Hhalt, <- Hpc, <- Hprog, <- Hres. simpl. rewrite Hinstr1. simpl.
+      rewrite <- Hpart. simpl. reflexivity. }
+    { injection Hstep1 as Hs1'_eq. subst s1'.
+      simpl. split; [reflexivity | split; [reflexivity | split; [reflexivity | 
+      split; [reflexivity | reflexivity]]]]. }
+  
+  (* XOR_SWAP: XOR swap instruction *)
+  - exists {| partition := partition s1;
+              mu_ledger := add_mu_operational (mu_ledger s2) mu_emit_cost;
+              pc := S (pc s1); halted := false; result := result s1; program := program s1 |}.
+    split.
+    { unfold step. rewrite <- Hhalt, <- Hpc, <- Hprog, <- Hres. simpl. rewrite Hinstr1. simpl.
+      rewrite <- Hpart. simpl. reflexivity. }
+    { injection Hstep1 as Hs1'_eq. subst s1'.
+      simpl. split; [reflexivity | split; [reflexivity | split; [reflexivity | 
+      split; [reflexivity | reflexivity]]]]. }
+  
+  (* XOR_RANK: XOR rank instruction *)
+  - exists {| partition := partition s1;
+              mu_ledger := add_mu_operational (mu_ledger s2) mu_emit_cost;
+              pc := S (pc s1); halted := false; result := result s1; program := program s1 |}.
+    split.
+    { unfold step. rewrite <- Hhalt, <- Hpc, <- Hprog, <- Hres. simpl. rewrite Hinstr1. simpl.
+      rewrite <- Hpart. simpl. reflexivity. }
+    { injection Hstep1 as Hs1'_eq. subst s1'.
+      simpl. split; [reflexivity | split; [reflexivity | split; [reflexivity | 
+      split; [reflexivity | reflexivity]]]]. }
+  
+  (* EMIT n: emit result instruction *)
+  - exists {| partition := partition s1;
+              mu_ledger := add_mu_operational (mu_ledger s2) mu_emit_cost;
+              pc := S (pc s1); halted := false; result := Some n; program := program s1 |}.
+    split.
+    { unfold step. rewrite <- Hhalt, <- Hpc, <- Hprog. simpl. rewrite Hinstr1. simpl.
+      rewrite <- Hpart. simpl. reflexivity. }
+    { injection Hstep1 as Hs1'_eq. subst s1'.
+      simpl. split; [reflexivity | split; [reflexivity | split; [reflexivity | 
+      split; [reflexivity | reflexivity]]]]. }
+  
+  (* ORACLE_HALTS: oracle halting instruction *)
+  - exists {| partition := partition s1;
+              mu_ledger := add_mu_information (mu_ledger s2) mu_pdiscover_cost;
+              pc := S (pc s1); halted := false; result := result s1; program := program s1 |}.
+    split.
+    { unfold step. rewrite <- Hhalt, <- Hpc, <- Hprog, <- Hres. simpl. rewrite Hinstr1. simpl.
+      rewrite <- Hpart. simpl. reflexivity. }
+    { injection Hstep1 as Hs1'_eq. subst s1'.
+      simpl. split; [reflexivity | split; [reflexivity | split; [reflexivity | 
+      split; [reflexivity | reflexivity]]]]. }
+  
+  (* HALT: halt instruction *)
+  - exists {| partition := partition s1; mu_ledger := mu_ledger s2;
+              pc := pc s1; halted := true; result := result s1; program := program s1 |}.
+    split.
+    { unfold step. rewrite <- Hhalt, <- Hpc, <- Hprog, <- Hres. simpl. rewrite Hinstr1. simpl.
+      rewrite <- Hpart. simpl. reflexivity. }
+    { injection Hstep1 as Hs1'_eq. subst s1'.
+      simpl. split; [reflexivity | split; [reflexivity | split; [reflexivity | 
+      split; [reflexivity | reflexivity]]]]. }
+Qed.
+
+(** Helper lemmas for μ-ledger arithmetic *)
+Lemma add_mu_operational_total : forall l delta,
+  mu_total (add_mu_operational l delta) = mu_total l + delta.
+Proof.
+  intros. unfold add_mu_operational. simpl. reflexivity.
+Qed.
+
+Lemma add_mu_information_total : forall l delta,
+  mu_total (add_mu_information l delta) = mu_total l + delta.
+Proof.
+  intros. unfold add_mu_information. simpl. reflexivity.
+Qed.
+
+(** Corollary: μ-cost deltas are equal for gauge-equivalent states *)
+Lemma step_mu_delta_equal : forall s1 s2 s1' s2',
+  s1.(partition) = s2.(partition) ->
+  s1.(pc) = s2.(pc) ->
+  s1.(halted) = s2.(halted) ->
+  s1.(result) = s2.(result) ->
+  s1.(program) = s2.(program) ->
+  step s1 = Some s1' ->
+  step s2 = Some s2' ->
+  mu_total s1'.(mu_ledger) - mu_total s1.(mu_ledger) =
+  mu_total s2'.(mu_ledger) - mu_total s2.(mu_ledger).
+Proof.
+  intros s1 s2 s1' s2' Hpart Hpc Hhalt Hres Hprog Hstep1 Hstep2.
+  (* Use step_mu_independent to relate s1' and a hypothetical s2' from stepping s2 *)
+  (* Since s1 and s2 are gauge-equivalent, step_mu_independent gives us that
+     the stepped states preserve observable equality. The key is that each
+     instruction adds a fixed μ-cost that doesn't depend on initial μ_ledger. *)
+  
+  (* Unfold step to examine the instruction being executed *)
+  unfold step in *.
+  destruct (halted s1) eqn:Hhalt1.
+  { (* s1 already halted - step returns None, contradicts Hstep1 *)
+    rewrite Hhalt1 in Hstep1; simpl in Hstep1; discriminate. }
+  rewrite Hhalt in Hhalt1.
+  destruct (halted s2) eqn:Hhalt2.
+  { (* s2 already halted - step returns None, contradicts Hstep2 *)
+    rewrite Hhalt2 in Hstep2; simpl in Hstep2; discriminate. }
+  
+  destruct (nth_error (program s1) (pc s1)) as [i|] eqn:Hinstr1; [| inversion Hstep1].
+  destruct (nth_error (program s2) (pc s2)) as [i2|] eqn:Hinstr2; [| inversion Hstep2].
+  (* s1 and s2 execute the same instruction because pc and program are equal *)
+  assert (Hi_eq: i = i2).
+  { congruence. }
+  subst i2.
+  
+  (* Now both s1 and s2 execute the same instruction i *)
+  (* Each instruction adds a fixed μ-cost, so deltas are equal *)
+  destruct i as [r | mid | m1 m2 | | | m | | | | | | | | | |].
+  
+  - (* PNEW r *)
+    simpl in Hstep1, Hstep2.
+    destruct (existsb (fun r' => region_eqb r r') (map snd (modules (partition s1)))) eqn:?;
+    destruct (existsb (fun r' => region_eqb r r') (map snd (modules (partition s2)))) eqn:?.
+    + (* Exact duplicate - no mu change for both *)
+      injection Hstep1 as Eq1; injection Hstep2 as Eq2.
+      rewrite <- Eq1, <- Eq2; simpl; ring.
+    + (* s1 duplicate, s2 not - impossible due to Hpart *)
+      exfalso; assert (Hmod: modules (partition s1) = modules (partition s2)) by (rewrite Hpart; reflexivity).
+      rewrite Hmod in Heqb; congruence.
+    + (* s1 not duplicate, s2 is - impossible due to Hpart *)
+      exfalso; assert (Hmod: modules (partition s1) = modules (partition s2)) by (rewrite Hpart; reflexivity).
+      rewrite <- Hmod in Heqb0; congruence.
+    + (* Neither is exact duplicate, check partial overlap *)
+      destruct (existsb (fun r' => negb (disjoint_b r r')) (map snd (modules (partition s1)))) eqn:?;
+      destruct (existsb (fun r' => negb (disjoint_b r r')) (map snd (modules (partition s2)))) eqn:?.
+      * (* Partial overlap - halt, no mu change for both *)
+        injection Hstep1 as Eq1; injection Hstep2 as Eq2.
+        rewrite <- Eq1, <- Eq2; simpl; ring.
+      * (* s1 overlaps, s2 doesn't - impossible *)
+        exfalso; assert (Hmod: modules (partition s1) = modules (partition s2)) by (rewrite Hpart; reflexivity).
+        rewrite Hmod in Heqb1; congruence.
+      * (* s1 doesn't overlap, s2 does - impossible *)
+        exfalso; assert (Hmod: modules (partition s1) = modules (partition s2)) by (rewrite Hpart; reflexivity).
+        rewrite <- Hmod in Heqb2; congruence.
+      * (* No overlap for either, check partition_valid_b *)
+        destruct (partition_valid_b (add_module (partition s1) r)) eqn:?;
+        destruct (partition_valid_b (add_module (partition s2) r)) eqn:?.
+        -- (* Valid partition for both - add mu_pnew_cost *)
+           injection Hstep1 as Eq1; injection Hstep2 as Eq2.
+           rewrite <- Eq1, <- Eq2. simpl mu_ledger.
+           rewrite !add_mu_operational_total. ring.
+        -- (* s1 valid, s2 invalid - impossible *)
+           assert (Heqvalid: partition_valid_b (add_module (partition s1) r) =
+                              partition_valid_b (add_module (partition s2) r)) by (rewrite Hpart; reflexivity).
+           rewrite Heqb3 in Heqvalid; rewrite Heqb4 in Heqvalid; discriminate.
+        -- (* s1 invalid, s2 valid - impossible *)
+           assert (Heqvalid: partition_valid_b (add_module (partition s1) r) =
+                              partition_valid_b (add_module (partition s2) r)) by (rewrite Hpart; reflexivity).
+           rewrite Heqb3 in Heqvalid; rewrite Heqb4 in Heqvalid; discriminate.
+        -- (* Invalid partition for both - halt, no mu change *)
+           injection Hstep1 as Eq1; injection Hstep2 as Eq2.
+           rewrite <- Eq1, <- Eq2; simpl; ring.
+  
+  - (* PSPLIT mid *)
+    simpl in Hstep1, Hstep2.
+    destruct (partition_valid_b (update_partition_split (partition s1) mid)) eqn:Heqsplit1;
+    destruct (partition_valid_b (update_partition_split (partition s2) mid)) eqn:Heqsplit2.
+    + (* Valid split for both - add mu_psplit_cost *)
+      injection Hstep1 as Eq1; injection Hstep2 as Eq2.
+      rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_operational_total; ring.
+    + (* s1 valid, s2 invalid - impossible *)
+      assert (Heqvalid: partition_valid_b (update_partition_split (partition s1) mid) =
+                         partition_valid_b (update_partition_split (partition s2) mid)) by (rewrite Hpart; reflexivity).
+      rewrite Heqsplit1 in Heqvalid; rewrite Heqsplit2 in Heqvalid; discriminate.
+    + (* s1 invalid, s2 valid - impossible *)
+      assert (Heqvalid: partition_valid_b (update_partition_split (partition s1) mid) =
+                         partition_valid_b (update_partition_split (partition s2) mid)) by (rewrite Hpart; reflexivity).
+      rewrite Heqsplit1 in Heqvalid; rewrite Heqsplit2 in Heqvalid; discriminate.
+    + (* Invalid split for both - add mu_psplit_cost and halt *)
+      injection Hstep1 as Eq1; injection Hstep2 as Eq2.
+      rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_operational_total; ring.
+  
+  - (* PMERGE m1 m2 *)
+    simpl in Hstep1, Hstep2.
+    destruct (partition_valid_b (update_partition_merge (partition s1) m1 m2)) eqn:Heqmerge1;
+    destruct (partition_valid_b (update_partition_merge (partition s2) m1 m2)) eqn:Heqmerge2.
+    + (* Valid merge for both - add mu_pmerge_cost *)
+      injection Hstep1 as Eq1; injection Hstep2 as Eq2.
+      rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_operational_total; ring.
+    + (* s1 valid, s2 invalid - impossible *)
+      assert (Heqvalid: partition_valid_b (update_partition_merge (partition s1) m1 m2) =
+                         partition_valid_b (update_partition_merge (partition s2) m1 m2)) by (rewrite Hpart; reflexivity).
+      rewrite Heqmerge1 in Heqvalid; rewrite Heqmerge2 in Heqvalid; discriminate.
+    + (* s1 invalid, s2 valid - impossible *)
+      assert (Heqvalid: partition_valid_b (update_partition_merge (partition s1) m1 m2) =
+                         partition_valid_b (update_partition_merge (partition s2) m1 m2)) by (rewrite Hpart; reflexivity).
+      rewrite Heqmerge1 in Heqvalid; rewrite Heqmerge2 in Heqvalid; discriminate.
+    + (* Invalid merge for both - halt, no mu change *)
+      injection Hstep1 as Eq1; injection Hstep2 as Eq2.
+      rewrite <- Eq1, <- Eq2; simpl; ring.
+  
+  - (* LASSERT *)
+    simpl in Hstep1, Hstep2.
+    destruct (partition_valid_b (partition s1)) eqn:Heqassert1;
+    destruct (partition_valid_b (partition s2)) eqn:Heqassert2.
+    + (* Valid for both *)
+      injection Hstep1 as Eq1; injection Hstep2 as Eq2.
+      rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_operational_total; ring.
+    + (* s1 valid, s2 invalid - impossible *)
+      assert (Heqvalid: partition_valid_b (partition s1) = partition_valid_b (partition s2)) by (rewrite Hpart; reflexivity).
+      rewrite Heqassert1 in Heqvalid; rewrite Heqassert2 in Heqvalid; discriminate.
+    + (* s1 invalid, s2 valid - impossible *)
+      assert (Heqvalid: partition_valid_b (partition s1) = partition_valid_b (partition s2)) by (rewrite Hpart; reflexivity).
+      rewrite Heqassert1 in Heqvalid; rewrite Heqassert2 in Heqvalid; discriminate.
+    + (* Invalid for both - halt, no mu change *)
+      injection Hstep1 as Eq1; injection Hstep2 as Eq2.
+      rewrite <- Eq1, <- Eq2; simpl; ring.
+  
+  - (* LJOIN *)
+    simpl in Hstep1, Hstep2.
+    injection Hstep1 as Eq1; injection Hstep2 as Eq2.
+    rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_operational_total; ring.
+  
+  - (* MDLACC m *)
+    simpl in Hstep1, Hstep2.
+    injection Hstep1 as Eq1; injection Hstep2 as Eq2.
+    rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_operational_total; ring.
+  
+  - (* PDISCOVER *)
+    simpl in Hstep1, Hstep2.
+    injection Hstep1 as Eq1; injection Hstep2 as Eq2.
+    rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_information_total; ring.
+  
+  - (* XFER *)
+    simpl in Hstep1, Hstep2.
+    injection Hstep1 as Eq1; injection Hstep2 as Eq2.
+    rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_operational_total; ring.
+  
+  - (* PYEXEC *)
+    simpl in Hstep1, Hstep2.
+    injection Hstep1 as Eq1; injection Hstep2 as Eq2.
+    rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_operational_total; ring.
+  
+  - (* XOR_LOAD *)
+    simpl in Hstep1, Hstep2.
+    injection Hstep1 as Eq1; injection Hstep2 as Eq2.
+    rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_operational_total; ring.
+  
+  - (* XOR_ADD *)
+    simpl in Hstep1, Hstep2.
+    injection Hstep1 as Eq1; injection Hstep2 as Eq2.
+    rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_operational_total; ring.
+  
+  - (* XOR_SWAP *)
+    simpl in Hstep1, Hstep2.
+    injection Hstep1 as Eq1; injection Hstep2 as Eq2.
+    rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_operational_total; ring.
+  
+  - (* XOR_RANK *)
+    simpl in Hstep1, Hstep2.
+    injection Hstep1 as Eq1; injection Hstep2 as Eq2.
+    rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_operational_total; ring.
+  
+  - (* EMIT n *)
+    simpl in Hstep1, Hstep2.
+    injection Hstep1 as Eq1; injection Hstep2 as Eq2.
+    rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_operational_total; ring.
+  
+  - (* ORACLE_HALTS *)
+    simpl in Hstep1, Hstep2.
+    injection Hstep1 as Eq1; injection Hstep2 as Eq2.
+    rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_information_total; ring.
+  
+  - (* HALT - no mu change *)
+    simpl in Hstep1, Hstep2.
+    inversion Hstep1; inversion Hstep2; subst; simpl; ring.
+Unshelve.
+all: try (simpl; ring).
+Qed.
+
+(** =========================================================================
+    END OF CORE SEMANTICS
     ========================================================================= *)
