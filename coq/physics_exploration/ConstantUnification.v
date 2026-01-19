@@ -50,8 +50,11 @@ Theorem h_relational_identity :
   let E := E_bit in
   derived_h = 4 * E / nu_max.
 Proof.
-  intros. unfold derived_h, E_bit, nu_max. 
-  field. split; apply Rgt_not_eq; auto.
+  intros. unfold derived_h, E_bit, nu_max.
+  unfold Rdiv.
+  rewrite Rmult_1_l.
+  rewrite Rinv_inv by (apply Rgt_not_eq; exact tau_mu_pos).
+  reflexivity.
 Qed.
 
 (** 4. THEOREM: Structural Velocity (c)
