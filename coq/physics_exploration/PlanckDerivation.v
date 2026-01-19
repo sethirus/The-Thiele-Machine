@@ -31,8 +31,12 @@ Proof.
   - apply ln2_positive.
 Qed.
 
-Variable h : R.
-Variable h_positive : h > 0.
+Definition h : R := 1.
+
+Lemma h_positive : h > 0.
+Proof.
+  unfold h. lra.
+Qed.
 
 Definition tau_min (E : R) : R := h / (4 * E).
 
