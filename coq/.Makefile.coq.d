@@ -370,9 +370,9 @@ thielemachine/coqproofs/HyperThiele.vos thielemachine/coqproofs/HyperThiele.vok 
 thielemachine/coqproofs/Impossibility.vo thielemachine/coqproofs/Impossibility.glob thielemachine/coqproofs/Impossibility.v.beautified thielemachine/coqproofs/Impossibility.required_vo: thielemachine/coqproofs/Impossibility.v thieleuniversal/coqproofs/TM.vo thielemachine/coqproofs/BellInequality.vo
 thielemachine/coqproofs/Impossibility.vio: thielemachine/coqproofs/Impossibility.v thieleuniversal/coqproofs/TM.vio thielemachine/coqproofs/BellInequality.vio
 thielemachine/coqproofs/Impossibility.vos thielemachine/coqproofs/Impossibility.vok thielemachine/coqproofs/Impossibility.required_vos: thielemachine/coqproofs/Impossibility.v thieleuniversal/coqproofs/TM.vos thielemachine/coqproofs/BellInequality.vos
-thielemachine/coqproofs/RepresentationTheorem.vo thielemachine/coqproofs/RepresentationTheorem.glob thielemachine/coqproofs/RepresentationTheorem.v.beautified thielemachine/coqproofs/RepresentationTheorem.required_vo: thielemachine/coqproofs/RepresentationTheorem.v thielemachine/coqproofs/Spaceland.vo thielemachine/coqproofs/ThieleSpaceland.vo thielemachine/coqproofs/AbstractLTS.vo
-thielemachine/coqproofs/RepresentationTheorem.vio: thielemachine/coqproofs/RepresentationTheorem.v thielemachine/coqproofs/Spaceland.vio thielemachine/coqproofs/ThieleSpaceland.vio thielemachine/coqproofs/AbstractLTS.vio
-thielemachine/coqproofs/RepresentationTheorem.vos thielemachine/coqproofs/RepresentationTheorem.vok thielemachine/coqproofs/RepresentationTheorem.required_vos: thielemachine/coqproofs/RepresentationTheorem.v thielemachine/coqproofs/Spaceland.vos thielemachine/coqproofs/ThieleSpaceland.vos thielemachine/coqproofs/AbstractLTS.vos
+thielemachine/coqproofs/RepresentationTheorem.vo thielemachine/coqproofs/RepresentationTheorem.glob thielemachine/coqproofs/RepresentationTheorem.v.beautified thielemachine/coqproofs/RepresentationTheorem.required_vo: thielemachine/coqproofs/RepresentationTheorem.v thielemachine/coqproofs/Spaceland.vo thielemachine/coqproofs/CoreSemantics.vo thielemachine/coqproofs/ThieleSpaceland.vo
+thielemachine/coqproofs/RepresentationTheorem.vio: thielemachine/coqproofs/RepresentationTheorem.v thielemachine/coqproofs/Spaceland.vio thielemachine/coqproofs/CoreSemantics.vio thielemachine/coqproofs/ThieleSpaceland.vio
+thielemachine/coqproofs/RepresentationTheorem.vos thielemachine/coqproofs/RepresentationTheorem.vok thielemachine/coqproofs/RepresentationTheorem.required_vos: thielemachine/coqproofs/RepresentationTheorem.v thielemachine/coqproofs/Spaceland.vos thielemachine/coqproofs/CoreSemantics.vos thielemachine/coqproofs/ThieleSpaceland.vos
 thielemachine/coqproofs/ThieleMachine.vo thielemachine/coqproofs/ThieleMachine.glob thielemachine/coqproofs/ThieleMachine.v.beautified thielemachine/coqproofs/ThieleMachine.required_vo: thielemachine/coqproofs/ThieleMachine.v 
 thielemachine/coqproofs/ThieleMachine.vio: thielemachine/coqproofs/ThieleMachine.v 
 thielemachine/coqproofs/ThieleMachine.vos thielemachine/coqproofs/ThieleMachine.vok thielemachine/coqproofs/ThieleMachine.required_vos: thielemachine/coqproofs/ThieleMachine.v 
@@ -454,9 +454,9 @@ thielemachine/coqproofs/ThieleProofCarryingReality.vos thielemachine/coqproofs/T
 thielemachine/coqproofs/ThieleKernelCausality.vo thielemachine/coqproofs/ThieleKernelCausality.glob thielemachine/coqproofs/ThieleKernelCausality.v.beautified thielemachine/coqproofs/ThieleKernelCausality.required_vo: thielemachine/coqproofs/ThieleKernelCausality.v kernel/VMState.vo kernel/VMStep.vo kernel/SimulationProof.vo thielemachine/coqproofs/ThieleUnificationProtocol.vo
 thielemachine/coqproofs/ThieleKernelCausality.vio: thielemachine/coqproofs/ThieleKernelCausality.v kernel/VMState.vio kernel/VMStep.vio kernel/SimulationProof.vio thielemachine/coqproofs/ThieleUnificationProtocol.vio
 thielemachine/coqproofs/ThieleKernelCausality.vos thielemachine/coqproofs/ThieleKernelCausality.vok thielemachine/coqproofs/ThieleKernelCausality.required_vos: thielemachine/coqproofs/ThieleKernelCausality.v kernel/VMState.vos kernel/VMStep.vos kernel/SimulationProof.vos thielemachine/coqproofs/ThieleUnificationProtocol.vos
-thielemachine/coqproofs/MuAlu.vo thielemachine/coqproofs/MuAlu.glob thielemachine/coqproofs/MuAlu.v.beautified thielemachine/coqproofs/MuAlu.required_vo: thielemachine/coqproofs/MuAlu.v Extraction.vo
-thielemachine/coqproofs/MuAlu.vio: thielemachine/coqproofs/MuAlu.v Extraction.vio
-thielemachine/coqproofs/MuAlu.vos thielemachine/coqproofs/MuAlu.vok thielemachine/coqproofs/MuAlu.required_vos: thielemachine/coqproofs/MuAlu.v Extraction.vos
+thielemachine/coqproofs/MuAlu.vo thielemachine/coqproofs/MuAlu.glob thielemachine/coqproofs/MuAlu.v.beautified thielemachine/coqproofs/MuAlu.required_vo: thielemachine/coqproofs/MuAlu.v 
+thielemachine/coqproofs/MuAlu.vio: thielemachine/coqproofs/MuAlu.v 
+thielemachine/coqproofs/MuAlu.vos thielemachine/coqproofs/MuAlu.vok thielemachine/coqproofs/MuAlu.required_vos: thielemachine/coqproofs/MuAlu.v 
 thielemachine/coqproofs/OracleImpossibility.vo thielemachine/coqproofs/OracleImpossibility.glob thielemachine/coqproofs/OracleImpossibility.v.beautified thielemachine/coqproofs/OracleImpossibility.required_vo: thielemachine/coqproofs/OracleImpossibility.v thielemachine/coqproofs/ThieleMachine.vo
 thielemachine/coqproofs/OracleImpossibility.vio: thielemachine/coqproofs/OracleImpossibility.v thielemachine/coqproofs/ThieleMachine.vio
 thielemachine/coqproofs/OracleImpossibility.vos thielemachine/coqproofs/OracleImpossibility.vok thielemachine/coqproofs/OracleImpossibility.required_vos: thielemachine/coqproofs/OracleImpossibility.v thielemachine/coqproofs/ThieleMachine.vos
@@ -688,12 +688,6 @@ theory/NoFreeLunch.vos theory/NoFreeLunch.vok theory/NoFreeLunch.required_vos: t
 theory/Genesis.vo theory/Genesis.glob theory/Genesis.v.beautified theory/Genesis.required_vo: theory/Genesis.v 
 theory/Genesis.vio: theory/Genesis.v 
 theory/Genesis.vos theory/Genesis.vok theory/Genesis.required_vos: theory/Genesis.v 
-theory/Universality.vo theory/Universality.glob theory/Universality.v.beautified theory/Universality.required_vo: theory/Universality.v 
-theory/Universality.vio: theory/Universality.v 
-theory/Universality.vos theory/Universality.vok theory/Universality.required_vos: theory/Universality.v 
-theory/Representations.vo theory/Representations.glob theory/Representations.v.beautified theory/Representations.required_vo: theory/Representations.v theory/Core.vo theory/Universality.vo theory/NoFreeLunch.vo
-theory/Representations.vio: theory/Representations.v theory/Core.vio theory/Universality.vio theory/NoFreeLunch.vio
-theory/Representations.vos theory/Representations.vok theory/Representations.required_vos: theory/Representations.v theory/Core.vos theory/Universality.vos theory/NoFreeLunch.vos
 thermodynamic/LandauerDerived.vo thermodynamic/LandauerDerived.glob thermodynamic/LandauerDerived.v.beautified thermodynamic/LandauerDerived.required_vo: thermodynamic/LandauerDerived.v 
 thermodynamic/LandauerDerived.vio: thermodynamic/LandauerDerived.v 
 thermodynamic/LandauerDerived.vos thermodynamic/LandauerDerived.vok thermodynamic/LandauerDerived.required_vos: thermodynamic/LandauerDerived.v 
