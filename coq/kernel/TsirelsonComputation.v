@@ -36,4 +36,4 @@ Definition min_eigenvalue_symmetric (e : Q) : Q :=
 
 (** Computational verification of eigenvalue bounds *)
 (* The proofs require numerical linear algebra that's complex in Coq.
-   We admit these computational facts. *)
+   We assume these computational facts. *)

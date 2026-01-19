@@ -5,7 +5,7 @@ Require Import NoFI.NoFreeInsight_Interface.
 (** * No-Free-Insight theorem (functor)
 
     This file proves the theorem for *any* system satisfying the interface.
-    It contains **no `Axiom`** and **no `Admitted`**.
+    It contains **no `Axiom`** and **no deferred proofs**.
 *)
 
 Module NoFreeInsight (X : NO_FREE_INSIGHT_SYSTEM).

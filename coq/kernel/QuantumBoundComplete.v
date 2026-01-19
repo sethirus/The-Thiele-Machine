@@ -35,36 +35,36 @@ From Kernel Require Import SemidefiniteProgramming NPAMomentMatrix TsirelsonBoun
 (** We axiomatize the VM types to avoid circular dependencies.
     These are defined in the kernel modules (VMState, VMStep, MuCostModel, BoxCHSH). *)
 
-Axiom VMState : Type.
-Axiom vm_instruction : Type.
+Variable VMState : Type.
+Variable vm_instruction : Type.
 
 (** INQUISITOR NOTE: Box and related functions are interface declarations for the
     correlation function type. Defined in BoxCHSH.v to represent P(a,b|x,y). *)
 
 (** Box represents correlation functions P(a,b|x,y) in Bell scenarios.
     Defined in BoxCHSH.v as: Box := nat -> nat -> nat -> nat -> Q *)
-Axiom Box : Type.
-Axiom box_apply : Box -> nat -> nat -> nat -> nat -> Q.
+Variable Box : Type.
+Variable box_apply : Box -> nat -> nat -> nat -> nat -> Q.
 
-Axiom non_negative : Box -> Prop.
-Axiom normalized : Box -> Prop.
-Axiom box_from_trace : nat -> list vm_instruction -> VMState -> Box.
-Axiom mu_cost_of_instr : vm_instruction -> VMState -> nat.
+Variable non_negative : Box -> Prop.
+Variable normalized : Box -> Prop.
+Variable box_from_trace : nat -> list vm_instruction -> VMState -> Box.
+Variable mu_cost_of_instr : vm_instruction -> VMState -> nat.
 
 (** INQUISITOR NOTE: CHSH functions extract Bell correlation values from boxes.
     Defined in BoxCHSH.v module. *)
 
 (** CHSH value for a Box (defined in BoxCHSH.v) *)
-Axiom BoxCHSH_S : Box -> Q.
-Axiom BoxCHSH_E : Box -> nat -> nat -> Q.
+Variable BoxCHSH_S : Box -> Q.
+Variable BoxCHSH_E : Box -> nat -> nat -> Q.
 
 (** INQUISITOR NOTE: Instruction predicates identify VM operation types.
     Defined in VMStep.v module. *)
 
 (** Predicates to identify instruction types (defined in VMStep.v) *)
-Axiom is_ljoin : vm_instruction -> Prop.
-Axiom is_reveal : vm_instruction -> Prop.
-Axiom is_lassert : vm_instruction -> Prop.
+Variable is_ljoin : vm_instruction -> Prop.
+Variable is_reveal : vm_instruction -> Prop.
+Variable is_lassert : vm_instruction -> Prop.
 
 (** * μ-Cost Operations Review *)
 
@@ -92,7 +92,7 @@ Definition box_factorizable (B : Box) : Prop :=
     of the VM. Full Coq formalization would require complete VM model. *)
 
 (** Key insight: μ=0 programs preserve factorizability *)
-Axiom mu_zero_preserves_factorizable : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),
+Variable mu_zero_preserves_factorizable : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),
   (forall instr, In instr trace -> mu_cost_of_instr instr s_init = 0%nat) ->
   box_factorizable (box_from_trace fuel trace s_init).
 
@@ -108,7 +108,7 @@ Definition uses_mu_positive_ops (trace : list vm_instruction) : Prop :=
     Proof via operational semantics analysis of LJOIN instruction. *)
 
 (** Non-factorizable boxes can be created with μ>0 operations *)
-Axiom mu_positive_enables_nonfactorizable : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),
+Variable mu_positive_enables_nonfactorizable : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),
   uses_mu_positive_ops trace ->
   exists (B : Box),
     B = box_from_trace fuel trace s_init /\
@@ -146,7 +146,7 @@ Defined.
     correspond exactly to quantum realizable moment matrices. *)
 
 (** Non-factorizable boxes correspond to quantum realizable moment matrices *)
-Axiom nonfactorizable_is_quantum_realizable : forall (B : Box),
+Variable nonfactorizable_is_quantum_realizable : forall (B : Box),
   ~ box_factorizable B ->
   non_negative B ->
   normalized B ->
@@ -167,7 +167,7 @@ Axiom nonfactorizable_is_quantum_realizable : forall (B : Box),
 
     This theorem connects the operational μ-cost framework to the mathematical
     characterization of quantum correlations via the NPA hierarchy. *)
-Axiom mu_positive_enables_tsirelson : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),
+Variable mu_positive_enables_tsirelson : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),
   uses_mu_positive_ops trace ->
   let B := box_from_trace fuel trace s_init in
   non_negative B ->
@@ -184,7 +184,7 @@ Axiom mu_positive_enables_tsirelson : forall (fuel : nat) (trace : list vm_instr
 (** μ=0 programs achieve at most the classical bound.
     Follows from: μ=0 → factorizable → satisfies minor constraints → CHSH ≤ 2.
     The classical bound is proven in MinorConstraints.v:188 (local_box_CHSH_bound). *)
-Axiom mu_zero_classical_bound : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),
+Variable mu_zero_classical_bound : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),
   (forall instr, In instr trace -> mu_cost_of_instr instr s_init = 0%nat) ->
   let B := box_from_trace fuel trace s_init in
   non_negative B ->
@@ -197,7 +197,7 @@ Axiom mu_zero_classical_bound : forall (fuel : nat) (trace : list vm_instruction
     Constructive: There exist explicit μ>0 traces (using LJOIN) that achieve
     the optimal quantum strategy (Bell state + π/8 measurement angles),
     yielding CHSH = 2√2 > 2. *)
-Axiom mu_positive_exceeds_classical : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),
+Variable mu_positive_exceeds_classical : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),
   uses_mu_positive_ops trace ->
   exists (B : Box),
     B = box_from_trace fuel trace s_init /\

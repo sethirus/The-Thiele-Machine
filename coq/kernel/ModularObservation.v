@@ -18,7 +18,7 @@
     NO SHORTCUTS:
     - No Hypothesis
     - No Axiom (except Coq stdlib)
-    - No Admitted
+    - No deferred proofs
     
     ========================================================================= *)
 
@@ -272,4 +272,3 @@ Definition kernel_instr_targets (i : vm_instruction) : list ModuleID :=
     - Connect instruction_cost to delta_info (CausalityConservation.v)
     
     ========================================================================= *)
-

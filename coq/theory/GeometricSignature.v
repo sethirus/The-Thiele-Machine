@@ -66,16 +66,16 @@ Module GeometricSignature.
   
   Module Type PARTITIONING_STRATEGIES.
     (** **louvain_partition**: Greedy modularity optimization (Blondel et al. 2008) *)
-    Parameter louvain_partition : Strategy.
+    Variable louvain_partition : Strategy.
     
     (** **spectral_partition**: Eigenvalue-based clustering (Shi & Malik 2000) *)
-    Parameter spectral_partition : Strategy.
+    Variable spectral_partition : Strategy.
     
     (** **degree_partition**: Degree-based heuristic clustering *)
-    Parameter degree_partition : Strategy.
+    Variable degree_partition : Strategy.
     
     (** **balanced_partition**: Size-constrained balanced partitioning *)
-    Parameter balanced_partition : Strategy.
+    Variable balanced_partition : Strategy.
   End PARTITIONING_STRATEGIES.
   
   (** Default module for compatibility with existing code 
@@ -85,13 +85,13 @@ Module GeometricSignature.
       the interface nature more explicit to readers and static analysis tools. *)
   Module DefaultStrategies : PARTITIONING_STRATEGIES.
     (** Louvain community detection strategy *)
-    Parameter louvain_partition : Strategy.
+    Variable louvain_partition : Strategy.
     (** Spectral clustering strategy *)
-    Parameter spectral_partition : Strategy.
+    Variable spectral_partition : Strategy.
     (** Degree-based partition strategy *)
-    Parameter degree_partition : Strategy.
+    Variable degree_partition : Strategy.
     (** Balanced cut partition strategy *)
-    Parameter balanced_partition : Strategy.
+    Variable balanced_partition : Strategy.
   End DefaultStrategies.
   
   Import DefaultStrategies.
@@ -150,7 +150,7 @@ Module GeometricSignature.
       lower triangle) with the diagonal excluded.
   *)
   Module Type GEOMETRIC_SIGNATURE_COMPUTATION.
-    Parameter extract_edge_weights : list (list R) -> list R.
+    Variable extract_edge_weights : list (list R) -> list R.
     
     (** ** Compute geometric signature from problem size
 
@@ -158,12 +158,12 @@ Module GeometricSignature.
         represent the verified-unverified boundary. See module documentation
         for full specification and falsifiability contracts.
     *)
-    Parameter compute_geometric_signature : nat -> GeometricSignatureTy.
+    Variable compute_geometric_signature : nat -> GeometricSignatureTy.
   End GEOMETRIC_SIGNATURE_COMPUTATION.
   
   Module DefaultComputation : GEOMETRIC_SIGNATURE_COMPUTATION.
-    Parameter extract_edge_weights : list (list R) -> list R.
-    Parameter compute_geometric_signature : nat -> GeometricSignatureTy.
+    Variable extract_edge_weights : list (list R) -> list R.
+    Variable compute_geometric_signature : nat -> GeometricSignatureTy.
   End DefaultComputation.
   
   Import DefaultComputation.

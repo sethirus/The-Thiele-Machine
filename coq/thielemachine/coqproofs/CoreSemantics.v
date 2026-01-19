@@ -1577,11 +1577,11 @@ Proof.
   unfold step in *.
   destruct (halted s1) eqn:Hhalt1.
   { (* s1 already halted - step returns None, contradicts Hstep1 *)
-    rewrite Hhalt1 in Hstep1; simpl in Hstep1; discriminate. }
+    try rewrite Hhalt1 in Hstep1; simpl in Hstep1; discriminate. }
   rewrite Hhalt in Hhalt1.
   destruct (halted s2) eqn:Hhalt2.
   { (* s2 already halted - step returns None, contradicts Hstep2 *)
-    rewrite Hhalt2 in Hstep2; simpl in Hstep2; discriminate. }
+    try rewrite Hhalt2 in Hstep2; simpl in Hstep2; discriminate. }
   
   destruct (nth_error (program s1) (pc s1)) as [i|] eqn:Hinstr1; [| inversion Hstep1].
   destruct (nth_error (program s2) (pc s2)) as [i2|] eqn:Hinstr2; [| inversion Hstep2].
@@ -1592,36 +1592,36 @@ Proof.
   
   (* Now both s1 and s2 execute the same instruction i *)
   (* Each instruction adds a fixed μ-cost, so deltas are equal *)
-  destruct i as [r | mid | m1 m2 | | | m | | | | | | | | | |].
+  destruct i as [r | mid | m1 m2 | | | m | | | | | | | | n | |].
   
   - (* PNEW r *)
     simpl in Hstep1, Hstep2.
-    destruct (existsb (fun r' => region_eqb r r') (map snd (modules (partition s1)))) eqn:?;
-    destruct (existsb (fun r' => region_eqb r r') (map snd (modules (partition s2)))) eqn:?.
+    destruct (existsb (fun r' => region_eqb r r') (map snd (modules (partition s1)))) eqn:Hexact1;
+    destruct (existsb (fun r' => region_eqb r r') (map snd (modules (partition s2)))) eqn:Hexact2.
     + (* Exact duplicate - no mu change for both *)
       injection Hstep1 as Eq1; injection Hstep2 as Eq2.
       rewrite <- Eq1, <- Eq2; simpl; ring.
     + (* s1 duplicate, s2 not - impossible due to Hpart *)
       exfalso; assert (Hmod: modules (partition s1) = modules (partition s2)) by (rewrite Hpart; reflexivity).
-      rewrite Hmod in Heqb; congruence.
+      rewrite Hmod in Hexact1; congruence.
     + (* s1 not duplicate, s2 is - impossible due to Hpart *)
       exfalso; assert (Hmod: modules (partition s1) = modules (partition s2)) by (rewrite Hpart; reflexivity).
-      rewrite <- Hmod in Heqb0; congruence.
+      rewrite <- Hmod in Hexact2; congruence.
     + (* Neither is exact duplicate, check partial overlap *)
-      destruct (existsb (fun r' => negb (disjoint_b r r')) (map snd (modules (partition s1)))) eqn:?;
-      destruct (existsb (fun r' => negb (disjoint_b r r')) (map snd (modules (partition s2)))) eqn:?.
+      destruct (existsb (fun r' => negb (disjoint_b r r')) (map snd (modules (partition s1)))) eqn:Hoverlap1;
+      destruct (existsb (fun r' => negb (disjoint_b r r')) (map snd (modules (partition s2)))) eqn:Hoverlap2.
       * (* Partial overlap - halt, no mu change for both *)
         injection Hstep1 as Eq1; injection Hstep2 as Eq2.
         rewrite <- Eq1, <- Eq2; simpl; ring.
       * (* s1 overlaps, s2 doesn't - impossible *)
         exfalso; assert (Hmod: modules (partition s1) = modules (partition s2)) by (rewrite Hpart; reflexivity).
-        rewrite Hmod in Heqb1; congruence.
+        rewrite Hmod in Hoverlap1; congruence.
       * (* s1 doesn't overlap, s2 does - impossible *)
         exfalso; assert (Hmod: modules (partition s1) = modules (partition s2)) by (rewrite Hpart; reflexivity).
-        rewrite <- Hmod in Heqb2; congruence.
+        rewrite <- Hmod in Hoverlap2; congruence.
       * (* No overlap for either, check partition_valid_b *)
-        destruct (partition_valid_b (add_module (partition s1) r)) eqn:?;
-        destruct (partition_valid_b (add_module (partition s2) r)) eqn:?.
+        destruct (partition_valid_b (add_module (partition s1) r)) eqn:Hvalid1;
+        destruct (partition_valid_b (add_module (partition s2) r)) eqn:Hvalid2.
         -- (* Valid partition for both - add mu_pnew_cost *)
            injection Hstep1 as Eq1; injection Hstep2 as Eq2.
            rewrite <- Eq1, <- Eq2. simpl mu_ledger.
@@ -1629,11 +1629,11 @@ Proof.
         -- (* s1 valid, s2 invalid - impossible *)
            assert (Heqvalid: partition_valid_b (add_module (partition s1) r) =
                               partition_valid_b (add_module (partition s2) r)) by (rewrite Hpart; reflexivity).
-           rewrite Heqb3 in Heqvalid; rewrite Heqb4 in Heqvalid; discriminate.
+           rewrite Hvalid1 in Heqvalid; rewrite Hvalid2 in Heqvalid; discriminate.
         -- (* s1 invalid, s2 valid - impossible *)
            assert (Heqvalid: partition_valid_b (add_module (partition s1) r) =
                               partition_valid_b (add_module (partition s2) r)) by (rewrite Hpart; reflexivity).
-           rewrite Heqb3 in Heqvalid; rewrite Heqb4 in Heqvalid; discriminate.
+           rewrite Hvalid1 in Heqvalid; rewrite Hvalid2 in Heqvalid; discriminate.
         -- (* Invalid partition for both - halt, no mu change *)
            injection Hstep1 as Eq1; injection Hstep2 as Eq2.
            rewrite <- Eq1, <- Eq2; simpl; ring.
@@ -1751,8 +1751,7 @@ Proof.
   - (* HALT - no mu change *)
     simpl in Hstep1, Hstep2.
     inversion Hstep1; inversion Hstep2; subst; simpl; ring.
-Unshelve.
-all: try (simpl; ring).
+  all: try (simpl; ring); try lia; try congruence; try discriminate.
 Qed.
 
 (** =========================================================================

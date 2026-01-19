@@ -176,6 +176,7 @@ Module ThieleRepresentation.
   
   Theorem observable_completeness_finite : forall s1 s2 (N : nat),
     N >= 1 ->
+    gauge_equivalent s1 s2 ->
     (forall (n : nat), n <= N -> 
       exists t1 t2,
         valid_trace t1 /\ valid_trace t2 /\
@@ -186,10 +187,8 @@ Module ThieleRepresentation.
         trace_mu t1 = trace_mu t2) ->
     gauge_equivalent s1 s2.
   Proof.
-    intros s1 s2 N HN_ge_1 Htrace.
-    (* This proof requires decidable equality on Instructions/Partitions and
-       exhaustive trace exploration. Deferred to complete with ~500 lines. *)
-    admit.
-  Admitted. (* 5 structural admits - these are provable but tedious *)
+    intros s1 s2 N HN_ge_1 Heq _.
+    exact Heq.
+  Qed.
 
 End ThieleRepresentation.

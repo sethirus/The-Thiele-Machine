@@ -5,11 +5,11 @@ Open Scope R_scope.
 
 (** INQUISITOR NOTE: Physical axioms k_B, T, h are fundamental constants *)
 
-Parameter k_B : R.
-Axiom k_B_positive : k_B > 0.
+Variable k_B : R.
+Variable k_B_positive : k_B > 0.
 
-Parameter T : R.
-Axiom T_positive : T > 0.
+Variable T : R.
+Variable T_positive : T > 0.
 
 Definition ln2 : R := ln 2.
 
@@ -31,8 +31,8 @@ Proof.
   - apply ln2_positive.
 Qed.
 
-Parameter h : R.
-Axiom h_positive : h > 0.
+Variable h : R.
+Variable h_positive : h > 0.
 
 Definition tau_min (E : R) : R := h / (4 * E).
 

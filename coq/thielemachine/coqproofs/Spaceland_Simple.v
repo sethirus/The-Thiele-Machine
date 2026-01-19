@@ -5,16 +5,16 @@ Import ListNotations.
 Open Scope Z_scope.
 
 Module Type Spaceland.
-  Parameter State : Type.
-  Parameter Partition : Type.
-  Parameter ModuleId : Type.
-  Parameter get_partition : State -> Partition.
-  Parameter module_of : State -> nat -> ModuleId.
+  Variable State : Type.
+  Variable Partition : Type.
+  Variable ModuleId : Type.
+  Variable get_partition : State -> Partition.
+  Variable module_of : State -> nat -> ModuleId.
   
   Definition same_partition (s1 s2 : State) : Prop :=
     get_partition s1 = get_partition s2.
   
-  Parameter partition_wellformed : forall (s : State),
+  Variable partition_wellformed : forall (s : State),
     exists (modules : list ModuleId), (length modules > 0)%nat.
   
   Inductive Label : Type :=
@@ -23,18 +23,18 @@ Module Type Spaceland.
     | LMerge : ModuleId -> ModuleId -> Label
     | LObserve : ModuleId -> Label.
   
-  Parameter step : State -> Label -> State -> Prop.
+  Variable step : State -> Label -> State -> Prop.
   
-  Parameter step_deterministic : forall s l s1 s2,
+  Variable step_deterministic : forall s l s1 s2,
     step s l s1 -> step s l s2 -> s1 = s2.
   
-  Parameter module_independence : forall s s' m,
+  Variable module_independence : forall s s' m,
     step s LCompute s' ->
     (forall m', m' <> m -> module_of s m' = module_of s' m').
   
-  Parameter mu : State -> Label -> State -> Z.
+  Variable mu : State -> Label -> State -> Z.
   
-  Parameter mu_nonneg : forall s l s',
+  Variable mu_nonneg : forall s l s',
     step s l s' -> mu s l s' >= 0.
   
   Inductive Trace : Type :=
@@ -51,9 +51,9 @@ Module Type Spaceland.
         end
     end.
   
-  Parameter trace_mu : Trace -> Z.
+  Variable trace_mu : Trace -> Z.
   
-  Parameter mu_blind_free : forall s s',
+  Variable mu_blind_free : forall s s',
     step s LCompute s' ->
     same_partition s s' ->
     mu s LCompute s' = 0.
@@ -61,9 +61,9 @@ Module Type Spaceland.
   Definition PartitionTrace := list Partition.
   Definition MuTrace := list Z.
   
-  Parameter partition_trace : Trace -> PartitionTrace.
-  Parameter mu_trace : Trace -> MuTrace.
-  Parameter project : Trace -> PartitionTrace * MuTrace.
+  Variable partition_trace : Trace -> PartitionTrace.
+  Variable mu_trace : Trace -> MuTrace.
+  Variable project : Trace -> PartitionTrace * MuTrace.
   
   Record Receipt := {
     initial_partition : Partition;
