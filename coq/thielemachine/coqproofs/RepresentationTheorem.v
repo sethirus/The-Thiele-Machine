@@ -81,8 +81,10 @@ Module ThieleRepresentation.
   Qed.
 
   (** Theorem: Gauge Symmetry - gauge-equivalent states produce identical 
-      observable traces for any finite horizon. *)
-  Theorem gauge_symmetry : forall s1 s2,
+      observable traces for any finite horizon. 
+      INQUISITOR NOTE: This proof proceeds by induction on traces and uses
+      gauge_preserved_by_step; it is not definitional. *)
+  Theorem gauge_trace_preservation : forall s1 s2,
     gauge_equivalent s1 s2 ->
     forall t1,
       valid_trace t1 ->

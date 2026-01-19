@@ -246,7 +246,7 @@ Qed.
     ========================================================================= *)
 
 (** Extract to OCaml for cross-validation with Python and Verilog *)
-Require Extraction.
+(* Require Extraction.
 Extraction Language OCaml.
 
 Extract Inductive nat => int [ "0" "(fun x -> x + 1)" ].
@@ -254,7 +254,7 @@ Extract Inductive bool => bool [ "true" "false" ].
 
 Extraction "mu_alu_extracted.ml" 
   q16_add q16_sub q16_mul q16_div q16_log2 information_gain
-  mu_accumulate.
+  mu_accumulate. *)
 
 (** =========================================================================
     SUMMARY

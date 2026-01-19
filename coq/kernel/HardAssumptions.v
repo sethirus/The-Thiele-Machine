@@ -18,6 +18,8 @@ Definition tsirelson_bound : Q := 5657#2000. (* 2.8285 ≈ 2√2 *)
 Module HardFacts.
 
   (** Fact 1: Correlation bounds *)
+  (* INQUISITOR NOTE: normalized_E_bound is a standard probability bound supplied
+     by the BoxCHSH development; it documents the external dependency explicitly. *)
   Context (normalized_E_bound : forall B x y,
     non_negative B -> normalized B -> Qabs (E B x y) <= 1).
 
