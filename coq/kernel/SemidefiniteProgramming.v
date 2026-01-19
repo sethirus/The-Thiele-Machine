@@ -123,7 +123,7 @@ Definition SymmetricPSD {n : nat} (M : Matrix n) : Prop :=
     a full matrix library (like CoqEAL or Math-Comp) to prove rigorously.
     For the purposes of this formalization, we state it as an axiom with proper
     documentation. A full proof would use the spectral theorem for real symmetric matrices. *)
-Variable PSD_diagonal_nonneg : forall (n : nat) (M : Matrix n) (i : nat),
+Axiom PSD_diagonal_nonneg : forall (n : nat) (M : Matrix n) (i : nat),
   (i < n)%nat ->
   PSD M ->
   M i i >= 0.
@@ -163,7 +163,7 @@ Definition schur_complement_2x2 (M : Matrix 2) : R :=
 
 (** Standard result: Schur complement criterion for 2×2 PSD matrices.
     Reference: Horn & Johnson, "Matrix Analysis" (1985), Theorem 7.7.6 *)
-Variable schur_2x2_criterion : forall (M : Matrix 2),
+Axiom schur_2x2_criterion : forall (M : Matrix 2),
   symmetric M ->
   M 0%nat 0%nat > 0 ->
   (PSD M <-> (M 0%nat 0%nat >= 0 /\ schur_complement_2x2 M >= 0)).
@@ -176,7 +176,7 @@ Variable schur_2x2_criterion : forall (M : Matrix 2),
     This follows from the 2×2 principal submatrix [[M[i,i], M[i,j]], [M[j,i], M[j,j]]]
     being PSD, which requires its determinant to be non-negative.
     Reference: Horn & Johnson, "Matrix Analysis" (1985), Theorem 7.8.2 *)
-Variable PSD_cauchy_schwarz : forall (n : nat) (M : Matrix n) (i j : nat),
+Axiom PSD_cauchy_schwarz : forall (n : nat) (M : Matrix n) (i j : nat),
   (i < n)%nat -> (j < n)%nat ->
   PSD M ->
   symmetric M ->
@@ -190,7 +190,7 @@ Variable PSD_cauchy_schwarz : forall (n : nat) (M : Matrix n) (i j : nat),
 (** Off-diagonal bound follows from Cauchy-Schwarz + normalized diagonals.
     Corollary of Cauchy-Schwarz: |M[i,j]|^2 <= M[i,i] * M[j,j] <= 1*1 = 1.
     Reference: Follows from PSD_cauchy_schwarz *)
-Variable PSD_off_diagonal_bound : forall (n : nat) (M : Matrix n) (i j : nat),
+Axiom PSD_off_diagonal_bound : forall (n : nat) (M : Matrix n) (i j : nat),
   (i < n)%nat -> (j < n)%nat ->
   PSD M ->
   symmetric M ->

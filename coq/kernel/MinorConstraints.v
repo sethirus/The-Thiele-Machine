@@ -37,7 +37,7 @@ From Kernel Require Import ValidCorrelation.
 From Kernel Require Import BoxCHSH.
 From Kernel Require Import Tier1Proofs.
 
-Variable normalized_E_bound : forall B x y,
+Axiom normalized_E_bound : forall B x y,
   non_negative B -> normalized B -> Qabs (E B x y) <= 1.
 
 Local Open Scope R_scope.
@@ -140,7 +140,7 @@ Qed.
     Reference: Fine, "Hidden Variables, Joint Probability, and the Bell
     Inequalities", Phys. Rev. Lett. 48, 291 (1982)
 *)
-Variable Fine_theorem : forall E00 E01 E10 E11 s t,
+Axiom Fine_theorem : forall E00 E01 E10 E11 s t,
   Rabs s <= 1 -> Rabs t <= 1 ->
   minor_3x3 s E00 E10 >= 0 ->
   minor_3x3 s E01 E11 >= 0 ->
@@ -278,7 +278,7 @@ Definition B_correlation (pB : nat -> nat -> Q) (y1 y2 : nat) : Q :=
     X, Y, Z with E[X]=E[Y]=E[Z]=0 and E[X²]=E[Y²]=E[Z²]=1, then the correlation
     matrix M_ij = E[XiXj] is automatically PSD because M = E[vv^T] where v=(X,Y,Z).
 *)
-Variable Gram_PSD : forall (s e1 e2 : R),
+Axiom Gram_PSD : forall (s e1 e2 : R),
   (* If we can represent the correlations as coming from random variables *)
   (exists (X Y Z : R -> R) (measure : (R -> R) -> R),
     measure (fun _ => 1) = 1 /\  (* normalized *)
@@ -326,7 +326,7 @@ Local Open Scope R_scope.
 
     PROOF: For each minor, construct random variables over pA × pB and apply Gram_PSD.
 *)
-Variable local_box_satisfies_minors : forall B,
+Axiom local_box_satisfies_minors : forall B,
   is_local_box B ->
   non_negative B ->
   normalized B ->
