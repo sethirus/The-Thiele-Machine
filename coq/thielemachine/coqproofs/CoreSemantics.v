@@ -1586,182 +1586,183 @@ Proof.
   destruct (nth_error (program s1) (pc s1)) as [i|] eqn:Hinstr1.
   - assert (Hinstr2: nth_error (program s2) (pc s2) = Some i) by (rewrite <- Hprog, <- Hpc, Hinstr1; reflexivity).
     rewrite Hinstr2 in Hstep2.
-  (* Now both s1 and s2 execute the same instruction i *)
-  (* Each instruction adds a fixed μ-cost, so deltas are equal *)
-  destruct i as [r | mid | m1 m2 | | | m | | | | | | | | n | |].
+    (* Now both s1 and s2 execute the same instruction i *)
+    (* Each instruction adds a fixed μ-cost, so deltas are equal *)
+    destruct i as [r | mid | m1 m2 | | | m | | | | | | | | n | |].
   
-  - (* PNEW r *)
+    + (* PNEW r *)
     simpl in Hstep1, Hstep2.
     destruct (existsb (fun r' => region_eqb r r') (map snd (modules (partition s1)))) eqn:Hexact1;
     destruct (existsb (fun r' => region_eqb r r') (map snd (modules (partition s2)))) eqn:Hexact2.
-    + (* Exact duplicate - no mu change for both *)
+    * (* Exact duplicate - no mu change for both *)
       injection Hstep1 as Eq1; injection Hstep2 as Eq2.
       rewrite <- Eq1, <- Eq2; simpl; ring.
-    + (* s1 duplicate, s2 not - impossible due to Hpart *)
+    * (* s1 duplicate, s2 not - impossible due to Hpart *)
       exfalso.
       assert (Hexact :
         existsb (fun r' => region_eqb r r') (map snd (modules (partition s1))) =
         existsb (fun r' => region_eqb r r') (map snd (modules (partition s2)))) by (rewrite Hpart; reflexivity).
       rewrite Hexact1 in Hexact; rewrite Hexact2 in Hexact; discriminate.
-    + (* s1 not duplicate, s2 is - impossible due to Hpart *)
+    * (* s1 not duplicate, s2 is - impossible due to Hpart *)
       exfalso.
       assert (Hexact :
         existsb (fun r' => region_eqb r r') (map snd (modules (partition s1))) =
         existsb (fun r' => region_eqb r r') (map snd (modules (partition s2)))) by (rewrite Hpart; reflexivity).
       rewrite Hexact1 in Hexact; rewrite Hexact2 in Hexact; discriminate.
-    + (* Neither is exact duplicate, check partial overlap *)
+    * (* Neither is exact duplicate, check partial overlap *)
       destruct (existsb (fun r' => negb (disjoint_b r r')) (map snd (modules (partition s1)))) eqn:Hoverlap1;
-      destruct (existsb (fun r' => negb (disjoint_b r r')) (map snd (modules (partition s2)))) eqn:Hoverlap2.
-      * (* Partial overlap - halt, no mu change for both *)
-        injection Hstep1 as Eq1; injection Hstep2 as Eq2.
-        rewrite <- Eq1, <- Eq2; simpl; ring.
-      * (* s1 overlaps, s2 doesn't - impossible *)
-        exfalso.
+      destruct (existsb (fun r' => negb (disjoint_b r r')) (map snd (modules (partition s2)))) eqn:Hoverlap2;
+      [ (* Partial overlap - halt, no mu change for both *)
+        injection Hstep1 as Eq1; injection Hstep2 as Eq2;
+        rewrite <- Eq1, <- Eq2; simpl; ring
+      | (* s1 overlaps, s2 doesn't - impossible *)
+        exfalso;
         assert (Hoverlap :
           existsb (fun r' => negb (disjoint_b r r')) (map snd (modules (partition s1))) =
-          existsb (fun r' => negb (disjoint_b r r')) (map snd (modules (partition s2)))) by (rewrite Hpart; reflexivity).
-        rewrite Hoverlap1 in Hoverlap; rewrite Hoverlap2 in Hoverlap; discriminate.
-      * (* s1 doesn't overlap, s2 does - impossible *)
-        exfalso.
+          existsb (fun r' => negb (disjoint_b r r')) (map snd (modules (partition s2)))) by (rewrite Hpart; reflexivity);
+        rewrite Hoverlap1 in Hoverlap; rewrite Hoverlap2 in Hoverlap; discriminate
+      | (* s1 doesn't overlap, s2 does - impossible *)
+        exfalso;
         assert (Hoverlap :
           existsb (fun r' => negb (disjoint_b r r')) (map snd (modules (partition s1))) =
-          existsb (fun r' => negb (disjoint_b r r')) (map snd (modules (partition s2)))) by (rewrite Hpart; reflexivity).
-        rewrite Hoverlap1 in Hoverlap; rewrite Hoverlap2 in Hoverlap; discriminate.
-      * (* No overlap for either, check partition_valid_b *)
+          existsb (fun r' => negb (disjoint_b r r')) (map snd (modules (partition s2)))) by (rewrite Hpart; reflexivity);
+        rewrite Hoverlap1 in Hoverlap; rewrite Hoverlap2 in Hoverlap; discriminate
+      | (* No overlap for either, check partition_valid_b *)
         destruct (partition_valid_b (add_module (partition s1) r)) eqn:Hvalid1;
-        destruct (partition_valid_b (add_module (partition s2) r)) eqn:Hvalid2.
-        -- (* Valid partition for both - add mu_pnew_cost *)
-           injection Hstep1 as Eq1; injection Hstep2 as Eq2.
-           rewrite <- Eq1, <- Eq2. simpl mu_ledger.
-           rewrite !add_mu_operational_total. ring.
-        -- (* s1 valid, s2 invalid - impossible *)
-           assert (Heqvalid: partition_valid_b (add_module (partition s1) r) =
-                              partition_valid_b (add_module (partition s2) r)) by (rewrite Hpart; reflexivity).
-           rewrite Hvalid1 in Heqvalid; rewrite Hvalid2 in Heqvalid; discriminate.
-        -- (* s1 invalid, s2 valid - impossible *)
-           assert (Heqvalid: partition_valid_b (add_module (partition s1) r) =
-                              partition_valid_b (add_module (partition s2) r)) by (rewrite Hpart; reflexivity).
-           rewrite Hvalid1 in Heqvalid; rewrite Hvalid2 in Heqvalid; discriminate.
-        -- (* Invalid partition for both - halt, no mu change *)
-           injection Hstep1 as Eq1; injection Hstep2 as Eq2.
-           rewrite <- Eq1, <- Eq2; simpl; ring.
+        destruct (partition_valid_b (add_module (partition s2) r)) eqn:Hvalid2;
+        [ (* Valid partition for both - add mu_pnew_cost *)
+          injection Hstep1 as Eq1; injection Hstep2 as Eq2;
+          rewrite <- Eq1, <- Eq2; simpl mu_ledger;
+          rewrite !add_mu_operational_total; ring
+        | (* s1 valid, s2 invalid - impossible *)
+          assert (Heqvalid: partition_valid_b (add_module (partition s1) r) =
+                             partition_valid_b (add_module (partition s2) r)) by (rewrite Hpart; reflexivity);
+          rewrite Hvalid1 in Heqvalid; rewrite Hvalid2 in Heqvalid; discriminate
+        | (* s1 invalid, s2 valid - impossible *)
+          assert (Heqvalid: partition_valid_b (add_module (partition s1) r) =
+                             partition_valid_b (add_module (partition s2) r)) by (rewrite Hpart; reflexivity);
+          rewrite Hvalid1 in Heqvalid; rewrite Hvalid2 in Heqvalid; discriminate
+        | (* Invalid partition for both - halt, no mu change *)
+          injection Hstep1 as Eq1; injection Hstep2 as Eq2;
+          rewrite <- Eq1, <- Eq2; simpl; ring
+        ]
+      ].
   
-  - (* PSPLIT mid *)
+    + (* PSPLIT mid *)
     simpl in Hstep1, Hstep2.
     destruct (partition_valid_b (update_partition_split (partition s1) mid)) eqn:Heqsplit1;
     destruct (partition_valid_b (update_partition_split (partition s2) mid)) eqn:Heqsplit2.
-    + (* Valid split for both - add mu_psplit_cost *)
+    * (* Valid split for both - add mu_psplit_cost *)
       injection Hstep1 as Eq1; injection Hstep2 as Eq2.
       rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_operational_total; ring.
-    + (* s1 valid, s2 invalid - impossible *)
+    * (* s1 valid, s2 invalid - impossible *)
       assert (Heqvalid: partition_valid_b (update_partition_split (partition s1) mid) =
                          partition_valid_b (update_partition_split (partition s2) mid)) by (rewrite Hpart; reflexivity).
       rewrite Heqsplit1 in Heqvalid; rewrite Heqsplit2 in Heqvalid; discriminate.
-    + (* s1 invalid, s2 valid - impossible *)
+    * (* s1 invalid, s2 valid - impossible *)
       assert (Heqvalid: partition_valid_b (update_partition_split (partition s1) mid) =
                          partition_valid_b (update_partition_split (partition s2) mid)) by (rewrite Hpart; reflexivity).
       rewrite Heqsplit1 in Heqvalid; rewrite Heqsplit2 in Heqvalid; discriminate.
-    + (* Invalid split for both - add mu_psplit_cost and halt *)
+    * (* Invalid split for both - add mu_psplit_cost and halt *)
       injection Hstep1 as Eq1; injection Hstep2 as Eq2.
       rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_operational_total; ring.
   
-  - (* PMERGE m1 m2 *)
+    + (* PMERGE m1 m2 *)
     simpl in Hstep1, Hstep2.
     destruct (partition_valid_b (update_partition_merge (partition s1) m1 m2)) eqn:Heqmerge1;
     destruct (partition_valid_b (update_partition_merge (partition s2) m1 m2)) eqn:Heqmerge2.
-    + (* Valid merge for both - add mu_pmerge_cost *)
+    * (* Valid merge for both - add mu_pmerge_cost *)
       injection Hstep1 as Eq1; injection Hstep2 as Eq2.
       rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_operational_total; ring.
-    + (* s1 valid, s2 invalid - impossible *)
+    * (* s1 valid, s2 invalid - impossible *)
       assert (Heqvalid: partition_valid_b (update_partition_merge (partition s1) m1 m2) =
                          partition_valid_b (update_partition_merge (partition s2) m1 m2)) by (rewrite Hpart; reflexivity).
       rewrite Heqmerge1 in Heqvalid; rewrite Heqmerge2 in Heqvalid; discriminate.
-    + (* s1 invalid, s2 valid - impossible *)
+    * (* s1 invalid, s2 valid - impossible *)
       assert (Heqvalid: partition_valid_b (update_partition_merge (partition s1) m1 m2) =
                          partition_valid_b (update_partition_merge (partition s2) m1 m2)) by (rewrite Hpart; reflexivity).
       rewrite Heqmerge1 in Heqvalid; rewrite Heqmerge2 in Heqvalid; discriminate.
-    + (* Invalid merge for both - halt, no mu change *)
+    * (* Invalid merge for both - halt, no mu change *)
       injection Hstep1 as Eq1; injection Hstep2 as Eq2.
       rewrite <- Eq1, <- Eq2; simpl; ring.
   
-  - (* LASSERT *)
+    + (* LASSERT *)
     simpl in Hstep1, Hstep2.
     destruct (partition_valid_b (partition s1)) eqn:Heqassert1;
     destruct (partition_valid_b (partition s2)) eqn:Heqassert2.
-    + (* Valid for both *)
+    * (* Valid for both *)
       injection Hstep1 as Eq1; injection Hstep2 as Eq2.
       rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_operational_total; ring.
-    + (* s1 valid, s2 invalid - impossible *)
+    * (* s1 valid, s2 invalid - impossible *)
       assert (Heqvalid: partition_valid_b (partition s1) = partition_valid_b (partition s2)) by (rewrite Hpart; reflexivity).
       rewrite Heqassert1 in Heqvalid; rewrite Heqassert2 in Heqvalid; discriminate.
-    + (* s1 invalid, s2 valid - impossible *)
+    * (* s1 invalid, s2 valid - impossible *)
       assert (Heqvalid: partition_valid_b (partition s1) = partition_valid_b (partition s2)) by (rewrite Hpart; reflexivity).
       rewrite Heqassert1 in Heqvalid; rewrite Heqassert2 in Heqvalid; discriminate.
-    + (* Invalid for both - halt, no mu change *)
+    * (* Invalid for both - halt, no mu change *)
       injection Hstep1 as Eq1; injection Hstep2 as Eq2.
       rewrite <- Eq1, <- Eq2; simpl; ring.
   
-  - (* LJOIN *)
+    + (* LJOIN *)
     simpl in Hstep1, Hstep2.
     injection Hstep1 as Eq1; injection Hstep2 as Eq2.
     rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_operational_total; ring.
   
-  - (* MDLACC m *)
+    + (* MDLACC m *)
     simpl in Hstep1, Hstep2.
     injection Hstep1 as Eq1; injection Hstep2 as Eq2.
     rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_operational_total; ring.
   
-  - (* PDISCOVER *)
+    + (* PDISCOVER *)
     simpl in Hstep1, Hstep2.
     injection Hstep1 as Eq1; injection Hstep2 as Eq2.
     rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_information_total; ring.
   
-  - (* XFER *)
+    + (* XFER *)
     simpl in Hstep1, Hstep2.
     injection Hstep1 as Eq1; injection Hstep2 as Eq2.
     rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_operational_total; ring.
   
-  - (* PYEXEC *)
+    + (* PYEXEC *)
     simpl in Hstep1, Hstep2.
     injection Hstep1 as Eq1; injection Hstep2 as Eq2.
     rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_operational_total; ring.
   
-  - (* XOR_LOAD *)
+    + (* XOR_LOAD *)
     simpl in Hstep1, Hstep2.
     injection Hstep1 as Eq1; injection Hstep2 as Eq2.
     rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_operational_total; ring.
   
-  - (* XOR_ADD *)
+    + (* XOR_ADD *)
     simpl in Hstep1, Hstep2.
     injection Hstep1 as Eq1; injection Hstep2 as Eq2.
     rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_operational_total; ring.
   
-  - (* XOR_SWAP *)
+    + (* XOR_SWAP *)
     simpl in Hstep1, Hstep2.
     injection Hstep1 as Eq1; injection Hstep2 as Eq2.
     rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_operational_total; ring.
   
-  - (* XOR_RANK *)
+    + (* XOR_RANK *)
     simpl in Hstep1, Hstep2.
     injection Hstep1 as Eq1; injection Hstep2 as Eq2.
     rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_operational_total; ring.
   
-  - (* EMIT n *)
+    + (* EMIT n *)
     simpl in Hstep1, Hstep2.
     injection Hstep1 as Eq1; injection Hstep2 as Eq2.
     rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_operational_total; ring.
   
-  - (* ORACLE_HALTS *)
+    + (* ORACLE_HALTS *)
     simpl in Hstep1, Hstep2.
     injection Hstep1 as Eq1; injection Hstep2 as Eq2.
     rewrite <- Eq1, <- Eq2; simpl mu_ledger; rewrite !add_mu_information_total; ring.
   
-  - (* HALT - no mu change *)
-    simpl in Hstep1, Hstep2.
-    inversion Hstep1; inversion Hstep2; subst; simpl; ring.
-  all: try (simpl; ring); try lia; try congruence; try discriminate; try contradiction; try tauto; try (exfalso; congruence).
+    + (* HALT - no mu change *)
+      simpl in Hstep1, Hstep2.
+      inversion Hstep1; inversion Hstep2; subst; simpl; ring.
   - assert (Hinstr2: nth_error (program s2) (pc s2) = None) by (rewrite <- Hprog, <- Hpc, Hinstr1; reflexivity).
-    rewrite Hinstr1 in Hstep1; simpl in Hstep1; inversion Hstep1; subst s1'.
+    simpl in Hstep1; inversion Hstep1; subst s1'.
     rewrite Hinstr2 in Hstep2; simpl in Hstep2; inversion Hstep2; subst s2'.
     simpl; ring.
 Qed.
