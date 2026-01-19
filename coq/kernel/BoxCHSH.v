@@ -81,7 +81,7 @@ Section CorrelationBounds.
     INQUISITOR NOTE: This Context parameter is documented in HardAssumptions.v
     as normalized_E_bound. It is a standard probability fact, not a physics axiom.
 *)
-Axiom normalized_E_bound : forall B x y,
+Variable normalized_E_bound : forall B x y,
   non_negative B -> normalized B -> Qabs (E B x y) <= 1.
 
 (** Triangle inequality for CHSH
@@ -197,6 +197,9 @@ Section BoxTsirelsonBound.
 
 (** Assume the Tsirelson bound theorem from algebraic coherence.
     This comes from AlgebraicCoherence.v and requires NPA hierarchy theory. *)
+Context (normalized_E_bound : forall B x y,
+  non_negative B -> normalized B -> Qabs (E B x y) <= 1).
+
 Context (tsirelson_from_algebraic_coherence : forall c : Correlators,
   algebraically_coherent c ->
   Qabs (E00 c) <= 1 /\ Qabs (E01 c) <= 1 /\

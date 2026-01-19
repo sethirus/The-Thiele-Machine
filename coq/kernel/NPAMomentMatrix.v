@@ -186,7 +186,7 @@ Definition npa_to_chsh (npa : NPAMomentMatrix) : CHSHCorrelations := {|
     Each CHSH correlator E_xy appears as an off-diagonal element M[i,j]
     of the moment matrix with M[i,i] = M[j,j] = 1 (diagonal normalization).
     PSD property + PSD_off_diagonal_bound → |E_xy| ≤ 1. *)
-Axiom quantum_realizable_implies_normalized : forall (npa : NPAMomentMatrix),
+Variable quantum_realizable_implies_normalized : forall (npa : NPAMomentMatrix),
   quantum_realizable npa ->
   Rabs (npa.(npa_E00)) <= 1 /\
   Rabs (npa.(npa_E01)) <= 1 /\

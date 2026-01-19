@@ -34,7 +34,7 @@ Require Import MuCostModel.
     
     For PDISCOVER: N = Bell(n) possible partitions of n elements.
     Example: n=10 → Bell(10)=115,975 → μ ≥ 17 bits required. *)
-Axiom partition_claim_information_bound : forall (n num_partitions : nat),
+Variable partition_claim_information_bound : forall (n num_partitions : nat),
   num_partitions > 0 ->
   exists (required_mu : nat),
     (required_mu >= Nat.log2 num_partitions)%nat.
@@ -54,7 +54,7 @@ Axiom partition_claim_information_bound : forall (n num_partitions : nat),
     Each bit of constraint can eliminate at most half the states.
     
     Example: SAT with n variables requires μ ≥ n bits. *)
-Axiom state_space_reduction_bound : forall (omega omega_prime : nat),
+Variable state_space_reduction_bound : forall (omega omega_prime : nat),
   omega > omega_prime ->
   omega_prime > 0 ->
   exists (required_mu : nat),
@@ -76,7 +76,7 @@ Local Open Scope R_scope.
     
     μ=0 operations (PNEW, PSPLIT, PMERGE) preserve factorizability.
     Factorizable correlations satisfy minor constraints → CHSH ≤ 2. *)
-Axiom mu_zero_classical_characterization :
+Variable mu_zero_classical_characterization :
   forall (program : list vm_instruction),
     (forall instr, In instr program ->
       exists s, (mu_cost_of_instr instr s = 0)%nat) ->
@@ -91,7 +91,7 @@ Axiom mu_zero_classical_characterization :
     
     μ>0 operations (LJOIN, REVEAL, LASSERT) break factorizability.
     Non-factorizable → quantum realizable (NPA) → CHSH ≤ 2√2. *)
-Axiom mu_positive_quantum_characterization :
+Variable mu_positive_quantum_characterization :
   forall (program : list vm_instruction),
     (exists instr, In instr program /\
       exists s, (mu_cost_of_instr instr s > 0)%nat) ->

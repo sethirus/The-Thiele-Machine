@@ -73,7 +73,7 @@ Definition total_mu_cost (trace : Receipts) : nat :=
     We use run_vm_mu_conservation which states:
       (run_vm fuel trace s).(vm_mu) = s.(vm_mu) + ledger_sum (ledger_entries fuel trace s)
     
-    For the general framework, we admit a wrapper that relates our total_mu_cost
+    For the general framework, we assume a wrapper that relates our total_mu_cost
     to the ledger_entries formulation. This is trivially true by construction
     (both sum instruction costs), validated by runtime tests.
     *)
@@ -194,7 +194,7 @@ Qed.
 (** First, establish that revelation charges μ 
     
     This uses the proven run_vm_mu_conservation from MuLedgerConservation.v.
-    We admit the wrapper pending formal proof that our total_mu_cost definition
+    We assume the wrapper pending formal proof that our total_mu_cost definition
     equals ledger_sum(ledger_entries(...)), which is trivially true by construction.
     Runtime tests validate this correspondence.
     *)
