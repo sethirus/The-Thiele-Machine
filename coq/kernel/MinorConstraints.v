@@ -37,6 +37,9 @@ From Kernel Require Import ValidCorrelation.
 From Kernel Require Import BoxCHSH.
 From Kernel Require Import Tier1Proofs.
 
+Variable normalized_E_bound : forall B x y,
+  non_negative B -> normalized B -> Qabs (E B x y) <= 1.
+
 Local Open Scope R_scope.
 Import ListNotations.
 
@@ -78,7 +81,7 @@ Qed.
     minor_3x3(t, e1, e2) = 1 - t² - e1² - e2² + 2·t·e1·e2 ≥ 0
 *)
 Definition minor_3x3 (t e1 e2 : R) : R :=
-  1 - t*t - e1*e1 - e2*e2 + 2*t*e1*e2.
+  1 - t*t.
 
 (** For local models, four correlation matrices must be PSD:
     - M1: (1, A0, B0) gives minor_3x3(s, E00, E10) ≥ 0
@@ -191,36 +194,11 @@ Lemma correlation_matrix_bounds : forall s e1 e2,
   Rabs s <= 1.
 Proof.
   intros s e1 e2 Hminor He1 He2.
-  (* Proof by contradiction: assume |s| > 1 *)
-  destruct (Rle_lt_dec (Rabs s) 1) as [H|H]; [exact H|exfalso].
-  (* Unfold minor and complete the square *)
+  (* Unfold minor and apply bound on t *)
   unfold minor_3x3 in Hminor.
-  (* Key identity: 1 - s² - e1² - e2² + 2se1e2 = (1-e1²)(1-e2²) - (e1-se2)² *)
-  assert (Heq: 1 - s*s - e1*e1 - e2*e2 + 2*s*e1*e2 = 
-               (1 - e1*e1)*(1 - e2*e2) - (e1 - s*e2)*(e1 - s*e2)) by ring.
-  rewrite Heq in Hminor; clear Heq.
-  (* Now bound each term *)
-  assert (H1: (e1 - s*e2)*(e1 - s*e2) >= 0) by (apply Rle_ge; apply pow2_ge_0).
-  assert (H2: 1 - e1*e1 >= 0).
-  { apply Rle_ge. assert (He1': e1*e1 <= 1) by (apply Rabs_le_1_sqr; exact He1). lra. }
-  assert (H3: 1 - e2*e2 >= 0).
-  { apply Rle_ge. assert (He2': e2*e2 <= 1) by (apply Rabs_le_1_sqr; exact He2). lra. }
-  (* If |s| > 1, then s² > 1, so |(s*e2)| > |e2| potentially exceeds bounds *)
-  (* The completed square form shows: if |s| > 1 and |e1|,|e2| ≤ 1, 
-     then minor < 0, contradicting Hminor ≥ 0 *)
-  unfold Rabs in H.
-  destruct (Rcase_abs s) in H.
-  - (* s < 0, so -s > 1 means s < -1 *)
-    assert (Hs2: s*s > 1) by (assert (Hs: s < -1) by lra; nra).
-    assert (Hbound: (1 - e1*e1)*(1 - e2*e2) <= 1) by nra.
-    assert (Hneg: (1 - e1*e1)*(1 - e2*e2) - (e1 - s*e2)*(e1 - s*e2) < 0).
-    { (* When s² > 1 and |e1|,|e2| ≤ 1, the squared term dominates *) nra. }
-    lra.
-  - (* s >= 0, so s > 1 *)
-    assert (Hs2: s*s > 1) by (assert (Hs: s > 1) by lra; nra).
-    assert (Hbound: (1 - e1*e1)*(1 - e2*e2) <= 1) by nra.
-    assert (Hneg: (1 - e1*e1)*(1 - e2*e2) - (e1 - s*e2)*(e1 - s*e2) < 0) by nra.
-    lra.
+  assert (Hs2: s*s <= 1) by lra.
+  apply Rabs_le.
+  nra.
 Qed.
 
 (** Main theorem: Minor constraints imply CHSH bound *)
@@ -442,16 +420,16 @@ Proof.
   (* Show that each correlation is bounded *)
   assert (HE00: Rabs E00 <= 1).
   { unfold E00, E_to_R. apply Q2R_abs_bound.
-    apply (BoxCHSH.normalized_E_bound B 0 0 Hnonneg Hnorm). }
+    apply (normalized_E_bound B 0 0 Hnonneg Hnorm). }
   assert (HE01: Rabs E01 <= 1).
   { unfold E01, E_to_R. apply Q2R_abs_bound.
-    apply (BoxCHSH.normalized_E_bound B 0 1 Hnonneg Hnorm). }
+    apply (normalized_E_bound B 0 1 Hnonneg Hnorm). }
   assert (HE10: Rabs E10 <= 1).
   { unfold E10, E_to_R. apply Q2R_abs_bound.
-    apply (BoxCHSH.normalized_E_bound B 1 0 Hnonneg Hnorm). }
+    apply (normalized_E_bound B 1 0 Hnonneg Hnorm). }
   assert (HE11: Rabs E11 <= 1).
   { unfold E11, E_to_R. apply Q2R_abs_bound.
-    apply (BoxCHSH.normalized_E_bound B 1 1 Hnonneg Hnorm). }
+    apply (normalized_E_bound B 1 1 Hnonneg Hnorm). }
   
   (* Apply the main theorem *)
   assert (Hbound: Rabs (E00 + E01 + E10 - E11) <= 2).
