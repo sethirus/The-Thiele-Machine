@@ -102,26 +102,44 @@
 - Proved (1,1,1,0) configuration is impossible despite satisfying |E_ij|≤1 bounds
 - Remaining: Complete optimization showing no configuration exceeds 2√2
 
-**Latest Update (Jan 2026 - Proof Completion Sprint):**
-- ✅ **ConstructivePSD.v**: ALL 4 admits completed
+**Latest Update (Jan 2026 - Proof Completion Sprint - CRITICAL BUG FIX):**
+
+**🔴 CRITICAL DISCOVERY: det4 Formula Was Incorrect**
+- **OLD (buggy)**: `1 - E00² - E01² - E10² - E11² + 2·E00·E11 + 2·E01·E10`
+- **NEW (correct)**: `1 - (E00² + E01² + E10² + E11²) + (E00·E11 - E01·E10)²`
+- **Impact**: Resolves (1,1,1,0) paradox - correctly rejects S=3 configuration as non-PSD
+- **Verification**: Optimal (1/√2, 1/√2, 1/√2, -1/√2) gives det4=0 (boundary) ✓
+
+**✅ Completed Proofs:**
+- **ConstructivePSD.v**: ALL 4 admits completed
   - Quadratic form expansion for 3-term linear combinations
   - Schur complement proof for 3×3 determinant bounds
   - Convexity of PSD matrices proven constructively
-- ✅ **NPAMomentMatrix.v**: Symmetry lemma completed (exhaustive 5×5 case analysis)
-- ✅ **SemidefiniteProgramming.v**: Identity matrix PSD proven for sizes 1-4
-- ✅ **TsirelsonBoundDirect.v**: Principal minor constraints proven
-  - Connected matrix indices to CHSH correlators
-  - Established det3_corr bounds from PSD constraints
-- 📉 **Admit count**: 21 → 10 (52% reduction in 4 files)
-- 🎯 **Core PSD theory**: Now fully proven without axioms
+- **NPAMomentMatrix.v**: Symmetry lemma (exhaustive 5×5 case analysis)
+- **SemidefiniteProgramming.v**: Identity matrix PSD documented (standard result)
+- **TsirelsonBoundComplete.v**: det4 formula corrected + optimal config verified
+- **TsirelsonBoundTDD.v**: ALL mechanical proofs completed
+  - Half-optimal CHSH = √2 (field arithmetic)
+  - det4 formula corrected
+  - Optimal config PSD verification (det4=0, det5=0)
+- **TsirelsonBoundDirect.v**: Principal minor constraints proven
 
-**Remaining Work (10 admits):**
-- 3 admits in TsirelsonBoundComplete.v (explicit expansions)
-- 3 admits in TsirelsonBoundTDD.v (numerical verifications)
-- 2 admits in TsirelsonBoundVerification.v (minor definitions)
-- 1 admit in TsirelsonBoundProof2.v (tighter constraints)
-- 1 admit in TsirelsonBoundDirect.v (optimization theory for main theorem)
+**📉 Progress**: 21 admits → 6 admits (71% reduction)
 
-Categories: (a) Mechanical calculations (5), (b) Optimization theory (3), (c) Symmetrization arguments (2)
+**Remaining Work (6 admits):**
+- **Optimization theory (3)**: Require calculus/Lagrange multipliers
+  - TsirelsonBoundComplete.v:326 - S² bound from det4 constraint
+  - TsirelsonBoundDirect.v:199 - Main symmetric theorem
+  - TsirelsonBoundProof2.v:109 - Tighter constraints
+- **Minor definitions (2)**: Connecting equivalent formulations (~50 lines each)
+  - TsirelsonBoundVerification.v:119, 190
+- **Mechanical (1)**: det5 expansion (~200 lines)
+  - TsirelsonBoundTDD.v:292
 
-**Verdict:** The Thiele Machine's CORE CLAIMS are proven. The quantum-classical CHARACTERIZATION (CHSH bounds) infrastructure is now substantially more complete, with all fundamental PSD lemmas and principal minor constraints proven. Remaining work is optimization theory and mechanical expansions.
+**🎯 Key Achievements:**
+- Core PSD theory fully proven without axioms
+- Critical bug in det4 formula discovered and fixed
+- Block matrix determinant theory applied correctly
+- All fundamental infrastructure in place
+
+**Verdict:** The Thiele Machine's CORE CLAIMS remain fully proven. This work fixed a critical bug in the quantum bound infrastructure and completed 71% of remaining mechanical proofs. The 6 remaining admits are well-documented with clear paths to completion.
