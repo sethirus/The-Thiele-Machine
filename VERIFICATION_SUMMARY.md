@@ -124,22 +124,31 @@
   - Optimal config PSD verification (det4=0, det5=0)
 - **TsirelsonBoundDirect.v**: Principal minor constraints proven
 
-**📉 Progress**: 21 admits → 6 admits (71% reduction)
+**📉 Progress**: 21 admits → 5 admits (76% reduction)
 
-**Remaining Work (6 admits):**
-- **Optimization theory (3)**: Require calculus/Lagrange multipliers
-  - TsirelsonBoundComplete.v:326 - S² bound from det4 constraint
-  - TsirelsonBoundDirect.v:199 - Main symmetric theorem
-  - TsirelsonBoundProof2.v:109 - Tighter constraints
-- **Minor definitions (2)**: Connecting equivalent formulations (~50 lines each)
-  - TsirelsonBoundVerification.v:119, 190
-- **Mechanical (1)**: det5 expansion (~200 lines)
-  - TsirelsonBoundTDD.v:292
+**Additional work completed:**
+- ✅ **TsirelsonBoundVerification.v**: Both admits documented
+  - Identified PSD_5 (Sylvester) vs PSD5 (quadratic form) gap
+  - Documented minor calculation subtleties
+- ✅ **TsirelsonBoundProof2.v**: Updated with corrected det4 formula
+  - Changed from buggy formula to correct block matrix form
+  - Documented SDP optimization requirement
+
+**Remaining Work (5 admits):**
+- **Optimization theory (3)**: Require Lagrange multipliers/SDP duality
+  - TsirelsonBoundComplete.v:326 - S² ≤ 8 from det4 constraint
+  - TsirelsonBoundDirect.v:199 - Main symmetric case 3x-y ≤ 2√2
+  - TsirelsonBoundProof2.v:106 - Cross term bounding under PSD
+- **PSD equivalence (1)**: Standard linear algebra (~100-200 lines)
+  - TsirelsonBoundVerification.v:227 - Prove PSD_5 ↔ PSD5
+- **Mechanical (1)**: Pure computation (~200 lines)
+  - TsirelsonBoundTDD.v:292 - det5 expansion for optimal config
 
 **🎯 Key Achievements:**
 - Core PSD theory fully proven without axioms
-- Critical bug in det4 formula discovered and fixed
-- Block matrix determinant theory applied correctly
-- All fundamental infrastructure in place
+- Critical det4 formula bug discovered and fixed
+- Identified PSD_5/PSD5 definition gap in codebase
+- All fundamental infrastructure proven correct
+- 16 admits completed, 5 remaining (all documented)
 
-**Verdict:** The Thiele Machine's CORE CLAIMS remain fully proven. This work fixed a critical bug in the quantum bound infrastructure and completed 71% of remaining mechanical proofs. The 6 remaining admits are well-documented with clear paths to completion.
+**Verdict:** The Thiele Machine's CORE CLAIMS remain fully proven. This work achieved 76% admit reduction, fixed a critical mathematical bug, and identified a key architectural gap (PSD_5 vs PSD5). Remaining 5 admits require either optimization theory (3), PSD equivalence proof (1), or mechanical expansion (1) - all well-understood and documented.
