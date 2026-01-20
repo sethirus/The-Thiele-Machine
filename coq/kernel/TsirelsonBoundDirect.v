@@ -39,11 +39,45 @@ Lemma principal_minor_A0B0B1 : forall (npa : NPAMomentMatrix) (x b : R),
   1 - b*b - 2*x*x + 2*x*x*b >= 0.
 Proof.
   intros npa x b E00 E01 rho_BB Hpsd Hsym.
-  (* The constraint from npa_constraint_A0B0B1 relates matrix elements *)
-  (* We need to connect them to correlation values x and b *)
-  (* For now, admit - this requires unfolding nat_matrix_to_fin5 and matching indices *)
-  admit.
-Admitted.
+  (* Apply psd_3x3_determinant_nonneg to indices {1, 3, 4} = {A0, B0, B1} *)
+  pose (M := nat_matrix_to_fin5 (npa_to_matrix npa)).
+  (* Indices: i1 = A0 (index 1), i3 = B0 (index 3), i4 = B1 (index 4) *)
+  pose (i := i1).
+  pose (j := i3).
+  pose (k := i4).
+  assert (Hdet: det3_corr (M i j) (M i k) (M j k) >= 0).
+  {
+    apply (psd_3x3_determinant_nonneg M i j k); auto.
+    - unfold M, nat_matrix_to_fin5, npa_to_matrix.
+      destruct (Fin.to_nat i) as [ni Hi]. simpl.
+      destruct ni as [|[|]]; try lia. reflexivity.
+    - unfold M, nat_matrix_to_fin5, npa_to_matrix.
+      destruct (Fin.to_nat j) as [nj Hj]. simpl.
+      destruct nj as [|[|[|[|]]]]; try lia. reflexivity.
+    - unfold M, nat_matrix_to_fin5, npa_to_matrix.
+      destruct (Fin.to_nat k) as [nk Hk]. simpl.
+      destruct nk as [|[|[|[|[|]]]]]; try lia. reflexivity.
+  }
+  (* Now extract the matrix elements and show they equal x, x, b *)
+  unfold det3_corr in Hdet.
+  (* M i j = M[1,3] = E00 = x *)
+  (* M i k = M[1,4] = E01 = x *)
+  (* M j k = M[3,4] = rho_BB = b *)
+  replace (M i j) with x in Hdet.
+  2: { unfold M, i, j, nat_matrix_to_fin5, npa_to_matrix, i1, i3.
+       destruct (Fin.to_nat i1) as [n1 H1]; destruct (Fin.to_nat i3) as [n3 H3].
+       simpl. rewrite E00. reflexivity. }
+  replace (M i k) with x in Hdet.
+  2: { unfold M, i, k, nat_matrix_to_fin5, npa_to_matrix, i1, i4.
+       destruct (Fin.to_nat i1) as [n1 H1]; destruct (Fin.to_nat i4) as [n4 H4].
+       simpl. rewrite E01. reflexivity. }
+  replace (M j k) with b in Hdet.
+  2: { unfold M, j, k, nat_matrix_to_fin5, npa_to_matrix, i3, i4.
+       destruct (Fin.to_nat i3) as [n3 H3]; destruct (Fin.to_nat i4) as [n4 H4].
+       simpl. rewrite rho_BB. reflexivity. }
+  (* Now Hdet says: 1 - x² - x² - b² + 2*x*x*b >= 0 *)
+  exact Hdet.
+Qed.
 
 (** Extract constraint from indices {A1, B0, B1} = {2, 3, 4} *)
 Lemma principal_minor_A1B0B1 : forall (npa : NPAMomentMatrix) (x y b : R),
@@ -55,9 +89,41 @@ Lemma principal_minor_A1B0B1 : forall (npa : NPAMomentMatrix) (x y b : R),
   1 - b*b - x*x - y*y + 2*x*y*b >= 0.
 Proof.
   intros npa x y b E10 E11 rho_BB Hpsd Hsym.
-  (* Similar to constraint 1 - needs index matching *)
-  admit.
-Admitted.
+  (* Apply psd_3x3_determinant_nonneg to indices {2, 3, 4} = {A1, B0, B1} *)
+  pose (M := nat_matrix_to_fin5 (npa_to_matrix npa)).
+  (* Indices: i2 = A1 (index 2), i3 = B0 (index 3), i4 = B1 (index 4) *)
+  pose (i := i2).
+  pose (j := i3).
+  pose (k := i4).
+  assert (Hdet: det3_corr (M i j) (M i k) (M j k) >= 0).
+  {
+    apply (psd_3x3_determinant_nonneg M i j k); auto.
+    - unfold M, nat_matrix_to_fin5, npa_to_matrix.
+      destruct (Fin.to_nat i) as [ni Hi]. simpl.
+      destruct ni as [|[|[|]]]; try lia. reflexivity.
+    - unfold M, nat_matrix_to_fin5, npa_to_matrix.
+      destruct (Fin.to_nat j) as [nj Hj]. simpl.
+      destruct nj as [|[|[|[|]]]]; try lia. reflexivity.
+    - unfold M, nat_matrix_to_fin5, npa_to_matrix.
+      destruct (Fin.to_nat k) as [nk Hk]. simpl.
+      destruct nk as [|[|[|[|[|]]]]]; try lia. reflexivity.
+  }
+  (* Now extract the matrix elements: M[2,3] = E10 = x, M[2,4] = E11 = y, M[3,4] = b *)
+  unfold det3_corr in Hdet.
+  replace (M i j) with x in Hdet.
+  2: { unfold M, i, j, nat_matrix_to_fin5, npa_to_matrix, i2, i3.
+       destruct (Fin.to_nat i2) as [n2 H2]; destruct (Fin.to_nat i3) as [n3 H3].
+       simpl. rewrite E10. reflexivity. }
+  replace (M i k) with y in Hdet.
+  2: { unfold M, i, k, nat_matrix_to_fin5, npa_to_matrix, i2, i4.
+       destruct (Fin.to_nat i2) as [n2 H2]; destruct (Fin.to_nat i4) as [n4 H4].
+       simpl. rewrite E11. reflexivity. }
+  replace (M j k) with b in Hdet.
+  2: { unfold M, j, k, nat_matrix_to_fin5, npa_to_matrix, i3, i4.
+       destruct (Fin.to_nat i3) as [n3 H3]; destruct (Fin.to_nat i4) as [n4 H4].
+       simpl. rewrite rho_BB. reflexivity. }
+  exact Hdet.
+Qed.
 
 (** * 3. Quadratic Constraint Analysis *)
 
@@ -113,8 +179,23 @@ Theorem tsirelson_bound_symmetric : forall (npa : NPAMomentMatrix) (x y : R),
   symmetric5 (nat_matrix_to_fin5 (npa_to_matrix npa)) ->
   S_value (npa_to_chsh npa) <= 2 * sqrt2.
 Proof.
-  (* This proof needs updating for Fin5 indices - temporarily admitted *)
-  admit.
+  intros npa x y Hsym_chsh Hpsd Hsym.
+  unfold is_symmetric_chsh in Hsym_chsh.
+  destruct Hsym_chsh as [HE00 [HE01 [HE10 [HE11 [HEA0 [HEA1 [HEB0 HEB1]]]]]]].
+
+  (* CHSH value S = E00 + E01 + E10 - E11 = x + x + x - y = 3x - y *)
+  unfold S_value, npa_to_chsh. simpl.
+  rewrite HE00, HE01, HE10, HE11.
+
+  (* We need to show 3x - y <= 2√2 *)
+  (* Use the principal minor constraints *)
+
+  (* Get b from rho_BB - but we need to know its value *)
+  (* For the moment, we'll use the axioms about bounds on x *)
+
+  (* This requires: (1) showing x, y are bounded, (2) using quadratic_constraint_minimum *)
+  admit. (* Requires: establishing bounds on x from normalized correlators,
+                       then applying quadratic optimization results *)
 Admitted.
 
 (** INQUISITOR NOTE: The symmetric lower bound follows from the upper bound by negation symmetry.
