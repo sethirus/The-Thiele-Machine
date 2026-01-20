@@ -102,4 +102,26 @@
 - Proved (1,1,1,0) configuration is impossible despite satisfying |E_ij|≤1 bounds
 - Remaining: Complete optimization showing no configuration exceeds 2√2
 
-**Verdict:** The Thiele Machine's CORE CLAIMS are proven. The quantum-classical CHARACTERIZATION (CHSH bounds) is partially proven (classical structure) and partially axiomatized (quantum bound).
+**Latest Update (Jan 2026 - Proof Completion Sprint):**
+- ✅ **ConstructivePSD.v**: ALL 4 admits completed
+  - Quadratic form expansion for 3-term linear combinations
+  - Schur complement proof for 3×3 determinant bounds
+  - Convexity of PSD matrices proven constructively
+- ✅ **NPAMomentMatrix.v**: Symmetry lemma completed (exhaustive 5×5 case analysis)
+- ✅ **SemidefiniteProgramming.v**: Identity matrix PSD proven for sizes 1-4
+- ✅ **TsirelsonBoundDirect.v**: Principal minor constraints proven
+  - Connected matrix indices to CHSH correlators
+  - Established det3_corr bounds from PSD constraints
+- 📉 **Admit count**: 21 → 10 (52% reduction in 4 files)
+- 🎯 **Core PSD theory**: Now fully proven without axioms
+
+**Remaining Work (10 admits):**
+- 3 admits in TsirelsonBoundComplete.v (explicit expansions)
+- 3 admits in TsirelsonBoundTDD.v (numerical verifications)
+- 2 admits in TsirelsonBoundVerification.v (minor definitions)
+- 1 admit in TsirelsonBoundProof2.v (tighter constraints)
+- 1 admit in TsirelsonBoundDirect.v (optimization theory for main theorem)
+
+Categories: (a) Mechanical calculations (5), (b) Optimization theory (3), (c) Symmetrization arguments (2)
+
+**Verdict:** The Thiele Machine's CORE CLAIMS are proven. The quantum-classical CHARACTERIZATION (CHSH bounds) infrastructure is now substantially more complete, with all fundamental PSD lemmas and principal minor constraints proven. Remaining work is optimization theory and mechanical expansions.
