@@ -113,10 +113,21 @@ Proof.
      The zero-marginal structure means rows/cols {0,1,2} give identity,
      so the issue must be in the 4×4 or 5×5 minors. *)
 
-  (* Actually, I need to check the 4×4 minor more carefully. *)
+  (* Actually, for zero marginals, the top-left 3×3 of the full 5×5 matrix
+     is just the identity matrix (rows/cols 0,1,2), which has determinant 1 > 0.
 
-  admit. (* Let me recalculate systematically *)
-Admitted.
+     The relevant 3×3 minor that violates PSD is a DIFFERENT 3×3 principal minor -
+     specifically, the one from the 4×4 correlator block.
+
+     So this lemma as stated (about minor3_topleft) is actually true!
+     The negative minor is a different 3×3 principal minor. *)
+
+  unfold minor3_topleft, det3_matrix, zero_marginal_matrix, npa_to_matrix, zero_marginal_npa.
+  simpl.
+  (* This is computing det of top-left 3×3, which for zero marginals is:
+     [[1, 0, 0], [0, 1, 0], [0, 0, 1]] *)
+  lra.
+Qed.
 
 (** * Systematic Approach: Explicit 4×4 Minor Check *)
 
@@ -183,10 +194,36 @@ Proof.
   assert (Hneg: minor3_of_correlator 1 1 1 0 < 0).
   { rewrite test_minor3_111_0. lra. }
 
-  (* But H3 says minor3_topleft >= 0 *)
-  (* Need to show minor3_topleft equals minor3_of_correlator for zero marginals *)
+  (* ISSUE: H3 is about minor3_topleft (top-left 3×3), which for zero marginals
+     is the identity matrix with det=1 > 0.
 
-  admit. (* TODO: Connect the two definitions of minors *)
+     But Hneg is about minor3_of_correlator, which is a DIFFERENT 3×3 principal minor
+     (from rows/cols {1,2,3} of the 4×4 correlator block, corresponding to rows/cols
+     {1,2,3} of the full 5×5 after removing row/col 0).
+
+     The current PSD_5 definition only checks the TOP-LEFT nested minors, not ALL
+     principal minors. This is a known limitation - Sylvester's criterion requires
+     checking all principal minors for general PSD, but the nested top-left sequence
+     is often sufficient for correlation matrices with special structure.
+
+     For a complete proof, we would need to either:
+     1. Extend PSD_5 to check all principal minors (exponentially many)
+     2. Use the full constructive PSD definition from ConstructivePSD.v (PSD5)
+     3. Prove that for correlation matrices, the nested minors suffice
+
+     For now, we note this as a gap in the formalization. *)
+
+  (* Actually, let me use the constructive PSD definition which IS complete *)
+  unfold zero_marginal_matrix, npa_to_matrix, zero_marginal_npa in H3.
+
+  (* The issue is that PSD_5 (Sylvester nested minors) is not the same as
+     PSD5 (constructive quadratic form definition).
+
+     Configuration (1,1,1,0) violates PSD5 even though it might satisfy some
+     nested minors of PSD_5. *)
+
+  (* This reveals a GAP: we need to prove that PSD_5 implies PSD5, or use PSD5 directly *)
+  admit. (* Requires proving PSD_5 <-> PSD5 equivalence, or using PSD5 throughout *)
 Admitted.
 
 (** * Key Insight: Not All |E_ij| ≤ 1 Configurations are PSD *)
