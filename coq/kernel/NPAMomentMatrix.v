@@ -200,9 +200,14 @@ Proof.
   intros npa i j.
   unfold symmetric5, nat_matrix_to_fin5, npa_to_matrix.
   (* The nat-indexed matrix is symmetric by construction *)
-  (* Just need to show that conversion preserves symmetry *)
-  admit. (* Routine: unfold and use symmetry of pattern matching *)
-Admitted.
+  (* Prove by case analysis on all 5×5 index combinations *)
+  (* Extract nat indices from Fin5 *)
+  destruct (Fin.to_nat i) as [ni Hi].
+  destruct (Fin.to_nat j) as [nj Hj].
+  simpl.
+  (* Now do case analysis on ni and nj, both < 5 *)
+  destruct ni as [|[|[|[|[|]]]]]; destruct nj as [|[|[|[|[|]]]]]; try lia; reflexivity.
+Qed.
 
 (** =========================================================================
     VERIFICATION SUMMARY - STEP 2 COMPLETE

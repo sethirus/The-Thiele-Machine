@@ -595,7 +595,56 @@ Proof.
        assert (Hsub: quad5 M V_lin = c1*c1*M i i + c2*c2*M j j + c3*c3*M k k + 2*c1*c2*M i j + 2*c1*c3*M i k + 2*c2*c3*M j k).
        {
          (* Basic linear algebra expansion: quad5 M (c1*e1 + c2*e2 + c3*e3) *)
-         admit. 
+         (* Expand using quadratic and bilinear forms *)
+         unfold V_lin.
+         (* First expand: (c1*ei + c2*ej + c3*ek) = (c1*ei + (c2*ej + c3*ek)) *)
+         transitivity (quad5 M (fun idx => c1 * e_basis i idx + (c2 * e_basis j idx + c3 * e_basis k idx))).
+         { apply f_equal. apply functional_extensionality; intro idx. ring. }
+
+         (* Apply expansion: quad(u + v) = quad u + 2*bil(u,v) + quad v *)
+         rewrite quad5_expansion_bilinear; [|exact Hsym].
+         rewrite quad5_scal.
+         rewrite bilinear5_scal_r.
+         rewrite quad5_e_basis.
+
+         (* Now expand the second part (c2*ej + c3*ek) *)
+         replace (quad5 M (fun k0 => c2 * e_basis j k0 + c3 * e_basis k k0))
+           with (c2*c2*M j j + 2*c2*c3*M j k + c3*c3*M k k).
+         2: {
+           rewrite quad5_expansion_bilinear; [|exact Hsym].
+           rewrite quad5_scal.
+           rewrite bilinear5_scal_r.
+           rewrite bilinear5_e_basis.
+           rewrite quad5_scal.
+           rewrite quad5_e_basis.
+           rewrite quad5_e_basis.
+           ring.
+         }
+
+         (* Expand bilinear5 M (e_basis i) (fun k0 => c2 * e_basis j k0 + c3 * e_basis k k0) *)
+         replace (bilinear5 M (e_basis i) (fun k0 => c2 * e_basis j k0 + c3 * e_basis k k0))
+           with (c2 * M i j + c3 * M i k).
+         2: {
+           unfold bilinear5.
+           transitivity (sum_fin5 (fun idx => sum_fin5 (fun idx' => e_basis i idx * M idx idx' * (c2 * e_basis j idx' + c3 * e_basis k idx')))).
+           { reflexivity. }
+           transitivity (sum_fin5 (fun idx => e_basis i idx * sum_fin5 (fun idx' => M idx idx' * (c2 * e_basis j idx' + c3 * e_basis k idx')))).
+           { apply f_equal. apply functional_extensionality; intro idx.
+             rewrite <- sum_fin5_scal.
+             apply f_equal. apply functional_extensionality; intro idx'.
+             ring. }
+           rewrite sum_e_basis.
+           transitivity (sum_fin5 (fun idx' => M i idx' * c2 * e_basis j idx' + M i idx' * c3 * e_basis k idx')).
+           { apply f_equal. apply functional_extensionality; intro idx'. ring. }
+           rewrite sum_fin5_linear.
+           rewrite sum_fin5_scal.
+           rewrite sum_fin5_scal.
+           rewrite sum_e_basis_r.
+           rewrite sum_e_basis_r.
+           ring.
+         }
+
+         ring.
        }
        rewrite Hsub.
        rewrite Hii, Hjj, Hkk.
@@ -648,7 +697,7 @@ Proof.
   (* = 1 - x^2 - y^2 - z^2 + 2xyz *)
   replace (det3_corr x y z) with ((1 - x ^ 2) * (1 - y ^ 2) - (z - x * y) * (z - x * y)) by (unfold det3_corr; ring).
   apply Rge_minus. apply Rle_ge. exact HSchur.
-Admitted.
+Qed.
 
 (** The specific constraints needed for Tsirelson (mapped indices) *)
 (** Indices: A0=1, B0=3, B1=4. Minor A0B0B1 corresponds to {i1, i3, i4} *)
@@ -683,8 +732,34 @@ Proof.
     + apply Rmult_le_pos; [lra | apply Rge_le; apply Hpsd2].
   - (* Simplify sum linearity *)
     unfold quad5.
-    admit.
-Admitted.
+    (* Distribute the sum over lambda * M1 + (1-lambda) * M2 *)
+    transitivity (sum_fin5 (fun i0 => sum_fin5 (fun j0 => v i0 * (lambda * M1 i0 j0) * v j0 +
+                                                           v i0 * ((1 - lambda) * M2 i0 j0) * v j0))).
+    { apply f_equal. apply functional_extensionality; intro i0.
+      apply f_equal. apply functional_extensionality; intro j0.
+      ring. }
+    transitivity (sum_fin5 (fun i0 => sum_fin5 (fun j0 => v i0 * (lambda * M1 i0 j0) * v j0) +
+                                       sum_fin5 (fun j0 => v i0 * ((1 - lambda) * M2 i0 j0) * v j0))).
+    { apply f_equal. apply functional_extensionality; intro i0.
+      apply sum_fin5_linear. }
+    rewrite sum_fin5_linear.
+    transitivity (lambda * sum_fin5 (fun i0 => sum_fin5 (fun j0 => v i0 * M1 i0 j0 * v j0)) +
+                  (1 - lambda) * sum_fin5 (fun i0 => sum_fin5 (fun j0 => v i0 * M2 i0 j0 * v j0))).
+    { f_equal.
+      - transitivity (sum_fin5 (fun i0 => lambda * sum_fin5 (fun j0 => v i0 * M1 i0 j0 * v j0))).
+        { apply f_equal. apply functional_extensionality; intro i0.
+          transitivity (sum_fin5 (fun j0 => lambda * (v i0 * M1 i0 j0 * v j0))).
+          { apply f_equal. apply functional_extensionality; intro j0. ring. }
+          apply sum_fin5_scal. }
+        apply sum_fin5_scal.
+      - transitivity (sum_fin5 (fun i0 => (1 - lambda) * sum_fin5 (fun j0 => v i0 * M2 i0 j0 * v j0))).
+        { apply f_equal. apply functional_extensionality; intro i0.
+          transitivity (sum_fin5 (fun j0 => (1 - lambda) * (v i0 * M2 i0 j0 * v j0))).
+          { apply f_equal. apply functional_extensionality; intro j0. ring. }
+          apply sum_fin5_scal. }
+        apply sum_fin5_scal. }
+    reflexivity.
+Qed.
 
 (** * Reduction to Symmetric Case *)
 
