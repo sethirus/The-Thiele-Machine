@@ -105,10 +105,21 @@ Example test_half_optimal_value :
   S_value (npa_to_chsh test_half_optimal) = sqrt2.
 Proof.
   unfold S_value, npa_to_chsh, test_half_optimal. simpl.
-  (* 4 * (1/(2√2)) = 4/(2√2) = 2/√2 = √2 *)
-  (* Algebraically: 1/(2√2) + 1/(2√2) + 1/(2√2) - (-1/(2√2)) = 4/(2√2) = 2/√2 = √2 *)
-  admit. (* Numerical verification correct, algebra tedious *)
-Admitted.
+  (* S = E00 + E01 + E10 - E11
+       = 1/(2√2) + 1/(2√2) + 1/(2√2) - (-1/(2√2))
+       = 4/(2√2)
+       = 4/(2√2) * (√2/√2)
+       = 4√2/(2*2)
+       = 4√2/4
+       = √2 *)
+  unfold sqrt2.
+  (* 4 * 1/(2*sqrt 2) = 4/(2*sqrt 2) = 2/sqrt 2 = 2*sqrt 2/2 = sqrt 2 *)
+  field_simplify.
+  - replace (4 / (2 * sqrt 2)) with (2 / sqrt 2) by (field; apply sqrt2_nonzero).
+    replace (2 / sqrt 2) with (sqrt 2) by (field; apply sqrt2_nonzero).
+    reflexivity.
+  - apply sqrt2_nonzero.
+Qed.
 
 (** * Key Insight from Tests *)
 
@@ -171,14 +182,17 @@ Lemma det4_constraint_zero_marginals : forall (E00 E01 E10 E11 : R),
     | 3, 0 => E01 | 3, 1 => E11 | 3, 2 => 0 | 3, 3 => 1
     | _, _ => 0
     end in
-  det4_matrix M = 1 - E00*E00 - E01*E01 - E10*E10 - E11*E11 +
-                  2*E00*E11 + 2*E01*E10.
+  det4_matrix M = 1 - (E00*E00 + E01*E01 + E10*E10 + E11*E11) +
+                  (E00*E11 - E01*E10)*(E00*E11 - E01*E10).
 Proof.
   intros E00 E01 E10 E11 M.
-  (* Direct computation - mechanically verifiable but tedious in Coq *)
-  (* By cofactor expansion: det(M) expands to the claimed formula *)
-  admit. (* TODO: Complete explicit expansion, or verify numerically *)
-Admitted.
+  (* Cofactor expansion: det(M) = M[0,0]*Minor(0,0) + M[0,2]*Minor(0,2) - M[0,3]*Minor(0,3) *)
+  (* Minor(0,0) = 1 - E10^2 - E11^2 *)
+  (* Minor(0,2) = -E00 + E00*E11^2 - E10*E01*E11 *)
+  (* Minor(0,3) = E01 + E00*E10*E11 - E10^2*E01 *)
+  (* Expanding and simplifying yields the formula *)
+  unfold det4_matrix, M. ring.
+Qed.
 
 (** Step 3: PSD implies the key inequality *)
 
@@ -251,13 +265,30 @@ Proof.
     unfold minor3_topleft, det3_matrix. simpl. lra.
   - (* 4×4 minor - this is where it gets interesting *)
     unfold det4_matrix. simpl.
-    (* Need to verify this is ≥ 0 for optimal values *)
-    (* 1/√2, 1/√2, 1/√2, -1/√2 *)
-    (* This requires careful algebraic expansion *)
-    admit. (* TODO: Complete this calculation *)
+    (* For optimal configuration E00=E01=E10=1/√2, E11=-1/√2:
+       Using the corrected det4 formula:
+       det4 = 1 - (E00² + E01² + E10² + E11²) + (E00*E11 - E01*E10)²
+            = 1 - 4*(1/2) + ((1/√2)*(-1/√2) - (1/√2)*(1/√2))²
+            = 1 - 2 + (-1/2 - 1/2)²
+            = 1 - 2 + 1
+            = 0 ≥ 0 ✓
+
+       The optimal configuration is on the boundary of the PSD cone. *)
+    (* This can be verified by algebraic simplification *)
+    admit. (* Requires expanding det4_matrix definition with optimal values - ~80 lines *)
   - (* 5×5 determinant *)
     unfold det5_matrix. simpl.
-    admit. (* TODO: Complete this calculation *)
+    (* For zero marginals, the matrix has block structure:
+       M = [ 1  0^T ]
+           [ 0  M4  ]
+       where 0 is a 4-vector of zeros and M4 is the 4×4 submatrix.
+
+       By properties of block matrices: det(M) = det(1) * det(M4) = det4.
+
+       From the previous case, det4 = 0 for optimal configuration.
+       Therefore det5 = 0 ≥ 0 ✓ *)
+    (* This can be verified by cofactor expansion along row 0 *)
+    admit. (* Requires expanding det5_matrix with optimal values - ~200 lines *)
 Admitted.
 
 (** =========================================================================
