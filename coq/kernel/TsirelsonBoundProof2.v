@@ -51,8 +51,8 @@ Qed.
 (** Key insight: Express CHSH as inner product and bound using PSD properties *)
 
 Theorem chsh_bound_from_psd : forall (E00 E01 E10 E11 : R),
-  (* Assume PSD constraint *)
-  1 - E00*E00 - E01*E01 - E10*E10 - E11*E11 + 2*E00*E11 + 2*E01*E10 >= 0 ->
+  (* Assume CORRECTED PSD constraint *)
+  1 - (E00*E00 + E01*E01 + E10*E10 + E11*E11) + (E00*E11 - E01*E10)*(E00*E11 - E01*E10) >= 0 ->
   (* And correlators bounded *)
   Rabs E00 <= 1 -> Rabs E01 <= 1 -> Rabs E10 <= 1 -> Rabs E11 <= 1 ->
   (* Then CHSH squared is bounded *)
@@ -61,11 +61,16 @@ Theorem chsh_bound_from_psd : forall (E00 E01 E10 E11 : R),
 Proof.
   intros E00 E01 E10 E11 Hpsd HE00 HE01 HE10 HE11 S.
   unfold S.
-  (* S² = (E00 + E01 + E10 - E11)² *)
-  (* Expand: E00² + E01² + E10² + E11² + 2(E00·E01 + E00·E10 - E00·E11 + E01·E10 - E01·E11 - E10·E11) *)
 
-  (* From PSD constraint: E00² + E01² + E10² + E11² ≤ 1 + 2·E00·E11 + 2·E01·E10 *)
-  assert (Hsum_squares: E00*E00 + E01*E01 + E10*E10 + E11*E11 <= 1 + 2*E00*E11 + 2*E01*E10).
+  (* From corrected PSD constraint:
+     1 - (E00² + E01² + E10² + E11²) + (E00·E11 - E01·E10)² ≥ 0
+
+     This can be rewritten as:
+     E00² + E01² + E10² + E11² ≤ 1 + (E00·E11 - E01·E10)²
+  *)
+
+  assert (Hsum_squares: E00*E00 + E01*E01 + E10*E10 + E11*E11 <=
+                        1 + (E00*E11 - E01*E10)*(E00*E11 - E01*E10)).
   { lra. }
 
   (* Expand S² *)
@@ -77,35 +82,27 @@ Proof.
 
   rewrite HS_expand.
 
-  (* Substitute PSD bound *)
-  assert (H: E00*E00 + E01*E01 + E10*E10 + E11*E11 +
-             2*E00*E01 + 2*E00*E10 - 2*E00*E11 +
-             2*E01*E10 - 2*E01*E11 - 2*E10*E11 <=
-             1 + 2*E00*E11 + 2*E01*E10 +
-             2*E00*E01 + 2*E00*E10 - 2*E00*E11 +
-             2*E01*E10 - 2*E01*E11 - 2*E10*E11).
-  { lra. }
+  (* The key challenge: bound the cross terms given the PSD constraint.
 
-  (* Simplify: cancellations *)
-  assert (H2: 1 + 2*E00*E11 + 2*E01*E10 +
-              2*E00*E01 + 2*E00*E10 - 2*E00*E11 +
-              2*E01*E10 - 2*E01*E11 - 2*E10*E11 =
-              1 + 2*E00*E01 + 2*E00*E10 + 4*E01*E10 - 2*E01*E11 - 2*E10*E11).
-  { ring. }
+     The corrected PSD constraint is:
+     sum(E²) ≤ 1 + (E00·E11 - E01·E10)²
 
-  rewrite H2 in H.
+     But we need to bound:
+     sum(E²) + 2(E00·E01 + E00·E10 - E00·E11 + E01·E10 - E01·E11 - E10·E11)
 
-  (* Now need to bound: 1 + 2·E00·E01 + 2·E00·E10 + 4·E01·E10 - 2·E01·E11 - 2·E10·E11 ≤ 8 *)
+     This requires careful analysis of which combinations are possible under PSD.
 
-  (* Use |E_ij| ≤ 1 to bound cross terms *)
-  (* Worst case: E00=E01=E10=1, E11=-1 *)
-  (* Upper bound: 1 + 2·1·1 + 2·1·1 + 4·1·1 - 2·1·(-1) - 2·1·(-1) *)
-  (*            = 1 + 2 + 2 + 4 + 2 + 2 = 13 *)
+     MATHEMATICAL APPROACH:
+     - Use Cauchy-Schwarz: E00·E01 ≤ √(E00²)·√(E01²)
+     - But this is still too loose
+     - Need to use the structure: (E00·E11 - E01·E10)² in the constraint
+     - This couples the terms in a non-trivial way
 
-  (* That's too large! The PSD constraint is tighter than we're using. *)
-  (* Need better bound. *)
+     The complete proof requires multi-variable optimization techniques or
+     SDP duality theory, which are beyond basic real analysis.
+  *)
 
-  admit. (* TODO: Use tighter constraint from optimal configuration *)
+  admit. (* Requires SDP optimization theory or Lagrange multipliers with KKT conditions *)
 Admitted.
 
 (** * Refinement: Use Optimal Configuration *)
