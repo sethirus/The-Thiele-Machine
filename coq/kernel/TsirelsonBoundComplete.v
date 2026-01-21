@@ -16,7 +16,7 @@
 From Coq Require Import Reals Lra Psatz Lia.
 Local Open Scope R_scope.
 
-From Kernel Require Import SemidefiniteProgramming NPAMomentMatrix TsirelsonBoundProof TsirelsonBoundTDD.
+From Kernel Require Import SemidefiniteProgramming NPAMomentMatrix TsirelsonBoundProof.
 
 (** * Key Constraint from 4×4 PSD *)
 
