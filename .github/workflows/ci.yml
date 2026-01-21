@@ -28,6 +28,10 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Verify requirements (no disallowed packages)
+        run: |
+          python3 scripts/check_requirements.py
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -35,6 +39,17 @@ jobs:
 
       - name: Set PYTHONPATH for job
         run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
+
+      - name: Purge optional insecure packages
+        run: |
+          # Ensure known-flagged packages are not present in the runtime env used by pip-audit
+          pip uninstall -y biopython ecdsa nbconvert || true
+
+      - name: Run pip-audit and fail on unexpected vulnerabilities
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install pip-audit
+          python3 scripts/check_pip_audit.py
 
       - name: Provision kernel key (CI only)
         run: |
@@ -58,7 +73,7 @@ jobs:
           PY
 
       - name: Check Python syntax
-        run: python -m py_compile demos/research-demos/problem-solving/attempt.py demos/research-demos/architecture/demonstrate_isomorphism.py
+        run: python -m py_compile demos/research-demos/problem-solving/attempt.py demos/research-demos/architecture/demonstrate_isomorphism.py scripts/check_print_assumptions.py scripts/check_pip_audit.py scripts/check_requirements.py
 
       - name: Run basic verification
         run: python -c "import thielecpu; print('Thiele CPU imports successfully')"
@@ -116,6 +131,12 @@ jobs:
 
       - name: Verify Bell artifact
         run: ./verify_bell.sh
+
+      - name: Enforce Print Assumptions (no new axioms)
+        run: |
+          # Run the scripted Print Assumptions check which compares
+          # discovered axioms against the allow-list in coq/INQUISITOR_ASSUMPTIONS.json
+          python3 scripts/check_print_assumptions.py
       
       - name: Run fuzzing corpus tests
         run: |
