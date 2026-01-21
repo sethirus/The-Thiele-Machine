@@ -26,6 +26,7 @@ COQ_INSTRUCTION_TAGS: tuple[str, ...] = (
     'Coq_instr_xor_swap',
     'Coq_instr_xor_rank',
     'Coq_instr_emit',
+    'Coq_instr_reveal',
     'Coq_instr_oracle_halts',
     'Coq_instr_halt',
 )
@@ -46,6 +47,7 @@ COQ_TAG_TO_MNEMONIC: dict[str, str] = {
     'Coq_instr_xor_swap': 'XOR_SWAP',
     'Coq_instr_xor_rank': 'XOR_RANK',
     'Coq_instr_emit': 'EMIT',
+    'Coq_instr_reveal': 'REVEAL',
     'Coq_instr_oracle_halts': 'ORACLE_HALTS',
     'Coq_instr_halt': 'HALT',
 }
@@ -57,7 +59,8 @@ MNEMONIC_TO_OPCODE_BYTE: dict[str, int] = {
     'LASSERT': 3,
     'LJOIN': 4,
     'MDLACC': 5,
-    'ORACLE_HALTS': 15,
+    'REVEAL': 15,
+    'ORACLE_HALTS': 16,
     'PDISCOVER': 6,
     'PMERGE': 2,
     'PNEW': 0,
@@ -86,7 +89,8 @@ COQ_TAG_TO_OPCODE_BYTE: dict[str, int] = {
     'Coq_instr_xor_swap': 12,
     'Coq_instr_xor_rank': 13,
     'Coq_instr_emit': 14,
-    'Coq_instr_oracle_halts': 15,
+    'Coq_instr_reveal': 15,
+    'Coq_instr_oracle_halts': 16,
     'Coq_instr_halt': 255,
 }
 
