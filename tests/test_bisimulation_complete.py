@@ -489,7 +489,8 @@ class TestOpcodeAlignment:
             "XOR_SWAP": 0x0C,
             "XOR_RANK": 0x0D,
             "EMIT": 0x0E,
-            "ORACLE_HALTS": 0x0F,
+            "REVEAL": 0x0F,
+            "ORACLE_HALTS": 0x10,
             "HALT": 0xFF,
         }
         
