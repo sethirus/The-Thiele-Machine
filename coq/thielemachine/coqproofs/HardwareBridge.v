@@ -52,6 +52,7 @@ Definition opcode_LJOIN     : N := 4%N.
 Definition opcode_MDLACC    : N := 5%N.
 Definition opcode_PDISCOVER : N := 6%N.
 Definition opcode_EMIT      : N := 14%N.  (* Matches RTL constant 8'h0E. *)
+Definition opcode_REVEAL    : N := 15%N.  (* Reveal hidden info (charges μ); matches RTL 8'h0F *)
 Definition opcode_XFER      : N := 7%N.
 Definition opcode_PYEXEC    : N := 8%N.
 Definition opcode_CHSH_TRIAL : N := 9%N.

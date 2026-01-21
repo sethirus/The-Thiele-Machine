@@ -29,7 +29,10 @@ debugpy==1.8.14
 decorator==5.2.1
 defusedxml==0.7.1
 dictionary==1.0
-ecdsa==0.19.1
+# NOTE: `ecdsa` (CVE-2024-23342) has a known timing side-channel on P-256 and
+# is intentionally omitted from our main requirements. Use of ECDSA-coded
+# algorithms is discouraged; prefer Ed25519 / PyNaCl or `cryptography` APIs.
+# ecdsa==0.19.1
 executing==2.2.0
 fastjsonschema==2.21.1
 filelock==3.13.1
@@ -79,7 +82,8 @@ mypy==1.17.1
 mypy_extensions==1.1.0
 narwhals==1.46.0
 nbclient==0.10.2
-nbconvert==7.16.6
+# nbconvert is excluded due to CVE-2025-53000 (Windows SVG->PDF unsafe search path). If you need local conversion, install it in an isolated env and follow the mitigation guidance in SECURITY.md
+# nbconvert==7.16.6
 nbdime==4.0.2
 nbformat==5.10.4
 nest-asyncio==1.6.0

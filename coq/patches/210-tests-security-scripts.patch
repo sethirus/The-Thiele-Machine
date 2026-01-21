@@ -1,0 +1,13 @@
+diff --git a/tests/test_security_scripts.py b/tests/test_security_scripts.py
+new file mode 100644
+index 0000000..396246a
+--- /dev/null
++++ b/tests/test_security_scripts.py
+@@ -0,0 +1,7 @@
++def test_check_requirements_runs():
++    # Ensure the requirements check runs successfully
++    import subprocess
++    p = subprocess.run(["python3", "scripts/check_requirements.py"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
++    out = p.stdout.decode()
++    assert p.returncode == 0, f"check_requirements failed: {out}"
++    assert "Requirements check OK" in out
