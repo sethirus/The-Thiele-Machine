@@ -12,6 +12,11 @@ Local Open Scope Q_scope.
 From Kernel Require Import ValidCorrelation.
 From Kernel Require Import AlgebraicCoherence.
 From Kernel Require Import BoxCHSH.
+From Kernel Require Import Tier1Proofs.
+
+(* Alias normalized_E_bound to the proven Tier1 theorem to ensure the
+   rest of the kernel can refer to this fact without requiring an axiom. *)
+Definition normalized_E_bound := Tier1Proofs.normalized_E_bound.
 
 Definition tsirelson_bound : Q := 5657#2000. (* 2.8285 ≈ 2√2 *)
 

@@ -1,0 +1,32 @@
+diff --git a/coq/kernel/MU_ZERO_REWORK.md b/coq/kernel/MU_ZERO_REWORK.md
+new file mode 100644
+index 0000000..ad3e958
+--- /dev/null
++++ b/coq/kernel/MU_ZERO_REWORK.md
+@@ -0,0 +1,25 @@
++# mu_zero_implies_locc — rework notes
++
++This document captures the current diagnosis and a suggested plan for removing classical axioms
++from `Kernel.TsirelsonUpperBound.mu_zero_implies_locc`.
++
++Findings from Print Assumptions (captured by `scripts/check_print_assumptions.py`):
++
++- Theorem: `Kernel.TsirelsonUpperBound.mu_zero_implies_locc`
++- Detected axioms (examples from a run):
++  - `ClassicalDedekindReals.sig_not_dec`
++  - `ClassicalDedekindReals.sig_forall_dec`
++  - `FunctionalExtensionality.functional_extensionality_dep`
++  - `Classical_Prop.classic`
++
++Plan:
++1. Localize uses of `classic` and `FunctionalExtensionality` to minimal lemmas with clear names.
++2. For each lemma that depends on classicality, try to find an alternative constructive lemma or avoid the law-of-excluded-middle by using decidability hypotheses where possible.
++3. If classical axioms are inherently required for some proofs, document them precisely and add a short discussion to `docs/SECURITY_DEPENDENCY_DECISIONS.md` and to the paper map.
++4. Create a small suite of focused Coq tests (Print Assumptions + explicit rewrites) to track progress.
++
++Next actions (short):
++- Identify the exact lemmas introducing the classical axioms via `Print Assumptions` on smaller symbols.
++- Attempt refactors on a copy of the file as small patches so progress is incremental and verifiable.
++
++If you want, I can start the first diagnostic pass now and attempt small rewrites; expect iterative proof work (could be multi-day depending on complexity).
+\ No newline at end of file

@@ -1,0 +1,13 @@
+# Optional / dangerous / platform-specific packages
+# These packages are intentionally not included in the main requirements due to
+# known vulnerabilities or platform-specific attack surface. Install only in
+# isolated, audited environments and only when needed.
+
+# Biopython: CVE-2025-68463 (XXE in Bio.Entrez) — avoid unless needed for bio data parsing
+# biopython==1.86
+
+# python-ecdsa: CVE-2024-23342 (timing side-channel on P-256). Prefer PyNaCl/Ed25519 or cryptography.
+# ecdsa==0.19.1
+
+# nbconvert: CVE-2025-53000 (Windows SVG->PDF execution via uncontrolled search path)
+# nbconvert==7.16.6

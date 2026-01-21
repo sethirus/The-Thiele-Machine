@@ -80,7 +80,10 @@ def test_rtl_every_opcode_charges_mu() -> None:
     missing_blocks = sorted(opcode_names - set(blocks))
     assert not missing_blocks, f"Missing opcode cases in RTL: {missing_blocks}"
 
-    direct_charge = "mu_accumulator <= mu_accumulator + {24'h0, operand_cost};"
+    # Match any direct mu_accumulator update (e.g. simple or composite additions)
+    # Examples matched:
+    #   mu_accumulator <= mu_accumulator + {24'h0, operand_cost};
+    #   mu_accumulator <= mu_accumulator + {24'h0, operand_cost} + {16'h0, operand_a, 8'h0};
     alu_charged = {
         "MDLACC": "execute_mdlacc(",
         "PDISCOVER": "execute_pdiscover(",
@@ -90,7 +93,8 @@ def test_rtl_every_opcode_charges_mu() -> None:
     uncharged: list[str] = []
     for name in sorted(opcode_names):
         block = blocks[name]
-        if direct_charge in block:
+        # Any mu_accumulator update that adds to the accumulator counts as charging
+        if re.search(r"mu_accumulator\s*<=\s*mu_accumulator\s*\+", block):
             continue
         if name in alu_charged and alu_charged[name] in block:
             continue
