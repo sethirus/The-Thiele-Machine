@@ -47,7 +47,7 @@ arg1="${1:-}"
 if [ "$arg1" == "--clean" ] || [ "$arg1" == "-c" ] || [ "$arg1" == "clean" ]; then
     echo "🧹 Cleaning old build artifacts..."
     find coq -name "*.vo" -o -name "*.vok" -o -name "*.vos" -o -name "*.glob" -o -name ".*.aux" | xargs rm -f 2>/dev/null || true
-    rm -f Makefile.coq Makefile.coq.conf .Makefile.coq.d 2>/dev/null || true
+    rm -f coq/Makefile.coq coq/Makefile.coq.conf coq/.Makefile.coq.d 2>/dev/null || true
     echo "   Done."
     echo ""
 fi
