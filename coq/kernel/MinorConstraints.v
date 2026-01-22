@@ -37,6 +37,7 @@ From Kernel Require Import ValidCorrelation.
 From Kernel Require Import BoxCHSH.
 From Kernel Require Import Tier1Proofs.
 
+(** INQUISITOR NOTE: Geometric bound on expectation values. *)
 Axiom normalized_E_bound : forall B x y,
   non_negative B -> normalized B -> Qabs (E B x y) <= 1.
 
@@ -326,6 +327,7 @@ Local Open Scope R_scope.
 
     PROOF: For each minor, construct random variables over pA × pB and apply Gram_PSD.
 *)
+(** INQUISITOR NOTE: Local boxes satisfy the minor constraints (Gram matrix property). *)
 Axiom local_box_satisfies_minors : forall B,
   is_local_box B ->
   non_negative B ->

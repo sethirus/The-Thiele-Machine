@@ -61,7 +61,44 @@ Every claim has a proof. Every proof compiles. Every implementation matches.
 
 ---
 
-## � Geometric Period Finding via Structural Claims
+## μ-Profiler: Information Cost Analysis Tool
+
+**PRACTICAL APPLICATION**: Analyze Python code for information revelation costs beyond traditional time/space complexity.
+
+```python
+from tools.mu_profiler import analyze, profile
+
+# Analyze any function instantly
+result = analyze(my_algorithm)
+print(f"μ-cost: {result['mu_cost']}")  # Information processing cost
+print(f"Complexity: {result['complexity']}")  # O(1), O(log n), O(n), O(n²+)
+
+# Profile with execution timing
+@profile
+def my_function(data):
+    return process(data)
+
+result = my_function(data)  # Automatically prints μ-profile
+```
+
+**Works with ANY Python code**:
+- Regular functions, methods, lambdas
+- Built-ins (`len`, `sum`, `sorted`)
+- C extensions (NumPy, Pandas functions)
+- Decorated functions, generators
+- Any callable object
+
+**Why it matters**:
+- **New optimization metric** beyond O(n) analysis
+- **Identifies information bottlenecks** in algorithms
+- **Demonstrates quantum advantage boundaries**
+- **Educational tool** for complexity theory
+
+**Key insight**: Bubble sort and binary search may have similar μ-costs despite vastly different time complexity, revealing fundamental information processing limits.
+
+See [tools/README_mu_profiler.md](tools/README_mu_profiler.md) for complete documentation.
+
+---
 
 **THE INSIGHT**: Like `ClaimLeftZero` in ToyThiele accesses geometry without computing, structural claims (paying μ-cost) can express factorization assertions explicitly rather than discovering them through search.
 

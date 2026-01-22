@@ -15,12 +15,27 @@ thiele_min.py
 # Proof pack distribution artifacts
 dist/
 
-# Python virtual environment and cache
-.venv/
-venv/
-thiele_env/
+# Build cache and artifacts
+.build_cache/
+.test_artifacts/
+.generated/
+
+# Coq compilation artifacts
+*.vo
+*.vos
+*.vok
+*.glob
+*.aux
+
+# Hypothesis and testing caches
+.hypothesis/
+.ruff_cache/
+.lia.cache
+.nia.cache
+.nra.cache
+
+# Python cache
 __pycache__/
-*.pyc
 
 # IDE and OS files
 .vscode/

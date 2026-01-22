@@ -5,8 +5,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-REQ = ROOT / "requirements.txt"
-OPT = ROOT / "requirements-optional.txt"
+REQ = ROOT / "config" / "requirements.txt"
+OPT = ROOT / "config" / "requirements-optional.txt"
 OUT = ROOT / "artifacts" / "requirements_check.json"
 
 BANNED = ["biopython", "ecdsa", "nbconvert"]
