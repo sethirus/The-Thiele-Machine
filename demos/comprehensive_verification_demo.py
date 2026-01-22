@@ -136,8 +136,6 @@ def main():
     
     print("\n\033[1;36mThe Thiele Machine: Total Verification of ALL LLM Output\033[0m")
     print("\nUsage:")
-    print("  python tools/verify_copilot.py --interactive    # Interactive mode")
-    print("  python tools/verify_copilot.py \"claim text\"     # Direct verification")
     print()
 
 
