@@ -1,9 +1,9 @@
 # INQUISITOR REPORT
-Generated: 2026-01-22 04:08:25Z (UTC)
+Generated: 2026-01-22 05:59:52Z (UTC)
 Scanned: 270 Coq files across the repo
 ## Summary
-- HIGH: 2
-- MEDIUM: 34
+- HIGH: 0
+- MEDIUM: 32
 - LOW: 107
 
 ## Rules
@@ -51,14 +51,6 @@ Higher score = more likely unfinished/vacuous.
 | 65 | const-fun | `coq/thielemachine/coqproofs/SpectralApproximation.v` |
 
 ## Findings
-### HIGH
-
-#### `coq/INQUISITOR_ASSUMPTIONS.json`
-- L1: **ASSUMPTION_AUDIT** — coqtop not found; cannot run assumption audit.
-  - `coqtop`
-- L1: **PAPER_MAP_MISSING** — coqtop not found; cannot verify paper symbol map.
-  - `coqtop`
-
 ### MEDIUM
 
 #### `coq/kernel/NoArbitrage.v`
@@ -150,14 +142,6 @@ Higher score = more likely unfinished/vacuous.
   - `destruct (Z.to_nat (1 + Z.abs (BlindSighted.mu_total (BlindSighted.ledger s)))) eqn:Hk;`
 - L203: **Z_TO_NAT_BOUNDARY** — Z.to_nat used without nearby nonnegativity guard (potential boundary clamp).
   - `destruct (Z.to_nat (1 + Z.abs (BlindSighted.mu_total (BlindSighted.ledger s)))) eqn:Hk;`
-
-#### `coq/thielemachine/verification/PhysicsPillars.v`
-- L1: **SYMMETRY_CONTRACT** — Missing symmetry equivariance lemma matching: vm_step.*equiv, trace_run.*equiv|run_vm.*equiv
-  - ``
-
-#### `coq/thielemachine/verification/Symmetry.v`
-- L1: **SYMMETRY_CONTRACT** — Missing symmetry equivariance lemma matching: vm_step.*equiv, trace_run.*equiv|run_vm.*equiv
-  - ``
 
 ### LOW
 
