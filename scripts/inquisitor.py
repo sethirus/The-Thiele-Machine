@@ -1390,9 +1390,7 @@ def _scan_symmetry_contracts(coq_root: Path, manifest: dict, *, all_proofs: bool
         stripped = strip_coq_comments(raw)
         for contract in compiled:
             matches_file = contract["file_re"].search(vf.as_posix()) is not None
-            tag = contract.get("tag")
-            matches_tag = bool(tag and re.search(re.escape(tag), raw, re.IGNORECASE))
-            if not matches_file and not matches_tag:
+            if not matches_file:
                 continue
             if any(expr.search(stripped) for expr in contract["must"]):
                 continue
