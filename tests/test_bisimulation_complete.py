@@ -41,7 +41,7 @@ import pytest
 
 # Repository paths
 REPO_ROOT = Path(__file__).resolve().parents[1]
-EXTRACTED_RUNNER = REPO_ROOT / "coq" / "build" / "extracted_runner"
+EXTRACTED_RUNNER = REPO_ROOT / "build" / "extracted_vm_runner"
 VERILOG_TB = REPO_ROOT / "thielecpu" / "hardware" / "testbench" / "thiele_cpu_tb.v"
 
 

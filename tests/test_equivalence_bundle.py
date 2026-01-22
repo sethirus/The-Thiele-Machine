@@ -10,13 +10,17 @@ import pytest
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 # Check if extraction runner is available
-_EXTRACTED_RUNNER = REPO_ROOT / "coq" / "extracted_runner.py"
+_EXTRACTED_RUNNER = REPO_ROOT / "build" / "extracted_vm_runner"
 _HAS_EXTRACTION = _EXTRACTED_RUNNER.exists()
 
 # Skip all tests in this module if extraction is not available
 pytestmark = pytest.mark.skipif(
     not _HAS_EXTRACTION,
-    reason="Coq extraction not built. Run: scripts/forge_artifact.sh"
+    reason=(
+        "Coq extraction not built. Run: make -C coq Extraction.vo and "
+        "ocamlc -I build -o build/extracted_vm_runner "
+        "build/thiele_core.mli build/thiele_core.ml tools/extracted_vm_runner.ml"
+    )
 )
 
 def _run_bundle(

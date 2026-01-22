@@ -11,7 +11,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 SCRIPT = REPO_ROOT / "scripts" / "thermo_experiment.py"
 
 # Check for Coq extraction
-_EXTRACTED_RUNNER = REPO_ROOT / "coq" / "extracted_runner.py"
+_EXTRACTED_RUNNER = REPO_ROOT / "build" / "extracted_vm_runner"
 _HAS_EXTRACTION = _EXTRACTED_RUNNER.exists()
 _HAS_IVERILOG = shutil.which("iverilog") is not None
 
