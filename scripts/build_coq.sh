@@ -52,14 +52,12 @@ if [ "$arg1" == "--clean" ] || [ "$arg1" == "-c" ] || [ "$arg1" == "clean" ]; th
     echo ""
 fi
 
-# Generate Makefile if needed (ensure correct working dir and path)
-COQ_PROJECT_PATH="_CoqProject"
-if [ -f "coq/_CoqProject" ]; then
-    COQ_PROJECT_PATH="coq/_CoqProject"
-fi
-if [ ! -f "Makefile.coq" ] || [ "$COQ_PROJECT_PATH" -nt "Makefile.coq" ]; then
+# Generate Makefile if needed (always use coq/_CoqProject; output in coq/)
+COQ_PROJECT_PATH="coq/_CoqProject"
+COQ_MAKEFILE="coq/Makefile.coq"
+if [ ! -f "$COQ_MAKEFILE" ] || [ "$COQ_PROJECT_PATH" -nt "$COQ_MAKEFILE" ]; then
     echo "📝 Generating Makefile.coq from $COQ_PROJECT_PATH..."
-    coq_makefile -f "$COQ_PROJECT_PATH" -o Makefile.coq
+    (cd coq && coq_makefile -f "_CoqProject" -o "Makefile.coq")
 fi
 
 echo "🔨 Building ALL Coq proofs..."
