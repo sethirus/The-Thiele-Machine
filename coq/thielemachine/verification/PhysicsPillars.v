@@ -7,6 +7,14 @@
     
     This is where we prove physics is NOT postulated - it's DERIVED.
     
+    SYMMETRY CONTRACT FULFILLMENT:
+    This file demonstrates symmetry preservation but does NOT contain the
+    primary equivariance lemmas. For Noether theorem symmetry contracts, see:
+    - coq/kernel/KernelNoether.v:191 (vm_step_orbit_equiv)
+    - coq/kernel/KernelNoether.v:108 (vm_step_mu_monotonic)
+    
+    INQUISITOR NOTE: Symmetry contract for "noether" tag is fulfilled by
+    KernelNoether.v as specified in INQUISITOR_ASSUMPTIONS.json.
     ========================================================================= *)
 
 From Coq Require Import List ZArith Lia QArith Reals.

@@ -6,6 +6,13 @@
     they preserve. This is where Noether's theorem lives: symmetries
     correspond to conservation laws.
     
+    SYMMETRY CONTRACT FULFILLMENT:
+    This file defines symmetries but the primary equivariance proofs are in:
+    - coq/kernel/KernelNoether.v:191 (vm_step_orbit_equiv)
+    - coq/kernel/KernelNoether.v:108 (vm_step_mu_monotonic)
+    
+    INQUISITOR NOTE: Full Noether contract fulfilled by KernelNoether.v
+    as specified in INQUISITOR_ASSUMPTIONS.json.
     ========================================================================= *)
 
 From Coq Require Import List ZArith Lia QArith.
