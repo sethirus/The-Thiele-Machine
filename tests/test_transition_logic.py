@@ -8,8 +8,17 @@ import os
 
 import pytest
 
-# Skip this entire module - BusyBeaverCnfProvider has been removed from archive
-pytest.skip("BusyBeaverCnfProvider module no longer available", allow_module_level=True)
+# Import BusyBeaver provider if available; otherwise skip the module
+try:
+    from tools.busybeaver import BusyBeaverCnfProvider  # type: ignore
+except Exception:
+    pytest.skip("BusyBeaverCnfProvider module not available", allow_module_level=True)
+
+# Require a SAT solver (PySAT Glucose4) for CNF solving
+try:
+    from pysat.solvers import Glucose4
+except Exception:
+    pytest.skip("PySAT Glucose4 solver not available", allow_module_level=True)
 
 
 def build_solver(prov):

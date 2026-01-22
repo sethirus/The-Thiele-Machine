@@ -2,7 +2,7 @@
 # ==========================
 # E1.1: One-Command Reproducibility Demos
 
-.PHONY: help demo_cnf demo_sat demo_analysis demo_all run_all install_deps verify clean_demos closed_work
+.PHONY: help demo_cnf demo_sat demo_analysis demo_all run_all install_deps verify clean_demos closed_work organize
 .PHONY: experiments-small experiments-falsify experiments-budget experiments-full artifacts
 .PHONY: experiments-small-save experiments-falsify-save experiments-budget-save experiments-full-save
 .PHONY: proofpack-smoke proofpack-turbulence-high proofpack-phase3 bell law nusd headtohead turbulence-law turbulence-law-v2 turbulence-closure-v1 self-model-v1
@@ -356,10 +356,29 @@ test-integration: coq-core synth-all test-vm-rtl
 	@echo "  - RTL synthesized"
 	@echo "  - VM-RTL equivalence validated"
 
-# Help update
-.PHONY: help-full
+# Clean build artifacts and cache files
+clean:
+	@echo "Cleaning build artifacts and cache files..."
+	@rm -rf .build_cache/ .test_artifacts/ .generated/
+	@find . -name "*.vo" -delete
+	@find . -name "*.vos" -delete
+	@find . -name "*.vok" -delete
+	@find . -name "*.glob" -delete
+	@find . -name "*.aux" -delete
+	@find . -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null || true
+	@echo "✓ Clean complete"
 
-help-full: help
+# Organize workspace (move artifacts to appropriate directories)
+organize:
+	@echo "Organizing workspace..."
+	@./scripts/auto_organize.sh
+
+# Clean everything including dependencies
+purge: clean
+	@echo "Purging all generated files..."
+	@rm -rf node_modules/ .venv/ venv/ thiele_env/
+	@make -C coq clean
+	@echo "✓ Purge complete"
 	@echo "RTL SYNTHESIS TARGETS:"
 	@echo "  make synth-mu-alu    - Synthesize μ-ALU module"
 	@echo "  make synth-modules   - Synthesize all modules"

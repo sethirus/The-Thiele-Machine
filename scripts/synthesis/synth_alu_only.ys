@@ -1,0 +1,4 @@
+read_verilog -sv -nomem2reg -DYOSYS_LITE -I/workspaces/The-Thiele-Machine/thielecpu/hardware/rtl /workspaces/The-Thiele-Machine/thielecpu/hardware/rtl/mu_alu.v
+synth -top mu_alu
+check
+stat

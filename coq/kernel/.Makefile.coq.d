@@ -175,3 +175,33 @@ BornRule.vos BornRule.vok BornRule.required_vos: BornRule.v
 MasterSummary.vo MasterSummary.glob MasterSummary.v.beautified MasterSummary.required_vo: MasterSummary.v VMState.vo VMStep.vo MuCostModel.vo CHSHExtraction.vo ./ClassicalBound.vo TsirelsonUpperBound.vo TsirelsonUniqueness.vo QuantumEquivalence.vo NoFreeInsight.vo PythonBisimulation.vo HardwareBisimulation.vo NonCircularityAudit.vo
 MasterSummary.vio: MasterSummary.v VMState.vio VMStep.vio MuCostModel.vio CHSHExtraction.vio ./ClassicalBound.vio TsirelsonUpperBound.vio TsirelsonUniqueness.vio QuantumEquivalence.vio NoFreeInsight.vio PythonBisimulation.vio HardwareBisimulation.vio NonCircularityAudit.vio
 MasterSummary.vos MasterSummary.vok MasterSummary.required_vos: MasterSummary.v VMState.vos VMStep.vos MuCostModel.vos CHSHExtraction.vos ./ClassicalBound.vos TsirelsonUpperBound.vos TsirelsonUniqueness.vos QuantumEquivalence.vos NoFreeInsight.vos PythonBisimulation.vos HardwareBisimulation.vos NonCircularityAudit.vos
+NPAMomentMatrix.vo NPAMomentMatrix.glob NPAMomentMatrix.v.beautified NPAMomentMatrix.required_vo: NPAMomentMatrix.v ConstructivePSD.vo
+NPAMomentMatrix.vio: NPAMomentMatrix.v ConstructivePSD.vio
+NPAMomentMatrix.vos NPAMomentMatrix.vok NPAMomentMatrix.required_vos: NPAMomentMatrix.v ConstructivePSD.vos
+SemidefiniteProgramming.vo SemidefiniteProgramming.glob SemidefiniteProgramming.v.beautified SemidefiniteProgramming.required_vo: SemidefiniteProgramming.v 
+SemidefiniteProgramming.vio: SemidefiniteProgramming.v 
+SemidefiniteProgramming.vos SemidefiniteProgramming.vok SemidefiniteProgramming.required_vos: SemidefiniteProgramming.v 
+ConstructivePSD.vo ConstructivePSD.glob ConstructivePSD.v.beautified ConstructivePSD.required_vo: ConstructivePSD.v 
+ConstructivePSD.vio: ConstructivePSD.v 
+ConstructivePSD.vos ConstructivePSD.vok ConstructivePSD.required_vos: ConstructivePSD.v 
+TsirelsonBoundProof.vo TsirelsonBoundProof.glob TsirelsonBoundProof.v.beautified TsirelsonBoundProof.required_vo: TsirelsonBoundProof.v SemidefiniteProgramming.vo NPAMomentMatrix.vo
+TsirelsonBoundProof.vio: TsirelsonBoundProof.v SemidefiniteProgramming.vio NPAMomentMatrix.vio
+TsirelsonBoundProof.vos TsirelsonBoundProof.vok TsirelsonBoundProof.required_vos: TsirelsonBoundProof.v SemidefiniteProgramming.vos NPAMomentMatrix.vos
+TsirelsonBoundDirect.vo TsirelsonBoundDirect.glob TsirelsonBoundDirect.v.beautified TsirelsonBoundDirect.required_vo: TsirelsonBoundDirect.v ConstructivePSD.vo NPAMomentMatrix.vo TsirelsonBoundProof.vo
+TsirelsonBoundDirect.vio: TsirelsonBoundDirect.v ConstructivePSD.vio NPAMomentMatrix.vio TsirelsonBoundProof.vio
+TsirelsonBoundDirect.vos TsirelsonBoundDirect.vok TsirelsonBoundDirect.required_vos: TsirelsonBoundDirect.v ConstructivePSD.vos NPAMomentMatrix.vos TsirelsonBoundProof.vos
+TsirelsonBoundComplete.vo TsirelsonBoundComplete.glob TsirelsonBoundComplete.v.beautified TsirelsonBoundComplete.required_vo: TsirelsonBoundComplete.v ConstructivePSD.vo SemidefiniteProgramming.vo NPAMomentMatrix.vo TsirelsonBoundProof.vo
+TsirelsonBoundComplete.vio: TsirelsonBoundComplete.v ConstructivePSD.vio SemidefiniteProgramming.vio NPAMomentMatrix.vio TsirelsonBoundProof.vio
+TsirelsonBoundComplete.vos TsirelsonBoundComplete.vok TsirelsonBoundComplete.required_vos: TsirelsonBoundComplete.v ConstructivePSD.vos SemidefiniteProgramming.vos NPAMomentMatrix.vos TsirelsonBoundProof.vos
+TsirelsonBoundVerification.vo TsirelsonBoundVerification.glob TsirelsonBoundVerification.v.beautified TsirelsonBoundVerification.required_vo: TsirelsonBoundVerification.v SemidefiniteProgramming.vo NPAMomentMatrix.vo TsirelsonBoundProof.vo
+TsirelsonBoundVerification.vio: TsirelsonBoundVerification.v SemidefiniteProgramming.vio NPAMomentMatrix.vio TsirelsonBoundProof.vio
+TsirelsonBoundVerification.vos TsirelsonBoundVerification.vok TsirelsonBoundVerification.required_vos: TsirelsonBoundVerification.v SemidefiniteProgramming.vos NPAMomentMatrix.vos TsirelsonBoundProof.vos
+MinorConstraints.vo MinorConstraints.glob MinorConstraints.v.beautified MinorConstraints.required_vo: MinorConstraints.v ./ValidCorrelation.vo ./BoxCHSH.vo ./Tier1Proofs.vo
+MinorConstraints.vio: MinorConstraints.v ./ValidCorrelation.vio ./BoxCHSH.vio ./Tier1Proofs.vio
+MinorConstraints.vos MinorConstraints.vok MinorConstraints.required_vos: MinorConstraints.v ./ValidCorrelation.vos ./BoxCHSH.vos ./Tier1Proofs.vos
+ConstantUnification.vo ConstantUnification.glob ConstantUnification.v.beautified ConstantUnification.required_vo: ConstantUnification.v 
+ConstantUnification.vio: ConstantUnification.v 
+ConstantUnification.vos ConstantUnification.vok ConstantUnification.required_vos: ConstantUnification.v 
+TsirelsonBoundTDD.vo TsirelsonBoundTDD.glob TsirelsonBoundTDD.v.beautified TsirelsonBoundTDD.required_vo: TsirelsonBoundTDD.v SemidefiniteProgramming.vo NPAMomentMatrix.vo TsirelsonBoundProof.vo
+TsirelsonBoundTDD.vio: TsirelsonBoundTDD.v SemidefiniteProgramming.vio NPAMomentMatrix.vio TsirelsonBoundProof.vio
+TsirelsonBoundTDD.vos TsirelsonBoundTDD.vok TsirelsonBoundTDD.required_vos: TsirelsonBoundTDD.v SemidefiniteProgramming.vos NPAMomentMatrix.vos TsirelsonBoundProof.vos

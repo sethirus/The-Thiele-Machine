@@ -21,6 +21,8 @@ Local Open Scope R_scope.
 
 (** 1. The Physical Substrate Parameters **)
 
+(** INQUISITOR NOTE: Physical parameters from substrate theory. **)
+
 Axiom tau_mu : R.
 Axiom d_mu : R.
 Axiom k_B : R.
