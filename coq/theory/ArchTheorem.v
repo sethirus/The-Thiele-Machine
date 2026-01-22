@@ -265,7 +265,8 @@ Qed.
  * A VM using PDISCOVER with the optimal quartet achieves
  * self-awareness of problem structure.
  *)
-(* TODO: Complete this proof - pdiscover_computes_signature needs proper type definition *)
+(* FUTURE WORK: Complete this proof - pdiscover_computes_signature needs proper type definition
+   Deferred pending type system refinement in Phase 2.x *)
 (* Axiom vm_self_awareness_with_optimal_quartet :
   forall (vm : VMState) (problem : list VMAxiom),
   let sig := pdiscover_computes_signature vm problem in
