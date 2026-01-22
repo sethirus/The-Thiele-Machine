@@ -225,6 +225,8 @@ Proof.
   destruct Hv1 as [Hv1_lo Hv1_hi].
   destruct Hv2 as [Hv2_lo Hv2_hi].
   (* Construct offspring using midpoint crossover with min length *)
+  (* TRUNCATION SAFETY: Nat.min intentional - crossover point must be within
+     both parent sequences to preserve validity of offspring *)
   exists (crossover s1 s2 (Nat.min (length s1) (length s2) / 2)).
   apply crossover_preserves_viability.
   - split; assumption.

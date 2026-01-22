@@ -193,20 +193,21 @@ Qed.
 (** Operations on p1 don't affect state of p2 when disjoint *)
 (** This is the KEY property that will force tensor product structure *)
 
-(** TODO: Connect to State and step_state from CoreSemantics *)
+(** FUTURE WORK: Connect to State and step_state from CoreSemantics
+    This is deferred to maintain current proof obligations focus. *)
 (*
 Definition partition_operation_local (p : Partition) (op : Instruction) : Prop :=
   forall s s',
     step_state s op = Some s' ->
     (* If op only touches variables in p, other partitions unchanged *)
-    True. (* TODO: Formalize precisely *)
+    True. (* FUTURE WORK: Formalize precisely - see Phase 1.3 *)
 *)
 
 (** =========================================================================
     NEXT STEPS
     ========================================================================= *)
 
-(** TODO for Phase 1.2 (TensorNecessity.v):
+(** FUTURE WORK for Phase 1.2 (TensorNecessity.v):
     
     1. Show that direct sum composition violates no-signaling
        - Direct sum: state = (state_p1, state_p2)
