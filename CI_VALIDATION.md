@@ -1,7 +1,7 @@
 # Phase 5: CI Validation Status
 
 **Date**: 2026-01-22  
-**Branch**: copilot/install-coq-yosys-verilog
+**Branch**: main
 
 ## Overview
 
