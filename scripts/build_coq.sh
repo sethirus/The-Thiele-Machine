@@ -60,12 +60,15 @@ if [ ! -f "$COQ_MAKEFILE" ] || [ "$COQ_PROJECT_PATH" -nt "$COQ_MAKEFILE" ]; then
     (cd coq && coq_makefile -f "_CoqProject" -o "Makefile.coq")
 fi
 
+# Ensure Makefile is discoverable by make (invoke from coq/)
+MAKE_CMD="make -C coq -f Makefile.coq"
+
 echo "🔨 Building ALL Coq proofs..."
 echo "   (Using parallel compilation with $(nproc) cores)"
 echo ""
 
 # Build with make (pipefail ensures make failures are not masked by tee)
-if make -f Makefile.coq -j"$(nproc)" 2>&1 | tee /tmp/coq_build.log; then
+if $MAKE_CMD -j"$(nproc)" 2>&1 | tee /tmp/coq_build.log; then
     echo ""
     
     # Count compiled files
