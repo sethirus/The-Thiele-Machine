@@ -1,8 +1,7 @@
 # Work Summary: Coq/Yosys/Verilog Installation & Verification
 
-**Branch**: copilot/install-coq-yosys-verilog  
+**Branch**: main  
 **Date**: 2026-01-22  
-**Author**: @copilot
 
 ## Overview
 

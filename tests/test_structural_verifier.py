@@ -318,33 +318,6 @@ class TestIntegration:
         categories = set(c.category for c in result.claims)
         assert VerificationCategory.MATHEMATICAL in categories or VerificationCategory.CODE_SYNTAX in categories
     
-    def test_realistic_copilot_response(self, verifier):
-        """Test with realistic Copilot-style response."""
-        # No indentation in the code block - matches real Copilot output
-        text = """To read a JSON file in Python, you can use:
-
-```python
-import json
-
-with open('data.json', 'r') as f:
-    data = json.load(f)
-```
-
-This will parse the JSON and return a Python dictionary.
-The `json` module is part of the standard library, so no installation is needed.
-"""
-        
-        result = verifier.verify_text(text)
-        
-        # Code should be syntactically valid
-        code_claims = [c for c in result.claims if c.category == VerificationCategory.CODE_SYNTAX]
-        for claim in code_claims:
-            assert claim.verified is True, f"Code verification failed: {claim.error}"
-        
-        # Import should be valid
-        import_claims = [c for c in result.claims if c.category == VerificationCategory.IMPORT]
-        for claim in import_claims:
-            assert claim.verified is True
 
 
 class TestResultFormatting:

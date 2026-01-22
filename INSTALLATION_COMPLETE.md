@@ -1,7 +1,7 @@
 # Installation Complete
 
 **Date**: 2026-01-22  
-**Branch**: copilot/install-coq-yosys-verilog
+**Branch**: main
 
 ## Summary
 

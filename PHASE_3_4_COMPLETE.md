@@ -1,7 +1,7 @@
 # Phase 3 & 4 Completion Report
 
 **Date**: 2026-01-22  
-**Branch**: copilot/install-coq-yosys-verilog
+**Branch**: main
 
 ## Summary
 
