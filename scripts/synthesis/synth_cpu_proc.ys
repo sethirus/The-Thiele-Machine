@@ -1,0 +1,5 @@
+read_verilog -sv -nomem2reg -DYOSYS_LITE -I/workspaces/The-Thiele-Machine/thielecpu/hardware/rtl /workspaces/The-Thiele-Machine/thielecpu/hardware/rtl/thiele_cpu_synth.v /workspaces/The-Thiele-Machine/thielecpu/hardware/rtl/mu_alu.v /workspaces/The-Thiele-Machine/thielecpu/hardware/rtl/mu_core.v /workspaces/The-Thiele-Machine/thielecpu/hardware/rtl/receipt_integrity_checker.v
+proc
+synth -top thiele_cpu
+check
+stat

@@ -40,6 +40,7 @@ from thielecpu.assemble import Instruction
 # Paths
 REPO_ROOT = Path(__file__).parent.parent
 HARDWARE_DIR = REPO_ROOT / "thielecpu" / "hardware"
+TESTBENCH_DIR = HARDWARE_DIR / "testbench"
 BUILD_DIR = REPO_ROOT / "build" / "fuzz_tests"
 
 
@@ -240,8 +241,9 @@ def execute_verilog(program: List[Tuple[Opcode, int, int]], work_dir: Path) -> D
         "iverilog",
         "-g2012",  # SystemVerilog 2012
         "-I", str(HARDWARE_DIR),
+        "-I", str(HARDWARE_DIR / "rtl"),  # Include RTL directory for generated_opcodes.vh
         "-o", str(sim_executable),
-        str(HARDWARE_DIR / "fuzz_harness_simple.v"),
+        str(TESTBENCH_DIR / "fuzz_harness_simple.v"),
     ]
     
     try:

@@ -41,6 +41,11 @@ Axiom sqrt2_squared : sqrt2 * sqrt2 = 2.
 Axiom sqrt2_positive : sqrt2 > 0.
 Axiom sqrt2_bounds : 1.4 < sqrt2 < 1.5.
 
+Lemma sqrt2_nonzero : sqrt2 <> 0.
+Proof.
+  pose proof sqrt2_positive. lra.
+Qed.
+
 Definition tsirelson_bound : R := 2 * sqrt2.
 
 (** * Main Theorem *)

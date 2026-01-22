@@ -14,6 +14,7 @@ From Coq Require Import Fin.
 From Coq Require Import Logic.FunctionalExtensionality.
 Local Open Scope R_scope.
 
+
 (** Avoid name collision between Fin.R and Reals.R *)
 Notation RealNumber := Rdefinitions.R.
 
@@ -21,6 +22,7 @@ Notation RealNumber := Rdefinitions.R.
 
 (** Use Fin.t 5 for compile-time bounded indices *)
 Notation Fin5 := (Fin.t 5).
+Notation Fin4 := (Fin.t 4).
 
 (** Helper to convert Fin5 to nat for display/reasoning *)
 Definition fin_to_nat {n} (i : Fin.t n) : nat := proj1_sig (Fin.to_nat i).
@@ -29,12 +31,16 @@ Definition fin_to_nat {n} (i : Fin.t n) : nat := proj1_sig (Fin.to_nat i).
 
 (** A 5×5 matrix using finite indices *)
 Definition Matrix5 : Type := Fin5 -> Fin5 -> RealNumber.
+Definition Matrix4 : Type := Fin4 -> Fin4 -> RealNumber.
 
 (** Compatibility: nat-indexed matrix type for legacy code *)
 Definition Matrix (n : nat) : Type := nat -> nat -> RealNumber.
 
 (** Conversion from nat-indexed to Fin-indexed matrices *)
 Definition nat_matrix_to_fin5 (M : Matrix 5) : Matrix5 :=
+  fun i j => M (proj1_sig (Fin.to_nat i)) (proj1_sig (Fin.to_nat j)).
+
+Definition nat_matrix_to_fin4 (M : Matrix 4) : Matrix4 :=
   fun i j => M (proj1_sig (Fin.to_nat i)) (proj1_sig (Fin.to_nat j)).
 
 (** A 5-vector using finite indices *)
@@ -69,6 +75,30 @@ Proof. reflexivity. Qed.
 Lemma quad5_unfold : forall (M : Matrix5) (v : Vec5),
   quad5 M v = sum_fin5 (fun i => sum_fin5 (fun j => v i * M i j * v j)).
 Proof. reflexivity. Qed.
+
+(** Relate absolute bounds to numeric interval *)
+Lemma Rabs_le_inv : forall x, Rabs x <= 1 -> -1 <= x <= 1.
+Proof.
+  intros x H.
+  assert (Hlow: -1 <= x).
+  { unfold Rabs in H. destruct (Rcase_abs x) as [Hlt | Hge]; simpl in H; lra. }
+  assert (Hhigh: x <= 1).
+  { unfold Rabs in H. destruct (Rcase_abs x) as [Hlt | Hge]; simpl in H; lra. }
+  split; assumption.
+Qed.
+
+(** Simple numeric helper: square bound from absolute bound *)
+Lemma Rabs_sq_le : forall x, Rabs x <= 1 -> x * x <= 1.
+Proof.
+  intros x H.
+  pose proof (Rabs_le_inv x H) as [Hlow Hhigh].
+  (* From -1 <= x <= 1 we have x*x <= 1 *)
+  assert (Hprod: 0 <= (1 - x) * (1 + x)).
+  { apply Rmult_le_pos; lra. }
+  assert (Heq: 1 - x * x = (1 - x) * (1 + x)) by ring.
+  rewrite <- Heq in Hprod.
+  lra.
+Qed.
 
 (** * Linear Algebra Helper Lemmas *)
 
@@ -235,6 +265,52 @@ Proof.
     rewrite sum_fin5_scal. reflexivity. }
   rewrite sum_fin5_scal.
   reflexivity.
+Qed.
+
+Lemma bilinear5_linear_r : forall (M : Matrix5) (u v w : Vec5),
+  bilinear5 M u (fun k => v k + w k) = bilinear5 M u v + bilinear5 M u w.
+Proof.
+  intros M u v w. unfold bilinear5, sum_fin5. ring.
+Qed.
+
+Lemma bilinear5_linear_l : forall (M : Matrix5) (u v w : Vec5),
+  bilinear5 M (fun k => u k + v k) w = bilinear5 M u w + bilinear5 M v w.
+Proof.
+  intros M u v w. unfold bilinear5, sum_fin5. ring.
+Qed.
+
+Lemma bilinear5_scal_l : forall (M : Matrix5) (c : RealNumber) (u v : Vec5),
+  bilinear5 M (fun k => c * u k) v = c * bilinear5 M u v.
+Proof.
+  intros. unfold bilinear5.
+  replace (fun i => sum_fin5 (fun j => (c * u i) * M i j * v j))
+     with (fun i => c * sum_fin5 (fun j => u i * M i j * v j)).
+  - rewrite sum_fin5_scal. reflexivity.
+  - apply functional_extensionality; intro i.
+    rewrite <- sum_fin5_scal.
+    apply f_equal. apply functional_extensionality; intro j.
+    ring.
+Qed.
+
+(* Expansion lemma for a linear combination of three basis vectors *)
+Lemma quad5_e_combo_3 : forall (M : Matrix5) (i j k : Fin5) (c1 c2 c3 : RealNumber),
+  symmetric5 M ->
+  quad5 M (fun idx => c1 * e_basis i idx + c2 * e_basis j idx + c3 * e_basis k idx)
+  = c1*c1*M i i + c2*c2*M j j + c3*c3*M k k + 2*c1*c2*M i j + 2*c1*c3*M i k + 2*c2*c3*M j k.
+Proof.
+  intros M i j k c1 c2 c3 Hsym.
+  replace (fun idx => c1 * e_basis i idx + c2 * e_basis j idx + c3 * e_basis k idx)
+     with (fun idx => (c1 * e_basis i idx) + (c2 * e_basis j idx + c3 * e_basis k idx)).
+  2: { apply functional_extensionality; intro; ring. }
+  rewrite quad5_expansion_bilinear; auto.
+  rewrite quad5_expansion_bilinear; auto.
+  rewrite bilinear5_linear_r.
+  repeat rewrite quad5_scal.
+  repeat rewrite quad5_e_basis.
+  repeat rewrite bilinear5_scal_l.
+  repeat rewrite bilinear5_scal_r.
+  repeat rewrite bilinear5_e_basis.
+  ring.
 Qed.
 
 (** * Constructive Off-Diagonal Bound *)
@@ -534,8 +610,10 @@ Proof.
       (* (1 - y^2) >= 0 because |y| <= 1 from PSD5_off_diagonal_bound *)
       assert (Hy: Rabs y <= 1).
       { apply (PSD5_off_diagonal_bound M i k); auto; lra. }
-      assert (Hy2: -1 <= y <= 1) by (split; [apply Rabs_le_inv |]; apply Rle_trans with (Rabs y); [apply Rle_abs|exact Hy]).
+      assert (Hy_sq: y * y <= 1) by (apply Rabs_sq_le; exact Hy).
       replace (v3 ^ 2) with (v3 * v3) by ring.
+      assert (H1: 0 <= 1 - y * y) by lra.
+      assert (H2: 0 <= v3 * v3) by (apply Rle_0_sqr).
       nra.
     }
     (* Similarly for i=k and j=k *)
@@ -547,8 +625,10 @@ Proof.
         with ((1 - x ^ 2) * v2 ^ 2) by ring.
       assert (Hx: Rabs x <= 1).
       { apply (PSD5_off_diagonal_bound M i j); auto; lra. }
-      assert (Hx2: -1 <= x <= 1) by (split; [apply Rabs_le_inv |]; apply Rle_trans with (Rabs x); [apply Rle_abs|exact Hx]).
+      assert (Hx_sq: x * x <= 1) by (apply Rabs_sq_le; exact Hx).
       replace (v2 ^ 2) with (v2 * v2) by ring.
+      assert (H1: 0 <= 1 - x * x) by lra.
+      assert (H2: 0 <= v2 * v2) by (apply Rle_0_sqr).
       nra.
     }
     destruct (Fin.eq_dec j k) as [Ejk | Nejk]. 
@@ -559,8 +639,10 @@ Proof.
         with ((1 - x ^ 2) * (v2 + v3) ^ 2) by ring.
       assert (Hx: Rabs x <= 1).
       { apply (PSD5_off_diagonal_bound M i j); auto; lra. }
-      assert (Hx2: -1 <= x <= 1) by (split; [apply Rabs_le_inv |]; apply Rle_trans with (Rabs x); [apply Rle_abs|exact Hx]).
+      assert (Hx_sq: x * x <= 1) by (apply Rabs_sq_le; exact Hx).
       replace ((v2 + v3) ^ 2) with ((v2 + v3) * (v2 + v3)) by ring.
+      assert (H1: 0 <= 1 - x * x) by lra.
+      assert (H2: 0 <= (v2 + v3) * (v2 + v3)) by (apply Rle_0_sqr).
       nra.
     }
 
@@ -587,94 +669,20 @@ Proof.
     (* Hpsd >= 0. LHS of expression:
        c1^2 * 1 + c2^2 * 1 + c3^2 * 1 + 2c1c2 x + 2c1c3 y + 2c2c3 z *)
        
-    assert (Hexp: quad5 M V_lin = c1^2 + c2^2 + c3^2 + 2*c1*c2*x + 2*c1*c3*y + 2*c2*c3*z).
+    assert (Hexp: quad5 M V_lin = c1 * c1 + c2 * c2 + c3 * c3 + 2 * c1 * c2 * x + 2 * c1 * c3 * y + 2 * c2 * c3 * z).
     {
-       (* Tedious expansion using bilinearity and e_basis props repeatedly *)
-       (* Or assert intermediate step *)
-       (* We know quad5 M (sum ci ei) = sum sum ci cj M ij *)
-       assert (Hsub: quad5 M V_lin = c1*c1*M i i + c2*c2*M j j + c3*c3*M k k + 2*c1*c2*M i j + 2*c1*c3*M i k + 2*c2*c3*M j k).
-       {
-         (* Basic linear algebra expansion: quad5 M (c1*e1 + c2*e2 + c3*e3) *)
-         (* Expand using quadratic and bilinear forms *)
-         unfold V_lin.
-         (* First expand: (c1*ei + c2*ej + c3*ek) = (c1*ei + (c2*ej + c3*ek)) *)
-         transitivity (quad5 M (fun idx => c1 * e_basis i idx + (c2 * e_basis j idx + c3 * e_basis k idx))).
-         { apply f_equal. apply functional_extensionality; intro idx. ring. }
-
-         (* Apply expansion: quad(u + v) = quad u + 2*bil(u,v) + quad v *)
-         rewrite quad5_expansion_bilinear; [|exact Hsym].
-         rewrite quad5_scal.
-         rewrite bilinear5_scal_r.
-         rewrite quad5_e_basis.
-
-         (* Now expand the second part (c2*ej + c3*ek) *)
-         replace (quad5 M (fun k0 => c2 * e_basis j k0 + c3 * e_basis k k0))
-           with (c2*c2*M j j + 2*c2*c3*M j k + c3*c3*M k k).
-         2: {
-           rewrite quad5_expansion_bilinear; [|exact Hsym].
-           rewrite quad5_scal.
-           rewrite bilinear5_scal_r.
-           rewrite bilinear5_e_basis.
-           rewrite quad5_scal.
-           rewrite quad5_e_basis.
-           rewrite quad5_e_basis.
-           ring.
-         }
-
-         (* Expand bilinear5 M (e_basis i) (fun k0 => c2 * e_basis j k0 + c3 * e_basis k k0) *)
-         replace (bilinear5 M (e_basis i) (fun k0 => c2 * e_basis j k0 + c3 * e_basis k k0))
-           with (c2 * M i j + c3 * M i k).
-         2: {
-           unfold bilinear5.
-           transitivity (sum_fin5 (fun idx => sum_fin5 (fun idx' => e_basis i idx * M idx idx' * (c2 * e_basis j idx' + c3 * e_basis k idx')))).
-           { reflexivity. }
-           transitivity (sum_fin5 (fun idx => e_basis i idx * sum_fin5 (fun idx' => M idx idx' * (c2 * e_basis j idx' + c3 * e_basis k idx')))).
-           { apply f_equal. apply functional_extensionality; intro idx.
-             rewrite <- sum_fin5_scal.
-             apply f_equal. apply functional_extensionality; intro idx'.
-             ring. }
-           rewrite sum_e_basis.
-           transitivity (sum_fin5 (fun idx' => M i idx' * c2 * e_basis j idx' + M i idx' * c3 * e_basis k idx')).
-           { apply f_equal. apply functional_extensionality; intro idx'. ring. }
-           rewrite sum_fin5_linear.
-           rewrite sum_fin5_scal.
-           rewrite sum_fin5_scal.
-           rewrite sum_e_basis_r.
-           rewrite sum_e_basis_r.
-           ring.
-         }
-
-         ring.
-       }
-       rewrite Hsub.
-       rewrite Hii, Hjj, Hkk.
-       unfold x, y, z.
-       (* We need to ensure we used M i j, M i k etc consistently *)
-       (* M j k is z. *)
-       assert (M k j = z) by (rewrite Hsym; reflexivity).
-       assert (M k i = y) by (rewrite Hsym; reflexivity).
-       assert (M j i = x) by (rewrite Hsym; reflexivity).
-       (* bilinear5 M ei ej = Mij = x *)
-       ring.
+      unfold V_lin.
+      replace (fun idx : Fin5 => (- (x * v2 + y * v3)) * e_basis i idx + v2 * e_basis j idx + v3 * e_basis k idx)
+         with (fun idx : Fin5 => c1 * e_basis i idx + c2 * e_basis j idx + c3 * e_basis k idx).
+      2: { apply functional_extensionality; intro; unfold c1, c2, c3; ring. }
+      rewrite quad5_e_combo_3; auto.
+      unfold x, y, z. rewrite Hii, Hjj, Hkk. ring.
     }
     
     (* Now simplified algebraic form *)
     rewrite Hexp in Hpsd.
-    (* Substitute c1 = - (x v2 + y v3) *)
-    unfold c1, c2, c3 in Hpsd.
-    (* We claim LHS equals (1-x^2)v2^2 + ... *)
-    (* (-(xv2+yv3))^2 + v2^2 + v3^2 + 2(-(xv2+yv3))v2 x + 2(-(xv2+yv3))v3 y + 2 v2 v3 z *)
-    (* = (x v2 + y v3)^2 + v2^2 + v3^2 - 2(x v2 + y v3)(x v2) - 2(x v2 + y v3)(y v3) + 2 v2 v3 z *)
-    (* = (K)^2 + v2^2 + v3^2 - 2 K (x v2) - 2 K (y v3) + ... *)
-    (* = (K)^2 - 2 K (x v2 + y v3) + ... *)
-    (* = K^2 - 2 K^2 + ... *)
-    (* = - K^2 + v2^2 + v3^2 + 2 v2 v3 z *)
-    (* = - (x v2 + y v3)^2 + v2^2 + v3^2 + 2 v2 v3 z *)
-    (* = - (x^2 v2^2 + y^2 v3^2 + 2xy v2 v3) + v2^2 + v3^2 + 2 z v2 v3 *)
-    (* = v2^2 (1 - x^2) + v3^2 (1 - y^2) + 2 v2 v3 (z - xy) *)
-    replace ((- (x * v2 + y * v3)) ^ 2 + v2 ^ 2 + v3 ^ 2 + 2 * (- (x * v2 + y * v3)) * v2 * x +
-       2 * (- (x * v2 + y * v3)) * v3 * y + 2 * v2 * v3 * z) with
-       ((1 - x ^ 2) * v2 ^ 2 + 2 * (z - x * y) * v2 * v3 + (1 - y ^ 2) * v3 ^ 2) in Hpsd by ring.
+    replace ((1 - x ^ 2) * v2 ^ 2 + 2 * (z - x * y) * v2 * v3 + (1 - y ^ 2) * v3 ^ 2) 
+       with (c1 * c1 + c2 * c2 + c3 * c3 + 2 * c1 * c2 * x + 2 * c1 * c3 * y + 2 * c2 * c3 * z) by (unfold c1, c2, c3; ring).
     exact Hpsd.
   }
 
@@ -715,50 +723,16 @@ Lemma PSD5_convex : forall (M1 M2 : Matrix5) (lambda : RealNumber),
   PSD5 (fun i j => lambda * M1 i j + (1 - lambda) * M2 i j).
 Proof.
   intros M1 M2 lambda Hlambda Hpsd1 Hpsd2.
-  unfold PSD5 in *.
   intro v.
   unfold quad5.
-  (* Linearity of quadratic form *)
-  (* quad (A+B) = quad A + quad B *)
-  (* quad (cA) = c quad A *)
-  (* We prove directly by expanding sum *)
-  match goal with
-  | |- sum_fin5 (fun i => sum_fin5 (fun j => v i * (lambda * M1 i j + (1 - lambda) * M2 i j) * v j)) >= 0 =>
-    replace (sum_fin5 (fun i => sum_fin5 (fun j => v i * (lambda * M1 i j + (1 - lambda) * M2 i j) * v j)))
-    with (lambda * quad5 M1 v + (1 - lambda) * quad5 M2 v)
-  end.
-  - apply Rle_ge. apply Rplus_le_le_0_compat.
-    + apply Rmult_le_pos; [lra | apply Rge_le; apply Hpsd1].
-    + apply Rmult_le_pos; [lra | apply Rge_le; apply Hpsd2].
-  - (* Simplify sum linearity *)
-    unfold quad5.
-    (* Distribute the sum over lambda * M1 + (1-lambda) * M2 *)
-    transitivity (sum_fin5 (fun i0 => sum_fin5 (fun j0 => v i0 * (lambda * M1 i0 j0) * v j0 +
-                                                           v i0 * ((1 - lambda) * M2 i0 j0) * v j0))).
-    { apply f_equal. apply functional_extensionality; intro i0.
-      apply f_equal. apply functional_extensionality; intro j0.
-      ring. }
-    transitivity (sum_fin5 (fun i0 => sum_fin5 (fun j0 => v i0 * (lambda * M1 i0 j0) * v j0) +
-                                       sum_fin5 (fun j0 => v i0 * ((1 - lambda) * M2 i0 j0) * v j0))).
-    { apply f_equal. apply functional_extensionality; intro i0.
-      apply sum_fin5_linear. }
-    rewrite sum_fin5_linear.
-    transitivity (lambda * sum_fin5 (fun i0 => sum_fin5 (fun j0 => v i0 * M1 i0 j0 * v j0)) +
-                  (1 - lambda) * sum_fin5 (fun i0 => sum_fin5 (fun j0 => v i0 * M2 i0 j0 * v j0))).
-    { f_equal.
-      - transitivity (sum_fin5 (fun i0 => lambda * sum_fin5 (fun j0 => v i0 * M1 i0 j0 * v j0))).
-        { apply f_equal. apply functional_extensionality; intro i0.
-          transitivity (sum_fin5 (fun j0 => lambda * (v i0 * M1 i0 j0 * v j0))).
-          { apply f_equal. apply functional_extensionality; intro j0. ring. }
-          apply sum_fin5_scal. }
-        apply sum_fin5_scal.
-      - transitivity (sum_fin5 (fun i0 => (1 - lambda) * sum_fin5 (fun j0 => v i0 * M2 i0 j0 * v j0))).
-        { apply f_equal. apply functional_extensionality; intro i0.
-          transitivity (sum_fin5 (fun j0 => (1 - lambda) * (v i0 * M2 i0 j0 * v j0))).
-          { apply f_equal. apply functional_extensionality; intro j0. ring. }
-          apply sum_fin5_scal. }
-        apply sum_fin5_scal. }
-    reflexivity.
+  replace (sum_fin5 (fun i => sum_fin5 (fun j => v i * (lambda * M1 i j + (1 - lambda) * M2 i j) * v j)))
+     with (lambda * quad5 M1 v + (1 - lambda) * quad5 M2 v).
+  { apply Rle_ge. apply Rplus_le_le_0_compat.
+    - apply Rmult_le_pos; [lra | apply Rge_le; apply Hpsd1].
+    - apply Rmult_le_pos; [lra | apply Rge_le; apply Hpsd2]. }
+  unfold quad5.
+  unfold sum_fin5.
+  ring.
 Qed.
 
 (** * Reduction to Symmetric Case *)

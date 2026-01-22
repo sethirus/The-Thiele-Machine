@@ -40,7 +40,6 @@ CTOR_RE = re.compile(r"^\s*\|\s*([A-Za-z0-9_']+)\b")
 # IMPORTANT: This is an allowlist. If the IR grows a new tag unexpectedly,
 # Foundry should still fail unless that mnemonic is explicitly allowed here.
 IGNORED_COQ_MNEMONICS: set[str] = {
-    "REVEAL",
 }
 
 

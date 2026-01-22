@@ -236,29 +236,18 @@ Proof.
     unfold PSD, PSD_5, I.
     repeat split; simpl; try (rewrite Nat.eqb_refl; lra).
     + (* M 0 0 >= 0: I[0,0] = 1 >= 0 *)
-      rewrite Nat.eqb_refl. lra.
+      simpl. now lra.
     + (* minor2_topleft >= 0 *)
       unfold minor2_topleft, det2. simpl.
-      rewrite Nat.eqb_refl.
-      assert (H01: Nat.eqb 0 1 = false) by reflexivity.
-      assert (H10: Nat.eqb 1 0 = false) by reflexivity.
-      assert (H11: Nat.eqb 1 1 = true) by reflexivity.
-      rewrite H01, H10, H11. lra.
+      vm_compute. lra.
     + (* minor3_topleft >= 0 *)
       unfold minor3_topleft, det3_matrix. simpl.
-      repeat match goal with
-      | |- context[Nat.eqb ?x ?y] =>
-          let H := fresh in
-          destruct (Nat.eqb x y) eqn:H; try reflexivity
-      end; try lra.
+      (* compute determinant value directly *)
+      vm_compute. lra.
     + (* det4_matrix >= 0 *)
       unfold det4_matrix. simpl.
-      (* For I_4, det = 1. Proof by computation *)
-      repeat match goal with
-      | |- context[Nat.eqb ?x ?y] =>
-          let H := fresh in
-          destruct (Nat.eqb x y) eqn:H; try reflexivity
-      end; try lra.
+      (* For I_4, det = 1. Proof by direct computation *)
+      vm_compute. lra.
     + (* det5_matrix >= 0 *)
       unfold det5_matrix. simpl.
       (* For I_5, det = 1 by standard linear algebra.
@@ -273,7 +262,8 @@ Proof.
 
       (* We rely on the computational simplification: when all off-diagonal entries are 0,
          only the diagonal product survives in the determinant expansion *)
-      admit. (* Standard result: det(I_5) = 1. Full proof by computation ~150 lines *)
+      (* Compute det(I_5) directly and discharge by computation *)
+      unfold det5_matrix. vm_compute. lra.
   - intros i Hi. unfold PSD, I. simpl.
     destruct (Nat.eqb i i) eqn:E; [lra | apply Nat.eqb_neq in E; contradiction].
 Qed.

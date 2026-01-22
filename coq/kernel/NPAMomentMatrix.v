@@ -160,9 +160,36 @@ Definition npa_to_matrix (npa : NPAMomentMatrix) : Matrix 5 :=
 (** * Quantum Realizability *)
 
 (** A moment matrix is quantum realizable if it's PSD and symmetric *)
+(** A moment matrix is quantum realizable if it's PSD and symmetric *)
 Definition quantum_realizable (npa : NPAMomentMatrix) : Prop :=
   let M := nat_matrix_to_fin5 (npa_to_matrix npa) in
   symmetric5 M /\ PSD5 M.
+
+Definition zero_marginal_npa (E00 E01 E10 E11 : R) : NPAMomentMatrix := {|
+  npa_EA0 := 0;
+  npa_EA1 := 0;
+  npa_EB0 := 0;
+  npa_EB1 := 0;
+  npa_E00 := E00;
+  npa_E01 := E01;
+  npa_E10 := E10;
+  npa_E11 := E11;
+  npa_rho_AA := 0;
+  npa_rho_BB := 0;
+|}.
+
+Definition zero_marginal_matrix (E00 E01 E10 E11 : R) : Matrix 5 := 
+  npa_to_matrix (zero_marginal_npa E00 E01 E10 E11).
+
+Definition correlator_4x4 (E00 E01 E10 E11 : R) : Matrix 4 := 
+  fun i j => 
+    match i, j with 
+    | 0, 0 => 1   | 0, 1 => 0   | 0, 2 => E00 | 0, 3 => E01 
+    | 1, 0 => 0   | 1, 1 => 1   | 1, 2 => E10 | 1, 3 => E11 
+    | 2, 0 => E00 | 2, 1 => E10 | 2, 2 => 1   | 2, 3 => 0 
+    | 3, 0 => E01 | 3, 1 => E11 | 3, 2 => 0   | 3, 3 => 1 
+    | _, _ => 0 
+    end.
 
 (** * Extract CHSH Correlations *)
 
