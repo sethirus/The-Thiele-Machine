@@ -41,4 +41,4 @@ jobs:
           python3 scripts/check_pip_audit.py
 
       - name: Run receipt tests
-        run: pytest -q tests/test_receipt_chain.py tests/test_properties.py
+        run: PYTHONPATH=. pytest -q tests/test_receipt_chain.py tests/test_properties.py
