@@ -52,10 +52,14 @@ if [ "$arg1" == "--clean" ] || [ "$arg1" == "-c" ] || [ "$arg1" == "clean" ]; th
     echo ""
 fi
 
-# Generate Makefile if needed
-if [ ! -f "Makefile.coq" ] || [ "_CoqProject" -nt "Makefile.coq" ]; then
-    echo "📝 Generating Makefile.coq from _CoqProject..."
-    coq_makefile -f _CoqProject -o Makefile.coq
+# Generate Makefile if needed (ensure correct working dir and path)
+COQ_PROJECT_PATH="_CoqProject"
+if [ -f "coq/_CoqProject" ]; then
+    COQ_PROJECT_PATH="coq/_CoqProject"
+fi
+if [ ! -f "Makefile.coq" ] || [ "$COQ_PROJECT_PATH" -nt "Makefile.coq" ]; then
+    echo "📝 Generating Makefile.coq from $COQ_PROJECT_PATH..."
+    coq_makefile -f "$COQ_PROJECT_PATH" -o Makefile.coq
 fi
 
 echo "🔨 Building ALL Coq proofs..."
@@ -68,7 +72,7 @@ if make -f Makefile.coq -j"$(nproc)" 2>&1 | tee /tmp/coq_build.log; then
     
     # Count compiled files
     vo_count=$(find coq -name "*.vo" | wc -l)
-    project_v_count=$(grep -E '^[[:space:]]*coq/.*\.v$' _CoqProject | wc -l)
+    project_v_count=$(grep -E '^[[:space:]]*coq/.*\.v$' "$COQ_PROJECT_PATH" | wc -l)
     
     echo -e "${GREEN}✅ SUCCESS: All Coq proofs compiled${NC}"
     echo "   Compiled: $vo_count/$project_v_count project files"
@@ -80,7 +84,7 @@ root = Path('coq')
 all_v = sorted(p.as_posix() for p in root.rglob('*.v'))
 listed = set(
     line.strip()
-    for line in Path('_CoqProject').read_text(encoding='utf-8', errors='ignore').splitlines()
+    for line in Path('$COQ_PROJECT_PATH').read_text(encoding='utf-8', errors='ignore').splitlines()
     if line.strip().startswith('coq/') and line.strip().endswith('.v')
 )
 unlisted = [p for p in all_v if p not in listed]
@@ -96,7 +100,7 @@ root = Path('coq')
 all_v = sorted(p.as_posix() for p in root.rglob('*.v'))
 listed = set(
     line.strip()
-    for line in Path('_CoqProject').read_text(encoding='utf-8', errors='ignore').splitlines()
+    for line in Path('$COQ_PROJECT_PATH').read_text(encoding='utf-8', errors='ignore').splitlines()
     if line.strip().startswith('coq/') and line.strip().endswith('.v')
 )
 unlisted = [p for p in all_v if p not in listed]
