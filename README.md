@@ -4,7 +4,7 @@
 
 **The claim:** Insight is not free. Every time a computer "figures something out" — factors a number, finds a pattern, solves a puzzle — it pays a cost. Not time. Not memory. *Information*. I call this cost the **μ-bit**.
 
-**The proof:** 260 Coq proof files (~55K lines). Zero admits in kernel (zero Admitted statements anywhere). 52 axioms (external mathematical results: quantum mechanics, linear algebra, numerical analysis). Machine-verified by Inquisitor. The proofs compile. The 698 tests pass. The hardware synthesizes.
+**The proof:** 273 Coq proof files (~55K lines). Zero admits in kernel (zero Admitted statements anywhere). 52 axioms (external mathematical results: quantum mechanics, linear algebra, numerical analysis). Machine-verified by Inquisitor. The proofs compile. The 698 tests pass. The hardware synthesizes.
 
 **Who I am:** I'm not an academic. I'm a car salesman who taught himself to code. No CS degree, no formal math training. I just kept asking "why?" and pulling on threads until I ended up here—proving theorems in a proof assistant I'd never heard of a year ago. The proofs don't care about credentials. They compile or they don't.
 
@@ -38,7 +38,7 @@ This is as fundamental as thermodynamics. You can't get something for nothing �
 
 | What | Status |
 |------|--------|
-| Coq proofs | **260 files (~55K lines), 0 Admitted anywhere, 52 axioms (Inquisitor PASS)** |
+| Coq proofs | **273 files (~55K lines), 0 Admitted anywhere, 52 axioms (Inquisitor PASS)** |
 | Python VM | **Working, tested, receipt-verified** |
 | Verilog RTL | **Synthesizable, FPGA-ready** |
 | Test suite | **698 tests passing (including 54 permanent proof tests)** |
@@ -359,7 +359,7 @@ iverilog thielecpu/hardware/*.v -o thiele_cpu
 
 ```
 The-Thiele-Machine/
-├── coq/                    # 260 Coq proof files (~55K lines, 0 Admitted, 52 axioms)
+├── coq/                    # 273 Coq proof files (~55K lines, 0 Admitted, 52 axioms)
 │   ├── kernel/             # Core theorems (86 files: MuInitiality, NoFreeInsight, CHSH bounds, etc.)
 │   ├── thielemachine/      # Main VM proofs (98 files: Bell, verification, deliverables)
 │   ├── nofi/               # No Free Insight functor architecture (5 files)
