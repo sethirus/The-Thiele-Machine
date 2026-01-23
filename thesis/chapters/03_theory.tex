@@ -1584,25 +1584,28 @@ This is the computational analog of Noether's theorem: the gauge symmetry (abili
 
 \section{Quantum Axioms from $\mu$-Accounting}
 
-Here's the thing nobody told you about quantum mechanics: it's not weird physics, it's bookkeeping. Every quantum axiom---no-cloning, unitarity, the Born rule, purification---these all fall out of the same conservation law we've been building. You set $\mu = 0$ and suddenly you can't clone, can't be non-unitary, can't have any probability rule other than Born's. The mathematics demands it.
+The following section explores connections between $\mu$-accounting and quantum mechanical axioms. Several quantum properties---no-cloning, unitarity constraints, Born rule structure, and purification---have information-theoretic formulations that connect to conservation principles. These are formalized in the Coq development with zero Admitted statements.
 
 \subsection{No-Cloning from $\mu$-Conservation}
 
-Everyone knows you can't clone quantum states. Textbooks invoke linearity of quantum mechanics. But that's backwards---linearity is a consequence, not a cause. Here's what's actually happening:
+The no-cloning theorem states that perfect cloning of unknown quantum states is impossible. The standard proof uses linearity of quantum mechanics. Here we present an information-theoretic derivation:
 
 \begin{theorem}[No-Cloning from Conservation]
 If the $\mu$-ledger is conserved (no free insight), then perfect cloning is impossible. Any cloning operation requires $\mu > 0$ proportional to the information content of the original state.
 \end{theorem}
 
-\textbf{Why?} Cloning duplicates information without destroying the original. That's information creation. Where does it come from? The $\mu$-ledger. If you try to clone without paying, you've violated conservation. Done.
+\textbf{Intuition:} Cloning would duplicate information without destroying the original. This would violate information conservation: the output contains more information than the input plus the cost paid. The proof formalizes this as a contradiction.
 
 Proven as \texttt{no\_cloning\_from\_conservation} in \path{coq/kernel/NoCloning.v}:
 \begin{lstlisting}
 Theorem no_cloning_from_conservation :
-  forall C : CloningOperation,
-    (forall q, C.(fidelity) q = 1 /\ C.(mu_cost) q = 0) ->
-    False.
+  forall op : CloningOperation,
+    nontrivial_input op ->
+    respects_conservation op ->
+    is_perfect_clone op ->
+    ~ is_zero_cost op.
 \end{lstlisting}
+This states: for any cloning operation on a non-trivial input, if conservation is respected and cloning is perfect, then the operation cannot have zero cost.
 
 \paragraph{What This Proves:}
 \begin{itemize}
