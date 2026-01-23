@@ -11,12 +11,19 @@ January 2026
 
 Abstract
 This thesis presents the Thiele Machine, a formal model of computation that
-treats structural information as a costly resource.
+treats structural information as a costly resource. It was built by asking questions
+that couldn’t be answered and pulling on threads until they led somewhere real.
+I am not a computer scientist. I have no formal training in mathematics, physics,
+or programming. I’m a car salesman who taught himself to code with modern
+tools (including AI assistance) and stubborn curiosity. Everything here—238
+Coq proof files, 2,000+ machine-checked theorems, a working VM, synthesizable
+hardware—was built through persistence, not credentials. I mention this because
+it matters: the proofs compile or they don’t. They don’t care who wrote them.
 The core idea: classical computers are “blind” to structure. When you give a
 computer a sorted list, it doesn’t know it’s sorted—it has to check. This blindness
 costs time. The Thiele Machine makes that cost explicit through the µ-bit, an
 atomic unit of structural information cost.
-What is proven (in Coq, with zero admits and documented axioms):
+What is proven (in Coq, with zero admits and zero axioms):
 • No Free Insight: You cannot narrow the search space without paying for
 it. ∆µ ≥ log2 (Ω) − log2 (Ω′ ).
 • µ-Conservation: The ledger grows monotonically and bounds irreversible
@@ -28,16 +35,17 @@ of many.
 What is built:
 • Coq formal kernel (260 files, zero admits)
 • Python reference VM with cryptographic receipts
-• Synthesizable Verilog RTL (FPGA-ready)
-• 698 automated tests enforcing 3-layer isomorphism
-The project is open source and documented. The proofs stand or fall on their own
-merits.
 
-Keywords: Formal Verification, Coq, Computational Complexity, Information
 2
 
 3
 
+• Synthesizable Verilog RTL (FPGA-ready)
+• 698 automated tests enforcing 3-layer isomorphism
+If you can find an error, find it. Everything is open source, documented, and
+testable. The proofs stand or fall on their own merits.
+
+Keywords: Formal Verification, Coq, Computational Complexity, Information
 Theory, Hardware Synthesis, Partition Logic
 
 Contents
@@ -73,33 +81,33 @@ Abstract
 17
 17
 17
-18
-19
 19
 19
 20
-21
+20
 21
 21
 22
 22
+22
 23
-23
+24
 24
 24
 25
 25
+25
 26
-26
+27
 
 2 Background and Related Work
-28
-2.1 Why This Background Matters . . . . . . . . . . . . . . . . . . . . 28
-2.1.1 What You Need to Know . . . . . . . . . . . . . . . . . . . . 28
-2.1.2 The Central Question . . . . . . . . . . . . . . . . . . . . . . 28
-2.1.3 How to Read This Chapter . . . . . . . . . . . . . . . . . . . 29
-2.2 Classical Computational Models . . . . . . . . . . . . . . . . . . . . 29
-2.2.1 The Turing Machine: Formal Definition . . . . . . . . . . . . 29
+29
+2.1 Why This Background Matters . . . . . . . . . . . . . . . . . . . . 29
+2.1.1 What You Need to Know . . . . . . . . . . . . . . . . . . . . 29
+2.1.2 The Central Question . . . . . . . . . . . . . . . . . . . . . . 29
+2.1.3 How to Read This Chapter . . . . . . . . . . . . . . . . . . . 30
+2.2 Classical Computational Models . . . . . . . . . . . . . . . . . . . . 30
+2.2.1 The Turing Machine: Formal Definition . . . . . . . . . . . . 30
 4
 
 CONTENTS
@@ -143,23 +151,19 @@ Chapter Summary . . . . . . . . . . . . . . . . . . . . . . . . . . .
 
 5
 
-30
 31
 32
-32
+33
 33
 34
 35
-35
-37
-37
-37
-37
+36
+36
 38
 38
 38
 38
-38
+39
 39
 39
 39
@@ -167,6 +171,10 @@ Chapter Summary . . . . . . . . . . . . . . . . . . . . . . . . . . .
 40
 40
 40
+40
+40
+41
+41
 
 3 Theory: The Thiele Machine Model
 42
@@ -245,21 +253,21 @@ Chapter Summary . . . . . . . . . . . . . . . . . . . . . . . . . . .
 4 Implementation: The 3-Layer Isomorphism
 95
 4.1 Why Three Layers? . . . . . . . . . . . . . . . . . . . . . . . . . . . 95
-4.1.1 Building Trust Through Multi-Layer Verification . . . . . . . 95
-4.1.2 The Problem of Trust . . . . . . . . . . . . . . . . . . . . . . 96
+4.1.1 A Car Salesman’s Take on Building Trust . . . . . . . . . . 95
+4.1.2 The Problem of Trust (The Academic Version) . . . . . . . . 96
 4.1.3 The Three Layers . . . . . . . . . . . . . . . . . . . . . . . . 96
-4.1.4 The Isomorphism Invariant . . . . . . . . . . . . . . . . . . . 96
-4.1.5 How to Read This Chapter . . . . . . . . . . . . . . . . . . . 97
+4.1.4 The Isomorphism Invariant . . . . . . . . . . . . . . . . . . . 97
+4.1.5 How to Read This Chapter . . . . . . . . . . . . . . . . . . . 98
 4.2 The 3-Layer Isomorphism Architecture . . . . . . . . . . . . . . . . 98
 4.3 Layer 1: The Formal Kernel (Coq) . . . . . . . . . . . . . . . . . . 98
 4.3.1 Structure of the Formal Kernel . . . . . . . . . . . . . . . . 98
 4.3.2 The VMState Record . . . . . . . . . . . . . . . . . . . . . . 99
-4.3.3 The Partition Graph . . . . . . . . . . . . . . . . . . . . . . 101
+4.3.3 The Partition Graph . . . . . . . . . . . . . . . . . . . . . . 102
 4.3.4 The Step Relation . . . . . . . . . . . . . . . . . . . . . . . . 103
 4.3.5 Extraction . . . . . . . . . . . . . . . . . . . . . . . . . . . . 106
 4.4 Layer 2: The Reference VM (Python) . . . . . . . . . . . . . . . . . 108
 4.4.1 Architecture Overview . . . . . . . . . . . . . . . . . . . . . 108
-4.4.2 State Representation . . . . . . . . . . . . . . . . . . . . . . 110
+4.4.2 State Representation . . . . . . . . . . . . . . . . . . . . . . 111
 
 CONTENTS
 
@@ -283,10 +291,10 @@ Layer 3: The Physical Core (Verilog) . . . . . . . . . . . . . . . . . 122
 4.5.1 Module Hierarchy . . . . . . . . . . . . . . . . . . . . . . . . 123
 4.5.2 The Main CPU . . . . . . . . . . . . . . . . . . . . . . . . . 123
 4.5.3 State Machine . . . . . . . . . . . . . . . . . . . . . . . . . . 125
-4.5.4 Instruction Encoding . . . . . . . . . . . . . . . . . . . . . . 127
+4.5.4 Instruction Encoding . . . . . . . . . . . . . . . . . . . . . . 128
 4.5.5 µ-Accumulator Updates . . . . . . . . . . . . . . . . . . . . 129
 4.5.6 The µ-ALU . . . . . . . . . . . . . . . . . . . . . . . . . . . 131
-4.5.7 Logic Engine Interface . . . . . . . . . . . . . . . . . . . . . 134
+4.5.7 Logic Engine Interface . . . . . . . . . . . . . . . . . . . . . 135
 Isomorphism Verification . . . . . . . . . . . . . . . . . . . . . . . . 136
 4.6.1 The Isomorphism Gate . . . . . . . . . . . . . . . . . . . . . 137
 4.6.2 State Projection . . . . . . . . . . . . . . . . . . . . . . . . . 137
@@ -618,7 +626,7 @@ D.2.1 Wave Propagation Model . . . . . . . . . . . . . . . . . . . . 364
 D.2.2 Dissipative Model . . . . . . . . . . . . . . . . . . . . . . . . 367
 D.2.3 Discrete Model . . . . . . . . . . . . . . . . . . . . . . . . . 367
 D.3 Physical Constant Derivation . . . . . . . . . . . . . . . . . . . . . 367
-D.3.1 The Planck Constant: A Successful Derivation . . . . . . . . 367
+D.3.1 The Planck Constant: A Successful Derivation . . . . . . . . 368
 D.3.2 Speed of Light: Structure Without Value . . . . . . . . . . . 369
 D.3.3 Gravitational Constant: Highly Speculative . . . . . . . . . 371
 D.3.4 Particle Masses: Free Parameters . . . . . . . . . . . . . . . 372
@@ -635,18 +643,18 @@ D.4.1 Period Finding . . . . . . . . . . . . . . . . . . . . . . . . . 374
 D.4.2 Verified Examples . . . . . . . . . . . . . . . . . . . . . . . . 377
 D.4.3 Euclidean Algorithm . . . . . . . . . . . . . . . . . . . . . . 377
 D.4.4 Modular Arithmetic . . . . . . . . . . . . . . . . . . . . . . 379
-D.5 Bridge Modules . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 380
-D.5.1 Randomness Bridge . . . . . . . . . . . . . . . . . . . . . . . 380
+D.5 Bridge Modules . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 381
+D.5.1 Randomness Bridge . . . . . . . . . . . . . . . . . . . . . . . 381
 D.5.2 BoxWorld Bridge . . . . . . . . . . . . . . . . . . . . . . . . 382
 D.5.3 FiniteQuantum Bridge . . . . . . . . . . . . . . . . . . . . . 383
 D.6 Flagship DI Randomness Track . . . . . . . . . . . . . . . . . . . . 384
 D.6.1 Protocol Flow . . . . . . . . . . . . . . . . . . . . . . . . . . 384
 D.6.2 The Quantitative Bound . . . . . . . . . . . . . . . . . . . . 384
-D.6.3 Conflict Chart . . . . . . . . . . . . . . . . . . . . . . . . . . 385
+D.6.3 Conflict Chart . . . . . . . . . . . . . . . . . . . . . . . . . . 386
 D.7 Theory of Everything Limits . . . . . . . . . . . . . . . . . . . . . . 386
 D.7.1 What the Kernel Forces . . . . . . . . . . . . . . . . . . . . 386
 D.7.2 What the Kernel Cannot Force . . . . . . . . . . . . . . . . 387
-D.8 Complexity Comparison . . . . . . . . . . . . . . . . . . . . . . . . 389
+D.8 Complexity Comparison . . . . . . . . . . . . . . . . . . . . . . . . 390
 D.9 Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 390
 E Hardware Implementation and Demonstrations
 391
@@ -721,15 +729,17 @@ Introduction
 
 What Is This Document?
 
-This document presents the Thiele Machine, a formal model of computation
-with explicit structural cost accounting. The implementation includes machineverified proofs in Coq, a working virtual machine, and synthesizable hardware—all
-implementing the same computational model, all provably isomorphic.
+Let me be straight with you: I’m a car salesman. I started programming in
+January 2025. One year later, I’m presenting machine-verified proofs in Coq, a
+working virtual machine, and synthesizable hardware—all implementing the same
+computational model, all provably isomorphic.
+If that sounds impossible, good. Read the proofs. They compile.
 
 1.1.1
 
 Scope and Claims Boundary
 
-This thesis makes claims at three levels:
+This thesis makes claims at three levels. I’m explicit about which is which:
 Three Levels of Claims
 1. Kernel theorems (Proven): Machine-checked proofs in Coq establish
 properties like µ-monotonicity, No Free Insight, and observational
@@ -744,68 +754,78 @@ tests on shared observables.
 
 For the Newcomer
 
-The Thiele Machine is a model of computation where structural information
+The Thiele Machine is a new model of computation where structural information
 costs something.
-Classical computers are blind. A Turing machine can only see one tape cell at a
-time. It can compute anything—but to know that a graph has two disconnected
+
 17
 
 CHAPTER 1. INTRODUCTION
 
 18
 
+Classical computers are blind. A Turing machine can only see one tape cell at a
+time. It can compute anything—but to know that a graph has two disconnected
 components, or that a formula decomposes into independent sub-problems, it has
 to do the work to discover that structure. The structure was always there. The
 machine just couldn’t see it.
 The Thiele Machine can see structure. But it has to pay for what it sees. That’s
-the core idea.
-For clarity, the term structure to mean explicit, checkable constraints about how
-parts of a computational state relate. Formally, a piece of structure is a predicate
-over a subset of state variables (or a partition of state) that can be verified by a
-logic engine or certificate checker. Examples include: a memory region forming a
-balanced search tree, a graph decomposing into disconnected components, or a set
-of variables being independent. In classical models, these relationships are present
-only as interpretations external to the machine. Here, they become internal objects
-with a measured cost, so a program must explicitly pay to assert or certify them.
-In the formal model, this “internal object” is realized by a partition graph whose
-modules carry axiom strings (SMT-LIB constraints). The partition graph and
-axiom sets are part of the machine state, and operations such as PNEW, PSPLIT, and
-LASSERT modify them. This makes structural knowledge something the machine
-can track, charge for, and expose in its observable projection rather than something
-the reader assumes from the outside.
+the whole idea.
+About me: I’m not an academic. I have no CS degree, no math degree, no physics
+degree. I’m a 40-year-old car salesman who taught himself to program a year ago.
+I don’t know Coq, Python, or Verilog—not really. I used AI tools (Claude and
+other assistants) to help build everything, then verified obsessively that it actually
+works. The proofs compile. The tests pass. The hardware synthesizes. I checked
+all of it multiple ways because I don’t trust myself. The proofs stand or fall on
+their own merits, not on credentials. If someone like me can direct the creation of
+formally verified systems, the barriers are lower than people think.
+For clarity, I will use the term structure to mean explicit, checkable constraints
+about how parts of a computational state relate. Formally, a piece of structure is
+a predicate over a subset of state variables (or a partition of state) that can be
+verified by a logic engine or certificate checker. Examples include: a memory region
+forming a balanced search tree, a graph decomposing into disconnected components,
+or a set of variables being independent. In classical models, these relationships
+are present only as interpretations external to the machine. Here, they become
+internal objects with a measured cost, so a program must explicitly pay to assert or
+certify them. In the formal model, this “internal object” is realized by a partition
+graph whose modules carry axiom strings (SMT-LIB constraints). The partition
+graph and axiom sets are part of the machine state, and operations such as PNEW,
+PSPLIT, and LASSERT modify them. This makes structural knowledge something
+the machine can track, charge for, and expose in its observable projection rather
+than something the reader assumes from the outside.
 If you are new to theoretical computer science, here is what you need to know:
-• Problem: Computers can be slow on some problems (years to solve) and
-fast on others (milliseconds). Why?
+• Problem: Computers can be incredibly slow on some problems (years to
+solve) and incredibly fast on others (milliseconds). Why?
 • Answer: Classical computers are "blind"—they do not have primitive access
 to the structure of their input. If a problem has hidden structure (e.g.,
 independent sub-problems), a blind computer can still compute with it,
 but only by paying the time to discover that structure through ordinary
-computation. The distinction is between access and ability: blindness means
-the structure is not given for free, not that it is unreachable.
-• The Contribution: This thesis presents a computer model where structural
-knowledge is explicit, measurable, and costly. This formalizes why some
-problems are hard and how that hardness can be characterized.
-
-1.1.3
-
-What Makes This Work Different
-
-Every major claim is:
-1. Formally proven: Machine-checked proofs in the Coq proof assistant (1,636
 
 CHAPTER 1. INTRODUCTION
 
 19
 
+computation. The distinction is between access and ability: blindness means
+the structure is not given for free, not that it is unreachable.
+• The Contribution: This thesis presents a computer model where structural
+knowledge is explicit, measurable, and costly. This reveals why some problems
+are hard and how that hardness can be transformed.
+
+1.1.3
+
+What Makes This Work Different
+
+This is not a paper with informal arguments. Every major claim is:
+1. Formally proven: Machine-checked proofs in the Coq proof assistant (1,636
 theorems and lemmas across 260 files, totaling 55,098 lines)
 2. Implemented: Working code in Python (19,516 lines) and Verilog hardware
 description (43 files)
 3. Tested: Automated tests verify that theory and implementation match
-4. Falsifiable: The thesis specifies what would disprove each claim
+4. Falsifiable: The thesis specifies exactly what would disprove each claim
 Every claim has a concrete falsification condition. If you find a counterexample,
 the Coq proof won’t compile. The Python VM emits signed receipts. The RTL
-testbench produces JSON snapshots. All three are compared automatically. The
-claims are bound to executable evidence.
+testbench produces JSON snapshots. All three are compared automatically. This
+isn’t a paper about ideas—it’s a reproducible experiment. The claims are bound
+to executable evidence.
 
 1.1.4
 
@@ -821,6 +841,11 @@ If you want to understand the theory:
 • Chapter 5: The Coq proofs and what they establish
 If you want to use the implementation:
 • Chapter 4: The three-layer architecture
+
+CHAPTER 1. INTRODUCTION
+
+20
+
 • Chapter 6: How to run tests and verify results
 • Chapter 13: Hardware and demonstrations
 If you are an expert and want to verify the claims, start with Chapter 5
@@ -836,11 +861,6 @@ The Turing Machine: A Model of Blindness
 
 Turing’s 1936 machine [7] is one of the most elegant ideas in mathematics. It’s
 also fundamentally broken—not in what it can compute, but in what it can see. It
-
-CHAPTER 1. INTRODUCTION
-
-20
-
 consists of:
 • A finite set of states Q = {q0 , q1 , . . . , qn }
 • An infinite tape divided into cells, each containing a symbol from alphabet Γ
@@ -863,7 +883,11 @@ has two disconnected components. It must execute a traversal algorithm that, in
 the worst case, visits all n vertices and m edges. The structure of the graph—its
 partition into components—is not part of the machine’s primitive state.
 
+CHAPTER 1. INTRODUCTION
+
 1.2.2
+
+21
 
 The RAM Model: Random Access, Same Blindness
 
@@ -877,11 +901,6 @@ that the data at addresses 0x1000–0x2000 forms a balanced binary search tree. 
 has to check. Every time. The machine gives you location, not meaning.
 This is the fundamental limitation: both models treat state as a flat, unstructured
 landscape. They measure cost in:
-
-CHAPTER 1. INTRODUCTION
-
-21
-
 • Time Complexity: Number of steps T (n)
 • Space Complexity: Cells/registers used S(n)
 But they assign zero cost to structural knowledge. The Dewey Decimal System is
@@ -905,8 +924,13 @@ that perceives the decomposition pays O(k · 2n/k )—exponentially better.
 Here’s the question this thesis answers: What is the cost of sight?
 If you want to see structure, what do you pay? That’s what µ-bits measure. The
 model charges explicitly for operations that add or refine structure. The proven
+
+CHAPTER 1. INTRODUCTION
+
+22
+
 result: you can’t strengthen predicates for free. µ > 0, always. The Coq proofs
-verify this.
+verify this. I dare you to find a counterexample.
 
 1.3
 
@@ -916,15 +940,11 @@ The Thiele Machine: Computation with Explicit Structure
 
 The Central Hypothesis
 
-The central hypothesis is that structural information is not free. Every assertion—"this graph is bipartite," "these variables are independent," "this module
-satisfies Φ"—carries a cost measured in bits: the minimum encoding size plus any
-structure needed to justify it holds. The model distinguishes computing a fact from
-certifying it as reusable structure.
-
-CHAPTER 1. INTRODUCTION
-
-22
-
+I assert that structural information is not free. Every assertion—"this graph is
+bipartite," "these variables are independent," "this module satisfies Φ"—carries a
+cost measured in bits: the minimum encoding size plus any structure needed to
+justify it holds. The model distinguishes computing a fact from certifying it as
+reusable structure.
 The Thiele Machine Hypothesis: Any reduction in search space
 must be paid for by proportional investment of structural information
 (µ-bits). Time trades for µ-cost, but there is no free insight: Coq
@@ -949,6 +969,11 @@ The µ-bit: A Currency for Structure
 The atomic unit of structural cost is the µ-bit:
 Definition 1.1 (µ-bit). One µ-bit is the information-theoretic cost of specifying
 one bit of structural constraint using a canonical prefix-free encoding. Prefix-free
+
+CHAPTER 1. INTRODUCTION
+
+23
+
 encoding ensures unique parsing, so length is well-defined and reproducible. This
 connects to Minimum Description Length: assertions are charged by their canonical
 description size, and canonicalization prevents hidden representation costs.
@@ -968,11 +993,6 @@ Both what is asserted (Φ) and how the state is modularized (π) are charged.
 The No Free Insight Theorem
 
 The central result of this thesis is:
-
-CHAPTER 1. INTRODUCTION
-
-23
-
 Theorem 1.2 (No Free Insight). Proven in Coq (StateSpaceCounting.v):
 For any LASSERT operation adding formula ϕ:
 1. Qualitative bound: If an execution trace strengthens an accepted predicate
@@ -995,7 +1015,11 @@ The three proven principles are: (i) µ-monotonicity (MuLedgerConservation
 observational locality (ObserverDerivation.v). These ensure that insight is
 never free—it must be paid for in µ-cost.
 
+CHAPTER 1. INTRODUCTION
+
 1.4
+
+24
 
 Methodology: The 3-Layer Isomorphism
 
@@ -1011,11 +1035,6 @@ The mathematical ground truth. Machine-checked proofs that the compiler verifies
 region normalization with canonical representation lemmas
 • Step semantics: 18-instruction ISA with structural operations (partition
 creation, split, merge) and certification operations (assertions, revelation)
-
-CHAPTER 1. INTRODUCTION
-
-24
-
 • Kernel physics theorems: µ-monotonicity, observational no-signaling,
 gauge symmetry
 • Ledger conservation: bounds on irreversible bit events
@@ -1040,6 +1059,11 @@ Executable semantics. Code you can run. Receipts you can verify:
 (LASSERT, LJOIN), discovery (PDISCOVER), certification (REVEAL, EMIT)
 • Receipts: Ed25519-signed execution traces for third-party verification
 • µ-ledger: canonical cost accounting
+
+CHAPTER 1. INTRODUCTION
+
+25
+
 Implementation: [state.py](thielecpu/state.py) (state), [vm.py](thielecpu/vm.py)
 (engine), [crypto.py](thielecpu/crypto.py) (signing).
 
@@ -1054,11 +1078,6 @@ pipeline.
 with main execution.
 • Logic engine interface: offloads SMT queries to hardware or a host oracle.
 • Accounting unit: computes µ-costs with hardware-enforced monotonicity.
-
-CHAPTER 1. INTRODUCTION
-
-25
-
 The RTL is exercised via Icarus Verilog simulation and has Yosys synthesis scripts
 that target FPGA platforms when the toolchain is available.
 
@@ -1085,6 +1104,11 @@ Thesis Statement
 Here is the central claim:
 Classical computers pay an implicit “time tax” when problems have hidden structure. They search blindly because they can’t see. By making
 structural information cost explicit through µ-bits, you can trade search
+
+CHAPTER 1. INTRODUCTION
+
+26
+
 time for structure cost. Problems aren’t “hard” in isolation—they’re
 hard-to-structure or hard-to-solve-given-structure. This thesis makes
 both costs visible.
@@ -1093,13 +1117,9 @@ This is proven with:
 2. Executable implementations with signed receipts
 3. Hardware that enforces costs physically
 4. Empirical demonstrations on hard benchmarks
-Every claim is falsifiable and open to scrutiny.
-
-CHAPTER 1. INTRODUCTION
+Every claim is falsifiable. Find a counterexample. Break the proofs. I dare you.
 
 1.6
-
-26
 
 Summary of Contributions
 
@@ -1121,7 +1141,11 @@ constant and particle masses identified as free parameters. (Chapter 12)
 8. Empirical Artifacts: Reproducible demos including certified randomness
 and polynomial-time structured Tseitin solutions.
 
+CHAPTER 1. INTRODUCTION
+
 1.7
+
+27
 
 Thesis Outline
 
@@ -1133,11 +1157,6 @@ verification techniques.
 Machine, Partition Logic, the µ-bit currency, and the No Free Insight theorem
 with full proof sketches.
 • Chapter 4: Implementation details the 3-layer architecture, the 18instruction ISA, the receipt system, and the hardware synthesis.
-
-CHAPTER 1. INTRODUCTION
-
-27
-
 Part II: Verification and Evaluation
 • Chapter 5: Verification presents the Coq formalization, the key theorems
 with proof structures, and the Inquisitor methodology.
@@ -1154,6 +1173,11 @@ proofs, Theory of Everything results, and impossibility theorems.
 • Chapter 11: Experimental Validation Suite details all physics experiments, falsification tests, and the benchmark suite.
 • Chapter 12: Physics Models and Algorithmic Primitives presents the
 wave dynamics model, Shor factoring primitives, and domain bridge modules.
+
+CHAPTER 1. INTRODUCTION
+
+28
+
 • Chapter 13: Hardware Implementation and Demonstrations provides
 complete RTL documentation and the demonstration suite.
 Appendix A: Complete Theorem Index provides a comprehensive catalog of
@@ -1192,11 +1216,11 @@ The Central Question
 Classical computers (Turing Machines, RAM machines) are structurally blind—they
 lack primitive access to the structure of their input. If you give a computer a
 
-28
+29
 
 CHAPTER 2. BACKGROUND AND RELATED WORK
 
-29
+30
 
 sorted list, it doesn’t "know" the list is sorted unless it checks. This is a statement
 about the interface of the model, not about what is computable. The distinction
@@ -1240,7 +1264,7 @@ M = (Q, Σ, Γ, δ, q0 , qaccept , qreject )
 
 CHAPTER 2. BACKGROUND AND RELATED WORK
 
-30
+31
 
 • Q: finite set of states
 • Σ: input alphabet (no blank ⊔)
@@ -1284,7 +1308,7 @@ The RAM model is the upgrade everyone thinks solves the problem:
 
 CHAPTER 2. BACKGROUND AND RELATED WORK
 
-31
+32
 
 • Accumulator A and program counter P C
 • Instructions: LOAD, STORE, ADD, SUB, JMP, JZ, etc.
@@ -1322,7 +1346,7 @@ partitions and attaching axioms that certify independence or other properties.
 
 CHAPTER 2. BACKGROUND AND RELATED WORK
 
-32
+33
 
 Those operations are not free: they increase the µ-ledger, which is then provably
 monotone under the step semantics.
@@ -1372,7 +1396,7 @@ knowledge and coarse-grained descriptions rather than intrinsic indeterminism.
 
 CHAPTER 2. BACKGROUND AND RELATED WORK
 
-33
+34
 
 This distinction matters for the Thiele Machine because it highlights where "structure" lives. A partition that lets me treat two subsystems as independent is not
 a free fact about reality; it is an explicit modeling choice that I must justify and
@@ -1414,7 +1438,7 @@ to a constant).
 
 CHAPTER 2. BACKGROUND AND RELATED WORK
 
-34
+35
 
 • µ-cost is computable and depends on the specific partition logic operations
 and axioms used.
@@ -1459,7 +1483,7 @@ The Physics of Computation
 
 Landauer’s Principle
 
-35
+36
 
 In 1961, Rolf Landauer proved something that changes everything [2]:
 Theorem 2.1 (Landauer’s Principle). The erasure of one bit of information in a
@@ -1494,7 +1518,7 @@ tion.v (Chapter 12). While this establishes a structural relationship between in
 
 CHAPTER 2. BACKGROUND AND RELATED WORK
 
-36
+37
 
 mation theory and quantum mechanics, it does not provide a numerical prediction
 for h without an independent derivation of τµ . The result demonstrates that fundamental physical constants may emerge from information-theoretic principles—or
@@ -1542,7 +1566,7 @@ or coarse-grained behavior must be booked in µ-bits.
 
 2.4.1.4
 
-37
+38
 
 Renormalization and Coarse-Grained Structure
 
@@ -1594,7 +1618,7 @@ prediction.
 
 2.5.2
 
-38
+39
 
 Decoherence, Measurement, and Informational Cost
 
@@ -1641,17 +1665,11 @@ For the Thiele Machine, the project enforces a strict methodology. No wiggle roo
 
 CHAPTER 2. BACKGROUND AND RELATED WORK
 
-39
+40
 
-3. Documented Axiom: External mathematical facts (e.g., Tsirelson’s theorem,
-Fine’s theorem) are allowed when properly documented with mathematical
-references
+3. No Axiom: No unproven assumptions except foundational logic
 This is enforced by an automated checker that scans all proof files and blocks
-undocumented violations. Axioms for external mathematical results (such as
-√
-properties of 2, or well-established theorems from linear algebra and quantum
-information theory) are permitted when properly annotated with INQUISITOR
-NOTE markers.
+violations. If a theorem says “Proven,” it’s actually proven.
 
 2.6.3
 
@@ -1691,16 +1709,17 @@ powerful than expected. The Thiele Machine’s Logic Engine L is a deterministic
 verifier-style component inspired by these results: it checks logical consistency
 under the current axioms.
 
-CHAPTER 2. BACKGROUND AND RELATED WORK
-
 2.7.3
-
-40
 
 Partition Refinement Algorithms
 
 Algorithms like Tarjan’s partition refinement and the Paige-Tarjan algorithm
 efficiently maintain partitions under operations. The Thiele Machine’s PSPLIT and
+
+CHAPTER 2. BACKGROUND AND RELATED WORK
+
+41
+
 PMERGE operations are inspired by these techniques.
 
 2.7.4
@@ -1737,13 +1756,7 @@ Key Takeaways:
 • The µ-cost is MDL-based and computable
 √
 • The Tsirelson bound 2 2 emerges as the boundary of the µ = 0 class
-
-CHAPTER 2. BACKGROUND AND RELATED WORK
-
-41
-
-• All kernel proofs satisfy the Inquisitor Standard—zero admits, documented
-axioms for external mathematical facts
+• All proofs satisfy the Inquisitor Standard—no admits, no axioms
 
 Chapter 3
 Theory: The Thiele Machine
@@ -3548,41 +3561,38 @@ Noether’s theorem connection: Gauge symmetry ↔ Conservation law. Here:
 
 Quantum Axioms from µ-Accounting
 
-The following section explores connections between µ-accounting and quantum
-mechanical axioms. Several quantum properties—no-cloning, unitarity constraints,
+Here’s the thing nobody told you about quantum mechanics: it’s not weird physics,
+it’s bookkeeping. Every quantum axiom—no-cloning, unitarity, the Born rule,
 
 CHAPTER 3. THEORY: THE THIELE MACHINE MODEL
 
 88
 
-Born rule structure, and purification—have information-theoretic formulations that
-connect to conservation principles. These are formalized in the Coq development
-with zero Admitted statements.
+purification—these all fall out of the same conservation law we’ve been building.
+You set µ = 0 and suddenly you can’t clone, can’t be non-unitary, can’t have any
+probability rule other than Born’s. The mathematics demands it.
 
 3.7.1
 
 No-Cloning from µ-Conservation
 
-The no-cloning theorem states that perfect cloning of unknown quantum states
-is impossible. The standard proof uses linearity of quantum mechanics. Here we
-present an information-theoretic derivation:
+Everyone knows you can’t clone quantum states. Textbooks invoke linearity of
+quantum mechanics. But that’s backwards—linearity is a consequence, not a cause.
+Here’s what’s actually happening:
 Theorem 3.8 (No-Cloning from Conservation). If the µ-ledger is conserved (no
 free insight), then perfect cloning is impossible. Any cloning operation requires
 µ > 0 proportional to the information content of the original state.
-Intuition: Cloning would duplicate information without destroying the original.
-This would violate information conservation: the output contains more information
-than the input plus the cost paid. The proof formalizes this as a contradiction.
+Why? Cloning duplicates information without destroying the original. That’s
+information creation. Where does it come from? The µ-ledger. If you try to clone
+without paying, you’ve violated conservation. Done.
 Proven as no_cloning_from_conservation in coq/kernel/NoCloning.v:
 
 Theorem n o _ c l o n i n g _ f r o m _ c o n s e r v a t i o n :
-forall op : CloningOperation ,
-nontrivial_input op ->
-r e s p e c t s _ c o n s e r v a t i o n op ->
-is_perfect_clone op ->
-~ is_zero_cost op .
+forall C : CloningOperation ,
+( forall q , C .( fidelity ) q = 1 /\ C .( mu_cost ) q =
+,→ 0) ->
+False .
 
-This states: for any cloning operation on a non-trivial input, if conservation is
-respected and cloning is perfect, then the operation cannot have zero cost.
 What This Proves:
 • Perfect Cloning is Impossible: If cloning has fidelity 1 (perfect copy)
 and zero cost, that’s a contradiction
@@ -3851,11 +3861,11 @@ Why Three Layers?
 
 4.1.1
 
-Building Trust Through Multi-Layer Verification
+A Car Salesman’s Take on Building Trust
 
-A formal specification proves properties but doesn’t run on real workloads. An
-executable implementation runs but might contain bugs or semantic drift. How do
-you trust that implementation matches specification?
+“Okay, so here’s the thing. I’m a car salesman. Not a computer scientist.
+Not a mathematician. A guy who sold Hondas and Toyotas for years.
+And in that world, you learn something real fast: talk is cheap. A
 
 95
 
@@ -3863,14 +3873,23 @@ you trust that implementation matches specification?
 
 96
 
-This is why the system was built three times: one implementation in pure mathematics (Coq), one in Python for reference and debugging, and one in Verilog for
-actual hardware. All three must produce identical results.
-If all three implementations agree, the model is verified. If they disagree, there’s a
-bug to find.
+customer can tell you their car runs great, but until I see it drive, hear
+the engine, and check the VIN myself, I don’t know anything.”
+Same thing here. I could write a beautiful mathematical definition of how this
+machine should work, but that’s just talk. That’s just the brochure. What matters
+is: does it actually work? Does the engine turn over? Does the thing do what I
+said it does?
+That’s why the system was built three times. Not out of masochism (though I
+question that sometimes), but because I needed to know. I needed to see the same
+answer come out of three completely different “workshops”—one that speaks pure
+math (Coq), one that speaks Python like a normal person, and one that speaks to
+actual hardware in Verilog.
+If all three shops give me the same answer, I know the car is real. If they disagree?
+Someone’s lying, and I need to find out who.
 
 4.1.2
 
-The Problem of Trust
+The Problem of Trust (The Academic Version)
 
 A formal specification proves properties but doesn’t run on real workloads. An
 executable implementation runs but might contain bugs or semantic drift. How do
@@ -3892,6 +3911,11 @@ tracing, and experimentation. Generates receipts and traces.
 FPGAs. Proves the model is physically realizable.
 Concretely, the formal layer lives in coq/kernel/*.v, the Python reference VM
 is implemented under thielecpu/ (notably thielecpu/state.py and thielecp
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+97
+
 u/vm.py), and the RTL is under thielecpu/hardware/. Keeping the directory
 layout explicit matters because it tells a reader exactly where to validate each part
 of the story.
@@ -3902,11 +3926,6 @@ The Isomorphism Invariant
 
 For any instruction trace τ :
 SCoq (τ ) = SPython (τ ) = SVerilog (τ )
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-97
-
 This is not aspirational—it’s enforced by automated tests. Any divergence is a
 critical bug. The tests compare state projections rather than every internal variable.
 The projections are suite-specific: the compute gate in tests/test_rtl_compu
@@ -3936,7 +3955,11 @@ Canonical serialization rules:
 Equivalence definition: Two states are equivalent under projection π iff
 π(s1 ) = π(s2 ) as JSON-serialized dictionaries with identical keys and values.
 
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
 4.1.5
+
+98
 
 How to Read This Chapter
 
@@ -3946,11 +3969,6 @@ and how they stay in lockstep.
 • Section 4.3: Python VM (state class, partition operations, receipt generation)
 • Section 4.4: Verilog RTL (CPU module, µ-ALU, logic engine interface)
 • Section 4.5: Isomorphism verification (how equality is tested)
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-98
-
 Key concepts to understand:
 • The state record shared across layers
 • The step relation that advances state
@@ -3983,6 +4001,11 @@ Structure of the Formal Kernel
 The formal kernel is organized around a small set of interlocking definitions:
 • State and partition structure: the record that defines registers, memory,
 the partition graph, and the µ-ledger.
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+99
+
 • Step semantics: the 18-instruction ISA and the inductive transition rules.
 • Logical certificates: checkers for proofs and models that allow deterministic
 verification.
@@ -3990,11 +4013,6 @@ verification.
 observational no-signaling.
 • Receipts and simulation: trace formats and cross-layer correspondence
 lemmas.
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-99
-
 These bullets correspond directly to files: VMState.v defines the state and partitions, VMStep.v defines the ISA and step relation, CertCheck.v defines certificate
 checkers, and conservation/locality theorems live in files such as MuLedgerConser
 vation.v and ObserverDerivation.v. Receipts and simulation correspondences
@@ -4021,6 +4039,10 @@ The VMState Record
 
 The state is defined as a record with seven components:
 
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+100
+
 Record VMState := {
 vm_graph : PartitionGraph ;
 vm_csrs : CSRState ;
@@ -4030,10 +4052,6 @@ vm_pc : nat ;
 vm_mu : nat ;
 vm_err : bool
 }.
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-100
 
 Understanding VMState Record:
 Author’s Note (Devon): Look, I know what you’re thinking. “Seven
@@ -4057,6 +4075,11 @@ pg_modules}
 – Each entry is a natural number (unbounded in Coq)
 – Hardware masks to 32 bits via word32 function
 • vm_mem : list nat: Data memory
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+101
+
 – 256 words (configurable)
 – Separate from instruction memory (Harvard architecture)
 • vm_pc : nat: Program Counter
@@ -4064,11 +4087,6 @@ pg_modules}
 – Increments by 1 after each step (instructions are unit-indexed in formal
 model)
 – Hardware uses byte addressing (increments by 4)
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-101
-
 • vm_mu : nat: The µ-ledger accumulator
 – Cumulative information cost
 – Monotonically increasing (never decreases)
@@ -4093,7 +4111,11 @@ and mem_index in coq/kernel/VMState.v. This makes “out-of-range” indices
 deterministic and matches the fixed-width semantics of the RTL, where bit widths
 enforce modular addressing.
 
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
 4.3.3
+
+102
 
 The Partition Graph
 
@@ -4103,11 +4125,6 @@ pg_modules : list ( ModuleID * ModuleState )
 }.
 Record ModuleState := {
 module_region : list nat ;
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-102
-
 module_axioms : AxiomSet
 }.
 
@@ -4130,17 +4147,17 @@ ModuleState Record:
 – Type: AxiomSet (list of SMT-LIB strings)
 – Example: [(assert (>= x 0)), (assert (< x 100))]
 – Checked by external solvers (Z3, CVC5)
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+103
+
 Physical Interpretation: The partition graph is the structural currency:
 • Modules: Independent "banks" that own state
 • Regions: Physical addresses controlled by each module
 • Axioms: Logical "knowledge" constraining possible values
 • Operations: Transfer ownership or split/merge banks
 Why This Design?
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-103
-
 1. Simplicity: Association lists are easier to prove correct than hash tables
 2. Immutability: Functional updates create new graphs (no mutation)
 3. Verifiability: Linear structure makes proofs tractable
@@ -4167,6 +4184,11 @@ Inductive vm_step : VMState -> vm_instruction ->
 | step_pnew : forall s region cost graph ’ mid ,
 graph_pnew s .( vm_graph ) region = ( graph ’ , mid ) ->
 vm_step s ( instr_pnew region cost )
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+104
+
 ( advance_state s ( instr_pnew region cost ) graph
 ,→ ’ s .( vm_csrs ) s .( vm_err ) )
 | step_psplit : forall s m left right cost g ’ l ’ r ’ ,
@@ -4176,10 +4198,6 @@ vm_step s ( instr_psplit m left right cost )
 ( advance_state s ( instr_psplit m left right
 ,→ cost ) g ’ s .( vm_csrs ) s .( vm_err ) )
 ...
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-104
 
 Understanding the Step Relation: Inductive Type Signature:
 • vm_step : VMState -> vm_instruction -> VMState -> Prop
@@ -4204,6 +4222,11 @@ Constructor Anatomy (step_psplit):
 • Option Type: graph_psplit returns Option (may fail)
 • Some (g’, l’, r’): Pattern match on success case
 – g’: New graph after split
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+105
+
 – l’, r’: IDs of left and right modules created
 • Failure Case: If graph_psplit returns None, no rule fires (stuck state)
 Why Inductive? This isn’t executable code—it’s a specification:
@@ -4212,11 +4235,6 @@ Why Inductive? This isn’t executable code—it’s a specification:
 • Proof Target: We prove properties about this relation (safety, progress)
 18 Constructors: One for each instruction:
 • Partition ops: PNEW, PSPLIT, PMERGE
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-105
-
 • Logic ops: LASSERT, LJOIN, REVEAL
 • Memory ops: XFER, XOR_LOAD, etc.
 • Each constructor specifies exact preconditions (when instruction can execute)
@@ -4241,6 +4259,11 @@ Parameters:
 • s: Current VMState
 • instr: Instruction being executed (needed for apply_cost)
 • graph’: New partition graph (updated by instruction)
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+106
+
 • csrs’: New CSR state (may be modified by LASSERT, etc.)
 • err’: New error flag (true if instruction failed)
 Record Construction Line-by-Line:
@@ -4248,11 +4271,6 @@ Record Construction Line-by-Line:
 2. vm_csrs := csrs’: Update control/status registers
 3. vm_regs := s.(vm_regs): Preserve registers (unchanged by partition ops)
 4. vm_mem := s.(vm_mem): Preserve memory
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-106
-
 5. vm_pc := s.(vm_pc) + 1: Increment program counter (fetch next
 instruction)
 6. vm_mu := apply_cost s instr: Add instruction’s µ-cost to ledger
@@ -4279,6 +4297,11 @@ The formal definitions are extracted to a functional evaluator to create a refer
 semantics:
 
 Require Extraction .
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+107
+
 Extraction Language OCaml .
 Extract Inductive bool = > " bool " [" true " " false "].
 Extract Inductive nat = > " int " ["0" " succ "].
@@ -4288,11 +4311,6 @@ Extraction " extracted / vm_kernel . ml " vm_step run_vm .
 Understanding Coq Extraction: What is Extraction? Coq can compile
 verified logical definitions into executable OCaml/Haskell code, creating a certified
 compiler from proofs to programs.
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-107
-
 Command-by-Command:
 1. Require Extraction: Load the extraction plugin
 2. Extraction Language OCaml: Target language (could be Haskell, Scheme,
@@ -4314,6 +4332,11 @@ Why Extract?
 • No Trust Gap: OCaml code inherits correctness from Coq proofs (modulo
 extraction bugs)
 Performance vs. Correctness:
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+108
+
 • Slow: Extracted code isn’t optimized (e.g., nat as int wrapper)
 • Correct: But it’s provably correct—matches the formal model exactly
 • Use Case: Validation, not production
@@ -4323,11 +4346,6 @@ extract
 Coq Semantics −−−−→ OCaml ←→ Python ←→ Verilog
 Extracted OCaml serves as the bridge connecting formal proofs to executable
 implementations.
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-108
-
 The extracted code compiles to a small runner, which serves as an oracle for
 Python/Verilog comparison. The runner consumes traces and emits a JSON
 snapshot of the observable fields. This makes it possible to compare the extracted
@@ -4360,6 +4378,9 @@ partition graph, µ-ledger).
 • ISA decoding: a compact representation of the 18 opcodes.
 • Partition operations: creation, split, merge, and discovery.
 • Receipt generation: cryptographic receipts for each step.
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
 4.4.1.2
 
 The VM Class
@@ -4371,9 +4392,6 @@ virtual_fs : Virtu alFile syste m = field (
 ,→ default_factory = Virt ualFil esyste m )
 witness_state : WitnessState = field (
 ,→ default_factory = WitnessState )
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
 step_receipts : List [ StepReceipt ] = field (
 ,→ default_factory = list )
 def __post_init__ ( self ) :
@@ -4402,13 +4420,6 @@ Understanding the Python VM Class: Dataclass Fields:
 – Provides built-in functions: print, len, range
 – Adds VM-specific helpers: vm_read_text, vm_write_text
 – Security: Isolates executed code from host environment
-• virtual_fs: VirtualFilesystem: In-memory file system
-– Simulates disk I/O without touching real filesystem
-– Provides read_text, write_text, exists
-– Used for receipt storage and witness data
-• witness_state: WitnessState: Records computational witnesses
-– Stores factorization attempts, primes, modular arithmetic
-– Used for cryptographic algorithm verification
 
 109
 
@@ -4416,6 +4427,13 @@ Understanding the Python VM Class: Dataclass Fields:
 
 110
 
+• virtual_fs: VirtualFilesystem: In-memory file system
+– Simulates disk I/O without touching real filesystem
+– Provides read_text, write_text, exists
+– Used for receipt storage and witness data
+• witness_state: WitnessState: Records computational witnesses
+– Stores factorization attempts, primes, modular arithmetic
+– Used for cryptographic algorithm verification
 • step_receipts: List[StepReceipt]: Cryptographic execution log
 – One receipt per instruction executed
 – Contains: hash, µ-delta, partition state snapshot
@@ -4437,6 +4455,11 @@ Dual State Representation:
 The key fact: the VM owns a State object (mirroring the Coq record) and also
 keeps a minimal register file and scratch memory used by the XOR opcodes that
 map directly to RTL. This separation is intentional—State captures partition and
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+111
+
 µ-ledger semantics, while the auxiliary arrays let the VM exercise hardware-style
 instructions without introducing a second notion of state.
 
@@ -4449,11 +4472,6 @@ graph, axioms, control/status registers, and µ-ledger:
 
 @dataclass
 class State :
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-111
-
 mu_operational : float = 0.0
 mu_information : float = 0.0
 _next_id : int = 1
@@ -4479,6 +4497,11 @@ Partition Graph Components:
 – Starts at 1 (0 reserved for "no module")
 – Increments each time PNEW creates a module
 – Underscore: Conventionally "private" (not for external access)
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+112
+
 • regions: RegionGraph: Graph of modules and their owned addresses
 – Type: RegionGraph (custom graph ADT)
 – Stores: ModuleID → Set of addresses
@@ -4486,14 +4509,9 @@ Partition Graph Components:
 • axioms: Dict[ModuleId, List[str]]: Logical constraints per module
 – Keys: ModuleIDs
 – Values: Lists of SMT-LIB strings
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
 – Example: {1:
 
 ["(assert (>= x 0))"], 2:
-
-112
 
 [...]}
 
@@ -4516,6 +4534,11 @@ Bridge Fields (Python-specific):
 • program: List[Any]: Instruction sequence
 – Not in Coq VMState but in CoreSemantics.State
 – Allows VM to fetch instructions by PC
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+113
+
 Isomorphism Mapping:
 Coq VMState
 vm_graph
@@ -4534,11 +4557,6 @@ csr
 
 The additional fields (mu_ledger, partition_masks, program) bridge to the
 other layers. mu_ledger makes µ-accounting explicit. partition_masks provides
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-113
-
 hardware-aligned region encoding. program aligns with CoreSemantics.State.program—
 the kernels VMState does not carry a program field, but the executable state does.
 
@@ -4572,17 +4590,17 @@ Fields:
 • mu_execution: int: Cost of low-level computation
 – Charged by: XOR_LOAD, XFER, NOP (hardware-level operations)
 – Meaning: Energy/entropy cost of bit manipulation
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+114
+
 – Example: XORing a register costs 1 bit per Landauer’s principle
 The @property Decorator:
 • def total(self) -> int: Method decorated as a property
 • Usage: Access as ledger.total (not ledger.total())
 • Compute on Demand: Sums the two fields dynamically
 • Return Type Annotation: -> int documents the return type
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-114
-
 Why Separate Discovery and Execution?
 1. Auditing: Can verify that high-level claims match low-level operations
 • If mu_discovery is huge but mu_execution is tiny, suspicious
@@ -4620,6 +4638,8 @@ MAX_MODULES = 8
 
 # Maximum number of active modules
 
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
 def mask_of_indices ( indices : Set [ int ]) ->
 ,→ PartitionMask :
 mask = 0
@@ -4627,10 +4647,6 @@ for idx in indices :
 if 0 <= idx < MASK_WIDTH :
 mask |= (1 << idx )
 return mask
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-115
 
 Understanding Bitmask Encoding: Function: mask_of_indices
 • Input: indices:
@@ -4658,6 +4674,13 @@ mask |= (1 << 0) # 0b000001
 mask |= (1 << 2) # 0b000101
 mask |= (1 << 5) # 0b100101 = 37
 return 37
+
+115
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+116
+
 The bitmask representation is the literal encoding used in the RTL, so the Python
 VM computes it alongside the higher-level RegionGraph. This dual representation
 is a safety check: if the set-based and bitmask-based views ever disagree, the VM
@@ -4667,11 +4690,6 @@ can detect the mismatch before it propagates to hardware.
 Module Creation (PNEW)
 
 def pnew ( self , region : Set [ int ]) -> ModuleId :
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-116
-
 if self . num_modules >= MAX_MODULES :
 raise ValueError ( f " Cannot create module : max
 ,→ modules reached ")
@@ -4697,17 +4715,17 @@ ID
 • Charges µ-cost for discovery (information-theoretic)
 • Updates self.regions graph
 4. Initialize Axioms: self.axioms[mid] = []
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+117
+
 • New modules start with empty axiom set
 • Axioms added later via LASSERT
 5. Enforce Invariants: self._enforce_invariant()
 • Verifies disjointness: no overlapping regions
 • Checks that all module IDs are valid
 • Fails fast if corruption detected
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-117
-
 Idempotent Discovery: Key property:
 pnew(R) = pnew(R) (same result)
 Calling pnew twice with the same region returns the same ModuleID both times.
@@ -4738,17 +4756,17 @@ SAFE_FUNCTIONS = {
 ,→ tuple " ,
 " zip " , " str " , " set " , " dict " , " map " , " filter " ,
 " vm_read_text " , " vm_write_text " , " vm_read_bytes " ,
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+118
+
 " vm_write_bytes " , " vm_exists " , " vm_listdir " ,
 }
 
 Understanding the Python Sandbox: SAFE_IMPORTS: Whitelisted
 modules
 • math: Standard mathematical functions (sin, cos, sqrt)
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-118
-
 • json: JSON parsing/serialization (for witness data)
 • z3: SMT solver bindings (for automated constraint solving)
 • Excluded: os, sys, subprocess (security risk—could access host system)
@@ -4772,6 +4790,10 @@ Why This Allowlist? Enables useful computation while preventing:
 • Infinite loops (timeout enforced separately)
 When sandboxing is enabled, the AST is validated before execution:
 
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+119
+
 SAFE_NODE_TYPES = {
 ast . Module , ast . FunctionDef , ast . ClassDef , ast .
 ,→ arguments ,
@@ -4779,11 +4801,6 @@ ast . arg , ast . Expr , ast . Assign , ast . AugAssign , ast
 ,→ . Name ,
 ast . Load , ast . Store , ast . Constant , ast . BinOp , ast
 ,→ . UnaryOp ,
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-119
-
 ast . BoolOp , ast . Compare , ast . If , ast . For , ast .
 ,→ While , ...
 }
@@ -4807,16 +4824,16 @@ Excluded (Dangerous) Node Types:
 • Import: Would allow importing arbitrary modules
 • ImportFrom: Same risk
 • Exec/Eval: Execute arbitrary strings as code
-• Attribute: Access object attributes (could reach internals)
-• Subscript: Access __dict__ or other special attributes
-Validation Process:
-1. Parse code string into AST: ast.parse(code)
-2. Walk all nodes: ast.walk(tree)
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
 120
 
+• Attribute: Access object attributes (could reach internals)
+• Subscript: Access __dict__ or other special attributes
+Validation Process:
+1. Parse code string into AST: ast.parse(code)
+2. Walk all nodes: ast.walk(tree)
 3. Check each node type: if type(node) not in SAFE_NODE_TYPES: raise
 SecurityError
 4. If validation passes, execute in sandboxed globals
@@ -4847,14 +4864,15 @@ self . witness_state = post_state
 
 Understanding Receipt Generation: Function Purpose: Create tamperevident log entry for each instruction.
 Step-by-Step:
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
 1. Simulate Witness Step:
 
 post_state , observation = self .
 ,→ _ s i m u l a t e _ w i t n e s s _ s t e p (
 instruction , pre_state
 )
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
 • Executes instruction in a witness simulation
 • Returns new state and observable outputs
@@ -4880,17 +4898,17 @@ Assembled Receipt Contains:
 
 self . step_receipts . append ( receipt )
 
-• Adds receipt to chronological list
-• Creates Merkle chain: each receipt depends on previous
-4. Update Witness State:
-
-self . witness_state = post_state
-
 121
 
 CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
 
 122
+
+• Adds receipt to chronological list
+• Creates Merkle chain: each receipt depends on previous
+4. Update Witness State:
+
+self . witness_state = post_state
 
 • Advances the witness simulation to match main execution
 • Ensures next receipt starts from correct state
@@ -4916,6 +4934,11 @@ Top: thiele_cpu (main CPU core, blue)
 Second level (connected modules):
 • µ-ALU (orange): Q16.16 fixed-point arithmetic for information-theoretic
 calculations
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+123
+
 • LEI (purple): Logic Engine Interface - bridges to external SMT solver
 • Partition Graph (green): Module ownership tracking
 External: Z3 SMT Solver (dashed box) - outside hardware, connected via LEI
@@ -4924,11 +4947,7 @@ Key insight: Hardware mirrors formal model structure - CPU core delegates
 to specialized units (µ-ALU for math, LEI for logic, partition graph for state
 decomposition).
 
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
 4.5.1
-
-123
 
 Module Hierarchy
 
@@ -4962,6 +4981,11 @@ output wire mem_en ,
 );
 
 Understanding Verilog Module Declaration: What is a Module? In Verilog/SystemVerilog, a module is the basic unit of hardware description—analogous
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+124
+
 to a class in OOP or a function in C, but describing physical circuitry not sequential
 code.
 Module Signature Breakdown:
@@ -4971,11 +4995,6 @@ outside world
 • Semicolon: Ends the port list. Module implementation follows (omitted
 here).
 Port Directions and Types:
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-124
-
 1. input wire: Signals coming INTO the module from external circuitry
 • clk: Clock signal—every rising edge (0→1 transition) triggers state
 updates. Typical frequency: 50-100 MHz on FPGA.
@@ -4996,6 +5015,11 @@ harnesses can read and verify it.
 • mem_en: Memory Enable (1 bit). When 1, memory operation active.
 When 0, memory ignores requests.
 Hardware vs. Software Mindset:
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+125
+
 • No "Calling" the Module: Modules don’t execute like functions. They
 exist as circuits, continuously responding to input signal changes.
 • Concurrency: All signals update simultaneously on clock edges. Not
@@ -5006,11 +5030,6 @@ logic gates (AND, OR, flip-flops) by FPGA toolchains.
 that test benches can compare its value against the Coq formal model and Python
 reference implementation after each instruction—this is the "3-way isomorphism
 gate" verification strategy.
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-125
-
 Key signals:
 • mu: The µ-accumulator, exported for 3-way isomorphism verification
 • partition_ops: Counter for partition operations
@@ -5035,6 +5054,10 @@ State Machine
 
 The CPU uses a 12-state FSM:
 
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+126
+
 localparam [3:0] STATE_FETCH = 4 ’ h0 ;
 localparam [3:0] STATE_DECODE = 4 ’ h1 ;
 localparam [3:0] STATE_EXECUTE = 4 ’ h2 ;
@@ -5047,10 +5070,6 @@ localparam [3:0] STATE_ALU_WAIT2 = 4 ’ h8 ;
 localparam [3:0] S TA TE _R EC EIP T_ HO LD = 4 ’ h9 ;
 localparam [3:0] S T A T E _ P D I S C O V E R _ L A U N C H 2 = 4 ’ hA ;
 localparam [3:0] S T A T E _ P D I S C O V E R _ A R M 2 = 4 ’ hB ;
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-126
 
 Understanding Finite State Machine Encoding: What is a Finite State
 Machine (FSM)? A circuit that transitions between a fixed set of states based
@@ -5072,6 +5091,11 @@ in terms of flip-flops (only need 4 FF to store 12 states).
 • Alternative (One-Hot): Could use 12 bits, one per state, only one bit set
 at a time. Faster transitions but uses more flip-flops. We chose binary for
 compactness.
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+127
+
 State Meanings:
 1. FETCH: Read next instruction from memory at address PC (program
 counter)
@@ -5080,11 +5104,6 @@ counter)
 4. MEMORY: Access data memory (load/store)
 5. LOGIC: Interface with external logic engine (Z3/SMT)
 6. PYTHON: Execute Python bytecode in sandbox
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-127
-
 7. COMPLETE: Finalize instruction, update PC and µ-ledger
 8. ALU_WAIT/WAIT2: Multi-cycle ALU operations (e.g., division, LOG2)
 9. RECEIPT_HOLD: Waiting for cryptographic signature verification
@@ -5106,6 +5125,11 @@ Four 8-bit fields (colored boxes):
 • operand_a [23:16] (green): First operand (register/module ID)
 • operand_b [15:8] (orange): Second operand (register/module ID)
 • cost [7:0] (red): µ-cost for this instruction
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+128
+
 Below boxes: Bit widths (8 bits each)
 Example: PNEW r5, cost=3 → 0x01050003 - decodes to opcode=0x01, operand_a=0x05, operand_b=0x00, cost=0x03
 Key insight: Fixed 8-bit fields simplify decoder - no variable-length encoding.
@@ -5117,10 +5141,6 @@ Instruction Encoding
 
 Each 32-bit instruction is decoded into opcode and operands. The fixed-width
 encoding ensures that hardware and software agree on exact bit-level semantics:
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-128
 
 wire [7:0] opcode = current_instr [31:24];
 wire [7:0] operand_a = current_instr [23:16];
@@ -5143,6 +5163,11 @@ pure wiring
 opcode[7], current_instr[30] to opcode[6], etc.
 3. Zero Latency: Happens instantly—no clock cycles consumed
 4. Zero Area: No gates needed, just wire routing
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+129
+
 Field Layout Rationale:
 • Opcode at Top [31:24]: Decoded first in the pipeline—putting it in most
 significant bits allows fast extraction
@@ -5152,11 +5177,6 @@ timing-critical
 complexity
 Isomorphism Guarantee: This same bit layout is defined in:
 • Coq: Via decode_instruction function with explicit bit masking
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-129
-
 • Python: Using struct unpacking or bitwise operations
 • Verilog: This code
 All three must produce identical field values given the same 32-bit instruction,
@@ -5183,6 +5203,10 @@ pc_reg <= pc_reg + 4;
 state <= STATE_FETCH ;
 end
 
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+130
+
 Understanding Sequential Logic and Non-Blocking Assignment: Context: This is inside an always @(posedge clk) block—code that executes on
 every rising clock edge.
 The begin...end Block:
@@ -5190,11 +5214,6 @@ The begin...end Block:
 • Atomic Execution: All statements execute "simultaneously" on the clock
 edge
 • Not Sequential: Despite appearing line-by-line, these are hardware assignments happening in parallel
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-130
-
 The ≤ Operator (Non-Blocking Assignment):
 • Scheduling: Right-hand side evaluated immediately, but left-hand side
 updated at end of time step
@@ -5215,6 +5234,11 @@ graph operation
 value
 • This is a 32-bit adder in hardware (˜32 full-adder cells)
 • Overflow wraps at 232 (though unlikely in practice)
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+131
+
 4. pc_reg <= pc_reg + 4: Increment program counter by 4 bytes (next
 instruction)
 • Instructions are 32-bit = 4 bytes
@@ -5225,11 +5249,6 @@ Atomicity Guarantee: From an external observer’s perspective, all four updates
 happen "simultaneously" on the clock edge. There’s no intermediate state where PC
 updated but µ didn’t—this matches the Coq step semantics where state transitions
 are atomic.
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-131
-
 Timing: On a 50 MHz FPGA (20ns clock period), this entire operation completes
 within one cycle. The critical path (longest combinational delay) determines
 maximum clock frequency. The adder is typically the bottleneck.
@@ -5257,6 +5276,10 @@ ticks up. And just like your car’s odometer, it only goes one direction.
 No rolling back. That’s the whole game.
 The µ-ALU (mu_alu.v) implements Q16.16 fixed-point arithmetic:
 
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+132
+
 module mu_alu (
 input wire clk ,
 input wire rst_n ,
@@ -5273,11 +5296,6 @@ input wire valid ,
 output reg [31:0] result ,
 output reg ready ,
 output reg overflow
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-132
-
 );
 localparam Q16_ONE = 32 ’ h00010000 ;
 
@@ -5299,6 +5317,11 @@ Port Declarations:
 • valid: High when inputs are ready (handshake protocol)
 • result[31:0]: Output value (Q16.16)
 • ready: High when operation complete (output valid)
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+133
+
 • overflow: High if result exceeds 32-bit range
 Q16.16 Fixed-Point Format:
 • 32 bits total: 16 integer bits + 16 fractional bits
@@ -5307,11 +5330,6 @@ Q16.16 Fixed-Point Format:
 • Range: [−32768, 32767.999985] with resolution 2−16 ≈ 0.000015
 • Why Q16.16? Balance between range and precision for information-theoretic
 calculations
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-133
-
 Localparam Q16_ONE:
 • localparam: Compile-time constant (like const in C)
 • Value: 0x00010000 = 1.0 in Q16.16
@@ -5342,17 +5360,16 @@ log2_lut [2] = 32 ’ h000002DF ;
 ...
 end
 
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+134
+
 Understanding the LOG2 Lookup Table: Declaration: reg [31:0] log2_lut [0:255];
 • reg: Register array (holds state, synthesizes to ROM/BRAM)
 • [31:0]: Each entry is 32 bits (Q16.16 format)
 • [0:255]: 256 entries (28 ), indexed 0-255
 • Total Size: 256 entries × 32 bits = 1 KB
 Initial Block:
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-134
-
 • initial: Executes once at simulation start / synthesis initialization
 • Purpose: Pre-loads ROM with precomputed log2 (x) values
 • Hardware: Synthesizer converts to ROM (block RAM on FPGA)
@@ -5374,6 +5391,11 @@ Isomorphism Requirement: The exact same 256 values exist in all three layers:
 • Python: LOG2_LUT = [to_q16(math.log2(i)) for i in range(256)]
 • Coq: Definition log2_lut := [0x00000000; 0x00000170; ...]
 • Verilog: This code
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+135
+
 Cross-layer tests verify all three agree byte-for-byte. If they don’t, CI fails.
 
 4.5.7
@@ -5386,11 +5408,6 @@ module lei (
 input wire clk ,
 input wire rst_n ,
 input wire logic_req ,
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-135
-
 input wire [31:0] logic_addr ,
 output wire logic_ack ,
 output wire [31:0] logic_data ,
@@ -5415,6 +5432,11 @@ External Interface (LEI ↔ Z3):
 • z3_formula_addr[31:0]: Points to SMT-LIB string in shared memory
 • z3_ack: Z3 asserts high when solving complete
 • z3_result[31:0]: Encoded result (0 = SAT, 1 = UNSAT)
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+136
+
 • z3_sat: Boolean: true if satisfiable
 • z3_cert_hash[31:0]: Hash of UNSAT proof certificate
 Protocol Flow:
@@ -5422,11 +5444,6 @@ Protocol Flow:
 2. LEI Forwards to Z3: Sets z3_req=1, copies z3_formula_addr
 3. Z3 Solves: Reads formula from memory, runs SMT solver
 4. Z3 Responds: Sets z3_ack=1, provides z3_result
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-136
-
 5. LEI Returns: Sets logic_ack=1, copies logic_data
 6. VM Continues: Reads result, proceeds with next instruction
 Why This Design?
@@ -5451,6 +5468,11 @@ Failure Modes:
 Isomorphism Verification
 
 Top: Instruction trace τ (input) - same sequence fed to all three layers
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+137
+
 Three execution paths (boxes):
 • Coq Runner (blue): Extracted OCaml interpreter from formal proofs →
 JSON snapshot
@@ -5459,11 +5481,6 @@ projection
 • Verilog Sim (orange): RTL testbench simulation → VCD waveform
 Bottom: Compare (purple diamond) - assert all state projections equal
 Right: PASS/FAIL (green) - test result
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-137
-
 Left/right annotations: "JSON snapshot" (Coq/Python) vs "VCD waveform"
 (Verilog) - different output formats projected to common representation
 Key insight: Automated verification - execute identical trace on all three layers,
@@ -5495,6 +5512,11 @@ def pr oj ec t_ st at e_f ul l ( state ) :
 return {
 " pc ": state . pc ,
 " mu ": state . mu ,
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+138
+
 " err ": state . err ,
 " regs ": list ( state . regs [:32]) ,
 " mem ": list ( state . mem [:256]) ,
@@ -5504,11 +5526,6 @@ return {
 
 Understanding State Projection: Purpose: Converts internal VM state to
 JSON-serializable dictionary for cross-layer comparison.
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-138
-
 Dictionary Fields:
 • "pc": state.pc: Program counter value (integer)
 • "mu": state.mu: µ-ledger total (integer or float)
@@ -5530,6 +5547,11 @@ Canonicalization: The to_canonical() call is critical:
 • Without canonicalization: {1, 2, 3} =
 ̸ {3, 2, 1} (as JSON)
 • With canonicalization: Both become [1, 2, 3]
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+139
+
 Projection Strategy:
 1. Full Projection: This function — includes all fields
 2. Compute Projection: Only {"regs", "mem"} — for ALU tests
@@ -5537,11 +5559,6 @@ Projection Strategy:
 tests
 4. Why Multiple? Different tests care about different state components
 Isomorphism Use: After running same instruction trace on Coq, Python, Verilog:
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-139
-
 coq_state_json = ocaml_runner_output()
 python_state_json = project_state_full(py_vm.state)
 assert coq_state_json == python_state_json
@@ -5569,6 +5586,11 @@ Every time I push changes, it checks for admits I might have snuck
 in, proofs that don’t compile, layers that disagree. It’s the automated
 version of me at 3 AM going “wait, did I actually prove that or just
 claim it?”
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+140
+
 The Inquisitor enforces the verification rules:
 • Scans the proof sources for Admitted, admit., Axiom
 • Verifies that the proof build completes successfully
@@ -5576,11 +5598,7 @@ The Inquisitor enforces the verification rules:
 • Reports HIGH/MEDIUM/LOW findings
 The repository must have 0 HIGH findings to pass CI.
 
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
 4.7
-
-140
 
 Synthesis Results
 Author’s Note (Devon): Running synthesis for the first time was terrifying. You write all this Verilog, and then Yosys tells you whether it’s
@@ -5606,6 +5624,9 @@ Command Breakdown:
 – Checks basic syntax errors
 • synth_xilinx: Run Xilinx-specific synthesis flow
 – Optimizes for Xilinx 7-series primitives
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
 – Maps to LUTs, FFs, BRAM, DSP blocks
 • -top thiele_cpu: Specify top-level module name
 – Entry point for synthesis
@@ -5613,9 +5634,6 @@ Command Breakdown:
 Synthesis Steps (Internal):
 1. Elaboration: Flatten hierarchy, expand parameters
 2. Optimization: Remove dead code, constant propagation
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
 3. Technology Mapping: Convert to FPGA primitives
 • always @(posedge clk) → FDRE (D flip-flop)
 • case statements → LUT6 (6-input LUT)
@@ -5640,13 +5658,6 @@ Alternative Targets:
 Resource Utilization
 
 Under a reduced configuration (fewer modules, smaller regions):
-• NUM_MODULES = 4
-• REGION_SIZE = 16
-• Estimated LUTs: ∼2,500
-• Estimated FFs: ∼1,200
-Full configuration:
-• NUM_MODULES = 64
-• REGION_SIZE = 1024
 
 141
 
@@ -5654,6 +5665,13 @@ Full configuration:
 
 142
 
+• NUM_MODULES = 4
+• REGION_SIZE = 16
+• Estimated LUTs: ∼2,500
+• Estimated FFs: ∼1,200
+Full configuration:
+• NUM_MODULES = 64
+• REGION_SIZE = 1024
 • Estimated LUTs: ∼45,000
 • Estimated FFs: ∼35,000
 
@@ -5683,6 +5701,11 @@ Build Commands
 Understanding the Build Commands: Purpose: Placeholder showing typical development workflow commands.
 Command Categories:
 1. Build Coq Kernel:
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+143
+
 cd coq && make -j8
 
 • Compiles all .v files to .vo (Coq object files)
@@ -5690,10 +5713,6 @@ cd coq && make -j8
 • -j8: Parallel compilation with 8 cores
 2. Run Isomorphism Tests:
 pytest tests/test_isomorphism_3way.py -v
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-143
 
 • Executes same instruction traces on Coq, Python, Verilog
 • Compares state projections at each step
@@ -5716,6 +5735,11 @@ Why Comments Instead of Actual Commands?
 • User might have custom Makefile targets
 Actual Workflow: See Makefile and scripts/ directory for concrete commands.
 Three boxes (top):
+
+CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
+
+144
+
 • Coq (blue): 1,636 theorems, machine-checked, extracted runner
 • Python (green): Reference VM, tracing, receipts
 • Verilog (orange): RTL Core, µ-ALU, FPGA-ready
@@ -5723,11 +5747,6 @@ Center bottom (yellow box): Central isomorphism invariant - SCoq (τ ) =
 SPython (τ ) = SVerilog (τ ) for all traces τ
 Arrows: All three layers point to central invariant - bound together by automated
 verification
-
-CHAPTER 4. IMPLEMENTATION: THE 3-LAYER ISOMORPHISM
-
-144
-
 Top annotations: "Extraction" (Coq→Python) and "Synthesis" (Python→Verilog)
 - translation methods
 Key insight: Three independent implementations (formal, reference, physical)
@@ -10035,11 +10054,15 @@ explicit—a resource to be discovered, paid for, and verified.
 
 246
 
-This work demonstrates that formal verification methods are increasingly accessible.
-When answers weren’t available, tools were built to find them. When those tools
-worked, new questions emerged. This thesis is where those questions led.
-Formal methods provide an objective standard: proofs compile or they don’t. Tests
-pass or they fail. This objectivity opens formal verification to broader participation.
+This work started with no formal training in computer science, mathematics, or
+proof assistants. Just a car salesman who kept asking questions. When answers
+weren’t available, tools were built to find them (with AI assistance). When those
+tools worked, the threads kept getting pulled. This thesis is where those threads
+led.
+The proofs don’t care who wrote them. They compile or they don’t. The tests
+pass or they fail. That’s the point: formal methods let anyone participate in
+mathematical truth, regardless of credentials. The barriers are lower than people
+think.
 There is no free insight.
 But for those willing to pay the price of structure,
 the universe is computable—and verifiable.
@@ -14633,6 +14656,14 @@ D.1
 
 Physics Models and Algorithmic Primitives
 
+Author’s Note (Devon): This is where things get... weird. And exciting.
+I’m not a physicist. I sold cars. But the patterns I found in this model—
+they look like physics. Waves. Conservation laws. Entropy. I didn’t
+put them there on purpose. They just... emerged. Either I accidentally
+discovered something real, or I’m seeing patterns that aren’t there. I
+genuinely don’t know. But I wrote it down, proved what I could, and
+put it out there for smarter people to judge.
+
 D.1.1
 
 Computation as Physics
@@ -14647,16 +14678,17 @@ To validate this connection, the Coq framework includes explicit physics models:
 µ-monotonicity
 • Discrete lattices: A model of emergent spacetime from computational steps
 These models are not metaphors—they are formally verified Coq proofs showing
+
+363
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 364
+
 that computational structures exhibit physical-like behavior. The wave model
 lives in coq/physics/WaveModel.v, and its embedding into the Thiele Machine
 is proven in coq/thielemachine/coqproofs/WaveEmbedding.v. The lattice and
 dissipative models follow the same pattern: define a state and step function, then
 prove conservation or monotonicity lemmas that can be linked back to kernel
 invariants.
-
-363
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 364
 
 D.1.2
 
@@ -14693,15 +14725,15 @@ right_amp : nat
 Definition WaveState := list WaveCell .
 Definition wave_step ( s : WaveState ) : WaveState :=
 let lefts := rotate_left ( map left_amp s ) in
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 365
+
 let rights := rotate_right ( map right_amp s ) in
 map2 ( fun l r = > {| left_amp := l ; right_amp := r
 ,→ |}) lefts rights .
 
 Understanding the Wave Propagation Model: What is this model? This
 is a discrete 1D wave equation where waves propagate left and right on a lattice.
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 365
-
 Each cell contains left-moving and right-moving amplitudes that shift positions
 each time step.
 Record structure breakdown:
@@ -14726,14 +14758,15 @@ Example: 5-cell lattice with one right-moving pulse:
 • Initial state: [(0, 0), (0, 1), (0, 0), (0, 0), (0, 0)] (pulse at position 1).
 • After 1 step: [(0, 0), (0, 0), (0, 1), (0, 0), (0, 0)] (pulse moves right to position
 2).
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 366
+
 • After 2 steps: [(0, 0), (0, 0), (0, 0), (0, 1), (0, 0)] (pulse at position 3).
 Connection to kernel: This wave model can be embedded into kernel semantics
 via partition structure (each cell becomes a module). The conservation laws
 (energy, momentum, reversibility) proven for wave_step transfer to the kernel via
 embedding lemmas.
 Conservation theorems:
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 366
 
 Theorem w a v e _ e n e r g y _ c o n s e r v e d :
 forall s , wave_energy ( wave_step s ) = wave_energy s
@@ -14762,14 +14795,14 @@ Why are these laws important? In physics, conservation laws are fundamental:
 • Energy conservation follows from time-translation symmetry (Noether’s
 theorem).
 • Momentum conservation follows from space-translation symmetry.
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 367
+
 • Reversibility is the hallmark of fundamental dynamics (Hamiltonian systems).
 These proofs demonstrate that even simple computational models exhibit physicallike conservation laws.
 Proof strategy: Each theorem is proven by direct computation:
 • Energy: Show that rotation preserves sum of squares.
 • Momentum: Show that rotation preserves signed sum.
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 367
-
 • Reversibility: Construct inverse operation (rotate_left inverts rotate_right,
 vice versa).
 Connection to kernel: These conservation laws transfer to kernel semantics:
@@ -14806,6 +14839,8 @@ constants can be derived from the µ-theory. These proofs live in coq/physics_
 exploration/ and are maintained separately from the zero-axiom kernel. This
 section documents the successes, failures, and lessons learned.
 
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 368
+
 D.3.1
 
 The Planck Constant: A Successful Derivation
@@ -14814,9 +14849,6 @@ Result: [SUCCESS] RELATIONSHIP DERIVED
 The derivation of Planck’s constant h from Landauer’s principle represents the
 clearest success. The formal proof is in coq/physics_exploration/PlanckDeri
 vation.v (54 lines, compiles).
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 368
-
 The Core Relationship: Starting from Landauer’s principle Elandauer = kB T ln 2,
 we can express the fundamental µ-time scale as:
 τµ =
@@ -14862,15 +14894,15 @@ Parameter tau_mu : R .
 (* Fundamental mu - time *)
 
 (* Derived constants *)
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 369
+
 Definition E_landauer := k_B * T * ln 2.
 Definition planck_from_info := 4 * E_landauer *
 ,→ tau_mu .
 (* Key theorem : positivity preservation *)
 Lemma ln2_positive : 0 < ln 2.
 Proof .
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 369
-
 apply ln_increasing .
 lra .
 Qed .
@@ -14903,14 +14935,13 @@ c=
 dµ
 τµ
 
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 370
+
 where:
 • dµ = fundamental length scale (distance per µ-operation)
 • τµ = fundamental time scale (time per µ-operation)
 What this means: Light speed is the ratio of spatial to temporal scales in
 the computational substrate. It’s not a fundamental constant—it’s an emergent
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 370
-
 property of how space and time discretize.
 Numerical Analysis: Using the known value c = 299,792,458 m/s and the
 derived τµ ≈ 1.15 × 10−13 s, the implied fundamental length scale is:
@@ -14938,15 +14969,14 @@ Definition c_structure := d_mu / tau_mu .
 Theorem c _struc ture_p roof :
 0 < tau_mu -> 0 < d_mu -> 0 < c_structure .
 
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 371
+
 Scientific Assessment: What was proven: The structure c = dµ /τµ is formally
 established.
 What failed: No derivation of dµ from first principles. All tested theories either:
 • Require dµ as input (circular)
 • Predict Planck length ∼ 10−35 m (34 orders of magnitude too small)
 • Depend on unknown coupling constants
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 371
-
 Status: [PARTIAL] Structure proven, value requires emergence theory.
 
 D.3.3
@@ -14960,8 +14990,8 @@ Attempted Approaches:
 3
 
 Ac
-(Bekenstein-Hawking entropy)
 1. Holographic principle: S = 4Gℏ
+(Bekenstein-Hawking entropy)
 
 • Requires independent determination of S and A
 • Circular: G appears in the formula we’re trying to derive
@@ -14984,6 +15014,9 @@ Parameter G : R .
 (* All approaches require G as input or unknown
 ,→ masses *)
 Theorem G _r e q u ir e s _u n k no w n s :
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 372
+
 (* No derivation possible without quantum gravity
 ,→ *)
 True .
@@ -14991,9 +15024,6 @@ True .
 Scientific Assessment: What failed: All tested approaches are either:
 • Circular (require G as input)
 • Dependent on particle masses (which are also free parameters)
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 372
-
 • Missing quantum gravity theory
 Status: [SPECULATIVE] Highly speculative, no clear pathway to derivation.
 
@@ -15015,8 +15045,6 @@ Ratio
 
 Value
 
-Pattern Found?
-
 mµ /me
 mp /me
 mp /mµ
@@ -15031,6 +15059,11 @@ Parameter m_electron : R .
 Parameter m_muon : R .
 Parameter m_proton : R .
 (* No patterns found *)
+
+Pattern Found?
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 373
+
 Theorem m a s s e s _ a r e _ f r e e _ p a r a m e t e r s :
 (* Masses appear arbitrary from information theory
 ,→ *)
@@ -15039,9 +15072,6 @@ True .
 Scientific Assessment: What failed: No mathematical patterns found. Masses
 appear to be free parameters of the Standard Model that cannot be derived from
 first principles.
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 373
-
 Note on fine structure constant: The fine structure constant α ≈ 1/137 also
 remains unexplained. No relationship to µ-theory found.
 Status: [FAILED] Masses are free parameters—no derivation possible.
@@ -15101,15 +15131,15 @@ What Computation Can Do:
 1. Establish relationships: h = 4Elandauer τµ is a mathematical fact about
 information theory.
 2. Prove structure: c = dµ /τµ is a structural relationship.
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 374
+
 3. Identify free parameters: Masses and G cannot be derived from µ-theory
 alone.
 What Computation Cannot Do:
 1. Predict numerical values: Without independent derivation of τµ and dµ ,
 constants remain free.
 2. Derive coupling constants: G, α, and mass ratios appear arbitrary.
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 374
-
 3. Replace empirical measurement: Physical constants must ultimately be
 measured, not computed.
 The Honest Conclusion: µ-theory is not a Theory of Everything. It
@@ -15141,14 +15171,13 @@ let half := r / 2 in
 let term := Nat . pow a half in
 gcd_euclid ( term - 1) N .
 
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 375
+
 Understanding the Period Finding Definitions: What is period finding?
 Period finding is the core subroutine of Shor’s algorithm: given a and N , find
 the smallest r such that ar ≡ 1 (mod N ).
 Definition breakdown:
 • is_period(r): Proposition stating r is a period:
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 375
-
 – r > 0: Period must be positive (trivial period 0 excluded).
 – forall k, pow_mod(k+r) = pow_mod(k): The function f (k) =
 ak mod N is periodic with period r. For all k: ak+r ≡ ak (mod N ).
@@ -15173,6 +15202,8 @@ non-trivial factor.
 Connection to quantum computing: Quantum computers find periods in
 √
 O((log N )3 ) time (exponentially faster than classical O( N ) algorithms). IMPORTANT: The Thiele Machine does not achieve similar speedups for factorization. The formal development proves the correctness of the mathematical reduction
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 376
 √
 (given period r, extract factors) but uses classical O( N ) trial division for period
 finding. Previous claims of polylog speedup were incorrect and have been retracted
@@ -15183,9 +15214,6 @@ Theorem shor_reduction :
 forall r ,
 minimal_period r ->
 Nat . Even r ->
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 376
-
 let g := shor_candidate r in
 1 < g < N ->
 Nat . divide g N /\
@@ -15225,14 +15253,13 @@ ar − 1 = (ar/2 )2 − 1 = (ar/2 − 1)(ar/2 + 1) ≡ 0
 
 (mod N )
 
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 377
 So N |(ar/2 − 1)(ar/2 + 1). If neither factor is divisible by N individually (with high
 probability), then gcd(ar/2 − 1, N ) gives a non-trivial factor.
 Example verification: N = 21, a = 2, r = 6:
 • ar/2 − 1 = 23 − 1 = 7.
 • gcd(7, 21) = 7.
 • 7 divides 21, so 21 = 3 × 7. Factorization complete!
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 377
 This is the mathematical core of Shor’s algorithm: given the period r of ar ≡ 1
 (mod N ), non-trivial factors can be extracted via GCD.
 
@@ -15290,15 +15317,15 @@ Euclidean algorithm computes the greatest common divisor (GCD) of two
 natural numbers a and b. It’s one of the oldest algorithms (300 BCE) and is
 fundamental to number theory.
 Algorithm breakdown:
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 378
+
 • Base case (b = 0): If b = 0, then gcd(a, 0) = a.
 • Recursive case (b > 0): Compute gcd(b, a mod b). This reduces the
 problem size: a mod b < b.
 Example: gcd(48, 18):
 • gcd(48, 18) = gcd(18, 48 mod 18) = gcd(18, 12)
 • gcd(18, 12) = gcd(12, 18 mod 12) = gcd(12, 6)
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 378
-
 • gcd(12, 6) = gcd(6, 12 mod 6) = gcd(6, 0)
 • gcd(6, 0) = 6
 Theorem breakdown:
@@ -15321,15 +15348,15 @@ Why does this work? Key insight: gcd(a, b) = gcd(b, a mod b).
 Example: gcd(48, 18):
 • gcd(48, 18) = gcd(18, 48 mod 18) = gcd(18, 12)
 • gcd(18, 12) = gcd(12, 18 mod 12) = gcd(12, 6)
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 379
+
 • gcd(12, 6) = gcd(6, 12 mod 6) = gcd(6, 0)
 • gcd(6, 0) = 6 (base case).
 Result: gcd(48, 18) = 6.
 Theorems proven:
 • gcd_euclid_divides_left: The GCD divides a. Proof by induction on
 recursive structure.
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 379
-
 • gcd_euclid_divides_right: The GCD divides b. Follows from divisibility
 preservation.
 Connection to Shor’s algorithm: The Euclidean algorithm is used to compute
@@ -15356,6 +15383,9 @@ Definition breakdown:
 – If exp is even: a2k = (ak )2 , compute recursively.
 – If exp is odd: a2k+1 = a · (ak )2 .
 All intermediate results taken modn to prevent overflow.
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 380
+
 Theorem breakdown:
 • mod_pow_mult: Exponent addition property: ab+c mod n = (ab · ac ) mod
 n.
@@ -15363,8 +15393,6 @@ n.
 algorithm.
 Example: Compute 210 mod 15:
 • Naive: 210 = 1024, then 1024 mod 15 = 4.
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 380
 • Efficient: 210 = (25 )2 mod 15 = (32 mod 15)2 mod 15 = 22 mod 15 = 4.
 Why is this important? Period finding in Shor’s algorithm requires computing
 ak mod N for many values of k. Modular exponentiation makes this feasible even
@@ -15387,6 +15415,8 @@ Fast: only 2 multiplications instead of 10.
 Connection to Shor’s algorithm: Period finding requires computing ak mod N
 for many k. Modular exponentiation makes this feasible.
 
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 381
+
 D.5
 
 Bridge Modules
@@ -15399,8 +15429,6 @@ D.5.1
 Randomness Bridge
 
 Representative bridge lemma:
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 381
 
 Definition RAND_TRIAL_OP : nat := 1001.
 Definition RandChannel ( r : Receipt ) : bool :=
@@ -15426,15 +15454,15 @@ Lemma: decode_is_filter_payloads — Proves that decoding is equivalent
 to filtering then mapping payloads. This is the formal guarantee that the bridge
 correctly extracts randomness data.
 Why is this important? Without bridges, there’s no connection between:
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 382
+
 • High-level claims: "This algorithm generated 1000 random bits."
 • Low-level reality: A trace of 50,000 receipts with mixed opcodes.
 The bridge makes randomness claims verifiable: you can inspect the trace and
 extract exactly the random bits claimed.
 Example: Trace with 5 receipts:
 • Receipt 1: op=1001, payload=0b1011 (randomness).
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 382
-
 • Receipt 2: op=2000, payload=... (not randomness, filtered out).
 • Receipt 3: op=1001, payload=0b0110 (randomness).
 • Receipt 4: op=1001, payload=0b1110 (randomness).
@@ -15463,6 +15491,9 @@ Definition TheoryProgram : Type := list TheoryTrial .
 (** Translation to kernel instructions *)
 Definition translate_trial ( t : TheoryTrial ) :
 ,→ vm_instruction :=
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 383
+
 instr_chsh_trial ( trial_x t ) ( trial_y t ) ( trial_a t
 ,→ ) ( trial_b t ) 1.
 (** Simulation theorem : receipts recover theory
@@ -15471,9 +15502,6 @@ Theorem trials_preserved :
 forall prog s0 receipts ,
 run_program ( tra nslate _progr am prog ) s0 = (s ’ ,
 ,→ receipts ) ->
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 383
-
 decode_trials receipts = prog .
 
 What this proves: Any finite box-world experiment (a list of CHSH trials with
@@ -15509,6 +15537,9 @@ chsh_statistic p o l i c y _ t h r e s h o l d _ d a t a s e t = 5657 /
 Theorem q u a n t u m _ t r i a l s _ p r e s e r v e d :
 forall prog ,
 q uan tu m_ ad mi ss ib le prog ->
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 384
+
 decode_trials ( r u n _q u a nt u m _p r o gr a m prog ) = prog .
 
 What this proves: Quantum-admissible correlations (those satisfying the Tsirelson
@@ -15517,9 +15548,6 @@ bound) embed into the kernel with exact receipt recovery. The file also provides
 concrete finite dataset achieving the policy threshold 5657/2000 ≈ 2.8285 ≈ 2 2,
 making the quantum bound computationally verifiable.
 Why two bridge files? BoxWorld_to_Kernel.v handles arbitrary correlations
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 384
-
 (up to the algebraic maximum of 4). FiniteQuantum_to_Kernel.v specializes to
 √
 quantum-admissible correlations (up to 2 2) and provides the concrete dataset
@@ -15554,15 +15582,15 @@ rng_metric transcript <= f K .
 Understanding the Admissible Randomness Bound: What does this
 theorem prove? This theorem provides a quantitative bound on deviceindependent (DI) randomness: the amount of certifiable randomness is limited by
 the structure-addition budget K.
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 385
+
 Theorem statement breakdown:
 • Hypothesis: Admissible K transcript — The transcript (sequence of
 measurement results) is K-admissible: it can be generated with at most K
 bits of added structure (µ-cost).
 • Conclusion: rng_metric transcript <= f K — The randomness metric
 (e.g., min-entropy Hmin ) is bounded by a function of K.
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 385
-
 Key concepts:
 • Device-independent randomness: Randomness certified without trusting the device. Based only on observed correlations (e.g., Bell inequality
 violations).
@@ -15587,6 +15615,8 @@ Connection to kernel: The µ ledger tracks structure revelation. If a randomness
 generator claims to extract R bits from K µ-cost, this theorem checks if R ≤ f (K).
 If not, the claim is rejected.
 
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 386
+
 D.6.3
 
 Conflict Chart
@@ -15596,8 +15626,6 @@ The closed-work pipeline generates a comparison artifact:
 • Reference curve from standard DI theory
 • Explicit assumption documentation
 This creates an “external confrontation artifact”—outsiders can disagree on assumptions but must engage with the explicit numbers.
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 386
 
 D.7
 
@@ -15626,6 +15654,9 @@ What is maximal closure? The kernel constraints are complete:
 • Necessary: All constraints follow from compositionality (partition boundaries + µ-conservation).
 • Sufficient: No additional constraints can be derived without adding extra
 axioms (e.g., symmetry, dynamics).
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 387
+
 Proof strategy: Show that:
 1. All listed constraints (no-signaling, µ-monotonicity, cone locality) are provable
 from kernel axioms.
@@ -15634,9 +15665,6 @@ beyond these.
 Why is this important? Maximal closure means the kernel is tight:
 • It’s not underconstrained (missing essential laws).
 • It’s not overconstrained (imposing arbitrary restrictions).
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 387
-
 The kernel captures exactly what compositionality demands, no more, no less.
 Connection to TOE limits: Maximal closure implies the kernel cannot uniquely
 determine physics. It forces locality and irreversibility, but not dynamics, probabilities, or field equations. Those require extra structure.
@@ -15661,6 +15689,9 @@ Theorem statement breakdown:
 functions w0 , w1 , w2 , . . .
 • forall k, weight_laws (w k) — Each weight function wk satisfies compositional laws:
 – Additivity: w(A ∪ B) = w(A) + w(B) for disjoint A, B.
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 388
+
 – Normalization: w(Ω) = 1 (total probability = 1).
 – Non-negativity: w(A) ≥ 0 for all events A.
 • forall k1 k2, k1 <> k2 -> exists t, w k1 t <> w k2 t — All weight
@@ -15671,9 +15702,6 @@ Why is this a problem for TOE? A Theory of Everything should uniquely
 predict probabilities. But this theorem proves:
 • The kernel constraints (compositionality) are compatible with infinitely many
 probability measures.
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 388
-
 • No unique “Born rule” (quantum mechanical probabilities) is forced.
 Example: Two valid weight families:
 • w1 : Uniform distribution over all traces (maximum entropy).
@@ -15694,7 +15722,11 @@ Theorem P h y s i c s _ R e q u i r e s _ E x t r a _ S t r u c t u r e :
 ,→ Ke rn el No Go Fo rT OE _P .
 
 Understanding the Physics Requires Extra Structure Theorem: What
-does this theorem prove? This is the definitive TOE no-go result: computational structure (the kernel) cannot uniquely determine a physical theory. Extra
+does this theorem prove? This is the definitive TOE no-go result: compu-
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 389
+
+tational structure (the kernel) cannot uniquely determine a physical theory. Extra
 axioms are required.
 What the kernel provides:
 • Constraints: Locality, µ-monotonicity, causal structure.
@@ -15702,9 +15734,6 @@ What the kernel provides:
 What the kernel does NOT provide:
 • Unique dynamics: Infinitely many time evolution operators satisfy kernel
 constraints.
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 389
-
 • Unique probabilities: Infinitely many weight families satisfy compositionality (proven by CompositionalWeightFamily_Infinite).
 • Unique entropy: Entropy diverges without coarse-graining; the choice of
 coarse-graining is arbitrary (proven by EntropyImpossibility.v).
@@ -15723,6 +15752,9 @@ for theories.
 Implication: A unique physical theory cannot be derived from computational
 structure alone. Additional axioms (symmetry, coarse-graining, boundary conditions) are required.
 Philosophical interpretation: Physics is not purely computational. Computation provides constraints and structure, but physics requires contingent choices
+
+APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 390
+
 (symmetries, initial conditions) that are not forced by logic.
 
 D.8
@@ -15732,9 +15764,6 @@ Complexity Comparison
 The Thiele Machine provides an alternative complexity model. The table below
 should be read as a qualitative comparison: time decreases as µ increases, not as a
 claim of universal asymptotic dominance.
-
-APPENDIX D. PHYSICS MODELS AND ALGORITHMIC PRIMITIVES 390
-
 Algorithm
 
 Classical
