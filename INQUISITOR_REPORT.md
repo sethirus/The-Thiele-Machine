@@ -1,10 +1,10 @@
 # INQUISITOR REPORT
-Generated: 2026-01-22 05:59:52Z (UTC)
+Generated: 2026-01-23 03:47:50Z (UTC)
 Scanned: 270 Coq files across the repo
 ## Summary
 - HIGH: 0
-- MEDIUM: 32
-- LOW: 107
+- MEDIUM: 28
+- LOW: 106
 
 ## Rules
 - `ADMITTED`: `Admitted.` (incomplete proof - FORBIDDEN)
@@ -69,38 +69,26 @@ Higher score = more likely unfinished/vacuous.
 - L401: **SUSPICIOUS_SHORT_PROOF** — Complex theorem \`classical_bound_lt_algebraic_max\` has very short proof (2 lines) - verify this is not a placeholder.
   - `Lemma classical_bound_lt_algebraic_max : classical_bound_value < 4%Q.`
 
-#### `coq/quantum_derivation/CompositePartitions.v`
-- L196: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
-  - `* TODO: Connect to State and step_state from CoreSemantics`
-- L202: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
-  - `True.  TODO: Formalize precisely`
-- L209: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
-  - `* TODO for Phase 1.2 (TensorNecessity.v):`
-
-#### `coq/theory/ArchTheorem.v`
-- L268: **COMMENT_SMELL** — Comment contains placeholder marker (TODO/FIXME/WIP/etc).
-  - `TODO: Complete this proof - pdiscover_computes_signature needs proper type definition`
-
 #### `coq/theory/EvolutionaryForge.v`
-- L228: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+- L230: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
   - `exists (crossover s1 s2 (Nat.min (length s1) (length s2) / 2)).`
-- L233: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+- L235: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
   - `assert (Hmin_pos: Nat.min (length s1) (length s2) > 0) by lia.`
-- L234: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+- L236: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
   - `assert (H: Nat.min (length s1) (length s2) / 2 <= Nat.min (length s1) (length s2)).`
-- L238: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+- L240: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
   - `assert (Hmin_pos: Nat.min (length s1) (length s2) > 0) by lia.`
-- L239: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+- L241: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
   - `assert (H: Nat.min (length s1) (length s2) / 2 <= Nat.min (length s1) (length s2)).`
-- L335: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+- L337: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
   - `exists [crossover s1 s2 (Nat.min (length s1) (length s2) / 2)].`
-- L344: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+- L346: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
   - `assert (Hmin_pos: Nat.min (length s1) (length s2) > 0) by lia.`
-- L345: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+- L347: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
   - `assert (H: Nat.min (length s1) (length s2) / 2 <= Nat.min (length s1) (length s2)).`
-- L349: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+- L351: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
   - `assert (Hmin_pos: Nat.min (length s1) (length s2) > 0) by lia.`
-- L350: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+- L352: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
   - `assert (H: Nat.min (length s1) (length s2) / 2 <= Nat.min (length s1) (length s2)).`
 
 #### `coq/theory/Representations.v`
@@ -126,13 +114,13 @@ Higher score = more likely unfinished/vacuous.
   - `Require Import Classical.`
 
 #### `coq/thielemachine/verification/Admissibility.v`
-- L143: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+- L145: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
   - `trace_admissible s [PDISCOVER (fst m) (Z.to_nat cost)].`
-- L143: **Z_TO_NAT_BOUNDARY** — Z.to_nat used without nearby nonnegativity guard (potential boundary clamp).
+- L145: **Z_TO_NAT_BOUNDARY** — Z.to_nat used without nearby nonnegativity guard (potential boundary clamp).
   - `trace_admissible s [PDISCOVER (fst m) (Z.to_nat cost)].`
-- L151: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
+- L153: **CLAMP_OR_TRUNCATION** — Clamp/truncation detected (can break algebraic laws unless domain/partiality is explicit).
   - `exists (fst m), (Z.to_nat cost).`
-- L151: **Z_TO_NAT_BOUNDARY** — Z.to_nat used without nearby nonnegativity guard (potential boundary clamp).
+- L153: **Z_TO_NAT_BOUNDARY** — Z.to_nat used without nearby nonnegativity guard (potential boundary clamp).
   - `exists (fst m), (Z.to_nat cost).`
 
 #### `coq/thielemachine/verification/ObservationInterface.v`
@@ -146,9 +134,9 @@ Higher score = more likely unfinished/vacuous.
 ### LOW
 
 #### `coq/kernel/AlgebraicCoherence.v`
-- L225: **CHSH_BOUND_MISSING** — CHSH bound theorem \`chsh_weak_bound\` may not reference proper Tsirelson bound value.
+- L259: **CHSH_BOUND_MISSING** — CHSH bound theorem \`chsh_weak_bound\` may not reference proper Tsirelson bound value.
   - `Lemma chsh_weak_bound : forall e00 e01 e10 e11 : Q,`
-- L262: **CHSH_BOUND_MISSING** — CHSH bound theorem \`chsh_squared_bound_from_correlations\` may not reference proper Tsirelson bound value.
+- L296: **CHSH_BOUND_MISSING** — CHSH bound theorem \`chsh_squared_bound_from_correlations\` may not reference proper Tsirelson bound value.
   - `Lemma chsh_squared_bound_from_correlations : forall e00 e01 e10 e11 : Q,`
 
 #### `coq/kernel/BoxCHSH.v`
@@ -178,19 +166,17 @@ Higher score = more likely unfinished/vacuous.
   - `Axiom T_pos : T > 0.`
 
 #### `coq/kernel/HardAssumptions.v`
-- L28: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`normalized_E_bound\` is documented with INQUISITOR NOTE.
+- L47: **CONTEXT_ASSUMPTION_DOCUMENTED** — Context parameter \`normalized_E_bound\` is documented with INQUISITOR NOTE.
   - `Context (normalized_E_bound : forall B x y,`
 
 #### `coq/kernel/MinorConstraints.v`
-- L41: **AXIOM_DOCUMENTED** — Found Axiom normalized_E_bound.
-  - `Axiom normalized_E_bound : forall B x y,`
-- L144: **AXIOM_DOCUMENTED** — Found Axiom Fine_theorem.
+- L162: **AXIOM_DOCUMENTED** — Found Axiom Fine_theorem.
   - `Axiom Fine_theorem : forall E00 E01 E10 E11 s t,`
-- L206: **CHSH_BOUND_MISSING** — CHSH bound theorem \`minor_constraints_imply_CHSH_bound\` may not reference proper Tsirelson bound value.
+- L224: **CHSH_BOUND_MISSING** — CHSH bound theorem \`minor_constraints_imply_CHSH_bound\` may not reference proper Tsirelson bound value.
   - `Theorem minor_constraints_imply_CHSH_bound : forall E00 E01 E10 E11,`
-- L282: **AXIOM_DOCUMENTED** — Found Axiom Gram_PSD.
+- L322: **AXIOM_DOCUMENTED** — Found Axiom Gram_PSD.
   - `Axiom Gram_PSD : forall (s e1 e2 : R),`
-- L331: **AXIOM_DOCUMENTED** — Found Axiom local_box_satisfies_minors.
+- L393: **AXIOM_DOCUMENTED** — Found Axiom local_box_satisfies_minors.
   - `Axiom local_box_satisfies_minors : forall B,`
 
 #### `coq/kernel/MuInformationTheoreticBounds.v`
