@@ -1,5 +1,24 @@
 (** =========================================================================
-    Hard Mathematical Assumptions - PROVEN
+    HARD MATHEMATICAL ASSUMPTIONS - PROVEN AND DOCUMENTED
+    =========================================================================
+    
+    This module collects the "hard" mathematical facts required for the
+    Tsirelson bound derivation. Most facts are now PROVEN in this file.
+    
+    STRUCTURE:
+    - normalized_E_bound: Re-exported from Tier1Proofs.v (PROVEN)
+    - tsirelson_bound constant: 5657/2000 ≈ 2√2
+    - HardFacts module: Collection of proven theorems
+    
+    KEY RESULTS (all Qed):
+    1. local_S_2_deterministic: Deterministic strategies give |S| ≤ 2
+    2. pr_box_no_extension: PR box has no tripartite extension (monogamy)
+    3. symmetric_coherence_bound: NPA-1 symmetric bound
+    4. tsirelson_from_algebraic_coherence: Algebraic coherence → |S| ≤ 4
+    
+    EXTERNAL DEPENDENCIES:
+    - normalized_E_bound (Context parameter): See Tier1Proofs.v for actual proof
+    
     ========================================================================= *)
 
 Require Import Coq.QArith.QArith.

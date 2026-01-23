@@ -1,4 +1,38 @@
-(** * Algebraic Coherence and the Tsirelson Bound *)
+(** =========================================================================
+    ALGEBRAIC COHERENCE AND THE TSIRELSON BOUND
+    =========================================================================
+    
+    This file establishes the algebraic characterization of the Tsirelson
+    bound (2√2 ≈ 2.8284) without directly using quantum mechanics.
+    
+    KEY RESULTS (PROVEN):
+    
+    1. chsh_bound_4: Triangle inequality gives |S| ≤ 4 from correlation bounds
+    
+    2. symmetric_tsirelson_bound: For symmetric correlators (E00=E01=E10=e, E11=-e)
+       with minor constraints, we have |4e| ≤ 2√2
+       
+    3. tsirelson_from_algebraic_coherence: Any algebraically coherent
+       correlators satisfy |S| ≤ 4
+       
+    4. algebraic_max_not_coherent: The S=4 configuration is NOT algebraically
+       coherent, demonstrating the gap between 2√2 and 4
+       
+    5. tsirelson_bound_tight: There exists an algebraically coherent
+       configuration achieving S = 2√2
+    
+    MATHEMATICAL CONTEXT:
+    
+    The NPA hierarchy level-1 (algebraic coherence) captures all correlations
+    achievable by quantum measurements. The constraints are:
+    - |Exy| ≤ 1 for all measurement settings x,y
+    - Existence of correlation matrix parameters (t,s) such that
+      all 3×3 principal minors are non-negative
+    
+    These constraints form a convex set, and the maximum of the linear
+    functional S = E00 + E01 + E10 - E11 over this set is 2√2.
+    
+    ========================================================================= *)
 
 Require Import Coq.QArith.QArith.
 Require Import Coq.QArith.Qabs.
