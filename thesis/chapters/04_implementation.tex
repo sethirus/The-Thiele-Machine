@@ -16,19 +16,15 @@
 
 \section{Why Three Layers?}
 
-\subsection{A Car Salesman's Take on Building Trust}
+\subsection{Building Trust Through Multi-Layer Verification}
 
-\begin{quote}
-\textit{``Okay, so here's the thing. I'm a car salesman. Not a computer scientist. Not a mathematician. A guy who sold Hondas and Toyotas for years. And in that world, you learn something real fast: talk is cheap. A customer can tell you their car runs great, but until I see it drive, hear the engine, and check the VIN myself, I don't know anything.''}
-\end{quote}
+A formal specification proves properties but doesn't run on real workloads. An executable implementation runs but might contain bugs or semantic drift. How do you trust that implementation matches specification?
 
-Same thing here. I could write a beautiful mathematical definition of how this machine \textit{should} work, but that's just talk. That's just the brochure. What matters is: does it actually work? Does the engine turn over? Does the thing \textit{do what I said it does}?
+This is why the system was built three times: one implementation in pure mathematics (Coq), one in Python for reference and debugging, and one in Verilog for actual hardware. All three must produce identical results.
 
-That's why the system was built three times. Not out of masochism (though I question that sometimes), but because I needed to \textit{know}. I needed to see the same answer come out of three completely different ``workshops''---one that speaks pure math (Coq), one that speaks Python like a normal person, and one that speaks to actual hardware in Verilog.
+If all three implementations agree, the model is verified. If they disagree, there's a bug to find.
 
-If all three shops give me the same answer, I know the car is real. If they disagree? Someone's lying, and I need to find out who.
-
-\subsection{The Problem of Trust (The Academic Version)}
+\subsection{The Problem of Trust}
 
 A formal specification proves properties but doesn't run on real workloads. An executable implementation runs but might contain bugs or semantic drift. How do you trust that implementation matches specification?
 
