@@ -320,7 +320,7 @@ For the Thiele Machine, the project enforces a strict methodology. No wiggle roo
 \begin{enumerate}
     \item \textbf{No \texttt{Admitted}}: Every lemma must be fully proven
     \item \textbf{No \texttt{admit} tactics}: No shortcuts inside proofs
-    \item \textbf{No \texttt{Axiom}}: No unproven assumptions except foundational logic
+    \item \textbf{Documented \texttt{Axiom}}: External mathematical results (e.g., Tsirelson's theorem, Fine's theorem) are allowed when properly documented with INQUISITOR NOTE markers
 \end{enumerate}
 
 This is enforced by an automated checker that scans all proof files and blocks violations. If a theorem says ``Proven,'' it's actually proven.

@@ -57,662 +57,662 @@
 \contentsline {section}{\numberline {2.7}Related Work}{40}{section.2.7}%
 \contentsline {subsection}{\numberline {2.7.1}Algorithmic Information Theory}{40}{subsection.2.7.1}%
 \contentsline {subsection}{\numberline {2.7.2}Interactive Proof Systems}{40}{subsection.2.7.2}%
-\contentsline {subsection}{\numberline {2.7.3}Partition Refinement Algorithms}{40}{subsection.2.7.3}%
+\contentsline {subsection}{\numberline {2.7.3}Partition Refinement Algorithms}{41}{subsection.2.7.3}%
 \contentsline {subsection}{\numberline {2.7.4}Minimum Description Length in Machine Learning}{41}{subsection.2.7.4}%
 \contentsline {section}{\numberline {2.8}Chapter Summary}{41}{section.2.8}%
 \contentsline {paragraph}{Key Takeaways:}{41}{section*.2}%
-\contentsline {chapter}{\numberline {3}Theory: The Thiele Machine Model}{42}{chapter.3}%
-\contentsline {section}{\numberline {3.1}What This Chapter Defines}{42}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}From Intuition to Formalism}{42}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}The Five Components}{43}{subsection.3.1.2}%
-\contentsline {subsection}{\numberline {3.1.3}The Central Innovation: $\mu $-bits}{43}{subsection.3.1.3}%
-\contentsline {subsection}{\numberline {3.1.4}How to Read This Chapter}{44}{subsection.3.1.4}%
-\contentsline {subsection}{\numberline {3.1.5}Key Concepts: Observables and Projections}{45}{subsection.3.1.5}%
-\contentsline {section}{\numberline {3.2}The Formal Model: $T = (S, \Pi , A, R, L)$}{45}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}State Space $S$}{45}{subsection.3.2.1}%
-\contentsline {subsubsection}{\numberline {3.2.1.1}Formal Definition}{46}{subsubsection.3.2.1.1}%
-\contentsline {paragraph}{Understanding the VMState Record:}{46}{section*.3}%
-\contentsline {subsubsection}{\numberline {3.2.1.2}Word Representation}{47}{subsubsection.3.2.1.2}%
-\contentsline {paragraph}{Understanding Word Masking:}{47}{section*.4}%
-\contentsline {subsection}{\numberline {3.2.2}Partition Graph $\Pi $}{48}{subsection.3.2.2}%
-\contentsline {subsubsection}{\numberline {3.2.2.1}Formal Definition}{48}{subsubsection.3.2.2.1}%
-\contentsline {paragraph}{Understanding the Partition Graph Structure:}{49}{section*.5}%
-\contentsline {subsubsection}{\numberline {3.2.2.2}Well-Formedness Invariant}{50}{subsubsection.3.2.2.2}%
-\contentsline {paragraph}{Understanding Well-Formedness:}{50}{section*.6}%
-\contentsline {subsubsection}{\numberline {3.2.2.3}Canonical Normalization}{51}{subsubsection.3.2.2.3}%
-\contentsline {paragraph}{Understanding Region Normalization:}{51}{section*.7}%
-\contentsline {paragraph}{Understanding Idempotence:}{52}{section*.8}%
-\contentsline {subsection}{\numberline {3.2.3}Axiom Set $A$}{52}{subsection.3.2.3}%
-\contentsline {subsubsection}{\numberline {3.2.3.1}Representation}{52}{subsubsection.3.2.3.1}%
-\contentsline {paragraph}{Understanding the String-Based Axiom System:}{52}{section*.9}%
-\contentsline {paragraph}{Understanding SMT-LIB Axiom Syntax:}{53}{section*.10}%
-\contentsline {subsubsection}{\numberline {3.2.3.2}Axiom Operations}{54}{subsubsection.3.2.3.2}%
-\contentsline {paragraph}{Understanding Module Axiom Addition:}{54}{section*.11}%
-\contentsline {subsection}{\numberline {3.2.4}Transition Rules $R$}{55}{subsection.3.2.4}%
-\contentsline {subsubsection}{\numberline {3.2.4.1}Instruction Set}{55}{subsubsection.3.2.4.1}%
-\contentsline {paragraph}{Understanding Inductive Types as Instruction Sets:}{56}{section*.12}%
-\contentsline {subsubsection}{\numberline {3.2.4.2}Instruction Categories}{57}{subsubsection.3.2.4.2}%
-\contentsline {subsubsection}{\numberline {3.2.4.3}The Step Relation}{59}{subsubsection.3.2.4.3}%
-\contentsline {paragraph}{Understanding the Step Relation:}{59}{section*.13}%
-\contentsline {paragraph}{Understanding the step\_pnew Rule:}{60}{section*.14}%
-\contentsline {subsection}{\numberline {3.2.5}Logic Engine $L$}{60}{subsection.3.2.5}%
-\contentsline {subsubsection}{\numberline {3.2.5.1}Trust Model for Logic Engine}{61}{subsubsection.3.2.5.1}%
-\contentsline {subsubsection}{\numberline {3.2.5.2}Certificate-Based Verification}{61}{subsubsection.3.2.5.2}%
-\contentsline {paragraph}{Understanding Certificate-Based Verification:}{61}{section*.15}%
-\contentsline {section}{\numberline {3.3}The $\mu $-bit Currency}{63}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Definition}{63}{subsection.3.3.1}%
-\contentsline {subsubsection}{\numberline {3.3.1.1}The $\mu $-Measure Contract: Encoding Invariance}{63}{subsubsection.3.3.1.1}%
-\contentsline {subsection}{\numberline {3.3.2}The $\mu $-Ledger}{64}{subsection.3.3.2}%
-\contentsline {paragraph}{Understanding the $\mu $-Ledger Field:}{64}{section*.16}%
-\contentsline {paragraph}{Understanding Cost Application:}{65}{section*.17}%
-\contentsline {subsection}{\numberline {3.3.3}Conservation Laws}{65}{subsection.3.3.3}%
-\contentsline {subsubsection}{\numberline {3.3.3.1}Single-Step Monotonicity}{65}{subsubsection.3.3.3.1}%
-\contentsline {paragraph}{Understanding the Monotonicity Theorem:}{66}{section*.18}%
-\contentsline {subsubsection}{\numberline {3.3.3.2}Multi-Step Conservation}{66}{subsubsection.3.3.3.2}%
-\contentsline {paragraph}{Understanding Multi-Step Conservation:}{67}{section*.19}%
-\contentsline {subsubsection}{\numberline {3.3.3.3}Irreversibility Bound}{68}{subsubsection.3.3.3.3}%
-\contentsline {paragraph}{Understanding the Irreversibility Bound:}{68}{section*.20}%
-\contentsline {section}{\numberline {3.4}Partition Logic}{69}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Module Operations}{69}{subsection.3.4.1}%
-\contentsline {subsubsection}{\numberline {3.4.1.1}PNEW: Module Creation}{69}{subsubsection.3.4.1.1}%
-\contentsline {paragraph}{Understanding graph\_pnew (Module Creation):}{70}{section*.21}%
-\contentsline {subsubsection}{\numberline {3.4.1.2}PSPLIT: Module Splitting}{71}{subsubsection.3.4.1.2}%
-\contentsline {paragraph}{Understanding graph\_psplit (Module Splitting):}{71}{section*.22}%
-\contentsline {subsubsection}{\numberline {3.4.1.3}PMERGE: Module Merging}{73}{subsubsection.3.4.1.3}%
-\contentsline {paragraph}{Understanding graph\_pmerge (Module Merging):}{73}{section*.23}%
-\contentsline {subsection}{\numberline {3.4.2}Observables and Locality}{74}{subsection.3.4.2}%
-\contentsline {subsubsection}{\numberline {3.4.2.1}Observable Definition}{74}{subsubsection.3.4.2.1}%
-\contentsline {paragraph}{Understanding Observables:}{75}{section*.24}%
-\contentsline {subsubsection}{\numberline {3.4.2.2}Observational No-Signaling}{76}{subsubsection.3.4.2.2}%
-\contentsline {paragraph}{Understanding the No-Signaling Theorem:}{76}{section*.25}%
-\contentsline {section}{\numberline {3.5}The No Free Insight Theorem}{78}{section.3.5}%
-\contentsline {subsection}{\numberline {3.5.1}Receipt Predicates}{78}{subsection.3.5.1}%
-\contentsline {paragraph}{Understanding Receipt Predicates:}{78}{section*.26}%
-\contentsline {subsection}{\numberline {3.5.2}Strength Ordering}{79}{subsection.3.5.2}%
-\contentsline {paragraph}{Understanding Predicate Strength:}{79}{section*.27}%
-\contentsline {paragraph}{Understanding Strict Strengthening:}{80}{section*.28}%
-\contentsline {paragraph}{Understanding the No Free Insight Theorem:}{82}{section*.29}%
-\contentsline {subsection}{\numberline {3.5.3}Revelation Requirement}{83}{subsection.3.5.3}%
-\contentsline {paragraph}{Understanding the Revelation Requirement:}{83}{section*.30}%
-\contentsline {section}{\numberline {3.6}Gauge Symmetry and Conservation}{85}{section.3.6}%
-\contentsline {subsection}{\numberline {3.6.1}$\mu $-Gauge Transformation}{85}{subsection.3.6.1}%
-\contentsline {paragraph}{Understanding Gauge Transformations:}{85}{section*.31}%
-\contentsline {subsection}{\numberline {3.6.2}Gauge Invariance}{86}{subsection.3.6.2}%
-\contentsline {paragraph}{Understanding Gauge Invariance:}{86}{section*.32}%
-\contentsline {section}{\numberline {3.7}Quantum Axioms from $\mu $-Accounting}{87}{section.3.7}%
-\contentsline {subsection}{\numberline {3.7.1}No-Cloning from $\mu $-Conservation}{88}{subsection.3.7.1}%
-\contentsline {paragraph}{What This Proves:}{88}{section*.33}%
-\contentsline {subsection}{\numberline {3.7.2}Unitarity from Conservation}{89}{subsection.3.7.2}%
-\contentsline {paragraph}{Physical Interpretation:}{89}{section*.34}%
-\contentsline {subsection}{\numberline {3.7.3}Born Rule from Accounting Constraints}{90}{subsection.3.7.3}%
-\contentsline {paragraph}{Why Not Some Other Rule?}{90}{section*.35}%
-\contentsline {subsection}{\numberline {3.7.4}Purification from Reference Systems}{91}{subsection.3.7.4}%
-\contentsline {paragraph}{What This Means:}{91}{section*.36}%
-\contentsline {subsection}{\numberline {3.7.5}Tsirelson Bound from Total $\mu $-Accounting}{91}{subsection.3.7.5}%
-\contentsline {paragraph}{The Connection to $\mu $-Accounting:}{92}{section*.37}%
-\contentsline {subsection}{\numberline {3.7.6}Why This Matters}{92}{subsection.3.7.6}%
-\contentsline {section}{\numberline {3.8}Chapter Summary}{93}{section.3.8}%
-\contentsline {chapter}{\numberline {4}Implementation: The 3-Layer Isomorphism}{95}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Why Three Layers?}{95}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}A Car Salesman's Take on Building Trust}{95}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}The Problem of Trust (The Academic Version)}{96}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.1.3}The Three Layers}{96}{subsection.4.1.3}%
-\contentsline {subsection}{\numberline {4.1.4}The Isomorphism Invariant}{97}{subsection.4.1.4}%
-\contentsline {subsubsection}{\numberline {4.1.4.1}The Isomorphism Contract (Specification)}{97}{subsubsection.4.1.4.1}%
-\contentsline {subsection}{\numberline {4.1.5}How to Read This Chapter}{98}{subsection.4.1.5}%
-\contentsline {section}{\numberline {4.2}The 3-Layer Isomorphism Architecture}{98}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Layer 1: The Formal Kernel (Coq)}{98}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Structure of the Formal Kernel}{98}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}The VMState Record}{99}{subsection.4.3.2}%
-\contentsline {paragraph}{Understanding VMState Record:}{100}{section*.38}%
-\contentsline {subsection}{\numberline {4.3.3}The Partition Graph}{102}{subsection.4.3.3}%
-\contentsline {paragraph}{Understanding the Partition Graph Data Structures:}{102}{section*.39}%
-\contentsline {subsection}{\numberline {4.3.4}The Step Relation}{103}{subsection.4.3.4}%
-\contentsline {paragraph}{Understanding the Step Relation:}{104}{section*.40}%
-\contentsline {paragraph}{Understanding advance\_state:}{105}{section*.41}%
-\contentsline {subsection}{\numberline {4.3.5}Extraction}{106}{subsection.4.3.5}%
-\contentsline {paragraph}{Understanding Coq Extraction:}{107}{section*.42}%
-\contentsline {section}{\numberline {4.4}Layer 2: The Reference VM (Python)}{108}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Architecture Overview}{108}{subsection.4.4.1}%
-\contentsline {subsubsection}{\numberline {4.4.1.1}Core Components}{108}{subsubsection.4.4.1.1}%
-\contentsline {subsubsection}{\numberline {4.4.1.2}The VM Class}{109}{subsubsection.4.4.1.2}%
-\contentsline {paragraph}{Understanding the Python VM Class:}{109}{section*.43}%
-\contentsline {subsection}{\numberline {4.4.2}State Representation}{111}{subsection.4.4.2}%
-\contentsline {paragraph}{Understanding the State Dataclass:}{111}{section*.44}%
-\contentsline {subsection}{\numberline {4.4.3}The $\mu $-Ledger}{113}{subsection.4.4.3}%
-\contentsline {paragraph}{Understanding the MuLedger:}{113}{section*.45}%
-\contentsline {subsection}{\numberline {4.4.4}Partition Operations}{114}{subsection.4.4.4}%
-\contentsline {subsubsection}{\numberline {4.4.4.1}Bitmask Representation}{114}{subsubsection.4.4.4.1}%
-\contentsline {paragraph}{Understanding Bitmask Encoding:}{115}{section*.46}%
-\contentsline {subsubsection}{\numberline {4.4.4.2}Module Creation (PNEW)}{116}{subsubsection.4.4.4.2}%
-\contentsline {paragraph}{Understanding PNEW Implementation:}{116}{section*.47}%
-\contentsline {subsection}{\numberline {4.4.5}Sandboxed Python Execution}{117}{subsection.4.4.5}%
-\contentsline {paragraph}{Understanding the Python Sandbox:}{118}{section*.48}%
-\contentsline {paragraph}{Understanding AST Validation:}{119}{section*.49}%
-\contentsline {subsection}{\numberline {4.4.6}Receipt Generation}{120}{subsection.4.4.6}%
-\contentsline {paragraph}{Understanding Receipt Generation:}{120}{section*.50}%
-\contentsline {section}{\numberline {4.5}Layer 3: The Physical Core (Verilog)}{122}{section.4.5}%
-\contentsline {subsection}{\numberline {4.5.1}Module Hierarchy}{123}{subsection.4.5.1}%
-\contentsline {subsection}{\numberline {4.5.2}The Main CPU}{123}{subsection.4.5.2}%
-\contentsline {paragraph}{Understanding Verilog Module Declaration:}{123}{section*.51}%
-\contentsline {subsection}{\numberline {4.5.3}State Machine}{125}{subsection.4.5.3}%
-\contentsline {paragraph}{Understanding Finite State Machine Encoding:}{126}{section*.52}%
-\contentsline {subsection}{\numberline {4.5.4}Instruction Encoding}{128}{subsection.4.5.4}%
-\contentsline {paragraph}{Understanding Hardware Bitfield Extraction:}{128}{section*.53}%
-\contentsline {subsection}{\numberline {4.5.5}$\mu $-Accumulator Updates}{129}{subsection.4.5.5}%
-\contentsline {paragraph}{Understanding Sequential Logic and Non-Blocking Assignment:}{130}{section*.54}%
-\contentsline {subsection}{\numberline {4.5.6}The $\mu $-ALU}{131}{subsection.4.5.6}%
-\contentsline {paragraph}{Understanding the $\mu $-ALU Module:}{132}{section*.55}%
-\contentsline {paragraph}{Understanding the LOG2 Lookup Table:}{134}{section*.56}%
-\contentsline {subsection}{\numberline {4.5.7}Logic Engine Interface}{135}{subsection.4.5.7}%
-\contentsline {paragraph}{Understanding the Logic Engine Interface:}{135}{section*.57}%
-\contentsline {section}{\numberline {4.6}Isomorphism Verification}{136}{section.4.6}%
-\contentsline {subsection}{\numberline {4.6.1}The Isomorphism Gate}{137}{subsection.4.6.1}%
-\contentsline {subsection}{\numberline {4.6.2}State Projection}{137}{subsection.4.6.2}%
-\contentsline {paragraph}{Understanding State Projection:}{138}{section*.58}%
-\contentsline {subsection}{\numberline {4.6.3}The Inquisitor}{139}{subsection.4.6.3}%
-\contentsline {section}{\numberline {4.7}Synthesis Results}{140}{section.4.7}%
-\contentsline {subsection}{\numberline {4.7.1}FPGA Targeting}{140}{subsection.4.7.1}%
-\contentsline {paragraph}{Understanding Yosys Synthesis:}{140}{section*.59}%
-\contentsline {subsection}{\numberline {4.7.2}Resource Utilization}{141}{subsection.4.7.2}%
-\contentsline {section}{\numberline {4.8}Toolchain}{142}{section.4.8}%
-\contentsline {subsection}{\numberline {4.8.1}Verified Versions}{142}{subsection.4.8.1}%
-\contentsline {subsection}{\numberline {4.8.2}Build Commands}{142}{subsection.4.8.2}%
-\contentsline {paragraph}{Understanding the Build Commands:}{142}{section*.60}%
-\contentsline {section}{\numberline {4.9}Summary}{144}{section.4.9}%
-\contentsline {chapter}{\numberline {5}Verification: The Coq Proofs}{145}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Why Formal Verification?}{145}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}The Limits of Testing}{146}{subsection.5.1.1}%
-\contentsline {subsection}{\numberline {5.1.2}The Coq Proof Assistant}{146}{subsection.5.1.2}%
-\contentsline {paragraph}{Coq is an interactive theorem prover}{146}{section*.61}%
-\contentsline {subsection}{\numberline {5.1.3}Trusted Computing Base (TCB)}{147}{subsection.5.1.3}%
-\contentsline {subsection}{\numberline {5.1.4}The Zero-Admit Standard}{147}{subsection.5.1.4}%
-\contentsline {subsection}{\numberline {5.1.5}What The System Proves}{149}{subsection.5.1.5}%
-\contentsline {subsection}{\numberline {5.1.6}Quantum Axioms from $\mu $-Accounting}{149}{subsection.5.1.6}%
-\contentsline {subsection}{\numberline {5.1.7}How to Read This Chapter}{150}{subsection.5.1.7}%
-\contentsline {section}{\numberline {5.2}The Formal Verification Campaign}{151}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Proof Architecture}{151}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Conceptual Hierarchy}{151}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Dependency Sketch}{152}{subsection.5.3.2}%
-\contentsline {section}{\numberline {5.4}State Definitions: Foundation Layer}{152}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}The State Record}{152}{subsection.5.4.1}%
-\contentsline {paragraph}{Understanding the VMState Record in Verification Context:}{152}{section*.62}%
-\contentsline {subsection}{\numberline {5.4.2}Canonical Region Normalization}{153}{subsection.5.4.2}%
-\contentsline {paragraph}{Understanding normalize\_region:}{154}{section*.63}%
-\contentsline {paragraph}{Understanding the Idempotence Lemma:}{154}{section*.64}%
-\contentsline {subsection}{\numberline {5.4.3}Graph Well-Formedness}{155}{subsection.5.4.3}%
-\contentsline {paragraph}{Understanding well\_formed\_graph:}{155}{section*.65}%
-\contentsline {paragraph}{Understanding Preservation Under graph\_add\_module:}{157}{section*.66}%
-\contentsline {paragraph}{Understanding Preservation Under graph\_remove:}{158}{section*.67}%
-\contentsline {section}{\numberline {5.5}Operational Semantics}{159}{section.5.5}%
-\contentsline {subsection}{\numberline {5.5.1}The Instruction Type}{159}{subsection.5.5.1}%
-\contentsline {paragraph}{Understanding the vm\_instruction Inductive Type (Verification Context):}{160}{section*.68}%
-\contentsline {subsection}{\numberline {5.5.2}The Step Relation}{160}{subsection.5.5.2}%
-\contentsline {paragraph}{Understanding the vm\_step Inductive Relation:}{161}{section*.69}%
-\contentsline {section}{\numberline {5.6}Conservation and Locality}{162}{section.5.6}%
-\contentsline {subsection}{\numberline {5.6.1}Observables}{162}{subsection.5.6.1}%
-\contentsline {paragraph}{Understanding Observable and ObservableRegion:}{163}{section*.70}%
-\contentsline {subsection}{\numberline {5.6.2}Instruction Target Sets}{164}{subsection.5.6.2}%
-\contentsline {paragraph}{Understanding instr\_targets:}{164}{section*.71}%
-\contentsline {subsection}{\numberline {5.6.3}The No-Signaling Theorem}{165}{subsection.5.6.3}%
-\contentsline {paragraph}{Understanding the Observational No-Signaling Theorem:}{166}{section*.72}%
-\contentsline {subsection}{\numberline {5.6.4}Gauge Symmetry}{168}{subsection.5.6.4}%
-\contentsline {paragraph}{Understanding mu\_gauge\_shift:}{168}{section*.73}%
-\contentsline {paragraph}{Understanding kernel\_conservation\_mu\_gauge:}{169}{section*.74}%
-\contentsline {subsection}{\numberline {5.6.5}$\mu $-Conservation}{170}{subsection.5.6.5}%
-\contentsline {paragraph}{Understanding the $\mu $-Conservation Theorem:}{170}{section*.75}%
-\contentsline {section}{\numberline {5.7}Multi-Step Conservation}{171}{section.5.7}%
-\contentsline {subsection}{\numberline {5.7.1}Run Function}{171}{subsection.5.7.1}%
-\contentsline {paragraph}{Understanding run\_vm:}{172}{section*.76}%
-\contentsline {subsection}{\numberline {5.7.2}Ledger Entries}{173}{subsection.5.7.2}%
-\contentsline {paragraph}{Understanding ledger\_entries and ledger\_sum:}{173}{section*.77}%
-\contentsline {subsection}{\numberline {5.7.3}Conservation Theorem}{174}{subsection.5.7.3}%
-\contentsline {paragraph}{Understanding run\_vm\_mu\_conservation:}{175}{section*.78}%
-\contentsline {subsection}{\numberline {5.7.4}Irreversibility Bound}{176}{subsection.5.7.4}%
-\contentsline {paragraph}{Understanding vm\_irreversible\_bits\_lower\_bound (early reference):}{176}{section*.79}%
-\contentsline {section}{\numberline {5.8}No Free Insight: The Impossibility Theorem}{176}{section.5.8}%
-\contentsline {subsection}{\numberline {5.8.1}Receipt Predicates}{177}{subsection.5.8.1}%
-\contentsline {paragraph}{Understanding ReceiptPredicate:}{177}{section*.80}%
-\contentsline {subsection}{\numberline {5.8.2}Strength Ordering}{178}{subsection.5.8.2}%
-\contentsline {paragraph}{Understanding stronger and strictly\_stronger:}{178}{section*.81}%
-\contentsline {subsection}{\numberline {5.8.3}Certification}{179}{subsection.5.8.3}%
-\contentsline {paragraph}{Understanding Certified:}{180}{section*.82}%
-\contentsline {subsection}{\numberline {5.8.4}The Main Theorem}{180}{subsection.5.8.4}%
-\contentsline {paragraph}{Understanding no\_free\_insight\_general (early reference):}{181}{section*.83}%
-\contentsline {subsection}{\numberline {5.8.5}Strengthening Theorem}{181}{subsection.5.8.5}%
-\contentsline {paragraph}{Understanding strengthening\_requires\_structure\_addition:}{182}{section*.84}%
-\contentsline {section}{\numberline {5.9}Revelation Requirement: Supra-Quantum Certification}{183}{section.5.9}%
-\contentsline {paragraph}{Understanding nonlocal\_correlation\_requires\_revelation:}{184}{section*.85}%
-\contentsline {section}{\numberline {5.10}No Free Insight Functor Architecture}{185}{section.5.10}%
-\contentsline {subsection}{\numberline {5.10.1}Module Type Interface}{185}{subsection.5.10.1}%
-\contentsline {subsection}{\numberline {5.10.2}Functor Theorem}{186}{subsection.5.10.2}%
-\contentsline {subsection}{\numberline {5.10.3}Kernel Instantiation}{186}{subsection.5.10.3}%
-\contentsline {subsection}{\numberline {5.10.4}Mu-Chaitin Theory}{187}{subsection.5.10.4}%
-\contentsline {section}{\numberline {5.11}Proof Summary}{187}{section.5.11}%
-\contentsline {section}{\numberline {5.12}Falsifiability}{188}{section.5.12}%
-\contentsline {paragraph}{Understanding the Falsifier Specification:}{188}{section*.86}%
-\contentsline {section}{\numberline {5.13}Summary}{189}{section.5.13}%
-\contentsline {chapter}{\numberline {6}Evaluation: Empirical Evidence}{191}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Evaluation Overview}{191}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}From Theory to Evidence}{191}{subsection.6.1.1}%
-\contentsline {subsection}{\numberline {6.1.2}Methodology}{192}{subsection.6.1.2}%
-\contentsline {section}{\numberline {6.2}3-Layer Isomorphism Verification}{193}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}Test Architecture}{193}{subsection.6.2.1}%
-\contentsline {subsubsection}{\numberline {6.2.1.1}Test Implementation}{193}{subsubsection.6.2.1.1}%
-\contentsline {paragraph}{Understanding test\_rtl\_python\_coq\_compute\_isomorphism:}{194}{section*.87}%
-\contentsline {subsubsection}{\numberline {6.2.1.2}State Projection}{195}{subsubsection.6.2.1.2}%
-\contentsline {paragraph}{Understanding the State Projection JSON:}{195}{section*.88}%
-\contentsline {subsection}{\numberline {6.2.2}Partition Operation Tests}{196}{subsection.6.2.2}%
-\contentsline {paragraph}{Understanding test\_pnew\_dedup\_singletons\_isomorphic:}{197}{section*.89}%
-\contentsline {subsection}{\numberline {6.2.3}Results Summary}{198}{subsection.6.2.3}%
-\contentsline {section}{\numberline {6.3}CHSH Correlation Experiments}{198}{section.6.3}%
-\contentsline {subsection}{\numberline {6.3.1}Bell Test Protocol}{198}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2}Partition-Native CHSH}{198}{subsection.6.3.2}%
-\contentsline {paragraph}{Understanding instr\_chsh\_trial:}{199}{section*.90}%
-\contentsline {subsection}{\numberline {6.3.3}Correlation Bounds}{200}{subsection.6.3.3}%
-\contentsline {paragraph}{Understanding the Tsirelson Bound Implementation:}{200}{section*.91}%
-\contentsline {subsection}{\numberline {6.3.4}Experimental Design}{201}{subsection.6.3.4}%
-\contentsline {subsection}{\numberline {6.3.5}Supra-Quantum Certification}{201}{subsection.6.3.5}%
-\contentsline {paragraph}{Understanding nonlocal\_correlation\_requires\_revelation (evaluation context):}{202}{section*.92}%
-\contentsline {subsection}{\numberline {6.3.6}Results}{203}{subsection.6.3.6}%
-\contentsline {section}{\numberline {6.4}$\mu $-Ledger Verification}{203}{section.6.4}%
-\contentsline {subsection}{\numberline {6.4.1}Monotonicity Tests}{203}{subsection.6.4.1}%
-\contentsline {paragraph}{Understanding test\_mu\_monotonic\_under\_any\_trace:}{203}{section*.93}%
-\contentsline {subsection}{\numberline {6.4.2}Conservation Tests}{205}{subsection.6.4.2}%
-\contentsline {paragraph}{Understanding test\_mu\_conservation:}{205}{section*.94}%
-\contentsline {subsection}{\numberline {6.4.3}Results}{206}{subsection.6.4.3}%
-\contentsline {section}{\numberline {6.5}Thermodynamic bridge experiment (publishable plan)}{207}{section.6.5}%
-\contentsline {subsection}{\numberline {6.5.1}Workload construction}{207}{subsection.6.5.1}%
-\contentsline {subsection}{\numberline {6.5.2}Bridge prediction}{207}{subsection.6.5.2}%
-\contentsline {subsection}{\numberline {6.5.3}Instrumentation and analysis}{207}{subsection.6.5.3}%
-\contentsline {subsection}{\numberline {6.5.4}Executed thermodynamic bundle (Dec 2025)}{207}{subsection.6.5.4}%
-\contentsline {subsection}{\numberline {6.5.5}The Conservation of Difficulty Experiment}{208}{subsection.6.5.5}%
-\contentsline {paragraph}{Setup.}{208}{section*.95}%
-\contentsline {paragraph}{Result.}{208}{section*.96}%
-\contentsline {paragraph}{Analysis.}{208}{section*.97}%
-\contentsline {subsection}{\numberline {6.5.6}Structural heat anomaly workload}{209}{subsection.6.5.6}%
-\contentsline {paragraph}{From first principles.}{209}{section*.98}%
-\contentsline {paragraph}{Concrete run.}{209}{section*.99}%
-\contentsline {subsection}{\numberline {6.5.7}Ledger-constrained time dilation workload}{210}{subsection.6.5.7}%
-\contentsline {paragraph}{From first principles.}{210}{section*.100}%
-\contentsline {paragraph}{Concrete run.}{210}{section*.101}%
-\contentsline {section}{\numberline {6.6}Performance Benchmarks}{210}{section.6.6}%
-\contentsline {subsection}{\numberline {6.6.1}Instruction Throughput}{210}{subsection.6.6.1}%
-\contentsline {subsection}{\numberline {6.6.2}Receipt Chain Overhead}{210}{subsection.6.6.2}%
-\contentsline {subsection}{\numberline {6.6.3}Hardware Synthesis Results}{211}{subsection.6.6.3}%
-\contentsline {paragraph}{Understanding YOSYS\_LITE Configuration:}{211}{section*.102}%
-\contentsline {paragraph}{Understanding Full Hardware Configuration:}{212}{section*.103}%
-\contentsline {section}{\numberline {6.7}Validation Coverage}{213}{section.6.7}%
-\contentsline {subsection}{\numberline {6.7.1}Test Categories}{213}{subsection.6.7.1}%
-\contentsline {subsection}{\numberline {6.7.2}Automation}{213}{subsection.6.7.2}%
-\contentsline {subsection}{\numberline {6.7.3}Execution Gates}{214}{subsection.6.7.3}%
-\contentsline {section}{\numberline {6.8}Reproducibility}{214}{section.6.8}%
-\contentsline {subsection}{\numberline {6.8.1}Reproducing the ledger-level physics artifacts}{214}{subsection.6.8.1}%
-\contentsline {paragraph}{Structural heat.}{214}{section*.104}%
-\contentsline {paragraph}{Understanding Structural Heat Experiment Commands:}{214}{section*.105}%
-\contentsline {paragraph}{Understanding plot\_structural\_heat\_scaling.py:}{215}{section*.106}%
-\contentsline {paragraph}{Time dilation.}{216}{section*.107}%
-\contentsline {paragraph}{Understanding Time Dilation Experiment Commands:}{216}{section*.108}%
-\contentsline {subsection}{\numberline {6.8.2}Artifact Bundles}{217}{subsection.6.8.2}%
-\contentsline {subsection}{\numberline {6.8.3}Container Reproducibility}{217}{subsection.6.8.3}%
-\contentsline {section}{\numberline {6.9}Adversarial Evaluation and Threat Model}{218}{section.6.9}%
-\contentsline {subsection}{\numberline {6.9.1}Evaluation Threat Model}{218}{subsection.6.9.1}%
-\contentsline {subsection}{\numberline {6.9.2}Negative Controls}{218}{subsection.6.9.2}%
-\contentsline {section}{\numberline {6.10}Summary}{219}{section.6.10}%
-\contentsline {chapter}{\numberline {7}Discussion: Implications and Future Work}{220}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Why This Chapter Matters}{220}{section.7.1}%
-\contentsline {subsection}{\numberline {7.1.1}From Proofs to Meaning}{220}{subsection.7.1.1}%
-\contentsline {subsection}{\numberline {7.1.2}How to Read This Chapter}{221}{subsection.7.1.2}%
-\contentsline {section}{\numberline {7.2}What Would Falsify the Physics Bridge?}{221}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Broader Implications}{222}{section.7.3}%
-\contentsline {section}{\numberline {7.4}Connections to Physics}{222}{section.7.4}%
-\contentsline {subsection}{\numberline {7.4.1}Landauer's Principle}{222}{subsection.7.4.1}%
-\contentsline {paragraph}{Understanding vm\_irreversible\_bits\_lower\_bound:}{223}{section*.109}%
-\contentsline {subsection}{\numberline {7.4.2}No-Signaling and Bell Locality}{224}{subsection.7.4.2}%
-\contentsline {paragraph}{Understanding observational\_no\_signaling (discussion context):}{224}{section*.110}%
-\contentsline {subsection}{\numberline {7.4.3}Noether's Theorem}{225}{subsection.7.4.3}%
-\contentsline {paragraph}{Understanding kernel\_conservation\_mu\_gauge:}{225}{section*.111}%
-\contentsline {subsection}{\numberline {7.4.4}Thermodynamic bridge and falsifiable prediction}{227}{subsection.7.4.4}%
-\contentsline {paragraph}{Translation dictionary.}{227}{section*.112}%
-\contentsline {paragraph}{Bridge theorem (sanity anchor).}{227}{section*.113}%
-\contentsline {paragraph}{Falsifiable prediction.}{227}{section*.114}%
-\contentsline {paragraph}{Executed bridge runs.}{228}{section*.115}%
-\contentsline {subsection}{\numberline {7.4.5}The Physics-Computation Isomorphism}{228}{subsection.7.4.5}%
-\contentsline {section}{\numberline {7.5}Implications for Computational Complexity}{229}{section.7.5}%
-\contentsline {subsection}{\numberline {7.5.1}The "Time Tax" Reformulated}{229}{subsection.7.5.1}%
-\contentsline {subsection}{\numberline {7.5.2}The Conservation of Difficulty}{229}{subsection.7.5.2}%
-\contentsline {subsection}{\numberline {7.5.3}Structure-Aware Complexity Classes}{229}{subsection.7.5.3}%
-\contentsline {section}{\numberline {7.6}Implications for Artificial Intelligence}{230}{section.7.6}%
-\contentsline {subsection}{\numberline {7.6.1}The Hallucination Problem}{230}{subsection.7.6.1}%
-\contentsline {paragraph}{Understanding Classic AI Pattern (LLM):}{230}{section*.116}%
-\contentsline {paragraph}{Understanding Thiele Machine-Inspired AI:}{230}{section*.117}%
-\contentsline {subsection}{\numberline {7.6.2}Neuro-Symbolic Integration}{232}{subsection.7.6.2}%
-\contentsline {section}{\numberline {7.7}Implications for Trust and Verification}{232}{section.7.7}%
-\contentsline {subsection}{\numberline {7.7.1}The Receipt Chain}{232}{subsection.7.7.1}%
-\contentsline {paragraph}{Understanding Receipt Structure:}{232}{section*.118}%
-\contentsline {subsection}{\numberline {7.7.2}Applications}{234}{subsection.7.7.2}%
-\contentsline {section}{\numberline {7.8}Limitations}{234}{section.7.8}%
-\contentsline {subsection}{\numberline {7.8.1}The Uncomputability of True $\mu $}{234}{subsection.7.8.1}%
-\contentsline {subsection}{\numberline {7.8.2}Hardware Scalability}{235}{subsection.7.8.2}%
-\contentsline {paragraph}{Understanding Current Hardware Limitations:}{235}{section*.119}%
-\contentsline {subsection}{\numberline {7.8.3}SAT Solver Integration}{236}{subsection.7.8.3}%
-\contentsline {paragraph}{Understanding LASSERT Limitations:}{236}{section*.120}%
-\contentsline {section}{\numberline {7.9}Future Directions}{238}{section.7.9}%
-\contentsline {subsection}{\numberline {7.9.1}Quantum Integration}{238}{subsection.7.9.1}%
-\contentsline {subsection}{\numberline {7.9.2}Distributed Execution}{238}{subsection.7.9.2}%
-\contentsline {subsection}{\numberline {7.9.3}Programming Language Design}{239}{subsection.7.9.3}%
-\contentsline {section}{\numberline {7.10}Summary}{239}{section.7.10}%
-\contentsline {chapter}{\numberline {8}Conclusion}{240}{chapter.8}%
-\contentsline {section}{\numberline {8.1}The Central Claim}{240}{section.8.1}%
-\contentsline {subsection}{\numberline {8.1.1}The Question}{240}{subsection.8.1.1}%
-\contentsline {subsection}{\numberline {8.1.2}How to Read This Chapter}{240}{subsection.8.1.2}%
-\contentsline {section}{\numberline {8.2}Summary of Contributions}{241}{section.8.2}%
-\contentsline {subsection}{\numberline {8.2.1}Theoretical Contributions}{241}{subsection.8.2.1}%
-\contentsline {subsection}{\numberline {8.2.2}Implementation Contributions}{241}{subsection.8.2.2}%
-\contentsline {subsection}{\numberline {8.2.3}Verification Contributions}{242}{subsection.8.2.3}%
-\contentsline {section}{\numberline {8.3}The Thiele Machine Hypothesis: Confirmed}{243}{section.8.3}%
-\contentsline {section}{\numberline {8.4}Impact and Applications}{243}{section.8.4}%
-\contentsline {subsection}{\numberline {8.4.1}Verifiable Computation}{243}{subsection.8.4.1}%
-\contentsline {subsection}{\numberline {8.4.2}Complexity Theory}{244}{subsection.8.4.2}%
-\contentsline {subsection}{\numberline {8.4.3}Physics-Computation Bridge}{244}{subsection.8.4.3}%
-\contentsline {section}{\numberline {8.5}Open Problems}{244}{section.8.5}%
-\contentsline {subsection}{\numberline {8.5.1}Optimality}{244}{subsection.8.5.1}%
-\contentsline {subsection}{\numberline {8.5.2}Completeness}{244}{subsection.8.5.2}%
-\contentsline {subsection}{\numberline {8.5.3}Quantum Extension}{244}{subsection.8.5.3}%
-\contentsline {subsection}{\numberline {8.5.4}Hardware Realization}{245}{subsection.8.5.4}%
-\contentsline {section}{\numberline {8.6}The Path Forward}{245}{section.8.6}%
-\contentsline {section}{\numberline {8.7}Final Word}{245}{section.8.7}%
-\contentsline {chapter}{\numberline {A}The Verifier System}{247}{appendix.A}%
-\contentsline {section}{\numberline {A.1}The Verifier System: Receipt-Defined Certification}{247}{section.A.1}%
-\contentsline {subsection}{\numberline {A.1.1}Why Verification Matters}{247}{subsection.A.1.1}%
-\contentsline {section}{\numberline {A.2}Architecture Overview}{248}{section.A.2}%
-\contentsline {subsection}{\numberline {A.2.1}The Closed Work System}{248}{subsection.A.2.1}%
-\contentsline {subsection}{\numberline {A.2.2}The TRS-1.0 Receipt Protocol}{249}{subsection.A.2.2}%
-\contentsline {paragraph}{Understanding TRS-1.0 Receipt Protocol:}{249}{section*.121}%
-\contentsline {subsection}{\numberline {A.2.3}Non-Negotiable Falsifier Pattern}{251}{subsection.A.2.3}%
-\contentsline {section}{\numberline {A.3}C-RAND: Certified Randomness}{251}{section.A.3}%
-\contentsline {subsection}{\numberline {A.3.1}Claim Structure}{251}{subsection.A.3.1}%
-\contentsline {paragraph}{Understanding C-RAND Randomness Claim:}{252}{section*.122}%
-\contentsline {subsection}{\numberline {A.3.2}Verification Rules}{253}{subsection.A.3.2}%
-\contentsline {subsection}{\numberline {A.3.3}The Randomness Bound}{253}{subsection.A.3.3}%
-\contentsline {paragraph}{Understanding RandChannel Bridge Lemma:}{254}{section*.123}%
-\contentsline {subsection}{\numberline {A.3.4}Falsifier Tests}{255}{subsection.A.3.4}%
-\contentsline {section}{\numberline {A.4}C-TOMO: Tomography as Priced Knowledge}{256}{section.A.4}%
-\contentsline {subsection}{\numberline {A.4.1}Claim Structure}{256}{subsection.A.4.1}%
-\contentsline {paragraph}{Understanding C-TOMO Tomography Claim:}{256}{section*.124}%
-\contentsline {subsection}{\numberline {A.4.2}Verification Rules}{258}{subsection.A.4.2}%
-\contentsline {subsection}{\numberline {A.4.3}The Precision-Cost Relationship}{258}{subsection.A.4.3}%
-\contentsline {section}{\numberline {A.5}C-ENTROPY: Coarse-Graining Made Explicit}{258}{section.A.5}%
-\contentsline {subsection}{\numberline {A.5.1}The Entropy Underdetermination Problem}{258}{subsection.A.5.1}%
-\contentsline {subsection}{\numberline {A.5.2}Claim Structure}{258}{subsection.A.5.2}%
-\contentsline {paragraph}{Understanding C-ENTROPY Claim:}{259}{section*.125}%
-\contentsline {subsection}{\numberline {A.5.3}Verification Rules}{260}{subsection.A.5.3}%
-\contentsline {subsection}{\numberline {A.5.4}Coq Formalization}{261}{subsection.A.5.4}%
-\contentsline {paragraph}{Understanding region\_equiv\_class\_infinite:}{261}{section*.126}%
-\contentsline {section}{\numberline {A.6}C-CAUSAL: No Free Causal Explanation}{263}{section.A.6}%
-\contentsline {subsection}{\numberline {A.6.1}The Markov Equivalence Problem}{263}{subsection.A.6.1}%
-\contentsline {subsection}{\numberline {A.6.2}The Causal Inference Problem}{263}{subsection.A.6.2}%
-\contentsline {subsection}{\numberline {A.6.3}Claim Types}{263}{subsection.A.6.3}%
-\contentsline {subsection}{\numberline {A.6.4}Verification Rules}{263}{subsection.A.6.4}%
-\contentsline {subsection}{\numberline {A.6.5}Falsifier Tests}{263}{subsection.A.6.5}%
-\contentsline {paragraph}{Understanding Causal DAG Falsifier Test:}{264}{section*.127}%
-\contentsline {section}{\numberline {A.7}Bridge Modules: Kernel Integration}{266}{section.A.7}%
-\contentsline {section}{\numberline {A.8}The Flagship Divergence Prediction}{266}{section.A.8}%
-\contentsline {subsection}{\numberline {A.8.1}The "Science Can't Cheat" Theorem}{266}{subsection.A.8.1}%
-\contentsline {subsection}{\numberline {A.8.2}Implementation}{266}{subsection.A.8.2}%
-\contentsline {paragraph}{Understanding Uncertified Improvement Falsifier:}{267}{section*.128}%
-\contentsline {subsection}{\numberline {A.8.3}Quantitative Bound}{269}{subsection.A.8.3}%
-\contentsline {section}{\numberline {A.9}Summary}{269}{section.A.9}%
-\contentsline {chapter}{\numberline {B}Extended Proof Architecture}{270}{appendix.B}%
-\contentsline {section}{\numberline {B.1}Extended Proof Architecture}{270}{section.B.1}%
-\contentsline {subsection}{\numberline {B.1.1}Why Machine-Checked Proofs?}{270}{subsection.B.1.1}%
-\contentsline {subsection}{\numberline {B.1.2}Reading Coq Code}{271}{subsection.B.1.2}%
-\contentsline {paragraph}{Understanding Basic Coq Proof Structure:}{271}{section*.129}%
-\contentsline {section}{\numberline {B.2}Proof Inventory}{272}{section.B.2}%
-\contentsline {section}{\numberline {B.3}The ThieleMachine Proof Suite (98 Files)}{273}{section.B.3}%
-\contentsline {subsection}{\numberline {B.3.1}Partition Logic}{273}{subsection.B.3.1}%
-\contentsline {paragraph}{Understanding Partition Logic Data Structures:}{273}{section*.130}%
-\contentsline {subsection}{\numberline {B.3.2}Quantum Admissibility and Tsirelson Bound}{276}{subsection.B.3.2}%
-\contentsline {paragraph}{Understanding Quantum Admissibility Theorem:}{276}{section*.131}%
-\contentsline {subsection}{\numberline {B.3.3}Bell Inequality Formalization}{278}{subsection.B.3.3}%
-\contentsline {subsection}{\numberline {B.3.4}Turing Machine Embedding}{279}{subsection.B.3.4}%
-\contentsline {paragraph}{Understanding Turing Machine Embedding Theorem:}{279}{section*.132}%
-\contentsline {subsection}{\numberline {B.3.5}Oracle and Impossibility Theorems}{281}{subsection.B.3.5}%
-\contentsline {subsection}{\numberline {B.3.6}Additional ThieleMachine Proofs}{281}{subsection.B.3.6}%
-\contentsline {section}{\numberline {B.4}Recent Kernel Extensions}{281}{section.B.4}%
-\contentsline {subsection}{\numberline {B.4.1}Finite Information Theory}{282}{subsection.B.4.1}%
-\contentsline {subsection}{\numberline {B.4.2}Locality Proofs for All Instructions}{282}{subsection.B.4.2}%
-\contentsline {subsection}{\numberline {B.4.3}Proper Subsumption (Non-Circular)}{283}{subsection.B.4.3}%
-\contentsline {subsection}{\numberline {B.4.4}Local Information Loss}{284}{subsection.B.4.4}%
-\contentsline {subsection}{\numberline {B.4.5}Assumption Documentation}{284}{subsection.B.4.5}%
-\contentsline {subsection}{\numberline {B.4.6}The $\mu $-Initiality Theorem}{285}{subsection.B.4.6}%
-\contentsline {subsection}{\numberline {B.4.7}The $\mu $-Landauer Validity Theorem}{286}{subsection.B.4.7}%
-\contentsline {section}{\numberline {B.5}Quantum Axioms from $\mu $-Accounting}{287}{section.B.5}%
-\contentsline {subsection}{\numberline {B.5.1}Proof Architecture Overview}{287}{subsection.B.5.1}%
-\contentsline {subsection}{\numberline {B.5.2}No-Cloning Theorem}{287}{subsection.B.5.2}%
-\contentsline {subsection}{\numberline {B.5.3}Unitarity and CPTP Maps}{288}{subsection.B.5.3}%
-\contentsline {subsection}{\numberline {B.5.4}Born Rule}{289}{subsection.B.5.4}%
-\contentsline {subsection}{\numberline {B.5.5}Purification Principle}{290}{subsection.B.5.5}%
-\contentsline {subsection}{\numberline {B.5.6}Tsirelson Bound}{290}{subsection.B.5.6}%
-\contentsline {subsection}{\numberline {B.5.7}What This Means}{291}{subsection.B.5.7}%
-\contentsline {section}{\numberline {B.6}Theory of Everything (TOE) Proofs}{291}{section.B.6}%
-\contentsline {subsection}{\numberline {B.6.1}The Final Outcome Theorem}{291}{subsection.B.6.1}%
-\contentsline {paragraph}{Understanding the TOE Final Outcome Theorem:}{291}{section*.133}%
-\contentsline {subsection}{\numberline {B.6.2}The No-Go Theorem}{294}{subsection.B.6.2}%
-\contentsline {paragraph}{Understanding the Infinite Weight Family Theorem:}{294}{section*.134}%
-\contentsline {paragraph}{Understanding the Unique Weight No-Go Theorem:}{296}{section*.135}%
-\contentsline {subsection}{\numberline {B.6.3}Physics Requires Extra Structure}{298}{subsection.B.6.3}%
-\contentsline {paragraph}{Understanding the Physics Requires Extra Structure Theorem:}{298}{section*.136}%
-\contentsline {subsection}{\numberline {B.6.4}Closure Theorems}{300}{subsection.B.6.4}%
-\contentsline {paragraph}{Understanding the Kernel Maximal Closure Theorem:}{301}{section*.137}%
-\contentsline {section}{\numberline {B.7}Spacetime Emergence}{303}{section.B.7}%
-\contentsline {subsection}{\numberline {B.7.1}Causal Structure from Steps}{303}{subsection.B.7.1}%
-\contentsline {paragraph}{Understanding Spacetime Emergence Definitions:}{304}{section*.138}%
-\contentsline {subsection}{\numberline {B.7.2}Cone Algebra}{306}{subsection.B.7.2}%
-\contentsline {paragraph}{Understanding the Cone Composition Theorem:}{306}{section*.139}%
-\contentsline {subsection}{\numberline {B.7.3}Lorentz Structure Not Forced}{308}{subsection.B.7.3}%
-\contentsline {section}{\numberline {B.8}Impossibility Theorems}{308}{section.B.8}%
-\contentsline {subsection}{\numberline {B.8.1}Entropy Impossibility}{308}{subsection.B.8.1}%
-\contentsline {paragraph}{Understanding the Entropy Impossibility Theorem:}{309}{section*.140}%
-\contentsline {subsection}{\numberline {B.8.2}Probability Impossibility}{312}{subsection.B.8.2}%
-\contentsline {section}{\numberline {B.9}Quantum Bound Proofs}{312}{section.B.9}%
-\contentsline {subsection}{\numberline {B.9.1}The Machine-Checked Tsirelson Bound}{312}{subsection.B.9.1}%
-\contentsline {subsection}{\numberline {B.9.2}Kernel-Level Guarantee}{312}{subsection.B.9.2}%
-\contentsline {paragraph}{Understanding the Quantum Admissible Cert Preservation Theorem:}{312}{section*.141}%
-\contentsline {subsection}{\numberline {B.9.3}Quantitative $\mu $ Lower Bound}{315}{subsection.B.9.3}%
-\contentsline {paragraph}{Understanding the VM Exec $\mu $ Monotone Lemma:}{315}{section*.142}%
-\contentsline {section}{\numberline {B.10}No Free Insight Interface}{317}{section.B.10}%
-\contentsline {subsection}{\numberline {B.10.1}Abstract Interface}{317}{subsection.B.10.1}%
-\contentsline {paragraph}{Understanding the NO\_FREE\_INSIGHT\_SYSTEM Interface:}{317}{section*.143}%
-\contentsline {subsection}{\numberline {B.10.2}Kernel Instance}{321}{subsection.B.10.2}%
-\contentsline {section}{\numberline {B.11}Self-Reference}{321}{section.B.11}%
-\contentsline {paragraph}{Understanding Self-Reference Definitions:}{321}{section*.144}%
-\contentsline {section}{\numberline {B.12}Modular Simulation Proofs}{324}{section.B.12}%
-\contentsline {subsection}{\numberline {B.12.1}Subsumption Theorem}{325}{subsection.B.12.1}%
-\contentsline {section}{\numberline {B.13}Falsifiable Predictions}{325}{section.B.13}%
-\contentsline {section}{\numberline {B.14}Summary}{325}{section.B.14}%
-\contentsline {chapter}{\numberline {C}Experimental Validation Suite}{327}{appendix.C}%
-\contentsline {section}{\numberline {C.1}Experimental Validation Suite}{327}{section.C.1}%
-\contentsline {subsection}{\numberline {C.1.1}The Role of Experiments in Theoretical Computer Science}{327}{subsection.C.1.1}%
-\contentsline {subsection}{\numberline {C.1.2}Falsification vs.\ Confirmation}{328}{subsection.C.1.2}%
-\contentsline {section}{\numberline {C.2}Experiment Categories}{328}{section.C.2}%
-\contentsline {section}{\numberline {C.3}Physics Simulations}{329}{section.C.3}%
-\contentsline {subsection}{\numberline {C.3.1}Landauer Principle Validation}{329}{subsection.C.3.1}%
-\contentsline {paragraph}{Understanding the Landauer Principle Experiment:}{329}{section*.145}%
-\contentsline {subsection}{\numberline {C.3.2}Einstein Locality Test}{331}{subsection.C.3.2}%
-\contentsline {paragraph}{Understanding the Einstein Locality Test:}{332}{section*.146}%
-\contentsline {subsection}{\numberline {C.3.3}Entropy Coarse-Graining}{334}{subsection.C.3.3}%
-\contentsline {paragraph}{Understanding the Entropy Coarse-Graining Experiment:}{334}{section*.147}%
-\contentsline {subsection}{\numberline {C.3.4}Observer Effect}{336}{subsection.C.3.4}%
-\contentsline {paragraph}{Understanding the Observer Effect Measurement:}{337}{section*.148}%
-\contentsline {subsection}{\numberline {C.3.5}CHSH Game Demonstration}{338}{subsection.C.3.5}%
-\contentsline {paragraph}{Understanding the CHSH Game Demonstration:}{338}{section*.149}%
-\contentsline {subsection}{\numberline {C.3.6}Structural heat anomaly (certificate ceiling law)}{341}{subsection.C.3.6}%
-\contentsline {paragraph}{Understanding the Structural Heat Anomaly Experiment:}{342}{section*.150}%
-\contentsline {subsection}{\numberline {C.3.7}Ledger-constrained time dilation (fixed-budget slowdown)}{343}{subsection.C.3.7}%
-\contentsline {paragraph}{Understanding the Ledger-Constrained Time Dilation Experiment:}{344}{section*.151}%
-\contentsline {section}{\numberline {C.4}Complexity Gap Experiments}{346}{section.C.4}%
-\contentsline {subsection}{\numberline {C.4.1}Partition Discovery Cost}{346}{subsection.C.4.1}%
-\contentsline {paragraph}{Understanding the Partition Discovery Scaling Experiment:}{347}{section*.152}%
-\contentsline {subsection}{\numberline {C.4.2}Complexity Gap Demonstration}{348}{subsection.C.4.2}%
-\contentsline {paragraph}{Understanding the Complexity Gap Demonstration:}{349}{section*.153}%
-\contentsline {section}{\numberline {C.5}Falsification Experiments}{351}{section.C.5}%
-\contentsline {subsection}{\numberline {C.5.1}Receipt Forgery Attempt}{351}{subsection.C.5.1}%
-\contentsline {paragraph}{Understanding the Receipt Forgery Attack:}{351}{section*.154}%
-\contentsline {subsection}{\numberline {C.5.2}Free Insight Attack}{352}{subsection.C.5.2}%
-\contentsline {paragraph}{Understanding the Free Insight Attack:}{353}{section*.155}%
-\contentsline {subsection}{\numberline {C.5.3}Supra-Quantum Attack}{354}{subsection.C.5.3}%
-\contentsline {paragraph}{Understanding the Supra-Quantum Attack:}{354}{section*.156}%
-\contentsline {section}{\numberline {C.6}Benchmark Suite}{354}{section.C.6}%
-\contentsline {subsection}{\numberline {C.6.1}Micro-Benchmarks}{354}{subsection.C.6.1}%
-\contentsline {subsection}{\numberline {C.6.2}Macro-Benchmarks}{355}{subsection.C.6.2}%
-\contentsline {subsection}{\numberline {C.6.3}Isomorphism Benchmarks}{355}{subsection.C.6.3}%
-\contentsline {paragraph}{Understanding the Isomorphism Benchmarks:}{355}{section*.157}%
-\contentsline {section}{\numberline {C.7}Demonstrations}{356}{section.C.7}%
-\contentsline {subsection}{\numberline {C.7.1}Core Demonstrations}{356}{subsection.C.7.1}%
-\contentsline {subsection}{\numberline {C.7.2}CHSH Game Demo}{356}{subsection.C.7.2}%
-\contentsline {paragraph}{Understanding the CHSH Game Demo:}{357}{section*.158}%
-\contentsline {subsection}{\numberline {C.7.3}Research Demonstrations}{357}{subsection.C.7.3}%
-\contentsline {paragraph}{Understanding the Research Demonstrations:}{357}{section*.159}%
-\contentsline {subsection}{\numberline {C.7.4}Factorization and Shor's Algorithm}{358}{subsection.C.7.4}%
-\contentsline {section}{\numberline {C.8}Integration Tests}{359}{section.C.8}%
-\contentsline {subsection}{\numberline {C.8.1}End-to-End Test Suite}{359}{subsection.C.8.1}%
-\contentsline {subsection}{\numberline {C.8.2}Isomorphism Tests}{359}{subsection.C.8.2}%
-\contentsline {subsection}{\numberline {C.8.3}Fuzz Testing}{359}{subsection.C.8.3}%
-\contentsline {paragraph}{Understanding the Fuzz Testing:}{360}{section*.160}%
-\contentsline {section}{\numberline {C.9}Continuous Integration}{360}{section.C.9}%
-\contentsline {subsection}{\numberline {C.9.1}CI Pipeline}{360}{subsection.C.9.1}%
-\contentsline {subsection}{\numberline {C.9.2}Inquisitor Enforcement}{361}{subsection.C.9.2}%
-\contentsline {section}{\numberline {C.10}Artifact Generation}{361}{section.C.10}%
-\contentsline {subsection}{\numberline {C.10.1}Receipts Directory}{361}{subsection.C.10.1}%
-\contentsline {subsection}{\numberline {C.10.2}Proofpacks}{361}{subsection.C.10.2}%
-\contentsline {section}{\numberline {C.11}Summary}{362}{section.C.11}%
-\contentsline {chapter}{\numberline {D}Physics Models and Algorithmic Primitives}{363}{appendix.D}%
-\contentsline {section}{\numberline {D.1}Physics Models and Algorithmic Primitives}{363}{section.D.1}%
-\contentsline {subsection}{\numberline {D.1.1}Computation as Physics}{363}{subsection.D.1.1}%
-\contentsline {subsection}{\numberline {D.1.2}From Theory to Algorithms}{364}{subsection.D.1.2}%
-\contentsline {section}{\numberline {D.2}Physics Models}{364}{section.D.2}%
-\contentsline {subsection}{\numberline {D.2.1}Wave Propagation Model}{364}{subsection.D.2.1}%
-\contentsline {paragraph}{Understanding the Wave Propagation Model:}{365}{section*.161}%
-\contentsline {paragraph}{Understanding the Wave Conservation Theorems:}{366}{section*.162}%
-\contentsline {subsection}{\numberline {D.2.2}Dissipative Model}{367}{subsection.D.2.2}%
-\contentsline {subsection}{\numberline {D.2.3}Discrete Model}{367}{subsection.D.2.3}%
-\contentsline {section}{\numberline {D.3}Physical Constant Derivation}{367}{section.D.3}%
-\contentsline {subsection}{\numberline {D.3.1}The Planck Constant: A Successful Derivation}{368}{subsection.D.3.1}%
-\contentsline {paragraph}{The Core Relationship:}{368}{section*.163}%
-\contentsline {paragraph}{Numerical Validation:}{368}{section*.164}%
-\contentsline {paragraph}{Coq Formalization:}{368}{section*.165}%
-\contentsline {paragraph}{Scientific Assessment:}{369}{section*.166}%
-\contentsline {subsection}{\numberline {D.3.2}Speed of Light: Structure Without Value}{369}{subsection.D.3.2}%
-\contentsline {paragraph}{The Structural Result:}{369}{section*.167}%
-\contentsline {paragraph}{Numerical Analysis:}{370}{section*.168}%
-\contentsline {paragraph}{Coq Formalization:}{370}{lstlisting.D.-176}%
-\contentsline {paragraph}{Scientific Assessment:}{371}{section*.170}%
-\contentsline {subsection}{\numberline {D.3.3}Gravitational Constant: Highly Speculative}{371}{subsection.D.3.3}%
-\contentsline {paragraph}{Attempted Approaches:}{371}{section*.171}%
-\contentsline {paragraph}{Coq Formalization:}{371}{lstlisting.D.-177}%
-\contentsline {paragraph}{Scientific Assessment:}{372}{section*.173}%
-\contentsline {subsection}{\numberline {D.3.4}Particle Masses: Free Parameters}{372}{subsection.D.3.4}%
-\contentsline {paragraph}{Tested Patterns:}{372}{section*.174}%
-\contentsline {paragraph}{Observed Ratios:}{372}{section*.175}%
-\contentsline {paragraph}{Coq Formalization:}{372}{lstlisting.D.-178}%
-\contentsline {paragraph}{Scientific Assessment:}{373}{section*.177}%
-\contentsline {subsection}{\numberline {D.3.5}Axiom Accounting and Scientific Honesty}{373}{subsection.D.3.5}%
-\contentsline {subsection}{\numberline {D.3.6}Lessons Learned: The Boundary Between Computation and Physics}{373}{subsection.D.3.6}%
-\contentsline {paragraph}{What Computation Can Do:}{373}{section*.178}%
-\contentsline {paragraph}{What Computation Cannot Do:}{374}{section*.179}%
-\contentsline {paragraph}{The Honest Conclusion:}{374}{section*.180}%
-\contentsline {section}{\numberline {D.4}Shor Primitives}{374}{section.D.4}%
-\contentsline {subsection}{\numberline {D.4.1}Period Finding}{374}{subsection.D.4.1}%
-\contentsline {paragraph}{Understanding the Period Finding Definitions:}{375}{section*.181}%
-\contentsline {paragraph}{Understanding the Shor Reduction Theorem:}{376}{section*.182}%
-\contentsline {subsection}{\numberline {D.4.2}Verified Examples}{377}{subsection.D.4.2}%
-\contentsline {subsection}{\numberline {D.4.3}Euclidean Algorithm}{377}{subsection.D.4.3}%
-\contentsline {paragraph}{Understanding the Euclidean Algorithm:}{377}{section*.183}%
-\contentsline {paragraph}{Understanding the Euclidean Algorithm:}{378}{section*.184}%
-\contentsline {subsection}{\numberline {D.4.4}Modular Arithmetic}{379}{subsection.D.4.4}%
-\contentsline {paragraph}{Understanding Modular Arithmetic:}{379}{section*.185}%
-\contentsline {paragraph}{Understanding the Modular Arithmetic Lemma:}{380}{section*.186}%
-\contentsline {section}{\numberline {D.5}Bridge Modules}{381}{section.D.5}%
-\contentsline {subsection}{\numberline {D.5.1}Randomness Bridge}{381}{subsection.D.5.1}%
-\contentsline {paragraph}{Understanding the Randomness Bridge:}{381}{section*.187}%
-\contentsline {subsection}{\numberline {D.5.2}BoxWorld Bridge}{382}{subsection.D.5.2}%
-\contentsline {subsection}{\numberline {D.5.3}FiniteQuantum Bridge}{383}{subsection.D.5.3}%
-\contentsline {section}{\numberline {D.6}Flagship DI Randomness Track}{384}{section.D.6}%
-\contentsline {subsection}{\numberline {D.6.1}Protocol Flow}{384}{subsection.D.6.1}%
-\contentsline {subsection}{\numberline {D.6.2}The Quantitative Bound}{384}{subsection.D.6.2}%
-\contentsline {paragraph}{Understanding the Admissible Randomness Bound:}{384}{section*.188}%
-\contentsline {subsection}{\numberline {D.6.3}Conflict Chart}{386}{subsection.D.6.3}%
-\contentsline {section}{\numberline {D.7}Theory of Everything Limits}{386}{section.D.7}%
-\contentsline {subsection}{\numberline {D.7.1}What the Kernel Forces}{386}{subsection.D.7.1}%
-\contentsline {paragraph}{Understanding the Kernel Maximal Closure Theorem:}{386}{section*.189}%
-\contentsline {subsection}{\numberline {D.7.2}What the Kernel Cannot Force}{387}{subsection.D.7.2}%
-\contentsline {paragraph}{Understanding the Infinite Weight Families Theorem:}{387}{section*.190}%
-\contentsline {paragraph}{Understanding the Physics Requires Extra Structure Theorem:}{388}{section*.191}%
-\contentsline {section}{\numberline {D.8}Complexity Comparison}{390}{section.D.8}%
-\contentsline {section}{\numberline {D.9}Summary}{390}{section.D.9}%
-\contentsline {chapter}{\numberline {E}Hardware Implementation and Demonstrations}{391}{appendix.E}%
-\contentsline {section}{\numberline {E.1}Hardware Implementation and Demonstrations}{391}{section.E.1}%
-\contentsline {subsection}{\numberline {E.1.1}Why Hardware Matters}{391}{subsection.E.1.1}%
-\contentsline {subsection}{\numberline {E.1.2}From Proofs to Silicon}{392}{subsection.E.1.2}%
-\contentsline {section}{\numberline {E.2}Hardware Architecture}{392}{section.E.2}%
-\contentsline {subsection}{\numberline {E.2.1}Core Modules}{392}{subsection.E.2.1}%
-\contentsline {subsection}{\numberline {E.2.2}Instruction Encoding}{393}{subsection.E.2.2}%
-\contentsline {paragraph}{Understanding Instruction Encoding:}{393}{section*.192}%
-\contentsline {subsection}{\numberline {E.2.3}$\mu $-ALU Design}{394}{subsection.E.2.3}%
-\contentsline {paragraph}{Understanding the $\mu $-ALU Design:}{395}{section*.193}%
-\contentsline {subsection}{\numberline {E.2.4}State Serialization}{396}{subsection.E.2.4}%
-\contentsline {paragraph}{Understanding State Serialization:}{397}{section*.194}%
-\contentsline {subsection}{\numberline {E.2.5}Synthesis Results}{398}{subsection.E.2.5}%
-\contentsline {section}{\numberline {E.3}Testbench Infrastructure}{398}{section.E.3}%
-\contentsline {subsection}{\numberline {E.3.1}Main Testbench}{398}{subsection.E.3.1}%
-\contentsline {paragraph}{Understanding the Main Testbench:}{399}{section*.195}%
-\contentsline {subsection}{\numberline {E.3.2}Fuzzing Harness}{400}{subsection.E.3.2}%
-\contentsline {section}{\numberline {E.4}3-Layer Isomorphism Enforcement}{400}{section.E.4}%
-\contentsline {paragraph}{Understanding the Isomorphism Test Code:}{401}{section*.196}%
-\contentsline {section}{\numberline {E.5}Demonstration Suite}{402}{section.E.5}%
-\contentsline {subsection}{\numberline {E.5.1}Core Demonstrations}{402}{subsection.E.5.1}%
-\contentsline {subsection}{\numberline {E.5.2}Research Demonstrations}{402}{subsection.E.5.2}%
-\contentsline {subsection}{\numberline {E.5.3}Verification Demonstrations}{402}{subsection.E.5.3}%
-\contentsline {subsection}{\numberline {E.5.4}Practical Examples}{402}{subsection.E.5.4}%
-\contentsline {subsection}{\numberline {E.5.5}CHSH Flagship Demo}{402}{subsection.E.5.5}%
-\contentsline {paragraph}{Understanding the CHSH Flagship Demo:}{403}{section*.197}%
-\contentsline {section}{\numberline {E.6}Standard Programs}{404}{section.E.6}%
-\contentsline {section}{\numberline {E.7}Benchmarks}{404}{section.E.7}%
-\contentsline {subsection}{\numberline {E.7.1}Hardware Benchmarks}{404}{subsection.E.7.1}%
-\contentsline {subsection}{\numberline {E.7.2}Demo Benchmarks}{404}{subsection.E.7.2}%
-\contentsline {section}{\numberline {E.8}Integration Points}{404}{section.E.8}%
-\contentsline {subsection}{\numberline {E.8.1}Python VM Integration}{404}{subsection.E.8.1}%
-\contentsline {paragraph}{Understanding the Python VM Integration:}{405}{section*.198}%
-\contentsline {subsection}{\numberline {E.8.2}Extracted Runner Integration}{406}{subsection.E.8.2}%
-\contentsline {paragraph}{Understanding the Extracted Runner Integration:}{406}{section*.199}%
-\contentsline {subsection}{\numberline {E.8.3}RTL Integration}{407}{subsection.E.8.3}%
-\contentsline {paragraph}{Understanding the RTL Integration:}{407}{section*.200}%
-\contentsline {section}{\numberline {E.9}Summary}{408}{section.E.9}%
-\contentsline {chapter}{\numberline {F}Glossary of Terms}{409}{appendix.F}%
-\contentsline {chapter}{\numberline {G}Complete Theorem Index}{411}{appendix.G}%
-\contentsline {section}{\numberline {G.1}Complete Theorem Index}{411}{section.G.1}%
-\contentsline {subsection}{\numberline {G.1.1}How to Read This Index}{411}{subsection.G.1.1}%
-\contentsline {subsection}{\numberline {G.1.2}Theorem Naming Conventions}{411}{subsection.G.1.2}%
-\contentsline {section}{\numberline {G.2}Kernel Theorems}{412}{section.G.2}%
-\contentsline {subsection}{\numberline {G.2.1}Core Semantics}{412}{subsection.G.2.1}%
-\contentsline {subsection}{\numberline {G.2.2}Conservation Laws}{412}{subsection.G.2.2}%
-\contentsline {subsection}{\numberline {G.2.3}Impossibility Results}{412}{subsection.G.2.3}%
-\contentsline {subsection}{\numberline {G.2.4}TOE Results}{412}{subsection.G.2.4}%
-\contentsline {subsection}{\numberline {G.2.5}Subsumption}{413}{subsection.G.2.5}%
-\contentsline {section}{\numberline {G.3}Kernel TOE Theorems}{413}{section.G.3}%
-\contentsline {section}{\numberline {G.4}ThieleMachine Theorems}{413}{section.G.4}%
-\contentsline {subsection}{\numberline {G.4.1}Quantum Bounds}{413}{subsection.G.4.1}%
-\contentsline {subsection}{\numberline {G.4.2}Partition Logic}{413}{subsection.G.4.2}%
-\contentsline {subsection}{\numberline {G.4.3}Oracle and Hypercomputation}{414}{subsection.G.4.3}%
-\contentsline {subsection}{\numberline {G.4.4}Verification}{414}{subsection.G.4.4}%
-\contentsline {section}{\numberline {G.5}Bridge Theorems}{414}{section.G.5}%
-\contentsline {section}{\numberline {G.6}Physics Model Theorems}{414}{section.G.6}%
-\contentsline {section}{\numberline {G.7}Shor Primitives Theorems}{415}{section.G.7}%
-\contentsline {section}{\numberline {G.8}NoFI Theorems}{415}{section.G.8}%
-\contentsline {section}{\numberline {G.9}Self-Reference Theorems}{415}{section.G.9}%
-\contentsline {section}{\numberline {G.10}Modular Proofs Theorems}{415}{section.G.10}%
-\contentsline {section}{\numberline {G.11}Theorem Count Summary}{416}{section.G.11}%
-\contentsline {section}{\numberline {G.12}Zero-Admit Verification}{416}{section.G.12}%
-\contentsline {section}{\numberline {G.13}Compilation Status}{416}{section.G.13}%
-\contentsline {section}{\numberline {G.14}Cross-Reference with Tests}{416}{section.G.14}%
+\contentsline {chapter}{\numberline {3}Theory: The Thiele Machine Model}{43}{chapter.3}%
+\contentsline {section}{\numberline {3.1}What This Chapter Defines}{43}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}From Intuition to Formalism}{43}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}The Five Components}{44}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}The Central Innovation: $\mu $-bits}{44}{subsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.1.4}How to Read This Chapter}{45}{subsection.3.1.4}%
+\contentsline {subsection}{\numberline {3.1.5}Key Concepts: Observables and Projections}{46}{subsection.3.1.5}%
+\contentsline {section}{\numberline {3.2}The Formal Model: $T = (S, \Pi , A, R, L)$}{46}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}State Space $S$}{46}{subsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.1.1}Formal Definition}{47}{subsubsection.3.2.1.1}%
+\contentsline {paragraph}{Understanding the VMState Record:}{47}{section*.3}%
+\contentsline {subsubsection}{\numberline {3.2.1.2}Word Representation}{48}{subsubsection.3.2.1.2}%
+\contentsline {paragraph}{Understanding Word Masking:}{48}{section*.4}%
+\contentsline {subsection}{\numberline {3.2.2}Partition Graph $\Pi $}{49}{subsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.2.1}Formal Definition}{49}{subsubsection.3.2.2.1}%
+\contentsline {paragraph}{Understanding the Partition Graph Structure:}{50}{section*.5}%
+\contentsline {subsubsection}{\numberline {3.2.2.2}Well-Formedness Invariant}{51}{subsubsection.3.2.2.2}%
+\contentsline {paragraph}{Understanding Well-Formedness:}{51}{section*.6}%
+\contentsline {subsubsection}{\numberline {3.2.2.3}Canonical Normalization}{52}{subsubsection.3.2.2.3}%
+\contentsline {paragraph}{Understanding Region Normalization:}{52}{section*.7}%
+\contentsline {paragraph}{Understanding Idempotence:}{53}{section*.8}%
+\contentsline {subsection}{\numberline {3.2.3}Axiom Set $A$}{53}{subsection.3.2.3}%
+\contentsline {subsubsection}{\numberline {3.2.3.1}Representation}{53}{subsubsection.3.2.3.1}%
+\contentsline {paragraph}{Understanding the String-Based Axiom System:}{53}{section*.9}%
+\contentsline {paragraph}{Understanding SMT-LIB Axiom Syntax:}{54}{section*.10}%
+\contentsline {subsubsection}{\numberline {3.2.3.2}Axiom Operations}{55}{subsubsection.3.2.3.2}%
+\contentsline {paragraph}{Understanding Module Axiom Addition:}{55}{section*.11}%
+\contentsline {subsection}{\numberline {3.2.4}Transition Rules $R$}{56}{subsection.3.2.4}%
+\contentsline {subsubsection}{\numberline {3.2.4.1}Instruction Set}{56}{subsubsection.3.2.4.1}%
+\contentsline {paragraph}{Understanding Inductive Types as Instruction Sets:}{57}{section*.12}%
+\contentsline {subsubsection}{\numberline {3.2.4.2}Instruction Categories}{58}{subsubsection.3.2.4.2}%
+\contentsline {subsubsection}{\numberline {3.2.4.3}The Step Relation}{60}{subsubsection.3.2.4.3}%
+\contentsline {paragraph}{Understanding the Step Relation:}{60}{section*.13}%
+\contentsline {paragraph}{Understanding the step\_pnew Rule:}{61}{section*.14}%
+\contentsline {subsection}{\numberline {3.2.5}Logic Engine $L$}{61}{subsection.3.2.5}%
+\contentsline {subsubsection}{\numberline {3.2.5.1}Trust Model for Logic Engine}{62}{subsubsection.3.2.5.1}%
+\contentsline {subsubsection}{\numberline {3.2.5.2}Certificate-Based Verification}{62}{subsubsection.3.2.5.2}%
+\contentsline {paragraph}{Understanding Certificate-Based Verification:}{62}{section*.15}%
+\contentsline {section}{\numberline {3.3}The $\mu $-bit Currency}{64}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Definition}{64}{subsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.1.1}The $\mu $-Measure Contract: Encoding Invariance}{64}{subsubsection.3.3.1.1}%
+\contentsline {subsection}{\numberline {3.3.2}The $\mu $-Ledger}{65}{subsection.3.3.2}%
+\contentsline {paragraph}{Understanding the $\mu $-Ledger Field:}{65}{section*.16}%
+\contentsline {paragraph}{Understanding Cost Application:}{66}{section*.17}%
+\contentsline {subsection}{\numberline {3.3.3}Conservation Laws}{66}{subsection.3.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.3.1}Single-Step Monotonicity}{66}{subsubsection.3.3.3.1}%
+\contentsline {paragraph}{Understanding the Monotonicity Theorem:}{67}{section*.18}%
+\contentsline {subsubsection}{\numberline {3.3.3.2}Multi-Step Conservation}{67}{subsubsection.3.3.3.2}%
+\contentsline {paragraph}{Understanding Multi-Step Conservation:}{68}{section*.19}%
+\contentsline {subsubsection}{\numberline {3.3.3.3}Irreversibility Bound}{69}{subsubsection.3.3.3.3}%
+\contentsline {paragraph}{Understanding the Irreversibility Bound:}{69}{section*.20}%
+\contentsline {section}{\numberline {3.4}Partition Logic}{70}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Module Operations}{70}{subsection.3.4.1}%
+\contentsline {subsubsection}{\numberline {3.4.1.1}PNEW: Module Creation}{70}{subsubsection.3.4.1.1}%
+\contentsline {paragraph}{Understanding graph\_pnew (Module Creation):}{71}{section*.21}%
+\contentsline {subsubsection}{\numberline {3.4.1.2}PSPLIT: Module Splitting}{72}{subsubsection.3.4.1.2}%
+\contentsline {paragraph}{Understanding graph\_psplit (Module Splitting):}{72}{section*.22}%
+\contentsline {subsubsection}{\numberline {3.4.1.3}PMERGE: Module Merging}{74}{subsubsection.3.4.1.3}%
+\contentsline {paragraph}{Understanding graph\_pmerge (Module Merging):}{74}{section*.23}%
+\contentsline {subsection}{\numberline {3.4.2}Observables and Locality}{75}{subsection.3.4.2}%
+\contentsline {subsubsection}{\numberline {3.4.2.1}Observable Definition}{75}{subsubsection.3.4.2.1}%
+\contentsline {paragraph}{Understanding Observables:}{76}{section*.24}%
+\contentsline {subsubsection}{\numberline {3.4.2.2}Observational No-Signaling}{77}{subsubsection.3.4.2.2}%
+\contentsline {paragraph}{Understanding the No-Signaling Theorem:}{77}{section*.25}%
+\contentsline {section}{\numberline {3.5}The No Free Insight Theorem}{79}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}Receipt Predicates}{79}{subsection.3.5.1}%
+\contentsline {paragraph}{Understanding Receipt Predicates:}{79}{section*.26}%
+\contentsline {subsection}{\numberline {3.5.2}Strength Ordering}{80}{subsection.3.5.2}%
+\contentsline {paragraph}{Understanding Predicate Strength:}{80}{section*.27}%
+\contentsline {paragraph}{Understanding Strict Strengthening:}{81}{section*.28}%
+\contentsline {paragraph}{Understanding the No Free Insight Theorem:}{83}{section*.29}%
+\contentsline {subsection}{\numberline {3.5.3}Revelation Requirement}{84}{subsection.3.5.3}%
+\contentsline {paragraph}{Understanding the Revelation Requirement:}{84}{section*.30}%
+\contentsline {section}{\numberline {3.6}Gauge Symmetry and Conservation}{86}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}$\mu $-Gauge Transformation}{86}{subsection.3.6.1}%
+\contentsline {paragraph}{Understanding Gauge Transformations:}{86}{section*.31}%
+\contentsline {subsection}{\numberline {3.6.2}Gauge Invariance}{87}{subsection.3.6.2}%
+\contentsline {paragraph}{Understanding Gauge Invariance:}{87}{section*.32}%
+\contentsline {section}{\numberline {3.7}Quantum Axioms from $\mu $-Accounting}{88}{section.3.7}%
+\contentsline {subsection}{\numberline {3.7.1}No-Cloning from $\mu $-Conservation}{89}{subsection.3.7.1}%
+\contentsline {paragraph}{What This Proves:}{89}{section*.33}%
+\contentsline {subsection}{\numberline {3.7.2}Unitarity from Conservation}{90}{subsection.3.7.2}%
+\contentsline {paragraph}{Physical Interpretation:}{90}{section*.34}%
+\contentsline {subsection}{\numberline {3.7.3}Born Rule from Accounting Constraints}{91}{subsection.3.7.3}%
+\contentsline {paragraph}{Why Not Some Other Rule?}{91}{section*.35}%
+\contentsline {subsection}{\numberline {3.7.4}Purification from Reference Systems}{92}{subsection.3.7.4}%
+\contentsline {paragraph}{What This Means:}{92}{section*.36}%
+\contentsline {subsection}{\numberline {3.7.5}Tsirelson Bound from Total $\mu $-Accounting}{92}{subsection.3.7.5}%
+\contentsline {paragraph}{The Connection to $\mu $-Accounting:}{93}{section*.37}%
+\contentsline {subsection}{\numberline {3.7.6}Why This Matters}{93}{subsection.3.7.6}%
+\contentsline {section}{\numberline {3.8}Chapter Summary}{94}{section.3.8}%
+\contentsline {chapter}{\numberline {4}Implementation: The 3-Layer Isomorphism}{96}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Why Three Layers?}{96}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}A Car Salesman's Take on Building Trust}{96}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}The Problem of Trust (The Academic Version)}{97}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}The Three Layers}{97}{subsection.4.1.3}%
+\contentsline {subsection}{\numberline {4.1.4}The Isomorphism Invariant}{98}{subsection.4.1.4}%
+\contentsline {subsubsection}{\numberline {4.1.4.1}The Isomorphism Contract (Specification)}{98}{subsubsection.4.1.4.1}%
+\contentsline {subsection}{\numberline {4.1.5}How to Read This Chapter}{99}{subsection.4.1.5}%
+\contentsline {section}{\numberline {4.2}The 3-Layer Isomorphism Architecture}{99}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Layer 1: The Formal Kernel (Coq)}{99}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Structure of the Formal Kernel}{99}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}The VMState Record}{100}{subsection.4.3.2}%
+\contentsline {paragraph}{Understanding VMState Record:}{101}{section*.38}%
+\contentsline {subsection}{\numberline {4.3.3}The Partition Graph}{103}{subsection.4.3.3}%
+\contentsline {paragraph}{Understanding the Partition Graph Data Structures:}{103}{section*.39}%
+\contentsline {subsection}{\numberline {4.3.4}The Step Relation}{104}{subsection.4.3.4}%
+\contentsline {paragraph}{Understanding the Step Relation:}{105}{section*.40}%
+\contentsline {paragraph}{Understanding advance\_state:}{106}{section*.41}%
+\contentsline {subsection}{\numberline {4.3.5}Extraction}{107}{subsection.4.3.5}%
+\contentsline {paragraph}{Understanding Coq Extraction:}{108}{section*.42}%
+\contentsline {section}{\numberline {4.4}Layer 2: The Reference VM (Python)}{109}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Architecture Overview}{109}{subsection.4.4.1}%
+\contentsline {subsubsection}{\numberline {4.4.1.1}Core Components}{109}{subsubsection.4.4.1.1}%
+\contentsline {subsubsection}{\numberline {4.4.1.2}The VM Class}{110}{subsubsection.4.4.1.2}%
+\contentsline {paragraph}{Understanding the Python VM Class:}{110}{section*.43}%
+\contentsline {subsection}{\numberline {4.4.2}State Representation}{112}{subsection.4.4.2}%
+\contentsline {paragraph}{Understanding the State Dataclass:}{112}{section*.44}%
+\contentsline {subsection}{\numberline {4.4.3}The $\mu $-Ledger}{114}{subsection.4.4.3}%
+\contentsline {paragraph}{Understanding the MuLedger:}{114}{section*.45}%
+\contentsline {subsection}{\numberline {4.4.4}Partition Operations}{115}{subsection.4.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.4.1}Bitmask Representation}{115}{subsubsection.4.4.4.1}%
+\contentsline {paragraph}{Understanding Bitmask Encoding:}{116}{section*.46}%
+\contentsline {subsubsection}{\numberline {4.4.4.2}Module Creation (PNEW)}{117}{subsubsection.4.4.4.2}%
+\contentsline {paragraph}{Understanding PNEW Implementation:}{117}{section*.47}%
+\contentsline {subsection}{\numberline {4.4.5}Sandboxed Python Execution}{118}{subsection.4.4.5}%
+\contentsline {paragraph}{Understanding the Python Sandbox:}{119}{section*.48}%
+\contentsline {paragraph}{Understanding AST Validation:}{120}{section*.49}%
+\contentsline {subsection}{\numberline {4.4.6}Receipt Generation}{121}{subsection.4.4.6}%
+\contentsline {paragraph}{Understanding Receipt Generation:}{121}{section*.50}%
+\contentsline {section}{\numberline {4.5}Layer 3: The Physical Core (Verilog)}{123}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Module Hierarchy}{124}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}The Main CPU}{124}{subsection.4.5.2}%
+\contentsline {paragraph}{Understanding Verilog Module Declaration:}{124}{section*.51}%
+\contentsline {subsection}{\numberline {4.5.3}State Machine}{126}{subsection.4.5.3}%
+\contentsline {paragraph}{Understanding Finite State Machine Encoding:}{127}{section*.52}%
+\contentsline {subsection}{\numberline {4.5.4}Instruction Encoding}{129}{subsection.4.5.4}%
+\contentsline {paragraph}{Understanding Hardware Bitfield Extraction:}{129}{section*.53}%
+\contentsline {subsection}{\numberline {4.5.5}$\mu $-Accumulator Updates}{130}{subsection.4.5.5}%
+\contentsline {paragraph}{Understanding Sequential Logic and Non-Blocking Assignment:}{131}{section*.54}%
+\contentsline {subsection}{\numberline {4.5.6}The $\mu $-ALU}{132}{subsection.4.5.6}%
+\contentsline {paragraph}{Understanding the $\mu $-ALU Module:}{133}{section*.55}%
+\contentsline {paragraph}{Understanding the LOG2 Lookup Table:}{135}{section*.56}%
+\contentsline {subsection}{\numberline {4.5.7}Logic Engine Interface}{136}{subsection.4.5.7}%
+\contentsline {paragraph}{Understanding the Logic Engine Interface:}{136}{section*.57}%
+\contentsline {section}{\numberline {4.6}Isomorphism Verification}{137}{section.4.6}%
+\contentsline {subsection}{\numberline {4.6.1}The Isomorphism Gate}{138}{subsection.4.6.1}%
+\contentsline {subsection}{\numberline {4.6.2}State Projection}{138}{subsection.4.6.2}%
+\contentsline {paragraph}{Understanding State Projection:}{139}{section*.58}%
+\contentsline {subsection}{\numberline {4.6.3}The Inquisitor}{140}{subsection.4.6.3}%
+\contentsline {section}{\numberline {4.7}Synthesis Results}{141}{section.4.7}%
+\contentsline {subsection}{\numberline {4.7.1}FPGA Targeting}{141}{subsection.4.7.1}%
+\contentsline {paragraph}{Understanding Yosys Synthesis:}{141}{section*.59}%
+\contentsline {subsection}{\numberline {4.7.2}Resource Utilization}{142}{subsection.4.7.2}%
+\contentsline {section}{\numberline {4.8}Toolchain}{143}{section.4.8}%
+\contentsline {subsection}{\numberline {4.8.1}Verified Versions}{143}{subsection.4.8.1}%
+\contentsline {subsection}{\numberline {4.8.2}Build Commands}{143}{subsection.4.8.2}%
+\contentsline {paragraph}{Understanding the Build Commands:}{143}{section*.60}%
+\contentsline {section}{\numberline {4.9}Summary}{145}{section.4.9}%
+\contentsline {chapter}{\numberline {5}Verification: The Coq Proofs}{146}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Why Formal Verification?}{146}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}The Limits of Testing}{147}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}The Coq Proof Assistant}{147}{subsection.5.1.2}%
+\contentsline {paragraph}{Coq is an interactive theorem prover}{147}{section*.61}%
+\contentsline {subsection}{\numberline {5.1.3}Trusted Computing Base (TCB)}{148}{subsection.5.1.3}%
+\contentsline {subsection}{\numberline {5.1.4}The Zero-Admit Standard}{148}{subsection.5.1.4}%
+\contentsline {subsection}{\numberline {5.1.5}What The System Proves}{150}{subsection.5.1.5}%
+\contentsline {subsection}{\numberline {5.1.6}Quantum Axioms from $\mu $-Accounting}{150}{subsection.5.1.6}%
+\contentsline {subsection}{\numberline {5.1.7}How to Read This Chapter}{151}{subsection.5.1.7}%
+\contentsline {section}{\numberline {5.2}The Formal Verification Campaign}{152}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Proof Architecture}{152}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Conceptual Hierarchy}{152}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Dependency Sketch}{153}{subsection.5.3.2}%
+\contentsline {section}{\numberline {5.4}State Definitions: Foundation Layer}{153}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}The State Record}{153}{subsection.5.4.1}%
+\contentsline {paragraph}{Understanding the VMState Record in Verification Context:}{153}{section*.62}%
+\contentsline {subsection}{\numberline {5.4.2}Canonical Region Normalization}{154}{subsection.5.4.2}%
+\contentsline {paragraph}{Understanding normalize\_region:}{155}{section*.63}%
+\contentsline {paragraph}{Understanding the Idempotence Lemma:}{155}{section*.64}%
+\contentsline {subsection}{\numberline {5.4.3}Graph Well-Formedness}{156}{subsection.5.4.3}%
+\contentsline {paragraph}{Understanding well\_formed\_graph:}{156}{section*.65}%
+\contentsline {paragraph}{Understanding Preservation Under graph\_add\_module:}{158}{section*.66}%
+\contentsline {paragraph}{Understanding Preservation Under graph\_remove:}{159}{section*.67}%
+\contentsline {section}{\numberline {5.5}Operational Semantics}{160}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}The Instruction Type}{160}{subsection.5.5.1}%
+\contentsline {paragraph}{Understanding the vm\_instruction Inductive Type (Verification Context):}{161}{section*.68}%
+\contentsline {subsection}{\numberline {5.5.2}The Step Relation}{161}{subsection.5.5.2}%
+\contentsline {paragraph}{Understanding the vm\_step Inductive Relation:}{162}{section*.69}%
+\contentsline {section}{\numberline {5.6}Conservation and Locality}{163}{section.5.6}%
+\contentsline {subsection}{\numberline {5.6.1}Observables}{163}{subsection.5.6.1}%
+\contentsline {paragraph}{Understanding Observable and ObservableRegion:}{164}{section*.70}%
+\contentsline {subsection}{\numberline {5.6.2}Instruction Target Sets}{165}{subsection.5.6.2}%
+\contentsline {paragraph}{Understanding instr\_targets:}{165}{section*.71}%
+\contentsline {subsection}{\numberline {5.6.3}The No-Signaling Theorem}{166}{subsection.5.6.3}%
+\contentsline {paragraph}{Understanding the Observational No-Signaling Theorem:}{167}{section*.72}%
+\contentsline {subsection}{\numberline {5.6.4}Gauge Symmetry}{169}{subsection.5.6.4}%
+\contentsline {paragraph}{Understanding mu\_gauge\_shift:}{169}{section*.73}%
+\contentsline {paragraph}{Understanding kernel\_conservation\_mu\_gauge:}{170}{section*.74}%
+\contentsline {subsection}{\numberline {5.6.5}$\mu $-Conservation}{171}{subsection.5.6.5}%
+\contentsline {paragraph}{Understanding the $\mu $-Conservation Theorem:}{171}{section*.75}%
+\contentsline {section}{\numberline {5.7}Multi-Step Conservation}{172}{section.5.7}%
+\contentsline {subsection}{\numberline {5.7.1}Run Function}{172}{subsection.5.7.1}%
+\contentsline {paragraph}{Understanding run\_vm:}{173}{section*.76}%
+\contentsline {subsection}{\numberline {5.7.2}Ledger Entries}{174}{subsection.5.7.2}%
+\contentsline {paragraph}{Understanding ledger\_entries and ledger\_sum:}{174}{section*.77}%
+\contentsline {subsection}{\numberline {5.7.3}Conservation Theorem}{175}{subsection.5.7.3}%
+\contentsline {paragraph}{Understanding run\_vm\_mu\_conservation:}{176}{section*.78}%
+\contentsline {subsection}{\numberline {5.7.4}Irreversibility Bound}{177}{subsection.5.7.4}%
+\contentsline {paragraph}{Understanding vm\_irreversible\_bits\_lower\_bound (early reference):}{177}{section*.79}%
+\contentsline {section}{\numberline {5.8}No Free Insight: The Impossibility Theorem}{177}{section.5.8}%
+\contentsline {subsection}{\numberline {5.8.1}Receipt Predicates}{178}{subsection.5.8.1}%
+\contentsline {paragraph}{Understanding ReceiptPredicate:}{178}{section*.80}%
+\contentsline {subsection}{\numberline {5.8.2}Strength Ordering}{179}{subsection.5.8.2}%
+\contentsline {paragraph}{Understanding stronger and strictly\_stronger:}{179}{section*.81}%
+\contentsline {subsection}{\numberline {5.8.3}Certification}{180}{subsection.5.8.3}%
+\contentsline {paragraph}{Understanding Certified:}{181}{section*.82}%
+\contentsline {subsection}{\numberline {5.8.4}The Main Theorem}{181}{subsection.5.8.4}%
+\contentsline {paragraph}{Understanding no\_free\_insight\_general (early reference):}{182}{section*.83}%
+\contentsline {subsection}{\numberline {5.8.5}Strengthening Theorem}{182}{subsection.5.8.5}%
+\contentsline {paragraph}{Understanding strengthening\_requires\_structure\_addition:}{183}{section*.84}%
+\contentsline {section}{\numberline {5.9}Revelation Requirement: Supra-Quantum Certification}{184}{section.5.9}%
+\contentsline {paragraph}{Understanding nonlocal\_correlation\_requires\_revelation:}{185}{section*.85}%
+\contentsline {section}{\numberline {5.10}No Free Insight Functor Architecture}{186}{section.5.10}%
+\contentsline {subsection}{\numberline {5.10.1}Module Type Interface}{186}{subsection.5.10.1}%
+\contentsline {subsection}{\numberline {5.10.2}Functor Theorem}{187}{subsection.5.10.2}%
+\contentsline {subsection}{\numberline {5.10.3}Kernel Instantiation}{187}{subsection.5.10.3}%
+\contentsline {subsection}{\numberline {5.10.4}Mu-Chaitin Theory}{188}{subsection.5.10.4}%
+\contentsline {section}{\numberline {5.11}Proof Summary}{188}{section.5.11}%
+\contentsline {section}{\numberline {5.12}Falsifiability}{189}{section.5.12}%
+\contentsline {paragraph}{Understanding the Falsifier Specification:}{189}{section*.86}%
+\contentsline {section}{\numberline {5.13}Summary}{190}{section.5.13}%
+\contentsline {chapter}{\numberline {6}Evaluation: Empirical Evidence}{192}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Evaluation Overview}{192}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}From Theory to Evidence}{192}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Methodology}{193}{subsection.6.1.2}%
+\contentsline {section}{\numberline {6.2}3-Layer Isomorphism Verification}{194}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Test Architecture}{194}{subsection.6.2.1}%
+\contentsline {subsubsection}{\numberline {6.2.1.1}Test Implementation}{194}{subsubsection.6.2.1.1}%
+\contentsline {paragraph}{Understanding test\_rtl\_python\_coq\_compute\_isomorphism:}{195}{section*.87}%
+\contentsline {subsubsection}{\numberline {6.2.1.2}State Projection}{196}{subsubsection.6.2.1.2}%
+\contentsline {paragraph}{Understanding the State Projection JSON:}{196}{section*.88}%
+\contentsline {subsection}{\numberline {6.2.2}Partition Operation Tests}{197}{subsection.6.2.2}%
+\contentsline {paragraph}{Understanding test\_pnew\_dedup\_singletons\_isomorphic:}{198}{section*.89}%
+\contentsline {subsection}{\numberline {6.2.3}Results Summary}{199}{subsection.6.2.3}%
+\contentsline {section}{\numberline {6.3}CHSH Correlation Experiments}{199}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Bell Test Protocol}{199}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Partition-Native CHSH}{199}{subsection.6.3.2}%
+\contentsline {paragraph}{Understanding instr\_chsh\_trial:}{200}{section*.90}%
+\contentsline {subsection}{\numberline {6.3.3}Correlation Bounds}{201}{subsection.6.3.3}%
+\contentsline {paragraph}{Understanding the Tsirelson Bound Implementation:}{201}{section*.91}%
+\contentsline {subsection}{\numberline {6.3.4}Experimental Design}{202}{subsection.6.3.4}%
+\contentsline {subsection}{\numberline {6.3.5}Supra-Quantum Certification}{202}{subsection.6.3.5}%
+\contentsline {paragraph}{Understanding nonlocal\_correlation\_requires\_revelation (evaluation context):}{203}{section*.92}%
+\contentsline {subsection}{\numberline {6.3.6}Results}{204}{subsection.6.3.6}%
+\contentsline {section}{\numberline {6.4}$\mu $-Ledger Verification}{204}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Monotonicity Tests}{204}{subsection.6.4.1}%
+\contentsline {paragraph}{Understanding test\_mu\_monotonic\_under\_any\_trace:}{204}{section*.93}%
+\contentsline {subsection}{\numberline {6.4.2}Conservation Tests}{206}{subsection.6.4.2}%
+\contentsline {paragraph}{Understanding test\_mu\_conservation:}{206}{section*.94}%
+\contentsline {subsection}{\numberline {6.4.3}Results}{207}{subsection.6.4.3}%
+\contentsline {section}{\numberline {6.5}Thermodynamic bridge experiment (publishable plan)}{208}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}Workload construction}{208}{subsection.6.5.1}%
+\contentsline {subsection}{\numberline {6.5.2}Bridge prediction}{208}{subsection.6.5.2}%
+\contentsline {subsection}{\numberline {6.5.3}Instrumentation and analysis}{208}{subsection.6.5.3}%
+\contentsline {subsection}{\numberline {6.5.4}Executed thermodynamic bundle (Dec 2025)}{208}{subsection.6.5.4}%
+\contentsline {subsection}{\numberline {6.5.5}The Conservation of Difficulty Experiment}{209}{subsection.6.5.5}%
+\contentsline {paragraph}{Setup.}{209}{section*.95}%
+\contentsline {paragraph}{Result.}{209}{section*.96}%
+\contentsline {paragraph}{Analysis.}{209}{section*.97}%
+\contentsline {subsection}{\numberline {6.5.6}Structural heat anomaly workload}{210}{subsection.6.5.6}%
+\contentsline {paragraph}{From first principles.}{210}{section*.98}%
+\contentsline {paragraph}{Concrete run.}{210}{section*.99}%
+\contentsline {subsection}{\numberline {6.5.7}Ledger-constrained time dilation workload}{211}{subsection.6.5.7}%
+\contentsline {paragraph}{From first principles.}{211}{section*.100}%
+\contentsline {paragraph}{Concrete run.}{211}{section*.101}%
+\contentsline {section}{\numberline {6.6}Performance Benchmarks}{211}{section.6.6}%
+\contentsline {subsection}{\numberline {6.6.1}Instruction Throughput}{211}{subsection.6.6.1}%
+\contentsline {subsection}{\numberline {6.6.2}Receipt Chain Overhead}{211}{subsection.6.6.2}%
+\contentsline {subsection}{\numberline {6.6.3}Hardware Synthesis Results}{212}{subsection.6.6.3}%
+\contentsline {paragraph}{Understanding YOSYS\_LITE Configuration:}{212}{section*.102}%
+\contentsline {paragraph}{Understanding Full Hardware Configuration:}{213}{section*.103}%
+\contentsline {section}{\numberline {6.7}Validation Coverage}{214}{section.6.7}%
+\contentsline {subsection}{\numberline {6.7.1}Test Categories}{214}{subsection.6.7.1}%
+\contentsline {subsection}{\numberline {6.7.2}Automation}{214}{subsection.6.7.2}%
+\contentsline {subsection}{\numberline {6.7.3}Execution Gates}{215}{subsection.6.7.3}%
+\contentsline {section}{\numberline {6.8}Reproducibility}{215}{section.6.8}%
+\contentsline {subsection}{\numberline {6.8.1}Reproducing the ledger-level physics artifacts}{215}{subsection.6.8.1}%
+\contentsline {paragraph}{Structural heat.}{215}{section*.104}%
+\contentsline {paragraph}{Understanding Structural Heat Experiment Commands:}{215}{section*.105}%
+\contentsline {paragraph}{Understanding plot\_structural\_heat\_scaling.py:}{216}{section*.106}%
+\contentsline {paragraph}{Time dilation.}{217}{section*.107}%
+\contentsline {paragraph}{Understanding Time Dilation Experiment Commands:}{217}{section*.108}%
+\contentsline {subsection}{\numberline {6.8.2}Artifact Bundles}{218}{subsection.6.8.2}%
+\contentsline {subsection}{\numberline {6.8.3}Container Reproducibility}{218}{subsection.6.8.3}%
+\contentsline {section}{\numberline {6.9}Adversarial Evaluation and Threat Model}{219}{section.6.9}%
+\contentsline {subsection}{\numberline {6.9.1}Evaluation Threat Model}{219}{subsection.6.9.1}%
+\contentsline {subsection}{\numberline {6.9.2}Negative Controls}{219}{subsection.6.9.2}%
+\contentsline {section}{\numberline {6.10}Summary}{220}{section.6.10}%
+\contentsline {chapter}{\numberline {7}Discussion: Implications and Future Work}{221}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Why This Chapter Matters}{221}{section.7.1}%
+\contentsline {subsection}{\numberline {7.1.1}From Proofs to Meaning}{221}{subsection.7.1.1}%
+\contentsline {subsection}{\numberline {7.1.2}How to Read This Chapter}{222}{subsection.7.1.2}%
+\contentsline {section}{\numberline {7.2}What Would Falsify the Physics Bridge?}{222}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Broader Implications}{223}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Connections to Physics}{223}{section.7.4}%
+\contentsline {subsection}{\numberline {7.4.1}Landauer's Principle}{223}{subsection.7.4.1}%
+\contentsline {paragraph}{Understanding vm\_irreversible\_bits\_lower\_bound:}{224}{section*.109}%
+\contentsline {subsection}{\numberline {7.4.2}No-Signaling and Bell Locality}{225}{subsection.7.4.2}%
+\contentsline {paragraph}{Understanding observational\_no\_signaling (discussion context):}{225}{section*.110}%
+\contentsline {subsection}{\numberline {7.4.3}Noether's Theorem}{226}{subsection.7.4.3}%
+\contentsline {paragraph}{Understanding kernel\_conservation\_mu\_gauge:}{226}{section*.111}%
+\contentsline {subsection}{\numberline {7.4.4}Thermodynamic bridge and falsifiable prediction}{228}{subsection.7.4.4}%
+\contentsline {paragraph}{Translation dictionary.}{228}{section*.112}%
+\contentsline {paragraph}{Bridge theorem (sanity anchor).}{228}{section*.113}%
+\contentsline {paragraph}{Falsifiable prediction.}{228}{section*.114}%
+\contentsline {paragraph}{Executed bridge runs.}{229}{section*.115}%
+\contentsline {subsection}{\numberline {7.4.5}The Physics-Computation Isomorphism}{229}{subsection.7.4.5}%
+\contentsline {section}{\numberline {7.5}Implications for Computational Complexity}{230}{section.7.5}%
+\contentsline {subsection}{\numberline {7.5.1}The "Time Tax" Reformulated}{230}{subsection.7.5.1}%
+\contentsline {subsection}{\numberline {7.5.2}The Conservation of Difficulty}{230}{subsection.7.5.2}%
+\contentsline {subsection}{\numberline {7.5.3}Structure-Aware Complexity Classes}{230}{subsection.7.5.3}%
+\contentsline {section}{\numberline {7.6}Implications for Artificial Intelligence}{231}{section.7.6}%
+\contentsline {subsection}{\numberline {7.6.1}The Hallucination Problem}{231}{subsection.7.6.1}%
+\contentsline {paragraph}{Understanding Classic AI Pattern (LLM):}{231}{section*.116}%
+\contentsline {paragraph}{Understanding Thiele Machine-Inspired AI:}{231}{section*.117}%
+\contentsline {subsection}{\numberline {7.6.2}Neuro-Symbolic Integration}{233}{subsection.7.6.2}%
+\contentsline {section}{\numberline {7.7}Implications for Trust and Verification}{233}{section.7.7}%
+\contentsline {subsection}{\numberline {7.7.1}The Receipt Chain}{233}{subsection.7.7.1}%
+\contentsline {paragraph}{Understanding Receipt Structure:}{233}{section*.118}%
+\contentsline {subsection}{\numberline {7.7.2}Applications}{235}{subsection.7.7.2}%
+\contentsline {section}{\numberline {7.8}Limitations}{235}{section.7.8}%
+\contentsline {subsection}{\numberline {7.8.1}The Uncomputability of True $\mu $}{235}{subsection.7.8.1}%
+\contentsline {subsection}{\numberline {7.8.2}Hardware Scalability}{236}{subsection.7.8.2}%
+\contentsline {paragraph}{Understanding Current Hardware Limitations:}{236}{section*.119}%
+\contentsline {subsection}{\numberline {7.8.3}SAT Solver Integration}{237}{subsection.7.8.3}%
+\contentsline {paragraph}{Understanding LASSERT Limitations:}{237}{section*.120}%
+\contentsline {section}{\numberline {7.9}Future Directions}{239}{section.7.9}%
+\contentsline {subsection}{\numberline {7.9.1}Quantum Integration}{239}{subsection.7.9.1}%
+\contentsline {subsection}{\numberline {7.9.2}Distributed Execution}{239}{subsection.7.9.2}%
+\contentsline {subsection}{\numberline {7.9.3}Programming Language Design}{240}{subsection.7.9.3}%
+\contentsline {section}{\numberline {7.10}Summary}{240}{section.7.10}%
+\contentsline {chapter}{\numberline {8}Conclusion}{241}{chapter.8}%
+\contentsline {section}{\numberline {8.1}The Central Claim}{241}{section.8.1}%
+\contentsline {subsection}{\numberline {8.1.1}The Question}{241}{subsection.8.1.1}%
+\contentsline {subsection}{\numberline {8.1.2}How to Read This Chapter}{241}{subsection.8.1.2}%
+\contentsline {section}{\numberline {8.2}Summary of Contributions}{242}{section.8.2}%
+\contentsline {subsection}{\numberline {8.2.1}Theoretical Contributions}{242}{subsection.8.2.1}%
+\contentsline {subsection}{\numberline {8.2.2}Implementation Contributions}{242}{subsection.8.2.2}%
+\contentsline {subsection}{\numberline {8.2.3}Verification Contributions}{243}{subsection.8.2.3}%
+\contentsline {section}{\numberline {8.3}The Thiele Machine Hypothesis: Confirmed}{244}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Impact and Applications}{244}{section.8.4}%
+\contentsline {subsection}{\numberline {8.4.1}Verifiable Computation}{244}{subsection.8.4.1}%
+\contentsline {subsection}{\numberline {8.4.2}Complexity Theory}{245}{subsection.8.4.2}%
+\contentsline {subsection}{\numberline {8.4.3}Physics-Computation Bridge}{245}{subsection.8.4.3}%
+\contentsline {section}{\numberline {8.5}Open Problems}{245}{section.8.5}%
+\contentsline {subsection}{\numberline {8.5.1}Optimality}{245}{subsection.8.5.1}%
+\contentsline {subsection}{\numberline {8.5.2}Completeness}{245}{subsection.8.5.2}%
+\contentsline {subsection}{\numberline {8.5.3}Quantum Extension}{245}{subsection.8.5.3}%
+\contentsline {subsection}{\numberline {8.5.4}Hardware Realization}{246}{subsection.8.5.4}%
+\contentsline {section}{\numberline {8.6}The Path Forward}{246}{section.8.6}%
+\contentsline {section}{\numberline {8.7}Final Word}{246}{section.8.7}%
+\contentsline {chapter}{\numberline {A}The Verifier System}{248}{appendix.A}%
+\contentsline {section}{\numberline {A.1}The Verifier System: Receipt-Defined Certification}{248}{section.A.1}%
+\contentsline {subsection}{\numberline {A.1.1}Why Verification Matters}{248}{subsection.A.1.1}%
+\contentsline {section}{\numberline {A.2}Architecture Overview}{249}{section.A.2}%
+\contentsline {subsection}{\numberline {A.2.1}The Closed Work System}{249}{subsection.A.2.1}%
+\contentsline {subsection}{\numberline {A.2.2}The TRS-1.0 Receipt Protocol}{250}{subsection.A.2.2}%
+\contentsline {paragraph}{Understanding TRS-1.0 Receipt Protocol:}{250}{section*.121}%
+\contentsline {subsection}{\numberline {A.2.3}Non-Negotiable Falsifier Pattern}{252}{subsection.A.2.3}%
+\contentsline {section}{\numberline {A.3}C-RAND: Certified Randomness}{252}{section.A.3}%
+\contentsline {subsection}{\numberline {A.3.1}Claim Structure}{252}{subsection.A.3.1}%
+\contentsline {paragraph}{Understanding C-RAND Randomness Claim:}{253}{section*.122}%
+\contentsline {subsection}{\numberline {A.3.2}Verification Rules}{254}{subsection.A.3.2}%
+\contentsline {subsection}{\numberline {A.3.3}The Randomness Bound}{254}{subsection.A.3.3}%
+\contentsline {paragraph}{Understanding RandChannel Bridge Lemma:}{255}{section*.123}%
+\contentsline {subsection}{\numberline {A.3.4}Falsifier Tests}{256}{subsection.A.3.4}%
+\contentsline {section}{\numberline {A.4}C-TOMO: Tomography as Priced Knowledge}{257}{section.A.4}%
+\contentsline {subsection}{\numberline {A.4.1}Claim Structure}{257}{subsection.A.4.1}%
+\contentsline {paragraph}{Understanding C-TOMO Tomography Claim:}{257}{section*.124}%
+\contentsline {subsection}{\numberline {A.4.2}Verification Rules}{259}{subsection.A.4.2}%
+\contentsline {subsection}{\numberline {A.4.3}The Precision-Cost Relationship}{259}{subsection.A.4.3}%
+\contentsline {section}{\numberline {A.5}C-ENTROPY: Coarse-Graining Made Explicit}{259}{section.A.5}%
+\contentsline {subsection}{\numberline {A.5.1}The Entropy Underdetermination Problem}{259}{subsection.A.5.1}%
+\contentsline {subsection}{\numberline {A.5.2}Claim Structure}{259}{subsection.A.5.2}%
+\contentsline {paragraph}{Understanding C-ENTROPY Claim:}{260}{section*.125}%
+\contentsline {subsection}{\numberline {A.5.3}Verification Rules}{261}{subsection.A.5.3}%
+\contentsline {subsection}{\numberline {A.5.4}Coq Formalization}{262}{subsection.A.5.4}%
+\contentsline {paragraph}{Understanding region\_equiv\_class\_infinite:}{262}{section*.126}%
+\contentsline {section}{\numberline {A.6}C-CAUSAL: No Free Causal Explanation}{264}{section.A.6}%
+\contentsline {subsection}{\numberline {A.6.1}The Markov Equivalence Problem}{264}{subsection.A.6.1}%
+\contentsline {subsection}{\numberline {A.6.2}The Causal Inference Problem}{264}{subsection.A.6.2}%
+\contentsline {subsection}{\numberline {A.6.3}Claim Types}{264}{subsection.A.6.3}%
+\contentsline {subsection}{\numberline {A.6.4}Verification Rules}{264}{subsection.A.6.4}%
+\contentsline {subsection}{\numberline {A.6.5}Falsifier Tests}{264}{subsection.A.6.5}%
+\contentsline {paragraph}{Understanding Causal DAG Falsifier Test:}{265}{section*.127}%
+\contentsline {section}{\numberline {A.7}Bridge Modules: Kernel Integration}{267}{section.A.7}%
+\contentsline {section}{\numberline {A.8}The Flagship Divergence Prediction}{267}{section.A.8}%
+\contentsline {subsection}{\numberline {A.8.1}The "Science Can't Cheat" Theorem}{267}{subsection.A.8.1}%
+\contentsline {subsection}{\numberline {A.8.2}Implementation}{267}{subsection.A.8.2}%
+\contentsline {paragraph}{Understanding Uncertified Improvement Falsifier:}{268}{section*.128}%
+\contentsline {subsection}{\numberline {A.8.3}Quantitative Bound}{270}{subsection.A.8.3}%
+\contentsline {section}{\numberline {A.9}Summary}{270}{section.A.9}%
+\contentsline {chapter}{\numberline {B}Extended Proof Architecture}{271}{appendix.B}%
+\contentsline {section}{\numberline {B.1}Extended Proof Architecture}{271}{section.B.1}%
+\contentsline {subsection}{\numberline {B.1.1}Why Machine-Checked Proofs?}{271}{subsection.B.1.1}%
+\contentsline {subsection}{\numberline {B.1.2}Reading Coq Code}{272}{subsection.B.1.2}%
+\contentsline {paragraph}{Understanding Basic Coq Proof Structure:}{272}{section*.129}%
+\contentsline {section}{\numberline {B.2}Proof Inventory}{273}{section.B.2}%
+\contentsline {section}{\numberline {B.3}The ThieleMachine Proof Suite (98 Files)}{274}{section.B.3}%
+\contentsline {subsection}{\numberline {B.3.1}Partition Logic}{274}{subsection.B.3.1}%
+\contentsline {paragraph}{Understanding Partition Logic Data Structures:}{274}{section*.130}%
+\contentsline {subsection}{\numberline {B.3.2}Quantum Admissibility and Tsirelson Bound}{277}{subsection.B.3.2}%
+\contentsline {paragraph}{Understanding Quantum Admissibility Theorem:}{277}{section*.131}%
+\contentsline {subsection}{\numberline {B.3.3}Bell Inequality Formalization}{279}{subsection.B.3.3}%
+\contentsline {subsection}{\numberline {B.3.4}Turing Machine Embedding}{280}{subsection.B.3.4}%
+\contentsline {paragraph}{Understanding Turing Machine Embedding Theorem:}{280}{section*.132}%
+\contentsline {subsection}{\numberline {B.3.5}Oracle and Impossibility Theorems}{282}{subsection.B.3.5}%
+\contentsline {subsection}{\numberline {B.3.6}Additional ThieleMachine Proofs}{282}{subsection.B.3.6}%
+\contentsline {section}{\numberline {B.4}Recent Kernel Extensions}{282}{section.B.4}%
+\contentsline {subsection}{\numberline {B.4.1}Finite Information Theory}{283}{subsection.B.4.1}%
+\contentsline {subsection}{\numberline {B.4.2}Locality Proofs for All Instructions}{283}{subsection.B.4.2}%
+\contentsline {subsection}{\numberline {B.4.3}Proper Subsumption (Non-Circular)}{284}{subsection.B.4.3}%
+\contentsline {subsection}{\numberline {B.4.4}Local Information Loss}{285}{subsection.B.4.4}%
+\contentsline {subsection}{\numberline {B.4.5}Assumption Documentation}{285}{subsection.B.4.5}%
+\contentsline {subsection}{\numberline {B.4.6}The $\mu $-Initiality Theorem}{286}{subsection.B.4.6}%
+\contentsline {subsection}{\numberline {B.4.7}The $\mu $-Landauer Validity Theorem}{287}{subsection.B.4.7}%
+\contentsline {section}{\numberline {B.5}Quantum Axioms from $\mu $-Accounting}{288}{section.B.5}%
+\contentsline {subsection}{\numberline {B.5.1}Proof Architecture Overview}{288}{subsection.B.5.1}%
+\contentsline {subsection}{\numberline {B.5.2}No-Cloning Theorem}{288}{subsection.B.5.2}%
+\contentsline {subsection}{\numberline {B.5.3}Unitarity and CPTP Maps}{289}{subsection.B.5.3}%
+\contentsline {subsection}{\numberline {B.5.4}Born Rule}{290}{subsection.B.5.4}%
+\contentsline {subsection}{\numberline {B.5.5}Purification Principle}{291}{subsection.B.5.5}%
+\contentsline {subsection}{\numberline {B.5.6}Tsirelson Bound}{291}{subsection.B.5.6}%
+\contentsline {subsection}{\numberline {B.5.7}What This Means}{292}{subsection.B.5.7}%
+\contentsline {section}{\numberline {B.6}Theory of Everything (TOE) Proofs}{292}{section.B.6}%
+\contentsline {subsection}{\numberline {B.6.1}The Final Outcome Theorem}{292}{subsection.B.6.1}%
+\contentsline {paragraph}{Understanding the TOE Final Outcome Theorem:}{292}{section*.133}%
+\contentsline {subsection}{\numberline {B.6.2}The No-Go Theorem}{295}{subsection.B.6.2}%
+\contentsline {paragraph}{Understanding the Infinite Weight Family Theorem:}{295}{section*.134}%
+\contentsline {paragraph}{Understanding the Unique Weight No-Go Theorem:}{297}{section*.135}%
+\contentsline {subsection}{\numberline {B.6.3}Physics Requires Extra Structure}{299}{subsection.B.6.3}%
+\contentsline {paragraph}{Understanding the Physics Requires Extra Structure Theorem:}{299}{section*.136}%
+\contentsline {subsection}{\numberline {B.6.4}Closure Theorems}{301}{subsection.B.6.4}%
+\contentsline {paragraph}{Understanding the Kernel Maximal Closure Theorem:}{302}{section*.137}%
+\contentsline {section}{\numberline {B.7}Spacetime Emergence}{304}{section.B.7}%
+\contentsline {subsection}{\numberline {B.7.1}Causal Structure from Steps}{304}{subsection.B.7.1}%
+\contentsline {paragraph}{Understanding Spacetime Emergence Definitions:}{305}{section*.138}%
+\contentsline {subsection}{\numberline {B.7.2}Cone Algebra}{307}{subsection.B.7.2}%
+\contentsline {paragraph}{Understanding the Cone Composition Theorem:}{307}{section*.139}%
+\contentsline {subsection}{\numberline {B.7.3}Lorentz Structure Not Forced}{309}{subsection.B.7.3}%
+\contentsline {section}{\numberline {B.8}Impossibility Theorems}{309}{section.B.8}%
+\contentsline {subsection}{\numberline {B.8.1}Entropy Impossibility}{309}{subsection.B.8.1}%
+\contentsline {paragraph}{Understanding the Entropy Impossibility Theorem:}{310}{section*.140}%
+\contentsline {subsection}{\numberline {B.8.2}Probability Impossibility}{313}{subsection.B.8.2}%
+\contentsline {section}{\numberline {B.9}Quantum Bound Proofs}{313}{section.B.9}%
+\contentsline {subsection}{\numberline {B.9.1}The Machine-Checked Tsirelson Bound}{313}{subsection.B.9.1}%
+\contentsline {subsection}{\numberline {B.9.2}Kernel-Level Guarantee}{313}{subsection.B.9.2}%
+\contentsline {paragraph}{Understanding the Quantum Admissible Cert Preservation Theorem:}{313}{section*.141}%
+\contentsline {subsection}{\numberline {B.9.3}Quantitative $\mu $ Lower Bound}{316}{subsection.B.9.3}%
+\contentsline {paragraph}{Understanding the VM Exec $\mu $ Monotone Lemma:}{316}{section*.142}%
+\contentsline {section}{\numberline {B.10}No Free Insight Interface}{318}{section.B.10}%
+\contentsline {subsection}{\numberline {B.10.1}Abstract Interface}{318}{subsection.B.10.1}%
+\contentsline {paragraph}{Understanding the NO\_FREE\_INSIGHT\_SYSTEM Interface:}{318}{section*.143}%
+\contentsline {subsection}{\numberline {B.10.2}Kernel Instance}{322}{subsection.B.10.2}%
+\contentsline {section}{\numberline {B.11}Self-Reference}{322}{section.B.11}%
+\contentsline {paragraph}{Understanding Self-Reference Definitions:}{322}{section*.144}%
+\contentsline {section}{\numberline {B.12}Modular Simulation Proofs}{325}{section.B.12}%
+\contentsline {subsection}{\numberline {B.12.1}Subsumption Theorem}{326}{subsection.B.12.1}%
+\contentsline {section}{\numberline {B.13}Falsifiable Predictions}{326}{section.B.13}%
+\contentsline {section}{\numberline {B.14}Summary}{326}{section.B.14}%
+\contentsline {chapter}{\numberline {C}Experimental Validation Suite}{328}{appendix.C}%
+\contentsline {section}{\numberline {C.1}Experimental Validation Suite}{328}{section.C.1}%
+\contentsline {subsection}{\numberline {C.1.1}The Role of Experiments in Theoretical Computer Science}{328}{subsection.C.1.1}%
+\contentsline {subsection}{\numberline {C.1.2}Falsification vs.\ Confirmation}{329}{subsection.C.1.2}%
+\contentsline {section}{\numberline {C.2}Experiment Categories}{329}{section.C.2}%
+\contentsline {section}{\numberline {C.3}Physics Simulations}{330}{section.C.3}%
+\contentsline {subsection}{\numberline {C.3.1}Landauer Principle Validation}{330}{subsection.C.3.1}%
+\contentsline {paragraph}{Understanding the Landauer Principle Experiment:}{330}{section*.145}%
+\contentsline {subsection}{\numberline {C.3.2}Einstein Locality Test}{332}{subsection.C.3.2}%
+\contentsline {paragraph}{Understanding the Einstein Locality Test:}{333}{section*.146}%
+\contentsline {subsection}{\numberline {C.3.3}Entropy Coarse-Graining}{335}{subsection.C.3.3}%
+\contentsline {paragraph}{Understanding the Entropy Coarse-Graining Experiment:}{335}{section*.147}%
+\contentsline {subsection}{\numberline {C.3.4}Observer Effect}{337}{subsection.C.3.4}%
+\contentsline {paragraph}{Understanding the Observer Effect Measurement:}{338}{section*.148}%
+\contentsline {subsection}{\numberline {C.3.5}CHSH Game Demonstration}{339}{subsection.C.3.5}%
+\contentsline {paragraph}{Understanding the CHSH Game Demonstration:}{339}{section*.149}%
+\contentsline {subsection}{\numberline {C.3.6}Structural heat anomaly (certificate ceiling law)}{342}{subsection.C.3.6}%
+\contentsline {paragraph}{Understanding the Structural Heat Anomaly Experiment:}{343}{section*.150}%
+\contentsline {subsection}{\numberline {C.3.7}Ledger-constrained time dilation (fixed-budget slowdown)}{344}{subsection.C.3.7}%
+\contentsline {paragraph}{Understanding the Ledger-Constrained Time Dilation Experiment:}{345}{section*.151}%
+\contentsline {section}{\numberline {C.4}Complexity Gap Experiments}{347}{section.C.4}%
+\contentsline {subsection}{\numberline {C.4.1}Partition Discovery Cost}{347}{subsection.C.4.1}%
+\contentsline {paragraph}{Understanding the Partition Discovery Scaling Experiment:}{348}{section*.152}%
+\contentsline {subsection}{\numberline {C.4.2}Complexity Gap Demonstration}{349}{subsection.C.4.2}%
+\contentsline {paragraph}{Understanding the Complexity Gap Demonstration:}{350}{section*.153}%
+\contentsline {section}{\numberline {C.5}Falsification Experiments}{352}{section.C.5}%
+\contentsline {subsection}{\numberline {C.5.1}Receipt Forgery Attempt}{352}{subsection.C.5.1}%
+\contentsline {paragraph}{Understanding the Receipt Forgery Attack:}{352}{section*.154}%
+\contentsline {subsection}{\numberline {C.5.2}Free Insight Attack}{353}{subsection.C.5.2}%
+\contentsline {paragraph}{Understanding the Free Insight Attack:}{354}{section*.155}%
+\contentsline {subsection}{\numberline {C.5.3}Supra-Quantum Attack}{355}{subsection.C.5.3}%
+\contentsline {paragraph}{Understanding the Supra-Quantum Attack:}{355}{section*.156}%
+\contentsline {section}{\numberline {C.6}Benchmark Suite}{355}{section.C.6}%
+\contentsline {subsection}{\numberline {C.6.1}Micro-Benchmarks}{355}{subsection.C.6.1}%
+\contentsline {subsection}{\numberline {C.6.2}Macro-Benchmarks}{356}{subsection.C.6.2}%
+\contentsline {subsection}{\numberline {C.6.3}Isomorphism Benchmarks}{356}{subsection.C.6.3}%
+\contentsline {paragraph}{Understanding the Isomorphism Benchmarks:}{356}{section*.157}%
+\contentsline {section}{\numberline {C.7}Demonstrations}{357}{section.C.7}%
+\contentsline {subsection}{\numberline {C.7.1}Core Demonstrations}{357}{subsection.C.7.1}%
+\contentsline {subsection}{\numberline {C.7.2}CHSH Game Demo}{357}{subsection.C.7.2}%
+\contentsline {paragraph}{Understanding the CHSH Game Demo:}{358}{section*.158}%
+\contentsline {subsection}{\numberline {C.7.3}Research Demonstrations}{358}{subsection.C.7.3}%
+\contentsline {paragraph}{Understanding the Research Demonstrations:}{358}{section*.159}%
+\contentsline {subsection}{\numberline {C.7.4}Factorization and Shor's Algorithm}{359}{subsection.C.7.4}%
+\contentsline {section}{\numberline {C.8}Integration Tests}{360}{section.C.8}%
+\contentsline {subsection}{\numberline {C.8.1}End-to-End Test Suite}{360}{subsection.C.8.1}%
+\contentsline {subsection}{\numberline {C.8.2}Isomorphism Tests}{360}{subsection.C.8.2}%
+\contentsline {subsection}{\numberline {C.8.3}Fuzz Testing}{360}{subsection.C.8.3}%
+\contentsline {paragraph}{Understanding the Fuzz Testing:}{361}{section*.160}%
+\contentsline {section}{\numberline {C.9}Continuous Integration}{361}{section.C.9}%
+\contentsline {subsection}{\numberline {C.9.1}CI Pipeline}{361}{subsection.C.9.1}%
+\contentsline {subsection}{\numberline {C.9.2}Inquisitor Enforcement}{362}{subsection.C.9.2}%
+\contentsline {section}{\numberline {C.10}Artifact Generation}{362}{section.C.10}%
+\contentsline {subsection}{\numberline {C.10.1}Receipts Directory}{362}{subsection.C.10.1}%
+\contentsline {subsection}{\numberline {C.10.2}Proofpacks}{362}{subsection.C.10.2}%
+\contentsline {section}{\numberline {C.11}Summary}{363}{section.C.11}%
+\contentsline {chapter}{\numberline {D}Physics Models and Algorithmic Primitives}{364}{appendix.D}%
+\contentsline {section}{\numberline {D.1}Physics Models and Algorithmic Primitives}{364}{section.D.1}%
+\contentsline {subsection}{\numberline {D.1.1}Computation as Physics}{364}{subsection.D.1.1}%
+\contentsline {subsection}{\numberline {D.1.2}From Theory to Algorithms}{365}{subsection.D.1.2}%
+\contentsline {section}{\numberline {D.2}Physics Models}{365}{section.D.2}%
+\contentsline {subsection}{\numberline {D.2.1}Wave Propagation Model}{365}{subsection.D.2.1}%
+\contentsline {paragraph}{Understanding the Wave Propagation Model:}{366}{section*.161}%
+\contentsline {paragraph}{Understanding the Wave Conservation Theorems:}{367}{section*.162}%
+\contentsline {subsection}{\numberline {D.2.2}Dissipative Model}{368}{subsection.D.2.2}%
+\contentsline {subsection}{\numberline {D.2.3}Discrete Model}{368}{subsection.D.2.3}%
+\contentsline {section}{\numberline {D.3}Physical Constant Derivation}{368}{section.D.3}%
+\contentsline {subsection}{\numberline {D.3.1}The Planck Constant: A Successful Derivation}{369}{subsection.D.3.1}%
+\contentsline {paragraph}{The Core Relationship:}{369}{section*.163}%
+\contentsline {paragraph}{Numerical Validation:}{369}{section*.164}%
+\contentsline {paragraph}{Coq Formalization:}{369}{section*.165}%
+\contentsline {paragraph}{Scientific Assessment:}{370}{section*.166}%
+\contentsline {subsection}{\numberline {D.3.2}Speed of Light: Structure Without Value}{370}{subsection.D.3.2}%
+\contentsline {paragraph}{The Structural Result:}{370}{section*.167}%
+\contentsline {paragraph}{Numerical Analysis:}{371}{section*.168}%
+\contentsline {paragraph}{Coq Formalization:}{371}{lstlisting.D.-176}%
+\contentsline {paragraph}{Scientific Assessment:}{372}{section*.170}%
+\contentsline {subsection}{\numberline {D.3.3}Gravitational Constant: Highly Speculative}{372}{subsection.D.3.3}%
+\contentsline {paragraph}{Attempted Approaches:}{372}{section*.171}%
+\contentsline {paragraph}{Coq Formalization:}{372}{lstlisting.D.-177}%
+\contentsline {paragraph}{Scientific Assessment:}{373}{section*.173}%
+\contentsline {subsection}{\numberline {D.3.4}Particle Masses: Free Parameters}{373}{subsection.D.3.4}%
+\contentsline {paragraph}{Tested Patterns:}{373}{section*.174}%
+\contentsline {paragraph}{Observed Ratios:}{373}{section*.175}%
+\contentsline {paragraph}{Coq Formalization:}{373}{lstlisting.D.-178}%
+\contentsline {paragraph}{Scientific Assessment:}{374}{section*.177}%
+\contentsline {subsection}{\numberline {D.3.5}Axiom Accounting and Scientific Honesty}{374}{subsection.D.3.5}%
+\contentsline {subsection}{\numberline {D.3.6}Lessons Learned: The Boundary Between Computation and Physics}{374}{subsection.D.3.6}%
+\contentsline {paragraph}{What Computation Can Do:}{374}{section*.178}%
+\contentsline {paragraph}{What Computation Cannot Do:}{375}{section*.179}%
+\contentsline {paragraph}{The Honest Conclusion:}{375}{section*.180}%
+\contentsline {section}{\numberline {D.4}Shor Primitives}{375}{section.D.4}%
+\contentsline {subsection}{\numberline {D.4.1}Period Finding}{375}{subsection.D.4.1}%
+\contentsline {paragraph}{Understanding the Period Finding Definitions:}{376}{section*.181}%
+\contentsline {paragraph}{Understanding the Shor Reduction Theorem:}{377}{section*.182}%
+\contentsline {subsection}{\numberline {D.4.2}Verified Examples}{378}{subsection.D.4.2}%
+\contentsline {subsection}{\numberline {D.4.3}Euclidean Algorithm}{378}{subsection.D.4.3}%
+\contentsline {paragraph}{Understanding the Euclidean Algorithm:}{378}{section*.183}%
+\contentsline {paragraph}{Understanding the Euclidean Algorithm:}{379}{section*.184}%
+\contentsline {subsection}{\numberline {D.4.4}Modular Arithmetic}{380}{subsection.D.4.4}%
+\contentsline {paragraph}{Understanding Modular Arithmetic:}{380}{section*.185}%
+\contentsline {paragraph}{Understanding the Modular Arithmetic Lemma:}{381}{section*.186}%
+\contentsline {section}{\numberline {D.5}Bridge Modules}{382}{section.D.5}%
+\contentsline {subsection}{\numberline {D.5.1}Randomness Bridge}{382}{subsection.D.5.1}%
+\contentsline {paragraph}{Understanding the Randomness Bridge:}{382}{section*.187}%
+\contentsline {subsection}{\numberline {D.5.2}BoxWorld Bridge}{383}{subsection.D.5.2}%
+\contentsline {subsection}{\numberline {D.5.3}FiniteQuantum Bridge}{384}{subsection.D.5.3}%
+\contentsline {section}{\numberline {D.6}Flagship DI Randomness Track}{385}{section.D.6}%
+\contentsline {subsection}{\numberline {D.6.1}Protocol Flow}{385}{subsection.D.6.1}%
+\contentsline {subsection}{\numberline {D.6.2}The Quantitative Bound}{385}{subsection.D.6.2}%
+\contentsline {paragraph}{Understanding the Admissible Randomness Bound:}{385}{section*.188}%
+\contentsline {subsection}{\numberline {D.6.3}Conflict Chart}{387}{subsection.D.6.3}%
+\contentsline {section}{\numberline {D.7}Theory of Everything Limits}{387}{section.D.7}%
+\contentsline {subsection}{\numberline {D.7.1}What the Kernel Forces}{387}{subsection.D.7.1}%
+\contentsline {paragraph}{Understanding the Kernel Maximal Closure Theorem:}{387}{section*.189}%
+\contentsline {subsection}{\numberline {D.7.2}What the Kernel Cannot Force}{388}{subsection.D.7.2}%
+\contentsline {paragraph}{Understanding the Infinite Weight Families Theorem:}{388}{section*.190}%
+\contentsline {paragraph}{Understanding the Physics Requires Extra Structure Theorem:}{389}{section*.191}%
+\contentsline {section}{\numberline {D.8}Complexity Comparison}{391}{section.D.8}%
+\contentsline {section}{\numberline {D.9}Summary}{391}{section.D.9}%
+\contentsline {chapter}{\numberline {E}Hardware Implementation and Demonstrations}{392}{appendix.E}%
+\contentsline {section}{\numberline {E.1}Hardware Implementation and Demonstrations}{392}{section.E.1}%
+\contentsline {subsection}{\numberline {E.1.1}Why Hardware Matters}{392}{subsection.E.1.1}%
+\contentsline {subsection}{\numberline {E.1.2}From Proofs to Silicon}{393}{subsection.E.1.2}%
+\contentsline {section}{\numberline {E.2}Hardware Architecture}{393}{section.E.2}%
+\contentsline {subsection}{\numberline {E.2.1}Core Modules}{393}{subsection.E.2.1}%
+\contentsline {subsection}{\numberline {E.2.2}Instruction Encoding}{394}{subsection.E.2.2}%
+\contentsline {paragraph}{Understanding Instruction Encoding:}{394}{section*.192}%
+\contentsline {subsection}{\numberline {E.2.3}$\mu $-ALU Design}{395}{subsection.E.2.3}%
+\contentsline {paragraph}{Understanding the $\mu $-ALU Design:}{396}{section*.193}%
+\contentsline {subsection}{\numberline {E.2.4}State Serialization}{397}{subsection.E.2.4}%
+\contentsline {paragraph}{Understanding State Serialization:}{398}{section*.194}%
+\contentsline {subsection}{\numberline {E.2.5}Synthesis Results}{399}{subsection.E.2.5}%
+\contentsline {section}{\numberline {E.3}Testbench Infrastructure}{399}{section.E.3}%
+\contentsline {subsection}{\numberline {E.3.1}Main Testbench}{399}{subsection.E.3.1}%
+\contentsline {paragraph}{Understanding the Main Testbench:}{400}{section*.195}%
+\contentsline {subsection}{\numberline {E.3.2}Fuzzing Harness}{401}{subsection.E.3.2}%
+\contentsline {section}{\numberline {E.4}3-Layer Isomorphism Enforcement}{401}{section.E.4}%
+\contentsline {paragraph}{Understanding the Isomorphism Test Code:}{402}{section*.196}%
+\contentsline {section}{\numberline {E.5}Demonstration Suite}{403}{section.E.5}%
+\contentsline {subsection}{\numberline {E.5.1}Core Demonstrations}{403}{subsection.E.5.1}%
+\contentsline {subsection}{\numberline {E.5.2}Research Demonstrations}{403}{subsection.E.5.2}%
+\contentsline {subsection}{\numberline {E.5.3}Verification Demonstrations}{403}{subsection.E.5.3}%
+\contentsline {subsection}{\numberline {E.5.4}Practical Examples}{403}{subsection.E.5.4}%
+\contentsline {subsection}{\numberline {E.5.5}CHSH Flagship Demo}{403}{subsection.E.5.5}%
+\contentsline {paragraph}{Understanding the CHSH Flagship Demo:}{404}{section*.197}%
+\contentsline {section}{\numberline {E.6}Standard Programs}{405}{section.E.6}%
+\contentsline {section}{\numberline {E.7}Benchmarks}{405}{section.E.7}%
+\contentsline {subsection}{\numberline {E.7.1}Hardware Benchmarks}{405}{subsection.E.7.1}%
+\contentsline {subsection}{\numberline {E.7.2}Demo Benchmarks}{405}{subsection.E.7.2}%
+\contentsline {section}{\numberline {E.8}Integration Points}{405}{section.E.8}%
+\contentsline {subsection}{\numberline {E.8.1}Python VM Integration}{405}{subsection.E.8.1}%
+\contentsline {paragraph}{Understanding the Python VM Integration:}{406}{section*.198}%
+\contentsline {subsection}{\numberline {E.8.2}Extracted Runner Integration}{407}{subsection.E.8.2}%
+\contentsline {paragraph}{Understanding the Extracted Runner Integration:}{407}{section*.199}%
+\contentsline {subsection}{\numberline {E.8.3}RTL Integration}{408}{subsection.E.8.3}%
+\contentsline {paragraph}{Understanding the RTL Integration:}{408}{section*.200}%
+\contentsline {section}{\numberline {E.9}Summary}{409}{section.E.9}%
+\contentsline {chapter}{\numberline {F}Glossary of Terms}{410}{appendix.F}%
+\contentsline {chapter}{\numberline {G}Complete Theorem Index}{412}{appendix.G}%
+\contentsline {section}{\numberline {G.1}Complete Theorem Index}{412}{section.G.1}%
+\contentsline {subsection}{\numberline {G.1.1}How to Read This Index}{412}{subsection.G.1.1}%
+\contentsline {subsection}{\numberline {G.1.2}Theorem Naming Conventions}{412}{subsection.G.1.2}%
+\contentsline {section}{\numberline {G.2}Kernel Theorems}{413}{section.G.2}%
+\contentsline {subsection}{\numberline {G.2.1}Core Semantics}{413}{subsection.G.2.1}%
+\contentsline {subsection}{\numberline {G.2.2}Conservation Laws}{413}{subsection.G.2.2}%
+\contentsline {subsection}{\numberline {G.2.3}Impossibility Results}{413}{subsection.G.2.3}%
+\contentsline {subsection}{\numberline {G.2.4}TOE Results}{413}{subsection.G.2.4}%
+\contentsline {subsection}{\numberline {G.2.5}Subsumption}{414}{subsection.G.2.5}%
+\contentsline {section}{\numberline {G.3}Kernel TOE Theorems}{414}{section.G.3}%
+\contentsline {section}{\numberline {G.4}ThieleMachine Theorems}{414}{section.G.4}%
+\contentsline {subsection}{\numberline {G.4.1}Quantum Bounds}{414}{subsection.G.4.1}%
+\contentsline {subsection}{\numberline {G.4.2}Partition Logic}{414}{subsection.G.4.2}%
+\contentsline {subsection}{\numberline {G.4.3}Oracle and Hypercomputation}{415}{subsection.G.4.3}%
+\contentsline {subsection}{\numberline {G.4.4}Verification}{415}{subsection.G.4.4}%
+\contentsline {section}{\numberline {G.5}Bridge Theorems}{415}{section.G.5}%
+\contentsline {section}{\numberline {G.6}Physics Model Theorems}{415}{section.G.6}%
+\contentsline {section}{\numberline {G.7}Shor Primitives Theorems}{416}{section.G.7}%
+\contentsline {section}{\numberline {G.8}NoFI Theorems}{416}{section.G.8}%
+\contentsline {section}{\numberline {G.9}Self-Reference Theorems}{416}{section.G.9}%
+\contentsline {section}{\numberline {G.10}Modular Proofs Theorems}{416}{section.G.10}%
+\contentsline {section}{\numberline {G.11}Theorem Count Summary}{417}{section.G.11}%
+\contentsline {section}{\numberline {G.12}Zero-Admit Verification}{417}{section.G.12}%
+\contentsline {section}{\numberline {G.13}Compilation Status}{417}{section.G.13}%
+\contentsline {section}{\numberline {G.14}Cross-Reference with Tests}{417}{section.G.14}%
