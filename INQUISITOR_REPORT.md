@@ -1,5 +1,5 @@
 # INQUISITOR REPORT
-Generated: 2026-01-23 03:50:28Z (UTC)
+Generated: 2026-01-23 04:13:23Z (UTC)
 Scanned: 270 Coq files across the repo
 ## Summary
 - HIGH: 0
@@ -170,13 +170,13 @@ Higher score = more likely unfinished/vacuous.
   - `Context (normalized_E_bound : forall B x y,`
 
 #### `coq/kernel/MinorConstraints.v`
-- L162: **AXIOM_DOCUMENTED** — Found Axiom Fine_theorem.
+- L197: **AXIOM_DOCUMENTED** — Found Axiom Fine_theorem.
   - `Axiom Fine_theorem : forall E00 E01 E10 E11 s t,`
-- L224: **CHSH_BOUND_MISSING** — CHSH bound theorem \`minor_constraints_imply_CHSH_bound\` may not reference proper Tsirelson bound value.
+- L258: **CHSH_BOUND_MISSING** — CHSH bound theorem \`minor_constraints_imply_CHSH_bound\` may not reference proper Tsirelson bound value.
   - `Theorem minor_constraints_imply_CHSH_bound : forall E00 E01 E10 E11,`
-- L322: **AXIOM_DOCUMENTED** — Found Axiom Gram_PSD.
+- L356: **AXIOM_DOCUMENTED** — Found Axiom Gram_PSD.
   - `Axiom Gram_PSD : forall (s e1 e2 : R),`
-- L393: **AXIOM_DOCUMENTED** — Found Axiom local_box_satisfies_minors.
+- L427: **AXIOM_DOCUMENTED** — Found Axiom local_box_satisfies_minors.
   - `Axiom local_box_satisfies_minors : forall B,`
 
 #### `coq/kernel/MuInformationTheoreticBounds.v`
