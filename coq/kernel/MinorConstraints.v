@@ -37,7 +37,7 @@ From Kernel Require Import ValidCorrelation.
 From Kernel Require Import BoxCHSH.
 From Kernel Require Import Tier1Proofs.
 
-(** PREVIOUSLY AXIOM: Now proven in Tier1Proofs.v as Tier1Proofs.normalized_E_bound.
+(** FORMERLY AXIOM: Now proven in Tier1Proofs.v as Tier1Proofs.normalized_E_bound.
     This definition re-exports the proven theorem for backward compatibility. *)
 Definition normalized_E_bound := Tier1Proofs.normalized_E_bound.
 
@@ -142,7 +142,7 @@ Qed.
     2. Correlations arise from a joint probability distribution
     3. Correlations satisfy CHSH inequality |S| ≤ 2
     
-    PROOF SKETCH (≈150 lines of linear programming if formalized):
+    PROOF SKETCH (moderate complexity - requires LP duality):
     - The minor constraint polytope is bounded by 8 hyperplanes
     - This polytope equals the convex hull of 16 deterministic vertices
     - Each vertex assigns ±1 to (a0, a1, b0, b1)  
@@ -304,7 +304,7 @@ Definition B_correlation (pB : nat -> nat -> Q) (y1 y2 : nat) : Q :=
     is positive semidefinite, i.e., det(M) ≥ 0, which means:
         1 - s² - e1² - e2² + 2·s·e1·e2 ≥ 0
     
-    PROOF SKETCH (≈80 lines if formalized):
+    PROOF SKETCH (standard linear algebra argument):
     1. The correlation matrix can be written as M = E[vv^T] where v = (X,Y,Z)
     2. For any vector u, we have u^T M u = E[(u·v)²] ≥ 0
     3. Therefore M is PSD by definition
@@ -372,7 +372,7 @@ Local Open Scope R_scope.
     THEOREM: If B is a local (factorizable) box, then its correlations
     satisfy the four Gram matrix minor constraints.
     
-    PROOF SKETCH (≈120 lines if fully formalized):
+    PROOF SKETCH (straightforward measure construction):
     For a local box B(x,y,a,b) = pA(x,a) · pB(y,b):
     
     1. Define Alice's random variables: Ax = 2·pA(x,0) - 1
