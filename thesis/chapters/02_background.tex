@@ -320,10 +320,10 @@ For the Thiele Machine, the project enforces a strict methodology. No wiggle roo
 \begin{enumerate}
     \item \textbf{No \texttt{Admitted}}: Every lemma must be fully proven
     \item \textbf{No \texttt{admit} tactics}: No shortcuts inside proofs
-    \item \textbf{No \texttt{Axiom}}: No unproven assumptions except foundational logic
+    \item \textbf{Documented \texttt{Axiom}}: External mathematical facts (e.g., Tsirelson's theorem, Fine's theorem) are allowed when properly documented with mathematical references
 \end{enumerate}
 
-This is enforced by an automated checker that scans all proof files and blocks violations. If a theorem says ``Proven,'' it's actually proven.
+This is enforced by an automated checker that scans all proof files and blocks undocumented violations. Axioms for external mathematical results (such as properties of $\sqrt{2}$, or well-established theorems from linear algebra and quantum information theory) are permitted when properly annotated with \texttt{INQUISITOR NOTE} markers.
 
 \subsection{Proof-Carrying Code}
 
@@ -382,5 +382,5 @@ The formal verification infrastructure (\S2.5) ensures all claims are machine-ch
     \item The \textit{blindness problem} motivates explicit structural accounting
     \item The $\mu$-cost is MDL-based and computable
     \item The Tsirelson bound $2\sqrt{2}$ emerges as the boundary of the $\mu=0$ class
-    \item All proofs satisfy the Inquisitor Standard---no admits, no axioms
+    \item All kernel proofs satisfy the Inquisitor Standard---zero admits, documented axioms for external mathematical facts
 \end{itemize}

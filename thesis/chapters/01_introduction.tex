@@ -1,12 +1,10 @@
 \section{What Is This Document?}
 
-Let me be straight with you: I'm a car salesman. I started programming in January 2025. One year later, I'm presenting machine-verified proofs in Coq, a working virtual machine, and synthesizable hardware—all implementing the same computational model, all provably isomorphic.
-
-If that sounds impossible, good. Read the proofs. They compile.
+This document presents the Thiele Machine, a formal model of computation with explicit structural cost accounting. The implementation includes machine-verified proofs in Coq, a working virtual machine, and synthesizable hardware---all implementing the same computational model, all provably isomorphic.
 
 \subsection{Scope and Claims Boundary}
 
-This thesis makes claims at three levels. I'm explicit about which is which:
+This thesis makes claims at three levels:
 
 \begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=\textbf{Three Levels of Claims}]
 \begin{enumerate}
@@ -18,36 +16,36 @@ This thesis makes claims at three levels. I'm explicit about which is which:
 
 \subsection{For the Newcomer}
 
-The \textit{Thiele Machine} is a new model of computation where \textbf{structural information costs something}.
+The \textit{Thiele Machine} is a model of computation where \textbf{structural information costs something}.
 
 Classical computers are blind. A Turing machine can only see one tape cell at a time. It can compute anything—but to know that a graph has two disconnected components, or that a formula decomposes into independent sub-problems, it has to \emph{do the work} to discover that structure. The structure was always there. The machine just couldn't see it.
 
-The Thiele Machine can see structure. But it has to pay for what it sees. That's the whole idea.
-
-\textbf{About me}: I'm not an academic. I have no CS degree, no math degree, no physics degree. I'm a 40-year-old car salesman who taught himself to program a year ago. I don't know Coq, Python, or Verilog—not really. I used AI tools (Claude and other assistants) to help build everything, then verified obsessively that it actually works. The proofs compile. The tests pass. The hardware synthesizes. I checked all of it multiple ways because I don't trust myself. The proofs stand or fall on their own merits, not on credentials. If someone like me can direct the creation of formally verified systems, the barriers are lower than people think.
+The Thiele Machine can see structure. But it has to pay for what it sees. That's the core idea.
 
 
-For clarity, I will use the term \textbf{structure} to mean \textit{explicit, checkable constraints about how parts of a computational state relate}. Formally, a piece of structure is a predicate over a subset of state variables (or a partition of state) that can be verified by a logic engine or certificate checker. Examples include: a memory region forming a balanced search tree, a graph decomposing into disconnected components, or a set of variables being independent. In classical models, these relationships are present only as interpretations \emph{external} to the machine. Here, they become internal objects with a measured cost, so a program must explicitly \emph{pay} to assert or certify them.
+
+
+For clarity, the term \textbf{structure} to mean \textit{explicit, checkable constraints about how parts of a computational state relate}. Formally, a piece of structure is a predicate over a subset of state variables (or a partition of state) that can be verified by a logic engine or certificate checker. Examples include: a memory region forming a balanced search tree, a graph decomposing into disconnected components, or a set of variables being independent. In classical models, these relationships are present only as interpretations \emph{external} to the machine. Here, they become internal objects with a measured cost, so a program must explicitly \emph{pay} to assert or certify them.
 In the formal model, this “internal object” is realized by a partition graph whose modules carry axiom strings (SMT-LIB constraints). The partition graph and axiom sets are part of the machine state, and operations such as \texttt{PNEW}, \texttt{PSPLIT}, and \texttt{LASSERT} modify them. This makes structural knowledge something the machine can track, charge for, and expose in its observable projection rather than something the reader assumes from the outside.
 
 If you are new to theoretical computer science, here is what you need to know:
 \begin{itemize}
-    \item \textbf{Problem}: Computers can be incredibly slow on some problems (years to solve) and incredibly fast on others (milliseconds). Why?
+    \item \textbf{Problem}: Computers can be slow on some problems (years to solve) and fast on others (milliseconds). Why?
     \item \textbf{Answer}: Classical computers are "blind"---they do not have \emph{primitive access} to the structure of their input. If a problem has hidden structure (e.g., independent sub-problems), a blind computer can still compute with it, but only by paying the time to discover that structure through ordinary computation. The distinction is between \emph{access} and \emph{ability}: blindness means the structure is not given for free, not that it is unreachable.
-    \item \textbf{The Contribution}: This thesis presents a computer model where structural knowledge is explicit, measurable, and costly. This reveals \textit{why} some problems are hard and how that hardness can be transformed.
+    \item \textbf{The Contribution}: This thesis presents a computer model where structural knowledge is explicit, measurable, and costly. This formalizes \textit{why} some problems are hard and how that hardness can be characterized.
 \end{itemize}
 
 \subsection{What Makes This Work Different}
 
-This is not a paper with informal arguments. Every major claim is:
+Every major claim is:
 \begin{enumerate}
     \item \textbf{Formally proven}: Machine-checked proofs in the Coq proof assistant (1,636 theorems and lemmas across 260 files, totaling 55,098 lines)
     \item \textbf{Implemented}: Working code in Python (19,516 lines) and Verilog hardware description (43 files)
     \item \textbf{Tested}: Automated tests verify that theory and implementation match
-    \item \textbf{Falsifiable}: The thesis specifies exactly what would disprove each claim
+    \item \textbf{Falsifiable}: The thesis specifies what would disprove each claim
 \end{enumerate}
 
-Every claim has a concrete falsification condition. If you find a counterexample, the Coq proof won't compile. The Python VM emits signed receipts. The RTL testbench produces JSON snapshots. All three are compared automatically. This isn't a paper about ideas—it's a reproducible experiment. The claims are bound to executable evidence.
+Every claim has a concrete falsification condition. If you find a counterexample, the Coq proof won't compile. The Python VM emits signed receipts. The RTL testbench produces JSON snapshots. All three are compared automatically. The claims are bound to executable evidence.
 
 \subsection{How to Read This Document}
 
@@ -127,14 +125,14 @@ This is the \textbf{Time Tax}: classical models refuse to account for structure,
 
 Here's the question this thesis answers: \textbf{What is the cost of sight?}
 
-If you want to see structure, what do you pay? That's what $\mu$-bits measure. The model charges explicitly for operations that add or refine structure. The proven result: you can't strengthen predicates for free. $\mu > 0$, always. The Coq proofs verify this. I dare you to find a counterexample.
+If you want to see structure, what do you pay? That's what $\mu$-bits measure. The model charges explicitly for operations that add or refine structure. The proven result: you can't strengthen predicates for free. $\mu > 0$, always. The Coq proofs verify this. 
 
 
 \section{The Thiele Machine: Computation with Explicit Structure}
 
 \subsection{The Central Hypothesis}
 
-I assert that \textit{structural information is not free}. Every assertion—"this graph is bipartite," "these variables are independent," "this module satisfies $\Phi$"—carries a cost measured in bits: the minimum encoding size plus any structure needed to justify it holds. The model distinguishes \emph{computing} a fact from \emph{certifying} it as reusable structure.
+The central hypothesis is that \textit{structural information is not free}. Every assertion—"this graph is bipartite," "these variables are independent," "this module satisfies $\Phi$"—carries a cost measured in bits: the minimum encoding size plus any structure needed to justify it holds. The model distinguishes \emph{computing} a fact from \emph{certifying} it as reusable structure.
 
 \begin{quote}
     \textbf{The Thiele Machine Hypothesis:} Any reduction in search space must be paid for by proportional investment of structural information ($\mu$-bits). Time trades for $\mu$-cost, but there is no free insight: Coq proves $\Delta\mu \ge |\phi|_{\text{bits}}$, and the VM enforces $\log|\Omega| - \log|\Omega'| \le \Delta\mu$ by construction.
@@ -274,7 +272,7 @@ This is proven with:
     \item Empirical demonstrations on hard benchmarks
 \end{enumerate}
 
-Every claim is falsifiable. Find a counterexample. Break the proofs. I dare you.
+Every claim is falsifiable and open to scrutiny.
 
 \section{Summary of Contributions}
 
