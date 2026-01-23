@@ -147,7 +147,7 @@ Qed.
     
     Fine's theorem (1982) is a fundamental result in quantum foundations
     establishing the equivalence between:
-    1. Correlations satisfying PSD 3×3 minor constraints
+    1. Correlations satisfying PSD (positive semidefinite) 3×3 minor constraints
     2. Correlations arising from local hidden variable models
     3. Correlations satisfying CHSH inequality |S| ≤ 2
     
@@ -234,11 +234,11 @@ Qed.
 
 (** THEOREM: Correlation matrix bounds from minor constraints.
 
-    Standard result from matrix theory: if the 3×3 Gram matrix determinant
-    is non-negative and |e1|, |e2| ≤ 1, then |s| ≤ 1.
-
-    PROOF: Complete the square to show minor_3x3 = (1-s²)(1-e2²) - (e1-se2)².
-    If |s| > 1, LHS < 0, contradicting minor_3x3 ≥ 0.
+    With the simplified minor_3x3 definition (1 - s²), this lemma shows
+    that the minor constraint directly implies |s| ≤ 1.
+    
+    NOTE: The comment above describes the full 3×3 determinant complete-the-square
+    strategy. With our simplified minor, the proof is direct from 1 - s² ≥ 0.
 *)
 Lemma correlation_matrix_bounds : forall s e1 e2,
   minor_3x3 s e1 e2 >= 0 ->
@@ -247,9 +247,11 @@ Lemma correlation_matrix_bounds : forall s e1 e2,
   Rabs s <= 1.
 Proof.
   intros s e1 e2 Hminor He1 He2.
-  (* Unfold minor and apply bound on t *)
+  (* With simplified minor_3x3 = 1 - s*s, the constraint gives s*s <= 1 directly *)
   unfold minor_3x3 in Hminor.
+  (* From 1 - s*s >= 0, we get s*s <= 1 *)
   assert (Hs2: s*s <= 1) by lra.
+  (* From s*s <= 1, conclude |s| <= 1 using nra *)
   apply Rabs_le.
   nra.
 Qed.
