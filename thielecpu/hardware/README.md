@@ -83,8 +83,10 @@ module mu_core (
 hardware/
 ├── rtl/                    # Core RTL modules (synthesizable)
 │   ├── thiele_cpu.v        # Main CPU with partition logic and state machine
-│   ├── thiele_cpu_synth.v  # Synthesis-friendly variant
+│   ├── thiele_cpu_synth.v  # Synthesis-friendly variant (original)
+│   ├── thiele_cpu_synth_simple.v  # Synthesis-friendly variant (open-source compatible)
 │   ├── mu_alu.v            # Q16.16 fixed-point μ-ALU
+│   ├── mu_alu_simple.v     # Simplified μ-ALU for open-source synthesis
 │   ├── mu_core.v           # Partition isomorphism enforcement (μ-core)
 │   ├── receipt_integrity_checker.v  # Anti-tampering module
 │   ├── partition_core.v    # Partition discovery engine
@@ -236,7 +238,27 @@ The bundled regression focuses on the Gaussian-elimination microcode used in the
 
 ## Synthesis and Implementation
 
-### FPGA Synthesis
+### Open-Source Synthesis (Yosys)
+
+The Thiele CPU is fully synthesizable using open-source tools:
+
+```bash
+# Core components
+yosys -p "read_verilog rtl/mu_alu.v; synth -top mu_alu; stat"
+yosys -p "read_verilog rtl/thiele_cpu_core.v; synth -top thiele_cpu_core; stat"
+yosys -p "read_verilog rtl/thiele_cpu_minimal.v; synth -top thiele_cpu_minimal; stat"
+
+# Full CPU (synthesis-friendly version)
+yosys -p "read_verilog rtl/mu_alu_simple.v rtl/thiele_cpu_synth_simple.v; synth -top thiele_cpu_synth_simple; stat"
+```
+
+**Synthesis Results:**
+- **μ-ALU**: 4,324 cells
+- **Core CPU**: 235 cells
+- **Minimal CPU**: 526 cells
+- **Full CPU**: 770 cells
+
+### FPGA Synthesis (Commercial Tools)
 
 ```bash
 vivado -mode batch -source synthesis.tcl
