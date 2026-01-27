@@ -92,3 +92,29 @@ jobs:
           pip install -r requirements.txt
           pip install -e . --no-deps
           python -m pytest tests/test_extracted_vm_runner.py tests/test_bisimulation.py tests/test_bisimulation_complete.py -v
+
+  dependency-scan:
+    name: Dependency scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pip-audit
+        run: |
+          python -m pip install --upgrade pip
+          pip install pip-audit
+      - name: Run pip-audit
+        run: pip-audit -r requirements.txt --progress=off
+
+  secret-scan:
+    name: Secret scan (gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run gitleaks
+        uses: zricethezav/gitleaks-action@v2
+        with:
+          args: --redact
