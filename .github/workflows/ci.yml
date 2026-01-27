@@ -6,13 +6,15 @@ on:
   pull_request:
     branches: [main, master]
   workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * *"
 
 permissions:
   contents: read
 
 jobs:
   tests:
-    name: Unit tests (Python)
+    name: Python tests
     runs-on: ubuntu-latest
     env:
       PYTHONPATH: ${{ github.workspace }}
@@ -32,3 +34,46 @@ jobs:
 
       - name: Run pytest
         run: pytest
+
+  proof-audit:
+    name: Proof audit (Inquisitor)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install audit dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Inquisitor
+        run: python scripts/inquisitor.py --report INQUISITOR_REPORT.md
+
+      - name: Upload Inquisitor report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: inquisitor-report
+          path: INQUISITOR_REPORT.md
+
+  coq-kernel:
+    name: Coq kernel check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Coq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y coq coinor-csdp
+
+      - name: Build core kernel proofs
+        run: |
+          cd coq
+          coq_makefile -f _CoqProject -o Makefile 2>&1 | grep -v "Warning:"
+          make kernel/Subsumption.vo kernel/NoFreeInsight.vo kernel/MuLedgerConservation.vo kernel/BoxCHSH.vo
