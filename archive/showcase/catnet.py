@@ -38,4 +38,18 @@ class CatNet:
     def verify_audit_chain(self):
         return True
 
-print('archive/showcase/catnet.py placeholder created')
+    def get_eu_compliance_report(self):
+        """Return EU AI Act compliance report stub."""
+        return {
+            'eu_ai_act': {
+                'transparency': True,
+                'traceability': True,
+                'data_access': True,
+            }
+        }
+
+    def assert_consistency(self, data):
+        """Check consistency of input data (stub: passes for non-negative values)."""
+        result = all(x >= 0 for x in data)
+        self._audit.append({'event': 'assert_consistency', 'result': result})
+        return result

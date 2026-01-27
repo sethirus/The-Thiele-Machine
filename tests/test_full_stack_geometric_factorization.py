@@ -15,9 +15,12 @@ BREAKTHROUGH RESULTS:
 - Complexity: O(d(φ(N)) × log N)
 """
 
+import shutil
 import subprocess
 import sys
 from pathlib import Path
+
+import pytest
 
 # Add parent directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -72,17 +75,20 @@ def test_python_geometric_factorization():
 
 def test_coq_formalization():
     """Test Coq formalization compiles."""
+    if shutil.which("coqc") is None:
+        pytest.skip("coqc not available")
+
     print("=" * 80)
     print("LAYER 2: Coq Formalization")
     print("=" * 80)
     print()
-    
+
     coq_file = Path(__file__).parent.parent / "coq/shor_primitives/PolylogConjecture.v"
-    
+
     if not coq_file.exists():
         print(f"✗ Coq file not found: {coq_file}")
         return False
-    
+
     print(f"Compiling: {coq_file.name}")
     
     result = subprocess.run(
