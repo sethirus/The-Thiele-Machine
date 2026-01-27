@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=65.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "thiele-machine"
+version = "0.0.0"
+description = "The Thiele Machine research project"
+readme = "README.md"
+requires-python = ">=3.8"
+keywords = ["thiele", "mu-cost", "isomorphism"]
+
+[tool.setuptools]
+
+[tool.setuptools.packages.find]
+where = ["."]
+exclude = ["tests*"]
