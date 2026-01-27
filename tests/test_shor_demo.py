@@ -10,7 +10,7 @@ import pytest
 
 @pytest.fixture(scope="module")
 def shor_demo_module():
-    script_path = Path(__file__).resolve().parents[1] / "scripts" / "shor_on_thiele_demo.py"
+    script_path = Path(__file__).resolve().parents[1] / "demos" / "scripts" / "shor_on_thiele_demo.py"
     spec = importlib.util.spec_from_file_location("shor_demo", script_path)
     module = importlib.util.module_from_spec(spec)
     assert spec.loader is not None
