@@ -1714,14 +1714,14 @@ If any field differs, isomorphism test fails.
 \textbf{Four stages (boxes):}
 \begin{enumerate}
     \item \textbf{Scan Sources (blue):} Check for Admitted/admit./Axiom in Coq files
-    \item \textbf{Build Proofs (green):} Compile all 260 kernel proofs successfully
+    \item \textbf{Build Proofs (green):} Compile all 273 kernel proofs successfully
     \item \textbf{Run Isomorphism (orange):} Execute 3-way state matching tests
     \item \textbf{Generate Report (purple):} Summarize findings (HIGH:0, MEDIUM:5, LOW:4)
 \end{enumerate}
 
 \textbf{Diamond checks:} Between stages - validation gates
 
-\textbf{Below each stage:} What is checked (e.g., "No Admitted", "260 proofs compile", "3-way state match")
+\textbf{Below each stage:} What is checked (e.g., "No Admitted", "273 proofs compile", "3-way state match")
 
 \textbf{Right:} CI PASS (green) - final outcome if all checks succeed
 
@@ -1916,7 +1916,7 @@ yosys -p "read_verilog thiele_cpu.v; synth_xilinx -top thiele_cpu; write_json ne
 
 \textbf{Three boxes (top):}
 \begin{itemize}
-    \item \textbf{Coq (blue):} 1,636 theorems, machine-checked, extracted runner
+    \item \textbf{Coq (blue):} 1,722 theorems, machine-checked, extracted runner
     \item \textbf{Python (green):} Reference VM, tracing, receipts
     \item \textbf{Verilog (orange):} RTL Core, $\mu$-ALU, FPGA-ready
 \end{itemize}
