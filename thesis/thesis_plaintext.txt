@@ -33,7 +33,7 @@ observables of unrelated modules.
 • Initiality: µ is the unique instruction-consistent cost measure, not just one
 of many.
 What is built:
-• Coq formal kernel (260 files, zero admits)
+• Coq formal kernel (273 files, zero admits)
 • Python reference VM with cryptographic receipts
 
 2
@@ -816,7 +816,7 @@ What Makes This Work Different
 
 This is not a paper with informal arguments. Every major claim is:
 1. Formally proven: Machine-checked proofs in the Coq proof assistant (1,636
-theorems and lemmas across 260 files, totaling 55,098 lines)
+theorems and lemmas across 273 files, totaling 59,311 lines)
 2. Implemented: Working code in Python (19,516 lines) and Verilog hardware
 description (43 files)
 3. Tested: Automated tests verify that theory and implementation match
@@ -1168,7 +1168,7 @@ Part III: Extended Development
 • Chapter 9: The Verifier System documents the complete TRS-1.0 receipt
 protocol and the four C-modules (C-RAND, C-TOMO, C-ENTROPY, CCAUSAL) that provide domain-specific verification.
 • Chapter 10: Extended Proof Architecture covers the full 260-file Coq
-development (1,636 theorems, 55,098 lines) including the ThieleMachine
+development (1,722 theorems, 59,311 lines) including the ThieleMachine
 proofs, Theory of Everything results, and impossibility theorems.
 • Chapter 11: Experimental Validation Suite details all physics experiments, falsification tests, and the benchmark suite.
 • Chapter 12: Physics Models and Algorithmic Primitives presents the
@@ -3847,7 +3847,7 @@ Implementation: The 3-Layer
 Isomorphism
 Three layers (boxes):
 • Layer 1: Coq (blue): Formal specification with machine-checked proofs
-(1,636 verified theorems)
+(1,722 verified theorems)
 • Layer 2: Python (green): Human-readable reference implementation with
 tracing & debugging
 • Layer 3: Verilog (orange): Synthesizable RTL for FPGA/ASIC physical
@@ -5744,7 +5744,7 @@ Three boxes (top):
 
 145
 
-• Coq (blue): 1,636 theorems, machine-checked, extracted runner
+• Coq (blue): 1,722 theorems, machine-checked, extracted runner
 • Python (green): Reference VM, tracing, receipts
 • Verilog (orange): RTL Core, µ-ALU, FPGA-ready
 Center bottom (yellow box): Central isomorphism invariant - SCoq (τ ) =
