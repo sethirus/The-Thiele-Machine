@@ -41,7 +41,7 @@ import pytest
 
 # Repository paths
 REPO_ROOT = Path(__file__).resolve().parents[1]
-EXTRACTED_RUNNER = REPO_ROOT / "coq" / "build" / "extracted_runner"
+EXTRACTED_RUNNER = REPO_ROOT / "build" / "extracted_vm_runner"
 VERILOG_TB = REPO_ROOT / "thielecpu" / "hardware" / "testbench" / "thiele_cpu_tb.v"
 
 
@@ -467,7 +467,7 @@ class TestOpcodeAlignment:
         # So this test verifies the generation pipeline works
         
         # Read thiele_core.ml for opcode definitions
-        thiele_core = REPO_ROOT / "coq" / "build" / "thiele_core.ml"
+        thiele_core = REPO_ROOT / "build" / "thiele_core.ml"
         if not thiele_core.exists():
             pytest.skip("thiele_core.ml not found")
         
