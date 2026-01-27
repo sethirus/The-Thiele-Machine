@@ -44,7 +44,7 @@ jobs:
       - name: Install Coq (for coqtop)
         run: |
           sudo apt-get update
-          sudo apt-get install -y coq
+          sudo apt-get install -y coq coinor-csdp
 
       - name: Set up Python
         uses: actions/setup-python@v5
