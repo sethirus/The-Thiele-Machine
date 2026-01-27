@@ -1,15 +1,13 @@
-\chapter{Emergent Schrödinger Equation Proof}
+\chapter{Emergent Schrodinger Equation Proof}
 \label{app:schrodinger}
 
-This appendix contains the auto-generated Coq proof verifying that the Thiele Machine has successfully rediscovered the Schrödinger equation from raw data. The proof establishes structural equivalence between the discovered update rules and the finite-difference discretization of the Schrödinger equation.
+This appendix contains the auto-generated Coq proof verifying that the Thiele Machine has successfully rediscovered the Schrodinger equation from raw data. The proof establishes structural equivalence between the discovered update rules and the finite-difference discretization of the Schrodinger equation.
 
 \begin{lstlisting}[
   language=Caml,
-  caption={Emergent Schrödinger Equation Proof (Artifact)},
-  keywords={Definition, Theorem, Lemma, Proof, Qed, Require, Import, Open, Scope, forall, exists, fun, match, with, end, if, then, else, let, in, Prop, Type, Set, nat, bool, list, option, string, Q, check_lrat, check_model, apply_cost, normalize_region, Observable, ObservableRegion, strictly_stronger, stronger, run_vm, ledger_entries, ledger_sum, step_vm, extracted_mass, extracted_inv_2m, extracted_dt, coef_a_a, coef_a_b, coef_a_lap_b, coef_a_Vb, coef_b_b, coef_b_a, coef_b_lap_a, coef_b_Va, schrodinger_update_a, schrodinger_update_b, target_update_a, target_update_b},
-  literate={->}{{$\to$}}1 {=>}{{$\Rightarrow$}}1 {/\}{{$\land$}}1 {\/}{{$\lor$}}1 {ö}{{\"o}}1 {Σ}{{$\Sigma$}}1
+  caption={Emergent Proof}
 ]
-(* Emergent Schrödinger Equation - Discovered via Thiele Machine *)
+(* Emergent Schrodinger Equation - Discovered via Thiele Machine *)
 (* Auto-generated formalization - standalone, compilable file *)
 
 Require Import Coq.QArith.QArith.
@@ -20,13 +18,13 @@ Open Scope Q_scope.
 
 (** * Discrete update rule coefficients discovered from data *)
 
-(** Coefficients for real part update: a(t+1) = Σ c_i * feature_i *)
+(** Coefficients for real part update: a(t+1) = Sigma c_i * feature_i *)
 Definition coef_a_a : Q := (1000000 # 1000000%positive).
 Definition coef_a_b : Q := (0 # 1000000%positive).
 Definition coef_a_lap_b : Q := (-5000 # 1000000%positive).
 Definition coef_a_Vb : Q := (10000 # 1000000%positive).
 
-(** Coefficients for imaginary part update: b(t+1) = Σ d_i * feature_i *)
+(** Coefficients for imaginary part update: b(t+1) = Sigma d_i * feature_i *)
 Definition coef_b_b : Q := (1000000 # 1000000%positive).
 Definition coef_b_a : Q := (0 # 1000000%positive).
 Definition coef_b_lap_a : Q := (5000 # 1000000%positive).
@@ -81,7 +79,7 @@ Definition target_update_b (b lap_a Va : Q) : Q :=
 
 (** 
     We prove that the discovered update rules are structurally equivalent 
-    to the finite-difference discretization of the Schrödinger equation.
+    to the finite-difference discretization of the Schrodinger equation.
     
     This confirms that the machine has "rediscovered" the correct physical law
     from the data, rather than just fitting random coefficients.
@@ -89,7 +87,8 @@ Definition target_update_b (b lap_a Va : Q) : Q :=
 
 Theorem structural_equivalence :
   forall (a b lap_a lap_b Va Vb : Q),
-    Qeq (schrodinger_update_a a b lap_b Vb) (target_update_a a lap_b Vb) /    Qeq (schrodinger_update_b b a lap_a Va) (target_update_b b lap_a Va).
+    Qeq (schrodinger_update_a a b lap_b Vb) (target_update_a a lap_b Vb) /\
+    Qeq (schrodinger_update_b b a lap_a Va) (target_update_b b lap_a Va).
 Proof.
   intros.
   unfold schrodinger_update_a, schrodinger_update_b.
