@@ -79,7 +79,7 @@ If the formalism becomes overwhelming, flip to Chapter 4 (Implementation) for co
 
 \subsection{Key Concepts: Observables and Projections}
 
-\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=\textbf{Observables and State Projections}]
+\begin{tcolorbox}[thesisbox,title=Observables and State Projections]
 \begin{definition}[Observable]
 An \textbf{observable} is a function $\text{Obs}: S \to \mathcal{O}$ that extracts a verifiable property from state $S$. For a module with ID $\text{mid}$, the observable is:
 \[
@@ -608,7 +608,7 @@ The Logic Engine is an oracle that verifies logical consistency. In the formal m
 
 \subsubsection{Trust Model for Logic Engine}
 
-\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black,title=\textbf{What is Trusted in Logic Engine L}]
+\begin{tcolorbox}[thesisbox,colback=red!5!white,colframe=red!75!black,title=What is Trusted in Logic Engine L]
 \textbf{Key principle}: The logic engine can \emph{propose}, but the kernel only \emph{accepts with checkable certificates}.
 
 \begin{itemize}
@@ -697,7 +697,7 @@ One $\mu$-bit is the cost of specifying one bit of irreversibility or structural
 
 \subsubsection{The $\mu$-Measure Contract: Encoding Invariance}
 
-\begin{tcolorbox}[colback=yellow!10!white,colframe=orange!75!black,title=\textbf{Encoding Dependence and Invariance}]
+\begin{tcolorbox}[thesisbox,colback=yellow!10!white,colframe=orange!75!black,title=Encoding Dependence and Invariance]
 \textbf{Vulnerability}: $\mu$-costs depend on the encoding scheme used to represent axioms and partitions.
 
 \textbf{Defense: The $\mu$-Measure Contract}
@@ -1749,7 +1749,7 @@ We've just derived quantum mechanics from accounting. Not ``axiomatized''---\tex
 
 Quantum mechanics isn't a fundamental theory with mysterious postulates. It's the unique physics consistent with information conservation. The universe runs on double-entry bookkeeping.
 
-\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=\textbf{Coq-Verified Quantum Axioms}]
+\begin{tcolorbox}[thesisbox,colback=green!5!white,colframe=green!75!black,title=Coq-Verified Quantum Axioms]
 All theorems in this section are machine-checked in Coq 8.18 with zero Admitted statements:
 \begin{itemize}
     \item \path{coq/kernel/NoCloning.v}: 243 lines, 18 definitions/theorems
