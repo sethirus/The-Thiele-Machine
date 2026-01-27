@@ -1731,7 +1731,11 @@ Theorem tsirelson_from_minors :
 \paragraph{The Connection to $\mu$-Accounting:}
 \begin{itemize}
     \item \textbf{$\mu = 0$ Condition:} When total $\mu$-cost is zero (structural + correlation cost), the system must be algebraically coherent
-    \item \textbf{Algebraic Coherence:} The coherence requirement is exactly the sum-of-squares constraint above
+    \item \textbf{Algebraic Coherence (Definition):} A correlation matrix is \textit{algebraically coherent} when $\mu_{\text{corr}} = 0$, meaning the correlations satisfy the sum-of-squares constraint:
+    \[
+    A^2 + B^2 + C^2 + D^2 \leq 4
+    \]
+    where $A, B, C, D$ are the correlation coefficients. This constraint is proven in \texttt{TsirelsonGeneral.v} and is the necessary and sufficient condition for achieving the quantum bound.
     \item \textbf{Result:} Quantum correlations bounded by $2\sqrt{2}$, classical by 2
 \end{itemize}
 
