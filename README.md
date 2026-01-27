@@ -20,6 +20,7 @@ Classical complexity theory measures time and space but assigns **zero cost** to
 git clone https://github.com/sethirus/The-Thiele-Machine.git
 cd The-Thiele-Machine
 pip install -r requirements.txt
+pip install -e . --no-deps
 pytest tests/
 ```
 
