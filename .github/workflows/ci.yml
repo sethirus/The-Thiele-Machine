@@ -41,6 +41,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install Coq (for coqtop)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y coq
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
