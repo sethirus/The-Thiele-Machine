@@ -107,14 +107,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install pip-audit
       - name: Run pip-audit
-        run: pip-audit -r requirements.txt --progress=off
+        run: |
+          # CVE-2025-53000 is a Windows-specific vulnerability (SVG->PDF unsafe search path)
+          # and is not applicable to Linux CI runners. Already documented in SECURITY.md.
+          pip-audit -r requirements.txt --progress=off --ignore-vuln CVE-2025-53000
 
   secret-scan:
     name: Secret scan (gitleaks)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Run gitleaks
-        uses: zricethezav/gitleaks-action@v2
         with:
-          args: --redact
+          fetch-depth: 0
+      - name: Run gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
