@@ -1,0 +1,19 @@
+# Gitleaks configuration for The Thiele Machine
+# This file specifies allowlist patterns for known test/example data that should not trigger secret detection
+
+title = "Thiele Machine Gitleaks Config"
+
+# Global allowlist - paths and regex patterns to exclude from scanning
+[allowlist]
+description = "Allowlist of paths and patterns to exclude from scanning"
+# Test files that contain well-known test keys (not real secrets)
+paths = [
+    '''tests/test_properties\.py''',
+    '''tests/trs_conformance/test_trs10\.py''',
+    '''archive/tests_disabled/disabled/test_cross_impl\.py''',
+]
+# Well-known test keys used for CI testing
+regexes = [
+    '''082c001813feb4d26e8bb941414b0e577c7ece64fcfa71d0012dc653abccfbff''',
+    '''254b57576959e5fb37d087a60d5a72bb75dcf82240cbd62577059695dda0ebea''',
+]
