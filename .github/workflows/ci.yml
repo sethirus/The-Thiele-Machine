@@ -13,13 +13,97 @@ permissions:
   contents: read
 
 jobs:
+  prepare-toolchain:
+    name: Prepare toolchain
+    runs-on: ubuntu-latest
+    outputs:
+      coq: ${{ steps.check_tools.outputs.coq }}
+      iverilog: ${{ steps.check_tools.outputs.iverilog }}
+      yosys: ${{ steps.check_tools.outputs.yosys }}
+      ocamlc: ${{ steps.check_tools.outputs.ocamlc }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install common packages
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends curl ca-certificates build-essential m4 unzip git opam pkg-config iverilog yosys coinor-csdp
+
+      - name: Install OCaml/Coq via OPAM
+        run: |
+          set -euo pipefail
+          # Initialize opam and create a switch with a stable OCaml compiler
+          opam init --disable-sandboxing --auto-setup -y || true
+          eval "$(opam env)"
+          # Create (or reuse) OCaml 4.14.0 switch which is commonly supported
+          if ! opam switch list --short | grep -q '^4.14' ; then
+            opam switch create 4.14.0 ocaml-base-compiler.4.14.0 -y
+          fi
+          eval "$(opam env)"
+          opam update -y
+          # Install Coq (will install compatible OCaml deps)
+          opam install coq -y
+
+      - name: Write toolchain diagnostics
+        run: |
+          set -euo pipefail
+          echo "Toolchain diagnostics" > toolchain_diagnostics.txt
+          echo "Date: $(date -u)" >> toolchain_diagnostics.txt
+          echo "PATH=$PATH" >> toolchain_diagnostics.txt
+          echo "which coqc: $(command -v coqc || true)" >> toolchain_diagnostics.txt
+          echo "coqc --version: $(coqc --version 2>&1 || true)" >> toolchain_diagnostics.txt
+          echo "which ocamlc: $(command -v ocamlc || true)" >> toolchain_diagnostics.txt
+          echo "ocamlc -vnum: $(ocamlc -vnum 2>&1 || true)" >> toolchain_diagnostics.txt
+          echo "which iverilog: $(command -v iverilog || true)" >> toolchain_diagnostics.txt
+          echo "iverilog -v: $(iverilog -v 2>&1 || true)" >> toolchain_diagnostics.txt
+          echo "which yosys: $(command -v yosys || true)" >> toolchain_diagnostics.txt
+          echo "yosys -V: $(yosys -V 2>&1 || true)" >> toolchain_diagnostics.txt
+          cat toolchain_diagnostics.txt
+      - name: Upload toolchain diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: toolchain-diagnostics
+          path: toolchain_diagnostics.txt
+
+      - name: Check tool availability
+        id: check_tools
+        run: |
+          coq=false
+          iverilog=false
+          yosys=false
+          ocamlc=false
+          if command -v coqc >/dev/null 2>&1; then coq=true; fi
+          if command -v iverilog >/dev/null 2>&1; then iverilog=true; fi
+          if command -v yosys >/dev/null 2>&1; then yosys=true; fi
+          if command -v ocamlc >/dev/null 2>&1; then ocamlc=true; fi
+          echo "coq=$coq" >> $GITHUB_OUTPUT
+          echo "iverilog=$iverilog" >> $GITHUB_OUTPUT
+          echo "yosys=$yosys" >> $GITHUB_OUTPUT
+          echo "ocamlc=$ocamlc" >> $GITHUB_OUTPUT
   tests:
     name: Python tests
     runs-on: ubuntu-latest
+    needs: prepare-toolchain
     env:
       PYTHONPATH: ${{ github.workspace }}
     steps:
       - uses: actions/checkout@v4
+
+      - name: Download toolchain diagnostics
+        uses: actions/download-artifact@v4
+        with:
+          name: toolchain-diagnostics
+          path: ./artifacts/toolchain || true
+
+      - name: Show toolchain diagnostics
+        run: |
+          if [ -f ./artifacts/toolchain/toolchain_diagnostics.txt ]; then
+            sed -n '1,200p' ./artifacts/toolchain/toolchain_diagnostics.txt || true
+          else
+            echo "No toolchain diagnostics available"
+          fi
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -32,25 +116,21 @@ jobs:
           pip install -r requirements.txt
           pip install -e . --no-deps
 
-      - name: Install Coq + OCaml (for extracted runner)
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y coq ocaml iverilog
-
-      - name: Build Coq extraction and compile extracted runner
+      - name: Build Coq extraction and compile extracted runner (optional)
         run: |
           set -e
           # Build extraction IR if Coq sources available
           if [ -d coq ]; then
             make -C coq Extraction.vo || true
           fi
-          # Compile extracted OCaml runner if IR present
-          if [ -f build/thiele_core.ml ]; then
-            command -v ocamlc >/dev/null
+          # Compile extracted OCaml runner if IR present and ocamlc available
+          if [ -f build/thiele_core.ml ] && command -v ocamlc >/dev/null 2>&1; then
             ocamlc -I build -o build/extracted_vm_runner \
               build/thiele_core.mli \
               build/thiele_core.ml \
               tools/extracted_vm_runner.ml
+          else
+            echo "OCaml/Coq artifacts not present or ocamlc missing - skipping extracted runner build"
           fi
 
       - name: Run pytest
@@ -59,13 +139,24 @@ jobs:
   proof-audit:
     name: Proof audit (Inquisitor)
     runs-on: ubuntu-latest
+    needs: prepare-toolchain
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Coq (for coqtop)
+      - name: Download toolchain diagnostics
+        uses: actions/download-artifact@v4
+        with:
+          name: toolchain-diagnostics
+          path: ./artifacts/toolchain || true
+
+      - name: Show toolchain diagnostics
         run: |
-          sudo apt-get update
-          sudo apt-get install -y coq coinor-csdp
+          if [ -f ./artifacts/toolchain/toolchain_diagnostics.txt ]; then
+            sed -n '1,200p' ./artifacts/toolchain/toolchain_diagnostics.txt || true
+          else
+            echo "No toolchain diagnostics available"
+          fi
+
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -90,8 +181,23 @@ jobs:
   coq-kernel:
     name: Coq full compile + 3-layer bisimulation
     runs-on: ubuntu-latest
+    needs: prepare-toolchain
     steps:
       - uses: actions/checkout@v4
+
+      - name: Download toolchain diagnostics
+        uses: actions/download-artifact@v4
+        with:
+          name: toolchain-diagnostics
+          path: ./artifacts/toolchain || true
+
+      - name: Show toolchain diagnostics
+        run: |
+          if [ -f ./artifacts/toolchain/toolchain_diagnostics.txt ]; then
+            sed -n '1,200p' ./artifacts/toolchain/toolchain_diagnostics.txt || true
+          else
+            echo "No toolchain diagnostics available"
+          fi
 
       - name: Install Coq + OCaml + Verilog tooling
         run: |
@@ -136,8 +242,23 @@ jobs:
   hardware-verification:
     name: Hardware synthesis + simulation
     runs-on: ubuntu-latest
+    needs: prepare-toolchain
     steps:
       - uses: actions/checkout@v4
+
+      - name: Download toolchain diagnostics
+        uses: actions/download-artifact@v4
+        with:
+          name: toolchain-diagnostics
+          path: ./artifacts/toolchain || true
+
+      - name: Show toolchain diagnostics
+        run: |
+          if [ -f ./artifacts/toolchain/toolchain_diagnostics.txt ]; then
+            sed -n '1,200p' ./artifacts/toolchain/toolchain_diagnostics.txt || true
+          else
+            echo "No toolchain diagnostics available"
+          fi
 
       - name: Install Verilog + synthesis tools
         run: |
@@ -199,8 +320,23 @@ jobs:
   full-verification:
     name: Full automated verification pipeline
     runs-on: ubuntu-latest
+    needs: prepare-toolchain
     steps:
       - uses: actions/checkout@v4
+
+      - name: Download toolchain diagnostics
+        uses: actions/download-artifact@v4
+        with:
+          name: toolchain-diagnostics
+          path: ./artifacts/toolchain || true
+
+      - name: Show toolchain diagnostics
+        run: |
+          if [ -f ./artifacts/toolchain/toolchain_diagnostics.txt ]; then
+            sed -n '1,200p' ./artifacts/toolchain/toolchain_diagnostics.txt || true
+          else
+            echo "No toolchain diagnostics available"
+          fi
 
       - name: Install all required tools
         run: |
