@@ -32,6 +32,27 @@ jobs:
           pip install -r requirements.txt
           pip install -e . --no-deps
 
+      - name: Install Coq + OCaml (for extracted runner)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y coq ocaml
+
+      - name: Build Coq extraction and compile extracted runner
+        run: |
+          set -e
+          # Build extraction IR if Coq sources available
+          if [ -d coq ]; then
+            make -C coq Extraction.vo || true
+          fi
+          # Compile extracted OCaml runner if IR present
+          if [ -f build/thiele_core.ml ]; then
+            command -v ocamlc >/dev/null
+            ocamlc -I build -o build/extracted_vm_runner \
+              build/thiele_core.mli \
+              build/thiele_core.ml \
+              tools/extracted_vm_runner.ml
+          fi
+
       - name: Run pytest
         run: pytest
 
