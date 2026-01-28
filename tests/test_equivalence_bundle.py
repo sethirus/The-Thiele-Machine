@@ -10,7 +10,7 @@ import pytest
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 # Check if extraction runner is available
-_EXTRACTED_RUNNER = REPO_ROOT / "coq" / "extracted_runner.py"
+_EXTRACTED_RUNNER = REPO_ROOT / "thielecpu" / "generated" / "generated_core.py"
 _HAS_EXTRACTION = _EXTRACTED_RUNNER.exists()
 
 # Skip all tests in this module if extraction is not available
@@ -165,3 +165,14 @@ def test_equivalence_bundle_magic_ops_are_priced_identically(tmp_path: Path) -> 
     assert bundle["program"]["scenario"] == "magic_ops"
     assert bundle["evidence_strict"] is True
     assert bundle["aligned"] is True
+
+
+def test_magic_ops_alignment_regression(tmp_path: Path) -> None:
+    """Regression test: magic_ops must remain aligned across layers."""
+    out_path = tmp_path / "equivalence_bundle.json"
+    _run_bundle({}, out_path, expect_ok=True, scenario="magic_ops")
+    bundle = json.loads(out_path.read_text())
+    assert bundle["program"]["scenario"] == "magic_ops"
+    assert bundle["aligned"] is True
+    # Ensure μ totals match exactly across Python, Extracted, and RTL
+    assert bundle["python"]["mu"] == bundle["extracted"]["mu"] == bundle["rtl"]["mu"]
