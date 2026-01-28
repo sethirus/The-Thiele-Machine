@@ -35,7 +35,7 @@ jobs:
       - name: Install Coq + OCaml (for extracted runner)
         run: |
           sudo apt-get update
-          sudo apt-get install -y coq ocaml
+          sudo apt-get install -y coq ocaml iverilog
 
       - name: Build Coq extraction and compile extracted runner
         run: |
