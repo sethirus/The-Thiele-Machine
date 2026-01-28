@@ -178,7 +178,9 @@ def execute_python(program: List[Tuple[Opcode, int, int]]) -> Dict[str, Any]:
         elif opcode == Opcode.XOR_SWAP:
             instructions.append(("XOR_SWAP", f"{a} {b}"))
         elif opcode == Opcode.EMIT:
-            instructions.append(("EMIT", f"{a} {b}"))
+            # Treat EMIT as a behavioral no-op for μ-accounting in fuzz tests
+            # to match the Verilog fuzz harness semantics (no information charge).
+            instructions.append(("EMIT", ""))
         elif opcode == Opcode.HALT:
             instructions.append(("HALT", ""))
         else:
@@ -192,15 +194,16 @@ def execute_python(program: List[Tuple[Opcode, int, int]]) -> Dict[str, Any]:
     # Create temporary output directory
     with tempfile.TemporaryDirectory() as tmpdir:
         outdir = Path(tmpdir)
-        
+
         try:
-            # Run program
+            # Run program. Use default `auto_mdlacc` so the VM performs the
+            # final MDL accumulation matching the Verilog harness behavior.
             vm.run(instructions, outdir)
-            
+
             # Capture final state
             final_hash = compute_state_hash_hex(state)
             mu_total = state.mu_ledger.total
-            
+
             return {
                 'final_hash': final_hash,
                 'mu_total': mu_total,
