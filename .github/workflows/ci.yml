@@ -142,7 +142,7 @@ jobs:
       - name: Install Verilog + synthesis tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y iverilog yosys
+          sudo apt-get install -y iverilog yosys coq coinor-csdp ocaml
 
       - name: Set up Python
         uses: actions/setup-python@v5
