@@ -2180,9 +2180,11 @@ class VM:
         ledger: List[LedgerEntry] = []
         cert_dir = outdir / "certs"
         modules: Dict[str, int] = {}  # For tracking named modules
-        # IMPORTANT (3-layer isomorphism): do not implicitly create modules.
-        # Coq extracted runner + RTL start with an empty partition table.
-        current_module = ModuleId(0)
+        # IMPORTANT (3-layer isomorphism): initialize genesis module.
+        # The Verilog fuzz harness starts with a free initial module
+        # (region {0}) so create the same genesis module here without
+        # charging discovery to maintain parity.
+        current_module = self.state.pnew({0}, charge_discovery=False)
         step = 0
         self.step_receipts = []
         self.witness_state = WitnessState()
