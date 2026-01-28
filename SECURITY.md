@@ -3,8 +3,8 @@
 Thank you for your interest in reporting a vulnerability in The Thiele Machine. Please follow the guidelines below.
 
 ## Reporting a vulnerability
-- Email: security@thethielemachine.org
-- PGP key: available at https://thethielemachine.org/pgp.txt (if no key is available, send an encrypted message using the public key once posted)
+- Email: thethielemachine@gmail.com
+- PGP key: Not currently available. If you need to send an encrypted report, request a public key by emailing the address above.
 
 Please include:
 - A clear description of the issue and steps to reproduce

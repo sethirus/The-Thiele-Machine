@@ -130,12 +130,15 @@ def _run_rtl(program_words: List[int], data_words: List[int]) -> Dict[str, objec
             [
                 "iverilog",
                 "-g2012",
+                "-I",
+                "rtl",
                 "-o",
                 str(sim_out),
-                "thiele_cpu.v",
-                "thiele_cpu_tb.v",
-                "mu_alu.v",
-                "mu_core.v",
+                "rtl/thiele_cpu.v",
+                "testbench/thiele_cpu_tb.v",
+                "rtl/mu_alu.v",
+                "rtl/mu_core.v",
+                "rtl/receipt_integrity_checker.v",
             ],
             cwd=str(HARDWARE_DIR),
             capture_output=True,
@@ -380,7 +383,9 @@ def main() -> None:
         # gate strict requires restricting to operations whose μ deltas are
         # tractable under extraction.
         mdl_cost = 1 << 16
-        info_gain_cost = 1 << 16
+        # μ-ALU INFO_GAIN is simplified in RTL to operand_a - operand_b (not Q16.16).
+        # Use the same integer delta to match RTL behavior for cross-layer isomorphism.
+        info_gain_cost = 4 - 2  # before=4, after=2 => 2
 
         program_words = [
             _encode_word(0x00, 1, 0, pnew_mu),      # PNEW {1}
