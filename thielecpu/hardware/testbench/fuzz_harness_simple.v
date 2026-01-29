@@ -185,14 +185,13 @@ initial begin
         partition_masks[i] = 0;
     end
     
-    // Create initial module (matches Python VM line 1789)
-    // Python: current_module = self.state.pnew({0})
-    module_ids[0] = 0;  // module_id 0 initially but will be updated
-    partition_masks[0] = 64'h1;  // region {0} = bit 0 set
-    next_id = 1;  // Will be assigned to first user PNEW
-    num_modules = 1;  // Start with 1 module (the initial one)
-    current_module_idx = 0;
-    mu_discovery = 0;  // Initial module is free (genesis module)
+    // NOTE: Do NOT pre-create a genesis module here to match Python VM behavior.
+    // Python VM (vm.py line 2183-2185) explicitly does not pre-create modules;
+    // modules are only created via PNEW/PSPLIT instructions.
+    next_id = 0;
+    num_modules = 0;
+    current_module_idx = -1;  // No current module initially
+    mu_discovery = 0;
     
     // Reset
     #20 rst_n = 1;
