@@ -24,26 +24,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install common packages
+      - name: Install toolchain packages
         run: |
           set -euo pipefail
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends curl ca-certificates build-essential m4 unzip git opam pkg-config iverilog yosys coinor-csdp
-
-      - name: Install OCaml/Coq via OPAM
-        run: |
-          set -euo pipefail
-          # Initialize opam and create a switch with a stable OCaml compiler
-          opam init --disable-sandboxing --auto-setup -y || true
-          eval "$(opam env)"
-          # Create (or reuse) OCaml 4.14.0 switch which is commonly supported
-          if ! opam switch list --short | grep -q '^4.14' ; then
-            opam switch create 4.14.0 ocaml-base-compiler.4.14.0 -y
-          fi
-          eval "$(opam env)"
-          opam update -y
-          # Install Coq (will install compatible OCaml deps)
-          opam install coq -y
+          sudo apt-get install -y --no-install-recommends coq coinor-csdp ocaml iverilog yosys
 
       - name: Write toolchain diagnostics
         run: |
