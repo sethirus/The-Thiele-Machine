@@ -1,5 +1,6 @@
 import json
 import os
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -13,11 +14,23 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 _EXTRACTED_RUNNER = REPO_ROOT / "thielecpu" / "generated" / "generated_core.py"
 _HAS_EXTRACTION = _EXTRACTED_RUNNER.exists()
 
+
+def _has_iverilog() -> bool:
+    """Check if iverilog is available in PATH."""
+    return shutil.which("iverilog") is not None
+
+
 # Skip all tests in this module if extraction is not available
-pytestmark = pytest.mark.skipif(
-    not _HAS_EXTRACTION,
-    reason="Coq extraction not built. Run: scripts/forge_artifact.sh"
-)
+pytestmark = [
+    pytest.mark.skipif(
+        not _HAS_EXTRACTION,
+        reason="Coq extraction not built. Run: scripts/forge_artifact.sh"
+    ),
+    pytest.mark.skipif(
+        not _has_iverilog(),
+        reason="iverilog not installed"
+    ),
+]
 
 def _run_bundle(
     env: dict,
