@@ -103,6 +103,9 @@ def instruction_strategy() -> st.SearchStrategy:
     1. Don't require external files (no LASSERT, PYEXEC)
     2. Have deterministic behavior
     3. Can be easily verified
+    
+    Note: EMIT is excluded because its μ-cost semantics differ between
+    Python VM (charges information cost) and Verilog fuzz harness (no charge).
     """
     return st.one_of([
         # PNEW: Create partition with region
@@ -126,12 +129,6 @@ def instruction_strategy() -> st.SearchStrategy:
         # XOR_SWAP: Swap operation
         st.tuples(
             st.just(Opcode.XOR_SWAP),
-            operand_strategy,
-            operand_strategy
-        ),
-        # EMIT: Emit value
-        st.tuples(
-            st.just(Opcode.EMIT),
             operand_strategy,
             operand_strategy
         ),
