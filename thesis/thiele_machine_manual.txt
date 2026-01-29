@@ -1,0 +1,231 @@
+# Thiele Machine: A Mathematical Construction
+
+## Definition
+
+A Thiele Machine is a 5-tuple $T = (S, \Pi, A, R, L)$ where:
+
+- $S$ is the state space
+- $\Pi$ is the partition graph
+- $A$ is the axiom set
+- $R$ is the transition relation
+- $L$ is the logic engine
+
+## State Space $S$
+
+The state space $S$ is a record with the following fields:
+
+- $\text{vm\_graph}$: The partition graph $\Pi$
+- $\text{vm\_csrs}$: Control/status registers (certification address, status, error codes)
+- $\text{vm\_regs}$: Register file of 32 words
+- $\text{vm\_mem}$: Data memory of 256 words
+- $\text{vm\_pc}$: Program counter (natural number)
+- $\text{vm\_mu}$: The $\mu$-ledger (natural number, monotonically non-decreasing)
+- $\text{vm\_err}$: Error flag (boolean)
+
+All arithmetic operations use 32-bit word masking: $\text{word32}(x) = x \land 0xFFFFFFFF$.
+
+## Partition Graph $\Pi$
+
+The partition graph decomposes the state space into disjoint modules:
+
+- $\Pi = (\text{pg\_next\_id}, \text{pg\_modules})$ where:
+  - $\text{pg\_next\_id} \in \mathbb{N}$ (monotonic counter for fresh module IDs)
+  - $\text{pg\_modules} \subseteq \mathbb{N} \times \text{ModuleState}$
+
+A $\text{ModuleState} = (\text{module\_region}, \text{module\_axioms})$ where:
+- $\text{module\_region} \subseteq \mathbb{N}$ (memory addresses owned by the module)
+- $\text{module\_axioms} \subseteq \text{String}$ (logical constraints)
+
+### Well-Formedness Invariant
+
+A partition graph is well-formed if all module IDs are strictly less than $\text{pg\_next\_id}$.
+
+### Canonical Normalization
+
+Regions are normalized: $\text{normalize\_region}(r) = \text{nodup}(\text{sort}(r))$ (duplicate-free, sorted).
+
+Modules with identical normalized regions are considered the same.
+
+## Axiom Set $A$
+
+Each module carries a set of axioms (strings representing logical formulas). Axioms are internal and not observable.
+
+## Transition Relation $R$
+
+The transition relation defines 18 instructions. Each instruction has a $\mu$-cost parameter and may update the state.
+
+### Partition Operations
+
+1. **PNEW(region, cost)**: Create a new module for the normalized region (or return existing if already present). Charges cost.
+
+2. **PSPLIT(mid, left, right, cost)**: Split module mid into two sub-modules covering left and right (must partition the original region disjointly and completely). Charges cost.
+
+3. **PMERGE(m1, m2, cost)**: Merge modules m1 and m2 into one (regions must be disjoint). Charges cost.
+
+### Logical Operations
+
+4. **LASSERT(mid, formula, cert, cost)**: Assert a logical formula for module mid, verified by certificate. Adds formula to axioms if valid.
+
+5. **LJOIN(cert1, cert2, cost)**: Join two certificates.
+
+### Discovery Operations
+
+6. **PDISCOVER(mid, evidence, cost)**: Record discovery evidence for module mid.
+
+7. **REVEAL(mid, bits, cert, cost)**: Reveal structural information.
+
+### Computational Operations
+
+8. **XFER(dst, src, cost)**: Transfer register value.
+
+9. **XOR_LOAD(dst, addr, cost)**: Load memory to register via XOR.
+
+10. **XOR_ADD(dst, src, cost)**: XOR registers.
+
+11. **XOR_SWAP(a, b, cost)**: Swap registers.
+
+12. **XOR_RANK(dst, src, cost)**: Compute XOR rank.
+
+### Communication Operations
+
+13. **EMIT(mid, payload, cost)**: Emit information.
+
+14. **MDLACC(mid, cost)**: Model access.
+
+### Quantum Operations
+
+15. **CHSH_TRIAL(x, y, a, b, cost)**: Perform CHSH trial (x,y,a,b must be bits).
+
+### Control Operations
+
+16. **PYEXEC(payload, cost)**: Execute Python payload (fails with error).
+
+17. **ORACLE_HALTS(payload, cost)**: Oracle halting check.
+
+18. **HALT(cost)**: Halt execution.
+
+Each transition advances the PC and adds the cost to $\mu$.
+
+## Logic Engine $L$
+
+The logic engine verifies certificates:
+- $\text{check\_model}(\text{formula}, \text{model})$: SAT model checking
+- $\text{check\_lrat}(\text{formula}, \text{proof})$: UNSAT proof checking
+
+## Core Concept: The μ-Bit
+
+The μ-bit measures structural information cost. Every operation that narrows uncertainty or adds structure pays this cost.
+
+**μ-Conservation Law**: $\mu(t+1) \geq \mu(t)$
+
+**Monotonicity Theorem**: For any execution, final $\mu = \text{initial } \mu + \sum \text{costs}$
+
+**Irreversibility Bound**: $\text{irreversible\_count} \leq \Delta\mu$
+
+## Partition Graph Operations
+
+**PNEW**: $\Pi' = \Pi \cup \{\text{new module for region}\}$ if not exists.
+
+**PSPLIT**: Replaces module with two children covering the split.
+
+**PMERGE**: Replaces two modules with their union.
+
+All operations preserve disjointness and well-formedness.
+
+## Transition Rules
+
+Transitions are deterministic: $s \to s'$ where $s'.\mu = s.\mu + \text{cost}$, $s'.\text{pc} = s.\text{pc} + 1$, and other fields updated accordingly.
+
+Failures set error flags and latch errors.
+
+## Logic Engine
+
+Evaluates formulas over module constraints to determine validity.
+
+## Key Theorems
+
+### Observational No-Signaling
+
+If an instruction does not target module $m$, then $\text{Observable}(s, m) = \text{Observable}(s', m)$.
+
+Where $\text{Observable}(s, m) = (\text{normalize}(\text{region}), \mu)$ if module exists.
+
+### No Free Insight
+
+Strengthening receipt predicates requires structure addition (PSPLIT, LASSERT, etc.) and thus $\mu > 0$.
+
+For LASSERT: $\Delta\mu \geq |\phi|_{\text{bits}} + \log_2(|\Omega|) - \log_2(|\Omega'|)$
+
+### Quantum Axioms from μ-Conservation
+
+- **No-Cloning**: Perfect cloning requires $\mu > 0$
+- **Unitarity**: Zero-cost evolution is unitary
+- **Born Rule**: $P = |a|^2$ is forced by conservation
+- **Purification**: Mixed states require reference systems
+- **Tsirelson Bound**: $S \leq 2\sqrt{2}$ from algebraic coherence at $\mu = 0$
+
+## Construction Algorithm
+
+1. Initialize: Empty partition graph, $\mu = 0$
+
+2. Decompose state: Use PNEW to create modules for logical independence
+
+3. Define constraints: Use LASSERT to add axioms
+
+4. Specify transitions: Program the instruction sequence
+
+5. Verify conservation: Check $\mu$ monotonicity
+
+6. Check no-signaling: Ensure locality
+
+## Implementation Notes
+
+To build a Thiele Machine:
+1. Represent states as records with the specified fields
+2. Implement partition graph with module management
+3. Track $\mu$-costs monotonically
+4. Implement the 18 instructions with their semantics
+5. Provide logic engine for certificate verification
+6. Ensure all theorems hold
+
+The machine computes by explicitly accounting for structural cost, enabling new algorithmic paradigms where structure is a resource.
+
+## Turing-Completeness with a Twist
+
+**Theorem (Proper Subsumption)**: Turing ⊂ Thiele
+
+- **Simulation**: Every Turing machine computation can be simulated by a Thiele machine with identical tape and state evolution
+- **Strict Extension**: Thiele machines provide verifiable cost certificates that Turing machines cannot produce
+- **μ-Cost Tracking**: Thiele tracks the cumulative cost of irreversible operations, enabling complexity certification
+
+**Key Difference**: Both compute the same functions, but Thiele certifies computational complexity with machine-checked proofs.
+
+## Killer Demo: CHSH Inequality Violation
+
+**Classical Bound (μ=0)**: Using only PNEW, PSPLIT, PMERGE, CHSH_TRIAL achieves S ≤ 2
+
+**Quantum Bound (μ>0)**: Using LJOIN, REVEAL, LASSERT achieves S ≤ 2√2
+
+**Demonstration**: The same CHSH protocol with μ=0 operations yields classical correlations; with μ>0 operations yields quantum correlations. This shows how structural cost enables quantum advantage.
+
+## Narrative for Different Audiences
+
+**For Theoretical CS**: Focus on complexity classes and decidability extensions. The Thiele Machine provides a new axis of computational complexity beyond time/space.
+
+**For Quantum Foundations**: Focus on derivation of quantum axioms from information principles. Quantum mechanics emerges as the unique physics consistent with μ-conservation.
+
+**For Formal Verification**: Focus on the logic engine and certificate checking. The machine provides provable cost bounds for verified computations.
+
+**For Hackers**: Focus on Python/Verilog implementations. The Thiele Machine is a programmable computer that makes structural information explicit and costly.
+
+## Community and Validation
+
+**arXiv Preprints**: Submit theoretical results without peer review barriers
+
+**LessWrong/Alignment Forum**: Philosophical aspects of information conservation
+
+**FQXi**: Foundations of quantum mechanics
+
+**Independent Researcher Networks**: Connect with Wolfram, Schmidhuber, etc.
+
+The Thiele Machine represents a fundamental shift: computation with explicit structural accounting, where quantum mechanics is bookkeeping.
