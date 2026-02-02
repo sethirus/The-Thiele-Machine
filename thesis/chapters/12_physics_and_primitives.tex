@@ -152,72 +152,70 @@ The formal development includes an exploration of whether fundamental physical c
 
 \subsection{The Planck Constant: A Successful Derivation}
 
-\textbf{Result: [SUCCESS] RELATIONSHIP DERIVED}
+\textbf{Result: [STRUCTURAL] RELATIONSHIP ESTABLISHED, NOT A DERIVATION}
 
-The derivation of Planck's constant $h$ from Landauer's principle represents the clearest success. The formal proof is in \path{coq/physics_exploration/PlanckDerivation.v} (58 lines, compiles).
+The relationship between Planck's constant $h$ and Landauer's principle establishes a structural connection between information theory and quantum mechanics. The formal proof is in \path{coq/physics_exploration/PlanckDerivation.v} (110 lines, compiles).
+
+\paragraph{Important Clarification:}
+
+\textbf{This is NOT a derivation of $h$ from first principles.} The Coq proof establishes that the relationship $h = 4 E_{\text{landauer}} \tau_\mu$ is algebraically consistent, but $\tau_\mu$ is \textit{computed from known $h$}, not independently derived. We are working backwards, not forwards.
 
 \paragraph{The Core Relationship:}
 
-Starting from Landauer's principle $E_{\text{landauer}} = k_B T \ln 2$, we can express the fundamental $\mu$-time scale as:
+Starting from Landauer's principle $E_{\text{landauer}} = k_B T \ln 2$, we \textit{define} the fundamental $\mu$-time scale as:
 \[
-\tau_\mu = \frac{\hbar}{4 E_{\text{landauer}}} = \frac{\hbar}{4 k_B T \ln 2}
+\tau_\mu := \frac{h}{4 E_{\text{landauer}}} = \frac{h}{4 k_B T \ln 2}
 \]
 
-Inverting this relationship gives:
+Given this definition, the relationship $h = 4 E_{\text{landauer}} \tau_\mu$ is trivially true by algebra.
+
+\textbf{What this means:} IF there exist fundamental $\mu$-operations at time scale $\tau_\mu$, AND IF Planck's constant relates to them via $h = 4 E_{\text{landauer}} \tau_\mu$, THEN $\tau_\mu$ must have the computed value.
+
+\paragraph{Numerical Computation:}
+
+Using the known value $h = 6.62607015 \times 10^{-34}$ J·s and standard values for $k_B$ and $T = 300$K, the implied $\tau_\mu$ is:
 \[
-h = 4 \times E_{\text{landauer}} \times \tau_\mu = 4 k_B T \ln 2 \cdot \tau_\mu
+\tau_\mu = \frac{h}{4 k_B T \ln 2} \approx 5.77 \times 10^{-14} \text{ seconds}
 \]
 
-\textbf{What this means:} Planck's constant emerges as the product of:
-\begin{itemize}
-    \item The minimum energy cost of irreversible information operations (Landauer)
-    \item The fundamental time scale of $\mu$-operations ($\tau_\mu$)
-\end{itemize}
-
-\paragraph{Numerical Validation:}
-
-The Python experiment \path{experiments/derive\_c\_numerical.py} validates this relationship. Using the known value $h = 6.62607015 \times 10^{-34}$ J·s and standard values for $k_B$ and $T$, the implied $\tau_\mu$ is:
-\[
-\tau_\mu = \frac{h}{4 k_B T \ln 2} \approx 1.15 \times 10^{-13} \text{ seconds}
-\]
-
-This is an \textit{extraordinarily short} time scale---about 115 femtoseconds---consistent with the interpretation that individual $\mu$-operations occur at fundamental quantum time scales.
+This is about 58 femtoseconds---consistent with fundamental quantum time scales, but this is a \textit{consequence} of chosen $T = 300$K, not a prediction.
 
 \paragraph{Coq Formalization:}
 
-The formal proof establishes:
+The formal proof makes the circularity explicit:
 \begin{lstlisting}
-(* Physical axioms required *)
-Parameter k_B : R.     (* Boltzmann constant *)
-Parameter T : R.       (* Temperature *)
-Parameter tau_mu : R.  (* Fundamental mu-time *)
+(* Physical constants as AXIOMS - not derived *)
+Axiom k_B : R.  Axiom k_B_positive : k_B > 0.
+Axiom T : R.    Axiom T_positive : T > 0.
+Axiom h : R.    Axiom h_positive : h > 0.
 
-(* Derived constants *)
-Definition E_landauer := k_B * T * ln 2.
-Definition planck_from_info := 4 * E_landauer * tau_mu.
+(* Landauer energy: proven positive *)
+Definition E_landauer : R := k_B * T * ln2.
+Lemma E_landauer_positive : E_landauer > 0. (* proven *)
 
-(* Key theorem: positivity preservation *)
-Lemma ln2_positive : 0 < ln 2.
-Proof.
-  apply ln_increasing.
-  lra.
-Qed.
+(* tau_mu is DEFINED from known h, not derived *)
+Definition tau_mu : R := h / (4 * E_landauer).
 
-(* Main result: h relationship *)
-Theorem planck_from_info_theory :
-  0 < k_B -> 0 < T -> 0 < tau_mu ->
-  0 < planck_from_info.
+(* This "theorem" is a tautology given the definition *)
+Theorem planck_landauer_relationship :
+  h = 4 * E_landauer * tau_mu.
+Proof. unfold tau_mu. field. (* trivial *) Qed.
 \end{lstlisting}
 
-\textbf{Key achievement:} The lemma \texttt{ln2\_positive} is \textit{proven} using Coq's standard library (not axiomatized!), reducing the axiom count by one.
+\textbf{Key observation:} The lemma \texttt{ln2\_positive} is \textit{proven} using Coq's standard library (not axiomatized), but this does not reduce the circularity of the main result.
 
 \paragraph{Scientific Assessment:}
 
-\textbf{What was derived:} The \textit{relationship} between $h$, Landauer's principle, and $\tau_\mu$.
+\textbf{What was established:} A \textit{structural relationship} between $h$, Landauer's principle, and a hypothetical $\tau_\mu$.
 
-\textbf{What remains free:} The value of $\tau_\mu$ itself. To predict $h$ numerically, we need an independent derivation of $\tau_\mu$ from first principles.
+\textbf{What was NOT established:}
+\begin{itemize}
+    \item An independent value for $\tau_\mu$
+    \item A prediction of $h$ from first principles
+    \item Evidence that this relationship is physically fundamental
+\end{itemize}
 
-\textbf{Status:} [SUCCESS] \textit{Partial success---relationship established, value requires $\tau_\mu$ derivation.}
+\textbf{Status:} [STRUCTURAL] \textit{Algebraic consistency demonstrated, but no predictive power.}
 
 \subsection{Speed of Light: Structure Without Value}
 
@@ -242,9 +240,9 @@ where:
 
 \paragraph{Numerical Analysis:}
 
-Using the known value $c = 299{,}792{,}458$ m/s and the derived $\tau_\mu \approx 1.15 \times 10^{-13}$ s, the implied fundamental length scale is:
+Using the known value $c = 299{,}792{,}458$ m/s and the derived $\tau_\mu \approx 5.77 \times 10^{-14}$ s, the implied fundamental length scale is:
 \[
-d_\mu = c \cdot \tau_\mu \approx 3.45 \times 10^{-5} \text{ meters} = 34.5 \text{ micrometers}
+d_\mu = c \cdot \tau_\mu \approx 1.73 \times 10^{-5} \text{ meters} = 17.3 \text{ micrometers}
 \]
 
 The Python experiment tests seven different approaches to deriving $d_\mu$:
