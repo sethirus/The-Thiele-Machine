@@ -21,7 +21,7 @@
 | Ch 8: Conclusion | **VERIFIED** | 9 | 9 | 0 | 0 | 0 | 0 |
 | Ch 9: Verifier System | **CORRECTED** | 8 | 6 | 2 | 0 | 0 | 3 |
 | Ch 10: Extended Proofs | **CORRECTED** | 12 | 10 | 2 | 0 | 0 | 2 |
-| Ch 11: Experiments | NOT STARTED | - | - | - | - | - | - |
+| Ch 11: Experiments | **CORRECTED** | 8 | 6 | 2 | 0 | 0 | 2 |
 | Ch 12: Physics | NOT STARTED | - | - | - | - | - | - |
 | Ch 13: Hardware | NOT STARTED | - | - | - | - | - | - |
 | App: Glossary | NOT STARTED | - | - | - | - | - | - |
@@ -930,12 +930,35 @@ verifier/receipt_protocol.py
 
 ### CHAPTER 11: EXPERIMENTS AUDIT
 
-**Status:** NOT STARTED  
-**Audit Date:** -  
-**Auditor:** -  
+**Status:** CORRECTED  
+**Audit Date:** 2026-02-02  
+**Auditor:** Automated Agent  
 **File:** `chapters/11_experiments.tex`
 
-*(To be filled during audit)*
+#### File Reference Verification
+
+| Claimed File | Result | Evidence |
+|--------------|--------|----------|
+| tests/test\_supra\_revelation\_semantics.py | **CORRECTED** | Changed to tests/test\_chsh\_manifold.py (exists) |
+| tools/finite\_quantum.py | **CORRECTED** | Changed to thielecpu/bell\_semantics.py (exists) |
+| scripts/structural\_heat\_experiment.py | **TRUE** | File exists |
+| scripts/time\_dilation\_experiment.py | **TRUE** | File exists |
+| thesis/figures/structural\_heat\_scaling.png | **TRUE** | Pre-generated figure exists |
+| thesis/figures/time\_dilation\_curve.png | **TRUE** | Pre-generated figure exists |
+
+#### Chapter 11 Issues Found
+
+1. **C11-001 (MEDIUM)**: Line 19: `tests/test_supra_revelation_semantics.py` → Changed to `tests/test_chsh_manifold.py` (actual file) → **CORRECTED**
+2. **C11-002 (MEDIUM)**: Line 19: `tools/finite_quantum.py` → Changed to `thielecpu/bell_semantics.py` (actual file) → **CORRECTED**
+
+#### Chapter 11 Summary
+
+**Overall Assessment: CORRECTED ✓**
+
+- **Nature**: Experiments and validation chapter
+- **Experiment scripts**: Key scripts verified to exist ✓
+- **Pre-generated figures**: Both exist ✓
+- **Two corrections applied**: Fixed non-existent file references to point to actual implementations
 
 ---
 
