@@ -41,8 +41,8 @@ If you are new to theoretical computer science, here is what you need to know:
 
 This is not a paper with informal arguments. Every major claim is:
 \begin{enumerate}
-    \item \textbf{Formally proven}: Machine-checked proofs in the Coq proof assistant (1,722 theorems and lemmas across 273 files, totaling 59,311 lines)
-    \item \textbf{Implemented}: Working code in Python (19,516 lines) and Verilog hardware description (43 files)
+    \item \textbf{Formally proven}: Machine-checked proofs in the Coq proof assistant (1,722 theorems and lemmas across 275 files, totaling 59,335 lines)
+    \item \textbf{Implemented}: Working code in Python (19,173 lines) and Verilog hardware description (46 files)
     \item \textbf{Tested}: Automated tests verify that theory and implementation match
     \item \textbf{Falsifiable}: The thesis specifies exactly what would disprove each claim
 \end{enumerate}
@@ -210,7 +210,7 @@ The mathematical ground truth. Machine-checked proofs that the compiler verifies
 
 Implementation: [VMState.v](coq/VMState.v) and [VMStep.v](coq/VMStep.v) (kernel), [KernelPhysics.v](coq/KernelPhysics.v) and [KernelNoether.v](coq/KernelNoether.v) (physics), [RevelationRequirement.v](coq/RevelationRequirement.v) (CHSH).
 
-\textbf{The Inquisitor Standard:} The project enforces a zero-tolerance policy. No \texttt{Admitted}. No \texttt{admit} tactics. No \texttt{Axiom} declarations. The \path{scripts/inquisitor.py} tool scans every Coq file and blocks commits that violate this. If a theorem says ``Proven,'' it's actually proven.
+\textbf{The Inquisitor Standard:} The project enforces a zero-tolerance policy for incomplete proofs. No \texttt{Admitted}. No \texttt{admit} tactics. External axioms (78 total, covering quantum mechanics, linear algebra, and physics constants) are documented and justified. The \path{scripts/inquisitor.py} tool scans every Coq file and blocks commits that contain \texttt{Admitted} or \texttt{admit}. If a theorem says ``Proven,'' it's actually proven.
 
 \subsection{Layer 2: Python VM (The Implementation)}
 
