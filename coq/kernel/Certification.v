@@ -400,7 +400,7 @@ Qed.
 (** * Corollary: REVEAL is primary revelation mechanism
     
     For the specific case where we want REVEAL (not EMIT/LJOIN/LASSERT),
-    we add a runtime policy gate (validated by test_supra_revelation_semantics.py).
+    we add a runtime policy gate (validated by test_nofi_semantic_structure_event.py).
     
     The Coq proof establishes that *some* cert-setter is necessary.
     The runtime enforces that REVEAL is the *specific* one required for supra-CHSH.

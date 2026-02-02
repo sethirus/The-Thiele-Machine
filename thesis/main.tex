@@ -1,11 +1,11 @@
-\documentclass[12pt, a4paper, oneside]{report}
+\documentclass[9pt, a4paper, oneside, twocolumn]{extreport}
 
 % ============================================================================
 % PACKAGES
 % ============================================================================
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{lmodern}
+\usepackage{times}
 \usepackage{graphicx}
 \usepackage{amsmath, amssymb, amsthm}
 \usepackage{geometry}
@@ -15,7 +15,7 @@
 \usepackage{booktabs}
 \usepackage{fancyhdr}
 \usepackage{setspace}
-\usepackage{parskip}
+\usepackage{enumitem}
 \usepackage{tocloft}
 \usepackage[bookmarks=true,colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \usepackage{xurl}
@@ -31,6 +31,41 @@
 
 % Tcolorbox for colored boxes
 \usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable}
+
+% Tcolorbox styling for two-column layout
+\tcbset{
+    thesisbox/.style={
+        enhanced,
+        breakable,
+        pad at break*=4pt,
+        width=\linewidth,
+        boxrule=0.6pt,
+        arc=0pt,
+        colback=white,
+        colframe=black!70,
+        left=5pt,
+        right=5pt,
+        top=5pt,
+        bottom=5pt,
+        boxsep=3pt,
+        before skip=7pt,
+        after skip=7pt,
+        fontupper=\footnotesize,
+        fonttitle=\bfseries,
+        coltitle=white,
+        boxed title style={
+            colback=black!70,
+            colframe=black!70,
+            boxrule=0.6pt,
+            arc=0pt,
+            left=4pt,
+            right=4pt,
+            top=2pt,
+            bottom=2pt
+        }
+    }
+}
 
 % Float placement controls
 \usepackage{float}
@@ -50,10 +85,10 @@
 
 % Allow breaking in texttt
 \usepackage[htt]{hyphenat}
-\usepackage{xurl}
 
 % Handle Unicode characters
 \DeclareUnicodeCharacter{03BC}{\ensuremath{\mu}}
+\DeclareUnicodeCharacter{2014}{-}
 
 % Table of contents depth (show up to subsections)
 \setcounter{tocdepth}{2}
@@ -63,17 +98,22 @@
 % PAGE GEOMETRY
 % ============================================================================
 \geometry{
-  top=1in,
-  bottom=1in,
-  left=1.25in,
-  right=1.25in
+    top=0.45in,
+    bottom=0.45in,
+    left=0.6in,
+    right=0.6in
 }
 
 % Fix headheight warning
 \setlength{\headheight}{14.5pt}
 
 % Line spacing
-\onehalfspacing
+\linespread{0.92}
+\setlength{\parskip}{2pt}
+\setlength{\parindent}{1em}
+\setlist{itemsep=1pt, topsep=2pt, parsep=0pt, partopsep=0pt}
+\setlength{\columnsep}{0.2in}
+\raggedbottom
 
 % ============================================================================
 % HEADERS AND FOOTERS
@@ -114,8 +154,9 @@
     keywordstyle=\color{blue},
     numberstyle=\tiny\color{codegray},
     stringstyle=\color{codepurple},
-    basicstyle=\ttfamily\small,
-    breakatwhitespace=false,         
+    basicstyle=\ttfamily\scriptsize,
+    columns=fullflexible,
+    breakatwhitespace=true,         
     breaklines=true,                 
     captionpos=b,                    
     keepspaces=true,                 
@@ -125,13 +166,15 @@
     showtabs=false,                  
     tabsize=2,
     frame=single,
-    framesep=10pt,
+    framesep=2pt,
+    framexleftmargin=1pt,
+    framexrightmargin=1pt,
     framerule=0.5pt,
     rulecolor=\color{codegray},
-    aboveskip=1.5em,
-    belowskip=1.5em,
-    xleftmargin=2em,
-    xrightmargin=2em
+    aboveskip=1em,
+    belowskip=1em,
+    xleftmargin=0pt,
+    xrightmargin=0pt
 }
 \lstset{style=mystyle}
 
@@ -153,15 +196,14 @@
 % TITLE
 % ============================================================================
 \title{
-    \vspace{-1cm}
-    \textbf{\Huge The Thiele Machine}\\[0.5cm]
-    \Large Computational Isomorphism and the Inevitability of Structure\\[1cm]
+    \textbf{\Huge The Thiele Machine}\\
+    \Large Computational Isomorphism and the Inevitability of Structure\\
     \large A Formal Model Built by Asking Questions
 }
 \author{
-    \textbf{Devon Thiele}\\[0.3cm]
-    \normalsize Self-taught developer\\[0.1cm]
-    \small No formal training. Just persistence.\\[0.5cm]
+    \textbf{Devon Thiele}\\
+    \normalsize Self-taught developer\\
+    \small No formal training. Just persistence.\\
     \normalsize January 2026
 }
 \date{}
@@ -172,12 +214,10 @@
 \begin{document}
 
 % Title page
+\twocolumn[
 \maketitle
 \thispagestyle{empty}
-
-\newpage
-\thispagestyle{empty}
-\mbox{}
+]
 
 % Abstract
 \chapter*{Abstract}
@@ -199,7 +239,7 @@ The core idea: classical computers are ``blind'' to structure. When you give a c
 
 \textbf{What is built}:
 \begin{itemize}
-    \item Coq formal kernel (273 files, zero admits)
+    \item Coq formal kernel (275 files, zero admits)
     \item Python reference VM with cryptographic receipts
     \item Synthesizable Verilog RTL (FPGA-ready)
     \item 575 automated tests across 72 test files enforcing 3-layer isomorphism
@@ -211,8 +251,9 @@ If you can find an error, find it. Everything is open source, documented, and te
 \noindent\textbf{Keywords:} Formal Verification, Coq, Computational Complexity, Information Theory, Hardware Synthesis, Partition Logic
 
 % Table of Contents
-\newpage
+\onecolumn
 \tableofcontents
+\twocolumn
 
 \chapter{Introduction}
 \input{chapters/01_introduction}

@@ -91,10 +91,10 @@ The Thiele Machine uses an unusually strict standard:
 This standard is enforced automatically. Any commit introducing an admit fails CI.
 
 \begin{quote}
-\textit{Author's Note (Devon): The zero-admit thing---I'm not going to lie, it nearly broke me. We hit a wall on \path{ProperSubsumption.v} where the cost transfer logic was so tangled that \texttt{lia} just gave up. I reached for the ``Admitted'' button more times than I can count. But if I admit something here, I'm basically saying ``trust me, the accounting is correct.'' And in this machine, we don't do trust. I spent forty-eight hours writing \texttt{thiele\_run\_mu\_bound} by hand, induction by induction, until \texttt{nia} could finally close the loop. 273 files later, the Inquisitor reports zero high findings. Zero shortcuts. The machine is screaming clean.}
+\textit{Author's Note (Devon): The zero-admit thing---I'm not going to lie, it nearly broke me. We hit a wall on \path{ProperSubsumption.v} where the cost transfer logic was so tangled that \texttt{lia} just gave up. I reached for the ``Admitted'' button more times than I can count. But if I admit something here, I'm basically saying ``trust me, the accounting is correct.'' And in this machine, we don't do trust. I spent forty-eight hours writing \texttt{thiele\_run\_mu\_bound} by hand, induction by induction, until \texttt{nia} could finally close the loop. 275 files later, the Inquisitor reports zero high findings. Zero shortcuts. The machine is screaming clean.}
 \end{quote} This matters because it guarantees every theorem in the active proof tree is fully discharged.
 
-\textbf{Inquisitor Quality Assessment:} The enforcement mechanism is \path{scripts/inquisitor.py}, which scans all 273 Coq files across 25+ rule categories. The current status is \textbf{HIGH: 0, MEDIUM: 28, LOW: 106} with:
+\textbf{Inquisitor Quality Assessment:} The enforcement mechanism is \path{scripts/inquisitor.py}, which scans all 275 Coq files across 25+ rule categories. The current status is \textbf{HIGH: 0, MEDIUM: 28, LOW: 106} with:
 \begin{itemize}
     \item \textbf{0 HIGH priority issues}: No global \texttt{Axiom}/\texttt{Parameter} declarations, no \texttt{Admitted} proofs, no \texttt{admit} tactics.
     \item \textbf{0 global axioms}: All assumptions are explicit \texttt{Context} parameters within labeled \texttt{Section} blocks, ensuring no leakage into the global namespace.
@@ -125,7 +125,7 @@ Each of these theorems has a concrete home in the Coq tree: Bell bounds are in \
 The kernel also includes machine-verified proofs that fundamental quantum axioms emerge from $\mu$-conservation. These aren't separate physical assumptions---they're mathematical consequences of the cost accounting framework:
 
 \begin{enumerate}
-    \item \textbf{No-Cloning} (\path{coq/kernel/NoCloning.v}, 244 lines): Perfect cloning requires $\mu > 0$. The theorem \texttt{no\_cloning\_from\_conservation} proves that if a cloning operation has fidelity 1 and zero cost, that's a contradiction. Approximate cloning costs are bounded by \texttt{approximate\_cloning\_bound}.
+    \item \textbf{No-Cloning} (\path{coq/kernel/NoCloning.v}, 243 lines): Perfect cloning requires $\mu > 0$. The theorem \texttt{no\_cloning\_from\_conservation} proves that if a cloning operation has fidelity 1 and zero cost, that's a contradiction. Approximate cloning costs are bounded by \texttt{approximate\_cloning\_bound}.
     
     \item \textbf{Unitarity} (\path{coq/kernel/Unitarity.v}, 257 lines): Zero-cost evolution must be unitary. The theorem \texttt{nonunitary\_requires\_mu} proves that trace-preserving but non-unitary evolution requires positive $\mu$-cost. CPTP maps are characterized via \texttt{physical\_evolution\_is\_CPTP}, and Lindblad dissipation is bounded via \texttt{lindblad\_requires\_mu}.
     
@@ -136,13 +136,13 @@ The kernel also includes machine-verified proofs that fundamental quantum axioms
     \item \textbf{Tsirelson Bound} (\path{coq/kernel/TsirelsonGeneral.v}, 301 lines): The bound $S \le 2\sqrt{2}$ follows from algebraic coherence. The theorem \texttt{tsirelson\_from\_minors} proves that any correlations satisfying a sum-of-squares constraint are bounded by $2\sqrt{2}$.
 \end{enumerate}
 
-\textbf{Total: 1,192 lines of Coq with zero Admitted statements.} These proofs establish that quantum mechanics isn't a collection of independent postulates---it's the unique physics consistent with information conservation.
+\textbf{Total: 1,191 lines of Coq with zero Admitted statements.} These proofs establish that quantum mechanics isn't a collection of independent postulates---it's the unique physics consistent with information conservation.
 
 \begin{tcolorbox}[thesisbox,colback=green!5!white,colframe=green!75!black,title=Quantum Axiom Verification Summary]
 \begin{tabular}{llll}
 \textbf{File} & \textbf{Lines} & \textbf{Key Theorem} & \textbf{Status} \\
 \hline
-NoCloning.v & 244 & \texttt{no\_cloning\_from\_conservation} & \checkmark\ Zero Admitted \\
+NoCloning.v & 243 & \texttt{no\_cloning\_from\_conservation} & \checkmark\ Zero Admitted \\
 Unitarity.v & 257 & \texttt{nonunitary\_requires\_mu} & \checkmark\ Zero Admitted \\
 BornRule.v & 288 & \texttt{born\_rule\_from\_accounting} & \checkmark\ Zero Admitted \\
 Purification.v & 102 & \texttt{purification\_principle} & \checkmark\ Zero Admitted \\
@@ -168,7 +168,7 @@ Focus on understanding the \textit{statements} (what the proofs establish), not 
 
 The credibility of the Thiele Machine rests on machine-checked proofs. This chapter documents the verification campaign that culminated in a full removal of \texttt{Admitted}, \texttt{admit.}, and \texttt{Axiom} declarations from the active Coq tree. The practical consequence is rebuildability: a reader can re-implement the definitions and re-prove the same claims without relying on hidden assumptions.
 
-All proofs are verified by Coq 8.18.x. The Inquisitor enforces this invariant: any commit introducing an admit or undocumented axiom fails CI. The comprehensive static analysis also detects vacuous statements, trivial tautologies, and hidden assumptions. See \path{scripts/INQUISITOR\_GUIDE.md} for complete documentation of the 20+ rule categories and enforcement policies.
+All proofs are verified by Coq 8.18.x. The Inquisitor enforces this invariant: any commit introducing an admit or undocumented axiom fails CI. The comprehensive static analysis also detects vacuous statements, trivial tautologies, and hidden assumptions. See \path{scripts/inquisitor.py} and \path{scripts/inquisitor\_rules.py} for complete documentation of the 25+ rule categories and enforcement policies.
 
 \section{Proof Architecture}
 
@@ -1356,7 +1356,7 @@ The formal verification campaign establishes:
     \item \textbf{Locality}: Operations on one module cannot affect observables of unrelated modules
     \item \textbf{Conservation}: The $\mu$-ledger is monotonic and bounds irreversible operations
     \item \textbf{Impossibility}: Strengthening certification requires explicit, charged structure addition
-    \item \textbf{Quantum Axioms}: No-cloning, unitarity, Born rule, purification, and Tsirelson bounds emerge from $\mu$-conservation (1,192 lines, zero Admitted)
+    \item \textbf{Quantum Axioms}: No-cloning, unitarity, Born rule, purification, and Tsirelson bounds emerge from $\mu$-conservation (1,191 lines, zero Admitted)
     \item \textbf{Completeness}: Zero admits, zero axioms—all proofs are machine-checked
 \end{enumerate}
 

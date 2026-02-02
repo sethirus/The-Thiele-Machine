@@ -179,7 +179,7 @@ Qed.
     
     Policy interpretation: Programs producing supra-quantum correlations (S > 2√2)
     are required by runtime policy to use REVEAL for partition disclosure.
-    This is validated by test_supra_revelation_semantics.py. *)
+    This is validated by test_nofi_semantic_structure_event.py. *)
 
 Theorem nonlocal_correlation_requires_revelation :
   forall (trace : Trace) (s_init s_final : VMState) (fuel : nat),
