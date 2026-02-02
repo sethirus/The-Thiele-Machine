@@ -1716,27 +1716,27 @@ Theorem purification_principle :
 
 The Tsirelson bound $S \le 2\sqrt{2}$ limits quantum correlations. We proved it from pure algebra in \path{coq/kernel/TsirelsonGeneral.v}:
 \begin{lstlisting}
-Theorem tsirelson_from_minors :
-  forall (c00 c01 c10 c11 : R),
-    (c00 + c01 + c10 - c11)^2 + 
-    (c00 + c01 - c10 + c11)^2 +
-    (c00 - c01 + c10 + c11)^2 + 
-    (-c00 + c01 + c10 + c11)^2 <= 16 ->
-    (c00 + c01 + c10 - c11 <= 2 * sqrt 2) /\
-    (c00 + c01 - c10 + c11 <= 2 * sqrt 2) /\
-    (c00 - c01 + c10 + c11 <= 2 * sqrt 2) /\
-    (-c00 + c01 + c10 + c11 <= 2 * sqrt 2).
+Corollary tsirelson_from_minors :
+  forall e00 e01 e10 e11 : R,
+    (* NPA-1 row constraints with zero marginals *)
+    minor_constraint_zero_marginal e00 e01 ->
+    minor_constraint_zero_marginal e10 e11 ->
+    (* implies Tsirelson bound *)
+    (CHSH e00 e01 e10 e11)^2 <= 8.
 \end{lstlisting}
+
+where \texttt{minor\_constraint\_zero\_marginal e1 e2} means $1 - e_1^2 - e_2^2 \ge 0$ (i.e., $e_1^2 + e_2^2 \le 1$), and \texttt{CHSH} is defined as $e_{00} + e_{01} + e_{10} - e_{11}$. The key insight is that the NPA-1 row constraints force each pair of correlators to lie on or inside the unit circle, which combined with Cauchy-Schwarz gives $S^2 \le 8$, hence $|S| \le 2\sqrt{2}$.
 
 \paragraph{The Connection to $\mu$-Accounting:}
 \begin{itemize}
     \item \textbf{$\mu = 0$ Condition:} When total $\mu$-cost is zero (structural + correlation cost), the system must be algebraically coherent
-    \item \textbf{Algebraic Coherence (Definition):} A correlation matrix is \textit{algebraically coherent} when $\mu_{\text{corr}} = 0$, meaning the correlations satisfy the sum-of-squares constraint:
+    \item \textbf{Algebraic Coherence (Definition):} A correlation matrix is \textit{algebraically coherent} when $\mu_{\text{corr}} = 0$, meaning the correlations satisfy the NPA-1 row constraints:
     \[
-    A^2 + B^2 + C^2 + D^2 \leq 4
+    e_{00}^2 + e_{01}^2 \le 1 \quad \text{and} \quad e_{10}^2 + e_{11}^2 \le 1
     \]
-    where $A, B, C, D$ are the correlation coefficients. This constraint is proven in \texttt{TsirelsonGeneral.v} and is the necessary and sufficient condition for achieving the quantum bound.
+    This ensures each pair of correlators lies within the unit disk. The proof in \texttt{TsirelsonGeneral.v} shows these row constraints, combined with Cauchy-Schwarz, force $S^2 \le 8$.
     \item \textbf{Result:} Quantum correlations bounded by $2\sqrt{2}$, classical by 2
+    \item \textbf{Note on PR Box:} A PR box ($S=4$) has correlators $(1,1,1,-1)$ with row sums $1^2+1^2=2>1$, violating the row constraint. This is why it cannot arise from quantum mechanics.
 \end{itemize}
 
 \subsection{Why This Matters}

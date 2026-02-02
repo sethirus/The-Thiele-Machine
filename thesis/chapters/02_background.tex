@@ -219,24 +219,24 @@ From a first-principles perspective, the key step is that erasure reduces the lo
 
 \subsubsection{From Landauer to Planck}
 
-Landauer's principle provides more than a thermodynamic bound---it may connect information theory to quantum mechanics. Define the Landauer energy as:
+Landauer's principle provides more than a thermodynamic bound---it suggests a structural connection between information theory and quantum mechanics. Define the Landauer energy as:
 \[
 E_{\text{landauer}} = k_B T \ln 2
 \]
 
-If computational operations occur at a fundamental time scale $\tau_\mu$, then Planck's constant can be expressed as:
+\textbf{Conjecture:} If computational operations occur at a fundamental time scale $\tau_\mu$, then Planck's constant might be expressible as:
 \[
 h = 4 E_{\text{landauer}} \cdot \tau_\mu = 4 k_B T \ln 2 \cdot \tau_\mu
 \]
 
-This relationship is formally proven in \path{coq/physics_exploration/PlanckDerivation.v} (Chapter 12). While this establishes a \textit{structural relationship} between information theory and quantum mechanics, it does not provide a numerical prediction for $h$ without an independent derivation of $\tau_\mu$. The result demonstrates that fundamental physical constants may emerge from information-theoretic principles---or that they share deep mathematical structure.
+\textbf{Important caveat:} This is \textit{not} a derivation of $h$. Rather, we can \textit{define} $\tau_\mu := h / (4 E_{\text{landauer}})$ and the relationship becomes a tautology. The formal proof in \path{coq/physics_exploration/PlanckDerivation.v} (Chapter 12) establishes algebraic consistency but provides no predictive power without an independent derivation of $\tau_\mu$.
 
-At room temperature ($T = 300$K) with known $h$, the implied time scale is:
+At room temperature ($T = 300$K) with known $h$, the \textit{computed} (not predicted) time scale is:
 \[
-\tau_\mu = \frac{h}{4 k_B T \ln 2} \approx 1.15 \times 10^{-13} \text{ seconds}
+\tau_\mu = \frac{h}{4 k_B T \ln 2} \approx 5.77 \times 10^{-14} \text{ seconds}
 \]
 
-This femtosecond scale is consistent with fundamental quantum time scales, suggesting that $\mu$-operations occur at the boundary between classical information processing and quantum dynamics.
+This $\sim$58 femtosecond scale is consistent with fundamental quantum time scales, suggesting that $\mu$-operations occur at the boundary between classical information processing and quantum dynamics.
 
 \subsubsection{Reversible Computation}
 
