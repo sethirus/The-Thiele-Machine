@@ -4,7 +4,7 @@
 
 [![CI](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml/badge.svg)](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Coq](https://img.shields.io/badge/Coq-273%20Proof%20Files-blue)](coq/)
+[![Coq](https://img.shields.io/badge/Coq-276%20Proof%20Files-blue)](coq/)
 
 ---
 
@@ -40,7 +40,7 @@ iverilog thielecpu/hardware/rtl/*.v -o thiele_cpu
 
 | Component | Status |
 |-----------|--------|
-| **Coq proofs** | 273 files (~59K lines), 0 Admitted, 52 documented axioms |
+| **Coq proofs** | 276 files (~59K lines), 0 Admitted, 78 documented axioms |
 | **Python VM** | Working, tested, cryptographic receipts |
 | **Verilog RTL** | Synthesizable with open-source tools |
 | **Test suite** | 575 tests across 72 test files |
@@ -113,7 +113,7 @@ The Thiele Machine is implemented at three layers producing **identical state pr
 
 | Layer | Implementation | Purpose |
 |-------|----------------|---------|
-| **Coq** | 273 proof files, 0 admits, 52 axioms | Mathematical ground truth |
+| **Coq** | 276 proof files, 0 admits, 78 axioms | Mathematical ground truth |
 | **Python** | VM with receipts and traces | Executable reference |
 | **Verilog** | Synthesizable RTL (FPGA-targetable) | Physical realization |
 
@@ -145,7 +145,7 @@ Full synthesis with advanced features (64 partitions, 1024-element memory) requi
 
 ```
 The-Thiele-Machine/
-├── coq/                    # 273 Coq proof files (~59K lines)
+├── coq/                    # 276 Coq proof files (~59K lines)
 │   ├── kernel/             # Core theorems (MuInitiality, NoFreeInsight, etc.)
 │   ├── thielemachine/      # Main VM proofs
 │   ├── bridge/             # Physics embeddings
@@ -177,7 +177,7 @@ python scripts/inquisitor.py
 - All axioms documented with mathematical references
 - Compilation success
 
-**Results:** 52 documented axioms (external mathematical results from quantum mechanics, linear algebra, numerical analysis).
+**Results:** 78 documented axioms (external mathematical results from quantum mechanics, linear algebra, numerical analysis).
 
 ---
 
