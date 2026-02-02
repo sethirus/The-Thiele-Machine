@@ -1,0 +1,37 @@
+{
+  "preregistered_criteria": {
+    "blind_exp_better": {
+      "description": "Blind fits exp better than polynomial (ΔAIC ≥ 10)",
+      "test": "aic_exp < aic_poly and abs(aic_exp - aic_poly) >= 10",
+      "expected": true
+    },
+    "sighted_slope_constant": {
+      "description": "Sighted μ_answer slope 95% CI contains 0",
+      "test": "ans_slope_ci[0] <= 0 <= ans_slope_ci[1]",
+      "expected": true
+    },
+    "ratio_slope_positive": {
+      "description": "Ratio slope > 0 and monotonic in ≥90% of bootstrap",
+      "test": "ratio_slope > 0 and monotonicity_p >= 0.9",
+      "expected": true
+    },
+    "runtime_correlation": {
+      "description": "Spearman ρ(μ_blind, runtime) ≥ 0.6 (p < 0.01)",
+      "test": "runtime_correlation.rho >= 0.6 and runtime_correlation.p_value < 0.01",
+      "expected": true
+    }
+  },
+  "experiment_defaults": {
+    "problem": "tseitin",
+    "partitions": [6, 8, 10, 12, 14, 16, 18],
+    "seeds": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "repeat": 3,
+    "emit_receipts": true,
+    "save_results": true
+  },
+  "falsification_controls": [
+    {"name": "mispartition", "description": "Force wrong partition split"},
+    {"name": "shuffle_constraints", "description": "Randomize parity signs"},
+    {"name": "noise_levels", "description": "Flip k% of parities", "values": [0.1, 0.3, 0.5]}
+  ]
+}
