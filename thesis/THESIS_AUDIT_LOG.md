@@ -20,7 +20,7 @@
 | Ch 7: Discussion | **CORRECTED** | 7 | 7 | 0 | 0 | 0 | 1 |
 | Ch 8: Conclusion | **VERIFIED** | 9 | 9 | 0 | 0 | 0 | 0 |
 | Ch 9: Verifier System | **CORRECTED** | 8 | 6 | 2 | 0 | 0 | 3 |
-| Ch 10: Extended Proofs | NOT STARTED | - | - | - | - | - | - |
+| Ch 10: Extended Proofs | **CORRECTED** | 12 | 10 | 2 | 0 | 0 | 2 |
 | Ch 11: Experiments | NOT STARTED | - | - | - | - | - | - |
 | Ch 12: Physics | NOT STARTED | - | - | - | - | - | - |
 | Ch 13: Hardware | NOT STARTED | - | - | - | - | - | - |
@@ -876,12 +876,55 @@ verifier/receipt_protocol.py
 
 ### CHAPTER 10: EXTENDED PROOFS AUDIT
 
-**Status:** NOT STARTED  
-**Audit Date:** -  
-**Auditor:** -  
+**Status:** CORRECTED  
+**Audit Date:** 2026-02-02  
+**Auditor:** Automated Agent  
 **File:** `chapters/10_extended_proofs.tex`
 
-*(To be filled during audit)*
+#### Section 10.1: Proof Architecture
+
+| Claim | Category | Result | Evidence |
+|-------|----------|--------|----------|
+| coq/kernel/*.v kernel semantics files exist | A | **TRUE** | 50+ files in kernel directory |
+| coq/thielemachine/coqproofs/*.v extended proofs exist | A | **TRUE** | 90+ files in coqproofs directory |
+| Zero admits across corpus | C | **TRUE** | grep returns 0 matches |
+
+#### Section 10.2: Quantum Axiom Files
+
+| File | Claimed Lines | Actual Lines | Result |
+|------|---------------|--------------|--------|
+| NoCloning.v | 244 | 243 | **CORRECTED** |
+| Unitarity.v | 257 | 257 | **TRUE** |
+| BornRule.v | 288 | 288 | **TRUE** |
+| Purification.v | 102 | 102 | **TRUE** |
+| TsirelsonGeneral.v | 301 | 301 | **TRUE** |
+| **Total** | 1,192 | 1,191 | **CORRECTED** |
+
+#### Section 10.3: Kernel Extension Files
+
+| Claimed File | Result | Evidence |
+|--------------|--------|----------|
+| coq/kernel/FiniteInformation.v | **TRUE** | File exists |
+| coq/kernel/Locality.v | **TRUE** | File exists |
+| coq/kernel/ProperSubsumption.v | **TRUE** | File exists |
+| coq/kernel/LocalInfoLoss.v | **TRUE** | File exists |
+| coq/kernel/HardAssumptions.v | **TRUE** | File exists (6,421 bytes) |
+| coq/kernel/MuInitiality.v | **TRUE** | File exists (15,070 bytes) |
+| coq/kernel/MuNecessity.v | **TRUE** | File exists |
+
+#### Chapter 10 Issues Found
+
+1. **C10-001 (LOW)**: Line 548: NoCloning.v "244 lines" → Actually 243 lines → **CORRECTED**
+2. **C10-002 (LOW)**: Lines 541, 1764: "1,192 lines" → Actually 1,191 lines → **CORRECTED**
+
+#### Chapter 10 Summary
+
+**Overall Assessment: CORRECTED ✓**
+
+- **Proof file existence**: All claimed kernel and extended proof files exist ✓
+- **Line counts**: Two corrections applied (NoCloning.v, total) ✓
+- **Zero admits**: Confirmed ✓
+- **Kernel extensions**: All 7 files exist ✓
 
 ---
 
