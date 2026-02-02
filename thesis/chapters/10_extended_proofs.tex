@@ -538,14 +538,14 @@ The most recent kernel extension proves that the ``axioms'' of quantum mechanics
 
 \subsection{Proof Architecture Overview}
 
-The quantum axiom proofs live in five files totaling 1,192 lines of Coq with zero \texttt{Admitted} statements:
+The quantum axiom proofs live in five files totaling 1,191 lines of Coq with zero \texttt{Admitted} statements:
 
 \begin{center}
 \begin{tabular}{lrrl}
 \toprule
 \textbf{File} & \textbf{Lines} & \textbf{Theorems} & \textbf{Primary Result} \\
 \midrule
-\texttt{NoCloning.v} & 244 & 18 & No-cloning from conservation \\
+\texttt{NoCloning.v} & 243 & 18 & No-cloning from conservation \\
 \texttt{Unitarity.v} & 257 & 20 & CPTP from irreversibility \\
 \texttt{BornRule.v} & 288 & 19 & Born rule from linearity \\
 \texttt{Purification.v} & 102 & 8 & Purification principle \\
@@ -1761,7 +1761,7 @@ These predictions are falsifiable: if benchmarks show costs outside these bounds
 The extended proof architecture establishes:
 \begin{enumerate}
     \item \textbf{Zero-admit corpus}: A fully discharged proof tree with no admits or unproven axioms beyond foundational logic.
-    \item \textbf{Quantum axioms from $\mu$-accounting}: No-cloning, unitarity, Born rule, purification, and Tsirelson bound all derived from conservation of structural information (1,192 lines, 74 theorems).
+    \item \textbf{Quantum axioms from $\mu$-accounting}: No-cloning, unitarity, Born rule, purification, and Tsirelson bound all derived from conservation of structural information (1,191 lines, 74 theorems).
     \item \textbf{Quantum bounds}: Literal CHSH $\le$ 5657/2000.
     \item \textbf{TOE limits}: Physics requires extra structure beyond compositionality.
     \item \textbf{Impossibility theorems}: Entropy, probability, and unique weights are not forced by the kernel alone.
