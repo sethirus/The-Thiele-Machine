@@ -1,6 +1,6 @@
 # Physics Exploration - Formal Constant Derivations
 
-**Status:** All 4 files compile successfully with proper INQUISITOR documentation
+**Status:** All 5 files compile successfully with proper INQUISITOR documentation
 
 ## Overview
 
@@ -48,6 +48,16 @@ All approaches either contain c (circular) or require unknowns. May need full qu
 
 Ratios (206.77, 1836.15, 3477.15) appear arbitrary. No connection to μ-theory found.
 
+### [EmergentSchrodinger.v](EmergentSchrodinger.v)
+**Result:** Proves discovered update rules match Schrödinger equation
+
+- **Status:** ✅ STRUCTURAL EQUIVALENCE PROVEN
+- **Key Theorem:** `structural_equivalence`
+- **Axioms:** None (pure rational arithmetic)
+- **Achievement:** Verifies machine-discovered physics matches known laws
+
+Proves that coefficients discovered from data are structurally equivalent to the finite-difference discretization of the Schrödinger equation. Includes antisymmetric coupling verification for probability conservation.
+
 ## Compilation
 
 ```bash
@@ -56,6 +66,7 @@ coqc -R ../kernel Kernel -Q . PhysicsExploration PlanckDerivation.v
 coqc -R ../kernel Kernel -Q . PhysicsExploration EmergentSpacetime.v
 coqc -R ../kernel Kernel -Q . PhysicsExploration HolographicGravity.v
 coqc -R ../kernel Kernel -Q . PhysicsExploration ParticleMasses.v
+coqc -Q . PhysicsExploration EmergentSchrodinger.v
 ```
 
 Or use the main project Makefile (files already added to `_CoqProject`).
@@ -69,7 +80,7 @@ Or use the main project Makefile (files already added to `_CoqProject`).
 - G (gravity)
 - m_electron, m_muon, m_proton (particle masses)
 
-**Proven Lemmas:** 9 relationships and structures
+**Proven Lemmas:** 13 relationships and structures
 
 **Key Improvement:** ln2_positive is now PROVEN using Coq standard library, not axiomatized.
 
@@ -81,6 +92,7 @@ All axioms are documented with INQUISITOR notes explaining why they are necessar
 - ○ c structure: PROVEN (value needs theory)
 - ⚠️ G: SPECULATIVE
 - ✗ masses: FREE PARAMETERS
+- ✅ Schrödinger: STRUCTURAL EQUIVALENCE PROVEN
 
 ## Numerical Experiments
 
