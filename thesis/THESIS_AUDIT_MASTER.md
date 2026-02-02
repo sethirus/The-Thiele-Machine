@@ -505,14 +505,14 @@ For each chapter, create an audit log entry in this format:
 
 | Chapter | File | Status | Claims | Verified | Issues |
 |---------|------|--------|--------|----------|--------|
-| Abstract | main.tex | NOT STARTED | - | - | - |
-| 1 | 01_introduction.tex | NOT STARTED | - | - | - |
-| 2 | 02_background.tex | NOT STARTED | - | - | - |
-| 3 | 03_theory.tex | NOT STARTED | - | - | - |
-| 4 | 04_implementation.tex | NOT STARTED | - | - | - |
-| 5 | 05_verification.tex | NOT STARTED | - | - | - |
-| 6 | 06_evaluation.tex | NOT STARTED | - | - | - |
-| 7 | 07_discussion.tex | NOT STARTED | - | - | - |
+| Abstract | main.tex | CORRECTED | 3 | 3 | 0 |
+| 1 | 01_introduction.tex | VERIFIED | 47 | 47 | 0 |
+| 2 | 02_background.tex | CORRECTED | 25 | 24 | 1 |
+| 3 | 03_theory.tex | VERIFIED | 35 | 35 | 0 |
+| 4 | 04_implementation.tex | CORRECTED | 24 | 1 | 0 |
+| 5 | 05_verification.tex | CORRECTED | 18 | 18 | 5 |
+| 6 | 06_evaluation.tex | CORRECTED | 15 | 15 | 4 |
+| 7 | 07_discussion.tex | CORRECTED | 7 | 7 | 1 |
 | 8 | 08_conclusion.tex | NOT STARTED | - | - | - |
 | 9 | 09_verifier_system.tex | NOT STARTED | - | - | - |
 | 10 | 10_extended_proofs.tex | NOT STARTED | - | - | - |

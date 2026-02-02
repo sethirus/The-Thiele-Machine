@@ -774,32 +774,22 @@ This prevents the loophole: ``I claim this buffer is sorted, but I'll pay zero $
 
 \textbf{Falsifiability:} If the harness produced $\mu \ll \log_2(n!)$ (e.g., $\mu = 10$ for $n = 2^{20}$ where $\log_2(n!) \approx 19{,}458{,}687$), the model would be falsified---structure would be ``free,'' violating No Free Insight.
 
-This writes \path{results/structural_heat_experiment.json}. Regenerate the thesis figure:
-\begin{lstlisting}
-python3 scripts/plot_structural_heat_scaling.py
-\end{lstlisting}
+This writes \path{results/structural_heat_experiment.json}.
 
-\paragraph{Understanding plot\_structural\_heat\_scaling.py:}
+\paragraph{Pre-generated figure:}
 
-\textbf{What does this script do?} Reads \path{results/structural_heat_experiment.json} and generates  showing:
+The thesis figure \path{thesis/figures/structural_heat_scaling.png} is pre-generated and included in the repository. It shows:
 \begin{itemize}
     \item \textbf{Top panel:} Charged $\mu$ versus certificate bits $\log_2(n!)$. Shows two lines: $\mu = \log_2(n!)$ (lower bound) and $\mu = \log_2(n!) + 1$ (ceiling envelope). Data points lie between these lines.
     \item \textbf{Bottom panel:} Slack $\mu - \log_2(n!)$ versus $n$. Shows all points satisfy $0 \leq \text{slack} < 1$, confirming $\mu = \lceil \log_2(n!) \rceil$.
 \end{itemize}
 
-\textbf{Output:} \path{thesis/figures/structural_heat_scaling.png} (embedded in thesis as ).
-
-This writes \path{results/structural_heat_experiment.json}. Regenerate the thesis figure:
-\begin{lstlisting}
-python3 scripts/plot_structural_heat_scaling.py
-\end{lstlisting}
-This writes \path{thesis/figures/structural_heat_scaling.png}.
-
-\paragraph{Time dilation.} Generate the artifact JSON and the thesis figure:
+\paragraph{Time dilation.} Generate the artifact JSON:
 \begin{lstlisting}
 python3 scripts/time_dilation_experiment.py
-python3 scripts/plot_time_dilation_curve.py
 \end{lstlisting}
+
+The thesis figure \path{thesis/figures/time_dilation_curve.png} is pre-generated and included in the repository.
 
 \paragraph{Understanding Time Dilation Experiment Commands:}
 

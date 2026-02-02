@@ -400,7 +400,7 @@ If all checks pass, the computation is valid. This is \textit{much faster} than 
 \textbf{Selective disclosure:} A researcher can publish receipts for \textit{specific steps} (e.g., ``Here is receipt 42, which shows we discovered partition $\{0,1,2\}$ and charged $\mu = 5$'') without revealing the entire trace. The hash chain ensures the disclosed receipt is part of the authentic sequence.
 
 
-The Python implementation of this structure is in \path{thielecpu/receipts.py} and \path{thielecpu/crypto.py}, and the RTL contains a receipt controller in \path{thielecpu/hardware/crypto_receipt_controller.v}. The chain is therefore an engineered artifact with concrete hash formats, not an abstract promise.
+The Python implementation of this structure is in \path{thielecpu/receipts.py} and \path{thielecpu/crypto.py}, and the RTL contains a receipt controller in \path{thielecpu/hardware/rtl/crypto_receipt_controller.v}. The chain is therefore an engineered artifact with concrete hash formats, not an abstract promise.
 
 This enables:
 \begin{itemize}
