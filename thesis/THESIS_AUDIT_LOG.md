@@ -1110,26 +1110,30 @@ verifier/receipt_protocol.py
 
 ### APPENDIX: EMERGENT SCHRÖDINGER AUDIT
 
-**Status:** VERIFIED  
+**Status:** VERIFIED + COMPILED  
 **Audit Date:** 2026-02-02  
 **Auditor:** Automated Agent  
 **File:** `appendix/emergent_schrodinger.tex`
+**Source:** `coq/physics_exploration/EmergentSchrodinger.v`
 
-#### Proof Structure Verification
+#### Proof Compilation Verification
 
-| Claim | Result | Evidence |
+| Check | Result | Evidence |
 |-------|--------|----------|
+| File created | **TRUE** | coq/physics_exploration/EmergentSchrodinger.v |
+| Coq compilation | **PASS** | .vo, .vok, .vos files generated |
 | Uses standard Coq libraries | **TRUE** | QArith, Qfield, Setoid are standard |
 | Ring/field tactics valid | **TRUE** | Standard for rational arithmetic |
 | Proof structure sound | **TRUE** | Theorem follows from coefficient constraints |
 
 #### Schrödinger Appendix Summary
 
-**Overall Assessment: VERIFIED ✓**
+**Overall Assessment: VERIFIED + COMPILED ✓**
 
-- **Proof listing**: Valid Coq syntax with standard imports ✓
+- **Proof file**: Created at coq/physics_exploration/EmergentSchrodinger.v ✓
+- **Compilation**: Successful with coqc ✓
 - **Mathematical structure**: Correct finite-difference discretization ✓
-- **No file path claims**: Listing is for documentation (no path to verify)
+- **Antisymmetry lemma**: Additional verification of conservation structure ✓
 
 ---
 
