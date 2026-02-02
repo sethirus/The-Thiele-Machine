@@ -1,14 +1,3 @@
-\chapter{Emergent Schrodinger Equation Proof}
-\label{app:schrodinger}
-
-This appendix contains the Coq proof verifying that the Thiele Machine has successfully rediscovered the Schrodinger equation from raw data. The proof establishes structural equivalence between the discovered update rules and the finite-difference discretization of the Schrodinger equation.
-
-\textbf{Source file:} \texttt{coq/physics\_exploration/EmergentSchrodinger.v}
-
-\begin{lstlisting}[
-  language=Caml,
-  caption={Emergent Proof}
-]
 (* Emergent Schrodinger Equation - Discovered via Thiele Machine *)
 (* Auto-generated formalization - standalone, compilable file *)
 
@@ -53,7 +42,14 @@ Qed.
     constraints imposed by the extracted PDE parameters.
 *)
 Lemma coefficient_constraints :
-  coef_a_a == 1 /  coef_a_b == 0 /  coef_a_lap_b == -(extracted_dt * extracted_inv_2m) /  coef_a_Vb == extracted_dt /  coef_b_b == 1 /  coef_b_a == 0 /  coef_b_lap_a ==  (extracted_dt * extracted_inv_2m) /  coef_b_Va == -extracted_dt.
+  coef_a_a == 1 /\
+  coef_a_b == 0 /\
+  coef_a_lap_b == -(extracted_dt * extracted_inv_2m) /\
+  coef_a_Vb == extracted_dt /\
+  coef_b_b == 1 /\
+  coef_b_a == 0 /\
+  coef_b_lap_a == (extracted_dt * extracted_inv_2m) /\
+  coef_b_Va == -extracted_dt.
 Proof.
   unfold coef_a_a, coef_a_b, coef_a_lap_b, coef_a_Vb.
   unfold coef_b_b, coef_b_a, coef_b_lap_a, coef_b_Va.
@@ -100,4 +96,20 @@ Proof.
   rewrite Haa, Hab, Halb, HaVb, Hbb, Hba, Hbla, HbVa.
   split; ring.
 Qed.
-\end{lstlisting}
+
+(** * Additional verification: the update preserves normalization structure *)
+
+(** The Schrödinger equation preserves |ψ|² = a² + b² in the continuous limit.
+    We verify that the discrete update has the correct antisymmetric structure
+    that leads to this conservation. *)
+
+Lemma antisymmetric_coupling :
+  coef_a_lap_b == - coef_b_lap_a /\
+  coef_a_Vb == - coef_b_Va.
+Proof.
+  unfold coef_a_lap_b, coef_b_lap_a, coef_a_Vb, coef_b_Va.
+  split; ring.
+Qed.
+
+(** This antisymmetry is necessary (though not sufficient) for probability 
+    conservation in quantum mechanics. *)
