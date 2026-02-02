@@ -513,7 +513,7 @@ For each chapter, create an audit log entry in this format:
 | 5 | 05_verification.tex | CORRECTED | 18 | 18 | 5 |
 | 6 | 06_evaluation.tex | CORRECTED | 15 | 15 | 4 |
 | 7 | 07_discussion.tex | CORRECTED | 7 | 7 | 1 |
-| 8 | 08_conclusion.tex | NOT STARTED | - | - | - |
+| 8 | 08_conclusion.tex | VERIFIED | 9 | 9 | 0 |
 | 9 | 09_verifier_system.tex | NOT STARTED | - | - | - |
 | 10 | 10_extended_proofs.tex | NOT STARTED | - | - | - |
 | 11 | 11_experiments.tex | NOT STARTED | - | - | - |
