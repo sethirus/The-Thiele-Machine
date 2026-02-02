@@ -17,7 +17,7 @@ From first principles, a verifier needs three ingredients:
     \item \textbf{Cost accounting}: a way to ensure that any strengthened claim paid the required $\mu$-cost.
 \end{enumerate}
 The verifier system is built to guarantee all three.
-In the codebase, these ingredients are implemented by receipt parsing and signature checks (\path{verifier/receipt_protocol.py}), trace replays in the domain-specific checkers (for example \path{verifier/check_randomness.py}), and explicit $\mu$-cost rules inside the C-modules themselves.
+In the codebase, these ingredients are implemented by receipt parsing and signature checks (\path{verifier/receipt_protocol.py}), trace replays in the domain-specific checkers (for example \path{verifier/c_randomness.py}), and explicit $\mu$-cost rules inside the C-modules themselves.
 
 This chapter documents the complete verification infrastructure. The system implements four certification modules (C-modules) that enforce the No Free Insight principle across different application domains:
 \begin{itemize}
@@ -115,7 +115,7 @@ Key properties:
 \end{itemize}
 
 This protocol supplies the trace integrity requirement: a verifier can recompute hashes and signatures to confirm that the claim is exactly the one produced by the recorded execution.
-The full TRS-1.0 specification is in \path{docs/specs/trs-spec-v1.md}, and the reference implementation for verification lives in \path{verifier/receipt_protocol.py} and \path{tools/verify_trs10.py}. This ensures that the protocol described here is backed by a concrete parser and validator.
+The reference implementation for TRS-1.0 verification lives in \path{verifier/receipt_protocol.py} and the conformance tests in \path{tests/trs_conformance/test_trs10.py}. This ensures that the protocol described here is backed by a concrete parser and validator.
 
 \subsection{Non-Negotiable Falsifier Pattern}
 
