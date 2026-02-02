@@ -15,7 +15,7 @@ The Thiele Machine is different: there is a \textbf{hardware implementation} in 
     \item \textbf{Enforcement}: Hardware can physically enforce invariants that software might violate
 \end{enumerate}
 
-The key insight is that the $\mu$-ledger's monotonicity is not just a theorem---it is \textit{physically enforced} by the hardware. The $\mu$-core gates ledger updates and rejects any proposed cost update that would decrease the accumulated value (see \texttt{thielecpu/hardware/mu\_core.v}). This makes $\mu$-decreasing transitions architecturally invalid rather than merely discouraged by software.
+The key insight is that the $\mu$-ledger's monotonicity is not just a theorem---it is \textit{physically enforced} by the hardware. The $\mu$-core gates ledger updates and rejects any proposed cost update that would decrease the accumulated value (see \texttt{thielecpu/hardware/rtl/mu\_core.v}). This makes $\mu$-decreasing transitions architecturally invalid rather than merely discouraged by software.
 
 \subsection{From Proofs to Silicon}
 
@@ -105,7 +105,7 @@ localparam [7:0] OPCODE_HALT = 8'hFF;
 \end{itemize}
 
 
-These definitions are generated in \texttt{thielecpu/hardware/generated\_opcodes.vh} from the Coq instruction list, ensuring that the hardware and proofs share the same opcode mapping.
+These definitions are generated in \texttt{thielecpu/hardware/rtl/generated\_opcodes.vh} from the Coq instruction list, ensuring that the hardware and proofs share the same opcode mapping.
 
 \subsection{$\mu$-ALU Design}
 
@@ -176,7 +176,7 @@ endmodule
 \end{itemize}
 
 
-Key property: \textbf{$\mu$ only increases} at the ledger boundary. The $\mu$-ALU implements arithmetic in Q16.16 fixed-point (see \texttt{thielecpu/hardware/mu\_alu.v}), while the $\mu$-core enforces the monotonicity policy by gating ledger updates so that any decreasing update is rejected.
+Key property: \textbf{$\mu$ only increases} at the ledger boundary. The $\mu$-ALU implements arithmetic in Q16.16 fixed-point (see \texttt{thielecpu/hardware/rtl/mu\_alu.v}), while the $\mu$-core enforces the monotonicity policy by gating ledger updates so that any decreasing update is rejected.
 
 \subsection{State Serialization}
 
@@ -243,7 +243,7 @@ module state_serializer (
 \begin{itemize}
     \item \textbf{Deterministic:} Same state always produces same byte stream (no ambiguity in field order, padding, or alignment).
     \item \textbf{Cross-platform:} Works identically on Python, OCaml, Verilog (no endianness issues, all big-endian).
-    \item \textbf{Verifiable:} The format is formally specified in \texttt{docs/CANONICAL\_SERIALIZATION.md}, enabling mechanized verification.
+    \item \textbf{Verifiable:} The format is formally specified in the \texttt{thielecpu/canonical\_encoding.py} reference implementation, enabling mechanized verification.
 \end{itemize}
 
 \textbf{Example serialization:} State with $\mu = 123$, $\text{pc} = 50$, 2 modules:
@@ -256,7 +256,7 @@ module state_serializer (
 \end{itemize}
 
 
-The serializer implementation is in \texttt{thielecpu/hardware/state\_serializer.v}, and it emits the Canonical Serialization Format (CSF) defined in \path{docs/CANONICAL_SERIALIZATION.md}. JSON snapshots used by the isomorphism harness come from the RTL testbench (\texttt{thielecpu/hardware/thiele\_cpu\_tb.v}), not from the serializer itself.
+The serializer implementation is in \texttt{thielecpu/hardware/rtl/state\_serializer.v}, and it emits the Canonical Serialization Format (CSF) as documented in the \texttt{thielecpu/canonical\_encoding.py} reference implementation. JSON snapshots used by the isomorphism harness come from the RTL testbench (\texttt{thielecpu/hardware/testbench/thiele\_cpu\_tb.v}), not from the serializer itself.
 
 \subsection{Synthesis Results}
 

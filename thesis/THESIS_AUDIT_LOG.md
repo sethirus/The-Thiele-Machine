@@ -23,7 +23,7 @@
 | Ch 10: Extended Proofs | **CORRECTED** | 12 | 10 | 2 | 0 | 0 | 2 |
 | Ch 11: Experiments | **CORRECTED** | 8 | 6 | 2 | 0 | 0 | 2 |
 | Ch 12: Physics | **CORRECTED** | 10 | 9 | 1 | 0 | 0 | 1 |
-| Ch 13: Hardware | NOT STARTED | - | - | - | - | - | - |
+| Ch 13: Hardware | **CORRECTED** | 6 | 0 | 6 | 0 | 0 | 5 |
 | App: Glossary | NOT STARTED | - | - | - | - | - | - |
 | App: Theorem Index | NOT STARTED | - | - | - | - | - | - |
 | App: Schrödinger | NOT STARTED | - | - | - | - | - | - |
@@ -1009,12 +1009,45 @@ verifier/receipt_protocol.py
 
 ### CHAPTER 13: HARDWARE AUDIT
 
-**Status:** NOT STARTED  
-**Audit Date:** -  
-**Auditor:** -  
+**Status:** CORRECTED  
+**Audit Date:** 2026-02-02  
+**Auditor:** Automated Agent  
 **File:** `chapters/13_hardware_and_demos.tex`
 
-*(To be filled during audit)*
+#### Hardware File Path Verification
+
+| Claimed Path | Correct Path | Result |
+|--------------|--------------|--------|
+| thielecpu/hardware/mu\_core.v | thielecpu/hardware/rtl/mu\_core.v | **CORRECTED** |
+| thielecpu/hardware/generated\_opcodes.vh | thielecpu/hardware/rtl/generated\_opcodes.vh | **CORRECTED** |
+| thielecpu/hardware/mu\_alu.v | thielecpu/hardware/rtl/mu\_alu.v | **CORRECTED** |
+| thielecpu/hardware/state\_serializer.v | thielecpu/hardware/rtl/state\_serializer.v | **CORRECTED** |
+| thielecpu/hardware/thiele\_cpu\_tb.v | thielecpu/hardware/testbench/thiele\_cpu\_tb.v | **CORRECTED** |
+
+#### Documentation Reference Verification
+
+| Claimed Reference | Result | Correction |
+|-------------------|--------|------------|
+| docs/CANONICAL\_SERIALIZATION.md | **FALSE** | Changed to thielecpu/canonical\_encoding.py |
+
+#### Chapter 13 Issues Found
+
+1. **C13-001 (MEDIUM)**: Line 18: mu\_core.v path missing /rtl/ → **CORRECTED**
+2. **C13-002 (MEDIUM)**: Line 108: generated\_opcodes.vh path missing /rtl/ → **CORRECTED**
+3. **C13-003 (MEDIUM)**: Line 179: mu\_alu.v path missing /rtl/ → **CORRECTED**
+4. **C13-004 (MEDIUM)**: Line 259: state\_serializer.v path missing /rtl/ → **CORRECTED**
+5. **C13-005 (MEDIUM)**: Line 259: thiele\_cpu\_tb.v path missing /testbench/ → **CORRECTED**
+6. **C13-006 (MEDIUM)**: Lines 246/259: docs/CANONICAL\_SERIALIZATION.md does not exist → Changed to thielecpu/canonical\_encoding.py
+
+#### Chapter 13 Summary
+
+**Overall Assessment: CORRECTED ✓**
+
+- **Hardware module files**: All exist in thielecpu/hardware/rtl/ (not directly in /hardware/) ✓
+- **Testbench files**: All exist in thielecpu/hardware/testbench/ ✓
+- **Documentation**: CANONICAL\_SERIALIZATION.md does not exist; replaced with canonical\_encoding.py reference
+- **Five path corrections applied**: Added /rtl/ or /testbench/ subdirectory to file paths
+- **One documentation reference corrected**: Changed non-existent .md to existing .py
 
 ---
 
