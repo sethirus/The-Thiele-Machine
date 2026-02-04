@@ -352,52 +352,42 @@ A neural network predicts partitions (structure hypotheses). The Thiele kernel v
 
 \subsection{The Receipt Chain}
 
-Every Thiele Machine execution produces a cryptographic receipt chain:
+Every Thiele Machine execution produces a cryptographic receipt chain where continuity is enforced by linking the pre-state of step $N$ to the post-state of step $N-1$:
 \begin{lstlisting}
 receipt = {
-    "pre_state_hash": SHA256(state_before),
+    "step": N,
     "instruction": opcode,
+    "pre_state_hash": SHA256(state_before),
     "post_state_hash": SHA256(state_after),
     "mu_cost": cost,
-    "chain_link": SHA256(previous_receipt)
+    "signature": Ed25519(canonical_json(payload))
 }
 \end{lstlisting}
 
 \paragraph{Understanding Receipt Structure:}
 
-\textbf{What is this?} This is the \textbf{cryptographic receipt format} that the Thiele Machine generates for every instruction executed. It creates a tamper-evident audit trail analogous to blockchain transactions.
+\textbf{What is this?} This is the \textbf{cryptographic receipt format} that the Thiele Machine generates for every instruction executed. It creates a tamper-evident audit trail via state continuity.
 
 \textbf{Field-by-field breakdown:}
 \begin{itemize}
-    \item \textbf{"pre\_state\_hash": SHA256(state\_before)} — Hash of the VM state \textit{before} executing the instruction. Includes: $\mu$-ledger, partition graph, registers, memory. This is the cryptographic commitment to the starting state.
+    \item \textbf{"step": N} — Monotonically increasing step counter.
     
-    \item \textbf{"instruction": opcode} — The executed instruction (e.g., \texttt{PNEW \{0,1,2\}}, \texttt{PSPLIT 1 \{0\} \{1,2\}}, \texttt{XOR\_ADD r3, r1, r2}). This records \textit{what was done}.
+    \item \textbf{"instruction": opcode} — The executed instruction (e.g., \texttt{PNEW}, \texttt{PSPLIT}). Records \textit{what was done}.
     
-    \item \textbf{"post\_state\_hash": SHA256(state\_after)} — Hash of the VM state \textit{after} executing the instruction. This commits to the result.
+    \item \textbf{"pre\_state\_hash": SHA256(state\_before)} — Hash of the VM state \textit{before} this step. Must match the \texttt{post\_state\_hash} of the previous receipt.
     
-    \item \textbf{"mu\_cost": cost} — The $\mu$-ledger increment for this instruction. Example: \texttt{PNEW} charges $\mu = \log_2(|\text{region}|)$, \texttt{PSPLIT} charges based on partition reduction.
+    \item \textbf{"post\_state\_hash": SHA256(state\_after)} — Hash of the VM state \textit{after} the instruction. Commits to the result.
     
-    \item \textbf{"chain\_link": SHA256(previous\_receipt)} — \textbf{Merkle chain link}: this receipt's validity depends on the previous receipt. This creates chronological ordering and tamper-evidence. If any earlier receipt is modified, this hash breaks.
+    \item \textbf{"signature": Ed25519(...)} — Digital signature from the kernel's private key, authenticating the receipt.
 \end{itemize}
 
-\textbf{Why is this tamper-evident?} Suppose an adversary tries to modify receipt 5 in a 100-receipt chain:
+\textbf{Why is this tamper-evident?} The chain is verified by checking:
 \begin{enumerate}
-    \item Receipt 5's \texttt{post\_state\_hash} changes (because the adversary modified the instruction or cost).
-    \item Receipt 6's \texttt{pre\_state\_hash} must equal receipt 5's \texttt{post\_state\_hash}. Now they don't match---invalid!
-    \item Alternatively, receipt 6's \texttt{chain\_link} must equal \texttt{SHA256(receipt 5)}. The adversary would need to recompute this, breaking the hash chain.
-    \item To hide the modification, the adversary must recompute \textit{all} receipts 6--100. But the final receipt hash is published (e.g., in a paper or blockchain), so the adversary cannot forge the entire chain without detection.
+    \item \textbf{Signature validity:} Every receipt is signed by the kernel key.
+    \item \textbf{State continuity:} \texttt{receipt[i].pre\_state\_hash == receipt[i-1].post\_state\_hash}.
+    \item \textbf{$\mu$-integrity:} \texttt{post\_mu == pre\_mu + cost}.
 \end{enumerate}
-
-\textbf{Verification without re-execution:} A verifier can check a receipt chain \textit{without re-running the computation}:
-\begin{enumerate}
-    \item Check that \texttt{chain\_link[i+1] == SHA256(receipt[i])} for all $i$.
-    \item Check that \texttt{pre\_state\_hash[i+1] == post\_state\_hash[i]} (state continuity).
-    \item Check that the final \texttt{post\_state\_hash} matches the published hash.
-    \item Check that $\sum \texttt{mu\_cost} = \mu_{\text{final}} - \mu_{\text{initial}}$ (conservation).
-\end{enumerate}
-If all checks pass, the computation is valid. This is \textit{much faster} than re-executing (e.g., verifying a 1-hour computation might take 1 second).
-
-\textbf{Selective disclosure:} A researcher can publish receipts for \textit{specific steps} (e.g., ``Here is receipt 42, which shows we discovered partition $\{0,1,2\}$ and charged $\mu = 5$'') without revealing the entire trace. The hash chain ensures the disclosed receipt is part of the authentic sequence.
+Breaking the chain requires forging a signature or finding a SHA-256 collision.
 
 
 The Python implementation of this structure is in \path{thielecpu/receipts.py} and \path{thielecpu/crypto.py}, and the RTL contains a receipt controller in \path{thielecpu/hardware/rtl/crypto_receipt_controller.v}. The chain is therefore an engineered artifact with concrete hash formats, not an abstract promise.

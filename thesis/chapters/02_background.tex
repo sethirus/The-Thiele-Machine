@@ -320,7 +320,7 @@ For the Thiele Machine, the project enforces a strict methodology. No wiggle roo
 \begin{enumerate}
     \item \textbf{No \texttt{Admitted}}: Every lemma must be fully proven
     \item \textbf{No \texttt{admit} tactics}: No shortcuts inside proofs
-    \item \textbf{Documented \texttt{Axiom}}: External mathematical results (e.g., Tsirelson's theorem, Fine's theorem) are allowed when properly documented with INQUISITOR NOTE markers
+    \item \textbf{Documented \texttt{Axiom}}: External mathematical results (e.g., Tsirelson's theorem, Fine's theorem) are allowed when properly documented with INQUISITOR NOTE markers (currently 5 structural postulates)
 \end{enumerate}
 
 This is enforced by an automated checker that scans all proof files and blocks violations. If a theorem says ``Proven,'' it's actually proven.
@@ -381,6 +381,6 @@ The formal verification infrastructure (\S2.5) ensures all claims are machine-ch
 \begin{itemize}
     \item The \textit{blindness problem} motivates explicit structural accounting
     \item The $\mu$-cost is MDL-based and computable
-    \item The Tsirelson bound $2\sqrt{2}$ emerges as the boundary of the $\mu=0$ class
+    \item The classical bound ($S \le 2$) characterizes the $\mu=0$ class, while the Tsirelson bound ($2\sqrt{2}$) requires $\mu > 0$ investment
     \item All proofs satisfy the Inquisitor Standard---no admits, documented axioms only
 \end{itemize}

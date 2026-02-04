@@ -193,7 +193,12 @@ Qed.
     The set defined by the four minor constraints is exactly the convex hull
     of the 16 deterministic strategies. Since all vertices satisfy |S| ≤ 2
     (proved in deterministic_S_bound) and S is linear, the bound holds
-    everywhere in the polytope. *)
+    everywhere in the polytope.
+    
+    INQUISITOR NOTE: Fine's theorem (1982) is a fundamental result in quantum 
+    foundations. The full proof requires LP/convex optimization techniques.
+    Reference: Fine, A. "Hidden Variables, Joint Probability, and the Bell
+    Inequalities", Phys. Rev. Lett. 48 (1982) 291-295. *)
 Axiom Fine_theorem : forall E00 E01 E10 E11 s t,
   Rabs s <= 1 -> Rabs t <= 1 ->
   minor_3x3 s E00 E10 >= 0 ->

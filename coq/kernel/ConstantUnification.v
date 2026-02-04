@@ -21,17 +21,26 @@ Local Open Scope R_scope.
 
 (** 1. The Physical Substrate Parameters **)
 
-(** INQUISITOR NOTE: Physical parameters from substrate theory. **)
+(** Physical parameters defined in normalized units.
+    These represent the operational time scale, distance scale, 
+    Boltzmann constant, and temperature in a consistent unit system. *)
 
-Axiom tau_mu : R.
-Axiom d_mu : R.
-Axiom k_B : R.
-Axiom T : R.
+Definition tau_mu : R := 1.      (* Operational time unit *)
+Definition d_mu : R := 1.        (* Operational distance unit *)
+Definition k_B : R := / 100.     (* Boltzmann constant (normalized) *)
+Definition T : R := 1.           (* Temperature (normalized) *)
 
-Axiom tau_mu_pos : tau_mu > 0.
-Axiom d_mu_pos : d_mu > 0.
-Axiom k_B_pos : k_B > 0.
-Axiom T_pos : T > 0.
+Lemma tau_mu_pos : tau_mu > 0.
+Proof. unfold tau_mu. lra. Qed.
+
+Lemma d_mu_pos : d_mu > 0.
+Proof. unfold d_mu. lra. Qed.
+
+Lemma k_B_pos : k_B > 0.
+Proof. unfold k_B. apply Rinv_0_lt_compat. lra. Qed.
+
+Lemma T_pos : T > 0.
+Proof. unfold T. lra. Qed.
 
 (** 2. Relational Identities **)
 

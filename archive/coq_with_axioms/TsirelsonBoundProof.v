@@ -28,18 +28,42 @@ From Kernel Require Import SemidefiniteProgramming NPAMomentMatrix.
 
 (** * Tsirelson's Constant *)
 
-(** INQUISITOR NOTE: The following are standard mathematical constants and theorems
-    from real analysis. These represent the interface with Coq's real number library
-    and classical mathematics. They are well-established facts that cannot be
-    constructively proven within Coq's type theory. *)
+(** sqrt2 defined using Coq's standard library sqrt function *)
+Definition sqrt2 : R := sqrt 2.
 
-(** The exact value 2√2 ≈ 2.828427124746... *)
-(** We'll work with this symbolically and prove bounds *)
+(** Prove sqrt2 * sqrt2 = 2 using sqrt_sqrt from standard library *)
+Lemma sqrt2_squared : sqrt2 * sqrt2 = 2.
+Proof.
+  unfold sqrt2.
+  apply sqrt_sqrt.
+  lra.
+Qed.
 
-Axiom sqrt2 : R.
-Axiom sqrt2_squared : sqrt2 * sqrt2 = 2.
-Axiom sqrt2_positive : sqrt2 > 0.
-Axiom sqrt2_bounds : 1.4 < sqrt2 < 1.5.
+(** Prove sqrt2 > 0 using sqrt_lt_R0 from standard library *)
+Lemma sqrt2_positive : sqrt2 > 0.
+Proof.
+  unfold sqrt2.
+  apply sqrt_lt_R0.
+  lra.
+Qed.
+
+(** Prove bounds on sqrt2: 1.4 < sqrt2 < 1.5 *)
+(** We use the fact that 1.4^2 = 1.96 < 2 < 2.25 = 1.5^2 *)
+Lemma sqrt2_bounds : 1.4 < sqrt2 < 1.5.
+Proof.
+  unfold sqrt2.
+  split.
+  - (* 1.4 < sqrt 2 *)
+    (* 1.4 = sqrt(1.96) since 1.4 >= 0 and 1.4 * 1.4 = 1.96 *)
+    (* Then sqrt(1.96) < sqrt(2) because 1.96 < 2 *)
+    rewrite <- (sqrt_square 1.4) by lra.
+    apply sqrt_lt_1; lra.
+  - (* sqrt 2 < 1.5 *)
+    (* 1.5 = sqrt(2.25) since 1.5 >= 0 and 1.5 * 1.5 = 2.25 *)
+    (* Then sqrt(2) < sqrt(2.25) because 2 < 2.25 *)
+    rewrite <- (sqrt_square 1.5) by lra.
+    apply sqrt_lt_1; lra.
+Qed.
 
 Lemma sqrt2_nonzero : sqrt2 <> 0.
 Proof.
@@ -110,10 +134,36 @@ Definition optimal_npa : NPAMomentMatrix := {|
 Axiom optimal_is_quantum_realizable :
   quantum_realizable optimal_npa.
 
+(** The optimal strategy achieves exactly 2√2 - direct computation *)
+Lemma four_over_sqrt2_eq : 4 / sqrt2 = 2 * sqrt2.
+Proof.
+  assert (Hnz: sqrt2 <> 0) by exact sqrt2_nonzero.
+  assert (Hsq: sqrt2 * sqrt2 = 2) by exact sqrt2_squared.
+  apply (Rmult_eq_reg_r sqrt2).
+  - unfold Rdiv.
+    rewrite Rmult_assoc.
+    rewrite Rinv_l by exact Hnz.
+    rewrite Rmult_1_r.
+    rewrite Rmult_assoc.
+    rewrite Hsq.
+    ring.
+  - exact Hnz.
+Qed.
+
 (** The optimal strategy achieves exactly 2√2.
     Algebraic verification: S = 1/√2 + 1/√2 + 1/√2 - (-1/√2) = 4/√2 = 2√2 *)
-Axiom optimal_achieves_tsirelson :
+Lemma optimal_achieves_tsirelson :
   S_value (npa_to_chsh optimal_npa) = tsirelson_bound.
+Proof.
+  unfold S_value, npa_to_chsh, optimal_npa, tsirelson_bound.
+  unfold optimal_E00, optimal_E01, optimal_E10, optimal_E11.
+  unfold npa_E00, npa_E01, npa_E10, npa_E11.
+  simpl.  (* Simplify field accessors *)
+  assert (Hnz: sqrt2 <> 0) by exact sqrt2_nonzero.
+  (* Simplify LHS to 4/sqrt2, note: -1/sqrt2 parses as -(1)/sqrt2 = -1 * /sqrt2 *)
+  replace (1 / sqrt2 + 1 / sqrt2 + 1 / sqrt2 - -1 / sqrt2) with (4/sqrt2) by (field; exact Hnz).
+  exact four_over_sqrt2_eq.
+Qed.
 
 (** * Comparison with Classical Bound *)
 
@@ -131,13 +181,130 @@ Definition factorizable (npa : NPAMomentMatrix) : Prop :=
     npa.(npa_E10) = eA1 * eB0 /\
     npa.(npa_E11) = eA1 * eB1.
 
-(** INQUISITOR NOTE: Classical CHSH bound of 2 is a well-known result.
-    Full proof from Fine's theorem is in MinorConstraints.v. *)
+(** Bounded factorizable: factorization with explicit bounds on marginals.
+    This captures physical classical correlations where measurement outcomes are ±1. *)
+Definition bounded_factorizable (npa : NPAMomentMatrix) : Prop :=
+  exists (eA0 eA1 eB0 eB1 : R),
+    Rabs eA0 <= 1 /\ Rabs eA1 <= 1 /\ Rabs eB0 <= 1 /\ Rabs eB1 <= 1 /\
+    npa.(npa_EA0) = eA0 /\
+    npa.(npa_EA1) = eA1 /\
+    npa.(npa_EB0) = eB0 /\
+    npa.(npa_EB1) = eB1 /\
+    npa.(npa_E00) = eA0 * eB0 /\
+    npa.(npa_E01) = eA0 * eB1 /\
+    npa.(npa_E10) = eA1 * eB0 /\
+    npa.(npa_E11) = eA1 * eB1.
 
-(** Classical bound is 2 (already proven in MinorConstraints.v) *)
-Axiom classical_CHSH_bound : forall (npa : NPAMomentMatrix),
-  factorizable npa ->
+(** Helper lemma: convert |x| <= b to -b <= x <= b *)
+Lemma Rabs_le_split : forall x b : R, 0 <= b -> Rabs x <= b -> -b <= x /\ x <= b.
+Proof.
+  intros x b Hb H.
+  unfold Rabs in H.
+  destruct (Rcase_abs x).
+  - (* x < 0, so Rabs x = -x *)
+    split; lra.
+  - (* x >= 0, so Rabs x = x *)
+    split; lra.
+Qed.
+
+(** Helper lemma: |a + b| + |a - b| <= 2 when |a|, |b| <= 1 *)
+Lemma abs_sum_diff_eq_2max : forall a b : R,
+  Rabs a <= 1 -> Rabs b <= 1 ->
+  Rabs (a + b) + Rabs (a - b) <= 2.
+Proof.
+  intros a b Ha Hb.
+  (* Convert |a| <= 1 to -1 <= a <= 1 *)
+  assert (Ha': -1 <= a /\ a <= 1) by (apply Rabs_le_split; lra).
+  assert (Hb': -1 <= b /\ b <= 1) by (apply Rabs_le_split; lra).
+  destruct Ha' as [Ha_lower Ha_upper].
+  destruct Hb' as [Hb_lower Hb_upper].
+  (* Case analysis on signs *)
+  destruct (Rle_dec 0 (a + b)) as [Hpos_sum | Hneg_sum];
+  destruct (Rle_dec 0 (a - b)) as [Hpos_diff | Hneg_diff].
+  - (* a+b >= 0, a-b >= 0: a >= |b|, so a >= 0 and |a+b| + |a-b| = 2a *)
+    rewrite Rabs_right by lra.
+    rewrite Rabs_right by lra.
+    lra.
+  - (* a+b >= 0, a-b < 0: b > a, so |a+b| + |a-b| = (a+b) + (b-a) = 2b *)
+    rewrite Rabs_right by lra.
+    rewrite Rabs_left by lra.
+    lra.
+  - (* a+b < 0, a-b >= 0: -a > b, so |a+b| + |a-b| = -(a+b) + (a-b) = -2b *)
+    rewrite Rabs_left by lra.
+    rewrite Rabs_right by lra.
+    lra.
+  - (* a+b < 0, a-b < 0: a < -|b|, so a < 0 and |a+b| + |a-b| = -2a *)
+    rewrite Rabs_left by lra.
+    rewrite Rabs_left by lra.
+    lra.
+Qed.
+
+(** Classical CHSH bound: factorizable correlations satisfy |S| ≤ 2.
+
+    PROOF: For factorizable correlations E_xy = eAx * eBy with |eAx|, |eBy| ≤ 1:
+    S = E00 + E01 + E10 - E11
+      = eA0*eB0 + eA0*eB1 + eA1*eB0 - eA1*eB1
+      = eA0*(eB0 + eB1) + eA1*(eB0 - eB1)
+
+    By triangle inequality:
+    |S| ≤ |eA0|*|eB0 + eB1| + |eA1|*|eB0 - eB1|
+        ≤ |eB0 + eB1| + |eB0 - eB1|  (since |eAx| ≤ 1)
+        = 2 * max(|eB0|, |eB1|)
+        ≤ 2  (since |eBy| ≤ 1)
+
+    This is the classical bound, achievable by deterministic strategies. *)
+Lemma classical_CHSH_bound : forall (npa : NPAMomentMatrix),
+  bounded_factorizable npa ->
   Rabs (S_value (npa_to_chsh npa)) <= 2.
+Proof.
+  intros npa Hfact.
+  destruct Hfact as [eA0 [eA1 [eB0 [eB1 
+    [HbA0 [HbA1 [HbB0 [HbB1 [HeA0 [HeA1 [HeB0 [HeB1 
+    [HE00 [HE01 [HE10 HE11]]]]]]]]]]]]]]].
+  unfold S_value, npa_to_chsh. simpl.
+  rewrite HE00, HE01, HE10, HE11.
+  (* S = eA0*(eB0+eB1) + eA1*(eB0-eB1) *)
+  replace (eA0 * eB0 + eA0 * eB1 + eA1 * eB0 - eA1 * eB1)
+    with (eA0 * (eB0 + eB1) + eA1 * (eB0 - eB1)) by ring.
+  (* Triangle inequality *)
+  eapply Rle_trans.
+  apply Rabs_triang.
+  (* |eA0 * (eB0 + eB1)| + |eA1 * (eB0 - eB1)| *)
+  rewrite !Rabs_mult.
+  (* ≤ |eB0 + eB1| + |eB0 - eB1| since |eAx| ≤ 1 *)
+  assert (H1: Rabs eA0 * Rabs (eB0 + eB1) <= 1 * Rabs (eB0 + eB1)).
+  { apply Rmult_le_compat_r. apply Rabs_pos. exact HbA0. }
+  assert (H2: Rabs eA1 * Rabs (eB0 - eB1) <= 1 * Rabs (eB0 - eB1)).
+  { apply Rmult_le_compat_r. apply Rabs_pos. exact HbA1. }
+  rewrite !Rmult_1_l in H1, H2.
+  eapply Rle_trans.
+  apply Rplus_le_compat; [exact H1 | exact H2].
+  (* ≤ 2 by helper lemma *)
+  apply abs_sum_diff_eq_2max; assumption.
+Qed.
+
+(** For standard factorizable (without explicit bounds), the bound holds
+    when correlations come from a quantum realizable matrix. *)
+Lemma factorizable_with_normalized_marginals :
+  forall (npa : NPAMomentMatrix),
+    factorizable npa ->
+    Rabs (npa.(npa_EA0)) <= 1 ->
+    Rabs (npa.(npa_EA1)) <= 1 ->
+    Rabs (npa.(npa_EB0)) <= 1 ->
+    Rabs (npa.(npa_EB1)) <= 1 ->
+    Rabs (S_value (npa_to_chsh npa)) <= 2.
+Proof.
+  intros npa [eA0 [eA1 [eB0 [eB1 
+    [HeA0 [HeA1 [HeB0 [HeB1 [HE00 [HE01 [HE10 HE11]]]]]]]]]]].
+  intros HbA0 HbA1 HbB0 HbB1.
+  (* Rewrite bounds using the equalities *)
+  rewrite HeA0 in HbA0. rewrite HeA1 in HbA1.
+  rewrite HeB0 in HbB0. rewrite HeB1 in HbB1.
+  (* Apply the bounded factorizable lemma *)
+  apply classical_CHSH_bound.
+  exists eA0, eA1, eB0, eB1.
+  repeat split; assumption.
+Qed.
 
 (** Quantum bound strictly larger than classical.
     Since √2 > 1.4, we have 2√2 > 2.8 > 2. *)
