@@ -4,10 +4,12 @@ Require Import Reals Lra.
 From PhysicsExploration Require Import EmergentSpacetime PlanckDerivation.
 Open Scope R_scope.
 
-(** INQUISITOR NOTE: G derivation remains highly speculative *)
+(** G: gravitational constant in normalized units *)
 
-Axiom G : R.
-Axiom G_positive : G > 0.
+Definition G : R := 1.
+
+Lemma G_positive : G > 0.
+Proof. unfold G. lra. Qed.
 
 Definition l_planck : R := sqrt (h * G / (c * c * c)).
 

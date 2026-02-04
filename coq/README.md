@@ -26,13 +26,13 @@ make -j4
 
 | Directory | Files | Description |
 |-----------|-------|-------------|
-| `kernel/` | 54 | Core kernel proofs (Tsirelson, quantum foundations, bisimulation) |
+| `kernel/` | 54 | Core kernel proofs (Structural constraints, optimization bounds, bisimulation) |
 | `kernel_toe/` | 6 | Theory of Everything cone (no-go theorems) |
 | `thielemachine/` | 98 | Main Thiele Machine proofs (Bell, verification, deliverables) |
 | `thieleuniversal/` | 7 | Universal Turing Machine proofs |
 | `modular_proofs/` | 7 | Modular encoding and simulation proofs |
 | `physics/` | 5 | Physics models (Landauer bridge, wave/discrete) |
-| `bridge/` | 6 | Physics embeddings (BoxWorld, Quantum, Entropy) |
+| `bridge/` | 6 | Embeddings (BoxWorld, Linear Algebra, Entropy) |
 | `nofi/` | 5 | No-Free-Insight abstraction |
 | `catnet/` | 1 | Categorical network proofs |
 | `isomorphism/` | 1 | Universe isomorphism |
@@ -50,21 +50,21 @@ make -j4
 ### Core Results (in `kernel/`)
 
 1. **`local_box_CHSH_bound`** (MinorConstraints.v)
-   - The classical bound 2 proven for factorizable correlations (μ=0)
-   - Key insight: Minor constraints ⟺ Factorizable ⟺ Classical bound
-   - Proven: μ=0 (factorizable operations only) → CHSH ≤ 2 (classical bound)
-   - Note: Quantum bound (2√2) requires μ>0 operations (LJOIN, REVEAL, LASSERT)
+   - The factorizable bound 2 proven for correlations with no structural cost (μ=0)
+   - Key insight: Minor constraints ⟺ Factorizable ⟺ Unitary bound
+   - Proven: μ=0 (factorizable operations only) → CHSH ≤ 2
+   - Note: Algebraic bound (2√2) requires μ>0 operations (LJOIN, REVEAL, LASSERT)
 
 2. **`mu_is_initial_monotone`** (MuInitiality.v)
    - μ is THE unique canonical cost functional (Initiality Theorem)
    - Any instruction-consistent monotone cost starting at 0 must equal μ
 
 3. **`quantum_foundations_complete`** (QuantumEquivalence.v)
-   - QM = total μ=0 tier (derived, not assumed)
-   - Hierarchy: Classical ⊂ Quantum ⊂ Supra-quantum = cost tiers
+   - Coherent Correlations = cost-free execution tier (derived, not assumed)
+   - Hierarchy: Factorizable ⊂ Coherent ⊂ Structural = cost tiers
 
 4. **`non_circularity_verified`** (NonCircularityAudit.v)
-   - Defense against "smuggled quantum structure" attack
+   - Defense against "smuggled constraint" attack
    - 2√2 appears only as derived optimum, not encoded constraint
 
 ### Verification Chain

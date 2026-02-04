@@ -41,24 +41,32 @@ Qed.
 
 (** ** Framework Revision (January 2026): Classical vs Quantum Distinction *)
 
-(** INQUISITOR NOTE: The following axiom states the classical bound for μ=0
-    traces. Full proof in MinorConstraints.v via factorizability analysis. *)
-
 (** CORRECTED UNDERSTANDING:
-    - μ=0 operations give classical bound: CHSH ≤ 2
-    - Quantum Tsirelson bound (2√2) requires μ>0 operations
+    - μ=0 operations alone do NOT give classical bound!
+    - The algebraic_max_trace in TsirelsonUpperBound.v shows μ=0 can achieve S=4
+    - μ=0 programs can use CHSH_TRIAL to record arbitrary values
+    
+    CRITICAL DISTINCTION:
+    - μ=0 programs: algebraic bound S ≤ 4 (proven in TsirelsonUpperBound.v)
+    - PHYSICALLY REALIZABLE μ=0 correlations: classical bound S ≤ 2
+      (requires factorizability constraint on the recorded values)
+    - Quantum correlations (μ>0): Tsirelson bound S ≤ 2√2
 
-    The original theorem below was incorrect. μ=0 traces can exceed
-    the algebraic bound (4) but CANNOT exceed the Tsirelson bound (2√2).
-    In fact, μ=0 traces are limited to the classical bound (2 < 2√2).
+    The key insight is that CHSH_TRIAL records values without verifying
+    physical realizability. The classical bound applies only when the
+    correlations satisfy factorizability constraints.
 
-    See MU_COST_REVISION.md for complete analysis. *)
+    See MU_COST_REVISION.md for complete framework revision. *)
 
-(** Classical bound for μ=0 (proven in MinorConstraints.v) *)
-Axiom mu_zero_classical_bound :
-  forall fuel trace s_init,
-    mu_zero_program fuel trace ->
-    Qabs (chsh_from_vm_trace fuel trace s_init) <= 2.
+(** REMOVED: The following axiom was FALSE (contradicted by mu_zero_trace_exceeds_classical)
+    
+    Axiom mu_zero_classical_bound :
+      forall fuel trace s_init,
+        mu_zero_program fuel trace ->
+        Qabs (chsh_from_vm_trace fuel trace s_init) <= 2.
+    
+    COUNTEREXAMPLE: algebraic_max_trace achieves S = 4 with μ = 0
+*)
 
 (** ** The Correct Theorem: Coherence is What Bounds Correlations *)
 

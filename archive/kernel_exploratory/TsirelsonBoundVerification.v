@@ -72,15 +72,87 @@ Qed.
         = -1 < 0
 *)
 
-(** INQUISITOR NOTE: Negative minor verification for verification strategy. *)
-Axiom test_config_111_minor3_negative_axiom :
-  let M := zero_marginal_matrix 1 1 1 0 in
-  minor3_topleft M < 0.
-
+(** The 3×3 minor is negative - computed directly *)
 Lemma test_config_111_minor3_negative :
   let M := zero_marginal_matrix 1 1 1 0 in
   minor3_topleft M < 0.
-Proof. apply test_config_111_minor3_negative_axiom. Qed.
+Proof.
+  unfold minor3_topleft, det2, det3_matrix.
+  unfold zero_marginal_matrix, npa_to_matrix, test_config_111, zero_marginal_npa.
+  simpl.
+  (* The 3×3 minor from rows/cols 0,1,2 of the 5×5 matrix.
+     For zero marginals, the top-left 3×3 is:
+     [ 1  0  0 ]
+     [ 0  1  0 ]
+     [ 0  0  1 ]
+     Wait - that's identity. Let me re-check the matrix structure... *)
+  (* Actually minor3_topleft computes: M[0,0]*(M[1,1]*M[2,2] - M[1,2]*M[2,1]) - ... *)
+  (* The zero_marginal_matrix is:
+     [ 1  ea0 ea1 eb0 eb1 ]
+     [ ea0 1  rhoAA e00 e01 ]
+     [ ea1 rhoAA 1 e10 e11 ]
+     [ eb0 e00 e10 1  rhoBB ]
+     [ eb1 e01 e11 rhoBB 1 ]
+     With ea0=ea1=eb0=eb1=rhoAA=rhoBB=0, e00=e01=e10=1, e11=0:
+     [ 1  0  0  0  0 ]
+     [ 0  1  0  1  1 ]
+     [ 0  0  1  1  0 ]
+     [ 0  1  1  1  0 ]
+     [ 0  1  0  0  1 ]
+
+     minor3_topleft takes the 3x3 top-left:
+     [ 1  0  0 ]
+     [ 0  1  0 ]
+     [ 0  0  1 ]
+     det = 1, not negative! So the axiom may be wrong about which minor...
+     
+     The ACTUAL negative minor is rows/cols {1,2,3} (not 0,1,2):
+     [ 1  0  1 ]
+     [ 0  1  1 ]
+     [ 1  1  1 ]
+     det = 1*(1-1) - 0*(0-1) + 1*(0-1) = 0 + 0 - 1 = -1 < 0
+     
+     But minor3_topleft uses indices 0,1,2 which gives identity.
+     The negative minor is at indices 1,2,3. *)
+  (* Given the definition of minor3_topleft using indices 0,1,2, this is:
+     det([[1,0,0],[0,1,0],[0,0,1]]) = 1 > 0, NOT < 0!
+     
+     The axiom statement is wrong for minor3_topleft.
+     The actual issue is with a DIFFERENT 3×3 minor.
+     Let me adjust the approach - prove the correct statement. *)
+Abort.
+
+(** Actually, the relevant negative minor is NOT the top-left one.
+    Let's define and prove the correct 3×3 minor is negative. *)
+
+(** 3×3 principal minor using rows/cols 1,2,3 of the 5×5 matrix *)
+Definition minor3_inner {n : nat} (M : Matrix n) : R :=
+  det3_matrix (fun i j =>
+    match i, j with
+    | 0, 0 => M 1%nat 1%nat | 0, 1 => M 1%nat 2%nat | 0, 2 => M 1%nat 3%nat
+    | 1, 0 => M 2%nat 1%nat | 1, 1 => M 2%nat 2%nat | 1, 2 => M 2%nat 3%nat
+    | 2, 0 => M 3%nat 1%nat | 2, 1 => M 3%nat 2%nat | 2, 2 => M 3%nat 3%nat
+    | _, _ => 0
+    end).
+
+(** The ACTUAL negative minor is minor3_inner *)
+Lemma test_config_111_minor3_inner_negative :
+  let M := zero_marginal_matrix 1 1 1 0 in
+  minor3_inner M < 0.
+Proof.
+  unfold minor3_inner, det3_matrix.
+  unfold zero_marginal_matrix, npa_to_matrix, zero_marginal_npa.
+  simpl.
+  (* The 3×3 submatrix from rows/cols {1,2,3} is:
+     [ 1  0  1 ]     (row 1, cols 1,2,3)
+     [ 0  1  1 ]     (row 2, cols 1,2,3)
+     [ 1  1  1 ]     (row 3, cols 1,2,3)
+
+     det = 1*(1*1 - 1*1) - 0*(0*1 - 1*1) + 1*(0*1 - 1*1)
+         = 1*0 - 0*(-1) + 1*(-1)
+         = 0 + 0 - 1 = -1 < 0 *)
+  lra.
+Qed.
 
 (** * Systematic Approach: Explicit 4×4 Minor Check *)
 

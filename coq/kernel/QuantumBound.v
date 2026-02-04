@@ -145,12 +145,13 @@
 
     ========================================================================= *)
 
-From Coq Require Import List Bool.
+From Coq Require Import List Bool Lia.
 Import ListNotations.
 
 Require Import VMState.
 Require Import VMStep.
 Require Import RevelationRequirement.
+Require Import SimulationProof.
 
 Import RevelationProof.
 
@@ -181,36 +182,116 @@ Definition quantum_admissible (trace : list vm_instruction) : Prop :=
 Definition has_supra_cert (s : VMState) : Prop :=
   s.(vm_csrs).(csr_cert_addr) <> 0%nat.
 
-(** ** Main Integration Theorem *)
+(** ** Helper Lemmas for Certification Preservation *)
 
-(** AXIOM: Quantum admissible traces cannot set certification.
+(** A single instruction is NOT a cert-setter *)
+Definition is_not_cert_setter (instr : vm_instruction) : Prop :=
+  match instr with
+  | instr_reveal _ _ _ _ => False
+  | instr_emit _ _ _ => False
+  | instr_ljoin _ _ _ => False
+  | instr_lassert _ _ _ _ => False
+  | _ => True
+  end.
 
-    This axiom encodes the key boundary: if a trace uses only quantum-admissible
-    operations (no REVEAL/EMIT/LJOIN/LASSERT), then it cannot produce a
-    certification marker (cert_addr ≠ 0).
+(** csr_set_err preserves cert_addr *)
+Lemma csr_set_err_preserves_cert_addr : forall csrs err,
+  (csr_set_err csrs err).(csr_cert_addr) = csrs.(csr_cert_addr).
+Proof.
+  intros csrs err. unfold csr_set_err. simpl. reflexivity.
+Qed.
 
-    JUSTIFICATION: This is a semantic property of the VM step relation.
-    Only the four cert-setting instructions modify cert_addr. By definition,
-    quantum_admissible traces exclude these instructions.
+(** csr_set_status preserves cert_addr *)
+Lemma csr_set_status_preserves_cert_addr : forall csrs status,
+  (csr_set_status csrs status).(csr_cert_addr) = csrs.(csr_cert_addr).
+Proof.
+  intros csrs status. unfold csr_set_status. simpl. reflexivity.
+Qed.
 
-    INQUISITOR NOTE: This axiom states a soundness property of quantum
-    admissible traces - they cannot produce supra-quantum certifications.
-    Full proof requires complete VM step relation formalization.
+(** advance_state with unchanged csrs preserves cert_addr *)
+Lemma advance_state_cert_addr : forall s instr graph csrs err,
+  (advance_state s instr graph csrs err).(vm_csrs).(csr_cert_addr) = 
+  csrs.(csr_cert_addr).
+Proof.
+  intros. unfold advance_state. simpl. reflexivity.
+Qed.
 
-    FUTURE: This should be proven from the VM step relation, not axiomatized.
-    The proof would proceed by induction on trace execution, showing that
-    cert_addr remains 0 when no cert-setting instructions execute.
+(** advance_state_rm with unchanged csrs preserves cert_addr *)
+Lemma advance_state_rm_cert_addr : forall s instr graph csrs regs mem err,
+  (advance_state_rm s instr graph csrs regs mem err).(vm_csrs).(csr_cert_addr) = 
+  csrs.(csr_cert_addr).
+Proof.
+  intros. unfold advance_state_rm. simpl. reflexivity.
+Qed.
 
-    REFERENCE: Used in Certification.v theorems:
-    - quantum_admissible_cannot_certify_supra_chsh
-    - quantum_admissible_cannot_certify_chsh_claim *)
+(** If an instruction is not a cert-setter, vm_apply preserves cert_addr *)
+Lemma vm_apply_preserves_cert_addr : forall s instr,
+  is_not_cert_setter instr ->
+  (vm_apply s instr).(vm_csrs).(csr_cert_addr) = s.(vm_csrs).(csr_cert_addr).
+Proof.
+  intros s instr Hnot.
+  destruct instr; simpl in *; try contradiction;
+    (* Instructions that use advance_state with s.(vm_csrs) or error variants *)
+    repeat match goal with
+           | |- context[match ?x with _ => _ end] => destruct x; simpl
+           | |- (advance_state _ _ _ ?csrs _).(vm_csrs).(csr_cert_addr) = _ =>
+               rewrite advance_state_cert_addr
+           | |- (advance_state_rm _ _ _ ?csrs _ _ _).(vm_csrs).(csr_cert_addr) = _ =>
+               rewrite advance_state_rm_cert_addr
+           end;
+    (* Now we have csrs either s.(vm_csrs) or csr_set_err/csr_set_status *)
+    try reflexivity;
+    try (rewrite csr_set_err_preserves_cert_addr; reflexivity).
+Qed.
 
-Axiom quantum_admissible_implies_no_supra_cert :
+(** quantum_admissible means all instructions are not cert-setters *)
+Lemma quantum_admissible_all_not_cert_setters : forall trace instr,
+  quantum_admissible trace ->
+  In instr trace ->
+  is_not_cert_setter instr.
+Proof.
+  intros trace instr Hqa Hin.
+  unfold quantum_admissible in Hqa.
+  specialize (Hqa instr Hin).
+  destruct instr; simpl in *; auto.
+Qed.
+
+(** ** Main Theorem: Quantum admissible traces preserve cert_addr = 0 *)
+
+Lemma quantum_admissible_implies_no_supra_cert :
   forall (trace : list vm_instruction) (s_init s_final : VMState) (fuel : nat),
     s_init.(vm_csrs).(csr_cert_addr) = 0%nat ->
     quantum_admissible trace ->
     trace_run fuel trace s_init = Some s_final ->
     ~ has_supra_cert s_final.
+Proof.
+  intros trace s_init s_final fuel Hinit Hqa Hrun.
+  unfold has_supra_cert.
+  (* Prove by induction on fuel that cert_addr is preserved *)
+  revert s_init s_final Hinit Hrun.
+  induction fuel as [|fuel' IH]; intros s_init s_final Hinit Hrun.
+  - (* fuel = 0: s_final = s_init *)
+    simpl in Hrun. inversion Hrun. subst. lia.
+  - (* fuel = S fuel' *)
+    simpl in Hrun.
+    destruct (nth_error trace (vm_pc s_init)) as [instr|] eqn:Hnth.
+    + (* There is an instruction *)
+      (* The instruction is in the trace, so it's not a cert-setter *)
+      assert (Hin: In instr trace).
+      { apply nth_error_In with (vm_pc s_init). exact Hnth. }
+      assert (Hnot: is_not_cert_setter instr).
+      { apply quantum_admissible_all_not_cert_setters with trace; auto. }
+      (* vm_apply preserves cert_addr *)
+      assert (Hpres: (vm_apply s_init instr).(vm_csrs).(csr_cert_addr) = 
+                     s_init.(vm_csrs).(csr_cert_addr)).
+      { apply vm_apply_preserves_cert_addr. exact Hnot. }
+      (* Apply IH *)
+      apply IH with (vm_apply s_init instr).
+      * rewrite Hpres. exact Hinit.
+      * exact Hrun.
+    + (* No instruction at PC: returns s_init unchanged *)
+      inversion Hrun. subst. lia.
+Qed.
 
 (** =========================================================================
     END TEMPORARY DEFINITIONS

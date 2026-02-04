@@ -87,45 +87,54 @@ function [31:0] compute_instruction_cost;
             OPCODE_PNEW: begin
                 // Cost = size of region being created (in bits)
                 // operand contains region size
-                compute_instruction_cost = operand;
+                compute_instruction_cost = {24'h0, operand[7:0]}; 
             end
             
             OPCODE_PSPLIT: begin
                 // Cost = log2(partition size) - structural cost of split
-                compute_instruction_cost = operand; // Simplified: use operand as cost
+                compute_instruction_cost = {24'h0, operand[7:0]};
             end
             
             OPCODE_PMERGE: begin
                 // Cost = cost of merging two partitions
-                compute_instruction_cost = operand;
+                compute_instruction_cost = {24'h0, operand[7:0]};
             end
             
             OPCODE_LASSERT: begin
                 // Cost = certification cost
-                compute_instruction_cost = operand;
+                compute_instruction_cost = {24'h0, operand[7:0]};
             end
             
             OPCODE_LJOIN: begin
                 // Cost = join certification cost
-                compute_instruction_cost = operand;
+                compute_instruction_cost = {24'h0, operand[7:0]};
             end
             
             OPCODE_MDLACC: begin
                 // Cost = MDL accumulation cost
-                compute_instruction_cost = operand;
+                // NOTE: This actually depends on dynamic state which isn't available here.
+                // For simulation purposes, we match the static base cost.
+                compute_instruction_cost = {24'h0, operand[7:0]};
             end
             
             OPCODE_PDISCOVER: begin
                 // Cost = discovery cost (evidence size)
-                compute_instruction_cost = operand;
+                 compute_instruction_cost = {24'h0, operand[7:0]};
             end
             
             OPCODE_XFER, OPCODE_PYEXEC, OPCODE_CHSH_TRIAL,
             OPCODE_XOR_LOAD, OPCODE_XOR_ADD, OPCODE_XOR_SWAP, OPCODE_XOR_RANK,
-            OPCODE_EMIT, OPCODE_REVEAL, OPCODE_ORACLE_HALTS: begin
-                // All other operations use operand as cost
-                compute_instruction_cost = operand;
+            OPCODE_EMIT, OPCODE_ORACLE_HALTS: begin
+                // All other operations use operand[7:0] as cost
+                compute_instruction_cost = {24'h0, operand[7:0]};
             end
+
+            OPCODE_REVEAL: begin
+                // Cost = (operand_a << 8) + cost
+                // operand_a is operand[23:16]
+                compute_instruction_cost = {16'h0, operand[23:16], 8'h0} + {24'h0, operand[7:0]};
+            end
+
             
             OPCODE_HALT: begin
                 // HALT has zero cost

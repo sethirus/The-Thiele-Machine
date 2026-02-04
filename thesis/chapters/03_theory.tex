@@ -1337,7 +1337,7 @@ Definition strictly_stronger {A : Type} (P1 P2 : ReceiptPredicate A) : Prop :=
 This is the heart of the work.
 
 \begin{theorem}[No Free Insight]
-\textbf{Proven in Coq (StateSpaceCounting.v):}
+\textbf{Proven in Coq (NoFreeInsight.v):}
 If:
 \begin{enumerate}
     \item The system satisfies axioms A1-A4 (non-forgeable receipts, monotone $\mu$, locality, underdetermination)
@@ -1347,7 +1347,7 @@ If:
 Then:
 \begin{enumerate}
     \item \textbf{Qualitative:} The trace contains a structure-addition event charging $\mu > 0$
-    \item \textbf{Quantitative:} For any LASSERT adding formula $\phi$: $\Delta\mu \ge |\phi|_{\text{bits}}$
+    \item \textbf{Quantitative (proven in StateSpaceCounting.v):} For any LASSERT adding formula $\phi$: $\Delta\mu \ge |\phi|_{\text{bits}}$
     \item \textbf{Semantic enforcement (VM):} The Python VM computes $\text{before} = 2^{n}$ (all assignments) and uses conservative $\text{after} = 1$ (avoids \#P-complete model counting), then charges:
     \[
     \Delta\mu = |\phi|_{\text{bits}} + n = |\phi|_{\text{bits}} + \log_2(2^n)
@@ -1776,7 +1776,7 @@ Total: 1,192 lines of machine-verified proofs establishing that quantum axioms e
 
 \textbf{Final arrow:} Points to Tsirelson bound derivation (next chapter)
 
-\textbf{Key insight:} This chapter builds the formal foundation. The model's two key properties ($\mu$-monotonicity + locality) combine to prove No Free Insight. Note: the algebraic bound ($S \le 4$) is proven if computational cost $\mu_{\text{inst}} = 0$; reaching the Tsirelson bound ($2.8284...$) requires \emph{Total $\mu$-Accounting} ($\mu_{\text{inst}} + \mu_{\text{corr}} = 0$), where the correlation cost $\mu_{\text{corr}}$ enforces algebraic coherence (see \texttt{TsirelsonUniqueness.v}).
+\textbf{Key insight:} This chapter builds the formal foundation. The model's two key properties ($\mu$-monotonicity + locality) combine to prove No Free Insight. Note: the algebraic bound ($S \le 4$) applies to unconstrained computation where $\mu_{\text{inst}} = 0$; the classical bound ($S \le 2$) characterizes true zero-cost correlations; the Tsirelson bound ($2.8284...$) requires operational investment ($\mu_{\text{inst}} > 0$) while maintaining algebraic coherence ($\mu_{\text{corr}} = 0$).
 
 This chapter defined the Thiele Machine as a formal 5-tuple $T = (S, \Pi, A, R, L)$ with these key results:
 

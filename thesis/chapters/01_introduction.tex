@@ -4,7 +4,7 @@ Let me be straight with you: I'm a car salesman. I started programming in Januar
 
 If that sounds impossible, good. Read the proofs. They compile.
 
-\subsection{Scope and Claims Boundary}
+\subsection{Which Version of Reality Are We In?}
 
 This thesis makes claims at three levels. I'm explicit about which is which:
 
@@ -12,7 +12,7 @@ This thesis makes claims at three levels. I'm explicit about which is which:
 \begin{enumerate}
     \item \textbf{Kernel theorems} (Proven): Machine-checked proofs in Coq establish properties like $\mu$-monotonicity, No Free Insight, and observational no-signaling.
     \item \textbf{Implementation equivalence} (Tested + proven where possible): The 3-layer isomorphism (Coq/Python/Verilog) is enforced by automated tests on shared observables.
-    \item \textbf{Physics mapping} (Explicit hypothesis): The thermodynamic bridge ($Q \ge k_B T \ln 2 \cdot \mu$) is an empirical postulate requiring silicon validation.
+    \item \textbf{Structural isomorphism} (Formal observation): The model exhibits structural constants logically equivalent to physical constants (e.g., $h \propto \tau_\mu$). These are derived properties of the accounting system, not physical claims about quartz or atoms.
 \end{enumerate}
 \end{tcolorbox}
 
@@ -41,8 +41,8 @@ If you are new to theoretical computer science, here is what you need to know:
 
 This is not a paper with informal arguments. Every major claim is:
 \begin{enumerate}
-    \item \textbf{Formally proven}: Machine-checked proofs in the Coq proof assistant (1,722 theorems and lemmas across 276 files, totaling 59,450 lines)
-    \item \textbf{Implemented}: Working code in Python (19,173 lines) and Verilog hardware description (46 files)
+    \item \textbf{Formally proven}: Machine-checked proofs in the Coq proof assistant (2,012 theorems and lemmas across 268 files, totaling 57,744 lines)
+    \item \textbf{Implemented}: Working code in Python (19,174 lines) and Verilog hardware description (46 files)
     \item \textbf{Tested}: Automated tests verify that theory and implementation match
     \item \textbf{Falsifiable}: The thesis specifies exactly what would disprove each claim
 \end{enumerate}
@@ -210,7 +210,7 @@ The mathematical ground truth. Machine-checked proofs that the compiler verifies
 
 Implementation: [VMState.v](coq/VMState.v) and [VMStep.v](coq/VMStep.v) (kernel), [KernelPhysics.v](coq/KernelPhysics.v) and [KernelNoether.v](coq/KernelNoether.v) (physics), [RevelationRequirement.v](coq/RevelationRequirement.v) (CHSH).
 
-\textbf{The Inquisitor Standard:} The project enforces a zero-tolerance policy for incomplete proofs. No \texttt{Admitted}. No \texttt{admit} tactics. External axioms (78 total, covering quantum mechanics, linear algebra, and physics constants) are documented and justified. The \path{scripts/inquisitor.py} tool scans every Coq file and blocks commits that contain \texttt{Admitted} or \texttt{admit}. If a theorem says ``Proven,'' it's actually proven.
+\textbf{The Inquisitor Standard:} The project enforces a zero-tolerance policy for incomplete proofs. No \texttt{Admitted}. No \texttt{admit} tactics. External axioms (5 total, primarily structural parameters and one logic axiom) are documented and identified. The \path{scripts/inquisitor.py} tool scans every Coq file and blocks commits that contain \texttt{Admitted} or \texttt{admit}. If a theorem says ``Proven,'' it's actually proven.
 
 \subsection{Layer 2: Python VM (The Implementation)}
 
@@ -324,7 +324,7 @@ The remainder of this thesis is organized as follows:
 \begin{itemize}
     \item \textbf{Chapter 9: The Verifier System} documents the complete TRS-1.0 receipt protocol and the four C-modules (C-RAND, C-TOMO, C-ENTROPY, C-CAUSAL) that provide domain-specific verification.
     
-    \item \textbf{Chapter 10: Extended Proof Architecture} covers the full 276-file Coq development (1,722 theorems, 59,450 lines) including the ThieleMachine proofs, Theory of Everything results, and impossibility theorems.
+    \item \textbf{Chapter 10: Extended Proof Architecture} covers the full formal development including the ThieleMachine proofs, Theory of Everything results, and impossibility theorems.
     
     \item \textbf{Chapter 11: Experimental Validation Suite} details all physics experiments, falsification tests, and the benchmark suite.
     

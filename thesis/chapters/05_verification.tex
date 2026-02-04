@@ -91,10 +91,10 @@ The Thiele Machine uses an unusually strict standard:
 This standard is enforced automatically. Any commit introducing an admit fails CI.
 
 \begin{quote}
-\textit{Author's Note (Devon): The zero-admit thing---I'm not going to lie, it nearly broke me. We hit a wall on \path{ProperSubsumption.v} where the cost transfer logic was so tangled that \texttt{lia} just gave up. I reached for the ``Admitted'' button more times than I can count. But if I admit something here, I'm basically saying ``trust me, the accounting is correct.'' And in this machine, we don't do trust. I spent forty-eight hours writing \texttt{thiele\_run\_mu\_bound} by hand, induction by induction, until \texttt{nia} could finally close the loop. 276 files later, the Inquisitor reports zero high findings. Zero shortcuts. The machine is screaming clean.}
+\textit{Author's Note (Devon): The zero-admit thing---I'm not going to lie, it nearly broke me. We hit a wall on \path{ProperSubsumption.v} where the cost transfer logic was so tangled that \texttt{lia} just gave up. I reached for the ``Admitted'' button more times than I can count. But if I admit something here, I'm basically saying ``trust me, the accounting is correct.'' And in this machine, we don't do trust. I spent forty-eight hours writing \texttt{thiele\_run\_mu\_bound} by hand, induction by induction, until \texttt{nia} could finally close the loop. 274 files later, the Inquisitor reports zero high findings. Zero shortcuts. The machine is screaming clean.}
 \end{quote} This matters because it guarantees every theorem in the active proof tree is fully discharged.
 
-\textbf{Inquisitor Quality Assessment:} The enforcement mechanism is \path{scripts/inquisitor.py}, which scans all 275 Coq files across 25+ rule categories. The current status is \textbf{HIGH: 0, MEDIUM: 28, LOW: 106} with:
+\textbf{Inquisitor Quality Assessment:} The enforcement mechanism is \path{scripts/inquisitor.py}, which scans all 274 Coq files across 25+ rule categories. The current status is \textbf{HIGH: 0, MEDIUM: 28, LOW: 68} with:
 \begin{itemize}
     \item \textbf{0 HIGH priority issues}: No global \texttt{Axiom}/\texttt{Parameter} declarations, no \texttt{Admitted} proofs, no \texttt{admit} tactics.
     \item \textbf{0 global axioms}: All assumptions are explicit \texttt{Context} parameters within labeled \texttt{Section} blocks, ensuring no leakage into the global namespace.
@@ -118,7 +118,7 @@ The key theorems proven in Coq are:
 
 \textbf{Bell Inequality Foundation:} Theorems 1 and 2 establish the mathematical foundation for all Bell-type inequalities using pure probability theory. Both are proven from first principles with \textit{zero axioms} beyond Coq's standard library, verified via \texttt{Print Assumptions normalized\_E\_bound} and \texttt{Print Assumptions valid\_box\_S\_le\_4} (both return ``Closed under the global context''). These proofs establish that the algebraic ceiling for CHSH correlations is 4---any theory (classical, quantum, or hypothetical supra-quantum) cannot exceed this bound without violating basic probability.
 
-Each of these theorems has a concrete home in the Coq tree: Bell bounds are in \path{Tier1Proofs.v}, observational no-signaling is developed in files such as \path{ObserverDerivation.v}, $\mu$-conservation is proven in \path{MuLedgerConservation.v}, and No Free Insight appears in \path{NoFreeInsight.v} and \path{MuNoFreeInsightQuantitative.v}. The names matter because they pin the prose to specific proof artifacts a reader can inspect.
+Each of these theorems has a concrete home in the Coq tree: Bell bounds are in \path{Tier1Proofs.v}, observational no-signaling is proven in \path{KernelPhysics.v}, $\mu$-conservation is proven in \path{KernelPhysics.v} and \path{MuLedgerConservation.v}, and No Free Insight appears in \path{NoFreeInsight.v} and \path{MuNoFreeInsightQuantitative.v}. The names matter because they pin the prose to specific proof artifacts a reader can inspect.
 
 \subsection{Quantum Axioms from $\mu$-Accounting}
 
@@ -305,7 +305,7 @@ Definition well_formed_graph (g : PartitionGraph) : Prop :=
     \item \textbf{Definition well\_formed\_graph} — Declares a predicate (a boolean-valued function) named \texttt{well\_formed\_graph}.
     \item \textbf{(g : PartitionGraph)} — Takes a PartitionGraph as input.
     \item \textbf{: Prop} — Returns a \textit{proposition} (a logical statement that can be true or false). In Coq, \texttt{Prop} is the type of provable claims.
-    \item \textbf{all\_ids\_below g.(pg\_modules) g.(pg\_next\_id)} — Checks that every module in \texttt{pg\_modules} has an ID below \texttt{pg\_next\_id}. The helper predicate \texttt{all\_ids\_below} is defined elsewhere (likely in \path{coq/kernel/PartitionGraph.v}).
+    \item \textbf{all\_ids\_below g.(pg\_modules) g.(pg\_next\_id)} — Checks that every module in \texttt{pg\_modules} has an ID below \texttt{pg\_next\_id}. The helper predicate \texttt{all\_ids\_below} is defined elsewhere (in \path{coq/kernel/VMState.v}).
 \end{itemize}
 
 \textbf{What does ``all IDs below'' mean?} The PartitionGraph maintains a monotonic counter \texttt{pg\_next\_id} that increments each time a module is created. Every module is assigned an ID from this counter, so IDs form a dense sequence $0, 1, 2, \dots$. Well-formedness requires that no module has an ID $\geq$ \texttt{pg\_next\_id}, which would indicate a corrupted or uninitialized module.

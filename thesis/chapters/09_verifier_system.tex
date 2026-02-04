@@ -51,13 +51,21 @@ All verification is receipt-defined through the TRS-1.0 (Thiele Receipt Standard
 \begin{lstlisting}
 {
     "version": "TRS-1.0",
-    "timestamp": "2025-12-17T00:00:00Z",
-    "manifest": {
-        "claim.json": "sha256:...",
-        "samples.csv": "sha256:...",
-        "disclosure.json": "sha256:..."
-    },
-    "signature": "ed25519:..."
+    "files": [
+        {
+            "path": "claim.json",
+            "sha256": "..."
+        },
+        {
+            "path": "samples.csv",
+            "sha256": "..."
+        }
+    ],
+    "global_digest": "...",
+    "sig_scheme": "ed25519",
+    "signature": "...",
+    "public_key": "...",
+    "key_id": "..."
 }
 \end{lstlisting}
 
@@ -67,34 +75,32 @@ All verification is receipt-defined through the TRS-1.0 (Thiele Receipt Standard
 
 \textbf{Field-by-field breakdown:}
 \begin{itemize}
-    \item \textbf{"version": "TRS-1.0"} — Protocol version identifier. Ensures parsers know which schema to use. Future versions (TRS-2.0, etc.) can introduce new fields without breaking old verifiers.
+    \item \textbf{"version": "TRS-1.0"} — Protocol version identifier. Ensures parsers know which schema to use.
     
-    \item \textbf{"timestamp": "2025-12-17T00:00:00Z"} — ISO-8601 timestamp of when the receipt was generated. Provides chronological ordering and prevents replay attacks (using old receipts to fake new results).
-    
-    \item \textbf{"manifest": \{...\}} — The \textbf{content-addressed manifest}. Each artifact (claim file, dataset, disclosure certificate) is identified by its SHA-256 hash:
+    \item \textbf{"files": [...]} — The \textbf{manifest} of artifacts. Each entry contains:
     \begin{itemize}
-        \item \textbf{"claim.json": "sha256:..."} — The scientific claim being certified (e.g., ``this algorithm produces random bits with $H_{\min} = 0.95$''). The hash ensures the claim cannot be retroactively changed.
-        \item \textbf{"samples.csv": "sha256:..."} — The experimental data supporting the claim (e.g., 10,000 random bit samples). Hash guarantees data integrity.
-        \item \textbf{"disclosure.json": "sha256:..."} — The \textbf{structure revelation certificate} (if required). Contains the explicit structural information that justifies strengthening the claim (e.g., proof that the randomness source uses quantum measurements, not a PRNG).
+        \item \textbf{"path"} — The relative filename (e.g., "claim.json").
+        \item \textbf{"sha256"} — The SHA-256 hash of the file content. Guaranteed data integrity.
     \end{itemize}
-    \textbf{Content-addressing} means: If you change even one byte of \texttt{claim.json}, the SHA-256 hash changes, and the receipt becomes invalid.
     
-    \item \textbf{"signature": "ed25519:..."} — \textbf{EdDSA signature} over the entire receipt. Prevents forgery:
-    \begin{itemize}
-        \item The receipt is signed by the claimant's private key.
-        \item Verifiers use the public key to confirm authenticity.
-        \item If an adversary modifies the manifest (e.g., swaps \texttt{samples.csv} with fake data), the signature verification fails.
-    \end{itemize}
+    \item \textbf{"global\_digest": "..."} — A canonical hash over the sorted list of file entries. This digest represents the entire state of the certified work.
+    
+    \item \textbf{"sig\_scheme": "ed25519"} — Specifies the signature algorithm used (EdDSA).
+    
+    \item \textbf{"signature": "..."} — The hex-encoded signature of the \texttt{global\_digest} by the claimant's private key.
+    
+    \item \textbf{"public\_key": "..."} — The public key needed to verify the signature, embedded for self-contained verification (though it must be trusted via a separate channel or manifest).
+    
+    \item \textbf{"key\_id": "..."} — A short identifier for the signing key, allowing the verifier to look up trust rules.
 \end{itemize}
 
 \textbf{How does this enable verification?} A verifier receives the receipt plus the artifact files. The verifier:
 \begin{enumerate}
-    \item Recomputes SHA-256 hashes of \texttt{claim.json}, \texttt{samples.csv}, \texttt{disclosure.json}.
-    \item Checks that recomputed hashes match those in the manifest. If not, files were tampered with.
-    \item Verifies the EdDSA signature. If invalid, receipt is forged.
-    \item Parses \texttt{claim.json} to extract the scientific claim (e.g., ``randomness with $H_{\min} = 0.95$'').
-    \item Runs domain-specific verification (e.g., C-RAND module checks that \texttt{samples.csv} supports the entropy claim).
-    \item Checks that \texttt{disclosure.json} contains required structural revelations (e.g., $\lceil 1024 \times 0.95 \rceil = 973$ bits of disclosure for high-quality randomness).
+    \item Recomputes SHA-256 hashes of all referenced files.
+    \item Checks that recomputed hashes match those in the \texttt{files} list.
+    \item Recomputes the \texttt{global\_digest} from the file list.
+    \item Verifies the EdDSA signature using the provided public key.
+    \item Parses \texttt{claim.json} (if present) to extract the scientific claim.
 \end{enumerate}
 
 \textbf{Closed work system:} The verifier \textit{only} accepts inputs in the manifest. Out-of-band data (e.g., ``trust me, I ran 100,000 trials'') is ignored. This makes verification \textbf{deterministic and reproducible}---anyone with the receipt gets the same verification result.
@@ -169,9 +175,9 @@ The C-RAND verifier enforces: \textbf{you must prove your randomness source}. Th
     \item \textbf{Disclosure bits:} To claim $H_{\min} = 0.95$, you must disclose $\lceil 1024 \times 0.95 \rceil = 973$ bits of \textit{structural information} about the source. This is the $\mu$-cost of the claim.
 \end{itemize}
 
-\textbf{Example disclosure:} ``The randomness source is a quantum vacuum fluctuation detector with 0.95 bits/photon, calibrated on 2025-12-01, using Bell test verification to confirm nonlocality.'' This disclosure \textit{costs} $\mu$ because it reveals structural facts about the source.
+\textbf{Example disclosure:} "The randomness source is a quantum vacuum fluctuation detector with 0.95 bits/photon..." This disclosure is stored in \texttt{nonlocality.json} and \textit{costs} $\mu$ because it reveals structural facts.
 
-\textbf{Without disclosure:} If you claim $H_{\min} = 0.95$ but provide no disclosure, the verifier \textbf{rejects} the claim. Why? Because you could be lying---using a PRNG and claiming it's quantum randomness. No Free Insight forbids this.
+\textbf{Without disclosure:} If you claim $H_{\min} = 0.95$ but provide no disclosure (or insufficient \texttt{disclosure\_bits} in \texttt{nonlocality.json}), the verifier \textbf{rejects} the claim. Why? Because you could be lying---using a PRNG and claiming it's quantum randomness. No Free Insight forbids this.
 
 \textbf{Connection to No Free Insight:} Randomness quality is a form of \textit{structure} (knowing that the source is ``truly unpredictable'' vs ``deterministic PRNG''). Claiming stronger randomness ($H_{\min} = 0.95$ vs $H_{\min} = 0.5$) requires revealing more structure, which costs more $\mu$. The $\mu$-cost is proportional to the information reduction:
 \[
@@ -421,12 +427,12 @@ The verifier \textbf{rejects} this claim. Why? Because:
 
 \textbf{Connection to No Free Insight:} The \textit{choice of partition is itself structural information}. Choosing a fine-grained partition (1024 bins) reveals more structure than a coarse partition (32 bins). Therefore:
 \begin{itemize}
-    \item The partition must be \textbf{receipted} (included in the TRS manifest).
+    \item The partition must be \textbf{receipted} (included in the TRS manifest as \texttt{coarse\_graining.json}).
     \item Claiming entropy under a specific partition costs $\mu$ proportional to the partition's complexity.
 \end{itemize}
 This prevents the loophole: ``I computed entropy... but I won't tell you which partition I used, so you can't verify my result.''
 
-\textbf{Disclosure requirement:} The verifier checks that \texttt{coarse\_graining} appears in \texttt{disclosure.json} and charges:
+\textbf{Disclosure requirement:} The verifier checks that \texttt{coarse\_graining.json} appears in the receipt and charges:
 \[
     \mu \geq \lceil 1024 \times H \rceil
 \]
@@ -596,7 +602,7 @@ These three DAGs can produce the \textit{same joint distribution} $P(A, B, C)$ f
 \textbf{Why must this be rejected?} From observational data alone, you cannot distinguish between DAGs in a Markov equivalence class. Claiming a unique DAG requires \textit{additional structure}:
 \begin{itemize}
     \item \textbf{Interventions:} Experimental manipulations that break edges in the DAG. Example: Force $A = 1$ and measure $B$. If $B$ changes, then $A \to B$ is confirmed.
-    \item \textbf{Assumptions:} Explicit causal assumptions (e.g., ``We assume $A$ and $C$ do not share hidden confounders''). These assumptions are \textit{structural information} that must be disclosed.
+    \item \textbf{Assumptions:} Explicit causal assumptions (e.g., ``We assume $A$ and $C$ do not share hidden confounders''). These assumptions are \textit{structural information} that must be disclosed in \texttt{assumptions.json}.
 \end{itemize}
 
 Without interventions or assumptions, the claim is \textbf{free insight}---pretending to know a unique DAG when the data doesn't support it.
@@ -607,8 +613,8 @@ Alice runs 10,000 trials measuring variables $A, B, C$ (no interventions). She c
 \end{quote}
 C-CAUSAL verifier:
 \begin{enumerate}
-    \item Loads \texttt{samples.csv} (10,000 rows of observational data).
-    \item Checks \texttt{disclosure.json} for interventions or assumptions. Not found.
+    \item Loads \texttt{causal.receipt.json} (which must list \texttt{samples.csv} and \texttt{assumptions.json}).
+    \item Checks \texttt{assumptions.json} for interventions or assumptions. Not found.
     \item Computes: The data is consistent with DAGs $A \to B \to C$, $A \leftarrow B \to C$, and $A \to B \leftarrow C$ (Markov equivalence class).
     \item Conclusion: Claim is underdetermined. \textbf{REJECTED}.
 \end{enumerate}
@@ -616,7 +622,7 @@ C-CAUSAL verifier:
 If Alice wants her claim accepted, she must:
 \begin{enumerate}
     \item Add interventions (e.g., ``In 1000 trials, we set $A = 1$ and measured $B$'') $\to$ breaks Markov equivalence.
-    \item Add assumptions (e.g., ``We assume temporal ordering: $A$ precedes $B$ precedes $C$'') $\to$ disclose in \texttt{disclosure.json}, costs $\mu = 8192$ bits.
+    \item Add assumptions (e.g., ``We assume temporal ordering: $A$ precedes $B$ precedes $C$'') $\to$ disclose in \texttt{assumptions.json}, costs $\mu = 8192$ bits.
 \end{enumerate}
 
 \textbf{Connection to No Free Insight:} Causal knowledge is \textit{structural}. Knowing the unique DAG is \textit{more information} than just knowing $P(A,B,C)$. Claiming this extra knowledge without providing evidence (interventions or assumptions) is \textbf{free insight}---forbidden.

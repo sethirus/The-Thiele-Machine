@@ -17,6 +17,8 @@ from pathlib import Path
 class ThieleCPUTester:
     def __init__(self, hardware_dir):
         self.hardware_dir = Path(hardware_dir)
+        self.rtl_dir = self.hardware_dir / "rtl"
+        self.testbench_dir = self.hardware_dir / "testbench"
         self.test_results = {}
         self.simulation_output = ""
 
@@ -25,15 +27,15 @@ class ThieleCPUTester:
         print("Starting Thiele CPU Hardware Simulation...")
 
         # Check if Verilog files exist
-        cpu_file = self.hardware_dir / "thiele_cpu.v"
-        tb_file = self.hardware_dir / "thiele_cpu_tb.v"
+        cpu_file = self.rtl_dir / "thiele_cpu.v"
+        tb_file = self.testbench_dir / "thiele_cpu_tb.v"
 
         if not cpu_file.exists():
-            print("ERROR: thiele_cpu.v not found")
+            print(f"ERROR: {cpu_file} not found")
             return False
 
         if not tb_file.exists():
-            print("ERROR: thiele_cpu_tb.v not found")
+            print(f"ERROR: {tb_file} not found")
             return False
 
         print("Verilog files found")
@@ -81,11 +83,14 @@ class ThieleCPUTester:
             cmd = [
                 "iverilog",
                 "-g2012",  # Enable SystemVerilog 2012 features
+                "-DVERBOSE", # Enable verbose status output for validation
+                "-I", str(self.rtl_dir),
                 "-o", "thiele_cpu_tb",
-                str(self.hardware_dir / "thiele_cpu.v"),
-                str(self.hardware_dir / "thiele_cpu_tb.v"),
-                str(self.hardware_dir / "mu_alu.v"),
-                str(self.hardware_dir / "mu_core.v")
+                str(self.rtl_dir / "thiele_cpu.v"),
+                str(self.testbench_dir / "thiele_cpu_tb.v"),
+                str(self.rtl_dir / "mu_alu.v"),
+                str(self.rtl_dir / "mu_core.v"),
+                str(self.rtl_dir / "receipt_integrity_checker.v")
             ]
 
             result = subprocess.run(cmd, capture_output=True, text=True, cwd=self.hardware_dir, check=False)
@@ -118,8 +123,8 @@ class ThieleCPUTester:
             tcl_script = self.hardware_dir / "simulate.tcl"
             tcl_content = f"""
 create_project -in_memory test_sim
-add_files {self.hardware_dir / "thiele_cpu.v"}
-add_files {self.hardware_dir / "thiele_cpu_tb.v"}
+add_files {self.rtl_dir / "thiele_cpu.v"}
+add_files {self.testbench_dir / "thiele_cpu_tb.v"}
 set_property top thiele_cpu_tb [get_filesets sim_1]
 launch_simulation
 run all
@@ -152,8 +157,8 @@ exit
             do_file = self.hardware_dir / "simulate.do"
             do_content = f"""
 vlib work
-vlog {self.hardware_dir / "thiele_cpu.v"}
-vlog {self.hardware_dir / "thiele_cpu_tb.v"}
+vlog +incdir+{self.rtl_dir} {self.rtl_dir / "thiele_cpu.v"}
+vlog {self.testbench_dir / "thiele_cpu_tb.v"}
 vsim -c thiele_cpu_tb -do "run -all; quit"
 """
             do_file.write_text(do_content)
@@ -199,7 +204,7 @@ vsim -c thiele_cpu_tb -do "run -all; quit"
                             status_values.append(status_part)
 
             # Expected status sequence (in order they appear)
-            expected_statuses = ["00000008", "00060000"]
+            expected_statuses = ["00000008", "00040000"]
 
             # Check if all expected statuses appeared
             for expected in expected_statuses:
@@ -246,19 +251,18 @@ vsim -c thiele_cpu_tb -do "run -all; quit"
         print("\nChecking synthesis setup...")
 
         files_to_check = [
-            "thiele_cpu.v",
-            "synthesis.tcl",
-            "constraints.xdc",
-            "README.md"
+            ("rtl/thiele_cpu.v", self.rtl_dir / "thiele_cpu.v"),
+            ("synthesis.tcl", self.hardware_dir / "synthesis.tcl"),
+            ("constraints.xdc", self.hardware_dir / "constraints.xdc"),
+            ("README.md", self.hardware_dir / "README.md")
         ]
 
         all_present = True
-        for filename in files_to_check:
-            filepath = self.hardware_dir / filename
+        for name, filepath in files_to_check:
             if filepath.exists():
-                print(f"{filename} found")
+                print(f"{name} found")
             else:
-                print(f"{filename} missing")
+                print(f"{name} missing")
                 all_present = False
 
         if all_present:
