@@ -4,15 +4,16 @@
 # See the LICENSE file in the repository root for full terms.
 
 """
-Quantum-equivalent period finding using continued fractions.
+Period finding using continued fractions (Shor's Algorithm Logic).
 
-This implements the REAL Shor's algorithm approach:
+This implements the structural extraction phase of Shor's algorithm:
 1. Sample a random k in [1, N²]
 2. Compute a^k mod N (one modexp)
 3. Use continued fraction expansion of k/N² to find period r
-4. This extracts the period from the phase φ = k/r
+4. This extracts the period from phase φ = k/r
 
-This is how Shor's algorithm ACTUALLY works - NOT by iterating through periods!
+In the Thiele Machine context, this demonstrates how structural information
+(periodicity) can be extracted efficiently once a phase sample is obtained.
 
 Complexity: O(log³ N) for modular exponentiation + continued fraction
 """
@@ -65,15 +66,15 @@ def convergents(cf: List[int]) -> List[Tuple[int, int]]:
 
 def find_period_shor(N: int, a: int = 2, samples: int = 100) -> Tuple[Optional[int], int, Dict[str, Any]]:
     """
-    Find period using Shor's quantum algorithm approach with continued fractions.
+    Find period using continued fractions (Simulating Structural Extraction).
     
-    This is how Shor's algorithm REALLY works on a quantum computer:
+    Shor's algorithm leverages structural periodicity:
     
-    1. Quantum superposition creates |k⟩|a^k mod N⟩ for all k ∈ [0, 2^n)
+    1. Coherent substrate (μ=0) creates |k⟩|a^k mod N⟩ for all k ∈ [0, 2^n)
     2. Measure second register → get some a^j mod N
     3. First register now in state: sum over k where a^k ≡ a^j (mod N)
     4. These k values are spaced by period r: k = j, j+r, j+2r, ...
-    5. Quantum Fourier Transform extracts r from this periodicity
+    5. Structural Transform (QFT) extracts r from this periodicity
     6. Classical post-processing: Use continued fractions to find r
     
     On a CLASSICAL partition-native machine, we:

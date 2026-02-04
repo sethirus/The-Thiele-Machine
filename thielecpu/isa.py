@@ -35,7 +35,7 @@ class Opcode(Enum):
     PDISCOVER = 0x06   # Partition: discover structure
     XFER = 0x07        # ALU: transfer data between registers
     PYEXEC = 0x08      # Execute Python code
-    CHSH_TRIAL = 0x09  # Quantum: CHSH experiment trial
+    CHSH_TRIAL = 0x09  # Certification: CHSH correlation test
     XOR_LOAD = 0x0A    # XOR matrix: load value
     XOR_ADD = 0x0B     # XOR matrix: add rows
     XOR_SWAP = 0x0C    # XOR matrix: swap rows

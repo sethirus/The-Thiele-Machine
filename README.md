@@ -57,7 +57,7 @@ iverilog thielecpu/hardware/rtl/*.v -o thiele_cpu
 | `no_free_insight_general` | Search space reduction requires proportional mu-investment | `NoFreeInsight.v` |
 | `mu_conservation_kernel` | mu-ledger never decreases under any transition | `MuLedgerConservation.v` |
 | `main_subsumption` | Thiele Machine strictly subsumes Turing Machine | `Subsumption.v` |
-| `local_box_CHSH_bound` | Classical CHSH bound: mu=0 implies |S| <= 2 | `MinorConstraints.v` |
+| `local_box_CHSH_bound` | Unitary Execution Bound: μ=0 implies |S| <= 2 | `MinorConstraints.v` |
 
 ### The Initiality Theorem
 
@@ -177,7 +177,7 @@ python scripts/inquisitor.py
 - All axioms documented with mathematical references
 - Compilation success
 
-**Results:** 78 documented axioms (external mathematical results from quantum mechanics, linear algebra, numerical analysis).
+**Results:** 78 documented axioms (external mathematical results from linear algebra, probability, and numerical analysis).
 
 ---
 
@@ -252,7 +252,7 @@ This enables post-hoc verification without re-execution.
 
 Two contribution types:
 1. **Replication artifacts** — New proofpacks testing mu-ledger predictions
-2. **Counterexample hunts** — Attempts to violate the Landauer inequality
+2. **Counterexample hunts** — Attempts to violate the Cost Invariant
 
 Report potential counterexamples via issue labeled `counterexample`.
 

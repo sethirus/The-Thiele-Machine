@@ -202,9 +202,9 @@ Definition npa_to_chsh (npa : NPAMomentMatrix) : CHSHCorrelations := {|
 
 (** * Key Theorems *)
 
-(** INQUISITOR NOTE: The following axiom relates quantum realizability to
-    correlation bounds. This is a standard result from the NPA hierarchy
-    that follows from PSD matrix properties proven in SemidefiniteProgramming.v. *)
+(** INQUISITOR NOTE: The following lemma relates quantum realizability to
+    correlation bounds. This follows from PSD matrix properties 
+    proven in ConstructivePSD.v. *)
 
 (** If a moment matrix is quantum realizable, its CHSH correlators
     satisfy certain bounds. *)
@@ -212,13 +212,88 @@ Definition npa_to_chsh (npa : NPAMomentMatrix) : CHSHCorrelations := {|
 (** Quantum realizability implies normalized correlators.
     Each CHSH correlator E_xy appears as an off-diagonal element M[i,j]
     of the moment matrix with M[i,i] = M[j,j] = 1 (diagonal normalization).
-    PSD property + PSD_off_diagonal_bound → |E_xy| ≤ 1. *)
-Axiom quantum_realizable_implies_normalized : forall (npa : NPAMomentMatrix),
+    PSD property + PSD5_off_diagonal_bound → |E_xy| ≤ 1. *)
+
+(** Helper: all diagonals of npa_to_matrix are 1 *)
+Lemma npa_diagonal_one : forall (npa : NPAMomentMatrix) (i : Fin5),
+  nat_matrix_to_fin5 (npa_to_matrix npa) i i = 1.
+Proof.
+  intros npa i.
+  unfold nat_matrix_to_fin5, npa_to_matrix.
+  destruct (Fin.to_nat i) as [ni Hi].
+  simpl.
+  destruct ni as [|[|[|[|[|]]]]]; try reflexivity; lia.
+Qed.
+
+(** Fin5 indices for correlator positions *)
+Definition idx1 : Fin5 := Fin.FS Fin.F1.
+Definition idx2 : Fin5 := Fin.FS (Fin.FS Fin.F1).
+Definition idx3 : Fin5 := Fin.FS (Fin.FS (Fin.FS Fin.F1)).
+Definition idx4 : Fin5 := Fin.FS (Fin.FS (Fin.FS (Fin.FS Fin.F1))).
+
+(** E00 is at position (1, 3) *)
+Lemma npa_E00_position : forall (npa : NPAMomentMatrix),
+  nat_matrix_to_fin5 (npa_to_matrix npa) idx1 idx3 = npa.(npa_E00).
+Proof.
+  intro npa. unfold nat_matrix_to_fin5, npa_to_matrix, idx1, idx3.
+  simpl. reflexivity.
+Qed.
+
+(** E01 is at position (1, 4) *)
+Lemma npa_E01_position : forall (npa : NPAMomentMatrix),
+  nat_matrix_to_fin5 (npa_to_matrix npa) idx1 idx4 = npa.(npa_E01).
+Proof.
+  intro npa. unfold nat_matrix_to_fin5, npa_to_matrix, idx1, idx4.
+  simpl. reflexivity.
+Qed.
+
+(** E10 is at position (2, 3) *)
+Lemma npa_E10_position : forall (npa : NPAMomentMatrix),
+  nat_matrix_to_fin5 (npa_to_matrix npa) idx2 idx3 = npa.(npa_E10).
+Proof.
+  intro npa. unfold nat_matrix_to_fin5, npa_to_matrix, idx2, idx3.
+  simpl. reflexivity.
+Qed.
+
+(** E11 is at position (2, 4) *)
+Lemma npa_E11_position : forall (npa : NPAMomentMatrix),
+  nat_matrix_to_fin5 (npa_to_matrix npa) idx2 idx4 = npa.(npa_E11).
+Proof.
+  intro npa. unfold nat_matrix_to_fin5, npa_to_matrix, idx2, idx4.
+  simpl. reflexivity.
+Qed.
+
+Lemma quantum_realizable_implies_normalized : forall (npa : NPAMomentMatrix),
   quantum_realizable npa ->
   Rabs (npa.(npa_E00)) <= 1 /\
   Rabs (npa.(npa_E01)) <= 1 /\
   Rabs (npa.(npa_E10)) <= 1 /\
   Rabs (npa.(npa_E11)) <= 1.
+Proof.
+  intros npa [Hsym Hpsd].
+  set (M := nat_matrix_to_fin5 (npa_to_matrix npa)).
+  split; [|split; [|split]].
+  - (* E00 at (1,3) *)
+    rewrite <- npa_E00_position.
+    apply PSD5_off_diagonal_bound; auto.
+    + rewrite npa_diagonal_one; lra.
+    + rewrite npa_diagonal_one; lra.
+  - (* E01 at (1,4) *)
+    rewrite <- npa_E01_position.
+    apply PSD5_off_diagonal_bound; auto.
+    + rewrite npa_diagonal_one; lra.
+    + rewrite npa_diagonal_one; lra.
+  - (* E10 at (2,3) *)
+    rewrite <- npa_E10_position.
+    apply PSD5_off_diagonal_bound; auto.
+    + rewrite npa_diagonal_one; lra.
+    + rewrite npa_diagonal_one; lra.
+  - (* E11 at (2,4) *)
+    rewrite <- npa_E11_position.
+    apply PSD5_off_diagonal_bound; auto.
+    + rewrite npa_diagonal_one; lra.
+    + rewrite npa_diagonal_one; lra.
+Qed.
 
 (** The moment matrix is symmetric by construction *)
 Lemma npa_to_matrix_symmetric : forall (npa : NPAMomentMatrix),

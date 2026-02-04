@@ -3,7 +3,7 @@
 
 \textbf{Three layers (boxes):}
 \begin{itemize}
-    \item \textbf{Layer 1: Coq (blue):} Formal specification with machine-checked proofs (1,722 verified theorems)
+    \item \textbf{Layer 1: Coq (blue):} Formal specification with machine-checked proofs (2,117 verified theorems)
     \item \textbf{Layer 2: Python (green):} Human-readable reference implementation with tracing \& debugging
     \item \textbf{Layer 3: Verilog (orange):} Synthesizable RTL for FPGA/ASIC physical hardware
 \end{itemize}
@@ -55,7 +55,7 @@ S_{\text{Coq}}(\tau) = S_{\text{Python}}(\tau) = S_{\text{Verilog}}(\tau)
 \]
 
 This is not aspirational---it's enforced by automated tests. Any divergence is a critical bug.
-The tests compare \textit{state projections} rather than every internal variable. The projections are suite-specific: the compute gate in \path{tests/test_rtl_compute_isomorphism.py} compares registers and memory, while the partition gate in \path{tests/test_partition_isomorphism_minimal.py} compares canonicalized module regions from the partition graph. The extracted runner emits a full JSON snapshot (pc, $\mu$, err, regs, mem, CSRs, graph), but the RTL testbench exposes only the fields required by each gate.
+The tests compare \textit{state projections} rather than every internal variable. The projections are suite-specific: the compute gate in \path{tests/test_rtl_compute_isomorphism.py} compares registers and memory, while the partition gate in \path{tests/test_partition_isomorphism_minimal.py} compares canonicalized module regions from the partition graph. The comprehensive bridge verification happens in \path{tests/proof_three_layer_isomorphism.py}, which confirms the full contract. The extracted runner emits a full JSON snapshot (pc, $\mu$, err, regs, mem, CSRs, graph), but the RTL testbench exposes only the fields required by each gate.
 
 \subsubsection{The Isomorphism Contract (Specification)}
 
@@ -437,7 +437,13 @@ Extraction Language OCaml.
 Extract Inductive bool => "bool" ["true" "false"].
 Extract Inductive nat => "int" ["0" "succ"].
 ...
-Extraction "extracted/vm_kernel.ml" vm_step run_vm.
+Extraction "../build/thiele_core.ml"
+  (* Core types *)
+  VMStep.vm_instruction
+...
+  (* Executable semantics *)
+  SimulationProof.vm_apply
+  SimulationProof.run_vm.
 \end{lstlisting}
 
 \paragraph{Understanding Coq Extraction:}
@@ -1873,7 +1879,7 @@ cd coq && make -j8
 
     \item \textbf{Run Isomorphism Tests}:
     \begin{verbatim}
-pytest tests/test_isomorphism_3way.py -v
+pytest tests/proof_three_layer_isomorphism.py -v
     \end{verbatim}
     \begin{itemize}
         \item Executes same instruction traces on Coq, Python, Verilog
@@ -1916,7 +1922,7 @@ yosys -p "read_verilog thiele_cpu.v; synth_xilinx -top thiele_cpu; write_json ne
 
 \textbf{Three boxes (top):}
 \begin{itemize}
-    \item \textbf{Coq (blue):} 1,722 theorems, machine-checked, extracted runner
+    \item \textbf{Coq (blue):} 2,117 theorems, machine-checked, extracted runner
     \item \textbf{Python (green):} Reference VM, tracing, receipts
     \item \textbf{Verilog (orange):} RTL Core, $\mu$-ALU, FPGA-ready
 \end{itemize}

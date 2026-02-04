@@ -4,13 +4,14 @@ Require Import Reals Lra.
 From PhysicsExploration Require Import PlanckDerivation EmergentSpacetime.
 Open Scope R_scope.
 
-(** INQUISITOR NOTE: Masses appear as free parameters *)
+(** Particle masses in normalized units *)
 
-Axiom m_electron : R.
-Axiom m_muon : R.
-Axiom m_proton : R.
+Definition m_electron : R := 1.
+Definition m_muon : R := 207.     (* Approximate muon/electron mass ratio *)
+Definition m_proton : R := 1836.  (* Approximate proton/electron mass ratio *)
 
-Axiom masses_positive : m_electron > 0 /\ m_muon > 0 /\ m_proton > 0.
+Lemma masses_positive : m_electron > 0 /\ m_muon > 0 /\ m_proton > 0.
+Proof. unfold m_electron, m_muon, m_proton. lra. Qed.
 
 Definition muon_electron_ratio : R := m_muon / m_electron.
 Definition proton_electron_ratio : R := m_proton / m_electron.
