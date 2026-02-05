@@ -10,6 +10,7 @@
 *)
 
 From Coq Require Import List Bool ZArith Lia.
+Set Warnings "-declaration-outside-section".
 Import ListNotations.
 Open Scope Z_scope.
 
@@ -21,6 +22,7 @@ Open Scope Z_scope.
     
     ========================================================================= *)
 
+#[warnings="-declaration-outside-section"]
 Module Type MinimalSpaceland.
 
   (** States - abstract *)

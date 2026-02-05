@@ -216,10 +216,21 @@ kernel_secret.key
 kernel_public.key
 
 
-# AI assistant diagnostics
+# AI assistant diagnostics and temporary files
 diagnostics/
 demos/practical_examples/output/
 thielecpu/hardware/thiele_cpu_test
+.claude/
+tmpclaude-*
+*_build_log.txt
+*_build_output.txt
+audit_verification.py
+
+# Phase completion and status reports (generated during work sessions)
+STATUS_REPORT.md
+AUDIT_REPORT.md
+INTEGRATION_COMPLETE.md
+INQUISITOR_REPORT.md
 
 # Build directory (iverilog compiled outputs)
 build/
