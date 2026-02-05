@@ -1,4 +1,5 @@
 From Coq Require Import List Arith.PeanoNat.
+Set Warnings "-declaration-outside-section".
 
 (** * No-Free-Insight interface (axiom-free)
 
@@ -12,6 +13,7 @@ From Coq Require Import List Arith.PeanoNat.
     `NoFreeInsight_Theorem.v`.
 *)
 
+#[warnings="-declaration-outside-section"]
 Module Type NO_FREE_INSIGHT_SYSTEM.
   Variable S : Type.
   Variable Trace : Type.

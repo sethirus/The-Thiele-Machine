@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 Three-Layer Isomorphism Validation
 Validates that Coq, Verilog RTL, and Python VM maintain isomorphic behavior
@@ -9,8 +10,12 @@ the same semantics for μ-cost operations.
 
 import subprocess
 import sys
+import io
 from pathlib import Path
 import json
+
+# Fix Windows console encoding
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 
 print("="*70)
 print("Thiele Machine: Three-Layer Isomorphism Validation")
@@ -20,7 +25,7 @@ print()
 # Test μ-cost operations across all three layers
 results = {}
 
-print("🔬 Testing Coq Semantics (Layer 1)")
+print("[Coq] Testing Coq Semantics (Layer 1)")
 print("-"*70)
 
 # Verify Coq VM semantics compile
@@ -50,7 +55,7 @@ else:
     results['coq_mu_cost'] = False
 
 print()
-print("⚡ Testing Verilog RTL (Layer 2)")
+print("[Verilog] Testing Verilog RTL (Layer 2)")
 print("-"*70)
 
 # Test μ-ALU Verilog
@@ -81,7 +86,7 @@ else:
     results['verilog_mu_cost'] = True  # μ-ALU IS the μ-cost foundation
 
 print()
-print("🐍 Testing Python VM (Layer 3)")
+print("[Python] Testing Python VM (Layer 3)")
 print("-"*70)
 
 # Test Python VM import

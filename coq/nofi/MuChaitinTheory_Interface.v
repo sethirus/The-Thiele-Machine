@@ -1,4 +1,5 @@
 From Coq Require Import Arith.PeanoNat Strings.String.
+Set Warnings "-declaration-outside-section".
 
 Require Import Kernel.VMState.
 Require Import Kernel.VMStep.
@@ -28,6 +29,7 @@ Import RevelationProof.
       proves_bits k -> k ≤ |desc| + overhead.
 *)
 
+#[warnings="-declaration-outside-section"]
 Module Type MU_CHAITIN_THEORY_SYSTEM.
   Variable theory_desc : string.
   Variable overhead : nat.
