@@ -96,24 +96,54 @@ Proof.
   assert (Hsum: p00 + p01 + p10 + p11 == 1) by (unfold p00, p01, p10, p11; apply Hnorm).
 
   (* The goal is: |p00 - p01 - p10 + p11| <= 1 *)
-  (* This is equivalent to: -1 <= p00 - p01 - p10 + p11 <= 1 *)
 
-  (* Use Qabs characterization *)
+  (* Key observation: from sum = 1 and all non-negative, we get component bounds *)
+  assert (Hp00_p11: p00 + p11 <= 1).
+  { (* p00 + p11 + 0 <= p00 + p11 + (p01 + p10) = 1 *)
+    assert (Heq1: p00 + p11 == p00 + p11 + 0) by ring.
+    assert (Heq2: p00 + p11 + 0 <= p00 + p11 + (p01 + p10)).
+    { apply Qplus_le_compat. apply Qle_refl.
+      assert (H_z: 0 == 0 + 0) by ring. rewrite H_z. apply Qplus_le_compat; assumption. }
+    assert (Heq3: p00 + p11 + (p01 + p10) == p00 + p01 + p10 + p11) by ring.
+    apply (Qle_trans _ (p00 + p11 + 0)). apply Qle_lteq. right. exact Heq1.
+    apply (Qle_trans _ (p00 + p11 + (p01 + p10))). exact Heq2.
+    apply Qle_lteq. right. setoid_rewrite Heq3. exact Hsum. }
+
   apply Qabs_case; intros Hcase.
-
-  - (* Case: p00 - p01 - p10 + p11 >= 0, so Qabs(...) = p00 - p01 - p10 + p11 *)
-    (* Need: p00 - p01 - p10 + p11 <= 1 *)
-    (* From Hsum: p00 + p01 + p10 + p11 == 1 *)
-    (* We have: p00, p01, p10, p11 >= 0 *)
-    (* This is linear Q arithmetic - psatz can solve it *)
-    psatz Q 4.
-
-  - (* Case: p00 - p01 - p10 + p11 < 0, so Qabs(...) = -(p00 - p01 - p10 + p11) *)
-    (* Need: -(p00 - p01 - p10 + p11) <= 1 *)
-    (* From Hsum: p00 + p01 + p10 + p11 == 1 *)
-    (* We have: p00, p01, p10, p11 >= 0 *)
-    (* This is linear Q arithmetic - psatz can solve it *)
-    psatz Q 4.
+  - (* Case: p00 - p01 - p10 + p11 >= 0, need to show <= 1 *)
+    setoid_replace (p00 - p01 - p10 + p11) with ((p00 + p11) - (p01 + p10)) by ring.
+    assert (H_nonneg: 0 <= p01 + p10).
+    { assert (H0: 0 == 0 + 0) by ring. rewrite H0. apply Qplus_le_compat; assumption. }
+    (* Goal: (p00 + p11) - (p01 + p10) <= p00 + p11, which is (p00 + p11) - (p01 + p10) <= (p00 + p11) - 0 *)
+    apply (Qle_trans _ ((p00 + p11) - 0)).
+    + (* (p00 + p11) - (p01 + p10) <= (p00 + p11) - 0 since 0 <= p01 + p10 *)
+      apply Qplus_le_compat. apply Qle_refl. apply Qopp_le_compat. exact H_nonneg.
+    + (* (p00 + p11) - 0 == p00 + p11 <= 1 *)
+      assert (Hrw: (p00 + p11) - 0 == p00 + p11) by ring.
+      apply (Qle_trans _ (p00 + p11)). apply Qle_lteq. right. exact Hrw. exact Hp00_p11.
+  - (* Case: p00 - p01 - p10 + p11 < 0, need to show -(·) <= 1 *)
+    assert (Hp01_p10: p01 + p10 <= 1).
+    { assert (H_pos: 0 <= p00 + p11).
+      { assert (H0: 0 == 0 + 0) by ring. rewrite H0. apply Qplus_le_compat; assumption. }
+      (* p01 + p10 <= p01 + p10 + (p00 + p11) = sum = 1 *)
+      apply (Qle_trans _ (p01 + p10 + (p00 + p11))).
+      - (* p01 + p10 == p01 + p10 + 0 <= p01 + p10 + (p00 + p11) *)
+        apply (Qle_trans _ (p01 + p10 + 0)).
+        + apply Qle_lteq. right. ring.
+        + apply Qplus_le_compat. apply Qle_refl. exact H_pos.
+      - (* p01 + p10 + (p00 + p11) == sum = 1 *)
+        apply Qle_lteq. right. assert (Hrw: p01 + p10 + (p00 + p11) == p00 + p01 + p10 + p11) by ring.
+        setoid_rewrite Hrw. exact Hsum. }
+    setoid_replace (- (p00 - p01 - p10 + p11)) with ((p01 + p10) - (p00 + p11)) by ring.
+    assert (H_nonneg: 0 <= p00 + p11).
+    { assert (H0: 0 == 0 + 0) by ring. rewrite H0. apply Qplus_le_compat; assumption. }
+    (* Goal: (p01 + p10) - (p00 + p11) <= p01 + p10, which is (p01 + p10) - (p00 + p11) <= (p01 + p10) - 0 *)
+    apply (Qle_trans _ ((p01 + p10) - 0)).
+    + (* (p01 + p10) - (p00 + p11) <= (p01 + p10) - 0 since 0 <= p00 + p11 *)
+      apply Qplus_le_compat. apply Qle_refl. apply Qopp_le_compat. exact H_nonneg.
+    + (* (p01 + p10) - 0 == p01 + p10 <= 1 *)
+      assert (Hrw: (p01 + p10) - 0 == p01 + p10) by ring.
+      apply (Qle_trans _ (p01 + p10)). apply Qle_lteq. right. exact Hrw. exact Hp01_p10.
 Qed.
 
 (** =========================================================================
@@ -174,7 +204,15 @@ Proof.
   assert (H11: Qabs (E B 1%nat 1%nat) <= 1) by (apply normalized_E_bound; assumption).
 
   (* Sum the bounds: 1 + 1 + 1 + 1 = 4 *)
-  psatz Q 4.
+  assert (Hrw4: (4:Q) == 1 + 1 + 1 + 1) by ring.
+  rewrite Hrw4.
+  apply Qplus_le_compat.
+  apply Qplus_le_compat.
+  apply Qplus_le_compat.
+  + exact H00.
+  + exact H01.
+  + exact H10.
+  + exact H11.
 Qed.
 
 

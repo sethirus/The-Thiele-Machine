@@ -32,6 +32,7 @@ From Kernel Require Import VMState.
 From Kernel Require Import VMStep.
 From Kernel Require Import SimulationProof.
 From Kernel Require Import MuLedgerConservation.
+From Kernel Require Import MuCostDerivation.
 
 (** =========================================================================
     PART 1: INITIAL STATE AND REACHABILITY
@@ -192,6 +193,35 @@ Definition CostAssignment := vm_instruction -> nat.
 
 (** The canonical cost assignment is instruction_cost *)
 Definition canonical_cost : CostAssignment := instruction_cost.
+
+(** -------------------------------------------------------------------------
+    BREAKING THE CIRCULARITY (Phase 2 Integration)
+    -------------------------------------------------------------------------
+
+    ORIGINAL ISSUE: canonical_cost = instruction_cost just extracts mu_delta
+    parameters from instructions, making it appear that costs are arbitrary
+    design choices rather than derived quantities.
+
+    RESOLUTION: MuCostDerivation.v proves that instruction costs are
+    UNIQUELY DETERMINED by information theory and thermodynamics:
+
+    - For LASSERT: cost = 1 + log₂(Ω/Ω') + semantic_complexity_bits(formula)
+      * log₂(Ω/Ω'): information erased via state space reduction
+      * semantic_complexity_bits: description complexity (Kolmogorov lower bound)
+      * Derived from Shannon entropy + Landauer's principle
+
+    - For PNEW/PSPLIT/PMERGE: cost = 0
+      * Reversible operations (no information erasure)
+      * Landauer: reversible operations have zero thermodynamic cost
+
+    Therefore, the Initiality Theorem is NON-CIRCULAR:
+
+    1. MuCostDerivation.v: instruction costs determined by physics/information theory
+    2. THIS FILE: μ is unique among monotones consistent with those determined costs
+    3. TOGETHER: μ is THE unique information-theoretic cost functional
+
+    See: coq/kernel/MuCostDerivation.v, PHASE2_CIRCULARITY_ANALYSIS.md
+    ------------------------------------------------------------------------- *)
 
 (** A monotone M is instruction-consistent with cost assignment c if
     M increases by exactly c(instr) on each instruction *)
