@@ -736,20 +736,51 @@ endtask
 task execute_pmerge;
     input [7:0] module_a;
     input [7:0] module_b;
+    reg overlap_detected;
+    integer ia, ib;
     begin
-        // Merge two modules
-        if (module_a < next_module_id && module_b < next_module_id && module_a != module_b) begin
+        // VALIDATION 1: Check module_a != module_b (self-merge)
+        if (module_a == module_b) begin
+            csr_error <= 32'h5; // INVALID_MERGE: Cannot merge module with itself
+        end
+        // VALIDATION 2: Check modules exist
+        else if (module_a >= next_module_id || module_b >= next_module_id) begin
+            csr_error <= 32'h6; // MODULE_NOT_FOUND: Invalid module IDs
+        end
+        else begin
             size_a = module_table[module_a];
             size_b = module_table[module_b];
             total_size = size_a + size_b;
 
-            if (total_size <= REGION_SIZE) begin
-                // Copy regions
+            // VALIDATION 3: Check for region overlap (disjoint requirement)
+            overlap_detected = 0;
+            for (ia = 0; ia < REGION_SIZE; ia = ia + 1) begin
+                if (ia < size_a) begin
+                    for (ib = 0; ib < REGION_SIZE; ib = ib + 1) begin
+                        if (ib < size_b) begin
+                            if (region_table[module_a][ia] == region_table[module_b][ib]) begin
+                                overlap_detected = 1;
+                            end
+                        end
+                    end
+                end
+            end
+
+            if (overlap_detected) begin
+                csr_error <= 32'h7; // OVERLAPPING_MODULES: Regions must be disjoint
+            end
+            else if (total_size > REGION_SIZE) begin
+                csr_error <= 32'h4; // REGION_TOO_LARGE: Merged size exceeds limit
+            end
+            else begin
+                // All validations passed - proceed with merge
+                // Copy regions from module_a
                 for (i = 0; i < REGION_SIZE; i = i + 1) begin
                     if (i < size_a) begin
                         region_table[next_module_id][i] <= region_table[module_a][i];
                     end
                 end
+                // Copy regions from module_b
                 for (i = 0; i < REGION_SIZE; i = i + 1) begin
                     if (i < size_b) begin
                         region_table[next_module_id][i + size_a] <= region_table[module_b][i];
@@ -764,11 +795,7 @@ task execute_pmerge;
 
                 csr_status <= 32'h3; // Merge successful
                 partition_ops_counter <= partition_ops_counter + 1;
-            end else begin
-                csr_error <= 32'h4; // Region too large
             end
-        end else begin
-            csr_error <= 32'h5; // Invalid modules
         end
     end
 endtask
