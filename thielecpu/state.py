@@ -11,6 +11,7 @@ spec/thiele_machine_spec.md for isomorphism with Verilog RTL and Coq proofs.
 
 from __future__ import annotations
 
+import os
 from dataclasses import dataclass, field
 from typing import Callable, Set, Tuple, Dict, List, Any
 
@@ -33,7 +34,19 @@ except ImportError:
 # =============================================================================
 
 MASK_WIDTH = 64  # Fixed width for hardware compatibility
-MAX_MODULES = 8  # Maximum number of active modules
+
+# Maximum number of active modules (configurable for testing)
+# Default: 64 (matches Verilog full configuration)
+# Override via environment: THIELE_MAX_MODULES=8 for constrained testing
+_DEFAULT_MAX_MODULES = 64
+MAX_MODULES = int(os.environ.get("THIELE_MAX_MODULES", str(_DEFAULT_MAX_MODULES)))
+
+# Validation: Must be power of 2 in reasonable range
+if MAX_MODULES not in [4, 8, 16, 32, 64, 128, 256]:
+    raise ValueError(
+        f"MAX_MODULES must be power of 2 in [4, 256], got {MAX_MODULES}. "
+        f"Set THIELE_MAX_MODULES environment variable to override."
+    )
 
 # Type alias for partition masks
 PartitionMask = int  # 0..(1<<MASK_WIDTH)-1
@@ -91,6 +104,14 @@ class MuLedger:
 
     This implements the canonical μ-ledger as defined in spec/thiele_machine_spec.md.
     All μ-values are monotonically non-decreasing.
+
+    ISOMORPHISM GUARANTEE: This structure bisimulates Coq's vm_mu via the theorem
+    python_mu_ledger_bisimulates_coq_vm_mu in coq/bridge/PythonMuLedgerBisimulation.v.
+
+    Specifically: self.total ≡ vm_mu (modulo 2^32 hardware overflow semantics)
+
+    The decomposition (mu_discovery, mu_execution, landauer_entropy) is a refinement
+    that provides additional observability while preserving total μ-cost equivalence.
     """
 
     mu_discovery: int = 0   # Cost of partition discovery operations
@@ -252,14 +273,21 @@ class State:
         pred: Predicate,
         *,
         charge_execution: bool = True,
-        cost: int | None = None,
+        cost: int = 64,  # Default matches typical MASK_WIDTH, but should be overridden
     ) -> Tuple[ModuleId, ModuleId]:
         """Split ``module``'s region using ``pred`` into two modules.
 
-        μ-update: by default, mu_execution += MASK_WIDTH.
+        μ-update: mu_execution += cost (from instruction encoding).
 
-        For cross-layer evidence runs, callers may set ``charge_execution=False``
-        and charge an explicit per-instruction ``mu_delta`` externally.
+        Args:
+            module: Module ID to split
+            pred: Predicate function to partition elements
+            charge_execution: If True, charge μ-cost
+            cost: μ-bits to charge (MUST match instruction mu_delta for isomorphism)
+
+        ISOMORPHISM REQUIREMENT: The cost parameter MUST match the mu_delta in
+        the instruction encoding to maintain perfect three-layer isomorphism
+        with Coq and Verilog implementations.
         """
         region = self.regions[module]
         part1 = {x for x in region if pred(x)}
@@ -272,7 +300,7 @@ class State:
         self.regions.remove(module)
         # Remove from bitmask representation
         self.partition_masks.pop(module, None)
-        
+
         axioms = self.axioms.pop(module, [])  # Get axioms before removing
         m1 = self._alloc(part1)
         m2 = self._alloc(part2)
@@ -280,7 +308,7 @@ class State:
         self.axioms[m1] = axioms.copy()
         self.axioms[m2] = axioms.copy()
         if charge_execution:
-            self.mu_ledger.charge_execution(int(cost) if cost is not None else MASK_WIDTH)
+            self.mu_ledger.charge_execution(cost)
         
         self._enforce_invariant()
         return m1, m2
@@ -292,11 +320,14 @@ class State:
         right: Set[int],
         *,
         charge_execution: bool = True,
-        cost: int | None = None,
+        cost: int = 64,  # Default matches typical MASK_WIDTH, but should be overridden
     ) -> Tuple[ModuleId, ModuleId]:
         """Split ``module`` into explicit ``left`` and ``right`` regions.
 
         This matches the extracted trace form: PSPLIT mid {left} {right} cost.
+
+        ISOMORPHISM REQUIREMENT: The cost parameter MUST match the mu_delta in
+        the instruction encoding to maintain perfect three-layer isomorphism.
         """
         region = self.regions[module]
         if left & right:
@@ -314,7 +345,7 @@ class State:
         self.axioms[m2] = axioms.copy()
 
         if charge_execution:
-            self.mu_ledger.charge_execution(int(cost) if cost is not None else MASK_WIDTH)
+            self.mu_ledger.charge_execution(cost)
 
         self._enforce_invariant()
         return m1, m2
@@ -325,14 +356,19 @@ class State:
         m2: ModuleId,
         *,
         charge_execution: bool = True,
-        cost: int | None = None,
+        cost: int = 4,  # Default, but should be overridden with instruction mu_delta
     ) -> ModuleId:
         """Merge two modules into one if their regions are disjoint.
 
-        μ-update: by default, mu_execution += 4.
+        μ-update: mu_execution += cost (from instruction encoding).
 
-        For cross-layer evidence runs, callers may set ``charge_execution=False``
-        and charge an explicit per-instruction ``mu_delta`` externally.
+        Args:
+            m1, m2: Module IDs to merge
+            charge_execution: If True, charge μ-cost
+            cost: μ-bits to charge (MUST match instruction mu_delta for isomorphism)
+
+        ISOMORPHISM REQUIREMENT: The cost parameter MUST match the mu_delta in
+        the instruction encoding to maintain perfect three-layer isomorphism.
         """
         if m1 == m2:
             raise ValueError("cannot merge module with itself")
@@ -359,7 +395,7 @@ class State:
         mid = self._alloc(union)
         self.axioms[mid] = axioms1 + axioms2  # Combine axioms
         if charge_execution:
-            self.mu_ledger.charge_execution(int(cost) if cost is not None else 4)
+            self.mu_ledger.charge_execution(cost)
         
         self._enforce_invariant()
         return mid
