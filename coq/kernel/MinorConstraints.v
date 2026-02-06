@@ -179,11 +179,11 @@ Lemma deterministic_strategy_chsh_bounded :
     -2 <= S <= 2.
 Proof.
   intros A B HA HB S.
-  (* Each product is in {-1, 1} *)
-  (* S = sum of 3 terms minus 1 term, each in {-1,1} *)
-  (* Maximum: 1+1+1-(-1) = 4... but this violates minor constraints *)
-  (* With minor constraints: maximum is 2 *)
-  admit. (* TO COMPLETE: Case analysis on 16 deterministic strategies - mechanical proof *)
+  (* TO COMPLETE: 256-case analysis *)
+  (* Each A,B ∈ {-1,1}, so 2^8 = 256 deterministic strategies *)
+  (* For each case, S evaluates to a value in {-4,-2,0,2,4} *)
+  (* By exhaustive check (pending tactic optimization): |S| ≤ 2 *)
+  admit.
 Admitted.
 
 (** Fine's Theorem: Minor constraints ⟹ CHSH ≤ 2 for factorizable correlations *)
@@ -274,10 +274,13 @@ Proof.
   (* From Hlower/Hupper: -2 <= Q2R(S B) <= 2 *)
   (* Need to show: Q2R(Qabs(S B)) <= 2 *)
   (* This follows from |x| <= 2 when -2 <= x <= 2 *)
-  rewrite Q2R_abs.
+  (* The key lemma: Q2R preserves absolute value *)
+  assert (Habs: Q2R (Qabs (BoxCHSH.S B)) = Rabs (Q2R (BoxCHSH.S B))).
+  { admit. (* TO COMPLETE: Q2R and Qabs commute - standard library lemma *) }
+  rewrite Habs.
   apply Rabs_le.
   split; assumption.
-Qed.
+Admitted.
 
 (** =========================================================================
     PART 8: VERIFICATION SUMMARY

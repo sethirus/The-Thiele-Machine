@@ -271,16 +271,19 @@ class TestMaxModulesLimit:
     """Test MAX_MODULES enforcement."""
     
     def test_max_modules_limit(self):
-        """Cannot create more than MAX_MODULES."""
+        """Cannot create more than MAX_MODULES (now 64 by default, configurable)."""
         state = State()
-        
+
         # Create MAX_MODULES modules
         for i in range(MAX_MODULES):
             state.pnew({i * 10})
-        
+
+        # Verify we created MAX_MODULES modules
+        assert state.num_modules == MAX_MODULES, f"Expected {MAX_MODULES} modules, got {state.num_modules}"
+
         # Next should fail
         with pytest.raises(ValueError, match="max modules"):
-            state.pnew({100})
+            state.pnew({MAX_MODULES * 10})
 
 
 class TestStateSnapshot:
