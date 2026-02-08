@@ -360,8 +360,8 @@ jobs:
           import urllib.error
 
           repo = os.environ["GITHUB_REPOSITORY"]
-          tag = os.environ.get("VIVADO_RELEASE_TAG", "vivado")
-          name = os.environ.get("VIVADO_ASSET_NAME", "vivado.tar.gz")
+          tag = os.environ["VIVADO_RELEASE_TAG"]
+          name = os.environ["VIVADO_ASSET_NAME"]
           token = os.environ.get("GITHUB_TOKEN")
           api_url = f"https://api.github.com/repos/{repo}/releases/tags/{tag}"
           headers = {"Accept": "application/vnd.github+json"}
@@ -387,7 +387,7 @@ jobs:
             sys.exit(1)
           print(asset_url)
           PY
-          ) || exit 1
+          )
           curl_args=(-fL -H "Accept: application/octet-stream")
           if [ -n "${GITHUB_TOKEN:-}" ]; then
             curl_args+=(-H "Authorization: Bearer $GITHUB_TOKEN")
@@ -409,11 +409,12 @@ jobs:
           if [ "${#vivado_paths[@]}" -ne 1 ]; then
             if [ "${#vivado_paths[@]}" -eq 0 ]; then
               echo "No Vivado installations found under /opt/vivado/*/bin/vivado." >&2
+              echo "Ensure the tarball contains <version>/bin/vivado so extraction creates /opt/vivado/<version>/bin/vivado." >&2
             else
               echo "Multiple Vivado installations found under /opt/vivado/*/bin/vivado." >&2
               echo "Found paths: ${vivado_paths[*]}" >&2
+              echo "Ensure the tarball contains only one Vivado install directory." >&2
             fi
-            echo "Ensure the tarball contains <version>/bin/vivado so extraction creates /opt/vivado/<version>/bin/vivado." >&2
             exit 1
           fi
           vivado_bin="${vivado_paths[0]}"
