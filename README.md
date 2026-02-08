@@ -42,8 +42,8 @@ asset (no secrets required). Upload a tarball named `vivado.tar.gz` to a release
 tagged `vivado`, or override with repository variables `VIVADO_RELEASE_TAG` and
 `VIVADO_ASSET_NAME`. Set `VIVADO_TARBALL_SHA256` as a repository variable to
 enforce integrity verification (required by CI). Optional repository variables
-`VIVADO_DOWNLOAD_TIMEOUT` and `VIVADO_DOWNLOAD_MAX_REDIRS` control download
-limits. The tarball should contain a
+`VIVADO_DOWNLOAD_TIMEOUT` (default 1800 seconds) and
+`VIVADO_DOWNLOAD_MAX_REDIRS` control download limits. The tarball should contain a
 single top-level directory named after the version (e.g. `2023.1/`) with
 `bin/vivado` inside, so extraction creates `/opt/vivado/<version>/bin/vivado`.
 
