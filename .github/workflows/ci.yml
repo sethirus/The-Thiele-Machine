@@ -363,11 +363,11 @@ jobs:
           tag = os.environ.get("VIVADO_RELEASE_TAG", "vivado")
           name = os.environ.get("VIVADO_ASSET_NAME", "vivado.tar.gz")
           token = os.environ.get("GITHUB_TOKEN")
-          url = f"https://api.github.com/repos/{repo}/releases/tags/{tag}"
+          api_url = f"https://api.github.com/repos/{repo}/releases/tags/{tag}"
           headers = {"Accept": "application/vnd.github+json"}
           if token:
             headers["Authorization"] = f"Bearer {token}"
-          req = urllib.request.Request(url, headers=headers)
+          req = urllib.request.Request(api_url, headers=headers)
           try:
             with urllib.request.urlopen(req) as response:
               data = json.load(response)
@@ -377,15 +377,15 @@ jobs:
           except urllib.error.URLError as exc:
             sys.stderr.write(f"Release tag lookup failed for {tag}: {exc.reason}\n")
             sys.exit(1)
-          url = None
+          asset_url = None
           for asset in data.get("assets", []):
             if asset.get("name") == name:
-              url = asset.get("url")
+              asset_url = asset.get("url")
               break
-          if not url:
+          if not asset_url:
             sys.stderr.write(f"Release asset {name} not found on tag {tag}.\n")
             sys.exit(1)
-          print(url)
+          print(asset_url)
           PY
           ) || exit 1
           curl_args=(-fL -H "Accept: application/octet-stream")
@@ -405,18 +405,18 @@ jobs:
           sudo mkdir -p /opt/vivado
           sudo tar -xzf "$tmp_dir/vivado.tar.gz" -C /opt/vivado
           shopt -s nullglob
-          vivado_bins=(/opt/vivado/*/bin/vivado)
-          if [ "${#vivado_bins[@]}" -ne 1 ]; then
-            if [ "${#vivado_bins[@]}" -eq 0 ]; then
+          vivado_paths=(/opt/vivado/*/bin/vivado)
+          if [ "${#vivado_paths[@]}" -ne 1 ]; then
+            if [ "${#vivado_paths[@]}" -eq 0 ]; then
               echo "No Vivado installations found under /opt/vivado/*/bin/vivado." >&2
             else
               echo "Multiple Vivado installations found under /opt/vivado/*/bin/vivado." >&2
-              echo "Found paths: ${vivado_bins[*]}" >&2
+              echo "Found paths: ${vivado_paths[*]}" >&2
             fi
             echo "Ensure the tarball contains <version>/bin/vivado so extraction creates /opt/vivado/<version>/bin/vivado." >&2
             exit 1
           fi
-          vivado_bin="${vivado_bins[0]}"
+          vivado_bin="${vivado_paths[0]}"
           if [ ! -x "$vivado_bin" ]; then
             echo "Vivado binary is not executable: $vivado_bin" >&2
             exit 1
