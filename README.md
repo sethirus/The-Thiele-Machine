@@ -37,8 +37,10 @@ iverilog thielecpu/hardware/rtl/*.v -o thiele_cpu
 ```
 
 ### FPGA Bitstream (Vivado)
-The CI full-verification job requires Vivado and runs on a self-hosted runner
-labeled `vivado`. Ensure the runner has `vivado` on PATH before starting the job.
+The CI full-verification job installs Vivado automatically from a GitHub release
+asset (no secrets required). Upload a tarball named `vivado.tar.gz` to a release
+tagged `vivado`, or override with repository variables `VIVADO_RELEASE_TAG` and
+`VIVADO_ASSET_NAME`. The tarball should unpack to `/opt/vivado/<version>/bin/vivado`.
 
 ---
 
