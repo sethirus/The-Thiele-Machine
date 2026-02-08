@@ -371,8 +371,11 @@ jobs:
             data = json.load(response)
           for asset in data.get("assets", []):
             if asset.get("name") == name:
-              print(asset.get("url", ""))
-              sys.exit(0)
+              url = asset.get("url")
+              if url:
+                print(url)
+                sys.exit(0)
+              sys.exit(1)
           sys.exit(1)
           PY
           ) || {
@@ -395,7 +398,7 @@ jobs:
           shopt -s nullglob
           vivado_bins=(/opt/vivado/*/bin/vivado)
           if [ "${#vivado_bins[@]}" -ne 1 ]; then
-            echo "Expected exactly one Vivado binary at /opt/vivado/*/bin/vivado, found ${#vivado_bins[@]}." >&2
+            echo "Expected exactly one Vivado installation at /opt/vivado/*/bin/vivado, found ${#vivado_bins[@]}." >&2
             echo "Found paths: ${vivado_bins[*]:-none}" >&2
             echo "Ensure the tarball unpacks into /opt/vivado/<version>/bin/vivado." >&2
             exit 1
