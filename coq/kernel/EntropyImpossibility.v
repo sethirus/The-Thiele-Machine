@@ -77,7 +77,9 @@ Definition tweak_regs (s : VMState) (x : nat) : VMState :=
     FALSIFICATION: Find an observable (measurement) that distinguishes s from
     tweak_regs s x. This would mean registers are measurable, contradicting
     the definition of ObservableRegion.
-*)
+ *)
+(* Definitional lemma: ObservableRegion ignores vm_regs, so region_equiv is
+   unchanged by tweak_regs by construction. *)
 Lemma tweak_regs_region_equiv : forall s x,
   region_equiv s (tweak_regs s x).
 Proof.
