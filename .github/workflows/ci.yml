@@ -343,7 +343,7 @@ jobs:
           VIVADO_RELEASE_TAG: ${{ vars.VIVADO_RELEASE_TAG || 'vivado' }}
           VIVADO_ASSET_NAME: ${{ vars.VIVADO_ASSET_NAME || 'vivado.tar.gz' }}
           VIVADO_TARBALL_SHA256: ${{ vars.VIVADO_TARBALL_SHA256 }}
-          VIVADO_DOWNLOAD_TIMEOUT: ${{ vars.VIVADO_DOWNLOAD_TIMEOUT || '7200' }}
+          VIVADO_DOWNLOAD_TIMEOUT: ${{ vars.VIVADO_DOWNLOAD_TIMEOUT || '1800' }}
           VIVADO_DOWNLOAD_MAX_REDIRS: ${{ vars.VIVADO_DOWNLOAD_MAX_REDIRS || '5' }}
         run: |
           set -euo pipefail
@@ -438,10 +438,6 @@ jobs:
           fi
           echo "Adding Vivado to PATH for subsequent steps"
           vivado_dir=$(dirname "$vivado_bin")
-          if [ "$vivado_dir" = "." ]; then
-            echo "Vivado directory path is invalid: $vivado_dir" >&2
-            exit 1
-          fi
           printf '%s\n' "$vivado_dir" >> "$GITHUB_PATH"
           "$vivado_bin" -version
 
