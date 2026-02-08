@@ -72,7 +72,10 @@ OPEN_BIT="$REPORTS_DIR/thiele_cpu_open.bit"
 yosys -p "read_verilog -sv -nomem2reg -DSYNTHESIS -DYOSYS_LITE -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_unified.v; synth -top thiele_cpu; write_json $PNR_JSON" \
   > "$REPORTS_DIR/openfpga_synth.log" 2>&1
 nextpnr-generic --json "$PNR_JSON" --top thiele_cpu --write "$PNR_CFG" \
-  > "$REPORTS_DIR/openfpga_pnr.log" 2>&1
+  > "$REPORTS_DIR/openfpga_pnr.log" 2>&1 || {
+    echo "Open-source PnR failed - see $REPORTS_DIR/openfpga_pnr.log"
+    exit 1
+  }
 cp "$PNR_CFG" "$OPEN_BIT"
 echo "Open-source bitstream artifact: $OPEN_BIT"
 
