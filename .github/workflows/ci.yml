@@ -344,13 +344,16 @@ jobs:
         run: |
           set -euo pipefail
           if command -v vivado >/dev/null 2>&1; then
-            if vivado_output=$(vivado -version 2>&1); then
-              echo "$vivado_output"
+            vivado_log=$(mktemp)
+            if vivado -version >"$vivado_log" 2>&1; then
+              cat "$vivado_log"
+              rm -f "$vivado_log"
               echo "Vivado already available on PATH"
               exit 0
             fi
             echo "Vivado present but failed to run; reinstalling from tarball" >&2
-            echo "$vivado_output" >&2
+            cat "$vivado_log" >&2
+            rm -f "$vivado_log"
           fi
           if [ -z "${VIVADO_TARBALL_URL:-}" ]; then
             echo "VIVADO_TARBALL_URL secret is required to install Vivado" >&2
@@ -375,7 +378,7 @@ jobs:
           if [ "${#vivado_bins[@]}" -ne 1 ]; then
             echo "Expected exactly one Vivado binary at /opt/vivado/*/bin/vivado, found ${#vivado_bins[@]}." >&2
             echo "Found paths: ${vivado_bins[*]:-none}" >&2
-            echo "Ensure the tarball contains a single Vivado install under /opt/vivado/<version>/bin/vivado." >&2
+            echo "Ensure the tarball unpacks into /opt/vivado/<version>/bin/vivado." >&2
             exit 1
           fi
           vivado_bin="${vivado_bins[0]}"
