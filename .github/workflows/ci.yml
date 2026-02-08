@@ -339,8 +339,8 @@ jobs:
 
       - name: Install Vivado
         env:
-          VIVADO_TARBALL_URL: ${{ secrets.VIVADO_TARBALL_URL }}
-          VIVADO_TARBALL_SHA256: ${{ secrets.VIVADO_TARBALL_SHA256 }}
+          VIVADO_TARBALL_URL: ${{ secrets.VIVADO_TARBALL_URL || vars.VIVADO_TARBALL_URL }}
+          VIVADO_TARBALL_SHA256: ${{ secrets.VIVADO_TARBALL_SHA256 || vars.VIVADO_TARBALL_SHA256 }}
         run: |
           set -euo pipefail
           if command -v vivado >/dev/null 2>&1; then
@@ -356,7 +356,7 @@ jobs:
             rm -f "$vivado_log"
           fi
           if [ -z "${VIVADO_TARBALL_URL:-}" ]; then
-            echo "VIVADO_TARBALL_URL secret is required to install Vivado" >&2
+            echo "VIVADO_TARBALL_URL (secret or repository variable) is required to install Vivado" >&2
             exit 1
           fi
           tmp_dir=$(mktemp -d)
