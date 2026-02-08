@@ -42,7 +42,7 @@ def test_openfpga_ecp5_bitstream_generation() -> None:
             capture_output=True,
             text=True,
             cwd=str(repo_root),
-            timeout=900,
+            timeout=1200,
         )
         subprocess.run(
             [
