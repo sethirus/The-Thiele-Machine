@@ -29,7 +29,7 @@ def test_openfpga_ecp5_bitstream_generation() -> None:
         bit_out = workdir / "thiele_cpu.bit"
 
         cpu_count = os.cpu_count() or 2
-        threads = max(1, (cpu_count + 1) // 2)  # parity with automation script (ceil(n/2))
+        threads = max(1, (cpu_count + 1) // 2)  # ceil(n/2) threads to match automated_verification.sh
         subprocess.run(
             [
                 "yosys",
