@@ -352,6 +352,10 @@ jobs:
           fi
           tmp_dir=$(mktemp -d)
           trap 'rm -rf "$tmp_dir"' EXIT
+          if [ -z "${VIVADO_TARBALL_SHA256:-}" ]; then
+            echo "VIVADO_TARBALL_SHA256 repository variable is required for Vivado integrity verification" >&2
+            exit 1
+          fi
           asset_url=$(python3 - <<'PY'
           import json
           import os
@@ -405,12 +409,10 @@ jobs:
             echo "Failed to download Vivado release asset" >&2
             exit 1
           }
-          if [ -n "${VIVADO_TARBALL_SHA256:-}" ]; then
-            actual_sha256=$(sha256sum "$tmp_dir/vivado.tar.gz" | awk '{print $1}')
-            if [ "$actual_sha256" != "$VIVADO_TARBALL_SHA256" ]; then
-              echo "Vivado tarball checksum verification failed. Expected ${VIVADO_TARBALL_SHA256} got ${actual_sha256}" >&2
-              exit 1
-            fi
+          actual_sha256=$(sha256sum "$tmp_dir/vivado.tar.gz" | awk '{print $1}')
+          if [ "$actual_sha256" != "$VIVADO_TARBALL_SHA256" ]; then
+            echo "Vivado tarball checksum verification failed. Expected ${VIVADO_TARBALL_SHA256} got ${actual_sha256}" >&2
+            exit 1
           fi
           sudo mkdir -p /opt/vivado
           sudo tar -xzf "$tmp_dir/vivado.tar.gz" -C /opt/vivado
@@ -433,7 +435,12 @@ jobs:
             exit 1
           fi
           echo "Adding Vivado to PATH for subsequent steps"
-          printf '%s\n' "$(dirname "$vivado_bin")" >> "$GITHUB_PATH"
+          vivado_dir=$(dirname "$vivado_bin")
+          if [[ -z "$vivado_dir" || "$vivado_dir" == *$'\n'* ]]; then
+            echo "Vivado directory path is invalid: $vivado_dir" >&2
+            exit 1
+          fi
+          printf '%s\n' "$vivado_dir" >> "$GITHUB_PATH"
           "$vivado_bin" -version
 
       - name: Set up Python
