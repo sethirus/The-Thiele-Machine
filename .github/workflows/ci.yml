@@ -357,6 +357,7 @@ jobs:
             exit 1
           fi
           tmp_dir=$(mktemp -d)
+          trap 'rm -rf "$tmp_dir"' EXIT
           curl -fL "$VIVADO_TARBALL_URL" -o "$tmp_dir/vivado.tar.gz" || {
             echo "Failed to download Vivado tarball from provided URL" >&2
             exit 1
