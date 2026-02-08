@@ -344,8 +344,11 @@ jobs:
         run: |
           set -euo pipefail
           if command -v vivado >/dev/null 2>&1; then
-            vivado -version || true
-            exit 0
+            if vivado -version; then
+              echo "Vivado already available on PATH"
+              exit 0
+            fi
+            echo "Vivado present but failed to run; reinstalling from tarball"
           fi
           if [ -z "${VIVADO_TARBALL_URL:-}" ]; then
             echo "VIVADO_TARBALL_URL secret is required to install Vivado" >&2
@@ -358,11 +361,12 @@ jobs:
           fi
           sudo mkdir -p /opt/vivado
           sudo tar -xzf "$tmp_dir/vivado.tar.gz" -C /opt/vivado
-          vivado_bin=$(find /opt/vivado -type f -path "*/bin/vivado" | head -1)
-          if [ -z "$vivado_bin" ]; then
-            echo "Vivado binary not found after extraction" >&2
+          mapfile -t vivado_bins < <(find /opt/vivado -type f -path "*/bin/vivado")
+          if [ "${#vivado_bins[@]}" -ne 1 ]; then
+            echo "Expected exactly one Vivado binary after extraction, found ${#vivado_bins[@]}" >&2
             exit 1
           fi
+          vivado_bin="${vivado_bins[0]}"
           echo "$(dirname "$vivado_bin")" >> "$GITHUB_PATH"
           "$vivado_bin" -version
 
