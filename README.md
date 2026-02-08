@@ -36,16 +36,10 @@ make -C coq
 iverilog thielecpu/hardware/rtl/*.v -o thiele_cpu
 ```
 
-### FPGA Bitstream (Vivado)
-The CI full-verification job installs Vivado automatically from a GitHub release
-asset (no secrets required). Upload a tarball named `vivado.tar.gz` to a release
-tagged `vivado`, or override with repository variables `VIVADO_RELEASE_TAG` and
-`VIVADO_ASSET_NAME`. Set `VIVADO_TARBALL_SHA256` as a repository variable to
-enforce integrity verification (required by CI). Optional repository variables
-`VIVADO_DOWNLOAD_TIMEOUT` (default 1800 seconds) and
-`VIVADO_DOWNLOAD_MAX_REDIRS` control download limits. The tarball should contain a
-single top-level directory named after the version (e.g. `2023.1/`) with
-`bin/vivado` inside, so extraction creates `/opt/vivado/<version>/bin/vivado`.
+### FPGA Bitstream (Open-Source)
+The CI full-verification job uses an open-source FPGA flow with `yosys` and
+`nextpnr-generic` to generate a bitstream artifact. Ensure these tools are
+available in your environment if you run the verification pipeline locally.
 
 ---
 
