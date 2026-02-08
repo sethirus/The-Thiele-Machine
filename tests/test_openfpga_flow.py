@@ -55,7 +55,7 @@ def test_openfpga_ecp5_bitstream_generation() -> None:
                 "--speed",
                 "6",
                 "--threads",
-                str(max(1, (os.cpu_count() or 2) // 2)),
+                str(max(1, ((os.cpu_count() or 2) + 1) // 2)),
                 "--placer",
                 "heap",
                 "--router",
