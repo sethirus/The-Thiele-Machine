@@ -344,7 +344,6 @@ jobs:
         run: |
           set -euo pipefail
           if command -v vivado >/dev/null 2>&1; then
-            vivado_output=""
             if vivado_output=$(vivado -version 2>&1); then
               echo "$vivado_output"
               echo "Vivado already available on PATH"
@@ -374,7 +373,9 @@ jobs:
           shopt -s nullglob
           vivado_bins=(/opt/vivado/*/bin/vivado)
           if [ "${#vivado_bins[@]}" -ne 1 ]; then
-            echo "Expected exactly one Vivado binary at /opt/vivado/*/bin/vivado, found ${#vivado_bins[@]}" >&2
+            echo "Expected exactly one Vivado binary at /opt/vivado/*/bin/vivado, found ${#vivado_bins[@]}." >&2
+            echo "Found paths: ${vivado_bins[*]:-none}" >&2
+            echo "Ensure the tarball contains a single Vivado install under /opt/vivado/<version>/bin/vivado." >&2
             exit 1
           fi
           vivado_bin="${vivado_bins[0]}"
