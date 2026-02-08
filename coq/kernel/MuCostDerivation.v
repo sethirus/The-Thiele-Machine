@@ -249,6 +249,8 @@ Record ReversibleOp := {
 }.
 
 (** Reversible operations have zero information cost *)
+(* SAFE: By Landauer, reversible ops do not erase information; μ-cost is
+   definitionally zero and reaffirmed by partition_ops_zero_cost below. *)
 Definition reversible_info_cost (op : ReversibleOp) : nat := 0.
 
 (** Theorem: Partition operations MUST have zero cost *)
