@@ -391,23 +391,14 @@ jobs:
             echo "Vivado release asset not found. Upload ${VIVADO_ASSET_NAME} to release tag ${VIVADO_RELEASE_TAG}." >&2
             exit 1
           }
-          auth_header=()
+          curl_args=(-fL -H "Accept: application/octet-stream")
           if [ -n "${GITHUB_TOKEN:-}" ]; then
-            auth_header=(-H "Authorization: Bearer $GITHUB_TOKEN")
+            curl_args+=(-H "Authorization: Bearer $GITHUB_TOKEN")
           fi
-          if [ "${#auth_header[@]}" -gt 0 ]; then
-            curl -fL "${auth_header[@]}" -H "Accept: application/octet-stream" \
-              "$asset_url" -o "$tmp_dir/vivado.tar.gz" || {
-                echo "Failed to download Vivado release asset" >&2
-                exit 1
-              }
-          else
-            curl -fL -H "Accept: application/octet-stream" \
-              "$asset_url" -o "$tmp_dir/vivado.tar.gz" || {
-                echo "Failed to download Vivado release asset" >&2
-                exit 1
-              }
-          fi
+          curl "${curl_args[@]}" "$asset_url" -o "$tmp_dir/vivado.tar.gz" || {
+            echo "Failed to download Vivado release asset" >&2
+            exit 1
+          }
           if [ -n "${VIVADO_TARBALL_SHA256:-}" ]; then
             echo "${VIVADO_TARBALL_SHA256}  $tmp_dir/vivado.tar.gz" | sha256sum -c - || {
               echo "Vivado tarball checksum verification failed" >&2
