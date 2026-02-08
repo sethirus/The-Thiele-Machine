@@ -344,6 +344,7 @@ jobs:
         run: |
           set -euo pipefail
           if command -v vivado >/dev/null 2>&1; then
+            vivado_output=""
             if vivado_output=$(vivado -version 2>&1); then
               echo "$vivado_output"
               echo "Vivado already available on PATH"
