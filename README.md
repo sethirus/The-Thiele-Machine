@@ -40,9 +40,10 @@ iverilog thielecpu/hardware/rtl/*.v -o thiele_cpu
 The CI full-verification job installs Vivado automatically from a GitHub release
 asset (no secrets required). Upload a tarball named `vivado.tar.gz` to a release
 tagged `vivado`, or override with repository variables `VIVADO_RELEASE_TAG` and
-`VIVADO_ASSET_NAME`. The tarball should contain a single top-level directory
-named after the version (e.g. `2023.1/`) with `bin/vivado` inside, so extraction
-creates `/opt/vivado/<version>/bin/vivado`.
+`VIVADO_ASSET_NAME`. Set `VIVADO_TARBALL_SHA256` as a repository variable to
+enforce integrity verification (required by CI). The tarball should contain a
+single top-level directory named after the version (e.g. `2023.1/`) with
+`bin/vivado` inside, so extraction creates `/opt/vivado/<version>/bin/vivado`.
 
 ---
 
