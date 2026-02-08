@@ -18,6 +18,8 @@ def _tool_available(name: str) -> bool:
     reason="open-source FPGA tools not available",
 )
 def test_openfpga_ecp5_bitstream_generation() -> None:
+    if os.environ.get("OPENFPGA_PNR") != "1":
+        pytest.skip("OPENFPGA_PNR not enabled")
     repo_root = Path(__file__).resolve().parents[1]
     rtl_dir = repo_root / "thielecpu" / "hardware" / "rtl"
     top_verilog = rtl_dir / "thiele_cpu_unified.v"
