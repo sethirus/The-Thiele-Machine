@@ -372,7 +372,7 @@ jobs:
             with urllib.request.urlopen(req) as response:
               data = json.load(response)
           except urllib.error.HTTPError as exc:
-            sys.stderr.write(f"Release tag lookup failed for {tag}: HTTP {exc.code}\n")
+            sys.stderr.write(f"GitHub API request failed for release tag {tag}: HTTP {exc.code}\n")
             sys.exit(1)
           except urllib.error.URLError as exc:
             sys.stderr.write(f"Release tag lookup failed for {tag}: {exc.reason}\n")
@@ -387,10 +387,7 @@ jobs:
             sys.exit(1)
           print(url)
           PY
-          ) || {
-            echo "Vivado release asset not found. Upload ${VIVADO_ASSET_NAME} to release tag ${VIVADO_RELEASE_TAG}." >&2
-            exit 1
-          }
+          ) || exit 1
           curl_args=(-fL -H "Accept: application/octet-stream")
           if [ -n "${GITHUB_TOKEN:-}" ]; then
             curl_args+=(-H "Authorization: Bearer $GITHUB_TOKEN")
@@ -425,7 +422,7 @@ jobs:
             exit 1
           fi
           echo "Adding Vivado to PATH for subsequent steps"
-          echo "$(dirname "$vivado_bin")" >> "$GITHUB_PATH"
+          printf '%s\n' "$(dirname "$vivado_bin")" >> "$GITHUB_PATH"
           "$vivado_bin" -version
 
       - name: Set up Python
