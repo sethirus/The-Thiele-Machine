@@ -372,10 +372,16 @@ jobs:
             with urllib.request.urlopen(req) as response:
               data = json.load(response)
           except urllib.error.HTTPError as exc:
-            sys.stderr.write(f"GitHub API request failed for release tag {tag}: HTTP {exc.code}\n")
+            sys.stderr.write(
+              f"GitHub API request failed for release tag {tag}: HTTP {exc.code}. "
+              "Verify the release tag exists and the workflow has contents: read permissions.\n"
+            )
             sys.exit(1)
           except urllib.error.URLError as exc:
-            sys.stderr.write(f"Release tag lookup failed for {tag}: {exc.reason}\n")
+            sys.stderr.write(
+              f"GitHub API request failed for release tag {tag}: {exc.reason}. "
+              "Check network connectivity and repository access.\n"
+            )
             sys.exit(1)
           asset_url = None
           for asset in data.get("assets", []):
@@ -383,7 +389,10 @@ jobs:
               asset_url = asset.get("url")
               break
           if not asset_url:
-            sys.stderr.write(f"Release asset {name} not found on tag {tag}.\n")
+            sys.stderr.write(
+              f"Release asset {name} not found on tag {tag}. "
+              "Ensure the asset name matches exactly and the release is published.\n"
+            )
             sys.exit(1)
           print(asset_url)
           PY
@@ -397,10 +406,11 @@ jobs:
             exit 1
           }
           if [ -n "${VIVADO_TARBALL_SHA256:-}" ]; then
-            echo "${VIVADO_TARBALL_SHA256}  $tmp_dir/vivado.tar.gz" | sha256sum -c - || {
-              echo "Vivado tarball checksum verification failed" >&2
+            actual_sha256=$(sha256sum "$tmp_dir/vivado.tar.gz" | awk '{print $1}')
+            if [ "$actual_sha256" != "$VIVADO_TARBALL_SHA256" ]; then
+              echo "Vivado tarball checksum verification failed. Expected ${VIVADO_TARBALL_SHA256} got ${actual_sha256}" >&2
               exit 1
-            }
+            fi
           fi
           sudo mkdir -p /opt/vivado
           sudo tar -xzf "$tmp_dir/vivado.tar.gz" -C /opt/vivado
