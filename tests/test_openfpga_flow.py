@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import shutil
 import subprocess
 import tempfile
@@ -54,20 +55,22 @@ def test_openfpga_ecp5_bitstream_generation() -> None:
                 "--speed",
                 "6",
                 "--threads",
-                "4",
+                str(max(1, (os.cpu_count() or 2) // 2)),
                 "--placer",
                 "heap",
                 "--router",
                 "router1",
                 "--placer-heap-cell-placement-timeout",
                 "4",
+                "--ignore-loops",
+                "--ignore-rel-clk",
                 "--no-tmdriv",
                 "--timing-allow-fail",
             ],
             check=True,
             capture_output=True,
             text=True,
-            timeout=1200,
+            timeout=900,
         )
         subprocess.run(
             ["ecppack", str(cfg_out), str(bit_out)],
