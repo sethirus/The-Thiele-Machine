@@ -343,6 +343,8 @@ jobs:
           VIVADO_RELEASE_TAG: ${{ vars.VIVADO_RELEASE_TAG || 'vivado' }}
           VIVADO_ASSET_NAME: ${{ vars.VIVADO_ASSET_NAME || 'vivado.tar.gz' }}
           VIVADO_TARBALL_SHA256: ${{ vars.VIVADO_TARBALL_SHA256 }}
+          VIVADO_DOWNLOAD_TIMEOUT: ${{ vars.VIVADO_DOWNLOAD_TIMEOUT || '7200' }}
+          VIVADO_DOWNLOAD_MAX_REDIRS: ${{ vars.VIVADO_DOWNLOAD_MAX_REDIRS || '5' }}
         run: |
           set -euo pipefail
           if command -v vivado >/dev/null 2>&1; then
@@ -401,7 +403,7 @@ jobs:
           print(asset_url)
           PY
           )
-          curl_args=(-fL --max-redirs 5 --max-time 3600 -H "Accept: application/octet-stream")
+          curl_args=(-fL --max-redirs "${VIVADO_DOWNLOAD_MAX_REDIRS}" --max-time "${VIVADO_DOWNLOAD_TIMEOUT}" -H "Accept: application/octet-stream")
           if [ -n "${GITHUB_TOKEN:-}" ]; then
             curl_args+=(-H "Authorization: Bearer $GITHUB_TOKEN")
           fi
@@ -436,7 +438,7 @@ jobs:
           fi
           echo "Adding Vivado to PATH for subsequent steps"
           vivado_dir=$(dirname "$vivado_bin")
-          if [[ -z "$vivado_dir" || "$vivado_dir" =~ $'\n' ]]; then
+          if [ -z "$vivado_dir" ]; then
             echo "Vivado directory path is invalid: $vivado_dir" >&2
             exit 1
           fi
