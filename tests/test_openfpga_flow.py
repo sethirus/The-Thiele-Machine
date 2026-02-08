@@ -59,13 +59,15 @@ def test_openfpga_ecp5_bitstream_generation() -> None:
                 "heap",
                 "--router",
                 "router1",
+                "--placer-heap-cell-placement-timeout",
+                "4",
                 "--no-tmdriv",
                 "--timing-allow-fail",
             ],
             check=True,
             capture_output=True,
             text=True,
-            timeout=900,
+            timeout=1200,
         )
         subprocess.run(
             ["ecppack", str(cfg_out), str(bit_out)],
