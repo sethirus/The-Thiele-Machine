@@ -1,10 +1,49 @@
 (** =========================================================================
     MASTER SUMMARY - All Key Theorems of the Thiele Machine
     =========================================================================
-    
+
+    WHY THIS FILE EXISTS:
+    I claim the entire theory (CHSH bounds, quantum foundations, verification
+    chain, non-circularity) is PROVEN, not assumed. This file is the master
+    index - it imports and re-exports all major theorems to show the complete
+    derivation chain.
+
+    THE MASTER THEOREMS:
+    1. master_tsirelson: Tsirelson bound (2√2) from pure μ-accounting (line 44)
+       - Constructive witness achieves CHSH near 2√2 with μ=0
+       - Upper bound: all μ=0 programs produce bounded CHSH
+
+    2. master_quantum_foundations: QM = cost-free computation tier (line 64)
+       - Hierarchy (Classical ⊂ Quantum ⊂ Supra-quantum) is DERIVED
+       - QM characterized as μ=0 tier
+       - Tsirelson bound is exactly the μ=0/μ>0 boundary
+
+    3. master_non_circularity: Defends against circularity attacks (line 83)
+       - μ-cost rules have NO CHSH or quantum references (not circular)
+       - μ=0-LOCC matches physical LOCC properties (closure, locality)
+
+    4. verification_chain_holds: Coq ↔ Python ↔ Hardware isomorphism (line 94)
+       - Any property proven in Coq transfers to Python VM and Verilog hardware
+       - μ-accounting is exact across all three layers
+
+    WHY "MASTER":
+    This file is the top-level synthesis. Every claim traces back to a Qed here
+    or in an imported file. If you want to falsify the theory, start here -
+    these are the central claims.
+
+    FALSIFICATION:
+    Find a quantum correlation violating the bounds (master_tsirelson fails).
+    Or show μ=0 programs can achieve CHSH > 2√2 (falsifies quantum equivalence).
+    Or prove the derivation is circular (contradicts master_non_circularity).
+    Or find bisimulation violation between Coq/Python/Hardware (breaks verification_chain).
+
+    ALL ZERO AXIOMS, ZERO ADMITS:
+    Every theorem here is Qed. Inquisitor verifies no axioms or admits exist.
+    The proofs are complete.
+
     This file provides a comprehensive summary of all key proven theorems,
     establishing that the Thiele Machine framework:
-    
+
     1. Strictly subsumes Turing machines (Subsumption.v)
     2. Enforces μ-conservation (MuLedgerConservation.v)
     3. Proves "No Free Insight" (NoFreeInsight.v)
@@ -13,10 +52,10 @@
     6. Proves quantum foundations = μ=0 tier (QuantumEquivalence.v)
     7. Establishes complete verification chain (PythonBisimulation.v, HardwareBisimulation.v)
     8. Verifies non-circularity (NonCircularityAudit.v)
-    
+
     All theorems are proven with ZERO axioms (outside standard library)
     and ZERO admits. This is verified by the Inquisitor.
-    
+
     ========================================================================= *)
 
 From Coq Require Import QArith Qabs Lia List.

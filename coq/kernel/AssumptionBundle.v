@@ -1,12 +1,44 @@
-(** =========================================================================
-    Assumption Bundle - Clean Interface for Hard Mathematical Facts
-    =========================================================================
+(** * AssumptionBundle: Making dependencies explicit
 
-    This file bundles all hard-to-prove mathematical assumptions into
-    a single Record. Theorems that depend on these get the bundle as
-    a parameter, making dependencies explicit.
+    WHY THIS EXISTS:
+    Some mathematical facts are HARD to prove in Coq (Tsirelson's theorem,
+    NPA hierarchy bounds, PR-box monogamy). Instead of sprinkling axioms
+    throughout the codebase or admitting lemmas everywhere, I bundle them
+    into ONE record. Any theorem that needs them takes the bundle as a
+    Section parameter.
 
-    ========================================================================= *)
+    THE BENEFIT:
+    Run "Print Assumptions theorem_name" and you see EXACTLY what hard facts
+    it depends on. No hidden axioms. No surprise dependencies. Clean interface.
+
+    THE ASSUMPTIONS (6 total):
+    1. norm_E_bound: Correlations from probability distributions are bounded |E| ≤ 1
+    2. valid_S_4: Triangle inequality gives CHSH ≤ 4
+    3. local_S_2: Local deterministic strategies give CHSH ≤ 2 (Bell's inequality)
+    4. pr_no_ext: PR-box monogamy (can't extend PR boxes to tripartite)
+    5. symm_coh_bound: NPA hierarchy level-1 symmetric bound
+    6. tsir_from_coh: Tsirelson's theorem (algebraic coherence → CHSH ≤ 2√2)
+
+    WHY THESE ARE "HARD":
+    These require analysis (Cauchy-Schwarz, eigenvalue bounds, semidefinite
+    programming duality). Proving them in Coq would require massive real
+    analysis libraries. Instead, I state them as assumptions and make the
+    dependency explicit. If you don't trust them, check the literature or
+    verify numerically.
+
+    USAGE:
+    ```coq
+    Section MyProofs.
+      Context (facts : HardMathFacts).
+      (* Now use facts.(norm_E_bound), facts.(tsir_from_coh), etc. *)
+    End MyProofs.
+    ```
+
+    FALSIFICATION:
+    If ANY of these 6 assumptions is false, find a counterexample.
+    They're standard results in quantum information theory, verified
+    independently by multiple sources.
+*)
 
 Require Import Coq.QArith.QArith.
 Require Import Coq.QArith.Qabs.

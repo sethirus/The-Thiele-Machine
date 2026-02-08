@@ -374,6 +374,9 @@ class TestThreeLayerIsomorphism:
 # Benchmark Suite
 # =============================================================================
 
+pytest_benchmark = pytest.importorskip("pytest_benchmark")
+
+
 class TestIsomorphismBenchmarks:
     """Performance benchmarking across layers."""
 
@@ -394,11 +397,12 @@ class TestIsomorphismBenchmarks:
     def test_benchmark_psplit_sequence(self, benchmark):
         """Benchmark PSPLIT operations."""
         def run_psplit_sequence():
-            program = [Instruction("PNEW", (set(range(64)),), cost=64)]
-            # Add multiple PSPLIT operations
-            for i in range(5):
-                program.append(Instruction("PSPLIT", (ModuleId(1), lambda x: x % 2 == 0), cost=64))
-            return execute_python(program)
+            state = State()
+            module = state.pnew(set(range(64)), charge_discovery=True)
+            for _ in range(5):
+                left, right = state.psplit(module, lambda x: x % 2 == 0, cost=64)
+                module = left if len(state.regions.modules[left]) >= len(state.regions.modules[right]) else right
+            return state
 
         result = benchmark(run_psplit_sequence)
 

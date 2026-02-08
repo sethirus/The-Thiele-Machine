@@ -218,16 +218,71 @@ Definition semantic_complexity_bits (c : Constraint) : nat :=
     PART 5: PROPERTIES AND CORRECTNESS
     ========================================================================= *)
 
+(** log2_nat returns >= 1 for inputs >= 2.
+
+    WHY: We need this to show semantic complexity is nonzero for non-trivial
+    constraints. If n >= 2, then Nat.log2 n >= 1 (by definition: log2(2) = 1
+    and log2 is monotone). The conditional adds 0 or 1, so the total >= 1.
+
+    PROOF STRATEGY: If Nat.log2 n = 0 for n >= 2, then by Nat.log2_spec,
+    2^0 = 1 <= n < 2^1 = 2, forcing n = 1. Contradiction.
+*)
+Lemma log2_nat_ge_1_of_ge_2 : forall n, n >= 2 -> log2_nat n >= 1.
+Proof.
+  intros n Hn.
+  unfold log2_nat.
+  destruct n as [| n']. { lia. }
+  (* n = S n', and S n' >= 2, so n' >= 1 *)
+  assert (Hlog: Nat.log2 (S n') >= 1).
+  { destruct (Nat.log2 (S n')) eqn:E.
+    - (* Nat.log2 (S n') = 0 implies S n' < 2, contradicting S n' >= 2 *)
+      exfalso.
+      assert (H2: 1 <= S n') by lia.
+      apply Nat.log2_spec in H2.
+      rewrite E in H2. simpl in H2. lia.
+    - lia. }
+  lia.
+Qed.
+
 (** Semantic complexity is non-zero for non-trivial constraints.
 
-    This lemma is intuitive but requires additional properties of log2_nat.
-    We leave it as a conjecture since it's not needed for the isomorphism guarantee.
+    WHY THIS MATTERS: If non-trivial constraints could have zero μ-cost,
+    you could assert arbitrary structure for free, violating No Free Insight.
+
+    CLAIM: Any constraint that is not CTrue or CFalse has count_operators >= 1
+    (every constructor except CTrue/CFalse contributes at least 1 operator).
+    Therefore log2_nat(S(operators)) >= 1, so 8 * (... + ... + >=1) >= 8 > 0.
+
+    PROOF STRATEGY: Case analysis on constraint constructor. CTrue and CFalse
+    are eliminated by hypothesis. All other constructors give count_operators >= 1.
+    Then log2_nat_ge_1_of_ge_2 gives us the bound.
+
+    FALSIFICATION: Find a non-trivial constraint with zero semantic complexity.
+    The definition makes this impossible: every CAtom, CAnd, COr, CNot contributes
+    at least 1 to count_operators.
 *)
-Conjecture semantic_complexity_nonzero :
+Theorem semantic_complexity_nonzero :
   forall c,
     c <> CTrue ->
     c <> CFalse ->
     semantic_complexity_bits c > 0.
+Proof.
+  intros c Hnt Hnf.
+  unfold semantic_complexity_bits.
+  (* count_operators c >= 1 for non-trivial constraints *)
+  assert (Hops: count_operators c >= 1).
+  { destruct c; simpl; try lia.
+    - exfalso; apply Hnt; reflexivity.
+    - exfalso; apply Hnf; reflexivity. }
+  (* log2_nat (S (count_operators c)) >= 1 since S (count_operators c) >= 2 *)
+  assert (Hlog: log2_nat (S (count_operators c)) >= 1).
+  { apply log2_nat_ge_1_of_ge_2. lia. }
+  (* 8 * (a + b + c) >= 8 * (0 + 0 + 1) = 8 > 0 *)
+  remember (log2_nat (S (count_atoms c))) as ab.
+  remember (log2_nat (S (count_vars c))) as vb.
+  remember (log2_nat (S (count_operators c))) as ob.
+  lia.
+Qed.
 
 (** Semantic complexity is syntax-invariant (by construction).
 

@@ -1,7 +1,7 @@
 \section{Extended Proof Architecture}
 
 \begin{quote}
-\textit{Author's Note (Devon): Alright, this is the deep end. If you're reading this chapter, you're either really curious or really masochistic. Either way, I respect it. These are the proofs that took me months---sometimes I'd spend a whole week on a single lemma. But every time Coq said ``Qed,'' it meant that lemma was \textbf{done}. Not ``probably true.'' Not ``seems right.'' Done. Forever. That's the payoff for all the suffering.}
+\textit{Author's Note (Devon): Alright, this is the deep end. If you're reading this chapter, you're either really curious or really masochistic. Either way, I respect it. These are the proofs that took months---sometimes a whole week on a single lemma, iteration after iteration with the LLMs, trying different strategies, feeding back Coq's error messages, refusing to give up. But every time Coq said ``Qed,'' it meant that lemma was \textbf{done}. Not ``probably true.'' Not ``seems right.'' Done. Forever. That's the payoff for all the suffering.}
 \end{quote}
 
 \subsection{Why Machine-Checked Proofs?}
@@ -538,18 +538,18 @@ The most recent kernel extension proves that the ``axioms'' of quantum mechanics
 
 \subsection{Proof Architecture Overview}
 
-The quantum axiom proofs live in five files totaling 1,191 lines of Coq with zero \texttt{Admitted} statements:
+The quantum axiom proofs live in five files totaling 2,393 lines of Coq with zero \texttt{Admitted} statements:
 
 \begin{center}
 \begin{tabular}{lrrl}
 \toprule
 \textbf{File} & \textbf{Lines} & \textbf{Theorems} & \textbf{Primary Result} \\
 \midrule
-\texttt{NoCloning.v} & 243 & 18 & No-cloning from conservation \\
-\texttt{Unitarity.v} & 257 & 20 & CPTP from irreversibility \\
-\texttt{BornRule.v} & 288 & 19 & Born rule from linearity \\
-\texttt{Purification.v} & 102 & 8 & Purification principle \\
-\texttt{TsirelsonGeneral.v} & 301 & 9 & Tsirelson bound from algebra \\
+\texttt{NoCloning.v} & 936 & 7 & No-cloning from conservation \\
+\texttt{Unitarity.v} & 570 & 6 & CPTP from irreversibility \\
+\texttt{BornRule.v} & 311 & 10 & Born rule from linearity \\
+\texttt{Purification.v} & 275 & 7 & Purification principle \\
+\texttt{TsirelsonGeneral.v} & 301 & 15 & Tsirelson bound from algebra \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -1303,80 +1303,81 @@ Definition quantum_admissible (trace : list vm_instruction) : Prop :=
   (* Contains no cert-setting instructions *)
   ...
 
-Theorem quantum_admissible_cert_preservation :
-  forall trace s0 sF fuel,
+Lemma quantum_admissible_implies_no_supra_cert :
+  forall (trace : list vm_instruction)
+    (s_init s_final : VMState) (fuel : nat),
+    s_init.(vm_csrs).(csr_cert_addr) = 0 ->
     quantum_admissible trace ->
-    vm_exec fuel trace s0 sF ->
-    sF.(vm_csrs).(csr_cert_addr) = s0.(vm_csrs).(csr_cert_addr).
+    trace_run fuel trace s_init = Some s_final ->
+    ~ has_supra_cert s_final.
 \end{lstlisting}
 
-\paragraph{Understanding the Quantum Admissible Cert Preservation Theorem:}
+\paragraph{Understanding quantum\_admissible\_implies\_no\_supra\_cert:}
 
-\textbf{What does this theorem prove?} This theorem proves that \textbf{quantum-admissible traces cannot modify the certification CSR} (Control and Status Register for certification). If a trace is quantum-admissible (respects quantum bounds, no supra-quantum correlations), it cannot set or change the certificate address. This formalizes the claim that \textit{supra-quantum correlations require revelation, which is tracked via CSRs}.
+\textbf{What does this theorem prove?} This theorem proves that \textbf{quantum-admissible traces cannot achieve supra-quantum certification}. If the certification CSR starts at zero and the trace contains no cert-setting instructions, then the final state cannot have a supra-quantum certificate. This formalizes the claim that \textit{supra-quantum correlations require revelation, which is tracked via CSRs}.
 
 \textbf{Definitions breakdown:}
 \begin{itemize}
     \item \textbf{trace : list vm\_instruction} — A sequence of VM instructions (the program being executed). Example: \texttt{[PUSH 5, ADD, HALT]}.
-    
+
     \item \textbf{quantum\_admissible trace} — A predicate asserting that \texttt{trace} is \textit{quantum-admissible}: it does not contain instructions that set certification CSRs or perform supra-quantum operations. Specifically:
     \begin{itemize}
         \item No \texttt{CSR\_WRITE} instructions targeting \texttt{csr\_cert\_addr}.
         \item No \texttt{REVEAL} instructions (which would expose partition structure and potentially enable supra-quantum correlations).
     \end{itemize}
     Quantum-admissible traces represent ``standard'' quantum computations (entanglement, measurement) without accessing partition structure.
-    
-    \item \textbf{s0, sF : VMState} — Initial and final VM states. \texttt{s0} is the state before execution, \texttt{sF} is the state after execution.
-    
+
+    \item \textbf{s\_init, s\_final : VMState} — Initial and final VM states. \texttt{s\_init} is the state before execution, \texttt{s\_final} is the state after execution.
+
     \item \textbf{fuel : nat} — A step bound (maximum number of execution steps). Coq requires termination proofs for recursive functions, so \texttt{fuel} limits execution.
-    
-    \item \textbf{vm\_exec fuel trace s0 sF} — A relation asserting that executing \texttt{trace} for up to \texttt{fuel} steps starting from \texttt{s0} produces final state \texttt{sF}.
-    
-    \item \textbf{sF.(vm\_csrs).(csr\_cert\_addr)} — The certification CSR in the final state. This CSR stores the address of the current certificate (proof of supra-quantum capability). If this CSR is set, the trace has claimed supra-quantum power.
-    
-    \item \textbf{s0.(vm\_csrs).(csr\_cert\_addr)} — The certification CSR in the initial state. If the trace is quantum-admissible, this should equal the final CSR value (i.e., unchanged).
+
+    \item \textbf{s\_init.(vm\_csrs).(csr\_cert\_addr) = 0} — The certification CSR starts at zero (no prior certificate). This is the ``clean start'' condition.
+
+    \item \textbf{trace\_run fuel trace s\_init = Some s\_final} — Executing \texttt{trace} for up to \texttt{fuel} steps starting from \texttt{s\_init} produces final state \texttt{s\_final}.
+
+    \item \textbf{$\sim$ has\_supra\_cert s\_final} — The final state does \textit{not} have a supra-quantum certificate. The negation ($\sim$) means it is impossible for \texttt{has\_supra\_cert} to hold.
 \end{itemize}
 
 \textbf{Theorem statement (plain English):}
 \begin{quote}
-``If a trace is quantum-admissible (no cert-setting instructions), and executing that trace for up to \texttt{fuel} steps transforms state \texttt{s0} into state \texttt{sF}, then the certification CSR is unchanged: \texttt{sF.csr\_cert\_addr = s0.csr\_cert\_addr}.''
+``If the certification CSR starts at zero and a quantum-admissible trace is executed, then the final state cannot have supra-quantum certification. No quantum-admissible trace can achieve what requires revelation.''
 \end{quote}
 
 \textbf{Why is this important?} This theorem formalizes the boundary between quantum and supra-quantum:
 \begin{itemize}
-    \item \textbf{Quantum computations:} Cannot set the cert CSR. They are ``blind'' to partition structure.
-    \item \textbf{Supra-quantum computations:} \textit{Must} set the cert CSR (via \texttt{CSR\_WRITE} or \texttt{REVEAL}). This tracks $\mu$ cost.
+    \item \textbf{Quantum computations:} Cannot achieve supra-quantum certification. They are ``blind'' to partition structure.
+    \item \textbf{Supra-quantum computations:} \textit{Must} use cert-setting instructions (\texttt{REVEAL}, \texttt{LASSERT}). This tracks $\mu$ cost.
 \end{itemize}
-The cert CSR is the \textit{witness} of supra-quantum capability. If a trace claims CHSH $S > 2.8285$ (supra-quantum), the cert CSR \textit{must} be modified. If the cert CSR is unchanged, the trace is quantum-admissible ($S \leq 2.8285$).
+The cert CSR is the \textit{witness} of supra-quantum capability. If a trace claims CHSH $S > 2.8285$ (supra-quantum), cert-setting instructions \textit{must} appear. If the trace is quantum-admissible, no supra-quantum certificate is achievable ($S \leq 2.8285$).
 
-\textbf{Proof strategy:} The proof proceeds by induction on \texttt{fuel} (number of execution steps):
+\textbf{Proof strategy:} The proof proceeds by showing that each instruction in a quantum-admissible trace preserves \texttt{csr\_cert\_addr = 0}:
 \begin{enumerate}
-    \item \textbf{Base case:} \texttt{fuel = 0}. No steps are executed, so \texttt{sF = s0}. Trivially, \texttt{sF.csr\_cert\_addr = s0.csr\_cert\_addr}.
-    
-    \item \textbf{Inductive step:} Assume the theorem holds for \texttt{fuel = k}. Prove it for \texttt{fuel = k+1}.
+    \item \textbf{Base case:} Empty trace. No steps are executed, so \texttt{s\_final = s\_init}. Since \texttt{csr\_cert\_addr = 0}, \texttt{has\_supra\_cert} requires a non-zero cert address, so $\sim$\texttt{has\_supra\_cert s\_final}.
+
+    \item \textbf{Inductive step:} Assume the property holds after $k$ steps. For step $k+1$:
     \begin{itemize}
-        \item Execute one instruction from \texttt{trace}: \texttt{s0 $\to$ s1}.
-        \item By \texttt{quantum\_admissible trace}, the instruction is \textit{not} \texttt{CSR\_WRITE csr\_cert\_addr}. Therefore, \texttt{s1.csr\_cert\_addr = s0.csr\_cert\_addr}.
-        \item By the induction hypothesis, executing the remaining trace for $k$ steps from \texttt{s1} preserves the cert CSR: \texttt{sF.csr\_cert\_addr = s1.csr\_cert\_addr}.
-        \item By transitivity: \texttt{sF.csr\_cert\_addr = s1.csr\_cert\_addr = s0.csr\_cert\_addr}.
+        \item By \texttt{quantum\_admissible trace}, the instruction is \textit{not} a cert-setter (\texttt{is\_not\_cert\_setter}).
+        \item Non-cert-setter instructions preserve \texttt{csr\_cert\_addr} (proven by case analysis on all 18 instructions).
+        \item Since \texttt{csr\_cert\_addr} remains 0 throughout, the final state cannot satisfy \texttt{has\_supra\_cert}.
     \end{itemize}
 \end{enumerate}
 
 \textbf{Example: Quantum vs. supra-quantum traces:}
 \begin{itemize}
-    \item \textbf{Quantum trace:} \texttt{[ENTANGLE q0 q1, MEASURE q0, MEASURE q1, HALT]}. This creates entanglement and measures qubits. No cert CSR modification. Quantum-admissible. Final cert CSR = initial cert CSR.
-    
-    \item \textbf{Supra-quantum trace:} \texttt{[REVEAL, CSR\_WRITE csr\_cert\_addr 0x1000, ENTANGLE q0 q1, MEASURE q0, MEASURE q1, HALT]}. This reveals partition structure and sets the cert CSR to address \texttt{0x1000} (where a supra-quantum certificate resides). \textit{Not} quantum-admissible. Final cert CSR $\neq$ initial cert CSR.
+    \item \textbf{Quantum trace:} \texttt{[PNEW, CHSH\_TRIAL, EMIT, HALT]}. Creates partitions and runs CHSH trials. No cert-setting instructions. Quantum-admissible. Final state: no supra-quantum certificate.
+
+    \item \textbf{Supra-quantum trace:} \texttt{[PNEW, REVEAL, LASSERT, CHSH\_TRIAL, EMIT, HALT]}. Reveals partition structure and asserts logical constraints. \textit{Not} quantum-admissible. Final state: supra-quantum certificate present.
 \end{itemize}
-The theorem guarantees: if the trace is quantum-admissible, the cert CSR is preserved. Therefore, any trace modifying the cert CSR is \textit{not} quantum-admissible.
+The theorem guarantees: if the trace is quantum-admissible, supra-quantum certification is impossible.
 
-\textbf{Connection to Tsirelson bound:} The Tsirelson bound theorem (quantum\_admissible\_implies\_CHSH\_le\_tsirelson) proved that quantum-admissible boxes satisfy $S \leq 2.8285$. This theorem proves that quantum-admissible \textit{traces} cannot set the cert CSR. Together, they establish:
+\textbf{Connection to Tsirelson bound:} The Tsirelson bound theorem (quantum\_admissible\_implies\_CHSH\_le\_tsirelson) proved that quantum-admissible boxes satisfy $S \leq 2.8285$. This theorem proves that quantum-admissible \textit{traces} cannot achieve supra-quantum certification. Together, they establish:
 \[
-\text{CHSH } S > 2.8285 \implies \text{cert CSR modified} \implies \text{trace not quantum-admissible}
+\text{CHSH } S > 2.8285 \implies \text{supra-cert required} \implies \text{trace not quantum-admissible}
 \]
-Contrapositive: if cert CSR is preserved, then $S \leq 2.8285$ (quantum bound).
+Contrapositive: if the trace is quantum-admissible, then $S \leq 2.8285$ (quantum bound).
 
 
-Quantum-admissible traces cannot set the certification CSR.
+Quantum-admissible traces cannot achieve supra-quantum certification.
 
 \subsection{Quantitative $\mu$ Lower Bound}
 
@@ -1724,7 +1725,8 @@ Representative list:
 \begin{itemize}
     \item \texttt{TM\_Basics.v}: Turing Machine fundamentals
     \item \texttt{Minsky.v}: Minsky register machines
-    \item \texttt{TM\_to\_Minsky.v}: TM to Minsky reduction
+    \item \texttt{Encoding.v}: Encoding between computational models
+    \item \texttt{EncodingBounds.v}: Bounds on encoding overhead
     \item \texttt{Thiele\_Basics.v}: Thiele Machine fundamentals
     \item \texttt{Simulation.v}: Cross-model simulation proofs
     \item \texttt{CornerstoneThiele.v}: Key Thiele properties
@@ -1761,7 +1763,7 @@ These predictions are falsifiable: if benchmarks show costs outside these bounds
 The extended proof architecture establishes:
 \begin{enumerate}
     \item \textbf{Zero-admit corpus}: A fully discharged proof tree with no admits or unproven axioms beyond foundational logic.
-    \item \textbf{Quantum axioms from $\mu$-accounting}: No-cloning, unitarity, Born rule, purification, and Tsirelson bound all derived from conservation of structural information (1,191 lines, 74 theorems).
+    \item \textbf{Quantum axioms from $\mu$-accounting}: No-cloning, unitarity, Born rule, purification, and Tsirelson bound all derived from conservation of structural information (2,393 lines, 45 theorems).
     \item \textbf{Quantum bounds}: Literal CHSH $\le$ 5657/2000.
     \item \textbf{TOE limits}: Physics requires extra structure beyond compositionality.
     \item \textbf{Impossibility theorems}: Entropy, probability, and unique weights are not forced by the kernel alone.

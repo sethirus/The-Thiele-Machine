@@ -5,22 +5,38 @@ Require Import VMState.
 Require Import VMStep.
 Require Import SimulationProof.
 
-(** * Bounded-model µ-ledger conservation
-    
-    STATUS (December 14, 2025): VERIFIED
-    
-    PROVEN THEOREM: mu_conservation_kernel
-      For every bounded execution, the μ-accumulator equals initial μ
-      plus the sum of recorded costs. This is the kernel-level
-      conservation law underlying thermodynamic interpretations.
-    
+(** * MuLedgerConservation: Proving μ never decreases
+
+    WHY THIS FILE EXISTS:
+    The μ-ledger is the whole point. If it could decrease, the No Free Insight
+    theorem would be meaningless - you could "borrow" μ-cost, use the structure,
+    then get a refund. Physics doesn't work that way. This file proves it can't happen.
+
+    THE CLAIM:
+    For any execution trace, the final μ value equals the initial μ plus the
+    sum of all instruction costs. Every step increases μ by exactly its declared
+    cost. No exceptions, no loopholes.
+
+    FORMALLY:
+      μ_final = μ_init + Σ(instruction_cost)
+
     KEY RESULTS:
-    - ledger_sums_to_mu: Σ(costs) = μ_final - μ_init
-    - consecutive_ledger_step: Each step changes μ by exactly its cost
-    - mu_conservation_kernel: Complete conservation law
-    
-    Used in KernelPhysics.Conservation theorem (gauge symmetry ↔ conservation).
-    All proofs complete. No axioms, no admits.
+    - vm_apply_mu: Single step increases μ by exactly instruction_cost
+    - vm_step_respects_mu_ledger: Step relation preserves ledger conservation
+    - ledger_conserved: Inductive property over execution traces
+    - mu_conservation_kernel: Complete conservation law for bounded executions
+
+    WHY THIS MATTERS:
+    This is what makes μ-cost enforceable. Without conservation, you could cheat.
+    With conservation, every bit of structural insight costs μ, permanently.
+    The ledger only grows. Irreversibility is built into the machine.
+
+    FALSIFICATION:
+    Find ANY instruction sequence where μ decreases. Find ANY execution where
+    μ_final < μ_init + Σ(costs). If you can, the whole model breaks. The proofs
+    won't compile if this is violated.
+
+    NO AXIOMS. NO ADMITS. Machine-checked conservation law.
     *)
 
 (** Ledger extraction from bounded executions. *)
@@ -61,6 +77,33 @@ Proof.
     + exists []. reflexivity.
 Qed.
 
+(** vm_apply_mu: Every instruction increases μ by exactly its declared cost.
+
+    WHY THIS IS CRITICAL:
+    This is the foundational lemma for μ-conservation. It states that when
+    you apply ANY instruction to ANY state, the resulting μ value is the
+    original μ plus the instruction's cost. No more, no less.
+
+    PROOF STRATEGY:
+    Case analysis on all 18 instructions. Each instruction's semantics (defined
+    in VMStep.v) explicitly computes new_mu = old_mu + instruction_cost. This
+    lemma just extracts that fact from the step relation.
+
+    WHY THE PROOF IS UGLY:
+    Coq makes us handle every instruction separately. There are conditional
+    branches (graph operations can fail, certificates can be invalid), but
+    in EVERY branch, the μ update is the same: add the cost. The proof cases
+    through all branches and verifies this. It's mechanical but necessary.
+
+    USED BY:
+    - vm_step_respects_mu_ledger
+    - ledger_sums_to_mu
+    - mu_conservation_kernel (the main theorem)
+
+    FALSIFICATION:
+    Find an instruction where vm_apply changes μ by something other than
+    instruction_cost. The proof breaks. The whole conservation law breaks.
+*)
 Lemma vm_apply_mu :
   forall s instr,
     (vm_apply s instr).(vm_mu) = s.(vm_mu) + instruction_cost instr.

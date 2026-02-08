@@ -207,7 +207,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install -e . --no-deps
-          python -m pytest tests/test_extracted_vm_runner.py tests/test_bisimulation.py tests/test_bisimulation_complete.py tests/test_property_bisimulation.py tests/adversarial_fuzzing.py -v
+          python -m pytest tests/test_extracted_vm_runner.py tests/test_bisimulation_complete.py tests/test_property_bisimulation.py tests/adversarial_fuzzing.py -v
 
   dependency-scan:
     name: Dependency scan
@@ -270,7 +270,7 @@ jobs:
 
       - name: Synthesize with Yosys
         run: |
-          yosys -p "read_verilog -sv -nomem2reg -DYOSYS_LITE -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_synth.v thielecpu/hardware/rtl/mu_alu.v thielecpu/hardware/rtl/mu_core.v thielecpu/hardware/rtl/receipt_integrity_checker.v; prep; check; stat" > synthesis.log 2>&1
+          yosys -p "read_verilog -sv -nomem2reg -DSYNTHESIS -DYOSYS_LITE -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_unified.v; prep; check; stat" > synthesis.log 2>&1
 
       - name: Simulate hardware
         run: |

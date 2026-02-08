@@ -18,7 +18,7 @@ import re
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-RTL_PATH = ROOT / "thielecpu" / "hardware" / "rtl" / "thiele_cpu.v"
+RTL_PATH = ROOT / "thielecpu" / "hardware" / "rtl" / "thiele_cpu_unified.v"
 OPCODES_HDR = ROOT / "thielecpu" / "hardware" / "rtl" / "generated_opcodes.vh"
 
 

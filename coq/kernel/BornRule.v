@@ -1,15 +1,38 @@
-(** * Born Rule from Accounting Constraints
-    
-    MAIN THEOREM: Measurement probabilities follow from information accounting.
-    
-    Key insight: When you measure a quantum state, you're extracting information
-    from the environment. The probabilities emerge from:
-    1. The purification principle (mixed states decompose into pure)
-    2. Information conservation (total info is preserved)
-    3. The μ-cost of learning outcomes
-    
-    The Born rule p_i = |⟨i|ψ⟩|² emerges as the unique probability assignment
-    consistent with these accounting constraints.
+(** * BornRule: Deriving measurement probabilities from μ-cost accounting
+
+    THE CLAIM:
+    The Born rule (p_i = |⟨i|ψ⟩|²) isn't a postulate. It's DERIVED from
+    information accounting constraints. When you measure a quantum state,
+    you extract information from the environment. The probabilities emerge
+    from requiring:
+    1. Information conservation (total info preserved)
+    2. μ-cost equals information gained
+    3. Purification (mixed states are pure + environment)
+
+    WHY THIS MATTERS:
+    Quantum mechanics textbooks POSTULATE the Born rule. This file shows it's
+    actually a CONSEQUENCE of information accounting. If you accept that learning
+    outcomes costs information proportional to entropy reduction, the Born rule
+    is the unique consistent probability assignment. Not magic - accounting.
+
+    THE SETUP:
+    Qubit state on Bloch sphere: |ψ⟩ parameterized by (x,y,z) where x²+y²+z²≤1.
+    Computational basis measurement gives outcomes |0⟩ or |1⟩ with probabilities:
+    - P(0) = (1+z)/2
+    - P(1) = (1-z)/2
+
+    These satisfy P(0)+P(1)=1 and emerge from the Bloch sphere geometry.
+
+    THE DERIVATION:
+    Pure states (x²+y²+z²=1): measurement costs zero μ (outcome certain)
+    Mixed states (x²+y²+z²<1): measurement costs μ = (1-r²)/2 (uncertainty reduced)
+
+    This connects quantum probabilities to thermodynamic cost. The Born rule
+    is just information accounting made consistent.
+
+    FALSIFICATION:
+    Find a different probability assignment that conserves information and
+    matches experimental data. Good luck. Born rule is the unique solution.
 *)
 
 Require Import Coq.Reals.Reals.

@@ -5,18 +5,42 @@ Import ListNotations.
 Require Import CertCheck.
 Require Import VMState.
 
-(** * Operational semantics for the Python VM instruction set
-    
-    STATUS (December 14, 2025): VERIFIED
-    
-    Defines vm_step relation with PROVEN properties:
-    - Deterministic execution
-    - Observable preservation for untargeted modules (observational_no_signaling)
-    - μ-conservation (mu_conservation_kernel)
-    - Causal locality (cone algebra)
-    
-    Certificate-based oracle replacement (LRAT/model checking).
-    All proofs complete. No axioms, no admits.
+(** * VMStep: Operational semantics - how the machine actually executes
+
+    This file defines the 18-instruction ISA and the step relation that governs
+    all state transitions. Every operation has an explicit μ-cost. Every step
+    either succeeds or sets the error flag - no undefined behavior.
+
+    WHY THIS FILE EXISTS:
+    The Thiele Machine isn't just a model on paper. This file defines HOW IT RUNS.
+    Every instruction is executable, every cost is explicit, every failure mode
+    is specified. The proofs show this behaves correctly. If you find a step
+    that violates μ-monotonicity or observable locality, the whole thing breaks.
+
+    THE 18 INSTRUCTIONS:
+    Structural (partition operations):
+      PNEW, PSPLIT, PMERGE, PDISCOVER
+    Logical (assertion/revelation):
+      LASSERT, LJOIN, REVEAL, EMIT
+    Computational (reversible XOR-based):
+      XFER, XOR_LOAD, XOR_ADD, XOR_SWAP, XOR_RANK
+    Special:
+      MDLACC, PYEXEC, CHSH_TRIAL, ORACLE_HALTS, HALT
+
+    KEY PROPERTIES (proven elsewhere):
+    - Deterministic: Same input state + instruction → same output state
+    - μ-Monotonic: vm_mu never decreases (MuLedgerConservation.v)
+    - Observationally local: Operations don't affect unrelated modules (KernelPhysics.v)
+
+    CERTIFICATE VERIFICATION:
+    LASSERT uses certificates (SAT model or UNSAT proof) instead of calling
+    an oracle. This makes execution deterministic and verifiable. The certificates
+    are checked by CertCheck.v (LRAT for UNSAT, model checking for SAT).
+
+    NO AXIOMS. NO ADMITS. All proofs compile with Coq 8.18+.
+
+    FALSIFICATION: If ANY instruction violates μ-monotonicity, NoFreeInsight
+    is false. If ANY step is nondeterministic, bisimulation breaks. Test it.
     *)
 
 Module VMStep.
@@ -28,6 +52,47 @@ Inductive lassert_certificate :=
 | lassert_cert_unsat (proof : string)
 | lassert_cert_sat (model : string).
 
+(** vm_instruction: The complete 18-instruction ISA of the Thiele Machine.
+
+    Every instruction carries an explicit μ-cost (mu_delta). The step relation
+    applies this cost via (vm_mu + mu_delta), forcing μ-monotonicity by construction.
+
+    STRUCTURAL OPERATIONS (modify partition graph):
+    - PNEW: Create new module with given region. Idempotent - returns existing if present.
+    - PSPLIT: Split module into left/right children. Validates partition is disjoint.
+    - PMERGE: Merge two modules. Fails if regions overlap or modules don't exist.
+    - PDISCOVER: Attach evidence (axioms) to module. Records structural knowledge.
+
+    LOGICAL OPERATIONS (assertions and revelation):
+    - LASSERT: Assert formula over module. Takes certificate (SAT model or UNSAT proof).
+             SAT: adds axiom to module. UNSAT: sets error flag.
+    - LJOIN: Join two certificates. Succeeds if certificates match (string equality).
+    - REVEAL: Reveal bits of information. Records revelation cost.
+    - EMIT: Emit payload. Updates cert_addr CSR with checksum.
+
+    REVERSIBLE COMPUTATION (XOR-based ALU):
+    - XFER: Transfer register to register (copy).
+    - XOR_LOAD: Load from memory to register.
+    - XOR_ADD: XOR two registers, store in dst. Reversible.
+    - XOR_SWAP: Swap two registers. Fredkin gate primitive.
+    - XOR_RANK: Population count (number of 1-bits). Hamming weight.
+
+    SPECIAL:
+    - MDLACC: Module discovery accumulator. Charges μ for structural access.
+    - CHSH_TRIAL: CHSH inequality trial. Validates bits ∈ {0,1}.
+    - PYEXEC: Python execution escape hatch. Always sets error (kernel doesn't run Python).
+    - ORACLE_HALTS: Oracle call. Formal placeholder (undecidable).
+    - HALT: Stop execution.
+
+    WHY μ_delta IS EXPLICIT:
+    Coq can't compute information-theoretic costs (they're #P-complete).
+    The instruction carries the cost as a parameter. The VM (Python/RTL)
+    computes it and includes it in the instruction encoding. The kernel
+    just applies it. This makes execution deterministic and verifiable.
+
+    FALSIFICATION: If you can construct an instruction sequence where
+    (vm_mu + mu_delta) < vm_mu for any instruction, μ-monotonicity is violated.
+*)
 Inductive vm_instruction :=
 | instr_pnew (region : list nat) (mu_delta : nat)
 | instr_psplit (module : ModuleID) (left right : list nat) (mu_delta : nat)
@@ -77,6 +142,18 @@ Definition is_bit (n : nat) : bool :=
 Definition chsh_bits_ok (x y a b : nat) : bool :=
   andb (andb (is_bit x) (is_bit y)) (andb (is_bit a) (is_bit b)).
 
+(** apply_cost: Apply μ-cost to current ledger.
+
+    WHY: This is where μ-monotonicity is enforced. Every instruction has
+    cost ≥ 0, so (vm_mu + cost) ≥ vm_mu always holds. The step relation
+    uses this to update vm_mu, making μ-conservation true by construction.
+
+    PROOF: instruction_cost extracts mu_delta from the instruction.
+    Since mu_delta : nat, it's ≥ 0. Addition preserves ordering.
+    Therefore apply_cost s i ≥ s.(vm_mu). QED.
+
+    This is the foundational mechanism that makes No Free Insight enforceable.
+*)
 Definition apply_cost (s : VMState) (instr : vm_instruction) : nat :=
   s.(vm_mu) + instruction_cost instr.
 

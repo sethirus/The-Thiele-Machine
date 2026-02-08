@@ -1,6 +1,24 @@
 \section{Why This Chapter Matters}
 
-% Figure 1: Chapter 7 Roadmap
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    box/.style={draw, rounded corners=2pt, minimum width=2.2cm, minimum height=0.5cm, font=\scriptsize, align=center, inner sep=2pt},
+    arr/.style={-{Stealth[length=3pt]}, thick}
+]
+\node[box, fill=gray!15, minimum width=5cm] (proven) at (0,1.2) {\textbf{Proven Invariants} (Ch.\,5--6)};
+\node[box, fill=blue!12] (phys) at (-1.4,0) {Physics\\Connections};
+\node[box, fill=green!12] (comp) at (1.4,0) {Complexity\\Theory};
+\node[box, fill=orange!12] (ai) at (-1.4,-1.0) {AI \&\\Trust};
+\node[box, fill=red!8] (lim) at (1.4,-1.0) {Limitations\\Future Work};
+\draw[arr] (proven.south -| phys.north) -- (phys.north);
+\draw[arr] (proven.south -| comp.north) -- (comp.north);
+\draw[arr] (phys.south) -- (ai.north);
+\draw[arr] (comp.south) -- (lim.north);
+\end{tikzpicture}
+\caption{Chapter 7 roadmap: proven invariants interpreted across four domains.}
+\label{fig:ch7-roadmap}
+\end{figure}
 
 \begin{quote}
 \textit{Author's Note (Devon): Alright, we're at the part where I step back and ask: ``What does any of this actually mean?'' Look, I can prove theorems all day. I can show you test results until your eyes glaze over. But at some point, you have to wrestle with the big question: So what? Why does this matter? This chapter is me trying to answer that. And I'll be honest---some of this is speculation. Some of this is me connecting dots that might not actually connect. But that's what thinking is, right? You make a model, you see if it holds up, and if it doesn't, you learn something. Either way, you win.}
@@ -53,7 +71,24 @@ The Thiele Machine is more than a new computational model; it is a proposal for 
 
 \section{Connections to Physics}
 
-% Figure 2: Physics-Computation Isomorphism
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    box/.style={draw, rounded corners=2pt, minimum width=2.2cm, minimum height=0.5cm, font=\scriptsize, align=center, inner sep=2pt},
+    arr/.style={-{Stealth[length=3pt]}, thick}
+]
+\node[box, fill=blue!12] (land) at (0,1.2) {Landauer\\$Q \ge k_BT\!\ln\!2$};
+\node[box, fill=green!12] (nosig) at (-1.6,0) {No-Signaling\\(Bell locality)};
+\node[box, fill=orange!12] (noeth) at (1.6,0) {Noether\\(gauge $\to$ conservation)};
+\node[box, fill=yellow!15, minimum width=5cm] (mu) at (0,-1.0) {$\mu$-ledger: \textbf{monotone}, \textbf{local}, \textbf{gauge-invariant}};
+\draw[arr] (land.south west) -- (nosig.north east);
+\draw[arr] (land.south east) -- (noeth.north west);
+\draw[arr] (nosig.south) -- (nosig.south |- mu.north);
+\draw[arr] (noeth.south) -- (noeth.south |- mu.north);
+\end{tikzpicture}
+\caption{Three physics principles and their $\mu$-ledger analogs.}
+\label{fig:physics-connections}
+\end{figure}
 
 \begin{quote}
 \textit{Author's Note (Devon): This is the part that keeps me up at night. Not in a bad way---in a ``holy shit, what if this is actually true'' way. The Thiele Machine wasn't designed to connect to physics. I didn't start with thermodynamics and work backwards. I started with a simple question: ``How do you track the cost of discovering structure?'' And the answer I found... it looks like Landauer's principle. It looks like entropy. It looks like the second law of thermodynamics. That's either a massive coincidence, or there's something deep here that I stumbled onto by accident. I genuinely don't know which one it is yet.}
@@ -61,8 +96,24 @@ The Thiele Machine is more than a new computational model; it is a proposal for 
 
 \subsection{Landauer's Principle}
 
-% Figure 3: Landauer's Principle Bridge
-
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    box/.style={draw, rounded corners=2pt, minimum width=2.2cm, minimum height=0.5cm, font=\scriptsize, align=center, inner sep=2pt},
+    arr/.style={-{Stealth[length=3pt]}, thick}
+]
+\node[box, fill=blue!12] (coq) at (0,1.6) {\textbf{Coq theorem}\\$\Delta\mu \ge$ irreversible\_count};
+\node[box, fill=gray!10] (bridge) at (0,0.6) {\textbf{Bridge postulate}\\$Q_{\min} = k_BT\!\ln\!2 \cdot \mu$};
+\node[box, fill=orange!12] (result) at (0,-0.4) {$Q \ge k_BT\!\ln\!2 \cdot$ irreversible\_count};
+\node[font=\tiny, anchor=west] at (2.4,1.6) {(proven)};
+\node[font=\tiny, anchor=west] at (2.4,0.6) {(empirical)};
+\node[font=\tiny, anchor=west] at (2.4,-0.4) {(falsifiable)};
+\draw[arr] (coq.south) -- (bridge.north);
+\draw[arr] (bridge.south) -- (result.north);
+\end{tikzpicture}
+\caption{Landauer bridge: a proven bound plus an empirical postulate yields a falsifiable physical prediction.}
+\label{fig:landauer-bridge}
+\end{figure}
 
 Landauer's principle states that erasing one bit of information requires at least $kT \ln 2$ of energy dissipation, where $k$ is Boltzmann's constant and $T$ is temperature. This establishes a fundamental connection between logical irreversibility and thermodynamics: many-to-one mappings (like erasure) cannot be implemented without heat dissipation in a physical device.
 
@@ -141,7 +192,7 @@ Only module A's observables change (split into two sub-partitions).
 
 
 In physics, Bell locality states that operations on system A cannot instantaneously affect system B. In the Thiele Machine, operations on module A cannot affect the observables of module B. This is enforced by construction, not assumed as a physical postulate. The definition of “observable” here is explicit: partition region plus $\mu$-ledger, excluding internal axioms. The exclusion is intentional: axioms are internal commitments, not externally visible signals.
-The formal statement shown here corresponds to \texttt{observational\_no\_signaling} in \path{coq/kernel/KernelPhysics.v}, which is proved using the observable projections defined in \path{coq/kernel/VMState.v}. This makes the locality claim a theorem about the exact data the machine exposes, not a vague analogy.
+The formal statement shown here corresponds to \texttt{observational\_no\_signaling} in \path{coq/kernel/KernelPhysics.v}, which is proved using the observable projections defined in the same file. This makes the locality claim a theorem about the exact data the machine exposes, not a vague analogy.
 
 \subsection{Noether's Theorem}
 
@@ -224,8 +275,24 @@ That trade-off is implemented as an explicit ledger budget in the harness descri
 
 \section{Implications for Computational Complexity}
 
-% Figure 4: Time Tax and Difficulty Conservation
-
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    arr/.style={-{Stealth[length=3pt]}, thick}
+]
+\draw[thick, ->] (0,0) -- (5.2,0) node[right, font=\scriptsize] {Time $T$};
+\draw[thick, ->] (0,0) -- (0,2.6) node[above, font=\scriptsize] {$\mu_{\text{disc}}$};
+\fill[blue!15, opacity=0.5] (0.3,2.2) -- (4.8,0.3) -- (4.8,0) -- (0.3,0) -- cycle;
+\draw[thick, blue!70] (0.3,2.2) -- (4.8,0.3);
+\node[font=\tiny, blue!70, anchor=south] at (2.5,1.35) {conservation frontier};
+\node[font=\tiny, fill=white, inner sep=1pt] at (1.0,1.8) {Sighted};
+\node[font=\tiny, fill=white, inner sep=1pt] at (4.2,0.6) {Blind};
+\fill[red] (0.8,2.0) circle (1.5pt);
+\fill[red] (4.5,0.3) circle (1.5pt);
+\end{tikzpicture}
+\caption{Conservation of difficulty: reducing time $T$ requires increasing structural cost $\mu_{\text{disc}}$, and vice versa.}
+\label{fig:difficulty-conservation}
+\end{figure}
 
 \subsection{The "Time Tax" Reformulated}
 
@@ -266,8 +333,23 @@ The relationship $\text{P} \subseteq \text{P}_\mu \subseteq \text{NP}_\mu$ is st
 
 \section{Implications for Artificial Intelligence}
 
-% Figure 5: AI Hallucination Prevention
-
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    box/.style={draw, rounded corners=2pt, minimum width=2cm, minimum height=0.45cm, font=\scriptsize, align=center, inner sep=2pt},
+    arr/.style={-{Stealth[length=3pt]}, thick}
+]
+\node[box, fill=blue!12] (nn) at (0,1.4) {Neural Net\\proposes $h$};
+\node[box, fill=orange!12] (vm) at (0,0.4) {Thiele VM\\certifies $h$};
+\node[box, fill=green!15] (yes) at (-1.5,-0.6) {Receipt\\(valid)};
+\node[box, fill=red!12] (no) at (1.5,-0.6) {Reject\\(pay $\mu$)};
+\draw[arr] (nn.south) -- (vm.north);
+\draw[arr] (vm.south west) -- (yes.north east) node[midway, left, font=\tiny] {pass};
+\draw[arr] (vm.south east) -- (no.north west) node[midway, right, font=\tiny] {fail};
+\end{tikzpicture}
+\caption{Verification-gated AI: hypotheses must be certified before use; failures cost $\mu$.}
+\label{fig:ai-verification}
+\end{figure}
 
 \subsection{The Hallucination Problem}
 
@@ -347,8 +429,25 @@ A neural network predicts partitions (structure hypotheses). The Thiele kernel v
 
 \section{Implications for Trust and Verification}
 
-% Figure 6: Receipt Chain Architecture
-
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    box/.style={draw, rounded corners=2pt, minimum width=1.4cm, minimum height=0.45cm, font=\tiny, align=center, inner sep=1.5pt},
+    arr/.style={-{Stealth[length=2.5pt]}, thick}
+]
+\node[box, fill=blue!10] (r1) at (0,0) {Receipt 1\\$H_0 \to H_1$};
+\node[box, fill=blue!10] (r2) at (1.8,0) {Receipt 2\\$H_1 \to H_2$};
+\node[box, fill=blue!10] (r3) at (3.6,0) {Receipt 3\\$H_2 \to H_3$};
+\node[font=\tiny] at (4.8,0) {$\cdots$};
+\draw[arr] (r1.east) -- (r2.west);
+\draw[arr] (r2.east) -- (r3.west);
+\node[font=\tiny, gray] at (0.9,0.4) {$H_1$ links};
+\node[font=\tiny, gray] at (2.7,0.4) {$H_2$ links};
+\node[font=\tiny, anchor=north] at (1.8,-0.5) {SHA-256 continuity + Ed25519 signatures};
+\end{tikzpicture}
+\caption{Receipt chain: each step's pre-state hash must match the previous step's post-state hash.}
+\label{fig:receipt-chain}
+\end{figure}
 
 \subsection{The Receipt Chain}
 
@@ -390,7 +489,7 @@ receipt = {
 Breaking the chain requires forging a signature or finding a SHA-256 collision.
 
 
-The Python implementation of this structure is in \path{thielecpu/receipts.py} and \path{thielecpu/crypto.py}, and the RTL contains a receipt controller in \path{thielecpu/hardware/rtl/crypto_receipt_controller.v}. The chain is therefore an engineered artifact with concrete hash formats, not an abstract promise.
+The Python implementation of this structure is in \path{thielecpu/receipts.py} and \path{thielecpu/crypto.py}, and the RTL contains a \texttt{receipt\_integrity\_checker} module in \path{thielecpu/hardware/rtl/thiele_cpu_unified.v}. The chain is therefore an engineered artifact with concrete hash formats, not an abstract promise.
 
 This enables:
 \begin{itemize}
@@ -528,17 +627,7 @@ instr_lassert (module : ModuleID) (formula : string)
 \end{itemize}
 This would make the VM \textit{self-sufficient} for structure discovery, not dependent on external oracles.
 
-Generating LRAT proofs or SAT models is delegated to external solvers. Future work could integrate:
-\begin{itemize}
-    \item Hardware-accelerated SAT solving
-    \item Proof compression for reduced certificate size
-    \item Incremental solving for related formulas
-\end{itemize}
-
 \section{Future Directions}
-
-% Figure 7: Future Directions Roadmap
-
 
 \subsection{Quantum Integration}
 
@@ -568,9 +657,6 @@ A high-level language for the Thiele Machine would include:
 \end{itemize}
 
 \section{Summary}
-
-% Figure 8: Chapter 7 Summary
-
 
 The Thiele Machine offers:
 \begin{enumerate}

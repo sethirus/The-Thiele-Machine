@@ -65,6 +65,15 @@ def mask_of_indices(indices: Set[int]) -> PartitionMask:
     return mask
 
 
+def normalize_region(indices: Set[int]) -> Set[int]:
+    """Return canonical in-range indices represented by MASK_WIDTH bits.
+
+    This keeps the set-based RegionGraph representation aligned with the
+    bitmask/RTL representation where only indices in [0, MASK_WIDTH) exist.
+    """
+    return {idx for idx in indices if 0 <= idx < MASK_WIDTH}
+
+
 def indices_of_mask(mask: PartitionMask) -> Set[int]:
     """Convert a bitmask to a set of indices."""
     indices = set()
@@ -240,9 +249,10 @@ class State:
         """
         mid = self._next_id
         self._next_id += 1
-        self.regions.add(mid, region)
+        canonical_region = normalize_region(region)
+        self.regions.add(mid, canonical_region)
         # Also update bitmask representation
-        region_mask = mask_of_indices(region)
+        region_mask = mask_of_indices(canonical_region)
         self.partition_masks[ModuleId(mid)] = region_mask
         
         if charge_discovery:
@@ -255,13 +265,14 @@ class State:
 
         μ-update: mu_discovery += popcount(region) when ``charge_discovery`` is True.
         """
-        existing = self.regions.find(region)
+        canonical_region = normalize_region(region)
+        existing = self.regions.find(canonical_region)
         if existing is not None:
             return ModuleId(existing)
 
         if self.num_modules >= MAX_MODULES:
             raise ValueError(f"Cannot create module: max modules ({MAX_MODULES}) reached")
-        mid = self._alloc(region, charge_discovery=charge_discovery)
+        mid = self._alloc(canonical_region, charge_discovery=charge_discovery)
         self.axioms[mid] = []  # Initialize empty axioms for new module
         
         self._enforce_invariant()

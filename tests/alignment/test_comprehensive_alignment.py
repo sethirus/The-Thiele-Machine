@@ -61,8 +61,8 @@ def extract_python_opcodes() -> Dict[str, int]:
 
 
 def extract_verilog_opcodes() -> Dict[str, int]:
-    """Extract all OPCODE_* constants from thiele_cpu.v."""
-    verilog_file = REPO_ROOT / "thielecpu" / "hardware" / "rtl" / "thiele_cpu.v"
+    """Extract all OPCODE_* constants from thiele_cpu_unified.v."""
+    verilog_file = REPO_ROOT / "thielecpu" / "hardware" / "rtl" / "thiele_cpu_unified.v"
     content = verilog_file.read_text()
     
     opcodes = {}
@@ -132,8 +132,8 @@ def check_coq_theorem_compiles(file_path: Path, theorem_name: str) -> bool:
 
 
 def check_verilog_register_exists(register_name: str) -> bool:
-    """Check if a register is defined in thiele_cpu.v."""
-    verilog_file = REPO_ROOT / "thielecpu" / "hardware" / "rtl" / "thiele_cpu.v"
+    """Check if a register is defined in thiele_cpu_unified.v."""
+    verilog_file = REPO_ROOT / "thielecpu" / "hardware" / "rtl" / "thiele_cpu_unified.v"
     content = verilog_file.read_text()
     return register_name in content
 

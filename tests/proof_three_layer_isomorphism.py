@@ -171,10 +171,7 @@ class TestVerilogRTLPresence:
     """Prove all required Verilog modules exist."""
 
     REQUIRED_MODULES = [
-        'thiele_cpu.v',
-        'mu_alu.v',
-        'mu_core.v',
-        'receipt_integrity_checker.v',
+        'thiele_cpu_unified.v',
     ]
 
     def test_all_rtl_modules_exist(self):

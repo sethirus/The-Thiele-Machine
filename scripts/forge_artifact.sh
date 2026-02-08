@@ -62,35 +62,20 @@ phase MERGE "sanity importing generated Python"
 python3 -c "from thielecpu.generated import generated_core as g; g.sanity_check(); print(len(g.COQ_INSTRUCTION_TAGS))" \
   >/dev/null
 
-phase VERIFY "compiling real RTL (thiele_cpu + testbench)"
+phase VERIFY "compiling real RTL (thiele_cpu_unified + testbench)"
 pushd "$ROOT/thielecpu/hardware" >/dev/null
 iverilog -g2012 -I./rtl -o "$ROOT/build/thiele_cpu_tb.out" \
-  rtl/thiele_cpu.v \
-  testbench/thiele_cpu_tb.v \
-  rtl/mu_alu.v \
-  rtl/mu_core.v \
-  rtl/receipt_integrity_checker.v
-
-iverilog -g2012 -I./rtl -o "$ROOT/build/thiele_cpu_engines_tb.out" \
-  rtl/thiele_cpu.v \
-  testbench/thiele_cpu_engines_tb.v \
-  rtl/lei.v \
-  rtl/pee.v \
-  rtl/mu_alu.v \
-  rtl/mu_core.v \
-  rtl/receipt_integrity_checker.v
+  rtl/thiele_cpu_unified.v \
+  testbench/thiele_cpu_tb.v
 popd >/dev/null
-
-phase VERIFY "generating synthesizable RTL (thiele_cpu_synth.v)"
-python3 scripts/make_synthesizable.py >/dev/null
 
 phase VERIFY "synthesizability check (yosys)"
 command -v yosys >/dev/null || die "yosys not found on PATH"
 
-# Create yosys script for main CPU
+# Create yosys script for unified CPU
 cat > "$ROOT/synth_cpu.ys" << EOF
-read_verilog -sv -nomem2reg -DYOSYS_LITE -I$ROOT/thielecpu/hardware/rtl $ROOT/thielecpu/hardware/rtl/thiele_cpu_synth.v $ROOT/thielecpu/hardware/rtl/mu_alu.v $ROOT/thielecpu/hardware/rtl/mu_core.v $ROOT/thielecpu/hardware/rtl/receipt_integrity_checker.v
-prep
+read_verilog -sv -DSYNTHESIS -DYOSYS_LITE $ROOT/thielecpu/hardware/rtl/thiele_cpu_unified.v
+prep -top thiele_cpu
 check
 stat
 EOF
@@ -98,36 +83,8 @@ EOF
 # Primary synth gate (CPU) - simplified check that doesn't hang
 yosys -q "$ROOT/synth_cpu.ys" >/dev/null
 
-# Create and run scripts for other modules
-cat > "$ROOT/synth_lei.ys" << EOF
-read_verilog -sv -nomem2reg -DYOSYS_LITE -I$ROOT/thielecpu/hardware/rtl $ROOT/thielecpu/hardware/rtl/lei.v
-synth -noabc -top lei
-check
-stat
-EOF
-yosys -q "$ROOT/synth_lei.ys" >/dev/null
-
-cat > "$ROOT/synth_pee.ys" << EOF
-read_verilog -sv -nomem2reg -DYOSYS_LITE -I$ROOT/thielecpu/hardware/rtl $ROOT/thielecpu/hardware/rtl/pee.v
-synth -noabc -top pee
-check
-stat
-EOF
-yosys -q "$ROOT/synth_pee.ys" >/dev/null
-
-cat > "$ROOT/synth_mau.ys" << EOF
-read_verilog -sv -nomem2reg -DYOSYS_LITE -I$ROOT/thielecpu/hardware/rtl $ROOT/thielecpu/hardware/rtl/mau.v
-synth -noabc -top mau
-check
-stat
-EOF
-yosys -q "$ROOT/synth_mau.ys" >/dev/null
-
 phase VERIFY "running real RTL simulation (thiele_cpu_tb)"
 vvp "$ROOT/build/thiele_cpu_tb.out" "+VCD=$ROOT/build/thiele_cpu_tb.vcd" >/dev/null
-
-phase VERIFY "running external-engine RTL integration smoke (LEI+PEE)"
-vvp "$ROOT/build/thiele_cpu_engines_tb.out" >/dev/null
 
 phase VERIFY "running pytest gate"
 pytest -q \

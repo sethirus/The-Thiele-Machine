@@ -1,21 +1,36 @@
-(** =========================================================================
-    BoxCHSH: Definitions and Fundamental Theorems
-    =========================================================================
-    
-    This module defines the Core CHSH structures and proves fundamental bounds.
-    
-    DEFINITIONS:
-    - Box: A probability distribution P(a,b|x,y) (aliased from ValidCorrelation)
-    - valid_box: Normalized, non-negative, no-signaling
-    - E(x,y): Quantum correlator <A_x B_y> = P(same) - P(diff)
-    - S: CHSH parameter E00 + E01 + E10 - E11
-    
-    THEOREMS (PROVEN):
-    - normalized_E_bound: |E| <= 1 for any valid box
-    - valid_box_S_le_4: |S| <= 4 (Algebraic bound / No-signaling bound)
-    - local_S_2_deterministic: |S| <= 2 for Local Deterministic models
-    
-    ========================================================================= *)
+(** * BoxCHSH: The correlation box formalism for Bell inequalities
+
+    WHY THIS EXISTS:
+    CHSH inequality tests need a precise mathematical framework. This file
+    defines correlation "boxes" (probability distributions over Alice/Bob outcomes)
+    and proves the fundamental bounds on CHSH values for different classes.
+
+    THE BOX FORMALISM:
+    A "box" is a function P(a,b|x,y) giving the probability of:
+    - Alice gets outcome a when measuring setting x
+    - Bob gets outcome b when measuring setting y
+
+    Valid boxes satisfy:
+    - Non-negative: P ≥ 0
+    - Normalized: Σ_ab P(a,b|x,y) = 1
+    - No-signaling: Alice's marginals don't depend on Bob's setting (and vice versa)
+
+    THE CORRELATOR:
+    E(x,y) = P(same) - P(diff) = Σ_ab (-1)^(a⊕b) P(a,b|x,y)
+    This is the expectation value of Alice's outcome times Bob's outcome.
+
+    THE CHSH PARAMETER:
+    S = E(0,0) + E(0,1) + E(1,0) - E(1,1)
+
+    THE BOUNDS (ALL PROVEN):
+    - |E| ≤ 1 (correlations are bounded)
+    - |S| ≤ 4 (no-signaling bound, triangle inequality)
+    - |S| ≤ 2√2 (quantum bound, requires algebraic coherence)
+    - |S| ≤ 2 (local bound, proven in MinorConstraints.v)
+
+    FALSIFICATION:
+    Find a valid box violating any bound. The proofs are machine-checked.
+*)
     
 Require Import Coq.QArith.QArith.
 Require Import Coq.QArith.Qabs.
@@ -71,7 +86,28 @@ Proof.
   field.
 Qed.
 
-(** Theorem 1: Correlators are bounded by 1 *)
+(** normalized_E_bound: Correlations from probability distributions are bounded.
+
+    WHY THIS IS FUNDAMENTAL:
+    If you have a valid probability distribution P(a,b|x,y), the correlation
+    E(x,y) = P(00) - P(01) - P(10) + P(11) is ALWAYS bounded by |E| ≤ 1.
+
+    THE PROOF IDEA:
+    E = (P00 + P11) - (P01 + P10). Since P00+P01+P10+P11 = 1 (normalization)
+    and all P_ij ≥ 0 (non-negativity), we have:
+    - P00 + P11 ≤ 1 (the "same" outcomes)
+    - P01 + P10 ≤ 1 (the "different" outcomes)
+
+    Therefore |E| = |(P00+P11) - (P01+P10)| ≤ max(P00+P11, P01+P10) ≤ 1.
+
+    WHY THIS MATTERS:
+    This is the foundation for ALL CHSH bounds. Correlations from probabilities
+    can't exceed 1. Any theory violating this would be internally inconsistent.
+
+    FALSIFICATION:
+    Find non-negative probabilities summing to 1 where |E| > 1. Can't happen.
+    The proof is just probability theory.
+*)
 Lemma normalized_E_bound : forall B x y,
   non_negative B -> normalized B -> Qabs (E B x y) <= 1.
 Proof.

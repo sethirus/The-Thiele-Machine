@@ -159,9 +159,9 @@ class TestStructuralIsomorphism:
         assert hasattr(py_state, 'mu_information'), "State should have mu_information"
         
         # Verilog state fields (from RTL)
-        verilog_path = REPO_ROOT / "thielecpu" / "hardware" / "rtl" / "thiele_cpu.v"
+        verilog_path = REPO_ROOT / "thielecpu" / "hardware" / "rtl" / "thiele_cpu_unified.v"
         verilog_content = verilog_path.read_text()
-        
+
         # Check for key registers
         assert 'pc_reg' in verilog_content, "Verilog should have pc_reg"
         assert 'csr_status' in verilog_content, "Verilog should have csr_status"
@@ -275,11 +275,8 @@ class TestBehavioralIsomorphism:
             # Compile
             result = subprocess.run(
                 ["iverilog", "-g2012", "-I", str(rtl_dir), "-o", tmp_path,
-                 str(rtl_dir / "thiele_cpu.v"),
-                 str(tb_dir / "thiele_cpu_tb.v"),
-                 str(rtl_dir / "mu_alu.v"),
-                 str(rtl_dir / "mu_core.v"),
-                 str(rtl_dir / "receipt_integrity_checker.v")],
+                 str(rtl_dir / "thiele_cpu_unified.v"),
+                 str(tb_dir / "thiele_cpu_tb.v")],
                 capture_output=True,
                 timeout=60
             )
@@ -364,11 +361,8 @@ class TestVerilogPythonAlignment:
         try:
             subprocess.run(
                 ["iverilog", "-g2012", "-I", str(rtl_dir), "-o", tmp_path,
-                 str(rtl_dir / "thiele_cpu.v"),
-                 str(tb_dir / "thiele_cpu_tb.v"),
-                 str(rtl_dir / "mu_alu.v"),
-                 str(rtl_dir / "mu_core.v"),
-                 str(rtl_dir / "receipt_integrity_checker.v")],
+                 str(rtl_dir / "thiele_cpu_unified.v"),
+                 str(tb_dir / "thiele_cpu_tb.v")],
                 check=True,
                 timeout=60
             )
@@ -412,9 +406,9 @@ class TestVerilogPythonAlignment:
         from thielecpu.isa import Opcode, encode
         
         # Verilog extracts opcode from instruction word
-        verilog_path = REPO_ROOT / "thielecpu" / "hardware" / "rtl" / "thiele_cpu.v"
+        verilog_path = REPO_ROOT / "thielecpu" / "hardware" / "rtl" / "thiele_cpu_unified.v"
         content = verilog_path.read_text()
-        
+
         # Check that Verilog defines opcode extraction from instruction word
         # The exact bit slice syntax may vary, but we check for opcode extraction
         assert "opcode" in content, "Verilog should extract opcode from instruction"
@@ -538,11 +532,8 @@ class TestCompleteIsomorphism:
         try:
             result = subprocess.run(
                 ["iverilog", "-g2012", "-I", str(rtl_dir), "-o", tmp_path,
-                 str(rtl_dir / "thiele_cpu.v"),
-                 str(tb_dir / "thiele_cpu_tb.v"),
-                 str(rtl_dir / "mu_alu.v"),
-                 str(rtl_dir / "mu_core.v"),
-                 str(rtl_dir / "receipt_integrity_checker.v")],
+                 str(rtl_dir / "thiele_cpu_unified.v"),
+                 str(tb_dir / "thiele_cpu_tb.v")],
                 capture_output=True,
                 timeout=60
             )

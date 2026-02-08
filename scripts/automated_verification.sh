@@ -51,9 +51,9 @@ echo "Forge pipeline completed - see $REPORTS_DIR/forge.log"
 phase SYNTH "Generating detailed synthesis report"
 {
   echo "=== Yosys Synthesis Report ==="
-  echo "Command: yosys -p 'read_verilog -sv -nomem2reg -DYOSYS_LITE -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_synth.v thielecpu/hardware/rtl/mu_alu.v thielecpu/hardware/rtl/mu_core.v thielecpu/hardware/rtl/receipt_integrity_checker.v; prep; check; stat'"
+  echo "Command: yosys -p 'read_verilog -sv -nomem2reg -DSYNTHESIS -DYOSYS_LITE -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_unified.v; prep; check; stat'"
   echo ""
-  yosys -p "read_verilog -sv -nomem2reg -DYOSYS_LITE -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_synth.v thielecpu/hardware/rtl/mu_alu.v thielecpu/hardware/rtl/mu_core.v thielecpu/hardware/rtl/receipt_integrity_checker.v; prep; check; stat"
+  yosys -p "read_verilog -sv -nomem2reg -DSYNTHESIS -DYOSYS_LITE -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_unified.v; prep; check; stat"
 } > "$REPORTS_DIR/synthesis_report.txt" 2>&1
 echo "Synthesis report: $REPORTS_DIR/synthesis_report.txt"
 

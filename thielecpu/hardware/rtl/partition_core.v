@@ -46,6 +46,11 @@ module partition_core #(
     input wire [7:0] pmerge_m1,
     input wire [7:0] pmerge_m2,
     
+    // Explicit μ-cost from instruction encoding (matches Coq instruction_cost).
+    // When nonzero, overrides the hardcoded cost rules to achieve 3-way
+    // isomorphism with Coq extraction and the Python VM.
+    input wire [7:0] explicit_cost,
+    
     // Outputs
     output reg [7:0] num_modules,
     output reg [7:0] result_module_id,
@@ -161,7 +166,7 @@ module partition_core #(
                                 result_module_id <= next_id;
                                 num_modules <= num_modules + 1;
                                 next_id <= next_id + 1;
-                                mu_discovery <= mu_discovery + popcount(pnew_region);
+                                mu_discovery <= mu_discovery + ((explicit_cost != 0) ? {24'h0, explicit_cost} : popcount(pnew_region));
                             end
                         end
                         
@@ -176,7 +181,7 @@ module partition_core #(
                                 result_module_id <= next_id;
                                 num_modules <= num_modules + 1;
                                 next_id <= next_id + 1;
-                                mu_execution <= mu_execution + REGION_WIDTH;
+                                mu_execution <= mu_execution + ((explicit_cost != 0) ? {24'h0, explicit_cost} : REGION_WIDTH);
                             end
                         end
                         
@@ -200,7 +205,7 @@ module partition_core #(
                                 partitions[(num_modules-1)*REGION_WIDTH +: REGION_WIDTH] <= 0;
                                 result_module_id <= pmerge_m1;
                                 num_modules <= num_modules - 1;
-                                mu_execution <= mu_execution + 4;
+                                mu_execution <= mu_execution + ((explicit_cost != 0) ? {24'h0, explicit_cost} : 32'd4);
                             end
                         end
                         

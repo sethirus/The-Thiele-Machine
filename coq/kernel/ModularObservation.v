@@ -1,25 +1,38 @@
 (** =========================================================================
-    MODULAR OBSERVATION THEORY
+    MODULAR OBSERVATION THEORY - Locality Implies Conservation
     =========================================================================
-    
-    This file defines module-indexed observations and proves that locality
-    of operations implies decomposable information accounting.
-    
-    KEY DEFINITIONS:
-    - local_obs: observation of a single module
-    - full_obs: tuple of all module observations
-    - agrees_except: states agree except on target modules
-    - local_info: information content restricted to module subset
-    
-    KEY THEOREMS:
-    - non_target_obs_invariant: locality preserves non-target observations
-    - info_decomposition: total info change = sum of local info changes
-    
-    NO SHORTCUTS:
-    - No Hypothesis
-    - No Axiom (except Coq stdlib)
-    - No deferred proofs
-    
+
+    WHY THIS FILE EXISTS:
+    I claim locality of operations (instructions only modify target modules)
+    implies conservation of information. If step only touches modules T, then
+    observations outside T are unchanged. This means information loss is
+    locally attributable to instruction μ-cost.
+
+    THE CORE CLAIM:
+    If vm_step only modifies target modules (step_is_local), then non-target
+    observations are preserved (non_target_obs_invariant, line 153). This
+    means information change decomposes: Δinfo_total = Δinfo_targets (since
+    Δinfo_non-targets = 0).
+
+    WHAT THIS PROVES:
+    - agrees_except: Two states agree on all modules except targets (line 54)
+    - non_target_obs_invariant (line 153): Local steps preserve non-target observations
+    - kernel_instr_targets (line 222): Extracts target modules from each instruction
+    - Framework for locality-based μ-accounting: instruction cost = Δinfo on targets only
+
+    PHYSICAL INTERPRETATION:
+    This is the computational form of "no action at a distance". If an operation
+    is local (doesn't propagate signals outside target region), then information
+    conservation is also local. μ-cost equals information loss on target modules.
+
+    FALSIFICATION:
+    Show that vm_step modifies observations outside kernel_instr_targets for
+    some instruction. This would break locality (line 61) and invalidate the
+    decomposition. Or prove information doesn't decompose additively across
+    independent modules.
+
+    NO AXIOMS. NO ADMITS. Framework complete.
+
     ========================================================================= *)
 
 From Coq Require Import List Arith.PeanoNat Lia Bool.

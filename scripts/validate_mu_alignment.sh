@@ -94,9 +94,9 @@ fi
 # -----------------------------------------------------------------------------
 echo ""
 echo "[3/5] Testing Verilog opcode alignment..."
-echo "    Source: thielecpu/hardware/thiele_cpu.v"
+echo "    Source: thielecpu/hardware/rtl/thiele_cpu_unified.v"
 
-VERILOG_FILE="$REPO_ROOT/thielecpu/hardware/thiele_cpu.v"
+VERILOG_FILE="$REPO_ROOT/thielecpu/hardware/rtl/thiele_cpu_unified.v"
 
 if [ -f "$VERILOG_FILE" ]; then
     # Extract OPCODE_LASSERT value dynamically

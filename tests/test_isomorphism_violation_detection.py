@@ -206,7 +206,7 @@ class TestVerilogIsomorphismViolation:
 
             # Initialize state
             s = State()
-            s.mu = 10  # Current μ-cost
+            s.mu_operational = 10  # Current μ-cost
 
             # Attempting to decrease μ should fail (if implemented correctly)
             # If not, this test documents the requirement
@@ -251,13 +251,59 @@ class TestCoqExtractedVMViolation:
         if not found:
             pytest.skip(f"Coq extraction not found in: {possible_paths}. Run: cd coq && make Extraction.vo")
 
-    def test_coq_python_trace_equivalence(self):
+    def test_coq_python_trace_equivalence(self, tmp_path):
         """If Coq extracted VM produces different trace than Python, FAILS"""
-        # This is tested in test_extracted_vm_runner.py
-        # Documented here: extracted OCaml MUST match Python VM on identical inputs
+        import json
+        import shutil
+        import subprocess
+        from pathlib import Path
 
-        # If divergence occurs, isomorphism is BROKEN
-        pytest.skip("Full Coq extraction tests in test_extracted_vm_runner.py")
+        repo_root = Path(__file__).resolve().parent.parent
+        extracted_ir = repo_root / "build" / "thiele_core.ml"
+        extracted_mli = repo_root / "build" / "thiele_core.mli"
+        runner_src = repo_root / "tools" / "extracted_vm_runner.ml"
+        runner_bin = repo_root / "build" / "extracted_vm_runner"
+
+        if not extracted_ir.exists():
+            pytest.skip("missing build/thiele_core.ml (run `make -C coq Extraction.vo`)")
+        if not extracted_mli.exists():
+            pytest.skip("missing build/thiele_core.mli")
+        if not runner_src.exists():
+            pytest.skip("missing tools/extracted_vm_runner.ml")
+        if shutil.which("ocamlc") is None:
+            pytest.skip("ocamlc not available")
+
+        # Compile the runner if needed
+        if not runner_bin.exists():
+            subprocess.run(
+                ["ocamlc", "-I", str(repo_root / "build"), "-o", str(runner_bin),
+                 str(extracted_mli), str(extracted_ir), str(runner_src)],
+                check=True, cwd=str(repo_root), capture_output=True, text=True,
+            )
+
+        # Run a PNEW+PMERGE trace through both Python and Coq-extracted VM
+        from thielecpu.state import State
+
+        py_state = State()
+        m1 = py_state.pnew({0, 1})
+        m2 = py_state.pnew({2, 3})
+        py_state.pmerge(m1, m2)
+        python_mu = py_state.mu_ledger.total
+
+        trace = "FUEL 32\nPNEW {0,1} 2\nPNEW {2,3} 2\nPMERGE 1 2 4\n"
+        trace_path = tmp_path / "trace.txt"
+        trace_path.write_text(trace, encoding="utf-8")
+
+        proc = subprocess.run(
+            [str(runner_bin), str(trace_path)],
+            check=True, cwd=str(repo_root), capture_output=True, text=True,
+        )
+        extracted = json.loads(proc.stdout)
+
+        assert extracted["err"] is False, "Coq-extracted VM reported error"
+        assert extracted["mu"] == python_mu, (
+            f"Coq μ={extracted['mu']} != Python μ={python_mu}: isomorphism BROKEN"
+        )
 
 
 class TestIsomorphismDocumentation:

@@ -4,19 +4,63 @@ Import ListNotations.
 Open Scope string_scope.
 Open Scope Z_scope.
 
-(** Minimal, deterministic certificate checkers for the VM kernel.
+(** * CertCheck: Certificate verification for SAT/UNSAT claims
 
-    These are intended to mirror the Python implementations in
-    thielecpu/certcheck.py closely enough for executable isomorphism gates.
+    WHY THIS FILE EXISTS:
+    The Thiele Machine needs to verify computational receipts. When the VM
+    claims "this formula is SAT" or "this formula is UNSAT", it must provide
+    a CERTIFICATE that anyone can check. This file implements those checkers
+    in Coq, mirroring the Python implementation (thielecpu/certcheck.py) for
+    3-layer isomorphism.
 
-    Certificates are currently passed around as raw text (DIMACS CNF for
-    formulas, LRAT for UNSAT proofs, and a whitespace-separated assignment
-    for SAT models).
+    THE TWO PROBLEMS:
+    1. SAT: Formula is satisfiable. Certificate = satisfying assignment.
+       Verification = substitute assignment, check all clauses true.
+    2. UNSAT: Formula is unsatisfiable. Certificate = LRAT proof.
+       Verification = check RUP (Reverse Unit Propagation) steps.
+
+    WHY CERTIFICATES:
+    Computational claims must be verifiable. Saying "I computed X" without
+    proof is worthless. Certificates make computation CHECKABLE. This is
+    foundational to the μ-cost model - you can't charge μ-cost without
+    verifiable evidence that work was done.
+
+    FORMAT:
+    - DIMACS CNF: Standard format for Boolean formulas
+    - SAT certificate: List of variable assignments (v1=true v2=false ...)
+    - UNSAT certificate: LRAT proof (Linear Resolution Asymmetric Tautology)
+
+    THE ISOMORPHISM:
+    This Coq code EXACTLY mirrors thielecpu/certcheck.py. Same parsing, same
+    checks, same outputs. Tests verify this (tests/test_cert_check.py). If
+    the Python checker accepts, Coq accepts. If Coq rejects, Python rejects.
+
+    FALSIFICATION:
+    Find a formula and assignment where this checker says SAT but the formula
+    isn't satisfied, or vice versa. Or find an LRAT proof that this checker
+    accepts but the formula is actually SAT. The proofs are deterministic -
+    bit-for-bit identical execution across Coq/Python/Verilog.
 *)
 
 Module CertCheck.
 
-  (* ---------- basic string/list utilities ---------- *)
+  (** ========================================================================
+      BASIC STRING/LIST UTILITIES
+      ========================================================================
+
+      WHY:
+      Certificate formats are text-based (DIMACS, LRAT). This section provides
+      string manipulation primitives: splitting on whitespace, trimming, parsing.
+
+      IMPLEMENTATION:
+      Pure functional code on strings viewed as lists of ASCII characters.
+      Mirrors Python's str.split(), str.strip(), etc. but deterministic and
+      formal.
+
+      USED BY:
+      All parsing functions below. These are the atoms from which DIMACS and
+      LRAT parsers are built.
+      ====================================================================== *)
 
   Fixpoint string_to_list (s : string) : list ascii :=
     match s with
@@ -89,7 +133,25 @@ Module CertCheck.
     | String c _ => Ascii.eqb c ch
     end.
 
-  (* ---------- integer parsing ---------- *)
+  (** ========================================================================
+      INTEGER PARSING
+      ========================================================================
+
+      WHY:
+      DIMACS uses integers for variables and literals. LRAT uses integers for
+      clause IDs. This section parses ASCII decimal integers into Coq Z/nat.
+
+      FORMAT:
+      Standard decimal with optional '+' or '-' prefix. Examples: "42", "-7", "+3".
+
+      CORRECTNESS:
+      parse_int "0" = Some 0, parse_int "-123" = Some (-123)%Z. Mirrors
+      Python's int(). Returns None on malformed input.
+
+      USED BY:
+      DIMACS parsing (clause literals), LRAT parsing (clause IDs, hints),
+      assignment parsing (variable numbers).
+      ====================================================================== *)
 
   Definition is_digit (c : ascii) : bool :=
     let n := ascii_nat c in
@@ -135,8 +197,48 @@ Module CertCheck.
     | None => None
     end.
 
-  (* ---------- DIMACS parsing ---------- *)
+  (** ========================================================================
+      DIMACS CNF PARSING
+      ========================================================================
 
+      WHY:
+      DIMACS is THE standard format for Boolean formulas in CNF (Conjunctive
+      Normal Form). Every SAT solver uses it. If the Thiele Machine claims to
+      solve SAT, it must speak DIMACS.
+
+      FORMAT:
+      - Comments: Lines starting with 'c'
+      - Header: "p cnf <num_vars> <num_clauses>"
+      - Clauses: Space-separated integers terminated by 0
+        Example: "1 -2 3 0" means (x₁ ∨ ¬x₂ ∨ x₃)
+
+      PARSING STRATEGY:
+      Line-by-line scanner. Skip comments, extract num_vars from header,
+      accumulate clauses. Mirrors Python's certcheck.parse_dimacs().
+
+      CORRECTNESS:
+      parse_dimacs should accept EXACTLY the strings accepted by standard
+      DIMACS parsers. Tests verify this against Python's implementation.
+
+      FALSIFICATION:
+      Find a valid DIMACS file that this parser rejects, or an invalid file
+      it accepts. The 3-layer isomorphism tests check this.
+      ====================================================================== *)
+
+  (** dimacs_cnf: Parsed CNF formula.
+
+      FIELDS:
+      - cnf_num_vars: Number of variables (1 to num_vars)
+      - cnf_clauses: List of clauses, each clause a list of literals
+
+      LITERALS:
+      Positive integer k means variable k is true.
+      Negative integer -k means variable k is false (negated).
+
+      EXAMPLE:
+      {{cnf_num_vars := 3; cnf_clauses := [[1; -2]; [-1; 3]; [2; -3]]}}
+      represents: (x₁ ∨ ¬x₂) ∧ (¬x₁ ∨ x₃) ∧ (x₂ ∨ ¬x₃)
+  *)
   Record dimacs_cnf :=
     { cnf_num_vars : nat;
       cnf_clauses : list (list Z) }.
@@ -202,7 +304,36 @@ Module CertCheck.
       end
     in go lines None [].
 
-  (* ---------- model checking ---------- *)
+  (** ========================================================================
+      SAT MODEL CHECKING
+      ========================================================================
+
+      WHY:
+      Verifying SAT certificates. Given a formula and an assignment, check
+      that the assignment satisfies all clauses.
+
+      THE ALGORITHM:
+      1. Parse assignment into (variable, bool) pairs
+      2. For each clause:
+         - Check if any literal is satisfied by the assignment
+         - If yes: clause is true
+         - If no: formula is false, certificate invalid
+      3. If all clauses satisfied: certificate valid
+
+      CORRECTNESS:
+      This is mechanical evaluation. No search, no heuristics. Just substitute
+      and check. Either ALL clauses are true (SAT) or at least one is false
+      (certificate invalid).
+
+      TIME COMPLEXITY:
+      O(formula_size). Linear in the number of literals. Fast verification is
+      WHY certificates work - checking is easy even when finding is hard.
+
+      FALSIFICATION:
+      Find a formula F and assignment A where check_model(F, A) = true but
+      A doesn't actually satisfy F. Can't happen - the check is mechanical
+      substitution.
+      ====================================================================== *)
 
   Fixpoint lookup_bool (x : nat) (m : list (nat * bool)) : option bool :=
     match m with
@@ -277,6 +408,28 @@ Module CertCheck.
       end
     in go toks [].
 
+  (** clause_satisfied: Check if a clause is true under an assignment.
+
+      WHY:
+      A clause is a disjunction (OR) of literals. It's satisfied if AT LEAST
+      ONE literal is true. This function scans the clause looking for a
+      satisfied literal.
+
+      THE ALGORITHM:
+      For each literal in the clause:
+      - Extract variable number (|literal|)
+      - Look up its value in the assignment
+      - If positive literal and var=true, or negative literal and var=false: TRUE
+      - If no literal matches: FALSE
+
+      EDGE CASES:
+      - Empty clause: Always false (can't satisfy nothing)
+      - Variable not in assignment: clause unsatisfied (conservative)
+
+      CORRECTNESS:
+      Pure Boolean logic. The clause (lit₁ ∨ lit₂ ∨ ... ∨ litₙ) is true iff
+      at least one litᵢ evaluates to true under the assignment.
+  *)
   Definition clause_satisfied (asgn : list (nat * bool)) (cl : list Z) : bool :=
     let fix go (lits : list Z) : bool :=
       match lits with
@@ -292,6 +445,35 @@ Module CertCheck.
       end
     in go cl.
 
+  (** check_model: Main SAT certificate checker.
+
+      WHY THIS IS THE TOP-LEVEL FUNCTION:
+      This is what the VM calls when verifying a SAT certificate. Takes raw
+      text (DIMACS formula + assignment), returns bool (valid or invalid).
+
+      THE CONTRACT:
+      - Input: DIMACS CNF formula, space-separated assignment
+      - Output: true iff assignment satisfies formula
+      - Failure: false if parsing fails or formula unsatisfied
+
+      THE ALGORITHM:
+      1. Parse DIMACS formula
+      2. Parse assignment
+      3. Check assignment length ≥ num_vars (must assign all variables)
+      4. Check all clauses satisfied (forallb clause_satisfied)
+      5. Return conjunction of all checks
+
+      WHY THIS MATTERS:
+      This is how the Thiele Machine verifies SAT claims. If the VM says
+      "formula F is satisfiable", it must provide an assignment A such that
+      check_model(F, A) = true. No escape. Computational claims must have
+      checkable proofs.
+
+      FALSIFICATION:
+      Find F and A where check_model(F, A) = true but A doesn't satisfy F.
+      Or where check_model(F, A) = false but A does satisfy F. The check is
+      mechanical - no heuristics, no approximation.
+  *)
   Definition check_model (cnf_text : string) (assignment_text : string) : bool :=
     match parse_dimacs cnf_text, parse_assignment assignment_text with
     | Some cnf, Some asgn =>
@@ -301,7 +483,44 @@ Module CertCheck.
     | _, _ => false
     end.
 
-  (* ---------- LRAT / RUP checking ---------- *)
+  (** ========================================================================
+      LRAT / RUP CHECKING (UNSAT PROOFS)
+      ========================================================================
+
+      WHY:
+      Verifying UNSAT certificates. SAT is easy to check (just test the
+      assignment). UNSAT is harder - how do you prove NO assignment works?
+
+      THE SOLUTION: LRAT PROOFS:
+      LRAT (Linear Resolution Asymmetric Tautology) is a proof format for
+      UNSAT. Each step either:
+      1. Adds a new clause derived by RUP (Reverse Unit Propagation)
+      2. Deletes old clauses (for efficiency)
+
+      VERIFICATION:
+      Check that each derived clause follows by RUP from existing clauses.
+      If the proof derives the empty clause (contradiction), the formula is UNSAT.
+
+      RUP (Reverse Unit Propagation):
+      To check that clause C follows by RUP from clauses DB:
+      1. Assume ¬C (negate all literals in C)
+      2. Perform unit propagation on DB ∪ {¬C}
+      3. If contradiction (empty clause): C is valid. If not: invalid.
+
+      WHY THIS WORKS:
+      RUP is sound by resolution. If assuming ¬C leads to contradiction, then
+      C must be true. Iterating this builds a proof that the original formula
+      implies FALSE (i.e., is unsatisfiable).
+
+      TIME COMPLEXITY:
+      O(proof_size × formula_size). Linear in proof length. This is WHY UNSAT
+      proofs are practical - checking is polynomial even though finding is NP-hard.
+
+      FALSIFICATION:
+      Find a satisfiable formula and an LRAT proof that this checker accepts.
+      Or find an unsatisfiable formula and a proof this checker rejects even
+      though the proof is valid. The RUP checks are mechanical and complete.
+      ====================================================================== *)
 
   Definition assoc_remove (k : nat) (db : list (nat * list Z)) : list (nat * list Z) :=
     filter (fun kv => negb (Nat.eqb (fst kv) k)) db.
@@ -325,6 +544,34 @@ Module CertCheck.
       end
     in go cl [].
 
+  (** unit_conflict_fuel: Core RUP checker with termination fuel.
+
+      WHY FUEL:
+      Unit propagation can loop if not careful. Fuel bounds iterations to
+      ensure termination. If fuel runs out, return false (proof invalid).
+
+      THE ALGORITHM:
+      1. Pop a literal from the queue
+      2. Check if it contradicts current assignment (conflict found: return true)
+      3. If not, assign it and scan all clauses:
+         - If clause becomes unsatisfied (empty): conflict! Return true.
+         - If clause becomes unit (one unassigned literal): add to queue.
+         - Otherwise: continue.
+      4. Repeat until queue empty (no conflict: return false) or fuel exhausted.
+
+      WHY THIS WORKS:
+      Unit propagation is the core of DPLL SAT solvers. If assigning
+      assumptions leads to a conflict, the assumptions are inconsistent. For
+      RUP, we assume ¬C and check for conflict - if found, C must be true.
+
+      FUEL CALCULATION:
+      Set to num_vars + queue_length + 10. Generous but bounded. In practice,
+      unit propagation terminates quickly or finds conflict quickly.
+
+      USED BY:
+      unit_conflict (wrapper that sets up fuel), which is called by
+      verify_rup_clause to check each RUP step.
+  *)
   Fixpoint unit_conflict_fuel
     (fuel : nat)
     (num_vars : nat)
@@ -372,6 +619,24 @@ Module CertCheck.
         end
     end.
 
+  (** unit_conflict: Check if assumptions lead to contradiction.
+
+      WHY THIS WRAPPER:
+      Sets up the initial state for unit_conflict_fuel. Collects initial unit
+      clauses, builds the propagation queue, calculates fuel.
+
+      THE SETUP:
+      - unit_lits: Extract all unit clauses (single-literal clauses) from formula
+      - queue: assumptions + unit_lits (initial propagation queue)
+      - fuel: num_vars + queue length + 10 (generous termination bound)
+
+      RETURNS:
+      true if unit propagation from assumptions reaches a conflict.
+      false if propagation completes without conflict or runs out of fuel.
+
+      USED BY:
+      verify_rup_clause to check RUP steps.
+  *)
   Definition unit_conflict
     (num_vars : nat)
     (clauses : list (list Z))
@@ -387,6 +652,30 @@ Module CertCheck.
     let fuel := (num_vars + List.length queue + 10)%nat in
     unit_conflict_fuel fuel num_vars clauses [] queue.
 
+  (** verify_rup_clause: Check that a clause is derivable by RUP.
+
+      WHY:
+      This is the core of LRAT verification. Each derived clause must be
+      checkable by RUP from existing clauses.
+
+      THE CHECK:
+      To verify clause C from database DB:
+      1. Negate C: map Z.opp clause (flip all literals)
+      2. Check if ¬C leads to conflict with DB
+      3. If yes: C is valid (RUP holds). If no: invalid.
+
+      WHY NEGATE:
+      RUP checks if C is implied by DB. This is equivalent to checking if
+      DB ∧ ¬C is inconsistent. So we assume ¬C and look for contradiction.
+
+      USED BY:
+      check_lrat_lines to verify each derivation step in the LRAT proof.
+
+      FALSIFICATION:
+      Find a clause C and database DB where this returns true but C doesn't
+      actually follow from DB. Or where this returns false but C does follow.
+      The unit propagation is complete and sound for RUP.
+  *)
   Definition verify_rup_clause
     (num_vars : nat)
     (db : list (nat * list Z))
@@ -394,6 +683,33 @@ Module CertCheck.
     : bool :=
     unit_conflict num_vars (db_clauses db) (map Z.opp clause).
 
+  (** lrat_step: One line of an LRAT proof.
+
+      STRUCTURE:
+      LRAT proofs are sequences of steps. Each step is either:
+      1. Derivation: Add a new clause (with ID) derived by RUP
+      2. Deletion: Remove old clauses (for memory efficiency)
+
+      FIELDS:
+      - lrat_id: Clause ID number
+      - lrat_clause: The derived clause (list of literals)
+      - lrat_deletions: Clause IDs to delete after this step
+      - lrat_is_delete: true if pure deletion step, false if derivation
+
+      FORMAT:
+      Derivation line: "<id> <lit>* 0 [<hint>* 0] <del>* 0"
+      Deletion line: "d <id>* 0"
+
+      EXAMPLE:
+      "5 1 -2 0 0 2 3 0" means:
+      - Derive clause #5: (x₁ ∨ ¬x₂)
+      - Hints: clauses #2 and #3 used in derivation
+      - Delete: none
+
+      WHY DELETIONS:
+      LRAT proofs can be huge. Deleting clauses no longer needed keeps memory
+      bounded. Doesn't affect soundness - once derived, a clause is valid.
+  *)
   Record lrat_step :=
     { lrat_id : nat;
       lrat_clause : list Z;
@@ -484,6 +800,38 @@ Module CertCheck.
     | d :: ds => apply_deletions (assoc_remove d db) ds
     end.
 
+  (** check_lrat_lines: Process LRAT proof line by line.
+
+      WHY:
+      LRAT proofs are sequences of steps. This function walks through them,
+      verifying each derivation and maintaining the clause database.
+
+      THE ALGORITHM:
+      For each line in the proof:
+      1. Parse as lrat_step (derivation or deletion)
+      2. If deletion: remove clauses from database
+      3. If derivation:
+         a. Verify clause by RUP from current database
+         b. If valid: add clause to database, apply deletions
+         c. If empty clause derived: set derived_empty flag
+         d. If invalid: REJECT proof (return false)
+      4. At end: check if empty clause was derived
+
+      STATE:
+      - db: Current clause database (id, clause) pairs
+      - derived_empty: Have we derived the empty clause (contradiction)?
+
+      TERMINATION:
+      Returns true iff proof derives empty clause AND all steps verify.
+
+      WHY EMPTY CLAUSE:
+      The empty clause is FALSE (no literals to satisfy). Deriving it proves
+      the formula is contradictory, hence UNSAT.
+
+      FALSIFICATION:
+      Find an LRAT proof that this accepts but doesn't derive empty clause,
+      or where an RUP step is invalid. The checks are mechanical and complete.
+  *)
   Fixpoint check_lrat_lines
     (num_vars : nat)
     (lines : list string)
@@ -507,6 +855,43 @@ Module CertCheck.
         end
     end.
 
+  (** check_lrat: Main UNSAT certificate checker.
+
+      WHY THIS IS THE TOP-LEVEL FUNCTION:
+      This is what the VM calls when verifying an UNSAT certificate. Takes
+      raw text (DIMACS formula + LRAT proof), returns bool (valid or invalid).
+
+      THE CONTRACT:
+      - Input: DIMACS CNF formula, LRAT proof text
+      - Output: true iff proof derives empty clause with valid RUP steps
+      - Failure: false if parsing fails or any RUP check fails
+
+      THE ALGORITHM:
+      1. Parse DIMACS formula
+      2. Build initial clause database (assign IDs 1, 2, 3, ...)
+      3. Process LRAT proof line by line (check_lrat_lines)
+      4. Return whether empty clause was derived
+
+      WHY THIS MATTERS:
+      This is how the Thiele Machine verifies UNSAT claims. If the VM says
+      "formula F is unsatisfiable", it must provide an LRAT proof P such that
+      check_lrat(F, P) = true. No escape. UNSAT claims must have checkable proofs.
+
+      THE COST:
+      UNSAT proofs can be LARGE (gigabytes for hard instances). Checking them
+      is expensive (O(proof_size × formula_size)). This is a μ>0 operation.
+      The μ-cost is proportional to proof length.
+
+      FALSIFICATION:
+      Find F and P where check_lrat(F, P) = true but F is actually satisfiable.
+      Or where check_lrat(F, P) = false but P is a valid LRAT proof. The RUP
+      checks are sound and complete.
+
+      THE ISOMORPHISM:
+      This Coq implementation EXACTLY mirrors thielecpu/certcheck.check_lrat().
+      Same parsing, same RUP checks, same outputs. Tests verify this
+      (tests/test_cert_check.py). Bit-for-bit identical behavior.
+  *)
   Definition check_lrat (cnf_text : string) (proof_text : string) : bool :=
     match parse_dimacs cnf_text with
     | None => false

@@ -30,6 +30,53 @@ DEFAULT_SIGNING_KEY_PATH = "kernel_secret.key"
 DEFAULT_VERIFY_KEY_PATH = "kernel_public.key"
 
 
+# Opcode constants — must match Verilog thiele_cpu_unified.v
+OP_PNEW      = 0x00
+OP_PSPLIT     = 0x01
+OP_PMERGE     = 0x02
+OP_LASSERT    = 0x03
+OP_LJOIN      = 0x04
+OP_MDLACC     = 0x05
+OP_PDISCOVER  = 0x06
+OP_XFER       = 0x07
+OP_PYEXEC     = 0x08
+OP_CHSH_TRIAL = 0x09
+OP_XOR_LOAD   = 0x0A
+OP_XOR_ADD    = 0x0B
+OP_XOR_SWAP   = 0x0C
+OP_XOR_RANK   = 0x0D
+OP_EMIT       = 0x0E
+OP_REVEAL     = 0x0F
+OP_ORACLE     = 0x10
+OP_HALT       = 0xFF
+
+_STANDARD_COST_OPCODES = frozenset({
+    OP_PNEW, OP_PSPLIT, OP_PMERGE, OP_LASSERT, OP_LJOIN,
+    OP_MDLACC, OP_PDISCOVER, OP_XFER, OP_PYEXEC, OP_CHSH_TRIAL,
+    OP_XOR_LOAD, OP_XOR_ADD, OP_XOR_SWAP, OP_XOR_RANK,
+    OP_EMIT, OP_ORACLE,
+})
+
+
+def _compute_instruction_cost(opcode: int, operand: int) -> int:
+    """Compute μ-cost for an instruction, mirroring Verilog compute_instruction_cost.
+
+    This is the standalone, opcode-level cost function used by the
+    receipt_integrity_checker hardware module.  The Verilog definition lives in
+    ``thiele_cpu_unified.v`` (``compute_instruction_cost`` function).
+
+    Returns:
+        Non-negative cost for known opcodes, or 0xFFFFFFFF for unknown opcodes.
+    """
+    if opcode in _STANDARD_COST_OPCODES:
+        return operand & 0xFF
+    if opcode == OP_REVEAL:
+        return (((operand >> 16) & 0xFF) << 8) + (operand & 0xFF)
+    if opcode == OP_HALT:
+        return 0
+    return 0xFFFFFFFF
+
+
 def mu_in_valid_range(mu: int) -> bool:
     """Check if μ value is within valid Q16.16 range.
     
@@ -596,6 +643,7 @@ def compute_chain_final_mu(receipts: list[StepReceipt], initial_mu: int = 0) -> 
 
 
 __all__ = [
+    "_compute_instruction_cost",
     "WitnessState",
     "StepObservation",
     "InstructionWitness",

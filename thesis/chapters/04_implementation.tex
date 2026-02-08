@@ -1,18 +1,30 @@
 % Chapter 4 Roadmap Figure
 
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    layer/.style={draw, rounded corners=3pt, minimum width=5.8cm, minimum height=1.1cm, font=\footnotesize, align=center, thick},
+    invariant/.style={draw, rounded corners=3pt, fill=yellow!15, minimum width=6cm, font=\footnotesize, align=center, thick},
+]
+% Three layers
+\node[layer, fill=blue!15, draw=blue!60] (coq) at (0,2.4) {\textbf{Layer 1: Coq (Formal)}\\2,154 verified theorems};
+\node[layer, fill=green!15, draw=green!50!black] (py) at (0,1.2) {\textbf{Layer 2: Python (Reference)}\\Tracing \& debugging};
+\node[layer, fill=orange!15, draw=orange!70] (rtl) at (0,0) {\textbf{Layer 3: Verilog (Physical)}\\Synthesizable RTL};
 
-\textbf{Three layers (boxes):}
-\begin{itemize}
-    \item \textbf{Layer 1: Coq (blue):} Formal specification with machine-checked proofs (2,117 verified theorems)
-    \item \textbf{Layer 2: Python (green):} Human-readable reference implementation with tracing \& debugging
-    \item \textbf{Layer 3: Verilog (orange):} Synthesizable RTL for FPGA/ASIC physical hardware
-\end{itemize}
+% Bidirectional arrows
+\draw[<->, thick, blue!60] (coq.south) +(-1.2,0) -- +(-1.2,-0.58) node[midway, left, font=\scriptsize] {Bisim};
+\draw[<->, thick, orange!70] (py.south) +(-1.2,0) -- +(-1.2,-0.58) node[midway, left, font=\scriptsize] {Iso};
 
-\textbf{Bidirectional arrows:} Bisimulation (Coq $\leftrightarrow$ Python) \& Isomorphism (Python $\leftrightarrow$ Verilog) shown in \S4.5
+% Central invariant
+\node[invariant] (inv) at (0,-1.3) {$S_{\text{Coq}}(\tau) = S_{\text{Python}}(\tau) = S_{\text{Verilog}}(\tau)$};
 
-\textbf{Central invariant (yellow box):} $S_{\text{Coq}}(\tau) = S_{\text{Python}}(\tau) = S_{\text{Verilog}}(\tau)$ - all three layers produce identical state projections for any instruction trace $\tau$
-
-\textbf{Key insight:} Three independent implementations maintained in lockstep through automated verification gates - if any layer diverges, tests fail immediately.
+% Arrows to invariant
+\draw[->, thick, dashed] (coq.east) -- +(0.6,0) |- (inv.east);
+\draw[->, thick, dashed] (py.east) -- +(0.4,0) |- (inv.east);
+\draw[->, thick, dashed] (rtl.east) -- +(0.6,0) |- (inv.east);
+\end{tikzpicture}
+\caption{3-Layer Isomorphism: three independent implementations bound by a single invariant.}
+\end{figure}
 
 \section{Why Three Layers?}
 
@@ -88,10 +100,10 @@ The tests compare \textit{state projections} rather than every internal variable
 
 This chapter is practical: it explains how theory becomes three concrete artifacts and how they stay in lockstep.
 \begin{itemize}
-    \item Section 4.2: Coq formalization (state definitions, step relation, extraction)
-    \item Section 4.3: Python VM (state class, partition operations, receipt generation)
-    \item Section 4.4: Verilog RTL (CPU module, $\mu$-ALU, logic engine interface)
-    \item Section 4.5: Isomorphism verification (how equality is tested)
+    \item Section 4.3: Coq formalization (state definitions, step relation, extraction)
+    \item Section 4.4: Python VM (state class, partition operations, receipt generation)
+    \item Section 4.5: Verilog RTL (CPU module, $\mu$-ALU, logic engine interface)
+    \item Section 4.6: Isomorphism verification (how equality is tested)
 \end{itemize}
 
 \textbf{Key concepts to understand}:
@@ -131,25 +143,34 @@ The goal is not to “encode” the implementation, but to define a minimal sema
 
 % VMState Record Structure Diagram
 
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    field/.style={draw, minimum width=3.8cm, minimum height=0.45cm, font=\scriptsize, anchor=west},
+    lbl/.style={font=\scriptsize\ttfamily, anchor=west},
+]
+% Container
+\node[draw, thick, rounded corners=2pt, minimum width=5.2cm, minimum height=4.4cm, label={[font=\footnotesize\bfseries]above:VMState Record}] (container) at (2.6,1.8) {};
 
-\textbf{VMState Record (container):} Complete machine state in one structure
+% Fields
+\node[field, fill=blue!12] (graph) at (0.3,3.6) {vm\_graph : PartitionGraph};
+\node[field, fill=blue!12] (csrs) at (0.3,3.05) {vm\_csrs : CSRState};
+\node[field, fill=green!12] (regs) at (0.3,2.5) {vm\_regs : list nat};
+\node[field, fill=green!12] (mem) at (0.3,1.95) {vm\_mem : list nat};
+\node[field, fill=purple!12] (pc) at (0.3,1.4) {vm\_pc : nat};
+\node[field, fill=red!15, line width=1.2pt, draw=red!70] (mu) at (0.3,0.85) {vm\_mu : nat};
+\node[field, fill=gray!12] (err) at (0.3,0.3) {vm\_err : bool};
 
-\textbf{Seven fields (boxes):}
-\begin{itemize}
-    \item \textbf{vm\_graph (blue):} PartitionGraph - module decomposition
-    \item \textbf{vm\_csrs (blue):} CSRState - control/status registers
-    \item \textbf{vm\_regs (green):} 32 registers (general-purpose)
-    \item \textbf{vm\_mem (green):} 256 words data memory
-    \item \textbf{vm\_pc (purple):} Program counter (current instruction)
-    \item \textbf{vm\_mu (red, very thick border):} $\mu$-ledger accumulator (HIGHLIGHTED)
-    \item \textbf{vm\_err (gray):} Error latch (halt flag)
-\end{itemize}
+% Annotations
+\node[font=\scriptsize, anchor=west] at (4.3,2.5) {32 regs};
+\node[font=\scriptsize, anchor=west] at (4.3,1.95) {256 words};
+\node[font=\scriptsize, anchor=west, red!70] at (4.3,0.85) {$\mu$-ledger};
 
-\textbf{Right annotations:} Type signatures and comments
-
-\textbf{Brace (right):} Groups regs+mem as "Data" section
-
-\textbf{Key insight:} vm\_mu is visually emphasized (very thick red border) - this is the central innovation tracking cumulative structural cost.
+% Data brace
+\draw[decorate, decoration={brace, amplitude=4pt}] (4.2,2.75) -- (4.2,1.7) node[midway, right=5pt, font=\scriptsize] {Data};
+\end{tikzpicture}
+\caption{VMState record: seven fields, with \texttt{vm\_mu} (the $\mu$-ledger) as the central cost accumulator.}
+\end{figure}
 
 \subsection{The VMState Record}
 
@@ -306,7 +327,7 @@ In the Python reference VM (\path{thielecpu/state.py}), these same operations ar
 
 \subsection{The Step Relation}
 
-The step relation is an inductive predicate with 18 constructors, one per opcode. Each constructor states the exact preconditions and the resulting next state:
+The step relation is an inductive predicate with 23 constructors covering the 18 opcodes. Several opcodes have both success and failure constructors (e.g., \texttt{step\_psplit} and \texttt{step\_psplit\_failure}), so the constructor count exceeds the opcode count. Each constructor states exact preconditions and the resulting next state:
 \begin{lstlisting}
 Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop := 
 | step_pnew : forall s region cost graph' mid,
@@ -364,10 +385,10 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
 \begin{itemize}
     \item \textbf{Relational}: Describes what transitions are valid, not how to compute them
     \item \textbf{Non-determinism}: Multiple rules might apply (though VM is deterministic)
-    \item \textbf{Proof Target}: We prove properties about this relation (safety, progress)
+    \item \textbf{Proof Target}: Properties are proven about this relation (safety, progress)
 \end{itemize}
 
-\textbf{18 Constructors}: One for each instruction:
+\textbf{23 Constructors} covering the 18 opcodes (some have success/failure variants):
 \begin{itemize}
     \item Partition ops: PNEW, PSPLIT, PMERGE
     \item Logic ops: LASSERT, LJOIN, REVEAL
@@ -495,7 +516,7 @@ The runner consumes traces and emits a JSON snapshot of the observable fields. T
 \section{Layer 2: The Reference VM (Python)}
 
 \begin{quote}
-\textit{Author's Note (Devon): This is the layer where I actually do my thinking. Coq tells me what's true. Verilog tells me what's physical. But Python? Python is where I debug at 2 AM, print statements everywhere, figuring out why the partition merge isn't doing what I thought it should.}
+\textit{Author's Note (Devon): This is the layer where I actually do my thinking. Coq tells me what's true. Verilog tells me what's physical. But Python? Python is where the ideas get tested. It's 2 AM, I'm staring at a partition merge that isn't doing what I think it should, and I'm telling Claude to add print statements until I can see where the logic breaks. Python is the conversation layer---the place where I can ask ``wait, what's happening here?'' and get an answer I can read.}
 \end{quote}
 
 \subsection{Architecture Overview}
@@ -694,9 +715,12 @@ class MuLedger:
     mu_discovery: int = 0   # Cost of partition discovery operations
     mu_execution: int = 0   # Cost of instruction execution
     
+    # HARDWARE CONSTANT: 32-bit width matching thiele_cpu.v
+    MASK: int = 0xFFFFFFFF
+
     @property
     def total(self) -> int:
-        return self.mu_discovery + self.mu_execution
+        return (self.mu_discovery + self.mu_execution) & self.MASK
 \end{lstlisting}
 
 \paragraph{Understanding the MuLedger:}
@@ -1075,23 +1099,37 @@ self.witness_state = post_state
 % Module Hierarchy Diagram
 
 \begin{quote}
-\textit{Author's Note (Devon): Now we get to the part where math hits silicon. I'm not going to lie---learning Verilog after Python felt like learning to think backwards. Everything happens at once. There's no ``next line.'' But once it clicks, you realize: this is what computers actually ARE. Not the abstractions we program with---the actual wires and flip-flops.}
+\textit{Author's Note (Devon): Now it gets to the part where math hits silicon. I'm not going to lie---wrapping my head around Verilog after Python felt like learning to think backwards. Everything happens at once. There's no ``next line.'' But once it clicks, you realize: this is what computers actually ARE. Not the abstractions we work with---the actual wires and flip-flops.}
 \end{quote}
 
-\textbf{Top:} thiele\_cpu (main CPU core, blue)
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    mod/.style={draw, rounded corners=2pt, minimum width=2.2cm, minimum height=0.7cm, font=\scriptsize, align=center, thick},
+    ext/.style={draw, dashed, rounded corners=2pt, minimum width=1.8cm, minimum height=0.6cm, font=\scriptsize, align=center},
+]
+% Top-level CPU
+\node[mod, fill=blue!15, draw=blue!60] (cpu) at (0,2) {\textbf{thiele\_cpu}\\main core};
 
-\textbf{Second level (connected modules):}
-\begin{itemize}
-    \item \textbf{$\mu$-ALU (orange):} Q16.16 fixed-point arithmetic for information-theoretic calculations
-    \item \textbf{LEI (purple):} Logic Engine Interface - bridges to external SMT solver
-    \item \textbf{Partition Graph (green):} Module ownership tracking
-\end{itemize}
+% Sub-modules
+\node[mod, fill=orange!15, draw=orange!70] (alu) at (-2.4,0.4) {$\mu$-ALU\\Q16.16};
+\node[mod, fill=green!15, draw=green!50!black] (part) at (0,0.4) {partition\\core};
+\node[mod, fill=purple!15, draw=purple!60] (logic) at (2.4,0.4) {logic\\interface};
 
-\textbf{External:} Z3 SMT Solver (dashed box) - outside hardware, connected via LEI
+% External
+\node[ext, fill=gray!8] (z3) at (2.4,-0.8) {Z3 SMT\\(external)};
 
-\textbf{Signal annotations:} opcode (blue), mu (orange), cert (purple) showing dataflow
+% Connections
+\draw[->, thick] (cpu) -- (alu) node[midway, left, font=\tiny] {op};
+\draw[->, thick] (cpu) -- (part);
+\draw[->, thick] (cpu) -- (logic) node[midway, right, font=\tiny] {cert};
+\draw[->, thick, dashed] (logic) -- (z3);
 
-\textbf{Key insight:} Hardware mirrors formal model structure - CPU core delegates to specialized units ($\mu$-ALU for math, LEI for logic, partition graph for state decomposition).
+% Signal labels
+\draw[->, orange!70, thick] (alu) -- +(0,-0.7) node[below, font=\tiny] {$\mu$-result};
+\end{tikzpicture}
+\caption{Hardware module hierarchy within \texttt{thiele\_cpu\_unified.v}.}
+\end{figure}
 
 \subsection{Module Hierarchy}
 
@@ -1135,7 +1173,7 @@ module thiele_cpu (
     \begin{itemize}
         \item \texttt{clk}: Clock signal—every rising edge (0$\rightarrow$1 transition) triggers state updates. Typical frequency: 50-100 MHz on FPGA.
         \item \texttt{rst\_n}: Active-low reset (\texttt{\_n} suffix = active low). When 0, reset all state; when 1, normal operation.
-        \item \texttt{mem\_rdata}: Memory read data—what memory returns when we read from an address.
+        \item \texttt{mem\_rdata}: Memory read data---what memory returns when reading from an address.
     \end{itemize}
     
     \item \textbf{output wire}: Signals going OUT from the module to external circuitry
@@ -1172,21 +1210,43 @@ Key signals:
 
 % CPU State Machine Diagram
 
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    state/.style={draw, rounded corners=2pt, minimum width=1cm, minimum height=0.45cm, font=\tiny\bfseries, align=center, thick},
+    >=Stealth,
+]
+% Main pipeline
+\node[state, fill=blue!15] (fetch) at (0,1.5) {FETCH};
+\node[state, fill=blue!15] (decode) at (1.6,1.5) {DECODE};
+\node[state, fill=blue!15] (exec) at (3.2,1.5) {EXECUTE};
+\node[state, fill=blue!15] (mem) at (4.8,1.5) {MEMORY};
+\node[state, fill=blue!15] (comp) at (6.4,1.5) {COMPLETE};
 
-\textbf{Main pipeline (top row):} FETCH $\to$ DECODE $\to$ EXECUTE $\to$ MEMORY $\to$ COMPLETE
+% Pipeline arrows
+\draw[->, thick] (fetch) -- (decode);
+\draw[->, thick] (decode) -- (exec);
+\draw[->, thick] (exec) -- (mem);
+\draw[->, thick] (mem) -- (comp);
 
-\textbf{Branch states (bottom):}
-\begin{itemize}
-    \item \textbf{ALU WAIT (gray):} Multi-cycle ALU operations (e.g., division, LOG2) - loops back to EXECUTE
-    \item \textbf{LOGIC (yellow):} External logic engine queries - returns to COMPLETE
-    \item \textbf{PYTHON (cyan):} PYEXEC instruction - sandbox execution - returns to COMPLETE
-\end{itemize}
+% Branch states
+\node[state, fill=gray!20] (alu) at (1.6,0) {ALU\\WAIT};
+\node[state, fill=yellow!25] (logic) at (3.6,0) {LOGIC};
+\node[state, fill=cyan!20] (py) at (5.6,0) {PYTHON};
 
-\textbf{Arrows:} State transitions (solid) and conditional branches (with labels)
+% Branch arrows
+\draw[->, thick, dashed] (exec) -- (alu);
+\draw[->, thick, dashed] (exec) -- (logic);
+\draw[->, thick, dashed] (exec) -- (py);
+\draw[->, thick] (alu) -- (exec);
+\draw[->, thick] (logic) -- (comp);
+\draw[->, thick] (py) -- (comp);
 
-\textbf{Return flow:} All paths converge at COMPLETE, which loops back to FETCH (starts next instruction)
-
-\textbf{Title:} "12-State FSM" - classic 5-stage RISC pipeline extended with 7 additional states for external oracles and multi-cycle operations.
+% Return arrow
+\draw[->, thick] (comp.north) -- +(0,0.4) -| (fetch.north);
+\end{tikzpicture}
+\caption{12-state FSM: classic 5-stage RISC pipeline extended with branch states for oracles and multi-cycle operations.}
+\end{figure}
 
 \subsection{State Machine}
 
@@ -1212,7 +1272,7 @@ localparam [3:0] STATE_PDISCOVER_ARM2 = 4'hB;
 \textbf{Verilog Syntax Breakdown:}
 \begin{itemize}
     \item \textbf{localparam}: Local parameter—a compile-time constant (like \texttt{const} in C). Not synthesized as storage, just used for readability.
-    \item \textbf{[3:0]}: 4-bit wide value (can represent $2^4 = 16$ states). We're using 12 of the 16 possible encodings.
+    \item \textbf{[3:0]}: 4-bit wide value (can represent $2^4 = 16$ states). The design uses 12 of the 16 possible encodings.
     \item \textbf{4'h0}: Verilog number literal syntax:
     \begin{itemize}
         \item \texttt{4'}: 4 bits wide
@@ -1225,7 +1285,7 @@ localparam [3:0] STATE_PDISCOVER_ARM2 = 4'hB;
 \textbf{State Encoding Strategy:}
 \begin{itemize}
     \item \textbf{Binary Encoding}: States assigned sequential integers (0, 1, 2, ...). Efficient in terms of flip-flops (only need 4 FF to store 12 states).
-    \item \textbf{Alternative (One-Hot)}: Could use 12 bits, one per state, only one bit set at a time. Faster transitions but uses more flip-flops. We chose binary for compactness.
+    \item \textbf{Alternative (One-Hot)}: Could use 12 bits, one per state, only one bit set at a time. Faster transitions but uses more flip-flops. Binary encoding was chosen for compactness.
 \end{itemize}
 
 \textbf{State Meanings:}
@@ -1242,7 +1302,7 @@ localparam [3:0] STATE_PDISCOVER_ARM2 = 4'hB;
     \item \textbf{PDISCOVER\_LAUNCH2/ARM2}: Multi-phase partition discovery operation
 \end{enumerate}
 
-\textbf{Why 12 States?} Classic RISC processors (e.g., MIPS) use 5 stages (Fetch, Decode, Execute, Memory, Writeback). We have additional states because:
+\textbf{Why 12 States?} Classic RISC processors (e.g., MIPS) use 5 stages (Fetch, Decode, Execute, Memory, Writeback). The Thiele CPU has additional states because:
 \begin{itemize}
     \item \textbf{External Oracles}: Logic engine and Python interpreter require special states
     \item \textbf{Multi-Cycle Ops}: Complex operations don't finish in one clock cycle
@@ -1257,20 +1317,28 @@ On each clock cycle, \texttt{state\_reg} updates based on the FSM transition log
 
 % Instruction Encoding Diagram
 
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    field/.style={draw, minimum height=0.7cm, font=\scriptsize\bfseries, align=center, thick},
+]
+% Four fields
+\node[field, fill=blue!15, minimum width=1.8cm] (op) at (0,0) {opcode\\{\tiny [31:24]}};
+\node[field, fill=green!15, minimum width=1.8cm] (a) at (1.8,0) {operand\_a\\{\tiny [23:16]}};
+\node[field, fill=orange!15, minimum width=1.8cm] (b) at (3.6,0) {operand\_b\\{\tiny [15:8]}};
+\node[field, fill=red!15, minimum width=1.8cm] (c) at (5.4,0) {cost ($\mu$)\\{\tiny [7:0]}};
 
-\textbf{Four 8-bit fields (colored boxes):}
-\begin{itemize}
-    \item \textbf{opcode [31:24] (blue):} Instruction type (PNEW, PSPLIT, XFER, etc.)
-    \item \textbf{operand\_a [23:16] (green):} First operand (register/module ID)
-    \item \textbf{operand\_b [15:8] (orange):} Second operand (register/module ID)
-    \item \textbf{cost [7:0] (red):} $\mu$-cost for this instruction
-\end{itemize}
+% Bit width labels
+\node[font=\tiny] at (0,-0.6) {8 bits};
+\node[font=\tiny] at (1.8,-0.6) {8 bits};
+\node[font=\tiny] at (3.6,-0.6) {8 bits};
+\node[font=\tiny] at (5.4,-0.6) {8 bits};
 
-\textbf{Below boxes:} Bit widths (8 bits each)
-
-\textbf{Example:} \texttt{PNEW r5, cost=3} $\to$ \texttt{0x01050003} - decodes to opcode=0x01, operand\_a=0x05, operand\_b=0x00, cost=0x03
-
-\textbf{Key insight:} Fixed 8-bit fields simplify decoder - no variable-length encoding. Same layout in Coq, Python, Verilog ensures 3-way isomorphism.
+% Example
+\node[font=\scriptsize, anchor=west] at (-0.9,-1.2) {Example: \texttt{PNEW r5, cost=3} $\to$ \texttt{0x01\_05\_00\_03}};
+\end{tikzpicture}
+\caption{32-bit instruction encoding: four fixed 8-bit fields. Same layout across Coq, Python, and Verilog.}
+\end{figure}
 
 \subsection{Instruction Encoding}
 
@@ -1383,20 +1451,38 @@ end
 
 % μ-ALU Architecture Diagram
 
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    block/.style={draw, rounded corners=2pt, minimum height=0.5cm, font=\scriptsize, align=center, thick},
+    port/.style={font=\tiny, anchor=east},
+    >=Stealth,
+]
+% Main ALU block
+\node[block, fill=orange!15, draw=orange!70, minimum width=2.4cm, minimum height=1.8cm] (alu) at (0,0) {\textbf{$\mu$-ALU}\\Q16.16};
 
-\textbf{Left inputs:} operand\_a, operand\_b, op[2:0] (operation select), valid (handshake)
+% LOG2 LUT
+\node[block, fill=cyan!15, minimum width=1.6cm] (lut) at (0,1.6) {LOG2 LUT\\{\tiny 256 entries}};
+\draw[<->, thick] (alu.north) -- (lut.south);
 
-\textbf{Center:} $\mu$-ALU block (orange) - Q16.16 fixed-point arithmetic unit
+% Inputs (left)
+\draw[<-, thick] (alu.west) ++(0,0.4) -- +(-1.2,0) node[left, font=\tiny] {operand\_a [31:0]};
+\draw[<-, thick] (alu.west) ++(0,0) -- +(-1.2,0) node[left, font=\tiny] {operand\_b [31:0]};
+\draw[<-, thick] (alu.west) ++(0,-0.4) -- +(-1.2,0) node[left, font=\tiny] {op [2:0], valid};
 
-\textbf{Top:} LOG2 LUT (cyan) - 256-entry lookup table for $\log_2$ computation, connected to ALU
+% Outputs (right)
+\draw[->, thick] (alu.east) ++(0,0.3) -- +(1.2,0) node[right, font=\tiny] {result [31:0]};
+\draw[->, thick] (alu.east) ++(0,-0.1) -- +(1.2,0) node[right, font=\tiny] {ready};
+\draw[->, thick] (alu.east) ++(0,-0.5) -- +(1.2,0) node[right, font=\tiny] {overflow};
 
-\textbf{Right outputs:} result (Q16.16), ready (completion flag), overflow (error)
+% Operations box
+\node[block, fill=yellow!15, minimum width=4.2cm, font=\tiny] (ops) at (0,-1.5) {0:ADD~~1:SUB~~2:MUL~~3:DIV~~4:LOG2~~5:INFO\_GAIN};
 
-\textbf{Bottom yellow box:} Operations list - 0:ADD, 1:SUB, 2:MUL, 3:DIV, 4:LOG2, 5:INFO\_GAIN
-
-\textbf{Top right annotation:} Q16.16 format example - $1.0 = \mathtt{0x00010000}$ (16 integer bits + 16 fractional bits)
-
-\textbf{Key insight:} Hardware implements information-theoretic operations (entropy, log2) in fixed-point. LUT provides bit-exact LOG2 matching Coq/Python.
+% Q16.16 annotation
+\node[font=\tiny, anchor=west, text=orange!70] at (1.5,1.6) {$1.0 = \mathtt{0x00010000}$};
+\end{tikzpicture}
+\caption{$\mu$-ALU: Q16.16 fixed-point arithmetic unit with 256-entry LOG2 lookup table.}
+\end{figure}
 
 \subsection{The $\mu$-ALU}
 
@@ -1404,7 +1490,7 @@ end
 \textit{Author's Note (Devon): This is where the magic happens, folks. The $\mu$-ALU is like the odometer on your car---except instead of miles, it tracks information. Every time you ``look'' at something, every time you reveal structure, every time you make a decision---the odometer ticks up. And just like your car's odometer, it only goes one direction. No rolling back. That's the whole game.}
 \end{quote}
 
-The $\mu$-ALU (\texttt{mu\_alu.v}) implements Q16.16 fixed-point arithmetic:
+The $\mu$-ALU (defined as a module inside \texttt{thiele\_cpu\_unified.v}) implements Q16.16 fixed-point arithmetic:
 \begin{lstlisting}
 module mu_alu (
     input wire clk,
@@ -1538,7 +1624,7 @@ Cross-layer tests verify all three agree byte-for-byte. If they don't, CI fails.
 
 \subsection{Logic Engine Interface}
 
-The LEI (\texttt{lei.v}) connects to external Z3:
+The logic engine interface is integrated directly into the \texttt{thiele\_cpu} module within \texttt{thiele\_cpu\_unified.v}. The CPU exposes \texttt{logic\_req} and \texttt{logic\_ack} signals for external solver handshaking:
 \begin{lstlisting}
 module lei (
     input wire clk,
@@ -1616,23 +1702,39 @@ module lei (
 
 % Isomorphism Gate Diagram
 
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    runner/.style={draw, rounded corners=2pt, minimum width=1.8cm, minimum height=0.8cm, font=\scriptsize, align=center, thick},
+    >=Stealth,
+]
+% Input trace
+\node[draw, rounded corners=2pt, fill=gray!10, minimum width=4cm, font=\scriptsize\bfseries] (trace) at (0,2.4) {Instruction trace $\tau$};
 
-\textbf{Top:} Instruction trace $\tau$ (input) - same sequence fed to all three layers
+% Three runners
+\node[runner, fill=blue!15] (coq) at (-2.2,1) {Coq Runner\\{\tiny OCaml extract}};
+\node[runner, fill=green!15] (py) at (0,1) {Python VM\\{\tiny reference}};
+\node[runner, fill=orange!15] (rtl) at (2.2,1) {Verilog Sim\\{\tiny RTL testbench}};
 
-\textbf{Three execution paths (boxes):}
-\begin{itemize}
-    \item \textbf{Coq Runner (blue):} Extracted OCaml interpreter from formal proofs $\to$ JSON snapshot
-    \item \textbf{Python VM (green):} Reference implementation with tracing $\to$ state projection
-    \item \textbf{Verilog Sim (orange):} RTL testbench simulation $\to$ VCD waveform
-\end{itemize}
+% Arrows from trace
+\draw[->, thick] (trace.south) +(-1.2,0) -- (coq.north);
+\draw[->, thick] (trace.south) -- (py.north);
+\draw[->, thick] (trace.south) +(1.2,0) -- (rtl.north);
 
-\textbf{Bottom:} Compare (purple diamond) - assert all state projections equal
+% Compare diamond
+\node[draw, diamond, fill=purple!15, minimum width=0.8cm, minimum height=0.8cm, font=\tiny\bfseries, inner sep=1pt] (cmp) at (0,-0.3) {$==$};
 
-\textbf{Right:} PASS/FAIL (green) - test result
+% Arrows to compare
+\draw[->, thick] (coq.south) -- (cmp);
+\draw[->, thick] (py.south) -- (cmp);
+\draw[->, thick] (rtl.south) -- (cmp);
 
-\textbf{Left/right annotations:} "JSON snapshot" (Coq/Python) vs "VCD waveform" (Verilog) - different output formats projected to common representation
-
-\textbf{Key insight:} Automated verification - execute identical trace on all three layers, compare canonicalized states. Any divergence is a critical bug.
+% Result
+\node[draw, rounded corners=2pt, fill=green!20, font=\scriptsize\bfseries] (pass) at (0,-1.3) {PASS / FAIL};
+\draw[->, thick] (cmp) -- (pass);
+\end{tikzpicture}
+\caption{Isomorphism gate: same trace executed on all three layers, canonicalized states compared.}
+\end{figure}
 
 \subsection{The Isomorphism Gate}
 
@@ -1716,52 +1818,111 @@ If any field differs, isomorphism test fails.
 
 % Inquisitor Workflow Diagram
 
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    stage/.style={draw, rounded corners=2pt, minimum width=1.2cm, minimum height=0.6cm, font=\tiny, align=center, thick},
+    gate/.style={draw, diamond, minimum width=0.3cm, minimum height=0.3cm, inner sep=0pt, thick},
+    >=Stealth,
+]
+% Four stages
+\node[stage, fill=blue!15] (scan) at (0,0) {Scan\\Sources};
+\node[gate] (g1) at (1.1,0) {};
+\node[stage, fill=green!15] (build) at (2.2,0) {Build\\Proofs};
+\node[gate] (g2) at (3.3,0) {};
+\node[stage, fill=orange!15] (iso) at (4.4,0) {Run\\Isomorphism};
+\node[gate] (g3) at (5.5,0) {};
 
-\textbf{Four stages (boxes):}
-\begin{enumerate}
-    \item \textbf{Scan Sources (blue):} Check for Admitted/admit./Axiom in Coq files
-    \item \textbf{Build Proofs (green):} Compile all 273 kernel proofs successfully
-    \item \textbf{Run Isomorphism (orange):} Execute 3-way state matching tests
-    \item \textbf{Generate Report (purple):} Summarize findings (HIGH:0, MEDIUM:5, LOW:4)
-\end{enumerate}
+% Arrows
+\draw[->, thick] (scan) -- (g1);
+\draw[->, thick] (g1) -- (build);
+\draw[->, thick] (build) -- (g2);
+\draw[->, thick] (g2) -- (iso);
+\draw[->, thick] (iso) -- (g3);
 
-\textbf{Diamond checks:} Between stages - validation gates
+% Labels below
+\node[font=\tiny, text=blue!70] at (0,-0.55) {No Admitted};
+\node[font=\tiny, text=green!50!black] at (2.2,-0.55) {272 compile};
+\node[font=\tiny, text=orange!70] at (4.4,-0.55) {3-way match};
 
-\textbf{Below each stage:} What is checked (e.g., "No Admitted", "273 proofs compile", "3-way state match")
-
-\textbf{Right:} CI PASS (green) - final outcome if all checks succeed
-
-\textbf{Bottom annotation:} --ultra-strict mode fails on MEDIUM findings in kernel files
-
-\textbf{Key insight:} Multi-stage verification pipeline enforces 0 HIGH findings for CI pass - combines proof checking, compilation, and isomorphism testing.
+% CI PASS
+\node[draw, rounded corners=2pt, fill=green!20, font=\tiny\bfseries] (pass) at (6.5,0) {CI PASS};
+\draw[->, thick] (g3) -- (pass);
+\end{tikzpicture}
+\caption{Inquisitor pipeline: multi-stage verification enforces 0 HIGH findings for CI pass.}
+\end{figure}
 
 \subsection{The Inquisitor}
 
 \begin{quote}
-\textit{Author's Note (Devon): The Inquisitor is my paranoia made code. Every time I push changes, it checks for admits I might have snuck in, proofs that don't compile, layers that disagree. It's the automated version of me at 3 AM going ``wait, did I actually prove that or just claim it?''}
+\textit{Author's Note (Devon): The Inquisitor is my paranoia made into automation. Every time changes get pushed, it checks for admits that might have snuck in, proofs that don't compile, theorems that secretly prove nothing. It's the automated version of me at 3 AM going ``wait, did I actually prove that or just claim it?''}
 \end{quote}
 
-The Inquisitor enforces the verification rules:
+The Inquisitor (\path{scripts/inquisitor.py}, $\sim$1,500 lines) is a heuristic static analysis tool that scans the Coq source tree for ``proof smells''---patterns that indicate incomplete, vacuous, or dishonest proofs. It goes far beyond simple pattern matching.
+
+\textbf{What it detects} (20+ rule types across three severity levels):
+
+\textbf{HIGH (FORBIDDEN)} --- any of these fails CI:
 \begin{itemize}
-    \item Scans the proof sources for \texttt{Admitted}, \texttt{admit.}, \texttt{Axiom}
-    \item Verifies that the proof build completes successfully
-    \item Runs isomorphism gates
-    \item Reports HIGH/MEDIUM/LOW findings
+    \item \texttt{ADMITTED} / \texttt{ADMIT\_TACTIC} / \texttt{GIVE\_UP\_TACTIC}: Incomplete proofs. Zero tolerance.
+    \item \texttt{AXIOM\_OR\_PARAMETER}: Undocumented \texttt{Axiom} or \texttt{Parameter} declarations. Every assumption must be explicitly tracked.
+    \item \texttt{HYPOTHESIS\_ASSUME}: \texttt{Hypothesis} declarations (functionally equivalent to Axiom).
+    \item \texttt{CONTEXT\_ASSUMPTION}: Undocumented \texttt{Context} with \texttt{forall}/arrow types---these are section-local axioms that must be instantiated or documented.
+    \item \texttt{PROP\_TAUTOLOGY}: Theorems that are literally \texttt{True}. A theorem that proves nothing is worse than no theorem.
+    \item \texttt{IMPLIES\_TRUE\_STMT} / \texttt{LET\_IN\_TRUE\_STMT} / \texttt{EXISTS\_TRUE\_STMT}: Hidden vacuity---statements that \textit{look} like they prove something but end in \texttt{True}.
+    \item \texttt{CONST\_Q\_FUN} / \texttt{EXISTS\_CONST\_Q}: Constant probability witnesses (\texttt{fun \_ => 0\%Q}). These are placeholders that trivialize any bound.
+    \item \texttt{COMPILATION\_ERROR}: Files that fail to compile.
+    \item \texttt{ASSUMPTION\_AUDIT}: Unexpected axioms detected via \texttt{Print Assumptions} in \texttt{coqtop}---a runtime check that the actual axiom dependencies match expectations.
 \end{itemize}
 
-The repository must have 0 HIGH findings to pass CI.
+\textbf{MEDIUM} --- flagged for review, escalated to HIGH in critical kernel files:
+\begin{itemize}
+    \item \texttt{COST\_IS\_LENGTH}: Cost defined as list length (often a placeholder).
+    \item \texttt{ZERO\_CONST} / \texttt{EMPTY\_LIST}: Trivial constant definitions that may indicate unfinished work.
+    \item \texttt{CLAMP\_OR\_TRUNCATION}: Uses of \texttt{Z.to\_nat}, \texttt{Nat.min}, \texttt{Nat.max} without nonnegativity guards---these can silently clamp values and break algebraic laws.
+    \item \texttt{COMMENT\_SMELL}: \texttt{TODO}/\texttt{FIXME}/\texttt{WIP} markers in comments.
+    \item \texttt{SUSPICIOUS\_SHORT\_PROOF}: Complex-sounding theorems (\texttt{*bound*}, \texttt{*uniqueness*}, \texttt{*conservation*}) with very short proofs.
+    \item \texttt{MU\_COST\_ZERO}: $\mu$-cost definitions trivially equal to zero.
+    \item \texttt{PHYSICS\_ANALOGY\_CONTRACT}: Physics-named theorems lacking an accompanying invariance lemma.
+    \item \texttt{PROBLEMATIC\_IMPORT}: Imports of \texttt{Classical}, \texttt{Decidable}, or \texttt{ProofIrrelevance} that may introduce classical axioms.
+\end{itemize}
+
+\textbf{LOW} --- informational:
+\begin{itemize}
+    \item \texttt{TRIVIAL\_EQUALITY}: Theorems of the form $X = X$ proved by reflexivity.
+    \item \texttt{CIRCULAR\_INTROS\_ASSUMPTION}: Tautology-shaped statements proved via \texttt{intros; assumption}.
+    \item \texttt{AXIOM\_DOCUMENTED}: Assumptions marked with \texttt{INQUISITOR NOTE} comments---tracked but accepted.
+\end{itemize}
+
+\textbf{Critical file escalation.} The Inquisitor maintains two protection tiers:
+\begin{itemize}
+    \item \textbf{Protected files}: \texttt{CoreSemantics.v}, \texttt{BridgeDefinitions.v}---MEDIUM findings escalate to HIGH.
+    \item \textbf{Critical kernel files}: \texttt{VMState.v}, \texttt{VMStep.v}, \texttt{NoFreeInsight.v}, \texttt{MuCostModel.v}, \texttt{TsirelsonUpperBound.v}, and 5 others---extra scrutiny applied.
+\end{itemize}
+
+\textbf{Documentation mechanisms.} Two comment conventions let developers explicitly whitelist findings:
+\begin{itemize}
+    \item \texttt{INQUISITOR NOTE}: Documents why an assumption is accepted (downgrades to LOW).
+    \item \texttt{(* SAFE: reason *)}: Whitelists a specific finding within 3 lines (e.g., a \texttt{Z.to\_nat} with an external guard).
+\end{itemize}
+
+\textbf{Runtime verification.} Beyond static scanning, the Inquisitor can invoke \texttt{coqtop} to run \texttt{Print Assumptions} on key theorems, verifying that the \textit{actual} axiom dependencies (not just the declared ones) match the documented set. It also verifies a paper symbol map---checking that every theorem cited in this thesis corresponds to a real Coq symbol that compiles.
+
+\textbf{Allowlist.} A JSON allowlist (\path{scripts/inquisitor\_allowlist.json}) documents the mathematically-justified exceptions: currently 5 entries across \texttt{MinimalE.v}, \texttt{Composition.v}, and \texttt{AssumptionBundle.v}, each with a written justification for why the finding is acceptable.
+
+The CI gate (\path{scripts/check\_inquisitor\_clean.sh}) enforces a single rule: \textbf{zero HIGH findings}. If a single HIGH finding exists anywhere in the Coq tree, CI fails. No exceptions, no overrides.
 
 \section{Synthesis Results}
 
 \begin{quote}
-\textit{Author's Note (Devon): Running synthesis for the first time was terrifying. You write all this Verilog, and then Yosys tells you whether it's actually implementable or just word salad pretending to be hardware. When it worked, when I saw real LUT counts and timing reports---that's when the machine stopped being an idea and started being a thing.}
+\textit{Author's Note (Devon): Running synthesis for the first time was terrifying. You specify all this Verilog, direct all this RTL design, and then Yosys tells you whether it's actually implementable or just word salad pretending to be hardware. When it worked, when I saw real LUT counts and timing reports---that's when the machine stopped being an idea and started being a thing.}
 \end{quote}
 
 \subsection{FPGA Targeting}
 
 The RTL can be synthesized for Xilinx 7-series FPGAs:
 \begin{lstlisting}
-$ yosys -p "read_verilog thiele_cpu.v; synth_xilinx -top thiele_cpu"
+$ yosys -p "read_verilog thiele_cpu_unified.v; synth_xilinx -top thiele_cpu"
 \end{lstlisting}
 
 \paragraph{Understanding Yosys Synthesis:}
@@ -1889,7 +2050,7 @@ pytest tests/proof_three_layer_isomorphism.py -v
 
     \item \textbf{Simulate RTL Testbench}:
     \begin{verbatim}
-iverilog -o thiele_cpu_tb thiele_cpu.v thiele_cpu_tb.v
+iverilog -o thiele_cpu_tb thiele_cpu_unified.v thiele_cpu_tb.v
 vvp thiele_cpu_tb
     \end{verbatim}
     \begin{itemize}
@@ -1900,7 +2061,7 @@ vvp thiele_cpu_tb
 
     \item \textbf{Run Full Synthesis}:
     \begin{verbatim}
-yosys -p "read_verilog thiele_cpu.v; synth_xilinx -top thiele_cpu; write_json netlist.json"
+yosys -p "read_verilog thiele_cpu_unified.v; synth_xilinx -top thiele_cpu; write_json netlist.json"
     \end{verbatim}
     \begin{itemize}
         \item Synthesizes to Xilinx netlist
@@ -1919,21 +2080,31 @@ yosys -p "read_verilog thiele_cpu.v; synth_xilinx -top thiele_cpu; write_json ne
 
 % Chapter 4 Summary Diagram
 
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    layer/.style={draw, rounded corners=2pt, minimum width=2cm, minimum height=0.7cm, font=\scriptsize, align=center, thick},
+    >=Stealth,
+]
+% Three layers
+\node[layer, fill=blue!15] (coq) at (-2.4,1.2) {\textbf{Coq}\\2,154 theorems};
+\node[layer, fill=green!15] (py) at (0,1.2) {\textbf{Python}\\Reference VM};
+\node[layer, fill=orange!15] (rtl) at (2.4,1.2) {\textbf{Verilog}\\FPGA-ready};
 
-\textbf{Three boxes (top):}
-\begin{itemize}
-    \item \textbf{Coq (blue):} 2,117 theorems, machine-checked, extracted runner
-    \item \textbf{Python (green):} Reference VM, tracing, receipts
-    \item \textbf{Verilog (orange):} RTL Core, $\mu$-ALU, FPGA-ready
-\end{itemize}
+% Translation labels
+\draw[<->, thick, dashed] (coq) -- (py) node[midway, above, font=\tiny] {Extract};
+\draw[<->, thick, dashed] (py) -- (rtl) node[midway, above, font=\tiny] {Synth};
 
-\textbf{Center bottom (yellow box):} Central isomorphism invariant - $S_{\text{Coq}}(\tau) = S_{\text{Python}}(\tau) = S_{\text{Verilog}}(\tau)$ for all traces $\tau$
+% Central invariant
+\node[draw, rounded corners=3pt, fill=yellow!15, minimum width=5.5cm, font=\scriptsize, align=center, thick] (inv) at (0,-0.3) {$S_{\text{Coq}}(\tau) = S_{\text{Python}}(\tau) = S_{\text{Verilog}}(\tau)$\\for all traces $\tau$};
 
-\textbf{Arrows:} All three layers point to central invariant - bound together by automated verification
-
-\textbf{Top annotations:} "Extraction" (Coq$\to$Python) and "Synthesis" (Python$\to$Verilog) - translation methods
-
-\textbf{Key insight:} Three independent implementations (formal, reference, physical) maintained in perfect lockstep through automated isomorphism gates - any divergence caught immediately.
+% Arrows
+\draw[->, thick] (coq.south) -- (inv.north west);
+\draw[->, thick] (py.south) -- (inv.north);
+\draw[->, thick] (rtl.south) -- (inv.north east);
+\end{tikzpicture}
+\caption{Chapter 4 summary: three independent implementations bound by the isomorphism invariant.}
+\end{figure}
 
 \section{Summary}
 

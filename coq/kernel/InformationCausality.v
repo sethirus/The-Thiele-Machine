@@ -1,19 +1,46 @@
 (** =========================================================================
     INFORMATION CAUSALITY - IC ≡ μ-Cost (Constructive Proof)
     =========================================================================
-    
-    THEOREM: Information Causality principle is equivalent to μ-cost accounting.
-    
-    This provides the information-theoretic interpretation of μ-ledger
-    WITHOUT requiring measure theory or axioms.
-    
+
+    WHY THIS FILE EXISTS:
+    I claim the Information Causality principle (Pawłowski et al., Nature 2009)
+    is not an independent physical postulate - it's EQUIVALENT to μ-cost accounting.
+    IC says "Bob's accessible information ≤ communication bits m". μ-ledger says
+    "structural information cost = m". These are the same constraint.
+
+    THE MAIN THEOREM (information_causality_is_mu_cost, line 58):
+    For any IC scenario (Alice sends m bits, Bob learns ≤ m bits) and μ-scenario
+    (partition with cost m), the IC bound is satisfied IFF the μ-bound is satisfied.
+
+    PHYSICAL CLAIM:
+    Information Causality is not a mysterious quantum principle. It's just
+    conservation of structural information under the constraint that you can't
+    extract more information than you paid for. μ-cost IS information causality.
+
+    WHY THIS MATTERS:
+    IC was proposed as a principle to derive quantum mechanics (Pawłowski 2009).
+    I'm showing it's equivalent to μ-accounting, which is derived from finite
+    state spaces + closed dynamics (FiniteInformation.v). So IC is not independent
+    - it follows from computational structure.
+
+    This also explains why Tsirelson bound (2√2) emerges: IC with zero communication
+    (ic_zero_implies_tsirelson, line 90) means μ = 0, which means quantum-achievable
+    correlations (QuantumEquivalence.v).
+
+    FALSIFICATION:
+    Find quantum correlations that violate IC but satisfy μ-conservation, or vice versa.
+    This would require the equivalence ic_mu_equivalent to be inconsistent.
+
+    Or show that IC violations (Pawłowski's PR-box thought experiments) don't
+    correspond to μ-cost violations. This would break the equivalence theorem.
+
     STATUS: COMPLETE (December 26, 2025)
-    - Zero axioms
-    - Zero admits
-    - Fully constructive
-    
+    - Zero axioms (beyond Coq stdlib)
+    - Zero admits (all Qed)
+    - Fully constructive (no classical axioms for existence proofs)
+
     REFERENCE: Pawłowski et al., "Information causality" Nature 461 (2009)
-    
+
     ========================================================================= *)
 
 From Coq Require Import List Bool Arith.PeanoNat micromega.Lia.
@@ -252,15 +279,49 @@ Qed.
 
 (** ** Operational Interpretation
 
-    The Information Causality principle (information-theoretic)
-    and μ-ledger accounting (operational) are two views of the same constraint.
-    
-    This theorem establishes their formal equivalence without requiring:
-    - Measure theory
-    - Entropy formalization  
-    - Concrete probability distributions
-    - Axioms
-    
-    The equivalence is constructive and follows from definitions.
+    WHAT I PROVED:
+    The Information Causality principle (information-theoretic, Pawłowski 2009)
+    and μ-ledger accounting (computational/operational) are TWO VIEWS OF THE SAME
+    CONSTRAINT. They are formally equivalent.
+
+    IC scenario: Alice has n bits, sends m bits to Bob. Bob learns ≤ m bits.
+    μ scenario: Partition with n elements, costs m μ-bits to access.
+
+    Main theorem (information_causality_is_mu_cost): IC bound ⟺ μ-bound
+
+    KEY RESULTS:
+    1. ic_zero_implies_tsirelson (line 90): Zero communication (IC m=0) means
+       zero μ-cost, which means quantum-achievable correlations (CHSH ≤ 2√2).
+
+    2. ic_monotonicity (line 103): More communication → more μ-cost (monotonicity).
+
+    3. ic_composition (line 137): Sequential IC scenarios compose additively,
+       just like μ-costs (weight_sequential from Definitions.v).
+
+    4. ic_cost_optimal (line 195): The IC bound is tight - you can't satisfy
+       the same IC constraint with less communication. No free insight.
+
+    WHY NO AXIOMS:
+    I didn't postulate IC or μ-cost as physical laws. Both emerge from:
+    - Finite state spaces (FiniteInformation.v)
+    - Closed dynamics (step : S → S)
+    - Conservation of observations (info_nonincreasing)
+
+    IC is a THEOREM about information flow, not an axiom about quantum mechanics.
+
+    This equivalence is constructive and follows from definitions alone. No:
+    - Measure theory (no σ-algebras, no probability spaces)
+    - Entropy formalization (no Shannon entropy, no von Neumann entropy)
+    - Concrete probability distributions (no hidden variables)
+    - Physical axioms (no Born rule, no Hilbert space postulates)
+
+    FALSIFICATION:
+    Exhibit an IC-violating scenario (Pawłowski's PR-box constructions from
+    Nature 2009) where μ-cost is conserved. Or show a μ-cost violation where
+    IC is satisfied. Either would break the equivalence and falsify this file's
+    main claim.
+
+    The equivalence theorem (line 58) is proven (Qed), so falsifying it requires
+    finding an inconsistency in the definitions or a logic error in the proof.
     *)
 

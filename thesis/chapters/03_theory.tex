@@ -7,20 +7,33 @@ The previous chapter established the problem: classical computers are structural
 This is where it gets formal. The concepts became clear through building. Informal descriptions are ambiguous, and the proofs answer whether the ideas actually work or not: they compile or they don't.
 
 
-\textbf{Five components (boxes):}
-\begin{itemize}
-    \item \textbf{State Space $S$ (blue):} Registers, memory, PC. What the machine remembers. §3.2.1
-    \item \textbf{Partition Graph $\Pi$ (green):} State decomposition into modules. §3.2.2
-    \item \textbf{Axiom Set $A$ (orange):} Logical constraints on modules. §3.2.3
-    \item \textbf{Transition Rules $R$ (red):} 18-instruction ISA. §3.2.4
-    \item \textbf{Logic Engine $L$ (purple):} SMT oracle for verification. §3.2.5
-\end{itemize}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    comp/.style={draw, rounded corners=2pt, font=\scriptsize, inner sep=3pt, minimum width=1.3cm, align=center},
+    >=Stealth, every edge/.style={draw, ->, thick, gray!60}
+]
+% Five components
+\node[comp, fill=blue!15] (S) at (0, 1.2) {$S$\\State};
+\node[comp, fill=green!15] (Pi) at (-1.6, 0) {$\Pi$\\Partition};
+\node[comp, fill=orange!15] (A) at (1.6, 0) {$A$\\Axioms};
+\node[comp, fill=red!15] (R) at (-1.6, -1.2) {$R$\\Rules};
+\node[comp, fill=violet!15] (L) at (1.6, -1.2) {$L$\\Logic};
 
-\textbf{Central element:} $\mu$-Ledger (yellow) - the currency tracking total computational cost. §3.3
+% Central mu-ledger
+\node[draw, circle, fill=yellow!30, font=\scriptsize\bfseries, inner sep=2pt, minimum size=0.9cm, line width=1pt, draw=red!70] (mu) at (0, 0) {$\mu$};
 
-\textbf{Relationships:} State $\to$ Partition (decomposition), Partition $\to$ Axioms (constraints), Rules $\to$ State (evolves), Logic $\to$ Axioms (verifies), Rules $\to$ $\mu$ (charges), $\mu$ $\dashrightarrow$ State (bounds). The $\mu$-ledger is fed by transition rules and bounds state evolution.
-
-\textbf{Role:} Chapter roadmap showing how formal components relate.
+% Arrows
+\draw[->] (S) -- (Pi) node[midway, above, font=\tiny, sloped] {decompose};
+\draw[->] (Pi) -- (A) node[midway, above, font=\tiny] {constrain};
+\draw[->] (R) -- (S) node[midway, left, font=\tiny] {evolve};
+\draw[->] (L) -- (A) node[midway, right, font=\tiny] {verify};
+\draw[->, red!60, thick] (R) -- (mu) node[midway, below, font=\tiny, sloped] {charge};
+\draw[->, red!60, dashed] (mu) -- (S) node[midway, right, font=\tiny] {bound};
+\end{tikzpicture}
+\caption{The Thiele Machine as a 5-tuple $T = (S, \Pi, A, R, L)$. The $\mu$-ledger (center) is charged by transition rules and bounds state evolution. Every formal component maps to a concrete artifact in the Coq kernel.}
+\label{fig:model-overview}
+\end{figure}
 
 The model is defined formally because hand-waving kills ideas:
 \begin{itemize}
@@ -60,10 +73,10 @@ In the formal kernel, the ledger is the field \texttt{vm\_mu} in \texttt{VMState
 
 This chapter is technical. It defines:
 \begin{itemize}
-    \item The state space and partition graph (§3.1)
-    \item The instruction set (§3.4)
-    \item The $\mu$-bit currency and conservation laws (§3.5--3.6)
-    \item The No Free Insight theorem (§3.7)
+    \item The state space and partition graph (\S3.2)
+    \item The instruction set (\S3.2)
+    \item The $\mu$-bit currency and conservation laws (\S3.3)
+    \item The No Free Insight theorem (\S3.5)
 \end{itemize}
 
 \textbf{Key definitions to understand}:
@@ -109,21 +122,31 @@ The Thiele Machine is formally defined as a 5-tuple $T = (S, \Pi, A, R, L)$, rep
 
 The state space $S$ is the complete instantaneous description of the machine. Unlike the flat tape of a Turing Machine, $S$ is a structured record containing multiple components.
 
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    field/.style={draw, font=\scriptsize, inner sep=2pt, minimum width=3.2cm, minimum height=0.4cm, anchor=west},
+    >=Stealth
+]
+% Record box
+\node[draw, dashed, rounded corners=3pt, minimum width=3.6cm, minimum height=3.6cm] at (1.8, -1.4) {};
+\node[font=\scriptsize\bfseries, anchor=south] at (1.8, 0.45) {VMState};
 
-\textbf{Seven fields:}
-\begin{itemize}
-    \item \textbf{vm\_graph (green):} PartitionGraph - state decomposition structure
-    \item \textbf{vm\_csrs (blue):} CSRState - control/status registers
-    \item \textbf{vm\_regs (blue):} list nat (32) - register file
-    \item \textbf{vm\_mem (blue):} list nat (256) - data memory
-    \item \textbf{vm\_pc (orange):} nat - program counter
-    \item \textbf{vm\_mu (yellow, very thick red border):} nat - \textbf{$\mu$-ledger (KEY!)}
-    \item \textbf{vm\_err (red):} bool - error flag
-\end{itemize}
+% Fields
+\node[field, fill=green!15] (g) at (0, 0) {\texttt{vm\_graph} : PartitionGraph};
+\node[field, fill=blue!10] (c) at (0, -0.5) {\texttt{vm\_csrs} : CSRState};
+\node[field, fill=blue!10] (r) at (0, -1.0) {\texttt{vm\_regs} : list nat (32)};
+\node[field, fill=blue!10] (m) at (0, -1.5) {\texttt{vm\_mem} : list nat (256)};
+\node[field, fill=orange!10] (p) at (0, -2.0) {\texttt{vm\_pc} : nat};
+\node[field, fill=yellow!25, line width=1.2pt, draw=red!70] (mu) at (0, -2.5) {\texttt{vm\_mu} : nat \textbf{(\textmu-ledger)}};
+\node[field, fill=red!10] (e) at (0, -3.0) {\texttt{vm\_err} : bool};
 
-\textbf{Highlighted field:} vm\_mu with ultra-very thick red border - the central innovation. This monotonic counter tracks cumulative computational action.
-
-\textbf{Key insight:} Complete state snapshot in one record. Immutable in Coq (transitions create new states). vm\_mu never decreases.
+% Annotation for mu
+\draw[->, red!60, thick] (3.5, -2.5) -- (mu.east) node[anchor=west, font=\tiny, red!60!black] at (3.5, -2.5) {monotonic};
+\end{tikzpicture}
+\caption{The \texttt{VMState} record: a complete, immutable snapshot of machine state. The $\mu$-ledger (highlighted) never decreases across transitions.}
+\label{fig:vmstate-record}
+\end{figure}
 
 \subsubsection{Formal Definition}
 
@@ -193,26 +216,35 @@ In the Coq kernel, write operations (\texttt{write\_reg} and \texttt{write\_mem}
 
 The partition graph is the central innovation. It represents how state is decomposed into modules, with disjointness enforced by the operations that construct and modify those modules.
 
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    cell/.style={draw, minimum width=0.38cm, minimum height=0.38cm, font=\tiny},
+    mod/.style={draw, dashed, rounded corners=2pt, inner sep=2pt},
+    >=Stealth
+]
+% Memory addresses 0-15
+\foreach \i in {0,...,15} {
+    \node[cell, fill=gray!10] (a\i) at (\i*0.38, 0) {\i};
+}
 
-\textbf{Bottom:} Memory addresses 0-15 (gray squares)
+% Module M1 (blue) - addresses 0,1
+\node[mod, fill=blue!10, fit=(a0)(a1), label={[font=\tiny]above:$M_1$}] {};
 
-\textbf{Three modules (colored boxes):}
-\begin{itemize}
-    \item \textbf{Module $M_1$ (blue):} ID=0, owns addresses \{0,1\} (highlighted blue)
-    \item \textbf{Module $M_2$ (green):} ID=1, owns addresses \{8,9,10\} (highlighted green)
-    \item \textbf{Module $M_3$ (orange):} ID=2, owns address \{14\} (highlighted orange)
-\end{itemize}
+% Module M2 (green) - addresses 8,9,10
+\node[mod, fill=green!10, fit=(a8)(a10), label={[font=\tiny]above:$M_2$}] {};
 
-\textbf{Key properties:}
-\begin{itemize}
-    \item \textbf{Disjoint:} No address appears in multiple modules
-    \item \textbf{Monotonic IDs:} 0, 1, 2 (pg\_next\_id tracks next available)
-    \item \textbf{Axioms:} Attached to each module (not shown in visual - internal)
-\end{itemize}
+% Module M3 (orange) - address 14
+\node[mod, fill=orange!10, fit=(a14), label={[font=\tiny]above:$M_3$}] {};
 
-\textbf{Dashed bounding box:} PartitionGraph container
-
-\textbf{Role:} Shows state decomposition - each module is an independent structural unit.
+% Brace
+\draw[decorate, decoration={brace, amplitude=3pt, mirror}]
+    (a0.south west) ++(0,-0.05) -- (a15.south east) ++(0,-0.05)
+    node[midway, below=4pt, font=\tiny] {memory addresses (disjoint modules, monotonic IDs)};
+\end{tikzpicture}
+\caption{Partition graph: memory addresses decomposed into disjoint modules. Unpartitioned regions (gray) are structurally opaque---no insight without paying $\mu$.}
+\label{fig:partition-graph}
+\end{figure}
 
 \subsubsection{Formal Definition}
 
@@ -496,24 +528,42 @@ Inductive vm_instruction :=
 
 The instructions fall into several categories:
 
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    cat/.style={draw, rounded corners=2pt, font=\tiny, inner sep=2pt, minimum width=1.6cm, align=center},
+    >=Stealth
+]
+% Central mu
+\node[draw, circle, fill=yellow!30, font=\scriptsize\bfseries, inner sep=2pt, minimum size=0.7cm, line width=0.8pt, draw=red!70] (mu) at (0, 0) {$\mu$};
 
-\textbf{Six categories (boxes):}
-\begin{itemize}
-    \item \textbf{Structural Ops (blue):} PNEW, PSPLIT, PMERGE, PDISCOVER - partition operations
-    \item \textbf{Logical Ops (green):} LASSERT, LJOIN - axiom assertions
-    \item \textbf{Certification Ops (orange):} REVEAL, EMIT - explicit structural revelation
-    \item \textbf{Register/Memory (purple):} XFER, XOR\_LOAD, XOR\_ADD, XOR\_SWAP, XOR\_RANK
-    \item \textbf{Control Ops (red):} PYEXEC, ORACLE\_HALTS, HALT
-    \item \textbf{Measurement (yellow):} CHSH\_TRIAL, MDLACC
-\end{itemize}
+% High-cost categories (top)
+\node[cat, fill=blue!15] (struct) at (-2.2, 1.4) {Structural\\PNEW, PSPLIT\\PMERGE, PDISCOVER};
+\node[cat, fill=green!15] (logic) at (0, 1.8) {Logical\\LASSERT, LJOIN};
+\node[cat, fill=orange!15] (cert) at (2.2, 1.4) {Certification\\REVEAL, EMIT};
 
-\textbf{Center:} $\mu$ circle (yellow) - all costs flow here
+% Low-cost categories (bottom)
+\node[cat, fill=violet!10] (reg) at (-2.2, -1.4) {Register/Memory\\XFER, XOR\_*};
+\node[cat, fill=red!10] (ctrl) at (0, -1.8) {Control\\PYEXEC, HALT\\ORACLE\_HALTS};
+\node[cat, fill=yellow!10] (meas) at (2.2, -1.4) {Measurement\\CHSH\_TRIAL\\MDLACC};
 
-\textbf{Arrows:} Structural, Certification, and Logical ops point to $\mu$ (high cost). Register/Control/Measurement don't (low/zero cost).
+% High-cost arrows (thick)
+\draw[->, thick, blue!60] (struct) -- (mu);
+\draw[->, thick, green!60!black] (logic) -- (mu);
+\draw[->, thick, orange!60!black] (cert) -- (mu);
 
-\textbf{Bottom annotations:} "Low $\mu$-cost" (left), "High $\mu$-cost" (right)
+% Low-cost arrows (thin, dashed)
+\draw[->, thin, dashed, gray] (reg) -- (mu);
+\draw[->, thin, dashed, gray] (ctrl) -- (mu);
+\draw[->, thin, dashed, gray] (meas) -- (mu);
 
-\textbf{Key insight:} Operations that add structural knowledge (partitions, axioms, revelations) have high $\mu$-cost. Data movement operations have low/zero cost.
+% Labels
+\node[font=\tiny, gray!50!black] at (-2.6, 0) {high $\mu$};
+\node[font=\tiny, gray!50!black] at (2.6, 0) {low $\mu$};
+\end{tikzpicture}
+\caption{The 18 instructions grouped by category. Structural, logical, and certification operations have high $\mu$-cost (they add knowledge). Data movement and control operations have low or zero cost.}
+\label{fig:instruction-categories}
+\end{figure}
 
 \textbf{Structural Operations:}
 \begin{itemize}
@@ -566,7 +616,7 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop := ...
 \textbf{Type Signature Breakdown:}
 \begin{itemize}
     \item \textbf{Arrow (->)}: Separates inputs. Read as "takes a VMState, then an instruction, then another VMState"
-    \item \textbf{Prop}: This is a logical proposition, not a computable function. We're defining \emph{which transitions are valid}, not how to compute them.
+    \item \textbf{Prop}: This is a logical proposition, not a computable function. It defines \emph{which transitions are valid}, not how to compute them.
     \item \textbf{Inductive}: The relation is defined by a finite set of rules (constructors). A transition is valid iff it matches one of these rules.
 \end{itemize}
 
@@ -651,7 +701,7 @@ Definition check_model : string -> string -> bool := CertCheck.check_model.
 
 \textbf{Why This Design?}
 \begin{enumerate}
-    \item \textbf{Trust Reduction}: We don't trust Z3/CVC5 (complex solvers with bugs). We only trust simple checkers (hundreds of lines vs millions).
+    \item \textbf{Trust Reduction}: The kernel doesn't trust Z3/CVC5 (complex solvers with bugs). It only trusts simple checkers (hundreds of lines vs millions).
     \item \textbf{Determinism}: Given a certificate, checking is deterministic—no search, no randomness, no timeouts.
     \item \textbf{Reproducibility}: Anyone can re-check certificates independently. No need to re-run expensive solving.
     \item \textbf{Composability}: Certificates can be stored, transmitted, audited offline.
@@ -674,18 +724,40 @@ The kernel verifies the certificate but does not search for solutions. This ensu
 
 \section{The $\mu$-bit Currency}
 
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    state/.style={draw, circle, fill=blue!20, minimum size=0.4cm, font=\tiny, inner sep=1pt},
+    >=Stealth
+]
+% States
+\foreach \i/\shade in {0/10, 1/20, 2/30, 3/40, 4/55} {
+    \node[state, fill=blue!\shade] (s\i) at (\i*1.1, 0) {$s_\i$};
+}
+\node[font=\tiny] at (5.0, 0) {$\cdots$};
 
-\textbf{Horizontal:} Execution trace $s_0 \to s_1 \to s_2 \to s_3 \cdots \to s_n$ (darkening blue circles)
+% Transition arrows
+\foreach \i [evaluate=\i as \j using int(\i+1)] in {0,...,3} {
+    \draw[->, thick, gray!60] (s\i) -- (s\j) node[midway, above, font=\tiny] {$op_\j$};
+}
 
-\textbf{Transitions:} Arrows labeled $op_1, op_2, op_3, \ldots$ (operations)
+% Mu values below
+\foreach \i/\v in {0/0, 1/3, 2/7, 3/12, 4/18} {
+    \node[font=\tiny, blue!60!black] at (\i*1.1, -0.5) {$\mu=\v$};
+}
 
-\textbf{Below each state:} $\mu$ values: $\mu_0, \mu_1, \mu_2, \mu_3, \ldots, \mu_n$
+% Conservation law box
+\node[draw, rounded corners=2pt, fill=yellow!15, font=\tiny, inner sep=3pt, text width=3.4cm, align=center]
+    at (2.2, -1.3) {$\mu_n = \mu_0 + \sum_{i=1}^{n} \text{cost}(op_i)$};
 
-\textbf{Yellow box (center bottom):} Conservation Law: $\mu_n = \mu_0 + \sum_{i=1}^{n} \text{cost}(op_i)$
-
-\textbf{Brace (bottom):} $\mu_0 \le \mu_1 \le \mu_2 \le \cdots \le \mu_n$ (monotonic)
-
-\textbf{Key insight:} The $\mu$-ledger only increases. Final value equals initial plus sum of all operation costs. Never decreases (proven in Coq as mu\_conservation\_kernel).
+% Monotonicity brace
+\draw[decorate, decoration={brace, amplitude=3pt, mirror}]
+    (0, -0.7) -- (4.4, -0.7)
+    node[midway, below=4pt, font=\tiny] {$\mu_0 \le \mu_1 \le \mu_2 \le \cdots \le \mu_n$ (monotonic, proven)};
+\end{tikzpicture}
+\caption{The $\mu$-ledger trace: each transition adds cost, the ledger never decreases. Final value equals initial plus sum of all operation costs (\texttt{mu\_conservation\_kernel}).}
+\label{fig:mu-trace}
+\end{figure}
 
 \subsection{Definition}
 
@@ -913,15 +985,28 @@ This connects the abstract $\mu$-cost to Landauer's principle: the ledger growth
 
 \section{Partition Logic}
 
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    col/.style={draw, rounded corners=2pt, font=\scriptsize, inner sep=3pt, minimum width=2cm, align=center},
+    >=Stealth
+]
+% Three columns
+\node[col, fill=gray!10] (raw) at (0, 0) {State Space $S$\\$\{r_0, r_1, \ldots, m_0, \ldots\}$};
+\node[col, fill=green!10] (part) at (0, -1.3) {Partition $\Pi$\\$M_1 = \{r_0, r_1\}$\\$M_2 = \{m_0, \ldots, m_{10}\}$};
+\node[col, fill=orange!10] (ax) at (0, -2.8) {Axioms $A$\\$A(M_1) = \{x > 0\}$\\$A(M_2) = \{y \text{ prime}\}$};
 
-\textbf{Three columns:}
-\begin{itemize}
-    \item \textbf{State Space:} $S = \{r_0, r_1, \dots, m_0, \dots\}$ - raw memory locations
-    \item \textbf{Partition Graph:} $\Pi = \{M_1, M_2\}$ where $M_1 = \{r_0, r_1\}$, $M_2 = \{m_0, \dots, m_{10}\}$ - decomposition into modules
-    \item \textbf{Axioms:} $A(M_1) = \{x > 0\}$, $A(M_2) = \{y \text{ is prime}\}$ - logical constraints per module
-\end{itemize}
+% Arrows
+\draw[->, thick, gray!60] (raw) -- (part) node[midway, right, font=\tiny] {PNEW/PSPLIT};
+\draw[->, thick, gray!60] (part) -- (ax) node[midway, right, font=\tiny] {LASSERT};
 
-\textbf{Key insight:} Raw state is partitioned into disjoint modules, each carrying axioms. PSPLIT/PMERGE modify this structure while charging $\mu$.
+% Mu annotation
+\node[font=\tiny, red!60!black, anchor=west] at (1.5, -0.65) {$+\Delta\mu$};
+\node[font=\tiny, red!60!black, anchor=west] at (1.5, -2.05) {$+\Delta\mu$};
+\end{tikzpicture}
+\caption{Partition logic: raw state is decomposed into disjoint modules via PNEW/PSPLIT, then axioms are attached via LASSERT. Each step charges $\mu$.}
+\label{fig:partition-logic}
+\end{figure}
 
 \subsection{Module Operations}
 
@@ -972,19 +1057,40 @@ Definition graph_pnew (g : PartitionGraph) (region : list nat)
 
 \texttt{PNEW} either returns an existing module for the region (if one exists) or creates a new one. This ensures idempotence.
 
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    mod/.style={draw, rounded corners=2pt, font=\tiny, inner sep=2pt, minimum height=0.4cm, align=center},
+    op/.style={font=\tiny\bfseries, blue!60!black},
+    >=Stealth
+]
+% PNEW
+\node[draw, dashed, minimum width=0.8cm, minimum height=0.4cm, font=\tiny] (pn0) at (0, 0) {region};
+\draw[->, thick] (0.6, 0) -- (1.2, 0);
+\node[mod, fill=blue!15, minimum width=0.8cm] (pn1) at (1.9, 0) {$M_n$};
+\node[op] at (0.9, 0.25) {PNEW};
+\node[font=\tiny, red!60!black] at (0.9, -0.25) {$+\mu$};
 
-\textbf{Three columns (operations):}
-\begin{itemize}
-    \item \textbf{PNEW (left):} region (dashed box) $\to$ Module ID=$n$ (blue box). Creates new module. $\mu$-cost: low.
-    
-    \item \textbf{PSPLIT (center):} Module $M$ \{0,1,2,3\} (green) $\to$ $M_L$ \{0,1\} + $M_R$ \{2,3\} (two green boxes). Splits into disjoint parts covering original. $\mu$-cost: medium.
-    
-    \item \textbf{PMERGE (right):} $M_1$ + $M_2$ (two orange boxes) $\to$ $M_{12}$ (merged, larger orange box). Combines disjoint modules. $\mu$-cost: low.
-\end{itemize}
+% PSPLIT
+\node[mod, fill=green!15, minimum width=1.4cm] (ps0) at (0, -1) {$M$ \{0,1,2,3\}};
+\draw[->, thick] (0.9, -1) -- (1.4, -0.7);
+\draw[->, thick] (0.9, -1) -- (1.4, -1.3);
+\node[mod, fill=green!25, minimum width=0.9cm] (ps1) at (2.2, -0.7) {$M_L$ \{0,1\}};
+\node[mod, fill=green!25, minimum width=0.9cm] (ps2) at (2.2, -1.3) {$M_R$ \{2,3\}};
+\node[op] at (1.1, -0.55) {PSPLIT};
+\node[font=\tiny, red!60!black] at (2.9, -1) {$+\mu\mu$};
 
-\textbf{Cost annotations (bottom):} Yellow boxes showing relative $\mu$-costs
-
-\textbf{Key insight:} Three ways to modify partition structure. PSPLIT has highest cost (reveals internal structure). PNEW/PMERGE have lower cost (structural bookkeeping).
+% PMERGE
+\node[mod, fill=orange!15, minimum width=0.6cm] (pm0) at (0, -2.1) {$M_1$};
+\node[mod, fill=orange!15, minimum width=0.6cm] (pm1) at (0.8, -2.1) {$M_2$};
+\draw[->, thick] (1.3, -2.1) -- (1.8, -2.1);
+\node[mod, fill=orange!25, minimum width=1.2cm] (pm2) at (2.6, -2.1) {$M_{12}$};
+\node[op] at (1.55, -1.85) {PMERGE};
+\node[font=\tiny, red!60!black] at (1.55, -2.35) {$+\mu$};
+\end{tikzpicture}
+\caption{Three partition operations. PNEW creates a module; PSPLIT divides one into two disjoint parts (highest cost---reveals internal structure); PMERGE combines two disjoint modules (lower cost---forgets boundary).}
+\label{fig:module-ops}
+\end{figure}
 
 \textit{Intuition:} \texttt{PNEW} draws a circle around a set of memory addresses and says ``this is now a distinct object.'' If you circle something already circled, \texttt{PNEW} just points to the existing circle---you don't pay for the same structure twice.
 
@@ -1211,22 +1317,35 @@ Theorem observational_no_signaling : forall s s' instr mid,
     \item \textbf{Normalization Stability}: Use \texttt{normalize\_region\_idempotent} to show observables remain canonical
 \end{enumerate}
 
-\textbf{Contrast with Quantum Mechanics:} In Bell's theorem, quantum entanglement allows correlations that \emph{seem} like signaling but actually aren't (no information transfer). Here, we prove \emph{stronger} isolation—not just no signaling, but complete independence of observables.
+\textbf{Contrast with Quantum Mechanics:} In Bell's theorem, quantum entanglement allows correlations that \emph{seem} like signaling but actually aren't (no information transfer). Here, the theorem proves \emph{stronger} isolation---not just no signaling, but complete independence of observables.
 
 This is a computational analog of Bell locality: you cannot signal to a remote module through local operations.
 
 \section{The No Free Insight Theorem}
 
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    space/.style={draw, rounded corners=3pt, font=\scriptsize, inner sep=4pt, align=center},
+    >=Stealth
+]
+% Large search space
+\node[space, fill=gray!15, minimum width=2cm, minimum height=1.2cm] (big) at (0, 0) {$\Omega$\\$2^n$ states};
 
-\textbf{Visual:} Similar to Chapter 1's version but in formal theory context.
+% Arrow with cost
+\draw[->, thick, red!60!black] (1.3, 0) -- (2.5, 0)
+    node[midway, above, font=\tiny, red!60!black] {$\Delta\mu \ge |\phi|_{\text{bits}}$};
 
-\textbf{Left:} Large search space $\Omega$ with $2^n$ states
+% Reduced space
+\node[space, fill=blue!15, minimum width=1.2cm, minimum height=0.8cm] (small) at (3.5, 0) {$\Omega'$\\$2^{n-k}$};
 
-\textbf{Arrow:} Transformation requiring $\Delta\mu$ bits of total $\mu$ cost
-
-\textbf{Right:} Reduced space $\Omega'$ with $2^{n-k}$ states
-
-\textbf{Conservation law (bottom):} \textit{Proven in Coq}: $\Delta\mu \ge |\phi|_{\text{bits}}$ for strengthening. \textit{Enforced by VM}: $\Delta\mu \ge \log_2(|\Omega|) - \log_2(|\Omega'|)$ guaranteed by conservative bound (uses $\text{after} = 1$ rather than \#P-complete model counting).
+% Conservation law
+\node[draw, rounded corners=2pt, fill=yellow!15, font=\tiny, inner sep=3pt, text width=3.5cm, align=center]
+    at (1.75, -1.2) {Proven: $\Delta\mu \ge |\phi|_{\text{bits}}$\\Enforced: $\Delta\mu \ge \log_2|\Omega| - \log_2|\Omega'|$};
+\end{tikzpicture}
+\caption{No Free Insight: reducing the search space from $\Omega$ to $\Omega'$ costs $\mu$-bits proportional to the information gained. Proven in \texttt{StateSpaceCounting.v}, enforced by the VM.}
+\label{fig:no-free-insight}
+\end{figure}
 
 
 \subsection{Receipt Predicates}
@@ -1328,7 +1447,7 @@ Definition strictly_stronger {A : Type} (P1 P2 : ReceiptPredicate A) : Prop :=
     \end{itemize}
 \end{enumerate}
 
-\textbf{Why "Strictly"?} This rules out the case where \texttt{P1} and \texttt{P2} are equivalent (accept exactly the same traces). We need genuine strengthening—not just a renaming.
+\textbf{Why ``Strictly''?} This rules out the case where \texttt{P1} and \texttt{P2} are equivalent (accept exactly the same traces). Genuine strengthening is required---not just a renaming.
 
 \textbf{Witness Requirement:} The \texttt{exists obs} clause requires a constructive witness—an actual trace demonstrating the difference. This isn't abstract—you must exhibit a concrete example.
 
@@ -1415,7 +1534,7 @@ Theorem strengthening_requires_structure_addition :
     \item \textbf{Contradiction}: Assume no structure addition
     \item \textbf{Show}: Then partition graph unchanged, axioms unchanged
     \item \textbf{Conclude}: Observables unchanged $\rightarrow$ can't certify stronger predicate
-    \item \textbf{Contradiction}: But premise says we did certify it!
+    \item \textbf{Contradiction}: But the premise says certification succeeded!
 \end{enumerate}
 
 \subsection{Revelation Requirement}
@@ -1512,7 +1631,7 @@ Definition mu_gauge_shift (k : nat) (s : VMState) : VMState :=
     \item \textbf{Analogy}: Like setting a timer—whether it shows 0:00 or 1:00 at start doesn't matter, only elapsed time counts
 \end{itemize}
 
-\textbf{Why k : nat?} The shift amount is a natural number. Always non-negative—we never shift backward (that would violate monotonicity).
+\textbf{Why k : nat?} The shift amount is a natural number. Always non-negative---the shift is never backward (that would violate monotonicity).
 
 \textbf{Invariants Under Gauge Shift:}
 \begin{itemize}
@@ -1569,18 +1688,28 @@ Here:
 
 This is the computational analog of Noether's theorem: the gauge symmetry (ability to shift $\mu$ by a constant) corresponds to the conservation of partition structure.
 
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    state/.style={draw, rounded corners=2pt, font=\scriptsize, inner sep=3pt, align=center, minimum width=1.6cm},
+    >=Stealth
+]
+% Original state
+\node[state, fill=blue!10] (s1) at (0, 0) {$(s, \mu)$\\$\Pi = \{M_1, M_2\}$};
 
-\textbf{Transformation:} $\mu \mapsto \mu + k$ (shift by constant)
+% Shifted state
+\node[state, fill=blue!10] (s2) at (3.5, 0) {$(s, \mu + k)$\\$\Pi = \{M_1, M_2\}$};
 
-\textbf{Two views:} States $(s, \mu)$ and $(s, \mu+k)$ are shown to be structurally equivalent
+% Arrow
+\draw[<->, thick, gray!60] (s1) -- (s2) node[midway, above, font=\tiny] {$\mu \mapsto \mu + k$};
 
-\textbf{Key property:} Partition graph $\Pi$ is invariant under shift - structure unchanged
-
-\textbf{Physical analogy:} Like gauge symmetry in physics. Shifting the potential by a constant doesn't change the physics (only differences matter).
-
-\textbf{Computational analog:} Absolute $\mu$ value is gauge-dependent. Only $\mu$ differences (costs) are physically meaningful.
-
-\textbf{Noether's theorem connection:} Gauge symmetry $\leftrightarrow$ Conservation law. Here: $\mu$-shift symmetry $\leftrightarrow$ Partition structure conservation.
+% Invariant annotation
+\node[draw, rounded corners=2pt, fill=yellow!15, font=\tiny, inner sep=3pt, text width=3cm, align=center]
+    at (1.75, -1.0) {$\Pi$ invariant under shift\\(Noether: symmetry $\leftrightarrow$ conservation)};
+\end{tikzpicture}
+\caption{Gauge symmetry: shifting $\mu$ by a constant $k$ preserves partition structure. Only $\mu$ differences (costs) are physically meaningful. This is the computational analog of Noether's theorem.}
+\label{fig:gauge-symmetry}
+\end{figure}
 
 \section{Quantum Axioms from $\mu$-Accounting}
 
@@ -1611,7 +1740,7 @@ Theorem no_cloning_from_conservation :
     \item \textbf{No-Deletion Too:} The same argument shows you can't delete states without paying (information destruction = bit erasure = cost)
 \end{itemize}
 
-The traditional proof uses linearity of quantum operators. Ours uses accounting. Same result, cleaner foundation.
+The traditional proof uses linearity of quantum operators. This one uses accounting. Same result, cleaner foundation.
 
 \subsection{Unitarity from Conservation}
 
@@ -1741,7 +1870,7 @@ where \texttt{minor\_constraint\_zero\_marginal e1 e2} means $1 - e_1^2 - e_2^2 
 
 \subsection{Why This Matters}
 
-We've just derived quantum mechanics from accounting. Not ``axiomatized''---\textit{derived}. The difference:
+That's quantum mechanics from accounting. Not ``axiomatized''---\textit{derived}. The difference:
 \begin{itemize}
     \item \textbf{Axiom:} ``Assume this is true'' (no explanation)
     \item \textbf{Derivation:} ``This must be true because of conservation'' (forced by consistency)
@@ -1752,31 +1881,47 @@ Quantum mechanics isn't a fundamental theory with mysterious postulates. It's th
 \begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=\textbf{Coq-Verified Quantum Axioms}]
 All theorems in this section are machine-checked in Coq 8.18 with zero Admitted statements:
 \begin{itemize}
-    \item \path{coq/kernel/NoCloning.v}: 243 lines, 18 definitions/theorems
-    \item \path{coq/kernel/Unitarity.v}: 257 lines, 20 definitions/theorems  
-    \item \path{coq/kernel/BornRule.v}: 288 lines, 19 definitions/theorems
-    \item \path{coq/kernel/Purification.v}: 102 lines, 8 definitions/theorems
-    \item \path{coq/kernel/TsirelsonGeneral.v}: 301 lines, 9 definitions/theorems
+    \item \path{coq/kernel/NoCloning.v}: 936 lines, 18 definitions/theorems
+    \item \path{coq/kernel/Unitarity.v}: 570 lines, 23 definitions/theorems
+    \item \path{coq/kernel/BornRule.v}: 311 lines, 20 definitions/theorems
+    \item \path{coq/kernel/Purification.v}: 275 lines, 11 definitions/theorems
+    \item \path{coq/kernel/TsirelsonGeneral.v}: 301 lines, 19 definitions/theorems
 \end{itemize}
-Total: 1,192 lines of machine-verified proofs establishing that quantum axioms emerge from $\mu$-conservation.
+Total: 2,393 lines of machine-verified proofs establishing that quantum axioms emerge from $\mu$-conservation.
 \end{tcolorbox}
 
 \section{Chapter Summary}
 
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    node/.style={draw, rounded corners=2pt, font=\tiny, inner sep=2pt, minimum width=1.6cm, align=center},
+    result/.style={draw, rounded corners=2pt, font=\tiny\bfseries, inner sep=3pt, minimum width=1.8cm, align=center, fill=blue!20},
+    >=Stealth, every edge/.style={draw, ->, thick, gray!50}
+]
+% Top: formal model
+\node[node, fill=gray!10] (model) at (0, 2) {$(S, \Pi, A, R, L)$\\formal model};
 
-\textbf{Top:} Formal model $(S, \Pi, A, R, L)$ - the five components defined in this chapter
+% Two key properties
+\node[node, fill=yellow!15] (mono) at (-1.5, 0.8) {$\mu$-monotonicity\\$s'.\mu \ge s.\mu$};
+\node[node, fill=green!15] (local) at (1.5, 0.8) {No-signaling\\locality};
 
-\textbf{Middle (two branches):}
-\begin{itemize}
-    \item Left: $\mu$-monotonicity - ledger never decreases
-    \item Right: No-signaling - locality enforcement
-\end{itemize}
+% Convergence
+\node[result] (nfi) at (0, -0.3) {No Free Insight};
 
-\textbf{Bottom:} No Free Insight theorem - where both properties converge
+% Quantum
+\node[result, fill=violet!15] (quant) at (0, -1.4) {Quantum axioms\\from $\mu$-conservation};
 
-\textbf{Final arrow:} Points to Tsirelson bound derivation (next chapter)
-
-\textbf{Key insight:} This chapter builds the formal foundation. The model's two key properties ($\mu$-monotonicity + locality) combine to prove No Free Insight. Note: the algebraic bound ($S \le 4$) applies to unconstrained computation where $\mu_{\text{inst}} = 0$; the classical bound ($S \le 2$) characterizes true zero-cost correlations; the Tsirelson bound ($2.8284...$) requires operational investment ($\mu_{\text{inst}} > 0$) while maintaining algebraic coherence ($\mu_{\text{corr}} = 0$).
+% Arrows
+\draw[->] (model) -- (mono);
+\draw[->] (model) -- (local);
+\draw[->] (mono) -- (nfi);
+\draw[->] (local) -- (nfi);
+\draw[->] (nfi) -- (quant);
+\end{tikzpicture}
+\caption{Chapter 3 structure: the formal 5-tuple yields two key properties ($\mu$-monotonicity and no-signaling), which combine to prove No Free Insight, which in turn forces the quantum axioms.}
+\label{fig:ch3-summary}
+\end{figure}
 
 This chapter defined the Thiele Machine as a formal 5-tuple $T = (S, \Pi, A, R, L)$ with these key results:
 
@@ -1808,4 +1953,4 @@ This chapter defined the Thiele Machine as a formal 5-tuple $T = (S, \Pi, A, R, 
     \end{itemize}
 \end{enumerate}
 
-These formal foundations enable the implementation (Chapter 4), verification (Chapter 5), and evaluation (Chapter 6). The quantum axiom derivations (1,192 lines of Coq with zero Admitted statements) establish that quantum mechanics isn't a fundamental theory with mysterious postulates---it's the unique physics consistent with information conservation. Importantly, under \emph{Total $\mu$-Accounting}, setting $\mu_{\text{total}} = 0$ requires all components ($\mu_{\text{inst}}$ and $\mu_{\text{corr}}$) to be zero, where $\mu_{\text{corr}} = 0$ is exactly the condition of \emph{Algebraic Coherence} required to recover the Tsirelson bound $S \le 2.8284...$. Without enforcing $\mu_{\text{corr}} = 0$, the system is only bounded by the algebraic limit $S \le 4$.
+These formal foundations enable the implementation (Chapter 4), verification (Chapter 5), and evaluation (Chapter 6). The quantum axiom derivations (2,393 lines of Coq with zero Admitted statements) establish that quantum mechanics isn't a fundamental theory with mysterious postulates---it's the unique physics consistent with information conservation. Importantly, under \emph{Total $\mu$-Accounting}, setting $\mu_{\text{total}} = 0$ requires all components ($\mu_{\text{inst}}$ and $\mu_{\text{corr}}$) to be zero, where $\mu_{\text{corr}} = 0$ is exactly the condition of \emph{Algebraic Coherence} required to recover the Tsirelson bound $S \le 2.8284...$. Without enforcing $\mu_{\text{corr}} = 0$, the system is only bounded by the algebraic limit $S \le 4$.

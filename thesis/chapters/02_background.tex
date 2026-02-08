@@ -26,25 +26,58 @@ The Thiele Machine answers this question by embedding structure into the machine
 
 This chapter is organized from concrete to abstract:
 \begin{enumerate}
-    \item Section 2.1: Classical computation models (Turing Machine, RAM)
-    \item Section 2.2: Information theory (Shannon, Kolmogorov, MDL)
-    \item Section 2.3: Physics of computation (Landauer, thermodynamics)
-    \item Section 2.4: Quantum computing and correlations (Bell, CHSH)
-    \item Section 2.5: Formal verification (Coq, proof-carrying code)
+    \item Section 2.2: Classical computation models (Turing Machine, RAM)
+    \item Section 2.3: Information theory (Shannon, Kolmogorov, MDL)
+    \item Section 2.4: Physics of computation (Landauer, thermodynamics)
+    \item Section 2.5: Quantum computing and correlations (Bell, CHSH)
+    \item Section 2.6: Formal verification (Coq, proof-carrying code)
 \end{enumerate}
 
 If you are familiar with any section, feel free to skip it. The only prerequisite for later chapters is understanding:
 \begin{itemize}
-    \item The "blindness problem" in classical computation (§2.1.1)
-    \item Kolmogorov complexity and MDL (§2.2.2--2.2.3)
-    \item The CHSH inequality and Tsirelson bound (§2.4.1)
+    \item The ``blindness problem'' in classical computation (\S2.2)
+    \item Kolmogorov complexity and MDL (\S2.3)
+    \item The CHSH inequality and Tsirelson bound (\S2.5)
 \end{itemize}
 
 \section{Classical Computational Models}
 
 \subsection{The Turing Machine: Formal Definition}
 
-% TikZ Figure: Turing Machine Architecture
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    cell/.style={draw, minimum width=0.55cm, minimum height=0.55cm, font=\scriptsize},
+    >=Stealth
+]
+% Tape cells
+\foreach \i/\s in {0/0, 1/1, 2/0, 3/1, 4/1, 5/0, 6/1, 7/0} {
+    \node[cell] (c\i) at (\i*0.55, 0) {\s};
+}
+% Ellipses
+\node at (-0.5, 0) {\scriptsize$\cdots$};
+\node at (4.9, 0) {\scriptsize$\cdots$};
+
+% Head pointing at cell 3
+\draw[->, thick, blue!70!black] (c3.south) ++(0, -0.15) -- ++(0, -0.5)
+    node[below, font=\scriptsize\bfseries, blue!70!black] {head};
+
+% State bubble
+\node[draw, rounded corners=3pt, fill=blue!10, font=\scriptsize, inner sep=2pt]
+    (state) at (1.65, -1.2) {sees: $(q, \gamma)$};
+
+% What it cannot see
+\node[draw, rounded corners=3pt, fill=red!8, font=\scriptsize, inner sep=2pt, text width=2.8cm, align=center]
+    (blind) at (1.65, -2.1) {cannot see:\\global structure,\\relationships, patterns};
+
+% Brace over tape
+\draw[decorate, decoration={brace, amplitude=4pt, mirror}]
+    (c0.south west) ++(0, -0.05) -- (c7.south east) ++(0, -0.05)
+    node[midway, below=5pt, font=\tiny] {entire tape invisible to $\delta$};
+\end{tikzpicture}
+\caption{The Turing Machine's blindness: $\delta(q, \gamma)$ sees only the current state and one symbol. Global structure is architecturally inaccessible.}
+\label{fig:tm-blindness}
+\end{figure}
 
 Turing's 1936 machine \cite{turing1936computable} is elegant. It's also the source of everything wrong with how we think about computation. Here's the formal definition---a 7-tuple:
 \[
@@ -90,7 +123,7 @@ The RAM model is the upgrade everyone thinks solves the problem:
 
 The improvement: \textit{random access}---accessing $M[i]$ takes $O(1)$ regardless of $i$ (unit-cost model). No more $O(n)$ seek time.
 
-But structural blindness remains. A RAM can access $M[1000]$ directly, but it can't \emph{know} that $M[1000]$--$M[2000]$ encodes a sorted array without checking every element. Structure lives in programmer knowledge, not machine architecture. We just moved the problem; we didn't solve it.
+But structural blindness remains. A RAM can access $M[1000]$ directly, but it can't \emph{know} that $M[1000]$--$M[2000]$ encodes a sorted array without checking every element. Structure lives in programmer knowledge, not machine architecture. The problem moved; it didn't get solved.
 
 \subsection{Complexity Classes and the P vs NP Problem}
 
@@ -120,7 +153,38 @@ This doesn't trivialize P vs NP---the structural information may itself be expen
 
 \subsection{Shannon Entropy}
 
-% TikZ Figure: Information Theory Hierarchy
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    box/.style={draw, rounded corners=2pt, font=\scriptsize, inner sep=4pt, minimum width=2.2cm, align=center},
+    arr/.style={->, >=Stealth, thick, gray!70},
+    note/.style={font=\tiny, gray!60!black, align=center}
+]
+% Boxes - vertical stack
+\node[box, fill=blue!8] (sh) at (0, 0) {Shannon Entropy\\$H(X)$};
+\node[box, fill=blue!15] (kc) at (0, -1.3) {Kolmogorov\\$K(x)$};
+\node[box, fill=blue!25] (mdl) at (0, -2.6) {MDL\\$L(H) + L(D|H)$};
+\node[box, fill=blue!40, text=white] (mu) at (0, -3.9) {$\mu$-bits\\$|\text{encode}(\Phi)|$};
+
+% Arrows
+\draw[arr] (sh) -- (kc);
+\draw[arr] (kc) -- (mdl);
+\draw[arr] (mdl) -- (mu);
+
+% Annotations on right
+\node[note, anchor=west] at (1.4, 0) {distributions\\computable};
+\node[note, anchor=west] at (1.4, -1.3) {individual strings\\\textbf{uncomputable}};
+\node[note, anchor=west] at (1.4, -2.6) {computable proxy\\model selection};
+\node[note, anchor=west] at (1.4, -3.9) {operational cost\\implementation};
+
+% Left annotations
+\node[note, anchor=east, text=red!60!black] at (-1.5, -0.65) {measures\\uncertainty};
+\node[note, anchor=east, text=red!60!black] at (-1.5, -1.95) {measures\\structure};
+\node[note, anchor=east, text=red!60!black] at (-1.5, -3.25) {charges for\\structure};
+\end{tikzpicture}
+\caption{From theory to implementation: Shannon entropy measures uncertainty over distributions; Kolmogorov complexity measures individual string structure but is uncomputable; MDL provides a computable proxy; $\mu$-bits operationalize the cost in the Thiele Machine.}
+\label{fig:info-hierarchy}
+\end{figure}
 
 Shannon's 1948 paper \cite{shannon1948mathematical} made information into something you can measure. The core idea: an event with probability $p$ carries surprise $I = -\log_2 p$ bits. The \textit{entropy} of random variable $X$:
 \[
@@ -198,7 +262,39 @@ This is reflected directly in the Python and Coq implementations: the $\mu$-ledg
 
 \subsection{Landauer's Principle}
 
-% TikZ Figure: Landauer's Principle and Maxwell's Demon
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    box/.style={draw, rounded corners=2pt, font=\scriptsize, inner sep=3pt, align=center},
+    arr/.style={->, >=Stealth, thick},
+    heat/.style={->, >=Stealth, thick, red!70!black, decorate, decoration={snake, amplitude=1.5pt, segment length=5pt}},
+    note/.style={font=\tiny, gray!50!black}
+]
+% Left: Bit erasure
+\node[box, fill=gray!10, minimum width=1.1cm] (b0) at (0, 0) {0 or 1};
+\node[box, fill=gray!10, minimum width=1.1cm] (b1) at (0, -1.2) {0};
+\draw[arr] (b0) -- (b1) node[midway, right, font=\tiny] {erase};
+\draw[heat] (b1.south) -- ++(0, -0.6) node[below, font=\tiny, red!70!black] {$\ge k_B T \ln 2$};
+
+% Label
+\node[font=\scriptsize\bfseries, anchor=south] at (0, 0.6) {Landauer};
+
+% Right: Thiele Machine analog
+\node[box, fill=blue!10, minimum width=1.2cm] (s0) at (3.2, 0) {no structure};
+\node[box, fill=blue!10, minimum width=1.2cm] (s1) at (3.2, -1.2) {$\Phi$ asserted};
+\draw[arr, blue!70!black] (s0) -- (s1) node[midway, right, font=\tiny] {\texttt{LASSERT}};
+\draw[arr, blue!70!black] (s1.south) -- ++(0, -0.6) node[below, font=\tiny, blue!70!black] {$\Delta\mu \ge |\phi|_{\text{bits}}$};
+
+% Label
+\node[font=\scriptsize\bfseries, anchor=south, blue!70!black] at (3.2, 0.6) {Thiele Machine};
+
+% Connecting idea
+\node[draw, dashed, rounded corners=2pt, fill=yellow!10, font=\tiny, inner sep=2pt, text width=2.5cm, align=center]
+    at (1.6, -2.6) {Both: irreversible commitment\\costs proportional to information};
+\end{tikzpicture}
+\caption{Landauer's principle and its computational analog. Bit erasure costs $k_B T \ln 2$ joules; structural assertion costs $\mu$-bits. Both are irreversible, monotonic, proportional to information.}
+\label{fig:landauer-thiele}
+\end{figure}
 
 In 1961, Rolf Landauer proved something that changes everything \cite{landauer1961irreversibility}:
 
@@ -229,7 +325,7 @@ E_{\text{landauer}} = k_B T \ln 2
 h = 4 E_{\text{landauer}} \cdot \tau_\mu = 4 k_B T \ln 2 \cdot \tau_\mu
 \]
 
-\textbf{Important caveat:} This is \textit{not} a derivation of $h$. Rather, we can \textit{define} $\tau_\mu := h / (4 E_{\text{landauer}})$ and the relationship becomes a tautology. The formal proof in \path{coq/physics_exploration/PlanckDerivation.v} (Chapter 12) establishes algebraic consistency but provides no predictive power without an independent derivation of $\tau_\mu$.
+\textbf{Important caveat:} This is \textit{not} a derivation of $h$. Rather, defining $\tau_\mu := h / (4 E_{\text{landauer}})$ makes the relationship a tautology. The formal proof in \path{coq/physics_exploration/PlanckDerivation.v} (Chapter 12) establishes algebraic consistency but provides no predictive power without an independent derivation of $\tau_\mu$.
 
 At room temperature ($T = 300$K) with known $h$, the \textit{computed} (not predicted) time scale is:
 \[
@@ -275,7 +371,13 @@ The entropy balance is preserved. The demon's information processing exactly com
 
 \subsection{Connection to the Thiele Machine}
 
-% TikZ Figure: The μ-Thermodynamic Bridge
+The $\mu$-ledger is the computational analog of thermodynamic entropy. Both are monotonically increasing. Both track irreversible commitments. The difference: thermodynamic entropy tracks energy dissipation; the $\mu$-ledger tracks structural information cost.
+
+Landauer's principle says erasing one bit costs $k_B T \ln 2$ joules. The Thiele Machine says asserting one bit of structural constraint costs at least one $\mu$-bit. The parallel is not an analogy---it is a structural isomorphism between information processing and thermodynamics, and the Coq proofs in \path{coq/kernel/MuLedgerConservation.v} establish the monotonicity formally.
+
+Every \texttt{LASSERT} (asserting a constraint), every \texttt{PSPLIT} (partitioning state), every \texttt{REVEAL} (disclosing information) increases $\mu$. Just as every bit erasure increases thermodynamic entropy. The second law of thermodynamics has a computational counterpart: the $\mu$-ledger never decreases.
+
+Maxwell's Demon thought it could cheat thermodynamics by being clever. It could not---Landauer showed the demon's memory erasure pays exactly the entropy it tried to steal. The Thiele Machine makes the same guarantee: you cannot reduce the search space without paying structural information cost. The No Free Insight theorem (\path{coq/kernel/NoFreeInsight.v}) is, in a sense, the computational Landauer's principle.
 
 \section{Quantum Computing and Correlations}
 
@@ -283,7 +385,26 @@ The entropy balance is preserved. The demon's information processing exactly com
 
 This is where physics gets strange---and where the Thiele Machine makes a testable prediction.
 
-% TikZ Figure: CHSH Inequality and Correlation Bounds
+In 1964, John Bell \cite{bell1964einstein} asked a simple question: can quantum mechanics be explained by ``local hidden variables''---some underlying classical mechanism where particles carry pre-determined values and nothing travels faster than light?
+
+The answer is no. Bell proved that any local hidden variable theory must satisfy certain inequalities on correlations between distant measurements. Quantum mechanics violates those inequalities. Nature is not locally classical.
+
+The CHSH inequality \cite{clauser1969proposed} makes this experimentally testable. Take two parties---Alice and Bob---each choosing between two measurement settings ($x, y \in \{0, 1\}$) and each getting a binary outcome ($a, b \in \{-1, +1\}$). Define the CHSH parameter:
+\[
+S = E(0,0) + E(0,1) + E(1,0) - E(1,1)
+\]
+where $E(x,y)$ is the correlation between Alice and Bob's outcomes for settings $x, y$.
+
+Three bounds matter:
+\begin{itemize}
+    \item \textbf{Classical bound} ($S \le 2$): If Alice and Bob share only classical correlations---local hidden variables---then $|S| \le 2$. This is Bell's inequality, provable by enumerating all 16 deterministic strategies. Stated as \texttt{local\_S\_2} in \path{coq/kernel/AssumptionBundle.v}.
+    \item \textbf{Quantum bound} ($S \le 2\sqrt{2} \approx 2.828$): If they share quantum entanglement, the maximum is the Tsirelson bound. This requires Tsirelson's 1980 theorem \cite{tsirelson1980quantum}, stated as \texttt{tsir\_from\_coh} in the same file.
+    \item \textbf{Algebraic bound} ($S \le 4$): The absolute maximum from triangle inequality alone, achievable only by hypothetical ``PR-box'' correlations that violate quantum mechanics. Stated as \texttt{valid\_S\_4}.
+\end{itemize}
+
+The gap between 2 and $2\sqrt{2}$ is why quantum computers can do things classical computers cannot. The gap between $2\sqrt{2}$ and 4 is why nature stops at quantum---it does not go all the way to the no-signaling limit.
+
+These three bounds are among the 6 hard mathematical facts stated explicitly in \path{coq/kernel/AssumptionBundle.v}. I do not prove them in Coq---that would require massive real analysis libraries. Instead, I state them as verifiable assumptions and make every dependency transparent. Run \texttt{Print Assumptions} on any theorem and you see exactly which hard facts it uses.
 
 \subsection{Decoherence, Measurement, and Informational Cost}
 
@@ -309,9 +430,11 @@ Translation: you can't certify non-local correlations without paying the structu
 
 How do you know a proof is correct? You could check it by hand. You could have reviewers check it. Or you could have a machine verify every single step.
 
-Coq is the machine.
+Coq is the machine. It implements the Calculus of Inductive Constructions---a type theory where proofs are programs and types are propositions. This is the Curry-Howard correspondence: proving a theorem is the same as writing a program that inhabits a type. When the Coq compiler accepts a proof, the type checker has verified every logical step. No human judgment involved. No ``trust me'' appeals.
 
-% TikZ Figure: Coq Verification Workflow
+The trusted computing base is small---Coq's kernel is roughly 30,000 lines of OCaml. If you trust that kernel (and thousands of mathematicians do, daily), then you trust every proof it accepts. The alternative is trusting me, a car salesman. I know which one I would pick.
+
+For the Thiele Machine, this matters because the claims are not hand-waved. The 272 Coq files containing 2,154 theorems and lemmas were all checked by the compiler. Every property---$\mu$-monotonicity, No Free Insight, observational no-signaling---is established by a proof that the machine accepted, not by an argument I wrote in prose.
 
 \subsection{The Inquisitor Standard}
 
@@ -320,7 +443,7 @@ For the Thiele Machine, the project enforces a strict methodology. No wiggle roo
 \begin{enumerate}
     \item \textbf{No \texttt{Admitted}}: Every lemma must be fully proven
     \item \textbf{No \texttt{admit} tactics}: No shortcuts inside proofs
-    \item \textbf{Documented \texttt{Axiom}}: External mathematical results (e.g., Tsirelson's theorem, Fine's theorem) are allowed when properly documented with INQUISITOR NOTE markers (currently 5 structural postulates)
+    \item \textbf{Documented assumptions}: External mathematical results (e.g., Tsirelson's theorem, Fine's theorem, Bell's inequality) are stated explicitly as a \texttt{HardMathFacts} record in \path{coq/kernel/AssumptionBundle.v}---6 assumptions total, each with justification. These are not Coq \texttt{Axiom} declarations; they are bundled as a record type and threaded through proofs as explicit parameters, making every dependency transparent.
 \end{enumerate}
 
 This is enforced by an automated checker that scans all proof files and blocks violations. If a theorem says ``Proven,'' it's actually proven.
@@ -360,27 +483,56 @@ MDL has been used extensively in machine learning for model selection (Occam's r
 
 \section{Chapter Summary}
 
-% TikZ Figure: Chapter 2 Summary - The Conceptual Foundation
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    area/.style={draw, rounded corners=3pt, font=\scriptsize, inner sep=4pt, minimum width=2cm, align=center},
+    core/.style={draw, rounded corners=3pt, font=\scriptsize\bfseries, inner sep=5pt, fill=blue!30, minimum width=2.2cm, align=center},
+    link/.style={->, >=Stealth, thick, gray!60},
+    contrib/.style={font=\tiny, gray!50!black, align=center}
+]
+% Central node
+\node[core] (tm) at (0, 0) {Thiele\\Machine};
+
+% Four areas
+\node[area, fill=gray!10] (comp) at (-2.2, 1.5) {Classical\\Computation};
+\node[area, fill=gray!10] (info) at (2.2, 1.5) {Information\\Theory};
+\node[area, fill=gray!10] (phys) at (-2.2, -1.5) {Physics of\\Computation};
+\node[area, fill=gray!10] (quant) at (2.2, -1.5) {Quantum\\Correlations};
+
+% Arrows to center
+\draw[link] (comp) -- (tm) node[midway, above, contrib, sloped] {blindness};
+\draw[link] (info) -- (tm) node[midway, above, contrib, sloped] {$\mu$-bits};
+\draw[link] (phys) -- (tm) node[midway, below, contrib, sloped] {$\mu$-ledger};
+\draw[link] (quant) -- (tm) node[midway, below, contrib, sloped] {revelation};
+
+% Top: Formal Verification spanning
+\node[draw, dashed, rounded corners=2pt, fill=yellow!8, font=\tiny, inner sep=3pt]
+    at (0, 2.6) {Formal Verification (Coq): all claims machine-checked};
+\end{tikzpicture}
+\caption{Conceptual foundation: four areas converge on the Thiele Machine. Classical computation identifies the blindness problem; information theory provides the $\mu$-bit measure; physics grounds irreversibility in the $\mu$-ledger; quantum bounds require the revelation rule. Formal verification ensures all claims are machine-checked.}
+\label{fig:ch2-summary}
+\end{figure}
 
 This chapter established the foundation. Four interconnected areas:
 
 \begin{enumerate}
-    \item \textbf{Classical Computation} (\S2.1): Turing Machines and RAM models are \textit{structurally blind}---they can't directly perceive input structure. This blindness motivates everything that follows.
-    
-\item \textbf{Information Theory} (\S2.2): Shannon entropy, Kolmogorov complexity, and MDL provide the math for quantifying structure. The $\mu$-bit cost is based on MDL---a computable proxy for structural complexity.
-    
-\item \textbf{Physics of Computation} (\S2.3): Landauer's principle and Maxwell's demon establish that information has physical consequences. The $\mu$-ledger is the computational analog of thermodynamic entropy---monotonically increasing, tracking irreversible commitments.
-    
-\item \textbf{Quantum Correlations} (\S2.4): Bell's theorem and the CHSH inequality reveal that quantum mechanics permits correlations up to $2\sqrt{2}$ but no higher. The Thiele Machine \textit{derives} this bound from $\mu$-accounting---an information-theoretic explanation for why nature is ``quantum but not more.''
+    \item \textbf{Classical Computation} (\S2.2): Turing Machines and RAM models are \textit{structurally blind}---they can't directly perceive input structure. This blindness motivates everything that follows.
+
+\item \textbf{Information Theory} (\S2.3): Shannon entropy, Kolmogorov complexity, and MDL provide the math for quantifying structure. The $\mu$-bit cost is based on MDL---a computable proxy for structural complexity.
+
+\item \textbf{Physics of Computation} (\S2.4): Landauer's principle and Maxwell's demon establish that information has physical consequences. The $\mu$-ledger is the computational analog of thermodynamic entropy---monotonically increasing, tracking irreversible commitments.
+
+\item \textbf{Quantum Correlations} (\S2.5): Bell's theorem and the CHSH inequality reveal that quantum mechanics permits correlations up to $2\sqrt{2}$ but no higher. The Thiele Machine connects this bound to $\mu$-accounting---the 6 hard mathematical assumptions in \path{coq/kernel/AssumptionBundle.v} make the dependency chain explicit.
 \end{enumerate}
 
 \noindent
-The formal verification infrastructure (\S2.5) ensures all claims are machine-checkable using Coq under the Inquisitor Standard.
+The formal verification infrastructure (\S2.6) ensures all claims are machine-checkable using Coq under the Inquisitor Standard.
 
 \paragraph{Key Takeaways:}
 \begin{itemize}
     \item The \textit{blindness problem} motivates explicit structural accounting
     \item The $\mu$-cost is MDL-based and computable
     \item The classical bound ($S \le 2$) characterizes the $\mu=0$ class, while the Tsirelson bound ($2\sqrt{2}$) requires $\mu > 0$ investment
-    \item All proofs satisfy the Inquisitor Standard---no admits, documented axioms only
+    \item All proofs satisfy the Inquisitor Standard---no admits, documented assumptions only
 \end{itemize}
