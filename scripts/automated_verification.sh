@@ -34,8 +34,9 @@ command -v coqc >/dev/null || die "coqc not found"
 command -v iverilog >/dev/null || die "iverilog not found"
 command -v python3 >/dev/null || die "python3 not found"
 command -v yosys >/dev/null || die "yosys not found"
-command -v nextpnr-generic >/dev/null || die "nextpnr-generic not found (install open-source PnR toolchain)"
-echo "Open-source FPGA flow enabled (yosys + nextpnr-generic)"
+command -v nextpnr-ecp5 >/dev/null || die "nextpnr-ecp5 not found (install open-source PnR toolchain)"
+command -v ecppack >/dev/null || die "ecppack not found (install fpga-trellis)"
+echo "Open-source FPGA flow enabled (yosys + nextpnr-ecp5)"
 
 # 2. Run Full Forge Pipeline
 phase FORGE "Running complete foundry pipeline"
@@ -64,19 +65,29 @@ python3 scripts/analyze_waveforms.py > "$REPORTS_DIR/waveform_analysis.txt" 2>&1
 echo "Waveform analysis: $REPORTS_DIR/waveform_analysis.txt"
 
 # 5. FPGA Bitstream Generation (open-source PnR)
-phase FPGA "Generating open-source bitstream (nextpnr-generic)"
+phase FPGA "Generating open-source bitstream (nextpnr-ecp5)"
 mkdir -p "$ROOT/build"
 PNR_JSON="$ROOT/build/thiele_cpu_open.json"
 PNR_CFG="$ROOT/build/thiele_cpu_open.cfg"
-OPEN_BIT="$REPORTS_DIR/thiele_cpu_open.bit"
-yosys -p "read_verilog -sv -nomem2reg -DSYNTHESIS -DYOSYS_LITE -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_unified.v; synth -top thiele_cpu; write_json $PNR_JSON" \
+OPEN_BIT="$REPORTS_DIR/thiele_cpu_ecp5.bit"
+ECP5_DEVICE="${ECP5_DEVICE:-85k}"
+ECP5_PACKAGE="${ECP5_PACKAGE:-CABGA381}"
+ECP5_SPEED="${ECP5_SPEED:-6}"
+yosys -p "read_verilog -sv -nomem2reg -DSYNTHESIS -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_unified.v; synth_ecp5 -top thiele_cpu -json $PNR_JSON" \
   > "$REPORTS_DIR/openfpga_synth.log" 2>&1
-nextpnr-generic --uarch example --json "$PNR_JSON" --top thiele_cpu --write "$PNR_CFG" \
+if [ ! -f "$PNR_JSON" ]; then
+  echo "Open-source synthesis did not produce $PNR_JSON - see $REPORTS_DIR/openfpga_synth.log"
+  exit 1
+fi
+nextpnr-ecp5 --json "$PNR_JSON" --textcfg "$PNR_CFG" --"$ECP5_DEVICE" --package "$ECP5_PACKAGE" --speed "$ECP5_SPEED" --timing-allow-fail \
   > "$REPORTS_DIR/openfpga_pnr.log" 2>&1 || {
     echo "Open-source PnR failed - see $REPORTS_DIR/openfpga_pnr.log"
     exit 1
   }
-cp "$PNR_CFG" "$OPEN_BIT"
+ecppack "$PNR_CFG" "$OPEN_BIT" > "$REPORTS_DIR/openfpga_pack.log" 2>&1 || {
+  echo "Open-source bitstream pack failed - see $REPORTS_DIR/openfpga_pack.log"
+  exit 1
+}
 echo "Open-source bitstream artifact: $OPEN_BIT"
 
 # 6. Verification Summary
@@ -109,8 +120,8 @@ phase VERIFY "Generating verification summary"
   echo "   - Passed: $(grep -c "passed" "$REPORTS_DIR/forge.log" | tail -1) tests"
   echo ""
   echo "5. Open-source Bitstream:"
-  if [ -f "$REPORTS_DIR/thiele_cpu_open.bit" ]; then
-    echo "   - Generated: YES ($(stat -c%s "$REPORTS_DIR/thiele_cpu_open.bit") bytes)"
+  if [ -f "$REPORTS_DIR/thiele_cpu_ecp5.bit" ]; then
+    echo "   - Generated: YES ($(stat -c%s "$REPORTS_DIR/thiele_cpu_ecp5.bit") bytes)"
   else
     echo "   - Generated: NO (bitstream missing)"
   fi
@@ -127,6 +138,6 @@ echo ""
 echo "To verify independently:"
 echo "1. Run: bash scripts/automated_verification.sh"
 echo "2. Check reports in verification_reports/"
-echo "3. For FPGA: Ensure yosys + nextpnr-generic are installed"
+echo "3. For FPGA: Ensure yosys + nextpnr-ecp5 + ecppack are installed"
 
 phase SUCCESS "Automated verification pipeline complete"

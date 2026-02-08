@@ -37,9 +37,10 @@ iverilog thielecpu/hardware/rtl/*.v -o thiele_cpu
 ```
 
 ### FPGA Bitstream (Open-Source)
-The CI full-verification job uses an open-source FPGA flow with `yosys` and
-`nextpnr-generic` to generate a bitstream artifact. Ensure these tools are
-available in your environment if you run the verification pipeline locally.
+The CI full-verification job uses an open-source FPGA flow with `yosys`,
+`nextpnr-ecp5`, and `ecppack` (fpga-trellis) to generate an ECP5 bitstream
+artifact. Ensure these tools are available in your environment if you run the
+verification pipeline locally.
 
 ---
 
