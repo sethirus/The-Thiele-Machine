@@ -347,6 +347,7 @@ jobs:
           VIVADO_DOWNLOAD_MAX_REDIRS: ${{ vars.VIVADO_DOWNLOAD_MAX_REDIRS || '5' }}
         run: |
           set -euo pipefail
+          shopt -s nullglob
           if command -v vivado >/dev/null 2>&1; then
             vivado -version
             echo "Vivado already available on PATH"
@@ -362,8 +363,8 @@ jobs:
           import json
           import os
           import sys
-          import urllib.request
           import urllib.error
+          import urllib.request
 
           repo = os.environ["GITHUB_REPOSITORY"]
           tag = os.environ["VIVADO_RELEASE_TAG"]
@@ -403,7 +404,12 @@ jobs:
           print(asset_url)
           PY
           )
-          curl_args=(-fL --max-redirs "${VIVADO_DOWNLOAD_MAX_REDIRS}" --max-time "${VIVADO_DOWNLOAD_TIMEOUT}" -H "Accept: application/octet-stream")
+          curl_args=(
+            -fL
+            --max-redirs "${VIVADO_DOWNLOAD_MAX_REDIRS}"
+            --max-time "${VIVADO_DOWNLOAD_TIMEOUT}"
+            -H "Accept: application/octet-stream"
+          )
           if [ -n "${GITHUB_TOKEN:-}" ]; then
             curl_args+=(-H "Authorization: Bearer $GITHUB_TOKEN")
           fi
@@ -418,7 +424,6 @@ jobs:
           fi
           sudo mkdir -p /opt/vivado
           sudo tar -xzf "$tmp_dir/vivado.tar.gz" -C /opt/vivado
-          shopt -s nullglob
           vivado_paths=(/opt/vivado/*/bin/vivado)
           if [ "${#vivado_paths[@]}" -ne 1 ]; then
             if [ "${#vivado_paths[@]}" -eq 0 ]; then
