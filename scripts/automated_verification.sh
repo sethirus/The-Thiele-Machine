@@ -79,7 +79,7 @@ ECP5_PNR_PLACER="${ECP5_PNR_PLACER:-heap}"
 ECP5_PNR_ROUTER="${ECP5_PNR_ROUTER:-router1}"
 ECP5_PNR_CELL_TIMEOUT="${ECP5_PNR_CELL_TIMEOUT:-4}"
 ECP5_DEVICE_FLAG="--${ECP5_DEVICE}"
-yosys -p "read_verilog -sv -nomem2reg -DSYNTHESIS -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_unified.v; synth_ecp5 -top thiele_cpu -json $PNR_JSON" \
+yosys -p "read_verilog -sv -nomem2reg -DSYNTHESIS -DYOSYS_LITE -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_unified.v; synth_ecp5 -top thiele_cpu -json $PNR_JSON" \
   > "$REPORTS_DIR/openfpga_synth.log" 2>&1
 if [ ! -f "$PNR_JSON" ]; then
   echo "Open-source synthesis did not produce $PNR_JSON - see $REPORTS_DIR/openfpga_synth.log"
