@@ -3,7 +3,7 @@ set -euo pipefail
 
 # Automated Thiele Machine Verification Pipeline
 # Runs full end-to-end: Coq -> Hardware -> Synthesis -> Simulation -> Reports
-# Generates FPGA-ready bitstream if Vivado available.
+# Uses open-source FPGA flow (yosys + nextpnr-generic) for bitstream artifacts.
 
 SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
 ROOT="$(cd "$(dirname "$SCRIPT_PATH")/.." && pwd)"
@@ -34,8 +34,8 @@ command -v coqc >/dev/null || die "coqc not found"
 command -v iverilog >/dev/null || die "iverilog not found"
 command -v python3 >/dev/null || die "python3 not found"
 command -v yosys >/dev/null || die "yosys not found"
-command -v vivado >/dev/null || die "vivado not found - install Vivado before running this pipeline"
-echo "Vivado found - FPGA bitstream generation enabled"
+command -v nextpnr-generic >/dev/null || die "nextpnr-generic not found (install open-source PnR toolchain)"
+echo "Open-source FPGA flow enabled (yosys + nextpnr-generic)"
 
 # 2. Run Full Forge Pipeline
 phase FORGE "Running complete foundry pipeline"
@@ -63,17 +63,17 @@ phase WAVE "Analyzing VCD waveforms for key metrics"
 python3 scripts/analyze_waveforms.py > "$REPORTS_DIR/waveform_analysis.txt" 2>&1
 echo "Waveform analysis: $REPORTS_DIR/waveform_analysis.txt"
 
-# 5. FPGA Bitstream Generation (Vivado required)
-phase FPGA "Generating FPGA bitstream with Vivado"
-cd thielecpu/hardware
-vivado -mode batch -source synthesis.tcl > "$REPORTS_DIR/vivado_synthesis.log" 2>&1
-if [ -f "thiele_cpu.bit" ]; then
-  echo "Bitstream generated: thiele_cpu.bit"
-  cp thiele_cpu.bit "$REPORTS_DIR/"
-else
-  echo "Bitstream generation failed - check $REPORTS_DIR/vivado_synthesis.log"
-fi
-cd "$ROOT"
+# 5. FPGA Bitstream Generation (open-source PnR)
+phase FPGA "Generating open-source bitstream (nextpnr-generic)"
+PNR_JSON="$ROOT/build/thiele_cpu_open.json"
+PNR_CFG="$ROOT/build/thiele_cpu_open.cfg"
+OPEN_BIT="$REPORTS_DIR/thiele_cpu_open.bit"
+yosys -p "read_verilog -sv -nomem2reg -DSYNTHESIS -DYOSYS_LITE -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_unified.v; synth -top thiele_cpu -json $PNR_JSON" \
+  > "$REPORTS_DIR/openfpga_synth.log" 2>&1
+nextpnr-generic --json "$PNR_JSON" --top thiele_cpu --write "$PNR_CFG" \
+  > "$REPORTS_DIR/openfpga_pnr.log" 2>&1
+cp "$PNR_CFG" "$OPEN_BIT"
+echo "Open-source bitstream artifact: $OPEN_BIT"
 
 # 6. Verification Summary
 phase VERIFY "Generating verification summary"
@@ -104,9 +104,9 @@ phase VERIFY "Generating verification summary"
   echo "5. 3-Layer Isomorphism Tests:"
   echo "   - Passed: $(grep -c "passed" "$REPORTS_DIR/forge.log" | tail -1) tests"
   echo ""
-  echo "5. FPGA Bitstream:"
-  if [ -f "$REPORTS_DIR/thiele_cpu.bit" ]; then
-    echo "   - Generated: YES ($(stat -c%s "$REPORTS_DIR/thiele_cpu.bit") bytes)"
+  echo "5. Open-source Bitstream:"
+  if [ -f "$REPORTS_DIR/thiele_cpu_open.bit" ]; then
+    echo "   - Generated: YES ($(stat -c%s "$REPORTS_DIR/thiele_cpu_open.bit") bytes)"
   else
     echo "   - Generated: NO (bitstream missing)"
   fi
@@ -123,6 +123,6 @@ echo ""
 echo "To verify independently:"
 echo "1. Run: bash scripts/automated_verification.sh"
 echo "2. Check reports in verification_reports/"
-echo "3. For FPGA: Install Vivado and re-run if needed"
+echo "3. For FPGA: Ensure yosys + nextpnr-generic are installed"
 
 phase SUCCESS "Automated verification pipeline complete"
