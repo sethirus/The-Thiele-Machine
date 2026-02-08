@@ -65,10 +65,11 @@ echo "Waveform analysis: $REPORTS_DIR/waveform_analysis.txt"
 
 # 5. FPGA Bitstream Generation (open-source PnR)
 phase FPGA "Generating open-source bitstream (nextpnr-generic)"
+mkdir -p "$ROOT/build"
 PNR_JSON="$ROOT/build/thiele_cpu_open.json"
 PNR_CFG="$ROOT/build/thiele_cpu_open.cfg"
 OPEN_BIT="$REPORTS_DIR/thiele_cpu_open.bit"
-yosys -p "read_verilog -sv -nomem2reg -DSYNTHESIS -DYOSYS_LITE -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_unified.v; synth -top thiele_cpu -json $PNR_JSON" \
+yosys -p "read_verilog -sv -nomem2reg -DSYNTHESIS -DYOSYS_LITE -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_unified.v; synth -top thiele_cpu; write_json $PNR_JSON" \
   > "$REPORTS_DIR/openfpga_synth.log" 2>&1
 nextpnr-generic --json "$PNR_JSON" --top thiele_cpu --write "$PNR_CFG" \
   > "$REPORTS_DIR/openfpga_pnr.log" 2>&1
