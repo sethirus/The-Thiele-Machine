@@ -1,10 +1,13 @@
-# Coq logical paths
+# Coq logical paths - clean per-directory mappings (best practice)
+# Non-recursive root mapping for Extraction.v only (-Q prevents
+# subdirectories from being double-bound under Top.*)
+-Q . Top
 -R kernel Kernel
 -R nofi NoFI
 -R bridge Bridge
 -R spacetime Spacetime
 -R thielemachine/coqproofs ThieleMachine
--R thielemachine/verification ThieleMachineVerification  
+-R thielemachine/verification ThieleMachineVerification
 -R kernel_toe KernelTOE
 -R modular_proofs ModularProofs
 -R physics Physics
@@ -23,7 +26,9 @@
 -R thermodynamic Thermodynamic
 -R tests Tests
 
+# File listing
 Extraction.v
+
 bridge/BoxWorld_to_Kernel.v
 bridge/Causal_to_Kernel.v
 bridge/Entropy_to_Kernel.v
@@ -240,6 +245,7 @@ thieleuniversal/coqproofs/UTM_Program.v
 thieleuniversal/coqproofs/UTM_Rules.v
 kernel/PythonBisimulation.v
 kernel/HardwareBisimulation.v
+kernel/ThreeLayerIsomorphism.v
 kernel/NonCircularityAudit.v
 kernel/TestTripartite.v
 kernel/AlgebraicCoherence.v
@@ -255,13 +261,14 @@ kernel/Composition.v
 kernel/HardAssumptions.v
 kernel/MinimalE.v
 kernel/MinorConstraints.v
-MuComplexity.v
+kernel/MuComplexity.v
 kernel/MuInitiality.v
 kernel/MuNecessity.v
 kernel/NPAMomentMatrix.v
 kernel/ProperSubsumption.v
 kernel/SemidefiniteProgramming.v
 kernel/TsirelsonDerivation.v
+kernel/ConstantUnification.v
 physics_exploration/EmergentSchrodinger.v
 physics_exploration/EmergentSpacetime.v
 physics_exploration/HolographicGravity.v
@@ -292,5 +299,5 @@ theory/Universality.v
 theory/WitnessIsGenesis.v
 thermodynamic/LandauerDerived.v
 thermodynamic/ThermodynamicBridge.v
-verify_zero_admits.v
+tests/verify_zero_admits.v
 physics_exploration/PlanckEmergenceClean.v

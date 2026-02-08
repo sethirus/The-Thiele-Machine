@@ -1,14 +1,48 @@
 (** =========================================================================
     KERNEL PHYSICS - Zero-Axiom Physical Laws
     =========================================================================
-    
+
+    WHY THIS FILE EXISTS:
+    I claim all "physical laws" (gauge symmetry, conservation laws, observables)
+    are THEOREMS about VMState/VMStep, not axioms about nature. This file proves
+    them constructively from the VM definition.
+
+    THE CORE CLAIMS:
+    1. Observables are well-defined (Observable, ObservableRegion, lines 31-42)
+    2. Observational equivalence is an equivalence relation (reflexive, symmetric,
+       transitive - Theorems obs_equiv_refl/sym/trans, lines 64-81)
+    3. μ-gauge symmetry: shifting μ preserves partition structure (Theorem
+       gauge_invariance_observables, line 98)
+
+    WHAT "ZERO-AXIOM" MEANS:
+    Every statement here is a Qed (proven). No Axiom, no Admitted, no Parameter.
+    All physical laws emerge from the computational structure (VMState record,
+    vm_step function).
+
+    PHYSICAL INTERPRETATION:
+    - Observable: What measurements can extract from VM state
+    - obs_equiv: Operational notion of "same physics"
+    - mu_gauge_shift: The symmetry operation (like U(1) gauge in QED)
+    - Gauge invariance: Partition structure doesn't depend on absolute μ value
+      (like physics not depending on choice of voltage zero-point)
+
+    This is the kernel-level formulation of gauge theory. No spacetime manifolds,
+    no Lie groups, no differential geometry - just computational observables and
+    state transformations.
+
+    FALSIFICATION:
+    Find two VM states with same Observable values but different physical
+    behavior. Or show gauge shifts change partition structure (violating
+    gauge_invariance_observables). Or find a "physical law" that requires
+    axioms not derivable from VMState/VMStep.
+
     Every "physics pillar" statement reduced to kernel objects.
-    
+
     NO SPACELAND. NO ORACLES. NO AXIOMS. STATUS: VERIFIED COMPLETE (Dec 2025)
-    
+
     Rule: If it's not a theorem about VMState/VMStep/SimulationProof,
           it's not a result.
-    
+
     ========================================================================= *)
 
 From Coq Require Import List ZArith Lia.

@@ -14,18 +14,48 @@ Require Import NoFreeInsight.
 Require Import CHSH.
 Require Import QuantumBound.
 
-(** * Certification Theory: No Free Insight Formalization (CHSH Instance)
-    
-    STATUS: Milestone 1 in progress (December 16, 2025)
-    
-    This file formalizes the "No Free Insight" theorem for certification:
-    - Defines what it means for a trace to "certify" a predicate
-    - Proves that supra-quantum CHSH certification requires explicit revelation
-    - Establishes the foundation for general impossibility theorem (Milestone 2)
-    
-    ROADMAP:
-    - Milestone 1: Prove Theorem 1 (CHSH instance) as Coq theorem ✓ (this file)
-    - Milestone 2: Generalize to arbitrary receipt predicates (NoFreeInsight.v)
+(** * Certification Theory: Proving No Free Insight for CHSH
+
+    WHY THIS FILE EXISTS:
+    This is THE connection between the Thiele Machine's operational semantics
+    and the central impossibility theorem. The claim: you cannot certify supra-
+    quantum correlations (CHSH > 2√2) without paying μ-cost for revelation.
+    This file PROVES that claim as a Coq theorem.
+
+    THE CORE THEOREM:
+    If a trace produces receipts with CHSH > 2√2, AND sets the certification
+    flag, THEN the trace must contain a cert-setting instruction (REVEAL, EMIT,
+    LJOIN, or LASSERT), which costs μ>0. No exceptions. No loopholes.
+
+    WHY CHSH SPECIFICALLY:
+    CHSH is the simplest falsifiable witness of the general impossibility
+    theorem. It's 4 correlations, 1 inequality, universally testable. If the
+    theorem fails for CHSH, it fails. If it holds for CHSH, the structure
+    generalizes to arbitrary predicates (NoFreeInsight.v).
+
+    THE PROOF CHAIN:
+    1. Receipts are non-forgeable (chsh_trials_non_forgeable)
+    2. CHSH > 2√2 requires cert_addr ≠ 0 (nonlocal_correlation_requires_revelation)
+    3. Setting cert_addr requires cert-setting instruction (by construction)
+    4. Cert-setting instructions charge μ (mu_ledger_monotone)
+    5. Therefore: CHSH > 2√2 certified → Δμ > 0. QED.
+
+    MILESTONE STATUS:
+    ✓ Receipt abstraction defined (trace = receipts)
+    ✓ CHSH extraction formalized (extract_chsh_trials)
+    ✓ Non-forgeability proven (chsh_trials_non_forgeable)
+    ✓ No Free Insight theorem stated and proven (no_free_insight_chsh)
+    ✓ Quantitative bound proven (certified_supra_chsh_implies_mu_lower_bound)
+    ⚠ Runtime validation ongoing (tests/test_nofi_*.py)
+
+    FALSIFICATION:
+    Find a trace that certifies CHSH > 2√2 without containing REVEAL/EMIT/LJOIN/LASSERT.
+    Or find a cert-setting instruction with μ-cost = 0. The proofs won't compile.
+
+    RELATIONSHIP TO GENERAL THEOREM:
+    NoFreeInsight.v proves the impossibility theorem for ARBITRARY predicates.
+    This file instantiates it for CHSH - the concrete, testable case. CHSH is
+    the witness. If CHSH works, the general theorem follows.
     *)
 
 Module CertificationTheory.
@@ -33,29 +63,67 @@ Module CertificationTheory.
 Import VMStep.VMStep.
 Import RevelationProof.
 
-(** * Receipt Abstraction
-    
-    In the runtime, receipts are JSON records produced by vm.run().
-    In the kernel, we model receipts as the trace itself, since the trace
-    deterministically generates the receipts via the step relation.
-    
-    This is sound because:
-    - Each instruction deterministically produces a receipt
-    - Receipt content is fully determined by (instruction, pre-state)
-    - Decoding receipts = scanning the trace for specific instruction types
-    *)
+(** * Receipt Abstraction: Traces ARE Receipts
+
+    WHY THIS IDENTIFICATION:
+    The Python VM produces JSON receipts from execution. In Coq, we don't need
+    separate receipt objects - the trace (list of instructions) IS the receipt
+    stream. This works because:
+
+    1. **Determinism**: vm_step is a function, not a relation. Each instruction
+       + state produces exactly one next state and one receipt.
+
+    2. **Non-forgeability**: Receipt content comes from instruction encoding.
+       You can't "fake" a CHSH trial receipt without executing instr_chsh_trial.
+
+    3. **Extraction**: Decoding receipts = pattern matching on instruction list.
+       extract_chsh_trials scans for instr_chsh_trial, extracts (x,y,a,b).
+
+    THE ISOMORPHISM:
+    - Python: receipts = [step(s,i).receipt for i in trace]
+    - Coq: receipts = trace (the instructions themselves)
+    - Equivalence: instruction encoding determines receipt content
+
+    WHY THIS MATTERS:
+    This lets us prove theorems about receipts without modeling JSON serialization.
+    The trace is the canonical representation. Python receipts are just a different
+    view of the same information.
+
+    FALSIFICATION:
+    Find an instruction where the receipt contains information not determinable
+    from the instruction encoding. Can't happen - receipts are instruction data.
+*)
 
 Definition Receipt := vm_instruction.
 Definition Receipts := Trace.
 
-(** * CHSH Trial Extraction
-    
-    A CHSH trial is a tuple (x, y, a, b) where all are bits.
+(** * CHSH Trial Extraction: Getting (x,y,a,b) from Trace
 
-    The concrete receipt-backed CHSH statistic is defined in
-    [kernel/CHSH.v] as [KernelCHSH.chsh] over
-    [KernelCHSH.trials_of_receipts].
-    *)
+    WHY:
+    The CHSH inequality tests correlations between Alice's and Bob's measurement
+    results. Each trial is (x,y,a,b) where:
+    - x,y: Alice and Bob's measurement choices (inputs)
+    - a,b: Their measurement results (outputs)
+
+    THE EXTRACTION:
+    Scan the receipt stream (trace) for instr_chsh_trial instructions. Each
+    such instruction encodes one CHSH trial. Extract the (x,y,a,b) fields.
+
+    NON-FORGEABILITY:
+    This is the ONLY way to create CHSH trials. No other instruction type
+    contributes. Proven in chsh_trials_non_forgeable below.
+
+    THE CALCULATION:
+    Once you have N trials, compute:
+    - E_xy = average correlation for measurement pair (x,y)
+    - S = E00 + E01 + E10 - E11 (the CHSH parameter)
+
+    This is done by KernelCHSH.chsh. It's mechanical arithmetic on the trial list.
+
+    USED BY:
+    chsh_value, has_supra_chsh, supra_quantum_certified. This is WHERE the
+    receipt stream gets analyzed for supra-quantum correlations.
+*)
 
 Definition extract_chsh_trials (receipts : Receipts) : list KernelCHSH.Trial :=
   KernelCHSH.trials_of_receipts receipts.
@@ -120,16 +188,37 @@ Definition supra_quantum_certified (s : VMState) (receipts : Receipts) : Prop :=
 Definition chsh_claim_certified (q : Q) (s : VMState) (receipts : Receipts) : Prop :=
   Qlt q (chsh_value receipts) /\ has_supra_cert s.
 
-(** * Certification Predicate
-    
-    A trace "certifies" a predicate P iff:
-    - Execution did not error (CSR.ERR = 0, or equivalently vm_err = false)
-    - The predicate P holds on the final state and receipts
-    
-    This is the formal version of "Certified(trace, P)" from the theorem document.
-    *)
+(** * Certified: What It Means to Make a Checkable Claim
 
-Definition Certified (s_final : VMState) (P : VMState -> Receipts -> Prop) 
+    WHY THIS DEFINITION:
+    Computational claims must be CHECKABLE. Saying "I found correlations with
+    CHSH > 2√2" is worthless without proof. Certification means:
+    1. Execution completed without error (vm_err = false)
+    2. The predicate P holds on (final state, receipts)
+
+    THE TWO CONDITIONS:
+    - No errors: If the VM errored out, nothing is certified. Errors invalidate
+      all claims. The vm_err flag latches on error, never clears.
+    - Predicate holds: The claim (P s_final receipts) must be TRUE. This could
+      be "CHSH > 2√2", or "formula is SAT", or any checkable property.
+
+    WHY BOTH STATE AND RECEIPTS:
+    - State: Contains certification metadata (cert_addr, CSR flags)
+    - Receipts: Contain the computational evidence (CHSH trials, SAT assignments)
+    Together they form the complete certificate.
+
+    USAGE:
+    Certified s_final supra_quantum_certified trace means:
+    - VM didn't error
+    - The trace's receipts have CHSH > 2√2
+    - The cert_addr flag is set
+
+    FALSIFICATION:
+    Find a trace where Certified holds but the predicate is actually false.
+    Can't happen - Certified is conjunction. Both conditions must hold.
+*)
+
+Definition Certified (s_final : VMState) (P : VMState -> Receipts -> Prop)
                      (receipts : Receipts) : Prop :=
   s_final.(vm_err) = false /\ P s_final receipts.
 
@@ -222,26 +311,53 @@ Proof.
   intros. simpl. reflexivity.
 Qed.
 
-(** * Main Theorem (Milestone 1): No Free Insight for CHSH
-    
-    THEOREM 1 (from theorem document):
-    
-    Assume a trace `tr` with final state `s_final` and receipts `R` such that:
-    - Certified(s_final, supra_quantum_certified, R)
-    - Axioms A1-A4 hold (implicit in kernel semantics)
-    
-    Then:
-    - uses_revelation(tr) ∧ revelation_charged(s_init, s_final, min_bits)
-    
-    PROOF STRATEGY:
-    1. Use nonlocal_correlation_requires_revelation (RevelationRequirement.v)
-       to show that cert_addr ≠ 0 implies revelation in trace
-    2. Use mu_ledger_monotone (MuLedgerConservation.v) to show REVEAL charged μ
-    3. Combine to prove no free insight
-    
-    CURRENT STATUS: Proof skeleton below, full proof deferred pending
-    runtime validation of CHSH computation (Milestone 1 completion gate).
-    *)
+(** * no_free_insight_chsh: THE MAIN THEOREM
+
+    THE CLAIM:
+    If a trace certifies supra-quantum correlations (CHSH > 2√2), then it MUST
+    contain a cert-setting instruction: REVEAL, EMIT, LJOIN, or LASSERT.
+    No other way. No shortcuts. No loopholes.
+
+    WHY THIS MATTERS:
+    This is the formal proof that you can't get something for nothing. Supra-
+    quantum correlations aren't "free" - they require explicit structural
+    operations that cost μ. The μ-ledger tracks this cost. If you claim CHSH > 2√2,
+    you must have paid.
+
+    THE HYPOTHESES:
+    1. trace_run fuel trace s_init = Some s_final: Execution succeeded
+    2. s_init.(csr_cert_addr) = 0: Initially no certification set
+    3. Certified s_final supra_quantum_certified trace: Final state certifies CHSH > 2√2
+
+    THE CONCLUSION:
+    At least one of:
+    - uses_revelation trace: REVEAL occurred
+    - EMIT occurred
+    - LJOIN occurred
+    - LASSERT occurred
+
+    THE PROOF STRUCTURE:
+    1. Certified means vm_err = false AND supra_quantum_certified holds
+    2. supra_quantum_certified means has_supra_chsh AND has_supra_cert
+    3. has_supra_cert means cert_addr ≠ 0 at end
+    4. cert_addr changed from 0 to nonzero → cert-setting instruction occurred
+    5. RevelationRequirement.nonlocal_correlation_requires_revelation proves this
+
+    WHY THE DISJUNCTION:
+    Four instructions can set cert_addr: REVEAL, EMIT, LJOIN, LASSERT. The
+    theorem says at least one must have executed. The Python runtime enforces
+    that REVEAL is specifically required for CHSH (policy, not theorem).
+
+    FALSIFICATION:
+    Find a trace with cert_addr going from 0 to nonzero without any of the
+    four cert-setting instructions. The vm_step relation won't allow it - only
+    those four instructions modify cert_addr.
+
+    THE SIGNIFICANCE:
+    This is the CHSH instance of the general impossibility theorem. It's
+    concrete, testable, falsifiable. If this theorem is wrong, find a
+    counterexample. The proof is machine-checked.
+*)
 
 Theorem no_free_insight_chsh :
   forall (trace : Trace) (s_init s_final : VMState) (fuel : nat),

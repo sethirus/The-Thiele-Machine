@@ -9,10 +9,10 @@
 
 `timescale 1ns / 1ps
 
+module thiele_cpu_tb;
+
 // Opcodes are generated from Coq extraction and must match the RTL decode.
 `include "generated_opcodes.vh"
-
-module thiele_cpu_tb;
 
 `ifdef YOSYS_LITE
 localparam NUM_MODULES = 4;

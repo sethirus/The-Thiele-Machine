@@ -276,14 +276,14 @@ class TestMaxModulesLimit:
 
         # Create MAX_MODULES modules
         for i in range(MAX_MODULES):
-            state.pnew({i * 10})
+            state.pnew({i})
 
         # Verify we created MAX_MODULES modules
         assert state.num_modules == MAX_MODULES, f"Expected {MAX_MODULES} modules, got {state.num_modules}"
 
         # Next should fail
         with pytest.raises(ValueError, match="max modules"):
-            state.pnew({MAX_MODULES * 10})
+            state.pnew({MAX_MODULES})
 
 
 class TestStateSnapshot:

@@ -1,19 +1,51 @@
 (** =========================================================================
-    μ-COST MODEL - Operational Definition
+    μ-COST MODEL - Operational Definition (No Physics Assumptions)
     =========================================================================
-    
-    Defines μ-ledger increments for each VM operation WITHOUT assuming
-    any correlation bounds or quantum mechanics.
-    
-    The μ-cost is determined MECHANICALLY by:
-    - Which partitions are manipulated
-    - Whether structure is added vs. removed
-    - Whether revelation is required
-    
-    NO REFERENCE to CHSH, Tsirelson, or 2√2 anywhere in this file.
-    
-    STATUS: FOUNDATIONAL - Pure operational accounting
-    
+
+    WHY THIS FILE EXISTS:
+    I claim μ-cost is DEFINED operationally (which instructions modify partition
+    structure) WITHOUT assuming CHSH bounds, Tsirelson bound (2√2), or quantum
+    mechanics. The correlation with physics is DERIVED later, not assumed here.
+
+    THE CORE CLAIM:
+    μ-cost is determined purely by partition graph operations:
+    - PNEW/PSPLIT/PMERGE: cost 0 (rearrange structure, no new information)
+    - REVEAL: cost 1 (exposes hidden partition structure)
+    - LASSERT/LJOIN: cost δ (adds structural complexity)
+    - All other ops: cost 0 (don't touch partition graph)
+
+    WHAT THIS PROVES:
+    - mu_cost_of_instr (line 55): Operational cost for each instruction type
+    - partition_ops_mu_free (line 121): PNEW/PSPLIT/PMERGE have zero cost
+    - reveal_costs_one (line 133): REVEAL costs exactly 1
+    - mu_zero_no_reveal (line 241): μ=0 programs cannot use REVEAL within fuel steps
+
+    KEY SEPARATION:
+    This file defines μ-cost INDEPENDENTLY of CHSH/quantum mechanics.
+    CHSHExtraction.v defines CHSH computation INDEPENDENTLY of μ-cost.
+    The relationship max{CHSH : μ=0} = 2√2 is PROVEN later (TsirelsonDerivation.v),
+    not assumed here.
+
+    PHYSICAL INTERPRETATION:
+    μ-cost measures "structural information addition". Rearranging partitions is
+    free (reversible). Revealing hidden structure costs 1 (observation). Adding
+    constraints costs their complexity (description length). This is operational
+    accounting, not physics.
+
+    FALSIFICATION:
+    Show that a program with REVEAL has μ-cost = 0 according to mu_cost_of_instr.
+    This would contradict reveal_costs_one (line 133).
+
+    Or show that PNEW/PSPLIT/PMERGE have nonzero cost despite being partition
+    rearrangements (no information loss). This would contradict partition_ops_mu_free
+    (line 121).
+
+    Or prove that the operational definition is inconsistent with actual VM
+    execution (vm_step modifies vm_mu differently than mu_cost_of_instr predicts).
+
+    NO REFERENCE TO CHSH, TSIRELSON, OR 2√2 ANYWHERE IN THIS FILE.
+    Pure operational accounting. Zero axioms. Zero admits.
+
     ========================================================================= *)
 
 From Coq Require Import List Lia Arith PeanoNat.

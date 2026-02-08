@@ -1,22 +1,58 @@
 (** =========================================================================
     LOCALITY PROOFS FOR VM INSTRUCTIONS
     =========================================================================
-    
+
+    WHY THIS FILE EXISTS:
+    I claim Einstein locality (spacelike-separated operations don't interfere)
+    is a THEOREM, not an axiom. This file proves it: vm_step only modifies
+    target modules, leaving untargeted modules unchanged.
+
+    THE CORE CLAIM:
+    Each VM instruction satisfies locality: executing an instruction only changes
+    observables of explicitly targeted modules. Other modules are unaffected.
+
+    WHAT THIS PROVES:
+    For each instruction type (pnew, psplit, pmerge, etc.), if module mid is
+    not explicitly targeted, then ObservableRegion(s, mid) = ObservableRegion(s', mid).
+
+    KEY LEMMAS:
+    - wf_graph_lookup_implies_below: Well-formed graphs have bounded module IDs (line 35)
+    - graph_pnew_preserves_lookup: PNEW doesn't change existing module lookups (line 69)
+    - Similar preservation lemmas for psplit, pmerge, etc.
+
+    PROOF STRATEGY:
+    1. Use well_formed_graph invariant throughout
+    2. Key insight: new modules are added at pg_next_id (beyond existing IDs)
+    3. Lookup at mid < pg_next_id is unaffected by additions at ≥ pg_next_id
+    4. For operations that remove modules (psplit, pmerge), explicitly check
+       untargeted modules remain unchanged
+
+    PHYSICAL INTERPRETATION:
+    This is the formal statement of "no action at a distance". If I operate on
+    partition A, partition B (disjoint from A) is unaffected. This is why
+    weight_disjoint_commutes holds (from Definitions.v).
+
+    FALSIFICATION:
+    Find an instruction where executing it on module A changes observables of
+    unrelated module B. This would violate locality and require superluminal
+    information transfer. Or show well_formed_graph invariant is violated,
+    breaking the proof.
+
     This file proves that each VM instruction satisfies the locality property:
     the vm_step relation only modifies observations of target modules.
-    
+
     This is the KEY LEMMA that connects locality to conservation.
-    
+
     KEY INSIGHT: Locality means existing module observations are unchanged
     except for explicitly targeted modules. New modules may be created
     (by pnew) but that doesn't violate locality for existing modules.
-    
+
     PROOF STRATEGY:
     - Use well_formed_graph invariant throughout
     - key lemma: lookup succeeds => id < pg_next_id
     - pnew: adds at pg_next_id, existing lookups unchanged
     - psplit/pmerge: removes specific modules, adds at next_id+
-    
+
     ========================================================================= *)
 
 From Coq Require Import List Arith.PeanoNat Lia Bool.

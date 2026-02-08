@@ -9,26 +9,45 @@ Require Import MuLedgerConservation.
 Require Import MuNoFreeInsightQuantitative.
 Require Import SimulationProof.
 
-(** * State Space Counting for Quantitative No Free Insight
-    
-    This module connects μ-cost to information-theoretic bounds by
-    establishing that each μ-bit paid corresponds to at least one bit
-    of constraint added to the system.
-    
-    STRATEGY:
-    1. μ-cost ≥ axiom bit length (proven from instruction costs)
-    2. For n-variable formulas, before = 2^n, after ∈ [0, 2^n]
-    3. SAT/UNSAT certificate determines semantic reduction
-    4. Therefore: Δμ ≥ log₂(before/after) when after > 0
-    
-    KEY INSIGHT: The Python VM uses a CONSERVATIVE BOUND:
-      - before = 2^num_vars (all possible assignments)
-      - after = 1 (assumes single solution—avoids #P-complete model counting)
-      - mu_delta = description_bits + num_vars
-    
-    This GUARANTEES Δμ ≥ log₂(|Ω|/|Ω'|) at runtime since actual |Ω'| ≥ 1
-    for SAT, so our bound is an upper bound on true semantic cost.
-    May overcharge when multiple solutions exist.
+(** * StateSpaceCounting: Proving μ-cost bounds information gained
+
+    THE QUANTITATIVE CLAIM:
+    When you narrow a search space from Ω possibilities to Ω' possibilities,
+    you must pay μ-cost ≥ log₂(Ω/Ω'). This is the information-theoretic
+    minimum. You can't cheat. You can't get logarithmic space reduction
+    without paying logarithmic information cost.
+
+    WHY THIS IS HARD TO ENFORCE:
+    Computing the EXACT reduction |Ω|→|Ω'| requires model counting, which is
+    #P-complete (counting SAT solutions is harder than deciding SAT). I can't
+    solve #P-complete problems at runtime to compute costs.
+
+    THE CONSERVATIVE SOLUTION:
+    The Python VM uses a SAFE UPPER BOUND:
+    - before_count = 2^num_vars (all possible truth assignments)
+    - after_count = 1 (assume SINGLE solution)
+    - mu_delta = formula_bits + num_vars
+
+    This GUARANTEES Δμ ≥ log₂(2^n/actual_count) for ANY actual_count ≥ 1.
+    It may OVERCHARGE when multiple solutions exist, but it NEVER undercharges.
+
+    WHY THIS WORKS:
+    For SAT formulas with actual solution count k:
+    - True reduction: log₂(2^n/k)
+    - Our bound: log₂(2^n/1) = n
+    - Since k ≥ 1 (SAT has solutions), our bound ≥ true reduction
+    - Conservative but CORRECT
+
+    THE PROOF:
+    1. μ-cost ≥ formula bit length (instruction_cost definition)
+    2. Formula bits encode constraints
+    3. Each constraint bit can eliminate ≥ half the space (binary search)
+    4. k bits → ≥ 2^k reduction → k ≥ log₂(reduction)
+    5. Therefore: Δμ ≥ log₂(Ω) - log₂(Ω')
+
+    FALSIFICATION:
+    Find a way to reduce search space by factor F without paying ≥ log₂(F) μ-cost.
+    You can't. The bound is information-theoretic.
 *)
 
 Module StateSpaceCounting.

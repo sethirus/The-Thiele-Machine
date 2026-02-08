@@ -12,20 +12,25 @@ Demonstrates that Coq ↔ Python ↔ Verilog are all provably equivalent:
    - Reference implementation
    - Direct execution and testing
 
-3. VERILOG RTL (thielecpu/hardware/thiele_cpu.v)
+3. VERILOG RTL (thielecpu/hardware/rtl/thiele_cpu_unified.v)
    - Hardware implementation
    - Synthesizable for FPGA/ASIC
 
 All three produce IDENTICAL results for the same instruction sequences.
 """
 
-import subprocess
 import json
+import subprocess
 import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(REPO_ROOT))
 HARDWARE_DIR = REPO_ROOT / "thielecpu" / "hardware"
+RTL_DIR = HARDWARE_DIR / "rtl"
+
+REGISTER_COUNT = 32
+MEMORY_WORDS = 256
 BUILD_DIR = REPO_ROOT / "build"
 COQ_DIR = REPO_ROOT / "coq"
 
@@ -40,12 +45,44 @@ def print_header(title: str):
     print(f"{'='*60}\n")
 
 
+def _ensure_coq_runner() -> Path:
+    runner_path = BUILD_DIR / "extracted_vm_runner"
+    if runner_path.exists():
+        return runner_path
+
+    result = subprocess.run(
+        ["make", "Extraction.vo"],
+        cwd=COQ_DIR,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        raise RuntimeError(f"Extraction failed: {result.stderr}")
+
+    subprocess.run(
+        [
+            "ocamlc",
+            "-I",
+            str(BUILD_DIR),
+            "-o",
+            str(runner_path),
+            str(BUILD_DIR / "thiele_core.mli"),
+            str(BUILD_DIR / "thiele_core.ml"),
+            str(REPO_ROOT / "tools" / "extracted_vm_runner.ml"),
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    return runner_path
+
+
 def verify_coq_extraction() -> bool:
     """Verify Coq extraction exists and has key components."""
     print_header("1. COQ PROOFS → OCaml Extraction")
     
     extraction_path = BUILD_DIR / "thiele_core.ml"
-    runner_path = BUILD_DIR / "thiele_runner"
+    runner_path = BUILD_DIR / "extracted_vm_runner"
     
     if not extraction_path.exists():
         print("  [!] Extraction missing. Generating...")
@@ -78,9 +115,14 @@ def verify_coq_extraction() -> bool:
     
     # Check if runner is compiled and works
     runner_works = False
-    if runner_path.exists():
-        result = subprocess.run([str(runner_path)], capture_output=True, text=True, timeout=10)
+    try:
+        runner_path = _ensure_coq_runner()
+        trace = BUILD_DIR / "verify_trace.txt"
+        trace.write_text("PNEW {0} 1\nHALT 0\n", encoding="utf-8")
+        result = subprocess.run([str(runner_path), str(trace)], capture_output=True, text=True, timeout=10)
         runner_works = '"pc":' in result.stdout and '"mu":' in result.stdout
+    except Exception:
+        runner_works = False
     print(f"  {check_mark(runner_works)} Runner binary executes")
     
     size_kb = extraction_path.stat().st_size / 1024
@@ -137,8 +179,8 @@ def verify_verilog_rtl() -> bool:
     
     # Check compilation
     compile_cmd = [
-        "iverilog", "-g2012", "-I.", "-o", "/tmp/thiele_verify",
-        "mu_alu.v", "mu_core.v", "thiele_cpu.v"
+        "iverilog", "-g2012", "-Irtl", "-o", "/tmp/thiele_verify",
+        "rtl/thiele_cpu_unified.v"
     ]
     
     result = subprocess.run(
@@ -157,8 +199,8 @@ def verify_verilog_rtl() -> bool:
     
     # Run testbench
     tb_compile = subprocess.run(
-        ["iverilog", "-g2012", "-I.", "-o", "/tmp/thiele_tb_verify",
-         "mu_alu.v", "mu_core.v", "thiele_cpu.v", "thiele_cpu_tb.v"],
+        ["iverilog", "-g2012", "-Irtl", "-o", "/tmp/thiele_tb_verify",
+         "rtl/thiele_cpu_unified.v", "testbench/thiele_cpu_tb.v"],
         cwd=HARDWARE_DIR,
         capture_output=True,
         text=True,
@@ -203,7 +245,7 @@ def verify_opcode_alignment() -> bool:
     print_header("4. OPCODE ALIGNMENT CHECK")
     
     # Read Verilog opcodes
-    vh_path = HARDWARE_DIR / "generated_opcodes.vh"
+    vh_path = RTL_DIR / "generated_opcodes.vh"
     vh_content = vh_path.read_text()
     
     verilog_opcodes = {}
@@ -222,7 +264,8 @@ def verify_opcode_alignment() -> bool:
         "PNEW": 0x00, "PSPLIT": 0x01, "PMERGE": 0x02, "LASSERT": 0x03,
         "LJOIN": 0x04, "MDLACC": 0x05, "PDISCOVER": 0x06, "XFER": 0x07,
         "PYEXEC": 0x08, "CHSH_TRIAL": 0x09, "XOR_LOAD": 0x0A, "XOR_ADD": 0x0B,
-        "XOR_SWAP": 0x0C, "XOR_RANK": 0x0D, "EMIT": 0x0E, "ORACLE_HALTS": 0x0F,
+        "XOR_SWAP": 0x0C, "XOR_RANK": 0x0D, "EMIT": 0x0E, "REVEAL": 0x0F,
+        "ORACLE_HALTS": 0x10,
         "HALT": 0xFF,
     }
     
@@ -235,6 +278,23 @@ def verify_opcode_alignment() -> bool:
         print(f"  {check_mark(match)} {name}: Python=0x{py_val:02X}, Verilog={('0x'+format(v_val, '02X')) if v_val is not None else 'MISSING'}")
     
     return all_match
+
+
+def emit_isomorphism_map(output_path: Path) -> None:
+    """Emit a mapping summary of core ISA/register/memory components."""
+    from thielecpu.isa import CSR, Opcode
+
+    opcode_map = {op.name: op.value for op in Opcode}
+    csr_map = {csr.name: csr.value for csr in CSR}
+
+    payload = {
+        "registers": {f"r{i}": i for i in range(REGISTER_COUNT)},
+        "csr": csr_map,
+        "opcodes": opcode_map,
+        "memory_words": MEMORY_WORDS,
+        "rtl_opcode_source": str(RTL_DIR / "generated_opcodes.vh"),
+    }
+    output_path.write_text(json.dumps(payload, indent=2, sort_keys=True))
 
 
 def verify_coq_proofs() -> bool:
@@ -293,6 +353,9 @@ def main():
     results.append(("Python VM", verify_python_vm()))
     results.append(("Verilog RTL", verify_verilog_rtl()))
     results.append(("Opcode Alignment", verify_opcode_alignment()))
+    map_path = BUILD_DIR / "isomorphism_map.json"
+    emit_isomorphism_map(map_path)
+    print(f"\n  Mapping report written to: {map_path.relative_to(REPO_ROOT)}")
     results.append(("Coq Proofs", verify_coq_proofs()))
     
     print_header("SUMMARY")
