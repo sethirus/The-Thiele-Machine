@@ -27,6 +27,11 @@ phase DISCOVER "checking toolchain availability"
 command -v coqc >/dev/null || die "coqc not found on PATH"
 command -v iverilog >/dev/null || die "iverilog not found on PATH"
 command -v python3 >/dev/null || die "python3 not found on PATH"
+if ! command -v vivado >/dev/null 2>&1; then
+  echo "Vivado not found - skipping FPGA bitstream (simulation only)"
+else
+  echo "Vivado found - FPGA bitstream generation available"
+fi
 
 phase CLASSIFY "building Coq extraction entrypoint (proof of compilation)"
 make -C coq Extraction.vo

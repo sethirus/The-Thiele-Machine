@@ -62,7 +62,8 @@ Definition mu_total_z (s : VMState) : Z := Z.of_nat (mu_total s).
     their μ-accumulators differ by little. Distance measures information
     content difference, not operational similarity. *)
 Definition mu_distance (s1 s2 : VMState) : Z :=
-  Z.abs (mu_total_z s2 - mu_total_z s1).
+  Z.abs (mu_total_z s2 - mu_total_z s1). (* SAFE: mu_total_z is Z.of_nat, so subtraction may be negative; Z.abs
+                                           is the intentional metric on μ-totals (information content), not full state. *)
 
 (** METRIC AXIOM 1: Non-negativity
 
