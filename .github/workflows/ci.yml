@@ -391,7 +391,11 @@ jobs:
             echo "Vivado release asset not found. Upload ${VIVADO_ASSET_NAME} to release tag ${VIVADO_RELEASE_TAG}." >&2
             exit 1
           }
-          curl -fL -H "Authorization: Bearer $GITHUB_TOKEN" -H "Accept: application/octet-stream" \
+          auth_header=()
+          if [ -n "${GITHUB_TOKEN:-}" ]; then
+            auth_header=(-H "Authorization: Bearer $GITHUB_TOKEN")
+          fi
+          curl -fL "${auth_header[@]}" -H "Accept: application/octet-stream" \
             "$asset_url" -o "$tmp_dir/vivado.tar.gz" || {
               echo "Failed to download Vivado release asset" >&2
               exit 1
@@ -417,6 +421,7 @@ jobs:
             exit 1
           fi
           vivado_bin="${vivado_bins[0]}"
+          echo "Adding Vivado to PATH for subsequent steps"
           echo "$(dirname "$vivado_bin")" >> "$GITHUB_PATH"
           "$vivado_bin" -version
 
