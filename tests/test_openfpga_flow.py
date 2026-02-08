@@ -29,7 +29,7 @@ def test_openfpga_ecp5_bitstream_generation() -> None:
         bit_out = workdir / "thiele_cpu.bit"
 
         cpu_count = os.cpu_count() or 2
-        threads = max(1, (cpu_count + 1) // 2)
+        threads = max(1, (cpu_count + 1) // 2)  # keep parity with automation script
         subprocess.run(
             [
                 "yosys",
@@ -42,7 +42,7 @@ def test_openfpga_ecp5_bitstream_generation() -> None:
             capture_output=True,
             text=True,
             cwd=str(repo_root),
-            timeout=1200,
+            timeout=1200,  # align with automated_verification.sh default
         )
         subprocess.run(
             [
@@ -72,7 +72,7 @@ def test_openfpga_ecp5_bitstream_generation() -> None:
             check=True,
             capture_output=True,
             text=True,
-            timeout=900,
+            timeout=1200,  # align with automated_verification.sh default
         )
         subprocess.run(
             ["ecppack", str(cfg_out), str(bit_out)],
