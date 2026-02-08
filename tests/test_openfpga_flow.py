@@ -28,6 +28,8 @@ def test_openfpga_ecp5_bitstream_generation() -> None:
         cfg_out = workdir / "thiele_cpu.cfg"
         bit_out = workdir / "thiele_cpu.bit"
 
+        cpu_count = os.cpu_count() or 2
+        threads = max(1, (cpu_count + 1) // 2)
         subprocess.run(
             [
                 "yosys",
@@ -55,7 +57,7 @@ def test_openfpga_ecp5_bitstream_generation() -> None:
                 "--speed",
                 "6",
                 "--threads",
-                str(max(1, ((os.cpu_count() or 2) + 1) // 2)),
+                str(threads),
                 "--placer",
                 "heap",
                 "--router",
