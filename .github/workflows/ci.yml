@@ -357,6 +357,7 @@ jobs:
           import os
           import sys
           import urllib.request
+          import urllib.error
 
           repo = os.environ["GITHUB_REPOSITORY"]
           tag = os.environ.get("VIVADO_RELEASE_TAG", "vivado")
@@ -370,8 +371,11 @@ jobs:
           try:
             with urllib.request.urlopen(req) as response:
               data = json.load(response)
-          except Exception as exc:
-            sys.stderr.write(f"Failed to fetch release metadata for tag {tag}: {exc}\n")
+          except urllib.error.HTTPError as exc:
+            sys.stderr.write(f"Release tag lookup failed for {tag}: HTTP {exc.code}\n")
+            sys.exit(1)
+          except urllib.error.URLError as exc:
+            sys.stderr.write(f"Release tag lookup failed for {tag}: {exc.reason}\n")
             sys.exit(1)
           url = None
           for asset in data.get("assets", []):
@@ -403,8 +407,12 @@ jobs:
           shopt -s nullglob
           vivado_bins=(/opt/vivado/*/bin/vivado)
           if [ "${#vivado_bins[@]}" -ne 1 ]; then
-            echo "Expected exactly one Vivado installation at /opt/vivado/*/bin/vivado, found ${#vivado_bins[@]}." >&2
-            echo "Found paths: ${vivado_bins[*]:-none}" >&2
+            if [ "${#vivado_bins[@]}" -eq 0 ]; then
+              echo "No Vivado installations found under /opt/vivado/*/bin/vivado." >&2
+            else
+              echo "Multiple Vivado installations found under /opt/vivado/*/bin/vivado." >&2
+              echo "Found paths: ${vivado_bins[*]}" >&2
+            fi
             echo "Ensure the tarball contains <version>/bin/vivado so extraction creates /opt/vivado/<version>/bin/vivado." >&2
             exit 1
           fi
