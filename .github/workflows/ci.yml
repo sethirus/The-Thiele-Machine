@@ -344,11 +344,13 @@ jobs:
         run: |
           set -euo pipefail
           if command -v vivado >/dev/null 2>&1; then
-            if vivado -version; then
+            if vivado_output=$(vivado -version 2>&1); then
+              echo "$vivado_output"
               echo "Vivado already available on PATH"
               exit 0
             fi
-            echo "Vivado present but failed to run; reinstalling from tarball"
+            echo "Vivado present but failed to run; reinstalling from tarball" >&2
+            echo "$vivado_output" >&2
           fi
           if [ -z "${VIVADO_TARBALL_URL:-}" ]; then
             echo "VIVADO_TARBALL_URL secret is required to install Vivado" >&2
@@ -360,7 +362,10 @@ jobs:
             exit 1
           }
           if [ -n "${VIVADO_TARBALL_SHA256:-}" ]; then
-            echo "${VIVADO_TARBALL_SHA256}  $tmp_dir/vivado.tar.gz" | sha256sum -c -
+            echo "${VIVADO_TARBALL_SHA256}  $tmp_dir/vivado.tar.gz" | sha256sum -c - || {
+              echo "Vivado tarball checksum verification failed" >&2
+              exit 1
+            }
           fi
           sudo mkdir -p /opt/vivado
           sudo tar -xzf "$tmp_dir/vivado.tar.gz" -C /opt/vivado
