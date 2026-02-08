@@ -355,15 +355,19 @@ jobs:
             exit 1
           fi
           tmp_dir=$(mktemp -d)
-          curl -L "$VIVADO_TARBALL_URL" -o "$tmp_dir/vivado.tar.gz"
+          curl -fL "$VIVADO_TARBALL_URL" -o "$tmp_dir/vivado.tar.gz" || {
+            echo "Failed to download Vivado tarball from provided URL" >&2
+            exit 1
+          }
           if [ -n "${VIVADO_TARBALL_SHA256:-}" ]; then
             echo "${VIVADO_TARBALL_SHA256}  $tmp_dir/vivado.tar.gz" | sha256sum -c -
           fi
           sudo mkdir -p /opt/vivado
           sudo tar -xzf "$tmp_dir/vivado.tar.gz" -C /opt/vivado
-          mapfile -t vivado_bins < <(find /opt/vivado -type f -path "*/bin/vivado")
+          shopt -s nullglob
+          vivado_bins=(/opt/vivado/*/bin/vivado)
           if [ "${#vivado_bins[@]}" -ne 1 ]; then
-            echo "Expected exactly one Vivado binary after extraction, found ${#vivado_bins[@]}" >&2
+            echo "Expected exactly one Vivado binary at /opt/vivado/*/bin/vivado, found ${#vivado_bins[@]}" >&2
             exit 1
           fi
           vivado_bin="${vivado_bins[0]}"
