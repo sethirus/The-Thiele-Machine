@@ -66,6 +66,7 @@ echo "Waveform analysis: $REPORTS_DIR/waveform_analysis.txt"
 
 # 5. FPGA Bitstream Generation (open-source PnR)
 phase FPGA "Generating open-source bitstream (nextpnr-ecp5)"
+OPENFPGA_PNR="${OPENFPGA_PNR:-0}"
 mkdir -p "$ROOT/build"
 PNR_JSON="$ROOT/build/thiele_cpu_open.json"
 PNR_CFG="$ROOT/build/thiele_cpu_open.cfg"
@@ -83,25 +84,29 @@ ECP5_PNR_PLACER="${ECP5_PNR_PLACER:-heap}"
 ECP5_PNR_ROUTER="${ECP5_PNR_ROUTER:-router1}"
 ECP5_PNR_CELL_TIMEOUT="${ECP5_PNR_CELL_TIMEOUT:-4}"
 ECP5_DEVICE_FLAG="--${ECP5_DEVICE}"
-yosys -p "read_verilog -sv -nomem2reg -DSYNTHESIS -DYOSYS_LITE -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_unified.v; synth_ecp5 -top thiele_cpu -json $PNR_JSON" \
-  > "$REPORTS_DIR/openfpga_synth.log" 2>&1
-if [ ! -f "$PNR_JSON" ]; then
-  echo "Open-source synthesis did not produce $PNR_JSON - see $REPORTS_DIR/openfpga_synth.log"
-  exit 1
-fi
-timeout "$ECP5_PNR_TIMEOUT" nextpnr-ecp5 --json "$PNR_JSON" --textcfg "$PNR_CFG" "$ECP5_DEVICE_FLAG" \
-  --package "$ECP5_PACKAGE" --speed "$ECP5_SPEED" --threads "$ECP5_THREADS" --placer "$ECP5_PNR_PLACER" \
-  --router "$ECP5_PNR_ROUTER" --placer-heap-cell-placement-timeout "$ECP5_PNR_CELL_TIMEOUT" \
-  --no-tmdriv --ignore-loops --ignore-rel-clk --timing-allow-fail \
-  > "$REPORTS_DIR/openfpga_pnr.log" 2>&1 || {
-    echo "Open-source PnR failed - see $REPORTS_DIR/openfpga_pnr.log"
+if [ "$OPENFPGA_PNR" = "1" ]; then
+  yosys -p "read_verilog -sv -nomem2reg -DSYNTHESIS -DYOSYS_LITE -I thielecpu/hardware/rtl thielecpu/hardware/rtl/thiele_cpu_unified.v; synth_ecp5 -top thiele_cpu -json $PNR_JSON" \
+    > "$REPORTS_DIR/openfpga_synth.log" 2>&1
+  if [ ! -f "$PNR_JSON" ]; then
+    echo "Open-source synthesis did not produce $PNR_JSON - see $REPORTS_DIR/openfpga_synth.log"
+    exit 1
+  fi
+  timeout "$ECP5_PNR_TIMEOUT" nextpnr-ecp5 --json "$PNR_JSON" --textcfg "$PNR_CFG" "$ECP5_DEVICE_FLAG" \
+    --package "$ECP5_PACKAGE" --speed "$ECP5_SPEED" --threads "$ECP5_THREADS" --placer "$ECP5_PNR_PLACER" \
+    --router "$ECP5_PNR_ROUTER" --placer-heap-cell-placement-timeout "$ECP5_PNR_CELL_TIMEOUT" \
+    --no-tmdriv --ignore-loops --ignore-rel-clk --timing-allow-fail \
+    > "$REPORTS_DIR/openfpga_pnr.log" 2>&1 || {
+      echo "Open-source PnR failed - see $REPORTS_DIR/openfpga_pnr.log"
+      exit 1
+    }
+  ecppack "$PNR_CFG" "$OPEN_BIT" > "$REPORTS_DIR/openfpga_pack.log" 2>&1 || {
+    echo "Open-source bitstream pack failed - see $REPORTS_DIR/openfpga_pack.log"
     exit 1
   }
-ecppack "$PNR_CFG" "$OPEN_BIT" > "$REPORTS_DIR/openfpga_pack.log" 2>&1 || {
-  echo "Open-source bitstream pack failed - see $REPORTS_DIR/openfpga_pack.log"
-  exit 1
-}
-echo "Open-source bitstream artifact: $OPEN_BIT"
+  echo "Open-source bitstream artifact: $OPEN_BIT"
+else
+  echo "Open-source PnR skipped (set OPENFPGA_PNR=1 to enable full bitstream generation)"
+fi
 
 # 6. Verification Summary
 phase VERIFY "Generating verification summary"
@@ -133,10 +138,12 @@ phase VERIFY "Generating verification summary"
   echo "   - Passed: $(grep -c "passed" "$REPORTS_DIR/forge.log" | tail -1) tests"
   echo ""
   echo "5. Open-source Bitstream:"
-  if [ -f "$REPORTS_DIR/thiele_cpu_ecp5.bit" ]; then
+  if [ "$OPENFPGA_PNR" = "1" ] && [ -f "$REPORTS_DIR/thiele_cpu_ecp5.bit" ]; then
     echo "   - Generated: YES ($(stat -c%s "$REPORTS_DIR/thiele_cpu_ecp5.bit") bytes)"
-  else
+  elif [ "$OPENFPGA_PNR" = "1" ]; then
     echo "   - Generated: NO (bitstream missing)"
+  else
+    echo "   - Generated: SKIPPED (OPENFPGA_PNR=0)"
   fi
   echo ""
   echo "Reports Location: $REPORTS_DIR"
