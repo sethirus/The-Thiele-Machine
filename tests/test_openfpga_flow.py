@@ -31,7 +31,7 @@ def test_openfpga_ecp5_bitstream_generation() -> None:
             [
                 "yosys",
                 "-p",
-                "read_verilog -sv -nomem2reg -DSYNTHESIS "
+                "read_verilog -sv -nomem2reg -DSYNTHESIS -DYOSYS_LITE "
                 f"-I {rtl_dir} {top_verilog}; "
                 f"synth_ecp5 -top thiele_cpu -json {json_out}",
             ],
