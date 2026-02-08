@@ -438,7 +438,7 @@ jobs:
           fi
           echo "Adding Vivado to PATH for subsequent steps"
           vivado_dir=$(dirname "$vivado_bin")
-          if [ -z "$vivado_dir" ]; then
+          if [ "$vivado_dir" = "." ]; then
             echo "Vivado directory path is invalid: $vivado_dir" >&2
             exit 1
           fi
