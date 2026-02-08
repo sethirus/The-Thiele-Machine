@@ -1,183 +1,349 @@
 #!/usr/bin/env python3
-"""Isomorphism Verification Tool
+"""Three-layer isomorphism verifier (Python, Coq extraction, Verilog RTL)."""
 
-This script verifies perfect three-layer isomorphism across Coq, Python, and Verilog
-by running identical programs and comparing traces.
-
-Usage:
-    python scripts/verify_isomorphism.py [--program PROGRAM_FILE] [--layers coq,python,verilog]
-
-Options:
-    --program: Path to program file (JSON format with instructions)
-    --layers: Comma-separated list of layers to test (default: python)
-    --verbose: Print detailed traces
-    --output: Output report file (default: stdout)
-"""
+from __future__ import annotations
 
 import argparse
 import json
+import subprocess
 import sys
+import tempfile
+from dataclasses import dataclass
 from pathlib import Path
-from typing import List, Dict, Any, Tuple
-from dataclasses import dataclass, asdict
+from typing import Any
 
-# Add parent directory to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent))
+REPO_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(REPO_ROOT))
 
-from thielecpu.state import State, ModuleId
+from thielecpu.state import ModuleId, State
 from tests.test_three_layer_isomorphism import Instruction, ProgramTrace, execute_python
+
+BUILD_DIR = REPO_ROOT / "build"
+COQ_DIR = REPO_ROOT / "coq"
+HARDWARE_DIR = REPO_ROOT / "thielecpu" / "hardware"
+RTL_DIR = HARDWARE_DIR / "rtl"
+TB_DIR = HARDWARE_DIR / "testbench"
 
 
 @dataclass
 class VerificationResult:
-    """Result of isomorphism verification."""
     program_length: int
-    layers_tested: List[str]
-    python_trace: Dict[str, Any]
-    coq_trace: Dict[str, Any] | None
-    verilog_trace: Dict[str, Any] | None
+    layers_tested: list[str]
+    python_trace: dict[str, Any]
+    coq_trace: dict[str, Any] | None
+    verilog_trace: dict[str, Any] | None
     isomorphic: bool
-    discrepancies: List[str]
+    discrepancies: list[str]
 
 
-def load_program(program_file: Path) -> List[Instruction]:
-    """Load program from JSON file."""
-    with open(program_file) as f:
-        data = json.load(f)
 
-    instructions = []
+
+def _predicate_matches(pred_byte: int, x: int) -> bool:
+    predicate = pred_byte & 0xFF
+    pred_mode = (predicate >> 6) & 0x3
+    pred_param = predicate & 0x3F
+    element_value = int(x) & 0xFFFFFFFF
+
+    if pred_mode == 0b00:
+        return (element_value & 1) == (pred_param & 1)
+    if pred_mode == 0b01:
+        return element_value >= pred_param
+    if pred_mode == 0b10:
+        return (element_value & (1 << pred_param)) != 0
+    divisor = pred_param + 1
+    if (divisor & pred_param) != 0:
+        return False
+    return (element_value & pred_param) == 0
+
+
+def _split_regions(state: State, module: ModuleId, pred_operand: Any) -> tuple[set[int], set[int]]:
+    region = state.regions.modules[int(module)]
+    if callable(pred_operand):
+        pred = pred_operand
+    elif isinstance(pred_operand, int):
+        pred = lambda x, pb=pred_operand: _predicate_matches(pb, x)
+    else:
+        raise ValueError(f"Unsupported PSPLIT predicate operand: {pred_operand!r}")
+
+    left = {x for x in region if pred(x)}
+    right = set(region) - left
+    return left, right
+def _trace_to_dict(trace: ProgramTrace) -> dict[str, Any]:
+    return {
+        "final_mu": trace.final_mu,
+        "final_modules": trace.final_modules,
+        "step_mu": trace.step_mu,
+        "final_regions": trace.final_regions,
+    }
+
+
+def load_program(program_file: Path) -> list[Instruction]:
+    data = json.loads(program_file.read_text())
+    instructions: list[Instruction] = []
     for instr_data in data["instructions"]:
         opcode = instr_data["opcode"]
-        operands = tuple(instr_data["operands"])
-        cost = instr_data.get("cost", 0)
+        operands = tuple(instr_data.get("operands", []))
+        cost = int(instr_data.get("cost", 0))
 
-        # Convert operands to proper types
         if opcode == "PNEW":
             operands = (set(operands[0]),)
-
+        elif opcode in {"PSPLIT", "PMERGE"}:
+            operands = tuple(ModuleId(int(x)) if isinstance(x, int) else x for x in operands)
         instructions.append(Instruction(opcode, operands, cost))
-
     return instructions
 
 
-def verify_layers(program: List[Instruction],
-                  layers: List[str],
-                  verbose: bool = False) -> VerificationResult:
-    """Verify isomorphism across specified layers."""
-    discrepancies = []
+def _ensure_coq_runner() -> Path:
+    runner = BUILD_DIR / "extracted_vm_runner"
+    if runner.exists():
+        return runner
 
-    # Always execute Python (reference implementation)
-    python_trace = execute_python(program)
+    subprocess.run(["make", "-C", str(COQ_DIR), "Extraction.vo"], check=True)
+    subprocess.run(
+        [
+            "ocamlc",
+            "-I",
+            str(BUILD_DIR),
+            "-o",
+            str(runner),
+            str(BUILD_DIR / "thiele_core.mli"),
+            str(BUILD_DIR / "thiele_core.ml"),
+            str(REPO_ROOT / "tools" / "extracted_vm_runner.ml"),
+        ],
+        check=True,
+    )
+    return runner
+
+
+def _region_token(indices: set[int]) -> str:
+    return "{" + ",".join(str(i) for i in sorted(indices)) + "}"
+
+
+def _program_to_coq_trace_lines(program: list[Instruction]) -> list[str]:
+    lines: list[str] = []
+    state = State()
+
+    for instr in program:
+        if instr.opcode == "PNEW":
+            region = instr.operands[0]
+            if not isinstance(region, set):
+                raise ValueError("Coq runner PNEW expects set operand")
+            lines.append(f"PNEW {_region_token(region)} {instr.cost}")
+            state.pnew(region, charge_discovery=True)
+        elif instr.opcode == "PSPLIT":
+            module, pred_operand = instr.operands
+            left, right = _split_regions(state, module, pred_operand)
+            lines.append(
+                f"PSPLIT {int(module)} {_region_token(left)} {_region_token(right)} {instr.cost}"
+            )
+            state.psplit(module, lambda x, p=pred_operand: p(x) if callable(p) else _predicate_matches(int(p), x), cost=instr.cost)
+        elif instr.opcode == "PMERGE":
+            m1, m2 = instr.operands
+            lines.append(f"PMERGE {int(m1)} {int(m2)} {instr.cost}")
+            state.pmerge(m1, m2, cost=instr.cost)
+        elif instr.opcode == "HALT":
+            lines.append(f"HALT {instr.cost}")
+        else:
+            raise ValueError(f"Coq runner unsupported opcode: {instr.opcode}")
+    if not lines or not lines[-1].startswith("HALT"):
+        lines.append("HALT 0")
+    return lines
+
+
+def execute_coq(program: list[Instruction]) -> ProgramTrace:
+    runner = _ensure_coq_runner()
+    trace_lines = _program_to_coq_trace_lines(program)
+    with tempfile.TemporaryDirectory() as td:
+        trace_path = Path(td) / "trace.txt"
+        trace_path.write_text("\n".join(trace_lines) + "\n")
+        result = subprocess.run([str(runner), str(trace_path)], capture_output=True, text=True, check=True)
+    payload = json.loads(result.stdout[result.stdout.find("{"):])
+    modules = payload["graph"]["modules"]
+    regions = {int(m["id"]): sorted(int(x) for x in m["region"]) for m in modules}
+    return ProgramTrace(program=program, final_mu=int(payload["mu"]), final_modules=len(regions), final_regions=regions, step_mu=[])
+
+
+def _encode_word(op: int, a: int = 0, b: int = 0, cost: int = 0) -> int:
+    return ((op & 0xFF) << 24) | ((a & 0xFF) << 16) | ((b & 0xFF) << 8) | (cost & 0xFF)
+
+
+def _program_to_words(program: list[Instruction]) -> list[int]:
+    words: list[int] = []
+    for instr in program:
+        if instr.opcode == "PNEW":
+            region = instr.operands[0]
+            if not isinstance(region, set) or len(region) != 1:
+                raise ValueError("Verilog path supports singleton PNEW regions only")
+            words.append(_encode_word(0x00, next(iter(region)), 0, instr.cost))
+        elif instr.opcode == "PSPLIT":
+            module, pred_operand = instr.operands
+            if not isinstance(pred_operand, int):
+                raise ValueError("Verilog PSPLIT requires integer predicate-byte operand")
+            words.append(_encode_word(0x01, int(module), int(pred_operand), instr.cost))
+        elif instr.opcode == "PMERGE":
+            m1, m2 = instr.operands
+            words.append(_encode_word(0x02, int(m1), int(m2), instr.cost))
+        elif instr.opcode == "HALT":
+            words.append(_encode_word(0xFF, 0, 0, instr.cost))
+        else:
+            raise ValueError(f"Verilog path currently supports PNEW/PMERGE/HALT only, got {instr.opcode}")
+    if not words or ((words[-1] >> 24) & 0xFF) != 0xFF:
+        words.append(_encode_word(0xFF, 0, 0, 0))
+    return words
+
+
+def execute_verilog(program: list[Instruction]) -> ProgramTrace:
+    words = _program_to_words(program)
+    with tempfile.TemporaryDirectory() as td:
+        td_path = Path(td)
+        sim_out = td_path / "tb.out"
+        prog_hex = td_path / "prog.hex"
+        data_hex = td_path / "data.hex"
+
+        prog_hex.write_text("\n".join(f"{w:08x}" for w in words) + "\n")
+        data_hex.write_text(("00000000\n") * 256)
+
+        subprocess.run(
+            [
+                "iverilog", "-g2012", "-Irtl", "-o", str(sim_out),
+                str(RTL_DIR / "thiele_cpu_unified.v"),
+                str(TB_DIR / "thiele_cpu_tb.v"),
+            ],
+            cwd=HARDWARE_DIR,
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        run = subprocess.run(
+            ["vvp", str(sim_out), f"+PROGRAM={prog_hex}", f"+DATA={data_hex}"],
+            cwd=td_path,
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+
+    out = run.stdout
+    start = out.find('{\n  "status":')
+    if start == -1:
+        start = out.find('{"status":')
+    if start == -1:
+        raise RuntimeError(f"No JSON payload found in Verilog output:\n{out[:1000]}")
+    decoder = json.JSONDecoder()
+    payload, _ = decoder.raw_decode(out[start:])
+
+    regions: dict[int, list[int]] = {}
+    for module in payload.get("modules", []):
+        mid = int(module.get("id", -1))
+        region = sorted(int(x) for x in module.get("region", []))
+        if mid >= 0 and region:
+            regions[mid] = region
+
+    return ProgramTrace(
+        program=program,
+        final_mu=int(payload.get("mu", 0)),
+        final_modules=len(regions),
+        final_regions=regions,
+        step_mu=[],
+    )
+
+
+def verify_layers(program: list[Instruction], layers: list[str], verbose: bool = False) -> VerificationResult:
+    discrepancies: list[str] = []
+    py_trace = execute_python(program)
 
     coq_trace = None
     verilog_trace = None
 
     if "coq" in layers:
-        # TODO: Implement Coq extraction execution
-        print("Note: Coq layer not yet implemented (requires extraction setup)")
+        coq_trace = execute_coq(program)
+        if py_trace.final_mu != coq_trace.final_mu:
+            discrepancies.append(f"μ mismatch Python={py_trace.final_mu}, Coq={coq_trace.final_mu}")
+        if py_trace.final_modules != coq_trace.final_modules:
+            discrepancies.append(f"module mismatch Python={py_trace.final_modules}, Coq={coq_trace.final_modules}")
+        if py_trace.final_regions != coq_trace.final_regions:
+            discrepancies.append("final region map mismatch between Python and Coq")
 
     if "verilog" in layers:
-        # TODO: Implement Verilog simulation
-        print("Note: Verilog layer not yet implemented (requires simulator setup)")
+        verilog_trace = execute_verilog(program)
+        if py_trace.final_mu != verilog_trace.final_mu:
+            discrepancies.append(f"μ mismatch Python={py_trace.final_mu}, Verilog={verilog_trace.final_mu}")
+        if py_trace.final_modules != verilog_trace.final_modules:
+            discrepancies.append(f"module mismatch Python={py_trace.final_modules}, Verilog={verilog_trace.final_modules}")
+        if py_trace.final_regions != verilog_trace.final_regions:
+            discrepancies.append("final region map mismatch between Python and Verilog")
 
-    # Compare traces
     if verbose:
-        print("\n=== Python Trace ===")
-        print(f"Final μ: {python_trace.final_mu}")
-        print(f"Final modules: {python_trace.final_modules}")
-        print(f"Step μ: {python_trace.step_mu}")
-        print(f"Regions: {python_trace.final_regions}")
-
-    # Determine isomorphism status
-    isomorphic = len(discrepancies) == 0
+        print("Python:", _trace_to_dict(py_trace))
+        if coq_trace:
+            print("Coq:", _trace_to_dict(coq_trace))
+        if verilog_trace:
+            print("Verilog:", _trace_to_dict(verilog_trace))
 
     return VerificationResult(
         program_length=len(program),
         layers_tested=layers,
-        python_trace={
-            "final_mu": python_trace.final_mu,
-            "final_modules": python_trace.final_modules,
-            "step_mu": python_trace.step_mu,
-            "final_regions": {k: v for k, v in python_trace.final_regions.items()},
-        },
-        coq_trace=None,
-        verilog_trace=None,
-        isomorphic=isomorphic,
+        python_trace=_trace_to_dict(py_trace),
+        coq_trace=_trace_to_dict(coq_trace) if coq_trace else None,
+        verilog_trace=_trace_to_dict(verilog_trace) if verilog_trace else None,
+        isomorphic=not discrepancies,
         discrepancies=discrepancies,
     )
 
 
-def generate_report(result: VerificationResult, output_file: Path | None = None):
-    """Generate verification report."""
-    report_lines = []
-
-    report_lines.append("=" * 80)
-    report_lines.append("THREE-LAYER ISOMORPHISM VERIFICATION REPORT")
-    report_lines.append("=" * 80)
-    report_lines.append(f"Program Length: {result.program_length} instructions")
-    report_lines.append(f"Layers Tested: {', '.join(result.layers_tested)}")
-    report_lines.append("")
-
-    report_lines.append("Python Execution:")
-    report_lines.append(f"  Final μ-cost: {result.python_trace['final_mu']}")
-    report_lines.append(f"  Final modules: {result.python_trace['final_modules']}")
-    report_lines.append(f"  μ-trace: {result.python_trace['step_mu']}")
-    report_lines.append("")
-
+def generate_report(result: VerificationResult, output_file: Path | None = None) -> str:
+    lines = [
+        "=" * 80,
+        "THREE-LAYER ISOMORPHISM VERIFICATION REPORT",
+        "=" * 80,
+        f"Program Length: {result.program_length} instructions",
+        f"Layers Tested: {', '.join(result.layers_tested)}",
+        "",
+        f"Python μ={result.python_trace['final_mu']}, modules={result.python_trace['final_modules']}",
+    ]
+    if result.coq_trace:
+        lines.append(f"Coq μ={result.coq_trace['final_mu']}, modules={result.coq_trace['final_modules']}")
+    if result.verilog_trace:
+        lines.append(f"Verilog μ={result.verilog_trace['final_mu']}, modules={result.verilog_trace['final_modules']}")
+    lines.append("")
     if result.isomorphic:
-        report_lines.append("✅ STATUS: ISOMORPHIC")
-        report_lines.append("All layers produce equivalent results.")
+        lines.extend(["✅ STATUS: ISOMORPHIC", "All tested layers produce equivalent final states."])
     else:
-        report_lines.append("❌ STATUS: DISCREPANCIES FOUND")
-        report_lines.append("\nDiscrepancies:")
-        for disc in result.discrepancies:
-            report_lines.append(f"  - {disc}")
-
-    report_lines.append("=" * 80)
-
-    report_text = "\n".join(report_lines)
+        lines.append("❌ STATUS: DISCREPANCIES FOUND")
+        lines.extend([f"  - {d}" for d in result.discrepancies])
+    lines.append("=" * 80)
+    report = "\n".join(lines)
 
     if output_file:
-        output_file.write_text(report_text)
-        print(f"Report written to: {output_file}")
+        output_file.write_text(report)
     else:
-        print(report_text)
+        print(report)
+    return report
 
-    return report_text
 
-
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description="Verify three-layer isomorphism")
     parser.add_argument("--program", type=Path, help="Program file (JSON format)")
-    parser.add_argument("--layers", default="python", help="Layers to test (comma-separated)")
-    parser.add_argument("--verbose", action="store_true", help="Verbose output")
-    parser.add_argument("--output", type=Path, help="Output report file")
-
+    parser.add_argument("--layers", default="python,coq,verilog", help="Layers to test (comma-separated)")
+    parser.add_argument("--verbose", action="store_true")
+    parser.add_argument("--output", type=Path)
     args = parser.parse_args()
 
-    # Load or generate program
     if args.program:
         program = load_program(args.program)
     else:
-        # Default test program
-        print("No program specified, using default test program")
+        print("No program specified, using default cross-layer-safe program")
         program = [
-            Instruction("PNEW", ({0, 1, 2, 3},), cost=4),
-            Instruction("PSPLIT", (ModuleId(1), lambda x: x % 2 == 0), cost=64),
-            Instruction("PMERGE", (ModuleId(2), ModuleId(3)), cost=4),
+            Instruction("PNEW", ({0},), cost=1),
+            Instruction("PNEW", ({1},), cost=1),
+            Instruction("PMERGE", (ModuleId(1), ModuleId(2)), cost=4),
+            Instruction("HALT", tuple(), cost=0),
         ]
 
-    layers = [layer.strip() for layer in args.layers.split(",")]
-
+    layers = [x.strip() for x in args.layers.split(",") if x.strip()]
     print(f"Verifying isomorphism across layers: {', '.join(layers)}")
-    print(f"Program length: {len(program)} instructions\n")
-
     result = verify_layers(program, layers, verbose=args.verbose)
-
     generate_report(result, args.output)
-
-    # Exit with appropriate code
-    sys.exit(0 if result.isomorphic else 1)
+    raise SystemExit(0 if result.isomorphic else 1)
 
 
 if __name__ == "__main__":

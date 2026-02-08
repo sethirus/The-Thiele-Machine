@@ -1,34 +1,58 @@
 (** =========================================================================
-    μ-COST DERIVATION FROM FIRST PRINCIPLES
+    μ-COST DERIVATION FROM FIRST PRINCIPLES - Breaking the Circularity
     =========================================================================
 
-    This file BREAKS THE CIRCULARITY in MuInitiality.v by deriving specific
-    instruction costs from information-theoretic and thermodynamic bounds.
+    WHY THIS FILE EXISTS:
+    I claim μ-costs are not arbitrary parameters - they're UNIQUELY DETERMINED
+    by information theory and thermodynamics. The circularity in MuInitiality.v
+    (where instruction_cost just extracts mu_delta parameters) is broken here
+    by deriving those parameters from Shannon entropy and Landauer's principle.
 
-    PROBLEM (from PHASE2_CIRCULARITY_ANALYSIS.md):
-      instruction_cost just extracts mu_delta parameters from instructions.
-      Those parameters were chosen arbitrarily, creating circular reasoning.
+    THE CIRCULARITY PROBLEM:
+    Before this file, instruction_cost(i) = i.mu_delta was circular - we chose
+    the costs, then proved μ conserves them. Trivial. Unfalsifiable. Wrong.
 
-    SOLUTION:
-      Prove that the specific cost values are DETERMINED by:
-      1. Information theory (Shannon entropy bounds)
-      2. Thermodynamics (Landauer's principle)
-      3. Computational semantics (state space reduction)
+    THE SOLUTION:
+    Prove mu_delta values are DETERMINED by:
+    1. Information theory: log₂(Ω_before/Ω_after) bits erased
+    2. Description complexity: semantic_complexity_bits(constraint)
+    3. Reversibility: reversible operations cost 0 (Landauer)
 
-    MAIN RESULTS:
-      - Theorem lassert_cost_determined:
-          LASSERT cost MUST be log₂(Ω/Ω') + description_bits
-      - Theorem partition_cost_determined:
-          PNEW/PSPLIT/PMERGE costs MUST be 0 (reversible)
-      - Theorem cost_uniqueness:
-          These are the MINIMUM costs satisfying information bounds
+    THE CORE THEOREMS:
+    - lassert_cost_determined (line 163): LASSERT cost = 1 + log₂(Ω/Ω') + description_bits
+    - partition_ops_zero_cost (line 231): PNEW/PSPLIT/PMERGE cost = 0 (reversible)
+    - cost_function_unique (line 296): These costs are UNIQUE minimal bounds
+    - mu_cost_thermodynamic_bound (line 263): μ-costs bound physical energy dissipation
 
-    IMPLICATIONS:
-      The costs in VMStep.v are not design choices - they're the UNIQUE
-      minimal costs consistent with information theory and physics.
+    WHAT THIS PROVES:
+    The costs in VMStep.v are not design choices. They're the MINIMUM costs
+    consistent with information theory (state space reduction) and physics
+    (Landauer's principle: kT ln 2 per bit erased).
+
+    PHYSICAL INTERPRETATION:
+    LASSERT(formula) eliminates unsatisfying states. If Ω states become Ω' states,
+    you erased log₂(Ω/Ω') bits of information. By Landauer, this costs
+    ≥ kT ln 2 · log₂(Ω/Ω') joules. Plus, you must PAY to specify which constraint
+    (description_bits). Can't eliminate states without saying which ones.
+
+    Partition operations (PNEW/PSPLIT/PMERGE) are reversible - they don't erase
+    anything. By Landauer, reversible operations cost 0. This is derived, not assumed.
+
+    FALSIFICATION:
+    Show that LASSERT can be implemented with cost < log₂(Ω/Ω') + description_bits.
+    This would violate Shannon entropy (can't reduce state space without cost) or
+    violate Landauer (can't erase bits without energy ≥ kT ln 2 per bit).
+
+    Or show that partition operations (PNEW/PSPLIT/PMERGE) must cost > 0 despite
+    being reversible. This would contradict Landauer's principle (reversible
+    computation is free in the limit).
+
+    Or find a different cost assignment that also satisfies information bounds.
+    cost_function_unique (line 296) says these are the UNIQUE minimal costs -
+    anything lower violates physics, anything higher wastes energy.
 
     STATUS: AXIOM-FREE, ADMIT-FREE (uses LandauerDerived.v + SemanticMuCost.v)
-    DATE: February 5, 2026
+    log2_subtraction_valid proven by Nat.log2_le_mono + case analysis (line 64-110)
 
     ========================================================================= *)
 

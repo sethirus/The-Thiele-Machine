@@ -369,8 +369,10 @@ class TestLargeScaleFuzzing:
         state = State()
 
         for i in range(num_modules):
-            # Create non-overlapping regions by using disjoint index ranges
-            region = {i * 8 + j for j in range(min(8, 64 // num_modules))}
+            # Create non-overlapping in-range regions by evenly partitioning [0, 63]
+            start = (i * 64) // num_modules
+            end = ((i + 1) * 64) // num_modules
+            region = set(range(start, end))
             state.pnew(region, charge_discovery=True)
 
         # Verify all modules created

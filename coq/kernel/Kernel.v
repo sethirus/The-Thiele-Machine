@@ -1,3 +1,42 @@
+(** * Kernel: Minimal Turing Machine with μ-Cost Tracking
+
+    WHY THIS FILE EXISTS:
+    I claim the μ-cost model applies to ANY computational model, not just the
+    specific VM (VMState, VMStep). To prove this, I define a minimal Turing
+    machine and show it tracks μ-cost the same way.
+
+    THE MODEL:
+    - State: (tape, head_position, machine_state, mu_cost)
+    - Instructions: Halt, Write(b), Move(Left/Right), Branch(target), ClaimTapeIsZero
+    - Tape: infinite to the right (list bool with dynamic extension)
+
+    TURING VS HYPERCOMPUTATION:
+    - Standard Turing instructions: Write, Move, Branch, Halt (turing_instruction = true)
+    - Hypercomputational instruction: ClaimTapeIsZero (turing_instruction = false)
+
+    ClaimTapeIsZero(δ) is the key: it "magically" zeros the tape but costs δ μ-bits.
+    This models algorithms that narrow the search space - they pay μ-cost proportional
+    to the reduction. This is the computational form of No Free Insight.
+
+    WHY CLAIMTAPEISZERO:
+    If you could zero a tape without cost, you could reset computation state for free,
+    effectively solving the halting problem (run a program, reset, try again with
+    different input). By charging μ-cost, we make hypercomputational operations
+    "pay their way" - they're not free magic.
+
+    FALSIFICATION:
+    Show that ClaimTapeIsZero operations in real quantum computers (e.g., qubit
+    initialization, state preparation) don't have energy/time cost proportional
+    to the information being erased. This would violate Landauer's principle
+    (kT ln 2 per bit erased) and falsify the μ-cost model.
+
+    Or prove the halting problem is decidable by showing you can implement
+    ClaimTapeIsZero with zero cost in a physical system.
+
+    This file is a MINIMAL EXAMPLE, not the full VM. See VMState.v and VMStep.v
+    for the complete computational model.
+*)
+
 From Coq Require Import List Bool Arith.PeanoNat.
 Import ListNotations.
 

@@ -37,9 +37,69 @@ From Kernel Require Import LocalInfoLoss.
     PART 1: COST MODEL INTERFACE
     ========================================================================= *)
 
+(** CostModel: Abstract cost functional for VM instructions
+
+    WHY: Need to compare μ against other possible cost models to show μ is
+    MINIMAL (initial object). CostModel is the abstract interface: any function
+    vm_instruction → nat that assigns costs.
+
+    STRUCTURE: Type alias for vm_instruction → nat
+
+    CLAIM: By defining CostModel abstractly, we can prove μ is minimal among ALL
+    cost models satisfying Landauer's principle, not just for μ itself.
+
+    PHYSICAL MEANING: A cost model assigns a "price" (in information units) to
+    each computational step. Different cost models represent different accounting
+    schemes (energy, time, entropy, structural information).
+
+    EXAMPLE:
+    - Energy cost: instr → joules consumed
+    - Time cost: instr → clock cycles
+    - μ cost: instr → structural information destroyed/created
+
+    FALSIFICATION: If CostModel interface is too restrictive (e.g., requires
+    linear additivity that some physical costs violate), theorems about
+    Landauer-valid models would be physically inapplicable.
+
+    DEPENDENCIES: vm_instruction (VMStep.v)
+
+    USED BY: mu_cost, landauer_valid_step, trace_cost_with *)
 (** A cost model assigns a cost to each instruction *)
 Definition CostModel := vm_instruction -> nat.
 
+(** mu_cost: The canonical structural information cost model
+
+    WHY: This is THE cost model we're proving is minimal. μ tracks structural
+    information changes in the partition graph: pmerge costs 2+, pnew/psplit
+    have negative info_loss (creation), others are neutral.
+
+    STRUCTURE: mu_cost i = instr_mu_cost i (from VMStep.v)
+
+    CLAIM: mu_cost is the UNIQUE instruction-consistent cost functional that:
+    (1) Starts at 0 for initial states (MuInitiality.v)
+    (2) Satisfies Landauer's erasure bound (mu_is_landauer_valid)
+    (3) Is tight for structural operations (mu_tight_for_pmerge)
+
+    PROOF STRATEGY: Not a theorem - this is a DEFINITION. The claim about
+    uniqueness is proven across MuInitiality.v (uniqueness) and this file
+    (Landauer validity + tightness).
+
+    PHYSICAL MEANING: μ measures STRUCTURAL INFORMATION in partition graphs.
+    When modules merge (pmerge), distinguishability decreases → info destroyed
+    → cost ≥ 2. When modules split (psplit), distinguishability increases →
+    info created → effective cost ≤ 0 (but μ ledger monotonic, so paid upfront).
+
+    EXAMPLE: pmerge m1 m2 cost where cost=3:
+    - mu_cost (instr_pmerge m1 m2 3) = 3
+    - info_loss ≤ 2 (at most 2 modules destroyed)
+    - μ charges declared cost (3), which ≥ 2 by well-formedness
+
+    FALSIFICATION: Find instruction where mu_cost violates Landauer bound
+    (cost < info_loss). Impossible by mu_is_landauer_valid theorem.
+
+    DEPENDENCIES: instr_mu_cost (VMStep.v)
+
+    USED BY: mu_trace_cost, mu_is_landauer_valid *)
 (** The canonical μ cost model *)
 Definition mu_cost : CostModel := instr_mu_cost.
 
@@ -70,6 +130,42 @@ Definition mu_trace_cost (trace : list vm_instruction) : nat :=
     The axiom: C(i) ≥ max(0, info_loss(s, s')) for any step s --i--> s'
 *)
 
+(** landauer_valid_step: Landauer's principle as a cost model constraint
+
+    WHY: Landauer's principle (1961) is the PHYSICAL FOUNDATION for information
+    cost. Erasing k bits of information costs ≥ k·T·ln(2) energy (thermodynamics).
+    This definition translates Landauer to our computational model.
+
+    STRUCTURE: A cost model C is Landauer-valid if for every step s --i--> s',
+    C(i) ≥ max(0, info_loss(s,s')) where info_loss = state_info(s) - state_info(s').
+
+    WHERE:
+    - state_info s = module count (proxy for distinguishable states)
+    - info_loss > 0 means information was ERASED (modules merged)
+    - info_loss < 0 means information was CREATED (modules split)
+    - max(0, info_loss) means we only charge for ERASURE, not creation
+
+    CLAIM: This definition captures the IRREVERSIBILITY of information erasure.
+    You cannot erase distinguishability for free. Cost ≥ erasure.
+
+    PHYSICAL MEANING: Landauer discovered (1961) that computation itself doesn't
+    cost energy - ERASURE does. Reversible computation is thermodynamically free.
+    Irreversible erasure (like pmerge) costs ≥ k·T·ln(2) per bit erased.
+
+    EXAMPLE: pmerge m1 m2 with cost=3:
+    - Before: 2 modules (m1, m2) = 2 distinguishable states
+    - After: 1 merged module = 1 state
+    - info_loss = 2 - 1 = 1 (lost ability to distinguish m1 vs m2)
+    - Landauer bound: C(instr) ≥ max(0, 1) = 1
+    - μ charges 3 ≥ 1 ✓ (satisfies bound with headroom)
+
+    FALSIFICATION: Show that violating this bound (C < info_loss) allows
+    Maxwell's demon or perpetual motion. This would violate second law of
+    thermodynamics. Landauer's principle is a PHYSICAL LAW.
+
+    DEPENDENCIES: CostModel, vm_step, info_loss (LocalInfoLoss.v)
+
+    USED BY: mu_is_landauer_valid, landauer_valid_bounds_total_loss *)
 Definition landauer_valid_step (C : CostModel) : Prop :=
   forall s i s',
     vm_step s i s' ->
@@ -80,6 +176,41 @@ Definition landauer_valid_step (C : CostModel) : Prop :=
     PART 3: μ SATISFIES THE LANDAUER BOUND
     ========================================================================= *)
 
+(** mu_is_landauer_valid: μ satisfies Landauer's principle
+
+    WHY: This theorem establishes μ as a PHYSICALLY VALID cost model. If μ
+    violated Landauer, it would allow perpetual motion (erase information for
+    free). Proving μ respects Landauer grounds it in thermodynamics.
+
+    CLAIM: landauer_valid_step mu_cost
+    That is: For every step s --i--> s', mu_cost(i) ≥ max(0, info_loss(s, s'))
+
+    PROOF STRATEGY (4 lines - complete):
+    1. Unfold definitions of landauer_valid_step and mu_cost
+    2. Apply cost_bounds_info_loss from LocalInfoLoss.v:
+       instr_mu_cost i ≥ info_loss s s' (for all well-formed steps)
+    3. Observe: mu_cost i is a nat, so mu_cost i ≥ 0 automatically
+    4. Conclude: mu_cost i ≥ max(0, info_loss) by lia (integer arithmetic)
+
+    PHYSICAL MEANING: μ-cost accounting is THERMODYNAMICALLY CONSISTENT. The
+    kernel can't cheat thermodynamics by merging modules for free. Every pmerge
+    pays ≥ 2 μ-bits, which bounds the information erased.
+
+    EXAMPLE: pmerge m1 m2 with declared cost=2:
+    - info_loss ≤ 2 (from LocalInfoLoss.v: at most 2 modules destroyed)
+    - mu_cost = 2 (declared cost)
+    - 2 ≥ max(0, ≤2) ✓ (satisfies Landauer)
+
+    COUNTEREXAMPLE (IMPOSSIBLE): pmerge with cost=1:
+    - Well-formedness requires cost ≥ 2 for pmerge
+    - So cost=1 is ill-formed, excluded by instr_well_formed premise
+
+    FALSIFICATION: Find well-formed step where mu_cost < info_loss. This would
+    contradict cost_bounds_info_loss (LocalInfoLoss.v), which is proven.
+
+    DEPENDENCIES: landauer_valid_step, mu_cost, cost_bounds_info_loss (LocalInfoLoss.v)
+
+    USED BY: File-level claim that μ is minimal Landauer-valid model *)
 (** THEOREM: μ is a Landauer-valid cost model.
     This follows from cost_bounds_info_loss in LocalInfoLoss.v *)
 Theorem mu_is_landauer_valid : landauer_valid_step mu_cost.

@@ -1,7 +1,7 @@
 \section{Hardware Implementation and Demonstrations}
 
 \begin{quote}
-\textit{Author's Note (Devon): I cannot tell you how satisfying it was to see the Verilog simulation output match the Python VM match the Coq extraction. Three completely independent implementations, written in three completely different languages, producing the \textbf{same answer}. That's not luck. That's not coincidence. That's what happens when your theory is actually correct. Or at least, correct enough to survive three different ``mechanics'' checking the same engine.}
+\textit{Author's Note (Devon): I cannot tell you how satisfying it was to see the Verilog simulation output match the Python VM match the Coq extraction. Three completely independent implementations, built in three completely different languages, producing the \textbf{same answer}. That's not luck. That's not coincidence. That's what happens when your theory is actually correct. Or at least, correct enough to survive three different ``mechanics'' checking the same engine.}
 \end{quote}
 
 \subsection{Why Hardware Matters}
@@ -15,7 +15,7 @@ The Thiele Machine is different: there is a \textbf{hardware implementation} in 
     \item \textbf{Enforcement}: Hardware can physically enforce invariants that software might violate
 \end{enumerate}
 
-The key insight is that the $\mu$-ledger's monotonicity is not just a theorem---it is \textit{physically enforced} by the hardware. The $\mu$-core gates ledger updates and rejects any proposed cost update that would decrease the accumulated value (see \texttt{thielecpu/hardware/rtl/mu\_core.v}). This makes $\mu$-decreasing transitions architecturally invalid rather than merely discouraged by software.
+The key insight is that the $\mu$-ledger's monotonicity is not just a theorem---it is \textit{physically enforced} by the hardware. The $\mu$-core gates ledger updates and rejects any proposed cost update that would decrease the accumulated value (see the mu\_core module in \texttt{thielecpu/hardware/rtl/thiele\_cpu\_unified.v}). This makes $\mu$-decreasing transitions architecturally invalid rather than merely discouraged by software.
 
 \subsection{From Proofs to Silicon}
 
@@ -71,7 +71,8 @@ localparam [7:0] OPCODE_XOR_ADD = 8'h0B;
 localparam [7:0] OPCODE_XOR_SWAP = 8'h0C;
 localparam [7:0] OPCODE_XOR_RANK = 8'h0D;
 localparam [7:0] OPCODE_EMIT = 8'h0E;
-localparam [7:0] OPCODE_ORACLE_HALTS = 8'h0F;
+localparam [7:0] OPCODE_REVEAL = 8'h0F;
+localparam [7:0] OPCODE_ORACLE_HALTS = 8'h10;
 localparam [7:0] OPCODE_HALT = 8'hFF;
 \end{lstlisting}
 
@@ -93,7 +94,8 @@ localparam [7:0] OPCODE_HALT = 8'hFF;
     \item \textbf{OPCODE\_CHSH\_TRIAL (0x09):} Execute CHSH game trial.
     \item \textbf{OPCODE\_XOR\_* (0x0A-0x0D):} Linear algebra operations (Gaussian elimination for partition discovery).
     \item \textbf{OPCODE\_EMIT (0x0E):} Emit receipt/certificate.
-    \item \textbf{OPCODE\_ORACLE\_HALTS (0x0F):} Query halting oracle (for TOE demonstrations).
+    \item \textbf{OPCODE\_REVEAL (0x0F):} Reveal hidden information (costs $\mu$-bits).
+    \item \textbf{OPCODE\_ORACLE\_HALTS (0x10):} Query halting oracle (for TOE demonstrations).
     \item \textbf{OPCODE\_HALT (0xFF):} Halt execution.
 \end{itemize}
 
@@ -176,7 +178,7 @@ endmodule
 \end{itemize}
 
 
-Key property: \textbf{$\mu$ only increases} at the ledger boundary. The $\mu$-ALU implements arithmetic in Q16.16 fixed-point (see \texttt{thielecpu/hardware/rtl/mu\_alu.v}), while the $\mu$-core enforces the monotonicity policy by gating ledger updates so that any decreasing update is rejected.
+Key property: \textbf{$\mu$ only increases} at the ledger boundary. The $\mu$-ALU implements arithmetic in Q16.16 fixed-point (see the mu\_alu module in \texttt{thielecpu/hardware/rtl/thiele\_cpu\_unified.v}), while the $\mu$-core enforces the monotonicity policy by gating ledger updates so that any decreasing update is rejected.
 
 \subsection{State Serialization}
 
@@ -256,7 +258,7 @@ module state_serializer (
 \end{itemize}
 
 
-The serializer implementation is in \texttt{thielecpu/hardware/rtl/state\_serializer.v}, and it emits the Canonical Serialization Format (CSF) as documented in the \texttt{thielecpu/canonical\_encoding.py} reference implementation. JSON snapshots used by the isomorphism harness come from the RTL testbench (\texttt{thielecpu/hardware/testbench/thiele\_cpu\_tb.v}), not from the serializer itself.
+The serializer implementation is in the state\_serializer module within \texttt{thielecpu/hardware/rtl/thiele\_cpu\_unified.v}, and it emits the Canonical Serialization Format (CSF) as documented in the \texttt{thielecpu/canonical\_encoding.py} reference implementation. JSON snapshots used by the isomorphism harness come from the RTL testbench (\texttt{thielecpu/hardware/testbench/thiele\_cpu\_tb.v}), not from the serializer itself.
 
 \subsection{Synthesis Results}
 

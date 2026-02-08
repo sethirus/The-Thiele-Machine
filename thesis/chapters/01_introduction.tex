@@ -26,7 +26,6 @@ The Thiele Machine can see structure. But it has to pay for what it sees. That's
 
 \textbf{About me}: I'm not an academic. I have no CS degree, no math degree, no physics degree. I'm a 40-year-old car salesman who taught himself to program a year ago. I don't know Coq, Python, or Verilog—not really. I used AI tools (Claude and other assistants) to help build everything, then verified obsessively that it actually works. The proofs compile. The tests pass. The hardware synthesizes. I checked all of it multiple ways because I don't trust myself. The proofs stand or fall on their own merits, not on credentials. If someone like me can direct the creation of formally verified systems, the barriers are lower than people think.
 
-
 For clarity, I will use the term \textbf{structure} to mean \textit{explicit, checkable constraints about how parts of a computational state relate}. Formally, a piece of structure is a predicate over a subset of state variables (or a partition of state) that can be verified by a logic engine or certificate checker. Examples include: a memory region forming a balanced search tree, a graph decomposing into disconnected components, or a set of variables being independent. In classical models, these relationships are present only as interpretations \emph{external} to the machine. Here, they become internal objects with a measured cost, so a program must explicitly \emph{pay} to assert or certify them.
 In the formal model, this “internal object” is realized by a partition graph whose modules carry axiom strings (SMT-LIB constraints). The partition graph and axiom sets are part of the machine state, and operations such as \texttt{PNEW}, \texttt{PSPLIT}, and \texttt{LASSERT} modify them. This makes structural knowledge something the machine can track, charge for, and expose in its observable projection rather than something the reader assumes from the outside.
 
@@ -41,8 +40,8 @@ If you are new to theoretical computer science, here is what you need to know:
 
 This is not a paper with informal arguments. Every major claim is:
 \begin{enumerate}
-    \item \textbf{Formally proven}: Machine-checked proofs in the Coq proof assistant (2,012 theorems and lemmas across 268 files, totaling 57,744 lines)
-    \item \textbf{Implemented}: Working code in Python (19,174 lines) and Verilog hardware description (46 files)
+    \item \textbf{Formally proven}: Machine-checked proofs in the Coq proof assistant (2,154 theorems and lemmas across 272 files, totaling 73,016 lines)
+    \item \textbf{Implemented}: Working code in Python (20,786 lines) and synthesizable Verilog RTL (unified design, 3,871 lines across 11 files)
     \item \textbf{Tested}: Automated tests verify that theory and implementation match
     \item \textbf{Falsifiable}: The thesis specifies exactly what would disprove each claim
 \end{enumerate}
@@ -182,9 +181,9 @@ The central result of this thesis is:
 \end{theorem}
 
 
-The mechanized proofs in \path{MuNoFreeInsightQuantitative.v} and \path{StateSpaceCounting.v} establish both the qualitative necessity (no free insight) and the quantitative bound ($\Delta\mu \ge |\phi|_{\text{bits}}$). The logarithmic relationship to state space reduction follows from information theory: if each bit of formula optimally constrains the solution space by eliminating half the possibilities, then $k$ bits reduce the space by $2^k$, establishing $\Delta\mu \ge \log_2(\text{reduction})$.
+The mechanized proofs in \path{coq/kernel/MuNoFreeInsightQuantitative.v} and \path{coq/kernel/StateSpaceCounting.v} establish both the qualitative necessity (no free insight) and the quantitative bound ($\Delta\mu \ge |\phi|_{\text{bits}}$). The logarithmic relationship to state space reduction follows from information theory: if each bit of formula optimally constrains the solution space by eliminating half the possibilities, then $k$ bits reduce the space by $2^k$, establishing $\Delta\mu \ge \log_2(\text{reduction})$.
 
-The three proven principles are: (i) $\mu$-monotonicity (\path{MuLedgerConservation.v}), (ii) revelation requirements for strengthening (\path{NoFreeInsight.v}), and (iii) observational locality (\path{ObserverDerivation.v}). These ensure that insight is never free---it must be paid for in $\mu$-cost.
+The three proven principles are: (i) $\mu$-monotonicity (\path{coq/kernel/MuLedgerConservation.v}), (ii) revelation requirements for strengthening (\path{coq/kernel/NoFreeInsight.v}), and (iii) observational locality (\path{coq/kernel/ObserverDerivation.v}). These ensure that insight is never free---it must be paid for in $\mu$-cost.
 
 \section{Methodology: The 3-Layer Isomorphism}
 
@@ -208,9 +207,9 @@ The mathematical ground truth. Machine-checked proofs that the compiler verifies
     \item \textbf{No Free Insight}: strengthening predicates requires charged revelation
 \end{itemize}
 
-Implementation: [VMState.v](coq/VMState.v) and [VMStep.v](coq/VMStep.v) (kernel), [KernelPhysics.v](coq/KernelPhysics.v) and [KernelNoether.v](coq/KernelNoether.v) (physics), [RevelationRequirement.v](coq/RevelationRequirement.v) (CHSH).
+Implementation: \path{coq/kernel/VMState.v} and \path{coq/kernel/VMStep.v} (kernel), \path{coq/kernel/KernelPhysics.v} and \path{coq/kernel/KernelNoether.v} (physics), \path{coq/kernel/RevelationRequirement.v} (CHSH).
 
-\textbf{The Inquisitor Standard:} The project enforces a zero-tolerance policy for incomplete proofs. No \texttt{Admitted}. No \texttt{admit} tactics. External axioms (5 total, primarily structural parameters and one logic axiom) are documented and identified. The \path{scripts/inquisitor.py} tool scans every Coq file and blocks commits that contain \texttt{Admitted} or \texttt{admit}. If a theorem says ``Proven,'' it's actually proven.
+\textbf{The Inquisitor Standard:} The project enforces a zero-tolerance policy for incomplete proofs. No \texttt{Admitted}. No \texttt{admit} tactics. Zero custom axioms---all proofs depend only on Coq's standard library. The \path{scripts/inquisitor.py} tool scans every Coq file and blocks commits that contain \texttt{Admitted} or \texttt{admit}. If a theorem says ``Proven,'' it's actually proven.
 
 \subsection{Layer 2: Python VM (The Implementation)}
 
@@ -226,7 +225,7 @@ Executable semantics. Code you can run. Receipts you can verify:
     \item \textbf{$\mu$-ledger}: canonical cost accounting
 \end{itemize}
 
-Implementation: [state.py](thielecpu/state.py) (state), [vm.py](thielecpu/vm.py) (engine), [crypto.py](thielecpu/crypto.py) (signing).
+Implementation: \path{thielecpu/state.py} (state), \path{thielecpu/vm.py} (engine), \path{thielecpu/crypto.py} (signing).
 
 \subsection{Layer 3: Verilog RTL (The Hardware)}
 
@@ -242,7 +241,7 @@ This isn't theoretical. The abstract $\mu$-costs map to real physical resources:
     \item \textbf{Accounting unit}: computes $\mu$-costs with hardware-enforced monotonicity.
 \end{itemize}
 
-The RTL is exercised via Icarus Verilog simulation and has Yosys synthesis scripts that target FPGA platforms when the toolchain is available.
+The RTL runs on Icarus Verilog simulation with Yosys-compatible synthesis defines (\texttt{YOSYS\_LITE}). Vivado synthesis scripts target Xilinx FPGAs when the toolchain is available.
 
 \subsection{The Isomorphism Guarantee}
 
@@ -333,4 +332,4 @@ The remainder of this thesis is organized as follows:
     \item \textbf{Chapter 13: Hardware Implementation and Demonstrations} provides complete RTL documentation and the demonstration suite.
 \end{itemize}
 
-\textbf{Appendix A: Complete Theorem Index} provides a comprehensive catalog of all theorem-containing files with their key results.
+\textbf{Appendix: Complete Theorem Index} provides a comprehensive catalog of all theorem-containing files with their key results.

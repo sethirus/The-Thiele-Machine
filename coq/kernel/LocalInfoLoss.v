@@ -1,19 +1,51 @@
 (** =========================================================================
     LOCAL INFORMATION LOSS FOR VM INSTRUCTIONS
     =========================================================================
-    
+
+    WHY THIS FILE EXISTS:
+    I claim FiniteInformation.v proves GLOBAL information conservation (second law).
+    This file proves LOCAL bounds: each instruction's μ-cost bounds its information
+    loss. Global conservation → local cost model.
+
+    THE KEY THEOREM (to be proven in this file):
+    For each instruction i executing s → s', the information loss
+    (distinct_obs(s) - distinct_obs(s')) ≤ instr_mu_cost(i).
+
+    PHYSICAL CLAIM:
+    μ-cost isn't arbitrary - it MUST be at least the information destroyed.
+    This connects the abstract μ-ledger to concrete information theory.
+
+    STRUCTURE:
+    1. state_info: Counts modules (proxy for information content) (line 33)
+    2. info_loss: Difference in state_info before/after transition (line 41)
+    3. instr_mu_cost: Extracts μ-cost from instruction (line 49)
+    4. Module count changes: How each instruction affects module count (line 75)
+
+    KEY INSIGHT:
+    Different instructions change module count differently:
+    - pnew: +1 module (creates partition) → bounded by cost parameter
+    - psplit: +1 net (+2 created, -1 removed) → bounded by split cost
+    - pmerge: -1 or -2 net (removes modules) → NEGATIVE info loss (permitted)
+    - others: 0 change → no info loss
+
+    FALSIFICATION:
+    Find an instruction where information loss exceeds μ-cost (violates the bound).
+    Or show module count is not a valid proxy for information content (maybe
+    module *size* matters more than count). Or prove info can be destroyed
+    without μ-cost (violating local conservation).
+
     This file connects the global information theory from FiniteInformation.v
     to per-instruction costs. The key theorem:
-    
+
     For each instruction i, the information loss (info_before - info_after)
     is bounded by the instruction's μ-cost.
-    
+
     STRUCTURE:
     1. Import global info theory from FiniteInformation.v
     2. Define local information loss per instruction
     3. Prove cost bounds information loss
     4. Connect to causality conservation
-    
+
     ========================================================================= *)
 
 From Coq Require Import List Arith.PeanoNat Lia Bool ZArith.

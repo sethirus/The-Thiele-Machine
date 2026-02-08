@@ -483,12 +483,10 @@ This is a non-energy falsification harness: it tests whether the implementation 
 \begin{lstlisting}
 python3 scripts/structural_heat_experiment.py
 python3 scripts/structural_heat_experiment.py --sweep-records --records-pow-min 10 --records-pow-max 20 --records-pow-step 2
-python3 scripts/plot_structural_heat_scaling.py
 \end{lstlisting}
 Outputs:
 \begin{itemize}
     \item \path{results/structural_heat_experiment.json} (includes run metadata and invariant checks)
-    \item \path{thesis/figures/structural_heat_scaling.png} (thesis-ready visualization)
 \end{itemize}
 
 \textbf{Acceptance criteria:} the emitted JSON must report the checks \texttt{mu\_lower\_bounds\_log2\_ratio} and \texttt{mu\_slack\_in\_[0,1)} as passed, and the sweep points must remain within the envelope $\mu \in [\log_2(n!),\,\log_2(n!)+1)$.
@@ -561,12 +559,10 @@ r = \left\lfloor\frac{B-C}{c}\right\rfloor.
 \textbf{Protocol (reproducible):}
 \begin{lstlisting}
 python3 scripts/time_dilation_experiment.py
-python3 scripts/plot_time_dilation_curve.py
 \end{lstlisting}
 Outputs:
 \begin{itemize}
     \item \path{results/time_dilation_experiment.json} (includes run metadata and invariant checks)
-    \item \path{thesis/figures/time_dilation_curve.png}
 \end{itemize}
 
 \textbf{Acceptance criteria:} the JSON must report (i) monotonic non-increasing compute rate as communication rises, and (ii) budget conservation $\mu_{\text{total}}=\mu_{\text{comm}}+\mu_{\text{compute}}$.
