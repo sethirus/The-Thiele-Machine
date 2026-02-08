@@ -313,7 +313,7 @@ jobs:
 
   full-verification:
     name: Full automated verification pipeline
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, vivado]
     needs: prepare-toolchain
     steps:
       - uses: actions/checkout@v4
@@ -337,53 +337,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y coq coinor-csdp ocaml iverilog yosys
 
-      - name: Install Vivado
-        env:
-          VIVADO_TARBALL_URL: ${{ secrets.VIVADO_TARBALL_URL || vars.VIVADO_TARBALL_URL }}
-          VIVADO_TARBALL_SHA256: ${{ secrets.VIVADO_TARBALL_SHA256 || vars.VIVADO_TARBALL_SHA256 }}
-        run: |
-          set -euo pipefail
-          if command -v vivado >/dev/null 2>&1; then
-            vivado_log=$(mktemp)
-            if vivado -version >"$vivado_log" 2>&1; then
-              cat "$vivado_log"
-              rm -f "$vivado_log"
-              echo "Vivado already available on PATH"
-              exit 0
-            fi
-            echo "Vivado present but failed to run; reinstalling from tarball" >&2
-            cat "$vivado_log" >&2
-            rm -f "$vivado_log"
-          fi
-          if [ -z "${VIVADO_TARBALL_URL:-}" ]; then
-            echo "VIVADO_TARBALL_URL (secret or repository variable) is required to install Vivado" >&2
-            exit 1
-          fi
-          tmp_dir=$(mktemp -d)
-          trap 'rm -rf "$tmp_dir"' EXIT
-          curl -fL "$VIVADO_TARBALL_URL" -o "$tmp_dir/vivado.tar.gz" || {
-            echo "Failed to download Vivado tarball from provided URL" >&2
-            exit 1
-          }
-          if [ -n "${VIVADO_TARBALL_SHA256:-}" ]; then
-            echo "${VIVADO_TARBALL_SHA256}  $tmp_dir/vivado.tar.gz" | sha256sum -c - || {
-              echo "Vivado tarball checksum verification failed" >&2
-              exit 1
-            }
-          fi
-          sudo mkdir -p /opt/vivado
-          sudo tar -xzf "$tmp_dir/vivado.tar.gz" -C /opt/vivado
-          shopt -s nullglob
-          vivado_bins=(/opt/vivado/*/bin/vivado)
-          if [ "${#vivado_bins[@]}" -ne 1 ]; then
-            echo "Expected exactly one Vivado binary at /opt/vivado/*/bin/vivado, found ${#vivado_bins[@]}." >&2
-            echo "Found paths: ${vivado_bins[*]:-none}" >&2
-            echo "Ensure the tarball unpacks into /opt/vivado/<version>/bin/vivado." >&2
-            exit 1
-          fi
-          vivado_bin="${vivado_bins[0]}"
-          echo "$(dirname "$vivado_bin")" >> "$GITHUB_PATH"
-          "$vivado_bin" -version
+      - name: Check Vivado
+        run: vivado -version
 
       - name: Set up Python
         uses: actions/setup-python@v5
