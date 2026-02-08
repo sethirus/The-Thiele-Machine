@@ -349,6 +349,8 @@ jobs:
           pip install -e . --no-deps
 
       - name: Run full automated verification
+        env:
+          OPENFPGA_PNR: "0"
         run: bash scripts/automated_verification.sh
 
       - name: Upload verification reports

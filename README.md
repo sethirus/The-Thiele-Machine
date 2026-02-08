@@ -44,6 +44,10 @@ keep the parameterized region sizes tractable for PnR, while preserving the full
 instruction set and control logic. Ensure these tools are available in your
 environment if you run the verification pipeline locally.
 
+The CI pipeline defaults to skipping the full PnR/bitstream step (set
+`OPENFPGA_PNR=1` to enable full bitstream generation locally or in a dedicated
+workflow) to keep verification runtime manageable.
+
 ---
 
 ## The Evidence
