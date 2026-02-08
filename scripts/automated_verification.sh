@@ -79,7 +79,7 @@ if [ ! -f "$PNR_JSON" ]; then
   echo "Open-source synthesis did not produce $PNR_JSON - see $REPORTS_DIR/openfpga_synth.log"
   exit 1
 fi
-nextpnr-ecp5 --json "$PNR_JSON" --textcfg "$PNR_CFG" --"$ECP5_DEVICE" --package "$ECP5_PACKAGE" --speed "$ECP5_SPEED" --timing-allow-fail \
+nextpnr-ecp5 --json "$PNR_JSON" --textcfg "$PNR_CFG" --${ECP5_DEVICE} --package "$ECP5_PACKAGE" --speed "$ECP5_SPEED" --timing-allow-fail \
   > "$REPORTS_DIR/openfpga_pnr.log" 2>&1 || {
     echo "Open-source PnR failed - see $REPORTS_DIR/openfpga_pnr.log"
     exit 1
