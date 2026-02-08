@@ -34,13 +34,8 @@ command -v coqc >/dev/null || die "coqc not found"
 command -v iverilog >/dev/null || die "iverilog not found"
 command -v python3 >/dev/null || die "python3 not found"
 command -v yosys >/dev/null || die "yosys not found"
-VIVADO_AVAILABLE=false
-if command -v vivado >/dev/null; then
-  VIVADO_AVAILABLE=true
-  echo "Vivado found - FPGA bitstream generation enabled"
-else
-  echo "Vivado not found - skipping FPGA bitstream (simulation only)"
-fi
+command -v vivado >/dev/null || die "vivado not found - install Vivado before running this pipeline"
+echo "Vivado found - FPGA bitstream generation enabled"
 
 # 2. Run Full Forge Pipeline
 phase FORGE "Running complete foundry pipeline"
@@ -68,22 +63,17 @@ phase WAVE "Analyzing VCD waveforms for key metrics"
 python3 scripts/analyze_waveforms.py > "$REPORTS_DIR/waveform_analysis.txt" 2>&1
 echo "Waveform analysis: $REPORTS_DIR/waveform_analysis.txt"
 
-# 5. FPGA Bitstream Generation (if Vivado available)
-if $VIVADO_AVAILABLE; then
-  phase FPGA "Generating FPGA bitstream with Vivado"
-  cd thielecpu/hardware
-  vivado -mode batch -source synthesis.tcl > "$REPORTS_DIR/vivado_synthesis.log" 2>&1
-  if [ -f "thiele_cpu.bit" ]; then
-    echo "Bitstream generated: thiele_cpu.bit"
-    cp thiele_cpu.bit "$REPORTS_DIR/"
-  else
-    echo "Bitstream generation failed - check $REPORTS_DIR/vivado_synthesis.log"
-  fi
-  cd "$ROOT"
+# 5. FPGA Bitstream Generation (Vivado required)
+phase FPGA "Generating FPGA bitstream with Vivado"
+cd thielecpu/hardware
+vivado -mode batch -source synthesis.tcl > "$REPORTS_DIR/vivado_synthesis.log" 2>&1
+if [ -f "thiele_cpu.bit" ]; then
+  echo "Bitstream generated: thiele_cpu.bit"
+  cp thiele_cpu.bit "$REPORTS_DIR/"
 else
-  phase FPGA "FPGA bitstream skipped (Vivado not available)"
-  echo "To generate bitstream: install Vivado and run 'vivado -mode batch -source thielecpu/hardware/synthesis.tcl'"
+  echo "Bitstream generation failed - check $REPORTS_DIR/vivado_synthesis.log"
 fi
+cd "$ROOT"
 
 # 6. Verification Summary
 phase VERIFY "Generating verification summary"
@@ -115,10 +105,10 @@ phase VERIFY "Generating verification summary"
   echo "   - Passed: $(grep -c "passed" "$REPORTS_DIR/forge.log" | tail -1) tests"
   echo ""
   echo "5. FPGA Bitstream:"
-  if $VIVADO_AVAILABLE && [ -f "$REPORTS_DIR/thiele_cpu.bit" ]; then
+  if [ -f "$REPORTS_DIR/thiele_cpu.bit" ]; then
     echo "   - Generated: YES ($(stat -c%s "$REPORTS_DIR/thiele_cpu.bit") bytes)"
   else
-    echo "   - Generated: NO (Vivado not available or failed)"
+    echo "   - Generated: NO (bitstream missing)"
   fi
   echo ""
   echo "Reports Location: $REPORTS_DIR"
