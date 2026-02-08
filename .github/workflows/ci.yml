@@ -401,7 +401,7 @@ jobs:
           print(asset_url)
           PY
           )
-          curl_args=(-fL -H "Accept: application/octet-stream")
+          curl_args=(-fL --max-redirs 5 --max-time 3600 -H "Accept: application/octet-stream")
           if [ -n "${GITHUB_TOKEN:-}" ]; then
             curl_args+=(-H "Authorization: Bearer $GITHUB_TOKEN")
           fi
@@ -436,7 +436,7 @@ jobs:
           fi
           echo "Adding Vivado to PATH for subsequent steps"
           vivado_dir=$(dirname "$vivado_bin")
-          if [[ -z "$vivado_dir" || "$vivado_dir" == *$'\n'* ]]; then
+          if [[ -z "$vivado_dir" || "$vivado_dir" =~ $'\n' ]]; then
             echo "Vivado directory path is invalid: $vivado_dir" >&2
             exit 1
           fi
