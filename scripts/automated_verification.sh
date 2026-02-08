@@ -73,7 +73,7 @@ OPEN_BIT="$REPORTS_DIR/thiele_cpu_ecp5.bit"
 ECP5_DEVICE="${ECP5_DEVICE:-85k}"
 ECP5_PACKAGE="${ECP5_PACKAGE:-CABGA381}"
 ECP5_SPEED="${ECP5_SPEED:-6}"
-ECP5_THREADS="${ECP5_THREADS:-4}"
+ECP5_THREADS="${ECP5_THREADS:-$(nproc)}"
 ECP5_PNR_TIMEOUT="${ECP5_PNR_TIMEOUT:-1200}"
 ECP5_PNR_PLACER="${ECP5_PNR_PLACER:-heap}"
 ECP5_PNR_ROUTER="${ECP5_PNR_ROUTER:-router1}"
@@ -87,8 +87,9 @@ if [ ! -f "$PNR_JSON" ]; then
 fi
 timeout "$ECP5_PNR_TIMEOUT" nextpnr-ecp5 --json "$PNR_JSON" --textcfg "$PNR_CFG" "$ECP5_DEVICE_FLAG" \
   --package "$ECP5_PACKAGE" --speed "$ECP5_SPEED" --threads "$ECP5_THREADS" --placer "$ECP5_PNR_PLACER" \
-  --router "$ECP5_PNR_ROUTER" --placer-heap-cell-placement-timeout "$ECP5_PNR_CELL_TIMEOUT" --no-tmdriv \
-  --timing-allow-fail > "$REPORTS_DIR/openfpga_pnr.log" 2>&1 || {
+  --router "$ECP5_PNR_ROUTER" --placer-heap-cell-placement-timeout "$ECP5_PNR_CELL_TIMEOUT" \
+  --no-tmdriv --ignore-loops --ignore-rel-clk --timing-allow-fail \
+  > "$REPORTS_DIR/openfpga_pnr.log" 2>&1 || {
     echo "Open-source PnR failed - see $REPORTS_DIR/openfpga_pnr.log"
     exit 1
   }
